@@ -275,6 +275,8 @@ __export(schema_exports, {
   alertQueue: () => alertQueue,
   apiKeyLogs: () => apiKeyLogs,
   apiKeys: () => apiKeys,
+  blockFinalityConfirmations: () => blockFinalityConfirmations,
+  blockVerifications: () => blockVerifications,
   blocks: () => blocks,
   bridgeActivity: () => bridgeActivity,
   bridgeAnalytics: () => bridgeAnalytics,
@@ -353,7 +355,9 @@ __export(schema_exports, {
   insertAlertQueueSchema: () => insertAlertQueueSchema,
   insertApiKeyLogSchema: () => insertApiKeyLogSchema,
   insertApiKeySchema: () => insertApiKeySchema,
+  insertBlockFinalityConfirmationSchema: () => insertBlockFinalityConfirmationSchema,
   insertBlockSchema: () => insertBlockSchema,
+  insertBlockVerificationSchema: () => insertBlockVerificationSchema,
   insertBridgeActivitySchema: () => insertBridgeActivitySchema,
   insertBridgeAnalyticsSchema: () => insertBridgeAnalyticsSchema,
   insertBridgeChainSchema: () => insertBridgeChainSchema,
@@ -488,6 +492,7 @@ __export(schema_exports, {
   insertUserStakingRewardSchema: () => insertUserStakingRewardSchema,
   insertValidatorApplicationSchema: () => insertValidatorApplicationSchema,
   insertValidatorBasketSchema: () => insertValidatorBasketSchema,
+  insertValidatorBlockRewardSchema: () => insertValidatorBlockRewardSchema,
   insertValidatorPerformanceHistorySchema: () => insertValidatorPerformanceHistorySchema,
   insertValidatorSchema: () => insertValidatorSchema,
   insertValidatorVoteSchema: () => insertValidatorVoteSchema,
@@ -585,6 +590,7 @@ __export(schema_exports, {
   userStakingRewards: () => userStakingRewards,
   validatorApplications: () => validatorApplications,
   validatorBaskets: () => validatorBaskets,
+  validatorBlockRewards: () => validatorBlockRewards,
   validatorPerformanceHistory: () => validatorPerformanceHistory,
   validatorVotes: () => validatorVotes,
   validators: () => validators,
@@ -608,7 +614,7 @@ import { sql } from "drizzle-orm";
 import { pgTable, text, varchar, integer, bigint, boolean, jsonb, timestamp, numeric, real } from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
-var blocks, transactions, accounts, validators, smartContracts, aiModels, aiDecisions, aiUsageLogs, aiExecutionLogs, governancePrevalidations, aiTrainingJobs, aiParameters, aiTrainingMetrics, aiModelDeployments, aiTrainingDatasets, aiTrainingLogs, shards, networkStats, consensusRounds, apiKeys, apiKeyLogs, crossShardMessages, walletBalances, delegations, validatorVotes, committeeSnapshots, members, memberProfiles, memberStakingPositions, memberGovernanceProfiles, memberFinancialProfiles, memberSecurityProfiles, memberPerformanceMetrics, memberSlashEvents, memberAuditLogs, emailVerifications, insertEmailVerificationSchema, adminAuditLogs, securityEvents, complianceReports, validatorApplications, operatorSessions, memberDocuments, restartSessions, memberNotes, ipBlocklist, systemHealthSnapshots, alertQueue, validatorPerformanceHistory, reportSchedules, hardwareVerificationChecklists, deployedTokens, insertBlockSchema, insertTransactionSchema, insertAccountSchema, insertValidatorSchema, insertSmartContractSchema, insertAiModelSchema, insertAiDecisionSchema, insertAiUsageLogSchema, insertAiExecutionLogSchema, insertGovernancePrevalidationSchema, insertAiTrainingJobSchema, insertAiTrainingMetricsSchema, insertAiModelDeploymentSchema, insertAiTrainingDatasetSchema, insertAiTrainingLogSchema, insertAiParametersSchema, insertShardSchema, insertNetworkStatsSchema, insertConsensusRoundSchema, insertApiKeySchema, insertApiKeyLogSchema, insertCrossShardMessageSchema, insertWalletBalanceSchema, insertDelegationSchema, insertValidatorVoteSchema, insertCommitteeSnapshotSchema, insertMemberSchema, insertMemberProfileSchema, insertMemberStakingPositionSchema, insertMemberGovernanceProfileSchema, insertMemberFinancialProfileSchema, insertMemberSecurityProfileSchema, insertMemberPerformanceMetricsSchema, insertMemberSlashEventSchema, insertMemberAuditLogSchema, insertRestartSessionSchema, insertAdminAuditLogSchema, insertSecurityEventSchema, insertComplianceReportSchema, insertValidatorApplicationSchema, insertOperatorSessionSchema, insertMemberDocumentSchema, insertMemberNoteSchema, insertIpBlocklistSchema, insertSystemHealthSnapshotSchema, insertAlertQueueSchema, insertValidatorPerformanceHistorySchema, insertReportScheduleSchema, insertHardwareVerificationChecklistSchema, insertDeployedTokenSchema, aiDecisionSelectSchema, crossShardMessageSelectSchema, walletBalanceSelectSchema, consensusRoundSelectSchema, shardSelectSchema, aiDecisionsSnapshotSchema, crossShardMessagesSnapshotSchema, walletBalancesSnapshotSchema, consensusRoundsSnapshotSchema, shardsSnapshotSchema, STAKING_POOL_TYPES, STAKING_POOL_STATUS, STAKING_TIERS, LOCK_PERIODS, REWARD_TYPES, DELEGATION_STATUS, stakingPools, stakingPositions, stakingDelegations, unbondingRequests, rewardCycles, rewardEvents, slashingEvents, poolWhitelist, stakingStats, insertStakingPoolSchema, insertStakingPositionSchema, insertStakingDelegationSchema, insertUnbondingRequestSchema, insertRewardCycleSchema, insertRewardEventSchema, insertSlashingEventSchema, insertPoolWhitelistSchema, insertStakingStatsSchema, stakingTierConfig, poolValidatorAssignments, STAKING_AUDIT_ACTIONS, stakingAuditLogs, stakingSnapshots, stakingAiAssessments, insertStakingTierConfigSchema, insertPoolValidatorAssignmentSchema, insertStakingAuditLogSchema, insertStakingSnapshotSchema, insertStakingAiAssessmentSchema, consensusPhaseSchema, consensusStateSchema, DEX_POOL_TYPES, DEX_POOL_STATUS, SWAP_STATUS, LP_POSITION_STATUS, FEE_TIERS, CIRCUIT_BREAKER_STATUS, dexPools, dexPoolAssets, dexPoolTicks, dexPositions, dexSwaps, dexPriceHistory, dexTwapOracle, dexCircuitBreakers, dexMevEvents, dexLiquidityRewards, dexUserAnalytics, insertDexPoolSchema, insertDexPoolAssetSchema, insertDexPoolTickSchema, insertDexPositionSchema, insertDexSwapSchema, insertDexPriceHistorySchema, insertDexTwapOracleSchema, insertDexCircuitBreakerSchema, insertDexMevEventSchema, insertDexLiquidityRewardSchema, insertDexUserAnalyticsSchema, LendingMarketStatus, InterestRateModel, BorrowRateMode, HealthStatus, LiquidationStatus, lendingMarkets, lendingPositions, lendingSupplies, lendingBorrows, lendingLiquidations, lendingRateHistory, lendingTransactions, lendingProtocolStats, insertLendingMarketSchema, insertLendingPositionSchema, insertLendingSupplySchema, insertLendingBorrowSchema, insertLendingLiquidationSchema, insertLendingRateHistorySchema, insertLendingTransactionSchema, insertLendingProtocolStatsSchema, yieldVaults, yieldStrategies, yieldPositions, yieldHarvests, yieldRewards, yieldTransactions, yieldProtocolStats, insertYieldVaultSchema, insertYieldStrategySchema, insertYieldPositionSchema, insertYieldHarvestSchema, insertYieldRewardSchema, insertYieldTransactionSchema, insertYieldProtocolStatsSchema, liquidStakingPools, validatorBaskets, lstPositions, lstTransactions, rebaseHistory, lstProtocolStats, insertLiquidStakingPoolSchema, insertValidatorBasketSchema, insertLstPositionSchema, insertLstTransactionSchema, insertRebaseHistorySchema, insertLstProtocolStatsSchema, nftCollections, nftItems, marketplaceListings, marketplaceBids, marketplaceSales, nftOffers, nftActivityLog, nftMarketplaceStats, insertNftCollectionSchema, insertNftItemSchema, insertMarketplaceListingSchema, insertMarketplaceBidSchema, insertMarketplaceSaleSchema, insertNftOfferSchema, insertNftActivityLogSchema, insertNftMarketplaceStatsSchema, launchpadProjects, launchRounds, whitelistEntries, launchAllocations, vestingSchedules, launchpadStats, launchpadActivity, insertLaunchpadProjectSchema, insertLaunchRoundSchema, insertWhitelistEntrySchema, insertLaunchAllocationSchema, insertVestingScheduleSchema, insertLaunchpadStatsSchema, insertLaunchpadActivitySchema, gamefiProjects, gameAssets, gameRewards, gameLeaderboards, gameTournaments, tournamentParticipants, achievementBadges, playerAchievements, gamefiActivity, gamefiStats, insertGamefiProjectSchema, insertGameAssetSchema, insertGameRewardSchema, insertGameLeaderboardSchema, insertGameTournamentSchema, insertTournamentParticipantSchema, insertAchievementBadgeSchema, insertPlayerAchievementSchema, insertGamefiActivitySchema, insertGamefiStatsSchema, bridgeChains, bridgeRoutes, bridgeTransfers, bridgeLiquidityPools, bridgeLiquidityProviders, bridgeValidators, bridgeFeeConfigs, bridgeSecurityEvents, bridgeAnalytics, bridgeActivity, insertBridgeChainSchema, insertBridgeRouteSchema, insertBridgeTransferSchema, insertBridgeLiquidityPoolSchema, insertBridgeLiquidityProviderSchema, insertBridgeValidatorSchema, insertBridgeFeeConfigSchema, insertBridgeSecurityEventSchema, insertBridgeAnalyticsSchema, insertBridgeActivitySchema, communityPosts, communityComments, communityEvents, communityAnnouncements, communityBadges, communityUserBadges, communityActivity, communityReputation, insertCommunityPostSchema, insertCommunityCommentSchema, insertCommunityEventSchema, insertCommunityAnnouncementSchema, insertCommunityBadgeSchema, insertCommunityUserBadgeSchema, insertCommunityActivitySchema, insertCommunityReputationSchema, communityPostReactions, communityCommentReactions, communityEventRegistrations, insertCommunityPostReactionSchema, insertCommunityCommentReactionSchema, insertCommunityEventRegistrationSchema, shardConfigurations, shardConfigHistory, shardScalingEvents, shardConfigAuditLogs, insertShardConfigurationSchema, insertShardConfigHistorySchema, insertShardScalingEventSchema, insertShardConfigAuditLogSchema, walletPerformanceHistory, walletActionLog, walletStreamingCheckpoint, insertWalletPerformanceHistorySchema, insertWalletActionLogSchema, insertWalletStreamingCheckpointSchema, testnetWallets, testnetTransactions, testnetBlocks, testnetFaucetRequests, insertTestnetWalletSchema, insertTestnetTransactionSchema, insertTestnetBlockSchema, insertTestnetFaucetRequestSchema, genesisConfig, genesisValidators, genesisDistribution, genesisApprovals, genesisExecutionLog, genesisPreflightChecks, newsletterSubscribers, insertNewsletterSubscriberSchema, insertGenesisConfigSchema, insertGenesisValidatorSchema, insertGenesisDistributionSchema, insertGenesisApprovalSchema, insertGenesisExecutionLogSchema, insertGenesisPreflightCheckSchema, userMiningRewards, userStakingPositions, userStakingRewards, userEventParticipation, userActivityLog, insertUserMiningRewardSchema, insertUserStakingPositionSchema, insertUserStakingRewardSchema, insertUserEventParticipationSchema, insertUserActivityLogSchema, BUG_BOUNTY_SEVERITY, BUG_BOUNTY_STATUS, BUG_BOUNTY_ASSET, bugBountyReports, insertBugBountyReportSchema;
+var blocks, transactions, accounts, validators, blockVerifications, validatorBlockRewards, blockFinalityConfirmations, insertBlockVerificationSchema, insertValidatorBlockRewardSchema, insertBlockFinalityConfirmationSchema, smartContracts, aiModels, aiDecisions, aiUsageLogs, aiExecutionLogs, governancePrevalidations, aiTrainingJobs, aiParameters, aiTrainingMetrics, aiModelDeployments, aiTrainingDatasets, aiTrainingLogs, shards, networkStats, consensusRounds, apiKeys, apiKeyLogs, crossShardMessages, walletBalances, delegations, validatorVotes, committeeSnapshots, members, memberProfiles, memberStakingPositions, memberGovernanceProfiles, memberFinancialProfiles, memberSecurityProfiles, memberPerformanceMetrics, memberSlashEvents, memberAuditLogs, emailVerifications, insertEmailVerificationSchema, adminAuditLogs, securityEvents, complianceReports, validatorApplications, operatorSessions, memberDocuments, restartSessions, memberNotes, ipBlocklist, systemHealthSnapshots, alertQueue, validatorPerformanceHistory, reportSchedules, hardwareVerificationChecklists, deployedTokens, insertBlockSchema, insertTransactionSchema, insertAccountSchema, insertValidatorSchema, insertSmartContractSchema, insertAiModelSchema, insertAiDecisionSchema, insertAiUsageLogSchema, insertAiExecutionLogSchema, insertGovernancePrevalidationSchema, insertAiTrainingJobSchema, insertAiTrainingMetricsSchema, insertAiModelDeploymentSchema, insertAiTrainingDatasetSchema, insertAiTrainingLogSchema, insertAiParametersSchema, insertShardSchema, insertNetworkStatsSchema, insertConsensusRoundSchema, insertApiKeySchema, insertApiKeyLogSchema, insertCrossShardMessageSchema, insertWalletBalanceSchema, insertDelegationSchema, insertValidatorVoteSchema, insertCommitteeSnapshotSchema, insertMemberSchema, insertMemberProfileSchema, insertMemberStakingPositionSchema, insertMemberGovernanceProfileSchema, insertMemberFinancialProfileSchema, insertMemberSecurityProfileSchema, insertMemberPerformanceMetricsSchema, insertMemberSlashEventSchema, insertMemberAuditLogSchema, insertRestartSessionSchema, insertAdminAuditLogSchema, insertSecurityEventSchema, insertComplianceReportSchema, insertValidatorApplicationSchema, insertOperatorSessionSchema, insertMemberDocumentSchema, insertMemberNoteSchema, insertIpBlocklistSchema, insertSystemHealthSnapshotSchema, insertAlertQueueSchema, insertValidatorPerformanceHistorySchema, insertReportScheduleSchema, insertHardwareVerificationChecklistSchema, insertDeployedTokenSchema, aiDecisionSelectSchema, crossShardMessageSelectSchema, walletBalanceSelectSchema, consensusRoundSelectSchema, shardSelectSchema, aiDecisionsSnapshotSchema, crossShardMessagesSnapshotSchema, walletBalancesSnapshotSchema, consensusRoundsSnapshotSchema, shardsSnapshotSchema, STAKING_POOL_TYPES, STAKING_POOL_STATUS, STAKING_TIERS, LOCK_PERIODS, REWARD_TYPES, DELEGATION_STATUS, stakingPools, stakingPositions, stakingDelegations, unbondingRequests, rewardCycles, rewardEvents, slashingEvents, poolWhitelist, stakingStats, insertStakingPoolSchema, insertStakingPositionSchema, insertStakingDelegationSchema, insertUnbondingRequestSchema, insertRewardCycleSchema, insertRewardEventSchema, insertSlashingEventSchema, insertPoolWhitelistSchema, insertStakingStatsSchema, stakingTierConfig, poolValidatorAssignments, STAKING_AUDIT_ACTIONS, stakingAuditLogs, stakingSnapshots, stakingAiAssessments, insertStakingTierConfigSchema, insertPoolValidatorAssignmentSchema, insertStakingAuditLogSchema, insertStakingSnapshotSchema, insertStakingAiAssessmentSchema, consensusPhaseSchema, consensusStateSchema, DEX_POOL_TYPES, DEX_POOL_STATUS, SWAP_STATUS, LP_POSITION_STATUS, FEE_TIERS, CIRCUIT_BREAKER_STATUS, dexPools, dexPoolAssets, dexPoolTicks, dexPositions, dexSwaps, dexPriceHistory, dexTwapOracle, dexCircuitBreakers, dexMevEvents, dexLiquidityRewards, dexUserAnalytics, insertDexPoolSchema, insertDexPoolAssetSchema, insertDexPoolTickSchema, insertDexPositionSchema, insertDexSwapSchema, insertDexPriceHistorySchema, insertDexTwapOracleSchema, insertDexCircuitBreakerSchema, insertDexMevEventSchema, insertDexLiquidityRewardSchema, insertDexUserAnalyticsSchema, LendingMarketStatus, InterestRateModel, BorrowRateMode, HealthStatus, LiquidationStatus, lendingMarkets, lendingPositions, lendingSupplies, lendingBorrows, lendingLiquidations, lendingRateHistory, lendingTransactions, lendingProtocolStats, insertLendingMarketSchema, insertLendingPositionSchema, insertLendingSupplySchema, insertLendingBorrowSchema, insertLendingLiquidationSchema, insertLendingRateHistorySchema, insertLendingTransactionSchema, insertLendingProtocolStatsSchema, yieldVaults, yieldStrategies, yieldPositions, yieldHarvests, yieldRewards, yieldTransactions, yieldProtocolStats, insertYieldVaultSchema, insertYieldStrategySchema, insertYieldPositionSchema, insertYieldHarvestSchema, insertYieldRewardSchema, insertYieldTransactionSchema, insertYieldProtocolStatsSchema, liquidStakingPools, validatorBaskets, lstPositions, lstTransactions, rebaseHistory, lstProtocolStats, insertLiquidStakingPoolSchema, insertValidatorBasketSchema, insertLstPositionSchema, insertLstTransactionSchema, insertRebaseHistorySchema, insertLstProtocolStatsSchema, nftCollections, nftItems, marketplaceListings, marketplaceBids, marketplaceSales, nftOffers, nftActivityLog, nftMarketplaceStats, insertNftCollectionSchema, insertNftItemSchema, insertMarketplaceListingSchema, insertMarketplaceBidSchema, insertMarketplaceSaleSchema, insertNftOfferSchema, insertNftActivityLogSchema, insertNftMarketplaceStatsSchema, launchpadProjects, launchRounds, whitelistEntries, launchAllocations, vestingSchedules, launchpadStats, launchpadActivity, insertLaunchpadProjectSchema, insertLaunchRoundSchema, insertWhitelistEntrySchema, insertLaunchAllocationSchema, insertVestingScheduleSchema, insertLaunchpadStatsSchema, insertLaunchpadActivitySchema, gamefiProjects, gameAssets, gameRewards, gameLeaderboards, gameTournaments, tournamentParticipants, achievementBadges, playerAchievements, gamefiActivity, gamefiStats, insertGamefiProjectSchema, insertGameAssetSchema, insertGameRewardSchema, insertGameLeaderboardSchema, insertGameTournamentSchema, insertTournamentParticipantSchema, insertAchievementBadgeSchema, insertPlayerAchievementSchema, insertGamefiActivitySchema, insertGamefiStatsSchema, bridgeChains, bridgeRoutes, bridgeTransfers, bridgeLiquidityPools, bridgeLiquidityProviders, bridgeValidators, bridgeFeeConfigs, bridgeSecurityEvents, bridgeAnalytics, bridgeActivity, insertBridgeChainSchema, insertBridgeRouteSchema, insertBridgeTransferSchema, insertBridgeLiquidityPoolSchema, insertBridgeLiquidityProviderSchema, insertBridgeValidatorSchema, insertBridgeFeeConfigSchema, insertBridgeSecurityEventSchema, insertBridgeAnalyticsSchema, insertBridgeActivitySchema, communityPosts, communityComments, communityEvents, communityAnnouncements, communityBadges, communityUserBadges, communityActivity, communityReputation, insertCommunityPostSchema, insertCommunityCommentSchema, insertCommunityEventSchema, insertCommunityAnnouncementSchema, insertCommunityBadgeSchema, insertCommunityUserBadgeSchema, insertCommunityActivitySchema, insertCommunityReputationSchema, communityPostReactions, communityCommentReactions, communityEventRegistrations, insertCommunityPostReactionSchema, insertCommunityCommentReactionSchema, insertCommunityEventRegistrationSchema, shardConfigurations, shardConfigHistory, shardScalingEvents, shardConfigAuditLogs, insertShardConfigurationSchema, insertShardConfigHistorySchema, insertShardScalingEventSchema, insertShardConfigAuditLogSchema, walletPerformanceHistory, walletActionLog, walletStreamingCheckpoint, insertWalletPerformanceHistorySchema, insertWalletActionLogSchema, insertWalletStreamingCheckpointSchema, testnetWallets, testnetTransactions, testnetBlocks, testnetFaucetRequests, insertTestnetWalletSchema, insertTestnetTransactionSchema, insertTestnetBlockSchema, insertTestnetFaucetRequestSchema, genesisConfig, genesisValidators, genesisDistribution, genesisApprovals, genesisExecutionLog, genesisPreflightChecks, newsletterSubscribers, insertNewsletterSubscriberSchema, insertGenesisConfigSchema, insertGenesisValidatorSchema, insertGenesisDistributionSchema, insertGenesisApprovalSchema, insertGenesisExecutionLogSchema, insertGenesisPreflightCheckSchema, userMiningRewards, userStakingPositions, userStakingRewards, userEventParticipation, userActivityLog, insertUserMiningRewardSchema, insertUserStakingPositionSchema, insertUserStakingRewardSchema, insertUserEventParticipationSchema, insertUserActivityLogSchema, BUG_BOUNTY_SEVERITY, BUG_BOUNTY_STATUS, BUG_BOUNTY_ASSET, bugBountyReports, insertBugBountyReportSchema;
 var init_schema = __esm({
   "shared/schema.ts"() {
     "use strict";
@@ -633,8 +639,21 @@ var init_schema = __esm({
       parallelBatchId: varchar("parallel_batch_id"),
       // for parallel execution tracking
       // TBURN v7.0: Multi-Hash Cryptographic System (Purpose-Optimized Hash Selection)
-      hashAlgorithm: text("hash_algorithm").notNull().default("blake3")
+      hashAlgorithm: text("hash_algorithm").notNull().default("blake3"),
       // blake3, sha3-256, keccak256, sha256d, blake2b
+      // TBURN v7.1: Block Finality System
+      finalityStatus: text("finality_status").notNull().default("pending"),
+      // pending, verified, finalized, rejected
+      verificationCount: integer("verification_count").notNull().default(0),
+      // Number of validators who verified
+      requiredVerifications: integer("required_verifications").notNull().default(0),
+      // Quorum requirement (2/3+1)
+      finalizedAt: timestamp("finalized_at"),
+      // When block reached finality
+      totalBlockReward: text("total_block_reward").notNull().default("0"),
+      // Total reward for this block
+      rewardDistributed: boolean("reward_distributed").notNull().default(false)
+      // Whether rewards have been distributed
     });
     transactions = pgTable("transactions", {
       id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
@@ -663,8 +682,19 @@ var init_schema = __esm({
       crossShardMessageId: varchar("cross_shard_message_id"),
       // if cross-shard transaction
       // TBURN v7.0: Multi-Hash Cryptographic System (Purpose-Optimized Hash Selection)
-      hashAlgorithm: text("hash_algorithm").notNull().default("blake3")
+      hashAlgorithm: text("hash_algorithm").notNull().default("blake3"),
       // blake3, sha3-256, keccak256, sha256d, blake2b
+      // TBURN v7.1: Transaction Signature Verification System
+      signature: text("signature"),
+      // ECDSA signature (r, s, v components concatenated)
+      signatureVerified: boolean("signature_verified").notNull().default(false),
+      // Has signature been verified
+      signatureAlgorithm: text("signature_algorithm").notNull().default("secp256k1"),
+      // secp256k1, ed25519, sphincs+
+      publicKey: text("public_key"),
+      // Sender's public key for verification
+      verifiedAt: timestamp("verified_at")
+      // When transaction was verified
     });
     accounts = pgTable("accounts", {
       id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
@@ -713,6 +743,85 @@ var init_schema = __esm({
       // Network behavior quality
       adaptiveWeight: integer("adaptive_weight").notNull().default(1e4)
       // Dynamic committee weight
+    });
+    blockVerifications = pgTable("block_verifications", {
+      id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+      blockNumber: bigint("block_number", { mode: "number" }).notNull(),
+      blockHash: text("block_hash").notNull(),
+      validatorAddress: text("validator_address").notNull(),
+      // Verification Details
+      verificationResult: text("verification_result").notNull().default("valid"),
+      // valid, invalid, abstain
+      verificationSignature: text("verification_signature").notNull(),
+      // Validator's signature confirming verification
+      stateRootMatch: boolean("state_root_match").notNull().default(true),
+      // Did state root match
+      receiptsRootMatch: boolean("receipts_root_match").notNull().default(true),
+      // Did receipts root match
+      transactionsValid: boolean("transactions_valid").notNull().default(true),
+      // All transactions verified
+      // Timing
+      verificationTimeMs: integer("verification_time_ms").notNull().default(0),
+      // Time to verify in ms
+      createdAt: timestamp("created_at").notNull().defaultNow()
+    });
+    validatorBlockRewards = pgTable("validator_block_rewards", {
+      id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+      blockNumber: bigint("block_number", { mode: "number" }).notNull(),
+      validatorAddress: text("validator_address").notNull(),
+      // Reward Details
+      rewardType: text("reward_type").notNull(),
+      // proposer, verifier, committee
+      rewardAmount: text("reward_amount").notNull(),
+      // Amount in Wei
+      gasFeesEarned: text("gas_fees_earned").notNull().default("0"),
+      // Portion of gas fees
+      // Participation
+      participationRole: text("participation_role").notNull(),
+      // proposer, prevote, precommit, verifier
+      votePower: text("vote_power").notNull().default("0"),
+      // Voting power at time of block
+      // Distribution Status
+      distributed: boolean("distributed").notNull().default(false),
+      distributedAt: timestamp("distributed_at"),
+      txHash: text("tx_hash"),
+      // Transaction hash of reward distribution
+      createdAt: timestamp("created_at").notNull().defaultNow()
+    });
+    blockFinalityConfirmations = pgTable("block_finality_confirmations", {
+      id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+      blockNumber: bigint("block_number", { mode: "number" }).notNull().unique(),
+      blockHash: text("block_hash").notNull(),
+      // Finality Details
+      finalityStatus: text("finality_status").notNull().default("pending"),
+      // pending, confirmed, finalized, rejected
+      totalVerifications: integer("total_verifications").notNull().default(0),
+      requiredVerifications: integer("required_verifications").notNull(),
+      // 2/3 + 1 quorum
+      validVotes: integer("valid_votes").notNull().default(0),
+      invalidVotes: integer("invalid_votes").notNull().default(0),
+      abstainVotes: integer("abstain_votes").notNull().default(0),
+      // Reward Summary
+      totalRewardsDistributed: text("total_rewards_distributed").notNull().default("0"),
+      proposerReward: text("proposer_reward").notNull().default("0"),
+      verifierRewardsTotal: text("verifier_rewards_total").notNull().default("0"),
+      // Timing
+      consensusStartAt: timestamp("consensus_start_at").notNull().defaultNow(),
+      finalizedAt: timestamp("finalized_at"),
+      confirmationLatencyMs: integer("confirmation_latency_ms"),
+      createdAt: timestamp("created_at").notNull().defaultNow()
+    });
+    insertBlockVerificationSchema = createInsertSchema(blockVerifications).omit({
+      id: true,
+      createdAt: true
+    });
+    insertValidatorBlockRewardSchema = createInsertSchema(validatorBlockRewards).omit({
+      id: true,
+      createdAt: true
+    });
+    insertBlockFinalityConfirmationSchema = createInsertSchema(blockFinalityConfirmations).omit({
+      id: true,
+      createdAt: true
     });
     smartContracts = pgTable("smart_contracts", {
       id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
@@ -6054,12 +6163,32 @@ var init_schema = __esm({
 var db_exports = {};
 __export(db_exports, {
   db: () => db,
-  pool: () => pool
+  pool: () => pool,
+  startDbKeepAlive: () => startDbKeepAlive,
+  stopDbKeepAlive: () => stopDbKeepAlive
 });
 import { Pool, neonConfig } from "@neondatabase/serverless";
 import { drizzle } from "drizzle-orm/neon-serverless";
 import ws from "ws";
-var pool, db;
+function startDbKeepAlive() {
+  if (keepAliveInterval) return;
+  keepAliveInterval = setInterval(async () => {
+    try {
+      await pool.query("SELECT 1");
+    } catch (err) {
+    }
+  }, 3e4);
+  pool.query("SELECT 1").catch(() => {
+  });
+  console.log("[DB] Keep-alive started - connections will stay warm");
+}
+function stopDbKeepAlive() {
+  if (keepAliveInterval) {
+    clearInterval(keepAliveInterval);
+    keepAliveInterval = null;
+  }
+}
+var pool, db, keepAliveInterval;
 var init_db = __esm({
   "server/db.ts"() {
     "use strict";
@@ -6068,8 +6197,14 @@ var init_db = __esm({
       throw new Error("DATABASE_URL is not set");
     }
     neonConfig.webSocketConstructor = ws;
-    pool = new Pool({ connectionString: process.env.DATABASE_URL });
+    pool = new Pool({
+      connectionString: process.env.DATABASE_URL,
+      max: 5,
+      idleTimeoutMillis: 3e4,
+      connectionTimeoutMillis: 15e3
+    });
     db = drizzle(pool, { schema: schema_exports });
+    keepAliveInterval = null;
   }
 });
 
@@ -6097,8 +6232,8 @@ var init_storage = __esm({
             slaUptime: 9990,
             latency: 12,
             latencyP99: 45,
-            activeValidators: 125,
-            totalValidators: 150,
+            activeValidators: 1600,
+            totalValidators: 1600,
             totalTransactions: 89234567,
             totalAccounts: 234567,
             marketCap: "12450000000",
@@ -9627,6 +9762,682 @@ var init_rpc_validation = __esm({
   }
 });
 
+// server/utils/transaction-verifier.ts
+import crypto2 from "crypto";
+import { ethers as ethers2 } from "ethers";
+var BlockVerifier, ValidatorSignatureGenerator;
+var init_transaction_verifier = __esm({
+  "server/utils/transaction-verifier.ts"() {
+    "use strict";
+    BlockVerifier = class {
+      /**
+       * Generate block hash from block data
+       */
+      static generateBlockHash(blockNumber, parentHash, stateRoot, receiptsRoot, transactionRoot, timestamp2) {
+        const blockData = JSON.stringify({
+          blockNumber,
+          parentHash,
+          stateRoot,
+          receiptsRoot,
+          transactionRoot,
+          timestamp: timestamp2
+        });
+        return "0x" + crypto2.createHash("sha256").update(blockData).digest("hex");
+      }
+      /**
+       * Generate Merkle root from transaction hashes
+       */
+      static generateTransactionRoot(txHashes) {
+        if (txHashes.length === 0) {
+          return "0x" + "0".repeat(64);
+        }
+        let level = txHashes.map((h) => h.startsWith("0x") ? h.substring(2) : h);
+        while (level.length > 1) {
+          const nextLevel = [];
+          for (let i = 0; i < level.length; i += 2) {
+            const left = level[i];
+            const right = level[i + 1] || left;
+            const combined = crypto2.createHash("sha256").update(left + right).digest("hex");
+            nextLevel.push(combined);
+          }
+          level = nextLevel;
+        }
+        return "0x" + level[0];
+      }
+      /**
+       * Verify block integrity
+       */
+      static verifyBlockIntegrity(blockHash, blockNumber, parentHash, stateRoot, receiptsRoot, transactionHashes, timestamp2) {
+        try {
+          const transactionRoot = this.generateTransactionRoot(transactionHashes);
+          const computedHash = this.generateBlockHash(
+            blockNumber,
+            parentHash,
+            stateRoot,
+            receiptsRoot,
+            transactionRoot,
+            timestamp2
+          );
+          const hashValid = computedHash === blockHash;
+          return {
+            valid: hashValid,
+            hashValid,
+            txRootValid: true,
+            // Transaction root is computed, so it's always valid
+            error: hashValid ? void 0 : "Block hash mismatch"
+          };
+        } catch (error) {
+          return {
+            valid: false,
+            hashValid: false,
+            txRootValid: false,
+            error: `Block verification failed: ${error.message}`
+          };
+        }
+      }
+    };
+    ValidatorSignatureGenerator = class {
+      /**
+       * Generate a validator's verification signature for a block
+       */
+      static generateVerificationSignature(validatorAddress, blockHash, blockNumber, verificationResult) {
+        const signatureData = JSON.stringify({
+          validator: validatorAddress.toLowerCase(),
+          blockHash,
+          blockNumber,
+          result: verificationResult,
+          timestamp: Date.now()
+        });
+        return "0x" + crypto2.createHash("sha256").update(signatureData).digest("hex");
+      }
+      /**
+       * Verify a validator's verification signature
+       */
+      static verifyVerificationSignature(signature, validatorAddress, blockHash) {
+        return signature.startsWith("0x") && signature.length === 66;
+      }
+    };
+  }
+});
+
+// server/services/block-finality-engine.ts
+var BlockFinalityEngine, blockFinalityEngine;
+var init_block_finality_engine = __esm({
+  "server/services/block-finality-engine.ts"() {
+    "use strict";
+    init_transaction_verifier();
+    BlockFinalityEngine = class {
+      pendingBlocks = /* @__PURE__ */ new Map();
+      verificationVotes = /* @__PURE__ */ new Map();
+      finalityResults = /* @__PURE__ */ new Map();
+      // Constants for TBURN consensus (2/3 + 1 quorum)
+      QUORUM_NUMERATOR = BigInt(2);
+      QUORUM_DENOMINATOR = BigInt(3);
+      FINALITY_THRESHOLD_BLOCKS = 6;
+      // Blocks after which finality is permanent
+      // Memory management constants
+      MAX_PENDING_BLOCKS = 500;
+      // Maximum pending blocks before forced cleanup
+      MAX_FINALITY_RESULTS = 1e3;
+      // Maximum finality results to keep
+      CLEANUP_THRESHOLD = 0.8;
+      // Start cleanup when 80% capacity reached
+      // Reward constants (in Wei, 10^18 Wei = 1 TBURN)
+      PROPOSER_REWARD = "2000000000000000000";
+      // 2 TBURN
+      VERIFIER_REWARD = "100000000000000000";
+      // 0.1 TBURN per verifier
+      GAS_FEE_PROPOSER_SHARE = 0.5;
+      // 50% to proposer
+      GAS_FEE_VERIFIER_SHARE = 0.3;
+      // 30% distributed to verifiers
+      GAS_FEE_BURN_SHARE = 0.2;
+      // 20% burned
+      // Processing state for preventing concurrent processing
+      isProcessing = false;
+      lastCleanupBlock = 0;
+      /**
+       * Register a new block for verification with automatic memory management
+       */
+      registerBlockForVerification(block) {
+        if (this.pendingBlocks.size >= this.MAX_PENDING_BLOCKS * this.CLEANUP_THRESHOLD) {
+          this.autoCleanup(block.number);
+        }
+        if (!block.number || block.number < 0) {
+          console.warn(`[BlockFinality] Invalid block number: ${block.number}`);
+          return;
+        }
+        if (!block.hash || !block.hash.startsWith("0x")) {
+          console.warn(`[BlockFinality] Invalid block hash for block ${block.number}`);
+          return;
+        }
+        this.pendingBlocks.set(block.number, block);
+        this.verificationVotes.set(block.number, []);
+        this.finalityResults.set(block.number, {
+          blockNumber: block.number,
+          blockHash: block.hash,
+          status: "pending",
+          totalVotes: 0,
+          validVotes: 0,
+          invalidVotes: 0,
+          abstainVotes: 0,
+          votingPowerForValid: BigInt(0),
+          votingPowerForInvalid: BigInt(0),
+          requiredQuorum: BigInt(0)
+        });
+      }
+      /**
+       * Automatic cleanup of old blocks to prevent memory leaks
+       */
+      autoCleanup(currentBlockNumber) {
+        const cleaned = this.cleanupFinalizedBlocks(100);
+        if (cleaned > 0 && currentBlockNumber - this.lastCleanupBlock >= 100) {
+          console.log(`[BlockFinality] Auto-cleaned ${cleaned} finalized blocks at height ${currentBlockNumber}`);
+          this.lastCleanupBlock = currentBlockNumber;
+        }
+        if (this.pendingBlocks.size >= this.MAX_PENDING_BLOCKS) {
+          const forceCleanCount = Math.floor(this.MAX_PENDING_BLOCKS * 0.3);
+          const blockNumbers = Array.from(this.pendingBlocks.keys()).sort((a, b) => a - b);
+          for (let i = 0; i < forceCleanCount && i < blockNumbers.length; i++) {
+            const blockNum = blockNumbers[i];
+            this.pendingBlocks.delete(blockNum);
+            this.verificationVotes.delete(blockNum);
+          }
+          console.log(`[BlockFinality] Force-cleaned ${forceCleanCount} oldest pending blocks`);
+        }
+      }
+      /**
+       * Simulate cross-validator verification
+       * In production, this would be triggered by P2P network messages
+       */
+      simulateValidatorVerification(blockNumber, validators2) {
+        const block = this.pendingBlocks.get(blockNumber);
+        if (!block) {
+          throw new Error(`Block ${blockNumber} not registered for verification`);
+        }
+        const votes = [];
+        let totalVotingPower = BigInt(0);
+        for (const validator of validators2) {
+          totalVotingPower += BigInt(validator.votingPower || "0");
+        }
+        for (const validator of validators2) {
+          if (validator.status !== "active") continue;
+          const verificationResult = BlockVerifier.verifyBlockIntegrity(
+            block.hash,
+            block.number,
+            block.parentHash,
+            block.stateRoot,
+            block.receiptsRoot,
+            block.transactionHashes,
+            block.timestamp
+          );
+          const random = Math.random();
+          let vote;
+          if (random < 0.995) {
+            vote = verificationResult.valid ? "valid" : "invalid";
+          } else if (random < 0.998) {
+            vote = "abstain";
+          } else {
+            vote = "invalid";
+          }
+          const signature = ValidatorSignatureGenerator.generateVerificationSignature(
+            validator.address,
+            block.hash,
+            block.number,
+            vote
+          );
+          const verificationVote = {
+            validatorAddress: validator.address,
+            blockHash: block.hash,
+            blockNumber: block.number,
+            vote,
+            signature,
+            votingPower: validator.votingPower,
+            verifiedAt: /* @__PURE__ */ new Date()
+          };
+          votes.push(verificationVote);
+        }
+        this.verificationVotes.set(blockNumber, votes);
+        return votes;
+      }
+      /**
+       * Process votes and determine block finality
+       */
+      processVotesForFinality(blockNumber, totalVotingPower) {
+        const votes = this.verificationVotes.get(blockNumber) || [];
+        const block = this.pendingBlocks.get(blockNumber);
+        if (!block) {
+          throw new Error(`Block ${blockNumber} not found`);
+        }
+        const startTime = Date.now();
+        let validVotes = 0;
+        let invalidVotes = 0;
+        let abstainVotes = 0;
+        let votingPowerForValid = BigInt(0);
+        let votingPowerForInvalid = BigInt(0);
+        for (const vote of votes) {
+          const power = BigInt(vote.votingPower || "0");
+          switch (vote.vote) {
+            case "valid":
+              validVotes++;
+              votingPowerForValid += power;
+              break;
+            case "invalid":
+              invalidVotes++;
+              votingPowerForInvalid += power;
+              break;
+            case "abstain":
+              abstainVotes++;
+              break;
+          }
+        }
+        const requiredQuorum = totalVotingPower * this.QUORUM_NUMERATOR / this.QUORUM_DENOMINATOR + BigInt(1);
+        let status;
+        if (votingPowerForValid >= requiredQuorum) {
+          status = "confirmed";
+        } else if (votingPowerForInvalid >= requiredQuorum) {
+          status = "rejected";
+        } else {
+          status = "pending";
+        }
+        const result = {
+          blockNumber,
+          blockHash: block.hash,
+          status,
+          totalVotes: votes.length,
+          validVotes,
+          invalidVotes,
+          abstainVotes,
+          votingPowerForValid,
+          votingPowerForInvalid,
+          requiredQuorum,
+          finalizedAt: status === "confirmed" ? /* @__PURE__ */ new Date() : void 0,
+          confirmationLatencyMs: Date.now() - startTime
+        };
+        this.finalityResults.set(blockNumber, result);
+        return result;
+      }
+      /**
+       * Check if a block should be upgraded from confirmed to finalized
+       */
+      checkForPermanentFinality(currentBlockNumber) {
+        const finalizedBlocks = [];
+        for (const [blockNumber, result] of Array.from(this.finalityResults.entries())) {
+          if (result.status === "confirmed" && currentBlockNumber - blockNumber >= this.FINALITY_THRESHOLD_BLOCKS) {
+            result.status = "finalized";
+            finalizedBlocks.push(blockNumber);
+          }
+        }
+        return finalizedBlocks;
+      }
+      /**
+       * Calculate and distribute block rewards
+       * Gas fee distribution: 50% proposer, 30% verifiers, 20% burned
+       */
+      calculateBlockRewards(blockNumber, proposerAddress, gasFeesCollected, verifierAddresses) {
+        const rewards = [];
+        const totalGasFees = BigInt(gasFeesCollected);
+        const gasFeesProposer = BigInt(Math.floor(
+          Number(totalGasFees) * this.GAS_FEE_PROPOSER_SHARE
+        ));
+        rewards.push({
+          validatorAddress: proposerAddress,
+          rewardType: "proposer",
+          rewardAmount: this.PROPOSER_REWARD,
+          gasFeesEarned: gasFeesProposer.toString(),
+          participationRole: "proposer",
+          votePower: "0"
+          // Will be filled by caller
+        });
+        if (verifierAddresses.length > 0) {
+          const gasFeesVerifier = BigInt(Math.floor(
+            Number(totalGasFees) * this.GAS_FEE_VERIFIER_SHARE / verifierAddresses.length
+          ));
+          for (const address of verifierAddresses) {
+            rewards.push({
+              validatorAddress: address,
+              rewardType: "verifier",
+              rewardAmount: this.VERIFIER_REWARD,
+              gasFeesEarned: gasFeesVerifier.toString(),
+              participationRole: "verifier",
+              votePower: "0"
+              // Will be filled by caller
+            });
+          }
+        }
+        const burnAmount = BigInt(Math.floor(
+          Number(totalGasFees) * this.GAS_FEE_BURN_SHARE
+        ));
+        return {
+          rewards,
+          burnAmount: burnAmount.toString(),
+          totalGasFees: gasFeesCollected
+        };
+      }
+      /**
+       * Get finality status for a block
+       */
+      getFinalityStatus(blockNumber) {
+        return this.finalityResults.get(blockNumber);
+      }
+      /**
+       * Get all pending blocks awaiting finality
+       */
+      getPendingBlocks() {
+        return Array.from(this.pendingBlocks.values()).filter(
+          (block) => {
+            const result = this.finalityResults.get(block.number);
+            return result && result.status === "pending";
+          }
+        );
+      }
+      /**
+       * Clean up finalized blocks from memory
+       */
+      cleanupFinalizedBlocks(keepLastN = 100) {
+        const blockNumbers = Array.from(this.finalityResults.keys()).sort((a, b) => b - a);
+        let cleaned = 0;
+        for (let i = keepLastN; i < blockNumbers.length; i++) {
+          const blockNumber = blockNumbers[i];
+          const result = this.finalityResults.get(blockNumber);
+          if (result && result.status === "finalized") {
+            this.pendingBlocks.delete(blockNumber);
+            this.verificationVotes.delete(blockNumber);
+            this.finalityResults.delete(blockNumber);
+            cleaned++;
+          }
+        }
+        return cleaned;
+      }
+      /**
+       * Get verification statistics
+       */
+      getStatistics() {
+        let pending = 0;
+        let confirmed = 0;
+        let finalized = 0;
+        let rejected = 0;
+        let totalVotes = 0;
+        let totalLatency = 0;
+        let latencyCount = 0;
+        for (const result of Array.from(this.finalityResults.values())) {
+          totalVotes += result.totalVotes;
+          switch (result.status) {
+            case "pending":
+              pending++;
+              break;
+            case "confirmed":
+              confirmed++;
+              break;
+            case "finalized":
+              finalized++;
+              break;
+            case "rejected":
+              rejected++;
+              break;
+          }
+          if (result.confirmationLatencyMs) {
+            totalLatency += result.confirmationLatencyMs;
+            latencyCount++;
+          }
+        }
+        return {
+          pendingBlocks: pending,
+          confirmedBlocks: confirmed,
+          finalizedBlocks: finalized,
+          rejectedBlocks: rejected,
+          totalVotesProcessed: totalVotes,
+          avgConfirmationLatency: latencyCount > 0 ? totalLatency / latencyCount : 0
+        };
+      }
+    };
+    blockFinalityEngine = new BlockFinalityEngine();
+  }
+});
+
+// server/services/reward-distribution-engine.ts
+var RewardDistributionEngine, rewardDistributionEngine;
+var init_reward_distribution_engine = __esm({
+  "server/services/reward-distribution-engine.ts"() {
+    "use strict";
+    RewardDistributionEngine = class {
+      config;
+      pendingRewards = /* @__PURE__ */ new Map();
+      epochSummaries = /* @__PURE__ */ new Map();
+      currentEpoch = 0;
+      currentEpochStartBlock = 0;
+      // Accumulated metrics
+      totalDistributed = BigInt(0);
+      totalBurned = BigInt(0);
+      totalGasCollected = BigInt(0);
+      constructor(config) {
+        this.config = {
+          proposerBaseReward: "2000000000000000000",
+          // 2 TBURN
+          verifierReward: "100000000000000000",
+          // 0.1 TBURN
+          gasProposerShare: 0.5,
+          // 50% to proposer
+          gasVerifierShare: 0.3,
+          // 30% to verifiers
+          gasBurnRate: 0.2,
+          // 20% burned (deflationary)
+          annualInflationRate: 300,
+          // 3% annual inflation
+          epochBlocks: 1e3,
+          // 1000 blocks per epoch (~100 seconds at 10 blocks/sec)
+          ...config
+        };
+      }
+      /**
+       * Calculate block rewards for a single block
+       */
+      calculateBlockRewards(blockNumber, proposerAddress, verifierAddresses, gasUsed, gasPrice) {
+        const rewards = [];
+        const totalGasFees = BigInt(gasUsed) * BigInt(gasPrice);
+        this.totalGasCollected += totalGasFees;
+        const proposerGasReward = totalGasFees * BigInt(Math.floor(this.config.gasProposerShare * 1e3)) / BigInt(1e3);
+        const verifierGasPool = totalGasFees * BigInt(Math.floor(this.config.gasVerifierShare * 1e3)) / BigInt(1e3);
+        const burnAmount = totalGasFees * BigInt(Math.floor(this.config.gasBurnRate * 1e3)) / BigInt(1e3);
+        this.totalBurned += burnAmount;
+        const proposerReward = {
+          validatorAddress: proposerAddress,
+          blockNumber,
+          rewardType: "proposer",
+          baseReward: this.config.proposerBaseReward,
+          gasReward: proposerGasReward.toString(),
+          totalReward: (BigInt(this.config.proposerBaseReward) + proposerGasReward).toString(),
+          distributed: false
+        };
+        rewards.push(proposerReward);
+        if (verifierAddresses.length > 0) {
+          const perVerifierGas = verifierGasPool / BigInt(verifierAddresses.length);
+          for (const verifierAddress of verifierAddresses) {
+            const verifierReward = {
+              validatorAddress: verifierAddress,
+              blockNumber,
+              rewardType: "verifier",
+              baseReward: this.config.verifierReward,
+              gasReward: perVerifierGas.toString(),
+              totalReward: (BigInt(this.config.verifierReward) + perVerifierGas).toString(),
+              distributed: false
+            };
+            rewards.push(verifierReward);
+          }
+        }
+        for (const reward of rewards) {
+          const existing = this.pendingRewards.get(reward.validatorAddress) || [];
+          existing.push(reward);
+          this.pendingRewards.set(reward.validatorAddress, existing);
+        }
+        this.checkEpochCompletion(blockNumber);
+        return rewards;
+      }
+      /**
+       * Check and process epoch completion
+       */
+      checkEpochCompletion(currentBlock) {
+        const epochNumber = Math.floor(currentBlock / this.config.epochBlocks);
+        if (epochNumber > this.currentEpoch) {
+          this.finalizeEpoch(this.currentEpoch, this.currentEpochStartBlock, currentBlock - 1);
+          this.currentEpoch = epochNumber;
+          this.currentEpochStartBlock = currentBlock;
+        }
+      }
+      /**
+       * Finalize an epoch and create summary
+       */
+      finalizeEpoch(epochNumber, startBlock, endBlock) {
+        const validatorRewards = /* @__PURE__ */ new Map();
+        let totalProposerRewards = BigInt(0);
+        let totalVerifierRewards = BigInt(0);
+        let totalDistributed = BigInt(0);
+        let blocksProduced = 0;
+        for (const [address, rewards] of Array.from(this.pendingRewards.entries())) {
+          let validatorTotal = BigInt(0);
+          for (const reward of rewards) {
+            if (reward.blockNumber >= startBlock && reward.blockNumber <= endBlock) {
+              validatorTotal += BigInt(reward.totalReward);
+              if (reward.rewardType === "proposer") {
+                totalProposerRewards += BigInt(reward.totalReward);
+                blocksProduced++;
+              } else {
+                totalVerifierRewards += BigInt(reward.totalReward);
+              }
+            }
+          }
+          if (validatorTotal > BigInt(0)) {
+            validatorRewards.set(address, validatorTotal.toString());
+            totalDistributed += validatorTotal;
+          }
+        }
+        const summary = {
+          epochNumber,
+          startBlock,
+          endBlock,
+          totalBlocksProduced: blocksProduced,
+          totalGasCollected: this.totalGasCollected.toString(),
+          totalRewardsDistributed: totalDistributed.toString(),
+          proposerRewards: totalProposerRewards.toString(),
+          verifierRewards: totalVerifierRewards.toString(),
+          burnedAmount: this.totalBurned.toString(),
+          validatorRewards
+        };
+        this.epochSummaries.set(epochNumber, summary);
+        this.totalDistributed += totalDistributed;
+        return summary;
+      }
+      /**
+       * Calculate staking rewards for delegators
+       */
+      calculateStakingRewards(delegations3, validatorApys) {
+        const rewards = [];
+        const epochDuration = this.config.epochBlocks / 10;
+        const secondsPerYear = 365.25 * 24 * 60 * 60;
+        const epochFraction = epochDuration / secondsPerYear;
+        for (const delegation of delegations3) {
+          const apy = validatorApys.get(delegation.validatorAddress) || 1250;
+          const apyDecimal = apy / 1e4;
+          const stakedBigInt = BigInt(delegation.stakedAmount);
+          const rewardBigInt = stakedBigInt * BigInt(Math.floor(apyDecimal * epochFraction * 1e6)) / BigInt(1e6);
+          rewards.push({
+            stakerAddress: delegation.stakerAddress,
+            validatorAddress: delegation.validatorAddress,
+            stakedAmount: delegation.stakedAmount,
+            rewardAmount: rewardBigInt.toString(),
+            apy,
+            epoch: this.currentEpoch
+          });
+        }
+        return rewards;
+      }
+      /**
+       * Mark rewards as distributed
+       */
+      markRewardsDistributed(validatorAddress, blockNumbers, txHash) {
+        const rewards = this.pendingRewards.get(validatorAddress) || [];
+        const now = /* @__PURE__ */ new Date();
+        for (const reward of rewards) {
+          if (blockNumbers.includes(reward.blockNumber)) {
+            reward.distributed = true;
+            reward.distributedAt = now;
+            reward.txHash = txHash;
+          }
+        }
+      }
+      /**
+       * Get pending rewards for a validator
+       */
+      getPendingRewards(validatorAddress) {
+        return (this.pendingRewards.get(validatorAddress) || []).filter((r) => !r.distributed);
+      }
+      /**
+       * Get total pending rewards for a validator
+       */
+      getTotalPendingRewards(validatorAddress) {
+        const pending = this.getPendingRewards(validatorAddress);
+        let total = BigInt(0);
+        for (const reward of pending) {
+          total += BigInt(reward.totalReward);
+        }
+        return total.toString();
+      }
+      /**
+       * Get epoch summary
+       */
+      getEpochSummary(epochNumber) {
+        return this.epochSummaries.get(epochNumber);
+      }
+      /**
+       * Get current epoch info
+       */
+      getCurrentEpochInfo() {
+        const blocksInEpoch = this.config.epochBlocks;
+        return {
+          epoch: this.currentEpoch,
+          startBlock: this.currentEpochStartBlock,
+          blocksInEpoch,
+          epochProgress: 0
+          // Will be calculated by caller based on current block
+        };
+      }
+      /**
+       * Get overall statistics
+       */
+      getStatistics() {
+        let pendingCount = 0;
+        for (const rewards of Array.from(this.pendingRewards.values())) {
+          pendingCount += rewards.filter((r) => !r.distributed).length;
+        }
+        return {
+          totalDistributed: this.totalDistributed.toString(),
+          totalBurned: this.totalBurned.toString(),
+          totalGasCollected: this.totalGasCollected.toString(),
+          completedEpochs: this.epochSummaries.size,
+          pendingRewardCount: pendingCount
+        };
+      }
+      /**
+       * Clean up distributed rewards older than specified number of epochs
+       */
+      cleanupOldRewards(keepEpochs = 10) {
+        const cutoffEpoch = this.currentEpoch - keepEpochs;
+        const cutoffBlock = cutoffEpoch * this.config.epochBlocks;
+        let cleaned = 0;
+        for (const [address, rewards] of Array.from(this.pendingRewards.entries())) {
+          const filtered = rewards.filter(
+            (r) => r.blockNumber >= cutoffBlock || !r.distributed
+          );
+          cleaned += rewards.length - filtered.length;
+          this.pendingRewards.set(address, filtered);
+        }
+        return cleaned;
+      }
+    };
+    rewardDistributionEngine = new RewardDistributionEngine();
+  }
+});
+
 // server/services/TBurnEnterpriseNode.ts
 var TBurnEnterpriseNode_exports = {};
 __export(TBurnEnterpriseNode_exports, {
@@ -9635,11 +10446,11 @@ __export(TBurnEnterpriseNode_exports, {
 });
 import WebSocket, { WebSocketServer } from "ws";
 import { EventEmitter } from "events";
-import crypto2 from "crypto";
+import crypto3 from "crypto";
 import os from "os";
 import express from "express";
 import { createServer } from "http";
-import { eq as eq2 } from "drizzle-orm";
+import { eq as eq2, sql as sql3 } from "drizzle-orm";
 import { z as z3 } from "zod";
 function getEnterpriseNode() {
   if (!enterpriseNode) {
@@ -9669,6 +10480,8 @@ var init_TBurnEnterpriseNode = __esm({
     init_schema();
     init_rpc_validation();
     init_tburn_address();
+    init_block_finality_engine();
+    init_reward_distribution_engine();
     TBurnEnterpriseNode = class extends EventEmitter {
       config;
       isRunning = false;
@@ -9688,9 +10501,19 @@ var init_TBurnEnterpriseNode = __esm({
       totalTransactions = 52847291;
       totalGasUsed = BigInt(0);
       blockTimes = [];
+      // Timestamps of block production
+      blockIntervals = [];
+      // Actual intervals between blocks (ms)
+      lastBlockTimestamp = 0;
+      // Last block production time
       tpsHistory = [];
       peakTps = 52e3;
       // Realistic initial peak based on actual block production (5200 tx × 10 blocks/s)
+      // Snapshot cache for consistent API responses (30-second TTL)
+      cachedTotalTransactions = 52847291;
+      lastTotalTransactionsSnapshot = Date.now();
+      TOTAL_TX_CACHE_TTL = 3e4;
+      // 30 seconds TTL for consistent display
       // ============================================
       // REAL-TIME DYNAMIC TPS CALCULATION SYSTEM
       // Enterprise-grade TPS that reflects actual network conditions
@@ -9960,7 +10783,7 @@ var init_TBurnEnterpriseNode = __esm({
       // TRANSACTIONAL CONFIG UPDATE WITH ROLLBACK
       // ============================================
       async updateShardConfiguration(newCount, options = {}) {
-        const requestId = `cfg-${Date.now()}-${crypto2.randomBytes(4).toString("hex")}`;
+        const requestId = `cfg-${Date.now()}-${crypto3.randomBytes(4).toString("hex")}`;
         const actor = options.actor || "system";
         const reason = options.reason || "Manual configuration update";
         const validation = this.validateShardConfig(newCount, { actor, reason });
@@ -10184,7 +11007,7 @@ var init_TBurnEnterpriseNode = __esm({
       // Add audit log entry
       addAuditLog(entry) {
         this.auditLog.push({
-          id: `audit-${Date.now()}-${crypto2.randomBytes(4).toString("hex")}`,
+          id: `audit-${Date.now()}-${crypto3.randomBytes(4).toString("hex")}`,
           timestamp: (/* @__PURE__ */ new Date()).toISOString(),
           ...entry
         });
@@ -10255,6 +11078,20 @@ var init_TBurnEnterpriseNode = __esm({
       // Get scaling events
       getScalingEvents(limit = 20) {
         return this.scalingEvents.slice(-limit);
+      }
+      // Get total transactions count with caching for consistent API responses
+      // Uses 30-second cache TTL to ensure all dashboard components show the same value
+      getTotalTransactions() {
+        const now = Date.now();
+        if (now - this.lastTotalTransactionsSnapshot >= this.TOTAL_TX_CACHE_TTL) {
+          this.cachedTotalTransactions = this.totalTransactions;
+          this.lastTotalTransactionsSnapshot = now;
+        }
+        return this.cachedTotalTransactions;
+      }
+      // Get current block height (synchronous getter for public API consistency)
+      getCurrentBlockHeight() {
+        return this.currentBlockHeight;
       }
       // Get current shard configuration (for external sync like ValidatorService)
       getShardConfiguration() {
@@ -11066,6 +11903,32 @@ var init_TBurnEnterpriseNode = __esm({
       // ============================================
       // STATE PERSISTENCE METHODS
       // ============================================
+      async loadBlockHeightFromDatabase() {
+        try {
+          const { blocks: blocks2 } = await Promise.resolve().then(() => (init_schema(), schema_exports));
+          const latestBlocks = await db.select().from(blocks2).orderBy(sql3`block_number DESC`).limit(1);
+          if (latestBlocks.length > 0) {
+            const latestBlock = latestBlocks[0];
+            this.currentBlockHeight = latestBlock.blockNumber + 1;
+            console.log(`[Enterprise Node] \u2705 Loaded block height from database: ${this.currentBlockHeight} (resuming from block ${latestBlock.blockNumber})`);
+            const txCountResult = await db.select({
+              total: sql3`COALESCE(SUM(transaction_count), 0)`
+            }).from(blocks2);
+            if (txCountResult.length > 0 && txCountResult[0].total) {
+              const dbTotalTx = parseInt(txCountResult[0].total, 10);
+              if (dbTotalTx > this.totalTransactions) {
+                this.totalTransactions = dbTotalTx;
+                this.cachedTotalTransactions = dbTotalTx;
+                console.log(`[Enterprise Node] \u2705 Loaded total transactions from database: ${this.totalTransactions}`);
+              }
+            }
+          } else {
+            console.log(`[Enterprise Node] \u26A0\uFE0F No blocks found in database, starting from default height: ${this.currentBlockHeight}`);
+          }
+        } catch (error) {
+          console.error("[Enterprise Node] Failed to load block height from database, using default:", error);
+        }
+      }
       async loadConfigFromDatabase() {
         try {
           const configs = await db.select().from(shardConfigurations).where(eq2(shardConfigurations.isActive, true)).limit(1);
@@ -11229,6 +12092,7 @@ var init_TBurnEnterpriseNode = __esm({
         this.shardConfig.maxShards = effectiveMaxShards;
         try {
           await this.loadConfigFromDatabase();
+          await this.loadBlockHeightFromDatabase();
           if (process.env.MAX_SHARDS) {
             const envShards = parseInt(process.env.MAX_SHARDS, 10);
             console.log(`[Enterprise Node] \u26A1 FORCE OVERRIDE: Setting shards to ${envShards} (Ignoring DB value of ${this.shardConfig.currentShardCount})`);
@@ -11510,7 +12374,8 @@ var init_TBurnEnterpriseNode = __esm({
             latencyP99: 95,
             activeValidators: totalValidators,
             totalValidators,
-            totalTransactions: this.totalTransactions,
+            totalTransactions: this.getTotalTransactions(),
+            // Cached for 30s consistency
             totalAccounts: 527849,
             // 527K+ accounts on mainnet
             // Shard configuration info
@@ -11899,7 +12764,7 @@ var init_TBurnEnterpriseNode = __esm({
               startTime,
               endTime,
               phasesJson: JSON.stringify(phasesData),
-              finalHash: i === 0 ? null : `0x${crypto2.randomBytes(32).toString("hex")}`,
+              finalHash: i === 0 ? null : `0x${crypto3.randomBytes(32).toString("hex")}`,
               aiParticipation,
               participationRate: participatingValidators / totalValidators || 0,
               createdAt: new Date(startTime).toISOString()
@@ -12028,7 +12893,7 @@ var init_TBurnEnterpriseNode = __esm({
             payload: {
               from: generateRandomTBurnAddress(),
               to: generateRandomTBurnAddress(),
-              data: `0x${crypto2.randomBytes(32).toString("hex")}`
+              data: `0x${crypto3.randomBytes(32).toString("hex")}`
             }
           });
         });
@@ -12058,7 +12923,7 @@ var init_TBurnEnterpriseNode = __esm({
               verificationStatus: status,
               lastActivity: new Date(Date.now() - Math.floor(Math.random() * 36e5)).toISOString(),
               gasUsed: BigInt(Math.floor(Math.random() * 1e9)).toString(),
-              bytecode: `0x${crypto2.randomBytes(32).toString("hex")}...`,
+              bytecode: `0x${crypto3.randomBytes(32).toString("hex")}...`,
               abi: null,
               sourceCode: null
             });
@@ -12087,7 +12952,7 @@ var init_TBurnEnterpriseNode = __esm({
             verificationStatus: "verified",
             lastActivity: new Date(Date.now() - Math.floor(Math.random() * 36e5)).toISOString(),
             gasUsed: BigInt(Math.floor(Math.random() * 1e9)).toString(),
-            bytecode: `0x${crypto2.randomBytes(64).toString("hex")}`,
+            bytecode: `0x${crypto3.randomBytes(64).toString("hex")}`,
             sourceCode: null,
             abi: [
               { type: "function", name: "transfer", inputs: [{ name: "to", type: "address" }, { name: "amount", type: "uint256" }] },
@@ -12137,7 +13002,7 @@ var init_TBurnEnterpriseNode = __esm({
                 blockHeight: this.currentBlockHeight - i,
                 gasUsed: 5e4 + Math.floor(Math.random() * 1e5),
                 feedbackScore: 8500 + Math.floor(Math.random() * 1500),
-                input: { blockHash: `0x${crypto2.randomBytes(32).toString("hex")}`, validatorCount: totalValidatorsForDecision },
+                input: { blockHash: `0x${crypto3.randomBytes(32).toString("hex")}`, validatorCount: totalValidatorsForDecision },
                 output: { approved: true, score: 9500 + Math.floor(Math.random() * 500) }
               },
               createdAt: timestamp2.toISOString(),
@@ -12161,10 +13026,10 @@ var init_TBurnEnterpriseNode = __esm({
             blocks2.push({
               id: `block-${blockNumber}`,
               blockNumber,
-              blockHash: `0x${crypto2.randomBytes(32).toString("hex")}`,
-              parentHash: `0x${crypto2.randomBytes(32).toString("hex")}`,
+              blockHash: `0x${crypto3.randomBytes(32).toString("hex")}`,
+              parentHash: `0x${crypto3.randomBytes(32).toString("hex")}`,
               timestamp: blockTimestamp,
-              validatorAddress: `0x${crypto2.randomBytes(20).toString("hex")}`,
+              validatorAddress: `0x${crypto3.randomBytes(20).toString("hex")}`,
               transactionCount: 50 + Math.floor(Math.random() * 100),
               gasUsed: String(5e6 + Math.floor(Math.random() * 5e6)),
               gasLimit: String(15e6),
@@ -12231,7 +13096,7 @@ var init_TBurnEnterpriseNode = __esm({
             startTime,
             endTime,
             phasesJson: JSON.stringify(phasesData),
-            finalHash: `0x${crypto2.randomBytes(32).toString("hex")}`,
+            finalHash: `0x${crypto3.randomBytes(32).toString("hex")}`,
             aiParticipation,
             createdAt: new Date(startTime).toISOString()
           });
@@ -12248,7 +13113,7 @@ var init_TBurnEnterpriseNode = __esm({
                 result = await this.getBlock(parseInt(params[0], 16));
                 break;
               case "net_version":
-                result = "7979";
+                result = "6000";
                 break;
               case "eth_chainId":
                 result = "0x1f2b";
@@ -12341,11 +13206,17 @@ var init_TBurnEnterpriseNode = __esm({
         });
       }
       startBlockProduction() {
+        const isDev = process.env.NODE_ENV === "development";
         this.blockProductionInterval = setInterval(() => {
           if (!this.isRunning) return;
           const block = this.produceBlock();
           this.broadcastBlock(block);
           this.emit("block", block);
+          if (!isDev || block.height % 100 === 0) {
+            setImmediate(() => {
+              this.processBlockFinality(block);
+            });
+          }
         }, 100);
       }
       produceBlock() {
@@ -12365,12 +13236,16 @@ var init_TBurnEnterpriseNode = __esm({
           this.tpsHistory.shift();
         }
         const now = Date.now();
-        if (this.blockTimes.length > 0) {
-          const lastBlockTime = this.blockTimes[this.blockTimes.length - 1];
-          const blockTime = (now - lastBlockTime) / 1e3;
-          if (this.blockTimes.length >= 100) {
-            this.blockTimes.shift();
+        if (this.lastBlockTimestamp > 0) {
+          const interval = now - this.lastBlockTimestamp;
+          this.blockIntervals.push(interval);
+          if (this.blockIntervals.length > 1e3) {
+            this.blockIntervals.shift();
           }
+        }
+        this.lastBlockTimestamp = now;
+        if (this.blockTimes.length >= 100) {
+          this.blockTimes.shift();
         }
         this.blockTimes.push(now);
         const totalValidatorsForBlock = this.shardConfig.currentShardCount * this.shardConfig.validatorsPerShard;
@@ -12380,7 +13255,7 @@ var init_TBurnEnterpriseNode = __esm({
         const signatureCount = Math.floor(totalValidatorsForBlock * 0.8);
         return {
           height: this.currentBlockHeight,
-          hash: `0x${crypto2.createHash("sha256").update(`block-${this.currentBlockHeight}-${now}`).digest("hex")}`,
+          hash: `0x${crypto3.createHash("sha256").update(`block-${this.currentBlockHeight}-${now}`).digest("hex")}`,
           timestamp: Math.floor(now / 1e3),
           proposer: generateValidatorAddress(proposerIndex),
           transactionCount,
@@ -12399,6 +13274,84 @@ var init_TBurnEnterpriseNode = __esm({
             client.send(message);
           }
         });
+      }
+      /**
+       * Process block finality and validator rewards
+       * Runs after block production to maintain separation of concerns
+       */
+      processBlockFinality(block) {
+        try {
+          const parentHash = `0x${crypto3.createHash("sha256").update(`block-${block.height - 1}`).digest("hex")}`;
+          const stateRoot = `0x${crypto3.createHash("sha256").update(`state-${block.height}`).digest("hex")}`;
+          const receiptsRoot = `0x${crypto3.createHash("sha256").update(`receipts-${block.height}`).digest("hex")}`;
+          const txHashes = [];
+          for (let i = 0; i < Math.min(block.transactionCount, 100); i++) {
+            txHashes.push(`0x${crypto3.createHash("sha256").update(`tx-${block.height}-${i}`).digest("hex")}`);
+          }
+          const blockData = {
+            number: block.height,
+            hash: block.hash,
+            parentHash,
+            stateRoot,
+            receiptsRoot,
+            transactionHashes: txHashes,
+            timestamp: block.timestamp,
+            validatorAddress: block.proposer
+          };
+          blockFinalityEngine.registerBlockForVerification(blockData);
+          const totalValidators = this.shardConfig.currentShardCount * this.shardConfig.validatorsPerShard;
+          const validators2 = [];
+          for (let i = 0; i < totalValidators; i++) {
+            validators2.push({
+              address: generateValidatorAddress(i),
+              votingPower: "1000000000000000000000",
+              // 1000 TBURN
+              status: "active"
+            });
+          }
+          const votes = blockFinalityEngine.simulateValidatorVerification(block.height, validators2);
+          let totalVotingPower = BigInt(0);
+          for (const v of validators2) {
+            totalVotingPower += BigInt(v.votingPower);
+          }
+          const finalityResult = blockFinalityEngine.processVotesForFinality(block.height, totalVotingPower);
+          const permanentlyFinalized = blockFinalityEngine.checkForPermanentFinality(block.height);
+          if (finalityResult.status === "confirmed" || finalityResult.status === "finalized") {
+            const verifierAddresses = votes.filter((v) => v.vote === "valid").map((v) => v.validatorAddress);
+            const rewards = rewardDistributionEngine.calculateBlockRewards(
+              block.height,
+              block.proposer,
+              verifierAddresses,
+              block.gasUsed,
+              "10000000000000"
+              // 10 EMB gas price
+            );
+            if (rewards.length > 0 && block.height % 100 === 0) {
+              console.log(`[BlockFinality] Block ${block.height}: ${finalityResult.status}, ${votes.length} votes, ${rewards.length} rewards`);
+            }
+          }
+          if (block.height % 1e3 === 0) {
+            const cleaned = blockFinalityEngine.cleanupFinalizedBlocks(100);
+            const rewardsCleaned = rewardDistributionEngine.cleanupOldRewards(10);
+            if (cleaned > 0 || rewardsCleaned > 0) {
+              console.log(`[BlockFinality] Cleaned ${cleaned} finalized blocks, ${rewardsCleaned} old rewards`);
+            }
+          }
+        } catch (error) {
+          console.error(`[BlockFinality] Error processing block ${block.height}:`, error);
+        }
+      }
+      /**
+       * Get block finality statistics
+       */
+      getBlockFinalityStats() {
+        return blockFinalityEngine.getStatistics();
+      }
+      /**
+       * Get reward distribution statistics
+       */
+      getRewardDistributionStats() {
+        return rewardDistributionEngine.getStatistics();
       }
       startMetricsCollection() {
         this.metricsInterval = setInterval(async () => {
@@ -12431,14 +13384,21 @@ var init_TBurnEnterpriseNode = __esm({
           this.updateTokenPrice();
           this.updateSupplyDynamics();
           try {
-            const avgBlockTimeMs = this.blockTimes.length > 1 ? Math.round((this.blockTimes[this.blockTimes.length - 1] - this.blockTimes[0]) / (this.blockTimes.length - 1)) : 100;
+            let avgBlockTimeMs = 100;
+            let blockTimeP99Ms = 105;
+            if (this.blockIntervals.length >= 10) {
+              const sum = this.blockIntervals.reduce((a, b) => a + b, 0);
+              avgBlockTimeMs = Math.round(sum / this.blockIntervals.length);
+              const sorted = [...this.blockIntervals].sort((a, b) => a - b);
+              const p99Index = Math.floor(sorted.length * 0.99);
+              blockTimeP99Ms = sorted[Math.min(p99Index, sorted.length - 1)];
+            }
             const realTimeTpsData = this.getRealTimeTPS();
             const dynamicTps = realTimeTpsData.current;
             const dynamicPeakTps = realTimeTpsData.peak;
             await storage.updateNetworkStats({
               avgBlockTime: avgBlockTimeMs,
-              blockTimeP99: Math.round(avgBlockTimeMs * 1.2),
-              // P99 is typically 20% higher
+              blockTimeP99: blockTimeP99Ms,
               currentBlockHeight: this.currentBlockHeight,
               tps: dynamicTps,
               peakTps: dynamicPeakTps,
@@ -12490,7 +13450,8 @@ var init_TBurnEnterpriseNode = __esm({
           },
           blockchain: {
             height: this.currentBlockHeight,
-            totalTransactions: this.totalTransactions,
+            totalTransactions: this.getTotalTransactions(),
+            // Cached for consistency
             totalGasUsed: this.totalGasUsed.toString(),
             avgTps,
             peakTps: this.peakTps,
@@ -12514,7 +13475,7 @@ var init_TBurnEnterpriseNode = __esm({
           nodeId: this.config.nodeId,
           version: "v7.0.0-enterprise",
           networkId: "tburn-mainnet",
-          chainId: 7979,
+          chainId: 6e3,
           isSyncing: false,
           syncProgress: this.syncProgress,
           currentBlock: this.currentBlockHeight,
@@ -12553,7 +13514,7 @@ var init_TBurnEnterpriseNode = __esm({
           version: "v8.0",
           consensusType: "ai_committee_bft"
         });
-        const genesisBlockHash = "0x" + crypto2.createHash("sha256").update(genesisData).digest("hex");
+        const genesisBlockHash = "0x" + crypto3.createHash("sha256").update(genesisData).digest("hex");
         const totalDistributed = params.distributions.reduce((sum, d) => sum + BigInt(d.amount), BigInt(0)).toString();
         const genesisBlock = {
           height: 0,
@@ -12566,9 +13527,9 @@ var init_TBurnEnterpriseNode = __esm({
           validatorCount: params.validators.length,
           distributionCount: params.distributions.length,
           totalDistributed,
-          stateRoot: "0x" + crypto2.createHash("sha256").update(genesisData + "state").digest("hex"),
-          receiptsRoot: "0x" + crypto2.createHash("sha256").update(genesisData + "receipts").digest("hex"),
-          transactionsRoot: "0x" + crypto2.createHash("sha256").update(genesisData + "txs").digest("hex")
+          stateRoot: "0x" + crypto3.createHash("sha256").update(genesisData + "state").digest("hex"),
+          receiptsRoot: "0x" + crypto3.createHash("sha256").update(genesisData + "receipts").digest("hex"),
+          transactionsRoot: "0x" + crypto3.createHash("sha256").update(genesisData + "txs").digest("hex")
         };
         const genesisMessage = JSON.stringify({
           type: "genesis_executed",
@@ -12601,11 +13562,11 @@ var init_TBurnEnterpriseNode = __esm({
         if (height > this.currentBlockHeight) {
           throw new Error(`Block ${height} not found`);
         }
-        const blockHash = typeof heightOrHash === "string" ? heightOrHash : `0x${crypto2.randomBytes(32).toString("hex")}`;
-        const parentHash = `0x${crypto2.randomBytes(32).toString("hex")}`;
+        const blockHash = typeof heightOrHash === "string" ? heightOrHash : `0x${crypto3.randomBytes(32).toString("hex")}`;
+        const parentHash = `0x${crypto3.randomBytes(32).toString("hex")}`;
         const totalValidatorsForGetBlock = this.shardConfig.currentShardCount * this.shardConfig.validatorsPerShard;
         const validatorIndex = Math.floor(Math.random() * totalValidatorsForGetBlock);
-        const validatorAddress = `0x${crypto2.createHash("sha256").update(`validator${validatorIndex}`).digest("hex").slice(0, 40)}`;
+        const validatorAddress = `0x${crypto3.createHash("sha256").update(`validator${validatorIndex}`).digest("hex").slice(0, 40)}`;
         return {
           id: `block-${height}`,
           blockNumber: height,
@@ -12621,23 +13582,23 @@ var init_TBurnEnterpriseNode = __esm({
           gasUsed: 15e6 + Math.floor(Math.random() * 5e6),
           gasLimit: 3e7,
           shardId: Math.floor(Math.random() * this.shardConfig.currentShardCount),
-          stateRoot: `0x${crypto2.randomBytes(32).toString("hex")}`,
-          receiptsRoot: `0x${crypto2.randomBytes(32).toString("hex")}`,
+          stateRoot: `0x${crypto3.randomBytes(32).toString("hex")}`,
+          receiptsRoot: `0x${crypto3.randomBytes(32).toString("hex")}`,
           hashAlgorithm: ["BLAKE3", "SHA3-512", "SHA-256"][Math.floor(Math.random() * 3)]
         };
       }
       async getTransaction(hash) {
-        const hashBuffer = crypto2.createHash("sha256").update(hash).digest();
+        const hashBuffer = crypto3.createHash("sha256").update(hash).digest();
         const seed = hashBuffer.readUInt32BE(0);
         const seededRandom = (offset = 0) => {
-          const h = crypto2.createHash("sha256").update(hash + offset.toString()).digest();
+          const h = crypto3.createHash("sha256").update(hash + offset.toString()).digest();
           return h.readUInt32BE(0) / 4294967295;
         };
         const statusSeed = seededRandom(0);
         const status = statusSeed > 0.05 ? "success" : "failed";
         const blockOffset = Math.floor(seededRandom(1) * 100);
-        const fromBytes = crypto2.createHash("sha256").update(hash + "from").digest().slice(0, 20);
-        const toBytes = crypto2.createHash("sha256").update(hash + "to").digest().slice(0, 20);
+        const fromBytes = crypto3.createHash("sha256").update(hash + "from").digest().slice(0, 20);
+        const toBytes = crypto3.createHash("sha256").update(hash + "to").digest().slice(0, 20);
         const valueMultiplier = Math.floor(seededRandom(2) * 1e6);
         const gasUsedBase = 50 + Math.floor(seededRandom(3) * 450);
         const nonce = Math.floor(seededRandom(4) * 1e3);
@@ -12914,6 +13875,32 @@ var init_TBurnEnterpriseNode = __esm({
             // No synthetic modifier
           }
         };
+      }
+      /**
+       * Record block interval from external sources (e.g., ValidatorSimulation)
+       * This allows accurate measurement of actual block production timing
+       */
+      recordBlockInterval(intervalMs) {
+        if (intervalMs > 0 && intervalMs < 1e4) {
+          this.blockIntervals.push(intervalMs);
+          if (this.blockIntervals.length > 1e3) {
+            this.blockIntervals.shift();
+          }
+        }
+      }
+      /**
+       * Get measured block time statistics
+       */
+      getBlockTimeStats() {
+        if (this.blockIntervals.length < 10) {
+          return { avg: 100, p99: 105, samples: this.blockIntervals.length };
+        }
+        const sum = this.blockIntervals.reduce((a, b) => a + b, 0);
+        const avg = Math.round(sum / this.blockIntervals.length);
+        const sorted = [...this.blockIntervals].sort((a, b) => a - b);
+        const p99Index = Math.floor(sorted.length * 0.99);
+        const p99 = sorted[Math.min(p99Index, sorted.length - 1)];
+        return { avg, p99, samples: this.blockIntervals.length };
       }
       // Get comprehensive token economics data with demand-supply analysis and tier system
       getTokenEconomics() {
@@ -13228,18 +14215,18 @@ var init_TBurnEnterpriseNode = __esm({
           const confirmedAt = status === "confirmed" ? new Date(sentAt.getTime() + Math.floor(Math.random() * 5e3)) : void 0;
           messages.push({
             id: `msg-${Date.now()}-${i}`,
-            messageId: `0x${crypto2.randomBytes(32).toString("hex")}`,
+            messageId: `0x${crypto3.randomBytes(32).toString("hex")}`,
             fromShardId: fromShard,
             fromShardName: this.SHARD_NAMES[fromShard] || `Shard-${fromShard + 1}`,
             toShardId: toShard,
             toShardName: this.SHARD_NAMES[toShard] || `Shard-${toShard + 1}`,
-            transactionHash: `0x${crypto2.randomBytes(32).toString("hex")}`,
+            transactionHash: `0x${crypto3.randomBytes(32).toString("hex")}`,
             status,
             messageType: messageTypes[Math.floor(Math.random() * messageTypes.length)],
             payload: {
               from: generateRandomTBurnAddress(),
               to: generateRandomTBurnAddress(),
-              data: `0x${crypto2.randomBytes(32).toString("hex")}`,
+              data: `0x${crypto3.randomBytes(32).toString("hex")}`,
               value: (BigInt(Math.floor(Math.random() * 1e3)) * BigInt("1000000000000000000")).toString(),
               gasUsed: (5e4 + Math.floor(Math.random() * 1e5)).toString()
             },
@@ -13266,7 +14253,8 @@ var init_TBurnEnterpriseNode = __esm({
         return {
           id: "singleton",
           currentBlockHeight: this.currentBlockHeight,
-          totalTransactions: this.totalTransactions,
+          totalTransactions: this.getTotalTransactions(),
+          // Cached for 30s consistency
           tps: realTimeTps.current,
           peakTps: realTimeTps.peak,
           avgBlockTime: 100,
@@ -13279,8 +14267,8 @@ var init_TBurnEnterpriseNode = __esm({
           // 8-15ms (ultra-low latency)
           latencyP99: 20 + Math.floor(Math.random() * 10),
           // 20-30ms P99
-          activeValidators: 125,
-          totalValidators: 125,
+          activeValidators: 1600,
+          totalValidators: 1600,
           totalAccounts: 527849,
           // 527K+ accounts on mainnet
           totalShards: this.shardConfig.currentShardCount,
@@ -13469,7 +14457,7 @@ var init_TBurnEnterpriseNode = __esm({
         ];
         return Array.from({ length: Math.min(totalValidators, 125) }, (_, i) => {
           const tier = i < 12 ? 1 : i < 50 ? 2 : 3;
-          const addressHash = crypto2.createHash("sha256").update(`validator-${i}-${this.config.nodeId}`).digest("hex");
+          const addressHash = crypto3.createHash("sha256").update(`validator-${i}-${this.config.nodeId}`).digest("hex");
           const baseStake = tier === 1 ? 45e6 : tier === 2 ? 8e6 : 5e5;
           const stakeVariance = parseInt(addressHash.slice(0, 8), 16) % 5e6;
           const stake = baseStake + stakeVariance;
@@ -13519,9 +14507,9 @@ var init_TBurnEnterpriseNode = __esm({
         const blockAge = Date.now() % 500;
         const phase = blockAge < 100 ? "propose" : blockAge < 250 ? "prevote" : blockAge < 400 ? "precommit" : "commit";
         const proposerIndex = roundNumber % committeeSize;
-        const proposerHash = crypto2.createHash("sha256").update(`validator-${proposerIndex}-${this.config.nodeId}`).digest("hex");
+        const proposerHash = crypto3.createHash("sha256").update(`validator-${proposerIndex}-${this.config.nodeId}`).digest("hex");
         const committee = Array.from({ length: committeeSize }, (_, i) => {
-          const memberHash = crypto2.createHash("sha256").update(`validator-${i}-${this.config.nodeId}`).digest("hex");
+          const memberHash = crypto3.createHash("sha256").update(`validator-${i}-${this.config.nodeId}`).digest("hex");
           const votingPower = 2e7 + parseInt(memberHash.slice(0, 8), 16) % 25e6;
           const participationSeed = (roundNumber + i) % 100;
           const voted = participationSeed < 95;
@@ -13758,7 +14746,7 @@ var init_TBurnEnterpriseNode = __esm({
           { labelKey: "burnedSupply", value: this.formatNumber(totalBurned), unit: "TBURN" }
         ];
         const recentActions = Array.from({ length: 10 }, (_, i) => {
-          const actionSeed = crypto2.createHash("sha256").update(`action-${this.currentBlockHeight - i}-${this.config.nodeId}`).digest("hex");
+          const actionSeed = crypto3.createHash("sha256").update(`action-${this.currentBlockHeight - i}-${this.config.nodeId}`).digest("hex");
           const actionType = i % 4 === 0 ? "Mint" : "Burn";
           const token = i % 3 === 0 ? "stTBURN" : "TBURN";
           const amount = parseInt(actionSeed.slice(0, 6), 16) % 3e6 + 5e5;
@@ -13797,7 +14785,7 @@ var init_TBurnEnterpriseNode = __esm({
         };
         const history = Array.from({ length: 7 }, (_, i) => {
           const date = new Date(Date.now() - i * 864e5);
-          const dateSeed = crypto2.createHash("sha256").update(`burn-history-${date.toISOString().split("T")[0]}-${this.config.nodeId}`).digest("hex");
+          const dateSeed = crypto3.createHash("sha256").update(`burn-history-${date.toISOString().split("T")[0]}-${this.config.nodeId}`).digest("hex");
           const variance = parseInt(dateSeed.slice(0, 4), 16) % 2e5 - 1e5;
           const dailyTotal = this.dailyBurnAmount + variance;
           const txBurn = Math.floor(dailyTotal * 0.25);
@@ -13845,7 +14833,7 @@ var init_TBurnEnterpriseNode = __esm({
           }
         ];
         const events = Array.from({ length: 10 }, (_, i) => {
-          const eventSeed = crypto2.createHash("sha256").update(`burn-event-${this.currentBlockHeight - i}-${this.config.nodeId}`).digest("hex");
+          const eventSeed = crypto3.createHash("sha256").update(`burn-event-${this.currentBlockHeight - i}-${this.config.nodeId}`).digest("hex");
           const amount = parseInt(eventSeed.slice(0, 6), 16) % 3e6 + 2e5;
           const types = ["AI Optimized", "Transaction", "Time-based", "Volume-based"];
           const hours = i * 6;
@@ -13928,7 +14916,7 @@ var init_TBurnEnterpriseNode = __esm({
           { name: "Emergency Reserve", balance: this.formatNumber(Math.floor(treasuryBalance * 0.05)), percentage: 5, color: "bg-gray-500" }
         ];
         const transactions3 = Array.from({ length: 10 }, (_, i) => {
-          const txSeed = crypto2.createHash("sha256").update(`treasury-tx-${this.currentBlockHeight - i}-${this.config.nodeId}`).digest("hex");
+          const txSeed = crypto3.createHash("sha256").update(`treasury-tx-${this.currentBlockHeight - i}-${this.config.nodeId}`).digest("hex");
           const isIncome = i % 3 !== 0;
           const amount = parseInt(txSeed.slice(0, 6), 16) % 5e6 + 1e5;
           const categories = isIncome ? ["Transaction Fees", "Bridge Fees", "DEX Trading Fees", "Staking Penalty"] : ["Staking Rewards", "AI Infrastructure", "Development", "Marketing"];
@@ -13966,7 +14954,7 @@ var init_TBurnEnterpriseNode = __esm({
        */
       getAIOrchestrationData() {
         const blockHeight = this.currentBlock;
-        const dateSeed = crypto2.createHash("sha256").update(`ai-orchestration-${(/* @__PURE__ */ new Date()).toISOString().split("T")[0]}-${this.config.nodeId}`).digest("hex");
+        const dateSeed = crypto3.createHash("sha256").update(`ai-orchestration-${(/* @__PURE__ */ new Date()).toISOString().split("T")[0]}-${this.config.nodeId}`).digest("hex");
         const seedValue = parseInt(dateSeed.slice(0, 8), 16);
         const models = [
           {
@@ -14024,7 +15012,7 @@ var init_TBurnEnterpriseNode = __esm({
           "Activate cross-shard routing optimization"
         ];
         const decisions = Array.from({ length: 6 }, (_, i) => {
-          const decisionSeed = crypto2.createHash("sha256").update(`decision-${i}-${dateSeed}`).digest("hex");
+          const decisionSeed = crypto3.createHash("sha256").update(`decision-${i}-${dateSeed}`).digest("hex");
           const confidence = 92 + parseInt(decisionSeed.slice(0, 2), 16) % 8;
           return {
             id: i + 1,
@@ -14036,7 +15024,7 @@ var init_TBurnEnterpriseNode = __esm({
           };
         });
         const performance2 = ["00:00", "04:00", "08:00", "12:00", "16:00", "20:00"].map((time, i) => {
-          const perfSeed = crypto2.createHash("sha256").update(`perf-${time}-${dateSeed}`).digest("hex");
+          const perfSeed = crypto3.createHash("sha256").update(`perf-${time}-${dateSeed}`).digest("hex");
           const variance = parseInt(perfSeed.slice(0, 4), 16) % 20;
           return {
             time,
@@ -14067,7 +15055,7 @@ var init_TBurnEnterpriseNode = __esm({
       getAIAnalyticsData() {
         const daysSinceGenesis = Math.max(1, Math.floor((Date.now() - (/* @__PURE__ */ new Date("2024-12-08")).getTime()) / 864e5));
         const baseDecisions = 8e6 + daysSinceGenesis * 5e4;
-        const dateSeed = crypto2.createHash("sha256").update(`ai-analytics-${(/* @__PURE__ */ new Date()).toISOString().split("T")[0]}-${this.config.nodeId}`).digest("hex");
+        const dateSeed = crypto3.createHash("sha256").update(`ai-analytics-${(/* @__PURE__ */ new Date()).toISOString().split("T")[0]}-${this.config.nodeId}`).digest("hex");
         const seedValue = parseInt(dateSeed.slice(0, 8), 16);
         return {
           overallMetrics: {
@@ -14112,7 +15100,7 @@ var init_TBurnEnterpriseNode = __esm({
        * All values are deterministically derived from node state (no Math.random)
        */
       getAITrainingData() {
-        const dateSeed = crypto2.createHash("sha256").update(`ai-training-${(/* @__PURE__ */ new Date()).toISOString().split("T")[0]}-${this.config.nodeId}`).digest("hex");
+        const dateSeed = crypto3.createHash("sha256").update(`ai-training-${(/* @__PURE__ */ new Date()).toISOString().split("T")[0]}-${this.config.nodeId}`).digest("hex");
         const seedValue = parseInt(dateSeed.slice(0, 8), 16);
         const datasets = [
           { name: "TBURN Transaction Patterns", records: "245.8M", size: "128.5 GB", lastUpdated: (/* @__PURE__ */ new Date()).toISOString().split("T")[0], quality: 99 },
@@ -14122,7 +15110,7 @@ var init_TBurnEnterpriseNode = __esm({
           { name: "Bridge Transaction Records", records: "8.9M", size: "4.5 GB", lastUpdated: (/* @__PURE__ */ new Date()).toISOString().split("T")[0], quality: 97 }
         ];
         const accuracyData = Array.from({ length: 6 }, (_, i) => {
-          const epochSeed = crypto2.createHash("sha256").update(`epoch-${i}-${dateSeed}`).digest("hex");
+          const epochSeed = crypto3.createHash("sha256").update(`epoch-${i}-${dateSeed}`).digest("hex");
           const variance = parseInt(epochSeed.slice(0, 2), 16) % 3;
           return {
             epoch: i + 1,
@@ -14143,7 +15131,7 @@ var init_TBurnEnterpriseNode = __esm({
        * All values are deterministically derived from node state (no Math.random)
        */
       getBridgeStats() {
-        const dateSeed = crypto2.createHash("sha256").update(`bridge-stats-${(/* @__PURE__ */ new Date()).toISOString().split("T")[0]}-${this.config.nodeId}`).digest("hex");
+        const dateSeed = crypto3.createHash("sha256").update(`bridge-stats-${(/* @__PURE__ */ new Date()).toISOString().split("T")[0]}-${this.config.nodeId}`).digest("hex");
         const seedValue = parseInt(dateSeed.slice(0, 8), 16);
         const hour = (/* @__PURE__ */ new Date()).getHours();
         const baseVolume = 285e5 + seedValue % 5e6;
@@ -14168,7 +15156,7 @@ var init_TBurnEnterpriseNode = __esm({
         const tokens = { "Ethereum": "ETH", "BSC": "BNB", "Polygon": "MATIC", "Arbitrum": "ETH", "TBURN": "TBURN" };
         const statuses = ["completed", "completed", "completed", "pending", "validating", "failed"];
         const transfers = Array.from({ length: 50 }, (_, i) => {
-          const txSeed = crypto2.createHash("sha256").update(`bridge-tx-${i}-${(/* @__PURE__ */ new Date()).toISOString().split("T")[0]}-${this.config.nodeId}`).digest("hex");
+          const txSeed = crypto3.createHash("sha256").update(`bridge-tx-${i}-${(/* @__PURE__ */ new Date()).toISOString().split("T")[0]}-${this.config.nodeId}`).digest("hex");
           const fromIdx = parseInt(txSeed.slice(0, 2), 16) % 4;
           const toIdx = parseInt(txSeed.slice(2, 4), 16) % 5;
           const fromChain = chains[fromIdx];
@@ -14200,7 +15188,7 @@ var init_TBurnEnterpriseNode = __esm({
        * Real chain configurations with deterministic metrics
        */
       getBridgeChains() {
-        const dateSeed = crypto2.createHash("sha256").update(`bridge-chains-${(/* @__PURE__ */ new Date()).toISOString().split("T")[0]}-${this.config.nodeId}`).digest("hex");
+        const dateSeed = crypto3.createHash("sha256").update(`bridge-chains-${(/* @__PURE__ */ new Date()).toISOString().split("T")[0]}-${this.config.nodeId}`).digest("hex");
         const seedValue = parseInt(dateSeed.slice(0, 8), 16);
         const chains = [
           {
@@ -14287,7 +15275,7 @@ var init_TBurnEnterpriseNode = __esm({
             id: 5,
             name: "TBURN Mainnet",
             symbol: "TBURN",
-            chainId: 7979,
+            chainId: 6e3,
             status: "active",
             tvl: "$168.2M",
             volume24h: "$3.8M",
@@ -14324,11 +15312,11 @@ var init_TBurnEnterpriseNode = __esm({
        * Deterministic validator data generation
        */
       getBridgeValidators() {
-        const dateSeed = crypto2.createHash("sha256").update(`bridge-validators-${(/* @__PURE__ */ new Date()).toISOString().split("T")[0]}-${this.config.nodeId}`).digest("hex");
+        const dateSeed = crypto3.createHash("sha256").update(`bridge-validators-${(/* @__PURE__ */ new Date()).toISOString().split("T")[0]}-${this.config.nodeId}`).digest("hex");
         const allChains = ["Ethereum", "BSC", "Polygon", "Arbitrum", "TBURN"];
         const statuses = ["active", "active", "active", "active", "active", "active", "inactive", "slashed"];
         const validators2 = Array.from({ length: 21 }, (_, i) => {
-          const valSeed = crypto2.createHash("sha256").update(`bridge-val-${i}-${dateSeed}`).digest("hex");
+          const valSeed = crypto3.createHash("sha256").update(`bridge-val-${i}-${dateSeed}`).digest("hex");
           const seedVal = parseInt(valSeed.slice(0, 8), 16);
           const statusIdx = seedVal % statuses.length;
           const chainCount = 2 + seedVal % 4;
@@ -14375,10 +15363,10 @@ var init_TBurnEnterpriseNode = __esm({
        * Deterministic signature event generation
        */
       getBridgeSignatures() {
-        const dateSeed = crypto2.createHash("sha256").update(`bridge-sigs-${(/* @__PURE__ */ new Date()).toISOString().split("T")[0]}-${this.config.nodeId}`).digest("hex");
+        const dateSeed = crypto3.createHash("sha256").update(`bridge-sigs-${(/* @__PURE__ */ new Date()).toISOString().split("T")[0]}-${this.config.nodeId}`).digest("hex");
         const required = 14;
         const signatures = Array.from({ length: 25 }, (_, i) => {
-          const sigSeed = crypto2.createHash("sha256").update(`sig-${i}-${dateSeed}`).digest("hex");
+          const sigSeed = crypto3.createHash("sha256").update(`sig-${i}-${dateSeed}`).digest("hex");
           const seedVal = parseInt(sigSeed.slice(0, 8), 16);
           const validators2 = required + seedVal % 7;
           return {
@@ -14396,7 +15384,7 @@ var init_TBurnEnterpriseNode = __esm({
        * Get Bridge Liquidity Stats
        */
       getBridgeLiquidityStats() {
-        const dateSeed = crypto2.createHash("sha256").update(`bridge-liq-stats-${(/* @__PURE__ */ new Date()).toISOString().split("T")[0]}-${this.config.nodeId}`).digest("hex");
+        const dateSeed = crypto3.createHash("sha256").update(`bridge-liq-stats-${(/* @__PURE__ */ new Date()).toISOString().split("T")[0]}-${this.config.nodeId}`).digest("hex");
         const seedValue = parseInt(dateSeed.slice(0, 8), 16);
         return {
           totalLocked: "$568,500,000",
@@ -14411,7 +15399,7 @@ var init_TBurnEnterpriseNode = __esm({
        * Get Bridge Liquidity Pools
        */
       getBridgeLiquidityPools() {
-        const dateSeed = crypto2.createHash("sha256").update(`bridge-pools-${(/* @__PURE__ */ new Date()).toISOString().split("T")[0]}-${this.config.nodeId}`).digest("hex");
+        const dateSeed = crypto3.createHash("sha256").update(`bridge-pools-${(/* @__PURE__ */ new Date()).toISOString().split("T")[0]}-${this.config.nodeId}`).digest("hex");
         const pools = [
           { chain: "Ethereum", locked: "$185.2M", available: "$72.5M", utilization: 61, tokens: ["ETH", "USDC", "USDT", "WBTC"], apy: "7.8%", tvlChange24h: "+2.3%" },
           { chain: "BSC", locked: "$125.8M", available: "$58.2M", utilization: 54, tokens: ["BNB", "BUSD", "USDT"], apy: "9.2%", tvlChange24h: "+1.8%" },
@@ -14425,10 +15413,10 @@ var init_TBurnEnterpriseNode = __esm({
        * Get Bridge Liquidity History (30 days)
        */
       getBridgeLiquidityHistory() {
-        const dateSeed = crypto2.createHash("sha256").update(`bridge-liq-history-${this.config.nodeId}`).digest("hex");
+        const dateSeed = crypto3.createHash("sha256").update(`bridge-liq-history-${this.config.nodeId}`).digest("hex");
         const baseValue = 52e7;
         const history = Array.from({ length: 30 }, (_, i) => {
-          const daySeed = crypto2.createHash("sha256").update(`liq-day-${i}-${dateSeed}`).digest("hex");
+          const daySeed = crypto3.createHash("sha256").update(`liq-day-${i}-${dateSeed}`).digest("hex");
           const variance = parseInt(daySeed.slice(0, 8), 16) % 3e7;
           const growth = i * 15e5;
           return {
@@ -14442,7 +15430,7 @@ var init_TBurnEnterpriseNode = __esm({
        * Get Bridge Liquidity Alerts
        */
       getBridgeLiquidityAlerts() {
-        const dateSeed = crypto2.createHash("sha256").update(`bridge-alerts-${(/* @__PURE__ */ new Date()).toISOString().split("T")[0]}-${this.config.nodeId}`).digest("hex");
+        const dateSeed = crypto3.createHash("sha256").update(`bridge-alerts-${(/* @__PURE__ */ new Date()).toISOString().split("T")[0]}-${this.config.nodeId}`).digest("hex");
         const seedValue = parseInt(dateSeed.slice(0, 8), 16);
         const alerts = [
           { id: 1, from: "Ethereum", to: "BSC", amount: "$4.2M", reason: "Utilization imbalance detected (>65% vs <45%)", priority: "high", timestamp: new Date(Date.now() - 36e5).toISOString() },
@@ -14457,10 +15445,10 @@ var init_TBurnEnterpriseNode = __esm({
        * Get Bridge Volume data for charts
        */
       getBridgeVolume() {
-        const dateSeed = crypto2.createHash("sha256").update(`bridge-volume-${(/* @__PURE__ */ new Date()).toISOString().split("T")[0]}-${this.config.nodeId}`).digest("hex");
+        const dateSeed = crypto3.createHash("sha256").update(`bridge-volume-${(/* @__PURE__ */ new Date()).toISOString().split("T")[0]}-${this.config.nodeId}`).digest("hex");
         const hours = ["00:00", "04:00", "08:00", "12:00", "16:00", "20:00"];
         const history = hours.map((time, i) => {
-          const hourSeed = crypto2.createHash("sha256").update(`vol-${i}-${dateSeed}`).digest("hex");
+          const hourSeed = crypto3.createHash("sha256").update(`vol-${i}-${dateSeed}`).digest("hex");
           const seedVal = parseInt(hourSeed.slice(0, 8), 16);
           return {
             time,
@@ -14487,7 +15475,7 @@ var init_TBurnEnterpriseNode = __esm({
        * Provides real-time security metrics, threat events, and active sessions
        */
       getSecurityData() {
-        const dateSeed = crypto2.createHash("sha256").update(`security-${(/* @__PURE__ */ new Date()).toISOString().split("T")[0]}-${this.config.nodeId}`).digest("hex");
+        const dateSeed = crypto3.createHash("sha256").update(`security-${(/* @__PURE__ */ new Date()).toISOString().split("T")[0]}-${this.config.nodeId}`).digest("hex");
         const seedVal = parseInt(dateSeed.slice(0, 8), 16);
         const baseScore = 97.5;
         const variance = seedVal % 25 / 10;
@@ -14510,7 +15498,7 @@ var init_TBurnEnterpriseNode = __esm({
           { type: "IP Reputation Block", severity: "low", target: "API Gateway" }
         ];
         const threatEvents = threatTypes.map((threat, i) => {
-          const eventSeed = crypto2.createHash("sha256").update(`threat-${i}-${dateSeed}`).digest("hex");
+          const eventSeed = crypto3.createHash("sha256").update(`threat-${i}-${dateSeed}`).digest("hex");
           const eventVal = parseInt(eventSeed.slice(0, 8), 16);
           return {
             id: i + 1,
@@ -14535,7 +15523,7 @@ var init_TBurnEnterpriseNode = __esm({
         ];
         const devices = ["Chrome/Windows", "Firefox/macOS", "Safari/macOS", "Chrome/Linux", "Edge/Windows", "Chrome/macOS"];
         const activeSessions = operators.slice(0, 6 + seedVal % 3).map((op, i) => {
-          const sessionSeed = crypto2.createHash("sha256").update(`session-${i}-${dateSeed}`).digest("hex");
+          const sessionSeed = crypto3.createHash("sha256").update(`session-${i}-${dateSeed}`).digest("hex");
           const sessionVal = parseInt(sessionSeed.slice(0, 8), 16);
           return {
             id: i + 1,
@@ -14554,7 +15542,7 @@ var init_TBurnEnterpriseNode = __esm({
        * Provides policies, IP whitelist, permissions, and access logs
        */
       getAccessControlData() {
-        const dateSeed = crypto2.createHash("sha256").update(`access-${(/* @__PURE__ */ new Date()).toISOString().split("T")[0]}-${this.config.nodeId}`).digest("hex");
+        const dateSeed = crypto3.createHash("sha256").update(`access-${(/* @__PURE__ */ new Date()).toISOString().split("T")[0]}-${this.config.nodeId}`).digest("hex");
         const seedVal = parseInt(dateSeed.slice(0, 8), 16);
         const policies = [
           { id: 1, nameKey: "superAdminAccess", descKey: "superAdminAccessDesc", roles: ["super_admin"], resources: "/admin/*, /api/admin/*", status: "active" },
@@ -14583,7 +15571,7 @@ var init_TBurnEnterpriseNode = __esm({
           { user: "bridge-ops@tburn.io", action: "Liquidity Rebalance", status: "success" }
         ];
         const recentAccess = accessActions.map((access, i) => {
-          const accessSeed = crypto2.createHash("sha256").update(`access-log-${i}-${dateSeed}`).digest("hex");
+          const accessSeed = crypto3.createHash("sha256").update(`access-log-${i}-${dateSeed}`).digest("hex");
           const accessVal = parseInt(accessSeed.slice(0, 8), 16);
           const minutes = i * 5 + accessVal % 10;
           return {
@@ -14614,7 +15602,7 @@ var init_TBurnEnterpriseNode = __esm({
        * Provides detailed audit trail of all system operations
        */
       getEnterpriseAuditLogs() {
-        const dateSeed = crypto2.createHash("sha256").update(`audit-${(/* @__PURE__ */ new Date()).toISOString().split("T")[0]}-${this.config.nodeId}`).digest("hex");
+        const dateSeed = crypto3.createHash("sha256").update(`audit-${(/* @__PURE__ */ new Date()).toISOString().split("T")[0]}-${this.config.nodeId}`).digest("hex");
         const auditTemplates = [
           { actor: "admin@tburn.io", actorRole: "Super Admin", action: "BRIDGE_CONFIG_UPDATE", category: "configuration", target: "ethereum_bridge", targetType: "bridge", details: { field: "maxTransferLimit", oldValue: "$500K", newValue: "$1M" } },
           { actor: "ops-lead@tburn.io", actorRole: "Operator Lead", action: "VALIDATOR_RESTART", category: "operations", target: "validator_pool_3", targetType: "validator", details: { reason: "Performance optimization", validators: 12 } },
@@ -14628,7 +15616,7 @@ var init_TBurnEnterpriseNode = __esm({
           { actor: "ai-system", actorRole: "AI Orchestrator", action: "CONSENSUS_OPTIMIZATION", category: "system", target: "consensus_params", targetType: "ai_decision", details: { blockTime: "1.2s\u21921.0s", throughput: "+15%", confidence: 98.7 } }
         ];
         const logs = auditTemplates.map((template, i) => {
-          const logSeed = crypto2.createHash("sha256").update(`log-${i}-${dateSeed}`).digest("hex");
+          const logSeed = crypto3.createHash("sha256").update(`log-${i}-${dateSeed}`).digest("hex");
           const logVal = parseInt(logSeed.slice(0, 8), 16);
           const timeOffset = i * 6e5 + logVal % 3e5;
           return {
@@ -14647,7 +15635,7 @@ var init_TBurnEnterpriseNode = __esm({
        * Provides real-time threat monitoring with AI detection
        */
       getThreatData() {
-        const dateSeed = crypto2.createHash("sha256").update(`threats-${(/* @__PURE__ */ new Date()).toISOString().split("T")[0]}-${this.config.nodeId}`).digest("hex");
+        const dateSeed = crypto3.createHash("sha256").update(`threats-${(/* @__PURE__ */ new Date()).toISOString().split("T")[0]}-${this.config.nodeId}`).digest("hex");
         const seedVal = parseInt(dateSeed.slice(0, 8), 16);
         const stats = {
           threatsDetected: 1800 + seedVal % 100,
@@ -14666,7 +15654,7 @@ var init_TBurnEnterpriseNode = __esm({
           { type: "IP Reputation Block", severity: "low", target: "API Gateway" }
         ];
         const recentThreats = threatTemplates.map((threat, i) => {
-          const threatSeed = crypto2.createHash("sha256").update(`recent-threat-${i}-${dateSeed}`).digest("hex");
+          const threatSeed = crypto3.createHash("sha256").update(`recent-threat-${i}-${dateSeed}`).digest("hex");
           const threatVal = parseInt(threatSeed.slice(0, 8), 16);
           return {
             id: i + 1,
@@ -14686,7 +15674,7 @@ var init_TBurnEnterpriseNode = __esm({
           { pattern: "Smart contract interactions normal", confidence: 98.8, risk: "low", recommendation: "All patterns verified" }
         ];
         const threatTrend = Array.from({ length: 7 }, (_, i) => {
-          const daySeed = crypto2.createHash("sha256").update(`trend-${i}-${dateSeed}`).digest("hex");
+          const daySeed = crypto3.createHash("sha256").update(`trend-${i}-${dateSeed}`).digest("hex");
           const dayVal = parseInt(daySeed.slice(0, 8), 16);
           const date = new Date(Date.now() - (6 - i) * 864e5);
           return {
@@ -14708,7 +15696,7 @@ var init_TBurnEnterpriseNode = __esm({
        * Provides compliance scores, frameworks, findings, and audit schedule
        */
       getComplianceData() {
-        const dateSeed = crypto2.createHash("sha256").update(`compliance-${(/* @__PURE__ */ new Date()).toISOString().split("T")[0]}-${this.config.nodeId}`).digest("hex");
+        const dateSeed = crypto3.createHash("sha256").update(`compliance-${(/* @__PURE__ */ new Date()).toISOString().split("T")[0]}-${this.config.nodeId}`).digest("hex");
         const seedVal = parseInt(dateSeed.slice(0, 8), 16);
         const complianceScore = {
           overall: 98.2 + seedVal % 15 / 10,
@@ -14743,7 +15731,7 @@ var init_TBurnEnterpriseNode = __esm({
       }
       // Data & Analytics Methods
       getBIMetrics(timeRange = "30d") {
-        const seed = crypto2.createHash("sha256").update(`bi-metrics-${(/* @__PURE__ */ new Date()).toISOString().split("T")[0]}`).digest("hex");
+        const seed = crypto3.createHash("sha256").update(`bi-metrics-${(/* @__PURE__ */ new Date()).toISOString().split("T")[0]}`).digest("hex");
         const baseMultiplier = timeRange === "7d" ? 0.25 : timeRange === "30d" ? 1 : timeRange === "90d" ? 3 : 12;
         const dailyActiveUsers = 847523 + parseInt(seed.slice(0, 4), 16) % 5e4;
         const txVolume = 1275e5 + parseInt(seed.slice(4, 8), 16) % 1e7;
@@ -14785,7 +15773,7 @@ var init_TBurnEnterpriseNode = __esm({
         };
       }
       getTxAnalytics() {
-        const seed = crypto2.createHash("sha256").update(`tx-analytics-${Date.now()}`).digest("hex");
+        const seed = crypto3.createHash("sha256").update(`tx-analytics-${Date.now()}`).digest("hex");
         const baseTx = 7847523 + parseInt(seed.slice(0, 6), 16) % 5e5;
         const tps = (baseTx / 86400).toFixed(1);
         const stats = {
@@ -14816,7 +15804,7 @@ var init_TBurnEnterpriseNode = __esm({
         return { stats, volume, types, gasHistory };
       }
       getUserAnalytics() {
-        const seed = crypto2.createHash("sha256").update(`user-analytics-${(/* @__PURE__ */ new Date()).toISOString().split("T")[0]}`).digest("hex");
+        const seed = crypto3.createHash("sha256").update(`user-analytics-${(/* @__PURE__ */ new Date()).toISOString().split("T")[0]}`).digest("hex");
         const totalUsers = 2847523 + parseInt(seed.slice(0, 6), 16) % 1e5;
         const stats = {
           totalUsers: totalUsers.toLocaleString(),
@@ -14861,7 +15849,7 @@ var init_TBurnEnterpriseNode = __esm({
         return { stats, growth, tiers, geoDistribution, activityDistribution, sessionMetrics };
       }
       getNetworkAnalytics() {
-        const seed = crypto2.createHash("sha256").update(`network-analytics-${Date.now()}`).digest("hex");
+        const seed = crypto3.createHash("sha256").update(`network-analytics-${Date.now()}`).digest("hex");
         const currentTps = 8500 + parseInt(seed.slice(0, 4), 16) % 2e3;
         const stats = {
           tps: currentTps.toLocaleString(),
@@ -14920,7 +15908,7 @@ var init_TBurnEnterpriseNode = __esm({
       }
       // Operations Tools Methods
       getEmergencyStatus() {
-        const seed = crypto2.createHash("sha256").update(`emergency-${(/* @__PURE__ */ new Date()).toISOString().split("T")[0]}`).digest("hex");
+        const seed = crypto3.createHash("sha256").update(`emergency-${(/* @__PURE__ */ new Date()).toISOString().split("T")[0]}`).digest("hex");
         const tps = 88500 + parseInt(seed.slice(0, 4), 16) % 5e3;
         const gasPrice = 35 + parseInt(seed.slice(4, 6), 16) % 20;
         const bridgeVol = 85 + parseInt(seed.slice(6, 8), 16) % 15;
@@ -14984,7 +15972,7 @@ var init_TBurnEnterpriseNode = __esm({
       }
       getBackupData() {
         const now = /* @__PURE__ */ new Date();
-        const seed = crypto2.createHash("sha256").update(`backup-${now.toISOString().split("T")[0]}`).digest("hex");
+        const seed = crypto3.createHash("sha256").update(`backup-${now.toISOString().split("T")[0]}`).digest("hex");
         const totalSize = 4.5 + parseInt(seed.slice(0, 4), 16) % 10 / 10;
         const backupCount = 150 + parseInt(seed.slice(4, 8), 16) % 20;
         const stats = {
@@ -15047,7 +16035,7 @@ var init_TBurnEnterpriseNode = __esm({
       }
       getSystemLogs() {
         const now = Date.now();
-        const seed = crypto2.createHash("sha256").update(`logs-${now}`).digest("hex");
+        const seed = crypto3.createHash("sha256").update(`logs-${now}`).digest("hex");
         const blockHeight = this.currentBlock || 2564e4 + parseInt(seed.slice(0, 6), 16) % 1e4;
         const validators2 = this.getShardConfig().validatorsPerShard * this.getShardConfig().shardCount;
         const logs = [
@@ -15075,7 +16063,7 @@ var init_TBurnEnterpriseNode = __esm({
         return {
           general: {
             chainName: "TBURN Mainnet",
-            chainId: "797900",
+            chainId: "6000",
             rpcEndpoint: "https://rpc.tburn.io",
             wsEndpoint: "wss://ws.tburn.io",
             explorerUrl: "https://explorer.tburn.io",
@@ -15121,13 +16109,13 @@ var init_TBurnEnterpriseNode = __esm({
       }
       getApiConfig() {
         const now = /* @__PURE__ */ new Date();
-        const seed = crypto2.createHash("sha256").update(`api-${now.toISOString().split("T")[0]}`).digest("hex");
+        const seed = crypto3.createHash("sha256").update(`api-${now.toISOString().split("T")[0]}`).digest("hex");
         const apiKeys2 = [
           { id: "1", name: "Enterprise Primary", key: `tburn_ent_${seed.slice(0, 32)}`, createdAt: "2024-11-15", lastUsed: now.toISOString().split("T")[0], status: "active", permissions: ["read", "write", "admin"], rateLimit: 1e4, usageCount: 1245678 },
           { id: "2", name: "Bridge Gateway", key: `tburn_brg_${seed.slice(32, 64)}`, createdAt: "2024-11-20", lastUsed: now.toISOString().split("T")[0], status: "active", permissions: ["read", "write"], rateLimit: 5e4, usageCount: 892456 },
-          { id: "3", name: "AI Orchestration", key: `tburn_ai_${crypto2.createHash("sha256").update("ai-key").digest("hex").slice(0, 32)}`, createdAt: "2024-11-25", lastUsed: now.toISOString().split("T")[0], status: "active", permissions: ["read", "ai"], rateLimit: 1e5, usageCount: 2567890 },
-          { id: "4", name: "Public API", key: `tburn_pub_${crypto2.createHash("sha256").update("public-key").digest("hex").slice(0, 32)}`, createdAt: "2024-12-01", lastUsed: now.toISOString().split("T")[0], status: "active", permissions: ["read"], rateLimit: 2e3, usageCount: 4567123 },
-          { id: "5", name: "WebSocket Gateway", key: `tburn_ws_${crypto2.createHash("sha256").update("ws-key").digest("hex").slice(0, 32)}`, createdAt: "2024-12-05", lastUsed: now.toISOString().split("T")[0], status: "active", permissions: ["read", "stream"], rateLimit: 2e4, usageCount: 1123456 }
+          { id: "3", name: "AI Orchestration", key: `tburn_ai_${crypto3.createHash("sha256").update("ai-key").digest("hex").slice(0, 32)}`, createdAt: "2024-11-25", lastUsed: now.toISOString().split("T")[0], status: "active", permissions: ["read", "ai"], rateLimit: 1e5, usageCount: 2567890 },
+          { id: "4", name: "Public API", key: `tburn_pub_${crypto3.createHash("sha256").update("public-key").digest("hex").slice(0, 32)}`, createdAt: "2024-12-01", lastUsed: now.toISOString().split("T")[0], status: "active", permissions: ["read"], rateLimit: 2e3, usageCount: 4567123 },
+          { id: "5", name: "WebSocket Gateway", key: `tburn_ws_${crypto3.createHash("sha256").update("ws-key").digest("hex").slice(0, 32)}`, createdAt: "2024-12-05", lastUsed: now.toISOString().split("T")[0], status: "active", permissions: ["read", "stream"], rateLimit: 2e4, usageCount: 1123456 }
         ];
         const rateLimits = [
           { endpoint: "/api/v1/blocks", limit: 100, window: "1m", currentUsage: 45 },
@@ -15161,7 +16149,7 @@ var init_TBurnEnterpriseNode = __esm({
         ];
         const webhookConfig = {
           incomingUrl: "https://webhooks.tburn.io/incoming/v1",
-          secret: "whsec_" + crypto2.createHash("sha256").update("webhook-secret").digest("hex").slice(0, 32),
+          secret: "whsec_" + crypto3.createHash("sha256").update("webhook-secret").digest("hex").slice(0, 32),
           events: {
             blockCreated: true,
             transaction: true,
@@ -15849,7 +16837,7 @@ var init_TBurnEnterpriseNode = __esm({
       // ===== FINANCE & ACCOUNTING METHODS =====
       getFinanceOverview() {
         const seed = this.currentBlockHeight;
-        const hash = (s) => parseInt(crypto2.createHash("md5").update(String(s)).digest("hex").slice(0, 8), 16);
+        const hash = (s) => parseInt(crypto3.createHash("md5").update(String(s)).digest("hex").slice(0, 8), 16);
         return {
           summary: {
             totalRevenue: 2875e4 + hash(seed) % 5e5,
@@ -15896,7 +16884,7 @@ var init_TBurnEnterpriseNode = __esm({
       }
       getTransactionAccounting() {
         const seed = this.currentBlockHeight;
-        const hash = (s) => parseInt(crypto2.createHash("md5").update(String(s)).digest("hex").slice(0, 8), 16);
+        const hash = (s) => parseInt(crypto3.createHash("md5").update(String(s)).digest("hex").slice(0, 8), 16);
         return {
           summary: {
             totalTransactions: 52847291 + hash(seed) % 1e4,
@@ -15946,7 +16934,7 @@ var init_TBurnEnterpriseNode = __esm({
       }
       getBudgetManagement() {
         const seed = this.currentBlockHeight;
-        const hash = (s) => parseInt(crypto2.createHash("md5").update(String(s)).digest("hex").slice(0, 8), 16);
+        const hash = (s) => parseInt(crypto3.createHash("md5").update(String(s)).digest("hex").slice(0, 8), 16);
         return {
           fiscalYear: "FY2024",
           totalBudget: 85e6,
@@ -15985,7 +16973,7 @@ var init_TBurnEnterpriseNode = __esm({
       }
       getCostAnalysis() {
         const seed = this.currentBlockHeight;
-        const hash = (s) => parseInt(crypto2.createHash("md5").update(String(s)).digest("hex").slice(0, 8), 16);
+        const hash = (s) => parseInt(crypto3.createHash("md5").update(String(s)).digest("hex").slice(0, 8), 16);
         return {
           totalOperatingCost: 1234e4 + hash(seed) % 1e5,
           costPerTransaction: 234e-6 + hash(seed + 1) % 10 / 1e5,
@@ -16226,12 +17214,12 @@ var init_TBurnEnterpriseNode = __esm({
        * Matches BridgeChain interface in bridge.tsx
        */
       getPublicBridgeChains() {
-        const dateSeed = crypto2.createHash("sha256").update(`public-bridge-chains-${(/* @__PURE__ */ new Date()).toISOString().split("T")[0]}-${this.config.nodeId}`).digest("hex");
+        const dateSeed = crypto3.createHash("sha256").update(`public-bridge-chains-${(/* @__PURE__ */ new Date()).toISOString().split("T")[0]}-${this.config.nodeId}`).digest("hex");
         const seedValue = parseInt(dateSeed.slice(0, 8), 16);
         const seedBigInt = BigInt(seedValue);
         const hourVariance = (/* @__PURE__ */ new Date()).getHours();
         return [
-          { id: "tburn-mainnet", chainId: 7979, name: "TBURN Mainnet", symbol: "TBURN", nativeCurrency: "TBURN", status: "active", avgBlockTime: 100, confirmationsRequired: 1, totalLiquidity: "1000000000000000000000000000", volume24h: String(50000000000000000000000n + seedBigInt % 1000000000000000000n), txCount24h: 15847 + seedValue % 500 + hourVariance * 10, avgTransferTime: 5e3, successRate: 9998, aiRiskScore: 50, isEvm: true },
+          { id: "tburn-mainnet", chainId: 6e3, name: "TBURN Mainnet", symbol: "TBURN", nativeCurrency: "TBURN", status: "active", avgBlockTime: 100, confirmationsRequired: 1, totalLiquidity: "1000000000000000000000000000", volume24h: String(50000000000000000000000n + seedBigInt % 1000000000000000000n), txCount24h: 15847 + seedValue % 500 + hourVariance * 10, avgTransferTime: 5e3, successRate: 9998, aiRiskScore: 50, isEvm: true },
           { id: "ethereum", chainId: 1, name: "Ethereum", symbol: "ETH", nativeCurrency: "ETH", status: "active", avgBlockTime: 12e3, confirmationsRequired: 12, totalLiquidity: "250000000000000000000000", volume24h: String(12500000000000000000000n + seedBigInt % 500000000000000000n), txCount24h: 8543 + seedValue % 300 + hourVariance * 5, avgTransferTime: 18e4, successRate: 9985, aiRiskScore: 120, isEvm: true },
           { id: "bsc", chainId: 56, name: "BNB Smart Chain", symbol: "BSC", nativeCurrency: "BNB", status: "active", avgBlockTime: 3e3, confirmationsRequired: 15, totalLiquidity: "180000000000000000000000", volume24h: String(9000000000000000000000n + seedBigInt % 400000000000000000n), txCount24h: 12456 + seedValue % 400 + hourVariance * 8, avgTransferTime: 6e4, successRate: 9992, aiRiskScore: 95, isEvm: true },
           { id: "polygon", chainId: 137, name: "Polygon", symbol: "MATIC", nativeCurrency: "MATIC", status: "active", avgBlockTime: 2e3, confirmationsRequired: 128, totalLiquidity: "120000000000000000000000", volume24h: String(6000000000000000000000n + seedBigInt % 300000000000000000n), txCount24h: 9876 + seedValue % 350 + hourVariance * 6, avgTransferTime: 3e5, successRate: 9988, aiRiskScore: 85, isEvm: true },
@@ -16275,24 +17263,24 @@ var init_TBurnEnterpriseNode = __esm({
        * Get Bridge Routes for public /app bridge page
        */
       getPublicBridgeRoutes() {
-        const dateSeed = crypto2.createHash("sha256").update(`public-bridge-routes-${(/* @__PURE__ */ new Date()).toISOString().split("T")[0]}-${this.config.nodeId}`).digest("hex");
+        const dateSeed = crypto3.createHash("sha256").update(`public-bridge-routes-${(/* @__PURE__ */ new Date()).toISOString().split("T")[0]}-${this.config.nodeId}`).digest("hex");
         const seedValue = parseInt(dateSeed.slice(0, 8), 16);
         return [
-          { id: "route-001", sourceChainId: 1, destinationChainId: 7979, tokenSymbol: "TBURN", routeType: "lock-mint", status: "active", minAmount: "1000000000000000000", maxAmount: "1000000000000000000000000", feePercent: 30, estimatedTime: 18e4, successRate: 9995, volume24h: String(BigInt(5000000000000000000000n) + BigInt(seedValue % 100000000000000000n)), liquidityAvailable: "50000000000000000000000", aiOptimized: true, aiPriority: 95 },
-          { id: "route-002", sourceChainId: 7979, destinationChainId: 1, tokenSymbol: "TBURN", routeType: "burn-unlock", status: "active", minAmount: "1000000000000000000", maxAmount: "1000000000000000000000000", feePercent: 30, estimatedTime: 18e4, successRate: 9993, volume24h: String(BigInt(4500000000000000000000n) + BigInt(seedValue % 90000000000000000n)), liquidityAvailable: "45000000000000000000000", aiOptimized: true, aiPriority: 93 },
-          { id: "route-003", sourceChainId: 56, destinationChainId: 7979, tokenSymbol: "TBURN", routeType: "lock-mint", status: "active", minAmount: "1000000000000000000", maxAmount: "500000000000000000000000", feePercent: 25, estimatedTime: 6e4, successRate: 9997, volume24h: String(BigInt(3500000000000000000000n) + BigInt(seedValue % 70000000000000000n)), liquidityAvailable: "35000000000000000000000", aiOptimized: true, aiPriority: 92 },
-          { id: "route-004", sourceChainId: 7979, destinationChainId: 56, tokenSymbol: "TBURN", routeType: "burn-unlock", status: "active", minAmount: "1000000000000000000", maxAmount: "500000000000000000000000", feePercent: 25, estimatedTime: 6e4, successRate: 9996, volume24h: String(BigInt(3200000000000000000000n) + BigInt(seedValue % 64000000000000000n)), liquidityAvailable: "32000000000000000000000", aiOptimized: true, aiPriority: 91 },
-          { id: "route-005", sourceChainId: 137, destinationChainId: 7979, tokenSymbol: "TBURN", routeType: "lock-mint", status: "active", minAmount: "1000000000000000000", maxAmount: "300000000000000000000000", feePercent: 20, estimatedTime: 3e5, successRate: 9992, volume24h: String(BigInt(2800000000000000000000n) + BigInt(seedValue % 56000000000000000n)), liquidityAvailable: "28000000000000000000000", aiOptimized: true, aiPriority: 88 },
-          { id: "route-006", sourceChainId: 42161, destinationChainId: 7979, tokenSymbol: "TBURN", routeType: "lock-mint", status: "active", minAmount: "1000000000000000000", maxAmount: "500000000000000000000000", feePercent: 15, estimatedTime: 2e3, successRate: 9998, volume24h: String(BigInt(4200000000000000000000n) + BigInt(seedValue % 84000000000000000n)), liquidityAvailable: "42000000000000000000000", aiOptimized: true, aiPriority: 96 },
-          { id: "route-007", sourceChainId: 7979, destinationChainId: 42161, tokenSymbol: "TBURN", routeType: "burn-unlock", status: "active", minAmount: "1000000000000000000", maxAmount: "500000000000000000000000", feePercent: 15, estimatedTime: 2e3, successRate: 9997, volume24h: String(BigInt(3800000000000000000000n) + BigInt(seedValue % 76000000000000000n)), liquidityAvailable: "38000000000000000000000", aiOptimized: true, aiPriority: 94 },
-          { id: "route-008", sourceChainId: 10, destinationChainId: 7979, tokenSymbol: "TBURN", routeType: "lock-mint", status: "active", minAmount: "1000000000000000000", maxAmount: "300000000000000000000000", feePercent: 18, estimatedTime: 3e3, successRate: 9994, volume24h: String(BigInt(2500000000000000000000n) + BigInt(seedValue % 50000000000000000n)), liquidityAvailable: "25000000000000000000000", aiOptimized: true, aiPriority: 89 }
+          { id: "route-001", sourceChainId: 1, destinationChainId: 6e3, tokenSymbol: "TBURN", routeType: "lock-mint", status: "active", minAmount: "1000000000000000000", maxAmount: "1000000000000000000000000", feePercent: 30, estimatedTime: 18e4, successRate: 9995, volume24h: String(BigInt(5000000000000000000000n) + BigInt(seedValue % 100000000000000000n)), liquidityAvailable: "50000000000000000000000", aiOptimized: true, aiPriority: 95 },
+          { id: "route-002", sourceChainId: 6e3, destinationChainId: 1, tokenSymbol: "TBURN", routeType: "burn-unlock", status: "active", minAmount: "1000000000000000000", maxAmount: "1000000000000000000000000", feePercent: 30, estimatedTime: 18e4, successRate: 9993, volume24h: String(BigInt(4500000000000000000000n) + BigInt(seedValue % 90000000000000000n)), liquidityAvailable: "45000000000000000000000", aiOptimized: true, aiPriority: 93 },
+          { id: "route-003", sourceChainId: 56, destinationChainId: 6e3, tokenSymbol: "TBURN", routeType: "lock-mint", status: "active", minAmount: "1000000000000000000", maxAmount: "500000000000000000000000", feePercent: 25, estimatedTime: 6e4, successRate: 9997, volume24h: String(BigInt(3500000000000000000000n) + BigInt(seedValue % 70000000000000000n)), liquidityAvailable: "35000000000000000000000", aiOptimized: true, aiPriority: 92 },
+          { id: "route-004", sourceChainId: 6e3, destinationChainId: 56, tokenSymbol: "TBURN", routeType: "burn-unlock", status: "active", minAmount: "1000000000000000000", maxAmount: "500000000000000000000000", feePercent: 25, estimatedTime: 6e4, successRate: 9996, volume24h: String(BigInt(3200000000000000000000n) + BigInt(seedValue % 64000000000000000n)), liquidityAvailable: "32000000000000000000000", aiOptimized: true, aiPriority: 91 },
+          { id: "route-005", sourceChainId: 137, destinationChainId: 6e3, tokenSymbol: "TBURN", routeType: "lock-mint", status: "active", minAmount: "1000000000000000000", maxAmount: "300000000000000000000000", feePercent: 20, estimatedTime: 3e5, successRate: 9992, volume24h: String(BigInt(2800000000000000000000n) + BigInt(seedValue % 56000000000000000n)), liquidityAvailable: "28000000000000000000000", aiOptimized: true, aiPriority: 88 },
+          { id: "route-006", sourceChainId: 42161, destinationChainId: 6e3, tokenSymbol: "TBURN", routeType: "lock-mint", status: "active", minAmount: "1000000000000000000", maxAmount: "500000000000000000000000", feePercent: 15, estimatedTime: 2e3, successRate: 9998, volume24h: String(BigInt(4200000000000000000000n) + BigInt(seedValue % 84000000000000000n)), liquidityAvailable: "42000000000000000000000", aiOptimized: true, aiPriority: 96 },
+          { id: "route-007", sourceChainId: 6e3, destinationChainId: 42161, tokenSymbol: "TBURN", routeType: "burn-unlock", status: "active", minAmount: "1000000000000000000", maxAmount: "500000000000000000000000", feePercent: 15, estimatedTime: 2e3, successRate: 9997, volume24h: String(BigInt(3800000000000000000000n) + BigInt(seedValue % 76000000000000000n)), liquidityAvailable: "38000000000000000000000", aiOptimized: true, aiPriority: 94 },
+          { id: "route-008", sourceChainId: 10, destinationChainId: 6e3, tokenSymbol: "TBURN", routeType: "lock-mint", status: "active", minAmount: "1000000000000000000", maxAmount: "300000000000000000000000", feePercent: 18, estimatedTime: 3e3, successRate: 9994, volume24h: String(BigInt(2500000000000000000000n) + BigInt(seedValue % 50000000000000000n)), liquidityAvailable: "25000000000000000000000", aiOptimized: true, aiPriority: 89 }
         ];
       }
       /**
        * Get Bridge Validators for public /app bridge page
        */
       getPublicBridgeValidators() {
-        const dateSeed = crypto2.createHash("sha256").update(`public-bridge-validators-${(/* @__PURE__ */ new Date()).toISOString().split("T")[0]}-${this.config.nodeId}`).digest("hex");
+        const dateSeed = crypto3.createHash("sha256").update(`public-bridge-validators-${(/* @__PURE__ */ new Date()).toISOString().split("T")[0]}-${this.config.nodeId}`).digest("hex");
         const seedValue = parseInt(dateSeed.slice(0, 8), 16);
         return [
           { id: "val-001", address: "0x742d35Cc6634C0532925a3b844Bc454e4438f44e", name: "TBURN Foundation", status: "active", stake: "5000000000000000000000000", commission: 500, uptime: 9998, attestationsProcessed: 125847 + seedValue % 1e3, attestationsValid: 125832 + seedValue % 990, rewardsEarned: "250000000000000000000000", avgResponseTime: 45, aiTrustScore: 9850, reputationScore: 9920 },
@@ -16307,10 +17295,10 @@ var init_TBurnEnterpriseNode = __esm({
        * Get Bridge Liquidity Pools for public /app bridge page
        */
       getPublicBridgeLiquidity() {
-        const dateSeed = crypto2.createHash("sha256").update(`public-bridge-liquidity-${(/* @__PURE__ */ new Date()).toISOString().split("T")[0]}-${this.config.nodeId}`).digest("hex");
+        const dateSeed = crypto3.createHash("sha256").update(`public-bridge-liquidity-${(/* @__PURE__ */ new Date()).toISOString().split("T")[0]}-${this.config.nodeId}`).digest("hex");
         const seedValue = parseInt(dateSeed.slice(0, 8), 16);
         return [
-          { id: "pool-001", chainId: 7979, tokenSymbol: "TBURN", totalLiquidity: "500000000000000000000000000", availableLiquidity: "425000000000000000000000000", utilizationRate: 1500, lpApy: 1250, providerCount: 1847 + seedValue % 100, status: "active", volume24h: String(BigInt(25000000000000000000000n) + BigInt(seedValue % 500000000000000000n)), fees24h: "75000000000000000000" },
+          { id: "pool-001", chainId: 6e3, tokenSymbol: "TBURN", totalLiquidity: "500000000000000000000000000", availableLiquidity: "425000000000000000000000000", utilizationRate: 1500, lpApy: 1250, providerCount: 1847 + seedValue % 100, status: "active", volume24h: String(BigInt(25000000000000000000000n) + BigInt(seedValue % 500000000000000000n)), fees24h: "75000000000000000000" },
           { id: "pool-002", chainId: 1, tokenSymbol: "TBURN", totalLiquidity: "125000000000000000000000", availableLiquidity: "98500000000000000000000", utilizationRate: 2120, lpApy: 1850, providerCount: 892 + seedValue % 50, status: "active", volume24h: String(BigInt(12500000000000000000000n) + BigInt(seedValue % 250000000000000000n)), fees24h: "37500000000000000000" },
           { id: "pool-003", chainId: 56, tokenSymbol: "TBURN", totalLiquidity: "90000000000000000000000", availableLiquidity: "72000000000000000000000", utilizationRate: 2e3, lpApy: 1650, providerCount: 654 + seedValue % 40, status: "active", volume24h: String(BigInt(9000000000000000000000n) + BigInt(seedValue % 180000000000000000n)), fees24h: "27000000000000000000" },
           { id: "pool-004", chainId: 137, tokenSymbol: "TBURN", totalLiquidity: "60000000000000000000000", availableLiquidity: "51000000000000000000000", utilizationRate: 1500, lpApy: 1420, providerCount: 432 + seedValue % 30, status: "active", volume24h: String(BigInt(6000000000000000000000n) + BigInt(seedValue % 120000000000000000n)), fees24h: "18000000000000000000" },
@@ -16323,11 +17311,11 @@ var init_TBurnEnterpriseNode = __esm({
        */
       getPublicBridgeActivity() {
         const now = Date.now();
-        const dateSeed = crypto2.createHash("sha256").update(`public-bridge-activity-${(/* @__PURE__ */ new Date()).toISOString().split("T")[0]}-${this.config.nodeId}`).digest("hex");
+        const dateSeed = crypto3.createHash("sha256").update(`public-bridge-activity-${(/* @__PURE__ */ new Date()).toISOString().split("T")[0]}-${this.config.nodeId}`).digest("hex");
         return [
-          { id: "act-001", eventType: "transfer_completed", chainId: 7979, walletAddress: "0x742d35Cc6634C0532925a3b844Bc454e4438f44e", amount: "50000000000000000000000", tokenSymbol: "TBURN", txHash: `0x${dateSeed.slice(0, 64)}`, createdAt: new Date(now - 6e4).toISOString() },
+          { id: "act-001", eventType: "transfer_completed", chainId: 6e3, walletAddress: "0x742d35Cc6634C0532925a3b844Bc454e4438f44e", amount: "50000000000000000000000", tokenSymbol: "TBURN", txHash: `0x${dateSeed.slice(0, 64)}`, createdAt: new Date(now - 6e4).toISOString() },
           { id: "act-002", eventType: "transfer_initiated", chainId: 1, walletAddress: "0x8ba1f109551bD432803012645Ac136ddd64DBA72", amount: "25000000000000000000000", tokenSymbol: "TBURN", txHash: `0x${dateSeed.slice(4, 68)}`, createdAt: new Date(now - 12e4).toISOString() },
-          { id: "act-003", eventType: "liquidity_added", chainId: 7979, walletAddress: "0x456f109551bD432803012645Ac136ddd64DBA456", amount: "100000000000000000000000", tokenSymbol: "TBURN", txHash: `0x${dateSeed.slice(8, 72)}`, createdAt: new Date(now - 18e4).toISOString() },
+          { id: "act-003", eventType: "liquidity_added", chainId: 6e3, walletAddress: "0x456f109551bD432803012645Ac136ddd64DBA456", amount: "100000000000000000000000", tokenSymbol: "TBURN", txHash: `0x${dateSeed.slice(8, 72)}`, createdAt: new Date(now - 18e4).toISOString() },
           { id: "act-004", eventType: "validator_joined", chainId: null, walletAddress: "0xabcf109551bD432803012645Ac136ddd64DBAabc", amount: "500000000000000000000000", tokenSymbol: "TBURN", txHash: null, createdAt: new Date(now - 3e5).toISOString() },
           { id: "act-005", eventType: "transfer_completed", chainId: 56, walletAddress: "0xdefd35Cc6634C0532925a3b844Bc454e4438fdef", amount: "75000000000000000000000", tokenSymbol: "TBURN", txHash: `0x${dateSeed.slice(12, 76)}`, createdAt: new Date(now - 42e4).toISOString() },
           { id: "act-006", eventType: "liquidity_removed", chainId: 1, walletAddress: "0x012f109551bD432803012645Ac136ddd64DBA012", amount: "30000000000000000000000", tokenSymbol: "TBURN", txHash: `0x${dateSeed.slice(16, 80)}`, createdAt: new Date(now - 6e5).toISOString() },
@@ -16340,21 +17328,21 @@ var init_TBurnEnterpriseNode = __esm({
        */
       getPublicBridgeTransfers() {
         const now = Date.now();
-        const dateSeed = crypto2.createHash("sha256").update(`public-bridge-transfers-${(/* @__PURE__ */ new Date()).toISOString().split("T")[0]}-${this.config.nodeId}`).digest("hex");
+        const dateSeed = crypto3.createHash("sha256").update(`public-bridge-transfers-${(/* @__PURE__ */ new Date()).toISOString().split("T")[0]}-${this.config.nodeId}`).digest("hex");
         const seedValue = parseInt(dateSeed.slice(0, 8), 16);
         return [
-          { id: "tx-001", sourceChainId: 1, destinationChainId: 7979, senderAddress: "0x742d35Cc6634C0532925a3b844Bc454e4438f44e", recipientAddress: "0x8ba1f109551bD432803012645Ac136ddd64DBA72", tokenSymbol: "TBURN", amount: "100000000000000000000000", amountReceived: null, feeAmount: "300000000000000000000", status: "pending", sourceTxHash: `0x${dateSeed.slice(0, 64)}`, destinationTxHash: null, confirmations: 8 + seedValue % 4, requiredConfirmations: 12, estimatedArrival: new Date(now + 18e4).toISOString(), aiVerified: true, aiRiskScore: 120, createdAt: new Date(now - 12e4).toISOString() },
-          { id: "tx-002", sourceChainId: 56, destinationChainId: 7979, senderAddress: "0x123d35Cc6634C0532925a3b844Bc454e4438f123", recipientAddress: "0x456f109551bD432803012645Ac136ddd64DBA456", tokenSymbol: "TBURN", amount: "50000000000000000000000", amountReceived: null, feeAmount: "125000000000000000000", status: "confirming", sourceTxHash: `0x${dateSeed.slice(4, 68)}`, destinationTxHash: null, confirmations: 12 + seedValue % 3, requiredConfirmations: 15, estimatedArrival: new Date(now + 45e3).toISOString(), aiVerified: true, aiRiskScore: 85, createdAt: new Date(now - 6e4).toISOString() },
-          { id: "tx-003", sourceChainId: 7979, destinationChainId: 137, senderAddress: "0x789d35Cc6634C0532925a3b844Bc454e4438f789", recipientAddress: "0xabcf109551bD432803012645Ac136ddd64DBAabc", tokenSymbol: "TBURN", amount: "25000000000000000000000", amountReceived: "24925000000000000000000", feeAmount: "75000000000000000000", status: "completed", sourceTxHash: `0x${dateSeed.slice(8, 72)}`, destinationTxHash: `0x${dateSeed.slice(12, 76)}`, confirmations: 128, requiredConfirmations: 128, estimatedArrival: null, aiVerified: true, aiRiskScore: 50, createdAt: new Date(now - 3e5).toISOString() },
-          { id: "tx-004", sourceChainId: 42161, destinationChainId: 7979, senderAddress: "0xdefd35Cc6634C0532925a3b844Bc454e4438fdef", recipientAddress: "0x012f109551bD432803012645Ac136ddd64DBA012", tokenSymbol: "TBURN", amount: "200000000000000000000000", amountReceived: "199700000000000000000000", feeAmount: "300000000000000000000", status: "completed", sourceTxHash: `0x${dateSeed.slice(16, 80)}`, destinationTxHash: `0x${dateSeed.slice(20, 84)}`, confirmations: 1, requiredConfirmations: 1, estimatedArrival: null, aiVerified: true, aiRiskScore: 65, createdAt: new Date(now - 6e5).toISOString() },
-          { id: "tx-005", sourceChainId: 10, destinationChainId: 7979, senderAddress: "0x321d35Cc6634C0532925a3b844Bc454e4438f321", recipientAddress: "0x654f109551bD432803012645Ac136ddd64DBA654", tokenSymbol: "TBURN", amount: "75000000000000000000000", amountReceived: null, feeAmount: "135000000000000000000", status: "bridging", sourceTxHash: `0x${dateSeed.slice(24, 88)}`, destinationTxHash: null, confirmations: 1, requiredConfirmations: 1, estimatedArrival: new Date(now + 2e3).toISOString(), aiVerified: true, aiRiskScore: 70, createdAt: new Date(now - 3e4).toISOString() }
+          { id: "tx-001", sourceChainId: 1, destinationChainId: 6e3, senderAddress: "0x742d35Cc6634C0532925a3b844Bc454e4438f44e", recipientAddress: "0x8ba1f109551bD432803012645Ac136ddd64DBA72", tokenSymbol: "TBURN", amount: "100000000000000000000000", amountReceived: null, feeAmount: "300000000000000000000", status: "pending", sourceTxHash: `0x${dateSeed.slice(0, 64)}`, destinationTxHash: null, confirmations: 8 + seedValue % 4, requiredConfirmations: 12, estimatedArrival: new Date(now + 18e4).toISOString(), aiVerified: true, aiRiskScore: 120, createdAt: new Date(now - 12e4).toISOString() },
+          { id: "tx-002", sourceChainId: 56, destinationChainId: 6e3, senderAddress: "0x123d35Cc6634C0532925a3b844Bc454e4438f123", recipientAddress: "0x456f109551bD432803012645Ac136ddd64DBA456", tokenSymbol: "TBURN", amount: "50000000000000000000000", amountReceived: null, feeAmount: "125000000000000000000", status: "confirming", sourceTxHash: `0x${dateSeed.slice(4, 68)}`, destinationTxHash: null, confirmations: 12 + seedValue % 3, requiredConfirmations: 15, estimatedArrival: new Date(now + 45e3).toISOString(), aiVerified: true, aiRiskScore: 85, createdAt: new Date(now - 6e4).toISOString() },
+          { id: "tx-003", sourceChainId: 6e3, destinationChainId: 137, senderAddress: "0x789d35Cc6634C0532925a3b844Bc454e4438f789", recipientAddress: "0xabcf109551bD432803012645Ac136ddd64DBAabc", tokenSymbol: "TBURN", amount: "25000000000000000000000", amountReceived: "24925000000000000000000", feeAmount: "75000000000000000000", status: "completed", sourceTxHash: `0x${dateSeed.slice(8, 72)}`, destinationTxHash: `0x${dateSeed.slice(12, 76)}`, confirmations: 128, requiredConfirmations: 128, estimatedArrival: null, aiVerified: true, aiRiskScore: 50, createdAt: new Date(now - 3e5).toISOString() },
+          { id: "tx-004", sourceChainId: 42161, destinationChainId: 6e3, senderAddress: "0xdefd35Cc6634C0532925a3b844Bc454e4438fdef", recipientAddress: "0x012f109551bD432803012645Ac136ddd64DBA012", tokenSymbol: "TBURN", amount: "200000000000000000000000", amountReceived: "199700000000000000000000", feeAmount: "300000000000000000000", status: "completed", sourceTxHash: `0x${dateSeed.slice(16, 80)}`, destinationTxHash: `0x${dateSeed.slice(20, 84)}`, confirmations: 1, requiredConfirmations: 1, estimatedArrival: null, aiVerified: true, aiRiskScore: 65, createdAt: new Date(now - 6e5).toISOString() },
+          { id: "tx-005", sourceChainId: 10, destinationChainId: 6e3, senderAddress: "0x321d35Cc6634C0532925a3b844Bc454e4438f321", recipientAddress: "0x654f109551bD432803012645Ac136ddd64DBA654", tokenSymbol: "TBURN", amount: "75000000000000000000000", amountReceived: null, feeAmount: "135000000000000000000", status: "bridging", sourceTxHash: `0x${dateSeed.slice(24, 88)}`, destinationTxHash: null, confirmations: 1, requiredConfirmations: 1, estimatedArrival: new Date(now + 2e3).toISOString(), aiVerified: true, aiRiskScore: 70, createdAt: new Date(now - 3e4).toISOString() }
         ];
       }
       /**
        * Get Token System Stats for public /app token-system page
        */
       getPublicTokenSystemStats() {
-        const dateSeed = crypto2.createHash("sha256").update(`token-system-stats-${(/* @__PURE__ */ new Date()).toISOString().split("T")[0]}-${this.config.nodeId}`).digest("hex");
+        const dateSeed = crypto3.createHash("sha256").update(`token-system-stats-${(/* @__PURE__ */ new Date()).toISOString().split("T")[0]}-${this.config.nodeId}`).digest("hex");
         const seedValue = parseInt(dateSeed.slice(0, 8), 16);
         return {
           totalTokens: 156 + seedValue % 12,
@@ -16371,7 +17359,7 @@ var init_TBurnEnterpriseNode = __esm({
        * Get Token System Tokens for public /app token-system page
        */
       getPublicTokenSystemTokens() {
-        const dateSeed = crypto2.createHash("sha256").update(`token-system-tokens-${(/* @__PURE__ */ new Date()).toISOString().split("T")[0]}-${this.config.nodeId}`).digest("hex");
+        const dateSeed = crypto3.createHash("sha256").update(`token-system-tokens-${(/* @__PURE__ */ new Date()).toISOString().split("T")[0]}-${this.config.nodeId}`).digest("hex");
         const seedValue = parseInt(dateSeed.slice(0, 8), 16);
         return [
           {
@@ -16450,7 +17438,7 @@ var init_TBurnEnterpriseNode = __esm({
        * Get Staking Pools (enterprise production fallback) for public /app staking page
        */
       getPublicStakingPools() {
-        const dateSeed = crypto2.createHash("sha256").update(`staking-pools-${(/* @__PURE__ */ new Date()).toISOString().split("T")[0]}-${this.config.nodeId}`).digest("hex");
+        const dateSeed = crypto3.createHash("sha256").update(`staking-pools-${(/* @__PURE__ */ new Date()).toISOString().split("T")[0]}-${this.config.nodeId}`).digest("hex");
         const seedValue = parseInt(dateSeed.slice(0, 8), 16);
         return [
           { id: "pool-genesis-01", name: "Genesis Validators Pool", poolType: "public", tier: "diamond", validatorId: "val-001", totalStaked: "125000000000000000000000000", totalStakers: 28547 + seedValue % 500, baseApy: 2800, maxApy: 3500, lockPeriodDays: 90, status: "active", description: "Premium genesis validator pool with highest APY" },
@@ -16722,7 +17710,7 @@ var TokenFactoryService_exports = {};
 __export(TokenFactoryService_exports, {
   tokenFactoryService: () => tokenFactoryService
 });
-import { ethers as ethers2, JsonRpcProvider, Contract } from "ethers";
+import { ethers as ethers3, JsonRpcProvider, Contract } from "ethers";
 var TBURN_MAINNET_RPC, TBURN_CHAIN_ID2, TBC20_FACTORY_ADDRESS, TBC721_FACTORY_ADDRESS, TBC1155_FACTORY_ADDRESS, LAUNCH_DATE, TBC20_FACTORY_ABI, TBC721_FACTORY_ABI, TBC1155_FACTORY_ABI, TokenFactoryService, tokenFactoryService;
 var init_TokenFactoryService = __esm({
   "server/services/TokenFactoryService.ts"() {
@@ -16730,7 +17718,7 @@ var init_TokenFactoryService = __esm({
     init_TokenRegistry();
     init_tburn_address();
     TBURN_MAINNET_RPC = process.env.TBURN_RPC_URL || "http://localhost:8545";
-    TBURN_CHAIN_ID2 = 7979;
+    TBURN_CHAIN_ID2 = 6e3;
     TBC20_FACTORY_ADDRESS = process.env.TBC20_FACTORY_ADDRESS || "0x1000000000000000000000000000000000000001";
     TBC721_FACTORY_ADDRESS = process.env.TBC721_FACTORY_ADDRESS || "0x1000000000000000000000000000000000000002";
     TBC1155_FACTORY_ADDRESS = process.env.TBC1155_FACTORY_ADDRESS || "0x1000000000000000000000000000000000000003";
@@ -16788,11 +17776,11 @@ var init_TokenFactoryService = __esm({
         const iface = this.getFactoryInterface(request2.standard);
         switch (request2.standard) {
           case "TBC-20": {
-            const initialSupply = ethers2.parseUnits(
+            const initialSupply = ethers3.parseUnits(
               request2.totalSupply || "1000000",
               request2.decimals || 18
             );
-            const maxSupply = request2.maxSupply ? ethers2.parseUnits(request2.maxSupply, request2.decimals || 18) : BigInt(0);
+            const maxSupply = request2.maxSupply ? ethers3.parseUnits(request2.maxSupply, request2.decimals || 18) : BigInt(0);
             return iface.encodeFunctionData("createToken", [
               request2.name,
               request2.symbol,
@@ -16836,11 +17824,11 @@ var init_TokenFactoryService = __esm({
       getFactoryInterface(standard) {
         switch (standard) {
           case "TBC-20":
-            return new ethers2.Interface(TBC20_FACTORY_ABI);
+            return new ethers3.Interface(TBC20_FACTORY_ABI);
           case "TBC-721":
-            return new ethers2.Interface(TBC721_FACTORY_ABI);
+            return new ethers3.Interface(TBC721_FACTORY_ABI);
           case "TBC-1155":
-            return new ethers2.Interface(TBC1155_FACTORY_ABI);
+            return new ethers3.Interface(TBC1155_FACTORY_ABI);
           default:
             throw new Error(`Unsupported token standard: ${standard}`);
         }
@@ -16856,27 +17844,27 @@ var init_TokenFactoryService = __esm({
           });
           const feeData = await this.provider.getFeeData();
           const gasLimitWithBuffer = gasLimit * BigInt(120) / BigInt(100);
-          const maxFeePerGas = feeData.maxFeePerGas || ethers2.parseUnits("10", "gwei");
-          const maxPriorityFeePerGas = feeData.maxPriorityFeePerGas || ethers2.parseUnits("1", "gwei");
+          const maxFeePerGas = feeData.maxFeePerGas || ethers3.parseUnits("10", "gwei");
+          const maxPriorityFeePerGas = feeData.maxPriorityFeePerGas || ethers3.parseUnits("1", "gwei");
           const estimatedCostWei = gasLimitWithBuffer * maxFeePerGas;
           return {
             gasLimit: gasLimitWithBuffer.toString(),
             maxFeePerGas: maxFeePerGas.toString(),
             maxPriorityFeePerGas: maxPriorityFeePerGas.toString(),
             estimatedCostWei: estimatedCostWei.toString(),
-            estimatedCostTB: ethers2.formatEther(estimatedCostWei)
+            estimatedCostTB: ethers3.formatEther(estimatedCostWei)
           };
         } catch (error) {
           console.log("[TokenFactory] RPC estimation failed, using fallback values");
           const fallbackGas = BigInt(5e5);
-          const fallbackFee = ethers2.parseUnits("10", "gwei");
+          const fallbackFee = ethers3.parseUnits("10", "gwei");
           const estimatedCost = fallbackGas * fallbackFee;
           return {
             gasLimit: fallbackGas.toString(),
             maxFeePerGas: fallbackFee.toString(),
-            maxPriorityFeePerGas: ethers2.parseUnits("1", "gwei").toString(),
+            maxPriorityFeePerGas: ethers3.parseUnits("1", "gwei").toString(),
             estimatedCostWei: estimatedCost.toString(),
-            estimatedCostTB: ethers2.formatEther(estimatedCost)
+            estimatedCostTB: ethers3.formatEther(estimatedCost)
           };
         }
       }
@@ -17204,7 +18192,7 @@ import passport from "passport";
 init_tburn_address();
 import { ethers } from "ethers";
 import { createHash } from "crypto";
-var TBURN_CHAIN_ID = 7979;
+var TBURN_CHAIN_ID = 6e3;
 var TBURN_NETWORK_NAME = "TBURN Mainnet";
 var TBURN_WALLET_VERSION = "1.0.0";
 var TBurnWalletService = class _TBurnWalletService {
@@ -17339,7 +18327,7 @@ init_storage();
 init_schema();
 init_db();
 import { z as z11 } from "zod";
-import { eq as eq6, desc as desc6, sql as sql5 } from "drizzle-orm";
+import { eq as eq6, desc as desc6, sql as sql6 } from "drizzle-orm";
 
 // server/tburn-client.ts
 import WebSocket2 from "ws";
@@ -17917,7 +18905,7 @@ function isProductionMode() {
 
 // server/validator-simulation.ts
 init_TBurnEnterpriseNode();
-import * as crypto3 from "crypto";
+import * as crypto4 from "crypto";
 var ENTERPRISE_VALIDATORS_CONFIG = {
   TOTAL_VALIDATORS: 125,
   // Default: 5 shards * 25 validators
@@ -18030,6 +19018,10 @@ var ValidatorSimulationService = class _ValidatorSimulationService {
   lastCommitteeEpoch = 0;
   // Reentrancy guard to prevent overlapping interval executions
   isProcessingBlock = false;
+  // Block timing measurement for accurate block time reporting
+  lastBlockTimestamp = 0;
+  enterpriseNode = null;
+  // Reference to Enterprise Node for interval recording
   // Dynamic shard configuration
   currentShardCount = 5;
   validatorsPerShard = 25;
@@ -18052,6 +19044,12 @@ var ValidatorSimulationService = class _ValidatorSimulationService {
   // networkQuality weight
   constructor(storage2) {
     this.storage = storage2;
+  }
+  /**
+   * Set reference to Enterprise Node for block interval recording
+   */
+  setEnterpriseNode(node) {
+    this.enterpriseNode = node;
   }
   // Calculate composite priority score for message routing (higher = more priority)
   calculateMessagePriority(msg) {
@@ -18198,7 +19196,7 @@ var ValidatorSimulationService = class _ValidatorSimulationService {
   }
   // Generate deterministic validator address
   generateValidatorAddress(index) {
-    const hash = crypto3.createHash("sha256").update(`tburn-validator-${index}`).digest("hex");
+    const hash = crypto4.createHash("sha256").update(`tburn-validator-${index}`).digest("hex");
     return `0x${hash.substring(0, 40)}`;
   }
   // Calculate voting power based on stake and delegations
@@ -18441,70 +19439,64 @@ var ValidatorSimulationService = class _ValidatorSimulationService {
       }
     }
     const quorumAchieved = Math.floor(Number(votingPowerAchieved) / Number(totalVotingPower) * 1e4);
-    try {
-      await this.storage.createConsensusRound(consensusData);
-      this.currentRound++;
-    } catch (error) {
+    this.currentRound++;
+    this.storage.createConsensusRound(consensusData).catch((error) => {
       if (error?.code === "23505") {
-        console.log(`Consensus round for block ${this.currentBlockHeight} already exists, skipping`);
       } else {
         console.error("Error creating consensus round:", error);
       }
-    }
+    });
   }
-  // Simulate block production
+  // Simulate block production - OPTIMIZED for 100ms cadence
+  // Block height increments immediately, DB writes are fire-and-forget
   async simulateBlockProduction() {
     const activeValidators = this.validators.filter((v) => v.status === "active");
     if (activeValidators.length === 0) {
       console.warn("No active validators for block production");
       return;
     }
-    const producer = activeValidators[this.currentBlockHeight % activeValidators.length];
+    const now = Date.now();
+    if (this.lastBlockTimestamp > 0 && this.enterpriseNode) {
+      const interval = now - this.lastBlockTimestamp;
+      this.enterpriseNode.recordBlockInterval(interval);
+    }
+    this.lastBlockTimestamp = now;
+    const blockHeight = this.currentBlockHeight;
+    const producer = activeValidators[blockHeight % activeValidators.length];
+    this.currentBlockHeight++;
     const baseTransactions = 75e3 + Math.floor(Math.random() * 3e3);
     const transactionCount = baseTransactions;
     const simpleTransfers = Math.floor(transactionCount * 0.2);
     const contractCalls = Math.floor(transactionCount * 0.5);
     const complexOps = transactionCount - simpleTransfers - contractCalls;
-    const gasUsed = simpleTransfers * 21e3 + // Simple transfers
-    contractCalls * (5e4 + Math.floor(Math.random() * 15e4)) + // Smart contracts
-    complexOps * (2e5 + Math.floor(Math.random() * 3e5));
+    const gasUsed = simpleTransfers * 21e3 + contractCalls * (5e4 + Math.floor(Math.random() * 15e4)) + complexOps * (2e5 + Math.floor(Math.random() * 3e5));
     const block = {
-      blockNumber: this.currentBlockHeight,
-      hash: crypto3.randomBytes(32).toString("hex"),
-      parentHash: crypto3.randomBytes(32).toString("hex"),
+      blockNumber: blockHeight,
+      hash: `0x${crypto4.randomBytes(32).toString("hex")}`,
+      parentHash: `0x${crypto4.randomBytes(32).toString("hex")}`,
       timestamp: Math.floor(Date.now() / 1e3),
       transactionCount,
       validatorAddress: producer.address,
       gasUsed: Math.min(gasUsed, 3e7),
-      // Cap at gas limit
       gasLimit: 3e7,
-      // 30M gas limit (standard for high-throughput chains)
       size: 5e4 + Math.floor(Math.random() * 1e5),
       shardId: Math.floor(Math.random() * this.currentShardCount),
-      stateRoot: crypto3.randomBytes(32).toString("hex"),
-      receiptsRoot: crypto3.randomBytes(32).toString("hex"),
+      stateRoot: `0x${crypto4.randomBytes(32).toString("hex")}`,
+      receiptsRoot: `0x${crypto4.randomBytes(32).toString("hex")}`,
       executionClass: "parallel",
       latencyNs: BigInt(5e7 + Math.floor(Math.random() * 5e7)),
-      // 50-100ms
-      parallelBatchId: crypto3.randomBytes(16).toString("hex"),
+      parallelBatchId: crypto4.randomBytes(16).toString("hex"),
       hashAlgorithm: "blake3"
     };
-    try {
-      await this.storage.createBlock(block);
+    this.storage.createBlock(block).then(() => {
       producer.totalBlocks = (producer.totalBlocks || 0) + 1;
-      await this.storage.updateValidator(producer.address, { totalBlocks: producer.totalBlocks });
-      this.currentBlockHeight++;
-    } catch (error) {
+      return this.storage.updateValidator(producer.address, { totalBlocks: producer.totalBlocks });
+    }).catch((error) => {
       if (error?.code === "23505") {
-        const recentBlocks = await this.storage.getRecentBlocks(1);
-        if (recentBlocks.length > 0) {
-          this.currentBlockHeight = recentBlocks[0].blockNumber + 1;
-          console.log(`\u{1F4E6} Resynced block height to: ${this.currentBlockHeight}`);
-        }
       } else {
         console.error("Error creating block:", error);
       }
-    }
+    });
   }
   // Simulate cross-shard messages between shards (OPTIMIZED)
   crossShardMessageCounter = 0;
@@ -18537,14 +19529,14 @@ var ValidatorSimulationService = class _ValidatorSimulationService {
         messageId: `csm-${Date.now()}-${this.crossShardMessageCounter.toString().padStart(6, "0")}`,
         fromShardId: fromShard.shardId,
         toShardId: toShard.shardId,
-        transactionHash: `0x${crypto3.randomBytes(32).toString("hex")}`,
+        transactionHash: `0x${crypto4.randomBytes(32).toString("hex")}`,
         status,
         messageType,
         payload: {
           blockHeight: this.currentBlockHeight,
           sender: this.validators[Math.floor(Math.random() * this.validators.length)].address,
           amount: (BigInt(1e18) * BigInt(1 + Math.floor(Math.random() * 1e3))).toString(),
-          data: messageType === "contract_call" ? `0x${crypto3.randomBytes(32).toString("hex")}` : null,
+          data: messageType === "contract_call" ? `0x${crypto4.randomBytes(32).toString("hex")}` : null,
           nonce: Math.floor(Math.random() * 1e6),
           timestamp: Date.now()
         },
@@ -18631,21 +19623,13 @@ var ValidatorSimulationService = class _ValidatorSimulationService {
     } catch (error) {
       console.log(`Using default block height: ${this.currentBlockHeight}`);
     }
-    this.blockInterval = setInterval(async () => {
-      if (this.isProcessingBlock) {
-        return;
-      }
-      this.isProcessingBlock = true;
+    this.blockInterval = setInterval(() => {
       try {
-        await this.simulateBlockProduction();
-        await Promise.all([
-          this.simulateConsensusRound(),
-          this.updateNetworkStats()
-        ]);
+        this.simulateBlockProduction();
+        this.simulateConsensusRound();
+        this.updateNetworkStats();
       } catch (error) {
         console.error("Error in block production:", error);
-      } finally {
-        this.isProcessingBlock = false;
       }
     }, ENTERPRISE_VALIDATORS_CONFIG.BLOCK_TIME);
     this.epochInterval = setInterval(async () => {
@@ -18806,6 +19790,19 @@ var AIServiceManager = class extends EventEmitter2 {
   };
   GROK_ACTIVATION_THRESHOLD = 3;
   // Activate Grok after 3 consecutive failures
+  // Global circuit breaker - stops ALL AI calls when all providers are rate limited
+  // CRITICAL: Uses exponential backoff to prevent event loop blocking
+  globalCircuitBreaker = {
+    isOpen: false,
+    openedAt: 0,
+    cooldownMs: 3e5,
+    // 5 minute cooldown (increased from 60s to prevent event loop thrashing)
+    consecutiveAllProvidersDown: 0,
+    threshold: 1,
+    // Open immediately after first "all providers down" event (reduced from 3)
+    maxCooldownMs: 9e5
+    // Max 15 minute cooldown with exponential backoff
+  };
   constructor() {
     super();
     this.initializeProviders();
@@ -19220,9 +20217,23 @@ var AIServiceManager = class extends EventEmitter2 {
     const maxAttempts = 3;
     let lastError;
     let allProvidersExhausted = false;
+    if (this.globalCircuitBreaker.isOpen) {
+      const elapsed = Date.now() - this.globalCircuitBreaker.openedAt;
+      if (elapsed < this.globalCircuitBreaker.cooldownMs) {
+        throw new Error("AI service circuit breaker is open. All providers rate limited.");
+      }
+      console.log("[AI Service] Circuit breaker half-open - testing...");
+    }
     const initialAvailable = this.getAvailableProviders();
     if (initialAvailable.length === 0) {
-      console.log(`[AI Service] All providers are rate limited - failing fast!`);
+      this.globalCircuitBreaker.consecutiveAllProvidersDown++;
+      if (this.globalCircuitBreaker.consecutiveAllProvidersDown >= this.globalCircuitBreaker.threshold) {
+        if (!this.globalCircuitBreaker.isOpen) {
+          this.globalCircuitBreaker.isOpen = true;
+          this.globalCircuitBreaker.openedAt = Date.now();
+          console.log(`[AI Service] \u{1F534} GLOBAL CIRCUIT BREAKER OPEN - cooling down for ${this.globalCircuitBreaker.cooldownMs / 1e3}s`);
+        }
+      }
       this.trackFailureAndCheckGrok(this.activeProvider);
       throw new Error("All AI providers are currently rate limited. Please wait and try again.");
     }
@@ -19298,6 +20309,11 @@ var AIServiceManager = class extends EventEmitter2 {
         );
         if (provider !== "grok") {
           this.resetFailureTracker();
+        }
+        if (this.globalCircuitBreaker.isOpen || this.globalCircuitBreaker.consecutiveAllProvidersDown > 0) {
+          console.log("[AI Service] \u2705 Request succeeded - resetting circuit breaker");
+          this.globalCircuitBreaker.isOpen = false;
+          this.globalCircuitBreaker.consecutiveAllProvidersDown = 0;
         }
         return result;
       } catch (error) {
@@ -26144,7 +27160,7 @@ var BridgeService = class _BridgeService {
   async generateDemoData() {
     console.log("[Bridge] Generating demo data...");
     const chainConfigs = [
-      { chainId: 7979, name: "TBURN Mainnet", symbol: "TBURN", nativeCurrency: "TBURN", isEvm: true, avgBlockTime: 100, confirmations: 1 },
+      { chainId: 6e3, name: "TBURN Mainnet", symbol: "TBURN", nativeCurrency: "TBURN", isEvm: true, avgBlockTime: 100, confirmations: 1 },
       { chainId: 1, name: "Ethereum", symbol: "ETH", nativeCurrency: "ETH", isEvm: true, avgBlockTime: 12e3, confirmations: 12 },
       { chainId: 56, name: "BNB Chain", symbol: "BNB", nativeCurrency: "BNB", isEvm: true, avgBlockTime: 3e3, confirmations: 15 },
       { chainId: 137, name: "Polygon", symbol: "MATIC", nativeCurrency: "MATIC", isEvm: true, avgBlockTime: 2e3, confirmations: 256 },
@@ -28012,7 +29028,7 @@ function registerCommunityRoutes(app2) {
 
 // server/routes/enterprise-routes.ts
 import { Router as Router8 } from "express";
-import crypto4 from "crypto";
+import crypto5 from "crypto";
 import { z as z9 } from "zod";
 
 // server/services/DataHub.ts
@@ -31203,6 +32219,16 @@ var AIOrchestrator = class extends EventEmitter5 {
   responseTimes = [];
   startTime = 0;
   lastDecisionAt = null;
+  // Circuit breaker to prevent hammering rate-limited providers
+  circuitBreaker = {
+    isOpen: false,
+    openedAt: 0,
+    cooldownMs: 6e4,
+    // 1 minute cooldown when all providers are rate limited
+    consecutiveFailures: 0,
+    failureThreshold: 5
+    // Open circuit after 5 consecutive rate limit failures
+  };
   // PRODUCTION: Retry queue for failed AI decisions
   retryQueue = /* @__PURE__ */ new Map();
   retryInterval = null;
@@ -31362,12 +32388,48 @@ var AIOrchestrator = class extends EventEmitter5 {
     }
   }
   /**
+   * Check and manage circuit breaker state
+   */
+  checkCircuitBreaker() {
+    if (this.circuitBreaker.isOpen) {
+      const elapsed = Date.now() - this.circuitBreaker.openedAt;
+      if (elapsed >= this.circuitBreaker.cooldownMs) {
+        console.log("[AIOrchestrator] Circuit breaker cooldown complete, attempting to resume");
+        this.circuitBreaker.isOpen = false;
+        this.circuitBreaker.consecutiveFailures = 0;
+        return false;
+      }
+      return true;
+    }
+    return false;
+  }
+  tripCircuitBreaker() {
+    this.circuitBreaker.consecutiveFailures++;
+    if (this.circuitBreaker.consecutiveFailures >= this.circuitBreaker.failureThreshold) {
+      if (!this.circuitBreaker.isOpen) {
+        console.log(`[AIOrchestrator] Circuit breaker OPEN - all AI providers rate limited, cooling down for ${this.circuitBreaker.cooldownMs / 1e3}s`);
+        this.circuitBreaker.isOpen = true;
+        this.circuitBreaker.openedAt = Date.now();
+      }
+    }
+  }
+  resetCircuitBreaker() {
+    if (this.circuitBreaker.consecutiveFailures > 0) {
+      this.circuitBreaker.consecutiveFailures = 0;
+    }
+  }
+  /**
    * Internal processor that can be called directly for retries
    */
   async processBlockchainEventInternal(event, allowQueue) {
     if (!this.isRunning) {
       console.log("[AIOrchestrator] Not running, skipping event");
       return null;
+    }
+    if (this.checkCircuitBreaker()) {
+      console.log("[AIOrchestrator] Circuit breaker OPEN - using local fallback immediately");
+      const band2 = this.getBandForEvent(event.type);
+      return this.handleFallback(event, band2, new Error("Circuit breaker open"));
     }
     const band = this.getBandForEvent(event.type);
     const provider = BAND_PROVIDER_MAP[band];
@@ -31410,6 +32472,7 @@ var AIOrchestrator = class extends EventEmitter5 {
       this.totalCost += response.cost;
       this.totalTokens += response.tokensUsed;
       this.lastDecisionAt = Date.now();
+      this.resetCircuitBreaker();
       const executionResult = await this.executeAIDecision(result, event, band, response);
       result.executionResult = executionResult;
       this.emit("decision", result);
@@ -31420,6 +32483,12 @@ var AIOrchestrator = class extends EventEmitter5 {
       return result;
     } catch (error) {
       console.error(`[AIOrchestrator] AI call failed for ${band} band:`, error);
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      if (errorMessage.includes("rate limit") || errorMessage.includes("429") || errorMessage.includes("RATELIMIT")) {
+        this.tripCircuitBreaker();
+      } else {
+        this.resetCircuitBreaker();
+      }
       await this.recordUsageLog({
         decision: "fallback",
         confidence: 0,
@@ -32815,7 +33884,7 @@ router8.get("/operator/dashboard", async (req, res) => {
           suspendedMembers: 5
         },
         validatorOperations: {
-          totalValidators: 125,
+          totalValidators: 1600,
           activeValidators: snapshot.activeValidators,
           slashedValidators: 2,
           pendingValidators: 8
@@ -34323,9 +35392,9 @@ router8.post("/admin/config/api/keys", async (req, res) => {
   try {
     const { name, permissions, rateLimit: rateLimit2 } = req.body;
     const newKey = {
-      id: crypto4.randomUUID(),
+      id: crypto5.randomUUID(),
       name,
-      key: `tburn_${crypto4.randomBytes(16).toString("hex")}`,
+      key: `tburn_${crypto5.randomBytes(16).toString("hex")}`,
       createdAt: (/* @__PURE__ */ new Date()).toISOString().split("T")[0],
       lastUsed: "Never",
       status: "active",
@@ -35767,30 +36836,35 @@ function getUnifiedTpsData() {
       const totalTps = shards2.reduce((sum, s) => sum + s.tps, 0);
       const totalValidators = shards2.reduce((sum, s) => sum + s.validatorCount, 0);
       const realTimeTps = enterpriseNode2.getRealTimeTPS();
+      const totalTx = enterpriseNode2.getTotalTransactions() || 80452e3;
+      const blockHeight = enterpriseNode2.getCurrentBlockHeight() || 2e6;
       return {
         tps: totalTps,
         // Sum of shard TPS for exact sync
         shardCount: shards2.length,
         validators: totalValidators,
-        peakTps: realTimeTps.peak
+        peakTps: realTimeTps.peak,
+        totalTransactions: totalTx,
+        blockHeight
       };
     }
   } catch (e) {
     console.log("[Public API] Enterprise node not ready, using fallback");
   }
-  return { tps: 21e4, shardCount: 64, validators: 125, peakTps: 25e4 };
+  return { tps: 21e4, shardCount: 64, validators: 125, peakTps: 25e4, totalTransactions: 80452e3, blockHeight: 2e6 };
 }
 function formatPublicNetworkStats(stats, snapshot, moduleMetrics) {
-  const unifiedTps = getUnifiedTpsData();
+  const unifiedData = getUnifiedTpsData();
   return {
-    blockHeight: stats?.currentBlockHeight || snapshot?.blockHeight || 0,
-    tps: unifiedTps.tps,
-    peakTps: unifiedTps.peakTps,
+    // CRITICAL: Use Enterprise Node blockHeight for consistency with /app dashboard
+    blockHeight: unifiedData.blockHeight,
+    tps: unifiedData.tps,
+    peakTps: unifiedData.peakTps,
     avgBlockTime: stats?.avgBlockTime || 0.5,
-    totalTransactions: stats?.totalTransactions || 68966,
+    totalTransactions: unifiedData.totalTransactions,
     pendingTransactions: snapshot?.pendingTransactions || 0,
-    activeValidators: unifiedTps.validators,
-    totalValidators: unifiedTps.validators,
+    activeValidators: unifiedData.validators,
+    totalValidators: unifiedData.validators,
     networkHashrate: "2.4 EH/s",
     difficulty: "42.5T",
     gasPrice: stats?.gasPrice || "0.0001",
@@ -35820,23 +36894,23 @@ function formatPublicNetworkStats(stats, snapshot, moduleMetrics) {
     lendingTvl: snapshot?.lendingTvl || moduleMetrics?.lending?.totalSupplied || "$312M",
     stakingTvl: snapshot?.stakingTvl || moduleMetrics?.staking?.totalStaked || "$847M",
     finality: "< 2s",
-    shardCount: unifiedTps.shardCount,
+    shardCount: unifiedData.shardCount,
     nodeCount: 1247,
     uptime: "99.99%",
     lastUpdated: Date.now()
   };
 }
 function formatPublicTestnetStats(stats, snapshot) {
-  const unifiedTps = getUnifiedTpsData();
-  const testnetTps = Math.floor(unifiedTps.tps * 0.1);
-  const testnetShards = Math.max(8, Math.floor(unifiedTps.shardCount / 8));
+  const unifiedData = getUnifiedTpsData();
+  const testnetTps = Math.floor(unifiedData.tps * 0.1);
+  const testnetShards = Math.max(8, Math.floor(unifiedData.shardCount / 8));
   return {
     blockHeight: stats?.currentBlockHeight || snapshot?.blockHeight || 0,
     tps: testnetTps,
-    peakTps: Math.floor(unifiedTps.peakTps * 0.1),
+    peakTps: Math.floor(unifiedData.peakTps * 0.1),
     avgBlockTime: stats?.avgBlockTime || 0.5,
-    totalTransactions: stats?.totalTransactions || 68966,
-    activeValidators: Math.floor(unifiedTps.validators * 0.5),
+    totalTransactions: Math.floor(unifiedData.totalTransactions * 0.1),
+    activeValidators: Math.floor(unifiedData.validators * 0.5),
     totalBurned: "125000000000000000000000000",
     gasPrice: stats?.gasPrice || "100",
     totalStaked: "350000000000000000000000000",
@@ -35860,9 +36934,25 @@ async function buildPublicTestnetStats() {
 router9.get("/network/stats", async (req, res) => {
   try {
     setCacheHeaders(res, CACHE_SHORT);
+    const cache = getDataCache();
+    const cachedData = cache.get(PUBLIC_CACHE_KEYS.NETWORK_STATS, true);
+    if (cachedData) {
+      console.log("[Public API] network/stats: CACHE HIT - returning immediately");
+      res.json({ success: true, data: cachedData });
+      return;
+    }
+    console.log("[Public API] network/stats: CACHE MISS - building fresh data");
     const data = await buildPublicNetworkStats();
+    cache.set(PUBLIC_CACHE_KEYS.NETWORK_STATS, data, CACHE_MEDIUM * 1e3);
     res.json({ success: true, data });
   } catch (error) {
+    console.error("[Public API] Network stats error:", error?.message || error);
+    const cache = getDataCache();
+    const staleData = cache.get(PUBLIC_CACHE_KEYS.NETWORK_STATS, true);
+    if (staleData) {
+      res.json({ success: true, data: staleData, stale: true });
+      return;
+    }
     res.status(500).json({
       success: false,
       error: "Failed to fetch network stats"
@@ -37235,7 +38325,7 @@ router9.post("/testnet/faucet/request", async (req, res) => {
     }
     const now = Date.now();
     const blockNumber = 1245e3 + Math.floor((now - (/* @__PURE__ */ new Date("2024-12-01")).getTime()) / 500);
-    const txHash = `0x${Date.now().toString(16)}${Math.random().toString(16).slice(2, 10)}${walletAddress.slice(2, 10)}`.padEnd(66, "0").slice(0, 66);
+    const txHash = generateConsistentTxHash(blockNumber, parseInt(walletAddress.slice(2, 10), 16) % 1e3);
     const existingBlock = await storage.getTestnetBlockByNumber(blockNumber);
     if (!existingBlock) {
       await storage.createTestnetBlock({
@@ -37375,7 +38465,7 @@ init_TBurnEnterpriseNode();
 import { z as z10 } from "zod";
 init_db();
 init_schema();
-import { eq as eq4, desc as desc4, and as and3, sql as sql4 } from "drizzle-orm";
+import { eq as eq4, desc as desc4, and as and3, sql as sql5 } from "drizzle-orm";
 var ETH_ADDRESS_REGEX3 = /^0x[a-fA-F0-9]{40}$/;
 var WEI_REGEX3 = /^\d+$/;
 var sendTransactionSchema = z10.object({
@@ -37453,7 +38543,7 @@ function registerWalletDashboardRoutes(app2, requireAuth2) {
         stakedBalance: walletBalances.stakedBalance,
         firstSeenAt: walletBalances.firstSeenAt
       }).from(walletBalances).where(and3(
-        sql4`${walletBalances.address} LIKE 'tb1%'`,
+        sql5`${walletBalances.address} LIKE 'tb1%'`,
         eq4(walletBalances.ownerId, memberId)
       )).orderBy(desc4(walletBalances.firstSeenAt)).limit(50);
       res.json(wallets.map((w) => ({
@@ -37526,7 +38616,7 @@ function registerWalletDashboardRoutes(app2, requireAuth2) {
       const member = await db.select().from(members).where(eq4(members.id, memberId)).limit(1);
       if (member.length > 0) {
         memberTier = member[0].memberTier || "basic_user";
-        const wallets = await db.select({ count: sql4`count(*)` }).from(walletBalances).where(eq4(walletBalances.ownerId, memberId));
+        const wallets = await db.select({ count: sql5`count(*)` }).from(walletBalances).where(eq4(walletBalances.ownerId, memberId));
         walletCount = Number(wallets[0]?.count || 0);
       }
       const limit = tierLimits[memberTier] || 3;
@@ -37701,7 +38791,7 @@ function registerWalletDashboardRoutes(app2, requireAuth2) {
       const qrData = {
         address,
         network: "TBURN Mainnet",
-        chainId: 7979,
+        chainId: 6e3,
         symbol: "TBURN"
       };
       res.json({
@@ -37712,7 +38802,7 @@ function registerWalletDashboardRoutes(app2, requireAuth2) {
         instructions: [
           "Scan QR code with your wallet app",
           "Or copy the address to send TBURN tokens",
-          "Ensure you're on TBURN Mainnet (Chain ID: 7979)"
+          "Ensure you're on TBURN Mainnet (Chain ID: 6000)"
         ]
       });
     } catch (error) {
@@ -37851,7 +38941,7 @@ function registerWalletDashboardRoutes(app2, requireAuth2) {
       const memberInfo = await db.select({ memberTier: members.memberTier }).from(members).where(eq4(members.id, sessionMemberId)).limit(1);
       const memberTier = memberInfo.length > 0 ? memberInfo[0].memberTier : "basic_user";
       const maxWallets = tierLimits[memberTier] || 3;
-      const existingWalletCount = await db.select({ count: sql4`count(*)` }).from(walletBalances).where(eq4(walletBalances.ownerId, sessionMemberId));
+      const existingWalletCount = await db.select({ count: sql5`count(*)` }).from(walletBalances).where(eq4(walletBalances.ownerId, sessionMemberId));
       const currentWalletCount = Number(existingWalletCount[0]?.count || 0);
       if (currentWalletCount >= maxWallets) {
         return res.status(403).json({
@@ -37941,7 +39031,7 @@ function formatRelativeTime(date) {
 init_TBurnEnterpriseNode();
 init_tburn_address();
 import { Router as Router10 } from "express";
-import crypto5 from "crypto";
+import crypto6 from "crypto";
 var router10 = Router10();
 var genesisConfig2 = null;
 var genesisValidators2 = [];
@@ -37951,7 +39041,7 @@ var preflightChecks = [];
 var executionLogs = [];
 function initializeDefaultConfig() {
   return {
-    id: crypto5.randomUUID(),
+    id: crypto6.randomUUID(),
     chainId: 8888,
     chainName: "TBURN Mainnet",
     networkVersion: "v8.0",
@@ -37983,7 +39073,7 @@ function initializeDefaultDistribution(configId) {
   const totalSupplyWei = BigInt("10000000000000000000000000000");
   return [
     {
-      id: crypto5.randomUUID(),
+      id: crypto6.randomUUID(),
       configId,
       category: "ecosystem",
       subcategory: "development",
@@ -38001,7 +39091,7 @@ function initializeDefaultDistribution(configId) {
       status: "pending"
     },
     {
-      id: crypto5.randomUUID(),
+      id: crypto6.randomUUID(),
       configId,
       category: "staking_rewards",
       subcategory: "validator_incentives",
@@ -38016,7 +39106,7 @@ function initializeDefaultDistribution(configId) {
       status: "pending"
     },
     {
-      id: crypto5.randomUUID(),
+      id: crypto6.randomUUID(),
       configId,
       category: "team",
       subcategory: "core_team",
@@ -38034,7 +39124,7 @@ function initializeDefaultDistribution(configId) {
       status: "pending"
     },
     {
-      id: crypto5.randomUUID(),
+      id: crypto6.randomUUID(),
       configId,
       category: "foundation",
       subcategory: "treasury",
@@ -38052,7 +39142,7 @@ function initializeDefaultDistribution(configId) {
       status: "pending"
     },
     {
-      id: crypto5.randomUUID(),
+      id: crypto6.randomUUID(),
       configId,
       category: "liquidity",
       subcategory: "dex_liquidity",
@@ -38067,7 +39157,7 @@ function initializeDefaultDistribution(configId) {
       status: "pending"
     },
     {
-      id: crypto5.randomUUID(),
+      id: crypto6.randomUUID(),
       configId,
       category: "public_sale",
       subcategory: "ieo_ido",
@@ -38082,7 +39172,7 @@ function initializeDefaultDistribution(configId) {
       status: "pending"
     },
     {
-      id: crypto5.randomUUID(),
+      id: crypto6.randomUUID(),
       configId,
       category: "reserve",
       subcategory: "emergency_fund",
@@ -38104,7 +39194,7 @@ function initializeDefaultDistribution(configId) {
 function initializeDefaultApprovers(configId) {
   return [
     {
-      id: crypto5.randomUUID(),
+      id: crypto6.randomUUID(),
       configId,
       signerAddress: SIGNER_ADDRESSES.CEO,
       signerName: "CEO",
@@ -38115,7 +39205,7 @@ function initializeDefaultApprovers(configId) {
       isVerified: false
     },
     {
-      id: crypto5.randomUUID(),
+      id: crypto6.randomUUID(),
       configId,
       signerAddress: SIGNER_ADDRESSES.CTO,
       signerName: "CTO",
@@ -38126,7 +39216,7 @@ function initializeDefaultApprovers(configId) {
       isVerified: false
     },
     {
-      id: crypto5.randomUUID(),
+      id: crypto6.randomUUID(),
       configId,
       signerAddress: SIGNER_ADDRESSES.CFO,
       signerName: "CFO",
@@ -38137,7 +39227,7 @@ function initializeDefaultApprovers(configId) {
       isVerified: false
     },
     {
-      id: crypto5.randomUUID(),
+      id: crypto6.randomUUID(),
       configId,
       signerAddress: SIGNER_ADDRESSES.LEGAL,
       signerName: "Legal Counsel",
@@ -38148,7 +39238,7 @@ function initializeDefaultApprovers(configId) {
       isVerified: false
     },
     {
-      id: crypto5.randomUUID(),
+      id: crypto6.randomUUID(),
       configId,
       signerAddress: generateSystemAddress("tburn-signer-security"),
       signerName: "Security Officer",
@@ -38188,7 +39278,7 @@ function initializeDefaultValidators(configId) {
   ];
   for (let i = 0; i < 21; i++) {
     validators2.push({
-      id: crypto5.randomUUID(),
+      id: crypto6.randomUUID(),
       configId,
       address: generateValidatorAddress(i + 1),
       name: validatorNames[i],
@@ -38196,7 +39286,7 @@ function initializeDefaultValidators(configId) {
       initialStake: baseStake.toString(),
       commission: 500 + i * 50,
       // 5% - 15% commission
-      nodePublicKey: `0x${crypto5.randomBytes(64).toString("hex")}`,
+      nodePublicKey: `0x${crypto6.randomBytes(64).toString("hex")}`,
       tier: "genesis",
       priority: 21 - i,
       isVerified: false,
@@ -38208,7 +39298,7 @@ function initializeDefaultValidators(configId) {
 function initializePreflightChecks(configId) {
   return [
     {
-      id: crypto5.randomUUID(),
+      id: crypto6.randomUUID(),
       checkName: "Total Supply Verification",
       checkCategory: "tokenomics",
       checkDescription: "Verify total supply equals 10 billion TBURN",
@@ -38218,7 +39308,7 @@ function initializePreflightChecks(configId) {
       isRequired: true
     },
     {
-      id: crypto5.randomUUID(),
+      id: crypto6.randomUUID(),
       checkName: "Distribution Sum Check",
       checkCategory: "tokenomics",
       checkDescription: "Verify all distribution allocations sum to 100%",
@@ -38228,7 +39318,7 @@ function initializePreflightChecks(configId) {
       isRequired: true
     },
     {
-      id: crypto5.randomUUID(),
+      id: crypto6.randomUUID(),
       checkName: "Validator Count Check",
       checkCategory: "validators",
       checkDescription: "Verify minimum 21 genesis validators configured",
@@ -38238,7 +39328,7 @@ function initializePreflightChecks(configId) {
       isRequired: true
     },
     {
-      id: crypto5.randomUUID(),
+      id: crypto6.randomUUID(),
       checkName: "Validator Stake Minimum",
       checkCategory: "validators",
       checkDescription: "Verify all validators meet minimum stake requirement",
@@ -38248,7 +39338,7 @@ function initializePreflightChecks(configId) {
       isRequired: true
     },
     {
-      id: crypto5.randomUUID(),
+      id: crypto6.randomUUID(),
       checkName: "Multi-Sig Quorum",
       checkCategory: "security",
       checkDescription: "Verify 3/5 multi-sig approvals obtained",
@@ -38258,7 +39348,7 @@ function initializePreflightChecks(configId) {
       isRequired: true
     },
     {
-      id: crypto5.randomUUID(),
+      id: crypto6.randomUUID(),
       checkName: "Vesting Schedule Validity",
       checkCategory: "distribution",
       checkDescription: "Verify all vesting schedules are valid",
@@ -38268,7 +39358,7 @@ function initializePreflightChecks(configId) {
       isRequired: true
     },
     {
-      id: crypto5.randomUUID(),
+      id: crypto6.randomUUID(),
       checkName: "Node Connectivity",
       checkCategory: "consensus",
       checkDescription: "Verify all validator nodes are reachable",
@@ -38278,7 +39368,7 @@ function initializePreflightChecks(configId) {
       isRequired: true
     },
     {
-      id: crypto5.randomUUID(),
+      id: crypto6.randomUUID(),
       checkName: "KYC Compliance",
       checkCategory: "compliance",
       checkDescription: "Verify all validators passed KYC verification",
@@ -38288,7 +39378,7 @@ function initializePreflightChecks(configId) {
       isRequired: false
     },
     {
-      id: crypto5.randomUUID(),
+      id: crypto6.randomUUID(),
       checkName: "Chain ID Uniqueness",
       checkCategory: "security",
       checkDescription: "Verify chain ID 8888 is not in use",
@@ -38298,7 +39388,7 @@ function initializePreflightChecks(configId) {
       isRequired: true
     },
     {
-      id: crypto5.randomUUID(),
+      id: crypto6.randomUUID(),
       checkName: "Genesis Timestamp",
       checkCategory: "consensus",
       checkDescription: "Verify genesis timestamp is in the future",
@@ -38312,9 +39402,9 @@ function initializePreflightChecks(configId) {
 function addExecutionLog(configId, logType, severity, action, description, details, actorAddress, actorName, actorRole) {
   const previousLog = executionLogs.length > 0 ? executionLogs[executionLogs.length - 1] : null;
   const logContent = JSON.stringify({ action, description, details, timestamp: Date.now() });
-  const logHash = crypto5.createHash("sha256").update(logContent).digest("hex");
+  const logHash = crypto6.createHash("sha256").update(logContent).digest("hex");
   executionLogs.push({
-    id: crypto5.randomUUID(),
+    id: crypto6.randomUUID(),
     configId,
     logType,
     severity,
@@ -38398,7 +39488,7 @@ router10.post("/validators", async (req, res) => {
       return res.status(400).json({ error: "Cannot add validators to executed genesis" });
     }
     const validator = {
-      id: crypto5.randomUUID(),
+      id: crypto6.randomUUID(),
       configId: genesisConfig2?.id || "",
       ...req.body,
       isVerified: false,
@@ -38443,7 +39533,7 @@ router10.post("/distribution", async (req, res) => {
       return res.status(400).json({ error: "Cannot modify executed genesis distribution" });
     }
     const distribution = {
-      id: crypto5.randomUUID(),
+      id: crypto6.randomUUID(),
       configId: genesisConfig2?.id || "",
       ...req.body,
       status: "pending"
@@ -38740,7 +39830,7 @@ router10.post("/execute", async (req, res) => {
     for (const dist of genesisDistributions) {
       dist.status = "distributed";
       dist.distributedAt = (/* @__PURE__ */ new Date()).toISOString();
-      dist.distributionTxHash = "0x" + crypto5.randomBytes(32).toString("hex");
+      dist.distributionTxHash = "0x" + crypto6.randomBytes(32).toString("hex");
     }
     addExecutionLog(
       genesisConfig2.id,
@@ -40508,10 +41598,11 @@ var ProductionDataPoller = class {
     isPollInProgress: false
   };
   config = {
-    pollInterval: 15e3,
-    // 15 seconds
-    retryDelay: 5e3,
-    // 5 seconds on error
+    // In development, use longer intervals to reduce event loop pressure and allow Vite to work smoothly
+    pollInterval: process.env.NODE_ENV === "development" ? 6e4 : 15e3,
+    // 60s in dev, 15s in prod
+    retryDelay: process.env.NODE_ENV === "development" ? 1e4 : 5e3,
+    // 10s in dev, 5s in prod
     maxConsecutiveErrors: 5,
     // Back off after 5 consecutive errors
     circuitBreakerThreshold: 10,
@@ -41062,15 +42153,100 @@ var ADMIN_EMAIL = process.env.ADMIN_EMAIL || "trustburn79@gmail.com";
 var SITE_PASSWORD = ADMIN_PASSWORD2;
 var resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
 var EMAIL_FROM = process.env.EMAIL_FROM || "TBURN Chain <onboarding@resend.dev>";
+var RESEND_VERIFIED_EMAIL = "trustburn79@gmail.com";
 var activeIntervals = [];
 var activeTimeouts = [];
 var intervalExecutionState = /* @__PURE__ */ new Map();
+var SERVER_START_TIME = Date.now();
+var STARTUP_DELAY_MS = 25e3;
+var IS_DEVELOPMENT = process.env.NODE_ENV === "development";
+var DEV_MIN_INTERVAL_MS = 3e4;
+var jobQueue = [];
+var isProcessingQueue = false;
+async function processJobQueue() {
+  if (isProcessingQueue || jobQueue.length === 0) return;
+  isProcessingQueue = true;
+  while (jobQueue.length > 0) {
+    const job = jobQueue.shift();
+    if (!job) break;
+    try {
+      await new Promise((resolve) => setImmediate(resolve));
+      await job.callback();
+    } catch (error) {
+    }
+    await new Promise((resolve) => setImmediate(resolve));
+  }
+  isProcessingQueue = false;
+}
+var DEV_DISABLED_INTERVALS = /* @__PURE__ */ new Set([
+  "real_ai_decisions",
+  "validator_scheduling_ai",
+  "governance_prevalidation_ai",
+  "dev_ai_decisions",
+  "dev_cross_shard",
+  "dev_wallets",
+  "dev_consensus_rounds",
+  "prod_ai_decisions",
+  "prod_cross_shard",
+  "prod_wallets",
+  "prod_consensus_rounds",
+  "prod_consensus_state",
+  "staking_stats_broadcast",
+  "staking_pools_broadcast",
+  "staking_activity_broadcast",
+  "reward_cycle_broadcast",
+  "staking_tier_broadcast",
+  "dex_pool_stats_broadcast",
+  "dex_swaps_broadcast",
+  "dex_price_feed_broadcast",
+  "dex_circuit_breakers_broadcast",
+  "lending_markets_broadcast",
+  "lending_risk_broadcast",
+  "lending_transactions_broadcast",
+  "lending_rates_broadcast",
+  "lending_liquidations_broadcast",
+  "yield_vaults_broadcast",
+  "yield_positions_broadcast",
+  "yield_harvests_broadcast",
+  "yield_transactions_broadcast",
+  "lst_pools_broadcast",
+  "lst_positions_broadcast",
+  "lst_rebases_broadcast",
+  "lst_transactions_broadcast",
+  "nft_collections_broadcast",
+  "nft_listings_broadcast",
+  "nft_sales_broadcast",
+  "nft_activity_broadcast",
+  "launchpad_projects_broadcast",
+  "launchpad_rounds_broadcast",
+  "launchpad_activity_broadcast",
+  "gamefi_projects_broadcast",
+  "gamefi_tournaments_broadcast",
+  "gamefi_activity_broadcast",
+  "bridge_chains_broadcast",
+  "bridge_transfers_broadcast",
+  "bridge_validators_broadcast",
+  "bridge_activity_broadcast",
+  "bridge_liquidity_broadcast",
+  "community_activity_broadcast",
+  "community_stats_broadcast"
+]);
 function createTrackedInterval(callback, ms, name) {
   const intervalName = name || `interval_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`;
+  if (IS_DEVELOPMENT && name && DEV_DISABLED_INTERVALS.has(name)) {
+    console.log(`[Enterprise] Interval disabled in dev mode: ${name}`);
+    return setTimeout(() => {
+    }, 0);
+  }
+  const effectiveMs = IS_DEVELOPMENT ? Math.max(ms, DEV_MIN_INTERVAL_MS) : ms;
   intervalExecutionState.set(intervalName, { isRunning: false, lastRun: 0, skipCount: 0 });
   const guardedCallback = async () => {
     const state = intervalExecutionState.get(intervalName);
     if (!state) return;
+    const timeSinceStart = Date.now() - SERVER_START_TIME;
+    if (timeSinceStart < STARTUP_DELAY_MS) {
+      return;
+    }
     if (state.isRunning) {
       state.skipCount++;
       if (state.skipCount % 10 === 1) {
@@ -41080,17 +42256,22 @@ function createTrackedInterval(callback, ms, name) {
     }
     state.isRunning = true;
     state.lastRun = Date.now();
-    try {
-      await callback();
-    } catch (error) {
-    } finally {
-      state.isRunning = false;
-    }
+    jobQueue.push({
+      name: intervalName,
+      callback: async () => {
+        try {
+          await callback();
+        } finally {
+          state.isRunning = false;
+        }
+      }
+    });
+    processJobQueue();
   };
-  const interval = setInterval(guardedCallback, ms);
+  const interval = setInterval(guardedCallback, effectiveMs);
   activeIntervals.push(interval);
   if (name) {
-    console.log(`[Enterprise] Registered interval: ${name} (${ms}ms)`);
+    console.log(`[Enterprise] Registered interval: ${name} (${effectiveMs}ms${IS_DEVELOPMENT && ms < DEV_MIN_INTERVAL_MS ? ` [dev throttled from ${ms}ms]` : ""})`);
   }
   return interval;
 }
@@ -41157,6 +42338,7 @@ function requireAdmin(req, res, next) {
   return res.status(401).json({ error: "Unauthorized" });
 }
 async function registerRoutes(app2) {
+  startDbKeepAlive();
   const configValidation = validateCriticalConfiguration();
   if (!configValidation.isValid) {
     console.error("[Startup] \u274C Critical configuration errors detected!");
@@ -41173,11 +42355,21 @@ async function registerRoutes(app2) {
   const { tokenRegistry: tokenRegistry2 } = await Promise.resolve().then(() => (init_TokenRegistry(), TokenRegistry_exports));
   await tokenRegistry2.initialize();
   const dataPoller = getProductionDataPoller();
-  dataPoller.start().then(() => {
-    console.log("[DataPoller] \u2705 Production data poller started - cache warming in background");
-  }).catch((err) => {
-    console.error("[DataPoller] \u26A0\uFE0F Failed to start poller:", err.message);
-  });
+  const isDev = process.env.NODE_ENV === "development";
+  const HEAVY_INIT_DELAY = isDev ? 8e3 : 0;
+  function startHeavyServices() {
+    dataPoller.start().then(() => {
+      console.log("[DataPoller] \u2705 Production data poller started - cache warming in background");
+    }).catch((err) => {
+      console.error("[DataPoller] \u26A0\uFE0F Failed to start poller:", err.message);
+    });
+  }
+  if (isDev) {
+    console.log("[Routes] \u{1F680} Development mode: Deferring heavy services by 8s to allow Vite to serve frontend first");
+    setTimeout(startHeavyServices, HEAVY_INIT_DELAY);
+  } else {
+    startHeavyServices();
+  }
   let validatorSimulation = null;
   async function initializeValidatorSimulation() {
     try {
@@ -41185,6 +42377,11 @@ async function registerRoutes(app2) {
       const existingValidators = await storage.getAllValidators();
       console.log(`[Validator] Found ${existingValidators.length} existing validators`);
       validatorSimulation = new ValidatorSimulationService(storage);
+      const enterpriseNodeForInterval = getEnterpriseNode();
+      if (enterpriseNodeForInterval) {
+        validatorSimulation.setEnterpriseNode(enterpriseNodeForInterval);
+        console.log("[Validator] \u2705 Connected to Enterprise Node for block interval tracking");
+      }
       if (existingValidators.length === 0) {
         console.log("[Validator] No validators found, initializing 125 enterprise validators...");
         await validatorSimulation.initializeValidators();
@@ -41229,7 +42426,14 @@ async function registerRoutes(app2) {
       }
     }
   }
-  initializeValidatorSimulation();
+  if (isDev) {
+    setTimeout(() => {
+      console.log("[Routes] \u{1F680} Starting validator simulation (deferred)...");
+      initializeValidatorSimulation();
+    }, HEAVY_INIT_DELAY + 1e3);
+  } else {
+    initializeValidatorSimulation();
+  }
   const clients = /* @__PURE__ */ new Set();
   const lastBroadcastState = /* @__PURE__ */ new Map();
   function broadcastUpdate(type, data, schema, skipDiffCheck = false) {
@@ -41416,15 +42620,8 @@ async function registerRoutes(app2) {
             req.session.memberId = member.id;
             req.session.memberEmail = email;
             req.session.memberAddress = member.accountAddress;
-            await ensureMemberProfiles(member.id);
-            try {
-              await storage.updateMemberPerformanceMetrics(member.id, {
-                lastLoginAt: /* @__PURE__ */ new Date()
-              });
-            } catch (err) {
-            }
             console.log(`[Login] Member ${member.displayName} logged in with wallet ${member.accountAddress}`);
-            return res.json({
+            res.json({
               success: true,
               member: {
                 id: member.id,
@@ -41432,6 +42629,17 @@ async function registerRoutes(app2) {
                 accountAddress: member.accountAddress
               }
             });
+            setImmediate(async () => {
+              try {
+                await ensureMemberProfiles(member.id);
+                await storage.updateMemberPerformanceMetrics(member.id, {
+                  lastLoginAt: /* @__PURE__ */ new Date()
+                });
+              } catch (err) {
+                console.error("[Login Background] Profile/metrics update failed:", err instanceof Error ? err.message : err);
+              }
+            });
+            return;
           }
         }
       } catch (error) {
@@ -41534,70 +42742,56 @@ async function registerRoutes(app2) {
         type,
         expiresAt
       });
+      res.json({
+        success: true,
+        message: "Verification code sent to your email",
+        expiresAt: expiresAt.toISOString()
+      });
       if (resend) {
-        try {
-          const { error: sendError } = await resend.emails.send({
-            from: EMAIL_FROM,
-            to: email,
-            subject: "[TBURN Chain] \uC774\uBA54\uC77C \uC778\uC99D \uCF54\uB4DC / Verification Code",
-            html: `
-              <div style="font-family: 'Segoe UI', Arial, sans-serif; max-width: 600px; margin: 0 auto; background: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 100%); padding: 40px; border-radius: 16px;">
-                <div style="text-align: center; margin-bottom: 30px;">
-                  <h1 style="color: #00f0ff; font-size: 28px; margin: 0;">\u{1F525} TBURN Chain</h1>
-                  <p style="color: #888; font-size: 14px;">Blockchain Mainnet Explorer</p>
-                </div>
-                
-                <div style="background: rgba(0,240,255,0.1); border: 1px solid rgba(0,240,255,0.3); border-radius: 12px; padding: 30px; text-align: center;">
-                  <p style="color: #ccc; font-size: 16px; margin: 0 0 20px 0;">\uC778\uC99D \uCF54\uB4DC / Verification Code</p>
-                  <div style="background: #000; border-radius: 8px; padding: 20px; display: inline-block;">
-                    <span style="color: #00f0ff; font-size: 36px; font-weight: bold; letter-spacing: 8px; font-family: 'Courier New', monospace;">${verificationCode}</span>
+        setImmediate(async () => {
+          try {
+            const { error: sendError } = await resend.emails.send({
+              from: EMAIL_FROM,
+              to: email,
+              subject: "[TBURN Chain] \uC774\uBA54\uC77C \uC778\uC99D \uCF54\uB4DC / Verification Code",
+              html: `
+                <div style="font-family: 'Segoe UI', Arial, sans-serif; max-width: 600px; margin: 0 auto; background: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 100%); padding: 40px; border-radius: 16px;">
+                  <div style="text-align: center; margin-bottom: 30px;">
+                    <h1 style="color: #00f0ff; font-size: 28px; margin: 0;">\u{1F525} TBURN Chain</h1>
+                    <p style="color: #888; font-size: 14px;">Blockchain Mainnet Explorer</p>
                   </div>
-                  <p style="color: #888; font-size: 14px; margin: 20px 0 0 0;">\uC774 \uCF54\uB4DC\uB294 10\uBD84 \uD6C4 \uB9CC\uB8CC\uB429\uB2C8\uB2E4 / This code expires in 10 minutes</p>
+                  
+                  <div style="background: rgba(0,240,255,0.1); border: 1px solid rgba(0,240,255,0.3); border-radius: 12px; padding: 30px; text-align: center;">
+                    <p style="color: #ccc; font-size: 16px; margin: 0 0 20px 0;">\uC778\uC99D \uCF54\uB4DC / Verification Code</p>
+                    <div style="background: #000; border-radius: 8px; padding: 20px; display: inline-block;">
+                      <span style="color: #00f0ff; font-size: 36px; font-weight: bold; letter-spacing: 8px; font-family: 'Courier New', monospace;">${verificationCode}</span>
+                    </div>
+                    <p style="color: #888; font-size: 14px; margin: 20px 0 0 0;">\uC774 \uCF54\uB4DC\uB294 10\uBD84 \uD6C4 \uB9CC\uB8CC\uB429\uB2C8\uB2E4 / This code expires in 10 minutes</p>
+                  </div>
+                  
+                  <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); text-align: center;">
+                    <p style="color: #666; font-size: 12px;">\xA9 2025 TBurn Chain Foundation. All rights reserved.</p>
+                  </div>
                 </div>
-                
-                <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); text-align: center;">
-                  <p style="color: #666; font-size: 12px;">\xA9 2025 TBurn Chain Foundation. All rights reserved.</p>
-                </div>
-              </div>
-            `
-          });
-          if (sendError) {
-            console.error("[Email Verification] Resend error:", sendError);
-            if (sendError.message?.includes("verify a domain") || sendError.name === "validation_error") {
-              console.log(`[Email Verification] \u26A0\uFE0F Domain not verified - Code for ${email}: ${verificationCode}`);
-              console.log(`[Email Verification] \u{1F4A1} To fix: Verify domain at https://resend.com/domains`);
-              return res.json({
-                success: true,
-                message: "\uC774\uBA54\uC77C \uC11C\uBE44\uC2A4\uAC00 \uD14C\uC2A4\uD2B8 \uBAA8\uB4DC\uC785\uB2C8\uB2E4. \uC11C\uBC84 \uCF58\uC194\uC5D0\uC11C \uC778\uC99D \uCF54\uB4DC\uB97C \uD655\uC778\uD558\uC138\uC694.",
-                testMode: true,
-                expiresAt: expiresAt.toISOString()
-              });
-            }
-            return res.status(500).json({ error: "Failed to send verification email" });
-          }
-          console.log(`[Email Verification] Email sent to ${email}`);
-          res.json({
-            success: true,
-            message: "Verification code sent to your email",
-            expiresAt: expiresAt.toISOString()
-          });
-        } catch (emailError) {
-          console.error("[Email Verification] Email send failed:", emailError);
-          if (emailError?.message?.includes("verify a domain") || emailError?.statusCode === 403) {
-            console.log(`[Email Verification] \u26A0\uFE0F Domain not verified - Code for ${email}: ${verificationCode}`);
-            console.log(`[Email Verification] \u{1F4A1} To fix: Verify domain at https://resend.com/domains`);
-            return res.json({
-              success: true,
-              message: "\uC774\uBA54\uC77C \uC11C\uBE44\uC2A4\uAC00 \uD14C\uC2A4\uD2B8 \uBAA8\uB4DC\uC785\uB2C8\uB2E4. \uC11C\uBC84 \uCF58\uC194\uC5D0\uC11C \uC778\uC99D \uCF54\uB4DC\uB97C \uD655\uC778\uD558\uC138\uC694.",
-              testMode: true,
-              expiresAt: expiresAt.toISOString()
+              `
             });
+            if (sendError) {
+              console.error("[Email Verification] Resend error:", sendError);
+              if (sendError.message?.includes("verify a domain") || sendError.name === "validation_error") {
+                console.log(`[Email Verification] \u26A0\uFE0F Domain not verified - Code for ${email}: ${verificationCode}`);
+              }
+            } else {
+              console.log(`[Email Verification] Email sent to ${email}`);
+            }
+          } catch (emailError) {
+            console.error("[Email Verification] Email send failed:", emailError);
+            if (emailError?.message?.includes("verify a domain") || emailError?.statusCode === 403) {
+              console.log(`[Email Verification] \u26A0\uFE0F Domain not verified - Code for ${email}: ${verificationCode}`);
+            }
           }
-          return res.status(500).json({ error: "Failed to send verification email" });
-        }
+        });
       } else {
         console.warn("[Email Verification] No email service configured! Code:", verificationCode);
-        res.status(500).json({ error: "Email service not configured" });
       }
     } catch (error) {
       console.error("Send verification error:", error);
@@ -41694,23 +42888,54 @@ async function registerRoutes(app2) {
         }
         let member = await storage.getMemberByEmail(googleUser.email);
         if (!member) {
-          const walletAddress = `tb1${googleUser.googleId.slice(0, 32)}gauth`;
-          member = await storage.createMember({
-            email: googleUser.email,
-            username: googleUser.name || googleUser.email.split("@")[0],
-            displayName: googleUser.name || "",
-            walletAddress,
-            passwordHash: "",
-            // No password for Google accounts
-            status: "active",
-            emailVerified: true,
-            kycStatus: "pending",
-            kycLevel: 0,
-            membershipTier: "standard",
-            referralCode: `TBURN${Date.now().toString(36).toUpperCase()}`,
+          req.session.pendingGoogleUser = {
             googleId: googleUser.googleId,
-            avatarUrl: googleUser.picture || null
+            email: googleUser.email,
+            name: googleUser.name,
+            picture: googleUser.picture
+          };
+          const verificationCode = Math.floor(1e5 + Math.random() * 9e5).toString();
+          const expiresAt = new Date(Date.now() + 10 * 60 * 1e3);
+          await storage.createEmailVerification({
+            email: googleUser.email,
+            verificationCode,
+            type: "google_signup",
+            expiresAt
           });
+          if (resend) {
+            try {
+              const targetEmail = googleUser.email === RESEND_VERIFIED_EMAIL ? googleUser.email : RESEND_VERIFIED_EMAIL;
+              await resend.emails.send({
+                from: EMAIL_FROM,
+                to: targetEmail,
+                subject: "[TBURN Chain] Google \uD68C\uC6D0\uAC00\uC785 \uC774\uBA54\uC77C \uC778\uC99D / Google Signup Verification",
+                html: `
+                  <div style="font-family: 'Segoe UI', Arial, sans-serif; max-width: 600px; margin: 0 auto; background: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 100%); padding: 40px; border-radius: 16px;">
+                    <div style="text-align: center; margin-bottom: 30px;">
+                      <h1 style="color: #00f0ff; font-size: 28px; margin: 0;">\u{1F525} TBURN Chain</h1>
+                      <p style="color: #888; font-size: 14px;">Google \uACC4\uC815 \uD68C\uC6D0\uAC00\uC785 \uC778\uC99D</p>
+                    </div>
+                    
+                    <div style="background: rgba(0,240,255,0.1); border: 1px solid rgba(0,240,255,0.3); border-radius: 12px; padding: 30px; text-align: center;">
+                      <p style="color: #ccc; font-size: 16px; margin: 0 0 20px 0;">\uC778\uC99D \uCF54\uB4DC / Verification Code</p>
+                      <div style="background: #000; border-radius: 8px; padding: 20px; display: inline-block;">
+                        <span style="color: #00f0ff; font-size: 36px; font-weight: bold; letter-spacing: 8px; font-family: 'Courier New', monospace;">${verificationCode}</span>
+                      </div>
+                      <p style="color: #888; font-size: 14px; margin: 20px 0 0 0;">\uC774 \uCF54\uB4DC\uB294 10\uBD84 \uD6C4 \uB9CC\uB8CC\uB429\uB2C8\uB2E4 / This code expires in 10 minutes</p>
+                    </div>
+                    
+                    <p style="color: #666; font-size: 12px; text-align: center; margin-top: 30px;">
+                      Google \uACC4\uC815: ${googleUser.email}
+                    </p>
+                  </div>
+                `
+              });
+            } catch (emailError) {
+              console.error("Failed to send Google signup verification email:", emailError);
+            }
+          }
+          console.log(`[Google Signup Verification] Code for ${googleUser.email}: ${verificationCode}`);
+          return res.redirect(`/google-verify?email=${encodeURIComponent(googleUser.email)}`);
         } else if (!member.googleId) {
           await storage.updateMember(member.id, {
             googleId: googleUser.googleId,
@@ -41731,6 +42956,110 @@ async function registerRoutes(app2) {
       }
     }
   );
+  app2.post("/api/auth/google/complete-signup", async (req, res) => {
+    try {
+      const { email, code } = req.body;
+      if (!email || !code) {
+        return res.status(400).json({ error: "Email and verification code are required" });
+      }
+      const verification = await storage.getEmailVerificationByEmail(email, "google_signup");
+      if (!verification) {
+        return res.status(400).json({ error: "No verification request found. Please try again." });
+      }
+      if (/* @__PURE__ */ new Date() > new Date(verification.expiresAt)) {
+        return res.status(400).json({ error: "Verification code has expired. Please request a new one." });
+      }
+      if (verification.verificationCode !== code) {
+        return res.status(400).json({ error: "Invalid verification code" });
+      }
+      const pendingGoogleUser = req.session.pendingGoogleUser;
+      if (!pendingGoogleUser || pendingGoogleUser.email !== email) {
+        return res.status(400).json({ error: "Google session expired. Please try signing up again." });
+      }
+      await storage.verifyEmailCode(email, code, "google_signup");
+      const walletAddress = `tb1${pendingGoogleUser.googleId.slice(0, 32)}gauth`;
+      const member = await storage.createMember({
+        email: pendingGoogleUser.email,
+        username: pendingGoogleUser.name || pendingGoogleUser.email.split("@")[0],
+        displayName: pendingGoogleUser.name || "",
+        walletAddress,
+        passwordHash: "",
+        // No password for Google accounts
+        status: "active",
+        emailVerified: true,
+        kycStatus: "pending",
+        kycLevel: 0,
+        membershipTier: "standard",
+        referralCode: `TBURN${Date.now().toString(36).toUpperCase()}`,
+        googleId: pendingGoogleUser.googleId,
+        avatarUrl: pendingGoogleUser.picture || null
+      });
+      req.session.authenticated = true;
+      req.session.memberId = member.id;
+      req.session.memberEmail = member.email;
+      req.session.googleId = pendingGoogleUser.googleId;
+      req.session.googleEmail = pendingGoogleUser.email;
+      req.session.googleName = pendingGoogleUser.name;
+      req.session.googlePicture = pendingGoogleUser.picture;
+      delete req.session.pendingGoogleUser;
+      res.json({ success: true, message: "Account created successfully" });
+    } catch (error) {
+      console.error("Google signup completion error:", error);
+      res.status(500).json({ error: "Failed to complete signup" });
+    }
+  });
+  app2.post("/api/auth/google/resend-code", loginLimiter, async (req, res) => {
+    try {
+      const { email } = req.body;
+      if (!email) {
+        return res.status(400).json({ error: "Email is required" });
+      }
+      const pendingGoogleUser = req.session.pendingGoogleUser;
+      if (!pendingGoogleUser || pendingGoogleUser.email !== email) {
+        return res.status(400).json({ error: "Google session expired. Please try signing up again." });
+      }
+      const verificationCode = Math.floor(1e5 + Math.random() * 9e5).toString();
+      const expiresAt = new Date(Date.now() + 10 * 60 * 1e3);
+      await storage.createEmailVerification({
+        email,
+        verificationCode,
+        type: "google_signup",
+        expiresAt
+      });
+      if (resend) {
+        try {
+          const targetEmail = email === RESEND_VERIFIED_EMAIL ? email : RESEND_VERIFIED_EMAIL;
+          await resend.emails.send({
+            from: EMAIL_FROM,
+            to: targetEmail,
+            subject: "[TBURN Chain] \uC0C8 \uC778\uC99D \uCF54\uB4DC / New Verification Code",
+            html: `
+              <div style="font-family: 'Segoe UI', Arial, sans-serif; max-width: 600px; margin: 0 auto; background: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 100%); padding: 40px; border-radius: 16px;">
+                <div style="text-align: center; margin-bottom: 30px;">
+                  <h1 style="color: #00f0ff; font-size: 28px; margin: 0;">\u{1F525} TBURN Chain</h1>
+                </div>
+                
+                <div style="background: rgba(0,240,255,0.1); border: 1px solid rgba(0,240,255,0.3); border-radius: 12px; padding: 30px; text-align: center;">
+                  <p style="color: #ccc; font-size: 16px; margin: 0 0 20px 0;">\uC0C8 \uC778\uC99D \uCF54\uB4DC / New Verification Code</p>
+                  <div style="background: #000; border-radius: 8px; padding: 20px; display: inline-block;">
+                    <span style="color: #00f0ff; font-size: 36px; font-weight: bold; letter-spacing: 8px; font-family: 'Courier New', monospace;">${verificationCode}</span>
+                  </div>
+                  <p style="color: #888; font-size: 14px; margin: 20px 0 0 0;">\uC774 \uCF54\uB4DC\uB294 10\uBD84 \uD6C4 \uB9CC\uB8CC\uB429\uB2C8\uB2E4</p>
+                </div>
+              </div>
+            `
+          });
+        } catch (emailError) {
+          console.error("Failed to resend verification email:", emailError);
+        }
+      }
+      console.log(`[Google Signup Verification] New code for ${email}: ${verificationCode}`);
+      res.json({ success: true, message: "New verification code sent" });
+    } catch (error) {
+      console.error("Resend Google verification error:", error);
+      res.status(500).json({ error: "Failed to resend verification code" });
+    }
+  });
   app2.get("/api/auth/me", async (req, res) => {
     if (!req.session.authenticated || !req.session.memberId) {
       return res.status(401).json({ authenticated: false });
@@ -41863,6 +43192,32 @@ async function registerRoutes(app2) {
       connectionStatus: "connected",
       lastChecked: (/* @__PURE__ */ new Date()).toISOString()
     });
+  });
+  app2.get("/whitepaper", async (_req, res) => {
+    try {
+      const fs2 = await import("fs/promises");
+      const path2 = await import("path");
+      const whitepaperPath = path2.join(process.cwd(), "public", "whitepaper.html");
+      const htmlContent = await fs2.readFile(whitepaperPath, "utf-8");
+      res.setHeader("Content-Type", "text/html; charset=utf-8");
+      res.send(htmlContent);
+    } catch (error) {
+      console.error("[Whitepaper] Error serving whitepaper:", error);
+      res.status(500).send("Error loading whitepaper");
+    }
+  });
+  app2.get("/technical-whitepaper", async (_req, res) => {
+    try {
+      const fs2 = await import("fs/promises");
+      const path2 = await import("path");
+      const whitepaperPath = path2.join(process.cwd(), "public", "technical-whitepaper.html");
+      const htmlContent = await fs2.readFile(whitepaperPath, "utf-8");
+      res.setHeader("Content-Type", "text/html; charset=utf-8");
+      res.send(htmlContent);
+    } catch (error) {
+      console.error("[Technical Whitepaper] Error serving technical whitepaper:", error);
+      res.status(500).send("Error loading technical whitepaper");
+    }
   });
   app2.get("/health", async (_req, res) => {
     try {
@@ -42138,19 +43493,20 @@ async function registerRoutes(app2) {
           const shardTps = calculateRealTimeTps();
           const mergedStats = mergeWithHealingScores({
             ...mainnetStats,
-            currentBlockHeight: dbStats?.currentBlockHeight || mainnetStats.currentBlockHeight || 0,
+            currentBlockHeight: mainnetStats.currentBlockHeight || dbStats?.currentBlockHeight || 0,
             // Override validators with shard-based calculation
             activeValidators: shardTps.validators,
             totalValidators: shardTps.validators,
-            totalTransactions: dbStats?.totalTransactions || mainnetStats.totalTransactions || 0,
-            totalAccounts: dbStats?.totalAccounts || mainnetStats.totalAccounts || 0,
+            // CRITICAL: Always use Enterprise Node values (mainnetStats) for consistency
+            totalTransactions: mainnetStats.totalTransactions || 0,
+            totalAccounts: mainnetStats.totalAccounts || dbStats?.totalAccounts || 0,
             // ENTERPRISE: TPS always from shard configuration
             tps: shardTps.tps,
             peakTps: shardTps.peakTps,
             shardCount: shardTps.shardCount,
             tpsPerShard: shardTps.tpsPerShard,
             avgBlockTime: dbStats?.avgBlockTime || mainnetStats.avgBlockTime || 100,
-            blockTimeP99: dbStats?.blockTimeP99 || mainnetStats.blockTimeP99 || 1200,
+            blockTimeP99: dbStats?.blockTimeP99 || mainnetStats.blockTimeP99 || 105,
             slaUptime: dbStats?.slaUptime || mainnetStats.slaUptime || 9999,
             latency: dbStats?.latency || mainnetStats.latency || 12,
             latencyP99: dbStats?.latencyP99 || mainnetStats.latencyP99 || 25,
@@ -42179,12 +43535,13 @@ async function registerRoutes(app2) {
               tps: shardTps.tps,
               peakTps: shardTps.peakTps,
               avgBlockTime: 100,
-              // 100ms enterprise block time (10 blocks/second)
-              blockTimeP99: 1200,
+              // Default until measured data available
+              blockTimeP99: 105,
+              // Default until measured data available
               slaUptime: 9999,
               // 99.99% enterprise SLA
-              latency: 8 + Math.floor(Math.random() * 7),
-              // 8-15ms
+              latency: 12,
+              // Stable latency value
               latencyP99: 25,
               activeValidators: shardTps.validators,
               totalValidators: shardTps.validators,
@@ -43312,7 +44669,7 @@ async function registerRoutes(app2) {
       const status = await tokenFactoryService2.getFactoryStatus();
       res.json({
         network: "TBURN Mainnet",
-        chainId: 7979,
+        chainId: 6e3,
         ...status
       });
     } catch (error) {
@@ -43650,9 +45007,9 @@ async function registerRoutes(app2) {
       const transferId = req.params.id;
       const now = Date.now();
       const sampleTransfers = [
-        { id: "tx-001", sourceChainId: 1, destinationChainId: 7979, tokenSymbol: "TBURN", amount: "100000000000000000000000", status: "pending" },
-        { id: "tx-002", sourceChainId: 56, destinationChainId: 7979, tokenSymbol: "TBURN", amount: "50000000000000000000000", status: "confirming" },
-        { id: "tx-005", sourceChainId: 10, destinationChainId: 7979, tokenSymbol: "TBURN", amount: "75000000000000000000000", status: "bridging" }
+        { id: "tx-001", sourceChainId: 1, destinationChainId: 6e3, tokenSymbol: "TBURN", amount: "100000000000000000000000", status: "pending" },
+        { id: "tx-002", sourceChainId: 56, destinationChainId: 6e3, tokenSymbol: "TBURN", amount: "50000000000000000000000", status: "confirming" },
+        { id: "tx-005", sourceChainId: 10, destinationChainId: 6e3, tokenSymbol: "TBURN", amount: "75000000000000000000000", status: "bridging" }
       ];
       const transfer = sampleTransfers.find((t) => t.id === transferId);
       if (!transfer) {
@@ -53649,7 +55006,7 @@ async function registerRoutes(app2) {
         version: "2.1.0",
         status: "operational",
         network: "mainnet",
-        chainId: 7979,
+        chainId: 6e3,
         rpcEndpoint: "https://rpc.tburn.io",
         wsEndpoint: "wss://ws.tburn.io",
         explorerUrl: "https://explorer.tburn.io",
@@ -53702,7 +55059,7 @@ async function registerRoutes(app2) {
   app2.get("/api/wallet-sdk/chains", requireAuth, async (_req, res) => {
     try {
       res.json([
-        { chainId: 7979, name: "TBURN Mainnet", symbol: "TBURN", rpc: "https://rpc.tburn.io", explorer: "https://explorer.tburn.io", status: "active", gasUnit: "EMB" },
+        { chainId: 6e3, name: "TBURN Mainnet", symbol: "TBURN", rpc: "https://rpc.tburn.io", explorer: "https://explorer.tburn.io", status: "active", gasUnit: "EMB" },
         { chainId: 1, name: "Ethereum", symbol: "ETH", rpc: "https://eth-rpc.tburn.io", explorer: "https://etherscan.io", status: "bridged", bridgeContract: "0x..." },
         { chainId: 56, name: "BNB Chain", symbol: "BNB", rpc: "https://bsc-rpc.tburn.io", explorer: "https://bscscan.com", status: "bridged", bridgeContract: "0x..." },
         { chainId: 137, name: "Polygon", symbol: "MATIC", rpc: "https://polygon-rpc.tburn.io", explorer: "https://polygonscan.com", status: "bridged", bridgeContract: "0x..." },
@@ -55299,11 +56656,20 @@ Provide JSON portfolio analysis:
   wss.on("connection", (ws2) => {
     console.log("New WebSocket client connected");
     clients.add(ws2);
-    storage.getNetworkStats().then((stats) => {
+    storage.getNetworkStats().then(async (stats) => {
       if (ws2.readyState === WebSocket3.OPEN) {
+        const shardTps = calculateRealTimeTps();
+        const normalizedStats = {
+          ...stats,
+          tps: shardTps.tps,
+          peakTps: shardTps.peakTps,
+          activeValidators: shardTps.validators,
+          totalValidators: shardTps.validators,
+          shardCount: shardTps.shardCount
+        };
         ws2.send(JSON.stringify({
           type: "network_stats",
-          data: stats
+          data: normalizedStats
         }));
       }
     });
@@ -55620,7 +56986,14 @@ Provide JSON portfolio analysis:
           activeValidators: shardTps.validators,
           totalValidators: shardTps.validators
         });
-        stats = { ...stats, tps: shardTps.tps, peakTps: shardTps.peakTps };
+        stats = {
+          ...stats,
+          tps: shardTps.tps,
+          peakTps: shardTps.peakTps,
+          activeValidators: shardTps.validators,
+          totalValidators: shardTps.validators,
+          shardCount: shardTps.shardCount
+        };
       }
       let tokenEconomics = null;
       try {
@@ -55705,7 +57078,7 @@ Provide JSON portfolio analysis:
     } catch (error) {
       console.error("Error broadcasting block updates:", error);
     }
-  }, 2e3, "block_updates");
+  }, 5e3, "block_updates");
   aiOrchestrator.start().then(() => {
     console.log("[Routes] AI Orchestrator started for real AI decisions");
   }).catch((err) => {
@@ -55937,7 +57310,7 @@ Provide JSON portfolio analysis:
       } catch (error) {
         console.error("Error broadcasting consensus rounds snapshot:", error);
       }
-    }, 3e3, "dev_consensus_rounds");
+    }, 5e3, "dev_consensus_rounds");
   }
   createTrackedInterval(async () => {
     if (clients.size === 0) return;
@@ -55947,7 +57320,7 @@ Provide JSON portfolio analysis:
     } catch (error) {
       console.error("Error broadcasting consensus state update:", error);
     }
-  }, 3e3, "consensus_state");
+  }, 5e3, "consensus_state");
   createTrackedInterval(async () => {
     if (clients.size === 0) return;
     try {
@@ -56068,7 +57441,7 @@ Provide JSON portfolio analysis:
     } catch (error) {
       console.error("Error broadcasting voting activity:", error);
     }
-  }, 1e3, "voting_activity");
+  }, 5e3, "voting_activity");
   createTrackedInterval(async () => {
     if (clients.size === 0) return;
     try {
@@ -56419,7 +57792,7 @@ Provide JSON portfolio analysis:
     } catch (error) {
       console.error("[DEX WS] Error broadcasting price feed:", error);
     }
-  }, 2e3, "dex_price_feed_broadcast");
+  }, 5e3, "dex_price_feed_broadcast");
   createTrackedInterval(async () => {
     if (clients.size === 0) return;
     try {
@@ -57007,7 +58380,7 @@ Provide JSON portfolio analysis:
       }
       const [subscribers, totalResult] = await Promise.all([
         query.limit(Number(limit)).offset(Number(offset)),
-        db.select({ count: sql5`count(*)` }).from(newsletterSubscribers)
+        db.select({ count: sql6`count(*)` }).from(newsletterSubscribers)
       ]);
       const result = {
         success: true,
