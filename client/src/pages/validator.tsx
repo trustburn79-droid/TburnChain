@@ -12,8 +12,10 @@ import {
   Sliders,
   ChartPieSlice,
   Coins,
-  TreeStructure
+  TreeStructure,
+  CircleNotch
 } from "@phosphor-icons/react";
+import { type ValidatorDisplayData, transformValidator, type ValidatorData } from "@/lib/validator-utils";
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip, Legend);
 
@@ -24,136 +26,9 @@ interface NetworkStats {
   totalStake: number;
 }
 
-const staticValidators = [
-  {
-    id: 'val-1',
-    name: 'TBURN_Genesis_01',
-    shortAddr: 'Ap2...9xQ',
-    stake: 36468183,
-    stakeShare: 8.65,
-    trustScore: 98.5,
-    version: 'v1.14.17',
-    location: 'Chicago, US',
-    countryCode: 'us',
-    isp: 'AS20326 (TeraSwitch)',
-    performance: 'Delinquent: 0%',
-    performanceStatus: 'good',
-    isGenesis: true,
-    initials: 'TB',
-  },
-  {
-    id: 'val-2',
-    name: 'AllNodes_Secure',
-    shortAddr: 'Hk4...3mL',
-    stake: 25043993,
-    stakeShare: 5.94,
-    trustScore: 100,
-    version: 'v1.14.17',
-    location: 'Frankfurt, DE',
-    countryCode: 'de',
-    isp: 'AS20326 (Cherry Servers)',
-    performance: 'Delinquent: 0%',
-    performanceStatus: 'good',
-    isGenesis: false,
-    initials: 'AN',
-  },
-  {
-    id: 'val-3',
-    name: 'Latitude_Node_V',
-    shortAddr: 'Bp2...8xK',
-    stake: 15663731,
-    stakeShare: 3.71,
-    trustScore: 96.2,
-    version: 'v1.13.5',
-    location: 'Tokyo, JP',
-    countryCode: 'jp',
-    isp: 'AS20326 (Latitude.sh)',
-    performance: 'Warning',
-    performanceStatus: 'warning',
-    isGenesis: false,
-    initials: 'L',
-  },
-  {
-    id: 'val-4',
-    name: 'Coinbase_Cloud_NA',
-    shortAddr: 'Cd5...7nP',
-    stake: 12854621,
-    stakeShare: 3.05,
-    trustScore: 99.1,
-    version: 'v1.14.17',
-    location: 'Virginia, US',
-    countryCode: 'us',
-    isp: 'AS14618 (Amazon)',
-    performance: 'Delinquent: 0%',
-    performanceStatus: 'good',
-    isGenesis: false,
-    initials: 'CB',
-  },
-  {
-    id: 'val-5',
-    name: 'Figment_Prime',
-    shortAddr: 'Fg6...2qR',
-    stake: 11247893,
-    stakeShare: 2.67,
-    trustScore: 97.8,
-    version: 'v1.14.17',
-    location: 'Toronto, CA',
-    countryCode: 'ca',
-    isp: 'AS16509 (Amazon)',
-    performance: 'Delinquent: 0%',
-    performanceStatus: 'good',
-    isGenesis: false,
-    initials: 'FG',
-  },
-  {
-    id: 'val-6',
-    name: 'Chorus_One_EU',
-    shortAddr: 'Ch7...4sT',
-    stake: 9876543,
-    stakeShare: 2.34,
-    trustScore: 99.5,
-    version: 'v1.14.17',
-    location: 'Amsterdam, NL',
-    countryCode: 'nl',
-    isp: 'AS60781 (LeaseWeb)',
-    performance: 'Delinquent: 0%',
-    performanceStatus: 'good',
-    isGenesis: false,
-    initials: 'C1',
-  },
-  {
-    id: 'val-7',
-    name: 'Everstake_Global',
-    shortAddr: 'Ev8...6uV',
-    stake: 8765432,
-    stakeShare: 2.08,
-    trustScore: 98.9,
-    version: 'v1.14.17',
-    location: 'Singapore, SG',
-    countryCode: 'sg',
-    isp: 'AS16509 (Amazon)',
-    performance: 'Delinquent: 0%',
-    performanceStatus: 'good',
-    isGenesis: false,
-    initials: 'EV',
-  },
-  {
-    id: 'val-8',
-    name: 'Staked_US_West',
-    shortAddr: 'St9...8wX',
-    stake: 7654321,
-    stakeShare: 1.82,
-    trustScore: 97.2,
-    version: 'v1.13.5',
-    location: 'Los Angeles, US',
-    countryCode: 'us',
-    isp: 'AS20473 (Vultr)',
-    performance: 'Warning',
-    performanceStatus: 'warning',
-    isGenesis: false,
-    initials: 'ST',
-  },
-];
+interface ValidatorApiResponse {
+  validators: ValidatorData[];
+}
 
 const mapPoints = [
   { top: '30%', left: '25%', delay: '0s' },
@@ -178,15 +53,29 @@ export default function ValidatorCommandCenter() {
     refetchInterval: 30000,
   });
 
+  const { data: validatorResponse, isLoading: validatorsLoading } = useQuery<ValidatorApiResponse>({
+    queryKey: ["/api/validators"],
+    staleTime: 15000,
+    refetchInterval: 30000,
+  });
+
+  const validators: ValidatorDisplayData[] = useMemo(() => {
+    if (!validatorResponse?.validators) return [];
+    const rawValidators = validatorResponse.validators;
+    const totalStake = rawValidators.reduce((sum, v) => sum + parseFloat(v.stake || '0'), 0);
+    return rawValidators.map(v => transformValidator(v, totalStake));
+  }, [validatorResponse]);
+
   const filteredValidators = useMemo(() => {
-    if (!searchQuery) return staticValidators;
+    if (!searchQuery) return validators;
     const query = searchQuery.toLowerCase();
-    return staticValidators.filter(v => 
+    return validators.filter(v => 
       v.name.toLowerCase().includes(query) ||
       v.isp.toLowerCase().includes(query) ||
-      v.location.toLowerCase().includes(query)
+      v.location.toLowerCase().includes(query) ||
+      v.address.toLowerCase().includes(query)
     );
-  }, [searchQuery]);
+  }, [searchQuery, validators]);
 
   const paginatedValidators = useMemo(() => {
     const start = (currentPage - 1) * itemsPerPage;
@@ -194,6 +83,7 @@ export default function ValidatorCommandCenter() {
   }, [filteredValidators, currentPage]);
 
   const totalPages = Math.ceil(filteredValidators.length / itemsPerPage);
+  const activeValidatorCount = validators.filter(v => v.performanceStatus === 'good').length;
 
   const formatNumber = (num: number) => {
     return new Intl.NumberFormat('en-US').format(num);
@@ -202,11 +92,38 @@ export default function ValidatorCommandCenter() {
   const currentTps = networkStats?.currentTps || 102491;
   const currentEpoch = networkStats?.currentEpoch || 402;
 
+  const topStakes = useMemo(() => {
+    if (validators.length === 0) return [8, 35, 51, 100];
+    const sorted = [...validators].sort((a, b) => b.stake - a.stake);
+    const totalStake = validators.reduce((sum, v) => sum + v.stake, 0);
+    if (totalStake === 0) return [8, 35, 51, 100];
+    const top1Pct = Math.round((sorted[0]?.stake || 0) / totalStake * 100);
+    const top10Stake = sorted.slice(0, 10).reduce((sum, v) => sum + v.stake, 0);
+    const top10Pct = Math.round(top10Stake / totalStake * 100);
+    const top19Stake = sorted.slice(0, 19).reduce((sum, v) => sum + v.stake, 0);
+    const top19Pct = Math.round(top19Stake / totalStake * 100);
+    return [top1Pct, top10Pct, top19Pct, 100];
+  }, [validators]);
+
+  const nakamotoCoefficient = useMemo(() => {
+    if (validators.length === 0) return 19;
+    const sorted = [...validators].sort((a, b) => b.stake - a.stake);
+    const totalStake = validators.reduce((sum, v) => sum + v.stake, 0);
+    let cumulative = 0;
+    let count = 0;
+    for (const v of sorted) {
+      cumulative += v.stake;
+      count++;
+      if (cumulative > totalStake / 3) break;
+    }
+    return count;
+  }, [validators]);
+
   const stakeChartData = {
     labels: ['Top 1', 'Top 10', 'Top 19', 'Others'],
     datasets: [{
       label: 'Stake Control',
-      data: [8, 35, 51, 100],
+      data: topStakes,
       backgroundColor: ['#F59E0B', '#3B82F6', '#10B981', '#64748B'],
       borderRadius: 4,
       barThickness: 20,
@@ -228,6 +145,16 @@ export default function ValidatorCommandCenter() {
       }
     }
   };
+
+  const dataCenters = useMemo(() => {
+    const locations = new Set(validators.map(v => v.location));
+    return locations.size || 195;
+  }, [validators]);
+
+  const countries = useMemo(() => {
+    const codes = new Set(validators.map(v => v.countryCode));
+    return codes.size || 32;
+  }, [validators]);
 
   return (
     <div className="min-h-screen text-slate-300" style={{
@@ -329,6 +256,9 @@ export default function ValidatorCommandCenter() {
               </h3>
               <div className="flex gap-2">
                 <span className="px-2 py-1 bg-amber-500/10 border border-amber-500/20 text-amber-500 text-xs rounded">Live Feed</span>
+                <span className="px-2 py-1 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs rounded">
+                  {activeValidatorCount} Active
+                </span>
               </div>
             </div>
             
@@ -350,11 +280,11 @@ export default function ValidatorCommandCenter() {
             <div className="absolute bottom-6 left-6 z-10">
               <div className="flex gap-8">
                 <div>
-                  <div className="text-3xl font-bold text-white">195</div>
+                  <div className="text-3xl font-bold text-white" data-testid="data-centers">{dataCenters}</div>
                   <div className="text-xs text-slate-400 uppercase">Data Centers</div>
                 </div>
                 <div>
-                  <div className="text-3xl font-bold text-white">32</div>
+                  <div className="text-3xl font-bold text-white" data-testid="countries">{countries}</div>
                   <div className="text-xs text-slate-400 uppercase">Countries</div>
                 </div>
               </div>
@@ -367,7 +297,7 @@ export default function ValidatorCommandCenter() {
                 <ShieldCheck size={64} weight="fill" />
               </div>
               <span className="text-sm text-slate-400 uppercase tracking-widest mb-2">Nakamoto Coefficient</span>
-              <span className="text-5xl font-bold text-white drop-shadow-[0_0_10px_rgba(255,255,255,0.3)]" data-testid="nakamoto-coefficient">19</span>
+              <span className="text-5xl font-bold text-white drop-shadow-[0_0_10px_rgba(255,255,255,0.3)]" data-testid="nakamoto-coefficient">{nakamotoCoefficient}</span>
               <span className="text-xs text-emerald-400 mt-2 flex items-center gap-1">
                 ↑ Super Minority Secured
               </span>
@@ -389,6 +319,8 @@ export default function ValidatorCommandCenter() {
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
             <h2 className="text-xl font-bold text-white flex items-center gap-2">
               <ListDashes className="text-amber-500" weight="fill" size={20} /> Validator Matrix
+              {validatorsLoading && <CircleNotch className="animate-spin text-amber-500" size={16} />}
+              <span className="text-sm font-normal text-slate-500 ml-2">({validators.length} validators)</span>
             </h2>
             
             <div className="flex gap-3">
@@ -412,113 +344,125 @@ export default function ValidatorCommandCenter() {
           </div>
 
           <div className="glass-panel rounded-2xl overflow-hidden">
-            <div className="overflow-x-auto">
-              <table className="w-full text-left border-collapse">
-                <thead>
-                  <tr className="bg-black/30 text-xs uppercase tracking-wider text-slate-500 border-b border-white/5">
-                    <th className="p-5 font-semibold">Node Identity</th>
-                    <th className="p-5 font-semibold">Location (ISP)</th>
-                    <th className="p-5 font-semibold text-center">Trust Score</th>
-                    <th className="p-5 font-semibold text-center">Version</th>
-                    <th className="p-5 font-semibold text-right">Active Stake (TBURN)</th>
-                    <th className="p-5 font-semibold text-right">Performance</th>
-                  </tr>
-                </thead>
-                <tbody className="text-sm divide-y divide-white/5">
-                  {paginatedValidators.map((validator) => (
-                    <tr 
-                      key={validator.id} 
-                      className="hover:bg-white/5 transition-colors group cursor-pointer"
-                      data-testid={`validator-row-${validator.id}`}
-                    >
-                      <td className="p-5">
-                        <Link href={`/validator/${validator.id}`} className="flex items-center gap-3" data-testid={`link-validator-${validator.id}`}>
-                          <div className={`w-10 h-10 rounded-lg flex items-center justify-center text-white font-bold shadow-lg ${
-                            validator.isGenesis 
-                              ? 'bg-gradient-to-br from-purple-600 to-blue-600' 
-                              : 'bg-slate-800 border border-slate-700 text-slate-400'
-                          }`}>
-                            {validator.initials}
-                          </div>
-                          <div>
-                            <div className="font-bold text-white group-hover:text-amber-400 transition">{validator.name}</div>
-                            <div className="text-xs text-slate-500 font-mono">{validator.shortAddr}</div>
-                          </div>
-                        </Link>
-                      </td>
-                      <td className="p-5">
-                        <div className="flex items-center gap-2">
-                          <img src={`https://flagcdn.com/w20/${validator.countryCode}.png`} className="rounded-sm opacity-80" alt={validator.countryCode} />
-                          <span className="text-slate-300">{validator.location}</span>
-                        </div>
-                        <div className="text-xs text-slate-500 mt-1">{validator.isp}</div>
-                      </td>
-                      <td className="p-5 text-center">
-                        <div className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border ${
-                          validator.trustScore >= 98 
-                            ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20'
-                            : 'bg-yellow-500/10 text-yellow-400 border-yellow-500/20'
-                        }`}>
-                          {validator.trustScore}%
-                        </div>
-                      </td>
-                      <td className="p-5 text-center text-slate-400 font-mono">
-                        {validator.version}
-                      </td>
-                      <td className="p-5 text-right">
-                        <div className="font-bold text-white">{formatNumber(validator.stake)}</div>
-                        <div className="text-xs text-amber-500">{validator.stakeShare}% share</div>
-                      </td>
-                      <td className="p-5 text-right">
-                        <div className="flex items-center justify-end gap-2">
-                          <span className={`status-dot ${
-                            validator.performanceStatus === 'good' ? 'text-emerald-500' : 'text-yellow-500'
-                          }`} />
-                          <span className="text-slate-300">{validator.performance}</span>
-                        </div>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-            
-            <div className="p-4 bg-black/20 border-t border-white/5 flex flex-col md:flex-row justify-between items-center text-xs text-slate-500 gap-4">
-              <span>Showing {((currentPage - 1) * itemsPerPage) + 1}-{Math.min(currentPage * itemsPerPage, filteredValidators.length)} of {filteredValidators.length} Validators</span>
-              <div className="flex gap-2">
-                <button 
-                  onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
-                  disabled={currentPage === 1}
-                  className="px-3 py-1 bg-white/5 hover:bg-white/10 rounded transition disabled:opacity-50"
-                  data-testid="button-prev"
-                >
-                  Prev
-                </button>
-                {Array.from({ length: Math.min(totalPages, 5) }, (_, i) => i + 1).map(page => (
-                  <button 
-                    key={page}
-                    onClick={() => setCurrentPage(page)}
-                    className={`px-3 py-1 rounded transition ${
-                      currentPage === page 
-                        ? 'bg-amber-600/20 text-amber-500 border border-amber-500/30' 
-                        : 'bg-white/5 hover:bg-white/10'
-                    }`}
-                    data-testid={`button-page-${page}`}
-                  >
-                    {page}
-                  </button>
-                ))}
-                {totalPages > 5 && <span className="px-2 py-1">...</span>}
-                <button 
-                  onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
-                  disabled={currentPage === totalPages}
-                  className="px-3 py-1 bg-white/5 hover:bg-white/10 rounded transition disabled:opacity-50"
-                  data-testid="button-next"
-                >
-                  Next
-                </button>
+            {validatorsLoading ? (
+              <div className="flex items-center justify-center py-20">
+                <CircleNotch className="animate-spin text-amber-500" size={48} />
+                <span className="ml-4 text-slate-400">Loading validators...</span>
               </div>
-            </div>
+            ) : (
+              <>
+                <div className="overflow-x-auto">
+                  <table className="w-full text-left border-collapse">
+                    <thead>
+                      <tr className="bg-black/30 text-xs uppercase tracking-wider text-slate-500 border-b border-white/5">
+                        <th className="p-5 font-semibold">Node Identity</th>
+                        <th className="p-5 font-semibold">Location (ISP)</th>
+                        <th className="p-5 font-semibold text-center">Trust Score</th>
+                        <th className="p-5 font-semibold text-center">Version</th>
+                        <th className="p-5 font-semibold text-right">Active Stake (TBURN)</th>
+                        <th className="p-5 font-semibold text-right">Performance</th>
+                      </tr>
+                    </thead>
+                    <tbody className="text-sm divide-y divide-white/5">
+                      {paginatedValidators.map((validator) => (
+                        <tr 
+                          key={validator.id} 
+                          className="hover:bg-white/5 transition-colors group cursor-pointer"
+                          data-testid={`validator-row-${validator.id}`}
+                        >
+                          <td className="p-5">
+                            <Link href={`/validator/${validator.address}`} className="flex items-center gap-3" data-testid={`link-validator-${validator.id}`}>
+                              <div className={`w-10 h-10 rounded-lg flex items-center justify-center text-white font-bold shadow-lg ${
+                                validator.isGenesis 
+                                  ? 'bg-gradient-to-br from-purple-600 to-blue-600' 
+                                  : 'bg-slate-800 border border-slate-700 text-slate-400'
+                              }`}>
+                                {validator.initials}
+                              </div>
+                              <div>
+                                <div className="font-bold text-white group-hover:text-amber-400 transition">{validator.name}</div>
+                                <div className="text-xs text-slate-500 font-mono">{validator.shortAddr}</div>
+                              </div>
+                            </Link>
+                          </td>
+                          <td className="p-5">
+                            <div className="flex items-center gap-2">
+                              <img src={`https://flagcdn.com/w20/${validator.countryCode}.png`} className="rounded-sm opacity-80" alt={validator.countryCode} />
+                              <span className="text-slate-300">{validator.location}</span>
+                            </div>
+                            <div className="text-xs text-slate-500 mt-1">{validator.isp}</div>
+                          </td>
+                          <td className="p-5 text-center">
+                            <div className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border ${
+                              validator.trustScore >= 98 
+                                ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20'
+                                : validator.trustScore >= 95
+                                ? 'bg-yellow-500/10 text-yellow-400 border-yellow-500/20'
+                                : 'bg-red-500/10 text-red-400 border-red-500/20'
+                            }`}>
+                              {validator.trustScore.toFixed(1)}%
+                            </div>
+                          </td>
+                          <td className="p-5 text-center text-slate-400 font-mono">
+                            {validator.version}
+                          </td>
+                          <td className="p-5 text-right">
+                            <div className="font-bold text-white">{formatNumber(Math.round(validator.stake))}</div>
+                            <div className="text-xs text-amber-500">{validator.stakeShare.toFixed(2)}% share</div>
+                          </td>
+                          <td className="p-5 text-right">
+                            <div className="flex items-center justify-end gap-2">
+                              <span className={`status-dot ${
+                                validator.performanceStatus === 'good' ? 'text-emerald-500' : 
+                                validator.performanceStatus === 'warning' ? 'text-yellow-500' : 'text-red-500'
+                              }`} />
+                              <span className="text-slate-300">{validator.performance}</span>
+                            </div>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+                
+                <div className="p-4 bg-black/20 border-t border-white/5 flex flex-col md:flex-row justify-between items-center text-xs text-slate-500 gap-4">
+                  <span>Showing {filteredValidators.length > 0 ? ((currentPage - 1) * itemsPerPage) + 1 : 0}-{Math.min(currentPage * itemsPerPage, filteredValidators.length)} of {filteredValidators.length} Validators</span>
+                  <div className="flex gap-2">
+                    <button 
+                      onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+                      disabled={currentPage === 1}
+                      className="px-3 py-1 bg-white/5 hover:bg-white/10 rounded transition disabled:opacity-50"
+                      data-testid="button-prev"
+                    >
+                      Prev
+                    </button>
+                    {Array.from({ length: Math.min(totalPages, 5) }, (_, i) => i + 1).map(page => (
+                      <button 
+                        key={page}
+                        onClick={() => setCurrentPage(page)}
+                        className={`px-3 py-1 rounded transition ${
+                          currentPage === page 
+                            ? 'bg-amber-600/20 text-amber-500 border border-amber-500/30' 
+                            : 'bg-white/5 hover:bg-white/10'
+                        }`}
+                        data-testid={`button-page-${page}`}
+                      >
+                        {page}
+                      </button>
+                    ))}
+                    {totalPages > 5 && <span className="px-2 py-1">...</span>}
+                    <button 
+                      onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+                      disabled={currentPage === totalPages || totalPages === 0}
+                      className="px-3 py-1 bg-white/5 hover:bg-white/10 rounded transition disabled:opacity-50"
+                      data-testid="button-next"
+                    >
+                      Next
+                    </button>
+                  </div>
+                </div>
+              </>
+            )}
           </div>
         </section>
 
