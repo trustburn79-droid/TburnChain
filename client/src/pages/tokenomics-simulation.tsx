@@ -58,7 +58,20 @@ import {
   Y1_TOTAL_BURN,
   HALVING_SCHEDULE,
   PHASE_STRATEGY,
-  TOKENOMICS_DOC_INFO
+  TOKENOMICS_DOC_INFO,
+  // Year-1 토큰배분 마스터플랜 v4.0
+  TGE_CONTRACT_PARAMS,
+  TGE_UNLOCK_DETAILS,
+  TGE_TOTALS,
+  VESTING_CATEGORIES,
+  Y1_MONTHLY_UNLOCKS,
+  Y1_MONTHLY_TOTALS,
+  LOCKUP_CONDITIONS,
+  Y1_BURN_SOURCES,
+  Y1_BURN_TOTAL,
+  Y1_QUARTERLY_SUPPLY,
+  Y1_CATEGORY_SUMMARY,
+  Y1_TOTALS
 } from "@/lib/tokenomics-engine";
 
 type ScenarioType = 'conservative' | 'neutral' | 'optimistic';
@@ -332,7 +345,7 @@ export default function TokenomicsSimulation() {
 
       {/* Main Content Tabs */}
       <Tabs defaultValue="simulation" className="space-y-4">
-        <TabsList className="grid w-full grid-cols-3 lg:grid-cols-9 h-auto gap-1">
+        <TabsList className="grid w-full grid-cols-4 lg:grid-cols-12 h-auto gap-1">
           <TabsTrigger value="simulation" data-testid="tab-simulation" className="text-xs px-2">
             {t('tokenomics.tabs.simulation', '20년 스케줄')}
           </TabsTrigger>
@@ -341,6 +354,15 @@ export default function TokenomicsSimulation() {
           </TabsTrigger>
           <TabsTrigger value="y1activation" data-testid="tab-y1activation" className="text-xs px-2">
             {t('tokenomics.tabs.y1activation', 'Y1 활성화')}
+          </TabsTrigger>
+          <TabsTrigger value="vesting" data-testid="tab-vesting" className="text-xs px-2">
+            {t('tokenomics.tabs.vesting', '베스팅 상세')}
+          </TabsTrigger>
+          <TabsTrigger value="contract" data-testid="tab-contract" className="text-xs px-2">
+            {t('tokenomics.tabs.contract', '스마트 컨트랙트')}
+          </TabsTrigger>
+          <TabsTrigger value="lockup" data-testid="tab-lockup" className="text-xs px-2">
+            {t('tokenomics.tabs.lockup', '락업 조건')}
           </TabsTrigger>
           <TabsTrigger value="genesispool" data-testid="tab-genesispool" className="text-xs px-2">
             {t('tokenomics.tabs.genesispool', '제네시스 풀')}
@@ -1456,6 +1478,659 @@ export default function TokenomicsSimulation() {
                 <p className="text-sm text-muted-foreground">
                   {t('tokenomics.disclaimer', 'Price forecasts are based on tokenomics model assumptions and do not constitute financial advice. Actual prices may vary significantly based on market conditions, adoption, and other factors.')}
                 </p>
+              </div>
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        {/* Vesting Details Tab - 베스팅 상세 */}
+        <TabsContent value="vesting" className="space-y-4" data-testid="tabcontent-vesting">
+          {/* Y1 Category Summary */}
+          <Card data-testid="card-y1-category-summary">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <PieChart className="h-5 w-5 text-primary" />
+                {t('tokenomics.vesting.categorySummary', 'Year-1 카테고리별 배분 요약')}
+              </CardTitle>
+              <CardDescription>
+                {t('tokenomics.vesting.categorySummaryDesc', 'TGE 언락 + Y1 종료 시점 누적 해제량')}
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
+                {Y1_CATEGORY_SUMMARY.map((cat, idx) => {
+                  const colors = ['bg-green-500/10 border-green-500/30', 'bg-blue-500/10 border-blue-500/30', 'bg-amber-500/10 border-amber-500/30', 'bg-purple-500/10 border-purple-500/30', 'bg-red-500/10 border-red-500/30'];
+                  return (
+                    <Card key={idx} className={`${colors[idx]}`} data-testid={`card-category-${idx}`}>
+                      <CardContent className="pt-4">
+                        <div className="text-sm font-medium mb-1">{cat.category}</div>
+                        <div className="text-xs text-muted-foreground mb-2">총 배분: {cat.totalAllocation}억</div>
+                        <div className="flex justify-between text-sm">
+                          <span>TGE:</span>
+                          <span className="font-mono text-green-500">{cat.tgeAmount}억</span>
+                        </div>
+                        <div className="flex justify-between text-sm">
+                          <span>Y1 해제:</span>
+                          <span className="font-mono text-primary font-bold">{cat.y1Release}억</span>
+                        </div>
+                        <div className="flex justify-between text-sm">
+                          <span>Y1 비율:</span>
+                          <span className="font-mono">{cat.y1Percent}%</span>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  );
+                })}
+              </div>
+              <div className="mt-4 p-4 rounded-lg bg-primary/10 border border-primary/20">
+                <div className="flex flex-wrap gap-8">
+                  <div>
+                    <div className="text-sm text-muted-foreground">총 TGE 언락</div>
+                    <div className="text-2xl font-bold text-green-500">{Y1_TOTALS.tgeAmount}억 TBURN</div>
+                  </div>
+                  <div>
+                    <div className="text-sm text-muted-foreground">Y1 총 해제량</div>
+                    <div className="text-2xl font-bold text-primary">{Y1_TOTALS.y1Release}억 TBURN</div>
+                  </div>
+                  <div>
+                    <div className="text-sm text-muted-foreground">Y1 해제 비율</div>
+                    <div className="text-2xl font-bold">{Y1_TOTALS.y1Percent}%</div>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* 16 Categories Vesting Table */}
+          <Card data-testid="card-vesting-categories">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Lock className="h-5 w-5 text-amber-500" />
+                {t('tokenomics.vesting.title', '16개 카테고리 베스팅 스케줄')}
+              </CardTitle>
+              <CardDescription>
+                {t('tokenomics.vesting.desc', 'TGE%, 클리프, 베스팅 기간 및 Y1 해제량')}
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="rounded-md border overflow-x-auto">
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>{t('tokenomics.vesting.category', '카테고리')}</TableHead>
+                      <TableHead>{t('tokenomics.vesting.parent', '그룹')}</TableHead>
+                      <TableHead className="text-right">{t('tokenomics.vesting.allocation', '배분')}</TableHead>
+                      <TableHead className="text-right">{t('tokenomics.vesting.total', '총량')}</TableHead>
+                      <TableHead className="text-right">{t('tokenomics.vesting.tge', 'TGE%')}</TableHead>
+                      <TableHead className="text-right">{t('tokenomics.vesting.cliff', '클리프')}</TableHead>
+                      <TableHead className="text-right">{t('tokenomics.vesting.vesting', '베스팅')}</TableHead>
+                      <TableHead>{t('tokenomics.vesting.type', '유형')}</TableHead>
+                      <TableHead className="text-right">{t('tokenomics.vesting.y1Amount', 'Y1 해제')}</TableHead>
+                      <TableHead className="text-right">{t('tokenomics.vesting.y1Percent', 'Y1%')}</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {VESTING_CATEGORIES.map((cat) => {
+                      const parentColors: Record<string, string> = {
+                        '커뮤니티': 'text-green-500',
+                        '보상': 'text-blue-500',
+                        '투자자': 'text-amber-500',
+                        '생태계': 'text-purple-500',
+                        '팀': 'text-red-500'
+                      };
+                      return (
+                        <TableRow key={cat.id} data-testid={`row-vesting-${cat.id}`}>
+                          <TableCell className="font-medium">{cat.category}</TableCell>
+                          <TableCell className={parentColors[cat.parentCategory]}>{cat.parentCategory}</TableCell>
+                          <TableCell className="text-right font-mono">{cat.allocationPercent}%</TableCell>
+                          <TableCell className="text-right font-mono">{cat.totalAmount.toFixed(2)}억</TableCell>
+                          <TableCell className="text-right font-mono">
+                            {cat.tgePercent > 0 ? <span className="text-green-500">{cat.tgePercent}%</span> : '-'}
+                          </TableCell>
+                          <TableCell className="text-right font-mono">
+                            {cat.cliffMonths > 0 ? `${cat.cliffMonths}M` : '-'}
+                          </TableCell>
+                          <TableCell className="text-right font-mono">{cat.vestingMonths}M</TableCell>
+                          <TableCell>
+                            <Badge variant="outline" className={cat.vestingType === 'halving' ? 'border-orange-500/50 text-orange-500' : ''}>
+                              {cat.vestingType === 'halving' ? '반감기' : '선형'}
+                            </Badge>
+                          </TableCell>
+                          <TableCell className="text-right font-mono font-bold text-primary">{cat.y1ReleaseAmount.toFixed(2)}억</TableCell>
+                          <TableCell className="text-right font-mono">{cat.y1ReleasePercent}%</TableCell>
+                        </TableRow>
+                      );
+                    })}
+                  </TableBody>
+                </Table>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Y1 Monthly Unlock Table */}
+          <Card data-testid="card-monthly-unlocks">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Calendar className="h-5 w-5 text-blue-500" />
+                {t('tokenomics.monthly.title', 'Year-1 월별 종합 언락 스케줄')}
+              </CardTitle>
+              <CardDescription>
+                {t('tokenomics.monthly.desc', 'TGE (2025.12.22)부터 M12 (2026.12.22)까지 16개 카테고리별 월별 배분 (억 TBURN)')}
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="rounded-md border overflow-x-auto">
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead className="sticky left-0 bg-background z-10">{t('tokenomics.monthly.category', '카테고리')}</TableHead>
+                      <TableHead className="text-right">TGE</TableHead>
+                      <TableHead className="text-right">M1</TableHead>
+                      <TableHead className="text-right">M2</TableHead>
+                      <TableHead className="text-right">M3</TableHead>
+                      <TableHead className="text-right">M4</TableHead>
+                      <TableHead className="text-right">M5</TableHead>
+                      <TableHead className="text-right">M6</TableHead>
+                      <TableHead className="text-right">M7</TableHead>
+                      <TableHead className="text-right">M8</TableHead>
+                      <TableHead className="text-right">M9</TableHead>
+                      <TableHead className="text-right">M10</TableHead>
+                      <TableHead className="text-right">M11</TableHead>
+                      <TableHead className="text-right">M12</TableHead>
+                      <TableHead className="text-right font-bold">Y1합계</TableHead>
+                      <TableHead>비고</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {Y1_MONTHLY_UNLOCKS.map((row) => (
+                      <TableRow key={row.categoryId} data-testid={`row-monthly-${row.categoryId}`}>
+                        <TableCell className="sticky left-0 bg-background font-medium z-10">{row.category}</TableCell>
+                        <TableCell className="text-right font-mono">{row.tge > 0 ? row.tge.toFixed(3) : '-'}</TableCell>
+                        <TableCell className="text-right font-mono">{row.m1 > 0 ? row.m1.toFixed(3) : '-'}</TableCell>
+                        <TableCell className="text-right font-mono">{row.m2 > 0 ? row.m2.toFixed(3) : '-'}</TableCell>
+                        <TableCell className="text-right font-mono">{row.m3 > 0 ? row.m3.toFixed(3) : '-'}</TableCell>
+                        <TableCell className="text-right font-mono">{row.m4 > 0 ? row.m4.toFixed(3) : '-'}</TableCell>
+                        <TableCell className="text-right font-mono">{row.m5 > 0 ? row.m5.toFixed(3) : '-'}</TableCell>
+                        <TableCell className="text-right font-mono">{row.m6 > 0 ? row.m6.toFixed(3) : '-'}</TableCell>
+                        <TableCell className="text-right font-mono">{row.m7 > 0 ? row.m7.toFixed(3) : '-'}</TableCell>
+                        <TableCell className="text-right font-mono">{row.m8 > 0 ? row.m8.toFixed(3) : '-'}</TableCell>
+                        <TableCell className="text-right font-mono">{row.m9 > 0 ? row.m9.toFixed(3) : '-'}</TableCell>
+                        <TableCell className="text-right font-mono">{row.m10 > 0 ? row.m10.toFixed(3) : '-'}</TableCell>
+                        <TableCell className="text-right font-mono">{row.m11 > 0 ? row.m11.toFixed(3) : '-'}</TableCell>
+                        <TableCell className="text-right font-mono">{row.m12 > 0 ? row.m12.toFixed(3) : '-'}</TableCell>
+                        <TableCell className="text-right font-mono font-bold text-primary">{row.y1Total.toFixed(3)}</TableCell>
+                        <TableCell className="text-xs text-muted-foreground">{row.note}</TableCell>
+                      </TableRow>
+                    ))}
+                    <TableRow className="bg-primary/10 font-bold">
+                      <TableCell className="sticky left-0 bg-primary/10 z-10">월별 합계</TableCell>
+                      <TableCell className="text-right font-mono">{Y1_MONTHLY_TOTALS.monthly.tge}</TableCell>
+                      <TableCell className="text-right font-mono">{Y1_MONTHLY_TOTALS.monthly.m1}</TableCell>
+                      <TableCell className="text-right font-mono">{Y1_MONTHLY_TOTALS.monthly.m2}</TableCell>
+                      <TableCell className="text-right font-mono">{Y1_MONTHLY_TOTALS.monthly.m3}</TableCell>
+                      <TableCell className="text-right font-mono">{Y1_MONTHLY_TOTALS.monthly.m4}</TableCell>
+                      <TableCell className="text-right font-mono">{Y1_MONTHLY_TOTALS.monthly.m5}</TableCell>
+                      <TableCell className="text-right font-mono">{Y1_MONTHLY_TOTALS.monthly.m6}</TableCell>
+                      <TableCell className="text-right font-mono">{Y1_MONTHLY_TOTALS.monthly.m7}</TableCell>
+                      <TableCell className="text-right font-mono">{Y1_MONTHLY_TOTALS.monthly.m8}</TableCell>
+                      <TableCell className="text-right font-mono">{Y1_MONTHLY_TOTALS.monthly.m9}</TableCell>
+                      <TableCell className="text-right font-mono">{Y1_MONTHLY_TOTALS.monthly.m10}</TableCell>
+                      <TableCell className="text-right font-mono">{Y1_MONTHLY_TOTALS.monthly.m11}</TableCell>
+                      <TableCell className="text-right font-mono">{Y1_MONTHLY_TOTALS.monthly.m12}</TableCell>
+                      <TableCell className="text-right font-mono text-primary">{Y1_MONTHLY_TOTALS.y1Total}</TableCell>
+                      <TableCell></TableCell>
+                    </TableRow>
+                    <TableRow className="bg-muted/50">
+                      <TableCell className="sticky left-0 bg-muted/50 z-10">누적 합계</TableCell>
+                      <TableCell className="text-right font-mono">{Y1_MONTHLY_TOTALS.cumulative.tge}</TableCell>
+                      <TableCell className="text-right font-mono">{Y1_MONTHLY_TOTALS.cumulative.m1}</TableCell>
+                      <TableCell className="text-right font-mono">{Y1_MONTHLY_TOTALS.cumulative.m2}</TableCell>
+                      <TableCell className="text-right font-mono">{Y1_MONTHLY_TOTALS.cumulative.m3}</TableCell>
+                      <TableCell className="text-right font-mono">{Y1_MONTHLY_TOTALS.cumulative.m4}</TableCell>
+                      <TableCell className="text-right font-mono">{Y1_MONTHLY_TOTALS.cumulative.m5}</TableCell>
+                      <TableCell className="text-right font-mono">{Y1_MONTHLY_TOTALS.cumulative.m6}</TableCell>
+                      <TableCell className="text-right font-mono">{Y1_MONTHLY_TOTALS.cumulative.m7}</TableCell>
+                      <TableCell className="text-right font-mono">{Y1_MONTHLY_TOTALS.cumulative.m8}</TableCell>
+                      <TableCell className="text-right font-mono">{Y1_MONTHLY_TOTALS.cumulative.m9}</TableCell>
+                      <TableCell className="text-right font-mono">{Y1_MONTHLY_TOTALS.cumulative.m10}</TableCell>
+                      <TableCell className="text-right font-mono">{Y1_MONTHLY_TOTALS.cumulative.m11}</TableCell>
+                      <TableCell className="text-right font-mono">{Y1_MONTHLY_TOTALS.cumulative.m12}</TableCell>
+                      <TableCell></TableCell>
+                      <TableCell></TableCell>
+                    </TableRow>
+                  </TableBody>
+                </Table>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Y1 Quarterly Supply Changes */}
+          <Card data-testid="card-quarterly-supply">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <TrendingDown className="h-5 w-5 text-red-500" />
+                {t('tokenomics.quarterly.title', 'Y1 분기별 공급량 변화')}
+              </CardTitle>
+              <CardDescription>
+                {t('tokenomics.quarterly.desc', '블록 발행 + AI 소각 = 순 공급 변화')}
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                {Y1_QUARTERLY_SUPPLY.map((q, idx) => (
+                  <Card key={idx} className="border-primary/20" data-testid={`card-quarter-${idx}`}>
+                    <CardContent className="pt-4">
+                      <Badge variant="outline" className="mb-2">{q.quarter}</Badge>
+                      <div className="space-y-2 text-sm">
+                        <div className="flex justify-between">
+                          <span className="text-muted-foreground">시작 공급:</span>
+                          <span className="font-mono">{q.startSupply}억</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-muted-foreground">블록 발행:</span>
+                          <span className="font-mono text-green-500">+{q.blockEmission}억</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-muted-foreground">AI 소각:</span>
+                          <span className="font-mono text-orange-500">{q.aiBurn}억</span>
+                        </div>
+                        <Separator />
+                        <div className="flex justify-between font-bold">
+                          <span className="text-muted-foreground">종료 공급:</span>
+                          <span className="font-mono text-primary">{q.endSupply}억</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-muted-foreground">순변화:</span>
+                          <span className="font-mono text-red-500">{q.netChange}억 ({q.cumulativeChange})</span>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        {/* Smart Contract Tab - 스마트 컨트랙트 */}
+        <TabsContent value="contract" className="space-y-4" data-testid="tabcontent-contract">
+          {/* TGE Contract Parameters */}
+          <Card data-testid="card-tge-params">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <FileText className="h-5 w-5 text-primary" />
+                {t('tokenomics.contract.title', 'TGE 스마트 컨트랙트 실행 파라미터')}
+              </CardTitle>
+              <CardDescription>
+                {t('tokenomics.contract.desc', 'TBURN Mainnet 제네시스 블록 설정')}
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <Card className="bg-gradient-to-br from-primary/10 to-primary/5">
+                  <CardContent className="pt-4">
+                    <div className="text-sm text-muted-foreground">네트워크</div>
+                    <div className="text-xl font-bold">{TGE_CONTRACT_PARAMS.network}</div>
+                    <div className="text-sm text-muted-foreground">Chain ID: {TGE_CONTRACT_PARAMS.chainId}</div>
+                  </CardContent>
+                </Card>
+                <Card className="bg-gradient-to-br from-green-500/10 to-green-500/5">
+                  <CardContent className="pt-4">
+                    <div className="text-sm text-muted-foreground">TGE 타임스탬프</div>
+                    <div className="text-xl font-bold font-mono">{TGE_CONTRACT_PARAMS.tgeTimestamp}</div>
+                    <div className="text-sm text-muted-foreground">2025-12-22 00:00:00 UTC</div>
+                  </CardContent>
+                </Card>
+                <Card className="bg-gradient-to-br from-blue-500/10 to-blue-500/5">
+                  <CardContent className="pt-4">
+                    <div className="text-sm text-muted-foreground">블록 시간</div>
+                    <div className="text-xl font-bold">{TGE_CONTRACT_PARAMS.blockTime}초</div>
+                    <div className="text-sm text-muted-foreground">500ms / block</div>
+                  </CardContent>
+                </Card>
+                <Card className="bg-gradient-to-br from-amber-500/10 to-amber-500/5">
+                  <CardContent className="pt-4">
+                    <div className="text-sm text-muted-foreground">월간 블록 수</div>
+                    <div className="text-xl font-bold font-mono">{TGE_CONTRACT_PARAMS.monthlyBlocks.toLocaleString()}</div>
+                    <div className="text-sm text-muted-foreground">~5.18M blocks/month</div>
+                  </CardContent>
+                </Card>
+              </div>
+              <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+                <Card>
+                  <CardContent className="pt-4">
+                    <div className="text-sm text-muted-foreground mb-2">토큰 정보</div>
+                    <div className="space-y-2 text-sm">
+                      <div className="flex justify-between">
+                        <span>이름:</span>
+                        <span className="font-mono">{TGE_CONTRACT_PARAMS.tokenName}</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>심볼:</span>
+                        <span className="font-mono">{TGE_CONTRACT_PARAMS.tokenSymbol}</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>Decimals:</span>
+                        <span className="font-mono">{TGE_CONTRACT_PARAMS.decimals}</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>총 발행량 (Wei):</span>
+                        <span className="font-mono text-xs">{TGE_CONTRACT_PARAMS.totalSupplyWei}</span>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+                <Card>
+                  <CardContent className="pt-4">
+                    <div className="text-sm text-muted-foreground mb-2">가스 정보</div>
+                    <div className="space-y-2 text-sm">
+                      <div className="flex justify-between">
+                        <span>가스 단위:</span>
+                        <span className="font-mono">{TGE_CONTRACT_PARAMS.gasUnit}</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>변환:</span>
+                        <span className="font-mono">{TGE_CONTRACT_PARAMS.gasConversion}</span>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* TGE Unlock Details */}
+          <Card data-testid="card-tge-unlocks">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Coins className="h-5 w-5 text-green-500" />
+                {t('tokenomics.tgeUnlock.title', 'TGE 즉시 언락 상세 (Day 0)')}
+              </CardTitle>
+              <CardDescription>
+                {t('tokenomics.tgeUnlock.desc', `총 ${TGE_TOTALS.totalUnlock}억 TBURN (${TGE_TOTALS.actualCirculation}억 실제 유통)`)}
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="rounded-md border">
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>{t('tokenomics.tgeUnlock.category', '카테고리')}</TableHead>
+                      <TableHead className="text-right">{t('tokenomics.tgeUnlock.tgePercent', 'TGE%')}</TableHead>
+                      <TableHead className="text-right">{t('tokenomics.tgeUnlock.amountBillion', '수량 (억)')}</TableHead>
+                      <TableHead className="text-right">{t('tokenomics.tgeUnlock.amountTBURN', '수량 (TBURN)')}</TableHead>
+                      <TableHead>{t('tokenomics.tgeUnlock.purpose', '용도')}</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {TGE_UNLOCK_DETAILS.map((item, idx) => (
+                      <TableRow key={idx} data-testid={`row-tge-unlock-${idx}`}>
+                        <TableCell className="font-medium">{item.category}</TableCell>
+                        <TableCell className="text-right font-mono">{item.tgePercent}%</TableCell>
+                        <TableCell className="text-right font-mono text-green-500">{item.amountBillion}억</TableCell>
+                        <TableCell className="text-right font-mono">{item.amountTBURN.toLocaleString()}</TableCell>
+                        <TableCell className="text-muted-foreground">{item.purpose}</TableCell>
+                      </TableRow>
+                    ))}
+                    <TableRow className="bg-primary/10 font-bold">
+                      <TableCell>총 TGE 언락</TableCell>
+                      <TableCell></TableCell>
+                      <TableCell className="text-right font-mono text-green-500">{TGE_TOTALS.totalUnlock}억</TableCell>
+                      <TableCell></TableCell>
+                      <TableCell className="text-muted-foreground">실제 유통: {TGE_TOTALS.actualCirculation}억 (LP/스테이킹 제외)</TableCell>
+                    </TableRow>
+                  </TableBody>
+                </Table>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Y1 Burn Sources */}
+          <Card data-testid="card-y1-burn-sources">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Flame className="h-5 w-5 text-orange-500" />
+                {t('tokenomics.y1Burn.title', 'Y1 소각 스케줄 - 출처별 목표')}
+              </CardTitle>
+              <CardDescription>
+                {t('tokenomics.y1Burn.desc', `총 ${Y1_BURN_TOTAL}억 TBURN 소각 목표`)}
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="rounded-md border">
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>{t('tokenomics.y1Burn.source', '소각 출처')}</TableHead>
+                      <TableHead className="text-right">{t('tokenomics.y1Burn.target', 'Y1 목표')}</TableHead>
+                      <TableHead>{t('tokenomics.y1Burn.mechanism', '소각 메커니즘')}</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {Y1_BURN_SOURCES.map((item, idx) => (
+                      <TableRow key={idx} data-testid={`row-burn-source-${idx}`}>
+                        <TableCell className="font-medium">{item.source}</TableCell>
+                        <TableCell className="text-right font-mono text-orange-500">{item.y1Target}억</TableCell>
+                        <TableCell className="text-muted-foreground">{item.mechanism}</TableCell>
+                      </TableRow>
+                    ))}
+                    <TableRow className="bg-orange-500/10 font-bold">
+                      <TableCell>Y1 총 소각</TableCell>
+                      <TableCell className="text-right font-mono text-orange-500">{Y1_BURN_TOTAL}억</TableCell>
+                      <TableCell className="text-muted-foreground">AI 동적 소각이 전체의 52.7%</TableCell>
+                    </TableRow>
+                  </TableBody>
+                </Table>
+              </div>
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        {/* Lockup Conditions Tab - 락업 조건 */}
+        <TabsContent value="lockup" className="space-y-4" data-testid="tabcontent-lockup">
+          {/* DEX Liquidity Lockup */}
+          <Card data-testid="card-dex-lockup">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Droplets className="h-5 w-5 text-blue-500" />
+                {t('tokenomics.lockup.dex.title', 'DEX 유동성 락업 (5억 TBURN)')}
+              </CardTitle>
+              <CardDescription>
+                {t('tokenomics.lockup.dex.desc', `LP 락업 기간: ${LOCKUP_CONDITIONS.dexLiquidity.lockupPeriod}`)}
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <Card className="border-blue-500/30">
+                  <CardContent className="pt-4">
+                    <div className="text-lg font-bold mb-2">TBURN/USDT Pool</div>
+                    <div className="space-y-2 text-sm">
+                      <div className="flex justify-between">
+                        <span>TBURN:</span>
+                        <span className="font-mono">{LOCKUP_CONDITIONS.dexLiquidity.tburnUsdtPool.tburn}억</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>USDT:</span>
+                        <span className="font-mono">{LOCKUP_CONDITIONS.dexLiquidity.tburnUsdtPool.usdt}</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>TVL:</span>
+                        <span className="font-mono text-green-500">{LOCKUP_CONDITIONS.dexLiquidity.tburnUsdtPool.tvl}</span>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+                <Card className="border-purple-500/30">
+                  <CardContent className="pt-4">
+                    <div className="text-lg font-bold mb-2">TBURN/WETH Pool</div>
+                    <div className="space-y-2 text-sm">
+                      <div className="flex justify-between">
+                        <span>TBURN:</span>
+                        <span className="font-mono">{LOCKUP_CONDITIONS.dexLiquidity.tburnWethPool.tburn}억</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>WETH:</span>
+                        <span className="font-mono">{LOCKUP_CONDITIONS.dexLiquidity.tburnWethPool.weth}</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>TVL:</span>
+                        <span className="font-mono text-green-500">{LOCKUP_CONDITIONS.dexLiquidity.tburnWethPool.tvl}</span>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+              <div className="mt-4 p-4 rounded-lg bg-blue-500/10 border border-blue-500/20">
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-4 text-sm">
+                  <div>
+                    <div className="text-muted-foreground">락업 기간</div>
+                    <div className="font-bold">{LOCKUP_CONDITIONS.dexLiquidity.lpLockupDays}일</div>
+                  </div>
+                  <div>
+                    <div className="text-muted-foreground">초기 가격</div>
+                    <div className="font-bold">${LOCKUP_CONDITIONS.dexLiquidity.initialPrice}</div>
+                  </div>
+                  <div>
+                    <div className="text-muted-foreground">감사</div>
+                    <div className="font-bold">{LOCKUP_CONDITIONS.dexLiquidity.lockupContract}</div>
+                  </div>
+                  <div>
+                    <div className="text-muted-foreground">비상 언락</div>
+                    <div className="font-bold text-xs">{LOCKUP_CONDITIONS.dexLiquidity.multisig}</div>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Genesis Validator Staking */}
+          <Card data-testid="card-validator-lockup">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Server className="h-5 w-5 text-purple-500" />
+                {t('tokenomics.lockup.validator.title', '제네시스 검증자 스테이킹 (1.25억 TBURN)')}
+              </CardTitle>
+              <CardDescription>
+                {t('tokenomics.lockup.validator.desc', '코어 팀 배분 (8억) 중 사용')}
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <Card>
+                  <CardContent className="pt-4">
+                    <div className="text-sm text-muted-foreground">검증자 수</div>
+                    <div className="text-2xl font-bold">{LOCKUP_CONDITIONS.genesisValidators.validatorCount}</div>
+                  </CardContent>
+                </Card>
+                <Card>
+                  <CardContent className="pt-4">
+                    <div className="text-sm text-muted-foreground">검증자당 스테이크</div>
+                    <div className="text-2xl font-bold">{(LOCKUP_CONDITIONS.genesisValidators.stakePerValidator / 1000000).toFixed(0)}M</div>
+                    <div className="text-xs text-muted-foreground">TBURN</div>
+                  </CardContent>
+                </Card>
+                <Card>
+                  <CardContent className="pt-4">
+                    <div className="text-sm text-muted-foreground">총 스테이크</div>
+                    <div className="text-2xl font-bold text-primary">{(LOCKUP_CONDITIONS.genesisValidators.totalStake / 100000000).toFixed(2)}억</div>
+                    <div className="text-xs text-muted-foreground">TBURN</div>
+                  </CardContent>
+                </Card>
+                <Card>
+                  <CardContent className="pt-4">
+                    <div className="text-sm text-muted-foreground">언본딩 기간</div>
+                    <div className="text-2xl font-bold">{LOCKUP_CONDITIONS.genesisValidators.unbondingPeriod}일</div>
+                  </CardContent>
+                </Card>
+              </div>
+              <div className="mt-4 rounded-md border">
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>설정</TableHead>
+                      <TableHead>값</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    <TableRow>
+                      <TableCell>슬래싱 (다운타임)</TableCell>
+                      <TableCell className="font-mono text-red-500">{LOCKUP_CONDITIONS.genesisValidators.slashingDowntime}</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>슬래싱 (이중 서명)</TableCell>
+                      <TableCell className="font-mono text-red-500">{LOCKUP_CONDITIONS.genesisValidators.slashingDoubleSign}</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>최소 자기 위임</TableCell>
+                      <TableCell className="font-mono">{LOCKUP_CONDITIONS.genesisValidators.minSelfDelegation}</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell>커미션율</TableCell>
+                      <TableCell className="font-mono">{LOCKUP_CONDITIONS.genesisValidators.commissionRate}</TableCell>
+                    </TableRow>
+                  </TableBody>
+                </Table>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Dumping Prevention */}
+          <Card data-testid="card-dumping-prevention">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Shield className="h-5 w-5 text-green-500" />
+                {t('tokenomics.lockup.dumping.title', '덤핑 방지 메커니즘')}
+              </CardTitle>
+              <CardDescription>
+                {t('tokenomics.lockup.dumping.desc', '에어드랍 수령자 대상 매도 제한')}
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <Card className="border-amber-500/30">
+                  <CardContent className="pt-4">
+                    <div className="flex items-center gap-2 mb-3">
+                      <Lock className="h-5 w-5 text-amber-500" />
+                      <span className="font-bold">일일 매도 제한</span>
+                    </div>
+                    <p className="text-sm text-muted-foreground">
+                      {LOCKUP_CONDITIONS.dumpingPrevention.dailySellLimit}
+                    </p>
+                  </CardContent>
+                </Card>
+                <Card className="border-red-500/30">
+                  <CardContent className="pt-4">
+                    <div className="flex items-center gap-2 mb-3">
+                      <Lock className="h-5 w-5 text-red-500" />
+                      <span className="font-bold">대량 매도 쿨다운</span>
+                    </div>
+                    <p className="text-sm text-muted-foreground">
+                      {LOCKUP_CONDITIONS.dumpingPrevention.largeSellCooldown}
+                    </p>
+                  </CardContent>
+                </Card>
+                <Card className="border-green-500/30">
+                  <CardContent className="pt-4">
+                    <div className="flex items-center gap-2 mb-3">
+                      <CheckCircle2 className="h-5 w-5 text-green-500" />
+                      <span className="font-bold">스테이킹 인센티브</span>
+                    </div>
+                    <p className="text-sm text-muted-foreground">
+                      {LOCKUP_CONDITIONS.dumpingPrevention.stakingIncentive}
+                    </p>
+                  </CardContent>
+                </Card>
+                <Card className="border-blue-500/30">
+                  <CardContent className="pt-4">
+                    <div className="flex items-center gap-2 mb-3">
+                      <Gift className="h-5 w-5 text-blue-500" />
+                      <span className="font-bold">홀딩 보너스</span>
+                    </div>
+                    <p className="text-sm text-muted-foreground">
+                      {LOCKUP_CONDITIONS.dumpingPrevention.holdingBonus}
+                    </p>
+                  </CardContent>
+                </Card>
               </div>
             </CardContent>
           </Card>
