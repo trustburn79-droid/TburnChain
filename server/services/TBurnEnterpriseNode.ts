@@ -9764,6 +9764,91 @@ export class TBurnEnterpriseNode extends EventEmitter {
       { id: "pool-liquid-06", name: "Liquid Staking Pool", poolType: "liquid", tier: "gold", validatorId: "val-006", totalStaked: "156000000000000000000000000", totalStakers: 34128 + (seedValue % 600), baseApy: 1600, maxApy: 2000, lockPeriodDays: 0, status: "active", description: "No-lock liquid staking with stTBURN rewards" }
     ];
   }
+
+  /**
+   * Get AI Models - Returns current AI model configurations
+   */
+  getAIModels(): Array<{
+    id: string;
+    name: string;
+    provider: string;
+    status: string;
+    accuracy: number;
+    latencyMs: number;
+  }> {
+    return [
+      { id: "gemini-3-pro", name: "Gemini 3 Pro", provider: "google", status: "active", accuracy: 98.7, latencyMs: 45 },
+      { id: "claude-sonnet-4.5", name: "Claude Sonnet 4.5", provider: "anthropic", status: "active", accuracy: 97.9, latencyMs: 52 },
+      { id: "gpt-4o", name: "GPT-4o", provider: "openai", status: "active", accuracy: 97.2, latencyMs: 48 },
+      { id: "grok-3", name: "Grok 3", provider: "xai", status: "fallback", accuracy: 96.5, latencyMs: 55 }
+    ];
+  }
+
+  /**
+   * Get Contracts - Returns deployed smart contracts
+   */
+  getContracts(): Array<{
+    address: string;
+    name: string;
+    type: string;
+    deployedAt: string;
+    verified: boolean;
+  }> {
+    return [
+      { address: "tb1qw508d6qejxtdg4y5r3zarvary0c5xw7kv8f3t4", name: "TBURN Token", type: "TBC-20", deployedAt: "2025-12-25T00:00:00Z", verified: true },
+      { address: "tb1grw508d6qejxtdg4y5r3zarvary0c5xw7k8n2e5", name: "Governance", type: "Governance", deployedAt: "2025-12-25T00:00:00Z", verified: true },
+      { address: "tb1stk508d6qejxtdg4y5r3zarvary0c5xw7k5h8t7", name: "Staking", type: "Staking", deployedAt: "2025-12-25T00:00:00Z", verified: true },
+      { address: "tb1brg508d6qejxtdg4y5r3zarvary0c5xw7k3m6r9", name: "Bridge", type: "Bridge", deployedAt: "2025-12-25T00:00:00Z", verified: true }
+    ];
+  }
+
+  /**
+   * Get Consensus State - Returns current consensus state
+   */
+  getConsensusState(): {
+    epoch: number;
+    slot: number;
+    finalizedBlock: number;
+    justifiedBlock: number;
+    participationRate: number;
+    validatorsActive: number;
+    validatorsTotal: number;
+  } {
+    return {
+      epoch: Math.floor(this.currentBlockHeight / 32),
+      slot: this.currentBlockHeight % 32,
+      finalizedBlock: this.currentBlockHeight - 6,
+      justifiedBlock: this.currentBlockHeight - 3,
+      participationRate: 99.2,
+      validatorsActive: 1600,
+      validatorsTotal: 1600
+    };
+  }
+
+  /**
+   * Get Node Health - Returns comprehensive node health status
+   */
+  getNodeHealth(): {
+    status: string;
+    uptime: number;
+    blockHeight: number;
+    peerCount: number;
+    syncProgress: number;
+    dbConnected: boolean;
+    wsConnected: boolean;
+    rpcConnected: boolean;
+  } {
+    return {
+      status: this.isRunning ? "healthy" : "stopped",
+      uptime: Date.now() - this.startTime,
+      blockHeight: this.currentBlockHeight,
+      peerCount: this.peerCount,
+      syncProgress: this.syncProgress,
+      dbConnected: true,
+      wsConnected: this.wsClients.size > 0,
+      rpcConnected: this.httpServer !== null
+    };
+  }
 }
 
 // Singleton instance
