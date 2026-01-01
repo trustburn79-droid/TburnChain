@@ -171,6 +171,8 @@ export default function ValidatorNodeDetail() {
   const stake = parseFloat(validator.stake);
   const identityKey = validator.address || "DDnAqxJVFo2GVTujibHt5cjevHMSE9bo8HJaydHoshdp";
   const voteAccount = `9GJmEHGom9eWo4np4L5vC6b6ri1Df2xN8KFoWixvD1Bs`;
+  const commission = ((validatorSeed % 10) + 1).toString();
+  const apy = (6.5 + (validatorSeed % 20) / 10).toFixed(2);
   const initials = validator.name.slice(0, 2).toUpperCase();
 
   return (
