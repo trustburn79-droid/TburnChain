@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
+import { Link } from "wouter";
 import { Doughnut } from 'react-chartjs-2';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { 
@@ -464,7 +465,7 @@ export default function ValidatorCommandCenter() {
                       data-testid={`validator-row-${validator.id}`}
                     >
                       <td className="p-4">
-                        <div className="flex items-center gap-3">
+                        <Link href={`/validator/${validator.id}`} className="flex items-center gap-3 hover:opacity-80 transition" data-testid={`link-validator-${validator.id}`}>
                           <div className={`w-10 h-10 rounded-lg flex items-center justify-center text-white font-bold shadow-lg ${
                             validator.isGenesis 
                               ? 'bg-gradient-to-br from-orange-500 to-red-600' 
@@ -473,12 +474,12 @@ export default function ValidatorCommandCenter() {
                             {validator.initials}
                           </div>
                           <div>
-                            <div className="font-bold text-white text-base">{validator.name}</div>
+                            <div className="font-bold text-white text-base hover:text-orange-400 transition">{validator.name}</div>
                             <div className="text-xs text-slate-500 font-mono flex items-center gap-1">
                               {validator.version} <span className="w-1 h-1 rounded-full bg-slate-500" /> {validator.commission}% Comm.
                             </div>
                           </div>
-                        </div>
+                        </Link>
                       </td>
                       <td className="p-4">
                         <div className="flex flex-col">
