@@ -14,100 +14,138 @@ function PageLoading() {
   );
 }
 
-const LearnHub = lazy(() => import("./pages/learn/LearnHub"));
-const WhatIsBurnChain = lazy(() => import("./pages/learn/WhatIsBurnChain"));
-const TrustScoreSystem = lazy(() => import("./pages/learn/TrustScoreSystem"));
-const WhatIsWallet = lazy(() => import("./pages/learn/WhatIsWallet"));
-const WalletGuide = lazy(() => import("./pages/learn/WalletGuide"));
-const EducationPrograms = lazy(() => import("./pages/learn/EducationPrograms"));
-const Whitepaper = lazy(() => import("./pages/learn/Whitepaper"));
-const TechnicalWhitepaper = lazy(() => import("./pages/learn/TechnicalWhitepaper"));
-const Tokenomics = lazy(() => import("./pages/learn/Tokenomics"));
-const TokenSchedule = lazy(() => import("@/pages/token-schedule"));
-const TokenDetails = lazy(() => import("@/pages/token-details"));
-const Roadmap = lazy(() => import("./pages/learn/Roadmap"));
-const Universities = lazy(() => import("./pages/learn/Universities"));
-const BlockchainBasics = lazy(() => import("./pages/learn/BlockchainBasics"));
-const DefiMastery = lazy(() => import("./pages/learn/DefiMastery"));
-const DeveloperCourse = lazy(() => import("./pages/learn/DeveloperCourse"));
-const IntroToDefi = lazy(() => import("./pages/learn/IntroToDefi"));
+// 동적 임포트 재시도 래퍼 - 청크 로딩 실패 시 자동 새로고침
+function lazyWithRetry<T extends { default: React.ComponentType<unknown> }>(
+  importFn: () => Promise<T>,
+  retries = 2
+): React.LazyExoticComponent<T["default"]> {
+  return lazy(async () => {
+    for (let i = 0; i <= retries; i++) {
+      try {
+        return await importFn();
+      } catch (error) {
+        const isLastAttempt = i === retries;
+        const isChunkError = error instanceof Error && (
+          error.message.includes('dynamically imported module') ||
+          error.message.includes('Loading chunk') ||
+          error.message.includes('Failed to fetch')
+        );
+        
+        if (isChunkError && !isLastAttempt) {
+          // 잠시 대기 후 재시도
+          await new Promise(resolve => setTimeout(resolve, 1000 * (i + 1)));
+          continue;
+        }
+        
+        if (isChunkError && isLastAttempt) {
+          // 최종 실패 시 캐시 버스팅으로 새로고침
+          console.error('[LazyLoad] Chunk load failed after retries, reloading...', error);
+          window.location.href = window.location.pathname + '?_cb=' + Date.now();
+          // 새로고침 완료까지 대기
+          await new Promise(() => {});
+        }
+        
+        throw error;
+      }
+    }
+    throw new Error('Import failed');
+  });
+}
 
-const DeveloperHub = lazy(() => import("./pages/developers/DeveloperHub"));
-const Documentation = lazy(() => import("./pages/developers/Documentation"));
-const ApiDocs = lazy(() => import("./pages/developers/ApiDocs"));
-const CliReference = lazy(() => import("./pages/developers/CliReference"));
-const SdkGuide = lazy(() => import("./pages/developers/SdkGuide"));
-const SmartContracts = lazy(() => import("./pages/developers/SmartContracts"));
-const WebSocketApi = lazy(() => import("./pages/developers/WebSocketApi"));
-const CodeExamples = lazy(() => import("./pages/developers/CodeExamples"));
-const QuickStart = lazy(() => import("./pages/developers/QuickStart"));
-const InstallationGuide = lazy(() => import("./pages/developers/InstallationGuide"));
-const EvmMigration = lazy(() => import("./pages/developers/EvmMigration"));
+const LearnHub = lazyWithRetry(() => import("./pages/learn/LearnHub"));
+const WhatIsBurnChain = lazyWithRetry(() => import("./pages/learn/WhatIsBurnChain"));
+const TrustScoreSystem = lazyWithRetry(() => import("./pages/learn/TrustScoreSystem"));
+const WhatIsWallet = lazyWithRetry(() => import("./pages/learn/WhatIsWallet"));
+const WalletGuide = lazyWithRetry(() => import("./pages/learn/WalletGuide"));
+const EducationPrograms = lazyWithRetry(() => import("./pages/learn/EducationPrograms"));
+const Whitepaper = lazyWithRetry(() => import("./pages/learn/Whitepaper"));
+const TechnicalWhitepaper = lazyWithRetry(() => import("./pages/learn/TechnicalWhitepaper"));
+const Tokenomics = lazyWithRetry(() => import("./pages/learn/Tokenomics"));
+const TokenSchedule = lazyWithRetry(() => import("@/pages/token-schedule"));
+const TokenDetails = lazyWithRetry(() => import("@/pages/token-details"));
+const Roadmap = lazyWithRetry(() => import("./pages/learn/Roadmap"));
+const Universities = lazyWithRetry(() => import("./pages/learn/Universities"));
+const BlockchainBasics = lazyWithRetry(() => import("./pages/learn/BlockchainBasics"));
+const DefiMastery = lazyWithRetry(() => import("./pages/learn/DefiMastery"));
+const DeveloperCourse = lazyWithRetry(() => import("./pages/learn/DeveloperCourse"));
+const IntroToDefi = lazyWithRetry(() => import("./pages/learn/IntroToDefi"));
 
-const TokenExtensions = lazy(() => import("./pages/solutions/TokenExtensions"));
-const ActionsBlinks = lazy(() => import("./pages/solutions/ActionsBlinks"));
-const Wallets = lazy(() => import("./pages/solutions/Wallets"));
-const Permissioned = lazy(() => import("./pages/solutions/Permissioned"));
-const GameTooling = lazy(() => import("./pages/solutions/GameTooling"));
-const Payments = lazy(() => import("./pages/solutions/Payments"));
-const Commerce = lazy(() => import("./pages/solutions/Commerce"));
-const Financial = lazy(() => import("./pages/solutions/Financial"));
-const AiFeatures = lazy(() => import("./pages/solutions/AiFeatures"));
-const ArtistsCreators = lazy(() => import("./pages/solutions/ArtistsCreators"));
-const Btcfi = lazy(() => import("./pages/solutions/Btcfi"));
-const CrossChainBridge = lazy(() => import("./pages/solutions/CrossChainBridge"));
-const DefiHub = lazy(() => import("./pages/solutions/DefiHub"));
+const DeveloperHub = lazyWithRetry(() => import("./pages/developers/DeveloperHub"));
+const Documentation = lazyWithRetry(() => import("./pages/developers/Documentation"));
+const ApiDocs = lazyWithRetry(() => import("./pages/developers/ApiDocs"));
+const CliReference = lazyWithRetry(() => import("./pages/developers/CliReference"));
+const SdkGuide = lazyWithRetry(() => import("./pages/developers/SdkGuide"));
+const SmartContracts = lazyWithRetry(() => import("./pages/developers/SmartContracts"));
+const WebSocketApi = lazyWithRetry(() => import("./pages/developers/WebSocketApi"));
+const CodeExamples = lazyWithRetry(() => import("./pages/developers/CodeExamples"));
+const QuickStart = lazyWithRetry(() => import("./pages/developers/QuickStart"));
+const InstallationGuide = lazyWithRetry(() => import("./pages/developers/InstallationGuide"));
+const EvmMigration = lazyWithRetry(() => import("./pages/developers/EvmMigration"));
 
-const Tokenization = lazy(() => import("./pages/use-cases/Tokenization"));
-const DePIN = lazy(() => import("./pages/use-cases/DePIN"));
-const Stablecoins = lazy(() => import("./pages/use-cases/Stablecoins"));
-const Institutional = lazy(() => import("./pages/use-cases/Institutional"));
-const Enterprise = lazy(() => import("./pages/use-cases/Enterprise"));
-const Gaming = lazy(() => import("./pages/use-cases/Gaming"));
+const TokenExtensions = lazyWithRetry(() => import("./pages/solutions/TokenExtensions"));
+const ActionsBlinks = lazyWithRetry(() => import("./pages/solutions/ActionsBlinks"));
+const Wallets = lazyWithRetry(() => import("./pages/solutions/Wallets"));
+const Permissioned = lazyWithRetry(() => import("./pages/solutions/Permissioned"));
+const GameTooling = lazyWithRetry(() => import("./pages/solutions/GameTooling"));
+const Payments = lazyWithRetry(() => import("./pages/solutions/Payments"));
+const Commerce = lazyWithRetry(() => import("./pages/solutions/Commerce"));
+const Financial = lazyWithRetry(() => import("./pages/solutions/Financial"));
+const AiFeatures = lazyWithRetry(() => import("./pages/solutions/AiFeatures"));
+const ArtistsCreators = lazyWithRetry(() => import("./pages/solutions/ArtistsCreators"));
+const Btcfi = lazyWithRetry(() => import("./pages/solutions/Btcfi"));
+const CrossChainBridge = lazyWithRetry(() => import("./pages/solutions/CrossChainBridge"));
+const DefiHub = lazyWithRetry(() => import("./pages/solutions/DefiHub"));
 
-const Validators = lazy(() => import("./pages/network/Validators"));
-const RpcProviders = lazy(() => import("./pages/network/RpcProviders"));
-const TestnetRpcProviders = lazy(() => import("./pages/network/TestnetRpcProviders"));
-const NetworkStatus = lazy(() => import("./pages/network/NetworkStatus"));
-const Ramp = lazy(() => import("./pages/network/Ramp"));
+const Tokenization = lazyWithRetry(() => import("./pages/use-cases/Tokenization"));
+const DePIN = lazyWithRetry(() => import("./pages/use-cases/DePIN"));
+const Stablecoins = lazyWithRetry(() => import("./pages/use-cases/Stablecoins"));
+const Institutional = lazyWithRetry(() => import("./pages/use-cases/Institutional"));
+const Enterprise = lazyWithRetry(() => import("./pages/use-cases/Enterprise"));
+const Gaming = lazyWithRetry(() => import("./pages/use-cases/Gaming"));
 
-const NewsBlog = lazy(() => import("./pages/community/NewsBlog"));
-const NewsDetail = lazy(() => import("./pages/community/NewsDetail"));
-const Events = lazy(() => import("./pages/community/Events"));
-const EventDetail = lazy(() => import("./pages/community/EventDetail"));
-const CommunityHub = lazy(() => import("./pages/community/CommunityHub"));
-const PostDetail = lazy(() => import("./pages/community/PostDetail"));
+const Validators = lazyWithRetry(() => import("./pages/network/Validators"));
+const RpcProviders = lazyWithRetry(() => import("./pages/network/RpcProviders"));
+const TestnetRpcProviders = lazyWithRetry(() => import("./pages/network/TestnetRpcProviders"));
+const NetworkStatus = lazyWithRetry(() => import("./pages/network/NetworkStatus"));
+const Ramp = lazyWithRetry(() => import("./pages/network/Ramp"));
 
-const TermsOfService = lazy(() => import("./pages/legal/TermsOfService"));
-const PrivacyPolicy = lazy(() => import("./pages/legal/PrivacyPolicy"));
-const Disclaimer = lazy(() => import("./pages/legal/Disclaimer"));
+const NewsBlog = lazyWithRetry(() => import("./pages/community/NewsBlog"));
+const NewsDetail = lazyWithRetry(() => import("./pages/community/NewsDetail"));
+const Events = lazyWithRetry(() => import("./pages/community/Events"));
+const EventDetail = lazyWithRetry(() => import("./pages/community/EventDetail"));
+const CommunityHub = lazyWithRetry(() => import("./pages/community/CommunityHub"));
+const PostDetail = lazyWithRetry(() => import("./pages/community/PostDetail"));
 
-const ScanHome = lazy(() => import("./pages/scan/ScanHome"));
-const BlocksList = lazy(() => import("./pages/scan/BlocksList"));
-const BlockDetail = lazy(() => import("./pages/scan/BlockDetail"));
-const TransactionsList = lazy(() => import("./pages/scan/TransactionsList"));
-const TransactionDetail = lazy(() => import("./pages/scan/TransactionDetail"));
-const AddressDetail = lazy(() => import("./pages/scan/AddressDetail"));
-const ValidatorsList = lazy(() => import("./pages/scan/ValidatorsList"));
-const ScanSearchResults = lazy(() => import("./pages/scan/SearchResults"));
-const NetworkStats = lazy(() => import("./pages/scan/NetworkStats"));
-const TokensList = lazy(() => import("./pages/scan/TokensList"));
-const TokenDetail = lazy(() => import("./pages/scan/TokenDetail"));
+const TermsOfService = lazyWithRetry(() => import("./pages/legal/TermsOfService"));
+const PrivacyPolicy = lazyWithRetry(() => import("./pages/legal/PrivacyPolicy"));
+const Disclaimer = lazyWithRetry(() => import("./pages/legal/Disclaimer"));
 
-const TestnetScanHome = lazy(() => import("./pages/testnet-scan/TestnetScanHome"));
-const TestnetBlocksList = lazy(() => import("./pages/testnet-scan/TestnetBlocksList"));
-const TestnetBlockDetail = lazy(() => import("./pages/testnet-scan/TestnetBlockDetail"));
-const TestnetTransactionsList = lazy(() => import("./pages/testnet-scan/TestnetTransactionsList"));
-const TestnetTransactionDetail = lazy(() => import("./pages/testnet-scan/TestnetTransactionDetail"));
-const TestnetAddressDetail = lazy(() => import("./pages/testnet-scan/TestnetAddressDetail"));
-const TestnetValidatorsList = lazy(() => import("./pages/testnet-scan/TestnetValidatorsList"));
-const TestnetTokensList = lazy(() => import("./pages/testnet-scan/TestnetTokensList"));
-const TestnetNetworkStats = lazy(() => import("./pages/testnet-scan/TestnetNetworkStats"));
-const TestnetFaucet = lazy(() => import("./pages/testnet-scan/TestnetFaucet"));
-const ValidatorCommandCenter = lazy(() => import("@/pages/validator"));
-const ValidatorInfrastructure = lazy(() => import("@/pages/validator-infrastructure"));
-const ValidatorNodeDetail = lazy(() => import("@/pages/validator-node-detail"));
-const ValidatorGovernance = lazy(() => import("@/pages/validator-governance"));
+const ScanHome = lazyWithRetry(() => import("./pages/scan/ScanHome"));
+const BlocksList = lazyWithRetry(() => import("./pages/scan/BlocksList"));
+const BlockDetail = lazyWithRetry(() => import("./pages/scan/BlockDetail"));
+const TransactionsList = lazyWithRetry(() => import("./pages/scan/TransactionsList"));
+const TransactionDetail = lazyWithRetry(() => import("./pages/scan/TransactionDetail"));
+const AddressDetail = lazyWithRetry(() => import("./pages/scan/AddressDetail"));
+const ValidatorsList = lazyWithRetry(() => import("./pages/scan/ValidatorsList"));
+const ScanSearchResults = lazyWithRetry(() => import("./pages/scan/SearchResults"));
+const NetworkStats = lazyWithRetry(() => import("./pages/scan/NetworkStats"));
+const TokensList = lazyWithRetry(() => import("./pages/scan/TokensList"));
+const TokenDetail = lazyWithRetry(() => import("./pages/scan/TokenDetail"));
+
+const TestnetScanHome = lazyWithRetry(() => import("./pages/testnet-scan/TestnetScanHome"));
+const TestnetBlocksList = lazyWithRetry(() => import("./pages/testnet-scan/TestnetBlocksList"));
+const TestnetBlockDetail = lazyWithRetry(() => import("./pages/testnet-scan/TestnetBlockDetail"));
+const TestnetTransactionsList = lazyWithRetry(() => import("./pages/testnet-scan/TestnetTransactionsList"));
+const TestnetTransactionDetail = lazyWithRetry(() => import("./pages/testnet-scan/TestnetTransactionDetail"));
+const TestnetAddressDetail = lazyWithRetry(() => import("./pages/testnet-scan/TestnetAddressDetail"));
+const TestnetValidatorsList = lazyWithRetry(() => import("./pages/testnet-scan/TestnetValidatorsList"));
+const TestnetTokensList = lazyWithRetry(() => import("./pages/testnet-scan/TestnetTokensList"));
+const TestnetNetworkStats = lazyWithRetry(() => import("./pages/testnet-scan/TestnetNetworkStats"));
+const TestnetFaucet = lazyWithRetry(() => import("./pages/testnet-scan/TestnetFaucet"));
+const ValidatorCommandCenter = lazyWithRetry(() => import("@/pages/validator"));
+const ValidatorInfrastructure = lazyWithRetry(() => import("@/pages/validator-infrastructure"));
+const ValidatorNodeDetail = lazyWithRetry(() => import("@/pages/validator-node-detail"));
+const ValidatorGovernance = lazyWithRetry(() => import("@/pages/validator-governance"));
 
 export function PublicRouter() {
   return (
