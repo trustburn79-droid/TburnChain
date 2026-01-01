@@ -1,5 +1,6 @@
 import { useLocation, Link } from "wouter";
 import { useQuery } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
 import { Line, Bar } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, BarElement, Filler, Tooltip } from 'chart.js';
 import { 
@@ -21,6 +22,7 @@ import { useState, useMemo } from "react";
 import { type ValidatorData } from "@/lib/validator-utils";
 import { DelegationDialog } from "@/components/DelegationDialog";
 import { Button } from "@/components/ui/button";
+import { LanguageSelector } from "@/components/LanguageSelector";
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, BarElement, Filler, Tooltip);
 
@@ -59,6 +61,7 @@ const barChartOptions = {
 };
 
 export default function ValidatorIntelligence() {
+  const { t } = useTranslation();
   const [currentPath] = useLocation();
   const validatorAddress = currentPath.split('/validator/')[1] || '';
   const [copiedField, setCopiedField] = useState<string | null>(null);
@@ -145,7 +148,7 @@ export default function ValidatorIntelligence() {
     return (
       <div className="min-h-screen flex items-center justify-center" style={{ backgroundColor: '#050508' }}>
         <CircleNotch className="animate-spin text-orange-500" size={48} />
-        <span className="ml-4 text-slate-400">Loading validator details...</span>
+        <span className="ml-4 text-slate-400">{t('validatorPage.intelligencePage.loadingDetails', { defaultValue: 'Loading validator details...' })}</span>
       </div>
     );
   }
@@ -153,10 +156,10 @@ export default function ValidatorIntelligence() {
   if (!validator) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center" style={{ backgroundColor: '#050508', color: '#e2e8f0' }}>
-        <h2 className="text-2xl font-bold mb-4">Validator Not Found</h2>
-        <p className="text-slate-400 mb-6">The validator with address "{validatorAddress}" could not be found.</p>
+        <h2 className="text-2xl font-bold mb-4">{t('validatorPage.intelligencePage.notFound', { defaultValue: 'Validator Not Found' })}</h2>
+        <p className="text-slate-400 mb-6">{t('validatorPage.intelligencePage.notFoundDesc', { defaultValue: 'The validator with address "{{address}}" could not be found.', address: validatorAddress })}</p>
         <Link href="/validator" className="px-4 py-2 bg-orange-500 rounded-lg text-white hover:bg-orange-600 transition">
-          Back to Validator Matrix
+          {t('validatorPage.intelligencePage.backToMatrix', { defaultValue: 'Back to Validator Matrix' })}
         </Link>
       </div>
     );
@@ -217,14 +220,15 @@ export default function ValidatorIntelligence() {
           <div className="p-2 rounded-lg bg-white/5 group-hover:bg-white/10 border border-white/5">
             <ArrowLeft size={16} weight="bold" />
           </div>
-          <span className="text-sm font-medium">Back to Validator Matrix</span>
+          <span className="text-sm font-medium">{t('validatorPage.intelligencePage.backToMatrix', { defaultValue: 'Back to Validator Matrix' })}</span>
         </Link>
         <div className="flex gap-3">
+          <LanguageSelector />
           <span className="px-3 py-1 rounded-full border border-green-500/30 bg-green-500/10 text-green-400 text-xs font-mono flex items-center gap-2">
-            <div className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse" /> {validator.status?.toUpperCase() || 'OPERATIONAL'}
+            <div className="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse" /> {validator.status?.toUpperCase() || t('validatorPage.intelligencePage.operational', { defaultValue: 'OPERATIONAL' })}
           </span>
           <span className="px-3 py-1 rounded-full border border-blue-500/30 bg-blue-500/10 text-blue-400 text-xs font-mono">
-            SHARD {validator.shardId || 0}
+            {t('validatorPage.intelligencePage.shard', { defaultValue: 'SHARD' })} {validator.shardId || 0}
           </span>
         </div>
       </nav>
@@ -252,24 +256,24 @@ export default function ValidatorIntelligence() {
                   <CheckCircle size={20} weight="fill" className="text-cyan-400" />
                 </div>
                 <p className="text-slate-400 text-sm max-w-2xl mb-4 leading-relaxed">
-                  Enterprise validator with {trustScore.toFixed(1)}% AI Trust Score. {validator.totalDelegators || 0} active delegators.
+                  {t('validatorPage.intelligencePage.enterpriseDesc', { defaultValue: 'Enterprise validator with {{trustScore}}% AI Trust Score. {{delegators}} active delegators.', trustScore: trustScore.toFixed(1), delegators: validator.totalDelegators || 0 })}
                 </p>
                 
                 <div className="flex flex-wrap gap-3">
                   <div className="px-4 py-2 rounded-lg bg-white/5 border border-white/10 flex flex-col">
-                    <span className="text-[10px] text-slate-500 uppercase font-bold">Trust Score</span>
+                    <span className="text-[10px] text-slate-500 uppercase font-bold">{t('validatorPage.intelligencePage.trustScore', { defaultValue: 'Trust Score' })}</span>
                     <span className="text-lg font-bold text-orange-500">{trustScore.toFixed(1)}%</span>
                   </div>
                   <div className="px-4 py-2 rounded-lg bg-white/5 border border-white/10 flex flex-col">
-                    <span className="text-[10px] text-slate-500 uppercase font-bold">Commission</span>
+                    <span className="text-[10px] text-slate-500 uppercase font-bold">{t('validators.commission', { defaultValue: 'Commission' })}</span>
                     <span className="text-lg font-bold text-white">{commission}%</span>
                   </div>
                   <div className="px-4 py-2 rounded-lg bg-white/5 border border-white/10 flex flex-col">
-                    <span className="text-[10px] text-slate-500 uppercase font-bold">Active Stake</span>
-                    <span className="text-lg font-bold text-white" data-testid="validator-stake">{formatNumber(Math.round(stake))} <span className="text-xs text-orange-500">TBURN</span></span>
+                    <span className="text-[10px] text-slate-500 uppercase font-bold">{t('validatorPage.intelligencePage.activeStake', { defaultValue: 'Active Stake' })}</span>
+                    <span className="text-lg font-bold text-white" data-testid="validator-stake">{formatNumber(Math.round(stake))} <span className="text-xs text-orange-500">{t('common.tburn', { defaultValue: 'TBURN' })}</span></span>
                   </div>
                   <div className="px-4 py-2 rounded-lg bg-white/5 border border-white/10 flex flex-col">
-                    <span className="text-[10px] text-slate-500 uppercase font-bold">Version</span>
+                    <span className="text-[10px] text-slate-500 uppercase font-bold">{t('validatorPage.intelligencePage.version', { defaultValue: 'Version' })}</span>
                     <span className="text-lg font-bold text-cyan-400 font-mono">{version}</span>
                   </div>
                 </div>
@@ -281,9 +285,9 @@ export default function ValidatorIntelligence() {
             <div className="tburn-glass rounded-xl p-5">
               <div className="flex justify-between items-center mb-4">
                 <h3 className="text-sm font-semibold text-slate-300 flex items-center gap-2">
-                  <Heartbeat size={16} weight="bold" className="text-red-500" /> Vote Latency
+                  <Heartbeat size={16} weight="bold" className="text-red-500" /> {t('validatorPage.intelligencePage.voteLatency', { defaultValue: 'Vote Latency' })}
                 </h3>
-                <span className="text-xs font-mono text-slate-500">Last 6h</span>
+                <span className="text-xs font-mono text-slate-500">{t('validatorPage.intelligencePage.last6h', { defaultValue: 'Last 6h' })}</span>
               </div>
               <div className="h-40">
                 <Line data={latencyChartData} options={lineChartOptions} />
@@ -293,9 +297,9 @@ export default function ValidatorIntelligence() {
             <div className="tburn-glass rounded-xl p-5">
               <div className="flex justify-between items-center mb-4">
                 <h3 className="text-sm font-semibold text-slate-300 flex items-center gap-2">
-                  <GitCommit size={16} weight="bold" className="text-orange-500" /> Root Distance
+                  <GitCommit size={16} weight="bold" className="text-orange-500" /> {t('validatorPage.intelligencePage.rootDistance', { defaultValue: 'Root Distance' })}
                 </h3>
-                <span className="text-xs font-mono text-slate-500">Block Diff</span>
+                <span className="text-xs font-mono text-slate-500">{t('validatorPage.intelligencePage.blockDiff', { defaultValue: 'Block Diff' })}</span>
               </div>
               <div className="h-40">
                 <Line data={rootChartData} options={lineChartOptions} />
@@ -305,9 +309,9 @@ export default function ValidatorIntelligence() {
             <div className="tburn-glass rounded-xl p-5">
               <div className="flex justify-between items-center mb-4">
                 <h3 className="text-sm font-semibold text-slate-300 flex items-center gap-2">
-                  <WarningOctagon size={16} weight="bold" className="text-yellow-400" /> Skipped Slots %
+                  <WarningOctagon size={16} weight="bold" className="text-yellow-400" /> {t('validatorPage.intelligencePage.skippedSlots', { defaultValue: 'Skipped Slots %' })}
                 </h3>
-                <span className="text-xs font-mono text-slate-500">Moving Avg</span>
+                <span className="text-xs font-mono text-slate-500">{t('validatorPage.intelligencePage.movingAvg', { defaultValue: 'Moving Avg' })}</span>
               </div>
               <div className="h-40">
                 <Bar data={skippedChartData} options={barChartOptions} />
@@ -317,9 +321,9 @@ export default function ValidatorIntelligence() {
             <div className="tburn-glass rounded-xl p-5">
               <div className="flex justify-between items-center mb-4">
                 <h3 className="text-sm font-semibold text-slate-300 flex items-center gap-2">
-                  <ArrowsLeftRight size={16} weight="bold" className="text-cyan-400" /> Vote Distance
+                  <ArrowsLeftRight size={16} weight="bold" className="text-cyan-400" /> {t('validatorPage.intelligencePage.voteDistance', { defaultValue: 'Vote Distance' })}
                 </h3>
-                <span className="text-xs font-mono text-slate-500">Vote Diff</span>
+                <span className="text-xs font-mono text-slate-500">{t('validatorPage.intelligencePage.voteDiff', { defaultValue: 'Vote Diff' })}</span>
               </div>
               <div className="h-40">
                 <Line data={voteDistChartData} options={lineChartOptions} />
@@ -331,12 +335,12 @@ export default function ValidatorIntelligence() {
         <aside className="lg:col-span-4 space-y-6">
           <div className="tburn-glass rounded-2xl overflow-hidden">
             <div className="tburn-card-header p-4 flex items-center justify-between">
-              <h3 className="font-semibold text-white" style={{ fontFamily: "'Outfit', sans-serif" }}>Node Specifications</h3>
+              <h3 className="font-semibold text-white" style={{ fontFamily: "'Outfit', sans-serif" }}>{t('validatorPage.intelligencePage.nodeSpecs', { defaultValue: 'Node Specifications' })}</h3>
               <Cpu size={20} weight="duotone" className="text-slate-500" />
             </div>
             <div className="p-5 space-y-6">
               <div>
-                <div className="data-label">Validator Address</div>
+                <div className="data-label">{t('validatorPage.intelligencePage.validatorAddress', { defaultValue: 'Validator Address' })}</div>
                 <div className="flex items-center justify-between group">
                   <span className="data-value font-mono text-xs text-cyan-400 truncate max-w-[200px]" data-testid="validator-address">{validator.address}</span>
                   <button 
@@ -347,10 +351,10 @@ export default function ValidatorIntelligence() {
                     <Copy size={14} weight="bold" />
                   </button>
                 </div>
-                {copiedField === 'address' && <span className="text-xs text-green-400">Copied!</span>}
+                {copiedField === 'address' && <span className="text-xs text-green-400">{t('common.copied', { defaultValue: 'Copied!' })}</span>}
               </div>
               <div>
-                <div className="data-label">Validator ID</div>
+                <div className="data-label">{t('validatorPage.intelligencePage.validatorId', { defaultValue: 'Validator ID' })}</div>
                 <div className="flex items-center justify-between group">
                   <span className="data-value font-mono text-xs truncate max-w-[200px]">{validator.id}</span>
                   <button 
@@ -360,26 +364,26 @@ export default function ValidatorIntelligence() {
                     <Copy size={14} weight="bold" />
                   </button>
                 </div>
-                {copiedField === 'id' && <span className="text-xs text-green-400">Copied!</span>}
+                {copiedField === 'id' && <span className="text-xs text-green-400">{t('common.copied', { defaultValue: 'Copied!' })}</span>}
               </div>
               
               <div className="h-px bg-white/5" />
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <div className="data-label">Location</div>
+                  <div className="data-label">{t('validatorPage.intelligencePage.location', { defaultValue: 'Location' })}</div>
                   <div className="data-value text-sm">{validatorLocation}</div>
                 </div>
                 <div>
-                  <div className="data-label">Uptime</div>
+                  <div className="data-label">{t('validators.uptime', { defaultValue: 'Uptime' })}</div>
                   <div className="data-value text-sm font-mono">{validator.uptime || 100}%</div>
                 </div>
                 <div>
-                  <div className="data-label">Blocks Produced</div>
+                  <div className="data-label">{t('validatorPage.intelligencePage.blocksProduced', { defaultValue: 'Blocks Produced' })}</div>
                   <div className="data-value text-sm">{formatNumber(validator.blocksProduced || 0)}</div>
                 </div>
                 <div>
-                  <div className="data-label">Delegators</div>
+                  <div className="data-label">{t('validators.delegators', { defaultValue: 'Delegators' })}</div>
                   <div className="data-value text-sm">{validator.totalDelegators || 0}</div>
                 </div>
               </div>
@@ -397,7 +401,7 @@ export default function ValidatorIntelligence() {
                     data-testid="button-delegate"
                   >
                     <Coins size={16} className="mr-2" />
-                    Delegate
+                    {t('validators.delegate', { defaultValue: 'Delegate' })}
                   </Button>
                   <Button
                     onClick={() => {
@@ -409,18 +413,18 @@ export default function ValidatorIntelligence() {
                     data-testid="button-undelegate"
                   >
                     <Wallet size={16} className="mr-2" />
-                    Undelegate
+                    {t('validators.undelegate', { defaultValue: 'Undelegate' })}
                   </Button>
                 </div>
                 
                 <div className="h-px bg-white/5 my-2" />
                 
                 <Link href="/validator-governance" className="flex items-center justify-between p-3 rounded-lg bg-white/5 hover:bg-white/10 transition group border border-transparent hover:border-white/10">
-                  <span className="text-sm text-slate-300">Governance & Rewards</span>
+                  <span className="text-sm text-slate-300">{t('validatorPage.intelligencePage.governanceRewards', { defaultValue: 'Governance & Rewards' })}</span>
                   <ArrowSquareOut size={16} weight="bold" className="text-slate-500 group-hover:text-white" />
                 </Link>
                 <Link href="/validator/infrastructure" className="flex items-center justify-between p-3 rounded-lg bg-white/5 hover:bg-white/10 transition group border border-transparent hover:border-white/10">
-                  <span className="text-sm text-slate-300">Infrastructure Overview</span>
+                  <span className="text-sm text-slate-300">{t('validatorPage.intelligencePage.infraOverview', { defaultValue: 'Infrastructure Overview' })}</span>
                   <UserFocus size={16} weight="bold" className="text-slate-500 group-hover:text-white" />
                 </Link>
               </div>
@@ -429,10 +433,10 @@ export default function ValidatorIntelligence() {
 
           <div className="tburn-glass rounded-2xl overflow-hidden">
             <div className="tburn-card-header p-4 flex items-center justify-between">
-              <h3 className="font-semibold text-white" style={{ fontFamily: "'Outfit', sans-serif" }}>Recent Production</h3>
+              <h3 className="font-semibold text-white" style={{ fontFamily: "'Outfit', sans-serif" }}>{t('validatorPage.intelligencePage.recentProduction', { defaultValue: 'Recent Production' })}</h3>
               <div className="flex items-center gap-2">
                 <span className="w-2 h-2 rounded-full bg-green-500" />
-                <span className="text-xs text-slate-400">Live</span>
+                <span className="text-xs text-slate-400">{t('validatorPage.intelligencePage.live', { defaultValue: 'Live' })}</span>
               </div>
             </div>
             
@@ -440,9 +444,9 @@ export default function ValidatorIntelligence() {
               <table className="w-full text-left text-sm">
                 <thead className="bg-black/20 text-slate-500 text-xs uppercase font-semibold">
                   <tr>
-                    <th className="p-3 pl-5">Epoch</th>
-                    <th className="p-3 text-center">Blocks</th>
-                    <th className="p-3 text-right pr-5">Status</th>
+                    <th className="p-3 pl-5">{t('validatorPage.intelligencePage.epoch', { defaultValue: 'Epoch' })}</th>
+                    <th className="p-3 text-center">{t('blocks.title', { defaultValue: 'Blocks' })}</th>
+                    <th className="p-3 text-right pr-5">{t('common.status', { defaultValue: 'Status' })}</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-white/5">
