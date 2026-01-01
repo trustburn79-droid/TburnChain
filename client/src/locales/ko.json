@@ -717,11 +717,10 @@
       "validatorId": "검증자 ID",
       "location": "위치",
       "blocksProduced": "생성된 블록",
-      "governanceRewards": "거버넌스 \"governanceRewards": "Governance & Rewards" 보상",
+      "governanceRewards": "거버넌스 & 보상",
       "infraOverview": "인프라 개요",
       "recentProduction": "최근 생산",
       "live": "실시간",
       "epoch": "Epoch"
     }
   }
-}
