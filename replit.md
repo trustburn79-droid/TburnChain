@@ -41,6 +41,13 @@ Core architectural decisions and features include:
 - **December 31st Mainnet Launch**: Production blockchain infrastructure with 1,600 validators, 64 shards, ~210,000 TPS capacity, complete block finality, and automated reward distribution.
 - **Development Mode Optimization (v7.2)**: Heavy blockchain services are deferred in development to allow Vite to serve the frontend first. Enterprise Node initialization is deferred by 3 seconds, ProductionDataPoller and ValidatorSimulation by 8-9 seconds. Poll intervals increased to 60 seconds in development (15s in production). Non-essential broadcast intervals (47 of 55) are disabled in development mode. This optimization does not affect production behavior or BLOCK_TIME (100ms).
 - **Block Time 100ms Optimization (v7.3)**: Critical fix for maintaining strict 100ms block cadence. `processBlockFinality()` in TBurnEnterpriseNode now runs only every 100 blocks in development (every block in production) to prevent CPU blocking. ValidatorSimulation uses fire-and-forget DB writes with immediate block height increment. Verified: 10 blocks/second maintained, ~201K TPS achieved.
+- **Production Stability Optimization (v7.4 - January 1st Launch)**: Enterprise-level production stability improvements including:
+  - **Neon DB Pool Optimization**: Connection pool configured with max:5, idleTimeoutMillis:30000, connectionTimeoutMillis:15000 to handle serverless cold starts while preventing connection exhaustion.
+  - **DB Keep-Alive System**: 30-second interval ping queries keep connections warm, preventing cold start delays in production.
+  - **Async Login Optimization**: Login responses sent immediately; profile initialization and metrics updates run in background (fire-and-forget pattern).
+  - **Async Email Verification**: Verification codes stored in DB first, response sent immediately, email dispatched in background via Resend.
+  - **WebSocket Dynamic Configuration**: Client WebSocket URL dynamically derived from `window.location.host` for seamless dev/production switching.
+  - **Background Task Logging**: All setImmediate handlers now log errors for debugging production issues.
 
 ## External Dependencies
 - **Database**: Neon Serverless PostgreSQL
