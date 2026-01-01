@@ -7,8 +7,32 @@ if (!process.env.DATABASE_URL) {
   throw new Error("DATABASE_URL is not set");
 }
 
+// Patched WebSocket to work around Neon serverless bug
+// Neon tries to set ErrorEvent.message which is read-only, causing crash
+class PatchedWebSocket extends ws {
+  constructor(url: string | URL, protocols?: string | string[]) {
+    super(url, protocols);
+    
+    // Intercept error events and convert ErrorEvent to plain Error
+    const originalEmit = this.emit.bind(this);
+    this.emit = (event: string | symbol, ...args: any[]): boolean => {
+      if (event === 'error' && args[0]) {
+        const err = args[0];
+        // Convert ErrorEvent to a plain Error with writable properties
+        if (err && typeof err === 'object' && err.constructor?.name === 'ErrorEvent') {
+          const plainError = new Error(err.message || 'WebSocket error');
+          (plainError as any).code = err.error?.code || 'ECONNRESET';
+          (plainError as any).cause = err.error;
+          return originalEmit(event, plainError);
+        }
+      }
+      return originalEmit(event, ...args);
+    };
+  }
+}
+
 // Configure WebSocket for Neon serverless in Node.js
-neonConfig.webSocketConstructor = ws;
+neonConfig.webSocketConstructor = PatchedWebSocket as any;
 
 // Pool configuration for high-frequency writes
 export const pool = new Pool({ 
@@ -37,6 +61,7 @@ export async function executeWithRetry<T>(
     } catch (error: any) {
       const isConnectionError = error?.message?.includes("Connection terminated") ||
                                 error?.message?.includes("ECONNREFUSED") ||
+                                error?.message?.includes("ECONNRESET") ||
                                 error?.message?.includes("connection");
       
       if (isConnectionError && attempt < maxRetries) {
@@ -52,3 +77,14 @@ export async function executeWithRetry<T>(
   }
   return null;
 }
+
+// Global unhandled rejection handler to prevent crashes
+process.on('unhandledRejection', (reason: any) => {
+  if (reason?.message?.includes('Connection terminated') ||
+      reason?.message?.includes('ECONNRESET') ||
+      reason?.code === 'ECONNRESET') {
+    console.error('[DB] Unhandled connection error (suppressed):', reason.message);
+    return; // Don't crash
+  }
+  console.error('[Unhandled Rejection]:', reason);
+});
