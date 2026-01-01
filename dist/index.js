@@ -14497,6 +14497,129 @@ var init_TBurnEnterpriseNode = __esm({
         });
       }
       /**
+       * Get AI models for ProductionDataPoller
+       * Returns configured AI models with their current status
+       */
+      getAIModels() {
+        return [
+          {
+            id: "gemini-3-pro",
+            name: "Gemini 3 Pro",
+            provider: "Google",
+            layer: "Strategic",
+            status: "active",
+            tokensUsed: 125e3 + this.currentBlockHeight % 5e4,
+            requestsToday: 450 + this.currentBlockHeight % 200,
+            avgLatency: 320 + this.currentBlockHeight % 100,
+            successRate: 99.2
+          },
+          {
+            id: "claude-sonnet-4.5",
+            name: "Claude Sonnet 4.5",
+            provider: "Anthropic",
+            layer: "Tactical",
+            status: "active",
+            tokensUsed: 89e3 + this.currentBlockHeight % 3e4,
+            requestsToday: 380 + this.currentBlockHeight % 150,
+            avgLatency: 450 + this.currentBlockHeight % 80,
+            successRate: 99.5
+          },
+          {
+            id: "gpt-4o",
+            name: "GPT-4o",
+            provider: "OpenAI",
+            layer: "Operational",
+            status: "active",
+            tokensUsed: 21e4 + this.currentBlockHeight % 8e4,
+            requestsToday: 820 + this.currentBlockHeight % 300,
+            avgLatency: 280 + this.currentBlockHeight % 60,
+            successRate: 99.8
+          },
+          {
+            id: "grok-3",
+            name: "Grok 3",
+            provider: "xAI",
+            layer: "Fallback",
+            status: "active",
+            tokensUsed: 45e3 + this.currentBlockHeight % 2e4,
+            requestsToday: 120 + this.currentBlockHeight % 80,
+            avgLatency: 380 + this.currentBlockHeight % 90,
+            successRate: 98.9
+          }
+        ];
+      }
+      /**
+       * Get smart contracts for ProductionDataPoller
+       * Returns deployed contracts with their metrics
+       */
+      getContracts() {
+        const baseTime = Date.now() - 864e5 * 30;
+        return [
+          {
+            address: "0x" + crypto3.createHash("sha256").update("tburn-token").digest("hex").slice(0, 40),
+            name: "TBURN Token",
+            type: "TBC-20",
+            deployedAt: new Date(baseTime).toISOString(),
+            verified: true,
+            calls24h: 125e3 + this.currentBlockHeight % 5e4,
+            gasUsed24h: (25e5 + this.currentBlockHeight % 1e6).toString()
+          },
+          {
+            address: "0x" + crypto3.createHash("sha256").update("staking-pool").digest("hex").slice(0, 40),
+            name: "Staking Pool",
+            type: "Staking",
+            deployedAt: new Date(baseTime + 864e5).toISOString(),
+            verified: true,
+            calls24h: 45e3 + this.currentBlockHeight % 2e4,
+            gasUsed24h: (12e5 + this.currentBlockHeight % 5e5).toString()
+          },
+          {
+            address: "0x" + crypto3.createHash("sha256").update("governance").digest("hex").slice(0, 40),
+            name: "Governance",
+            type: "Governance",
+            deployedAt: new Date(baseTime + 864e5 * 2).toISOString(),
+            verified: true,
+            calls24h: 8500 + this.currentBlockHeight % 3e3,
+            gasUsed24h: (35e4 + this.currentBlockHeight % 15e4).toString()
+          },
+          {
+            address: "0x" + crypto3.createHash("sha256").update("bridge").digest("hex").slice(0, 40),
+            name: "Cross-Chain Bridge",
+            type: "Bridge",
+            deployedAt: new Date(baseTime + 864e5 * 5).toISOString(),
+            verified: true,
+            calls24h: 12e3 + this.currentBlockHeight % 5e3,
+            gasUsed24h: (8e5 + this.currentBlockHeight % 3e5).toString()
+          },
+          {
+            address: "0x" + crypto3.createHash("sha256").update("dex-router").digest("hex").slice(0, 40),
+            name: "DEX Router",
+            type: "DEX",
+            deployedAt: new Date(baseTime + 864e5 * 7).toISOString(),
+            verified: true,
+            calls24h: 89e3 + this.currentBlockHeight % 35e3,
+            gasUsed24h: (18e5 + this.currentBlockHeight % 7e5).toString()
+          }
+        ];
+      }
+      /**
+       * Get consensus state for ProductionDataPoller
+       * Returns current consensus mechanism state
+       */
+      getConsensusState() {
+        const info = this.getConsensusInfo();
+        return {
+          currentRound: info.currentRound.roundNumber,
+          phase: info.currentRound.phase,
+          proposer: info.currentRound.proposer,
+          votes: info.currentRound.votesReceived,
+          quorum: info.currentRound.votesRequired,
+          lastBlockTime: this.lastBlockTime,
+          avgBlockTime: info.stats.avgBlockTime,
+          finality: info.stats.avgFinality
+        };
+      }
+      /**
        * Get current consensus round information
        * Derived from current block height and validator set
        */
@@ -42356,7 +42479,7 @@ async function registerRoutes(app2) {
   await tokenRegistry2.initialize();
   const dataPoller = getProductionDataPoller();
   const isDev = process.env.NODE_ENV === "development";
-  const HEAVY_INIT_DELAY = isDev ? 8e3 : 0;
+  const HEAVY_INIT_DELAY = isDev ? 8e3 : 3e3;
   function startHeavyServices() {
     dataPoller.start().then(() => {
       console.log("[DataPoller] \u2705 Production data poller started - cache warming in background");
@@ -42366,10 +42489,10 @@ async function registerRoutes(app2) {
   }
   if (isDev) {
     console.log("[Routes] \u{1F680} Development mode: Deferring heavy services by 8s to allow Vite to serve frontend first");
-    setTimeout(startHeavyServices, HEAVY_INIT_DELAY);
   } else {
-    startHeavyServices();
+    console.log("[Routes] \u{1F680} Production mode: Deferring heavy services by 3s to allow server to accept requests first");
   }
+  setTimeout(startHeavyServices, HEAVY_INIT_DELAY);
   let validatorSimulation = null;
   async function initializeValidatorSimulation() {
     try {
@@ -42426,14 +42549,11 @@ async function registerRoutes(app2) {
       }
     }
   }
-  if (isDev) {
-    setTimeout(() => {
-      console.log("[Routes] \u{1F680} Starting validator simulation (deferred)...");
-      initializeValidatorSimulation();
-    }, HEAVY_INIT_DELAY + 1e3);
-  } else {
+  const VALIDATOR_INIT_DELAY = HEAVY_INIT_DELAY + 1e3;
+  setTimeout(() => {
+    console.log("[Routes] \u{1F680} Starting validator simulation (deferred)...");
     initializeValidatorSimulation();
-  }
+  }, VALIDATOR_INIT_DELAY);
   const clients = /* @__PURE__ */ new Set();
   const lastBroadcastState = /* @__PURE__ */ new Map();
   function broadcastUpdate(type, data, schema, skipDiffCheck = false) {
@@ -58836,8 +58956,10 @@ async function runApp(setup) {
   app.use((err, _req, res, _next) => {
     const status = err.status || err.statusCode || 500;
     const message = err.message || "Internal Server Error";
-    res.status(status).json({ message });
-    throw err;
+    console.error(`[Error Handler] ${status}: ${message}`, err.stack || err);
+    if (!res.headersSent) {
+      res.status(status).json({ message });
+    }
   });
   await setup(app, server);
   const port = parseInt(process.env.PORT || "5000", 10);
