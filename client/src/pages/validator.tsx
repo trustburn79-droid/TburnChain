@@ -1,6 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
-import { Link, useLocation } from "wouter";
 import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, Cell } from 'recharts';
 import { 
   Fire, 
@@ -10,8 +9,7 @@ import {
   ListDashes, 
   MagnifyingGlass,
   Sliders,
-  TrendUp,
-  ArrowRight
+  TrendUp
 } from "@phosphor-icons/react";
 
 interface ValidatorData {
@@ -38,12 +36,6 @@ interface NetworkStats {
 
 interface ValidatorsResponse {
   validators: ValidatorData[];
-  total: number;
-  active: number;
-  inactive: number;
-  jailed: number;
-  totalStake: number;
-  totalDelegators: number;
 }
 
 const stakeChartData = [
@@ -64,38 +56,61 @@ const mapPoints = [
   { top: '60%', left: '30%', delay: '0.3s' },
 ];
 
-const locationMap: Record<string, { location: string; countryCode: string; isp: string }> = {
-  0: { location: 'Chicago, US', countryCode: 'us', isp: 'AS20326 (TeraSwitch)' },
-  1: { location: 'Frankfurt, DE', countryCode: 'de', isp: 'AS20326 (Cherry Servers)' },
-  2: { location: 'Tokyo, JP', countryCode: 'jp', isp: 'AS20326 (Latitude.sh)' },
-  3: { location: 'Singapore, SG', countryCode: 'sg', isp: 'AS16509 (Amazon AWS)' },
-  4: { location: 'London, UK', countryCode: 'gb', isp: 'AS14618 (Google Cloud)' },
-  5: { location: 'Sydney, AU', countryCode: 'au', isp: 'AS15169 (DigitalOcean)' },
-  6: { location: 'Seoul, KR', countryCode: 'kr', isp: 'AS4766 (Korea Telecom)' },
-  7: { location: 'Mumbai, IN', countryCode: 'in', isp: 'AS16509 (Amazon AWS)' },
-  8: { location: 'São Paulo, BR', countryCode: 'br', isp: 'AS14618 (Google Cloud)' },
-  9: { location: 'Toronto, CA', countryCode: 'ca', isp: 'AS20473 (Vultr)' },
-};
-
-function getLocationInfo(index: number) {
-  const key = index % 10;
-  return locationMap[key] || locationMap[0];
-}
-
-function getGradient(index: number): string {
-  const gradients = [
-    'from-purple-600 to-blue-600',
-    'from-amber-500 to-orange-600',
-    'from-emerald-500 to-teal-600',
-    'from-pink-500 to-rose-600',
-    'from-cyan-500 to-blue-600',
-    '',
-  ];
-  return index < 5 ? gradients[index] : '';
-}
+const staticValidators = [
+  {
+    id: 'val-1',
+    name: 'TBURN_Genesis_01',
+    address: 'tb1ap29xq...',
+    shortAddr: 'Ap2...9xQ',
+    stake: 36468183,
+    stakeShare: 8.65,
+    trustScore: 98.5,
+    version: 'v1.14.17',
+    location: 'Chicago, US',
+    countryCode: 'us',
+    isp: 'AS20326 (TeraSwitch)',
+    delinquent: 0,
+    status: 'active',
+    initials: 'TB',
+    gradient: 'from-purple-600 to-blue-600',
+  },
+  {
+    id: 'val-2',
+    name: 'AllNodes_Secure',
+    address: 'tb1hk43ml...',
+    shortAddr: 'Hk4...3mL',
+    stake: 25043993,
+    stakeShare: 5.94,
+    trustScore: 100,
+    version: 'v1.14.17',
+    location: 'Frankfurt, DE',
+    countryCode: 'de',
+    isp: 'AS20326 (Cherry Servers)',
+    delinquent: 0,
+    status: 'active',
+    initials: 'AN',
+    gradient: '',
+  },
+  {
+    id: 'val-3',
+    name: 'Latitude_Node_V',
+    address: 'tb1bp28xk...',
+    shortAddr: 'Bp2...8xK',
+    stake: 15663731,
+    stakeShare: 3.71,
+    trustScore: 96.2,
+    version: 'v1.13.5',
+    location: 'Tokyo, JP',
+    countryCode: 'jp',
+    isp: 'AS20326 (Latitude.sh)',
+    delinquent: 0,
+    status: 'warning',
+    initials: 'L',
+    gradient: '',
+  },
+];
 
 export default function ValidatorCommandCenter() {
-  const [, navigate] = useLocation();
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
@@ -113,35 +128,26 @@ export default function ValidatorCommandCenter() {
   });
 
   const validators = validatorsResponse?.validators || [];
-  const totalStake = validatorsResponse?.totalStake || 1;
-  
-  const displayValidators = (Array.isArray(validators) ? validators : []).map((v, index) => {
-    const locationInfo = getLocationInfo(index);
-    const rawStake = v.stake;
-    const stakeNum = typeof rawStake === 'string' ? (parseFloat(rawStake) || 0) : (rawStake || 0);
-    const safeUptime = typeof v.uptime === 'number' ? v.uptime : 10000;
-    const uptimePercent = safeUptime / 100;
-    
-    return {
-      id: v.id || `validator-${index}`,
-      name: v.name || `Validator_${index + 1}`,
-      address: v.address || '',
-      shortAddr: v.address ? (v.address.slice(0, 6) + '...' + v.address.slice(-4)) : 'Unknown',
-      stake: stakeNum,
-      stakeShare: totalStake > 0 ? (stakeNum / totalStake) * 100 : 0,
-      trustScore: uptimePercent,
-      version: v.version || 'v1.14.17',
-      location: v.location || locationInfo.location,
-      countryCode: v.countryCode || locationInfo.countryCode,
-      isp: v.isp || locationInfo.isp,
-      delinquent: Math.max(0, 100 - uptimePercent),
-      status: v.status === 'active' ? 'active' : 'warning',
-      initials: (v.name || 'V').slice(0, 2).toUpperCase(),
-      gradient: getGradient(index),
-    };
-  });
+  const displayValidators = Array.isArray(validators) ? validators : [];
+  const combinedValidators = [...staticValidators, ...displayValidators.map((v) => ({
+    id: v.id,
+    name: v.name,
+    address: v.address,
+    shortAddr: v.address.slice(0, 6) + '...' + v.address.slice(-4),
+    stake: v.stake,
+    stakeShare: ((v.stake / (networkStats?.totalStake || 1)) * 100),
+    trustScore: v.uptime,
+    version: v.version || 'v1.14.17',
+    location: v.location || 'Unknown',
+    countryCode: v.countryCode || 'un',
+    isp: v.isp || 'Unknown ISP',
+    delinquent: 100 - v.uptime,
+    status: v.status === 'active' ? 'active' : 'warning',
+    initials: v.name.slice(0, 2).toUpperCase(),
+    gradient: '',
+  }))];
 
-  const filteredValidators = displayValidators.filter(v => 
+  const filteredValidators = combinedValidators.filter(v => 
     v.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
     v.address.toLowerCase().includes(searchQuery.toLowerCase())
   );
@@ -248,24 +254,10 @@ export default function ValidatorCommandCenter() {
                 <GlobeHemisphereWest className="text-amber-500" size={20} />
                 Global Node Topology
               </h3>
-              <div className="flex gap-2 flex-wrap">
+              <div className="flex gap-2">
                 <span className="px-2 py-1 bg-amber-500/10 border border-amber-500/20 text-amber-500 text-xs rounded">
                   Live Feed
                 </span>
-                <Link 
-                  href="/validator/infrastructure" 
-                  className="px-3 py-1 bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs rounded flex items-center gap-1 hover:bg-blue-500/20 transition"
-                  data-testid="link-infrastructure"
-                >
-                  Infrastructure <ArrowRight size={12} />
-                </Link>
-                <Link 
-                  href="/validator/governance" 
-                  className="px-3 py-1 bg-orange-500/10 border border-orange-500/20 text-orange-400 text-xs rounded flex items-center gap-1 hover:bg-orange-500/20 transition"
-                  data-testid="link-governance"
-                >
-                  Governance <ArrowRight size={12} />
-                </Link>
               </div>
             </div>
             
@@ -398,7 +390,6 @@ export default function ValidatorCommandCenter() {
                     <tr 
                       key={validator.id} 
                       className="hover:bg-white/5 transition-colors group cursor-pointer"
-                      onClick={() => navigate(`/validator/${validator.id}`)}
                       data-testid={`validator-row-${validator.id}`}
                     >
                       <td className="p-5">
