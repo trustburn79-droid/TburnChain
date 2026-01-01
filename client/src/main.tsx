@@ -11,18 +11,9 @@ declare global {
   }
 }
 
-const BUILD_VERSION = "2025.12.25.v4";
+const BUILD_VERSION = "2026.01.01.v1";
 
-function safeInitApp() {
-  const htmlVersion = document.documentElement.getAttribute("data-version");
-  
-  if (htmlVersion && htmlVersion !== BUILD_VERSION) {
-    console.warn(`[TBURN] Version mismatch: HTML=${htmlVersion}, JS=${BUILD_VERSION}. Force reloading...`);
-    sessionStorage.setItem("tburn-force-reload", Date.now().toString());
-    window.location.reload();
-    return;
-  }
-  
+function initApp() {
   if (window.__TBURN_INITIALIZED__) {
     console.warn("[TBURN] App already initialized, skipping duplicate mount");
     return;
@@ -31,7 +22,7 @@ function safeInitApp() {
   const rootElement = document.getElementById("root");
   if (!rootElement) {
     console.error("[TBURN] Root element not found - retrying in 100ms");
-    setTimeout(safeInitApp, 100);
+    setTimeout(initApp, 100);
     return;
   }
   
@@ -78,8 +69,8 @@ function safeInitApp() {
 
 if (document.readyState === "loading") {
   document.addEventListener("DOMContentLoaded", () => {
-    requestAnimationFrame(safeInitApp);
+    requestAnimationFrame(initApp);
   }, { once: true });
 } else {
-  requestAnimationFrame(safeInitApp);
+  requestAnimationFrame(initApp);
 }
