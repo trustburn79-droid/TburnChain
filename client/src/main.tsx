@@ -8,10 +8,70 @@ declare global {
     __TBURN_APP_ROOT__?: Root;
     __TBURN_INITIALIZED__?: boolean;
     __TBURN_VERSION__?: string;
+    __TBURN_CHUNK_ERROR_RELOAD__?: boolean;
   }
 }
 
-const BUILD_VERSION = "2025.12.25.v4";
+// ============================================
+// CRITICAL: Dynamic Import Error Handler
+// Auto-reload when chunk loading fails (stale cache issue)
+// ============================================
+function setupChunkErrorHandler() {
+  window.addEventListener('error', (event) => {
+    const message = event.message || '';
+    const target = event.target as HTMLScriptElement | null;
+    
+    // Detect chunk loading failures
+    const isChunkError = 
+      message.includes('Failed to fetch dynamically imported module') ||
+      message.includes('Loading chunk') ||
+      message.includes('Loading CSS chunk') ||
+      (target?.tagName === 'SCRIPT' && target?.src?.includes('/assets/'));
+    
+    if (isChunkError && !window.__TBURN_CHUNK_ERROR_RELOAD__) {
+      console.error('[TBURN] Chunk loading failed - performing auto-reload');
+      window.__TBURN_CHUNK_ERROR_RELOAD__ = true;
+      sessionStorage.setItem('tburn-chunk-error-reload', Date.now().toString());
+      
+      // Clear all caches and force reload
+      if ('caches' in window) {
+        caches.keys().then(names => {
+          names.forEach(name => caches.delete(name));
+        });
+      }
+      
+      // Force hard reload after small delay
+      setTimeout(() => {
+        window.location.reload();
+      }, 100);
+    }
+  }, true);
+  
+  // Handle unhandled promise rejections (for async import failures)
+  window.addEventListener('unhandledrejection', (event) => {
+    const reason = event.reason?.message || String(event.reason) || '';
+    
+    const isChunkError = 
+      reason.includes('Failed to fetch dynamically imported module') ||
+      reason.includes('Loading chunk') ||
+      reason.includes('error loading dynamically imported module');
+    
+    if (isChunkError && !window.__TBURN_CHUNK_ERROR_RELOAD__) {
+      console.error('[TBURN] Dynamic import failed - performing auto-reload');
+      window.__TBURN_CHUNK_ERROR_RELOAD__ = true;
+      sessionStorage.setItem('tburn-chunk-error-reload', Date.now().toString());
+      
+      setTimeout(() => {
+        window.location.reload();
+      }, 100);
+    }
+  });
+}
+
+// Initialize chunk error handler immediately
+setupChunkErrorHandler();
+
+const BUILD_VERSION = "2026.01.02.v1";
 
 function safeInitApp() {
   const htmlVersion = document.documentElement.getAttribute("data-version");

@@ -33,10 +33,31 @@ app.get("/health", (_req, res) => {
   });
 });
 
-// Serve static assets immediately
+// ============================================
+// CRITICAL: Cache-Control Headers for Production
+// index.html: no-cache (always fetch fresh)
+// /assets/*: immutable long-cache (hashed filenames)
+// ============================================
+
+// Serve hashed assets with immutable caching
+app.use('/assets', express.static(path.join(distPath, 'assets'), {
+  maxAge: '1y',
+  immutable: true,
+  etag: false, // Not needed for hashed files
+}));
+
+// Serve other static files with short cache
 app.use(express.static(distPath, {
-  maxAge: '1d',
+  maxAge: '1h',
   etag: true,
+  setHeaders: (res, filePath) => {
+    // index.html MUST NOT be cached
+    if (filePath.endsWith('index.html') || filePath.endsWith('.html')) {
+      res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+      res.setHeader('Pragma', 'no-cache');
+      res.setHeader('Expires', '0');
+    }
+  },
 }));
 
 // ============================================
@@ -64,7 +85,11 @@ async function initializeBackendServices() {
     await runAppServices(app, server);
     
     // Setup SPA fallback AFTER API routes are registered
+    // CRITICAL: Set no-cache headers for index.html to prevent stale chunk references
     app.use("*", (_req, res) => {
+      res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+      res.setHeader('Pragma', 'no-cache');
+      res.setHeader('Expires', '0');
       res.sendFile(path.resolve(distPath, "index.html"));
     });
     
