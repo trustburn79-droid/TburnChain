@@ -1,0 +1,2106 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TBURN Chain - Brand Assets | BI · CI · 배너 다운로드</title>
+  <meta name="description" content="TBURN Chain 공식 브랜드 에셋. 로고, 심볼, 컬러 팔레트, 타이포그래피, 배너를 다운로드하세요.">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --gold: #D4AF37;
+      --gold-light: #F5D76E;
+      --gold-dark: #B8960C;
+      --navy: #1A365D;
+      --navy-light: #2D4A7C;
+      --navy-dark: #0F2744;
+      --dark: #0F172A;
+      --dark-card: #1E293B;
+      --dark-lighter: #334155;
+      --gray: #64748B;
+      --light-gray: #94A3B8;
+      --white: #FFFFFF;
+      --off-white: #F8FAFC;
+      --success: #22C55E;
+      --warning: #F59E0B;
+      --danger: #EF4444;
+      --purple: #8B5CF6;
+      --blue: #3B82F6;
+      --cyan: #06B6D4;
+      --pink: #EC4899;
+      --emerald: #10B981;
+      --orange: #F97316;
+      --red: #EF4444;
+      --gradient-gold: linear-gradient(135deg, #D4AF37 0%, #F5D76E 50%, #D4AF37 100%);
+      --gradient-navy: linear-gradient(135deg, #1A365D 0%, #2D4A7C 100%);
+      --gradient-dark: linear-gradient(180deg, #0F172A 0%, #1E293B 100%);
+      --gradient-fire: linear-gradient(135deg, #FF6B35 0%, #F7931E 50%, #FFD700 100%);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--dark);
+      color: var(--white);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-10px); } }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.7; } }
+    @keyframes glow { 0%, 100% { box-shadow: 0 0 20px rgba(212, 175, 55, 0.3); } 50% { box-shadow: 0 0 40px rgba(212, 175, 55, 0.6); } }
+    @keyframes flame { 0%, 100% { transform: scale(1) rotate(-2deg); } 50% { transform: scale(1.05) rotate(2deg); } }
+    @keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
+    @keyframes copySuccess { 0% { transform: scale(1); } 50% { transform: scale(1.2); } 100% { transform: scale(1); } }
+
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background: rgba(15, 23, 42, 0.95);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+    }
+
+    .header-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+
+    .logo-icon {
+      width: 48px;
+      height: 48px;
+      background: var(--gradient-gold);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      animation: flame 3s ease-in-out infinite;
+    }
+
+    .logo-text { font-size: 1.5rem; font-weight: 800; color: var(--white); }
+    .logo-text span { color: var(--gold); }
+
+    .nav-links { display: flex; gap: 2rem; align-items: center; }
+    .nav-links a { color: var(--light-gray); text-decoration: none; font-weight: 500; transition: color 0.3s; }
+    .nav-links a:hover { color: var(--gold); }
+
+    .download-all-btn {
+      background: var(--gradient-gold);
+      color: var(--dark);
+      padding: 12px 24px;
+      border-radius: 12px;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.3s, box-shadow 0.3s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .download-all-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 40px rgba(212, 175, 55, 0.3);
+    }
+
+    .hero {
+      min-height: 60vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      padding: 140px 2rem 80px;
+      background: radial-gradient(ellipse at center top, rgba(212, 175, 55, 0.1) 0%, transparent 50%),
+                  radial-gradient(ellipse at bottom right, rgba(26, 54, 93, 0.2) 0%, transparent 50%),
+                  var(--gradient-dark);
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .hero-bg::before {
+      content: '';
+      position: absolute;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(212, 175, 55, 0.15) 0%, transparent 70%);
+      top: -200px;
+      right: -100px;
+      animation: float 8s ease-in-out infinite;
+    }
+
+    .hero-content {
+      max-width: 900px;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(212, 175, 55, 0.15);
+      border: 1px solid rgba(212, 175, 55, 0.4);
+      padding: 8px 20px;
+      border-radius: 100px;
+      font-size: 0.875rem;
+      color: var(--gold);
+      margin-bottom: 2rem;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 900;
+      margin-bottom: 1.5rem;
+      line-height: 1.1;
+    }
+
+    .hero h1 .gradient-text {
+      background: var(--gradient-gold);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-subtitle {
+      font-size: 1.125rem;
+      color: var(--light-gray);
+      max-width: 600px;
+      margin: 0 auto 2rem;
+    }
+
+    .asset-categories {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .category-pill {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      background: var(--dark-card);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 100px;
+      color: var(--light-gray);
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .category-pill:hover, .category-pill.active {
+      border-color: var(--gold);
+      color: var(--gold);
+      background: rgba(212, 175, 55, 0.1);
+    }
+
+    .category-pill i { font-size: 1rem; }
+
+    .section { padding: 80px 2rem; max-width: 1400px; margin: 0 auto; }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 3rem;
+    }
+
+    .section-title-group h2 {
+      font-size: 2rem;
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .section-title-group h2 i { color: var(--gold); }
+
+    .section-title-group p { color: var(--light-gray); }
+
+    .download-section-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      background: rgba(212, 175, 55, 0.1);
+      border: 1px solid rgba(212, 175, 55, 0.3);
+      border-radius: 10px;
+      color: var(--gold);
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .download-section-btn:hover {
+      background: var(--gold);
+      color: var(--dark);
+    }
+
+    /* Logo Section */
+    .logo-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+
+    .logo-card {
+      background: var(--dark-card);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      overflow: hidden;
+      transition: all 0.3s;
+    }
+
+    .logo-card:hover {
+      border-color: var(--gold);
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    .logo-preview {
+      height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .logo-preview.dark-bg { background: var(--dark); }
+    .logo-preview.light-bg { background: var(--off-white); }
+    .logo-preview.navy-bg { background: var(--navy); }
+    .logo-preview.gold-bg { background: var(--gold); }
+    .logo-preview.gradient-bg { background: var(--gradient-gold); }
+    .logo-preview.transparent-bg {
+      background: repeating-conic-gradient(#333 0% 25%, #444 0% 50%) 50% / 20px 20px;
+    }
+
+    .logo-display {
+      max-width: 180px;
+      max-height: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .logo-display.main-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 2rem;
+      font-weight: 900;
+    }
+
+    .logo-display.main-logo .icon {
+      width: 60px;
+      height: 60px;
+      background: var(--gradient-gold);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+    }
+
+    .logo-display.main-logo .text { color: var(--white); }
+    .logo-display.main-logo .text span { color: var(--gold); }
+    .logo-display.main-logo.dark .text { color: var(--dark); }
+    .logo-display.main-logo.dark .text span { color: var(--navy); }
+
+    .logo-display.symbol-only {
+      width: 80px;
+      height: 80px;
+      background: var(--gradient-gold);
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 42px;
+      animation: flame 3s ease-in-out infinite;
+    }
+
+    .logo-display.symbol-only.outline {
+      background: transparent;
+      border: 3px solid var(--gold);
+    }
+
+    .logo-display.symbol-only.white {
+      background: var(--white);
+    }
+
+    .logo-display.wordmark {
+      font-size: 2.5rem;
+      font-weight: 900;
+      letter-spacing: -1px;
+    }
+
+    .logo-display.wordmark.gold { color: var(--gold); }
+    .logo-display.wordmark.white { color: var(--white); }
+    .logo-display.wordmark.dark { color: var(--dark); }
+    .logo-display.wordmark span { color: var(--gold); }
+
+    .logo-info {
+      padding: 1.5rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .logo-info h4 { font-size: 1rem; font-weight: 700; margin-bottom: 0.25rem; }
+    .logo-info p { font-size: 0.8rem; color: var(--gray); margin-bottom: 1rem; }
+
+    .logo-formats {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .format-tag {
+      padding: 4px 10px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 6px;
+      font-size: 0.7rem;
+      color: var(--light-gray);
+      text-transform: uppercase;
+    }
+
+    .logo-download-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      padding: 10px;
+      background: rgba(212, 175, 55, 0.1);
+      border: 1px solid rgba(212, 175, 55, 0.3);
+      border-radius: 10px;
+      color: var(--gold);
+      font-weight: 600;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .logo-download-btn:hover {
+      background: var(--gold);
+      color: var(--dark);
+    }
+
+    /* Color Palette */
+    .color-section {
+      margin-bottom: 3rem;
+    }
+
+    .color-section-title {
+      font-size: 1.125rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .color-section-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .color-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+    }
+
+    .color-card {
+      background: var(--dark-card);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      overflow: hidden;
+      transition: all 0.3s;
+    }
+
+    .color-card:hover {
+      border-color: rgba(255, 255, 255, 0.3);
+      transform: translateY(-3px);
+    }
+
+    .color-swatch {
+      height: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--white);
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    }
+
+    .color-info {
+      padding: 1.25rem;
+    }
+
+    .color-info h4 { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.75rem; }
+
+    .color-codes {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .color-code {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 12px;
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 8px;
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .color-code:hover { background: rgba(255, 255, 255, 0.08); }
+
+    .color-code .label { color: var(--gray); }
+    .color-code .value { font-family: monospace; color: var(--white); }
+    .color-code .copy-icon { color: var(--gray); font-size: 0.75rem; opacity: 0; transition: opacity 0.3s; }
+    .color-code:hover .copy-icon { opacity: 1; }
+    .color-code.copied .copy-icon { color: var(--success); animation: copySuccess 0.3s ease; }
+
+    /* Typography */
+    .typography-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+    }
+
+    .typography-card {
+      background: var(--dark-card);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 2rem;
+    }
+
+    .typography-card h4 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--gold);
+      margin-bottom: 0.5rem;
+    }
+
+    .typography-card .font-name {
+      font-size: 2rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+    }
+
+    .typography-card .font-preview {
+      font-size: 1.25rem;
+      color: var(--light-gray);
+      margin-bottom: 1.5rem;
+      line-height: 1.8;
+    }
+
+    .font-weights {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    .font-weight-tag {
+      padding: 8px 16px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 8px;
+      font-size: 0.85rem;
+    }
+
+    .font-weight-tag span { color: var(--gray); margin-left: 4px; }
+
+    /* Banner Section */
+    .banner-grid {
+      display: grid;
+      gap: 2rem;
+    }
+
+    .banner-card {
+      background: var(--dark-card);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      overflow: hidden;
+      transition: all 0.3s;
+    }
+
+    .banner-card:hover {
+      border-color: var(--gold);
+      transform: translateY(-5px);
+    }
+
+    .banner-preview {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .banner-display {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .banner-display.hero-banner {
+      height: 300px;
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-dark) 100%);
+    }
+
+    .banner-display.social-banner {
+      height: 200px;
+      background: linear-gradient(135deg, var(--dark) 0%, var(--navy) 100%);
+    }
+
+    .banner-display.email-banner {
+      height: 150px;
+      background: var(--gradient-gold);
+    }
+
+    .banner-display.ad-banner {
+      height: 250px;
+      background: linear-gradient(135deg, var(--navy-dark) 0%, var(--dark) 100%);
+    }
+
+    .banner-content {
+      text-align: center;
+      z-index: 1;
+      padding: 2rem;
+    }
+
+    .banner-content .logo-group {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 1rem;
+    }
+
+    .banner-content .logo-icon-small {
+      width: 50px;
+      height: 50px;
+      background: var(--gradient-gold);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 26px;
+    }
+
+    .banner-content .logo-text-small {
+      font-size: 1.75rem;
+      font-weight: 900;
+    }
+
+    .banner-content .logo-text-small span { color: var(--gold); }
+
+    .banner-content h3 {
+      font-size: 1.5rem;
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+    }
+
+    .banner-content p { color: var(--light-gray); font-size: 0.95rem; }
+
+    .banner-content.dark-text h3,
+    .banner-content.dark-text p,
+    .banner-content.dark-text .logo-text-small { color: var(--dark); }
+
+    .banner-decoration {
+      position: absolute;
+      pointer-events: none;
+    }
+
+    .banner-decoration.circles {
+      width: 300px;
+      height: 300px;
+      border: 2px solid rgba(212, 175, 55, 0.2);
+      border-radius: 50%;
+      right: -100px;
+      top: -100px;
+    }
+
+    .banner-decoration.lines {
+      width: 200px;
+      height: 200px;
+      background: linear-gradient(45deg, transparent 45%, rgba(212, 175, 55, 0.1) 45%, rgba(212, 175, 55, 0.1) 55%, transparent 55%);
+      left: -50px;
+      bottom: -50px;
+    }
+
+    .banner-info {
+      padding: 1.5rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .banner-meta h4 { font-size: 1rem; font-weight: 700; margin-bottom: 0.25rem; }
+
+    .banner-size {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.85rem;
+      color: var(--gray);
+    }
+
+    .banner-size .dimension {
+      padding: 4px 10px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 6px;
+      font-family: monospace;
+    }
+
+    .banner-download-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      background: rgba(212, 175, 55, 0.1);
+      border: 1px solid rgba(212, 175, 55, 0.3);
+      border-radius: 10px;
+      color: var(--gold);
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .banner-download-btn:hover {
+      background: var(--gold);
+      color: var(--dark);
+    }
+
+    /* Icon Set */
+    .icon-grid {
+      display: grid;
+      grid-template-columns: repeat(8, 1fr);
+      gap: 1rem;
+    }
+
+    .icon-card {
+      background: var(--dark-card);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 1.5rem;
+      text-align: center;
+      transition: all 0.3s;
+      cursor: pointer;
+    }
+
+    .icon-card:hover {
+      border-color: var(--gold);
+      transform: translateY(-3px);
+      background: rgba(212, 175, 55, 0.1);
+    }
+
+    .icon-card .icon-display {
+      font-size: 2rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .icon-card .icon-name {
+      font-size: 0.75rem;
+      color: var(--gray);
+    }
+
+    /* Usage Guidelines */
+    .guidelines-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+    }
+
+    .guideline-card {
+      background: var(--dark-card);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    .guideline-card.do { border-color: rgba(34, 197, 94, 0.3); }
+    .guideline-card.dont { border-color: rgba(239, 68, 68, 0.3); }
+
+    .guideline-header {
+      padding: 1rem 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+    }
+
+    .guideline-card.do .guideline-header {
+      background: rgba(34, 197, 94, 0.1);
+      color: var(--success);
+    }
+
+    .guideline-card.dont .guideline-header {
+      background: rgba(239, 68, 68, 0.1);
+      color: var(--danger);
+    }
+
+    .guideline-content {
+      padding: 1.5rem;
+    }
+
+    .guideline-items {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .guideline-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 1rem;
+      background: rgba(255, 255, 255, 0.02);
+      border-radius: 12px;
+    }
+
+    .guideline-item .icon {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      flex-shrink: 0;
+    }
+
+    .guideline-card.do .guideline-item .icon {
+      background: rgba(34, 197, 94, 0.2);
+      color: var(--success);
+    }
+
+    .guideline-card.dont .guideline-item .icon {
+      background: rgba(239, 68, 68, 0.2);
+      color: var(--danger);
+    }
+
+    .guideline-item p { font-size: 0.9rem; color: var(--light-gray); line-height: 1.6; }
+
+    /* Clear Space */
+    .clearspace-container {
+      background: var(--dark-card);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 2.5rem;
+      margin-top: 2rem;
+    }
+
+    .clearspace-visual {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 3rem;
+      background: rgba(255, 255, 255, 0.02);
+      border-radius: 16px;
+      position: relative;
+    }
+
+    .clearspace-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 1.75rem;
+      font-weight: 900;
+      padding: 2rem;
+      border: 2px dashed var(--gold);
+      border-radius: 16px;
+      position: relative;
+    }
+
+    .clearspace-logo .icon {
+      width: 50px;
+      height: 50px;
+      background: var(--gradient-gold);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 26px;
+    }
+
+    .clearspace-logo .text span { color: var(--gold); }
+
+    .clearspace-marker {
+      position: absolute;
+      background: rgba(212, 175, 55, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--gold);
+    }
+
+    .clearspace-marker.top { top: -30px; left: 50%; transform: translateX(-50%); width: 30px; height: 30px; }
+    .clearspace-marker.bottom { bottom: -30px; left: 50%; transform: translateX(-50%); width: 30px; height: 30px; }
+    .clearspace-marker.left { left: -30px; top: 50%; transform: translateY(-50%); width: 30px; height: 30px; }
+    .clearspace-marker.right { right: -30px; top: 50%; transform: translateY(-50%); width: 30px; height: 30px; }
+
+    .clearspace-note {
+      text-align: center;
+      margin-top: 2rem;
+      color: var(--light-gray);
+      font-size: 0.9rem;
+    }
+
+    .clearspace-note strong { color: var(--gold); }
+
+    /* Download Center */
+    .download-center {
+      background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), rgba(26, 54, 93, 0.1));
+      border: 1px solid rgba(212, 175, 55, 0.3);
+      border-radius: 24px;
+      padding: 3rem;
+      text-align: center;
+    }
+
+    .download-center h3 {
+      font-size: 1.75rem;
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+    }
+
+    .download-center p {
+      color: var(--light-gray);
+      margin-bottom: 2rem;
+    }
+
+    .download-options {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .download-option {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      padding: 2rem;
+      background: var(--dark-card);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      min-width: 200px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .download-option:hover {
+      border-color: var(--gold);
+      transform: translateY(-5px);
+    }
+
+    .download-option .icon {
+      width: 60px;
+      height: 60px;
+      background: rgba(212, 175, 55, 0.1);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      color: var(--gold);
+    }
+
+    .download-option h4 { font-size: 1rem; font-weight: 700; }
+    .download-option p { font-size: 0.8rem; color: var(--gray); margin: 0; }
+
+    /* Footer */
+    .footer {
+      background: var(--dark);
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 40px 2rem;
+      text-align: center;
+    }
+
+    .footer p { color: var(--gray); font-size: 0.875rem; }
+    .footer a { color: var(--gold); text-decoration: none; }
+
+    /* Toast Notification */
+    .toast {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: var(--dark-card);
+      border: 1px solid var(--gold);
+      padding: 12px 24px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      z-index: 10000;
+      opacity: 0;
+      transition: all 0.3s;
+    }
+
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+
+    .toast i { color: var(--success); }
+
+    /* Responsive */
+    @media (max-width: 1200px) {
+      .logo-grid { grid-template-columns: repeat(2, 1fr); }
+      .color-grid { grid-template-columns: repeat(2, 1fr); }
+      .icon-grid { grid-template-columns: repeat(6, 1fr); }
+    }
+
+    @media (max-width: 1024px) {
+      .typography-grid { grid-template-columns: 1fr; }
+      .guidelines-grid { grid-template-columns: 1fr; }
+      .download-options { flex-direction: column; align-items: center; }
+    }
+
+    @media (max-width: 768px) {
+      .header-container { padding: 1rem; }
+      .nav-links { display: none; }
+      .hero { padding: 120px 1rem 60px; }
+      .section { padding: 60px 1rem; }
+      .logo-grid { grid-template-columns: 1fr; }
+      .color-grid { grid-template-columns: 1fr; }
+      .icon-grid { grid-template-columns: repeat(4, 1fr); }
+      .section-header { flex-direction: column; gap: 1rem; text-align: center; }
+      .banner-info { flex-direction: column; gap: 1rem; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="header-container">
+      <a href="#" class="logo">
+        <div class="logo-icon">🔥</div>
+        <div class="logo-text">TBURN<span>CHAIN</span></div>
+      </a>
+      <nav class="nav-links">
+        <a href="#logos">로고</a>
+        <a href="#colors">컬러</a>
+        <a href="#typography">타이포그래피</a>
+        <a href="#banners">배너</a>
+        <a href="#icons">아이콘</a>
+        <a href="#guidelines">가이드라인</a>
+      </nav>
+      <button class="download-all-btn" onclick="downloadAll()">
+        <i class="fas fa-download"></i> 전체 다운로드
+      </button>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <div class="badge">
+        <i class="fas fa-palette"></i>
+        OFFICIAL BRAND ASSETS
+      </div>
+      <h1>
+        TBURN Chain<br>
+        <span class="gradient-text">Brand Assets</span>
+      </h1>
+      <p class="hero-subtitle">
+        TBURN Chain의 공식 브랜드 에셋입니다.<br>
+        로고, 컬러, 타이포그래피, 배너를 다운로드하고 올바르게 사용하세요.
+      </p>
+      <div class="asset-categories">
+        <div class="category-pill active" onclick="scrollToSection('logos')">
+          <i class="fas fa-shapes"></i> 로고
+        </div>
+        <div class="category-pill" onclick="scrollToSection('colors')">
+          <i class="fas fa-palette"></i> 컬러
+        </div>
+        <div class="category-pill" onclick="scrollToSection('typography')">
+          <i class="fas fa-font"></i> 타이포그래피
+        </div>
+        <div class="category-pill" onclick="scrollToSection('banners')">
+          <i class="fas fa-image"></i> 배너
+        </div>
+        <div class="category-pill" onclick="scrollToSection('icons')">
+          <i class="fas fa-icons"></i> 아이콘
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Logo Section -->
+  <section class="section" id="logos">
+    <div class="section-header">
+      <div class="section-title-group">
+        <h2><i class="fas fa-shapes"></i> 로고 / Logo</h2>
+        <p>TBURN Chain의 공식 로고와 다양한 버전</p>
+      </div>
+      <button class="download-section-btn" onclick="downloadSection('logos')">
+        <i class="fas fa-download"></i> 로고 전체 다운로드
+      </button>
+    </div>
+
+    <div class="logo-grid">
+      <!-- Main Logo - Dark BG -->
+      <div class="logo-card">
+        <div class="logo-preview dark-bg">
+          <div class="logo-display main-logo">
+            <div class="icon">🔥</div>
+            <div class="text">TBURN<span>CHAIN</span></div>
+          </div>
+        </div>
+        <div class="logo-info">
+          <h4>메인 로고 (다크)</h4>
+          <p>어두운 배경에서 사용하는 기본 로고</p>
+          <div class="logo-formats">
+            <span class="format-tag">SVG</span>
+            <span class="format-tag">PNG</span>
+            <span class="format-tag">PDF</span>
+          </div>
+          <button class="logo-download-btn" onclick="downloadAsset('main-logo-dark')">
+            <i class="fas fa-download"></i> 다운로드
+          </button>
+        </div>
+      </div>
+
+      <!-- Main Logo - Light BG -->
+      <div class="logo-card">
+        <div class="logo-preview light-bg">
+          <div class="logo-display main-logo dark">
+            <div class="icon">🔥</div>
+            <div class="text">TBURN<span>CHAIN</span></div>
+          </div>
+        </div>
+        <div class="logo-info">
+          <h4>메인 로고 (라이트)</h4>
+          <p>밝은 배경에서 사용하는 기본 로고</p>
+          <div class="logo-formats">
+            <span class="format-tag">SVG</span>
+            <span class="format-tag">PNG</span>
+            <span class="format-tag">PDF</span>
+          </div>
+          <button class="logo-download-btn" onclick="downloadAsset('main-logo-light')">
+            <i class="fas fa-download"></i> 다운로드
+          </button>
+        </div>
+      </div>
+
+      <!-- Main Logo - Navy BG -->
+      <div class="logo-card">
+        <div class="logo-preview navy-bg">
+          <div class="logo-display main-logo">
+            <div class="icon">🔥</div>
+            <div class="text">TBURN<span>CHAIN</span></div>
+          </div>
+        </div>
+        <div class="logo-info">
+          <h4>메인 로고 (네이비)</h4>
+          <p>네이비 배경에서 사용하는 로고</p>
+          <div class="logo-formats">
+            <span class="format-tag">SVG</span>
+            <span class="format-tag">PNG</span>
+            <span class="format-tag">PDF</span>
+          </div>
+          <button class="logo-download-btn" onclick="downloadAsset('main-logo-navy')">
+            <i class="fas fa-download"></i> 다운로드
+          </button>
+        </div>
+      </div>
+
+      <!-- Symbol Only -->
+      <div class="logo-card">
+        <div class="logo-preview dark-bg">
+          <div class="logo-display symbol-only">🔥</div>
+        </div>
+        <div class="logo-info">
+          <h4>심볼 (Symbol)</h4>
+          <p>아이콘 또는 파비콘으로 사용</p>
+          <div class="logo-formats">
+            <span class="format-tag">SVG</span>
+            <span class="format-tag">PNG</span>
+            <span class="format-tag">ICO</span>
+          </div>
+          <button class="logo-download-btn" onclick="downloadAsset('symbol')">
+            <i class="fas fa-download"></i> 다운로드
+          </button>
+        </div>
+      </div>
+
+      <!-- Symbol Outline -->
+      <div class="logo-card">
+        <div class="logo-preview dark-bg">
+          <div class="logo-display symbol-only outline">🔥</div>
+        </div>
+        <div class="logo-info">
+          <h4>심볼 아웃라인</h4>
+          <p>아웃라인 버전의 심볼</p>
+          <div class="logo-formats">
+            <span class="format-tag">SVG</span>
+            <span class="format-tag">PNG</span>
+          </div>
+          <button class="logo-download-btn" onclick="downloadAsset('symbol-outline')">
+            <i class="fas fa-download"></i> 다운로드
+          </button>
+        </div>
+      </div>
+
+      <!-- Symbol White BG -->
+      <div class="logo-card">
+        <div class="logo-preview transparent-bg">
+          <div class="logo-display symbol-only white" style="background: var(--gradient-gold);">🔥</div>
+        </div>
+        <div class="logo-info">
+          <h4>심볼 (투명 배경)</h4>
+          <p>투명 배경용 PNG 심볼</p>
+          <div class="logo-formats">
+            <span class="format-tag">PNG</span>
+            <span class="format-tag">WEBP</span>
+          </div>
+          <button class="logo-download-btn" onclick="downloadAsset('symbol-transparent')">
+            <i class="fas fa-download"></i> 다운로드
+          </button>
+        </div>
+      </div>
+
+      <!-- Wordmark Gold -->
+      <div class="logo-card">
+        <div class="logo-preview dark-bg">
+          <div class="logo-display wordmark gold">TBURNCHAIN</div>
+        </div>
+        <div class="logo-info">
+          <h4>워드마크 (골드)</h4>
+          <p>심볼 없이 텍스트만 사용</p>
+          <div class="logo-formats">
+            <span class="format-tag">SVG</span>
+            <span class="format-tag">PNG</span>
+          </div>
+          <button class="logo-download-btn" onclick="downloadAsset('wordmark-gold')">
+            <i class="fas fa-download"></i> 다운로드
+          </button>
+        </div>
+      </div>
+
+      <!-- Wordmark White -->
+      <div class="logo-card">
+        <div class="logo-preview navy-bg">
+          <div class="logo-display wordmark white">TBURN<span>CHAIN</span></div>
+        </div>
+        <div class="logo-info">
+          <h4>워드마크 (화이트)</h4>
+          <p>어두운 배경용 화이트 워드마크</p>
+          <div class="logo-formats">
+            <span class="format-tag">SVG</span>
+            <span class="format-tag">PNG</span>
+          </div>
+          <button class="logo-download-btn" onclick="downloadAsset('wordmark-white')">
+            <i class="fas fa-download"></i> 다운로드
+          </button>
+        </div>
+      </div>
+
+      <!-- Wordmark Dark -->
+      <div class="logo-card">
+        <div class="logo-preview gold-bg">
+          <div class="logo-display wordmark dark">TBURNCHAIN</div>
+        </div>
+        <div class="logo-info">
+          <h4>워드마크 (다크)</h4>
+          <p>밝은 배경용 다크 워드마크</p>
+          <div class="logo-formats">
+            <span class="format-tag">SVG</span>
+            <span class="format-tag">PNG</span>
+          </div>
+          <button class="logo-download-btn" onclick="downloadAsset('wordmark-dark')">
+            <i class="fas fa-download"></i> 다운로드
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Color Palette Section -->
+  <section class="section" id="colors" style="background: rgba(255,255,255,0.02);">
+    <div class="section-header">
+      <div class="section-title-group">
+        <h2><i class="fas fa-palette"></i> 컬러 팔레트 / Color Palette</h2>
+        <p>TBURN Chain의 공식 브랜드 컬러</p>
+      </div>
+      <button class="download-section-btn" onclick="downloadSection('colors')">
+        <i class="fas fa-download"></i> ASE 파일 다운로드
+      </button>
+    </div>
+
+    <!-- Primary Colors -->
+    <div class="color-section">
+      <div class="color-section-title">Primary Colors</div>
+      <div class="color-grid">
+        <div class="color-card">
+          <div class="color-swatch" style="background: #D4AF37;">Gold Primary</div>
+          <div class="color-info">
+            <h4>TBURN Gold</h4>
+            <div class="color-codes">
+              <div class="color-code" onclick="copyColor('#D4AF37', this)">
+                <span class="label">HEX</span>
+                <span class="value">#D4AF37</span>
+                <i class="fas fa-copy copy-icon"></i>
+              </div>
+              <div class="color-code" onclick="copyColor('rgb(212, 175, 55)', this)">
+                <span class="label">RGB</span>
+                <span class="value">212, 175, 55</span>
+                <i class="fas fa-copy copy-icon"></i>
+              </div>
+              <div class="color-code" onclick="copyColor('hsl(46, 63%, 52%)', this)">
+                <span class="label">HSL</span>
+                <span class="value">46, 63%, 52%</span>
+                <i class="fas fa-copy copy-icon"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="color-card">
+          <div class="color-swatch" style="background: #1A365D;">Navy Primary</div>
+          <div class="color-info">
+            <h4>TBURN Navy</h4>
+            <div class="color-codes">
+              <div class="color-code" onclick="copyColor('#1A365D', this)">
+                <span class="label">HEX</span>
+                <span class="value">#1A365D</span>
+                <i class="fas fa-copy copy-icon"></i>
+              </div>
+              <div class="color-code" onclick="copyColor('rgb(26, 54, 93)', this)">
+                <span class="label">RGB</span>
+                <span class="value">26, 54, 93</span>
+                <i class="fas fa-copy copy-icon"></i>
+              </div>
+              <div class="color-code" onclick="copyColor('hsl(215, 56%, 23%)', this)">
+                <span class="label">HSL</span>
+                <span class="value">215, 56%, 23%</span>
+                <i class="fas fa-copy copy-icon"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="color-card">
+          <div class="color-swatch" style="background: #0F172A;">Dark Primary</div>
+          <div class="color-info">
+            <h4>TBURN Dark</h4>
+            <div class="color-codes">
+              <div class="color-code" onclick="copyColor('#0F172A', this)">
+                <span class="label">HEX</span>
+                <span class="value">#0F172A</span>
+                <i class="fas fa-copy copy-icon"></i>
+              </div>
+              <div class="color-code" onclick="copyColor('rgb(15, 23, 42)', this)">
+                <span class="label">RGB</span>
+                <span class="value">15, 23, 42</span>
+                <i class="fas fa-copy copy-icon"></i>
+              </div>
+              <div class="color-code" onclick="copyColor('hsl(222, 47%, 11%)', this)">
+                <span class="label">HSL</span>
+                <span class="value">222, 47%, 11%</span>
+                <i class="fas fa-copy copy-icon"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="color-card">
+          <div class="color-swatch" style="background: #FFFFFF; color: #333;">White</div>
+          <div class="color-info">
+            <h4>TBURN White</h4>
+            <div class="color-codes">
+              <div class="color-code" onclick="copyColor('#FFFFFF', this)">
+                <span class="label">HEX</span>
+                <span class="value">#FFFFFF</span>
+                <i class="fas fa-copy copy-icon"></i>
+              </div>
+              <div class="color-code" onclick="copyColor('rgb(255, 255, 255)', this)">
+                <span class="label">RGB</span>
+                <span class="value">255, 255, 255</span>
+                <i class="fas fa-copy copy-icon"></i>
+              </div>
+              <div class="color-code" onclick="copyColor('hsl(0, 0%, 100%)', this)">
+                <span class="label">HSL</span>
+                <span class="value">0, 0%, 100%</span>
+                <i class="fas fa-copy copy-icon"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Secondary Colors -->
+    <div class="color-section">
+      <div class="color-section-title">Secondary Colors</div>
+      <div class="color-grid">
+        <div class="color-card">
+          <div class="color-swatch" style="background: #F5D76E;">Gold Light</div>
+          <div class="color-info">
+            <h4>Gold Light</h4>
+            <div class="color-codes">
+              <div class="color-code" onclick="copyColor('#F5D76E', this)">
+                <span class="label">HEX</span>
+                <span class="value">#F5D76E</span>
+                <i class="fas fa-copy copy-icon"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="color-card">
+          <div class="color-swatch" style="background: #B8960C;">Gold Dark</div>
+          <div class="color-info">
+            <h4>Gold Dark</h4>
+            <div class="color-codes">
+              <div class="color-code" onclick="copyColor('#B8960C', this)">
+                <span class="label">HEX</span>
+                <span class="value">#B8960C</span>
+                <i class="fas fa-copy copy-icon"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="color-card">
+          <div class="color-swatch" style="background: #2D4A7C;">Navy Light</div>
+          <div class="color-info">
+            <h4>Navy Light</h4>
+            <div class="color-codes">
+              <div class="color-code" onclick="copyColor('#2D4A7C', this)">
+                <span class="label">HEX</span>
+                <span class="value">#2D4A7C</span>
+                <i class="fas fa-copy copy-icon"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="color-card">
+          <div class="color-swatch" style="background: #1E293B;">Card Dark</div>
+          <div class="color-info">
+            <h4>Card Background</h4>
+            <div class="color-codes">
+              <div class="color-code" onclick="copyColor('#1E293B', this)">
+                <span class="label">HEX</span>
+                <span class="value">#1E293B</span>
+                <i class="fas fa-copy copy-icon"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Accent Colors -->
+    <div class="color-section">
+      <div class="color-section-title">Accent Colors</div>
+      <div class="color-grid">
+        <div class="color-card">
+          <div class="color-swatch" style="background: #22C55E;">Success Green</div>
+          <div class="color-info">
+            <h4>Success</h4>
+            <div class="color-codes">
+              <div class="color-code" onclick="copyColor('#22C55E', this)">
+                <span class="label">HEX</span>
+                <span class="value">#22C55E</span>
+                <i class="fas fa-copy copy-icon"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="color-card">
+          <div class="color-swatch" style="background: #3B82F6;">Info Blue</div>
+          <div class="color-info">
+            <h4>Info</h4>
+            <div class="color-codes">
+              <div class="color-code" onclick="copyColor('#3B82F6', this)">
+                <span class="label">HEX</span>
+                <span class="value">#3B82F6</span>
+                <i class="fas fa-copy copy-icon"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="color-card">
+          <div class="color-swatch" style="background: #F59E0B;">Warning Orange</div>
+          <div class="color-info">
+            <h4>Warning</h4>
+            <div class="color-codes">
+              <div class="color-code" onclick="copyColor('#F59E0B', this)">
+                <span class="label">HEX</span>
+                <span class="value">#F59E0B</span>
+                <i class="fas fa-copy copy-icon"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="color-card">
+          <div class="color-swatch" style="background: #EF4444;">Error Red</div>
+          <div class="color-info">
+            <h4>Error</h4>
+            <div class="color-codes">
+              <div class="color-code" onclick="copyColor('#EF4444', this)">
+                <span class="label">HEX</span>
+                <span class="value">#EF4444</span>
+                <i class="fas fa-copy copy-icon"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Gradients -->
+    <div class="color-section">
+      <div class="color-section-title">Gradients</div>
+      <div class="color-grid">
+        <div class="color-card">
+          <div class="color-swatch" style="background: linear-gradient(135deg, #D4AF37 0%, #F5D76E 50%, #D4AF37 100%);">Gold Gradient</div>
+          <div class="color-info">
+            <h4>Gold Gradient</h4>
+            <div class="color-codes">
+              <div class="color-code" onclick="copyColor('linear-gradient(135deg, #D4AF37 0%, #F5D76E 50%, #D4AF37 100%)', this)">
+                <span class="label">CSS</span>
+                <span class="value" style="font-size: 0.65rem;">135deg, #D4AF37...</span>
+                <i class="fas fa-copy copy-icon"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="color-card">
+          <div class="color-swatch" style="background: linear-gradient(135deg, #1A365D 0%, #2D4A7C 100%);">Navy Gradient</div>
+          <div class="color-info">
+            <h4>Navy Gradient</h4>
+            <div class="color-codes">
+              <div class="color-code" onclick="copyColor('linear-gradient(135deg, #1A365D 0%, #2D4A7C 100%)', this)">
+                <span class="label">CSS</span>
+                <span class="value" style="font-size: 0.7rem;">135deg, #1A365D...</span>
+                <i class="fas fa-copy copy-icon"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="color-card">
+          <div class="color-swatch" style="background: linear-gradient(135deg, #FF6B35 0%, #F7931E 50%, #FFD700 100%);">Fire Gradient</div>
+          <div class="color-info">
+            <h4>Fire Gradient</h4>
+            <div class="color-codes">
+              <div class="color-code" onclick="copyColor('linear-gradient(135deg, #FF6B35 0%, #F7931E 50%, #FFD700 100%)', this)">
+                <span class="label">CSS</span>
+                <span class="value" style="font-size: 0.65rem;">135deg, #FF6B35...</span>
+                <i class="fas fa-copy copy-icon"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="color-card">
+          <div class="color-swatch" style="background: linear-gradient(180deg, #0F172A 0%, #1E293B 100%);">Dark Gradient</div>
+          <div class="color-info">
+            <h4>Dark Gradient</h4>
+            <div class="color-codes">
+              <div class="color-code" onclick="copyColor('linear-gradient(180deg, #0F172A 0%, #1E293B 100%)', this)">
+                <span class="label">CSS</span>
+                <span class="value" style="font-size: 0.7rem;">180deg, #0F172A...</span>
+                <i class="fas fa-copy copy-icon"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Typography Section -->
+  <section class="section" id="typography">
+    <div class="section-header">
+      <div class="section-title-group">
+        <h2><i class="fas fa-font"></i> 타이포그래피 / Typography</h2>
+        <p>TBURN Chain의 공식 폰트 및 사용 가이드</p>
+      </div>
+      <button class="download-section-btn" onclick="downloadSection('typography')">
+        <i class="fas fa-download"></i> 폰트 가이드 다운로드
+      </button>
+    </div>
+
+    <div class="typography-grid">
+      <div class="typography-card">
+        <h4>Primary Font</h4>
+        <div class="font-name">Inter</div>
+        <div class="font-preview">
+          The quick brown fox jumps over the lazy dog.<br>
+          0123456789 !@#$%^&*()
+        </div>
+        <div class="font-weights">
+          <span class="font-weight-tag">Light <span>300</span></span>
+          <span class="font-weight-tag">Regular <span>400</span></span>
+          <span class="font-weight-tag">Medium <span>500</span></span>
+          <span class="font-weight-tag">SemiBold <span>600</span></span>
+          <span class="font-weight-tag">Bold <span>700</span></span>
+          <span class="font-weight-tag">ExtraBold <span>800</span></span>
+          <span class="font-weight-tag">Black <span>900</span></span>
+        </div>
+      </div>
+
+      <div class="typography-card">
+        <h4>Fallback Fonts</h4>
+        <div class="font-name">System Stack</div>
+        <div class="font-preview" style="font-family: -apple-system, BlinkMacSystemFont, sans-serif;">
+          The quick brown fox jumps over the lazy dog.<br>
+          0123456789 !@#$%^&*()
+        </div>
+        <div class="font-weights">
+          <span class="font-weight-tag">-apple-system</span>
+          <span class="font-weight-tag">BlinkMacSystemFont</span>
+          <span class="font-weight-tag">Segoe UI</span>
+          <span class="font-weight-tag">Roboto</span>
+          <span class="font-weight-tag">sans-serif</span>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top: 2rem; background: var(--dark-card); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 2rem;">
+      <h4 style="font-size: 1rem; margin-bottom: 1.5rem; color: var(--gold);">타입 스케일 / Type Scale</h4>
+      <div style="display: flex; flex-direction: column; gap: 1rem;">
+        <div style="display: flex; align-items: baseline; gap: 2rem; padding: 1rem; background: rgba(255,255,255,0.02); border-radius: 10px;">
+          <span style="width: 100px; color: var(--gray); font-size: 0.85rem;">Display</span>
+          <span style="font-size: 3rem; font-weight: 900;">TBURN Chain</span>
+          <span style="color: var(--gray); font-size: 0.8rem;">48px / 900</span>
+        </div>
+        <div style="display: flex; align-items: baseline; gap: 2rem; padding: 1rem; background: rgba(255,255,255,0.02); border-radius: 10px;">
+          <span style="width: 100px; color: var(--gray); font-size: 0.85rem;">H1</span>
+          <span style="font-size: 2.5rem; font-weight: 800;">Heading One</span>
+          <span style="color: var(--gray); font-size: 0.8rem;">40px / 800</span>
+        </div>
+        <div style="display: flex; align-items: baseline; gap: 2rem; padding: 1rem; background: rgba(255,255,255,0.02); border-radius: 10px;">
+          <span style="width: 100px; color: var(--gray); font-size: 0.85rem;">H2</span>
+          <span style="font-size: 2rem; font-weight: 700;">Heading Two</span>
+          <span style="color: var(--gray); font-size: 0.8rem;">32px / 700</span>
+        </div>
+        <div style="display: flex; align-items: baseline; gap: 2rem; padding: 1rem; background: rgba(255,255,255,0.02); border-radius: 10px;">
+          <span style="width: 100px; color: var(--gray); font-size: 0.85rem;">H3</span>
+          <span style="font-size: 1.5rem; font-weight: 600;">Heading Three</span>
+          <span style="color: var(--gray); font-size: 0.8rem;">24px / 600</span>
+        </div>
+        <div style="display: flex; align-items: baseline; gap: 2rem; padding: 1rem; background: rgba(255,255,255,0.02); border-radius: 10px;">
+          <span style="width: 100px; color: var(--gray); font-size: 0.85rem;">Body</span>
+          <span style="font-size: 1rem; font-weight: 400;">Body text for paragraphs and content.</span>
+          <span style="color: var(--gray); font-size: 0.8rem;">16px / 400</span>
+        </div>
+        <div style="display: flex; align-items: baseline; gap: 2rem; padding: 1rem; background: rgba(255,255,255,0.02); border-radius: 10px;">
+          <span style="width: 100px; color: var(--gray); font-size: 0.85rem;">Small</span>
+          <span style="font-size: 0.875rem; font-weight: 400;">Small text and captions.</span>
+          <span style="color: var(--gray); font-size: 0.8rem;">14px / 400</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Banner Section -->
+  <section class="section" id="banners" style="background: rgba(255,255,255,0.02);">
+    <div class="section-header">
+      <div class="section-title-group">
+        <h2><i class="fas fa-image"></i> 배너 / Banners</h2>
+        <p>다양한 크기와 용도의 배너 에셋</p>
+      </div>
+      <button class="download-section-btn" onclick="downloadSection('banners')">
+        <i class="fas fa-download"></i> 배너 전체 다운로드
+      </button>
+    </div>
+
+    <div class="banner-grid">
+      <!-- Hero Banner -->
+      <div class="banner-card">
+        <div class="banner-preview">
+          <div class="banner-display hero-banner">
+            <div class="banner-decoration circles"></div>
+            <div class="banner-decoration lines"></div>
+            <div class="banner-content">
+              <div class="logo-group">
+                <div class="logo-icon-small">🔥</div>
+                <div class="logo-text-small">TBURN<span>CHAIN</span></div>
+              </div>
+              <h3>AI-Enhanced Blockchain Platform</h3>
+              <p>The Future of Decentralized Intelligence</p>
+            </div>
+          </div>
+        </div>
+        <div class="banner-info">
+          <div class="banner-meta">
+            <h4>히어로 배너</h4>
+            <div class="banner-size">
+              <span class="dimension">1920 × 600</span>
+              <span>웹사이트 메인 배너</span>
+            </div>
+          </div>
+          <button class="banner-download-btn" onclick="downloadAsset('banner-hero')">
+            <i class="fas fa-download"></i> 다운로드
+          </button>
+        </div>
+      </div>
+
+      <!-- Social Banner -->
+      <div class="banner-card">
+        <div class="banner-preview">
+          <div class="banner-display social-banner">
+            <div class="banner-content">
+              <div class="logo-group">
+                <div class="logo-icon-small">🔥</div>
+                <div class="logo-text-small">TBURN<span>CHAIN</span></div>
+              </div>
+              <h3 style="font-size: 1.25rem;">Building the Future of Web3</h3>
+            </div>
+          </div>
+        </div>
+        <div class="banner-info">
+          <div class="banner-meta">
+            <h4>소셜 미디어 배너</h4>
+            <div class="banner-size">
+              <span class="dimension">1500 × 500</span>
+              <span>Twitter/X 헤더</span>
+            </div>
+          </div>
+          <button class="banner-download-btn" onclick="downloadAsset('banner-social')">
+            <i class="fas fa-download"></i> 다운로드
+          </button>
+        </div>
+      </div>
+
+      <!-- Email Banner -->
+      <div class="banner-card">
+        <div class="banner-preview">
+          <div class="banner-display email-banner">
+            <div class="banner-content dark-text">
+              <div class="logo-group">
+                <div class="logo-icon-small">🔥</div>
+                <div class="logo-text-small">TBURN<span style="color: var(--navy);">CHAIN</span></div>
+              </div>
+              <p style="color: var(--navy); font-weight: 600;">Mainnet Launch Coming Soon</p>
+            </div>
+          </div>
+        </div>
+        <div class="banner-info">
+          <div class="banner-meta">
+            <h4>이메일 배너</h4>
+            <div class="banner-size">
+              <span class="dimension">600 × 200</span>
+              <span>뉴스레터 헤더</span>
+            </div>
+          </div>
+          <button class="banner-download-btn" onclick="downloadAsset('banner-email')">
+            <i class="fas fa-download"></i> 다운로드
+          </button>
+        </div>
+      </div>
+
+      <!-- Ad Banners Grid -->
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;">
+        <div class="banner-card">
+          <div class="banner-preview">
+            <div class="banner-display" style="height: 250px; background: var(--gradient-navy);">
+              <div class="banner-content">
+                <div style="font-size: 2rem; margin-bottom: 0.5rem;">🔥</div>
+                <div style="font-weight: 800;">TBURN</div>
+                <div style="font-size: 0.8rem; color: var(--gold);">CHAIN</div>
+              </div>
+            </div>
+          </div>
+          <div class="banner-info">
+            <div class="banner-meta">
+              <h4>광고 배너 (정사각형)</h4>
+              <div class="banner-size">
+                <span class="dimension">300 × 250</span>
+              </div>
+            </div>
+            <button class="banner-download-btn" onclick="downloadAsset('banner-ad-square')">
+              <i class="fas fa-download"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="banner-card">
+          <div class="banner-preview">
+            <div class="banner-display" style="height: 250px; background: linear-gradient(135deg, var(--dark) 0%, var(--navy-dark) 100%);">
+              <div class="banner-content">
+                <div class="logo-group" style="margin-bottom: 0.5rem;">
+                  <div class="logo-icon-small" style="width: 40px; height: 40px; font-size: 20px;">🔥</div>
+                  <div class="logo-text-small" style="font-size: 1.25rem;">TBURN<span>CHAIN</span></div>
+                </div>
+                <p style="font-size: 0.75rem;">200,000+ TPS</p>
+              </div>
+            </div>
+          </div>
+          <div class="banner-info">
+            <div class="banner-meta">
+              <h4>광고 배너 (리더보드)</h4>
+              <div class="banner-size">
+                <span class="dimension">728 × 90</span>
+              </div>
+            </div>
+            <button class="banner-download-btn" onclick="downloadAsset('banner-ad-leaderboard')">
+              <i class="fas fa-download"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="banner-card">
+          <div class="banner-preview">
+            <div class="banner-display" style="height: 250px; background: var(--gradient-gold);">
+              <div class="banner-content dark-text">
+                <div style="font-size: 2rem; margin-bottom: 0.5rem;">🔥</div>
+                <div style="font-weight: 800; color: var(--dark);">Join the Revolution</div>
+              </div>
+            </div>
+          </div>
+          <div class="banner-info">
+            <div class="banner-meta">
+              <h4>광고 배너 (스카이스크래퍼)</h4>
+              <div class="banner-size">
+                <span class="dimension">160 × 600</span>
+              </div>
+            </div>
+            <button class="banner-download-btn" onclick="downloadAsset('banner-ad-skyscraper')">
+              <i class="fas fa-download"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Icon Set Section -->
+  <section class="section" id="icons">
+    <div class="section-header">
+      <div class="section-title-group">
+        <h2><i class="fas fa-icons"></i> 아이콘 세트 / Icon Set</h2>
+        <p>TBURN Chain 생태계의 커스텀 아이콘</p>
+      </div>
+      <button class="download-section-btn" onclick="downloadSection('icons')">
+        <i class="fas fa-download"></i> 아이콘 전체 다운로드
+      </button>
+    </div>
+
+    <div class="icon-grid">
+      <div class="icon-card" onclick="downloadAsset('icon-fire')">
+        <div class="icon-display">🔥</div>
+        <div class="icon-name">Fire</div>
+      </div>
+      <div class="icon-card" onclick="downloadAsset('icon-chain')">
+        <div class="icon-display">⛓️</div>
+        <div class="icon-name">Chain</div>
+      </div>
+      <div class="icon-card" onclick="downloadAsset('icon-ai')">
+        <div class="icon-display">🤖</div>
+        <div class="icon-name">AI</div>
+      </div>
+      <div class="icon-card" onclick="downloadAsset('icon-validator')">
+        <div class="icon-display">✅</div>
+        <div class="icon-name">Validator</div>
+      </div>
+      <div class="icon-card" onclick="downloadAsset('icon-staking')">
+        <div class="icon-display">💎</div>
+        <div class="icon-name">Staking</div>
+      </div>
+      <div class="icon-card" onclick="downloadAsset('icon-governance')">
+        <div class="icon-display">🏛️</div>
+        <div class="icon-name">Governance</div>
+      </div>
+      <div class="icon-card" onclick="downloadAsset('icon-wallet')">
+        <div class="icon-display">👛</div>
+        <div class="icon-name">Wallet</div>
+      </div>
+      <div class="icon-card" onclick="downloadAsset('icon-token')">
+        <div class="icon-display">🪙</div>
+        <div class="icon-name">Token</div>
+      </div>
+      <div class="icon-card" onclick="downloadAsset('icon-bridge')">
+        <div class="icon-display">🌉</div>
+        <div class="icon-name">Bridge</div>
+      </div>
+      <div class="icon-card" onclick="downloadAsset('icon-dex')">
+        <div class="icon-display">🔄</div>
+        <div class="icon-name">DEX</div>
+      </div>
+      <div class="icon-card" onclick="downloadAsset('icon-nft')">
+        <div class="icon-display">🖼️</div>
+        <div class="icon-name">NFT</div>
+      </div>
+      <div class="icon-card" onclick="downloadAsset('icon-dao')">
+        <div class="icon-display">🗳️</div>
+        <div class="icon-name">DAO</div>
+      </div>
+      <div class="icon-card" onclick="downloadAsset('icon-security')">
+        <div class="icon-display">🛡️</div>
+        <div class="icon-name">Security</div>
+      </div>
+      <div class="icon-card" onclick="downloadAsset('icon-speed')">
+        <div class="icon-display">⚡</div>
+        <div class="icon-name">Speed</div>
+      </div>
+      <div class="icon-card" onclick="downloadAsset('icon-global')">
+        <div class="icon-display">🌐</div>
+        <div class="icon-name">Global</div>
+      </div>
+      <div class="icon-card" onclick="downloadAsset('icon-rocket')">
+        <div class="icon-display">🚀</div>
+        <div class="icon-name">Launch</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Usage Guidelines Section -->
+  <section class="section" id="guidelines" style="background: rgba(255,255,255,0.02);">
+    <div class="section-header">
+      <div class="section-title-group">
+        <h2><i class="fas fa-book"></i> 사용 가이드라인 / Usage Guidelines</h2>
+        <p>브랜드 에셋의 올바른 사용 방법</p>
+      </div>
+      <button class="download-section-btn" onclick="downloadSection('guidelines')">
+        <i class="fas fa-download"></i> 브랜드 가이드 PDF
+      </button>
+    </div>
+
+    <div class="guidelines-grid">
+      <div class="guideline-card do">
+        <div class="guideline-header">
+          <i class="fas fa-check-circle"></i>
+          <span>DO - 올바른 사용</span>
+        </div>
+        <div class="guideline-content">
+          <div class="guideline-items">
+            <div class="guideline-item">
+              <div class="icon"><i class="fas fa-check"></i></div>
+              <p>로고 주변에 충분한 여백(Clear Space)을 확보하세요. 최소 심볼 높이의 50%입니다.</p>
+            </div>
+            <div class="guideline-item">
+              <div class="icon"><i class="fas fa-check"></i></div>
+              <p>공식 컬러 팔레트를 사용하세요. Primary Gold(#D4AF37)와 Navy(#1A365D)를 권장합니다.</p>
+            </div>
+            <div class="guideline-item">
+              <div class="icon"><i class="fas fa-check"></i></div>
+              <p>다크 배경에서는 화이트/골드 로고를, 라이트 배경에서는 다크/네이비 로고를 사용하세요.</p>
+            </div>
+            <div class="guideline-item">
+              <div class="icon"><i class="fas fa-check"></i></div>
+              <p>로고의 최소 크기를 준수하세요. 디지털: 32px, 인쇄: 10mm 이상.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="guideline-card dont">
+        <div class="guideline-header">
+          <i class="fas fa-times-circle"></i>
+          <span>DON'T - 잘못된 사용</span>
+        </div>
+        <div class="guideline-content">
+          <div class="guideline-items">
+            <div class="guideline-item">
+              <div class="icon"><i class="fas fa-times"></i></div>
+              <p>로고의 색상을 임의로 변경하지 마세요. 승인된 컬러 버전만 사용하세요.</p>
+            </div>
+            <div class="guideline-item">
+              <div class="icon"><i class="fas fa-times"></i></div>
+              <p>로고를 늘리거나, 기울이거나, 회전하지 마세요. 원본 비율을 유지하세요.</p>
+            </div>
+            <div class="guideline-item">
+              <div class="icon"><i class="fas fa-times"></i></div>
+              <p>로고에 그림자, 외곽선, 효과를 추가하지 마세요.</p>
+            </div>
+            <div class="guideline-item">
+              <div class="icon"><i class="fas fa-times"></i></div>
+              <p>복잡한 배경 위에 로고를 배치하지 마세요. 가독성이 떨어집니다.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Clear Space -->
+    <div class="clearspace-container">
+      <h4 style="font-size: 1.125rem; font-weight: 700; margin-bottom: 1.5rem; text-align: center;">Clear Space (여백 가이드)</h4>
+      <div class="clearspace-visual">
+        <div class="clearspace-logo">
+          <div class="icon">🔥</div>
+          <div class="text">TBURN<span>CHAIN</span></div>
+          <div class="clearspace-marker top">X</div>
+          <div class="clearspace-marker bottom">X</div>
+          <div class="clearspace-marker left">X</div>
+          <div class="clearspace-marker right">X</div>
+        </div>
+      </div>
+      <div class="clearspace-note">
+        <strong>X = 심볼 높이의 50%</strong><br>
+        로고 주변에 최소 X 만큼의 여백을 확보하여 가독성과 브랜드 임팩트를 유지하세요.
+      </div>
+    </div>
+  </section>
+
+  <!-- Download Center -->
+  <section class="section">
+    <div class="download-center">
+      <h3>브랜드 에셋 다운로드</h3>
+      <p>필요한 포맷의 에셋 패키지를 다운로드하세요</p>
+      <div class="download-options">
+        <div class="download-option" onclick="downloadPackage('full')">
+          <div class="icon"><i class="fas fa-folder-open"></i></div>
+          <h4>전체 패키지</h4>
+          <p>모든 에셋 포함 (ZIP)</p>
+        </div>
+        <div class="download-option" onclick="downloadPackage('print')">
+          <div class="icon"><i class="fas fa-print"></i></div>
+          <h4>인쇄용</h4>
+          <p>고해상도 PDF, EPS</p>
+        </div>
+        <div class="download-option" onclick="downloadPackage('digital')">
+          <div class="icon"><i class="fas fa-desktop"></i></div>
+          <h4>디지털용</h4>
+          <p>SVG, PNG, WebP</p>
+        </div>
+        <div class="download-option" onclick="downloadPackage('social')">
+          <div class="icon"><i class="fas fa-share-alt"></i></div>
+          <h4>소셜 미디어</h4>
+          <p>최적화된 배너/프로필</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>© 2025-2045 TBURN Foundation. All Rights Reserved.</p>
+    <p style="margin-top: 0.5rem;">브랜드 에셋 사용에 관한 문의: <a href="mailto:brand@tburn.io">brand@tburn.io</a></p>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast">
+    <i class="fas fa-check-circle"></i>
+    <span id="toastMessage">복사되었습니다!</span>
+  </div>
+
+  <script>
+    // Copy Color
+    function copyColor(value, element) {
+      navigator.clipboard.writeText(value).then(() => {
+        element.classList.add('copied');
+        showToast('클립보드에 복사되었습니다!');
+        setTimeout(() => {
+          element.classList.remove('copied');
+        }, 1000);
+      });
+    }
+
+    // Show Toast
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      const toastMessage = document.getElementById('toastMessage');
+      toastMessage.textContent = message;
+      toast.classList.add('show');
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 2000);
+    }
+
+    // Download Asset
+    function downloadAsset(assetName) {
+      showToast(`${assetName} 다운로드를 시작합니다...`);
+      // 실제 다운로드 로직은 서버 연동 필요
+      console.log(`Downloading: ${assetName}`);
+    }
+
+    // Download Section
+    function downloadSection(section) {
+      showToast(`${section} 섹션 에셋을 다운로드합니다...`);
+      console.log(`Downloading section: ${section}`);
+    }
+
+    // Download Package
+    function downloadPackage(type) {
+      const packageNames = {
+        full: '전체 브랜드 패키지',
+        print: '인쇄용 패키지',
+        digital: '디지털용 패키지',
+        social: '소셜 미디어 패키지'
+      };
+      showToast(`${packageNames[type]}를 다운로드합니다...`);
+      console.log(`Downloading package: ${type}`);
+    }
+
+    // Download All
+    function downloadAll() {
+      showToast('전체 브랜드 에셋을 다운로드합니다...');
+      console.log('Downloading all assets');
+    }
+
+    // Scroll to Section
+    function scrollToSection(sectionId) {
+      const section = document.getElementById(sectionId);
+      if (section) {
+        section.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+
+    // Header Scroll Effect
+    window.addEventListener('scroll', () => {
+      const header = document.querySelector('.header');
+      if (window.scrollY > 50) {
+        header.style.background = 'rgba(15, 23, 42, 0.98)';
+      } else {
+        header.style.background = 'rgba(15, 23, 42, 0.95)';
+      }
+    });
+
+    // Category Pill Active State
+    document.querySelectorAll('.category-pill').forEach(pill => {
+      pill.addEventListener('click', function() {
+        document.querySelectorAll('.category-pill').forEach(p => p.classList.remove('active'));
+        this.classList.add('active');
+      });
+    });
+  </script>
+</body>
+</html>

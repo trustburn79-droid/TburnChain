@@ -109,6 +109,8 @@ const ValidatorIntelligence = lazy(() => import("@/pages/validator-intelligence"
 const ValidatorGovernance = lazy(() => import("@/pages/validator-governance"));
 const ValidatorInfrastructure = lazy(() => import("@/pages/validator-infrastructure"));
 
+const Brand = lazy(() => import("./pages/Brand"));
+
 export function PublicRouter() {
   return (
     <ErrorBoundary>
@@ -197,6 +199,9 @@ export function PublicRouter() {
           <Route path="/legal/terms-of-service" component={TermsOfService} />
           <Route path="/legal/privacy-policy" component={PrivacyPolicy} />
           <Route path="/legal/disclaimer" component={Disclaimer} />
+          
+          {/* Brand Assets */}
+          <Route path="/brand" component={Brand} />
           
           {/* TBURNScan Explorer Routes - specific paths BEFORE base /scan */}
           <Route path="/scan/blocks" component={BlocksList} />
