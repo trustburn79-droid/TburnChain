@@ -1421,11 +1421,12 @@ export const TGE_UNLOCKS: TGEUnlock[] = [
   { category: '재단 긴급 예비금 (1.0억 중)', categoryKey: 'tokenomics.tge.foundationEmergency', tgePercent: 50, amount: 0.50, purpose: '긴급 대응, 체인 안정화', purposeKey: 'tokenomics.tge.foundationEmergency.purpose' }
 ];
 
-// v4.3 TGE 합계: 10.20억 TBURN (10.20%)
+// v4.3 TGE 합계: 10.75억 TBURN (10.75%)
+// 기존 TGE: 8.45억 (에어드랍 1.20 + 마케팅 0.45 + 레퍼럴 0.15 + 이벤트 0.40 + DEX 5.00 + 검증자 1.25)
 // 투자자 TGE: 1.35억 (프라이빗 0.45 + 퍼블릭 0.90)
 // 재단 예비금 TGE: 0.95억 (운영 0.45 + 긴급 0.50)
-export const TGE_TOTAL_UNLOCK = 10.20; // 억 TBURN (전체 공급의 10.20%)
-export const TGE_ACTUAL_CIRCULATION = 3.00; // 억 TBURN (LP/스테이킹 제외 실제 유통량)
+export const TGE_TOTAL_UNLOCK = 10.75; // 억 TBURN (전체 공급의 10.75%)
+export const TGE_ACTUAL_CIRCULATION = 4.55; // 억 TBURN (LP 5.00 + 스테이킹 1.25 제외 실제 유통량)
 
 /**
  * 제네시스 검증자 설정 - v4.3
@@ -1813,21 +1814,24 @@ export interface CategoryY1Summary {
 
 /**
  * 카테고리별 Y1 배분 요약 - v4.3
- * 투자자 TGE: 1.35억 (프라이빗 0.45 + 퍼블릭 0.90)
- * 재단 예비금 TGE: 0.95억 (운영 0.45 + 긴급 0.50)
+ * Y1_MONTHLY_UNLOCKS 데이터 기준 정밀 계산
  */
 export const Y1_CATEGORY_SUMMARY: CategoryY1Summary[] = [
-  { category: '커뮤니티 (30%)', categoryKey: 'tokenomics.category.community', totalAllocation: 30.00, tgeAmount: 1.95, y1Release: 16.75, y1Percent: 55.8 },
+  { category: '커뮤니티 (30%)', categoryKey: 'tokenomics.category.community', totalAllocation: 30.00, tgeAmount: 1.75, y1Release: 16.53, y1Percent: 55.1 },
   { category: '보상 (22%)', categoryKey: 'tokenomics.category.rewards', totalAllocation: 22.00, tgeAmount: 0.00, y1Release: 4.10, y1Percent: 18.6 },
-  { category: '투자자 (20%)', categoryKey: 'tokenomics.category.investors', totalAllocation: 20.00, tgeAmount: 1.35, y1Release: 8.40, y1Percent: 42.0 },
+  { category: '투자자 (20%)', categoryKey: 'tokenomics.category.investors', totalAllocation: 20.00, tgeAmount: 1.35, y1Release: 7.95, y1Percent: 39.8 },
   { category: '생태계 (14%)', categoryKey: 'tokenomics.category.ecosystem', totalAllocation: 14.00, tgeAmount: 0.45, y1Release: 3.79, y1Percent: 27.1 },
   { category: '팀 (11%)', categoryKey: 'tokenomics.category.team', totalAllocation: 11.00, tgeAmount: 0.00, y1Release: 0.50, y1Percent: 4.5 },
   { category: '재단 예비금 (3%)', categoryKey: 'tokenomics.category.foundationReserve', totalAllocation: 3.00, tgeAmount: 0.95, y1Release: 1.84, y1Percent: 61.3 }
 ];
 
+// v4.3 Y1 합계 - Y1_MONTHLY_UNLOCKS 기준 정밀 계산
+// TGE: 4.50억 (커뮤니티 2.20 + 마케팅 0.45 + 투자자 1.35 + 재단 예비금 0.95 - 중복 조정)
+// M1~M12 누적: 28.98억
+// Y1 총계: 33.48억
 export const Y1_TOTALS = {
   totalAllocation: 100.00, // 억
-  tgeAmount: 4.70, // 억 (v4.3: 투자자 TGE 1.35 + 재단 예비금 0.95 + 기타 2.40)
-  y1Release: 35.38, // 억 (v4.3: 투자자 8.40억, 재단 예비금 1.84억 포함)
-  y1Percent: 35.4
+  tgeAmount: 4.50, // 억 (v4.3: 에어드랍/레퍼럴/이벤트 1.75 + 마케팅 0.45 + 투자자 1.35 + 재단 0.95)
+  y1Release: 33.48, // 억 (v4.3: Y1_MONTHLY_TOTALS 기준)
+  y1Percent: 33.5
 };
