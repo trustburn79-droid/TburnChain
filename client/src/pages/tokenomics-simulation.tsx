@@ -17,7 +17,8 @@ import {
   TrendingDown, TrendingUp, Flame, Coins, 
   Target, Calendar, DollarSign, PieChart,
   Activity, Zap, Users, Shield, ChevronRight,
-  Download, Info
+  Download, Info, Rocket, Gift, Sparkles,
+  Lock, Server, Droplets, FileText, CheckCircle2
 } from "lucide-react";
 import {
   TOKENOMICS_DATA,
@@ -37,7 +38,27 @@ import {
   INVESTOR_ROUNDS,
   INVESTOR_ROI_DATA,
   TOTAL_FUNDRAISING,
-  getGenesisDistributionChartData
+  getGenesisDistributionChartData,
+  // v4.0.0 Production Ready 데이터
+  Y1_ACTIVATION_BUDGET,
+  Y1_ACTIVATION_TOTAL,
+  LAUNCH_CAMPAIGN_EVENTS,
+  LAUNCH_CAMPAIGN_TOTAL,
+  SEASONAL_EVENTS,
+  Y1_EVENT_CALENDAR,
+  TGE_UNLOCKS,
+  TGE_TOTAL_UNLOCK,
+  TGE_ACTUAL_CIRCULATION,
+  GENESIS_VALIDATOR_CONFIG,
+  DEX_LIQUIDITY_POOLS,
+  DEX_LP_LOCKUP_DAYS,
+  DEX_INITIAL_PRICE,
+  DEX_TOTAL_TVL,
+  BURN_MECHANISMS,
+  Y1_TOTAL_BURN,
+  HALVING_SCHEDULE,
+  PHASE_STRATEGY,
+  TOKENOMICS_DOC_INFO
 } from "@/lib/tokenomics-engine";
 
 type ScenarioType = 'conservative' | 'neutral' | 'optimistic';
@@ -311,24 +332,33 @@ export default function TokenomicsSimulation() {
 
       {/* Main Content Tabs */}
       <Tabs defaultValue="simulation" className="space-y-4">
-        <TabsList className="grid w-full grid-cols-6">
-          <TabsTrigger value="simulation" data-testid="tab-simulation">
-            {t('tokenomics.tabs.simulation', 'Simulation Table')}
+        <TabsList className="grid w-full grid-cols-3 lg:grid-cols-9 h-auto gap-1">
+          <TabsTrigger value="simulation" data-testid="tab-simulation" className="text-xs px-2">
+            {t('tokenomics.tabs.simulation', '20년 스케줄')}
           </TabsTrigger>
-          <TabsTrigger value="genesis" data-testid="tab-genesis">
-            {t('tokenomics.tabs.genesis', 'Genesis Distribution')}
+          <TabsTrigger value="genesis" data-testid="tab-genesis" className="text-xs px-2">
+            {t('tokenomics.tabs.genesis', '제네시스 배분')}
           </TabsTrigger>
-          <TabsTrigger value="investors" data-testid="tab-investors">
-            {t('tokenomics.tabs.investors', 'Investors')}
+          <TabsTrigger value="y1activation" data-testid="tab-y1activation" className="text-xs px-2">
+            {t('tokenomics.tabs.y1activation', 'Y1 활성화')}
           </TabsTrigger>
-          <TabsTrigger value="charts" data-testid="tab-charts">
-            {t('tokenomics.tabs.charts', 'Charts')}
+          <TabsTrigger value="genesispool" data-testid="tab-genesispool" className="text-xs px-2">
+            {t('tokenomics.tabs.genesispool', '제네시스 풀')}
           </TabsTrigger>
-          <TabsTrigger value="price" data-testid="tab-price">
-            {t('tokenomics.tabs.price', 'Price Forecast')}
+          <TabsTrigger value="burn" data-testid="tab-burn" className="text-xs px-2">
+            {t('tokenomics.tabs.burn', 'AI 소각')}
           </TabsTrigger>
-          <TabsTrigger value="y1" data-testid="tab-y1">
-            {t('tokenomics.tabs.y1', 'Y1 Details')}
+          <TabsTrigger value="investors" data-testid="tab-investors" className="text-xs px-2">
+            {t('tokenomics.tabs.investors', '투자자')}
+          </TabsTrigger>
+          <TabsTrigger value="charts" data-testid="tab-charts" className="text-xs px-2">
+            {t('tokenomics.tabs.charts', '차트')}
+          </TabsTrigger>
+          <TabsTrigger value="price" data-testid="tab-price" className="text-xs px-2">
+            {t('tokenomics.tabs.price', '가격 예측')}
+          </TabsTrigger>
+          <TabsTrigger value="document" data-testid="tab-document" className="text-xs px-2">
+            {t('tokenomics.tabs.document', '문서 정보')}
           </TabsTrigger>
         </TabsList>
 
@@ -488,6 +518,550 @@ export default function TokenomicsSimulation() {
               </CardContent>
             </Card>
           </div>
+        </TabsContent>
+
+        {/* Y1 Activation Strategy Tab - 체인 활성화 전략 */}
+        <TabsContent value="y1activation" className="space-y-4">
+          {/* Y1 Budget Overview */}
+          <Card data-testid="card-y1-budget">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Rocket className="h-5 w-5 text-primary" />
+                {t('tokenomics.y1.budgetTitle', 'Year-1 체인 활성화 이벤트 예산 총괄')}
+              </CardTitle>
+              <CardDescription>
+                {t('tokenomics.y1.budgetDesc', 'Aggressive Growth 단계 - 체인 활성화의 핵심 동력')}
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
+                {Y1_ACTIVATION_BUDGET.map((item, idx) => (
+                  <Card key={idx} className="border-primary/20">
+                    <CardContent className="pt-4">
+                      <div className="text-sm text-muted-foreground">{item.category}</div>
+                      <div className="text-2xl font-bold text-primary">{item.amount}억</div>
+                      <div className="text-xs text-muted-foreground">{item.description}</div>
+                    </CardContent>
+                  </Card>
+                ))}
+                <Card className="bg-gradient-to-br from-primary/10 to-primary/5">
+                  <CardContent className="pt-4">
+                    <div className="text-sm text-muted-foreground">Y1 총 예산</div>
+                    <div className="text-3xl font-bold text-primary">{Y1_ACTIVATION_TOTAL}억</div>
+                    <div className="text-xs text-muted-foreground">TBURN</div>
+                  </CardContent>
+                </Card>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Launch Campaign Section */}
+          <Card data-testid="card-launch-campaign">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Gift className="h-5 w-5 text-green-500" />
+                {t('tokenomics.launch.title', '런칭 캠페인 (TGE +30일)')}
+              </CardTitle>
+              <CardDescription>
+                {t('tokenomics.launch.desc', '메인넷 런칭 후 30일간 진행되는 초기 부트스트랩 캠페인')}
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="rounded-md border">
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>{t('tokenomics.eventName', '이벤트명')}</TableHead>
+                      <TableHead>{t('tokenomics.details', '상세 내용')}</TableHead>
+                      <TableHead className="text-right">{t('tokenomics.reward', '보상')}</TableHead>
+                      <TableHead className="text-right">{t('tokenomics.participants', '참여자')}</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {LAUNCH_CAMPAIGN_EVENTS.map((event, idx) => (
+                      <TableRow key={idx} data-testid={`row-launch-${idx}`}>
+                        <TableCell className="font-medium">{event.name}</TableCell>
+                        <TableCell className="text-muted-foreground">{event.description}</TableCell>
+                        <TableCell className="text-right font-mono text-green-500">{event.reward}억</TableCell>
+                        <TableCell className="text-right font-mono">{event.participants.toLocaleString()}</TableCell>
+                      </TableRow>
+                    ))}
+                    <TableRow className="bg-muted/50">
+                      <TableCell colSpan={2} className="font-bold">런칭 캠페인 합계</TableCell>
+                      <TableCell className="text-right font-mono font-bold text-green-500">{LAUNCH_CAMPAIGN_TOTAL}억</TableCell>
+                      <TableCell className="text-right font-mono font-bold">11,100</TableCell>
+                    </TableRow>
+                  </TableBody>
+                </Table>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Seasonal Events Section */}
+          <Card data-testid="card-seasonal-events">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Sparkles className="h-5 w-5 text-amber-500" />
+                {t('tokenomics.seasonal.title', '분기별 시즌 이벤트')}
+              </CardTitle>
+              <CardDescription>
+                {t('tokenomics.seasonal.desc', 'Q1~Q4 특별 이벤트 총 2.50억 TBURN')}
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                {SEASONAL_EVENTS.map((event, idx) => {
+                  const colors = ['bg-pink-500/10 border-pink-500/30', 'bg-amber-500/10 border-amber-500/30', 'bg-orange-500/10 border-orange-500/30', 'bg-blue-500/10 border-blue-500/30'];
+                  return (
+                    <Card key={idx} className={`${colors[idx]}`} data-testid={`card-seasonal-${event.quarter}`}>
+                      <CardContent className="pt-4">
+                        <Badge variant="outline" className="mb-2">{event.quarter}</Badge>
+                        <div className="text-lg font-bold mb-1">{event.name}</div>
+                        <div className="text-2xl font-bold text-primary mb-2">{event.reward}억</div>
+                        <div className="text-xs text-muted-foreground">{event.description}</div>
+                      </CardContent>
+                    </Card>
+                  );
+                })}
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Monthly Event Calendar */}
+          <Card data-testid="card-event-calendar">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Calendar className="h-5 w-5 text-blue-500" />
+                {t('tokenomics.calendar.title', 'Year-1 이벤트 캘린더 (월별 상세)')}
+              </CardTitle>
+              <CardDescription>
+                {t('tokenomics.calendar.desc', 'TGE부터 1주년까지의 월별 이벤트 일정')}
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="rounded-md border overflow-x-auto">
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead className="w-[100px]">{t('tokenomics.date', '시기')}</TableHead>
+                      <TableHead>{t('tokenomics.eventName', '이벤트명')}</TableHead>
+                      <TableHead className="text-right">{t('tokenomics.amount', '배분량')}</TableHead>
+                      <TableHead>{t('tokenomics.condition', '참여 조건')}</TableHead>
+                      <TableHead>{t('tokenomics.distribution', '배분 방식')}</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {Y1_EVENT_CALENDAR.map((event, idx) => (
+                      <TableRow key={idx} data-testid={`row-event-${idx}`}>
+                        <TableCell className="font-medium">{event.date}</TableCell>
+                        <TableCell>{event.name}</TableCell>
+                        <TableCell className="text-right font-mono text-green-500">{event.amount}억</TableCell>
+                        <TableCell className="text-muted-foreground">{event.condition}</TableCell>
+                        <TableCell className="text-muted-foreground">{event.distribution}</TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </div>
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        {/* Genesis Pool Settings Tab - 제네시스 풀 설정 */}
+        <TabsContent value="genesispool" className="space-y-4">
+          {/* TGE Unlock Section */}
+          <Card data-testid="card-tge-unlock">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Lock className="h-5 w-5 text-primary" />
+                {t('tokenomics.tge.title', 'TGE 즉시 언락 (Day 0: 2025년 12월 22일)')}
+              </CardTitle>
+              <CardDescription>
+                {t('tokenomics.tge.desc', '메인넷 런칭 시점의 토큰 언락 현황')}
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                <Card className="bg-gradient-to-br from-primary/10 to-primary/5">
+                  <CardContent className="pt-4">
+                    <div className="text-sm text-muted-foreground">TGE 총 언락</div>
+                    <div className="text-3xl font-bold text-primary">{TGE_TOTAL_UNLOCK}억</div>
+                    <div className="text-xs text-muted-foreground">전체 공급의 9.10%</div>
+                  </CardContent>
+                </Card>
+                <Card className="bg-gradient-to-br from-green-500/10 to-emerald-500/5">
+                  <CardContent className="pt-4">
+                    <div className="text-sm text-muted-foreground">실제 유통량 (TGE)</div>
+                    <div className="text-3xl font-bold text-green-500">{TGE_ACTUAL_CIRCULATION}억</div>
+                    <div className="text-xs text-muted-foreground">전체 공급의 2.85%</div>
+                  </CardContent>
+                </Card>
+              </div>
+              <div className="rounded-md border">
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>{t('tokenomics.category', '카테고리')}</TableHead>
+                      <TableHead className="text-center">TGE %</TableHead>
+                      <TableHead className="text-right">{t('tokenomics.amount', '수량')}</TableHead>
+                      <TableHead>{t('tokenomics.purpose', '목적')}</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {TGE_UNLOCKS.map((unlock, idx) => (
+                      <TableRow key={idx} data-testid={`row-tge-${idx}`}>
+                        <TableCell className="font-medium">{unlock.category}</TableCell>
+                        <TableCell className="text-center font-mono">{unlock.tgePercent}%</TableCell>
+                        <TableCell className="text-right font-mono text-primary">{unlock.amount}억</TableCell>
+                        <TableCell className="text-muted-foreground">{unlock.purpose}</TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Genesis Validator Settings */}
+          <Card data-testid="card-genesis-validators">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Server className="h-5 w-5 text-blue-500" />
+                {t('tokenomics.validators.title', '제네시스 검증자 설정')}
+              </CardTitle>
+              <CardDescription>
+                {t('tokenomics.validators.desc', '메인넷 런칭 시 초기 검증자 구성')}
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
+                <Card className="border-blue-500/30 bg-blue-500/5">
+                  <CardContent className="pt-4 text-center">
+                    <div className="text-sm text-muted-foreground">총 검증자 수</div>
+                    <div className="text-3xl font-bold text-blue-500">{GENESIS_VALIDATOR_CONFIG.totalValidators}</div>
+                    <div className="text-xs text-muted-foreground">개</div>
+                  </CardContent>
+                </Card>
+                <Card className="border-primary/30 bg-primary/5">
+                  <CardContent className="pt-4 text-center">
+                    <div className="text-sm text-muted-foreground">검증자당 스테이킹</div>
+                    <div className="text-2xl font-bold text-primary">{(GENESIS_VALIDATOR_CONFIG.stakePerValidator / 1000000).toFixed(0)}M</div>
+                    <div className="text-xs text-muted-foreground">TBURN (100만)</div>
+                  </CardContent>
+                </Card>
+                <Card className="border-green-500/30 bg-green-500/5">
+                  <CardContent className="pt-4 text-center">
+                    <div className="text-sm text-muted-foreground">팀 총 스테이킹</div>
+                    <div className="text-2xl font-bold text-green-500">{(GENESIS_VALIDATOR_CONFIG.totalTeamStake / 100000000).toFixed(2)}억</div>
+                    <div className="text-xs text-muted-foreground">TBURN</div>
+                  </CardContent>
+                </Card>
+                <Card className="border-amber-500/30 bg-amber-500/5">
+                  <CardContent className="pt-4 text-center">
+                    <div className="text-sm text-muted-foreground">언본딩 기간</div>
+                    <div className="text-3xl font-bold text-amber-500">{GENESIS_VALIDATOR_CONFIG.unbondingPeriod}</div>
+                    <div className="text-xs text-muted-foreground">일</div>
+                  </CardContent>
+                </Card>
+                <Card className="border-purple-500/30 bg-purple-500/5">
+                  <CardContent className="pt-4 text-center">
+                    <div className="text-sm text-muted-foreground">수수료율</div>
+                    <div className="text-2xl font-bold text-purple-500">{GENESIS_VALIDATOR_CONFIG.commissionRate}%</div>
+                    <div className="text-xs text-muted-foreground">{GENESIS_VALIDATOR_CONFIG.commissionRateRange.min}-{GENESIS_VALIDATOR_CONFIG.commissionRateRange.max}% 조정 가능</div>
+                  </CardContent>
+                </Card>
+              </div>
+              <div className="mt-4 grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div className="p-4 rounded-lg border">
+                  <div className="text-sm font-medium mb-2">슬래싱 (다운타임)</div>
+                  <div className="text-xl font-bold text-red-500">{GENESIS_VALIDATOR_CONFIG.slashingDowntime}%</div>
+                  <div className="text-xs text-muted-foreground">사건당</div>
+                </div>
+                <div className="p-4 rounded-lg border">
+                  <div className="text-sm font-medium mb-2">슬래싱 (이중 서명)</div>
+                  <div className="text-xl font-bold text-red-500">{GENESIS_VALIDATOR_CONFIG.slashingDoubleSign}%</div>
+                  <div className="text-xs text-muted-foreground">+ 영구 감옥</div>
+                </div>
+                <div className="p-4 rounded-lg border">
+                  <div className="text-sm font-medium mb-2">최소 자기 위임</div>
+                  <div className="text-xl font-bold">{GENESIS_VALIDATOR_CONFIG.minSelfDelegation}%</div>
+                  <div className="text-xs text-muted-foreground">{GENESIS_VALIDATOR_CONFIG.source}</div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* DEX Liquidity Pool Settings */}
+          <Card data-testid="card-dex-liquidity">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Droplets className="h-5 w-5 text-cyan-500" />
+                {t('tokenomics.dex.title', 'DEX 유동성 풀 설정')}
+              </CardTitle>
+              <CardDescription>
+                {t('tokenomics.dex.desc', '초기 유동성 공급 및 TVL 목표')}
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                <Card className="bg-gradient-to-br from-cyan-500/10 to-blue-500/5">
+                  <CardContent className="pt-4 text-center">
+                    <div className="text-sm text-muted-foreground">초기 TVL</div>
+                    <div className="text-3xl font-bold text-cyan-500">{DEX_TOTAL_TVL}</div>
+                    <div className="text-xs text-muted-foreground">Total Value Locked</div>
+                  </CardContent>
+                </Card>
+                <Card className="bg-gradient-to-br from-green-500/10 to-emerald-500/5">
+                  <CardContent className="pt-4 text-center">
+                    <div className="text-sm text-muted-foreground">초기 가격</div>
+                    <div className="text-3xl font-bold text-green-500">${DEX_INITIAL_PRICE}</div>
+                    <div className="text-xs text-muted-foreground">/ TBURN</div>
+                  </CardContent>
+                </Card>
+                <Card className="bg-gradient-to-br from-amber-500/10 to-orange-500/5">
+                  <CardContent className="pt-4 text-center">
+                    <div className="text-sm text-muted-foreground">LP 락업</div>
+                    <div className="text-3xl font-bold text-amber-500">{DEX_LP_LOCKUP_DAYS}</div>
+                    <div className="text-xs text-muted-foreground">일 (2025.12.22 → 2026.12.22)</div>
+                  </CardContent>
+                </Card>
+              </div>
+              <div className="rounded-md border">
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>{t('tokenomics.pool', '풀')}</TableHead>
+                      <TableHead className="text-right">TBURN 수량</TableHead>
+                      <TableHead className="text-right">페어 수량</TableHead>
+                      <TableHead className="text-right">초기 TVL</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {DEX_LIQUIDITY_POOLS.map((pool, idx) => (
+                      <TableRow key={idx} data-testid={`row-dex-${idx}`}>
+                        <TableCell className="font-medium">{pool.pool}</TableCell>
+                        <TableCell className="text-right font-mono text-primary">{pool.tburnAmount}억</TableCell>
+                        <TableCell className="text-right font-mono">{pool.pairAmount}</TableCell>
+                        <TableCell className="text-right font-mono text-green-500">{pool.initialTVL}</TableCell>
+                      </TableRow>
+                    ))}
+                    <TableRow className="bg-muted/50">
+                      <TableCell className="font-bold">합계</TableCell>
+                      <TableCell className="text-right font-mono font-bold text-primary">5.00억</TableCell>
+                      <TableCell></TableCell>
+                      <TableCell className="text-right font-mono font-bold text-green-500">{DEX_TOTAL_TVL}</TableCell>
+                    </TableRow>
+                  </TableBody>
+                </Table>
+              </div>
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        {/* AI Burn Mechanism Tab */}
+        <TabsContent value="burn" className="space-y-4">
+          {/* Burn Sources */}
+          <Card data-testid="card-burn-sources">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Flame className="h-5 w-5 text-orange-500" />
+                {t('tokenomics.burn.title', 'AI 기반 소각 메커니즘')}
+              </CardTitle>
+              <CardDescription>
+                {t('tokenomics.burn.desc', 'Year-1 총 소각량: 5.60억 TBURN')}
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
+                <Card className="bg-gradient-to-br from-orange-500/10 to-red-500/5 md:col-span-2 lg:col-span-1">
+                  <CardContent className="pt-4 text-center">
+                    <div className="text-sm text-muted-foreground">Y1 총 소각</div>
+                    <div className="text-4xl font-bold text-orange-500">{Y1_TOTAL_BURN}억</div>
+                    <div className="text-xs text-muted-foreground">TBURN</div>
+                  </CardContent>
+                </Card>
+              </div>
+              <div className="rounded-md border">
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>{t('tokenomics.burnType', '소각 유형')}</TableHead>
+                      <TableHead className="text-right">Y1 소각량</TableHead>
+                      <TableHead>{t('tokenomics.description', '설명')}</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {BURN_MECHANISMS.map((mech, idx) => (
+                      <TableRow key={idx} data-testid={`row-burn-${idx}`}>
+                        <TableCell className="font-medium">{mech.type}</TableCell>
+                        <TableCell className="text-right font-mono text-orange-500">{mech.y1Amount}억</TableCell>
+                        <TableCell className="text-muted-foreground">{mech.description}</TableCell>
+                      </TableRow>
+                    ))}
+                    <TableRow className="bg-muted/50">
+                      <TableCell className="font-bold">Y1 총 소각</TableCell>
+                      <TableCell className="text-right font-mono font-bold text-orange-500">{Y1_TOTAL_BURN}억</TableCell>
+                      <TableCell></TableCell>
+                    </TableRow>
+                  </TableBody>
+                </Table>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Halving Schedule */}
+          <Card data-testid="card-halving-schedule">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <TrendingDown className="h-5 w-5 text-red-500" />
+                {t('tokenomics.halving.title', '반감기 일정')}
+              </CardTitle>
+              <CardDescription>
+                {t('tokenomics.halving.desc', '블록 보상 반감기를 통한 디플레이션 가속')}
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {HALVING_SCHEDULE.map((halving, idx) => (
+                  <Card key={idx} className={`border-red-500/30 ${idx === 0 ? 'bg-red-500/5' : 'bg-orange-500/5'}`} data-testid={`card-halving-${idx}`}>
+                    <CardContent className="pt-4">
+                      <Badge variant="outline" className="mb-2 border-red-500/50">{halving.event}</Badge>
+                      <div className="text-2xl font-bold text-red-500 mb-2">{halving.yearLabel}</div>
+                      <div className="text-3xl font-bold mb-2">{halving.reductionPercent}%</div>
+                      <div className="text-sm text-muted-foreground">{halving.note}</div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* 4 Phase Strategy */}
+          <Card data-testid="card-phase-strategy">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Target className="h-5 w-5 text-purple-500" />
+                {t('tokenomics.phase.title', '4단계 Phase 전략')}
+              </CardTitle>
+              <CardDescription>
+                {t('tokenomics.phase.desc', '20년에 걸친 토큰노믹스 로드맵')}
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="rounded-md border">
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>Phase</TableHead>
+                      <TableHead>기간</TableHead>
+                      <TableHead>공급 변화</TableHead>
+                      <TableHead className="text-center">변화율</TableHead>
+                      <TableHead>핵심 목표</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {PHASE_STRATEGY.map((phase, idx) => {
+                      const colors = ['text-green-500', 'text-orange-500', 'text-blue-500', 'text-purple-500'];
+                      return (
+                        <TableRow key={idx} data-testid={`row-phase-${idx}`}>
+                          <TableCell className={`font-bold ${colors[idx]}`}>{phase.phase}</TableCell>
+                          <TableCell className="font-mono">{phase.period}</TableCell>
+                          <TableCell className="font-mono">{phase.supplyChange}</TableCell>
+                          <TableCell className="text-center font-mono text-red-500">{phase.changePercent}</TableCell>
+                          <TableCell className="text-muted-foreground">{phase.goal}</TableCell>
+                        </TableRow>
+                      );
+                    })}
+                  </TableBody>
+                </Table>
+              </div>
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        {/* Document Info Tab */}
+        <TabsContent value="document" className="space-y-4">
+          <Card data-testid="card-document-info">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <FileText className="h-5 w-5 text-primary" />
+                {t('tokenomics.document.title', '문서 관리 및 승인')}
+              </CardTitle>
+              <CardDescription>
+                {t('tokenomics.document.desc', 'TBURN 20년 토큰 이코노미 마스터 플랜 공식 문서')}
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="space-y-4">
+                  <div className="p-4 rounded-lg border bg-muted/30">
+                    <div className="text-sm text-muted-foreground mb-1">문서 제목</div>
+                    <div className="text-lg font-bold">{TOKENOMICS_DOC_INFO.title}</div>
+                  </div>
+                  <div className="p-4 rounded-lg border bg-muted/30">
+                    <div className="text-sm text-muted-foreground mb-1">버전</div>
+                    <div className="text-lg font-bold text-primary">{TOKENOMICS_DOC_INFO.version}</div>
+                  </div>
+                  <div className="p-4 rounded-lg border bg-green-500/10">
+                    <div className="text-sm text-muted-foreground mb-1">상태</div>
+                    <div className="flex items-center gap-2">
+                      <CheckCircle2 className="h-5 w-5 text-green-500" />
+                      <span className="text-lg font-bold text-green-500">{TOKENOMICS_DOC_INFO.status}</span>
+                    </div>
+                  </div>
+                  <div className="p-4 rounded-lg border bg-muted/30">
+                    <div className="text-sm text-muted-foreground mb-1">작성</div>
+                    <div className="text-lg font-bold">{TOKENOMICS_DOC_INFO.author}</div>
+                  </div>
+                </div>
+                <div className="space-y-4">
+                  <div className="p-4 rounded-lg border bg-muted/30">
+                    <div className="text-sm text-muted-foreground mb-1">시행일</div>
+                    <div className="text-lg font-bold">{TOKENOMICS_DOC_INFO.effectiveDate}</div>
+                  </div>
+                  <div className="p-4 rounded-lg border bg-muted/30">
+                    <div className="text-sm text-muted-foreground mb-1">계획 기간</div>
+                    <div className="text-lg font-bold">{TOKENOMICS_DOC_INFO.planPeriod}</div>
+                  </div>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="p-4 rounded-lg border bg-primary/10">
+                      <div className="text-sm text-muted-foreground mb-1">제네시스 공급</div>
+                      <div className="text-xl font-bold text-primary">{TOKENOMICS_DOC_INFO.genesisSupply}</div>
+                    </div>
+                    <div className="p-4 rounded-lg border bg-green-500/10">
+                      <div className="text-sm text-muted-foreground mb-1">최종 공급 (Y20)</div>
+                      <div className="text-xl font-bold text-green-500">{TOKENOMICS_DOC_INFO.finalSupply}</div>
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="p-4 rounded-lg border bg-red-500/10">
+                      <div className="text-sm text-muted-foreground mb-1">총 디플레이션</div>
+                      <div className="text-xl font-bold text-red-500">{TOKENOMICS_DOC_INFO.totalDeflation}</div>
+                    </div>
+                    <div className="p-4 rounded-lg border bg-orange-500/10">
+                      <div className="text-sm text-muted-foreground mb-1">Y1 활성화 예산</div>
+                      <div className="text-xl font-bold text-orange-500">{TOKENOMICS_DOC_INFO.y1ActivationBudget}</div>
+                    </div>
+                  </div>
+                  <div className="p-4 rounded-lg border bg-muted/30">
+                    <div className="text-sm text-muted-foreground mb-1">블록 보상 풀</div>
+                    <div className="text-lg font-bold">{TOKENOMICS_DOC_INFO.blockRewardPool}</div>
+                  </div>
+                </div>
+              </div>
+              <Separator className="my-6" />
+              <div className="flex items-start gap-2 p-4 rounded-lg bg-green-500/10 border border-green-500/30">
+                <CheckCircle2 className="h-6 w-6 text-green-500 flex-shrink-0 mt-0.5" />
+                <div>
+                  <div className="font-bold text-green-500 mb-1">메인넷 제네시스 풀 실행 준비 완료</div>
+                  <p className="text-sm text-muted-foreground">
+                    본 문서는 TBURN 재단 및 Metalock (주식회사 메타록)의 승인을 받아 2025년 12월 22일 TGE와 함께 시행됩니다.
+                    모든 토큰 배분, 베스팅 스케줄, 소각 메커니즘은 본 마스터 플랜에 따라 자동화된 스마트 컨트랙트로 실행됩니다.
+                  </p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
         </TabsContent>
 
         {/* Investors Tab */}
@@ -887,166 +1461,6 @@ export default function TokenomicsSimulation() {
           </Card>
         </TabsContent>
 
-        {/* Y1 Details Tab */}
-        <TabsContent value="y1" className="space-y-4">
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Calendar className="h-5 w-5" />
-                {t('tokenomics.y1Details', 'Year 1 Quarterly Breakdown')}
-              </CardTitle>
-              <CardDescription>
-                {t('tokenomics.y1Strategy', 'Detailed strategy for the first year with quarterly milestones')}
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-6">
-              {/* Y1 Summary */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div className="p-4 rounded-lg border bg-green-500/10 border-green-500/30">
-                  <div className="text-sm text-muted-foreground mb-1">
-                    {t('tokenomics.totalBlockEmission', 'Total Block Emission')}
-                  </div>
-                  <div className="text-2xl font-bold text-green-500">+2.60억</div>
-                </div>
-                <div className="p-4 rounded-lg border bg-orange-500/10 border-orange-500/30">
-                  <div className="text-sm text-muted-foreground mb-1">
-                    {t('tokenomics.totalAiBurn', 'Total AI Burn')}
-                  </div>
-                  <div className="text-2xl font-bold text-orange-500">-5.60억</div>
-                </div>
-                <div className="p-4 rounded-lg border bg-red-500/10 border-red-500/30">
-                  <div className="text-sm text-muted-foreground mb-1">
-                    {t('tokenomics.netDeflation', 'Net Deflation')}
-                  </div>
-                  <div className="text-2xl font-bold text-red-500">-3.00억 (-3.00%)</div>
-                </div>
-              </div>
-
-              {/* Quarterly Cards */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                {Y1_MILESTONES.map((milestone, idx) => {
-                  const period = TOKENOMICS_DATA.find(p => p.quarter === milestone.period);
-                  return (
-                    <Card key={milestone.period} data-testid={`card-y1-${milestone.period.toLowerCase()}`}>
-                      <CardHeader className="pb-2">
-                        <div className="flex items-center justify-between">
-                          <Badge variant="outline">{milestone.period}</Badge>
-                          <span className="text-xs text-muted-foreground">{milestone.weeks}</span>
-                        </div>
-                        <CardTitle className="text-lg mt-2">
-                          {t(milestone.descriptionKey, milestone.description)}
-                        </CardTitle>
-                      </CardHeader>
-                      <CardContent className="space-y-4">
-                        {period && (
-                          <div className="grid grid-cols-2 gap-2 text-sm">
-                            <div className="p-2 rounded bg-green-500/10">
-                              <div className="text-xs text-muted-foreground">{t('tokenomics.emission', 'Emission')}</div>
-                              <div className="font-mono text-green-500">+{period.blockEmission}억</div>
-                            </div>
-                            <div className="p-2 rounded bg-orange-500/10">
-                              <div className="text-xs text-muted-foreground">{t('tokenomics.burn', 'Burn')}</div>
-                              <div className="font-mono text-orange-500">-{period.aiBurn}억</div>
-                            </div>
-                          </div>
-                        )}
-                        <Separator />
-                        <div className="space-y-2 text-sm">
-                          <div className="flex items-center gap-2">
-                            <Users className="h-4 w-4 text-muted-foreground" />
-                            <span>{t('tokenomics.validators', 'Validators')}: {milestone.validators}</span>
-                          </div>
-                          <div className="flex items-center gap-2">
-                            <Zap className="h-4 w-4 text-muted-foreground" />
-                            <span>TPS: {milestone.tps}</span>
-                          </div>
-                          {milestone.tvl && (
-                            <div className="flex items-center gap-2">
-                              <DollarSign className="h-4 w-4 text-muted-foreground" />
-                              <span>TVL: {milestone.tvl}</span>
-                            </div>
-                          )}
-                          {milestone.wallets && (
-                            <div className="flex items-center gap-2">
-                              <Users className="h-4 w-4 text-muted-foreground" />
-                              <span>{t('tokenomics.wallets', 'Wallets')}: {milestone.wallets}</span>
-                            </div>
-                          )}
-                          <div className="flex items-center gap-2">
-                            <Activity className="h-4 w-4 text-muted-foreground" />
-                            <span>Staking APY: {milestone.stakingAPY}</span>
-                          </div>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  );
-                })}
-              </div>
-
-              {/* Y1 Price Forecast */}
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-lg">{t('tokenomics.y1PriceForecast', 'Y1 Price Forecast')}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <div className="space-y-2">
-                      <div className="font-medium text-green-500">{t('tokenomics.scenarios.conservative', 'Conservative')}</div>
-                      <div className="text-sm space-y-1">
-                        <div className="flex justify-between">
-                          <span>Q1:</span>
-                          <span>$0.50 → $0.55 (+10%)</span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span>Q2:</span>
-                          <span>$0.55 → $0.59 (+7%)</span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span>Y1:</span>
-                          <span className="font-medium">$0.59 → $0.85 (+44%)</span>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="space-y-2">
-                      <div className="font-medium text-blue-500">{t('tokenomics.scenarios.neutral', 'Neutral')}</div>
-                      <div className="text-sm space-y-1">
-                        <div className="flex justify-between">
-                          <span>Q1:</span>
-                          <span>$0.50 → $0.60 (+20%)</span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span>Q2:</span>
-                          <span>$0.60 → $0.80 (+33%)</span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span>Y1:</span>
-                          <span className="font-medium">$0.80 → $1.25 (+56%)</span>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="space-y-2">
-                      <div className="font-medium text-orange-500">{t('tokenomics.scenarios.optimistic', 'Optimistic')}</div>
-                      <div className="text-sm space-y-1">
-                        <div className="flex justify-between">
-                          <span>Q1:</span>
-                          <span>$0.50 → $0.75 (+50%)</span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span>Q2:</span>
-                          <span>$0.75 → $1.25 (+67%)</span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span>Y1:</span>
-                          <span className="font-medium">$1.25 → $2.50 (+100%)</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </CardContent>
-          </Card>
-        </TabsContent>
       </Tabs>
     </div>
   );
