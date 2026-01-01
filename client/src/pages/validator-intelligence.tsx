@@ -1,4 +1,4 @@
-import { useParams, Link } from "wouter";
+import { useLocation, Link } from "wouter";
 import { useQuery } from "@tanstack/react-query";
 import { Line, Bar } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, BarElement, Filler, Tooltip } from 'chart.js';
@@ -55,8 +55,8 @@ const barChartOptions = {
 };
 
 export default function ValidatorIntelligence() {
-  const params = useParams<{ id: string }>();
-  const validatorAddress = params.id || '';
+  const [currentPath] = useLocation();
+  const validatorAddress = currentPath.split('/validator/')[1] || '';
   const [copiedField, setCopiedField] = useState<string | null>(null);
 
   const { data: validator, isLoading } = useQuery<ValidatorData>({
@@ -158,7 +158,7 @@ export default function ValidatorIntelligence() {
   const stake = parseFloat(validator.stake || '0');
   const commission = validator.commission || 5;
   const version = validator.version || 'v1.14.17';
-  const location = validator.location || 'Unknown';
+  const validatorLocation = validator.location || 'Unknown';
   const trustScore = (validator.aiTrustScore || 7500) / 100;
 
   return (
@@ -359,7 +359,7 @@ export default function ValidatorIntelligence() {
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <div className="data-label">Location</div>
-                  <div className="data-value text-sm">{location}</div>
+                  <div className="data-value text-sm">{validatorLocation}</div>
                 </div>
                 <div>
                   <div className="data-label">Uptime</div>

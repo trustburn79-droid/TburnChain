@@ -89,6 +89,9 @@ const TreePage = lazy(() => import("@/pages/tree"));
 const TokenSchedule = lazy(() => import("@/pages/token-schedule"));
 const TokenDetails = lazy(() => import("@/pages/token-details"));
 const ValidatorCommandCenter = lazy(() => import("@/pages/validator"));
+const ValidatorInfrastructure = lazy(() => import("@/pages/validator-infrastructure"));
+const ValidatorIntelligence = lazy(() => import("@/pages/validator-intelligence"));
+const ValidatorGovernance = lazy(() => import("@/pages/validator-governance"));
 
 const OperatorDashboard = lazy(() => import("@/pages/operator/dashboard"));
 const OperatorMembers = lazy(() => import("@/pages/operator/members"));
@@ -437,6 +440,46 @@ function RootRouter() {
       <Suspense fallback={<PageLoading />}>
         <TreePage />
       </Suspense>
+    );
+  }
+  
+  if (location === "/validator" && !location.includes("/validator/")) {
+    return (
+      <AuthGuard>
+        <Suspense fallback={<PageLoading />}>
+          <ValidatorCommandCenter />
+        </Suspense>
+      </AuthGuard>
+    );
+  }
+  
+  if (location === "/validator/infrastructure") {
+    return (
+      <AuthGuard>
+        <Suspense fallback={<PageLoading />}>
+          <ValidatorInfrastructure />
+        </Suspense>
+      </AuthGuard>
+    );
+  }
+  
+  if (location.startsWith("/validator/") && location !== "/validator/infrastructure") {
+    return (
+      <AuthGuard>
+        <Suspense fallback={<PageLoading />}>
+          <ValidatorIntelligence />
+        </Suspense>
+      </AuthGuard>
+    );
+  }
+  
+  if (location === "/validator-governance") {
+    return (
+      <AuthGuard>
+        <Suspense fallback={<PageLoading />}>
+          <ValidatorGovernance />
+        </Suspense>
+      </AuthGuard>
     );
   }
   

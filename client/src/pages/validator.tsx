@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { useState, useMemo } from "react";
-import { Link } from "wouter";
+import { Link, useLocation } from "wouter";
 import { Bar } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Tooltip, Legend } from 'chart.js';
 import { 
@@ -43,6 +43,7 @@ const mapPoints = [
 ];
 
 export default function ValidatorCommandCenter() {
+  const [, setLocation] = useLocation();
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 8;
@@ -368,6 +369,7 @@ export default function ValidatorCommandCenter() {
                         <tr 
                           key={validator.id} 
                           className="hover:bg-white/5 transition-colors group cursor-pointer"
+                          onClick={() => setLocation(`/validator/${validator.address}`)}
                           data-testid={`validator-row-${validator.id}`}
                         >
                           <td className="p-5">
