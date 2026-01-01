@@ -136,7 +136,7 @@ setTimeout(() => {
   }
 }, 5000);
 
-const BUILD_VERSION = "2026.01.02.v2";
+const BUILD_VERSION = "2026.01.02.v3";
 
 function safeInitApp() {
   const htmlVersion = document.documentElement.getAttribute("data-version");

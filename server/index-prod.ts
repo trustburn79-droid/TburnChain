@@ -56,9 +56,21 @@ app.use(express.static(distPath, {
       res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
       res.setHeader('Pragma', 'no-cache');
       res.setHeader('Expires', '0');
+      res.setHeader('Surrogate-Control', 'no-store');
+      res.setHeader('X-Content-Version', '2026.01.02.v3');
     }
   },
 }));
+
+// Handle 404 for missing assets (chunk loading failures)
+app.use('/assets', (req, res) => {
+  console.error(`[Asset 404] Missing: ${req.url}`);
+  res.status(404).json({ 
+    error: 'Asset not found',
+    hint: 'This may be caused by a stale browser cache. Please hard refresh (Ctrl+Shift+R).',
+    requestedFile: req.url,
+  });
+});
 
 // ============================================
 // PHASE 2: Start HTTP server IMMEDIATELY
@@ -90,6 +102,8 @@ async function initializeBackendServices() {
       res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
       res.setHeader('Pragma', 'no-cache');
       res.setHeader('Expires', '0');
+      res.setHeader('Surrogate-Control', 'no-store');
+      res.setHeader('X-Content-Version', '2026.01.02.v3');
       res.sendFile(path.resolve(distPath, "index.html"));
     });
     
