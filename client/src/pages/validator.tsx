@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { useState, useMemo } from "react";
 import { Link, useLocation } from "wouter";
+import { useTranslation } from "react-i18next";
 import { Bar } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Tooltip, Legend } from 'chart.js';
 import { 
@@ -18,6 +19,7 @@ import { type ValidatorDisplayData, transformValidator, type ValidatorData } fro
 import { DelegationDialog } from "@/components/DelegationDialog";
 import { Button } from "@/components/ui/button";
 import { TBurnLogo } from "@/components/tburn-logo";
+import { LanguageSelector } from "@/components/LanguageSelector";
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip, Legend);
 
@@ -48,6 +50,7 @@ const mapPoints = [
 ];
 
 export default function ValidatorCommandCenter() {
+  const { t } = useTranslation();
   const [, setLocation] = useLocation();
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
@@ -233,29 +236,30 @@ export default function ValidatorCommandCenter() {
             <div className="flex items-center gap-3 mb-1">
               <TBurnLogo className="w-10 h-10" showText={false} />
               <h1 className="text-4xl font-bold text-white tracking-wide" data-testid="page-title">
-                TBURN <span className="font-light text-slate-400">Network</span>
+                {t('validatorPage.title', { defaultValue: 'TBURN Network' }).split(' ')[0]} <span className="font-light text-slate-400">{t('validatorPage.title', { defaultValue: 'TBURN Network' }).split(' ').slice(1).join(' ') || 'Network'}</span>
               </h1>
             </div>
             <p className="text-sm text-slate-400 font-mono tracking-wider uppercase pl-1">
-              Decentralized Trust Network / Validator Intelligence
+              {t('validatorPage.subtitle', { defaultValue: 'Decentralized Trust Network / Validator Intelligence' })}
             </p>
           </div>
           
-          <div className="flex gap-4 flex-wrap">
+          <div className="flex gap-4 flex-wrap items-center">
+            <LanguageSelector isDark={true} />
             <Link href="/validator/infrastructure" className="glass-panel px-5 py-3 rounded-lg flex items-center gap-2 hover:border-cyan-400/50 transition text-sm font-medium" data-testid="link-infrastructure">
               <TreeStructure className="text-cyan-400" weight="duotone" size={18} />
-              Infrastructure
+              {t('validatorPage.infrastructure', { defaultValue: 'Infrastructure' })}
             </Link>
             <Link href="/validator-governance" className="glass-panel px-5 py-3 rounded-lg flex items-center gap-2 hover:border-amber-500/50 transition text-sm font-medium" data-testid="link-governance">
               <Coins className="text-amber-400" weight="duotone" size={18} />
-              Governance & Rewards
+              {t('validatorPage.governanceAndRewards', { defaultValue: 'Governance & Rewards' })}
             </Link>
             <div className="glass-panel px-6 py-3 rounded-lg flex flex-col items-end">
-              <span className="text-xs text-slate-500 uppercase font-bold">Network TPS</span>
+              <span className="text-xs text-slate-500 uppercase font-bold">{t('validatorPage.networkTps', { defaultValue: 'Network TPS' })}</span>
               <span className="text-2xl font-bold text-emerald-400 font-mono" data-testid="network-tps">{formatNumber(currentTps)}</span>
             </div>
             <div className="glass-panel px-6 py-3 rounded-lg flex flex-col items-end">
-              <span className="text-xs text-slate-500 uppercase font-bold">Epoch</span>
+              <span className="text-xs text-slate-500 uppercase font-bold">{t('validatorPage.epoch', { defaultValue: 'Epoch' })}</span>
               <span className="text-2xl font-bold text-amber-400 font-mono" data-testid="current-epoch">{currentEpoch}</span>
             </div>
           </div>
@@ -266,12 +270,12 @@ export default function ValidatorCommandCenter() {
             <div className="flex justify-between items-start z-10 relative">
               <h3 className="text-lg font-semibold text-white flex items-center gap-2">
                 <GlobeHemisphereWest className="text-amber-500" size={20} />
-                Global Node Topology
+                {t('validatorPage.globalNodeTopology', { defaultValue: 'Global Node Topology' })}
               </h3>
               <div className="flex gap-2">
-                <span className="px-2 py-1 bg-amber-500/10 border border-amber-500/20 text-amber-500 text-xs rounded">Live Feed</span>
+                <span className="px-2 py-1 bg-amber-500/10 border border-amber-500/20 text-amber-500 text-xs rounded">{t('validatorPage.liveFeed', { defaultValue: 'Live Feed' })}</span>
                 <span className="px-2 py-1 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs rounded">
-                  {formatNumber(realActiveValidators)} Active
+                  {formatNumber(realActiveValidators)} {t('validatorPage.active', { defaultValue: 'Active' })}
                 </span>
               </div>
             </div>
@@ -295,11 +299,11 @@ export default function ValidatorCommandCenter() {
               <div className="flex gap-8">
                 <div>
                   <div className="text-3xl font-bold text-white" data-testid="data-centers">{dataCenters}</div>
-                  <div className="text-xs text-slate-400 uppercase">Data Centers</div>
+                  <div className="text-xs text-slate-400 uppercase">{t('validatorPage.dataCenters', { defaultValue: 'Data Centers' })}</div>
                 </div>
                 <div>
                   <div className="text-3xl font-bold text-white" data-testid="countries">{countries}</div>
-                  <div className="text-xs text-slate-400 uppercase">Countries</div>
+                  <div className="text-xs text-slate-400 uppercase">{t('validatorPage.countries', { defaultValue: 'Countries' })}</div>
                 </div>
               </div>
             </div>
@@ -310,16 +314,16 @@ export default function ValidatorCommandCenter() {
               <div className="absolute top-0 right-0 p-4 opacity-10">
                 <ShieldCheck size={64} weight="fill" />
               </div>
-              <span className="text-sm text-slate-400 uppercase tracking-widest mb-2">Nakamoto Coefficient</span>
+              <span className="text-sm text-slate-400 uppercase tracking-widest mb-2">{t('validatorPage.nakamotoCoefficient', { defaultValue: 'Nakamoto Coefficient' })}</span>
               <span className="text-5xl font-bold text-white drop-shadow-[0_0_10px_rgba(255,255,255,0.3)]" data-testid="nakamoto-coefficient">{nakamotoCoefficient}</span>
               <span className="text-xs text-emerald-400 mt-2 flex items-center gap-1">
-                ↑ Super Minority Secured
+                ↑ {t('validatorPage.superMinoritySecured', { defaultValue: 'Super Minority Secured' })}
               </span>
             </div>
 
             <div className="glass-panel rounded-2xl p-5 flex-1">
               <h4 className="text-sm font-semibold text-slate-300 mb-4 flex justify-between">
-                <span>Stake Concentration</span>
+                <span>{t('validatorPage.stakeConcentration', { defaultValue: 'Stake Concentration' })}</span>
                 <ChartPieSlice size={16} />
               </h4>
               <div className="h-32">
@@ -332,16 +336,16 @@ export default function ValidatorCommandCenter() {
         <section>
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
             <h2 className="text-xl font-bold text-white flex items-center gap-2">
-              <ListDashes className="text-amber-500" weight="fill" size={20} /> Validator Matrix
+              <ListDashes className="text-amber-500" weight="fill" size={20} /> {t('validatorPage.validatorMatrix', { defaultValue: 'Validator Matrix' })}
               {validatorsLoading && <CircleNotch className="animate-spin text-amber-500" size={16} />}
-              <span className="text-sm font-normal text-slate-500 ml-2">({validators.length} validators)</span>
+              <span className="text-sm font-normal text-slate-500 ml-2">({validators.length} {t('validatorPage.validators', { defaultValue: 'validators' })})</span>
             </h2>
             
             <div className="flex gap-3">
               <div className="relative group">
                 <input 
                   type="text" 
-                  placeholder="Search Validator / ISP..." 
+                  placeholder={t('validatorPage.searchPlaceholder', { defaultValue: 'Search Validator / ISP...' })}
                   value={searchQuery}
                   onChange={(e) => { setSearchQuery(e.target.value); setCurrentPage(1); }}
                   className="bg-[#0f1016] border border-slate-700 text-slate-300 text-sm rounded-lg focus:ring-amber-500 focus:border-amber-500 block pl-10 p-2.5 w-64 transition-all focus:w-80"
@@ -352,7 +356,7 @@ export default function ValidatorCommandCenter() {
                 </div>
               </div>
               <button className="bg-[#1a1b2e] hover:bg-slate-800 text-slate-300 px-4 py-2 rounded-lg border border-slate-700 text-sm transition flex items-center gap-2" data-testid="button-filters">
-                <Sliders size={16} /> Filters
+                <Sliders size={16} /> {t('validatorPage.filters', { defaultValue: 'Filters' })}
               </button>
             </div>
           </div>
@@ -361,7 +365,7 @@ export default function ValidatorCommandCenter() {
             {validatorsLoading ? (
               <div className="flex items-center justify-center py-20">
                 <CircleNotch className="animate-spin text-amber-500" size={48} />
-                <span className="ml-4 text-slate-400">Loading validators...</span>
+                <span className="ml-4 text-slate-400">{t('validatorPage.loadingValidators', { defaultValue: 'Loading validators...' })}</span>
               </div>
             ) : (
               <>
@@ -369,13 +373,13 @@ export default function ValidatorCommandCenter() {
                   <table className="w-full text-left border-collapse">
                     <thead>
                       <tr className="bg-black/30 text-xs uppercase tracking-wider text-slate-500 border-b border-white/5">
-                        <th className="p-5 font-semibold">Node Identity</th>
-                        <th className="p-5 font-semibold">Location (ISP)</th>
-                        <th className="p-5 font-semibold text-center">Trust Score</th>
-                        <th className="p-5 font-semibold text-center">Version</th>
-                        <th className="p-5 font-semibold text-right">Active Stake (TBURN)</th>
-                        <th className="p-5 font-semibold text-right">Performance</th>
-                        <th className="p-5 font-semibold text-center">Actions</th>
+                        <th className="p-5 font-semibold">{t('validatorPage.nodeIdentity', { defaultValue: 'Node Identity' })}</th>
+                        <th className="p-5 font-semibold">{t('validatorPage.locationIsp', { defaultValue: 'Location (ISP)' })}</th>
+                        <th className="p-5 font-semibold text-center">{t('validatorPage.trustScore', { defaultValue: 'Trust Score' })}</th>
+                        <th className="p-5 font-semibold text-center">{t('validatorPage.version', { defaultValue: 'Version' })}</th>
+                        <th className="p-5 font-semibold text-right">{t('validatorPage.activeStake', { defaultValue: 'Active Stake (TBURN)' })}</th>
+                        <th className="p-5 font-semibold text-right">{t('validatorPage.performance', { defaultValue: 'Performance' })}</th>
+                        <th className="p-5 font-semibold text-center">{t('validatorPage.actions', { defaultValue: 'Actions' })}</th>
                       </tr>
                     </thead>
                     <tbody className="text-sm divide-y divide-white/5">
@@ -424,7 +428,7 @@ export default function ValidatorCommandCenter() {
                           </td>
                           <td className="p-5 text-right">
                             <div className="font-bold text-white">{formatNumber(Math.round(validator.stake))}</div>
-                            <div className="text-xs text-amber-500">{validator.stakeShare.toFixed(2)}% share</div>
+                            <div className="text-xs text-amber-500">{validator.stakeShare.toFixed(2)}% {t('validatorPage.share', { defaultValue: 'share' })}</div>
                           </td>
                           <td className="p-5 text-right">
                             <div className="flex items-center justify-end gap-2">
@@ -447,7 +451,7 @@ export default function ValidatorCommandCenter() {
                               data-testid={`button-delegate-${validator.id}`}
                             >
                               <Coins size={14} className="mr-1" />
-                              Delegate
+                              {t('validatorPage.delegate', { defaultValue: 'Delegate' })}
                             </Button>
                           </td>
                         </tr>
@@ -457,7 +461,12 @@ export default function ValidatorCommandCenter() {
                 </div>
                 
                 <div className="p-4 bg-black/20 border-t border-white/5 flex flex-col md:flex-row justify-between items-center text-xs text-slate-500 gap-4">
-                  <span>Showing {filteredValidators.length > 0 ? ((currentPage - 1) * itemsPerPage) + 1 : 0}-{Math.min(currentPage * itemsPerPage, filteredValidators.length)} of {filteredValidators.length} Validators</span>
+                  <span>{t('validatorPage.showingValidators', { 
+                    defaultValue: 'Showing {{start}}-{{end}} of {{total}} Validators',
+                    start: filteredValidators.length > 0 ? ((currentPage - 1) * itemsPerPage) + 1 : 0,
+                    end: Math.min(currentPage * itemsPerPage, filteredValidators.length),
+                    total: filteredValidators.length
+                  })}</span>
                   <div className="flex gap-2">
                     <button 
                       onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
@@ -465,7 +474,7 @@ export default function ValidatorCommandCenter() {
                       className="px-3 py-1 bg-white/5 hover:bg-white/10 rounded transition disabled:opacity-50"
                       data-testid="button-prev"
                     >
-                      Prev
+                      {t('validatorPage.prev', { defaultValue: 'Prev' })}
                     </button>
                     {Array.from({ length: Math.min(totalPages, 5) }, (_, i) => i + 1).map(page => (
                       <button 
@@ -488,7 +497,7 @@ export default function ValidatorCommandCenter() {
                       className="px-3 py-1 bg-white/5 hover:bg-white/10 rounded transition disabled:opacity-50"
                       data-testid="button-next"
                     >
-                      Next
+                      {t('validatorPage.next', { defaultValue: 'Next' })}
                     </button>
                   </div>
                 </div>

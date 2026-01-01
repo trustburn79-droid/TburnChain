@@ -38,6 +38,7 @@ import { formatAddress, formatTokenAmount, formatPercentage, formatNumber } from
 import type { Validator } from "@shared/schema";
 import { useState, useEffect } from "react";
 import { useWebSocket } from "@/lib/websocket-context";
+import { LanguageSelector } from "@/components/LanguageSelector";
 import {
   LineChart,
   Line,
@@ -268,7 +269,7 @@ export default function ValidatorDetail() {
     <div className="container mx-auto px-4 py-8 space-y-6">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-4">
-          <Link href="/app/validators">
+          <Link href="/validator">
             <Button variant="outline" size="icon">
               <ArrowLeft className="h-4 w-4" />
             </Button>
@@ -278,7 +279,8 @@ export default function ValidatorDetail() {
             <p className="text-muted-foreground">{formatAddress(validator.address)}</p>
           </div>
         </div>
-        <div className="flex gap-2">
+        <div className="flex gap-2 items-center">
+          <LanguageSelector />
           {isActive && (
             <Button 
               variant="outline" 

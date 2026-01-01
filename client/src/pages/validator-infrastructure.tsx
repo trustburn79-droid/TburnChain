@@ -1,6 +1,7 @@
 import { useState, useMemo } from "react";
 import { Link } from "wouter";
 import { useQuery } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
 import { Doughnut } from 'react-chartjs-2';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { 
@@ -22,6 +23,7 @@ import {
 } from "@phosphor-icons/react";
 import { type ValidatorDisplayData, transformValidator, type ValidatorData, calculateInfrastructureStats } from "@/lib/validator-utils";
 import { TBurnLogo } from "@/components/tburn-logo";
+import { LanguageSelector } from "@/components/LanguageSelector";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -41,6 +43,7 @@ interface ValidatorApiResponse {
 }
 
 export default function ValidatorInfrastructure() {
+  const { t } = useTranslation();
   const [searchQuery, setSearchQuery] = useState("");
   const [viewMode, setViewMode] = useState<'stake' | 'score'>('stake');
   const [currentPage, setCurrentPage] = useState(1);
@@ -241,28 +244,31 @@ export default function ValidatorInfrastructure() {
       `}</style>
 
       <header className="max-w-[1600px] mx-auto mb-10">
-        <Link href="/validator" className="flex items-center gap-2 text-slate-400 hover:text-white transition mb-4" data-testid="link-back-to-validator">
-          <div className="p-2 rounded-lg bg-white/5 hover:bg-white/10 border border-white/5">
-            <ArrowLeft size={16} weight="bold" />
-          </div>
-          <span className="text-sm font-medium">Back to Validator Matrix</span>
-        </Link>
+        <div className="flex justify-between items-center mb-4">
+          <Link href="/validator" className="flex items-center gap-2 text-slate-400 hover:text-white transition" data-testid="link-back-to-validator">
+            <div className="p-2 rounded-lg bg-white/5 hover:bg-white/10 border border-white/5">
+              <ArrowLeft size={16} weight="bold" />
+            </div>
+            <span className="text-sm font-medium">{t('validatorPage.infrastructurePage.backToOverview', { defaultValue: 'Back to Overview' })}</span>
+          </Link>
+          <LanguageSelector isDark={true} />
+        </div>
         
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
           <div>
             <div className="flex items-center gap-3">
               <TBurnLogo className="w-12 h-12" showText={false} />
               <h1 className="text-4xl md:text-5xl font-bold tracking-tight" style={{ fontFamily: "'Outfit', sans-serif" }} data-testid="page-title">
-                TBURN <span className="text-accent-burn tburn-glow">Mainnet</span>
+                {t('validatorPage.infrastructurePage.title', { defaultValue: 'Validator Infrastructure' })}
               </h1>
             </div>
-            <p className="text-xl text-slate-400 mt-2 font-light">Enterprise Validator Intelligence & Network Telemetry</p>
+            <p className="text-xl text-slate-400 mt-2 font-light">{t('validatorPage.subtitle', { defaultValue: 'Decentralized Trust Network / Validator Intelligence' })}</p>
           </div>
           <div className="flex flex-wrap gap-4">
             <div className="tburn-panel rounded-lg p-4 flex items-center gap-3">
               <Cpu className="text-3xl text-accent-trust" weight="fill" size={32} />
               <div>
-                <div className="text-xs text-slate-500 uppercase font-semibold">Active Validators</div>
+                <div className="text-xs text-slate-500 uppercase font-semibold">{t('validatorPage.infrastructurePage.activeValidators', { defaultValue: 'Active Validators' })}</div>
                 <div className="text-2xl font-bold" style={{ fontFamily: "'Outfit', sans-serif" }} data-testid="active-validators">
                   {formatNumber(totalActiveValidators)} <span className="text-sm text-slate-400">/ {formatNumber(totalValidators)}</span>
                 </div>
@@ -271,7 +277,7 @@ export default function ValidatorInfrastructure() {
             <div className="tburn-panel rounded-lg p-4 flex items-center gap-3">
               <Fire className="text-3xl text-accent-burn" weight="fill" size={32} />
               <div>
-                <div className="text-xs text-slate-500 uppercase font-semibold">Total Staked</div>
+                <div className="text-xs text-slate-500 uppercase font-semibold">{t('validatorPage.infrastructurePage.totalStaked', { defaultValue: 'Total Staked' })}</div>
                 <div className="text-2xl font-bold" style={{ fontFamily: "'Outfit', sans-serif" }} data-testid="total-staked">
                   {(totalStaked / 1000000).toFixed(1)}M <span className="text-sm text-slate-400">TBURN</span>
                 </div>
@@ -280,7 +286,7 @@ export default function ValidatorInfrastructure() {
             <div className="tburn-panel rounded-lg p-4 flex items-center gap-3">
               <GlobeHemisphereWest className="text-3xl text-green-400" weight="fill" size={32} />
               <div>
-                <div className="text-xs text-slate-500 uppercase font-semibold">Epoch / Shards</div>
+                <div className="text-xs text-slate-500 uppercase font-semibold">{t('validatorPage.epoch', { defaultValue: 'Epoch' })} / {t('validatorPage.infrastructurePage.shards', { defaultValue: 'Shards' })}</div>
                 <div className="text-2xl font-bold" style={{ fontFamily: "'Outfit', sans-serif" }} data-testid="epoch-shards">
                   {currentEpoch} <span className="text-sm text-slate-400">/ {totalShards}</span>
                 </div>
@@ -295,14 +301,14 @@ export default function ValidatorInfrastructure() {
           <div className="flex justify-between items-center mb-5">
             <h2 className="text-2xl font-bold flex items-center gap-2" style={{ fontFamily: "'Outfit', sans-serif" }}>
               <GlobeHemisphereWest className="text-accent-trust" size={24} weight="duotone" />
-              Infrastructure Distribution <span className="text-slate-500 text-lg font-normal">({dataCenters} Data Centers)</span>
+              {t('validatorPage.infrastructurePage.distributionByCountry', { defaultValue: 'Distribution by Country' })} <span className="text-slate-500 text-lg font-normal">({dataCenters} {t('validatorPage.dataCenters', { defaultValue: 'Data Centers' })})</span>
             </h2>
             <button 
               onClick={() => setShowNetworkMap(true)}
               className="tburn-panel rounded-full px-5 py-2 text-sm font-medium hover:border-orange-500 hover:bg-orange-500/10 transition flex items-center gap-2" 
               data-testid="button-global-map"
             >
-              <MapTrifold size={16} weight="bold" /> Global Network Map
+              <MapTrifold size={16} weight="bold" /> {t('validatorPage.infrastructurePage.networkMap', { defaultValue: 'Network Map' })}
             </button>
           </div>
 
@@ -312,7 +318,7 @@ export default function ValidatorInfrastructure() {
                 <Flag size={64} weight="fill" className="text-slate-700" />
               </div>
               <h3 className="text-lg font-semibold mb-6 text-center" style={{ fontFamily: "'Outfit', sans-serif" }}>
-                Data Centers by Country
+                {t('validatorPage.infrastructurePage.distributionByCountry', { defaultValue: 'Distribution by Country' })}
               </h3>
               <div className="h-72 relative z-10">
                 <Doughnut data={countryChartData} options={chartOptions} />
@@ -324,7 +330,7 @@ export default function ValidatorInfrastructure() {
                 <Buildings size={64} weight="fill" className="text-slate-700" />
               </div>
               <h3 className="text-lg font-semibold mb-6 text-center" style={{ fontFamily: "'Outfit', sans-serif" }}>
-                Data Centers by Organization
+                {t('validatorPage.infrastructurePage.distributionByAsn', { defaultValue: 'Distribution by ASN' })}
               </h3>
               <div className="h-72 relative z-10">
                 <Doughnut data={orgChartData} options={chartOptions} />
@@ -338,14 +344,14 @@ export default function ValidatorInfrastructure() {
               className={`px-4 py-2 rounded-full text-sm font-medium transition ${distributionView === 'datacenter' ? 'bg-orange-500/90 text-white shadow-lg shadow-orange-900/30' : 'hover:bg-slate-800 text-slate-300'}`}
               data-testid="button-datacenter"
             >
-              Data Center
+              {t('validatorPage.infrastructurePage.datacenter', { defaultValue: 'Data Center' })}
             </button>
             <button 
               onClick={() => setDistributionView('asn')}
               className={`px-4 py-2 rounded-full text-sm font-medium transition ${distributionView === 'asn' ? 'bg-orange-500/90 text-white shadow-lg shadow-orange-900/30' : 'hover:bg-slate-800 text-slate-300'}`}
               data-testid="button-asn"
             >
-              ASN Filter
+              {t('validatorPage.infrastructurePage.asn', { defaultValue: 'ASN' })}
             </button>
             <div className="w-px h-6 bg-slate-700/50 my-auto mx-2" />
             <button 
@@ -353,14 +359,14 @@ export default function ValidatorInfrastructure() {
               className={`px-4 py-2 rounded-full text-sm font-medium transition flex items-center gap-1 ${sortBy === 'stake' ? 'bg-cyan-500/20 text-cyan-400' : 'hover:bg-slate-800 text-slate-300'}`}
               data-testid="button-sort-stake"
             >
-              <SortDescending size={14} weight="bold" /> Sort by Stake
+              <SortDescending size={14} weight="bold" /> {t('validatorPage.infrastructurePage.sortByStake', { defaultValue: 'By Stake' })}
             </button>
             <button 
               onClick={() => setSortBy('count')}
               className={`px-4 py-2 rounded-full text-sm font-medium transition flex items-center gap-1 ${sortBy === 'count' ? 'bg-cyan-500/20 text-cyan-400' : 'hover:bg-slate-800 text-slate-300'}`}
               data-testid="button-sort-count"
             >
-              <ListNumbers size={14} weight="bold" /> Sort by Count
+              <ListNumbers size={14} weight="bold" /> {t('validatorPage.infrastructurePage.sortByCount', { defaultValue: 'By Count' })}
             </button>
           </div>
         </section>
@@ -369,16 +375,16 @@ export default function ValidatorInfrastructure() {
           <div className="flex flex-col md:flex-row justify-between items-end mb-5 gap-4">
             <h2 className="text-2xl font-bold flex items-center gap-2" style={{ fontFamily: "'Outfit', sans-serif" }}>
               <ListDashes className="text-accent-burn" size={24} weight="duotone" />
-              Validator Matrix
+              {t('validatorPage.infrastructurePage.validatorList', { defaultValue: 'Validator List' })}
               {validatorsLoading && <CircleNotch className="animate-spin text-orange-500 ml-2" size={20} />}
-              <span className="text-slate-500 text-lg font-normal ml-2">({validators.length} validators)</span>
+              <span className="text-slate-500 text-lg font-normal ml-2">({validators.length} {t('validatorPage.validators', { defaultValue: 'validators' })})</span>
             </h2>
             
             <div className="flex flex-wrap items-center gap-3">
               <div className="relative group">
                 <input 
                   type="text" 
-                  placeholder="Search Validator, ASN, or Location..."
+                  placeholder={t('validatorPage.searchPlaceholder', { defaultValue: 'Search Validator / ISP...' })}
                   value={searchQuery}
                   onChange={(e) => { setSearchQuery(e.target.value); setCurrentPage(1); }}
                   className="bg-black/30 border border-slate-700 text-slate-200 text-sm rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent block pl-10 p-3 w-72 transition-all group-hover:border-slate-600"
@@ -394,14 +400,14 @@ export default function ValidatorInfrastructure() {
                   className={`px-4 py-2 rounded-md text-sm font-semibold transition ${viewMode === 'stake' ? 'bg-orange-500/10 text-orange-500' : 'text-slate-400 hover:text-slate-200'}`}
                   data-testid="button-stake-view"
                 >
-                  Stake View
+                  {t('validatorPage.infrastructurePage.viewByStake', { defaultValue: 'View by Stake' })}
                 </button>
                 <button 
                   onClick={() => setViewMode('score')}
                   className={`px-4 py-2 rounded-md text-sm font-semibold transition ${viewMode === 'score' ? 'bg-orange-500/10 text-orange-500' : 'text-slate-400 hover:text-slate-200'}`}
                   data-testid="button-score-view"
                 >
-                  Score View
+                  {t('validatorPage.infrastructurePage.viewByScore', { defaultValue: 'View by Score' })}
                 </button>
               </div>
               <button 
@@ -409,7 +415,7 @@ export default function ValidatorInfrastructure() {
                 className={`tburn-panel rounded-lg px-4 py-3 text-sm font-medium transition flex items-center gap-2 ${showFilters ? 'border-cyan-400 text-cyan-400' : 'hover:border-cyan-400/50 text-slate-300'}`}
                 data-testid="button-filters"
               >
-                <SlidersHorizontal size={16} weight="bold" /> Filters
+                <SlidersHorizontal size={16} weight="bold" /> {t('validatorPage.filters', { defaultValue: 'Filters' })}
                 {(filterStatus !== 'all' || filterMinStake > 0) && (
                   <span className="w-2 h-2 rounded-full bg-cyan-400" />
                 )}
@@ -420,7 +426,7 @@ export default function ValidatorInfrastructure() {
           {showFilters && (
             <div className="tburn-panel rounded-xl p-4 mb-4 flex flex-wrap items-center gap-4" data-testid="filter-panel">
               <div className="flex items-center gap-2">
-                <span className="text-sm text-slate-400">Status:</span>
+                <span className="text-sm text-slate-400">{t('validatorPage.infrastructurePage.status', { defaultValue: 'Status' })}:</span>
                 <div className="flex gap-1">
                   {(['all', 'active', 'warning'] as const).map(status => (
                     <button
@@ -429,13 +435,13 @@ export default function ValidatorInfrastructure() {
                       className={`px-3 py-1.5 rounded-md text-xs font-medium transition ${filterStatus === status ? 'bg-orange-500 text-white' : 'bg-slate-800 text-slate-400 hover:bg-slate-700'}`}
                       data-testid={`filter-status-${status}`}
                     >
-                      {status === 'all' ? 'All' : status === 'active' ? 'Active' : 'Warning'}
+                      {status === 'all' ? t('validatorPage.infrastructurePage.filterAll', { defaultValue: 'All' }) : status === 'active' ? t('validatorPage.infrastructurePage.filterActive', { defaultValue: 'Active' }) : t('validatorPage.infrastructurePage.filterWarning', { defaultValue: 'Warning' })}
                     </button>
                   ))}
                 </div>
               </div>
               <div className="flex items-center gap-2">
-                <span className="text-sm text-slate-400">Min Stake:</span>
+                <span className="text-sm text-slate-400">{t('validatorPage.infrastructurePage.minStake', { defaultValue: 'Min Stake' })}:</span>
                 <input
                   type="number"
                   value={filterMinStake}
@@ -451,10 +457,15 @@ export default function ValidatorInfrastructure() {
                 className="px-3 py-1.5 rounded-md text-xs font-medium bg-slate-800 text-slate-400 hover:bg-slate-700 transition"
                 data-testid="filter-reset"
               >
-                Reset Filters
+                {t('validatorPage.governancePage.reset', { defaultValue: 'Reset' })}
               </button>
               <div className="ml-auto text-xs text-slate-500">
-                Showing {filteredValidators.length} of {validators.length} validators
+                {t('validatorPage.showingValidators', { 
+                  defaultValue: 'Showing {{start}}-{{end}} of {{total}} Validators',
+                  start: filteredValidators.length,
+                  end: validators.length,
+                  total: validators.length
+                })}
               </div>
             </div>
           )}
@@ -463,7 +474,7 @@ export default function ValidatorInfrastructure() {
             {validatorsLoading ? (
               <div className="flex items-center justify-center py-20">
                 <CircleNotch className="animate-spin text-orange-500" size={48} />
-                <span className="ml-4 text-slate-400">Loading validators...</span>
+                <span className="ml-4 text-slate-400">{t('validatorPage.loadingValidators', { defaultValue: 'Loading validators...' })}</span>
               </div>
             ) : (
               <>
@@ -471,11 +482,11 @@ export default function ValidatorInfrastructure() {
                   <table className="w-full text-left border-collapse">
                     <thead>
                       <tr className="bg-black/20 text-xs uppercase tracking-wider text-slate-500">
-                        <th className="p-4 font-semibold">Identity & Version</th>
-                        <th className="p-4 font-semibold">Location & Network (ISP)</th>
-                        <th className="p-4 font-semibold text-center">Nodes</th>
-                        <th className="p-4 font-semibold">Status Indicators</th>
-                        <th className="p-4 font-semibold text-right">Active Stake (Share)</th>
+                        <th className="p-4 font-semibold">{t('validatorPage.infrastructurePage.validatorName', { defaultValue: 'Validator Name' })}</th>
+                        <th className="p-4 font-semibold">{t('validatorPage.infrastructurePage.location', { defaultValue: 'Location' })} (ISP)</th>
+                        <th className="p-4 font-semibold text-center">{t('validatorPage.detailPage.nodes', { defaultValue: 'Nodes' })}</th>
+                        <th className="p-4 font-semibold">{t('validatorPage.infrastructurePage.status', { defaultValue: 'Status' })}</th>
+                        <th className="p-4 font-semibold text-right">{t('validatorPage.activeStake', { defaultValue: 'Active Stake (TBURN)' })}</th>
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-slate-800/50 font-medium text-sm">
@@ -546,7 +557,12 @@ export default function ValidatorInfrastructure() {
                 
                 <div className="p-4 border-t border-slate-800/50 flex flex-col md:flex-row justify-between items-center text-sm text-slate-400 bg-black/20 gap-4">
                   <div>
-                    Showing <span className="font-semibold text-white">{filteredValidators.length > 0 ? ((currentPage - 1) * itemsPerPage) + 1 : 0}-{Math.min(currentPage * itemsPerPage, filteredValidators.length)}</span> of <span className="font-semibold text-white">{filteredValidators.length}</span> Validators
+                    {t('validatorPage.showingValidators', { 
+                      defaultValue: 'Showing {{start}}-{{end}} of {{total}} Validators',
+                      start: filteredValidators.length > 0 ? ((currentPage - 1) * itemsPerPage) + 1 : 0,
+                      end: Math.min(currentPage * itemsPerPage, filteredValidators.length),
+                      total: filteredValidators.length
+                    })}
                   </div>
                   <div className="flex gap-2">
                     <button 
@@ -555,7 +571,7 @@ export default function ValidatorInfrastructure() {
                       className="px-3 py-1.5 rounded-md bg-slate-800 hover:bg-slate-700 transition disabled:opacity-50"
                       data-testid="button-prev"
                     >
-                      Previous
+                      {t('validatorPage.prev', { defaultValue: 'Prev' })}
                     </button>
                     {Array.from({ length: Math.min(totalPages, 3) }, (_, i) => i + 1).map(page => (
                       <button 
@@ -578,7 +594,7 @@ export default function ValidatorInfrastructure() {
                       className="px-3 py-1.5 rounded-md bg-slate-800 hover:bg-slate-700 transition disabled:opacity-50"
                       data-testid="button-next"
                     >
-                      Next
+                      {t('validatorPage.next', { defaultValue: 'Next' })}
                     </button>
                   </div>
                 </div>
