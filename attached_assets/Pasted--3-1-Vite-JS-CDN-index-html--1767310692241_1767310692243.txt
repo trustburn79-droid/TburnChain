@@ -1,0 +1,249 @@
+🔴 문제 원인 분석
+핵심 원인 3가지
+원인설명1. Vite 청크 해시 불일치새 빌드 시 JS 청크 파일명이 변경되지만, CDN이 오래된 index.html을 캐시하여 존재하지 않는 파일 요청2. SPA 라우팅 + 서버 설정 충돌React Router가 클라이언트에서 라우팅하지만, 서버가 모든 경로를 index.html로 리다이렉트하지 않음3. Replit 서버 메모리/연결 제한무료/저가 플랜에서 일정 시간 후 서버가 슬립 모드로 전환되거나 연결 끊김
+
+✅ 근본적인 해결책
+1. vite.config.ts 수정 (청크 파일명 고정)
+typescript// vite.config.ts
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+
+export default defineConfig({
+  plugins: [react()],
+  build: {
+    // 청크 파일명에서 해시 제거 또는 고정
+    rollupOptions: {
+      output: {
+        // 엔트리 파일명 고정
+        entryFileNames: 'assets/[name].js',
+        // 청크 파일명 고정
+        chunkFileNames: 'assets/[name].js',
+        // 에셋 파일명 고정
+        assetFileNames: 'assets/[name].[ext]',
+        // 또는 매뉴얼 청크로 분리
+        manualChunks: {
+          vendor: ['react', 'react-dom', 'react-router-dom'],
+          // 추가 라이브러리...
+        }
+      }
+    },
+    // 소스맵 비활성화 (프로덕션)
+    sourcemap: false,
+  },
+  // 기본 경로 설정
+  base: '/',
+});
+
+2. replit.nix 또는 .replit 파일 수정
+nix# replit.nix
+{ pkgs }: {
+  deps = [
+    pkgs.nodejs-18_x
+    pkgs.nodePackages.vite
+  ];
+}
+toml# .replit
+run = "npm run start"
+entrypoint = "index.html"
+
+[nix]
+channel = "stable-23_11"
+
+[deployment]
+run = ["sh", "-c", "npm run build && npm run preview"]
+deploymentTarget = "static"
+publicDir = "dist"
+
+# 중요: 모든 경로를 index.html로 리다이렉트
+[[redirects]]
+from = "/*"
+to = "/index.html"
+status = 200
+
+3. Express 서버 사용 (가장 확실한 방법)
+Replit에서 정적 파일 서빙 대신 Express 서버를 사용하세요:
+javascript// server.js
+const express = require('express');
+const path = require('path');
+const compression = require('compression');
+
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+// Gzip 압축
+app.use(compression());
+
+// 캐시 제어 헤더 설정
+app.use((req, res, next) => {
+  // HTML 파일은 캐시하지 않음
+  if (req.url.endsWith('.html') || req.url === '/') {
+    res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+    res.setHeader('Pragma', 'no-cache');
+    res.setHeader('Expires', '0');
+  } else {
+    // 정적 에셋은 1년 캐시 (파일명에 해시 포함 시)
+    res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
+  }
+  next();
+});
+
+// 정적 파일 서빙
+app.use(express.static(path.join(__dirname, 'dist'), {
+  etag: true,
+  lastModified: true,
+}));
+
+// 모든 경로를 index.html로 리다이렉트 (SPA 지원)
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+});
+
+// 에러 핸들링
+app.use((err, req, res, next) => {
+  console.error('Server Error:', err);
+  res.status(500).send('Internal Server Error');
+});
+
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`Server running on port ${PORT}`);
+});
+package.json 수정:
+json{
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "start": "node server.js",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "compression": "^1.7.4"
+  }
+}
+
+4. index.html에 메타 태그 추가
+html<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- 캐시 방지 메타 태그 -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  
+  <!-- 버전 관리 -->
+  <meta name="version" content="2026.01.02.v3">
+  
+  <title>TBURN Chain</title>
+  
+  <script>
+    // 리소스 로딩 실패 시 자동 새로고침 (무한 루프 방지)
+    (function() {
+      const MAX_RETRIES = 2;
+      const RETRY_KEY = 'resource_retry_count';
+      const RETRY_TIME_KEY = 'resource_retry_time';
+      
+      window.addEventListener('error', function(e) {
+        // 스크립트 또는 링크 로딩 실패 감지
+        if (e.target && (e.target.tagName === 'SCRIPT' || e.target.tagName === 'LINK')) {
+          const now = Date.now();
+          const lastRetryTime = parseInt(sessionStorage.getItem(RETRY_TIME_KEY) || '0');
+          let retryCount = parseInt(sessionStorage.getItem(RETRY_KEY) || '0');
+          
+          // 5분 경과 시 카운터 리셋
+          if (now - lastRetryTime > 300000) {
+            retryCount = 0;
+          }
+          
+          if (retryCount < MAX_RETRIES) {
+            sessionStorage.setItem(RETRY_KEY, (retryCount + 1).toString());
+            sessionStorage.setItem(RETRY_TIME_KEY, now.toString());
+            
+            // 캐시 무효화 후 새로고침
+            if ('caches' in window) {
+              caches.keys().then(names => {
+                names.forEach(name => caches.delete(name));
+              }).then(() => {
+                window.location.href = window.location.pathname + '?_=' + now;
+              });
+            } else {
+              window.location.href = window.location.pathname + '?_=' + now;
+            }
+          } else {
+            // 최대 재시도 초과 시 사용자에게 알림
+            document.body.innerHTML = `
+              <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100vh;background:#0F172A;color:#fff;font-family:system-ui;">
+                <h2 style="margin-bottom:1rem;">페이지 로딩 오류</h2>
+                <p style="color:#94A3B8;margin-bottom:1.5rem;">리소스를 불러오는 데 문제가 발생했습니다.</p>
+                <button onclick="sessionStorage.clear();location.href='/'" style="padding:12px 24px;background:#3B82F6;color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:1rem;">
+                  처음부터 다시 시작
+                </button>
+              </div>
+            `;
+          }
+        }
+      }, true);
+      
+      // Service Worker 제거
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.getRegistrations().then(registrations => {
+          registrations.forEach(registration => registration.unregister());
+        });
+      }
+    })();
+  </script>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="module" src="/src/main.tsx"></script>
+</body>
+</html>
+
+5. Vercel/Netlify로 마이그레이션 (권장)
+Replit의 배포 환경이 불안정하다면, 정적 사이트 호스팅에 최적화된 서비스로 이전하는 것이 가장 확실합니다:
+Vercel 설정 (vercel.json):
+json{
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/index.html" }
+  ],
+  "headers": [
+    {
+      "source": "/index.html",
+      "headers": [
+        { "key": "Cache-Control", "value": "no-cache, no-store, must-revalidate" }
+      ]
+    },
+    {
+      "source": "/assets/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+      ]
+    }
+  ]
+}
+```
+
+**Netlify 설정 (_redirects):**
+```
+/*    /index.html   200
+netlify.toml:
+toml[build]
+  publish = "dist"
+  command = "npm run build"
+
+[[headers]]
+  for = "/index.html"
+  [headers.values]
+    Cache-Control = "no-cache, no-store, must-revalidate"
+
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+🚨 즉시 실행해야 할 조치
+순서조치예상 효과1Express 서버 추가 (server.js)SPA 라우팅 + 캐시 제어 완전 해결2vite.config.ts 청크 설정 수정파일명 불일치 문제 해결3index.html 에러 핸들링 추가사용자 경험 개선4Replit 재배포 (새 빌드)CDN 캐시 갱신5(선택) Vercel로 마이그레이션근본적 안정성 확보
+
+이 해결책 중 Express 서버 추가가 가장 확실한 방법입니다. Replit의 정적 파일 서빙 대신 직접 서버를 제어하면 SPA 라우팅과 캐시 문제를 완전히 해결할 수 있습니다.
