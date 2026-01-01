@@ -123,7 +123,7 @@ export default function ValidatorCommandCenter() {
     const uptimePercent = safeUptime / 100;
     
     return {
-      id: v.id,
+      id: v.id || `validator-${index}`,
       name: v.name || `Validator_${index + 1}`,
       address: v.address || '',
       shortAddr: v.address ? (v.address.slice(0, 6) + '...' + v.address.slice(-4)) : 'Unknown',
