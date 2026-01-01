@@ -25,8 +25,14 @@ import { type ValidatorDisplayData, transformValidator, type ValidatorData, calc
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 interface NetworkStats {
+  tps: number;
+  currentBlockHeight: number;
   activeValidators: number;
-  totalStake: number;
+  totalValidators: number;
+  totalShards: number;
+  crossShardMessages: number;
+  avgBlockTime: number;
+  stakedAmount: string;
 }
 
 interface ValidatorApiResponse {
@@ -74,8 +80,11 @@ export default function ValidatorInfrastructure() {
   }, [filteredValidators, currentPage]);
 
   const totalPages = Math.ceil(filteredValidators.length / itemsPerPage);
-  const totalActiveValidators = validators.filter(v => v.performanceStatus === 'good').length || networkStats?.activeValidators || 1892;
-  const totalStaked = validators.reduce((sum, v) => sum + v.stake, 0) || networkStats?.totalStake || 421700000;
+  const totalActiveValidators = networkStats?.activeValidators || validators.filter(v => v.performanceStatus === 'good').length || 1600;
+  const totalValidators = networkStats?.totalValidators || validators.length || 1600;
+  const totalStaked = networkStats?.stakedAmount ? parseFloat(networkStats.stakedAmount) : validators.reduce((sum, v) => sum + v.stake, 0);
+  const currentEpoch = networkStats?.currentBlockHeight ? Math.floor(networkStats.currentBlockHeight / 100000) : 1;
+  const totalShards = networkStats?.totalShards || 64;
 
   const formatNumber = (num: number) => new Intl.NumberFormat('en-US').format(num);
 
@@ -195,13 +204,13 @@ export default function ValidatorInfrastructure() {
             </h1>
             <p className="text-xl text-slate-400 mt-2 font-light">Enterprise Validator Intelligence & Network Telemetry</p>
           </div>
-          <div className="flex gap-4">
+          <div className="flex flex-wrap gap-4">
             <div className="tburn-panel rounded-lg p-4 flex items-center gap-3">
               <Cpu className="text-3xl text-accent-trust" weight="fill" size={32} />
               <div>
                 <div className="text-xs text-slate-500 uppercase font-semibold">Active Validators</div>
                 <div className="text-2xl font-bold" style={{ fontFamily: "'Outfit', sans-serif" }} data-testid="active-validators">
-                  {formatNumber(totalActiveValidators)}
+                  {formatNumber(totalActiveValidators)} <span className="text-sm text-slate-400">/ {formatNumber(totalValidators)}</span>
                 </div>
               </div>
             </div>
@@ -211,6 +220,15 @@ export default function ValidatorInfrastructure() {
                 <div className="text-xs text-slate-500 uppercase font-semibold">Total Staked</div>
                 <div className="text-2xl font-bold" style={{ fontFamily: "'Outfit', sans-serif" }} data-testid="total-staked">
                   {(totalStaked / 1000000).toFixed(1)}M <span className="text-sm text-slate-400">TBURN</span>
+                </div>
+              </div>
+            </div>
+            <div className="tburn-panel rounded-lg p-4 flex items-center gap-3">
+              <GlobeHemisphereWest className="text-3xl text-green-400" weight="fill" size={32} />
+              <div>
+                <div className="text-xs text-slate-500 uppercase font-semibold">Epoch / Shards</div>
+                <div className="text-2xl font-bold" style={{ fontFamily: "'Outfit', sans-serif" }} data-testid="epoch-shards">
+                  {currentEpoch} <span className="text-sm text-slate-400">/ {totalShards}</span>
                 </div>
               </div>
             </div>

@@ -33,9 +33,16 @@ interface ValidatorApiResponse {
 interface ValidatorStatsResponse {
   totalValidators: number;
   activeValidators: number;
-  totalStaked: string;
-  averageCommission: number;
-  averageUptime: number;
+  avgUptime: number;
+}
+
+interface NetworkStats {
+  tps: number;
+  currentBlockHeight: number;
+  activeValidators: number;
+  totalValidators: number;
+  stakedAmount: string;
+  stakedPercent: number;
 }
 
 const proposals: Proposal[] = [
@@ -83,6 +90,12 @@ export default function ValidatorGovernance() {
     staleTime: 30000,
   });
 
+  const { data: networkStats } = useQuery<NetworkStats>({
+    queryKey: ["/api/network/stats"],
+    staleTime: 30000,
+    refetchInterval: 30000,
+  });
+
   const validators: ValidatorDisplayData[] = useMemo(() => {
     if (!validatorResponse?.validators) return [];
     const rawValidators = validatorResponse.validators;
@@ -94,7 +107,11 @@ export default function ValidatorGovernance() {
     return validators.reduce((sum, v) => sum + v.stake, 0);
   }, [validators]);
 
-  const averageAPY = 7.24;
+  const realTotalValidators = networkStats?.totalValidators || statsResponse?.totalValidators || validators.length || 1600;
+  const realActiveValidators = networkStats?.activeValidators || statsResponse?.activeValidators || 1600;
+  const realStakedAmount = networkStats?.stakedAmount ? parseFloat(networkStats.stakedAmount) : totalStaked;
+  const stakedPercent = networkStats?.stakedPercent || 32;
+  const averageAPY = 7.24 + (stakedPercent < 30 ? 1.5 : stakedPercent > 40 ? -0.5 : 0);
 
   useEffect(() => {
     calculateRewards();
@@ -181,18 +198,18 @@ export default function ValidatorGovernance() {
         <div className="flex gap-4">
           <div className="tburn-panel px-5 py-3 rounded-lg text-right">
             <div className="text-xs text-slate-500 uppercase font-bold">Current APY</div>
-            <div className="text-xl font-bold text-orange-500" data-testid="current-apy">{averageAPY}%</div>
+            <div className="text-xl font-bold text-orange-500" data-testid="current-apy">{averageAPY.toFixed(2)}%</div>
           </div>
           <div className="tburn-panel px-5 py-3 rounded-lg text-right">
             <div className="text-xs text-slate-500 uppercase font-bold">Total Staked</div>
             <div className="text-xl font-bold text-white" data-testid="total-staked">
-              {totalStaked > 0 ? `${(totalStaked / 1000000).toFixed(1)}M` : '421.7M'} <span className="text-xs font-normal text-slate-400">TBURN</span>
+              {realStakedAmount > 0 ? `${(realStakedAmount / 1000000).toFixed(1)}M` : '421.7M'} <span className="text-xs font-normal text-slate-400">TBURN</span>
             </div>
           </div>
           <div className="tburn-panel px-5 py-3 rounded-lg text-right">
             <div className="text-xs text-slate-500 uppercase font-bold">Active Validators</div>
             <div className="text-xl font-bold text-cyan-400" data-testid="active-validators">
-              {validators.length || statsResponse?.activeValidators || 1892}
+              {realActiveValidators.toLocaleString()}
             </div>
           </div>
         </div>
