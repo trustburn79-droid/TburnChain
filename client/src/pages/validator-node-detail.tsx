@@ -34,19 +34,32 @@ interface Validator {
 
 interface NetworkStats {
   currentEpoch: number;
+  currentTps: number;
+  activeValidators: number;
+  totalStake: string;
 }
 
-const generateChartData = (length: number, min: number, max: number) => 
-  Array.from({ length }, (_, i) => ({
+const generateChartData = (seed: number, length: number, min: number, max: number) => {
+  const rng = (s: number) => {
+    const x = Math.sin(s) * 10000;
+    return x - Math.floor(x);
+  };
+  return Array.from({ length }, (_, i) => ({
     x: i,
-    value: Math.random() * (max - min) + min
+    value: rng(seed + i) * (max - min) + min
   }));
+};
 
-const generateSpikeData = (length: number) =>
-  Array.from({ length }, (_, i) => ({
+const generateSpikeData = (seed: number, length: number) => {
+  const rng = (s: number) => {
+    const x = Math.sin(s) * 10000;
+    return x - Math.floor(x);
+  };
+  return Array.from({ length }, (_, i) => ({
     x: i,
-    value: Math.random() < 0.1 ? Math.floor(Math.random() * 3) + 1 : 0
+    value: rng(seed + i) < 0.1 ? Math.floor(rng(seed + i + 100) * 3) + 1 : 0
   }));
+};
 
 export default function ValidatorNodeDetail() {
   const params = useParams<{ id: string }>();
@@ -64,19 +77,55 @@ export default function ValidatorNodeDetail() {
 
   const validator = useMemo(() => {
     if (!validatorsData?.validators) return null;
-    return validatorsData.validators.find(v => v.id === validatorId) || validatorsData.validators[0];
+    const found = validatorsData.validators.find(v => v.id === validatorId);
+    if (found) return found;
+    const idNum = parseInt(validatorId || "1");
+    if (!isNaN(idNum) && idNum > 0 && idNum <= validatorsData.validators.length) {
+      return validatorsData.validators[idNum - 1];
+    }
+    return validatorsData.validators[0];
   }, [validatorsData, validatorId]);
 
-  const latencyData = useMemo(() => generateChartData(50, 1.0, 1.4), []);
-  const rootData = useMemo(() => generateSpikeData(40), []);
-  const skippedData = useMemo(() => generateChartData(20, 0.2, 0.4), []);
-  const voteDistData = useMemo(() => generateSpikeData(40), []);
+  const validatorSeed = useMemo(() => {
+    if (!validator) return 1;
+    return validator.address?.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0) || 1;
+  }, [validator]);
 
-  const recentProduction = useMemo(() => [
-    { epoch: networkStats?.currentEpoch || 903, time: "14:44:33 UTC", blocks: 108, total: 108, status: "PERFECT" },
-    { epoch: networkStats?.currentEpoch || 903, time: "14:40:47 UTC", blocks: 108, total: 108, status: "PERFECT" },
-    { epoch: networkStats?.currentEpoch || 903, time: "14:35:12 UTC", blocks: 106, total: 108, status: "SKIPPED 2" },
-  ], [networkStats]);
+  const latencyData = useMemo(() => generateChartData(validatorSeed, 50, 1.0, 1.4), [validatorSeed]);
+  const rootData = useMemo(() => generateSpikeData(validatorSeed + 100, 40), [validatorSeed]);
+  const skippedData = useMemo(() => generateChartData(validatorSeed + 200, 20, 0.2, 0.4), [validatorSeed]);
+  const voteDistData = useMemo(() => generateSpikeData(validatorSeed + 300, 40), [validatorSeed]);
+
+  const recentProduction = useMemo(() => {
+    const epoch = networkStats?.currentEpoch || 903;
+    const now = new Date();
+    const uptimePercent = validator?.uptime ? validator.uptime / 100 : 99.5;
+    const blockSuccess = uptimePercent > 99 ? 108 : Math.floor(108 * (uptimePercent / 100));
+    
+    return [
+      { 
+        epoch, 
+        time: new Date(now.getTime() - 60000).toLocaleTimeString('en-US', { hour12: false, timeZone: 'UTC' }) + ' UTC', 
+        blocks: blockSuccess, 
+        total: 108, 
+        status: blockSuccess === 108 ? "PERFECT" : `SKIPPED ${108 - blockSuccess}` 
+      },
+      { 
+        epoch, 
+        time: new Date(now.getTime() - 300000).toLocaleTimeString('en-US', { hour12: false, timeZone: 'UTC' }) + ' UTC', 
+        blocks: 108, 
+        total: 108, 
+        status: "PERFECT" 
+      },
+      { 
+        epoch: epoch - 1, 
+        time: new Date(now.getTime() - 600000).toLocaleTimeString('en-US', { hour12: false, timeZone: 'UTC' }) + ' UTC', 
+        blocks: blockSuccess, 
+        total: 108, 
+        status: blockSuccess === 108 ? "PERFECT" : `SKIPPED ${108 - blockSuccess}` 
+      },
+    ];
+  }, [networkStats, validator]);
 
   const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text);

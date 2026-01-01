@@ -34,23 +34,44 @@ interface Validator {
   version?: string;
 }
 
-const countryData = [
-  { name: "Germany", value: 25, color: "#ff8c00" },
-  { name: "United States", value: 23, color: "#ff4500" },
-  { name: "Netherlands", value: 18, color: "#00bfff" },
-  { name: "Lithuania", value: 10, color: "#1e90ff" },
-  { name: "UK", value: 8, color: "#6a0dad" },
-  { name: "Other", value: 16, color: "#475569" },
-];
+const countryColors = ["#ff8c00", "#ff4500", "#00bfff", "#1e90ff", "#6a0dad", "#10b981", "#f59e0b"];
+const orgColors = ["#ff8c00", "#ff6347", "#00ced1", "#4682b4", "#9370db", "#10b981", "#f59e0b"];
 
-const orgData = [
-  { name: "TeraSwitch", value: 35, color: "#ff8c00" },
-  { name: "Cherry Servers", value: 20, color: "#ff6347" },
-  { name: "Amazon AWS", value: 10, color: "#00ced1" },
-  { name: "Latitude.sh", value: 10, color: "#4682b4" },
-  { name: "ALLNODES", value: 5, color: "#9370db" },
-  { name: "Other", value: 20, color: "#475569" },
-];
+const countryNames: Record<string, string> = {
+  "US": "United States", "DE": "Germany", "NL": "Netherlands", 
+  "JP": "Japan", "SG": "Singapore", "KR": "South Korea", "GB": "United Kingdom",
+  "FR": "France", "CA": "Canada", "AU": "Australia"
+};
+
+function calculateDistribution(validators: Validator[]) {
+  const countryMap: Record<string, number> = {};
+  const ispMap: Record<string, number> = {};
+  
+  validators.forEach((v, index) => {
+    const seed = v.address?.charCodeAt(5) || index;
+    const locData = getLocationData(v.location, seed);
+    const countryName = countryNames[locData.country] || locData.country;
+    countryMap[countryName] = (countryMap[countryName] || 0) + 1;
+    ispMap[locData.isp] = (ispMap[locData.isp] || 0) + 1;
+  });
+  
+  const total = validators.length || 1;
+  
+  const countrySorted = Object.entries(countryMap)
+    .map(([name, count]) => ({ name, value: Math.round((count / total) * 100) }))
+    .sort((a, b) => b.value - a.value)
+    .slice(0, 6);
+    
+  const ispSorted = Object.entries(ispMap)
+    .map(([name, count]) => ({ name, value: Math.round((count / total) * 100) }))
+    .sort((a, b) => b.value - a.value)
+    .slice(0, 6);
+  
+  return {
+    countryData: countrySorted.map((item, i) => ({ ...item, color: countryColors[i % countryColors.length] })),
+    orgData: ispSorted.map((item, i) => ({ ...item, color: orgColors[i % orgColors.length] }))
+  };
+}
 
 const countryFlags: Record<string, string> = {
   "US": "https://flagcdn.com/w20/us.png",
@@ -72,10 +93,10 @@ const locationMap: Record<string, { city: string; country: string; isp: string }
   "London": { city: "London", country: "GB", isp: "Equinix" },
 };
 
-function getLocationData(location?: string) {
+function getLocationData(location?: string, seed: number = 0) {
   if (!location) {
     const keys = Object.keys(locationMap);
-    const key = keys[Math.floor(Math.random() * keys.length)];
+    const key = keys[seed % keys.length];
     return locationMap[key];
   }
   for (const key of Object.keys(locationMap)) {
@@ -100,7 +121,9 @@ export default function ValidatorInfrastructure() {
   });
 
   const validators = validatorsData?.validators || [];
-  const totalStake = validators.reduce((sum, v) => sum + parseFloat(v.stake), 0);
+  const totalStake = validators.reduce((sum, v) => sum + (parseFloat(v.stake) || 0), 0);
+  
+  const { countryData, orgData } = useMemo(() => calculateDistribution(validators), [validators]);
 
   const filteredValidators = useMemo(() => {
     if (!searchTerm) return validators;
@@ -390,22 +413,27 @@ export default function ValidatorInfrastructure() {
                         </td>
                       </tr>
                     ) : (
-                      paginatedValidators.map((validator, index) => {
-                        const locData = getLocationData(validator.location);
-                        const stake = parseFloat(validator.stake);
+                      paginatedValidators.map((validator, pageIndex) => {
+                        const globalIndex = (currentPage - 1) * itemsPerPage + pageIndex;
+                        const validatorSeed = validator.address?.charCodeAt(10) || globalIndex;
+                        const locData = getLocationData(validator.location, validatorSeed);
+                        const stake = parseFloat(validator.stake) || 0;
                         const stakeShare = totalStake > 0 ? ((stake / totalStake) * 100).toFixed(2) : "0";
-                        const initials = validator.name.slice(0, 2).toUpperCase();
-                        const isGenesis = validator.name.includes("Genesis") || index === 0;
-                        const badCount = Math.floor(Math.random() * 2);
-                        const privateCount = Math.floor(Math.random() * 10);
+                        const initials = (validator.name || 'V').slice(0, 2).toUpperCase();
+                        const isGenesis = (validator.name || '').includes("Genesis") || globalIndex === 0;
+                        const badCount = validatorSeed % 2;
+                        const privateCount = (validatorSeed % 10) + 1;
                         const privatePercent = ((privateCount / 37) * 100).toFixed(1);
+                        const validatorKey = validator.address || `validator-${globalIndex}`;
+                        const validatorUrlId = globalIndex + 1;
+                        const nodeCount = (validatorSeed % 40) + 5;
 
                         return (
                           <tr 
-                            key={validator.id} 
+                            key={validatorKey} 
                             className="tburn-row cursor-pointer"
-                            onClick={() => navigate(`/validator/${validator.id}`)}
-                            data-testid={`row-validator-${validator.id}`}
+                            onClick={() => navigate(`/validator/${validatorUrlId}`)}
+                            data-testid={`row-validator-${validatorUrlId}`}
                           >
                             <td className="p-4">
                               <div className="flex items-center gap-3">
@@ -443,7 +471,7 @@ export default function ValidatorInfrastructure() {
                               </div>
                             </td>
                             <td className="p-4 text-center text-lg text-slate-300" style={{ fontFamily: "'Outfit', sans-serif" }}>
-                              {Math.floor(Math.random() * 40) + 5}
+                              {nodeCount}
                             </td>
                             <td className="p-4">
                               <div className="flex flex-col gap-1">
