@@ -130,10 +130,10 @@ export default function TokenomicsSimulation() {
       <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
         <div>
           <h1 className="text-3xl font-bold" data-testid="text-page-title">
-            {t('tokenomics.title', 'TBURN 20-Year Tokenomics Simulation')}
+            {t('tokenomics.title', 'TBURN 20년 토큰노믹스 마스터플랜')}
           </h1>
           <p className="text-muted-foreground mt-1">
-            {t('tokenomics.subtitle', 'Complete simulation based on v2.1 specification - Target Y20: 69.40B TBURN')}
+            {t('tokenomics.subtitle', 'v4.0.0 Production Ready | 메인넷 제네시스 풀 실행 승인 | 목표 Y20: 69.40억 TBURN')}
           </p>
         </div>
         <div className="flex gap-2">

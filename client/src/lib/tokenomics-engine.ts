@@ -1,9 +1,20 @@
 /**
- * TBURN Lab 20-Year Tokenomics Simulation Engine v2.1
+ * TBURN 20년 토큰 이코노미 마스터 플랜 v4.0.0 Production Ready
  * Enterprise-grade calculation engine for tokenomics simulation
  * 
- * Based on "완전 시뮬레이션 표 (최종 조정)" specification
- * Target: Y20 = 69.40억 TBURN
+ * 시행일: 2025년 12월 22일 (TGE)
+ * 계획 기간: 2025년 12월 22일 ~ 2045년 12월 22일 (20년)
+ * 상태: ✅ 메인넷 제네시스 풀 실행 준비 완료
+ * 작성: TBURN 재단 / Metalock (주식회사 메타록)
+ * 
+ * 핵심 수치:
+ * - 총 발행량 (고정): 10,000,000,000 TBURN (100억)
+ * - 20년 후 최종 공급량: 6,940,000,000 TBURN (69.4억)
+ * - 총 디플레이션: -30.60% (-30.6억 TBURN)
+ * - 20년 총 블록 발행: +19.75억 TBURN
+ * - 20년 총 AI 소각: -50.35억 TBURN
+ * - 블록 시간: 0.5초
+ * - 연간 블록 수: 63,072,000개
  * 
  * This is a pure frontend calculation engine with NO database dependencies
  */
@@ -1254,3 +1265,234 @@ export function getAllVestingChartData(): { month: number; [key: string]: number
   
   return data;
 }
+
+// ============================================================
+// v4.0.0 Production Ready - 메인넷 제네시스 풀 추가 데이터
+// ============================================================
+
+/**
+ * Year-1 체인 활성화 이벤트 예산 총괄 (v4.0)
+ */
+export interface Y1ActivationBudget {
+  category: string;
+  categoryKey: string;
+  amount: number; // 억 TBURN
+  description: string;
+  descriptionKey: string;
+}
+
+export const Y1_ACTIVATION_BUDGET: Y1ActivationBudget[] = [
+  { category: 'Year-1 이벤트 캘린더', categoryKey: 'tokenomics.y1.eventCalendar', amount: 3.20, description: '월별 이벤트', descriptionKey: 'tokenomics.y1.eventCalendar.desc' },
+  { category: '분기별 시즌 이벤트', categoryKey: 'tokenomics.y1.seasonalEvents', amount: 2.50, description: 'Q1~Q4 특별 이벤트', descriptionKey: 'tokenomics.y1.seasonalEvents.desc' },
+  { category: '런칭 캠페인 (TGE +30일)', categoryKey: 'tokenomics.y1.launchCampaign', amount: 1.25, description: '초기 부트스트랩', descriptionKey: 'tokenomics.y1.launchCampaign.desc' },
+  { category: '예비 예산', categoryKey: 'tokenomics.y1.reserve', amount: 0.80, description: '긴급/추가 이벤트', descriptionKey: 'tokenomics.y1.reserve.desc' }
+];
+
+export const Y1_ACTIVATION_TOTAL = 7.75; // 억 TBURN
+
+/**
+ * 런칭 캠페인 (TGE +30일) - v4.0
+ */
+export interface LaunchCampaignEvent {
+  name: string;
+  nameKey: string;
+  description: string;
+  descriptionKey: string;
+  reward: number; // 억 TBURN
+  participants: number;
+}
+
+export const LAUNCH_CAMPAIGN_EVENTS: LaunchCampaignEvent[] = [
+  { name: '🚀 First Mover Bonus', nameKey: 'tokenomics.launch.firstMover', description: '첫 10,000개 지갑에 각 10,000 TBURN 지급', descriptionKey: 'tokenomics.launch.firstMover.desc', reward: 1.00, participants: 10000 },
+  { name: '📈 Staking Race', nameKey: 'tokenomics.launch.stakingRace', description: '스테이킹 상위 100명에게 추가 10% 보상', descriptionKey: 'tokenomics.launch.stakingRace.desc', reward: 0.20, participants: 100 },
+  { name: '📢 Social Blast', nameKey: 'tokenomics.launch.socialBlast', description: '#TBURNLaunch 해시태그 캠페인, 무작위 1,000명', descriptionKey: 'tokenomics.launch.socialBlast.desc', reward: 0.05, participants: 1000 }
+];
+
+export const LAUNCH_CAMPAIGN_TOTAL = 1.25; // 억 TBURN
+
+/**
+ * 분기별 시즌 이벤트 - v4.0
+ */
+export interface SeasonalEvent {
+  quarter: 'Q1' | 'Q2' | 'Q3' | 'Q4';
+  name: string;
+  nameKey: string;
+  reward: number; // 억 TBURN
+  description: string;
+  descriptionKey: string;
+}
+
+export const SEASONAL_EVENTS: SeasonalEvent[] = [
+  { quarter: 'Q1', name: '🌸 Spring Festival', nameKey: 'tokenomics.seasonal.spring', reward: 0.50, description: '봄맞이 스테이킹 부스트 (+10%), 특별 NFT 에어드랍', descriptionKey: 'tokenomics.seasonal.spring.desc' },
+  { quarter: 'Q2', name: '☀️ Summer DeFi', nameKey: 'tokenomics.seasonal.summer', reward: 0.50, description: 'DeFi 참여 보상 2배, LP 마이닝 이벤트', descriptionKey: 'tokenomics.seasonal.summer.desc' },
+  { quarter: 'Q3', name: '🍂 Autumn Governance', nameKey: 'tokenomics.seasonal.autumn', reward: 0.50, description: '거버넌스 참여 보상 3배, DAO 제안 대회', descriptionKey: 'tokenomics.seasonal.autumn.desc' },
+  { quarter: 'Q4', name: '❄️ Winter Celebration', nameKey: 'tokenomics.seasonal.winter', reward: 1.00, description: '연말 대규모 에어드랍, 홀더 감사 이벤트', descriptionKey: 'tokenomics.seasonal.winter.desc' }
+];
+
+/**
+ * Year-1 이벤트 캘린더 (월별 상세) - v4.0
+ */
+export interface MonthlyEvent {
+  date: string;
+  name: string;
+  nameKey: string;
+  amount: number; // 억 TBURN
+  condition: string;
+  conditionKey: string;
+  distribution: string;
+  distributionKey: string;
+}
+
+export const Y1_EVENT_CALENDAR: MonthlyEvent[] = [
+  { date: '상장일', name: '🚀 런칭 에어드랍', nameKey: 'tokenomics.events.launchAirdrop', amount: 0.40, condition: '소셜 미션 완료', conditionKey: 'tokenomics.events.launchAirdrop.condition', distribution: '선착순 + 추첨', distributionKey: 'tokenomics.events.launchAirdrop.dist' },
+  { date: '2026.02', name: '📱 지갑 활성화 캠페인', nameKey: 'tokenomics.events.walletActivation', amount: 0.20, condition: '첫 트랜잭션 발생', conditionKey: 'tokenomics.events.walletActivation.condition', distribution: '자동 지급', distributionKey: 'tokenomics.events.walletActivation.dist' },
+  { date: '2026.03', name: '🎉 Binance 상장 기념', nameKey: 'tokenomics.events.binanceListing', amount: 0.30, condition: '거래량 달성', conditionKey: 'tokenomics.events.binanceListing.condition', distribution: '비례 배분', distributionKey: 'tokenomics.events.binanceListing.dist' },
+  { date: '2026.04', name: '🏆 트레이딩 대회', nameKey: 'tokenomics.events.tradingCompetition', amount: 0.20, condition: '거래량 순위', conditionKey: 'tokenomics.events.tradingCompetition.condition', distribution: '순위별 지급', distributionKey: 'tokenomics.events.tradingCompetition.dist' },
+  { date: '2026.05', name: '🌐 dApp 체험 이벤트', nameKey: 'tokenomics.events.dappExperience', amount: 0.15, condition: '3개 이상 dApp 사용', conditionKey: 'tokenomics.events.dappExperience.condition', distribution: '미션 완료', distributionKey: 'tokenomics.events.dappExperience.dist' },
+  { date: '2026.06', name: '💎 스테이킹 부스트', nameKey: 'tokenomics.events.stakingBoost', amount: 0.25, condition: '30일 이상 스테이킹', conditionKey: 'tokenomics.events.stakingBoost.condition', distribution: '스테이킹 비례', distributionKey: 'tokenomics.events.stakingBoost.dist' },
+  { date: '2026.07', name: '🎨 NFT 캠페인', nameKey: 'tokenomics.events.nftCampaign', amount: 0.15, condition: 'NFT 민팅/거래', conditionKey: 'tokenomics.events.nftCampaign.condition', distribution: '활동 기반', distributionKey: 'tokenomics.events.nftCampaign.dist' },
+  { date: '2026.08', name: '👥 커뮤니티 밋업', nameKey: 'tokenomics.events.communityMeetup', amount: 0.10, condition: '오프라인 참여', conditionKey: 'tokenomics.events.communityMeetup.condition', distribution: '참석자 배분', distributionKey: 'tokenomics.events.communityMeetup.dist' },
+  { date: '2026.09', name: '🔥 번 이벤트', nameKey: 'tokenomics.events.burnEvent', amount: 0.20, condition: '토큰 소각 참여', conditionKey: 'tokenomics.events.burnEvent.condition', distribution: '소각량 비례', distributionKey: 'tokenomics.events.burnEvent.dist' },
+  { date: '2026.10', name: '🎃 할로윈 특별', nameKey: 'tokenomics.events.halloween', amount: 0.10, condition: '테마 미션', conditionKey: 'tokenomics.events.halloween.condition', distribution: '미션 완료', distributionKey: 'tokenomics.events.halloween.dist' },
+  { date: '2026.11', name: '🦃 추수감사 이벤트', nameKey: 'tokenomics.events.thanksgiving', amount: 0.15, condition: '장기 홀더 보상', conditionKey: 'tokenomics.events.thanksgiving.condition', distribution: '보유 기간 비례', distributionKey: 'tokenomics.events.thanksgiving.dist' },
+  { date: '2026.12~01', name: '🎄 연말 페스티벌', nameKey: 'tokenomics.events.yearEnd', amount: 0.30, condition: '종합 활동', conditionKey: 'tokenomics.events.yearEnd.condition', distribution: '활동 점수 기반', distributionKey: 'tokenomics.events.yearEnd.dist' },
+  { date: '2027.02', name: '🎂 1주년 기념', nameKey: 'tokenomics.events.anniversary', amount: 0.50, condition: '1년 홀더 + 활동자', conditionKey: 'tokenomics.events.anniversary.condition', distribution: '복합 기준', distributionKey: 'tokenomics.events.anniversary.dist' }
+];
+
+/**
+ * TGE 즉시 언락 (Day 0: 2025년 12월 22일) - v4.0
+ */
+export interface TGEUnlock {
+  category: string;
+  categoryKey: string;
+  tgePercent: number;
+  amount: number; // 억 TBURN
+  purpose: string;
+  purposeKey: string;
+}
+
+export const TGE_UNLOCKS: TGEUnlock[] = [
+  { category: '에어드랍 (12억 중)', categoryKey: 'tokenomics.tge.airdrop', tgePercent: 10, amount: 1.20, purpose: '초기 커뮤니티 활성화', purposeKey: 'tokenomics.tge.airdrop.purpose' },
+  { category: '퍼블릭 세일 (6억 중)', categoryKey: 'tokenomics.tge.publicSale', tgePercent: 20, amount: 1.20, purpose: '공개 판매 참여자 즉시 유동성', purposeKey: 'tokenomics.tge.publicSale.purpose' },
+  { category: '마케팅 (3억 중)', categoryKey: 'tokenomics.tge.marketing', tgePercent: 15, amount: 0.45, purpose: '런칭 마케팅 즉시 집행', purposeKey: 'tokenomics.tge.marketing.purpose' },
+  { category: 'DEX 유동성', categoryKey: 'tokenomics.tge.dexLiquidity', tgePercent: 100, amount: 5.00, purpose: '초기 유동성 풀 공급 (LP 락 1년)', purposeKey: 'tokenomics.tge.dexLiquidity.purpose' },
+  { category: '제네시스 검증자', categoryKey: 'tokenomics.tge.genesisValidators', tgePercent: 100, amount: 1.25, purpose: '125개 검증자 스테이킹 (락업)', purposeKey: 'tokenomics.tge.genesisValidators.purpose' }
+];
+
+export const TGE_TOTAL_UNLOCK = 9.10; // 억 TBURN (전체 공급의 9.10%)
+export const TGE_ACTUAL_CIRCULATION = 2.85; // 억 TBURN (전체 공급의 2.85%)
+
+/**
+ * 제네시스 검증자 설정 - v4.0
+ */
+export const GENESIS_VALIDATOR_CONFIG = {
+  totalValidators: 125,
+  stakePerValidator: 1000000, // 1,000,000 TBURN (100만)
+  totalTeamStake: 125000000, // 125,000,000 TBURN (1.25억)
+  source: '코어 팀 배분 (8억) 중 일부',
+  unbondingPeriod: 21, // 일
+  slashingDowntime: 1, // 사건당 1%
+  slashingDoubleSign: 5, // 5% + 영구 감옥
+  minSelfDelegation: 10, // 10%
+  commissionRate: 10, // 10% (5-20% 조정 가능)
+  commissionRateRange: { min: 5, max: 20 }
+};
+
+/**
+ * DEX 유동성 풀 설정 - v4.0
+ */
+export interface DEXLiquidityPool {
+  pool: string;
+  poolKey: string;
+  tburnAmount: number; // 억 TBURN
+  pairAmount: string;
+  initialTVL: string;
+}
+
+export const DEX_LIQUIDITY_POOLS: DEXLiquidityPool[] = [
+  { pool: 'TBURN/USDT', poolKey: 'tokenomics.dex.tburnUsdt', tburnAmount: 3.00, pairAmount: '$150M USDT', initialTVL: '$300M' },
+  { pool: 'TBURN/WETH', poolKey: 'tokenomics.dex.tburnWeth', tburnAmount: 2.00, pairAmount: '25,000 ETH', initialTVL: '$200M' }
+];
+
+export const DEX_LP_LOCKUP_DAYS = 365; // 2025.12.22 → 2026.12.22
+export const DEX_INITIAL_PRICE = 0.50; // $0.50 / TBURN
+export const DEX_TOTAL_TVL = '$500M';
+
+/**
+ * AI 기반 소각 메커니즘 - v4.0
+ */
+export interface BurnMechanism {
+  type: string;
+  typeKey: string;
+  y1Amount: number; // 억 TBURN
+  description: string;
+  descriptionKey: string;
+}
+
+export const BURN_MECHANISMS: BurnMechanism[] = [
+  { type: '1. TX 수수료 소각 (50%)', typeKey: 'tokenomics.burn.txFee', y1Amount: 0.50, description: '트랜잭션 수수료의 50% 자동 소각', descriptionKey: 'tokenomics.burn.txFee.desc' },
+  { type: '2. 브릿지 수수료 소각 (30%)', typeKey: 'tokenomics.burn.bridgeFee', y1Amount: 0.30, description: '크로스체인 브릿지 수수료 소각', descriptionKey: 'tokenomics.burn.bridgeFee.desc' },
+  { type: '3. DeFi 프로토콜 소각', typeKey: 'tokenomics.burn.defi', y1Amount: 0.50, description: 'DEX 스왑 수수료 0.05% 소각', descriptionKey: 'tokenomics.burn.defi.desc' },
+  { type: '4. 트레저리 바이백 & 소각', typeKey: 'tokenomics.burn.buyback', y1Amount: 1.30, description: '분기별 바이백 (Q1: 0.20, Q2: 0.30, H2: 0.80)', descriptionKey: 'tokenomics.burn.buyback.desc' },
+  { type: '5. 검증자 슬래싱 소각', typeKey: 'tokenomics.burn.slashing', y1Amount: 0.05, description: '슬래싱 토큰 100% 소각', descriptionKey: 'tokenomics.burn.slashing.desc' },
+  { type: '6. AI 동적 소각', typeKey: 'tokenomics.burn.aiDynamic', y1Amount: 2.95, description: 'AI 알고리즘 기반 적응형 소각', descriptionKey: 'tokenomics.burn.aiDynamic.desc' }
+];
+
+export const Y1_TOTAL_BURN = 5.60; // 억 TBURN
+
+/**
+ * 반감기 일정 - v4.0
+ */
+export interface HalvingSchedule {
+  event: string;
+  eventKey: string;
+  year: number;
+  yearLabel: string;
+  reductionPercent: number;
+  note: string;
+  noteKey: string;
+}
+
+export const HALVING_SCHEDULE: HalvingSchedule[] = [
+  { event: '1차 반감기', eventKey: 'tokenomics.halving.first', year: 6, yearLabel: 'Y6 (2031년)', reductionPercent: -17.6, note: 'Phase 2 시작', noteKey: 'tokenomics.halving.first.note' },
+  { event: '2차 반감기', eventKey: 'tokenomics.halving.second', year: 9, yearLabel: 'Y9 (2034년)', reductionPercent: -10, note: '가속 디플레이션', noteKey: 'tokenomics.halving.second.note' }
+];
+
+/**
+ * 4단계 Phase 전략 - v4.0
+ */
+export interface PhaseStrategy {
+  phase: string;
+  phaseKey: string;
+  period: string;
+  supplyChange: string;
+  changePercent: string;
+  goal: string;
+  goalKey: string;
+}
+
+export const PHASE_STRATEGY: PhaseStrategy[] = [
+  { phase: 'Phase 1: 성장기', phaseKey: 'tokenomics.phase.growth', period: 'Y1~Y5', supplyChange: '100억 → 84.6억', changePercent: '-15.4%', goal: '생태계 구축, 채택 확대', goalKey: 'tokenomics.phase.growth.goal' },
+  { phase: 'Phase 2: 디플레이션기', phaseKey: 'tokenomics.phase.deflation', period: 'Y6~Y10', supplyChange: '84.6억 → 70.8억', changePercent: '-16.3%', goal: '반감기, 가속 소각', goalKey: 'tokenomics.phase.deflation.goal' },
+  { phase: 'Phase 3: 균형기', phaseKey: 'tokenomics.phase.equilibrium', period: 'Y11~Y15', supplyChange: '70.8억 → 70.1억', changePercent: '-1.0%', goal: '발행=소각 균형', goalKey: 'tokenomics.phase.equilibrium.goal' },
+  { phase: 'Phase 4: 최적화기', phaseKey: 'tokenomics.phase.optimization', period: 'Y16~Y20', supplyChange: '70.1억 → 69.4억', changePercent: '-1.0%', goal: '미세 조정, 비전 완성', goalKey: 'tokenomics.phase.optimization.goal' }
+];
+
+/**
+ * 문서 정보 - v4.0
+ */
+export const TOKENOMICS_DOC_INFO = {
+  title: 'TBURN 20년 토큰 이코노미 마스터 플랜',
+  version: '4.0.0 Production Ready',
+  status: '최종 - 제네시스 풀 실행 승인',
+  effectiveDate: '2025년 12월 22일',
+  planPeriod: '2025년 12월 22일 ~ 2045년 12월 22일 (20년)',
+  genesisSupply: '100억 TBURN',
+  finalSupply: '69.4억 TBURN',
+  totalDeflation: '-30.60%',
+  blockRewardPool: '15억 TBURN (반감기: Y6, Y9)',
+  y1ActivationBudget: '7.75억 TBURN',
+  blockTime: '0.5초',
+  annualBlocks: 63072000,
+  author: 'TBURN 재단 / Metalock (주식회사 메타록)'
+};
