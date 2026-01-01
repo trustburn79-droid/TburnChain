@@ -19,7 +19,8 @@ import {
   Buildings,
   Flag,
   ArrowLeft,
-  CircleNotch
+  CircleNotch,
+  House
 } from "@phosphor-icons/react";
 import { type ValidatorDisplayData, transformValidator, type ValidatorData, calculateInfrastructureStats } from "@/lib/validator-utils";
 import { TBurnLogo } from "@/components/tburn-logo";
@@ -251,7 +252,12 @@ export default function ValidatorInfrastructure() {
             </div>
             <span className="text-sm font-medium">{t('validatorPage.infrastructurePage.backToOverview', { defaultValue: 'Back to Overview' })}</span>
           </Link>
-          <LanguageSelector isDark={true} />
+          <div className="flex items-center gap-2">
+            <LanguageSelector isDark={true} />
+            <Link href="/" className="p-2 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 transition" data-testid="link-home">
+              <House size={20} weight="duotone" className="text-slate-300" />
+            </Link>
+          </div>
         </div>
         
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">

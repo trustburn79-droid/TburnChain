@@ -13,7 +13,8 @@ import {
   ChartPieSlice,
   Coins,
   TreeStructure,
-  CircleNotch
+  CircleNotch,
+  House
 } from "@phosphor-icons/react";
 import { type ValidatorDisplayData, transformValidator, type ValidatorData } from "@/lib/validator-utils";
 import { DelegationDialog } from "@/components/DelegationDialog";
@@ -246,6 +247,9 @@ export default function ValidatorCommandCenter() {
           
           <div className="flex gap-4 flex-wrap items-center">
             <LanguageSelector isDark={true} />
+            <Link href="/" className="p-2 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 transition" data-testid="link-home">
+              <House size={20} weight="duotone" className="text-slate-300" />
+            </Link>
             <Link href="/validator/infrastructure" className="glass-panel px-5 py-3 rounded-lg flex items-center gap-2 hover:border-cyan-400/50 transition text-sm font-medium" data-testid="link-infrastructure">
               <TreeStructure className="text-cyan-400" weight="duotone" size={18} />
               {t('validatorPage.infrastructure', { defaultValue: 'Infrastructure' })}
