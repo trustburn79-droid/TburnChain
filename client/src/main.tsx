@@ -13,41 +13,105 @@ declare global {
 }
 
 // ============================================
-// CRITICAL: Dynamic Import Error Handler
+// CRITICAL: Dynamic Import Error Handler with Infinite Loop Prevention
 // Auto-reload when chunk loading fails (stale cache issue)
 // ============================================
+const RELOAD_COOLDOWN_MS = 30000; // 30 seconds between reloads
+const MAX_RELOADS = 3; // Maximum 3 reloads in cooldown period
+
+function getReloadHistory(): number[] {
+  try {
+    const history = sessionStorage.getItem('tburn-reload-history');
+    return history ? JSON.parse(history) : [];
+  } catch {
+    return [];
+  }
+}
+
+function recordReload(): boolean {
+  const now = Date.now();
+  const history = getReloadHistory().filter(t => now - t < RELOAD_COOLDOWN_MS);
+  
+  if (history.length >= MAX_RELOADS) {
+    console.error('[TBURN] Too many reloads - showing error UI instead');
+    return false; // Don't allow reload
+  }
+  
+  history.push(now);
+  sessionStorage.setItem('tburn-reload-history', JSON.stringify(history));
+  return true; // Allow reload
+}
+
+function showChunkErrorUI() {
+  const root = document.getElementById('root');
+  if (root) {
+    root.innerHTML = `
+      <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100vh;background:#030407;color:white;font-family:'Space Grotesk',sans-serif;text-align:center;padding:20px;">
+        <svg width="80" height="80" viewBox="0 0 100 100" style="margin-bottom:24px;">
+          <circle cx="50" cy="50" r="40" stroke="#FF6B35" stroke-width="2" fill="none"/>
+          <path d="M50 20 C35 35, 25 50, 30 65 C35 80, 45 85, 50 85 C55 85, 65 80, 70 65 C75 50, 65 35, 50 20" fill="url(#fg)"/>
+          <defs><linearGradient id="fg" x1="50%" y1="100%" x2="50%" y2="0%">
+            <stop offset="0%" stop-color="#FF6B35"/><stop offset="100%" stop-color="#FFD700"/>
+          </linearGradient></defs>
+        </svg>
+        <h2 style="color:#FF6B35;margin-bottom:16px;font-size:24px;">페이지 리소스를 불러올 수 없습니다</h2>
+        <p style="color:#999;margin-bottom:8px;font-size:14px;">브라우저 캐시 문제로 인해 페이지를 불러올 수 없습니다.</p>
+        <p style="color:#666;margin-bottom:24px;font-size:13px;">아래 버튼을 클릭하거나 Ctrl+Shift+R (Mac: Cmd+Shift+R)을 눌러 강제 새로고침하세요.</p>
+        <button onclick="sessionStorage.clear();location.href=location.origin+'?v='+Date.now()" style="background:linear-gradient(135deg,#FF6B35,#F7931E);color:white;border:none;padding:14px 32px;border-radius:8px;cursor:pointer;font-size:16px;font-weight:600;box-shadow:0 4px 12px rgba(255,107,53,0.3);">
+          강제 새로고침
+        </button>
+        <p style="color:#555;margin-top:24px;font-size:12px;">문제가 지속되면 브라우저 캐시를 삭제해주세요.</p>
+      </div>
+    `;
+  }
+}
+
+function handleChunkError() {
+  if (window.__TBURN_CHUNK_ERROR_RELOAD__) {
+    return; // Already handling
+  }
+  
+  window.__TBURN_CHUNK_ERROR_RELOAD__ = true;
+  
+  // Clear Service Worker and caches
+  if ('caches' in window) {
+    caches.keys().then(names => names.forEach(name => caches.delete(name)));
+  }
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.getRegistrations().then(regs => 
+      regs.forEach(reg => reg.unregister())
+    );
+  }
+  
+  // Check if we can reload
+  if (recordReload()) {
+    console.error('[TBURN] Chunk loading failed - forcing hard reload with cache bust');
+    // Use cache-busting URL to bypass CDN
+    setTimeout(() => {
+      window.location.href = window.location.origin + window.location.pathname + '?_t=' + Date.now();
+    }, 100);
+  } else {
+    // Too many reloads - show manual refresh UI
+    showChunkErrorUI();
+  }
+}
+
 function setupChunkErrorHandler() {
   window.addEventListener('error', (event) => {
     const message = event.message || '';
     const target = event.target as HTMLScriptElement | null;
     
-    // Detect chunk loading failures
     const isChunkError = 
       message.includes('Failed to fetch dynamically imported module') ||
       message.includes('Loading chunk') ||
       message.includes('Loading CSS chunk') ||
       (target?.tagName === 'SCRIPT' && target?.src?.includes('/assets/'));
     
-    if (isChunkError && !window.__TBURN_CHUNK_ERROR_RELOAD__) {
-      console.error('[TBURN] Chunk loading failed - performing auto-reload');
-      window.__TBURN_CHUNK_ERROR_RELOAD__ = true;
-      sessionStorage.setItem('tburn-chunk-error-reload', Date.now().toString());
-      
-      // Clear all caches and force reload
-      if ('caches' in window) {
-        caches.keys().then(names => {
-          names.forEach(name => caches.delete(name));
-        });
-      }
-      
-      // Force hard reload after small delay
-      setTimeout(() => {
-        window.location.reload();
-      }, 100);
+    if (isChunkError) {
+      handleChunkError();
     }
   }, true);
   
-  // Handle unhandled promise rejections (for async import failures)
   window.addEventListener('unhandledrejection', (event) => {
     const reason = event.reason?.message || String(event.reason) || '';
     
@@ -56,14 +120,8 @@ function setupChunkErrorHandler() {
       reason.includes('Loading chunk') ||
       reason.includes('error loading dynamically imported module');
     
-    if (isChunkError && !window.__TBURN_CHUNK_ERROR_RELOAD__) {
-      console.error('[TBURN] Dynamic import failed - performing auto-reload');
-      window.__TBURN_CHUNK_ERROR_RELOAD__ = true;
-      sessionStorage.setItem('tburn-chunk-error-reload', Date.now().toString());
-      
-      setTimeout(() => {
-        window.location.reload();
-      }, 100);
+    if (isChunkError) {
+      handleChunkError();
     }
   });
 }
@@ -71,7 +129,14 @@ function setupChunkErrorHandler() {
 // Initialize chunk error handler immediately
 setupChunkErrorHandler();
 
-const BUILD_VERSION = "2026.01.02.v1";
+// Clear reload history if app loads successfully (after 5 seconds)
+setTimeout(() => {
+  if (window.__TBURN_INITIALIZED__) {
+    sessionStorage.removeItem('tburn-reload-history');
+  }
+}, 5000);
+
+const BUILD_VERSION = "2026.01.02.v2";
 
 function safeInitApp() {
   const htmlVersion = document.documentElement.getAttribute("data-version");
