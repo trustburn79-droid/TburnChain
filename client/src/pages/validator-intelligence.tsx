@@ -13,10 +13,14 @@ import {
   ArrowSquareOut,
   UserFocus,
   CheckCircle,
-  CircleNotch
+  CircleNotch,
+  Coins,
+  Wallet
 } from "@phosphor-icons/react";
 import { useState, useMemo } from "react";
 import { type ValidatorData } from "@/lib/validator-utils";
+import { DelegationDialog } from "@/components/DelegationDialog";
+import { Button } from "@/components/ui/button";
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, BarElement, Filler, Tooltip);
 
@@ -58,6 +62,11 @@ export default function ValidatorIntelligence() {
   const [currentPath] = useLocation();
   const validatorAddress = currentPath.split('/validator/')[1] || '';
   const [copiedField, setCopiedField] = useState<string | null>(null);
+  const [delegationDialogOpen, setDelegationDialogOpen] = useState(false);
+  const [delegationMode, setDelegationMode] = useState<'delegate' | 'undelegate'>('delegate');
+  
+  const mockWalletAddress = "tb1qw508d6qejxtdg4y5r3zarvary0c5xw7kxpjzsx";
+  const mockWalletBalance = 50000;
 
   const { data: validator, isLoading } = useQuery<ValidatorData>({
     queryKey: [`/api/validators/${validatorAddress}`],
@@ -378,6 +387,34 @@ export default function ValidatorIntelligence() {
               <div className="h-px bg-white/5" />
 
               <div className="flex flex-col gap-3">
+                <div className="grid grid-cols-2 gap-2">
+                  <Button
+                    onClick={() => {
+                      setDelegationMode('delegate');
+                      setDelegationDialogOpen(true);
+                    }}
+                    className="bg-orange-500 hover:bg-orange-600 text-white"
+                    data-testid="button-delegate"
+                  >
+                    <Coins size={16} className="mr-2" />
+                    Delegate
+                  </Button>
+                  <Button
+                    onClick={() => {
+                      setDelegationMode('undelegate');
+                      setDelegationDialogOpen(true);
+                    }}
+                    variant="outline"
+                    className="border-white/20 hover:bg-white/10 text-white"
+                    data-testid="button-undelegate"
+                  >
+                    <Wallet size={16} className="mr-2" />
+                    Undelegate
+                  </Button>
+                </div>
+                
+                <div className="h-px bg-white/5 my-2" />
+                
                 <Link href="/validator-governance" className="flex items-center justify-between p-3 rounded-lg bg-white/5 hover:bg-white/10 transition group border border-transparent hover:border-white/10">
                   <span className="text-sm text-slate-300">Governance & Rewards</span>
                   <ArrowSquareOut size={16} weight="bold" className="text-slate-500 group-hover:text-white" />
@@ -436,6 +473,26 @@ export default function ValidatorIntelligence() {
           </div>
         </aside>
       </main>
+
+      {validator && (
+        <DelegationDialog
+          open={delegationDialogOpen}
+          onOpenChange={setDelegationDialogOpen}
+          validator={{
+            address: validator.address,
+            name: validator.name || 'Unknown Validator',
+            commission: validator.commission || 500,
+            apy: validator.apy || 724,
+            stake: parseFloat(validator.stake || '0'),
+            delegatedStake: parseFloat(validator.delegatedStake || '0'),
+            delegators: validator.delegators || 0,
+            uptime: validator.uptime
+          }}
+          walletAddress={mockWalletAddress}
+          walletBalance={mockWalletBalance}
+          mode={delegationMode}
+        />
+      )}
     </div>
   );
 }

@@ -24,6 +24,7 @@ export interface ValidatorData {
   createdAt: string;
   region?: string;
   delegators?: number;
+  apy?: number;
 }
 
 export interface ValidatorDisplayData {

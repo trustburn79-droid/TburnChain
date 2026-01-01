@@ -16,6 +16,8 @@ import {
   CircleNotch
 } from "@phosphor-icons/react";
 import { type ValidatorDisplayData, transformValidator, type ValidatorData } from "@/lib/validator-utils";
+import { DelegationDialog } from "@/components/DelegationDialog";
+import { Button } from "@/components/ui/button";
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip, Legend);
 
@@ -50,6 +52,12 @@ export default function ValidatorCommandCenter() {
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 8;
+  
+  const [delegationDialogOpen, setDelegationDialogOpen] = useState(false);
+  const [selectedValidator, setSelectedValidator] = useState<ValidatorDisplayData | null>(null);
+  
+  const mockWalletAddress = "tb1qw508d6qejxtdg4y5r3zarvary0c5xw7kxpjzsx";
+  const mockWalletBalance = 50000;
 
   const { data: networkStats } = useQuery<NetworkStats>({
     queryKey: ["/api/network/stats"],
@@ -367,6 +375,7 @@ export default function ValidatorCommandCenter() {
                         <th className="p-5 font-semibold text-center">Version</th>
                         <th className="p-5 font-semibold text-right">Active Stake (TBURN)</th>
                         <th className="p-5 font-semibold text-right">Performance</th>
+                        <th className="p-5 font-semibold text-center">Actions</th>
                       </tr>
                     </thead>
                     <tbody className="text-sm divide-y divide-white/5">
@@ -426,6 +435,21 @@ export default function ValidatorCommandCenter() {
                               <span className="text-slate-300">{validator.performance}</span>
                             </div>
                           </td>
+                          <td className="p-5 text-center">
+                            <Button
+                              size="sm"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                setSelectedValidator(validator);
+                                setDelegationDialogOpen(true);
+                              }}
+                              className="bg-amber-500 hover:bg-amber-600 text-white text-xs"
+                              data-testid={`button-delegate-${validator.id}`}
+                            >
+                              <Coins size={14} className="mr-1" />
+                              Delegate
+                            </Button>
+                          </td>
                         </tr>
                       ))}
                     </tbody>
@@ -474,6 +498,25 @@ export default function ValidatorCommandCenter() {
         </section>
 
       </div>
+
+      {selectedValidator && (
+        <DelegationDialog
+          open={delegationDialogOpen}
+          onOpenChange={setDelegationDialogOpen}
+          validator={{
+            address: selectedValidator.address,
+            name: selectedValidator.name,
+            commission: selectedValidator.commission * 100,
+            apy: 724,
+            stake: selectedValidator.stake,
+            delegators: selectedValidator.delegators,
+            uptime: selectedValidator.uptime
+          }}
+          walletAddress={mockWalletAddress}
+          walletBalance={mockWalletBalance}
+          mode="delegate"
+        />
+      )}
     </div>
   );
 }
