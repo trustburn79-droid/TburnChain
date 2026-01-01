@@ -122,6 +122,21 @@ class DataCacheService {
   }
 
   /**
+   * Delete a specific cache entry
+   * @param key Cache key to delete
+   * @returns true if the key existed and was deleted, false otherwise
+   */
+  del(key: string): boolean {
+    const existed = this.cache.has(key);
+    if (existed) {
+      this.cache.delete(key);
+      this.stats.size = this.cache.size;
+      console.log(`[DataCache] Deleted ${key}`);
+    }
+    return existed;
+  }
+
+  /**
    * Check if cache has any data (fresh or stale)
    * @param key Cache key
    */

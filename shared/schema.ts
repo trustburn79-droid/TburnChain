@@ -1082,6 +1082,9 @@ export const memberPerformanceMetrics = pgTable("member_performance_metrics", {
   performanceScore: integer("performance_score").notNull().default(5000), // 0-10000
   performanceRank: integer("performance_rank"), // overall rank among validators
   
+  // Activity Tracking
+  lastLoginAt: timestamp("last_login_at"),
+  
   metricsUpdatedAt: timestamp("metrics_updated_at").notNull().defaultNow(),
 });
 
