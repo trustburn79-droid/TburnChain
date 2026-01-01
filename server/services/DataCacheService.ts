@@ -163,7 +163,8 @@ class DataCacheService {
    */
   clearPattern(pattern: string): void {
     let cleared = 0;
-    for (const key of this.cache.keys()) {
+    const keys = Array.from(this.cache.keys());
+    for (const key of keys) {
       if (key.startsWith(pattern)) {
         this.cache.delete(key);
         cleared++;
