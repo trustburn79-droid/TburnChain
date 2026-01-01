@@ -373,9 +373,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // This runs in background and keeps cache warm, decoupling UI from live RPC
   const dataPoller = getProductionDataPoller();
   
-  // In development, defer heavy services to allow Vite to serve frontend first
+  // Defer heavy services in both dev AND production for fast cold-start
+  // This allows the server to respond to health checks immediately
   const isDev = process.env.NODE_ENV === 'development';
-  const HEAVY_INIT_DELAY = isDev ? 8000 : 0; // 8 seconds in dev, immediate in prod
+  const HEAVY_INIT_DELAY = isDev ? 8000 : 3000; // 8 seconds in dev, 3 seconds in prod (after health check)
   
   function startHeavyServices() {
     dataPoller.start().then(() => {
@@ -385,12 +386,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
     });
   }
   
-  if (isDev) {
-    console.log('[Routes] 🚀 Development mode: Deferring heavy services by 8s to allow Vite to serve frontend first');
-    setTimeout(startHeavyServices, HEAVY_INIT_DELAY);
-  } else {
-    startHeavyServices();
-  }
+  // Always defer heavy services to allow server to start responding immediately
+  console.log(`[Routes] 🚀 Deferring heavy services by ${HEAVY_INIT_DELAY/1000}s for fast cold-start`);
+  setTimeout(startHeavyServices, HEAVY_INIT_DELAY);
 
   // Initialize validator simulation service
   let validatorSimulation: ValidatorSimulationService | null = null;
@@ -475,15 +473,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   }
   
-  // Initialize on startup - deferred in development to allow Vite to serve frontend first
-  if (isDev) {
-    setTimeout(() => {
-      console.log('[Routes] 🚀 Starting validator simulation (deferred)...');
-      initializeValidatorSimulation();
-    }, HEAVY_INIT_DELAY + 1000); // 9 seconds in dev (after data poller starts)
-  } else {
+  // Initialize on startup - deferred in BOTH dev and prod for fast cold-start
+  const VALIDATOR_INIT_DELAY = isDev ? HEAVY_INIT_DELAY + 1000 : 5000; // 9s in dev, 5s in prod
+  setTimeout(() => {
+    console.log('[Routes] 🚀 Starting validator simulation (deferred)...');
     initializeValidatorSimulation();
-  }
+  }, VALIDATOR_INIT_DELAY);
 
   // WebSocket clients - initialized early for use in broadcast functions
   const clients = new Set<WebSocket>();

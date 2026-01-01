@@ -71,6 +71,7 @@ declare module 'http' {
 // 이렇게 해야 구글 서버에 설치된 Redis를 32개 코어가 같이 씁니다.
 const REDIS_URL = process.env.REDIS_URL || "redis://localhost:6379";
 const isReplit = process.env.REPL_ID !== undefined; // Replit 환경 감지
+const isReplitAutoscale = !isReplit && !process.env.REDIS_URL; // Replit Autoscale 환경 (REPL_ID 없고 REDIS_URL도 없음)
 
 // ★ 쿠키 보안 설정 - 환경변수로 제어 가능
 // COOKIE_SECURE=true 설정하면 HTTPS 전용 쿠키 활성화 (Nginx TLS 완료 후)
@@ -81,13 +82,13 @@ let sessionStore: session.Store;
 let sessionStoreType: string;
 
 // ★ [수정 4] Redis 연결 로직 강화
-// Replit 환경에서는 MemoryStore 사용, 프로덕션(구글 클라우드)에서는 Redis 사용
-if (isReplit) {
-  // Replit 개발 환경: MemoryStore 사용 (Redis 없음)
+// Replit 환경 및 Autoscale에서는 MemoryStore 사용, 프로덕션(구글 클라우드+Redis)에서는 Redis 사용
+if (isReplit || isReplitAutoscale) {
+  // Replit 개발/Autoscale 환경: MemoryStore 사용 (Redis 없음)
   sessionStore = new MemoryStore({
     checkPeriod: 86400000, // prune expired entries every 24h
   });
-  sessionStoreType = "MemoryStore (Replit Development)";
+  sessionStoreType = isReplitAutoscale ? "MemoryStore (Replit Autoscale)" : "MemoryStore (Replit Development)";
 } else {
   // 프로덕션 환경 (구글 클라우드): Redis 사용
   console.log(`[Init] Attempting to connect to Redis at ${REDIS_URL}...`);
