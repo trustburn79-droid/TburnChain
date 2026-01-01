@@ -926,15 +926,17 @@ export class ValidatorSimulationService {
     
     // Block production every 100ms - CRITICAL: Strict 100ms cadence for mainnet
     // The 100ms BLOCK_TIME is a hard requirement for mainnet launch (10 blocks/second)
-    this.blockInterval = setInterval(() => {
-      // Each function immediately increments its counter and fires DB writes asynchronously
-      // No blocking - this ensures exactly 10 blocks/second
+    this.blockInterval = setInterval(async () => {
+      // Each function fires DB writes asynchronously with error isolation
+      // Errors are caught and logged but don't crash the process
       try {
-        this.simulateBlockProduction();
-        this.simulateConsensusRound();
-        this.updateNetworkStats();
-      } catch (error) {
-        console.error("Error in block production:", error);
+        await Promise.allSettled([
+          this.simulateBlockProduction().catch(e => console.error("Block production error:", e.message)),
+          this.simulateConsensusRound().catch(e => console.error("Consensus round error:", e.message)),
+          this.updateNetworkStats().catch(e => console.error("Network stats error:", e.message)),
+        ]);
+      } catch (error: any) {
+        console.error("Error in block production interval:", error.message);
       }
     }, ENTERPRISE_VALIDATORS_CONFIG.BLOCK_TIME);
     
