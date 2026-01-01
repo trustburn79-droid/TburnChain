@@ -1,11 +1,18 @@
 /**
- * TBURN 20년 토큰 이코노미 마스터 플랜 v4.0.0 Production Ready
+ * TBURN 20년 토큰 이코노미 마스터 플랜 v4.3.0 Production Ready
  * Enterprise-grade calculation engine for tokenomics simulation
  * 
  * 시행일: 2025년 12월 22일 (TGE)
  * 계획 기간: 2025년 12월 22일 ~ 2045년 12월 22일 (20년)
- * 상태: ✅ 메인넷 제네시스 풀 실행 준비 완료
- * 작성: TBURN 재단 / Metalock (주식회사 메타록)
+ * 상태: ✅ 최종 승인 - 제네시스 풀 실행 준비 완료
+ * 작성: TBURN Foundation
+ * 
+ * v4.3 주요 변경사항:
+ * - 보상: 23% → 22% (블록보상 14.5억, 검증자 7.5억)
+ * - 생태계: 15% → 14% (펀드 7억)
+ * - 팀: 12% → 11% (코어팀 7억)
+ * - 재단 운영 예비금: 0% → 3% (+3% 신설)
+ * - 투자자 TGE: 업계 표준 적용 (시드 0%, 프라이빗 5%, 퍼블릭 15%)
  * 
  * 핵심 수치:
  * - 총 발행량 (고정): 10,000,000,000 TBURN (100억)
@@ -773,7 +780,8 @@ export interface GenesisSubcategory {
 
 /**
  * Genesis Distribution - 100억 TBURN
- * Based on v2.0 specification
+ * Based on v4.3 Production Ready specification
+ * 재단 운영 예비금 3% 신설 + 업계 표준 투자자 TGE 적용
  */
 export const GENESIS_DISTRIBUTION: GenesisCategory[] = [
   {
@@ -785,22 +793,24 @@ export const GENESIS_DISTRIBUTION: GenesisCategory[] = [
     description: '커뮤니티 보상, 에어드랍 및 탈중앙화 성장 이니셔티브',
     descriptionKey: 'tokenomics.genesis.community.desc',
     subcategories: [
-      { id: 'airdrop', name: '에어드랍 프로그램', nameKey: 'tokenomics.genesis.airdrop', amount: 12, percentage: 40 },
-      { id: 'community_rewards', name: '커뮤니티 보상', nameKey: 'tokenomics.genesis.communityRewards', amount: 10, percentage: 33.3 },
+      { id: 'airdrop', name: '에어드랍', nameKey: 'tokenomics.genesis.airdrop', amount: 12, percentage: 40 },
+      { id: 'referral', name: '레퍼럴', nameKey: 'tokenomics.genesis.referral', amount: 3, percentage: 10 },
+      { id: 'events', name: '이벤트', nameKey: 'tokenomics.genesis.events', amount: 4, percentage: 13.3 },
+      { id: 'community_rewards', name: '커뮤니티활동', nameKey: 'tokenomics.genesis.communityRewards', amount: 3, percentage: 10 },
       { id: 'dao_treasury', name: 'DAO 트레저리', nameKey: 'tokenomics.genesis.daoTreasury', amount: 8, percentage: 26.7 }
     ]
   },
   {
     id: 'rewards',
-    name: '리워드',
+    name: '보상',
     nameKey: 'tokenomics.genesis.rewards',
-    amount: 23,
-    percentage: 23,
-    description: '네트워크 보안을 위한 블록 보상 및 검증자 인센티브',
+    amount: 22,
+    percentage: 22,
+    description: '네트워크 보안을 위한 블록 보상 및 검증자 인센티브 (v4.3: 23%→22%)',
     descriptionKey: 'tokenomics.genesis.rewards.desc',
     subcategories: [
-      { id: 'block_rewards', name: '블록 보상', nameKey: 'tokenomics.genesis.blockRewards', amount: 15, percentage: 65.2 },
-      { id: 'validator_incentives', name: '검증자 인센티브', nameKey: 'tokenomics.genesis.validatorIncentives', amount: 8, percentage: 34.8 }
+      { id: 'block_rewards', name: '블록 보상', nameKey: 'tokenomics.genesis.blockRewards', amount: 14.5, percentage: 65.9 },
+      { id: 'validator_incentives', name: '검증자 인센티브', nameKey: 'tokenomics.genesis.validatorIncentives', amount: 7.5, percentage: 34.1 }
     ]
   },
   {
@@ -809,40 +819,54 @@ export const GENESIS_DISTRIBUTION: GenesisCategory[] = [
     nameKey: 'tokenomics.genesis.investors',
     amount: 20,
     percentage: 20,
-    description: '시드, 프라이빗 및 퍼블릭 라운드 배분 (베스팅 스케줄 포함)',
+    description: '시드, 프라이빗 및 퍼블릭 라운드 배분 (업계 표준 TGE 적용)',
     descriptionKey: 'tokenomics.genesis.investors.desc',
     subcategories: [
-      { id: 'seed', name: 'Seed Round', nameKey: 'tokenomics.genesis.seed', amount: 5, percentage: 25 },
-      { id: 'private', name: 'Private Round', nameKey: 'tokenomics.genesis.private', amount: 9, percentage: 45 },
-      { id: 'public', name: 'Public Sale', nameKey: 'tokenomics.genesis.public', amount: 6, percentage: 30 }
+      { id: 'seed', name: 'Seed Round (TGE 0%)', nameKey: 'tokenomics.genesis.seed', amount: 5, percentage: 25 },
+      { id: 'private', name: 'Private Round (TGE 5%)', nameKey: 'tokenomics.genesis.private', amount: 9, percentage: 45 },
+      { id: 'public', name: 'Public Sale (TGE 15%)', nameKey: 'tokenomics.genesis.public', amount: 6, percentage: 30 }
     ]
   },
   {
     id: 'ecosystem',
     name: '생태계',
     nameKey: 'tokenomics.genesis.ecosystem',
-    amount: 15,
-    percentage: 15,
-    description: '그랜트, 파트너십 및 생태계 개발 이니셔티브',
+    amount: 14,
+    percentage: 14,
+    description: '그랜트, 파트너십 및 생태계 개발 이니셔티브 (v4.3: 15%→14%)',
     descriptionKey: 'tokenomics.genesis.ecosystem.desc',
     subcategories: [
-      { id: 'ecosystem_fund', name: '생태계 펀드', nameKey: 'tokenomics.genesis.ecosystemFund', amount: 8, percentage: 53.3 },
-      { id: 'partnerships', name: '파트너십', nameKey: 'tokenomics.genesis.partnerships', amount: 4, percentage: 26.7 },
-      { id: 'marketing', name: '마케팅 & 성장', nameKey: 'tokenomics.genesis.marketing', amount: 3, percentage: 20 }
+      { id: 'ecosystem_fund', name: '생태계 펀드', nameKey: 'tokenomics.genesis.ecosystemFund', amount: 7, percentage: 50 },
+      { id: 'partnerships', name: '파트너십', nameKey: 'tokenomics.genesis.partnerships', amount: 4, percentage: 28.6 },
+      { id: 'marketing', name: '마케팅', nameKey: 'tokenomics.genesis.marketing', amount: 3, percentage: 21.4 }
     ]
   },
   {
     id: 'team',
     name: '팀',
     nameKey: 'tokenomics.genesis.team',
-    amount: 12,
-    percentage: 12,
-    description: '4년 베스팅 스케줄이 있는 코어 팀 및 어드바이저',
+    amount: 11,
+    percentage: 11,
+    description: '4년 베스팅 스케줄이 있는 코어 팀 및 어드바이저 (v4.3: 12%→11%)',
     descriptionKey: 'tokenomics.genesis.team.desc',
     subcategories: [
-      { id: 'core_team', name: '코어 팀', nameKey: 'tokenomics.genesis.coreTeam', amount: 8, percentage: 66.7 },
-      { id: 'advisors', name: '어드바이저', nameKey: 'tokenomics.genesis.advisors', amount: 2, percentage: 16.7 },
-      { id: 'strategic_partners', name: '전략적 파트너', nameKey: 'tokenomics.genesis.strategicPartners', amount: 2, percentage: 16.7 }
+      { id: 'core_team', name: '코어 팀', nameKey: 'tokenomics.genesis.coreTeam', amount: 7, percentage: 63.6 },
+      { id: 'advisors', name: '어드바이저', nameKey: 'tokenomics.genesis.advisors', amount: 2, percentage: 18.2 },
+      { id: 'strategic_partners', name: '전략 파트너', nameKey: 'tokenomics.genesis.strategicPartners', amount: 2, percentage: 18.2 }
+    ]
+  },
+  {
+    id: 'foundation_reserve',
+    name: '재단 운영 예비금',
+    nameKey: 'tokenomics.genesis.foundationReserve',
+    amount: 3,
+    percentage: 3,
+    description: '초기 운영, 체인 활성화, 긴급 대응을 위한 TGE 가용 물량 (v4.3 신설)',
+    descriptionKey: 'tokenomics.genesis.foundationReserve.desc',
+    subcategories: [
+      { id: 'operations', name: '운영 예비금 (TGE 30%)', nameKey: 'tokenomics.genesis.operations', amount: 1.5, percentage: 50 },
+      { id: 'emergency', name: '긴급 예비금 (TGE 50%)', nameKey: 'tokenomics.genesis.emergency', amount: 1.0, percentage: 33.3 },
+      { id: 'strategic_investment', name: '전략 투자', nameKey: 'tokenomics.genesis.strategicInvestment', amount: 0.5, percentage: 16.7 }
     ]
   }
 ];
@@ -866,6 +890,10 @@ export interface InvestorRound {
   totalMonths: number;      // Total lock period
 }
 
+/**
+ * Investor Rounds - v4.3 업계 표준 TGE 적용
+ * 원칙: 높은 가격 참여 → 높은 TGE (공정성 원칙)
+ */
 export const INVESTOR_ROUNDS: InvestorRound[] = [
   {
     id: 'seed',
@@ -877,7 +905,7 @@ export const INVESTOR_ROUNDS: InvestorRound[] = [
     raised: 20,
     minInvestment: 100000,
     maxInvestment: 2000000,
-    tgePercent: 0,
+    tgePercent: 0, // 최저가 참여 → TGE 없음
     cliffMonths: 12,
     vestingMonths: 24,
     totalMonths: 36
@@ -892,7 +920,7 @@ export const INVESTOR_ROUNDS: InvestorRound[] = [
     raised: 90,
     minInvestment: 250000,
     maxInvestment: 5000000,
-    tgePercent: 0,
+    tgePercent: 5, // 중간가 참여 → 소량 TGE (0.45억)
     cliffMonths: 9,
     vestingMonths: 18,
     totalMonths: 27
@@ -907,12 +935,15 @@ export const INVESTOR_ROUNDS: InvestorRound[] = [
     raised: 120,
     minInvestment: 100,
     maxInvestment: 100000,
-    tgePercent: 0,
+    tgePercent: 15, // 최고가 참여 → 적정 TGE (0.90억)
     cliffMonths: 3,
     vestingMonths: 9,
     totalMonths: 12
   }
 ];
+
+// v4.3 투자자 TGE 합계: 1.35억 TBURN (시드 0 + 프라이빗 0.45 + 퍼블릭 0.90)
+export const INVESTOR_TGE_TOTAL = 1.35;
 
 /**
  * Total Fundraising: $230M
@@ -990,6 +1021,9 @@ export interface VestingSchedule {
   descriptionKey: string;
 }
 
+/**
+ * Vesting Schedules - v4.3 업계 표준 TGE 적용
+ */
 export const VESTING_SCHEDULES: VestingSchedule[] = [
   {
     id: 'seed',
@@ -999,29 +1033,29 @@ export const VESTING_SCHEDULES: VestingSchedule[] = [
     cliffMonths: 12,
     vestingMonths: 24,
     totalMonths: 36,
-    description: 'TGE 0%, 12개월 클리프, 24개월 선형 베스팅',
+    description: 'TGE 0%, 12개월 클리프, 24개월 선형 베스팅 (Y3 완료)',
     descriptionKey: 'tokenomics.vesting.seed.desc'
   },
   {
     id: 'private',
     category: 'Private Round',
     categoryKey: 'tokenomics.vesting.private',
-    tgePercent: 0,
+    tgePercent: 5,
     cliffMonths: 9,
     vestingMonths: 18,
     totalMonths: 27,
-    description: 'TGE 0%, 9개월 클리프, 18개월 선형 베스팅',
+    description: 'TGE 5%, 9개월 클리프, 18개월 선형 베스팅 (Y2.5 완료)',
     descriptionKey: 'tokenomics.vesting.private.desc'
   },
   {
     id: 'public',
     category: 'Public Sale',
     categoryKey: 'tokenomics.vesting.public',
-    tgePercent: 0,
+    tgePercent: 15,
     cliffMonths: 3,
     vestingMonths: 9,
     totalMonths: 12,
-    description: 'TGE 0%, 3개월 클리프, 9개월 선형 베스팅',
+    description: 'TGE 15%, 3개월 클리프, 9개월 선형 베스팅 (Y1 완료)',
     descriptionKey: 'tokenomics.vesting.public.desc'
   },
   {
