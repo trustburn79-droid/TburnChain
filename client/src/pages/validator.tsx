@@ -321,7 +321,11 @@ export default function ValidatorCommandCenter() {
             </h1>
             <p className="text-xl text-slate-400 mt-2 font-light">Enterprise Validator Intelligence & Network Telemetry</p>
           </div>
-          <div className="flex gap-4">
+          <div className="flex gap-4 items-center">
+            <Link href="/validator-governance" className="tburn-panel rounded-lg px-5 py-3 flex items-center gap-2 hover:border-cyan-400/50 transition text-sm font-medium" data-testid="link-governance">
+              <Cpu className="text-cyan-400" weight="duotone" size={18} />
+              Governance & Rewards
+            </Link>
             <div className="tburn-panel rounded-lg p-4 flex items-center gap-3">
               <Cpu className="text-3xl text-accent-trust" weight="fill" size={32} />
               <div>
