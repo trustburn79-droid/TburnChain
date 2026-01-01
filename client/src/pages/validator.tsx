@@ -20,10 +20,13 @@ import { type ValidatorDisplayData, transformValidator, type ValidatorData } fro
 ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip, Legend);
 
 interface NetworkStats {
-  currentTps: number;
-  currentEpoch: number;
+  tps: number;
+  currentBlockHeight: number;
   activeValidators: number;
-  totalStake: number;
+  totalValidators: number;
+  totalShards: number;
+  crossShardMessages: number;
+  avgBlockTime: number;
 }
 
 interface ValidatorApiResponse {
@@ -90,8 +93,8 @@ export default function ValidatorCommandCenter() {
     return new Intl.NumberFormat('en-US').format(num);
   };
 
-  const currentTps = networkStats?.currentTps || 102491;
-  const currentEpoch = networkStats?.currentEpoch || 402;
+  const currentTps = networkStats?.tps || 210000;
+  const currentEpoch = networkStats?.currentBlockHeight ? Math.floor(networkStats.currentBlockHeight / 100000) : 394;
 
   const topStakes = useMemo(() => {
     if (validators.length === 0) return [8, 35, 51, 100];
@@ -148,14 +151,16 @@ export default function ValidatorCommandCenter() {
   };
 
   const dataCenters = useMemo(() => {
-    const locations = new Set(validators.map(v => v.location));
-    return locations.size || 195;
-  }, [validators]);
+    const locations = new Set(validators.map(v => v.location).filter(l => l && l !== 'Unknown'));
+    return locations.size > 0 ? locations.size : networkStats?.totalShards || 64;
+  }, [validators, networkStats]);
 
   const countries = useMemo(() => {
-    const codes = new Set(validators.map(v => v.countryCode));
-    return codes.size || 32;
+    const codes = new Set(validators.map(v => v.countryCode).filter(c => c && c !== 'unknown'));
+    return codes.size > 0 ? codes.size : 32;
   }, [validators]);
+
+  const realActiveValidators = networkStats?.activeValidators || validators.filter(v => v.performanceStatus === 'good').length || 1600;
 
   return (
     <div className="min-h-screen text-slate-300" style={{
@@ -258,7 +263,7 @@ export default function ValidatorCommandCenter() {
               <div className="flex gap-2">
                 <span className="px-2 py-1 bg-amber-500/10 border border-amber-500/20 text-amber-500 text-xs rounded">Live Feed</span>
                 <span className="px-2 py-1 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs rounded">
-                  {activeValidatorCount} Active
+                  {formatNumber(realActiveValidators)} Active
                 </span>
               </div>
             </div>

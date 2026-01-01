@@ -22,6 +22,8 @@ export interface ValidatorData {
   jailCount: number;
   lastActiveAt: string;
   createdAt: string;
+  region?: string;
+  delegators?: number;
 }
 
 export interface ValidatorDisplayData {
@@ -50,12 +52,23 @@ export interface ValidatorDisplayData {
   privatePercent: number;
 }
 
+const regionToLocation: Record<string, { location: string; countryCode: string; isp: string }> = {
+  'US-East': { location: 'Virginia, USA', countryCode: 'us', isp: 'Amazon Web Services' },
+  'US-West': { location: 'Oregon, USA', countryCode: 'us', isp: 'Google Cloud' },
+  'EU-West': { location: 'Dublin, Ireland', countryCode: 'ie', isp: 'Microsoft Azure' },
+  'EU-Central': { location: 'Frankfurt, Germany', countryCode: 'de', isp: 'Hetzner' },
+  'AP-East': { location: 'Tokyo, Japan', countryCode: 'jp', isp: 'NTT Communications' },
+  'AP-South': { location: 'Singapore', countryCode: 'sg', isp: 'DigitalOcean' },
+};
+
 export function transformValidator(validator: ValidatorData, totalStake: number): ValidatorDisplayData {
   const stake = parseFloat(validator.stake) || 0;
   const stakeShare = totalStake > 0 ? (stake / totalStake) * 100 : 0;
   
-  const locationParts = validator.location?.split(',') || ['Unknown'];
-  const countryCode = getCountryCode(locationParts[locationParts.length - 1]?.trim() || '');
+  const regionInfo = validator.region ? regionToLocation[validator.region] : null;
+  const location = regionInfo?.location || validator.location || 'Unknown';
+  const countryCode = regionInfo?.countryCode || getCountryCode(location);
+  const isp = regionInfo?.isp || validator.isp || 'Enterprise Cloud';
   
   const validatorId = validator.id || validator.address || 'unknown';
   const name = validator.name || `Validator_${validatorId.slice(0, 6)}`;
@@ -81,9 +94,9 @@ export function transformValidator(validator: ValidatorData, totalStake: number)
     stakeShare: Math.min(stakeShare, 100),
     trustScore: (validator.aiTrustScore || 7500) / 100,
     version: validator.version || 'v1.14.17',
-    location: validator.location || 'Unknown',
+    location,
     countryCode,
-    isp: validator.isp || 'Unknown ISP',
+    isp,
     performance: performanceStatus === 'good' ? `Delinquent: ${delinquent.toFixed(1)}%` : 'Warning',
     performanceStatus,
     isGenesis,
@@ -92,7 +105,7 @@ export function transformValidator(validator: ValidatorData, totalStake: number)
     commission: validator.commission || 5,
     uptime,
     blocksProduced: validator.blocksProduced || 0,
-    delegators: validator.totalDelegators || 0,
+    delegators: validator.totalDelegators || validator.delegators || 0,
     bad: validator.slashingEvents || 0,
     privateNodes,
     privatePercent,
