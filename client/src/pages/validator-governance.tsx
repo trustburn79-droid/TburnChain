@@ -9,8 +9,16 @@ import {
   ArrowLeft,
   Warning,
   CheckCircle,
-  XCircle
+  XCircle,
+  X,
+  Clock,
+  Users,
+  Fire,
+  Info,
+  FileText,
+  Archive
 } from "@phosphor-icons/react";
+import { useToast } from "@/hooks/use-toast";
 
 interface Proposal {
   id: string;
@@ -124,8 +132,13 @@ function generateProposalsFromApi(apiProposals: GovernanceData['proposals'] | un
 }
 
 export default function ValidatorGovernance() {
+  const { toast } = useToast();
   const [stakeAmount, setStakeAmount] = useState(10000);
   const [duration, setDuration] = useState(12);
+  const [selectedProposal, setSelectedProposal] = useState<Proposal | null>(null);
+  const [showVoteModal, setShowVoteModal] = useState(false);
+  const [showArchiveModal, setShowArchiveModal] = useState(false);
+  const [voteChoice, setVoteChoice] = useState<"yes" | "no" | "abstain" | null>(null);
 
   const { data: governanceData, isLoading: govLoading } = useQuery<GovernanceData>({
     queryKey: ["/api/enterprise/admin/governance/votes"],
@@ -167,6 +180,26 @@ export default function ValidatorGovernance() {
 
   const formatNumber = (num: number) => 
     num.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+  const handleVote = () => {
+    if (!selectedProposal || !voteChoice) return;
+    toast({
+      title: "Vote Submitted",
+      description: `Your ${voteChoice.toUpperCase()} vote for ${selectedProposal.id} has been recorded`,
+    });
+    setShowVoteModal(false);
+    setSelectedProposal(null);
+    setVoteChoice(null);
+  };
+
+  const openProposalDetail = (proposal: Proposal) => {
+    setSelectedProposal(proposal);
+  };
+
+  const openVoteModal = (proposal: Proposal) => {
+    setSelectedProposal(proposal);
+    setShowVoteModal(true);
+  };
 
   return (
     <div className="min-h-screen relative">
@@ -329,9 +362,13 @@ export default function ValidatorGovernance() {
               <h2 className="text-2xl font-bold text-white flex items-center gap-2" style={{ fontFamily: "'Outfit', sans-serif" }}>
                 <Gavel className="text-[#00bfff]" size={28} weight="duotone" /> Active Proposals
               </h2>
-              <a href="#" className="text-sm text-[#00bfff] hover:text-white transition" data-testid="link-view-archive">
-                View Archive →
-              </a>
+              <button 
+                onClick={() => setShowArchiveModal(true)}
+                className="text-sm text-[#00bfff] hover:text-white transition flex items-center gap-1"
+                data-testid="link-view-archive"
+              >
+                <Archive size={16} /> View Archive
+              </button>
             </div>
 
             <div className="grid gap-4">
@@ -346,7 +383,8 @@ export default function ValidatorGovernance() {
               ) : proposals.map((proposal) => (
                 <div 
                   key={proposal.id}
-                  className={`tburn-panel rounded-xl p-6 transition group ${
+                  onClick={() => openProposalDetail(proposal)}
+                  className={`tburn-panel rounded-xl p-6 transition group cursor-pointer ${
                     proposal.status === 'executed' 
                       ? "border-emerald-500/30 hover:border-emerald-500/50"
                       : proposal.isContested 
@@ -431,6 +469,257 @@ export default function ValidatorGovernance() {
           TBURN Governance Portal | Powered by Trust Burn Foundation
         </footer>
       </div>
+
+      {selectedProposal && !showVoteModal && (
+        <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4" onClick={() => setSelectedProposal(null)}>
+          <div className="tburn-panel rounded-2xl p-6 max-w-2xl w-full max-h-[90vh] overflow-auto" onClick={(e) => e.stopPropagation()}>
+            <div className="flex justify-between items-start mb-6">
+              <div className="flex items-start gap-4">
+                <div className={`px-3 py-1 rounded text-xs font-bold border ${
+                  selectedProposal.status === 'executed' 
+                    ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/20"
+                    : "bg-[#00bfff]/10 text-[#00bfff] border-[#00bfff]/20"
+                }`}>
+                  {selectedProposal.id}
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold text-white">{selectedProposal.title}</h3>
+                  <div className="flex items-center gap-3 mt-2 text-xs text-slate-400">
+                    <span className="flex items-center gap-1"><Clock size={12} /> {selectedProposal.votingEnds}</span>
+                    <span className="flex items-center gap-1"><Users size={12} /> {selectedProposal.totalStakeVoted} TBURN voted</span>
+                  </div>
+                </div>
+              </div>
+              <button 
+                onClick={() => setSelectedProposal(null)}
+                className="text-slate-400 hover:text-white transition"
+                data-testid="button-close-proposal"
+              >
+                <X size={24} />
+              </button>
+            </div>
+
+            <div className="space-y-6">
+              <div className="bg-white/5 rounded-xl p-4 border border-white/5">
+                <h4 className="text-sm font-semibold text-white mb-2 flex items-center gap-2">
+                  <FileText size={16} /> Description
+                </h4>
+                <p className="text-slate-400 text-sm leading-relaxed">{selectedProposal.description}</p>
+              </div>
+
+              <div>
+                <h4 className="text-sm font-semibold text-white mb-4">Voting Results</h4>
+                <div className="space-y-3">
+                  <div>
+                    <div className="flex justify-between text-sm mb-1">
+                      <span className="text-emerald-400 flex items-center gap-1"><CheckCircle size={14} weight="fill" /> Yes</span>
+                      <span className="text-emerald-400">{selectedProposal.yesPercent}%</span>
+                    </div>
+                    <div className="h-3 bg-white/5 rounded-full overflow-hidden">
+                      <div className="h-full vote-yes" style={{ width: `${selectedProposal.yesPercent}%` }} />
+                    </div>
+                  </div>
+                  <div>
+                    <div className="flex justify-between text-sm mb-1">
+                      <span className="text-red-400 flex items-center gap-1"><XCircle size={14} weight="fill" /> No</span>
+                      <span className="text-red-400">{selectedProposal.noPercent}%</span>
+                    </div>
+                    <div className="h-3 bg-white/5 rounded-full overflow-hidden">
+                      <div className="h-full vote-no" style={{ width: `${selectedProposal.noPercent}%` }} />
+                    </div>
+                  </div>
+                  <div>
+                    <div className="flex justify-between text-sm mb-1">
+                      <span className="text-slate-400 flex items-center gap-1"><Warning size={14} /> Abstain</span>
+                      <span className="text-slate-400">{selectedProposal.abstainPercent}%</span>
+                    </div>
+                    <div className="h-3 bg-white/5 rounded-full overflow-hidden">
+                      <div className="h-full bg-slate-600" style={{ width: `${selectedProposal.abstainPercent}%` }} />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-black/20 rounded-lg p-4 flex items-center justify-between text-sm">
+                <div className="flex items-center gap-2 text-slate-400">
+                  <Info size={16} />
+                  {selectedProposal.quorumReached ? (
+                    <span className="text-emerald-400">Quorum reached ({governanceData?.participation || 87}%)</span>
+                  ) : (
+                    <span>Quorum: {governanceData?.participation || 65}% (Need 67%)</span>
+                  )}
+                </div>
+                <span className={`px-2 py-1 rounded text-xs font-bold ${
+                  selectedProposal.status === 'executed' ? "bg-emerald-500/20 text-emerald-400" :
+                  selectedProposal.status === 'passed' ? "bg-blue-500/20 text-blue-400" :
+                  "bg-orange-500/20 text-orange-400"
+                }`}>
+                  {selectedProposal.status.toUpperCase()}
+                </span>
+              </div>
+            </div>
+
+            {selectedProposal.status === 'active' && (
+              <div className="flex gap-3 mt-6">
+                <button
+                  className="flex-1 py-3 rounded-xl bg-white/5 hover:bg-white/10 text-slate-300 font-semibold transition border border-white/10"
+                  onClick={() => setSelectedProposal(null)}
+                  data-testid="button-cancel-detail"
+                >
+                  Close
+                </button>
+                <button
+                  className="flex-1 py-3 rounded-xl bg-[#00bfff] hover:bg-[#0099cc] text-white font-bold transition flex items-center justify-center gap-2"
+                  onClick={() => {
+                    setShowVoteModal(true);
+                  }}
+                  data-testid="button-cast-vote"
+                >
+                  <Gavel size={18} weight="bold" />
+                  Cast Vote
+                </button>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+
+      {showVoteModal && selectedProposal && (
+        <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4" onClick={() => {setShowVoteModal(false); setVoteChoice(null);}}>
+          <div className="tburn-panel rounded-2xl p-6 max-w-md w-full" onClick={(e) => e.stopPropagation()}>
+            <div className="flex justify-between items-center mb-6">
+              <h3 className="text-xl font-bold text-white flex items-center gap-2">
+                <Gavel className="text-[#00bfff]" size={24} weight="fill" />
+                Cast Your Vote
+              </h3>
+              <button 
+                onClick={() => {setShowVoteModal(false); setVoteChoice(null);}}
+                className="text-slate-400 hover:text-white transition"
+                data-testid="button-close-vote"
+              >
+                <X size={24} />
+              </button>
+            </div>
+
+            <div className="bg-white/5 rounded-xl p-4 mb-6 border border-white/5">
+              <div className="text-xs text-slate-500 mb-1">{selectedProposal.id}</div>
+              <div className="text-white font-semibold">{selectedProposal.title}</div>
+            </div>
+
+            <div className="space-y-3 mb-6">
+              <button
+                onClick={() => setVoteChoice("yes")}
+                className={`w-full p-4 rounded-xl border transition flex items-center gap-3 ${
+                  voteChoice === "yes" 
+                    ? "bg-emerald-500/20 border-emerald-500/50 text-emerald-400" 
+                    : "bg-white/5 border-white/10 text-slate-300 hover:bg-white/10"
+                }`}
+                data-testid="button-vote-yes"
+              >
+                <CheckCircle size={24} weight={voteChoice === "yes" ? "fill" : "regular"} />
+                <span className="font-semibold">Vote Yes</span>
+              </button>
+              <button
+                onClick={() => setVoteChoice("no")}
+                className={`w-full p-4 rounded-xl border transition flex items-center gap-3 ${
+                  voteChoice === "no" 
+                    ? "bg-red-500/20 border-red-500/50 text-red-400" 
+                    : "bg-white/5 border-white/10 text-slate-300 hover:bg-white/10"
+                }`}
+                data-testid="button-vote-no"
+              >
+                <XCircle size={24} weight={voteChoice === "no" ? "fill" : "regular"} />
+                <span className="font-semibold">Vote No</span>
+              </button>
+              <button
+                onClick={() => setVoteChoice("abstain")}
+                className={`w-full p-4 rounded-xl border transition flex items-center gap-3 ${
+                  voteChoice === "abstain" 
+                    ? "bg-slate-500/20 border-slate-500/50 text-slate-300" 
+                    : "bg-white/5 border-white/10 text-slate-300 hover:bg-white/10"
+                }`}
+                data-testid="button-vote-abstain"
+              >
+                <Warning size={24} weight={voteChoice === "abstain" ? "fill" : "regular"} />
+                <span className="font-semibold">Abstain</span>
+              </button>
+            </div>
+
+            <button
+              className={`w-full py-3 rounded-xl font-bold transition flex items-center justify-center gap-2 ${
+                voteChoice 
+                  ? "bg-[#00bfff] hover:bg-[#0099cc] text-white" 
+                  : "bg-slate-700 text-slate-400 cursor-not-allowed"
+              }`}
+              onClick={handleVote}
+              disabled={!voteChoice}
+              data-testid="button-submit-vote"
+            >
+              Submit Vote
+            </button>
+          </div>
+        </div>
+      )}
+
+      {showArchiveModal && (
+        <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4" onClick={() => setShowArchiveModal(false)}>
+          <div className="tburn-panel rounded-2xl p-6 max-w-2xl w-full max-h-[80vh] overflow-auto" onClick={(e) => e.stopPropagation()}>
+            <div className="flex justify-between items-center mb-6">
+              <h3 className="text-xl font-bold text-white flex items-center gap-2">
+                <Archive className="text-[#00bfff]" size={24} weight="fill" />
+                Proposal Archive
+              </h3>
+              <button 
+                onClick={() => setShowArchiveModal(false)}
+                className="text-slate-400 hover:text-white transition"
+                data-testid="button-close-archive"
+              >
+                <X size={24} />
+              </button>
+            </div>
+
+            <div className="space-y-4">
+              {completedProposals.map((proposal) => (
+                <div 
+                  key={proposal.id}
+                  className="bg-white/5 rounded-xl p-4 border border-white/5 hover:bg-white/10 transition cursor-pointer"
+                  onClick={() => {
+                    setShowArchiveModal(false);
+                    openProposalDetail(proposal);
+                  }}
+                  data-testid={`archive-${proposal.id}`}
+                >
+                  <div className="flex items-start justify-between gap-4">
+                    <div className="flex items-start gap-3">
+                      <span className={`px-2 py-0.5 rounded text-xs font-bold ${
+                        proposal.status === 'executed' ? "bg-emerald-500/20 text-emerald-400" :
+                        proposal.status === 'passed' ? "bg-blue-500/20 text-blue-400" :
+                        "bg-red-500/20 text-red-400"
+                      }`}>
+                        {proposal.id}
+                      </span>
+                      <div>
+                        <div className="text-white font-semibold text-sm">{proposal.title}</div>
+                        <div className="text-xs text-slate-500 mt-1">{proposal.totalStakeVoted} TBURN voted</div>
+                      </div>
+                    </div>
+                    <div className={`px-2 py-1 rounded text-xs font-bold ${
+                      proposal.status === 'executed' ? "bg-emerald-500/10 text-emerald-400" :
+                      proposal.status === 'passed' ? "bg-blue-500/10 text-blue-400" :
+                      "bg-red-500/10 text-red-400"
+                    }`}>
+                      {proposal.status.toUpperCase()}
+                    </div>
+                  </div>
+                </div>
+              ))}
+              {completedProposals.length === 0 && (
+                <div className="text-center text-slate-400 py-8">No archived proposals</div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

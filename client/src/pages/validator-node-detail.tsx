@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
-import { Link, useParams } from "wouter";
-import { useMemo } from "react";
+import { Link, useParams, useLocation } from "wouter";
+import { useMemo, useState } from "react";
 import { 
   AreaChart, Area, BarChart, Bar, YAxis, ResponsiveContainer
 } from "recharts";
@@ -14,8 +14,13 @@ import {
   Copy,
   ArrowSquareOut,
   UserFocus,
-  SealCheck
+  SealCheck,
+  X,
+  Fire,
+  Coins,
+  CheckCircle
 } from "@phosphor-icons/react";
+import { useToast } from "@/hooks/use-toast";
 
 interface Validator {
   id: string;
@@ -63,7 +68,11 @@ const generateSpikeData = (seed: number, length: number) => {
 
 export default function ValidatorNodeDetail() {
   const params = useParams<{ id: string }>();
+  const [, navigate] = useLocation();
+  const { toast } = useToast();
   const validatorId = params.id;
+  const [showStakeModal, setShowStakeModal] = useState(false);
+  const [stakeAmount, setStakeAmount] = useState(1000);
 
   const { data: validatorsData, isLoading } = useQuery<{ validators: Validator[] }>({
     queryKey: ["/api/validators"],
@@ -127,8 +136,20 @@ export default function ValidatorNodeDetail() {
     ];
   }, [networkStats, validator]);
 
-  const copyToClipboard = (text: string) => {
+  const copyToClipboard = (text: string, label: string) => {
     navigator.clipboard.writeText(text);
+    toast({
+      title: "Copied!",
+      description: `${label} copied to clipboard`,
+    });
+  };
+
+  const handleStake = () => {
+    toast({
+      title: "Staking Initiated",
+      description: `Staking ${stakeAmount.toLocaleString()} TBURN to ${validator?.name}`,
+    });
+    setShowStakeModal(false);
   };
 
   if (isLoading) {
@@ -402,7 +423,7 @@ export default function ValidatorNodeDetail() {
                     </span>
                     <button 
                       className="opacity-0 group-hover:opacity-100 text-slate-500 hover:text-[#00bfff] transition"
-                      onClick={() => copyToClipboard(identityKey)}
+                      onClick={() => copyToClipboard(identityKey, "Identity Key")}
                       data-testid="button-copy-identity"
                     >
                       <Copy size={16} weight="bold" />
@@ -417,7 +438,7 @@ export default function ValidatorNodeDetail() {
                     </span>
                     <button 
                       className="opacity-0 group-hover:opacity-100 text-slate-500 hover:text-[#00bfff] transition"
-                      onClick={() => copyToClipboard(voteAccount)}
+                      onClick={() => copyToClipboard(voteAccount, "Vote Account")}
                       data-testid="button-copy-vote"
                     >
                       <Copy size={16} weight="bold" />
@@ -451,7 +472,9 @@ export default function ValidatorNodeDetail() {
 
                 <div className="flex flex-col gap-3">
                   <a 
-                    href="#" 
+                    href={`https://tburn.io/validators/${validator.address}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="flex items-center justify-between p-3 rounded-lg bg-white/5 hover:bg-white/10 transition group border border-transparent hover:border-white/10"
                     data-testid="link-validator-website"
                   >
@@ -459,13 +482,23 @@ export default function ValidatorNodeDetail() {
                     <ArrowSquareOut className="text-slate-500 group-hover:text-white" size={16} weight="bold" />
                   </a>
                   <a 
-                    href="#" 
+                    href={`https://keybase.io/${validator.name?.replace(/\s+/g, "_").toLowerCase()}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="flex items-center justify-between p-3 rounded-lg bg-white/5 hover:bg-white/10 transition group border border-transparent hover:border-white/10"
                     data-testid="link-keybase-profile"
                   >
                     <span className="text-sm text-slate-300">Keybase Profile</span>
                     <UserFocus className="text-slate-500 group-hover:text-white" size={16} weight="bold" />
                   </a>
+                  <button
+                    onClick={() => setShowStakeModal(true)}
+                    className="flex items-center justify-center gap-2 p-3 rounded-lg bg-accent-burn/20 hover:bg-accent-burn/30 text-accent-burn transition font-semibold border border-accent-burn/30"
+                    data-testid="button-stake-validator"
+                  >
+                    <Coins size={18} weight="fill" />
+                    Stake with Validator
+                  </button>
                 </div>
               </div>
             </div>
@@ -519,6 +552,96 @@ export default function ValidatorNodeDetail() {
           </aside>
         </main>
       </div>
+
+      {showStakeModal && (
+        <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4" onClick={() => setShowStakeModal(false)}>
+          <div className="tburn-panel rounded-2xl p-6 max-w-md w-full" onClick={(e) => e.stopPropagation()}>
+            <div className="flex justify-between items-center mb-6">
+              <h3 className="text-xl font-bold text-white flex items-center gap-2">
+                <Fire className="text-accent-burn" size={24} weight="fill" />
+                Stake TBURN
+              </h3>
+              <button 
+                onClick={() => setShowStakeModal(false)}
+                className="text-slate-400 hover:text-white transition"
+                data-testid="button-close-stake"
+              >
+                <X size={24} />
+              </button>
+            </div>
+
+            <div className="space-y-6">
+              <div className="bg-white/5 rounded-xl p-4 border border-white/10">
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-orange-500 to-red-500 flex items-center justify-center text-white font-bold">
+                    {validator.name?.charAt(0)}
+                  </div>
+                  <div>
+                    <div className="text-white font-semibold">{validator.name}</div>
+                    <div className="text-xs text-slate-400">Commission: {commission}%</div>
+                  </div>
+                </div>
+                <div className="flex items-center justify-between text-sm">
+                  <span className="text-slate-400">APY</span>
+                  <span className="text-green-400 font-semibold">{apy}%</span>
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-sm text-slate-400 mb-2">Stake Amount (TBURN)</label>
+                <div className="relative">
+                  <input
+                    type="number"
+                    value={stakeAmount}
+                    onChange={(e) => setStakeAmount(Number(e.target.value))}
+                    className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-accent-burn/50"
+                    placeholder="Enter amount"
+                    min={100}
+                    data-testid="input-stake-amount"
+                  />
+                  <button
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-accent-burn font-semibold"
+                    onClick={() => setStakeAmount(10000)}
+                    data-testid="button-stake-max"
+                  >
+                    MAX
+                  </button>
+                </div>
+                <div className="text-xs text-slate-500 mt-2">Available: 10,000 TBURN</div>
+              </div>
+
+              <div className="bg-black/20 rounded-lg p-4 space-y-2">
+                <div className="flex justify-between text-sm">
+                  <span className="text-slate-400">Network Fee</span>
+                  <span className="text-white">0.001 TBURN</span>
+                </div>
+                <div className="flex justify-between text-sm">
+                  <span className="text-slate-400">Est. Daily Rewards</span>
+                  <span className="text-green-400">{((stakeAmount * (parseFloat(apy) / 100)) / 365).toFixed(2)} TBURN</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="flex gap-3 mt-6">
+              <button
+                className="flex-1 py-3 rounded-xl bg-white/5 hover:bg-white/10 text-slate-300 font-semibold transition border border-white/10"
+                onClick={() => setShowStakeModal(false)}
+                data-testid="button-cancel-stake"
+              >
+                Cancel
+              </button>
+              <button
+                className="flex-1 py-3 rounded-xl bg-accent-burn hover:bg-orange-600 text-white font-bold transition flex items-center justify-center gap-2"
+                onClick={handleStake}
+                data-testid="button-confirm-stake"
+              >
+                <CheckCircle size={18} weight="bold" />
+                Stake Now
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

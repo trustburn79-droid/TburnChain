@@ -15,7 +15,10 @@ import {
   Buildings,
   ShieldWarning,
   LockKey,
-  ArrowLeft
+  ArrowLeft,
+  X,
+  FunnelSimple,
+  MapPin
 } from "@phosphor-icons/react";
 import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip } from "recharts";
 
@@ -112,6 +115,10 @@ export default function ValidatorInfrastructure() {
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [viewMode, setViewMode] = useState<"stake" | "score">("stake");
+  const [showMapModal, setShowMapModal] = useState(false);
+  const [showFiltersModal, setShowFiltersModal] = useState(false);
+  const [chartFilter, setChartFilter] = useState<"datacenter" | "asn">("datacenter");
+  const [sortOrder, setSortOrder] = useState<"stake" | "count">("stake");
   const itemsPerPage = 10;
 
   const { data: validatorsData, isLoading } = useQuery<{ validators: Validator[] }>({
@@ -251,7 +258,11 @@ export default function ValidatorInfrastructure() {
                 <GlobeHemisphereWest className="text-accent-trust" size={28} weight="duotone" />
                 Infrastructure Distribution <span className="text-slate-500 text-lg font-normal">(195 Data Centers)</span>
               </h2>
-              <button className="tburn-panel rounded-full px-5 py-2 text-sm font-medium hover:border-accent-burn transition flex items-center gap-2" data-testid="button-global-network-map">
+              <button 
+                className="tburn-panel rounded-full px-5 py-2 text-sm font-medium hover:border-accent-burn transition flex items-center gap-2"
+                onClick={() => setShowMapModal(true)}
+                data-testid="button-global-network-map"
+              >
                 <MapTrifold size={18} weight="bold" /> Global Network Map
               </button>
             </div>
@@ -325,17 +336,33 @@ export default function ValidatorInfrastructure() {
             </div>
 
             <div className="mt-6 tburn-panel rounded-full p-2 inline-flex flex-wrap gap-2 bg-black/20">
-              <button className="px-4 py-2 rounded-full bg-accent-burn/90 text-white text-sm font-medium shadow-lg shadow-orange-900/30" data-testid="button-filter-datacenter">
+              <button 
+                className={`px-4 py-2 rounded-full text-sm font-medium transition ${chartFilter === "datacenter" ? "bg-accent-burn/90 text-white shadow-lg shadow-orange-900/30" : "hover:bg-slate-800 text-slate-300"}`}
+                onClick={() => setChartFilter("datacenter")}
+                data-testid="button-filter-datacenter"
+              >
                 Data Center
               </button>
-              <button className="px-4 py-2 rounded-full hover:bg-slate-800 text-slate-300 text-sm font-medium transition" data-testid="button-filter-asn">
+              <button 
+                className={`px-4 py-2 rounded-full text-sm font-medium transition ${chartFilter === "asn" ? "bg-accent-burn/90 text-white shadow-lg shadow-orange-900/30" : "hover:bg-slate-800 text-slate-300"}`}
+                onClick={() => setChartFilter("asn")}
+                data-testid="button-filter-asn"
+              >
                 ASN Filter
               </button>
               <div className="w-px h-6 bg-slate-700/50 my-auto mx-2" />
-              <button className="px-4 py-2 rounded-full hover:bg-slate-800 text-slate-300 text-sm font-medium transition flex items-center gap-1" data-testid="button-sort-stake">
+              <button 
+                className={`px-4 py-2 rounded-full text-sm font-medium transition flex items-center gap-1 ${sortOrder === "stake" ? "bg-blue-500/20 text-blue-400" : "hover:bg-slate-800 text-slate-300"}`}
+                onClick={() => setSortOrder("stake")}
+                data-testid="button-sort-stake"
+              >
                 <SortDescending size={16} weight="bold" /> Sort by Stake
               </button>
-              <button className="px-4 py-2 rounded-full hover:bg-slate-800 text-slate-300 text-sm font-medium transition flex items-center gap-1" data-testid="button-sort-count">
+              <button 
+                className={`px-4 py-2 rounded-full text-sm font-medium transition flex items-center gap-1 ${sortOrder === "count" ? "bg-blue-500/20 text-blue-400" : "hover:bg-slate-800 text-slate-300"}`}
+                onClick={() => setSortOrder("count")}
+                data-testid="button-sort-count"
+              >
                 <ListNumbers size={16} weight="bold" /> Sort by Count
               </button>
             </div>
@@ -381,7 +408,11 @@ export default function ValidatorInfrastructure() {
                     Score View
                   </button>
                 </div>
-                <button className="tburn-panel rounded-lg px-4 py-3 text-sm font-medium hover:border-blue-400 transition flex items-center gap-2 text-slate-300" data-testid="button-filters">
+                <button 
+                  className="tburn-panel rounded-lg px-4 py-3 text-sm font-medium hover:border-blue-400 transition flex items-center gap-2 text-slate-300"
+                  onClick={() => setShowFiltersModal(true)}
+                  data-testid="button-filters"
+                >
                   <SlidersHorizontal size={18} weight="bold" /> Filters
                 </button>
               </div>
@@ -553,6 +584,174 @@ export default function ValidatorInfrastructure() {
           <p>© 2024 TBURN Foundation. All rights reserved. | Decentralized Intelligence Platform.</p>
         </footer>
       </div>
+
+      {showMapModal && (
+        <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4" onClick={() => setShowMapModal(false)}>
+          <div className="tburn-panel rounded-2xl p-6 max-w-4xl w-full max-h-[90vh] overflow-auto" onClick={(e) => e.stopPropagation()}>
+            <div className="flex justify-between items-center mb-6">
+              <h3 className="text-2xl font-bold text-white flex items-center gap-3">
+                <GlobeHemisphereWest className="text-accent-trust" size={28} weight="fill" />
+                Global Network Map
+              </h3>
+              <button 
+                onClick={() => setShowMapModal(false)}
+                className="text-slate-400 hover:text-white transition p-2 hover:bg-white/5 rounded-lg"
+                data-testid="button-close-map"
+              >
+                <X size={24} />
+              </button>
+            </div>
+
+            <div className="relative h-[400px] rounded-xl overflow-hidden mb-6" style={{
+              backgroundImage: "url('https://upload.wikimedia.org/wikipedia/commons/8/80/World_map_-_low_resolution.svg')",
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+              filter: 'contrast(1.2)',
+              opacity: 0.8
+            }}>
+              {Object.entries(locationMap).map(([city, data], index) => {
+                const positions: Record<string, {top: string; left: string}> = {
+                  Chicago: { top: "32%", left: "22%" },
+                  Frankfurt: { top: "28%", left: "48%" },
+                  Tokyo: { top: "35%", left: "82%" },
+                  Amsterdam: { top: "26%", left: "47%" },
+                  Singapore: { top: "55%", left: "75%" },
+                  Seoul: { top: "34%", left: "80%" },
+                  London: { top: "27%", left: "45%" },
+                };
+                const pos = positions[city] || { top: "50%", left: "50%" };
+                const validatorCount = validators.filter((v, i) => {
+                  const seed = v.address?.charCodeAt(5) || i;
+                  const loc = getLocationData(v.location, seed);
+                  return loc.city === city;
+                }).length;
+                
+                return (
+                  <div
+                    key={city}
+                    className="absolute transform -translate-x-1/2 -translate-y-1/2 group cursor-pointer"
+                    style={{ top: pos.top, left: pos.left }}
+                  >
+                    <div className="relative">
+                      <div className="w-4 h-4 bg-accent-burn rounded-full shadow-lg shadow-orange-500/50 animate-pulse" />
+                      <div className="absolute left-6 top-1/2 -translate-y-1/2 bg-black/90 px-3 py-2 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-10">
+                        <div className="text-white font-semibold text-sm">{city}, {data.country}</div>
+                        <div className="text-slate-400 text-xs">{validatorCount} Validators</div>
+                        <div className="text-slate-500 text-xs">{data.isp}</div>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              {Object.entries(locationMap).map(([city, data]) => {
+                const validatorCount = validators.filter((v, i) => {
+                  const seed = v.address?.charCodeAt(5) || i;
+                  const loc = getLocationData(v.location, seed);
+                  return loc.city === city;
+                }).length;
+                
+                return (
+                  <div key={city} className="bg-white/5 rounded-lg p-4 border border-white/5">
+                    <div className="flex items-center gap-2 mb-2">
+                      <MapPin className="text-accent-burn" size={16} weight="fill" />
+                      <span className="text-white font-semibold text-sm">{city}</span>
+                    </div>
+                    <div className="text-2xl font-bold text-white">{validatorCount}</div>
+                    <div className="text-xs text-slate-500">{data.isp}</div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {showFiltersModal && (
+        <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4" onClick={() => setShowFiltersModal(false)}>
+          <div className="tburn-panel rounded-2xl p-6 max-w-md w-full" onClick={(e) => e.stopPropagation()}>
+            <div className="flex justify-between items-center mb-6">
+              <h3 className="text-xl font-bold text-white flex items-center gap-2">
+                <FunnelSimple className="text-accent-trust" size={24} weight="fill" />
+                Advanced Filters
+              </h3>
+              <button 
+                onClick={() => setShowFiltersModal(false)}
+                className="text-slate-400 hover:text-white transition"
+                data-testid="button-close-filters"
+              >
+                <X size={24} />
+              </button>
+            </div>
+
+            <div className="space-y-6">
+              <div>
+                <label className="block text-sm text-slate-400 mb-3">View Mode</label>
+                <div className="flex gap-2">
+                  <button
+                    className={`flex-1 py-3 rounded-lg text-sm font-medium transition ${viewMode === "stake" ? "bg-accent-burn/20 text-accent-burn border border-accent-burn/30" : "bg-white/5 text-slate-300 hover:bg-white/10"}`}
+                    onClick={() => setViewMode("stake")}
+                  >
+                    Stake View
+                  </button>
+                  <button
+                    className={`flex-1 py-3 rounded-lg text-sm font-medium transition ${viewMode === "score" ? "bg-accent-burn/20 text-accent-burn border border-accent-burn/30" : "bg-white/5 text-slate-300 hover:bg-white/10"}`}
+                    onClick={() => setViewMode("score")}
+                  >
+                    Score View
+                  </button>
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-sm text-slate-400 mb-3">Chart Display</label>
+                <div className="flex gap-2">
+                  <button
+                    className={`flex-1 py-3 rounded-lg text-sm font-medium transition ${chartFilter === "datacenter" ? "bg-blue-500/20 text-blue-400 border border-blue-500/30" : "bg-white/5 text-slate-300 hover:bg-white/10"}`}
+                    onClick={() => setChartFilter("datacenter")}
+                  >
+                    Data Center
+                  </button>
+                  <button
+                    className={`flex-1 py-3 rounded-lg text-sm font-medium transition ${chartFilter === "asn" ? "bg-blue-500/20 text-blue-400 border border-blue-500/30" : "bg-white/5 text-slate-300 hover:bg-white/10"}`}
+                    onClick={() => setChartFilter("asn")}
+                  >
+                    ASN
+                  </button>
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-sm text-slate-400 mb-3">Sort Order</label>
+                <div className="flex gap-2">
+                  <button
+                    className={`flex-1 py-3 rounded-lg text-sm font-medium transition ${sortOrder === "stake" ? "bg-emerald-500/20 text-emerald-400 border border-emerald-500/30" : "bg-white/5 text-slate-300 hover:bg-white/10"}`}
+                    onClick={() => setSortOrder("stake")}
+                  >
+                    By Stake
+                  </button>
+                  <button
+                    className={`flex-1 py-3 rounded-lg text-sm font-medium transition ${sortOrder === "count" ? "bg-emerald-500/20 text-emerald-400 border border-emerald-500/30" : "bg-white/5 text-slate-300 hover:bg-white/10"}`}
+                    onClick={() => setSortOrder("count")}
+                  >
+                    By Count
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <button
+              className="w-full mt-8 py-3 rounded-xl bg-accent-burn hover:bg-orange-600 text-white font-bold transition"
+              onClick={() => setShowFiltersModal(false)}
+              data-testid="button-apply-filters"
+            >
+              Apply Filters
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
