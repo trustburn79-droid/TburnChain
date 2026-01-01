@@ -158,7 +158,7 @@ export default function TestnetRpcProviders() {
   return (
     <main className="flex-grow relative z-10 bg-gray-50 dark:bg-transparent transition-colors">
       {/* Hero Section - Testnet Gold Theme */}
-      <section className="relative pt-24 pb-16 px-6 overflow-hidden border-b border-gray-200 dark:border-white/5">
+      <section className="relative pt-4 pb-16 px-6 overflow-hidden border-b border-gray-200 dark:border-white/5">
         <div className="absolute top-0 right-1/4 w-[600px] h-[500px] bg-[#ffd700]/15 blur-[120px] rounded-full pointer-events-none" />
         <div className="absolute bottom-0 left-1/4 w-[400px] h-[300px] bg-[#ff6b35]/10 blur-[100px] rounded-full pointer-events-none" />
         

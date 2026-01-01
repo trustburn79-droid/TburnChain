@@ -129,9 +129,9 @@ export default function ActionsBlinks() {
   }, []);
 
   return (
-    <div ref={containerRef} className="min-h-screen pt-24 bg-gray-50 dark:bg-transparent transition-colors">
+    <div ref={containerRef} className="min-h-screen bg-gray-50 dark:bg-transparent transition-colors">
       {/* Hero Section */}
-      <section className="relative py-12 mb-8 text-center">
+      <section className="relative pt-4 pb-12 mb-8 text-center">
         <div className="absolute inset-0 bg-gradient-to-b from-[#00f0ff]/10 via-transparent to-transparent pointer-events-none" />
         <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
           <Link 

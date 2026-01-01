@@ -79,7 +79,7 @@ export default function Universities() {
   return (
     <div ref={containerRef} className="min-h-screen bg-gray-50 dark:bg-transparent transition-colors">
       {/* Hero Section */}
-      <section className="relative py-24 px-6 overflow-hidden border-b border-gray-200 dark:border-white/5">
+      <section className="relative pt-4 pb-24 px-6 overflow-hidden border-b border-gray-200 dark:border-white/5">
         <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[#00ff9d]/5 blur-[120px] rounded-full pointer-events-none" />
         
         <div className="container mx-auto max-w-4xl text-center relative z-10">

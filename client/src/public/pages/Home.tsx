@@ -289,7 +289,7 @@ export default function Home() {
   };
 
   return (
-    <div className="pt-24 pb-8">
+    <div className="pb-8">
         {/* Hero Section */}
         <section className="relative overflow-hidden mb-24 pt-8">
           {/* Large Translucent TBurn Symbol */}
