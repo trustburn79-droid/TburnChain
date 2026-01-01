@@ -205,6 +205,16 @@ const routeTree: RouteItem[] = [
       { path: "/app/operator/staking", label: "Staking" },
     ]
   },
+  {
+    path: "/validator",
+    label: "Validator",
+    children: [
+      { path: "/validator", label: "Command Center" },
+      { path: "/validator/infrastructure", label: "Infrastructure" },
+      { path: "/validator/1", label: "Node Detail (:id)" },
+      { path: "/validator/governance", label: "Governance" },
+    ]
+  },
 ];
 
 function TreeNode({ item, level = 0 }: { item: RouteItem; level?: number }) {
