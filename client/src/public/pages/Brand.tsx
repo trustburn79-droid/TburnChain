@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Flame, Palette, Type, Image, Shapes, Download, Check, Copy, FileText, Printer, Monitor, Share2, X } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { TBurnLogo } from "@/components/tburn-logo";
 
 const brandStyles = `
   .brand-page {
@@ -955,26 +956,32 @@ export default function Brand() {
   const renderLogoDisplay = (type: string, dark: boolean = false) => {
     if (type === "main") {
       return (
-        <div className={`logo-display main-logo ${dark ? "dark" : ""}`}>
-          <div className="icon">🔥</div>
-          <div className="text">TBURN<span>CHAIN</span></div>
+        <div className="flex items-center gap-3">
+          <TBurnLogo className="w-16 h-16" />
+          <span className={`text-2xl font-black ${dark ? "text-gray-900" : "text-white"}`}>
+            TBURN<span className="text-[#D4AF37]">CHAIN</span>
+          </span>
         </div>
       );
     }
     if (type === "symbol") {
-      return <div className="logo-display symbol-only">🔥</div>;
+      return <TBurnLogo className="w-20 h-20" showText={false} />;
     }
     if (type === "symbol-outline") {
-      return <div className="logo-display symbol-only outline">🔥</div>;
+      return (
+        <div className="w-20 h-20 rounded-2xl border-2 border-[#D4AF37] flex items-center justify-center">
+          <TBurnLogo className="w-14 h-14" symbolColor="#D4AF37" showText={false} />
+        </div>
+      );
     }
     if (type === "wordmark-gold") {
-      return <div className="logo-display wordmark gold">TBURNCHAIN</div>;
+      return <span className="text-3xl font-black text-[#D4AF37]">TBURNCHAIN</span>;
     }
     if (type === "wordmark-white") {
-      return <div className="logo-display wordmark white">TBURN<span>CHAIN</span></div>;
+      return <span className="text-3xl font-black text-white">TBURN<span className="text-[#D4AF37]">CHAIN</span></span>;
     }
     if (type === "wordmark-dark") {
-      return <div className="logo-display wordmark dark">TBURNCHAIN</div>;
+      return <span className="text-3xl font-black text-gray-900">TBURNCHAIN</span>;
     }
     return null;
   };
@@ -1051,6 +1058,142 @@ export default function Brand() {
               </div>
             </div>
           ))}
+        </div>
+
+        <div style={{ marginTop: "3rem", padding: "2rem", background: "var(--dark-card)", borderRadius: "20px", border: "1px solid rgba(255,255,255,0.1)" }}>
+          <h3 style={{ fontSize: "1.25rem", fontWeight: 700, marginBottom: "0.5rem", display: "flex", alignItems: "center", gap: "8px" }}>
+            <Flame className="w-5 h-5 text-orange-500" /> TBurn Logo Symbol
+          </h3>
+          <p style={{ color: "var(--gray)", marginBottom: "1.5rem" }}>다양한 배경과 심볼 색상 조합 미리보기</p>
+          
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(7, 1fr)", gap: "1rem" }} className="logo-variants-grid">
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "4px" }}>
+              <div style={{ width: "48px", height: "48px", borderRadius: "8px", background: "#1f2937", display: "flex", alignItems: "center", justifyContent: "center" }} data-testid="logo-var-dark">
+                <TBurnLogo className="w-11 h-11" />
+              </div>
+              <span style={{ fontSize: "0.75rem", color: "var(--gray)" }}>Dark</span>
+            </div>
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "4px" }}>
+              <div style={{ width: "48px", height: "48px", borderRadius: "8px", background: "#ffffff", border: "1px solid #e5e7eb", display: "flex", alignItems: "center", justifyContent: "center" }} data-testid="logo-var-light">
+                <TBurnLogo className="w-11 h-11" />
+              </div>
+              <span style={{ fontSize: "0.75rem", color: "var(--gray)" }}>Light</span>
+            </div>
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "4px" }}>
+              <div style={{ width: "48px", height: "48px", borderRadius: "8px", background: "#000000", display: "flex", alignItems: "center", justifyContent: "center" }} data-testid="logo-var-black">
+                <TBurnLogo className="w-11 h-11" symbolColor="#FF6B35" />
+              </div>
+              <span style={{ fontSize: "0.75rem", color: "var(--gray)" }}>Black</span>
+            </div>
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "4px" }}>
+              <div style={{ width: "48px", height: "48px", borderRadius: "8px", background: "#1e3a5f", display: "flex", alignItems: "center", justifyContent: "center" }} data-testid="logo-var-navy">
+                <TBurnLogo className="w-11 h-11" symbolColor="#FFD700" />
+              </div>
+              <span style={{ fontSize: "0.75rem", color: "var(--gray)" }}>Navy</span>
+            </div>
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "4px" }}>
+              <div style={{ width: "48px", height: "48px", borderRadius: "8px", background: "#f97316", display: "flex", alignItems: "center", justifyContent: "center" }} data-testid="logo-var-orange">
+                <TBurnLogo className="w-11 h-11" symbolColor="#FFFFFF" />
+              </div>
+              <span style={{ fontSize: "0.75rem", color: "var(--gray)" }}>Orange</span>
+            </div>
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "4px" }}>
+              <div style={{ width: "48px", height: "48px", borderRadius: "8px", background: "#facc15", display: "flex", alignItems: "center", justifyContent: "center" }} data-testid="logo-var-yellow">
+                <TBurnLogo className="w-11 h-11" symbolColor="#000000" />
+              </div>
+              <span style={{ fontSize: "0.75rem", color: "var(--gray)" }}>Yellow</span>
+            </div>
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "4px" }}>
+              <div style={{ width: "48px", height: "48px", borderRadius: "8px", background: "#581c87", display: "flex", alignItems: "center", justifyContent: "center" }} data-testid="logo-var-purple">
+                <TBurnLogo className="w-11 h-11" />
+              </div>
+              <span style={{ fontSize: "0.75rem", color: "var(--gray)" }}>Purple</span>
+            </div>
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "4px" }}>
+              <div style={{ width: "48px", height: "48px", borderRadius: "8px", background: "#374151", display: "flex", alignItems: "center", justifyContent: "center" }} data-testid="logo-var-red">
+                <TBurnLogo className="w-11 h-11" symbolColor="#EF4444" />
+              </div>
+              <span style={{ fontSize: "0.75rem", color: "var(--gray)" }}>Red</span>
+            </div>
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "4px" }}>
+              <div style={{ width: "48px", height: "48px", borderRadius: "8px", background: "#0f172a", display: "flex", alignItems: "center", justifyContent: "center" }} data-testid="logo-var-cyan">
+                <TBurnLogo className="w-11 h-11" symbolColor="#06B6D4" />
+              </div>
+              <span style={{ fontSize: "0.75rem", color: "var(--gray)" }}>Cyan</span>
+            </div>
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "4px" }}>
+              <div style={{ width: "48px", height: "48px", borderRadius: "8px", background: "#18181b", display: "flex", alignItems: "center", justifyContent: "center" }} data-testid="logo-var-green">
+                <TBurnLogo className="w-11 h-11" symbolColor="#22C55E" />
+              </div>
+              <span style={{ fontSize: "0.75rem", color: "var(--gray)" }}>Green</span>
+            </div>
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "4px" }}>
+              <div style={{ width: "48px", height: "48px", borderRadius: "8px", background: "#dc2626", display: "flex", alignItems: "center", justifyContent: "center" }} data-testid="logo-var-red-bg">
+                <TBurnLogo className="w-11 h-11" symbolColor="#FFFFFF" />
+              </div>
+              <span style={{ fontSize: "0.75rem", color: "var(--gray)" }}>Red BG</span>
+            </div>
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "4px" }}>
+              <div style={{ width: "48px", height: "48px", borderRadius: "8px", background: "linear-gradient(135deg, #f97316 0%, #facc15 100%)", display: "flex", alignItems: "center", justifyContent: "center" }} data-testid="logo-var-brand">
+                <TBurnLogo className="w-11 h-11" symbolColor="#FFFFFF" />
+              </div>
+              <span style={{ fontSize: "0.75rem", color: "var(--gray)" }}>Brand</span>
+            </div>
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "4px" }}>
+              <div style={{ width: "48px", height: "48px", borderRadius: "8px", background: "#06b6d4", display: "flex", alignItems: "center", justifyContent: "center" }} data-testid="logo-var-cyan-bg">
+                <TBurnLogo className="w-11 h-11" symbolColor="#FF6B35" textColor="#FFFFFF" />
+              </div>
+              <span style={{ fontSize: "0.75rem", color: "var(--gray)" }}>Cyan BG</span>
+            </div>
+          </div>
+
+          <div style={{ marginTop: "1.5rem", paddingTop: "1.5rem", borderTop: "1px solid rgba(255,255,255,0.1)" }}>
+            <p style={{ fontSize: "0.875rem", fontWeight: 500, marginBottom: "1rem" }}>White T Variants</p>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(7, 1fr)", gap: "1rem" }}>
+              <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "4px" }}>
+                <div style={{ width: "48px", height: "48px", borderRadius: "8px", background: "#1f2937", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                  <TBurnLogo className="w-11 h-11" symbolColor="#FF6B35" textColor="#FFFFFF" fontSize={17} />
+                </div>
+                <span style={{ fontSize: "0.75rem", color: "var(--gray)" }}>Orange</span>
+              </div>
+              <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "4px" }}>
+                <div style={{ width: "48px", height: "48px", borderRadius: "8px", background: "#000000", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                  <TBurnLogo className="w-11 h-11" symbolColor="#FFD700" textColor="#FFFFFF" fontSize={17} />
+                </div>
+                <span style={{ fontSize: "0.75rem", color: "var(--gray)" }}>Gold</span>
+              </div>
+              <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "4px" }}>
+                <div style={{ width: "48px", height: "48px", borderRadius: "8px", background: "#172554", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                  <TBurnLogo className="w-11 h-11" symbolColor="#06B6D4" textColor="#FFFFFF" fontSize={17} />
+                </div>
+                <span style={{ fontSize: "0.75rem", color: "var(--gray)" }}>Cyan</span>
+              </div>
+              <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "4px" }}>
+                <div style={{ width: "48px", height: "48px", borderRadius: "8px", background: "#581c87", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                  <TBurnLogo className="w-11 h-11" symbolColor="#EC4899" textColor="#FFFFFF" fontSize={17} />
+                </div>
+                <span style={{ fontSize: "0.75rem", color: "var(--gray)" }}>Pink</span>
+              </div>
+              <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "4px" }}>
+                <div style={{ width: "48px", height: "48px", borderRadius: "8px", background: "#064e3b", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                  <TBurnLogo className="w-11 h-11" symbolColor="#84CC16" textColor="#FFFFFF" fontSize={17} />
+                </div>
+                <span style={{ fontSize: "0.75rem", color: "var(--gray)" }}>Lime</span>
+              </div>
+              <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "4px" }}>
+                <div style={{ width: "48px", height: "48px", borderRadius: "8px", background: "#1e293b", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                  <TBurnLogo className="w-11 h-11" symbolColor="#3B82F6" textColor="#FFFFFF" fontSize={17} />
+                </div>
+                <span style={{ fontSize: "0.75rem", color: "var(--gray)" }}>Blue</span>
+              </div>
+              <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "4px" }}>
+                <div style={{ width: "48px", height: "48px", borderRadius: "8px", background: "#27272a", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                  <TBurnLogo className="w-11 h-11" symbolColor="#F59E0B" textColor="#FFFFFF" fontSize={17} />
+                </div>
+                <span style={{ fontSize: "0.75rem", color: "var(--gray)" }}>Amber</span>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -1228,7 +1371,7 @@ export default function Brand() {
                 <div className={`banner-display ${banner.type}`}>
                   <div className={`banner-content ${banner.type === "email-banner" ? "dark-text" : ""}`}>
                     <div className="logo-group">
-                      <div className="logo-icon-small">🔥</div>
+                      <TBurnLogo className="w-12 h-12" />
                       <div className="logo-text-small">TBURN<span>CHAIN</span></div>
                     </div>
                     <h3>The Future of Decentralized Finance</h3>
@@ -1342,7 +1485,7 @@ export default function Brand() {
           <h4 style={{ fontSize: "1.125rem", fontWeight: 700, marginBottom: "1.5rem" }}>Clear Space (여백 가이드)</h4>
           <div className="clearspace-visual">
             <div className="clearspace-logo">
-              <div className="icon">🔥</div>
+              <TBurnLogo className="w-16 h-16" />
               <div className="text">TBURN<span>CHAIN</span></div>
               <div className="clearspace-marker top">X</div>
               <div className="clearspace-marker bottom">X</div>
