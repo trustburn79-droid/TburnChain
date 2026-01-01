@@ -633,27 +633,33 @@ class ProductionDataPoller {
 
   private async fetchAIModels(): Promise<any[]> {
     try {
-      return await this.enterpriseNode.getAIModels();
+      if (typeof this.enterpriseNode?.getAIModels === 'function') {
+        return await this.enterpriseNode.getAIModels();
+      }
+      return [];
     } catch (error) {
-      console.log('[ProductionDataPoller] fetchAIModels error');
       return [];
     }
   }
 
   private async fetchContracts(): Promise<any[]> {
     try {
-      return await this.enterpriseNode.getContracts();
+      if (typeof this.enterpriseNode?.getContracts === 'function') {
+        return await this.enterpriseNode.getContracts();
+      }
+      return [];
     } catch (error) {
-      console.log('[ProductionDataPoller] fetchContracts error');
       return [];
     }
   }
 
   private async fetchConsensusState(): Promise<any> {
     try {
-      return await this.enterpriseNode.getConsensusState();
+      if (typeof this.enterpriseNode?.getConsensusState === 'function') {
+        return await this.enterpriseNode.getConsensusState();
+      }
+      return null;
     } catch (error) {
-      console.log('[ProductionDataPoller] fetchConsensusState error');
       return null;
     }
   }
