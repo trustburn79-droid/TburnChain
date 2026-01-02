@@ -68,32 +68,23 @@ declare module 'http' {
   }
 }
 
-// ★ [수정 3] Redis URL 강제 설정 (환경변수 없으면 로컬호스트 사용)
-// 이렇게 해야 구글 서버에 설치된 Redis를 32개 코어가 같이 씁니다.
-const REDIS_URL = process.env.REDIS_URL || "redis://localhost:6379";
-const isReplit = process.env.REPL_ID !== undefined; // Replit 환경 감지
-const isReplitAutoscale = !isReplit && !process.env.REDIS_URL; // Replit Autoscale 환경 (REPL_ID 없고 REDIS_URL도 없음)
+// ★ [수정 3] 세션 스토어 단순화 - REDIS_URL 있을 때만 Redis 사용
+const REDIS_URL = process.env.REDIS_URL;
+const hasRedis = !!REDIS_URL; // REDIS_URL이 명시적으로 설정된 경우만 Redis 사용
 
 // ★ 쿠키 보안 설정 - 프로덕션 환경 자동 감지
 // Replit Autoscale 배포 시 HTTPS가 자동으로 활성화되므로 secure 쿠키 필요
-// NODE_ENV가 production이거나 REPL_SLUG이 있으면서 REPL_ID가 없으면 배포 환경
-const isProduction = process.env.NODE_ENV === "production" || (process.env.REPL_SLUG && !process.env.REPL_ID);
+const isProduction = process.env.NODE_ENV === "production" || !process.env.REPL_ID;
 const cookieSecure = isProduction || process.env.COOKIE_SECURE === "true";
 
 let sessionStore: session.Store;
 let sessionStoreType: string;
 
-// ★ [수정 4] Redis 연결 로직 강화
-// Replit 환경 및 Autoscale에서는 MemoryStore 사용, 프로덕션(구글 클라우드+Redis)에서는 Redis 사용
-if (isReplit || isReplitAutoscale) {
-  // Replit 개발/Autoscale 환경: MemoryStore 사용 (Redis 없음)
-  sessionStore = new MemoryStore({
-    checkPeriod: 86400000, // prune expired entries every 24h
-  });
-  sessionStoreType = isReplitAutoscale ? "MemoryStore (Replit Autoscale)" : "MemoryStore (Replit Development)";
-} else {
-  // 프로덕션 환경 (구글 클라우드): Redis 사용
-  console.log(`[Init] Attempting to connect to Redis at ${REDIS_URL}...`);
+// ★ [수정 4] 세션 스토어 선택 - 안전한 폴백
+// REDIS_URL이 명시적으로 설정된 경우에만 Redis 사용, 그 외에는 MemoryStore
+if (hasRedis) {
+  // Redis가 설정된 환경: Redis 사용
+  console.log(`[Init] Attempting to connect to Redis...`);
 
   const redisClient = createClient({ url: REDIS_URL });
 
@@ -101,7 +92,7 @@ if (isReplit || isReplitAutoscale) {
     console.error("[Redis] Connection Error:", err);
   });
   redisClient.on("connect", () => {
-    log("✅ Redis connected successfully (Cluster Mode Ready)", "session");
+    log("✅ Redis connected successfully", "session");
   });
 
   // Redis 클라이언트 연결 시작
@@ -110,9 +101,15 @@ if (isReplit || isReplitAutoscale) {
   // 세션 스토어로 Redis 지정
   sessionStore = new RedisStore({ 
     client: redisClient,
-    prefix: "tburn:", // 키 충돌 방지용 접두사
+    prefix: "tburn:",
   });
-  sessionStoreType = "Redis (Enterprise Cluster Mode)";
+  sessionStoreType = "Redis";
+} else {
+  // Redis가 없는 환경: MemoryStore 사용 (Replit 개발 및 Autoscale 배포 모두)
+  sessionStore = new MemoryStore({
+    checkPeriod: 86400000, // 24시간마다 만료된 세션 정리
+  });
+  sessionStoreType = "MemoryStore";
 }
 
 app.use(
