@@ -106,10 +106,15 @@ if (hasRedis) {
   sessionStoreType = "Redis";
 } else {
   // Redis가 없는 환경: MemoryStore 사용 (Replit 개발 및 Autoscale 배포 모두)
+  // ★ 메모리 누수 방지: 짧은 정리 주기 + 최대 세션 수 제한
   sessionStore = new MemoryStore({
-    checkPeriod: 86400000, // 24시간마다 만료된 세션 정리
+    checkPeriod: 300000, // 5분마다 만료된 세션 정리 (메모리 누수 방지)
+    max: 500, // 최대 500개 세션 (초과 시 가장 오래된 세션 삭제)
+    ttl: 3600000, // 세션 TTL 1시간 (메모리에서 빠르게 해제)
+    stale: true, // 만료된 세션도 일시적으로 허용 (사용자 경험 개선)
   });
-  sessionStoreType = "MemoryStore";
+  sessionStoreType = "MemoryStore (max: 500, TTL: 1h)";
+  console.log(`[Session] ⚠️ Using MemoryStore - for production scale, configure REDIS_URL`);
 }
 
 app.use(
@@ -121,7 +126,7 @@ app.use(
     cookie: {
       secure: cookieSecure,   // ★ 프로덕션에서 HTTPS 전용 쿠키 자동 활성화
       httpOnly: true, // 자바스크립트 접근 방지 (보안)
-      maxAge: 24 * 60 * 60 * 1000, // 24시간
+      maxAge: 2 * 60 * 60 * 1000, // ★ 2시간으로 단축 (메모리 누수 방지)
       sameSite: cookieSecure ? "none" : "lax", // ★ HTTPS 환경에서는 none으로 설정 (크로스 도메인 지원)
     },
     proxy: true, // ★ 항상 프록시 신뢰 (Nginx 뒤에서 작동)

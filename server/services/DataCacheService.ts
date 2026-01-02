@@ -36,6 +36,79 @@ class DataCacheService {
   // Default TTL values in milliseconds
   private readonly DEFAULT_TTL = 30000; // 30 seconds
   private readonly STALE_TTL = 300000; // 5 minutes - serve stale data during rate limits
+  
+  // ★ 메모리 누수 방지 설정
+  private readonly MAX_CACHE_SIZE = 100; // 최대 캐시 항목 수
+  private readonly CLEANUP_INTERVAL = 60000; // 1분마다 정리
+  private cleanupTimer: ReturnType<typeof setInterval> | null = null;
+
+  constructor() {
+    // 주기적인 메모리 정리 시작
+    this.startCleanupTimer();
+  }
+
+  /**
+   * ★ 주기적인 캐시 정리 시작
+   */
+  private startCleanupTimer(): void {
+    if (this.cleanupTimer) return;
+    
+    this.cleanupTimer = setInterval(() => {
+      this.cleanupExpired();
+      this.enforceMaxSize();
+      this.logMemoryUsage();
+    }, this.CLEANUP_INTERVAL);
+    
+    console.log('[DataCache] Cleanup timer started (interval: 60s)');
+  }
+
+  /**
+   * ★ 만료된 캐시 항목 정리
+   */
+  private cleanupExpired(): void {
+    const now = Date.now();
+    let cleaned = 0;
+    
+    for (const [key, entry] of this.cache.entries()) {
+      const age = now - entry.timestamp;
+      if (age > this.STALE_TTL) {
+        this.cache.delete(key);
+        cleaned++;
+      }
+    }
+    
+    if (cleaned > 0) {
+      this.stats.size = this.cache.size;
+      console.log(`[DataCache] Cleaned ${cleaned} expired entries, remaining: ${this.cache.size}`);
+    }
+  }
+
+  /**
+   * ★ 최대 캐시 크기 유지 (LRU 방식)
+   */
+  private enforceMaxSize(): void {
+    if (this.cache.size <= this.MAX_CACHE_SIZE) return;
+    
+    // 가장 오래된 항목부터 삭제
+    const entries = Array.from(this.cache.entries())
+      .sort((a, b) => a[1].timestamp - b[1].timestamp);
+    
+    const toRemove = this.cache.size - this.MAX_CACHE_SIZE;
+    for (let i = 0; i < toRemove; i++) {
+      this.cache.delete(entries[i][0]);
+    }
+    
+    this.stats.size = this.cache.size;
+    console.log(`[DataCache] Enforced max size, removed ${toRemove} oldest entries`);
+  }
+
+  /**
+   * ★ 메모리 사용량 로깅
+   */
+  private logMemoryUsage(): void {
+    const used = process.memoryUsage();
+    console.log(`[Memory] Heap: ${Math.round(used.heapUsed / 1024 / 1024)}MB / ${Math.round(used.heapTotal / 1024 / 1024)}MB, Cache entries: ${this.cache.size}`);
+  }
 
   // Cache keys
   static readonly KEYS = {
