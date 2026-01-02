@@ -33,16 +33,7 @@ app.get("/health", (_req, res) => {
   });
 });
 
-// ============================================
-// CRITICAL: Serve static landing page at / for instant loading
-// This bypasses React 8.7MB bundle entirely
-// ============================================
-app.get("/", (_req, res) => {
-  const staticLandingPath = path.resolve(process.cwd(), 'public', 'index.html');
-  res.setHeader('Content-Type', 'text/html; charset=utf-8');
-  res.setHeader('Cache-Control', 'public, max-age=300, stale-while-revalidate=600');
-  res.sendFile(staticLandingPath);
-});
+// React SPA served at / via SPA fallback below
 
 // ============================================
 // CRITICAL: Cache-Control Headers for Production
