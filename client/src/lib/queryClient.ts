@@ -1,7 +1,17 @@
 import { QueryClient, QueryFunction } from "@tanstack/react-query";
 
+class ServiceInitializingError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = 'ServiceInitializingError';
+  }
+}
+
 async function throwIfResNotOk(res: Response) {
   if (!res.ok) {
+    if (res.status === 503) {
+      throw new ServiceInitializingError('Backend services are starting up. Retrying...');
+    }
     const text = (await res.text()) || res.statusText;
     throw new Error(`${res.status}: ${text}`);
   }
@@ -50,6 +60,26 @@ export const getQueryFn: <T>(options: {
     return await res.json();
   };
 
+// Retry function that handles 503 (service initializing) with exponential backoff
+const retryFn = (failureCount: number, error: Error) => {
+  // Always retry 503 errors (service initializing) up to 12 times (~60 seconds)
+  if (error instanceof ServiceInitializingError) {
+    return failureCount < 12;
+  }
+  // For other errors, retry twice (same as original behavior)
+  return failureCount < 2;
+};
+
+// Retry delay with exponential backoff for 503 errors
+const retryDelay = (attemptIndex: number, error: Error) => {
+  if (error instanceof ServiceInitializingError) {
+    // 503: retry every 5 seconds (matching server's retryAfter: 5)
+    return 5000;
+  }
+  // Default: exponential backoff
+  return Math.min(1000 * 2 ** attemptIndex, 30000);
+};
+
 export const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -57,7 +87,8 @@ export const queryClient = new QueryClient({
       refetchInterval: false,
       refetchOnWindowFocus: false,
       staleTime: 30000,
-      retry: 1,
+      retry: retryFn,
+      retryDelay: retryDelay,
     },
     mutations: {
       retry: false,
