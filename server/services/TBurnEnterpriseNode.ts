@@ -3519,8 +3519,8 @@ export class TBurnEnterpriseNode extends EventEmitter {
     if (this.lastBlockTimestamp > 0) {
       const interval = now - this.lastBlockTimestamp; // Actual ms between blocks
       this.blockIntervals.push(interval);
-      // Keep last 1000 intervals for accurate averaging and P99
-      if (this.blockIntervals.length > 1000) {
+      // ★ 메모리 최적화: 200개로 제한 (was 1000)
+      if (this.blockIntervals.length > 200) {
         this.blockIntervals.shift();
       }
     }

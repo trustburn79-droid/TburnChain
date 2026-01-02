@@ -53,13 +53,13 @@ class ProductionDataPoller {
   };
 
   private config: PollerConfig = {
-    // In development, use longer intervals to reduce event loop pressure and allow Vite to work smoothly
-    pollInterval: process.env.NODE_ENV === 'development' ? 60000 : 15000, // 60s in dev, 15s in prod
-    retryDelay: process.env.NODE_ENV === 'development' ? 10000 : 5000, // 10s in dev, 5s in prod
-    maxConsecutiveErrors: 5, // Back off after 5 consecutive errors
-    circuitBreakerThreshold: 10, // Open circuit after 10 consecutive errors
-    circuitBreakerResetMs: 60000, // Try again after 60 seconds
-    maxJitterMs: 2000 // Random jitter up to 2 seconds
+    // ★ 메모리 안정성을 위해 폴링 간격 증가
+    pollInterval: process.env.NODE_ENV === 'development' ? 60000 : 30000, // 60s in dev, 30s in prod (was 15s)
+    retryDelay: process.env.NODE_ENV === 'development' ? 10000 : 10000, // 10s retry delay
+    maxConsecutiveErrors: 3, // Back off after 3 consecutive errors (was 5)
+    circuitBreakerThreshold: 5, // Open circuit after 5 consecutive errors (was 10)
+    circuitBreakerResetMs: 120000, // Try again after 2 minutes (was 60s)
+    maxJitterMs: 3000 // Random jitter up to 3 seconds
   };
 
   constructor() {
