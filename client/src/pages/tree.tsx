@@ -148,6 +148,7 @@ const routeTree: RouteItem[] = [
     label: "Standalone Pages",
     children: [
       { path: "/airdrop", label: "Airdrop Program" },
+      { path: "/referral", label: "Referral Program" },
       { path: "/token-generator", label: "Token Generator" },
       { path: "/nft-marketplace", label: "NFT Marketplace" },
       { path: "/security-audit", label: "Security Audit" },

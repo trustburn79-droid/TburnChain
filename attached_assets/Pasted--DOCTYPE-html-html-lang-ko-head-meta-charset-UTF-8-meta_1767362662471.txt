@@ -1,0 +1,2141 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TBURN Chain - 이벤트 센터 | 4억 TBURN 보상</title>
+  <meta name="description" content="TBURN Chain 이벤트 센터. 런칭 이벤트, 트레이딩 대회, 스테이킹 부스트 등 다양한 이벤트에 참여하고 4억 TBURN을 받으세요.">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy: #1A365D;
+      --navy-light: #2D4A7C;
+      --gold: #D4AF37;
+      --gold-light: #E5C76B;
+      --dark: #0F172A;
+      --dark-card: #1E293B;
+      --gray: #64748B;
+      --light-gray: #94A3B8;
+      --white: #FFFFFF;
+      --success: #22C55E;
+      --warning: #F59E0B;
+      --danger: #EF4444;
+      --purple: #8B5CF6;
+      --blue: #3B82F6;
+      --cyan: #06B6D4;
+      --pink: #EC4899;
+      --orange: #F97316;
+      --gradient-gold: linear-gradient(135deg, #D4AF37 0%, #F5D76E 50%, #D4AF37 100%);
+      --gradient-fire: linear-gradient(135deg, #F97316 0%, #EF4444 50%, #EC4899 100%);
+      --gradient-ocean: linear-gradient(135deg, #06B6D4 0%, #3B82F6 100%);
+      --gradient-purple: linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%);
+      --gradient-dark: linear-gradient(180deg, #0F172A 0%, #1E293B 100%);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--dark);
+      color: var(--white);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Animations */
+    @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-20px); } }
+    @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.8; transform: scale(1.05); } }
+    @keyframes shimmer { 0% { background-position: -200% center; } 100% { background-position: 200% center; } }
+    @keyframes glow { 0%, 100% { box-shadow: 0 0 20px rgba(249, 115, 22, 0.4); } 50% { box-shadow: 0 0 40px rgba(249, 115, 22, 0.8); } }
+    @keyframes countdown { from { stroke-dashoffset: 0; } to { stroke-dashoffset: 283; } }
+    @keyframes confetti { 0% { transform: translateY(0) rotate(0deg); opacity: 1; } 100% { transform: translateY(100vh) rotate(720deg); opacity: 0; } }
+    @keyframes slideIn { from { opacity: 0; transform: translateX(-30px); } to { opacity: 1; transform: translateX(0); } }
+    @keyframes bounceIn { 0% { transform: scale(0.3); opacity: 0; } 50% { transform: scale(1.05); } 70% { transform: scale(0.9); } 100% { transform: scale(1); opacity: 1; } }
+
+    /* Header */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background: rgba(15, 23, 42, 0.95);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(249, 115, 22, 0.2);
+    }
+
+    .header-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+
+    .logo-icon {
+      width: 48px;
+      height: 48px;
+      background: var(--gradient-gold);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+    }
+
+    .logo-text {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--white);
+    }
+
+    .logo-text span { color: var(--gold); }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: var(--light-gray);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover { color: var(--orange); }
+
+    .connect-btn {
+      background: var(--gradient-fire);
+      color: var(--white);
+      padding: 12px 24px;
+      border-radius: 12px;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .connect-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 40px rgba(249, 115, 22, 0.3);
+    }
+
+    /* Hero Section */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      padding: 120px 2rem 80px;
+      background: radial-gradient(ellipse at center top, rgba(249, 115, 22, 0.15) 0%, transparent 50%),
+                  radial-gradient(ellipse at bottom right, rgba(236, 72, 153, 0.1) 0%, transparent 50%),
+                  var(--gradient-dark);
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .hero-bg::before {
+      content: '';
+      position: absolute;
+      width: 800px;
+      height: 800px;
+      background: radial-gradient(circle, rgba(249, 115, 22, 0.2) 0%, transparent 70%);
+      top: -300px;
+      right: -300px;
+      animation: float 10s ease-in-out infinite;
+    }
+
+    .hero-content {
+      max-width: 1200px;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(249, 115, 22, 0.15);
+      border: 1px solid rgba(249, 115, 22, 0.4);
+      padding: 8px 20px;
+      border-radius: 100px;
+      font-size: 0.875rem;
+      color: var(--orange);
+      margin-bottom: 2rem;
+      animation: pulse 2s infinite;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      font-weight: 900;
+      margin-bottom: 1.5rem;
+      line-height: 1.1;
+    }
+
+    .hero h1 .gradient-text {
+      background: var(--gradient-fire);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-subtitle {
+      font-size: 1.25rem;
+      color: var(--light-gray);
+      max-width: 700px;
+      margin: 0 auto 3rem;
+    }
+
+    /* Live Event Banner */
+    .live-banner {
+      background: linear-gradient(90deg, rgba(249, 115, 22, 0.2), rgba(236, 72, 153, 0.2), rgba(249, 115, 22, 0.2));
+      border: 1px solid rgba(249, 115, 22, 0.3);
+      border-radius: 20px;
+      padding: 2rem;
+      margin-bottom: 3rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 2rem;
+      animation: glow 3s infinite;
+    }
+
+    .live-badge {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--danger);
+      padding: 6px 14px;
+      border-radius: 100px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .live-badge::before {
+      content: '';
+      width: 8px;
+      height: 8px;
+      background: var(--white);
+      border-radius: 50%;
+      animation: pulse 1s infinite;
+    }
+
+    .live-info h3 {
+      font-size: 1.5rem;
+      font-weight: 800;
+      margin-bottom: 0.25rem;
+    }
+
+    .live-info p {
+      color: var(--light-gray);
+    }
+
+    .countdown-container {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .countdown-item {
+      text-align: center;
+    }
+
+    .countdown-value {
+      background: var(--dark);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 12px 16px;
+      font-size: 1.75rem;
+      font-weight: 800;
+      min-width: 60px;
+      color: var(--orange);
+    }
+
+    .countdown-label {
+      font-size: 0.75rem;
+      color: var(--gray);
+      margin-top: 4px;
+    }
+
+    .live-cta {
+      background: var(--gradient-fire);
+      color: var(--white);
+      padding: 14px 32px;
+      border-radius: 12px;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: all 0.3s;
+    }
+
+    .live-cta:hover {
+      transform: scale(1.05);
+    }
+
+    /* Stats Grid */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+    }
+
+    .stat-card {
+      background: var(--dark-card);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 1.5rem;
+      text-align: center;
+      transition: transform 0.3s, border-color 0.3s;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--orange);
+    }
+
+    .stat-value {
+      font-size: 2rem;
+      font-weight: 800;
+      background: var(--gradient-fire);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-label {
+      font-size: 0.875rem;
+      color: var(--light-gray);
+    }
+
+    /* Section Styles */
+    .section {
+      padding: 100px 2rem;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+
+    .section-badge {
+      display: inline-block;
+      background: rgba(249, 115, 22, 0.15);
+      color: var(--orange);
+      padding: 6px 16px;
+      border-radius: 100px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+
+    .section-title {
+      font-size: 2.5rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+    }
+
+    .section-subtitle {
+      color: var(--light-gray);
+      font-size: 1.125rem;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* Event Cards */
+    .events-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+
+    .event-card {
+      background: var(--dark-card);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 24px;
+      overflow: hidden;
+      transition: all 0.3s;
+      position: relative;
+    }
+
+    .event-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+    }
+
+    .event-card.featured {
+      border-color: var(--orange);
+      box-shadow: 0 0 30px rgba(249, 115, 22, 0.2);
+    }
+
+    .event-card.featured::before {
+      content: '🔥 HOT';
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: var(--gradient-fire);
+      padding: 6px 14px;
+      border-radius: 100px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      z-index: 10;
+    }
+
+    .event-image {
+      height: 200px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .event-image.launch { background: linear-gradient(135deg, #F97316 0%, #EF4444 100%); }
+    .event-image.trading { background: linear-gradient(135deg, #3B82F6 0%, #8B5CF6 100%); }
+    .event-image.staking { background: linear-gradient(135deg, #22C55E 0%, #06B6D4 100%); }
+    .event-image.community { background: linear-gradient(135deg, #EC4899 0%, #8B5CF6 100%); }
+    .event-image.partner { background: linear-gradient(135deg, #F59E0B 0%, #EF4444 100%); }
+    .event-image.season { background: linear-gradient(135deg, #06B6D4 0%, #3B82F6 100%); }
+
+    .event-image-content {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+
+    .event-icon {
+      font-size: 4rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .event-status {
+      padding: 4px 12px;
+      border-radius: 100px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    .event-status.live { background: var(--danger); }
+    .event-status.upcoming { background: var(--warning); color: var(--dark); }
+    .event-status.ended { background: var(--gray); }
+
+    .event-content {
+      padding: 1.5rem;
+    }
+
+    .event-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .event-desc {
+      color: var(--light-gray);
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+    }
+
+    .event-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .event-reward {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .event-reward i { color: var(--gold); }
+
+    .event-reward span {
+      font-weight: 700;
+      color: var(--gold);
+    }
+
+    .event-date {
+      font-size: 0.875rem;
+      color: var(--gray);
+    }
+
+    .event-btn {
+      display: block;
+      width: 100%;
+      background: var(--gradient-fire);
+      color: var(--white);
+      padding: 14px;
+      border-radius: 12px;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      margin-top: 1rem;
+      transition: all 0.3s;
+    }
+
+    .event-btn:hover {
+      transform: scale(1.02);
+    }
+
+    .event-btn.secondary {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    /* Event Categories */
+    .category-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 3rem;
+      flex-wrap: wrap;
+    }
+
+    .category-tab {
+      padding: 12px 24px;
+      border-radius: 100px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: transparent;
+      color: var(--light-gray);
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .category-tab:hover {
+      border-color: var(--orange);
+      color: var(--orange);
+    }
+
+    .category-tab.active {
+      background: var(--gradient-fire);
+      border-color: transparent;
+      color: var(--white);
+    }
+
+    /* Event Detail Modal */
+    .event-detail-section {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 3rem;
+    }
+
+    .detail-main {
+      background: var(--dark-card);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 24px;
+      padding: 2.5rem;
+    }
+
+    .detail-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 2rem;
+    }
+
+    .detail-title {
+      font-size: 2rem;
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+    }
+
+    .detail-subtitle {
+      color: var(--light-gray);
+    }
+
+    .detail-badge {
+      padding: 8px 16px;
+      border-radius: 100px;
+      font-size: 0.875rem;
+      font-weight: 600;
+    }
+
+    .detail-badge.live {
+      background: rgba(239, 68, 68, 0.2);
+      color: var(--danger);
+      animation: pulse 2s infinite;
+    }
+
+    .detail-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .detail-stat {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      padding: 1.25rem;
+      text-align: center;
+    }
+
+    .detail-stat-value {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--orange);
+      margin-bottom: 0.25rem;
+    }
+
+    .detail-stat-label {
+      font-size: 0.875rem;
+      color: var(--light-gray);
+    }
+
+    .detail-description {
+      margin-bottom: 2rem;
+    }
+
+    .detail-description h4 {
+      font-size: 1.125rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .detail-description p {
+      color: var(--light-gray);
+      line-height: 1.8;
+    }
+
+    .rules-list {
+      list-style: none;
+      margin-top: 1rem;
+    }
+
+    .rules-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .rules-list li:last-child { border-bottom: none; }
+
+    .rules-list li i {
+      color: var(--success);
+      margin-top: 4px;
+    }
+
+    .detail-sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .sidebar-card {
+      background: var(--dark-card);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 1.5rem;
+    }
+
+    .sidebar-card h4 {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .sidebar-card h4 i { color: var(--orange); }
+
+    .reward-tiers {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .reward-tier {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 14px;
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 10px;
+    }
+
+    .reward-tier .rank {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .reward-tier .rank span:first-child {
+      font-size: 1.25rem;
+    }
+
+    .reward-tier .amount {
+      color: var(--gold);
+      font-weight: 700;
+    }
+
+    .progress-container {
+      margin-bottom: 1rem;
+    }
+
+    .progress-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.5rem;
+      font-size: 0.875rem;
+    }
+
+    .progress-bar {
+      height: 10px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 100px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: var(--gradient-fire);
+      border-radius: 100px;
+      transition: width 1s ease;
+    }
+
+    .participate-btn {
+      width: 100%;
+      background: var(--gradient-fire);
+      color: var(--white);
+      padding: 16px;
+      border-radius: 14px;
+      font-size: 1.125rem;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .participate-btn:hover {
+      transform: scale(1.02);
+      box-shadow: 0 15px 40px rgba(249, 115, 22, 0.3);
+    }
+
+    /* Leaderboard */
+    .leaderboard-section {
+      background: var(--dark-card);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 24px;
+      padding: 2rem;
+    }
+
+    .leaderboard-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+    }
+
+    .leaderboard-header h3 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .leaderboard-tabs {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .lb-tab {
+      padding: 8px 16px;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: transparent;
+      color: var(--light-gray);
+      font-size: 0.875rem;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .lb-tab.active {
+      background: var(--orange);
+      border-color: var(--orange);
+      color: var(--white);
+    }
+
+    .leaderboard-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .leaderboard-table th {
+      text-align: left;
+      padding: 1rem;
+      background: rgba(255, 255, 255, 0.03);
+      font-weight: 600;
+      font-size: 0.875rem;
+      color: var(--light-gray);
+    }
+
+    .leaderboard-table th:first-child { border-radius: 12px 0 0 12px; }
+    .leaderboard-table th:last-child { border-radius: 0 12px 12px 0; }
+
+    .leaderboard-table td {
+      padding: 1rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .leaderboard-table tr:hover td {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .rank-badge {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+    }
+
+    .rank-badge.gold { background: var(--gradient-gold); color: var(--dark); }
+    .rank-badge.silver { background: linear-gradient(135deg, #C0C0C0, #E8E8E8); color: var(--dark); }
+    .rank-badge.bronze { background: linear-gradient(135deg, #CD7F32, #E8A65D); color: var(--dark); }
+    .rank-badge.normal { background: rgba(255, 255, 255, 0.1); color: var(--light-gray); }
+
+    .user-cell {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .user-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: var(--gradient-fire);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+    }
+
+    .user-address {
+      font-family: monospace;
+      font-weight: 500;
+    }
+
+    .score-cell {
+      font-weight: 700;
+      color: var(--orange);
+    }
+
+    .reward-cell {
+      font-weight: 700;
+      color: var(--gold);
+    }
+
+    /* Calendar Section */
+    .calendar-container {
+      background: var(--dark-card);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 24px;
+      padding: 2rem;
+    }
+
+    .calendar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+    }
+
+    .calendar-nav {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .calendar-nav button {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: transparent;
+      color: var(--white);
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .calendar-nav button:hover {
+      background: var(--orange);
+      border-color: var(--orange);
+    }
+
+    .calendar-nav h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+    }
+
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 0.5rem;
+    }
+
+    .calendar-day-header {
+      text-align: center;
+      padding: 0.75rem;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--gray);
+    }
+
+    .calendar-day {
+      aspect-ratio: 1;
+      border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: all 0.3s;
+      position: relative;
+    }
+
+    .calendar-day:hover {
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .calendar-day.has-event {
+      border-color: var(--orange);
+    }
+
+    .calendar-day.has-event::after {
+      content: '';
+      position: absolute;
+      bottom: 8px;
+      width: 6px;
+      height: 6px;
+      background: var(--orange);
+      border-radius: 50%;
+    }
+
+    .calendar-day.today {
+      background: var(--gradient-fire);
+      border-color: transparent;
+    }
+
+    .calendar-day .day-number {
+      font-weight: 600;
+    }
+
+    /* Distribution Section */
+    .distribution-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 1.5rem;
+    }
+
+    .dist-card {
+      background: var(--dark-card);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 1.5rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .dist-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+    }
+
+    .dist-card.launch::before { background: var(--gradient-fire); }
+    .dist-card.trading::before { background: linear-gradient(90deg, var(--blue), var(--purple)); }
+    .dist-card.staking::before { background: linear-gradient(90deg, var(--success), var(--cyan)); }
+    .dist-card.community::before { background: linear-gradient(90deg, var(--pink), var(--purple)); }
+    .dist-card.partner::before { background: var(--gradient-gold); }
+
+    .dist-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .dist-name {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .dist-amount {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--orange);
+      margin-bottom: 0.25rem;
+    }
+
+    .dist-percent {
+      font-size: 0.875rem;
+      color: var(--gray);
+    }
+
+    /* FAQ Section */
+    .faq-container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .faq-item {
+      background: var(--dark-card);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      margin-bottom: 1rem;
+      overflow: hidden;
+    }
+
+    .faq-question {
+      padding: 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .faq-question:hover {
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .faq-question h4 {
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    .faq-question i {
+      color: var(--orange);
+      transition: transform 0.3s;
+    }
+
+    .faq-item.active .faq-question i {
+      transform: rotate(180deg);
+    }
+
+    .faq-answer {
+      padding: 0 1.5rem;
+      max-height: 0;
+      overflow: hidden;
+      transition: all 0.3s;
+    }
+
+    .faq-item.active .faq-answer {
+      padding: 0 1.5rem 1.5rem;
+      max-height: 500px;
+    }
+
+    .faq-answer p {
+      color: var(--light-gray);
+      line-height: 1.8;
+    }
+
+    /* Footer */
+    .footer {
+      background: var(--dark);
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 60px 2rem 30px;
+    }
+
+    .footer-content {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 4rem;
+      margin-bottom: 3rem;
+    }
+
+    .footer-brand h3 {
+      font-size: 1.5rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+    }
+
+    .footer-brand h3 span { color: var(--gold); }
+
+    .footer-brand p {
+      color: var(--light-gray);
+      margin-bottom: 1.5rem;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .social-links a {
+      width: 44px;
+      height: 44px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--light-gray);
+      transition: all 0.3s;
+    }
+
+    .social-links a:hover {
+      background: var(--orange);
+      color: var(--white);
+    }
+
+    .footer-links h4 {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+    }
+
+    .footer-links ul { list-style: none; }
+    .footer-links li { margin-bottom: 0.75rem; }
+
+    .footer-links a {
+      color: var(--light-gray);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .footer-links a:hover { color: var(--orange); }
+
+    .footer-bottom {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: var(--gray);
+      font-size: 0.875rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 1200px) {
+      .events-grid { grid-template-columns: repeat(2, 1fr); }
+      .distribution-grid { grid-template-columns: repeat(3, 1fr); }
+      .event-detail-section { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 1024px) {
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .detail-stats { grid-template-columns: repeat(2, 1fr); }
+      .footer-content { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 768px) {
+      .header-container { padding: 1rem; }
+      .nav-links { display: none; }
+      .hero { padding: 100px 1rem 60px; }
+      .stats-grid { grid-template-columns: 1fr; }
+      .events-grid { grid-template-columns: 1fr; }
+      .distribution-grid { grid-template-columns: repeat(2, 1fr); }
+      .live-banner { flex-direction: column; text-align: center; }
+      .countdown-container { justify-content: center; }
+      .calendar-grid { font-size: 0.75rem; }
+      .footer-content { grid-template-columns: 1fr; gap: 2rem; }
+      .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="header-container">
+      <a href="#" class="logo">
+        <div class="logo-icon">🔥</div>
+        <div class="logo-text">TBURN<span>CHAIN</span></div>
+      </a>
+      <nav class="nav-links">
+        <a href="#live-events">진행중 이벤트</a>
+        <a href="#all-events">전체 이벤트</a>
+        <a href="#leaderboard">리더보드</a>
+        <a href="#calendar">캘린더</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+      <button class="connect-btn" onclick="openWalletModal()">
+        <i class="fas fa-wallet"></i> 지갑 연결
+      </button>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <div class="badge">
+        <i class="fas fa-fire"></i>
+        EVENT CENTER - 다양한 이벤트 진행 중
+      </div>
+      <h1>
+        참여하고 받아가세요!<br>
+        <span class="gradient-text">4억 TBURN</span> 이벤트 보상
+      </h1>
+      <p class="hero-subtitle">
+        런칭 이벤트, 트레이딩 대회, 스테이킹 부스트, 커뮤니티 챌린지 등
+        다양한 이벤트에 참여하고 푸짐한 보상을 받아가세요!
+      </p>
+
+      <!-- Live Event Banner -->
+      <div class="live-banner" id="live-events">
+        <div>
+          <div class="live-badge">LIVE</div>
+        </div>
+        <div class="live-info">
+          <h3>🚀 메인넷 런칭 그랜드 이벤트</h3>
+          <p>지금 참여하면 최대 10,000 TBURN 획득!</p>
+        </div>
+        <div class="countdown-container">
+          <div class="countdown-item">
+            <div class="countdown-value" id="days">14</div>
+            <div class="countdown-label">일</div>
+          </div>
+          <div class="countdown-item">
+            <div class="countdown-value" id="hours">23</div>
+            <div class="countdown-label">시간</div>
+          </div>
+          <div class="countdown-item">
+            <div class="countdown-value" id="minutes">59</div>
+            <div class="countdown-label">분</div>
+          </div>
+          <div class="countdown-item">
+            <div class="countdown-value" id="seconds">59</div>
+            <div class="countdown-label">초</div>
+          </div>
+        </div>
+        <button class="live-cta" onclick="scrollToSection('launch-event')">
+          <i class="fas fa-arrow-right"></i> 참여하기
+        </button>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-value">4억</div>
+          <div class="stat-label">총 이벤트 보상 풀</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">6,000만</div>
+          <div class="stat-label">TGE 즉시 해제 (15%)</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">24개월</div>
+          <div class="stat-label">베스팅 기간</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">12+</div>
+          <div class="stat-label">진행 예정 이벤트</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Distribution Section -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-badge">DISTRIBUTION</span>
+      <h2 class="section-title">이벤트 보상 배분</h2>
+      <p class="section-subtitle">4억 TBURN이 5가지 이벤트 카테고리로 배분됩니다</p>
+    </div>
+
+    <div class="distribution-grid">
+      <div class="dist-card launch">
+        <div class="dist-icon">🚀</div>
+        <div class="dist-name">런칭 이벤트</div>
+        <div class="dist-amount">1억</div>
+        <div class="dist-percent">25%</div>
+      </div>
+
+      <div class="dist-card trading">
+        <div class="dist-icon">📊</div>
+        <div class="dist-name">트레이딩 대회</div>
+        <div class="dist-amount">1억</div>
+        <div class="dist-percent">25%</div>
+      </div>
+
+      <div class="dist-card staking">
+        <div class="dist-icon">💎</div>
+        <div class="dist-name">스테이킹 부스트</div>
+        <div class="dist-amount">8,000만</div>
+        <div class="dist-percent">20%</div>
+      </div>
+
+      <div class="dist-card community">
+        <div class="dist-icon">👥</div>
+        <div class="dist-name">커뮤니티 챌린지</div>
+        <div class="dist-amount">6,000만</div>
+        <div class="dist-percent">15%</div>
+      </div>
+
+      <div class="dist-card partner">
+        <div class="dist-icon">🤝</div>
+        <div class="dist-name">파트너십 & 시즌</div>
+        <div class="dist-amount">6,000만</div>
+        <div class="dist-percent">15%</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- All Events Section -->
+  <section class="section" id="all-events" style="background: rgba(255,255,255,0.02);">
+    <div class="section-header">
+      <span class="section-badge">ALL EVENTS</span>
+      <h2 class="section-title">이벤트 목록</h2>
+      <p class="section-subtitle">현재 진행 중이거나 예정된 이벤트를 확인하세요</p>
+    </div>
+
+    <div class="category-tabs">
+      <button class="category-tab active" onclick="filterEvents('all')">
+        <i class="fas fa-th-large"></i> 전체
+      </button>
+      <button class="category-tab" onclick="filterEvents('live')">
+        <i class="fas fa-circle" style="font-size: 8px; color: var(--danger);"></i> 진행중
+      </button>
+      <button class="category-tab" onclick="filterEvents('launch')">
+        <i class="fas fa-rocket"></i> 런칭
+      </button>
+      <button class="category-tab" onclick="filterEvents('trading')">
+        <i class="fas fa-chart-line"></i> 트레이딩
+      </button>
+      <button class="category-tab" onclick="filterEvents('staking')">
+        <i class="fas fa-layer-group"></i> 스테이킹
+      </button>
+      <button class="category-tab" onclick="filterEvents('community')">
+        <i class="fas fa-users"></i> 커뮤니티
+      </button>
+    </div>
+
+    <div class="events-grid">
+      <!-- Launch Event -->
+      <div class="event-card featured" data-category="launch live" id="launch-event">
+        <div class="event-image launch">
+          <div class="event-image-content">
+            <div class="event-icon">🚀</div>
+            <span class="event-status live">진행중</span>
+          </div>
+        </div>
+        <div class="event-content">
+          <h3 class="event-title">메인넷 런칭 그랜드 이벤트</h3>
+          <p class="event-desc">TBURN Chain 메인넷 런칭을 기념하는 최대 규모 이벤트! 참여만 해도 보상 획득</p>
+          <div class="event-meta">
+            <div class="event-reward">
+              <i class="fas fa-coins"></i>
+              <span>5,000만 TBURN</span>
+            </div>
+            <span class="event-date">~2026.01.31</span>
+          </div>
+          <button class="event-btn" onclick="showEventDetail('launch')">참여하기</button>
+        </div>
+      </div>
+
+      <!-- Trading Competition -->
+      <div class="event-card" data-category="trading live">
+        <div class="event-image trading">
+          <div class="event-image-content">
+            <div class="event-icon">📊</div>
+            <span class="event-status live">진행중</span>
+          </div>
+        </div>
+        <div class="event-content">
+          <h3 class="event-title">트레이딩 대회 시즌 1</h3>
+          <p class="event-desc">거래량 TOP 100에게 총 2,000만 TBURN 배분! 수익률 경쟁도 진행</p>
+          <div class="event-meta">
+            <div class="event-reward">
+              <i class="fas fa-coins"></i>
+              <span>2,000만 TBURN</span>
+            </div>
+            <span class="event-date">~2026.02.28</span>
+          </div>
+          <button class="event-btn" onclick="showEventDetail('trading')">참여하기</button>
+        </div>
+      </div>
+
+      <!-- Staking Boost -->
+      <div class="event-card" data-category="staking live">
+        <div class="event-image staking">
+          <div class="event-image-content">
+            <div class="event-icon">💎</div>
+            <span class="event-status live">진행중</span>
+          </div>
+        </div>
+        <div class="event-content">
+          <h3 class="event-title">스테이킹 부스트 이벤트</h3>
+          <p class="event-desc">첫 30일 스테이킹 APY 2배! 얼리 스테이커 특별 보너스</p>
+          <div class="event-meta">
+            <div class="event-reward">
+              <i class="fas fa-coins"></i>
+              <span>3,000만 TBURN</span>
+            </div>
+            <span class="event-date">~2026.02.15</span>
+          </div>
+          <button class="event-btn" onclick="showEventDetail('staking')">참여하기</button>
+        </div>
+      </div>
+
+      <!-- Community Challenge -->
+      <div class="event-card" data-category="community">
+        <div class="event-image community">
+          <div class="event-image-content">
+            <div class="event-icon">👥</div>
+            <span class="event-status upcoming">예정</span>
+          </div>
+        </div>
+        <div class="event-content">
+          <h3 class="event-title">밈 콘테스트</h3>
+          <p class="event-desc">TBURN 관련 최고의 밈을 만들어주세요! 커뮤니티 투표로 수상작 선정</p>
+          <div class="event-meta">
+            <div class="event-reward">
+              <i class="fas fa-coins"></i>
+              <span>500만 TBURN</span>
+            </div>
+            <span class="event-date">2026.01.15~</span>
+          </div>
+          <button class="event-btn secondary">곧 시작</button>
+        </div>
+      </div>
+
+      <!-- Quiz Event -->
+      <div class="event-card" data-category="community live">
+        <div class="event-image community">
+          <div class="event-image-content">
+            <div class="event-icon">🧠</div>
+            <span class="event-status live">진행중</span>
+          </div>
+        </div>
+        <div class="event-content">
+          <h3 class="event-title">TBURN 퀴즈 챌린지</h3>
+          <p class="event-desc">TBURN Chain에 대한 퀴즈를 풀고 보상을 받으세요! 매일 새로운 문제</p>
+          <div class="event-meta">
+            <div class="event-reward">
+              <i class="fas fa-coins"></i>
+              <span>1,000만 TBURN</span>
+            </div>
+            <span class="event-date">상시 진행</span>
+          </div>
+          <button class="event-btn" onclick="showEventDetail('quiz')">참여하기</button>
+        </div>
+      </div>
+
+      <!-- Partner Event -->
+      <div class="event-card" data-category="partner">
+        <div class="event-image partner">
+          <div class="event-image-content">
+            <div class="event-icon">🤝</div>
+            <span class="event-status upcoming">예정</span>
+          </div>
+        </div>
+        <div class="event-content">
+          <h3 class="event-title">DEX 런칭 기념 이벤트</h3>
+          <p class="event-desc">TBURN DEX 런칭 기념! 유동성 공급자 특별 보상</p>
+          <div class="event-meta">
+            <div class="event-reward">
+              <i class="fas fa-coins"></i>
+              <span>2,000만 TBURN</span>
+            </div>
+            <span class="event-date">2026.02.01~</span>
+          </div>
+          <button class="event-btn secondary">곧 시작</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Event Detail Section (Launch Event) -->
+  <section class="section" id="event-detail">
+    <div class="section-header">
+      <span class="section-badge">FEATURED EVENT</span>
+      <h2 class="section-title">🚀 메인넷 런칭 그랜드 이벤트</h2>
+      <p class="section-subtitle">TBURN Chain의 역사적인 시작에 함께하세요</p>
+    </div>
+
+    <div class="event-detail-section">
+      <div class="detail-main">
+        <div class="detail-header">
+          <div>
+            <h3 class="detail-title">메인넷 런칭 그랜드 이벤트</h3>
+            <p class="detail-subtitle">2025.12.22 ~ 2026.01.31 (40일간)</p>
+          </div>
+          <span class="detail-badge live">🔴 진행중</span>
+        </div>
+
+        <div class="detail-stats">
+          <div class="detail-stat">
+            <div class="detail-stat-value">5,000만</div>
+            <div class="detail-stat-label">총 보상 (TBURN)</div>
+          </div>
+          <div class="detail-stat">
+            <div class="detail-stat-value">12,847</div>
+            <div class="detail-stat-label">현재 참여자</div>
+          </div>
+          <div class="detail-stat">
+            <div class="detail-stat-value">~10,000</div>
+            <div class="detail-stat-label">1인 최대 보상</div>
+          </div>
+        </div>
+
+        <div class="detail-description">
+          <h4>📋 이벤트 설명</h4>
+          <p>
+            TBURN Chain 메인넷 런칭을 기념하는 최대 규모의 이벤트입니다. 
+            다양한 미션을 완료하고 푸짐한 보상을 받아가세요!
+            참여하는 모든 분들께 기본 보상이 제공되며, 활동량에 따라 추가 보상이 지급됩니다.
+          </p>
+
+          <h4 style="margin-top: 1.5rem;">✅ 참여 방법</h4>
+          <ul class="rules-list">
+            <li>
+              <i class="fas fa-check"></i>
+              <div>
+                <strong>Step 1: 지갑 연결</strong>
+                <p style="color: var(--gray); font-size: 0.9rem;">MetaMask 또는 지원 지갑을 연결하세요 (+100 TBURN)</p>
+              </div>
+            </li>
+            <li>
+              <i class="fas fa-check"></i>
+              <div>
+                <strong>Step 2: 소셜 미션 완료</strong>
+                <p style="color: var(--gray); font-size: 0.9rem;">Twitter 팔로우, 리트윗, 텔레그램 가입 (+300 TBURN)</p>
+              </div>
+            </li>
+            <li>
+              <i class="fas fa-check"></i>
+              <div>
+                <strong>Step 3: 첫 거래 완료</strong>
+                <p style="color: var(--gray); font-size: 0.9rem;">TBURN Chain에서 첫 거래를 완료하세요 (+500 TBURN)</p>
+              </div>
+            </li>
+            <li>
+              <i class="fas fa-check"></i>
+              <div>
+                <strong>Step 4: 스테이킹 참여</strong>
+                <p style="color: var(--gray); font-size: 0.9rem;">최소 100 TBURN 스테이킹 (+1,000 TBURN)</p>
+              </div>
+            </li>
+            <li>
+              <i class="fas fa-check"></i>
+              <div>
+                <strong>Bonus: 친구 초대</strong>
+                <p style="color: var(--gray); font-size: 0.9rem;">친구 1명당 추가 200 TBURN (최대 5,000 TBURN)</p>
+              </div>
+            </li>
+          </ul>
+
+          <h4 style="margin-top: 1.5rem;">⚠️ 유의 사항</h4>
+          <ul class="rules-list">
+            <li>
+              <i class="fas fa-exclamation-triangle" style="color: var(--warning);"></i>
+              <span>1인 1계정 참여만 가능합니다. 다중 계정 적발 시 보상이 취소됩니다.</span>
+            </li>
+            <li>
+              <i class="fas fa-exclamation-triangle" style="color: var(--warning);"></i>
+              <span>보상은 이벤트 종료 후 7일 이내에 지급됩니다.</span>
+            </li>
+            <li>
+              <i class="fas fa-exclamation-triangle" style="color: var(--warning);"></i>
+              <span>부정 행위 적발 시 보상 지급이 거부될 수 있습니다.</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="detail-sidebar">
+        <div class="sidebar-card">
+          <h4><i class="fas fa-trophy"></i> 보상 등급</h4>
+          <div class="reward-tiers">
+            <div class="reward-tier">
+              <div class="rank"><span>🥇</span> <span>1위</span></div>
+              <div class="amount">50,000 TBURN</div>
+            </div>
+            <div class="reward-tier">
+              <div class="rank"><span>🥈</span> <span>2위</span></div>
+              <div class="amount">30,000 TBURN</div>
+            </div>
+            <div class="reward-tier">
+              <div class="rank"><span>🥉</span> <span>3위</span></div>
+              <div class="amount">20,000 TBURN</div>
+            </div>
+            <div class="reward-tier">
+              <div class="rank"><span>🏅</span> <span>4~10위</span></div>
+              <div class="amount">10,000 TBURN</div>
+            </div>
+            <div class="reward-tier">
+              <div class="rank"><span>🎖️</span> <span>11~100위</span></div>
+              <div class="amount">5,000 TBURN</div>
+            </div>
+            <div class="reward-tier">
+              <div class="rank"><span>✨</span> <span>참여자 전원</span></div>
+              <div class="amount">100~1,900 TBURN</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="sidebar-card">
+          <h4><i class="fas fa-chart-pie"></i> 보상 풀 현황</h4>
+          <div class="progress-container">
+            <div class="progress-header">
+              <span>배분 진행률</span>
+              <span style="color: var(--orange);">32%</span>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-fill" style="width: 32%;"></div>
+            </div>
+          </div>
+          <div style="display: flex; justify-content: space-between; font-size: 0.875rem; color: var(--light-gray);">
+            <span>배분됨: 1,600만</span>
+            <span>남음: 3,400만</span>
+          </div>
+        </div>
+
+        <div class="sidebar-card">
+          <h4><i class="fas fa-clock"></i> 남은 시간</h4>
+          <div style="text-align: center; padding: 1rem 0;">
+            <div style="font-size: 2rem; font-weight: 800; color: var(--orange);">14일 23시간</div>
+            <div style="font-size: 0.875rem; color: var(--gray);">마감: 2026.01.31 23:59 KST</div>
+          </div>
+        </div>
+
+        <button class="participate-btn" onclick="participateEvent()">
+          <i class="fas fa-rocket"></i> 지금 참여하기
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Leaderboard Section -->
+  <section class="section" id="leaderboard" style="background: rgba(255,255,255,0.02);">
+    <div class="section-header">
+      <span class="section-badge">LEADERBOARD</span>
+      <h2 class="section-title">이벤트 리더보드</h2>
+      <p class="section-subtitle">상위 참여자들의 실적을 확인하세요</p>
+    </div>
+
+    <div class="leaderboard-section">
+      <div class="leaderboard-header">
+        <h3>🏆 런칭 이벤트 TOP 10</h3>
+        <div class="leaderboard-tabs">
+          <button class="lb-tab active">전체</button>
+          <button class="lb-tab">오늘</button>
+          <button class="lb-tab">이번 주</button>
+        </div>
+      </div>
+
+      <table class="leaderboard-table">
+        <thead>
+          <tr>
+            <th>순위</th>
+            <th>참여자</th>
+            <th>완료 미션</th>
+            <th>점수</th>
+            <th>예상 보상</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><div class="rank-badge gold">1</div></td>
+            <td>
+              <div class="user-cell">
+                <div class="user-avatar">TB</div>
+                <span class="user-address">0x1a2B...3c4D</span>
+              </div>
+            </td>
+            <td>12/12</td>
+            <td class="score-cell">98,500</td>
+            <td class="reward-cell">50,000 TBURN</td>
+          </tr>
+          <tr>
+            <td><div class="rank-badge silver">2</div></td>
+            <td>
+              <div class="user-cell">
+                <div class="user-avatar">CK</div>
+                <span class="user-address">0x5e6F...7g8H</span>
+              </div>
+            </td>
+            <td>12/12</td>
+            <td class="score-cell">87,200</td>
+            <td class="reward-cell">30,000 TBURN</td>
+          </tr>
+          <tr>
+            <td><div class="rank-badge bronze">3</div></td>
+            <td>
+              <div class="user-cell">
+                <div class="user-avatar">MJ</div>
+                <span class="user-address">0x9i0J...1k2L</span>
+              </div>
+            </td>
+            <td>11/12</td>
+            <td class="score-cell">76,800</td>
+            <td class="reward-cell">20,000 TBURN</td>
+          </tr>
+          <tr>
+            <td><div class="rank-badge normal">4</div></td>
+            <td>
+              <div class="user-cell">
+                <div class="user-avatar">AS</div>
+                <span class="user-address">0x3m4N...5o6P</span>
+              </div>
+            </td>
+            <td>11/12</td>
+            <td class="score-cell">65,400</td>
+            <td class="reward-cell">10,000 TBURN</td>
+          </tr>
+          <tr>
+            <td><div class="rank-badge normal">5</div></td>
+            <td>
+              <div class="user-cell">
+                <div class="user-avatar">KL</div>
+                <span class="user-address">0x7q8R...9s0T</span>
+              </div>
+            </td>
+            <td>10/12</td>
+            <td class="score-cell">54,200</td>
+            <td class="reward-cell">10,000 TBURN</td>
+          </tr>
+          <tr>
+            <td><div class="rank-badge normal">6</div></td>
+            <td>
+              <div class="user-cell">
+                <div class="user-avatar">JP</div>
+                <span class="user-address">0xAb1C...2d3E</span>
+              </div>
+            </td>
+            <td>10/12</td>
+            <td class="score-cell">48,900</td>
+            <td class="reward-cell">10,000 TBURN</td>
+          </tr>
+          <tr>
+            <td><div class="rank-badge normal">7</div></td>
+            <td>
+              <div class="user-cell">
+                <div class="user-avatar">YH</div>
+                <span class="user-address">0xFg4H...5i6J</span>
+              </div>
+            </td>
+            <td>9/12</td>
+            <td class="score-cell">42,100</td>
+            <td class="reward-cell">10,000 TBURN</td>
+          </tr>
+          <tr>
+            <td><div class="rank-badge normal">8</div></td>
+            <td>
+              <div class="user-cell">
+                <div class="user-avatar">SW</div>
+                <span class="user-address">0xKl7M...8n9O</span>
+              </div>
+            </td>
+            <td>9/12</td>
+            <td class="score-cell">38,700</td>
+            <td class="reward-cell">10,000 TBURN</td>
+          </tr>
+          <tr>
+            <td><div class="rank-badge normal">9</div></td>
+            <td>
+              <div class="user-cell">
+                <div class="user-avatar">EJ</div>
+                <span class="user-address">0xPq0R...1s2T</span>
+              </div>
+            </td>
+            <td>8/12</td>
+            <td class="score-cell">35,200</td>
+            <td class="reward-cell">10,000 TBURN</td>
+          </tr>
+          <tr>
+            <td><div class="rank-badge normal">10</div></td>
+            <td>
+              <div class="user-cell">
+                <div class="user-avatar">HK</div>
+                <span class="user-address">0xUv3W...4x5Y</span>
+              </div>
+            </td>
+            <td>8/12</td>
+            <td class="score-cell">31,800</td>
+            <td class="reward-cell">10,000 TBURN</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Calendar Section -->
+  <section class="section" id="calendar">
+    <div class="section-header">
+      <span class="section-badge">CALENDAR</span>
+      <h2 class="section-title">이벤트 캘린더</h2>
+      <p class="section-subtitle">예정된 이벤트 일정을 확인하세요</p>
+    </div>
+
+    <div class="calendar-container">
+      <div class="calendar-header">
+        <div class="calendar-nav">
+          <button><i class="fas fa-chevron-left"></i></button>
+          <h3>2026년 1월</h3>
+          <button><i class="fas fa-chevron-right"></i></button>
+        </div>
+        <div style="display: flex; gap: 1rem; align-items: center;">
+          <span style="display: flex; align-items: center; gap: 6px; font-size: 0.875rem;">
+            <span style="width: 10px; height: 10px; background: var(--orange); border-radius: 50%;"></span>
+            이벤트 있음
+          </span>
+        </div>
+      </div>
+
+      <div class="calendar-grid">
+        <div class="calendar-day-header">일</div>
+        <div class="calendar-day-header">월</div>
+        <div class="calendar-day-header">화</div>
+        <div class="calendar-day-header">수</div>
+        <div class="calendar-day-header">목</div>
+        <div class="calendar-day-header">금</div>
+        <div class="calendar-day-header">토</div>
+        
+        <!-- Week 1 -->
+        <div class="calendar-day" style="opacity: 0.3;"><span class="day-number">29</span></div>
+        <div class="calendar-day" style="opacity: 0.3;"><span class="day-number">30</span></div>
+        <div class="calendar-day" style="opacity: 0.3;"><span class="day-number">31</span></div>
+        <div class="calendar-day has-event"><span class="day-number">1</span></div>
+        <div class="calendar-day today has-event"><span class="day-number">2</span></div>
+        <div class="calendar-day"><span class="day-number">3</span></div>
+        <div class="calendar-day"><span class="day-number">4</span></div>
+        
+        <!-- Week 2 -->
+        <div class="calendar-day"><span class="day-number">5</span></div>
+        <div class="calendar-day"><span class="day-number">6</span></div>
+        <div class="calendar-day"><span class="day-number">7</span></div>
+        <div class="calendar-day"><span class="day-number">8</span></div>
+        <div class="calendar-day"><span class="day-number">9</span></div>
+        <div class="calendar-day has-event"><span class="day-number">10</span></div>
+        <div class="calendar-day"><span class="day-number">11</span></div>
+        
+        <!-- Week 3 -->
+        <div class="calendar-day"><span class="day-number">12</span></div>
+        <div class="calendar-day"><span class="day-number">13</span></div>
+        <div class="calendar-day"><span class="day-number">14</span></div>
+        <div class="calendar-day has-event"><span class="day-number">15</span></div>
+        <div class="calendar-day"><span class="day-number">16</span></div>
+        <div class="calendar-day"><span class="day-number">17</span></div>
+        <div class="calendar-day"><span class="day-number">18</span></div>
+        
+        <!-- Week 4 -->
+        <div class="calendar-day"><span class="day-number">19</span></div>
+        <div class="calendar-day has-event"><span class="day-number">20</span></div>
+        <div class="calendar-day"><span class="day-number">21</span></div>
+        <div class="calendar-day"><span class="day-number">22</span></div>
+        <div class="calendar-day"><span class="day-number">23</span></div>
+        <div class="calendar-day"><span class="day-number">24</span></div>
+        <div class="calendar-day"><span class="day-number">25</span></div>
+        
+        <!-- Week 5 -->
+        <div class="calendar-day"><span class="day-number">26</span></div>
+        <div class="calendar-day"><span class="day-number">27</span></div>
+        <div class="calendar-day"><span class="day-number">28</span></div>
+        <div class="calendar-day"><span class="day-number">29</span></div>
+        <div class="calendar-day"><span class="day-number">30</span></div>
+        <div class="calendar-day has-event"><span class="day-number">31</span></div>
+        <div class="calendar-day" style="opacity: 0.3;"><span class="day-number">1</span></div>
+      </div>
+
+      <div style="margin-top: 2rem; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;">
+        <div style="background: rgba(255,255,255,0.03); border-radius: 12px; padding: 1rem;">
+          <div style="font-size: 0.75rem; color: var(--gray); margin-bottom: 0.5rem;">1월 1일</div>
+          <div style="font-weight: 600;">🎉 신년 특별 보너스</div>
+        </div>
+        <div style="background: rgba(255,255,255,0.03); border-radius: 12px; padding: 1rem;">
+          <div style="font-size: 0.75rem; color: var(--gray); margin-bottom: 0.5rem;">1월 15일</div>
+          <div style="font-weight: 600;">🎨 밈 콘테스트 시작</div>
+        </div>
+        <div style="background: rgba(255,255,255,0.03); border-radius: 12px; padding: 1rem;">
+          <div style="font-size: 0.75rem; color: var(--gray); margin-bottom: 0.5rem;">1월 31일</div>
+          <div style="font-weight: 600;">🚀 런칭 이벤트 종료</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="section" id="faq" style="background: rgba(255,255,255,0.02);">
+    <div class="section-header">
+      <span class="section-badge">FAQ</span>
+      <h2 class="section-title">자주 묻는 질문</h2>
+      <p class="section-subtitle">이벤트 관련 궁금한 점을 확인하세요</p>
+    </div>
+
+    <div class="faq-container">
+      <div class="faq-item active">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <h4>이벤트 보상 총 물량은 얼마인가요?</h4>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          <p>이벤트/마케팅 총 보상 풀은 4억 TBURN입니다. 이는 전체 공급량 100억 TBURN의 4%에 해당합니다. TGE 시점에 15%(6,000만 TBURN)가 해제되고, 나머지 85%는 24개월에 걸쳐 선형 베스팅됩니다.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <h4>이벤트 보상은 어떻게 배분되나요?</h4>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          <p>4억 TBURN은 5가지 카테고리로 배분됩니다: 런칭 이벤트 1억(25%), 트레이딩 대회 1억(25%), 스테이킹 부스트 8,000만(20%), 커뮤니티 챌린지 6,000만(15%), 파트너십/시즌 이벤트 6,000만(15%). 각 이벤트별 상세 배분은 이벤트 페이지에서 확인할 수 있습니다.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <h4>여러 이벤트에 동시 참여할 수 있나요?</h4>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          <p>네, 진행 중인 모든 이벤트에 동시 참여 가능합니다. 단, 각 이벤트별로 1인 1계정 참여 원칙이 적용됩니다. 다중 계정 사용이 적발되면 모든 이벤트에서 보상이 취소됩니다.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <h4>보상은 언제 받을 수 있나요?</h4>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          <p>대부분의 이벤트 보상은 이벤트 종료 후 7일 이내에 지급됩니다. 일부 실시간 보상 이벤트(퀴즈 등)는 즉시 지급됩니다. 보상 지급 현황은 대시보드에서 확인할 수 있으며, 지급 시 알림이 발송됩니다.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <h4>이벤트 참여에 비용이 드나요?</h4>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          <p>대부분의 이벤트 참여는 무료입니다. 단, 거래/스테이킹 관련 이벤트는 해당 활동에 필요한 가스비가 발생할 수 있습니다. TBURN Chain의 가스비는 $0.0001 미만으로 매우 저렴합니다.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <h4>부정 행위로 간주되는 것은 무엇인가요?</h4>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          <p>다중 계정 생성, 봇 사용, 시빌 어택, 거래 워시 트레이딩, 허위 정보 제출 등이 부정 행위로 간주됩니다. 부정 행위가 적발되면 해당 계정은 모든 이벤트에서 영구 제외되며, 이미 지급된 보상도 회수될 수 있습니다.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <h4>새 이벤트 소식은 어디서 확인하나요?</h4>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          <p>새 이벤트 소식은 공식 Twitter(@TBURNChain), Telegram, Discord에서 가장 먼저 공개됩니다. 이벤트 센터에서 알림 설정을 켜두시면 새 이벤트 시작 시 알림을 받을 수 있습니다.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section style="padding: 100px 2rem; background: var(--gradient-fire); text-align: center;">
+    <div style="max-width: 800px; margin: 0 auto;">
+      <h2 style="font-size: 2.5rem; font-weight: 800; margin-bottom: 1rem;">놓치지 마세요!</h2>
+      <p style="color: rgba(255,255,255,0.9); font-size: 1.125rem; margin-bottom: 2rem;">
+        4억 TBURN 이벤트 보상이 여러분을 기다립니다.<br>
+        지금 바로 참여하고 푸짐한 보상을 받아가세요!
+      </p>
+      <button onclick="openWalletModal()" style="background: var(--white); color: var(--orange); padding: 20px 50px; border-radius: 14px; font-size: 1.25rem; font-weight: 700; border: none; cursor: pointer; transition: transform 0.3s;">
+        <i class="fas fa-fire"></i> 이벤트 참여하기
+      </button>
+      <p style="color: rgba(255,255,255,0.7); margin-top: 1.5rem; font-size: 0.875rem;">
+        <i class="fas fa-gift"></i> 참여하는 모든 분들께 기본 보상 제공!
+      </p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <h3>TBURN<span>CHAIN</span></h3>
+        <p>AI의 지능, 블록체인의 투명성<br>THE FUTURE IS NOW</p>
+        <div class="social-links">
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-telegram"></i></a>
+          <a href="#"><i class="fab fa-discord"></i></a>
+          <a href="#"><i class="fab fa-github"></i></a>
+          <a href="#"><i class="fab fa-medium"></i></a>
+        </div>
+      </div>
+      <div class="footer-links">
+        <h4>Product</h4>
+        <ul>
+          <li><a href="#">메인넷</a></li>
+          <li><a href="#">익스플로러</a></li>
+          <li><a href="#">브릿지</a></li>
+          <li><a href="#">스테이킹</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h4>Resources</h4>
+        <ul>
+          <li><a href="#">백서</a></li>
+          <li><a href="#">문서</a></li>
+          <li><a href="#">GitHub</a></li>
+          <li><a href="#">감사 보고서</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h4>Community</h4>
+        <ul>
+          <li><a href="#">블로그</a></li>
+          <li><a href="#">앰배서더</a></li>
+          <li><a href="#">그랜트</a></li>
+          <li><a href="#">고객지원</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025-2045 TBURN Foundation. All Rights Reserved.</p>
+      <div style="display: flex; gap: 2rem;">
+        <a href="#" style="color: var(--gray); text-decoration: none;">이용약관</a>
+        <a href="#" style="color: var(--gray); text-decoration: none;">개인정보처리방침</a>
+        <a href="#" style="color: var(--gray); text-decoration: none;">쿠키 정책</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Countdown Timer
+    function updateCountdown() {
+      const endDate = new Date('2026-01-31T23:59:59+09:00');
+      const now = new Date();
+      const diff = endDate - now;
+
+      if (diff > 0) {
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+        document.getElementById('days').textContent = String(days).padStart(2, '0');
+        document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+        document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+        document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+      }
+    }
+
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+    // Filter Events
+    function filterEvents(category) {
+      document.querySelectorAll('.category-tab').forEach(tab => {
+        tab.classList.remove('active');
+      });
+      event.target.classList.add('active');
+
+      document.querySelectorAll('.event-card').forEach(card => {
+        if (category === 'all') {
+          card.style.display = 'block';
+        } else {
+          const categories = card.dataset.category.split(' ');
+          card.style.display = categories.includes(category) ? 'block' : 'none';
+        }
+      });
+    }
+
+    // Show Event Detail
+    function showEventDetail(eventType) {
+      document.getElementById('event-detail').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Participate Event
+    function participateEvent() {
+      openWalletModal();
+    }
+
+    // FAQ Toggle
+    function toggleFaq(element) {
+      const faqItem = element.parentElement;
+      const wasActive = faqItem.classList.contains('active');
+      
+      document.querySelectorAll('.faq-item').forEach(item => {
+        item.classList.remove('active');
+      });
+      
+      if (!wasActive) {
+        faqItem.classList.add('active');
+      }
+    }
+
+    // Scroll to Section
+    function scrollToSection(sectionId) {
+      const section = document.getElementById(sectionId);
+      if (section) {
+        section.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+
+    // Wallet Modal
+    function openWalletModal() {
+      alert('지갑 연결 기능은 메인넷 런칭 후 활성화됩니다.\n\n현재 데모 모드로 확인 중입니다.');
+    }
+
+    // Leaderboard Tabs
+    document.querySelectorAll('.lb-tab').forEach(tab => {
+      tab.addEventListener('click', function() {
+        document.querySelectorAll('.lb-tab').forEach(t => t.classList.remove('active'));
+        this.classList.add('active');
+      });
+    });
+
+    // Header Scroll Effect
+    window.addEventListener('scroll', () => {
+      const header = document.querySelector('.header');
+      if (window.scrollY > 50) {
+        header.style.background = 'rgba(15, 23, 42, 0.98)';
+      } else {
+        header.style.background = 'rgba(15, 23, 42, 0.95)';
+      }
+    });
+  </script>
+</body>
+</html>
