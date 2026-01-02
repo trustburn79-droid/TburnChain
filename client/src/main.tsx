@@ -191,12 +191,43 @@ async function safeInitApp() {
   }
   
   try {
-    // CRITICAL: Load i18n and App dynamically to reduce initial bundle
+    // CRITICAL: Load i18n dynamically
     await import("./lib/i18n");
-    const { default: App } = await import("./App");
+    
+    // Route-based app shell loading for faster first paint
+    // PublicApp includes Web3Provider for scan pages but excludes heavy admin providers
+    const path = window.location.pathname;
+    const isPublicRoute = path === "/" || 
+                          path === "/scan" || 
+                          path === "/whitepaper" ||
+                          path.startsWith("/learn") ||
+                          path.startsWith("/token-generator") ||
+                          path.startsWith("/nft-marketplace") ||
+                          path.startsWith("/bug-bounty") ||
+                          path.startsWith("/official-channels") ||
+                          path.startsWith("/launch-event") ||
+                          path.startsWith("/security-audit") ||
+                          path.startsWith("/tree") ||
+                          path.startsWith("/qna") ||
+                          path.startsWith("/user/") ||
+                          path === "/login" ||
+                          path === "/signup";
+    
+    let AppComponent;
+    if (isPublicRoute) {
+      // Lightweight public shell - no sidebar, websocket, web3 providers
+      const { default: PublicApp } = await import("./PublicApp");
+      AppComponent = PublicApp;
+      console.log(`[TBURN] Loading lightweight PublicApp for ${path}`);
+    } else {
+      // Full app with all providers for authenticated routes
+      const { default: App } = await import("./App");
+      AppComponent = App;
+      console.log(`[TBURN] Loading full App for ${path}`);
+    }
     
     window.__TBURN_APP_ROOT__ = createRoot(rootElement);
-    window.__TBURN_APP_ROOT__.render(<App />);
+    window.__TBURN_APP_ROOT__.render(<AppComponent />);
     console.log(`[TBURN] App initialized successfully (v${BUILD_VERSION})`);
   } catch (error) {
     console.error("[TBURN] Render failed:", error);

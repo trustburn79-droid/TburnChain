@@ -231,6 +231,8 @@ class ProductionDataPoller {
 
     try {
       // Fetch all data in parallel for efficiency
+      // STABILITY FIX: Disabled member-related fetches that cause repeated errors
+      // and destabilize the server. Re-enable when storage backend is ready.
       const [
         networkStats,
         shards,
@@ -239,9 +241,7 @@ class ProductionDataPoller {
         validators,
         aiModels,
         contracts,
-        consensusState,
-        membersData,
-        memberStatsData
+        consensusState
       ] = await Promise.allSettled([
         this.fetchNetworkStats(),
         this.fetchShards(),
@@ -250,9 +250,7 @@ class ProductionDataPoller {
         this.fetchValidators(),
         this.fetchAIModels(),
         this.fetchContracts(),
-        this.fetchConsensusState(),
-        this.fetchMembersWithProfiles(),
-        this.fetchMemberStats()
+        this.fetchConsensusState()
       ]);
 
       // Process results and update cache - only update if data is valid (not empty)
@@ -301,17 +299,8 @@ class ProductionDataPoller {
         successCount++;
       }
       
-      // Cache members data from database (not enterprise node)
-      if (membersData.status === 'fulfilled' && membersData.value && Array.isArray(membersData.value) && membersData.value.length > 0) {
-        this.cache.set('members_with_profiles_100', membersData.value, 30000);
-        successCount++;
-      }
-      
-      // Cache member stats from database
-      if (memberStatsData.status === 'fulfilled' && memberStatsData.value) {
-        this.cache.set('members_stats_summary', memberStatsData.value, 30000);
-        successCount++;
-      }
+      // STABILITY FIX: Member data caching disabled to prevent repeated errors
+      // Re-enable when storage backend is properly configured
       
       // Warm public API caches using real data from dataHub for consistency
       if (networkStats.status === 'fulfilled' && networkStats.value) {

@@ -102,7 +102,8 @@ const Login = lazy(() => import("@/pages/login"));
 const Signup = lazy(() => import("@/pages/signup"));
 const GoogleVerify = lazy(() => import("@/pages/google-verify"));
 
-import { AdminPortalLayout } from "@/components/admin-portal-layout";
+// CRITICAL: AdminPortalLayout lazy-loaded to reduce initial bundle
+const AdminPortalLayout = lazy(() => import("@/components/admin-portal-layout").then(m => ({ default: m.AdminPortalLayout })));
 
 function PageLoading() {
   return (
