@@ -1,6 +1,7 @@
 import { useState, useCallback } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
+import { Link } from "wouter";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -13,7 +14,8 @@ import { useToast } from "@/hooks/use-toast";
 import { 
   Coins, Gift, Users, Calendar, Award, Vote, Blocks, Server, 
   Sprout, TrendingUp, RefreshCw, CheckCircle2, Clock, AlertCircle,
-  ArrowUpRight, BarChart3, Eye, Send, Wifi, WifiOff
+  ArrowUpRight, BarChart3, Eye, Send, Wifi, WifiOff, Handshake, Megaphone,
+  Briefcase, GraduationCap, Leaf, KeyRound, Globe, Rocket, ListOrdered, Gem, ExternalLink
 } from "lucide-react";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, AreaChart, Area, BarChart, Bar, PieChart, Pie, Cell } from "recharts";
 
@@ -114,28 +116,31 @@ export default function AdminTokenDistribution() {
   }, [refetch, toast]);
 
   const programCards = [
-    { key: 'airdrop', title: 'Airdrop', icon: Gift, color: 'bg-emerald-500', stats: stats?.airdrop },
-    { key: 'referral', title: 'Referral', icon: Users, color: 'bg-blue-500', stats: stats?.referral },
-    { key: 'events', title: 'Events', icon: Calendar, color: 'bg-purple-500', stats: stats?.events },
-    { key: 'community', title: 'Community', icon: Award, color: 'bg-amber-500', stats: stats?.community },
-    { key: 'dao', title: 'DAO Governance', icon: Vote, color: 'bg-rose-500', stats: stats?.dao },
-    { key: 'blockRewards', title: 'Block Rewards', icon: Blocks, color: 'bg-cyan-500', stats: stats?.blockRewards },
-    { key: 'validatorIncentives', title: 'Validator Incentives', icon: Server, color: 'bg-indigo-500', stats: stats?.validatorIncentives },
-    { key: 'ecosystemGrants', title: 'Ecosystem Grants', icon: Sprout, color: 'bg-lime-500', stats: stats?.ecosystemGrants },
+    { key: 'airdrop', title: '에어드랍', titleEn: 'Airdrop', icon: Gift, color: 'bg-emerald-500', route: '/admin/token-distribution/airdrop' },
+    { key: 'referral', title: '레퍼럴', titleEn: 'Referral', icon: Users, color: 'bg-blue-500', route: '/admin/token-distribution/referral' },
+    { key: 'events', title: '이벤트 센터', titleEn: 'Events', icon: Calendar, color: 'bg-purple-500', route: '/admin/token-distribution/events' },
+    { key: 'community', title: '커뮤니티', titleEn: 'Community', icon: Award, color: 'bg-amber-500', route: '/admin/token-distribution/community-program' },
+    { key: 'dao', title: 'DAO 거버넌스', titleEn: 'DAO Governance', icon: Vote, color: 'bg-rose-500', route: '/admin/token-distribution/dao-governance' },
+    { key: 'blockRewards', title: '블록 보상', titleEn: 'Block Rewards', icon: Blocks, color: 'bg-cyan-500', route: '/admin/token-distribution/block-rewards' },
+    { key: 'validatorIncentives', title: '검증자 인센티브', titleEn: 'Validator Incentives', icon: Server, color: 'bg-indigo-500', route: '/admin/token-distribution/validator-incentives' },
+    { key: 'ecosystemGrants', title: '에코시스템 펀드', titleEn: 'Ecosystem Fund', icon: Sprout, color: 'bg-lime-500', route: '/admin/token-distribution/ecosystem-fund' },
+    { key: 'partnership', title: '파트너십', titleEn: 'Partnership', icon: Handshake, color: 'bg-teal-500', route: '/admin/token-distribution/partnership-program' },
+    { key: 'marketing', title: '마케팅', titleEn: 'Marketing', icon: Megaphone, color: 'bg-pink-500', route: '/admin/token-distribution/marketing-program' },
+    { key: 'strategic', title: '전략 파트너', titleEn: 'Strategic Partner', icon: Briefcase, color: 'bg-slate-500', route: '/admin/token-distribution/strategic-partner' },
+    { key: 'advisor', title: '어드바이저', titleEn: 'Advisor', icon: GraduationCap, color: 'bg-orange-500', route: '/admin/token-distribution/advisor-program' },
+    { key: 'seed', title: '시드 라운드', titleEn: 'Seed Round', icon: Leaf, color: 'bg-green-600', route: '/admin/token-distribution/seed-round' },
+    { key: 'private', title: '프라이빗 라운드', titleEn: 'Private Round', icon: KeyRound, color: 'bg-violet-500', route: '/admin/token-distribution/private-round' },
+    { key: 'public', title: '퍼블릭 라운드', titleEn: 'Public Round', icon: Globe, color: 'bg-sky-500', route: '/admin/token-distribution/public-round' },
+    { key: 'launchpad', title: '런치패드', titleEn: 'Launchpad', icon: Rocket, color: 'bg-red-500', route: '/admin/token-distribution/launchpad' },
+    { key: 'coinlist', title: 'CoinList', titleEn: 'CoinList', icon: ListOrdered, color: 'bg-yellow-600', route: '/admin/token-distribution/coinlist' },
+    { key: 'daomaker', title: 'DAO Maker', titleEn: 'DAO Maker SHO', icon: Gem, color: 'bg-fuchsia-500', route: '/admin/token-distribution/dao-maker' },
   ];
 
-  const pieChartData = programCards
-    .filter(p => p.stats)
-    .map((program, idx) => ({
-      name: program.title,
-      value: program.stats && 'totalParticipants' in program.stats ? program.stats.totalParticipants : 
-             program.stats && 'totalAccounts' in program.stats ? program.stats.totalAccounts :
-             program.stats && 'totalProposals' in program.stats ? program.stats.totalProposals :
-             program.stats && 'totalCycles' in program.stats ? program.stats.totalCycles :
-             program.stats && 'totalPayouts' in program.stats ? program.stats.totalPayouts :
-             program.stats && 'totalGrants' in program.stats ? program.stats.totalGrants : 0,
-      color: CHART_COLORS[idx % CHART_COLORS.length]
-    }));
+  const pieChartData = programCards.slice(0, 8).map((program, idx) => ({
+    name: program.titleEn,
+    value: 1,
+    color: CHART_COLORS[idx % CHART_COLORS.length]
+  }));
 
   if (isLoading) {
     return (
@@ -256,29 +261,32 @@ export default function AdminTokenDistribution() {
         </TabsList>
 
         <TabsContent value="overview" className="space-y-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            {programCards.map(program => (
-              <Card key={program.key} className="hover-elevate cursor-pointer" data-testid={`card-program-${program.key}`}>
-                <CardHeader className="flex flex-row items-center justify-between gap-1 pb-2">
-                  <div className={`p-2 rounded-lg ${program.color}`}>
-                    <program.icon className="h-5 w-5 text-white" />
-                  </div>
-                  <Badge variant="secondary" className="text-xs">Active</Badge>
-                </CardHeader>
-                <CardContent>
-                  <h3 className="font-semibold text-lg">{program.title}</h3>
-                  <p className="text-sm text-muted-foreground">
-                    {program.stats && 'totalParticipants' in program.stats && `${formatNumber(program.stats.totalParticipants)} participants`}
-                    {program.stats && 'totalAccounts' in program.stats && `${formatNumber(program.stats.totalAccounts)} accounts`}
-                    {program.stats && 'totalProposals' in program.stats && `${formatNumber(program.stats.totalProposals)} proposals`}
-                    {program.stats && 'totalCycles' in program.stats && `${formatNumber(program.stats.totalCycles)} cycles`}
-                    {program.stats && 'totalPayouts' in program.stats && `${formatNumber(program.stats.totalPayouts)} payouts`}
-                    {program.stats && 'totalGrants' in program.stats && `${formatNumber(program.stats.totalGrants)} grants`}
-                  </p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+          <Card>
+            <CardHeader>
+              <CardTitle>18개 토큰 배포 프로그램</CardTitle>
+              <CardDescription>각 프로그램을 클릭하여 상세 관리 페이지로 이동</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
+                {programCards.map(program => (
+                  <Link key={program.key} href={program.route}>
+                    <Card className="hover-elevate cursor-pointer h-full transition-all hover:border-primary" data-testid={`card-program-${program.key}`}>
+                      <CardContent className="pt-4 pb-4">
+                        <div className="flex flex-col items-center text-center gap-2">
+                          <div className={`p-3 rounded-lg ${program.color}`}>
+                            <program.icon className="h-6 w-6 text-white" />
+                          </div>
+                          <h3 className="font-semibold text-sm">{program.title}</h3>
+                          <p className="text-xs text-muted-foreground">{program.titleEn}</p>
+                          <ExternalLink className="h-3 w-3 text-muted-foreground" />
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </Link>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <Card>

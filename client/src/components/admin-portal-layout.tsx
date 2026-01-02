@@ -123,8 +123,26 @@ import AdminAnnouncements from "@/pages/admin-portal/announcements";
 // Group 17: Marketing
 import AdminNewsletter from "@/pages/admin-portal/newsletter";
 
-// Group 18: Token Distribution Programs (8 programs)
+// Group 18: Token Distribution Programs (18 sub-pages)
 import AdminTokenDistribution from "@/pages/admin-portal/token-distribution";
+import AdminAirdropProgram from "@/pages/admin-portal/token-distribution/airdrop";
+import AdminReferralProgram from "@/pages/admin-portal/token-distribution/referral";
+import AdminEventsCenter from "@/pages/admin-portal/token-distribution/events";
+import AdminCommunityProgram from "@/pages/admin-portal/token-distribution/community-program";
+import AdminDAOGovernance from "@/pages/admin-portal/token-distribution/dao-governance";
+import AdminBlockRewards from "@/pages/admin-portal/token-distribution/block-rewards";
+import AdminValidatorIncentives from "@/pages/admin-portal/token-distribution/validator-incentives";
+import AdminEcosystemFund from "@/pages/admin-portal/token-distribution/ecosystem-fund";
+import AdminPartnershipProgram from "@/pages/admin-portal/token-distribution/partnership-program";
+import AdminMarketingProgram from "@/pages/admin-portal/token-distribution/marketing-program";
+import AdminStrategicPartner from "@/pages/admin-portal/token-distribution/strategic-partner";
+import AdminAdvisorProgram from "@/pages/admin-portal/token-distribution/advisor-program";
+import AdminSeedRound from "@/pages/admin-portal/token-distribution/seed-round";
+import AdminPrivateRound from "@/pages/admin-portal/token-distribution/private-round";
+import AdminPublicRound from "@/pages/admin-portal/token-distribution/public-round";
+import AdminLaunchpad from "@/pages/admin-portal/token-distribution/launchpad";
+import AdminCoinlist from "@/pages/admin-portal/token-distribution/coinlist";
+import AdminDAOMaker from "@/pages/admin-portal/token-distribution/dao-maker";
 
 function AdminRouter() {
   return (
@@ -151,6 +169,26 @@ function AdminRouter() {
       <Route path="/admin/economics" component={AdminEconomics} />
       <Route path="/admin/tokenomics" component={TokenomicsSimulation} />
       <Route path="/admin/token-distribution" component={AdminTokenDistribution} />
+      
+      {/* Token Distribution Sub-Pages (18 programs) */}
+      <Route path="/admin/token-distribution/airdrop" component={AdminAirdropProgram} />
+      <Route path="/admin/token-distribution/referral" component={AdminReferralProgram} />
+      <Route path="/admin/token-distribution/events" component={AdminEventsCenter} />
+      <Route path="/admin/token-distribution/community-program" component={AdminCommunityProgram} />
+      <Route path="/admin/token-distribution/dao-governance" component={AdminDAOGovernance} />
+      <Route path="/admin/token-distribution/block-rewards" component={AdminBlockRewards} />
+      <Route path="/admin/token-distribution/validator-incentives" component={AdminValidatorIncentives} />
+      <Route path="/admin/token-distribution/ecosystem-fund" component={AdminEcosystemFund} />
+      <Route path="/admin/token-distribution/partnership-program" component={AdminPartnershipProgram} />
+      <Route path="/admin/token-distribution/marketing-program" component={AdminMarketingProgram} />
+      <Route path="/admin/token-distribution/strategic-partner" component={AdminStrategicPartner} />
+      <Route path="/admin/token-distribution/advisor-program" component={AdminAdvisorProgram} />
+      <Route path="/admin/token-distribution/seed-round" component={AdminSeedRound} />
+      <Route path="/admin/token-distribution/private-round" component={AdminPrivateRound} />
+      <Route path="/admin/token-distribution/public-round" component={AdminPublicRound} />
+      <Route path="/admin/token-distribution/launchpad" component={AdminLaunchpad} />
+      <Route path="/admin/token-distribution/coinlist" component={AdminCoinlist} />
+      <Route path="/admin/token-distribution/dao-maker" component={AdminDAOMaker} />
 
       {/* Group 4: AI Systems */}
       <Route path="/admin/ai" component={AdminAIOrchestration} />
