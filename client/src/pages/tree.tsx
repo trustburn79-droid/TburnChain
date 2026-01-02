@@ -158,6 +158,7 @@ const routeTree: RouteItem[] = [
       { path: "/partnership-program", label: "Partnership Program" },
       { path: "/marketing-program", label: "Marketing Program" },
       { path: "/strategic-partner", label: "Strategic Partner" },
+      { path: "/advisor-program", label: "Advisor Program" },
       { path: "/token-generator", label: "Token Generator" },
       { path: "/nft-marketplace", label: "NFT Marketplace" },
       { path: "/security-audit", label: "Security Audit" },

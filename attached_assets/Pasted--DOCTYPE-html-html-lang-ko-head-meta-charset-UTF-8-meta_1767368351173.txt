@@ -1,0 +1,2177 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TBURN Chain - 시드 라운드 | 5억 TBURN 초기 투자자</title>
+  <meta name="description" content="TBURN Chain 시드 라운드. 블록체인 VC, 크립토 펀드, 엔젤 투자자를 위한 5억 TBURN 초기 투자 기회.">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy: #1A365D;
+      --gold: #D4AF37;
+      --gold-light: #E5C76B;
+      --dark: #0F172A;
+      --dark-card: #1E293B;
+      --gray: #64748B;
+      --light-gray: #94A3B8;
+      --white: #FFFFFF;
+      --success: #22C55E;
+      --warning: #F59E0B;
+      --danger: #EF4444;
+      --purple: #8B5CF6;
+      --blue: #3B82F6;
+      --cyan: #06B6D4;
+      --pink: #EC4899;
+      --emerald: #10B981;
+      --indigo: #6366F1;
+      --rose: #F43F5E;
+      --violet: #7C3AED;
+      --seed-primary: #22C55E;
+      --seed-secondary: #16A34A;
+      --gradient-gold: linear-gradient(135deg, #D4AF37 0%, #F5D76E 50%, #D4AF37 100%);
+      --gradient-seed: linear-gradient(135deg, #22C55E 0%, #16A34A 100%);
+      --gradient-seed-light: linear-gradient(135deg, rgba(34, 197, 94, 0.2), rgba(22, 163, 74, 0.1));
+      --gradient-dark: linear-gradient(180deg, #0F172A 0%, #1E293B 100%);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--dark);
+      color: var(--white);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-20px); } }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.7; } }
+    @keyframes glow { 0%, 100% { box-shadow: 0 0 20px rgba(34, 197, 94, 0.3); } 50% { box-shadow: 0 0 40px rgba(34, 197, 94, 0.6); } }
+    @keyframes seedling { 0%, 100% { transform: scale(1) rotate(0deg); } 50% { transform: scale(1.1) rotate(5deg); } }
+    @keyframes grow { 0% { height: 0; } 100% { height: 100%; } }
+    @keyframes countUp { 0% { opacity: 0; transform: translateY(20px); } 100% { opacity: 1; transform: translateY(0); } }
+
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background: rgba(15, 23, 42, 0.95);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(34, 197, 94, 0.2);
+    }
+
+    .header-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+
+    .logo-icon {
+      width: 48px;
+      height: 48px;
+      background: var(--gradient-gold);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+    }
+
+    .logo-text { font-size: 1.5rem; font-weight: 800; color: var(--white); }
+    .logo-text span { color: var(--gold); }
+
+    .nav-links { display: flex; gap: 2rem; align-items: center; }
+    .nav-links a { color: var(--light-gray); text-decoration: none; font-weight: 500; transition: color 0.3s; }
+    .nav-links a:hover { color: var(--seed-primary); }
+
+    .connect-btn {
+      background: var(--gradient-seed);
+      color: var(--white);
+      padding: 12px 24px;
+      border-radius: 12px;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .connect-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 40px rgba(34, 197, 94, 0.3);
+    }
+
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      padding: 120px 2rem 80px;
+      background: radial-gradient(ellipse at center top, rgba(34, 197, 94, 0.15) 0%, transparent 50%),
+                  radial-gradient(ellipse at bottom right, rgba(22, 163, 74, 0.1) 0%, transparent 50%),
+                  var(--gradient-dark);
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .hero-bg::before {
+      content: '';
+      position: absolute;
+      width: 800px;
+      height: 800px;
+      background: radial-gradient(circle, rgba(34, 197, 94, 0.2) 0%, transparent 70%);
+      top: -300px;
+      right: -200px;
+      animation: float 10s ease-in-out infinite;
+    }
+
+    .hero-content {
+      max-width: 1200px;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(34, 197, 94, 0.15);
+      border: 1px solid rgba(34, 197, 94, 0.4);
+      padding: 8px 20px;
+      border-radius: 100px;
+      font-size: 0.875rem;
+      color: var(--seed-primary);
+      margin-bottom: 2rem;
+    }
+
+    .badge .seed-icon { animation: seedling 2s ease-in-out infinite; }
+
+    .round-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(34, 197, 94, 0.2);
+      padding: 4px 12px;
+      border-radius: 100px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--seed-primary);
+      margin-left: 10px;
+    }
+
+    .round-status .dot {
+      width: 8px;
+      height: 8px;
+      background: var(--seed-primary);
+      border-radius: 50%;
+      animation: pulse 1.5s ease-in-out infinite;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      font-weight: 900;
+      margin-bottom: 1.5rem;
+      line-height: 1.1;
+    }
+
+    .hero h1 .gradient-text {
+      background: var(--gradient-seed);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-subtitle {
+      font-size: 1.25rem;
+      color: var(--light-gray);
+      max-width: 750px;
+      margin: 0 auto 3rem;
+    }
+
+    /* Investment Highlights */
+    .investment-highlights {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .highlight-card {
+      background: rgba(34, 197, 94, 0.1);
+      border: 1px solid rgba(34, 197, 94, 0.3);
+      border-radius: 16px;
+      padding: 1.5rem;
+      text-align: center;
+    }
+
+    .highlight-card .value {
+      font-size: 1.75rem;
+      font-weight: 800;
+      color: var(--seed-primary);
+      margin-bottom: 0.25rem;
+    }
+
+    .highlight-card .label {
+      font-size: 0.85rem;
+      color: var(--light-gray);
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+    }
+
+    .stat-card {
+      background: var(--dark-card);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 1.5rem;
+      text-align: center;
+      transition: transform 0.3s, border-color 0.3s;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--seed-primary);
+    }
+
+    .stat-value {
+      font-size: 2rem;
+      font-weight: 800;
+      background: var(--gradient-seed);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-label { font-size: 0.875rem; color: var(--light-gray); }
+
+    .cta-group { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+    .btn-primary {
+      background: var(--gradient-seed);
+      color: var(--white);
+      padding: 16px 40px;
+      border-radius: 12px;
+      font-size: 1.125rem;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 20px 60px rgba(34, 197, 94, 0.3);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--white);
+      padding: 16px 40px;
+      border-radius: 12px;
+      font-size: 1.125rem;
+      font-weight: 600;
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      transition: all 0.3s;
+    }
+
+    .btn-secondary:hover { border-color: var(--seed-primary); color: var(--seed-primary); }
+
+    .section { padding: 100px 2rem; max-width: 1400px; margin: 0 auto; }
+
+    .section-header { text-align: center; margin-bottom: 4rem; }
+
+    .section-badge {
+      display: inline-block;
+      background: rgba(34, 197, 94, 0.15);
+      color: var(--seed-primary);
+      padding: 6px 16px;
+      border-radius: 100px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+
+    .section-title { font-size: 2.5rem; font-weight: 800; margin-bottom: 1rem; }
+    .section-subtitle { color: var(--light-gray); font-size: 1.125rem; max-width: 600px; margin: 0 auto; }
+
+    /* Round Comparison */
+    .round-comparison {
+      background: var(--dark-card);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 24px;
+      overflow: hidden;
+    }
+
+    .comparison-header {
+      padding: 2rem;
+      background: linear-gradient(135deg, rgba(34, 197, 94, 0.1), transparent);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .comparison-header h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .comparison-header h3 i { color: var(--seed-primary); }
+
+    .comparison-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .comparison-table th {
+      padding: 1.25rem 1rem;
+      text-align: left;
+      background: rgba(255, 255, 255, 0.03);
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: var(--light-gray);
+    }
+
+    .comparison-table td {
+      padding: 1.25rem 1rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .comparison-table tr:hover td {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .round-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      border-radius: 100px;
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+
+    .round-badge.seed {
+      background: rgba(34, 197, 94, 0.2);
+      color: var(--seed-primary);
+    }
+
+    .round-badge.private {
+      background: rgba(139, 92, 246, 0.2);
+      color: var(--purple);
+    }
+
+    .round-badge.public {
+      background: rgba(59, 130, 246, 0.2);
+      color: var(--blue);
+    }
+
+    .round-badge.current {
+      animation: glow 2s ease-in-out infinite;
+    }
+
+    .discount-badge {
+      background: rgba(34, 197, 94, 0.2);
+      color: var(--seed-primary);
+      padding: 4px 10px;
+      border-radius: 100px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      margin-left: 8px;
+    }
+
+    /* Investment Tiers */
+    .tiers-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+    }
+
+    .tier-card {
+      background: var(--dark-card);
+      border: 2px solid rgba(255, 255, 255, 0.1);
+      border-radius: 24px;
+      overflow: hidden;
+      transition: all 0.3s;
+      position: relative;
+    }
+
+    .tier-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+    }
+
+    .tier-card.lead {
+      border-color: var(--gold);
+      box-shadow: 0 0 40px rgba(212, 175, 55, 0.2);
+    }
+
+    .tier-card.major { border-color: var(--seed-primary); }
+    .tier-card.standard { border-color: var(--purple); }
+    .tier-card.angel { border-color: var(--cyan); }
+
+    .tier-header {
+      padding: 2rem 1.5rem;
+      text-align: center;
+      position: relative;
+    }
+
+    .tier-card.lead .tier-header { background: linear-gradient(180deg, rgba(212, 175, 55, 0.15) 0%, transparent 100%); }
+    .tier-card.major .tier-header { background: linear-gradient(180deg, rgba(34, 197, 94, 0.1) 0%, transparent 100%); }
+    .tier-card.standard .tier-header { background: linear-gradient(180deg, rgba(139, 92, 246, 0.1) 0%, transparent 100%); }
+    .tier-card.angel .tier-header { background: linear-gradient(180deg, rgba(6, 182, 212, 0.1) 0%, transparent 100%); }
+
+    .tier-icon { font-size: 3rem; margin-bottom: 1rem; }
+
+    .tier-name {
+      font-size: 1.25rem;
+      font-weight: 800;
+      margin-bottom: 0.25rem;
+    }
+
+    .tier-card.lead .tier-name { color: var(--gold); }
+    .tier-card.major .tier-name { color: var(--seed-primary); }
+    .tier-card.standard .tier-name { color: var(--purple); }
+    .tier-card.angel .tier-name { color: var(--cyan); }
+
+    .tier-subtitle { font-size: 0.8rem; color: var(--gray); }
+
+    .tier-content { padding: 1.5rem; }
+
+    .tier-amount {
+      text-align: center;
+      padding: 1rem;
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 12px;
+      margin-bottom: 1rem;
+    }
+
+    .tier-amount .label { font-size: 0.75rem; color: var(--gray); margin-bottom: 0.25rem; }
+
+    .tier-amount .value {
+      font-size: 1.5rem;
+      font-weight: 800;
+    }
+
+    .tier-card.lead .tier-amount .value { color: var(--gold); }
+    .tier-card.major .tier-amount .value { color: var(--seed-primary); }
+    .tier-card.standard .tier-amount .value { color: var(--purple); }
+    .tier-card.angel .tier-amount .value { color: var(--cyan); }
+
+    .tier-details {
+      margin-bottom: 1rem;
+    }
+
+    .tier-detail-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 0;
+      font-size: 0.85rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .tier-detail-item:last-child { border-bottom: none; }
+    .tier-detail-item .label { color: var(--gray); }
+    .tier-detail-item .value { color: var(--white); font-weight: 600; }
+
+    .tier-benefits {
+      list-style: none;
+      margin-bottom: 1rem;
+    }
+
+    .tier-benefits li {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 0;
+      font-size: 0.8rem;
+      color: var(--light-gray);
+    }
+
+    .tier-benefits li i { color: var(--success); width: 14px; font-size: 10px; }
+    .tier-benefits li i.disabled { color: var(--gray); }
+
+    .tier-btn {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 0.875rem;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-align: center;
+    }
+
+    .tier-card.lead .tier-btn { background: var(--gradient-gold); color: var(--dark); }
+    .tier-card.major .tier-btn { background: var(--gradient-seed); color: var(--white); }
+    .tier-card.standard .tier-btn { background: linear-gradient(135deg, var(--purple), var(--violet)); color: var(--white); }
+    .tier-card.angel .tier-btn { background: linear-gradient(135deg, var(--cyan), var(--blue)); color: var(--white); }
+
+    .tier-btn:hover { transform: scale(1.02); }
+
+    /* Vesting Schedule */
+    .vesting-container {
+      background: var(--dark-card);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 24px;
+      padding: 2.5rem;
+    }
+
+    .vesting-visual {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .vesting-phase {
+      text-align: center;
+      padding: 1.5rem;
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 16px;
+      position: relative;
+    }
+
+    .vesting-phase::after {
+      content: '→';
+      position: absolute;
+      right: -1.25rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--gray);
+      font-size: 1.25rem;
+    }
+
+    .vesting-phase:last-child::after { display: none; }
+
+    .vesting-phase .icon {
+      font-size: 2rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .vesting-phase .title {
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+    }
+
+    .vesting-phase .value {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--seed-primary);
+      margin-bottom: 0.25rem;
+    }
+
+    .vesting-phase .desc {
+      font-size: 0.8rem;
+      color: var(--gray);
+    }
+
+    .vesting-timeline {
+      position: relative;
+      padding: 2rem 0;
+    }
+
+    .vesting-timeline-bar {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      height: 8px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 4px;
+      transform: translateY(-50%);
+    }
+
+    .vesting-timeline-progress {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      background: var(--gradient-seed);
+      border-radius: 4px;
+      width: 0%;
+    }
+
+    .vesting-timeline-markers {
+      display: flex;
+      justify-content: space-between;
+      position: relative;
+    }
+
+    .timeline-marker {
+      text-align: center;
+      position: relative;
+    }
+
+    .timeline-marker .dot {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--dark-card);
+      border: 3px solid var(--gray);
+      margin: 0 auto 0.5rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .timeline-marker.active .dot {
+      border-color: var(--seed-primary);
+      background: var(--seed-primary);
+    }
+
+    .timeline-marker .month {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--white);
+    }
+
+    .timeline-marker .percent {
+      font-size: 0.75rem;
+      color: var(--seed-primary);
+    }
+
+    /* Current Investors */
+    .investors-showcase {
+      background: var(--dark-card);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 24px;
+      padding: 2.5rem;
+    }
+
+    .investors-category {
+      margin-bottom: 2.5rem;
+    }
+
+    .investors-category:last-child { margin-bottom: 0; }
+
+    .investors-category-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .investors-category h4 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--gray);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .investors-count {
+      font-size: 0.8rem;
+      color: var(--seed-primary);
+      background: rgba(34, 197, 94, 0.1);
+      padding: 4px 12px;
+      border-radius: 100px;
+    }
+
+    .investors-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+    }
+
+    .investor-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 16px;
+      padding: 1.5rem;
+      text-align: center;
+      transition: all 0.3s;
+    }
+
+    .investor-card:hover {
+      background: rgba(34, 197, 94, 0.05);
+      border-color: var(--seed-primary);
+      transform: translateY(-5px);
+    }
+
+    .investor-logo {
+      width: 70px;
+      height: 70px;
+      border-radius: 16px;
+      margin: 0 auto 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.75rem;
+      font-weight: 700;
+    }
+
+    .investor-logo.vc { background: linear-gradient(135deg, rgba(34, 197, 94, 0.3), rgba(22, 163, 74, 0.2)); }
+    .investor-logo.fund { background: linear-gradient(135deg, rgba(139, 92, 246, 0.3), rgba(124, 58, 237, 0.2)); }
+    .investor-logo.angel { background: linear-gradient(135deg, rgba(6, 182, 212, 0.3), rgba(59, 130, 246, 0.2)); }
+    .investor-logo.strategic { background: linear-gradient(135deg, rgba(212, 175, 55, 0.3), rgba(245, 158, 11, 0.2)); }
+
+    .investor-card-name { font-weight: 700; margin-bottom: 0.25rem; }
+    .investor-card-type { font-size: 0.8rem; color: var(--gray); margin-bottom: 0.5rem; }
+
+    .investor-card-tier {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 100px;
+      font-size: 0.7rem;
+      font-weight: 700;
+    }
+
+    .investor-card-tier.lead { background: rgba(212, 175, 55, 0.2); color: var(--gold); }
+    .investor-card-tier.major { background: rgba(34, 197, 94, 0.2); color: var(--seed-primary); }
+    .investor-card-tier.standard { background: rgba(139, 92, 246, 0.2); color: var(--purple); }
+
+    /* Investment Process */
+    .process-container {
+      background: var(--dark-card);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 24px;
+      padding: 2.5rem;
+    }
+
+    .process-timeline {
+      display: flex;
+      justify-content: space-between;
+      position: relative;
+      margin: 2rem 0;
+    }
+
+    .process-timeline::before {
+      content: '';
+      position: absolute;
+      top: 40px;
+      left: 10%;
+      right: 10%;
+      height: 4px;
+      background: linear-gradient(90deg, var(--seed-primary), var(--emerald), var(--cyan), var(--blue), var(--gold));
+      border-radius: 2px;
+    }
+
+    .process-item {
+      text-align: center;
+      position: relative;
+      z-index: 1;
+      flex: 1;
+    }
+
+    .process-dot {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      margin: 0 auto 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.75rem;
+      border: 4px solid var(--dark);
+    }
+
+    .process-item:nth-child(1) .process-dot { background: var(--seed-primary); }
+    .process-item:nth-child(2) .process-dot { background: var(--emerald); }
+    .process-item:nth-child(3) .process-dot { background: var(--cyan); }
+    .process-item:nth-child(4) .process-dot { background: var(--blue); }
+    .process-item:nth-child(5) .process-dot { background: var(--gold); }
+
+    .process-title { font-size: 1rem; font-weight: 700; margin-bottom: 0.25rem; }
+    .process-desc { font-size: 0.8rem; color: var(--gray); }
+    .process-duration { font-size: 0.75rem; color: var(--seed-primary); font-weight: 600; margin-top: 0.5rem; }
+
+    /* Token Metrics */
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+
+    .metric-card {
+      background: var(--dark-card);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 2rem;
+      text-align: center;
+      transition: all 0.3s;
+    }
+
+    .metric-card:hover {
+      border-color: var(--seed-primary);
+      transform: translateY(-5px);
+    }
+
+    .metric-icon {
+      width: 70px;
+      height: 70px;
+      border-radius: 20px;
+      background: linear-gradient(135deg, rgba(34, 197, 94, 0.2), rgba(22, 163, 74, 0.1));
+      margin: 0 auto 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.75rem;
+    }
+
+    .metric-card h4 { font-size: 1.125rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .metric-card .value { font-size: 1.75rem; font-weight: 800; color: var(--seed-primary); margin-bottom: 0.5rem; }
+    .metric-card p { font-size: 0.85rem; color: var(--light-gray); }
+
+    /* Risk Disclosure */
+    .risk-section {
+      background: rgba(239, 68, 68, 0.1);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      border-radius: 20px;
+      padding: 2rem;
+      margin-top: 2rem;
+    }
+
+    .risk-section h4 {
+      color: var(--danger);
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .risk-section ul {
+      list-style: none;
+    }
+
+    .risk-section li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 8px 0;
+      font-size: 0.9rem;
+      color: var(--light-gray);
+    }
+
+    .risk-section li i { color: var(--warning); margin-top: 3px; }
+
+    /* Dashboard */
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 2rem;
+    }
+
+    .dashboard-main {
+      background: var(--dark-card);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 24px;
+      padding: 2rem;
+    }
+
+    .dashboard-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+    }
+
+    .dashboard-user {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .dashboard-avatar {
+      width: 60px;
+      height: 60px;
+      border-radius: 16px;
+      background: var(--gradient-seed);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      font-weight: 800;
+    }
+
+    .investor-badge-display {
+      padding: 8px 16px;
+      border-radius: 100px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      background: var(--gradient-gold);
+      color: var(--dark);
+    }
+
+    .dashboard-stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .dash-stat {
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 16px;
+      padding: 1.25rem;
+      text-align: center;
+    }
+
+    .dash-stat-value { font-size: 1.5rem; font-weight: 800; margin-bottom: 0.25rem; }
+    .dash-stat-value.green { color: var(--seed-primary); }
+    .dash-stat-value.gold { color: var(--gold); }
+    .dash-stat-value.blue { color: var(--blue); }
+    .dash-stat-value.purple { color: var(--purple); }
+    .dash-stat-label { font-size: 0.8rem; color: var(--light-gray); }
+
+    .investment-details {
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 16px;
+      padding: 1.5rem;
+    }
+
+    .investment-details h4 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .investment-details h4 i { color: var(--seed-primary); }
+
+    .detail-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 1rem;
+      background: rgba(255, 255, 255, 0.02);
+      border-radius: 12px;
+      margin-bottom: 0.75rem;
+    }
+
+    .detail-row:last-child { margin-bottom: 0; }
+
+    .detail-row .label { color: var(--gray); }
+    .detail-row .value { font-weight: 600; }
+
+    .dashboard-sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .sidebar-card {
+      background: var(--dark-card);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 1.5rem;
+    }
+
+    .sidebar-card h4 {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .sidebar-card h4 i { color: var(--seed-primary); }
+
+    .vesting-info { margin-bottom: 1rem; }
+
+    .vesting-info .header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.5rem;
+    }
+
+    .vesting-info .label { font-size: 0.875rem; color: var(--light-gray); }
+    .vesting-info .value { font-weight: 700; color: var(--seed-primary); }
+
+    .vesting-bar {
+      height: 10px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 100px;
+      overflow: hidden;
+    }
+
+    .vesting-fill {
+      height: 100%;
+      background: var(--gradient-seed);
+      border-radius: 100px;
+      transition: width 1s ease;
+    }
+
+    .vesting-schedule {
+      margin-top: 1rem;
+      padding: 1rem;
+      background: rgba(255, 255, 255, 0.02);
+      border-radius: 12px;
+    }
+
+    .vesting-schedule-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.5rem 0;
+      font-size: 0.85rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .vesting-schedule-item:last-child { border-bottom: none; }
+    .vesting-schedule-item .date { color: var(--gray); }
+    .vesting-schedule-item .amount { color: var(--seed-primary); font-weight: 600; }
+
+    .document-card {
+      text-align: center;
+    }
+
+    .document-card p {
+      font-size: 0.9rem;
+      color: var(--light-gray);
+      margin-bottom: 1rem;
+    }
+
+    .document-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      padding: 12px;
+      background: rgba(34, 197, 94, 0.1);
+      border: 1px solid rgba(34, 197, 94, 0.3);
+      border-radius: 10px;
+      color: var(--seed-primary);
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      margin-bottom: 0.75rem;
+    }
+
+    .document-btn:last-child { margin-bottom: 0; }
+    .document-btn:hover { background: rgba(34, 197, 94, 0.2); }
+
+    /* FAQ */
+    .faq-container { max-width: 900px; margin: 0 auto; }
+
+    .faq-item {
+      background: var(--dark-card);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      margin-bottom: 1rem;
+      overflow: hidden;
+    }
+
+    .faq-question {
+      padding: 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .faq-question:hover { background: rgba(255, 255, 255, 0.03); }
+    .faq-question h4 { font-size: 1.1rem; font-weight: 600; }
+    .faq-question i { color: var(--seed-primary); transition: transform 0.3s; }
+    .faq-item.active .faq-question i { transform: rotate(180deg); }
+
+    .faq-answer {
+      padding: 0 1.5rem;
+      max-height: 0;
+      overflow: hidden;
+      transition: all 0.3s;
+    }
+
+    .faq-item.active .faq-answer {
+      padding: 0 1.5rem 1.5rem;
+      max-height: 500px;
+    }
+
+    .faq-answer p { color: var(--light-gray); line-height: 1.8; }
+
+    /* Footer */
+    .footer {
+      background: var(--dark);
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 60px 2rem 30px;
+    }
+
+    .footer-content {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 4rem;
+      margin-bottom: 3rem;
+    }
+
+    .footer-brand h3 { font-size: 1.5rem; font-weight: 800; margin-bottom: 1rem; }
+    .footer-brand h3 span { color: var(--gold); }
+    .footer-brand p { color: var(--light-gray); margin-bottom: 1.5rem; }
+
+    .social-links { display: flex; gap: 1rem; }
+
+    .social-links a {
+      width: 44px;
+      height: 44px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--light-gray);
+      transition: all 0.3s;
+    }
+
+    .social-links a:hover { background: var(--seed-primary); color: var(--white); }
+
+    .footer-links h4 { font-size: 1rem; font-weight: 700; margin-bottom: 1.5rem; }
+    .footer-links ul { list-style: none; }
+    .footer-links li { margin-bottom: 0.75rem; }
+    .footer-links a { color: var(--light-gray); text-decoration: none; transition: color 0.3s; }
+    .footer-links a:hover { color: var(--seed-primary); }
+
+    .footer-bottom {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: var(--gray);
+      font-size: 0.875rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 1200px) {
+      .tiers-grid { grid-template-columns: repeat(2, 1fr); }
+      .metrics-grid { grid-template-columns: 1fr; }
+      .investors-grid { grid-template-columns: repeat(2, 1fr); }
+      .dashboard-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 1024px) {
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .investment-highlights { grid-template-columns: 1fr; }
+      .vesting-visual { grid-template-columns: repeat(2, 1fr); }
+      .vesting-phase::after { display: none; }
+      .process-timeline { flex-wrap: wrap; gap: 1.5rem; }
+      .process-timeline::before { display: none; }
+      .dashboard-stats { grid-template-columns: repeat(2, 1fr); }
+      .footer-content { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 768px) {
+      .header-container { padding: 1rem; }
+      .nav-links { display: none; }
+      .hero { padding: 100px 1rem 60px; }
+      .stats-grid { grid-template-columns: 1fr; }
+      .tiers-grid { grid-template-columns: 1fr; }
+      .investors-grid { grid-template-columns: 1fr; }
+      .vesting-visual { grid-template-columns: 1fr; }
+      .footer-content { grid-template-columns: 1fr; gap: 2rem; }
+      .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="header-container">
+      <a href="#" class="logo">
+        <div class="logo-icon">🔥</div>
+        <div class="logo-text">TBURN<span>CHAIN</span></div>
+      </a>
+      <nav class="nav-links">
+        <a href="#rounds">투자 라운드</a>
+        <a href="#tiers">투자 티어</a>
+        <a href="#investors">투자자</a>
+        <a href="#vesting">베스팅</a>
+        <a href="#dashboard">대시보드</a>
+      </nav>
+      <button class="connect-btn" onclick="openInvestModal()">
+        <i class="fas fa-hand-holding-dollar"></i> 투자 문의
+      </button>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <div class="badge">
+        <i class="fas fa-seedling seed-icon"></i>
+        SEED ROUND - 초기 투자자를 위한 특별 기회
+        <span class="round-status"><span class="dot"></span> 진행 중</span>
+      </div>
+      <h1>
+        시드 라운드<br>
+        <span class="gradient-text">5억 TBURN</span> 투자
+      </h1>
+      <p class="hero-subtitle">
+        TBURN Chain의 가장 초기 단계 투자 기회입니다.
+        장기 비전을 공유하는 전략적 투자자를 찾습니다.
+      </p>
+
+      <!-- Investment Highlights -->
+      <div class="investment-highlights">
+        <div class="highlight-card">
+          <div class="value">$0.04</div>
+          <div class="label">토큰 가격 </div>
+        </div>
+        <div class="highlight-card">
+          <div class="value">$4M</div>
+          <div class="label">목표 모집 금액</div>
+        </div>
+        <div class="highlight-card">
+          <div class="value">TGE 0%</div>
+          <div class="label">장기 투자자 전용</div>
+        </div>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-value">5억</div>
+          <div class="stat-label">총 시드 물량</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">0%</div>
+          <div class="stat-label">TGE 해제</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">12개월</div>
+          <div class="stat-label">클리프 기간</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">36개월</div>
+          <div class="stat-label">베스팅 기간</div>
+        </div>
+      </div>
+
+      <div class="cta-group">
+        <button class="btn-primary" onclick="scrollToSection('tiers')">
+          <i class="fas fa-chart-line"></i> 투자 티어 확인
+        </button>
+        <button class="btn-secondary" onclick="downloadDeck()">
+          <i class="fas fa-file-pdf"></i> 투자 덱 다운로드
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Round Comparison -->
+  <section class="section" id="rounds">
+    <div class="section-header">
+      <span class="section-badge">INVESTMENT ROUNDS</span>
+      <h2 class="section-title">투자 라운드 비교</h2>
+      <p class="section-subtitle">시드 라운드의 특별한 조건을 확인하세요</p>
+    </div>
+
+    <div class="round-comparison">
+      <div class="comparison-header">
+        <h3><i class="fas fa-chart-bar"></i> 라운드별 조건 비교</h3>
+      </div>
+      <table class="comparison-table">
+        <thead>
+          <tr>
+            <th>라운드</th>
+            <th>토큰 가격</th>
+            <th>총 물량</th>
+            <th>TGE 해제</th>
+            <th>클리프</th>
+            <th>베스팅</th>
+            <th>상태</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <span class="round-badge seed current">🌱 Seed</span>
+            </td>
+            <td>
+              $0.04
+              <span class="discount-badge">60% 할인</span>
+            </td>
+            <td>5억 TBURN</td>
+            <td><strong style="color: var(--seed-primary);">0%</strong></td>
+            <td>12개월</td>
+            <td>36개월</td>
+            <td><span style="color: var(--seed-primary); font-weight: 600;">● 진행 중</span></td>
+          </tr>
+          <tr>
+            <td><span class="round-badge private">🔒 Private</span></td>
+            <td>$0.1</td>
+            <td>5억 TBURN</td>
+            <td>5%</td>
+            <td>9개월</td>
+            <td>24개월</td>
+            <td><span style="color: var(--gray);">예정</span></td>
+          </tr>
+          <tr>
+            <td><span class="round-badge public">🌐 Public</span></td>
+            <td>$0.2</td>
+            <td>3억 TBURN</td>
+            <td>20%</td>
+            <td>3개월</td>
+            <td>12개월</td>
+            <td><span style="color: var(--gray);">예정</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div style="margin-top: 2rem; display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem;">
+      <div style="padding: 1.5rem; background: var(--dark-card); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; text-align: center;">
+        <div style="font-size: 2rem; margin-bottom: 0.5rem;">💰</div>
+        <div style="font-weight: 700; margin-bottom: 0.25rem;">최저 토큰 가격</div>
+        <div style="font-size: 0.85rem; color: var(--gray);">Public 대비 60% 할인</div>
+      </div>
+      <div style="padding: 1.5rem; background: var(--dark-card); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; text-align: center;">
+        <div style="font-size: 2rem; margin-bottom: 0.5rem;">🔒</div>
+        <div style="font-weight: 700; margin-bottom: 0.25rem;">TGE 0% 해제</div>
+        <div style="font-size: 0.85rem; color: var(--gray);">장기 가치 투자자 전용</div>
+      </div>
+      <div style="padding: 1.5rem; background: var(--dark-card); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; text-align: center;">
+        <div style="font-size: 2rem; margin-bottom: 0.5rem;">📅</div>
+        <div style="font-weight: 700; margin-bottom: 0.25rem;">48개월 총 기간</div>
+        <div style="font-size: 0.85rem; color: var(--gray);">12개월 클리프 + 36개월 베스팅</div>
+      </div>
+      <div style="padding: 1.5rem; background: var(--dark-card); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; text-align: center;">
+        <div style="font-size: 2rem; margin-bottom: 0.5rem;">🤝</div>
+        <div style="font-weight: 700; margin-bottom: 0.25rem;">전략적 파트너십</div>
+        <div style="font-size: 0.85rem; color: var(--gray);">거버넌스 참여권 부여</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Investment Tiers -->
+  <section class="section" id="tiers" style="background: rgba(255,255,255,0.02);">
+    <div class="section-header">
+      <span class="section-badge">INVESTMENT TIERS</span>
+      <h2 class="section-title">투자 티어</h2>
+      <p class="section-subtitle">투자 규모에 따른 4단계 티어 시스템</p>
+    </div>
+
+    <div class="tiers-grid">
+      <!-- Lead Tier -->
+      <div class="tier-card lead">
+        <div class="tier-header">
+          <div class="tier-icon">👑</div>
+          <h3 class="tier-name">Lead Investor</h3>
+          <p class="tier-subtitle">리드 투자자</p>
+        </div>
+        <div class="tier-content">
+          <div class="tier-amount">
+            <div class="label">최소 투자금</div>
+            <div class="value">$5,000,000</div>
+          </div>
+          <div class="tier-details">
+            <div class="tier-detail-item">
+              <span class="label">최대 할당</span>
+              <span class="value">2억 TBURN</span>
+            </div>
+            <div class="tier-detail-item">
+              <span class="label">토큰 가격</span>
+              <span class="value">$0.008</span>
+            </div>
+            <div class="tier-detail-item">
+              <span class="label">슬롯</span>
+              <span class="value">1~2</span>
+            </div>
+          </div>
+          <ul class="tier-benefits">
+            <li><i class="fas fa-check"></i> 이사회 옵저버 자격</li>
+            <li><i class="fas fa-check"></i> 거버넌스 주요 투표권</li>
+            <li><i class="fas fa-check"></i> 독점 정보 접근</li>
+            <li><i class="fas fa-check"></i> 공동 마케팅 파트너십</li>
+            <li><i class="fas fa-check"></i> 후속 라운드 우선권</li>
+          </ul>
+          <button class="tier-btn" onclick="applyTier('lead')">Lead 문의하기</button>
+        </div>
+      </div>
+
+      <!-- Major Tier -->
+      <div class="tier-card major">
+        <div class="tier-header">
+          <div class="tier-icon">⭐</div>
+          <h3 class="tier-name">Major Investor</h3>
+          <p class="tier-subtitle">주요 투자자</p>
+        </div>
+        <div class="tier-content">
+          <div class="tier-amount">
+            <div class="label">최소 투자금</div>
+            <div class="value">$1,000,000</div>
+          </div>
+          <div class="tier-details">
+            <div class="tier-detail-item">
+              <span class="label">최대 할당</span>
+              <span class="value">1.5억 TBURN</span>
+            </div>
+            <div class="tier-detail-item">
+              <span class="label">토큰 가격</span>
+              <span class="value">$0.008</span>
+            </div>
+            <div class="tier-detail-item">
+              <span class="label">슬롯</span>
+              <span class="value">2~3</span>
+            </div>
+          </div>
+          <ul class="tier-benefits">
+            <li><i class="fas fa-check"></i> 거버넌스 투표권</li>
+            <li><i class="fas fa-check"></i> 분기별 전략 미팅</li>
+            <li><i class="fas fa-check"></i> 프리미엄 리포트</li>
+            <li><i class="fas fa-check"></i> 네트워킹 이벤트</li>
+            <li><i class="fas fa-check"></i> 후속 라운드 참여권</li>
+          </ul>
+          <button class="tier-btn" onclick="applyTier('major')">Major 신청하기</button>
+        </div>
+      </div>
+
+      <!-- Standard Tier -->
+      <div class="tier-card standard">
+        <div class="tier-header">
+          <div class="tier-icon">💎</div>
+          <h3 class="tier-name">Standard Investor</h3>
+          <p class="tier-subtitle">표준 투자자</p>
+        </div>
+        <div class="tier-content">
+          <div class="tier-amount">
+            <div class="label">최소 투자금</div>
+            <div class="value">$250,000</div>
+          </div>
+          <div class="tier-details">
+            <div class="tier-detail-item">
+              <span class="label">최대 할당</span>
+              <span class="value">1억 TBURN</span>
+            </div>
+            <div class="tier-detail-item">
+              <span class="label">토큰 가격</span>
+              <span class="value">$0.008</span>
+            </div>
+            <div class="tier-detail-item">
+              <span class="label">슬롯</span>
+              <span class="value">3~5</span>
+            </div>
+          </div>
+          <ul class="tier-benefits">
+            <li><i class="fas fa-check"></i> 기본 거버넌스 참여</li>
+            <li><i class="fas fa-check"></i> 월간 리포트</li>
+            <li><i class="fas fa-check"></i> 투자자 포털 접근</li>
+            <li><i class="fas fa-check"></i> 커뮤니티 이벤트</li>
+            <li><i class="fas fa-check disabled"></i> 후속 라운드 (제한적)</li>
+          </ul>
+          <button class="tier-btn" onclick="applyTier('standard')">Standard 신청하기</button>
+        </div>
+      </div>
+
+      <!-- Angel Tier -->
+      <div class="tier-card angel">
+        <div class="tier-header">
+          <div class="tier-icon">👼</div>
+          <h3 class="tier-name">Angel Investor</h3>
+          <p class="tier-subtitle">엔젤 투자자</p>
+        </div>
+        <div class="tier-content">
+          <div class="tier-amount">
+            <div class="label">최소 투자금</div>
+            <div class="value">$50,000</div>
+          </div>
+          <div class="tier-details">
+            <div class="tier-detail-item">
+              <span class="label">최대 할당</span>
+              <span class="value">0.5억 TBURN</span>
+            </div>
+            <div class="tier-detail-item">
+              <span class="label">토큰 가격</span>
+              <span class="value">$0.008</span>
+            </div>
+            <div class="tier-detail-item">
+              <span class="label">슬롯</span>
+              <span class="value">5~10</span>
+            </div>
+          </div>
+          <ul class="tier-benefits">
+            <li><i class="fas fa-check"></i> 투자자 포털 접근</li>
+            <li><i class="fas fa-check"></i> 분기별 리포트</li>
+            <li><i class="fas fa-check"></i> 커뮤니티 채널</li>
+            <li><i class="fas fa-check disabled"></i> 거버넌스 (제한적)</li>
+            <li><i class="fas fa-check disabled"></i> 전략 미팅 (옵저버)</li>
+          </ul>
+          <button class="tier-btn" onclick="applyTier('angel')">Angel 신청하기</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Vesting Schedule -->
+  <section class="section" id="vesting">
+    <div class="section-header">
+      <span class="section-badge">VESTING</span>
+      <h2 class="section-title">베스팅 스케줄</h2>
+      <p class="section-subtitle">장기 가치 투자를 위한 베스팅 구조</p>
+    </div>
+
+    <div class="vesting-container">
+      <div class="vesting-visual">
+        <div class="vesting-phase">
+          <div class="icon">🚫</div>
+          <div class="title">TGE</div>
+          <div class="value">0%</div>
+          <div class="desc">토큰 생성 시 해제 없음</div>
+        </div>
+        <div class="vesting-phase">
+          <div class="icon">🔒</div>
+          <div class="title">클리프</div>
+          <div class="value">12개월</div>
+          <div class="desc">전량 락업 기간</div>
+        </div>
+        <div class="vesting-phase">
+          <div class="icon">📈</div>
+          <div class="title">베스팅</div>
+          <div class="value">36개월</div>
+          <div class="desc">월간 선형 해제</div>
+        </div>
+        <div class="vesting-phase">
+          <div class="icon">✅</div>
+          <div class="title">완료</div>
+          <div class="value">48개월</div>
+          <div class="desc">총 베스팅 기간</div>
+        </div>
+      </div>
+
+      <div style="margin-top: 2rem; padding: 2rem; background: rgba(255,255,255,0.03); border-radius: 16px;">
+        <h4 style="font-size: 1rem; font-weight: 700; margin-bottom: 1rem; text-align: center;">월별 해제 스케줄 (1억 TBURN 기준)</h4>
+        <div style="display: grid; grid-template-columns: repeat(6, 1fr); gap: 1rem; text-align: center;">
+          <div style="padding: 1rem; background: rgba(255,255,255,0.02); border-radius: 12px;">
+            <div style="font-size: 0.85rem; color: var(--gray);">1~12개월</div>
+            <div style="font-weight: 700; color: var(--danger);">0</div>
+            <div style="font-size: 0.7rem; color: var(--gray);">클리프 기간</div>
+          </div>
+          <div style="padding: 1rem; background: rgba(255,255,255,0.02); border-radius: 12px;">
+            <div style="font-size: 0.85rem; color: var(--gray);">13개월</div>
+            <div style="font-weight: 700; color: var(--seed-primary);">277만</div>
+            <div style="font-size: 0.7rem; color: var(--gray);">첫 해제</div>
+          </div>
+          <div style="padding: 1rem; background: rgba(255,255,255,0.02); border-radius: 12px;">
+            <div style="font-size: 0.85rem; color: var(--gray);">24개월</div>
+            <div style="font-weight: 700; color: var(--seed-primary);">3,333만</div>
+            <div style="font-size: 0.7rem; color: var(--gray);">누적 33%</div>
+          </div>
+          <div style="padding: 1rem; background: rgba(255,255,255,0.02); border-radius: 12px;">
+            <div style="font-size: 0.85rem; color: var(--gray);">36개월</div>
+            <div style="font-weight: 700; color: var(--seed-primary);">6,666만</div>
+            <div style="font-size: 0.7rem; color: var(--gray);">누적 67%</div>
+          </div>
+          <div style="padding: 1rem; background: rgba(255,255,255,0.02); border-radius: 12px;">
+            <div style="font-size: 0.85rem; color: var(--gray);">48개월</div>
+            <div style="font-weight: 700; color: var(--gold);">1억</div>
+            <div style="font-size: 0.7rem; color: var(--gray);">100% 완료</div>
+          </div>
+          <div style="padding: 1rem; background: rgba(255,255,255,0.02); border-radius: 12px;">
+            <div style="font-size: 0.85rem; color: var(--gray);">월간</div>
+            <div style="font-weight: 700; color: var(--seed-primary);">~277만</div>
+            <div style="font-size: 0.7rem; color: var(--gray);">2.78%/월</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="risk-section">
+        <h4><i class="fas fa-exclamation-triangle"></i> 투자 위험 고지</h4>
+        <ul>
+          <li><i class="fas fa-exclamation-circle"></i> 시드 라운드는 TGE 시점에 토큰이 해제되지 않습니다 (TGE 0%).</li>
+          <li><i class="fas fa-exclamation-circle"></i> 12개월 클리프 기간 동안 토큰을 매도하거나 이전할 수 없습니다.</li>
+          <li><i class="fas fa-exclamation-circle"></i> 암호화폐 투자는 원금 손실 위험이 있으며, 규제 변화에 영향을 받을 수 있습니다.</li>
+          <li><i class="fas fa-exclamation-circle"></i> 투자 전 법률, 세무 전문가와 상담하시기 바랍니다.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Current Investors -->
+  <section class="section" id="investors" style="background: rgba(255,255,255,0.02);">
+    <div class="section-header">
+      <span class="section-badge">OUR INVESTORS</span>
+      <h2 class="section-title">시드 투자자</h2>
+      <p class="section-subtitle">TBURN Chain의 비전을 함께하는 초기 투자자들</p>
+    </div>
+
+    <div class="investors-showcase">
+      <div class="investors-category">
+        <div class="investors-category-header">
+          <h4><i class="fas fa-building"></i> 블록체인 VC</h4>
+          <span class="investors-count">4개사</span>
+        </div>
+        <div class="investors-grid">
+          <div class="investor-card">
+            <div class="investor-logo vc">🏛️</div>
+            <div class="investor-card-name">Paradigm Crypto</div>
+            <div class="investor-card-type">Blockchain VC</div>
+            <span class="investor-card-tier lead">👑 Lead</span>
+          </div>
+          <div class="investor-card">
+            <div class="investor-logo vc">🌐</div>
+            <div class="investor-card-name">Web3 Ventures</div>
+            <div class="investor-card-type">Blockchain VC</div>
+            <span class="investor-card-tier major">⭐ Major</span>
+          </div>
+          <div class="investor-card">
+            <div class="investor-logo vc">🔗</div>
+            <div class="investor-card-name">ChainFund Capital</div>
+            <div class="investor-card-type">Blockchain VC</div>
+            <span class="investor-card-tier major">⭐ Major</span>
+          </div>
+          <div class="investor-card">
+            <div class="investor-logo vc">⛓️</div>
+            <div class="investor-card-name">DeFi Pioneers</div>
+            <div class="investor-card-type">Blockchain VC</div>
+            <span class="investor-card-tier standard">💎 Standard</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="investors-category">
+        <div class="investors-category-header">
+          <h4><i class="fas fa-chart-pie"></i> 크립토 펀드</h4>
+          <span class="investors-count">3개사</span>
+        </div>
+        <div class="investors-grid">
+          <div class="investor-card">
+            <div class="investor-logo fund">📊</div>
+            <div class="investor-card-name">Digital Asset Fund</div>
+            <div class="investor-card-type">Crypto Hedge Fund</div>
+            <span class="investor-card-tier major">⭐ Major</span>
+          </div>
+          <div class="investor-card">
+            <div class="investor-logo fund">💹</div>
+            <div class="investor-card-name">Alpha Crypto</div>
+            <div class="investor-card-type">Crypto Fund</div>
+            <span class="investor-card-tier standard">💎 Standard</span>
+          </div>
+          <div class="investor-card">
+            <div class="investor-logo fund">📈</div>
+            <div class="investor-card-name">Token Index</div>
+            <div class="investor-card-type">Index Fund</div>
+            <span class="investor-card-tier standard">💎 Standard</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="investors-category">
+        <div class="investors-category-header">
+          <h4><i class="fas fa-user-tie"></i> 엔젤 & 전략 투자자</h4>
+          <span class="investors-count">5명</span>
+        </div>
+        <div class="investors-grid">
+          <div class="investor-card">
+            <div class="investor-logo angel">👤</div>
+            <div class="investor-card-name">前 Binance Exec</div>
+            <div class="investor-card-type">Angel Investor</div>
+            <span class="investor-card-tier standard">💎 Standard</span>
+          </div>
+          <div class="investor-card">
+            <div class="investor-logo strategic">🏢</div>
+            <div class="investor-card-name">TechGiant Corp</div>
+            <div class="investor-card-type">Strategic Partner</div>
+            <span class="investor-card-tier standard">💎 Standard</span>
+          </div>
+          <div class="investor-card">
+            <div class="investor-logo angel">👤</div>
+            <div class="investor-card-name">Serial Founder</div>
+            <div class="investor-card-type">Angel Investor</div>
+            <span class="investor-card-tier standard">💎 Standard</span>
+          </div>
+          <div class="investor-card">
+            <div class="investor-logo strategic">🤝</div>
+            <div class="investor-card-name">Protocol Labs</div>
+            <div class="investor-card-type">Ecosystem Partner</div>
+            <span class="investor-card-tier standard">💎 Standard</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Investment Process -->
+  <section class="section" id="process">
+    <div class="section-header">
+      <span class="section-badge">PROCESS</span>
+      <h2 class="section-title">투자 절차</h2>
+      <p class="section-subtitle">체계적인 5단계 투자 프로세스</p>
+    </div>
+
+    <div class="process-container">
+      <div class="process-timeline">
+        <div class="process-item">
+          <div class="process-dot">📋</div>
+          <h4 class="process-title">관심 표명</h4>
+          <p class="process-desc">투자 의향서 제출</p>
+          <span class="process-duration">1~2일</span>
+        </div>
+        <div class="process-item">
+          <div class="process-dot">🔍</div>
+          <h4 class="process-title">상호 실사</h4>
+          <p class="process-desc">Due Diligence</p>
+          <span class="process-duration">1~2주</span>
+        </div>
+        <div class="process-item">
+          <div class="process-dot">📝</div>
+          <h4 class="process-title">조건 협의</h4>
+          <p class="process-desc">Term Sheet 협상</p>
+          <span class="process-duration">1~2주</span>
+        </div>
+        <div class="process-item">
+          <div class="process-dot">📜</div>
+          <h4 class="process-title">법적 문서</h4>
+          <p class="process-desc">SAFT/투자계약</p>
+          <span class="process-duration">1~2주</span>
+        </div>
+        <div class="process-item">
+          <div class="process-dot">✅</div>
+          <h4 class="process-title">자금 이체</h4>
+          <p class="process-desc">투자금 납입 완료</p>
+          <span class="process-duration">1~3일</span>
+        </div>
+      </div>
+
+      <div style="margin-top: 2rem; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;">
+        <div style="padding: 1.5rem; background: rgba(255,255,255,0.03); border-radius: 16px; text-align: center;">
+          <div style="font-size: 2rem; margin-bottom: 0.5rem;">📄</div>
+          <div style="font-weight: 700; margin-bottom: 0.25rem;">필요 서류</div>
+          <div style="font-size: 0.85rem; color: var(--gray);">KYC/AML, 자금출처증명, 투자 이력</div>
+        </div>
+        <div style="padding: 1.5rem; background: rgba(255,255,255,0.03); border-radius: 16px; text-align: center;">
+          <div style="font-size: 2rem; margin-bottom: 0.5rem;">⏱️</div>
+          <div style="font-weight: 700; margin-bottom: 0.25rem;">평균 소요 기간</div>
+          <div style="font-size: 0.85rem; color: var(--gray);">4~6주</div>
+        </div>
+        <div style="padding: 1.5rem; background: rgba(255,255,255,0.03); border-radius: 16px; text-align: center;">
+          <div style="font-size: 2rem; margin-bottom: 0.5rem;">💵</div>
+          <div style="font-weight: 700; margin-bottom: 0.25rem;">결제 방식</div>
+          <div style="font-size: 0.85rem; color: var(--gray);">USDT, USDC, Wire Transfer</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Token Metrics -->
+  <section class="section" style="background: rgba(255,255,255,0.02);">
+    <div class="section-header">
+      <span class="section-badge">TOKEN METRICS</span>
+      <h2 class="section-title">토큰 지표</h2>
+      <p class="section-subtitle">시드 라운드 핵심 투자 지표</p>
+    </div>
+
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <div class="metric-icon">💰</div>
+        <h4>토큰 가격</h4>
+        <div class="value">$0.008</div>
+        <p>Public 대비 60% 할인<br>Private 대비 33% 할인</p>
+      </div>
+      <div class="metric-card">
+        <div class="metric-icon">📊</div>
+        <h4>목표 모집 금액</h4>
+        <div class="value">$4,000,000</div>
+        <p>5억 TBURN × $0.008</p>
+      </div>
+      <div class="metric-card">
+        <div class="metric-icon">📈</div>
+        <h4>예상 FDV</h4>
+        <div class="value">$800M</div>
+        <p>100억 TBURN × $0.08 (예상 상장가)</p>
+      </div>
+    </div>
+
+    <div style="margin-top: 2rem; background: var(--dark-card); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 2rem;">
+      <h4 style="font-size: 1.125rem; font-weight: 700; margin-bottom: 1.5rem; text-align: center;">투자 시나리오 분석</h4>
+      <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; text-align: center;">
+        <div style="padding: 1.5rem; background: rgba(255,255,255,0.03); border-radius: 12px;">
+          <div style="font-size: 0.85rem; color: var(--gray); margin-bottom: 0.5rem;">투자금</div>
+          <div style="font-weight: 700;">$1,000,000</div>
+        </div>
+        <div style="padding: 1.5rem; background: rgba(255,255,255,0.03); border-radius: 12px;">
+          <div style="font-size: 0.85rem; color: var(--gray); margin-bottom: 0.5rem;">토큰 할당</div>
+          <div style="font-weight: 700; color: var(--seed-primary);">125,000,000</div>
+        </div>
+        <div style="padding: 1.5rem; background: rgba(255,255,255,0.03); border-radius: 12px;">
+          <div style="font-size: 0.85rem; color: var(--gray); margin-bottom: 0.5rem;">상장 시 가치 ($0.08)</div>
+          <div style="font-weight: 700; color: var(--gold);">$10,000,000</div>
+        </div>
+        <div style="padding: 1.5rem; background: rgba(255,255,255,0.03); border-radius: 12px;">
+          <div style="font-size: 0.85rem; color: var(--gray); margin-bottom: 0.5rem;">예상 ROI</div>
+          <div style="font-weight: 700; color: var(--seed-primary);">10x</div>
+        </div>
+      </div>
+      <p style="text-align: center; margin-top: 1rem; font-size: 0.8rem; color: var(--gray);">
+        * 예상 수치이며 실제 결과와 다를 수 있습니다. 투자 결정은 신중하게 해주세요.
+      </p>
+    </div>
+  </section>
+
+  <!-- Dashboard -->
+  <section class="section" id="dashboard">
+    <div class="section-header">
+      <span class="section-badge">INVESTOR DASHBOARD</span>
+      <h2 class="section-title">투자자 대시보드</h2>
+      <p class="section-subtitle">투자 현황과 베스팅을 확인하세요</p>
+    </div>
+
+    <div class="dashboard-grid">
+      <div class="dashboard-main">
+        <div class="dashboard-header">
+          <div class="dashboard-user">
+            <div class="dashboard-avatar">PC</div>
+            <div>
+              <h3 style="font-size: 1.125rem; font-weight: 700;">Paradigm Crypto</h3>
+              <p style="font-size: 0.875rem; color: var(--gray);">시드 투자자 · INV-2024-0001</p>
+            </div>
+          </div>
+          <span class="investor-badge-display">👑 Lead Investor</span>
+        </div>
+
+        <div class="dashboard-stats">
+          <div class="dash-stat">
+            <div class="dash-stat-value green">$5,000,000</div>
+            <div class="dash-stat-label">총 투자금</div>
+          </div>
+          <div class="dash-stat">
+            <div class="dash-stat-value gold">625,000,000</div>
+            <div class="dash-stat-label">할당 토큰 (TBURN)</div>
+          </div>
+          <div class="dash-stat">
+            <div class="dash-stat-value blue">0</div>
+            <div class="dash-stat-label">해제된 토큰</div>
+          </div>
+          <div class="dash-stat">
+            <div class="dash-stat-value purple">12개월</div>
+            <div class="dash-stat-label">클리프 남은 기간</div>
+          </div>
+        </div>
+
+        <div class="investment-details">
+          <h4><i class="fas fa-file-contract"></i> 투자 상세</h4>
+          <div class="detail-row">
+            <span class="label">투자일</span>
+            <span class="value">2024.11.15</span>
+          </div>
+          <div class="detail-row">
+            <span class="label">토큰 가격</span>
+            <span class="value">$0.008</span>
+          </div>
+          <div class="detail-row">
+            <span class="label">TGE 해제</span>
+            <span class="value" style="color: var(--danger);">0% (0 TBURN)</span>
+          </div>
+          <div class="detail-row">
+            <span class="label">클리프 종료일</span>
+            <span class="value">2025.11.15</span>
+          </div>
+          <div class="detail-row">
+            <span class="label">베스팅 완료일</span>
+            <span class="value">2028.11.15</span>
+          </div>
+          <div class="detail-row">
+            <span class="label">월간 해제량</span>
+            <span class="value" style="color: var(--seed-primary);">~17,361,111 TBURN</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="dashboard-sidebar">
+        <div class="sidebar-card">
+          <h4><i class="fas fa-chart-line"></i> 베스팅 현황</h4>
+          <div class="vesting-info">
+            <div class="header">
+              <span class="label">베스팅 진행률</span>
+              <span class="value">0%</span>
+            </div>
+            <div class="vesting-bar">
+              <div class="vesting-fill" style="width: 0%;"></div>
+            </div>
+          </div>
+          <div class="vesting-schedule">
+            <div class="vesting-schedule-item">
+              <span class="date">TGE (0%)</span>
+              <span class="amount" style="color: var(--danger);">0 TBURN</span>
+            </div>
+            <div class="vesting-schedule-item">
+              <span class="date">클리프 (12개월)</span>
+              <span class="amount">대기 중...</span>
+            </div>
+            <div class="vesting-schedule-item">
+              <span class="date">베스팅 (36개월)</span>
+              <span class="amount">625M TBURN</span>
+            </div>
+            <div class="vesting-schedule-item">
+              <span class="date">월간 해제</span>
+              <span class="amount">~17.36M TBURN</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="sidebar-card document-card">
+          <h4 style="justify-content: center;"><i class="fas fa-folder-open"></i> 투자자 문서</h4>
+          <p>투자 관련 문서를 확인하세요</p>
+          <button class="document-btn" onclick="downloadDoc('saft')">
+            <i class="fas fa-file-contract"></i> SAFT 계약서
+          </button>
+          <button class="document-btn" onclick="downloadDoc('deck')">
+            <i class="fas fa-file-powerpoint"></i> 투자자 덱
+          </button>
+          <button class="document-btn" onclick="downloadDoc('report')">
+            <i class="fas fa-file-alt"></i> 월간 리포트
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="section" id="faq" style="background: rgba(255,255,255,0.02);">
+    <div class="section-header">
+      <span class="section-badge">FAQ</span>
+      <h2 class="section-title">자주 묻는 질문</h2>
+      <p class="section-subtitle">시드 라운드 관련 궁금한 점을 확인하세요</p>
+    </div>
+
+    <div class="faq-container">
+      <div class="faq-item active">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <h4>시드 라운드의 베스팅 조건은 어떻게 되나요?</h4>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          <p>시드 라운드는 TGE 0%, 12개월 클리프, 36개월 선형 베스팅입니다. TGE 시점에 토큰이 해제되지 않으며, 12개월 클리프 후 36개월에 걸쳐 매월 약 2.78%씩 해제됩니다. 총 베스팅 기간은 48개월입니다. 이는 장기 가치 투자자를 위한 구조입니다.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <h4>왜 TGE 0%인가요?</h4>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          <p>TGE 0%는 단기 투기가 아닌 장기 가치 투자자를 유치하기 위함입니다. 초기 매도 압력을 최소화하여 토큰 가격 안정성을 높이고, 프로젝트의 장기적 성공에 진정으로 관심 있는 투자자와 파트너십을 구축합니다. 이를 보상하기 위해 시드 라운드는 가장 낮은 토큰 가격($0.008)으로 제공됩니다.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <h4>최소/최대 투자 금액은 얼마인가요?</h4>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          <p>시드 라운드의 최소 투자금은 $50,000 (Angel 티어)입니다. 티어별로 Lead($5M+), Major($1M+), Standard($250K+), Angel($50K+)이며, 최대 투자금은 Lead 티어 기준 $10,000,000입니다. 특별한 경우 협의를 통해 조정 가능합니다.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <h4>KYC/AML 절차는 어떻게 되나요?</h4>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          <p>모든 시드 투자자는 KYC(신원확인) 및 AML(자금세탁방지) 절차를 완료해야 합니다. 기관 투자자는 법인 등록 서류, 이사회 결의서, 실소유자 정보 등이 필요하며, 개인 투자자는 신분증, 주소 증명, 자금출처증명이 필요합니다. 절차는 일반적으로 3~5 영업일이 소요됩니다.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <h4>투자 후 어떤 권리를 갖게 되나요?</h4>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          <p>티어에 따라 다릅니다. Lead 투자자는 이사회 옵저버 자격, 주요 거버넌스 투표권, 독점 정보 접근권을 갖습니다. Major는 거버넌스 참여권과 분기별 전략 미팅, Standard/Angel은 투자자 포털 접근과 정기 리포트를 받습니다. 모든 투자자는 후속 라운드 참여 우선권(Pro-rata)이 있습니다.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <h4>토큰은 어떻게 수령하나요?</h4>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          <p>TGE 이후 투자자 대시보드에서 베스팅된 토큰을 클레임할 수 있습니다. 클리프 기간(12개월) 종료 후 매월 해제되는 토큰을 연결된 지갑으로 클레임합니다. EVM 호환 지갑(MetaMask 등)이 필요하며, 클레임 시 가스비가 발생합니다.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <h4>시드 라운드 마감 일정은 언제인가요?</h4>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          <p>시드 라운드는 목표 금액 $4,000,000 달성 또는 2025년 Q1 말 중 먼저 도래하는 시점에 마감됩니다. 현재 진행률은 약 60%이며, 조기 마감될 수 있습니다. 관심 있으신 경우 빠른 문의를 권장드립니다.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section style="padding: 100px 2rem; background: var(--gradient-seed); text-align: center;">
+    <div style="max-width: 800px; margin: 0 auto;">
+      <h2 style="font-size: 2.5rem; font-weight: 800; margin-bottom: 1rem;">시드 투자자가 되세요</h2>
+      <p style="color: rgba(255,255,255,0.9); font-size: 1.125rem; margin-bottom: 2rem;">
+        TBURN Chain의 가장 초기 단계에 참여하고<br>
+        블록체인과 AI의 미래를 함께 만들어가세요.
+      </p>
+      <button onclick="openInvestModal()" style="background: var(--dark); color: var(--white); padding: 20px 50px; border-radius: 14px; font-size: 1.25rem; font-weight: 700; border: none; cursor: pointer; transition: transform 0.3s;">
+        <i class="fas fa-hand-holding-dollar"></i> 투자 문의하기
+      </button>
+      <p style="color: rgba(255,255,255,0.8); margin-top: 1.5rem; font-size: 0.875rem;">
+        <i class="fas fa-clock"></i> 진행 중 · $0.008/토큰 · 최소 $50,000 · TGE 0%
+      </p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <h3>TBURN<span>CHAIN</span></h3>
+        <p>AI의 지능, 블록체인의 투명성<br>THE FUTURE IS NOW</p>
+        <div class="social-links">
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-telegram"></i></a>
+          <a href="#"><i class="fab fa-discord"></i></a>
+          <a href="#"><i class="fab fa-github"></i></a>
+          <a href="#"><i class="fab fa-medium"></i></a>
+        </div>
+      </div>
+      <div class="footer-links">
+        <h4>Seed Round</h4>
+        <ul>
+          <li><a href="#">투자 조건</a></li>
+          <li><a href="#">투자 티어</a></li>
+          <li><a href="#">베스팅 스케줄</a></li>
+          <li><a href="#">현재 투자자</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h4>Resources</h4>
+        <ul>
+          <li><a href="#">투자자 덱</a></li>
+          <li><a href="#">백서</a></li>
+          <li><a href="#">기술 문서</a></li>
+          <li><a href="#">FAQ</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="#">투자 문의</a></li>
+          <li><a href="#">파트너십 문의</a></li>
+          <li><a href="#">IR 문의</a></li>
+          <li><a href="#">일반 문의</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025-2045 TBURN Foundation. All Rights Reserved.</p>
+      <div style="display: flex; gap: 2rem;">
+        <a href="#" style="color: var(--gray); text-decoration: none;">이용약관</a>
+        <a href="#" style="color: var(--gray); text-decoration: none;">개인정보처리방침</a>
+        <a href="#" style="color: var(--gray); text-decoration: none;">쿠키 정책</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // FAQ Toggle
+    function toggleFaq(element) {
+      const faqItem = element.parentElement;
+      const wasActive = faqItem.classList.contains('active');
+      
+      document.querySelectorAll('.faq-item').forEach(item => {
+        item.classList.remove('active');
+      });
+      
+      if (!wasActive) {
+        faqItem.classList.add('active');
+      }
+    }
+
+    // Scroll to Section
+    function scrollToSection(sectionId) {
+      const section = document.getElementById(sectionId);
+      if (section) {
+        section.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+
+    // Apply Tier
+    function applyTier(tier) {
+      const tierNames = {
+        lead: 'Lead Investor',
+        major: 'Major Investor',
+        standard: 'Standard Investor',
+        angel: 'Angel Investor'
+      };
+      alert(`${tierNames[tier]} 문의 페이지로 이동합니다.\n\n투자팀: invest@tburn.io`);
+    }
+
+    // Open Invest Modal
+    function openInvestModal() {
+      alert('시드 라운드 투자 문의\n\n이메일: invest@tburn.io\n전화: +82-2-XXX-XXXX\n\n투자 의향서를 보내주시면 담당자가 연락드리겠습니다.');
+    }
+
+    // Download Deck
+    function downloadDeck() {
+      alert('투자자 덱 다운로드\n\nNDA 서명 후 제공됩니다.\ninvest@tburn.io로 문의해주세요.');
+    }
+
+    // Download Doc
+    function downloadDoc(type) {
+      const docNames = {
+        saft: 'SAFT 계약서',
+        deck: '투자자 덱',
+        report: '월간 리포트'
+      };
+      alert(`${docNames[type]} 다운로드\n\n투자자 전용 문서입니다.`);
+    }
+
+    // Header Scroll Effect
+    window.addEventListener('scroll', () => {
+      const header = document.querySelector('.header');
+      if (window.scrollY > 50) {
+        header.style.background = 'rgba(15, 23, 42, 0.98)';
+      } else {
+        header.style.background = 'rgba(15, 23, 42, 0.95)';
+      }
+    });
+  </script>
+</body>
+</html>

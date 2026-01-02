@@ -125,6 +125,7 @@ const EcosystemFundPage = lazy(() => import("@/pages/ecosystem-fund"));
 const PartnershipProgramPage = lazy(() => import("@/pages/partnership-program"));
 const MarketingProgramPage = lazy(() => import("@/pages/marketing-program"));
 const StrategicPartnerPage = lazy(() => import("@/pages/strategic-partner"));
+const AdvisorProgramPage = lazy(() => import("@/pages/advisor-program"));
 
 function LoginPage() {
   const handleLoginSuccess = () => {
@@ -271,6 +272,16 @@ export function PublicRouter() {
       <ErrorBoundary>
         <Suspense fallback={<PageLoading />}>
           <StrategicPartnerPage />
+        </Suspense>
+      </ErrorBoundary>
+    );
+  }
+  
+  if (location === "/advisor-program") {
+    return (
+      <ErrorBoundary>
+        <Suspense fallback={<PageLoading />}>
+          <AdvisorProgramPage />
         </Suspense>
       </ErrorBoundary>
     );
