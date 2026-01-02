@@ -59547,8 +59547,11 @@ var server = createServer3(app2);
 var port = parseInt(process.env.PORT || "5000", 10);
 server.listen({ port, host: "0.0.0.0" }, () => {
   console.log(`[Production] \u2705 Server listening on port ${port} (static files ready)`);
-  console.log(`[Production] \u23F3 Initializing API services in background...`);
-  initializeBackendServices();
+  console.log(`[Production] \u23F3 Heavy services will start in 5 seconds...`);
+  setTimeout(() => {
+    console.log(`[Production] \u23F3 Starting heavy service initialization now...`);
+    initializeBackendServices();
+  }, 5e3);
 });
 async function initializeBackendServices() {
   try {
