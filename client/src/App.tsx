@@ -137,6 +137,7 @@ function AppRouter() {
     <Suspense fallback={<PageLoading />}>
       <Switch>
         <Route path="/app" component={Dashboard} />
+        <Route path="/app/dashboard" component={Dashboard} />
         <Route path="/app/blocks" component={Blocks} />
         <Route path="/app/blocks/:blockNumber" component={BlockDetail} />
         <Route path="/app/transactions" component={Transactions} />
