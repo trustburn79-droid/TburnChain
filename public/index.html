@@ -3,26 +3,529 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TBURN Mainnet</title>
+  <title>TBURN Chain - Trust-Based Blockchain</title>
+  <meta name="description" content="TBURN Chain - Next-generation blockchain with Triple-Band AI, 210,000+ TPS, and quantum-resistant security.">
+  <meta property="og:title" content="TBURN Chain - Trust-Based Blockchain">
+  <meta property="og:description" content="Next-generation blockchain with Triple-Band AI, 210,000+ TPS, and quantum-resistant security.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://tburn.io">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    :root {
+      --bg: #ffffff;
+      --bg-card: #ffffff;
+      --text: #111827;
+      --text-secondary: #6b7280;
+      --border: #e5e7eb;
+      --cyan: #06b6d4;
+      --cyan-dark: #0891b2;
+      --gradient-start: #06b6d4;
+      --gradient-end: #8b5cf6;
+    }
+    
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0a0a0a;
+        --bg-card: rgba(255,255,255,0.05);
+        --text: #ffffff;
+        --text-secondary: #9ca3af;
+        --border: rgba(255,255,255,0.1);
+      }
+    }
+    
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background: #0a0a0a;
-      color: #ffffff;
+      font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
       min-height: 100vh;
+      line-height: 1.6;
+    }
+    
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    
+    /* Header */
+    header {
+      padding: 16px 0;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      background: var(--bg);
+      z-index: 100;
+    }
+    
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 700;
+      font-size: 1.25rem;
+      text-decoration: none;
+      color: var(--text);
+    }
+    
+    .logo svg {
+      width: 32px;
+      height: 32px;
+    }
+    
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+    
+    .nav-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    
+    .nav-links a:hover {
+      color: var(--text);
+    }
+    
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+    }
+    
+    /* Hero */
+    .hero {
+      padding: 80px 0 60px;
+      text-align: center;
+      position: relative;
+    }
+    
+    .live-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      border-radius: 9999px;
+      border: 1px solid rgba(6, 182, 212, 0.3);
+      background: rgba(6, 182, 212, 0.1);
+      color: var(--cyan);
+      font-size: 0.75rem;
+      font-family: 'JetBrains Mono', monospace;
+      margin-bottom: 32px;
+    }
+    
+    .live-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--cyan);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+    
+    .hero h1 {
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      font-weight: 700;
+      line-height: 1.1;
+      margin-bottom: 24px;
+      letter-spacing: -0.02em;
+    }
+    
+    .text-gradient {
+      background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .hero p {
+      font-size: 1.25rem;
+      color: var(--text-secondary);
+      max-width: 640px;
+      margin: 0 auto 40px;
+    }
+    
+    .hero-buttons {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 16px 32px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 1rem;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+      cursor: pointer;
+      border: none;
+    }
+    
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+    
+    .btn-primary {
+      background: var(--text);
+      color: var(--bg);
+      box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+    }
+    
+    .btn-secondary {
+      background: var(--bg-card);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    
+    /* Stats */
+    .stats {
+      padding: 60px 0 80px;
+    }
+    
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+    
+    @media (max-width: 768px) {
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    
+    .stat-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      text-align: center;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    
+    .stat-card:hover {
+      border-color: var(--cyan);
+      transform: scale(1.02);
+    }
+    
+    .stat-value {
+      font-size: clamp(1.5rem, 4vw, 2.25rem);
+      font-weight: 700;
+      font-family: 'JetBrains Mono', monospace;
+      margin-bottom: 8px;
+    }
+    
+    .stat-label {
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+    
+    /* Solutions */
+    .solutions {
+      padding: 60px 0;
+    }
+    
+    .section-header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+    
+    .section-header h2 {
+      font-size: clamp(1.75rem, 4vw, 3rem);
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+    
+    .section-header p {
+      color: var(--text-secondary);
+    }
+    
+    .solutions-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    
+    @media (max-width: 1024px) {
+      .solutions-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    
+    @media (max-width: 640px) {
+      .solutions-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    .solution-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 32px;
+      text-decoration: none;
+      color: inherit;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    
+    .solution-card:hover {
+      border-color: rgba(255,255,255,0.2);
+      transform: translateY(-4px);
+    }
+    
+    .solution-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
       display: flex;
       align-items: center;
       justify-content: center;
+      margin-bottom: 24px;
+      color: white;
     }
-    h1 {
-      font-size: 2.5rem;
+    
+    .solution-icon.pink { background: linear-gradient(135deg, #ec4899, #f43f5e); }
+    .solution-icon.cyan { background: linear-gradient(135deg, #22d3ee, #06b6d4); }
+    .solution-icon.blue { background: linear-gradient(135deg, #60a5fa, #3b82f6); }
+    .solution-icon.rose { background: linear-gradient(135deg, #fb7185, #ec4899); }
+    .solution-icon.green { background: linear-gradient(135deg, #34d399, #22c55e); }
+    .solution-icon.purple { background: linear-gradient(135deg, #a78bfa, #8b5cf6); }
+    
+    .solution-card h3 {
+      font-size: 1.25rem;
       font-weight: 600;
-      letter-spacing: 0.05em;
+      margin-bottom: 12px;
     }
+    
+    .solution-card p {
+      color: var(--text-secondary);
+      font-size: 0.875rem;
+      line-height: 1.6;
+    }
+    
+    /* CTA */
+    .cta {
+      padding: 60px 0 80px;
+    }
+    
+    .cta-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 48px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .cta-box::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(6, 182, 212, 0.1), rgba(139, 92, 246, 0.1));
+      pointer-events: none;
+    }
+    
+    .cta-box h2 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      margin-bottom: 24px;
+      position: relative;
+    }
+    
+    .cta-buttons {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+      position: relative;
+    }
+    
+    .btn-cyan {
+      background: var(--cyan);
+      color: #000;
+    }
+    
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 24px 0;
+      text-align: center;
+      color: var(--text-secondary);
+      font-size: 0.875rem;
+    }
+    
+    /* SVG Icons inline */
+    .icon { width: 20px; height: 20px; }
   </style>
 </head>
 <body>
-  <h1>TBURN Mainnet Test</h1>
+  <header>
+    <div class="container header-inner">
+      <a href="/" class="logo">
+        <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="50" cy="50" r="45" stroke="url(#grad)" stroke-width="6" fill="none"/>
+          <path d="M35 35 L65 35 L50 70 Z" fill="url(#grad)"/>
+          <defs>
+            <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" style="stop-color:#06b6d4"/>
+              <stop offset="100%" style="stop-color:#8b5cf6"/>
+            </linearGradient>
+          </defs>
+        </svg>
+        TBURN
+      </a>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="/scan">Explorer</a></li>
+          <li><a href="/learn">Learn</a></li>
+          <li><a href="/solutions">Solutions</a></li>
+          <li><a href="/community/hub">Community</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <div class="live-badge">
+          <span class="live-dot"></span>
+          Mainnet Live
+        </div>
+        <h1>
+          The <span class="text-gradient">Trust-Based</span><br>
+          Blockchain
+        </h1>
+        <p>Experience the next generation of blockchain technology with Triple-Band AI, quantum-resistant security, and unmatched performance.</p>
+        <div class="hero-buttons">
+          <a href="/scan" class="btn btn-primary">
+            TBURN Scan
+            <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+          </a>
+          <a href="/whitepaper" class="btn btn-secondary">
+            <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+            Read Whitepaper
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="stats">
+      <div class="container">
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-value">210,000</div>
+            <div class="stat-label">TPS</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value">40.2M</div>
+            <div class="stat-label">Blocks</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value">298.5M</div>
+            <div class="stat-label">Transactions</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value">99.99%</div>
+            <div class="stat-label">Uptime</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="solutions">
+      <div class="container">
+        <div class="section-header">
+          <h2>Comprehensive Solutions</h2>
+          <p>Everything you need for next-generation blockchain applications</p>
+        </div>
+        <div class="solutions-grid">
+          <a href="/solutions/ai-features" class="solution-card">
+            <div class="solution-icon pink">
+              <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+            </div>
+            <h3>Triple-Band AI</h3>
+            <p>Advanced AI system with Gemini, Claude, and GPT for intelligent network optimization and security.</p>
+          </a>
+          <a href="/solutions/token-extensions" class="solution-card">
+            <div class="solution-icon cyan">
+              <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+            </div>
+            <h3>Quantum Security</h3>
+            <p>Future-proof cryptographic security with quantum-resistant signature algorithms.</p>
+          </a>
+          <a href="/solutions/defi-hub" class="solution-card">
+            <div class="solution-icon blue">
+              <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            </div>
+            <h3>DeFi Hub</h3>
+            <p>Complete DeFi ecosystem with DEX, lending, yield farming, and liquid staking.</p>
+          </a>
+          <a href="/use-cases/gaming" class="solution-card">
+            <div class="solution-icon rose">
+              <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z"/></svg>
+            </div>
+            <h3>GameFi Platform</h3>
+            <p>High-performance gaming infrastructure with instant transactions and NFT support.</p>
+          </a>
+          <a href="/learn/tokenomics" class="solution-card">
+            <div class="solution-icon green">
+              <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
+            </div>
+            <h3>Auto-Burn Mechanism</h3>
+            <p>Deflationary tokenomics with automatic burn on every transaction.</p>
+          </a>
+          <a href="/solutions/cross-chain-bridge" class="solution-card">
+            <div class="solution-icon purple">
+              <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>
+            </div>
+            <h3>Cross-Chain Bridge</h3>
+            <p>Seamless asset transfers across multiple blockchain networks.</p>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta">
+      <div class="container">
+        <div class="cta-box">
+          <h2>Ready to Build on TBURN?</h2>
+          <div class="cta-buttons">
+            <a href="/learn" class="btn btn-cyan">Explore Ecosystem</a>
+            <a href="/community/hub" class="btn btn-secondary">Join Community</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>2026 TBURN Chain. All rights reserved.</p>
+    </div>
+  </footer>
 </body>
 </html>
