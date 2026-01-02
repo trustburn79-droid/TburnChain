@@ -44,6 +44,7 @@ Core architectural decisions and features include:
 - **Deferred Data Fetch**: Landing page network stats are deferred by 3 seconds after initial render, showing placeholders until real data loads.
 - **Static Landing Page Architecture**: Critical performance fix using a pure HTML/CSS landing page for sub-2-second first page load.
 - **Route-Based Code Splitting**: Bundle size optimization by loading appropriate app shells (lightweight `PublicApp` for public routes, full `App` for authenticated routes) based on the initial route.
+- **Token Distribution Admin System**: Complete enterprise-level token distribution management system at `/admin/token-distribution` with 8 programs: Airdrop Claims, Referral Program, Events/Promotions, Community Rewards, DAO Governance, Block Rewards, Validator Incentives, and Ecosystem Grants. Full admin dashboard with real-time monitoring, statistics aggregation, and CRUD operations. Database tables include `token_programs`, `airdrop_claims`, `airdrop_distributions`, `referral_accounts`, `referral_rewards`, `events_catalog`, `event_registrations`, `community_tasks`, `community_contributions`, `dao_proposals`, `dao_votes`, `dao_delegations`, `block_reward_cycles`, `block_reward_payouts`, `validator_incentive_payouts`, `validator_performance_stats`, `ecosystem_grants`, and `grant_milestones`.
 
 ## External Dependencies
 - **Database**: Neon Serverless PostgreSQL

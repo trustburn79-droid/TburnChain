@@ -11902,6 +11902,51 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
+  // Token Programs Dashboard - must be before :id route
+  app.get("/api/admin/token-programs/dashboard", requireAdmin, async (_req, res) => {
+    try {
+      const [
+        programStats,
+        airdropStats,
+        referralStats,
+        eventsStats,
+        communityStats,
+        daoStats,
+        blockRewardStats,
+        validatorStats,
+        grantStats
+      ] = await Promise.all([
+        storage.getTokenProgramStats(),
+        storage.getAirdropStats(),
+        storage.getReferralStats(),
+        storage.getEventsStats(),
+        storage.getCommunityStats(),
+        storage.getDaoStats(),
+        storage.getBlockRewardStats(),
+        storage.getValidatorIncentiveStats(),
+        storage.getEcosystemGrantStats()
+      ]);
+
+      res.json({
+        success: true,
+        data: {
+          overview: programStats,
+          airdrop: airdropStats,
+          referral: referralStats,
+          events: eventsStats,
+          community: communityStats,
+          dao: daoStats,
+          blockRewards: blockRewardStats,
+          validatorIncentives: validatorStats,
+          ecosystemGrants: grantStats
+        }
+      });
+    } catch (error) {
+      console.error('[TokenPrograms] Error fetching dashboard:', error);
+      res.status(500).json({ error: 'Failed to fetch token programs dashboard' });
+    }
+  });
+
   // Get single program with snapshots
   app.get("/api/admin/token-programs/:id", requireAdmin, async (req, res) => {
     try {
@@ -12259,51 +12304,6 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     } catch (error) {
       console.error('[EcosystemGrants] Error updating milestone:', error);
       res.status(500).json({ error: 'Failed to update milestone' });
-    }
-  });
-
-  // Token Programs Dashboard Overview (Aggregated stats for all programs)
-  app.get("/api/admin/token-programs/dashboard", requireAdmin, async (_req, res) => {
-    try {
-      const [
-        programStats,
-        airdropStats,
-        referralStats,
-        eventsStats,
-        communityStats,
-        daoStats,
-        blockRewardStats,
-        validatorStats,
-        grantStats
-      ] = await Promise.all([
-        storage.getTokenProgramStats(),
-        storage.getAirdropStats(),
-        storage.getReferralStats(),
-        storage.getEventsStats(),
-        storage.getCommunityStats(),
-        storage.getDaoStats(),
-        storage.getBlockRewardStats(),
-        storage.getValidatorIncentiveStats(),
-        storage.getEcosystemGrantStats()
-      ]);
-
-      res.json({
-        success: true,
-        data: {
-          overview: programStats,
-          airdrop: airdropStats,
-          referral: referralStats,
-          events: eventsStats,
-          community: communityStats,
-          dao: daoStats,
-          blockRewards: blockRewardStats,
-          validatorIncentives: validatorStats,
-          ecosystemGrants: grantStats
-        }
-      });
-    } catch (error) {
-      console.error('[TokenPrograms] Error fetching dashboard:', error);
-      res.status(500).json({ error: 'Failed to fetch token programs dashboard' });
     }
   });
 
