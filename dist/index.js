@@ -59451,34 +59451,16 @@ app2.use("/assets", express4.static(path.join(distPath, "assets"), {
   etag: false
   // Not needed for hashed files
 }));
-var staticLandingPath = path.resolve(distPath, "static-landing.html");
-app2.get("/", (_req, res) => {
-  if (fs.existsSync(staticLandingPath)) {
-    res.setHeader("Content-Type", "text/html; charset=utf-8");
-    res.setHeader("Cache-Control", "public, max-age=300, stale-while-revalidate=600");
-    res.setHeader("X-Content-Type", "static-landing");
-    res.setHeader("X-Content-Version", "2026.01.02.v5");
-    res.sendFile(staticLandingPath);
-    console.log("[Static Landing] Served instant landing page (15KB vs 14MB)");
-  } else {
-    console.error("[Static Landing] CRITICAL: Not found at:", staticLandingPath);
-    console.error("[Static Landing] distPath is:", distPath);
-    res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
-    res.sendFile(path.resolve(distPath, "index.html"));
-  }
-});
 app2.use(express4.static(distPath, {
   maxAge: "1h",
   etag: true,
-  index: false,
-  // CRITICAL: Prevents overriding our static landing page handler
   setHeaders: (res, filePath) => {
     if (filePath.endsWith("index.html") || filePath.endsWith(".html")) {
       res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
       res.setHeader("Pragma", "no-cache");
       res.setHeader("Expires", "0");
       res.setHeader("Surrogate-Control", "no-store");
-      res.setHeader("X-Content-Version", "2026.01.02.v4");
+      res.setHeader("X-Content-Version", "2026.01.02.v6");
     }
   }
 }));
