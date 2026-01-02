@@ -1,4 +1,4 @@
-import { Switch, Route } from "wouter";
+import { Switch, Route, useLocation } from "wouter";
 import { lazy, Suspense } from "react";
 import { Loader2 } from "lucide-react";
 import { PublicLayout } from "./components/PublicLayout";
@@ -111,8 +111,40 @@ const ValidatorGovernance = lazy(() => import("@/pages/validator-governance"));
 const ValidatorInfrastructure = lazy(() => import("@/pages/validator-infrastructure"));
 
 const Brand = lazy(() => import("./pages/Brand"));
+const Login = lazy(() => import("@/pages/login"));
+const TokenGenerator = lazy(() => import("@/pages/token-generator"));
+
+function LoginPage() {
+  const [, setLocation] = useLocation();
+  const handleLoginSuccess = () => {
+    setLocation("/app/dashboard");
+  };
+  return <Login onLoginSuccess={handleLoginSuccess} />;
+}
 
 export function PublicRouter() {
+  const [location] = useLocation();
+  
+  if (location === "/login") {
+    return (
+      <ErrorBoundary>
+        <Suspense fallback={<PageLoading />}>
+          <LoginPage />
+        </Suspense>
+      </ErrorBoundary>
+    );
+  }
+  
+  if (location === "/token-generator") {
+    return (
+      <ErrorBoundary>
+        <Suspense fallback={<PageLoading />}>
+          <TokenGenerator />
+        </Suspense>
+      </ErrorBoundary>
+    );
+  }
+  
   return (
     <ErrorBoundary>
       <PublicLayout>
