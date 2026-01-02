@@ -96,6 +96,7 @@ const adminMenuItems = [
   { titleKey: "adminNav.economicModels", url: "/admin/economics", icon: TrendingUp, groupKey: "adminNav.tokenEconomy", badge: null },
   { titleKey: "adminNav.treasuryManagement", url: "/admin/treasury", icon: Briefcase, groupKey: "adminNav.tokenEconomy", badge: null },
   { titleKey: "adminNav.tokenomicsSimulation", url: "/admin/tokenomics", icon: TrendingUp, groupKey: "adminNav.tokenEconomy", badge: "NEW" },
+  { titleKey: "adminNav.tokenDistribution", url: "/admin/token-distribution", icon: Layers, groupKey: "adminNav.tokenEconomy", badge: "8" },
   
   // Group 4: AI Systems
   { titleKey: "adminNav.aiOrchestration", url: "/admin/ai", icon: Brain, groupKey: "adminNav.aiSystems", badge: null },

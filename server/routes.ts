@@ -11886,6 +11886,427 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
+  // ============================================
+  // Token Distribution Programs Admin API
+  // ============================================
+
+  // Get all token programs with stats
+  app.get("/api/admin/token-programs", requireAdmin, async (_req, res) => {
+    try {
+      const programs = await storage.getAllTokenPrograms();
+      const stats = await storage.getTokenProgramStats();
+      res.json({ success: true, data: { programs, stats } });
+    } catch (error) {
+      console.error('[TokenPrograms] Error fetching programs:', error);
+      res.status(500).json({ error: 'Failed to fetch token programs' });
+    }
+  });
+
+  // Get single program with snapshots
+  app.get("/api/admin/token-programs/:id", requireAdmin, async (req, res) => {
+    try {
+      const program = await storage.getTokenProgramById(req.params.id);
+      if (!program) {
+        return res.status(404).json({ error: 'Program not found' });
+      }
+      const snapshots = await storage.getProgramSnapshots(program.id, 30);
+      res.json({ success: true, data: { program, snapshots } });
+    } catch (error) {
+      console.error('[TokenPrograms] Error fetching program:', error);
+      res.status(500).json({ error: 'Failed to fetch token program' });
+    }
+  });
+
+  // Create token program
+  app.post("/api/admin/token-programs", requireAdmin, async (req, res) => {
+    try {
+      const program = await storage.createTokenProgram(req.body);
+      res.json({ success: true, data: program });
+    } catch (error) {
+      console.error('[TokenPrograms] Error creating program:', error);
+      res.status(500).json({ error: 'Failed to create token program' });
+    }
+  });
+
+  // Update token program
+  app.patch("/api/admin/token-programs/:id", requireAdmin, async (req, res) => {
+    try {
+      await storage.updateTokenProgram(req.params.id, req.body);
+      const program = await storage.getTokenProgramById(req.params.id);
+      res.json({ success: true, data: program });
+    } catch (error) {
+      console.error('[TokenPrograms] Error updating program:', error);
+      res.status(500).json({ error: 'Failed to update token program' });
+    }
+  });
+
+  // Airdrop Management
+  app.get("/api/admin/token-programs/airdrop/claims", requireAdmin, async (req, res) => {
+    try {
+      const limit = parseInt(req.query.limit as string) || 100;
+      const claims = await storage.getAllAirdropClaims(limit);
+      const stats = await storage.getAirdropStats();
+      res.json({ success: true, data: { claims, stats } });
+    } catch (error) {
+      console.error('[Airdrop] Error fetching claims:', error);
+      res.status(500).json({ error: 'Failed to fetch airdrop claims' });
+    }
+  });
+
+  app.get("/api/admin/token-programs/airdrop/distributions", requireAdmin, async (_req, res) => {
+    try {
+      const distributions = await storage.getAllAirdropDistributions();
+      res.json({ success: true, data: distributions });
+    } catch (error) {
+      console.error('[Airdrop] Error fetching distributions:', error);
+      res.status(500).json({ error: 'Failed to fetch distributions' });
+    }
+  });
+
+  app.post("/api/admin/token-programs/airdrop/claims", requireAdmin, async (req, res) => {
+    try {
+      const claim = await storage.createAirdropClaim(req.body);
+      res.json({ success: true, data: claim });
+    } catch (error) {
+      console.error('[Airdrop] Error creating claim:', error);
+      res.status(500).json({ error: 'Failed to create airdrop claim' });
+    }
+  });
+
+  app.patch("/api/admin/token-programs/airdrop/claims/:id", requireAdmin, async (req, res) => {
+    try {
+      await storage.updateAirdropClaim(req.params.id, req.body);
+      const claim = await storage.getAirdropClaimById(req.params.id);
+      res.json({ success: true, data: claim });
+    } catch (error) {
+      console.error('[Airdrop] Error updating claim:', error);
+      res.status(500).json({ error: 'Failed to update airdrop claim' });
+    }
+  });
+
+  // Referral Management
+  app.get("/api/admin/token-programs/referral/accounts", requireAdmin, async (req, res) => {
+    try {
+      const limit = parseInt(req.query.limit as string) || 100;
+      const accounts = await storage.getAllReferralAccounts(limit);
+      const stats = await storage.getReferralStats();
+      res.json({ success: true, data: { accounts, stats } });
+    } catch (error) {
+      console.error('[Referral] Error fetching accounts:', error);
+      res.status(500).json({ error: 'Failed to fetch referral accounts' });
+    }
+  });
+
+  app.get("/api/admin/token-programs/referral/accounts/:id/rewards", requireAdmin, async (req, res) => {
+    try {
+      const rewards = await storage.getReferralRewards(req.params.id, 50);
+      res.json({ success: true, data: rewards });
+    } catch (error) {
+      console.error('[Referral] Error fetching rewards:', error);
+      res.status(500).json({ error: 'Failed to fetch referral rewards' });
+    }
+  });
+
+  // Events Management
+  app.get("/api/admin/token-programs/events", requireAdmin, async (req, res) => {
+    try {
+      const limit = parseInt(req.query.limit as string) || 50;
+      const events = await storage.getAllEvents(limit);
+      const stats = await storage.getEventsStats();
+      res.json({ success: true, data: { events, stats } });
+    } catch (error) {
+      console.error('[Events] Error fetching events:', error);
+      res.status(500).json({ error: 'Failed to fetch events' });
+    }
+  });
+
+  app.get("/api/admin/token-programs/events/:id", requireAdmin, async (req, res) => {
+    try {
+      const event = await storage.getEventById(req.params.id);
+      if (!event) {
+        return res.status(404).json({ error: 'Event not found' });
+      }
+      const registrations = await storage.getEventRegistrations(event.id, 100);
+      res.json({ success: true, data: { event, registrations } });
+    } catch (error) {
+      console.error('[Events] Error fetching event:', error);
+      res.status(500).json({ error: 'Failed to fetch event' });
+    }
+  });
+
+  app.post("/api/admin/token-programs/events", requireAdmin, async (req, res) => {
+    try {
+      const event = await storage.createEvent(req.body);
+      res.json({ success: true, data: event });
+    } catch (error) {
+      console.error('[Events] Error creating event:', error);
+      res.status(500).json({ error: 'Failed to create event' });
+    }
+  });
+
+  app.patch("/api/admin/token-programs/events/:id", requireAdmin, async (req, res) => {
+    try {
+      await storage.updateEvent(req.params.id, req.body);
+      const event = await storage.getEventById(req.params.id);
+      res.json({ success: true, data: event });
+    } catch (error) {
+      console.error('[Events] Error updating event:', error);
+      res.status(500).json({ error: 'Failed to update event' });
+    }
+  });
+
+  // Community Management
+  app.get("/api/admin/token-programs/community/tasks", requireAdmin, async (req, res) => {
+    try {
+      const limit = parseInt(req.query.limit as string) || 50;
+      const tasks = await storage.getAllCommunityTasks(limit);
+      const stats = await storage.getCommunityStats();
+      res.json({ success: true, data: { tasks, stats } });
+    } catch (error) {
+      console.error('[Community] Error fetching tasks:', error);
+      res.status(500).json({ error: 'Failed to fetch community tasks' });
+    }
+  });
+
+  app.get("/api/admin/token-programs/community/tasks/:id/contributions", requireAdmin, async (req, res) => {
+    try {
+      const contributions = await storage.getCommunityContributions(req.params.id, 100);
+      res.json({ success: true, data: contributions });
+    } catch (error) {
+      console.error('[Community] Error fetching contributions:', error);
+      res.status(500).json({ error: 'Failed to fetch contributions' });
+    }
+  });
+
+  app.post("/api/admin/token-programs/community/tasks", requireAdmin, async (req, res) => {
+    try {
+      const task = await storage.createCommunityTask(req.body);
+      res.json({ success: true, data: task });
+    } catch (error) {
+      console.error('[Community] Error creating task:', error);
+      res.status(500).json({ error: 'Failed to create community task' });
+    }
+  });
+
+  app.patch("/api/admin/token-programs/community/tasks/:id", requireAdmin, async (req, res) => {
+    try {
+      await storage.updateCommunityTask(req.params.id, req.body);
+      const task = await storage.getCommunityTaskById(req.params.id);
+      res.json({ success: true, data: task });
+    } catch (error) {
+      console.error('[Community] Error updating task:', error);
+      res.status(500).json({ error: 'Failed to update community task' });
+    }
+  });
+
+  // DAO Governance Management
+  app.get("/api/admin/token-programs/dao/proposals", requireAdmin, async (req, res) => {
+    try {
+      const limit = parseInt(req.query.limit as string) || 50;
+      const proposals = await storage.getAllDaoProposals(limit);
+      const stats = await storage.getDaoStats();
+      res.json({ success: true, data: { proposals, stats } });
+    } catch (error) {
+      console.error('[DAO] Error fetching proposals:', error);
+      res.status(500).json({ error: 'Failed to fetch DAO proposals' });
+    }
+  });
+
+  app.get("/api/admin/token-programs/dao/proposals/:id", requireAdmin, async (req, res) => {
+    try {
+      const proposal = await storage.getDaoProposalById(req.params.id);
+      if (!proposal) {
+        return res.status(404).json({ error: 'Proposal not found' });
+      }
+      const votes = await storage.getDaoVotes(proposal.id);
+      res.json({ success: true, data: { proposal, votes } });
+    } catch (error) {
+      console.error('[DAO] Error fetching proposal:', error);
+      res.status(500).json({ error: 'Failed to fetch proposal' });
+    }
+  });
+
+  app.post("/api/admin/token-programs/dao/proposals", requireAdmin, async (req, res) => {
+    try {
+      const proposal = await storage.createDaoProposal(req.body);
+      res.json({ success: true, data: proposal });
+    } catch (error) {
+      console.error('[DAO] Error creating proposal:', error);
+      res.status(500).json({ error: 'Failed to create DAO proposal' });
+    }
+  });
+
+  app.patch("/api/admin/token-programs/dao/proposals/:id", requireAdmin, async (req, res) => {
+    try {
+      await storage.updateDaoProposal(req.params.id, req.body);
+      const proposal = await storage.getDaoProposalById(req.params.id);
+      res.json({ success: true, data: proposal });
+    } catch (error) {
+      console.error('[DAO] Error updating proposal:', error);
+      res.status(500).json({ error: 'Failed to update proposal' });
+    }
+  });
+
+  // Block Rewards Management
+  app.get("/api/admin/token-programs/block-rewards/cycles", requireAdmin, async (req, res) => {
+    try {
+      const limit = parseInt(req.query.limit as string) || 50;
+      const cycles = await storage.getAllBlockRewardCycles(limit);
+      const stats = await storage.getBlockRewardStats();
+      res.json({ success: true, data: { cycles, stats } });
+    } catch (error) {
+      console.error('[BlockRewards] Error fetching cycles:', error);
+      res.status(500).json({ error: 'Failed to fetch block reward cycles' });
+    }
+  });
+
+  app.get("/api/admin/token-programs/block-rewards/cycles/:id/payouts", requireAdmin, async (req, res) => {
+    try {
+      const payouts = await storage.getBlockRewardPayouts(req.params.id);
+      res.json({ success: true, data: payouts });
+    } catch (error) {
+      console.error('[BlockRewards] Error fetching payouts:', error);
+      res.status(500).json({ error: 'Failed to fetch payouts' });
+    }
+  });
+
+  // Validator Incentives Management
+  app.get("/api/admin/token-programs/validator-incentives", requireAdmin, async (req, res) => {
+    try {
+      const limit = parseInt(req.query.limit as string) || 100;
+      const payouts = await storage.getAllValidatorIncentivePayouts(limit);
+      const stats = await storage.getValidatorIncentiveStats();
+      res.json({ success: true, data: { payouts, stats } });
+    } catch (error) {
+      console.error('[ValidatorIncentives] Error fetching payouts:', error);
+      res.status(500).json({ error: 'Failed to fetch validator incentives' });
+    }
+  });
+
+  app.get("/api/admin/token-programs/validator-incentives/:address/performance", requireAdmin, async (req, res) => {
+    try {
+      const performanceStats = await storage.getValidatorPerformanceStats(req.params.address);
+      res.json({ success: true, data: performanceStats });
+    } catch (error) {
+      console.error('[ValidatorIncentives] Error fetching performance:', error);
+      res.status(500).json({ error: 'Failed to fetch validator performance' });
+    }
+  });
+
+  // Ecosystem Grants Management
+  app.get("/api/admin/token-programs/ecosystem-grants", requireAdmin, async (req, res) => {
+    try {
+      const limit = parseInt(req.query.limit as string) || 50;
+      const grants = await storage.getAllEcosystemGrants(limit);
+      const stats = await storage.getEcosystemGrantStats();
+      res.json({ success: true, data: { grants, stats } });
+    } catch (error) {
+      console.error('[EcosystemGrants] Error fetching grants:', error);
+      res.status(500).json({ error: 'Failed to fetch ecosystem grants' });
+    }
+  });
+
+  app.get("/api/admin/token-programs/ecosystem-grants/:id", requireAdmin, async (req, res) => {
+    try {
+      const grant = await storage.getEcosystemGrantById(req.params.id);
+      if (!grant) {
+        return res.status(404).json({ error: 'Grant not found' });
+      }
+      const milestones = await storage.getGrantMilestones(grant.id);
+      res.json({ success: true, data: { grant, milestones } });
+    } catch (error) {
+      console.error('[EcosystemGrants] Error fetching grant:', error);
+      res.status(500).json({ error: 'Failed to fetch grant' });
+    }
+  });
+
+  app.post("/api/admin/token-programs/ecosystem-grants", requireAdmin, async (req, res) => {
+    try {
+      const grant = await storage.createEcosystemGrant(req.body);
+      res.json({ success: true, data: grant });
+    } catch (error) {
+      console.error('[EcosystemGrants] Error creating grant:', error);
+      res.status(500).json({ error: 'Failed to create ecosystem grant' });
+    }
+  });
+
+  app.patch("/api/admin/token-programs/ecosystem-grants/:id", requireAdmin, async (req, res) => {
+    try {
+      await storage.updateEcosystemGrant(req.params.id, req.body);
+      const grant = await storage.getEcosystemGrantById(req.params.id);
+      res.json({ success: true, data: grant });
+    } catch (error) {
+      console.error('[EcosystemGrants] Error updating grant:', error);
+      res.status(500).json({ error: 'Failed to update grant' });
+    }
+  });
+
+  app.post("/api/admin/token-programs/ecosystem-grants/:id/milestones", requireAdmin, async (req, res) => {
+    try {
+      const milestone = await storage.createGrantMilestone({ ...req.body, grantId: req.params.id });
+      res.json({ success: true, data: milestone });
+    } catch (error) {
+      console.error('[EcosystemGrants] Error creating milestone:', error);
+      res.status(500).json({ error: 'Failed to create milestone' });
+    }
+  });
+
+  app.patch("/api/admin/token-programs/ecosystem-grants/milestones/:id", requireAdmin, async (req, res) => {
+    try {
+      await storage.updateGrantMilestone(req.params.id, req.body);
+      const milestone = await storage.getGrantMilestoneById(req.params.id);
+      res.json({ success: true, data: milestone });
+    } catch (error) {
+      console.error('[EcosystemGrants] Error updating milestone:', error);
+      res.status(500).json({ error: 'Failed to update milestone' });
+    }
+  });
+
+  // Token Programs Dashboard Overview (Aggregated stats for all programs)
+  app.get("/api/admin/token-programs/dashboard", requireAdmin, async (_req, res) => {
+    try {
+      const [
+        programStats,
+        airdropStats,
+        referralStats,
+        eventsStats,
+        communityStats,
+        daoStats,
+        blockRewardStats,
+        validatorStats,
+        grantStats
+      ] = await Promise.all([
+        storage.getTokenProgramStats(),
+        storage.getAirdropStats(),
+        storage.getReferralStats(),
+        storage.getEventsStats(),
+        storage.getCommunityStats(),
+        storage.getDaoStats(),
+        storage.getBlockRewardStats(),
+        storage.getValidatorIncentiveStats(),
+        storage.getEcosystemGrantStats()
+      ]);
+
+      res.json({
+        success: true,
+        data: {
+          overview: programStats,
+          airdrop: airdropStats,
+          referral: referralStats,
+          events: eventsStats,
+          community: communityStats,
+          dao: daoStats,
+          blockRewards: blockRewardStats,
+          validatorIncentives: validatorStats,
+          ecosystemGrants: grantStats
+        }
+      });
+    } catch (error) {
+      console.error('[TokenPrograms] Error fetching dashboard:', error);
+      res.status(500).json({ error: 'Failed to fetch token programs dashboard' });
+    }
+  });
+
   // Operations Management - Emergency, Maintenance, Backup, Updates, Logs
   app.get("/api/enterprise/admin/operations/emergency", async (_req, res) => {
     try {

@@ -123,6 +123,9 @@ import AdminAnnouncements from "@/pages/admin-portal/announcements";
 // Group 17: Marketing
 import AdminNewsletter from "@/pages/admin-portal/newsletter";
 
+// Group 18: Token Distribution Programs (8 programs)
+import AdminTokenDistribution from "@/pages/admin-portal/token-distribution";
+
 function AdminRouter() {
   return (
     <Switch>
@@ -147,6 +150,7 @@ function AdminRouter() {
       <Route path="/admin/treasury" component={AdminTreasury} />
       <Route path="/admin/economics" component={AdminEconomics} />
       <Route path="/admin/tokenomics" component={TokenomicsSimulation} />
+      <Route path="/admin/token-distribution" component={AdminTokenDistribution} />
 
       {/* Group 4: AI Systems */}
       <Route path="/admin/ai" component={AdminAIOrchestration} />
