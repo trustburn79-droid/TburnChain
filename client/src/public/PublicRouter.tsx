@@ -119,6 +119,7 @@ const ReferralPage = lazy(() => import("@/pages/referral"));
 const EventsPage = lazy(() => import("@/pages/events"));
 const CommunityProgramPage = lazy(() => import("@/pages/community-program"));
 const DAOGovernancePage = lazy(() => import("@/pages/dao-governance"));
+const BlockRewardsPage = lazy(() => import("@/pages/block-rewards"));
 
 function LoginPage() {
   const handleLoginSuccess = () => {
@@ -205,6 +206,16 @@ export function PublicRouter() {
       <ErrorBoundary>
         <Suspense fallback={<PageLoading />}>
           <DAOGovernancePage />
+        </Suspense>
+      </ErrorBoundary>
+    );
+  }
+  
+  if (location === "/block-rewards") {
+    return (
+      <ErrorBoundary>
+        <Suspense fallback={<PageLoading />}>
+          <BlockRewardsPage />
         </Suspense>
       </ErrorBoundary>
     );
