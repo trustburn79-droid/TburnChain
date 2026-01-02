@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-version="2025.12.25.v4">
+<html lang="en" data-version="2026.01.02.v3">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
@@ -8,14 +8,71 @@
     <meta http-equiv="Expires" content="0" />
     <title>TBURN Blockchain Explorer | Mainnet</title>
     <meta name="description" content="TBURN Blockchain Explorer - Real-time blockchain data, network statistics, validator information, and AI-powered transaction monitoring. Explore blocks, transactions, and smart contracts on the TBURN mainnet.">
+    <meta name="build-version" content="2026.01.02.v3">
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    
+    <!-- CRITICAL: Inline error handler - runs BEFORE React loads -->
+    <script>
+      (function() {
+        var MAX_RETRIES = 3;
+        var RETRY_WINDOW = 60000;
+        var RETRY_KEY = 'tburn_chunk_retry';
+        var TIME_KEY = 'tburn_chunk_time';
+        
+        function getRetryInfo() {
+          try {
+            var count = parseInt(sessionStorage.getItem(RETRY_KEY) || '0');
+            var time = parseInt(sessionStorage.getItem(TIME_KEY) || '0');
+            if (Date.now() - time > RETRY_WINDOW) { count = 0; }
+            return { count: count, time: time };
+          } catch(e) { return { count: 0, time: 0 }; }
+        }
+        
+        function showErrorUI() {
+          document.body.innerHTML = '<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100vh;background:#030407;color:#fff;font-family:Space Grotesk,system-ui,sans-serif;text-align:center;padding:20px;"><svg width="80" height="80" viewBox="0 0 100 100" style="margin-bottom:24px;"><circle cx="50" cy="50" r="40" stroke="#FF6B35" stroke-width="2" fill="none"/><path d="M50 20 C35 35,25 50,30 65 C35 80,45 85,50 85 C55 85,65 80,70 65 C75 50,65 35,50 20" fill="url(#g)"/><defs><linearGradient id="g" x1="50%" y1="100%" x2="50%" y2="0%"><stop offset="0%" stop-color="#FF6B35"/><stop offset="100%" stop-color="#FFD700"/></linearGradient></defs></svg><h2 style="color:#FF6B35;margin-bottom:16px;font-size:24px;">페이지 리소스를 불러올 수 없습니다</h2><p style="color:#999;margin-bottom:8px;font-size:14px;">브라우저 캐시 문제로 인해 페이지를 불러올 수 없습니다.</p><p style="color:#666;margin-bottom:24px;font-size:13px;">Ctrl+Shift+R (Mac: Cmd+Shift+R)을 눌러 강제 새로고침하세요.</p><button onclick="sessionStorage.clear();localStorage.clear();location.href=location.origin+\'?v=\'+Date.now()" style="background:linear-gradient(135deg,#FF6B35,#F7931E);color:#fff;border:none;padding:14px 32px;border-radius:8px;cursor:pointer;font-size:16px;font-weight:600;box-shadow:0 4px 12px rgba(255,107,53,0.3);">강제 새로고침</button></div>';
+        }
+        
+        function handleResourceError(e) {
+          var tag = e.target && e.target.tagName;
+          if (tag === 'SCRIPT' || tag === 'LINK') {
+            var info = getRetryInfo();
+            var now = Date.now();
+            
+            if (info.count >= MAX_RETRIES) {
+              showErrorUI();
+              return;
+            }
+            
+            sessionStorage.setItem(RETRY_KEY, (info.count + 1).toString());
+            sessionStorage.setItem(TIME_KEY, now.toString());
+            
+            if ('caches' in window) {
+              caches.keys().then(function(n) { n.forEach(function(k) { caches.delete(k); }); });
+            }
+            if ('serviceWorker' in navigator) {
+              navigator.serviceWorker.getRegistrations().then(function(r) { r.forEach(function(x) { x.unregister(); }); });
+            }
+            
+            setTimeout(function() {
+              location.href = location.origin + location.pathname + '?_t=' + now;
+            }, 100);
+          }
+        }
+        
+        window.addEventListener('error', handleResourceError, true);
+        
+        if ('serviceWorker' in navigator) {
+          navigator.serviceWorker.getRegistrations().then(function(r) { r.forEach(function(x) { x.unregister(); }); });
+        }
+      })();
+    </script>
     <link rel="alternate icon" type="image/png" href="/favicon.png" />
     <link rel="apple-touch-icon" href="/favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-    <script type="module" crossorigin src="/assets/index-BmV5YA9a.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-DW0h8DU9.css">
+    <script type="module" crossorigin src="/assets/index-hqdEvlHL.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-DIQIGNF-.css">
     <script type="module">"use strict";(()=>{var P="0.4.4";var v={HIGHLIGHT_COLOR:"#0079F2",HIGHLIGHT_BG:"#0079F210",ALLOWED_DOMAIN:".replit.dev",THEME_PREVIEW_STYLE_ID:"replit-theme-preview",MAX_SIBLING_HIGHLIGHTERS:1e3,MAX_DESCENDANTS_FOR_SCREENSHOT:1500},Z=`
   [contenteditable] {
     outline: none !important;

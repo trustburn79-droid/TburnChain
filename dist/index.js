@@ -1599,6 +1599,8 @@ var init_schema = __esm({
       publicKey: text("public_key").notNull(),
       // Identity Information
       displayName: text("display_name"),
+      username: text("username").unique(),
+      // User-chosen username
       legalName: text("legal_name"),
       // KYC verified name
       entityType: text("entity_type").notNull().default("individual"),
@@ -1607,6 +1609,16 @@ var init_schema = __esm({
       // ISO 3166-1 country code
       registrationNumber: text("registration_number"),
       // business/legal registration
+      // Contact & Social (plain text for OAuth)
+      email: text("email").unique(),
+      // Plain email for OAuth users
+      avatarUrl: text("avatar_url"),
+      // Profile picture URL
+      walletAddress: text("wallet_address"),
+      // External wallet address if different from accountAddress
+      // OAuth Integration
+      googleId: text("google_id").unique(),
+      // Google OAuth ID
       // Member Classification
       memberTier: text("member_tier").notNull().default("basic_user"),
       // basic_user, delegated_staker, candidate_validator, active_validator, inactive_validator, genesis_validator, enterprise_validator, governance_validator, probation_validator, suspended_validator, slashed_validator
@@ -1623,7 +1635,7 @@ var init_schema = __esm({
       sanctionsCheckPassed: boolean("sanctions_check_passed").notNull().default(false),
       pepStatus: boolean("pep_status").notNull().default(false),
       // Politically Exposed Person
-      // Contact (encrypted)
+      // Contact (encrypted) - for KYC verified users
       encryptedEmail: text("encrypted_email"),
       encryptedPhone: text("encrypted_phone"),
       // Authentication
@@ -1695,24 +1707,50 @@ var init_schema = __esm({
       // Voting Power
       votingPower: text("voting_power").notNull().default("0"),
       delegatedVotingPower: text("delegated_voting_power").notNull().default("0"),
+      receivedVotingPower: text("received_voting_power").notNull().default("0"),
+      // VP received from delegators
       // Proposal Activity
       proposalsCreated: integer("proposals_created").notNull().default(0),
       proposalsPassed: integer("proposals_passed").notNull().default(0),
       proposalsRejected: integer("proposals_rejected").notNull().default(0),
+      proposalsVoted: integer("proposals_voted").notNull().default(0),
+      // Total proposals voted on
       // Voting Activity
       totalVotesCast: integer("total_votes_cast").notNull().default(0),
+      votesCast: integer("votes_cast").notNull().default(0),
+      // Alias for compatibility
+      votesDelegated: integer("votes_delegated").notNull().default(0),
+      // Votes delegated to others
       votesFor: integer("votes_for").notNull().default(0),
       votesAgainst: integer("votes_against").notNull().default(0),
       votesAbstain: integer("votes_abstain").notNull().default(0),
       votingParticipationRate: integer("voting_participation_rate").notNull().default(0),
+      // basis points
+      participationRate: integer("participation_rate").notNull().default(0),
+      // Alias for compatibility (basis points)
+      proposalSuccessRate: integer("proposal_success_rate").notNull().default(0),
+      // basis points
+      votingConsistency: integer("voting_consistency").notNull().default(0),
       // basis points
       // Delegation
       delegatedTo: text("delegated_to"),
       // member address if voting power is delegated
       delegatedFrom: jsonb("delegated_from").notNull().default([]),
       // array of addresses who delegated to this member
+      activeDelegations: integer("active_delegations").notNull().default(0),
+      receivedDelegations: integer("received_delegations").notNull().default(0),
+      maxDelegationsAllowed: integer("max_delegations_allowed").notNull().default(100),
+      // Organization Membership
+      daoMemberships: jsonb("dao_memberships").notNull().default([]),
+      // DAOs member belongs to
+      committeePositions: jsonb("committee_positions").notNull().default([]),
+      // Committee positions held
       // Reputation
       reputationScore: integer("reputation_score").notNull().default(5e3),
+      // basis points
+      governanceScore: integer("governance_score").notNull().default(5e3),
+      // basis points
+      influenceScore: integer("influence_score").notNull().default(0),
       // basis points
       contributionLevel: text("contribution_level").notNull().default("observer"),
       // observer, participant, contributor, leader
@@ -1750,26 +1788,55 @@ var init_schema = __esm({
     memberSecurityProfiles = pgTable("member_security_profiles", {
       id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
       memberId: varchar("member_id").notNull().unique(),
-      // Authentication
+      // Authentication - Two Factor
       twoFactorEnabled: boolean("two_factor_enabled").notNull().default(false),
+      twoFactorMethod: text("two_factor_method"),
+      // totp, sms, email, hardware
+      twoFactorBackupCodes: jsonb("two_factor_backup_codes").notNull().default([]),
+      // Authentication - Other
+      securityKeys: jsonb("security_keys").notNull().default([]),
+      // Hardware security keys
+      passkeyEnabled: boolean("passkey_enabled").notNull().default(false),
       multiSigEnabled: boolean("multi_sig_enabled").notNull().default(false),
       requiredConfirmations: integer("required_confirmations").notNull().default(1),
+      // Session Management
+      activeSessions: integer("active_sessions").notNull().default(0),
+      maxSessions: integer("max_sessions").notNull().default(5),
+      sessionTimeout: integer("session_timeout").notNull().default(3600),
+      // seconds
       // Access Control
       ipWhitelist: jsonb("ip_whitelist").notNull().default([]),
       // array of allowed IPs
+      ipBlacklist: jsonb("ip_blacklist").notNull().default([]),
+      // array of blocked IPs
       allowedRegions: jsonb("allowed_regions").notNull().default([]),
       // array of ISO country codes
+      countryRestrictions: jsonb("country_restrictions").notNull().default([]),
+      // blocked countries
       maxSessionDuration: integer("max_session_duration").notNull().default(86400),
       // seconds
       // Security Events
       failedLoginAttempts: integer("failed_login_attempts").notNull().default(0),
       lastFailedLogin: timestamp("last_failed_login"),
+      lastSuccessfulLogin: timestamp("last_successful_login"),
+      lastPasswordChange: timestamp("last_password_change"),
       lastKeyRotation: timestamp("last_key_rotation"),
       nextKeyRotationDue: timestamp("next_key_rotation_due"),
       // Risk Management
       riskScore: integer("risk_score").notNull().default(0),
       // 0-100 (higher is riskier)
+      fraudScore: integer("fraud_score").notNull().default(0),
+      // 0-100
+      suspiciousActivityCount: integer("suspicious_activity_count").notNull().default(0),
       lastRiskAssessment: timestamp("last_risk_assessment").notNull().defaultNow(),
+      // Account Recovery
+      recoveryEmail: text("recovery_email"),
+      recoveryPhone: text("recovery_phone"),
+      recoveryQuestions: jsonb("recovery_questions").notNull().default([]),
+      // Account Lock
+      accountLocked: boolean("account_locked").notNull().default(false),
+      lockReason: text("lock_reason"),
+      lockedAt: timestamp("locked_at"),
       updatedAt: timestamp("updated_at").notNull().defaultNow()
     });
     memberPerformanceMetrics = pgTable("member_performance_metrics", {
@@ -1793,6 +1860,8 @@ var init_schema = __esm({
       // 0-10000
       performanceRank: integer("performance_rank"),
       // overall rank among validators
+      // Activity Tracking
+      lastLoginAt: timestamp("last_login_at"),
       metricsUpdatedAt: timestamp("metrics_updated_at").notNull().defaultNow()
     });
     memberSlashEvents = pgTable("member_slash_events", {
@@ -6305,12 +6374,31 @@ var init_schema = __esm({
 var db_exports = {};
 __export(db_exports, {
   db: () => db,
+  executeWithRetry: () => executeWithRetry,
   pool: () => pool
 });
 import { Pool, neonConfig } from "@neondatabase/serverless";
 import { drizzle } from "drizzle-orm/neon-serverless";
 import ws from "ws";
-var pool, db;
+async function executeWithRetry(operation, operationName = "DB operation", maxRetries = 3) {
+  for (let attempt = 1; attempt <= maxRetries; attempt++) {
+    try {
+      return await operation();
+    } catch (error) {
+      const isConnectionError = error?.message?.includes("Connection terminated") || error?.message?.includes("ECONNREFUSED") || error?.message?.includes("ECONNRESET") || error?.message?.includes("connection");
+      if (isConnectionError && attempt < maxRetries) {
+        const delay = Math.min(1e3 * Math.pow(2, attempt - 1), 5e3);
+        console.warn(`[DB] ${operationName} failed (attempt ${attempt}/${maxRetries}), retrying in ${delay}ms...`);
+        await new Promise((resolve) => setTimeout(resolve, delay));
+        continue;
+      }
+      console.error(`[DB] ${operationName} failed after ${attempt} attempts:`, error.message);
+      return null;
+    }
+  }
+  return null;
+}
+var PatchedWebSocket, pool, db;
 var init_db = __esm({
   "server/db.ts"() {
     "use strict";
@@ -6318,9 +6406,42 @@ var init_db = __esm({
     if (!process.env.DATABASE_URL) {
       throw new Error("DATABASE_URL is not set");
     }
-    neonConfig.webSocketConstructor = ws;
-    pool = new Pool({ connectionString: process.env.DATABASE_URL });
+    PatchedWebSocket = class extends ws {
+      constructor(url, protocols) {
+        super(url, protocols);
+        const originalEmit = this.emit.bind(this);
+        this.emit = (event, ...args) => {
+          if (event === "error" && args[0]) {
+            const err = args[0];
+            if (err && typeof err === "object" && err.constructor?.name === "ErrorEvent") {
+              const plainError = new Error(err.message || "WebSocket error");
+              plainError.code = err.error?.code || "ECONNRESET";
+              plainError.cause = err.error;
+              return originalEmit(event, plainError);
+            }
+          }
+          return originalEmit(event, ...args);
+        };
+      }
+    };
+    neonConfig.webSocketConstructor = PatchedWebSocket;
+    pool = new Pool({
+      connectionString: process.env.DATABASE_URL,
+      max: 5,
+      idleTimeoutMillis: 3e4,
+      connectionTimeoutMillis: 1e4
+    });
+    pool.on("error", (err) => {
+      console.error("[DB Pool] Connection error (will reconnect):", err.message);
+    });
     db = drizzle(pool, { schema: schema_exports });
+    process.on("unhandledRejection", (reason) => {
+      if (reason?.message?.includes("Connection terminated") || reason?.message?.includes("ECONNRESET") || reason?.code === "ECONNRESET") {
+        console.error("[DB] Unhandled connection error (suppressed):", reason.message);
+        return;
+      }
+      console.error("[Unhandled Rejection]:", reason);
+    });
   }
 });
 
@@ -17565,6 +17686,57 @@ var init_TBurnEnterpriseNode = __esm({
           { id: "pool-liquid-06", name: "Liquid Staking Pool", poolType: "liquid", tier: "gold", validatorId: "val-006", totalStaked: "156000000000000000000000000", totalStakers: 34128 + seedValue % 600, baseApy: 1600, maxApy: 2e3, lockPeriodDays: 0, status: "active", description: "No-lock liquid staking with stTBURN rewards" }
         ];
       }
+      /**
+       * Get AI Models - Returns current AI model configurations
+       */
+      getAIModels() {
+        return [
+          { id: "gemini-3-pro", name: "Gemini 3 Pro", provider: "google", status: "active", accuracy: 98.7, latencyMs: 45 },
+          { id: "claude-sonnet-4.5", name: "Claude Sonnet 4.5", provider: "anthropic", status: "active", accuracy: 97.9, latencyMs: 52 },
+          { id: "gpt-4o", name: "GPT-4o", provider: "openai", status: "active", accuracy: 97.2, latencyMs: 48 },
+          { id: "grok-3", name: "Grok 3", provider: "xai", status: "fallback", accuracy: 96.5, latencyMs: 55 }
+        ];
+      }
+      /**
+       * Get Contracts - Returns deployed smart contracts
+       */
+      getContracts() {
+        return [
+          { address: "tb1qw508d6qejxtdg4y5r3zarvary0c5xw7kv8f3t4", name: "TBURN Token", type: "TBC-20", deployedAt: "2025-12-25T00:00:00Z", verified: true },
+          { address: "tb1grw508d6qejxtdg4y5r3zarvary0c5xw7k8n2e5", name: "Governance", type: "Governance", deployedAt: "2025-12-25T00:00:00Z", verified: true },
+          { address: "tb1stk508d6qejxtdg4y5r3zarvary0c5xw7k5h8t7", name: "Staking", type: "Staking", deployedAt: "2025-12-25T00:00:00Z", verified: true },
+          { address: "tb1brg508d6qejxtdg4y5r3zarvary0c5xw7k3m6r9", name: "Bridge", type: "Bridge", deployedAt: "2025-12-25T00:00:00Z", verified: true }
+        ];
+      }
+      /**
+       * Get Consensus State - Returns current consensus state
+       */
+      getConsensusState() {
+        return {
+          epoch: Math.floor(this.currentBlockHeight / 32),
+          slot: this.currentBlockHeight % 32,
+          finalizedBlock: this.currentBlockHeight - 6,
+          justifiedBlock: this.currentBlockHeight - 3,
+          participationRate: 99.2,
+          validatorsActive: 1600,
+          validatorsTotal: 1600
+        };
+      }
+      /**
+       * Get Node Health - Returns comprehensive node health status
+       */
+      getNodeHealth() {
+        return {
+          status: this.isRunning ? "healthy" : "stopped",
+          uptime: Date.now() - this.startTime,
+          blockHeight: this.currentBlockHeight,
+          peerCount: this.peerCount,
+          syncProgress: this.syncProgress,
+          dbConnected: true,
+          wsConnected: this.wsClients.size > 0,
+          rpcConnected: this.httpServer !== null
+        };
+      }
     };
     enterpriseNode = null;
   }
@@ -18874,13 +19046,15 @@ var init_validator_simulation = __esm({
         } catch (error) {
           console.log(`Using default block height: ${this.currentBlockHeight}`);
         }
-        this.blockInterval = setInterval(() => {
+        this.blockInterval = setInterval(async () => {
           try {
-            this.simulateBlockProduction();
-            this.simulateConsensusRound();
-            this.updateNetworkStats();
+            await Promise.allSettled([
+              this.simulateBlockProduction().catch((e) => console.error("Block production error:", e.message)),
+              this.simulateConsensusRound().catch((e) => console.error("Consensus round error:", e.message)),
+              this.updateNetworkStats().catch((e) => console.error("Network stats error:", e.message))
+            ]);
           } catch (error) {
-            console.error("Error in block production:", error);
+            console.error("Error in block production interval:", error.message);
           }
         }, ENTERPRISE_VALIDATORS_CONFIG.BLOCK_TIME);
         this.epochInterval = setInterval(async () => {
@@ -20907,6 +21081,20 @@ var init_DataCacheService = __esm({
         return age < entry.ttl;
       }
       /**
+       * Delete a specific cache entry
+       * @param key Cache key to delete
+       * @returns true if the key existed and was deleted, false otherwise
+       */
+      del(key) {
+        const existed = this.cache.has(key);
+        if (existed) {
+          this.cache.delete(key);
+          this.stats.size = this.cache.size;
+          console.log(`[DataCache] Deleted ${key}`);
+        }
+        return existed;
+      }
+      /**
        * Check if cache has any data (fresh or stale)
        * @param key Cache key
        */
@@ -20930,7 +21118,8 @@ var init_DataCacheService = __esm({
        */
       clearPattern(pattern) {
         let cleared = 0;
-        for (const key of this.cache.keys()) {
+        const keys = Array.from(this.cache.keys());
+        for (const key of keys) {
           if (key.startsWith(pattern)) {
             this.cache.delete(key);
             cleared++;
@@ -41575,25 +41764,31 @@ var init_ProductionDataPoller = __esm({
       }
       async fetchAIModels() {
         try {
-          return await this.enterpriseNode.getAIModels();
+          if (typeof this.enterpriseNode?.getAIModels === "function") {
+            return await this.enterpriseNode.getAIModels();
+          }
+          return [];
         } catch (error) {
-          console.log("[ProductionDataPoller] fetchAIModels error");
           return [];
         }
       }
       async fetchContracts() {
         try {
-          return await this.enterpriseNode.getContracts();
+          if (typeof this.enterpriseNode?.getContracts === "function") {
+            return await this.enterpriseNode.getContracts();
+          }
+          return [];
         } catch (error) {
-          console.log("[ProductionDataPoller] fetchContracts error");
           return [];
         }
       }
       async fetchConsensusState() {
         try {
-          return await this.enterpriseNode.getConsensusState();
+          if (typeof this.enterpriseNode?.getConsensusState === "function") {
+            return await this.enterpriseNode.getConsensusState();
+          }
+          return null;
         } catch (error) {
-          console.log("[ProductionDataPoller] fetchConsensusState error");
           return null;
         }
       }
@@ -46216,6 +46411,13 @@ async function registerRoutes(app3, existingServer) {
   app3.get("/api/validators/:address", async (req, res) => {
     try {
       const address = req.params.address;
+      const enterpriseNode2 = getEnterpriseNode();
+      const allValidators = enterpriseNode2.getValidators();
+      const validator = allValidators.find((v) => v.address.toLowerCase() === address.toLowerCase());
+      if (validator) {
+        res.json(validator);
+        return;
+      }
       const validatorDetails = await storage.getValidatorDetails(address);
       res.json(validatorDetails);
     } catch (error) {
@@ -59243,26 +59445,117 @@ app2.get("/health", (_req, res) => {
     timestamp: Date.now()
   });
 });
-app2.use(express4.static(distPath, {
-  maxAge: "1d",
-  etag: true
+app2.use("/assets", express4.static(path.join(distPath, "assets"), {
+  maxAge: "1y",
+  immutable: true,
+  etag: false
+  // Not needed for hashed files
 }));
+app2.use(express4.static(distPath, {
+  maxAge: "1h",
+  etag: true,
+  setHeaders: (res, filePath) => {
+    if (filePath.endsWith("index.html") || filePath.endsWith(".html")) {
+      res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+      res.setHeader("Pragma", "no-cache");
+      res.setHeader("Expires", "0");
+      res.setHeader("Surrogate-Control", "no-store");
+      res.setHeader("X-Content-Version", "2026.01.02.v3");
+    }
+  }
+}));
+app2.use("/assets", (req, res) => {
+  console.error(`[Asset 404] Missing: ${req.url}`);
+  res.status(404).json({
+    error: "Asset not found",
+    hint: "This may be caused by a stale browser cache. Please hard refresh (Ctrl+Shift+R).",
+    requestedFile: req.url
+  });
+});
+function serveIndexHtml(res) {
+  res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+  res.setHeader("Pragma", "no-cache");
+  res.setHeader("Expires", "0");
+  res.setHeader("Surrogate-Control", "no-store");
+  res.setHeader("X-Content-Version", "2026.01.02.v3");
+  res.sendFile(path.resolve(distPath, "index.html"));
+}
+app2.use("/api", (req, res, next) => {
+  if (!servicesReady) {
+    return res.status(503).json({
+      error: "Service initializing",
+      message: "Backend services are starting up. Please retry in a few seconds.",
+      retryAfter: 5,
+      servicesReady: false
+    });
+  }
+  next();
+});
+app2.use("/ws", (req, res, next) => {
+  if (!servicesReady) {
+    return res.status(503).json({
+      error: "WebSocket not ready",
+      message: "Backend services are starting up.",
+      retryAfter: 5
+    });
+  }
+  next();
+});
+app2.get("/whitepaper", async (_req, res) => {
+  try {
+    const whitepaperPath = path.resolve(process.cwd(), "public", "whitepaper.html");
+    if (fs.existsSync(whitepaperPath)) {
+      res.setHeader("Content-Type", "text/html; charset=utf-8");
+      res.sendFile(whitepaperPath);
+    } else {
+      res.status(404).send("Whitepaper not found");
+    }
+  } catch (error) {
+    console.error("[Whitepaper] Error:", error);
+    res.status(500).send("Error loading whitepaper");
+  }
+});
+app2.get("/technical-whitepaper", async (_req, res) => {
+  try {
+    const whitepaperPath = path.resolve(process.cwd(), "public", "technical-whitepaper.html");
+    if (fs.existsSync(whitepaperPath)) {
+      res.setHeader("Content-Type", "text/html; charset=utf-8");
+      res.sendFile(whitepaperPath);
+    } else {
+      res.status(404).send("Technical whitepaper not found");
+    }
+  } catch (error) {
+    console.error("[Technical Whitepaper] Error:", error);
+    res.status(500).send("Error loading technical whitepaper");
+  }
+});
+var BACKEND_ROUTES = ["/api", "/ws", "/health", "/whitepaper", "/technical-whitepaper"];
+app2.use("*", (req, res, next) => {
+  const urlPath = req.originalUrl.split("?")[0];
+  for (const route of BACKEND_ROUTES) {
+    if (urlPath === route || urlPath.startsWith(route + "/")) {
+      return next();
+    }
+  }
+  const acceptsHtml = req.headers.accept?.includes("text/html");
+  if (!acceptsHtml) {
+    return next();
+  }
+  serveIndexHtml(res);
+});
 var server = createServer3(app2);
 var port = parseInt(process.env.PORT || "5000", 10);
 server.listen({ port, host: "0.0.0.0" }, () => {
-  console.log(`[Production] \u2705 Server listening on port ${port} (static serving ready)`);
-  console.log(`[Production] \u23F3 Initializing backend services in background...`);
+  console.log(`[Production] \u2705 Server listening on port ${port} (static files ready)`);
+  console.log(`[Production] \u23F3 Initializing API services in background...`);
   initializeBackendServices();
 });
 async function initializeBackendServices() {
   try {
     const { default: runAppServices2 } = await Promise.resolve().then(() => (init_app_services(), app_services_exports));
     await runAppServices2(app2, server);
-    app2.use("*", (_req, res) => {
-      res.sendFile(path.resolve(distPath, "index.html"));
-    });
     setServicesReady(true);
-    console.log(`[Production] \u2705 All backend services initialized`);
+    console.log(`[Production] \u2705 All backend services initialized - API ready`);
   } catch (error) {
     console.error(`[Production] \u274C Service initialization failed:`, error);
   }
