@@ -1,0 +1,2181 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TBURN Chain - 어드바이저 프로그램 | 2억 TBURN 전문가 자문단</title>
+  <meta name="description" content="TBURN Chain 어드바이저 프로그램. 기술, 비즈니스, 법률, 학술 전문가로 참여하고 2억 TBURN 보상을 받으세요.">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy: #1A365D;
+      --gold: #D4AF37;
+      --gold-light: #E5C76B;
+      --dark: #0F172A;
+      --dark-card: #1E293B;
+      --gray: #64748B;
+      --light-gray: #94A3B8;
+      --white: #FFFFFF;
+      --success: #22C55E;
+      --warning: #F59E0B;
+      --danger: #EF4444;
+      --purple: #8B5CF6;
+      --blue: #3B82F6;
+      --cyan: #06B6D4;
+      --pink: #EC4899;
+      --emerald: #10B981;
+      --indigo: #6366F1;
+      --rose: #F43F5E;
+      --amber: #F59E0B;
+      --teal: #14B8A6;
+      --gradient-gold: linear-gradient(135deg, #D4AF37 0%, #F5D76E 50%, #D4AF37 100%);
+      --gradient-advisor: linear-gradient(135deg, #F59E0B 0%, #D4AF37 100%);
+      --gradient-tech: linear-gradient(135deg, #3B82F6 0%, #6366F1 100%);
+      --gradient-business: linear-gradient(135deg, #10B981 0%, #14B8A6 100%);
+      --gradient-legal: linear-gradient(135deg, #8B5CF6 0%, #A855F7 100%);
+      --gradient-academic: linear-gradient(135deg, #06B6D4 0%, #0EA5E9 100%);
+      --gradient-dark: linear-gradient(180deg, #0F172A 0%, #1E293B 100%);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--dark);
+      color: var(--white);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-20px); } }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.7; } }
+    @keyframes glow { 0%, 100% { box-shadow: 0 0 20px rgba(245, 158, 11, 0.3); } 50% { box-shadow: 0 0 40px rgba(245, 158, 11, 0.6); } }
+    @keyframes shine { 0% { left: -100%; } 100% { left: 100%; } }
+    @keyframes lightbulb { 0%, 100% { filter: brightness(1); transform: scale(1); } 50% { filter: brightness(1.3); transform: scale(1.1); } }
+    @keyframes think { 0%, 100% { transform: rotate(-5deg); } 50% { transform: rotate(5deg); } }
+
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background: rgba(15, 23, 42, 0.95);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(245, 158, 11, 0.2);
+    }
+
+    .header-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+
+    .logo-icon {
+      width: 48px;
+      height: 48px;
+      background: var(--gradient-gold);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+    }
+
+    .logo-text { font-size: 1.5rem; font-weight: 800; color: var(--white); }
+    .logo-text span { color: var(--gold); }
+
+    .nav-links { display: flex; gap: 2rem; align-items: center; }
+    .nav-links a { color: var(--light-gray); text-decoration: none; font-weight: 500; transition: color 0.3s; }
+    .nav-links a:hover { color: var(--amber); }
+
+    .connect-btn {
+      background: var(--gradient-advisor);
+      color: var(--dark);
+      padding: 12px 24px;
+      border-radius: 12px;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .connect-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 40px rgba(245, 158, 11, 0.3);
+    }
+
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      padding: 120px 2rem 80px;
+      background: radial-gradient(ellipse at center top, rgba(245, 158, 11, 0.15) 0%, transparent 50%),
+                  radial-gradient(ellipse at bottom right, rgba(212, 175, 55, 0.1) 0%, transparent 50%),
+                  var(--gradient-dark);
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .hero-bg::before {
+      content: '';
+      position: absolute;
+      width: 800px;
+      height: 800px;
+      background: radial-gradient(circle, rgba(245, 158, 11, 0.2) 0%, transparent 70%);
+      top: -300px;
+      left: -200px;
+      animation: float 10s ease-in-out infinite;
+    }
+
+    .hero-content {
+      max-width: 1200px;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(245, 158, 11, 0.15);
+      border: 1px solid rgba(245, 158, 11, 0.4);
+      padding: 8px 20px;
+      border-radius: 100px;
+      font-size: 0.875rem;
+      color: var(--amber);
+      margin-bottom: 2rem;
+    }
+
+    .badge .lightbulb-icon { animation: lightbulb 2s ease-in-out infinite; }
+
+    .hero h1 {
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      font-weight: 900;
+      margin-bottom: 1.5rem;
+      line-height: 1.1;
+    }
+
+    .hero h1 .gradient-text {
+      background: var(--gradient-advisor);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-subtitle {
+      font-size: 1.25rem;
+      color: var(--light-gray);
+      max-width: 750px;
+      margin: 0 auto 3rem;
+    }
+
+    /* Advisor Showcase */
+    .advisor-showcase {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .advisor-preview {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 1.5rem;
+      text-align: center;
+      transition: all 0.3s;
+    }
+
+    .advisor-preview:hover {
+      background: rgba(245, 158, 11, 0.1);
+      border-color: var(--amber);
+      transform: translateY(-5px);
+    }
+
+    .advisor-preview-avatar {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      margin: 0 auto 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+
+    .advisor-preview:nth-child(1) .advisor-preview-avatar { background: var(--gradient-tech); }
+    .advisor-preview:nth-child(2) .advisor-preview-avatar { background: var(--gradient-business); }
+    .advisor-preview:nth-child(3) .advisor-preview-avatar { background: var(--gradient-legal); }
+    .advisor-preview:nth-child(4) .advisor-preview-avatar { background: var(--gradient-academic); }
+
+    .advisor-preview-name { font-weight: 700; font-size: 0.9rem; margin-bottom: 0.25rem; }
+    .advisor-preview-role { font-size: 0.75rem; color: var(--gray); }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+    }
+
+    .stat-card {
+      background: var(--dark-card);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 1.5rem;
+      text-align: center;
+      transition: transform 0.3s, border-color 0.3s;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--amber);
+    }
+
+    .stat-value {
+      font-size: 2rem;
+      font-weight: 800;
+      background: var(--gradient-advisor);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-label { font-size: 0.875rem; color: var(--light-gray); }
+
+    .cta-group { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+    .btn-primary {
+      background: var(--gradient-advisor);
+      color: var(--dark);
+      padding: 16px 40px;
+      border-radius: 12px;
+      font-size: 1.125rem;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 20px 60px rgba(245, 158, 11, 0.3);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--white);
+      padding: 16px 40px;
+      border-radius: 12px;
+      font-size: 1.125rem;
+      font-weight: 600;
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      transition: all 0.3s;
+    }
+
+    .btn-secondary:hover { border-color: var(--amber); color: var(--amber); }
+
+    .section { padding: 100px 2rem; max-width: 1400px; margin: 0 auto; }
+
+    .section-header { text-align: center; margin-bottom: 4rem; }
+
+    .section-badge {
+      display: inline-block;
+      background: rgba(245, 158, 11, 0.15);
+      color: var(--amber);
+      padding: 6px 16px;
+      border-radius: 100px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+
+    .section-title { font-size: 2.5rem; font-weight: 800; margin-bottom: 1rem; }
+    .section-subtitle { color: var(--light-gray); font-size: 1.125rem; max-width: 600px; margin: 0 auto; }
+
+    /* Distribution Grid */
+    .distribution-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 1.5rem;
+    }
+
+    .dist-card {
+      background: var(--dark-card);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 1.5rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s;
+    }
+
+    .dist-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--amber);
+    }
+
+    .dist-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+    }
+
+    .dist-card.tech::before { background: var(--gradient-tech); }
+    .dist-card.business::before { background: var(--gradient-business); }
+    .dist-card.legal::before { background: var(--gradient-legal); }
+    .dist-card.academic::before { background: var(--gradient-academic); }
+    .dist-card.industry::before { background: var(--gradient-advisor); }
+
+    .dist-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+    .dist-name { font-size: 0.9rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .dist-amount { font-size: 1.25rem; font-weight: 800; color: var(--amber); margin-bottom: 0.25rem; }
+    .dist-percent { font-size: 0.8rem; color: var(--gray); }
+
+    /* Advisor Roles */
+    .roles-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+    }
+
+    .role-card {
+      background: var(--dark-card);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 24px;
+      overflow: hidden;
+      transition: all 0.3s;
+    }
+
+    .role-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+      border-color: var(--amber);
+    }
+
+    .role-header {
+      padding: 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .role-card.tech .role-header { background: linear-gradient(135deg, rgba(59, 130, 246, 0.15), transparent); }
+    .role-card.business .role-header { background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), transparent); }
+    .role-card.legal .role-header { background: linear-gradient(135deg, rgba(139, 92, 246, 0.15), transparent); }
+    .role-card.academic .role-header { background: linear-gradient(135deg, rgba(6, 182, 212, 0.15), transparent); }
+
+    .role-icon {
+      width: 70px;
+      height: 70px;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+    }
+
+    .role-card.tech .role-icon { background: rgba(59, 130, 246, 0.2); }
+    .role-card.business .role-icon { background: rgba(16, 185, 129, 0.2); }
+    .role-card.legal .role-icon { background: rgba(139, 92, 246, 0.2); }
+    .role-card.academic .role-icon { background: rgba(6, 182, 212, 0.2); }
+
+    .role-info h3 { font-size: 1.25rem; font-weight: 700; margin-bottom: 0.25rem; }
+    .role-info p { font-size: 0.9rem; color: var(--gray); }
+
+    .role-content { padding: 0 2rem 2rem; }
+
+    .role-rewards {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .role-reward-box {
+      padding: 1rem;
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 12px;
+      text-align: center;
+    }
+
+    .role-reward-box .value {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--amber);
+      margin-bottom: 0.25rem;
+    }
+
+    .role-reward-box .label { font-size: 0.75rem; color: var(--gray); }
+
+    .role-responsibilities {
+      list-style: none;
+      margin-bottom: 1.5rem;
+    }
+
+    .role-responsibilities li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 0;
+      font-size: 0.9rem;
+      color: var(--light-gray);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .role-responsibilities li:last-child { border-bottom: none; }
+    .role-responsibilities li i { color: var(--success); width: 16px; }
+
+    .role-btn {
+      display: block;
+      width: 100%;
+      padding: 14px;
+      border-radius: 12px;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-align: center;
+    }
+
+    .role-card.tech .role-btn { background: var(--gradient-tech); color: var(--white); }
+    .role-card.business .role-btn { background: var(--gradient-business); color: var(--white); }
+    .role-card.legal .role-btn { background: var(--gradient-legal); color: var(--white); }
+    .role-card.academic .role-btn { background: var(--gradient-academic); color: var(--white); }
+
+    .role-btn:hover { transform: scale(1.02); }
+
+    /* Advisor Tiers */
+    .tiers-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+
+    .tier-card {
+      background: var(--dark-card);
+      border: 2px solid rgba(255, 255, 255, 0.1);
+      border-radius: 24px;
+      overflow: hidden;
+      transition: all 0.3s;
+      position: relative;
+    }
+
+    .tier-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+    }
+
+    .tier-card.principal {
+      border-color: var(--gold);
+      box-shadow: 0 0 40px rgba(212, 175, 55, 0.2);
+    }
+
+    .tier-card.senior { border-color: var(--amber); }
+    .tier-card.advisor { border-color: var(--cyan); }
+
+    .tier-header {
+      padding: 2rem 1.5rem;
+      text-align: center;
+      position: relative;
+    }
+
+    .tier-card.principal .tier-header { background: linear-gradient(180deg, rgba(212, 175, 55, 0.15) 0%, transparent 100%); }
+    .tier-card.senior .tier-header { background: linear-gradient(180deg, rgba(245, 158, 11, 0.1) 0%, transparent 100%); }
+    .tier-card.advisor .tier-header { background: linear-gradient(180deg, rgba(6, 182, 212, 0.1) 0%, transparent 100%); }
+
+    .tier-icon { font-size: 3rem; margin-bottom: 1rem; }
+
+    .tier-name {
+      font-size: 1.25rem;
+      font-weight: 800;
+      margin-bottom: 0.25rem;
+    }
+
+    .tier-card.principal .tier-name { color: var(--gold); }
+    .tier-card.senior .tier-name { color: var(--amber); }
+    .tier-card.advisor .tier-name { color: var(--cyan); }
+
+    .tier-subtitle { font-size: 0.8rem; color: var(--gray); }
+
+    .tier-content { padding: 1.5rem; }
+
+    .tier-incentive {
+      text-align: center;
+      padding: 1rem;
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 12px;
+      margin-bottom: 1rem;
+    }
+
+    .tier-incentive-label { font-size: 0.75rem; color: var(--gray); margin-bottom: 0.25rem; }
+
+    .tier-incentive-value { font-size: 1.5rem; font-weight: 800; }
+
+    .tier-card.principal .tier-incentive-value { color: var(--gold); }
+    .tier-card.senior .tier-incentive-value { color: var(--amber); }
+    .tier-card.advisor .tier-incentive-value { color: var(--cyan); }
+
+    .tier-requirement {
+      font-size: 0.8rem;
+      color: var(--gray);
+      text-align: center;
+      margin-bottom: 1rem;
+      padding: 0.75rem;
+      background: rgba(255, 255, 255, 0.02);
+      border-radius: 8px;
+    }
+
+    .tier-benefits {
+      list-style: none;
+      margin-bottom: 1rem;
+    }
+
+    .tier-benefits li {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 0;
+      font-size: 0.85rem;
+      color: var(--light-gray);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .tier-benefits li:last-child { border-bottom: none; }
+    .tier-benefits li i { color: var(--success); width: 14px; font-size: 10px; }
+    .tier-benefits li i.disabled { color: var(--gray); }
+
+    .tier-btn {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 0.875rem;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-align: center;
+    }
+
+    .tier-card.principal .tier-btn { background: var(--gradient-gold); color: var(--dark); }
+    .tier-card.senior .tier-btn { background: var(--gradient-advisor); color: var(--dark); }
+    .tier-card.advisor .tier-btn { background: var(--gradient-academic); color: var(--white); }
+
+    .tier-btn:hover { transform: scale(1.02); }
+
+    /* Current Advisors */
+    .advisors-showcase {
+      background: var(--dark-card);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 24px;
+      padding: 2.5rem;
+    }
+
+    .advisors-category {
+      margin-bottom: 2.5rem;
+    }
+
+    .advisors-category:last-child { margin-bottom: 0; }
+
+    .advisors-category-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .advisors-category h4 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--gray);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .advisors-count {
+      font-size: 0.8rem;
+      color: var(--amber);
+      background: rgba(245, 158, 11, 0.1);
+      padding: 4px 12px;
+      border-radius: 100px;
+    }
+
+    .advisors-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+    }
+
+    .advisor-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 16px;
+      padding: 1.5rem;
+      text-align: center;
+      transition: all 0.3s;
+    }
+
+    .advisor-card:hover {
+      background: rgba(245, 158, 11, 0.05);
+      border-color: var(--amber);
+      transform: translateY(-5px);
+    }
+
+    .advisor-avatar {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      margin: 0 auto 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      font-weight: 700;
+      position: relative;
+    }
+
+    .advisor-avatar.tech { background: var(--gradient-tech); }
+    .advisor-avatar.business { background: var(--gradient-business); }
+    .advisor-avatar.legal { background: var(--gradient-legal); }
+    .advisor-avatar.academic { background: var(--gradient-academic); }
+
+    .advisor-tier-badge {
+      position: absolute;
+      bottom: -5px;
+      right: -5px;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      border: 2px solid var(--dark-card);
+    }
+
+    .advisor-tier-badge.principal { background: var(--gold); }
+    .advisor-tier-badge.senior { background: var(--amber); }
+
+    .advisor-card-name { font-weight: 700; margin-bottom: 0.25rem; }
+    .advisor-card-title { font-size: 0.8rem; color: var(--gray); margin-bottom: 0.5rem; }
+    .advisor-card-org { font-size: 0.75rem; color: var(--amber); }
+
+    .advisor-card-social {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+
+    .advisor-card-social a {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.05);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--light-gray);
+      font-size: 0.85rem;
+      transition: all 0.3s;
+    }
+
+    .advisor-card-social a:hover {
+      background: var(--amber);
+      color: var(--dark);
+    }
+
+    /* Application Process */
+    .process-container {
+      background: var(--dark-card);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 24px;
+      padding: 2.5rem;
+    }
+
+    .process-timeline {
+      display: flex;
+      justify-content: space-between;
+      position: relative;
+      margin: 2rem 0;
+    }
+
+    .process-timeline::before {
+      content: '';
+      position: absolute;
+      top: 40px;
+      left: 10%;
+      right: 10%;
+      height: 4px;
+      background: linear-gradient(90deg, var(--blue), var(--purple), var(--amber), var(--gold), var(--success));
+      border-radius: 2px;
+    }
+
+    .process-item {
+      text-align: center;
+      position: relative;
+      z-index: 1;
+      flex: 1;
+    }
+
+    .process-dot {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      margin: 0 auto 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.75rem;
+      border: 4px solid var(--dark);
+    }
+
+    .process-item:nth-child(1) .process-dot { background: var(--blue); }
+    .process-item:nth-child(2) .process-dot { background: var(--purple); }
+    .process-item:nth-child(3) .process-dot { background: var(--amber); }
+    .process-item:nth-child(4) .process-dot { background: var(--gold); }
+    .process-item:nth-child(5) .process-dot { background: var(--success); }
+
+    .process-title { font-size: 1rem; font-weight: 700; margin-bottom: 0.25rem; }
+    .process-desc { font-size: 0.8rem; color: var(--gray); }
+    .process-duration { font-size: 0.75rem; color: var(--amber); font-weight: 600; margin-top: 0.5rem; }
+
+    /* Compensation */
+    .compensation-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+
+    .compensation-card {
+      background: var(--dark-card);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 2rem;
+      text-align: center;
+      transition: all 0.3s;
+    }
+
+    .compensation-card:hover {
+      border-color: var(--amber);
+      transform: translateY(-5px);
+    }
+
+    .compensation-icon {
+      width: 80px;
+      height: 80px;
+      border-radius: 20px;
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.2), rgba(212, 175, 55, 0.1));
+      margin: 0 auto 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+    }
+
+    .compensation-card h4 { font-size: 1.125rem; font-weight: 700; margin-bottom: 0.75rem; }
+    .compensation-card p { font-size: 0.9rem; color: var(--light-gray); margin-bottom: 1rem; }
+
+    .compensation-value {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--amber);
+    }
+
+    /* Dashboard */
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 2rem;
+    }
+
+    .dashboard-main {
+      background: var(--dark-card);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 24px;
+      padding: 2rem;
+    }
+
+    .dashboard-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+    }
+
+    .dashboard-user {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .dashboard-avatar {
+      width: 60px;
+      height: 60px;
+      border-radius: 16px;
+      background: var(--gradient-tech);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      font-weight: 800;
+    }
+
+    .advisor-badge-display {
+      padding: 8px 16px;
+      border-radius: 100px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      background: var(--gradient-gold);
+      color: var(--dark);
+    }
+
+    .dashboard-stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .dash-stat {
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 16px;
+      padding: 1.25rem;
+      text-align: center;
+    }
+
+    .dash-stat-value { font-size: 1.5rem; font-weight: 800; margin-bottom: 0.25rem; }
+    .dash-stat-value.amber { color: var(--amber); }
+    .dash-stat-value.gold { color: var(--gold); }
+    .dash-stat-value.success { color: var(--success); }
+    .dash-stat-value.blue { color: var(--blue); }
+    .dash-stat-label { font-size: 0.8rem; color: var(--light-gray); }
+
+    .advisor-activities {
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 16px;
+      padding: 1.5rem;
+    }
+
+    .advisor-activities h4 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .advisor-activities h4 i { color: var(--amber); }
+
+    .activity-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem;
+      background: rgba(255, 255, 255, 0.02);
+      border-radius: 12px;
+      margin-bottom: 0.75rem;
+    }
+
+    .activity-item:last-child { margin-bottom: 0; }
+
+    .activity-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .activity-icon.meeting { background: rgba(59, 130, 246, 0.2); color: var(--blue); }
+    .activity-icon.review { background: rgba(139, 92, 246, 0.2); color: var(--purple); }
+    .activity-icon.reward { background: rgba(245, 158, 11, 0.2); color: var(--amber); }
+
+    .activity-info h5 { font-size: 0.9rem; font-weight: 600; }
+    .activity-info p { font-size: 0.75rem; color: var(--gray); }
+
+    .activity-value {
+      margin-left: auto;
+      text-align: right;
+    }
+
+    .activity-value .amount { font-weight: 700; color: var(--gold); }
+    .activity-value .date { font-size: 0.7rem; color: var(--gray); }
+
+    .dashboard-sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .sidebar-card {
+      background: var(--dark-card);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 1.5rem;
+    }
+
+    .sidebar-card h4 {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .sidebar-card h4 i { color: var(--amber); }
+
+    .vesting-info { margin-bottom: 1rem; }
+
+    .vesting-info .header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.5rem;
+    }
+
+    .vesting-info .label { font-size: 0.875rem; color: var(--light-gray); }
+    .vesting-info .value { font-weight: 700; color: var(--amber); }
+
+    .vesting-bar {
+      height: 10px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 100px;
+      overflow: hidden;
+    }
+
+    .vesting-fill {
+      height: 100%;
+      background: var(--gradient-advisor);
+      border-radius: 100px;
+      transition: width 1s ease;
+    }
+
+    .vesting-schedule {
+      margin-top: 1rem;
+      padding: 1rem;
+      background: rgba(255, 255, 255, 0.02);
+      border-radius: 12px;
+    }
+
+    .vesting-schedule-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.5rem 0;
+      font-size: 0.85rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .vesting-schedule-item:last-child { border-bottom: none; }
+    .vesting-schedule-item .date { color: var(--gray); }
+    .vesting-schedule-item .amount { color: var(--amber); font-weight: 600; }
+
+    .upcoming-meetings {
+      list-style: none;
+    }
+
+    .upcoming-meetings li {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 1rem;
+      background: rgba(255, 255, 255, 0.02);
+      border-radius: 12px;
+      margin-bottom: 0.75rem;
+    }
+
+    .upcoming-meetings li:last-child { margin-bottom: 0; }
+
+    .meeting-date {
+      width: 50px;
+      text-align: center;
+      padding: 8px;
+      background: rgba(245, 158, 11, 0.1);
+      border-radius: 10px;
+    }
+
+    .meeting-date .day { font-size: 1.25rem; font-weight: 800; color: var(--amber); }
+    .meeting-date .month { font-size: 0.7rem; color: var(--gray); }
+
+    .meeting-info h5 { font-size: 0.9rem; font-weight: 600; }
+    .meeting-info p { font-size: 0.75rem; color: var(--gray); }
+
+    /* FAQ */
+    .faq-container { max-width: 900px; margin: 0 auto; }
+
+    .faq-item {
+      background: var(--dark-card);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      margin-bottom: 1rem;
+      overflow: hidden;
+    }
+
+    .faq-question {
+      padding: 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .faq-question:hover { background: rgba(255, 255, 255, 0.03); }
+    .faq-question h4 { font-size: 1.1rem; font-weight: 600; }
+    .faq-question i { color: var(--amber); transition: transform 0.3s; }
+    .faq-item.active .faq-question i { transform: rotate(180deg); }
+
+    .faq-answer {
+      padding: 0 1.5rem;
+      max-height: 0;
+      overflow: hidden;
+      transition: all 0.3s;
+    }
+
+    .faq-item.active .faq-answer {
+      padding: 0 1.5rem 1.5rem;
+      max-height: 500px;
+    }
+
+    .faq-answer p { color: var(--light-gray); line-height: 1.8; }
+
+    /* Footer */
+    .footer {
+      background: var(--dark);
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 60px 2rem 30px;
+    }
+
+    .footer-content {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 4rem;
+      margin-bottom: 3rem;
+    }
+
+    .footer-brand h3 { font-size: 1.5rem; font-weight: 800; margin-bottom: 1rem; }
+    .footer-brand h3 span { color: var(--gold); }
+    .footer-brand p { color: var(--light-gray); margin-bottom: 1.5rem; }
+
+    .social-links { display: flex; gap: 1rem; }
+
+    .social-links a {
+      width: 44px;
+      height: 44px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--light-gray);
+      transition: all 0.3s;
+    }
+
+    .social-links a:hover { background: var(--amber); color: var(--dark); }
+
+    .footer-links h4 { font-size: 1rem; font-weight: 700; margin-bottom: 1.5rem; }
+    .footer-links ul { list-style: none; }
+    .footer-links li { margin-bottom: 0.75rem; }
+    .footer-links a { color: var(--light-gray); text-decoration: none; transition: color 0.3s; }
+    .footer-links a:hover { color: var(--amber); }
+
+    .footer-bottom {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: var(--gray);
+      font-size: 0.875rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 1200px) {
+      .roles-grid { grid-template-columns: 1fr; }
+      .tiers-grid { grid-template-columns: 1fr; }
+      .compensation-grid { grid-template-columns: 1fr; }
+      .advisors-grid { grid-template-columns: repeat(2, 1fr); }
+      .dashboard-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 1024px) {
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .distribution-grid { grid-template-columns: repeat(3, 1fr); }
+      .advisor-showcase { grid-template-columns: repeat(2, 1fr); }
+      .process-timeline { flex-wrap: wrap; gap: 1.5rem; }
+      .process-timeline::before { display: none; }
+      .dashboard-stats { grid-template-columns: repeat(2, 1fr); }
+      .footer-content { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 768px) {
+      .header-container { padding: 1rem; }
+      .nav-links { display: none; }
+      .hero { padding: 100px 1rem 60px; }
+      .stats-grid { grid-template-columns: 1fr; }
+      .distribution-grid { grid-template-columns: repeat(2, 1fr); }
+      .advisor-showcase { grid-template-columns: 1fr; }
+      .advisors-grid { grid-template-columns: 1fr; }
+      .footer-content { grid-template-columns: 1fr; gap: 2rem; }
+      .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="header-container">
+      <a href="#" class="logo">
+        <div class="logo-icon">🔥</div>
+        <div class="logo-text">TBURN<span>CHAIN</span></div>
+      </a>
+      <nav class="nav-links">
+        <a href="#roles">역할</a>
+        <a href="#tiers">등급</a>
+        <a href="#advisors">어드바이저</a>
+        <a href="#compensation">보상</a>
+        <a href="#dashboard">대시보드</a>
+      </nav>
+      <button class="connect-btn" onclick="openApplicationModal()">
+        <i class="fas fa-user-tie"></i> 어드바이저 지원
+      </button>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <div class="badge">
+        <i class="fas fa-lightbulb lightbulb-icon"></i>
+        ADVISORS - 전문가의 통찰, 생태계의 성장
+      </div>
+      <h1>
+        어드바이저 프로그램<br>
+        <span class="gradient-text">2억 TBURN</span> 자문단
+      </h1>
+      <p class="hero-subtitle">
+        블록체인, AI, 비즈니스, 법률 분야 최고의 전문가들이
+        TBURN Chain의 성공적인 성장을 이끌어갑니다.
+      </p>
+
+      <!-- Advisor Showcase -->
+      <div class="advisor-showcase">
+        <div class="advisor-preview">
+          <div class="advisor-preview-avatar">👨‍💻</div>
+          <div class="advisor-preview-name">기술 어드바이저</div>
+          <div class="advisor-preview-role">블록체인 & AI 전문가</div>
+        </div>
+        <div class="advisor-preview">
+          <div class="advisor-preview-avatar">👔</div>
+          <div class="advisor-preview-name">비즈니스 어드바이저</div>
+          <div class="advisor-preview-role">사업 개발 & 전략</div>
+        </div>
+        <div class="advisor-preview">
+          <div class="advisor-preview-avatar">⚖️</div>
+          <div class="advisor-preview-name">법률 어드바이저</div>
+          <div class="advisor-preview-role">규제 & 컴플라이언스</div>
+        </div>
+        <div class="advisor-preview">
+          <div class="advisor-preview-avatar">🎓</div>
+          <div class="advisor-preview-name">학술 어드바이저</div>
+          <div class="advisor-preview-role">연구 & 학계</div>
+        </div>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-value">2억</div>
+          <div class="stat-label">총 어드바이저 풀</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">5%</div>
+          <div class="stat-label">TGE 해제</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">24개월</div>
+          <div class="stat-label">베스팅 기간</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">24</div>
+          <div class="stat-label">현재 어드바이저</div>
+        </div>
+      </div>
+
+      <div class="cta-group">
+        <button class="btn-primary" onclick="scrollToSection('roles')">
+          <i class="fas fa-user-plus"></i> 어드바이저 지원
+        </button>
+        <button class="btn-secondary" onclick="scrollToSection('advisors')">
+          <i class="fas fa-users"></i> 현재 어드바이저
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Distribution Section -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-badge">DISTRIBUTION</span>
+      <h2 class="section-title">어드바이저 배분 구조</h2>
+      <p class="section-subtitle">2억 TBURN이 5가지 전문 분야에 배분됩니다</p>
+    </div>
+
+    <div class="distribution-grid">
+      <div class="dist-card tech">
+        <div class="dist-icon">💻</div>
+        <div class="dist-name">기술 어드바이저</div>
+        <div class="dist-amount">0.8억</div>
+        <div class="dist-percent">40%</div>
+      </div>
+      <div class="dist-card business">
+        <div class="dist-icon">📈</div>
+        <div class="dist-name">비즈니스 어드바이저</div>
+        <div class="dist-amount">0.5억</div>
+        <div class="dist-percent">25%</div>
+      </div>
+      <div class="dist-card legal">
+        <div class="dist-icon">⚖️</div>
+        <div class="dist-name">법률 어드바이저</div>
+        <div class="dist-amount">0.3억</div>
+        <div class="dist-percent">15%</div>
+      </div>
+      <div class="dist-card academic">
+        <div class="dist-icon">🎓</div>
+        <div class="dist-name">학술 어드바이저</div>
+        <div class="dist-amount">0.2억</div>
+        <div class="dist-percent">10%</div>
+      </div>
+      <div class="dist-card industry">
+        <div class="dist-icon">🏭</div>
+        <div class="dist-name">산업 어드바이저</div>
+        <div class="dist-amount">0.2억</div>
+        <div class="dist-percent">10%</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Advisor Roles -->
+  <section class="section" id="roles" style="background: rgba(255,255,255,0.02);">
+    <div class="section-header">
+      <span class="section-badge">ADVISOR ROLES</span>
+      <h2 class="section-title">어드바이저 역할</h2>
+      <p class="section-subtitle">전문 분야별 어드바이저의 역할과 책임</p>
+    </div>
+
+    <div class="roles-grid">
+      <!-- Tech Advisor -->
+      <div class="role-card tech">
+        <div class="role-header">
+          <div class="role-icon">💻</div>
+          <div class="role-info">
+            <h3>기술 어드바이저</h3>
+            <p>블록체인, AI, 보안 분야 전문가</p>
+          </div>
+        </div>
+        <div class="role-content">
+          <div class="role-rewards">
+            <div class="role-reward-box">
+              <div class="value">최대 1,500만</div>
+              <div class="label">연간 보상 (TBURN)</div>
+            </div>
+            <div class="role-reward-box">
+              <div class="value">8명</div>
+              <div class="label">현재 인원</div>
+            </div>
+          </div>
+          <ul class="role-responsibilities">
+            <li><i class="fas fa-check"></i> 프로토콜 아키텍처 리뷰</li>
+            <li><i class="fas fa-check"></i> 합의 알고리즘 자문</li>
+            <li><i class="fas fa-check"></i> AI 통합 전략 수립</li>
+            <li><i class="fas fa-check"></i> 보안 감사 및 개선</li>
+            <li><i class="fas fa-check"></i> 기술 로드맵 검토</li>
+          </ul>
+          <button class="role-btn" onclick="applyRole('tech')">기술 어드바이저 지원</button>
+        </div>
+      </div>
+
+      <!-- Business Advisor -->
+      <div class="role-card business">
+        <div class="role-header">
+          <div class="role-icon">📈</div>
+          <div class="role-info">
+            <h3>비즈니스 어드바이저</h3>
+            <p>사업 개발, 전략, 마케팅 전문가</p>
+          </div>
+        </div>
+        <div class="role-content">
+          <div class="role-rewards">
+            <div class="role-reward-box">
+              <div class="value">최대 1,000만</div>
+              <div class="label">연간 보상 (TBURN)</div>
+            </div>
+            <div class="role-reward-box">
+              <div class="value">6명</div>
+              <div class="label">현재 인원</div>
+            </div>
+          </div>
+          <ul class="role-responsibilities">
+            <li><i class="fas fa-check"></i> 비즈니스 전략 수립</li>
+            <li><i class="fas fa-check"></i> 시장 진출 전략</li>
+            <li><i class="fas fa-check"></i> 파트너십 네트워크</li>
+            <li><i class="fas fa-check"></i> 투자 유치 자문</li>
+            <li><i class="fas fa-check"></i> 브랜딩 & 마케팅</li>
+          </ul>
+          <button class="role-btn" onclick="applyRole('business')">비즈니스 어드바이저 지원</button>
+        </div>
+      </div>
+
+      <!-- Legal Advisor -->
+      <div class="role-card legal">
+        <div class="role-header">
+          <div class="role-icon">⚖️</div>
+          <div class="role-info">
+            <h3>법률 어드바이저</h3>
+            <p>규제, 컴플라이언스, 법률 전문가</p>
+          </div>
+        </div>
+        <div class="role-content">
+          <div class="role-rewards">
+            <div class="role-reward-box">
+              <div class="value">최대 800만</div>
+              <div class="label">연간 보상 (TBURN)</div>
+            </div>
+            <div class="role-reward-box">
+              <div class="value">5명</div>
+              <div class="label">현재 인원</div>
+            </div>
+          </div>
+          <ul class="role-responsibilities">
+            <li><i class="fas fa-check"></i> 글로벌 규제 대응</li>
+            <li><i class="fas fa-check"></i> 토큰 법률 검토</li>
+            <li><i class="fas fa-check"></i> 라이선스 취득 자문</li>
+            <li><i class="fas fa-check"></i> 계약서 검토</li>
+            <li><i class="fas fa-check"></i> 분쟁 해결 지원</li>
+          </ul>
+          <button class="role-btn" onclick="applyRole('legal')">법률 어드바이저 지원</button>
+        </div>
+      </div>
+
+      <!-- Academic Advisor -->
+      <div class="role-card academic">
+        <div class="role-header">
+          <div class="role-icon">🎓</div>
+          <div class="role-info">
+            <h3>학술 어드바이저</h3>
+            <p>연구기관, 대학교 교수 및 연구원</p>
+          </div>
+        </div>
+        <div class="role-content">
+          <div class="role-rewards">
+            <div class="role-reward-box">
+              <div class="value">최대 500만</div>
+              <div class="label">연간 보상 (TBURN)</div>
+            </div>
+            <div class="role-reward-box">
+              <div class="value">5명</div>
+              <div class="label">현재 인원</div>
+            </div>
+          </div>
+          <ul class="role-responsibilities">
+            <li><i class="fas fa-check"></i> 학술 연구 자문</li>
+            <li><i class="fas fa-check"></i> 논문 공동 발표</li>
+            <li><i class="fas fa-check"></i> 기술 검증</li>
+            <li><i class="fas fa-check"></i> 인재 양성 프로그램</li>
+            <li><i class="fas fa-check"></i> 산학 협력 연계</li>
+          </ul>
+          <button class="role-btn" onclick="applyRole('academic')">학술 어드바이저 지원</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Advisor Tiers -->
+  <section class="section" id="tiers">
+    <div class="section-header">
+      <span class="section-badge">ADVISOR TIERS</span>
+      <h2 class="section-title">어드바이저 등급</h2>
+      <p class="section-subtitle">경력과 기여도에 따른 3단계 등급 시스템</p>
+    </div>
+
+    <div class="tiers-grid">
+      <!-- Principal -->
+      <div class="tier-card principal">
+        <div class="tier-header">
+          <div class="tier-icon">👑</div>
+          <h3 class="tier-name">Principal Advisor</h3>
+          <p class="tier-subtitle">최고 자문위원</p>
+        </div>
+        <div class="tier-content">
+          <div class="tier-incentive">
+            <div class="tier-incentive-label">최대 보상</div>
+            <div class="tier-incentive-value">1,500만 TBURN</div>
+          </div>
+          <div class="tier-requirement">
+            <strong>자격 요건:</strong> 20년+ 경력 / C-Level 경험 / 글로벌 영향력
+          </div>
+          <ul class="tier-benefits">
+            <li><i class="fas fa-check"></i> 이사회 옵저버 자격</li>
+            <li><i class="fas fa-check"></i> 월간 1:1 전략 미팅</li>
+            <li><i class="fas fa-check"></i> 거버넌스 투표권</li>
+            <li><i class="fas fa-check"></i> 성과 보너스 (최대 100%)</li>
+            <li><i class="fas fa-check"></i> 전용 지원팀 배정</li>
+            <li><i class="fas fa-check"></i> 글로벌 이벤트 초청</li>
+          </ul>
+          <button class="tier-btn" onclick="applyTier('principal')">Principal 지원</button>
+        </div>
+      </div>
+
+      <!-- Senior -->
+      <div class="tier-card senior">
+        <div class="tier-header">
+          <div class="tier-icon">⭐</div>
+          <h3 class="tier-name">Senior Advisor</h3>
+          <p class="tier-subtitle">시니어 자문위원</p>
+        </div>
+        <div class="tier-content">
+          <div class="tier-incentive">
+            <div class="tier-incentive-label">최대 보상</div>
+            <div class="tier-incentive-value">800만 TBURN</div>
+          </div>
+          <div class="tier-requirement">
+            <strong>자격 요건:</strong> 10년+ 경력 / VP 이상 경험 / 업계 전문가
+          </div>
+          <ul class="tier-benefits">
+            <li><i class="fas fa-check"></i> 분기별 전략 미팅</li>
+            <li><i class="fas fa-check"></i> 어드바이저리 보드 참여</li>
+            <li><i class="fas fa-check"></i> 성과 보너스 (최대 50%)</li>
+            <li><i class="fas fa-check"></i> 주요 이벤트 초청</li>
+            <li><i class="fas fa-check"></i> 네트워킹 기회</li>
+            <li><i class="fas fa-check disabled"></i> 이사회 옵저버 (제한적)</li>
+          </ul>
+          <button class="tier-btn" onclick="applyTier('senior')">Senior 지원</button>
+        </div>
+      </div>
+
+      <!-- Advisor -->
+      <div class="tier-card advisor">
+        <div class="tier-header">
+          <div class="tier-icon">💡</div>
+          <h3 class="tier-name">Advisor</h3>
+          <p class="tier-subtitle">어드바이저</p>
+        </div>
+        <div class="tier-content">
+          <div class="tier-incentive">
+            <div class="tier-incentive-label">최대 보상</div>
+            <div class="tier-incentive-value">300만 TBURN</div>
+          </div>
+          <div class="tier-requirement">
+            <strong>자격 요건:</strong> 5년+ 경력 / 전문 분야 역량 / 업계 네트워크
+          </div>
+          <ul class="tier-benefits">
+            <li><i class="fas fa-check"></i> 반기별 미팅</li>
+            <li><i class="fas fa-check"></i> 전문 분야 자문</li>
+            <li><i class="fas fa-check"></i> 기본 보상</li>
+            <li><i class="fas fa-check"></i> 커뮤니티 이벤트</li>
+            <li><i class="fas fa-check disabled"></i> 어드바이저리 보드 (옵저버)</li>
+            <li><i class="fas fa-check disabled"></i> 성과 보너스 (제한적)</li>
+          </ul>
+          <button class="tier-btn" onclick="applyTier('advisor')">Advisor 지원</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Current Advisors -->
+  <section class="section" id="advisors" style="background: rgba(255,255,255,0.02);">
+    <div class="section-header">
+      <span class="section-badge">OUR ADVISORS</span>
+      <h2 class="section-title">현재 어드바이저</h2>
+      <p class="section-subtitle">TBURN Chain을 이끄는 전문가 자문단</p>
+    </div>
+
+    <div class="advisors-showcase">
+      <div class="advisors-category">
+        <div class="advisors-category-header">
+          <h4><i class="fas fa-laptop-code"></i> 기술 어드바이저</h4>
+          <span class="advisors-count">8명</span>
+        </div>
+        <div class="advisors-grid">
+          <div class="advisor-card">
+            <div class="advisor-avatar tech">
+              VB
+              <span class="advisor-tier-badge principal">👑</span>
+            </div>
+            <div class="advisor-card-name">Dr. Victor Blockchain</div>
+            <div class="advisor-card-title">前 Ethereum Core Dev</div>
+            <div class="advisor-card-org">Stanford University</div>
+            <div class="advisor-card-social">
+              <a href="#"><i class="fab fa-twitter"></i></a>
+              <a href="#"><i class="fab fa-linkedin"></i></a>
+              <a href="#"><i class="fab fa-github"></i></a>
+            </div>
+          </div>
+          <div class="advisor-card">
+            <div class="advisor-avatar tech">
+              AK
+              <span class="advisor-tier-badge principal">👑</span>
+            </div>
+            <div class="advisor-card-name">Prof. AI Kim</div>
+            <div class="advisor-card-title">AI 연구 디렉터</div>
+            <div class="advisor-card-org">KAIST</div>
+            <div class="advisor-card-social">
+              <a href="#"><i class="fab fa-twitter"></i></a>
+              <a href="#"><i class="fab fa-linkedin"></i></a>
+            </div>
+          </div>
+          <div class="advisor-card">
+            <div class="advisor-avatar tech">
+              SC
+              <span class="advisor-tier-badge senior">⭐</span>
+            </div>
+            <div class="advisor-card-name">Sarah Chen</div>
+            <div class="advisor-card-title">보안 아키텍트</div>
+            <div class="advisor-card-org">前 Google Security</div>
+            <div class="advisor-card-social">
+              <a href="#"><i class="fab fa-twitter"></i></a>
+              <a href="#"><i class="fab fa-linkedin"></i></a>
+            </div>
+          </div>
+          <div class="advisor-card">
+            <div class="advisor-avatar tech">
+              MZ
+              <span class="advisor-tier-badge senior">⭐</span>
+            </div>
+            <div class="advisor-card-name">Michael Zhang</div>
+            <div class="advisor-card-title">합의 알고리즘 전문가</div>
+            <div class="advisor-card-org">前 Cosmos</div>
+            <div class="advisor-card-social">
+              <a href="#"><i class="fab fa-twitter"></i></a>
+              <a href="#"><i class="fab fa-github"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="advisors-category">
+        <div class="advisors-category-header">
+          <h4><i class="fas fa-chart-line"></i> 비즈니스 어드바이저</h4>
+          <span class="advisors-count">6명</span>
+        </div>
+        <div class="advisors-grid">
+          <div class="advisor-card">
+            <div class="advisor-avatar business">
+              JP
+              <span class="advisor-tier-badge principal">👑</span>
+            </div>
+            <div class="advisor-card-name">James Park</div>
+            <div class="advisor-card-title">前 Binance VP</div>
+            <div class="advisor-card-org">Crypto Ventures</div>
+            <div class="advisor-card-social">
+              <a href="#"><i class="fab fa-twitter"></i></a>
+              <a href="#"><i class="fab fa-linkedin"></i></a>
+            </div>
+          </div>
+          <div class="advisor-card">
+            <div class="advisor-avatar business">
+              EL
+              <span class="advisor-tier-badge senior">⭐</span>
+            </div>
+            <div class="advisor-card-name">Emily Lee</div>
+            <div class="advisor-card-title">투자 파트너</div>
+            <div class="advisor-card-org">a16z crypto</div>
+            <div class="advisor-card-social">
+              <a href="#"><i class="fab fa-twitter"></i></a>
+              <a href="#"><i class="fab fa-linkedin"></i></a>
+            </div>
+          </div>
+          <div class="advisor-card">
+            <div class="advisor-avatar business">
+              DK
+              <span class="advisor-tier-badge senior">⭐</span>
+            </div>
+            <div class="advisor-card-name">David Kim</div>
+            <div class="advisor-card-title">BD 디렉터</div>
+            <div class="advisor-card-org">前 Coinbase</div>
+            <div class="advisor-card-social">
+              <a href="#"><i class="fab fa-twitter"></i></a>
+              <a href="#"><i class="fab fa-linkedin"></i></a>
+            </div>
+          </div>
+          <div class="advisor-card">
+            <div class="advisor-avatar business">
+              AS
+              <span class="advisor-tier-badge senior">⭐</span>
+            </div>
+            <div class="advisor-card-name">Anna Song</div>
+            <div class="advisor-card-title">마케팅 디렉터</div>
+            <div class="advisor-card-org">前 Polygon</div>
+            <div class="advisor-card-social">
+              <a href="#"><i class="fab fa-twitter"></i></a>
+              <a href="#"><i class="fab fa-linkedin"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="advisors-category">
+        <div class="advisors-category-header">
+          <h4><i class="fas fa-balance-scale"></i> 법률 & 학술 어드바이저</h4>
+          <span class="advisors-count">10명</span>
+        </div>
+        <div class="advisors-grid">
+          <div class="advisor-card">
+            <div class="advisor-avatar legal">
+              RW
+              <span class="advisor-tier-badge principal">👑</span>
+            </div>
+            <div class="advisor-card-name">Robert Williams</div>
+            <div class="advisor-card-title">디지털자산 법률 파트너</div>
+            <div class="advisor-card-org">Sullivan & Cromwell</div>
+            <div class="advisor-card-social">
+              <a href="#"><i class="fab fa-linkedin"></i></a>
+            </div>
+          </div>
+          <div class="advisor-card">
+            <div class="advisor-avatar legal">
+              JC
+              <span class="advisor-tier-badge senior">⭐</span>
+            </div>
+            <div class="advisor-card-name">Jennifer Cho</div>
+            <div class="advisor-card-title">규제 컴플라이언스</div>
+            <div class="advisor-card-org">前 SEC Counsel</div>
+            <div class="advisor-card-social">
+              <a href="#"><i class="fab fa-linkedin"></i></a>
+            </div>
+          </div>
+          <div class="advisor-card">
+            <div class="advisor-avatar academic">
+              PL
+              <span class="advisor-tier-badge senior">⭐</span>
+            </div>
+            <div class="advisor-card-name">Prof. Lee</div>
+            <div class="advisor-card-title">암호학 교수</div>
+            <div class="advisor-card-org">서울대학교</div>
+            <div class="advisor-card-social">
+              <a href="#"><i class="fab fa-twitter"></i></a>
+              <a href="#"><i class="fab fa-linkedin"></i></a>
+            </div>
+          </div>
+          <div class="advisor-card">
+            <div class="advisor-avatar academic">
+              TN
+              <span class="advisor-tier-badge senior">⭐</span>
+            </div>
+            <div class="advisor-card-name">Dr. Tanaka</div>
+            <div class="advisor-card-title">분산시스템 연구원</div>
+            <div class="advisor-card-org">Tokyo University</div>
+            <div class="advisor-card-social">
+              <a href="#"><i class="fab fa-twitter"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Application Process -->
+  <section class="section" id="process">
+    <div class="section-header">
+      <span class="section-badge">PROCESS</span>
+      <h2 class="section-title">어드바이저 선정 절차</h2>
+      <p class="section-subtitle">체계적인 5단계 선발 프로세스</p>
+    </div>
+
+    <div class="process-container">
+      <div class="process-timeline">
+        <div class="process-item">
+          <div class="process-dot">📝</div>
+          <h4 class="process-title">지원서 제출</h4>
+          <p class="process-desc">이력서 및 포트폴리오</p>
+          <span class="process-duration">1~2일</span>
+        </div>
+        <div class="process-item">
+          <div class="process-dot">🔍</div>
+          <h4 class="process-title">서류 심사</h4>
+          <p class="process-desc">경력 및 전문성 검토</p>
+          <span class="process-duration">1~2주</span>
+        </div>
+        <div class="process-item">
+          <div class="process-dot">💬</div>
+          <h4 class="process-title">인터뷰</h4>
+          <p class="process-desc">C-Level 및 팀 면접</p>
+          <span class="process-duration">1~2주</span>
+        </div>
+        <div class="process-item">
+          <div class="process-dot">📋</div>
+          <h4 class="process-title">이사회 승인</h4>
+          <p class="process-desc">최종 선정 결정</p>
+          <span class="process-duration">1주</span>
+        </div>
+        <div class="process-item">
+          <div class="process-dot">🤝</div>
+          <h4 class="process-title">온보딩</h4>
+          <p class="process-desc">계약 및 활동 시작</p>
+          <span class="process-duration">1주</span>
+        </div>
+      </div>
+
+      <div style="margin-top: 2rem; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;">
+        <div style="padding: 1.5rem; background: rgba(255,255,255,0.03); border-radius: 16px; text-align: center;">
+          <div style="font-size: 2rem; margin-bottom: 0.5rem;">📄</div>
+          <div style="font-weight: 700; margin-bottom: 0.25rem;">필요 서류</div>
+          <div style="font-size: 0.85rem; color: var(--gray);">이력서, 포트폴리오, 추천서</div>
+        </div>
+        <div style="padding: 1.5rem; background: rgba(255,255,255,0.03); border-radius: 16px; text-align: center;">
+          <div style="font-size: 2rem; margin-bottom: 0.5rem;">⏱️</div>
+          <div style="font-weight: 700; margin-bottom: 0.25rem;">평균 소요 기간</div>
+          <div style="font-size: 0.85rem; color: var(--gray);">4~6주</div>
+        </div>
+        <div style="padding: 1.5rem; background: rgba(255,255,255,0.03); border-radius: 16px; text-align: center;">
+          <div style="font-size: 2rem; margin-bottom: 0.5rem;">📅</div>
+          <div style="font-weight: 700; margin-bottom: 0.25rem;">계약 기간</div>
+          <div style="font-size: 0.85rem; color: var(--gray);">1~2년 (갱신 가능)</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Compensation -->
+  <section class="section" id="compensation" style="background: rgba(255,255,255,0.02);">
+    <div class="section-header">
+      <span class="section-badge">COMPENSATION</span>
+      <h2 class="section-title">어드바이저 보상 체계</h2>
+      <p class="section-subtitle">공정하고 투명한 보상 시스템</p>
+    </div>
+
+    <div class="compensation-grid">
+      <div class="compensation-card">
+        <div class="compensation-icon">💰</div>
+        <h4>기본 토큰 보상</h4>
+        <p>등급별 연간 기본 토큰 보상이 지급됩니다. TGE 5% 해제 후 24개월 베스팅.</p>
+        <div class="compensation-value">최대 1,500만 TBURN/년</div>
+      </div>
+      <div class="compensation-card">
+        <div class="compensation-icon">🎯</div>
+        <h4>성과 보너스</h4>
+        <p>KPI 달성, 프로젝트 성공, 특별 기여에 따른 추가 보너스가 지급됩니다.</p>
+        <div class="compensation-value">최대 100% 추가</div>
+      </div>
+      <div class="compensation-card">
+        <div class="compensation-icon">📊</div>
+        <h4>활동 수당</h4>
+        <p>미팅 참석, 문서 리뷰, 외부 활동에 대한 별도 수당이 지급됩니다.</p>
+        <div class="compensation-value">활동당 5,000~50,000 TBURN</div>
+      </div>
+    </div>
+
+    <div style="margin-top: 3rem; background: var(--dark-card); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 2rem;">
+      <h4 style="font-size: 1.125rem; font-weight: 700; margin-bottom: 1.5rem; text-align: center;">베스팅 스케줄</h4>
+      <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; text-align: center;">
+        <div style="padding: 1.5rem; background: rgba(255,255,255,0.03); border-radius: 12px;">
+          <div style="font-size: 1.5rem; font-weight: 800; color: var(--amber); margin-bottom: 0.5rem;">5%</div>
+          <div style="font-size: 0.85rem; color: var(--gray);">TGE 해제</div>
+        </div>
+        <div style="padding: 1.5rem; background: rgba(255,255,255,0.03); border-radius: 12px;">
+          <div style="font-size: 1.5rem; font-weight: 800; color: var(--amber); margin-bottom: 0.5rem;">6개월</div>
+          <div style="font-size: 0.85rem; color: var(--gray);">클리프 기간</div>
+        </div>
+        <div style="padding: 1.5rem; background: rgba(255,255,255,0.03); border-radius: 12px;">
+          <div style="font-size: 1.5rem; font-weight: 800; color: var(--amber); margin-bottom: 0.5rem;">24개월</div>
+          <div style="font-size: 0.85rem; color: var(--gray);">선형 베스팅</div>
+        </div>
+        <div style="padding: 1.5rem; background: rgba(255,255,255,0.03); border-radius: 12px;">
+          <div style="font-size: 1.5rem; font-weight: 800; color: var(--amber); margin-bottom: 0.5rem;">월간</div>
+          <div style="font-size: 0.85rem; color: var(--gray);">지급 주기</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Dashboard -->
+  <section class="section" id="dashboard">
+    <div class="section-header">
+      <span class="section-badge">ADVISOR DASHBOARD</span>
+      <h2 class="section-title">어드바이저 대시보드</h2>
+      <p class="section-subtitle">활동 및 보상 현황을 확인하세요</p>
+    </div>
+
+    <div class="dashboard-grid">
+      <div class="dashboard-main">
+        <div class="dashboard-header">
+          <div class="dashboard-user">
+            <div class="dashboard-avatar">VB</div>
+            <div>
+              <h3 style="font-size: 1.125rem; font-weight: 700;">Dr. Victor Blockchain</h3>
+              <p style="font-size: 0.875rem; color: var(--gray);">기술 어드바이저 · ADV-2024-0001</p>
+            </div>
+          </div>
+          <span class="advisor-badge-display">👑 Principal Advisor</span>
+        </div>
+
+        <div class="dashboard-stats">
+          <div class="dash-stat">
+            <div class="dash-stat-value amber">15,000,000</div>
+            <div class="dash-stat-label">총 할당 (TBURN)</div>
+          </div>
+          <div class="dash-stat">
+            <div class="dash-stat-value gold">6,250,000</div>
+            <div class="dash-stat-label">베스팅 완료</div>
+          </div>
+          <div class="dash-stat">
+            <div class="dash-stat-value success">42</div>
+            <div class="dash-stat-label">참여 미팅</div>
+          </div>
+          <div class="dash-stat">
+            <div class="dash-stat-value blue">18개월</div>
+            <div class="dash-stat-label">활동 기간</div>
+          </div>
+        </div>
+
+        <div class="advisor-activities">
+          <h4><i class="fas fa-history"></i> 최근 활동</h4>
+          <div class="activity-item">
+            <div class="activity-icon meeting"><i class="fas fa-video"></i></div>
+            <div class="activity-info">
+              <h5>기술 자문 회의</h5>
+              <p>AI 합의 알고리즘 리뷰</p>
+            </div>
+            <div class="activity-value">
+              <div class="amount">+50,000 TBURN</div>
+              <div class="date">2일 전</div>
+            </div>
+          </div>
+          <div class="activity-item">
+            <div class="activity-icon review"><i class="fas fa-file-alt"></i></div>
+            <div class="activity-info">
+              <h5>백서 리뷰</h5>
+              <p>토크노믹스 섹션 검토</p>
+            </div>
+            <div class="activity-value">
+              <div class="amount">+30,000 TBURN</div>
+              <div class="date">1주 전</div>
+            </div>
+          </div>
+          <div class="activity-item">
+            <div class="activity-icon reward"><i class="fas fa-trophy"></i></div>
+            <div class="activity-info">
+              <h5>분기 성과 보너스</h5>
+              <p>Q4 2024 KPI 달성</p>
+            </div>
+            <div class="activity-value">
+              <div class="amount">+500,000 TBURN</div>
+              <div class="date">2주 전</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="dashboard-sidebar">
+        <div class="sidebar-card">
+          <h4><i class="fas fa-chart-line"></i> 베스팅 현황</h4>
+          <div class="vesting-info">
+            <div class="header">
+              <span class="label">베스팅 진행률</span>
+              <span class="value">42%</span>
+            </div>
+            <div class="vesting-bar">
+              <div class="vesting-fill" style="width: 42%;"></div>
+            </div>
+          </div>
+          <div class="vesting-schedule">
+            <div class="vesting-schedule-item">
+              <span class="date">TGE (5%)</span>
+              <span class="amount">750,000 ✓</span>
+            </div>
+            <div class="vesting-schedule-item">
+              <span class="date">클리프 (6개월)</span>
+              <span class="amount">완료 ✓</span>
+            </div>
+            <div class="vesting-schedule-item">
+              <span class="date">월간 베스팅</span>
+              <span class="amount">~593,750/월</span>
+            </div>
+            <div class="vesting-schedule-item">
+              <span class="date">남은 기간</span>
+              <span class="amount">14개월</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="sidebar-card">
+          <h4><i class="fas fa-calendar-alt"></i> 예정 미팅</h4>
+          <ul class="upcoming-meetings">
+            <li>
+              <div class="meeting-date">
+                <div class="day">15</div>
+                <div class="month">JAN</div>
+              </div>
+              <div class="meeting-info">
+                <h5>기술 로드맵 리뷰</h5>
+                <p>14:00 KST · Zoom</p>
+              </div>
+            </li>
+            <li>
+              <div class="meeting-date">
+                <div class="day">22</div>
+                <div class="month">JAN</div>
+              </div>
+              <div class="meeting-info">
+                <h5>어드바이저 분기 회의</h5>
+                <p>10:00 KST · 오프라인</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="section" id="faq" style="background: rgba(255,255,255,0.02);">
+    <div class="section-header">
+      <span class="section-badge">FAQ</span>
+      <h2 class="section-title">자주 묻는 질문</h2>
+      <p class="section-subtitle">어드바이저 프로그램 관련 궁금한 점을 확인하세요</p>
+    </div>
+
+    <div class="faq-container">
+      <div class="faq-item active">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <h4>어드바이저 총 물량과 베스팅은 어떻게 되나요?</h4>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          <p>어드바이저 총 풀은 2억 TBURN입니다. TGE 시점에 5%(1,000만 TBURN)가 해제되고, 6개월 클리프 후 24개월에 걸쳐 월간 선형 베스팅됩니다. 기술(40%), 비즈니스(25%), 법률(15%), 학술(10%), 산업(10%)으로 배분됩니다.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <h4>어드바이저 자격 요건은 무엇인가요?</h4>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          <p>분야별로 다르지만, 기본적으로 5년 이상의 관련 경력과 검증된 전문성이 필요합니다. Principal은 20년+ 경력 및 C-Level 경험, Senior는 10년+ 경력 및 VP 이상 경험, Advisor는 5년+ 경력이 요구됩니다. 업계 네트워크와 TBURN에 대한 기여 의지도 중요한 평가 요소입니다.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <h4>어드바이저의 역할과 시간 투입은 어느 정도인가요?</h4>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          <p>등급에 따라 다릅니다. Principal은 월 4~8시간(월간 1:1 미팅, 주요 의사결정 참여), Senior는 월 2~4시간(분기별 미팅, 전문 자문), Advisor는 월 1~2시간(반기별 미팅, 특정 주제 자문)이 기대됩니다. 추가 활동(문서 리뷰, 외부 활동)에 대해서는 별도 수당이 지급됩니다.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <h4>보상은 어떻게 지급되나요?</h4>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          <p>기본 토큰 보상은 월간 베스팅 스케줄에 따라 지급됩니다. 성과 보너스는 분기별 KPI 평가 후 지급되며, 활동 수당은 미팅/리뷰 완료 후 즉시 지급됩니다. 모든 보상은 대시보드에서 클레임할 수 있으며, 연결된 지갑으로 전송됩니다.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <h4>계약 기간과 갱신은 어떻게 되나요?</h4>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          <p>기본 계약 기간은 1~2년이며, 상호 합의에 따라 갱신 가능합니다. 계약 종료 3개월 전에 갱신 여부를 논의하며, 갱신 시 활동 평가와 시장 상황을 고려하여 조건이 조정될 수 있습니다. 중도 해지 시 미베스팅 토큰은 풀로 반환됩니다.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <h4>이해충돌 정책은 어떻게 되나요?</h4>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          <p>경쟁 프로젝트의 어드바이저/임원 활동은 사전 공개 및 승인이 필요합니다. 기밀 정보에 대한 엄격한 NDA가 적용되며, 인사이더 거래는 금지됩니다. 잠재적 이해충돌이 있는 의사결정에서는 해당 어드바이저가 제외됩니다.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <h4>어드바이저로서 어떤 지원을 받을 수 있나요?</h4>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          <p>모든 어드바이저에게 전담 담당자가 배정되며, Principal에게는 전용 지원팀이 제공됩니다. 회의 일정 조율, 자료 사전 제공, 여행 및 이벤트 지원 등이 포함됩니다. 또한 TBURN 생태계 정보에 대한 우선 접근권과 네트워킹 기회가 주어집니다.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section style="padding: 100px 2rem; background: var(--gradient-advisor); text-align: center;">
+    <div style="max-width: 800px; margin: 0 auto;">
+      <h2 style="font-size: 2.5rem; font-weight: 800; margin-bottom: 1rem; color: var(--dark);">TBURN 어드바이저가 되세요</h2>
+      <p style="color: rgba(0,0,0,0.7); font-size: 1.125rem; margin-bottom: 2rem;">
+        블록체인과 AI의 미래를 함께 만들어갈<br>
+        최고의 전문가를 찾고 있습니다.
+      </p>
+      <button onclick="openApplicationModal()" style="background: var(--dark); color: var(--white); padding: 20px 50px; border-radius: 14px; font-size: 1.25rem; font-weight: 700; border: none; cursor: pointer; transition: transform 0.3s;">
+        <i class="fas fa-user-plus"></i> 어드바이저 지원하기
+      </button>
+      <p style="color: rgba(0,0,0,0.6); margin-top: 1.5rem; font-size: 0.875rem;">
+        <i class="fas fa-users"></i> 24명 현재 어드바이저 · 4~6주 선발 기간 · NDA 보장
+      </p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <h3>TBURN<span>CHAIN</span></h3>
+        <p>AI의 지능, 블록체인의 투명성<br>THE FUTURE IS NOW</p>
+        <div class="social-links">
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-telegram"></i></a>
+          <a href="#"><i class="fab fa-discord"></i></a>
+          <a href="#"><i class="fab fa-github"></i></a>
+          <a href="#"><i class="fab fa-medium"></i></a>
+        </div>
+      </div>
+      <div class="footer-links">
+        <h4>Advisors</h4>
+        <ul>
+          <li><a href="#">어드바이저 역할</a></li>
+          <li><a href="#">등급 시스템</a></li>
+          <li><a href="#">현재 어드바이저</a></li>
+          <li><a href="#">보상 체계</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h4>Resources</h4>
+        <ul>
+          <li><a href="#">어드바이저 가이드</a></li>
+          <li><a href="#">NDA 템플릿</a></li>
+          <li><a href="#">FAQ</a></li>
+          <li><a href="#">연락처</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="#">어드바이저 문의</a></li>
+          <li><a href="#">채용 문의</a></li>
+          <li><a href="#">미디어 문의</a></li>
+          <li><a href="#">일반 문의</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025-2045 TBURN Foundation. All Rights Reserved.</p>
+      <div style="display: flex; gap: 2rem;">
+        <a href="#" style="color: var(--gray); text-decoration: none;">이용약관</a>
+        <a href="#" style="color: var(--gray); text-decoration: none;">개인정보처리방침</a>
+        <a href="#" style="color: var(--gray); text-decoration: none;">쿠키 정책</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // FAQ Toggle
+    function toggleFaq(element) {
+      const faqItem = element.parentElement;
+      const wasActive = faqItem.classList.contains('active');
+      
+      document.querySelectorAll('.faq-item').forEach(item => {
+        item.classList.remove('active');
+      });
+      
+      if (!wasActive) {
+        faqItem.classList.add('active');
+      }
+    }
+
+    // Scroll to Section
+    function scrollToSection(sectionId) {
+      const section = document.getElementById(sectionId);
+      if (section) {
+        section.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+
+    // Apply Role
+    function applyRole(role) {
+      const roleNames = {
+        tech: '기술 어드바이저',
+        business: '비즈니스 어드바이저',
+        legal: '법률 어드바이저',
+        academic: '학술 어드바이저'
+      };
+      alert(`${roleNames[role]} 지원 페이지로 이동합니다.\n\n지원서를 작성해주세요.`);
+    }
+
+    // Apply Tier
+    function applyTier(tier) {
+      const tierNames = {
+        principal: 'Principal Advisor',
+        senior: 'Senior Advisor',
+        advisor: 'Advisor'
+      };
+      alert(`${tierNames[tier]} 지원 페이지로 이동합니다.\n\n지원서를 작성해주세요.`);
+    }
+
+    // Open Application Modal
+    function openApplicationModal() {
+      alert('어드바이저 지원 페이지로 이동합니다.\n\nadvisors@tburn.io');
+    }
+
+    // Header Scroll Effect
+    window.addEventListener('scroll', () => {
+      const header = document.querySelector('.header');
+      if (window.scrollY > 50) {
+        header.style.background = 'rgba(15, 23, 42, 0.98)';
+      } else {
+        header.style.background = 'rgba(15, 23, 42, 0.95)';
+      }
+    });
+  </script>
+</body>
+</html>
