@@ -131,6 +131,7 @@ const PrivateRoundPage = lazy(() => import("@/pages/private-round"));
 const PublicRoundPage = lazy(() => import("@/pages/public-round"));
 const LaunchpadPage = lazy(() => import("@/pages/launchpad"));
 const CoinListPage = lazy(() => import("@/pages/coinlist"));
+const DAOMakerPage = lazy(() => import("@/pages/dao-maker"));
 
 function LoginPage() {
   const handleLoginSuccess = () => {
@@ -337,6 +338,16 @@ export function PublicRouter() {
       <ErrorBoundary>
         <Suspense fallback={<PageLoading />}>
           <CoinListPage />
+        </Suspense>
+      </ErrorBoundary>
+    );
+  }
+  
+  if (location === "/dao-maker") {
+    return (
+      <ErrorBoundary>
+        <Suspense fallback={<PageLoading />}>
+          <DAOMakerPage />
         </Suspense>
       </ErrorBoundary>
     );
