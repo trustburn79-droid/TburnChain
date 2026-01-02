@@ -114,6 +114,7 @@ const Brand = lazy(() => import("./pages/Brand"));
 const Login = lazy(() => import("@/pages/login"));
 const TokenGenerator = lazy(() => import("@/pages/token-generator"));
 const TreePage = lazy(() => import("@/pages/tree"));
+const AirdropPage = lazy(() => import("@/pages/airdrop"));
 
 function LoginPage() {
   const handleLoginSuccess = () => {
@@ -150,6 +151,16 @@ export function PublicRouter() {
       <ErrorBoundary>
         <Suspense fallback={<PageLoading />}>
           <TreePage />
+        </Suspense>
+      </ErrorBoundary>
+    );
+  }
+  
+  if (location === "/airdrop") {
+    return (
+      <ErrorBoundary>
+        <Suspense fallback={<PageLoading />}>
+          <AirdropPage />
         </Suspense>
       </ErrorBoundary>
     );

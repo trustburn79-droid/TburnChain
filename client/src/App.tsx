@@ -87,6 +87,7 @@ const LaunchEventPage = lazy(() => import("@/pages/launch-event"));
 const TreePage = lazy(() => import("@/pages/tree"));
 const TokenSchedule = lazy(() => import("@/pages/token-schedule"));
 const TokenDetails = lazy(() => import("@/pages/token-details"));
+const AirdropPage = lazy(() => import("@/pages/airdrop"));
 const ValidatorCommandCenter = lazy(() => import("@/pages/validator"));
 const ValidatorInfrastructure = lazy(() => import("@/pages/validator-infrastructure"));
 const ValidatorIntelligence = lazy(() => import("@/pages/validator-intelligence"));
