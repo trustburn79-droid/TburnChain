@@ -23,7 +23,7 @@ import { Button } from "@/components/ui/button";
 import { Loader2, CheckCircle2, Home, ScanLine, User, HelpCircle, Bug, Coins, Shield, ImageIcon } from "lucide-react";
 import { Link } from "wouter";
 import { useTranslation } from "react-i18next";
-import '@/lib/i18n';
+// i18n is loaded dynamically in main.tsx
 import { lazy, Suspense } from "react";
 
 // CRITICAL: PublicRouter must be lazy-loaded to reduce initial bundle size

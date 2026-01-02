@@ -1,7 +1,6 @@
 import { createRoot, Root } from "react-dom/client";
-import App from "./App";
 import "./index.css";
-import "./lib/i18n";
+// CRITICAL: App and i18n are loaded dynamically to reduce initial bundle size
 
 declare global {
   interface Window {
@@ -138,7 +137,7 @@ setTimeout(() => {
 
 const BUILD_VERSION = "2026.01.02.v3";
 
-function safeInitApp() {
+async function safeInitApp() {
   const htmlVersion = document.documentElement.getAttribute("data-version");
   
   if (htmlVersion && htmlVersion !== BUILD_VERSION) {
@@ -170,7 +169,16 @@ function safeInitApp() {
     window.__TBURN_APP_ROOT__ = undefined;
   }
   
-  rootElement.innerHTML = "";
+  // Show loading indicator while App loads
+  rootElement.innerHTML = `
+    <div style="display:flex;align-items:center;justify-content:center;height:100vh;background:#030407;">
+      <div style="text-align:center;">
+        <div style="width:48px;height:48px;border:3px solid #333;border-top-color:#06b6d4;border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 16px;"></div>
+        <p style="color:#666;font-family:sans-serif;font-size:14px;">Loading...</p>
+      </div>
+      <style>@keyframes spin{to{transform:rotate(360deg)}}</style>
+    </div>
+  `;
   
   window.__TBURN_INITIALIZED__ = true;
   window.__TBURN_VERSION__ = BUILD_VERSION;
@@ -183,6 +191,10 @@ function safeInitApp() {
   }
   
   try {
+    // CRITICAL: Load i18n and App dynamically to reduce initial bundle
+    await import("./lib/i18n");
+    const { default: App } = await import("./App");
+    
     window.__TBURN_APP_ROOT__ = createRoot(rootElement);
     window.__TBURN_APP_ROOT__.render(<App />);
     console.log(`[TBURN] App initialized successfully (v${BUILD_VERSION})`);
