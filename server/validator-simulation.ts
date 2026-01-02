@@ -613,6 +613,7 @@ export class ValidatorSimulationService {
   private static readonly CONSENSUS_WRITE_BATCH_SIZE: number = 10; // 10라운드마다 DB 쓰기
 
   // Simulate consensus round with voting - OPTIMIZED for memory efficiency
+  // 모든 라운드에서 consensus 상태 업데이트, DB 쓰기만 배치 처리
   private async simulateConsensusRound(): Promise<void> {
     // Committee is cached and recalculated only on epoch change
     const committeeValidators = this.getCommitteeValidators();
@@ -622,16 +623,12 @@ export class ValidatorSimulationService {
       return;
     }
     
-    // ★ 메모리 최적화: 10라운드마다만 DB 쓰기
-    this.consensusWriteCounter++;
-    const shouldWriteToDB = (this.consensusWriteCounter % ValidatorSimulationService.CONSENSUS_WRITE_BATCH_SIZE === 0);
-    
-    // 라운드 번호는 항상 증가
+    // 라운드 번호는 항상 증가 (consensus 상태는 매 틱 업데이트)
     this.currentRound++;
+    this.consensusWriteCounter++;
     
-    if (!shouldWriteToDB) {
-      return; // DB 쓰기 생략, 메모리 절약
-    }
+    // ★ 메모리 최적화: DB 쓰기만 10라운드마다 실행 (상태 계산은 매 틱)
+    const shouldWriteToDB = (this.consensusWriteCounter % ValidatorSimulationService.CONSENSUS_WRITE_BATCH_SIZE === 0);
     
     const proposer = committeeValidators[this.currentRound % committeeValidators.length];
     const totalVotingPower = committeeValidators.reduce((sum, v) => {
@@ -703,7 +700,12 @@ export class ValidatorSimulationService {
     // Update consensus data with voting results
     const quorumAchieved = Math.floor((Number(votingPowerAchieved) / Number(totalVotingPower)) * 10000);
     
-    // Fire-and-forget DB write - don't block the 100ms loop (round already incremented above)
+    // ★ 메모리 최적화: 10라운드마다만 DB 쓰기 (상태 계산은 매 틱 완료됨)
+    if (!shouldWriteToDB) {
+      return; // 상태는 업데이트됨, DB 쓰기만 생략
+    }
+    
+    // Fire-and-forget DB write - don't block the 100ms loop
     this.storage.createConsensusRound(consensusData).catch((error: any) => {
       if (error?.code === '23505') {
         // Duplicate key - round already exists, safe to ignore
