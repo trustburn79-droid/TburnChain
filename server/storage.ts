@@ -353,6 +353,67 @@ import {
   bugBountyReports,
   type BugBountyReport,
   type InsertBugBountyReport,
+  // Token Distribution Programs
+  tokenPrograms,
+  programSnapshots,
+  airdropClaims,
+  airdropDistributions,
+  referralAccounts,
+  referralRewards,
+  eventsCatalog,
+  eventRegistrations,
+  communityTasks,
+  communityContributions,
+  communityMemberBadges,
+  daoProposals,
+  daoVotes,
+  daoDelegations,
+  blockRewardCycles,
+  blockRewardPayouts,
+  validatorIncentivePayouts,
+  validatorPerformanceStats,
+  ecosystemGrants,
+  grantMilestones,
+  type TokenProgram,
+  type InsertTokenProgram,
+  type ProgramSnapshot,
+  type InsertProgramSnapshot,
+  type AirdropClaim,
+  type InsertAirdropClaim,
+  type AirdropDistribution,
+  type InsertAirdropDistribution,
+  type ReferralAccount,
+  type InsertReferralAccount,
+  type ReferralReward,
+  type InsertReferralReward,
+  type EventsCatalog,
+  type InsertEventsCatalog,
+  type EventRegistration,
+  type InsertEventRegistration,
+  type CommunityTask,
+  type InsertCommunityTask,
+  type CommunityContribution,
+  type InsertCommunityContribution,
+  type CommunityMemberBadge,
+  type InsertCommunityMemberBadge,
+  type DaoProposal,
+  type InsertDaoProposal,
+  type DaoVote,
+  type InsertDaoVote,
+  type DaoDelegation,
+  type InsertDaoDelegation,
+  type BlockRewardCycle,
+  type InsertBlockRewardCycle,
+  type BlockRewardPayout,
+  type InsertBlockRewardPayout,
+  type ValidatorIncentivePayout,
+  type InsertValidatorIncentivePayout,
+  type ValidatorPerformanceStat,
+  type InsertValidatorPerformanceStat,
+  type EcosystemGrant,
+  type InsertEcosystemGrant,
+  type GrantMilestone,
+  type InsertGrantMilestone,
 } from "@shared/schema";
 import { randomUUID } from "crypto";
 import { db } from "./db";
@@ -1102,6 +1163,187 @@ export interface IStorage {
     acceptedReports: number;
     totalPaidUsd: number;
   }>;
+
+  // ============================================
+  // Token Distribution Programs (Admin Dashboard)
+  // ============================================
+  
+  // Token Programs Core
+  getAllTokenPrograms(): Promise<TokenProgram[]>;
+  getTokenProgramById(id: string): Promise<TokenProgram | undefined>;
+  getTokenProgramByType(programType: string): Promise<TokenProgram | undefined>;
+  createTokenProgram(data: InsertTokenProgram): Promise<TokenProgram>;
+  updateTokenProgram(id: string, data: Partial<TokenProgram>): Promise<void>;
+  getTokenProgramStats(): Promise<{
+    totalPrograms: number;
+    activePrograms: number;
+    totalParticipants: number;
+    totalDistributed: string;
+  }>;
+  
+  // Program Snapshots
+  getProgramSnapshots(programId: string, limit?: number): Promise<ProgramSnapshot[]>;
+  getLatestProgramSnapshot(programId: string): Promise<ProgramSnapshot | undefined>;
+  createProgramSnapshot(data: InsertProgramSnapshot): Promise<ProgramSnapshot>;
+  
+  // Airdrop Claims
+  getAllAirdropClaims(limit?: number): Promise<AirdropClaim[]>;
+  getAirdropClaimsByWallet(wallet: string): Promise<AirdropClaim[]>;
+  getAirdropClaimById(id: string): Promise<AirdropClaim | undefined>;
+  createAirdropClaim(data: InsertAirdropClaim): Promise<AirdropClaim>;
+  updateAirdropClaim(id: string, data: Partial<AirdropClaim>): Promise<void>;
+  getAirdropStats(): Promise<{
+    totalEligible: number;
+    totalClaimed: number;
+    totalAmount: string;
+    claimedAmount: string;
+  }>;
+  
+  // Airdrop Distributions
+  getAllAirdropDistributions(): Promise<AirdropDistribution[]>;
+  getAirdropDistributionById(id: string): Promise<AirdropDistribution | undefined>;
+  createAirdropDistribution(data: InsertAirdropDistribution): Promise<AirdropDistribution>;
+  updateAirdropDistribution(id: string, data: Partial<AirdropDistribution>): Promise<void>;
+  
+  // Referral Accounts
+  getAllReferralAccounts(limit?: number): Promise<ReferralAccount[]>;
+  getReferralAccountByWallet(wallet: string): Promise<ReferralAccount | undefined>;
+  getReferralAccountByCode(code: string): Promise<ReferralAccount | undefined>;
+  getReferralAccountById(id: string): Promise<ReferralAccount | undefined>;
+  createReferralAccount(data: InsertReferralAccount): Promise<ReferralAccount>;
+  updateReferralAccount(id: string, data: Partial<ReferralAccount>): Promise<void>;
+  getReferralStats(): Promise<{
+    totalAccounts: number;
+    totalReferrals: number;
+    totalEarnings: string;
+    activeReferrers: number;
+  }>;
+  
+  // Referral Rewards
+  getReferralRewards(referrerId: string, limit?: number): Promise<ReferralReward[]>;
+  createReferralReward(data: InsertReferralReward): Promise<ReferralReward>;
+  updateReferralReward(id: string, data: Partial<ReferralReward>): Promise<void>;
+  
+  // Events Catalog
+  getAllEvents(limit?: number): Promise<EventsCatalog[]>;
+  getActiveEvents(): Promise<EventsCatalog[]>;
+  getEventById(id: string): Promise<EventsCatalog | undefined>;
+  createEvent(data: InsertEventsCatalog): Promise<EventsCatalog>;
+  updateEvent(id: string, data: Partial<EventsCatalog>): Promise<void>;
+  getEventsStats(): Promise<{
+    totalEvents: number;
+    activeEvents: number;
+    totalParticipants: number;
+    totalRewardsDistributed: string;
+  }>;
+  
+  // Event Registrations
+  getEventRegistrations(eventId: string, limit?: number): Promise<EventRegistration[]>;
+  getEventRegistrationByWallet(eventId: string, wallet: string): Promise<EventRegistration | undefined>;
+  createEventRegistration(data: InsertEventRegistration): Promise<EventRegistration>;
+  updateEventRegistration(id: string, data: Partial<EventRegistration>): Promise<void>;
+  
+  // Community Tasks
+  getAllCommunityTasks(limit?: number): Promise<CommunityTask[]>;
+  getActiveCommunityTasks(): Promise<CommunityTask[]>;
+  getCommunityTaskById(id: string): Promise<CommunityTask | undefined>;
+  createCommunityTask(data: InsertCommunityTask): Promise<CommunityTask>;
+  updateCommunityTask(id: string, data: Partial<CommunityTask>): Promise<void>;
+  
+  // Community Contributions
+  getCommunityContributions(taskId: string, limit?: number): Promise<CommunityContribution[]>;
+  getCommunityContributionsByWallet(wallet: string): Promise<CommunityContribution[]>;
+  createCommunityContribution(data: InsertCommunityContribution): Promise<CommunityContribution>;
+  updateCommunityContribution(id: string, data: Partial<CommunityContribution>): Promise<void>;
+  getCommunityStats(): Promise<{
+    totalTasks: number;
+    activeTasks: number;
+    totalContributions: number;
+    totalPointsDistributed: number;
+  }>;
+  
+  // Community Badges
+  getCommunityBadgesByWallet(wallet: string): Promise<CommunityMemberBadge[]>;
+  createCommunityBadge(data: InsertCommunityMemberBadge): Promise<CommunityMemberBadge>;
+  
+  // DAO Proposals
+  getAllDaoProposals(limit?: number): Promise<DaoProposal[]>;
+  getActiveDaoProposals(): Promise<DaoProposal[]>;
+  getDaoProposalById(id: string): Promise<DaoProposal | undefined>;
+  getDaoProposalByNumber(proposalNumber: number): Promise<DaoProposal | undefined>;
+  createDaoProposal(data: InsertDaoProposal): Promise<DaoProposal>;
+  updateDaoProposal(id: string, data: Partial<DaoProposal>): Promise<void>;
+  getDaoStats(): Promise<{
+    totalProposals: number;
+    activeProposals: number;
+    passedProposals: number;
+    totalVoters: number;
+  }>;
+  
+  // DAO Votes
+  getDaoVotes(proposalId: string): Promise<DaoVote[]>;
+  getDaoVoteByVoter(proposalId: string, voterAddress: string): Promise<DaoVote | undefined>;
+  createDaoVote(data: InsertDaoVote): Promise<DaoVote>;
+  
+  // DAO Delegations
+  getDaoDelegations(delegatorAddress: string): Promise<DaoDelegation[]>;
+  getActiveDaoDelegation(delegatorAddress: string): Promise<DaoDelegation | undefined>;
+  createDaoDelegation(data: InsertDaoDelegation): Promise<DaoDelegation>;
+  revokeDaoDelegation(id: string): Promise<void>;
+  
+  // Block Reward Cycles
+  getAllBlockRewardCycles(limit?: number): Promise<BlockRewardCycle[]>;
+  getActiveBlockRewardCycle(): Promise<BlockRewardCycle | undefined>;
+  getBlockRewardCycleById(id: string): Promise<BlockRewardCycle | undefined>;
+  createBlockRewardCycle(data: InsertBlockRewardCycle): Promise<BlockRewardCycle>;
+  updateBlockRewardCycle(id: string, data: Partial<BlockRewardCycle>): Promise<void>;
+  getBlockRewardStats(): Promise<{
+    totalCycles: number;
+    totalRewards: string;
+    totalGasFees: string;
+    avgRewardPerCycle: string;
+  }>;
+  
+  // Block Reward Payouts
+  getBlockRewardPayouts(cycleId: string): Promise<BlockRewardPayout[]>;
+  getBlockRewardPayoutsByValidator(validatorAddress: string, limit?: number): Promise<BlockRewardPayout[]>;
+  createBlockRewardPayout(data: InsertBlockRewardPayout): Promise<BlockRewardPayout>;
+  updateBlockRewardPayout(id: string, data: Partial<BlockRewardPayout>): Promise<void>;
+  
+  // Validator Incentive Payouts
+  getAllValidatorIncentivePayouts(limit?: number): Promise<ValidatorIncentivePayout[]>;
+  getValidatorIncentivePayoutsByValidator(validatorAddress: string): Promise<ValidatorIncentivePayout[]>;
+  createValidatorIncentivePayout(data: InsertValidatorIncentivePayout): Promise<ValidatorIncentivePayout>;
+  updateValidatorIncentivePayout(id: string, data: Partial<ValidatorIncentivePayout>): Promise<void>;
+  getValidatorIncentiveStats(): Promise<{
+    totalPayouts: number;
+    totalAmount: string;
+    avgUptimePercent: number;
+    topPerformers: number;
+  }>;
+  
+  // Validator Performance Stats
+  getValidatorPerformanceStats(validatorAddress: string, periodType?: string): Promise<ValidatorPerformanceStat[]>;
+  createValidatorPerformanceStat(data: InsertValidatorPerformanceStat): Promise<ValidatorPerformanceStat>;
+  
+  // Ecosystem Grants
+  getAllEcosystemGrants(limit?: number): Promise<EcosystemGrant[]>;
+  getEcosystemGrantsByStatus(status: string): Promise<EcosystemGrant[]>;
+  getEcosystemGrantById(id: string): Promise<EcosystemGrant | undefined>;
+  createEcosystemGrant(data: InsertEcosystemGrant): Promise<EcosystemGrant>;
+  updateEcosystemGrant(id: string, data: Partial<EcosystemGrant>): Promise<void>;
+  getEcosystemGrantStats(): Promise<{
+    totalGrants: number;
+    activeGrants: number;
+    totalRequested: string;
+    totalDisbursed: string;
+  }>;
+  
+  // Grant Milestones
+  getGrantMilestones(grantId: string): Promise<GrantMilestone[]>;
+  getGrantMilestoneById(id: string): Promise<GrantMilestone | undefined>;
+  createGrantMilestone(data: InsertGrantMilestone): Promise<GrantMilestone>;
+  updateGrantMilestone(id: string, data: Partial<GrantMilestone>): Promise<void>;
 }
 
 export class MemStorage implements IStorage {
@@ -6700,6 +6942,459 @@ export class DbStorage implements IStorage {
       acceptedReports: acceptedReports.length,
       totalPaidUsd,
     };
+  }
+
+  // ============================================
+  // Token Distribution Programs (Admin Dashboard)
+  // ============================================
+
+  async getAllTokenPrograms(): Promise<TokenProgram[]> {
+    return db.select().from(tokenPrograms).orderBy(tokenPrograms.priority);
+  }
+
+  async getTokenProgramById(id: string): Promise<TokenProgram | undefined> {
+    const [program] = await db.select().from(tokenPrograms).where(eq(tokenPrograms.id, id));
+    return program;
+  }
+
+  async getTokenProgramByType(programType: string): Promise<TokenProgram | undefined> {
+    const [program] = await db.select().from(tokenPrograms).where(eq(tokenPrograms.programType, programType));
+    return program;
+  }
+
+  async createTokenProgram(data: InsertTokenProgram): Promise<TokenProgram> {
+    const [result] = await db.insert(tokenPrograms).values({
+      ...data,
+      id: `tp-${randomUUID()}`,
+    }).returning();
+    return result;
+  }
+
+  async updateTokenProgram(id: string, data: Partial<TokenProgram>): Promise<void> {
+    await db.update(tokenPrograms).set({ ...data, updatedAt: new Date() }).where(eq(tokenPrograms.id, id));
+  }
+
+  async getTokenProgramStats(): Promise<{ totalPrograms: number; activePrograms: number; totalParticipants: number; totalDistributed: string; }> {
+    const programs = await this.getAllTokenPrograms();
+    const activePrograms = programs.filter(p => p.status === 'active');
+    const totalParticipants = programs.reduce((sum, p) => sum + (p.totalParticipants || 0), 0);
+    const totalDistributed = programs.reduce((sum, p) => sum + BigInt(p.distributedAmount || '0'), BigInt(0));
+    return { totalPrograms: programs.length, activePrograms: activePrograms.length, totalParticipants, totalDistributed: totalDistributed.toString() };
+  }
+
+  async getProgramSnapshots(programId: string, limit: number = 30): Promise<ProgramSnapshot[]> {
+    return db.select().from(programSnapshots).where(eq(programSnapshots.programId, programId)).orderBy(desc(programSnapshots.snapshotDate)).limit(limit);
+  }
+
+  async getLatestProgramSnapshot(programId: string): Promise<ProgramSnapshot | undefined> {
+    const [snapshot] = await db.select().from(programSnapshots).where(eq(programSnapshots.programId, programId)).orderBy(desc(programSnapshots.snapshotDate)).limit(1);
+    return snapshot;
+  }
+
+  async createProgramSnapshot(data: InsertProgramSnapshot): Promise<ProgramSnapshot> {
+    const [result] = await db.insert(programSnapshots).values({ ...data, id: `ps-${randomUUID()}` }).returning();
+    return result;
+  }
+
+  async getAllAirdropClaims(limit: number = 100): Promise<AirdropClaim[]> {
+    return db.select().from(airdropClaims).orderBy(desc(airdropClaims.createdAt)).limit(limit);
+  }
+
+  async getAirdropClaimsByWallet(wallet: string): Promise<AirdropClaim[]> {
+    return db.select().from(airdropClaims).where(eq(airdropClaims.walletAddress, wallet.toLowerCase())).orderBy(desc(airdropClaims.createdAt));
+  }
+
+  async getAirdropClaimById(id: string): Promise<AirdropClaim | undefined> {
+    const [claim] = await db.select().from(airdropClaims).where(eq(airdropClaims.id, id));
+    return claim;
+  }
+
+  async createAirdropClaim(data: InsertAirdropClaim): Promise<AirdropClaim> {
+    const [result] = await db.insert(airdropClaims).values({ ...data, id: `ac-${randomUUID()}`, walletAddress: data.walletAddress.toLowerCase() }).returning();
+    return result;
+  }
+
+  async updateAirdropClaim(id: string, data: Partial<AirdropClaim>): Promise<void> {
+    await db.update(airdropClaims).set({ ...data, updatedAt: new Date() }).where(eq(airdropClaims.id, id));
+  }
+
+  async getAirdropStats(): Promise<{ totalEligible: number; totalClaimed: number; totalAmount: string; claimedAmount: string; }> {
+    const claims = await this.getAllAirdropClaims(10000);
+    const claimed = claims.filter(c => c.status === 'claimed');
+    const totalAmount = claims.reduce((sum, c) => sum + BigInt(c.claimableAmount || '0'), BigInt(0));
+    const claimedAmount = claimed.reduce((sum, c) => sum + BigInt(c.claimedAmount || '0'), BigInt(0));
+    return { totalEligible: claims.length, totalClaimed: claimed.length, totalAmount: totalAmount.toString(), claimedAmount: claimedAmount.toString() };
+  }
+
+  async getAllAirdropDistributions(): Promise<AirdropDistribution[]> {
+    return db.select().from(airdropDistributions).orderBy(desc(airdropDistributions.createdAt));
+  }
+
+  async getAirdropDistributionById(id: string): Promise<AirdropDistribution | undefined> {
+    const [dist] = await db.select().from(airdropDistributions).where(eq(airdropDistributions.id, id));
+    return dist;
+  }
+
+  async createAirdropDistribution(data: InsertAirdropDistribution): Promise<AirdropDistribution> {
+    const [result] = await db.insert(airdropDistributions).values({ ...data, id: `ad-${randomUUID()}` }).returning();
+    return result;
+  }
+
+  async updateAirdropDistribution(id: string, data: Partial<AirdropDistribution>): Promise<void> {
+    await db.update(airdropDistributions).set(data).where(eq(airdropDistributions.id, id));
+  }
+
+  async getAllReferralAccounts(limit: number = 100): Promise<ReferralAccount[]> {
+    return db.select().from(referralAccounts).orderBy(desc(referralAccounts.createdAt)).limit(limit);
+  }
+
+  async getReferralAccountByWallet(wallet: string): Promise<ReferralAccount | undefined> {
+    const [account] = await db.select().from(referralAccounts).where(eq(referralAccounts.walletAddress, wallet.toLowerCase()));
+    return account;
+  }
+
+  async getReferralAccountByCode(code: string): Promise<ReferralAccount | undefined> {
+    const [account] = await db.select().from(referralAccounts).where(eq(referralAccounts.referralCode, code));
+    return account;
+  }
+
+  async getReferralAccountById(id: string): Promise<ReferralAccount | undefined> {
+    const [account] = await db.select().from(referralAccounts).where(eq(referralAccounts.id, id));
+    return account;
+  }
+
+  async createReferralAccount(data: InsertReferralAccount): Promise<ReferralAccount> {
+    const [result] = await db.insert(referralAccounts).values({ ...data, id: `ra-${randomUUID()}`, walletAddress: data.walletAddress.toLowerCase() }).returning();
+    return result;
+  }
+
+  async updateReferralAccount(id: string, data: Partial<ReferralAccount>): Promise<void> {
+    await db.update(referralAccounts).set({ ...data, updatedAt: new Date() }).where(eq(referralAccounts.id, id));
+  }
+
+  async getReferralStats(): Promise<{ totalAccounts: number; totalReferrals: number; totalEarnings: string; activeReferrers: number; }> {
+    const accounts = await this.getAllReferralAccounts(10000);
+    const totalReferrals = accounts.reduce((sum, a) => sum + (a.totalReferrals || 0), 0);
+    const totalEarnings = accounts.reduce((sum, a) => sum + BigInt(a.totalEarned || '0'), BigInt(0));
+    const activeReferrers = accounts.filter(a => (a.activeReferrals || 0) > 0).length;
+    return { totalAccounts: accounts.length, totalReferrals, totalEarnings: totalEarnings.toString(), activeReferrers };
+  }
+
+  async getReferralRewards(referrerId: string, limit: number = 50): Promise<ReferralReward[]> {
+    return db.select().from(referralRewards).where(eq(referralRewards.referrerId, referrerId)).orderBy(desc(referralRewards.createdAt)).limit(limit);
+  }
+
+  async createReferralReward(data: InsertReferralReward): Promise<ReferralReward> {
+    const [result] = await db.insert(referralRewards).values({ ...data, id: `rr-${randomUUID()}` }).returning();
+    return result;
+  }
+
+  async updateReferralReward(id: string, data: Partial<ReferralReward>): Promise<void> {
+    await db.update(referralRewards).set(data).where(eq(referralRewards.id, id));
+  }
+
+  async getAllEvents(limit: number = 50): Promise<EventsCatalog[]> {
+    return db.select().from(eventsCatalog).orderBy(desc(eventsCatalog.startDate)).limit(limit);
+  }
+
+  async getActiveEvents(): Promise<EventsCatalog[]> {
+    return db.select().from(eventsCatalog).where(eq(eventsCatalog.status, 'active')).orderBy(desc(eventsCatalog.startDate));
+  }
+
+  async getEventById(id: string): Promise<EventsCatalog | undefined> {
+    const [event] = await db.select().from(eventsCatalog).where(eq(eventsCatalog.id, id));
+    return event;
+  }
+
+  async createEvent(data: InsertEventsCatalog): Promise<EventsCatalog> {
+    const [result] = await db.insert(eventsCatalog).values({ ...data, id: `ev-${randomUUID()}` }).returning();
+    return result;
+  }
+
+  async updateEvent(id: string, data: Partial<EventsCatalog>): Promise<void> {
+    await db.update(eventsCatalog).set({ ...data, updatedAt: new Date() }).where(eq(eventsCatalog.id, id));
+  }
+
+  async getEventsStats(): Promise<{ totalEvents: number; activeEvents: number; totalParticipants: number; totalRewardsDistributed: string; }> {
+    const events = await this.getAllEvents(1000);
+    const activeEvents = events.filter(e => e.status === 'active');
+    const totalParticipants = events.reduce((sum, e) => sum + (e.currentParticipants || 0), 0);
+    const totalRewardsDistributed = events.reduce((sum, e) => sum + BigInt(e.distributedRewards || '0'), BigInt(0));
+    return { totalEvents: events.length, activeEvents: activeEvents.length, totalParticipants, totalRewardsDistributed: totalRewardsDistributed.toString() };
+  }
+
+  async getEventRegistrations(eventId: string, limit: number = 100): Promise<EventRegistration[]> {
+    return db.select().from(eventRegistrations).where(eq(eventRegistrations.eventId, eventId)).orderBy(desc(eventRegistrations.registeredAt)).limit(limit);
+  }
+
+  async getEventRegistrationByWallet(eventId: string, wallet: string): Promise<EventRegistration | undefined> {
+    const [reg] = await db.select().from(eventRegistrations).where(and(eq(eventRegistrations.eventId, eventId), eq(eventRegistrations.walletAddress, wallet.toLowerCase())));
+    return reg;
+  }
+
+  async createEventRegistration(data: InsertEventRegistration): Promise<EventRegistration> {
+    const [result] = await db.insert(eventRegistrations).values({ ...data, id: `er-${randomUUID()}`, walletAddress: data.walletAddress.toLowerCase() }).returning();
+    return result;
+  }
+
+  async updateEventRegistration(id: string, data: Partial<EventRegistration>): Promise<void> {
+    await db.update(eventRegistrations).set({ ...data, updatedAt: new Date() }).where(eq(eventRegistrations.id, id));
+  }
+
+  async getAllCommunityTasks(limit: number = 50): Promise<CommunityTask[]> {
+    return db.select().from(communityTasks).orderBy(desc(communityTasks.createdAt)).limit(limit);
+  }
+
+  async getActiveCommunityTasks(): Promise<CommunityTask[]> {
+    return db.select().from(communityTasks).where(eq(communityTasks.isActive, true)).orderBy(desc(communityTasks.createdAt));
+  }
+
+  async getCommunityTaskById(id: string): Promise<CommunityTask | undefined> {
+    const [task] = await db.select().from(communityTasks).where(eq(communityTasks.id, id));
+    return task;
+  }
+
+  async createCommunityTask(data: InsertCommunityTask): Promise<CommunityTask> {
+    const [result] = await db.insert(communityTasks).values({ ...data, id: `ct-${randomUUID()}` }).returning();
+    return result;
+  }
+
+  async updateCommunityTask(id: string, data: Partial<CommunityTask>): Promise<void> {
+    await db.update(communityTasks).set({ ...data, updatedAt: new Date() }).where(eq(communityTasks.id, id));
+  }
+
+  async getCommunityContributions(taskId: string, limit: number = 100): Promise<CommunityContribution[]> {
+    return db.select().from(communityContributions).where(eq(communityContributions.taskId, taskId)).orderBy(desc(communityContributions.createdAt)).limit(limit);
+  }
+
+  async getCommunityContributionsByWallet(wallet: string): Promise<CommunityContribution[]> {
+    return db.select().from(communityContributions).where(eq(communityContributions.walletAddress, wallet.toLowerCase())).orderBy(desc(communityContributions.createdAt));
+  }
+
+  async createCommunityContribution(data: InsertCommunityContribution): Promise<CommunityContribution> {
+    const [result] = await db.insert(communityContributions).values({ ...data, id: `cc-${randomUUID()}`, walletAddress: data.walletAddress.toLowerCase() }).returning();
+    return result;
+  }
+
+  async updateCommunityContribution(id: string, data: Partial<CommunityContribution>): Promise<void> {
+    await db.update(communityContributions).set(data).where(eq(communityContributions.id, id));
+  }
+
+  async getCommunityStats(): Promise<{ totalTasks: number; activeTasks: number; totalContributions: number; totalPointsDistributed: number; }> {
+    const tasks = await this.getAllCommunityTasks(1000);
+    const activeTasks = tasks.filter(t => t.isActive);
+    const totalContributions = tasks.reduce((sum, t) => sum + (t.completionCount || 0), 0);
+    const totalPointsDistributed = tasks.reduce((sum, t) => sum + ((t.completionCount || 0) * (t.pointsReward || 0)), 0);
+    return { totalTasks: tasks.length, activeTasks: activeTasks.length, totalContributions, totalPointsDistributed };
+  }
+
+  async getCommunityBadgesByWallet(wallet: string): Promise<CommunityMemberBadge[]> {
+    return db.select().from(communityMemberBadges).where(eq(communityMemberBadges.walletAddress, wallet.toLowerCase())).orderBy(desc(communityMemberBadges.earnedAt));
+  }
+
+  async createCommunityBadge(data: InsertCommunityMemberBadge): Promise<CommunityMemberBadge> {
+    const [result] = await db.insert(communityMemberBadges).values({ ...data, id: `cb-${randomUUID()}`, walletAddress: data.walletAddress.toLowerCase() }).returning();
+    return result;
+  }
+
+  async getAllDaoProposals(limit: number = 50): Promise<DaoProposal[]> {
+    return db.select().from(daoProposals).orderBy(desc(daoProposals.createdAt)).limit(limit);
+  }
+
+  async getActiveDaoProposals(): Promise<DaoProposal[]> {
+    return db.select().from(daoProposals).where(eq(daoProposals.status, 'active')).orderBy(desc(daoProposals.createdAt));
+  }
+
+  async getDaoProposalById(id: string): Promise<DaoProposal | undefined> {
+    const [proposal] = await db.select().from(daoProposals).where(eq(daoProposals.id, id));
+    return proposal;
+  }
+
+  async getDaoProposalByNumber(proposalNumber: number): Promise<DaoProposal | undefined> {
+    const [proposal] = await db.select().from(daoProposals).where(eq(daoProposals.proposalNumber, proposalNumber));
+    return proposal;
+  }
+
+  async createDaoProposal(data: InsertDaoProposal): Promise<DaoProposal> {
+    const [result] = await db.insert(daoProposals).values({ ...data, id: `dp-${randomUUID()}`, proposerAddress: data.proposerAddress.toLowerCase() }).returning();
+    return result;
+  }
+
+  async updateDaoProposal(id: string, data: Partial<DaoProposal>): Promise<void> {
+    await db.update(daoProposals).set({ ...data, updatedAt: new Date() }).where(eq(daoProposals.id, id));
+  }
+
+  async getDaoStats(): Promise<{ totalProposals: number; activeProposals: number; passedProposals: number; totalVoters: number; }> {
+    const proposals = await this.getAllDaoProposals(1000);
+    const activeProposals = proposals.filter(p => p.status === 'active');
+    const passedProposals = proposals.filter(p => p.status === 'passed' || p.status === 'executed');
+    const totalVoters = proposals.reduce((sum, p) => sum + (p.totalVoters || 0), 0);
+    return { totalProposals: proposals.length, activeProposals: activeProposals.length, passedProposals: passedProposals.length, totalVoters };
+  }
+
+  async getDaoVotes(proposalId: string): Promise<DaoVote[]> {
+    return db.select().from(daoVotes).where(eq(daoVotes.proposalId, proposalId)).orderBy(desc(daoVotes.votedAt));
+  }
+
+  async getDaoVoteByVoter(proposalId: string, voterAddress: string): Promise<DaoVote | undefined> {
+    const [vote] = await db.select().from(daoVotes).where(and(eq(daoVotes.proposalId, proposalId), eq(daoVotes.voterAddress, voterAddress.toLowerCase())));
+    return vote;
+  }
+
+  async createDaoVote(data: InsertDaoVote): Promise<DaoVote> {
+    const [result] = await db.insert(daoVotes).values({ ...data, id: `dv-${randomUUID()}`, voterAddress: data.voterAddress.toLowerCase() }).returning();
+    return result;
+  }
+
+  async getDaoDelegations(delegatorAddress: string): Promise<DaoDelegation[]> {
+    return db.select().from(daoDelegations).where(eq(daoDelegations.delegatorAddress, delegatorAddress.toLowerCase())).orderBy(desc(daoDelegations.createdAt));
+  }
+
+  async getActiveDaoDelegation(delegatorAddress: string): Promise<DaoDelegation | undefined> {
+    const [delegation] = await db.select().from(daoDelegations).where(and(eq(daoDelegations.delegatorAddress, delegatorAddress.toLowerCase()), eq(daoDelegations.isActive, true)));
+    return delegation;
+  }
+
+  async createDaoDelegation(data: InsertDaoDelegation): Promise<DaoDelegation> {
+    const [result] = await db.insert(daoDelegations).values({ ...data, id: `dd-${randomUUID()}`, delegatorAddress: data.delegatorAddress.toLowerCase(), delegateAddress: data.delegateAddress.toLowerCase() }).returning();
+    return result;
+  }
+
+  async revokeDaoDelegation(id: string): Promise<void> {
+    await db.update(daoDelegations).set({ isActive: false, revokedAt: new Date() }).where(eq(daoDelegations.id, id));
+  }
+
+  async getAllBlockRewardCycles(limit: number = 50): Promise<BlockRewardCycle[]> {
+    return db.select().from(blockRewardCycles).orderBy(desc(blockRewardCycles.cycleNumber)).limit(limit);
+  }
+
+  async getActiveBlockRewardCycle(): Promise<BlockRewardCycle | undefined> {
+    const [cycle] = await db.select().from(blockRewardCycles).where(eq(blockRewardCycles.status, 'active')).orderBy(desc(blockRewardCycles.cycleNumber)).limit(1);
+    return cycle;
+  }
+
+  async getBlockRewardCycleById(id: string): Promise<BlockRewardCycle | undefined> {
+    const [cycle] = await db.select().from(blockRewardCycles).where(eq(blockRewardCycles.id, id));
+    return cycle;
+  }
+
+  async createBlockRewardCycle(data: InsertBlockRewardCycle): Promise<BlockRewardCycle> {
+    const [result] = await db.insert(blockRewardCycles).values({ ...data, id: `brc-${randomUUID()}` }).returning();
+    return result;
+  }
+
+  async updateBlockRewardCycle(id: string, data: Partial<BlockRewardCycle>): Promise<void> {
+    await db.update(blockRewardCycles).set(data).where(eq(blockRewardCycles.id, id));
+  }
+
+  async getBlockRewardStats(): Promise<{ totalCycles: number; totalRewards: string; totalGasFees: string; avgRewardPerCycle: string; }> {
+    const cycles = await this.getAllBlockRewardCycles(10000);
+    const totalRewards = cycles.reduce((sum, c) => sum + BigInt(c.totalBlockRewards || '0'), BigInt(0));
+    const totalGasFees = cycles.reduce((sum, c) => sum + BigInt(c.totalGasFees || '0'), BigInt(0));
+    const avgReward = cycles.length > 0 ? totalRewards / BigInt(cycles.length) : BigInt(0);
+    return { totalCycles: cycles.length, totalRewards: totalRewards.toString(), totalGasFees: totalGasFees.toString(), avgRewardPerCycle: avgReward.toString() };
+  }
+
+  async getBlockRewardPayouts(cycleId: string): Promise<BlockRewardPayout[]> {
+    return db.select().from(blockRewardPayouts).where(eq(blockRewardPayouts.cycleId, cycleId)).orderBy(desc(blockRewardPayouts.createdAt));
+  }
+
+  async getBlockRewardPayoutsByValidator(validatorAddress: string, limit: number = 50): Promise<BlockRewardPayout[]> {
+    return db.select().from(blockRewardPayouts).where(eq(blockRewardPayouts.validatorAddress, validatorAddress.toLowerCase())).orderBy(desc(blockRewardPayouts.createdAt)).limit(limit);
+  }
+
+  async createBlockRewardPayout(data: InsertBlockRewardPayout): Promise<BlockRewardPayout> {
+    const [result] = await db.insert(blockRewardPayouts).values({ ...data, id: `brp-${randomUUID()}`, validatorAddress: data.validatorAddress.toLowerCase() }).returning();
+    return result;
+  }
+
+  async updateBlockRewardPayout(id: string, data: Partial<BlockRewardPayout>): Promise<void> {
+    await db.update(blockRewardPayouts).set(data).where(eq(blockRewardPayouts.id, id));
+  }
+
+  async getAllValidatorIncentivePayouts(limit: number = 100): Promise<ValidatorIncentivePayout[]> {
+    return db.select().from(validatorIncentivePayouts).orderBy(desc(validatorIncentivePayouts.createdAt)).limit(limit);
+  }
+
+  async getValidatorIncentivePayoutsByValidator(validatorAddress: string): Promise<ValidatorIncentivePayout[]> {
+    return db.select().from(validatorIncentivePayouts).where(eq(validatorIncentivePayouts.validatorAddress, validatorAddress.toLowerCase())).orderBy(desc(validatorIncentivePayouts.createdAt));
+  }
+
+  async createValidatorIncentivePayout(data: InsertValidatorIncentivePayout): Promise<ValidatorIncentivePayout> {
+    const [result] = await db.insert(validatorIncentivePayouts).values({ ...data, id: `vip-${randomUUID()}`, validatorAddress: data.validatorAddress.toLowerCase() }).returning();
+    return result;
+  }
+
+  async updateValidatorIncentivePayout(id: string, data: Partial<ValidatorIncentivePayout>): Promise<void> {
+    await db.update(validatorIncentivePayouts).set(data).where(eq(validatorIncentivePayouts.id, id));
+  }
+
+  async getValidatorIncentiveStats(): Promise<{ totalPayouts: number; totalAmount: string; avgUptimePercent: number; topPerformers: number; }> {
+    const payouts = await this.getAllValidatorIncentivePayouts(10000);
+    const totalAmount = payouts.reduce((sum, p) => sum + BigInt(p.totalPayout || '0'), BigInt(0));
+    const avgUptime = payouts.length > 0 ? payouts.reduce((sum, p) => sum + (p.uptimePercent || 0), 0) / payouts.length : 100;
+    const topPerformers = payouts.filter(p => (p.performanceScore || 0) >= 95).length;
+    return { totalPayouts: payouts.length, totalAmount: totalAmount.toString(), avgUptimePercent: avgUptime, topPerformers };
+  }
+
+  async getValidatorPerformanceStats(validatorAddress: string, periodType?: string): Promise<ValidatorPerformanceStat[]> {
+    if (periodType) {
+      return db.select().from(validatorPerformanceStats).where(and(eq(validatorPerformanceStats.validatorAddress, validatorAddress.toLowerCase()), eq(validatorPerformanceStats.periodType, periodType))).orderBy(desc(validatorPerformanceStats.periodDate));
+    }
+    return db.select().from(validatorPerformanceStats).where(eq(validatorPerformanceStats.validatorAddress, validatorAddress.toLowerCase())).orderBy(desc(validatorPerformanceStats.periodDate));
+  }
+
+  async createValidatorPerformanceStat(data: InsertValidatorPerformanceStat): Promise<ValidatorPerformanceStat> {
+    const [result] = await db.insert(validatorPerformanceStats).values({ ...data, id: `vps-${randomUUID()}`, validatorAddress: data.validatorAddress.toLowerCase() }).returning();
+    return result;
+  }
+
+  async getAllEcosystemGrants(limit: number = 50): Promise<EcosystemGrant[]> {
+    return db.select().from(ecosystemGrants).orderBy(desc(ecosystemGrants.createdAt)).limit(limit);
+  }
+
+  async getEcosystemGrantsByStatus(status: string): Promise<EcosystemGrant[]> {
+    return db.select().from(ecosystemGrants).where(eq(ecosystemGrants.status, status)).orderBy(desc(ecosystemGrants.createdAt));
+  }
+
+  async getEcosystemGrantById(id: string): Promise<EcosystemGrant | undefined> {
+    const [grant] = await db.select().from(ecosystemGrants).where(eq(ecosystemGrants.id, id));
+    return grant;
+  }
+
+  async createEcosystemGrant(data: InsertEcosystemGrant): Promise<EcosystemGrant> {
+    const [result] = await db.insert(ecosystemGrants).values({ ...data, id: `eg-${randomUUID()}`, applicantAddress: data.applicantAddress.toLowerCase() }).returning();
+    return result;
+  }
+
+  async updateEcosystemGrant(id: string, data: Partial<EcosystemGrant>): Promise<void> {
+    await db.update(ecosystemGrants).set({ ...data, updatedAt: new Date() }).where(eq(ecosystemGrants.id, id));
+  }
+
+  async getEcosystemGrantStats(): Promise<{ totalGrants: number; activeGrants: number; totalRequested: string; totalDisbursed: string; }> {
+    const grants = await this.getAllEcosystemGrants(10000);
+    const activeGrants = grants.filter(g => g.status === 'active' || g.status === 'approved');
+    const totalRequested = grants.reduce((sum, g) => sum + BigInt(g.requestedAmount || '0'), BigInt(0));
+    const totalDisbursed = grants.reduce((sum, g) => sum + BigInt(g.disbursedAmount || '0'), BigInt(0));
+    return { totalGrants: grants.length, activeGrants: activeGrants.length, totalRequested: totalRequested.toString(), totalDisbursed: totalDisbursed.toString() };
+  }
+
+  async getGrantMilestones(grantId: string): Promise<GrantMilestone[]> {
+    return db.select().from(grantMilestones).where(eq(grantMilestones.grantId, grantId)).orderBy(grantMilestones.milestoneNumber);
+  }
+
+  async getGrantMilestoneById(id: string): Promise<GrantMilestone | undefined> {
+    const [milestone] = await db.select().from(grantMilestones).where(eq(grantMilestones.id, id));
+    return milestone;
+  }
+
+  async createGrantMilestone(data: InsertGrantMilestone): Promise<GrantMilestone> {
+    const [result] = await db.insert(grantMilestones).values({ ...data, id: `gm-${randomUUID()}` }).returning();
+    return result;
+  }
+
+  async updateGrantMilestone(id: string, data: Partial<GrantMilestone>): Promise<void> {
+    await db.update(grantMilestones).set(data).where(eq(grantMilestones.id, id));
   }
 }
 

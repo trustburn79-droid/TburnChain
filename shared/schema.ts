@@ -7351,3 +7351,792 @@ export const insertBugBountyReportSchema = createInsertSchema(bugBountyReports).
 
 export type BugBountyReport = typeof bugBountyReports.$inferSelect;
 export type InsertBugBountyReport = z.infer<typeof insertBugBountyReportSchema>;
+
+// ============================================
+// Token Distribution Programs (Admin Dashboard)
+// ============================================
+export const TOKEN_PROGRAM_STATUS = ["active", "upcoming", "completed", "paused", "cancelled"] as const;
+export const TOKEN_PROGRAM_TYPE = [
+  "airdrop", "referral", "events", "community", "dao_governance",
+  "block_rewards", "validator_incentives", "ecosystem_fund",
+  "partnership", "marketing", "strategic_partner", "advisor",
+  "seed_round", "private_round", "public_round", "launchpad",
+  "coinlist", "dao_maker"
+] as const;
+
+// Core Token Programs Table - Overview of all 18 programs
+export const tokenPrograms = pgTable("token_programs", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  
+  // Program Identity
+  programType: text("program_type").notNull(), // airdrop, referral, events, etc.
+  name: text("name").notNull(),
+  description: text("description"),
+  pageRoute: text("page_route").notNull(), // /airdrop, /referral, etc.
+  
+  // Status & Lifecycle
+  status: text("status").notNull().default("active"), // active, upcoming, completed, paused, cancelled
+  priority: integer("priority").notNull().default(1), // Display order
+  
+  // Allocation
+  totalAllocation: text("total_allocation").notNull().default("0"), // TBURN tokens
+  distributedAmount: text("distributed_amount").notNull().default("0"),
+  remainingAmount: text("remaining_amount").notNull().default("0"),
+  
+  // Participation Metrics
+  totalParticipants: integer("total_participants").notNull().default(0),
+  activeParticipants: integer("active_participants").notNull().default(0),
+  pendingClaims: integer("pending_claims").notNull().default(0),
+  
+  // Financial Metrics
+  totalValueUsd: numeric("total_value_usd").notNull().default("0"),
+  raisedAmountUsd: numeric("raised_amount_usd").notNull().default("0"), // For sale programs
+  targetAmountUsd: numeric("target_amount_usd").notNull().default("0"),
+  
+  // Progress
+  progressPercent: real("progress_percent").notNull().default(0),
+  
+  // Timeline
+  startDate: timestamp("start_date"),
+  endDate: timestamp("end_date"),
+  
+  // Configuration
+  config: jsonb("config").notNull().default({}), // Program-specific settings
+  
+  // Metadata
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
+// Program Snapshots - Cached metrics for dashboard (updated periodically)
+export const programSnapshots = pgTable("program_snapshots", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  programId: varchar("program_id").notNull(),
+  
+  // Snapshot Metrics
+  participantCount: integer("participant_count").notNull().default(0),
+  claimCount: integer("claim_count").notNull().default(0),
+  distributedAmount: text("distributed_amount").notNull().default("0"),
+  pendingAmount: text("pending_amount").notNull().default("0"),
+  
+  // Activity
+  dailyNewParticipants: integer("daily_new_participants").notNull().default(0),
+  dailyClaimsProcessed: integer("daily_claims_processed").notNull().default(0),
+  dailyDistributedAmount: text("daily_distributed_amount").notNull().default("0"),
+  
+  // Health Indicators
+  healthStatus: text("health_status").notNull().default("healthy"), // healthy, warning, critical
+  alertCount: integer("alert_count").notNull().default(0),
+  
+  snapshotDate: timestamp("snapshot_date").notNull().defaultNow(),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+// ============================================
+// Program 1: Airdrop Claims
+// ============================================
+export const AIRDROP_TIER = ["basic", "holder", "og", "whale", "legendary"] as const;
+export const AIRDROP_STATUS = ["eligible", "claimed", "expired", "processing", "failed"] as const;
+
+export const airdropClaims = pgTable("airdrop_claims", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  
+  // Claimant
+  walletAddress: text("wallet_address").notNull(),
+  
+  // Eligibility
+  tier: text("tier").notNull().default("basic"), // basic, holder, og, whale, legendary
+  eligibilityScore: integer("eligibility_score").notNull().default(0),
+  snapshotBlockNumber: bigint("snapshot_block_number", { mode: "number" }),
+  
+  // Claim Details
+  claimableAmount: text("claimable_amount").notNull().default("0"),
+  claimedAmount: text("claimed_amount").notNull().default("0"),
+  bonusAmount: text("bonus_amount").notNull().default("0"),
+  
+  // Status
+  status: text("status").notNull().default("eligible"), // eligible, claimed, expired, processing, failed
+  
+  // Verification
+  merkleProof: text("merkle_proof"),
+  signature: text("signature"),
+  verifiedAt: timestamp("verified_at"),
+  
+  // Claim Transaction
+  claimTxHash: text("claim_tx_hash"),
+  claimBlockNumber: bigint("claim_block_number", { mode: "number" }),
+  claimedAt: timestamp("claimed_at"),
+  
+  // Vesting (if applicable)
+  vestingScheduleId: varchar("vesting_schedule_id"),
+  vestingStartDate: timestamp("vesting_start_date"),
+  vestingEndDate: timestamp("vesting_end_date"),
+  
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
+export const airdropDistributions = pgTable("airdrop_distributions", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  
+  // Batch Info
+  batchNumber: integer("batch_number").notNull(),
+  batchName: text("batch_name"),
+  
+  // Distribution Details
+  totalRecipients: integer("total_recipients").notNull().default(0),
+  totalAmount: text("total_amount").notNull().default("0"),
+  processedCount: integer("processed_count").notNull().default(0),
+  failedCount: integer("failed_count").notNull().default(0),
+  
+  // Status
+  status: text("status").notNull().default("pending"), // pending, processing, completed, failed
+  
+  // Execution
+  executedBy: varchar("executed_by"),
+  executionTxHash: text("execution_tx_hash"),
+  
+  startedAt: timestamp("started_at"),
+  completedAt: timestamp("completed_at"),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+// ============================================
+// Program 2: Referral System
+// ============================================
+export const REFERRAL_TIER = ["bronze", "silver", "gold", "platinum", "diamond"] as const;
+
+export const referralAccounts = pgTable("referral_accounts", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  
+  // Account Owner
+  walletAddress: text("wallet_address").notNull().unique(),
+  memberId: varchar("member_id"),
+  
+  // Referral Code
+  referralCode: text("referral_code").notNull().unique(),
+  referredBy: varchar("referred_by"), // referralAccounts.id of referrer
+  
+  // Tier & Stats
+  tier: text("tier").notNull().default("bronze"), // bronze, silver, gold, platinum, diamond
+  totalReferrals: integer("total_referrals").notNull().default(0),
+  activeReferrals: integer("active_referrals").notNull().default(0),
+  conversionRate: real("conversion_rate").notNull().default(0),
+  
+  // Earnings
+  totalEarned: text("total_earned").notNull().default("0"),
+  pendingRewards: text("pending_rewards").notNull().default("0"),
+  claimedRewards: text("claimed_rewards").notNull().default("0"),
+  lifetimeVolume: text("lifetime_volume").notNull().default("0"),
+  
+  // Commission Rates
+  directCommissionRate: real("direct_commission_rate").notNull().default(10), // Percentage
+  indirectCommissionRate: real("indirect_commission_rate").notNull().default(2),
+  
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
+export const referralRewards = pgTable("referral_rewards", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  
+  // Participants
+  referrerId: varchar("referrer_id").notNull(),
+  referredId: varchar("referred_id").notNull(),
+  
+  // Reward Details
+  rewardType: text("reward_type").notNull(), // signup, transaction, milestone
+  rewardAmount: text("reward_amount").notNull().default("0"),
+  bonusAmount: text("bonus_amount").notNull().default("0"),
+  
+  // Source Transaction (if applicable)
+  sourceTxHash: text("source_tx_hash"),
+  sourceAmount: text("source_amount"),
+  commissionRate: real("commission_rate"),
+  
+  // Status
+  status: text("status").notNull().default("pending"), // pending, approved, paid, rejected
+  
+  // Payment
+  payoutTxHash: text("payout_tx_hash"),
+  paidAt: timestamp("paid_at"),
+  
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+// ============================================
+// Program 3: Events System
+// ============================================
+export const EVENT_TYPE = ["airdrop", "trading_competition", "staking_bonus", "community", "ama", "hackathon"] as const;
+export const EVENT_STATUS = ["upcoming", "active", "ended", "cancelled"] as const;
+
+export const eventsCatalog = pgTable("events_catalog", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  
+  // Event Details
+  eventType: text("event_type").notNull(), // airdrop, trading_competition, staking_bonus, community, ama, hackathon
+  name: text("name").notNull(),
+  description: text("description"),
+  bannerUrl: text("banner_url"),
+  
+  // Status & Timeline
+  status: text("status").notNull().default("upcoming"), // upcoming, active, ended, cancelled
+  startDate: timestamp("start_date").notNull(),
+  endDate: timestamp("end_date").notNull(),
+  registrationDeadline: timestamp("registration_deadline"),
+  
+  // Participation
+  maxParticipants: integer("max_participants"),
+  currentParticipants: integer("current_participants").notNull().default(0),
+  
+  // Rewards
+  totalRewardPool: text("total_reward_pool").notNull().default("0"),
+  distributedRewards: text("distributed_rewards").notNull().default("0"),
+  rewardStructure: jsonb("reward_structure").notNull().default({}), // Prize distribution
+  
+  // Requirements
+  requirements: jsonb("requirements").notNull().default({}), // Eligibility criteria
+  
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
+export const eventRegistrations = pgTable("event_registrations", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  
+  eventId: varchar("event_id").notNull(),
+  walletAddress: text("wallet_address").notNull(),
+  memberId: varchar("member_id"),
+  
+  // Participation
+  registeredAt: timestamp("registered_at").notNull().defaultNow(),
+  completedTasks: jsonb("completed_tasks").notNull().default([]),
+  score: integer("score").notNull().default(0),
+  rank: integer("rank"),
+  
+  // Reward
+  rewardAmount: text("reward_amount").notNull().default("0"),
+  rewardClaimed: boolean("reward_claimed").notNull().default(false),
+  rewardClaimTxHash: text("reward_claim_tx_hash"),
+  
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
+// ============================================
+// Program 4: Community Program
+// ============================================
+export const TASK_TYPE = ["social", "content", "development", "ambassador", "testing", "feedback"] as const;
+export const BADGE_RARITY = ["common", "uncommon", "rare", "epic", "legendary"] as const;
+
+export const communityTasks = pgTable("community_tasks", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  
+  // Task Details
+  taskType: text("task_type").notNull(), // social, content, development, ambassador, testing, feedback
+  name: text("name").notNull(),
+  description: text("description"),
+  
+  // Requirements & Rewards
+  pointsReward: integer("points_reward").notNull().default(0),
+  tokenReward: text("token_reward").notNull().default("0"),
+  requirements: jsonb("requirements").notNull().default({}),
+  
+  // Limits
+  maxCompletions: integer("max_completions"),
+  completionCount: integer("completion_count").notNull().default(0),
+  dailyLimit: integer("daily_limit"),
+  
+  // Status
+  isActive: boolean("is_active").notNull().default(true),
+  startDate: timestamp("start_date"),
+  endDate: timestamp("end_date"),
+  
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
+export const communityContributions = pgTable("community_contributions", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  
+  // Contributor
+  walletAddress: text("wallet_address").notNull(),
+  memberId: varchar("member_id"),
+  
+  // Task
+  taskId: varchar("task_id").notNull(),
+  
+  // Submission
+  submissionProof: text("submission_proof"),
+  submissionData: jsonb("submission_data").notNull().default({}),
+  
+  // Status
+  status: text("status").notNull().default("pending"), // pending, approved, rejected
+  
+  // Rewards
+  pointsEarned: integer("points_earned").notNull().default(0),
+  tokensEarned: text("tokens_earned").notNull().default("0"),
+  
+  reviewedBy: varchar("reviewed_by"),
+  reviewedAt: timestamp("reviewed_at"),
+  
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+export const communityMemberBadges = pgTable("community_member_badges", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  
+  walletAddress: text("wallet_address").notNull(),
+  
+  // Badge Details
+  badgeName: text("badge_name").notNull(),
+  badgeDescription: text("badge_description"),
+  badgeImageUrl: text("badge_image_url"),
+  rarity: text("rarity").notNull().default("common"), // common, uncommon, rare, epic, legendary
+  
+  // Achievement
+  earnedReason: text("earned_reason"),
+  achievementData: jsonb("achievement_data").notNull().default({}),
+  
+  earnedAt: timestamp("earned_at").notNull().defaultNow(),
+});
+
+// ============================================
+// Program 5: DAO Governance
+// ============================================
+export const PROPOSAL_STATUS = ["draft", "active", "passed", "rejected", "executed", "cancelled"] as const;
+export const VOTE_CHOICE = ["for", "against", "abstain"] as const;
+
+export const daoProposals = pgTable("dao_proposals", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  
+  // Proposal Details
+  proposalNumber: integer("proposal_number").notNull().unique(),
+  title: text("title").notNull(),
+  description: text("description").notNull(),
+  category: text("category").notNull(), // governance, treasury, technical, community
+  
+  // Proposer
+  proposerAddress: text("proposer_address").notNull(),
+  proposerPower: text("proposer_power").notNull().default("0"),
+  
+  // Status & Timeline
+  status: text("status").notNull().default("draft"), // draft, active, passed, rejected, executed, cancelled
+  votingStartDate: timestamp("voting_start_date"),
+  votingEndDate: timestamp("voting_end_date"),
+  executionDate: timestamp("execution_date"),
+  
+  // Voting Results
+  forVotes: text("for_votes").notNull().default("0"),
+  againstVotes: text("against_votes").notNull().default("0"),
+  abstainVotes: text("abstain_votes").notNull().default("0"),
+  totalVoters: integer("total_voters").notNull().default(0),
+  quorumRequired: text("quorum_required").notNull().default("0"),
+  passThreshold: real("pass_threshold").notNull().default(50), // Percentage
+  
+  // Execution
+  executionPayload: jsonb("execution_payload").notNull().default({}),
+  executedTxHash: text("executed_tx_hash"),
+  
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
+export const daoVotes = pgTable("dao_votes", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  
+  proposalId: varchar("proposal_id").notNull(),
+  voterAddress: text("voter_address").notNull(),
+  
+  // Vote Details
+  choice: text("choice").notNull(), // for, against, abstain
+  votePower: text("vote_power").notNull().default("0"),
+  
+  // Delegation (if applicable)
+  delegatedFrom: text("delegated_from"),
+  
+  // Proof
+  signature: text("signature"),
+  txHash: text("tx_hash"),
+  
+  votedAt: timestamp("voted_at").notNull().defaultNow(),
+});
+
+export const daoDelegations = pgTable("dao_delegations", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  
+  delegatorAddress: text("delegator_address").notNull(),
+  delegateAddress: text("delegate_address").notNull(),
+  
+  // Delegation Amount
+  delegatedPower: text("delegated_power").notNull().default("0"),
+  
+  // Status
+  isActive: boolean("is_active").notNull().default(true),
+  
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  revokedAt: timestamp("revoked_at"),
+});
+
+// ============================================
+// Program 6: Block Rewards
+// ============================================
+export const blockRewardCycles = pgTable("block_reward_cycles", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  
+  // Cycle Info
+  cycleNumber: integer("cycle_number").notNull().unique(),
+  epochNumber: integer("epoch_number").notNull(),
+  
+  // Block Range
+  startBlockNumber: bigint("start_block_number", { mode: "number" }).notNull(),
+  endBlockNumber: bigint("end_block_number", { mode: "number" }),
+  
+  // Rewards
+  totalBlockRewards: text("total_block_rewards").notNull().default("0"),
+  totalGasFees: text("total_gas_fees").notNull().default("0"),
+  proposerRewards: text("proposer_rewards").notNull().default("0"),
+  verifierRewards: text("verifier_rewards").notNull().default("0"),
+  
+  // Statistics
+  blocksProduced: integer("blocks_produced").notNull().default(0),
+  transactionsProcessed: integer("transactions_processed").notNull().default(0),
+  
+  // Status
+  status: text("status").notNull().default("active"), // active, completed, distributing
+  distributionStatus: text("distribution_status").notNull().default("pending"), // pending, processing, completed
+  
+  startedAt: timestamp("started_at").notNull().defaultNow(),
+  completedAt: timestamp("completed_at"),
+});
+
+export const blockRewardPayouts = pgTable("block_reward_payouts", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  
+  cycleId: varchar("cycle_id").notNull(),
+  validatorAddress: text("validator_address").notNull(),
+  
+  // Payout Details
+  rewardType: text("reward_type").notNull(), // proposer, verifier, gas_fee
+  blockNumber: bigint("block_number", { mode: "number" }),
+  
+  rewardAmount: text("reward_amount").notNull().default("0"),
+  gasFeeShare: text("gas_fee_share").notNull().default("0"),
+  
+  // Status
+  status: text("status").notNull().default("pending"), // pending, distributed, failed
+  distributionTxHash: text("distribution_tx_hash"),
+  
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  distributedAt: timestamp("distributed_at"),
+});
+
+// ============================================
+// Program 7: Validator Incentives
+// ============================================
+export const validatorIncentivePayouts = pgTable("validator_incentive_payouts", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  
+  validatorAddress: text("validator_address").notNull(),
+  
+  // Incentive Details
+  incentiveType: text("incentive_type").notNull(), // uptime_bonus, performance_bonus, early_adopter, loyalty
+  periodStart: timestamp("period_start").notNull(),
+  periodEnd: timestamp("period_end").notNull(),
+  
+  // Performance Metrics
+  uptimePercent: real("uptime_percent").notNull().default(100),
+  blocksProposed: integer("blocks_proposed").notNull().default(0),
+  blocksVerified: integer("blocks_verified").notNull().default(0),
+  performanceScore: real("performance_score").notNull().default(0),
+  
+  // Payout
+  baseReward: text("base_reward").notNull().default("0"),
+  bonusMultiplier: real("bonus_multiplier").notNull().default(1),
+  totalPayout: text("total_payout").notNull().default("0"),
+  
+  // Status
+  status: text("status").notNull().default("pending"), // pending, approved, distributed, rejected
+  
+  approvedBy: varchar("approved_by"),
+  distributionTxHash: text("distribution_tx_hash"),
+  
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  distributedAt: timestamp("distributed_at"),
+});
+
+export const validatorPerformanceStats = pgTable("validator_performance_stats", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  
+  validatorAddress: text("validator_address").notNull(),
+  
+  // Period
+  periodType: text("period_type").notNull(), // hourly, daily, weekly, monthly
+  periodDate: timestamp("period_date").notNull(),
+  
+  // Performance
+  uptimePercent: real("uptime_percent").notNull().default(100),
+  responseTimeMs: integer("response_time_ms").notNull().default(0),
+  blocksProposed: integer("blocks_proposed").notNull().default(0),
+  blocksVerified: integer("blocks_verified").notNull().default(0),
+  slashingEvents: integer("slashing_events").notNull().default(0),
+  
+  // Earnings
+  totalRewards: text("total_rewards").notNull().default("0"),
+  delegatorRewards: text("delegator_rewards").notNull().default("0"),
+  
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+// ============================================
+// Program 8: Ecosystem Fund
+// ============================================
+export const GRANT_STATUS = ["draft", "submitted", "reviewing", "approved", "rejected", "active", "completed", "cancelled"] as const;
+export const GRANT_CATEGORY = ["infrastructure", "defi", "nft", "gaming", "tooling", "research", "community", "other"] as const;
+
+export const ecosystemGrants = pgTable("ecosystem_grants", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  
+  // Applicant
+  applicantAddress: text("applicant_address").notNull(),
+  applicantName: text("applicant_name").notNull(),
+  applicantEmail: text("applicant_email"),
+  teamSize: integer("team_size").notNull().default(1),
+  
+  // Project Details
+  projectName: text("project_name").notNull(),
+  projectDescription: text("project_description").notNull(),
+  category: text("category").notNull(), // infrastructure, defi, nft, gaming, tooling, research, community
+  
+  // Funding
+  requestedAmount: text("requested_amount").notNull().default("0"),
+  approvedAmount: text("approved_amount").notNull().default("0"),
+  disbursedAmount: text("disbursed_amount").notNull().default("0"),
+  
+  // Status
+  status: text("status").notNull().default("draft"), // draft, submitted, reviewing, approved, rejected, active, completed, cancelled
+  
+  // Timeline
+  proposedStartDate: timestamp("proposed_start_date"),
+  proposedEndDate: timestamp("proposed_end_date"),
+  actualStartDate: timestamp("actual_start_date"),
+  actualEndDate: timestamp("actual_end_date"),
+  
+  // Documentation
+  proposalUrl: text("proposal_url"),
+  repositoryUrl: text("repository_url"),
+  websiteUrl: text("website_url"),
+  
+  // Review
+  reviewedBy: varchar("reviewed_by"),
+  reviewNotes: text("review_notes"),
+  
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
+export const grantMilestones = pgTable("grant_milestones", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  
+  grantId: varchar("grant_id").notNull(),
+  
+  // Milestone Details
+  milestoneNumber: integer("milestone_number").notNull(),
+  title: text("title").notNull(),
+  description: text("description"),
+  
+  // Deliverables
+  deliverables: jsonb("deliverables").notNull().default([]),
+  evidenceUrl: text("evidence_url"),
+  
+  // Payment
+  paymentAmount: text("payment_amount").notNull().default("0"),
+  paymentPercent: real("payment_percent").notNull().default(0),
+  
+  // Status
+  status: text("status").notNull().default("pending"), // pending, in_progress, submitted, approved, rejected
+  dueDate: timestamp("due_date"),
+  submittedAt: timestamp("submitted_at"),
+  approvedAt: timestamp("approved_at"),
+  
+  // Review
+  reviewedBy: varchar("reviewed_by"),
+  reviewNotes: text("review_notes"),
+  
+  // Payment
+  paymentTxHash: text("payment_tx_hash"),
+  paidAt: timestamp("paid_at"),
+  
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+// ============================================
+// Insert Schemas for Token Programs
+// ============================================
+export const insertTokenProgramSchema = createInsertSchema(tokenPrograms).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertProgramSnapshotSchema = createInsertSchema(programSnapshots).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertAirdropClaimSchema = createInsertSchema(airdropClaims).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertAirdropDistributionSchema = createInsertSchema(airdropDistributions).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertReferralAccountSchema = createInsertSchema(referralAccounts).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertReferralRewardSchema = createInsertSchema(referralRewards).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertEventsCatalogSchema = createInsertSchema(eventsCatalog).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertEventRegistrationSchema = createInsertSchema(eventRegistrations).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertCommunityTaskSchema = createInsertSchema(communityTasks).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertCommunityContributionSchema = createInsertSchema(communityContributions).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertCommunityMemberBadgeSchema = createInsertSchema(communityMemberBadges).omit({
+  id: true,
+});
+
+export const insertDaoProposalSchema = createInsertSchema(daoProposals).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertDaoVoteSchema = createInsertSchema(daoVotes).omit({
+  id: true,
+});
+
+export const insertDaoDelegationSchema = createInsertSchema(daoDelegations).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertBlockRewardCycleSchema = createInsertSchema(blockRewardCycles).omit({
+  id: true,
+});
+
+export const insertBlockRewardPayoutSchema = createInsertSchema(blockRewardPayouts).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertValidatorIncentivePayoutSchema = createInsertSchema(validatorIncentivePayouts).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertValidatorPerformanceStatSchema = createInsertSchema(validatorPerformanceStats).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertEcosystemGrantSchema = createInsertSchema(ecosystemGrants).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertGrantMilestoneSchema = createInsertSchema(grantMilestones).omit({
+  id: true,
+  createdAt: true,
+});
+
+// ============================================
+// Types for Token Programs
+// ============================================
+export type TokenProgram = typeof tokenPrograms.$inferSelect;
+export type InsertTokenProgram = z.infer<typeof insertTokenProgramSchema>;
+
+export type ProgramSnapshot = typeof programSnapshots.$inferSelect;
+export type InsertProgramSnapshot = z.infer<typeof insertProgramSnapshotSchema>;
+
+export type AirdropClaim = typeof airdropClaims.$inferSelect;
+export type InsertAirdropClaim = z.infer<typeof insertAirdropClaimSchema>;
+
+export type AirdropDistribution = typeof airdropDistributions.$inferSelect;
+export type InsertAirdropDistribution = z.infer<typeof insertAirdropDistributionSchema>;
+
+export type ReferralAccount = typeof referralAccounts.$inferSelect;
+export type InsertReferralAccount = z.infer<typeof insertReferralAccountSchema>;
+
+export type ReferralReward = typeof referralRewards.$inferSelect;
+export type InsertReferralReward = z.infer<typeof insertReferralRewardSchema>;
+
+export type EventsCatalog = typeof eventsCatalog.$inferSelect;
+export type InsertEventsCatalog = z.infer<typeof insertEventsCatalogSchema>;
+
+export type EventRegistration = typeof eventRegistrations.$inferSelect;
+export type InsertEventRegistration = z.infer<typeof insertEventRegistrationSchema>;
+
+export type CommunityTask = typeof communityTasks.$inferSelect;
+export type InsertCommunityTask = z.infer<typeof insertCommunityTaskSchema>;
+
+export type CommunityContribution = typeof communityContributions.$inferSelect;
+export type InsertCommunityContribution = z.infer<typeof insertCommunityContributionSchema>;
+
+export type CommunityMemberBadge = typeof communityMemberBadges.$inferSelect;
+export type InsertCommunityMemberBadge = z.infer<typeof insertCommunityMemberBadgeSchema>;
+
+export type DaoProposal = typeof daoProposals.$inferSelect;
+export type InsertDaoProposal = z.infer<typeof insertDaoProposalSchema>;
+
+export type DaoVote = typeof daoVotes.$inferSelect;
+export type InsertDaoVote = z.infer<typeof insertDaoVoteSchema>;
+
+export type DaoDelegation = typeof daoDelegations.$inferSelect;
+export type InsertDaoDelegation = z.infer<typeof insertDaoDelegationSchema>;
+
+export type BlockRewardCycle = typeof blockRewardCycles.$inferSelect;
+export type InsertBlockRewardCycle = z.infer<typeof insertBlockRewardCycleSchema>;
+
+export type BlockRewardPayout = typeof blockRewardPayouts.$inferSelect;
+export type InsertBlockRewardPayout = z.infer<typeof insertBlockRewardPayoutSchema>;
+
+export type ValidatorIncentivePayout = typeof validatorIncentivePayouts.$inferSelect;
+export type InsertValidatorIncentivePayout = z.infer<typeof insertValidatorIncentivePayoutSchema>;
+
+export type ValidatorPerformanceStat = typeof validatorPerformanceStats.$inferSelect;
+export type InsertValidatorPerformanceStat = z.infer<typeof insertValidatorPerformanceStatSchema>;
+
+export type EcosystemGrant = typeof ecosystemGrants.$inferSelect;
+export type InsertEcosystemGrant = z.infer<typeof insertEcosystemGrantSchema>;
+
+export type GrantMilestone = typeof grantMilestones.$inferSelect;
+export type InsertGrantMilestone = z.infer<typeof insertGrantMilestoneSchema>;
