@@ -155,6 +155,11 @@ export function PublicRouter() {
     );
   }
   
+  if (location === "/vc") {
+    window.location.href = "/validator";
+    return null;
+  }
+  
   return (
     <ErrorBoundary>
       <PublicLayout>
