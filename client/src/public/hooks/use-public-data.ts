@@ -1,4 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
+import { useState, useEffect } from "react";
 
 export interface NetworkStats {
   id: string;
@@ -220,14 +221,78 @@ export function useLaunchpadSummary() {
   });
 }
 
-export function usePublicNetworkStats() {
-  return useQuery<PublicNetworkStats>({
+// Placeholder data to show while API is not yet called
+const PLACEHOLDER_NETWORK_STATS: PublicNetworkStats = {
+  success: true,
+  data: {
+    blockHeight: 1900000,
+    tps: 210000,
+    avgBlockTime: 100,
+    totalTransactions: 56300000,
+    pendingTransactions: 0,
+    activeValidators: 125,
+    totalValidators: 125,
+    networkHashrate: "0",
+    difficulty: "0",
+    gasPrice: "0.001",
+    totalStaked: "125000000",
+    totalBurned: "0",
+    circulatingSupply: "4500000000",
+    marketCap: "0",
+    dexTvl: "0",
+    lendingTvl: "0",
+    stakingTvl: "125000000",
+    finality: "6",
+    shardCount: 64,
+    nodeCount: 125,
+    uptime: "99.99%",
+    lastUpdated: Date.now(),
+  }
+};
+
+// Hook to defer data fetching until after initial page render
+function useDeferredEnabled(delayMs: number = 3000): boolean {
+  const [enabled, setEnabled] = useState(false);
+  
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setEnabled(true);
+    }, delayMs);
+    
+    return () => clearTimeout(timer);
+  }, [delayMs]);
+  
+  return enabled;
+}
+
+export function usePublicNetworkStats(options?: { deferFetch?: boolean; deferMs?: number }) {
+  // Defer fetching by default on initial page load (3 seconds)
+  // This allows the page to render instantly before API calls block
+  const deferFetch = options?.deferFetch ?? true;
+  const deferMs = options?.deferMs ?? 3000;
+  const deferredEnabled = useDeferredEnabled(deferMs);
+  
+  const query = useQuery<PublicNetworkStats>({
     queryKey: ["/api/public/v1/network/stats"],
     refetchInterval: 30000, // Match backend cache TTL for consistent display
     staleTime: 30000, // 30s staleTime ensures consistent values across pages
     refetchOnMount: false, // Use cached value when navigating between pages
     refetchOnWindowFocus: false,
+    // Only fetch after defer period if deferFetch is enabled
+    enabled: deferFetch ? deferredEnabled : true,
   });
+  
+  // Return placeholder data while deferred and no real data yet
+  if (deferFetch && !deferredEnabled && !query.data) {
+    return {
+      ...query,
+      data: PLACEHOLDER_NETWORK_STATS,
+      isLoading: false,
+      isPending: false,
+    };
+  }
+  
+  return query;
 }
 
 export function usePublicDefiSummary() {
