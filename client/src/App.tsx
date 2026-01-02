@@ -20,7 +20,8 @@ import { LanguageSelector } from "@/components/language-selector";
 import { ProfileBadge } from "@/components/profile-badge";
 import { ErrorBoundary } from "@/components/error-boundary";
 import { Button } from "@/components/ui/button";
-import { Loader2, CheckCircle2, Home, ScanLine, User, HelpCircle, Bug, Coins, Shield, ImageIcon } from "lucide-react";
+import { CheckCircle2, Home, ScanLine, User, HelpCircle, Bug, Coins, Shield, ImageIcon } from "lucide-react";
+import { PageLoader } from "@/components/tburn-loader";
 import { Link } from "wouter";
 import { useTranslation } from "react-i18next";
 // i18n is loaded dynamically in main.tsx
@@ -106,11 +107,7 @@ const GoogleVerify = lazy(() => import("@/pages/google-verify"));
 const AdminPortalLayout = lazy(() => import("@/components/admin-portal-layout").then(m => ({ default: m.AdminPortalLayout })));
 
 function PageLoading() {
-  return (
-    <div className="flex items-center justify-center min-h-[400px]">
-      <Loader2 className="h-8 w-8 animate-spin text-primary" />
-    </div>
-  );
+  return <PageLoader />;
 }
 
 function ProtectedOperatorDashboard() {

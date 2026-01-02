@@ -6,14 +6,14 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { ErrorBoundary } from "@/components/error-boundary";
 import { Web3Provider } from "@/lib/web3-context";
 import { lazy, Suspense } from "react";
-import { Loader2 } from "lucide-react";
+import { TBurnLoader } from "@/components/tburn-loader";
 
 const PublicRouter = lazy(() => import("./public/PublicRouter").then(m => ({ default: m.PublicRouter })));
 
 function PublicLoading() {
   return (
     <div className="flex items-center justify-center min-h-screen bg-background">
-      <Loader2 className="h-8 w-8 animate-spin text-primary" />
+      <TBurnLoader size="lg" />
     </div>
   );
 }

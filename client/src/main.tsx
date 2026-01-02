@@ -169,14 +169,29 @@ async function safeInitApp() {
     window.__TBURN_APP_ROOT__ = undefined;
   }
   
-  // Show loading indicator while App loads
+  // Show TBURN branded loading indicator while App loads
   rootElement.innerHTML = `
     <div style="display:flex;align-items:center;justify-content:center;height:100vh;background:#030407;">
       <div style="text-align:center;">
-        <div style="width:48px;height:48px;border:3px solid #333;border-top-color:#06b6d4;border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 16px;"></div>
-        <p style="color:#666;font-family:sans-serif;font-size:14px;">Loading...</p>
+        <svg viewBox="0 0 100 100" style="width:64px;height:64px;animation:tburn-spin 2s linear infinite;margin:0 auto 16px;">
+          <defs>
+            <linearGradient id="flameGrad" x1="50%" y1="100%" x2="50%" y2="0%">
+              <stop offset="0%" stop-color="#FF6B35"/>
+              <stop offset="50%" stop-color="#F7931E"/>
+              <stop offset="100%" stop-color="#FFD700"/>
+            </linearGradient>
+            <linearGradient id="glowGrad" x1="50%" y1="100%" x2="50%" y2="0%">
+              <stop offset="0%" stop-color="#FF4500" stop-opacity="0.8"/>
+              <stop offset="100%" stop-color="#FFD700" stop-opacity="0.2"/>
+            </linearGradient>
+          </defs>
+          <circle cx="50" cy="50" r="45" fill="url(#glowGrad)" opacity="0.3"/>
+          <circle cx="50" cy="50" r="40" stroke="url(#flameGrad)" stroke-width="2" fill="none"/>
+          <path d="M50 20 C35 35, 25 50, 30 65 C35 80, 45 85, 50 85 C55 85, 65 80, 70 65 C75 50, 65 35, 50 20" fill="url(#flameGrad)"/>
+          <path d="M50 35 C42 45, 38 55, 42 65 C45 72, 48 75, 50 75 C52 75, 55 72, 58 65 C62 55, 58 45, 50 35" fill="#FFD700" opacity="0.8"/>
+        </svg>
       </div>
-      <style>@keyframes spin{to{transform:rotate(360deg)}}</style>
+      <style>@keyframes tburn-spin{to{transform:rotate(360deg)}}</style>
     </div>
   `;
   
