@@ -129,6 +129,7 @@ const AdvisorProgramPage = lazy(() => import("@/pages/advisor-program"));
 const SeedRoundPage = lazy(() => import("@/pages/seed-round"));
 const PrivateRoundPage = lazy(() => import("@/pages/private-round"));
 const PublicRoundPage = lazy(() => import("@/pages/public-round"));
+const LaunchpadPage = lazy(() => import("@/pages/launchpad"));
 
 function LoginPage() {
   const handleLoginSuccess = () => {
@@ -315,6 +316,16 @@ export function PublicRouter() {
       <ErrorBoundary>
         <Suspense fallback={<PageLoading />}>
           <PublicRoundPage />
+        </Suspense>
+      </ErrorBoundary>
+    );
+  }
+  
+  if (location === "/launchpad") {
+    return (
+      <ErrorBoundary>
+        <Suspense fallback={<PageLoading />}>
+          <LaunchpadPage />
         </Suspense>
       </ErrorBoundary>
     );
