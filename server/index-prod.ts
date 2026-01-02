@@ -188,10 +188,15 @@ const port = parseInt(process.env.PORT || '5000', 10);
 
 server.listen({ port, host: "0.0.0.0" }, () => {
   console.log(`[Production] ✅ Server listening on port ${port} (static files ready)`);
-  console.log(`[Production] ⏳ Initializing API services in background...`);
+  console.log(`[Production] ⏳ Heavy services will start in 5 seconds...`);
   
-  // PHASE 4: Initialize heavy services AFTER server is listening
-  initializeBackendServices();
+  // CRITICAL: Delay heavy initialization by 5 seconds
+  // This ensures the server can respond to health checks and static file requests
+  // BEFORE the event loop gets blocked by blockchain service initialization
+  setTimeout(() => {
+    console.log(`[Production] ⏳ Starting heavy service initialization now...`);
+    initializeBackendServices();
+  }, 5000);
 });
 
 // ============================================
