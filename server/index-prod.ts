@@ -34,14 +34,13 @@ app.get("/health", (_req, res) => {
 });
 
 // ============================================
-// CRITICAL: Serve static landing page at / IMMEDIATELY
-// This bypasses React entirely for instant first load
+// Serve React app at / (optimized with static values, no API blocking)
 // ============================================
 app.get("/", (_req, res) => {
-  const staticLandingPath = path.resolve(process.cwd(), 'public', 'index.html');
-  res.setHeader('Content-Type', 'text/html; charset=utf-8');
-  res.setHeader('Cache-Control', 'public, max-age=300, stale-while-revalidate=600');
-  res.sendFile(staticLandingPath);
+  res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+  res.setHeader('Pragma', 'no-cache');
+  res.setHeader('Expires', '0');
+  res.sendFile(path.resolve(distPath, "index.html"));
 });
 
 // ============================================

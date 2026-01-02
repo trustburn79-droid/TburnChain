@@ -1,5 +1,5 @@
 import { Link } from "wouter";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, lazy, Suspense } from "react";
 import { useTranslation } from "react-i18next";
 import { 
   ArrowRight, 
@@ -11,10 +11,11 @@ import {
   TrendingUp, 
   Link2 
 } from "lucide-react";
-import { usePublicNetworkStats } from "../hooks/use-public-data";
-import { AITerminal } from "../components/AITerminal";
 import { TBurnLogo } from "@/components/tburn-logo";
 import "../styles/public.css";
+
+// CRITICAL: Lazy load AITerminal to reduce initial bundle size
+const AITerminal = lazy(() => import("../components/AITerminal").then(m => ({ default: m.AITerminal })));
 
 const SCRAMBLE_CHARS = "!<>-_\\/[]{}—=+*^?#";
 
@@ -214,10 +215,19 @@ function RotatingTitle({ keywords }: { keywords: string[] }) {
   );
 }
 
+// Static placeholder values for instant rendering (no API calls needed)
+const STATIC_STATS = {
+  tps: 210000,
+  blockHeight: 40200000,
+  totalTransactions: 298500000,
+  uptime: "99.99%"
+};
+
 export default function Home() {
   const { t } = useTranslation();
-  const { data: statsResponse } = usePublicNetworkStats();
-  const stats = statsResponse?.data;
+  
+  // Use static values for instant rendering - no API calls
+  const stats = STATIC_STATS;
   
   // Auto-cycling highlight effect for stat cards
   const [activeStatIndex, setActiveStatIndex] = useState(0);
@@ -363,9 +373,7 @@ export default function Home() {
               <div className={`text-3xl lg:text-4xl font-bold mb-2 font-mono transition-colors duration-500 ${
                 activeStatIndex === 0 ? 'text-cyan-600 dark:text-cyan-400' : 'text-gray-900 dark:text-white group-hover:text-cyan-600 dark:group-hover:text-cyan-400'
               }`}>
-                {stats?.tps != null 
-                  ? stats.tps.toLocaleString() 
-                  : "210,000"}
+                {stats.tps.toLocaleString()}
               </div>
               <div className="text-xs text-gray-500 uppercase tracking-widest">{t('publicPages.home.stats.tps')}</div>
             </div>
@@ -380,11 +388,7 @@ export default function Home() {
               <div className={`text-3xl lg:text-4xl font-bold mb-2 font-mono transition-colors duration-500 ${
                 activeStatIndex === 1 ? 'text-cyan-600 dark:text-cyan-400' : 'text-gray-900 dark:text-white group-hover:text-cyan-600 dark:group-hover:text-cyan-400'
               }`}>
-                {stats?.blockHeight != null 
-                  ? (stats.blockHeight >= 1000000 
-                      ? (stats.blockHeight / 1000000).toFixed(1) + "M" 
-                      : stats.blockHeight.toLocaleString()) 
-                  : "1.9M"}
+                {(stats.blockHeight / 1000000).toFixed(1) + "M"}
               </div>
               <div className="text-xs text-gray-500 uppercase tracking-widest">{t('publicPages.home.stats.blocks')}</div>
             </div>
@@ -399,13 +403,7 @@ export default function Home() {
               <div className={`text-3xl lg:text-4xl font-bold mb-2 font-mono transition-colors duration-500 ${
                 activeStatIndex === 2 ? 'text-cyan-600 dark:text-cyan-400' : 'text-gray-900 dark:text-white group-hover:text-cyan-600 dark:group-hover:text-cyan-400'
               }`}>
-                {stats?.totalTransactions != null 
-                  ? (stats.totalTransactions >= 1000000 
-                      ? (stats.totalTransactions / 1000000).toFixed(1) + "M" 
-                      : stats.totalTransactions >= 1000 
-                        ? Math.floor(stats.totalTransactions / 1000).toLocaleString() + "K" 
-                        : stats.totalTransactions.toLocaleString()) 
-                  : "56.3M"}
+                {(stats.totalTransactions / 1000000).toFixed(1) + "M"}
               </div>
               <div className="text-xs text-gray-500 uppercase tracking-widest">{t('publicPages.home.stats.dailyTxs')}</div>
             </div>
@@ -420,7 +418,7 @@ export default function Home() {
               <div className={`text-3xl lg:text-4xl font-bold mb-2 font-mono transition-colors duration-500 ${
                 activeStatIndex === 3 ? 'text-cyan-600 dark:text-cyan-400' : 'text-gray-900 dark:text-white group-hover:text-cyan-600 dark:group-hover:text-cyan-400'
               }`}>
-                {stats?.uptime || "99.99%"}
+                {stats.uptime}
               </div>
               <div className="text-xs text-gray-500 uppercase tracking-widest">{t('publicPages.home.stats.uptime')}</div>
             </div>
@@ -484,7 +482,9 @@ export default function Home() {
             </div>
           </div>
         </section>
-      <AITerminal />
+      <Suspense fallback={null}>
+        <AITerminal />
+      </Suspense>
     </div>
   );
 }
