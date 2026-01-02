@@ -1,0 +1,2286 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TBURN Chain - DAO 거버넌스 | 8억 TBURN 보상</title>
+  <meta name="description" content="TBURN Chain DAO 거버넌스. 투표에 참여하고 프로토콜의 미래를 결정하세요. 8억 TBURN 거버넌스 보상 풀.">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy: #1A365D;
+      --navy-light: #2D4A7C;
+      --gold: #D4AF37;
+      --gold-light: #E5C76B;
+      --dark: #0F172A;
+      --dark-card: #1E293B;
+      --gray: #64748B;
+      --light-gray: #94A3B8;
+      --white: #FFFFFF;
+      --success: #22C55E;
+      --warning: #F59E0B;
+      --danger: #EF4444;
+      --purple: #8B5CF6;
+      --blue: #3B82F6;
+      --cyan: #06B6D4;
+      --pink: #EC4899;
+      --indigo: #6366F1;
+      --emerald: #10B981;
+      --gradient-gold: linear-gradient(135deg, #D4AF37 0%, #F5D76E 50%, #D4AF37 100%);
+      --gradient-dao: linear-gradient(135deg, #6366F1 0%, #8B5CF6 100%);
+      --gradient-vote: linear-gradient(135deg, #3B82F6 0%, #6366F1 100%);
+      --gradient-dark: linear-gradient(180deg, #0F172A 0%, #1E293B 100%);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--dark);
+      color: var(--white);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Animations */
+    @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-20px); } }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.7; } }
+    @keyframes glow { 0%, 100% { box-shadow: 0 0 20px rgba(99, 102, 241, 0.3); } 50% { box-shadow: 0 0 40px rgba(99, 102, 241, 0.6); } }
+    @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+    @keyframes slideIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* Header */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background: rgba(15, 23, 42, 0.95);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(99, 102, 241, 0.2);
+    }
+
+    .header-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+
+    .logo-icon {
+      width: 48px;
+      height: 48px;
+      background: var(--gradient-gold);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+    }
+
+    .logo-text {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--white);
+    }
+
+    .logo-text span { color: var(--gold); }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: var(--light-gray);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover { color: var(--indigo); }
+
+    .connect-btn {
+      background: var(--gradient-dao);
+      color: var(--white);
+      padding: 12px 24px;
+      border-radius: 12px;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .connect-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 40px rgba(99, 102, 241, 0.3);
+    }
+
+    /* Hero Section */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      padding: 120px 2rem 80px;
+      background: radial-gradient(ellipse at center top, rgba(99, 102, 241, 0.15) 0%, transparent 50%),
+                  radial-gradient(ellipse at bottom left, rgba(139, 92, 246, 0.1) 0%, transparent 50%),
+                  var(--gradient-dark);
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .hero-bg::before {
+      content: '';
+      position: absolute;
+      width: 800px;
+      height: 800px;
+      background: radial-gradient(circle, rgba(99, 102, 241, 0.2) 0%, transparent 70%);
+      top: -300px;
+      right: -200px;
+      animation: float 10s ease-in-out infinite;
+    }
+
+    .hero-content {
+      max-width: 1200px;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(99, 102, 241, 0.15);
+      border: 1px solid rgba(99, 102, 241, 0.4);
+      padding: 8px 20px;
+      border-radius: 100px;
+      font-size: 0.875rem;
+      color: var(--indigo);
+      margin-bottom: 2rem;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      font-weight: 900;
+      margin-bottom: 1.5rem;
+      line-height: 1.1;
+    }
+
+    .hero h1 .gradient-text {
+      background: var(--gradient-dao);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-subtitle {
+      font-size: 1.25rem;
+      color: var(--light-gray);
+      max-width: 700px;
+      margin: 0 auto 3rem;
+    }
+
+    /* Stats Grid */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+    }
+
+    .stat-card {
+      background: var(--dark-card);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 1.5rem;
+      text-align: center;
+      transition: transform 0.3s, border-color 0.3s;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--indigo);
+    }
+
+    .stat-value {
+      font-size: 2rem;
+      font-weight: 800;
+      background: var(--gradient-dao);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-label {
+      font-size: 0.875rem;
+      color: var(--light-gray);
+    }
+
+    /* CTA Buttons */
+    .cta-group {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      background: var(--gradient-dao);
+      color: var(--white);
+      padding: 16px 40px;
+      border-radius: 12px;
+      font-size: 1.125rem;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 20px 60px rgba(99, 102, 241, 0.4);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--white);
+      padding: 16px 40px;
+      border-radius: 12px;
+      font-size: 1.125rem;
+      font-weight: 600;
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      transition: all 0.3s;
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--indigo);
+      color: var(--indigo);
+    }
+
+    /* Section Styles */
+    .section {
+      padding: 100px 2rem;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+
+    .section-badge {
+      display: inline-block;
+      background: rgba(99, 102, 241, 0.15);
+      color: var(--indigo);
+      padding: 6px 16px;
+      border-radius: 100px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+
+    .section-title {
+      font-size: 2.5rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+    }
+
+    .section-subtitle {
+      color: var(--light-gray);
+      font-size: 1.125rem;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* Distribution Grid */
+    .distribution-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+    }
+
+    .dist-card {
+      background: var(--dark-card);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 1.5rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s;
+    }
+
+    .dist-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--indigo);
+    }
+
+    .dist-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+    }
+
+    .dist-card.voting::before { background: var(--gradient-dao); }
+    .dist-card.proposal::before { background: linear-gradient(90deg, var(--blue), var(--cyan)); }
+    .dist-card.committee::before { background: linear-gradient(90deg, var(--emerald), var(--cyan)); }
+    .dist-card.treasury::before { background: var(--gradient-gold); }
+
+    .dist-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .dist-name {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .dist-amount {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--indigo);
+      margin-bottom: 0.25rem;
+    }
+
+    .dist-percent {
+      font-size: 0.875rem;
+      color: var(--gray);
+    }
+
+    /* Governance Process */
+    .process-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 1rem;
+      position: relative;
+    }
+
+    .process-grid::before {
+      content: '';
+      position: absolute;
+      top: 50px;
+      left: 10%;
+      right: 10%;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--indigo), var(--purple), var(--indigo), transparent);
+      z-index: 0;
+    }
+
+    .process-card {
+      background: var(--dark-card);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 1.5rem;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+      transition: all 0.3s;
+    }
+
+    .process-card:hover {
+      transform: translateY(-10px);
+      border-color: var(--indigo);
+    }
+
+    .process-number {
+      width: 50px;
+      height: 50px;
+      background: var(--gradient-dao);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      font-weight: 800;
+      margin: 0 auto 1rem;
+      box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3);
+    }
+
+    .process-title {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .process-desc {
+      font-size: 0.85rem;
+      color: var(--light-gray);
+    }
+
+    .process-duration {
+      margin-top: 0.75rem;
+      font-size: 0.75rem;
+      color: var(--indigo);
+      font-weight: 600;
+    }
+
+    /* Active Proposals */
+    .proposals-container {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .proposal-card {
+      background: var(--dark-card);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 1.5rem 2rem;
+      transition: all 0.3s;
+    }
+
+    .proposal-card:hover {
+      border-color: var(--indigo);
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    }
+
+    .proposal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 1rem;
+    }
+
+    .proposal-info {
+      flex: 1;
+    }
+
+    .proposal-id {
+      font-size: 0.8rem;
+      color: var(--indigo);
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    .proposal-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .proposal-meta {
+      display: flex;
+      gap: 1.5rem;
+      font-size: 0.875rem;
+      color: var(--gray);
+    }
+
+    .proposal-meta span {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .proposal-status {
+      padding: 6px 14px;
+      border-radius: 100px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .proposal-status.active {
+      background: rgba(34, 197, 94, 0.15);
+      color: var(--success);
+      animation: pulse 2s infinite;
+    }
+
+    .proposal-status.pending {
+      background: rgba(245, 158, 11, 0.15);
+      color: var(--warning);
+    }
+
+    .proposal-status.passed {
+      background: rgba(59, 130, 246, 0.15);
+      color: var(--blue);
+    }
+
+    .proposal-status.rejected {
+      background: rgba(239, 68, 68, 0.15);
+      color: var(--danger);
+    }
+
+    .proposal-body {
+      margin-bottom: 1.5rem;
+    }
+
+    .proposal-desc {
+      color: var(--light-gray);
+      font-size: 0.95rem;
+      margin-bottom: 1rem;
+    }
+
+    .proposal-category {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 100px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    .proposal-category.protocol { background: rgba(99, 102, 241, 0.15); color: var(--indigo); }
+    .proposal-category.treasury { background: rgba(212, 175, 55, 0.15); color: var(--gold); }
+    .proposal-category.ecosystem { background: rgba(16, 185, 129, 0.15); color: var(--emerald); }
+    .proposal-category.emergency { background: rgba(239, 68, 68, 0.15); color: var(--danger); }
+
+    .proposal-voting {
+      display: grid;
+      grid-template-columns: 1fr 1fr auto;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .vote-progress {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .vote-bar {
+      height: 12px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 100px;
+      overflow: hidden;
+      display: flex;
+    }
+
+    .vote-bar .for {
+      background: var(--success);
+      transition: width 0.5s ease;
+    }
+
+    .vote-bar .against {
+      background: var(--danger);
+      transition: width 0.5s ease;
+    }
+
+    .vote-bar .abstain {
+      background: var(--gray);
+      transition: width 0.5s ease;
+    }
+
+    .vote-labels {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.8rem;
+    }
+
+    .vote-labels .for { color: var(--success); }
+    .vote-labels .against { color: var(--danger); }
+
+    .vote-stats {
+      text-align: center;
+    }
+
+    .vote-stats .quorum-label {
+      font-size: 0.75rem;
+      color: var(--gray);
+      margin-bottom: 0.25rem;
+    }
+
+    .vote-stats .quorum-value {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--indigo);
+    }
+
+    .vote-buttons {
+      display: flex;
+      gap: 0.75rem;
+    }
+
+    .vote-btn {
+      padding: 12px 24px;
+      border-radius: 10px;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-size: 0.875rem;
+    }
+
+    .vote-btn.for {
+      background: var(--success);
+      color: var(--white);
+    }
+
+    .vote-btn.against {
+      background: var(--danger);
+      color: var(--white);
+    }
+
+    .vote-btn.abstain {
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--light-gray);
+    }
+
+    .vote-btn:hover {
+      transform: translateY(-2px);
+    }
+
+    /* Voting Power Section */
+    .voting-power-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+
+    .voting-power-card {
+      background: var(--dark-card);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 24px;
+      padding: 2rem;
+    }
+
+    .voting-power-card h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .voting-power-card h3 i { color: var(--indigo); }
+
+    .power-display {
+      text-align: center;
+      padding: 2rem;
+      background: linear-gradient(180deg, rgba(99, 102, 241, 0.1) 0%, transparent 100%);
+      border-radius: 20px;
+      margin-bottom: 1.5rem;
+    }
+
+    .power-value {
+      font-size: 3rem;
+      font-weight: 900;
+      background: var(--gradient-dao);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .power-label {
+      color: var(--light-gray);
+      font-size: 0.875rem;
+      margin-top: 0.5rem;
+    }
+
+    .power-breakdown {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .power-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 16px;
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 12px;
+    }
+
+    .power-item-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .power-item-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .power-item-icon.stake { background: rgba(99, 102, 241, 0.2); color: var(--indigo); }
+    .power-item-icon.lock { background: rgba(139, 92, 246, 0.2); color: var(--purple); }
+    .power-item-icon.delegate { background: rgba(6, 182, 212, 0.2); color: var(--cyan); }
+    .power-item-icon.nft { background: rgba(212, 175, 55, 0.2); color: var(--gold); }
+
+    .power-item-value {
+      font-weight: 700;
+      color: var(--indigo);
+    }
+
+    /* Delegation */
+    .delegation-card {
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 16px;
+      padding: 1.5rem;
+    }
+
+    .delegation-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+
+    .delegation-header h4 {
+      font-size: 1rem;
+      font-weight: 600;
+    }
+
+    .delegate-btn {
+      background: var(--gradient-dao);
+      color: var(--white);
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+    }
+
+    .delegate-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .delegate-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px;
+      background: rgba(255, 255, 255, 0.02);
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .delegate-item:hover {
+      background: rgba(99, 102, 241, 0.1);
+    }
+
+    .delegate-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: var(--gradient-dao);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+    }
+
+    .delegate-info {
+      flex: 1;
+    }
+
+    .delegate-info h5 {
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .delegate-info p {
+      font-size: 0.75rem;
+      color: var(--gray);
+    }
+
+    .delegate-power {
+      text-align: right;
+    }
+
+    .delegate-power .value {
+      font-weight: 700;
+      color: var(--indigo);
+    }
+
+    .delegate-power .label {
+      font-size: 0.7rem;
+      color: var(--gray);
+    }
+
+    /* Committee Section */
+    .committee-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+    }
+
+    .committee-card {
+      background: var(--dark-card);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 1.5rem;
+      text-align: center;
+      transition: all 0.3s;
+    }
+
+    .committee-card:hover {
+      transform: translateY(-10px);
+      border-color: var(--indigo);
+    }
+
+    .committee-icon {
+      width: 70px;
+      height: 70px;
+      border-radius: 20px;
+      margin: 0 auto 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+    }
+
+    .committee-card.tech .committee-icon { background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(139, 92, 246, 0.2)); }
+    .committee-card.finance .committee-icon { background: linear-gradient(135deg, rgba(212, 175, 55, 0.2), rgba(245, 158, 11, 0.2)); }
+    .committee-card.ecosystem .committee-icon { background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(6, 182, 212, 0.2)); }
+    .committee-card.security .committee-icon { background: linear-gradient(135deg, rgba(239, 68, 68, 0.2), rgba(245, 158, 11, 0.2)); }
+
+    .committee-name {
+      font-size: 1.125rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .committee-desc {
+      font-size: 0.875rem;
+      color: var(--light-gray);
+      margin-bottom: 1rem;
+    }
+
+    .committee-stats {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .committee-stat {
+      text-align: center;
+    }
+
+    .committee-stat .value {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--indigo);
+    }
+
+    .committee-stat .label {
+      font-size: 0.7rem;
+      color: var(--gray);
+    }
+
+    /* Rewards Section */
+    .rewards-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+
+    .reward-card {
+      background: var(--dark-card);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 24px;
+      padding: 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .reward-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+    }
+
+    .reward-card.voting::before { background: var(--gradient-dao); }
+    .reward-card.proposal::before { background: linear-gradient(90deg, var(--blue), var(--cyan)); }
+    .reward-card.committee::before { background: linear-gradient(90deg, var(--gold), var(--warning)); }
+
+    .reward-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 1.5rem;
+    }
+
+    .reward-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+    }
+
+    .reward-card.voting .reward-icon { background: rgba(99, 102, 241, 0.2); }
+    .reward-card.proposal .reward-icon { background: rgba(59, 130, 246, 0.2); }
+    .reward-card.committee .reward-icon { background: rgba(212, 175, 55, 0.2); }
+
+    .reward-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+    }
+
+    .reward-amount {
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--gold);
+      margin-bottom: 1rem;
+    }
+
+    .reward-details {
+      list-style: none;
+    }
+
+    .reward-details li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 0;
+      font-size: 0.9rem;
+      color: var(--light-gray);
+    }
+
+    .reward-details li i {
+      color: var(--success);
+      font-size: 12px;
+    }
+
+    /* Dashboard */
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 2rem;
+    }
+
+    .dashboard-main {
+      background: var(--dark-card);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 24px;
+      padding: 2rem;
+    }
+
+    .dashboard-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+    }
+
+    .dashboard-user {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .dashboard-avatar {
+      width: 60px;
+      height: 60px;
+      border-radius: 16px;
+      background: var(--gradient-dao);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      font-weight: 800;
+    }
+
+    .dashboard-stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .dash-stat {
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 16px;
+      padding: 1.25rem;
+      text-align: center;
+    }
+
+    .dash-stat-value {
+      font-size: 1.5rem;
+      font-weight: 800;
+      margin-bottom: 0.25rem;
+    }
+
+    .dash-stat-value.indigo { color: var(--indigo); }
+    .dash-stat-value.purple { color: var(--purple); }
+    .dash-stat-value.gold { color: var(--gold); }
+    .dash-stat-value.success { color: var(--success); }
+
+    .dash-stat-label {
+      font-size: 0.8rem;
+      color: var(--light-gray);
+    }
+
+    .voting-history {
+      margin-top: 2rem;
+    }
+
+    .voting-history h4 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+
+    .history-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem;
+      background: rgba(255, 255, 255, 0.02);
+      border-radius: 12px;
+      margin-bottom: 0.75rem;
+    }
+
+    .history-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .history-vote {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .history-vote.for { background: rgba(34, 197, 94, 0.2); color: var(--success); }
+    .history-vote.against { background: rgba(239, 68, 68, 0.2); color: var(--danger); }
+    .history-vote.abstain { background: rgba(100, 116, 139, 0.2); color: var(--gray); }
+
+    .history-info h5 {
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .history-info p {
+      font-size: 0.75rem;
+      color: var(--gray);
+    }
+
+    .history-reward {
+      text-align: right;
+    }
+
+    .history-reward .value {
+      font-weight: 700;
+      color: var(--gold);
+    }
+
+    .history-reward .label {
+      font-size: 0.7rem;
+      color: var(--gray);
+    }
+
+    /* Sidebar */
+    .dashboard-sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .sidebar-card {
+      background: var(--dark-card);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 1.5rem;
+    }
+
+    .sidebar-card h4 {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .sidebar-card h4 i { color: var(--indigo); }
+
+    .upcoming-vote {
+      padding: 1rem;
+      background: rgba(99, 102, 241, 0.1);
+      border: 1px solid rgba(99, 102, 241, 0.2);
+      border-radius: 12px;
+      margin-bottom: 1rem;
+    }
+
+    .upcoming-vote h5 {
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .upcoming-vote p {
+      font-size: 0.8rem;
+      color: var(--gray);
+      margin-bottom: 0.75rem;
+    }
+
+    .upcoming-vote .time {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.8rem;
+      color: var(--indigo);
+      font-weight: 600;
+    }
+
+    .claim-rewards-card {
+      text-align: center;
+      padding: 1.5rem;
+    }
+
+    .claim-amount {
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--gold);
+      margin-bottom: 0.5rem;
+    }
+
+    .claim-label {
+      font-size: 0.875rem;
+      color: var(--gray);
+      margin-bottom: 1rem;
+    }
+
+    .claim-btn {
+      width: 100%;
+      background: var(--gradient-gold);
+      color: var(--dark);
+      padding: 14px;
+      border-radius: 12px;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .claim-btn:hover {
+      transform: scale(1.02);
+    }
+
+    /* FAQ Section */
+    .faq-container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .faq-item {
+      background: var(--dark-card);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      margin-bottom: 1rem;
+      overflow: hidden;
+    }
+
+    .faq-question {
+      padding: 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .faq-question:hover {
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .faq-question h4 {
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    .faq-question i {
+      color: var(--indigo);
+      transition: transform 0.3s;
+    }
+
+    .faq-item.active .faq-question i {
+      transform: rotate(180deg);
+    }
+
+    .faq-answer {
+      padding: 0 1.5rem;
+      max-height: 0;
+      overflow: hidden;
+      transition: all 0.3s;
+    }
+
+    .faq-item.active .faq-answer {
+      padding: 0 1.5rem 1.5rem;
+      max-height: 500px;
+    }
+
+    .faq-answer p {
+      color: var(--light-gray);
+      line-height: 1.8;
+    }
+
+    /* Footer */
+    .footer {
+      background: var(--dark);
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 60px 2rem 30px;
+    }
+
+    .footer-content {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 4rem;
+      margin-bottom: 3rem;
+    }
+
+    .footer-brand h3 {
+      font-size: 1.5rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+    }
+
+    .footer-brand h3 span { color: var(--gold); }
+
+    .footer-brand p {
+      color: var(--light-gray);
+      margin-bottom: 1.5rem;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .social-links a {
+      width: 44px;
+      height: 44px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--light-gray);
+      transition: all 0.3s;
+    }
+
+    .social-links a:hover {
+      background: var(--indigo);
+      color: var(--white);
+    }
+
+    .footer-links h4 {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+    }
+
+    .footer-links ul { list-style: none; }
+    .footer-links li { margin-bottom: 0.75rem; }
+
+    .footer-links a {
+      color: var(--light-gray);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .footer-links a:hover { color: var(--indigo); }
+
+    .footer-bottom {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: var(--gray);
+      font-size: 0.875rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 1200px) {
+      .committee-grid { grid-template-columns: repeat(2, 1fr); }
+      .rewards-grid { grid-template-columns: 1fr; }
+      .voting-power-container { grid-template-columns: 1fr; }
+      .dashboard-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 1024px) {
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .distribution-grid { grid-template-columns: repeat(2, 1fr); }
+      .process-grid { grid-template-columns: repeat(3, 1fr); }
+      .process-grid::before { display: none; }
+      .dashboard-stats { grid-template-columns: repeat(2, 1fr); }
+      .footer-content { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 768px) {
+      .header-container { padding: 1rem; }
+      .nav-links { display: none; }
+      .hero { padding: 100px 1rem 60px; }
+      .stats-grid { grid-template-columns: 1fr; }
+      .distribution-grid { grid-template-columns: 1fr; }
+      .process-grid { grid-template-columns: 1fr; }
+      .committee-grid { grid-template-columns: 1fr; }
+      .proposal-voting { grid-template-columns: 1fr; gap: 1rem; }
+      .vote-buttons { justify-content: center; }
+      .footer-content { grid-template-columns: 1fr; gap: 2rem; }
+      .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="header-container">
+      <a href="#" class="logo">
+        <div class="logo-icon">🔥</div>
+        <div class="logo-text">TBURN<span>CHAIN</span></div>
+      </a>
+      <nav class="nav-links">
+        <a href="#proposals">제안</a>
+        <a href="#voting-power">투표권</a>
+        <a href="#committees">위원회</a>
+        <a href="#rewards">보상</a>
+        <a href="#dashboard">대시보드</a>
+      </nav>
+      <button class="connect-btn" onclick="openWalletModal()">
+        <i class="fas fa-wallet"></i> 지갑 연결
+      </button>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <div class="badge">
+        <i class="fas fa-landmark"></i>
+        DAO GOVERNANCE - 탈중앙화 의사결정
+      </div>
+      <h1>
+        TBURN의 미래를<br>
+        <span class="gradient-text">당신이 결정</span>합니다
+      </h1>
+      <p class="hero-subtitle">
+        투표에 참여하고 제안을 제출하여 프로토콜의 방향을 결정하세요.
+        거버넌스 참여에 대한 보상으로 8억 TBURN이 배분됩니다.
+      </p>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-value">8억</div>
+          <div class="stat-label">총 DAO 보상 풀</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">6개월</div>
+          <div class="stat-label">클리프 기간</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">48개월</div>
+          <div class="stat-label">베스팅 기간</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">4가지</div>
+          <div class="stat-label">위원회 구성</div>
+        </div>
+      </div>
+
+      <div class="cta-group">
+        <button class="btn-primary" onclick="scrollToSection('proposals')">
+          <i class="fas fa-vote-yea"></i> 투표 참여하기
+        </button>
+        <button class="btn-secondary" onclick="scrollToSection('voting-power')">
+          <i class="fas fa-chart-pie"></i> 투표권 확인
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Distribution Section -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-badge">DISTRIBUTION</span>
+      <h2 class="section-title">DAO 보상 배분</h2>
+      <p class="section-subtitle">8억 TBURN이 거버넌스 참여 보상으로 배분됩니다</p>
+    </div>
+
+    <div class="distribution-grid">
+      <div class="dist-card voting">
+        <div class="dist-icon">🗳️</div>
+        <div class="dist-name">투표 참여 보상</div>
+        <div class="dist-amount">4억</div>
+        <div class="dist-percent">50%</div>
+      </div>
+
+      <div class="dist-card proposal">
+        <div class="dist-icon">📝</div>
+        <div class="dist-name">제안 제출 보상</div>
+        <div class="dist-amount">1.6억</div>
+        <div class="dist-percent">20%</div>
+      </div>
+
+      <div class="dist-card committee">
+        <div class="dist-icon">👥</div>
+        <div class="dist-name">위원회 운영</div>
+        <div class="dist-amount">1.6억</div>
+        <div class="dist-percent">20%</div>
+      </div>
+
+      <div class="dist-card treasury">
+        <div class="dist-icon">🏦</div>
+        <div class="dist-name">DAO 재무 예비</div>
+        <div class="dist-amount">0.8억</div>
+        <div class="dist-percent">10%</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Governance Process -->
+  <section class="section" style="background: rgba(255,255,255,0.02);">
+    <div class="section-header">
+      <span class="section-badge">PROCESS</span>
+      <h2 class="section-title">거버넌스 프로세스</h2>
+      <p class="section-subtitle">제안에서 실행까지 5단계 프로세스</p>
+    </div>
+
+    <div class="process-grid">
+      <div class="process-card">
+        <div class="process-number">1</div>
+        <h3 class="process-title">아이디어 제출</h3>
+        <p class="process-desc">포럼에서 아이디어 논의 및 피드백 수집</p>
+        <div class="process-duration">최소 3일</div>
+      </div>
+
+      <div class="process-card">
+        <div class="process-number">2</div>
+        <h3 class="process-title">제안 작성</h3>
+        <p class="process-desc">정식 제안서 작성 및 스냅샷 생성</p>
+        <div class="process-duration">2일</div>
+      </div>
+
+      <div class="process-card">
+        <div class="process-number">3</div>
+        <h3 class="process-title">검토 기간</h3>
+        <p class="process-desc">커뮤니티 검토 및 위원회 심사</p>
+        <div class="process-duration">3일</div>
+      </div>
+
+      <div class="process-card">
+        <div class="process-number">4</div>
+        <h3 class="process-title">투표 진행</h3>
+        <p class="process-desc">온체인 투표 실시 (정족수 20%)</p>
+        <div class="process-duration">7일</div>
+      </div>
+
+      <div class="process-card">
+        <div class="process-number">5</div>
+        <h3 class="process-title">실행</h3>
+        <p class="process-desc">통과된 제안 타임락 후 실행</p>
+        <div class="process-duration">2일 타임락</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Active Proposals -->
+  <section class="section" id="proposals">
+    <div class="section-header">
+      <span class="section-badge">ACTIVE PROPOSALS</span>
+      <h2 class="section-title">진행 중인 제안</h2>
+      <p class="section-subtitle">투표에 참여하고 TBURN 보상을 받으세요</p>
+    </div>
+
+    <div class="proposals-container">
+      <!-- Proposal 1 -->
+      <div class="proposal-card">
+        <div class="proposal-header">
+          <div class="proposal-info">
+            <div class="proposal-id">TIP-024</div>
+            <h3 class="proposal-title">스테이킹 보상 APY 조정 제안</h3>
+            <div class="proposal-meta">
+              <span><i class="fas fa-user"></i> 0x1a2B...3c4D</span>
+              <span><i class="fas fa-clock"></i> 3일 남음</span>
+              <span><i class="fas fa-users"></i> 1,247 참여</span>
+            </div>
+          </div>
+          <span class="proposal-status active">투표중</span>
+        </div>
+        <div class="proposal-body">
+          <p class="proposal-desc">
+            현재 스테이킹 APY를 15%에서 12%로 조정하고, 감소분을 에코시스템 펀드로 이전하여 
+            장기적인 지속가능성을 확보하자는 제안입니다.
+          </p>
+          <span class="proposal-category protocol">프로토콜</span>
+        </div>
+        <div class="proposal-voting">
+          <div class="vote-progress">
+            <div class="vote-bar">
+              <div class="for" style="width: 67%;"></div>
+              <div class="against" style="width: 28%;"></div>
+              <div class="abstain" style="width: 5%;"></div>
+            </div>
+            <div class="vote-labels">
+              <span class="for"><i class="fas fa-check"></i> 찬성 67%</span>
+              <span class="against"><i class="fas fa-times"></i> 반대 28%</span>
+            </div>
+          </div>
+          <div class="vote-stats">
+            <div class="quorum-label">정족수</div>
+            <div class="quorum-value">87% 달성</div>
+          </div>
+          <div class="vote-buttons">
+            <button class="vote-btn for"><i class="fas fa-check"></i> 찬성</button>
+            <button class="vote-btn against"><i class="fas fa-times"></i> 반대</button>
+            <button class="vote-btn abstain">기권</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Proposal 2 -->
+      <div class="proposal-card">
+        <div class="proposal-header">
+          <div class="proposal-info">
+            <div class="proposal-id">TIP-023</div>
+            <h3 class="proposal-title">생태계 그랜트 프로그램 확대</h3>
+            <div class="proposal-meta">
+              <span><i class="fas fa-user"></i> 0x5e6F...7g8H</span>
+              <span><i class="fas fa-clock"></i> 5일 남음</span>
+              <span><i class="fas fa-users"></i> 892 참여</span>
+            </div>
+          </div>
+          <span class="proposal-status active">투표중</span>
+        </div>
+        <div class="proposal-body">
+          <p class="proposal-desc">
+            개발자 그랜트 프로그램 예산을 2배로 확대하여 더 많은 dApp 개발을 지원하고,
+            TBURN 생태계의 빠른 성장을 도모하자는 제안입니다.
+          </p>
+          <span class="proposal-category treasury">재무</span>
+        </div>
+        <div class="proposal-voting">
+          <div class="vote-progress">
+            <div class="vote-bar">
+              <div class="for" style="width: 82%;"></div>
+              <div class="against" style="width: 12%;"></div>
+              <div class="abstain" style="width: 6%;"></div>
+            </div>
+            <div class="vote-labels">
+              <span class="for"><i class="fas fa-check"></i> 찬성 82%</span>
+              <span class="against"><i class="fas fa-times"></i> 반대 12%</span>
+            </div>
+          </div>
+          <div class="vote-stats">
+            <div class="quorum-label">정족수</div>
+            <div class="quorum-value">65% 달성</div>
+          </div>
+          <div class="vote-buttons">
+            <button class="vote-btn for"><i class="fas fa-check"></i> 찬성</button>
+            <button class="vote-btn against"><i class="fas fa-times"></i> 반대</button>
+            <button class="vote-btn abstain">기권</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Proposal 3 -->
+      <div class="proposal-card">
+        <div class="proposal-header">
+          <div class="proposal-info">
+            <div class="proposal-id">TIP-022</div>
+            <h3 class="proposal-title">크로스체인 브릿지 파트너십</h3>
+            <div class="proposal-meta">
+              <span><i class="fas fa-user"></i> 기술위원회</span>
+              <span><i class="fas fa-clock"></i> 1일 남음</span>
+              <span><i class="fas fa-users"></i> 2,156 참여</span>
+            </div>
+          </div>
+          <span class="proposal-status active">투표중</span>
+        </div>
+        <div class="proposal-body">
+          <p class="proposal-desc">
+            LayerZero와 공식 파트너십을 체결하여 멀티체인 브릿지를 구축하고,
+            이더리움, Arbitrum, Polygon과의 자산 이동을 가능하게 하자는 제안입니다.
+          </p>
+          <span class="proposal-category ecosystem">생태계</span>
+        </div>
+        <div class="proposal-voting">
+          <div class="vote-progress">
+            <div class="vote-bar">
+              <div class="for" style="width: 91%;"></div>
+              <div class="against" style="width: 6%;"></div>
+              <div class="abstain" style="width: 3%;"></div>
+            </div>
+            <div class="vote-labels">
+              <span class="for"><i class="fas fa-check"></i> 찬성 91%</span>
+              <span class="against"><i class="fas fa-times"></i> 반대 6%</span>
+            </div>
+          </div>
+          <div class="vote-stats">
+            <div class="quorum-label">정족수</div>
+            <div class="quorum-value">124% 달성</div>
+          </div>
+          <div class="vote-buttons">
+            <button class="vote-btn for"><i class="fas fa-check"></i> 찬성</button>
+            <button class="vote-btn against"><i class="fas fa-times"></i> 반대</button>
+            <button class="vote-btn abstain">기권</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="text-align: center; margin-top: 2rem;">
+      <button class="btn-secondary">
+        <i class="fas fa-list"></i> 모든 제안 보기
+      </button>
+      <button class="btn-primary" style="margin-left: 1rem;">
+        <i class="fas fa-plus"></i> 새 제안 작성
+      </button>
+    </div>
+  </section>
+
+  <!-- Voting Power Section -->
+  <section class="section" id="voting-power" style="background: rgba(255,255,255,0.02);">
+    <div class="section-header">
+      <span class="section-badge">VOTING POWER</span>
+      <h2 class="section-title">투표권 계산</h2>
+      <p class="section-subtitle">스테이킹과 락업을 통해 투표권을 확보하세요</p>
+    </div>
+
+    <div class="voting-power-container">
+      <div class="voting-power-card">
+        <h3><i class="fas fa-bolt"></i> 내 투표권</h3>
+        
+        <div class="power-display">
+          <div class="power-value">125,000</div>
+          <div class="power-label">veTBURN (투표권)</div>
+        </div>
+
+        <div class="power-breakdown">
+          <div class="power-item">
+            <div class="power-item-left">
+              <div class="power-item-icon stake"><i class="fas fa-coins"></i></div>
+              <span>스테이킹 TBURN</span>
+            </div>
+            <span class="power-item-value">50,000 TBURN</span>
+          </div>
+          <div class="power-item">
+            <div class="power-item-left">
+              <div class="power-item-icon lock"><i class="fas fa-lock"></i></div>
+              <span>락업 배수 (2년)</span>
+            </div>
+            <span class="power-item-value">2.5x</span>
+          </div>
+          <div class="power-item">
+            <div class="power-item-left">
+              <div class="power-item-icon delegate"><i class="fas fa-user-friends"></i></div>
+              <span>위임받은 투표권</span>
+            </div>
+            <span class="power-item-value">+10,000</span>
+          </div>
+          <div class="power-item">
+            <div class="power-item-left">
+              <div class="power-item-icon nft"><i class="fas fa-gem"></i></div>
+              <span>제네시스 NFT 보너스</span>
+            </div>
+            <span class="power-item-value">+5,000</span>
+          </div>
+        </div>
+
+        <div style="margin-top: 1.5rem; padding: 1rem; background: rgba(99, 102, 241, 0.1); border-radius: 12px;">
+          <p style="font-size: 0.875rem; color: var(--light-gray);">
+            <strong style="color: var(--indigo);">투표권 계산식:</strong><br>
+            veTBURN = 스테이킹량 × 락업배수 + 위임받은량 + NFT보너스
+          </p>
+        </div>
+      </div>
+
+      <div class="voting-power-card">
+        <h3><i class="fas fa-user-friends"></i> 투표권 위임</h3>
+        
+        <div class="delegation-card">
+          <div class="delegation-header">
+            <h4>인기 위임자</h4>
+            <button class="delegate-btn">+ 위임하기</button>
+          </div>
+          <div class="delegate-list">
+            <div class="delegate-item">
+              <div class="delegate-avatar">TC</div>
+              <div class="delegate-info">
+                <h5>Tech Committee</h5>
+                <p>기술위원회 공식 계정</p>
+              </div>
+              <div class="delegate-power">
+                <div class="value">2.5M</div>
+                <div class="label">veTBURN</div>
+              </div>
+            </div>
+            <div class="delegate-item">
+              <div class="delegate-avatar">VC</div>
+              <div class="delegate-info">
+                <h5>Validator Council</h5>
+                <p>밸리데이터 협의회</p>
+              </div>
+              <div class="delegate-power">
+                <div class="value">1.8M</div>
+                <div class="label">veTBURN</div>
+              </div>
+            </div>
+            <div class="delegate-item">
+              <div class="delegate-avatar">CL</div>
+              <div class="delegate-info">
+                <h5>Community Leader</h5>
+                <p>커뮤니티 대표</p>
+              </div>
+              <div class="delegate-power">
+                <div class="value">950K</div>
+                <div class="label">veTBURN</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top: 1.5rem;">
+          <h4 style="font-size: 0.9rem; font-weight: 600; margin-bottom: 1rem;">락업 기간별 배수</h4>
+          <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.75rem;">
+            <div style="text-align: center; padding: 1rem; background: rgba(255,255,255,0.03); border-radius: 12px;">
+              <div style="font-weight: 700; color: var(--light-gray);">1.0x</div>
+              <div style="font-size: 0.75rem; color: var(--gray);">6개월</div>
+            </div>
+            <div style="text-align: center; padding: 1rem; background: rgba(255,255,255,0.03); border-radius: 12px;">
+              <div style="font-weight: 700; color: var(--blue);">1.5x</div>
+              <div style="font-size: 0.75rem; color: var(--gray);">1년</div>
+            </div>
+            <div style="text-align: center; padding: 1rem; background: rgba(255,255,255,0.03); border-radius: 12px;">
+              <div style="font-weight: 700; color: var(--purple);">2.5x</div>
+              <div style="font-size: 0.75rem; color: var(--gray);">2년</div>
+            </div>
+            <div style="text-align: center; padding: 1rem; background: rgba(99, 102, 241, 0.1); border-radius: 12px;">
+              <div style="font-weight: 700; color: var(--gold);">4.0x</div>
+              <div style="font-size: 0.75rem; color: var(--gray);">4년</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Committee Section -->
+  <section class="section" id="committees">
+    <div class="section-header">
+      <span class="section-badge">COMMITTEES</span>
+      <h2 class="section-title">DAO 위원회</h2>
+      <p class="section-subtitle">전문 위원회가 거버넌스를 지원합니다</p>
+    </div>
+
+    <div class="committee-grid">
+      <div class="committee-card tech">
+        <div class="committee-icon">⚙️</div>
+        <h3 class="committee-name">기술위원회</h3>
+        <p class="committee-desc">프로토콜 업그레이드, 스마트 컨트랙트 심사, 기술 표준 수립</p>
+        <div class="committee-stats">
+          <div class="committee-stat">
+            <div class="value">7</div>
+            <div class="label">위원</div>
+          </div>
+          <div class="committee-stat">
+            <div class="value">24</div>
+            <div class="label">심사 완료</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="committee-card finance">
+        <div class="committee-icon">💰</div>
+        <h3 class="committee-name">재무위원회</h3>
+        <p class="committee-desc">재무 관리, 그랜트 집행, 예산 편성 및 감사</p>
+        <div class="committee-stats">
+          <div class="committee-stat">
+            <div class="value">5</div>
+            <div class="label">위원</div>
+          </div>
+          <div class="committee-stat">
+            <div class="value">$12M</div>
+            <div class="label">관리 자산</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="committee-card ecosystem">
+        <div class="committee-icon">🌱</div>
+        <h3 class="committee-name">생태계위원회</h3>
+        <p class="committee-desc">파트너십 평가, 생태계 성장, 커뮤니티 이니셔티브</p>
+        <div class="committee-stats">
+          <div class="committee-stat">
+            <div class="value">9</div>
+            <div class="label">위원</div>
+          </div>
+          <div class="committee-stat">
+            <div class="value">45</div>
+            <div class="label">파트너</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="committee-card security">
+        <div class="committee-icon">🛡️</div>
+        <h3 class="committee-name">보안위원회</h3>
+        <p class="committee-desc">보안 감사, 버그 바운티 관리, 긴급 대응</p>
+        <div class="committee-stats">
+          <div class="committee-stat">
+            <div class="value">5</div>
+            <div class="label">위원</div>
+          </div>
+          <div class="committee-stat">
+            <div class="value">0</div>
+            <div class="label">인시던트</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Rewards Section -->
+  <section class="section" id="rewards" style="background: rgba(255,255,255,0.02);">
+    <div class="section-header">
+      <span class="section-badge">REWARDS</span>
+      <h2 class="section-title">거버넌스 보상</h2>
+      <p class="section-subtitle">적극적인 참여에 대한 보상을 받으세요</p>
+    </div>
+
+    <div class="rewards-grid">
+      <div class="reward-card voting">
+        <div class="reward-header">
+          <div class="reward-icon">🗳️</div>
+          <h3 class="reward-title">투표 참여 보상</h3>
+        </div>
+        <div class="reward-amount">투표당 100~1,000 TBURN</div>
+        <ul class="reward-details">
+          <li><i class="fas fa-check"></i> 모든 투표 참여 시 기본 보상</li>
+          <li><i class="fas fa-check"></i> 투표권 비례 추가 보상</li>
+          <li><i class="fas fa-check"></i> 연속 투표 스트릭 보너스 (최대 2x)</li>
+          <li><i class="fas fa-check"></i> 정족수 달성 기여 보너스</li>
+          <li><i class="fas fa-check"></i> 주간 정산 및 자동 지급</li>
+        </ul>
+      </div>
+
+      <div class="reward-card proposal">
+        <div class="reward-header">
+          <div class="reward-icon">📝</div>
+          <h3 class="reward-title">제안 제출 보상</h3>
+        </div>
+        <div class="reward-amount">제안당 5,000~50,000 TBURN</div>
+        <ul class="reward-details">
+          <li><i class="fas fa-check"></i> 제안 제출 시 기본 보상</li>
+          <li><i class="fas fa-check"></i> 제안 통과 시 추가 보상</li>
+          <li><i class="fas fa-check"></i> 높은 참여율 달성 보너스</li>
+          <li><i class="fas fa-check"></i> 제안 카테고리별 차등 보상</li>
+          <li><i class="fas fa-check"></i> 실행 완료 후 최종 보상</li>
+        </ul>
+      </div>
+
+      <div class="reward-card committee">
+        <div class="reward-header">
+          <div class="reward-icon">👥</div>
+          <h3 class="reward-title">위원회 활동 보상</h3>
+        </div>
+        <div class="reward-amount">월 20,000~100,000 TBURN</div>
+        <ul class="reward-details">
+          <li><i class="fas fa-check"></i> 위원회 역할에 따른 월정액</li>
+          <li><i class="fas fa-check"></i> 회의 참석 보상</li>
+          <li><i class="fas fa-check"></i> 제안 심사 보상</li>
+          <li><i class="fas fa-check"></i> 특별 업무 수행 보너스</li>
+          <li><i class="fas fa-check"></i> 성과 기반 인센티브</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Dashboard Section -->
+  <section class="section" id="dashboard">
+    <div class="section-header">
+      <span class="section-badge">MY DASHBOARD</span>
+      <h2 class="section-title">거버넌스 대시보드</h2>
+      <p class="section-subtitle">내 투표 현황과 보상을 확인하세요</p>
+    </div>
+
+    <div class="dashboard-grid">
+      <div class="dashboard-main">
+        <div class="dashboard-header">
+          <div class="dashboard-user">
+            <div class="dashboard-avatar">TB</div>
+            <div>
+              <h3 style="font-size: 1.125rem; font-weight: 700;">0x1234...5678</h3>
+              <p style="font-size: 0.875rem; color: var(--gray);">Champion Voter · 45회 연속 투표</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="dashboard-stats">
+          <div class="dash-stat">
+            <div class="dash-stat-value indigo">125,000</div>
+            <div class="dash-stat-label">투표권 (veTBURN)</div>
+          </div>
+          <div class="dash-stat">
+            <div class="dash-stat-value purple">87</div>
+            <div class="dash-stat-label">투표 참여</div>
+          </div>
+          <div class="dash-stat">
+            <div class="dash-stat-value gold">45,230</div>
+            <div class="dash-stat-label">누적 보상 (TBURN)</div>
+          </div>
+          <div class="dash-stat">
+            <div class="dash-stat-value success">92%</div>
+            <div class="dash-stat-label">투표 정확도</div>
+          </div>
+        </div>
+
+        <div class="voting-history">
+          <h4>최근 투표 이력</h4>
+          <div class="history-item">
+            <div class="history-left">
+              <div class="history-vote for"><i class="fas fa-check"></i></div>
+              <div class="history-info">
+                <h5>TIP-024: 스테이킹 APY 조정</h5>
+                <p>2시간 전 · 찬성 투표</p>
+              </div>
+            </div>
+            <div class="history-reward">
+              <div class="value">+250 TBURN</div>
+              <div class="label">보상 예정</div>
+            </div>
+          </div>
+          <div class="history-item">
+            <div class="history-left">
+              <div class="history-vote for"><i class="fas fa-check"></i></div>
+              <div class="history-info">
+                <h5>TIP-023: 그랜트 프로그램 확대</h5>
+                <p>1일 전 · 찬성 투표</p>
+              </div>
+            </div>
+            <div class="history-reward">
+              <div class="value">+320 TBURN</div>
+              <div class="label">보상 예정</div>
+            </div>
+          </div>
+          <div class="history-item">
+            <div class="history-left">
+              <div class="history-vote against"><i class="fas fa-times"></i></div>
+              <div class="history-info">
+                <h5>TIP-021: 수수료 인상 제안</h5>
+                <p>5일 전 · 반대 투표 (부결)</p>
+              </div>
+            </div>
+            <div class="history-reward">
+              <div class="value">+180 TBURN</div>
+              <div class="label">지급 완료</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="dashboard-sidebar">
+        <div class="sidebar-card">
+          <h4><i class="fas fa-bell"></i> 다가오는 투표</h4>
+          <div class="upcoming-vote">
+            <h5>TIP-025: 밸리데이터 요건 변경</h5>
+            <p>최소 스테이킹 요건을 100,000 → 50,000 TBURN으로 낮추는 제안</p>
+            <div class="time"><i class="fas fa-clock"></i> 2일 후 투표 시작</div>
+          </div>
+          <div class="upcoming-vote">
+            <h5>TIP-026: 브릿지 수수료 조정</h5>
+            <p>크로스체인 브릿지 수수료를 0.1%에서 0.05%로 인하</p>
+            <div class="time"><i class="fas fa-clock"></i> 4일 후 투표 시작</div>
+          </div>
+        </div>
+
+        <div class="sidebar-card claim-rewards-card">
+          <h4 style="justify-content: center;"><i class="fas fa-gift"></i> 클레임 가능 보상</h4>
+          <div class="claim-amount">2,450 TBURN</div>
+          <div class="claim-label">≈ $1,225 (@$0.50)</div>
+          <button class="claim-btn" onclick="claimRewards()">
+            <i class="fas fa-download"></i> 보상 받기
+          </button>
+        </div>
+
+        <div class="sidebar-card">
+          <h4><i class="fas fa-chart-line"></i> 투표 통계</h4>
+          <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+            <div style="display: flex; justify-content: space-between; font-size: 0.875rem;">
+              <span style="color: var(--light-gray);">총 투표 참여</span>
+              <span style="font-weight: 600;">87회</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; font-size: 0.875rem;">
+              <span style="color: var(--light-gray);">찬성 투표</span>
+              <span style="font-weight: 600; color: var(--success);">72회</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; font-size: 0.875rem;">
+              <span style="color: var(--light-gray);">반대 투표</span>
+              <span style="font-weight: 600; color: var(--danger);">12회</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; font-size: 0.875rem;">
+              <span style="color: var(--light-gray);">기권</span>
+              <span style="font-weight: 600; color: var(--gray);">3회</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; font-size: 0.875rem; padding-top: 0.75rem; border-top: 1px solid rgba(255,255,255,0.1);">
+              <span style="color: var(--light-gray);">제안 제출</span>
+              <span style="font-weight: 600; color: var(--indigo);">2회</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="section" id="faq" style="background: rgba(255,255,255,0.02);">
+    <div class="section-header">
+      <span class="section-badge">FAQ</span>
+      <h2 class="section-title">자주 묻는 질문</h2>
+      <p class="section-subtitle">DAO 거버넌스 관련 궁금한 점을 확인하세요</p>
+    </div>
+
+    <div class="faq-container">
+      <div class="faq-item active">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <h4>DAO 보상 총 물량은 얼마인가요?</h4>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          <p>DAO/거버넌스 총 보상 풀은 8억 TBURN입니다. 이는 전체 공급량 100억 TBURN의 8%에 해당합니다. TGE 시점에는 0%가 해제되며, 6개월 클리프 후 48개월에 걸쳐 선형 베스팅됩니다. 이는 거버넌스가 안정화된 후 보상이 시작되도록 설계되었습니다.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <h4>투표권(veTBURN)은 어떻게 얻나요?</h4>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          <p>투표권은 TBURN을 스테이킹하고 락업하면 얻을 수 있습니다. 기본적으로 1 TBURN = 1 veTBURN이며, 락업 기간에 따라 배수가 적용됩니다: 6개월(1.0x), 1년(1.5x), 2년(2.5x), 4년(4.0x). 추가로 제네시스 NFT 보유 시 보너스 투표권이 부여됩니다.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <h4>제안을 제출하려면 어떻게 해야 하나요?</h4>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          <p>제안을 제출하려면 최소 10,000 veTBURN의 투표권이 필요합니다. 먼저 포럼에서 아이디어를 논의하고(최소 3일), 충분한 지지를 받으면 정식 제안서를 작성합니다. 제안은 검토 기간(3일)을 거쳐 투표(7일)에 부쳐지며, 정족수 20% 이상 참여와 과반수 찬성으로 통과됩니다.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <h4>투표 보상은 어떻게 계산되나요?</h4>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          <p>투표 보상은 기본 보상 + 투표권 비례 보상 + 스트릭 보너스로 계산됩니다. 기본 보상은 투표당 100 TBURN이며, 보유 투표권에 비례하여 추가 보상이 지급됩니다. 연속 투표 시 스트릭 보너스(최대 2x)가 적용되며, 정족수 달성에 기여하면 추가 보너스를 받습니다.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <h4>위원회 위원이 되려면 어떻게 해야 하나요?</h4>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          <p>위원회 위원은 커뮤니티 선거를 통해 선출됩니다. 후보자는 최소 50,000 veTBURN의 투표권과 해당 분야의 전문성이 필요합니다. 선거는 분기별로 진행되며, 임기는 1년입니다. 위원은 월정액 보상과 함께 회의 참석, 제안 심사 등의 활동에 대한 추가 보상을 받습니다.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <h4>투표권 위임은 어떻게 작동하나요?</h4>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          <p>투표권 위임을 통해 신뢰하는 대리인에게 투표권을 맡길 수 있습니다. 위임된 투표권은 대리인의 투표에 자동으로 사용됩니다. 위임자는 언제든지 위임을 취소하고 직접 투표할 수 있으며, 위임 중에도 직접 투표하면 해당 제안에서는 직접 투표가 우선합니다. 보상은 실제 투표권 소유자에게 지급됩니다.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <h4>긴급 제안은 어떻게 처리되나요?</h4>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          <p>보안 취약점이나 심각한 버그 발견 시 긴급 제안이 발동될 수 있습니다. 긴급 제안은 보안위원회가 제출하며, 검토 기간 없이 즉시 투표에 들어갑니다. 투표 기간은 24~48시간으로 단축되며, 정족수는 30%로 높아집니다. 긴급 제안 통과 시 타임락 없이 즉시 실행됩니다.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section style="padding: 100px 2rem; background: var(--gradient-dao); text-align: center;">
+    <div style="max-width: 800px; margin: 0 auto;">
+      <h2 style="font-size: 2.5rem; font-weight: 800; margin-bottom: 1rem;">TBURN의 미래를 함께 결정하세요</h2>
+      <p style="color: rgba(255,255,255,0.9); font-size: 1.125rem; margin-bottom: 2rem;">
+        당신의 한 표가 프로토콜의 방향을 결정합니다.<br>
+        8억 TBURN 거버넌스 보상이 적극적인 참여자를 기다립니다.
+      </p>
+      <button onclick="openWalletModal()" style="background: var(--white); color: var(--indigo); padding: 20px 50px; border-radius: 14px; font-size: 1.25rem; font-weight: 700; border: none; cursor: pointer; transition: transform 0.3s;">
+        <i class="fas fa-vote-yea"></i> 투표 시작하기
+      </button>
+      <p style="color: rgba(255,255,255,0.7); margin-top: 1.5rem; font-size: 0.875rem;">
+        <i class="fas fa-shield-alt"></i> 온체인 투표 · 완전한 투명성 · 탈중앙화 의사결정
+      </p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <h3>TBURN<span>CHAIN</span></h3>
+        <p>AI의 지능, 블록체인의 투명성<br>THE FUTURE IS NOW</p>
+        <div class="social-links">
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-telegram"></i></a>
+          <a href="#"><i class="fab fa-discord"></i></a>
+          <a href="#"><i class="fab fa-github"></i></a>
+          <a href="#"><i class="fab fa-medium"></i></a>
+        </div>
+      </div>
+      <div class="footer-links">
+        <h4>Governance</h4>
+        <ul>
+          <li><a href="#">포럼</a></li>
+          <li><a href="#">제안</a></li>
+          <li><a href="#">투표</a></li>
+          <li><a href="#">위원회</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h4>Resources</h4>
+        <ul>
+          <li><a href="#">거버넌스 문서</a></li>
+          <li><a href="#">투표 가이드</a></li>
+          <li><a href="#">제안 템플릿</a></li>
+          <li><a href="#">FAQ</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h4>Community</h4>
+        <ul>
+          <li><a href="#">블로그</a></li>
+          <li><a href="#">앰배서더</a></li>
+          <li><a href="#">그랜트</a></li>
+          <li><a href="#">고객지원</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025-2045 TBURN Foundation. All Rights Reserved.</p>
+      <div style="display: flex; gap: 2rem;">
+        <a href="#" style="color: var(--gray); text-decoration: none;">이용약관</a>
+        <a href="#" style="color: var(--gray); text-decoration: none;">개인정보처리방침</a>
+        <a href="#" style="color: var(--gray); text-decoration: none;">쿠키 정책</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // FAQ Toggle
+    function toggleFaq(element) {
+      const faqItem = element.parentElement;
+      const wasActive = faqItem.classList.contains('active');
+      
+      document.querySelectorAll('.faq-item').forEach(item => {
+        item.classList.remove('active');
+      });
+      
+      if (!wasActive) {
+        faqItem.classList.add('active');
+      }
+    }
+
+    // Scroll to Section
+    function scrollToSection(sectionId) {
+      const section = document.getElementById(sectionId);
+      if (section) {
+        section.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+
+    // Wallet Modal
+    function openWalletModal() {
+      alert('지갑 연결 기능은 메인넷 런칭 후 활성화됩니다.\n\n현재 데모 모드로 확인 중입니다.');
+    }
+
+    // Claim Rewards
+    function claimRewards() {
+      alert('보상 클레임 기능은 메인넷 런칭 후 활성화됩니다.\n\n현재 데모 모드로 확인 중입니다.');
+    }
+
+    // Vote Button Click
+    document.querySelectorAll('.vote-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const voteType = this.classList.contains('for') ? '찬성' : 
+                        this.classList.contains('against') ? '반대' : '기권';
+        alert(`${voteType} 투표 기능은 메인넷 런칭 후 활성화됩니다.\n\n현재 데모 모드로 확인 중입니다.`);
+      });
+    });
+
+    // Delegate Item Click
+    document.querySelectorAll('.delegate-item').forEach(item => {
+      item.addEventListener('click', function() {
+        alert('투표권 위임 기능은 메인넷 런칭 후 활성화됩니다.\n\n현재 데모 모드로 확인 중입니다.');
+      });
+    });
+
+    // Header Scroll Effect
+    window.addEventListener('scroll', () => {
+      const header = document.querySelector('.header');
+      if (window.scrollY > 50) {
+        header.style.background = 'rgba(15, 23, 42, 0.98)';
+      } else {
+        header.style.background = 'rgba(15, 23, 42, 0.95)';
+      }
+    });
+  </script>
+</body>
+</html>

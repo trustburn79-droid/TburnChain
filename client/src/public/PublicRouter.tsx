@@ -117,6 +117,7 @@ const TreePage = lazy(() => import("@/pages/tree"));
 const AirdropPage = lazy(() => import("@/pages/airdrop"));
 const ReferralPage = lazy(() => import("@/pages/referral"));
 const EventsPage = lazy(() => import("@/pages/events"));
+const CommunityProgramPage = lazy(() => import("@/pages/community-program"));
 
 function LoginPage() {
   const handleLoginSuccess = () => {
@@ -183,6 +184,16 @@ export function PublicRouter() {
       <ErrorBoundary>
         <Suspense fallback={<PageLoading />}>
           <EventsPage />
+        </Suspense>
+      </ErrorBoundary>
+    );
+  }
+  
+  if (location === "/community-program") {
+    return (
+      <ErrorBoundary>
+        <Suspense fallback={<PageLoading />}>
+          <CommunityProgramPage />
         </Suspense>
       </ErrorBoundary>
     );
