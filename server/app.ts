@@ -74,10 +74,11 @@ const REDIS_URL = process.env.REDIS_URL || "redis://localhost:6379";
 const isReplit = process.env.REPL_ID !== undefined; // Replit 환경 감지
 const isReplitAutoscale = !isReplit && !process.env.REDIS_URL; // Replit Autoscale 환경 (REPL_ID 없고 REDIS_URL도 없음)
 
-// ★ 쿠키 보안 설정 - 환경변수로 제어 가능
-// COOKIE_SECURE=true 설정하면 HTTPS 전용 쿠키 활성화 (Nginx TLS 완료 후)
-// 기본값: false (Nginx 설정이 완벽하지 않아도 작동)
-const cookieSecure = process.env.COOKIE_SECURE === "true";
+// ★ 쿠키 보안 설정 - 프로덕션 환경 자동 감지
+// Replit Autoscale 배포 시 HTTPS가 자동으로 활성화되므로 secure 쿠키 필요
+// NODE_ENV가 production이거나 REPL_SLUG이 있으면서 REPL_ID가 없으면 배포 환경
+const isProduction = process.env.NODE_ENV === "production" || (process.env.REPL_SLUG && !process.env.REPL_ID);
+const cookieSecure = isProduction || process.env.COOKIE_SECURE === "true";
 
 let sessionStore: session.Store;
 let sessionStoreType: string;
@@ -121,10 +122,10 @@ app.use(
     resave: false,
     saveUninitialized: false,
     cookie: {
-      secure: cookieSecure,   // ★ COOKIE_SECURE=true 환경변수로 HTTPS 전용 쿠키 활성화
+      secure: cookieSecure,   // ★ 프로덕션에서 HTTPS 전용 쿠키 자동 활성화
       httpOnly: true, // 자바스크립트 접근 방지 (보안)
       maxAge: 24 * 60 * 60 * 1000, // 24시간
-      sameSite: "lax", 
+      sameSite: cookieSecure ? "none" : "lax", // ★ HTTPS 환경에서는 none으로 설정 (크로스 도메인 지원)
     },
     proxy: true, // ★ 항상 프록시 신뢰 (Nginx 뒤에서 작동)
   })

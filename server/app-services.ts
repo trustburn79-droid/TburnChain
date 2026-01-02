@@ -45,7 +45,9 @@ export default async function runAppServices(
     checkPeriod: 86400000,
   });
 
-  const cookieSecure = process.env.COOKIE_SECURE === "true";
+  // ★ 프로덕션 환경 자동 감지 - Autoscale 배포 시 HTTPS가 자동으로 활성화됨
+  const isProduction = process.env.NODE_ENV === "production" || (process.env.REPL_SLUG && !process.env.REPL_ID);
+  const cookieSecure = isProduction || process.env.COOKIE_SECURE === "true";
 
   app.use(
     session({
@@ -57,7 +59,7 @@ export default async function runAppServices(
         secure: cookieSecure,
         httpOnly: true,
         maxAge: 24 * 60 * 60 * 1000,
-        sameSite: "lax",
+        sameSite: cookieSecure ? "none" : "lax", // ★ HTTPS 환경에서는 none으로 설정
       },
       proxy: true,
     })
