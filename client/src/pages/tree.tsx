@@ -153,6 +153,7 @@ const routeTree: RouteItem[] = [
       { path: "/community-program", label: "Community Program" },
       { path: "/dao-governance", label: "DAO Governance" },
       { path: "/block-rewards", label: "Block Rewards" },
+      { path: "/validator-incentives", label: "Validator Incentives" },
       { path: "/token-generator", label: "Token Generator" },
       { path: "/nft-marketplace", label: "NFT Marketplace" },
       { path: "/security-audit", label: "Security Audit" },
