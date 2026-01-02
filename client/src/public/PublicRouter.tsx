@@ -113,11 +113,11 @@ const ValidatorInfrastructure = lazy(() => import("@/pages/validator-infrastruct
 const Brand = lazy(() => import("./pages/Brand"));
 const Login = lazy(() => import("@/pages/login"));
 const TokenGenerator = lazy(() => import("@/pages/token-generator"));
+const TreePage = lazy(() => import("@/pages/tree"));
 
 function LoginPage() {
-  const [, setLocation] = useLocation();
   const handleLoginSuccess = () => {
-    setLocation("/app/dashboard");
+    window.location.href = "/app/dashboard";
   };
   return <Login onLoginSuccess={handleLoginSuccess} />;
 }
@@ -140,6 +140,16 @@ export function PublicRouter() {
       <ErrorBoundary>
         <Suspense fallback={<PageLoading />}>
           <TokenGenerator />
+        </Suspense>
+      </ErrorBoundary>
+    );
+  }
+  
+  if (location === "/tree") {
+    return (
+      <ErrorBoundary>
+        <Suspense fallback={<PageLoading />}>
+          <TreePage />
         </Suspense>
       </ErrorBoundary>
     );
