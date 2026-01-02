@@ -1,0 +1,2069 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TBURN Chain SHO | DAO Maker - Strong Holder Offering</title>
+  <meta name="description" content="DAO Maker의 Strong Holder Offering으로 TBURN Chain에 참여하세요. DAO Power 보유자 우대, 리펀드 정책 적용.">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --dao-primary: #00D4AA;
+      --dao-secondary: #7B61FF;
+      --dao-accent: #00B4D8;
+      --dao-pink: #FF6B9D;
+      --dao-dark: #0D1117;
+      --dao-darker: #010409;
+      --dao-card: #161B22;
+      --dao-card-hover: #1C2128;
+      --dao-border: #30363D;
+      --dao-text: #C9D1D9;
+      --dao-text-muted: #8B949E;
+      --white: #FFFFFF;
+      --success: #3FB950;
+      --warning: #D29922;
+      --danger: #F85149;
+      --gradient-dao: linear-gradient(135deg, #00D4AA 0%, #7B61FF 100%);
+      --gradient-sho: linear-gradient(135deg, #7B61FF 0%, #FF6B9D 100%);
+      --gradient-power: linear-gradient(135deg, #00B4D8 0%, #00D4AA 100%);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--dao-darker);
+      color: var(--white);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-8px); } }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+    @keyframes glow { 0%, 100% { box-shadow: 0 0 20px rgba(0, 212, 170, 0.3); } 50% { box-shadow: 0 0 40px rgba(0, 212, 170, 0.6); } }
+    @keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
+    @keyframes rotate { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    @keyframes slideUp { 0% { opacity: 0; transform: translateY(20px); } 100% { opacity: 1; transform: translateY(0); } }
+    @keyframes borderGlow { 0%, 100% { border-color: rgba(0, 212, 170, 0.3); } 50% { border-color: rgba(123, 97, 255, 0.5); } }
+    @keyframes diamondSpin { 0% { transform: rotate(0deg) scale(1); } 50% { transform: rotate(180deg) scale(1.1); } 100% { transform: rotate(360deg) scale(1); } }
+
+    /* Header */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background: rgba(13, 17, 23, 0.95);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--dao-border);
+    }
+
+    .header-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0.75rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 2.5rem;
+    }
+
+    .dao-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .dao-logo-icon {
+      width: 42px;
+      height: 42px;
+      background: var(--gradient-dao);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+
+    .dao-logo-text {
+      font-size: 1.25rem;
+      font-weight: 800;
+      background: var(--gradient-dao);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .nav-menu {
+      display: flex;
+      gap: 0.25rem;
+    }
+
+    .nav-item {
+      padding: 8px 16px;
+      background: transparent;
+      border: none;
+      border-radius: 8px;
+      color: var(--dao-text-muted);
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .nav-item:hover { color: var(--white); background: var(--dao-card); }
+    .nav-item.active { color: var(--dao-primary); background: rgba(0, 212, 170, 0.1); }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .dao-power-badge {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      background: rgba(123, 97, 255, 0.15);
+      border: 1px solid rgba(123, 97, 255, 0.3);
+      border-radius: 10px;
+    }
+
+    .dao-power-badge .icon {
+      font-size: 1rem;
+      color: var(--dao-secondary);
+    }
+
+    .dao-power-badge .label {
+      font-size: 0.75rem;
+      color: var(--dao-text-muted);
+    }
+
+    .dao-power-badge .value {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--dao-secondary);
+    }
+
+    .connect-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      background: var(--gradient-dao);
+      border: none;
+      border-radius: 10px;
+      color: var(--dao-dark);
+      font-weight: 700;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .connect-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(0, 212, 170, 0.3);
+    }
+
+    /* Main Content */
+    .main-content {
+      padding-top: 80px;
+    }
+
+    /* Hero Section */
+    .hero-section {
+      position: relative;
+      padding: 3rem 2rem;
+      background: var(--dao-dark);
+      overflow: hidden;
+    }
+
+    .hero-section::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(ellipse at 30% 20%, rgba(0, 212, 170, 0.08) 0%, transparent 50%),
+                  radial-gradient(ellipse at 70% 80%, rgba(123, 97, 255, 0.08) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    .hero-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Breadcrumb */
+    .breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 2rem;
+      font-size: 0.85rem;
+    }
+
+    .breadcrumb a {
+      color: var(--dao-text-muted);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .breadcrumb a:hover { color: var(--dao-primary); }
+    .breadcrumb span { color: var(--dao-text-muted); }
+    .breadcrumb .current { color: var(--white); }
+
+    /* Project Header */
+    .project-hero {
+      display: grid;
+      grid-template-columns: 1fr 420px;
+      gap: 3rem;
+      align-items: start;
+    }
+
+    .project-main {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .project-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 1.5rem;
+    }
+
+    .project-logo {
+      width: 100px;
+      height: 100px;
+      background: linear-gradient(135deg, #D4AF37 0%, #F5D76E 100%);
+      border-radius: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 50px;
+      box-shadow: 0 20px 60px rgba(212, 175, 55, 0.3);
+      flex-shrink: 0;
+    }
+
+    .project-info { flex: 1; }
+
+    .project-info h1 {
+      font-size: 2.25rem;
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+    }
+
+    .project-info .tagline {
+      color: var(--dao-text-muted);
+      font-size: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .project-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    .badge.sho {
+      background: var(--gradient-sho);
+      color: var(--white);
+    }
+
+    .badge.live {
+      background: rgba(63, 185, 80, 0.2);
+      color: var(--success);
+      border: 1px solid rgba(63, 185, 80, 0.3);
+    }
+
+    .badge.live .dot {
+      width: 6px;
+      height: 6px;
+      background: var(--success);
+      border-radius: 50%;
+      animation: pulse 1.5s infinite;
+    }
+
+    .badge.refund {
+      background: rgba(0, 180, 216, 0.15);
+      color: var(--dao-accent);
+      border: 1px solid rgba(0, 180, 216, 0.3);
+    }
+
+    .badge.verified {
+      background: rgba(0, 212, 170, 0.15);
+      color: var(--dao-primary);
+      border: 1px solid rgba(0, 212, 170, 0.3);
+    }
+
+    /* Description */
+    .project-description {
+      color: var(--dao-text);
+      font-size: 1rem;
+      line-height: 1.8;
+    }
+
+    /* Stats Grid */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+    }
+
+    .stat-card {
+      background: var(--dao-card);
+      border: 1px solid var(--dao-border);
+      border-radius: 16px;
+      padding: 1.25rem;
+      text-align: center;
+      transition: all 0.3s;
+    }
+
+    .stat-card:hover {
+      border-color: var(--dao-primary);
+      transform: translateY(-3px);
+    }
+
+    .stat-icon {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-value {
+      font-size: 1.5rem;
+      font-weight: 800;
+      margin-bottom: 0.25rem;
+    }
+
+    .stat-value.primary { color: var(--dao-primary); }
+    .stat-value.secondary { color: var(--dao-secondary); }
+    .stat-value.accent { color: var(--dao-accent); }
+    .stat-value.pink { color: var(--dao-pink); }
+
+    .stat-label {
+      font-size: 0.8rem;
+      color: var(--dao-text-muted);
+    }
+
+    /* Social Links */
+    .social-row {
+      display: flex;
+      gap: 0.75rem;
+    }
+
+    .social-btn {
+      width: 44px;
+      height: 44px;
+      background: var(--dao-card);
+      border: 1px solid var(--dao-border);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--dao-text-muted);
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+
+    .social-btn:hover {
+      border-color: var(--dao-primary);
+      color: var(--dao-primary);
+      transform: translateY(-3px);
+    }
+
+    /* SHO Card */
+    .sho-card {
+      background: var(--dao-card);
+      border: 2px solid var(--dao-border);
+      border-radius: 24px;
+      overflow: hidden;
+      position: sticky;
+      top: 100px;
+      animation: borderGlow 3s infinite;
+    }
+
+    .sho-header {
+      padding: 1.5rem;
+      background: var(--gradient-sho);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .sho-header::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -50%;
+      width: 100%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .sho-header-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .sho-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 0.5rem;
+    }
+
+    .sho-title h3 {
+      font-size: 1.25rem;
+      font-weight: 800;
+    }
+
+    .sho-title .diamond {
+      font-size: 1.25rem;
+      animation: diamondSpin 4s ease-in-out infinite;
+    }
+
+    .sho-subtitle {
+      font-size: 0.9rem;
+      opacity: 0.9;
+    }
+
+    .sho-body {
+      padding: 1.5rem;
+    }
+
+    /* Countdown */
+    .sho-countdown {
+      background: var(--dao-darker);
+      border-radius: 16px;
+      padding: 1.25rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .countdown-label {
+      font-size: 0.8rem;
+      color: var(--dao-text-muted);
+      text-align: center;
+      margin-bottom: 0.75rem;
+    }
+
+    .countdown-timer {
+      display: flex;
+      justify-content: center;
+      gap: 0.75rem;
+    }
+
+    .countdown-item {
+      text-align: center;
+      min-width: 60px;
+    }
+
+    .countdown-value {
+      font-size: 1.75rem;
+      font-weight: 800;
+      background: var(--gradient-dao);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .countdown-unit {
+      font-size: 0.7rem;
+      color: var(--dao-text-muted);
+      text-transform: uppercase;
+    }
+
+    /* Progress */
+    .sho-progress {
+      margin-bottom: 1.5rem;
+    }
+
+    .progress-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.75rem;
+    }
+
+    .progress-raised {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--dao-primary);
+    }
+
+    .progress-goal {
+      font-size: 0.9rem;
+      color: var(--dao-text-muted);
+    }
+
+    .progress-bar {
+      height: 10px;
+      background: var(--dao-darker);
+      border-radius: 100px;
+      overflow: hidden;
+      margin-bottom: 0.75rem;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: var(--gradient-dao);
+      border-radius: 100px;
+      position: relative;
+      transition: width 1s ease;
+    }
+
+    .progress-fill::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+      background-size: 200% 100%;
+      animation: shimmer 2s infinite;
+    }
+
+    .progress-stats {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.85rem;
+    }
+
+    .progress-percent { color: var(--dao-primary); font-weight: 700; }
+    .progress-participants { color: var(--dao-text-muted); }
+
+    /* Sale Details */
+    .sale-details {
+      margin-bottom: 1.5rem;
+    }
+
+    .detail-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .detail-row:last-child { border-bottom: none; }
+
+    .detail-row .label { color: var(--dao-text-muted); font-size: 0.9rem; }
+    .detail-row .value { font-weight: 600; font-size: 0.9rem; }
+    .detail-row .value.highlight { color: var(--dao-primary); }
+
+    /* DAO Power Section */
+    .dao-power-section {
+      background: linear-gradient(135deg, rgba(123, 97, 255, 0.1), rgba(0, 212, 170, 0.05));
+      border: 1px solid rgba(123, 97, 255, 0.2);
+      border-radius: 16px;
+      padding: 1.25rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .power-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+
+    .power-header h4 {
+      font-size: 0.9rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .power-header h4 i { color: var(--dao-secondary); }
+
+    .power-status {
+      font-size: 0.8rem;
+      padding: 4px 10px;
+      background: rgba(63, 185, 80, 0.2);
+      border-radius: 100px;
+      color: var(--success);
+      font-weight: 600;
+    }
+
+    .power-info {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+    }
+
+    .power-stat {
+      text-align: center;
+      padding: 0.75rem;
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: 10px;
+    }
+
+    .power-stat .value {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--dao-secondary);
+    }
+
+    .power-stat .label {
+      font-size: 0.75rem;
+      color: var(--dao-text-muted);
+    }
+
+    /* Allocation Input */
+    .allocation-section {
+      margin-bottom: 1.5rem;
+    }
+
+    .allocation-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.75rem;
+    }
+
+    .allocation-header .label { font-size: 0.9rem; font-weight: 600; }
+    .allocation-header .max { font-size: 0.8rem; color: var(--dao-primary); }
+
+    .allocation-input-wrapper {
+      position: relative;
+      margin-bottom: 1rem;
+    }
+
+    .allocation-input {
+      width: 100%;
+      padding: 1rem;
+      padding-right: 100px;
+      background: var(--dao-darker);
+      border: 2px solid var(--dao-border);
+      border-radius: 12px;
+      color: var(--white);
+      font-size: 1.25rem;
+      font-weight: 700;
+      transition: border-color 0.3s;
+    }
+
+    .allocation-input:focus {
+      outline: none;
+      border-color: var(--dao-primary);
+    }
+
+    .allocation-currency {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      background: var(--dao-card);
+      border-radius: 8px;
+    }
+
+    .allocation-currency .icon { font-size: 1.25rem; }
+    .allocation-currency span { font-weight: 600; font-size: 0.85rem; }
+
+    .quick-amounts {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.5rem;
+    }
+
+    .quick-amount {
+      padding: 10px;
+      background: var(--dao-darker);
+      border: 1px solid var(--dao-border);
+      border-radius: 8px;
+      color: var(--dao-text);
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-align: center;
+    }
+
+    .quick-amount:hover, .quick-amount.active {
+      border-color: var(--dao-primary);
+      color: var(--dao-primary);
+      background: rgba(0, 212, 170, 0.1);
+    }
+
+    /* Token Output */
+    .token-output {
+      background: var(--dao-darker);
+      border-radius: 12px;
+      padding: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .token-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.5rem 0;
+    }
+
+    .token-row .label { color: var(--dao-text-muted); font-size: 0.85rem; }
+    .token-row .value { font-weight: 600; font-size: 0.85rem; }
+    .token-row .value.large { font-size: 1.125rem; color: var(--dao-primary); }
+    .token-row .value.bonus { color: var(--success); }
+
+    /* Refund Policy */
+    .refund-policy {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 1rem;
+      background: rgba(0, 180, 216, 0.1);
+      border: 1px solid rgba(0, 180, 216, 0.2);
+      border-radius: 12px;
+      margin-bottom: 1.5rem;
+    }
+
+    .refund-policy .icon {
+      width: 40px;
+      height: 40px;
+      background: rgba(0, 180, 216, 0.2);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--dao-accent);
+      font-size: 1.25rem;
+      flex-shrink: 0;
+    }
+
+    .refund-policy .content h5 {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--dao-accent);
+      margin-bottom: 0.25rem;
+    }
+
+    .refund-policy .content p {
+      font-size: 0.8rem;
+      color: var(--dao-text-muted);
+    }
+
+    /* Purchase Button */
+    .purchase-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      padding: 16px;
+      background: var(--gradient-dao);
+      border: none;
+      border-radius: 14px;
+      color: var(--dao-dark);
+      font-size: 1.125rem;
+      font-weight: 800;
+      cursor: pointer;
+      transition: all 0.3s;
+      animation: glow 2s infinite;
+    }
+
+    .purchase-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 15px 40px rgba(0, 212, 170, 0.3);
+    }
+
+    .purchase-btn:disabled {
+      background: var(--dao-border);
+      cursor: not-allowed;
+      animation: none;
+    }
+
+    .security-note {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 1rem;
+      font-size: 0.8rem;
+      color: var(--dao-text-muted);
+    }
+
+    .security-note i { color: var(--success); }
+
+    /* Details Section */
+    .details-section {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 3rem 2rem;
+    }
+
+    .section-tabs {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--dao-border);
+      overflow-x: auto;
+    }
+
+    .section-tab {
+      padding: 10px 20px;
+      background: transparent;
+      border: none;
+      border-radius: 10px;
+      color: var(--dao-text-muted);
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      white-space: nowrap;
+    }
+
+    .section-tab:hover { color: var(--white); }
+
+    .section-tab.active {
+      background: var(--gradient-dao);
+      color: var(--dao-dark);
+    }
+
+    .tab-content {
+      display: none;
+      animation: slideUp 0.3s ease;
+    }
+
+    .tab-content.active { display: block; }
+
+    /* SHO Tiers */
+    .sho-tiers-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    .tier-card {
+      background: var(--dao-card);
+      border: 2px solid var(--dao-border);
+      border-radius: 20px;
+      overflow: hidden;
+      transition: all 0.3s;
+    }
+
+    .tier-card:hover {
+      border-color: var(--dao-primary);
+      transform: translateY(-5px);
+    }
+
+    .tier-card.recommended {
+      border-color: var(--dao-secondary);
+      position: relative;
+    }
+
+    .tier-card.recommended::before {
+      content: '추천';
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      padding: 4px 10px;
+      background: var(--gradient-sho);
+      border-radius: 100px;
+      font-size: 0.7rem;
+      font-weight: 700;
+    }
+
+    .tier-header {
+      padding: 1.5rem;
+      text-align: center;
+      border-bottom: 1px solid var(--dao-border);
+    }
+
+    .tier-icon {
+      font-size: 3rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .tier-name {
+      font-size: 1.25rem;
+      font-weight: 800;
+      margin-bottom: 0.25rem;
+    }
+
+    .tier-power {
+      font-size: 0.9rem;
+      color: var(--dao-secondary);
+      font-weight: 600;
+    }
+
+    .tier-body { padding: 1.5rem; }
+
+    .tier-allocation {
+      text-align: center;
+      padding: 1rem;
+      background: var(--dao-darker);
+      border-radius: 12px;
+      margin-bottom: 1rem;
+    }
+
+    .tier-allocation .label {
+      font-size: 0.8rem;
+      color: var(--dao-text-muted);
+      margin-bottom: 0.25rem;
+    }
+
+    .tier-allocation .value {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--dao-primary);
+    }
+
+    .tier-features {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .tier-feature {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.9rem;
+    }
+
+    .tier-feature i {
+      color: var(--success);
+      font-size: 0.85rem;
+    }
+
+    /* Vesting Section */
+    .vesting-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+
+    .vesting-card {
+      background: var(--dao-card);
+      border: 1px solid var(--dao-border);
+      border-radius: 20px;
+      padding: 2rem;
+    }
+
+    .vesting-card h3 {
+      font-size: 1.125rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .vesting-card h3 i { color: var(--dao-primary); }
+
+    .vesting-timeline {
+      position: relative;
+    }
+
+    .vesting-item {
+      display: flex;
+      gap: 1rem;
+      padding-bottom: 1.5rem;
+      position: relative;
+    }
+
+    .vesting-item::before {
+      content: '';
+      position: absolute;
+      left: 15px;
+      top: 30px;
+      bottom: 0;
+      width: 2px;
+      background: var(--dao-border);
+    }
+
+    .vesting-item:last-child::before { display: none; }
+
+    .vesting-dot {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--dao-darker);
+      border: 2px solid var(--dao-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      flex-shrink: 0;
+      z-index: 1;
+    }
+
+    .vesting-item.active .vesting-dot {
+      background: var(--dao-primary);
+      border-color: var(--dao-primary);
+      color: var(--dao-dark);
+    }
+
+    .vesting-content { flex: 1; }
+    .vesting-content .title { font-weight: 600; margin-bottom: 0.25rem; }
+    .vesting-content .desc { font-size: 0.85rem; color: var(--dao-text-muted); }
+
+    .vesting-percent {
+      font-weight: 800;
+      color: var(--dao-primary);
+    }
+
+    /* Chart */
+    .vesting-chart {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .chart-bar {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .chart-label {
+      width: 80px;
+      font-size: 0.85rem;
+      color: var(--dao-text-muted);
+    }
+
+    .chart-track {
+      flex: 1;
+      height: 24px;
+      background: var(--dao-darker);
+      border-radius: 100px;
+      overflow: hidden;
+    }
+
+    .chart-fill {
+      height: 100%;
+      background: var(--gradient-dao);
+      border-radius: 100px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      padding-right: 10px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--dao-dark);
+    }
+
+    /* FAQ */
+    .faq-list {
+      max-width: 900px;
+    }
+
+    .faq-item {
+      background: var(--dao-card);
+      border: 1px solid var(--dao-border);
+      border-radius: 16px;
+      margin-bottom: 1rem;
+      overflow: hidden;
+    }
+
+    .faq-question {
+      padding: 1.25rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .faq-question:hover { background: var(--dao-card-hover); }
+
+    .faq-question h4 { font-size: 1rem; font-weight: 600; }
+
+    .faq-question i {
+      color: var(--dao-primary);
+      transition: transform 0.3s;
+    }
+
+    .faq-item.active .faq-question i { transform: rotate(180deg); }
+
+    .faq-answer {
+      padding: 0 1.25rem;
+      max-height: 0;
+      overflow: hidden;
+      transition: all 0.3s;
+    }
+
+    .faq-item.active .faq-answer {
+      padding: 0 1.25rem 1.25rem;
+      max-height: 500px;
+    }
+
+    .faq-answer p { color: var(--dao-text-muted); line-height: 1.8; }
+
+    /* Governance Section */
+    .governance-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    .governance-card {
+      background: var(--dao-card);
+      border: 1px solid var(--dao-border);
+      border-radius: 20px;
+      padding: 2rem;
+      text-align: center;
+      transition: all 0.3s;
+    }
+
+    .governance-card:hover {
+      border-color: var(--dao-primary);
+      transform: translateY(-5px);
+    }
+
+    .governance-icon {
+      width: 70px;
+      height: 70px;
+      margin: 0 auto 1.25rem;
+      background: var(--gradient-dao);
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+    }
+
+    .governance-card h4 {
+      font-size: 1.125rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .governance-card p {
+      font-size: 0.9rem;
+      color: var(--dao-text-muted);
+    }
+
+    /* Modal */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(10px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+    }
+
+    .modal-overlay.show { display: flex; }
+
+    .modal {
+      background: var(--dao-card);
+      border: 1px solid var(--dao-border);
+      border-radius: 24px;
+      width: 100%;
+      max-width: 450px;
+      overflow: hidden;
+      animation: slideUp 0.3s ease;
+    }
+
+    .modal-header {
+      padding: 1.5rem;
+      background: var(--gradient-dao);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .modal-header h3 {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--dao-dark);
+    }
+
+    .modal-close {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: rgba(0, 0, 0, 0.2);
+      border: none;
+      color: var(--dao-dark);
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .modal-close:hover { background: rgba(0, 0, 0, 0.3); }
+
+    .modal-body {
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .modal-icon {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      margin: 0 auto 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+    }
+
+    .modal-icon.success {
+      background: rgba(63, 185, 80, 0.2);
+      color: var(--success);
+    }
+
+    .modal-icon.pending {
+      background: rgba(0, 212, 170, 0.2);
+    }
+
+    .modal-icon .spinner {
+      width: 40px;
+      height: 40px;
+      border: 3px solid rgba(0, 212, 170, 0.3);
+      border-top-color: var(--dao-primary);
+      border-radius: 50%;
+      animation: rotate 1s linear infinite;
+    }
+
+    .modal-body h4 { font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .modal-body p { color: var(--dao-text-muted); margin-bottom: 1.5rem; }
+
+    .modal-details {
+      background: var(--dao-darker);
+      border-radius: 12px;
+      padding: 1rem;
+      margin-bottom: 1.5rem;
+      text-align: left;
+    }
+
+    .modal-detail-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.5rem 0;
+      font-size: 0.9rem;
+    }
+
+    .modal-detail-row .label { color: var(--dao-text-muted); }
+    .modal-detail-row .value { font-weight: 600; }
+
+    .modal-btn {
+      display: block;
+      width: 100%;
+      padding: 14px;
+      background: var(--gradient-dao);
+      border: none;
+      border-radius: 12px;
+      color: var(--dao-dark);
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .modal-btn:hover { transform: scale(1.02); }
+
+    .modal-btn.secondary {
+      background: transparent;
+      border: 1px solid var(--dao-border);
+      color: var(--white);
+      margin-top: 0.75rem;
+    }
+
+    /* Footer */
+    .footer {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 2rem;
+      border-top: 1px solid var(--dao-border);
+    }
+
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 2rem;
+    }
+
+    .footer-links a {
+      color: var(--dao-text-muted);
+      text-decoration: none;
+      font-size: 0.85rem;
+      transition: color 0.3s;
+    }
+
+    .footer-links a:hover { color: var(--dao-primary); }
+
+    .footer-copyright {
+      color: var(--dao-text-muted);
+      font-size: 0.85rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 1200px) {
+      .project-hero { grid-template-columns: 1fr; }
+      .sho-card { position: static; margin-top: 2rem; }
+      .vesting-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 1024px) {
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .sho-tiers-grid { grid-template-columns: repeat(2, 1fr); }
+      .governance-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 768px) {
+      .header-container { padding: 0.75rem 1rem; }
+      .nav-menu { display: none; }
+      .dao-power-badge { display: none; }
+
+      .hero-section { padding: 2rem 1rem; }
+      .details-section { padding: 2rem 1rem; }
+
+      .project-header { flex-direction: column; text-align: center; }
+      .project-badges { justify-content: center; }
+      .social-row { justify-content: center; }
+
+      .stats-grid { grid-template-columns: 1fr 1fr; }
+      .sho-tiers-grid { grid-template-columns: 1fr; }
+      .quick-amounts { grid-template-columns: repeat(2, 1fr); }
+
+      .countdown-timer { gap: 0.5rem; }
+      .countdown-value { font-size: 1.25rem; }
+
+      .footer-content { flex-direction: column; gap: 1rem; text-align: center; }
+      .footer-links { flex-wrap: wrap; justify-content: center; gap: 1rem; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="header-container">
+      <div class="header-left">
+        <a href="#" class="dao-logo">
+          <div class="dao-logo-icon">💎</div>
+          <div class="dao-logo-text">DAO Maker</div>
+        </a>
+        <nav class="nav-menu">
+          <button class="nav-item active">SHO</button>
+          <button class="nav-item">스테이킹</button>
+          <button class="nav-item">거버넌스</button>
+          <button class="nav-item">포트폴리오</button>
+          <button class="nav-item">스왑</button>
+        </nav>
+      </div>
+      <div class="header-right">
+        <div class="dao-power-badge">
+          <span class="icon">⚡</span>
+          <div>
+            <div class="label">DAO Power</div>
+            <div class="value">12,500</div>
+          </div>
+        </div>
+        <button class="connect-btn">
+          <i class="fas fa-wallet"></i>
+          0x7a3b...9f2c
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <div class="hero-container">
+        <!-- Breadcrumb -->
+        <div class="breadcrumb">
+          <a href="#">SHO</a>
+          <span>/</span>
+          <span class="current">TBURN Chain</span>
+        </div>
+
+        <div class="project-hero">
+          <!-- Project Main -->
+          <div class="project-main">
+            <div class="project-header">
+              <div class="project-logo">🔥</div>
+              <div class="project-info">
+                <h1>TBURN Chain</h1>
+                <p class="tagline">AI-Enhanced Blockchain Platform · Layer 1</p>
+                <div class="project-badges">
+                  <span class="badge sho">
+                    <i class="fas fa-gem"></i>
+                    SHO Round
+                  </span>
+                  <span class="badge live">
+                    <span class="dot"></span>
+                    진행 중
+                  </span>
+                  <span class="badge refund">
+                    <i class="fas fa-shield-alt"></i>
+                    리펀드 보장
+                  </span>
+                  <span class="badge verified">
+                    <i class="fas fa-check-circle"></i>
+                    검증됨
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <p class="project-description">
+              TBURN Chain은 AI와 블록체인 기술을 융합한 차세대 레이어-1 플랫폼입니다. 
+              200,000+ TPS의 초고속 처리, Triple-Band AI Orchestration, 자가 최적화 네트워크를 통해 
+              엔터프라이즈급 성능과 탈중앙화를 동시에 실현합니다. DAO Maker의 Strong Holder Offering을 통해 
+              DAO Power 보유자에게 우선 참여 기회를 제공합니다.
+            </p>
+
+            <div class="stats-grid">
+              <div class="stat-card">
+                <div class="stat-icon">💰</div>
+                <div class="stat-value primary">$0.020</div>
+                <div class="stat-label">토큰 가격</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-icon">🎯</div>
+                <div class="stat-value secondary">$12M</div>
+                <div class="stat-label">목표 모집액</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-icon">🔓</div>
+                <div class="stat-value accent">15%</div>
+                <div class="stat-label">TGE 해제</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-icon">⏱️</div>
+                <div class="stat-value pink">15개월</div>
+                <div class="stat-label">총 베스팅</div>
+              </div>
+            </div>
+
+            <div class="social-row">
+              <a href="#" class="social-btn"><i class="fab fa-twitter"></i></a>
+              <a href="#" class="social-btn"><i class="fab fa-telegram"></i></a>
+              <a href="#" class="social-btn"><i class="fab fa-discord"></i></a>
+              <a href="#" class="social-btn"><i class="fab fa-medium"></i></a>
+              <a href="#" class="social-btn"><i class="fab fa-github"></i></a>
+              <a href="#" class="social-btn"><i class="fas fa-globe"></i></a>
+            </div>
+          </div>
+
+          <!-- SHO Card -->
+          <div class="sho-card">
+            <div class="sho-header">
+              <div class="sho-header-content">
+                <div class="sho-title">
+                  <span class="diamond">💎</span>
+                  <h3>Strong Holder Offering</h3>
+                </div>
+                <p class="sho-subtitle">DAO Power 보유자 전용 토큰 세일</p>
+              </div>
+            </div>
+
+            <div class="sho-body">
+              <!-- Countdown -->
+              <div class="sho-countdown">
+                <div class="countdown-label">세일 종료까지</div>
+                <div class="countdown-timer">
+                  <div class="countdown-item">
+                    <div class="countdown-value" id="days">14</div>
+                    <div class="countdown-unit">Days</div>
+                  </div>
+                  <div class="countdown-item">
+                    <div class="countdown-value" id="hours">08</div>
+                    <div class="countdown-unit">Hours</div>
+                  </div>
+                  <div class="countdown-item">
+                    <div class="countdown-value" id="minutes">32</div>
+                    <div class="countdown-unit">Mins</div>
+                  </div>
+                  <div class="countdown-item">
+                    <div class="countdown-value" id="seconds">45</div>
+                    <div class="countdown-unit">Secs</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Progress -->
+              <div class="sho-progress">
+                <div class="progress-header">
+                  <div class="progress-raised">$5,400,000</div>
+                  <div class="progress-goal">/ $12,000,000</div>
+                </div>
+                <div class="progress-bar">
+                  <div class="progress-fill" style="width: 45%;"></div>
+                </div>
+                <div class="progress-stats">
+                  <span class="progress-percent">45% 완료</span>
+                  <span class="progress-participants">5,847명 참여</span>
+                </div>
+              </div>
+
+              <!-- Sale Details -->
+              <div class="sale-details">
+                <div class="detail-row">
+                  <span class="label">토큰 가격</span>
+                  <span class="value highlight">$0.020</span>
+                </div>
+                <div class="detail-row">
+                  <span class="label">최소 참여</span>
+                  <span class="value">$100</span>
+                </div>
+                <div class="detail-row">
+                  <span class="label">TGE 해제</span>
+                  <span class="value highlight">15%</span>
+                </div>
+                <div class="detail-row">
+                  <span class="label">베스팅</span>
+                  <span class="value">3개월 클리프 + 12개월</span>
+                </div>
+              </div>
+
+              <!-- DAO Power Section -->
+              <div class="dao-power-section">
+                <div class="power-header">
+                  <h4><i class="fas fa-bolt"></i> 내 DAO Power</h4>
+                  <span class="power-status">Silver Tier</span>
+                </div>
+                <div class="power-info">
+                  <div class="power-stat">
+                    <div class="value">12,500</div>
+                    <div class="label">DAO Power</div>
+                  </div>
+                  <div class="power-stat">
+                    <div class="value">$2,500</div>
+                    <div class="label">최대 할당</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Allocation Input -->
+              <div class="allocation-section">
+                <div class="allocation-header">
+                  <span class="label">참여 금액</span>
+                  <span class="max">최대: $2,500</span>
+                </div>
+                <div class="allocation-input-wrapper">
+                  <input type="number" class="allocation-input" id="allocationInput" value="1000" oninput="calculateTokens()">
+                  <div class="allocation-currency">
+                    <span class="icon">💵</span>
+                    <span>USDT</span>
+                  </div>
+                </div>
+                <div class="quick-amounts">
+                  <div class="quick-amount" onclick="setAmount(100)">$100</div>
+                  <div class="quick-amount" onclick="setAmount(500)">$500</div>
+                  <div class="quick-amount active" onclick="setAmount(1000)">$1,000</div>
+                  <div class="quick-amount" onclick="setAmount(2500)">MAX</div>
+                </div>
+              </div>
+
+              <!-- Token Output -->
+              <div class="token-output">
+                <div class="token-row">
+                  <span class="label">받을 토큰</span>
+                  <span class="value large" id="tokenAmount">50,000 TBURN</span>
+                </div>
+                <div class="token-row">
+                  <span class="label">보너스 (+1%)</span>
+                  <span class="value bonus" id="bonusAmount">+500 TBURN</span>
+                </div>
+                <div class="token-row">
+                  <span class="label">TGE 해제 (15%)</span>
+                  <span class="value" id="tgeAmount">7,575 TBURN</span>
+                </div>
+              </div>
+
+              <!-- Refund Policy -->
+              <div class="refund-policy">
+                <div class="icon"><i class="fas fa-shield-alt"></i></div>
+                <div class="content">
+                  <h5>리펀드 정책 적용</h5>
+                  <p>TGE 후 30일 내 토큰 가격이 세일가 이하 시 100% 환불</p>
+                </div>
+              </div>
+
+              <button class="purchase-btn" onclick="purchase()">
+                <i class="fas fa-gem"></i>
+                SHO 참여하기
+              </button>
+
+              <div class="security-note">
+                <i class="fas fa-lock"></i>
+                DAO Maker 스마트 컨트랙트로 안전하게 처리
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Details Section -->
+    <section class="details-section">
+      <div class="section-tabs">
+        <button class="section-tab active" onclick="showTab('tiers')">SHO 티어</button>
+        <button class="section-tab" onclick="showTab('vesting')">베스팅</button>
+        <button class="section-tab" onclick="showTab('governance')">거버넌스</button>
+        <button class="section-tab" onclick="showTab('faq')">FAQ</button>
+      </div>
+
+      <!-- SHO Tiers Tab -->
+      <div class="tab-content active" id="tiers-tab">
+        <div class="sho-tiers-grid">
+          <div class="tier-card">
+            <div class="tier-header">
+              <div class="tier-icon">🥉</div>
+              <div class="tier-name">Bronze</div>
+              <div class="tier-power">1,000+ DAO Power</div>
+            </div>
+            <div class="tier-body">
+              <div class="tier-allocation">
+                <div class="label">최대 할당</div>
+                <div class="value">$500</div>
+              </div>
+              <div class="tier-features">
+                <div class="tier-feature">
+                  <i class="fas fa-check"></i>
+                  <span>SHO 참여 자격</span>
+                </div>
+                <div class="tier-feature">
+                  <i class="fas fa-check"></i>
+                  <span>기본 할당량</span>
+                </div>
+                <div class="tier-feature">
+                  <i class="fas fa-check"></i>
+                  <span>리펀드 정책 적용</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="tier-card recommended">
+            <div class="tier-header">
+              <div class="tier-icon">🥈</div>
+              <div class="tier-name">Silver</div>
+              <div class="tier-power">5,000+ DAO Power</div>
+            </div>
+            <div class="tier-body">
+              <div class="tier-allocation">
+                <div class="label">최대 할당</div>
+                <div class="value">$2,500</div>
+              </div>
+              <div class="tier-features">
+                <div class="tier-feature">
+                  <i class="fas fa-check"></i>
+                  <span>우선 할당</span>
+                </div>
+                <div class="tier-feature">
+                  <i class="fas fa-check"></i>
+                  <span>+1% 보너스 토큰</span>
+                </div>
+                <div class="tier-feature">
+                  <i class="fas fa-check"></i>
+                  <span>거버넌스 투표권</span>
+                </div>
+                <div class="tier-feature">
+                  <i class="fas fa-check"></i>
+                  <span>리펀드 정책 적용</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="tier-card">
+            <div class="tier-header">
+              <div class="tier-icon">🥇</div>
+              <div class="tier-name">Gold</div>
+              <div class="tier-power">25,000+ DAO Power</div>
+            </div>
+            <div class="tier-body">
+              <div class="tier-allocation">
+                <div class="label">최대 할당</div>
+                <div class="value">$10,000</div>
+              </div>
+              <div class="tier-features">
+                <div class="tier-feature">
+                  <i class="fas fa-check"></i>
+                  <span>보장 할당</span>
+                </div>
+                <div class="tier-feature">
+                  <i class="fas fa-check"></i>
+                  <span>+3% 보너스 토큰</span>
+                </div>
+                <div class="tier-feature">
+                  <i class="fas fa-check"></i>
+                  <span>우선 거버넌스 투표</span>
+                </div>
+                <div class="tier-feature">
+                  <i class="fas fa-check"></i>
+                  <span>VIP 커뮤니티 접근</span>
+                </div>
+                <div class="tier-feature">
+                  <i class="fas fa-check"></i>
+                  <span>리펀드 정책 적용</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Vesting Tab -->
+      <div class="tab-content" id="vesting-tab">
+        <div class="vesting-grid">
+          <div class="vesting-card">
+            <h3><i class="fas fa-calendar-alt"></i> 베스팅 스케줄</h3>
+            <div class="vesting-timeline">
+              <div class="vesting-item active">
+                <div class="vesting-dot"><i class="fas fa-check"></i></div>
+                <div class="vesting-content">
+                  <div class="title">TGE (토큰 생성)</div>
+                  <div class="desc">토큰 생성 시점 즉시 해제</div>
+                </div>
+                <div class="vesting-percent">15%</div>
+              </div>
+              <div class="vesting-item">
+                <div class="vesting-dot">2</div>
+                <div class="vesting-content">
+                  <div class="title">클리프 기간</div>
+                  <div class="desc">1~3개월, 추가 해제 없음</div>
+                </div>
+                <div class="vesting-percent">0%</div>
+              </div>
+              <div class="vesting-item">
+                <div class="vesting-dot">3</div>
+                <div class="vesting-content">
+                  <div class="title">선형 베스팅</div>
+                  <div class="desc">4~15개월, 월 7.08% 해제</div>
+                </div>
+                <div class="vesting-percent">85%</div>
+              </div>
+              <div class="vesting-item">
+                <div class="vesting-dot"><i class="fas fa-flag"></i></div>
+                <div class="vesting-content">
+                  <div class="title">완전 해제</div>
+                  <div class="desc">TGE 후 15개월</div>
+                </div>
+                <div class="vesting-percent">100%</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="vesting-card">
+            <h3><i class="fas fa-chart-bar"></i> 해제 현황</h3>
+            <div class="vesting-chart">
+              <div class="chart-bar">
+                <div class="chart-label">TGE</div>
+                <div class="chart-track">
+                  <div class="chart-fill" style="width: 15%;">15%</div>
+                </div>
+              </div>
+              <div class="chart-bar">
+                <div class="chart-label">3개월</div>
+                <div class="chart-track">
+                  <div class="chart-fill" style="width: 15%;">15%</div>
+                </div>
+              </div>
+              <div class="chart-bar">
+                <div class="chart-label">6개월</div>
+                <div class="chart-track">
+                  <div class="chart-fill" style="width: 36%;">36%</div>
+                </div>
+              </div>
+              <div class="chart-bar">
+                <div class="chart-label">9개월</div>
+                <div class="chart-track">
+                  <div class="chart-fill" style="width: 57%;">57%</div>
+                </div>
+              </div>
+              <div class="chart-bar">
+                <div class="chart-label">12개월</div>
+                <div class="chart-track">
+                  <div class="chart-fill" style="width: 79%;">79%</div>
+                </div>
+              </div>
+              <div class="chart-bar">
+                <div class="chart-label">15개월</div>
+                <div class="chart-track">
+                  <div class="chart-fill" style="width: 100%;">100%</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Governance Tab -->
+      <div class="tab-content" id="governance-tab">
+        <div class="governance-grid">
+          <div class="governance-card">
+            <div class="governance-icon">🗳️</div>
+            <h4>커뮤니티 투표</h4>
+            <p>DAO Power 보유자는 프로젝트 선정 및 주요 결정에 투표권을 행사할 수 있습니다.</p>
+          </div>
+          <div class="governance-card">
+            <div class="governance-icon">📊</div>
+            <h4>투명한 운영</h4>
+            <p>모든 SHO 진행 과정과 자금 사용 내역은 온체인에서 투명하게 공개됩니다.</p>
+          </div>
+          <div class="governance-card">
+            <div class="governance-icon">🛡️</div>
+            <h4>리펀드 정책</h4>
+            <p>TGE 후 30일 내 토큰 가격이 세일가 이하로 하락 시 100% 환불을 보장합니다.</p>
+          </div>
+          <div class="governance-card">
+            <div class="governance-icon">⚡</div>
+            <h4>DAO Power 스테이킹</h4>
+            <p>DAO 토큰을 스테이킹하여 DAO Power를 획득하고 더 높은 티어로 승급하세요.</p>
+          </div>
+          <div class="governance-card">
+            <div class="governance-icon">🎁</div>
+            <h4>보상 프로그램</h4>
+            <p>활발한 거버넌스 참여자에게 추가 보상과 에어드롭 기회를 제공합니다.</p>
+          </div>
+          <div class="governance-card">
+            <div class="governance-icon">🤝</div>
+            <h4>커뮤니티 펀드</h4>
+            <p>DAO 커뮤니티가 관리하는 펀드를 통해 생태계 발전을 지원합니다.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- FAQ Tab -->
+      <div class="tab-content" id="faq-tab">
+        <div class="faq-list">
+          <div class="faq-item active">
+            <div class="faq-question" onclick="toggleFaq(this)">
+              <h4>SHO(Strong Holder Offering)란 무엇인가요?</h4>
+              <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+              <p>SHO는 DAO Maker의 독점적인 토큰 세일 방식입니다. DAO Power를 보유한 사용자만 참여할 수 있으며, 보유량에 따라 티어가 결정되고 할당량이 달라집니다. 일반 ICO와 달리 검증된 프로젝트만 SHO를 진행할 수 있어 투자자 보호가 강화됩니다.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">
+              <h4>DAO Power는 어떻게 얻나요?</h4>
+              <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+              <p>DAO 토큰을 스테이킹하면 DAO Power를 획득할 수 있습니다. 스테이킹 기간이 길수록, 수량이 많을수록 더 많은 DAO Power를 얻습니다. DAO Power는 SHO 참여 자격과 할당량을 결정하는 핵심 지표입니다.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">
+              <h4>리펀드 정책은 어떻게 작동하나요?</h4>
+              <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+              <p>TGE(토큰 생성 이벤트) 후 30일 동안 토큰 가격이 세일 가격($0.020) 이하로 유지되면, 미해제 토큰에 대해 100% 환불을 받을 수 있습니다. 이미 해제된 토큰(15%)은 환불 대상에서 제외됩니다.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">
+              <h4>어떤 결제 수단을 사용할 수 있나요?</h4>
+              <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+              <p>USDT, USDC, DAI 등 주요 스테이블코인으로 참여할 수 있습니다. 지갑에 충분한 잔액이 있어야 하며, 가스비(ETH)도 별도로 필요합니다.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">
+              <h4>토큰은 언제 받을 수 있나요?</h4>
+              <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+              <p>TGE 시점에 15%가 즉시 해제되며, DAO Maker 대시보드에서 클레임할 수 있습니다. 3개월 클리프 후 12개월에 걸쳐 나머지 85%가 월별로 해제됩니다. TGE 예정일은 2025년 2월입니다.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-content">
+        <div class="footer-links">
+          <a href="#">이용약관</a>
+          <a href="#">개인정보처리방침</a>
+          <a href="#">리스크 고지</a>
+          <a href="#">지원 센터</a>
+          <a href="#">API</a>
+        </div>
+        <div class="footer-copyright">
+          © 2025 DAO Maker. All Rights Reserved.
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <!-- Success Modal -->
+  <div class="modal-overlay" id="successModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3>💎 SHO 참여 완료</h3>
+        <button class="modal-close" onclick="closeModal()">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-icon success">
+          <i class="fas fa-check"></i>
+        </div>
+        <h4>성공적으로 참여했습니다!</h4>
+        <p>TBURN Chain SHO에 참여가 완료되었습니다.</p>
+
+        <div class="modal-details">
+          <div class="modal-detail-row">
+            <span class="label">참여 금액</span>
+            <span class="value" id="modalAmount">$1,000</span>
+          </div>
+          <div class="modal-detail-row">
+            <span class="label">받을 토큰</span>
+            <span class="value" id="modalTokens">50,500 TBURN</span>
+          </div>
+          <div class="modal-detail-row">
+            <span class="label">TGE 해제</span>
+            <span class="value">7,575 TBURN</span>
+          </div>
+          <div class="modal-detail-row">
+            <span class="label">리펀드 정책</span>
+            <span class="value" style="color: var(--dao-primary);">적용됨</span>
+          </div>
+        </div>
+
+        <button class="modal-btn" onclick="closeModal()">확인</button>
+        <button class="modal-btn secondary">
+          <i class="fas fa-external-link-alt"></i> 포트폴리오에서 보기
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Countdown Timer
+    function updateCountdown() {
+      const endDate = new Date('2025-02-15T00:00:00');
+      const now = new Date();
+      const diff = endDate - now;
+
+      if (diff > 0) {
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+        document.getElementById('days').textContent = days.toString().padStart(2, '0');
+        document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+        document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+        document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+      }
+    }
+
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+    // Calculate Tokens
+    function calculateTokens() {
+      const amount = parseFloat(document.getElementById('allocationInput').value) || 0;
+      const tokenPrice = 0.020;
+
+      let bonusPercent = 1; // Silver tier bonus
+      const baseTokens = amount / tokenPrice;
+      const bonusTokens = baseTokens * (bonusPercent / 100);
+      const totalTokens = baseTokens + bonusTokens;
+      const tgeTokens = totalTokens * 0.15;
+
+      document.getElementById('tokenAmount').textContent = formatNumber(baseTokens) + ' TBURN';
+      document.getElementById('bonusAmount').textContent = '+' + formatNumber(bonusTokens) + ' TBURN';
+      document.getElementById('tgeAmount').textContent = formatNumber(tgeTokens) + ' TBURN';
+    }
+
+    function formatNumber(num) {
+      return Math.floor(num).toLocaleString();
+    }
+
+    // Set Amount
+    function setAmount(amount) {
+      document.getElementById('allocationInput').value = amount;
+      document.querySelectorAll('.quick-amount').forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+      calculateTokens();
+    }
+
+    // Purchase
+    function purchase() {
+      const amount = parseFloat(document.getElementById('allocationInput').value) || 0;
+
+      if (amount < 100) {
+        alert('최소 참여 금액은 $100입니다.');
+        return;
+      }
+
+      if (amount > 2500) {
+        alert('현재 티어의 최대 할당은 $2,500입니다.');
+        return;
+      }
+
+      // Update modal
+      document.getElementById('modalAmount').textContent = '$' + formatNumber(amount);
+      document.getElementById('modalTokens').textContent = document.getElementById('tokenAmount').textContent.replace(' TBURN', '') + ' + 보너스';
+
+      // Show modal
+      document.getElementById('successModal').classList.add('show');
+    }
+
+    // Close Modal
+    function closeModal() {
+      document.getElementById('successModal').classList.remove('show');
+    }
+
+    // Show Tab
+    function showTab(tabName) {
+      document.querySelectorAll('.section-tab').forEach(tab => tab.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+
+      event.target.classList.add('active');
+      document.getElementById(tabName + '-tab').classList.add('active');
+    }
+
+    // Toggle FAQ
+    function toggleFaq(element) {
+      const faqItem = element.parentElement;
+      const wasActive = faqItem.classList.contains('active');
+
+      document.querySelectorAll('.faq-item').forEach(item => item.classList.remove('active'));
+
+      if (!wasActive) {
+        faqItem.classList.add('active');
+      }
+    }
+
+    // Initialize
+    calculateTokens();
+  </script>
+</body>
+</html>

@@ -130,6 +130,7 @@ const SeedRoundPage = lazy(() => import("@/pages/seed-round"));
 const PrivateRoundPage = lazy(() => import("@/pages/private-round"));
 const PublicRoundPage = lazy(() => import("@/pages/public-round"));
 const LaunchpadPage = lazy(() => import("@/pages/launchpad"));
+const CoinListPage = lazy(() => import("@/pages/coinlist"));
 
 function LoginPage() {
   const handleLoginSuccess = () => {
@@ -326,6 +327,16 @@ export function PublicRouter() {
       <ErrorBoundary>
         <Suspense fallback={<PageLoading />}>
           <LaunchpadPage />
+        </Suspense>
+      </ErrorBoundary>
+    );
+  }
+  
+  if (location === "/coinlist") {
+    return (
+      <ErrorBoundary>
+        <Suspense fallback={<PageLoading />}>
+          <CoinListPage />
         </Suspense>
       </ErrorBoundary>
     );

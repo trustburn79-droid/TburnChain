@@ -1,0 +1,2055 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TBURN Chain on CoinList | 프리미엄 토큰 세일</title>
+  <meta name="description" content="CoinList에서 TBURN Chain 토큰 세일에 참여하세요. 글로벌 최대 토큰 세일 플랫폼. 법정화폐 결제 지원.">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --coinlist-primary: #FFD700;
+      --coinlist-secondary: #FFC107;
+      --coinlist-dark: #1A1A2E;
+      --coinlist-darker: #16162A;
+      --coinlist-card: #252542;
+      --coinlist-border: #3D3D5C;
+      --gold: #D4AF37;
+      --white: #FFFFFF;
+      --gray: #9CA3AF;
+      --light-gray: #D1D5DB;
+      --success: #10B981;
+      --warning: #F59E0B;
+      --danger: #EF4444;
+      --blue: #3B82F6;
+      --purple: #8B5CF6;
+      --gradient-coinlist: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+      --gradient-dark: linear-gradient(180deg, #1A1A2E 0%, #16162A 100%);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--coinlist-darker);
+      color: var(--white);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-10px); } }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
+    @keyframes glow { 0%, 100% { box-shadow: 0 0 20px rgba(255, 215, 0, 0.3); } 50% { box-shadow: 0 0 40px rgba(255, 215, 0, 0.6); } }
+    @keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
+    @keyframes rocket { 0%, 100% { transform: translateY(0) rotate(-10deg); } 50% { transform: translateY(-5px) rotate(-10deg); } }
+    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    @keyframes slideUp { 0% { opacity: 0; transform: translateY(30px); } 100% { opacity: 1; transform: translateY(0); } }
+    @keyframes confetti { 0% { transform: translateY(0) rotate(0deg); opacity: 1; } 100% { transform: translateY(100vh) rotate(720deg); opacity: 0; } }
+
+    /* Header */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background: rgba(26, 26, 46, 0.95);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--coinlist-border);
+    }
+
+    .header-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0.75rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    .coinlist-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .coinlist-logo-icon {
+      width: 40px;
+      height: 40px;
+      background: var(--gradient-coinlist);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      animation: rocket 3s ease-in-out infinite;
+    }
+
+    .coinlist-logo-text {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--white);
+    }
+
+    .nav-tabs {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .nav-tab {
+      padding: 8px 16px;
+      background: transparent;
+      border: none;
+      border-radius: 8px;
+      color: var(--gray);
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .nav-tab:hover { color: var(--white); }
+    .nav-tab.active {
+      background: var(--coinlist-card);
+      color: var(--coinlist-primary);
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .header-balance {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      background: var(--coinlist-card);
+      border-radius: 10px;
+      font-size: 0.9rem;
+    }
+
+    .header-balance .icon { color: var(--coinlist-primary); }
+    .header-balance .amount { font-weight: 700; }
+
+    .user-menu {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      background: var(--coinlist-card);
+      border: 1px solid var(--coinlist-border);
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .user-menu:hover { border-color: var(--coinlist-primary); }
+
+    .user-avatar {
+      width: 32px;
+      height: 32px;
+      background: var(--gradient-coinlist);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--coinlist-dark);
+    }
+
+    .user-info .name { font-size: 0.85rem; font-weight: 600; }
+    .user-info .level { font-size: 0.7rem; color: var(--coinlist-primary); }
+
+    /* Main Content */
+    .main-content {
+      padding-top: 80px;
+    }
+
+    /* Hero Section */
+    .hero-section {
+      background: linear-gradient(180deg, var(--coinlist-dark) 0%, var(--coinlist-darker) 100%);
+      padding: 3rem 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 300px;
+      background: radial-gradient(ellipse at top, rgba(255, 215, 0, 0.1) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 400px;
+      gap: 3rem;
+      align-items: start;
+    }
+
+    /* Project Info */
+    .project-header {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .project-logo {
+      width: 80px;
+      height: 80px;
+      background: var(--gradient-coinlist);
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 40px;
+      box-shadow: 0 10px 40px rgba(255, 215, 0, 0.3);
+    }
+
+    .project-title h1 {
+      font-size: 2rem;
+      font-weight: 800;
+      margin-bottom: 0.25rem;
+    }
+
+    .project-title .tagline {
+      color: var(--gray);
+      font-size: 1rem;
+    }
+
+    .project-badges {
+      display: flex;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      border-radius: 100px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    .badge.live {
+      background: rgba(16, 185, 129, 0.2);
+      color: var(--success);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+
+    .badge.live .dot {
+      width: 8px;
+      height: 8px;
+      background: var(--success);
+      border-radius: 50%;
+      animation: pulse 1.5s infinite;
+    }
+
+    .badge.verified {
+      background: rgba(255, 215, 0, 0.15);
+      color: var(--coinlist-primary);
+      border: 1px solid rgba(255, 215, 0, 0.3);
+    }
+
+    .badge.premium {
+      background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(236, 72, 153, 0.2));
+      color: var(--purple);
+      border: 1px solid rgba(139, 92, 246, 0.3);
+    }
+
+    .project-description {
+      color: var(--light-gray);
+      font-size: 1rem;
+      line-height: 1.8;
+      margin-bottom: 2rem;
+    }
+
+    /* Key Metrics */
+    .key-metrics {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .metric-card {
+      background: var(--coinlist-card);
+      border: 1px solid var(--coinlist-border);
+      border-radius: 16px;
+      padding: 1.25rem;
+      text-align: center;
+    }
+
+    .metric-value {
+      font-size: 1.5rem;
+      font-weight: 800;
+      margin-bottom: 0.25rem;
+    }
+
+    .metric-value.gold { color: var(--coinlist-primary); }
+    .metric-value.green { color: var(--success); }
+    .metric-value.blue { color: var(--blue); }
+    .metric-value.purple { color: var(--purple); }
+
+    .metric-label {
+      font-size: 0.8rem;
+      color: var(--gray);
+    }
+
+    /* Social Links */
+    .social-links {
+      display: flex;
+      gap: 0.75rem;
+    }
+
+    .social-link {
+      width: 44px;
+      height: 44px;
+      background: var(--coinlist-card);
+      border: 1px solid var(--coinlist-border);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gray);
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+
+    .social-link:hover {
+      border-color: var(--coinlist-primary);
+      color: var(--coinlist-primary);
+      transform: translateY(-3px);
+    }
+
+    /* Sale Card */
+    .sale-card {
+      background: var(--coinlist-card);
+      border: 1px solid var(--coinlist-border);
+      border-radius: 24px;
+      overflow: hidden;
+      position: sticky;
+      top: 100px;
+    }
+
+    .sale-card-header {
+      padding: 1.5rem;
+      background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), transparent);
+      border-bottom: 1px solid var(--coinlist-border);
+    }
+
+    .sale-status {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+
+    .sale-status .live-badge {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      background: rgba(16, 185, 129, 0.2);
+      border-radius: 100px;
+      font-weight: 700;
+      color: var(--success);
+    }
+
+    .sale-status .live-badge .dot {
+      width: 10px;
+      height: 10px;
+      background: var(--success);
+      border-radius: 50%;
+      animation: pulse 1.5s infinite;
+    }
+
+    .sale-status .queue-info {
+      font-size: 0.85rem;
+      color: var(--gray);
+    }
+
+    .countdown-inline {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+    }
+
+    .countdown-item {
+      text-align: center;
+    }
+
+    .countdown-item .value {
+      font-size: 1.75rem;
+      font-weight: 800;
+      color: var(--white);
+    }
+
+    .countdown-item .label {
+      font-size: 0.7rem;
+      color: var(--gray);
+      text-transform: uppercase;
+    }
+
+    .sale-card-body {
+      padding: 1.5rem;
+    }
+
+    /* Progress */
+    .sale-progress {
+      margin-bottom: 1.5rem;
+    }
+
+    .progress-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.75rem;
+    }
+
+    .progress-header .raised {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--coinlist-primary);
+    }
+
+    .progress-header .goal {
+      color: var(--gray);
+      font-size: 0.9rem;
+    }
+
+    .progress-bar {
+      height: 12px;
+      background: var(--coinlist-dark);
+      border-radius: 100px;
+      overflow: hidden;
+      margin-bottom: 0.75rem;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: var(--gradient-coinlist);
+      border-radius: 100px;
+      transition: width 1s ease;
+      position: relative;
+    }
+
+    .progress-fill::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+      background-size: 200% 100%;
+      animation: shimmer 2s infinite;
+    }
+
+    .progress-stats {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.85rem;
+    }
+
+    .progress-stats .percent {
+      color: var(--coinlist-primary);
+      font-weight: 700;
+    }
+
+    .progress-stats .participants {
+      color: var(--gray);
+    }
+
+    /* Sale Info */
+    .sale-info-list {
+      margin-bottom: 1.5rem;
+    }
+
+    .sale-info-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .sale-info-item:last-child { border-bottom: none; }
+
+    .sale-info-item .label {
+      color: var(--gray);
+      font-size: 0.9rem;
+    }
+
+    .sale-info-item .value {
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    .sale-info-item .value.highlight {
+      color: var(--coinlist-primary);
+    }
+
+    /* Queue System */
+    .queue-system {
+      background: var(--coinlist-dark);
+      border-radius: 16px;
+      padding: 1.25rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .queue-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+
+    .queue-header h4 {
+      font-size: 0.9rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .queue-header h4 i { color: var(--coinlist-primary); }
+
+    .queue-position {
+      font-size: 0.85rem;
+      color: var(--success);
+      font-weight: 600;
+    }
+
+    .queue-visual {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 0.75rem;
+    }
+
+    .queue-bar {
+      flex: 1;
+      height: 8px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 100px;
+      overflow: hidden;
+    }
+
+    .queue-bar-fill {
+      height: 100%;
+      background: var(--success);
+      border-radius: 100px;
+      width: 15%;
+    }
+
+    .queue-percent {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--success);
+    }
+
+    .queue-info {
+      font-size: 0.8rem;
+      color: var(--gray);
+      text-align: center;
+    }
+
+    /* Allocation Input */
+    .allocation-section {
+      margin-bottom: 1.5rem;
+    }
+
+    .allocation-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.75rem;
+    }
+
+    .allocation-header .label {
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .allocation-header .max-alloc {
+      font-size: 0.8rem;
+      color: var(--coinlist-primary);
+    }
+
+    .allocation-input-group {
+      position: relative;
+      margin-bottom: 1rem;
+    }
+
+    .allocation-input {
+      width: 100%;
+      padding: 1rem;
+      padding-right: 100px;
+      background: var(--coinlist-dark);
+      border: 2px solid var(--coinlist-border);
+      border-radius: 12px;
+      color: var(--white);
+      font-size: 1.25rem;
+      font-weight: 700;
+      transition: border-color 0.3s;
+    }
+
+    .allocation-input:focus {
+      outline: none;
+      border-color: var(--coinlist-primary);
+    }
+
+    .allocation-currency {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      background: var(--coinlist-card);
+      border-radius: 8px;
+    }
+
+    .allocation-currency .icon { font-size: 1.25rem; }
+    .allocation-currency span { font-weight: 600; font-size: 0.9rem; }
+
+    .quick-amounts {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.5rem;
+    }
+
+    .quick-amount {
+      padding: 10px;
+      background: var(--coinlist-dark);
+      border: 1px solid var(--coinlist-border);
+      border-radius: 8px;
+      color: var(--light-gray);
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-align: center;
+    }
+
+    .quick-amount:hover, .quick-amount.active {
+      border-color: var(--coinlist-primary);
+      color: var(--coinlist-primary);
+      background: rgba(255, 215, 0, 0.1);
+    }
+
+    /* Token Calculation */
+    .token-calculation {
+      background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 165, 0, 0.05));
+      border: 1px solid rgba(255, 215, 0, 0.2);
+      border-radius: 12px;
+      padding: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .calc-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.5rem 0;
+    }
+
+    .calc-row .label { color: var(--gray); font-size: 0.85rem; }
+    .calc-row .value { font-weight: 600; font-size: 0.85rem; }
+    .calc-row .value.large { font-size: 1.125rem; color: var(--coinlist-primary); }
+
+    /* Payment Methods */
+    .payment-section {
+      margin-bottom: 1.5rem;
+    }
+
+    .payment-header {
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+    }
+
+    .payment-options {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.75rem;
+    }
+
+    .payment-option {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px;
+      background: var(--coinlist-dark);
+      border: 2px solid var(--coinlist-border);
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .payment-option:hover { border-color: rgba(255, 255, 255, 0.3); }
+
+    .payment-option.active {
+      border-color: var(--coinlist-primary);
+      background: rgba(255, 215, 0, 0.1);
+    }
+
+    .payment-option .icon { font-size: 1.5rem; }
+
+    .payment-option .info { flex: 1; }
+    .payment-option .info .name { font-weight: 600; font-size: 0.9rem; }
+    .payment-option .info .type { font-size: 0.75rem; color: var(--gray); }
+
+    .payment-option .check {
+      width: 20px;
+      height: 20px;
+      border: 2px solid var(--coinlist-border);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      color: transparent;
+    }
+
+    .payment-option.active .check {
+      background: var(--coinlist-primary);
+      border-color: var(--coinlist-primary);
+      color: var(--coinlist-dark);
+    }
+
+    /* Purchase Button */
+    .purchase-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      padding: 16px;
+      background: var(--gradient-coinlist);
+      border: none;
+      border-radius: 14px;
+      color: var(--coinlist-dark);
+      font-size: 1.125rem;
+      font-weight: 800;
+      cursor: pointer;
+      transition: all 0.3s;
+      animation: glow 2s infinite;
+    }
+
+    .purchase-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 15px 40px rgba(255, 215, 0, 0.3);
+    }
+
+    .purchase-btn:disabled {
+      background: var(--gray);
+      cursor: not-allowed;
+      animation: none;
+    }
+
+    .purchase-btn .spinner {
+      width: 20px;
+      height: 20px;
+      border: 2px solid rgba(0, 0, 0, 0.2);
+      border-top-color: var(--coinlist-dark);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    .security-note {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 1rem;
+      font-size: 0.8rem;
+      color: var(--gray);
+    }
+
+    .security-note i { color: var(--success); }
+
+    /* Details Section */
+    .details-section {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 3rem 2rem;
+    }
+
+    .details-tabs {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 2rem;
+      border-bottom: 1px solid var(--coinlist-border);
+      padding-bottom: 1rem;
+    }
+
+    .details-tab {
+      padding: 10px 20px;
+      background: transparent;
+      border: none;
+      border-radius: 10px;
+      color: var(--gray);
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .details-tab:hover { color: var(--white); }
+
+    .details-tab.active {
+      background: var(--coinlist-card);
+      color: var(--coinlist-primary);
+    }
+
+    .details-content {
+      display: none;
+      animation: slideUp 0.3s ease;
+    }
+
+    .details-content.active { display: block; }
+
+    /* Overview Tab */
+    .overview-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 2rem;
+    }
+
+    .about-section {
+      background: var(--coinlist-card);
+      border: 1px solid var(--coinlist-border);
+      border-radius: 20px;
+      padding: 2rem;
+    }
+
+    .about-section h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .about-section h3 i { color: var(--coinlist-primary); }
+
+    .about-section p {
+      color: var(--light-gray);
+      line-height: 1.8;
+      margin-bottom: 1.5rem;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+    }
+
+    .feature-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 1rem;
+      background: var(--coinlist-dark);
+      border-radius: 12px;
+    }
+
+    .feature-item .icon {
+      width: 40px;
+      height: 40px;
+      background: rgba(255, 215, 0, 0.1);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--coinlist-primary);
+      flex-shrink: 0;
+    }
+
+    .feature-item h4 { font-size: 0.95rem; font-weight: 600; margin-bottom: 0.25rem; }
+    .feature-item p { font-size: 0.8rem; color: var(--gray); }
+
+    /* Sidebar Cards */
+    .sidebar-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .sidebar-card {
+      background: var(--coinlist-card);
+      border: 1px solid var(--coinlist-border);
+      border-radius: 16px;
+      padding: 1.5rem;
+    }
+
+    .sidebar-card h4 {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .sidebar-card h4 i { color: var(--coinlist-primary); }
+
+    /* Vesting Card */
+    .vesting-timeline {
+      position: relative;
+    }
+
+    .vesting-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      padding-bottom: 1.25rem;
+      position: relative;
+    }
+
+    .vesting-item::before {
+      content: '';
+      position: absolute;
+      left: 11px;
+      top: 24px;
+      bottom: 0;
+      width: 2px;
+      background: var(--coinlist-border);
+    }
+
+    .vesting-item:last-child::before { display: none; }
+
+    .vesting-dot {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: var(--coinlist-dark);
+      border: 2px solid var(--coinlist-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      flex-shrink: 0;
+      z-index: 1;
+    }
+
+    .vesting-item.tge .vesting-dot {
+      background: var(--coinlist-primary);
+      border-color: var(--coinlist-primary);
+      color: var(--coinlist-dark);
+    }
+
+    .vesting-content { flex: 1; }
+    .vesting-content .title { font-weight: 600; font-size: 0.9rem; }
+    .vesting-content .desc { font-size: 0.8rem; color: var(--gray); }
+
+    .vesting-amount {
+      font-weight: 700;
+      color: var(--coinlist-primary);
+    }
+
+    /* Team Card */
+    .team-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .team-member {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .team-member .avatar {
+      width: 44px;
+      height: 44px;
+      background: var(--gradient-coinlist);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--coinlist-dark);
+    }
+
+    .team-member .info { flex: 1; }
+    .team-member .info .name { font-weight: 600; font-size: 0.9rem; }
+    .team-member .info .role { font-size: 0.8rem; color: var(--gray); }
+
+    .team-member .social {
+      color: var(--gray);
+      transition: color 0.3s;
+    }
+
+    .team-member .social:hover { color: var(--coinlist-primary); }
+
+    /* Documents */
+    .documents-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .document-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px;
+      background: var(--coinlist-dark);
+      border-radius: 10px;
+      text-decoration: none;
+      color: var(--white);
+      transition: all 0.3s;
+    }
+
+    .document-item:hover {
+      background: rgba(255, 215, 0, 0.1);
+    }
+
+    .document-item .icon {
+      width: 36px;
+      height: 36px;
+      background: rgba(255, 215, 0, 0.1);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--coinlist-primary);
+    }
+
+    .document-item .info { flex: 1; }
+    .document-item .info .name { font-weight: 600; font-size: 0.9rem; }
+    .document-item .info .size { font-size: 0.75rem; color: var(--gray); }
+
+    .document-item .arrow { color: var(--gray); }
+
+    /* Tokenomics Tab */
+    .tokenomics-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    .tokenomics-card {
+      background: var(--coinlist-card);
+      border: 1px solid var(--coinlist-border);
+      border-radius: 16px;
+      padding: 1.5rem;
+      text-align: center;
+    }
+
+    .tokenomics-card .icon {
+      width: 60px;
+      height: 60px;
+      background: rgba(255, 215, 0, 0.1);
+      border-radius: 16px;
+      margin: 0 auto 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.75rem;
+    }
+
+    .tokenomics-card h4 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+      color: var(--gray);
+    }
+
+    .tokenomics-card .value {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--coinlist-primary);
+    }
+
+    /* FAQ Tab */
+    .faq-list {
+      max-width: 900px;
+    }
+
+    .faq-item {
+      background: var(--coinlist-card);
+      border: 1px solid var(--coinlist-border);
+      border-radius: 16px;
+      margin-bottom: 1rem;
+      overflow: hidden;
+    }
+
+    .faq-question {
+      padding: 1.25rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .faq-question:hover { background: rgba(255, 255, 255, 0.02); }
+
+    .faq-question h4 { font-size: 1rem; font-weight: 600; }
+
+    .faq-question i {
+      color: var(--coinlist-primary);
+      transition: transform 0.3s;
+    }
+
+    .faq-item.active .faq-question i { transform: rotate(180deg); }
+
+    .faq-answer {
+      padding: 0 1.25rem;
+      max-height: 0;
+      overflow: hidden;
+      transition: all 0.3s;
+    }
+
+    .faq-item.active .faq-answer {
+      padding: 0 1.25rem 1.25rem;
+      max-height: 500px;
+    }
+
+    .faq-answer p { color: var(--gray); line-height: 1.8; }
+
+    /* Modal */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(10px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+    }
+
+    .modal-overlay.show { display: flex; }
+
+    .modal {
+      background: var(--coinlist-card);
+      border: 1px solid var(--coinlist-border);
+      border-radius: 24px;
+      width: 100%;
+      max-width: 450px;
+      overflow: hidden;
+      animation: slideUp 0.3s ease;
+    }
+
+    .modal-header {
+      padding: 1.5rem;
+      background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), transparent);
+      border-bottom: 1px solid var(--coinlist-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .modal-header h3 { font-size: 1.25rem; font-weight: 700; }
+
+    .modal-close {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: var(--coinlist-dark);
+      border: none;
+      color: var(--gray);
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .modal-close:hover { background: var(--coinlist-border); color: var(--white); }
+
+    .modal-body {
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .modal-icon {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      margin: 0 auto 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+    }
+
+    .modal-icon.success {
+      background: rgba(16, 185, 129, 0.2);
+      color: var(--success);
+    }
+
+    .modal-icon.pending {
+      background: rgba(255, 215, 0, 0.2);
+    }
+
+    .modal-icon.pending .spinner {
+      width: 40px;
+      height: 40px;
+      border: 3px solid rgba(255, 215, 0, 0.3);
+      border-top-color: var(--coinlist-primary);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    .modal-body h4 { font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .modal-body p { color: var(--gray); margin-bottom: 1.5rem; }
+
+    .modal-details {
+      background: var(--coinlist-dark);
+      border-radius: 12px;
+      padding: 1rem;
+      margin-bottom: 1.5rem;
+      text-align: left;
+    }
+
+    .modal-detail-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.5rem 0;
+      font-size: 0.9rem;
+    }
+
+    .modal-detail-row .label { color: var(--gray); }
+    .modal-detail-row .value { font-weight: 600; }
+
+    .modal-btn {
+      display: block;
+      width: 100%;
+      padding: 14px;
+      background: var(--gradient-coinlist);
+      border: none;
+      border-radius: 12px;
+      color: var(--coinlist-dark);
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .modal-btn:hover { transform: scale(1.02); }
+
+    .modal-btn.secondary {
+      background: transparent;
+      border: 1px solid var(--coinlist-border);
+      color: var(--white);
+      margin-top: 0.75rem;
+    }
+
+    /* Footer */
+    .footer {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 2rem;
+      border-top: 1px solid var(--coinlist-border);
+    }
+
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 2rem;
+    }
+
+    .footer-links a {
+      color: var(--gray);
+      text-decoration: none;
+      font-size: 0.85rem;
+      transition: color 0.3s;
+    }
+
+    .footer-links a:hover { color: var(--coinlist-primary); }
+
+    .footer-copyright {
+      color: var(--gray);
+      font-size: 0.85rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 1200px) {
+      .hero-grid { grid-template-columns: 1fr; }
+      .sale-card { position: static; margin-top: 2rem; }
+      .overview-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 1024px) {
+      .key-metrics { grid-template-columns: repeat(2, 1fr); }
+      .tokenomics-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 768px) {
+      .header-container { padding: 0.75rem 1rem; }
+      .header-left { gap: 1rem; }
+      .nav-tabs { display: none; }
+      .header-balance { display: none; }
+
+      .hero-section { padding: 2rem 1rem; }
+      .details-section { padding: 2rem 1rem; }
+
+      .key-metrics { grid-template-columns: 1fr 1fr; }
+      .features-grid { grid-template-columns: 1fr; }
+      .tokenomics-grid { grid-template-columns: 1fr; }
+      .payment-options { grid-template-columns: 1fr; }
+      .quick-amounts { grid-template-columns: repeat(2, 1fr); }
+
+      .countdown-inline { gap: 0.5rem; }
+      .countdown-item .value { font-size: 1.25rem; }
+
+      .footer-content { flex-direction: column; gap: 1rem; text-align: center; }
+      .footer-links { flex-wrap: wrap; justify-content: center; gap: 1rem; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="header-container">
+      <div class="header-left">
+        <a href="#" class="coinlist-logo">
+          <div class="coinlist-logo-icon">🚀</div>
+          <div class="coinlist-logo-text">CoinList</div>
+        </a>
+        <div class="nav-tabs">
+          <button class="nav-tab active">토큰 세일</button>
+          <button class="nav-tab">트레이딩</button>
+          <button class="nav-tab">스테이킹</button>
+          <button class="nav-tab">포트폴리오</button>
+        </div>
+      </div>
+      <div class="header-right">
+        <div class="header-balance">
+          <span class="icon">💰</span>
+          <span class="amount">$5,000.00</span>
+        </div>
+        <div class="user-menu">
+          <div class="user-avatar">KV</div>
+          <div class="user-info">
+            <div class="name">Kevin</div>
+            <div class="level">Level 3 · Verified</div>
+          </div>
+          <i class="fas fa-chevron-down" style="color: var(--gray); font-size: 0.7rem;"></i>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <div class="hero-container">
+        <div class="hero-grid">
+          <!-- Project Info -->
+          <div class="project-info">
+            <div class="project-header">
+              <div class="project-logo">🔥</div>
+              <div class="project-title">
+                <h1>TBURN Chain</h1>
+                <div class="tagline">AI-Enhanced Blockchain Platform</div>
+              </div>
+            </div>
+
+            <div class="project-badges">
+              <span class="badge live">
+                <span class="dot"></span>
+                세일 진행 중
+              </span>
+              <span class="badge verified">
+                <i class="fas fa-shield-check"></i>
+                CoinList 검증
+              </span>
+              <span class="badge premium">
+                <i class="fas fa-gem"></i>
+                프리미엄 런치
+              </span>
+            </div>
+
+            <p class="project-description">
+              TBURN Chain은 AI와 블록체인 기술을 결합한 차세대 레이어-1 플랫폼입니다. 
+              200,000+ TPS의 고성능, AI 기반 스마트 컨트랙트, 자가 최적화 네트워크를 통해 
+              Web3의 미래를 선도합니다. CoinList를 통해 전 세계 투자자들에게 공개됩니다.
+            </p>
+
+            <div class="key-metrics">
+              <div class="metric-card">
+                <div class="metric-value gold">$0.020</div>
+                <div class="metric-label">토큰 가격</div>
+              </div>
+              <div class="metric-card">
+                <div class="metric-value green">15%</div>
+                <div class="metric-label">TGE 해제</div>
+              </div>
+              <div class="metric-card">
+                <div class="metric-value blue">6억</div>
+                <div class="metric-label">총 세일 물량</div>
+              </div>
+              <div class="metric-card">
+                <div class="metric-value purple">$12M</div>
+                <div class="metric-label">목표 모집</div>
+              </div>
+            </div>
+
+            <div class="social-links">
+              <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+              <a href="#" class="social-link"><i class="fab fa-telegram"></i></a>
+              <a href="#" class="social-link"><i class="fab fa-discord"></i></a>
+              <a href="#" class="social-link"><i class="fab fa-medium"></i></a>
+              <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+              <a href="#" class="social-link"><i class="fas fa-globe"></i></a>
+            </div>
+          </div>
+
+          <!-- Sale Card -->
+          <div class="sale-card">
+            <div class="sale-card-header">
+              <div class="sale-status">
+                <div class="live-badge">
+                  <span class="dot"></span>
+                  LIVE
+                </div>
+                <div class="queue-info">12,450명 대기 중</div>
+              </div>
+              <div class="countdown-inline">
+                <div class="countdown-item">
+                  <div class="value" id="days">14</div>
+                  <div class="label">Days</div>
+                </div>
+                <div class="countdown-item">
+                  <div class="value" id="hours">08</div>
+                  <div class="label">Hours</div>
+                </div>
+                <div class="countdown-item">
+                  <div class="value" id="minutes">32</div>
+                  <div class="label">Mins</div>
+                </div>
+                <div class="countdown-item">
+                  <div class="value" id="seconds">45</div>
+                  <div class="label">Secs</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="sale-card-body">
+              <!-- Progress -->
+              <div class="sale-progress">
+                <div class="progress-header">
+                  <div class="raised">$5,400,000</div>
+                  <div class="goal">/ $12,000,000</div>
+                </div>
+                <div class="progress-bar">
+                  <div class="progress-fill" style="width: 45%;"></div>
+                </div>
+                <div class="progress-stats">
+                  <span class="percent">45% 완료</span>
+                  <span class="participants">8,234명 참여</span>
+                </div>
+              </div>
+
+              <!-- Sale Info -->
+              <div class="sale-info-list">
+                <div class="sale-info-item">
+                  <span class="label">토큰 가격</span>
+                  <span class="value highlight">$0.020</span>
+                </div>
+                <div class="sale-info-item">
+                  <span class="label">최소 참여</span>
+                  <span class="value">$100</span>
+                </div>
+                <div class="sale-info-item">
+                  <span class="label">최대 참여</span>
+                  <span class="value">$50,000</span>
+                </div>
+                <div class="sale-info-item">
+                  <span class="label">TGE 해제</span>
+                  <span class="value highlight">15%</span>
+                </div>
+              </div>
+
+              <!-- Queue System -->
+              <div class="queue-system">
+                <div class="queue-header">
+                  <h4><i class="fas fa-users"></i> 대기열 현황</h4>
+                  <span class="queue-position">#1,247</span>
+                </div>
+                <div class="queue-visual">
+                  <div class="queue-bar">
+                    <div class="queue-bar-fill"></div>
+                  </div>
+                  <span class="queue-percent">15%</span>
+                </div>
+                <div class="queue-info">예상 대기 시간: 약 5분</div>
+              </div>
+
+              <!-- Allocation Input -->
+              <div class="allocation-section">
+                <div class="allocation-header">
+                  <span class="label">참여 금액</span>
+                  <span class="max-alloc">최대: $50,000</span>
+                </div>
+                <div class="allocation-input-group">
+                  <input type="number" class="allocation-input" id="allocationInput" value="1000" oninput="calculateAllocation()">
+                  <div class="allocation-currency">
+                    <span class="icon">💵</span>
+                    <span>USD</span>
+                  </div>
+                </div>
+                <div class="quick-amounts">
+                  <div class="quick-amount" onclick="setAllocation(100)">$100</div>
+                  <div class="quick-amount" onclick="setAllocation(500)">$500</div>
+                  <div class="quick-amount active" onclick="setAllocation(1000)">$1,000</div>
+                  <div class="quick-amount" onclick="setAllocation(5000)">$5,000</div>
+                </div>
+              </div>
+
+              <!-- Token Calculation -->
+              <div class="token-calculation">
+                <div class="calc-row">
+                  <span class="label">받을 토큰</span>
+                  <span class="value large" id="tokenAmount">50,000 TBURN</span>
+                </div>
+                <div class="calc-row">
+                  <span class="label">보너스 (+1%)</span>
+                  <span class="value" id="bonusAmount" style="color: var(--success);">+500 TBURN</span>
+                </div>
+                <div class="calc-row">
+                  <span class="label">TGE 해제 (15%)</span>
+                  <span class="value" id="tgeAmount">7,575 TBURN</span>
+                </div>
+              </div>
+
+              <!-- Payment Methods -->
+              <div class="payment-section">
+                <div class="payment-header">결제 수단 선택</div>
+                <div class="payment-options">
+                  <div class="payment-option active" onclick="selectPayment('usd')">
+                    <span class="icon">💳</span>
+                    <div class="info">
+                      <div class="name">USD</div>
+                      <div class="type">신용카드 / 계좌이체</div>
+                    </div>
+                    <div class="check"><i class="fas fa-check"></i></div>
+                  </div>
+                  <div class="payment-option" onclick="selectPayment('usdt')">
+                    <span class="icon">💵</span>
+                    <div class="info">
+                      <div class="name">USDT</div>
+                      <div class="type">스테이블코인</div>
+                    </div>
+                    <div class="check"><i class="fas fa-check"></i></div>
+                  </div>
+                  <div class="payment-option" onclick="selectPayment('usdc')">
+                    <span class="icon">💲</span>
+                    <div class="info">
+                      <div class="name">USDC</div>
+                      <div class="type">스테이블코인</div>
+                    </div>
+                    <div class="check"><i class="fas fa-check"></i></div>
+                  </div>
+                  <div class="payment-option" onclick="selectPayment('btc')">
+                    <span class="icon">₿</span>
+                    <div class="info">
+                      <div class="name">BTC</div>
+                      <div class="type">비트코인</div>
+                    </div>
+                    <div class="check"><i class="fas fa-check"></i></div>
+                  </div>
+                </div>
+              </div>
+
+              <button class="purchase-btn" onclick="purchase()">
+                <i class="fas fa-rocket"></i>
+                지금 참여하기
+              </button>
+
+              <div class="security-note">
+                <i class="fas fa-shield-alt"></i>
+                CoinList 보안 결제로 안전하게 처리됩니다
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Details Section -->
+    <section class="details-section">
+      <div class="details-tabs">
+        <button class="details-tab active" onclick="showTab('overview')">개요</button>
+        <button class="details-tab" onclick="showTab('tokenomics')">토크노믹스</button>
+        <button class="details-tab" onclick="showTab('team')">팀</button>
+        <button class="details-tab" onclick="showTab('faq')">FAQ</button>
+      </div>
+
+      <!-- Overview Tab -->
+      <div class="details-content active" id="overview-tab">
+        <div class="overview-grid">
+          <div class="about-section">
+            <h3><i class="fas fa-info-circle"></i> 프로젝트 소개</h3>
+            <p>
+              TBURN Chain은 AI 기술과 블록체인의 결합을 통해 차세대 탈중앙화 인프라를 구축합니다. 
+              Triple-Band AI Orchestration, AI-Enhanced Committee BFT, Dynamic Sharding 등의 
+              혁신적인 기술을 통해 기존 블록체인의 한계를 뛰어넘습니다.
+            </p>
+            <p>
+              메인넷 런칭 후 DeFi, NFT, GameFi, 엔터프라이즈 솔루션 등 다양한 생태계를 
+              구축하여 Web3 대중화를 선도할 예정입니다.
+            </p>
+
+            <h3 style="margin-top: 2rem;"><i class="fas fa-star"></i> 주요 특징</h3>
+            <div class="features-grid">
+              <div class="feature-item">
+                <div class="icon"><i class="fas fa-bolt"></i></div>
+                <div>
+                  <h4>초고속 처리</h4>
+                  <p>200,000+ TPS로 실시간 트랜잭션 처리</p>
+                </div>
+              </div>
+              <div class="feature-item">
+                <div class="icon"><i class="fas fa-brain"></i></div>
+                <div>
+                  <h4>AI 통합</h4>
+                  <p>스마트 컨트랙트에 AI 기능 내장</p>
+                </div>
+              </div>
+              <div class="feature-item">
+                <div class="icon"><i class="fas fa-shield-alt"></i></div>
+                <div>
+                  <h4>강력한 보안</h4>
+                  <p>AI 기반 위협 탐지 및 방어</p>
+                </div>
+              </div>
+              <div class="feature-item">
+                <div class="icon"><i class="fas fa-leaf"></i></div>
+                <div>
+                  <h4>친환경</h4>
+                  <p>에너지 효율적인 PoS 합의</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="sidebar-cards">
+            <!-- Vesting Schedule -->
+            <div class="sidebar-card">
+              <h4><i class="fas fa-calendar-alt"></i> 베스팅 스케줄</h4>
+              <div class="vesting-timeline">
+                <div class="vesting-item tge">
+                  <div class="vesting-dot"><i class="fas fa-check"></i></div>
+                  <div class="vesting-content">
+                    <div class="title">TGE</div>
+                    <div class="desc">토큰 생성 시점</div>
+                  </div>
+                  <div class="vesting-amount">15%</div>
+                </div>
+                <div class="vesting-item">
+                  <div class="vesting-dot"></div>
+                  <div class="vesting-content">
+                    <div class="title">클리프</div>
+                    <div class="desc">1~3개월</div>
+                  </div>
+                  <div class="vesting-amount">0%</div>
+                </div>
+                <div class="vesting-item">
+                  <div class="vesting-dot"></div>
+                  <div class="vesting-content">
+                    <div class="title">선형 베스팅</div>
+                    <div class="desc">4~15개월</div>
+                  </div>
+                  <div class="vesting-amount">85%</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Documents -->
+            <div class="sidebar-card">
+              <h4><i class="fas fa-file-alt"></i> 문서</h4>
+              <div class="documents-list">
+                <a href="#" class="document-item">
+                  <div class="icon"><i class="fas fa-file-pdf"></i></div>
+                  <div class="info">
+                    <div class="name">백서</div>
+                    <div class="size">PDF · 2.4 MB</div>
+                  </div>
+                  <i class="fas fa-external-link-alt arrow"></i>
+                </a>
+                <a href="#" class="document-item">
+                  <div class="icon"><i class="fas fa-file-code"></i></div>
+                  <div class="info">
+                    <div class="name">기술 문서</div>
+                    <div class="size">PDF · 5.1 MB</div>
+                  </div>
+                  <i class="fas fa-external-link-alt arrow"></i>
+                </a>
+                <a href="#" class="document-item">
+                  <div class="icon"><i class="fas fa-chart-pie"></i></div>
+                  <div class="info">
+                    <div class="name">토크노믹스</div>
+                    <div class="size">PDF · 1.2 MB</div>
+                  </div>
+                  <i class="fas fa-external-link-alt arrow"></i>
+                </a>
+                <a href="#" class="document-item">
+                  <div class="icon"><i class="fas fa-shield-check"></i></div>
+                  <div class="info">
+                    <div class="name">감사 보고서</div>
+                    <div class="size">PDF · 890 KB</div>
+                  </div>
+                  <i class="fas fa-external-link-alt arrow"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tokenomics Tab -->
+      <div class="details-content" id="tokenomics-tab">
+        <div class="tokenomics-grid">
+          <div class="tokenomics-card">
+            <div class="icon">📊</div>
+            <h4>총 공급량</h4>
+            <div class="value">100억 TBURN</div>
+          </div>
+          <div class="tokenomics-card">
+            <div class="icon">💰</div>
+            <h4>초기 시가총액</h4>
+            <div class="value">$80M</div>
+          </div>
+          <div class="tokenomics-card">
+            <div class="icon">🎯</div>
+            <h4>FDV</div>
+            <div class="value">$2B</div>
+          </div>
+          <div class="tokenomics-card">
+            <div class="icon">🔥</div>
+            <h4>퍼블릭 세일</h4>
+            <div class="value">6%</div>
+          </div>
+          <div class="tokenomics-card">
+            <div class="icon">🌱</div>
+            <h4>생태계</h4>
+            <div class="value">30%</div>
+          </div>
+          <div class="tokenomics-card">
+            <div class="icon">👥</div>
+            <h4>커뮤니티</h4>
+            <div class="value">25%</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Team Tab -->
+      <div class="details-content" id="team-tab">
+        <div class="overview-grid">
+          <div class="about-section">
+            <h3><i class="fas fa-users"></i> 핵심 팀</h3>
+            <div class="team-list" style="margin-top: 1.5rem;">
+              <div class="team-member">
+                <div class="avatar">JK</div>
+                <div class="info">
+                  <div class="name">John Kim</div>
+                  <div class="role">CEO & Co-founder</div>
+                </div>
+                <a href="#" class="social"><i class="fab fa-linkedin"></i></a>
+              </div>
+              <div class="team-member">
+                <div class="avatar">SL</div>
+                <div class="info">
+                  <div class="name">Sarah Lee</div>
+                  <div class="role">CTO & Co-founder</div>
+                </div>
+                <a href="#" class="social"><i class="fab fa-linkedin"></i></a>
+              </div>
+              <div class="team-member">
+                <div class="avatar">MP</div>
+                <div class="info">
+                  <div class="name">Michael Park</div>
+                  <div class="role">Chief AI Officer</div>
+                </div>
+                <a href="#" class="social"><i class="fab fa-linkedin"></i></a>
+              </div>
+              <div class="team-member">
+                <div class="avatar">EC</div>
+                <div class="info">
+                  <div class="name">Emily Chen</div>
+                  <div class="role">Head of Product</div>
+                </div>
+                <a href="#" class="social"><i class="fab fa-linkedin"></i></a>
+              </div>
+            </div>
+          </div>
+          <div class="sidebar-cards">
+            <div class="sidebar-card">
+              <h4><i class="fas fa-handshake"></i> 주요 파트너</h4>
+              <div style="display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1rem;">
+                <div style="padding: 12px 20px; background: var(--coinlist-dark); border-radius: 10px; font-weight: 600; font-size: 0.9rem;">Chainlink</div>
+                <div style="padding: 12px 20px; background: var(--coinlist-dark); border-radius: 10px; font-weight: 600; font-size: 0.9rem;">Circle</div>
+                <div style="padding: 12px 20px; background: var(--coinlist-dark); border-radius: 10px; font-weight: 600; font-size: 0.9rem;">AWS</div>
+                <div style="padding: 12px 20px; background: var(--coinlist-dark); border-radius: 10px; font-weight: 600; font-size: 0.9rem;">Samsung</div>
+              </div>
+            </div>
+            <div class="sidebar-card">
+              <h4><i class="fas fa-building"></i> 투자자</h4>
+              <div style="display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1rem;">
+                <div style="padding: 12px 20px; background: var(--coinlist-dark); border-radius: 10px; font-weight: 600; font-size: 0.9rem;">Polychain</div>
+                <div style="padding: 12px 20px; background: var(--coinlist-dark); border-radius: 10px; font-weight: 600; font-size: 0.9rem;">Framework</div>
+                <div style="padding: 12px 20px; background: var(--coinlist-dark); border-radius: 10px; font-weight: 600; font-size: 0.9rem;">Electric</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FAQ Tab -->
+      <div class="details-content" id="faq-tab">
+        <div class="faq-list">
+          <div class="faq-item active">
+            <div class="faq-question" onclick="toggleFaq(this)">
+              <h4>CoinList에서 참여하려면 어떻게 해야 하나요?</h4>
+              <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+              <p>CoinList 계정이 필요합니다. 계정이 없다면 가입 후 KYC 인증을 완료하세요. 인증 완료 후 TBURN 세일 페이지에서 참여 금액을 입력하고 결제하면 됩니다. 법정화폐(신용카드, 계좌이체) 또는 암호화폐로 참여할 수 있습니다.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">
+              <h4>대기열(Queue) 시스템은 어떻게 작동하나요?</h4>
+              <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+              <p>CoinList는 공정한 참여를 위해 랜덤 대기열 시스템을 사용합니다. 세일 시작 시 모든 참여자가 무작위로 대기열에 배치되며, 순서대로 구매할 수 있습니다. 대기열 위치는 계정의 Karma 점수에 영향을 받을 수 있습니다.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">
+              <h4>어떤 결제 수단을 사용할 수 있나요?</h4>
+              <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+              <p>CoinList는 다양한 결제 수단을 지원합니다: USD(신용카드, 은행 송금), USDT, USDC, BTC, ETH 등. 법정화폐 결제 시 추가 수수료가 발생할 수 있으며, 국가별로 지원되는 결제 수단이 다를 수 있습니다.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">
+              <h4>토큰은 언제 받을 수 있나요?</h4>
+              <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+              <p>TGE(Token Generation Event) 시점에 15%가 즉시 해제됩니다. TGE 예정일은 2025년 2월이며, CoinList 지갑에서 직접 클레임하거나 외부 지갑으로 출금할 수 있습니다. 나머지 토큰은 베스팅 스케줄에 따라 해제됩니다.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">
+              <h4>미국 거주자도 참여할 수 있나요?</h4>
+              <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="faq-answer">
+              <p>아니요, 규제 요건으로 인해 미국 거주자는 이 토큰 세일에 참여할 수 없습니다. 참여 가능 국가 목록은 세일 페이지에서 확인할 수 있습니다.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-content">
+        <div class="footer-links">
+          <a href="#">이용약관</a>
+          <a href="#">개인정보처리방침</a>
+          <a href="#">위험 고지</a>
+          <a href="#">지원 센터</a>
+          <a href="#">API</a>
+        </div>
+        <div class="footer-copyright">
+          © 2025 CoinList Markets LLC. All Rights Reserved.
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <!-- Success Modal -->
+  <div class="modal-overlay" id="successModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3>구매 완료</h3>
+        <button class="modal-close" onclick="closeModal()">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-icon success">
+          <i class="fas fa-check"></i>
+        </div>
+        <h4>참여 완료!</h4>
+        <p>TBURN 토큰 구매가 성공적으로 완료되었습니다.</p>
+
+        <div class="modal-details">
+          <div class="modal-detail-row">
+            <span class="label">참여 금액</span>
+            <span class="value" id="modalAmount">$1,000</span>
+          </div>
+          <div class="modal-detail-row">
+            <span class="label">받을 토큰</span>
+            <span class="value" id="modalTokens">50,500 TBURN</span>
+          </div>
+          <div class="modal-detail-row">
+            <span class="label">TGE 해제</span>
+            <span class="value">7,575 TBURN</span>
+          </div>
+          <div class="modal-detail-row">
+            <span class="label">예상 지급일</span>
+            <span class="value">2025년 2월</span>
+          </div>
+        </div>
+
+        <button class="modal-btn" onclick="closeModal()">확인</button>
+        <button class="modal-btn secondary">
+          <i class="fas fa-external-link-alt"></i> 포트폴리오에서 보기
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Countdown Timer
+    function updateCountdown() {
+      const endDate = new Date('2025-02-15T00:00:00');
+      const now = new Date();
+      const diff = endDate - now;
+
+      if (diff > 0) {
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+        document.getElementById('days').textContent = days.toString().padStart(2, '0');
+        document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+        document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+        document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+      }
+    }
+
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+    // Calculate Allocation
+    function calculateAllocation() {
+      const amount = parseFloat(document.getElementById('allocationInput').value) || 0;
+      const tokenPrice = 0.020;
+
+      let bonusPercent = 0;
+      if (amount >= 50000) bonusPercent = 5;
+      else if (amount >= 10000) bonusPercent = 3;
+      else if (amount >= 1000) bonusPercent = 1;
+
+      const baseTokens = amount / tokenPrice;
+      const bonusTokens = baseTokens * (bonusPercent / 100);
+      const totalTokens = baseTokens + bonusTokens;
+      const tgeTokens = totalTokens * 0.15;
+
+      document.getElementById('tokenAmount').textContent = formatNumber(baseTokens) + ' TBURN';
+      document.getElementById('bonusAmount').textContent = bonusPercent > 0 ? '+' + formatNumber(bonusTokens) + ' TBURN' : '-';
+      document.getElementById('tgeAmount').textContent = formatNumber(tgeTokens) + ' TBURN';
+    }
+
+    function formatNumber(num) {
+      return Math.floor(num).toLocaleString();
+    }
+
+    // Set Allocation
+    function setAllocation(amount) {
+      document.getElementById('allocationInput').value = amount;
+      document.querySelectorAll('.quick-amount').forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+      calculateAllocation();
+    }
+
+    // Select Payment
+    function selectPayment(method) {
+      document.querySelectorAll('.payment-option').forEach(opt => opt.classList.remove('active'));
+      event.target.closest('.payment-option').classList.add('active');
+    }
+
+    // Purchase
+    function purchase() {
+      const amount = parseFloat(document.getElementById('allocationInput').value) || 0;
+      
+      if (amount < 100) {
+        alert('최소 참여 금액은 $100입니다.');
+        return;
+      }
+
+      // Update modal values
+      document.getElementById('modalAmount').textContent = '$' + formatNumber(amount);
+      document.getElementById('modalTokens').textContent = document.getElementById('tokenAmount').textContent.replace(' TBURN', '') + ' + ' + document.getElementById('bonusAmount').textContent;
+
+      // Show success modal
+      document.getElementById('successModal').classList.add('show');
+    }
+
+    // Close Modal
+    function closeModal() {
+      document.getElementById('successModal').classList.remove('show');
+    }
+
+    // Show Tab
+    function showTab(tabName) {
+      document.querySelectorAll('.details-tab').forEach(tab => tab.classList.remove('active'));
+      document.querySelectorAll('.details-content').forEach(content => content.classList.remove('active'));
+
+      event.target.classList.add('active');
+      document.getElementById(tabName + '-tab').classList.add('active');
+    }
+
+    // Toggle FAQ
+    function toggleFaq(element) {
+      const faqItem = element.parentElement;
+      const wasActive = faqItem.classList.contains('active');
+
+      document.querySelectorAll('.faq-item').forEach(item => item.classList.remove('active'));
+
+      if (!wasActive) {
+        faqItem.classList.add('active');
+      }
+    }
+
+    // Initialize
+    calculateAllocation();
+  </script>
+</body>
+</html>
