@@ -143,6 +143,7 @@ function AppRouter() {
         <Route path="/app/transactions" component={Transactions} />
         <Route path="/app/transactions/:hash" component={TransactionDetail} />
         <Route path="/app/simulator" component={TransactionSimulator} />
+        <Route path="/app/validators" component={Validators} />
         <Route path="/app/validator/:address" component={ValidatorDetail} />
         <Route path="/app/ai" component={AIOrchestration} />
         <Route path="/app/sharding" component={Sharding} />
