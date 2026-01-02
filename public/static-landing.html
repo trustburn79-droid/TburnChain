@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+  <meta http-equiv="Cache-Control" content="public, max-age=300">
+  <title>TBURN Blockchain | Mainnet Live</title>
+  <meta name="description" content="TBURN Blockchain - The New Standard in Trust-Based Blockchain. 210,000+ TPS, AI-Powered Security, DeFi Hub.">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    :root {
+      --bg: #0a0a0f;
+      --text: #ffffff;
+      --text-muted: #9ca3af;
+      --accent: #06b6d4;
+      --accent-glow: rgba(6, 182, 212, 0.3);
+      --card-bg: rgba(255, 255, 255, 0.03);
+      --card-border: rgba(255, 255, 255, 0.1);
+      --gradient-start: #FF6B35;
+      --gradient-end: #FFD700;
+    }
+    
+    body {
+      font-family: 'Space Grotesk', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    
+    /* Header */
+    .header {
+      padding: 20px 0;
+      border-bottom: 1px solid var(--card-border);
+    }
+    
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--text);
+    }
+    
+    .logo-icon {
+      width: 40px;
+      height: 40px;
+    }
+    
+    .logo-text {
+      font-size: 24px;
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .nav-links {
+      display: flex;
+      gap: 32px;
+    }
+    
+    .nav-link {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    
+    .nav-link:hover {
+      color: var(--text);
+    }
+    
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+    }
+    
+    /* Hero Section */
+    .hero {
+      padding: 80px 0 60px;
+      text-align: center;
+      position: relative;
+    }
+    
+    .hero-bg-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(100px);
+      opacity: 0.3;
+      pointer-events: none;
+    }
+    
+    .orb-1 {
+      width: 400px;
+      height: 400px;
+      background: #8b5cf6;
+      top: -100px;
+      left: 10%;
+    }
+    
+    .orb-2 {
+      width: 300px;
+      height: 300px;
+      background: #06b6d4;
+      bottom: -50px;
+      right: 15%;
+    }
+    
+    .live-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      border-radius: 9999px;
+      border: 1px solid rgba(6, 182, 212, 0.3);
+      background: rgba(6, 182, 212, 0.1);
+      color: var(--accent);
+      font-size: 12px;
+      font-family: monospace;
+      margin-bottom: 32px;
+    }
+    
+    .live-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(1.2); }
+    }
+    
+    .hero-title {
+      font-size: clamp(40px, 8vw, 72px);
+      font-weight: 700;
+      line-height: 1.1;
+      margin-bottom: 24px;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .text-gradient {
+      background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .hero-description {
+      font-size: 20px;
+      color: var(--text-muted);
+      max-width: 600px;
+      margin: 0 auto 40px;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .hero-buttons {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 16px 32px;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+      cursor: pointer;
+      border: none;
+    }
+    
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+    
+    .btn-primary {
+      background: var(--text);
+      color: var(--bg);
+    }
+    
+    .btn-primary:hover {
+      box-shadow: 0 10px 40px rgba(255, 255, 255, 0.2);
+    }
+    
+    .btn-secondary {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--card-border);
+    }
+    
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.05);
+    }
+    
+    .btn-icon {
+      width: 20px;
+      height: 20px;
+    }
+    
+    /* Stats Section */
+    .stats {
+      padding: 40px 0 80px;
+    }
+    
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+    
+    @media (max-width: 768px) {
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    
+    .stat-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 24px;
+      text-align: center;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    
+    .stat-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-4px);
+    }
+    
+    .stat-value {
+      font-size: clamp(28px, 4vw, 40px);
+      font-weight: 700;
+      font-family: 'JetBrains Mono', monospace;
+      margin-bottom: 8px;
+      color: var(--text);
+    }
+    
+    .stat-label {
+      font-size: 11px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+    
+    /* Features Section */
+    .features {
+      padding: 60px 0;
+      border-top: 1px solid var(--card-border);
+    }
+    
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    
+    @media (max-width: 992px) {
+      .features-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    
+    @media (max-width: 576px) {
+      .features-grid { grid-template-columns: 1fr; }
+    }
+    
+    .feature-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 24px;
+      transition: border-color 0.3s;
+    }
+    
+    .feature-card:hover {
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+    
+    .feature-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+      font-size: 24px;
+    }
+    
+    .icon-ai { background: linear-gradient(135deg, #ec4899, #f43f5e); }
+    .icon-security { background: linear-gradient(135deg, #22d3ee, #0891b2); }
+    .icon-defi { background: linear-gradient(135deg, #60a5fa, #3b82f6); }
+    .icon-gaming { background: linear-gradient(135deg, #fb7185, #ec4899); }
+    .icon-burn { background: linear-gradient(135deg, #34d399, #10b981); }
+    .icon-bridge { background: linear-gradient(135deg, #a78bfa, #8b5cf6); }
+    
+    .feature-title {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    
+    .feature-desc {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+    
+    /* Footer */
+    .footer {
+      padding: 40px 0;
+      border-top: 1px solid var(--card-border);
+      text-align: center;
+    }
+    
+    .footer-text {
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+    
+    .footer-links {
+      display: flex;
+      gap: 24px;
+      justify-content: center;
+      margin-top: 16px;
+    }
+    
+    .footer-link {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 14px;
+      transition: color 0.2s;
+    }
+    
+    .footer-link:hover {
+      color: var(--text);
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="container header-inner">
+      <a href="/" class="logo">
+        <svg class="logo-icon" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="flameGrad" x1="50%" y1="100%" x2="50%" y2="0%">
+              <stop offset="0%" stop-color="#FF6B35"/>
+              <stop offset="50%" stop-color="#F7931E"/>
+              <stop offset="100%" stop-color="#FFD700"/>
+            </linearGradient>
+          </defs>
+          <circle cx="50" cy="50" r="45" fill="url(#flameGrad)" opacity="0.15"/>
+          <circle cx="50" cy="50" r="40" stroke="url(#flameGrad)" stroke-width="2" fill="none"/>
+          <path d="M50 20 C35 35, 25 50, 30 65 C35 80, 45 85, 50 85 C55 85, 65 80, 70 65 C75 50, 65 35, 50 20" fill="url(#flameGrad)"/>
+          <path d="M50 35 C42 45, 38 55, 42 65 C45 72, 48 75, 50 75 C52 75, 55 72, 58 65 C62 55, 58 45, 50 35" fill="#FFD700" opacity="0.8"/>
+          <text x="50" y="58" text-anchor="middle" font-size="16" font-weight="bold" fill="#1a1a2e" font-family="sans-serif">T</text>
+        </svg>
+        <span class="logo-text">TBURN</span>
+      </a>
+      <nav class="nav-links">
+        <a href="/scan" class="nav-link">Explorer</a>
+        <a href="/learn/whitepaper" class="nav-link">Whitepaper</a>
+        <a href="/developers" class="nav-link">Developers</a>
+        <a href="/solutions" class="nav-link">Solutions</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-bg-orb orb-1"></div>
+    <div class="hero-bg-orb orb-2"></div>
+    <div class="container">
+      <div class="live-badge">
+        <span class="live-dot"></span>
+        MAINNET LIVE
+      </div>
+      <h1 class="hero-title">
+        The New Standard in<br>
+        <span class="text-gradient">Trust-Based</span> Blockchain
+      </h1>
+      <p class="hero-description">
+        Experience next-generation DeFi with 210,000+ TPS, AI-powered security, and seamless cross-chain interoperability.
+      </p>
+      <div class="hero-buttons">
+        <a href="/scan" class="btn btn-primary" data-testid="button-launch-explorer">
+          TBURN Scan
+          <svg class="btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+          </svg>
+        </a>
+        <a href="/whitepaper" class="btn btn-secondary" data-testid="button-read-whitepaper">
+          <svg class="btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+          </svg>
+          Whitepaper
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Section -->
+  <section class="stats">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-card" data-testid="stat-tps">
+          <div class="stat-value">210,000+</div>
+          <div class="stat-label">Transactions Per Second</div>
+        </div>
+        <div class="stat-card" data-testid="stat-blocks">
+          <div class="stat-value">40.2M</div>
+          <div class="stat-label">Total Blocks</div>
+        </div>
+        <div class="stat-card" data-testid="stat-transactions">
+          <div class="stat-value">298.5M</div>
+          <div class="stat-label">Total Transactions</div>
+        </div>
+        <div class="stat-card" data-testid="stat-uptime">
+          <div class="stat-value">99.99%</div>
+          <div class="stat-label">Network Uptime</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features">
+    <div class="container">
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon icon-ai">&#129302;</div>
+          <div class="feature-title">Triple-Band AI</div>
+          <div class="feature-desc">Advanced AI integration for real-time transaction analysis and network optimization.</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon icon-security">&#128737;</div>
+          <div class="feature-title">Quantum Security</div>
+          <div class="feature-desc">Post-quantum cryptographic signatures ensuring future-proof transaction security.</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon icon-defi">&#128176;</div>
+          <div class="feature-title">DeFi Hub</div>
+          <div class="feature-desc">Complete DeFi ecosystem with DEX, lending, staking, and yield farming.</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon icon-gaming">&#127918;</div>
+          <div class="feature-title">GameFi Platform</div>
+          <div class="feature-desc">Built-in gaming infrastructure with NFT marketplace and play-to-earn mechanics.</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon icon-burn">&#128293;</div>
+          <div class="feature-title">Auto-Burn Mechanism</div>
+          <div class="feature-desc">Deflationary tokenomics with automatic burn on every transaction.</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon icon-bridge">&#128279;</div>
+          <div class="feature-title">Cross-Chain Bridge</div>
+          <div class="feature-desc">Seamless interoperability with Ethereum, BSC, Solana, and major blockchains.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p class="footer-text">&copy; 2026 TBURN Foundation. All rights reserved.</p>
+      <div class="footer-links">
+        <a href="/legal/terms" class="footer-link">Terms of Service</a>
+        <a href="/legal/privacy" class="footer-link">Privacy Policy</a>
+        <a href="/legal/disclaimer" class="footer-link">Disclaimer</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

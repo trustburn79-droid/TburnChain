@@ -113,6 +113,28 @@ app.use('/ws', (req, res, next) => {
   next();
 });
 
+// ============================================
+// CRITICAL: Static Landing Page for Instant First Load
+// Serves pure HTML/CSS with ZERO JavaScript for sub-second FCP
+// ============================================
+const staticLandingPath = path.resolve(process.cwd(), 'public', 'static-landing.html');
+
+app.get('/', (_req, res) => {
+  // Serve static landing page for instant load (< 1 second)
+  if (fs.existsSync(staticLandingPath)) {
+    res.setHeader('Content-Type', 'text/html; charset=utf-8');
+    res.setHeader('Cache-Control', 'public, max-age=300, stale-while-revalidate=600');
+    res.setHeader('X-Content-Type', 'static-landing');
+    res.sendFile(staticLandingPath);
+    console.log('[Static Landing] Served instant landing page');
+  } else {
+    // Fallback to SPA if static landing not found
+    console.warn('[Static Landing] Not found, falling back to SPA');
+    res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+    res.sendFile(path.resolve(distPath, "index.html"));
+  }
+});
+
 // Early handlers for static HTML pages that must work during initialization
 // These are legal/compliance documents that must always be accessible
 app.get('/whitepaper', async (_req, res) => {
