@@ -740,9 +740,11 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     // Fallback to site password (works for both admin7979 and member login fallback)
     if (password === SITE_PASSWORD) {
       req.session.authenticated = true;
+      console.log(`[Login] Site password login successful`);
       res.json({ success: true });
     } else {
-      res.status(401).json({ error: "Invalid password" });
+      console.log(`[Login] Failed - email: ${email}, password mismatch`);
+      res.status(401).json({ error: "이메일 또는 비밀번호가 올바르지 않습니다." });
     }
   });
 

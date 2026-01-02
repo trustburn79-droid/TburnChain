@@ -249,20 +249,31 @@ export default function Login({ onLoginSuccess, isAdminLogin = false }: LoginPro
         // Background sync with server (fire-and-forget)
         queryClient.invalidateQueries({ queryKey }).catch(() => {});
       } else {
-        const errorData = await response.json().catch(() => ({}));
+        const errorData = await response.json().catch(() => ({ error: "Login failed" }));
+        const errorMessage = errorData.error || t('login.invalidCredentials');
+        
+        // 명확한 에러 표시 - alert + toast 동시 사용
+        alert(`로그인 실패: ${errorMessage}`);
+        
         toast({
           title: t('login.loginFailed'),
-          description: errorData.error || t('login.invalidCredentials'),
+          description: errorMessage,
           variant: "destructive",
+          duration: 5000,
         });
         form.setValue("password", "");
         setIsLoading(false);
       }
     } catch (error) {
+      const errorMsg = error instanceof Error ? error.message : t('login.loginError');
+      
+      alert(`로그인 오류: ${errorMsg}`);
+      
       toast({
         title: t('common.error'),
-        description: t('login.loginError'),
+        description: errorMsg,
         variant: "destructive",
+        duration: 5000,
       });
       setIsLoading(false);
     }
