@@ -924,8 +924,18 @@ export class ValidatorSimulationService {
       console.log(`Using default block height: ${this.currentBlockHeight}`);
     }
     
-    // Block production every 100ms - CRITICAL: Strict 100ms cadence for mainnet
-    // The 100ms BLOCK_TIME is a hard requirement for mainnet launch (10 blocks/second)
+    // ★ 메모리 최적화: 프로덕션/개발 환경별 시뮬레이션 간격 조정
+    const isProduction = process.env.NODE_ENV === 'production' || process.env.NODE_MODE === 'production';
+    const isDevelopment = process.env.NODE_ENV === 'development';
+    
+    // 프로덕션: 10초 간격, 개발: 1초 간격 (100ms는 메모리 과다 사용)
+    const blockIntervalMs = isProduction ? 10000 : (isDevelopment ? 1000 : ENTERPRISE_VALIDATORS_CONFIG.BLOCK_TIME);
+    const epochIntervalMs = isProduction ? 300000 : ENTERPRISE_VALIDATORS_CONFIG.EPOCH_DURATION; // 프로덕션: 5분
+    const crossShardIntervalMs = isProduction ? 30000 : (isDevelopment ? 10000 : 2000); // 프로덕션: 30초, 개발: 10초
+    
+    console.log(`[Validator] ⚙️ Simulation intervals: block=${blockIntervalMs}ms, epoch=${epochIntervalMs}ms, crossShard=${crossShardIntervalMs}ms`);
+    
+    // Block production with memory-optimized intervals
     this.blockInterval = setInterval(async () => {
       // Each function fires DB writes asynchronously with error isolation
       // Errors are caught and logged but don't crash the process
@@ -938,25 +948,25 @@ export class ValidatorSimulationService {
       } catch (error: any) {
         console.error("Error in block production interval:", error.message);
       }
-    }, ENTERPRISE_VALIDATORS_CONFIG.BLOCK_TIME);
+    }, blockIntervalMs);
     
-    // Epoch rotation every minute
+    // Epoch rotation with memory-optimized interval
     this.epochInterval = setInterval(async () => {
       try {
         await this.rotateEpoch();
       } catch (error) {
         console.error("Error in epoch rotation:", error);
       }
-    }, ENTERPRISE_VALIDATORS_CONFIG.EPOCH_DURATION);
+    }, epochIntervalMs);
     
-    // Cross-shard message simulation every 2 seconds
+    // Cross-shard message simulation with memory-optimized interval
     this.crossShardInterval = setInterval(async () => {
       try {
         await this.simulateCrossShardMessages();
       } catch (error) {
         console.error("Error in cross-shard messaging:", error);
       }
-    }, 2000);
+    }, crossShardIntervalMs);
     
     // Periodic message buffer flush (catches any buffered messages not yet flushed)
     this.messageFlushInterval = setInterval(async () => {
