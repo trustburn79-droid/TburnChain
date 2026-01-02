@@ -1,0 +1,1953 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TBURN Chain - 공식 런치패드 | Public Sale</title>
+  <meta name="description" content="TBURN Chain 공식 런치패드. TBURN Foundation이 직접 운영하는 공식 토큰 세일 플랫폼. 안전하고 투명한 참여.">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --gold: #D4AF37;
+      --gold-light: #F5D76E;
+      --gold-dark: #B8960C;
+      --navy: #1A365D;
+      --dark: #0F172A;
+      --dark-card: #1E293B;
+      --dark-lighter: #334155;
+      --gray: #64748B;
+      --light-gray: #94A3B8;
+      --white: #FFFFFF;
+      --success: #22C55E;
+      --success-dark: #16A34A;
+      --warning: #F59E0B;
+      --danger: #EF4444;
+      --purple: #8B5CF6;
+      --blue: #3B82F6;
+      --cyan: #06B6D4;
+      --pink: #EC4899;
+      --emerald: #10B981;
+      --gradient-gold: linear-gradient(135deg, #D4AF37 0%, #F5D76E 50%, #D4AF37 100%);
+      --gradient-blue: linear-gradient(135deg, #3B82F6 0%, #2563EB 100%);
+      --gradient-success: linear-gradient(135deg, #22C55E 0%, #16A34A 100%);
+      --gradient-dark: linear-gradient(180deg, #0F172A 0%, #1E293B 100%);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--dark);
+      color: var(--white);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-10px); } }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.7; } }
+    @keyframes glow { 0%, 100% { box-shadow: 0 0 20px rgba(59, 130, 246, 0.3); } 50% { box-shadow: 0 0 40px rgba(59, 130, 246, 0.6); } }
+    @keyframes progressFill { 0% { width: 0%; } 100% { width: var(--progress); } }
+    @keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
+    @keyframes countdown { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
+    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    @keyframes checkmark { 0% { transform: scale(0); } 50% { transform: scale(1.2); } 100% { transform: scale(1); } }
+    @keyframes slideIn { 0% { opacity: 0; transform: translateY(20px); } 100% { opacity: 1; transform: translateY(0); } }
+
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background: rgba(15, 23, 42, 0.95);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(59, 130, 246, 0.2);
+    }
+
+    .header-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+
+    .logo-icon {
+      width: 44px;
+      height: 44px;
+      background: var(--gradient-gold);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+    }
+
+    .logo-text { font-size: 1.25rem; font-weight: 800; color: var(--white); }
+    .logo-text span { color: var(--gold); }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .header-stats {
+      display: flex;
+      gap: 2rem;
+    }
+
+    .header-stat {
+      text-align: right;
+    }
+
+    .header-stat .label { font-size: 0.7rem; color: var(--gray); text-transform: uppercase; }
+    .header-stat .value { font-size: 0.9rem; font-weight: 700; color: var(--white); }
+    .header-stat .value.live { color: var(--success); }
+
+    .wallet-btn {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 20px;
+      background: var(--gradient-blue);
+      border: none;
+      border-radius: 12px;
+      color: var(--white);
+      font-weight: 700;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .wallet-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3);
+    }
+
+    .wallet-btn.connected {
+      background: var(--dark-card);
+      border: 1px solid var(--success);
+    }
+
+    .wallet-btn.connected .address {
+      color: var(--success);
+      font-family: monospace;
+    }
+
+    .main-content {
+      padding: 100px 2rem 60px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    /* Sale Header */
+    .sale-header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .official-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(34, 197, 94, 0.15);
+      border: 1px solid rgba(34, 197, 94, 0.4);
+      padding: 8px 20px;
+      border-radius: 100px;
+      font-size: 0.85rem;
+      color: var(--success);
+      margin-bottom: 1.5rem;
+    }
+
+    .official-badge i { font-size: 1rem; }
+
+    .sale-header h1 {
+      font-size: 2.5rem;
+      font-weight: 900;
+      margin-bottom: 0.75rem;
+    }
+
+    .sale-header h1 .highlight {
+      background: var(--gradient-blue);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .sale-header p {
+      color: var(--light-gray);
+      font-size: 1.1rem;
+    }
+
+    /* Countdown Section */
+    .countdown-section {
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(139, 92, 246, 0.05));
+      border: 1px solid rgba(59, 130, 246, 0.2);
+      border-radius: 20px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .countdown-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .countdown-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .countdown-title h3 { font-size: 1.125rem; font-weight: 700; }
+    .countdown-title .live-dot {
+      width: 10px;
+      height: 10px;
+      background: var(--success);
+      border-radius: 50%;
+      animation: pulse 1.5s infinite;
+    }
+
+    .sale-phase {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      background: rgba(34, 197, 94, 0.2);
+      border-radius: 100px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--success);
+    }
+
+    .countdown-timer {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .countdown-item {
+      text-align: center;
+    }
+
+    .countdown-value {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: var(--white);
+      background: var(--dark-card);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 0.75rem 1.25rem;
+      min-width: 80px;
+    }
+
+    .countdown-unit {
+      font-size: 0.75rem;
+      color: var(--gray);
+      margin-top: 0.5rem;
+      text-transform: uppercase;
+    }
+
+    /* Progress Section */
+    .progress-section {
+      background: var(--dark-card);
+      border-radius: 16px;
+      padding: 1.5rem;
+    }
+
+    .progress-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+
+    .progress-header .raised {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--blue);
+    }
+
+    .progress-header .goal {
+      color: var(--gray);
+    }
+
+    .progress-bar-container {
+      height: 20px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 100px;
+      overflow: hidden;
+      margin-bottom: 1rem;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      background: var(--gradient-blue);
+      border-radius: 100px;
+      width: 45%;
+      position: relative;
+      transition: width 1s ease;
+    }
+
+    .progress-bar-fill::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+      background-size: 200% 100%;
+      animation: shimmer 2s infinite;
+    }
+
+    .progress-stats {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.9rem;
+    }
+
+    .progress-stats .percent { color: var(--blue); font-weight: 700; }
+    .progress-stats .tokens { color: var(--light-gray); }
+
+    /* Main Grid */
+    .launchpad-grid {
+      display: grid;
+      grid-template-columns: 1fr 400px;
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    /* Purchase Card */
+    .purchase-card {
+      background: var(--dark-card);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 24px;
+      overflow: hidden;
+    }
+
+    .purchase-header {
+      padding: 1.5rem;
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), transparent);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .purchase-header h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .purchase-header h3 i { color: var(--blue); }
+
+    .purchase-body {
+      padding: 1.5rem;
+    }
+
+    /* Steps Indicator */
+    .steps-indicator {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 2rem;
+      position: relative;
+    }
+
+    .steps-indicator::before {
+      content: '';
+      position: absolute;
+      top: 20px;
+      left: 40px;
+      right: 40px;
+      height: 2px;
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .step-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .step-number {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.9rem;
+      background: var(--dark);
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      transition: all 0.3s;
+    }
+
+    .step-item.completed .step-number {
+      background: var(--success);
+      border-color: var(--success);
+    }
+
+    .step-item.completed .step-number i {
+      animation: checkmark 0.3s ease;
+    }
+
+    .step-item.active .step-number {
+      background: var(--blue);
+      border-color: var(--blue);
+      animation: glow 2s infinite;
+    }
+
+    .step-label {
+      font-size: 0.75rem;
+      color: var(--gray);
+      text-align: center;
+    }
+
+    .step-item.completed .step-label,
+    .step-item.active .step-label {
+      color: var(--white);
+    }
+
+    /* Form Sections */
+    .form-section {
+      margin-bottom: 1.5rem;
+      animation: slideIn 0.3s ease;
+    }
+
+    .form-section-title {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--light-gray);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .form-section-title i { color: var(--blue); }
+
+    /* Wallet Connection */
+    .wallet-section {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px dashed rgba(255, 255, 255, 0.2);
+      border-radius: 16px;
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .wallet-section.connected {
+      border-style: solid;
+      border-color: var(--success);
+      background: rgba(34, 197, 94, 0.05);
+    }
+
+    .wallet-options {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .wallet-option {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      padding: 1.25rem;
+      background: var(--dark);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .wallet-option:hover {
+      border-color: var(--blue);
+      transform: translateY(-3px);
+    }
+
+    .wallet-option img {
+      width: 40px;
+      height: 40px;
+    }
+
+    .wallet-option .icon {
+      font-size: 2rem;
+    }
+
+    .wallet-option span {
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    .connected-wallet {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+    }
+
+    .connected-wallet .avatar {
+      width: 50px;
+      height: 50px;
+      background: var(--gradient-blue);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+    }
+
+    .connected-wallet .info h4 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--success);
+    }
+
+    .connected-wallet .info p {
+      font-size: 0.85rem;
+      color: var(--gray);
+      font-family: monospace;
+    }
+
+    .disconnect-btn {
+      margin-top: 1rem;
+      padding: 8px 16px;
+      background: transparent;
+      border: 1px solid var(--danger);
+      border-radius: 8px;
+      color: var(--danger);
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .disconnect-btn:hover {
+      background: var(--danger);
+      color: var(--white);
+    }
+
+    /* KYC Section */
+    .kyc-section {
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 16px;
+      padding: 1.5rem;
+    }
+
+    .kyc-status {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 1rem;
+    }
+
+    .kyc-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+    }
+
+    .kyc-icon.pending {
+      background: rgba(245, 158, 11, 0.2);
+      color: var(--warning);
+    }
+
+    .kyc-icon.verified {
+      background: rgba(34, 197, 94, 0.2);
+      color: var(--success);
+    }
+
+    .kyc-info h4 { font-size: 1rem; font-weight: 700; }
+    .kyc-info p { font-size: 0.85rem; color: var(--gray); }
+
+    .kyc-btn {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      background: var(--gradient-blue);
+      border: none;
+      border-radius: 10px;
+      color: var(--white);
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .kyc-btn:hover { transform: scale(1.02); }
+
+    .kyc-btn.verified {
+      background: var(--success);
+      cursor: default;
+    }
+
+    /* Amount Input */
+    .amount-section {
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 16px;
+      padding: 1.5rem;
+    }
+
+    .amount-input-group {
+      position: relative;
+      margin-bottom: 1rem;
+    }
+
+    .amount-input {
+      width: 100%;
+      padding: 1.25rem 1rem;
+      padding-right: 100px;
+      background: var(--dark);
+      border: 2px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      color: var(--white);
+      font-size: 1.5rem;
+      font-weight: 700;
+      transition: border-color 0.3s;
+    }
+
+    .amount-input:focus {
+      outline: none;
+      border-color: var(--blue);
+    }
+
+    .amount-currency {
+      position: absolute;
+      right: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      background: var(--dark-lighter);
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .amount-currency img {
+      width: 20px;
+      height: 20px;
+    }
+
+    .amount-currency .icon {
+      font-size: 1.25rem;
+    }
+
+    .amount-currency span {
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .quick-amounts {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .quick-amount {
+      flex: 1;
+      padding: 10px;
+      background: var(--dark);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      color: var(--light-gray);
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-align: center;
+    }
+
+    .quick-amount:hover, .quick-amount.active {
+      border-color: var(--blue);
+      color: var(--blue);
+      background: rgba(59, 130, 246, 0.1);
+    }
+
+    .balance-info {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.85rem;
+      color: var(--gray);
+    }
+
+    .balance-info .max-btn {
+      color: var(--blue);
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    /* Token Output */
+    .token-output {
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(139, 92, 246, 0.05));
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      border-radius: 16px;
+      padding: 1.5rem;
+      margin-top: 1rem;
+    }
+
+    .token-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .token-row:last-child { border-bottom: none; }
+
+    .token-row .label { color: var(--gray); font-size: 0.9rem; }
+    .token-row .value { font-weight: 700; }
+    .token-row .value.highlight { color: var(--blue); font-size: 1.25rem; }
+    .token-row .value.bonus { color: var(--success); }
+    .token-row .value.small { font-size: 0.85rem; color: var(--light-gray); }
+
+    /* Payment Method */
+    .payment-methods {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+
+    .payment-method {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      padding: 1rem;
+      background: var(--dark);
+      border: 2px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .payment-method:hover {
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+
+    .payment-method.active {
+      border-color: var(--blue);
+      background: rgba(59, 130, 246, 0.1);
+    }
+
+    .payment-method .icon {
+      font-size: 1.5rem;
+    }
+
+    .payment-method span {
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    /* Purchase Button */
+    .purchase-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      padding: 18px;
+      background: var(--gradient-blue);
+      border: none;
+      border-radius: 14px;
+      color: var(--white);
+      font-size: 1.125rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s;
+      margin-top: 1.5rem;
+    }
+
+    .purchase-btn:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 15px 40px rgba(59, 130, 246, 0.3);
+    }
+
+    .purchase-btn:disabled {
+      background: var(--gray);
+      cursor: not-allowed;
+    }
+
+    .purchase-btn.loading .spinner {
+      width: 20px;
+      height: 20px;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-top-color: var(--white);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    /* Info Sidebar */
+    .info-sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .info-card {
+      background: var(--dark-card);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    .info-card-header {
+      padding: 1.25rem;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.03), transparent);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .info-card-header h4 {
+      font-size: 1rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .info-card-header h4 i { color: var(--blue); }
+
+    .info-card-body { padding: 1.25rem; }
+
+    /* Token Info */
+    .token-info-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .token-info-item:last-child { border-bottom: none; }
+
+    .token-info-item .label {
+      color: var(--gray);
+      font-size: 0.9rem;
+    }
+
+    .token-info-item .value {
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    /* Tier Card */
+    .tier-card {
+      padding: 1rem;
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 12px;
+      margin-bottom: 0.75rem;
+    }
+
+    .tier-card:last-child { margin-bottom: 0; }
+
+    .tier-card.active {
+      background: rgba(59, 130, 246, 0.1);
+      border: 1px solid rgba(59, 130, 246, 0.3);
+    }
+
+    .tier-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.5rem;
+    }
+
+    .tier-name {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 700;
+    }
+
+    .tier-name .icon { font-size: 1.25rem; }
+
+    .tier-bonus {
+      padding: 4px 10px;
+      background: rgba(34, 197, 94, 0.2);
+      border-radius: 100px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--success);
+    }
+
+    .tier-range {
+      font-size: 0.85rem;
+      color: var(--gray);
+    }
+
+    /* Vesting Schedule */
+    .vesting-visual {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .vesting-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .vesting-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--blue);
+      position: relative;
+    }
+
+    .vesting-dot::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 100%;
+      width: 2px;
+      height: 30px;
+      background: rgba(59, 130, 246, 0.3);
+      transform: translateX(-50%);
+    }
+
+    .vesting-item:last-child .vesting-dot::after { display: none; }
+
+    .vesting-item.tge .vesting-dot { background: var(--success); }
+    .vesting-item.cliff .vesting-dot { background: var(--warning); }
+
+    .vesting-info { flex: 1; }
+    .vesting-info .title { font-weight: 600; font-size: 0.9rem; }
+    .vesting-info .desc { font-size: 0.8rem; color: var(--gray); }
+
+    .vesting-amount {
+      font-weight: 700;
+      color: var(--blue);
+    }
+
+    /* Features */
+    .features-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .feature-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 0.75rem;
+      background: rgba(255, 255, 255, 0.02);
+      border-radius: 10px;
+    }
+
+    .feature-item i {
+      width: 30px;
+      height: 30px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+    }
+
+    .feature-item i.success {
+      background: rgba(34, 197, 94, 0.2);
+      color: var(--success);
+    }
+
+    .feature-item span { font-size: 0.9rem; }
+
+    /* Transaction Modal */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(10px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+    }
+
+    .modal-overlay.show { display: flex; }
+
+    .modal {
+      background: var(--dark-card);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 24px;
+      width: 100%;
+      max-width: 480px;
+      overflow: hidden;
+      animation: slideIn 0.3s ease;
+    }
+
+    .modal-header {
+      padding: 1.5rem;
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), transparent);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .modal-header h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+    }
+
+    .modal-close {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.05);
+      border: none;
+      color: var(--gray);
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .modal-close:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--white);
+    }
+
+    .modal-body {
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .tx-status-icon {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      margin: 0 auto 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+    }
+
+    .tx-status-icon.pending {
+      background: rgba(59, 130, 246, 0.2);
+      color: var(--blue);
+    }
+
+    .tx-status-icon.pending .spinner {
+      width: 40px;
+      height: 40px;
+      border: 3px solid rgba(59, 130, 246, 0.3);
+      border-top-color: var(--blue);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    .tx-status-icon.success {
+      background: rgba(34, 197, 94, 0.2);
+      color: var(--success);
+    }
+
+    .tx-status-icon.error {
+      background: rgba(239, 68, 68, 0.2);
+      color: var(--danger);
+    }
+
+    .modal-body h4 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .modal-body p {
+      color: var(--gray);
+      margin-bottom: 1.5rem;
+    }
+
+    .tx-details {
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 12px;
+      padding: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .tx-detail-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.5rem 0;
+      font-size: 0.9rem;
+    }
+
+    .tx-detail-row .label { color: var(--gray); }
+    .tx-detail-row .value { font-weight: 600; }
+
+    .modal-btn {
+      display: block;
+      width: 100%;
+      padding: 14px;
+      background: var(--gradient-blue);
+      border: none;
+      border-radius: 12px;
+      color: var(--white);
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .modal-btn:hover { transform: scale(1.02); }
+
+    .modal-btn.secondary {
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      margin-top: 0.75rem;
+    }
+
+    /* Toast */
+    .toast {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: var(--dark-card);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 1rem 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transform: translateX(150%);
+      transition: transform 0.3s ease;
+      z-index: 3000;
+    }
+
+    .toast.show { transform: translateX(0); }
+
+    .toast.success { border-color: var(--success); }
+    .toast.error { border-color: var(--danger); }
+
+    .toast i.success { color: var(--success); }
+    .toast i.error { color: var(--danger); }
+
+    /* Footer */
+    .footer {
+      margin-top: 4rem;
+      padding: 2rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      text-align: center;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .footer-links a {
+      color: var(--gray);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color 0.3s;
+    }
+
+    .footer-links a:hover { color: var(--blue); }
+
+    .footer p {
+      color: var(--gray);
+      font-size: 0.85rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .launchpad-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .header-stats { display: none; }
+    }
+
+    @media (max-width: 768px) {
+      .main-content { padding: 90px 1rem 40px; }
+
+      .countdown-timer { gap: 0.75rem; }
+      .countdown-value { font-size: 1.75rem; padding: 0.5rem 0.75rem; min-width: 60px; }
+
+      .wallet-options { grid-template-columns: 1fr; }
+      .payment-methods { grid-template-columns: 1fr; }
+      .quick-amounts { flex-wrap: wrap; }
+      .quick-amount { flex: 0 0 calc(50% - 0.25rem); }
+
+      .steps-indicator { flex-wrap: wrap; gap: 1rem; }
+      .steps-indicator::before { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="header-container">
+      <a href="#" class="logo">
+        <div class="logo-icon">🔥</div>
+        <div class="logo-text">TBURN<span>CHAIN</span></div>
+      </a>
+
+      <div class="header-right">
+        <div class="header-stats">
+          <div class="header-stat">
+            <div class="label">상태</div>
+            <div class="value live">● LIVE</div>
+          </div>
+          <div class="header-stat">
+            <div class="label">토큰 가격</div>
+            <div class="value">$0.020</div>
+          </div>
+          <div class="header-stat">
+            <div class="label">진행률</div>
+            <div class="value">45%</div>
+          </div>
+        </div>
+
+        <button class="wallet-btn" id="walletBtn" onclick="connectWallet()">
+          <i class="fas fa-wallet"></i>
+          <span>지갑 연결</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <!-- Sale Header -->
+    <div class="sale-header">
+      <div class="official-badge">
+        <i class="fas fa-shield-check"></i>
+        TBURN Foundation 공식 런치패드
+      </div>
+      <h1>TBURN <span class="highlight">Public Sale</span></h1>
+      <p>안전하고 투명한 공식 토큰 세일 플랫폼</p>
+    </div>
+
+    <!-- Countdown Section -->
+    <div class="countdown-section">
+      <div class="countdown-header">
+        <div class="countdown-title">
+          <div class="live-dot"></div>
+          <h3>세일 종료까지</h3>
+        </div>
+        <div class="sale-phase">
+          <i class="fas fa-rocket"></i>
+          Phase 2 진행 중
+        </div>
+      </div>
+
+      <div class="countdown-timer">
+        <div class="countdown-item">
+          <div class="countdown-value" id="days">14</div>
+          <div class="countdown-unit">Days</div>
+        </div>
+        <div class="countdown-item">
+          <div class="countdown-value" id="hours">08</div>
+          <div class="countdown-unit">Hours</div>
+        </div>
+        <div class="countdown-item">
+          <div class="countdown-value" id="minutes">32</div>
+          <div class="countdown-unit">Minutes</div>
+        </div>
+        <div class="countdown-item">
+          <div class="countdown-value" id="seconds">45</div>
+          <div class="countdown-unit">Seconds</div>
+        </div>
+      </div>
+
+      <div class="progress-section">
+        <div class="progress-header">
+          <div class="raised">$5,400,000</div>
+          <div class="goal">목표: $12,000,000</div>
+        </div>
+        <div class="progress-bar-container">
+          <div class="progress-bar-fill" style="--progress: 45%;"></div>
+        </div>
+        <div class="progress-stats">
+          <span class="percent">45% 완료</span>
+          <span class="tokens">2.7억 TBURN 판매 · 잔여 3.3억 TBURN</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Grid -->
+    <div class="launchpad-grid">
+      <!-- Purchase Card -->
+      <div class="purchase-card">
+        <div class="purchase-header">
+          <h3><i class="fas fa-shopping-cart"></i> 토큰 구매</h3>
+        </div>
+
+        <div class="purchase-body">
+          <!-- Steps Indicator -->
+          <div class="steps-indicator">
+            <div class="step-item completed" id="step1">
+              <div class="step-number"><i class="fas fa-check"></i></div>
+              <div class="step-label">지갑 연결</div>
+            </div>
+            <div class="step-item active" id="step2">
+              <div class="step-number">2</div>
+              <div class="step-label">KYC 인증</div>
+            </div>
+            <div class="step-item" id="step3">
+              <div class="step-number">3</div>
+              <div class="step-label">금액 입력</div>
+            </div>
+            <div class="step-item" id="step4">
+              <div class="step-number">4</div>
+              <div class="step-label">구매 완료</div>
+            </div>
+          </div>
+
+          <!-- Step 1: Wallet Connection -->
+          <div class="form-section" id="walletSection">
+            <div class="form-section-title">
+              <i class="fas fa-wallet"></i>
+              Step 1: 지갑 연결
+            </div>
+            <div class="wallet-section" id="walletConnect">
+              <i class="fas fa-link" style="font-size: 2rem; color: var(--gray); margin-bottom: 1rem;"></i>
+              <h4 style="margin-bottom: 0.5rem;">지갑을 연결하세요</h4>
+              <p style="color: var(--gray); font-size: 0.9rem;">참여하려면 먼저 지갑을 연결해야 합니다</p>
+              <div class="wallet-options">
+                <div class="wallet-option" onclick="connectWallet('metamask')">
+                  <span class="icon">🦊</span>
+                  <span>MetaMask</span>
+                </div>
+                <div class="wallet-option" onclick="connectWallet('trustwallet')">
+                  <span class="icon">💎</span>
+                  <span>Trust Wallet</span>
+                </div>
+                <div class="wallet-option" onclick="connectWallet('walletconnect')">
+                  <span class="icon">🔗</span>
+                  <span>WalletConnect</span>
+                </div>
+                <div class="wallet-option" onclick="connectWallet('coinbase')">
+                  <span class="icon">🔵</span>
+                  <span>Coinbase</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 2: KYC -->
+          <div class="form-section" id="kycSection" style="display: none;">
+            <div class="form-section-title">
+              <i class="fas fa-user-check"></i>
+              Step 2: KYC 인증
+            </div>
+            <div class="kyc-section">
+              <div class="kyc-status">
+                <div class="kyc-icon pending" id="kycIcon">
+                  <i class="fas fa-clock"></i>
+                </div>
+                <div class="kyc-info">
+                  <h4 id="kycTitle">KYC 인증 필요</h4>
+                  <p id="kycDesc">약 5분 소요 · 신분증 준비</p>
+                </div>
+              </div>
+              <button class="kyc-btn" id="kycBtn" onclick="startKYC()">
+                <i class="fas fa-id-card"></i> KYC 시작하기
+              </button>
+            </div>
+          </div>
+
+          <!-- Step 3: Amount Input -->
+          <div class="form-section" id="amountSection" style="display: none;">
+            <div class="form-section-title">
+              <i class="fas fa-coins"></i>
+              Step 3: 구매 금액
+            </div>
+            <div class="amount-section">
+              <div class="amount-input-group">
+                <input type="number" class="amount-input" id="amountInput" placeholder="0.00" value="1000" oninput="calculateTokens()">
+                <div class="amount-currency" onclick="showCurrencySelector()">
+                  <span class="icon">💵</span>
+                  <span id="selectedCurrency">USDT</span>
+                  <i class="fas fa-chevron-down" style="font-size: 0.7rem; color: var(--gray);"></i>
+                </div>
+              </div>
+
+              <div class="quick-amounts">
+                <div class="quick-amount" onclick="setAmount(100)">$100</div>
+                <div class="quick-amount" onclick="setAmount(500)">$500</div>
+                <div class="quick-amount active" onclick="setAmount(1000)">$1,000</div>
+                <div class="quick-amount" onclick="setAmount(5000)">$5,000</div>
+                <div class="quick-amount" onclick="setAmount(10000)">$10,000</div>
+              </div>
+
+              <div class="balance-info">
+                <span>잔액: <strong id="walletBalance">5,000.00 USDT</strong></span>
+                <span class="max-btn" onclick="setMaxAmount()">MAX</span>
+              </div>
+
+              <div class="token-output">
+                <div class="token-row">
+                  <span class="label">받을 토큰</span>
+                  <span class="value highlight" id="tokenAmount">50,000 TBURN</span>
+                </div>
+                <div class="token-row">
+                  <span class="label">보너스 (+1%)</span>
+                  <span class="value bonus" id="bonusAmount">+500 TBURN</span>
+                </div>
+                <div class="token-row">
+                  <span class="label">총 토큰</span>
+                  <span class="value highlight" id="totalTokens">50,500 TBURN</span>
+                </div>
+                <div class="token-row">
+                  <span class="label">TGE 해제 (15%)</span>
+                  <span class="value" id="tgeTokens">7,575 TBURN</span>
+                </div>
+                <div class="token-row">
+                  <span class="label">예상 가치 ($0.08)</span>
+                  <span class="value small" id="estimatedValue">$4,040</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-section-title" style="margin-top: 1.5rem;">
+              <i class="fas fa-credit-card"></i>
+              결제 수단
+            </div>
+            <div class="payment-methods">
+              <div class="payment-method active" onclick="selectPayment('usdt')">
+                <span class="icon">💵</span>
+                <span>USDT</span>
+              </div>
+              <div class="payment-method" onclick="selectPayment('usdc')">
+                <span class="icon">💲</span>
+                <span>USDC</span>
+              </div>
+              <div class="payment-method" onclick="selectPayment('eth')">
+                <span class="icon">⟠</span>
+                <span>ETH</span>
+              </div>
+            </div>
+
+            <button class="purchase-btn" id="purchaseBtn" onclick="purchase()">
+              <i class="fas fa-rocket"></i>
+              토큰 구매하기
+            </button>
+
+            <p style="text-align: center; margin-top: 1rem; font-size: 0.8rem; color: var(--gray);">
+              <i class="fas fa-lock"></i> 안전한 스마트 컨트랙트로 처리됩니다
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Info Sidebar -->
+      <div class="info-sidebar">
+        <!-- Token Info -->
+        <div class="info-card">
+          <div class="info-card-header">
+            <h4><i class="fas fa-info-circle"></i> 세일 정보</h4>
+          </div>
+          <div class="info-card-body">
+            <div class="token-info-item">
+              <span class="label">토큰 가격</span>
+              <span class="value" style="color: var(--blue);">$0.020</span>
+            </div>
+            <div class="token-info-item">
+              <span class="label">총 세일 물량</span>
+              <span class="value">6억 TBURN</span>
+            </div>
+            <div class="token-info-item">
+              <span class="label">최소 참여</span>
+              <span class="value">$100</span>
+            </div>
+            <div class="token-info-item">
+              <span class="label">TGE 해제</span>
+              <span class="value" style="color: var(--success);">15%</span>
+            </div>
+            <div class="token-info-item">
+              <span class="label">클리프</span>
+              <span class="value">3개월</span>
+            </div>
+            <div class="token-info-item">
+              <span class="label">베스팅</span>
+              <span class="value">12개월</span>
+            </div>
+            <div class="token-info-item">
+              <span class="label">네트워크</span>
+              <span class="value">Ethereum</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tier Info -->
+        <div class="info-card">
+          <div class="info-card-header">
+            <h4><i class="fas fa-medal"></i> 참여 티어</h4>
+          </div>
+          <div class="info-card-body">
+            <div class="tier-card">
+              <div class="tier-header">
+                <div class="tier-name">
+                  <span class="icon">🐋</span>
+                  <span>Whale</span>
+                </div>
+                <span class="tier-bonus">+5%</span>
+              </div>
+              <div class="tier-range">$50,000 이상</div>
+            </div>
+            <div class="tier-card">
+              <div class="tier-header">
+                <div class="tier-name">
+                  <span class="icon">🐬</span>
+                  <span>Dolphin</span>
+                </div>
+                <span class="tier-bonus">+3%</span>
+              </div>
+              <div class="tier-range">$10,000 ~ $49,999</div>
+            </div>
+            <div class="tier-card active">
+              <div class="tier-header">
+                <div class="tier-name">
+                  <span class="icon">🐟</span>
+                  <span>Fish</span>
+                </div>
+                <span class="tier-bonus">+1%</span>
+              </div>
+              <div class="tier-range">$1,000 ~ $9,999</div>
+            </div>
+            <div class="tier-card">
+              <div class="tier-header">
+                <div class="tier-name">
+                  <span class="icon">🦐</span>
+                  <span>Shrimp</span>
+                </div>
+                <span class="tier-bonus" style="background: rgba(100,116,139,0.2); color: var(--gray);">-</span>
+              </div>
+              <div class="tier-range">$100 ~ $999</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Vesting Schedule -->
+        <div class="info-card">
+          <div class="info-card-header">
+            <h4><i class="fas fa-calendar-alt"></i> 베스팅 스케줄</h4>
+          </div>
+          <div class="info-card-body">
+            <div class="vesting-visual">
+              <div class="vesting-item tge">
+                <div class="vesting-dot"></div>
+                <div class="vesting-info">
+                  <div class="title">TGE</div>
+                  <div class="desc">토큰 생성 시점</div>
+                </div>
+                <div class="vesting-amount">15%</div>
+              </div>
+              <div class="vesting-item cliff">
+                <div class="vesting-dot"></div>
+                <div class="vesting-info">
+                  <div class="title">클리프</div>
+                  <div class="desc">1~3개월</div>
+                </div>
+                <div class="vesting-amount">0%</div>
+              </div>
+              <div class="vesting-item">
+                <div class="vesting-dot"></div>
+                <div class="vesting-info">
+                  <div class="title">베스팅</div>
+                  <div class="desc">4~15개월</div>
+                </div>
+                <div class="vesting-amount">85%</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Features -->
+        <div class="info-card">
+          <div class="info-card-header">
+            <h4><i class="fas fa-shield-alt"></i> 공식 런치패드 특징</h4>
+          </div>
+          <div class="info-card-body">
+            <div class="features-list">
+              <div class="feature-item">
+                <i class="fas fa-check success"></i>
+                <span>TBURN Foundation 공식 보장</span>
+              </div>
+              <div class="feature-item">
+                <i class="fas fa-check success"></i>
+                <span>안전한 스마트 컨트랙트</span>
+              </div>
+              <div class="feature-item">
+                <i class="fas fa-check success"></i>
+                <span>모든 티어 보너스 적용</span>
+              </div>
+              <div class="feature-item">
+                <i class="fas fa-check success"></i>
+                <span>24/7 고객 지원</span>
+              </div>
+              <div class="feature-item">
+                <i class="fas fa-check success"></i>
+                <span>실시간 토큰 클레임</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-links">
+        <a href="#">이용약관</a>
+        <a href="#">개인정보처리방침</a>
+        <a href="#">리스크 고지</a>
+        <a href="#">고객 지원</a>
+        <a href="#">FAQ</a>
+      </div>
+      <p>© 2025-2045 TBURN Foundation. All Rights Reserved.</p>
+    </footer>
+  </main>
+
+  <!-- Transaction Modal -->
+  <div class="modal-overlay" id="txModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3>트랜잭션 처리 중</h3>
+        <button class="modal-close" onclick="closeModal()">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="tx-status-icon pending" id="txStatusIcon">
+          <div class="spinner"></div>
+        </div>
+        <h4 id="txStatusTitle">트랜잭션 확인 중...</h4>
+        <p id="txStatusDesc">지갑에서 트랜잭션을 확인해주세요</p>
+
+        <div class="tx-details">
+          <div class="tx-detail-row">
+            <span class="label">구매 금액</span>
+            <span class="value" id="txAmount">$1,000 USDT</span>
+          </div>
+          <div class="tx-detail-row">
+            <span class="label">받을 토큰</span>
+            <span class="value" id="txTokens">50,500 TBURN</span>
+          </div>
+          <div class="tx-detail-row">
+            <span class="label">예상 가스비</span>
+            <span class="value">~$5.00</span>
+          </div>
+        </div>
+
+        <button class="modal-btn" id="txModalBtn" onclick="closeModal()" style="display: none;">
+          확인
+        </button>
+        <button class="modal-btn secondary" id="txViewBtn" style="display: none;">
+          <i class="fas fa-external-link-alt"></i> Etherscan에서 보기
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast">
+    <i class="fas fa-check-circle success" id="toastIcon"></i>
+    <span id="toastMessage">성공!</span>
+  </div>
+
+  <script>
+    // State
+    let isWalletConnected = false;
+    let isKYCVerified = false;
+    let currentStep = 1;
+    let selectedPayment = 'usdt';
+    let walletAddress = '';
+
+    // Countdown Timer
+    function updateCountdown() {
+      const endDate = new Date('2025-02-15T00:00:00');
+      const now = new Date();
+      const diff = endDate - now;
+
+      if (diff > 0) {
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+        document.getElementById('days').textContent = days.toString().padStart(2, '0');
+        document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+        document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+        document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+      }
+    }
+
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+    // Connect Wallet
+    function connectWallet(provider) {
+      if (isWalletConnected) {
+        // Show wallet info
+        return;
+      }
+
+      // Simulate wallet connection
+      showToast('지갑 연결 중...', 'info');
+
+      setTimeout(() => {
+        isWalletConnected = true;
+        walletAddress = '0x7a3b...9f2c';
+
+        // Update wallet button
+        const walletBtn = document.getElementById('walletBtn');
+        walletBtn.classList.add('connected');
+        walletBtn.innerHTML = `
+          <i class="fas fa-wallet"></i>
+          <span class="address">${walletAddress}</span>
+        `;
+
+        // Update wallet section
+        const walletConnect = document.getElementById('walletConnect');
+        walletConnect.classList.add('connected');
+        walletConnect.innerHTML = `
+          <div class="connected-wallet">
+            <div class="avatar">🦊</div>
+            <div class="info">
+              <h4>연결됨</h4>
+              <p>${walletAddress}</p>
+            </div>
+          </div>
+          <button class="disconnect-btn" onclick="disconnectWallet()">
+            <i class="fas fa-unlink"></i> 연결 해제
+          </button>
+        `;
+
+        // Update step
+        updateStep(1, 'completed');
+        updateStep(2, 'active');
+
+        // Show KYC section
+        document.getElementById('kycSection').style.display = 'block';
+
+        showToast('지갑이 연결되었습니다!', 'success');
+      }, 1500);
+    }
+
+    // Disconnect Wallet
+    function disconnectWallet() {
+      isWalletConnected = false;
+      walletAddress = '';
+
+      const walletBtn = document.getElementById('walletBtn');
+      walletBtn.classList.remove('connected');
+      walletBtn.innerHTML = `
+        <i class="fas fa-wallet"></i>
+        <span>지갑 연결</span>
+      `;
+
+      location.reload();
+    }
+
+    // Start KYC
+    function startKYC() {
+      showToast('KYC 인증 페이지로 이동합니다...', 'info');
+
+      // Simulate KYC process
+      setTimeout(() => {
+        isKYCVerified = true;
+
+        const kycIcon = document.getElementById('kycIcon');
+        const kycTitle = document.getElementById('kycTitle');
+        const kycDesc = document.getElementById('kycDesc');
+        const kycBtn = document.getElementById('kycBtn');
+
+        kycIcon.className = 'kyc-icon verified';
+        kycIcon.innerHTML = '<i class="fas fa-check"></i>';
+        kycTitle.textContent = 'KYC 인증 완료';
+        kycDesc.textContent = '모든 인증이 완료되었습니다';
+        kycBtn.className = 'kyc-btn verified';
+        kycBtn.innerHTML = '<i class="fas fa-check"></i> 인증 완료';
+        kycBtn.onclick = null;
+
+        // Update step
+        updateStep(2, 'completed');
+        updateStep(3, 'active');
+
+        // Show amount section
+        document.getElementById('amountSection').style.display = 'block';
+
+        showToast('KYC 인증이 완료되었습니다!', 'success');
+      }, 2000);
+    }
+
+    // Update Step
+    function updateStep(step, status) {
+      const stepEl = document.getElementById(`step${step}`);
+      stepEl.className = `step-item ${status}`;
+
+      if (status === 'completed') {
+        stepEl.querySelector('.step-number').innerHTML = '<i class="fas fa-check"></i>';
+      }
+    }
+
+    // Calculate Tokens
+    function calculateTokens() {
+      const amount = parseFloat(document.getElementById('amountInput').value) || 0;
+      const tokenPrice = 0.020;
+      const listingPrice = 0.08;
+
+      // Calculate tier and bonus
+      let bonusPercent = 0;
+      let tierName = 'Shrimp';
+      if (amount >= 50000) { bonusPercent = 5; tierName = 'Whale'; }
+      else if (amount >= 10000) { bonusPercent = 3; tierName = 'Dolphin'; }
+      else if (amount >= 1000) { bonusPercent = 1; tierName = 'Fish'; }
+
+      const baseTokens = amount / tokenPrice;
+      const bonusTokens = baseTokens * (bonusPercent / 100);
+      const totalTokens = baseTokens + bonusTokens;
+      const tgeTokens = totalTokens * 0.15;
+      const estimatedValue = totalTokens * listingPrice;
+
+      document.getElementById('tokenAmount').textContent = formatNumber(baseTokens) + ' TBURN';
+      document.getElementById('bonusAmount').textContent = bonusPercent > 0 ? '+' + formatNumber(bonusTokens) + ' TBURN' : '-';
+      document.getElementById('totalTokens').textContent = formatNumber(totalTokens) + ' TBURN';
+      document.getElementById('tgeTokens').textContent = formatNumber(tgeTokens) + ' TBURN';
+      document.getElementById('estimatedValue').textContent = '$' + formatNumber(estimatedValue);
+
+      // Update tier highlight
+      document.querySelectorAll('.tier-card').forEach(card => card.classList.remove('active'));
+      const tierIndex = tierName === 'Whale' ? 0 : tierName === 'Dolphin' ? 1 : tierName === 'Fish' ? 2 : 3;
+      document.querySelectorAll('.tier-card')[tierIndex].classList.add('active');
+    }
+
+    function formatNumber(num) {
+      return Math.floor(num).toLocaleString();
+    }
+
+    // Set Amount
+    function setAmount(amount) {
+      document.getElementById('amountInput').value = amount;
+      document.querySelectorAll('.quick-amount').forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+      calculateTokens();
+    }
+
+    // Set Max Amount
+    function setMaxAmount() {
+      document.getElementById('amountInput').value = 5000;
+      calculateTokens();
+    }
+
+    // Select Payment
+    function selectPayment(method) {
+      selectedPayment = method;
+      document.querySelectorAll('.payment-method').forEach(m => m.classList.remove('active'));
+      event.target.closest('.payment-method').classList.add('active');
+    }
+
+    // Purchase
+    function purchase() {
+      if (!isWalletConnected || !isKYCVerified) {
+        showToast('지갑 연결과 KYC 인증을 완료해주세요', 'error');
+        return;
+      }
+
+      const amount = parseFloat(document.getElementById('amountInput').value) || 0;
+      if (amount < 100) {
+        showToast('최소 참여 금액은 $100입니다', 'error');
+        return;
+      }
+
+      // Show transaction modal
+      openModal();
+
+      // Update modal with transaction info
+      document.getElementById('txAmount').textContent = '$' + formatNumber(amount) + ' ' + selectedPayment.toUpperCase();
+      document.getElementById('txTokens').textContent = document.getElementById('totalTokens').textContent;
+
+      // Simulate transaction
+      setTimeout(() => {
+        // Transaction success
+        const statusIcon = document.getElementById('txStatusIcon');
+        statusIcon.className = 'tx-status-icon success';
+        statusIcon.innerHTML = '<i class="fas fa-check"></i>';
+
+        document.getElementById('txStatusTitle').textContent = '구매 완료!';
+        document.getElementById('txStatusDesc').textContent = '토큰이 성공적으로 구매되었습니다';
+
+        document.getElementById('txModalBtn').style.display = 'block';
+        document.getElementById('txViewBtn').style.display = 'block';
+
+        // Update step
+        updateStep(3, 'completed');
+        updateStep(4, 'completed');
+
+        showToast('토큰 구매가 완료되었습니다!', 'success');
+      }, 3000);
+    }
+
+    // Modal Functions
+    function openModal() {
+      document.getElementById('txModal').classList.add('show');
+    }
+
+    function closeModal() {
+      document.getElementById('txModal').classList.remove('show');
+
+      // Reset modal
+      setTimeout(() => {
+        const statusIcon = document.getElementById('txStatusIcon');
+        statusIcon.className = 'tx-status-icon pending';
+        statusIcon.innerHTML = '<div class="spinner"></div>';
+        document.getElementById('txStatusTitle').textContent = '트랜잭션 확인 중...';
+        document.getElementById('txStatusDesc').textContent = '지갑에서 트랜잭션을 확인해주세요';
+        document.getElementById('txModalBtn').style.display = 'none';
+        document.getElementById('txViewBtn').style.display = 'none';
+      }, 300);
+    }
+
+    // Toast
+    function showToast(message, type = 'success') {
+      const toast = document.getElementById('toast');
+      const icon = document.getElementById('toastIcon');
+      const msg = document.getElementById('toastMessage');
+
+      toast.className = `toast ${type}`;
+      icon.className = `fas fa-${type === 'success' ? 'check-circle success' : type === 'error' ? 'times-circle error' : 'info-circle'} ${type}`;
+      msg.textContent = message;
+
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 3000);
+    }
+
+    // Initialize
+    calculateTokens();
+
+    // Auto-connect simulation for demo
+    setTimeout(() => {
+      // For demo purposes, simulate wallet already connected
+      // connectWallet('metamask');
+    }, 1000);
+  </script>
+</body>
+</html>
