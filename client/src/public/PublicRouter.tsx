@@ -127,6 +127,7 @@ const MarketingProgramPage = lazy(() => import("@/pages/marketing-program"));
 const StrategicPartnerPage = lazy(() => import("@/pages/strategic-partner"));
 const AdvisorProgramPage = lazy(() => import("@/pages/advisor-program"));
 const SeedRoundPage = lazy(() => import("@/pages/seed-round"));
+const PrivateRoundPage = lazy(() => import("@/pages/private-round"));
 
 function LoginPage() {
   const handleLoginSuccess = () => {
@@ -293,6 +294,16 @@ export function PublicRouter() {
       <ErrorBoundary>
         <Suspense fallback={<PageLoading />}>
           <SeedRoundPage />
+        </Suspense>
+      </ErrorBoundary>
+    );
+  }
+  
+  if (location === "/private-round") {
+    return (
+      <ErrorBoundary>
+        <Suspense fallback={<PageLoading />}>
+          <PrivateRoundPage />
         </Suspense>
       </ErrorBoundary>
     );
