@@ -116,6 +116,7 @@ const TokenGenerator = lazy(() => import("@/pages/token-generator"));
 const TreePage = lazy(() => import("@/pages/tree"));
 const AirdropPage = lazy(() => import("@/pages/airdrop"));
 const ReferralPage = lazy(() => import("@/pages/referral"));
+const EventsPage = lazy(() => import("@/pages/events"));
 
 function LoginPage() {
   const handleLoginSuccess = () => {
@@ -172,6 +173,16 @@ export function PublicRouter() {
       <ErrorBoundary>
         <Suspense fallback={<PageLoading />}>
           <ReferralPage />
+        </Suspense>
+      </ErrorBoundary>
+    );
+  }
+  
+  if (location === "/events") {
+    return (
+      <ErrorBoundary>
+        <Suspense fallback={<PageLoading />}>
+          <EventsPage />
         </Suspense>
       </ErrorBoundary>
     );

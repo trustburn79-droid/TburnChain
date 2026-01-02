@@ -1,0 +1,2244 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TBURN Chain - 커뮤니티 프로그램 | 3억 TBURN 보상</title>
+  <meta name="description" content="TBURN Chain 커뮤니티 프로그램. 앰배서더, 콘텐츠 크리에이터, 모더레이터, 번역가로 활동하고 3억 TBURN 보상을 받으세요.">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy: #1A365D;
+      --navy-light: #2D4A7C;
+      --gold: #D4AF37;
+      --gold-light: #E5C76B;
+      --dark: #0F172A;
+      --dark-card: #1E293B;
+      --gray: #64748B;
+      --light-gray: #94A3B8;
+      --white: #FFFFFF;
+      --success: #22C55E;
+      --warning: #F59E0B;
+      --danger: #EF4444;
+      --purple: #8B5CF6;
+      --blue: #3B82F6;
+      --cyan: #06B6D4;
+      --pink: #EC4899;
+      --teal: #14B8A6;
+      --indigo: #6366F1;
+      --gradient-gold: linear-gradient(135deg, #D4AF37 0%, #F5D76E 50%, #D4AF37 100%);
+      --gradient-community: linear-gradient(135deg, #06B6D4 0%, #8B5CF6 100%);
+      --gradient-teal: linear-gradient(135deg, #14B8A6 0%, #06B6D4 100%);
+      --gradient-purple: linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%);
+      --gradient-dark: linear-gradient(180deg, #0F172A 0%, #1E293B 100%);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--dark);
+      color: var(--white);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Animations */
+    @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-20px); } }
+    @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.8; transform: scale(1.02); } }
+    @keyframes shimmer { 0% { background-position: -200% center; } 100% { background-position: 200% center; } }
+    @keyframes glow { 0%, 100% { box-shadow: 0 0 20px rgba(6, 182, 212, 0.3); } 50% { box-shadow: 0 0 40px rgba(6, 182, 212, 0.6); } }
+    @keyframes wave { 0%, 100% { transform: rotate(-3deg); } 50% { transform: rotate(3deg); } }
+    @keyframes typing { from { width: 0; } to { width: 100%; } }
+
+    /* Header */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background: rgba(15, 23, 42, 0.95);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(6, 182, 212, 0.2);
+    }
+
+    .header-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+
+    .logo-icon {
+      width: 48px;
+      height: 48px;
+      background: var(--gradient-gold);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+    }
+
+    .logo-text {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--white);
+    }
+
+    .logo-text span { color: var(--gold); }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: var(--light-gray);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover { color: var(--cyan); }
+
+    .connect-btn {
+      background: var(--gradient-community);
+      color: var(--white);
+      padding: 12px 24px;
+      border-radius: 12px;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .connect-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 40px rgba(6, 182, 212, 0.3);
+    }
+
+    /* Hero Section */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      padding: 120px 2rem 80px;
+      background: radial-gradient(ellipse at center top, rgba(6, 182, 212, 0.15) 0%, transparent 50%),
+                  radial-gradient(ellipse at bottom right, rgba(139, 92, 246, 0.1) 0%, transparent 50%),
+                  var(--gradient-dark);
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .hero-bg::before {
+      content: '';
+      position: absolute;
+      width: 800px;
+      height: 800px;
+      background: radial-gradient(circle, rgba(6, 182, 212, 0.2) 0%, transparent 70%);
+      top: -300px;
+      left: -200px;
+      animation: float 10s ease-in-out infinite;
+    }
+
+    .hero-bg::after {
+      content: '';
+      position: absolute;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(139, 92, 246, 0.15) 0%, transparent 70%);
+      bottom: -200px;
+      right: -200px;
+      animation: float 8s ease-in-out infinite reverse;
+    }
+
+    .hero-content {
+      max-width: 1200px;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(6, 182, 212, 0.15);
+      border: 1px solid rgba(6, 182, 212, 0.4);
+      padding: 8px 20px;
+      border-radius: 100px;
+      font-size: 0.875rem;
+      color: var(--cyan);
+      margin-bottom: 2rem;
+    }
+
+    .badge i { animation: wave 1s ease-in-out infinite; }
+
+    .hero h1 {
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      font-weight: 900;
+      margin-bottom: 1.5rem;
+      line-height: 1.1;
+    }
+
+    .hero h1 .gradient-text {
+      background: var(--gradient-community);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-subtitle {
+      font-size: 1.25rem;
+      color: var(--light-gray);
+      max-width: 700px;
+      margin: 0 auto 3rem;
+    }
+
+    /* Stats Grid */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+    }
+
+    .stat-card {
+      background: var(--dark-card);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 1.5rem;
+      text-align: center;
+      transition: transform 0.3s, border-color 0.3s;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--cyan);
+    }
+
+    .stat-value {
+      font-size: 2rem;
+      font-weight: 800;
+      background: var(--gradient-community);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-label {
+      font-size: 0.875rem;
+      color: var(--light-gray);
+    }
+
+    /* CTA Buttons */
+    .cta-group {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      background: var(--gradient-community);
+      color: var(--white);
+      padding: 16px 40px;
+      border-radius: 12px;
+      font-size: 1.125rem;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 20px 60px rgba(6, 182, 212, 0.4);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--white);
+      padding: 16px 40px;
+      border-radius: 12px;
+      font-size: 1.125rem;
+      font-weight: 600;
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      transition: all 0.3s;
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--cyan);
+      color: var(--cyan);
+    }
+
+    /* Section Styles */
+    .section {
+      padding: 100px 2rem;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+
+    .section-badge {
+      display: inline-block;
+      background: rgba(6, 182, 212, 0.15);
+      color: var(--cyan);
+      padding: 6px 16px;
+      border-radius: 100px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+
+    .section-title {
+      font-size: 2.5rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+    }
+
+    .section-subtitle {
+      color: var(--light-gray);
+      font-size: 1.125rem;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* Distribution Grid */
+    .distribution-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 1.5rem;
+    }
+
+    .dist-card {
+      background: var(--dark-card);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 1.5rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s;
+    }
+
+    .dist-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--cyan);
+    }
+
+    .dist-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+    }
+
+    .dist-card.ambassador::before { background: linear-gradient(90deg, var(--cyan), var(--blue)); }
+    .dist-card.creator::before { background: linear-gradient(90deg, var(--purple), var(--pink)); }
+    .dist-card.moderator::before { background: linear-gradient(90deg, var(--success), var(--teal)); }
+    .dist-card.educator::before { background: linear-gradient(90deg, var(--blue), var(--indigo)); }
+    .dist-card.translator::before { background: linear-gradient(90deg, var(--warning), var(--gold)); }
+    .dist-card.bounty::before { background: linear-gradient(90deg, var(--danger), var(--warning)); }
+
+    .dist-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .dist-name {
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .dist-amount {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--cyan);
+      margin-bottom: 0.25rem;
+    }
+
+    .dist-percent {
+      font-size: 0.8rem;
+      color: var(--gray);
+    }
+
+    /* Program Cards */
+    .programs-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+
+    .program-card {
+      background: var(--dark-card);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 24px;
+      overflow: hidden;
+      transition: all 0.3s;
+      position: relative;
+    }
+
+    .program-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+    }
+
+    .program-card.featured {
+      border-color: var(--cyan);
+      box-shadow: 0 0 30px rgba(6, 182, 212, 0.2);
+    }
+
+    .program-card.featured::after {
+      content: '⭐ 인기';
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: var(--gradient-community);
+      padding: 6px 14px;
+      border-radius: 100px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      z-index: 10;
+    }
+
+    .program-header {
+      padding: 2rem;
+      position: relative;
+    }
+
+    .program-header.ambassador { background: linear-gradient(135deg, rgba(6, 182, 212, 0.2), rgba(59, 130, 246, 0.1)); }
+    .program-header.creator { background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(236, 72, 153, 0.1)); }
+    .program-header.moderator { background: linear-gradient(135deg, rgba(34, 197, 94, 0.2), rgba(20, 184, 166, 0.1)); }
+    .program-header.educator { background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(99, 102, 241, 0.1)); }
+    .program-header.translator { background: linear-gradient(135deg, rgba(245, 158, 11, 0.2), rgba(212, 175, 55, 0.1)); }
+    .program-header.bounty { background: linear-gradient(135deg, rgba(239, 68, 68, 0.2), rgba(245, 158, 11, 0.1)); }
+
+    .program-icon {
+      font-size: 3.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .program-title {
+      font-size: 1.5rem;
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+    }
+
+    .program-subtitle {
+      color: var(--light-gray);
+      font-size: 0.9rem;
+    }
+
+    .program-content {
+      padding: 1.5rem 2rem 2rem;
+    }
+
+    .program-reward {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem;
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 12px;
+      margin-bottom: 1.5rem;
+    }
+
+    .program-reward-label {
+      font-size: 0.875rem;
+      color: var(--light-gray);
+    }
+
+    .program-reward-value {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--gold);
+    }
+
+    .program-benefits {
+      list-style: none;
+      margin-bottom: 1.5rem;
+    }
+
+    .program-benefits li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 0;
+      font-size: 0.9rem;
+      color: var(--light-gray);
+    }
+
+    .program-benefits li i {
+      color: var(--success);
+      font-size: 12px;
+    }
+
+    .program-requirements {
+      padding: 1rem;
+      background: rgba(255, 255, 255, 0.02);
+      border-radius: 12px;
+      margin-bottom: 1.5rem;
+    }
+
+    .program-requirements h5 {
+      font-size: 0.8rem;
+      color: var(--gray);
+      margin-bottom: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .program-requirements p {
+      font-size: 0.9rem;
+      color: var(--light-gray);
+    }
+
+    .program-btn {
+      display: block;
+      width: 100%;
+      padding: 14px;
+      border-radius: 12px;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-align: center;
+    }
+
+    .program-btn.primary {
+      background: var(--gradient-community);
+      color: var(--white);
+    }
+
+    .program-btn.secondary {
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--white);
+    }
+
+    .program-btn:hover {
+      transform: scale(1.02);
+    }
+
+    /* Tier System */
+    .tier-section {
+      background: var(--dark-card);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 24px;
+      padding: 2.5rem;
+    }
+
+    .tier-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .tier-header h3 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .tier-header p {
+      color: var(--light-gray);
+    }
+
+    .tier-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 1.5rem;
+    }
+
+    .tier-card {
+      background: rgba(255, 255, 255, 0.02);
+      border: 2px solid rgba(255, 255, 255, 0.08);
+      border-radius: 20px;
+      padding: 1.5rem;
+      text-align: center;
+      transition: all 0.3s;
+      position: relative;
+    }
+
+    .tier-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .tier-card.newcomer { border-color: rgba(148, 163, 184, 0.3); }
+    .tier-card.contributor { border-color: rgba(34, 197, 94, 0.3); }
+    .tier-card.advocate { border-color: rgba(59, 130, 246, 0.3); }
+    .tier-card.champion { border-color: rgba(139, 92, 246, 0.3); }
+    .tier-card.legend { border-color: rgba(212, 175, 55, 0.5); background: linear-gradient(180deg, rgba(212, 175, 55, 0.1) 0%, transparent 100%); }
+
+    .tier-icon {
+      font-size: 2.5rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .tier-name {
+      font-size: 1.125rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .tier-card.newcomer .tier-name { color: var(--light-gray); }
+    .tier-card.contributor .tier-name { color: var(--success); }
+    .tier-card.advocate .tier-name { color: var(--blue); }
+    .tier-card.champion .tier-name { color: var(--purple); }
+    .tier-card.legend .tier-name { color: var(--gold); }
+
+    .tier-points {
+      font-size: 0.875rem;
+      color: var(--gray);
+      margin-bottom: 1rem;
+    }
+
+    .tier-multiplier {
+      display: inline-block;
+      padding: 6px 14px;
+      border-radius: 100px;
+      font-size: 0.875rem;
+      font-weight: 700;
+    }
+
+    .tier-card.newcomer .tier-multiplier { background: rgba(148, 163, 184, 0.2); color: var(--light-gray); }
+    .tier-card.contributor .tier-multiplier { background: rgba(34, 197, 94, 0.2); color: var(--success); }
+    .tier-card.advocate .tier-multiplier { background: rgba(59, 130, 246, 0.2); color: var(--blue); }
+    .tier-card.champion .tier-multiplier { background: rgba(139, 92, 246, 0.2); color: var(--purple); }
+    .tier-card.legend .tier-multiplier { background: rgba(212, 175, 55, 0.2); color: var(--gold); }
+
+    /* Activity Table */
+    .activity-section {
+      background: var(--dark-card);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 24px;
+      padding: 2rem;
+    }
+
+    .activity-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+    }
+
+    .activity-header h3 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .activity-header h3 i { color: var(--cyan); }
+
+    .activity-tabs {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .activity-tab {
+      padding: 8px 16px;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: transparent;
+      color: var(--light-gray);
+      font-size: 0.875rem;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .activity-tab.active {
+      background: var(--cyan);
+      border-color: var(--cyan);
+      color: var(--white);
+    }
+
+    .activity-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .activity-table th {
+      text-align: left;
+      padding: 1rem;
+      background: rgba(255, 255, 255, 0.03);
+      font-weight: 600;
+      font-size: 0.875rem;
+      color: var(--light-gray);
+    }
+
+    .activity-table th:first-child { border-radius: 12px 0 0 12px; }
+    .activity-table th:last-child { border-radius: 0 12px 12px 0; }
+
+    .activity-table td {
+      padding: 1rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .activity-table tr:hover td {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .activity-type {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .activity-type-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+    }
+
+    .activity-type-icon.content { background: rgba(139, 92, 246, 0.2); }
+    .activity-type-icon.social { background: rgba(6, 182, 212, 0.2); }
+    .activity-type-icon.support { background: rgba(34, 197, 94, 0.2); }
+    .activity-type-icon.education { background: rgba(59, 130, 246, 0.2); }
+
+    .activity-points {
+      font-weight: 700;
+      color: var(--cyan);
+    }
+
+    .activity-reward {
+      font-weight: 700;
+      color: var(--gold);
+    }
+
+    .frequency-badge {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 100px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    .frequency-badge.daily { background: rgba(34, 197, 94, 0.15); color: var(--success); }
+    .frequency-badge.weekly { background: rgba(59, 130, 246, 0.15); color: var(--blue); }
+    .frequency-badge.monthly { background: rgba(139, 92, 246, 0.15); color: var(--purple); }
+    .frequency-badge.once { background: rgba(245, 158, 11, 0.15); color: var(--warning); }
+
+    /* Dashboard Section */
+    .dashboard-container {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 2rem;
+    }
+
+    .dashboard-main {
+      background: var(--dark-card);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 24px;
+      padding: 2rem;
+    }
+
+    .dashboard-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+    }
+
+    .dashboard-user {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .dashboard-avatar {
+      width: 60px;
+      height: 60px;
+      border-radius: 16px;
+      background: var(--gradient-community);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      font-weight: 800;
+    }
+
+    .dashboard-user-info h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+    }
+
+    .dashboard-user-info p {
+      color: var(--light-gray);
+      font-size: 0.875rem;
+    }
+
+    .dashboard-tier {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      background: rgba(139, 92, 246, 0.1);
+      border: 1px solid rgba(139, 92, 246, 0.3);
+      border-radius: 12px;
+    }
+
+    .dashboard-tier span {
+      font-weight: 700;
+      color: var(--purple);
+    }
+
+    .dashboard-stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .dash-stat {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      padding: 1.25rem;
+      text-align: center;
+    }
+
+    .dash-stat-value {
+      font-size: 1.5rem;
+      font-weight: 800;
+      margin-bottom: 0.25rem;
+    }
+
+    .dash-stat-value.cyan { color: var(--cyan); }
+    .dash-stat-value.purple { color: var(--purple); }
+    .dash-stat-value.gold { color: var(--gold); }
+    .dash-stat-value.success { color: var(--success); }
+
+    .dash-stat-label {
+      font-size: 0.8rem;
+      color: var(--light-gray);
+    }
+
+    .progress-section {
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 16px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .progress-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+
+    .progress-header h4 {
+      font-size: 1rem;
+      font-weight: 600;
+    }
+
+    .progress-header span {
+      color: var(--purple);
+      font-weight: 700;
+    }
+
+    .progress-bar {
+      height: 12px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 100px;
+      overflow: hidden;
+      margin-bottom: 0.75rem;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: var(--gradient-community);
+      border-radius: 100px;
+      transition: width 1s ease;
+    }
+
+    .progress-info {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.8rem;
+      color: var(--light-gray);
+    }
+
+    .recent-activities {
+      margin-top: 2rem;
+    }
+
+    .recent-activities h4 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+
+    .recent-activity-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem;
+      background: rgba(255, 255, 255, 0.02);
+      border-radius: 12px;
+      margin-bottom: 0.75rem;
+    }
+
+    .recent-activity-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .recent-activity-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: rgba(6, 182, 212, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .recent-activity-info h5 {
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 0.2rem;
+    }
+
+    .recent-activity-info p {
+      font-size: 0.8rem;
+      color: var(--gray);
+    }
+
+    .recent-activity-reward {
+      text-align: right;
+    }
+
+    .recent-activity-reward .points {
+      font-weight: 700;
+      color: var(--cyan);
+    }
+
+    .recent-activity-reward .tburn {
+      font-size: 0.8rem;
+      color: var(--gold);
+    }
+
+    /* Sidebar */
+    .dashboard-sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .sidebar-card {
+      background: var(--dark-card);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 1.5rem;
+    }
+
+    .sidebar-card h4 {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .sidebar-card h4 i { color: var(--cyan); }
+
+    .quest-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .quest-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px;
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .quest-item.completed {
+      background: rgba(34, 197, 94, 0.1);
+      border-color: rgba(34, 197, 94, 0.2);
+    }
+
+    .quest-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .quest-check {
+      width: 24px;
+      height: 24px;
+      border-radius: 6px;
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .quest-item.completed .quest-check {
+      background: var(--success);
+      border-color: var(--success);
+    }
+
+    .quest-item.completed .quest-check i {
+      color: var(--white);
+      font-size: 12px;
+    }
+
+    .quest-info h5 {
+      font-size: 0.875rem;
+      font-weight: 600;
+    }
+
+    .quest-reward {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--cyan);
+    }
+
+    .claim-btn {
+      width: 100%;
+      padding: 14px;
+      border-radius: 12px;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      margin-top: 1rem;
+      transition: all 0.3s;
+      background: var(--gradient-community);
+      color: var(--white);
+    }
+
+    .claim-btn:hover {
+      transform: scale(1.02);
+    }
+
+    .claim-btn:disabled {
+      background: rgba(255, 255, 255, 0.1);
+      cursor: not-allowed;
+    }
+
+    /* Leaderboard */
+    .leaderboard-mini {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .leaderboard-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 12px;
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 10px;
+    }
+
+    .leaderboard-item.top-3 {
+      background: linear-gradient(90deg, rgba(212, 175, 55, 0.1) 0%, transparent 100%);
+    }
+
+    .leaderboard-rank {
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 0.875rem;
+    }
+
+    .leaderboard-rank.gold { background: var(--gradient-gold); color: var(--dark); }
+    .leaderboard-rank.silver { background: linear-gradient(135deg, #C0C0C0, #E8E8E8); color: var(--dark); }
+    .leaderboard-rank.bronze { background: linear-gradient(135deg, #CD7F32, #E8A65D); color: var(--dark); }
+    .leaderboard-rank.normal { background: rgba(255, 255, 255, 0.1); color: var(--light-gray); }
+
+    .leaderboard-info {
+      flex: 1;
+    }
+
+    .leaderboard-info h5 {
+      font-size: 0.875rem;
+      font-weight: 600;
+    }
+
+    .leaderboard-info p {
+      font-size: 0.75rem;
+      color: var(--gray);
+    }
+
+    .leaderboard-score {
+      font-weight: 700;
+      color: var(--cyan);
+      font-size: 0.875rem;
+    }
+
+    /* FAQ Section */
+    .faq-container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .faq-item {
+      background: var(--dark-card);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      margin-bottom: 1rem;
+      overflow: hidden;
+    }
+
+    .faq-question {
+      padding: 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .faq-question:hover {
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .faq-question h4 {
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    .faq-question i {
+      color: var(--cyan);
+      transition: transform 0.3s;
+    }
+
+    .faq-item.active .faq-question i {
+      transform: rotate(180deg);
+    }
+
+    .faq-answer {
+      padding: 0 1.5rem;
+      max-height: 0;
+      overflow: hidden;
+      transition: all 0.3s;
+    }
+
+    .faq-item.active .faq-answer {
+      padding: 0 1.5rem 1.5rem;
+      max-height: 500px;
+    }
+
+    .faq-answer p {
+      color: var(--light-gray);
+      line-height: 1.8;
+    }
+
+    /* Footer */
+    .footer {
+      background: var(--dark);
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 60px 2rem 30px;
+    }
+
+    .footer-content {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 4rem;
+      margin-bottom: 3rem;
+    }
+
+    .footer-brand h3 {
+      font-size: 1.5rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+    }
+
+    .footer-brand h3 span { color: var(--gold); }
+
+    .footer-brand p {
+      color: var(--light-gray);
+      margin-bottom: 1.5rem;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .social-links a {
+      width: 44px;
+      height: 44px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--light-gray);
+      transition: all 0.3s;
+    }
+
+    .social-links a:hover {
+      background: var(--cyan);
+      color: var(--white);
+    }
+
+    .footer-links h4 {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+    }
+
+    .footer-links ul { list-style: none; }
+    .footer-links li { margin-bottom: 0.75rem; }
+
+    .footer-links a {
+      color: var(--light-gray);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .footer-links a:hover { color: var(--cyan); }
+
+    .footer-bottom {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: var(--gray);
+      font-size: 0.875rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 1200px) {
+      .programs-grid { grid-template-columns: repeat(2, 1fr); }
+      .distribution-grid { grid-template-columns: repeat(3, 1fr); }
+      .tier-grid { grid-template-columns: repeat(3, 1fr); }
+      .dashboard-container { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 1024px) {
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .dashboard-stats { grid-template-columns: repeat(2, 1fr); }
+      .footer-content { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 768px) {
+      .header-container { padding: 1rem; }
+      .nav-links { display: none; }
+      .hero { padding: 100px 1rem 60px; }
+      .stats-grid { grid-template-columns: 1fr; }
+      .programs-grid { grid-template-columns: 1fr; }
+      .distribution-grid { grid-template-columns: repeat(2, 1fr); }
+      .tier-grid { grid-template-columns: repeat(2, 1fr); }
+      .dashboard-stats { grid-template-columns: 1fr; }
+      .footer-content { grid-template-columns: 1fr; gap: 2rem; }
+      .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="header-container">
+      <a href="#" class="logo">
+        <div class="logo-icon">🔥</div>
+        <div class="logo-text">TBURN<span>CHAIN</span></div>
+      </a>
+      <nav class="nav-links">
+        <a href="#programs">프로그램</a>
+        <a href="#activities">활동 보상</a>
+        <a href="#dashboard">대시보드</a>
+        <a href="#tiers">등급 시스템</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+      <button class="connect-btn" onclick="openWalletModal()">
+        <i class="fas fa-wallet"></i> 지갑 연결
+      </button>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <div class="badge">
+        <i class="fas fa-hand-peace"></i>
+        COMMUNITY PROGRAM - 함께 성장하는 커뮤니티
+      </div>
+      <h1>
+        TBURN 커뮤니티의<br>
+        <span class="gradient-text">핵심 멤버</span>가 되세요
+      </h1>
+      <p class="hero-subtitle">
+        앰배서더, 콘텐츠 크리에이터, 모더레이터, 번역가로 활동하고
+        총 3억 TBURN 보상 풀에서 활동 기여도만큼 보상을 받으세요.
+      </p>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-value">3억</div>
+          <div class="stat-label">총 커뮤니티 보상 풀</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">3,000만</div>
+          <div class="stat-label">TGE 즉시 해제 (10%)</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">24개월</div>
+          <div class="stat-label">베스팅 기간</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">6가지</div>
+          <div class="stat-label">활동 프로그램</div>
+        </div>
+      </div>
+
+      <div class="cta-group">
+        <button class="btn-primary" onclick="scrollToSection('programs')">
+          <i class="fas fa-users"></i> 프로그램 살펴보기
+        </button>
+        <button class="btn-secondary" onclick="openWalletModal()">
+          <i class="fas fa-rocket"></i> 지금 시작하기
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Distribution Section -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-badge">DISTRIBUTION</span>
+      <h2 class="section-title">커뮤니티 보상 배분</h2>
+      <p class="section-subtitle">3억 TBURN이 6가지 프로그램으로 배분됩니다</p>
+    </div>
+
+    <div class="distribution-grid">
+      <div class="dist-card ambassador">
+        <div class="dist-icon">🌟</div>
+        <div class="dist-name">앰배서더</div>
+        <div class="dist-amount">9,000만</div>
+        <div class="dist-percent">30%</div>
+      </div>
+
+      <div class="dist-card creator">
+        <div class="dist-icon">🎨</div>
+        <div class="dist-name">콘텐츠 크리에이터</div>
+        <div class="dist-amount">6,000만</div>
+        <div class="dist-percent">20%</div>
+      </div>
+
+      <div class="dist-card moderator">
+        <div class="dist-icon">🛡️</div>
+        <div class="dist-name">모더레이터</div>
+        <div class="dist-amount">4,500만</div>
+        <div class="dist-percent">15%</div>
+      </div>
+
+      <div class="dist-card educator">
+        <div class="dist-icon">📚</div>
+        <div class="dist-name">교육/튜토리얼</div>
+        <div class="dist-amount">4,500만</div>
+        <div class="dist-percent">15%</div>
+      </div>
+
+      <div class="dist-card translator">
+        <div class="dist-icon">🌍</div>
+        <div class="dist-name">번역 프로그램</div>
+        <div class="dist-amount">3,000만</div>
+        <div class="dist-percent">10%</div>
+      </div>
+
+      <div class="dist-card bounty">
+        <div class="dist-icon">🐛</div>
+        <div class="dist-name">버그 바운티</div>
+        <div class="dist-amount">3,000만</div>
+        <div class="dist-percent">10%</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Programs Section -->
+  <section class="section" id="programs" style="background: rgba(255,255,255,0.02);">
+    <div class="section-header">
+      <span class="section-badge">PROGRAMS</span>
+      <h2 class="section-title">커뮤니티 프로그램</h2>
+      <p class="section-subtitle">나에게 맞는 프로그램을 선택하고 활동을 시작하세요</p>
+    </div>
+
+    <div class="programs-grid">
+      <!-- Ambassador Program -->
+      <div class="program-card featured">
+        <div class="program-header ambassador">
+          <div class="program-icon">🌟</div>
+          <h3 class="program-title">앰배서더 프로그램</h3>
+          <p class="program-subtitle">TBURN의 공식 대사로 활동하세요</p>
+        </div>
+        <div class="program-content">
+          <div class="program-reward">
+            <span class="program-reward-label">월 최대 보상</span>
+            <span class="program-reward-value">50,000 TBURN</span>
+          </div>
+          <ul class="program-benefits">
+            <li><i class="fas fa-check"></i> 공식 앰배서더 뱃지 & 역할 부여</li>
+            <li><i class="fas fa-check"></i> 월간 성과 기반 고정 보상</li>
+            <li><i class="fas fa-check"></i> 독점 정보 & 얼리 액세스</li>
+            <li><i class="fas fa-check"></i> 오프라인 밋업 참석 지원</li>
+            <li><i class="fas fa-check"></i> 제네시스 NFT 특별 지급</li>
+          </ul>
+          <div class="program-requirements">
+            <h5>지원 자격</h5>
+            <p>SNS 팔로워 1,000+ 또는 커뮤니티 활동 3개월+, 영어/한국어 능통</p>
+          </div>
+          <button class="program-btn primary" onclick="applyProgram('ambassador')">지원하기</button>
+        </div>
+      </div>
+
+      <!-- Content Creator Program -->
+      <div class="program-card">
+        <div class="program-header creator">
+          <div class="program-icon">🎨</div>
+          <h3 class="program-title">콘텐츠 크리에이터</h3>
+          <p class="program-subtitle">창작으로 커뮤니티에 기여하세요</p>
+        </div>
+        <div class="program-content">
+          <div class="program-reward">
+            <span class="program-reward-label">콘텐츠당 보상</span>
+            <span class="program-reward-value">500~10,000 TBURN</span>
+          </div>
+          <ul class="program-benefits">
+            <li><i class="fas fa-check"></i> 영상/아티클/인포그래픽 제작 보상</li>
+            <li><i class="fas fa-check"></i> 조회수/참여도 기반 보너스</li>
+            <li><i class="fas fa-check"></i> 우수 콘텐츠 공식 채널 홍보</li>
+            <li><i class="fas fa-check"></i> 월간 베스트 크리에이터 특별 보상</li>
+          </ul>
+          <div class="program-requirements">
+            <h5>지원 자격</h5>
+            <p>크립토/블록체인 관련 콘텐츠 제작 경험, 포트폴리오 제출</p>
+          </div>
+          <button class="program-btn primary" onclick="applyProgram('creator')">지원하기</button>
+        </div>
+      </div>
+
+      <!-- Moderator Program -->
+      <div class="program-card">
+        <div class="program-header moderator">
+          <div class="program-icon">🛡️</div>
+          <h3 class="program-title">모더레이터</h3>
+          <p class="program-subtitle">커뮤니티 질서를 지켜주세요</p>
+        </div>
+        <div class="program-content">
+          <div class="program-reward">
+            <span class="program-reward-label">월 고정 보상</span>
+            <span class="program-reward-value">20,000 TBURN</span>
+          </div>
+          <ul class="program-benefits">
+            <li><i class="fas fa-check"></i> Discord/Telegram 모더레이션 권한</li>
+            <li><i class="fas fa-check"></i> 월간 고정 보상 + 활동 보너스</li>
+            <li><i class="fas fa-check"></i> 팀 직통 커뮤니케이션 채널</li>
+            <li><i class="fas fa-check"></i> 모더레이터 전용 트레이닝</li>
+          </ul>
+          <div class="program-requirements">
+            <h5>지원 자격</h5>
+            <p>주 20시간+ 활동 가능, Discord/Telegram 모더레이션 경험 우대</p>
+          </div>
+          <button class="program-btn primary" onclick="applyProgram('moderator')">지원하기</button>
+        </div>
+      </div>
+
+      <!-- Education Program -->
+      <div class="program-card">
+        <div class="program-header educator">
+          <div class="program-icon">📚</div>
+          <h3 class="program-title">교육/튜토리얼</h3>
+          <p class="program-subtitle">지식을 나누고 보상받으세요</p>
+        </div>
+        <div class="program-content">
+          <div class="program-reward">
+            <span class="program-reward-label">튜토리얼당 보상</span>
+            <span class="program-reward-value">1,000~20,000 TBURN</span>
+          </div>
+          <ul class="program-benefits">
+            <li><i class="fas fa-check"></i> 개발자 튜토리얼/가이드 작성</li>
+            <li><i class="fas fa-check"></i> 워크샵/웨비나 진행 보상</li>
+            <li><i class="fas fa-check"></i> 기술 문서 기여 보상</li>
+            <li><i class="fas fa-check"></i> 공식 문서화 참여 기회</li>
+          </ul>
+          <div class="program-requirements">
+            <h5>지원 자격</h5>
+            <p>블록체인 개발 경험 또는 기술 문서 작성 경험</p>
+          </div>
+          <button class="program-btn primary" onclick="applyProgram('educator')">지원하기</button>
+        </div>
+      </div>
+
+      <!-- Translation Program -->
+      <div class="program-card">
+        <div class="program-header translator">
+          <div class="program-icon">🌍</div>
+          <h3 class="program-title">번역 프로그램</h3>
+          <p class="program-subtitle">글로벌 확장에 기여하세요</p>
+        </div>
+        <div class="program-content">
+          <div class="program-reward">
+            <span class="program-reward-label">페이지당 보상</span>
+            <span class="program-reward-value">100~500 TBURN</span>
+          </div>
+          <ul class="program-benefits">
+            <li><i class="fas fa-check"></i> 공식 문서 번역 보상</li>
+            <li><i class="fas fa-check"></i> 커뮤니티 공지 번역</li>
+            <li><i class="fas fa-check"></i> 다국어 지원 채널 운영</li>
+            <li><i class="fas fa-check"></i> 언어별 커뮤니티 리더 기회</li>
+          </ul>
+          <div class="program-requirements">
+            <h5>지원 자격</h5>
+            <p>영어 + 1개 이상 언어 능통 (한국어, 일본어, 중국어, 스페인어 등)</p>
+          </div>
+          <button class="program-btn primary" onclick="applyProgram('translator')">지원하기</button>
+        </div>
+      </div>
+
+      <!-- Bug Bounty Program -->
+      <div class="program-card">
+        <div class="program-header bounty">
+          <div class="program-icon">🐛</div>
+          <h3 class="program-title">버그 바운티</h3>
+          <p class="program-subtitle">보안 취약점을 찾아주세요</p>
+        </div>
+        <div class="program-content">
+          <div class="program-reward">
+            <span class="program-reward-label">취약점 심각도별</span>
+            <span class="program-reward-value">최대 500,000 TBURN</span>
+          </div>
+          <ul class="program-benefits">
+            <li><i class="fas fa-check"></i> Critical: 100,000~500,000 TBURN</li>
+            <li><i class="fas fa-check"></i> High: 30,000~100,000 TBURN</li>
+            <li><i class="fas fa-check"></i> Medium: 5,000~30,000 TBURN</li>
+            <li><i class="fas fa-check"></i> Low: 1,000~5,000 TBURN</li>
+          </ul>
+          <div class="program-requirements">
+            <h5>지원 자격</h5>
+            <p>스마트 컨트랙트 보안 감사 경험, 책임감 있는 공개 원칙 준수</p>
+          </div>
+          <button class="program-btn primary" onclick="applyProgram('bounty')">참여하기</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Activities Section -->
+  <section class="section" id="activities">
+    <div class="section-header">
+      <span class="section-badge">ACTIVITIES</span>
+      <h2 class="section-title">활동별 보상표</h2>
+      <p class="section-subtitle">다양한 활동으로 포인트를 적립하고 TBURN으로 교환하세요</p>
+    </div>
+
+    <div class="activity-section">
+      <div class="activity-header">
+        <h3><i class="fas fa-list-check"></i> 커뮤니티 활동 보상</h3>
+        <div class="activity-tabs">
+          <button class="activity-tab active">전체</button>
+          <button class="activity-tab">소셜</button>
+          <button class="activity-tab">콘텐츠</button>
+          <button class="activity-tab">지원</button>
+        </div>
+      </div>
+
+      <table class="activity-table">
+        <thead>
+          <tr>
+            <th>활동 유형</th>
+            <th>설명</th>
+            <th>포인트</th>
+            <th>TBURN 환산</th>
+            <th>빈도</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <div class="activity-type">
+                <div class="activity-type-icon social"><i class="fab fa-twitter"></i></div>
+                <span>트윗 작성</span>
+              </div>
+            </td>
+            <td>TBURN 관련 오리지널 트윗</td>
+            <td class="activity-points">50 P</td>
+            <td class="activity-reward">5 TBURN</td>
+            <td><span class="frequency-badge daily">일간</span></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="activity-type">
+                <div class="activity-type-icon social"><i class="fab fa-twitter"></i></div>
+                <span>공식 트윗 리트윗</span>
+              </div>
+            </td>
+            <td>공식 계정 트윗 RT + 인용</td>
+            <td class="activity-points">20 P</td>
+            <td class="activity-reward">2 TBURN</td>
+            <td><span class="frequency-badge daily">일간</span></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="activity-type">
+                <div class="activity-type-icon content"><i class="fas fa-video"></i></div>
+                <span>유튜브 영상</span>
+              </div>
+            </td>
+            <td>TBURN 소개/튜토리얼 영상 (5분+)</td>
+            <td class="activity-points">1,000 P</td>
+            <td class="activity-reward">100 TBURN</td>
+            <td><span class="frequency-badge weekly">주간</span></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="activity-type">
+                <div class="activity-type-icon content"><i class="fas fa-pen-fancy"></i></div>
+                <span>블로그 아티클</span>
+              </div>
+            </td>
+            <td>미디엄/블로그 글 (1,000자+)</td>
+            <td class="activity-points">500 P</td>
+            <td class="activity-reward">50 TBURN</td>
+            <td><span class="frequency-badge weekly">주간</span></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="activity-type">
+                <div class="activity-type-icon content"><i class="fas fa-image"></i></div>
+                <span>인포그래픽/밈</span>
+              </div>
+            </td>
+            <td>오리지널 이미지 콘텐츠</td>
+            <td class="activity-points">200 P</td>
+            <td class="activity-reward">20 TBURN</td>
+            <td><span class="frequency-badge daily">일간</span></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="activity-type">
+                <div class="activity-type-icon support"><i class="fas fa-comments"></i></div>
+                <span>질문 답변</span>
+              </div>
+            </td>
+            <td>Discord/Telegram 질문에 도움 제공</td>
+            <td class="activity-points">30 P</td>
+            <td class="activity-reward">3 TBURN</td>
+            <td><span class="frequency-badge daily">일간</span></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="activity-type">
+                <div class="activity-type-icon education"><i class="fas fa-book"></i></div>
+                <span>튜토리얼 작성</span>
+              </div>
+            </td>
+            <td>개발자/사용자 가이드 작성</td>
+            <td class="activity-points">2,000 P</td>
+            <td class="activity-reward">200 TBURN</td>
+            <td><span class="frequency-badge monthly">월간</span></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="activity-type">
+                <div class="activity-type-icon education"><i class="fas fa-language"></i></div>
+                <span>문서 번역</span>
+              </div>
+            </td>
+            <td>공식 문서 번역 (페이지당)</td>
+            <td class="activity-points">300 P</td>
+            <td class="activity-reward">30 TBURN</td>
+            <td><span class="frequency-badge weekly">주간</span></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="activity-type">
+                <div class="activity-type-icon support"><i class="fas fa-bug"></i></div>
+                <span>버그 리포트</span>
+              </div>
+            </td>
+            <td>유효한 버그 신고</td>
+            <td class="activity-points">500~50,000 P</td>
+            <td class="activity-reward">50~5,000 TBURN</td>
+            <td><span class="frequency-badge once">건당</span></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="activity-type">
+                <div class="activity-type-icon social"><i class="fas fa-users"></i></div>
+                <span>밋업 참석</span>
+              </div>
+            </td>
+            <td>오프라인/온라인 밋업 참여</td>
+            <td class="activity-points">500 P</td>
+            <td class="activity-reward">50 TBURN</td>
+            <td><span class="frequency-badge monthly">월간</span></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div style="margin-top: 2rem; padding: 1.5rem; background: rgba(6, 182, 212, 0.1); border-radius: 16px; border: 1px solid rgba(6, 182, 212, 0.2);">
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 1rem;">
+          <i class="fas fa-info-circle" style="color: var(--cyan); font-size: 1.25rem;"></i>
+          <h4 style="font-weight: 700;">포인트 → TBURN 환산</h4>
+        </div>
+        <p style="color: var(--light-gray);">
+          10 포인트 = 1 TBURN 기본 환율이 적용됩니다. 등급에 따라 최대 2배까지 보너스가 적용됩니다.
+          적립된 포인트는 매주 월요일 00:00 (KST)에 TBURN으로 자동 전환되어 지급됩니다.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tier System Section -->
+  <section class="section" id="tiers" style="background: rgba(255,255,255,0.02);">
+    <div class="section-header">
+      <span class="section-badge">TIER SYSTEM</span>
+      <h2 class="section-title">커뮤니티 등급 시스템</h2>
+      <p class="section-subtitle">활동량에 따라 등급이 올라가고 더 많은 보상을 받으세요</p>
+    </div>
+
+    <div class="tier-section">
+      <div class="tier-header">
+        <h3>🏅 등급별 혜택</h3>
+        <p>누적 포인트에 따라 등급이 자동으로 상승합니다</p>
+      </div>
+
+      <div class="tier-grid">
+        <div class="tier-card newcomer">
+          <div class="tier-icon">🌱</div>
+          <h4 class="tier-name">Newcomer</h4>
+          <p class="tier-points">0 ~ 999 P</p>
+          <span class="tier-multiplier">1.0x 보상</span>
+        </div>
+
+        <div class="tier-card contributor">
+          <div class="tier-icon">🌿</div>
+          <h4 class="tier-name">Contributor</h4>
+          <p class="tier-points">1,000 ~ 4,999 P</p>
+          <span class="tier-multiplier">1.2x 보상</span>
+        </div>
+
+        <div class="tier-card advocate">
+          <div class="tier-icon">🌳</div>
+          <h4 class="tier-name">Advocate</h4>
+          <p class="tier-points">5,000 ~ 19,999 P</p>
+          <span class="tier-multiplier">1.5x 보상</span>
+        </div>
+
+        <div class="tier-card champion">
+          <div class="tier-icon">⭐</div>
+          <h4 class="tier-name">Champion</h4>
+          <p class="tier-points">20,000 ~ 99,999 P</p>
+          <span class="tier-multiplier">1.8x 보상</span>
+        </div>
+
+        <div class="tier-card legend">
+          <div class="tier-icon">👑</div>
+          <h4 class="tier-name">Legend</h4>
+          <p class="tier-points">100,000+ P</p>
+          <span class="tier-multiplier">2.0x 보상</span>
+        </div>
+      </div>
+
+      <div style="margin-top: 2rem; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;">
+        <div style="padding: 1.5rem; background: rgba(255, 255, 255, 0.03); border-radius: 16px;">
+          <h4 style="font-size: 1rem; font-weight: 700; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 8px;">
+            <i class="fas fa-arrow-up" style="color: var(--success);"></i> 등급 상승
+          </h4>
+          <p style="font-size: 0.9rem; color: var(--light-gray);">
+            누적 포인트 달성 시 자동으로 등급이 상승합니다. 한 번 올라간 등급은 내려가지 않습니다.
+          </p>
+        </div>
+        <div style="padding: 1.5rem; background: rgba(255, 255, 255, 0.03); border-radius: 16px;">
+          <h4 style="font-size: 1rem; font-weight: 700; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 8px;">
+            <i class="fas fa-percent" style="color: var(--cyan);"></i> 보상 배수
+          </h4>
+          <p style="font-size: 0.9rem; color: var(--light-gray);">
+            등급에 따라 모든 활동 보상에 배수가 적용됩니다. Legend 등급은 2배 보상을 받습니다.
+          </p>
+        </div>
+        <div style="padding: 1.5rem; background: rgba(255, 255, 255, 0.03); border-radius: 16px;">
+          <h4 style="font-size: 1rem; font-weight: 700; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 8px;">
+            <i class="fas fa-crown" style="color: var(--gold);"></i> 특별 혜택
+          </h4>
+          <p style="font-size: 0.9rem; color: var(--light-gray);">
+            Champion 이상 등급은 거버넌스 투표권, 얼리 액세스, 독점 이벤트 초대 혜택을 받습니다.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Dashboard Section -->
+  <section class="section" id="dashboard">
+    <div class="section-header">
+      <span class="section-badge">MY DASHBOARD</span>
+      <h2 class="section-title">내 커뮤니티 대시보드</h2>
+      <p class="section-subtitle">활동 현황과 적립 보상을 확인하세요</p>
+    </div>
+
+    <div class="dashboard-container">
+      <div class="dashboard-main">
+        <div class="dashboard-header">
+          <div class="dashboard-user">
+            <div class="dashboard-avatar">TB</div>
+            <div class="dashboard-user-info">
+              <h3>0x1234...5678</h3>
+              <p>2025년 12월부터 활동 중</p>
+            </div>
+          </div>
+          <div class="dashboard-tier">
+            <span>⭐</span>
+            <span>Champion</span>
+          </div>
+        </div>
+
+        <div class="dashboard-stats">
+          <div class="dash-stat">
+            <div class="dash-stat-value cyan">24,580</div>
+            <div class="dash-stat-label">누적 포인트</div>
+          </div>
+          <div class="dash-stat">
+            <div class="dash-stat-value purple">1.8x</div>
+            <div class="dash-stat-label">보상 배수</div>
+          </div>
+          <div class="dash-stat">
+            <div class="dash-stat-value gold">4,424</div>
+            <div class="dash-stat-label">총 적립 TBURN</div>
+          </div>
+          <div class="dash-stat">
+            <div class="dash-stat-value success">127</div>
+            <div class="dash-stat-label">완료 활동</div>
+          </div>
+        </div>
+
+        <div class="progress-section">
+          <div class="progress-header">
+            <h4>다음 등급까지</h4>
+            <span>Champion → Legend</span>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-fill" style="width: 24.58%;"></div>
+          </div>
+          <div class="progress-info">
+            <span>24,580 / 100,000 P</span>
+            <span>75,420 P 남음</span>
+          </div>
+        </div>
+
+        <div class="recent-activities">
+          <h4>최근 활동</h4>
+          <div class="recent-activity-item">
+            <div class="recent-activity-left">
+              <div class="recent-activity-icon"><i class="fab fa-twitter"></i></div>
+              <div class="recent-activity-info">
+                <h5>트윗 작성</h5>
+                <p>2시간 전</p>
+              </div>
+            </div>
+            <div class="recent-activity-reward">
+              <div class="points">+90 P</div>
+              <div class="tburn">+9 TBURN (1.8x)</div>
+            </div>
+          </div>
+          <div class="recent-activity-item">
+            <div class="recent-activity-left">
+              <div class="recent-activity-icon"><i class="fas fa-comments"></i></div>
+              <div class="recent-activity-info">
+                <h5>질문 답변 (3건)</h5>
+                <p>5시간 전</p>
+              </div>
+            </div>
+            <div class="recent-activity-reward">
+              <div class="points">+162 P</div>
+              <div class="tburn">+16.2 TBURN (1.8x)</div>
+            </div>
+          </div>
+          <div class="recent-activity-item">
+            <div class="recent-activity-left">
+              <div class="recent-activity-icon"><i class="fas fa-pen-fancy"></i></div>
+              <div class="recent-activity-info">
+                <h5>블로그 아티클</h5>
+                <p>어제</p>
+              </div>
+            </div>
+            <div class="recent-activity-reward">
+              <div class="points">+900 P</div>
+              <div class="tburn">+90 TBURN (1.8x)</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="dashboard-sidebar">
+        <div class="sidebar-card">
+          <h4><i class="fas fa-tasks"></i> 일일 퀘스트</h4>
+          <div class="quest-list">
+            <div class="quest-item completed">
+              <div class="quest-left">
+                <div class="quest-check"><i class="fas fa-check"></i></div>
+                <div class="quest-info">
+                  <h5>트윗 1개 작성</h5>
+                </div>
+              </div>
+              <span class="quest-reward">+50 P</span>
+            </div>
+            <div class="quest-item completed">
+              <div class="quest-left">
+                <div class="quest-check"><i class="fas fa-check"></i></div>
+                <div class="quest-info">
+                  <h5>공식 트윗 RT</h5>
+                </div>
+              </div>
+              <span class="quest-reward">+20 P</span>
+            </div>
+            <div class="quest-item">
+              <div class="quest-left">
+                <div class="quest-check"></div>
+                <div class="quest-info">
+                  <h5>Discord 질문 답변</h5>
+                </div>
+              </div>
+              <span class="quest-reward">+30 P</span>
+            </div>
+            <div class="quest-item">
+              <div class="quest-left">
+                <div class="quest-check"></div>
+                <div class="quest-info">
+                  <h5>밈/이미지 제작</h5>
+                </div>
+              </div>
+              <span class="quest-reward">+200 P</span>
+            </div>
+          </div>
+          <button class="claim-btn" disabled>2/4 완료</button>
+        </div>
+
+        <div class="sidebar-card">
+          <h4><i class="fas fa-trophy"></i> 주간 리더보드</h4>
+          <div class="leaderboard-mini">
+            <div class="leaderboard-item top-3">
+              <div class="leaderboard-rank gold">1</div>
+              <div class="leaderboard-info">
+                <h5>0x8a9B...2c3D</h5>
+                <p>Legend</p>
+              </div>
+              <span class="leaderboard-score">12,450 P</span>
+            </div>
+            <div class="leaderboard-item top-3">
+              <div class="leaderboard-rank silver">2</div>
+              <div class="leaderboard-info">
+                <h5>0x5e6F...7g8H</h5>
+                <p>Champion</p>
+              </div>
+              <span class="leaderboard-score">9,820 P</span>
+            </div>
+            <div class="leaderboard-item top-3">
+              <div class="leaderboard-rank bronze">3</div>
+              <div class="leaderboard-info">
+                <h5>0x1234...5678</h5>
+                <p>Champion</p>
+              </div>
+              <span class="leaderboard-score">7,650 P</span>
+            </div>
+            <div class="leaderboard-item">
+              <div class="leaderboard-rank normal">4</div>
+              <div class="leaderboard-info">
+                <h5>0x3m4N...5o6P</h5>
+                <p>Advocate</p>
+              </div>
+              <span class="leaderboard-score">5,230 P</span>
+            </div>
+            <div class="leaderboard-item">
+              <div class="leaderboard-rank normal">5</div>
+              <div class="leaderboard-info">
+                <h5>0x7q8R...9s0T</h5>
+                <p>Advocate</p>
+              </div>
+              <span class="leaderboard-score">4,180 P</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="sidebar-card">
+          <h4><i class="fas fa-gift"></i> 출금 가능</h4>
+          <div style="text-align: center; padding: 1rem 0;">
+            <div style="font-size: 2rem; font-weight: 800; color: var(--gold);">1,250 TBURN</div>
+            <div style="font-size: 0.875rem; color: var(--gray);">≈ $625 (@$0.50)</div>
+          </div>
+          <button class="claim-btn" onclick="claimRewards()">출금하기</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="section" id="faq" style="background: rgba(255,255,255,0.02);">
+    <div class="section-header">
+      <span class="section-badge">FAQ</span>
+      <h2 class="section-title">자주 묻는 질문</h2>
+      <p class="section-subtitle">커뮤니티 프로그램 관련 궁금한 점을 확인하세요</p>
+    </div>
+
+    <div class="faq-container">
+      <div class="faq-item active">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <h4>커뮤니티 보상 총 물량은 얼마인가요?</h4>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          <p>커뮤니티 활동 보상 총 풀은 3억 TBURN입니다. 이는 전체 공급량 100억 TBURN의 3%에 해당합니다. TGE 시점에 10%(3,000만 TBURN)가 해제되고, 나머지 90%는 24개월에 걸쳐 선형 베스팅됩니다.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <h4>포인트는 어떻게 TBURN으로 전환되나요?</h4>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          <p>기본 환율은 10 포인트 = 1 TBURN입니다. 여기에 등급별 배수(1.0x~2.0x)가 적용됩니다. 예를 들어 Champion 등급(1.8x)이 100포인트를 적립하면 18 TBURN을 받습니다. 적립된 포인트는 매주 월요일에 자동 전환됩니다.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <h4>여러 프로그램에 동시 참여할 수 있나요?</h4>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          <p>네, 모든 프로그램에 동시 참여 가능합니다. 단, 앰배서더/모더레이터처럼 별도 심사가 필요한 프로그램은 지원 후 승인을 받아야 합니다. 승인된 역할에 따라 추가 혜택과 고정 보상이 제공됩니다.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <h4>활동이 인정되려면 어떤 조건이 필요한가요?</h4>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          <p>각 활동별로 최소 품질 기준이 있습니다. 트윗은 오리지널 콘텐츠여야 하고, 블로그는 1,000자 이상, 영상은 5분 이상이어야 합니다. 스팸성 활동이나 저품질 콘텐츠는 보상 대상에서 제외되며, 반복 위반 시 계정이 제한될 수 있습니다.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <h4>등급은 어떻게 올라가나요?</h4>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          <p>등급은 누적 포인트에 따라 자동으로 상승합니다. Newcomer(0~999P), Contributor(1,000~4,999P), Advocate(5,000~19,999P), Champion(20,000~99,999P), Legend(100,000P+)입니다. 한 번 올라간 등급은 내려가지 않습니다.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <h4>보상 출금은 어떻게 하나요?</h4>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          <p>대시보드에서 '출금하기' 버튼을 클릭하면 연결된 지갑으로 TBURN이 전송됩니다. 최소 출금 금액은 100 TBURN이며, 출금 요청 후 24시간 이내에 처리됩니다. 가스비는 TBURN Chain의 초저가 수수료가 적용됩니다.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <h4>버그 바운티 보상은 어떻게 받나요?</h4>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          <p>보안 취약점 발견 시 security@tburn.io로 상세 리포트를 제출해주세요. 보안팀 검토 후 심각도에 따라 Low(1,000~5,000), Medium(5,000~30,000), High(30,000~100,000), Critical(100,000~500,000) TBURN이 지급됩니다. 책임감 있는 공개 원칙을 준수해주세요.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section style="padding: 100px 2rem; background: var(--gradient-community); text-align: center;">
+    <div style="max-width: 800px; margin: 0 auto;">
+      <h2 style="font-size: 2.5rem; font-weight: 800; margin-bottom: 1rem;">커뮤니티의 핵심이 되세요</h2>
+      <p style="color: rgba(255,255,255,0.9); font-size: 1.125rem; margin-bottom: 2rem;">
+        TBURN Chain의 성장을 함께 만들어가세요.<br>
+        3억 TBURN 커뮤니티 보상이 여러분을 기다립니다.
+      </p>
+      <button onclick="openWalletModal()" style="background: var(--white); color: var(--cyan); padding: 20px 50px; border-radius: 14px; font-size: 1.25rem; font-weight: 700; border: none; cursor: pointer; transition: transform 0.3s;">
+        <i class="fas fa-users"></i> 커뮤니티 참여하기
+      </button>
+      <p style="color: rgba(255,255,255,0.7); margin-top: 1.5rem; font-size: 0.875rem;">
+        <i class="fas fa-hand-peace"></i> 누구나 참여할 수 있습니다
+      </p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <h3>TBURN<span>CHAIN</span></h3>
+        <p>AI의 지능, 블록체인의 투명성<br>THE FUTURE IS NOW</p>
+        <div class="social-links">
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-telegram"></i></a>
+          <a href="#"><i class="fab fa-discord"></i></a>
+          <a href="#"><i class="fab fa-github"></i></a>
+          <a href="#"><i class="fab fa-medium"></i></a>
+        </div>
+      </div>
+      <div class="footer-links">
+        <h4>Product</h4>
+        <ul>
+          <li><a href="#">메인넷</a></li>
+          <li><a href="#">익스플로러</a></li>
+          <li><a href="#">브릿지</a></li>
+          <li><a href="#">스테이킹</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h4>Resources</h4>
+        <ul>
+          <li><a href="#">백서</a></li>
+          <li><a href="#">문서</a></li>
+          <li><a href="#">GitHub</a></li>
+          <li><a href="#">감사 보고서</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h4>Community</h4>
+        <ul>
+          <li><a href="#">블로그</a></li>
+          <li><a href="#">앰배서더</a></li>
+          <li><a href="#">그랜트</a></li>
+          <li><a href="#">고객지원</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025-2045 TBURN Foundation. All Rights Reserved.</p>
+      <div style="display: flex; gap: 2rem;">
+        <a href="#" style="color: var(--gray); text-decoration: none;">이용약관</a>
+        <a href="#" style="color: var(--gray); text-decoration: none;">개인정보처리방침</a>
+        <a href="#" style="color: var(--gray); text-decoration: none;">쿠키 정책</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // FAQ Toggle
+    function toggleFaq(element) {
+      const faqItem = element.parentElement;
+      const wasActive = faqItem.classList.contains('active');
+      
+      document.querySelectorAll('.faq-item').forEach(item => {
+        item.classList.remove('active');
+      });
+      
+      if (!wasActive) {
+        faqItem.classList.add('active');
+      }
+    }
+
+    // Scroll to Section
+    function scrollToSection(sectionId) {
+      const section = document.getElementById(sectionId);
+      if (section) {
+        section.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+
+    // Apply Program
+    function applyProgram(programType) {
+      const programNames = {
+        ambassador: '앰배서더',
+        creator: '콘텐츠 크리에이터',
+        moderator: '모더레이터',
+        educator: '교육/튜토리얼',
+        translator: '번역',
+        bounty: '버그 바운티'
+      };
+      alert(`${programNames[programType]} 프로그램 지원 페이지로 이동합니다.\n\n메인넷 런칭 후 활성화됩니다.`);
+    }
+
+    // Claim Rewards
+    function claimRewards() {
+      alert('출금 기능은 메인넷 런칭 후 활성화됩니다.\n\n현재 데모 모드로 확인 중입니다.');
+    }
+
+    // Wallet Modal
+    function openWalletModal() {
+      alert('지갑 연결 기능은 메인넷 런칭 후 활성화됩니다.\n\n현재 데모 모드로 확인 중입니다.');
+    }
+
+    // Activity Tabs
+    document.querySelectorAll('.activity-tab').forEach(tab => {
+      tab.addEventListener('click', function() {
+        document.querySelectorAll('.activity-tab').forEach(t => t.classList.remove('active'));
+        this.classList.add('active');
+      });
+    });
+
+    // Header Scroll Effect
+    window.addEventListener('scroll', () => {
+      const header = document.querySelector('.header');
+      if (window.scrollY > 50) {
+        header.style.background = 'rgba(15, 23, 42, 0.98)';
+      } else {
+        header.style.background = 'rgba(15, 23, 42, 0.95)';
+      }
+    });
+  </script>
+</body>
+</html>
