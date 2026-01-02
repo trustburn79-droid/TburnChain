@@ -3,17 +3,6 @@ import { initReactI18next } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 
 import en from '@/locales/en.json';
-import zh from '@/locales/zh.json';
-import ja from '@/locales/ja.json';
-import hi from '@/locales/hi.json';
-import es from '@/locales/es.json';
-import fr from '@/locales/fr.json';
-import ar from '@/locales/ar.json';
-import bn from '@/locales/bn.json';
-import ru from '@/locales/ru.json';
-import pt from '@/locales/pt.json';
-import ur from '@/locales/ur.json';
-import ko from '@/locales/ko.json';
 
 export const languages = [
   { code: 'en', name: 'English', nativeName: 'English', flag: '🇺🇸', dir: 'ltr' },
@@ -40,23 +29,30 @@ const updateDocumentDirection = (lang: string) => {
   }
 };
 
+const loadLocale = async (lang: string): Promise<Record<string, unknown>> => {
+  switch (lang) {
+    case 'en': return en;
+    case 'zh': return (await import('@/locales/zh.json')).default;
+    case 'ja': return (await import('@/locales/ja.json')).default;
+    case 'hi': return (await import('@/locales/hi.json')).default;
+    case 'es': return (await import('@/locales/es.json')).default;
+    case 'fr': return (await import('@/locales/fr.json')).default;
+    case 'ar': return (await import('@/locales/ar.json')).default;
+    case 'bn': return (await import('@/locales/bn.json')).default;
+    case 'ru': return (await import('@/locales/ru.json')).default;
+    case 'pt': return (await import('@/locales/pt.json')).default;
+    case 'ur': return (await import('@/locales/ur.json')).default;
+    case 'ko': return (await import('@/locales/ko.json')).default;
+    default: return en;
+  }
+};
+
 i18n
   .use(LanguageDetector)
   .use(initReactI18next)
   .init({
     resources: {
       en: { translation: en },
-      zh: { translation: zh },
-      ja: { translation: ja },
-      hi: { translation: hi },
-      es: { translation: es },
-      fr: { translation: fr },
-      ar: { translation: ar },
-      bn: { translation: bn },
-      ru: { translation: ru },
-      pt: { translation: pt },
-      ur: { translation: ur },
-      ko: { translation: ko },
     },
     supportedLngs: ['en', 'zh', 'ja', 'hi', 'es', 'fr', 'ar', 'bn', 'ru', 'pt', 'ur', 'ko'],
     load: 'languageOnly',
@@ -73,12 +69,32 @@ i18n
     },
   });
 
-i18n.on('initialized', () => {
-  updateDocumentDirection(i18n.language);
+i18n.on('initialized', async () => {
+  const lang = i18n.language;
+  updateDocumentDirection(lang);
+  
+  if (lang !== 'en' && !i18n.hasResourceBundle(lang, 'translation')) {
+    try {
+      const translations = await loadLocale(lang);
+      i18n.addResourceBundle(lang, 'translation', translations, true, true);
+    } catch (error) {
+      console.warn(`Failed to load locale ${lang}, falling back to English`);
+    }
+  }
 });
 
-i18n.on('languageChanged', (lang) => {
+i18n.on('languageChanged', async (lang) => {
   updateDocumentDirection(lang);
+  
+  if (lang !== 'en' && !i18n.hasResourceBundle(lang, 'translation')) {
+    try {
+      const translations = await loadLocale(lang);
+      i18n.addResourceBundle(lang, 'translation', translations, true, true);
+    } catch (error) {
+      console.warn(`Failed to load locale ${lang}, falling back to English`);
+      i18n.changeLanguage('en');
+    }
+  }
 });
 
 export default i18n;

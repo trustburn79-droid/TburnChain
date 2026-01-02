@@ -4,7 +4,8 @@ import { Loader2 } from "lucide-react";
 import { PublicLayout } from "./components/PublicLayout";
 import { ErrorBoundary } from "@/components/error-boundary";
 
-import Home from "./pages/Home";
+// CRITICAL: Home must be lazy-loaded to reduce initial bundle size
+const Home = lazy(() => import("./pages/Home"));
 
 function PageLoading() {
   return (

@@ -26,7 +26,8 @@ import { useTranslation } from "react-i18next";
 import '@/lib/i18n';
 import { lazy, Suspense } from "react";
 
-import { PublicRouter } from "./public/PublicRouter";
+// CRITICAL: PublicRouter must be lazy-loaded to reduce initial bundle size
+const PublicRouter = lazy(() => import("./public/PublicRouter").then(m => ({ default: m.PublicRouter })));
 
 const Dashboard = lazy(() => import("@/pages/dashboard"));
 const Blocks = lazy(() => import("@/pages/blocks"));
@@ -543,7 +544,11 @@ function RootRouter() {
     );
   }
   
-  return <PublicRouter />;
+  return (
+    <Suspense fallback={<PageLoading />}>
+      <PublicRouter />
+    </Suspense>
+  );
 }
 
 function App() {
