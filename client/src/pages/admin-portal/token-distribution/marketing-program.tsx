@@ -24,7 +24,7 @@ export default function AdminMarketingProgram() {
     queryKey: ['/api/admin/token-programs/marketing/campaigns'],
   });
 
-  const campaignList = campaigns?.data || [];
+  const campaignList = Array.isArray(campaigns?.data) ? campaigns.data : [];
 
   return (
     <div className="flex flex-col gap-6 p-6" data-testid="admin-marketing-program-page">

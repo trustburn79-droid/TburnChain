@@ -53,7 +53,7 @@ export default function AdminEventsCenter() {
   });
 
   const eventStats = stats?.data?.events || { totalEvents: 0, activeEvents: 0, totalParticipants: 0, totalRewardsDistributed: "0" };
-  const eventList = events?.data || [];
+  const eventList = Array.isArray(events?.data) ? events.data : [];
 
   const filteredEvents = eventList.filter(event => {
     const matchesSearch = event.name.toLowerCase().includes(searchQuery.toLowerCase());

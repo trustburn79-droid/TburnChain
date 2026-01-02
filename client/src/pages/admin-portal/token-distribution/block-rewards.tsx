@@ -29,7 +29,7 @@ export default function AdminBlockRewards() {
   });
 
   const blockStats = stats?.data?.blockRewards || { totalCycles: 0, totalRewards: "0", totalGasFees: "0", avgRewardPerCycle: "0" };
-  const cycleList = cycles?.data || [];
+  const cycleList = Array.isArray(cycles?.data) ? cycles.data : [];
 
   return (
     <div className="flex flex-col gap-6 p-6" data-testid="admin-block-rewards-page">

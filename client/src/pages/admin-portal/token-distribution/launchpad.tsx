@@ -24,7 +24,7 @@ export default function AdminLaunchpad() {
     queryKey: ['/api/admin/token-programs/launchpad/launches'],
   });
 
-  const launchList = launches?.data || [];
+  const launchList = Array.isArray(launches?.data) ? launches.data : [];
 
   return (
     <div className="flex flex-col gap-6 p-6" data-testid="admin-launchpad-page">

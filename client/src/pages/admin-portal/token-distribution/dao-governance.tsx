@@ -23,7 +23,7 @@ export default function AdminDAOGovernance() {
   });
 
   const daoStats = stats?.data?.dao || { totalProposals: 0, activeProposals: 0, passedProposals: 0, totalVoters: 0 };
-  const proposalList = proposals?.data || [];
+  const proposalList = Array.isArray(proposals?.data) ? proposals.data : [];
 
   return (
     <div className="flex flex-col gap-6 p-6" data-testid="admin-dao-governance-page">

@@ -42,7 +42,7 @@ export default function AdminReferralProgram() {
   });
 
   const referralStats = stats?.data?.referral || { totalAccounts: 0, totalReferrals: 0, totalEarnings: "0", activeReferrers: 0 };
-  const accountList = accounts?.data || [];
+  const accountList = Array.isArray(accounts?.data) ? accounts.data : [];
 
   const filteredAccounts = accountList.filter(acc => {
     const matchesSearch = acc.walletAddress.toLowerCase().includes(searchQuery.toLowerCase()) ||

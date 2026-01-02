@@ -24,7 +24,7 @@ export default function AdminSeedRound() {
     queryKey: ['/api/admin/token-programs/seed-round/investors'],
   });
 
-  const investorList = investors?.data || [];
+  const investorList = Array.isArray(investors?.data) ? investors.data : [];
 
   return (
     <div className="flex flex-col gap-6 p-6" data-testid="admin-seed-round-page">

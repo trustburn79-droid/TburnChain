@@ -24,7 +24,7 @@ export default function AdminPublicRound() {
     queryKey: ['/api/admin/token-programs/public-round/participants'],
   });
 
-  const participantList = participants?.data || [];
+  const participantList = Array.isArray(participants?.data) ? participants.data : [];
 
   return (
     <div className="flex flex-col gap-6 p-6" data-testid="admin-public-round-page">

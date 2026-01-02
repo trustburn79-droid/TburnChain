@@ -31,7 +31,7 @@ export default function AdminEcosystemFund() {
   });
 
   const ecosystemStats = stats?.data?.ecosystemGrants || { totalGrants: 0, activeGrants: 0, totalRequested: "0", totalDisbursed: "0" };
-  const grantList = grants?.data || [];
+  const grantList = Array.isArray(grants?.data) ? grants.data : [];
 
   return (
     <div className="flex flex-col gap-6 p-6" data-testid="admin-ecosystem-fund-page">

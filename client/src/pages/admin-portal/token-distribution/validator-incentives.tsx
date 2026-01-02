@@ -29,7 +29,7 @@ export default function AdminValidatorIncentives() {
   });
 
   const validatorStats = stats?.data?.validatorIncentives || { totalPayouts: 0, totalAmount: "0", avgUptimePercent: 100, topPerformers: 0 };
-  const payoutList = payouts?.data || [];
+  const payoutList = Array.isArray(payouts?.data) ? payouts.data : [];
 
   return (
     <div className="flex flex-col gap-6 p-6" data-testid="admin-validator-incentives-page">

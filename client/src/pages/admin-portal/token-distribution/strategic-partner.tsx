@@ -24,7 +24,7 @@ export default function AdminStrategicPartner() {
     queryKey: ['/api/admin/token-programs/strategic/partners'],
   });
 
-  const partnerList = partners?.data || [];
+  const partnerList = Array.isArray(partners?.data) ? partners.data : [];
 
   return (
     <div className="flex flex-col gap-6 p-6" data-testid="admin-strategic-partner-page">

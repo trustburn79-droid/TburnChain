@@ -24,7 +24,7 @@ export default function AdminAdvisorProgram() {
     queryKey: ['/api/admin/token-programs/advisor/advisors'],
   });
 
-  const advisorList = advisors?.data || [];
+  const advisorList = Array.isArray(advisors?.data) ? advisors.data : [];
 
   return (
     <div className="flex flex-col gap-6 p-6" data-testid="admin-advisor-program-page">

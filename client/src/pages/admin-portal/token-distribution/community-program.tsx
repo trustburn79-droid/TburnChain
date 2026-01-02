@@ -23,7 +23,7 @@ export default function AdminCommunityProgram() {
   });
 
   const communityStats = stats?.data?.community || { totalTasks: 0, activeTasks: 0, totalContributions: 0, totalPointsDistributed: 0 };
-  const taskList = tasks?.data || [];
+  const taskList = Array.isArray(tasks?.data) ? tasks.data : [];
 
   return (
     <div className="flex flex-col gap-6 p-6" data-testid="admin-community-program-page">
