@@ -59501,6 +59501,20 @@ app2.use("/ws", (req, res, next) => {
   }
   next();
 });
+var staticLandingPath = path.resolve(process.cwd(), "public", "static-landing.html");
+app2.get("/", (_req, res) => {
+  if (fs.existsSync(staticLandingPath)) {
+    res.setHeader("Content-Type", "text/html; charset=utf-8");
+    res.setHeader("Cache-Control", "public, max-age=300, stale-while-revalidate=600");
+    res.setHeader("X-Content-Type", "static-landing");
+    res.sendFile(staticLandingPath);
+    console.log("[Static Landing] Served instant landing page");
+  } else {
+    console.warn("[Static Landing] Not found, falling back to SPA");
+    res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+    res.sendFile(path.resolve(distPath, "index.html"));
+  }
+});
 app2.get("/whitepaper", async (_req, res) => {
   try {
     const whitepaperPath = path.resolve(process.cwd(), "public", "whitepaper.html");
