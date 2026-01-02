@@ -118,6 +118,7 @@ const AirdropPage = lazy(() => import("@/pages/airdrop"));
 const ReferralPage = lazy(() => import("@/pages/referral"));
 const EventsPage = lazy(() => import("@/pages/events"));
 const CommunityProgramPage = lazy(() => import("@/pages/community-program"));
+const DAOGovernancePage = lazy(() => import("@/pages/dao-governance"));
 
 function LoginPage() {
   const handleLoginSuccess = () => {
@@ -194,6 +195,16 @@ export function PublicRouter() {
       <ErrorBoundary>
         <Suspense fallback={<PageLoading />}>
           <CommunityProgramPage />
+        </Suspense>
+      </ErrorBoundary>
+    );
+  }
+  
+  if (location === "/dao-governance") {
+    return (
+      <ErrorBoundary>
+        <Suspense fallback={<PageLoading />}>
+          <DAOGovernancePage />
         </Suspense>
       </ErrorBoundary>
     );

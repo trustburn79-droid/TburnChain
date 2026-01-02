@@ -1,0 +1,2395 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TBURN Chain - 블록 보상 | 14.5억 TBURN 밸리데이터 보상</title>
+  <meta name="description" content="TBURN Chain 밸리데이터가 되어 블록 보상을 받으세요. 14.5억 TBURN이 20년에 걸쳐 네트워크 보안 기여자에게 배분됩니다.">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy: #1A365D;
+      --navy-light: #2D4A7C;
+      --gold: #D4AF37;
+      --gold-light: #E5C76B;
+      --dark: #0F172A;
+      --dark-card: #1E293B;
+      --gray: #64748B;
+      --light-gray: #94A3B8;
+      --white: #FFFFFF;
+      --success: #22C55E;
+      --warning: #F59E0B;
+      --danger: #EF4444;
+      --purple: #8B5CF6;
+      --blue: #3B82F6;
+      --cyan: #06B6D4;
+      --pink: #EC4899;
+      --emerald: #10B981;
+      --amber: #F59E0B;
+      --gradient-gold: linear-gradient(135deg, #D4AF37 0%, #F5D76E 50%, #D4AF37 100%);
+      --gradient-block: linear-gradient(135deg, #10B981 0%, #06B6D4 100%);
+      --gradient-validator: linear-gradient(135deg, #22C55E 0%, #10B981 100%);
+      --gradient-dark: linear-gradient(180deg, #0F172A 0%, #1E293B 100%);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--dark);
+      color: var(--white);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Animations */
+    @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-20px); } }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.7; } }
+    @keyframes glow { 0%, 100% { box-shadow: 0 0 20px rgba(16, 185, 129, 0.3); } 50% { box-shadow: 0 0 40px rgba(16, 185, 129, 0.6); } }
+    @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+    @keyframes mining { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
+    @keyframes blockPulse { 0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); } 70% { box-shadow: 0 0 0 20px rgba(16, 185, 129, 0); } 100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); } }
+
+    /* Header */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background: rgba(15, 23, 42, 0.95);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(16, 185, 129, 0.2);
+    }
+
+    .header-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+
+    .logo-icon {
+      width: 48px;
+      height: 48px;
+      background: var(--gradient-gold);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+    }
+
+    .logo-text {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--white);
+    }
+
+    .logo-text span { color: var(--gold); }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: var(--light-gray);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover { color: var(--emerald); }
+
+    .connect-btn {
+      background: var(--gradient-block);
+      color: var(--white);
+      padding: 12px 24px;
+      border-radius: 12px;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .connect-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 40px rgba(16, 185, 129, 0.3);
+    }
+
+    /* Hero Section */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      padding: 120px 2rem 80px;
+      background: radial-gradient(ellipse at center top, rgba(16, 185, 129, 0.15) 0%, transparent 50%),
+                  radial-gradient(ellipse at bottom left, rgba(6, 182, 212, 0.1) 0%, transparent 50%),
+                  var(--gradient-dark);
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .hero-bg::before {
+      content: '';
+      position: absolute;
+      width: 800px;
+      height: 800px;
+      background: radial-gradient(circle, rgba(16, 185, 129, 0.2) 0%, transparent 70%);
+      top: -300px;
+      left: -200px;
+      animation: float 10s ease-in-out infinite;
+    }
+
+    .hero-content {
+      max-width: 1200px;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid rgba(16, 185, 129, 0.4);
+      padding: 8px 20px;
+      border-radius: 100px;
+      font-size: 0.875rem;
+      color: var(--emerald);
+      margin-bottom: 2rem;
+    }
+
+    .badge .block-icon {
+      animation: mining 1.5s ease-in-out infinite;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      font-weight: 900;
+      margin-bottom: 1.5rem;
+      line-height: 1.1;
+    }
+
+    .hero h1 .gradient-text {
+      background: var(--gradient-block);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-subtitle {
+      font-size: 1.25rem;
+      color: var(--light-gray);
+      max-width: 700px;
+      margin: 0 auto 3rem;
+    }
+
+    /* Live Network Stats */
+    .network-stats-banner {
+      background: linear-gradient(90deg, rgba(16, 185, 129, 0.1), rgba(6, 182, 212, 0.1));
+      border: 1px solid rgba(16, 185, 129, 0.2);
+      border-radius: 20px;
+      padding: 1.5rem 2rem;
+      margin-bottom: 2rem;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 2rem;
+    }
+
+    .network-stat {
+      text-align: center;
+      position: relative;
+    }
+
+    .network-stat:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      right: -1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 1px;
+      height: 40px;
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .network-stat .value {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--emerald);
+    }
+
+    .network-stat .label {
+      font-size: 0.8rem;
+      color: var(--gray);
+      margin-top: 0.25rem;
+    }
+
+    .network-stat .live {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .network-stat .live::before {
+      content: '';
+      width: 8px;
+      height: 8px;
+      background: var(--success);
+      border-radius: 50%;
+      animation: pulse 1s infinite;
+    }
+
+    /* Stats Grid */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+    }
+
+    .stat-card {
+      background: var(--dark-card);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 1.5rem;
+      text-align: center;
+      transition: transform 0.3s, border-color 0.3s;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--emerald);
+    }
+
+    .stat-value {
+      font-size: 2rem;
+      font-weight: 800;
+      background: var(--gradient-block);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-label {
+      font-size: 0.875rem;
+      color: var(--light-gray);
+    }
+
+    /* CTA Buttons */
+    .cta-group {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      background: var(--gradient-block);
+      color: var(--white);
+      padding: 16px 40px;
+      border-radius: 12px;
+      font-size: 1.125rem;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 20px 60px rgba(16, 185, 129, 0.4);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--white);
+      padding: 16px 40px;
+      border-radius: 12px;
+      font-size: 1.125rem;
+      font-weight: 600;
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      transition: all 0.3s;
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--emerald);
+      color: var(--emerald);
+    }
+
+    /* Section Styles */
+    .section {
+      padding: 100px 2rem;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+
+    .section-badge {
+      display: inline-block;
+      background: rgba(16, 185, 129, 0.15);
+      color: var(--emerald);
+      padding: 6px 16px;
+      border-radius: 100px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+
+    .section-title {
+      font-size: 2.5rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+    }
+
+    .section-subtitle {
+      color: var(--light-gray);
+      font-size: 1.125rem;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* Distribution Grid */
+    .distribution-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+    }
+
+    .dist-card {
+      background: var(--dark-card);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 1.5rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s;
+    }
+
+    .dist-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--emerald);
+    }
+
+    .dist-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+    }
+
+    .dist-card.block::before { background: var(--gradient-block); }
+    .dist-card.delegate::before { background: linear-gradient(90deg, var(--blue), var(--cyan)); }
+    .dist-card.performance::before { background: linear-gradient(90deg, var(--purple), var(--pink)); }
+    .dist-card.halving::before { background: var(--gradient-gold); }
+
+    .dist-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .dist-name {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .dist-amount {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--emerald);
+      margin-bottom: 0.25rem;
+    }
+
+    .dist-percent {
+      font-size: 0.875rem;
+      color: var(--gray);
+    }
+
+    /* Halving Schedule */
+    .halving-container {
+      background: var(--dark-card);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 24px;
+      padding: 2.5rem;
+    }
+
+    .halving-timeline {
+      display: flex;
+      justify-content: space-between;
+      position: relative;
+      margin-top: 2rem;
+    }
+
+    .halving-timeline::before {
+      content: '';
+      position: absolute;
+      top: 30px;
+      left: 5%;
+      right: 5%;
+      height: 4px;
+      background: linear-gradient(90deg, var(--emerald), var(--cyan), var(--blue), var(--purple), var(--gold));
+      border-radius: 2px;
+    }
+
+    .halving-item {
+      text-align: center;
+      position: relative;
+      z-index: 1;
+      flex: 1;
+    }
+
+    .halving-dot {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      margin: 0 auto 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 1.25rem;
+      border: 4px solid var(--dark);
+    }
+
+    .halving-item:nth-child(1) .halving-dot { background: var(--emerald); }
+    .halving-item:nth-child(2) .halving-dot { background: var(--cyan); }
+    .halving-item:nth-child(3) .halving-dot { background: var(--blue); }
+    .halving-item:nth-child(4) .halving-dot { background: var(--purple); }
+    .halving-item:nth-child(5) .halving-dot { background: var(--gold); color: var(--dark); }
+
+    .halving-year {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+    }
+
+    .halving-reward {
+      font-size: 0.875rem;
+      color: var(--light-gray);
+      margin-bottom: 0.25rem;
+    }
+
+    .halving-amount {
+      font-size: 1.125rem;
+      font-weight: 700;
+      color: var(--gold);
+    }
+
+    /* Validator Types */
+    .validator-types-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+
+    .validator-card {
+      background: var(--dark-card);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 24px;
+      overflow: hidden;
+      transition: all 0.3s;
+      position: relative;
+    }
+
+    .validator-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+    }
+
+    .validator-card.featured {
+      border-color: var(--emerald);
+      box-shadow: 0 0 30px rgba(16, 185, 129, 0.2);
+    }
+
+    .validator-card.featured::after {
+      content: '추천';
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: var(--gradient-block);
+      padding: 6px 14px;
+      border-radius: 100px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      z-index: 10;
+    }
+
+    .validator-header {
+      padding: 2rem;
+      position: relative;
+    }
+
+    .validator-header.full { background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(6, 182, 212, 0.1)); }
+    .validator-header.light { background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(139, 92, 246, 0.1)); }
+    .validator-header.delegate { background: linear-gradient(135deg, rgba(212, 175, 55, 0.2), rgba(245, 158, 11, 0.1)); }
+
+    .validator-icon {
+      font-size: 3.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .validator-title {
+      font-size: 1.5rem;
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+    }
+
+    .validator-subtitle {
+      color: var(--light-gray);
+      font-size: 0.9rem;
+    }
+
+    .validator-content {
+      padding: 1.5rem 2rem 2rem;
+    }
+
+    .validator-apy {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem;
+      background: rgba(16, 185, 129, 0.1);
+      border-radius: 12px;
+      margin-bottom: 1.5rem;
+    }
+
+    .validator-apy-label {
+      font-size: 0.875rem;
+      color: var(--light-gray);
+    }
+
+    .validator-apy-value {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--emerald);
+    }
+
+    .validator-requirements {
+      list-style: none;
+      margin-bottom: 1.5rem;
+    }
+
+    .validator-requirements li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 0;
+      font-size: 0.9rem;
+      color: var(--light-gray);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .validator-requirements li:last-child {
+      border-bottom: none;
+    }
+
+    .validator-requirements li i {
+      color: var(--emerald);
+      width: 20px;
+    }
+
+    .validator-btn {
+      display: block;
+      width: 100%;
+      padding: 14px;
+      border-radius: 12px;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-align: center;
+    }
+
+    .validator-btn.primary {
+      background: var(--gradient-block);
+      color: var(--white);
+    }
+
+    .validator-btn.secondary {
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--white);
+    }
+
+    .validator-btn:hover {
+      transform: scale(1.02);
+    }
+
+    /* Reward Calculator */
+    .calculator-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+
+    .calculator-card {
+      background: var(--dark-card);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 24px;
+      padding: 2rem;
+    }
+
+    .calculator-card h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .calculator-card h3 i { color: var(--emerald); }
+
+    .calc-input-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .calc-input-group label {
+      display: block;
+      font-size: 0.875rem;
+      color: var(--light-gray);
+      margin-bottom: 0.5rem;
+    }
+
+    .calc-input-wrapper {
+      position: relative;
+    }
+
+    .calc-input {
+      width: 100%;
+      padding: 14px 16px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      color: var(--white);
+      font-size: 1rem;
+      font-weight: 600;
+    }
+
+    .calc-input:focus {
+      outline: none;
+      border-color: var(--emerald);
+    }
+
+    .calc-input-suffix {
+      position: absolute;
+      right: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--gray);
+      font-weight: 600;
+    }
+
+    .calc-slider {
+      width: 100%;
+      height: 8px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 4px;
+      appearance: none;
+      cursor: pointer;
+      margin-top: 0.5rem;
+    }
+
+    .calc-slider::-webkit-slider-thumb {
+      appearance: none;
+      width: 20px;
+      height: 20px;
+      background: var(--emerald);
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    .calc-result {
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(6, 182, 212, 0.1));
+      border: 1px solid rgba(16, 185, 129, 0.2);
+      border-radius: 16px;
+      padding: 1.5rem;
+    }
+
+    .calc-result-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .calc-result-row:last-child {
+      border-bottom: none;
+      padding-top: 1rem;
+      margin-top: 0.5rem;
+    }
+
+    .calc-result-label {
+      font-size: 0.9rem;
+      color: var(--light-gray);
+    }
+
+    .calc-result-value {
+      font-weight: 700;
+    }
+
+    .calc-result-value.emerald { color: var(--emerald); }
+    .calc-result-value.gold { color: var(--gold); }
+    .calc-result-value.large {
+      font-size: 1.5rem;
+      color: var(--gold);
+    }
+
+    /* Slashing Rules */
+    .slashing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    .slashing-card {
+      background: var(--dark-card);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 1.5rem;
+      transition: all 0.3s;
+    }
+
+    .slashing-card:hover {
+      border-color: var(--danger);
+    }
+
+    .slashing-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 1rem;
+    }
+
+    .slashing-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+    }
+
+    .slashing-card.minor .slashing-icon { background: rgba(245, 158, 11, 0.2); }
+    .slashing-card.major .slashing-icon { background: rgba(249, 115, 22, 0.2); }
+    .slashing-card.critical .slashing-icon { background: rgba(239, 68, 68, 0.2); }
+
+    .slashing-title {
+      font-size: 1.125rem;
+      font-weight: 700;
+    }
+
+    .slashing-penalty {
+      font-size: 0.875rem;
+      margin-top: 0.25rem;
+    }
+
+    .slashing-card.minor .slashing-penalty { color: var(--warning); }
+    .slashing-card.major .slashing-penalty { color: #F97316; }
+    .slashing-card.critical .slashing-penalty { color: var(--danger); }
+
+    .slashing-desc {
+      color: var(--light-gray);
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+    }
+
+    .slashing-examples {
+      list-style: none;
+    }
+
+    .slashing-examples li {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 0;
+      font-size: 0.85rem;
+      color: var(--gray);
+    }
+
+    .slashing-examples li i {
+      font-size: 10px;
+    }
+
+    .slashing-card.minor .slashing-examples li i { color: var(--warning); }
+    .slashing-card.major .slashing-examples li i { color: #F97316; }
+    .slashing-card.critical .slashing-examples li i { color: var(--danger); }
+
+    /* Active Validators */
+    .validators-section {
+      background: var(--dark-card);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 24px;
+      padding: 2rem;
+    }
+
+    .validators-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+    }
+
+    .validators-header h3 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .validators-header h3 i { color: var(--emerald); }
+
+    .validators-tabs {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .validator-tab {
+      padding: 8px 16px;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: transparent;
+      color: var(--light-gray);
+      font-size: 0.875rem;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .validator-tab.active {
+      background: var(--emerald);
+      border-color: var(--emerald);
+      color: var(--white);
+    }
+
+    .validators-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .validators-table th {
+      text-align: left;
+      padding: 1rem;
+      background: rgba(255, 255, 255, 0.03);
+      font-weight: 600;
+      font-size: 0.875rem;
+      color: var(--light-gray);
+    }
+
+    .validators-table th:first-child { border-radius: 12px 0 0 12px; }
+    .validators-table th:last-child { border-radius: 0 12px 12px 0; }
+
+    .validators-table td {
+      padding: 1rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .validators-table tr:hover td {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .validator-cell {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .validator-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: var(--gradient-block);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+    }
+
+    .validator-name {
+      font-weight: 600;
+    }
+
+    .validator-address {
+      font-size: 0.75rem;
+      color: var(--gray);
+      font-family: monospace;
+    }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 100px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    .status-badge.active {
+      background: rgba(34, 197, 94, 0.15);
+      color: var(--success);
+    }
+
+    .status-badge.active::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: var(--success);
+      border-radius: 50%;
+      animation: pulse 1s infinite;
+    }
+
+    .stake-cell {
+      font-weight: 700;
+      color: var(--emerald);
+    }
+
+    .commission-cell {
+      color: var(--gold);
+      font-weight: 600;
+    }
+
+    .uptime-cell {
+      font-weight: 600;
+    }
+
+    .uptime-cell.good { color: var(--success); }
+    .uptime-cell.warning { color: var(--warning); }
+
+    .delegate-btn-small {
+      padding: 8px 16px;
+      background: var(--gradient-block);
+      color: var(--white);
+      border: none;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .delegate-btn-small:hover {
+      transform: scale(1.05);
+    }
+
+    /* Dashboard */
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 2rem;
+    }
+
+    .dashboard-main {
+      background: var(--dark-card);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 24px;
+      padding: 2rem;
+    }
+
+    .dashboard-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+    }
+
+    .dashboard-user {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .dashboard-avatar {
+      width: 60px;
+      height: 60px;
+      border-radius: 16px;
+      background: var(--gradient-block);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      font-weight: 800;
+    }
+
+    .dashboard-stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .dash-stat {
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 16px;
+      padding: 1.25rem;
+      text-align: center;
+    }
+
+    .dash-stat-value {
+      font-size: 1.5rem;
+      font-weight: 800;
+      margin-bottom: 0.25rem;
+    }
+
+    .dash-stat-value.emerald { color: var(--emerald); }
+    .dash-stat-value.cyan { color: var(--cyan); }
+    .dash-stat-value.gold { color: var(--gold); }
+    .dash-stat-value.success { color: var(--success); }
+
+    .dash-stat-label {
+      font-size: 0.8rem;
+      color: var(--light-gray);
+    }
+
+    .blocks-produced {
+      margin-top: 2rem;
+    }
+
+    .blocks-produced h4 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .blocks-produced h4 i { color: var(--emerald); }
+
+    .block-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem;
+      background: rgba(255, 255, 255, 0.02);
+      border-radius: 12px;
+      margin-bottom: 0.75rem;
+    }
+
+    .block-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .block-number {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: rgba(16, 185, 129, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--emerald);
+      animation: blockPulse 2s infinite;
+    }
+
+    .block-info h5 {
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .block-info p {
+      font-size: 0.75rem;
+      color: var(--gray);
+    }
+
+    .block-reward {
+      text-align: right;
+    }
+
+    .block-reward .value {
+      font-weight: 700;
+      color: var(--gold);
+    }
+
+    .block-reward .usd {
+      font-size: 0.75rem;
+      color: var(--gray);
+    }
+
+    /* Sidebar */
+    .dashboard-sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .sidebar-card {
+      background: var(--dark-card);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 1.5rem;
+    }
+
+    .sidebar-card h4 {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .sidebar-card h4 i { color: var(--emerald); }
+
+    .node-status {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .status-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .status-row:last-child { border-bottom: none; }
+
+    .status-label {
+      font-size: 0.875rem;
+      color: var(--light-gray);
+    }
+
+    .status-value {
+      font-weight: 600;
+    }
+
+    .status-value.good { color: var(--success); }
+    .status-value.warning { color: var(--warning); }
+
+    .claim-rewards-card {
+      text-align: center;
+      padding: 1.5rem;
+    }
+
+    .claim-amount {
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--gold);
+      margin-bottom: 0.5rem;
+    }
+
+    .claim-label {
+      font-size: 0.875rem;
+      color: var(--gray);
+      margin-bottom: 1rem;
+    }
+
+    .claim-btn {
+      width: 100%;
+      background: var(--gradient-gold);
+      color: var(--dark);
+      padding: 14px;
+      border-radius: 12px;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .claim-btn:hover {
+      transform: scale(1.02);
+    }
+
+    /* FAQ Section */
+    .faq-container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .faq-item {
+      background: var(--dark-card);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      margin-bottom: 1rem;
+      overflow: hidden;
+    }
+
+    .faq-question {
+      padding: 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .faq-question:hover {
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .faq-question h4 {
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    .faq-question i {
+      color: var(--emerald);
+      transition: transform 0.3s;
+    }
+
+    .faq-item.active .faq-question i {
+      transform: rotate(180deg);
+    }
+
+    .faq-answer {
+      padding: 0 1.5rem;
+      max-height: 0;
+      overflow: hidden;
+      transition: all 0.3s;
+    }
+
+    .faq-item.active .faq-answer {
+      padding: 0 1.5rem 1.5rem;
+      max-height: 500px;
+    }
+
+    .faq-answer p {
+      color: var(--light-gray);
+      line-height: 1.8;
+    }
+
+    /* Footer */
+    .footer {
+      background: var(--dark);
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 60px 2rem 30px;
+    }
+
+    .footer-content {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 4rem;
+      margin-bottom: 3rem;
+    }
+
+    .footer-brand h3 {
+      font-size: 1.5rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+    }
+
+    .footer-brand h3 span { color: var(--gold); }
+
+    .footer-brand p {
+      color: var(--light-gray);
+      margin-bottom: 1.5rem;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .social-links a {
+      width: 44px;
+      height: 44px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--light-gray);
+      transition: all 0.3s;
+    }
+
+    .social-links a:hover {
+      background: var(--emerald);
+      color: var(--white);
+    }
+
+    .footer-links h4 {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+    }
+
+    .footer-links ul { list-style: none; }
+    .footer-links li { margin-bottom: 0.75rem; }
+
+    .footer-links a {
+      color: var(--light-gray);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .footer-links a:hover { color: var(--emerald); }
+
+    .footer-bottom {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: var(--gray);
+      font-size: 0.875rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 1200px) {
+      .validator-types-grid { grid-template-columns: 1fr; }
+      .calculator-container { grid-template-columns: 1fr; }
+      .slashing-grid { grid-template-columns: 1fr; }
+      .dashboard-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 1024px) {
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .distribution-grid { grid-template-columns: repeat(2, 1fr); }
+      .network-stats-banner { grid-template-columns: repeat(3, 1fr); }
+      .halving-timeline { flex-wrap: wrap; gap: 1.5rem; }
+      .halving-timeline::before { display: none; }
+      .dashboard-stats { grid-template-columns: repeat(2, 1fr); }
+      .footer-content { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 768px) {
+      .header-container { padding: 1rem; }
+      .nav-links { display: none; }
+      .hero { padding: 100px 1rem 60px; }
+      .stats-grid { grid-template-columns: 1fr; }
+      .distribution-grid { grid-template-columns: 1fr; }
+      .network-stats-banner { grid-template-columns: repeat(2, 1fr); }
+      .validators-table { font-size: 0.8rem; }
+      .footer-content { grid-template-columns: 1fr; gap: 2rem; }
+      .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="header-container">
+      <a href="#" class="logo">
+        <div class="logo-icon">🔥</div>
+        <div class="logo-text">TBURN<span>CHAIN</span></div>
+      </a>
+      <nav class="nav-links">
+        <a href="#validators">밸리데이터</a>
+        <a href="#calculator">보상 계산기</a>
+        <a href="#halving">반감기</a>
+        <a href="#dashboard">대시보드</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+      <button class="connect-btn" onclick="openWalletModal()">
+        <i class="fas fa-wallet"></i> 지갑 연결
+      </button>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <div class="badge">
+        <i class="fas fa-cube block-icon"></i>
+        BLOCK REWARDS - 네트워크 보안에 기여하세요
+      </div>
+      <h1>
+        블록을 생성하고<br>
+        <span class="gradient-text">14.5억 TBURN</span> 보상
+      </h1>
+      <p class="hero-subtitle">
+        밸리데이터가 되어 TBURN Chain의 보안을 지키고 블록 보상을 받으세요.
+        20년에 걸쳐 반감기와 함께 14.5억 TBURN이 배분됩니다.
+      </p>
+
+      <!-- Live Network Stats -->
+      <div class="network-stats-banner">
+        <div class="network-stat">
+          <div class="value"><span class="live">LIVE</span></div>
+          <div class="label">네트워크 상태</div>
+        </div>
+        <div class="network-stat">
+          <div class="value" id="blockHeight">1,234,567</div>
+          <div class="label">현재 블록</div>
+        </div>
+        <div class="network-stat">
+          <div class="value" id="activeValidators">247</div>
+          <div class="label">활성 밸리데이터</div>
+        </div>
+        <div class="network-stat">
+          <div class="value" id="totalStaked">1.2B</div>
+          <div class="label">총 스테이킹</div>
+        </div>
+        <div class="network-stat">
+          <div class="value" id="currentAPY">18.5%</div>
+          <div class="label">현재 APY</div>
+        </div>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-value">14.5억</div>
+          <div class="stat-label">총 블록 보상 풀</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">20년</div>
+          <div class="stat-label">배분 기간</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">4년</div>
+          <div class="stat-label">반감기 주기</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">~2초</div>
+          <div class="stat-label">블록 생성 시간</div>
+        </div>
+      </div>
+
+      <div class="cta-group">
+        <button class="btn-primary" onclick="scrollToSection('validators')">
+          <i class="fas fa-server"></i> 밸리데이터 되기
+        </button>
+        <button class="btn-secondary" onclick="scrollToSection('calculator')">
+          <i class="fas fa-calculator"></i> 보상 계산하기
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Distribution Section -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-badge">DISTRIBUTION</span>
+      <h2 class="section-title">블록 보상 배분</h2>
+      <p class="section-subtitle">14.5억 TBURN이 밸리데이터와 위임자에게 배분됩니다</p>
+    </div>
+
+    <div class="distribution-grid">
+      <div class="dist-card block">
+        <div class="dist-icon">⛏️</div>
+        <div class="dist-name">블록 생성 보상</div>
+        <div class="dist-amount">10.15억</div>
+        <div class="dist-percent">70%</div>
+      </div>
+
+      <div class="dist-card delegate">
+        <div class="dist-icon">🤝</div>
+        <div class="dist-name">위임자 보상</div>
+        <div class="dist-amount">2.9억</div>
+        <div class="dist-percent">20%</div>
+      </div>
+
+      <div class="dist-card performance">
+        <div class="dist-icon">🏆</div>
+        <div class="dist-name">성능 보너스</div>
+        <div class="dist-amount">1.015억</div>
+        <div class="dist-percent">7%</div>
+      </div>
+
+      <div class="dist-card halving">
+        <div class="dist-icon">📉</div>
+        <div class="dist-name">예비 풀</div>
+        <div class="dist-amount">0.435억</div>
+        <div class="dist-percent">3%</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Halving Schedule -->
+  <section class="section" id="halving" style="background: rgba(255,255,255,0.02);">
+    <div class="section-header">
+      <span class="section-badge">HALVING SCHEDULE</span>
+      <h2 class="section-title">반감기 스케줄</h2>
+      <p class="section-subtitle">비트코인처럼 4년마다 블록 보상이 절반으로 감소합니다</p>
+    </div>
+
+    <div class="halving-container">
+      <div style="text-align: center; margin-bottom: 2rem;">
+        <p style="color: var(--light-gray); font-size: 1rem;">
+          블록당 초기 보상 <span style="color: var(--gold); font-weight: 700;">4.6 TBURN</span>에서 시작하여
+          4년마다 50%씩 감소합니다
+        </p>
+      </div>
+
+      <div class="halving-timeline">
+        <div class="halving-item">
+          <div class="halving-dot">1</div>
+          <div class="halving-year">Year 1-4</div>
+          <div class="halving-reward">블록당 4.6 TBURN</div>
+          <div class="halving-amount">~7.25억 배분</div>
+        </div>
+        <div class="halving-item">
+          <div class="halving-dot">2</div>
+          <div class="halving-year">Year 5-8</div>
+          <div class="halving-reward">블록당 2.3 TBURN</div>
+          <div class="halving-amount">~3.625억 배분</div>
+        </div>
+        <div class="halving-item">
+          <div class="halving-dot">3</div>
+          <div class="halving-year">Year 9-12</div>
+          <div class="halving-reward">블록당 1.15 TBURN</div>
+          <div class="halving-amount">~1.8125억 배분</div>
+        </div>
+        <div class="halving-item">
+          <div class="halving-dot">4</div>
+          <div class="halving-year">Year 13-16</div>
+          <div class="halving-reward">블록당 0.575 TBURN</div>
+          <div class="halving-amount">~0.9억 배분</div>
+        </div>
+        <div class="halving-item">
+          <div class="halving-dot">5</div>
+          <div class="halving-year">Year 17-20</div>
+          <div class="halving-reward">블록당 0.2875 TBURN</div>
+          <div class="halving-amount">~0.45억 배분</div>
+        </div>
+      </div>
+
+      <div style="margin-top: 3rem; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;">
+        <div style="padding: 1.5rem; background: rgba(255,255,255,0.03); border-radius: 16px; text-align: center;">
+          <div style="font-size: 2rem; margin-bottom: 0.5rem;">⏱️</div>
+          <div style="font-weight: 700; margin-bottom: 0.25rem;">블록 생성 시간</div>
+          <div style="color: var(--emerald); font-size: 1.25rem; font-weight: 700;">~2초</div>
+        </div>
+        <div style="padding: 1.5rem; background: rgba(255,255,255,0.03); border-radius: 16px; text-align: center;">
+          <div style="font-size: 2rem; margin-bottom: 0.5rem;">📦</div>
+          <div style="font-weight: 700; margin-bottom: 0.25rem;">연간 블록 수</div>
+          <div style="color: var(--emerald); font-size: 1.25rem; font-weight: 700;">~15,768,000</div>
+        </div>
+        <div style="padding: 1.5rem; background: rgba(255,255,255,0.03); border-radius: 16px; text-align: center;">
+          <div style="font-size: 2rem; margin-bottom: 0.5rem;">🔥</div>
+          <div style="font-weight: 700; margin-bottom: 0.25rem;">첫 반감기까지</div>
+          <div style="color: var(--gold); font-size: 1.25rem; font-weight: 700;">~4년</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Validator Types -->
+  <section class="section" id="validators">
+    <div class="section-header">
+      <span class="section-badge">BECOME A VALIDATOR</span>
+      <h2 class="section-title">밸리데이터 유형</h2>
+      <p class="section-subtitle">나에게 맞는 참여 방법을 선택하세요</p>
+    </div>
+
+    <div class="validator-types-grid">
+      <!-- Full Validator -->
+      <div class="validator-card featured">
+        <div class="validator-header full">
+          <div class="validator-icon">🖥️</div>
+          <h3 class="validator-title">풀 밸리데이터</h3>
+          <p class="validator-subtitle">직접 노드를 운영하고 최대 보상을 받으세요</p>
+        </div>
+        <div class="validator-content">
+          <div class="validator-apy">
+            <span class="validator-apy-label">예상 APY</span>
+            <span class="validator-apy-value">15~25%</span>
+          </div>
+          <ul class="validator-requirements">
+            <li><i class="fas fa-coins"></i> 최소 스테이킹: 100,000 TBURN</li>
+            <li><i class="fas fa-server"></i> 서버: 16 vCPU, 64GB RAM, 2TB SSD</li>
+            <li><i class="fas fa-network-wired"></i> 네트워크: 1Gbps 이상</li>
+            <li><i class="fas fa-clock"></i> 업타임: 99.9% 이상 유지</li>
+            <li><i class="fas fa-shield-alt"></i> 슬래싱 리스크 있음</li>
+          </ul>
+          <button class="validator-btn primary" onclick="becomeValidator('full')">풀 밸리데이터 시작</button>
+        </div>
+      </div>
+
+      <!-- Light Validator -->
+      <div class="validator-card">
+        <div class="validator-header light">
+          <div class="validator-icon">💻</div>
+          <h3 class="validator-title">라이트 밸리데이터</h3>
+          <p class="validator-subtitle">낮은 요구사항으로 참여하세요</p>
+        </div>
+        <div class="validator-content">
+          <div class="validator-apy">
+            <span class="validator-apy-label">예상 APY</span>
+            <span class="validator-apy-value">10~18%</span>
+          </div>
+          <ul class="validator-requirements">
+            <li><i class="fas fa-coins"></i> 최소 스테이킹: 50,000 TBURN</li>
+            <li><i class="fas fa-server"></i> 서버: 8 vCPU, 32GB RAM, 1TB SSD</li>
+            <li><i class="fas fa-network-wired"></i> 네트워크: 500Mbps 이상</li>
+            <li><i class="fas fa-clock"></i> 업타임: 99.5% 이상 유지</li>
+            <li><i class="fas fa-shield-alt"></i> 낮은 슬래싱 리스크</li>
+          </ul>
+          <button class="validator-btn primary" onclick="becomeValidator('light')">라이트 밸리데이터 시작</button>
+        </div>
+      </div>
+
+      <!-- Delegator -->
+      <div class="validator-card">
+        <div class="validator-header delegate">
+          <div class="validator-icon">🤝</div>
+          <h3 class="validator-title">위임 스테이킹</h3>
+          <p class="validator-subtitle">노드 없이 스테이킹만으로 참여하세요</p>
+        </div>
+        <div class="validator-content">
+          <div class="validator-apy">
+            <span class="validator-apy-label">예상 APY</span>
+            <span class="validator-apy-value">8~15%</span>
+          </div>
+          <ul class="validator-requirements">
+            <li><i class="fas fa-coins"></i> 최소 스테이킹: 100 TBURN</li>
+            <li><i class="fas fa-server"></i> 서버: 필요 없음</li>
+            <li><i class="fas fa-network-wired"></i> 네트워크: 인터넷 연결만</li>
+            <li><i class="fas fa-percent"></i> 밸리데이터 수수료: 5~15%</li>
+            <li><i class="fas fa-shield-alt"></i> 슬래싱 위험 공유</li>
+          </ul>
+          <button class="validator-btn secondary" onclick="scrollToSection('active-validators')">밸리데이터 선택</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Reward Calculator -->
+  <section class="section" id="calculator" style="background: rgba(255,255,255,0.02);">
+    <div class="section-header">
+      <span class="section-badge">CALCULATOR</span>
+      <h2 class="section-title">보상 계산기</h2>
+      <p class="section-subtitle">예상 수익을 계산해보세요</p>
+    </div>
+
+    <div class="calculator-container">
+      <div class="calculator-card">
+        <h3><i class="fas fa-calculator"></i> 밸리데이터 보상 계산</h3>
+
+        <div class="calc-input-group">
+          <label>스테이킹 수량</label>
+          <div class="calc-input-wrapper">
+            <input type="number" class="calc-input" id="stakeAmount" value="100000" oninput="calculateRewards()">
+            <span class="calc-input-suffix">TBURN</span>
+          </div>
+          <input type="range" class="calc-slider" id="stakeSlider" min="1000" max="10000000" value="100000" oninput="updateStakeInput()">
+        </div>
+
+        <div class="calc-input-group">
+          <label>예상 APY</label>
+          <div class="calc-input-wrapper">
+            <input type="number" class="calc-input" id="apyRate" value="18" oninput="calculateRewards()">
+            <span class="calc-input-suffix">%</span>
+          </div>
+          <input type="range" class="calc-slider" id="apySlider" min="5" max="30" value="18" oninput="updateApyInput()">
+        </div>
+
+        <div class="calc-input-group">
+          <label>TBURN 예상 가격</label>
+          <div class="calc-input-wrapper">
+            <input type="number" class="calc-input" id="tburnPrice" value="0.50" step="0.01" oninput="calculateRewards()">
+            <span class="calc-input-suffix">USD</span>
+          </div>
+        </div>
+
+        <div class="calc-input-group">
+          <label>참여 유형</label>
+          <select class="calc-input" id="validatorType" onchange="calculateRewards()">
+            <option value="full">풀 밸리데이터 (100% 보상)</option>
+            <option value="light">라이트 밸리데이터 (85% 보상)</option>
+            <option value="delegator">위임자 (커미션 10% 차감)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="calculator-card">
+        <h3><i class="fas fa-chart-line"></i> 예상 수익</h3>
+
+        <div class="calc-result">
+          <div class="calc-result-row">
+            <span class="calc-result-label">일일 보상</span>
+            <span class="calc-result-value emerald" id="dailyReward">49.3 TBURN</span>
+          </div>
+          <div class="calc-result-row">
+            <span class="calc-result-label">주간 보상</span>
+            <span class="calc-result-value emerald" id="weeklyReward">345.2 TBURN</span>
+          </div>
+          <div class="calc-result-row">
+            <span class="calc-result-label">월간 보상</span>
+            <span class="calc-result-value emerald" id="monthlyReward">1,500 TBURN</span>
+          </div>
+          <div class="calc-result-row">
+            <span class="calc-result-label">연간 보상</span>
+            <span class="calc-result-value gold" id="yearlyReward">18,000 TBURN</span>
+          </div>
+          <div class="calc-result-row">
+            <span class="calc-result-label">연간 수익 (USD)</span>
+            <span class="calc-result-value large" id="yearlyUSD">$9,000</span>
+          </div>
+        </div>
+
+        <div style="margin-top: 1.5rem; padding: 1rem; background: rgba(255, 255, 255, 0.03); border-radius: 12px;">
+          <p style="font-size: 0.8rem; color: var(--gray);">
+            <i class="fas fa-info-circle" style="color: var(--emerald);"></i>
+            계산된 수익은 예상치이며, 실제 보상은 네트워크 상태, 밸리데이터 성능, 
+            총 스테이킹 양에 따라 달라질 수 있습니다.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Slashing Rules -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-badge">SLASHING</span>
+      <h2 class="section-title">슬래싱 정책</h2>
+      <p class="section-subtitle">네트워크 보안을 위한 페널티 시스템</p>
+    </div>
+
+    <div class="slashing-grid">
+      <div class="slashing-card minor">
+        <div class="slashing-header">
+          <div class="slashing-icon">⚠️</div>
+          <div>
+            <h3 class="slashing-title">경미한 위반</h3>
+            <p class="slashing-penalty">0.1% 슬래싱</p>
+          </div>
+        </div>
+        <p class="slashing-desc">일시적인 오프라인 또는 경미한 프로토콜 위반</p>
+        <ul class="slashing-examples">
+          <li><i class="fas fa-circle"></i> 1시간 미만 오프라인</li>
+          <li><i class="fas fa-circle"></i> 단일 블록 미서명</li>
+          <li><i class="fas fa-circle"></i> 일시적 네트워크 지연</li>
+        </ul>
+      </div>
+
+      <div class="slashing-card major">
+        <div class="slashing-header">
+          <div class="slashing-icon">🔶</div>
+          <div>
+            <h3 class="slashing-title">주요 위반</h3>
+            <p class="slashing-penalty">1~5% 슬래싱</p>
+          </div>
+        </div>
+        <p class="slashing-desc">장시간 오프라인 또는 반복적인 위반</p>
+        <ul class="slashing-examples">
+          <li><i class="fas fa-circle"></i> 24시간 이상 오프라인</li>
+          <li><i class="fas fa-circle"></i> 연속 블록 미서명 (100블록+)</li>
+          <li><i class="fas fa-circle"></i> 반복적인 경미한 위반</li>
+        </ul>
+      </div>
+
+      <div class="slashing-card critical">
+        <div class="slashing-header">
+          <div class="slashing-icon">🚨</div>
+          <div>
+            <h3 class="slashing-title">심각한 위반</h3>
+            <p class="slashing-penalty">10~100% 슬래싱 + 제명</p>
+          </div>
+        </div>
+        <p class="slashing-desc">악의적 행위 또는 심각한 프로토콜 위반</p>
+        <ul class="slashing-examples">
+          <li><i class="fas fa-circle"></i> 이중 서명 (Double Signing)</li>
+          <li><i class="fas fa-circle"></i> 잘못된 블록 제안</li>
+          <li><i class="fas fa-circle"></i> 악의적 공격 시도</li>
+        </ul>
+      </div>
+    </div>
+
+    <div style="margin-top: 2rem; padding: 1.5rem; background: var(--dark-card); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 16px;">
+      <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 1rem;">
+        <i class="fas fa-shield-alt" style="color: var(--emerald); font-size: 1.25rem;"></i>
+        <h4 style="font-weight: 700;">슬래싱 보호 장치</h4>
+      </div>
+      <ul style="color: var(--light-gray); display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.75rem;">
+        <li style="display: flex; align-items: center; gap: 8px;">
+          <i class="fas fa-check" style="color: var(--success);"></i>
+          위임자는 밸리데이터 슬래싱의 최대 5%만 공유
+        </li>
+        <li style="display: flex; align-items: center; gap: 8px;">
+          <i class="fas fa-check" style="color: var(--success);"></i>
+          7일 언본딩 기간 중 슬래싱 제외
+        </li>
+        <li style="display: flex; align-items: center; gap: 8px;">
+          <i class="fas fa-check" style="color: var(--success);"></i>
+          첫 경고는 슬래싱 없이 통지만
+        </li>
+        <li style="display: flex; align-items: center; gap: 8px;">
+          <i class="fas fa-check" style="color: var(--success);"></i>
+          슬래싱 보험 옵션 제공 (추후)
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Active Validators -->
+  <section class="section" id="active-validators" style="background: rgba(255,255,255,0.02);">
+    <div class="section-header">
+      <span class="section-badge">VALIDATORS</span>
+      <h2 class="section-title">활성 밸리데이터</h2>
+      <p class="section-subtitle">신뢰할 수 있는 밸리데이터에게 위임하세요</p>
+    </div>
+
+    <div class="validators-section">
+      <div class="validators-header">
+        <h3><i class="fas fa-server"></i> 밸리데이터 목록</h3>
+        <div class="validators-tabs">
+          <button class="validator-tab active">전체</button>
+          <button class="validator-tab">상위 20</button>
+          <button class="validator-tab">낮은 수수료</button>
+        </div>
+      </div>
+
+      <table class="validators-table">
+        <thead>
+          <tr>
+            <th>밸리데이터</th>
+            <th>상태</th>
+            <th>스테이킹</th>
+            <th>수수료</th>
+            <th>업타임</th>
+            <th>APY</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <div class="validator-cell">
+                <div class="validator-avatar">TB</div>
+                <div>
+                  <div class="validator-name">TBURN Foundation</div>
+                  <div class="validator-address">0x1a2B...3c4D</div>
+                </div>
+              </div>
+            </td>
+            <td><span class="status-badge active">Active</span></td>
+            <td class="stake-cell">125M TBURN</td>
+            <td class="commission-cell">5%</td>
+            <td class="uptime-cell good">99.98%</td>
+            <td style="font-weight: 700; color: var(--emerald);">18.5%</td>
+            <td><button class="delegate-btn-small">위임</button></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="validator-cell">
+                <div class="validator-avatar">VC</div>
+                <div>
+                  <div class="validator-name">Validator Council</div>
+                  <div class="validator-address">0x5e6F...7g8H</div>
+                </div>
+              </div>
+            </td>
+            <td><span class="status-badge active">Active</span></td>
+            <td class="stake-cell">98M TBURN</td>
+            <td class="commission-cell">7%</td>
+            <td class="uptime-cell good">99.95%</td>
+            <td style="font-weight: 700; color: var(--emerald);">17.8%</td>
+            <td><button class="delegate-btn-small">위임</button></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="validator-cell">
+                <div class="validator-avatar">SP</div>
+                <div>
+                  <div class="validator-name">StakePool Korea</div>
+                  <div class="validator-address">0x9i0J...1k2L</div>
+                </div>
+              </div>
+            </td>
+            <td><span class="status-badge active">Active</span></td>
+            <td class="stake-cell">76M TBURN</td>
+            <td class="commission-cell">8%</td>
+            <td class="uptime-cell good">99.92%</td>
+            <td style="font-weight: 700; color: var(--emerald);">17.2%</td>
+            <td><button class="delegate-btn-small">위임</button></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="validator-cell">
+                <div class="validator-avatar">AS</div>
+                <div>
+                  <div class="validator-name">Asia Staking</div>
+                  <div class="validator-address">0x3m4N...5o6P</div>
+                </div>
+              </div>
+            </td>
+            <td><span class="status-badge active">Active</span></td>
+            <td class="stake-cell">54M TBURN</td>
+            <td class="commission-cell">10%</td>
+            <td class="uptime-cell warning">99.45%</td>
+            <td style="font-weight: 700; color: var(--emerald);">16.5%</td>
+            <td><button class="delegate-btn-small">위임</button></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="validator-cell">
+                <div class="validator-avatar">GV</div>
+                <div>
+                  <div class="validator-name">Global Validator</div>
+                  <div class="validator-address">0x7q8R...9s0T</div>
+                </div>
+              </div>
+            </td>
+            <td><span class="status-badge active">Active</span></td>
+            <td class="stake-cell">42M TBURN</td>
+            <td class="commission-cell">5%</td>
+            <td class="uptime-cell good">99.97%</td>
+            <td style="font-weight: 700; color: var(--emerald);">18.2%</td>
+            <td><button class="delegate-btn-small">위임</button></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div style="text-align: center; margin-top: 2rem;">
+        <button class="btn-secondary" style="padding: 12px 30px; font-size: 1rem;">
+          <i class="fas fa-list"></i> 전체 밸리데이터 보기 (247)
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Dashboard -->
+  <section class="section" id="dashboard">
+    <div class="section-header">
+      <span class="section-badge">MY DASHBOARD</span>
+      <h2 class="section-title">밸리데이터 대시보드</h2>
+      <p class="section-subtitle">내 노드 상태와 보상을 확인하세요</p>
+    </div>
+
+    <div class="dashboard-grid">
+      <div class="dashboard-main">
+        <div class="dashboard-header">
+          <div class="dashboard-user">
+            <div class="dashboard-avatar">TB</div>
+            <div>
+              <h3 style="font-size: 1.125rem; font-weight: 700;">My Validator Node</h3>
+              <p style="font-size: 0.875rem; color: var(--gray);">풀 밸리데이터 · 활성 상태</p>
+            </div>
+          </div>
+          <span class="status-badge active" style="font-size: 0.875rem; padding: 8px 16px;">🟢 Online</span>
+        </div>
+
+        <div class="dashboard-stats">
+          <div class="dash-stat">
+            <div class="dash-stat-value emerald">500,000</div>
+            <div class="dash-stat-label">스테이킹 (TBURN)</div>
+          </div>
+          <div class="dash-stat">
+            <div class="dash-stat-value cyan">18.5%</div>
+            <div class="dash-stat-label">현재 APY</div>
+          </div>
+          <div class="dash-stat">
+            <div class="dash-stat-value gold">92,500</div>
+            <div class="dash-stat-label">누적 보상 (TBURN)</div>
+          </div>
+          <div class="dash-stat">
+            <div class="dash-stat-value success">99.98%</div>
+            <div class="dash-stat-label">업타임</div>
+          </div>
+        </div>
+
+        <div class="blocks-produced">
+          <h4><i class="fas fa-cube"></i> 최근 생성 블록</h4>
+          <div class="block-item">
+            <div class="block-left">
+              <div class="block-number"><i class="fas fa-cube"></i></div>
+              <div class="block-info">
+                <h5>Block #1,234,567</h5>
+                <p>2분 전 · 142 트랜잭션</p>
+              </div>
+            </div>
+            <div class="block-reward">
+              <div class="value">+4.6 TBURN</div>
+              <div class="usd">≈ $2.30</div>
+            </div>
+          </div>
+          <div class="block-item">
+            <div class="block-left">
+              <div class="block-number"><i class="fas fa-cube"></i></div>
+              <div class="block-info">
+                <h5>Block #1,234,412</h5>
+                <p>8분 전 · 98 트랜잭션</p>
+              </div>
+            </div>
+            <div class="block-reward">
+              <div class="value">+4.6 TBURN</div>
+              <div class="usd">≈ $2.30</div>
+            </div>
+          </div>
+          <div class="block-item">
+            <div class="block-left">
+              <div class="block-number"><i class="fas fa-cube"></i></div>
+              <div class="block-info">
+                <h5>Block #1,234,289</h5>
+                <p>15분 전 · 215 트랜잭션</p>
+              </div>
+            </div>
+            <div class="block-reward">
+              <div class="value">+4.6 TBURN</div>
+              <div class="usd">≈ $2.30</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="dashboard-sidebar">
+        <div class="sidebar-card">
+          <h4><i class="fas fa-heartbeat"></i> 노드 상태</h4>
+          <div class="node-status">
+            <div class="status-row">
+              <span class="status-label">연결 상태</span>
+              <span class="status-value good">연결됨</span>
+            </div>
+            <div class="status-row">
+              <span class="status-label">피어 수</span>
+              <span class="status-value">42</span>
+            </div>
+            <div class="status-row">
+              <span class="status-label">블록 싱크</span>
+              <span class="status-value good">완료</span>
+            </div>
+            <div class="status-row">
+              <span class="status-label">CPU 사용량</span>
+              <span class="status-value">23%</span>
+            </div>
+            <div class="status-row">
+              <span class="status-label">메모리 사용량</span>
+              <span class="status-value">45%</span>
+            </div>
+            <div class="status-row">
+              <span class="status-label">디스크 사용량</span>
+              <span class="status-value warning">72%</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="sidebar-card claim-rewards-card">
+          <h4 style="justify-content: center;"><i class="fas fa-gift"></i> 클레임 가능 보상</h4>
+          <div class="claim-amount">8,250 TBURN</div>
+          <div class="claim-label">≈ $4,125 (@$0.50)</div>
+          <button class="claim-btn" onclick="claimRewards()">
+            <i class="fas fa-download"></i> 보상 받기
+          </button>
+        </div>
+
+        <div class="sidebar-card">
+          <h4><i class="fas fa-chart-bar"></i> 이번 달 통계</h4>
+          <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+            <div style="display: flex; justify-content: space-between; font-size: 0.875rem;">
+              <span style="color: var(--light-gray);">생성 블록</span>
+              <span style="font-weight: 600; color: var(--emerald);">1,247</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; font-size: 0.875rem;">
+              <span style="color: var(--light-gray);">미서명 블록</span>
+              <span style="font-weight: 600; color: var(--success);">0</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; font-size: 0.875rem;">
+              <span style="color: var(--light-gray);">월간 보상</span>
+              <span style="font-weight: 600; color: var(--gold);">5,736 TBURN</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; font-size: 0.875rem;">
+              <span style="color: var(--light-gray);">위임자 수</span>
+              <span style="font-weight: 600;">128</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="section" id="faq" style="background: rgba(255,255,255,0.02);">
+    <div class="section-header">
+      <span class="section-badge">FAQ</span>
+      <h2 class="section-title">자주 묻는 질문</h2>
+      <p class="section-subtitle">블록 보상 관련 궁금한 점을 확인하세요</p>
+    </div>
+
+    <div class="faq-container">
+      <div class="faq-item active">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <h4>블록 보상 총 물량은 얼마인가요?</h4>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          <p>블록 보상 총 풀은 14.5억 TBURN입니다. 이는 전체 공급량 100억 TBURN의 14.5%에 해당합니다. 비트코인처럼 4년마다 반감기가 적용되어 20년에 걸쳐 배분됩니다. 초기 블록당 보상은 4.6 TBURN이며, 반감기마다 절반으로 감소합니다.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <h4>밸리데이터가 되려면 무엇이 필요한가요?</h4>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          <p>풀 밸리데이터는 최소 100,000 TBURN 스테이킹과 고성능 서버(16 vCPU, 64GB RAM, 2TB SSD, 1Gbps 네트워크)가 필요합니다. 라이트 밸리데이터는 50,000 TBURN과 더 낮은 사양으로 참여할 수 있습니다. 서버 없이 참여하려면 100 TBURN만으로 위임 스테이킹이 가능합니다.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <h4>APY는 어떻게 결정되나요?</h4>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          <p>APY는 블록 보상, 총 스테이킹 양, 밸리데이터 성능에 따라 동적으로 결정됩니다. 현재 예상 APY는 풀 밸리데이터 15~25%, 라이트 밸리데이터 10~18%, 위임자 8~15%입니다. 스테이킹 참여율이 낮을수록 APY가 높아지고, 높을수록 낮아집니다.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <h4>슬래싱이란 무엇인가요?</h4>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          <p>슬래싱은 밸리데이터가 프로토콜 규칙을 위반했을 때 스테이킹된 토큰의 일부를 몰수하는 페널티입니다. 경미한 위반(오프라인 등)은 0.1%, 주요 위반은 1~5%, 악의적 행위(이중 서명 등)는 10~100% 슬래싱이 적용됩니다. 위임자는 밸리데이터 슬래싱의 최대 5%만 공유합니다.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <h4>위임 스테이킹은 어떻게 작동하나요?</h4>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          <p>위임 스테이킹은 최소 100 TBURN으로 신뢰할 수 있는 밸리데이터에게 스테이킹을 맡기는 방식입니다. 밸리데이터가 받는 블록 보상의 일부(수수료 5~15% 차감 후)를 받게 됩니다. 언본딩 기간은 7일이며, 이 기간 동안에는 보상이 지급되지 않습니다.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <h4>보상은 언제 받을 수 있나요?</h4>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          <p>블록 보상은 실시간으로 적립되며, 언제든지 클레임할 수 있습니다. 대시보드에서 '보상 받기' 버튼을 클릭하면 즉시 지갑으로 전송됩니다. 자동 복리(Auto-Compound) 옵션을 활성화하면 보상이 자동으로 재스테이킹되어 복리 효과를 얻을 수 있습니다.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <h4>반감기 후에도 밸리데이터 운영이 가능한가요?</h4>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          <p>네, 반감기 후에도 트랜잭션 수수료 수입이 있어 밸리데이터 운영이 지속 가능합니다. TBURN Chain의 거래량이 증가하면 수수료 수입도 증가하여 블록 보상 감소를 상쇄할 수 있습니다. 또한 TBURN 가격 상승 시 USD 기준 수익은 유지되거나 증가할 수 있습니다.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section style="padding: 100px 2rem; background: var(--gradient-block); text-align: center;">
+    <div style="max-width: 800px; margin: 0 auto;">
+      <h2 style="font-size: 2.5rem; font-weight: 800; margin-bottom: 1rem;">네트워크 보안에 기여하세요</h2>
+      <p style="color: rgba(255,255,255,0.9); font-size: 1.125rem; margin-bottom: 2rem;">
+        TBURN Chain의 밸리데이터가 되어 블록을 생성하고<br>
+        14.5억 TBURN 보상 풀에서 지속적인 수익을 얻으세요.
+      </p>
+      <button onclick="becomeValidator('full')" style="background: var(--white); color: var(--emerald); padding: 20px 50px; border-radius: 14px; font-size: 1.25rem; font-weight: 700; border: none; cursor: pointer; transition: transform 0.3s;">
+        <i class="fas fa-server"></i> 밸리데이터 시작하기
+      </button>
+      <p style="color: rgba(255,255,255,0.7); margin-top: 1.5rem; font-size: 0.875rem;">
+        <i class="fas fa-shield-alt"></i> 20년 장기 보상 · 반감기 설계 · 지속 가능한 수익
+      </p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <h3>TBURN<span>CHAIN</span></h3>
+        <p>AI의 지능, 블록체인의 투명성<br>THE FUTURE IS NOW</p>
+        <div class="social-links">
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-telegram"></i></a>
+          <a href="#"><i class="fab fa-discord"></i></a>
+          <a href="#"><i class="fab fa-github"></i></a>
+          <a href="#"><i class="fab fa-medium"></i></a>
+        </div>
+      </div>
+      <div class="footer-links">
+        <h4>Validators</h4>
+        <ul>
+          <li><a href="#">밸리데이터 가이드</a></li>
+          <li><a href="#">노드 설치</a></li>
+          <li><a href="#">보상 계산기</a></li>
+          <li><a href="#">슬래싱 정책</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h4>Resources</h4>
+        <ul>
+          <li><a href="#">기술 문서</a></li>
+          <li><a href="#">API 문서</a></li>
+          <li><a href="#">GitHub</a></li>
+          <li><a href="#">익스플로러</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h4>Community</h4>
+        <ul>
+          <li><a href="#">블로그</a></li>
+          <li><a href="#">앰배서더</a></li>
+          <li><a href="#">그랜트</a></li>
+          <li><a href="#">고객지원</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025-2045 TBURN Foundation. All Rights Reserved.</p>
+      <div style="display: flex; gap: 2rem;">
+        <a href="#" style="color: var(--gray); text-decoration: none;">이용약관</a>
+        <a href="#" style="color: var(--gray); text-decoration: none;">개인정보처리방침</a>
+        <a href="#" style="color: var(--gray); text-decoration: none;">쿠키 정책</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Calculator Functions
+    function calculateRewards() {
+      const stakeAmount = parseFloat(document.getElementById('stakeAmount').value) || 0;
+      const apyRate = parseFloat(document.getElementById('apyRate').value) || 0;
+      const tburnPrice = parseFloat(document.getElementById('tburnPrice').value) || 0;
+      const validatorType = document.getElementById('validatorType').value;
+
+      let multiplier = 1;
+      if (validatorType === 'light') multiplier = 0.85;
+      if (validatorType === 'delegator') multiplier = 0.90;
+
+      const yearlyReward = stakeAmount * (apyRate / 100) * multiplier;
+      const monthlyReward = yearlyReward / 12;
+      const weeklyReward = yearlyReward / 52;
+      const dailyReward = yearlyReward / 365;
+      const yearlyUSD = yearlyReward * tburnPrice;
+
+      document.getElementById('dailyReward').textContent = dailyReward.toFixed(1) + ' TBURN';
+      document.getElementById('weeklyReward').textContent = weeklyReward.toFixed(1) + ' TBURN';
+      document.getElementById('monthlyReward').textContent = monthlyReward.toLocaleString('en-US', {maximumFractionDigits: 0}) + ' TBURN';
+      document.getElementById('yearlyReward').textContent = yearlyReward.toLocaleString('en-US', {maximumFractionDigits: 0}) + ' TBURN';
+      document.getElementById('yearlyUSD').textContent = '$' + yearlyUSD.toLocaleString('en-US', {maximumFractionDigits: 0});
+    }
+
+    function updateStakeInput() {
+      const value = document.getElementById('stakeSlider').value;
+      document.getElementById('stakeAmount').value = value;
+      calculateRewards();
+    }
+
+    function updateApyInput() {
+      const value = document.getElementById('apySlider').value;
+      document.getElementById('apyRate').value = value;
+      calculateRewards();
+    }
+
+    // Initialize calculator
+    calculateRewards();
+
+    // Simulated live stats
+    function updateNetworkStats() {
+      const blockHeight = document.getElementById('blockHeight');
+      const currentBlock = parseInt(blockHeight.textContent.replace(/,/g, ''));
+      blockHeight.textContent = (currentBlock + 1).toLocaleString();
+    }
+
+    setInterval(updateNetworkStats, 2000);
+
+    // FAQ Toggle
+    function toggleFaq(element) {
+      const faqItem = element.parentElement;
+      const wasActive = faqItem.classList.contains('active');
+      
+      document.querySelectorAll('.faq-item').forEach(item => {
+        item.classList.remove('active');
+      });
+      
+      if (!wasActive) {
+        faqItem.classList.add('active');
+      }
+    }
+
+    // Scroll to Section
+    function scrollToSection(sectionId) {
+      const section = document.getElementById(sectionId);
+      if (section) {
+        section.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+
+    // Become Validator
+    function becomeValidator(type) {
+      const typeNames = {
+        full: '풀 밸리데이터',
+        light: '라이트 밸리데이터'
+      };
+      alert(`${typeNames[type]} 설정 가이드 페이지로 이동합니다.\n\n메인넷 런칭 후 활성화됩니다.`);
+    }
+
+    // Wallet Modal
+    function openWalletModal() {
+      alert('지갑 연결 기능은 메인넷 런칭 후 활성화됩니다.\n\n현재 데모 모드로 확인 중입니다.');
+    }
+
+    // Claim Rewards
+    function claimRewards() {
+      alert('보상 클레임 기능은 메인넷 런칭 후 활성화됩니다.\n\n현재 데모 모드로 확인 중입니다.');
+    }
+
+    // Delegate Button
+    document.querySelectorAll('.delegate-btn-small').forEach(btn => {
+      btn.addEventListener('click', function() {
+        alert('위임 스테이킹 기능은 메인넷 런칭 후 활성화됩니다.\n\n현재 데모 모드로 확인 중입니다.');
+      });
+    });
+
+    // Validator Tabs
+    document.querySelectorAll('.validator-tab').forEach(tab => {
+      tab.addEventListener('click', function() {
+        document.querySelectorAll('.validator-tab').forEach(t => t.classList.remove('active'));
+        this.classList.add('active');
+      });
+    });
+
+    // Header Scroll Effect
+    window.addEventListener('scroll', () => {
+      const header = document.querySelector('.header');
+      if (window.scrollY > 50) {
+        header.style.background = 'rgba(15, 23, 42, 0.98)';
+      } else {
+        header.style.background = 'rgba(15, 23, 42, 0.95)';
+      }
+    });
+  </script>
+</body>
+</html>
