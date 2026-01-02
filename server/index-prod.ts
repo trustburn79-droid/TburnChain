@@ -46,46 +46,18 @@ app.use('/assets', express.static(path.join(distPath, 'assets'), {
   etag: false, // Not needed for hashed files
 }));
 
-// ============================================
-// CRITICAL: Static Landing Page MUST be served BEFORE express.static
-// This ensures the lightweight HTML (15KB) is returned for `/` instead of 
-// the full React SPA (14MB) from dist/public/index.html
-// ============================================
-// PRODUCTION: Use dist/public (Vite copies public/ to dist/public during build)
-const staticLandingPath = path.resolve(distPath, 'static-landing.html');
-
-app.get('/', (_req, res) => {
-  // Serve static landing page for instant load (< 1 second)
-  if (fs.existsSync(staticLandingPath)) {
-    res.setHeader('Content-Type', 'text/html; charset=utf-8');
-    res.setHeader('Cache-Control', 'public, max-age=300, stale-while-revalidate=600');
-    res.setHeader('X-Content-Type', 'static-landing');
-    res.setHeader('X-Content-Version', '2026.01.02.v5');
-    res.sendFile(staticLandingPath);
-    console.log('[Static Landing] Served instant landing page (15KB vs 14MB)');
-  } else {
-    // Fallback to SPA if static landing not found
-    console.error('[Static Landing] CRITICAL: Not found at:', staticLandingPath);
-    console.error('[Static Landing] distPath is:', distPath);
-    res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
-    res.sendFile(path.resolve(distPath, "index.html"));
-  }
-});
-
-// Serve other static files with short cache
-// IMPORTANT: index: false prevents express.static from serving index.html for `/`
+// Serve static files with proper caching
 app.use(express.static(distPath, {
   maxAge: '1h',
   etag: true,
-  index: false, // CRITICAL: Prevents overriding our static landing page handler
   setHeaders: (res, filePath) => {
-    // index.html MUST NOT be cached
+    // index.html MUST NOT be cached for SPA routing
     if (filePath.endsWith('index.html') || filePath.endsWith('.html')) {
       res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
       res.setHeader('Pragma', 'no-cache');
       res.setHeader('Expires', '0');
       res.setHeader('Surrogate-Control', 'no-store');
-      res.setHeader('X-Content-Version', '2026.01.02.v4');
+      res.setHeader('X-Content-Version', '2026.01.02.v6');
     }
   },
 }));
