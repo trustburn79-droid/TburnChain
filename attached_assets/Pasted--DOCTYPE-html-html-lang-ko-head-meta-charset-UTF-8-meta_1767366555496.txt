@@ -1,0 +1,2198 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TBURN Chain - 마케팅 프로그램 | 3억 TBURN 마케팅 인센티브</title>
+  <meta name="description" content="TBURN Chain 마케팅 프로그램. 앰배서더, 인플루언서, 컨텐츠 크리에이터, 이벤트 참여로 3억 TBURN 보상을 받으세요.">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy: #1A365D;
+      --gold: #D4AF37;
+      --gold-light: #E5C76B;
+      --dark: #0F172A;
+      --dark-card: #1E293B;
+      --gray: #64748B;
+      --light-gray: #94A3B8;
+      --white: #FFFFFF;
+      --success: #22C55E;
+      --warning: #F59E0B;
+      --danger: #EF4444;
+      --purple: #8B5CF6;
+      --blue: #3B82F6;
+      --cyan: #06B6D4;
+      --pink: #EC4899;
+      --emerald: #10B981;
+      --indigo: #6366F1;
+      --rose: #F43F5E;
+      --fuchsia: #D946EF;
+      --gradient-gold: linear-gradient(135deg, #D4AF37 0%, #F5D76E 50%, #D4AF37 100%);
+      --gradient-marketing: linear-gradient(135deg, #EC4899 0%, #F43F5E 100%);
+      --gradient-ambassador: linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%);
+      --gradient-influencer: linear-gradient(135deg, #F43F5E 0%, #F59E0B 100%);
+      --gradient-creator: linear-gradient(135deg, #06B6D4 0%, #3B82F6 100%);
+      --gradient-dark: linear-gradient(180deg, #0F172A 0%, #1E293B 100%);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--dark);
+      color: var(--white);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-20px); } }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.7; } }
+    @keyframes glow { 0%, 100% { box-shadow: 0 0 20px rgba(236, 72, 153, 0.3); } 50% { box-shadow: 0 0 40px rgba(236, 72, 153, 0.6); } }
+    @keyframes shine { 0% { left: -100%; } 100% { left: 100%; } }
+    @keyframes megaphone { 0%, 100% { transform: rotate(-10deg); } 50% { transform: rotate(10deg); } }
+    @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+    @keyframes gradient { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background: rgba(15, 23, 42, 0.95);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(236, 72, 153, 0.2);
+    }
+
+    .header-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+
+    .logo-icon {
+      width: 48px;
+      height: 48px;
+      background: var(--gradient-gold);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+    }
+
+    .logo-text { font-size: 1.5rem; font-weight: 800; color: var(--white); }
+    .logo-text span { color: var(--gold); }
+
+    .nav-links { display: flex; gap: 2rem; align-items: center; }
+    .nav-links a { color: var(--light-gray); text-decoration: none; font-weight: 500; transition: color 0.3s; }
+    .nav-links a:hover { color: var(--pink); }
+
+    .connect-btn {
+      background: var(--gradient-marketing);
+      color: var(--white);
+      padding: 12px 24px;
+      border-radius: 12px;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .connect-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 40px rgba(236, 72, 153, 0.3);
+    }
+
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      padding: 120px 2rem 80px;
+      background: radial-gradient(ellipse at center top, rgba(236, 72, 153, 0.15) 0%, transparent 50%),
+                  radial-gradient(ellipse at bottom right, rgba(244, 63, 94, 0.1) 0%, transparent 50%),
+                  var(--gradient-dark);
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .hero-bg::before {
+      content: '';
+      position: absolute;
+      width: 800px;
+      height: 800px;
+      background: radial-gradient(circle, rgba(236, 72, 153, 0.2) 0%, transparent 70%);
+      top: -300px;
+      left: -200px;
+      animation: float 10s ease-in-out infinite;
+    }
+
+    .hero-content {
+      max-width: 1200px;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(236, 72, 153, 0.15);
+      border: 1px solid rgba(236, 72, 153, 0.4);
+      padding: 8px 20px;
+      border-radius: 100px;
+      font-size: 0.875rem;
+      color: var(--pink);
+      margin-bottom: 2rem;
+    }
+
+    .badge .megaphone-icon { animation: megaphone 1s ease-in-out infinite; }
+
+    .hero h1 {
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      font-weight: 900;
+      margin-bottom: 1.5rem;
+      line-height: 1.1;
+    }
+
+    .hero h1 .gradient-text {
+      background: var(--gradient-marketing);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-subtitle {
+      font-size: 1.25rem;
+      color: var(--light-gray);
+      max-width: 700px;
+      margin: 0 auto 3rem;
+    }
+
+    /* Social Stats Banner */
+    .social-stats-banner {
+      background: linear-gradient(90deg, rgba(236, 72, 153, 0.1), rgba(244, 63, 94, 0.1), rgba(236, 72, 153, 0.1));
+      border: 1px solid rgba(236, 72, 153, 0.3);
+      border-radius: 20px;
+      padding: 1.5rem 2rem;
+      margin-bottom: 2rem;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 1.5rem;
+    }
+
+    .social-stat {
+      text-align: center;
+      position: relative;
+    }
+
+    .social-stat:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      right: -0.75rem;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 1px;
+      height: 40px;
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .social-stat .icon {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .social-stat .value {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--pink);
+    }
+
+    .social-stat .label {
+      font-size: 0.75rem;
+      color: var(--gray);
+      margin-top: 0.25rem;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+    }
+
+    .stat-card {
+      background: var(--dark-card);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 1.5rem;
+      text-align: center;
+      transition: transform 0.3s, border-color 0.3s;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--pink);
+    }
+
+    .stat-value {
+      font-size: 2rem;
+      font-weight: 800;
+      background: var(--gradient-marketing);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-label { font-size: 0.875rem; color: var(--light-gray); }
+
+    .cta-group { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+    .btn-primary {
+      background: var(--gradient-marketing);
+      color: var(--white);
+      padding: 16px 40px;
+      border-radius: 12px;
+      font-size: 1.125rem;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 20px 60px rgba(236, 72, 153, 0.4);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--white);
+      padding: 16px 40px;
+      border-radius: 12px;
+      font-size: 1.125rem;
+      font-weight: 600;
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      transition: all 0.3s;
+    }
+
+    .btn-secondary:hover { border-color: var(--pink); color: var(--pink); }
+
+    .section { padding: 100px 2rem; max-width: 1400px; margin: 0 auto; }
+
+    .section-header { text-align: center; margin-bottom: 4rem; }
+
+    .section-badge {
+      display: inline-block;
+      background: rgba(236, 72, 153, 0.15);
+      color: var(--pink);
+      padding: 6px 16px;
+      border-radius: 100px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+
+    .section-title { font-size: 2.5rem; font-weight: 800; margin-bottom: 1rem; }
+    .section-subtitle { color: var(--light-gray); font-size: 1.125rem; max-width: 600px; margin: 0 auto; }
+
+    /* Distribution Grid */
+    .distribution-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 1.5rem;
+    }
+
+    .dist-card {
+      background: var(--dark-card);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 1.5rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s;
+    }
+
+    .dist-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--pink);
+    }
+
+    .dist-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+    }
+
+    .dist-card.brand::before { background: var(--gradient-marketing); }
+    .dist-card.influencer::before { background: var(--gradient-influencer); }
+    .dist-card.creator::before { background: var(--gradient-creator); }
+    .dist-card.event::before { background: linear-gradient(90deg, var(--purple), var(--fuchsia)); }
+    .dist-card.pr::before { background: linear-gradient(90deg, var(--emerald), var(--cyan)); }
+
+    .dist-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+    .dist-name { font-size: 0.9rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .dist-amount { font-size: 1.25rem; font-weight: 800; color: var(--pink); margin-bottom: 0.25rem; }
+    .dist-percent { font-size: 0.8rem; color: var(--gray); }
+
+    /* Programs Grid */
+    .programs-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+    }
+
+    .program-card {
+      background: var(--dark-card);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 24px;
+      overflow: hidden;
+      transition: all 0.3s;
+    }
+
+    .program-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+      border-color: var(--pink);
+    }
+
+    .program-card.featured {
+      border-color: var(--pink);
+      box-shadow: 0 0 40px rgba(236, 72, 153, 0.2);
+    }
+
+    .program-header {
+      padding: 2rem;
+      position: relative;
+    }
+
+    .program-card.ambassador .program-header { background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(236, 72, 153, 0.1)); }
+    .program-card.influencer .program-header { background: linear-gradient(135deg, rgba(244, 63, 94, 0.2), rgba(245, 158, 11, 0.1)); }
+    .program-card.creator .program-header { background: linear-gradient(135deg, rgba(6, 182, 212, 0.2), rgba(59, 130, 246, 0.1)); }
+    .program-card.event .program-header { background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(217, 70, 239, 0.1)); }
+
+    .program-badge {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      padding: 6px 14px;
+      border-radius: 100px;
+      font-size: 0.7rem;
+      font-weight: 700;
+    }
+
+    .program-badge.hot { background: var(--gradient-marketing); color: var(--white); }
+    .program-badge.new { background: var(--success); color: var(--white); }
+
+    .program-icon { font-size: 3rem; margin-bottom: 1rem; }
+    .program-title { font-size: 1.5rem; font-weight: 800; margin-bottom: 0.5rem; }
+    .program-subtitle { color: var(--light-gray); font-size: 0.9rem; }
+
+    .program-content { padding: 0 2rem 2rem; }
+
+    .program-rewards {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .reward-box {
+      padding: 1rem;
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 12px;
+      text-align: center;
+    }
+
+    .reward-box .value {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--pink);
+      margin-bottom: 0.25rem;
+    }
+
+    .reward-box .label {
+      font-size: 0.75rem;
+      color: var(--gray);
+    }
+
+    .program-features {
+      list-style: none;
+      margin-bottom: 1.5rem;
+    }
+
+    .program-features li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 0;
+      font-size: 0.9rem;
+      color: var(--light-gray);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .program-features li:last-child { border-bottom: none; }
+    .program-features li i { color: var(--success); width: 16px; }
+
+    .program-btn {
+      display: block;
+      width: 100%;
+      padding: 14px;
+      border-radius: 12px;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-align: center;
+      background: var(--gradient-marketing);
+      color: var(--white);
+    }
+
+    .program-btn:hover { transform: scale(1.02); }
+
+    /* Ambassador Tiers */
+    .ambassador-tiers {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+    }
+
+    .ambassador-card {
+      background: var(--dark-card);
+      border: 2px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 1.5rem;
+      text-align: center;
+      transition: all 0.3s;
+      position: relative;
+    }
+
+    .ambassador-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    }
+
+    .ambassador-card.legend { border-color: var(--gold); background: linear-gradient(180deg, rgba(212, 175, 55, 0.1), transparent); }
+    .ambassador-card.elite { border-color: var(--pink); }
+    .ambassador-card.rising { border-color: var(--purple); }
+    .ambassador-card.starter { border-color: var(--cyan); }
+
+    .ambassador-icon { font-size: 2.5rem; margin-bottom: 0.75rem; }
+
+    .ambassador-tier {
+      font-size: 1.125rem;
+      font-weight: 800;
+      margin-bottom: 0.25rem;
+    }
+
+    .ambassador-card.legend .ambassador-tier { color: var(--gold); }
+    .ambassador-card.elite .ambassador-tier { color: var(--pink); }
+    .ambassador-card.rising .ambassador-tier { color: var(--purple); }
+    .ambassador-card.starter .ambassador-tier { color: var(--cyan); }
+
+    .ambassador-requirement { font-size: 0.8rem; color: var(--gray); margin-bottom: 1rem; }
+
+    .ambassador-reward {
+      padding: 1rem;
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 12px;
+      margin-bottom: 1rem;
+    }
+
+    .ambassador-reward .value {
+      font-size: 1.25rem;
+      font-weight: 800;
+    }
+
+    .ambassador-card.legend .ambassador-reward .value { color: var(--gold); }
+    .ambassador-card.elite .ambassador-reward .value { color: var(--pink); }
+    .ambassador-card.rising .ambassador-reward .value { color: var(--purple); }
+    .ambassador-card.starter .ambassador-reward .value { color: var(--cyan); }
+
+    .ambassador-reward .label { font-size: 0.75rem; color: var(--gray); }
+
+    .ambassador-perks {
+      list-style: none;
+      text-align: left;
+      font-size: 0.8rem;
+    }
+
+    .ambassador-perks li {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 0;
+      color: var(--light-gray);
+    }
+
+    .ambassador-perks li i { color: var(--success); font-size: 10px; }
+
+    /* Content Types */
+    .content-types-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+    }
+
+    .content-card {
+      background: var(--dark-card);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 1.5rem;
+      text-align: center;
+      transition: all 0.3s;
+    }
+
+    .content-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--pink);
+    }
+
+    .content-icon {
+      width: 60px;
+      height: 60px;
+      border-radius: 16px;
+      margin: 0 auto 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+    }
+
+    .content-card:nth-child(1) .content-icon { background: rgba(244, 63, 94, 0.2); }
+    .content-card:nth-child(2) .content-icon { background: rgba(139, 92, 246, 0.2); }
+    .content-card:nth-child(3) .content-icon { background: rgba(6, 182, 212, 0.2); }
+    .content-card:nth-child(4) .content-icon { background: rgba(245, 158, 11, 0.2); }
+
+    .content-title { font-weight: 700; margin-bottom: 0.5rem; }
+    .content-desc { font-size: 0.85rem; color: var(--gray); margin-bottom: 1rem; }
+    .content-reward { font-weight: 800; color: var(--pink); }
+
+    /* Campaigns */
+    .campaigns-container {
+      background: var(--dark-card);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 24px;
+      overflow: hidden;
+    }
+
+    .campaigns-header {
+      padding: 2rem;
+      background: linear-gradient(135deg, rgba(236, 72, 153, 0.15), transparent);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .campaigns-header h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .campaigns-header h3 i { color: var(--pink); }
+
+    .campaign-filter {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .filter-btn {
+      padding: 8px 16px;
+      border-radius: 100px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: transparent;
+      color: var(--light-gray);
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .filter-btn.active {
+      background: var(--pink);
+      border-color: var(--pink);
+      color: var(--white);
+    }
+
+    .campaigns-list { padding: 0 2rem 2rem; }
+
+    .campaign-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem;
+      background: rgba(255, 255, 255, 0.02);
+      border-radius: 16px;
+      margin-bottom: 1rem;
+      transition: all 0.3s;
+    }
+
+    .campaign-item:last-child { margin-bottom: 0; }
+    .campaign-item:hover { background: rgba(255, 255, 255, 0.05); }
+
+    .campaign-left {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .campaign-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+    }
+
+    .campaign-icon.twitter { background: rgba(29, 161, 242, 0.2); }
+    .campaign-icon.youtube { background: rgba(255, 0, 0, 0.2); }
+    .campaign-icon.tiktok { background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.2); }
+    .campaign-icon.article { background: rgba(236, 72, 153, 0.2); }
+
+    .campaign-info h4 { font-weight: 700; margin-bottom: 0.25rem; }
+    .campaign-info p { font-size: 0.85rem; color: var(--gray); }
+
+    .campaign-center {
+      display: flex;
+      gap: 2rem;
+    }
+
+    .campaign-stat {
+      text-align: center;
+    }
+
+    .campaign-stat .value { font-weight: 700; color: var(--pink); }
+    .campaign-stat .label { font-size: 0.7rem; color: var(--gray); }
+
+    .campaign-right {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .campaign-status {
+      padding: 6px 12px;
+      border-radius: 100px;
+      font-size: 0.75rem;
+      font-weight: 700;
+    }
+
+    .campaign-status.active { background: rgba(34, 197, 94, 0.15); color: var(--success); }
+    .campaign-status.ending { background: rgba(245, 158, 11, 0.15); color: var(--warning); }
+    .campaign-status.upcoming { background: rgba(59, 130, 246, 0.15); color: var(--blue); }
+
+    .campaign-join-btn {
+      padding: 10px 20px;
+      border-radius: 10px;
+      background: var(--gradient-marketing);
+      color: var(--white);
+      font-weight: 600;
+      font-size: 0.85rem;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .campaign-join-btn:hover { transform: scale(1.05); }
+
+    /* Leaderboard */
+    .leaderboard-section {
+      background: var(--dark-card);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 24px;
+      padding: 2rem;
+    }
+
+    .leaderboard-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .leaderboard-header h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .leaderboard-header h3 i { color: var(--gold); }
+
+    .leaderboard-tabs {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .leaderboard-tab {
+      padding: 8px 16px;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: transparent;
+      color: var(--light-gray);
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .leaderboard-tab.active {
+      background: var(--pink);
+      border-color: var(--pink);
+      color: var(--white);
+    }
+
+    .leaderboard-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .leaderboard-table th {
+      text-align: left;
+      padding: 1rem;
+      background: rgba(255, 255, 255, 0.03);
+      font-weight: 600;
+      font-size: 0.85rem;
+      color: var(--light-gray);
+    }
+
+    .leaderboard-table th:first-child { border-radius: 12px 0 0 12px; }
+    .leaderboard-table th:last-child { border-radius: 0 12px 12px 0; }
+
+    .leaderboard-table td {
+      padding: 1rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .leaderboard-table tr:hover td { background: rgba(255, 255, 255, 0.02); }
+
+    .rank-cell {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      font-weight: 800;
+      font-size: 0.85rem;
+    }
+
+    .rank-cell.gold { background: var(--gradient-gold); color: var(--dark); }
+    .rank-cell.silver { background: linear-gradient(135deg, #C0C0C0, #E8E8E8); color: var(--dark); }
+    .rank-cell.bronze { background: linear-gradient(135deg, #CD7F32, #E8A65D); color: var(--dark); }
+    .rank-cell.normal { background: rgba(255, 255, 255, 0.1); color: var(--light-gray); }
+
+    .ambassador-cell {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .ambassador-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.85rem;
+    }
+
+    .ambassador-avatar.legend { background: var(--gradient-gold); color: var(--dark); }
+    .ambassador-avatar.elite { background: var(--gradient-marketing); }
+    .ambassador-avatar.rising { background: var(--purple); }
+
+    .ambassador-name { font-weight: 600; }
+    .ambassador-handle { font-size: 0.75rem; color: var(--gray); }
+
+    .points-cell { font-weight: 700; color: var(--pink); }
+    .rewards-cell { font-weight: 700; color: var(--gold); }
+
+    /* Dashboard */
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 2rem;
+    }
+
+    .dashboard-main {
+      background: var(--dark-card);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 24px;
+      padding: 2rem;
+    }
+
+    .dashboard-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+    }
+
+    .dashboard-user {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .dashboard-avatar {
+      width: 60px;
+      height: 60px;
+      border-radius: 16px;
+      background: var(--gradient-marketing);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      font-weight: 800;
+    }
+
+    .tier-badge {
+      padding: 6px 14px;
+      border-radius: 100px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      background: var(--gradient-ambassador);
+      color: var(--white);
+    }
+
+    .dashboard-stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .dash-stat {
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 16px;
+      padding: 1.25rem;
+      text-align: center;
+    }
+
+    .dash-stat-value { font-size: 1.5rem; font-weight: 800; margin-bottom: 0.25rem; }
+    .dash-stat-value.pink { color: var(--pink); }
+    .dash-stat-value.gold { color: var(--gold); }
+    .dash-stat-value.purple { color: var(--purple); }
+    .dash-stat-value.success { color: var(--success); }
+    .dash-stat-label { font-size: 0.8rem; color: var(--light-gray); }
+
+    .my-campaigns {
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 16px;
+      padding: 1.5rem;
+    }
+
+    .my-campaigns h4 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .my-campaigns h4 i { color: var(--pink); }
+
+    .my-campaign-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem;
+      background: rgba(255, 255, 255, 0.02);
+      border-radius: 12px;
+      margin-bottom: 0.75rem;
+    }
+
+    .my-campaign-item:last-child { margin-bottom: 0; }
+
+    .my-campaign-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .my-campaign-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .my-campaign-icon.completed { background: rgba(34, 197, 94, 0.2); color: var(--success); }
+    .my-campaign-icon.pending { background: rgba(245, 158, 11, 0.2); color: var(--warning); }
+
+    .my-campaign-info h5 { font-size: 0.9rem; font-weight: 600; }
+    .my-campaign-info p { font-size: 0.75rem; color: var(--gray); }
+
+    .my-campaign-reward {
+      text-align: right;
+    }
+
+    .my-campaign-reward .amount { font-weight: 700; color: var(--gold); }
+    .my-campaign-reward .status { font-size: 0.7rem; color: var(--gray); }
+
+    .dashboard-sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .sidebar-card {
+      background: var(--dark-card);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 1.5rem;
+    }
+
+    .sidebar-card h4 {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .sidebar-card h4 i { color: var(--pink); }
+
+    .tier-progress {
+      margin-bottom: 1rem;
+    }
+
+    .tier-progress .header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.5rem;
+    }
+
+    .tier-progress .current { font-weight: 700; color: var(--pink); }
+    .tier-progress .next { font-size: 0.8rem; color: var(--gray); }
+
+    .tier-progress-bar {
+      height: 10px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 100px;
+      overflow: hidden;
+    }
+
+    .tier-progress-fill {
+      height: 100%;
+      background: var(--gradient-marketing);
+      border-radius: 100px;
+      transition: width 1s ease;
+    }
+
+    .tier-info { font-size: 0.85rem; color: var(--light-gray); }
+
+    .claim-rewards-card {
+      text-align: center;
+      padding: 1.5rem;
+    }
+
+    .claim-amount {
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--gold);
+      margin-bottom: 0.5rem;
+    }
+
+    .claim-label {
+      font-size: 0.875rem;
+      color: var(--gray);
+      margin-bottom: 1rem;
+    }
+
+    .claim-btn {
+      width: 100%;
+      background: var(--gradient-gold);
+      color: var(--dark);
+      padding: 14px;
+      border-radius: 12px;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .claim-btn:hover { transform: scale(1.02); }
+
+    .social-links-card {
+      text-align: center;
+    }
+
+    .social-links-card p {
+      font-size: 0.9rem;
+      color: var(--light-gray);
+      margin-bottom: 1rem;
+    }
+
+    .social-icons {
+      display: flex;
+      justify-content: center;
+      gap: 0.75rem;
+    }
+
+    .social-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.05);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--light-gray);
+      font-size: 1.25rem;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .social-icon:hover {
+      background: var(--pink);
+      color: var(--white);
+    }
+
+    /* FAQ */
+    .faq-container { max-width: 900px; margin: 0 auto; }
+
+    .faq-item {
+      background: var(--dark-card);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      margin-bottom: 1rem;
+      overflow: hidden;
+    }
+
+    .faq-question {
+      padding: 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .faq-question:hover { background: rgba(255, 255, 255, 0.03); }
+    .faq-question h4 { font-size: 1.1rem; font-weight: 600; }
+    .faq-question i { color: var(--pink); transition: transform 0.3s; }
+    .faq-item.active .faq-question i { transform: rotate(180deg); }
+
+    .faq-answer {
+      padding: 0 1.5rem;
+      max-height: 0;
+      overflow: hidden;
+      transition: all 0.3s;
+    }
+
+    .faq-item.active .faq-answer {
+      padding: 0 1.5rem 1.5rem;
+      max-height: 500px;
+    }
+
+    .faq-answer p { color: var(--light-gray); line-height: 1.8; }
+
+    /* Footer */
+    .footer {
+      background: var(--dark);
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 60px 2rem 30px;
+    }
+
+    .footer-content {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 4rem;
+      margin-bottom: 3rem;
+    }
+
+    .footer-brand h3 { font-size: 1.5rem; font-weight: 800; margin-bottom: 1rem; }
+    .footer-brand h3 span { color: var(--gold); }
+    .footer-brand p { color: var(--light-gray); margin-bottom: 1.5rem; }
+
+    .social-links-footer { display: flex; gap: 1rem; }
+
+    .social-links-footer a {
+      width: 44px;
+      height: 44px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--light-gray);
+      transition: all 0.3s;
+    }
+
+    .social-links-footer a:hover { background: var(--pink); color: var(--white); }
+
+    .footer-links h4 { font-size: 1rem; font-weight: 700; margin-bottom: 1.5rem; }
+    .footer-links ul { list-style: none; }
+    .footer-links li { margin-bottom: 0.75rem; }
+    .footer-links a { color: var(--light-gray); text-decoration: none; transition: color 0.3s; }
+    .footer-links a:hover { color: var(--pink); }
+
+    .footer-bottom {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: var(--gray);
+      font-size: 0.875rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 1200px) {
+      .programs-grid { grid-template-columns: 1fr; }
+      .ambassador-tiers { grid-template-columns: repeat(2, 1fr); }
+      .content-types-grid { grid-template-columns: repeat(2, 1fr); }
+      .dashboard-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 1024px) {
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .distribution-grid { grid-template-columns: repeat(3, 1fr); }
+      .social-stats-banner { grid-template-columns: repeat(3, 1fr); }
+      .dashboard-stats { grid-template-columns: repeat(2, 1fr); }
+      .footer-content { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 768px) {
+      .header-container { padding: 1rem; }
+      .nav-links { display: none; }
+      .hero { padding: 100px 1rem 60px; }
+      .stats-grid { grid-template-columns: 1fr; }
+      .distribution-grid { grid-template-columns: repeat(2, 1fr); }
+      .social-stats-banner { grid-template-columns: repeat(2, 1fr); }
+      .ambassador-tiers { grid-template-columns: 1fr; }
+      .content-types-grid { grid-template-columns: 1fr; }
+      .campaign-item { flex-direction: column; gap: 1rem; text-align: center; }
+      .campaign-left { flex-direction: column; }
+      .campaign-center { justify-content: center; }
+      .footer-content { grid-template-columns: 1fr; gap: 2rem; }
+      .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="header-container">
+      <a href="#" class="logo">
+        <div class="logo-icon">🔥</div>
+        <div class="logo-text">TBURN<span>CHAIN</span></div>
+      </a>
+      <nav class="nav-links">
+        <a href="#programs">프로그램</a>
+        <a href="#ambassador">앰배서더</a>
+        <a href="#campaigns">캠페인</a>
+        <a href="#leaderboard">리더보드</a>
+        <a href="#dashboard">대시보드</a>
+      </nav>
+      <button class="connect-btn" onclick="openWalletModal()">
+        <i class="fas fa-wallet"></i> 지갑 연결
+      </button>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <div class="badge">
+        <i class="fas fa-bullhorn megaphone-icon"></i>
+        MARKETING - 함께 알리고 함께 성장
+      </div>
+      <h1>
+        TBURN 마케팅<br>
+        <span class="gradient-text">3억 TBURN</span> 보상
+      </h1>
+      <p class="hero-subtitle">
+        앰배서더, 인플루언서, 컨텐츠 크리에이터로 참여하고
+        TBURN을 알리면서 보상을 받으세요.
+      </p>
+
+      <!-- Social Stats Banner -->
+      <div class="social-stats-banner">
+        <div class="social-stat">
+          <div class="icon"><i class="fab fa-twitter"></i></div>
+          <div class="value">520K+</div>
+          <div class="label">Twitter 팔로워</div>
+        </div>
+        <div class="social-stat">
+          <div class="icon"><i class="fab fa-telegram"></i></div>
+          <div class="value">180K+</div>
+          <div class="label">Telegram 멤버</div>
+        </div>
+        <div class="social-stat">
+          <div class="icon"><i class="fab fa-discord"></i></div>
+          <div class="value">95K+</div>
+          <div class="label">Discord 멤버</div>
+        </div>
+        <div class="social-stat">
+          <div class="icon"><i class="fab fa-youtube"></i></div>
+          <div class="value">45K+</div>
+          <div class="label">YouTube 구독자</div>
+        </div>
+        <div class="social-stat">
+          <div class="icon"><i class="fas fa-globe"></i></div>
+          <div class="value">50+</div>
+          <div class="label">글로벌 커뮤니티</div>
+        </div>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-value">3억</div>
+          <div class="stat-label">총 마케팅 풀</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">10%</div>
+          <div class="stat-label">TGE 해제</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">24개월</div>
+          <div class="stat-label">운용 기간</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">2,500+</div>
+          <div class="stat-label">활성 앰배서더</div>
+        </div>
+      </div>
+
+      <div class="cta-group">
+        <button class="btn-primary" onclick="scrollToSection('ambassador')">
+          <i class="fas fa-user-plus"></i> 앰배서더 신청
+        </button>
+        <button class="btn-secondary" onclick="scrollToSection('campaigns')">
+          <i class="fas fa-tasks"></i> 캠페인 참여
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Distribution Section -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-badge">DISTRIBUTION</span>
+      <h2 class="section-title">마케팅 배분 구조</h2>
+      <p class="section-subtitle">3억 TBURN이 5가지 마케팅 채널로 배분됩니다</p>
+    </div>
+
+    <div class="distribution-grid">
+      <div class="dist-card brand">
+        <div class="dist-icon">🎯</div>
+        <div class="dist-name">브랜드 캠페인</div>
+        <div class="dist-amount">1.2억</div>
+        <div class="dist-percent">40%</div>
+      </div>
+      <div class="dist-card influencer">
+        <div class="dist-icon">⭐</div>
+        <div class="dist-name">인플루언서/KOL</div>
+        <div class="dist-amount">0.6억</div>
+        <div class="dist-percent">20%</div>
+      </div>
+      <div class="dist-card creator">
+        <div class="dist-icon">🎨</div>
+        <div class="dist-name">컨텐츠 크리에이터</div>
+        <div class="dist-amount">0.45억</div>
+        <div class="dist-percent">15%</div>
+      </div>
+      <div class="dist-card event">
+        <div class="dist-icon">🎉</div>
+        <div class="dist-name">이벤트 & 컨퍼런스</div>
+        <div class="dist-amount">0.45억</div>
+        <div class="dist-percent">15%</div>
+      </div>
+      <div class="dist-card pr">
+        <div class="dist-icon">📰</div>
+        <div class="dist-name">PR & 미디어</div>
+        <div class="dist-amount">0.3억</div>
+        <div class="dist-percent">10%</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Programs Section -->
+  <section class="section" id="programs" style="background: rgba(255,255,255,0.02);">
+    <div class="section-header">
+      <span class="section-badge">PROGRAMS</span>
+      <h2 class="section-title">마케팅 프로그램</h2>
+      <p class="section-subtitle">다양한 방식으로 TBURN을 알리고 보상받으세요</p>
+    </div>
+
+    <div class="programs-grid">
+      <!-- Ambassador Program -->
+      <div class="program-card featured ambassador">
+        <div class="program-header">
+          <span class="program-badge hot">🔥 HOT</span>
+          <div class="program-icon">🎖️</div>
+          <h3 class="program-title">앰배서더 프로그램</h3>
+          <p class="program-subtitle">TBURN의 공식 대사가 되어 글로벌 성장에 기여</p>
+        </div>
+        <div class="program-content">
+          <div class="program-rewards">
+            <div class="reward-box">
+              <div class="value">최대 100만</div>
+              <div class="label">연간 보상 (TBURN)</div>
+            </div>
+            <div class="reward-box">
+              <div class="value">2,500+</div>
+              <div class="label">활성 앰배서더</div>
+            </div>
+          </div>
+          <ul class="program-features">
+            <li><i class="fas fa-check"></i> 월간 활동 기반 보상 지급</li>
+            <li><i class="fas fa-check"></i> 전용 앰배서더 NFT 배지</li>
+            <li><i class="fas fa-check"></i> VIP 이벤트 및 밋업 초청</li>
+            <li><i class="fas fa-check"></i> 신기능 베타 테스트 참여</li>
+            <li><i class="fas fa-check"></i> 전용 Discord 채널 접근</li>
+          </ul>
+          <button class="program-btn" onclick="applyProgram('ambassador')">앰배서더 신청하기</button>
+        </div>
+      </div>
+
+      <!-- Influencer Partnership -->
+      <div class="program-card influencer">
+        <div class="program-header">
+          <div class="program-icon">🌟</div>
+          <h3 class="program-title">인플루언서 파트너십</h3>
+          <p class="program-subtitle">영향력 있는 크리에이터와 함께하는 협업</p>
+        </div>
+        <div class="program-content">
+          <div class="program-rewards">
+            <div class="reward-box">
+              <div class="value">최대 500만</div>
+              <div class="label">캠페인당 보상</div>
+            </div>
+            <div class="reward-box">
+              <div class="value">150+</div>
+              <div class="label">파트너 KOL</div>
+            </div>
+          </div>
+          <ul class="program-features">
+            <li><i class="fas fa-check"></i> 맞춤형 캠페인 협의</li>
+            <li><i class="fas fa-check"></i> 성과 기반 + 고정 보상</li>
+            <li><i class="fas fa-check"></i> 전용 프로모션 코드</li>
+            <li><i class="fas fa-check"></i> 공동 AMA/라이브 진행</li>
+            <li><i class="fas fa-check"></i> 장기 파트너십 옵션</li>
+          </ul>
+          <button class="program-btn" onclick="applyProgram('influencer')">파트너십 문의</button>
+        </div>
+      </div>
+
+      <!-- Content Creator -->
+      <div class="program-card creator">
+        <div class="program-header">
+          <span class="program-badge new">NEW</span>
+          <div class="program-icon">🎬</div>
+          <h3 class="program-title">컨텐츠 크리에이터</h3>
+          <p class="program-subtitle">영상, 글, 교육 컨텐츠로 보상받기</p>
+        </div>
+        <div class="program-content">
+          <div class="program-rewards">
+            <div class="reward-box">
+              <div class="value">최대 10만</div>
+              <div class="label">컨텐츠당 보상</div>
+            </div>
+            <div class="reward-box">
+              <div class="value">800+</div>
+              <div class="label">활성 크리에이터</div>
+            </div>
+          </div>
+          <ul class="program-features">
+            <li><i class="fas fa-check"></i> 영상/글/인포그래픽 제작</li>
+            <li><i class="fas fa-check"></i> 튜토리얼 & 교육 컨텐츠</li>
+            <li><i class="fas fa-check"></i> 품질 기반 등급 보상</li>
+            <li><i class="fas fa-check"></i> 공식 채널 리포스트</li>
+            <li><i class="fas fa-check"></i> 크리에이터 쇼케이스</li>
+          </ul>
+          <button class="program-btn" onclick="applyProgram('creator')">크리에이터 신청</button>
+        </div>
+      </div>
+
+      <!-- Events & Conferences -->
+      <div class="program-card event">
+        <div class="program-header">
+          <div class="program-icon">🎪</div>
+          <h3 class="program-title">이벤트 & 컨퍼런스</h3>
+          <p class="program-subtitle">오프라인/온라인 이벤트 주최 및 참여</p>
+        </div>
+        <div class="program-content">
+          <div class="program-rewards">
+            <div class="reward-box">
+              <div class="value">최대 200만</div>
+              <div class="label">이벤트당 지원</div>
+            </div>
+            <div class="reward-box">
+              <div class="value">30+</div>
+              <div class="label">연간 이벤트</div>
+            </div>
+          </div>
+          <ul class="program-features">
+            <li><i class="fas fa-check"></i> 밋업/해커톤 스폰서십</li>
+            <li><i class="fas fa-check"></i> 컨퍼런스 부스 지원</li>
+            <li><i class="fas fa-check"></i> 온라인 AMA/웨비나</li>
+            <li><i class="fas fa-check"></i> 지역 커뮤니티 이벤트</li>
+            <li><i class="fas fa-check"></i> 이벤트 굿즈 제공</li>
+          </ul>
+          <button class="program-btn" onclick="applyProgram('event')">이벤트 제안</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Ambassador Tiers -->
+  <section class="section" id="ambassador">
+    <div class="section-header">
+      <span class="section-badge">AMBASSADOR</span>
+      <h2 class="section-title">앰배서더 티어</h2>
+      <p class="section-subtitle">활동에 따른 등급별 보상 시스템</p>
+    </div>
+
+    <div class="ambassador-tiers">
+      <div class="ambassador-card legend">
+        <div class="ambassador-icon">👑</div>
+        <h3 class="ambassador-tier">Legend</h3>
+        <p class="ambassador-requirement">포인트 100,000+ / 상위 1%</p>
+        <div class="ambassador-reward">
+          <div class="value">100만 TBURN/년</div>
+          <div class="label">+ 추가 보너스</div>
+        </div>
+        <ul class="ambassador-perks">
+          <li><i class="fas fa-check"></i> 월 기본 급여 지급</li>
+          <li><i class="fas fa-check"></i> 거버넌스 투표권</li>
+          <li><i class="fas fa-check"></i> 글로벌 밋업 초청</li>
+          <li><i class="fas fa-check"></i> 전용 멘토링</li>
+          <li><i class="fas fa-check"></i> Legend NFT 배지</li>
+        </ul>
+      </div>
+
+      <div class="ambassador-card elite">
+        <div class="ambassador-icon">⭐</div>
+        <h3 class="ambassador-tier">Elite</h3>
+        <p class="ambassador-requirement">포인트 30,000+ / 상위 5%</p>
+        <div class="ambassador-reward">
+          <div class="value">30만 TBURN/년</div>
+          <div class="label">+ 활동 보너스</div>
+        </div>
+        <ul class="ambassador-perks">
+          <li><i class="fas fa-check"></i> 높은 활동 보상률</li>
+          <li><i class="fas fa-check"></i> 온라인 이벤트 호스팅</li>
+          <li><i class="fas fa-check"></i> 전용 굿즈 패키지</li>
+          <li><i class="fas fa-check"></i> Elite NFT 배지</li>
+          <li><i class="fas fa-check"></i> 베타 테스트 참여</li>
+        </ul>
+      </div>
+
+      <div class="ambassador-card rising">
+        <div class="ambassador-icon">🚀</div>
+        <h3 class="ambassador-tier">Rising</h3>
+        <p class="ambassador-requirement">포인트 5,000+ / 상위 20%</p>
+        <div class="ambassador-reward">
+          <div class="value">10만 TBURN/년</div>
+          <div class="label">활동 기반</div>
+        </div>
+        <ul class="ambassador-perks">
+          <li><i class="fas fa-check"></i> 활동별 보상 지급</li>
+          <li><i class="fas fa-check"></i> 앰배서더 채널 접근</li>
+          <li><i class="fas fa-check"></i> 분기별 에어드랍</li>
+          <li><i class="fas fa-check"></i> Rising NFT 배지</li>
+          <li><i class="fas fa-check"></i> 승급 기회</li>
+        </ul>
+      </div>
+
+      <div class="ambassador-card starter">
+        <div class="ambassador-icon">🌱</div>
+        <h3 class="ambassador-tier">Starter</h3>
+        <p class="ambassador-requirement">신규 앰배서더</p>
+        <div class="ambassador-reward">
+          <div class="value">2만 TBURN/년</div>
+          <div class="label">활동 기반</div>
+        </div>
+        <ul class="ambassador-perks">
+          <li><i class="fas fa-check"></i> 기본 활동 보상</li>
+          <li><i class="fas fa-check"></i> 온보딩 교육</li>
+          <li><i class="fas fa-check"></i> 스타터 패키지</li>
+          <li><i class="fas fa-check"></i> Starter NFT 배지</li>
+          <li><i class="fas fa-check"></i> 커뮤니티 접근</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Content Types -->
+  <section class="section" style="background: rgba(255,255,255,0.02);">
+    <div class="section-header">
+      <span class="section-badge">CONTENT</span>
+      <h2 class="section-title">컨텐츠 유형별 보상</h2>
+      <p class="section-subtitle">다양한 형태의 컨텐츠로 TBURN을 알리세요</p>
+    </div>
+
+    <div class="content-types-grid">
+      <div class="content-card">
+        <div class="content-icon">🎬</div>
+        <h4 class="content-title">영상 컨텐츠</h4>
+        <p class="content-desc">YouTube, TikTok 등 영상 제작</p>
+        <p class="content-reward">최대 100,000 TBURN</p>
+      </div>
+      <div class="content-card">
+        <div class="content-icon">✍️</div>
+        <h4 class="content-title">글 컨텐츠</h4>
+        <p class="content-desc">Medium, 블로그 아티클 작성</p>
+        <p class="content-reward">최대 30,000 TBURN</p>
+      </div>
+      <div class="content-card">
+        <div class="content-icon">📊</div>
+        <h4 class="content-title">인포그래픽</h4>
+        <p class="content-desc">시각적 정보 디자인 제작</p>
+        <p class="content-reward">최대 20,000 TBURN</p>
+      </div>
+      <div class="content-card">
+        <div class="content-icon">📚</div>
+        <h4 class="content-title">교육 컨텐츠</h4>
+        <p class="content-desc">튜토리얼, 가이드 제작</p>
+        <p class="content-reward">최대 50,000 TBURN</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Active Campaigns -->
+  <section class="section" id="campaigns">
+    <div class="section-header">
+      <span class="section-badge">CAMPAIGNS</span>
+      <h2 class="section-title">진행 중인 캠페인</h2>
+      <p class="section-subtitle">참여하고 보상을 받으세요</p>
+    </div>
+
+    <div class="campaigns-container">
+      <div class="campaigns-header">
+        <h3><i class="fas fa-fire"></i> 캠페인 목록</h3>
+        <div class="campaign-filter">
+          <button class="filter-btn active">전체</button>
+          <button class="filter-btn">진행 중</button>
+          <button class="filter-btn">마감 임박</button>
+          <button class="filter-btn">예정</button>
+        </div>
+      </div>
+
+      <div class="campaigns-list">
+        <div class="campaign-item">
+          <div class="campaign-left">
+            <div class="campaign-icon twitter"><i class="fab fa-twitter"></i></div>
+            <div class="campaign-info">
+              <h4>#TBURNMainnet 트윗 캠페인</h4>
+              <p>메인넷 런칭 축하 트윗 작성</p>
+            </div>
+          </div>
+          <div class="campaign-center">
+            <div class="campaign-stat">
+              <div class="value">500,000</div>
+              <div class="label">총 보상 (TBURN)</div>
+            </div>
+            <div class="campaign-stat">
+              <div class="value">2,345</div>
+              <div class="label">참가자</div>
+            </div>
+          </div>
+          <div class="campaign-right">
+            <span class="campaign-status active">진행 중</span>
+            <button class="campaign-join-btn" onclick="joinCampaign('twitter1')">참여하기</button>
+          </div>
+        </div>
+
+        <div class="campaign-item">
+          <div class="campaign-left">
+            <div class="campaign-icon youtube"><i class="fab fa-youtube"></i></div>
+            <div class="campaign-info">
+              <h4>TBURN 리뷰 영상 콘테스트</h4>
+              <p>TBURN Chain 리뷰 영상 제작</p>
+            </div>
+          </div>
+          <div class="campaign-center">
+            <div class="campaign-stat">
+              <div class="value">1,000,000</div>
+              <div class="label">총 보상 (TBURN)</div>
+            </div>
+            <div class="campaign-stat">
+              <div class="value">156</div>
+              <div class="label">참가자</div>
+            </div>
+          </div>
+          <div class="campaign-right">
+            <span class="campaign-status ending">마감 임박</span>
+            <button class="campaign-join-btn" onclick="joinCampaign('youtube1')">참여하기</button>
+          </div>
+        </div>
+
+        <div class="campaign-item">
+          <div class="campaign-left">
+            <div class="campaign-icon tiktok"><i class="fab fa-tiktok"></i></div>
+            <div class="campaign-info">
+              <h4>TikTok 챌린지 #BurnToEarn</h4>
+              <p>창의적인 TikTok 숏폼 제작</p>
+            </div>
+          </div>
+          <div class="campaign-center">
+            <div class="campaign-stat">
+              <div class="value">300,000</div>
+              <div class="label">총 보상 (TBURN)</div>
+            </div>
+            <div class="campaign-stat">
+              <div class="value">892</div>
+              <div class="label">참가자</div>
+            </div>
+          </div>
+          <div class="campaign-right">
+            <span class="campaign-status active">진행 중</span>
+            <button class="campaign-join-btn" onclick="joinCampaign('tiktok1')">참여하기</button>
+          </div>
+        </div>
+
+        <div class="campaign-item">
+          <div class="campaign-left">
+            <div class="campaign-icon article"><i class="fas fa-pen-fancy"></i></div>
+            <div class="campaign-info">
+              <h4>TBURN 기술 아티클 공모</h4>
+              <p>TBURN 기술에 대한 심층 분석 글</p>
+            </div>
+          </div>
+          <div class="campaign-center">
+            <div class="campaign-stat">
+              <div class="value">200,000</div>
+              <div class="label">총 보상 (TBURN)</div>
+            </div>
+            <div class="campaign-stat">
+              <div class="value">-</div>
+              <div class="label">참가자</div>
+            </div>
+          </div>
+          <div class="campaign-right">
+            <span class="campaign-status upcoming">1월 15일 시작</span>
+            <button class="campaign-join-btn" style="opacity: 0.5;" disabled>준비 중</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Leaderboard -->
+  <section class="section" id="leaderboard" style="background: rgba(255,255,255,0.02);">
+    <div class="section-header">
+      <span class="section-badge">LEADERBOARD</span>
+      <h2 class="section-title">앰배서더 리더보드</h2>
+      <p class="section-subtitle">최고의 앰배서더들을 확인하세요</p>
+    </div>
+
+    <div class="leaderboard-section">
+      <div class="leaderboard-header">
+        <h3><i class="fas fa-trophy"></i> TOP 앰배서더</h3>
+        <div class="leaderboard-tabs">
+          <button class="leaderboard-tab active">전체</button>
+          <button class="leaderboard-tab">이번 달</button>
+          <button class="leaderboard-tab">이번 주</button>
+        </div>
+      </div>
+
+      <table class="leaderboard-table">
+        <thead>
+          <tr>
+            <th>순위</th>
+            <th>앰배서더</th>
+            <th>티어</th>
+            <th>포인트</th>
+            <th>캠페인</th>
+            <th>총 보상</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><div class="rank-cell gold">1</div></td>
+            <td>
+              <div class="ambassador-cell">
+                <div class="ambassador-avatar legend">CR</div>
+                <div>
+                  <div class="ambassador-name">CryptoRaider</div>
+                  <div class="ambassador-handle">@cryptoraider_kr</div>
+                </div>
+              </div>
+            </td>
+            <td><span style="color: var(--gold); font-weight: 600;">👑 Legend</span></td>
+            <td class="points-cell">156,800</td>
+            <td>89</td>
+            <td class="rewards-cell">1,250,000 TBURN</td>
+          </tr>
+          <tr>
+            <td><div class="rank-cell silver">2</div></td>
+            <td>
+              <div class="ambassador-cell">
+                <div class="ambassador-avatar legend">BH</div>
+                <div>
+                  <div class="ambassador-name">BlockHunter</div>
+                  <div class="ambassador-handle">@blockhunter</div>
+                </div>
+              </div>
+            </td>
+            <td><span style="color: var(--gold); font-weight: 600;">👑 Legend</span></td>
+            <td class="points-cell">142,500</td>
+            <td>76</td>
+            <td class="rewards-cell">1,120,000 TBURN</td>
+          </tr>
+          <tr>
+            <td><div class="rank-cell bronze">3</div></td>
+            <td>
+              <div class="ambassador-cell">
+                <div class="ambassador-avatar elite">DM</div>
+                <div>
+                  <div class="ambassador-name">DeFiMaster</div>
+                  <div class="ambassador-handle">@defi_master_</div>
+                </div>
+              </div>
+            </td>
+            <td><span style="color: var(--pink); font-weight: 600;">⭐ Elite</span></td>
+            <td class="points-cell">98,200</td>
+            <td>62</td>
+            <td class="rewards-cell">780,000 TBURN</td>
+          </tr>
+          <tr>
+            <td><div class="rank-cell normal">4</div></td>
+            <td>
+              <div class="ambassador-cell">
+                <div class="ambassador-avatar elite">WK</div>
+                <div>
+                  <div class="ambassador-name">Web3Korea</div>
+                  <div class="ambassador-handle">@web3korea</div>
+                </div>
+              </div>
+            </td>
+            <td><span style="color: var(--pink); font-weight: 600;">⭐ Elite</span></td>
+            <td class="points-cell">87,600</td>
+            <td>58</td>
+            <td class="rewards-cell">650,000 TBURN</td>
+          </tr>
+          <tr>
+            <td><div class="rank-cell normal">5</div></td>
+            <td>
+              <div class="ambassador-cell">
+                <div class="ambassador-avatar rising">AN</div>
+                <div>
+                  <div class="ambassador-name">AltcoinNinja</div>
+                  <div class="ambassador-handle">@altcoin_ninja</div>
+                </div>
+              </div>
+            </td>
+            <td><span style="color: var(--purple); font-weight: 600;">🚀 Rising</span></td>
+            <td class="points-cell">45,300</td>
+            <td>42</td>
+            <td class="rewards-cell">380,000 TBURN</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div style="text-align: center; margin-top: 2rem;">
+        <button class="btn-secondary" style="padding: 12px 30px;">
+          <i class="fas fa-list"></i> 전체 리더보드 보기
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Dashboard -->
+  <section class="section" id="dashboard">
+    <div class="section-header">
+      <span class="section-badge">MY DASHBOARD</span>
+      <h2 class="section-title">마케팅 대시보드</h2>
+      <p class="section-subtitle">내 활동과 보상 현황을 확인하세요</p>
+    </div>
+
+    <div class="dashboard-grid">
+      <div class="dashboard-main">
+        <div class="dashboard-header">
+          <div class="dashboard-user">
+            <div class="dashboard-avatar">TB</div>
+            <div>
+              <h3 style="font-size: 1.125rem; font-weight: 700;">TBURNFan</h3>
+              <p style="font-size: 0.875rem; color: var(--gray);">앰배서더 ID: AMB-2024-0428</p>
+            </div>
+          </div>
+          <span class="tier-badge">⭐ Elite Ambassador</span>
+        </div>
+
+        <div class="dashboard-stats">
+          <div class="dash-stat">
+            <div class="dash-stat-value pink">45,200</div>
+            <div class="dash-stat-label">총 포인트</div>
+          </div>
+          <div class="dash-stat">
+            <div class="dash-stat-value gold">380,000</div>
+            <div class="dash-stat-label">총 보상 (TBURN)</div>
+          </div>
+          <div class="dash-stat">
+            <div class="dash-stat-value purple">28</div>
+            <div class="dash-stat-label">완료 캠페인</div>
+          </div>
+          <div class="dash-stat">
+            <div class="dash-stat-value success">#42</div>
+            <div class="dash-stat-label">리더보드 순위</div>
+          </div>
+        </div>
+
+        <div class="my-campaigns">
+          <h4><i class="fas fa-tasks"></i> 내 캠페인</h4>
+          <div class="my-campaign-item">
+            <div class="my-campaign-left">
+              <div class="my-campaign-icon completed"><i class="fas fa-check"></i></div>
+              <div class="my-campaign-info">
+                <h5>#TBURNMainnet 트윗</h5>
+                <p>트윗 3,200회 노출</p>
+              </div>
+            </div>
+            <div class="my-campaign-reward">
+              <div class="amount">+5,000 TBURN</div>
+              <div class="status">완료</div>
+            </div>
+          </div>
+          <div class="my-campaign-item">
+            <div class="my-campaign-left">
+              <div class="my-campaign-icon completed"><i class="fas fa-check"></i></div>
+              <div class="my-campaign-info">
+                <h5>YouTube 리뷰 영상</h5>
+                <p>조회수 12,500회</p>
+              </div>
+            </div>
+            <div class="my-campaign-reward">
+              <div class="amount">+50,000 TBURN</div>
+              <div class="status">완료</div>
+            </div>
+          </div>
+          <div class="my-campaign-item">
+            <div class="my-campaign-left">
+              <div class="my-campaign-icon pending"><i class="fas fa-clock"></i></div>
+              <div class="my-campaign-info">
+                <h5>TikTok #BurnToEarn</h5>
+                <p>심사 중</p>
+              </div>
+            </div>
+            <div class="my-campaign-reward">
+              <div class="amount">~10,000 TBURN</div>
+              <div class="status">대기 중</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="dashboard-sidebar">
+        <div class="sidebar-card">
+          <h4><i class="fas fa-chart-line"></i> 티어 진행</h4>
+          <div class="tier-progress">
+            <div class="header">
+              <span class="current">Elite</span>
+              <span class="next">→ Legend까지 55%</span>
+            </div>
+            <div class="tier-progress-bar">
+              <div class="tier-progress-fill" style="width: 45%;"></div>
+            </div>
+          </div>
+          <p class="tier-info">Legend 승급까지 54,800 포인트 필요</p>
+        </div>
+
+        <div class="sidebar-card claim-rewards-card">
+          <h4 style="justify-content: center;"><i class="fas fa-gift"></i> 클레임 가능</h4>
+          <div class="claim-amount">65,000 TBURN</div>
+          <div class="claim-label">≈ $32,500 (@$0.50)</div>
+          <button class="claim-btn" onclick="claimRewards()">
+            <i class="fas fa-download"></i> 보상 받기
+          </button>
+        </div>
+
+        <div class="sidebar-card social-links-card">
+          <h4 style="justify-content: center;"><i class="fas fa-link"></i> 연결된 소셜</h4>
+          <p>소셜 계정을 연결하고 활동을 추적하세요</p>
+          <div class="social-icons">
+            <div class="social-icon" style="background: rgba(29, 161, 242, 0.2); color: #1DA1F2;">
+              <i class="fab fa-twitter"></i>
+            </div>
+            <div class="social-icon" style="background: rgba(255, 0, 0, 0.2); color: #FF0000;">
+              <i class="fab fa-youtube"></i>
+            </div>
+            <div class="social-icon">
+              <i class="fab fa-tiktok"></i>
+            </div>
+            <div class="social-icon">
+              <i class="fab fa-medium"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="section" id="faq" style="background: rgba(255,255,255,0.02);">
+    <div class="section-header">
+      <span class="section-badge">FAQ</span>
+      <h2 class="section-title">자주 묻는 질문</h2>
+      <p class="section-subtitle">마케팅 프로그램 관련 궁금한 점을 확인하세요</p>
+    </div>
+
+    <div class="faq-container">
+      <div class="faq-item active">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <h4>마케팅 총 물량과 운용 방식은 어떻게 되나요?</h4>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          <p>마케팅 총 풀은 3억 TBURN입니다. TGE 시점에 10%(3,000만 TBURN)가 해제되고, 24개월에 걸쳐 캠페인 및 앰배서더 활동에 따라 지급됩니다. 브랜드 캠페인(40%), 인플루언서(20%), 컨텐츠 크리에이터(15%), 이벤트(15%), PR/미디어(10%)로 배분됩니다.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <h4>앰배서더가 되려면 어떻게 해야 하나요?</h4>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          <p>앰배서더 신청 폼을 작성하고 제출하면 됩니다. 기존 소셜 미디어 활동, 암호화폐 커뮤니티 참여 경험, 팔로워 수 등을 종합 평가하여 승인됩니다. 승인되면 Starter 티어로 시작하며, 활동에 따라 Rising → Elite → Legend로 승급할 수 있습니다.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <h4>포인트는 어떻게 획득하나요?</h4>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          <p>캠페인 참여(트윗, 영상, 글 등), 신규 회원 유치(레퍼럴), 커뮤니티 활동(Discord/Telegram), 이벤트 참석 등으로 포인트를 획득합니다. 컨텐츠 품질, 노출/참여율, 영향력에 따라 차등 지급됩니다. 포인트는 티어 승급과 월간 보상 계산에 사용됩니다.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <h4>인플루언서 파트너십은 어떻게 진행되나요?</h4>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          <p>팔로워 10,000명 이상의 인플루언서/KOL을 대상으로 별도의 파트너십 프로그램이 운영됩니다. 고정 보수 + 성과 기반 보너스 형태로 협의되며, 전용 프로모션 코드, 공동 AMA, 독점 컨텐츠 협업 등을 포함합니다. partnership@tburn.io로 문의해주세요.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <h4>컨텐츠 보상 기준은 무엇인가요?</h4>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          <p>컨텐츠는 품질(40%), 도달/참여율(30%), 정확성(20%), 창의성(10%)을 기준으로 평가됩니다. 영상은 최대 100,000 TBURN, 글은 최대 30,000 TBURN, 인포그래픽은 최대 20,000 TBURN까지 지급됩니다. 공식 채널에 리포스트되면 추가 보너스가 있습니다.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <h4>보상은 언제 지급되나요?</h4>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          <p>캠페인 보상은 캠페인 종료 후 7일 이내에 심사를 거쳐 지급됩니다. 월간 활동 보상은 매월 1일에 전월 활동을 기준으로 지급됩니다. 모든 보상은 대시보드에서 클레임 가능하며, 클레임 시 연결된 지갑으로 전송됩니다.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <h4>이벤트 스폰서십은 어떻게 신청하나요?</h4>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="faq-answer">
+          <p>밋업, 해커톤, 컨퍼런스 등 블록체인/Web3 관련 이벤트 주최자는 스폰서십을 신청할 수 있습니다. 이벤트 규모, 예상 참가자, 미디어 노출 등을 평가하여 지원 여부와 금액이 결정됩니다. 이벤트 최소 6주 전에 신청해주세요.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section style="padding: 100px 2rem; background: var(--gradient-marketing); text-align: center;">
+    <div style="max-width: 800px; margin: 0 auto;">
+      <h2 style="font-size: 2.5rem; font-weight: 800; margin-bottom: 1rem;">TBURN 앰배서더가 되세요!</h2>
+      <p style="color: rgba(255,255,255,0.9); font-size: 1.125rem; margin-bottom: 2rem;">
+        TBURN을 알리고, 커뮤니티를 성장시키고,<br>
+        3억 TBURN 마케팅 보상을 함께 나누세요.
+      </p>
+      <button onclick="applyProgram('ambassador')" style="background: var(--white); color: var(--pink); padding: 20px 50px; border-radius: 14px; font-size: 1.25rem; font-weight: 700; border: none; cursor: pointer; transition: transform 0.3s;">
+        <i class="fas fa-user-plus"></i> 앰배서더 신청하기
+      </button>
+      <p style="color: rgba(255,255,255,0.7); margin-top: 1.5rem; font-size: 0.875rem;">
+        <i class="fas fa-users"></i> 2,500+ 활성 앰배서더 · 50+ 글로벌 커뮤니티 · 매월 보상 지급
+      </p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <h3>TBURN<span>CHAIN</span></h3>
+        <p>AI의 지능, 블록체인의 투명성<br>THE FUTURE IS NOW</p>
+        <div class="social-links-footer">
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-telegram"></i></a>
+          <a href="#"><i class="fab fa-discord"></i></a>
+          <a href="#"><i class="fab fa-youtube"></i></a>
+          <a href="#"><i class="fab fa-medium"></i></a>
+        </div>
+      </div>
+      <div class="footer-links">
+        <h4>Marketing</h4>
+        <ul>
+          <li><a href="#">앰배서더 프로그램</a></li>
+          <li><a href="#">인플루언서 파트너십</a></li>
+          <li><a href="#">컨텐츠 크리에이터</a></li>
+          <li><a href="#">이벤트 스폰서십</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h4>Resources</h4>
+        <ul>
+          <li><a href="#">브랜드 가이드</a></li>
+          <li><a href="#">미디어 키트</a></li>
+          <li><a href="#">컨텐츠 가이드라인</a></li>
+          <li><a href="#">FAQ</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="#">앰배서더 문의</a></li>
+          <li><a href="#">파트너십 문의</a></li>
+          <li><a href="#">미디어 문의</a></li>
+          <li><a href="#">일반 문의</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025-2045 TBURN Foundation. All Rights Reserved.</p>
+      <div style="display: flex; gap: 2rem;">
+        <a href="#" style="color: var(--gray); text-decoration: none;">이용약관</a>
+        <a href="#" style="color: var(--gray); text-decoration: none;">개인정보처리방침</a>
+        <a href="#" style="color: var(--gray); text-decoration: none;">쿠키 정책</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // FAQ Toggle
+    function toggleFaq(element) {
+      const faqItem = element.parentElement;
+      const wasActive = faqItem.classList.contains('active');
+      
+      document.querySelectorAll('.faq-item').forEach(item => {
+        item.classList.remove('active');
+      });
+      
+      if (!wasActive) {
+        faqItem.classList.add('active');
+      }
+    }
+
+    // Scroll to Section
+    function scrollToSection(sectionId) {
+      const section = document.getElementById(sectionId);
+      if (section) {
+        section.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+
+    // Apply Program
+    function applyProgram(type) {
+      const programNames = {
+        ambassador: '앰배서더 프로그램',
+        influencer: '인플루언서 파트너십',
+        creator: '컨텐츠 크리에이터',
+        event: '이벤트 스폰서십'
+      };
+      alert(`${programNames[type]} 신청 페이지로 이동합니다.\n\n신청서를 작성해주세요.`);
+    }
+
+    // Join Campaign
+    function joinCampaign(campaign) {
+      alert('캠페인 참여 페이지로 이동합니다.\n\n소셜 계정을 연결하고 참여해주세요.');
+    }
+
+    // Wallet Modal
+    function openWalletModal() {
+      alert('지갑 연결 기능은 메인넷 런칭 후 활성화됩니다.\n\n현재 데모 모드로 확인 중입니다.');
+    }
+
+    // Claim Rewards
+    function claimRewards() {
+      alert('보상 클레임 기능은 메인넷 런칭 후 활성화됩니다.\n\n현재 데모 모드로 확인 중입니다.');
+    }
+
+    // Filter Buttons
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+      });
+    });
+
+    // Leaderboard Tabs
+    document.querySelectorAll('.leaderboard-tab').forEach(tab => {
+      tab.addEventListener('click', function() {
+        document.querySelectorAll('.leaderboard-tab').forEach(t => t.classList.remove('active'));
+        this.classList.add('active');
+      });
+    });
+
+    // Header Scroll Effect
+    window.addEventListener('scroll', () => {
+      const header = document.querySelector('.header');
+      if (window.scrollY > 50) {
+        header.style.background = 'rgba(15, 23, 42, 0.98)';
+      } else {
+        header.style.background = 'rgba(15, 23, 42, 0.95)';
+      }
+    });
+  </script>
+</body>
+</html>

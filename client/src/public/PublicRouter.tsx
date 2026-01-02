@@ -122,6 +122,7 @@ const DAOGovernancePage = lazy(() => import("@/pages/dao-governance"));
 const BlockRewardsPage = lazy(() => import("@/pages/block-rewards"));
 const ValidatorIncentivesPage = lazy(() => import("@/pages/validator-incentives"));
 const EcosystemFundPage = lazy(() => import("@/pages/ecosystem-fund"));
+const PartnershipProgramPage = lazy(() => import("@/pages/partnership-program"));
 
 function LoginPage() {
   const handleLoginSuccess = () => {
@@ -238,6 +239,16 @@ export function PublicRouter() {
       <ErrorBoundary>
         <Suspense fallback={<PageLoading />}>
           <EcosystemFundPage />
+        </Suspense>
+      </ErrorBoundary>
+    );
+  }
+  
+  if (location === "/partnership-program") {
+    return (
+      <ErrorBoundary>
+        <Suspense fallback={<PageLoading />}>
+          <PartnershipProgramPage />
         </Suspense>
       </ErrorBoundary>
     );
