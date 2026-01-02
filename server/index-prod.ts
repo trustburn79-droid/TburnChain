@@ -51,7 +51,8 @@ app.use('/assets', express.static(path.join(distPath, 'assets'), {
 // This ensures the lightweight HTML (15KB) is returned for `/` instead of 
 // the full React SPA (14MB) from dist/public/index.html
 // ============================================
-const staticLandingPath = path.resolve(process.cwd(), 'public', 'static-landing.html');
+// PRODUCTION: Use dist/public (Vite copies public/ to dist/public during build)
+const staticLandingPath = path.resolve(distPath, 'static-landing.html');
 
 app.get('/', (_req, res) => {
   // Serve static landing page for instant load (< 1 second)
@@ -59,12 +60,13 @@ app.get('/', (_req, res) => {
     res.setHeader('Content-Type', 'text/html; charset=utf-8');
     res.setHeader('Cache-Control', 'public, max-age=300, stale-while-revalidate=600');
     res.setHeader('X-Content-Type', 'static-landing');
-    res.setHeader('X-Content-Version', '2026.01.02.v4');
+    res.setHeader('X-Content-Version', '2026.01.02.v5');
     res.sendFile(staticLandingPath);
     console.log('[Static Landing] Served instant landing page (15KB vs 14MB)');
   } else {
     // Fallback to SPA if static landing not found
-    console.warn('[Static Landing] Not found at:', staticLandingPath);
+    console.error('[Static Landing] CRITICAL: Not found at:', staticLandingPath);
+    console.error('[Static Landing] distPath is:', distPath);
     res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
     res.sendFile(path.resolve(distPath, "index.html"));
   }
