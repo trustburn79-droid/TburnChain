@@ -179,6 +179,7 @@ function AppRouter() {
         <Route path="/app/operator/security" component={ProtectedOperatorSecurity} />
         <Route path="/app/operator/reports" component={ProtectedOperatorReports} />
         <Route path="/app/operator/staking" component={ProtectedOperatorStaking} />
+        <Route path="/user" component={UserPage} />
         <Route component={NotFound} />
       </Switch>
     </Suspense>

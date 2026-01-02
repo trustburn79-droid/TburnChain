@@ -26,8 +26,8 @@ export function TBurnLoader({
   return (
     <div className={`${containerClasses} ${className}`} data-testid="tburn-loader">
       <div className="flex flex-col items-center gap-3">
-        <div className={`${sizeClasses[size]} animate-pulse`}>
-          <TBurnLogo className="w-full h-full animate-spin-slow" showText={false} />
+        <div className={`${sizeClasses[size]}`}>
+          <TBurnLogo className="w-full h-full animate-pulse" showText={false} />
         </div>
         {message && (
           <p className="text-sm text-muted-foreground animate-pulse">{message}</p>

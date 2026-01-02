@@ -173,7 +173,7 @@ async function safeInitApp() {
   rootElement.innerHTML = `
     <div style="display:flex;align-items:center;justify-content:center;height:100vh;background:#030407;">
       <div style="text-align:center;">
-        <svg viewBox="0 0 100 100" style="width:64px;height:64px;animation:tburn-spin 2s linear infinite;margin:0 auto 16px;">
+        <svg viewBox="0 0 100 100" style="width:64px;height:64px;animation:tburn-pulse 1.5s ease-in-out infinite;margin:0 auto 16px;">
           <defs>
             <linearGradient id="flameGrad" x1="50%" y1="100%" x2="50%" y2="0%">
               <stop offset="0%" stop-color="#FF6B35"/>
@@ -191,7 +191,7 @@ async function safeInitApp() {
           <path d="M50 35 C42 45, 38 55, 42 65 C45 72, 48 75, 50 75 C52 75, 55 72, 58 65 C62 55, 58 45, 50 35" fill="#FFD700" opacity="0.8"/>
         </svg>
       </div>
-      <style>@keyframes tburn-spin{to{transform:rotate(360deg)}}</style>
+      <style>@keyframes tburn-pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.6;transform:scale(0.95)}}</style>
     </div>
   `;
   
