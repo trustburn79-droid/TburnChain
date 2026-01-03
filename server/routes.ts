@@ -1793,6 +1793,10 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     if (req.path.startsWith("/airdrop/")) {
       return next();
     }
+    // Skip auth for Referral public endpoints (token distribution program)
+    if (req.path.startsWith("/referral/")) {
+      return next();
+    }
     requireAuth(req, res, next);
   });
   // ============================================
@@ -12393,6 +12397,121 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
+  // Create new referral account (admin)
+  app.post("/api/admin/token-programs/referral/accounts", requireAdmin, async (req, res) => {
+    try {
+      const { walletAddress, tier = 'bronze' } = req.body;
+      if (!walletAddress) {
+        return res.status(400).json({ error: 'Wallet address is required' });
+      }
+      const existing = await storage.getReferralAccountByWallet(walletAddress);
+      if (existing) {
+        return res.status(400).json({ error: 'Referral account already exists for this wallet' });
+      }
+      const referralCode = `TBURN${walletAddress.substring(2, 10).toUpperCase()}`;
+      const account = await storage.createReferralAccount({
+        walletAddress: walletAddress.toLowerCase(),
+        referralCode,
+        tier,
+        status: 'active',
+      });
+      res.json({ success: true, data: account });
+    } catch (error) {
+      console.error('[Referral] Error creating account:', error);
+      res.status(500).json({ error: 'Failed to create referral account' });
+    }
+  });
+
+  // Update referral account (admin)
+  app.patch("/api/admin/token-programs/referral/accounts/:id", requireAdmin, async (req, res) => {
+    try {
+      await storage.updateReferralAccount(req.params.id, req.body);
+      const account = await storage.getReferralAccountById(req.params.id);
+      res.json({ success: true, data: account });
+    } catch (error) {
+      console.error('[Referral] Error updating account:', error);
+      res.status(500).json({ error: 'Failed to update referral account' });
+    }
+  });
+
+  // Bulk import referral accounts (admin)
+  app.post("/api/admin/token-programs/referral/bulk-import", requireAdmin, async (req, res) => {
+    try {
+      const { accounts } = req.body;
+      if (!Array.isArray(accounts) || accounts.length === 0) {
+        return res.status(400).json({ error: 'Accounts array is required' });
+      }
+      const results = { created: 0, skipped: 0, errors: [] as string[] };
+      for (const acc of accounts) {
+        try {
+          const existing = await storage.getReferralAccountByWallet(acc.walletAddress);
+          if (existing) {
+            results.skipped++;
+            continue;
+          }
+          const referralCode = acc.referralCode || `TBURN${acc.walletAddress.substring(2, 10).toUpperCase()}`;
+          await storage.createReferralAccount({
+            walletAddress: acc.walletAddress.toLowerCase(),
+            referralCode,
+            tier: acc.tier || 'bronze',
+            status: 'active',
+            totalReferrals: acc.totalReferrals || 0,
+            totalEarnings: acc.totalEarnings || '0',
+          });
+          results.created++;
+        } catch (e: any) {
+          results.errors.push(`${acc.walletAddress}: ${e.message}`);
+        }
+      }
+      res.json({ success: true, data: results });
+    } catch (error) {
+      console.error('[Referral] Bulk import error:', error);
+      res.status(500).json({ error: 'Failed to bulk import referral accounts' });
+    }
+  });
+
+  // Distribute referral rewards (admin)
+  app.post("/api/admin/token-programs/referral/distribute", requireAdmin, async (req, res) => {
+    try {
+      const { accountIds, rewardAmount, rewardType = 'bonus' } = req.body;
+      if (!Array.isArray(accountIds) || accountIds.length === 0) {
+        return res.status(400).json({ error: 'Account IDs are required' });
+      }
+      if (!rewardAmount || parseFloat(rewardAmount) <= 0) {
+        return res.status(400).json({ error: 'Valid reward amount is required' });
+      }
+      const results = { distributed: 0, failed: 0 };
+      const txHash = `0x${Date.now().toString(16)}${Math.random().toString(16).substring(2, 10)}`;
+      for (const accountId of accountIds) {
+        try {
+          const account = await storage.getReferralAccountById(accountId);
+          if (!account) continue;
+          await storage.createReferralReward({
+            referrerId: accountId,
+            referredId: null,
+            amount: rewardAmount,
+            rewardType,
+            status: 'distributed',
+            transactionHash: txHash,
+            tier: account.tier || 'bronze',
+          });
+          const currentEarnings = BigInt(account.totalEarnings || '0');
+          const newEarnings = currentEarnings + BigInt(Math.floor(parseFloat(rewardAmount) * 1e18));
+          await storage.updateReferralAccount(accountId, {
+            totalEarnings: newEarnings.toString(),
+          });
+          results.distributed++;
+        } catch (e) {
+          results.failed++;
+        }
+      }
+      res.json({ success: true, data: { ...results, transactionHash: txHash } });
+    } catch (error) {
+      console.error('[Referral] Distribution error:', error);
+      res.status(500).json({ error: 'Failed to distribute referral rewards' });
+    }
+  });
+
   // Events Management
   app.get("/api/admin/token-programs/events", requireAdmin, async (req, res) => {
     try {
@@ -12750,22 +12869,260 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
         return res.status(400).json({ error: 'Wallet address required' });
       }
       
-      const referralCode = `TBURN${walletAddress.substring(2, 10).toUpperCase()}`;
+      // Check if account already exists
+      let account = await storage.getReferralAccountByWallet(walletAddress);
+      
+      if (!account) {
+        // Create new account
+        const referralCode = `TBURN${walletAddress.substring(2, 10).toUpperCase()}`;
+        account = await storage.createReferralAccount({
+          walletAddress: walletAddress.toLowerCase(),
+          referralCode,
+          tier: 'bronze',
+          status: 'active',
+        });
+      }
       
       res.json({
         success: true,
         data: {
-          walletAddress,
-          referralCode,
-          referralLink: `https://tburn.io/ref/${referralCode}`,
-          tier: "Bronze",
-          referralCount: 0,
-          totalEarnings: "0"
+          walletAddress: account.walletAddress,
+          referralCode: account.referralCode,
+          referralLink: `https://tburn.io/ref/${account.referralCode}`,
+          tier: account.tier || 'bronze',
+          referralCount: account.totalReferrals || 0,
+          totalEarnings: account.totalEarnings || '0',
         }
       });
     } catch (error) {
       console.error('[PublicReferral] Generate error:', error);
       res.status(500).json({ error: 'Failed to generate referral code' });
+    }
+  });
+
+  // Check referral status by wallet
+  app.get("/api/referral/check/:wallet", async (req, res) => {
+    try {
+      const { wallet } = req.params;
+      const account = await storage.getReferralAccountByWallet(wallet);
+      
+      if (!account) {
+        return res.json({
+          success: true,
+          data: {
+            registered: false,
+            message: '아직 레퍼럴 프로그램에 참여하지 않았습니다.',
+          }
+        });
+      }
+      
+      const rewards = await storage.getReferralRewards(account.id, 10);
+      
+      res.json({
+        success: true,
+        data: {
+          registered: true,
+          account: {
+            id: account.id,
+            walletAddress: account.walletAddress,
+            referralCode: account.referralCode,
+            referralLink: `https://tburn.io/ref/${account.referralCode}`,
+            tier: account.tier,
+            totalReferrals: account.totalReferrals || 0,
+            activeReferrals: account.activeReferrals || 0,
+            totalEarnings: account.totalEarnings || '0',
+            pendingRewards: account.pendingRewards || '0',
+            status: account.status,
+          },
+          recentRewards: rewards.map(r => ({
+            id: r.id,
+            amount: r.amount,
+            rewardType: r.rewardType,
+            status: r.status,
+            createdAt: r.createdAt,
+          })),
+        }
+      });
+    } catch (error) {
+      console.error('[Referral] Check error:', error);
+      res.status(500).json({ error: 'Failed to check referral status' });
+    }
+  });
+
+  // Get referral program info
+  app.get("/api/referral/info", async (_req, res) => {
+    try {
+      const stats = await storage.getReferralStats();
+      const accounts = await storage.getAllReferralAccounts(10);
+      
+      // Build leaderboard from real data
+      const leaderboard = accounts
+        .filter(a => (a.totalReferrals || 0) > 0)
+        .sort((a, b) => (b.totalReferrals || 0) - (a.totalReferrals || 0))
+        .slice(0, 5)
+        .map((a, index) => ({
+          rank: index + 1,
+          referrals: a.totalReferrals || 0,
+          earnings: a.totalEarnings || '0',
+          tier: a.tier || 'bronze',
+        }));
+      
+      res.json({
+        success: true,
+        data: {
+          programName: 'TBURN 레퍼럴 프로그램',
+          description: '친구를 초대하고 보상을 받으세요',
+          status: 'active',
+          startDate: '2026-01-02T00:00:00Z',
+          stats: {
+            totalParticipants: stats.totalAccounts || 0,
+            totalReferrals: stats.totalReferrals || 0,
+            totalRewardsDistributed: stats.totalEarnings || '0',
+            activeReferrers: stats.activeReferrers || 0,
+          },
+          tiers: [
+            { name: 'bronze', label: 'Bronze', minReferrals: 1, maxReferrals: 9, commission: 10, bonus: '50' },
+            { name: 'silver', label: 'Silver', minReferrals: 10, maxReferrals: 49, commission: 15, bonus: '250' },
+            { name: 'gold', label: 'Gold', minReferrals: 50, maxReferrals: 199, commission: 20, bonus: '1000' },
+            { name: 'platinum', label: 'Platinum', minReferrals: 200, maxReferrals: 499, commission: 30, bonus: '5000' },
+            { name: 'diamond', label: 'Diamond', minReferrals: 500, maxReferrals: null, commission: 40, bonus: '20000' },
+          ],
+          leaderboard,
+        }
+      });
+    } catch (error) {
+      console.error('[Referral] Info error:', error);
+      res.status(500).json({ error: 'Failed to fetch referral info' });
+    }
+  });
+
+  // Process referral (when someone signs up with a code)
+  app.post("/api/referral/apply", async (req, res) => {
+    try {
+      const { referralCode, newUserWallet } = req.body;
+      
+      if (!referralCode || !newUserWallet) {
+        return res.status(400).json({ error: 'Referral code and new user wallet required' });
+      }
+      
+      // Find referrer by code
+      const referrer = await storage.getReferralAccountByCode(referralCode);
+      if (!referrer) {
+        return res.status(404).json({ error: 'Invalid referral code' });
+      }
+      
+      // Check if new user already registered
+      const existing = await storage.getReferralAccountByWallet(newUserWallet);
+      if (existing) {
+        return res.status(400).json({ error: 'User already registered in referral program' });
+      }
+      
+      // Create new user account with referrer
+      const newCode = `TBURN${newUserWallet.substring(2, 10).toUpperCase()}`;
+      const newAccount = await storage.createReferralAccount({
+        walletAddress: newUserWallet.toLowerCase(),
+        referralCode: newCode,
+        referredBy: referrer.id,
+        tier: 'bronze',
+        status: 'active',
+      });
+      
+      // Update referrer stats
+      await storage.updateReferralAccount(referrer.id, {
+        totalReferrals: (referrer.totalReferrals || 0) + 1,
+        activeReferrals: (referrer.activeReferrals || 0) + 1,
+      });
+      
+      // Create referral reward for referrer
+      const rewardAmount = '50000000000000000000'; // 50 TBURN in wei
+      await storage.createReferralReward({
+        referrerId: referrer.id,
+        referredId: newAccount.id,
+        amount: rewardAmount,
+        rewardType: 'signup_bonus',
+        status: 'pending',
+        tier: referrer.tier || 'bronze',
+      });
+      
+      // Update referrer pending rewards
+      const currentPending = BigInt(referrer.pendingRewards || '0');
+      await storage.updateReferralAccount(referrer.id, {
+        pendingRewards: (currentPending + BigInt(rewardAmount)).toString(),
+      });
+      
+      res.json({
+        success: true,
+        data: {
+          newAccount: {
+            walletAddress: newAccount.walletAddress,
+            referralCode: newAccount.referralCode,
+          },
+          referrer: {
+            walletAddress: referrer.walletAddress,
+            totalReferrals: (referrer.totalReferrals || 0) + 1,
+          },
+          message: '레퍼럴이 성공적으로 적용되었습니다!',
+        }
+      });
+    } catch (error) {
+      console.error('[Referral] Apply error:', error);
+      res.status(500).json({ error: 'Failed to apply referral' });
+    }
+  });
+
+  // Claim pending rewards
+  app.post("/api/referral/claim", async (req, res) => {
+    try {
+      const { walletAddress } = req.body;
+      
+      if (!walletAddress) {
+        return res.status(400).json({ error: 'Wallet address required' });
+      }
+      
+      const account = await storage.getReferralAccountByWallet(walletAddress);
+      if (!account) {
+        return res.status(404).json({ error: 'Referral account not found' });
+      }
+      
+      const pendingAmount = BigInt(account.pendingRewards || '0');
+      if (pendingAmount <= 0n) {
+        return res.status(400).json({ error: 'No pending rewards to claim' });
+      }
+      
+      // Process claim
+      const txHash = `0x${Date.now().toString(16)}${Math.random().toString(16).substring(2, 10)}`;
+      
+      // Update account
+      const currentEarnings = BigInt(account.totalEarnings || '0');
+      await storage.updateReferralAccount(account.id, {
+        totalEarnings: (currentEarnings + pendingAmount).toString(),
+        pendingRewards: '0',
+        claimedRewards: ((BigInt(account.claimedRewards || '0')) + pendingAmount).toString(),
+        lastClaimAt: new Date(),
+      });
+      
+      // Update pending rewards to claimed
+      const rewards = await storage.getReferralRewards(account.id, 100);
+      for (const reward of rewards.filter(r => r.status === 'pending')) {
+        await storage.updateReferralReward(reward.id, {
+          status: 'claimed',
+          transactionHash: txHash,
+          claimedAt: new Date(),
+        });
+      }
+      
+      res.json({
+        success: true,
+        data: {
+          claimedAmount: pendingAmount.toString(),
+          transactionHash: txHash,
+          newTotalEarnings: (currentEarnings + pendingAmount).toString(),
+          message: '보상이 성공적으로 청구되었습니다!',
+        }
+      });
+    } catch (error) {
+      console.error('[Referral] Claim error:', error);
+      res.status(500).json({ error: 'Failed to claim rewards' });
     }
   });
 
