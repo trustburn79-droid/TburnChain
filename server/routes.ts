@@ -740,12 +740,22 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
     
     // Fallback to site password (works for both admin7979 and member login fallback)
-    if (password === SITE_PASSWORD) {
+    // Support both env-based password and hardcoded admin7979 for reliability
+    const isAdminPassword = password === SITE_PASSWORD || password === "admin7979";
+    const isAdminEmail = email === ADMIN_EMAIL || email === "trustburn79@gmail.com";
+    
+    if (isAdminPassword && isAdminEmail) {
+      req.session.authenticated = true;
+      req.session.memberEmail = email;
+      console.log(`[Login] Admin login successful for ${email}`);
+      res.json({ success: true });
+    } else if (password === SITE_PASSWORD) {
       req.session.authenticated = true;
       console.log(`[Login] Site password login successful`);
       res.json({ success: true });
     } else {
-      console.log(`[Login] Failed - email: ${email}, password mismatch`);
+      console.log(`[Login] Failed - email: ${email}, password check failed`);
+      console.log(`[Login] Debug - SITE_PASSWORD length: ${SITE_PASSWORD?.length}, input length: ${password?.length}`);
       res.status(401).json({ error: "이메일 또는 비밀번호가 올바르지 않습니다." });
     }
   });
