@@ -8766,3 +8766,73 @@ export type InsertIdoLaunchpadProject = z.infer<typeof insertIdoLaunchpadProject
 
 export type IdoLaunchpadParticipant = typeof idoLaunchpadParticipants.$inferSelect;
 export type InsertIdoLaunchpadParticipant = z.infer<typeof insertIdoLaunchpadParticipantSchema>;
+
+// ============================================
+// CoinList Token Sale Program Tables
+// ============================================
+export const coinlistSales = pgTable("coinlist_sales", {
+  id: varchar("id").primaryKey(),
+  saleName: text("sale_name").notNull(),
+  tokenSymbol: text("token_symbol").notNull().default("TBURN"),
+  tokenPrice: numeric("token_price").notNull().default("0.02"),
+  totalAllocation: text("total_allocation").notNull().default("0"),
+  hardCap: numeric("hard_cap").notNull().default("1000000"),
+  raisedAmount: numeric("raised_amount").notNull().default("0"),
+  minPurchase: numeric("min_purchase").notNull().default("100"),
+  maxPurchase: numeric("max_purchase").notNull().default("5000"),
+  queueType: text("queue_type").notNull().default("lottery"),
+  totalSlots: integer("total_slots").notNull().default(1000),
+  registrationStart: timestamp("registration_start"),
+  registrationEnd: timestamp("registration_end"),
+  saleStart: timestamp("sale_start"),
+  saleEnd: timestamp("sale_end"),
+  tgePercentage: integer("tge_percentage").notNull().default(25),
+  vestingMonths: integer("vesting_months").notNull().default(6),
+  kycRequired: boolean("kyc_required").notNull().default(true),
+  status: text("status").notNull().default("draft"),
+  notes: text("notes"),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
+export const coinlistParticipants = pgTable("coinlist_participants", {
+  id: varchar("id").primaryKey(),
+  saleId: varchar("sale_id").notNull(),
+  email: text("email").notNull(),
+  walletAddress: text("wallet_address").notNull(),
+  country: text("country"),
+  queuePosition: integer("queue_position"),
+  investmentAmount: numeric("investment_amount").notNull().default("0"),
+  investmentCurrency: text("investment_currency").notNull().default("usdt"),
+  tokenAmount: text("token_amount").notNull().default("0"),
+  distributedAmount: text("distributed_amount").notNull().default("0"),
+  txHash: text("tx_hash"),
+  kycVerified: boolean("kyc_verified").notNull().default(false),
+  kycVerifiedDate: timestamp("kyc_verified_date"),
+  isWinner: boolean("is_winner").notNull().default(false),
+  winnerSelectedDate: timestamp("winner_selected_date"),
+  paymentReceived: boolean("payment_received").notNull().default(false),
+  paymentReceivedDate: timestamp("payment_received_date"),
+  status: text("status").notNull().default("registered"),
+  notes: text("notes"),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
+export const insertCoinlistSaleSchema = createInsertSchema(coinlistSales).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertCoinlistParticipantSchema = createInsertSchema(coinlistParticipants).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export type CoinlistSale = typeof coinlistSales.$inferSelect;
+export type InsertCoinlistSale = z.infer<typeof insertCoinlistSaleSchema>;
+
+export type CoinlistParticipant = typeof coinlistParticipants.$inferSelect;
+export type InsertCoinlistParticipant = z.infer<typeof insertCoinlistParticipantSchema>;

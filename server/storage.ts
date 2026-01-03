@@ -471,6 +471,12 @@ import {
   type InsertIdoLaunchpadParticipant,
   idoLaunchpadProjects,
   idoLaunchpadParticipants,
+  type CoinlistSale,
+  type InsertCoinlistSale,
+  type CoinlistParticipant,
+  type InsertCoinlistParticipant,
+  coinlistSales,
+  coinlistParticipants,
 } from "@shared/schema";
 import { randomUUID } from "crypto";
 import { db } from "./db";
@@ -7863,6 +7869,63 @@ export class DbStorage implements IStorage {
 
   async updateIdoLaunchpadParticipant(id: string, data: Partial<IdoLaunchpadParticipant>): Promise<void> {
     await db.update(idoLaunchpadParticipants).set({ ...data, updatedAt: new Date() }).where(eq(idoLaunchpadParticipants.id, id));
+  }
+
+  // CoinList Token Sale Program Implementation
+  async getAllCoinlistSales(limit: number = 100): Promise<CoinlistSale[]> {
+    return db.select().from(coinlistSales).orderBy(desc(coinlistSales.createdAt)).limit(limit);
+  }
+
+  async getCoinlistSaleById(id: string): Promise<CoinlistSale | undefined> {
+    const [result] = await db.select().from(coinlistSales).where(eq(coinlistSales.id, id));
+    return result;
+  }
+
+  async createCoinlistSale(data: InsertCoinlistSale): Promise<CoinlistSale> {
+    const [result] = await db.insert(coinlistSales).values({ ...data, id: `coinlist-${randomUUID()}` }).returning();
+    return result;
+  }
+
+  async updateCoinlistSale(id: string, data: Partial<CoinlistSale>): Promise<void> {
+    await db.update(coinlistSales).set({ ...data, updatedAt: new Date() }).where(eq(coinlistSales.id, id));
+  }
+
+  async getCoinlistStats(): Promise<{ totalSales: number; activeSales: number; totalRegistered: number; totalWinners: number; totalRaised: string; totalAllocated: string }> {
+    const sales = await this.getAllCoinlistSales(100000);
+    const active = sales.filter(s => s.status === 'active' || s.status === 'live');
+    const totalRaised = sales.reduce((sum, s) => sum + parseFloat(s.raisedAmount || '0'), 0);
+    const participants = await db.select().from(coinlistParticipants);
+    const winners = participants.filter(p => p.isWinner);
+    const totalAllocated = participants.reduce((sum, p) => sum + parseFloat(p.tokenAmount || '0'), 0);
+    return { totalSales: sales.length, activeSales: active.length, totalRegistered: participants.length, totalWinners: winners.length, totalRaised: totalRaised.toFixed(2), totalAllocated: totalAllocated.toString() };
+  }
+
+  async getCoinlistParticipants(saleId: string, limit: number = 100): Promise<CoinlistParticipant[]> {
+    return db.select().from(coinlistParticipants).where(eq(coinlistParticipants.saleId, saleId)).orderBy(desc(coinlistParticipants.createdAt)).limit(limit);
+  }
+
+  async getCoinlistParticipantById(id: string): Promise<CoinlistParticipant | undefined> {
+    const [result] = await db.select().from(coinlistParticipants).where(eq(coinlistParticipants.id, id));
+    return result;
+  }
+
+  async createCoinlistParticipant(data: InsertCoinlistParticipant): Promise<CoinlistParticipant> {
+    const [result] = await db.insert(coinlistParticipants).values({ ...data, id: `clpart-${randomUUID()}` }).returning();
+    return result;
+  }
+
+  async updateCoinlistParticipant(id: string, data: Partial<CoinlistParticipant>): Promise<void> {
+    await db.update(coinlistParticipants).set({ ...data, updatedAt: new Date() }).where(eq(coinlistParticipants.id, id));
+  }
+
+  async selectCoinlistWinners(saleId: string, count: number): Promise<number> {
+    const participants = await db.select().from(coinlistParticipants).where(and(eq(coinlistParticipants.saleId, saleId), eq(coinlistParticipants.kycVerified, true), eq(coinlistParticipants.isWinner, false)));
+    const shuffled = participants.sort(() => Math.random() - 0.5);
+    const winners = shuffled.slice(0, count);
+    for (const winner of winners) {
+      await db.update(coinlistParticipants).set({ isWinner: true, winnerSelectedDate: new Date(), queuePosition: winners.indexOf(winner) + 1, status: 'winner', updatedAt: new Date() }).where(eq(coinlistParticipants.id, winner.id));
+    }
+    return winners.length;
   }
 }
 

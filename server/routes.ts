@@ -13234,6 +13234,122 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
+  // CoinList Token Sale Program Management
+  app.get("/api/admin/token-programs/coinlist/sales", requireAdmin, async (req, res) => {
+    try {
+      const limit = parseInt(req.query.limit as string) || 100;
+      const sales = await storage.getAllCoinlistSales(limit);
+      const stats = await storage.getCoinlistStats();
+      res.json({ success: true, data: { sales, stats } });
+    } catch (error) {
+      console.error('[CoinList] Error fetching sales:', error);
+      res.status(500).json({ error: 'Failed to fetch coinlist sales' });
+    }
+  });
+
+  app.get("/api/admin/token-programs/coinlist/sales/:id", requireAdmin, async (req, res) => {
+    try {
+      const sale = await storage.getCoinlistSaleById(req.params.id);
+      if (!sale) {
+        return res.status(404).json({ error: 'Sale not found' });
+      }
+      const participants = await storage.getCoinlistParticipants(sale.id);
+      res.json({ success: true, data: { sale, participants } });
+    } catch (error) {
+      console.error('[CoinList] Error fetching sale:', error);
+      res.status(500).json({ error: 'Failed to fetch sale' });
+    }
+  });
+
+  app.post("/api/admin/token-programs/coinlist/sales", requireAdmin, async (req, res) => {
+    try {
+      const data = { ...req.body };
+      const dateFields = ['registrationStart', 'registrationEnd', 'saleStart', 'saleEnd'];
+      for (const field of dateFields) {
+        if (data[field] === '' || data[field] === undefined) {
+          data[field] = null;
+        } else if (typeof data[field] === 'string') {
+          data[field] = new Date(data[field]);
+        }
+      }
+      const sale = await storage.createCoinlistSale(data);
+      res.json({ success: true, data: sale });
+    } catch (error) {
+      console.error('[CoinList] Error creating sale:', error);
+      res.status(500).json({ error: 'Failed to create coinlist sale' });
+    }
+  });
+
+  app.patch("/api/admin/token-programs/coinlist/sales/:id", requireAdmin, async (req, res) => {
+    try {
+      const data = { ...req.body };
+      const dateFields = ['registrationStart', 'registrationEnd', 'saleStart', 'saleEnd'];
+      for (const field of dateFields) {
+        if (data[field] === '' || data[field] === undefined) {
+          data[field] = null;
+        } else if (typeof data[field] === 'string') {
+          data[field] = new Date(data[field]);
+        }
+      }
+      await storage.updateCoinlistSale(req.params.id, data);
+      const sale = await storage.getCoinlistSaleById(req.params.id);
+      res.json({ success: true, data: sale });
+    } catch (error) {
+      console.error('[CoinList] Error updating sale:', error);
+      res.status(500).json({ error: 'Failed to update coinlist sale' });
+    }
+  });
+
+  app.post("/api/admin/token-programs/coinlist/sales/:saleId/participants", requireAdmin, async (req, res) => {
+    try {
+      const data = { ...req.body, saleId: req.params.saleId };
+      const dateFields = ['kycVerifiedDate', 'winnerSelectedDate', 'paymentReceivedDate'];
+      for (const field of dateFields) {
+        if (data[field] === '' || data[field] === undefined) {
+          data[field] = null;
+        } else if (typeof data[field] === 'string') {
+          data[field] = new Date(data[field]);
+        }
+      }
+      const participant = await storage.createCoinlistParticipant(data);
+      res.json({ success: true, data: participant });
+    } catch (error) {
+      console.error('[CoinList] Error creating participant:', error);
+      res.status(500).json({ error: 'Failed to create participant' });
+    }
+  });
+
+  app.patch("/api/admin/token-programs/coinlist/participants/:id", requireAdmin, async (req, res) => {
+    try {
+      const data = { ...req.body };
+      const dateFields = ['kycVerifiedDate', 'winnerSelectedDate', 'paymentReceivedDate'];
+      for (const field of dateFields) {
+        if (data[field] === '' || data[field] === undefined) {
+          data[field] = null;
+        } else if (typeof data[field] === 'string') {
+          data[field] = new Date(data[field]);
+        }
+      }
+      await storage.updateCoinlistParticipant(req.params.id, data);
+      const participant = await storage.getCoinlistParticipantById(req.params.id);
+      res.json({ success: true, data: participant });
+    } catch (error) {
+      console.error('[CoinList] Error updating participant:', error);
+      res.status(500).json({ error: 'Failed to update participant' });
+    }
+  });
+
+  app.post("/api/admin/token-programs/coinlist/sales/:saleId/select-winners", requireAdmin, async (req, res) => {
+    try {
+      const { count } = req.body;
+      const winnersSelected = await storage.selectCoinlistWinners(req.params.saleId, count);
+      res.json({ success: true, data: { winnersSelected } });
+    } catch (error) {
+      console.error('[CoinList] Error selecting winners:', error);
+      res.status(500).json({ error: 'Failed to select winners' });
+    }
+  });
+
   // Public Round Program Management
   app.get("/api/admin/token-programs/public-round/participants", requireAdmin, async (req, res) => {
     try {
