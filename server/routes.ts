@@ -1789,6 +1789,10 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     if (req.path.startsWith("/launch-event/")) {
       return next();
     }
+    // Skip auth for Airdrop public endpoints (token distribution program)
+    if (req.path.startsWith("/airdrop/")) {
+      return next();
+    }
     requireAuth(req, res, next);
   });
   // ============================================
