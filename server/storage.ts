@@ -1249,6 +1249,7 @@ export interface IStorage {
   getCommunityTaskById(id: string): Promise<CommunityTask | undefined>;
   createCommunityTask(data: InsertCommunityTask): Promise<CommunityTask>;
   updateCommunityTask(id: string, data: Partial<CommunityTask>): Promise<void>;
+  deleteCommunityTask(id: string): Promise<void>;
   
   // Community Contributions
   getCommunityContributions(taskId: string, limit?: number): Promise<CommunityContribution[]>;
@@ -7161,6 +7162,11 @@ export class DbStorage implements IStorage {
 
   async updateCommunityTask(id: string, data: Partial<CommunityTask>): Promise<void> {
     await db.update(communityTasks).set({ ...data, updatedAt: new Date() }).where(eq(communityTasks.id, id));
+  }
+
+  async deleteCommunityTask(id: string): Promise<void> {
+    await db.delete(communityContributions).where(eq(communityContributions.taskId, id));
+    await db.delete(communityTasks).where(eq(communityTasks.id, id));
   }
 
   async getCommunityContributions(taskId: string, limit: number = 100): Promise<CommunityContribution[]> {

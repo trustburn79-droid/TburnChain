@@ -12672,6 +12672,17 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
+  // Delete Community Task
+  app.delete("/api/admin/token-programs/community/tasks/:id", requireAdmin, async (req, res) => {
+    try {
+      await storage.deleteCommunityTask(req.params.id);
+      res.json({ success: true });
+    } catch (error) {
+      console.error('[Community] Error deleting task:', error);
+      res.status(500).json({ error: 'Failed to delete community task' });
+    }
+  });
+
   // Community Contribution Approval
   app.patch("/api/admin/token-programs/community/contributions/:id", requireAdmin, async (req, res) => {
     try {

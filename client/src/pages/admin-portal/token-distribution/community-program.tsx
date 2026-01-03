@@ -69,6 +69,7 @@ export default function AdminCommunityProgram() {
   const [isCreateOpen, setIsCreateOpen] = useState(false);
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [isContributionsOpen, setIsContributionsOpen] = useState(false);
+  const [isDeleteOpen, setIsDeleteOpen] = useState(false);
   const [selectedTask, setSelectedTask] = useState<CommunityTask | null>(null);
   
   const [formData, setFormData] = useState({
@@ -132,13 +133,28 @@ export default function AdminCommunityProgram() {
   });
 
   const approveContributionMutation = useMutation({
-    mutationFn: async ({ id, status }: { id: string; status: string }) => {
+    mutationFn: async ({ id, status, taskId }: { id: string; status: string; taskId: string }) => {
       return apiRequest('PATCH', `/api/admin/token-programs/community/contributions/${id}`, { status });
     },
-    onSuccess: () => {
+    onSuccess: (_, variables) => {
       toast({ title: "기여 처리 완료", description: "기여 상태가 변경되었습니다." });
-      queryClient.invalidateQueries({ queryKey: ['/api/admin/token-programs/community/tasks', selectedTask?.id, 'contributions'] });
+      queryClient.invalidateQueries({ queryKey: ['/api/admin/token-programs/community/tasks', variables.taskId, 'contributions'] });
     },
+  });
+
+  const deleteTaskMutation = useMutation({
+    mutationFn: async (id: string) => {
+      return apiRequest('DELETE', `/api/admin/token-programs/community/tasks/${id}`);
+    },
+    onSuccess: () => {
+      toast({ title: "태스크 삭제 완료", description: "커뮤니티 태스크가 삭제되었습니다." });
+      queryClient.invalidateQueries({ queryKey: ['/api/admin/token-programs/community/tasks'] });
+      setIsDeleteOpen(false);
+      setSelectedTask(null);
+    },
+    onError: () => {
+      toast({ title: "오류", description: "태스크 삭제에 실패했습니다.", variant: "destructive" });
+    }
   });
 
   const resetForm = () => {
@@ -172,6 +188,16 @@ export default function AdminCommunityProgram() {
   const openContributionsDialog = (task: CommunityTask) => {
     setSelectedTask(task);
     setIsContributionsOpen(true);
+  };
+
+  const handleContributionsDialogClose = (open: boolean) => {
+    setIsContributionsOpen(open);
+    if (!open) setSelectedTask(null);
+  };
+
+  const handleDeleteDialogClose = (open: boolean) => {
+    setIsDeleteOpen(open);
+    if (!open) setSelectedTask(null);
   };
 
   const stats = tasksData?.data?.stats || { totalTasks: 0, activeTasks: 0, totalContributions: 0, totalPointsDistributed: 0 };
@@ -390,6 +416,14 @@ export default function AdminCommunityProgram() {
                             >
                               <Edit className="h-4 w-4" />
                             </Button>
+                            <Button 
+                              variant="ghost" 
+                              size="icon" 
+                              onClick={() => { setSelectedTask(task); setIsDeleteOpen(true); }}
+                              data-testid={`button-delete-${task.id}`}
+                            >
+                              <Trash2 className="h-4 w-4 text-red-500" />
+                            </Button>
                           </div>
                         </TableCell>
                       </TableRow>
@@ -598,7 +632,7 @@ export default function AdminCommunityProgram() {
         </DialogContent>
       </Dialog>
 
-      <Dialog open={isContributionsOpen} onOpenChange={setIsContributionsOpen}>
+      <Dialog open={isContributionsOpen} onOpenChange={handleContributionsDialogClose}>
         <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle>기여 목록: {selectedTask?.name}</DialogTitle>
@@ -644,19 +678,21 @@ export default function AdminCommunityProgram() {
                       {new Date(c.createdAt).toLocaleDateString('ko-KR')}
                     </TableCell>
                     <TableCell className="text-right">
-                      {c.status === 'pending' && (
+                      {c.status === 'pending' && selectedTask && (
                         <div className="flex items-center justify-end gap-1">
                           <Button
                             variant="ghost"
                             size="icon"
-                            onClick={() => approveContributionMutation.mutate({ id: c.id, status: 'approved' })}
+                            onClick={() => approveContributionMutation.mutate({ id: c.id, status: 'approved', taskId: selectedTask.id })}
+                            data-testid={`button-approve-contribution-${c.id}`}
                           >
                             <CheckCircle className="h-4 w-4 text-emerald-500" />
                           </Button>
                           <Button
                             variant="ghost"
                             size="icon"
-                            onClick={() => approveContributionMutation.mutate({ id: c.id, status: 'rejected' })}
+                            onClick={() => approveContributionMutation.mutate({ id: c.id, status: 'rejected', taskId: selectedTask.id })}
+                            data-testid={`button-reject-contribution-${c.id}`}
                           >
                             <XCircle className="h-4 w-4 text-red-500" />
                           </Button>
@@ -668,6 +704,31 @@ export default function AdminCommunityProgram() {
               </TableBody>
             </Table>
           )}
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={isDeleteOpen} onOpenChange={handleDeleteDialogClose}>
+        <DialogContent className="max-w-md">
+          <DialogHeader>
+            <DialogTitle>태스크 삭제 확인</DialogTitle>
+            <DialogDescription>
+              정말로 "{selectedTask?.name}" 태스크를 삭제하시겠습니까?
+              이 작업은 되돌릴 수 없으며, 관련된 모든 기여 기록도 함께 삭제될 수 있습니다.
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => handleDeleteDialogClose(false)} data-testid="button-cancel-delete">
+              취소
+            </Button>
+            <Button 
+              variant="destructive"
+              onClick={() => selectedTask && deleteTaskMutation.mutate(selectedTask.id)}
+              disabled={deleteTaskMutation.isPending}
+              data-testid="button-confirm-delete"
+            >
+              {deleteTaskMutation.isPending ? "삭제 중..." : "삭제"}
+            </Button>
+          </DialogFooter>
         </DialogContent>
       </Dialog>
     </div>
