@@ -414,6 +414,12 @@ import {
   type InsertEcosystemGrant,
   type GrantMilestone,
   type InsertGrantMilestone,
+  type Partnership,
+  type InsertPartnership,
+  type PartnershipPayout,
+  type InsertPartnershipPayout,
+  partnerships,
+  partnershipPayouts,
 } from "@shared/schema";
 import { randomUUID } from "crypto";
 import { db } from "./db";
@@ -1347,6 +1353,24 @@ export interface IStorage {
   getGrantMilestoneById(id: string): Promise<GrantMilestone | undefined>;
   createGrantMilestone(data: InsertGrantMilestone): Promise<GrantMilestone>;
   updateGrantMilestone(id: string, data: Partial<GrantMilestone>): Promise<void>;
+  
+  // Partnership Program
+  getAllPartnerships(limit?: number): Promise<Partnership[]>;
+  getPartnershipById(id: string): Promise<Partnership | undefined>;
+  getPartnershipsByStatus(status: string): Promise<Partnership[]>;
+  createPartnership(data: InsertPartnership): Promise<Partnership>;
+  updatePartnership(id: string, data: Partial<Partnership>): Promise<void>;
+  getPartnershipStats(): Promise<{
+    totalPartners: number;
+    activePartners: number;
+    totalAllocated: string;
+    totalDistributed: string;
+  }>;
+  
+  // Partnership Payouts
+  getPartnershipPayouts(partnershipId: string): Promise<PartnershipPayout[]>;
+  createPartnershipPayout(data: InsertPartnershipPayout): Promise<PartnershipPayout>;
+  updatePartnershipPayout(id: string, data: Partial<PartnershipPayout>): Promise<void>;
 }
 
 export class MemStorage implements IStorage {
@@ -7414,6 +7438,50 @@ export class DbStorage implements IStorage {
 
   async updateGrantMilestone(id: string, data: Partial<GrantMilestone>): Promise<void> {
     await db.update(grantMilestones).set(data).where(eq(grantMilestones.id, id));
+  }
+
+  // Partnership Program Implementation
+  async getAllPartnerships(limit: number = 100): Promise<Partnership[]> {
+    return db.select().from(partnerships).orderBy(desc(partnerships.createdAt)).limit(limit);
+  }
+
+  async getPartnershipById(id: string): Promise<Partnership | undefined> {
+    const [result] = await db.select().from(partnerships).where(eq(partnerships.id, id));
+    return result;
+  }
+
+  async getPartnershipsByStatus(status: string): Promise<Partnership[]> {
+    return db.select().from(partnerships).where(eq(partnerships.status, status)).orderBy(desc(partnerships.createdAt));
+  }
+
+  async createPartnership(data: InsertPartnership): Promise<Partnership> {
+    const [result] = await db.insert(partnerships).values({ ...data, id: `partner-${randomUUID()}` }).returning();
+    return result;
+  }
+
+  async updatePartnership(id: string, data: Partial<Partnership>): Promise<void> {
+    await db.update(partnerships).set({ ...data, updatedAt: new Date() }).where(eq(partnerships.id, id));
+  }
+
+  async getPartnershipStats(): Promise<{ totalPartners: number; activePartners: number; totalAllocated: string; totalDistributed: string; }> {
+    const allPartners = await this.getAllPartnerships(10000);
+    const activePartners = allPartners.filter(p => p.status === 'active');
+    const totalAllocated = allPartners.reduce((sum, p) => sum + BigInt(p.allocatedAmount || '0'), BigInt(0));
+    const totalDistributed = allPartners.reduce((sum, p) => sum + BigInt(p.distributedAmount || '0'), BigInt(0));
+    return { totalPartners: allPartners.length, activePartners: activePartners.length, totalAllocated: totalAllocated.toString(), totalDistributed: totalDistributed.toString() };
+  }
+
+  async getPartnershipPayouts(partnershipId: string): Promise<PartnershipPayout[]> {
+    return db.select().from(partnershipPayouts).where(eq(partnershipPayouts.partnershipId, partnershipId)).orderBy(desc(partnershipPayouts.createdAt));
+  }
+
+  async createPartnershipPayout(data: InsertPartnershipPayout): Promise<PartnershipPayout> {
+    const [result] = await db.insert(partnershipPayouts).values({ ...data, id: `payout-${randomUUID()}` }).returning();
+    return result;
+  }
+
+  async updatePartnershipPayout(id: string, data: Partial<PartnershipPayout>): Promise<void> {
+    await db.update(partnershipPayouts).set(data).where(eq(partnershipPayouts.id, id));
   }
 }
 

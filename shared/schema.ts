@@ -8073,6 +8073,89 @@ export const insertGrantMilestoneSchema = createInsertSchema(grantMilestones).om
 });
 
 // ============================================
+// Program 9: Partnership Program
+// ============================================
+export const PARTNERSHIP_STATUS = ["draft", "pending", "active", "suspended", "expired", "terminated"] as const;
+export const PARTNERSHIP_TYPE = ["exchange", "wallet", "dapp", "infrastructure", "marketing", "strategic", "validator", "ambassador"] as const;
+export const PARTNERSHIP_TIER = ["bronze", "silver", "gold", "platinum", "diamond"] as const;
+
+export const partnerships = pgTable("partnerships", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  
+  // Partner Info
+  partnerName: text("partner_name").notNull(),
+  partnerType: text("partner_type").notNull(), // exchange, wallet, dapp, infrastructure, marketing, strategic, validator, ambassador
+  tier: text("tier").notNull().default("bronze"), // bronze, silver, gold, platinum, diamond
+  
+  // Contact
+  contactName: text("contact_name"),
+  contactEmail: text("contact_email"),
+  contactPhone: text("contact_phone"),
+  website: text("website"),
+  
+  // Token Allocation
+  allocatedAmount: text("allocated_amount").notNull().default("0"),
+  vestingSchedule: text("vesting_schedule").default("linear"), // cliff, linear, immediate
+  vestingDuration: integer("vesting_duration").default(12), // months
+  distributedAmount: text("distributed_amount").notNull().default("0"),
+  
+  // Agreement
+  agreementStartDate: timestamp("agreement_start_date"),
+  agreementEndDate: timestamp("agreement_end_date"),
+  contractUrl: text("contract_url"),
+  
+  // Metrics
+  totalVolume: text("total_volume").notNull().default("0"),
+  totalTransactions: integer("total_transactions").notNull().default(0),
+  
+  // Status
+  status: text("status").notNull().default("draft"), // draft, pending, active, suspended, expired, terminated
+  
+  // Notes
+  notes: text("notes"),
+  
+  // Audit
+  createdBy: varchar("created_by"),
+  approvedBy: varchar("approved_by"),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
+export const partnershipPayouts = pgTable("partnership_payouts", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  
+  partnershipId: varchar("partnership_id").notNull(),
+  
+  // Payment Details
+  amount: text("amount").notNull(),
+  paymentType: text("payment_type").notNull(), // scheduled, bonus, milestone
+  description: text("description"),
+  
+  // Status
+  status: text("status").notNull().default("pending"), // pending, approved, processing, completed, failed
+  
+  // Transaction
+  txHash: text("tx_hash"),
+  paidAt: timestamp("paid_at"),
+  
+  // Approval
+  approvedBy: varchar("approved_by"),
+  
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+export const insertPartnershipSchema = createInsertSchema(partnerships).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertPartnershipPayoutSchema = createInsertSchema(partnershipPayouts).omit({
+  id: true,
+  createdAt: true,
+});
+
+// ============================================
 // Types for Token Programs
 // ============================================
 export type TokenProgram = typeof tokenPrograms.$inferSelect;
@@ -8134,3 +8217,9 @@ export type InsertEcosystemGrant = z.infer<typeof insertEcosystemGrantSchema>;
 
 export type GrantMilestone = typeof grantMilestones.$inferSelect;
 export type InsertGrantMilestone = z.infer<typeof insertGrantMilestoneSchema>;
+
+export type Partnership = typeof partnerships.$inferSelect;
+export type InsertPartnership = z.infer<typeof insertPartnershipSchema>;
+
+export type PartnershipPayout = typeof partnershipPayouts.$inferSelect;
+export type InsertPartnershipPayout = z.infer<typeof insertPartnershipPayoutSchema>;

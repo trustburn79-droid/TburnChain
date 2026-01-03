@@ -13045,6 +13045,106 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
+  // Partnership Program Management
+  app.get("/api/admin/token-programs/partnerships", requireAdmin, async (req, res) => {
+    try {
+      const limit = parseInt(req.query.limit as string) || 100;
+      const partners = await storage.getAllPartnerships(limit);
+      const stats = await storage.getPartnershipStats();
+      res.json({ success: true, data: { partners, stats } });
+    } catch (error) {
+      console.error('[Partnerships] Error fetching partners:', error);
+      res.status(500).json({ error: 'Failed to fetch partnerships' });
+    }
+  });
+
+  app.get("/api/admin/token-programs/partnerships/:id", requireAdmin, async (req, res) => {
+    try {
+      const partner = await storage.getPartnershipById(req.params.id);
+      if (!partner) {
+        return res.status(404).json({ error: 'Partnership not found' });
+      }
+      const payouts = await storage.getPartnershipPayouts(partner.id);
+      res.json({ success: true, data: { partner, payouts } });
+    } catch (error) {
+      console.error('[Partnerships] Error fetching partner:', error);
+      res.status(500).json({ error: 'Failed to fetch partnership' });
+    }
+  });
+
+  app.post("/api/admin/token-programs/partnerships", requireAdmin, async (req, res) => {
+    try {
+      const data = { ...req.body };
+      // Convert date fields
+      const dateFields = ['agreementStartDate', 'agreementEndDate'];
+      for (const field of dateFields) {
+        if (data[field] === '' || data[field] === undefined) {
+          data[field] = null;
+        } else if (typeof data[field] === 'string') {
+          data[field] = new Date(data[field]);
+        }
+      }
+      const partner = await storage.createPartnership(data);
+      res.json({ success: true, data: partner });
+    } catch (error) {
+      console.error('[Partnerships] Error creating partner:', error);
+      res.status(500).json({ error: 'Failed to create partnership' });
+    }
+  });
+
+  app.patch("/api/admin/token-programs/partnerships/:id", requireAdmin, async (req, res) => {
+    try {
+      const data = { ...req.body };
+      // Convert date fields
+      const dateFields = ['agreementStartDate', 'agreementEndDate'];
+      for (const field of dateFields) {
+        if (data[field] === '' || data[field] === undefined) {
+          data[field] = null;
+        } else if (typeof data[field] === 'string') {
+          data[field] = new Date(data[field]);
+        }
+      }
+      await storage.updatePartnership(req.params.id, data);
+      const partner = await storage.getPartnershipById(req.params.id);
+      res.json({ success: true, data: partner });
+    } catch (error) {
+      console.error('[Partnerships] Error updating partner:', error);
+      res.status(500).json({ error: 'Failed to update partnership' });
+    }
+  });
+
+  app.post("/api/admin/token-programs/partnerships/:id/payouts", requireAdmin, async (req, res) => {
+    try {
+      const data = { ...req.body, partnershipId: req.params.id };
+      if (data.paidAt === '' || data.paidAt === undefined) {
+        data.paidAt = null;
+      } else if (typeof data.paidAt === 'string') {
+        data.paidAt = new Date(data.paidAt);
+      }
+      const payout = await storage.createPartnershipPayout(data);
+      res.json({ success: true, data: payout });
+    } catch (error) {
+      console.error('[Partnerships] Error creating payout:', error);
+      res.status(500).json({ error: 'Failed to create partnership payout' });
+    }
+  });
+
+  app.patch("/api/admin/token-programs/partnerships/payouts/:id", requireAdmin, async (req, res) => {
+    try {
+      const data = { ...req.body };
+      if (data.paidAt === '' || data.paidAt === undefined) {
+        data.paidAt = null;
+      } else if (typeof data.paidAt === 'string') {
+        data.paidAt = new Date(data.paidAt);
+      }
+      await storage.updatePartnershipPayout(req.params.id, data);
+      res.json({ success: true, message: 'Payout updated successfully' });
+    } catch (error) {
+      console.error('[Partnerships] Error updating payout:', error);
+      res.status(500).json({ error: 'Failed to update partnership payout' });
+    }
+  });
+
   // ============================================
   // Public Token Distribution Programs API
   // Enterprise-grade public endpoints for token programs
