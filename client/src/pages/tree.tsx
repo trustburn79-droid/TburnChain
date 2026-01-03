@@ -135,17 +135,8 @@ const routeTree: RouteItem[] = [
     ]
   },
   {
-    path: "#legal",
-    label: "Legal",
-    children: [
-      { path: "/legal/terms-of-service", label: "Terms of Service" },
-      { path: "/legal/privacy-policy", label: "Privacy Policy" },
-      { path: "/legal/disclaimer", label: "Disclaimer" },
-    ]
-  },
-  {
-    path: "#standalone",
-    label: "Standalone Pages",
+    path: "#token-distribution",
+    label: "Token Distribution",
     children: [
       { path: "/airdrop", label: "Airdrop Program" },
       { path: "/referral", label: "Referral Program" },
@@ -165,6 +156,12 @@ const routeTree: RouteItem[] = [
       { path: "/launchpad", label: "Launchpad" },
       { path: "/coinlist", label: "CoinList" },
       { path: "/dao-maker", label: "DAO Maker SHO" },
+    ]
+  },
+  {
+    path: "#standalone",
+    label: "Standalone Pages",
+    children: [
       { path: "/token-generator", label: "Token Generator" },
       { path: "/nft-marketplace", label: "NFT Marketplace" },
       { path: "/security-audit", label: "Security Audit" },
@@ -231,6 +228,15 @@ const routeTree: RouteItem[] = [
       { path: "/validator/infrastructure", label: "Infrastructure" },
       { path: "/validator/:id", label: "Validator Detail" },
       { path: "/validator-governance", label: "Governance & Rewards" },
+    ]
+  },
+  {
+    path: "#legal",
+    label: "Legal",
+    children: [
+      { path: "/legal/terms-of-service", label: "Terms of Service" },
+      { path: "/legal/privacy-policy", label: "Privacy Policy" },
+      { path: "/legal/disclaimer", label: "Disclaimer" },
     ]
   },
 ];
