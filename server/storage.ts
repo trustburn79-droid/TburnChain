@@ -459,6 +459,12 @@ import {
   type InsertPrivatePayout,
   privateInvestors,
   privatePayouts,
+  type PublicParticipant,
+  type InsertPublicParticipant,
+  type PublicPayout,
+  type InsertPublicPayout,
+  publicParticipants,
+  publicPayouts,
 } from "@shared/schema";
 import { randomUUID } from "crypto";
 import { db } from "./db";
@@ -7763,6 +7769,48 @@ export class DbStorage implements IStorage {
 
   async updatePrivatePayout(id: string, data: Partial<PrivatePayout>): Promise<void> {
     await db.update(privatePayouts).set(data).where(eq(privatePayouts.id, id));
+  }
+
+  // Public Round Program Implementation
+  async getAllPublicParticipants(limit: number = 100): Promise<PublicParticipant[]> {
+    return db.select().from(publicParticipants).orderBy(desc(publicParticipants.createdAt)).limit(limit);
+  }
+
+  async getPublicParticipantById(id: string): Promise<PublicParticipant | undefined> {
+    const [result] = await db.select().from(publicParticipants).where(eq(publicParticipants.id, id));
+    return result;
+  }
+
+  async createPublicParticipant(data: InsertPublicParticipant): Promise<PublicParticipant> {
+    const [result] = await db.insert(publicParticipants).values({ ...data, id: `public-${randomUUID()}` }).returning();
+    return result;
+  }
+
+  async updatePublicParticipant(id: string, data: Partial<PublicParticipant>): Promise<void> {
+    await db.update(publicParticipants).set({ ...data, updatedAt: new Date() }).where(eq(publicParticipants.id, id));
+  }
+
+  async getPublicRoundStats(): Promise<{ totalParticipants: number; confirmedParticipants: number; raisedAmount: string; totalTokens: string; hardCap: string; progress: number; }> {
+    const all = await this.getAllPublicParticipants(100000);
+    const confirmed = all.filter(p => p.status === 'confirmed' || p.status === 'distributed');
+    const raisedAmount = confirmed.reduce((sum, p) => sum + parseFloat(p.investmentAmount || '0'), 0);
+    const totalTokens = all.reduce((sum, p) => sum + BigInt(p.tokenAmount || '0'), BigInt(0));
+    const hardCap = 5000000;
+    const progress = Math.min((raisedAmount / hardCap) * 100, 100);
+    return { totalParticipants: all.length, confirmedParticipants: confirmed.length, raisedAmount: raisedAmount.toFixed(2), totalTokens: totalTokens.toString(), hardCap: hardCap.toString(), progress: Math.round(progress * 100) / 100 };
+  }
+
+  async getPublicPayouts(participantId: string): Promise<PublicPayout[]> {
+    return db.select().from(publicPayouts).where(eq(publicPayouts.participantId, participantId)).orderBy(desc(publicPayouts.createdAt));
+  }
+
+  async createPublicPayout(data: InsertPublicPayout): Promise<PublicPayout> {
+    const [result] = await db.insert(publicPayouts).values({ ...data, id: `pubpay-${randomUUID()}` }).returning();
+    return result;
+  }
+
+  async updatePublicPayout(id: string, data: Partial<PublicPayout>): Promise<void> {
+    await db.update(publicPayouts).set(data).where(eq(publicPayouts.id, id));
   }
 }
 

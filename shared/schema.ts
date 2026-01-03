@@ -8633,3 +8633,61 @@ export type InsertPrivateInvestor = z.infer<typeof insertPrivateInvestorSchema>;
 
 export type PrivatePayout = typeof privatePayouts.$inferSelect;
 export type InsertPrivatePayout = z.infer<typeof insertPrivatePayoutSchema>;
+
+// ============================================
+// Public Round Program Tables
+// ============================================
+export const publicParticipants = pgTable("public_participants", {
+  id: varchar("id").primaryKey(),
+  walletAddress: text("wallet_address").notNull(),
+  email: text("email"),
+  country: text("country"),
+  investmentAmount: numeric("investment_amount").notNull().default("0"),
+  investmentCurrency: text("investment_currency").notNull().default("usdt"),
+  tokenPrice: numeric("token_price").notNull().default("0.02"),
+  tokenAmount: text("token_amount").notNull().default("0"),
+  distributedAmount: text("distributed_amount").notNull().default("0"),
+  tgePercentage: integer("tge_percentage").notNull().default(25),
+  vestingMonths: integer("vesting_months").notNull().default(6),
+  txHash: text("tx_hash"),
+  kycVerified: boolean("kyc_verified").notNull().default(false),
+  kycVerifiedDate: timestamp("kyc_verified_date"),
+  paymentReceived: boolean("payment_received").notNull().default(false),
+  paymentReceivedDate: timestamp("payment_received_date"),
+  status: text("status").notNull().default("pending"),
+  referralCode: text("referral_code"),
+  source: text("source"),
+  notes: text("notes"),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
+export const publicPayouts = pgTable("public_payouts", {
+  id: varchar("id").primaryKey(),
+  participantId: varchar("participant_id").notNull(),
+  amount: text("amount").notNull(),
+  payoutType: text("payout_type").notNull().default("tge"),
+  txHash: text("tx_hash"),
+  status: text("status").notNull().default("pending"),
+  scheduledDate: timestamp("scheduled_date"),
+  processedDate: timestamp("processed_date"),
+  notes: text("notes"),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+export const insertPublicParticipantSchema = createInsertSchema(publicParticipants).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertPublicPayoutSchema = createInsertSchema(publicPayouts).omit({
+  id: true,
+  createdAt: true,
+});
+
+export type PublicParticipant = typeof publicParticipants.$inferSelect;
+export type InsertPublicParticipant = z.infer<typeof insertPublicParticipantSchema>;
+
+export type PublicPayout = typeof publicPayouts.$inferSelect;
+export type InsertPublicPayout = z.infer<typeof insertPublicPayoutSchema>;

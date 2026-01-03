@@ -13145,6 +13145,102 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
+  // Public Round Program Management
+  app.get("/api/admin/token-programs/public-round/participants", requireAdmin, async (req, res) => {
+    try {
+      const limit = parseInt(req.query.limit as string) || 100;
+      const participants = await storage.getAllPublicParticipants(limit);
+      const stats = await storage.getPublicRoundStats();
+      res.json({ success: true, data: { participants, stats } });
+    } catch (error) {
+      console.error('[Public Round] Error fetching participants:', error);
+      res.status(500).json({ error: 'Failed to fetch public participants' });
+    }
+  });
+
+  app.get("/api/admin/token-programs/public-round/participants/:id", requireAdmin, async (req, res) => {
+    try {
+      const participant = await storage.getPublicParticipantById(req.params.id);
+      if (!participant) {
+        return res.status(404).json({ error: 'Participant not found' });
+      }
+      const payouts = await storage.getPublicPayouts(participant.id);
+      res.json({ success: true, data: { participant, payouts } });
+    } catch (error) {
+      console.error('[Public Round] Error fetching participant:', error);
+      res.status(500).json({ error: 'Failed to fetch participant' });
+    }
+  });
+
+  app.post("/api/admin/token-programs/public-round/participants", requireAdmin, async (req, res) => {
+    try {
+      const data = { ...req.body };
+      const dateFields = ['kycVerifiedDate', 'paymentReceivedDate'];
+      for (const field of dateFields) {
+        if (data[field] === '' || data[field] === undefined) {
+          data[field] = null;
+        } else if (typeof data[field] === 'string') {
+          data[field] = new Date(data[field]);
+        }
+      }
+      const participant = await storage.createPublicParticipant(data);
+      res.json({ success: true, data: participant });
+    } catch (error) {
+      console.error('[Public Round] Error creating participant:', error);
+      res.status(500).json({ error: 'Failed to create public participant' });
+    }
+  });
+
+  app.patch("/api/admin/token-programs/public-round/participants/:id", requireAdmin, async (req, res) => {
+    try {
+      const data = { ...req.body };
+      const dateFields = ['kycVerifiedDate', 'paymentReceivedDate'];
+      for (const field of dateFields) {
+        if (data[field] === '' || data[field] === undefined) {
+          data[field] = null;
+        } else if (typeof data[field] === 'string') {
+          data[field] = new Date(data[field]);
+        }
+      }
+      await storage.updatePublicParticipant(req.params.id, data);
+      const participant = await storage.getPublicParticipantById(req.params.id);
+      res.json({ success: true, data: participant });
+    } catch (error) {
+      console.error('[Public Round] Error updating participant:', error);
+      res.status(500).json({ error: 'Failed to update public participant' });
+    }
+  });
+
+  app.post("/api/admin/token-programs/public-round/participants/:id/payouts", requireAdmin, async (req, res) => {
+    try {
+      const data = { ...req.body, participantId: req.params.id };
+      if (data.scheduledDate === '' || data.scheduledDate === undefined) data.scheduledDate = null;
+      else if (typeof data.scheduledDate === 'string') data.scheduledDate = new Date(data.scheduledDate);
+      if (data.processedDate === '' || data.processedDate === undefined) data.processedDate = null;
+      else if (typeof data.processedDate === 'string') data.processedDate = new Date(data.processedDate);
+      const payout = await storage.createPublicPayout(data);
+      res.json({ success: true, data: payout });
+    } catch (error) {
+      console.error('[Public Round] Error creating payout:', error);
+      res.status(500).json({ error: 'Failed to create payout' });
+    }
+  });
+
+  app.patch("/api/admin/token-programs/public-round/payouts/:id", requireAdmin, async (req, res) => {
+    try {
+      const data = { ...req.body };
+      if (data.scheduledDate === '' || data.scheduledDate === undefined) data.scheduledDate = null;
+      else if (typeof data.scheduledDate === 'string') data.scheduledDate = new Date(data.scheduledDate);
+      if (data.processedDate === '' || data.processedDate === undefined) data.processedDate = null;
+      else if (typeof data.processedDate === 'string') data.processedDate = new Date(data.processedDate);
+      await storage.updatePublicPayout(req.params.id, data);
+      res.json({ success: true, message: 'Payout updated' });
+    } catch (error) {
+      console.error('[Public Round] Error updating payout:', error);
+      res.status(500).json({ error: 'Failed to update payout' });
+    }
+  });
+
   // Private Round Program Management
   app.get("/api/admin/token-programs/private-round/investors", requireAdmin, async (req, res) => {
     try {
