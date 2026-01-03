@@ -45,6 +45,12 @@ Core architectural decisions and features include:
 - **Static Landing Page Architecture**: Critical performance fix using a pure HTML/CSS landing page for sub-2-second first page load.
 - **Route-Based Code Splitting**: Bundle size optimization by loading appropriate app shells (lightweight `PublicApp` for public routes, full `App` for authenticated routes) based on the initial route.
 - **Token Distribution Admin System**: Complete enterprise-level token distribution management system at `/admin/token-distribution` with 8 programs: Airdrop Claims, Referral Program, Events/Promotions, Community Rewards, DAO Governance, Block Rewards, Validator Incentives, and Ecosystem Grants. Full admin dashboard with real-time monitoring, statistics aggregation, and CRUD operations. Database tables include `token_programs`, `airdrop_claims`, `airdrop_distributions`, `referral_accounts`, `referral_rewards`, `events_catalog`, `event_registrations`, `community_tasks`, `community_contributions`, `dao_proposals`, `dao_votes`, `dao_delegations`, `block_reward_cycles`, `block_reward_payouts`, `validator_incentive_payouts`, `validator_performance_stats`, `ecosystem_grants`, and `grant_milestones`.
+- **Enterprise Scalability Infrastructure**: Production-grade scalability system with three core components:
+  - **Worker Thread Separation**: `server/workers/` module with `SimulationWorker` for blockchain simulation, `WorkerPool` manager with health checks, auto-restart, and task queuing.
+  - **Batch DB Persistence**: `PersistenceBatcher` service with ring buffers for blocks, consensus rounds, and shard metrics. Transaction-based batch flushing with retry/backoff logic.
+  - **Adaptive Gas Fee Model**: EIP-1559 style `AdaptiveFeeEngine` with shard-local base fee calculation, priority tips, cross-shard harmonization, and mempool backpressure handling.
+  - **Blockchain Orchestrator**: Central coordinator (`server/services/blockchain-orchestrator.ts`) integrating all scalability systems with 100ms block production cycle.
+  - **Monitoring APIs**: `/api/enterprise/scalability/*` endpoints for real-time status, gas fees, persistence metrics, and block production stats.
 
 ## External Dependencies
 - **Database**: Neon Serverless PostgreSQL

@@ -46,6 +46,7 @@ import { registerWalletDashboardRoutes } from "./routes/wallet-dashboard-routes"
 import { registerGenesisRoutes } from "./routes/genesis-routes";
 import { registerUserDataRoutes } from "./routes/user-data-routes";
 import { registerLaunchEventRoutes } from "./routes/launch-event-routes";
+import { registerScalabilityRoutes } from "./routes/scalability-routes";
 import { nftMarketplaceService } from "./services/NftMarketplaceService";
 import { launchpadService } from "./services/LaunchpadService";
 import { gameFiService } from "./services/GameFiService";
@@ -1680,7 +1681,8 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
         req.path.startsWith("/enterprise/launchpad/summary") ||
         req.path.startsWith("/enterprise/burn/") ||
         req.path.startsWith("/enterprise/events/") ||
-        req.path.startsWith("/enterprise/ai/")) {
+        req.path.startsWith("/enterprise/ai/") ||
+        req.path.startsWith("/enterprise/scalability/")) {
       return next();
     }
     // Skip auth check for Public API v1 (read-only public website endpoints)
@@ -1851,6 +1853,12 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   // ============================================
   registerLaunchEventRoutes(app);
   console.log("[Launch Event] ✅ Launch event routes registered");
+
+  // ============================================
+  // ENTERPRISE SCALABILITY (Worker Threads, Batch DB, Adaptive Fees)
+  // ============================================
+  registerScalabilityRoutes(app);
+  console.log("[Scalability] ✅ Enterprise scalability routes registered");
 
   // ============================================
   // Network Stats

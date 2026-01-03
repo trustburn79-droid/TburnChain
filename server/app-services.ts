@@ -6,6 +6,7 @@ import { registerRoutes } from "./routes";
 import passport from "passport";
 import { Strategy as GoogleStrategy } from "passport-google-oauth20";
 import { log } from "./app";
+import { initializeBlockchainOrchestrator, shutdownBlockchainOrchestrator } from "./services/blockchain-orchestrator";
 
 declare module "express-session" {
   interface SessionData {
@@ -150,4 +151,37 @@ export default async function runAppServices(
   });
 
   log(`✅ All API routes registered`, "services");
+
+  // Initialize Enterprise Scalability Infrastructure (synchronous - lightweight init only)
+  const IS_DEV = process.env.NODE_ENV === 'development';
+  try {
+    // Initialize Blockchain Orchestrator with all subsystems
+    // Worker threads disabled for Replit, other subsystems use lightweight mode
+    initializeBlockchainOrchestrator({
+      shardCount: 5,
+      validatorsPerShard: 25,
+      blockTimeMs: IS_DEV ? 1000 : 100,
+      enableWorkerThreads: false,  // Disabled for Replit compatibility
+      enableBatchPersistence: true,
+      enableAdaptiveFees: true,
+      batchFlushIntervalMs: IS_DEV ? 5000 : 1000,
+    }).then(() => {
+      log(`✅ Enterprise Scalability initialized${IS_DEV ? ' (dev mode)' : ''}`, "scalability");
+    }).catch((error) => {
+      log(`⚠️ Scalability init error: ${error}`, "scalability");
+    });
+  } catch (error) {
+    log(`⚠️ Scalability setup error: ${error}`, "scalability");
+  }
+
+  // Graceful shutdown handler
+  process.on('SIGTERM', async () => {
+    log(`🛑 SIGTERM received, shutting down gracefully...`, "shutdown");
+    try {
+      await shutdownBlockchainOrchestrator();
+    } catch (e) {
+      // Ignore shutdown errors
+    }
+    process.exit(0);
+  });
 }

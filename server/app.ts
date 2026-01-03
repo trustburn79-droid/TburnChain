@@ -13,6 +13,7 @@ import { Pool } from "@neondatabase/serverless";
 import { registerRoutes } from "./routes";
 import passport from "passport";
 import { Strategy as GoogleStrategy } from "passport-google-oauth20";
+import { initializeBlockchainOrchestrator, shutdownBlockchainOrchestrator } from "./services/blockchain-orchestrator";
 
 // ★ [수정 1] connect-redis 불러오는 방식 변경 (ESM 호환)
 import { RedisStore } from "connect-redis";
@@ -231,6 +232,37 @@ export default async function runApp(
   });
 
   await setup(app, server);
+
+  // Initialize Enterprise Scalability Infrastructure (dev mode)
+  const IS_DEV = process.env.NODE_ENV === 'development';
+  try {
+    initializeBlockchainOrchestrator({
+      shardCount: 5,
+      validatorsPerShard: 25,
+      blockTimeMs: IS_DEV ? 1000 : 100,
+      enableWorkerThreads: false,  // Disabled for Replit compatibility
+      enableBatchPersistence: true,
+      enableAdaptiveFees: true,
+      batchFlushIntervalMs: IS_DEV ? 5000 : 1000,
+    }).then(() => {
+      log(`✅ Enterprise Scalability initialized (dev mode)`, "scalability");
+    }).catch((error) => {
+      log(`⚠️ Scalability init error: ${error}`, "scalability");
+    });
+  } catch (error) {
+    log(`⚠️ Scalability setup error: ${error}`, "scalability");
+  }
+
+  // Graceful shutdown handler
+  process.on('SIGTERM', async () => {
+    log(`🛑 SIGTERM received, shutting down gracefully...`, "shutdown");
+    try {
+      await shutdownBlockchainOrchestrator();
+    } catch (e) {
+      // Ignore shutdown errors
+    }
+    process.exit(0);
+  });
 
   const port = parseInt(process.env.PORT || '5000', 10);
   server.listen({
