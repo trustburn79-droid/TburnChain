@@ -239,6 +239,217 @@ const routeTree: RouteItem[] = [
       { path: "/legal/disclaimer", label: "Disclaimer" },
     ]
   },
+  {
+    path: "/admin",
+    label: "Admin Portal (17 Groups, 90+ Pages)",
+    children: [
+      {
+        path: "#admin-system-dashboard",
+        label: "1. System Dashboard",
+        children: [
+          { path: "/admin", label: "Unified Dashboard" },
+          { path: "/admin/performance", label: "Performance Monitor" },
+          { path: "/admin/health", label: "System Health" },
+          { path: "/admin/alerts", label: "Alert Center" },
+          { path: "/admin/logs", label: "Log Viewer" },
+        ]
+      },
+      {
+        path: "#admin-network-ops",
+        label: "2. Network Operations",
+        children: [
+          { path: "/admin/nodes", label: "Node Management" },
+          { path: "/admin/validators", label: "Validator Management" },
+          { path: "/admin/members", label: "Member Management" },
+          { path: "/admin/consensus", label: "Consensus Monitor" },
+          { path: "/admin/shards", label: "Shard Management" },
+          { path: "/admin/network-params", label: "Network Parameters" },
+        ]
+      },
+      {
+        path: "#admin-token-economy",
+        label: "3. Token & Economy",
+        children: [
+          { path: "/admin/token-issuance", label: "Token Issuance" },
+          { path: "/admin/burn-control", label: "Burn Control" },
+          { path: "/admin/treasury", label: "Treasury Management" },
+          { path: "/admin/economics", label: "Economic Models" },
+          { path: "/admin/tokenomics", label: "Tokenomics Simulation" },
+          { path: "/admin/token-distribution", label: "Token Distribution Hub" },
+        ]
+      },
+      {
+        path: "#admin-token-distribution",
+        label: "3-1. Token Distribution (18 Sub-Pages)",
+        children: [
+          { path: "/admin/token-distribution/airdrop", label: "Airdrop Program" },
+          { path: "/admin/token-distribution/referral", label: "Referral Program" },
+          { path: "/admin/token-distribution/events", label: "Events Center" },
+          { path: "/admin/token-distribution/community-program", label: "Community Program" },
+          { path: "/admin/token-distribution/dao-governance", label: "DAO Governance" },
+          { path: "/admin/token-distribution/block-rewards", label: "Block Rewards" },
+          { path: "/admin/token-distribution/validator-incentives", label: "Validator Incentives" },
+          { path: "/admin/token-distribution/ecosystem-fund", label: "Ecosystem Fund" },
+          { path: "/admin/token-distribution/partnership-program", label: "Partnership Program" },
+          { path: "/admin/token-distribution/marketing-program", label: "Marketing Program" },
+          { path: "/admin/token-distribution/strategic-partner", label: "Strategic Partner" },
+          { path: "/admin/token-distribution/advisor-program", label: "Advisor Program" },
+          { path: "/admin/token-distribution/seed-round", label: "Seed Round" },
+          { path: "/admin/token-distribution/private-round", label: "Private Round" },
+          { path: "/admin/token-distribution/public-round", label: "Public Round" },
+          { path: "/admin/token-distribution/launchpad", label: "Launchpad" },
+          { path: "/admin/token-distribution/coinlist", label: "CoinList" },
+          { path: "/admin/token-distribution/dao-maker", label: "DAO Maker SHO" },
+        ]
+      },
+      {
+        path: "#admin-ai-systems",
+        label: "4. AI Systems",
+        children: [
+          { path: "/admin/ai", label: "AI Orchestration" },
+          { path: "/admin/ai-training", label: "Model Training" },
+          { path: "/admin/ai-analytics", label: "Decision Analytics" },
+          { path: "/admin/ai-tuning", label: "Parameter Tuning" },
+        ]
+      },
+      {
+        path: "#admin-bridge",
+        label: "5. Bridge & Cross-Chain",
+        children: [
+          { path: "/admin/bridge", label: "Bridge Dashboard" },
+          { path: "/admin/bridge-transfers", label: "Transfer Monitor" },
+          { path: "/admin/bridge-validators", label: "Bridge Validators" },
+          { path: "/admin/chains", label: "Chain Connections" },
+          { path: "/admin/bridge-liquidity", label: "Liquidity Management" },
+        ]
+      },
+      {
+        path: "#admin-security",
+        label: "6. Security & Audit",
+        children: [
+          { path: "/admin/security", label: "Security Dashboard" },
+          { path: "/admin/access-control", label: "Access Control" },
+          { path: "/admin/audit-logs", label: "Audit Logs" },
+          { path: "/admin/threats", label: "Threat Detection" },
+          { path: "/admin/compliance", label: "Compliance" },
+          { path: "/admin/bug-bounty", label: "Bug Bounty" },
+        ]
+      },
+      {
+        path: "#admin-data-analytics",
+        label: "7. Data & Analytics",
+        children: [
+          { path: "/admin/bi", label: "BI Dashboard" },
+          { path: "/admin/tx-analytics", label: "Transaction Analytics" },
+          { path: "/admin/user-analytics", label: "User Analytics" },
+          { path: "/admin/network-analytics", label: "Network Analytics" },
+          { path: "/admin/reports", label: "Custom Reports" },
+        ]
+      },
+      {
+        path: "#admin-operations",
+        label: "8. Operations Tools",
+        children: [
+          { path: "/admin/emergency", label: "Emergency Controls" },
+          { path: "/admin/maintenance", label: "Maintenance Mode" },
+          { path: "/admin/backup", label: "Backup & Restore" },
+          { path: "/admin/updates", label: "System Updates" },
+        ]
+      },
+      {
+        path: "#admin-configuration",
+        label: "9. Configuration",
+        children: [
+          { path: "/admin/settings", label: "System Settings" },
+          { path: "/admin/api-config", label: "API Configuration" },
+          { path: "/admin/integrations", label: "Integrations" },
+          { path: "/admin/notification-settings", label: "Notifications" },
+          { path: "/admin/appearance", label: "Appearance" },
+        ]
+      },
+      {
+        path: "#admin-user-management",
+        label: "10. User Management",
+        children: [
+          { path: "/admin/accounts", label: "Admin Accounts" },
+          { path: "/admin/roles", label: "Role Management" },
+          { path: "/admin/permissions", label: "Permissions" },
+          { path: "/admin/activity", label: "Activity History" },
+          { path: "/admin/sessions", label: "Session Management" },
+        ]
+      },
+      {
+        path: "#admin-governance",
+        label: "11. Governance",
+        children: [
+          { path: "/admin/proposals", label: "Proposal Management" },
+          { path: "/admin/voting-config", label: "Voting Configuration" },
+          { path: "/admin/execution", label: "Execution Monitor" },
+          { path: "/admin/gov-params", label: "Gov Parameters" },
+          { path: "/admin/community-feedback", label: "Community Feedback" },
+          { path: "/admin/community-content", label: "Community Content" },
+        ]
+      },
+      {
+        path: "#admin-developer-tools",
+        label: "12. Developer Tools",
+        children: [
+          { path: "/admin/api-docs", label: "API Documentation" },
+          { path: "/admin/sdk", label: "SDK Management" },
+          { path: "/admin/contract-tools", label: "Contract Tools" },
+          { path: "/admin/testnet", label: "Testnet Control" },
+          { path: "/admin/debug", label: "Debug Console" },
+        ]
+      },
+      {
+        path: "#admin-monitoring",
+        label: "13. Monitoring & Alerts",
+        children: [
+          { path: "/admin/realtime", label: "Real-Time Monitor" },
+          { path: "/admin/metrics-explorer", label: "Metrics Explorer" },
+          { path: "/admin/alert-rules", label: "Alert Rules" },
+          { path: "/admin/dashboard-builder", label: "Dashboard Builder" },
+          { path: "/admin/sla", label: "SLA Monitoring" },
+        ]
+      },
+      {
+        path: "#admin-finance",
+        label: "14. Finance & Accounting",
+        children: [
+          { path: "/admin/finance", label: "Finance Overview" },
+          { path: "/admin/tx-accounting", label: "TX Accounting" },
+          { path: "/admin/budget", label: "Budget Management" },
+          { path: "/admin/cost-analysis", label: "Cost Analysis" },
+          { path: "/admin/tax", label: "Tax Reporting" },
+        ]
+      },
+      {
+        path: "#admin-education",
+        label: "15. Education & Support",
+        children: [
+          { path: "/admin/help", label: "Help Center" },
+          { path: "/admin/training", label: "Training Materials" },
+          { path: "/admin/tickets", label: "Support Tickets" },
+          { path: "/admin/feedback", label: "Feedback System" },
+          { path: "/admin/announcements", label: "Announcements" },
+        ]
+      },
+      {
+        path: "#admin-genesis",
+        label: "16. Genesis Launch",
+        children: [
+          { path: "/admin/genesis", label: "Genesis Launch Control" },
+        ]
+      },
+      {
+        path: "#admin-marketing",
+        label: "17. Marketing",
+        children: [
+          { path: "/admin/newsletter", label: "Newsletter Management" },
+        ]
+      },
+    ]
+  },
 ];
 
 function TreeNode({ item, level = 0 }: { item: RouteItem; level?: number }) {
@@ -381,7 +592,7 @@ export default function TreePage() {
         </div>
         
         <div className="mt-8 text-center text-sm text-slate-500 dark:text-slate-400">
-          <p>{t('tree.excludeNote', 'Note: Admin routes are excluded from this list.')}</p>
+          <p>{t('tree.adminNote', 'Admin Portal requires authentication. Access via /admin with valid credentials.')}</p>
         </div>
       </main>
       
