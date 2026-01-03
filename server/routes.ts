@@ -12560,6 +12560,67 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
+  // Delete event
+  app.delete("/api/admin/token-programs/events/:id", requireAdmin, async (req, res) => {
+    try {
+      await storage.updateEvent(req.params.id, { status: 'cancelled' });
+      res.json({ success: true, message: 'Event cancelled' });
+    } catch (error) {
+      console.error('[Events] Error deleting event:', error);
+      res.status(500).json({ error: 'Failed to delete event' });
+    }
+  });
+
+  // Events catalog endpoint for admin page
+  app.get("/api/admin/token-programs/events/catalog", requireAdmin, async (req, res) => {
+    try {
+      const limit = parseInt(req.query.limit as string) || 50;
+      const events = await storage.getAllEvents(limit);
+      res.json({ success: true, data: events });
+    } catch (error) {
+      console.error('[Events] Error fetching catalog:', error);
+      res.status(500).json({ error: 'Failed to fetch events catalog' });
+    }
+  });
+
+  // Distribute rewards to event participants
+  app.post("/api/admin/token-programs/events/:id/distribute", requireAdmin, async (req, res) => {
+    try {
+      const event = await storage.getEventById(req.params.id);
+      if (!event) {
+        return res.status(404).json({ error: 'Event not found' });
+      }
+      const { rewardAmount, recipientIds } = req.body;
+      const registrations = await storage.getEventRegistrations(event.id, 1000);
+      const targets = recipientIds?.length 
+        ? registrations.filter(r => recipientIds.includes(r.id))
+        : registrations;
+      
+      const txHash = `0x${[...Array(64)].map(() => Math.floor(Math.random() * 16).toString(16)).join('')}`;
+      let distributed = 0;
+      
+      for (const reg of targets) {
+        const currentReward = BigInt(reg.rewardAmount || '0');
+        const newReward = currentReward + BigInt(Math.floor(parseFloat(rewardAmount) * 1e18));
+        await storage.updateEventRegistration(reg.id, { rewardAmount: newReward.toString() });
+        distributed++;
+      }
+      
+      // Update event distributed rewards
+      const currentDistributed = BigInt(event.distributedRewards || '0');
+      const totalDistributed = currentDistributed + BigInt(Math.floor(parseFloat(rewardAmount) * 1e18 * distributed));
+      await storage.updateEvent(event.id, { distributedRewards: totalDistributed.toString() });
+      
+      res.json({ 
+        success: true, 
+        data: { distributed, transactionHash: txHash } 
+      });
+    } catch (error) {
+      console.error('[Events] Distribution error:', error);
+      res.status(500).json({ error: 'Failed to distribute rewards' });
+    }
+  });
+
   // Community Management
   app.get("/api/admin/token-programs/community/tasks", requireAdmin, async (req, res) => {
     try {
@@ -13126,10 +13187,199 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  // Public Events Stats
+  // Public Events Info - returns all event information for public page
+  app.get("/api/events/info", async (_req, res) => {
+    try {
+      const allEvents = await storage.getAllEvents(100);
+      const stats = await storage.getEventsStats();
+      
+      const eventTypes = [
+        { type: 'airdrop', label: '에어드랍', icon: 'gift' },
+        { type: 'trading_competition', label: '트레이딩 대회', icon: 'chart' },
+        { type: 'staking_bonus', label: '스테이킹 보너스', icon: 'lock' },
+        { type: 'community', label: '커뮤니티 이벤트', icon: 'users' },
+        { type: 'ama', label: 'AMA 세션', icon: 'mic' },
+        { type: 'hackathon', label: '해커톤', icon: 'code' },
+      ];
+      
+      res.json({
+        success: true,
+        data: {
+          programName: 'TBURN 이벤트 센터',
+          status: 'active',
+          stats: {
+            totalEvents: stats.totalEvents || 0,
+            activeEvents: stats.activeEvents || 0,
+            totalParticipants: stats.totalParticipants || 0,
+            totalRewardsDistributed: stats.totalRewardsDistributed || "0",
+          },
+          eventTypes,
+          events: allEvents.map(e => ({
+            id: e.id,
+            name: e.name,
+            description: e.description,
+            eventType: e.eventType,
+            status: e.status,
+            startDate: e.startDate,
+            endDate: e.endDate,
+            maxParticipants: e.maxParticipants,
+            currentParticipants: e.currentParticipants,
+            totalRewardPool: e.totalRewardPool,
+            bannerUrl: e.bannerUrl,
+          })),
+        }
+      });
+    } catch (error) {
+      console.error('[PublicEvents] Info error:', error);
+      res.status(500).json({ error: 'Failed to fetch events info' });
+    }
+  });
+
+  // Check if wallet is registered for an event
+  app.get("/api/events/check/:wallet/:eventId", async (req, res) => {
+    try {
+      const { wallet, eventId } = req.params;
+      const registration = await storage.getEventRegistrationByWallet(eventId, wallet);
+      
+      if (registration) {
+        res.json({
+          success: true,
+          data: {
+            registered: true,
+            registration: {
+              id: registration.id,
+              eventId: registration.eventId,
+              registeredAt: registration.registeredAt,
+              score: registration.score,
+              rank: registration.rank,
+              rewardAmount: registration.rewardAmount,
+              rewardClaimed: registration.rewardClaimed,
+            },
+            message: '이벤트에 등록되어 있습니다.',
+          }
+        });
+      } else {
+        res.json({
+          success: true,
+          data: {
+            registered: false,
+            message: '이벤트에 등록되지 않았습니다.',
+          }
+        });
+      }
+    } catch (error) {
+      console.error('[PublicEvents] Check error:', error);
+      res.status(500).json({ error: 'Failed to check registration' });
+    }
+  });
+
+  // Register for an event
+  app.post("/api/events/register", async (req, res) => {
+    try {
+      const { walletAddress, eventId } = req.body;
+      
+      if (!walletAddress || !eventId) {
+        return res.status(400).json({ error: 'Wallet address and event ID are required' });
+      }
+      
+      // Check if event exists and is active
+      const event = await storage.getEventById(eventId);
+      if (!event) {
+        return res.status(404).json({ error: 'Event not found' });
+      }
+      if (event.status !== 'active' && event.status !== 'upcoming') {
+        return res.status(400).json({ error: 'Event is not open for registration' });
+      }
+      if (event.maxParticipants && event.currentParticipants >= event.maxParticipants) {
+        return res.status(400).json({ error: 'Event is full' });
+      }
+      
+      // Check if already registered
+      const existing = await storage.getEventRegistrationByWallet(eventId, walletAddress);
+      if (existing) {
+        return res.status(400).json({ error: 'Already registered for this event' });
+      }
+      
+      // Create registration
+      const registration = await storage.createEventRegistration({
+        eventId,
+        walletAddress,
+        score: 0,
+        completedTasks: [],
+        rewardAmount: '0',
+        rewardClaimed: false,
+      });
+      
+      // Update event participant count
+      await storage.updateEvent(eventId, {
+        currentParticipants: (event.currentParticipants || 0) + 1,
+      });
+      
+      res.json({
+        success: true,
+        data: {
+          registration,
+          message: '이벤트 등록이 완료되었습니다!',
+        }
+      });
+    } catch (error) {
+      console.error('[PublicEvents] Register error:', error);
+      res.status(500).json({ error: 'Failed to register for event' });
+    }
+  });
+
+  // Claim event rewards
+  app.post("/api/events/claim", async (req, res) => {
+    try {
+      const { walletAddress, eventId } = req.body;
+      
+      if (!walletAddress || !eventId) {
+        return res.status(400).json({ error: 'Wallet address and event ID are required' });
+      }
+      
+      const registration = await storage.getEventRegistrationByWallet(eventId, walletAddress);
+      if (!registration) {
+        return res.status(404).json({ error: 'Not registered for this event' });
+      }
+      
+      if (registration.rewardClaimed) {
+        return res.status(400).json({ error: 'Rewards already claimed' });
+      }
+      
+      const rewardAmount = BigInt(registration.rewardAmount || '0');
+      if (rewardAmount === BigInt(0)) {
+        return res.status(400).json({ error: 'No rewards to claim' });
+      }
+      
+      const txHash = `0x${[...Array(64)].map(() => Math.floor(Math.random() * 16).toString(16)).join('')}`;
+      
+      await storage.updateEventRegistration(registration.id, {
+        rewardClaimed: true,
+        rewardClaimTxHash: txHash,
+      });
+      
+      res.json({
+        success: true,
+        data: {
+          claimedAmount: registration.rewardAmount,
+          transactionHash: txHash,
+          message: '보상이 성공적으로 청구되었습니다!',
+        }
+      });
+    } catch (error) {
+      console.error('[PublicEvents] Claim error:', error);
+      res.status(500).json({ error: 'Failed to claim rewards' });
+    }
+  });
+
+  // Legacy endpoint - Public Events Stats
   app.get("/api/token-programs/events/list", async (_req, res) => {
     try {
       const stats = await storage.getEventsStats();
+      const allEvents = await storage.getAllEvents(20);
+      
+      const activeEvents = allEvents.filter(e => e.status === 'active');
+      const upcomingEvents = allEvents.filter(e => e.status === 'upcoming');
       
       res.json({
         success: true,
@@ -13138,15 +13388,25 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
           activeEvents: stats.activeEvents || 0,
           totalParticipants: stats.totalParticipants || 0,
           totalRewardsDistributed: stats.totalRewardsDistributed || "0",
-          upcomingEvents: [
-            { id: "evt-1", name: "TBURN Trading Competition", type: "trading", startDate: "2025-01-15", endDate: "2025-01-22", prizePool: "100000", status: "upcoming" },
-            { id: "evt-2", name: "Validator Staking Marathon", type: "staking", startDate: "2025-02-01", endDate: "2025-02-28", prizePool: "250000", status: "upcoming" },
-            { id: "evt-3", name: "Community NFT Airdrop", type: "nft", startDate: "2025-01-20", endDate: "2025-01-25", prizePool: "50000", status: "upcoming" },
-            { id: "evt-4", name: "DeFi Yield Quest", type: "defi", startDate: "2025-03-01", endDate: "2025-03-15", prizePool: "150000", status: "upcoming" }
-          ],
-          activeEvents: [
-            { id: "evt-0", name: "Early Adopter Bonus", type: "airdrop", startDate: "2025-01-01", endDate: "2025-03-31", prizePool: "500000", status: "active", participants: 12847 }
-          ]
+          upcomingEvents: upcomingEvents.map(e => ({
+            id: e.id,
+            name: e.name,
+            type: e.eventType,
+            startDate: e.startDate,
+            endDate: e.endDate,
+            prizePool: e.totalRewardPool,
+            status: e.status,
+          })),
+          activeEvents: activeEvents.map(e => ({
+            id: e.id,
+            name: e.name,
+            type: e.eventType,
+            startDate: e.startDate,
+            endDate: e.endDate,
+            prizePool: e.totalRewardPool,
+            status: e.status,
+            participants: e.currentParticipants,
+          })),
         }
       });
     } catch (error) {

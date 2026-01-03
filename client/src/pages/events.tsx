@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
 import { Link } from "wouter";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useMutation } from "@tanstack/react-query";
 import { TBurnLogo } from "@/components/tburn-logo";
 import { useWeb3 } from "@/lib/web3-context";
+import { apiRequest, queryClient } from "@/lib/queryClient";
+import { useToast } from "@/hooks/use-toast";
 
 interface ApiEvent {
   id: string;
@@ -35,9 +37,33 @@ export default function EventsPage() {
   const [countdown, setCountdown] = useState({ days: 14, hours: 23, minutes: 59, seconds: 59 });
   
   const { isConnected, address, connect, disconnect, formatAddress } = useWeb3();
+  const { toast } = useToast();
+  const [registering, setRegistering] = useState<string | null>(null);
 
   const { data: eventsData, isLoading: isEventsLoading } = useQuery<EventsApiResponse>({
     queryKey: ['/api/token-programs/events/list'],
+  });
+
+  const registerMutation = useMutation({
+    mutationFn: async ({ eventId, walletAddress }: { eventId: string; walletAddress: string }) => {
+      return apiRequest('POST', '/api/events/register', { eventId, walletAddress });
+    },
+    onSuccess: (data: any) => {
+      toast({
+        title: "등록 완료!",
+        description: data.data?.message || "이벤트에 성공적으로 등록되었습니다.",
+      });
+      queryClient.invalidateQueries({ queryKey: ['/api/token-programs/events/list'] });
+      setRegistering(null);
+    },
+    onError: (error: any) => {
+      toast({
+        title: "등록 실패",
+        description: error.message || "이벤트 등록에 실패했습니다.",
+        variant: "destructive",
+      });
+      setRegistering(null);
+    },
   });
 
   useEffect(() => {
@@ -70,7 +96,18 @@ export default function EventsPage() {
   const handleParticipate = async (eventId: string) => {
     if (!isConnected) {
       await connect("metamask");
+      return;
     }
+    if (!address) {
+      toast({
+        title: "지갑 연결 필요",
+        description: "이벤트에 참여하려면 지갑을 연결해주세요.",
+        variant: "destructive",
+      });
+      return;
+    }
+    setRegistering(eventId);
+    registerMutation.mutate({ eventId, walletAddress: address });
   };
 
   const apiData = eventsData?.data;
