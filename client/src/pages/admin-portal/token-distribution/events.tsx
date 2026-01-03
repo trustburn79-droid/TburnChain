@@ -93,6 +93,8 @@ export default function AdminEventsCenter() {
 
   const { data: eventsResponse, isLoading, refetch } = useQuery<{ success: boolean; data: { events: EventsCatalog[]; stats: any } }>({
     queryKey: ['/api/admin/token-programs/events'],
+    staleTime: 0,
+    refetchOnMount: 'always',
   });
 
   const { data: eventDetailResponse } = useQuery<{ success: boolean; data: { event: EventsCatalog; registrations: EventRegistration[] } }>({
@@ -116,13 +118,14 @@ export default function AdminEventsCenter() {
         ...data,
         totalRewardPool: String(Math.floor(parseFloat(data.totalRewardPool || '0') * 1e18)),
         maxParticipants: parseInt(data.maxParticipants) || null,
-        startDate: new Date(data.startDate),
-        endDate: new Date(data.endDate),
+        startDate: data.startDate || undefined,
+        endDate: data.endDate || undefined,
       });
     },
-    onSuccess: () => {
+    onSuccess: async () => {
       toast({ title: "성공", description: "이벤트가 생성되었습니다." });
-      queryClient.invalidateQueries({ queryKey: ['/api/admin/token-programs/events'] });
+      await queryClient.invalidateQueries({ queryKey: ['/api/admin/token-programs/events'] });
+      await refetch();
       setIsAddOpen(false);
       setNewEvent({ name: '', description: '', eventType: 'airdrop', status: 'upcoming', totalRewardPool: '', maxParticipants: '', startDate: '', endDate: '' });
     },
@@ -180,8 +183,8 @@ export default function AdminEventsCenter() {
   });
 
   const handleCreateEvent = () => {
-    if (!newEvent.name || !newEvent.startDate || !newEvent.endDate) {
-      toast({ title: "오류", description: "필수 필드를 입력해주세요.", variant: "destructive" });
+    if (!newEvent.name) {
+      toast({ title: "오류", description: "이벤트 이름을 입력해주세요.", variant: "destructive" });
       return;
     }
     createEventMutation.mutate(newEvent);

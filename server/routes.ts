@@ -12515,6 +12515,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   // Events Management
   app.get("/api/admin/token-programs/events", requireAdmin, async (req, res) => {
     try {
+      res.set('Cache-Control', 'no-store, no-cache, must-revalidate');
       const limit = parseInt(req.query.limit as string) || 50;
       const events = await storage.getAllEvents(limit);
       const stats = await storage.getEventsStats();
@@ -12541,7 +12542,13 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
 
   app.post("/api/admin/token-programs/events", requireAdmin, async (req, res) => {
     try {
-      const event = await storage.createEvent(req.body);
+      const { startDate, endDate, ...rest } = req.body;
+      const eventData = {
+        ...rest,
+        startDate: startDate ? new Date(startDate) : new Date(),
+        endDate: endDate ? new Date(endDate) : new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
+      };
+      const event = await storage.createEvent(eventData);
       res.json({ success: true, data: event });
     } catch (error) {
       console.error('[Events] Error creating event:', error);

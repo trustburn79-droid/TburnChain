@@ -7413,20 +7413,14 @@ export const programSnapshots = pgTable("program_snapshots", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
   programId: varchar("program_id").notNull(),
   
-  // Snapshot Metrics
-  participantCount: integer("participant_count").notNull().default(0),
-  claimCount: integer("claim_count").notNull().default(0),
+  // Snapshot Metrics - matches database schema
+  totalParticipants: integer("total_participants").notNull().default(0),
   distributedAmount: text("distributed_amount").notNull().default("0"),
-  pendingAmount: text("pending_amount").notNull().default("0"),
+  remainingAmount: text("remaining_amount").notNull().default("0"),
+  progressPercent: real("progress_percent").notNull().default(0),
   
-  // Activity
-  dailyNewParticipants: integer("daily_new_participants").notNull().default(0),
-  dailyClaimsProcessed: integer("daily_claims_processed").notNull().default(0),
-  dailyDistributedAmount: text("daily_distributed_amount").notNull().default("0"),
-  
-  // Health Indicators
-  healthStatus: text("health_status").notNull().default("healthy"), // healthy, warning, critical
-  alertCount: integer("alert_count").notNull().default(0),
+  // Configuration
+  metrics: jsonb("metrics").notNull().default({}),
   
   snapshotDate: timestamp("snapshot_date").notNull().defaultNow(),
   createdAt: timestamp("created_at").notNull().defaultNow(),
