@@ -1,6 +1,5 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
-import LanguageDetector from 'i18next-browser-languagedetector';
 
 export const languages = [
   { code: 'en', name: 'English', nativeName: 'English', flag: '🇺🇸', dir: 'ltr' },
@@ -45,72 +44,61 @@ const loadLocale = async (lang: string): Promise<Record<string, unknown>> => {
   }
 };
 
-i18n
-  .use(LanguageDetector)
-  .use(initReactI18next)
-  .init({
-    resources: {},
-    supportedLngs: ['en', 'zh', 'ja', 'hi', 'es', 'fr', 'ar', 'bn', 'ru', 'pt', 'ur', 'ko'],
-    load: 'languageOnly',
-    fallbackLng: 'en',
-    debug: false,
-    interpolation: {
-      escapeValue: false,
-    },
-    detection: {
-      order: ['localStorage', 'navigator', 'htmlTag'],
-      caches: ['localStorage'],
-      lookupLocalStorage: 'tburn-language',
-    },
-    returnEmptyString: false,
-    returnNull: false,
-  });
-
-// CRITICAL: This function MUST call changeLanguage to trigger React re-render
-const loadInitialLocale = async (): Promise<void> => {
-  // Default to Korean for TBURN mainnet (Korean-first platform)
-  const storedLang = typeof localStorage !== 'undefined' ? localStorage.getItem('tburn-language') : null;
-  const lang = storedLang || i18n.language || 'ko';
-  
-  updateDocumentDirection(lang);
-  
-  try {
-    const translations = await loadLocale(lang);
-    i18n.addResourceBundle(lang, 'translation', translations, true, true);
-    // CRITICAL: Must call changeLanguage to trigger re-render with loaded translations
-    await i18n.changeLanguage(lang);
-    console.log(`[i18n] Loaded ${lang} translations successfully`);
-  } catch (error) {
-    console.warn(`[i18n] Failed to load locale ${lang}, trying Korean fallback`);
-    try {
-      const koTranslations = await loadLocale('ko');
-      i18n.addResourceBundle('ko', 'translation', koTranslations, true, true);
-      await i18n.changeLanguage('ko');
-      console.log('[i18n] Loaded Korean fallback');
-    } catch {
-      // Last resort: try English
-      try {
-        const enTranslations = await loadLocale('en');
-        i18n.addResourceBundle('en', 'translation', enTranslations, true, true);
-        await i18n.changeLanguage('en');
-        console.log('[i18n] Loaded English fallback');
-      } catch {
-        console.error('[i18n] Failed to load any locale');
-      }
-    }
-  }
-};
-
-// Export for synchronous initialization in main.tsx
-// CRITICAL: Do NOT auto-call loadInitialLocale - main.tsx will call initializeI18n
 let initialized = false;
+
 export const initializeI18n = async (): Promise<void> => {
   if (initialized) {
     console.log('[i18n] Already initialized, skipping...');
     return;
   }
   initialized = true;
-  await loadInitialLocale();
+  
+  const storedLang = typeof localStorage !== 'undefined' ? localStorage.getItem('tburn-language') : null;
+  const detectedLang = storedLang || 'ko';
+  
+  updateDocumentDirection(detectedLang);
+  
+  let translations: Record<string, unknown> = {};
+  let finalLang = detectedLang;
+  
+  try {
+    translations = await loadLocale(detectedLang);
+    console.log(`[i18n] Loaded ${detectedLang} translations`);
+  } catch (error) {
+    console.warn(`[i18n] Failed to load ${detectedLang}, trying Korean fallback`);
+    try {
+      translations = await loadLocale('ko');
+      finalLang = 'ko';
+    } catch {
+      try {
+        translations = await loadLocale('en');
+        finalLang = 'en';
+      } catch {
+        console.error('[i18n] Failed to load any locale');
+      }
+    }
+  }
+  
+  await i18n
+    .use(initReactI18next)
+    .init({
+      resources: {
+        [finalLang]: {
+          translation: translations,
+        },
+      },
+      lng: finalLang,
+      supportedLngs: ['en', 'zh', 'ja', 'hi', 'es', 'fr', 'ar', 'bn', 'ru', 'pt', 'ur', 'ko'],
+      fallbackLng: 'en',
+      debug: false,
+      interpolation: {
+        escapeValue: false,
+      },
+      returnEmptyString: false,
+      returnNull: false,
+    });
+  
+  console.log(`[i18n] Initialized with ${finalLang}`);
 };
 
 i18n.on('languageChanged', async (lang) => {
