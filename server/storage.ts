@@ -1274,6 +1274,7 @@ export interface IStorage {
   getDaoProposalByNumber(proposalNumber: number): Promise<DaoProposal | undefined>;
   createDaoProposal(data: InsertDaoProposal): Promise<DaoProposal>;
   updateDaoProposal(id: string, data: Partial<DaoProposal>): Promise<void>;
+  deleteDaoProposal(id: string): Promise<void>;
   getDaoStats(): Promise<{
     totalProposals: number;
     activeProposals: number;
@@ -7228,6 +7229,13 @@ export class DbStorage implements IStorage {
 
   async updateDaoProposal(id: string, data: Partial<DaoProposal>): Promise<void> {
     await db.update(daoProposals).set({ ...data, updatedAt: new Date() }).where(eq(daoProposals.id, id));
+  }
+
+  async deleteDaoProposal(id: string): Promise<void> {
+    // Delete associated votes first
+    await db.delete(daoVotes).where(eq(daoVotes.proposalId, id));
+    // Delete the proposal
+    await db.delete(daoProposals).where(eq(daoProposals.id, id));
   }
 
   async getDaoStats(): Promise<{ totalProposals: number; activeProposals: number; passedProposals: number; totalVoters: number; }> {

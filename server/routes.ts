@@ -12750,6 +12750,26 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
+  app.delete("/api/admin/token-programs/dao/proposals/:id", requireAdmin, async (req, res) => {
+    try {
+      await storage.deleteDaoProposal(req.params.id);
+      res.json({ success: true, message: 'Proposal deleted successfully' });
+    } catch (error) {
+      console.error('[DAO] Error deleting proposal:', error);
+      res.status(500).json({ error: 'Failed to delete proposal' });
+    }
+  });
+
+  app.get("/api/admin/token-programs/dao/proposals/:id/votes", requireAdmin, async (req, res) => {
+    try {
+      const votes = await storage.getDaoVotes(req.params.id);
+      res.json({ success: true, data: votes });
+    } catch (error) {
+      console.error('[DAO] Error fetching votes:', error);
+      res.status(500).json({ error: 'Failed to fetch votes' });
+    }
+  });
+
   // Block Rewards Management
   app.get("/api/admin/token-programs/block-rewards/cycles", requireAdmin, async (req, res) => {
     try {
