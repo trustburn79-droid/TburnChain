@@ -12672,6 +12672,25 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
+  // Community Contribution Approval
+  app.patch("/api/admin/token-programs/community/contributions/:id", requireAdmin, async (req, res) => {
+    try {
+      const { status } = req.body;
+      if (!status || !['approved', 'rejected', 'pending'].includes(status)) {
+        return res.status(400).json({ error: 'Invalid status. Must be: approved, rejected, or pending' });
+      }
+      await storage.updateCommunityContribution(req.params.id, { 
+        status,
+        verifiedBy: (req as any).session?.admin?.username || 'admin',
+        verifiedAt: new Date()
+      });
+      res.json({ success: true });
+    } catch (error) {
+      console.error('[Community] Error updating contribution:', error);
+      res.status(500).json({ error: 'Failed to update contribution' });
+    }
+  });
+
   // DAO Governance Management
   app.get("/api/admin/token-programs/dao/proposals", requireAdmin, async (req, res) => {
     try {
