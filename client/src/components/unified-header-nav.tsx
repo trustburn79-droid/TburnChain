@@ -1,4 +1,4 @@
-import { Link } from "wouter";
+import { useLocation } from "wouter";
 import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 import {
@@ -26,11 +26,16 @@ interface UnifiedHeaderNavProps {
 
 export function UnifiedHeaderNav({ variant = "dark" }: UnifiedHeaderNavProps) {
   const { t } = useTranslation();
+  const [, setLocation] = useLocation();
   const [language, setLanguage] = useState(i18n.language || 'en');
 
   const handleLanguageChange = (value: string) => {
     setLanguage(value);
     i18n.changeLanguage(value);
+  };
+
+  const navigate = (path: string) => {
+    setLocation(path);
   };
 
   const baseButtonClass = variant === "dark" 
@@ -76,66 +81,60 @@ export function UnifiedHeaderNav({ variant = "dark" }: UnifiedHeaderNavProps) {
 
       <div className="hidden sm:block w-px h-6 bg-gray-700 dark:bg-gray-700 mx-1" />
 
-      <Link href="/">
-        <Button
-          variant="ghost"
-          size="icon"
-          className={baseButtonClass}
-          data-testid="link-nav-home"
-        >
-          <Home className="w-3 h-3 sm:w-4 sm:h-4" />
-        </Button>
-      </Link>
-      <Link href="/scan">
-        <Button
-          variant="ghost"
-          size="icon"
-          className={baseButtonClass}
-          data-testid="link-nav-scan"
-        >
-          <ScanLine className="w-3 h-3 sm:w-4 sm:h-4" />
-        </Button>
-      </Link>
-      <Link href="/user">
-        <Button
-          variant="ghost"
-          size="icon"
-          className={baseButtonClass}
-          data-testid="link-nav-user"
-        >
-          <User className="w-3 h-3 sm:w-4 sm:h-4" />
-        </Button>
-      </Link>
-      <Link href="/token-generator">
-        <Button
-          variant="ghost"
-          size="icon"
-          className={baseButtonClass}
-          data-testid="link-nav-token-generator"
-        >
-          <Coins className="w-3 h-3 sm:w-4 sm:h-4" />
-        </Button>
-      </Link>
-      <Link href="/nft-marketplace">
-        <Button
-          variant="ghost"
-          size="icon"
-          className={baseButtonClass}
-          data-testid="link-nav-nft-marketplace"
-        >
-          <ImageIcon className="w-3 h-3 sm:w-4 sm:h-4" />
-        </Button>
-      </Link>
-      <Link href="/app">
-        <Button
-          variant="ghost"
-          size="icon"
-          className={baseButtonClass}
-          data-testid="link-nav-app"
-        >
-          <LayoutDashboard className="w-3 h-3 sm:w-4 sm:h-4" />
-        </Button>
-      </Link>
+      <Button
+        variant="ghost"
+        size="icon"
+        className={baseButtonClass}
+        onClick={() => navigate("/")}
+        data-testid="link-nav-home"
+      >
+        <Home className="w-3 h-3 sm:w-4 sm:h-4" />
+      </Button>
+      <Button
+        variant="ghost"
+        size="icon"
+        className={baseButtonClass}
+        onClick={() => navigate("/scan")}
+        data-testid="link-nav-scan"
+      >
+        <ScanLine className="w-3 h-3 sm:w-4 sm:h-4" />
+      </Button>
+      <Button
+        variant="ghost"
+        size="icon"
+        className={baseButtonClass}
+        onClick={() => navigate("/user")}
+        data-testid="link-nav-user"
+      >
+        <User className="w-3 h-3 sm:w-4 sm:h-4" />
+      </Button>
+      <Button
+        variant="ghost"
+        size="icon"
+        className={baseButtonClass}
+        onClick={() => navigate("/token-generator")}
+        data-testid="link-nav-token-generator"
+      >
+        <Coins className="w-3 h-3 sm:w-4 sm:h-4" />
+      </Button>
+      <Button
+        variant="ghost"
+        size="icon"
+        className={baseButtonClass}
+        onClick={() => navigate("/nft-marketplace")}
+        data-testid="link-nav-nft-marketplace"
+      >
+        <ImageIcon className="w-3 h-3 sm:w-4 sm:h-4" />
+      </Button>
+      <Button
+        variant="ghost"
+        size="icon"
+        className={baseButtonClass}
+        onClick={() => navigate("/app")}
+        data-testid="link-nav-app"
+      >
+        <LayoutDashboard className="w-3 h-3 sm:w-4 sm:h-4" />
+      </Button>
 
       <ProfileBadge />
     </div>
