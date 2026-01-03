@@ -206,8 +206,8 @@ async function safeInitApp() {
   }
   
   try {
-    // CRITICAL: Load i18n dynamically
-    await import("./lib/i18n");
+    // CRITICAL: Load i18n in background - don't block app render
+    import("./lib/i18n").catch(e => console.warn("[TBURN] i18n load error:", e));
     
     // Route-based app shell loading for faster first paint
     // PublicApp includes Web3Provider for scan pages but excludes heavy admin providers

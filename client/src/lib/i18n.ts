@@ -2,8 +2,6 @@ import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 
-import en from '@/locales/en.json';
-
 export const languages = [
   { code: 'en', name: 'English', nativeName: 'English', flag: '🇺🇸', dir: 'ltr' },
   { code: 'zh', name: 'Chinese', nativeName: '中文', flag: '🇨🇳', dir: 'ltr' },
@@ -31,7 +29,7 @@ const updateDocumentDirection = (lang: string) => {
 
 const loadLocale = async (lang: string): Promise<Record<string, unknown>> => {
   switch (lang) {
-    case 'en': return en;
+    case 'en': return (await import('@/locales/en.json')).default;
     case 'zh': return (await import('@/locales/zh.json')).default;
     case 'ja': return (await import('@/locales/ja.json')).default;
     case 'hi': return (await import('@/locales/hi.json')).default;
@@ -43,7 +41,7 @@ const loadLocale = async (lang: string): Promise<Record<string, unknown>> => {
     case 'pt': return (await import('@/locales/pt.json')).default;
     case 'ur': return (await import('@/locales/ur.json')).default;
     case 'ko': return (await import('@/locales/ko.json')).default;
-    default: return en;
+    default: return (await import('@/locales/en.json')).default;
   }
 };
 
@@ -51,9 +49,7 @@ i18n
   .use(LanguageDetector)
   .use(initReactI18next)
   .init({
-    resources: {
-      en: { translation: en },
-    },
+    resources: {},
     supportedLngs: ['en', 'zh', 'ja', 'hi', 'es', 'fr', 'ar', 'bn', 'ru', 'pt', 'ur', 'ko'],
     load: 'languageOnly',
     fallbackLng: 'en',
@@ -62,31 +58,43 @@ i18n
       escapeValue: false,
     },
     detection: {
-      order: ['querystring', 'localStorage', 'navigator', 'htmlTag'],
-      lookupQuerystring: 'lng',
+      order: ['localStorage', 'navigator', 'htmlTag'],
       caches: ['localStorage'],
       lookupLocalStorage: 'tburn-language',
     },
+    returnEmptyString: false,
+    returnNull: false,
   });
 
-i18n.on('initialized', async () => {
-  const lang = i18n.language;
+const loadInitialLocale = async () => {
+  const lang = i18n.language || 'en';
   updateDocumentDirection(lang);
   
-  if (lang !== 'en' && !i18n.hasResourceBundle(lang, 'translation')) {
+  if (!i18n.hasResourceBundle(lang, 'translation')) {
     try {
       const translations = await loadLocale(lang);
       i18n.addResourceBundle(lang, 'translation', translations, true, true);
     } catch (error) {
-      console.warn(`Failed to load locale ${lang}, falling back to English`);
+      console.warn(`Failed to load locale ${lang}, trying English`);
+      if (lang !== 'en') {
+        try {
+          const enTranslations = await loadLocale('en');
+          i18n.addResourceBundle('en', 'translation', enTranslations, true, true);
+          i18n.changeLanguage('en');
+        } catch {
+          console.warn('Failed to load English locale');
+        }
+      }
     }
   }
-});
+};
+
+loadInitialLocale();
 
 i18n.on('languageChanged', async (lang) => {
   updateDocumentDirection(lang);
   
-  if (lang !== 'en' && !i18n.hasResourceBundle(lang, 'translation')) {
+  if (!i18n.hasResourceBundle(lang, 'translation')) {
     try {
       const translations = await loadLocale(lang);
       i18n.addResourceBundle(lang, 'translation', translations, true, true);
