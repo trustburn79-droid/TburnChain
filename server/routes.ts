@@ -13145,6 +13145,102 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
+  // Private Round Program Management
+  app.get("/api/admin/token-programs/private-round/investors", requireAdmin, async (req, res) => {
+    try {
+      const limit = parseInt(req.query.limit as string) || 100;
+      const investors = await storage.getAllPrivateInvestors(limit);
+      const stats = await storage.getPrivateRoundStats();
+      res.json({ success: true, data: { investors, stats } });
+    } catch (error) {
+      console.error('[Private Round] Error fetching investors:', error);
+      res.status(500).json({ error: 'Failed to fetch private investors' });
+    }
+  });
+
+  app.get("/api/admin/token-programs/private-round/investors/:id", requireAdmin, async (req, res) => {
+    try {
+      const investor = await storage.getPrivateInvestorById(req.params.id);
+      if (!investor) {
+        return res.status(404).json({ error: 'Investor not found' });
+      }
+      const payouts = await storage.getPrivatePayouts(investor.id);
+      res.json({ success: true, data: { investor, payouts } });
+    } catch (error) {
+      console.error('[Private Round] Error fetching investor:', error);
+      res.status(500).json({ error: 'Failed to fetch investor' });
+    }
+  });
+
+  app.post("/api/admin/token-programs/private-round/investors", requireAdmin, async (req, res) => {
+    try {
+      const data = { ...req.body };
+      const dateFields = ['vestingStartDate', 'vestingEndDate', 'saftSignedDate', 'kycVerifiedDate', 'paymentReceivedDate'];
+      for (const field of dateFields) {
+        if (data[field] === '' || data[field] === undefined) {
+          data[field] = null;
+        } else if (typeof data[field] === 'string') {
+          data[field] = new Date(data[field]);
+        }
+      }
+      const investor = await storage.createPrivateInvestor(data);
+      res.json({ success: true, data: investor });
+    } catch (error) {
+      console.error('[Private Round] Error creating investor:', error);
+      res.status(500).json({ error: 'Failed to create private investor' });
+    }
+  });
+
+  app.patch("/api/admin/token-programs/private-round/investors/:id", requireAdmin, async (req, res) => {
+    try {
+      const data = { ...req.body };
+      const dateFields = ['vestingStartDate', 'vestingEndDate', 'saftSignedDate', 'kycVerifiedDate', 'paymentReceivedDate'];
+      for (const field of dateFields) {
+        if (data[field] === '' || data[field] === undefined) {
+          data[field] = null;
+        } else if (typeof data[field] === 'string') {
+          data[field] = new Date(data[field]);
+        }
+      }
+      await storage.updatePrivateInvestor(req.params.id, data);
+      const investor = await storage.getPrivateInvestorById(req.params.id);
+      res.json({ success: true, data: investor });
+    } catch (error) {
+      console.error('[Private Round] Error updating investor:', error);
+      res.status(500).json({ error: 'Failed to update private investor' });
+    }
+  });
+
+  app.post("/api/admin/token-programs/private-round/investors/:id/payouts", requireAdmin, async (req, res) => {
+    try {
+      const data = { ...req.body, investorId: req.params.id };
+      if (data.scheduledDate === '' || data.scheduledDate === undefined) data.scheduledDate = null;
+      else if (typeof data.scheduledDate === 'string') data.scheduledDate = new Date(data.scheduledDate);
+      if (data.processedDate === '' || data.processedDate === undefined) data.processedDate = null;
+      else if (typeof data.processedDate === 'string') data.processedDate = new Date(data.processedDate);
+      const payout = await storage.createPrivatePayout(data);
+      res.json({ success: true, data: payout });
+    } catch (error) {
+      console.error('[Private Round] Error creating payout:', error);
+      res.status(500).json({ error: 'Failed to create payout' });
+    }
+  });
+
+  app.patch("/api/admin/token-programs/private-round/payouts/:id", requireAdmin, async (req, res) => {
+    try {
+      const data = { ...req.body };
+      if (data.scheduledDate === '' || data.scheduledDate === undefined) data.scheduledDate = null;
+      else if (typeof data.scheduledDate === 'string') data.scheduledDate = new Date(data.scheduledDate);
+      if (data.processedDate === '' || data.processedDate === undefined) data.processedDate = null;
+      else if (typeof data.processedDate === 'string') data.processedDate = new Date(data.processedDate);
+      await storage.updatePrivatePayout(req.params.id, data);
+      res.json({ success: true, message: 'Payout updated' });
+    } catch (error) {
+      console.error('[Private Round] Error updating payout:', error);
+      res.status(500).json({ error: 'Failed to update payout' });
+    }
+  });
+
   // Seed Round Program Management
   app.get("/api/admin/token-programs/seed-round/investors", requireAdmin, async (req, res) => {
     try {

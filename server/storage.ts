@@ -453,6 +453,12 @@ import {
   type InsertSeedPayout,
   seedInvestors,
   seedPayouts,
+  type PrivateInvestor,
+  type InsertPrivateInvestor,
+  type PrivatePayout,
+  type InsertPrivatePayout,
+  privateInvestors,
+  privatePayouts,
 } from "@shared/schema";
 import { randomUUID } from "crypto";
 import { db } from "./db";
@@ -7716,6 +7722,47 @@ export class DbStorage implements IStorage {
 
   async updateSeedPayout(id: string, data: Partial<SeedPayout>): Promise<void> {
     await db.update(seedPayouts).set(data).where(eq(seedPayouts.id, id));
+  }
+
+  // Private Round Program Implementation
+  async getAllPrivateInvestors(limit: number = 100): Promise<PrivateInvestor[]> {
+    return db.select().from(privateInvestors).orderBy(desc(privateInvestors.createdAt)).limit(limit);
+  }
+
+  async getPrivateInvestorById(id: string): Promise<PrivateInvestor | undefined> {
+    const [result] = await db.select().from(privateInvestors).where(eq(privateInvestors.id, id));
+    return result;
+  }
+
+  async createPrivateInvestor(data: InsertPrivateInvestor): Promise<PrivateInvestor> {
+    const [result] = await db.insert(privateInvestors).values({ ...data, id: `private-${randomUUID()}` }).returning();
+    return result;
+  }
+
+  async updatePrivateInvestor(id: string, data: Partial<PrivateInvestor>): Promise<void> {
+    await db.update(privateInvestors).set({ ...data, updatedAt: new Date() }).where(eq(privateInvestors.id, id));
+  }
+
+  async getPrivateRoundStats(): Promise<{ totalInvestors: number; confirmedInvestors: number; raisedAmount: string; totalTokens: string; lockedTokens: string; }> {
+    const all = await this.getAllPrivateInvestors(10000);
+    const confirmed = all.filter(i => i.status === 'confirmed' || i.status === 'distributed');
+    const raisedAmount = confirmed.reduce((sum, i) => sum + parseFloat(i.investmentAmount || '0'), 0);
+    const totalTokens = all.reduce((sum, i) => sum + BigInt(i.tokenAmount || '0'), BigInt(0));
+    const lockedTokens = all.reduce((sum, i) => sum + BigInt(i.lockedAmount || '0'), BigInt(0));
+    return { totalInvestors: all.length, confirmedInvestors: confirmed.length, raisedAmount: raisedAmount.toFixed(2), totalTokens: totalTokens.toString(), lockedTokens: lockedTokens.toString() };
+  }
+
+  async getPrivatePayouts(investorId: string): Promise<PrivatePayout[]> {
+    return db.select().from(privatePayouts).where(eq(privatePayouts.investorId, investorId)).orderBy(desc(privatePayouts.createdAt));
+  }
+
+  async createPrivatePayout(data: InsertPrivatePayout): Promise<PrivatePayout> {
+    const [result] = await db.insert(privatePayouts).values({ ...data, id: `privpay-${randomUUID()}` }).returning();
+    return result;
+  }
+
+  async updatePrivatePayout(id: string, data: Partial<PrivatePayout>): Promise<void> {
+    await db.update(privatePayouts).set(data).where(eq(privatePayouts.id, id));
   }
 }
 
