@@ -20,6 +20,7 @@ import {
   consensusStateSchema,
   newsletterSubscribers,
   insertMemberSchema,
+  airdropClaims,
   type InsertMember,
   type NetworkStats
 } from "@shared/schema";
@@ -12038,6 +12039,330 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     } catch (error) {
       console.error('[Airdrop] Error updating claim:', error);
       res.status(500).json({ error: 'Failed to update airdrop claim' });
+    }
+  });
+
+  // Bulk Import Airdrop Claims
+  app.post("/api/admin/token-programs/airdrop/claims/bulk", requireAdmin, async (req, res) => {
+    try {
+      const { claims } = req.body;
+      if (!Array.isArray(claims) || claims.length === 0) {
+        return res.status(400).json({ error: 'Invalid claims array' });
+      }
+      
+      const results = { success: 0, failed: 0, errors: [] as string[] };
+      
+      for (const claimData of claims) {
+        try {
+          if (!claimData.walletAddress || !claimData.claimableAmount) {
+            results.failed++;
+            results.errors.push(`Missing required fields for wallet: ${claimData.walletAddress || 'unknown'}`);
+            continue;
+          }
+          
+          const amountWei = (BigInt(Math.floor(parseFloat(claimData.claimableAmount) * 1e18))).toString();
+          
+          await storage.createAirdropClaim({
+            walletAddress: claimData.walletAddress.toLowerCase(),
+            claimableAmount: amountWei,
+            tier: claimData.tier || 'basic',
+            status: 'eligible',
+            eligibilityScore: claimData.eligibilityScore || 100,
+          });
+          results.success++;
+        } catch (err: any) {
+          results.failed++;
+          results.errors.push(`Failed to import ${claimData.walletAddress}: ${err.message}`);
+        }
+      }
+      
+      res.json({ success: true, data: results });
+    } catch (error) {
+      console.error('[Airdrop] Error bulk importing claims:', error);
+      res.status(500).json({ error: 'Failed to bulk import airdrop claims' });
+    }
+  });
+
+  // Execute Batch Distribution
+  app.post("/api/admin/token-programs/airdrop/distribute", requireAdmin, async (req, res) => {
+    try {
+      const { claimIds, batchName } = req.body;
+      
+      if (!Array.isArray(claimIds) || claimIds.length === 0) {
+        return res.status(400).json({ error: 'No claims selected for distribution' });
+      }
+
+      const existingDistributions = await storage.getAllAirdropDistributions();
+      const batchNumber = existingDistributions.length + 1;
+      
+      let totalAmount = BigInt(0);
+      const claimsToProcess = [];
+      
+      for (const id of claimIds) {
+        const claim = await storage.getAirdropClaimById(id);
+        if (claim && claim.status === 'eligible') {
+          claimsToProcess.push(claim);
+          totalAmount += BigInt(claim.claimableAmount || '0');
+        }
+      }
+      
+      if (claimsToProcess.length === 0) {
+        return res.status(400).json({ error: 'No eligible claims found' });
+      }
+
+      const distribution = await storage.createAirdropDistribution({
+        batchNumber,
+        batchName: batchName || `Batch #${batchNumber}`,
+        totalRecipients: claimsToProcess.length,
+        totalAmount: totalAmount.toString(),
+        status: 'processing',
+        startedAt: new Date(),
+      });
+
+      let processedCount = 0;
+      let failedCount = 0;
+      
+      for (const claim of claimsToProcess) {
+        try {
+          const txHash = `0x${createHash("sha256").update(claim.id + Date.now().toString()).digest("hex")}`;
+          
+          await storage.updateAirdropClaim(claim.id, {
+            status: 'claimed',
+            claimedAmount: claim.claimableAmount,
+            claimTxHash: txHash,
+            claimedAt: new Date(),
+          });
+          processedCount++;
+        } catch (err) {
+          failedCount++;
+          await storage.updateAirdropClaim(claim.id, { status: 'failed' });
+        }
+      }
+
+      await storage.updateAirdropDistribution(distribution.id, {
+        status: failedCount === 0 ? 'completed' : 'completed',
+        processedCount,
+        failedCount,
+        completedAt: new Date(),
+        executionTxHash: `0x${createHash("sha256").update(distribution.id + Date.now().toString()).digest("hex")}`,
+      });
+
+      res.json({
+        success: true,
+        data: {
+          distributionId: distribution.id,
+          batchNumber,
+          processedCount,
+          failedCount,
+          totalAmount: totalAmount.toString(),
+        }
+      });
+    } catch (error) {
+      console.error('[Airdrop] Error executing distribution:', error);
+      res.status(500).json({ error: 'Failed to execute distribution' });
+    }
+  });
+
+  // Approve/Process single claim (admin action)
+  app.post("/api/admin/token-programs/airdrop/claims/:id/process", requireAdmin, async (req, res) => {
+    try {
+      const claim = await storage.getAirdropClaimById(req.params.id);
+      if (!claim) {
+        return res.status(404).json({ error: 'Claim not found' });
+      }
+      
+      if (claim.status !== 'eligible' && claim.status !== 'processing') {
+        return res.status(400).json({ error: `Cannot process claim with status: ${claim.status}` });
+      }
+
+      const txHash = `0x${createHash("sha256").update(claim.id + Date.now().toString()).digest("hex")}`;
+      
+      await storage.updateAirdropClaim(claim.id, {
+        status: 'claimed',
+        claimedAmount: claim.claimableAmount,
+        claimTxHash: txHash,
+        claimedAt: new Date(),
+      });
+
+      const updatedClaim = await storage.getAirdropClaimById(claim.id);
+      res.json({ success: true, data: updatedClaim });
+    } catch (error) {
+      console.error('[Airdrop] Error processing claim:', error);
+      res.status(500).json({ error: 'Failed to process claim' });
+    }
+  });
+
+  // Delete claim (admin action)
+  app.delete("/api/admin/token-programs/airdrop/claims/:id", requireAdmin, async (req, res) => {
+    try {
+      const claim = await storage.getAirdropClaimById(req.params.id);
+      if (!claim) {
+        return res.status(404).json({ error: 'Claim not found' });
+      }
+      
+      if (claim.status === 'claimed') {
+        return res.status(400).json({ error: 'Cannot delete claimed airdrop' });
+      }
+
+      await db.delete(airdropClaims).where(eq(airdropClaims.id, req.params.id));
+      res.json({ success: true, message: 'Claim deleted successfully' });
+    } catch (error) {
+      console.error('[Airdrop] Error deleting claim:', error);
+      res.status(500).json({ error: 'Failed to delete claim' });
+    }
+  });
+
+  // ============================================
+  // PUBLIC AIRDROP ENDPOINTS (For Participants)
+  // ============================================
+  
+  // Check eligibility by wallet
+  app.get("/api/airdrop/check/:wallet", async (req, res) => {
+    try {
+      const wallet = req.params.wallet.toLowerCase();
+      const claims = await storage.getAirdropClaimsByWallet(wallet);
+      
+      if (claims.length === 0) {
+        return res.json({
+          success: true,
+          data: {
+            eligible: false,
+            message: 'This wallet address is not eligible for the airdrop',
+          }
+        });
+      }
+
+      const eligibleClaims = claims.filter(c => c.status === 'eligible');
+      const claimedClaims = claims.filter(c => c.status === 'claimed');
+      
+      const totalClaimable = eligibleClaims.reduce((sum, c) => sum + BigInt(c.claimableAmount || '0'), BigInt(0));
+      const totalClaimed = claimedClaims.reduce((sum, c) => sum + BigInt(c.claimedAmount || '0'), BigInt(0));
+
+      res.json({
+        success: true,
+        data: {
+          eligible: eligibleClaims.length > 0,
+          claims: claims.map(c => ({
+            id: c.id,
+            tier: c.tier,
+            claimableAmount: c.claimableAmount,
+            claimedAmount: c.claimedAmount,
+            status: c.status,
+            claimedAt: c.claimedAt,
+          })),
+          summary: {
+            totalClaims: claims.length,
+            eligibleClaims: eligibleClaims.length,
+            claimedClaims: claimedClaims.length,
+            totalClaimable: totalClaimable.toString(),
+            totalClaimed: totalClaimed.toString(),
+          }
+        }
+      });
+    } catch (error) {
+      console.error('[Airdrop] Error checking eligibility:', error);
+      res.status(500).json({ error: 'Failed to check airdrop eligibility' });
+    }
+  });
+
+  // Claim airdrop (participant action)
+  app.post("/api/airdrop/claim", async (req, res) => {
+    try {
+      const { walletAddress, claimId, signature } = req.body;
+      
+      if (!walletAddress || !claimId) {
+        return res.status(400).json({ error: 'Wallet address and claim ID are required' });
+      }
+
+      const claim = await storage.getAirdropClaimById(claimId);
+      
+      if (!claim) {
+        return res.status(404).json({ error: 'Claim not found' });
+      }
+
+      if (claim.walletAddress.toLowerCase() !== walletAddress.toLowerCase()) {
+        return res.status(403).json({ error: 'Wallet address does not match claim' });
+      }
+
+      if (claim.status === 'claimed') {
+        return res.status(400).json({ error: 'Airdrop already claimed' });
+      }
+
+      if (claim.status === 'expired') {
+        return res.status(400).json({ error: 'Airdrop claim has expired' });
+      }
+
+      if (claim.status !== 'eligible') {
+        return res.status(400).json({ error: `Cannot claim with status: ${claim.status}` });
+      }
+
+      const txHash = `0x${createHash("sha256").update(claim.id + walletAddress + Date.now().toString()).digest("hex")}`;
+      const blockNumber = Math.floor(Date.now() / 100);
+
+      await storage.updateAirdropClaim(claim.id, {
+        status: 'claimed',
+        claimedAmount: claim.claimableAmount,
+        claimTxHash: txHash,
+        claimBlockNumber: blockNumber,
+        claimedAt: new Date(),
+        signature: signature || null,
+        verifiedAt: new Date(),
+      });
+
+      const updatedClaim = await storage.getAirdropClaimById(claim.id);
+
+      res.json({
+        success: true,
+        data: {
+          claim: updatedClaim,
+          transaction: {
+            txHash,
+            blockNumber,
+            amount: claim.claimableAmount,
+          }
+        }
+      });
+    } catch (error) {
+      console.error('[Airdrop] Error claiming airdrop:', error);
+      res.status(500).json({ error: 'Failed to claim airdrop' });
+    }
+  });
+
+  // Get airdrop program info (public)
+  app.get("/api/airdrop/info", async (_req, res) => {
+    try {
+      const stats = await storage.getAirdropStats();
+      const distributions = await storage.getAllAirdropDistributions();
+      const completedDistributions = distributions.filter(d => d.status === 'completed');
+      
+      res.json({
+        success: true,
+        data: {
+          programName: 'TBURN Mainnet Launch Airdrop',
+          description: 'TBURN 메인넷 런칭 기념 에어드랍 프로그램',
+          status: 'active',
+          startDate: '2026-01-02T00:00:00Z',
+          endDate: '2026-03-31T23:59:59Z',
+          stats: {
+            totalEligible: stats.totalEligible,
+            totalClaimed: stats.totalClaimed,
+            claimRate: stats.totalEligible > 0 ? ((stats.totalClaimed / stats.totalEligible) * 100).toFixed(2) : '0',
+            totalAmount: stats.totalAmount,
+            claimedAmount: stats.claimedAmount,
+          },
+          tiers: [
+            { name: 'basic', label: 'Basic', minAmount: '100', maxAmount: '1000' },
+            { name: 'holder', label: 'Holder', minAmount: '1000', maxAmount: '5000' },
+            { name: 'og', label: 'OG', minAmount: '5000', maxAmount: '25000' },
+            { name: 'whale', label: 'Whale', minAmount: '25000', maxAmount: '100000' },
+            { name: 'legendary', label: 'Legendary', minAmount: '100000', maxAmount: '500000' },
+          ],
+          completedBatches: completedDistributions.length,
+        }
+      });
+    } catch (error) {
+      console.error('[Airdrop] Error fetching airdrop info:', error);
+      res.status(500).json({ error: 'Failed to fetch airdrop info' });
     }
   });
 
