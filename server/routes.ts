@@ -12914,6 +12914,26 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
+  app.post("/api/admin/token-programs/validator-incentives", requireAdmin, async (req, res) => {
+    try {
+      const payout = await storage.createValidatorIncentivePayout(req.body);
+      res.json({ success: true, data: payout });
+    } catch (error) {
+      console.error('[ValidatorIncentives] Error creating payout:', error);
+      res.status(500).json({ error: 'Failed to create validator incentive payout' });
+    }
+  });
+
+  app.patch("/api/admin/token-programs/validator-incentives/:id", requireAdmin, async (req, res) => {
+    try {
+      await storage.updateValidatorIncentivePayout(req.params.id, req.body);
+      res.json({ success: true, message: 'Payout updated successfully' });
+    } catch (error) {
+      console.error('[ValidatorIncentives] Error updating payout:', error);
+      res.status(500).json({ error: 'Failed to update validator incentive payout' });
+    }
+  });
+
   // Ecosystem Grants Management
   app.get("/api/admin/token-programs/ecosystem-grants", requireAdmin, async (req, res) => {
     try {
