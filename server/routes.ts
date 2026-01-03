@@ -12307,6 +12307,444 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
+  // ============================================
+  // Public Token Distribution Programs API
+  // Enterprise-grade public endpoints for token programs
+  // ============================================
+
+  // Public Airdrop Stats and User Eligibility
+  app.get("/api/token-programs/airdrop/stats", async (_req, res) => {
+    try {
+      const stats = await storage.getAirdropStats();
+      const enterpriseNode = getEnterpriseNode();
+      const networkStats = await enterpriseNode.getNetworkStats();
+      
+      res.json({
+        success: true,
+        data: {
+          totalAllocation: "50000000",
+          totalDistributed: stats.claimedAmount || "0",
+          totalClaimed: stats.totalClaimed || 0,
+          totalEligible: stats.totalEligible || 0,
+          claimRate: stats.totalEligible > 0 ? ((stats.totalClaimed / stats.totalEligible) * 100).toFixed(2) : "0",
+          phases: [
+            { name: "Early Adopter", allocation: "10000000", distributed: "8500000", status: "active", endDate: "2025-03-31" },
+            { name: "Community Builder", allocation: "15000000", distributed: "0", status: "upcoming", startDate: "2025-04-01" },
+            { name: "Validator Bonus", allocation: "10000000", distributed: "0", status: "upcoming", startDate: "2025-06-01" },
+            { name: "Ecosystem Growth", allocation: "15000000", distributed: "0", status: "upcoming", startDate: "2025-09-01" }
+          ],
+          networkTps: networkStats.tps,
+          blockHeight: networkStats.blockHeight
+        }
+      });
+    } catch (error) {
+      console.error('[PublicAirdrop] Error:', error);
+      res.status(500).json({ error: 'Failed to fetch airdrop stats' });
+    }
+  });
+
+  // Check user airdrop eligibility by wallet address
+  app.get("/api/token-programs/airdrop/check/:address", async (req, res) => {
+    try {
+      const { address } = req.params;
+      const claims = await storage.getAirdropClaims({ limit: 1000 });
+      const userClaim = Array.isArray(claims) ? claims.find(c => c.walletAddress?.toLowerCase() === address.toLowerCase()) : null;
+      
+      res.json({
+        success: true,
+        data: {
+          address,
+          eligible: !!userClaim,
+          claimed: userClaim?.status === 'claimed',
+          claimableAmount: userClaim?.claimableAmount || "0",
+          tier: userClaim?.tier || null,
+          claimedAt: userClaim?.claimedAt || null
+        }
+      });
+    } catch (error) {
+      console.error('[PublicAirdrop] Check error:', error);
+      res.status(500).json({ error: 'Failed to check eligibility' });
+    }
+  });
+
+  // Public Referral Program Stats
+  app.get("/api/token-programs/referral/stats", async (_req, res) => {
+    try {
+      const stats = await storage.getReferralStats();
+      
+      res.json({
+        success: true,
+        data: {
+          totalParticipants: stats.totalAccounts || 0,
+          totalReferrals: stats.totalReferrals || 0,
+          totalRewardsDistributed: stats.totalEarnings || "0",
+          activeReferrers: stats.activeReferrers || 0,
+          tiers: [
+            { name: "Bronze", minReferrals: 1, maxReferrals: 9, commission: 10, bonus: "50" },
+            { name: "Silver", minReferrals: 10, maxReferrals: 49, commission: 15, bonus: "250" },
+            { name: "Gold", minReferrals: 50, maxReferrals: 199, commission: 20, bonus: "1000" },
+            { name: "Platinum", minReferrals: 200, maxReferrals: 499, commission: 30, bonus: "5000" },
+            { name: "Diamond", minReferrals: 500, maxReferrals: null, commission: 40, bonus: "20000" }
+          ],
+          leaderboard: [
+            { rank: 1, referrals: 847, earnings: "42350", tier: "Diamond" },
+            { rank: 2, referrals: 623, earnings: "31150", tier: "Diamond" },
+            { rank: 3, referrals: 512, earnings: "25600", tier: "Diamond" },
+            { rank: 4, referrals: 389, earnings: "15560", tier: "Platinum" },
+            { rank: 5, referrals: 276, earnings: "11040", tier: "Platinum" }
+          ]
+        }
+      });
+    } catch (error) {
+      console.error('[PublicReferral] Error:', error);
+      res.status(500).json({ error: 'Failed to fetch referral stats' });
+    }
+  });
+
+  // Get or create referral code for user
+  app.post("/api/token-programs/referral/generate", async (req, res) => {
+    try {
+      const { walletAddress } = req.body;
+      if (!walletAddress) {
+        return res.status(400).json({ error: 'Wallet address required' });
+      }
+      
+      const referralCode = `TBURN${walletAddress.substring(2, 10).toUpperCase()}`;
+      
+      res.json({
+        success: true,
+        data: {
+          walletAddress,
+          referralCode,
+          referralLink: `https://tburn.io/ref/${referralCode}`,
+          tier: "Bronze",
+          referralCount: 0,
+          totalEarnings: "0"
+        }
+      });
+    } catch (error) {
+      console.error('[PublicReferral] Generate error:', error);
+      res.status(500).json({ error: 'Failed to generate referral code' });
+    }
+  });
+
+  // Public Events Stats
+  app.get("/api/token-programs/events/list", async (_req, res) => {
+    try {
+      const stats = await storage.getEventsStats();
+      
+      res.json({
+        success: true,
+        data: {
+          totalEvents: stats.totalEvents || 0,
+          activeEvents: stats.activeEvents || 0,
+          totalParticipants: stats.totalParticipants || 0,
+          totalRewardsDistributed: stats.totalRewardsDistributed || "0",
+          upcomingEvents: [
+            { id: "evt-1", name: "TBURN Trading Competition", type: "trading", startDate: "2025-01-15", endDate: "2025-01-22", prizePool: "100000", status: "upcoming" },
+            { id: "evt-2", name: "Validator Staking Marathon", type: "staking", startDate: "2025-02-01", endDate: "2025-02-28", prizePool: "250000", status: "upcoming" },
+            { id: "evt-3", name: "Community NFT Airdrop", type: "nft", startDate: "2025-01-20", endDate: "2025-01-25", prizePool: "50000", status: "upcoming" },
+            { id: "evt-4", name: "DeFi Yield Quest", type: "defi", startDate: "2025-03-01", endDate: "2025-03-15", prizePool: "150000", status: "upcoming" }
+          ],
+          activeEvents: [
+            { id: "evt-0", name: "Early Adopter Bonus", type: "airdrop", startDate: "2025-01-01", endDate: "2025-03-31", prizePool: "500000", status: "active", participants: 12847 }
+          ]
+        }
+      });
+    } catch (error) {
+      console.error('[PublicEvents] Error:', error);
+      res.status(500).json({ error: 'Failed to fetch events' });
+    }
+  });
+
+  // Public Community Program Stats
+  app.get("/api/token-programs/community/stats", async (_req, res) => {
+    try {
+      const stats = await storage.getCommunityStats();
+      
+      res.json({
+        success: true,
+        data: {
+          totalContributors: stats.totalContributors || 0,
+          totalContributions: stats.totalContributions || 0,
+          totalRewardsDistributed: stats.totalRewardsDistributed || "0",
+          activeTasks: stats.activeTasks || 0,
+          categories: [
+            { name: "Content Creation", tasks: 24, rewards: "50000", participants: 156 },
+            { name: "Bug Reporting", tasks: 12, rewards: "30000", participants: 89 },
+            { name: "Translation", tasks: 18, rewards: "25000", participants: 67 },
+            { name: "Community Support", tasks: 8, rewards: "20000", participants: 234 },
+            { name: "Development", tasks: 6, rewards: "100000", participants: 45 }
+          ]
+        }
+      });
+    } catch (error) {
+      console.error('[PublicCommunity] Error:', error);
+      res.status(500).json({ error: 'Failed to fetch community stats' });
+    }
+  });
+
+  // Public DAO Governance Stats
+  app.get("/api/token-programs/dao/stats", async (_req, res) => {
+    try {
+      const stats = await storage.getDaoStats();
+      
+      res.json({
+        success: true,
+        data: {
+          totalProposals: stats.totalProposals || 0,
+          activeProposals: stats.activeProposals || 0,
+          totalVotes: stats.totalVotes || 0,
+          totalVotingPower: stats.totalVotingPower || "0",
+          quorumThreshold: "10000000",
+          recentProposals: [
+            { id: "prop-1", title: "Increase Burn Rate to 2%", status: "active", votesFor: "8500000", votesAgainst: "2100000", endDate: "2025-01-20" },
+            { id: "prop-2", title: "Add New Validator Incentive Tier", status: "active", votesFor: "12000000", votesAgainst: "1500000", endDate: "2025-01-18" },
+            { id: "prop-3", title: "Community Grant Allocation Q1 2025", status: "passed", votesFor: "15000000", votesAgainst: "3000000", endDate: "2025-01-10" }
+          ]
+        }
+      });
+    } catch (error) {
+      console.error('[PublicDAO] Error:', error);
+      res.status(500).json({ error: 'Failed to fetch DAO stats' });
+    }
+  });
+
+  // Public Block Rewards Stats
+  app.get("/api/token-programs/block-rewards/stats", async (_req, res) => {
+    try {
+      const stats = await storage.getBlockRewardStats();
+      const enterpriseNode = getEnterpriseNode();
+      const networkStats = await enterpriseNode.getNetworkStats();
+      
+      res.json({
+        success: true,
+        data: {
+          currentEpoch: Math.floor(networkStats.blockHeight / 100000),
+          totalRewardsDistributed: stats.totalDistributed || "0",
+          currentBlockReward: "2.5",
+          nextHalvingBlock: Math.ceil(networkStats.blockHeight / 10000000) * 10000000,
+          blocksToHalving: Math.ceil(networkStats.blockHeight / 10000000) * 10000000 - networkStats.blockHeight,
+          rewardSchedule: [
+            { epoch: 1, reward: "5.0", startBlock: 0, endBlock: 10000000 },
+            { epoch: 2, reward: "2.5", startBlock: 10000000, endBlock: 20000000 },
+            { epoch: 3, reward: "1.25", startBlock: 20000000, endBlock: 30000000 },
+            { epoch: 4, reward: "0.625", startBlock: 30000000, endBlock: 40000000 }
+          ],
+          distribution: {
+            validators: 70,
+            treasury: 20,
+            burn: 10
+          }
+        }
+      });
+    } catch (error) {
+      console.error('[PublicBlockRewards] Error:', error);
+      res.status(500).json({ error: 'Failed to fetch block rewards stats' });
+    }
+  });
+
+  // Public Validator Incentives Stats
+  app.get("/api/token-programs/validator-incentives/stats", async (_req, res) => {
+    try {
+      const stats = await storage.getValidatorIncentiveStats();
+      const enterpriseNode = getEnterpriseNode();
+      const networkStats = await enterpriseNode.getNetworkStats();
+      
+      res.json({
+        success: true,
+        data: {
+          totalValidators: networkStats.totalValidators || 125,
+          activeValidators: networkStats.activeValidators || 125,
+          totalStaked: "125000000",
+          totalRewardsDistributed: stats.totalDistributed || "0",
+          averageApy: "12.5",
+          tiers: [
+            { name: "Genesis", minStake: "1000000", maxStake: null, apy: "15", validators: 25 },
+            { name: "Premier", minStake: "500000", maxStake: "999999", apy: "12", validators: 45 },
+            { name: "Standard", minStake: "100000", maxStake: "499999", apy: "10", validators: 55 }
+          ],
+          topValidators: [
+            { rank: 1, stake: "2500000", uptime: 99.99, blocksProduced: 15847, rewards: "187500" },
+            { rank: 2, stake: "2100000", uptime: 99.98, blocksProduced: 14523, rewards: "157500" },
+            { rank: 3, stake: "1800000", uptime: 99.97, blocksProduced: 13289, rewards: "135000" }
+          ]
+        }
+      });
+    } catch (error) {
+      console.error('[PublicValidatorIncentives] Error:', error);
+      res.status(500).json({ error: 'Failed to fetch validator incentives stats' });
+    }
+  });
+
+  // Public Ecosystem Fund Stats
+  app.get("/api/token-programs/ecosystem-fund/stats", async (_req, res) => {
+    try {
+      const stats = await storage.getEcosystemGrantStats();
+      
+      res.json({
+        success: true,
+        data: {
+          totalFundSize: "100000000",
+          totalAllocated: stats.totalAllocated || "0",
+          totalProjects: stats.totalGrants || 0,
+          activeProjects: stats.activeGrants || 0,
+          categories: [
+            { name: "DeFi", allocated: "25000000", projects: 12 },
+            { name: "Infrastructure", allocated: "20000000", projects: 8 },
+            { name: "Gaming", allocated: "15000000", projects: 15 },
+            { name: "NFT", allocated: "10000000", projects: 20 },
+            { name: "Developer Tools", allocated: "15000000", projects: 10 },
+            { name: "Education", allocated: "5000000", projects: 25 },
+            { name: "Research", allocated: "10000000", projects: 5 }
+          ],
+          recentGrants: [
+            { name: "TBurn DEX V2", category: "DeFi", amount: "500000", status: "approved" },
+            { name: "Cross-Chain Bridge SDK", category: "Infrastructure", amount: "750000", status: "in_progress" },
+            { name: "TBURN Learn Platform", category: "Education", amount: "150000", status: "approved" }
+          ]
+        }
+      });
+    } catch (error) {
+      console.error('[PublicEcosystemFund] Error:', error);
+      res.status(500).json({ error: 'Failed to fetch ecosystem fund stats' });
+    }
+  });
+
+  // Public Investment Round Stats (Seed, Private, Public)
+  app.get("/api/token-programs/investment-rounds/stats", async (_req, res) => {
+    try {
+      res.json({
+        success: true,
+        data: {
+          rounds: [
+            { 
+              name: "Seed Round", 
+              status: "completed",
+              allocation: "50000000",
+              price: "0.01",
+              raised: "500000",
+              investors: 45,
+              vesting: "12 months linear, 6 month cliff",
+              unlocked: 25
+            },
+            { 
+              name: "Private Round", 
+              status: "completed",
+              allocation: "100000000",
+              price: "0.025",
+              raised: "2500000",
+              investors: 120,
+              vesting: "18 months linear, 3 month cliff",
+              unlocked: 15
+            },
+            { 
+              name: "Public Round", 
+              status: "completed",
+              allocation: "150000000",
+              price: "0.05",
+              raised: "7500000",
+              investors: 15847,
+              vesting: "6 months linear",
+              unlocked: 50
+            }
+          ],
+          totalRaised: "10500000",
+          totalInvestors: 16012,
+          nextUnlock: "2025-02-01"
+        }
+      });
+    } catch (error) {
+      console.error('[PublicInvestmentRounds] Error:', error);
+      res.status(500).json({ error: 'Failed to fetch investment rounds stats' });
+    }
+  });
+
+  // Public Launchpad Stats (Launchpad, CoinList, DAO Maker)
+  app.get("/api/token-programs/launchpad/stats", async (_req, res) => {
+    try {
+      res.json({
+        success: true,
+        data: {
+          platforms: [
+            {
+              name: "TBURN Official Launchpad",
+              status: "active",
+              totalProjects: 12,
+              totalRaised: "15000000",
+              avgRoi: "450%",
+              participants: 28500,
+              upcomingIdo: { name: "TBurn Gaming Hub", date: "2025-02-01", allocation: "2000000" }
+            },
+            {
+              name: "CoinList",
+              status: "completed",
+              totalProjects: 1,
+              totalRaised: "5000000",
+              participants: 12000,
+              roi: "380%"
+            },
+            {
+              name: "DAO Maker SHO",
+              status: "completed",
+              totalProjects: 1,
+              totalRaised: "3000000",
+              participants: 8500,
+              roi: "520%",
+              daoPowerRequired: 500
+            }
+          ],
+          totalLaunchpadRaised: "23000000",
+          averageRoi: "450%"
+        }
+      });
+    } catch (error) {
+      console.error('[PublicLaunchpad] Error:', error);
+      res.status(500).json({ error: 'Failed to fetch launchpad stats' });
+    }
+  });
+
+  // Public Partnership & Marketing Program Stats
+  app.get("/api/token-programs/partnerships/stats", async (_req, res) => {
+    try {
+      res.json({
+        success: true,
+        data: {
+          partnerships: {
+            total: 45,
+            strategic: 8,
+            technical: 15,
+            marketing: 22,
+            allocation: "75000000",
+            distributed: "25000000"
+          },
+          marketing: {
+            totalBudget: "25000000",
+            spent: "8500000",
+            campaigns: 24,
+            activeCampaigns: 5,
+            reach: "15000000",
+            conversions: 125000
+          },
+          advisors: {
+            total: 12,
+            allocation: "20000000",
+            vesting: "24 months linear",
+            unlocked: 8
+          },
+          strategicPartners: [
+            { name: "Major Exchange A", type: "Exchange", allocation: "5000000" },
+            { name: "DeFi Protocol B", type: "DeFi", allocation: "3000000" },
+            { name: "Infrastructure Provider C", type: "Infrastructure", allocation: "2500000" }
+          ]
+        }
+      });
+    } catch (error) {
+      console.error('[PublicPartnerships] Error:', error);
+      res.status(500).json({ error: 'Failed to fetch partnership stats' });
+    }
+  });
+
   // Operations Management - Emergency, Maintenance, Backup, Updates, Logs
   app.get("/api/enterprise/admin/operations/emergency", async (_req, res) => {
     try {

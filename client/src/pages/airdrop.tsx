@@ -1,12 +1,90 @@
 import { useState } from "react";
 import { Link } from "wouter";
+import { useQuery } from "@tanstack/react-query";
 import { TBurnLogo } from "@/components/tburn-logo";
+import { useWeb3 } from "@/lib/web3-context";
+
+interface AirdropPhase {
+  id: string;
+  name: string;
+  allocation: string;
+  distributed: string;
+  status: string;
+  startDate?: string;
+  endDate?: string;
+}
+
+interface AirdropStats {
+  totalAllocation: string;
+  totalDistributed: string;
+  totalClaimed: number;
+  totalEligible: number;
+  claimRate: string;
+  phases: AirdropPhase[];
+  networkTps: number;
+  blockHeight: number;
+}
+
+interface AirdropResponse {
+  success: boolean;
+  data: AirdropStats;
+}
+
+interface EligibilityResponse {
+  success: boolean;
+  data: {
+    isEligible: boolean;
+    allocatedAmount: string;
+    claimedAmount: string;
+    pendingAmount: string;
+    tier: string;
+    multiplier: number;
+  };
+}
 
 export default function AirdropPage() {
   const [activeTab, setActiveTab] = useState<string | null>("faq-1");
+  const { isConnected, address, connect, formatAddress } = useWeb3();
 
   const toggleFaq = (id: string) => {
     setActiveTab(activeTab === id ? null : id);
+  };
+
+  const { data: statsData, isLoading: isLoadingStats } = useQuery<AirdropResponse>({
+    queryKey: ['/api/token-programs/airdrop/stats'],
+    refetchInterval: 30000,
+  });
+
+  const { data: eligibilityData, isLoading: isLoadingEligibility } = useQuery<EligibilityResponse>({
+    queryKey: ['/api/token-programs/airdrop/eligibility', address],
+    enabled: isConnected && !!address,
+  });
+
+  const stats = statsData?.data;
+  const eligibility = eligibilityData?.data;
+
+  const formatNumber = (value: string | number | undefined) => {
+    if (!value) return '0';
+    const num = typeof value === 'string' ? parseFloat(value) : value;
+    if (num >= 1e8) return `${(num / 1e8).toFixed(1)}억`;
+    if (num >= 1e4) return `${(num / 1e4).toFixed(1)}만`;
+    return num.toLocaleString();
+  };
+
+  const formatLargeNumber = (value: string | number | undefined) => {
+    if (!value) return '0';
+    const num = typeof value === 'string' ? parseFloat(value) : value;
+    return num.toLocaleString();
+  };
+
+  const getPhaseProgress = (distributed: string, allocation: string) => {
+    const dist = parseFloat(distributed) || 0;
+    const alloc = parseFloat(allocation) || 1;
+    return Math.min(100, (dist / alloc) * 100);
+  };
+
+  const handleConnectWallet = async () => {
+    await connect("metamask");
   };
 
   return (
@@ -881,8 +959,13 @@ export default function AirdropPage() {
             <a href="#timeline">일정</a>
             <a href="#faq">FAQ</a>
           </nav>
-          <button className="connect-btn" data-testid="button-connect-wallet">
-            <i className="fas fa-wallet"></i> 지갑 연결
+          <button 
+            className="connect-btn" 
+            data-testid="button-connect-wallet"
+            onClick={handleConnectWallet}
+          >
+            <i className="fas fa-wallet"></i> 
+            {isConnected && address ? formatAddress(address) : '지갑 연결'}
           </button>
         </div>
       </header>
@@ -891,9 +974,14 @@ export default function AirdropPage() {
       <section className="hero" id="overview">
         <div className="hero-bg"></div>
         <div className="hero-content">
-          <div className="badge">
+          <div className="badge" data-testid="badge-live-status">
             <span className="badge-dot"></span>
             LIVE - 메인넷 에어드랍 진행 중
+            {stats?.networkTps && (
+              <span style={{ marginLeft: '12px', color: 'var(--light-gray)' }} data-testid="text-network-tps">
+                | TPS: {stats.networkTps.toLocaleString()}
+              </span>
+            )}
           </div>
           <h1>
             <span className="gold">12억 TBURN</span><br />
@@ -906,26 +994,96 @@ export default function AirdropPage() {
 
           <div className="stats-grid">
             <div className="stat-card" data-testid="stat-total-airdrop">
-              <div className="stat-value">12억</div>
+              <div className="stat-value">
+                {isLoadingStats ? '...' : formatNumber(stats?.totalAllocation || '1200000000')}
+              </div>
               <div className="stat-label">총 에어드랍 물량</div>
             </div>
-            <div className="stat-card" data-testid="stat-tge-unlock">
-              <div className="stat-value">1.2억</div>
-              <div className="stat-label">TGE 즉시 해제 (10%)</div>
+            <div className="stat-card" data-testid="stat-distributed">
+              <div className="stat-value">
+                {isLoadingStats ? '...' : formatNumber(stats?.totalDistributed || '0')}
+              </div>
+              <div className="stat-label">배분 완료</div>
             </div>
-            <div className="stat-card" data-testid="stat-vesting">
-              <div className="stat-value">12개월</div>
-              <div className="stat-label">베스팅 기간</div>
+            <div className="stat-card" data-testid="stat-eligible">
+              <div className="stat-value">
+                {isLoadingStats ? '...' : formatLargeNumber(stats?.totalEligible || 0)}
+              </div>
+              <div className="stat-label">참여자 수</div>
             </div>
-            <div className="stat-card" data-testid="stat-tge-price">
-              <div className="stat-value">$0.50</div>
-              <div className="stat-label">예상 TGE 가격</div>
+            <div className="stat-card" data-testid="stat-claim-rate">
+              <div className="stat-value">
+                {isLoadingStats ? '...' : `${parseFloat(stats?.claimRate || '0').toFixed(1)}%`}
+              </div>
+              <div className="stat-label">청구율</div>
             </div>
           </div>
 
+          {/* Wallet Eligibility Status */}
+          {isConnected && address && (
+            <div className="eligibility-status" style={{ 
+              background: 'var(--dark-card)', 
+              border: '1px solid rgba(212, 175, 55, 0.3)', 
+              borderRadius: '16px', 
+              padding: '1.5rem', 
+              marginBottom: '2rem',
+              textAlign: 'left'
+            }} data-testid="eligibility-status">
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
+                <h3 style={{ fontSize: '1.25rem', fontWeight: 700, color: 'var(--gold)' }}>
+                  내 에어드랍 현황
+                </h3>
+                <span style={{ fontSize: '0.875rem', color: 'var(--light-gray)' }}>
+                  {formatAddress(address)}
+                </span>
+              </div>
+              {isLoadingEligibility ? (
+                <div style={{ textAlign: 'center', padding: '2rem', color: 'var(--light-gray)' }}>
+                  자격 확인 중...
+                </div>
+              ) : eligibility ? (
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '1rem' }}>
+                  <div data-testid="eligibility-allocated">
+                    <div style={{ fontSize: '0.875rem', color: 'var(--light-gray)', marginBottom: '0.25rem' }}>배정량</div>
+                    <div style={{ fontSize: '1.5rem', fontWeight: 700, color: 'var(--gold)' }}>
+                      {formatNumber(eligibility.allocatedAmount)}
+                    </div>
+                  </div>
+                  <div data-testid="eligibility-claimed">
+                    <div style={{ fontSize: '0.875rem', color: 'var(--light-gray)', marginBottom: '0.25rem' }}>청구됨</div>
+                    <div style={{ fontSize: '1.5rem', fontWeight: 700, color: 'var(--success)' }}>
+                      {formatNumber(eligibility.claimedAmount)}
+                    </div>
+                  </div>
+                  <div data-testid="eligibility-pending">
+                    <div style={{ fontSize: '0.875rem', color: 'var(--light-gray)', marginBottom: '0.25rem' }}>대기 중</div>
+                    <div style={{ fontSize: '1.5rem', fontWeight: 700, color: 'var(--white)' }}>
+                      {formatNumber(eligibility.pendingAmount)}
+                    </div>
+                  </div>
+                  <div data-testid="eligibility-tier">
+                    <div style={{ fontSize: '0.875rem', color: 'var(--light-gray)', marginBottom: '0.25rem' }}>등급</div>
+                    <div style={{ fontSize: '1.5rem', fontWeight: 700, color: 'var(--gold)' }}>
+                      {eligibility.tier || 'Standard'} ({eligibility.multiplier || 1}x)
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <div style={{ textAlign: 'center', padding: '1rem', color: 'var(--light-gray)' }} data-testid="eligibility-not-found">
+                  에어드랍 배정 정보가 없습니다. 미션을 완료하여 참여하세요.
+                </div>
+              )}
+            </div>
+          )}
+
           <div className="cta-group">
-            <button className="btn-primary" data-testid="button-participate">
-              <i className="fas fa-rocket"></i> 지금 참여하기
+            <button 
+              className="btn-primary" 
+              data-testid="button-participate"
+              onClick={isConnected ? undefined : handleConnectWallet}
+            >
+              <i className="fas fa-rocket"></i> 
+              {isConnected ? '참여 중' : '지금 참여하기'}
             </button>
             <a href="#airdrops" className="btn-secondary">
               <i className="fas fa-info-circle"></i> 자세히 보기
@@ -1020,10 +1178,16 @@ export default function AirdropPage() {
           <div className="tasks-header">
             <div className="tasks-info">
               <h3>내 미션 현황</h3>
-              <p>지갑을 연결하면 미션 진행 상황을 확인할 수 있습니다</p>
+              <p>
+                {isConnected 
+                  ? `${formatAddress(address || '')} 지갑으로 연결됨` 
+                  : '지갑을 연결하면 미션 진행 상황을 확인할 수 있습니다'}
+              </p>
             </div>
             <div className="points-display">
-              <div className="points-value" data-testid="text-total-points">0 P</div>
+              <div className="points-value" data-testid="text-total-points">
+                {isConnected ? '500 P' : '0 P'}
+              </div>
               <div className="points-label">획득 포인트</div>
             </div>
           </div>
@@ -1044,7 +1208,14 @@ export default function AirdropPage() {
                 </div>
                 <div className="task-right">
                   <span className="task-points">+500 P</span>
-                  <button className="task-btn">연결하기</button>
+                  <button 
+                    className="task-btn" 
+                    onClick={handleConnectWallet}
+                    style={isConnected ? { background: 'var(--success)', color: 'white' } : undefined}
+                    data-testid="button-task-wallet-connect"
+                  >
+                    {isConnected ? '완료' : '연결하기'}
+                  </button>
                 </div>
               </div>
 
