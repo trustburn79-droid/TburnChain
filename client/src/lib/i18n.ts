@@ -102,10 +102,16 @@ const loadInitialLocale = async (): Promise<void> => {
 };
 
 // Export for synchronous initialization in main.tsx
-export const initializeI18n = loadInitialLocale;
-
-// Auto-initialize (but main.tsx should await initializeI18n for production)
-loadInitialLocale();
+// CRITICAL: Do NOT auto-call loadInitialLocale - main.tsx will call initializeI18n
+let initialized = false;
+export const initializeI18n = async (): Promise<void> => {
+  if (initialized) {
+    console.log('[i18n] Already initialized, skipping...');
+    return;
+  }
+  initialized = true;
+  await loadInitialLocale();
+};
 
 i18n.on('languageChanged', async (lang) => {
   updateDocumentDirection(lang);
