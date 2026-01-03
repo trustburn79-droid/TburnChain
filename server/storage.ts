@@ -420,6 +420,15 @@ import {
   type InsertPartnershipPayout,
   partnerships,
   partnershipPayouts,
+  type MarketingCampaign,
+  type InsertMarketingCampaign,
+  type MarketingParticipant,
+  type InsertMarketingParticipant,
+  type MarketingReward,
+  type InsertMarketingReward,
+  marketingCampaigns,
+  marketingParticipants,
+  marketingRewards,
 } from "@shared/schema";
 import { randomUUID } from "crypto";
 import { db } from "./db";
@@ -7482,6 +7491,60 @@ export class DbStorage implements IStorage {
 
   async updatePartnershipPayout(id: string, data: Partial<PartnershipPayout>): Promise<void> {
     await db.update(partnershipPayouts).set(data).where(eq(partnershipPayouts.id, id));
+  }
+
+  // Marketing Program Implementation
+  async getAllMarketingCampaigns(limit: number = 100): Promise<MarketingCampaign[]> {
+    return db.select().from(marketingCampaigns).orderBy(desc(marketingCampaigns.createdAt)).limit(limit);
+  }
+
+  async getMarketingCampaignById(id: string): Promise<MarketingCampaign | undefined> {
+    const [result] = await db.select().from(marketingCampaigns).where(eq(marketingCampaigns.id, id));
+    return result;
+  }
+
+  async createMarketingCampaign(data: InsertMarketingCampaign): Promise<MarketingCampaign> {
+    const [result] = await db.insert(marketingCampaigns).values({ ...data, id: `campaign-${randomUUID()}` }).returning();
+    return result;
+  }
+
+  async updateMarketingCampaign(id: string, data: Partial<MarketingCampaign>): Promise<void> {
+    await db.update(marketingCampaigns).set({ ...data, updatedAt: new Date() }).where(eq(marketingCampaigns.id, id));
+  }
+
+  async getMarketingCampaignStats(): Promise<{ totalCampaigns: number; activeCampaigns: number; totalBudget: string; totalSpent: string; totalReach: number; }> {
+    const campaigns = await this.getAllMarketingCampaigns(10000);
+    const activeCampaigns = campaigns.filter(c => c.status === 'active');
+    const totalBudget = campaigns.reduce((sum, c) => sum + BigInt(c.budgetAmount || '0'), BigInt(0));
+    const totalSpent = campaigns.reduce((sum, c) => sum + BigInt(c.spentAmount || '0'), BigInt(0));
+    const totalReach = campaigns.reduce((sum, c) => sum + (c.totalReach || 0), 0);
+    return { totalCampaigns: campaigns.length, activeCampaigns: activeCampaigns.length, totalBudget: totalBudget.toString(), totalSpent: totalSpent.toString(), totalReach };
+  }
+
+  async getMarketingParticipants(campaignId: string): Promise<MarketingParticipant[]> {
+    return db.select().from(marketingParticipants).where(eq(marketingParticipants.campaignId, campaignId)).orderBy(desc(marketingParticipants.joinedAt));
+  }
+
+  async createMarketingParticipant(data: InsertMarketingParticipant): Promise<MarketingParticipant> {
+    const [result] = await db.insert(marketingParticipants).values({ ...data, id: `mpart-${randomUUID()}` }).returning();
+    return result;
+  }
+
+  async updateMarketingParticipant(id: string, data: Partial<MarketingParticipant>): Promise<void> {
+    await db.update(marketingParticipants).set(data).where(eq(marketingParticipants.id, id));
+  }
+
+  async getMarketingRewards(campaignId: string): Promise<MarketingReward[]> {
+    return db.select().from(marketingRewards).where(eq(marketingRewards.campaignId, campaignId)).orderBy(desc(marketingRewards.createdAt));
+  }
+
+  async createMarketingReward(data: InsertMarketingReward): Promise<MarketingReward> {
+    const [result] = await db.insert(marketingRewards).values({ ...data, id: `mreward-${randomUUID()}` }).returning();
+    return result;
+  }
+
+  async updateMarketingReward(id: string, data: Partial<MarketingReward>): Promise<void> {
+    await db.update(marketingRewards).set(data).where(eq(marketingRewards.id, id));
   }
 }
 

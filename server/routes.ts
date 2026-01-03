@@ -13145,6 +13145,124 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
+  // Marketing Program Management
+  app.get("/api/admin/token-programs/marketing/campaigns", requireAdmin, async (req, res) => {
+    try {
+      const limit = parseInt(req.query.limit as string) || 100;
+      const campaigns = await storage.getAllMarketingCampaigns(limit);
+      const stats = await storage.getMarketingCampaignStats();
+      res.json({ success: true, data: { campaigns, stats } });
+    } catch (error) {
+      console.error('[Marketing] Error fetching campaigns:', error);
+      res.status(500).json({ error: 'Failed to fetch marketing campaigns' });
+    }
+  });
+
+  app.get("/api/admin/token-programs/marketing/campaigns/:id", requireAdmin, async (req, res) => {
+    try {
+      const campaign = await storage.getMarketingCampaignById(req.params.id);
+      if (!campaign) {
+        return res.status(404).json({ error: 'Campaign not found' });
+      }
+      const participants = await storage.getMarketingParticipants(campaign.id);
+      const rewards = await storage.getMarketingRewards(campaign.id);
+      res.json({ success: true, data: { campaign, participants, rewards } });
+    } catch (error) {
+      console.error('[Marketing] Error fetching campaign:', error);
+      res.status(500).json({ error: 'Failed to fetch campaign' });
+    }
+  });
+
+  app.post("/api/admin/token-programs/marketing/campaigns", requireAdmin, async (req, res) => {
+    try {
+      const data = { ...req.body };
+      const dateFields = ['startDate', 'endDate'];
+      for (const field of dateFields) {
+        if (data[field] === '' || data[field] === undefined) {
+          data[field] = null;
+        } else if (typeof data[field] === 'string') {
+          data[field] = new Date(data[field]);
+        }
+      }
+      const campaign = await storage.createMarketingCampaign(data);
+      res.json({ success: true, data: campaign });
+    } catch (error) {
+      console.error('[Marketing] Error creating campaign:', error);
+      res.status(500).json({ error: 'Failed to create marketing campaign' });
+    }
+  });
+
+  app.patch("/api/admin/token-programs/marketing/campaigns/:id", requireAdmin, async (req, res) => {
+    try {
+      const data = { ...req.body };
+      const dateFields = ['startDate', 'endDate'];
+      for (const field of dateFields) {
+        if (data[field] === '' || data[field] === undefined) {
+          data[field] = null;
+        } else if (typeof data[field] === 'string') {
+          data[field] = new Date(data[field]);
+        }
+      }
+      await storage.updateMarketingCampaign(req.params.id, data);
+      const campaign = await storage.getMarketingCampaignById(req.params.id);
+      res.json({ success: true, data: campaign });
+    } catch (error) {
+      console.error('[Marketing] Error updating campaign:', error);
+      res.status(500).json({ error: 'Failed to update marketing campaign' });
+    }
+  });
+
+  app.post("/api/admin/token-programs/marketing/campaigns/:id/participants", requireAdmin, async (req, res) => {
+    try {
+      const data = { ...req.body, campaignId: req.params.id };
+      const participant = await storage.createMarketingParticipant(data);
+      res.json({ success: true, data: participant });
+    } catch (error) {
+      console.error('[Marketing] Error adding participant:', error);
+      res.status(500).json({ error: 'Failed to add participant' });
+    }
+  });
+
+  app.patch("/api/admin/token-programs/marketing/participants/:id", requireAdmin, async (req, res) => {
+    try {
+      await storage.updateMarketingParticipant(req.params.id, req.body);
+      res.json({ success: true, message: 'Participant updated' });
+    } catch (error) {
+      console.error('[Marketing] Error updating participant:', error);
+      res.status(500).json({ error: 'Failed to update participant' });
+    }
+  });
+
+  app.post("/api/admin/token-programs/marketing/campaigns/:id/rewards", requireAdmin, async (req, res) => {
+    try {
+      const data = { ...req.body, campaignId: req.params.id };
+      if (data.verifiedAt === '' || data.verifiedAt === undefined) data.verifiedAt = null;
+      else if (typeof data.verifiedAt === 'string') data.verifiedAt = new Date(data.verifiedAt);
+      if (data.paidAt === '' || data.paidAt === undefined) data.paidAt = null;
+      else if (typeof data.paidAt === 'string') data.paidAt = new Date(data.paidAt);
+      const reward = await storage.createMarketingReward(data);
+      res.json({ success: true, data: reward });
+    } catch (error) {
+      console.error('[Marketing] Error creating reward:', error);
+      res.status(500).json({ error: 'Failed to create reward' });
+    }
+  });
+
+  app.patch("/api/admin/token-programs/marketing/rewards/:id", requireAdmin, async (req, res) => {
+    try {
+      const data = { ...req.body };
+      if (data.verifiedAt === '' || data.verifiedAt === undefined) data.verifiedAt = null;
+      else if (typeof data.verifiedAt === 'string') data.verifiedAt = new Date(data.verifiedAt);
+      if (data.paidAt === '' || data.paidAt === undefined) data.paidAt = null;
+      else if (typeof data.paidAt === 'string') data.paidAt = new Date(data.paidAt);
+      await storage.updateMarketingReward(req.params.id, data);
+      res.json({ success: true, message: 'Reward updated' });
+    } catch (error) {
+      console.error('[Marketing] Error updating reward:', error);
+      res.status(500).json({ error: 'Failed to update reward' });
+    }
+  });
+
   // ============================================
   // Public Token Distribution Programs API
   // Enterprise-grade public endpoints for token programs

@@ -8223,3 +8223,89 @@ export type InsertPartnership = z.infer<typeof insertPartnershipSchema>;
 
 export type PartnershipPayout = typeof partnershipPayouts.$inferSelect;
 export type InsertPartnershipPayout = z.infer<typeof insertPartnershipPayoutSchema>;
+
+// ============================================
+// Marketing Program Tables
+// ============================================
+export const CAMPAIGN_TYPE = ["social_media", "influencer", "content_creation", "community", "ambassador", "bounty", "referral_boost", "airdrop_promotion"] as const;
+export const MARKETING_CHANNEL = ["twitter", "discord", "telegram", "youtube", "tiktok", "medium", "reddit", "instagram", "facebook", "email", "other"] as const;
+export const MARKETING_ACTION = ["follow", "like", "retweet", "comment", "share", "post", "video", "article", "referral", "signup", "verify_wallet", "stake", "trade"] as const;
+
+export const marketingCampaigns = pgTable("marketing_campaigns", {
+  id: varchar("id").primaryKey(),
+  name: text("name").notNull(),
+  description: text("description"),
+  campaignType: text("campaign_type").notNull().default("social_media"),
+  channel: text("channel").notNull().default("twitter"),
+  targetAudience: text("target_audience"),
+  budgetAmount: text("budget_amount").notNull().default("0"),
+  spentAmount: text("spent_amount").notNull().default("0"),
+  rewardPerAction: text("reward_per_action").notNull().default("0"),
+  totalParticipants: integer("total_participants").notNull().default(0),
+  totalReach: integer("total_reach").notNull().default(0),
+  totalEngagements: integer("total_engagements").notNull().default(0),
+  totalConversions: integer("total_conversions").notNull().default(0),
+  startDate: timestamp("start_date"),
+  endDate: timestamp("end_date"),
+  status: text("status").notNull().default("draft"),
+  goals: jsonb("goals"),
+  requirements: jsonb("requirements"),
+  createdBy: varchar("created_by"),
+  approvedBy: varchar("approved_by"),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
+export const marketingParticipants = pgTable("marketing_participants", {
+  id: varchar("id").primaryKey(),
+  campaignId: varchar("campaign_id").notNull(),
+  walletAddress: text("wallet_address").notNull(),
+  username: text("username"),
+  platform: text("platform").notNull(),
+  actionsCompleted: integer("actions_completed").notNull().default(0),
+  totalRewards: text("total_rewards").notNull().default("0"),
+  referralCode: text("referral_code"),
+  referralCount: integer("referral_count").notNull().default(0),
+  status: text("status").notNull().default("active"),
+  joinedAt: timestamp("joined_at").notNull().defaultNow(),
+  lastActivity: timestamp("last_activity"),
+});
+
+export const marketingRewards = pgTable("marketing_rewards", {
+  id: varchar("id").primaryKey(),
+  campaignId: varchar("campaign_id").notNull(),
+  participantId: varchar("participant_id").notNull(),
+  actionType: text("action_type").notNull(),
+  rewardAmount: text("reward_amount").notNull(),
+  status: text("status").notNull().default("pending"),
+  txHash: text("tx_hash"),
+  metadata: jsonb("metadata"),
+  verifiedAt: timestamp("verified_at"),
+  paidAt: timestamp("paid_at"),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+export const insertMarketingCampaignSchema = createInsertSchema(marketingCampaigns).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertMarketingParticipantSchema = createInsertSchema(marketingParticipants).omit({
+  id: true,
+  joinedAt: true,
+});
+
+export const insertMarketingRewardSchema = createInsertSchema(marketingRewards).omit({
+  id: true,
+  createdAt: true,
+});
+
+export type MarketingCampaign = typeof marketingCampaigns.$inferSelect;
+export type InsertMarketingCampaign = z.infer<typeof insertMarketingCampaignSchema>;
+
+export type MarketingParticipant = typeof marketingParticipants.$inferSelect;
+export type InsertMarketingParticipant = z.infer<typeof insertMarketingParticipantSchema>;
+
+export type MarketingReward = typeof marketingRewards.$inferSelect;
+export type InsertMarketingReward = z.infer<typeof insertMarketingRewardSchema>;
