@@ -46,6 +46,7 @@ const CommunityRoutes = lazy(() => import("./routes/CommunityRoutes"));
 const LegalRoutes = lazy(() => import("./routes/LegalRoutes"));
 const ScanRoutes = lazy(() => import("./routes/ScanRoutes"));
 const TestnetScanRoutes = lazy(() => import("./routes/TestnetScanRoutes"));
+const NftMarketplaceStandalone = lazy(() => import("@/pages/nft-marketplace-standalone"));
 
 const Brand = lazy(() => import("./pages/Brand"));
 
@@ -274,6 +275,16 @@ export function PublicRouter() {
       <ErrorBoundary>
         <Suspense fallback={<PageLoading />}>
           <DAOMakerPage />
+        </Suspense>
+      </ErrorBoundary>
+    );
+  }
+  
+  if (location === "/nft-marketplace" || location.startsWith("/nft-marketplace")) {
+    return (
+      <ErrorBoundary>
+        <Suspense fallback={<PageLoading />}>
+          <NftMarketplaceStandalone />
         </Suspense>
       </ErrorBoundary>
     );
