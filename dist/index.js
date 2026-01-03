@@ -376,30 +376,62 @@ var init_TBurnWalletService = __esm({
 // shared/schema.ts
 var schema_exports = {};
 __export(schema_exports, {
+  ADVISOR_EXPERTISE: () => ADVISOR_EXPERTISE,
+  ADVISOR_TYPE: () => ADVISOR_TYPE,
+  AIRDROP_STATUS: () => AIRDROP_STATUS,
+  AIRDROP_TIER: () => AIRDROP_TIER,
+  BADGE_RARITY: () => BADGE_RARITY,
   BUG_BOUNTY_ASSET: () => BUG_BOUNTY_ASSET,
   BUG_BOUNTY_SEVERITY: () => BUG_BOUNTY_SEVERITY,
   BUG_BOUNTY_STATUS: () => BUG_BOUNTY_STATUS,
   BorrowRateMode: () => BorrowRateMode,
+  CAMPAIGN_TYPE: () => CAMPAIGN_TYPE,
   CIRCUIT_BREAKER_STATUS: () => CIRCUIT_BREAKER_STATUS,
+  CONTRACT_TYPE: () => CONTRACT_TYPE,
   DELEGATION_STATUS: () => DELEGATION_STATUS,
   DEX_POOL_STATUS: () => DEX_POOL_STATUS,
   DEX_POOL_TYPES: () => DEX_POOL_TYPES,
+  ENGAGEMENT_TYPE: () => ENGAGEMENT_TYPE,
+  EVENT_STATUS: () => EVENT_STATUS,
+  EVENT_TYPE: () => EVENT_TYPE,
   FEE_TIERS: () => FEE_TIERS,
+  GRANT_CATEGORY: () => GRANT_CATEGORY,
+  GRANT_STATUS: () => GRANT_STATUS,
   HealthStatus: () => HealthStatus,
+  INVESTMENT_CURRENCY: () => INVESTMENT_CURRENCY,
+  INVESTOR_TYPE: () => INVESTOR_TYPE,
   InterestRateModel: () => InterestRateModel,
   LOCK_PERIODS: () => LOCK_PERIODS,
   LP_POSITION_STATUS: () => LP_POSITION_STATUS,
   LendingMarketStatus: () => LendingMarketStatus,
   LiquidationStatus: () => LiquidationStatus,
+  MARKETING_ACTION: () => MARKETING_ACTION,
+  MARKETING_CHANNEL: () => MARKETING_CHANNEL,
+  PARTNERSHIP_STATUS: () => PARTNERSHIP_STATUS,
+  PARTNERSHIP_TIER: () => PARTNERSHIP_TIER,
+  PARTNERSHIP_TYPE: () => PARTNERSHIP_TYPE,
+  PARTNER_TYPE: () => PARTNER_TYPE,
+  PRIVATE_INVESTOR_TYPE: () => PRIVATE_INVESTOR_TYPE,
+  PRIVATE_TIER: () => PRIVATE_TIER,
+  PROPOSAL_STATUS: () => PROPOSAL_STATUS,
+  REFERRAL_TIER: () => REFERRAL_TIER,
   REWARD_TYPES: () => REWARD_TYPES,
   STAKING_AUDIT_ACTIONS: () => STAKING_AUDIT_ACTIONS,
   STAKING_POOL_STATUS: () => STAKING_POOL_STATUS,
   STAKING_POOL_TYPES: () => STAKING_POOL_TYPES,
   STAKING_TIERS: () => STAKING_TIERS,
   SWAP_STATUS: () => SWAP_STATUS,
+  TASK_TYPE: () => TASK_TYPE,
+  TOKEN_PROGRAM_STATUS: () => TOKEN_PROGRAM_STATUS,
+  TOKEN_PROGRAM_TYPE: () => TOKEN_PROGRAM_TYPE,
+  VESTING_TYPE: () => VESTING_TYPE,
+  VOTE_CHOICE: () => VOTE_CHOICE,
   accounts: () => accounts,
   achievementBadges: () => achievementBadges,
   adminAuditLogs: () => adminAuditLogs,
+  advisorContributions: () => advisorContributions,
+  advisorPayouts: () => advisorPayouts,
+  advisors: () => advisors,
   aiDecisionSelectSchema: () => aiDecisionSelectSchema,
   aiDecisions: () => aiDecisions,
   aiDecisionsSnapshotSchema: () => aiDecisionsSnapshotSchema,
@@ -412,10 +444,14 @@ __export(schema_exports, {
   aiTrainingLogs: () => aiTrainingLogs,
   aiTrainingMetrics: () => aiTrainingMetrics,
   aiUsageLogs: () => aiUsageLogs,
+  airdropClaims: () => airdropClaims,
+  airdropDistributions: () => airdropDistributions,
   alertQueue: () => alertQueue,
   apiKeyLogs: () => apiKeyLogs,
   apiKeys: () => apiKeys,
   blockFinalityConfirmations: () => blockFinalityConfirmations,
+  blockRewardCycles: () => blockRewardCycles,
+  blockRewardPayouts: () => blockRewardPayouts,
   blockVerifications: () => blockVerifications,
   blocks: () => blocks,
   bridgeActivity: () => bridgeActivity,
@@ -429,17 +465,22 @@ __export(schema_exports, {
   bridgeTransfers: () => bridgeTransfers,
   bridgeValidators: () => bridgeValidators,
   bugBountyReports: () => bugBountyReports,
+  coinlistParticipants: () => coinlistParticipants,
+  coinlistSales: () => coinlistSales,
   committeeSnapshots: () => committeeSnapshots,
   communityActivity: () => communityActivity,
   communityAnnouncements: () => communityAnnouncements,
   communityBadges: () => communityBadges,
   communityCommentReactions: () => communityCommentReactions,
   communityComments: () => communityComments,
+  communityContributions: () => communityContributions,
   communityEventRegistrations: () => communityEventRegistrations,
   communityEvents: () => communityEvents,
+  communityMemberBadges: () => communityMemberBadges,
   communityPostReactions: () => communityPostReactions,
   communityPosts: () => communityPosts,
   communityReputation: () => communityReputation,
+  communityTasks: () => communityTasks,
   communityUserBadges: () => communityUserBadges,
   complianceReports: () => complianceReports,
   consensusPhaseSchema: () => consensusPhaseSchema,
@@ -450,6 +491,11 @@ __export(schema_exports, {
   crossShardMessageSelectSchema: () => crossShardMessageSelectSchema,
   crossShardMessages: () => crossShardMessages,
   crossShardMessagesSnapshotSchema: () => crossShardMessagesSnapshotSchema,
+  daoDelegations: () => daoDelegations,
+  daoMakerParticipants: () => daoMakerParticipants,
+  daoMakerShos: () => daoMakerShos,
+  daoProposals: () => daoProposals,
+  daoVotes: () => daoVotes,
   delegations: () => delegations,
   deployedTokens: () => deployedTokens,
   dexCircuitBreakers: () => dexCircuitBreakers,
@@ -463,7 +509,10 @@ __export(schema_exports, {
   dexSwaps: () => dexSwaps,
   dexTwapOracle: () => dexTwapOracle,
   dexUserAnalytics: () => dexUserAnalytics,
+  ecosystemGrants: () => ecosystemGrants,
   emailVerifications: () => emailVerifications,
+  eventRegistrations: () => eventRegistrations,
+  eventsCatalog: () => eventsCatalog,
   gameAssets: () => gameAssets,
   gameLeaderboards: () => gameLeaderboards,
   gameRewards: () => gameRewards,
@@ -478,10 +527,16 @@ __export(schema_exports, {
   genesisPreflightChecks: () => genesisPreflightChecks,
   genesisValidators: () => genesisValidators,
   governancePrevalidations: () => governancePrevalidations,
+  grantMilestones: () => grantMilestones,
   hardwareVerificationChecklists: () => hardwareVerificationChecklists,
+  idoLaunchpadParticipants: () => idoLaunchpadParticipants,
+  idoLaunchpadProjects: () => idoLaunchpadProjects,
   insertAccountSchema: () => insertAccountSchema,
   insertAchievementBadgeSchema: () => insertAchievementBadgeSchema,
   insertAdminAuditLogSchema: () => insertAdminAuditLogSchema,
+  insertAdvisorContributionSchema: () => insertAdvisorContributionSchema,
+  insertAdvisorPayoutSchema: () => insertAdvisorPayoutSchema,
+  insertAdvisorSchema: () => insertAdvisorSchema,
   insertAiDecisionSchema: () => insertAiDecisionSchema,
   insertAiExecutionLogSchema: () => insertAiExecutionLogSchema,
   insertAiModelDeploymentSchema: () => insertAiModelDeploymentSchema,
@@ -492,10 +547,14 @@ __export(schema_exports, {
   insertAiTrainingLogSchema: () => insertAiTrainingLogSchema,
   insertAiTrainingMetricsSchema: () => insertAiTrainingMetricsSchema,
   insertAiUsageLogSchema: () => insertAiUsageLogSchema,
+  insertAirdropClaimSchema: () => insertAirdropClaimSchema,
+  insertAirdropDistributionSchema: () => insertAirdropDistributionSchema,
   insertAlertQueueSchema: () => insertAlertQueueSchema,
   insertApiKeyLogSchema: () => insertApiKeyLogSchema,
   insertApiKeySchema: () => insertApiKeySchema,
   insertBlockFinalityConfirmationSchema: () => insertBlockFinalityConfirmationSchema,
+  insertBlockRewardCycleSchema: () => insertBlockRewardCycleSchema,
+  insertBlockRewardPayoutSchema: () => insertBlockRewardPayoutSchema,
   insertBlockSchema: () => insertBlockSchema,
   insertBlockVerificationSchema: () => insertBlockVerificationSchema,
   insertBridgeActivitySchema: () => insertBridgeActivitySchema,
@@ -509,21 +568,31 @@ __export(schema_exports, {
   insertBridgeTransferSchema: () => insertBridgeTransferSchema,
   insertBridgeValidatorSchema: () => insertBridgeValidatorSchema,
   insertBugBountyReportSchema: () => insertBugBountyReportSchema,
+  insertCoinlistParticipantSchema: () => insertCoinlistParticipantSchema,
+  insertCoinlistSaleSchema: () => insertCoinlistSaleSchema,
   insertCommitteeSnapshotSchema: () => insertCommitteeSnapshotSchema,
   insertCommunityActivitySchema: () => insertCommunityActivitySchema,
   insertCommunityAnnouncementSchema: () => insertCommunityAnnouncementSchema,
   insertCommunityBadgeSchema: () => insertCommunityBadgeSchema,
   insertCommunityCommentReactionSchema: () => insertCommunityCommentReactionSchema,
   insertCommunityCommentSchema: () => insertCommunityCommentSchema,
+  insertCommunityContributionSchema: () => insertCommunityContributionSchema,
   insertCommunityEventRegistrationSchema: () => insertCommunityEventRegistrationSchema,
   insertCommunityEventSchema: () => insertCommunityEventSchema,
+  insertCommunityMemberBadgeSchema: () => insertCommunityMemberBadgeSchema,
   insertCommunityPostReactionSchema: () => insertCommunityPostReactionSchema,
   insertCommunityPostSchema: () => insertCommunityPostSchema,
   insertCommunityReputationSchema: () => insertCommunityReputationSchema,
+  insertCommunityTaskSchema: () => insertCommunityTaskSchema,
   insertCommunityUserBadgeSchema: () => insertCommunityUserBadgeSchema,
   insertComplianceReportSchema: () => insertComplianceReportSchema,
   insertConsensusRoundSchema: () => insertConsensusRoundSchema,
   insertCrossShardMessageSchema: () => insertCrossShardMessageSchema,
+  insertDaoDelegationSchema: () => insertDaoDelegationSchema,
+  insertDaoMakerParticipantSchema: () => insertDaoMakerParticipantSchema,
+  insertDaoMakerShoSchema: () => insertDaoMakerShoSchema,
+  insertDaoProposalSchema: () => insertDaoProposalSchema,
+  insertDaoVoteSchema: () => insertDaoVoteSchema,
   insertDelegationSchema: () => insertDelegationSchema,
   insertDeployedTokenSchema: () => insertDeployedTokenSchema,
   insertDexCircuitBreakerSchema: () => insertDexCircuitBreakerSchema,
@@ -537,7 +606,10 @@ __export(schema_exports, {
   insertDexSwapSchema: () => insertDexSwapSchema,
   insertDexTwapOracleSchema: () => insertDexTwapOracleSchema,
   insertDexUserAnalyticsSchema: () => insertDexUserAnalyticsSchema,
+  insertEcosystemGrantSchema: () => insertEcosystemGrantSchema,
   insertEmailVerificationSchema: () => insertEmailVerificationSchema,
+  insertEventRegistrationSchema: () => insertEventRegistrationSchema,
+  insertEventsCatalogSchema: () => insertEventsCatalogSchema,
   insertGameAssetSchema: () => insertGameAssetSchema,
   insertGameLeaderboardSchema: () => insertGameLeaderboardSchema,
   insertGameRewardSchema: () => insertGameRewardSchema,
@@ -552,7 +624,10 @@ __export(schema_exports, {
   insertGenesisPreflightCheckSchema: () => insertGenesisPreflightCheckSchema,
   insertGenesisValidatorSchema: () => insertGenesisValidatorSchema,
   insertGovernancePrevalidationSchema: () => insertGovernancePrevalidationSchema,
+  insertGrantMilestoneSchema: () => insertGrantMilestoneSchema,
   insertHardwareVerificationChecklistSchema: () => insertHardwareVerificationChecklistSchema,
+  insertIdoLaunchpadParticipantSchema: () => insertIdoLaunchpadParticipantSchema,
+  insertIdoLaunchpadProjectSchema: () => insertIdoLaunchpadProjectSchema,
   insertIpBlocklistSchema: () => insertIpBlocklistSchema,
   insertLaunchAllocationSchema: () => insertLaunchAllocationSchema,
   insertLaunchRoundSchema: () => insertLaunchRoundSchema,
@@ -571,6 +646,9 @@ __export(schema_exports, {
   insertLstPositionSchema: () => insertLstPositionSchema,
   insertLstProtocolStatsSchema: () => insertLstProtocolStatsSchema,
   insertLstTransactionSchema: () => insertLstTransactionSchema,
+  insertMarketingCampaignSchema: () => insertMarketingCampaignSchema,
+  insertMarketingParticipantSchema: () => insertMarketingParticipantSchema,
+  insertMarketingRewardSchema: () => insertMarketingRewardSchema,
   insertMarketplaceBidSchema: () => insertMarketplaceBidSchema,
   insertMarketplaceListingSchema: () => insertMarketplaceListingSchema,
   insertMarketplaceSaleSchema: () => insertMarketplaceSaleSchema,
@@ -593,15 +671,26 @@ __export(schema_exports, {
   insertNftMarketplaceStatsSchema: () => insertNftMarketplaceStatsSchema,
   insertNftOfferSchema: () => insertNftOfferSchema,
   insertOperatorSessionSchema: () => insertOperatorSessionSchema,
+  insertPartnershipPayoutSchema: () => insertPartnershipPayoutSchema,
+  insertPartnershipSchema: () => insertPartnershipSchema,
   insertPlayerAchievementSchema: () => insertPlayerAchievementSchema,
   insertPoolValidatorAssignmentSchema: () => insertPoolValidatorAssignmentSchema,
   insertPoolWhitelistSchema: () => insertPoolWhitelistSchema,
+  insertPrivateInvestorSchema: () => insertPrivateInvestorSchema,
+  insertPrivatePayoutSchema: () => insertPrivatePayoutSchema,
+  insertProgramSnapshotSchema: () => insertProgramSnapshotSchema,
+  insertPublicParticipantSchema: () => insertPublicParticipantSchema,
+  insertPublicPayoutSchema: () => insertPublicPayoutSchema,
   insertRebaseHistorySchema: () => insertRebaseHistorySchema,
+  insertReferralAccountSchema: () => insertReferralAccountSchema,
+  insertReferralRewardSchema: () => insertReferralRewardSchema,
   insertReportScheduleSchema: () => insertReportScheduleSchema,
   insertRestartSessionSchema: () => insertRestartSessionSchema,
   insertRewardCycleSchema: () => insertRewardCycleSchema,
   insertRewardEventSchema: () => insertRewardEventSchema,
   insertSecurityEventSchema: () => insertSecurityEventSchema,
+  insertSeedInvestorSchema: () => insertSeedInvestorSchema,
+  insertSeedPayoutSchema: () => insertSeedPayoutSchema,
   insertShardConfigAuditLogSchema: () => insertShardConfigAuditLogSchema,
   insertShardConfigHistorySchema: () => insertShardConfigHistorySchema,
   insertShardConfigurationSchema: () => insertShardConfigurationSchema,
@@ -617,11 +706,15 @@ __export(schema_exports, {
   insertStakingSnapshotSchema: () => insertStakingSnapshotSchema,
   insertStakingStatsSchema: () => insertStakingStatsSchema,
   insertStakingTierConfigSchema: () => insertStakingTierConfigSchema,
+  insertStrategicPartnerMilestoneSchema: () => insertStrategicPartnerMilestoneSchema,
+  insertStrategicPartnerPayoutSchema: () => insertStrategicPartnerPayoutSchema,
+  insertStrategicPartnerSchema: () => insertStrategicPartnerSchema,
   insertSystemHealthSnapshotSchema: () => insertSystemHealthSnapshotSchema,
   insertTestnetBlockSchema: () => insertTestnetBlockSchema,
   insertTestnetFaucetRequestSchema: () => insertTestnetFaucetRequestSchema,
   insertTestnetTransactionSchema: () => insertTestnetTransactionSchema,
   insertTestnetWalletSchema: () => insertTestnetWalletSchema,
+  insertTokenProgramSchema: () => insertTokenProgramSchema,
   insertTournamentParticipantSchema: () => insertTournamentParticipantSchema,
   insertTransactionSchema: () => insertTransactionSchema,
   insertUnbondingRequestSchema: () => insertUnbondingRequestSchema,
@@ -633,7 +726,9 @@ __export(schema_exports, {
   insertValidatorApplicationSchema: () => insertValidatorApplicationSchema,
   insertValidatorBasketSchema: () => insertValidatorBasketSchema,
   insertValidatorBlockRewardSchema: () => insertValidatorBlockRewardSchema,
+  insertValidatorIncentivePayoutSchema: () => insertValidatorIncentivePayoutSchema,
   insertValidatorPerformanceHistorySchema: () => insertValidatorPerformanceHistorySchema,
+  insertValidatorPerformanceStatSchema: () => insertValidatorPerformanceStatSchema,
   insertValidatorSchema: () => insertValidatorSchema,
   insertValidatorVoteSchema: () => insertValidatorVoteSchema,
   insertVestingScheduleSchema: () => insertVestingScheduleSchema,
@@ -667,6 +762,9 @@ __export(schema_exports, {
   lstPositions: () => lstPositions,
   lstProtocolStats: () => lstProtocolStats,
   lstTransactions: () => lstTransactions,
+  marketingCampaigns: () => marketingCampaigns,
+  marketingParticipants: () => marketingParticipants,
+  marketingRewards: () => marketingRewards,
   marketplaceBids: () => marketplaceBids,
   marketplaceListings: () => marketplaceListings,
   marketplaceSales: () => marketplaceSales,
@@ -689,15 +787,26 @@ __export(schema_exports, {
   nftMarketplaceStats: () => nftMarketplaceStats,
   nftOffers: () => nftOffers,
   operatorSessions: () => operatorSessions,
+  partnershipPayouts: () => partnershipPayouts,
+  partnerships: () => partnerships,
   playerAchievements: () => playerAchievements,
   poolValidatorAssignments: () => poolValidatorAssignments,
   poolWhitelist: () => poolWhitelist,
+  privateInvestors: () => privateInvestors,
+  privatePayouts: () => privatePayouts,
+  programSnapshots: () => programSnapshots,
+  publicParticipants: () => publicParticipants,
+  publicPayouts: () => publicPayouts,
   rebaseHistory: () => rebaseHistory,
+  referralAccounts: () => referralAccounts,
+  referralRewards: () => referralRewards,
   reportSchedules: () => reportSchedules,
   restartSessions: () => restartSessions,
   rewardCycles: () => rewardCycles,
   rewardEvents: () => rewardEvents,
   securityEvents: () => securityEvents,
+  seedInvestors: () => seedInvestors,
+  seedPayouts: () => seedPayouts,
   shardConfigAuditLogs: () => shardConfigAuditLogs,
   shardConfigHistory: () => shardConfigHistory,
   shardConfigurations: () => shardConfigurations,
@@ -715,11 +824,15 @@ __export(schema_exports, {
   stakingSnapshots: () => stakingSnapshots,
   stakingStats: () => stakingStats,
   stakingTierConfig: () => stakingTierConfig,
+  strategicPartnerMilestones: () => strategicPartnerMilestones,
+  strategicPartnerPayouts: () => strategicPartnerPayouts,
+  strategicPartners: () => strategicPartners,
   systemHealthSnapshots: () => systemHealthSnapshots,
   testnetBlocks: () => testnetBlocks,
   testnetFaucetRequests: () => testnetFaucetRequests,
   testnetTransactions: () => testnetTransactions,
   testnetWallets: () => testnetWallets,
+  tokenPrograms: () => tokenPrograms,
   tournamentParticipants: () => tournamentParticipants,
   transactions: () => transactions,
   unbondingRequests: () => unbondingRequests,
@@ -731,7 +844,9 @@ __export(schema_exports, {
   validatorApplications: () => validatorApplications,
   validatorBaskets: () => validatorBaskets,
   validatorBlockRewards: () => validatorBlockRewards,
+  validatorIncentivePayouts: () => validatorIncentivePayouts,
   validatorPerformanceHistory: () => validatorPerformanceHistory,
+  validatorPerformanceStats: () => validatorPerformanceStats,
   validatorVotes: () => validatorVotes,
   validators: () => validators,
   vestingSchedules: () => vestingSchedules,
@@ -754,7 +869,7 @@ import { sql } from "drizzle-orm";
 import { pgTable, text, varchar, integer, bigint, boolean, jsonb, timestamp, numeric, real } from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
-var blocks, transactions, accounts, validators, blockVerifications, validatorBlockRewards, blockFinalityConfirmations, insertBlockVerificationSchema, insertValidatorBlockRewardSchema, insertBlockFinalityConfirmationSchema, smartContracts, aiModels, aiDecisions, aiUsageLogs, aiExecutionLogs, governancePrevalidations, aiTrainingJobs, aiParameters, aiTrainingMetrics, aiModelDeployments, aiTrainingDatasets, aiTrainingLogs, shards, networkStats, consensusRounds, apiKeys, apiKeyLogs, crossShardMessages, walletBalances, delegations, validatorVotes, committeeSnapshots, members, memberProfiles, memberStakingPositions, memberGovernanceProfiles, memberFinancialProfiles, memberSecurityProfiles, memberPerformanceMetrics, memberSlashEvents, memberAuditLogs, emailVerifications, insertEmailVerificationSchema, adminAuditLogs, securityEvents, complianceReports, validatorApplications, operatorSessions, memberDocuments, restartSessions, memberNotes, ipBlocklist, systemHealthSnapshots, alertQueue, validatorPerformanceHistory, reportSchedules, hardwareVerificationChecklists, deployedTokens, insertBlockSchema, insertTransactionSchema, insertAccountSchema, insertValidatorSchema, insertSmartContractSchema, insertAiModelSchema, insertAiDecisionSchema, insertAiUsageLogSchema, insertAiExecutionLogSchema, insertGovernancePrevalidationSchema, insertAiTrainingJobSchema, insertAiTrainingMetricsSchema, insertAiModelDeploymentSchema, insertAiTrainingDatasetSchema, insertAiTrainingLogSchema, insertAiParametersSchema, insertShardSchema, insertNetworkStatsSchema, insertConsensusRoundSchema, insertApiKeySchema, insertApiKeyLogSchema, insertCrossShardMessageSchema, insertWalletBalanceSchema, insertDelegationSchema, insertValidatorVoteSchema, insertCommitteeSnapshotSchema, insertMemberSchema, insertMemberProfileSchema, insertMemberStakingPositionSchema, insertMemberGovernanceProfileSchema, insertMemberFinancialProfileSchema, insertMemberSecurityProfileSchema, insertMemberPerformanceMetricsSchema, insertMemberSlashEventSchema, insertMemberAuditLogSchema, insertRestartSessionSchema, insertAdminAuditLogSchema, insertSecurityEventSchema, insertComplianceReportSchema, insertValidatorApplicationSchema, insertOperatorSessionSchema, insertMemberDocumentSchema, insertMemberNoteSchema, insertIpBlocklistSchema, insertSystemHealthSnapshotSchema, insertAlertQueueSchema, insertValidatorPerformanceHistorySchema, insertReportScheduleSchema, insertHardwareVerificationChecklistSchema, insertDeployedTokenSchema, aiDecisionSelectSchema, crossShardMessageSelectSchema, walletBalanceSelectSchema, consensusRoundSelectSchema, shardSelectSchema, aiDecisionsSnapshotSchema, crossShardMessagesSnapshotSchema, walletBalancesSnapshotSchema, consensusRoundsSnapshotSchema, shardsSnapshotSchema, STAKING_POOL_TYPES, STAKING_POOL_STATUS, STAKING_TIERS, LOCK_PERIODS, REWARD_TYPES, DELEGATION_STATUS, stakingPools, stakingPositions, stakingDelegations, unbondingRequests, rewardCycles, rewardEvents, slashingEvents, poolWhitelist, stakingStats, insertStakingPoolSchema, insertStakingPositionSchema, insertStakingDelegationSchema, insertUnbondingRequestSchema, insertRewardCycleSchema, insertRewardEventSchema, insertSlashingEventSchema, insertPoolWhitelistSchema, insertStakingStatsSchema, stakingTierConfig, poolValidatorAssignments, STAKING_AUDIT_ACTIONS, stakingAuditLogs, stakingSnapshots, stakingAiAssessments, insertStakingTierConfigSchema, insertPoolValidatorAssignmentSchema, insertStakingAuditLogSchema, insertStakingSnapshotSchema, insertStakingAiAssessmentSchema, consensusPhaseSchema, consensusStateSchema, DEX_POOL_TYPES, DEX_POOL_STATUS, SWAP_STATUS, LP_POSITION_STATUS, FEE_TIERS, CIRCUIT_BREAKER_STATUS, dexPools, dexPoolAssets, dexPoolTicks, dexPositions, dexSwaps, dexPriceHistory, dexTwapOracle, dexCircuitBreakers, dexMevEvents, dexLiquidityRewards, dexUserAnalytics, insertDexPoolSchema, insertDexPoolAssetSchema, insertDexPoolTickSchema, insertDexPositionSchema, insertDexSwapSchema, insertDexPriceHistorySchema, insertDexTwapOracleSchema, insertDexCircuitBreakerSchema, insertDexMevEventSchema, insertDexLiquidityRewardSchema, insertDexUserAnalyticsSchema, LendingMarketStatus, InterestRateModel, BorrowRateMode, HealthStatus, LiquidationStatus, lendingMarkets, lendingPositions, lendingSupplies, lendingBorrows, lendingLiquidations, lendingRateHistory, lendingTransactions, lendingProtocolStats, insertLendingMarketSchema, insertLendingPositionSchema, insertLendingSupplySchema, insertLendingBorrowSchema, insertLendingLiquidationSchema, insertLendingRateHistorySchema, insertLendingTransactionSchema, insertLendingProtocolStatsSchema, yieldVaults, yieldStrategies, yieldPositions, yieldHarvests, yieldRewards, yieldTransactions, yieldProtocolStats, insertYieldVaultSchema, insertYieldStrategySchema, insertYieldPositionSchema, insertYieldHarvestSchema, insertYieldRewardSchema, insertYieldTransactionSchema, insertYieldProtocolStatsSchema, liquidStakingPools, validatorBaskets, lstPositions, lstTransactions, rebaseHistory, lstProtocolStats, insertLiquidStakingPoolSchema, insertValidatorBasketSchema, insertLstPositionSchema, insertLstTransactionSchema, insertRebaseHistorySchema, insertLstProtocolStatsSchema, nftCollections, nftItems, marketplaceListings, marketplaceBids, marketplaceSales, nftOffers, nftActivityLog, nftMarketplaceStats, insertNftCollectionSchema, insertNftItemSchema, insertMarketplaceListingSchema, insertMarketplaceBidSchema, insertMarketplaceSaleSchema, insertNftOfferSchema, insertNftActivityLogSchema, insertNftMarketplaceStatsSchema, launchpadProjects, launchRounds, whitelistEntries, launchAllocations, vestingSchedules, launchpadStats, launchpadActivity, insertLaunchpadProjectSchema, insertLaunchRoundSchema, insertWhitelistEntrySchema, insertLaunchAllocationSchema, insertVestingScheduleSchema, insertLaunchpadStatsSchema, insertLaunchpadActivitySchema, gamefiProjects, gameAssets, gameRewards, gameLeaderboards, gameTournaments, tournamentParticipants, achievementBadges, playerAchievements, gamefiActivity, gamefiStats, insertGamefiProjectSchema, insertGameAssetSchema, insertGameRewardSchema, insertGameLeaderboardSchema, insertGameTournamentSchema, insertTournamentParticipantSchema, insertAchievementBadgeSchema, insertPlayerAchievementSchema, insertGamefiActivitySchema, insertGamefiStatsSchema, bridgeChains, bridgeRoutes, bridgeTransfers, bridgeLiquidityPools, bridgeLiquidityProviders, bridgeValidators, bridgeFeeConfigs, bridgeSecurityEvents, bridgeAnalytics, bridgeActivity, insertBridgeChainSchema, insertBridgeRouteSchema, insertBridgeTransferSchema, insertBridgeLiquidityPoolSchema, insertBridgeLiquidityProviderSchema, insertBridgeValidatorSchema, insertBridgeFeeConfigSchema, insertBridgeSecurityEventSchema, insertBridgeAnalyticsSchema, insertBridgeActivitySchema, communityPosts, communityComments, communityEvents, communityAnnouncements, communityBadges, communityUserBadges, communityActivity, communityReputation, insertCommunityPostSchema, insertCommunityCommentSchema, insertCommunityEventSchema, insertCommunityAnnouncementSchema, insertCommunityBadgeSchema, insertCommunityUserBadgeSchema, insertCommunityActivitySchema, insertCommunityReputationSchema, communityPostReactions, communityCommentReactions, communityEventRegistrations, insertCommunityPostReactionSchema, insertCommunityCommentReactionSchema, insertCommunityEventRegistrationSchema, shardConfigurations, shardConfigHistory, shardScalingEvents, shardConfigAuditLogs, insertShardConfigurationSchema, insertShardConfigHistorySchema, insertShardScalingEventSchema, insertShardConfigAuditLogSchema, walletPerformanceHistory, walletActionLog, walletStreamingCheckpoint, insertWalletPerformanceHistorySchema, insertWalletActionLogSchema, insertWalletStreamingCheckpointSchema, testnetWallets, testnetTransactions, testnetBlocks, testnetFaucetRequests, insertTestnetWalletSchema, insertTestnetTransactionSchema, insertTestnetBlockSchema, insertTestnetFaucetRequestSchema, genesisConfig, genesisValidators, genesisDistribution, genesisApprovals, genesisExecutionLog, genesisPreflightChecks, newsletterSubscribers, insertNewsletterSubscriberSchema, insertGenesisConfigSchema, insertGenesisValidatorSchema, insertGenesisDistributionSchema, insertGenesisApprovalSchema, insertGenesisExecutionLogSchema, insertGenesisPreflightCheckSchema, userMiningRewards, userStakingPositions, userStakingRewards, userEventParticipation, userActivityLog, insertUserMiningRewardSchema, insertUserStakingPositionSchema, insertUserStakingRewardSchema, insertUserEventParticipationSchema, insertUserActivityLogSchema, BUG_BOUNTY_SEVERITY, BUG_BOUNTY_STATUS, BUG_BOUNTY_ASSET, bugBountyReports, insertBugBountyReportSchema;
+var blocks, transactions, accounts, validators, blockVerifications, validatorBlockRewards, blockFinalityConfirmations, insertBlockVerificationSchema, insertValidatorBlockRewardSchema, insertBlockFinalityConfirmationSchema, smartContracts, aiModels, aiDecisions, aiUsageLogs, aiExecutionLogs, governancePrevalidations, aiTrainingJobs, aiParameters, aiTrainingMetrics, aiModelDeployments, aiTrainingDatasets, aiTrainingLogs, shards, networkStats, consensusRounds, apiKeys, apiKeyLogs, crossShardMessages, walletBalances, delegations, validatorVotes, committeeSnapshots, members, memberProfiles, memberStakingPositions, memberGovernanceProfiles, memberFinancialProfiles, memberSecurityProfiles, memberPerformanceMetrics, memberSlashEvents, memberAuditLogs, emailVerifications, insertEmailVerificationSchema, adminAuditLogs, securityEvents, complianceReports, validatorApplications, operatorSessions, memberDocuments, restartSessions, memberNotes, ipBlocklist, systemHealthSnapshots, alertQueue, validatorPerformanceHistory, reportSchedules, hardwareVerificationChecklists, deployedTokens, insertBlockSchema, insertTransactionSchema, insertAccountSchema, insertValidatorSchema, insertSmartContractSchema, insertAiModelSchema, insertAiDecisionSchema, insertAiUsageLogSchema, insertAiExecutionLogSchema, insertGovernancePrevalidationSchema, insertAiTrainingJobSchema, insertAiTrainingMetricsSchema, insertAiModelDeploymentSchema, insertAiTrainingDatasetSchema, insertAiTrainingLogSchema, insertAiParametersSchema, insertShardSchema, insertNetworkStatsSchema, insertConsensusRoundSchema, insertApiKeySchema, insertApiKeyLogSchema, insertCrossShardMessageSchema, insertWalletBalanceSchema, insertDelegationSchema, insertValidatorVoteSchema, insertCommitteeSnapshotSchema, insertMemberSchema, insertMemberProfileSchema, insertMemberStakingPositionSchema, insertMemberGovernanceProfileSchema, insertMemberFinancialProfileSchema, insertMemberSecurityProfileSchema, insertMemberPerformanceMetricsSchema, insertMemberSlashEventSchema, insertMemberAuditLogSchema, insertRestartSessionSchema, insertAdminAuditLogSchema, insertSecurityEventSchema, insertComplianceReportSchema, insertValidatorApplicationSchema, insertOperatorSessionSchema, insertMemberDocumentSchema, insertMemberNoteSchema, insertIpBlocklistSchema, insertSystemHealthSnapshotSchema, insertAlertQueueSchema, insertValidatorPerformanceHistorySchema, insertReportScheduleSchema, insertHardwareVerificationChecklistSchema, insertDeployedTokenSchema, aiDecisionSelectSchema, crossShardMessageSelectSchema, walletBalanceSelectSchema, consensusRoundSelectSchema, shardSelectSchema, aiDecisionsSnapshotSchema, crossShardMessagesSnapshotSchema, walletBalancesSnapshotSchema, consensusRoundsSnapshotSchema, shardsSnapshotSchema, STAKING_POOL_TYPES, STAKING_POOL_STATUS, STAKING_TIERS, LOCK_PERIODS, REWARD_TYPES, DELEGATION_STATUS, stakingPools, stakingPositions, stakingDelegations, unbondingRequests, rewardCycles, rewardEvents, slashingEvents, poolWhitelist, stakingStats, insertStakingPoolSchema, insertStakingPositionSchema, insertStakingDelegationSchema, insertUnbondingRequestSchema, insertRewardCycleSchema, insertRewardEventSchema, insertSlashingEventSchema, insertPoolWhitelistSchema, insertStakingStatsSchema, stakingTierConfig, poolValidatorAssignments, STAKING_AUDIT_ACTIONS, stakingAuditLogs, stakingSnapshots, stakingAiAssessments, insertStakingTierConfigSchema, insertPoolValidatorAssignmentSchema, insertStakingAuditLogSchema, insertStakingSnapshotSchema, insertStakingAiAssessmentSchema, consensusPhaseSchema, consensusStateSchema, DEX_POOL_TYPES, DEX_POOL_STATUS, SWAP_STATUS, LP_POSITION_STATUS, FEE_TIERS, CIRCUIT_BREAKER_STATUS, dexPools, dexPoolAssets, dexPoolTicks, dexPositions, dexSwaps, dexPriceHistory, dexTwapOracle, dexCircuitBreakers, dexMevEvents, dexLiquidityRewards, dexUserAnalytics, insertDexPoolSchema, insertDexPoolAssetSchema, insertDexPoolTickSchema, insertDexPositionSchema, insertDexSwapSchema, insertDexPriceHistorySchema, insertDexTwapOracleSchema, insertDexCircuitBreakerSchema, insertDexMevEventSchema, insertDexLiquidityRewardSchema, insertDexUserAnalyticsSchema, LendingMarketStatus, InterestRateModel, BorrowRateMode, HealthStatus, LiquidationStatus, lendingMarkets, lendingPositions, lendingSupplies, lendingBorrows, lendingLiquidations, lendingRateHistory, lendingTransactions, lendingProtocolStats, insertLendingMarketSchema, insertLendingPositionSchema, insertLendingSupplySchema, insertLendingBorrowSchema, insertLendingLiquidationSchema, insertLendingRateHistorySchema, insertLendingTransactionSchema, insertLendingProtocolStatsSchema, yieldVaults, yieldStrategies, yieldPositions, yieldHarvests, yieldRewards, yieldTransactions, yieldProtocolStats, insertYieldVaultSchema, insertYieldStrategySchema, insertYieldPositionSchema, insertYieldHarvestSchema, insertYieldRewardSchema, insertYieldTransactionSchema, insertYieldProtocolStatsSchema, liquidStakingPools, validatorBaskets, lstPositions, lstTransactions, rebaseHistory, lstProtocolStats, insertLiquidStakingPoolSchema, insertValidatorBasketSchema, insertLstPositionSchema, insertLstTransactionSchema, insertRebaseHistorySchema, insertLstProtocolStatsSchema, nftCollections, nftItems, marketplaceListings, marketplaceBids, marketplaceSales, nftOffers, nftActivityLog, nftMarketplaceStats, insertNftCollectionSchema, insertNftItemSchema, insertMarketplaceListingSchema, insertMarketplaceBidSchema, insertMarketplaceSaleSchema, insertNftOfferSchema, insertNftActivityLogSchema, insertNftMarketplaceStatsSchema, launchpadProjects, launchRounds, whitelistEntries, launchAllocations, vestingSchedules, launchpadStats, launchpadActivity, insertLaunchpadProjectSchema, insertLaunchRoundSchema, insertWhitelistEntrySchema, insertLaunchAllocationSchema, insertVestingScheduleSchema, insertLaunchpadStatsSchema, insertLaunchpadActivitySchema, gamefiProjects, gameAssets, gameRewards, gameLeaderboards, gameTournaments, tournamentParticipants, achievementBadges, playerAchievements, gamefiActivity, gamefiStats, insertGamefiProjectSchema, insertGameAssetSchema, insertGameRewardSchema, insertGameLeaderboardSchema, insertGameTournamentSchema, insertTournamentParticipantSchema, insertAchievementBadgeSchema, insertPlayerAchievementSchema, insertGamefiActivitySchema, insertGamefiStatsSchema, bridgeChains, bridgeRoutes, bridgeTransfers, bridgeLiquidityPools, bridgeLiquidityProviders, bridgeValidators, bridgeFeeConfigs, bridgeSecurityEvents, bridgeAnalytics, bridgeActivity, insertBridgeChainSchema, insertBridgeRouteSchema, insertBridgeTransferSchema, insertBridgeLiquidityPoolSchema, insertBridgeLiquidityProviderSchema, insertBridgeValidatorSchema, insertBridgeFeeConfigSchema, insertBridgeSecurityEventSchema, insertBridgeAnalyticsSchema, insertBridgeActivitySchema, communityPosts, communityComments, communityEvents, communityAnnouncements, communityBadges, communityUserBadges, communityActivity, communityReputation, insertCommunityPostSchema, insertCommunityCommentSchema, insertCommunityEventSchema, insertCommunityAnnouncementSchema, insertCommunityBadgeSchema, insertCommunityUserBadgeSchema, insertCommunityActivitySchema, insertCommunityReputationSchema, communityPostReactions, communityCommentReactions, communityEventRegistrations, insertCommunityPostReactionSchema, insertCommunityCommentReactionSchema, insertCommunityEventRegistrationSchema, shardConfigurations, shardConfigHistory, shardScalingEvents, shardConfigAuditLogs, insertShardConfigurationSchema, insertShardConfigHistorySchema, insertShardScalingEventSchema, insertShardConfigAuditLogSchema, walletPerformanceHistory, walletActionLog, walletStreamingCheckpoint, insertWalletPerformanceHistorySchema, insertWalletActionLogSchema, insertWalletStreamingCheckpointSchema, testnetWallets, testnetTransactions, testnetBlocks, testnetFaucetRequests, insertTestnetWalletSchema, insertTestnetTransactionSchema, insertTestnetBlockSchema, insertTestnetFaucetRequestSchema, genesisConfig, genesisValidators, genesisDistribution, genesisApprovals, genesisExecutionLog, genesisPreflightChecks, newsletterSubscribers, insertNewsletterSubscriberSchema, insertGenesisConfigSchema, insertGenesisValidatorSchema, insertGenesisDistributionSchema, insertGenesisApprovalSchema, insertGenesisExecutionLogSchema, insertGenesisPreflightCheckSchema, userMiningRewards, userStakingPositions, userStakingRewards, userEventParticipation, userActivityLog, insertUserMiningRewardSchema, insertUserStakingPositionSchema, insertUserStakingRewardSchema, insertUserEventParticipationSchema, insertUserActivityLogSchema, BUG_BOUNTY_SEVERITY, BUG_BOUNTY_STATUS, BUG_BOUNTY_ASSET, bugBountyReports, insertBugBountyReportSchema, TOKEN_PROGRAM_STATUS, TOKEN_PROGRAM_TYPE, tokenPrograms, programSnapshots, AIRDROP_TIER, AIRDROP_STATUS, airdropClaims, airdropDistributions, REFERRAL_TIER, referralAccounts, referralRewards, EVENT_TYPE, EVENT_STATUS, eventsCatalog, eventRegistrations, TASK_TYPE, BADGE_RARITY, communityTasks, communityContributions, communityMemberBadges, PROPOSAL_STATUS, VOTE_CHOICE, daoProposals, daoVotes, daoDelegations, blockRewardCycles, blockRewardPayouts, validatorIncentivePayouts, validatorPerformanceStats, GRANT_STATUS, GRANT_CATEGORY, ecosystemGrants, grantMilestones, insertTokenProgramSchema, insertProgramSnapshotSchema, insertAirdropClaimSchema, insertAirdropDistributionSchema, insertReferralAccountSchema, insertReferralRewardSchema, insertEventsCatalogSchema, insertEventRegistrationSchema, insertCommunityTaskSchema, insertCommunityContributionSchema, insertCommunityMemberBadgeSchema, insertDaoProposalSchema, insertDaoVoteSchema, insertDaoDelegationSchema, insertBlockRewardCycleSchema, insertBlockRewardPayoutSchema, insertValidatorIncentivePayoutSchema, insertValidatorPerformanceStatSchema, insertEcosystemGrantSchema, insertGrantMilestoneSchema, PARTNERSHIP_STATUS, PARTNERSHIP_TYPE, PARTNERSHIP_TIER, partnerships, partnershipPayouts, insertPartnershipSchema, insertPartnershipPayoutSchema, CAMPAIGN_TYPE, MARKETING_CHANNEL, MARKETING_ACTION, marketingCampaigns, marketingParticipants, marketingRewards, insertMarketingCampaignSchema, insertMarketingParticipantSchema, insertMarketingRewardSchema, PARTNER_TYPE, CONTRACT_TYPE, VESTING_TYPE, strategicPartners, strategicPartnerPayouts, strategicPartnerMilestones, insertStrategicPartnerSchema, insertStrategicPartnerPayoutSchema, insertStrategicPartnerMilestoneSchema, ADVISOR_EXPERTISE, ADVISOR_TYPE, ENGAGEMENT_TYPE, advisors, advisorPayouts, advisorContributions, insertAdvisorSchema, insertAdvisorPayoutSchema, insertAdvisorContributionSchema, INVESTOR_TYPE, INVESTMENT_CURRENCY, seedInvestors, seedPayouts, insertSeedInvestorSchema, insertSeedPayoutSchema, PRIVATE_INVESTOR_TYPE, PRIVATE_TIER, privateInvestors, privatePayouts, insertPrivateInvestorSchema, insertPrivatePayoutSchema, publicParticipants, publicPayouts, insertPublicParticipantSchema, insertPublicPayoutSchema, idoLaunchpadProjects, idoLaunchpadParticipants, insertIdoLaunchpadProjectSchema, insertIdoLaunchpadParticipantSchema, coinlistSales, coinlistParticipants, insertCoinlistSaleSchema, insertCoinlistParticipantSchema, daoMakerShos, daoMakerParticipants, insertDaoMakerShoSchema, insertDaoMakerParticipantSchema;
 var init_schema = __esm({
   "shared/schema.ts"() {
     "use strict";
@@ -6367,6 +6482,1195 @@ var init_schema = __esm({
       reviewedAt: true,
       paidAt: true
     });
+    TOKEN_PROGRAM_STATUS = ["active", "upcoming", "completed", "paused", "cancelled"];
+    TOKEN_PROGRAM_TYPE = [
+      "airdrop",
+      "referral",
+      "events",
+      "community",
+      "dao_governance",
+      "block_rewards",
+      "validator_incentives",
+      "ecosystem_fund",
+      "partnership",
+      "marketing",
+      "strategic_partner",
+      "advisor",
+      "seed_round",
+      "private_round",
+      "public_round",
+      "launchpad",
+      "coinlist",
+      "dao_maker"
+    ];
+    tokenPrograms = pgTable("token_programs", {
+      id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+      // Program Identity
+      programType: text("program_type").notNull(),
+      // airdrop, referral, events, etc.
+      name: text("name").notNull(),
+      description: text("description"),
+      pageRoute: text("page_route").notNull(),
+      // /airdrop, /referral, etc.
+      // Status & Lifecycle
+      status: text("status").notNull().default("active"),
+      // active, upcoming, completed, paused, cancelled
+      priority: integer("priority").notNull().default(1),
+      // Display order
+      // Allocation
+      totalAllocation: text("total_allocation").notNull().default("0"),
+      // TBURN tokens
+      distributedAmount: text("distributed_amount").notNull().default("0"),
+      remainingAmount: text("remaining_amount").notNull().default("0"),
+      // Participation Metrics
+      totalParticipants: integer("total_participants").notNull().default(0),
+      activeParticipants: integer("active_participants").notNull().default(0),
+      pendingClaims: integer("pending_claims").notNull().default(0),
+      // Financial Metrics
+      totalValueUsd: numeric("total_value_usd").notNull().default("0"),
+      raisedAmountUsd: numeric("raised_amount_usd").notNull().default("0"),
+      // For sale programs
+      targetAmountUsd: numeric("target_amount_usd").notNull().default("0"),
+      // Progress
+      progressPercent: real("progress_percent").notNull().default(0),
+      // Timeline
+      startDate: timestamp("start_date"),
+      endDate: timestamp("end_date"),
+      // Configuration
+      config: jsonb("config").notNull().default({}),
+      // Program-specific settings
+      // Metadata
+      createdAt: timestamp("created_at").notNull().defaultNow(),
+      updatedAt: timestamp("updated_at").notNull().defaultNow()
+    });
+    programSnapshots = pgTable("program_snapshots", {
+      id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+      programId: varchar("program_id").notNull(),
+      // Snapshot Metrics - matches database schema
+      totalParticipants: integer("total_participants").notNull().default(0),
+      distributedAmount: text("distributed_amount").notNull().default("0"),
+      remainingAmount: text("remaining_amount").notNull().default("0"),
+      progressPercent: real("progress_percent").notNull().default(0),
+      // Configuration
+      metrics: jsonb("metrics").notNull().default({}),
+      snapshotDate: timestamp("snapshot_date").notNull().defaultNow(),
+      createdAt: timestamp("created_at").notNull().defaultNow()
+    });
+    AIRDROP_TIER = ["basic", "holder", "og", "whale", "legendary"];
+    AIRDROP_STATUS = ["eligible", "claimed", "expired", "processing", "failed"];
+    airdropClaims = pgTable("airdrop_claims", {
+      id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+      // Claimant
+      walletAddress: text("wallet_address").notNull(),
+      // Eligibility
+      tier: text("tier").notNull().default("basic"),
+      // basic, holder, og, whale, legendary
+      eligibilityScore: integer("eligibility_score").notNull().default(0),
+      snapshotBlockNumber: bigint("snapshot_block_number", { mode: "number" }),
+      // Claim Details
+      claimableAmount: text("claimable_amount").notNull().default("0"),
+      claimedAmount: text("claimed_amount").notNull().default("0"),
+      bonusAmount: text("bonus_amount").notNull().default("0"),
+      // Status
+      status: text("status").notNull().default("eligible"),
+      // eligible, claimed, expired, processing, failed
+      // Verification
+      merkleProof: text("merkle_proof"),
+      signature: text("signature"),
+      verifiedAt: timestamp("verified_at"),
+      // Claim Transaction
+      claimTxHash: text("claim_tx_hash"),
+      claimBlockNumber: bigint("claim_block_number", { mode: "number" }),
+      claimedAt: timestamp("claimed_at"),
+      // Vesting (if applicable)
+      vestingScheduleId: varchar("vesting_schedule_id"),
+      vestingStartDate: timestamp("vesting_start_date"),
+      vestingEndDate: timestamp("vesting_end_date"),
+      createdAt: timestamp("created_at").notNull().defaultNow(),
+      updatedAt: timestamp("updated_at").notNull().defaultNow()
+    });
+    airdropDistributions = pgTable("airdrop_distributions", {
+      id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+      // Batch Info
+      batchNumber: integer("batch_number").notNull(),
+      batchName: text("batch_name"),
+      // Distribution Details
+      totalRecipients: integer("total_recipients").notNull().default(0),
+      totalAmount: text("total_amount").notNull().default("0"),
+      processedCount: integer("processed_count").notNull().default(0),
+      failedCount: integer("failed_count").notNull().default(0),
+      // Status
+      status: text("status").notNull().default("pending"),
+      // pending, processing, completed, failed
+      // Execution
+      executedBy: varchar("executed_by"),
+      executionTxHash: text("execution_tx_hash"),
+      startedAt: timestamp("started_at"),
+      completedAt: timestamp("completed_at"),
+      createdAt: timestamp("created_at").notNull().defaultNow()
+    });
+    REFERRAL_TIER = ["bronze", "silver", "gold", "platinum", "diamond"];
+    referralAccounts = pgTable("referral_accounts", {
+      id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+      // Account Owner
+      walletAddress: text("wallet_address").notNull().unique(),
+      memberId: varchar("member_id"),
+      // Referral Code
+      referralCode: text("referral_code").notNull().unique(),
+      referredBy: varchar("referred_by"),
+      // referralAccounts.id of referrer
+      // Tier & Stats
+      tier: text("tier").notNull().default("bronze"),
+      // bronze, silver, gold, platinum, diamond
+      totalReferrals: integer("total_referrals").notNull().default(0),
+      activeReferrals: integer("active_referrals").notNull().default(0),
+      conversionRate: real("conversion_rate").notNull().default(0),
+      // Earnings
+      totalEarned: text("total_earned").notNull().default("0"),
+      pendingRewards: text("pending_rewards").notNull().default("0"),
+      claimedRewards: text("claimed_rewards").notNull().default("0"),
+      lifetimeVolume: text("lifetime_volume").notNull().default("0"),
+      // Commission Rates
+      directCommissionRate: real("direct_commission_rate").notNull().default(10),
+      // Percentage
+      indirectCommissionRate: real("indirect_commission_rate").notNull().default(2),
+      createdAt: timestamp("created_at").notNull().defaultNow(),
+      updatedAt: timestamp("updated_at").notNull().defaultNow()
+    });
+    referralRewards = pgTable("referral_rewards", {
+      id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+      // Participants
+      referrerId: varchar("referrer_id").notNull(),
+      referredId: varchar("referred_id").notNull(),
+      // Reward Details
+      rewardType: text("reward_type").notNull(),
+      // signup, transaction, milestone
+      rewardAmount: text("reward_amount").notNull().default("0"),
+      bonusAmount: text("bonus_amount").notNull().default("0"),
+      // Source Transaction (if applicable)
+      sourceTxHash: text("source_tx_hash"),
+      sourceAmount: text("source_amount"),
+      commissionRate: real("commission_rate"),
+      // Status
+      status: text("status").notNull().default("pending"),
+      // pending, approved, paid, rejected
+      // Payment
+      payoutTxHash: text("payout_tx_hash"),
+      paidAt: timestamp("paid_at"),
+      createdAt: timestamp("created_at").notNull().defaultNow()
+    });
+    EVENT_TYPE = ["airdrop", "trading_competition", "staking_bonus", "community", "ama", "hackathon"];
+    EVENT_STATUS = ["upcoming", "active", "ended", "cancelled"];
+    eventsCatalog = pgTable("events_catalog", {
+      id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+      // Event Details
+      eventType: text("event_type").notNull(),
+      // airdrop, trading_competition, staking_bonus, community, ama, hackathon
+      name: text("name").notNull(),
+      description: text("description"),
+      bannerUrl: text("banner_url"),
+      // Status & Timeline
+      status: text("status").notNull().default("upcoming"),
+      // upcoming, active, ended, cancelled
+      startDate: timestamp("start_date").notNull(),
+      endDate: timestamp("end_date").notNull(),
+      registrationDeadline: timestamp("registration_deadline"),
+      // Participation
+      maxParticipants: integer("max_participants"),
+      currentParticipants: integer("current_participants").notNull().default(0),
+      // Rewards
+      totalRewardPool: text("total_reward_pool").notNull().default("0"),
+      distributedRewards: text("distributed_rewards").notNull().default("0"),
+      rewardStructure: jsonb("reward_structure").notNull().default({}),
+      // Prize distribution
+      // Requirements
+      requirements: jsonb("requirements").notNull().default({}),
+      // Eligibility criteria
+      createdAt: timestamp("created_at").notNull().defaultNow(),
+      updatedAt: timestamp("updated_at").notNull().defaultNow()
+    });
+    eventRegistrations = pgTable("event_registrations", {
+      id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+      eventId: varchar("event_id").notNull(),
+      walletAddress: text("wallet_address").notNull(),
+      memberId: varchar("member_id"),
+      // Participation
+      registeredAt: timestamp("registered_at").notNull().defaultNow(),
+      completedTasks: jsonb("completed_tasks").notNull().default([]),
+      score: integer("score").notNull().default(0),
+      rank: integer("rank"),
+      // Reward
+      rewardAmount: text("reward_amount").notNull().default("0"),
+      rewardClaimed: boolean("reward_claimed").notNull().default(false),
+      rewardClaimTxHash: text("reward_claim_tx_hash"),
+      createdAt: timestamp("created_at").notNull().defaultNow(),
+      updatedAt: timestamp("updated_at").notNull().defaultNow()
+    });
+    TASK_TYPE = ["social", "content", "development", "ambassador", "testing", "feedback"];
+    BADGE_RARITY = ["common", "uncommon", "rare", "epic", "legendary"];
+    communityTasks = pgTable("community_tasks", {
+      id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+      // Task Details
+      taskType: text("task_type").notNull(),
+      // social, content, development, ambassador, testing, feedback
+      name: text("name").notNull(),
+      description: text("description"),
+      // Requirements & Rewards
+      pointsReward: integer("points_reward").notNull().default(0),
+      tokenReward: text("token_reward").notNull().default("0"),
+      requirements: jsonb("requirements").notNull().default({}),
+      // Limits
+      maxCompletions: integer("max_completions"),
+      completionCount: integer("completion_count").notNull().default(0),
+      dailyLimit: integer("daily_limit"),
+      // Status
+      isActive: boolean("is_active").notNull().default(true),
+      startDate: timestamp("start_date"),
+      endDate: timestamp("end_date"),
+      createdAt: timestamp("created_at").notNull().defaultNow(),
+      updatedAt: timestamp("updated_at").notNull().defaultNow()
+    });
+    communityContributions = pgTable("community_contributions", {
+      id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+      // Contributor
+      walletAddress: text("wallet_address").notNull(),
+      memberId: varchar("member_id"),
+      // Task
+      taskId: varchar("task_id").notNull(),
+      // Submission
+      submissionProof: text("submission_proof"),
+      submissionData: jsonb("submission_data").notNull().default({}),
+      // Status
+      status: text("status").notNull().default("pending"),
+      // pending, approved, rejected
+      // Rewards
+      pointsEarned: integer("points_earned").notNull().default(0),
+      tokensEarned: text("tokens_earned").notNull().default("0"),
+      reviewedBy: varchar("reviewed_by"),
+      reviewedAt: timestamp("reviewed_at"),
+      createdAt: timestamp("created_at").notNull().defaultNow()
+    });
+    communityMemberBadges = pgTable("community_member_badges", {
+      id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+      walletAddress: text("wallet_address").notNull(),
+      // Badge Details
+      badgeName: text("badge_name").notNull(),
+      badgeDescription: text("badge_description"),
+      badgeImageUrl: text("badge_image_url"),
+      rarity: text("rarity").notNull().default("common"),
+      // common, uncommon, rare, epic, legendary
+      // Achievement
+      earnedReason: text("earned_reason"),
+      achievementData: jsonb("achievement_data").notNull().default({}),
+      earnedAt: timestamp("earned_at").notNull().defaultNow()
+    });
+    PROPOSAL_STATUS = ["draft", "active", "passed", "rejected", "executed", "cancelled"];
+    VOTE_CHOICE = ["for", "against", "abstain"];
+    daoProposals = pgTable("dao_proposals", {
+      id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+      // Proposal Details
+      proposalNumber: integer("proposal_number").notNull().unique(),
+      title: text("title").notNull(),
+      description: text("description").notNull(),
+      category: text("category").notNull(),
+      // governance, treasury, technical, community
+      // Proposer
+      proposerAddress: text("proposer_address").notNull(),
+      proposerPower: text("proposer_power").notNull().default("0"),
+      // Status & Timeline
+      status: text("status").notNull().default("draft"),
+      // draft, active, passed, rejected, executed, cancelled
+      votingStartDate: timestamp("voting_start_date"),
+      votingEndDate: timestamp("voting_end_date"),
+      executionDate: timestamp("execution_date"),
+      // Voting Results
+      forVotes: text("for_votes").notNull().default("0"),
+      againstVotes: text("against_votes").notNull().default("0"),
+      abstainVotes: text("abstain_votes").notNull().default("0"),
+      totalVoters: integer("total_voters").notNull().default(0),
+      quorumRequired: text("quorum_required").notNull().default("0"),
+      passThreshold: real("pass_threshold").notNull().default(50),
+      // Percentage
+      // Execution
+      executionPayload: jsonb("execution_payload").notNull().default({}),
+      executedTxHash: text("executed_tx_hash"),
+      createdAt: timestamp("created_at").notNull().defaultNow(),
+      updatedAt: timestamp("updated_at").notNull().defaultNow()
+    });
+    daoVotes = pgTable("dao_votes", {
+      id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+      proposalId: varchar("proposal_id").notNull(),
+      voterAddress: text("voter_address").notNull(),
+      // Vote Details
+      choice: text("choice").notNull(),
+      // for, against, abstain
+      votePower: text("vote_power").notNull().default("0"),
+      // Delegation (if applicable)
+      delegatedFrom: text("delegated_from"),
+      // Proof
+      signature: text("signature"),
+      txHash: text("tx_hash"),
+      votedAt: timestamp("voted_at").notNull().defaultNow()
+    });
+    daoDelegations = pgTable("dao_delegations", {
+      id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+      delegatorAddress: text("delegator_address").notNull(),
+      delegateAddress: text("delegate_address").notNull(),
+      // Delegation Amount
+      delegatedPower: text("delegated_power").notNull().default("0"),
+      // Status
+      isActive: boolean("is_active").notNull().default(true),
+      createdAt: timestamp("created_at").notNull().defaultNow(),
+      revokedAt: timestamp("revoked_at")
+    });
+    blockRewardCycles = pgTable("block_reward_cycles", {
+      id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+      // Cycle Info
+      cycleNumber: integer("cycle_number").notNull().unique(),
+      epochNumber: integer("epoch_number").notNull(),
+      // Block Range
+      startBlockNumber: bigint("start_block_number", { mode: "number" }).notNull(),
+      endBlockNumber: bigint("end_block_number", { mode: "number" }),
+      // Rewards
+      totalBlockRewards: text("total_block_rewards").notNull().default("0"),
+      totalGasFees: text("total_gas_fees").notNull().default("0"),
+      proposerRewards: text("proposer_rewards").notNull().default("0"),
+      verifierRewards: text("verifier_rewards").notNull().default("0"),
+      // Statistics
+      blocksProduced: integer("blocks_produced").notNull().default(0),
+      transactionsProcessed: integer("transactions_processed").notNull().default(0),
+      // Status
+      status: text("status").notNull().default("active"),
+      // active, completed, distributing
+      distributionStatus: text("distribution_status").notNull().default("pending"),
+      // pending, processing, completed
+      startedAt: timestamp("started_at").notNull().defaultNow(),
+      completedAt: timestamp("completed_at")
+    });
+    blockRewardPayouts = pgTable("block_reward_payouts", {
+      id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+      cycleId: varchar("cycle_id").notNull(),
+      validatorAddress: text("validator_address").notNull(),
+      // Payout Details
+      rewardType: text("reward_type").notNull(),
+      // proposer, verifier, gas_fee
+      blockNumber: bigint("block_number", { mode: "number" }),
+      rewardAmount: text("reward_amount").notNull().default("0"),
+      gasFeeShare: text("gas_fee_share").notNull().default("0"),
+      // Status
+      status: text("status").notNull().default("pending"),
+      // pending, distributed, failed
+      distributionTxHash: text("distribution_tx_hash"),
+      createdAt: timestamp("created_at").notNull().defaultNow(),
+      distributedAt: timestamp("distributed_at")
+    });
+    validatorIncentivePayouts = pgTable("validator_incentive_payouts", {
+      id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+      validatorAddress: text("validator_address").notNull(),
+      // Incentive Details
+      incentiveType: text("incentive_type").notNull(),
+      // uptime_bonus, performance_bonus, early_adopter, loyalty
+      periodStart: timestamp("period_start").notNull(),
+      periodEnd: timestamp("period_end").notNull(),
+      // Performance Metrics
+      uptimePercent: real("uptime_percent").notNull().default(100),
+      blocksProposed: integer("blocks_proposed").notNull().default(0),
+      blocksVerified: integer("blocks_verified").notNull().default(0),
+      performanceScore: real("performance_score").notNull().default(0),
+      // Payout
+      baseReward: text("base_reward").notNull().default("0"),
+      bonusMultiplier: real("bonus_multiplier").notNull().default(1),
+      totalPayout: text("total_payout").notNull().default("0"),
+      // Status
+      status: text("status").notNull().default("pending"),
+      // pending, approved, distributed, rejected
+      approvedBy: varchar("approved_by"),
+      distributionTxHash: text("distribution_tx_hash"),
+      createdAt: timestamp("created_at").notNull().defaultNow(),
+      distributedAt: timestamp("distributed_at")
+    });
+    validatorPerformanceStats = pgTable("validator_performance_stats", {
+      id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+      validatorAddress: text("validator_address").notNull(),
+      // Period
+      periodType: text("period_type").notNull(),
+      // hourly, daily, weekly, monthly
+      periodDate: timestamp("period_date").notNull(),
+      // Performance
+      uptimePercent: real("uptime_percent").notNull().default(100),
+      responseTimeMs: integer("response_time_ms").notNull().default(0),
+      blocksProposed: integer("blocks_proposed").notNull().default(0),
+      blocksVerified: integer("blocks_verified").notNull().default(0),
+      slashingEvents: integer("slashing_events").notNull().default(0),
+      // Earnings
+      totalRewards: text("total_rewards").notNull().default("0"),
+      delegatorRewards: text("delegator_rewards").notNull().default("0"),
+      createdAt: timestamp("created_at").notNull().defaultNow()
+    });
+    GRANT_STATUS = ["draft", "submitted", "reviewing", "approved", "rejected", "active", "completed", "cancelled"];
+    GRANT_CATEGORY = ["infrastructure", "defi", "nft", "gaming", "tooling", "research", "community", "other"];
+    ecosystemGrants = pgTable("ecosystem_grants", {
+      id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+      // Applicant
+      applicantAddress: text("applicant_address").notNull(),
+      applicantName: text("applicant_name").notNull(),
+      applicantEmail: text("applicant_email"),
+      teamSize: integer("team_size").notNull().default(1),
+      // Project Details
+      projectName: text("project_name").notNull(),
+      projectDescription: text("project_description").notNull(),
+      category: text("category").notNull(),
+      // infrastructure, defi, nft, gaming, tooling, research, community
+      // Funding
+      requestedAmount: text("requested_amount").notNull().default("0"),
+      approvedAmount: text("approved_amount").notNull().default("0"),
+      disbursedAmount: text("disbursed_amount").notNull().default("0"),
+      // Status
+      status: text("status").notNull().default("draft"),
+      // draft, submitted, reviewing, approved, rejected, active, completed, cancelled
+      // Timeline
+      proposedStartDate: timestamp("proposed_start_date"),
+      proposedEndDate: timestamp("proposed_end_date"),
+      actualStartDate: timestamp("actual_start_date"),
+      actualEndDate: timestamp("actual_end_date"),
+      // Documentation
+      proposalUrl: text("proposal_url"),
+      repositoryUrl: text("repository_url"),
+      websiteUrl: text("website_url"),
+      // Review
+      reviewedBy: varchar("reviewed_by"),
+      reviewNotes: text("review_notes"),
+      createdAt: timestamp("created_at").notNull().defaultNow(),
+      updatedAt: timestamp("updated_at").notNull().defaultNow()
+    });
+    grantMilestones = pgTable("grant_milestones", {
+      id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+      grantId: varchar("grant_id").notNull(),
+      // Milestone Details
+      milestoneNumber: integer("milestone_number").notNull(),
+      title: text("title").notNull(),
+      description: text("description"),
+      // Deliverables
+      deliverables: jsonb("deliverables").notNull().default([]),
+      evidenceUrl: text("evidence_url"),
+      // Payment
+      paymentAmount: text("payment_amount").notNull().default("0"),
+      paymentPercent: real("payment_percent").notNull().default(0),
+      // Status
+      status: text("status").notNull().default("pending"),
+      // pending, in_progress, submitted, approved, rejected
+      dueDate: timestamp("due_date"),
+      submittedAt: timestamp("submitted_at"),
+      approvedAt: timestamp("approved_at"),
+      // Review
+      reviewedBy: varchar("reviewed_by"),
+      reviewNotes: text("review_notes"),
+      // Payment
+      paymentTxHash: text("payment_tx_hash"),
+      paidAt: timestamp("paid_at"),
+      createdAt: timestamp("created_at").notNull().defaultNow()
+    });
+    insertTokenProgramSchema = createInsertSchema(tokenPrograms).omit({
+      id: true,
+      createdAt: true,
+      updatedAt: true
+    });
+    insertProgramSnapshotSchema = createInsertSchema(programSnapshots).omit({
+      id: true,
+      createdAt: true
+    });
+    insertAirdropClaimSchema = createInsertSchema(airdropClaims).omit({
+      id: true,
+      createdAt: true,
+      updatedAt: true
+    });
+    insertAirdropDistributionSchema = createInsertSchema(airdropDistributions).omit({
+      id: true,
+      createdAt: true
+    });
+    insertReferralAccountSchema = createInsertSchema(referralAccounts).omit({
+      id: true,
+      createdAt: true,
+      updatedAt: true
+    });
+    insertReferralRewardSchema = createInsertSchema(referralRewards).omit({
+      id: true,
+      createdAt: true
+    });
+    insertEventsCatalogSchema = createInsertSchema(eventsCatalog).omit({
+      id: true,
+      createdAt: true,
+      updatedAt: true
+    });
+    insertEventRegistrationSchema = createInsertSchema(eventRegistrations).omit({
+      id: true,
+      createdAt: true,
+      updatedAt: true
+    });
+    insertCommunityTaskSchema = createInsertSchema(communityTasks).omit({
+      id: true,
+      createdAt: true,
+      updatedAt: true
+    });
+    insertCommunityContributionSchema = createInsertSchema(communityContributions).omit({
+      id: true,
+      createdAt: true
+    });
+    insertCommunityMemberBadgeSchema = createInsertSchema(communityMemberBadges).omit({
+      id: true
+    });
+    insertDaoProposalSchema = createInsertSchema(daoProposals).omit({
+      id: true,
+      createdAt: true,
+      updatedAt: true
+    });
+    insertDaoVoteSchema = createInsertSchema(daoVotes).omit({
+      id: true
+    });
+    insertDaoDelegationSchema = createInsertSchema(daoDelegations).omit({
+      id: true,
+      createdAt: true
+    });
+    insertBlockRewardCycleSchema = createInsertSchema(blockRewardCycles).omit({
+      id: true
+    });
+    insertBlockRewardPayoutSchema = createInsertSchema(blockRewardPayouts).omit({
+      id: true,
+      createdAt: true
+    });
+    insertValidatorIncentivePayoutSchema = createInsertSchema(validatorIncentivePayouts).omit({
+      id: true,
+      createdAt: true
+    });
+    insertValidatorPerformanceStatSchema = createInsertSchema(validatorPerformanceStats).omit({
+      id: true,
+      createdAt: true
+    });
+    insertEcosystemGrantSchema = createInsertSchema(ecosystemGrants).omit({
+      id: true,
+      createdAt: true,
+      updatedAt: true
+    });
+    insertGrantMilestoneSchema = createInsertSchema(grantMilestones).omit({
+      id: true,
+      createdAt: true
+    });
+    PARTNERSHIP_STATUS = ["draft", "pending", "active", "suspended", "expired", "terminated"];
+    PARTNERSHIP_TYPE = ["exchange", "wallet", "dapp", "infrastructure", "marketing", "strategic", "validator", "ambassador"];
+    PARTNERSHIP_TIER = ["bronze", "silver", "gold", "platinum", "diamond"];
+    partnerships = pgTable("partnerships", {
+      id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+      // Partner Info
+      partnerName: text("partner_name").notNull(),
+      partnerType: text("partner_type").notNull(),
+      // exchange, wallet, dapp, infrastructure, marketing, strategic, validator, ambassador
+      tier: text("tier").notNull().default("bronze"),
+      // bronze, silver, gold, platinum, diamond
+      // Contact
+      contactName: text("contact_name"),
+      contactEmail: text("contact_email"),
+      contactPhone: text("contact_phone"),
+      website: text("website"),
+      // Token Allocation
+      allocatedAmount: text("allocated_amount").notNull().default("0"),
+      vestingSchedule: text("vesting_schedule").default("linear"),
+      // cliff, linear, immediate
+      vestingDuration: integer("vesting_duration").default(12),
+      // months
+      distributedAmount: text("distributed_amount").notNull().default("0"),
+      // Agreement
+      agreementStartDate: timestamp("agreement_start_date"),
+      agreementEndDate: timestamp("agreement_end_date"),
+      contractUrl: text("contract_url"),
+      // Metrics
+      totalVolume: text("total_volume").notNull().default("0"),
+      totalTransactions: integer("total_transactions").notNull().default(0),
+      // Status
+      status: text("status").notNull().default("draft"),
+      // draft, pending, active, suspended, expired, terminated
+      // Notes
+      notes: text("notes"),
+      // Audit
+      createdBy: varchar("created_by"),
+      approvedBy: varchar("approved_by"),
+      createdAt: timestamp("created_at").notNull().defaultNow(),
+      updatedAt: timestamp("updated_at").notNull().defaultNow()
+    });
+    partnershipPayouts = pgTable("partnership_payouts", {
+      id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+      partnershipId: varchar("partnership_id").notNull(),
+      // Payment Details
+      amount: text("amount").notNull(),
+      paymentType: text("payment_type").notNull(),
+      // scheduled, bonus, milestone
+      description: text("description"),
+      // Status
+      status: text("status").notNull().default("pending"),
+      // pending, approved, processing, completed, failed
+      // Transaction
+      txHash: text("tx_hash"),
+      paidAt: timestamp("paid_at"),
+      // Approval
+      approvedBy: varchar("approved_by"),
+      createdAt: timestamp("created_at").notNull().defaultNow()
+    });
+    insertPartnershipSchema = createInsertSchema(partnerships).omit({
+      id: true,
+      createdAt: true,
+      updatedAt: true
+    });
+    insertPartnershipPayoutSchema = createInsertSchema(partnershipPayouts).omit({
+      id: true,
+      createdAt: true
+    });
+    CAMPAIGN_TYPE = ["social_media", "influencer", "content_creation", "community", "ambassador", "bounty", "referral_boost", "airdrop_promotion"];
+    MARKETING_CHANNEL = ["twitter", "discord", "telegram", "youtube", "tiktok", "medium", "reddit", "instagram", "facebook", "email", "other"];
+    MARKETING_ACTION = ["follow", "like", "retweet", "comment", "share", "post", "video", "article", "referral", "signup", "verify_wallet", "stake", "trade"];
+    marketingCampaigns = pgTable("marketing_campaigns", {
+      id: varchar("id").primaryKey(),
+      name: text("name").notNull(),
+      description: text("description"),
+      campaignType: text("campaign_type").notNull().default("social_media"),
+      channel: text("channel").notNull().default("twitter"),
+      targetAudience: text("target_audience"),
+      budgetAmount: text("budget_amount").notNull().default("0"),
+      spentAmount: text("spent_amount").notNull().default("0"),
+      rewardPerAction: text("reward_per_action").notNull().default("0"),
+      totalParticipants: integer("total_participants").notNull().default(0),
+      totalReach: integer("total_reach").notNull().default(0),
+      totalEngagements: integer("total_engagements").notNull().default(0),
+      totalConversions: integer("total_conversions").notNull().default(0),
+      startDate: timestamp("start_date"),
+      endDate: timestamp("end_date"),
+      status: text("status").notNull().default("draft"),
+      goals: jsonb("goals"),
+      requirements: jsonb("requirements"),
+      createdBy: varchar("created_by"),
+      approvedBy: varchar("approved_by"),
+      createdAt: timestamp("created_at").notNull().defaultNow(),
+      updatedAt: timestamp("updated_at").notNull().defaultNow()
+    });
+    marketingParticipants = pgTable("marketing_participants", {
+      id: varchar("id").primaryKey(),
+      campaignId: varchar("campaign_id").notNull(),
+      walletAddress: text("wallet_address").notNull(),
+      username: text("username"),
+      platform: text("platform").notNull(),
+      actionsCompleted: integer("actions_completed").notNull().default(0),
+      totalRewards: text("total_rewards").notNull().default("0"),
+      referralCode: text("referral_code"),
+      referralCount: integer("referral_count").notNull().default(0),
+      status: text("status").notNull().default("active"),
+      joinedAt: timestamp("joined_at").notNull().defaultNow(),
+      lastActivity: timestamp("last_activity")
+    });
+    marketingRewards = pgTable("marketing_rewards", {
+      id: varchar("id").primaryKey(),
+      campaignId: varchar("campaign_id").notNull(),
+      participantId: varchar("participant_id").notNull(),
+      actionType: text("action_type").notNull(),
+      rewardAmount: text("reward_amount").notNull(),
+      status: text("status").notNull().default("pending"),
+      txHash: text("tx_hash"),
+      metadata: jsonb("metadata"),
+      verifiedAt: timestamp("verified_at"),
+      paidAt: timestamp("paid_at"),
+      createdAt: timestamp("created_at").notNull().defaultNow()
+    });
+    insertMarketingCampaignSchema = createInsertSchema(marketingCampaigns).omit({
+      id: true,
+      createdAt: true,
+      updatedAt: true
+    });
+    insertMarketingParticipantSchema = createInsertSchema(marketingParticipants).omit({
+      id: true,
+      joinedAt: true
+    });
+    insertMarketingRewardSchema = createInsertSchema(marketingRewards).omit({
+      id: true,
+      createdAt: true
+    });
+    PARTNER_TYPE = ["exchange", "vc", "fund", "market_maker", "infrastructure", "ecosystem", "media", "research", "advisor", "incubator"];
+    CONTRACT_TYPE = ["token_allocation", "liquidity_provision", "market_making", "co_marketing", "technical_integration", "advisory", "investment", "listing"];
+    VESTING_TYPE = ["immediate", "cliff_linear", "cliff_monthly", "milestone_based", "performance_based"];
+    strategicPartners = pgTable("strategic_partners", {
+      id: varchar("id").primaryKey(),
+      name: text("name").notNull(),
+      description: text("description"),
+      partnerType: text("partner_type").notNull().default("ecosystem"),
+      contractType: text("contract_type").notNull().default("token_allocation"),
+      logoUrl: text("logo_url"),
+      website: text("website"),
+      contactEmail: text("contact_email"),
+      contactPerson: text("contact_person"),
+      walletAddress: text("wallet_address"),
+      allocation: text("allocation").notNull().default("0"),
+      distributedAmount: text("distributed_amount").notNull().default("0"),
+      lockedAmount: text("locked_amount").notNull().default("0"),
+      vestingType: text("vesting_type").notNull().default("cliff_linear"),
+      vestingStartDate: timestamp("vesting_start_date"),
+      vestingEndDate: timestamp("vesting_end_date"),
+      cliffMonths: integer("cliff_months").notNull().default(6),
+      vestingMonths: integer("vesting_months").notNull().default(24),
+      tgePercentage: integer("tge_percentage").notNull().default(10),
+      contractSignedDate: timestamp("contract_signed_date"),
+      partnerSince: timestamp("partner_since"),
+      status: text("status").notNull().default("pending"),
+      tier: text("tier").notNull().default("standard"),
+      notes: text("notes"),
+      milestones: jsonb("milestones"),
+      createdAt: timestamp("created_at").notNull().defaultNow(),
+      updatedAt: timestamp("updated_at").notNull().defaultNow()
+    });
+    strategicPartnerPayouts = pgTable("strategic_partner_payouts", {
+      id: varchar("id").primaryKey(),
+      partnerId: varchar("partner_id").notNull(),
+      amount: text("amount").notNull(),
+      payoutType: text("payout_type").notNull().default("vesting"),
+      txHash: text("tx_hash"),
+      status: text("status").notNull().default("pending"),
+      scheduledDate: timestamp("scheduled_date"),
+      processedDate: timestamp("processed_date"),
+      notes: text("notes"),
+      createdAt: timestamp("created_at").notNull().defaultNow()
+    });
+    strategicPartnerMilestones = pgTable("strategic_partner_milestones", {
+      id: varchar("id").primaryKey(),
+      partnerId: varchar("partner_id").notNull(),
+      title: text("title").notNull(),
+      description: text("description"),
+      targetDate: timestamp("target_date"),
+      completedDate: timestamp("completed_date"),
+      rewardAmount: text("reward_amount").notNull().default("0"),
+      status: text("status").notNull().default("pending"),
+      evidence: text("evidence"),
+      verifiedBy: varchar("verified_by"),
+      createdAt: timestamp("created_at").notNull().defaultNow()
+    });
+    insertStrategicPartnerSchema = createInsertSchema(strategicPartners).omit({
+      id: true,
+      createdAt: true,
+      updatedAt: true
+    });
+    insertStrategicPartnerPayoutSchema = createInsertSchema(strategicPartnerPayouts).omit({
+      id: true,
+      createdAt: true
+    });
+    insertStrategicPartnerMilestoneSchema = createInsertSchema(strategicPartnerMilestones).omit({
+      id: true,
+      createdAt: true
+    });
+    ADVISOR_EXPERTISE = ["blockchain", "defi", "tokenomics", "legal", "marketing", "technology", "business", "security", "compliance", "gaming", "nft", "ai"];
+    ADVISOR_TYPE = ["technical", "strategic", "legal", "marketing", "financial", "operational", "advisory_board", "industry_expert"];
+    ENGAGEMENT_TYPE = ["full_time", "part_time", "project_based", "retainer", "equity_only"];
+    advisors = pgTable("advisors", {
+      id: varchar("id").primaryKey(),
+      name: text("name").notNull(),
+      title: text("title"),
+      bio: text("bio"),
+      photoUrl: text("photo_url"),
+      email: text("email"),
+      linkedin: text("linkedin"),
+      twitter: text("twitter"),
+      walletAddress: text("wallet_address"),
+      advisorType: text("advisor_type").notNull().default("strategic"),
+      expertise: text("expertise").notNull().default("blockchain"),
+      engagementType: text("engagement_type").notNull().default("part_time"),
+      allocation: text("allocation").notNull().default("0"),
+      distributedAmount: text("distributed_amount").notNull().default("0"),
+      lockedAmount: text("locked_amount").notNull().default("0"),
+      vestingType: text("vesting_type").notNull().default("cliff_linear"),
+      vestingStartDate: timestamp("vesting_start_date"),
+      vestingEndDate: timestamp("vesting_end_date"),
+      cliffMonths: integer("cliff_months").notNull().default(6),
+      vestingMonths: integer("vesting_months").notNull().default(24),
+      tgePercentage: integer("tge_percentage").notNull().default(5),
+      contractStartDate: timestamp("contract_start_date"),
+      contractEndDate: timestamp("contract_end_date"),
+      monthlyHours: integer("monthly_hours"),
+      status: text("status").notNull().default("pending"),
+      notes: text("notes"),
+      deliverables: jsonb("deliverables"),
+      createdAt: timestamp("created_at").notNull().defaultNow(),
+      updatedAt: timestamp("updated_at").notNull().defaultNow()
+    });
+    advisorPayouts = pgTable("advisor_payouts", {
+      id: varchar("id").primaryKey(),
+      advisorId: varchar("advisor_id").notNull(),
+      amount: text("amount").notNull(),
+      payoutType: text("payout_type").notNull().default("vesting"),
+      txHash: text("tx_hash"),
+      status: text("status").notNull().default("pending"),
+      scheduledDate: timestamp("scheduled_date"),
+      processedDate: timestamp("processed_date"),
+      notes: text("notes"),
+      createdAt: timestamp("created_at").notNull().defaultNow()
+    });
+    advisorContributions = pgTable("advisor_contributions", {
+      id: varchar("id").primaryKey(),
+      advisorId: varchar("advisor_id").notNull(),
+      title: text("title").notNull(),
+      description: text("description"),
+      contributionType: text("contribution_type").notNull().default("consultation"),
+      hoursSpent: integer("hours_spent"),
+      completedDate: timestamp("completed_date"),
+      impactScore: integer("impact_score"),
+      bonusAmount: text("bonus_amount").notNull().default("0"),
+      status: text("status").notNull().default("pending"),
+      verifiedBy: varchar("verified_by"),
+      createdAt: timestamp("created_at").notNull().defaultNow()
+    });
+    insertAdvisorSchema = createInsertSchema(advisors).omit({
+      id: true,
+      createdAt: true,
+      updatedAt: true
+    });
+    insertAdvisorPayoutSchema = createInsertSchema(advisorPayouts).omit({
+      id: true,
+      createdAt: true
+    });
+    insertAdvisorContributionSchema = createInsertSchema(advisorContributions).omit({
+      id: true,
+      createdAt: true
+    });
+    INVESTOR_TYPE = ["angel", "vc", "fund", "family_office", "strategic", "individual", "institutional"];
+    INVESTMENT_CURRENCY = ["usdt", "usdc", "eth", "btc", "usd", "krw"];
+    seedInvestors = pgTable("seed_investors", {
+      id: varchar("id").primaryKey(),
+      name: text("name").notNull(),
+      email: text("email"),
+      phone: text("phone"),
+      company: text("company"),
+      investorType: text("investor_type").notNull().default("individual"),
+      walletAddress: text("wallet_address"),
+      investmentAmount: numeric("investment_amount").notNull().default("0"),
+      investmentCurrency: text("investment_currency").notNull().default("usdt"),
+      tokenPrice: numeric("token_price").notNull().default("0.005"),
+      tokenAmount: text("token_amount").notNull().default("0"),
+      distributedAmount: text("distributed_amount").notNull().default("0"),
+      lockedAmount: text("locked_amount").notNull().default("0"),
+      vestingType: text("vesting_type").notNull().default("cliff_linear"),
+      vestingStartDate: timestamp("vesting_start_date"),
+      vestingEndDate: timestamp("vesting_end_date"),
+      cliffMonths: integer("cliff_months").notNull().default(12),
+      vestingMonths: integer("vesting_months").notNull().default(24),
+      tgePercentage: integer("tge_percentage").notNull().default(5),
+      saftSigned: boolean("saft_signed").notNull().default(false),
+      saftSignedDate: timestamp("saft_signed_date"),
+      kycVerified: boolean("kyc_verified").notNull().default(false),
+      kycVerifiedDate: timestamp("kyc_verified_date"),
+      paymentReceived: boolean("payment_received").notNull().default(false),
+      paymentReceivedDate: timestamp("payment_received_date"),
+      paymentTxHash: text("payment_tx_hash"),
+      status: text("status").notNull().default("pending"),
+      notes: text("notes"),
+      referredBy: varchar("referred_by"),
+      createdAt: timestamp("created_at").notNull().defaultNow(),
+      updatedAt: timestamp("updated_at").notNull().defaultNow()
+    });
+    seedPayouts = pgTable("seed_payouts", {
+      id: varchar("id").primaryKey(),
+      investorId: varchar("investor_id").notNull(),
+      amount: text("amount").notNull(),
+      payoutType: text("payout_type").notNull().default("vesting"),
+      txHash: text("tx_hash"),
+      status: text("status").notNull().default("pending"),
+      scheduledDate: timestamp("scheduled_date"),
+      processedDate: timestamp("processed_date"),
+      notes: text("notes"),
+      createdAt: timestamp("created_at").notNull().defaultNow()
+    });
+    insertSeedInvestorSchema = createInsertSchema(seedInvestors).omit({
+      id: true,
+      createdAt: true,
+      updatedAt: true
+    });
+    insertSeedPayoutSchema = createInsertSchema(seedPayouts).omit({
+      id: true,
+      createdAt: true
+    });
+    PRIVATE_INVESTOR_TYPE = ["vc", "fund", "family_office", "institutional", "strategic", "accredited"];
+    PRIVATE_TIER = ["standard", "premium", "vip", "strategic"];
+    privateInvestors = pgTable("private_investors", {
+      id: varchar("id").primaryKey(),
+      name: text("name").notNull(),
+      email: text("email"),
+      phone: text("phone"),
+      company: text("company"),
+      investorType: text("investor_type").notNull().default("institutional"),
+      tier: text("tier").notNull().default("standard"),
+      walletAddress: text("wallet_address"),
+      investmentAmount: numeric("investment_amount").notNull().default("0"),
+      investmentCurrency: text("investment_currency").notNull().default("usdt"),
+      tokenPrice: numeric("token_price").notNull().default("0.01"),
+      tokenAmount: text("token_amount").notNull().default("0"),
+      bonusAmount: text("bonus_amount").notNull().default("0"),
+      distributedAmount: text("distributed_amount").notNull().default("0"),
+      lockedAmount: text("locked_amount").notNull().default("0"),
+      vestingType: text("vesting_type").notNull().default("cliff_linear"),
+      vestingStartDate: timestamp("vesting_start_date"),
+      vestingEndDate: timestamp("vesting_end_date"),
+      cliffMonths: integer("cliff_months").notNull().default(6),
+      vestingMonths: integer("vesting_months").notNull().default(18),
+      tgePercentage: integer("tge_percentage").notNull().default(10),
+      saftSigned: boolean("saft_signed").notNull().default(false),
+      saftSignedDate: timestamp("saft_signed_date"),
+      kycVerified: boolean("kyc_verified").notNull().default(false),
+      kycVerifiedDate: timestamp("kyc_verified_date"),
+      accreditedVerified: boolean("accredited_verified").notNull().default(false),
+      paymentReceived: boolean("payment_received").notNull().default(false),
+      paymentReceivedDate: timestamp("payment_received_date"),
+      paymentTxHash: text("payment_tx_hash"),
+      status: text("status").notNull().default("pending"),
+      notes: text("notes"),
+      referredBy: varchar("referred_by"),
+      createdAt: timestamp("created_at").notNull().defaultNow(),
+      updatedAt: timestamp("updated_at").notNull().defaultNow()
+    });
+    privatePayouts = pgTable("private_payouts", {
+      id: varchar("id").primaryKey(),
+      investorId: varchar("investor_id").notNull(),
+      amount: text("amount").notNull(),
+      payoutType: text("payout_type").notNull().default("vesting"),
+      txHash: text("tx_hash"),
+      status: text("status").notNull().default("pending"),
+      scheduledDate: timestamp("scheduled_date"),
+      processedDate: timestamp("processed_date"),
+      notes: text("notes"),
+      createdAt: timestamp("created_at").notNull().defaultNow()
+    });
+    insertPrivateInvestorSchema = createInsertSchema(privateInvestors).omit({
+      id: true,
+      createdAt: true,
+      updatedAt: true
+    });
+    insertPrivatePayoutSchema = createInsertSchema(privatePayouts).omit({
+      id: true,
+      createdAt: true
+    });
+    publicParticipants = pgTable("public_participants", {
+      id: varchar("id").primaryKey(),
+      walletAddress: text("wallet_address").notNull(),
+      email: text("email"),
+      country: text("country"),
+      investmentAmount: numeric("investment_amount").notNull().default("0"),
+      investmentCurrency: text("investment_currency").notNull().default("usdt"),
+      tokenPrice: numeric("token_price").notNull().default("0.02"),
+      tokenAmount: text("token_amount").notNull().default("0"),
+      distributedAmount: text("distributed_amount").notNull().default("0"),
+      tgePercentage: integer("tge_percentage").notNull().default(25),
+      vestingMonths: integer("vesting_months").notNull().default(6),
+      txHash: text("tx_hash"),
+      kycVerified: boolean("kyc_verified").notNull().default(false),
+      kycVerifiedDate: timestamp("kyc_verified_date"),
+      paymentReceived: boolean("payment_received").notNull().default(false),
+      paymentReceivedDate: timestamp("payment_received_date"),
+      status: text("status").notNull().default("pending"),
+      referralCode: text("referral_code"),
+      source: text("source"),
+      notes: text("notes"),
+      createdAt: timestamp("created_at").notNull().defaultNow(),
+      updatedAt: timestamp("updated_at").notNull().defaultNow()
+    });
+    publicPayouts = pgTable("public_payouts", {
+      id: varchar("id").primaryKey(),
+      participantId: varchar("participant_id").notNull(),
+      amount: text("amount").notNull(),
+      payoutType: text("payout_type").notNull().default("tge"),
+      txHash: text("tx_hash"),
+      status: text("status").notNull().default("pending"),
+      scheduledDate: timestamp("scheduled_date"),
+      processedDate: timestamp("processed_date"),
+      notes: text("notes"),
+      createdAt: timestamp("created_at").notNull().defaultNow()
+    });
+    insertPublicParticipantSchema = createInsertSchema(publicParticipants).omit({
+      id: true,
+      createdAt: true,
+      updatedAt: true
+    });
+    insertPublicPayoutSchema = createInsertSchema(publicPayouts).omit({
+      id: true,
+      createdAt: true
+    });
+    idoLaunchpadProjects = pgTable("ido_launchpad_projects", {
+      id: varchar("id").primaryKey(),
+      projectName: text("project_name").notNull(),
+      tokenName: text("token_name").notNull(),
+      tokenSymbol: text("token_symbol").notNull(),
+      tokenAddress: text("token_address"),
+      description: text("description"),
+      website: text("website"),
+      twitter: text("twitter"),
+      telegram: text("telegram"),
+      discord: text("discord"),
+      logoUrl: text("logo_url"),
+      tokenPrice: numeric("token_price").notNull().default("0.01"),
+      totalSupply: text("total_supply").notNull().default("0"),
+      saleAllocation: text("sale_allocation").notNull().default("0"),
+      hardCap: numeric("hard_cap").notNull().default("100000"),
+      softCap: numeric("soft_cap").notNull().default("50000"),
+      raisedAmount: numeric("raised_amount").notNull().default("0"),
+      minContribution: numeric("min_contribution").notNull().default("100"),
+      maxContribution: numeric("max_contribution").notNull().default("10000"),
+      tgePercentage: integer("tge_percentage").notNull().default(20),
+      vestingMonths: integer("vesting_months").notNull().default(12),
+      cliffMonths: integer("cliff_months").notNull().default(1),
+      startDate: timestamp("start_date"),
+      endDate: timestamp("end_date"),
+      listingDate: timestamp("listing_date"),
+      kycRequired: boolean("kyc_required").notNull().default(true),
+      whitelistOnly: boolean("whitelist_only").notNull().default(false),
+      status: text("status").notNull().default("draft"),
+      featured: boolean("featured").notNull().default(false),
+      notes: text("notes"),
+      createdAt: timestamp("created_at").notNull().defaultNow(),
+      updatedAt: timestamp("updated_at").notNull().defaultNow()
+    });
+    idoLaunchpadParticipants = pgTable("ido_launchpad_participants", {
+      id: varchar("id").primaryKey(),
+      projectId: varchar("project_id").notNull(),
+      walletAddress: text("wallet_address").notNull(),
+      email: text("email"),
+      contributionAmount: numeric("contribution_amount").notNull().default("0"),
+      contributionCurrency: text("contribution_currency").notNull().default("usdt"),
+      tokenAmount: text("token_amount").notNull().default("0"),
+      distributedAmount: text("distributed_amount").notNull().default("0"),
+      txHash: text("tx_hash"),
+      kycVerified: boolean("kyc_verified").notNull().default(false),
+      whitelisted: boolean("whitelisted").notNull().default(false),
+      paymentReceived: boolean("payment_received").notNull().default(false),
+      status: text("status").notNull().default("pending"),
+      notes: text("notes"),
+      createdAt: timestamp("created_at").notNull().defaultNow(),
+      updatedAt: timestamp("updated_at").notNull().defaultNow()
+    });
+    insertIdoLaunchpadProjectSchema = createInsertSchema(idoLaunchpadProjects).omit({
+      id: true,
+      createdAt: true,
+      updatedAt: true
+    });
+    insertIdoLaunchpadParticipantSchema = createInsertSchema(idoLaunchpadParticipants).omit({
+      id: true,
+      createdAt: true,
+      updatedAt: true
+    });
+    coinlistSales = pgTable("coinlist_sales", {
+      id: varchar("id").primaryKey(),
+      saleName: text("sale_name").notNull(),
+      tokenSymbol: text("token_symbol").notNull().default("TBURN"),
+      tokenPrice: numeric("token_price").notNull().default("0.02"),
+      totalAllocation: text("total_allocation").notNull().default("0"),
+      hardCap: numeric("hard_cap").notNull().default("1000000"),
+      raisedAmount: numeric("raised_amount").notNull().default("0"),
+      minPurchase: numeric("min_purchase").notNull().default("100"),
+      maxPurchase: numeric("max_purchase").notNull().default("5000"),
+      queueType: text("queue_type").notNull().default("lottery"),
+      totalSlots: integer("total_slots").notNull().default(1e3),
+      registrationStart: timestamp("registration_start"),
+      registrationEnd: timestamp("registration_end"),
+      saleStart: timestamp("sale_start"),
+      saleEnd: timestamp("sale_end"),
+      tgePercentage: integer("tge_percentage").notNull().default(25),
+      vestingMonths: integer("vesting_months").notNull().default(6),
+      kycRequired: boolean("kyc_required").notNull().default(true),
+      status: text("status").notNull().default("draft"),
+      notes: text("notes"),
+      createdAt: timestamp("created_at").notNull().defaultNow(),
+      updatedAt: timestamp("updated_at").notNull().defaultNow()
+    });
+    coinlistParticipants = pgTable("coinlist_participants", {
+      id: varchar("id").primaryKey(),
+      saleId: varchar("sale_id").notNull(),
+      email: text("email").notNull(),
+      walletAddress: text("wallet_address").notNull(),
+      country: text("country"),
+      queuePosition: integer("queue_position"),
+      investmentAmount: numeric("investment_amount").notNull().default("0"),
+      investmentCurrency: text("investment_currency").notNull().default("usdt"),
+      tokenAmount: text("token_amount").notNull().default("0"),
+      distributedAmount: text("distributed_amount").notNull().default("0"),
+      txHash: text("tx_hash"),
+      kycVerified: boolean("kyc_verified").notNull().default(false),
+      kycVerifiedDate: timestamp("kyc_verified_date"),
+      isWinner: boolean("is_winner").notNull().default(false),
+      winnerSelectedDate: timestamp("winner_selected_date"),
+      paymentReceived: boolean("payment_received").notNull().default(false),
+      paymentReceivedDate: timestamp("payment_received_date"),
+      status: text("status").notNull().default("registered"),
+      notes: text("notes"),
+      createdAt: timestamp("created_at").notNull().defaultNow(),
+      updatedAt: timestamp("updated_at").notNull().defaultNow()
+    });
+    insertCoinlistSaleSchema = createInsertSchema(coinlistSales).omit({
+      id: true,
+      createdAt: true,
+      updatedAt: true
+    });
+    insertCoinlistParticipantSchema = createInsertSchema(coinlistParticipants).omit({
+      id: true,
+      createdAt: true,
+      updatedAt: true
+    });
+    daoMakerShos = pgTable("dao_maker_shos", {
+      id: varchar("id").primaryKey(),
+      shoName: text("sho_name").notNull(),
+      tokenSymbol: text("token_symbol").notNull().default("TBURN"),
+      tokenPrice: numeric("token_price").notNull().default("0.02"),
+      totalAllocation: text("total_allocation").notNull().default("0"),
+      hardCap: numeric("hard_cap").notNull().default("500000"),
+      raisedAmount: numeric("raised_amount").notNull().default("0"),
+      minDaoPower: integer("min_dao_power").notNull().default(100),
+      minPurchase: numeric("min_purchase").notNull().default("100"),
+      maxPurchase: numeric("max_purchase").notNull().default("2500"),
+      totalWinners: integer("total_winners").notNull().default(500),
+      registrationStart: timestamp("registration_start"),
+      registrationEnd: timestamp("registration_end"),
+      saleStart: timestamp("sale_start"),
+      saleEnd: timestamp("sale_end"),
+      tgePercentage: integer("tge_percentage").notNull().default(20),
+      vestingMonths: integer("vesting_months").notNull().default(9),
+      kycRequired: boolean("kyc_required").notNull().default(true),
+      status: text("status").notNull().default("draft"),
+      notes: text("notes"),
+      createdAt: timestamp("created_at").notNull().defaultNow(),
+      updatedAt: timestamp("updated_at").notNull().defaultNow()
+    });
+    daoMakerParticipants = pgTable("dao_maker_participants", {
+      id: varchar("id").primaryKey(),
+      shoId: varchar("sho_id").notNull(),
+      walletAddress: text("wallet_address").notNull(),
+      email: text("email"),
+      daoPower: integer("dao_power").notNull().default(0),
+      stakedAmount: text("staked_amount").notNull().default("0"),
+      tier: text("tier").notNull().default("bronze"),
+      investmentAmount: numeric("investment_amount").notNull().default("0"),
+      investmentCurrency: text("investment_currency").notNull().default("usdt"),
+      allocationAmount: numeric("allocation_amount").notNull().default("0"),
+      tokenAmount: text("token_amount").notNull().default("0"),
+      distributedAmount: text("distributed_amount").notNull().default("0"),
+      txHash: text("tx_hash"),
+      kycVerified: boolean("kyc_verified").notNull().default(false),
+      kycVerifiedDate: timestamp("kyc_verified_date"),
+      isWinner: boolean("is_winner").notNull().default(false),
+      winnerSelectedDate: timestamp("winner_selected_date"),
+      paymentReceived: boolean("payment_received").notNull().default(false),
+      paymentReceivedDate: timestamp("payment_received_date"),
+      status: text("status").notNull().default("registered"),
+      notes: text("notes"),
+      createdAt: timestamp("created_at").notNull().defaultNow(),
+      updatedAt: timestamp("updated_at").notNull().defaultNow()
+    });
+    insertDaoMakerShoSchema = createInsertSchema(daoMakerShos).omit({
+      id: true,
+      createdAt: true,
+      updatedAt: true
+    });
+    insertDaoMakerParticipantSchema = createInsertSchema(daoMakerParticipants).omit({
+      id: true,
+      createdAt: true,
+      updatedAt: true
+    });
   }
 });
 
@@ -9480,6 +10784,793 @@ var init_storage = __esm({
           totalPaidUsd
         };
       }
+      // ============================================
+      // Token Distribution Programs (Admin Dashboard)
+      // ============================================
+      async getAllTokenPrograms() {
+        return db.select().from(tokenPrograms).orderBy(tokenPrograms.priority);
+      }
+      async getTokenProgramById(id) {
+        const [program] = await db.select().from(tokenPrograms).where(eq(tokenPrograms.id, id));
+        return program;
+      }
+      async getTokenProgramByType(programType) {
+        const [program] = await db.select().from(tokenPrograms).where(eq(tokenPrograms.programType, programType));
+        return program;
+      }
+      async createTokenProgram(data) {
+        const [result] = await db.insert(tokenPrograms).values({
+          ...data,
+          id: `tp-${randomUUID()}`
+        }).returning();
+        return result;
+      }
+      async updateTokenProgram(id, data) {
+        await db.update(tokenPrograms).set({ ...data, updatedAt: /* @__PURE__ */ new Date() }).where(eq(tokenPrograms.id, id));
+      }
+      async getTokenProgramStats() {
+        const programs = await this.getAllTokenPrograms();
+        const activePrograms = programs.filter((p) => p.status === "active");
+        const totalParticipants = programs.reduce((sum, p) => sum + (p.totalParticipants || 0), 0);
+        const totalDistributed = programs.reduce((sum, p) => sum + BigInt(p.distributedAmount || "0"), BigInt(0));
+        return { totalPrograms: programs.length, activePrograms: activePrograms.length, totalParticipants, totalDistributed: totalDistributed.toString() };
+      }
+      async getProgramSnapshots(programId, limit = 30) {
+        return db.select().from(programSnapshots).where(eq(programSnapshots.programId, programId)).orderBy(desc(programSnapshots.snapshotDate)).limit(limit);
+      }
+      async getLatestProgramSnapshot(programId) {
+        const [snapshot] = await db.select().from(programSnapshots).where(eq(programSnapshots.programId, programId)).orderBy(desc(programSnapshots.snapshotDate)).limit(1);
+        return snapshot;
+      }
+      async createProgramSnapshot(data) {
+        const [result] = await db.insert(programSnapshots).values({ ...data, id: `ps-${randomUUID()}` }).returning();
+        return result;
+      }
+      async getAllAirdropClaims(limit = 100) {
+        return db.select().from(airdropClaims).orderBy(desc(airdropClaims.createdAt)).limit(limit);
+      }
+      async getAirdropClaimsByWallet(wallet) {
+        return db.select().from(airdropClaims).where(eq(airdropClaims.walletAddress, wallet.toLowerCase())).orderBy(desc(airdropClaims.createdAt));
+      }
+      async getAirdropClaimById(id) {
+        const [claim] = await db.select().from(airdropClaims).where(eq(airdropClaims.id, id));
+        return claim;
+      }
+      async createAirdropClaim(data) {
+        const [result] = await db.insert(airdropClaims).values({ ...data, id: `ac-${randomUUID()}`, walletAddress: data.walletAddress.toLowerCase() }).returning();
+        return result;
+      }
+      async updateAirdropClaim(id, data) {
+        await db.update(airdropClaims).set({ ...data, updatedAt: /* @__PURE__ */ new Date() }).where(eq(airdropClaims.id, id));
+      }
+      async getAirdropStats() {
+        const claims = await this.getAllAirdropClaims(1e4);
+        const claimed = claims.filter((c) => c.status === "claimed");
+        const totalAmount = claims.reduce((sum, c) => sum + BigInt(c.claimableAmount || "0"), BigInt(0));
+        const claimedAmount = claimed.reduce((sum, c) => sum + BigInt(c.claimedAmount || "0"), BigInt(0));
+        return { totalEligible: claims.length, totalClaimed: claimed.length, totalAmount: totalAmount.toString(), claimedAmount: claimedAmount.toString() };
+      }
+      async getAllAirdropDistributions() {
+        return db.select().from(airdropDistributions).orderBy(desc(airdropDistributions.createdAt));
+      }
+      async getAirdropDistributionById(id) {
+        const [dist] = await db.select().from(airdropDistributions).where(eq(airdropDistributions.id, id));
+        return dist;
+      }
+      async createAirdropDistribution(data) {
+        const [result] = await db.insert(airdropDistributions).values({ ...data, id: `ad-${randomUUID()}` }).returning();
+        return result;
+      }
+      async updateAirdropDistribution(id, data) {
+        await db.update(airdropDistributions).set(data).where(eq(airdropDistributions.id, id));
+      }
+      async getAllReferralAccounts(limit = 100) {
+        return db.select().from(referralAccounts).orderBy(desc(referralAccounts.createdAt)).limit(limit);
+      }
+      async getReferralAccountByWallet(wallet) {
+        const [account] = await db.select().from(referralAccounts).where(eq(referralAccounts.walletAddress, wallet.toLowerCase()));
+        return account;
+      }
+      async getReferralAccountByCode(code) {
+        const [account] = await db.select().from(referralAccounts).where(eq(referralAccounts.referralCode, code));
+        return account;
+      }
+      async getReferralAccountById(id) {
+        const [account] = await db.select().from(referralAccounts).where(eq(referralAccounts.id, id));
+        return account;
+      }
+      async createReferralAccount(data) {
+        const [result] = await db.insert(referralAccounts).values({ ...data, id: `ra-${randomUUID()}`, walletAddress: data.walletAddress.toLowerCase() }).returning();
+        return result;
+      }
+      async updateReferralAccount(id, data) {
+        await db.update(referralAccounts).set({ ...data, updatedAt: /* @__PURE__ */ new Date() }).where(eq(referralAccounts.id, id));
+      }
+      async getReferralStats() {
+        const accounts2 = await this.getAllReferralAccounts(1e4);
+        const totalReferrals = accounts2.reduce((sum, a) => sum + (a.totalReferrals || 0), 0);
+        const totalEarnings = accounts2.reduce((sum, a) => sum + BigInt(a.totalEarned || "0"), BigInt(0));
+        const activeReferrers = accounts2.filter((a) => (a.activeReferrals || 0) > 0).length;
+        return { totalAccounts: accounts2.length, totalReferrals, totalEarnings: totalEarnings.toString(), activeReferrers };
+      }
+      async getReferralRewards(referrerId, limit = 50) {
+        return db.select().from(referralRewards).where(eq(referralRewards.referrerId, referrerId)).orderBy(desc(referralRewards.createdAt)).limit(limit);
+      }
+      async createReferralReward(data) {
+        const [result] = await db.insert(referralRewards).values({ ...data, id: `rr-${randomUUID()}` }).returning();
+        return result;
+      }
+      async updateReferralReward(id, data) {
+        await db.update(referralRewards).set(data).where(eq(referralRewards.id, id));
+      }
+      async getAllEvents(limit = 50) {
+        return db.select().from(eventsCatalog).orderBy(desc(eventsCatalog.startDate)).limit(limit);
+      }
+      async getActiveEvents() {
+        return db.select().from(eventsCatalog).where(eq(eventsCatalog.status, "active")).orderBy(desc(eventsCatalog.startDate));
+      }
+      async getEventById(id) {
+        const [event] = await db.select().from(eventsCatalog).where(eq(eventsCatalog.id, id));
+        return event;
+      }
+      async createEvent(data) {
+        const [result] = await db.insert(eventsCatalog).values({ ...data, id: `ev-${randomUUID()}` }).returning();
+        return result;
+      }
+      async updateEvent(id, data) {
+        await db.update(eventsCatalog).set({ ...data, updatedAt: /* @__PURE__ */ new Date() }).where(eq(eventsCatalog.id, id));
+      }
+      async getEventsStats() {
+        const events = await this.getAllEvents(1e3);
+        const activeEvents = events.filter((e) => e.status === "active");
+        const totalParticipants = events.reduce((sum, e) => sum + (e.currentParticipants || 0), 0);
+        const totalRewardsDistributed = events.reduce((sum, e) => sum + BigInt(e.distributedRewards || "0"), BigInt(0));
+        return { totalEvents: events.length, activeEvents: activeEvents.length, totalParticipants, totalRewardsDistributed: totalRewardsDistributed.toString() };
+      }
+      async getEventRegistrations(eventId, limit = 100) {
+        return db.select().from(eventRegistrations).where(eq(eventRegistrations.eventId, eventId)).orderBy(desc(eventRegistrations.registeredAt)).limit(limit);
+      }
+      async getEventRegistrationByWallet(eventId, wallet) {
+        const [reg] = await db.select().from(eventRegistrations).where(and(eq(eventRegistrations.eventId, eventId), eq(eventRegistrations.walletAddress, wallet.toLowerCase())));
+        return reg;
+      }
+      async createEventRegistration(data) {
+        const [result] = await db.insert(eventRegistrations).values({ ...data, id: `er-${randomUUID()}`, walletAddress: data.walletAddress.toLowerCase() }).returning();
+        return result;
+      }
+      async updateEventRegistration(id, data) {
+        await db.update(eventRegistrations).set({ ...data, updatedAt: /* @__PURE__ */ new Date() }).where(eq(eventRegistrations.id, id));
+      }
+      async getAllCommunityTasks(limit = 50) {
+        return db.select().from(communityTasks).orderBy(desc(communityTasks.createdAt)).limit(limit);
+      }
+      async getActiveCommunityTasks() {
+        return db.select().from(communityTasks).where(eq(communityTasks.isActive, true)).orderBy(desc(communityTasks.createdAt));
+      }
+      async getCommunityTaskById(id) {
+        const [task] = await db.select().from(communityTasks).where(eq(communityTasks.id, id));
+        return task;
+      }
+      async createCommunityTask(data) {
+        const [result] = await db.insert(communityTasks).values({ ...data, id: `ct-${randomUUID()}` }).returning();
+        return result;
+      }
+      async updateCommunityTask(id, data) {
+        await db.update(communityTasks).set({ ...data, updatedAt: /* @__PURE__ */ new Date() }).where(eq(communityTasks.id, id));
+      }
+      async deleteCommunityTask(id) {
+        await db.delete(communityContributions).where(eq(communityContributions.taskId, id));
+        await db.delete(communityTasks).where(eq(communityTasks.id, id));
+      }
+      async getCommunityContributions(taskId, limit = 100) {
+        return db.select().from(communityContributions).where(eq(communityContributions.taskId, taskId)).orderBy(desc(communityContributions.createdAt)).limit(limit);
+      }
+      async getCommunityContributionsByWallet(wallet) {
+        return db.select().from(communityContributions).where(eq(communityContributions.walletAddress, wallet.toLowerCase())).orderBy(desc(communityContributions.createdAt));
+      }
+      async createCommunityContribution(data) {
+        const [result] = await db.insert(communityContributions).values({ ...data, id: `cc-${randomUUID()}`, walletAddress: data.walletAddress.toLowerCase() }).returning();
+        return result;
+      }
+      async updateCommunityContribution(id, data) {
+        await db.update(communityContributions).set(data).where(eq(communityContributions.id, id));
+      }
+      async getCommunityStats() {
+        const tasks = await this.getAllCommunityTasks(1e3);
+        const activeTasks = tasks.filter((t) => t.isActive);
+        const totalContributions = tasks.reduce((sum, t) => sum + (t.completionCount || 0), 0);
+        const totalPointsDistributed = tasks.reduce((sum, t) => sum + (t.completionCount || 0) * (t.pointsReward || 0), 0);
+        return { totalTasks: tasks.length, activeTasks: activeTasks.length, totalContributions, totalPointsDistributed };
+      }
+      async getCommunityBadgesByWallet(wallet) {
+        return db.select().from(communityMemberBadges).where(eq(communityMemberBadges.walletAddress, wallet.toLowerCase())).orderBy(desc(communityMemberBadges.earnedAt));
+      }
+      async createCommunityBadge(data) {
+        const [result] = await db.insert(communityMemberBadges).values({ ...data, id: `cb-${randomUUID()}`, walletAddress: data.walletAddress.toLowerCase() }).returning();
+        return result;
+      }
+      async getAllDaoProposals(limit = 50) {
+        return db.select().from(daoProposals).orderBy(desc(daoProposals.createdAt)).limit(limit);
+      }
+      async getActiveDaoProposals() {
+        return db.select().from(daoProposals).where(eq(daoProposals.status, "active")).orderBy(desc(daoProposals.createdAt));
+      }
+      async getDaoProposalById(id) {
+        const [proposal] = await db.select().from(daoProposals).where(eq(daoProposals.id, id));
+        return proposal;
+      }
+      async getDaoProposalByNumber(proposalNumber) {
+        const [proposal] = await db.select().from(daoProposals).where(eq(daoProposals.proposalNumber, proposalNumber));
+        return proposal;
+      }
+      async createDaoProposal(data) {
+        const [result] = await db.insert(daoProposals).values({ ...data, id: `dp-${randomUUID()}`, proposerAddress: data.proposerAddress.toLowerCase() }).returning();
+        return result;
+      }
+      async updateDaoProposal(id, data) {
+        await db.update(daoProposals).set({ ...data, updatedAt: /* @__PURE__ */ new Date() }).where(eq(daoProposals.id, id));
+      }
+      async deleteDaoProposal(id) {
+        await db.delete(daoVotes).where(eq(daoVotes.proposalId, id));
+        await db.delete(daoProposals).where(eq(daoProposals.id, id));
+      }
+      async getDaoStats() {
+        const proposals = await this.getAllDaoProposals(1e3);
+        const activeProposals = proposals.filter((p) => p.status === "active");
+        const passedProposals = proposals.filter((p) => p.status === "passed" || p.status === "executed");
+        const totalVoters = proposals.reduce((sum, p) => sum + (p.totalVoters || 0), 0);
+        return { totalProposals: proposals.length, activeProposals: activeProposals.length, passedProposals: passedProposals.length, totalVoters };
+      }
+      async getDaoVotes(proposalId) {
+        return db.select().from(daoVotes).where(eq(daoVotes.proposalId, proposalId)).orderBy(desc(daoVotes.votedAt));
+      }
+      async getDaoVoteByVoter(proposalId, voterAddress) {
+        const [vote] = await db.select().from(daoVotes).where(and(eq(daoVotes.proposalId, proposalId), eq(daoVotes.voterAddress, voterAddress.toLowerCase())));
+        return vote;
+      }
+      async createDaoVote(data) {
+        const [result] = await db.insert(daoVotes).values({ ...data, id: `dv-${randomUUID()}`, voterAddress: data.voterAddress.toLowerCase() }).returning();
+        return result;
+      }
+      async deleteDaoVote(id) {
+        await db.delete(daoVotes).where(eq(daoVotes.id, id));
+      }
+      async getDaoDelegations(delegatorAddress) {
+        return db.select().from(daoDelegations).where(eq(daoDelegations.delegatorAddress, delegatorAddress.toLowerCase())).orderBy(desc(daoDelegations.createdAt));
+      }
+      async getActiveDaoDelegation(delegatorAddress) {
+        const [delegation] = await db.select().from(daoDelegations).where(and(eq(daoDelegations.delegatorAddress, delegatorAddress.toLowerCase()), eq(daoDelegations.isActive, true)));
+        return delegation;
+      }
+      async createDaoDelegation(data) {
+        const [result] = await db.insert(daoDelegations).values({ ...data, id: `dd-${randomUUID()}`, delegatorAddress: data.delegatorAddress.toLowerCase(), delegateAddress: data.delegateAddress.toLowerCase() }).returning();
+        return result;
+      }
+      async revokeDaoDelegation(id) {
+        await db.update(daoDelegations).set({ isActive: false, revokedAt: /* @__PURE__ */ new Date() }).where(eq(daoDelegations.id, id));
+      }
+      async getAllBlockRewardCycles(limit = 50) {
+        return db.select().from(blockRewardCycles).orderBy(desc(blockRewardCycles.cycleNumber)).limit(limit);
+      }
+      async getActiveBlockRewardCycle() {
+        const [cycle] = await db.select().from(blockRewardCycles).where(eq(blockRewardCycles.status, "active")).orderBy(desc(blockRewardCycles.cycleNumber)).limit(1);
+        return cycle;
+      }
+      async getBlockRewardCycleById(id) {
+        const [cycle] = await db.select().from(blockRewardCycles).where(eq(blockRewardCycles.id, id));
+        return cycle;
+      }
+      async createBlockRewardCycle(data) {
+        const [result] = await db.insert(blockRewardCycles).values({ ...data, id: `brc-${randomUUID()}` }).returning();
+        return result;
+      }
+      async updateBlockRewardCycle(id, data) {
+        await db.update(blockRewardCycles).set(data).where(eq(blockRewardCycles.id, id));
+      }
+      async getBlockRewardStats() {
+        const cycles = await this.getAllBlockRewardCycles(1e4);
+        const totalRewards = cycles.reduce((sum, c) => sum + BigInt(c.totalBlockRewards || "0"), BigInt(0));
+        const totalGasFees = cycles.reduce((sum, c) => sum + BigInt(c.totalGasFees || "0"), BigInt(0));
+        const avgReward = cycles.length > 0 ? totalRewards / BigInt(cycles.length) : BigInt(0);
+        return { totalCycles: cycles.length, totalRewards: totalRewards.toString(), totalGasFees: totalGasFees.toString(), avgRewardPerCycle: avgReward.toString() };
+      }
+      async getBlockRewardPayouts(cycleId) {
+        return db.select().from(blockRewardPayouts).where(eq(blockRewardPayouts.cycleId, cycleId)).orderBy(desc(blockRewardPayouts.createdAt));
+      }
+      async getBlockRewardPayoutsByValidator(validatorAddress, limit = 50) {
+        return db.select().from(blockRewardPayouts).where(eq(blockRewardPayouts.validatorAddress, validatorAddress.toLowerCase())).orderBy(desc(blockRewardPayouts.createdAt)).limit(limit);
+      }
+      async createBlockRewardPayout(data) {
+        const [result] = await db.insert(blockRewardPayouts).values({ ...data, id: `brp-${randomUUID()}`, validatorAddress: data.validatorAddress.toLowerCase() }).returning();
+        return result;
+      }
+      async updateBlockRewardPayout(id, data) {
+        await db.update(blockRewardPayouts).set(data).where(eq(blockRewardPayouts.id, id));
+      }
+      async getAllValidatorIncentivePayouts(limit = 100) {
+        return db.select().from(validatorIncentivePayouts).orderBy(desc(validatorIncentivePayouts.createdAt)).limit(limit);
+      }
+      async getValidatorIncentivePayoutsByValidator(validatorAddress) {
+        return db.select().from(validatorIncentivePayouts).where(eq(validatorIncentivePayouts.validatorAddress, validatorAddress.toLowerCase())).orderBy(desc(validatorIncentivePayouts.createdAt));
+      }
+      async createValidatorIncentivePayout(data) {
+        const [result] = await db.insert(validatorIncentivePayouts).values({ ...data, id: `vip-${randomUUID()}`, validatorAddress: data.validatorAddress.toLowerCase() }).returning();
+        return result;
+      }
+      async updateValidatorIncentivePayout(id, data) {
+        await db.update(validatorIncentivePayouts).set(data).where(eq(validatorIncentivePayouts.id, id));
+      }
+      async getValidatorIncentiveStats() {
+        const payouts = await this.getAllValidatorIncentivePayouts(1e4);
+        const totalAmount = payouts.reduce((sum, p) => sum + BigInt(p.totalPayout || "0"), BigInt(0));
+        const avgUptime = payouts.length > 0 ? payouts.reduce((sum, p) => sum + (p.uptimePercent || 0), 0) / payouts.length : 100;
+        const topPerformers = payouts.filter((p) => (p.performanceScore || 0) >= 95).length;
+        return { totalPayouts: payouts.length, totalAmount: totalAmount.toString(), avgUptimePercent: avgUptime, topPerformers };
+      }
+      async getValidatorPerformanceStats(validatorAddress, periodType) {
+        if (periodType) {
+          return db.select().from(validatorPerformanceStats).where(and(eq(validatorPerformanceStats.validatorAddress, validatorAddress.toLowerCase()), eq(validatorPerformanceStats.periodType, periodType))).orderBy(desc(validatorPerformanceStats.periodDate));
+        }
+        return db.select().from(validatorPerformanceStats).where(eq(validatorPerformanceStats.validatorAddress, validatorAddress.toLowerCase())).orderBy(desc(validatorPerformanceStats.periodDate));
+      }
+      async createValidatorPerformanceStat(data) {
+        const [result] = await db.insert(validatorPerformanceStats).values({ ...data, id: `vps-${randomUUID()}`, validatorAddress: data.validatorAddress.toLowerCase() }).returning();
+        return result;
+      }
+      async getAllEcosystemGrants(limit = 50) {
+        return db.select().from(ecosystemGrants).orderBy(desc(ecosystemGrants.createdAt)).limit(limit);
+      }
+      async getEcosystemGrantsByStatus(status) {
+        return db.select().from(ecosystemGrants).where(eq(ecosystemGrants.status, status)).orderBy(desc(ecosystemGrants.createdAt));
+      }
+      async getEcosystemGrantById(id) {
+        const [grant] = await db.select().from(ecosystemGrants).where(eq(ecosystemGrants.id, id));
+        return grant;
+      }
+      async createEcosystemGrant(data) {
+        const [result] = await db.insert(ecosystemGrants).values({ ...data, id: `eg-${randomUUID()}`, applicantAddress: data.applicantAddress.toLowerCase() }).returning();
+        return result;
+      }
+      async updateEcosystemGrant(id, data) {
+        await db.update(ecosystemGrants).set({ ...data, updatedAt: /* @__PURE__ */ new Date() }).where(eq(ecosystemGrants.id, id));
+      }
+      async getEcosystemGrantStats() {
+        const grants = await this.getAllEcosystemGrants(1e4);
+        const activeGrants = grants.filter((g) => g.status === "active" || g.status === "approved");
+        const totalRequested = grants.reduce((sum, g) => sum + BigInt(g.requestedAmount || "0"), BigInt(0));
+        const totalDisbursed = grants.reduce((sum, g) => sum + BigInt(g.disbursedAmount || "0"), BigInt(0));
+        return { totalGrants: grants.length, activeGrants: activeGrants.length, totalRequested: totalRequested.toString(), totalDisbursed: totalDisbursed.toString() };
+      }
+      async getGrantMilestones(grantId) {
+        return db.select().from(grantMilestones).where(eq(grantMilestones.grantId, grantId)).orderBy(grantMilestones.milestoneNumber);
+      }
+      async getGrantMilestoneById(id) {
+        const [milestone] = await db.select().from(grantMilestones).where(eq(grantMilestones.id, id));
+        return milestone;
+      }
+      async createGrantMilestone(data) {
+        const [result] = await db.insert(grantMilestones).values({ ...data, id: `gm-${randomUUID()}` }).returning();
+        return result;
+      }
+      async updateGrantMilestone(id, data) {
+        await db.update(grantMilestones).set(data).where(eq(grantMilestones.id, id));
+      }
+      // Partnership Program Implementation
+      async getAllPartnerships(limit = 100) {
+        return db.select().from(partnerships).orderBy(desc(partnerships.createdAt)).limit(limit);
+      }
+      async getPartnershipById(id) {
+        const [result] = await db.select().from(partnerships).where(eq(partnerships.id, id));
+        return result;
+      }
+      async getPartnershipsByStatus(status) {
+        return db.select().from(partnerships).where(eq(partnerships.status, status)).orderBy(desc(partnerships.createdAt));
+      }
+      async createPartnership(data) {
+        const [result] = await db.insert(partnerships).values({ ...data, id: `partner-${randomUUID()}` }).returning();
+        return result;
+      }
+      async updatePartnership(id, data) {
+        await db.update(partnerships).set({ ...data, updatedAt: /* @__PURE__ */ new Date() }).where(eq(partnerships.id, id));
+      }
+      async getPartnershipStats() {
+        const allPartners = await this.getAllPartnerships(1e4);
+        const activePartners = allPartners.filter((p) => p.status === "active");
+        const totalAllocated = allPartners.reduce((sum, p) => sum + BigInt(p.allocatedAmount || "0"), BigInt(0));
+        const totalDistributed = allPartners.reduce((sum, p) => sum + BigInt(p.distributedAmount || "0"), BigInt(0));
+        return { totalPartners: allPartners.length, activePartners: activePartners.length, totalAllocated: totalAllocated.toString(), totalDistributed: totalDistributed.toString() };
+      }
+      async getPartnershipPayouts(partnershipId) {
+        return db.select().from(partnershipPayouts).where(eq(partnershipPayouts.partnershipId, partnershipId)).orderBy(desc(partnershipPayouts.createdAt));
+      }
+      async createPartnershipPayout(data) {
+        const [result] = await db.insert(partnershipPayouts).values({ ...data, id: `payout-${randomUUID()}` }).returning();
+        return result;
+      }
+      async updatePartnershipPayout(id, data) {
+        await db.update(partnershipPayouts).set(data).where(eq(partnershipPayouts.id, id));
+      }
+      // Marketing Program Implementation
+      async getAllMarketingCampaigns(limit = 100) {
+        return db.select().from(marketingCampaigns).orderBy(desc(marketingCampaigns.createdAt)).limit(limit);
+      }
+      async getMarketingCampaignById(id) {
+        const [result] = await db.select().from(marketingCampaigns).where(eq(marketingCampaigns.id, id));
+        return result;
+      }
+      async createMarketingCampaign(data) {
+        const [result] = await db.insert(marketingCampaigns).values({ ...data, id: `campaign-${randomUUID()}` }).returning();
+        return result;
+      }
+      async updateMarketingCampaign(id, data) {
+        await db.update(marketingCampaigns).set({ ...data, updatedAt: /* @__PURE__ */ new Date() }).where(eq(marketingCampaigns.id, id));
+      }
+      async getMarketingCampaignStats() {
+        const campaigns = await this.getAllMarketingCampaigns(1e4);
+        const activeCampaigns = campaigns.filter((c) => c.status === "active");
+        const totalBudget = campaigns.reduce((sum, c) => sum + BigInt(c.budgetAmount || "0"), BigInt(0));
+        const totalSpent = campaigns.reduce((sum, c) => sum + BigInt(c.spentAmount || "0"), BigInt(0));
+        const totalReach = campaigns.reduce((sum, c) => sum + (c.totalReach || 0), 0);
+        return { totalCampaigns: campaigns.length, activeCampaigns: activeCampaigns.length, totalBudget: totalBudget.toString(), totalSpent: totalSpent.toString(), totalReach };
+      }
+      async getMarketingParticipants(campaignId) {
+        return db.select().from(marketingParticipants).where(eq(marketingParticipants.campaignId, campaignId)).orderBy(desc(marketingParticipants.joinedAt));
+      }
+      async createMarketingParticipant(data) {
+        const [result] = await db.insert(marketingParticipants).values({ ...data, id: `mpart-${randomUUID()}` }).returning();
+        return result;
+      }
+      async updateMarketingParticipant(id, data) {
+        await db.update(marketingParticipants).set(data).where(eq(marketingParticipants.id, id));
+      }
+      async getMarketingRewards(campaignId) {
+        return db.select().from(marketingRewards).where(eq(marketingRewards.campaignId, campaignId)).orderBy(desc(marketingRewards.createdAt));
+      }
+      async createMarketingReward(data) {
+        const [result] = await db.insert(marketingRewards).values({ ...data, id: `mreward-${randomUUID()}` }).returning();
+        return result;
+      }
+      async updateMarketingReward(id, data) {
+        await db.update(marketingRewards).set(data).where(eq(marketingRewards.id, id));
+      }
+      // Strategic Partner Program Implementation
+      async getAllStrategicPartners(limit = 100) {
+        return db.select().from(strategicPartners).orderBy(desc(strategicPartners.createdAt)).limit(limit);
+      }
+      async getStrategicPartnerById(id) {
+        const [result] = await db.select().from(strategicPartners).where(eq(strategicPartners.id, id));
+        return result;
+      }
+      async createStrategicPartner(data) {
+        const [result] = await db.insert(strategicPartners).values({ ...data, id: `spart-${randomUUID()}` }).returning();
+        return result;
+      }
+      async updateStrategicPartner(id, data) {
+        await db.update(strategicPartners).set({ ...data, updatedAt: /* @__PURE__ */ new Date() }).where(eq(strategicPartners.id, id));
+      }
+      async getStrategicPartnerStats() {
+        const partners = await this.getAllStrategicPartners(1e4);
+        const activeContracts = partners.filter((p) => p.status === "active");
+        const totalAllocation = partners.reduce((sum, p) => sum + BigInt(p.allocation || "0"), BigInt(0));
+        const lockedAmount = partners.reduce((sum, p) => sum + BigInt(p.lockedAmount || "0"), BigInt(0));
+        return { totalPartners: partners.length, activeContracts: activeContracts.length, totalAllocation: totalAllocation.toString(), lockedAmount: lockedAmount.toString() };
+      }
+      async getStrategicPartnerPayouts(partnerId) {
+        return db.select().from(strategicPartnerPayouts).where(eq(strategicPartnerPayouts.partnerId, partnerId)).orderBy(desc(strategicPartnerPayouts.createdAt));
+      }
+      async createStrategicPartnerPayout(data) {
+        const [result] = await db.insert(strategicPartnerPayouts).values({ ...data, id: `spay-${randomUUID()}` }).returning();
+        return result;
+      }
+      async updateStrategicPartnerPayout(id, data) {
+        await db.update(strategicPartnerPayouts).set(data).where(eq(strategicPartnerPayouts.id, id));
+      }
+      async getStrategicPartnerMilestones(partnerId) {
+        return db.select().from(strategicPartnerMilestones).where(eq(strategicPartnerMilestones.partnerId, partnerId)).orderBy(desc(strategicPartnerMilestones.createdAt));
+      }
+      async createStrategicPartnerMilestone(data) {
+        const [result] = await db.insert(strategicPartnerMilestones).values({ ...data, id: `smile-${randomUUID()}` }).returning();
+        return result;
+      }
+      async updateStrategicPartnerMilestone(id, data) {
+        await db.update(strategicPartnerMilestones).set(data).where(eq(strategicPartnerMilestones.id, id));
+      }
+      // Advisor Program Implementation
+      async getAllAdvisors(limit = 100) {
+        return db.select().from(advisors).orderBy(desc(advisors.createdAt)).limit(limit);
+      }
+      async getAdvisorById(id) {
+        const [result] = await db.select().from(advisors).where(eq(advisors.id, id));
+        return result;
+      }
+      async createAdvisor(data) {
+        const [result] = await db.insert(advisors).values({ ...data, id: `adv-${randomUUID()}` }).returning();
+        return result;
+      }
+      async updateAdvisor(id, data) {
+        await db.update(advisors).set({ ...data, updatedAt: /* @__PURE__ */ new Date() }).where(eq(advisors.id, id));
+      }
+      async getAdvisorStats() {
+        const all = await this.getAllAdvisors(1e4);
+        const active = all.filter((a) => a.status === "active");
+        const totalAllocation = all.reduce((sum, a) => sum + BigInt(a.allocation || "0"), BigInt(0));
+        const lockedAmount = all.reduce((sum, a) => sum + BigInt(a.lockedAmount || "0"), BigInt(0));
+        return { totalAdvisors: all.length, activeAdvisors: active.length, totalAllocation: totalAllocation.toString(), lockedAmount: lockedAmount.toString() };
+      }
+      async getAdvisorPayouts(advisorId) {
+        return db.select().from(advisorPayouts).where(eq(advisorPayouts.advisorId, advisorId)).orderBy(desc(advisorPayouts.createdAt));
+      }
+      async createAdvisorPayout(data) {
+        const [result] = await db.insert(advisorPayouts).values({ ...data, id: `advpay-${randomUUID()}` }).returning();
+        return result;
+      }
+      async updateAdvisorPayout(id, data) {
+        await db.update(advisorPayouts).set(data).where(eq(advisorPayouts.id, id));
+      }
+      async getAdvisorContributions(advisorId) {
+        return db.select().from(advisorContributions).where(eq(advisorContributions.advisorId, advisorId)).orderBy(desc(advisorContributions.createdAt));
+      }
+      async createAdvisorContribution(data) {
+        const [result] = await db.insert(advisorContributions).values({ ...data, id: `advcon-${randomUUID()}` }).returning();
+        return result;
+      }
+      async updateAdvisorContribution(id, data) {
+        await db.update(advisorContributions).set(data).where(eq(advisorContributions.id, id));
+      }
+      // Seed Round Program Implementation
+      async getAllSeedInvestors(limit = 100) {
+        return db.select().from(seedInvestors).orderBy(desc(seedInvestors.createdAt)).limit(limit);
+      }
+      async getSeedInvestorById(id) {
+        const [result] = await db.select().from(seedInvestors).where(eq(seedInvestors.id, id));
+        return result;
+      }
+      async createSeedInvestor(data) {
+        const [result] = await db.insert(seedInvestors).values({ ...data, id: `seed-${randomUUID()}` }).returning();
+        return result;
+      }
+      async updateSeedInvestor(id, data) {
+        await db.update(seedInvestors).set({ ...data, updatedAt: /* @__PURE__ */ new Date() }).where(eq(seedInvestors.id, id));
+      }
+      async getSeedRoundStats() {
+        const all = await this.getAllSeedInvestors(1e4);
+        const confirmed = all.filter((i) => i.status === "confirmed" || i.status === "distributed");
+        const raisedAmount = confirmed.reduce((sum, i) => sum + parseFloat(i.investmentAmount || "0"), 0);
+        const totalTokens = all.reduce((sum, i) => sum + BigInt(i.tokenAmount || "0"), BigInt(0));
+        const lockedTokens = all.reduce((sum, i) => sum + BigInt(i.lockedAmount || "0"), BigInt(0));
+        return { totalInvestors: all.length, confirmedInvestors: confirmed.length, raisedAmount: raisedAmount.toFixed(2), totalTokens: totalTokens.toString(), lockedTokens: lockedTokens.toString() };
+      }
+      async getSeedPayouts(investorId) {
+        return db.select().from(seedPayouts).where(eq(seedPayouts.investorId, investorId)).orderBy(desc(seedPayouts.createdAt));
+      }
+      async createSeedPayout(data) {
+        const [result] = await db.insert(seedPayouts).values({ ...data, id: `seedpay-${randomUUID()}` }).returning();
+        return result;
+      }
+      async updateSeedPayout(id, data) {
+        await db.update(seedPayouts).set(data).where(eq(seedPayouts.id, id));
+      }
+      // Private Round Program Implementation
+      async getAllPrivateInvestors(limit = 100) {
+        return db.select().from(privateInvestors).orderBy(desc(privateInvestors.createdAt)).limit(limit);
+      }
+      async getPrivateInvestorById(id) {
+        const [result] = await db.select().from(privateInvestors).where(eq(privateInvestors.id, id));
+        return result;
+      }
+      async createPrivateInvestor(data) {
+        const [result] = await db.insert(privateInvestors).values({ ...data, id: `private-${randomUUID()}` }).returning();
+        return result;
+      }
+      async updatePrivateInvestor(id, data) {
+        await db.update(privateInvestors).set({ ...data, updatedAt: /* @__PURE__ */ new Date() }).where(eq(privateInvestors.id, id));
+      }
+      async getPrivateRoundStats() {
+        const all = await this.getAllPrivateInvestors(1e4);
+        const confirmed = all.filter((i) => i.status === "confirmed" || i.status === "distributed");
+        const raisedAmount = confirmed.reduce((sum, i) => sum + parseFloat(i.investmentAmount || "0"), 0);
+        const totalTokens = all.reduce((sum, i) => sum + BigInt(i.tokenAmount || "0"), BigInt(0));
+        const lockedTokens = all.reduce((sum, i) => sum + BigInt(i.lockedAmount || "0"), BigInt(0));
+        return { totalInvestors: all.length, confirmedInvestors: confirmed.length, raisedAmount: raisedAmount.toFixed(2), totalTokens: totalTokens.toString(), lockedTokens: lockedTokens.toString() };
+      }
+      async getPrivatePayouts(investorId) {
+        return db.select().from(privatePayouts).where(eq(privatePayouts.investorId, investorId)).orderBy(desc(privatePayouts.createdAt));
+      }
+      async createPrivatePayout(data) {
+        const [result] = await db.insert(privatePayouts).values({ ...data, id: `privpay-${randomUUID()}` }).returning();
+        return result;
+      }
+      async updatePrivatePayout(id, data) {
+        await db.update(privatePayouts).set(data).where(eq(privatePayouts.id, id));
+      }
+      // Public Round Program Implementation
+      async getAllPublicParticipants(limit = 100) {
+        return db.select().from(publicParticipants).orderBy(desc(publicParticipants.createdAt)).limit(limit);
+      }
+      async getPublicParticipantById(id) {
+        const [result] = await db.select().from(publicParticipants).where(eq(publicParticipants.id, id));
+        return result;
+      }
+      async createPublicParticipant(data) {
+        const [result] = await db.insert(publicParticipants).values({ ...data, id: `public-${randomUUID()}` }).returning();
+        return result;
+      }
+      async updatePublicParticipant(id, data) {
+        await db.update(publicParticipants).set({ ...data, updatedAt: /* @__PURE__ */ new Date() }).where(eq(publicParticipants.id, id));
+      }
+      async getPublicRoundStats() {
+        const all = await this.getAllPublicParticipants(1e5);
+        const confirmed = all.filter((p) => p.status === "confirmed" || p.status === "distributed");
+        const raisedAmount = confirmed.reduce((sum, p) => sum + parseFloat(p.investmentAmount || "0"), 0);
+        const totalTokens = all.reduce((sum, p) => sum + BigInt(p.tokenAmount || "0"), BigInt(0));
+        const hardCap = 5e6;
+        const progress = Math.min(raisedAmount / hardCap * 100, 100);
+        return { totalParticipants: all.length, confirmedParticipants: confirmed.length, raisedAmount: raisedAmount.toFixed(2), totalTokens: totalTokens.toString(), hardCap: hardCap.toString(), progress: Math.round(progress * 100) / 100 };
+      }
+      async getPublicPayouts(participantId) {
+        return db.select().from(publicPayouts).where(eq(publicPayouts.participantId, participantId)).orderBy(desc(publicPayouts.createdAt));
+      }
+      async createPublicPayout(data) {
+        const [result] = await db.insert(publicPayouts).values({ ...data, id: `pubpay-${randomUUID()}` }).returning();
+        return result;
+      }
+      async updatePublicPayout(id, data) {
+        await db.update(publicPayouts).set(data).where(eq(publicPayouts.id, id));
+      }
+      // IDO Launchpad Program Implementation
+      async getAllIdoLaunchpadProjects(limit = 100) {
+        return db.select().from(idoLaunchpadProjects).orderBy(desc(idoLaunchpadProjects.createdAt)).limit(limit);
+      }
+      async getIdoLaunchpadProjectById(id) {
+        const [result] = await db.select().from(idoLaunchpadProjects).where(eq(idoLaunchpadProjects.id, id));
+        return result;
+      }
+      async createIdoLaunchpadProject(data) {
+        const [result] = await db.insert(idoLaunchpadProjects).values({ ...data, id: `launch-${randomUUID()}` }).returning();
+        return result;
+      }
+      async updateIdoLaunchpadProject(id, data) {
+        await db.update(idoLaunchpadProjects).set({ ...data, updatedAt: /* @__PURE__ */ new Date() }).where(eq(idoLaunchpadProjects.id, id));
+      }
+      async getIdoLaunchpadStats() {
+        const projects = await this.getAllIdoLaunchpadProjects(1e5);
+        const active = projects.filter((p) => p.status === "active" || p.status === "live");
+        const upcoming = projects.filter((p) => p.status === "upcoming" || p.status === "scheduled");
+        const totalRaised = projects.reduce((sum, p) => sum + parseFloat(p.raisedAmount || "0"), 0);
+        const participants = await db.select().from(idoLaunchpadParticipants);
+        return { totalProjects: projects.length, activeProjects: active.length, upcomingProjects: upcoming.length, totalParticipants: participants.length, totalRaised: totalRaised.toFixed(2) };
+      }
+      async getIdoLaunchpadParticipants(projectId, limit = 100) {
+        return db.select().from(idoLaunchpadParticipants).where(eq(idoLaunchpadParticipants.projectId, projectId)).orderBy(desc(idoLaunchpadParticipants.createdAt)).limit(limit);
+      }
+      async getIdoLaunchpadParticipantById(id) {
+        const [result] = await db.select().from(idoLaunchpadParticipants).where(eq(idoLaunchpadParticipants.id, id));
+        return result;
+      }
+      async createIdoLaunchpadParticipant(data) {
+        const [result] = await db.insert(idoLaunchpadParticipants).values({ ...data, id: `lpart-${randomUUID()}` }).returning();
+        return result;
+      }
+      async updateIdoLaunchpadParticipant(id, data) {
+        await db.update(idoLaunchpadParticipants).set({ ...data, updatedAt: /* @__PURE__ */ new Date() }).where(eq(idoLaunchpadParticipants.id, id));
+      }
+      // CoinList Token Sale Program Implementation
+      async getAllCoinlistSales(limit = 100) {
+        return db.select().from(coinlistSales).orderBy(desc(coinlistSales.createdAt)).limit(limit);
+      }
+      async getCoinlistSaleById(id) {
+        const [result] = await db.select().from(coinlistSales).where(eq(coinlistSales.id, id));
+        return result;
+      }
+      async createCoinlistSale(data) {
+        const [result] = await db.insert(coinlistSales).values({ ...data, id: `coinlist-${randomUUID()}` }).returning();
+        return result;
+      }
+      async updateCoinlistSale(id, data) {
+        await db.update(coinlistSales).set({ ...data, updatedAt: /* @__PURE__ */ new Date() }).where(eq(coinlistSales.id, id));
+      }
+      async getCoinlistStats() {
+        const sales = await this.getAllCoinlistSales(1e5);
+        const active = sales.filter((s) => s.status === "active" || s.status === "live");
+        const totalRaised = sales.reduce((sum, s) => sum + parseFloat(s.raisedAmount || "0"), 0);
+        const participants = await db.select().from(coinlistParticipants);
+        const winners = participants.filter((p) => p.isWinner);
+        const totalAllocated = participants.reduce((sum, p) => sum + parseFloat(p.tokenAmount || "0"), 0);
+        return { totalSales: sales.length, activeSales: active.length, totalRegistered: participants.length, totalWinners: winners.length, totalRaised: totalRaised.toFixed(2), totalAllocated: totalAllocated.toString() };
+      }
+      async getCoinlistParticipants(saleId, limit = 100) {
+        return db.select().from(coinlistParticipants).where(eq(coinlistParticipants.saleId, saleId)).orderBy(desc(coinlistParticipants.createdAt)).limit(limit);
+      }
+      async getCoinlistParticipantById(id) {
+        const [result] = await db.select().from(coinlistParticipants).where(eq(coinlistParticipants.id, id));
+        return result;
+      }
+      async createCoinlistParticipant(data) {
+        const [result] = await db.insert(coinlistParticipants).values({ ...data, id: `clpart-${randomUUID()}` }).returning();
+        return result;
+      }
+      async updateCoinlistParticipant(id, data) {
+        await db.update(coinlistParticipants).set({ ...data, updatedAt: /* @__PURE__ */ new Date() }).where(eq(coinlistParticipants.id, id));
+      }
+      async selectCoinlistWinners(saleId, count) {
+        const participants = await db.select().from(coinlistParticipants).where(and(eq(coinlistParticipants.saleId, saleId), eq(coinlistParticipants.kycVerified, true), eq(coinlistParticipants.isWinner, false)));
+        const shuffled = participants.sort(() => Math.random() - 0.5);
+        const winners = shuffled.slice(0, count);
+        for (const winner of winners) {
+          await db.update(coinlistParticipants).set({ isWinner: true, winnerSelectedDate: /* @__PURE__ */ new Date(), queuePosition: winners.indexOf(winner) + 1, status: "winner", updatedAt: /* @__PURE__ */ new Date() }).where(eq(coinlistParticipants.id, winner.id));
+        }
+        return winners.length;
+      }
+      // DAO Maker SHO Program Implementation
+      async getAllDaoMakerShos(limit = 100) {
+        return db.select().from(daoMakerShos).orderBy(desc(daoMakerShos.createdAt)).limit(limit);
+      }
+      async getDaoMakerShoById(id) {
+        const [result] = await db.select().from(daoMakerShos).where(eq(daoMakerShos.id, id));
+        return result;
+      }
+      async createDaoMakerSho(data) {
+        const [result] = await db.insert(daoMakerShos).values({ ...data, id: `sho-${randomUUID()}` }).returning();
+        return result;
+      }
+      async updateDaoMakerSho(id, data) {
+        await db.update(daoMakerShos).set({ ...data, updatedAt: /* @__PURE__ */ new Date() }).where(eq(daoMakerShos.id, id));
+      }
+      async getDaoMakerStats() {
+        const shos = await this.getAllDaoMakerShos(1e5);
+        const active = shos.filter((s) => s.status === "active" || s.status === "live");
+        const totalRaised = shos.reduce((sum, s) => sum + parseFloat(s.raisedAmount || "0"), 0);
+        const participants = await db.select().from(daoMakerParticipants);
+        const winners = participants.filter((p) => p.isWinner);
+        const avgDaoPower = participants.length > 0 ? Math.round(participants.reduce((sum, p) => sum + (p.daoPower || 0), 0) / participants.length) : 0;
+        return { totalShos: shos.length, activeShos: active.length, totalParticipants: participants.length, totalWinners: winners.length, totalRaised: totalRaised.toFixed(2), avgDaoPower };
+      }
+      async getDaoMakerParticipants(shoId, limit = 100) {
+        return db.select().from(daoMakerParticipants).where(eq(daoMakerParticipants.shoId, shoId)).orderBy(desc(daoMakerParticipants.daoPower)).limit(limit);
+      }
+      async getDaoMakerParticipantById(id) {
+        const [result] = await db.select().from(daoMakerParticipants).where(eq(daoMakerParticipants.id, id));
+        return result;
+      }
+      async createDaoMakerParticipant(data) {
+        const tier = (data.daoPower || 0) >= 1e4 ? "diamond" : (data.daoPower || 0) >= 5e3 ? "platinum" : (data.daoPower || 0) >= 2e3 ? "gold" : (data.daoPower || 0) >= 500 ? "silver" : "bronze";
+        const [result] = await db.insert(daoMakerParticipants).values({ ...data, tier, id: `dmp-${randomUUID()}` }).returning();
+        return result;
+      }
+      async updateDaoMakerParticipant(id, data) {
+        if (data.daoPower !== void 0) {
+          data.tier = data.daoPower >= 1e4 ? "diamond" : data.daoPower >= 5e3 ? "platinum" : data.daoPower >= 2e3 ? "gold" : data.daoPower >= 500 ? "silver" : "bronze";
+        }
+        await db.update(daoMakerParticipants).set({ ...data, updatedAt: /* @__PURE__ */ new Date() }).where(eq(daoMakerParticipants.id, id));
+      }
+      async selectDaoMakerWinners(shoId, count) {
+        const participants = await db.select().from(daoMakerParticipants).where(and(eq(daoMakerParticipants.shoId, shoId), eq(daoMakerParticipants.kycVerified, true), eq(daoMakerParticipants.isWinner, false)));
+        const totalPower = participants.reduce((sum, p) => sum + (p.daoPower || 1), 0);
+        const weighted = [];
+        for (const p of participants) {
+          const weight = (p.daoPower || 1) / totalPower;
+          weighted.push({ p, weight: weight + (weighted.length > 0 ? weighted[weighted.length - 1].weight : 0) });
+        }
+        const winners = [];
+        while (winners.length < count && weighted.length > 0) {
+          const rand = Math.random();
+          const idx = weighted.findIndex((w) => rand <= w.weight);
+          if (idx >= 0) {
+            winners.push(weighted[idx].p);
+            weighted.splice(idx, 1);
+            let cumulative = 0;
+            const newTotal = weighted.reduce((sum, w) => sum + (w.p.daoPower || 1), 0);
+            for (const w of weighted) {
+              cumulative += (w.p.daoPower || 1) / newTotal;
+              w.weight = cumulative;
+            }
+          }
+        }
+        for (const winner of winners) {
+          await db.update(daoMakerParticipants).set({ isWinner: true, winnerSelectedDate: /* @__PURE__ */ new Date(), status: "winner", updatedAt: /* @__PURE__ */ new Date() }).where(eq(daoMakerParticipants.id, winner.id));
+        }
+        return winners.length;
+      }
     };
     storage = new DbStorage();
   }
@@ -9593,8 +11684,8 @@ var init_rpc_validation = __esm({
     EndpointRegistry = class {
       endpoints = /* @__PURE__ */ new Map();
       missingEndpointLogs = [];
-      getKey(method, path2) {
-        return `${method.toUpperCase()}:${path2}`;
+      getKey(method, path3) {
+        return `${method.toUpperCase()}:${path3}`;
       }
       register(definition) {
         const key = this.getKey(definition.method, definition.path);
@@ -9605,33 +11696,33 @@ var init_rpc_validation = __esm({
         });
         console.log(`[Endpoint Registry] Registered: ${definition.method} ${definition.path}`);
       }
-      recordAccess(method, path2) {
-        const key = this.getKey(method, path2);
+      recordAccess(method, path3) {
+        const key = this.getKey(method, path3);
         const endpoint = this.endpoints.get(key);
         if (endpoint) {
           endpoint.lastAccessed = /* @__PURE__ */ new Date();
           endpoint.accessCount++;
         }
       }
-      isRegistered(method, path2) {
-        return this.endpoints.has(this.getKey(method, path2));
+      isRegistered(method, path3) {
+        return this.endpoints.has(this.getKey(method, path3));
       }
-      recordMissingEndpoint(method, path2) {
+      recordMissingEndpoint(method, path3) {
         const existing = this.missingEndpointLogs.find(
-          (log2) => log2.path === path2 && log2.method === method
+          (log2) => log2.path === path3 && log2.method === method
         );
         if (existing) {
           existing.count++;
           existing.timestamp = /* @__PURE__ */ new Date();
         } else {
           this.missingEndpointLogs.push({
-            path: path2,
+            path: path3,
             method,
             timestamp: /* @__PURE__ */ new Date(),
             count: 1
           });
         }
-        console.error(`[Endpoint Registry] \u26A0\uFE0F Missing endpoint accessed: ${method} ${path2}`);
+        console.error(`[Endpoint Registry] \u26A0\uFE0F Missing endpoint accessed: ${method} ${path3}`);
       }
       getMissingEndpointReport() {
         return [...this.missingEndpointLogs].sort((a, b) => b.count - a.count);
@@ -10872,16 +12963,16 @@ var init_TBurnEnterpriseNode = __esm({
       ];
       // ============================================
       // DYNAMIC SHARD SCALING SYSTEM (Enterprise Grade)
-      // Supports 5-128 shards based on hardware capacity
+      // Supports 5-64 shards - admin selectable via /admin/shards
       // Includes validation, rollback, audit logging, and health monitoring
       // ============================================
       shardConfig = {
         currentShardCount: 5,
-        // Current active shards (5 for dev, 128 for enterprise)
+        // Current active shards (5 for dev, 64 for production)
         minShards: 5,
         // Minimum shard count
-        maxShards: 128,
-        // Maximum shard count (64-core enterprise optimized)
+        maxShards: 64,
+        // Maximum shard count (admin can select 5-64)
         validatorsPerShard: 25,
         // Base validators per shard
         tpsPerShard: 1e4,
@@ -11668,10 +13759,12 @@ var init_TBurnEnterpriseNode = __esm({
       ];
       // Hardware requirement profiles (no fixed TPS - calculated dynamically)
       HARDWARE_PROFILES = {
-        development: { cores: 4, ramGB: 16, maxShards: 5 },
-        staging: { cores: 16, ramGB: 64, maxShards: 32 },
+        development: { cores: 8, ramGB: 32, maxShards: 64 },
+        // Current dev: 8 vCPU, 32GB RAM, supports 5-64 shards
+        staging: { cores: 16, ramGB: 64, maxShards: 64 },
         production: { cores: 32, ramGB: 256, maxShards: 64 },
-        enterprise: { cores: 64, ramGB: 512, maxShards: 128 }
+        enterprise: { cores: 64, ramGB: 512, maxShards: 64 }
+        // Max 64 shards across all profiles
       };
       // ============================================
       // OPTIMAL SHARD DISTRIBUTION ALGORITHM
@@ -12324,7 +14417,7 @@ var init_TBurnEnterpriseNode = __esm({
         console.log("[Enterprise Node] Starting enterprise TBURN node...");
         const hardwareProfile = this.detectHardwareProfile();
         const envMaxShards = process.env.MAX_SHARDS ? parseInt(process.env.MAX_SHARDS) : null;
-        const effectiveMaxShards = envMaxShards && envMaxShards >= 5 && envMaxShards <= 128 ? envMaxShards : hardwareProfile.maxShards;
+        const effectiveMaxShards = envMaxShards && envMaxShards >= 5 && envMaxShards <= 64 ? envMaxShards : hardwareProfile.maxShards;
         console.log(`[Enterprise Node] \u{1F5A5}\uFE0F  Hardware: ${hardwareProfile.cores} cores, ${hardwareProfile.ramGB}GB RAM \u2192 Profile: ${hardwareProfile.name}, Max Shards: ${effectiveMaxShards}${envMaxShards ? " (ENV override)" : ""}`);
         this.shardConfig.maxShards = effectiveMaxShards;
         try {
@@ -12333,9 +14426,9 @@ var init_TBurnEnterpriseNode = __esm({
           if (process.env.MAX_SHARDS) {
             const envShards = parseInt(process.env.MAX_SHARDS, 10);
             console.log(`[Enterprise Node] \u26A1 FORCE OVERRIDE: Setting shards to ${envShards} (Ignoring DB value of ${this.shardConfig.currentShardCount})`);
-            this.shardConfig.currentShardCount = envShards;
-            this.shardConfig.minShards = envShards;
-            this.shardConfig.maxShards = 128;
+            this.shardConfig.currentShardCount = Math.min(envShards, 64);
+            this.shardConfig.minShards = 5;
+            this.shardConfig.maxShards = 64;
           }
           if (this.config.apiKey !== "tburn797900") {
             console.error("[Enterprise Node] Invalid API key - expected tburn797900");
@@ -12422,8 +14515,8 @@ var init_TBurnEnterpriseNode = __esm({
         });
         this.rpcApp.get("/api/admin/shards/preview/:count", (req, res) => {
           const count = parseInt(req.params.count);
-          if (isNaN(count) || count < 1 || count > 128) {
-            return res.status(400).json({ error: "Invalid shard count. Must be between 1 and 128." });
+          if (isNaN(count) || count < 5 || count > 64) {
+            return res.status(400).json({ error: "Invalid shard count. Must be between 5 and 64." });
           }
           const requirements = this.calculateHardwareRequirements(count);
           const estimatedTps = count * this.shardConfig.tpsPerShard;
@@ -13476,7 +15569,7 @@ var init_TBurnEnterpriseNode = __esm({
         if (this.lastBlockTimestamp > 0) {
           const interval = now - this.lastBlockTimestamp;
           this.blockIntervals.push(interval);
-          if (this.blockIntervals.length > 1e3) {
+          if (this.blockIntervals.length > 200) {
             this.blockIntervals.shift();
           }
         }
@@ -18439,6 +20532,17 @@ var init_validator_simulation = __esm({
       // Committee caching for performance optimization
       cachedCommittee = [];
       lastCommitteeEpoch = 0;
+      // ★ 메모리 최적화: Active validators 캐싱 (매 100ms 필터링 방지)
+      cachedActiveValidators = [];
+      activeValidatorsCacheTimestamp = 0;
+      static ACTIVE_VALIDATORS_CACHE_TTL_MS = 5e3;
+      // 5초 TTL
+      // ★ 메모리 최적화: 재사용 가능한 버퍼
+      sharedHashBuffer = Buffer.alloc(32);
+      blockWriteCounter = 0;
+      // 배치 쓰기용 카운터
+      static BLOCK_WRITE_BATCH_SIZE = 10;
+      // 10블록마다 DB 쓰기
       // Reentrancy guard to prevent overlapping interval executions
       isProcessingBlock = false;
       // Block timing measurement for accurate block time reporting
@@ -18796,18 +20900,26 @@ var init_validator_simulation = __esm({
         }
         return this.cachedCommittee;
       }
-      // Simulate consensus round with voting
+      // ★ 메모리 최적화: Consensus round 배치 쓰기 카운터
+      consensusWriteCounter = 0;
+      static CONSENSUS_WRITE_BATCH_SIZE = 10;
+      // 10라운드마다 DB 쓰기
+      // Simulate consensus round with voting - OPTIMIZED for memory efficiency
+      // 모든 라운드에서 consensus 상태 업데이트, DB 쓰기만 배치 처리
       async simulateConsensusRound() {
         const committeeValidators = this.getCommitteeValidators();
         if (committeeValidators.length === 0) {
           console.warn("No committee validators available for consensus round");
           return;
         }
+        this.currentRound++;
+        this.consensusWriteCounter++;
+        const shouldWriteToDB = this.consensusWriteCounter % _ValidatorSimulationService.CONSENSUS_WRITE_BATCH_SIZE === 0;
         const proposer = committeeValidators[this.currentRound % committeeValidators.length];
         const totalVotingPower = committeeValidators.reduce((sum, v) => {
           return sum + BigInt(this.calculateVotingPower(v.stake, "0"));
         }, BigInt(0));
-        const activeValidators = this.validators.filter((v) => v.status === "active");
+        const activeValidators = this.getCachedActiveValidators();
         const totalActiveValidators = activeValidators.length;
         const requiredQuorum = Math.ceil(totalActiveValidators * ENTERPRISE_VALIDATORS_CONFIG.QUORUM_THRESHOLD / 1e4);
         const prevoteCount = Math.floor(totalActiveValidators * (0.88 + Math.random() * 0.07));
@@ -18862,7 +20974,9 @@ var init_validator_simulation = __esm({
           }
         }
         const quorumAchieved = Math.floor(Number(votingPowerAchieved) / Number(totalVotingPower) * 1e4);
-        this.currentRound++;
+        if (!shouldWriteToDB) {
+          return;
+        }
         this.storage.createConsensusRound(consensusData).catch((error) => {
           if (error?.code === "23505") {
           } else {
@@ -18870,10 +20984,24 @@ var init_validator_simulation = __esm({
           }
         });
       }
-      // Simulate block production - OPTIMIZED for 100ms cadence
-      // Block height increments immediately, DB writes are fire-and-forget
+      // ★ 메모리 최적화: Active validators 캐시 조회 (5초 TTL)
+      getCachedActiveValidators() {
+        const now = Date.now();
+        if (this.cachedActiveValidators.length === 0 || now - this.activeValidatorsCacheTimestamp > _ValidatorSimulationService.ACTIVE_VALIDATORS_CACHE_TTL_MS) {
+          this.cachedActiveValidators = this.validators.filter((v) => v.status === "active");
+          this.activeValidatorsCacheTimestamp = now;
+        }
+        return this.cachedActiveValidators;
+      }
+      // ★ 메모리 최적화: 재사용 가능한 해시 생성 (crypto.randomBytes 재사용)
+      generateHashHex() {
+        crypto4.randomFillSync(this.sharedHashBuffer);
+        return this.sharedHashBuffer.toString("hex");
+      }
+      // Simulate block production - OPTIMIZED for 100ms cadence with memory efficiency
+      // Block height increments immediately, DB writes are batched
       async simulateBlockProduction() {
-        const activeValidators = this.validators.filter((v) => v.status === "active");
+        const activeValidators = this.getCachedActiveValidators();
         if (activeValidators.length === 0) {
           console.warn("No active validators for block production");
           return;
@@ -18887,6 +21015,12 @@ var init_validator_simulation = __esm({
         const blockHeight = this.currentBlockHeight;
         const producer = activeValidators[blockHeight % activeValidators.length];
         this.currentBlockHeight++;
+        this.blockWriteCounter++;
+        const shouldWriteToDB = this.blockWriteCounter % _ValidatorSimulationService.BLOCK_WRITE_BATCH_SIZE === 0;
+        if (!shouldWriteToDB) {
+          producer.totalBlocks = (producer.totalBlocks || 0) + 1;
+          return;
+        }
         const baseTransactions = 75e3 + Math.floor(Math.random() * 3e3);
         const transactionCount = baseTransactions;
         const simpleTransfers = Math.floor(transactionCount * 0.2);
@@ -18895,20 +21029,20 @@ var init_validator_simulation = __esm({
         const gasUsed = simpleTransfers * 21e3 + contractCalls * (5e4 + Math.floor(Math.random() * 15e4)) + complexOps * (2e5 + Math.floor(Math.random() * 3e5));
         const block = {
           blockNumber: blockHeight,
-          hash: `0x${crypto4.randomBytes(32).toString("hex")}`,
-          parentHash: `0x${crypto4.randomBytes(32).toString("hex")}`,
-          timestamp: Math.floor(Date.now() / 1e3),
+          hash: `0x${this.generateHashHex()}`,
+          parentHash: `0x${this.generateHashHex()}`,
+          timestamp: Math.floor(now / 1e3),
           transactionCount,
           validatorAddress: producer.address,
           gasUsed: Math.min(gasUsed, 3e7),
           gasLimit: 3e7,
           size: 5e4 + Math.floor(Math.random() * 1e5),
           shardId: Math.floor(Math.random() * this.currentShardCount),
-          stateRoot: `0x${crypto4.randomBytes(32).toString("hex")}`,
-          receiptsRoot: `0x${crypto4.randomBytes(32).toString("hex")}`,
+          stateRoot: `0x${this.generateHashHex()}`,
+          receiptsRoot: `0x${this.generateHashHex()}`,
           executionClass: "parallel",
           latencyNs: BigInt(5e7 + Math.floor(Math.random() * 5e7)),
-          parallelBatchId: crypto4.randomBytes(16).toString("hex"),
+          parallelBatchId: this.generateHashHex().slice(0, 32),
           hashAlgorithm: "blake3"
         };
         this.storage.createBlock(block).then(() => {
@@ -19046,6 +21180,10 @@ var init_validator_simulation = __esm({
         } catch (error) {
           console.log(`Using default block height: ${this.currentBlockHeight}`);
         }
+        const blockIntervalMs = ENTERPRISE_VALIDATORS_CONFIG.BLOCK_TIME;
+        const epochIntervalMs = ENTERPRISE_VALIDATORS_CONFIG.EPOCH_DURATION;
+        const crossShardIntervalMs = 2e3;
+        console.log(`[Validator] \u2699\uFE0F 100ms block cadence enabled (mainnet mode)`);
         this.blockInterval = setInterval(async () => {
           try {
             await Promise.allSettled([
@@ -19056,21 +21194,21 @@ var init_validator_simulation = __esm({
           } catch (error) {
             console.error("Error in block production interval:", error.message);
           }
-        }, ENTERPRISE_VALIDATORS_CONFIG.BLOCK_TIME);
+        }, blockIntervalMs);
         this.epochInterval = setInterval(async () => {
           try {
             await this.rotateEpoch();
           } catch (error) {
             console.error("Error in epoch rotation:", error);
           }
-        }, ENTERPRISE_VALIDATORS_CONFIG.EPOCH_DURATION);
+        }, epochIntervalMs);
         this.crossShardInterval = setInterval(async () => {
           try {
             await this.simulateCrossShardMessages();
           } catch (error) {
             console.error("Error in cross-shard messaging:", error);
           }
-        }, 2e3);
+        }, crossShardIntervalMs);
         this.messageFlushInterval = setInterval(async () => {
           try {
             await this.flushMessageBuffer();
@@ -19986,9 +22124,9 @@ var init_ai_service_manager = __esm({
 // server/services/RestartSupervisor.ts
 import { EventEmitter as EventEmitter3 } from "events";
 import pRetry2 from "p-retry";
-function getRestartSupervisor(isProduction = false) {
+function getRestartSupervisor(isProduction2 = false) {
   if (!supervisorInstance) {
-    supervisorInstance = new RestartSupervisor(isProduction);
+    supervisorInstance = new RestartSupervisor(isProduction2);
   }
   return supervisorInstance;
 }
@@ -20017,9 +22155,9 @@ var init_RestartSupervisor = __esm({
       restartTimeoutHandle = null;
       // Maximum time to wait for restart completion (3 minutes)
       RESTART_TIMEOUT_MS = 18e4;
-      constructor(isProduction = false) {
+      constructor(isProduction2 = false) {
         super();
-        this.isProductionMode = isProduction;
+        this.isProductionMode = isProduction2;
       }
       getState() {
         return { ...this.state };
@@ -21011,6 +23149,65 @@ var init_DataCacheService = __esm({
       // 30 seconds
       STALE_TTL = 3e5;
       // 5 minutes - serve stale data during rate limits
+      // ★ 메모리 누수 방지 설정
+      MAX_CACHE_SIZE = 100;
+      // 최대 캐시 항목 수
+      CLEANUP_INTERVAL = 6e4;
+      // 1분마다 정리
+      cleanupTimer = null;
+      constructor() {
+        this.startCleanupTimer();
+      }
+      /**
+       * ★ 주기적인 캐시 정리 시작
+       */
+      startCleanupTimer() {
+        if (this.cleanupTimer) return;
+        this.cleanupTimer = setInterval(() => {
+          this.cleanupExpired();
+          this.enforceMaxSize();
+          this.logMemoryUsage();
+        }, this.CLEANUP_INTERVAL);
+        console.log("[DataCache] Cleanup timer started (interval: 60s)");
+      }
+      /**
+       * ★ 만료된 캐시 항목 정리
+       */
+      cleanupExpired() {
+        const now = Date.now();
+        let cleaned = 0;
+        for (const [key, entry] of this.cache.entries()) {
+          const age = now - entry.timestamp;
+          if (age > this.STALE_TTL) {
+            this.cache.delete(key);
+            cleaned++;
+          }
+        }
+        if (cleaned > 0) {
+          this.stats.size = this.cache.size;
+          console.log(`[DataCache] Cleaned ${cleaned} expired entries, remaining: ${this.cache.size}`);
+        }
+      }
+      /**
+       * ★ 최대 캐시 크기 유지 (LRU 방식)
+       */
+      enforceMaxSize() {
+        if (this.cache.size <= this.MAX_CACHE_SIZE) return;
+        const entries = Array.from(this.cache.entries()).sort((a, b) => a[1].timestamp - b[1].timestamp);
+        const toRemove = this.cache.size - this.MAX_CACHE_SIZE;
+        for (let i = 0; i < toRemove; i++) {
+          this.cache.delete(entries[i][0]);
+        }
+        this.stats.size = this.cache.size;
+        console.log(`[DataCache] Enforced max size, removed ${toRemove} oldest entries`);
+      }
+      /**
+       * ★ 메모리 사용량 로깅
+       */
+      logMemoryUsage() {
+        const used = process.memoryUsage();
+        console.log(`[Memory] Heap: ${Math.round(used.heapUsed / 1024 / 1024)}MB / ${Math.round(used.heapTotal / 1024 / 1024)}MB, Cache entries: ${this.cache.size}`);
+      }
       // Cache keys
       static KEYS = {
         NETWORK_STATS: "network_stats",
@@ -35026,7 +37223,7 @@ var init_enterprise_routes = __esm({
     });
     router8.post("/admin/config/api/keys", async (req, res) => {
       try {
-        const { name, permissions, rateLimit: rateLimit2 } = req.body;
+        const { name, permissions, rateLimit: rateLimit3 } = req.body;
         const newKey = {
           id: crypto5.randomUUID(),
           name,
@@ -35035,7 +37232,7 @@ var init_enterprise_routes = __esm({
           lastUsed: "Never",
           status: "active",
           permissions: permissions || ["read"],
-          rateLimit: rateLimit2 || 1e3,
+          rateLimit: rateLimit3 || 1e3,
           usageCount: 0
         };
         res.json({ success: true, apiKey: newKey });
@@ -37119,7 +39316,10 @@ var init_public_api_routes = __esm({
         let liveBlocks = [];
         let liveTransactions = [];
         try {
-          const blocksResponse = await fetch("http://localhost:5000/api/public/v1/network/blocks/recent?limit=200");
+          const internalHeaders = { "X-Internal-Request": "true" };
+          const blocksResponse = await fetch("http://localhost:5000/api/public/v1/network/blocks/recent?limit=200", {
+            headers: internalHeaders
+          });
           const blocksData = await blocksResponse.json();
           if (blocksData.success && blocksData.data) {
             liveBlocks = blocksData.data.map((b) => ({
@@ -37128,7 +39328,9 @@ var init_public_api_routes = __esm({
               txCount: b.transactions
             }));
           }
-          const txResponse = await fetch("http://localhost:5000/api/public/v1/network/transactions/recent?limit=200");
+          const txResponse = await fetch("http://localhost:5000/api/public/v1/network/transactions/recent?limit=200", {
+            headers: internalHeaders
+          });
           const txData = await txResponse.json();
           if (txData.success && txData.data) {
             liveTransactions = txData.data.map((tx) => ({
@@ -40436,6 +42638,2543 @@ var init_launch_event_routes = __esm({
   }
 });
 
+// shared/worker-messages.ts
+var DEFAULT_WORKER_POOL_CONFIG;
+var init_worker_messages = __esm({
+  "shared/worker-messages.ts"() {
+    "use strict";
+    DEFAULT_WORKER_POOL_CONFIG = {
+      minWorkers: 2,
+      maxWorkers: 8,
+      idleTimeoutMs: 3e4,
+      healthCheckIntervalMs: 5e3,
+      restartOnFailure: true,
+      maxRestarts: 5,
+      restartDelayMs: 1e3
+    };
+  }
+});
+
+// server/workers/worker-pool.ts
+import { Worker } from "worker_threads";
+import { EventEmitter as EventEmitter6 } from "events";
+import * as path from "path";
+async function initializeWorkerPool(config) {
+  if (workerPoolInstance) {
+    return workerPoolInstance;
+  }
+  workerPoolInstance = new WorkerPool(config);
+  await workerPoolInstance.initialize();
+  return workerPoolInstance;
+}
+async function shutdownWorkerPool() {
+  if (workerPoolInstance) {
+    await workerPoolInstance.shutdown();
+    workerPoolInstance = null;
+  }
+}
+var WorkerPool, workerPoolInstance;
+var init_worker_pool = __esm({
+  "server/workers/worker-pool.ts"() {
+    "use strict";
+    init_worker_messages();
+    WorkerPool = class extends EventEmitter6 {
+      workers = /* @__PURE__ */ new Map();
+      config;
+      nextWorkerId = 0;
+      healthCheckInterval = null;
+      taskQueue = [];
+      isShuttingDown = false;
+      workerPath;
+      metrics = {
+        totalTasksProcessed: 0,
+        totalTasksFailed: 0,
+        averageTaskDuration: 0,
+        peakWorkerCount: 0,
+        workerRestarts: 0
+      };
+      constructor(config = {}) {
+        super();
+        this.config = { ...DEFAULT_WORKER_POOL_CONFIG, ...config };
+        this.workerPath = path.join(__dirname, "simulation-worker.js");
+      }
+      async initialize() {
+        console.log(`\u{1F527} WorkerPool: Initializing with ${this.config.minWorkers} workers`);
+        const initPromises = [];
+        for (let i = 0; i < this.config.minWorkers; i++) {
+          initPromises.push(this.spawnWorker());
+        }
+        await Promise.all(initPromises);
+        this.healthCheckInterval = setInterval(() => {
+          this.performHealthCheck();
+        }, this.config.healthCheckIntervalMs);
+        console.log(`\u2705 WorkerPool: ${this.workers.size} workers ready`);
+      }
+      async spawnWorker() {
+        const workerId = this.nextWorkerId++;
+        return new Promise((resolve, reject) => {
+          try {
+            const worker = new Worker(this.workerPath, {
+              workerData: { workerId }
+            });
+            const workerInfo = {
+              worker,
+              workerId,
+              status: "idle",
+              lastHeartbeat: Date.now(),
+              restartCount: 0,
+              processedTasks: 0,
+              pendingTasks: /* @__PURE__ */ new Map()
+            };
+            worker.on("message", (message) => {
+              this.handleWorkerMessage(workerId, message);
+            });
+            worker.on("error", (error) => {
+              console.error(`Worker ${workerId} error:`, error);
+              this.handleWorkerFailure(workerId, error);
+            });
+            worker.on("exit", (code) => {
+              if (!this.isShuttingDown && code !== 0) {
+                console.warn(`Worker ${workerId} exited with code ${code}`);
+                this.handleWorkerExit(workerId, code);
+              }
+            });
+            worker.once("online", () => {
+              this.workers.set(workerId, workerInfo);
+              this.metrics.peakWorkerCount = Math.max(this.metrics.peakWorkerCount, this.workers.size);
+              resolve();
+            });
+          } catch (error) {
+            reject(error);
+          }
+        });
+      }
+      handleWorkerMessage(workerId, message) {
+        const workerInfo = this.workers.get(workerId);
+        if (!workerInfo) return;
+        workerInfo.lastHeartbeat = Date.now();
+        const pendingTask = workerInfo.pendingTasks.get(message.id);
+        if (pendingTask) {
+          clearTimeout(pendingTask.timeout);
+          workerInfo.pendingTasks.delete(message.id);
+          workerInfo.status = "idle";
+          workerInfo.processedTasks++;
+          this.metrics.totalTasksProcessed++;
+          if (message.type === "ERROR" /* ERROR */) {
+            pendingTask.reject(new Error(message.payload.error));
+            this.metrics.totalTasksFailed++;
+          } else {
+            pendingTask.resolve(message.payload);
+          }
+          this.processQueuedTasks();
+        }
+        this.emit("workerMessage", { workerId, message });
+      }
+      handleWorkerFailure(workerId, error) {
+        const workerInfo = this.workers.get(workerId);
+        if (!workerInfo) return;
+        workerInfo.status = "unhealthy";
+        for (const [taskId, task] of workerInfo.pendingTasks) {
+          clearTimeout(task.timeout);
+          task.reject(error);
+          this.metrics.totalTasksFailed++;
+        }
+        workerInfo.pendingTasks.clear();
+        if (this.config.restartOnFailure && workerInfo.restartCount < this.config.maxRestarts) {
+          this.restartWorker(workerId);
+        }
+        this.emit("workerFailure", { workerId, error });
+      }
+      handleWorkerExit(workerId, code) {
+        this.handleWorkerFailure(workerId, new Error(`Worker exited with code ${code}`));
+      }
+      async restartWorker(workerId) {
+        const workerInfo = this.workers.get(workerId);
+        if (!workerInfo) return;
+        console.log(`\u{1F504} WorkerPool: Restarting worker ${workerId} (attempt ${workerInfo.restartCount + 1})`);
+        try {
+          await workerInfo.worker.terminate();
+        } catch (e) {
+        }
+        this.workers.delete(workerId);
+        this.metrics.workerRestarts++;
+        await new Promise((resolve) => setTimeout(resolve, this.config.restartDelayMs));
+        if (!this.isShuttingDown && this.workers.size < this.config.minWorkers) {
+          await this.spawnWorker();
+        }
+      }
+      performHealthCheck() {
+        const now = Date.now();
+        const unhealthyThreshold = this.config.healthCheckIntervalMs * 3;
+        for (const [workerId, workerInfo] of this.workers) {
+          if (now - workerInfo.lastHeartbeat > unhealthyThreshold) {
+            workerInfo.status = "unhealthy";
+            console.warn(`Worker ${workerId} appears unhealthy (no heartbeat)`);
+            if (this.config.restartOnFailure) {
+              this.restartWorker(workerId);
+            }
+          }
+        }
+        if (this.taskQueue.length > 0 && this.workers.size < this.config.maxWorkers) {
+          const idleWorkers = Array.from(this.workers.values()).filter((w) => w.status === "idle").length;
+          if (idleWorkers === 0) {
+            this.spawnWorker().catch(console.error);
+          }
+        }
+      }
+      getIdleWorker() {
+        for (const workerInfo of this.workers.values()) {
+          if (workerInfo.status === "idle") {
+            return workerInfo;
+          }
+        }
+        return void 0;
+      }
+      processQueuedTasks() {
+        while (this.taskQueue.length > 0) {
+          const idleWorker = this.getIdleWorker();
+          if (!idleWorker) break;
+          const task = this.taskQueue.shift();
+          if (task) {
+            this.executeOnWorker(idleWorker, task.type, task.payload).then(task.resolve).catch(task.reject);
+          }
+        }
+      }
+      executeOnWorker(workerInfo, type, payload) {
+        return new Promise((resolve, reject) => {
+          const messageId = `${workerInfo.workerId}-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+          const timeout = setTimeout(() => {
+            workerInfo.pendingTasks.delete(messageId);
+            workerInfo.status = "unhealthy";
+            reject(new Error(`Task timeout on worker ${workerInfo.workerId}`));
+          }, 3e4);
+          workerInfo.pendingTasks.set(messageId, { resolve, reject, timeout });
+          workerInfo.status = "busy";
+          const message = {
+            type,
+            id: messageId,
+            timestamp: Date.now(),
+            payload
+          };
+          workerInfo.worker.postMessage(message);
+        });
+      }
+      async execute(type, payload) {
+        if (this.isShuttingDown) {
+          throw new Error("WorkerPool is shutting down");
+        }
+        const idleWorker = this.getIdleWorker();
+        if (idleWorker) {
+          return this.executeOnWorker(idleWorker, type, payload);
+        }
+        return new Promise((resolve, reject) => {
+          this.taskQueue.push({
+            type,
+            payload,
+            resolve,
+            reject
+          });
+        });
+      }
+      async processBlock(request2) {
+        return this.execute("PROCESS_BLOCK" /* PROCESS_BLOCK */, request2);
+      }
+      async processConsensusRound(request2) {
+        return this.execute("CONSENSUS_ROUND" /* CONSENSUS_ROUND */, request2);
+      }
+      async processShardSnapshot(request2) {
+        return this.execute("SHARD_SNAPSHOT" /* SHARD_SNAPSHOT */, request2);
+      }
+      async getWorkerHealth() {
+        const healthPromises = Array.from(this.workers.values()).map(
+          (workerInfo) => this.executeOnWorker(workerInfo, "HEALTH_CHECK" /* HEALTH_CHECK */, {}).then((result) => result).catch(() => ({
+            workerId: workerInfo.workerId,
+            status: "unhealthy",
+            uptime: 0,
+            processedBlocks: 0,
+            processedConsensusRounds: 0,
+            memoryUsage: 0,
+            cpuUsage: 0,
+            lastHeartbeat: 0
+          }))
+        );
+        return Promise.all(healthPromises);
+      }
+      getMetrics() {
+        return {
+          ...this.metrics,
+          activeWorkers: this.workers.size,
+          queuedTasks: this.taskQueue.length
+        };
+      }
+      async shutdown() {
+        console.log("\u{1F6D1} WorkerPool: Shutting down...");
+        this.isShuttingDown = true;
+        if (this.healthCheckInterval) {
+          clearInterval(this.healthCheckInterval);
+        }
+        for (const task of this.taskQueue) {
+          task.reject(new Error("WorkerPool shutting down"));
+        }
+        this.taskQueue = [];
+        const shutdownPromises = Array.from(this.workers.values()).map((workerInfo) => {
+          for (const [, task] of workerInfo.pendingTasks) {
+            clearTimeout(task.timeout);
+            task.reject(new Error("WorkerPool shutting down"));
+          }
+          return workerInfo.worker.terminate();
+        });
+        await Promise.all(shutdownPromises);
+        this.workers.clear();
+        console.log("\u2705 WorkerPool: Shutdown complete");
+      }
+    };
+    workerPoolInstance = null;
+  }
+});
+
+// server/services/persistence-batcher.ts
+import { EventEmitter as EventEmitter7 } from "events";
+function getPersistenceBatcher() {
+  if (!batcherInstance) {
+    batcherInstance = new PersistenceBatcher();
+  }
+  return batcherInstance;
+}
+function initializePersistenceBatcher(config) {
+  if (!batcherInstance) {
+    batcherInstance = new PersistenceBatcher(config);
+    batcherInstance.start();
+  }
+  return batcherInstance;
+}
+async function shutdownPersistenceBatcher() {
+  if (batcherInstance) {
+    await batcherInstance.shutdown();
+    batcherInstance = null;
+  }
+}
+var PriorityQueue, DeadLetterQueue, WriteAheadLog, RingBuffer, DEFAULT_BATCHER_CONFIG, PersistenceBatcher, batcherInstance;
+var init_persistence_batcher = __esm({
+  "server/services/persistence-batcher.ts"() {
+    "use strict";
+    PriorityQueue = class {
+      queues = /* @__PURE__ */ new Map([
+        ["critical", []],
+        ["high", []],
+        ["normal", []],
+        ["low", []]
+      ]);
+      enqueue(item, priority = "normal", maxRetries = 3) {
+        const prioritizedItem = {
+          data: item,
+          priority,
+          timestamp: Date.now(),
+          retries: 0,
+          maxRetries
+        };
+        this.queues.get(priority).push(prioritizedItem);
+      }
+      dequeue(maxItems = 100) {
+        const result = [];
+        const priorities = ["critical", "high", "normal", "low"];
+        for (const priority of priorities) {
+          const queue = this.queues.get(priority);
+          if (queue) {
+            while (queue.length > 0 && result.length < maxItems) {
+              result.push(queue.shift());
+            }
+          }
+        }
+        return result;
+      }
+      requeue(item) {
+        if (item.retries >= item.maxRetries) {
+          return false;
+        }
+        item.retries++;
+        this.queues.get(item.priority).push(item);
+        return true;
+      }
+      size() {
+        let total = 0;
+        const queueArray = Array.from(this.queues.values());
+        for (const queue of queueArray) {
+          total += queue.length;
+        }
+        return total;
+      }
+      sizeByPriority() {
+        return {
+          critical: this.queues.get("critical").length,
+          high: this.queues.get("high").length,
+          normal: this.queues.get("normal").length,
+          low: this.queues.get("low").length
+        };
+      }
+      clear() {
+        const all = [];
+        const queueArray = Array.from(this.queues.values());
+        for (const queue of queueArray) {
+          all.push(...queue.splice(0));
+        }
+        return all;
+      }
+    };
+    DeadLetterQueue = class {
+      entries = [];
+      maxSize;
+      constructor(maxSize = 1e4) {
+        this.maxSize = maxSize;
+      }
+      add(data, error, priority, retries, dataType) {
+        this.entries.push({
+          data,
+          error,
+          originalPriority: priority,
+          failedAt: Date.now(),
+          retries,
+          dataType
+        });
+        if (this.entries.length > this.maxSize) {
+          this.entries = this.entries.slice(-this.maxSize);
+        }
+      }
+      getAll() {
+        return [...this.entries];
+      }
+      getByType(dataType) {
+        return this.entries.filter((e) => e.dataType === dataType);
+      }
+      retry(count = 10) {
+        return this.entries.splice(0, count);
+      }
+      clear() {
+        const count = this.entries.length;
+        this.entries = [];
+        return count;
+      }
+      size() {
+        return this.entries.length;
+      }
+      getStats() {
+        const byType = {};
+        let oldestTimestamp = Date.now();
+        for (const entry of this.entries) {
+          byType[entry.dataType] = (byType[entry.dataType] || 0) + 1;
+          if (entry.failedAt < oldestTimestamp) {
+            oldestTimestamp = entry.failedAt;
+          }
+        }
+        return {
+          total: this.entries.length,
+          byType,
+          oldestAge: this.entries.length > 0 ? Date.now() - oldestTimestamp : 0
+        };
+      }
+    };
+    WriteAheadLog = class {
+      entries = [];
+      maxEntries;
+      checkpointThreshold;
+      constructor(maxEntries = 1e4, checkpointThreshold = 1e3) {
+        this.maxEntries = maxEntries;
+        this.checkpointThreshold = checkpointThreshold;
+      }
+      log(operation, table, data) {
+        const entry = {
+          id: `wal-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+          timestamp: Date.now(),
+          operation,
+          table,
+          data,
+          committed: false
+        };
+        this.entries.push(entry);
+        if (this.entries.length >= this.checkpointThreshold) {
+          this.checkpoint();
+        }
+        return entry.id;
+      }
+      commit(id) {
+        const entry = this.entries.find((e) => e.id === id);
+        if (entry) {
+          entry.committed = true;
+          return true;
+        }
+        return false;
+      }
+      commitBatch(ids) {
+        let committed = 0;
+        for (const id of ids) {
+          if (this.commit(id)) committed++;
+        }
+        return committed;
+      }
+      getUncommitted() {
+        return this.entries.filter((e) => !e.committed);
+      }
+      checkpoint() {
+        const cutoff = Date.now() - 6e4;
+        const removed = this.entries.filter((e) => e.committed && e.timestamp < cutoff);
+        this.entries = this.entries.filter((e) => !e.committed || e.timestamp >= cutoff);
+        if (this.entries.length > this.maxEntries) {
+          const toRemove = this.entries.slice(0, this.entries.length - this.maxEntries);
+          this.entries = this.entries.slice(-this.maxEntries);
+          removed.push(...toRemove);
+        }
+        return removed;
+      }
+      recover() {
+        return this.getUncommitted();
+      }
+      size() {
+        return this.entries.length;
+      }
+      getStats() {
+        const uncommitted = this.entries.filter((e) => !e.committed);
+        const oldestEntry = this.entries[0];
+        return {
+          total: this.entries.length,
+          committed: this.entries.length - uncommitted.length,
+          uncommitted: uncommitted.length,
+          oldestAge: oldestEntry ? Date.now() - oldestEntry.timestamp : 0
+        };
+      }
+    };
+    RingBuffer = class {
+      buffer;
+      head = 0;
+      tail = 0;
+      count = 0;
+      capacity;
+      constructor(capacity) {
+        this.capacity = capacity;
+        this.buffer = new Array(capacity);
+      }
+      push(item) {
+        if (this.count >= this.capacity) {
+          return false;
+        }
+        this.buffer[this.tail] = item;
+        this.tail = (this.tail + 1) % this.capacity;
+        this.count++;
+        return true;
+      }
+      pop() {
+        if (this.count === 0) {
+          return void 0;
+        }
+        const item = this.buffer[this.head];
+        this.buffer[this.head] = void 0;
+        this.head = (this.head + 1) % this.capacity;
+        this.count--;
+        return item;
+      }
+      drain(maxItems) {
+        const items = [];
+        const toDrain = maxItems !== void 0 ? Math.min(maxItems, this.count) : this.count;
+        for (let i = 0; i < toDrain; i++) {
+          const item = this.pop();
+          if (item !== void 0) {
+            items.push(item);
+          }
+        }
+        return items;
+      }
+      size() {
+        return this.count;
+      }
+      isEmpty() {
+        return this.count === 0;
+      }
+      isFull() {
+        return this.count >= this.capacity;
+      }
+      getCapacity() {
+        return this.capacity;
+      }
+    };
+    DEFAULT_BATCHER_CONFIG = {
+      maxBufferSize: 100,
+      flushIntervalMs: 1e3,
+      maxRetries: 3,
+      retryDelayMs: 500,
+      enableMetrics: true,
+      // Enterprise defaults
+      enablePriorityQueue: true,
+      enableDeadLetterQueue: true,
+      enableWAL: true,
+      enableRingBuffer: true,
+      ringBufferCapacity: 1e3,
+      walCheckpointThreshold: 500,
+      deadLetterQueueMaxSize: 1e4,
+      parallelFlushEnabled: false,
+      flushTimeoutMs: 3e4
+    };
+    PersistenceBatcher = class extends EventEmitter7 {
+      config;
+      // Standard buffers (fallback)
+      blockBuffer = [];
+      consensusBuffer = [];
+      shardMetricsBuffer = [];
+      crossShardBuffer = [];
+      networkMetricsBuffer = [];
+      // Enterprise components
+      blockRingBuffer = null;
+      consensusRingBuffer = null;
+      crossShardRingBuffer = null;
+      blockPriorityQueue = null;
+      deadLetterQueue = null;
+      writeAheadLog = null;
+      flushInterval = null;
+      isFlushing = false;
+      isShuttingDown = false;
+      metrics = {
+        totalBlocksWritten: 0,
+        totalConsensusRoundsWritten: 0,
+        totalShardMetricsWritten: 0,
+        totalCrossShardWritten: 0,
+        totalNetworkMetricsWritten: 0,
+        totalFlushes: 0,
+        totalErrors: 0,
+        averageFlushDuration: 0,
+        lastFlushTime: 0,
+        // Enterprise metrics
+        deadLetterCount: 0,
+        walEntries: 0,
+        priorityQueueSize: 0,
+        ringBufferUtilization: 0,
+        flushTimeouts: 0,
+        successfulRetries: 0,
+        failedRetries: 0
+      };
+      constructor(config = {}) {
+        super();
+        this.config = { ...DEFAULT_BATCHER_CONFIG, ...config };
+        if (this.config.enableRingBuffer) {
+          this.blockRingBuffer = new RingBuffer(this.config.ringBufferCapacity);
+          this.consensusRingBuffer = new RingBuffer(this.config.ringBufferCapacity);
+          this.crossShardRingBuffer = new RingBuffer(this.config.ringBufferCapacity);
+        }
+        if (this.config.enablePriorityQueue) {
+          this.blockPriorityQueue = new PriorityQueue();
+        }
+        if (this.config.enableDeadLetterQueue) {
+          this.deadLetterQueue = new DeadLetterQueue(this.config.deadLetterQueueMaxSize);
+        }
+        if (this.config.enableWAL) {
+          this.writeAheadLog = new WriteAheadLog(1e4, this.config.walCheckpointThreshold);
+        }
+      }
+      start() {
+        if (this.flushInterval) return;
+        console.log("\u{1F4E6} PersistenceBatcher: Starting with flush interval", this.config.flushIntervalMs, "ms");
+        console.log(`   - Priority queue: ${this.config.enablePriorityQueue ? "enabled" : "disabled"}`);
+        console.log(`   - Dead letter queue: ${this.config.enableDeadLetterQueue ? "enabled" : "disabled"}`);
+        console.log(`   - Write-ahead log: ${this.config.enableWAL ? "enabled" : "disabled"}`);
+        console.log(`   - Ring buffer: ${this.config.enableRingBuffer ? "enabled" : "disabled"}`);
+        this.flushInterval = setInterval(() => {
+          this.flush().catch((error) => {
+            console.error("PersistenceBatcher flush error:", error);
+            this.metrics.totalErrors++;
+          });
+        }, this.config.flushIntervalMs);
+      }
+      stop() {
+        if (this.flushInterval) {
+          clearInterval(this.flushInterval);
+          this.flushInterval = null;
+        }
+      }
+      addBlock(block, priority = "normal") {
+        if (this.config.enableWAL && this.writeAheadLog) {
+          this.writeAheadLog.log("INSERT", "blocks", block);
+        }
+        if (this.config.enablePriorityQueue && this.blockPriorityQueue) {
+          this.blockPriorityQueue.enqueue(block, priority, this.config.maxRetries);
+        } else if (this.config.enableRingBuffer && this.blockRingBuffer) {
+          if (!this.blockRingBuffer.push(block)) {
+            this.flush().catch(console.error);
+            this.blockRingBuffer.push(block);
+          }
+        } else {
+          this.blockBuffer.push(block);
+          if (this.blockBuffer.length >= this.config.maxBufferSize) {
+            this.flush().catch(console.error);
+          }
+        }
+      }
+      addConsensusRound(round) {
+        if (this.config.enableWAL && this.writeAheadLog) {
+          this.writeAheadLog.log("INSERT", "consensus_rounds", round);
+        }
+        if (this.config.enableRingBuffer && this.consensusRingBuffer) {
+          if (!this.consensusRingBuffer.push(round)) {
+            this.flush().catch(console.error);
+            this.consensusRingBuffer.push(round);
+          }
+        } else {
+          this.consensusBuffer.push(round);
+          if (this.consensusBuffer.length >= this.config.maxBufferSize) {
+            this.flush().catch(console.error);
+          }
+        }
+      }
+      addShardMetrics(metrics) {
+        if (this.config.enableWAL && this.writeAheadLog) {
+          this.writeAheadLog.log("INSERT", "shard_metrics", metrics);
+        }
+        this.shardMetricsBuffer.push(metrics);
+        if (this.shardMetricsBuffer.length >= this.config.maxBufferSize) {
+          this.flush().catch(console.error);
+        }
+      }
+      addCrossShardMessage(message) {
+        if (this.config.enableWAL && this.writeAheadLog) {
+          this.writeAheadLog.log("INSERT", "cross_shard_messages", message);
+        }
+        if (this.config.enableRingBuffer && this.crossShardRingBuffer) {
+          if (!this.crossShardRingBuffer.push(message)) {
+            this.flush().catch(console.error);
+            this.crossShardRingBuffer.push(message);
+          }
+        } else {
+          this.crossShardBuffer.push(message);
+          if (this.crossShardBuffer.length >= this.config.maxBufferSize) {
+            this.flush().catch(console.error);
+          }
+        }
+      }
+      addNetworkMetrics(metrics) {
+        if (this.config.enableWAL && this.writeAheadLog) {
+          this.writeAheadLog.log("INSERT", "network_metrics", metrics);
+        }
+        this.networkMetricsBuffer.push(metrics);
+        if (this.networkMetricsBuffer.length >= this.config.maxBufferSize) {
+          this.flush().catch(console.error);
+        }
+      }
+      async flush() {
+        if (this.isFlushing || this.isShuttingDown) return;
+        let blocksToWrite = [];
+        let consensusToWrite = [];
+        let crossShardToWrite = [];
+        if (this.config.enablePriorityQueue && this.blockPriorityQueue) {
+          const prioritized = this.blockPriorityQueue.dequeue(this.config.maxBufferSize);
+          blocksToWrite = prioritized.map((p) => p.data);
+        } else if (this.config.enableRingBuffer) {
+          if (this.blockRingBuffer) {
+            blocksToWrite = this.blockRingBuffer.drain(this.config.maxBufferSize);
+          }
+          if (this.consensusRingBuffer) {
+            consensusToWrite = this.consensusRingBuffer.drain(this.config.maxBufferSize);
+          }
+          if (this.crossShardRingBuffer) {
+            crossShardToWrite = this.crossShardRingBuffer.drain(this.config.maxBufferSize);
+          }
+        } else {
+          blocksToWrite = [...this.blockBuffer];
+          consensusToWrite = [...this.consensusBuffer];
+          crossShardToWrite = [...this.crossShardBuffer];
+          this.blockBuffer = [];
+          this.consensusBuffer = [];
+          this.crossShardBuffer = [];
+        }
+        const shardMetricsToWrite = [...this.shardMetricsBuffer];
+        const networkMetricsToWrite = [...this.networkMetricsBuffer];
+        this.shardMetricsBuffer = [];
+        this.networkMetricsBuffer = [];
+        const hasData = blocksToWrite.length > 0 || consensusToWrite.length > 0 || shardMetricsToWrite.length > 0 || crossShardToWrite.length > 0 || networkMetricsToWrite.length > 0;
+        if (!hasData) return;
+        this.isFlushing = true;
+        const startTime = Date.now();
+        try {
+          await this.executeWithRetry(async () => {
+            if (blocksToWrite.length > 0) {
+              this.metrics.totalBlocksWritten += blocksToWrite.length;
+            }
+            if (consensusToWrite.length > 0) {
+              this.metrics.totalConsensusRoundsWritten += consensusToWrite.length;
+            }
+            if (crossShardToWrite.length > 0) {
+              this.metrics.totalCrossShardWritten += crossShardToWrite.length;
+            }
+            if (shardMetricsToWrite.length > 0) {
+              this.metrics.totalShardMetricsWritten += shardMetricsToWrite.length;
+            }
+            if (networkMetricsToWrite.length > 0) {
+              this.metrics.totalNetworkMetricsWritten += networkMetricsToWrite.length;
+            }
+          });
+          const flushDuration = Date.now() - startTime;
+          this.metrics.totalFlushes++;
+          this.metrics.lastFlushTime = Date.now();
+          this.metrics.averageFlushDuration = (this.metrics.averageFlushDuration * (this.metrics.totalFlushes - 1) + flushDuration) / this.metrics.totalFlushes;
+          if (this.config.enableWAL && this.writeAheadLog) {
+            this.writeAheadLog.checkpoint();
+          }
+          this.updateEnterpriseMetrics();
+          this.emit("flush", {
+            blocksWritten: blocksToWrite.length,
+            consensusWritten: consensusToWrite.length,
+            shardMetricsWritten: shardMetricsToWrite.length,
+            crossShardWritten: crossShardToWrite.length,
+            networkMetricsWritten: networkMetricsToWrite.length,
+            duration: flushDuration
+          });
+        } catch (error) {
+          if (this.config.enableDeadLetterQueue && this.deadLetterQueue) {
+            const errorMsg = error instanceof Error ? error.message : "Unknown error";
+            for (const block of blocksToWrite) {
+              this.deadLetterQueue.add(block, errorMsg, "normal", this.config.maxRetries, "block");
+            }
+            for (const round of consensusToWrite) {
+              this.deadLetterQueue.add(round, errorMsg, "normal", this.config.maxRetries, "consensus");
+            }
+            for (const msg of crossShardToWrite) {
+              this.deadLetterQueue.add(msg, errorMsg, "normal", this.config.maxRetries, "crossShard");
+            }
+            this.metrics.failedRetries++;
+          }
+          this.metrics.totalErrors++;
+          this.emit("error", error);
+          throw error;
+        } finally {
+          this.isFlushing = false;
+        }
+      }
+      async executeWithRetry(fn) {
+        let lastError = null;
+        for (let attempt = 1; attempt <= this.config.maxRetries; attempt++) {
+          try {
+            const result = await fn();
+            if (attempt > 1) {
+              this.metrics.successfulRetries++;
+            }
+            return result;
+          } catch (error) {
+            lastError = error instanceof Error ? error : new Error(String(error));
+            if (attempt < this.config.maxRetries) {
+              await new Promise(
+                (resolve) => setTimeout(resolve, this.config.retryDelayMs * attempt)
+              );
+            }
+          }
+        }
+        throw lastError;
+      }
+      updateEnterpriseMetrics() {
+        if (this.deadLetterQueue) {
+          this.metrics.deadLetterCount = this.deadLetterQueue.size();
+        }
+        if (this.writeAheadLog) {
+          const walStats = this.writeAheadLog.getStats();
+          this.metrics.walEntries = walStats.total;
+        }
+        if (this.blockPriorityQueue) {
+          this.metrics.priorityQueueSize = this.blockPriorityQueue.size();
+        }
+        if (this.blockRingBuffer) {
+          this.metrics.ringBufferUtilization = this.blockRingBuffer.size() / this.blockRingBuffer.getCapacity();
+        }
+      }
+      // ============================================================================
+      // Public API Methods
+      // ============================================================================
+      getMetrics() {
+        this.updateEnterpriseMetrics();
+        let pendingBlocks = 0;
+        let pendingConsensusRounds = 0;
+        let pendingCrossShardMessages = 0;
+        if (this.config.enablePriorityQueue && this.blockPriorityQueue) {
+          pendingBlocks = this.blockPriorityQueue.size();
+        } else if (this.config.enableRingBuffer) {
+          pendingBlocks = this.blockRingBuffer?.size() || 0;
+          pendingConsensusRounds = this.consensusRingBuffer?.size() || 0;
+          pendingCrossShardMessages = this.crossShardRingBuffer?.size() || 0;
+        } else {
+          pendingBlocks = this.blockBuffer.length;
+          pendingConsensusRounds = this.consensusBuffer.length;
+          pendingCrossShardMessages = this.crossShardBuffer.length;
+        }
+        return {
+          ...this.metrics,
+          pendingBlocks,
+          pendingConsensusRounds,
+          pendingShardMetrics: this.shardMetricsBuffer.length,
+          pendingCrossShardMessages,
+          pendingNetworkMetrics: this.networkMetricsBuffer.length
+        };
+      }
+      getDeadLetterQueueStats() {
+        return this.deadLetterQueue?.getStats() || null;
+      }
+      getWALStats() {
+        return this.writeAheadLog?.getStats() || null;
+      }
+      getPriorityQueueStats() {
+        return this.blockPriorityQueue?.sizeByPriority() || null;
+      }
+      retryDeadLetterItems(count = 10) {
+        if (!this.deadLetterQueue) return 0;
+        const items = this.deadLetterQueue.retry(count);
+        for (const item of items) {
+          if (item.dataType === "block") {
+            this.addBlock(item.data, "high");
+          }
+        }
+        return items.length;
+      }
+      recoverFromWAL() {
+        if (!this.writeAheadLog) return 0;
+        const uncommitted = this.writeAheadLog.recover();
+        let recovered = 0;
+        for (const entry of uncommitted) {
+          if (entry.table === "blocks") {
+            this.addBlock(entry.data, "critical");
+            recovered++;
+          }
+        }
+        return recovered;
+      }
+      async shutdown() {
+        console.log("\u{1F4E6} PersistenceBatcher: Shutting down...");
+        this.isShuttingDown = true;
+        this.stop();
+        try {
+          await this.flush();
+        } catch (error) {
+          console.error("PersistenceBatcher shutdown flush error:", error);
+        }
+        if (this.writeAheadLog) {
+          this.writeAheadLog.checkpoint();
+          console.log(`   - WAL checkpointed (${this.writeAheadLog.size()} entries remaining)`);
+        }
+        if (this.deadLetterQueue && this.deadLetterQueue.size() > 0) {
+          console.warn(`   - Dead letter queue has ${this.deadLetterQueue.size()} items`);
+        }
+        console.log("\u2705 PersistenceBatcher: Shutdown complete");
+      }
+    };
+    batcherInstance = null;
+  }
+});
+
+// server/core/fees/adaptive-fee-engine.ts
+import { EventEmitter as EventEmitter8 } from "events";
+function getAdaptiveFeeEngine() {
+  if (!feeEngineInstance) {
+    feeEngineInstance = new AdaptiveFeeEngine();
+  }
+  return feeEngineInstance;
+}
+function initializeAdaptiveFeeEngine(config, shardCount = 5) {
+  if (!feeEngineInstance) {
+    feeEngineInstance = new AdaptiveFeeEngine(config);
+    for (let i = 0; i < shardCount; i++) {
+      feeEngineInstance.initializeShard(i);
+    }
+    console.log(`\u26FD AdaptiveFeeEngine: Initialized for ${shardCount} shards`);
+    console.log(`   - TWAP enabled: ${config?.twapWindowBlocks || 20} block window`);
+    console.log(`   - Blob fees: ${config?.enableBlobFees !== false ? "enabled" : "disabled"}`);
+    console.log(`   - Prediction: ${config?.enablePrediction !== false ? "enabled" : "disabled"}`);
+  }
+  return feeEngineInstance;
+}
+var FeePredictionEngine, BlobFeeCalculator, CongestionAnalyzer, DEFAULT_FEE_CONFIG, GWEI, AdaptiveFeeEngine, feeEngineInstance;
+var init_adaptive_fee_engine = __esm({
+  "server/core/fees/adaptive-fee-engine.ts"() {
+    "use strict";
+    FeePredictionEngine = class {
+      windowSize;
+      predictionHorizon;
+      constructor(windowSize = 20, predictionHorizon = 5) {
+        this.windowSize = windowSize;
+        this.predictionHorizon = predictionHorizon;
+      }
+      calculateTWAP(baseFeeHistory) {
+        if (baseFeeHistory.length === 0) {
+          return BigInt("1000000000");
+        }
+        if (baseFeeHistory.length === 1) {
+          return baseFeeHistory[0].fee;
+        }
+        const recentHistory = baseFeeHistory.slice(-this.windowSize);
+        let weightedSum = BigInt(0);
+        let totalWeight = BigInt(0);
+        for (let i = 0; i < recentHistory.length - 1; i++) {
+          const timeDelta = BigInt(recentHistory[i + 1].timestamp - recentHistory[i].timestamp);
+          const weight = timeDelta > BigInt(0) ? timeDelta : BigInt(1);
+          weightedSum += recentHistory[i].fee * weight;
+          totalWeight += weight;
+        }
+        const lastEntry = recentHistory[recentHistory.length - 1];
+        const lastWeight = BigInt(100);
+        weightedSum += lastEntry.fee * lastWeight;
+        totalWeight += lastWeight;
+        return totalWeight > BigInt(0) ? weightedSum / totalWeight : BigInt("1000000000");
+      }
+      predict(state) {
+        const history = state.baseFeeHistory;
+        if (history.length < 3) {
+          return {
+            predictedBaseFee: state.currentBaseFee,
+            confidence: 0.5,
+            trendDirection: "stable",
+            volatility: 0,
+            predictedCongestion: "low"
+          };
+        }
+        const recentHistory = history.slice(-this.windowSize);
+        const n = recentHistory.length;
+        let sumX = 0;
+        let sumY = BigInt(0);
+        let sumXY = BigInt(0);
+        let sumX2 = 0;
+        for (let i = 0; i < n; i++) {
+          sumX += i;
+          sumY += recentHistory[i].fee;
+          sumXY += recentHistory[i].fee * BigInt(i);
+          sumX2 += i * i;
+        }
+        const denominator = n * sumX2 - sumX * sumX;
+        const slope = denominator !== 0 ? Number((BigInt(n) * sumXY - BigInt(sumX) * sumY) / BigInt(denominator)) / Number(sumY / BigInt(n)) : 0;
+        let trendDirection;
+        if (slope > 0.01) trendDirection = "up";
+        else if (slope < -0.01) trendDirection = "down";
+        else trendDirection = "stable";
+        const avgFee = sumY / BigInt(n);
+        let variance = BigInt(0);
+        for (const entry of recentHistory) {
+          const diff = entry.fee > avgFee ? entry.fee - avgFee : avgFee - entry.fee;
+          variance += diff * diff;
+        }
+        const stdDev = Math.sqrt(Number(variance / BigInt(n)));
+        const volatility = avgFee > BigInt(0) ? stdDev / Number(avgFee) : 0;
+        const currentFee = state.currentBaseFee;
+        const predictionMultiplier = 1 + slope * this.predictionHorizon;
+        const predictedFee = BigInt(Math.floor(Number(currentFee) * predictionMultiplier));
+        const confidence = Math.max(0.3, Math.min(0.95, 1 - volatility));
+        const avgUtilization = state.utilizationHistory.length > 0 ? state.utilizationHistory.reduce((a, b) => a + b, 0) / state.utilizationHistory.length : 0;
+        let predictedCongestion;
+        const predictedUtilization = avgUtilization * (1 + slope * 0.5);
+        if (predictedUtilization < 0.4) predictedCongestion = "low";
+        else if (predictedUtilization < 0.6) predictedCongestion = "medium";
+        else if (predictedUtilization < 0.8) predictedCongestion = "high";
+        else predictedCongestion = "critical";
+        return {
+          predictedBaseFee: predictedFee,
+          confidence,
+          trendDirection,
+          volatility,
+          predictedCongestion
+        };
+      }
+    };
+    BlobFeeCalculator = class {
+      minBlobBaseFee = BigInt(1);
+      blobBaseFeeUpdateFraction = BigInt(3338477);
+      calculateBlobBaseFee(parentBlobBaseFee, parentBlobGasUsed, parentBlobGasTarget) {
+        if (parentBlobGasUsed === parentBlobGasTarget) {
+          return parentBlobBaseFee;
+        }
+        if (parentBlobGasUsed > parentBlobGasTarget) {
+          const excess = parentBlobGasUsed - parentBlobGasTarget;
+          const increase = parentBlobBaseFee * excess / this.blobBaseFeeUpdateFraction;
+          return parentBlobBaseFee + (increase > BigInt(1) ? increase : BigInt(1));
+        } else {
+          const deficit = parentBlobGasTarget - parentBlobGasUsed;
+          const decrease = parentBlobBaseFee * deficit / this.blobBaseFeeUpdateFraction;
+          const newFee = parentBlobBaseFee - decrease;
+          return newFee > this.minBlobBaseFee ? newFee : this.minBlobBaseFee;
+        }
+      }
+      estimateBlobGas(blobCount) {
+        const BLOB_GAS_PER_BLOB = BigInt(131072);
+        return BigInt(blobCount) * BLOB_GAS_PER_BLOB;
+      }
+    };
+    CongestionAnalyzer = class {
+      analyze(shardStates, globalBaseFee, maxBaseFee, mempoolThreshold) {
+        const shardArray = Array.from(shardStates.values());
+        let totalUtilization = 0;
+        let shardCount = 0;
+        for (const state of shardArray) {
+          if (state.utilizationHistory.length > 0) {
+            const avgUtilization2 = state.utilizationHistory.reduce((a, b) => a + b, 0) / state.utilizationHistory.length;
+            totalUtilization += avgUtilization2;
+            shardCount++;
+          }
+        }
+        const avgUtilization = shardCount > 0 ? totalUtilization / shardCount : 0;
+        const utilizationScore = avgUtilization * 100;
+        const feeRatio = Number(globalBaseFee * BigInt(100) / maxBaseFee);
+        const feeScore = feeRatio;
+        let totalPending = 0;
+        for (const state of shardArray) {
+          totalPending += state.pendingCount;
+        }
+        const mempoolRatio = Math.min(totalPending / (mempoolThreshold * shardArray.length), 1);
+        const mempoolScore = mempoolRatio * 100;
+        let upwardTrends = 0;
+        for (const state of shardArray) {
+          if (state.trendDirection === "up") upwardTrends++;
+        }
+        const trendScore = shardArray.length > 0 ? upwardTrends / shardArray.length * 100 : 0;
+        const score = utilizationScore * 0.35 + feeScore * 0.25 + mempoolScore * 0.25 + trendScore * 0.15;
+        let level;
+        if (score < 25) level = "low";
+        else if (score < 50) level = "medium";
+        else if (score < 75) level = "high";
+        else level = "critical";
+        let recommendation;
+        let predictedDuration;
+        switch (level) {
+          case "low":
+            recommendation = "Network is operating normally. Low priority transactions will clear quickly.";
+            predictedDuration = 1;
+            break;
+          case "medium":
+            recommendation = "Moderate congestion. Consider using priority fees for faster confirmation.";
+            predictedDuration = 3;
+            break;
+          case "high":
+            recommendation = "High congestion. Recommend increasing priority fee or waiting for lower activity.";
+            predictedDuration = 10;
+            break;
+          case "critical":
+            recommendation = "Critical congestion. Only urgent transactions should be submitted. Consider significant priority fee increase.";
+            predictedDuration = 25;
+            break;
+        }
+        return {
+          level,
+          score,
+          breakdown: {
+            utilizationScore,
+            feeScore,
+            mempoolScore,
+            trendScore
+          },
+          recommendation,
+          predictedDuration
+        };
+      }
+    };
+    DEFAULT_FEE_CONFIG = {
+      minBaseFee: BigInt("1000000000"),
+      maxBaseFee: BigInt("500000000000"),
+      targetUtilization: 0.5,
+      baseFeeChangeDenominator: BigInt(8),
+      maxPriorityFeePerGas: BigInt("100000000000"),
+      elasticityMultiplier: 2,
+      historyWindowBlocks: 20,
+      crossShardHarmonizationWeight: 0.3,
+      mempoolBackpressureThreshold: 1e3,
+      surgePriceMultiplierMax: 10,
+      // Enterprise defaults
+      twapWindowBlocks: 20,
+      enableBlobFees: true,
+      blobBaseFee: BigInt("1000000000"),
+      blobTargetBlobsPerBlock: 3,
+      maxBlobsPerBlock: 6,
+      enablePrediction: true,
+      predictionHorizonBlocks: 5
+    };
+    GWEI = BigInt("1000000000");
+    AdaptiveFeeEngine = class extends EventEmitter8 {
+      config;
+      shardStates = /* @__PURE__ */ new Map();
+      globalBaseFee;
+      networkCongestionScore = 0;
+      totalPendingTransactions = 0;
+      // Enterprise components
+      predictionEngine;
+      blobFeeCalculator;
+      congestionAnalyzer;
+      globalBlobBaseFee;
+      metrics = {
+        totalFeeCalculations: 0,
+        averageBaseFee: BigInt(0),
+        peakBaseFee: BigInt(0),
+        baseFeeUpdates: 0,
+        backpressureEvents: 0,
+        harmonizationAdjustments: 0,
+        // Enterprise metrics
+        twapCalculations: 0,
+        predictions: 0,
+        blobFeeUpdates: 0,
+        accuratePredictions: 0,
+        predictionAccuracy: 0
+      };
+      constructor(config = {}) {
+        super();
+        this.config = { ...DEFAULT_FEE_CONFIG, ...config };
+        this.globalBaseFee = this.config.minBaseFee;
+        this.globalBlobBaseFee = this.config.blobBaseFee;
+        this.predictionEngine = new FeePredictionEngine(
+          this.config.twapWindowBlocks,
+          this.config.predictionHorizonBlocks
+        );
+        this.blobFeeCalculator = new BlobFeeCalculator();
+        this.congestionAnalyzer = new CongestionAnalyzer();
+      }
+      initializeShard(shardId, initialBaseFee) {
+        const baseFee = initialBaseFee || this.config.minBaseFee;
+        this.shardStates.set(shardId, {
+          currentBaseFee: baseFee,
+          utilizationHistory: [],
+          gasHistory: [],
+          baseFeeHistory: [{ fee: baseFee, timestamp: Date.now() }],
+          lastUpdateBlock: 0,
+          pendingCount: 0,
+          // Enterprise fields
+          twapBaseFee: baseFee,
+          volatility: 0,
+          trendDirection: "stable",
+          blobBaseFee: this.config.blobBaseFee,
+          blobGasHistory: []
+        });
+      }
+      processBlock(data) {
+        let state = this.shardStates.get(data.shardId);
+        if (!state) {
+          this.initializeShard(data.shardId);
+          state = this.shardStates.get(data.shardId);
+        }
+        const gasLimit = data.gasLimit > BigInt(0) ? data.gasLimit : BigInt(3e7);
+        const utilizationRate = Number(data.gasUsed * BigInt(1e4) / gasLimit) / 1e4;
+        state.utilizationHistory.push(utilizationRate);
+        state.gasHistory.push({ used: data.gasUsed, limit: gasLimit });
+        if (state.utilizationHistory.length > this.config.historyWindowBlocks) {
+          state.utilizationHistory.shift();
+          state.gasHistory.shift();
+        }
+        const newBaseFee = this.calculateNewBaseFee(state, utilizationRate);
+        const harmonizedFee = this.applyGlobalHarmonization(data.shardId, newBaseFee);
+        const finalFee = this.applyBackpressure(harmonizedFee, state.pendingCount);
+        state.currentBaseFee = finalFee;
+        state.lastUpdateBlock = data.blockHeight;
+        state.baseFeeHistory.push({ fee: finalFee, timestamp: data.timestamp });
+        if (state.baseFeeHistory.length > this.config.twapWindowBlocks * 2) {
+          state.baseFeeHistory.shift();
+        }
+        state.twapBaseFee = this.predictionEngine.calculateTWAP(state.baseFeeHistory);
+        this.metrics.twapCalculations++;
+        if (this.config.enablePrediction) {
+          const prediction = this.predictionEngine.predict(state);
+          state.volatility = prediction.volatility;
+          state.trendDirection = prediction.trendDirection;
+          this.metrics.predictions++;
+        }
+        if (this.config.enableBlobFees && data.blobGasUsed !== void 0 && data.blobGasLimit !== void 0) {
+          const blobGasTarget = data.blobGasLimit / BigInt(2);
+          state.blobBaseFee = this.blobFeeCalculator.calculateBlobBaseFee(
+            state.blobBaseFee,
+            data.blobGasUsed,
+            blobGasTarget
+          );
+          state.blobGasHistory.push({ used: data.blobGasUsed, limit: data.blobGasLimit });
+          if (state.blobGasHistory.length > this.config.historyWindowBlocks) {
+            state.blobGasHistory.shift();
+          }
+          this.metrics.blobFeeUpdates++;
+        }
+        this.updateGlobalMetrics();
+        this.metrics.baseFeeUpdates++;
+        this.emit("baseFeeUpdate", {
+          shardId: data.shardId,
+          blockHeight: data.blockHeight,
+          oldBaseFee: state.currentBaseFee.toString(),
+          newBaseFee: finalFee.toString(),
+          twapBaseFee: state.twapBaseFee.toString(),
+          utilizationRate,
+          trendDirection: state.trendDirection
+        });
+        return finalFee;
+      }
+      calculateNewBaseFee(state, currentUtilization) {
+        const currentBaseFee = state.currentBaseFee;
+        const targetUtilization = this.config.targetUtilization;
+        const utilizationDelta = currentUtilization - targetUtilization;
+        if (Math.abs(utilizationDelta) < 0.05) {
+          return currentBaseFee;
+        }
+        const denominator = this.config.baseFeeChangeDenominator;
+        let feeChange;
+        if (utilizationDelta > 0) {
+          const overUtilization = utilizationDelta / (1 - targetUtilization);
+          const changeMultiplier = BigInt(Math.floor(overUtilization * 100));
+          feeChange = currentBaseFee * changeMultiplier / (denominator * BigInt(100));
+        } else {
+          const underUtilization = Math.abs(utilizationDelta) / targetUtilization;
+          const changeMultiplier = BigInt(Math.floor(underUtilization * 100));
+          feeChange = currentBaseFee * changeMultiplier / (denominator * BigInt(100));
+          feeChange = -feeChange;
+        }
+        let newBaseFee = currentBaseFee + feeChange;
+        if (newBaseFee < this.config.minBaseFee) {
+          newBaseFee = this.config.minBaseFee;
+        } else if (newBaseFee > this.config.maxBaseFee) {
+          newBaseFee = this.config.maxBaseFee;
+        }
+        return newBaseFee;
+      }
+      applyGlobalHarmonization(shardId, localFee) {
+        const weight = this.config.crossShardHarmonizationWeight;
+        let totalFee = BigInt(0);
+        let count = 0;
+        const entries = Array.from(this.shardStates.entries());
+        for (const [id, state] of entries) {
+          if (id !== shardId) {
+            totalFee += state.currentBaseFee;
+            count++;
+          }
+        }
+        if (count === 0) {
+          return localFee;
+        }
+        const averageOtherFee = totalFee / BigInt(count);
+        const localWeight = BigInt(Math.floor((1 - weight) * 1e3));
+        const globalWeight = BigInt(Math.floor(weight * 1e3));
+        const harmonizedFee = (localFee * localWeight + averageOtherFee * globalWeight) / BigInt(1e3);
+        if (harmonizedFee !== localFee) {
+          this.metrics.harmonizationAdjustments++;
+        }
+        return harmonizedFee;
+      }
+      applyBackpressure(baseFee, pendingCount) {
+        if (pendingCount <= this.config.mempoolBackpressureThreshold) {
+          return baseFee;
+        }
+        const backpressureRatio = pendingCount / this.config.mempoolBackpressureThreshold;
+        const multiplier = Math.min(backpressureRatio, this.config.surgePriceMultiplierMax);
+        const surgedFee = baseFee * BigInt(Math.floor(multiplier * 100)) / BigInt(100);
+        this.metrics.backpressureEvents++;
+        return surgedFee > this.config.maxBaseFee ? this.config.maxBaseFee : surgedFee;
+      }
+      updateGlobalMetrics() {
+        let totalFee = BigInt(0);
+        let totalBlobFee = BigInt(0);
+        let maxFee = BigInt(0);
+        let count = 0;
+        const values = Array.from(this.shardStates.values());
+        for (const state of values) {
+          totalFee += state.currentBaseFee;
+          totalBlobFee += state.blobBaseFee;
+          if (state.currentBaseFee > maxFee) {
+            maxFee = state.currentBaseFee;
+          }
+          count++;
+        }
+        if (count > 0) {
+          this.globalBaseFee = totalFee / BigInt(count);
+          this.globalBlobBaseFee = totalBlobFee / BigInt(count);
+          this.metrics.averageBaseFee = this.globalBaseFee;
+          this.metrics.peakBaseFee = maxFee;
+        }
+        this.networkCongestionScore = this.calculateCongestionScore();
+      }
+      calculateCongestionScore() {
+        let totalUtilization = 0;
+        let count = 0;
+        const values = Array.from(this.shardStates.values());
+        for (const state of values) {
+          if (state.utilizationHistory.length > 0) {
+            const avgUtilization2 = state.utilizationHistory.reduce((a, b) => a + b, 0) / state.utilizationHistory.length;
+            totalUtilization += avgUtilization2;
+            count++;
+          }
+        }
+        if (count === 0) return 0;
+        const avgUtilization = totalUtilization / count;
+        const feeRatio = Number(this.globalBaseFee * BigInt(100) / this.config.maxBaseFee) / 100;
+        const pendingRatio = Math.min(
+          this.totalPendingTransactions / (this.config.mempoolBackpressureThreshold * this.shardStates.size),
+          1
+        );
+        return (avgUtilization * 0.4 + feeRatio * 0.3 + pendingRatio * 0.3) * 100;
+      }
+      updateMempoolState(shardId, pendingCount) {
+        const state = this.shardStates.get(shardId);
+        if (state) {
+          state.pendingCount = pendingCount;
+        }
+        this.totalPendingTransactions = 0;
+        const values = Array.from(this.shardStates.values());
+        for (const s of values) {
+          this.totalPendingTransactions += s.pendingCount;
+        }
+      }
+      estimateFee(shardId, priorityLevel = "medium") {
+        this.metrics.totalFeeCalculations++;
+        const state = this.shardStates.get(shardId);
+        const baseFee = state?.currentBaseFee || this.globalBaseFee;
+        const twapBaseFee = state?.twapBaseFee || baseFee;
+        const blobBaseFee = state?.blobBaseFee || this.globalBlobBaseFee;
+        let priorityMultiplier;
+        let estimatedWaitBlocks;
+        switch (priorityLevel) {
+          case "low":
+            priorityMultiplier = 0.8;
+            estimatedWaitBlocks = 10;
+            break;
+          case "high":
+            priorityMultiplier = 2;
+            estimatedWaitBlocks = 1;
+            break;
+          default:
+            priorityMultiplier = 1;
+            estimatedWaitBlocks = 3;
+        }
+        const priorityFee = BigInt(Math.floor(Number(GWEI) * 2 * priorityMultiplier));
+        const maxFee = baseFee * BigInt(2) + priorityFee;
+        let predictedBaseFee = baseFee;
+        let confidence = 0.5;
+        if (this.config.enablePrediction && state) {
+          const prediction = this.predictionEngine.predict(state);
+          predictedBaseFee = prediction.predictedBaseFee;
+          confidence = prediction.confidence;
+        }
+        let congestionLevel;
+        if (this.networkCongestionScore < 25) {
+          congestionLevel = "low";
+        } else if (this.networkCongestionScore < 50) {
+          congestionLevel = "medium";
+        } else if (this.networkCongestionScore < 75) {
+          congestionLevel = "high";
+        } else {
+          congestionLevel = "critical";
+        }
+        return {
+          baseFee,
+          priorityFee,
+          maxFee,
+          estimatedWaitBlocks,
+          congestionLevel,
+          twapBaseFee,
+          predictedBaseFee,
+          blobBaseFee,
+          confidence
+        };
+      }
+      getCongestionAnalysis() {
+        return this.congestionAnalyzer.analyze(
+          this.shardStates,
+          this.globalBaseFee,
+          this.config.maxBaseFee,
+          this.config.mempoolBackpressureThreshold
+        );
+      }
+      getShardPrediction(shardId) {
+        const state = this.shardStates.get(shardId);
+        if (!state) return null;
+        return this.predictionEngine.predict(state);
+      }
+      getShardFeeState(shardId) {
+        return this.shardStates.get(shardId);
+      }
+      getGlobalBaseFee() {
+        return this.globalBaseFee;
+      }
+      getGlobalBlobBaseFee() {
+        return this.globalBlobBaseFee;
+      }
+      getNetworkCongestionScore() {
+        return this.networkCongestionScore;
+      }
+      getMetrics() {
+        return {
+          ...this.metrics,
+          averageBaseFee: this.metrics.averageBaseFee,
+          peakBaseFee: this.metrics.peakBaseFee,
+          globalBaseFee: this.globalBaseFee.toString(),
+          globalBlobBaseFee: this.globalBlobBaseFee.toString(),
+          congestionScore: this.networkCongestionScore,
+          totalShards: this.shardStates.size,
+          totalPendingTransactions: this.totalPendingTransactions
+        };
+      }
+      getAllShardFees() {
+        const result = [];
+        const entries = Array.from(this.shardStates.entries());
+        for (const [shardId, state] of entries) {
+          const avgUtilization = state.utilizationHistory.length > 0 ? state.utilizationHistory.reduce((a, b) => a + b, 0) / state.utilizationHistory.length : 0;
+          result.push({
+            shardId,
+            baseFee: state.currentBaseFee.toString(),
+            twapBaseFee: state.twapBaseFee.toString(),
+            blobBaseFee: state.blobBaseFee.toString(),
+            utilization: avgUtilization,
+            pending: state.pendingCount,
+            trend: state.trendDirection
+          });
+        }
+        return result;
+      }
+    };
+    feeEngineInstance = null;
+  }
+});
+
+// server/services/blockchain-orchestrator.ts
+import { EventEmitter as EventEmitter9 } from "events";
+function getBlockchainOrchestrator() {
+  if (!orchestratorInstance) {
+    orchestratorInstance = new BlockchainOrchestrator();
+  }
+  return orchestratorInstance;
+}
+async function initializeBlockchainOrchestrator(config) {
+  if (!orchestratorInitialized) {
+    if (orchestratorInstance) {
+      console.log("\u{1F504} BlockchainOrchestrator: Re-initializing with config...");
+    }
+    orchestratorInstance = new BlockchainOrchestrator(config);
+    await orchestratorInstance.initialize();
+    orchestratorInitialized = true;
+    console.log("\u2705 BlockchainOrchestrator: Fully initialized");
+  }
+  return orchestratorInstance;
+}
+async function shutdownBlockchainOrchestrator() {
+  if (orchestratorInstance) {
+    await orchestratorInstance.shutdown();
+    orchestratorInstance = null;
+    orchestratorInitialized = false;
+  }
+}
+var DEFAULT_ORCHESTRATOR_CONFIG, CircuitBreaker, AlertManager, BlockchainOrchestrator, orchestratorInstance, orchestratorInitialized;
+var init_blockchain_orchestrator = __esm({
+  "server/services/blockchain-orchestrator.ts"() {
+    "use strict";
+    init_worker_pool();
+    init_persistence_batcher();
+    init_adaptive_fee_engine();
+    DEFAULT_ORCHESTRATOR_CONFIG = {
+      shardCount: 5,
+      validatorsPerShard: 25,
+      blockTimeMs: 100,
+      enableWorkerThreads: true,
+      enableBatchPersistence: true,
+      enableAdaptiveFees: true,
+      batchFlushIntervalMs: 1e3,
+      workerPoolMinSize: 2,
+      workerPoolMaxSize: 4,
+      // Enterprise defaults
+      enableCircuitBreaker: true,
+      enableHealthChecks: true,
+      enableAlerts: true,
+      healthCheckIntervalMs: 1e4,
+      circuitBreakerThreshold: 5,
+      circuitBreakerResetTimeMs: 3e4
+    };
+    CircuitBreaker = class {
+      constructor(threshold = 5, resetTimeMs = 3e4, onStateChange) {
+        this.threshold = threshold;
+        this.resetTimeMs = resetTimeMs;
+        this.onStateChange = onStateChange;
+      }
+      state = {
+        state: "CLOSED",
+        failures: 0,
+        lastFailureTime: 0,
+        successesSinceHalfOpen: 0,
+        totalTrips: 0,
+        lastTripTime: 0
+      };
+      async execute(operation) {
+        if (this.state.state === "OPEN") {
+          if (Date.now() - this.state.lastFailureTime >= this.resetTimeMs) {
+            this.transition("HALF_OPEN");
+          } else {
+            throw new Error("Circuit breaker is OPEN - operation blocked");
+          }
+        }
+        try {
+          const result = await operation();
+          this.onSuccess();
+          return result;
+        } catch (error) {
+          this.onFailure();
+          throw error;
+        }
+      }
+      onSuccess() {
+        if (this.state.state === "HALF_OPEN") {
+          this.state.successesSinceHalfOpen++;
+          if (this.state.successesSinceHalfOpen >= 3) {
+            this.transition("CLOSED");
+          }
+        }
+        this.state.failures = 0;
+      }
+      onFailure() {
+        this.state.failures++;
+        this.state.lastFailureTime = Date.now();
+        if (this.state.failures >= this.threshold) {
+          this.transition("OPEN");
+          this.state.totalTrips++;
+          this.state.lastTripTime = Date.now();
+        }
+      }
+      transition(newState) {
+        const oldState = this.state.state;
+        this.state.state = newState;
+        this.state.successesSinceHalfOpen = 0;
+        if (this.onStateChange) {
+          this.onStateChange(oldState, newState);
+        }
+      }
+      getState() {
+        return { ...this.state };
+      }
+      reset() {
+        this.state = {
+          state: "CLOSED",
+          failures: 0,
+          lastFailureTime: 0,
+          successesSinceHalfOpen: 0,
+          totalTrips: this.state.totalTrips,
+          lastTripTime: this.state.lastTripTime
+        };
+      }
+    };
+    AlertManager = class {
+      constructor(emitter) {
+        this.emitter = emitter;
+      }
+      alerts = [];
+      config = {
+        maxAlerts: 1e3,
+        deduplicationWindowMs: 6e4,
+        escalationThresholds: {
+          info: 10,
+          warning: 5,
+          error: 3,
+          critical: 1
+        }
+      };
+      raise(severity, component, message, metadata = {}) {
+        const now = Date.now();
+        const isDuplicate = this.alerts.some(
+          (a) => a.component === component && a.message === message && now - a.timestamp < this.config.deduplicationWindowMs
+        );
+        if (isDuplicate) {
+          return this.alerts.find((a) => a.component === component && a.message === message);
+        }
+        const alert = {
+          id: `alert-${now}-${Math.random().toString(36).substr(2, 9)}`,
+          severity,
+          component,
+          message,
+          timestamp: now,
+          acknowledged: false,
+          metadata
+        };
+        this.alerts.unshift(alert);
+        if (this.alerts.length > this.config.maxAlerts) {
+          this.alerts = this.alerts.slice(0, this.config.maxAlerts);
+        }
+        this.emitter.emit("alert", alert);
+        return alert;
+      }
+      acknowledge(alertId) {
+        const alert = this.alerts.find((a) => a.id === alertId);
+        if (alert) {
+          alert.acknowledged = true;
+          return true;
+        }
+        return false;
+      }
+      getActiveAlerts(severity) {
+        let filtered = this.alerts.filter((a) => !a.acknowledged);
+        if (severity) {
+          filtered = filtered.filter((a) => a.severity === severity);
+        }
+        return filtered;
+      }
+      getAlertStats() {
+        const byPriority = { info: 0, warning: 0, error: 0, critical: 0 };
+        for (const alert of this.alerts) {
+          byPriority[alert.severity]++;
+        }
+        return {
+          total: this.alerts.length,
+          byPriority,
+          unacknowledged: this.alerts.filter((a) => !a.acknowledged).length
+        };
+      }
+      clearOldAlerts(maxAgeMs = 864e5) {
+        const cutoff = Date.now() - maxAgeMs;
+        const before = this.alerts.length;
+        this.alerts = this.alerts.filter((a) => a.timestamp > cutoff || !a.acknowledged);
+        return before - this.alerts.length;
+      }
+    };
+    BlockchainOrchestrator = class extends EventEmitter9 {
+      config;
+      workerPool = null;
+      persistenceBatcher = null;
+      feeEngine = null;
+      isRunning = false;
+      blockProductionInterval = null;
+      healthCheckInterval = null;
+      currentBlockHeight = 1245678;
+      currentEpoch = 1;
+      currentRound = 1;
+      recentBlockTimes = [];
+      lastBlockTimestamp = 0;
+      startTime = 0;
+      // Enterprise components
+      circuitBreaker = null;
+      alertManager;
+      systemHealth;
+      metrics = {
+        blocksProduced: 0,
+        consensusRoundsCompleted: 0,
+        crossShardMessagesProcessed: 0,
+        averageBlockTime: 100,
+        currentTps: 0,
+        averageGasPrice: "1000000000",
+        networkCongestion: 0,
+        activeWorkers: 0,
+        pendingPersistence: 0,
+        // Enterprise metrics
+        blockTimeP50: 100,
+        blockTimeP95: 100,
+        blockTimeP99: 100,
+        failedBlocks: 0,
+        circuitBreakerTrips: 0,
+        healthCheckLatency: 0,
+        uptimeSeconds: 0
+      };
+      blockProductionStats = {
+        totalBlocks: 0,
+        successfulBlocks: 0,
+        failedBlocks: 0,
+        averageBlockTime: 0,
+        minBlockTime: Infinity,
+        maxBlockTime: 0,
+        blockTimesP50: 0,
+        blockTimesP95: 0,
+        blockTimesP99: 0,
+        gasUtilization: 0,
+        transactionsPerBlock: 0
+      };
+      constructor(config = {}) {
+        super();
+        this.config = { ...DEFAULT_ORCHESTRATOR_CONFIG, ...config };
+        this.alertManager = new AlertManager(this);
+        this.systemHealth = {
+          overall: "healthy",
+          components: [],
+          uptime: 0,
+          lastFullCheck: 0
+        };
+      }
+      async initialize() {
+        console.log("\u{1F680} BlockchainOrchestrator: Initializing enterprise-grade blockchain services...");
+        this.startTime = Date.now();
+        if (this.config.enableCircuitBreaker) {
+          this.circuitBreaker = new CircuitBreaker(
+            this.config.circuitBreakerThreshold,
+            this.config.circuitBreakerResetTimeMs,
+            (oldState, newState) => {
+              console.log(`\u{1F50C} Circuit Breaker: ${oldState} \u2192 ${newState}`);
+              if (newState === "OPEN") {
+                this.metrics.circuitBreakerTrips++;
+                this.alertManager.raise(
+                  "critical",
+                  "CircuitBreaker",
+                  "Circuit breaker tripped due to consecutive failures",
+                  { oldState, newState }
+                );
+              }
+            }
+          );
+        }
+        if (this.config.enableWorkerThreads) {
+          try {
+            this.workerPool = await initializeWorkerPool({
+              minWorkers: this.config.workerPoolMinSize,
+              maxWorkers: this.config.workerPoolMaxSize
+            });
+            console.log("\u2705 Worker thread pool initialized");
+          } catch (error) {
+            console.warn("\u26A0\uFE0F Worker threads not available, falling back to main thread:", error);
+            this.config.enableWorkerThreads = false;
+          }
+        }
+        if (this.config.enableBatchPersistence) {
+          this.persistenceBatcher = initializePersistenceBatcher({
+            flushIntervalMs: this.config.batchFlushIntervalMs,
+            maxBufferSize: 50
+          });
+          console.log("\u2705 Batch persistence system initialized");
+        }
+        if (this.config.enableAdaptiveFees) {
+          this.feeEngine = initializeAdaptiveFeeEngine({}, this.config.shardCount);
+          console.log("\u2705 Adaptive fee engine initialized");
+        }
+        if (this.config.enableHealthChecks) {
+          this.startHealthCheckLoop();
+          console.log("\u2705 Health check system initialized");
+        }
+        console.log("\u{1F3AF} BlockchainOrchestrator: All systems ready");
+        console.log(`   - Shards: ${this.config.shardCount}`);
+        console.log(`   - Validators: ${this.config.shardCount * this.config.validatorsPerShard}`);
+        console.log(`   - Block time: ${this.config.blockTimeMs}ms`);
+        console.log(`   - Worker threads: ${this.config.enableWorkerThreads ? "enabled" : "disabled"}`);
+        console.log(`   - Batch persistence: ${this.config.enableBatchPersistence ? "enabled" : "disabled"}`);
+        console.log(`   - Adaptive fees: ${this.config.enableAdaptiveFees ? "enabled" : "disabled"}`);
+        console.log(`   - Circuit breaker: ${this.config.enableCircuitBreaker ? "enabled" : "disabled"}`);
+        console.log(`   - Health checks: ${this.config.enableHealthChecks ? "enabled" : "disabled"}`);
+        console.log(`   - Alerts: ${this.config.enableAlerts ? "enabled" : "disabled"}`);
+      }
+      startHealthCheckLoop() {
+        this.healthCheckInterval = setInterval(() => {
+          this.performHealthCheck().catch((error) => {
+            console.error("Health check error:", error);
+          });
+        }, this.config.healthCheckIntervalMs);
+      }
+      async performHealthCheck() {
+        const checkStart = Date.now();
+        const components = [];
+        if (this.config.enableWorkerThreads && this.workerPool) {
+          const workerMetrics = this.workerPool.getMetrics();
+          components.push({
+            name: "WorkerPool",
+            status: workerMetrics.activeWorkers > 0 ? "healthy" : "degraded",
+            lastCheck: Date.now(),
+            latencyMs: 0,
+            details: workerMetrics,
+            consecutiveFailures: 0
+          });
+        }
+        if (this.config.enableBatchPersistence && this.persistenceBatcher) {
+          const batcherMetrics = this.persistenceBatcher.getMetrics();
+          const pendingTotal = batcherMetrics.pendingBlocks + batcherMetrics.pendingConsensusRounds;
+          components.push({
+            name: "PersistenceBatcher",
+            status: batcherMetrics.totalErrors === 0 ? "healthy" : batcherMetrics.totalErrors < 5 ? "degraded" : "unhealthy",
+            lastCheck: Date.now(),
+            latencyMs: batcherMetrics.averageFlushDuration,
+            details: batcherMetrics,
+            consecutiveFailures: batcherMetrics.totalErrors
+          });
+        }
+        if (this.config.enableAdaptiveFees && this.feeEngine) {
+          const feeMetrics = this.feeEngine.getMetrics();
+          components.push({
+            name: "AdaptiveFeeEngine",
+            status: feeMetrics.congestionScore < 75 ? "healthy" : feeMetrics.congestionScore < 90 ? "degraded" : "unhealthy",
+            lastCheck: Date.now(),
+            latencyMs: 0,
+            details: feeMetrics,
+            consecutiveFailures: 0
+          });
+        }
+        if (this.config.enableCircuitBreaker && this.circuitBreaker) {
+          const cbState = this.circuitBreaker.getState();
+          components.push({
+            name: "CircuitBreaker",
+            status: cbState.state === "CLOSED" ? "healthy" : cbState.state === "HALF_OPEN" ? "degraded" : "unhealthy",
+            lastCheck: Date.now(),
+            latencyMs: 0,
+            details: { ...cbState },
+            consecutiveFailures: cbState.failures
+          });
+        }
+        const unhealthyCount = components.filter((c) => c.status === "unhealthy" || c.status === "critical").length;
+        const degradedCount = components.filter((c) => c.status === "degraded").length;
+        let overall = "healthy";
+        if (unhealthyCount > 0) overall = "unhealthy";
+        else if (degradedCount > 1) overall = "degraded";
+        this.systemHealth = {
+          overall,
+          components,
+          uptime: (Date.now() - this.startTime) / 1e3,
+          lastFullCheck: Date.now()
+        };
+        this.metrics.healthCheckLatency = Date.now() - checkStart;
+        this.metrics.uptimeSeconds = Math.floor((Date.now() - this.startTime) / 1e3);
+        this.emit("healthCheck", this.systemHealth);
+        if (overall === "unhealthy" && this.config.enableAlerts) {
+          this.alertManager.raise(
+            "error",
+            "SystemHealth",
+            `System health degraded: ${unhealthyCount} unhealthy components`,
+            { components: components.filter((c) => c.status === "unhealthy").map((c) => c.name) }
+          );
+        }
+      }
+      async start() {
+        if (this.isRunning) return;
+        this.isRunning = true;
+        this.lastBlockTimestamp = Date.now();
+        console.log("\u25B6\uFE0F BlockchainOrchestrator: Starting block production");
+        this.blockProductionInterval = setInterval(() => {
+          this.produceBlockCycle().catch((error) => {
+            console.error("Block production error:", error);
+            this.metrics.failedBlocks++;
+          });
+        }, this.config.blockTimeMs);
+      }
+      async stop() {
+        if (!this.isRunning) return;
+        this.isRunning = false;
+        if (this.blockProductionInterval) {
+          clearInterval(this.blockProductionInterval);
+          this.blockProductionInterval = null;
+        }
+        console.log("\u23F9\uFE0F BlockchainOrchestrator: Stopped block production");
+      }
+      async produceBlockCycle() {
+        const cycleStart = Date.now();
+        const shardId = this.currentBlockHeight % this.config.shardCount;
+        const executeBlock = async () => {
+          const transactions3 = this.generateMockTransactions(shardId);
+          const blockRequest = {
+            blockHeight: this.currentBlockHeight,
+            parentHash: this.generateParentHash(),
+            shardId,
+            transactions: transactions3,
+            proposerValidatorId: `validator-${Math.floor(Math.random() * this.config.validatorsPerShard)}`,
+            epoch: this.currentEpoch,
+            round: this.currentRound
+          };
+          let blockResult;
+          if (this.config.enableWorkerThreads && this.workerPool) {
+            blockResult = await this.workerPool.processBlock(blockRequest);
+          } else {
+            blockResult = this.processBlockLocally(blockRequest);
+          }
+          if (blockResult.success) {
+            if (this.config.enableAdaptiveFees && this.feeEngine) {
+              this.feeEngine.processBlock({
+                blockHeight: this.currentBlockHeight,
+                shardId,
+                baseFee: BigInt("1000000000"),
+                gasUsed: BigInt(blockResult.gasUsed),
+                gasLimit: BigInt(3e7),
+                timestamp: Date.now()
+              });
+            }
+            if (this.config.enableBatchPersistence && this.persistenceBatcher) {
+              this.persistenceBatcher.addBlock({
+                blockHash: blockResult.blockHash,
+                blockHeight: blockResult.blockHeight,
+                shardId: blockResult.shardId,
+                parentHash: blockRequest.parentHash,
+                stateRoot: blockResult.stateRoot,
+                transactionsRoot: blockResult.transactionsRoot,
+                receiptsRoot: blockResult.receiptsRoot,
+                gasUsed: blockResult.gasUsed,
+                gasLimit: 3e7,
+                timestamp: /* @__PURE__ */ new Date(),
+                proposer: blockRequest.proposerValidatorId,
+                signature: "0x" + "0".repeat(128),
+                transactionCount: transactions3.length,
+                size: 1024 + transactions3.length * 256
+              });
+            }
+            this.metrics.blocksProduced++;
+            this.blockProductionStats.successfulBlocks++;
+            this.currentBlockHeight++;
+            this.currentRound++;
+            if (this.currentRound > 600) {
+              this.currentRound = 1;
+              this.currentEpoch++;
+            }
+          } else {
+            this.blockProductionStats.failedBlocks++;
+          }
+          this.blockProductionStats.totalBlocks++;
+          return blockResult;
+        };
+        try {
+          if (this.config.enableCircuitBreaker && this.circuitBreaker) {
+            await this.circuitBreaker.execute(executeBlock);
+          } else {
+            await executeBlock();
+          }
+          const blockTime = Date.now() - cycleStart;
+          this.updateBlockTimeMetrics(blockTime);
+          this.emit("blockProduced", {
+            blockHeight: this.currentBlockHeight - 1,
+            shardId,
+            blockTime,
+            epoch: this.currentEpoch,
+            round: this.currentRound
+          });
+        } catch (error) {
+          this.metrics.failedBlocks++;
+          this.blockProductionStats.failedBlocks++;
+          if (this.config.enableAlerts) {
+            this.alertManager.raise(
+              "error",
+              "BlockProduction",
+              `Block production failed: ${error instanceof Error ? error.message : "Unknown error"}`,
+              { blockHeight: this.currentBlockHeight, shardId }
+            );
+          }
+        }
+      }
+      updateBlockTimeMetrics(blockTime) {
+        this.recentBlockTimes.push(blockTime);
+        if (this.recentBlockTimes.length > 1e3) {
+          this.recentBlockTimes.shift();
+        }
+        this.metrics.averageBlockTime = this.recentBlockTimes.reduce((a, b) => a + b, 0) / this.recentBlockTimes.length;
+        const sorted = [...this.recentBlockTimes].sort((a, b) => a - b);
+        const len = sorted.length;
+        this.metrics.blockTimeP50 = sorted[Math.floor(len * 0.5)] || 100;
+        this.metrics.blockTimeP95 = sorted[Math.floor(len * 0.95)] || 100;
+        this.metrics.blockTimeP99 = sorted[Math.floor(len * 0.99)] || 100;
+        this.blockProductionStats.averageBlockTime = this.metrics.averageBlockTime;
+        this.blockProductionStats.minBlockTime = Math.min(this.blockProductionStats.minBlockTime, blockTime);
+        this.blockProductionStats.maxBlockTime = Math.max(this.blockProductionStats.maxBlockTime, blockTime);
+        this.blockProductionStats.blockTimesP50 = this.metrics.blockTimeP50;
+        this.blockProductionStats.blockTimesP95 = this.metrics.blockTimeP95;
+        this.blockProductionStats.blockTimesP99 = this.metrics.blockTimeP99;
+      }
+      generateMockTransactions(shardId) {
+        const count = Math.floor(Math.random() * 50) + 10;
+        const transactions3 = [];
+        for (let i = 0; i < count; i++) {
+          transactions3.push({
+            hash: `0x${Math.random().toString(16).slice(2)}${Math.random().toString(16).slice(2)}`,
+            from: `0x${Math.random().toString(16).slice(2, 42)}`,
+            to: `0x${Math.random().toString(16).slice(2, 42)}`,
+            value: (Math.random() * 100).toFixed(4),
+            gasPrice: "1000000000",
+            gasLimit: 21e3 + Math.floor(Math.random() * 5e4),
+            nonce: Math.floor(Math.random() * 1e3),
+            shardId
+          });
+        }
+        return transactions3;
+      }
+      generateParentHash() {
+        return `0x${Array.from(
+          { length: 64 },
+          () => Math.floor(Math.random() * 16).toString(16)
+        ).join("")}`;
+      }
+      processBlockLocally(request2) {
+        const gasUsed = request2.transactions.reduce((sum, tx) => sum + tx.gasLimit, 0);
+        return {
+          blockHash: this.generateParentHash(),
+          blockHeight: request2.blockHeight,
+          shardId: request2.shardId,
+          stateRoot: this.generateParentHash(),
+          transactionsRoot: this.generateParentHash(),
+          receiptsRoot: this.generateParentHash(),
+          gasUsed,
+          timestamp: Date.now(),
+          success: true
+        };
+      }
+      // ============================================================================
+      // Public API Methods
+      // ============================================================================
+      getMetrics() {
+        if (this.workerPool) {
+          const poolMetrics = this.workerPool.getMetrics();
+          this.metrics.activeWorkers = poolMetrics.activeWorkers;
+        }
+        if (this.persistenceBatcher) {
+          const batcherMetrics = this.persistenceBatcher.getMetrics();
+          this.metrics.pendingPersistence = batcherMetrics.pendingBlocks + batcherMetrics.pendingConsensusRounds + batcherMetrics.pendingCrossShardMessages;
+        }
+        if (this.feeEngine) {
+          const feeMetrics = this.feeEngine.getMetrics();
+          this.metrics.averageGasPrice = feeMetrics.globalBaseFee;
+          this.metrics.networkCongestion = feeMetrics.congestionScore;
+        }
+        this.metrics.uptimeSeconds = Math.floor((Date.now() - this.startTime) / 1e3);
+        return { ...this.metrics };
+      }
+      getBlockProductionStats() {
+        return { ...this.blockProductionStats };
+      }
+      getSystemHealth() {
+        return { ...this.systemHealth };
+      }
+      getCircuitBreakerState() {
+        return this.circuitBreaker?.getState() || null;
+      }
+      getActiveAlerts(severity) {
+        return this.alertManager.getActiveAlerts(severity);
+      }
+      getAlertStats() {
+        return this.alertManager.getAlertStats();
+      }
+      acknowledgeAlert(alertId) {
+        return this.alertManager.acknowledge(alertId);
+      }
+      getDetailedStatus() {
+        return {
+          orchestrator: this.getMetrics(),
+          workerPool: this.workerPool?.getMetrics() || null,
+          persistenceBatcher: this.persistenceBatcher?.getMetrics() || null,
+          feeEngine: this.feeEngine?.getMetrics() || null,
+          systemHealth: this.systemHealth,
+          circuitBreaker: this.circuitBreaker?.getState() || null,
+          alertStats: this.alertManager.getAlertStats()
+        };
+      }
+      getCurrentBlockHeight() {
+        return this.currentBlockHeight;
+      }
+      getCurrentEpoch() {
+        return this.currentEpoch;
+      }
+      getConfig() {
+        return { ...this.config };
+      }
+      async shutdown() {
+        console.log("\u{1F6D1} BlockchainOrchestrator: Shutting down...");
+        if (this.healthCheckInterval) {
+          clearInterval(this.healthCheckInterval);
+          this.healthCheckInterval = null;
+        }
+        await this.stop();
+        if (this.config.enableBatchPersistence) {
+          await shutdownPersistenceBatcher();
+        }
+        if (this.config.enableWorkerThreads) {
+          await shutdownWorkerPool();
+        }
+        console.log("\u2705 BlockchainOrchestrator: Shutdown complete");
+      }
+    };
+    orchestratorInstance = null;
+    orchestratorInitialized = false;
+  }
+});
+
+// server/routes/scalability-routes.ts
+import rateLimit from "express-rate-limit";
+function registerScalabilityRoutes(app3) {
+  app3.get("/api/enterprise/scalability/status", scalabilityLimiter, async (req, res) => {
+    try {
+      const orchestrator = getBlockchainOrchestrator();
+      const status = orchestrator.getDetailedStatus();
+      res.json({
+        success: true,
+        data: {
+          timestamp: Date.now(),
+          orchestrator: status.orchestrator,
+          workerPool: status.workerPool,
+          persistenceBatcher: status.persistenceBatcher,
+          feeEngine: status.feeEngine,
+          systemHealth: status.systemHealth,
+          circuitBreaker: status.circuitBreaker,
+          alertStats: status.alertStats
+        }
+      });
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        error: error instanceof Error ? error.message : "Unknown error"
+      });
+    }
+  });
+  app3.get("/api/enterprise/scalability/health", scalabilityLimiter, async (req, res) => {
+    try {
+      const orchestrator = getBlockchainOrchestrator();
+      const health = orchestrator.getSystemHealth();
+      const statusCode = health.overall === "healthy" ? 200 : health.overall === "degraded" ? 207 : 503;
+      res.status(statusCode).json({
+        success: health.overall !== "critical",
+        data: {
+          overall: health.overall,
+          uptime: health.uptime,
+          lastFullCheck: health.lastFullCheck,
+          components: health.components.map((c) => ({
+            name: c.name,
+            status: c.status,
+            latencyMs: c.latencyMs,
+            consecutiveFailures: c.consecutiveFailures
+          }))
+        }
+      });
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        error: error instanceof Error ? error.message : "Unknown error"
+      });
+    }
+  });
+  app3.get("/api/enterprise/scalability/alerts", scalabilityLimiter, async (req, res) => {
+    try {
+      const orchestrator = getBlockchainOrchestrator();
+      const severity = req.query.severity;
+      const alerts = orchestrator.getActiveAlerts(severity);
+      const stats = orchestrator.getAlertStats();
+      res.json({
+        success: true,
+        data: {
+          stats,
+          alerts: alerts.slice(0, 100)
+        }
+      });
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        error: error instanceof Error ? error.message : "Unknown error"
+      });
+    }
+  });
+  app3.post("/api/enterprise/scalability/alerts/:alertId/acknowledge", scalabilityLimiter, async (req, res) => {
+    try {
+      const orchestrator = getBlockchainOrchestrator();
+      const acknowledged = orchestrator.acknowledgeAlert(req.params.alertId);
+      res.json({
+        success: acknowledged,
+        message: acknowledged ? "Alert acknowledged" : "Alert not found"
+      });
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        error: error instanceof Error ? error.message : "Unknown error"
+      });
+    }
+  });
+  app3.get("/api/enterprise/scalability/circuit-breaker", scalabilityLimiter, async (req, res) => {
+    try {
+      const orchestrator = getBlockchainOrchestrator();
+      const cbState = orchestrator.getCircuitBreakerState();
+      res.json({
+        success: true,
+        data: cbState ? {
+          enabled: true,
+          ...cbState
+        } : {
+          enabled: false,
+          message: "Circuit breaker is not enabled"
+        }
+      });
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        error: error instanceof Error ? error.message : "Unknown error"
+      });
+    }
+  });
+  app3.get("/api/enterprise/scalability/worker-pool", scalabilityLimiter, async (req, res) => {
+    try {
+      const orchestrator = getBlockchainOrchestrator();
+      const status = orchestrator.getDetailedStatus();
+      if (!status.workerPool) {
+        res.json({
+          success: true,
+          data: {
+            enabled: false,
+            message: "Worker pool is not enabled"
+          }
+        });
+        return;
+      }
+      res.json({
+        success: true,
+        data: {
+          enabled: true,
+          metrics: status.workerPool
+        }
+      });
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        error: error instanceof Error ? error.message : "Unknown error"
+      });
+    }
+  });
+  app3.get("/api/enterprise/scalability/persistence", scalabilityLimiter, async (req, res) => {
+    try {
+      const batcher = getPersistenceBatcher();
+      const metrics = batcher.getMetrics();
+      const dlqStats = batcher.getDeadLetterQueueStats();
+      const walStats = batcher.getWALStats();
+      const priorityStats = batcher.getPriorityQueueStats();
+      res.json({
+        success: true,
+        data: {
+          enabled: true,
+          metrics: {
+            totalBlocksWritten: metrics.totalBlocksWritten,
+            totalConsensusRoundsWritten: metrics.totalConsensusRoundsWritten,
+            totalCrossShardWritten: metrics.totalCrossShardWritten,
+            totalFlushes: metrics.totalFlushes,
+            totalErrors: metrics.totalErrors,
+            averageFlushDuration: metrics.averageFlushDuration,
+            lastFlushTime: metrics.lastFlushTime,
+            successfulRetries: metrics.successfulRetries,
+            failedRetries: metrics.failedRetries,
+            pending: {
+              blocks: metrics.pendingBlocks,
+              consensusRounds: metrics.pendingConsensusRounds,
+              shardMetrics: metrics.pendingShardMetrics,
+              crossShardMessages: metrics.pendingCrossShardMessages,
+              networkMetrics: metrics.pendingNetworkMetrics
+            }
+          },
+          enterprise: {
+            deadLetterQueue: dlqStats,
+            writeAheadLog: walStats,
+            priorityQueue: priorityStats,
+            ringBufferUtilization: metrics.ringBufferUtilization
+          }
+        }
+      });
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        error: error instanceof Error ? error.message : "Unknown error"
+      });
+    }
+  });
+  app3.post("/api/enterprise/scalability/persistence/retry-dlq", scalabilityLimiter, async (req, res) => {
+    try {
+      const batcher = getPersistenceBatcher();
+      const count = typeof req.body?.count === "number" ? req.body.count : 10;
+      const retried = batcher.retryDeadLetterItems(count);
+      res.json({
+        success: true,
+        data: {
+          retriedCount: retried
+        }
+      });
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        error: error instanceof Error ? error.message : "Unknown error"
+      });
+    }
+  });
+  app3.get("/api/enterprise/scalability/gas-fees", scalabilityLimiter, async (req, res) => {
+    try {
+      const feeEngine = getAdaptiveFeeEngine();
+      const metrics = feeEngine.getMetrics();
+      const shardFees = feeEngine.getAllShardFees();
+      const congestionAnalysis = feeEngine.getCongestionAnalysis();
+      res.json({
+        success: true,
+        data: {
+          globalBaseFee: metrics.globalBaseFee,
+          globalBaseFeeGwei: (BigInt(metrics.globalBaseFee) / BigInt("1000000000")).toString(),
+          globalBlobBaseFee: metrics.globalBlobBaseFee,
+          congestionScore: metrics.congestionScore,
+          totalShards: metrics.totalShards,
+          totalPendingTransactions: metrics.totalPendingTransactions,
+          metrics: {
+            totalFeeCalculations: metrics.totalFeeCalculations,
+            baseFeeUpdates: metrics.baseFeeUpdates,
+            backpressureEvents: metrics.backpressureEvents,
+            harmonizationAdjustments: metrics.harmonizationAdjustments,
+            twapCalculations: metrics.twapCalculations,
+            predictions: metrics.predictions,
+            blobFeeUpdates: metrics.blobFeeUpdates
+          },
+          congestionAnalysis,
+          shardFees
+        }
+      });
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        error: error instanceof Error ? error.message : "Unknown error"
+      });
+    }
+  });
+  app3.get("/api/enterprise/scalability/fee-estimate/:shardId", scalabilityLimiter, async (req, res) => {
+    try {
+      const shardId = parseInt(req.params.shardId, 10);
+      const priority = req.query.priority || "medium";
+      if (isNaN(shardId)) {
+        res.status(400).json({
+          success: false,
+          error: "Invalid shard ID"
+        });
+        return;
+      }
+      const feeEngine = getAdaptiveFeeEngine();
+      const estimate = feeEngine.estimateFee(shardId, priority);
+      const prediction = feeEngine.getShardPrediction(shardId);
+      res.json({
+        success: true,
+        data: {
+          shardId,
+          priority,
+          baseFee: estimate.baseFee.toString(),
+          baseFeeGwei: (estimate.baseFee / BigInt("1000000000")).toString(),
+          priorityFee: estimate.priorityFee.toString(),
+          priorityFeeGwei: (estimate.priorityFee / BigInt("1000000000")).toString(),
+          maxFee: estimate.maxFee.toString(),
+          maxFeeGwei: (estimate.maxFee / BigInt("1000000000")).toString(),
+          estimatedWaitBlocks: estimate.estimatedWaitBlocks,
+          estimatedWaitMs: estimate.estimatedWaitBlocks * 100,
+          congestionLevel: estimate.congestionLevel,
+          twapBaseFee: estimate.twapBaseFee.toString(),
+          predictedBaseFee: estimate.predictedBaseFee.toString(),
+          blobBaseFee: estimate.blobBaseFee.toString(),
+          confidence: estimate.confidence,
+          prediction: prediction ? {
+            trendDirection: prediction.trendDirection,
+            volatility: prediction.volatility,
+            predictedCongestion: prediction.predictedCongestion
+          } : null
+        }
+      });
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        error: error instanceof Error ? error.message : "Unknown error"
+      });
+    }
+  });
+  app3.get("/api/enterprise/scalability/block-production", scalabilityLimiter, async (req, res) => {
+    try {
+      const orchestrator = getBlockchainOrchestrator();
+      const metrics = orchestrator.getMetrics();
+      const stats = orchestrator.getBlockProductionStats();
+      const config = orchestrator.getConfig();
+      res.json({
+        success: true,
+        data: {
+          currentBlockHeight: orchestrator.getCurrentBlockHeight(),
+          currentEpoch: orchestrator.getCurrentEpoch(),
+          config: {
+            shardCount: config.shardCount,
+            validatorsPerShard: config.validatorsPerShard,
+            blockTimeMs: config.blockTimeMs
+          },
+          metrics: {
+            blocksProduced: metrics.blocksProduced,
+            consensusRoundsCompleted: metrics.consensusRoundsCompleted,
+            crossShardMessagesProcessed: metrics.crossShardMessagesProcessed,
+            averageBlockTime: metrics.averageBlockTime,
+            failedBlocks: metrics.failedBlocks,
+            circuitBreakerTrips: metrics.circuitBreakerTrips,
+            uptimeSeconds: metrics.uptimeSeconds
+          },
+          stats: {
+            totalBlocks: stats.totalBlocks,
+            successfulBlocks: stats.successfulBlocks,
+            failedBlocks: stats.failedBlocks,
+            successRate: stats.totalBlocks > 0 ? (stats.successfulBlocks / stats.totalBlocks * 100).toFixed(2) + "%" : "100%",
+            blockTimes: {
+              average: stats.averageBlockTime,
+              min: stats.minBlockTime === Infinity ? 0 : stats.minBlockTime,
+              max: stats.maxBlockTime,
+              p50: stats.blockTimesP50,
+              p95: stats.blockTimesP95,
+              p99: stats.blockTimesP99
+            }
+          },
+          performance: {
+            targetBlockTime: config.blockTimeMs,
+            blockTimeDeviation: Math.abs(metrics.averageBlockTime - config.blockTimeMs),
+            isOnTarget: metrics.averageBlockTime >= config.blockTimeMs * 0.95 && metrics.averageBlockTime <= config.blockTimeMs * 1.05
+          }
+        }
+      });
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        error: error instanceof Error ? error.message : "Unknown error"
+      });
+    }
+  });
+  app3.get("/api/enterprise/scalability/metrics/prometheus", scalabilityLimiter, async (req, res) => {
+    try {
+      const orchestrator = getBlockchainOrchestrator();
+      const metrics = orchestrator.getMetrics();
+      const feeEngine = getAdaptiveFeeEngine();
+      const feeMetrics = feeEngine.getMetrics();
+      const batcher = getPersistenceBatcher();
+      const batcherMetrics = batcher.getMetrics();
+      const lines = [
+        "# HELP tburn_blocks_produced_total Total number of blocks produced",
+        "# TYPE tburn_blocks_produced_total counter",
+        `tburn_blocks_produced_total ${metrics.blocksProduced}`,
+        "",
+        "# HELP tburn_failed_blocks_total Total number of failed blocks",
+        "# TYPE tburn_failed_blocks_total counter",
+        `tburn_failed_blocks_total ${metrics.failedBlocks}`,
+        "",
+        "# HELP tburn_average_block_time_ms Average block production time in milliseconds",
+        "# TYPE tburn_average_block_time_ms gauge",
+        `tburn_average_block_time_ms ${metrics.averageBlockTime}`,
+        "",
+        "# HELP tburn_block_time_p50_ms 50th percentile block time",
+        "# TYPE tburn_block_time_p50_ms gauge",
+        `tburn_block_time_p50_ms ${metrics.blockTimeP50}`,
+        "",
+        "# HELP tburn_block_time_p95_ms 95th percentile block time",
+        "# TYPE tburn_block_time_p95_ms gauge",
+        `tburn_block_time_p95_ms ${metrics.blockTimeP95}`,
+        "",
+        "# HELP tburn_block_time_p99_ms 99th percentile block time",
+        "# TYPE tburn_block_time_p99_ms gauge",
+        `tburn_block_time_p99_ms ${metrics.blockTimeP99}`,
+        "",
+        "# HELP tburn_network_congestion Network congestion score 0-100",
+        "# TYPE tburn_network_congestion gauge",
+        `tburn_network_congestion ${metrics.networkCongestion}`,
+        "",
+        "# HELP tburn_global_base_fee_wei Global base fee in wei",
+        "# TYPE tburn_global_base_fee_wei gauge",
+        `tburn_global_base_fee_wei ${feeMetrics.globalBaseFee}`,
+        "",
+        "# HELP tburn_persistence_flush_total Total persistence flushes",
+        "# TYPE tburn_persistence_flush_total counter",
+        `tburn_persistence_flush_total ${batcherMetrics.totalFlushes}`,
+        "",
+        "# HELP tburn_persistence_errors_total Total persistence errors",
+        "# TYPE tburn_persistence_errors_total counter",
+        `tburn_persistence_errors_total ${batcherMetrics.totalErrors}`,
+        "",
+        "# HELP tburn_uptime_seconds System uptime in seconds",
+        "# TYPE tburn_uptime_seconds counter",
+        `tburn_uptime_seconds ${metrics.uptimeSeconds}`,
+        "",
+        "# HELP tburn_circuit_breaker_trips_total Total circuit breaker trips",
+        "# TYPE tburn_circuit_breaker_trips_total counter",
+        `tburn_circuit_breaker_trips_total ${metrics.circuitBreakerTrips}`
+      ];
+      res.set("Content-Type", "text/plain; charset=utf-8");
+      res.send(lines.join("\n"));
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        error: error instanceof Error ? error.message : "Unknown error"
+      });
+    }
+  });
+  console.log("\u2705 Enterprise scalability routes registered");
+}
+var scalabilityLimiter;
+var init_scalability_routes = __esm({
+  "server/routes/scalability-routes.ts"() {
+    "use strict";
+    init_blockchain_orchestrator();
+    init_persistence_batcher();
+    init_adaptive_fee_engine();
+    scalabilityLimiter = rateLimit({
+      windowMs: 1 * 60 * 1e3,
+      max: 100,
+      message: { success: false, error: "Too many requests, please try again later" },
+      standardHeaders: true,
+      legacyHeaders: false
+    });
+  }
+});
+
 // server/services/SelfHealingEngine.ts
 import { performance } from "perf_hooks";
 import os2 from "os";
@@ -40915,7 +45654,7 @@ var init_SelfHealingEngine = __esm({
 });
 
 // server/services/ConnectionHealthMonitor.ts
-import { EventEmitter as EventEmitter6 } from "events";
+import { EventEmitter as EventEmitter10 } from "events";
 function validateCriticalConfiguration() {
   const errors = [];
   const warnings = [];
@@ -40987,11 +45726,11 @@ function getHealthMonitor() {
   }
   return healthMonitorInstance;
 }
-var CircuitBreaker, ConnectionHealthMonitor, healthMonitorInstance;
+var CircuitBreaker2, ConnectionHealthMonitor, healthMonitorInstance;
 var init_ConnectionHealthMonitor = __esm({
   "server/services/ConnectionHealthMonitor.ts"() {
     "use strict";
-    CircuitBreaker = class {
+    CircuitBreaker2 = class {
       state = "CLOSED" /* CLOSED */;
       failures = 0;
       successes = 0;
@@ -41092,7 +45831,7 @@ var init_ConnectionHealthMonitor = __esm({
         this.transitionTo("OPEN" /* OPEN */);
       }
     };
-    ConnectionHealthMonitor = class extends EventEmitter6 {
+    ConnectionHealthMonitor = class extends EventEmitter10 {
       services = /* @__PURE__ */ new Map();
       checkInterval = null;
       isRunning = false;
@@ -41110,7 +45849,7 @@ var init_ConnectionHealthMonitor = __esm({
         super();
       }
       registerService(name, healthCheck, circuitBreakerConfig) {
-        const circuitBreaker = new CircuitBreaker({
+        const circuitBreaker = new CircuitBreaker2({
           name,
           ...circuitBreakerConfig
         });
@@ -41296,19 +46035,19 @@ var init_ProductionDataPoller = __esm({
         isPollInProgress: false
       };
       config = {
-        // In development, use longer intervals to reduce event loop pressure and allow Vite to work smoothly
-        pollInterval: process.env.NODE_ENV === "development" ? 6e4 : 15e3,
-        // 60s in dev, 15s in prod
-        retryDelay: process.env.NODE_ENV === "development" ? 1e4 : 5e3,
-        // 10s in dev, 5s in prod
-        maxConsecutiveErrors: 5,
-        // Back off after 5 consecutive errors
-        circuitBreakerThreshold: 10,
-        // Open circuit after 10 consecutive errors
-        circuitBreakerResetMs: 6e4,
-        // Try again after 60 seconds
-        maxJitterMs: 2e3
-        // Random jitter up to 2 seconds
+        // ★ 메모리 안정성을 위해 폴링 간격 증가
+        pollInterval: process.env.NODE_ENV === "development" ? 6e4 : 3e4,
+        // 60s in dev, 30s in prod (was 15s)
+        retryDelay: process.env.NODE_ENV === "development" ? 1e4 : 1e4,
+        // 10s retry delay
+        maxConsecutiveErrors: 3,
+        // Back off after 3 consecutive errors (was 5)
+        circuitBreakerThreshold: 5,
+        // Open circuit after 5 consecutive errors (was 10)
+        circuitBreakerResetMs: 12e4,
+        // Try again after 2 minutes (was 60s)
+        maxJitterMs: 3e3
+        // Random jitter up to 3 seconds
       };
       constructor() {
         this.cache = getDataCache();
@@ -41443,9 +46182,7 @@ var init_ProductionDataPoller = __esm({
             validators2,
             aiModels2,
             contracts,
-            consensusState,
-            membersData,
-            memberStatsData
+            consensusState
           ] = await Promise.allSettled([
             this.fetchNetworkStats(),
             this.fetchShards(),
@@ -41454,9 +46191,7 @@ var init_ProductionDataPoller = __esm({
             this.fetchValidators(),
             this.fetchAIModels(),
             this.fetchContracts(),
-            this.fetchConsensusState(),
-            this.fetchMembersWithProfiles(),
-            this.fetchMemberStats()
+            this.fetchConsensusState()
           ]);
           let successCount = 0;
           if (networkStats2.status === "fulfilled" && networkStats2.value) {
@@ -41489,14 +46224,6 @@ var init_ProductionDataPoller = __esm({
           }
           if (consensusState.status === "fulfilled" && consensusState.value) {
             this.cache.set(DataCacheService.KEYS.CONSENSUS_STATE, consensusState.value, 3e4);
-            successCount++;
-          }
-          if (membersData.status === "fulfilled" && membersData.value && Array.isArray(membersData.value) && membersData.value.length > 0) {
-            this.cache.set("members_with_profiles_100", membersData.value, 3e4);
-            successCount++;
-          }
-          if (memberStatsData.status === "fulfilled" && memberStatsData.value) {
-            this.cache.set("members_stats_summary", memberStatsData.value, 3e4);
             successCount++;
           }
           if (networkStats2.status === "fulfilled" && networkStats2.value) {
@@ -42562,7 +47289,7 @@ var init_TokenFactoryService = __esm({
 // server/routes.ts
 import { createServer as createServer2 } from "http";
 import { WebSocketServer as WebSocketServer2, WebSocket as WebSocket3 } from "ws";
-import rateLimit from "express-rate-limit";
+import rateLimit2 from "express-rate-limit";
 import bcrypt from "bcryptjs";
 import { randomBytes as randomBytes3, createHash as createHash7 } from "crypto";
 import { Resend } from "resend";
@@ -42701,7 +47428,7 @@ async function registerRoutes(app3, existingServer) {
   let validatorSimulation = null;
   async function initializeValidatorSimulation() {
     try {
-      const isProduction2 = process.env.NODE_ENV === "production" || process.env.NODE_MODE === "production";
+      const isProduction3 = process.env.NODE_ENV === "production" || process.env.NODE_MODE === "production";
       const existingValidators = await storage.getAllValidators();
       console.log(`[Validator] Found ${existingValidators.length} existing validators`);
       validatorSimulation = new ValidatorSimulationService(storage);
@@ -42717,7 +47444,7 @@ async function registerRoutes(app3, existingServer) {
       } else {
         console.log("[Validator] \u2705 Using existing validators");
       }
-      if (isProduction2) {
+      if (isProduction3) {
         console.log("[Validator] \u{1F3AF} Production mode: Running with optimized settings");
       }
       await validatorSimulation.start();
@@ -42969,9 +47696,11 @@ async function registerRoutes(app3, existingServer) {
     }
     if (password === SITE_PASSWORD) {
       req.session.authenticated = true;
+      console.log(`[Login] Site password login successful`);
       res.json({ success: true });
     } else {
-      res.status(401).json({ error: "Invalid password" });
+      console.log(`[Login] Failed - email: ${email}, password mismatch`);
+      res.status(401).json({ error: "\uC774\uBA54\uC77C \uB610\uB294 \uBE44\uBC00\uBC88\uD638\uAC00 \uC62C\uBC14\uB974\uC9C0 \uC54A\uC2B5\uB2C8\uB2E4." });
     }
   });
   app3.post("/api/auth/signup", loginLimiter, async (req, res) => {
@@ -43501,15 +48230,15 @@ async function registerRoutes(app3, existingServer) {
   app3.get("/api/system/data-source", (_req, res) => {
     const nodeUrl = process.env.TBURN_NODE_URL || "http://localhost:8545";
     const isLocalNode = nodeUrl.includes("localhost") || nodeUrl.includes("127.0.0.1");
-    const isProduction2 = isProductionMode();
+    const isProduction3 = isProductionMode();
     let dataSourceType;
     let isSimulated;
     let message;
-    if (!isLocalNode && isProduction2) {
+    if (!isLocalNode && isProduction3) {
       dataSourceType = "external-mainnet";
       isSimulated = false;
       message = "Connected to external TBURN mainnet node";
-    } else if (isLocalNode && isProduction2) {
+    } else if (isLocalNode && isProduction3) {
       dataSourceType = "local-simulated";
       isSimulated = true;
       message = "Running local TBurnEnterpriseNode (simulated mainnet data)";
@@ -43521,7 +48250,7 @@ async function registerRoutes(app3, existingServer) {
     res.json({
       dataSourceType,
       isSimulated,
-      isProduction: isProduction2,
+      isProduction: isProduction3,
       nodeUrl: isLocalNode ? "localhost:8545 (local)" : nodeUrl,
       message,
       connectionStatus: "connected",
@@ -43531,8 +48260,8 @@ async function registerRoutes(app3, existingServer) {
   app3.get("/whitepaper", async (_req, res) => {
     try {
       const fs2 = await import("fs/promises");
-      const path2 = await import("path");
-      const whitepaperPath = path2.join(process.cwd(), "public", "whitepaper.html");
+      const path3 = await import("path");
+      const whitepaperPath = path3.join(process.cwd(), "public", "whitepaper.html");
       const htmlContent = await fs2.readFile(whitepaperPath, "utf-8");
       res.setHeader("Content-Type", "text/html; charset=utf-8");
       res.send(htmlContent);
@@ -43544,8 +48273,8 @@ async function registerRoutes(app3, existingServer) {
   app3.get("/technical-whitepaper", async (_req, res) => {
     try {
       const fs2 = await import("fs/promises");
-      const path2 = await import("path");
-      const whitepaperPath = path2.join(process.cwd(), "public", "technical-whitepaper.html");
+      const path3 = await import("path");
+      const whitepaperPath = path3.join(process.cwd(), "public", "technical-whitepaper.html");
       const htmlContent = await fs2.readFile(whitepaperPath, "utf-8");
       res.setHeader("Content-Type", "text/html; charset=utf-8");
       res.send(htmlContent);
@@ -43668,10 +48397,13 @@ async function registerRoutes(app3, existingServer) {
     if (req.path.startsWith("/simulator")) {
       return next();
     }
-    if (req.path.startsWith("/enterprise/snapshot") || req.path.startsWith("/enterprise/health") || req.path.startsWith("/enterprise/metrics") || req.path.startsWith("/enterprise/accounts/") || req.path.startsWith("/enterprise/validators/") || req.path.startsWith("/enterprise/defi/overview") || req.path.startsWith("/enterprise/token-system/summary") || req.path.startsWith("/enterprise/staking-defi/correlation") || req.path.startsWith("/enterprise/bridge-defi/integration") || req.path.startsWith("/enterprise/governance/overview") || req.path.startsWith("/enterprise/admin/system-status") || req.path.startsWith("/enterprise/admin/sla") || req.path.startsWith("/enterprise/admin/community") || req.path.startsWith("/enterprise/admin/operations/") || req.path.startsWith("/enterprise/operator/dashboard") || req.path.startsWith("/enterprise/operator/session") || req.path.startsWith("/enterprise/dashboard/unified") || req.path.startsWith("/enterprise/gamefi/summary") || req.path.startsWith("/enterprise/launchpad/summary") || req.path.startsWith("/enterprise/burn/") || req.path.startsWith("/enterprise/events/") || req.path.startsWith("/enterprise/ai/")) {
+    if (req.path.startsWith("/enterprise/snapshot") || req.path.startsWith("/enterprise/health") || req.path.startsWith("/enterprise/metrics") || req.path.startsWith("/enterprise/accounts/") || req.path.startsWith("/enterprise/validators/") || req.path.startsWith("/enterprise/defi/overview") || req.path.startsWith("/enterprise/token-system/summary") || req.path.startsWith("/enterprise/staking-defi/correlation") || req.path.startsWith("/enterprise/bridge-defi/integration") || req.path.startsWith("/enterprise/governance/overview") || req.path.startsWith("/enterprise/admin/system-status") || req.path.startsWith("/enterprise/admin/sla") || req.path.startsWith("/enterprise/admin/community") || req.path.startsWith("/enterprise/admin/operations/") || req.path.startsWith("/enterprise/operator/dashboard") || req.path.startsWith("/enterprise/operator/session") || req.path.startsWith("/enterprise/dashboard/unified") || req.path.startsWith("/enterprise/gamefi/summary") || req.path.startsWith("/enterprise/launchpad/summary") || req.path.startsWith("/enterprise/burn/") || req.path.startsWith("/enterprise/events/") || req.path.startsWith("/enterprise/ai/") || req.path.startsWith("/enterprise/scalability/")) {
       return next();
     }
     if (req.path.startsWith("/public/v1/")) {
+      return next();
+    }
+    if (req.path.startsWith("/token-programs/")) {
       return next();
     }
     if (req.path.startsWith("/bridge/stats") || req.path.startsWith("/bridge/chains") || req.path.startsWith("/bridge/routes") || req.path.startsWith("/bridge/validators") || req.path.startsWith("/governance/stats") || req.path.startsWith("/governance/proposals") || req.path.startsWith("/burn/stats") || req.path.startsWith("/burn/events") || req.path.startsWith("/burn/config") || req.path.startsWith("/burn/history") || req.path.startsWith("/tokenomics/")) {
@@ -43713,6 +48445,12 @@ async function registerRoutes(app3, existingServer) {
     if (req.path.startsWith("/launch-event/")) {
       return next();
     }
+    if (req.path.startsWith("/airdrop/")) {
+      return next();
+    }
+    if (req.path.startsWith("/referral/")) {
+      return next();
+    }
     requireAuth(req, res, next);
   });
   registerDexRoutes(app3, requireAuth);
@@ -43739,6 +48477,8 @@ async function registerRoutes(app3, existingServer) {
   console.log("[UserData] \u2705 User data routes registered");
   registerLaunchEventRoutes(app3);
   console.log("[Launch Event] \u2705 Launch event routes registered");
+  registerScalabilityRoutes(app3);
+  console.log("[Scalability] \u2705 Enterprise scalability routes registered");
   const calculateRealTimeTps = () => {
     try {
       const enterpriseNode2 = getEnterpriseNode();
@@ -47022,7 +51762,7 @@ async function registerRoutes(app3, existingServer) {
       res.status(500).json({ error: "Failed to sync validators to members" });
     }
   });
-  const operatorLimiter = rateLimit({
+  const operatorLimiter = rateLimit2({
     windowMs: 1 * 60 * 1e3,
     // 1 minute
     max: 100,
@@ -52082,6 +56822,2753 @@ async function registerRoutes(app3, existingServer) {
       res.status(500).json({ error: "Failed to fetch audit logs" });
     }
   });
+  app3.get("/api/admin/token-programs", requireAdmin, async (_req, res) => {
+    try {
+      const programs = await storage.getAllTokenPrograms();
+      const stats = await storage.getTokenProgramStats();
+      res.json({ success: true, data: { programs, stats } });
+    } catch (error) {
+      console.error("[TokenPrograms] Error fetching programs:", error);
+      res.status(500).json({ error: "Failed to fetch token programs" });
+    }
+  });
+  app3.get("/api/admin/token-programs/dashboard", requireAdmin, async (_req, res) => {
+    try {
+      const [
+        programStats,
+        airdropStats,
+        referralStats,
+        eventsStats,
+        communityStats,
+        daoStats,
+        blockRewardStats,
+        validatorStats,
+        grantStats
+      ] = await Promise.all([
+        storage.getTokenProgramStats(),
+        storage.getAirdropStats(),
+        storage.getReferralStats(),
+        storage.getEventsStats(),
+        storage.getCommunityStats(),
+        storage.getDaoStats(),
+        storage.getBlockRewardStats(),
+        storage.getValidatorIncentiveStats(),
+        storage.getEcosystemGrantStats()
+      ]);
+      res.json({
+        success: true,
+        data: {
+          overview: programStats,
+          airdrop: airdropStats,
+          referral: referralStats,
+          events: eventsStats,
+          community: communityStats,
+          dao: daoStats,
+          blockRewards: blockRewardStats,
+          validatorIncentives: validatorStats,
+          ecosystemGrants: grantStats
+        }
+      });
+    } catch (error) {
+      console.error("[TokenPrograms] Error fetching dashboard:", error);
+      res.status(500).json({ error: "Failed to fetch token programs dashboard" });
+    }
+  });
+  app3.get("/api/admin/token-programs/:id", requireAdmin, async (req, res) => {
+    try {
+      const program = await storage.getTokenProgramById(req.params.id);
+      if (!program) {
+        return res.status(404).json({ error: "Program not found" });
+      }
+      const snapshots = await storage.getProgramSnapshots(program.id, 30);
+      res.json({ success: true, data: { program, snapshots } });
+    } catch (error) {
+      console.error("[TokenPrograms] Error fetching program:", error);
+      res.status(500).json({ error: "Failed to fetch token program" });
+    }
+  });
+  app3.post("/api/admin/token-programs", requireAdmin, async (req, res) => {
+    try {
+      const program = await storage.createTokenProgram(req.body);
+      res.json({ success: true, data: program });
+    } catch (error) {
+      console.error("[TokenPrograms] Error creating program:", error);
+      res.status(500).json({ error: "Failed to create token program" });
+    }
+  });
+  app3.patch("/api/admin/token-programs/:id", requireAdmin, async (req, res) => {
+    try {
+      await storage.updateTokenProgram(req.params.id, req.body);
+      const program = await storage.getTokenProgramById(req.params.id);
+      res.json({ success: true, data: program });
+    } catch (error) {
+      console.error("[TokenPrograms] Error updating program:", error);
+      res.status(500).json({ error: "Failed to update token program" });
+    }
+  });
+  app3.get("/api/admin/token-programs/airdrop/claims", requireAdmin, async (req, res) => {
+    try {
+      const limit = parseInt(req.query.limit) || 100;
+      const claims = await storage.getAllAirdropClaims(limit);
+      const stats = await storage.getAirdropStats();
+      res.json({ success: true, data: { claims, stats } });
+    } catch (error) {
+      console.error("[Airdrop] Error fetching claims:", error);
+      res.status(500).json({ error: "Failed to fetch airdrop claims" });
+    }
+  });
+  app3.get("/api/admin/token-programs/airdrop/distributions", requireAdmin, async (_req, res) => {
+    try {
+      const distributions = await storage.getAllAirdropDistributions();
+      res.json({ success: true, data: distributions });
+    } catch (error) {
+      console.error("[Airdrop] Error fetching distributions:", error);
+      res.status(500).json({ error: "Failed to fetch distributions" });
+    }
+  });
+  app3.post("/api/admin/token-programs/airdrop/claims", requireAdmin, async (req, res) => {
+    try {
+      const claim = await storage.createAirdropClaim(req.body);
+      res.json({ success: true, data: claim });
+    } catch (error) {
+      console.error("[Airdrop] Error creating claim:", error);
+      res.status(500).json({ error: "Failed to create airdrop claim" });
+    }
+  });
+  app3.patch("/api/admin/token-programs/airdrop/claims/:id", requireAdmin, async (req, res) => {
+    try {
+      await storage.updateAirdropClaim(req.params.id, req.body);
+      const claim = await storage.getAirdropClaimById(req.params.id);
+      res.json({ success: true, data: claim });
+    } catch (error) {
+      console.error("[Airdrop] Error updating claim:", error);
+      res.status(500).json({ error: "Failed to update airdrop claim" });
+    }
+  });
+  app3.post("/api/admin/token-programs/airdrop/claims/bulk", requireAdmin, async (req, res) => {
+    try {
+      const { claims } = req.body;
+      if (!Array.isArray(claims) || claims.length === 0) {
+        return res.status(400).json({ error: "Invalid claims array" });
+      }
+      const results = { success: 0, failed: 0, errors: [] };
+      for (const claimData of claims) {
+        try {
+          if (!claimData.walletAddress || !claimData.claimableAmount) {
+            results.failed++;
+            results.errors.push(`Missing required fields for wallet: ${claimData.walletAddress || "unknown"}`);
+            continue;
+          }
+          const amountWei = BigInt(Math.floor(parseFloat(claimData.claimableAmount) * 1e18)).toString();
+          await storage.createAirdropClaim({
+            walletAddress: claimData.walletAddress.toLowerCase(),
+            claimableAmount: amountWei,
+            tier: claimData.tier || "basic",
+            status: "eligible",
+            eligibilityScore: claimData.eligibilityScore || 100
+          });
+          results.success++;
+        } catch (err) {
+          results.failed++;
+          results.errors.push(`Failed to import ${claimData.walletAddress}: ${err.message}`);
+        }
+      }
+      res.json({ success: true, data: results });
+    } catch (error) {
+      console.error("[Airdrop] Error bulk importing claims:", error);
+      res.status(500).json({ error: "Failed to bulk import airdrop claims" });
+    }
+  });
+  app3.post("/api/admin/token-programs/airdrop/distribute", requireAdmin, async (req, res) => {
+    try {
+      const { claimIds, batchName } = req.body;
+      if (!Array.isArray(claimIds) || claimIds.length === 0) {
+        return res.status(400).json({ error: "No claims selected for distribution" });
+      }
+      const existingDistributions = await storage.getAllAirdropDistributions();
+      const batchNumber = existingDistributions.length + 1;
+      let totalAmount = BigInt(0);
+      const claimsToProcess = [];
+      for (const id of claimIds) {
+        const claim = await storage.getAirdropClaimById(id);
+        if (claim && claim.status === "eligible") {
+          claimsToProcess.push(claim);
+          totalAmount += BigInt(claim.claimableAmount || "0");
+        }
+      }
+      if (claimsToProcess.length === 0) {
+        return res.status(400).json({ error: "No eligible claims found" });
+      }
+      const distribution = await storage.createAirdropDistribution({
+        batchNumber,
+        batchName: batchName || `Batch #${batchNumber}`,
+        totalRecipients: claimsToProcess.length,
+        totalAmount: totalAmount.toString(),
+        status: "processing",
+        startedAt: /* @__PURE__ */ new Date()
+      });
+      let processedCount = 0;
+      let failedCount = 0;
+      for (const claim of claimsToProcess) {
+        try {
+          const txHash = `0x${createHash7("sha256").update(claim.id + Date.now().toString()).digest("hex")}`;
+          await storage.updateAirdropClaim(claim.id, {
+            status: "claimed",
+            claimedAmount: claim.claimableAmount,
+            claimTxHash: txHash,
+            claimedAt: /* @__PURE__ */ new Date()
+          });
+          processedCount++;
+        } catch (err) {
+          failedCount++;
+          await storage.updateAirdropClaim(claim.id, { status: "failed" });
+        }
+      }
+      await storage.updateAirdropDistribution(distribution.id, {
+        status: failedCount === 0 ? "completed" : "completed",
+        processedCount,
+        failedCount,
+        completedAt: /* @__PURE__ */ new Date(),
+        executionTxHash: `0x${createHash7("sha256").update(distribution.id + Date.now().toString()).digest("hex")}`
+      });
+      res.json({
+        success: true,
+        data: {
+          distributionId: distribution.id,
+          batchNumber,
+          processedCount,
+          failedCount,
+          totalAmount: totalAmount.toString()
+        }
+      });
+    } catch (error) {
+      console.error("[Airdrop] Error executing distribution:", error);
+      res.status(500).json({ error: "Failed to execute distribution" });
+    }
+  });
+  app3.post("/api/admin/token-programs/airdrop/claims/:id/process", requireAdmin, async (req, res) => {
+    try {
+      const claim = await storage.getAirdropClaimById(req.params.id);
+      if (!claim) {
+        return res.status(404).json({ error: "Claim not found" });
+      }
+      if (claim.status !== "eligible" && claim.status !== "processing") {
+        return res.status(400).json({ error: `Cannot process claim with status: ${claim.status}` });
+      }
+      const txHash = `0x${createHash7("sha256").update(claim.id + Date.now().toString()).digest("hex")}`;
+      await storage.updateAirdropClaim(claim.id, {
+        status: "claimed",
+        claimedAmount: claim.claimableAmount,
+        claimTxHash: txHash,
+        claimedAt: /* @__PURE__ */ new Date()
+      });
+      const updatedClaim = await storage.getAirdropClaimById(claim.id);
+      res.json({ success: true, data: updatedClaim });
+    } catch (error) {
+      console.error("[Airdrop] Error processing claim:", error);
+      res.status(500).json({ error: "Failed to process claim" });
+    }
+  });
+  app3.delete("/api/admin/token-programs/airdrop/claims/:id", requireAdmin, async (req, res) => {
+    try {
+      const claim = await storage.getAirdropClaimById(req.params.id);
+      if (!claim) {
+        return res.status(404).json({ error: "Claim not found" });
+      }
+      if (claim.status === "claimed") {
+        return res.status(400).json({ error: "Cannot delete claimed airdrop" });
+      }
+      await db.delete(airdropClaims).where(eq6(airdropClaims.id, req.params.id));
+      res.json({ success: true, message: "Claim deleted successfully" });
+    } catch (error) {
+      console.error("[Airdrop] Error deleting claim:", error);
+      res.status(500).json({ error: "Failed to delete claim" });
+    }
+  });
+  app3.get("/api/airdrop/check/:wallet", async (req, res) => {
+    try {
+      const wallet = req.params.wallet.toLowerCase();
+      const claims = await storage.getAirdropClaimsByWallet(wallet);
+      if (claims.length === 0) {
+        return res.json({
+          success: true,
+          data: {
+            eligible: false,
+            message: "This wallet address is not eligible for the airdrop"
+          }
+        });
+      }
+      const eligibleClaims = claims.filter((c) => c.status === "eligible");
+      const claimedClaims = claims.filter((c) => c.status === "claimed");
+      const totalClaimable = eligibleClaims.reduce((sum, c) => sum + BigInt(c.claimableAmount || "0"), BigInt(0));
+      const totalClaimed = claimedClaims.reduce((sum, c) => sum + BigInt(c.claimedAmount || "0"), BigInt(0));
+      res.json({
+        success: true,
+        data: {
+          eligible: eligibleClaims.length > 0,
+          claims: claims.map((c) => ({
+            id: c.id,
+            tier: c.tier,
+            claimableAmount: c.claimableAmount,
+            claimedAmount: c.claimedAmount,
+            status: c.status,
+            claimedAt: c.claimedAt
+          })),
+          summary: {
+            totalClaims: claims.length,
+            eligibleClaims: eligibleClaims.length,
+            claimedClaims: claimedClaims.length,
+            totalClaimable: totalClaimable.toString(),
+            totalClaimed: totalClaimed.toString()
+          }
+        }
+      });
+    } catch (error) {
+      console.error("[Airdrop] Error checking eligibility:", error);
+      res.status(500).json({ error: "Failed to check airdrop eligibility" });
+    }
+  });
+  app3.post("/api/airdrop/claim", async (req, res) => {
+    try {
+      const { walletAddress, claimId, signature } = req.body;
+      if (!walletAddress || !claimId) {
+        return res.status(400).json({ error: "Wallet address and claim ID are required" });
+      }
+      const claim = await storage.getAirdropClaimById(claimId);
+      if (!claim) {
+        return res.status(404).json({ error: "Claim not found" });
+      }
+      if (claim.walletAddress.toLowerCase() !== walletAddress.toLowerCase()) {
+        return res.status(403).json({ error: "Wallet address does not match claim" });
+      }
+      if (claim.status === "claimed") {
+        return res.status(400).json({ error: "Airdrop already claimed" });
+      }
+      if (claim.status === "expired") {
+        return res.status(400).json({ error: "Airdrop claim has expired" });
+      }
+      if (claim.status !== "eligible") {
+        return res.status(400).json({ error: `Cannot claim with status: ${claim.status}` });
+      }
+      const txHash = `0x${createHash7("sha256").update(claim.id + walletAddress + Date.now().toString()).digest("hex")}`;
+      const blockNumber = Math.floor(Date.now() / 100);
+      await storage.updateAirdropClaim(claim.id, {
+        status: "claimed",
+        claimedAmount: claim.claimableAmount,
+        claimTxHash: txHash,
+        claimBlockNumber: blockNumber,
+        claimedAt: /* @__PURE__ */ new Date(),
+        signature: signature || null,
+        verifiedAt: /* @__PURE__ */ new Date()
+      });
+      const updatedClaim = await storage.getAirdropClaimById(claim.id);
+      res.json({
+        success: true,
+        data: {
+          claim: updatedClaim,
+          transaction: {
+            txHash,
+            blockNumber,
+            amount: claim.claimableAmount
+          }
+        }
+      });
+    } catch (error) {
+      console.error("[Airdrop] Error claiming airdrop:", error);
+      res.status(500).json({ error: "Failed to claim airdrop" });
+    }
+  });
+  app3.get("/api/airdrop/info", async (_req, res) => {
+    try {
+      const stats = await storage.getAirdropStats();
+      const distributions = await storage.getAllAirdropDistributions();
+      const completedDistributions = distributions.filter((d) => d.status === "completed");
+      res.json({
+        success: true,
+        data: {
+          programName: "TBURN Mainnet Launch Airdrop",
+          description: "TBURN \uBA54\uC778\uB137 \uB7F0\uCE6D \uAE30\uB150 \uC5D0\uC5B4\uB4DC\uB78D \uD504\uB85C\uADF8\uB7A8",
+          status: "active",
+          startDate: "2026-01-02T00:00:00Z",
+          endDate: "2026-03-31T23:59:59Z",
+          stats: {
+            totalEligible: stats.totalEligible,
+            totalClaimed: stats.totalClaimed,
+            claimRate: stats.totalEligible > 0 ? (stats.totalClaimed / stats.totalEligible * 100).toFixed(2) : "0",
+            totalAmount: stats.totalAmount,
+            claimedAmount: stats.claimedAmount
+          },
+          tiers: [
+            { name: "basic", label: "Basic", minAmount: "100", maxAmount: "1000" },
+            { name: "holder", label: "Holder", minAmount: "1000", maxAmount: "5000" },
+            { name: "og", label: "OG", minAmount: "5000", maxAmount: "25000" },
+            { name: "whale", label: "Whale", minAmount: "25000", maxAmount: "100000" },
+            { name: "legendary", label: "Legendary", minAmount: "100000", maxAmount: "500000" }
+          ],
+          completedBatches: completedDistributions.length
+        }
+      });
+    } catch (error) {
+      console.error("[Airdrop] Error fetching airdrop info:", error);
+      res.status(500).json({ error: "Failed to fetch airdrop info" });
+    }
+  });
+  app3.get("/api/admin/token-programs/referral/accounts", requireAdmin, async (req, res) => {
+    try {
+      const limit = parseInt(req.query.limit) || 100;
+      const accounts2 = await storage.getAllReferralAccounts(limit);
+      const stats = await storage.getReferralStats();
+      res.json({ success: true, data: { accounts: accounts2, stats } });
+    } catch (error) {
+      console.error("[Referral] Error fetching accounts:", error);
+      res.status(500).json({ error: "Failed to fetch referral accounts" });
+    }
+  });
+  app3.get("/api/admin/token-programs/referral/accounts/:id/rewards", requireAdmin, async (req, res) => {
+    try {
+      const rewards = await storage.getReferralRewards(req.params.id, 50);
+      res.json({ success: true, data: rewards });
+    } catch (error) {
+      console.error("[Referral] Error fetching rewards:", error);
+      res.status(500).json({ error: "Failed to fetch referral rewards" });
+    }
+  });
+  app3.post("/api/admin/token-programs/referral/accounts", requireAdmin, async (req, res) => {
+    try {
+      const { walletAddress, tier = "bronze" } = req.body;
+      if (!walletAddress) {
+        return res.status(400).json({ error: "Wallet address is required" });
+      }
+      const existing = await storage.getReferralAccountByWallet(walletAddress);
+      if (existing) {
+        return res.status(400).json({ error: "Referral account already exists for this wallet" });
+      }
+      const referralCode = `TBURN${walletAddress.substring(2, 10).toUpperCase()}`;
+      const account = await storage.createReferralAccount({
+        walletAddress: walletAddress.toLowerCase(),
+        referralCode,
+        tier,
+        status: "active"
+      });
+      res.json({ success: true, data: account });
+    } catch (error) {
+      console.error("[Referral] Error creating account:", error);
+      res.status(500).json({ error: "Failed to create referral account" });
+    }
+  });
+  app3.patch("/api/admin/token-programs/referral/accounts/:id", requireAdmin, async (req, res) => {
+    try {
+      await storage.updateReferralAccount(req.params.id, req.body);
+      const account = await storage.getReferralAccountById(req.params.id);
+      res.json({ success: true, data: account });
+    } catch (error) {
+      console.error("[Referral] Error updating account:", error);
+      res.status(500).json({ error: "Failed to update referral account" });
+    }
+  });
+  app3.post("/api/admin/token-programs/referral/bulk-import", requireAdmin, async (req, res) => {
+    try {
+      const { accounts: accounts2 } = req.body;
+      if (!Array.isArray(accounts2) || accounts2.length === 0) {
+        return res.status(400).json({ error: "Accounts array is required" });
+      }
+      const results = { created: 0, skipped: 0, errors: [] };
+      for (const acc of accounts2) {
+        try {
+          const existing = await storage.getReferralAccountByWallet(acc.walletAddress);
+          if (existing) {
+            results.skipped++;
+            continue;
+          }
+          const referralCode = acc.referralCode || `TBURN${acc.walletAddress.substring(2, 10).toUpperCase()}`;
+          await storage.createReferralAccount({
+            walletAddress: acc.walletAddress.toLowerCase(),
+            referralCode,
+            tier: acc.tier || "bronze",
+            status: "active",
+            totalReferrals: acc.totalReferrals || 0,
+            totalEarnings: acc.totalEarnings || "0"
+          });
+          results.created++;
+        } catch (e) {
+          results.errors.push(`${acc.walletAddress}: ${e.message}`);
+        }
+      }
+      res.json({ success: true, data: results });
+    } catch (error) {
+      console.error("[Referral] Bulk import error:", error);
+      res.status(500).json({ error: "Failed to bulk import referral accounts" });
+    }
+  });
+  app3.post("/api/admin/token-programs/referral/distribute", requireAdmin, async (req, res) => {
+    try {
+      const { accountIds, rewardAmount, rewardType = "bonus" } = req.body;
+      if (!Array.isArray(accountIds) || accountIds.length === 0) {
+        return res.status(400).json({ error: "Account IDs are required" });
+      }
+      if (!rewardAmount || parseFloat(rewardAmount) <= 0) {
+        return res.status(400).json({ error: "Valid reward amount is required" });
+      }
+      const results = { distributed: 0, failed: 0 };
+      const txHash = `0x${Date.now().toString(16)}${Math.random().toString(16).substring(2, 10)}`;
+      for (const accountId of accountIds) {
+        try {
+          const account = await storage.getReferralAccountById(accountId);
+          if (!account) continue;
+          await storage.createReferralReward({
+            referrerId: accountId,
+            referredId: null,
+            amount: rewardAmount,
+            rewardType,
+            status: "distributed",
+            transactionHash: txHash,
+            tier: account.tier || "bronze"
+          });
+          const currentEarnings = BigInt(account.totalEarnings || "0");
+          const newEarnings = currentEarnings + BigInt(Math.floor(parseFloat(rewardAmount) * 1e18));
+          await storage.updateReferralAccount(accountId, {
+            totalEarnings: newEarnings.toString()
+          });
+          results.distributed++;
+        } catch (e) {
+          results.failed++;
+        }
+      }
+      res.json({ success: true, data: { ...results, transactionHash: txHash } });
+    } catch (error) {
+      console.error("[Referral] Distribution error:", error);
+      res.status(500).json({ error: "Failed to distribute referral rewards" });
+    }
+  });
+  app3.get("/api/admin/token-programs/events", requireAdmin, async (req, res) => {
+    try {
+      res.set("Cache-Control", "no-store, no-cache, must-revalidate");
+      const limit = parseInt(req.query.limit) || 50;
+      const events = await storage.getAllEvents(limit);
+      const stats = await storage.getEventsStats();
+      res.json({ success: true, data: { events, stats } });
+    } catch (error) {
+      console.error("[Events] Error fetching events:", error);
+      res.status(500).json({ error: "Failed to fetch events" });
+    }
+  });
+  app3.get("/api/admin/token-programs/events/:id", requireAdmin, async (req, res) => {
+    try {
+      const event = await storage.getEventById(req.params.id);
+      if (!event) {
+        return res.status(404).json({ error: "Event not found" });
+      }
+      const registrations = await storage.getEventRegistrations(event.id, 100);
+      res.json({ success: true, data: { event, registrations } });
+    } catch (error) {
+      console.error("[Events] Error fetching event:", error);
+      res.status(500).json({ error: "Failed to fetch event" });
+    }
+  });
+  app3.post("/api/admin/token-programs/events", requireAdmin, async (req, res) => {
+    try {
+      const { startDate, endDate, ...rest } = req.body;
+      const eventData = {
+        ...rest,
+        startDate: startDate ? new Date(startDate) : /* @__PURE__ */ new Date(),
+        endDate: endDate ? new Date(endDate) : new Date(Date.now() + 30 * 24 * 60 * 60 * 1e3)
+      };
+      const event = await storage.createEvent(eventData);
+      res.json({ success: true, data: event });
+    } catch (error) {
+      console.error("[Events] Error creating event:", error);
+      res.status(500).json({ error: "Failed to create event" });
+    }
+  });
+  app3.patch("/api/admin/token-programs/events/:id", requireAdmin, async (req, res) => {
+    try {
+      await storage.updateEvent(req.params.id, req.body);
+      const event = await storage.getEventById(req.params.id);
+      res.json({ success: true, data: event });
+    } catch (error) {
+      console.error("[Events] Error updating event:", error);
+      res.status(500).json({ error: "Failed to update event" });
+    }
+  });
+  app3.delete("/api/admin/token-programs/events/:id", requireAdmin, async (req, res) => {
+    try {
+      await storage.updateEvent(req.params.id, { status: "cancelled" });
+      res.json({ success: true, message: "Event cancelled" });
+    } catch (error) {
+      console.error("[Events] Error deleting event:", error);
+      res.status(500).json({ error: "Failed to delete event" });
+    }
+  });
+  app3.get("/api/admin/token-programs/events/catalog", requireAdmin, async (req, res) => {
+    try {
+      const limit = parseInt(req.query.limit) || 50;
+      const events = await storage.getAllEvents(limit);
+      res.json({ success: true, data: events });
+    } catch (error) {
+      console.error("[Events] Error fetching catalog:", error);
+      res.status(500).json({ error: "Failed to fetch events catalog" });
+    }
+  });
+  app3.post("/api/admin/token-programs/events/:id/distribute", requireAdmin, async (req, res) => {
+    try {
+      const event = await storage.getEventById(req.params.id);
+      if (!event) {
+        return res.status(404).json({ error: "Event not found" });
+      }
+      const { rewardAmount, recipientIds } = req.body;
+      const registrations = await storage.getEventRegistrations(event.id, 1e3);
+      const targets = recipientIds?.length ? registrations.filter((r) => recipientIds.includes(r.id)) : registrations;
+      const txHash = `0x${[...Array(64)].map(() => Math.floor(Math.random() * 16).toString(16)).join("")}`;
+      let distributed = 0;
+      for (const reg of targets) {
+        const currentReward = BigInt(reg.rewardAmount || "0");
+        const newReward = currentReward + BigInt(Math.floor(parseFloat(rewardAmount) * 1e18));
+        await storage.updateEventRegistration(reg.id, { rewardAmount: newReward.toString() });
+        distributed++;
+      }
+      const currentDistributed = BigInt(event.distributedRewards || "0");
+      const totalDistributed = currentDistributed + BigInt(Math.floor(parseFloat(rewardAmount) * 1e18 * distributed));
+      await storage.updateEvent(event.id, { distributedRewards: totalDistributed.toString() });
+      res.json({
+        success: true,
+        data: { distributed, transactionHash: txHash }
+      });
+    } catch (error) {
+      console.error("[Events] Distribution error:", error);
+      res.status(500).json({ error: "Failed to distribute rewards" });
+    }
+  });
+  app3.get("/api/admin/token-programs/community/tasks", requireAdmin, async (req, res) => {
+    try {
+      const limit = parseInt(req.query.limit) || 50;
+      const tasks = await storage.getAllCommunityTasks(limit);
+      const stats = await storage.getCommunityStats();
+      res.json({ success: true, data: { tasks, stats } });
+    } catch (error) {
+      console.error("[Community] Error fetching tasks:", error);
+      res.status(500).json({ error: "Failed to fetch community tasks" });
+    }
+  });
+  app3.get("/api/admin/token-programs/community/tasks/:id/contributions", requireAdmin, async (req, res) => {
+    try {
+      const contributions = await storage.getCommunityContributions(req.params.id, 100);
+      res.json({ success: true, data: contributions });
+    } catch (error) {
+      console.error("[Community] Error fetching contributions:", error);
+      res.status(500).json({ error: "Failed to fetch contributions" });
+    }
+  });
+  app3.post("/api/admin/token-programs/community/tasks", requireAdmin, async (req, res) => {
+    try {
+      const task = await storage.createCommunityTask(req.body);
+      res.json({ success: true, data: task });
+    } catch (error) {
+      console.error("[Community] Error creating task:", error);
+      res.status(500).json({ error: "Failed to create community task" });
+    }
+  });
+  app3.patch("/api/admin/token-programs/community/tasks/:id", requireAdmin, async (req, res) => {
+    try {
+      await storage.updateCommunityTask(req.params.id, req.body);
+      const task = await storage.getCommunityTaskById(req.params.id);
+      res.json({ success: true, data: task });
+    } catch (error) {
+      console.error("[Community] Error updating task:", error);
+      res.status(500).json({ error: "Failed to update community task" });
+    }
+  });
+  app3.delete("/api/admin/token-programs/community/tasks/:id", requireAdmin, async (req, res) => {
+    try {
+      await storage.deleteCommunityTask(req.params.id);
+      res.json({ success: true });
+    } catch (error) {
+      console.error("[Community] Error deleting task:", error);
+      res.status(500).json({ error: "Failed to delete community task" });
+    }
+  });
+  app3.patch("/api/admin/token-programs/community/contributions/:id", requireAdmin, async (req, res) => {
+    try {
+      const { status } = req.body;
+      if (!status || !["approved", "rejected", "pending"].includes(status)) {
+        return res.status(400).json({ error: "Invalid status. Must be: approved, rejected, or pending" });
+      }
+      await storage.updateCommunityContribution(req.params.id, {
+        status,
+        verifiedBy: req.session?.admin?.username || "admin",
+        verifiedAt: /* @__PURE__ */ new Date()
+      });
+      res.json({ success: true });
+    } catch (error) {
+      console.error("[Community] Error updating contribution:", error);
+      res.status(500).json({ error: "Failed to update contribution" });
+    }
+  });
+  app3.get("/api/admin/token-programs/dao/proposals", requireAdmin, async (req, res) => {
+    try {
+      const limit = parseInt(req.query.limit) || 50;
+      const proposals = await storage.getAllDaoProposals(limit);
+      const stats = await storage.getDaoStats();
+      res.json({ success: true, data: { proposals, stats } });
+    } catch (error) {
+      console.error("[DAO] Error fetching proposals:", error);
+      res.status(500).json({ error: "Failed to fetch DAO proposals" });
+    }
+  });
+  app3.get("/api/admin/token-programs/dao/proposals/:id", requireAdmin, async (req, res) => {
+    try {
+      const proposal = await storage.getDaoProposalById(req.params.id);
+      if (!proposal) {
+        return res.status(404).json({ error: "Proposal not found" });
+      }
+      const votes = await storage.getDaoVotes(proposal.id);
+      res.json({ success: true, data: { proposal, votes } });
+    } catch (error) {
+      console.error("[DAO] Error fetching proposal:", error);
+      res.status(500).json({ error: "Failed to fetch proposal" });
+    }
+  });
+  app3.post("/api/admin/token-programs/dao/proposals", requireAdmin, async (req, res) => {
+    try {
+      const proposal = await storage.createDaoProposal(req.body);
+      res.json({ success: true, data: proposal });
+    } catch (error) {
+      console.error("[DAO] Error creating proposal:", error);
+      res.status(500).json({ error: "Failed to create DAO proposal" });
+    }
+  });
+  app3.patch("/api/admin/token-programs/dao/proposals/:id", requireAdmin, async (req, res) => {
+    try {
+      await storage.updateDaoProposal(req.params.id, req.body);
+      const proposal = await storage.getDaoProposalById(req.params.id);
+      res.json({ success: true, data: proposal });
+    } catch (error) {
+      console.error("[DAO] Error updating proposal:", error);
+      res.status(500).json({ error: "Failed to update proposal" });
+    }
+  });
+  app3.delete("/api/admin/token-programs/dao/proposals/:id", requireAdmin, async (req, res) => {
+    try {
+      await storage.deleteDaoProposal(req.params.id);
+      res.json({ success: true, message: "Proposal deleted successfully" });
+    } catch (error) {
+      console.error("[DAO] Error deleting proposal:", error);
+      res.status(500).json({ error: "Failed to delete proposal" });
+    }
+  });
+  app3.get("/api/admin/token-programs/dao/proposals/:id/votes", requireAdmin, async (req, res) => {
+    try {
+      const votes = await storage.getDaoVotes(req.params.id);
+      res.json({ success: true, data: votes });
+    } catch (error) {
+      console.error("[DAO] Error fetching votes:", error);
+      res.status(500).json({ error: "Failed to fetch votes" });
+    }
+  });
+  app3.post("/api/admin/token-programs/dao/proposals/:id/votes", requireAdmin, async (req, res) => {
+    try {
+      const vote = await storage.createDaoVote({
+        ...req.body,
+        proposalId: req.params.id
+      });
+      const proposal = await storage.getDaoProposalById(req.params.id);
+      if (proposal) {
+        const votes = await storage.getDaoVotes(req.params.id);
+        let forVotes = 0, againstVotes = 0, abstainVotes = 0;
+        votes.forEach((v) => {
+          const power = parseFloat(v.votePower);
+          if (v.choice === "for") forVotes += power;
+          else if (v.choice === "against") againstVotes += power;
+          else abstainVotes += power;
+        });
+        await storage.updateDaoProposal(req.params.id, {
+          forVotes: forVotes.toString(),
+          againstVotes: againstVotes.toString(),
+          abstainVotes: abstainVotes.toString(),
+          totalVoters: votes.length
+        });
+      }
+      res.json({ success: true, data: vote });
+    } catch (error) {
+      console.error("[DAO] Error creating vote:", error);
+      res.status(500).json({ error: "Failed to create vote" });
+    }
+  });
+  app3.delete("/api/admin/token-programs/dao/votes/:id", requireAdmin, async (req, res) => {
+    try {
+      await storage.deleteDaoVote(req.params.id);
+      res.json({ success: true, message: "Vote deleted successfully" });
+    } catch (error) {
+      console.error("[DAO] Error deleting vote:", error);
+      res.status(500).json({ error: "Failed to delete vote" });
+    }
+  });
+  app3.get("/api/admin/token-programs/block-rewards/cycles", requireAdmin, async (req, res) => {
+    try {
+      const limit = parseInt(req.query.limit) || 50;
+      const cycles = await storage.getAllBlockRewardCycles(limit);
+      const stats = await storage.getBlockRewardStats();
+      res.json({ success: true, data: { cycles, stats } });
+    } catch (error) {
+      console.error("[BlockRewards] Error fetching cycles:", error);
+      res.status(500).json({ error: "Failed to fetch block reward cycles" });
+    }
+  });
+  app3.get("/api/admin/token-programs/block-rewards/cycles/:id/payouts", requireAdmin, async (req, res) => {
+    try {
+      const payouts = await storage.getBlockRewardPayouts(req.params.id);
+      res.json({ success: true, data: payouts });
+    } catch (error) {
+      console.error("[BlockRewards] Error fetching payouts:", error);
+      res.status(500).json({ error: "Failed to fetch payouts" });
+    }
+  });
+  app3.get("/api/admin/token-programs/block-rewards/cycles/:id", requireAdmin, async (req, res) => {
+    try {
+      const cycle = await storage.getBlockRewardCycleById(req.params.id);
+      if (!cycle) {
+        return res.status(404).json({ error: "Cycle not found" });
+      }
+      res.json({ success: true, data: cycle });
+    } catch (error) {
+      console.error("[BlockRewards] Error fetching cycle:", error);
+      res.status(500).json({ error: "Failed to fetch cycle" });
+    }
+  });
+  app3.post("/api/admin/token-programs/block-rewards/cycles", requireAdmin, async (req, res) => {
+    try {
+      const cycle = await storage.createBlockRewardCycle(req.body);
+      res.json({ success: true, data: cycle });
+    } catch (error) {
+      console.error("[BlockRewards] Error creating cycle:", error);
+      res.status(500).json({ error: "Failed to create block reward cycle" });
+    }
+  });
+  app3.patch("/api/admin/token-programs/block-rewards/cycles/:id", requireAdmin, async (req, res) => {
+    try {
+      await storage.updateBlockRewardCycle(req.params.id, req.body);
+      const cycle = await storage.getBlockRewardCycleById(req.params.id);
+      res.json({ success: true, data: cycle });
+    } catch (error) {
+      console.error("[BlockRewards] Error updating cycle:", error);
+      res.status(500).json({ error: "Failed to update cycle" });
+    }
+  });
+  app3.post("/api/admin/token-programs/block-rewards/cycles/:id/payouts", requireAdmin, async (req, res) => {
+    try {
+      const payout = await storage.createBlockRewardPayout({
+        ...req.body,
+        cycleId: req.params.id
+      });
+      res.json({ success: true, data: payout });
+    } catch (error) {
+      console.error("[BlockRewards] Error creating payout:", error);
+      res.status(500).json({ error: "Failed to create payout" });
+    }
+  });
+  app3.patch("/api/admin/token-programs/block-rewards/payouts/:id", requireAdmin, async (req, res) => {
+    try {
+      await storage.updateBlockRewardPayout(req.params.id, req.body);
+      res.json({ success: true, message: "Payout updated successfully" });
+    } catch (error) {
+      console.error("[BlockRewards] Error updating payout:", error);
+      res.status(500).json({ error: "Failed to update payout" });
+    }
+  });
+  app3.get("/api/admin/token-programs/validator-incentives", requireAdmin, async (req, res) => {
+    try {
+      const limit = parseInt(req.query.limit) || 100;
+      const payouts = await storage.getAllValidatorIncentivePayouts(limit);
+      const stats = await storage.getValidatorIncentiveStats();
+      res.json({ success: true, data: { payouts, stats } });
+    } catch (error) {
+      console.error("[ValidatorIncentives] Error fetching payouts:", error);
+      res.status(500).json({ error: "Failed to fetch validator incentives" });
+    }
+  });
+  app3.get("/api/admin/token-programs/validator-incentives/:address/performance", requireAdmin, async (req, res) => {
+    try {
+      const performanceStats = await storage.getValidatorPerformanceStats(req.params.address);
+      res.json({ success: true, data: performanceStats });
+    } catch (error) {
+      console.error("[ValidatorIncentives] Error fetching performance:", error);
+      res.status(500).json({ error: "Failed to fetch validator performance" });
+    }
+  });
+  app3.post("/api/admin/token-programs/validator-incentives", requireAdmin, async (req, res) => {
+    try {
+      const payout = await storage.createValidatorIncentivePayout(req.body);
+      res.json({ success: true, data: payout });
+    } catch (error) {
+      console.error("[ValidatorIncentives] Error creating payout:", error);
+      res.status(500).json({ error: "Failed to create validator incentive payout" });
+    }
+  });
+  app3.patch("/api/admin/token-programs/validator-incentives/:id", requireAdmin, async (req, res) => {
+    try {
+      await storage.updateValidatorIncentivePayout(req.params.id, req.body);
+      res.json({ success: true, message: "Payout updated successfully" });
+    } catch (error) {
+      console.error("[ValidatorIncentives] Error updating payout:", error);
+      res.status(500).json({ error: "Failed to update validator incentive payout" });
+    }
+  });
+  app3.get("/api/admin/token-programs/ecosystem-grants", requireAdmin, async (req, res) => {
+    try {
+      const limit = parseInt(req.query.limit) || 50;
+      const grants = await storage.getAllEcosystemGrants(limit);
+      const stats = await storage.getEcosystemGrantStats();
+      res.json({ success: true, data: { grants, stats } });
+    } catch (error) {
+      console.error("[EcosystemGrants] Error fetching grants:", error);
+      res.status(500).json({ error: "Failed to fetch ecosystem grants" });
+    }
+  });
+  app3.get("/api/admin/token-programs/ecosystem-grants/:id", requireAdmin, async (req, res) => {
+    try {
+      const grant = await storage.getEcosystemGrantById(req.params.id);
+      if (!grant) {
+        return res.status(404).json({ error: "Grant not found" });
+      }
+      const milestones = await storage.getGrantMilestones(grant.id);
+      res.json({ success: true, data: { grant, milestones } });
+    } catch (error) {
+      console.error("[EcosystemGrants] Error fetching grant:", error);
+      res.status(500).json({ error: "Failed to fetch grant" });
+    }
+  });
+  app3.post("/api/admin/token-programs/ecosystem-grants", requireAdmin, async (req, res) => {
+    try {
+      const data = { ...req.body };
+      if (data.proposedStartDate === "" || data.proposedStartDate === void 0) {
+        data.proposedStartDate = null;
+      } else if (typeof data.proposedStartDate === "string") {
+        data.proposedStartDate = new Date(data.proposedStartDate);
+      }
+      if (data.proposedEndDate === "" || data.proposedEndDate === void 0) {
+        data.proposedEndDate = null;
+      } else if (typeof data.proposedEndDate === "string") {
+        data.proposedEndDate = new Date(data.proposedEndDate);
+      }
+      if (data.actualStartDate === "" || data.actualStartDate === void 0) {
+        data.actualStartDate = null;
+      } else if (typeof data.actualStartDate === "string") {
+        data.actualStartDate = new Date(data.actualStartDate);
+      }
+      if (data.actualEndDate === "" || data.actualEndDate === void 0) {
+        data.actualEndDate = null;
+      } else if (typeof data.actualEndDate === "string") {
+        data.actualEndDate = new Date(data.actualEndDate);
+      }
+      const grant = await storage.createEcosystemGrant(data);
+      res.json({ success: true, data: grant });
+    } catch (error) {
+      console.error("[EcosystemGrants] Error creating grant:", error);
+      res.status(500).json({ error: "Failed to create ecosystem grant" });
+    }
+  });
+  app3.patch("/api/admin/token-programs/ecosystem-grants/:id", requireAdmin, async (req, res) => {
+    try {
+      const data = { ...req.body };
+      const dateFields = ["proposedStartDate", "proposedEndDate", "actualStartDate", "actualEndDate"];
+      for (const field of dateFields) {
+        if (data[field] === "" || data[field] === void 0) {
+          data[field] = null;
+        } else if (typeof data[field] === "string") {
+          data[field] = new Date(data[field]);
+        }
+      }
+      await storage.updateEcosystemGrant(req.params.id, data);
+      const grant = await storage.getEcosystemGrantById(req.params.id);
+      res.json({ success: true, data: grant });
+    } catch (error) {
+      console.error("[EcosystemGrants] Error updating grant:", error);
+      res.status(500).json({ error: "Failed to update grant" });
+    }
+  });
+  app3.post("/api/admin/token-programs/ecosystem-grants/:id/milestones", requireAdmin, async (req, res) => {
+    try {
+      const data = { ...req.body, grantId: req.params.id };
+      const dateFields = ["dueDate", "submittedAt", "approvedAt", "paidAt"];
+      for (const field of dateFields) {
+        if (data[field] === "" || data[field] === void 0) {
+          data[field] = null;
+        } else if (typeof data[field] === "string") {
+          data[field] = new Date(data[field]);
+        }
+      }
+      const milestone = await storage.createGrantMilestone(data);
+      res.json({ success: true, data: milestone });
+    } catch (error) {
+      console.error("[EcosystemGrants] Error creating milestone:", error);
+      res.status(500).json({ error: "Failed to create milestone" });
+    }
+  });
+  app3.patch("/api/admin/token-programs/ecosystem-grants/milestones/:id", requireAdmin, async (req, res) => {
+    try {
+      await storage.updateGrantMilestone(req.params.id, req.body);
+      const milestone = await storage.getGrantMilestoneById(req.params.id);
+      res.json({ success: true, data: milestone });
+    } catch (error) {
+      console.error("[EcosystemGrants] Error updating milestone:", error);
+      res.status(500).json({ error: "Failed to update milestone" });
+    }
+  });
+  app3.get("/api/admin/token-programs/partnerships", requireAdmin, async (req, res) => {
+    try {
+      const limit = parseInt(req.query.limit) || 100;
+      const partners = await storage.getAllPartnerships(limit);
+      const stats = await storage.getPartnershipStats();
+      res.json({ success: true, data: { partners, stats } });
+    } catch (error) {
+      console.error("[Partnerships] Error fetching partners:", error);
+      res.status(500).json({ error: "Failed to fetch partnerships" });
+    }
+  });
+  app3.get("/api/admin/token-programs/partnerships/:id", requireAdmin, async (req, res) => {
+    try {
+      const partner = await storage.getPartnershipById(req.params.id);
+      if (!partner) {
+        return res.status(404).json({ error: "Partnership not found" });
+      }
+      const payouts = await storage.getPartnershipPayouts(partner.id);
+      res.json({ success: true, data: { partner, payouts } });
+    } catch (error) {
+      console.error("[Partnerships] Error fetching partner:", error);
+      res.status(500).json({ error: "Failed to fetch partnership" });
+    }
+  });
+  app3.post("/api/admin/token-programs/partnerships", requireAdmin, async (req, res) => {
+    try {
+      const data = { ...req.body };
+      const dateFields = ["agreementStartDate", "agreementEndDate"];
+      for (const field of dateFields) {
+        if (data[field] === "" || data[field] === void 0) {
+          data[field] = null;
+        } else if (typeof data[field] === "string") {
+          data[field] = new Date(data[field]);
+        }
+      }
+      const partner = await storage.createPartnership(data);
+      res.json({ success: true, data: partner });
+    } catch (error) {
+      console.error("[Partnerships] Error creating partner:", error);
+      res.status(500).json({ error: "Failed to create partnership" });
+    }
+  });
+  app3.patch("/api/admin/token-programs/partnerships/:id", requireAdmin, async (req, res) => {
+    try {
+      const data = { ...req.body };
+      const dateFields = ["agreementStartDate", "agreementEndDate"];
+      for (const field of dateFields) {
+        if (data[field] === "" || data[field] === void 0) {
+          data[field] = null;
+        } else if (typeof data[field] === "string") {
+          data[field] = new Date(data[field]);
+        }
+      }
+      await storage.updatePartnership(req.params.id, data);
+      const partner = await storage.getPartnershipById(req.params.id);
+      res.json({ success: true, data: partner });
+    } catch (error) {
+      console.error("[Partnerships] Error updating partner:", error);
+      res.status(500).json({ error: "Failed to update partnership" });
+    }
+  });
+  app3.post("/api/admin/token-programs/partnerships/:id/payouts", requireAdmin, async (req, res) => {
+    try {
+      const data = { ...req.body, partnershipId: req.params.id };
+      if (data.paidAt === "" || data.paidAt === void 0) {
+        data.paidAt = null;
+      } else if (typeof data.paidAt === "string") {
+        data.paidAt = new Date(data.paidAt);
+      }
+      const payout = await storage.createPartnershipPayout(data);
+      res.json({ success: true, data: payout });
+    } catch (error) {
+      console.error("[Partnerships] Error creating payout:", error);
+      res.status(500).json({ error: "Failed to create partnership payout" });
+    }
+  });
+  app3.patch("/api/admin/token-programs/partnerships/payouts/:id", requireAdmin, async (req, res) => {
+    try {
+      const data = { ...req.body };
+      if (data.paidAt === "" || data.paidAt === void 0) {
+        data.paidAt = null;
+      } else if (typeof data.paidAt === "string") {
+        data.paidAt = new Date(data.paidAt);
+      }
+      await storage.updatePartnershipPayout(req.params.id, data);
+      res.json({ success: true, message: "Payout updated successfully" });
+    } catch (error) {
+      console.error("[Partnerships] Error updating payout:", error);
+      res.status(500).json({ error: "Failed to update partnership payout" });
+    }
+  });
+  app3.get("/api/admin/token-programs/launchpad/projects", requireAdmin, async (req, res) => {
+    try {
+      const limit = parseInt(req.query.limit) || 100;
+      const projects = await storage.getAllIdoLaunchpadProjects(limit);
+      const stats = await storage.getIdoLaunchpadStats();
+      res.json({ success: true, data: { projects, stats } });
+    } catch (error) {
+      console.error("[Launchpad] Error fetching projects:", error);
+      res.status(500).json({ error: "Failed to fetch launchpad projects" });
+    }
+  });
+  app3.get("/api/admin/token-programs/launchpad/projects/:id", requireAdmin, async (req, res) => {
+    try {
+      const project = await storage.getIdoLaunchpadProjectById(req.params.id);
+      if (!project) {
+        return res.status(404).json({ error: "Project not found" });
+      }
+      const participants = await storage.getIdoLaunchpadParticipants(project.id);
+      res.json({ success: true, data: { project, participants } });
+    } catch (error) {
+      console.error("[Launchpad] Error fetching project:", error);
+      res.status(500).json({ error: "Failed to fetch project" });
+    }
+  });
+  app3.post("/api/admin/token-programs/launchpad/projects", requireAdmin, async (req, res) => {
+    try {
+      const data = { ...req.body };
+      const dateFields = ["startDate", "endDate", "listingDate"];
+      for (const field of dateFields) {
+        if (data[field] === "" || data[field] === void 0) {
+          data[field] = null;
+        } else if (typeof data[field] === "string") {
+          data[field] = new Date(data[field]);
+        }
+      }
+      const project = await storage.createIdoLaunchpadProject(data);
+      res.json({ success: true, data: project });
+    } catch (error) {
+      console.error("[Launchpad] Error creating project:", error);
+      res.status(500).json({ error: "Failed to create launchpad project" });
+    }
+  });
+  app3.patch("/api/admin/token-programs/launchpad/projects/:id", requireAdmin, async (req, res) => {
+    try {
+      const data = { ...req.body };
+      const dateFields = ["startDate", "endDate", "listingDate"];
+      for (const field of dateFields) {
+        if (data[field] === "" || data[field] === void 0) {
+          data[field] = null;
+        } else if (typeof data[field] === "string") {
+          data[field] = new Date(data[field]);
+        }
+      }
+      await storage.updateIdoLaunchpadProject(req.params.id, data);
+      const project = await storage.getIdoLaunchpadProjectById(req.params.id);
+      res.json({ success: true, data: project });
+    } catch (error) {
+      console.error("[Launchpad] Error updating project:", error);
+      res.status(500).json({ error: "Failed to update launchpad project" });
+    }
+  });
+  app3.post("/api/admin/token-programs/launchpad/projects/:projectId/participants", requireAdmin, async (req, res) => {
+    try {
+      const data = { ...req.body, projectId: req.params.projectId };
+      const participant = await storage.createIdoLaunchpadParticipant(data);
+      res.json({ success: true, data: participant });
+    } catch (error) {
+      console.error("[Launchpad] Error creating participant:", error);
+      res.status(500).json({ error: "Failed to create participant" });
+    }
+  });
+  app3.patch("/api/admin/token-programs/launchpad/participants/:id", requireAdmin, async (req, res) => {
+    try {
+      const data = { ...req.body };
+      await storage.updateIdoLaunchpadParticipant(req.params.id, data);
+      const participant = await storage.getIdoLaunchpadParticipantById(req.params.id);
+      res.json({ success: true, data: participant });
+    } catch (error) {
+      console.error("[Launchpad] Error updating participant:", error);
+      res.status(500).json({ error: "Failed to update participant" });
+    }
+  });
+  app3.get("/api/admin/token-programs/coinlist/sales", requireAdmin, async (req, res) => {
+    try {
+      const limit = parseInt(req.query.limit) || 100;
+      const sales = await storage.getAllCoinlistSales(limit);
+      const stats = await storage.getCoinlistStats();
+      res.json({ success: true, data: { sales, stats } });
+    } catch (error) {
+      console.error("[CoinList] Error fetching sales:", error);
+      res.status(500).json({ error: "Failed to fetch coinlist sales" });
+    }
+  });
+  app3.get("/api/admin/token-programs/coinlist/sales/:id", requireAdmin, async (req, res) => {
+    try {
+      const sale = await storage.getCoinlistSaleById(req.params.id);
+      if (!sale) {
+        return res.status(404).json({ error: "Sale not found" });
+      }
+      const participants = await storage.getCoinlistParticipants(sale.id);
+      res.json({ success: true, data: { sale, participants } });
+    } catch (error) {
+      console.error("[CoinList] Error fetching sale:", error);
+      res.status(500).json({ error: "Failed to fetch sale" });
+    }
+  });
+  app3.post("/api/admin/token-programs/coinlist/sales", requireAdmin, async (req, res) => {
+    try {
+      const data = { ...req.body };
+      const dateFields = ["registrationStart", "registrationEnd", "saleStart", "saleEnd"];
+      for (const field of dateFields) {
+        if (data[field] === "" || data[field] === void 0) {
+          data[field] = null;
+        } else if (typeof data[field] === "string") {
+          data[field] = new Date(data[field]);
+        }
+      }
+      const sale = await storage.createCoinlistSale(data);
+      res.json({ success: true, data: sale });
+    } catch (error) {
+      console.error("[CoinList] Error creating sale:", error);
+      res.status(500).json({ error: "Failed to create coinlist sale" });
+    }
+  });
+  app3.patch("/api/admin/token-programs/coinlist/sales/:id", requireAdmin, async (req, res) => {
+    try {
+      const data = { ...req.body };
+      const dateFields = ["registrationStart", "registrationEnd", "saleStart", "saleEnd"];
+      for (const field of dateFields) {
+        if (data[field] === "" || data[field] === void 0) {
+          data[field] = null;
+        } else if (typeof data[field] === "string") {
+          data[field] = new Date(data[field]);
+        }
+      }
+      await storage.updateCoinlistSale(req.params.id, data);
+      const sale = await storage.getCoinlistSaleById(req.params.id);
+      res.json({ success: true, data: sale });
+    } catch (error) {
+      console.error("[CoinList] Error updating sale:", error);
+      res.status(500).json({ error: "Failed to update coinlist sale" });
+    }
+  });
+  app3.post("/api/admin/token-programs/coinlist/sales/:saleId/participants", requireAdmin, async (req, res) => {
+    try {
+      const data = { ...req.body, saleId: req.params.saleId };
+      const dateFields = ["kycVerifiedDate", "winnerSelectedDate", "paymentReceivedDate"];
+      for (const field of dateFields) {
+        if (data[field] === "" || data[field] === void 0) {
+          data[field] = null;
+        } else if (typeof data[field] === "string") {
+          data[field] = new Date(data[field]);
+        }
+      }
+      const participant = await storage.createCoinlistParticipant(data);
+      res.json({ success: true, data: participant });
+    } catch (error) {
+      console.error("[CoinList] Error creating participant:", error);
+      res.status(500).json({ error: "Failed to create participant" });
+    }
+  });
+  app3.patch("/api/admin/token-programs/coinlist/participants/:id", requireAdmin, async (req, res) => {
+    try {
+      const data = { ...req.body };
+      const dateFields = ["kycVerifiedDate", "winnerSelectedDate", "paymentReceivedDate"];
+      for (const field of dateFields) {
+        if (data[field] === "" || data[field] === void 0) {
+          data[field] = null;
+        } else if (typeof data[field] === "string") {
+          data[field] = new Date(data[field]);
+        }
+      }
+      await storage.updateCoinlistParticipant(req.params.id, data);
+      const participant = await storage.getCoinlistParticipantById(req.params.id);
+      res.json({ success: true, data: participant });
+    } catch (error) {
+      console.error("[CoinList] Error updating participant:", error);
+      res.status(500).json({ error: "Failed to update participant" });
+    }
+  });
+  app3.post("/api/admin/token-programs/coinlist/sales/:saleId/select-winners", requireAdmin, async (req, res) => {
+    try {
+      const { count } = req.body;
+      const winnersSelected = await storage.selectCoinlistWinners(req.params.saleId, count);
+      res.json({ success: true, data: { winnersSelected } });
+    } catch (error) {
+      console.error("[CoinList] Error selecting winners:", error);
+      res.status(500).json({ error: "Failed to select winners" });
+    }
+  });
+  app3.get("/api/admin/token-programs/dao-maker/shos", requireAdmin, async (req, res) => {
+    try {
+      const limit = parseInt(req.query.limit) || 100;
+      const shos = await storage.getAllDaoMakerShos(limit);
+      const stats = await storage.getDaoMakerStats();
+      res.json({ success: true, data: { shos, stats } });
+    } catch (error) {
+      console.error("[DAOMaker] Error fetching SHOs:", error);
+      res.status(500).json({ error: "Failed to fetch DAO Maker SHOs" });
+    }
+  });
+  app3.get("/api/admin/token-programs/dao-maker/shos/:id", requireAdmin, async (req, res) => {
+    try {
+      const sho = await storage.getDaoMakerShoById(req.params.id);
+      if (!sho) {
+        return res.status(404).json({ error: "SHO not found" });
+      }
+      const participants = await storage.getDaoMakerParticipants(sho.id);
+      res.json({ success: true, data: { sho, participants } });
+    } catch (error) {
+      console.error("[DAOMaker] Error fetching SHO:", error);
+      res.status(500).json({ error: "Failed to fetch SHO" });
+    }
+  });
+  app3.post("/api/admin/token-programs/dao-maker/shos", requireAdmin, async (req, res) => {
+    try {
+      const data = { ...req.body };
+      const dateFields = ["registrationStart", "registrationEnd", "saleStart", "saleEnd"];
+      for (const field of dateFields) {
+        if (data[field] === "" || data[field] === void 0) {
+          data[field] = null;
+        } else if (typeof data[field] === "string") {
+          data[field] = new Date(data[field]);
+        }
+      }
+      const sho = await storage.createDaoMakerSho(data);
+      res.json({ success: true, data: sho });
+    } catch (error) {
+      console.error("[DAOMaker] Error creating SHO:", error);
+      res.status(500).json({ error: "Failed to create DAO Maker SHO" });
+    }
+  });
+  app3.patch("/api/admin/token-programs/dao-maker/shos/:id", requireAdmin, async (req, res) => {
+    try {
+      const data = { ...req.body };
+      const dateFields = ["registrationStart", "registrationEnd", "saleStart", "saleEnd"];
+      for (const field of dateFields) {
+        if (data[field] === "" || data[field] === void 0) {
+          data[field] = null;
+        } else if (typeof data[field] === "string") {
+          data[field] = new Date(data[field]);
+        }
+      }
+      await storage.updateDaoMakerSho(req.params.id, data);
+      const sho = await storage.getDaoMakerShoById(req.params.id);
+      res.json({ success: true, data: sho });
+    } catch (error) {
+      console.error("[DAOMaker] Error updating SHO:", error);
+      res.status(500).json({ error: "Failed to update DAO Maker SHO" });
+    }
+  });
+  app3.post("/api/admin/token-programs/dao-maker/shos/:shoId/participants", requireAdmin, async (req, res) => {
+    try {
+      const data = { ...req.body, shoId: req.params.shoId };
+      const dateFields = ["kycVerifiedDate", "winnerSelectedDate", "paymentReceivedDate"];
+      for (const field of dateFields) {
+        if (data[field] === "" || data[field] === void 0) {
+          data[field] = null;
+        } else if (typeof data[field] === "string") {
+          data[field] = new Date(data[field]);
+        }
+      }
+      const participant = await storage.createDaoMakerParticipant(data);
+      res.json({ success: true, data: participant });
+    } catch (error) {
+      console.error("[DAOMaker] Error creating participant:", error);
+      res.status(500).json({ error: "Failed to create participant" });
+    }
+  });
+  app3.patch("/api/admin/token-programs/dao-maker/participants/:id", requireAdmin, async (req, res) => {
+    try {
+      const data = { ...req.body };
+      const dateFields = ["kycVerifiedDate", "winnerSelectedDate", "paymentReceivedDate"];
+      for (const field of dateFields) {
+        if (data[field] === "" || data[field] === void 0) {
+          data[field] = null;
+        } else if (typeof data[field] === "string") {
+          data[field] = new Date(data[field]);
+        }
+      }
+      await storage.updateDaoMakerParticipant(req.params.id, data);
+      const participant = await storage.getDaoMakerParticipantById(req.params.id);
+      res.json({ success: true, data: participant });
+    } catch (error) {
+      console.error("[DAOMaker] Error updating participant:", error);
+      res.status(500).json({ error: "Failed to update participant" });
+    }
+  });
+  app3.post("/api/admin/token-programs/dao-maker/shos/:shoId/select-winners", requireAdmin, async (req, res) => {
+    try {
+      const { count } = req.body;
+      const winnersSelected = await storage.selectDaoMakerWinners(req.params.shoId, count);
+      res.json({ success: true, data: { winnersSelected } });
+    } catch (error) {
+      console.error("[DAOMaker] Error selecting winners:", error);
+      res.status(500).json({ error: "Failed to select winners" });
+    }
+  });
+  app3.get("/api/admin/token-programs/public-round/participants", requireAdmin, async (req, res) => {
+    try {
+      const limit = parseInt(req.query.limit) || 100;
+      const participants = await storage.getAllPublicParticipants(limit);
+      const stats = await storage.getPublicRoundStats();
+      res.json({ success: true, data: { participants, stats } });
+    } catch (error) {
+      console.error("[Public Round] Error fetching participants:", error);
+      res.status(500).json({ error: "Failed to fetch public participants" });
+    }
+  });
+  app3.get("/api/admin/token-programs/public-round/participants/:id", requireAdmin, async (req, res) => {
+    try {
+      const participant = await storage.getPublicParticipantById(req.params.id);
+      if (!participant) {
+        return res.status(404).json({ error: "Participant not found" });
+      }
+      const payouts = await storage.getPublicPayouts(participant.id);
+      res.json({ success: true, data: { participant, payouts } });
+    } catch (error) {
+      console.error("[Public Round] Error fetching participant:", error);
+      res.status(500).json({ error: "Failed to fetch participant" });
+    }
+  });
+  app3.post("/api/admin/token-programs/public-round/participants", requireAdmin, async (req, res) => {
+    try {
+      const data = { ...req.body };
+      const dateFields = ["kycVerifiedDate", "paymentReceivedDate"];
+      for (const field of dateFields) {
+        if (data[field] === "" || data[field] === void 0) {
+          data[field] = null;
+        } else if (typeof data[field] === "string") {
+          data[field] = new Date(data[field]);
+        }
+      }
+      const participant = await storage.createPublicParticipant(data);
+      res.json({ success: true, data: participant });
+    } catch (error) {
+      console.error("[Public Round] Error creating participant:", error);
+      res.status(500).json({ error: "Failed to create public participant" });
+    }
+  });
+  app3.patch("/api/admin/token-programs/public-round/participants/:id", requireAdmin, async (req, res) => {
+    try {
+      const data = { ...req.body };
+      const dateFields = ["kycVerifiedDate", "paymentReceivedDate"];
+      for (const field of dateFields) {
+        if (data[field] === "" || data[field] === void 0) {
+          data[field] = null;
+        } else if (typeof data[field] === "string") {
+          data[field] = new Date(data[field]);
+        }
+      }
+      await storage.updatePublicParticipant(req.params.id, data);
+      const participant = await storage.getPublicParticipantById(req.params.id);
+      res.json({ success: true, data: participant });
+    } catch (error) {
+      console.error("[Public Round] Error updating participant:", error);
+      res.status(500).json({ error: "Failed to update public participant" });
+    }
+  });
+  app3.post("/api/admin/token-programs/public-round/participants/:id/payouts", requireAdmin, async (req, res) => {
+    try {
+      const data = { ...req.body, participantId: req.params.id };
+      if (data.scheduledDate === "" || data.scheduledDate === void 0) data.scheduledDate = null;
+      else if (typeof data.scheduledDate === "string") data.scheduledDate = new Date(data.scheduledDate);
+      if (data.processedDate === "" || data.processedDate === void 0) data.processedDate = null;
+      else if (typeof data.processedDate === "string") data.processedDate = new Date(data.processedDate);
+      const payout = await storage.createPublicPayout(data);
+      res.json({ success: true, data: payout });
+    } catch (error) {
+      console.error("[Public Round] Error creating payout:", error);
+      res.status(500).json({ error: "Failed to create payout" });
+    }
+  });
+  app3.patch("/api/admin/token-programs/public-round/payouts/:id", requireAdmin, async (req, res) => {
+    try {
+      const data = { ...req.body };
+      if (data.scheduledDate === "" || data.scheduledDate === void 0) data.scheduledDate = null;
+      else if (typeof data.scheduledDate === "string") data.scheduledDate = new Date(data.scheduledDate);
+      if (data.processedDate === "" || data.processedDate === void 0) data.processedDate = null;
+      else if (typeof data.processedDate === "string") data.processedDate = new Date(data.processedDate);
+      await storage.updatePublicPayout(req.params.id, data);
+      res.json({ success: true, message: "Payout updated" });
+    } catch (error) {
+      console.error("[Public Round] Error updating payout:", error);
+      res.status(500).json({ error: "Failed to update payout" });
+    }
+  });
+  app3.get("/api/admin/token-programs/private-round/investors", requireAdmin, async (req, res) => {
+    try {
+      const limit = parseInt(req.query.limit) || 100;
+      const investors = await storage.getAllPrivateInvestors(limit);
+      const stats = await storage.getPrivateRoundStats();
+      res.json({ success: true, data: { investors, stats } });
+    } catch (error) {
+      console.error("[Private Round] Error fetching investors:", error);
+      res.status(500).json({ error: "Failed to fetch private investors" });
+    }
+  });
+  app3.get("/api/admin/token-programs/private-round/investors/:id", requireAdmin, async (req, res) => {
+    try {
+      const investor = await storage.getPrivateInvestorById(req.params.id);
+      if (!investor) {
+        return res.status(404).json({ error: "Investor not found" });
+      }
+      const payouts = await storage.getPrivatePayouts(investor.id);
+      res.json({ success: true, data: { investor, payouts } });
+    } catch (error) {
+      console.error("[Private Round] Error fetching investor:", error);
+      res.status(500).json({ error: "Failed to fetch investor" });
+    }
+  });
+  app3.post("/api/admin/token-programs/private-round/investors", requireAdmin, async (req, res) => {
+    try {
+      const data = { ...req.body };
+      const dateFields = ["vestingStartDate", "vestingEndDate", "saftSignedDate", "kycVerifiedDate", "paymentReceivedDate"];
+      for (const field of dateFields) {
+        if (data[field] === "" || data[field] === void 0) {
+          data[field] = null;
+        } else if (typeof data[field] === "string") {
+          data[field] = new Date(data[field]);
+        }
+      }
+      const investor = await storage.createPrivateInvestor(data);
+      res.json({ success: true, data: investor });
+    } catch (error) {
+      console.error("[Private Round] Error creating investor:", error);
+      res.status(500).json({ error: "Failed to create private investor" });
+    }
+  });
+  app3.patch("/api/admin/token-programs/private-round/investors/:id", requireAdmin, async (req, res) => {
+    try {
+      const data = { ...req.body };
+      const dateFields = ["vestingStartDate", "vestingEndDate", "saftSignedDate", "kycVerifiedDate", "paymentReceivedDate"];
+      for (const field of dateFields) {
+        if (data[field] === "" || data[field] === void 0) {
+          data[field] = null;
+        } else if (typeof data[field] === "string") {
+          data[field] = new Date(data[field]);
+        }
+      }
+      await storage.updatePrivateInvestor(req.params.id, data);
+      const investor = await storage.getPrivateInvestorById(req.params.id);
+      res.json({ success: true, data: investor });
+    } catch (error) {
+      console.error("[Private Round] Error updating investor:", error);
+      res.status(500).json({ error: "Failed to update private investor" });
+    }
+  });
+  app3.post("/api/admin/token-programs/private-round/investors/:id/payouts", requireAdmin, async (req, res) => {
+    try {
+      const data = { ...req.body, investorId: req.params.id };
+      if (data.scheduledDate === "" || data.scheduledDate === void 0) data.scheduledDate = null;
+      else if (typeof data.scheduledDate === "string") data.scheduledDate = new Date(data.scheduledDate);
+      if (data.processedDate === "" || data.processedDate === void 0) data.processedDate = null;
+      else if (typeof data.processedDate === "string") data.processedDate = new Date(data.processedDate);
+      const payout = await storage.createPrivatePayout(data);
+      res.json({ success: true, data: payout });
+    } catch (error) {
+      console.error("[Private Round] Error creating payout:", error);
+      res.status(500).json({ error: "Failed to create payout" });
+    }
+  });
+  app3.patch("/api/admin/token-programs/private-round/payouts/:id", requireAdmin, async (req, res) => {
+    try {
+      const data = { ...req.body };
+      if (data.scheduledDate === "" || data.scheduledDate === void 0) data.scheduledDate = null;
+      else if (typeof data.scheduledDate === "string") data.scheduledDate = new Date(data.scheduledDate);
+      if (data.processedDate === "" || data.processedDate === void 0) data.processedDate = null;
+      else if (typeof data.processedDate === "string") data.processedDate = new Date(data.processedDate);
+      await storage.updatePrivatePayout(req.params.id, data);
+      res.json({ success: true, message: "Payout updated" });
+    } catch (error) {
+      console.error("[Private Round] Error updating payout:", error);
+      res.status(500).json({ error: "Failed to update payout" });
+    }
+  });
+  app3.get("/api/admin/token-programs/seed-round/investors", requireAdmin, async (req, res) => {
+    try {
+      const limit = parseInt(req.query.limit) || 100;
+      const investors = await storage.getAllSeedInvestors(limit);
+      const stats = await storage.getSeedRoundStats();
+      res.json({ success: true, data: { investors, stats } });
+    } catch (error) {
+      console.error("[Seed Round] Error fetching investors:", error);
+      res.status(500).json({ error: "Failed to fetch seed investors" });
+    }
+  });
+  app3.get("/api/admin/token-programs/seed-round/investors/:id", requireAdmin, async (req, res) => {
+    try {
+      const investor = await storage.getSeedInvestorById(req.params.id);
+      if (!investor) {
+        return res.status(404).json({ error: "Investor not found" });
+      }
+      const payouts = await storage.getSeedPayouts(investor.id);
+      res.json({ success: true, data: { investor, payouts } });
+    } catch (error) {
+      console.error("[Seed Round] Error fetching investor:", error);
+      res.status(500).json({ error: "Failed to fetch investor" });
+    }
+  });
+  app3.post("/api/admin/token-programs/seed-round/investors", requireAdmin, async (req, res) => {
+    try {
+      const data = { ...req.body };
+      const dateFields = ["vestingStartDate", "vestingEndDate", "saftSignedDate", "kycVerifiedDate", "paymentReceivedDate"];
+      for (const field of dateFields) {
+        if (data[field] === "" || data[field] === void 0) {
+          data[field] = null;
+        } else if (typeof data[field] === "string") {
+          data[field] = new Date(data[field]);
+        }
+      }
+      const investor = await storage.createSeedInvestor(data);
+      res.json({ success: true, data: investor });
+    } catch (error) {
+      console.error("[Seed Round] Error creating investor:", error);
+      res.status(500).json({ error: "Failed to create seed investor" });
+    }
+  });
+  app3.patch("/api/admin/token-programs/seed-round/investors/:id", requireAdmin, async (req, res) => {
+    try {
+      const data = { ...req.body };
+      const dateFields = ["vestingStartDate", "vestingEndDate", "saftSignedDate", "kycVerifiedDate", "paymentReceivedDate"];
+      for (const field of dateFields) {
+        if (data[field] === "" || data[field] === void 0) {
+          data[field] = null;
+        } else if (typeof data[field] === "string") {
+          data[field] = new Date(data[field]);
+        }
+      }
+      await storage.updateSeedInvestor(req.params.id, data);
+      const investor = await storage.getSeedInvestorById(req.params.id);
+      res.json({ success: true, data: investor });
+    } catch (error) {
+      console.error("[Seed Round] Error updating investor:", error);
+      res.status(500).json({ error: "Failed to update seed investor" });
+    }
+  });
+  app3.post("/api/admin/token-programs/seed-round/investors/:id/payouts", requireAdmin, async (req, res) => {
+    try {
+      const data = { ...req.body, investorId: req.params.id };
+      if (data.scheduledDate === "" || data.scheduledDate === void 0) data.scheduledDate = null;
+      else if (typeof data.scheduledDate === "string") data.scheduledDate = new Date(data.scheduledDate);
+      if (data.processedDate === "" || data.processedDate === void 0) data.processedDate = null;
+      else if (typeof data.processedDate === "string") data.processedDate = new Date(data.processedDate);
+      const payout = await storage.createSeedPayout(data);
+      res.json({ success: true, data: payout });
+    } catch (error) {
+      console.error("[Seed Round] Error creating payout:", error);
+      res.status(500).json({ error: "Failed to create payout" });
+    }
+  });
+  app3.patch("/api/admin/token-programs/seed-round/payouts/:id", requireAdmin, async (req, res) => {
+    try {
+      const data = { ...req.body };
+      if (data.scheduledDate === "" || data.scheduledDate === void 0) data.scheduledDate = null;
+      else if (typeof data.scheduledDate === "string") data.scheduledDate = new Date(data.scheduledDate);
+      if (data.processedDate === "" || data.processedDate === void 0) data.processedDate = null;
+      else if (typeof data.processedDate === "string") data.processedDate = new Date(data.processedDate);
+      await storage.updateSeedPayout(req.params.id, data);
+      res.json({ success: true, message: "Payout updated" });
+    } catch (error) {
+      console.error("[Seed Round] Error updating payout:", error);
+      res.status(500).json({ error: "Failed to update payout" });
+    }
+  });
+  app3.get("/api/admin/token-programs/advisor/advisors", requireAdmin, async (req, res) => {
+    try {
+      const limit = parseInt(req.query.limit) || 100;
+      const advisorsList = await storage.getAllAdvisors(limit);
+      const stats = await storage.getAdvisorStats();
+      res.json({ success: true, data: { advisors: advisorsList, stats } });
+    } catch (error) {
+      console.error("[Advisor Program] Error fetching advisors:", error);
+      res.status(500).json({ error: "Failed to fetch advisors" });
+    }
+  });
+  app3.get("/api/admin/token-programs/advisor/advisors/:id", requireAdmin, async (req, res) => {
+    try {
+      const advisor = await storage.getAdvisorById(req.params.id);
+      if (!advisor) {
+        return res.status(404).json({ error: "Advisor not found" });
+      }
+      const payouts = await storage.getAdvisorPayouts(advisor.id);
+      const contributions = await storage.getAdvisorContributions(advisor.id);
+      res.json({ success: true, data: { advisor, payouts, contributions } });
+    } catch (error) {
+      console.error("[Advisor Program] Error fetching advisor:", error);
+      res.status(500).json({ error: "Failed to fetch advisor" });
+    }
+  });
+  app3.post("/api/admin/token-programs/advisor/advisors", requireAdmin, async (req, res) => {
+    try {
+      const data = { ...req.body };
+      const dateFields = ["vestingStartDate", "vestingEndDate", "contractStartDate", "contractEndDate"];
+      for (const field of dateFields) {
+        if (data[field] === "" || data[field] === void 0) {
+          data[field] = null;
+        } else if (typeof data[field] === "string") {
+          data[field] = new Date(data[field]);
+        }
+      }
+      const advisor = await storage.createAdvisor(data);
+      res.json({ success: true, data: advisor });
+    } catch (error) {
+      console.error("[Advisor Program] Error creating advisor:", error);
+      res.status(500).json({ error: "Failed to create advisor" });
+    }
+  });
+  app3.patch("/api/admin/token-programs/advisor/advisors/:id", requireAdmin, async (req, res) => {
+    try {
+      const data = { ...req.body };
+      const dateFields = ["vestingStartDate", "vestingEndDate", "contractStartDate", "contractEndDate"];
+      for (const field of dateFields) {
+        if (data[field] === "" || data[field] === void 0) {
+          data[field] = null;
+        } else if (typeof data[field] === "string") {
+          data[field] = new Date(data[field]);
+        }
+      }
+      await storage.updateAdvisor(req.params.id, data);
+      const advisor = await storage.getAdvisorById(req.params.id);
+      res.json({ success: true, data: advisor });
+    } catch (error) {
+      console.error("[Advisor Program] Error updating advisor:", error);
+      res.status(500).json({ error: "Failed to update advisor" });
+    }
+  });
+  app3.post("/api/admin/token-programs/advisor/advisors/:id/payouts", requireAdmin, async (req, res) => {
+    try {
+      const data = { ...req.body, advisorId: req.params.id };
+      if (data.scheduledDate === "" || data.scheduledDate === void 0) data.scheduledDate = null;
+      else if (typeof data.scheduledDate === "string") data.scheduledDate = new Date(data.scheduledDate);
+      if (data.processedDate === "" || data.processedDate === void 0) data.processedDate = null;
+      else if (typeof data.processedDate === "string") data.processedDate = new Date(data.processedDate);
+      const payout = await storage.createAdvisorPayout(data);
+      res.json({ success: true, data: payout });
+    } catch (error) {
+      console.error("[Advisor Program] Error creating payout:", error);
+      res.status(500).json({ error: "Failed to create payout" });
+    }
+  });
+  app3.patch("/api/admin/token-programs/advisor/payouts/:id", requireAdmin, async (req, res) => {
+    try {
+      const data = { ...req.body };
+      if (data.scheduledDate === "" || data.scheduledDate === void 0) data.scheduledDate = null;
+      else if (typeof data.scheduledDate === "string") data.scheduledDate = new Date(data.scheduledDate);
+      if (data.processedDate === "" || data.processedDate === void 0) data.processedDate = null;
+      else if (typeof data.processedDate === "string") data.processedDate = new Date(data.processedDate);
+      await storage.updateAdvisorPayout(req.params.id, data);
+      res.json({ success: true, message: "Payout updated" });
+    } catch (error) {
+      console.error("[Advisor Program] Error updating payout:", error);
+      res.status(500).json({ error: "Failed to update payout" });
+    }
+  });
+  app3.post("/api/admin/token-programs/advisor/advisors/:id/contributions", requireAdmin, async (req, res) => {
+    try {
+      const data = { ...req.body, advisorId: req.params.id };
+      if (data.completedDate === "" || data.completedDate === void 0) data.completedDate = null;
+      else if (typeof data.completedDate === "string") data.completedDate = new Date(data.completedDate);
+      const contribution = await storage.createAdvisorContribution(data);
+      res.json({ success: true, data: contribution });
+    } catch (error) {
+      console.error("[Advisor Program] Error creating contribution:", error);
+      res.status(500).json({ error: "Failed to create contribution" });
+    }
+  });
+  app3.patch("/api/admin/token-programs/advisor/contributions/:id", requireAdmin, async (req, res) => {
+    try {
+      const data = { ...req.body };
+      if (data.completedDate === "" || data.completedDate === void 0) data.completedDate = null;
+      else if (typeof data.completedDate === "string") data.completedDate = new Date(data.completedDate);
+      await storage.updateAdvisorContribution(req.params.id, data);
+      res.json({ success: true, message: "Contribution updated" });
+    } catch (error) {
+      console.error("[Advisor Program] Error updating contribution:", error);
+      res.status(500).json({ error: "Failed to update contribution" });
+    }
+  });
+  app3.get("/api/admin/token-programs/strategic/partners", requireAdmin, async (req, res) => {
+    try {
+      const limit = parseInt(req.query.limit) || 100;
+      const partners = await storage.getAllStrategicPartners(limit);
+      const stats = await storage.getStrategicPartnerStats();
+      res.json({ success: true, data: { partners, stats } });
+    } catch (error) {
+      console.error("[Strategic Partner] Error fetching partners:", error);
+      res.status(500).json({ error: "Failed to fetch strategic partners" });
+    }
+  });
+  app3.get("/api/admin/token-programs/strategic/partners/:id", requireAdmin, async (req, res) => {
+    try {
+      const partner = await storage.getStrategicPartnerById(req.params.id);
+      if (!partner) {
+        return res.status(404).json({ error: "Partner not found" });
+      }
+      const payouts = await storage.getStrategicPartnerPayouts(partner.id);
+      const milestones = await storage.getStrategicPartnerMilestones(partner.id);
+      res.json({ success: true, data: { partner, payouts, milestones } });
+    } catch (error) {
+      console.error("[Strategic Partner] Error fetching partner:", error);
+      res.status(500).json({ error: "Failed to fetch partner" });
+    }
+  });
+  app3.post("/api/admin/token-programs/strategic/partners", requireAdmin, async (req, res) => {
+    try {
+      const data = { ...req.body };
+      const dateFields = ["vestingStartDate", "vestingEndDate", "contractSignedDate", "partnerSince"];
+      for (const field of dateFields) {
+        if (data[field] === "" || data[field] === void 0) {
+          data[field] = null;
+        } else if (typeof data[field] === "string") {
+          data[field] = new Date(data[field]);
+        }
+      }
+      const partner = await storage.createStrategicPartner(data);
+      res.json({ success: true, data: partner });
+    } catch (error) {
+      console.error("[Strategic Partner] Error creating partner:", error);
+      res.status(500).json({ error: "Failed to create strategic partner" });
+    }
+  });
+  app3.patch("/api/admin/token-programs/strategic/partners/:id", requireAdmin, async (req, res) => {
+    try {
+      const data = { ...req.body };
+      const dateFields = ["vestingStartDate", "vestingEndDate", "contractSignedDate", "partnerSince"];
+      for (const field of dateFields) {
+        if (data[field] === "" || data[field] === void 0) {
+          data[field] = null;
+        } else if (typeof data[field] === "string") {
+          data[field] = new Date(data[field]);
+        }
+      }
+      await storage.updateStrategicPartner(req.params.id, data);
+      const partner = await storage.getStrategicPartnerById(req.params.id);
+      res.json({ success: true, data: partner });
+    } catch (error) {
+      console.error("[Strategic Partner] Error updating partner:", error);
+      res.status(500).json({ error: "Failed to update strategic partner" });
+    }
+  });
+  app3.post("/api/admin/token-programs/strategic/partners/:id/payouts", requireAdmin, async (req, res) => {
+    try {
+      const data = { ...req.body, partnerId: req.params.id };
+      if (data.scheduledDate === "" || data.scheduledDate === void 0) data.scheduledDate = null;
+      else if (typeof data.scheduledDate === "string") data.scheduledDate = new Date(data.scheduledDate);
+      if (data.processedDate === "" || data.processedDate === void 0) data.processedDate = null;
+      else if (typeof data.processedDate === "string") data.processedDate = new Date(data.processedDate);
+      const payout = await storage.createStrategicPartnerPayout(data);
+      res.json({ success: true, data: payout });
+    } catch (error) {
+      console.error("[Strategic Partner] Error creating payout:", error);
+      res.status(500).json({ error: "Failed to create payout" });
+    }
+  });
+  app3.patch("/api/admin/token-programs/strategic/payouts/:id", requireAdmin, async (req, res) => {
+    try {
+      const data = { ...req.body };
+      if (data.scheduledDate === "" || data.scheduledDate === void 0) data.scheduledDate = null;
+      else if (typeof data.scheduledDate === "string") data.scheduledDate = new Date(data.scheduledDate);
+      if (data.processedDate === "" || data.processedDate === void 0) data.processedDate = null;
+      else if (typeof data.processedDate === "string") data.processedDate = new Date(data.processedDate);
+      await storage.updateStrategicPartnerPayout(req.params.id, data);
+      res.json({ success: true, message: "Payout updated" });
+    } catch (error) {
+      console.error("[Strategic Partner] Error updating payout:", error);
+      res.status(500).json({ error: "Failed to update payout" });
+    }
+  });
+  app3.post("/api/admin/token-programs/strategic/partners/:id/milestones", requireAdmin, async (req, res) => {
+    try {
+      const data = { ...req.body, partnerId: req.params.id };
+      if (data.targetDate === "" || data.targetDate === void 0) data.targetDate = null;
+      else if (typeof data.targetDate === "string") data.targetDate = new Date(data.targetDate);
+      if (data.completedDate === "" || data.completedDate === void 0) data.completedDate = null;
+      else if (typeof data.completedDate === "string") data.completedDate = new Date(data.completedDate);
+      const milestone = await storage.createStrategicPartnerMilestone(data);
+      res.json({ success: true, data: milestone });
+    } catch (error) {
+      console.error("[Strategic Partner] Error creating milestone:", error);
+      res.status(500).json({ error: "Failed to create milestone" });
+    }
+  });
+  app3.patch("/api/admin/token-programs/strategic/milestones/:id", requireAdmin, async (req, res) => {
+    try {
+      const data = { ...req.body };
+      if (data.targetDate === "" || data.targetDate === void 0) data.targetDate = null;
+      else if (typeof data.targetDate === "string") data.targetDate = new Date(data.targetDate);
+      if (data.completedDate === "" || data.completedDate === void 0) data.completedDate = null;
+      else if (typeof data.completedDate === "string") data.completedDate = new Date(data.completedDate);
+      await storage.updateStrategicPartnerMilestone(req.params.id, data);
+      res.json({ success: true, message: "Milestone updated" });
+    } catch (error) {
+      console.error("[Strategic Partner] Error updating milestone:", error);
+      res.status(500).json({ error: "Failed to update milestone" });
+    }
+  });
+  app3.get("/api/admin/token-programs/marketing/campaigns", requireAdmin, async (req, res) => {
+    try {
+      const limit = parseInt(req.query.limit) || 100;
+      const campaigns = await storage.getAllMarketingCampaigns(limit);
+      const stats = await storage.getMarketingCampaignStats();
+      res.json({ success: true, data: { campaigns, stats } });
+    } catch (error) {
+      console.error("[Marketing] Error fetching campaigns:", error);
+      res.status(500).json({ error: "Failed to fetch marketing campaigns" });
+    }
+  });
+  app3.get("/api/admin/token-programs/marketing/campaigns/:id", requireAdmin, async (req, res) => {
+    try {
+      const campaign = await storage.getMarketingCampaignById(req.params.id);
+      if (!campaign) {
+        return res.status(404).json({ error: "Campaign not found" });
+      }
+      const participants = await storage.getMarketingParticipants(campaign.id);
+      const rewards = await storage.getMarketingRewards(campaign.id);
+      res.json({ success: true, data: { campaign, participants, rewards } });
+    } catch (error) {
+      console.error("[Marketing] Error fetching campaign:", error);
+      res.status(500).json({ error: "Failed to fetch campaign" });
+    }
+  });
+  app3.post("/api/admin/token-programs/marketing/campaigns", requireAdmin, async (req, res) => {
+    try {
+      const data = { ...req.body };
+      const dateFields = ["startDate", "endDate"];
+      for (const field of dateFields) {
+        if (data[field] === "" || data[field] === void 0) {
+          data[field] = null;
+        } else if (typeof data[field] === "string") {
+          data[field] = new Date(data[field]);
+        }
+      }
+      const campaign = await storage.createMarketingCampaign(data);
+      res.json({ success: true, data: campaign });
+    } catch (error) {
+      console.error("[Marketing] Error creating campaign:", error);
+      res.status(500).json({ error: "Failed to create marketing campaign" });
+    }
+  });
+  app3.patch("/api/admin/token-programs/marketing/campaigns/:id", requireAdmin, async (req, res) => {
+    try {
+      const data = { ...req.body };
+      const dateFields = ["startDate", "endDate"];
+      for (const field of dateFields) {
+        if (data[field] === "" || data[field] === void 0) {
+          data[field] = null;
+        } else if (typeof data[field] === "string") {
+          data[field] = new Date(data[field]);
+        }
+      }
+      await storage.updateMarketingCampaign(req.params.id, data);
+      const campaign = await storage.getMarketingCampaignById(req.params.id);
+      res.json({ success: true, data: campaign });
+    } catch (error) {
+      console.error("[Marketing] Error updating campaign:", error);
+      res.status(500).json({ error: "Failed to update marketing campaign" });
+    }
+  });
+  app3.post("/api/admin/token-programs/marketing/campaigns/:id/participants", requireAdmin, async (req, res) => {
+    try {
+      const data = { ...req.body, campaignId: req.params.id };
+      const participant = await storage.createMarketingParticipant(data);
+      res.json({ success: true, data: participant });
+    } catch (error) {
+      console.error("[Marketing] Error adding participant:", error);
+      res.status(500).json({ error: "Failed to add participant" });
+    }
+  });
+  app3.patch("/api/admin/token-programs/marketing/participants/:id", requireAdmin, async (req, res) => {
+    try {
+      await storage.updateMarketingParticipant(req.params.id, req.body);
+      res.json({ success: true, message: "Participant updated" });
+    } catch (error) {
+      console.error("[Marketing] Error updating participant:", error);
+      res.status(500).json({ error: "Failed to update participant" });
+    }
+  });
+  app3.post("/api/admin/token-programs/marketing/campaigns/:id/rewards", requireAdmin, async (req, res) => {
+    try {
+      const data = { ...req.body, campaignId: req.params.id };
+      if (data.verifiedAt === "" || data.verifiedAt === void 0) data.verifiedAt = null;
+      else if (typeof data.verifiedAt === "string") data.verifiedAt = new Date(data.verifiedAt);
+      if (data.paidAt === "" || data.paidAt === void 0) data.paidAt = null;
+      else if (typeof data.paidAt === "string") data.paidAt = new Date(data.paidAt);
+      const reward = await storage.createMarketingReward(data);
+      res.json({ success: true, data: reward });
+    } catch (error) {
+      console.error("[Marketing] Error creating reward:", error);
+      res.status(500).json({ error: "Failed to create reward" });
+    }
+  });
+  app3.patch("/api/admin/token-programs/marketing/rewards/:id", requireAdmin, async (req, res) => {
+    try {
+      const data = { ...req.body };
+      if (data.verifiedAt === "" || data.verifiedAt === void 0) data.verifiedAt = null;
+      else if (typeof data.verifiedAt === "string") data.verifiedAt = new Date(data.verifiedAt);
+      if (data.paidAt === "" || data.paidAt === void 0) data.paidAt = null;
+      else if (typeof data.paidAt === "string") data.paidAt = new Date(data.paidAt);
+      await storage.updateMarketingReward(req.params.id, data);
+      res.json({ success: true, message: "Reward updated" });
+    } catch (error) {
+      console.error("[Marketing] Error updating reward:", error);
+      res.status(500).json({ error: "Failed to update reward" });
+    }
+  });
+  app3.get("/api/token-programs/airdrop/stats", async (_req, res) => {
+    try {
+      const stats = await storage.getAirdropStats();
+      const enterpriseNode2 = getEnterpriseNode();
+      const networkStats2 = await enterpriseNode2.getNetworkStats();
+      res.json({
+        success: true,
+        data: {
+          totalAllocation: "50000000",
+          totalDistributed: stats.claimedAmount || "0",
+          totalClaimed: stats.totalClaimed || 0,
+          totalEligible: stats.totalEligible || 0,
+          claimRate: stats.totalEligible > 0 ? (stats.totalClaimed / stats.totalEligible * 100).toFixed(2) : "0",
+          phases: [
+            { name: "Early Adopter", allocation: "10000000", distributed: "8500000", status: "active", endDate: "2025-03-31" },
+            { name: "Community Builder", allocation: "15000000", distributed: "0", status: "upcoming", startDate: "2025-04-01" },
+            { name: "Validator Bonus", allocation: "10000000", distributed: "0", status: "upcoming", startDate: "2025-06-01" },
+            { name: "Ecosystem Growth", allocation: "15000000", distributed: "0", status: "upcoming", startDate: "2025-09-01" }
+          ],
+          networkTps: networkStats2.tps,
+          blockHeight: networkStats2.blockHeight
+        }
+      });
+    } catch (error) {
+      console.error("[PublicAirdrop] Error:", error);
+      res.status(500).json({ error: "Failed to fetch airdrop stats" });
+    }
+  });
+  app3.get("/api/token-programs/airdrop/check/:address", async (req, res) => {
+    try {
+      const { address } = req.params;
+      const claims = await storage.getAirdropClaims({ limit: 1e3 });
+      const userClaim = Array.isArray(claims) ? claims.find((c) => c.walletAddress?.toLowerCase() === address.toLowerCase()) : null;
+      res.json({
+        success: true,
+        data: {
+          address,
+          eligible: !!userClaim,
+          claimed: userClaim?.status === "claimed",
+          claimableAmount: userClaim?.claimableAmount || "0",
+          tier: userClaim?.tier || null,
+          claimedAt: userClaim?.claimedAt || null
+        }
+      });
+    } catch (error) {
+      console.error("[PublicAirdrop] Check error:", error);
+      res.status(500).json({ error: "Failed to check eligibility" });
+    }
+  });
+  app3.get("/api/token-programs/referral/stats", async (_req, res) => {
+    try {
+      const stats = await storage.getReferralStats();
+      res.json({
+        success: true,
+        data: {
+          totalParticipants: stats.totalAccounts || 0,
+          totalReferrals: stats.totalReferrals || 0,
+          totalRewardsDistributed: stats.totalEarnings || "0",
+          activeReferrers: stats.activeReferrers || 0,
+          tiers: [
+            { name: "Bronze", minReferrals: 1, maxReferrals: 9, commission: 10, bonus: "50" },
+            { name: "Silver", minReferrals: 10, maxReferrals: 49, commission: 15, bonus: "250" },
+            { name: "Gold", minReferrals: 50, maxReferrals: 199, commission: 20, bonus: "1000" },
+            { name: "Platinum", minReferrals: 200, maxReferrals: 499, commission: 30, bonus: "5000" },
+            { name: "Diamond", minReferrals: 500, maxReferrals: null, commission: 40, bonus: "20000" }
+          ],
+          leaderboard: [
+            { rank: 1, referrals: 847, earnings: "42350", tier: "Diamond" },
+            { rank: 2, referrals: 623, earnings: "31150", tier: "Diamond" },
+            { rank: 3, referrals: 512, earnings: "25600", tier: "Diamond" },
+            { rank: 4, referrals: 389, earnings: "15560", tier: "Platinum" },
+            { rank: 5, referrals: 276, earnings: "11040", tier: "Platinum" }
+          ]
+        }
+      });
+    } catch (error) {
+      console.error("[PublicReferral] Error:", error);
+      res.status(500).json({ error: "Failed to fetch referral stats" });
+    }
+  });
+  app3.post("/api/token-programs/referral/generate", async (req, res) => {
+    try {
+      const { walletAddress } = req.body;
+      if (!walletAddress) {
+        return res.status(400).json({ error: "Wallet address required" });
+      }
+      let account = await storage.getReferralAccountByWallet(walletAddress);
+      if (!account) {
+        const referralCode = `TBURN${walletAddress.substring(2, 10).toUpperCase()}`;
+        account = await storage.createReferralAccount({
+          walletAddress: walletAddress.toLowerCase(),
+          referralCode,
+          tier: "bronze",
+          status: "active"
+        });
+      }
+      res.json({
+        success: true,
+        data: {
+          walletAddress: account.walletAddress,
+          referralCode: account.referralCode,
+          referralLink: `https://tburn.io/ref/${account.referralCode}`,
+          tier: account.tier || "bronze",
+          referralCount: account.totalReferrals || 0,
+          totalEarnings: account.totalEarnings || "0"
+        }
+      });
+    } catch (error) {
+      console.error("[PublicReferral] Generate error:", error);
+      res.status(500).json({ error: "Failed to generate referral code" });
+    }
+  });
+  app3.get("/api/referral/check/:wallet", async (req, res) => {
+    try {
+      const { wallet } = req.params;
+      const account = await storage.getReferralAccountByWallet(wallet);
+      if (!account) {
+        return res.json({
+          success: true,
+          data: {
+            registered: false,
+            message: "\uC544\uC9C1 \uB808\uD37C\uB7F4 \uD504\uB85C\uADF8\uB7A8\uC5D0 \uCC38\uC5EC\uD558\uC9C0 \uC54A\uC558\uC2B5\uB2C8\uB2E4."
+          }
+        });
+      }
+      const rewards = await storage.getReferralRewards(account.id, 10);
+      res.json({
+        success: true,
+        data: {
+          registered: true,
+          account: {
+            id: account.id,
+            walletAddress: account.walletAddress,
+            referralCode: account.referralCode,
+            referralLink: `https://tburn.io/ref/${account.referralCode}`,
+            tier: account.tier,
+            totalReferrals: account.totalReferrals || 0,
+            activeReferrals: account.activeReferrals || 0,
+            totalEarnings: account.totalEarnings || "0",
+            pendingRewards: account.pendingRewards || "0",
+            status: account.status
+          },
+          recentRewards: rewards.map((r) => ({
+            id: r.id,
+            amount: r.amount,
+            rewardType: r.rewardType,
+            status: r.status,
+            createdAt: r.createdAt
+          }))
+        }
+      });
+    } catch (error) {
+      console.error("[Referral] Check error:", error);
+      res.status(500).json({ error: "Failed to check referral status" });
+    }
+  });
+  app3.get("/api/referral/info", async (_req, res) => {
+    try {
+      const stats = await storage.getReferralStats();
+      const accounts2 = await storage.getAllReferralAccounts(10);
+      const leaderboard = accounts2.filter((a) => (a.totalReferrals || 0) > 0).sort((a, b) => (b.totalReferrals || 0) - (a.totalReferrals || 0)).slice(0, 5).map((a, index) => ({
+        rank: index + 1,
+        referrals: a.totalReferrals || 0,
+        earnings: a.totalEarnings || "0",
+        tier: a.tier || "bronze"
+      }));
+      res.json({
+        success: true,
+        data: {
+          programName: "TBURN \uB808\uD37C\uB7F4 \uD504\uB85C\uADF8\uB7A8",
+          description: "\uCE5C\uAD6C\uB97C \uCD08\uB300\uD558\uACE0 \uBCF4\uC0C1\uC744 \uBC1B\uC73C\uC138\uC694",
+          status: "active",
+          startDate: "2026-01-02T00:00:00Z",
+          stats: {
+            totalParticipants: stats.totalAccounts || 0,
+            totalReferrals: stats.totalReferrals || 0,
+            totalRewardsDistributed: stats.totalEarnings || "0",
+            activeReferrers: stats.activeReferrers || 0
+          },
+          tiers: [
+            { name: "bronze", label: "Bronze", minReferrals: 1, maxReferrals: 9, commission: 10, bonus: "50" },
+            { name: "silver", label: "Silver", minReferrals: 10, maxReferrals: 49, commission: 15, bonus: "250" },
+            { name: "gold", label: "Gold", minReferrals: 50, maxReferrals: 199, commission: 20, bonus: "1000" },
+            { name: "platinum", label: "Platinum", minReferrals: 200, maxReferrals: 499, commission: 30, bonus: "5000" },
+            { name: "diamond", label: "Diamond", minReferrals: 500, maxReferrals: null, commission: 40, bonus: "20000" }
+          ],
+          leaderboard
+        }
+      });
+    } catch (error) {
+      console.error("[Referral] Info error:", error);
+      res.status(500).json({ error: "Failed to fetch referral info" });
+    }
+  });
+  app3.post("/api/referral/apply", async (req, res) => {
+    try {
+      const { referralCode, newUserWallet } = req.body;
+      if (!referralCode || !newUserWallet) {
+        return res.status(400).json({ error: "Referral code and new user wallet required" });
+      }
+      const referrer = await storage.getReferralAccountByCode(referralCode);
+      if (!referrer) {
+        return res.status(404).json({ error: "Invalid referral code" });
+      }
+      const existing = await storage.getReferralAccountByWallet(newUserWallet);
+      if (existing) {
+        return res.status(400).json({ error: "User already registered in referral program" });
+      }
+      const newCode = `TBURN${newUserWallet.substring(2, 10).toUpperCase()}`;
+      const newAccount = await storage.createReferralAccount({
+        walletAddress: newUserWallet.toLowerCase(),
+        referralCode: newCode,
+        referredBy: referrer.id,
+        tier: "bronze",
+        status: "active"
+      });
+      await storage.updateReferralAccount(referrer.id, {
+        totalReferrals: (referrer.totalReferrals || 0) + 1,
+        activeReferrals: (referrer.activeReferrals || 0) + 1
+      });
+      const rewardAmount = "50000000000000000000";
+      await storage.createReferralReward({
+        referrerId: referrer.id,
+        referredId: newAccount.id,
+        amount: rewardAmount,
+        rewardType: "signup_bonus",
+        status: "pending",
+        tier: referrer.tier || "bronze"
+      });
+      const currentPending = BigInt(referrer.pendingRewards || "0");
+      await storage.updateReferralAccount(referrer.id, {
+        pendingRewards: (currentPending + BigInt(rewardAmount)).toString()
+      });
+      res.json({
+        success: true,
+        data: {
+          newAccount: {
+            walletAddress: newAccount.walletAddress,
+            referralCode: newAccount.referralCode
+          },
+          referrer: {
+            walletAddress: referrer.walletAddress,
+            totalReferrals: (referrer.totalReferrals || 0) + 1
+          },
+          message: "\uB808\uD37C\uB7F4\uC774 \uC131\uACF5\uC801\uC73C\uB85C \uC801\uC6A9\uB418\uC5C8\uC2B5\uB2C8\uB2E4!"
+        }
+      });
+    } catch (error) {
+      console.error("[Referral] Apply error:", error);
+      res.status(500).json({ error: "Failed to apply referral" });
+    }
+  });
+  app3.post("/api/referral/claim", async (req, res) => {
+    try {
+      const { walletAddress } = req.body;
+      if (!walletAddress) {
+        return res.status(400).json({ error: "Wallet address required" });
+      }
+      const account = await storage.getReferralAccountByWallet(walletAddress);
+      if (!account) {
+        return res.status(404).json({ error: "Referral account not found" });
+      }
+      const pendingAmount = BigInt(account.pendingRewards || "0");
+      if (pendingAmount <= 0n) {
+        return res.status(400).json({ error: "No pending rewards to claim" });
+      }
+      const txHash = `0x${Date.now().toString(16)}${Math.random().toString(16).substring(2, 10)}`;
+      const currentEarnings = BigInt(account.totalEarnings || "0");
+      await storage.updateReferralAccount(account.id, {
+        totalEarnings: (currentEarnings + pendingAmount).toString(),
+        pendingRewards: "0",
+        claimedRewards: (BigInt(account.claimedRewards || "0") + pendingAmount).toString(),
+        lastClaimAt: /* @__PURE__ */ new Date()
+      });
+      const rewards = await storage.getReferralRewards(account.id, 100);
+      for (const reward of rewards.filter((r) => r.status === "pending")) {
+        await storage.updateReferralReward(reward.id, {
+          status: "claimed",
+          transactionHash: txHash,
+          claimedAt: /* @__PURE__ */ new Date()
+        });
+      }
+      res.json({
+        success: true,
+        data: {
+          claimedAmount: pendingAmount.toString(),
+          transactionHash: txHash,
+          newTotalEarnings: (currentEarnings + pendingAmount).toString(),
+          message: "\uBCF4\uC0C1\uC774 \uC131\uACF5\uC801\uC73C\uB85C \uCCAD\uAD6C\uB418\uC5C8\uC2B5\uB2C8\uB2E4!"
+        }
+      });
+    } catch (error) {
+      console.error("[Referral] Claim error:", error);
+      res.status(500).json({ error: "Failed to claim rewards" });
+    }
+  });
+  app3.get("/api/events/info", async (_req, res) => {
+    try {
+      const allEvents = await storage.getAllEvents(100);
+      const stats = await storage.getEventsStats();
+      const eventTypes = [
+        { type: "airdrop", label: "\uC5D0\uC5B4\uB4DC\uB78D", icon: "gift" },
+        { type: "trading_competition", label: "\uD2B8\uB808\uC774\uB529 \uB300\uD68C", icon: "chart" },
+        { type: "staking_bonus", label: "\uC2A4\uD14C\uC774\uD0B9 \uBCF4\uB108\uC2A4", icon: "lock" },
+        { type: "community", label: "\uCEE4\uBBA4\uB2C8\uD2F0 \uC774\uBCA4\uD2B8", icon: "users" },
+        { type: "ama", label: "AMA \uC138\uC158", icon: "mic" },
+        { type: "hackathon", label: "\uD574\uCEE4\uD1A4", icon: "code" }
+      ];
+      res.json({
+        success: true,
+        data: {
+          programName: "TBURN \uC774\uBCA4\uD2B8 \uC13C\uD130",
+          status: "active",
+          stats: {
+            totalEvents: stats.totalEvents || 0,
+            activeEvents: stats.activeEvents || 0,
+            totalParticipants: stats.totalParticipants || 0,
+            totalRewardsDistributed: stats.totalRewardsDistributed || "0"
+          },
+          eventTypes,
+          events: allEvents.map((e) => ({
+            id: e.id,
+            name: e.name,
+            description: e.description,
+            eventType: e.eventType,
+            status: e.status,
+            startDate: e.startDate,
+            endDate: e.endDate,
+            maxParticipants: e.maxParticipants,
+            currentParticipants: e.currentParticipants,
+            totalRewardPool: e.totalRewardPool,
+            bannerUrl: e.bannerUrl
+          }))
+        }
+      });
+    } catch (error) {
+      console.error("[PublicEvents] Info error:", error);
+      res.status(500).json({ error: "Failed to fetch events info" });
+    }
+  });
+  app3.get("/api/events/check/:wallet/:eventId", async (req, res) => {
+    try {
+      const { wallet, eventId } = req.params;
+      const registration = await storage.getEventRegistrationByWallet(eventId, wallet);
+      if (registration) {
+        res.json({
+          success: true,
+          data: {
+            registered: true,
+            registration: {
+              id: registration.id,
+              eventId: registration.eventId,
+              registeredAt: registration.registeredAt,
+              score: registration.score,
+              rank: registration.rank,
+              rewardAmount: registration.rewardAmount,
+              rewardClaimed: registration.rewardClaimed
+            },
+            message: "\uC774\uBCA4\uD2B8\uC5D0 \uB4F1\uB85D\uB418\uC5B4 \uC788\uC2B5\uB2C8\uB2E4."
+          }
+        });
+      } else {
+        res.json({
+          success: true,
+          data: {
+            registered: false,
+            message: "\uC774\uBCA4\uD2B8\uC5D0 \uB4F1\uB85D\uB418\uC9C0 \uC54A\uC558\uC2B5\uB2C8\uB2E4."
+          }
+        });
+      }
+    } catch (error) {
+      console.error("[PublicEvents] Check error:", error);
+      res.status(500).json({ error: "Failed to check registration" });
+    }
+  });
+  app3.post("/api/events/register", async (req, res) => {
+    try {
+      const { walletAddress, eventId } = req.body;
+      if (!walletAddress || !eventId) {
+        return res.status(400).json({ error: "Wallet address and event ID are required" });
+      }
+      const event = await storage.getEventById(eventId);
+      if (!event) {
+        return res.status(404).json({ error: "Event not found" });
+      }
+      if (event.status !== "active" && event.status !== "upcoming") {
+        return res.status(400).json({ error: "Event is not open for registration" });
+      }
+      if (event.maxParticipants && event.currentParticipants >= event.maxParticipants) {
+        return res.status(400).json({ error: "Event is full" });
+      }
+      const existing = await storage.getEventRegistrationByWallet(eventId, walletAddress);
+      if (existing) {
+        return res.status(400).json({ error: "Already registered for this event" });
+      }
+      const registration = await storage.createEventRegistration({
+        eventId,
+        walletAddress,
+        score: 0,
+        completedTasks: [],
+        rewardAmount: "0",
+        rewardClaimed: false
+      });
+      await storage.updateEvent(eventId, {
+        currentParticipants: (event.currentParticipants || 0) + 1
+      });
+      res.json({
+        success: true,
+        data: {
+          registration,
+          message: "\uC774\uBCA4\uD2B8 \uB4F1\uB85D\uC774 \uC644\uB8CC\uB418\uC5C8\uC2B5\uB2C8\uB2E4!"
+        }
+      });
+    } catch (error) {
+      console.error("[PublicEvents] Register error:", error);
+      res.status(500).json({ error: "Failed to register for event" });
+    }
+  });
+  app3.post("/api/events/claim", async (req, res) => {
+    try {
+      const { walletAddress, eventId } = req.body;
+      if (!walletAddress || !eventId) {
+        return res.status(400).json({ error: "Wallet address and event ID are required" });
+      }
+      const registration = await storage.getEventRegistrationByWallet(eventId, walletAddress);
+      if (!registration) {
+        return res.status(404).json({ error: "Not registered for this event" });
+      }
+      if (registration.rewardClaimed) {
+        return res.status(400).json({ error: "Rewards already claimed" });
+      }
+      const rewardAmount = BigInt(registration.rewardAmount || "0");
+      if (rewardAmount === BigInt(0)) {
+        return res.status(400).json({ error: "No rewards to claim" });
+      }
+      const txHash = `0x${[...Array(64)].map(() => Math.floor(Math.random() * 16).toString(16)).join("")}`;
+      await storage.updateEventRegistration(registration.id, {
+        rewardClaimed: true,
+        rewardClaimTxHash: txHash
+      });
+      res.json({
+        success: true,
+        data: {
+          claimedAmount: registration.rewardAmount,
+          transactionHash: txHash,
+          message: "\uBCF4\uC0C1\uC774 \uC131\uACF5\uC801\uC73C\uB85C \uCCAD\uAD6C\uB418\uC5C8\uC2B5\uB2C8\uB2E4!"
+        }
+      });
+    } catch (error) {
+      console.error("[PublicEvents] Claim error:", error);
+      res.status(500).json({ error: "Failed to claim rewards" });
+    }
+  });
+  app3.get("/api/token-programs/events/list", async (_req, res) => {
+    try {
+      const stats = await storage.getEventsStats();
+      const allEvents = await storage.getAllEvents(20);
+      const activeEvents = allEvents.filter((e) => e.status === "active");
+      const upcomingEvents = allEvents.filter((e) => e.status === "upcoming");
+      res.json({
+        success: true,
+        data: {
+          totalEvents: stats.totalEvents || 0,
+          activeEvents: stats.activeEvents || 0,
+          totalParticipants: stats.totalParticipants || 0,
+          totalRewardsDistributed: stats.totalRewardsDistributed || "0",
+          upcomingEvents: upcomingEvents.map((e) => ({
+            id: e.id,
+            name: e.name,
+            type: e.eventType,
+            startDate: e.startDate,
+            endDate: e.endDate,
+            prizePool: e.totalRewardPool,
+            status: e.status
+          })),
+          activeEvents: activeEvents.map((e) => ({
+            id: e.id,
+            name: e.name,
+            type: e.eventType,
+            startDate: e.startDate,
+            endDate: e.endDate,
+            prizePool: e.totalRewardPool,
+            status: e.status,
+            participants: e.currentParticipants
+          }))
+        }
+      });
+    } catch (error) {
+      console.error("[PublicEvents] Error:", error);
+      res.status(500).json({ error: "Failed to fetch events" });
+    }
+  });
+  app3.get("/api/token-programs/community/stats", async (_req, res) => {
+    try {
+      const stats = await storage.getCommunityStats();
+      res.json({
+        success: true,
+        data: {
+          totalContributors: stats.totalTasks || 0,
+          totalContributions: stats.totalContributions || 0,
+          totalRewardsDistributed: String(stats.totalPointsDistributed || 0),
+          activeTasks: stats.activeTasks || 0,
+          categories: [
+            { name: "Content Creation", tasks: 24, rewards: "50000", participants: 156 },
+            { name: "Bug Reporting", tasks: 12, rewards: "30000", participants: 89 },
+            { name: "Translation", tasks: 18, rewards: "25000", participants: 67 },
+            { name: "Community Support", tasks: 8, rewards: "20000", participants: 234 },
+            { name: "Development", tasks: 6, rewards: "100000", participants: 45 }
+          ]
+        }
+      });
+    } catch (error) {
+      console.error("[PublicCommunity] Error:", error);
+      res.status(500).json({ error: "Failed to fetch community stats" });
+    }
+  });
+  app3.get("/api/token-programs/dao/stats", async (_req, res) => {
+    try {
+      const stats = await storage.getDaoStats();
+      res.json({
+        success: true,
+        data: {
+          totalProposals: stats.totalProposals || 0,
+          activeProposals: stats.activeProposals || 0,
+          totalVotes: stats.totalVoters || 0,
+          totalVotingPower: String(stats.totalVoters * 1e4 || 0),
+          quorumThreshold: "10000000",
+          recentProposals: [
+            { id: "prop-1", title: "Increase Burn Rate to 2%", status: "active", votesFor: "8500000", votesAgainst: "2100000", endDate: "2025-01-20" },
+            { id: "prop-2", title: "Add New Validator Incentive Tier", status: "active", votesFor: "12000000", votesAgainst: "1500000", endDate: "2025-01-18" },
+            { id: "prop-3", title: "Community Grant Allocation Q1 2025", status: "passed", votesFor: "15000000", votesAgainst: "3000000", endDate: "2025-01-10" }
+          ]
+        }
+      });
+    } catch (error) {
+      console.error("[PublicDAO] Error:", error);
+      res.status(500).json({ error: "Failed to fetch DAO stats" });
+    }
+  });
+  app3.get("/api/token-programs/block-rewards/stats", async (_req, res) => {
+    try {
+      const stats = await storage.getBlockRewardStats();
+      const enterpriseNode2 = getEnterpriseNode();
+      const networkStats2 = await enterpriseNode2.getNetworkStats();
+      res.json({
+        success: true,
+        data: {
+          currentEpoch: Math.floor(networkStats2.blockHeight / 1e5),
+          totalRewardsDistributed: stats.totalRewards || "0",
+          currentBlockReward: "2.5",
+          nextHalvingBlock: Math.ceil(networkStats2.blockHeight / 1e7) * 1e7,
+          blocksToHalving: Math.ceil(networkStats2.blockHeight / 1e7) * 1e7 - networkStats2.blockHeight,
+          rewardSchedule: [
+            { epoch: 1, reward: "5.0", startBlock: 0, endBlock: 1e7 },
+            { epoch: 2, reward: "2.5", startBlock: 1e7, endBlock: 2e7 },
+            { epoch: 3, reward: "1.25", startBlock: 2e7, endBlock: 3e7 },
+            { epoch: 4, reward: "0.625", startBlock: 3e7, endBlock: 4e7 }
+          ],
+          distribution: {
+            validators: 70,
+            treasury: 20,
+            burn: 10
+          }
+        }
+      });
+    } catch (error) {
+      console.error("[PublicBlockRewards] Error:", error);
+      res.status(500).json({ error: "Failed to fetch block rewards stats" });
+    }
+  });
+  app3.get("/api/token-programs/validator-incentives/stats", async (_req, res) => {
+    try {
+      const stats = await storage.getValidatorIncentiveStats();
+      const enterpriseNode2 = getEnterpriseNode();
+      const networkStats2 = await enterpriseNode2.getNetworkStats();
+      res.json({
+        success: true,
+        data: {
+          totalValidators: networkStats2.totalValidators || 125,
+          activeValidators: networkStats2.activeValidators || 125,
+          totalStaked: "125000000",
+          totalRewardsDistributed: stats.totalAmount || "0",
+          averageApy: "12.5",
+          tiers: [
+            { name: "Genesis", minStake: "1000000", maxStake: null, apy: "15", validators: 25 },
+            { name: "Premier", minStake: "500000", maxStake: "999999", apy: "12", validators: 45 },
+            { name: "Standard", minStake: "100000", maxStake: "499999", apy: "10", validators: 55 }
+          ],
+          topValidators: [
+            { rank: 1, stake: "2500000", uptime: 99.99, blocksProduced: 15847, rewards: "187500" },
+            { rank: 2, stake: "2100000", uptime: 99.98, blocksProduced: 14523, rewards: "157500" },
+            { rank: 3, stake: "1800000", uptime: 99.97, blocksProduced: 13289, rewards: "135000" }
+          ]
+        }
+      });
+    } catch (error) {
+      console.error("[PublicValidatorIncentives] Error:", error);
+      res.status(500).json({ error: "Failed to fetch validator incentives stats" });
+    }
+  });
+  app3.get("/api/token-programs/ecosystem-fund/stats", async (_req, res) => {
+    try {
+      const stats = await storage.getEcosystemGrantStats();
+      res.json({
+        success: true,
+        data: {
+          totalFundSize: "100000000",
+          totalAllocated: stats.totalAllocated || "0",
+          totalProjects: stats.totalGrants || 0,
+          activeProjects: stats.activeGrants || 0,
+          categories: [
+            { name: "DeFi", allocated: "25000000", projects: 12 },
+            { name: "Infrastructure", allocated: "20000000", projects: 8 },
+            { name: "Gaming", allocated: "15000000", projects: 15 },
+            { name: "NFT", allocated: "10000000", projects: 20 },
+            { name: "Developer Tools", allocated: "15000000", projects: 10 },
+            { name: "Education", allocated: "5000000", projects: 25 },
+            { name: "Research", allocated: "10000000", projects: 5 }
+          ],
+          recentGrants: [
+            { name: "TBurn DEX V2", category: "DeFi", amount: "500000", status: "approved" },
+            { name: "Cross-Chain Bridge SDK", category: "Infrastructure", amount: "750000", status: "in_progress" },
+            { name: "TBURN Learn Platform", category: "Education", amount: "150000", status: "approved" }
+          ]
+        }
+      });
+    } catch (error) {
+      console.error("[PublicEcosystemFund] Error:", error);
+      res.status(500).json({ error: "Failed to fetch ecosystem fund stats" });
+    }
+  });
+  app3.get("/api/token-programs/investment-rounds/stats", async (_req, res) => {
+    try {
+      res.json({
+        success: true,
+        data: {
+          rounds: [
+            {
+              name: "Seed Round",
+              status: "completed",
+              allocation: "50000000",
+              price: "0.01",
+              raised: "500000",
+              investors: 45,
+              vesting: "12 months linear, 6 month cliff",
+              unlocked: 25
+            },
+            {
+              name: "Private Round",
+              status: "completed",
+              allocation: "100000000",
+              price: "0.025",
+              raised: "2500000",
+              investors: 120,
+              vesting: "18 months linear, 3 month cliff",
+              unlocked: 15
+            },
+            {
+              name: "Public Round",
+              status: "completed",
+              allocation: "150000000",
+              price: "0.05",
+              raised: "7500000",
+              investors: 15847,
+              vesting: "6 months linear",
+              unlocked: 50
+            }
+          ],
+          totalRaised: "10500000",
+          totalInvestors: 16012,
+          nextUnlock: "2025-02-01"
+        }
+      });
+    } catch (error) {
+      console.error("[PublicInvestmentRounds] Error:", error);
+      res.status(500).json({ error: "Failed to fetch investment rounds stats" });
+    }
+  });
+  app3.get("/api/token-programs/launchpad/stats", async (_req, res) => {
+    try {
+      res.json({
+        success: true,
+        data: {
+          platforms: [
+            {
+              name: "TBURN Official Launchpad",
+              status: "active",
+              totalProjects: 12,
+              totalRaised: "15000000",
+              avgRoi: "450%",
+              participants: 28500,
+              upcomingIdo: { name: "TBurn Gaming Hub", date: "2025-02-01", allocation: "2000000" }
+            },
+            {
+              name: "CoinList",
+              status: "completed",
+              totalProjects: 1,
+              totalRaised: "5000000",
+              participants: 12e3,
+              roi: "380%"
+            },
+            {
+              name: "DAO Maker SHO",
+              status: "completed",
+              totalProjects: 1,
+              totalRaised: "3000000",
+              participants: 8500,
+              roi: "520%",
+              daoPowerRequired: 500
+            }
+          ],
+          totalLaunchpadRaised: "23000000",
+          averageRoi: "450%"
+        }
+      });
+    } catch (error) {
+      console.error("[PublicLaunchpad] Error:", error);
+      res.status(500).json({ error: "Failed to fetch launchpad stats" });
+    }
+  });
+  app3.get("/api/token-programs/partnerships/stats", async (_req, res) => {
+    try {
+      res.json({
+        success: true,
+        data: {
+          partnerships: {
+            total: 45,
+            strategic: 8,
+            technical: 15,
+            marketing: 22,
+            allocation: "75000000",
+            distributed: "25000000"
+          },
+          marketing: {
+            totalBudget: "25000000",
+            spent: "8500000",
+            campaigns: 24,
+            activeCampaigns: 5,
+            reach: "15000000",
+            conversions: 125e3
+          },
+          advisors: {
+            total: 12,
+            allocation: "20000000",
+            vesting: "24 months linear",
+            unlocked: 8
+          },
+          strategicPartners: [
+            { name: "Major Exchange A", type: "Exchange", allocation: "5000000" },
+            { name: "DeFi Protocol B", type: "DeFi", allocation: "3000000" },
+            { name: "Infrastructure Provider C", type: "Infrastructure", allocation: "2500000" }
+          ]
+        }
+      });
+    } catch (error) {
+      console.error("[PublicPartnerships] Error:", error);
+      res.status(500).json({ error: "Failed to fetch partnership stats" });
+    }
+  });
   app3.get("/api/enterprise/admin/operations/emergency", async (_req, res) => {
     try {
       const cache = getDataCache();
@@ -56977,13 +64464,13 @@ Provide JSON portfolio analysis:
     }
   });
   const httpServer = existingServer || createServer2(app3);
-  const isProduction = process.env.NODE_ENV === "production";
+  const isProduction2 = process.env.NODE_ENV === "production";
   const wss = new WebSocketServer2({
     server: httpServer,
     path: "/ws",
     verifyClient: (info, callback) => {
       const origin = info.origin || info.req.headers.origin;
-      if (isProduction && origin) {
+      if (isProduction2 && origin) {
         const isAllowedOrigin = origin.endsWith(".replit.app") || origin.endsWith(".replit.dev") || origin.endsWith(".repl.co") || origin.includes("tburn.io") || origin === process.env.ALLOWED_ORIGIN || origin === "http://localhost:5000" || origin === "https://localhost:5000";
         if (!isAllowedOrigin) {
           console.warn("[WebSocket] Rejected connection from unknown origin:", origin);
@@ -59066,6 +66553,7 @@ var init_routes = __esm({
     init_genesis_routes();
     init_user_data_routes();
     init_launch_event_routes();
+    init_scalability_routes();
     init_NftMarketplaceService();
     init_LaunchpadService();
     init_GameFiService();
@@ -59144,7 +66632,7 @@ var init_routes = __esm({
       "community_activity_broadcast",
       "community_stats_broadcast"
     ]);
-    loginLimiter = rateLimit({
+    loginLimiter = rateLimit2({
       windowMs: 15 * 60 * 1e3,
       // 15 minutes
       max: 5,
@@ -59153,7 +66641,7 @@ var init_routes = __esm({
       standardHeaders: true,
       legacyHeaders: false
     });
-    apiLimiter = rateLimit({
+    apiLimiter = rateLimit2({
       windowMs: 1 * 60 * 1e3,
       // 1 minute
       max: 2e3,
@@ -59185,11 +66673,12 @@ function log(message, source = "express") {
   });
   console.log(`${formattedTime} [${source}] ${message}`);
 }
-var PgSession, MemoryStore, app, REDIS_URL, isReplit, isReplitAutoscale, cookieSecure, sessionStore, sessionStoreType, GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, GOOGLE_CALLBACK_URL, ADMIN_PASSWORD3;
+var PgSession, MemoryStore, app, REDIS_URL, hasRedis, isProduction, cookieSecure, sessionStore, sessionStoreType, sessionMiddleware, sessionCreateCount, sessionSkipCount, lastSessionReport, GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, GOOGLE_CALLBACK_URL, ADMIN_PASSWORD3;
 var init_app = __esm({
   "server/app.ts"() {
     "use strict";
     init_routes();
+    init_blockchain_orchestrator();
     PgSession = connectPgSimple(session);
     MemoryStore = createMemoryStore(session);
     BigInt.prototype.toJSON = function() {
@@ -59197,52 +66686,110 @@ var init_app = __esm({
     };
     app = express2();
     app.set("trust proxy", 1);
-    REDIS_URL = process.env.REDIS_URL || "redis://localhost:6379";
-    isReplit = process.env.REPL_ID !== void 0;
-    isReplitAutoscale = !isReplit && !process.env.REDIS_URL;
-    cookieSecure = process.env.COOKIE_SECURE === "true";
-    if (isReplit || isReplitAutoscale) {
-      sessionStore = new MemoryStore({
-        checkPeriod: 864e5
-        // prune expired entries every 24h
-      });
-      sessionStoreType = isReplitAutoscale ? "MemoryStore (Replit Autoscale)" : "MemoryStore (Replit Development)";
-    } else {
-      console.log(`[Init] Attempting to connect to Redis at ${REDIS_URL}...`);
+    REDIS_URL = process.env.REDIS_URL;
+    hasRedis = !!REDIS_URL;
+    isProduction = process.env.NODE_ENV === "production" || !process.env.REPL_ID;
+    cookieSecure = isProduction || process.env.COOKIE_SECURE === "true";
+    if (hasRedis) {
+      console.log(`[Init] Attempting to connect to Redis...`);
       const redisClient = createClient({ url: REDIS_URL });
       redisClient.on("error", (err) => {
         console.error("[Redis] Connection Error:", err);
       });
       redisClient.on("connect", () => {
-        log("\u2705 Redis connected successfully (Cluster Mode Ready)", "session");
+        log("\u2705 Redis connected successfully", "session");
       });
       redisClient.connect().catch(console.error);
       sessionStore = new RedisStore({
         client: redisClient,
         prefix: "tburn:"
-        // 키 충돌 방지용 접두사
       });
-      sessionStoreType = "Redis (Enterprise Cluster Mode)";
+      sessionStoreType = "Redis";
+    } else {
+      sessionStore = new MemoryStore({
+        checkPeriod: 6e4,
+        // ★ 1분마다 만료된 세션 정리 (기존 5분에서 단축)
+        max: 2e3,
+        // ★ 최대 2000개 세션으로 증가 (기존 500)
+        ttl: 18e5,
+        // ★ 세션 TTL 30분으로 단축 (기존 1시간)
+        stale: false,
+        // ★ 만료된 세션 즉시 삭제 (메모리 절약)
+        dispose: (key) => {
+          if (process.env.DEBUG_SESSION === "true") {
+            console.log(`[Session] Disposed session: ${key.substring(0, 8)}...`);
+          }
+        }
+      });
+      sessionStoreType = "MemoryStore (max: 2000, TTL: 30m, cleanup: 1m)";
+      console.log(`[Session] \u26A0\uFE0F Using MemoryStore - for production scale, configure REDIS_URL`);
     }
-    app.use(
-      session({
-        store: sessionStore,
-        secret: process.env.SESSION_SECRET || "tburn-secret-key-change-in-production",
-        resave: false,
-        saveUninitialized: false,
-        cookie: {
-          secure: cookieSecure,
-          // ★ COOKIE_SECURE=true 환경변수로 HTTPS 전용 쿠키 활성화
-          httpOnly: true,
-          // 자바스크립트 접근 방지 (보안)
-          maxAge: 24 * 60 * 60 * 1e3,
-          // 24시간
-          sameSite: "lax"
-        },
-        proxy: true
-        // ★ 항상 프록시 신뢰 (Nginx 뒤에서 작동)
-      })
-    );
+    sessionMiddleware = session({
+      store: sessionStore,
+      secret: process.env.SESSION_SECRET || "tburn-secret-key-change-in-production",
+      resave: false,
+      saveUninitialized: false,
+      cookie: {
+        secure: cookieSecure,
+        // ★ 프로덕션에서 HTTPS 전용 쿠키 자동 활성화
+        httpOnly: true,
+        // 자바스크립트 접근 방지 (보안)
+        maxAge: 2 * 60 * 60 * 1e3,
+        // ★ 2시간으로 단축 (메모리 누수 방지)
+        sameSite: cookieSecure ? "none" : "lax"
+        // ★ HTTPS 환경에서는 none으로 설정 (크로스 도메인 지원)
+      },
+      proxy: true
+      // ★ 항상 프록시 신뢰 (Nginx 뒤에서 작동)
+    });
+    sessionCreateCount = 0;
+    sessionSkipCount = 0;
+    lastSessionReport = Date.now();
+    app.use((req, res, next) => {
+      const isInternalRequest = req.headers["x-internal-request"] === "true";
+      const skipSessionPaths = [
+        "/api/public/",
+        // 공개 API
+        "/api/health",
+        // 헬스 체크
+        "/health",
+        // 루트 헬스 체크
+        "/api/network/stats",
+        // 네트워크 통계 (공개)
+        "/api/shards",
+        // 샤드 정보 (공개)
+        "/api/validators",
+        // 검증인 정보 (공개)
+        "/api/blocks",
+        // 블록 정보 (공개)
+        "/api/transactions",
+        // 트랜잭션 정보 (공개)
+        "/api/enterprise/"
+        // 엔터프라이즈 내부 API
+      ];
+      const shouldSkipSession = isInternalRequest || skipSessionPaths.some((path3) => req.path.startsWith(path3));
+      if (shouldSkipSession) {
+        sessionSkipCount++;
+        req.session = {
+          id: "skip-session",
+          cookie: {},
+          regenerate: (cb) => cb && cb(),
+          destroy: (cb) => cb && cb(),
+          reload: (cb) => cb && cb(),
+          save: (cb) => cb && cb(),
+          touch: () => {
+          }
+        };
+        return next();
+      }
+      sessionCreateCount++;
+      const now = Date.now();
+      if (now - lastSessionReport > 6e5) {
+        console.log(`[Session Monitor] Created: ${sessionCreateCount}, Skipped: ${sessionSkipCount}, Ratio: ${(sessionSkipCount / (sessionCreateCount + sessionSkipCount) * 100).toFixed(1)}% skipped`);
+        lastSessionReport = now;
+      }
+      return sessionMiddleware(req, res, next);
+    });
     log(`Cookie secure: ${cookieSecure} (set COOKIE_SECURE=true for HTTPS-only)`, "session");
     log(`Session store: ${sessionStoreType}`, "session");
     GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
@@ -59288,7 +66835,7 @@ var init_app = __esm({
     app.use(express2.urlencoded({ extended: false }));
     app.use((req, res, next) => {
       const start = Date.now();
-      const path2 = req.path;
+      const path3 = req.path;
       let capturedJsonResponse = void 0;
       const originalResJson = res.json;
       res.json = function(bodyJson, ...args) {
@@ -59297,8 +66844,8 @@ var init_app = __esm({
       };
       res.on("finish", () => {
         const duration = Date.now() - start;
-        if (path2.startsWith("/api")) {
-          let logLine = `${req.method} ${path2} ${res.statusCode} in ${duration}ms`;
+        if (path3.startsWith("/api")) {
+          let logLine = `${req.method} ${path3} ${res.statusCode} in ${duration}ms`;
           if (capturedJsonResponse) {
             logLine += ` :: ${JSON.stringify(capturedJsonResponse)}`;
           }
@@ -59327,7 +66874,8 @@ async function runAppServices(app3, server2) {
   const sessionStore2 = new MemoryStore2({
     checkPeriod: 864e5
   });
-  const cookieSecure2 = process.env.COOKIE_SECURE === "true";
+  const isProduction2 = process.env.NODE_ENV === "production" || process.env.REPL_SLUG && !process.env.REPL_ID;
+  const cookieSecure2 = isProduction2 || process.env.COOKIE_SECURE === "true";
   app3.use(
     session2({
       store: sessionStore2,
@@ -59338,7 +66886,8 @@ async function runAppServices(app3, server2) {
         secure: cookieSecure2,
         httpOnly: true,
         maxAge: 24 * 60 * 60 * 1e3,
-        sameSite: "lax"
+        sameSite: cookieSecure2 ? "none" : "lax"
+        // ★ HTTPS 환경에서는 none으로 설정
       },
       proxy: true
     })
@@ -59379,7 +66928,7 @@ async function runAppServices(app3, server2) {
   app3.use(express3.urlencoded({ extended: false }));
   app3.use((req, res, next) => {
     const start = Date.now();
-    const path2 = req.path;
+    const path3 = req.path;
     let capturedJsonResponse = void 0;
     const originalResJson = res.json;
     res.json = function(bodyJson, ...args) {
@@ -59388,8 +66937,8 @@ async function runAppServices(app3, server2) {
     };
     res.on("finish", () => {
       const duration = Date.now() - start;
-      if (path2.startsWith("/api")) {
-        let logLine = `${req.method} ${path2} ${res.statusCode} in ${duration}ms`;
+      if (path3.startsWith("/api")) {
+        let logLine = `${req.method} ${path3} ${res.statusCode} in ${duration}ms`;
         if (capturedJsonResponse) {
           logLine += ` :: ${JSON.stringify(capturedJsonResponse)}`;
         }
@@ -59408,6 +66957,33 @@ async function runAppServices(app3, server2) {
     res.status(status).json({ message });
   });
   log(`\u2705 All API routes registered`, "services");
+  const IS_DEV = process.env.NODE_ENV === "development";
+  try {
+    initializeBlockchainOrchestrator({
+      shardCount: 5,
+      validatorsPerShard: 25,
+      blockTimeMs: IS_DEV ? 1e3 : 100,
+      enableWorkerThreads: false,
+      // Disabled for Replit compatibility
+      enableBatchPersistence: true,
+      enableAdaptiveFees: true,
+      batchFlushIntervalMs: IS_DEV ? 5e3 : 1e3
+    }).then(() => {
+      log(`\u2705 Enterprise Scalability initialized${IS_DEV ? " (dev mode)" : ""}`, "scalability");
+    }).catch((error) => {
+      log(`\u26A0\uFE0F Scalability init error: ${error}`, "scalability");
+    });
+  } catch (error) {
+    log(`\u26A0\uFE0F Scalability setup error: ${error}`, "scalability");
+  }
+  process.on("SIGTERM", async () => {
+    log(`\u{1F6D1} SIGTERM received, shutting down gracefully...`, "shutdown");
+    try {
+      await shutdownBlockchainOrchestrator();
+    } catch (e) {
+    }
+    process.exit(0);
+  });
 }
 var MemoryStore2;
 var init_app_services = __esm({
@@ -59415,6 +66991,7 @@ var init_app_services = __esm({
     "use strict";
     init_routes();
     init_app();
+    init_blockchain_orchestrator();
     MemoryStore2 = createMemoryStore2(session2);
     BigInt.prototype.toJSON = function() {
       return this.toString();
@@ -59424,7 +67001,7 @@ var init_app_services = __esm({
 
 // server/index-prod.ts
 import fs from "node:fs";
-import path from "node:path";
+import path2 from "node:path";
 import { createServer as createServer3 } from "node:http";
 import express4 from "express";
 var servicesReady = false;
@@ -59433,9 +67010,22 @@ function setServicesReady(ready) {
 }
 var app2 = express4();
 app2.set("trust proxy", 1);
-var distPath = path.resolve(import.meta.dirname, "..", "dist", "public");
+var distPath = path2.resolve(process.cwd(), "dist", "public");
+console.log(`[Production] Static files: ${distPath}`);
+console.log(`[Production] Path exists: ${fs.existsSync(distPath)}`);
+if (fs.existsSync(path2.resolve(process.cwd(), "dist"))) {
+  const distContents = fs.readdirSync(path2.resolve(process.cwd(), "dist"));
+  console.log(`[Production] dist/ contents: ${distContents.join(", ")}`);
+}
 if (!fs.existsSync(distPath)) {
   console.error(`[FATAL] Could not find build directory: ${distPath}`);
+  console.error(`[FATAL] Available directories in project root:`);
+  try {
+    const files = fs.readdirSync(process.cwd());
+    console.error(files.join(", "));
+  } catch (e) {
+    console.error("Could not read project root");
+  }
   process.exit(1);
 }
 app2.get("/health", (_req, res) => {
@@ -59445,7 +67035,7 @@ app2.get("/health", (_req, res) => {
     timestamp: Date.now()
   });
 });
-app2.use("/assets", express4.static(path.join(distPath, "assets"), {
+app2.use("/assets", express4.static(path2.join(distPath, "assets"), {
   maxAge: "1y",
   immutable: true,
   etag: false
@@ -59478,7 +67068,7 @@ function serveIndexHtml(res) {
   res.setHeader("Expires", "0");
   res.setHeader("Surrogate-Control", "no-store");
   res.setHeader("X-Content-Version", "2026.01.02.v3");
-  res.sendFile(path.resolve(distPath, "index.html"));
+  res.sendFile(path2.resolve(distPath, "index.html"));
 }
 app2.use("/api", (req, res, next) => {
   if (!servicesReady) {
@@ -59503,7 +67093,7 @@ app2.use("/ws", (req, res, next) => {
 });
 app2.get("/whitepaper", async (_req, res) => {
   try {
-    const whitepaperPath = path.resolve(process.cwd(), "public", "whitepaper.html");
+    const whitepaperPath = path2.resolve(process.cwd(), "public", "whitepaper.html");
     if (fs.existsSync(whitepaperPath)) {
       res.setHeader("Content-Type", "text/html; charset=utf-8");
       res.sendFile(whitepaperPath);
@@ -59517,7 +67107,7 @@ app2.get("/whitepaper", async (_req, res) => {
 });
 app2.get("/technical-whitepaper", async (_req, res) => {
   try {
-    const whitepaperPath = path.resolve(process.cwd(), "public", "technical-whitepaper.html");
+    const whitepaperPath = path2.resolve(process.cwd(), "public", "technical-whitepaper.html");
     if (fs.existsSync(whitepaperPath)) {
       res.setHeader("Content-Type", "text/html; charset=utf-8");
       res.sendFile(whitepaperPath);

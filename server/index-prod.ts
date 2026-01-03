@@ -17,10 +17,28 @@ app.set('trust proxy', 1);
 // ============================================
 // PHASE 1: Immediate static serving (< 1 second)
 // ============================================
-const distPath = path.resolve(import.meta.dirname, "..", "dist", "public");
+
+// Use process.cwd() which is always the project root in Replit Autoscale
+const distPath = path.resolve(process.cwd(), "dist", "public");
+
+console.log(`[Production] Static files: ${distPath}`);
+console.log(`[Production] Path exists: ${fs.existsSync(distPath)}`);
+
+// List dist directory contents for debugging
+if (fs.existsSync(path.resolve(process.cwd(), "dist"))) {
+  const distContents = fs.readdirSync(path.resolve(process.cwd(), "dist"));
+  console.log(`[Production] dist/ contents: ${distContents.join(", ")}`);
+}
 
 if (!fs.existsSync(distPath)) {
   console.error(`[FATAL] Could not find build directory: ${distPath}`);
+  console.error(`[FATAL] Available directories in project root:`);
+  try {
+    const files = fs.readdirSync(process.cwd());
+    console.error(files.join(', '));
+  } catch (e) {
+    console.error('Could not read project root');
+  }
   process.exit(1);
 }
 
