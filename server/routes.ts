@@ -12834,6 +12834,63 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
+  app.get("/api/admin/token-programs/block-rewards/cycles/:id", requireAdmin, async (req, res) => {
+    try {
+      const cycle = await storage.getBlockRewardCycleById(req.params.id);
+      if (!cycle) {
+        return res.status(404).json({ error: 'Cycle not found' });
+      }
+      res.json({ success: true, data: cycle });
+    } catch (error) {
+      console.error('[BlockRewards] Error fetching cycle:', error);
+      res.status(500).json({ error: 'Failed to fetch cycle' });
+    }
+  });
+
+  app.post("/api/admin/token-programs/block-rewards/cycles", requireAdmin, async (req, res) => {
+    try {
+      const cycle = await storage.createBlockRewardCycle(req.body);
+      res.json({ success: true, data: cycle });
+    } catch (error) {
+      console.error('[BlockRewards] Error creating cycle:', error);
+      res.status(500).json({ error: 'Failed to create block reward cycle' });
+    }
+  });
+
+  app.patch("/api/admin/token-programs/block-rewards/cycles/:id", requireAdmin, async (req, res) => {
+    try {
+      await storage.updateBlockRewardCycle(req.params.id, req.body);
+      const cycle = await storage.getBlockRewardCycleById(req.params.id);
+      res.json({ success: true, data: cycle });
+    } catch (error) {
+      console.error('[BlockRewards] Error updating cycle:', error);
+      res.status(500).json({ error: 'Failed to update cycle' });
+    }
+  });
+
+  app.post("/api/admin/token-programs/block-rewards/cycles/:id/payouts", requireAdmin, async (req, res) => {
+    try {
+      const payout = await storage.createBlockRewardPayout({
+        ...req.body,
+        cycleId: req.params.id
+      });
+      res.json({ success: true, data: payout });
+    } catch (error) {
+      console.error('[BlockRewards] Error creating payout:', error);
+      res.status(500).json({ error: 'Failed to create payout' });
+    }
+  });
+
+  app.patch("/api/admin/token-programs/block-rewards/payouts/:id", requireAdmin, async (req, res) => {
+    try {
+      await storage.updateBlockRewardPayout(req.params.id, req.body);
+      res.json({ success: true, message: 'Payout updated successfully' });
+    } catch (error) {
+      console.error('[BlockRewards] Error updating payout:', error);
+      res.status(500).json({ error: 'Failed to update payout' });
+    }
+  });
+
   // Validator Incentives Management
   app.get("/api/admin/token-programs/validator-incentives", requireAdmin, async (req, res) => {
     try {
