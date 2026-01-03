@@ -447,6 +447,12 @@ import {
   advisors,
   advisorPayouts,
   advisorContributions,
+  type SeedInvestor,
+  type InsertSeedInvestor,
+  type SeedPayout,
+  type InsertSeedPayout,
+  seedInvestors,
+  seedPayouts,
 } from "@shared/schema";
 import { randomUUID } from "crypto";
 import { db } from "./db";
@@ -7669,6 +7675,47 @@ export class DbStorage implements IStorage {
 
   async updateAdvisorContribution(id: string, data: Partial<AdvisorContribution>): Promise<void> {
     await db.update(advisorContributions).set(data).where(eq(advisorContributions.id, id));
+  }
+
+  // Seed Round Program Implementation
+  async getAllSeedInvestors(limit: number = 100): Promise<SeedInvestor[]> {
+    return db.select().from(seedInvestors).orderBy(desc(seedInvestors.createdAt)).limit(limit);
+  }
+
+  async getSeedInvestorById(id: string): Promise<SeedInvestor | undefined> {
+    const [result] = await db.select().from(seedInvestors).where(eq(seedInvestors.id, id));
+    return result;
+  }
+
+  async createSeedInvestor(data: InsertSeedInvestor): Promise<SeedInvestor> {
+    const [result] = await db.insert(seedInvestors).values({ ...data, id: `seed-${randomUUID()}` }).returning();
+    return result;
+  }
+
+  async updateSeedInvestor(id: string, data: Partial<SeedInvestor>): Promise<void> {
+    await db.update(seedInvestors).set({ ...data, updatedAt: new Date() }).where(eq(seedInvestors.id, id));
+  }
+
+  async getSeedRoundStats(): Promise<{ totalInvestors: number; confirmedInvestors: number; raisedAmount: string; totalTokens: string; lockedTokens: string; }> {
+    const all = await this.getAllSeedInvestors(10000);
+    const confirmed = all.filter(i => i.status === 'confirmed' || i.status === 'distributed');
+    const raisedAmount = confirmed.reduce((sum, i) => sum + parseFloat(i.investmentAmount || '0'), 0);
+    const totalTokens = all.reduce((sum, i) => sum + BigInt(i.tokenAmount || '0'), BigInt(0));
+    const lockedTokens = all.reduce((sum, i) => sum + BigInt(i.lockedAmount || '0'), BigInt(0));
+    return { totalInvestors: all.length, confirmedInvestors: confirmed.length, raisedAmount: raisedAmount.toFixed(2), totalTokens: totalTokens.toString(), lockedTokens: lockedTokens.toString() };
+  }
+
+  async getSeedPayouts(investorId: string): Promise<SeedPayout[]> {
+    return db.select().from(seedPayouts).where(eq(seedPayouts.investorId, investorId)).orderBy(desc(seedPayouts.createdAt));
+  }
+
+  async createSeedPayout(data: InsertSeedPayout): Promise<SeedPayout> {
+    const [result] = await db.insert(seedPayouts).values({ ...data, id: `seedpay-${randomUUID()}` }).returning();
+    return result;
+  }
+
+  async updateSeedPayout(id: string, data: Partial<SeedPayout>): Promise<void> {
+    await db.update(seedPayouts).set(data).where(eq(seedPayouts.id, id));
   }
 }
 

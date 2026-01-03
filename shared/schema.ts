@@ -8490,3 +8490,73 @@ export type InsertAdvisorPayout = z.infer<typeof insertAdvisorPayoutSchema>;
 
 export type AdvisorContribution = typeof advisorContributions.$inferSelect;
 export type InsertAdvisorContribution = z.infer<typeof insertAdvisorContributionSchema>;
+
+// ============================================
+// Seed Round Program Tables
+// ============================================
+export const INVESTOR_TYPE = ["angel", "vc", "fund", "family_office", "strategic", "individual", "institutional"] as const;
+export const INVESTMENT_CURRENCY = ["usdt", "usdc", "eth", "btc", "usd", "krw"] as const;
+
+export const seedInvestors = pgTable("seed_investors", {
+  id: varchar("id").primaryKey(),
+  name: text("name").notNull(),
+  email: text("email"),
+  phone: text("phone"),
+  company: text("company"),
+  investorType: text("investor_type").notNull().default("individual"),
+  walletAddress: text("wallet_address"),
+  investmentAmount: numeric("investment_amount").notNull().default("0"),
+  investmentCurrency: text("investment_currency").notNull().default("usdt"),
+  tokenPrice: numeric("token_price").notNull().default("0.005"),
+  tokenAmount: text("token_amount").notNull().default("0"),
+  distributedAmount: text("distributed_amount").notNull().default("0"),
+  lockedAmount: text("locked_amount").notNull().default("0"),
+  vestingType: text("vesting_type").notNull().default("cliff_linear"),
+  vestingStartDate: timestamp("vesting_start_date"),
+  vestingEndDate: timestamp("vesting_end_date"),
+  cliffMonths: integer("cliff_months").notNull().default(12),
+  vestingMonths: integer("vesting_months").notNull().default(24),
+  tgePercentage: integer("tge_percentage").notNull().default(5),
+  saftSigned: boolean("saft_signed").notNull().default(false),
+  saftSignedDate: timestamp("saft_signed_date"),
+  kycVerified: boolean("kyc_verified").notNull().default(false),
+  kycVerifiedDate: timestamp("kyc_verified_date"),
+  paymentReceived: boolean("payment_received").notNull().default(false),
+  paymentReceivedDate: timestamp("payment_received_date"),
+  paymentTxHash: text("payment_tx_hash"),
+  status: text("status").notNull().default("pending"),
+  notes: text("notes"),
+  referredBy: varchar("referred_by"),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
+export const seedPayouts = pgTable("seed_payouts", {
+  id: varchar("id").primaryKey(),
+  investorId: varchar("investor_id").notNull(),
+  amount: text("amount").notNull(),
+  payoutType: text("payout_type").notNull().default("vesting"),
+  txHash: text("tx_hash"),
+  status: text("status").notNull().default("pending"),
+  scheduledDate: timestamp("scheduled_date"),
+  processedDate: timestamp("processed_date"),
+  notes: text("notes"),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+export const insertSeedInvestorSchema = createInsertSchema(seedInvestors).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertSeedPayoutSchema = createInsertSchema(seedPayouts).omit({
+  id: true,
+  createdAt: true,
+});
+
+export type SeedInvestor = typeof seedInvestors.$inferSelect;
+export type InsertSeedInvestor = z.infer<typeof insertSeedInvestorSchema>;
+
+export type SeedPayout = typeof seedPayouts.$inferSelect;
+export type InsertSeedPayout = z.infer<typeof insertSeedPayoutSchema>;
