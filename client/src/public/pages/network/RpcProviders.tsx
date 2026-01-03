@@ -9,7 +9,7 @@ import {
 } from "lucide-react";
 import { SiTypescript, SiPython, SiRust, SiGo } from "react-icons/si";
 import { useState, useEffect, useCallback } from "react";
-import { useLocation } from "wouter";
+import { useLocation, Link } from "wouter";
 import { useTranslation } from "react-i18next";
 import { useQuery } from "@tanstack/react-query";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
