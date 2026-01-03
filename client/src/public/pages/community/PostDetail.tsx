@@ -1,4 +1,4 @@
-import { Link, useRoute } from "wouter";
+import { Link, useRoute, useLocation } from "wouter";
 import { useTranslation } from "react-i18next";
 import { ArrowLeft, Calendar, User, MessageCircle, Heart, Eye, Share2, Bookmark, Tag, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -44,6 +44,7 @@ const categoryColors: Record<string, string> = {
 export default function PostDetail() {
   const { t, i18n } = useTranslation();
   const { toast } = useToast();
+  const [, setLocation] = useLocation();
   const [, params] = useRoute("/community/hub/post/:id");
   const postId = params?.id || "";
   const currentLang = i18n.language;
@@ -117,12 +118,10 @@ export default function PostDetail() {
           <p className="text-gray-600 dark:text-gray-400 mb-8">
             {t('publicPages.community.posts.detail.notFoundDesc')}
           </p>
-          <Link href="/community/hub">
-            <Button variant="outline" className="border-gray-300 dark:border-white/20 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-white/10">
+          <Button variant="outline" className="border-gray-300 dark:border-white/20 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-white/10" onClick={() => setLocation("/community/hub")}>
               <ArrowLeft className="w-4 h-4 mr-2" />
               {t('publicPages.community.posts.detail.backToHub')}
             </Button>
-          </Link>
         </div>
       </main>
     );

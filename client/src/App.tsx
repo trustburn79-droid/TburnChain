@@ -249,82 +249,66 @@ function AuthenticatedApp() {
                 <div className="flex items-center gap-2">
                   <Tooltip>
                     <TooltipTrigger asChild>
-                      <Link href="/">
-                        <Button variant="ghost" size="icon" data-testid="link-nav-home">
-                          <Home className="h-4 w-4" />
-                        </Button>
-                      </Link>
+                      <Button variant="ghost" size="icon" onClick={() => setLocation("/")} data-testid="link-nav-home">
+                        <Home className="h-4 w-4" />
+                      </Button>
                     </TooltipTrigger>
                     <TooltipContent><p>{t('nav.home', 'Home')}</p></TooltipContent>
                   </Tooltip>
                   <div className="hidden sm:flex items-center gap-1">
                     <Tooltip>
                       <TooltipTrigger asChild>
-                        <Link href="/scan">
-                          <Button variant="ghost" size="icon" data-testid="link-nav-scan">
-                            <ScanLine className="h-4 w-4" />
-                          </Button>
-                        </Link>
+                        <Button variant="ghost" size="icon" onClick={() => setLocation("/scan")} data-testid="link-nav-scan">
+                          <ScanLine className="h-4 w-4" />
+                        </Button>
                       </TooltipTrigger>
                       <TooltipContent><p>{t('nav.scan', 'Scan')}</p></TooltipContent>
                     </Tooltip>
                     <Tooltip>
                       <TooltipTrigger asChild>
-                        <Link href="/user">
-                          <Button variant="ghost" size="icon" data-testid="link-nav-user">
-                            <User className="h-4 w-4" />
-                          </Button>
-                        </Link>
+                        <Button variant="ghost" size="icon" onClick={() => setLocation("/user")} data-testid="link-nav-user">
+                          <User className="h-4 w-4" />
+                        </Button>
                       </TooltipTrigger>
                       <TooltipContent><p>{t('nav.user', 'User')}</p></TooltipContent>
                     </Tooltip>
                     <Tooltip>
                       <TooltipTrigger asChild>
-                        <Link href="/bug-bounty">
-                          <Button variant="ghost" size="icon" data-testid="link-nav-bug-bounty">
-                            <Bug className="h-4 w-4" />
-                          </Button>
-                        </Link>
+                        <Button variant="ghost" size="icon" onClick={() => setLocation("/bug-bounty")} data-testid="link-nav-bug-bounty">
+                          <Bug className="h-4 w-4" />
+                        </Button>
                       </TooltipTrigger>
                       <TooltipContent><p>{t('nav.bugBounty', 'Bug Bounty')}</p></TooltipContent>
                     </Tooltip>
                     <Tooltip>
                       <TooltipTrigger asChild>
-                        <Link href="/security-audit">
-                          <Button variant="ghost" size="icon" data-testid="link-nav-security-audit">
-                            <Shield className="h-4 w-4" />
-                          </Button>
-                        </Link>
+                        <Button variant="ghost" size="icon" onClick={() => setLocation("/security-audit")} data-testid="link-nav-security-audit">
+                          <Shield className="h-4 w-4" />
+                        </Button>
                       </TooltipTrigger>
                       <TooltipContent><p>{t('nav.securityAudit', 'Security Audit')}</p></TooltipContent>
                     </Tooltip>
                     <Tooltip>
                       <TooltipTrigger asChild>
-                        <Link href="/token-generator">
-                          <Button variant="ghost" size="icon" data-testid="link-nav-token-generator">
-                            <Coins className="h-4 w-4" />
-                          </Button>
-                        </Link>
+                        <Button variant="ghost" size="icon" onClick={() => setLocation("/token-generator")} data-testid="link-nav-token-generator">
+                          <Coins className="h-4 w-4" />
+                        </Button>
                       </TooltipTrigger>
                       <TooltipContent><p>{t('nav.tokenGenerator', 'Token Generator')}</p></TooltipContent>
                     </Tooltip>
                     <Tooltip>
                       <TooltipTrigger asChild>
-                        <Link href="/nft-marketplace">
-                          <Button variant="ghost" size="icon" data-testid="link-nav-nft-marketplace">
-                            <ImageIcon className="h-4 w-4" />
-                          </Button>
-                        </Link>
+                        <Button variant="ghost" size="icon" onClick={() => setLocation("/nft-marketplace")} data-testid="link-nav-nft-marketplace">
+                          <ImageIcon className="h-4 w-4" />
+                        </Button>
                       </TooltipTrigger>
                       <TooltipContent><p>{t('nav.nftMarketplace', 'NFT Marketplace')}</p></TooltipContent>
                     </Tooltip>
                     <Tooltip>
                       <TooltipTrigger asChild>
-                        <Link href="/qna">
-                          <Button variant="ghost" size="icon" data-testid="link-nav-qna">
-                            <HelpCircle className="h-4 w-4" />
-                          </Button>
-                        </Link>
+                        <Button variant="ghost" size="icon" onClick={() => setLocation("/qna")} data-testid="link-nav-qna">
+                          <HelpCircle className="h-4 w-4" />
+                        </Button>
                       </TooltipTrigger>
                       <TooltipContent><p>{t('nav.qna', 'QnA')}</p></TooltipContent>
                     </Tooltip>

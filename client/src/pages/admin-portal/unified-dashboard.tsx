@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { useState, useEffect, useMemo, useCallback } from "react";
 import { useTranslation } from "react-i18next";
-import { Link } from "wouter";
+import { Link, useLocation } from "wouter";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -257,6 +257,7 @@ function MetricCard({
 export default function UnifiedDashboard() {
   const { t, i18n } = useTranslation();
   const { toast } = useToast();
+  const [, setLocation] = useLocation();
   const [lastUpdate, setLastUpdate] = useState<Date>(new Date());
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [wsConnected, setWsConnected] = useState(false);
@@ -715,16 +716,14 @@ export default function UnifiedDashboard() {
                   </TooltipTrigger>
                   <TooltipContent>{t("adminDashboard.export")}</TooltipContent>
                 </Tooltip>
-                <Link href="/admin/settings">
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <Button variant="outline" size="sm" data-testid="button-settings">
-                        <Settings className="h-4 w-4" />
-                      </Button>
-                    </TooltipTrigger>
-                    <TooltipContent>{t("adminDashboard.settings")}</TooltipContent>
-                  </Tooltip>
-                </Link>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button variant="outline" size="sm" data-testid="button-settings" onClick={() => setLocation("/admin/settings")}>
+                      <Settings className="h-4 w-4" />
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>{t("adminDashboard.settings")}</TooltipContent>
+                </Tooltip>
               </div>
             </div>
           </div>
@@ -787,12 +786,10 @@ export default function UnifiedDashboard() {
                     <TrendingUp className="h-5 w-5" />
                     {t("adminDashboard.networkPerformance")}
                   </CardTitle>
-                  <Link href="/admin/performance">
-                    <Button variant="ghost" size="sm" data-testid="link-performance-detail">
-                      {t("adminDashboard.viewDetails")}
-                      <ExternalLink className="h-3 w-3 ml-1" />
-                    </Button>
-                  </Link>
+                  <Button variant="ghost" size="sm" data-testid="link-performance-detail" onClick={() => setLocation("/admin/performance")}>
+                    {t("adminDashboard.viewDetails")}
+                    <ExternalLink className="h-3 w-3 ml-1" />
+                  </Button>
                 </div>
               </CardHeader>
               <CardContent>
@@ -830,11 +827,9 @@ export default function UnifiedDashboard() {
                     <ShieldAlert className="h-5 w-5" />
                     {t("adminDashboard.securityAlerts")}
                   </CardTitle>
-                  <Link href="/admin/alerts">
-                    <Button variant="ghost" size="sm" data-testid="link-alerts">
-                      {t("adminDashboard.viewAll")}
-                    </Button>
-                  </Link>
+                  <Button variant="ghost" size="sm" data-testid="link-alerts" onClick={() => setLocation("/admin/alerts")}>
+                    {t("adminDashboard.viewAll")}
+                  </Button>
                 </div>
               </CardHeader>
               <CardContent>
@@ -921,11 +916,9 @@ export default function UnifiedDashboard() {
                     <Brain className="h-5 w-5" />
                     {t("adminDashboard.aiStatus")}
                   </CardTitle>
-                  <Link href="/admin/ai">
-                    <Button variant="ghost" size="icon" data-testid="link-ai">
-                      <ExternalLink className="h-4 w-4" />
-                    </Button>
-                  </Link>
+                  <Button variant="ghost" size="icon" data-testid="link-ai" onClick={() => setLocation("/admin/ai")}>
+                    <ExternalLink className="h-4 w-4" />
+                  </Button>
                 </div>
               </CardHeader>
               <CardContent>
@@ -973,11 +966,9 @@ export default function UnifiedDashboard() {
                     <Cpu className="h-5 w-5" />
                     {t("adminDashboard.systemResources")}
                   </CardTitle>
-                  <Link href="/admin/health">
-                    <Button variant="ghost" size="icon" data-testid="link-health">
-                      <ExternalLink className="h-4 w-4" />
-                    </Button>
-                  </Link>
+                  <Button variant="ghost" size="icon" data-testid="link-health" onClick={() => setLocation("/admin/health")}>
+                    <ExternalLink className="h-4 w-4" />
+                  </Button>
                 </div>
               </CardHeader>
               <CardContent>
@@ -1029,11 +1020,9 @@ export default function UnifiedDashboard() {
                     <Server className="h-5 w-5" />
                     {t("adminDashboard.validators")}
                   </CardTitle>
-                  <Link href="/admin/validators">
-                    <Button variant="ghost" size="icon" data-testid="link-validators">
-                      <ExternalLink className="h-4 w-4" />
-                    </Button>
-                  </Link>
+                  <Button variant="ghost" size="icon" data-testid="link-validators" onClick={() => setLocation("/admin/validators")}>
+                    <ExternalLink className="h-4 w-4" />
+                  </Button>
                 </div>
               </CardHeader>
               <CardContent>
@@ -1080,11 +1069,9 @@ export default function UnifiedDashboard() {
                     <Link2 className="h-5 w-5" />
                     {t("adminDashboard.bridgeStatus")}
                   </CardTitle>
-                  <Link href="/admin/bridge">
-                    <Button variant="ghost" size="icon" data-testid="link-bridge">
-                      <ExternalLink className="h-4 w-4" />
-                    </Button>
-                  </Link>
+                  <Button variant="ghost" size="icon" data-testid="link-bridge" onClick={() => setLocation("/admin/bridge")}>
+                    <ExternalLink className="h-4 w-4" />
+                  </Button>
                 </div>
               </CardHeader>
               <CardContent>
@@ -1134,11 +1121,9 @@ export default function UnifiedDashboard() {
                     <Wallet className="h-5 w-5" />
                     {t("adminDashboard.stakingMetrics")}
                   </CardTitle>
-                  <Link href="/admin/treasury">
-                    <Button variant="ghost" size="icon" data-testid="link-treasury">
-                      <ExternalLink className="h-4 w-4" />
-                    </Button>
-                  </Link>
+                  <Button variant="ghost" size="icon" data-testid="link-treasury" onClick={() => setLocation("/admin/treasury")}>
+                    <ExternalLink className="h-4 w-4" />
+                  </Button>
                 </div>
               </CardHeader>
               <CardContent>
@@ -1174,11 +1159,9 @@ export default function UnifiedDashboard() {
                     <Flame className="h-5 w-5" />
                     {t("adminDashboard.tokenEconomics")}
                   </CardTitle>
-                  <Link href="/admin/economics">
-                    <Button variant="ghost" size="icon" data-testid="link-economics">
-                      <ExternalLink className="h-4 w-4" />
-                    </Button>
-                  </Link>
+                  <Button variant="ghost" size="icon" data-testid="link-economics" onClick={() => setLocation("/admin/economics")}>
+                    <ExternalLink className="h-4 w-4" />
+                  </Button>
                 </div>
               </CardHeader>
               <CardContent>
@@ -1214,11 +1197,9 @@ export default function UnifiedDashboard() {
                     <Activity className="h-5 w-5" />
                     {t("adminDashboard.recentActivity")}
                   </CardTitle>
-                  <Link href="/admin/logs">
-                    <Button variant="ghost" size="sm" data-testid="link-activity-logs">
-                      {t("adminDashboard.viewAll")}
-                    </Button>
-                  </Link>
+                  <Button variant="ghost" size="sm" data-testid="link-activity-logs" onClick={() => setLocation("/admin/logs")}>
+                    {t("adminDashboard.viewAll")}
+                  </Button>
                 </div>
               </CardHeader>
               <CardContent>
@@ -1264,36 +1245,26 @@ export default function UnifiedDashboard() {
             </CardHeader>
             <CardContent>
               <div className="flex flex-wrap gap-2">
-                <Link href="/admin/emergency">
-                  <Button variant="destructive" size="sm" data-testid="action-emergency">
-                    <Power className="h-4 w-4 mr-2" />
-                    {t("adminDashboard.emergencyControls")}
-                  </Button>
-                </Link>
-                <Link href="/admin/maintenance">
-                  <Button variant="outline" size="sm" data-testid="action-maintenance">
-                    <Pause className="h-4 w-4 mr-2" />
-                    {t("adminDashboard.maintenanceMode")}
-                  </Button>
-                </Link>
-                <Link href="/admin/backup">
-                  <Button variant="outline" size="sm" data-testid="action-backup">
-                    <Database className="h-4 w-4 mr-2" />
-                    {t("adminDashboard.backupRestore")}
-                  </Button>
-                </Link>
-                <Link href="/admin/proposals">
-                  <Button variant="outline" size="sm" data-testid="action-proposals">
-                    <Vote className="h-4 w-4 mr-2" />
-                    {t("adminDashboard.governance")}
-                  </Button>
-                </Link>
-                <Link href="/admin/reports">
-                  <Button variant="outline" size="sm" data-testid="action-reports">
-                    <Download className="h-4 w-4 mr-2" />
-                    {t("adminDashboard.generateReport")}
-                  </Button>
-                </Link>
+                <Button variant="destructive" size="sm" data-testid="action-emergency" onClick={() => setLocation("/admin/emergency")}>
+                  <Power className="h-4 w-4 mr-2" />
+                  {t("adminDashboard.emergencyControls")}
+                </Button>
+                <Button variant="outline" size="sm" data-testid="action-maintenance" onClick={() => setLocation("/admin/maintenance")}>
+                  <Pause className="h-4 w-4 mr-2" />
+                  {t("adminDashboard.maintenanceMode")}
+                </Button>
+                <Button variant="outline" size="sm" data-testid="action-backup" onClick={() => setLocation("/admin/backup")}>
+                  <Database className="h-4 w-4 mr-2" />
+                  {t("adminDashboard.backupRestore")}
+                </Button>
+                <Button variant="outline" size="sm" data-testid="action-proposals" onClick={() => setLocation("/admin/proposals")}>
+                  <Vote className="h-4 w-4 mr-2" />
+                  {t("adminDashboard.governance")}
+                </Button>
+                <Button variant="outline" size="sm" data-testid="action-reports" onClick={() => setLocation("/admin/reports")}>
+                  <Download className="h-4 w-4 mr-2" />
+                  {t("adminDashboard.generateReport")}
+                </Button>
               </div>
             </CardContent>
           </Card>

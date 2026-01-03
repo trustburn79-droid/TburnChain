@@ -1,4 +1,4 @@
-import { useParams, Link } from "wouter";
+import { useParams, Link, useLocation } from "wouter";
 import { useTranslation } from "react-i18next";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -184,6 +184,7 @@ const generateMockHolders = (tokenAddress: string): Holder[] => {
 export default function TokenDetail() {
   const { t } = useTranslation();
   const { toast } = useToast();
+  const [, setLocation] = useLocation();
   const params = useParams<{ address: string }>();
   const address = params.address || '';
 
@@ -223,12 +224,10 @@ export default function TokenDetail() {
       <ScanLayout>
         <div className="container mx-auto px-4 py-6">
           <div className="flex items-center gap-4 mb-6">
-            <Link href="/scan/tokens">
-              <Button variant="ghost" size="sm">
+            <Button variant="ghost" size="sm" onClick={() => setLocation("/scan/tokens")}>
                 <ArrowLeft className="w-4 h-4 mr-2" />
                 {t("scan.backToTokens", "Back to Tokens")}
               </Button>
-            </Link>
           </div>
           <Card className="bg-gray-900/50 border-gray-800 p-8 text-center">
             <p className="text-gray-400">{t("scan.tokenNotFound", "Token not found")}</p>
@@ -242,12 +241,10 @@ export default function TokenDetail() {
     <ScanLayout>
       <div className="container mx-auto px-4 py-6 bg-gray-50 dark:bg-transparent transition-colors">
         <div className="flex items-center gap-4 mb-6">
-          <Link href="/scan/tokens">
-            <Button variant="ghost" size="sm" className="text-gray-400 hover:text-white" data-testid="button-back-to-tokens">
+          <Button variant="ghost" size="sm" className="text-gray-400 hover:text-white" data-testid="button-back-to-tokens" onClick={() => setLocation("/scan/tokens")}>
               <ArrowLeft className="w-4 h-4 mr-2" />
               {t("scan.backToTokens", "Back to Tokens")}
             </Button>
-          </Link>
         </div>
 
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-6">

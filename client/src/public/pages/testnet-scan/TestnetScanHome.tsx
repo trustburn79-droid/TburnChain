@@ -237,12 +237,10 @@ export default function TestnetScanHome() {
                 {t("scan.testnetDescription", "Test your smart contracts and transactions in a safe environment")}
               </p>
               <div className="flex items-center justify-center gap-4 mt-2">
-                <Link href="/testnet-scan/faucet">
-                  <Button variant="outline" size="sm" className="border-yellow-500/30 text-yellow-400 hover:bg-yellow-500/10" data-testid="button-faucet">
+                <Button variant="outline" size="sm" className="border-yellow-500/30 text-yellow-400 hover:bg-yellow-500/10" data-testid="button-faucet" onClick={() => setLocation("/testnet-scan/faucet")}>
                     <Droplets className="w-4 h-4 mr-2" />
                     {t("scan.getFreeTokens", "Get Free Tokens")}
                   </Button>
-                </Link>
               </div>
             </div>
 
@@ -440,11 +438,9 @@ export default function TestnetScanHome() {
                 <Blocks className="w-4 h-4 text-yellow-400" />
                 {t("scan.latestBlocks", "Latest Blocks")}
               </CardTitle>
-              <Link href="/testnet-scan/blocks">
-                <Button variant="ghost" size="sm" className="text-gray-400 hover:text-yellow-400 h-8" data-testid="testnet-link-view-all-blocks">
+              <Button variant="ghost" size="sm" className="text-gray-400 hover:text-yellow-400 h-8" data-testid="testnet-link-view-all-blocks" onClick={() => setLocation("/testnet-scan/blocks")}>
                   {t("scan.viewAll", "View All")} <ChevronRight className="w-4 h-4 ml-1" />
                 </Button>
-              </Link>
             </CardHeader>
             <CardContent className="space-y-2">
               {blocksLoading ? (
@@ -495,11 +491,9 @@ export default function TestnetScanHome() {
                 <ArrowRightLeft className="w-4 h-4 text-amber-400" />
                 {t("scan.latestTransactions", "Latest Transactions")}
               </CardTitle>
-              <Link href="/testnet-scan/txs">
-                <Button variant="ghost" size="sm" className="text-gray-400 hover:text-yellow-400 h-8" data-testid="testnet-link-view-all-txs">
+              <Button variant="ghost" size="sm" className="text-gray-400 hover:text-yellow-400 h-8" data-testid="testnet-link-view-all-txs" onClick={() => setLocation("/testnet-scan/txs")}>
                   {t("scan.viewAll", "View All")} <ChevronRight className="w-4 h-4 ml-1" />
                 </Button>
-              </Link>
             </CardHeader>
             <CardContent className="space-y-2">
               {txsLoading ? (

@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { Link, useParams } from "wouter";
+import { Link, useParams, useLocation } from "wouter";
 import { useTranslation } from "react-i18next";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -48,6 +48,7 @@ interface Transaction {
 export default function TransactionDetail() {
   const { t } = useTranslation();
   const { toast } = useToast();
+  const [, setLocation] = useLocation();
   const params = useParams<{ hash: string }>();
   const txHash = params.hash || "";
 
@@ -161,9 +162,7 @@ export default function TransactionDetail() {
                 <p className="text-sm text-gray-500 mb-1">{t("scan.searchedFor", "Searched for")}:</p>
                 <p className="text-sm text-gray-900 dark:text-white font-mono break-all">{txHash}</p>
               </div>
-              <Link href="/scan/txs">
-                <Button className="bg-gradient-to-r from-orange-500 to-red-600">{t("scan.backToTransactions", "Back to Transactions")}</Button>
-              </Link>
+              <Button className="bg-gradient-to-r from-orange-500 to-red-600" onClick={() => setLocation("/scan/txs")}>{t("scan.backToTransactions", "Back to Transactions")}</Button>
             </CardContent>
           </Card>
         </div>
@@ -180,11 +179,9 @@ export default function TransactionDetail() {
     <ScanLayout>
       <div className="container mx-auto px-4 py-8 bg-gray-50 dark:bg-transparent transition-colors">
         <div className="flex items-center gap-3 mb-6">
-          <Link href="/scan/txs">
-            <Button variant="ghost" size="icon" className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white" data-testid="button-back">
+          <Button variant="ghost" size="icon" className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white" data-testid="button-back" onClick={() => setLocation("/scan/txs")}>
               <ChevronLeft className="w-5 h-5" />
             </Button>
-          </Link>
           <div className="flex items-center gap-3">
             <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${
               tx.status === 'confirmed' || tx.status === 'success'

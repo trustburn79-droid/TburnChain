@@ -60,7 +60,7 @@ import {
 } from "@/components/ui/tooltip";
 import { formatAddress, formatTimeAgo, formatNumber, formatTokenAmount } from "@/lib/format";
 import type { NetworkStats, Block, Transaction } from "@shared/schema";
-import { Link } from "wouter";
+import { Link, useLocation } from "wouter";
 import { AreaChart, Area, XAxis, YAxis, ResponsiveContainer, Tooltip as RechartsTooltip, LineChart, Line } from "recharts";
 import { motion } from "framer-motion";
 
@@ -511,6 +511,7 @@ function DeFiStatCard({
 export default function Dashboard() {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
+  const [, setLocation] = useLocation();
   const [selectedBlock, setSelectedBlock] = useState<Block | null>(null);
   const [selectedTx, setSelectedTx] = useState<Transaction | null>(null);
   const [isRefreshing, setIsRefreshing] = useState(false);
@@ -1429,12 +1430,10 @@ export default function Dashboard() {
             </div>
             {recentBlocks && recentBlocks.length > 0 && (
               <div className="mt-4 pt-4 border-t">
-                <Link href="/app/blocks">
-                  <Button variant="outline" className="w-full" data-testid="button-view-all-blocks">
-                    {t("dashboard.viewAllBlocks")}
-                    <ArrowRight className="h-4 w-4 ml-2" />
-                  </Button>
-                </Link>
+                <Button variant="outline" className="w-full" data-testid="button-view-all-blocks" onClick={() => setLocation("/app/blocks")}>
+                  {t("dashboard.viewAllBlocks")}
+                  <ArrowRight className="h-4 w-4 ml-2" />
+                </Button>
               </div>
             )}
           </CardContent>
@@ -1512,12 +1511,10 @@ export default function Dashboard() {
             </div>
             {recentTxs && recentTxs.length > 0 && (
               <div className="mt-4 pt-4 border-t">
-                <Link href="/app/transactions">
-                  <Button variant="outline" className="w-full" data-testid="button-view-all-transactions">
-                    {t("dashboard.viewAllTransactions")}
-                    <ArrowRight className="h-4 w-4 ml-2" />
-                  </Button>
-                </Link>
+                <Button variant="outline" className="w-full" data-testid="button-view-all-transactions" onClick={() => setLocation("/app/transactions")}>
+                  {t("dashboard.viewAllTransactions")}
+                  <ArrowRight className="h-4 w-4 ml-2" />
+                </Button>
               </div>
             )}
           </CardContent>
@@ -1732,12 +1729,10 @@ export default function Dashboard() {
                 <Button variant="outline" onClick={() => setSelectedTx(null)}>
                   {t("dashboard.close")}
                 </Button>
-                <Link href={`/app/transactions/${selectedTx.hash}`}>
-                  <Button data-testid="button-view-tx-details">
-                    {t("dashboard.viewFullDetails")}
-                    <ArrowRight className="h-4 w-4 ml-1" />
-                  </Button>
-                </Link>
+                <Button data-testid="button-view-tx-details" onClick={() => setLocation(`/app/transactions/${selectedTx.hash}`)}>
+                  {t("dashboard.viewFullDetails")}
+                  <ArrowRight className="h-4 w-4 ml-1" />
+                </Button>
               </div>
             </div>
           )}

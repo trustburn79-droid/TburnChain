@@ -13,7 +13,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Users, Link2, Coins, TrendingUp, Search, RefreshCw, ArrowLeft, UserPlus, Upload, Send, Gift, Copy, CheckCircle2 } from "lucide-react";
-import { Link } from "wouter";
+import { useLocation } from "wouter";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 
@@ -49,6 +49,7 @@ const getTierBadgeClass = (tier: string) => {
 };
 
 export default function AdminReferralProgram() {
+  const [, setLocation] = useLocation();
   const { toast } = useToast();
   const [searchQuery, setSearchQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
@@ -189,11 +190,9 @@ export default function AdminReferralProgram() {
   return (
     <div className="flex flex-col gap-6 p-6" data-testid="admin-referral-page">
       <div className="flex items-center gap-4">
-        <Link href="/admin/token-distribution">
-          <Button variant="ghost" size="icon" data-testid="button-back">
-            <ArrowLeft className="h-5 w-5" />
-          </Button>
-        </Link>
+        <Button variant="ghost" size="icon" onClick={() => setLocation("/admin/token-distribution")} data-testid="button-back">
+          <ArrowLeft className="h-5 w-5" />
+        </Button>
         <div className="flex-1">
           <h1 className="text-3xl font-bold tracking-tight" data-testid="text-page-title">
             레퍼럴 프로그램 관리

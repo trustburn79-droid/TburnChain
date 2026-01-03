@@ -12,7 +12,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Checkbox } from "@/components/ui/checkbox";
 import { Progress } from "@/components/ui/progress";
 import { Globe, Users, DollarSign, TrendingUp, Search, RefreshCw, ArrowLeft, Plus, Eye, Edit, Coins, CheckCircle, CreditCard, Target, Wallet } from "lucide-react";
-import { Link } from "wouter";
+import { useLocation } from "wouter";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 
@@ -109,6 +109,7 @@ const TOKEN_PRICE = 0.02;
 const HARD_CAP = 5000000;
 
 export default function AdminPublicRound() {
+  const [, setLocation] = useLocation();
   const { toast } = useToast();
   const [searchQuery, setSearchQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
@@ -299,11 +300,9 @@ export default function AdminPublicRound() {
   return (
     <div className="flex flex-col gap-6 p-6" data-testid="admin-public-round-page">
       <div className="flex items-center gap-4">
-        <Link href="/admin/token-distribution">
-          <Button variant="ghost" size="icon" data-testid="button-back">
-            <ArrowLeft className="h-5 w-5" />
-          </Button>
-        </Link>
+        <Button variant="ghost" size="icon" onClick={() => setLocation("/admin/token-distribution")} data-testid="button-back">
+          <ArrowLeft className="h-5 w-5" />
+        </Button>
         <div className="flex-1">
           <h1 className="text-3xl font-bold tracking-tight" data-testid="text-page-title">
             퍼블릭 라운드 관리

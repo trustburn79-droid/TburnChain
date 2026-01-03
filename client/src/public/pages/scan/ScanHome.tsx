@@ -561,11 +561,9 @@ export default function ScanHome() {
                   </span>
                 )}
               </CardTitle>
-              <Link href="/scan/blocks">
-                <Button variant="ghost" size="sm" className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:text-white h-8" data-testid="link-view-all-blocks">
+              <Button variant="ghost" size="sm" className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:text-white h-8" data-testid="link-view-all-blocks" onClick={() => setLocation("/scan/blocks")}>
                   {t("scan.viewAll", "View All")} <ChevronRight className="w-4 h-4 ml-1" />
                 </Button>
-              </Link>
             </CardHeader>
             <CardContent className="space-y-2">
               {blocksLoading ? (
@@ -636,11 +634,9 @@ export default function ScanHome() {
                   </span>
                 )}
               </CardTitle>
-              <Link href="/scan/txs">
-                <Button variant="ghost" size="sm" className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:text-white h-8" data-testid="link-view-all-txs">
+              <Button variant="ghost" size="sm" className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:text-white h-8" data-testid="link-view-all-txs" onClick={() => setLocation("/scan/txs")}>
                   {t("scan.viewAll", "View All")} <ChevronRight className="w-4 h-4 ml-1" />
                 </Button>
-              </Link>
             </CardHeader>
             <CardContent className="space-y-2">
               {txsLoading ? (

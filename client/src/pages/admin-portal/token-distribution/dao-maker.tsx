@@ -14,7 +14,7 @@ import { Switch } from "@/components/ui/switch";
 import { Textarea } from "@/components/ui/textarea";
 import { Progress } from "@/components/ui/progress";
 import { Gem, Users, DollarSign, Award, Search, RefreshCw, ArrowLeft, Plus, Eye, Calendar, Trophy, Zap, Crown, Shield, Star, UserCheck, CheckCircle2 } from "lucide-react";
-import { Link } from "wouter";
+import { useLocation } from "wouter";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 
@@ -122,6 +122,7 @@ interface StatsData {
 }
 
 export default function AdminDAOMaker() {
+  const [, setLocation] = useLocation();
   const { toast } = useToast();
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedSho, setSelectedSho] = useState<DaoMakerSho | null>(null);
@@ -445,11 +446,9 @@ export default function AdminDAOMaker() {
   return (
     <div className="flex flex-col gap-6 p-6" data-testid="admin-dao-maker-page">
       <div className="flex items-center gap-4">
-        <Link href="/admin/token-distribution">
-          <Button variant="ghost" size="icon" data-testid="button-back">
-            <ArrowLeft className="h-5 w-5" />
-          </Button>
-        </Link>
+        <Button variant="ghost" size="icon" onClick={() => setLocation("/admin/token-distribution")} data-testid="button-back">
+          <ArrowLeft className="h-5 w-5" />
+        </Button>
         <div className="flex-1">
           <h1 className="text-3xl font-bold tracking-tight" data-testid="text-page-title">
             DAO Maker SHO 관리

@@ -20,7 +20,7 @@ import {
   Gift, Users, Coins, CheckCircle2, Clock, XCircle, Plus, Search, RefreshCw, ArrowLeft, 
   Download, Upload, Trash2, Play, FileSpreadsheet, AlertCircle, Loader2, Send
 } from "lucide-react";
-import { Link } from "wouter";
+import { useLocation } from "wouter";
 
 interface AirdropClaim {
   id: string;
@@ -80,6 +80,7 @@ const getTierBadge = (tier: string) => {
 };
 
 export default function AdminAirdropProgram() {
+  const [, setLocation] = useLocation();
   const { t } = useTranslation();
   const { toast } = useToast();
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -275,11 +276,9 @@ export default function AdminAirdropProgram() {
   return (
     <div className="flex flex-col gap-6 p-6" data-testid="admin-airdrop-page">
       <div className="flex items-center gap-4">
-        <Link href="/admin/token-distribution">
-          <Button variant="ghost" size="icon" data-testid="button-back">
-            <ArrowLeft className="h-5 w-5" />
-          </Button>
-        </Link>
+        <Button variant="ghost" size="icon" onClick={() => setLocation("/admin/token-distribution")} data-testid="button-back">
+          <ArrowLeft className="h-5 w-5" />
+        </Button>
         <div className="flex-1">
           <h1 className="text-3xl font-bold tracking-tight" data-testid="text-page-title">
             에어드랍 프로그램 관리

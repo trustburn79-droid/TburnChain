@@ -11,7 +11,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Handshake, Building2, Coins, TrendingUp, Search, RefreshCw, ArrowLeft, Plus, Eye, Edit, Calendar, Award, Globe, Mail } from "lucide-react";
-import { Link } from "wouter";
+import { useLocation } from "wouter";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 
@@ -99,6 +99,7 @@ const PARTNER_TIERS = [
 ];
 
 export default function AdminPartnershipProgram() {
+  const [, setLocation] = useLocation();
   const { toast } = useToast();
   const [searchQuery, setSearchQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
@@ -291,11 +292,9 @@ export default function AdminPartnershipProgram() {
   return (
     <div className="flex flex-col gap-6 p-6" data-testid="admin-partnership-program-page">
       <div className="flex items-center gap-4">
-        <Link href="/admin/token-distribution">
-          <Button variant="ghost" size="icon" data-testid="button-back">
-            <ArrowLeft className="h-5 w-5" />
-          </Button>
-        </Link>
+        <Button variant="ghost" size="icon" onClick={() => setLocation("/admin/token-distribution")} data-testid="button-back">
+          <ArrowLeft className="h-5 w-5" />
+        </Button>
         <div className="flex-1">
           <h1 className="text-3xl font-bold tracking-tight" data-testid="text-page-title">
             파트너십 프로그램 관리

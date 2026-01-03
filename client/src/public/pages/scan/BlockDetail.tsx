@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { Link, useParams } from "wouter";
+import { Link, useParams, useLocation } from "wouter";
 import { useTranslation } from "react-i18next";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -66,6 +66,7 @@ interface Transaction {
 export default function BlockDetail() {
   const { t } = useTranslation();
   const { toast } = useToast();
+  const [, setLocation] = useLocation();
   const params = useParams<{ blockNumber: string }>();
   const blockNumber = parseInt(params.blockNumber || "0");
 
@@ -147,9 +148,7 @@ export default function BlockDetail() {
       <ScanLayout>
         <div className="container mx-auto px-4 py-8 text-center">
           <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">{t("scan.blockNotFound", "Block Not Found")}</h1>
-          <Link href="/scan/blocks">
-            <Button>{t("scan.backToBlocks", "Back to Blocks")}</Button>
-          </Link>
+          <Button onClick={() => setLocation("/scan/blocks")}>{t("scan.backToBlocks", "Back to Blocks")}</Button>
         </div>
       </ScanLayout>
     );
@@ -159,11 +158,9 @@ export default function BlockDetail() {
     <ScanLayout>
       <div className="container mx-auto px-4 py-8 bg-gray-50 dark:bg-transparent transition-colors">
         <div className="flex items-center gap-3 mb-6">
-          <Link href="/scan/blocks">
-            <Button variant="ghost" size="icon" className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white" data-testid="button-back">
+          <Button variant="ghost" size="icon" className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white" data-testid="button-back" onClick={() => setLocation("/scan/blocks")}>
               <ChevronLeft className="w-5 h-5" />
             </Button>
-          </Link>
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-lg bg-blue-500/20 flex items-center justify-center">
               <Blocks className="w-5 h-5 text-blue-400" />
@@ -178,16 +175,12 @@ export default function BlockDetail() {
             </div>
           </div>
           <div className="ml-auto flex items-center gap-2">
-            <Link href={`/scan/block/${blockNumber - 1}`}>
-              <Button variant="outline" size="sm" className="border-gray-700" disabled={blockNumber <= 1} data-testid="button-prev-block">
+            <Button variant="outline" size="sm" className="border-gray-700" disabled={blockNumber <= 1} data-testid="button-prev-block" onClick={() => setLocation(`/scan/block/${blockNumber - 1}`)}>
                 <ChevronLeft className="w-4 h-4" />
               </Button>
-            </Link>
-            <Link href={`/scan/block/${blockNumber + 1}`}>
-              <Button variant="outline" size="sm" className="border-gray-700" data-testid="button-next-block">
+            <Button variant="outline" size="sm" className="border-gray-700" data-testid="button-next-block" onClick={() => setLocation(`/scan/block/${blockNumber + 1}`)}>
                 <ChevronRight className="w-4 h-4" />
               </Button>
-            </Link>
           </div>
         </div>
 

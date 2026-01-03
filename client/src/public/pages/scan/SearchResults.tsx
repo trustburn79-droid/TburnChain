@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { Link, useLocation } from "wouter";
+import { useLocation } from "wouter";
 import { useTranslation } from "react-i18next";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -173,11 +173,9 @@ export default function SearchResults() {
       <div className="container mx-auto px-4 py-8 bg-gray-50 dark:bg-transparent transition-colors">
         {/* Header */}
         <div className="flex items-center gap-3 mb-6">
-          <Link href="/scan">
-            <Button variant="ghost" size="icon" className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white" data-testid="button-back">
+          <Button variant="ghost" size="icon" className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white" data-testid="button-back" onClick={() => setLocation("/scan")}>
               <ChevronLeft className="w-5 h-5" />
             </Button>
-          </Link>
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-orange-500/20 to-red-500/20 flex items-center justify-center border border-orange-500/30">
               <Search className="w-5 h-5 text-orange-400" />

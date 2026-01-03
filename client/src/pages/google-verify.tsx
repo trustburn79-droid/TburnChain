@@ -6,7 +6,7 @@ import { useToast } from "@/hooks/use-toast";
 import { Mail, RefreshCw, CheckCircle, ArrowLeft } from "lucide-react";
 import { TBurnLogo } from "@/components/tburn-logo";
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp";
-import { Link } from "wouter";
+import { Link, useLocation as useWouterLocation } from "wouter";
 
 function NeuralCanvasVerify() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -118,6 +118,7 @@ function NeuralCanvasVerify() {
 export default function GoogleVerify() {
   const { t } = useTranslation();
   const [, setLocation] = useLocation();
+  const [, setWouterLocation] = useWouterLocation();
   const { toast } = useToast();
   const [verificationCode, setVerificationCode] = useState("");
   const [isVerifying, setIsVerifying] = useState(false);
@@ -227,9 +228,7 @@ export default function GoogleVerify() {
       <div className="min-h-screen flex items-center justify-center bg-[#050505] text-white">
         <div className="text-center">
           <p className="text-gray-400 mb-4">{t("googleVerify.invalidAccess")}</p>
-          <Link href="/login">
-            <Button variant="outline">{t("googleVerify.backToLogin")}</Button>
-          </Link>
+          <Button variant="outline" onClick={() => setWouterLocation("/login")}>{t("googleVerify.backToLogin")}</Button>
         </div>
       </div>
     );
@@ -349,12 +348,10 @@ export default function GoogleVerify() {
 
             {/* Back to Login */}
             <div className="mt-6 pt-6 border-t border-white/10 text-center">
-              <Link href="/login">
-                <Button variant="ghost" size="sm" className="text-gray-400 hover:text-white">
-                  <ArrowLeft className="w-4 h-4 mr-2" />
-                  {t("googleVerify.backToLogin")}
-                </Button>
-              </Link>
+              <Button variant="ghost" size="sm" className="text-gray-400 hover:text-white" onClick={() => setWouterLocation("/login")}>
+                <ArrowLeft className="w-4 h-4 mr-2" />
+                {t("googleVerify.backToLogin")}
+              </Button>
             </div>
           </div>
         </div>

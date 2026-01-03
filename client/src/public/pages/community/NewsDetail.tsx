@@ -1,4 +1,4 @@
-import { Link, useRoute } from "wouter";
+import { Link, useRoute, useLocation } from "wouter";
 import { useTranslation } from "react-i18next";
 import { ArrowLeft, Calendar, Clock, Eye, User, Share2, Bookmark, Tag, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -31,6 +31,7 @@ const typeGradients: Record<string, string> = {
 export default function NewsDetail() {
   const { t, i18n } = useTranslation();
   const { toast } = useToast();
+  const [, setLocation] = useLocation();
   const [, params] = useRoute("/community/news/:slug");
   const slug = params?.slug || "";
   const currentLang = i18n.language;
@@ -88,12 +89,10 @@ export default function NewsDetail() {
           <p className="text-gray-600 dark:text-gray-400 mb-8">
             {t('publicPages.community.news.detail.notFoundDesc')}
           </p>
-          <Link href="/community/news">
-            <Button variant="outline" className="border-gray-300 dark:border-white/20 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-white/10">
+          <Button variant="outline" className="border-gray-300 dark:border-white/20 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-white/10" onClick={() => setLocation("/community/news")}>
               <ArrowLeft className="w-4 h-4 mr-2" />
               {t('publicPages.community.news.detail.backToNews')}
             </Button>
-          </Link>
         </div>
       </main>
     );

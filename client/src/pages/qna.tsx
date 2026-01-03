@@ -37,7 +37,7 @@ import {
   Bug,
   ImageIcon
 } from 'lucide-react';
-import { Link } from 'wouter';
+import { Link, useLocation } from 'wouter';
 import { useTheme } from '@/components/theme-provider';
 import { UnifiedHeaderNav } from '@/components/unified-header-nav';
 import { cn } from '@/lib/utils';
@@ -63,6 +63,7 @@ export default function QnAPage() {
   const { t, i18n } = useTranslation();
   const { theme, setTheme } = useTheme();
   const currentLang = i18n.language;
+  const [, setLocation] = useLocation();
   
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
@@ -232,11 +233,9 @@ export default function QnAPage() {
             <p className="text-xs text-slate-500 dark:text-gray-400 mb-3">
               {t('qna.supportDescription', 'Our support team is available 24/7 for technical issues.')}
             </p>
-            <Link href="/community/hub">
-              <Button className="w-full bg-blue-500 hover:bg-blue-600 text-white text-xs font-bold" size="sm" data-testid="button-contact-support">
-                {t('qna.contactSupport', 'Contact Support')}
-              </Button>
-            </Link>
+            <Button className="w-full bg-blue-500 hover:bg-blue-600 text-white text-xs font-bold" size="sm" data-testid="button-contact-support" onClick={() => setLocation("/community/hub")}>
+              {t('qna.contactSupport', 'Contact Support')}
+            </Button>
           </div>
         </aside>
 

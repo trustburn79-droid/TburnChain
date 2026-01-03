@@ -1,4 +1,4 @@
-import { Link, useRoute } from "wouter";
+import { Link, useRoute, useLocation } from "wouter";
 import { useTranslation } from "react-i18next";
 import { ArrowLeft, Calendar, Clock, MapPin, Users, Share2, Bell, Video, Globe, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -51,6 +51,7 @@ const eventButtonColors: Record<string, string> = {
 export default function EventDetail() {
   const { t, i18n } = useTranslation();
   const { toast } = useToast();
+  const [, setLocation] = useLocation();
   const [, params] = useRoute("/community/events/:id");
   const eventId = params?.id || "";
   const [isRegistered, setIsRegistered] = useState(false);
@@ -117,12 +118,10 @@ export default function EventDetail() {
           <p className="text-gray-600 dark:text-gray-400 mb-8">
             {t('publicPages.community.events.detail.notFoundDesc')}
           </p>
-          <Link href="/community/events">
-            <Button variant="outline" className="border-gray-300 dark:border-white/20 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-white/10">
+          <Button variant="outline" className="border-gray-300 dark:border-white/20 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-white/10" onClick={() => setLocation("/community/events")}>
               <ArrowLeft className="w-4 h-4 mr-2" />
               {t('publicPages.community.events.detail.backToEvents')}
             </Button>
-          </Link>
         </div>
       </main>
     );

@@ -14,7 +14,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Progress } from "@/components/ui/progress";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Rocket, Users, DollarSign, Timer, Search, RefreshCw, ArrowLeft, Plus, Eye, Edit, Star, Calendar, Globe, Coins, CheckCircle, Wallet, ExternalLink } from "lucide-react";
-import { Link } from "wouter";
+import { useLocation } from "wouter";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 
@@ -107,6 +107,7 @@ const PARTICIPANT_STATUS: Record<string, { label: string; color: string }> = {
 };
 
 export default function AdminLaunchpad() {
+  const [, setLocation] = useLocation();
   const { toast } = useToast();
   const [searchQuery, setSearchQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
@@ -343,11 +344,9 @@ export default function AdminLaunchpad() {
   return (
     <div className="flex flex-col gap-6 p-6" data-testid="admin-launchpad-page">
       <div className="flex items-center gap-4">
-        <Link href="/admin/token-distribution">
-          <Button variant="ghost" size="icon" data-testid="button-back">
-            <ArrowLeft className="h-5 w-5" />
-          </Button>
-        </Link>
+        <Button variant="ghost" size="icon" onClick={() => setLocation("/admin/token-distribution")} data-testid="button-back">
+          <ArrowLeft className="h-5 w-5" />
+        </Button>
         <div className="flex-1">
           <h1 className="text-3xl font-bold tracking-tight" data-testid="text-page-title">
             공식 런치패드 관리

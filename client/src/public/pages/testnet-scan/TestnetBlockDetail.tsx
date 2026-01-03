@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { Link, useParams } from "wouter";
+import { Link, useParams, useLocation } from "wouter";
 import { useTranslation } from "react-i18next";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -22,6 +22,7 @@ interface Block {
 
 export default function TestnetBlockDetail() {
   const { t } = useTranslation();
+  const [, setLocation] = useLocation();
   const params = useParams<{ blockNumber: string }>();
   const blockNumber = parseInt(params.blockNumber || "0");
 
@@ -43,12 +44,10 @@ export default function TestnetBlockDetail() {
     <TestnetScanLayout>
       <div className="container mx-auto px-4 py-6">
         <div className="mb-4">
-          <Link href="/testnet-scan/blocks">
-            <Button variant="ghost" size="sm" className="text-yellow-400 hover:text-yellow-300">
+          <Button variant="ghost" size="sm" className="text-yellow-400 hover:text-yellow-300" onClick={() => setLocation("/testnet-scan/blocks")}>
               <ChevronLeft className="w-4 h-4 mr-1" />
               {t("scan.backToBlocks", "Back to Blocks")}
             </Button>
-          </Link>
         </div>
 
         <Card className="bg-yellow-900/10 border-yellow-800/30">
@@ -138,19 +137,15 @@ export default function TestnetBlockDetail() {
 
                 <div className="flex gap-2 mt-6">
                   {block.number > 1 && (
-                    <Link href={`/testnet-scan/block/${block.number - 1}`}>
-                      <Button variant="outline" size="sm" className="border-yellow-800/30 text-yellow-400">
+                    <Button variant="outline" size="sm" className="border-yellow-800/30 text-yellow-400" onClick={() => setLocation(`/testnet-scan/block/${block.number - 1}`)}>
                         <ChevronLeft className="w-4 h-4 mr-1" />
                         {t("scan.previousBlock", "Previous Block")}
                       </Button>
-                    </Link>
                   )}
-                  <Link href={`/testnet-scan/block/${block.number + 1}`}>
-                    <Button variant="outline" size="sm" className="border-yellow-800/30 text-yellow-400">
+                  <Button variant="outline" size="sm" className="border-yellow-800/30 text-yellow-400" onClick={() => setLocation(`/testnet-scan/block/${block.number + 1}`)}>
                       {t("scan.nextBlock", "Next Block")}
                       <ChevronLeft className="w-4 h-4 ml-1 rotate-180" />
                     </Button>
-                  </Link>
                 </div>
               </div>
             ) : (

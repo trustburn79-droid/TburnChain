@@ -1,4 +1,4 @@
-import { useParams, Link } from "wouter";
+import { useParams, useLocation } from "wouter";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import {
@@ -168,6 +168,7 @@ export default function MemberDetailPage() {
   const { t } = useTranslation();
   const params = useParams();
   const memberId = params.id;
+  const [, setLocation] = useLocation();
 
   const { data: member, isLoading } = useQuery<MemberDetail>({
     queryKey: [`/api/members/${memberId}`],
@@ -237,12 +238,10 @@ export default function MemberDetailPage() {
           <p className="text-muted-foreground mb-4">
             {t('members.notFoundDesc')}
           </p>
-          <Link href="/members">
-            <Button variant="outline">
-              <ArrowLeft className="mr-2 h-4 w-4" />
-              {t('common.back')}
-            </Button>
-          </Link>
+          <Button variant="outline" onClick={() => setLocation("/members")}>
+            <ArrowLeft className="mr-2 h-4 w-4" />
+            {t('common.back')}
+          </Button>
         </div>
       </div>
     );
@@ -251,12 +250,10 @@ export default function MemberDetailPage() {
   return (
     <div className="container mx-auto p-8">
       <div className="mb-8">
-        <Link href="/members">
-          <Button variant="outline" size="sm" className="mb-4">
-            <ArrowLeft className="mr-2 h-4 w-4" />
-            {t('common.back')}
-          </Button>
-        </Link>
+        <Button variant="outline" size="sm" className="mb-4" onClick={() => setLocation("/members")}>
+          <ArrowLeft className="mr-2 h-4 w-4" />
+          {t('common.back')}
+        </Button>
         <div className="flex items-start justify-between">
           <div>
             <h1 className="text-4xl font-bold mb-2">
@@ -432,12 +429,10 @@ export default function MemberDetailPage() {
                     {member.stakingPositions.map((position) => (
                       <TableRow key={position.id}>
                         <TableCell>
-                          <Link href={`/app/validator/${position.validatorAddress}`}>
-                            <Button variant="ghost" className="p-0 h-auto font-mono">
-                              {position.validatorAddress.slice(0, 6)}...
-                              {position.validatorAddress.slice(-4)}
-                            </Button>
-                          </Link>
+                          <Button variant="ghost" className="p-0 h-auto font-mono" onClick={() => setLocation(`/app/validator/${position.validatorAddress}`)}>
+                            {position.validatorAddress.slice(0, 6)}...
+                            {position.validatorAddress.slice(-4)}
+                          </Button>
                         </TableCell>
                         <TableCell>
                           <div className="flex items-center gap-1">

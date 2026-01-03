@@ -14,7 +14,7 @@ import { Switch } from "@/components/ui/switch";
 import { useToast } from "@/hooks/use-toast";
 import { queryClient, apiRequest } from "@/lib/queryClient";
 import { Vote, Users, FileText, CheckCircle2, Search, RefreshCw, ArrowLeft, Plus, Pencil, Trash2, Eye, XCircle, Clock, Gavel } from "lucide-react";
-import { Link } from "wouter";
+import { useLocation } from "wouter";
 
 interface DaoProposal {
   id: string;
@@ -69,6 +69,7 @@ const STATUSES = [
 ];
 
 export default function AdminDAOGovernance() {
+  const [, setLocation] = useLocation();
   const { toast } = useToast();
   const [searchQuery, setSearchQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
@@ -289,11 +290,9 @@ export default function AdminDAOGovernance() {
   return (
     <div className="flex flex-col gap-6 p-6" data-testid="admin-dao-governance-page">
       <div className="flex items-center gap-4">
-        <Link href="/admin/token-distribution">
-          <Button variant="ghost" size="icon" data-testid="button-back">
-            <ArrowLeft className="h-5 w-5" />
-          </Button>
-        </Link>
+        <Button variant="ghost" size="icon" onClick={() => setLocation("/admin/token-distribution")} data-testid="button-back">
+          <ArrowLeft className="h-5 w-5" />
+        </Button>
         <div className="flex-1">
           <h1 className="text-3xl font-bold tracking-tight" data-testid="text-page-title">
             DAO 거버넌스 관리

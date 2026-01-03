@@ -9,7 +9,7 @@ import {
 import { SiTypescript, SiPython } from "react-icons/si";
 import { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { Link } from "wouter";
+import { useLocation } from "wouter";
 import { useTranslation } from "react-i18next";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -78,6 +78,7 @@ const getTestnetFeatures = (t: (key: string) => string) => [
 export default function TestnetRpcProviders() {
   const { t } = useTranslation();
   const { toast } = useToast();
+  const [, setLocation] = useLocation();
   const [copiedCode, setCopiedCode] = useState<string | null>(null);
   const [testResult, setTestResult] = useState<{ success: boolean; latency?: number; blockHeight?: number; error?: string } | null>(null);
   const [isTesting, setIsTesting] = useState(false);
@@ -211,18 +212,14 @@ export default function TestnetRpcProviders() {
               </div>
               
               <div className="flex flex-wrap gap-3">
-                <Link href="/testnet-scan/faucet">
-                  <Button className="bg-[#ffd700] text-black hover:bg-yellow-400 font-bold px-6" data-testid="button-testnet-faucet">
+                <Button className="bg-[#ffd700] text-black hover:bg-yellow-400 font-bold px-6" data-testid="button-testnet-faucet" onClick={() => setLocation("/testnet-scan/faucet")}>
                     <Gift className="w-4 h-4 mr-2" />
                     {t('publicPages.network.testnetRpc.buttons.getFreeTokens')}
                   </Button>
-                </Link>
-                <Link href="/developers/quickstart">
-                  <Button variant="outline" className="border-[#ffd700] text-[#ffd700] hover:bg-[#ffd700]/10" data-testid="button-testnet-quickstart">
+                <Button variant="outline" className="border-[#ffd700] text-[#ffd700] hover:bg-[#ffd700]/10" data-testid="button-testnet-quickstart" onClick={() => setLocation("/developers/quickstart")}>
                     <Rocket className="w-4 h-4 mr-2" />
                     {t('publicPages.network.testnetRpc.buttons.quickStart')}
                   </Button>
-                </Link>
                 <Button variant="outline" className="border-gray-300 dark:border-white/20" onClick={testConnection} disabled={isTesting} data-testid="button-test-connection-testnet">
                   {isTesting ? <RefreshCw className="w-4 h-4 mr-2 animate-spin" /> : <Play className="w-4 h-4 mr-2" />}
                   {isTesting ? t('publicPages.network.testnetRpc.buttons.testing') : t('publicPages.network.testnetRpc.buttons.testConnection')}
@@ -307,13 +304,11 @@ export default function TestnetRpcProviders() {
                 </div>
 
                 {/* Mainnet Link */}
-                <Link href="/rpc">
-                  <Button variant="outline" className="w-full border-gray-300 dark:border-white/20 text-sm" data-testid="button-switch-mainnet">
+                <Button variant="outline" className="w-full border-gray-300 dark:border-white/20 text-sm" data-testid="button-switch-mainnet" onClick={() => setLocation("/rpc")}>
                     <Globe className="w-4 h-4 mr-2" />
                     {t('publicPages.network.testnetRpc.buttons.switchToMainnet')}
                     <ArrowRight className="w-4 h-4 ml-2" />
                   </Button>
-                </Link>
 
                 {/* Test Result */}
                 {testResult && (
@@ -822,18 +817,14 @@ curl -X POST ${testnetConfig.rpcUrl} \\
                 {t('publicPages.network.testnetRpc.cta.description')}
               </p>
               <div className="flex flex-wrap justify-center gap-4">
-                <Link href="/testnet-scan/faucet">
-                  <Button className="bg-[#ffd700] text-black hover:bg-yellow-400 font-bold px-8" data-testid="button-cta-faucet">
+                <Button className="bg-[#ffd700] text-black hover:bg-yellow-400 font-bold px-8" data-testid="button-cta-faucet" onClick={() => setLocation("/testnet-scan/faucet")}>
                     <Gift className="w-4 h-4 mr-2" />
                     {t('publicPages.network.testnetRpc.buttons.getFreeTokens')}
                   </Button>
-                </Link>
-                <Link href="/developers/quickstart">
-                  <Button variant="outline" className="border-[#ffd700] text-[#ffd700] hover:bg-[#ffd700]/10 px-8" data-testid="button-cta-quickstart">
+                <Button variant="outline" className="border-[#ffd700] text-[#ffd700] hover:bg-[#ffd700]/10 px-8" data-testid="button-cta-quickstart" onClick={() => setLocation("/developers/quickstart")}>
                     <Rocket className="w-4 h-4 mr-2" />
                     {t('publicPages.network.testnetRpc.cta.quickStartGuide')}
                   </Button>
-                </Link>
               </div>
             </CardContent>
           </Card>

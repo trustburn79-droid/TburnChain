@@ -27,7 +27,7 @@ import {
   Lock,
 } from "lucide-react";
 import { SiDiscord, SiTelegram, SiGithub, SiMedium, SiYoutube, SiInstagram, SiTiktok, SiFacebook, SiReddit, SiThreads, SiBluesky } from "react-icons/si";
-import { Link } from "wouter";
+import { useLocation } from "wouter";
 import { useToast } from "@/hooks/use-toast";
 
 interface OfficialChannel {
@@ -157,6 +157,7 @@ const OFFICIAL_CHANNELS: OfficialChannel[] = [
 
 export default function OfficialChannelsPage() {
   const { t, i18n } = useTranslation();
+  const [, setLocation] = useLocation();
   
   const PHISHING_WARNINGS = [
     t('securityPages.officialChannels.neverShareSeed'),
@@ -207,10 +208,10 @@ export default function OfficialChannelsPage() {
             </div>
           </div>
           <div className="flex items-center gap-2">
-            <Link href="/"><Button variant="ghost" size="icon"><Home className="w-4 h-4" /></Button></Link>
-            <Link href="/qna"><Button variant="ghost" size="icon"><HelpCircle className="w-4 h-4" /></Button></Link>
-            <Link href="/scan"><Button variant="ghost" size="icon"><ScanLine className="w-4 h-4" /></Button></Link>
-            <Link href="/user"><Button variant="ghost" size="icon"><User className="w-4 h-4" /></Button></Link>
+            <Button variant="ghost" size="icon" onClick={() => setLocation("/")}><Home className="w-4 h-4" /></Button>
+            <Button variant="ghost" size="icon" onClick={() => setLocation("/qna")}><HelpCircle className="w-4 h-4" /></Button>
+            <Button variant="ghost" size="icon" onClick={() => setLocation("/scan")}><ScanLine className="w-4 h-4" /></Button>
+            <Button variant="ghost" size="icon" onClick={() => setLocation("/user")}><User className="w-4 h-4" /></Button>
             <LanguageSelector isDark={theme === 'dark'} />
             <ThemeToggle />
           </div>

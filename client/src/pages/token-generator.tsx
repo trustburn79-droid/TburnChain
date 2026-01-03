@@ -16,7 +16,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
-import { Link } from "wouter";
+import { Link, useLocation } from "wouter";
 import { formatTBurnAddress, truncateTBurnAddress } from "@/lib/utils";
 import { TBurnLogo } from "@/components/tburn-logo";
 import { useToast } from "@/hooks/use-toast";
@@ -373,6 +373,7 @@ export default function TokenSystemPage() {
   const { t } = useTranslation();
   const { theme } = useTheme();
   const { toast } = useToast();
+  const [, setLocation] = useLocation();
   const isDark = theme === "dark";
   
   const [activeTab, setActiveTab] = useState<TabType>("create");
@@ -1873,12 +1874,10 @@ function CreateTokenContent({
               </div>
 
               <div className="flex flex-col gap-3 items-center">
-                <Link href="/admin/token-issuance">
-                  <Button className="w-full" data-testid="button-go-to-admin">
-                    <Settings className="w-4 h-4 mr-2" />
-                    {t('tokenGenerator.goToAdminPanel', 'Manage Tokens in Admin Panel')}
-                  </Button>
-                </Link>
+                <Button className="w-full" data-testid="button-go-to-admin" onClick={() => setLocation("/admin/token-issuance")}>
+                  <Settings className="w-4 h-4 mr-2" />
+                  {t('tokenGenerator.goToAdminPanel', 'Manage Tokens in Admin Panel')}
+                </Button>
                 <div className="flex gap-3">
                   <Button variant="outline" onClick={resetWizard} data-testid="button-create-another">
                     <Plus className="w-4 h-4 mr-2" />

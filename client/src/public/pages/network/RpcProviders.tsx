@@ -9,7 +9,7 @@ import {
 } from "lucide-react";
 import { SiTypescript, SiPython, SiRust, SiGo } from "react-icons/si";
 import { useState, useEffect, useCallback } from "react";
-import { Link } from "wouter";
+import { useLocation } from "wouter";
 import { useTranslation } from "react-i18next";
 import { useQuery } from "@tanstack/react-query";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -98,6 +98,7 @@ const getEnterpriseFeatures = (t: any) => [
 export default function RpcProviders() {
   const { t } = useTranslation();
   const { toast } = useToast();
+  const [, setLocation] = useLocation();
   const [selectedNetwork, setSelectedNetwork] = useState<'mainnet' | 'testnet'>('mainnet');
   const [copiedCode, setCopiedCode] = useState<string | null>(null);
   const [testResult, setTestResult] = useState<{ success: boolean; latency?: number; blockHeight?: number; error?: string } | null>(null);
@@ -239,18 +240,14 @@ export default function RpcProviders() {
               </div>
               
               <div className="flex flex-wrap gap-3">
-                <Link href="/developers/quickstart">
-                  <Button className="bg-[#00f0ff] text-black hover:bg-cyan-400 font-bold px-6" data-testid="button-get-api-key">
+                <Button className="bg-[#00f0ff] text-black hover:bg-cyan-400 font-bold px-6" data-testid="button-get-api-key" onClick={() => setLocation("/developers/quickstart")}>
                     <Key className="w-4 h-4 mr-2" />
                     {t('publicPages.network.rpc.buttons.getFreeApiKey')}
                   </Button>
-                </Link>
-                <Link href="/developers/api">
-                  <Button variant="outline" className="border-gray-300 dark:border-white/20" data-testid="button-view-docs">
+                <Button variant="outline" className="border-gray-300 dark:border-white/20" data-testid="button-view-docs" onClick={() => setLocation("/developers/api")}>
                     <Book className="w-4 h-4 mr-2" />
                     {t('publicPages.network.rpc.buttons.apiDocumentation')}
                   </Button>
-                </Link>
                 <Button variant="outline" className="border-gray-300 dark:border-white/20" onClick={testConnection} disabled={isTesting} data-testid="button-test-connection-hero">
                   {isTesting ? <RefreshCw className="w-4 h-4 mr-2 animate-spin" /> : <Play className="w-4 h-4 mr-2" />}
                   {isTesting ? t('publicPages.network.rpc.buttons.testing') : t('publicPages.network.rpc.buttons.testConnection')}
@@ -1124,17 +1121,13 @@ curl -X POST ${network.rpcUrl} \\
                 {t('publicPages.network.rpc.cta.description')}
               </p>
               <div className="flex flex-wrap justify-center gap-4">
-                <Link href="/developers/quickstart">
-                  <Button className="bg-[#00f0ff] text-black hover:bg-cyan-400 font-bold px-8" data-testid="button-cta-start">
+                <Button className="bg-[#00f0ff] text-black hover:bg-cyan-400 font-bold px-8" data-testid="button-cta-start" onClick={() => setLocation("/developers/quickstart")}>
                     {t('publicPages.network.rpc.buttons.getStartedFree')}
                   </Button>
-                </Link>
-                <Link href="/community/hub">
-                  <Button variant="outline" className="border-gray-300 dark:border-white/20 px-8" data-testid="button-cta-contact">
+                <Button variant="outline" className="border-gray-300 dark:border-white/20 px-8" data-testid="button-cta-contact" onClick={() => setLocation("/community/hub")}>
                     <FileText className="w-4 h-4 mr-2" />
                     {t('publicPages.network.rpc.buttons.contactSales')}
                   </Button>
-                </Link>
               </div>
             </CardContent>
           </Card>

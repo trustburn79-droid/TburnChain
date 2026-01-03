@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from 'react';
-import { Link } from 'wouter';
+import { Link, useLocation } from 'wouter';
 import { useTranslation } from 'react-i18next';
 import { useQuery } from '@tanstack/react-query';
 import { 
@@ -275,6 +275,7 @@ const MAINNET_CONFIG = {
 export default function VCTestMode() {
   const { t, i18n } = useTranslation();
   const { toast } = useToast();
+  const [, setLocation] = useLocation();
   const [copied, setCopied] = useState(false);
   const [selectedTab, setSelectedTab] = useState('overview');
   const [demoWallet, setDemoWallet] = useState(VC_DEMO_WALLET);
@@ -341,12 +342,10 @@ export default function VCTestMode() {
                   <Play className="w-4 h-4 mr-2" />
                   {t('vcTestMode.startTour', 'Start Guided Tour')}
                 </Button>
-                <Link href="/app">
-                  <Button size="lg" variant="outline" data-testid="button-explore-platform">
-                    {t('vcTestMode.explorePlatform', 'Explore Platform')}
-                    <ArrowRight className="w-4 h-4 ml-2" />
-                  </Button>
-                </Link>
+                <Button size="lg" variant="outline" data-testid="button-explore-platform" onClick={() => setLocation("/app")}>
+                  {t('vcTestMode.explorePlatform', 'Explore Platform')}
+                  <ArrowRight className="w-4 h-4 ml-2" />
+                </Button>
               </div>
             </div>
 
@@ -1412,42 +1411,30 @@ export default function VCTestMode() {
             {t('vcTestMode.quickAccess', 'Quick Access')}
           </h3>
           <div className="flex flex-wrap justify-center gap-3">
-            <Link href="/app/dex">
-              <Button variant="outline" data-testid="quick-link-dex">
-                <Coins className="w-4 h-4 mr-2" />
-                {t('vcTestMode.quickLinks.dex', 'DEX')}
-              </Button>
-            </Link>
-            <Link href="/app/staking">
-              <Button variant="outline" data-testid="quick-link-staking">
-                <Lock className="w-4 h-4 mr-2" />
-                {t('vcTestMode.quickLinks.staking', 'Staking')}
-              </Button>
-            </Link>
-            <Link href="/app/bridge">
-              <Button variant="outline" data-testid="quick-link-bridge">
-                <Globe className="w-4 h-4 mr-2" />
-                {t('vcTestMode.quickLinks.bridge', 'Bridge')}
-              </Button>
-            </Link>
-            <Link href="/app/governance">
-              <Button variant="outline" data-testid="quick-link-governance">
-                <Users className="w-4 h-4 mr-2" />
-                {t('vcTestMode.quickLinks.governance', 'Governance')}
-              </Button>
-            </Link>
-            <Link href="/network/validators">
-              <Button variant="outline" data-testid="quick-link-validators">
-                <Server className="w-4 h-4 mr-2" />
-                {t('vcTestMode.quickLinks.validators', 'Validators')}
-              </Button>
-            </Link>
-            <Link href="/admin">
-              <Button variant="outline" data-testid="quick-link-admin">
-                <Shield className="w-4 h-4 mr-2" />
-                {t('vcTestMode.quickLinks.adminPortal', 'Admin Portal')}
-              </Button>
-            </Link>
+            <Button variant="outline" data-testid="quick-link-dex" onClick={() => setLocation("/app/dex")}>
+              <Coins className="w-4 h-4 mr-2" />
+              {t('vcTestMode.quickLinks.dex', 'DEX')}
+            </Button>
+            <Button variant="outline" data-testid="quick-link-staking" onClick={() => setLocation("/app/staking")}>
+              <Lock className="w-4 h-4 mr-2" />
+              {t('vcTestMode.quickLinks.staking', 'Staking')}
+            </Button>
+            <Button variant="outline" data-testid="quick-link-bridge" onClick={() => setLocation("/app/bridge")}>
+              <Globe className="w-4 h-4 mr-2" />
+              {t('vcTestMode.quickLinks.bridge', 'Bridge')}
+            </Button>
+            <Button variant="outline" data-testid="quick-link-governance" onClick={() => setLocation("/app/governance")}>
+              <Users className="w-4 h-4 mr-2" />
+              {t('vcTestMode.quickLinks.governance', 'Governance')}
+            </Button>
+            <Button variant="outline" data-testid="quick-link-validators" onClick={() => setLocation("/network/validators")}>
+              <Server className="w-4 h-4 mr-2" />
+              {t('vcTestMode.quickLinks.validators', 'Validators')}
+            </Button>
+            <Button variant="outline" data-testid="quick-link-admin" onClick={() => setLocation("/admin")}>
+              <Shield className="w-4 h-4 mr-2" />
+              {t('vcTestMode.quickLinks.adminPortal', 'Admin Portal')}
+            </Button>
           </div>
         </div>
       </section>

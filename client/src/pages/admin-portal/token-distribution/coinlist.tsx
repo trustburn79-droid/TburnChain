@@ -14,7 +14,7 @@ import { Switch } from "@/components/ui/switch";
 import { Textarea } from "@/components/ui/textarea";
 import { Progress } from "@/components/ui/progress";
 import { ListOrdered, Users, DollarSign, CheckCircle2, Search, RefreshCw, ArrowLeft, Plus, Eye, Calendar, Trophy, Ticket, Settings, UserCheck } from "lucide-react";
-import { Link } from "wouter";
+import { useLocation } from "wouter";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 
@@ -126,6 +126,7 @@ interface StatsData {
 }
 
 export default function AdminCoinlist() {
+  const [, setLocation] = useLocation();
   const { toast } = useToast();
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedSale, setSelectedSale] = useState<CoinlistSale | null>(null);
@@ -444,11 +445,9 @@ export default function AdminCoinlist() {
   return (
     <div className="flex flex-col gap-6 p-6" data-testid="admin-coinlist-page">
       <div className="flex items-center gap-4">
-        <Link href="/admin/token-distribution">
-          <Button variant="ghost" size="icon" data-testid="button-back">
-            <ArrowLeft className="h-5 w-5" />
-          </Button>
-        </Link>
+        <Button variant="ghost" size="icon" onClick={() => setLocation("/admin/token-distribution")} data-testid="button-back">
+          <ArrowLeft className="h-5 w-5" />
+        </Button>
         <div className="flex-1">
           <h1 className="text-3xl font-bold tracking-tight" data-testid="text-page-title">
             CoinList 토큰 세일 관리

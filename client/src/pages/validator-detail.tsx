@@ -1,7 +1,7 @@
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { queryClient } from "@/lib/queryClient";
 import { apiRequest } from "@/lib/queryClient";
-import { useParams, Link } from "wouter";
+import { useParams, useLocation } from "wouter";
 import { useTranslation } from "react-i18next";
 import { 
   ArrowLeft, User, Shield, Award, Coins, Activity, Clock, 
@@ -111,6 +111,7 @@ interface ValidatorDetails {
 export default function ValidatorDetail() {
   const { t } = useTranslation();
   const { address } = useParams();
+  const [, setLocation] = useLocation();
   const { toast } = useToast();
   const [delegateAmount, setDelegateAmount] = useState("");
   const [showDelegateDialog, setShowDelegateDialog] = useState(false);
@@ -239,12 +240,10 @@ export default function ValidatorDetail() {
           <AlertCircle className="h-12 w-12 mx-auto mb-4 text-muted-foreground" />
           <h2 className="text-xl font-semibold mb-2">{t('validators.title')} - {t('common.error')}</h2>
           <p className="text-muted-foreground mb-4">{t('common.address')}: {address}</p>
-          <Link href="/app/validators">
-            <Button variant="outline">
-              <ArrowLeft className="h-4 w-4 mr-2" />
-              {t('common.back')}
-            </Button>
-          </Link>
+          <Button variant="outline" onClick={() => setLocation("/app/validators")}>
+            <ArrowLeft className="h-4 w-4 mr-2" />
+            {t('common.back')}
+          </Button>
         </Card>
       </div>
     );
@@ -269,11 +268,9 @@ export default function ValidatorDetail() {
     <div className="container mx-auto px-4 py-8 space-y-6">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-4">
-          <Link href="/validator">
-            <Button variant="outline" size="icon">
-              <ArrowLeft className="h-4 w-4" />
-            </Button>
-          </Link>
+          <Button variant="outline" size="icon" onClick={() => setLocation("/validator")}>
+            <ArrowLeft className="h-4 w-4" />
+          </Button>
           <div>
             <h1 className="text-3xl font-bold">{validator.name}</h1>
             <p className="text-muted-foreground">{formatAddress(validator.address)}</p>

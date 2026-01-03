@@ -15,7 +15,7 @@ import {
   Bell, BellOff, Eye, Zap, BarChart3,
   TrendingUp, TrendingDown, RefreshCw
 } from "lucide-react";
-import { Link } from "wouter";
+import { Link, useLocation } from "wouter";
 import { useAdminPassword } from "@/hooks/use-admin-password";
 import { LineChart, Line, AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from "recharts";
 import { useEffect, useState, useMemo } from "react";
@@ -107,6 +107,7 @@ interface AlertItem {
 export default function OperatorDashboard() {
   const { t, i18n } = useTranslation();
   const { getAuthHeaders } = useAdminPassword();
+  const [, setLocation] = useLocation();
   const currentLocale = localeMap[i18n.language] || 'en-US';
 
   const formatTimeForLocale = (dateValue: string | Date) => {
@@ -695,30 +696,22 @@ export default function OperatorDashboard() {
             <CardDescription>{t('operator.dashboard.commonOperatorTasks')}</CardDescription>
           </CardHeader>
           <CardContent className="grid grid-cols-2 gap-2">
-            <Link href="/operator/members">
-              <Button variant="outline" className="w-full justify-start" data-testid="btn-manage-members">
-                <Users className="w-4 h-4 mr-2" />
-                {t('operator.memberManagement')}
-              </Button>
-            </Link>
-            <Link href="/operator/validators">
-              <Button variant="outline" className="w-full justify-start" data-testid="btn-review-apps">
-                <ClipboardList className="w-4 h-4 mr-2" />
-                {t('operator.dashboard.validators')}
-              </Button>
-            </Link>
-            <Link href="/operator/security">
-              <Button variant="outline" className="w-full justify-start" data-testid="btn-security-audit">
-                <ShieldAlert className="w-4 h-4 mr-2" />
-                {t('operator.securityAudit')}
-              </Button>
-            </Link>
-            <Link href="/operator/reports">
-              <Button variant="outline" className="w-full justify-start" data-testid="btn-compliance">
-                <FileCheck className="w-4 h-4 mr-2" />
-                {t('operator.complianceReports')}
-              </Button>
-            </Link>
+            <Button variant="outline" className="w-full justify-start" data-testid="btn-manage-members" onClick={() => setLocation("/operator/members")}>
+              <Users className="w-4 h-4 mr-2" />
+              {t('operator.memberManagement')}
+            </Button>
+            <Button variant="outline" className="w-full justify-start" data-testid="btn-review-apps" onClick={() => setLocation("/operator/validators")}>
+              <ClipboardList className="w-4 h-4 mr-2" />
+              {t('operator.dashboard.validators')}
+            </Button>
+            <Button variant="outline" className="w-full justify-start" data-testid="btn-security-audit" onClick={() => setLocation("/operator/security")}>
+              <ShieldAlert className="w-4 h-4 mr-2" />
+              {t('operator.securityAudit')}
+            </Button>
+            <Button variant="outline" className="w-full justify-start" data-testid="btn-compliance" onClick={() => setLocation("/operator/reports")}>
+              <FileCheck className="w-4 h-4 mr-2" />
+              {t('operator.complianceReports')}
+            </Button>
           </CardContent>
         </Card>
 

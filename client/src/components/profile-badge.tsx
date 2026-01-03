@@ -29,7 +29,7 @@ import {
   Bug,
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import { Link } from "wouter";
+import { Link, useLocation } from "wouter";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 import { useWeb3 } from "@/lib/web3-context";
 import type { WalletType } from "@/lib/web3-context";
@@ -53,6 +53,7 @@ interface ProfileBadgeProps {
 }
 
 export function ProfileBadge({ className = "", onLogout }: ProfileBadgeProps) {
+  const [, setLocation] = useLocation();
   const { t } = useTranslation();
   const { toast } = useToast();
   const { isConnected, address, connect, isConnecting, balance: web3Balance, refreshBalance, walletType, error } = useWeb3();
@@ -168,17 +169,16 @@ export function ProfileBadge({ className = "", onLogout }: ProfileBadgeProps) {
 
   if (!isAuthenticated) {
     return (
-      <Link href="/login">
-        <Button
-          variant="ghost"
-          size="sm"
-          className={`gap-2 text-gray-400 hover:text-white ${className}`}
-          data-testid="button-login"
-        >
-          <User className="h-4 w-4" />
-          <span className="hidden sm:inline">{t("common.login", "로그인")}</span>
-        </Button>
-      </Link>
+      <Button
+        variant="ghost"
+        size="sm"
+        className={`gap-2 text-gray-400 hover:text-white ${className}`}
+        onClick={() => setLocation("/login")}
+        data-testid="button-login"
+      >
+        <User className="h-4 w-4" />
+        <span className="hidden sm:inline">{t("common.login", "로그인")}</span>
+      </Button>
     );
   }
 

@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { Link, useParams } from "wouter";
+import { Link, useParams, useLocation } from "wouter";
 import { useTranslation } from "react-i18next";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -30,6 +30,7 @@ interface Transaction {
 
 export default function TestnetAddressDetail() {
   const { t } = useTranslation();
+  const [, setLocation] = useLocation();
   const params = useParams<{ address: string }>();
   const address = params.address || "";
   const [copied, setCopied] = useState(false);
@@ -65,12 +66,10 @@ export default function TestnetAddressDetail() {
     <TestnetScanLayout>
       <div className="container mx-auto px-4 py-6">
         <div className="mb-4">
-          <Link href="/testnet-scan">
-            <Button variant="ghost" size="sm" className="text-yellow-400 hover:text-yellow-300">
+          <Button variant="ghost" size="sm" className="text-yellow-400 hover:text-yellow-300" onClick={() => setLocation("/testnet-scan")}>
               <ChevronLeft className="w-4 h-4 mr-1" />
               {t("scan.backToExplorer", "Back to Explorer")}
             </Button>
-          </Link>
         </div>
 
         <Card className="bg-yellow-900/10 border-yellow-800/30 mb-6">

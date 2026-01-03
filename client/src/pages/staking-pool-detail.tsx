@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { useParams, Link } from "wouter";
+import { useParams, useLocation } from "wouter";
 import { useTranslation } from "react-i18next";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -148,6 +148,7 @@ export default function StakingPoolDetail() {
   const { t } = useTranslation();
   const { id } = useParams<{ id: string }>();
   const { toast } = useToast();
+  const [, setLocation] = useLocation();
   const [stakeAmount, setStakeAmount] = useState("");
   const [autoCompound, setAutoCompound] = useState(true);
   const [stakeDialogOpen, setStakeDialogOpen] = useState(false);
@@ -214,12 +215,10 @@ export default function StakingPoolDetail() {
             <AlertCircle className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
             <h3 className="text-lg font-medium">{t('stakingPoolDetail.poolNotFound')}</h3>
             <p className="text-muted-foreground">{t('stakingPoolDetail.poolNotFoundDesc')}</p>
-            <Link href="/app/staking">
-              <Button className="mt-4">
-                <ArrowLeft className="h-4 w-4 mr-2" />
-                {t('common.back')}
-              </Button>
-            </Link>
+            <Button className="mt-4" onClick={() => setLocation("/app/staking")}>
+              <ArrowLeft className="h-4 w-4 mr-2" />
+              {t('common.back')}
+            </Button>
           </CardContent>
         </Card>
       </div>
@@ -229,12 +228,10 @@ export default function StakingPoolDetail() {
   return (
     <div className="container mx-auto p-6 space-y-6">
       <div className="flex items-center gap-4">
-        <Link href="/app/staking">
-          <Button variant="ghost" size="sm" data-testid="button-back">
-            <ArrowLeft className="h-4 w-4 mr-1" />
-            {t('common.back')}
-          </Button>
-        </Link>
+        <Button variant="ghost" size="sm" data-testid="button-back" onClick={() => setLocation("/app/staking")}>
+          <ArrowLeft className="h-4 w-4 mr-1" />
+          {t('common.back')}
+        </Button>
         <div className="flex-1">
           <div className="flex items-center gap-2">
             <h1 className="text-2xl font-bold" data-testid="text-pool-name">
@@ -478,12 +475,10 @@ export default function StakingPoolDetail() {
               </div>
             </div>
 
-            <Link href={`/app/validator/${pool.validatorAddress}`}>
-              <Button variant="outline" className="w-full" data-testid="button-view-validator">
-                {t('stakingPoolDetail.viewValidator')}
-                <ExternalLink className="h-4 w-4 ml-2" />
-              </Button>
-            </Link>
+            <Button variant="outline" className="w-full" data-testid="button-view-validator" onClick={() => setLocation(`/app/validator/${pool.validatorAddress}`)}>
+              {t('stakingPoolDetail.viewValidator')}
+              <ExternalLink className="h-4 w-4 ml-2" />
+            </Button>
           </CardContent>
         </Card>
       </div>
