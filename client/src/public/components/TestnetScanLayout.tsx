@@ -28,6 +28,7 @@ import {
   WifiOff,
   Menu,
   FlaskConical,
+  Home,
 } from "lucide-react";
 import { useState, ReactNode } from "react";
 import i18n from "@/lib/i18n";
@@ -144,6 +145,18 @@ export default function TestnetScanLayout({ children }: TestnetScanLayoutProps) 
                   <SelectItem value="ko">한국어</SelectItem>
                 </SelectContent>
               </Select>
+
+              <Link href="/">
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="text-yellow-400 hover:text-white hover:bg-yellow-900/30"
+                  title={t("common.goToHome", "Go to Home")}
+                  data-testid="button-testnet-scan-home"
+                >
+                  <Home className="w-5 h-5" />
+                </Button>
+              </Link>
 
               <div className="lg:hidden">
                 <DropdownMenu>
