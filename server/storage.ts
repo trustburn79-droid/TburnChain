@@ -438,6 +438,15 @@ import {
   strategicPartners,
   strategicPartnerPayouts,
   strategicPartnerMilestones,
+  type Advisor,
+  type InsertAdvisor,
+  type AdvisorPayout,
+  type InsertAdvisorPayout,
+  type AdvisorContribution,
+  type InsertAdvisorContribution,
+  advisors,
+  advisorPayouts,
+  advisorContributions,
 } from "@shared/schema";
 import { randomUUID } from "crypto";
 import { db } from "./db";
@@ -7607,6 +7616,59 @@ export class DbStorage implements IStorage {
 
   async updateStrategicPartnerMilestone(id: string, data: Partial<StrategicPartnerMilestone>): Promise<void> {
     await db.update(strategicPartnerMilestones).set(data).where(eq(strategicPartnerMilestones.id, id));
+  }
+
+  // Advisor Program Implementation
+  async getAllAdvisors(limit: number = 100): Promise<Advisor[]> {
+    return db.select().from(advisors).orderBy(desc(advisors.createdAt)).limit(limit);
+  }
+
+  async getAdvisorById(id: string): Promise<Advisor | undefined> {
+    const [result] = await db.select().from(advisors).where(eq(advisors.id, id));
+    return result;
+  }
+
+  async createAdvisor(data: InsertAdvisor): Promise<Advisor> {
+    const [result] = await db.insert(advisors).values({ ...data, id: `adv-${randomUUID()}` }).returning();
+    return result;
+  }
+
+  async updateAdvisor(id: string, data: Partial<Advisor>): Promise<void> {
+    await db.update(advisors).set({ ...data, updatedAt: new Date() }).where(eq(advisors.id, id));
+  }
+
+  async getAdvisorStats(): Promise<{ totalAdvisors: number; activeAdvisors: number; totalAllocation: string; lockedAmount: string; }> {
+    const all = await this.getAllAdvisors(10000);
+    const active = all.filter(a => a.status === 'active');
+    const totalAllocation = all.reduce((sum, a) => sum + BigInt(a.allocation || '0'), BigInt(0));
+    const lockedAmount = all.reduce((sum, a) => sum + BigInt(a.lockedAmount || '0'), BigInt(0));
+    return { totalAdvisors: all.length, activeAdvisors: active.length, totalAllocation: totalAllocation.toString(), lockedAmount: lockedAmount.toString() };
+  }
+
+  async getAdvisorPayouts(advisorId: string): Promise<AdvisorPayout[]> {
+    return db.select().from(advisorPayouts).where(eq(advisorPayouts.advisorId, advisorId)).orderBy(desc(advisorPayouts.createdAt));
+  }
+
+  async createAdvisorPayout(data: InsertAdvisorPayout): Promise<AdvisorPayout> {
+    const [result] = await db.insert(advisorPayouts).values({ ...data, id: `advpay-${randomUUID()}` }).returning();
+    return result;
+  }
+
+  async updateAdvisorPayout(id: string, data: Partial<AdvisorPayout>): Promise<void> {
+    await db.update(advisorPayouts).set(data).where(eq(advisorPayouts.id, id));
+  }
+
+  async getAdvisorContributions(advisorId: string): Promise<AdvisorContribution[]> {
+    return db.select().from(advisorContributions).where(eq(advisorContributions.advisorId, advisorId)).orderBy(desc(advisorContributions.createdAt));
+  }
+
+  async createAdvisorContribution(data: InsertAdvisorContribution): Promise<AdvisorContribution> {
+    const [result] = await db.insert(advisorContributions).values({ ...data, id: `advcon-${randomUUID()}` }).returning();
+    return result;
+  }
+
+  async updateAdvisorContribution(id: string, data: Partial<AdvisorContribution>): Promise<void> {
+    await db.update(advisorContributions).set(data).where(eq(advisorContributions.id, id));
   }
 }
 

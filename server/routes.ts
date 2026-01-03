@@ -13145,6 +13145,129 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
+  // Advisor Program Management
+  app.get("/api/admin/token-programs/advisor/advisors", requireAdmin, async (req, res) => {
+    try {
+      const limit = parseInt(req.query.limit as string) || 100;
+      const advisorsList = await storage.getAllAdvisors(limit);
+      const stats = await storage.getAdvisorStats();
+      res.json({ success: true, data: { advisors: advisorsList, stats } });
+    } catch (error) {
+      console.error('[Advisor Program] Error fetching advisors:', error);
+      res.status(500).json({ error: 'Failed to fetch advisors' });
+    }
+  });
+
+  app.get("/api/admin/token-programs/advisor/advisors/:id", requireAdmin, async (req, res) => {
+    try {
+      const advisor = await storage.getAdvisorById(req.params.id);
+      if (!advisor) {
+        return res.status(404).json({ error: 'Advisor not found' });
+      }
+      const payouts = await storage.getAdvisorPayouts(advisor.id);
+      const contributions = await storage.getAdvisorContributions(advisor.id);
+      res.json({ success: true, data: { advisor, payouts, contributions } });
+    } catch (error) {
+      console.error('[Advisor Program] Error fetching advisor:', error);
+      res.status(500).json({ error: 'Failed to fetch advisor' });
+    }
+  });
+
+  app.post("/api/admin/token-programs/advisor/advisors", requireAdmin, async (req, res) => {
+    try {
+      const data = { ...req.body };
+      const dateFields = ['vestingStartDate', 'vestingEndDate', 'contractStartDate', 'contractEndDate'];
+      for (const field of dateFields) {
+        if (data[field] === '' || data[field] === undefined) {
+          data[field] = null;
+        } else if (typeof data[field] === 'string') {
+          data[field] = new Date(data[field]);
+        }
+      }
+      const advisor = await storage.createAdvisor(data);
+      res.json({ success: true, data: advisor });
+    } catch (error) {
+      console.error('[Advisor Program] Error creating advisor:', error);
+      res.status(500).json({ error: 'Failed to create advisor' });
+    }
+  });
+
+  app.patch("/api/admin/token-programs/advisor/advisors/:id", requireAdmin, async (req, res) => {
+    try {
+      const data = { ...req.body };
+      const dateFields = ['vestingStartDate', 'vestingEndDate', 'contractStartDate', 'contractEndDate'];
+      for (const field of dateFields) {
+        if (data[field] === '' || data[field] === undefined) {
+          data[field] = null;
+        } else if (typeof data[field] === 'string') {
+          data[field] = new Date(data[field]);
+        }
+      }
+      await storage.updateAdvisor(req.params.id, data);
+      const advisor = await storage.getAdvisorById(req.params.id);
+      res.json({ success: true, data: advisor });
+    } catch (error) {
+      console.error('[Advisor Program] Error updating advisor:', error);
+      res.status(500).json({ error: 'Failed to update advisor' });
+    }
+  });
+
+  app.post("/api/admin/token-programs/advisor/advisors/:id/payouts", requireAdmin, async (req, res) => {
+    try {
+      const data = { ...req.body, advisorId: req.params.id };
+      if (data.scheduledDate === '' || data.scheduledDate === undefined) data.scheduledDate = null;
+      else if (typeof data.scheduledDate === 'string') data.scheduledDate = new Date(data.scheduledDate);
+      if (data.processedDate === '' || data.processedDate === undefined) data.processedDate = null;
+      else if (typeof data.processedDate === 'string') data.processedDate = new Date(data.processedDate);
+      const payout = await storage.createAdvisorPayout(data);
+      res.json({ success: true, data: payout });
+    } catch (error) {
+      console.error('[Advisor Program] Error creating payout:', error);
+      res.status(500).json({ error: 'Failed to create payout' });
+    }
+  });
+
+  app.patch("/api/admin/token-programs/advisor/payouts/:id", requireAdmin, async (req, res) => {
+    try {
+      const data = { ...req.body };
+      if (data.scheduledDate === '' || data.scheduledDate === undefined) data.scheduledDate = null;
+      else if (typeof data.scheduledDate === 'string') data.scheduledDate = new Date(data.scheduledDate);
+      if (data.processedDate === '' || data.processedDate === undefined) data.processedDate = null;
+      else if (typeof data.processedDate === 'string') data.processedDate = new Date(data.processedDate);
+      await storage.updateAdvisorPayout(req.params.id, data);
+      res.json({ success: true, message: 'Payout updated' });
+    } catch (error) {
+      console.error('[Advisor Program] Error updating payout:', error);
+      res.status(500).json({ error: 'Failed to update payout' });
+    }
+  });
+
+  app.post("/api/admin/token-programs/advisor/advisors/:id/contributions", requireAdmin, async (req, res) => {
+    try {
+      const data = { ...req.body, advisorId: req.params.id };
+      if (data.completedDate === '' || data.completedDate === undefined) data.completedDate = null;
+      else if (typeof data.completedDate === 'string') data.completedDate = new Date(data.completedDate);
+      const contribution = await storage.createAdvisorContribution(data);
+      res.json({ success: true, data: contribution });
+    } catch (error) {
+      console.error('[Advisor Program] Error creating contribution:', error);
+      res.status(500).json({ error: 'Failed to create contribution' });
+    }
+  });
+
+  app.patch("/api/admin/token-programs/advisor/contributions/:id", requireAdmin, async (req, res) => {
+    try {
+      const data = { ...req.body };
+      if (data.completedDate === '' || data.completedDate === undefined) data.completedDate = null;
+      else if (typeof data.completedDate === 'string') data.completedDate = new Date(data.completedDate);
+      await storage.updateAdvisorContribution(req.params.id, data);
+      res.json({ success: true, message: 'Contribution updated' });
+    } catch (error) {
+      console.error('[Advisor Program] Error updating contribution:', error);
+      res.status(500).json({ error: 'Failed to update contribution' });
+    }
+  });
+
   // Strategic Partner Program Management
   app.get("/api/admin/token-programs/strategic/partners", requireAdmin, async (req, res) => {
     try {

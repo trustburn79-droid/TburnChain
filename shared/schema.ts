@@ -8398,3 +8398,95 @@ export type InsertStrategicPartnerPayout = z.infer<typeof insertStrategicPartner
 
 export type StrategicPartnerMilestone = typeof strategicPartnerMilestones.$inferSelect;
 export type InsertStrategicPartnerMilestone = z.infer<typeof insertStrategicPartnerMilestoneSchema>;
+
+// ============================================
+// Advisor Program Tables
+// ============================================
+export const ADVISOR_EXPERTISE = ["blockchain", "defi", "tokenomics", "legal", "marketing", "technology", "business", "security", "compliance", "gaming", "nft", "ai"] as const;
+export const ADVISOR_TYPE = ["technical", "strategic", "legal", "marketing", "financial", "operational", "advisory_board", "industry_expert"] as const;
+export const ENGAGEMENT_TYPE = ["full_time", "part_time", "project_based", "retainer", "equity_only"] as const;
+
+export const advisors = pgTable("advisors", {
+  id: varchar("id").primaryKey(),
+  name: text("name").notNull(),
+  title: text("title"),
+  bio: text("bio"),
+  photoUrl: text("photo_url"),
+  email: text("email"),
+  linkedin: text("linkedin"),
+  twitter: text("twitter"),
+  walletAddress: text("wallet_address"),
+  advisorType: text("advisor_type").notNull().default("strategic"),
+  expertise: text("expertise").notNull().default("blockchain"),
+  engagementType: text("engagement_type").notNull().default("part_time"),
+  allocation: text("allocation").notNull().default("0"),
+  distributedAmount: text("distributed_amount").notNull().default("0"),
+  lockedAmount: text("locked_amount").notNull().default("0"),
+  vestingType: text("vesting_type").notNull().default("cliff_linear"),
+  vestingStartDate: timestamp("vesting_start_date"),
+  vestingEndDate: timestamp("vesting_end_date"),
+  cliffMonths: integer("cliff_months").notNull().default(6),
+  vestingMonths: integer("vesting_months").notNull().default(24),
+  tgePercentage: integer("tge_percentage").notNull().default(5),
+  contractStartDate: timestamp("contract_start_date"),
+  contractEndDate: timestamp("contract_end_date"),
+  monthlyHours: integer("monthly_hours"),
+  status: text("status").notNull().default("pending"),
+  notes: text("notes"),
+  deliverables: jsonb("deliverables"),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
+export const advisorPayouts = pgTable("advisor_payouts", {
+  id: varchar("id").primaryKey(),
+  advisorId: varchar("advisor_id").notNull(),
+  amount: text("amount").notNull(),
+  payoutType: text("payout_type").notNull().default("vesting"),
+  txHash: text("tx_hash"),
+  status: text("status").notNull().default("pending"),
+  scheduledDate: timestamp("scheduled_date"),
+  processedDate: timestamp("processed_date"),
+  notes: text("notes"),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+export const advisorContributions = pgTable("advisor_contributions", {
+  id: varchar("id").primaryKey(),
+  advisorId: varchar("advisor_id").notNull(),
+  title: text("title").notNull(),
+  description: text("description"),
+  contributionType: text("contribution_type").notNull().default("consultation"),
+  hoursSpent: integer("hours_spent"),
+  completedDate: timestamp("completed_date"),
+  impactScore: integer("impact_score"),
+  bonusAmount: text("bonus_amount").notNull().default("0"),
+  status: text("status").notNull().default("pending"),
+  verifiedBy: varchar("verified_by"),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+export const insertAdvisorSchema = createInsertSchema(advisors).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertAdvisorPayoutSchema = createInsertSchema(advisorPayouts).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertAdvisorContributionSchema = createInsertSchema(advisorContributions).omit({
+  id: true,
+  createdAt: true,
+});
+
+export type Advisor = typeof advisors.$inferSelect;
+export type InsertAdvisor = z.infer<typeof insertAdvisorSchema>;
+
+export type AdvisorPayout = typeof advisorPayouts.$inferSelect;
+export type InsertAdvisorPayout = z.infer<typeof insertAdvisorPayoutSchema>;
+
+export type AdvisorContribution = typeof advisorContributions.$inferSelect;
+export type InsertAdvisorContribution = z.infer<typeof insertAdvisorContributionSchema>;
