@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { AlertTriangle, X, Shield, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Link } from "wouter";
+import { useLocation } from "wouter";
 
 interface PhishingWarningBannerProps {
   variant?: "compact" | "full";
@@ -10,6 +10,7 @@ interface PhishingWarningBannerProps {
 
 export function PhishingWarningBanner({ variant = "compact" }: PhishingWarningBannerProps) {
   const { t } = useTranslation();
+  const [, setLocation] = useLocation();
   const [dismissed, setDismissed] = useState(false);
   const [isFirstVisit, setIsFirstVisit] = useState(false);
 
@@ -60,12 +61,15 @@ export function PhishingWarningBanner({ variant = "compact" }: PhishingWarningBa
           </p>
         </div>
         <div className="flex items-center gap-2">
-          <Link href="/official-channels">
-            <Button variant="ghost" size="sm" className="text-xs h-7">
-              {t("security.verifyChannels", "Verify Channels")}
-              <ExternalLink className="w-3 h-3 ml-1" />
-            </Button>
-          </Link>
+          <Button 
+            variant="ghost" 
+            size="sm" 
+            className="text-xs h-7"
+            onClick={() => setLocation("/official-channels")}
+          >
+            {t("security.verifyChannels", "Verify Channels")}
+            <ExternalLink className="w-3 h-3 ml-1" />
+          </Button>
           <Button
             variant="ghost"
             size="icon"
@@ -83,6 +87,7 @@ export function PhishingWarningBanner({ variant = "compact" }: PhishingWarningBa
 
 export function PhishingWarningModal() {
   const { t } = useTranslation();
+  const [, setLocation] = useLocation();
   const [show, setShow] = useState(false);
 
   useEffect(() => {
@@ -147,11 +152,15 @@ export function PhishingWarningModal() {
           <Button className="flex-1" onClick={handleClose}>
             {t("common.understand", "I Understand")}
           </Button>
-          <Link href="/official-channels" onClick={handleClose}>
-            <Button variant="outline">
-              {t("security.viewChannels", "View Official Channels")}
-            </Button>
-          </Link>
+          <Button 
+            variant="outline"
+            onClick={() => {
+              handleClose();
+              setLocation("/official-channels");
+            }}
+          >
+            {t("security.viewChannels", "View Official Channels")}
+          </Button>
         </div>
       </div>
     </div>

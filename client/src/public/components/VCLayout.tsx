@@ -73,33 +73,37 @@ export default function VCLayout({ children }: VCLayoutProps) {
 
               <nav className="hidden lg:flex items-center gap-1">
                 {navItems.map((item) => (
-                  <Link key={item.path} href={item.path}>
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      className={`gap-2 ${
-                        isActive(item.path)
-                          ? "bg-gray-800/50 text-white"
-                          : "text-gray-400 hover:text-white"
-                      }`}
-                      data-testid={`nav-vc-${item.path.split('/').pop()}`}
-                    >
-                      <item.icon className="w-4 h-4" />
-                      {t(`vcTestMode.nav.${item.labelKey}`, item.labelKey.charAt(0).toUpperCase() + item.labelKey.slice(1))}
-                    </Button>
-                  </Link>
+                  <Button
+                    key={item.path}
+                    variant="ghost"
+                    size="sm"
+                    className={`gap-2 ${
+                      isActive(item.path)
+                        ? "bg-gray-800/50 text-white"
+                        : "text-gray-400 hover:text-white"
+                    }`}
+                    onClick={() => setLocation(item.path)}
+                    data-testid={`nav-vc-${item.path.split('/').pop()}`}
+                  >
+                    <item.icon className="w-4 h-4" />
+                    {t(`vcTestMode.nav.${item.labelKey}`, item.labelKey.charAt(0).toUpperCase() + item.labelKey.slice(1))}
+                  </Button>
                 ))}
               </nav>
             </div>
 
             <div className="flex items-center gap-3">
               <div className="hidden xl:flex items-center gap-3 text-sm">
-                <Link href="/">
-                  <Button variant="ghost" size="sm" className="gap-2 text-gray-400 hover:text-white" data-testid="link-vc-to-home">
-                    <Home className="w-4 h-4" />
-                    {t('vcTestMode.nav.home', 'Home')}
-                  </Button>
-                </Link>
+                <Button 
+                  variant="ghost" 
+                  size="sm" 
+                  className="gap-2 text-gray-400 hover:text-white" 
+                  onClick={() => setLocation("/")}
+                  data-testid="link-vc-to-home"
+                >
+                  <Home className="w-4 h-4" />
+                  {t('vcTestMode.nav.home', 'Home')}
+                </Button>
                 
                 <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-gray-800/50">
                   <Wallet className="w-4 h-4 text-gray-400" />

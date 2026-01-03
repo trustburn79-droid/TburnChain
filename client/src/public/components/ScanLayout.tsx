@@ -71,21 +71,21 @@ export default function ScanLayout({ children }: ScanLayoutProps) {
 
               <nav className="hidden lg:flex items-center gap-1">
                 {navItems.map((item) => (
-                  <Link key={item.path} href={item.path}>
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      className={`gap-2 ${
-                        isActive(item.path)
-                          ? "bg-gray-800/50 text-white"
-                          : "text-gray-400 hover:text-white"
-                      }`}
-                      data-testid={`nav-${item.path.split('/').pop()}`}
-                    >
-                      <item.icon className="w-4 h-4" />
-                      {item.label}
-                    </Button>
-                  </Link>
+                  <Button
+                    key={item.path}
+                    variant="ghost"
+                    size="sm"
+                    className={`gap-2 ${
+                      isActive(item.path)
+                        ? "bg-gray-800/50 text-white"
+                        : "text-gray-400 hover:text-white"
+                    }`}
+                    onClick={() => setLocation(item.path)}
+                    data-testid={`nav-${item.path.split('/').pop()}`}
+                  >
+                    <item.icon className="w-4 h-4" />
+                    {item.label}
+                  </Button>
                 ))}
               </nav>
             </div>
@@ -122,66 +122,60 @@ export default function ScanLayout({ children }: ScanLayoutProps) {
               {/* Navigation Icons - visible on all screen sizes */}
               <div className="flex items-center gap-0 sm:gap-2">
                 <div className="hidden sm:block w-px h-6 bg-gray-700 mx-1" />
-                <Link href="/">
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className="h-7 w-7 sm:h-9 sm:w-9 text-gray-400 hover:text-white"
-                    data-testid="link-nav-home"
-                  >
-                    <Home className="w-3 h-3 sm:w-4 sm:h-4" />
-                  </Button>
-                </Link>
-                <Link href="/scan">
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className="h-7 w-7 sm:h-9 sm:w-9 text-gray-400 hover:text-white"
-                    data-testid="link-nav-scan"
-                  >
-                    <ScanLine className="w-3 h-3 sm:w-4 sm:h-4" />
-                  </Button>
-                </Link>
-                <Link href="/user">
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className="h-7 w-7 sm:h-9 sm:w-9 text-gray-400 hover:text-white"
-                    data-testid="link-nav-user"
-                  >
-                    <User className="w-3 h-3 sm:w-4 sm:h-4" />
-                  </Button>
-                </Link>
-                <Link href="/token-generator">
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className="h-7 w-7 sm:h-9 sm:w-9 text-gray-400 hover:text-white"
-                    data-testid="link-nav-token-generator"
-                  >
-                    <Coins className="w-3 h-3 sm:w-4 sm:h-4" />
-                  </Button>
-                </Link>
-                <Link href="/nft-marketplace">
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className="h-7 w-7 sm:h-9 sm:w-9 text-gray-400 hover:text-white"
-                    data-testid="link-nav-nft-marketplace"
-                  >
-                    <ImageIcon className="w-3 h-3 sm:w-4 sm:h-4" />
-                  </Button>
-                </Link>
-                <Link href="/app">
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className="h-7 w-7 sm:h-9 sm:w-9 text-gray-400 hover:text-white"
-                    data-testid="link-nav-app"
-                  >
-                    <LayoutDashboard className="w-3 h-3 sm:w-4 sm:h-4" />
-                  </Button>
-                </Link>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="h-7 w-7 sm:h-9 sm:w-9 text-gray-400 hover:text-white"
+                  onClick={() => setLocation("/")}
+                  data-testid="link-nav-home"
+                >
+                  <Home className="w-3 h-3 sm:w-4 sm:h-4" />
+                </Button>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="h-7 w-7 sm:h-9 sm:w-9 text-gray-400 hover:text-white"
+                  onClick={() => setLocation("/scan")}
+                  data-testid="link-nav-scan"
+                >
+                  <ScanLine className="w-3 h-3 sm:w-4 sm:h-4" />
+                </Button>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="h-7 w-7 sm:h-9 sm:w-9 text-gray-400 hover:text-white"
+                  onClick={() => setLocation("/user")}
+                  data-testid="link-nav-user"
+                >
+                  <User className="w-3 h-3 sm:w-4 sm:h-4" />
+                </Button>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="h-7 w-7 sm:h-9 sm:w-9 text-gray-400 hover:text-white"
+                  onClick={() => setLocation("/token-generator")}
+                  data-testid="link-nav-token-generator"
+                >
+                  <Coins className="w-3 h-3 sm:w-4 sm:h-4" />
+                </Button>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="h-7 w-7 sm:h-9 sm:w-9 text-gray-400 hover:text-white"
+                  onClick={() => setLocation("/nft-marketplace")}
+                  data-testid="link-nav-nft-marketplace"
+                >
+                  <ImageIcon className="w-3 h-3 sm:w-4 sm:h-4" />
+                </Button>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="h-7 w-7 sm:h-9 sm:w-9 text-gray-400 hover:text-white"
+                  onClick={() => setLocation("/app")}
+                  data-testid="link-nav-app"
+                >
+                  <LayoutDashboard className="w-3 h-3 sm:w-4 sm:h-4" />
+                </Button>
               </div>
 
               {/* Mobile Menu */}
