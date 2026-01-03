@@ -67071,11 +67071,23 @@ function serveIndexHtml(res) {
   res.sendFile(path2.resolve(distPath, "index.html"));
 }
 app2.use("/api", (req, res, next) => {
-  if (!servicesReady) {
+  const earlyAllowedPaths = [
+    "/api/health",
+    "/api/auth/check",
+    "/api/auth/login",
+    "/api/auth/logout",
+    "/api/auth/register",
+    "/api/public/"
+    // All public API endpoints
+  ];
+  const isEarlyAllowed = earlyAllowedPaths.some(
+    (path3) => req.path === path3 || req.path.startsWith(path3)
+  );
+  if (!servicesReady && !isEarlyAllowed) {
     return res.status(503).json({
       error: "Service initializing",
       message: "Backend services are starting up. Please retry in a few seconds.",
-      retryAfter: 5,
+      retryAfter: 3,
       servicesReady: false
     });
   }
@@ -67137,11 +67149,10 @@ var server = createServer3(app2);
 var port = parseInt(process.env.PORT || "5000", 10);
 server.listen({ port, host: "0.0.0.0" }, () => {
   console.log(`[Production] \u2705 Server listening on port ${port} (static files ready)`);
-  console.log(`[Production] \u23F3 Heavy services will start in 5 seconds...`);
-  setTimeout(() => {
-    console.log(`[Production] \u23F3 Starting heavy service initialization now...`);
+  console.log(`[Production] \u23F3 Starting backend services immediately...`);
+  setImmediate(() => {
     initializeBackendServices();
-  }, 5e3);
+  });
 });
 async function initializeBackendServices() {
   try {

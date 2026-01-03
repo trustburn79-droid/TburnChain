@@ -108,13 +108,29 @@ function serveIndexHtml(res: express.Response) {
 }
 
 // API placeholder - returns 503 while services are initializing
-// This will be bypassed once real API routes are registered
+// Allow critical auth endpoints through even during initialization
+// Other APIs will be blocked until full initialization completes
 app.use('/api', (req, res, next) => {
-  if (!servicesReady) {
+  // Allow health checks and auth-related APIs during initialization
+  // Auth APIs are lightweight and only need database + session
+  const earlyAllowedPaths = [
+    '/api/health',
+    '/api/auth/check',
+    '/api/auth/login',
+    '/api/auth/logout',
+    '/api/auth/register',
+    '/api/public/',  // All public API endpoints
+  ];
+  
+  const isEarlyAllowed = earlyAllowedPaths.some(path => 
+    req.path === path || req.path.startsWith(path)
+  );
+  
+  if (!servicesReady && !isEarlyAllowed) {
     return res.status(503).json({
       error: 'Service initializing',
       message: 'Backend services are starting up. Please retry in a few seconds.',
-      retryAfter: 5,
+      retryAfter: 3,
       servicesReady: false,
     });
   }
@@ -197,15 +213,13 @@ const port = parseInt(process.env.PORT || '5000', 10);
 
 server.listen({ port, host: "0.0.0.0" }, () => {
   console.log(`[Production] ✅ Server listening on port ${port} (static files ready)`);
-  console.log(`[Production] ⏳ Heavy services will start in 5 seconds...`);
+  console.log(`[Production] ⏳ Starting backend services immediately...`);
   
-  // CRITICAL: Delay heavy initialization by 5 seconds
-  // This ensures the server can respond to health checks and static file requests
-  // BEFORE the event loop gets blocked by blockchain service initialization
-  setTimeout(() => {
-    console.log(`[Production] ⏳ Starting heavy service initialization now...`);
+  // Start services with minimal delay (just enough for server to be fully ready)
+  // Auth APIs will be registered quickly, then heavy services initialize in background
+  setImmediate(() => {
     initializeBackendServices();
-  }, 5000);
+  });
 });
 
 // ============================================
