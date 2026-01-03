@@ -290,8 +290,9 @@ export function PublicRouter() {
     );
   }
   
-  if (location === "/vc") {
-    window.location.href = "/validator";
+  // /vc route requires full App (VCTestMode page) - trigger full page reload
+  if (location === "/vc" || location.startsWith("/vc-test")) {
+    window.location.href = location;
     return null;
   }
 
