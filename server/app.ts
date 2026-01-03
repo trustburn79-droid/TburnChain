@@ -107,32 +107,90 @@ if (hasRedis) {
   sessionStoreType = "Redis";
 } else {
   // Redis가 없는 환경: MemoryStore 사용 (Replit 개발 및 Autoscale 배포 모두)
-  // ★ 메모리 누수 방지: 짧은 정리 주기 + 최대 세션 수 제한
+  // ★ [수정 6] 세션 오버플로우 방지를 위해 용량 증가 및 정리 주기 단축
   sessionStore = new MemoryStore({
-    checkPeriod: 300000, // 5분마다 만료된 세션 정리 (메모리 누수 방지)
-    max: 500, // 최대 500개 세션 (초과 시 가장 오래된 세션 삭제)
-    ttl: 3600000, // 세션 TTL 1시간 (메모리에서 빠르게 해제)
-    stale: true, // 만료된 세션도 일시적으로 허용 (사용자 경험 개선)
+    checkPeriod: 60000, // ★ 1분마다 만료된 세션 정리 (기존 5분에서 단축)
+    max: 2000, // ★ 최대 2000개 세션으로 증가 (기존 500)
+    ttl: 1800000, // ★ 세션 TTL 30분으로 단축 (기존 1시간)
+    stale: false, // ★ 만료된 세션 즉시 삭제 (메모리 절약)
+    dispose: (key: string) => {
+      // 세션 삭제 로깅 (디버깅용)
+      if (process.env.DEBUG_SESSION === 'true') {
+        console.log(`[Session] Disposed session: ${key.substring(0, 8)}...`);
+      }
+    }
   });
-  sessionStoreType = "MemoryStore (max: 500, TTL: 1h)";
+  sessionStoreType = "MemoryStore (max: 2000, TTL: 30m, cleanup: 1m)";
   console.log(`[Session] ⚠️ Using MemoryStore - for production scale, configure REDIS_URL`);
 }
 
-app.use(
-  session({
-    store: sessionStore,
-    secret: process.env.SESSION_SECRET || "tburn-secret-key-change-in-production",
-    resave: false,
-    saveUninitialized: false,
-    cookie: {
-      secure: cookieSecure,   // ★ 프로덕션에서 HTTPS 전용 쿠키 자동 활성화
-      httpOnly: true, // 자바스크립트 접근 방지 (보안)
-      maxAge: 2 * 60 * 60 * 1000, // ★ 2시간으로 단축 (메모리 누수 방지)
-      sameSite: cookieSecure ? "none" : "lax", // ★ HTTPS 환경에서는 none으로 설정 (크로스 도메인 지원)
-    },
-    proxy: true, // ★ 항상 프록시 신뢰 (Nginx 뒤에서 작동)
-  })
-);
+// ★ [수정 5] 세션 미들웨어 - 내부 API 호출에서는 세션 생성 건너뛰기
+// 내부 호출(ProductionDataPoller, DataCache 등)에서 세션이 생성되면 MemoryStore가 30-60분 내에 가득 차서 서버 에러 발생
+const sessionMiddleware = session({
+  store: sessionStore,
+  secret: process.env.SESSION_SECRET || "tburn-secret-key-change-in-production",
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    secure: cookieSecure,   // ★ 프로덕션에서 HTTPS 전용 쿠키 자동 활성화
+    httpOnly: true, // 자바스크립트 접근 방지 (보안)
+    maxAge: 2 * 60 * 60 * 1000, // ★ 2시간으로 단축 (메모리 누수 방지)
+    sameSite: cookieSecure ? "none" : "lax", // ★ HTTPS 환경에서는 none으로 설정 (크로스 도메인 지원)
+  },
+  proxy: true, // ★ 항상 프록시 신뢰 (Nginx 뒤에서 작동)
+});
+
+// ★ 세션 모니터링을 위한 카운터
+let sessionCreateCount = 0;
+let sessionSkipCount = 0;
+let lastSessionReport = Date.now();
+
+// ★ 조건부 세션 미들웨어: 내부 호출 및 세션이 불필요한 경로 건너뛰기
+app.use((req: Request, res: Response, next: NextFunction) => {
+  // 내부 API 호출 감지 (X-Internal-Request 헤더 또는 localhost fetch)
+  const isInternalRequest = req.headers['x-internal-request'] === 'true';
+  
+  // 세션이 불필요한 공개 API 경로
+  const skipSessionPaths = [
+    '/api/public/',           // 공개 API
+    '/api/health',            // 헬스 체크
+    '/health',                // 루트 헬스 체크
+    '/api/network/stats',     // 네트워크 통계 (공개)
+    '/api/shards',            // 샤드 정보 (공개)
+    '/api/validators',        // 검증인 정보 (공개)
+    '/api/blocks',            // 블록 정보 (공개)
+    '/api/transactions',      // 트랜잭션 정보 (공개)
+    '/api/enterprise/',       // 엔터프라이즈 내부 API
+  ];
+  
+  const shouldSkipSession = isInternalRequest || skipSessionPaths.some(path => req.path.startsWith(path));
+  
+  if (shouldSkipSession) {
+    sessionSkipCount++;
+    // 세션 없이 빈 세션 객체만 제공 (세션 저장소에 저장하지 않음)
+    (req as any).session = {
+      id: 'skip-session',
+      cookie: {},
+      regenerate: (cb: any) => cb && cb(),
+      destroy: (cb: any) => cb && cb(),
+      reload: (cb: any) => cb && cb(),
+      save: (cb: any) => cb && cb(),
+      touch: () => {},
+    };
+    return next();
+  }
+  
+  sessionCreateCount++;
+  
+  // 10분마다 세션 사용량 리포트
+  const now = Date.now();
+  if (now - lastSessionReport > 600000) {
+    console.log(`[Session Monitor] Created: ${sessionCreateCount}, Skipped: ${sessionSkipCount}, Ratio: ${(sessionSkipCount / (sessionCreateCount + sessionSkipCount) * 100).toFixed(1)}% skipped`);
+    lastSessionReport = now;
+  }
+  
+  return sessionMiddleware(req, res, next);
+});
 
 log(`Cookie secure: ${cookieSecure} (set COOKIE_SECURE=true for HTTPS-only)`, "session");
 

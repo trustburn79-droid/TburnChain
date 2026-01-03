@@ -912,8 +912,13 @@ router.get('/search', async (req: Request, res: Response) => {
     let liveTransactions: any[] = [];
     
     try {
+      // ★ 내부 API 호출 - X-Internal-Request 헤더로 세션 생성 방지
+      const internalHeaders = { 'X-Internal-Request': 'true' };
+      
       // Fetch blocks from the same internal API that the frontend uses (get more to handle timing differences)
-      const blocksResponse = await fetch('http://localhost:5000/api/public/v1/network/blocks/recent?limit=200');
+      const blocksResponse = await fetch('http://localhost:5000/api/public/v1/network/blocks/recent?limit=200', {
+        headers: internalHeaders
+      });
       const blocksData = await blocksResponse.json();
       if (blocksData.success && blocksData.data) {
         liveBlocks = blocksData.data.map((b: any) => ({
@@ -924,7 +929,9 @@ router.get('/search', async (req: Request, res: Response) => {
       }
       
       // Fetch transactions from the same internal API (get more to handle timing differences)
-      const txResponse = await fetch('http://localhost:5000/api/public/v1/network/transactions/recent?limit=200');
+      const txResponse = await fetch('http://localhost:5000/api/public/v1/network/transactions/recent?limit=200', {
+        headers: internalHeaders
+      });
       const txData = await txResponse.json();
       if (txData.success && txData.data) {
         liveTransactions = txData.data.map((tx: any) => ({
