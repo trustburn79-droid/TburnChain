@@ -1687,6 +1687,10 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     if (req.path.startsWith("/public/v1/")) {
       return next();
     }
+    // Skip auth check for public token distribution program endpoints
+    if (req.path.startsWith("/token-programs/")) {
+      return next();
+    }
     // Skip auth check for Token v4.0 public read-only endpoints (app pages)
     if (req.path.startsWith("/bridge/stats") ||
         req.path.startsWith("/bridge/chains") ||
@@ -12465,9 +12469,9 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({
         success: true,
         data: {
-          totalContributors: stats.totalContributors || 0,
+          totalContributors: stats.totalTasks || 0,
           totalContributions: stats.totalContributions || 0,
-          totalRewardsDistributed: stats.totalRewardsDistributed || "0",
+          totalRewardsDistributed: String(stats.totalPointsDistributed || 0),
           activeTasks: stats.activeTasks || 0,
           categories: [
             { name: "Content Creation", tasks: 24, rewards: "50000", participants: 156 },
@@ -12494,8 +12498,8 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
         data: {
           totalProposals: stats.totalProposals || 0,
           activeProposals: stats.activeProposals || 0,
-          totalVotes: stats.totalVotes || 0,
-          totalVotingPower: stats.totalVotingPower || "0",
+          totalVotes: stats.totalVoters || 0,
+          totalVotingPower: String(stats.totalVoters * 10000 || 0),
           quorumThreshold: "10000000",
           recentProposals: [
             { id: "prop-1", title: "Increase Burn Rate to 2%", status: "active", votesFor: "8500000", votesAgainst: "2100000", endDate: "2025-01-20" },
@@ -12521,7 +12525,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
         success: true,
         data: {
           currentEpoch: Math.floor(networkStats.blockHeight / 100000),
-          totalRewardsDistributed: stats.totalDistributed || "0",
+          totalRewardsDistributed: stats.totalRewards || "0",
           currentBlockReward: "2.5",
           nextHalvingBlock: Math.ceil(networkStats.blockHeight / 10000000) * 10000000,
           blocksToHalving: Math.ceil(networkStats.blockHeight / 10000000) * 10000000 - networkStats.blockHeight,
@@ -12557,7 +12561,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
           totalValidators: networkStats.totalValidators || 125,
           activeValidators: networkStats.activeValidators || 125,
           totalStaked: "125000000",
-          totalRewardsDistributed: stats.totalDistributed || "0",
+          totalRewardsDistributed: stats.totalAmount || "0",
           averageApy: "12.5",
           tiers: [
             { name: "Genesis", minStake: "1000000", maxStake: null, apy: "15", validators: 25 },

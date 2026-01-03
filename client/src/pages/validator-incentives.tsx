@@ -1121,20 +1121,20 @@ export default function ValidatorIncentivesPage() {
 
           <div className="stats-grid">
             <div className="stat-card" data-testid="stat-total-validators">
-              <div className="stat-value">{isLoading ? '...' : stats?.totalValidators?.toLocaleString() || '7.5억'}</div>
-              <div className="stat-label">총 인센티브 풀</div>
+              <div className="stat-value">{isLoading ? '...' : stats?.totalValidators || 0}</div>
+              <div className="stat-label">총 밸리데이터</div>
             </div>
             <div className="stat-card" data-testid="stat-active-validators">
-              <div className="stat-value">{isLoading ? '...' : stats?.activeValidators?.toLocaleString() || '300%'}</div>
-              <div className="stat-label">최대 추가 보상</div>
+              <div className="stat-value">{isLoading ? '...' : stats?.activeValidators || 0}</div>
+              <div className="stat-label">활성 밸리데이터</div>
             </div>
             <div className="stat-card" data-testid="stat-total-staked">
-              <div className="stat-value">{isLoading ? '...' : stats?.totalStaked?.toLocaleString() || '125'}</div>
-              <div className="stat-label">Genesis 밸리데이터</div>
+              <div className="stat-value">{isLoading ? '...' : Number(stats?.totalStaked || 0).toLocaleString()}</div>
+              <div className="stat-label">총 스테이킹 (TBURN)</div>
             </div>
             <div className="stat-card" data-testid="stat-average-apy">
-              <div className="stat-value">{isLoading ? '...' : stats?.averageApy ? `~${stats.averageApy}%` : '~50%'}</div>
-              <div className="stat-label">최대 예상 APY</div>
+              <div className="stat-value">{isLoading ? '...' : stats?.averageApy ? `~${stats.averageApy}%` : '~0%'}</div>
+              <div className="stat-label">평균 APY</div>
             </div>
           </div>
 

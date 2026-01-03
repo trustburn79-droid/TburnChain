@@ -18,14 +18,17 @@ interface ReferralStats {
       commission: number;
       minReferrals: number;
       maxReferrals: number | null;
-      benefits: string[];
+      benefits?: string[];
+      bonus?: string;
     }>;
     leaderboard: Array<{
       rank: number;
-      walletAddress: string;
+      walletAddress?: string;
       tier: string;
-      referralCount: number;
-      totalEarnings: string;
+      referralCount?: number;
+      referrals?: number;
+      totalEarnings?: string;
+      earnings?: string;
     }>;
   };
 }
@@ -1349,7 +1352,7 @@ export default function ReferralPage() {
                   {tier.minReferrals} ~ {tier.maxReferrals ? `${tier.maxReferrals}명` : '무제한'} 초대
                 </p>
                 <ul className="tier-benefits">
-                  {tier.benefits.map((benefit, i) => (
+                  {(tier.benefits || [`${tier.commission}% 커미션`, `${tier.bonus || 0} TBURN 보너스`]).map((benefit, i) => (
                     <li key={i}><span className="check">✓</span> {benefit}</li>
                   ))}
                 </ul>
@@ -1625,7 +1628,7 @@ export default function ReferralPage() {
             {leaderboard.length > 0 ? (
               leaderboard.map((entry, index) => (
                 <div 
-                  key={entry.walletAddress} 
+                  key={entry.walletAddress || `rank-${entry.rank}`} 
                   className={`leaderboard-item ${index < 3 ? 'top-3' : ''}`}
                   data-testid={`leaderboard-item-${index}`}
                 >
@@ -1634,19 +1637,19 @@ export default function ReferralPage() {
                   </div>
                   <div className="user-info">
                     <div className="user-address" data-testid={`leaderboard-address-${index}`}>
-                      {formatAddress(entry.walletAddress)}
+                      {entry.walletAddress ? formatAddress(entry.walletAddress) : `Referrer #${entry.rank}`}
                     </div>
                     <div className="user-tier">{getTierIcon(entry.tier)} {entry.tier} Tier</div>
                   </div>
                   <div className="referral-count">
                     <div className="value" data-testid={`leaderboard-count-${index}`}>
-                      {entry.referralCount.toLocaleString()}
+                      {(entry.referralCount || entry.referrals || 0).toLocaleString()}
                     </div>
                     <div className="label">초대 수</div>
                   </div>
                   <div className="earnings">
                     <div className="value" data-testid={`leaderboard-earnings-${index}`}>
-                      {Number(entry.totalEarnings).toLocaleString()} TBURN
+                      {Number(entry.totalEarnings || entry.earnings || 0).toLocaleString()} TBURN
                     </div>
                     <div className="label">총 수익</div>
                   </div>

@@ -1252,20 +1252,20 @@ export default function BlockRewardsPage() {
 
           <div className="stats-grid">
             <div className="stat-card" data-testid="stat-total-rewards-distributed">
-              <div className="stat-value">{isLoading ? '...' : stats?.totalRewardsDistributed?.toLocaleString() || '14.5억'}</div>
-              <div className="stat-label">총 블록 보상 풀</div>
+              <div className="stat-value">{isLoading ? '...' : Number(stats?.totalRewardsDistributed || 0).toLocaleString()}</div>
+              <div className="stat-label">배포된 보상 (TBURN)</div>
             </div>
             <div className="stat-card" data-testid="stat-current-block-reward">
-              <div className="stat-value">{isLoading ? '...' : stats?.currentBlockReward?.toLocaleString() || '~200,000'}</div>
-              <div className="stat-label">일일 발행량 (Year 1)</div>
+              <div className="stat-value">{isLoading ? '...' : stats?.currentBlockReward || '0'} TBURN</div>
+              <div className="stat-label">현재 블록 보상</div>
             </div>
             <div className="stat-card" data-testid="stat-next-halving">
-              <div className="stat-value">{isLoading ? '...' : stats?.nextHalvingBlock?.toLocaleString() || '20년'}</div>
-              <div className="stat-label">보상 기간</div>
+              <div className="stat-value">{isLoading ? '...' : stats?.nextHalvingBlock?.toLocaleString() || 0}</div>
+              <div className="stat-label">다음 반감기 블록</div>
             </div>
             <div className="stat-card" data-testid="stat-distribution-validators">
-              <div className="stat-value">{isLoading ? '...' : stats?.distribution?.validators ? `${stats.distribution.validators}%` : '15~25%'}</div>
-              <div className="stat-label">예상 APY</div>
+              <div className="stat-value">{isLoading ? '...' : stats?.distribution?.validators ? `${stats.distribution.validators}%` : '0%'}</div>
+              <div className="stat-label">밸리데이터 분배율</div>
             </div>
           </div>
 

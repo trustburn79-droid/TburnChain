@@ -7,9 +7,9 @@ import { useWeb3 } from "@/lib/web3-context";
 interface CommunityStatsData {
   totalContributors: number;
   totalContributions: number;
-  totalRewardsDistributed: number;
+  totalRewardsDistributed: string;
   activeTasks: number;
-  categories: Array<{ name: string; count: number }>;
+  categories: Array<{ name: string; tasks: number; rewards: string; participants: number }>;
 }
 
 interface CommunityStatsResponse {
@@ -1026,20 +1026,20 @@ export default function CommunityProgramPage() {
 
           <div className="stats-grid">
             <div className="stat-card" data-testid="stat-total-contributors">
-              <div className="stat-value">{isLoading ? '...' : stats?.totalContributors?.toLocaleString() || '3억'}</div>
-              <div className="stat-label">총 커뮤니티 보상 풀</div>
+              <div className="stat-value">{isLoading ? '...' : stats?.totalContributors?.toLocaleString() || '0'}</div>
+              <div className="stat-label">총 참여자 수</div>
             </div>
             <div className="stat-card" data-testid="stat-total-contributions">
-              <div className="stat-value">{isLoading ? '...' : stats?.totalContributions?.toLocaleString() || '4,500만'}</div>
-              <div className="stat-label">TGE 즉시 해제 (15%)</div>
+              <div className="stat-value">{isLoading ? '...' : stats?.totalContributions?.toLocaleString() || '0'}</div>
+              <div className="stat-label">총 기여 횟수</div>
             </div>
             <div className="stat-card" data-testid="stat-total-rewards">
-              <div className="stat-value">{isLoading ? '...' : stats?.totalRewardsDistributed?.toLocaleString() || '36개월'}</div>
-              <div className="stat-label">베스팅 기간</div>
+              <div className="stat-value">{isLoading ? '...' : Number(stats?.totalRewardsDistributed || 0).toLocaleString()}</div>
+              <div className="stat-label">배포된 보상 (TBURN)</div>
             </div>
             <div className="stat-card" data-testid="stat-active-tasks">
-              <div className="stat-value">{isLoading ? '...' : stats?.activeTasks || '6가지'}</div>
-              <div className="stat-label">참여 프로그램</div>
+              <div className="stat-value">{isLoading ? '...' : stats?.activeTasks || '0'}</div>
+              <div className="stat-label">활성 태스크</div>
             </div>
           </div>
 

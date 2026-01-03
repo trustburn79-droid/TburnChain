@@ -1117,20 +1117,20 @@ export default function DAOGovernancePage() {
 
           <div className="stats-grid">
             <div className="stat-card" data-testid="stat-total-proposals">
-              <div className="stat-value">{isLoading ? '...' : stats?.totalProposals?.toLocaleString() || '8억'}</div>
-              <div className="stat-label">총 거버넌스 보상 풀</div>
+              <div className="stat-value">{isLoading ? '...' : stats?.totalProposals || 0}</div>
+              <div className="stat-label">총 제안 수</div>
             </div>
             <div className="stat-card" data-testid="stat-active-proposals">
-              <div className="stat-value">{isLoading ? '...' : stats?.activeProposals?.toLocaleString() || '1.2억'}</div>
-              <div className="stat-label">TGE 즉시 해제 (15%)</div>
+              <div className="stat-value">{isLoading ? '...' : stats?.activeProposals || 0}</div>
+              <div className="stat-label">진행중인 제안</div>
             </div>
             <div className="stat-card" data-testid="stat-total-votes">
-              <div className="stat-value">{isLoading ? '...' : stats?.totalVotes?.toLocaleString() || '48개월'}</div>
-              <div className="stat-label">베스팅 기간</div>
+              <div className="stat-value">{isLoading ? '...' : stats?.totalVotes?.toLocaleString() || 0}</div>
+              <div className="stat-label">총 투표 수</div>
             </div>
             <div className="stat-card" data-testid="stat-voting-power">
-              <div className="stat-value">{isLoading ? '...' : stats?.totalVotingPower?.toLocaleString() || '127'}</div>
-              <div className="stat-label">총 제안 수</div>
+              <div className="stat-value">{isLoading ? '...' : Number(stats?.totalVotingPower || 0).toLocaleString()}</div>
+              <div className="stat-label">총 투표력 (TBURN)</div>
             </div>
           </div>
 
