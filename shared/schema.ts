@@ -8309,3 +8309,92 @@ export type InsertMarketingParticipant = z.infer<typeof insertMarketingParticipa
 
 export type MarketingReward = typeof marketingRewards.$inferSelect;
 export type InsertMarketingReward = z.infer<typeof insertMarketingRewardSchema>;
+
+// ============================================
+// Strategic Partner Program Tables
+// ============================================
+export const PARTNER_TYPE = ["exchange", "vc", "fund", "market_maker", "infrastructure", "ecosystem", "media", "research", "advisor", "incubator"] as const;
+export const CONTRACT_TYPE = ["token_allocation", "liquidity_provision", "market_making", "co_marketing", "technical_integration", "advisory", "investment", "listing"] as const;
+export const VESTING_TYPE = ["immediate", "cliff_linear", "cliff_monthly", "milestone_based", "performance_based"] as const;
+
+export const strategicPartners = pgTable("strategic_partners", {
+  id: varchar("id").primaryKey(),
+  name: text("name").notNull(),
+  description: text("description"),
+  partnerType: text("partner_type").notNull().default("ecosystem"),
+  contractType: text("contract_type").notNull().default("token_allocation"),
+  logoUrl: text("logo_url"),
+  website: text("website"),
+  contactEmail: text("contact_email"),
+  contactPerson: text("contact_person"),
+  walletAddress: text("wallet_address"),
+  allocation: text("allocation").notNull().default("0"),
+  distributedAmount: text("distributed_amount").notNull().default("0"),
+  lockedAmount: text("locked_amount").notNull().default("0"),
+  vestingType: text("vesting_type").notNull().default("cliff_linear"),
+  vestingStartDate: timestamp("vesting_start_date"),
+  vestingEndDate: timestamp("vesting_end_date"),
+  cliffMonths: integer("cliff_months").notNull().default(6),
+  vestingMonths: integer("vesting_months").notNull().default(24),
+  tgePercentage: integer("tge_percentage").notNull().default(10),
+  contractSignedDate: timestamp("contract_signed_date"),
+  partnerSince: timestamp("partner_since"),
+  status: text("status").notNull().default("pending"),
+  tier: text("tier").notNull().default("standard"),
+  notes: text("notes"),
+  milestones: jsonb("milestones"),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
+export const strategicPartnerPayouts = pgTable("strategic_partner_payouts", {
+  id: varchar("id").primaryKey(),
+  partnerId: varchar("partner_id").notNull(),
+  amount: text("amount").notNull(),
+  payoutType: text("payout_type").notNull().default("vesting"),
+  txHash: text("tx_hash"),
+  status: text("status").notNull().default("pending"),
+  scheduledDate: timestamp("scheduled_date"),
+  processedDate: timestamp("processed_date"),
+  notes: text("notes"),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+export const strategicPartnerMilestones = pgTable("strategic_partner_milestones", {
+  id: varchar("id").primaryKey(),
+  partnerId: varchar("partner_id").notNull(),
+  title: text("title").notNull(),
+  description: text("description"),
+  targetDate: timestamp("target_date"),
+  completedDate: timestamp("completed_date"),
+  rewardAmount: text("reward_amount").notNull().default("0"),
+  status: text("status").notNull().default("pending"),
+  evidence: text("evidence"),
+  verifiedBy: varchar("verified_by"),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+export const insertStrategicPartnerSchema = createInsertSchema(strategicPartners).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertStrategicPartnerPayoutSchema = createInsertSchema(strategicPartnerPayouts).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertStrategicPartnerMilestoneSchema = createInsertSchema(strategicPartnerMilestones).omit({
+  id: true,
+  createdAt: true,
+});
+
+export type StrategicPartner = typeof strategicPartners.$inferSelect;
+export type InsertStrategicPartner = z.infer<typeof insertStrategicPartnerSchema>;
+
+export type StrategicPartnerPayout = typeof strategicPartnerPayouts.$inferSelect;
+export type InsertStrategicPartnerPayout = z.infer<typeof insertStrategicPartnerPayoutSchema>;
+
+export type StrategicPartnerMilestone = typeof strategicPartnerMilestones.$inferSelect;
+export type InsertStrategicPartnerMilestone = z.infer<typeof insertStrategicPartnerMilestoneSchema>;

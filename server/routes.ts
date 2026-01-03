@@ -13145,6 +13145,133 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
+  // Strategic Partner Program Management
+  app.get("/api/admin/token-programs/strategic/partners", requireAdmin, async (req, res) => {
+    try {
+      const limit = parseInt(req.query.limit as string) || 100;
+      const partners = await storage.getAllStrategicPartners(limit);
+      const stats = await storage.getStrategicPartnerStats();
+      res.json({ success: true, data: { partners, stats } });
+    } catch (error) {
+      console.error('[Strategic Partner] Error fetching partners:', error);
+      res.status(500).json({ error: 'Failed to fetch strategic partners' });
+    }
+  });
+
+  app.get("/api/admin/token-programs/strategic/partners/:id", requireAdmin, async (req, res) => {
+    try {
+      const partner = await storage.getStrategicPartnerById(req.params.id);
+      if (!partner) {
+        return res.status(404).json({ error: 'Partner not found' });
+      }
+      const payouts = await storage.getStrategicPartnerPayouts(partner.id);
+      const milestones = await storage.getStrategicPartnerMilestones(partner.id);
+      res.json({ success: true, data: { partner, payouts, milestones } });
+    } catch (error) {
+      console.error('[Strategic Partner] Error fetching partner:', error);
+      res.status(500).json({ error: 'Failed to fetch partner' });
+    }
+  });
+
+  app.post("/api/admin/token-programs/strategic/partners", requireAdmin, async (req, res) => {
+    try {
+      const data = { ...req.body };
+      const dateFields = ['vestingStartDate', 'vestingEndDate', 'contractSignedDate', 'partnerSince'];
+      for (const field of dateFields) {
+        if (data[field] === '' || data[field] === undefined) {
+          data[field] = null;
+        } else if (typeof data[field] === 'string') {
+          data[field] = new Date(data[field]);
+        }
+      }
+      const partner = await storage.createStrategicPartner(data);
+      res.json({ success: true, data: partner });
+    } catch (error) {
+      console.error('[Strategic Partner] Error creating partner:', error);
+      res.status(500).json({ error: 'Failed to create strategic partner' });
+    }
+  });
+
+  app.patch("/api/admin/token-programs/strategic/partners/:id", requireAdmin, async (req, res) => {
+    try {
+      const data = { ...req.body };
+      const dateFields = ['vestingStartDate', 'vestingEndDate', 'contractSignedDate', 'partnerSince'];
+      for (const field of dateFields) {
+        if (data[field] === '' || data[field] === undefined) {
+          data[field] = null;
+        } else if (typeof data[field] === 'string') {
+          data[field] = new Date(data[field]);
+        }
+      }
+      await storage.updateStrategicPartner(req.params.id, data);
+      const partner = await storage.getStrategicPartnerById(req.params.id);
+      res.json({ success: true, data: partner });
+    } catch (error) {
+      console.error('[Strategic Partner] Error updating partner:', error);
+      res.status(500).json({ error: 'Failed to update strategic partner' });
+    }
+  });
+
+  app.post("/api/admin/token-programs/strategic/partners/:id/payouts", requireAdmin, async (req, res) => {
+    try {
+      const data = { ...req.body, partnerId: req.params.id };
+      if (data.scheduledDate === '' || data.scheduledDate === undefined) data.scheduledDate = null;
+      else if (typeof data.scheduledDate === 'string') data.scheduledDate = new Date(data.scheduledDate);
+      if (data.processedDate === '' || data.processedDate === undefined) data.processedDate = null;
+      else if (typeof data.processedDate === 'string') data.processedDate = new Date(data.processedDate);
+      const payout = await storage.createStrategicPartnerPayout(data);
+      res.json({ success: true, data: payout });
+    } catch (error) {
+      console.error('[Strategic Partner] Error creating payout:', error);
+      res.status(500).json({ error: 'Failed to create payout' });
+    }
+  });
+
+  app.patch("/api/admin/token-programs/strategic/payouts/:id", requireAdmin, async (req, res) => {
+    try {
+      const data = { ...req.body };
+      if (data.scheduledDate === '' || data.scheduledDate === undefined) data.scheduledDate = null;
+      else if (typeof data.scheduledDate === 'string') data.scheduledDate = new Date(data.scheduledDate);
+      if (data.processedDate === '' || data.processedDate === undefined) data.processedDate = null;
+      else if (typeof data.processedDate === 'string') data.processedDate = new Date(data.processedDate);
+      await storage.updateStrategicPartnerPayout(req.params.id, data);
+      res.json({ success: true, message: 'Payout updated' });
+    } catch (error) {
+      console.error('[Strategic Partner] Error updating payout:', error);
+      res.status(500).json({ error: 'Failed to update payout' });
+    }
+  });
+
+  app.post("/api/admin/token-programs/strategic/partners/:id/milestones", requireAdmin, async (req, res) => {
+    try {
+      const data = { ...req.body, partnerId: req.params.id };
+      if (data.targetDate === '' || data.targetDate === undefined) data.targetDate = null;
+      else if (typeof data.targetDate === 'string') data.targetDate = new Date(data.targetDate);
+      if (data.completedDate === '' || data.completedDate === undefined) data.completedDate = null;
+      else if (typeof data.completedDate === 'string') data.completedDate = new Date(data.completedDate);
+      const milestone = await storage.createStrategicPartnerMilestone(data);
+      res.json({ success: true, data: milestone });
+    } catch (error) {
+      console.error('[Strategic Partner] Error creating milestone:', error);
+      res.status(500).json({ error: 'Failed to create milestone' });
+    }
+  });
+
+  app.patch("/api/admin/token-programs/strategic/milestones/:id", requireAdmin, async (req, res) => {
+    try {
+      const data = { ...req.body };
+      if (data.targetDate === '' || data.targetDate === undefined) data.targetDate = null;
+      else if (typeof data.targetDate === 'string') data.targetDate = new Date(data.targetDate);
+      if (data.completedDate === '' || data.completedDate === undefined) data.completedDate = null;
+      else if (typeof data.completedDate === 'string') data.completedDate = new Date(data.completedDate);
+      await storage.updateStrategicPartnerMilestone(req.params.id, data);
+      res.json({ success: true, message: 'Milestone updated' });
+    } catch (error) {
+      console.error('[Strategic Partner] Error updating milestone:', error);
+      res.status(500).json({ error: 'Failed to update milestone' });
+    }
+  });
+
   // Marketing Program Management
   app.get("/api/admin/token-programs/marketing/campaigns", requireAdmin, async (req, res) => {
     try {

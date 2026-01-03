@@ -429,6 +429,15 @@ import {
   marketingCampaigns,
   marketingParticipants,
   marketingRewards,
+  type StrategicPartner,
+  type InsertStrategicPartner,
+  type StrategicPartnerPayout,
+  type InsertStrategicPartnerPayout,
+  type StrategicPartnerMilestone,
+  type InsertStrategicPartnerMilestone,
+  strategicPartners,
+  strategicPartnerPayouts,
+  strategicPartnerMilestones,
 } from "@shared/schema";
 import { randomUUID } from "crypto";
 import { db } from "./db";
@@ -7545,6 +7554,59 @@ export class DbStorage implements IStorage {
 
   async updateMarketingReward(id: string, data: Partial<MarketingReward>): Promise<void> {
     await db.update(marketingRewards).set(data).where(eq(marketingRewards.id, id));
+  }
+
+  // Strategic Partner Program Implementation
+  async getAllStrategicPartners(limit: number = 100): Promise<StrategicPartner[]> {
+    return db.select().from(strategicPartners).orderBy(desc(strategicPartners.createdAt)).limit(limit);
+  }
+
+  async getStrategicPartnerById(id: string): Promise<StrategicPartner | undefined> {
+    const [result] = await db.select().from(strategicPartners).where(eq(strategicPartners.id, id));
+    return result;
+  }
+
+  async createStrategicPartner(data: InsertStrategicPartner): Promise<StrategicPartner> {
+    const [result] = await db.insert(strategicPartners).values({ ...data, id: `spart-${randomUUID()}` }).returning();
+    return result;
+  }
+
+  async updateStrategicPartner(id: string, data: Partial<StrategicPartner>): Promise<void> {
+    await db.update(strategicPartners).set({ ...data, updatedAt: new Date() }).where(eq(strategicPartners.id, id));
+  }
+
+  async getStrategicPartnerStats(): Promise<{ totalPartners: number; activeContracts: number; totalAllocation: string; lockedAmount: string; }> {
+    const partners = await this.getAllStrategicPartners(10000);
+    const activeContracts = partners.filter(p => p.status === 'active');
+    const totalAllocation = partners.reduce((sum, p) => sum + BigInt(p.allocation || '0'), BigInt(0));
+    const lockedAmount = partners.reduce((sum, p) => sum + BigInt(p.lockedAmount || '0'), BigInt(0));
+    return { totalPartners: partners.length, activeContracts: activeContracts.length, totalAllocation: totalAllocation.toString(), lockedAmount: lockedAmount.toString() };
+  }
+
+  async getStrategicPartnerPayouts(partnerId: string): Promise<StrategicPartnerPayout[]> {
+    return db.select().from(strategicPartnerPayouts).where(eq(strategicPartnerPayouts.partnerId, partnerId)).orderBy(desc(strategicPartnerPayouts.createdAt));
+  }
+
+  async createStrategicPartnerPayout(data: InsertStrategicPartnerPayout): Promise<StrategicPartnerPayout> {
+    const [result] = await db.insert(strategicPartnerPayouts).values({ ...data, id: `spay-${randomUUID()}` }).returning();
+    return result;
+  }
+
+  async updateStrategicPartnerPayout(id: string, data: Partial<StrategicPartnerPayout>): Promise<void> {
+    await db.update(strategicPartnerPayouts).set(data).where(eq(strategicPartnerPayouts.id, id));
+  }
+
+  async getStrategicPartnerMilestones(partnerId: string): Promise<StrategicPartnerMilestone[]> {
+    return db.select().from(strategicPartnerMilestones).where(eq(strategicPartnerMilestones.partnerId, partnerId)).orderBy(desc(strategicPartnerMilestones.createdAt));
+  }
+
+  async createStrategicPartnerMilestone(data: InsertStrategicPartnerMilestone): Promise<StrategicPartnerMilestone> {
+    const [result] = await db.insert(strategicPartnerMilestones).values({ ...data, id: `smile-${randomUUID()}` }).returning();
+    return result;
+  }
+
+  async updateStrategicPartnerMilestone(id: string, data: Partial<StrategicPartnerMilestone>): Promise<void> {
+    await db.update(strategicPartnerMilestones).set(data).where(eq(strategicPartnerMilestones.id, id));
   }
 }
 
