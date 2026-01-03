@@ -1,5 +1,6 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
+import koTranslations from '@/locales/ko.json';
 
 export const languages = [
   { code: 'en', name: 'English', nativeName: 'English', flag: '🇺🇸', dir: 'ltr' },
@@ -27,6 +28,8 @@ const updateDocumentDirection = (lang: string) => {
 };
 
 const loadLocale = async (lang: string): Promise<Record<string, unknown>> => {
+  if (lang === 'ko') return koTranslations;
+  
   switch (lang) {
     case 'en': return (await import('@/locales/en.json')).default;
     case 'zh': return (await import('@/locales/zh.json')).default;
@@ -39,12 +42,30 @@ const loadLocale = async (lang: string): Promise<Record<string, unknown>> => {
     case 'ru': return (await import('@/locales/ru.json')).default;
     case 'pt': return (await import('@/locales/pt.json')).default;
     case 'ur': return (await import('@/locales/ur.json')).default;
-    case 'ko': return (await import('@/locales/ko.json')).default;
-    default: return (await import('@/locales/en.json')).default;
+    default: return koTranslations;
   }
 };
 
 let initialized = false;
+
+i18n
+  .use(initReactI18next)
+  .init({
+    resources: {
+      ko: {
+        translation: koTranslations,
+      },
+    },
+    lng: 'ko',
+    supportedLngs: ['en', 'zh', 'ja', 'hi', 'es', 'fr', 'ar', 'bn', 'ru', 'pt', 'ur', 'ko'],
+    fallbackLng: 'ko',
+    debug: false,
+    interpolation: {
+      escapeValue: false,
+    },
+    returnEmptyString: false,
+    returnNull: false,
+  });
 
 export const initializeI18n = async (): Promise<void> => {
   if (initialized) {
@@ -54,51 +75,22 @@ export const initializeI18n = async (): Promise<void> => {
   initialized = true;
   
   const storedLang = typeof localStorage !== 'undefined' ? localStorage.getItem('tburn-language') : null;
-  const detectedLang = storedLang || 'ko';
+  const targetLang = storedLang || 'ko';
   
-  updateDocumentDirection(detectedLang);
+  updateDocumentDirection(targetLang);
   
-  let translations: Record<string, unknown> = {};
-  let finalLang = detectedLang;
-  
-  try {
-    translations = await loadLocale(detectedLang);
-    console.log(`[i18n] Loaded ${detectedLang} translations`);
-  } catch (error) {
-    console.warn(`[i18n] Failed to load ${detectedLang}, trying Korean fallback`);
+  if (targetLang !== 'ko' && !i18n.hasResourceBundle(targetLang, 'translation')) {
     try {
-      translations = await loadLocale('ko');
-      finalLang = 'ko';
-    } catch {
-      try {
-        translations = await loadLocale('en');
-        finalLang = 'en';
-      } catch {
-        console.error('[i18n] Failed to load any locale');
-      }
+      const translations = await loadLocale(targetLang);
+      i18n.addResourceBundle(targetLang, 'translation', translations, true, true);
+      await i18n.changeLanguage(targetLang);
+      console.log(`[i18n] Switched to ${targetLang}`);
+    } catch (error) {
+      console.warn(`[i18n] Failed to load ${targetLang}, using Korean`);
     }
   }
   
-  await i18n
-    .use(initReactI18next)
-    .init({
-      resources: {
-        [finalLang]: {
-          translation: translations,
-        },
-      },
-      lng: finalLang,
-      supportedLngs: ['en', 'zh', 'ja', 'hi', 'es', 'fr', 'ar', 'bn', 'ru', 'pt', 'ur', 'ko'],
-      fallbackLng: 'en',
-      debug: false,
-      interpolation: {
-        escapeValue: false,
-      },
-      returnEmptyString: false,
-      returnNull: false,
-    });
-  
-  console.log(`[i18n] Initialized with ${finalLang}`);
+  console.log(`[i18n] Initialized with ${i18n.language}`);
 };
 
 i18n.on('languageChanged', async (lang) => {
@@ -109,8 +101,8 @@ i18n.on('languageChanged', async (lang) => {
       const translations = await loadLocale(lang);
       i18n.addResourceBundle(lang, 'translation', translations, true, true);
     } catch (error) {
-      console.warn(`Failed to load locale ${lang}, falling back to English`);
-      i18n.changeLanguage('en');
+      console.warn(`Failed to load locale ${lang}, falling back to Korean`);
+      i18n.changeLanguage('ko');
     }
   }
 });
