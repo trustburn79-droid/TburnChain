@@ -2134,14 +2134,15 @@ export class TBurnEnterpriseNode extends EventEmitter {
       // Load block height and transaction count from database for persistence across restarts
       await this.loadBlockHeightFromDatabase();
       
+      // NOTE: MAX_SHARDS env var only sets the MAXIMUM allowed shards, not the current count
+      // Admin-selected shard count from database is ALWAYS preserved
+      // This ensures manual admin configurations persist across server restarts
       if (process.env.MAX_SHARDS) {
-        const envShards = parseInt(process.env.MAX_SHARDS, 10);
-        console.log(`[Enterprise Node] ⚡ FORCE OVERRIDE: Setting shards to ${envShards} (Ignoring DB value of ${this.shardConfig.currentShardCount})`);
-
-        this.shardConfig.currentShardCount = Math.min(envShards, 64);  // Clamp to max 64
-        this.shardConfig.minShards = 5;  // Keep min at 5 for admin flexibility
-        this.shardConfig.maxShards = 64;  // Admin can select 5-64 shards
+        const envMaxShards = parseInt(process.env.MAX_SHARDS, 10);
+        this.shardConfig.maxShards = Math.min(envMaxShards, 64);  // Set max limit only
+        console.log(`[Enterprise Node] 📊 MAX_SHARDS=${envMaxShards} (limit only, preserving admin-configured count: ${this.shardConfig.currentShardCount})`);
       }
+      this.shardConfig.minShards = 5;  // Keep min at 5 for admin flexibility
         
       // Verify API key
       if (this.config.apiKey !== 'tburn797900') {
