@@ -78,7 +78,14 @@ export default function AdminDAOGovernance() {
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [isVotesOpen, setIsVotesOpen] = useState(false);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
+  const [isAddVoteOpen, setIsAddVoteOpen] = useState(false);
   const [selectedProposal, setSelectedProposal] = useState<DaoProposal | null>(null);
+  
+  const [voteFormData, setVoteFormData] = useState({
+    voterAddress: "",
+    choice: "for",
+    votePower: "1000",
+  });
   
   const [formData, setFormData] = useState({
     title: "",
@@ -162,6 +169,40 @@ export default function AdminDAOGovernance() {
     },
     onError: () => {
       toast({ title: "오류", description: "제안 삭제에 실패했습니다.", variant: "destructive" });
+    }
+  });
+
+  const createVoteMutation = useMutation({
+    mutationFn: async ({ proposalId, data }: { proposalId: string; data: typeof voteFormData }) => {
+      return apiRequest('POST', `/api/admin/token-programs/dao/proposals/${proposalId}/votes`, data);
+    },
+    onSuccess: () => {
+      toast({ title: "투표 추가 완료", description: "새 투표가 추가되었습니다." });
+      queryClient.invalidateQueries({ queryKey: ['/api/admin/token-programs/dao/proposals'] });
+      if (selectedProposal) {
+        queryClient.invalidateQueries({ queryKey: ['/api/admin/token-programs/dao/proposals', selectedProposal.id, 'votes'] });
+      }
+      setIsAddVoteOpen(false);
+      setVoteFormData({ voterAddress: "", choice: "for", votePower: "1000" });
+    },
+    onError: () => {
+      toast({ title: "오류", description: "투표 추가에 실패했습니다.", variant: "destructive" });
+    }
+  });
+
+  const deleteVoteMutation = useMutation({
+    mutationFn: async (voteId: string) => {
+      return apiRequest('DELETE', `/api/admin/token-programs/dao/votes/${voteId}`);
+    },
+    onSuccess: () => {
+      toast({ title: "투표 삭제 완료", description: "투표가 삭제되었습니다." });
+      queryClient.invalidateQueries({ queryKey: ['/api/admin/token-programs/dao/proposals'] });
+      if (selectedProposal) {
+        queryClient.invalidateQueries({ queryKey: ['/api/admin/token-programs/dao/proposals', selectedProposal.id, 'votes'] });
+      }
+    },
+    onError: () => {
+      toast({ title: "오류", description: "투표 삭제에 실패했습니다.", variant: "destructive" });
     }
   });
 
@@ -407,7 +448,21 @@ export default function AdminDAOGovernance() {
                       {proposal.totalVoters}
                     </TableCell>
                     <TableCell>
-                      {getStatusBadge(proposal.status)}
+                      <Select 
+                        value={proposal.status} 
+                        onValueChange={(newStatus) => updateStatusMutation.mutate({ id: proposal.id, status: newStatus })}
+                      >
+                        <SelectTrigger className="w-28 h-8" data-testid={`select-status-${proposal.id}`}>
+                          {getStatusBadge(proposal.status)}
+                        </SelectTrigger>
+                        <SelectContent>
+                          {STATUSES.map(s => (
+                            <SelectItem key={s.value} value={s.value}>
+                              <Badge className={s.color}>{s.label}</Badge>
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
                     </TableCell>
                     <TableCell>
                       <div className="flex items-center justify-end gap-1">
@@ -683,8 +738,8 @@ export default function AdminDAOGovernance() {
                   category: formData.category,
                   quorumRequired: formData.quorumRequired,
                   passThreshold: formData.passThreshold,
-                  votingStartDate: formData.votingStartDate ? new Date(formData.votingStartDate) : null,
-                  votingEndDate: formData.votingEndDate ? new Date(formData.votingEndDate) : null,
+                  votingStartDate: formData.votingStartDate || null,
+                  votingEndDate: formData.votingEndDate || null,
                 } 
               })}
               disabled={updateProposalMutation.isPending}
@@ -699,8 +754,16 @@ export default function AdminDAOGovernance() {
       <Dialog open={isVotesOpen} onOpenChange={handleVotesDialogClose}>
         <DialogContent className="max-w-3xl max-h-[80vh] overflow-y-auto">
           <DialogHeader>
-            <DialogTitle>투표 현황: {selectedProposal?.title}</DialogTitle>
-            <DialogDescription>이 제안에 대한 투표 내역을 확인합니다</DialogDescription>
+            <div className="flex items-center justify-between">
+              <div>
+                <DialogTitle>투표 현황: {selectedProposal?.title}</DialogTitle>
+                <DialogDescription>이 제안에 대한 투표 내역을 확인합니다</DialogDescription>
+              </div>
+              <Button onClick={() => setIsAddVoteOpen(true)} size="sm" data-testid="button-add-vote">
+                <Plus className="mr-2 h-4 w-4" />
+                투표 추가
+              </Button>
+            </div>
           </DialogHeader>
           {selectedProposal && (
             <div className="grid grid-cols-3 gap-4 mb-4">
@@ -750,6 +813,7 @@ export default function AdminDAOGovernance() {
                   <TableHead>선택</TableHead>
                   <TableHead className="text-right">투표력</TableHead>
                   <TableHead>투표일시</TableHead>
+                  <TableHead className="text-right">작업</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -772,6 +836,17 @@ export default function AdminDAOGovernance() {
                     </TableCell>
                     <TableCell className="text-muted-foreground text-sm">
                       {new Date(vote.votedAt).toLocaleString('ko-KR')}
+                    </TableCell>
+                    <TableCell className="text-right">
+                      <Button 
+                        variant="ghost" 
+                        size="icon"
+                        onClick={() => deleteVoteMutation.mutate(vote.id)}
+                        disabled={deleteVoteMutation.isPending}
+                        data-testid={`button-delete-vote-${vote.id}`}
+                      >
+                        <Trash2 className="h-4 w-4 text-destructive" />
+                      </Button>
                     </TableCell>
                   </TableRow>
                 ))}
@@ -801,6 +876,74 @@ export default function AdminDAOGovernance() {
               data-testid="button-confirm-delete"
             >
               {deleteProposalMutation.isPending ? "삭제 중..." : "삭제"}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={isAddVoteOpen} onOpenChange={setIsAddVoteOpen}>
+        <DialogContent className="max-w-md">
+          <DialogHeader>
+            <DialogTitle>투표 추가</DialogTitle>
+            <DialogDescription>새 투표를 수동으로 추가합니다. Add a new vote manually.</DialogDescription>
+          </DialogHeader>
+          <div className="grid gap-4 py-4">
+            <div className="grid gap-2">
+              <Label htmlFor="voterAddress">투표자 주소 *</Label>
+              <Input
+                id="voterAddress"
+                value={voteFormData.voterAddress}
+                onChange={(e) => setVoteFormData({ ...voteFormData, voterAddress: e.target.value })}
+                placeholder="tb1..."
+                data-testid="input-voter-address"
+              />
+            </div>
+            <div className="grid gap-2">
+              <Label>투표 선택</Label>
+              <Select 
+                value={voteFormData.choice} 
+                onValueChange={(v) => setVoteFormData({ ...voteFormData, choice: v })}
+              >
+                <SelectTrigger data-testid="select-vote-choice">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="for">
+                    <span className="text-emerald-500">찬성 (For)</span>
+                  </SelectItem>
+                  <SelectItem value="against">
+                    <span className="text-red-500">반대 (Against)</span>
+                  </SelectItem>
+                  <SelectItem value="abstain">
+                    <span className="text-yellow-500">기권 (Abstain)</span>
+                  </SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="grid gap-2">
+              <Label htmlFor="votePower">투표력 (TBURN)</Label>
+              <Input
+                id="votePower"
+                type="number"
+                value={voteFormData.votePower}
+                onChange={(e) => setVoteFormData({ ...voteFormData, votePower: e.target.value })}
+                data-testid="input-vote-power"
+              />
+            </div>
+          </div>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setIsAddVoteOpen(false)} data-testid="button-cancel-vote">
+              취소
+            </Button>
+            <Button 
+              onClick={() => selectedProposal && createVoteMutation.mutate({ 
+                proposalId: selectedProposal.id, 
+                data: voteFormData 
+              })}
+              disabled={!voteFormData.voterAddress || createVoteMutation.isPending}
+              data-testid="button-submit-vote"
+            >
+              {createVoteMutation.isPending ? "추가 중..." : "투표 추가"}
             </Button>
           </DialogFooter>
         </DialogContent>

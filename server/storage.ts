@@ -1286,6 +1286,7 @@ export interface IStorage {
   getDaoVotes(proposalId: string): Promise<DaoVote[]>;
   getDaoVoteByVoter(proposalId: string, voterAddress: string): Promise<DaoVote | undefined>;
   createDaoVote(data: InsertDaoVote): Promise<DaoVote>;
+  deleteDaoVote(id: string): Promise<void>;
   
   // DAO Delegations
   getDaoDelegations(delegatorAddress: string): Promise<DaoDelegation[]>;
@@ -7258,6 +7259,10 @@ export class DbStorage implements IStorage {
   async createDaoVote(data: InsertDaoVote): Promise<DaoVote> {
     const [result] = await db.insert(daoVotes).values({ ...data, id: `dv-${randomUUID()}`, voterAddress: data.voterAddress.toLowerCase() }).returning();
     return result;
+  }
+
+  async deleteDaoVote(id: string): Promise<void> {
+    await db.delete(daoVotes).where(eq(daoVotes.id, id));
   }
 
   async getDaoDelegations(delegatorAddress: string): Promise<DaoDelegation[]> {

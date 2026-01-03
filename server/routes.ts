@@ -12770,6 +12770,47 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
+  app.post("/api/admin/token-programs/dao/proposals/:id/votes", requireAdmin, async (req, res) => {
+    try {
+      const vote = await storage.createDaoVote({
+        ...req.body,
+        proposalId: req.params.id
+      });
+      // Update proposal vote counts
+      const proposal = await storage.getDaoProposalById(req.params.id);
+      if (proposal) {
+        const votes = await storage.getDaoVotes(req.params.id);
+        let forVotes = 0, againstVotes = 0, abstainVotes = 0;
+        votes.forEach(v => {
+          const power = parseFloat(v.votePower);
+          if (v.choice === 'for') forVotes += power;
+          else if (v.choice === 'against') againstVotes += power;
+          else abstainVotes += power;
+        });
+        await storage.updateDaoProposal(req.params.id, {
+          forVotes: forVotes.toString(),
+          againstVotes: againstVotes.toString(),
+          abstainVotes: abstainVotes.toString(),
+          totalVoters: votes.length
+        });
+      }
+      res.json({ success: true, data: vote });
+    } catch (error) {
+      console.error('[DAO] Error creating vote:', error);
+      res.status(500).json({ error: 'Failed to create vote' });
+    }
+  });
+
+  app.delete("/api/admin/token-programs/dao/votes/:id", requireAdmin, async (req, res) => {
+    try {
+      await storage.deleteDaoVote(req.params.id);
+      res.json({ success: true, message: 'Vote deleted successfully' });
+    } catch (error) {
+      console.error('[DAO] Error deleting vote:', error);
+      res.status(500).json({ error: 'Failed to delete vote' });
+    }
+  });
+
   // Block Rewards Management
   app.get("/api/admin/token-programs/block-rewards/cycles", requireAdmin, async (req, res) => {
     try {
