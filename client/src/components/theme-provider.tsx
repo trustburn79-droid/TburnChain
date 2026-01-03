@@ -22,13 +22,16 @@ const ThemeProviderContext = createContext<ThemeProviderState>(initialState);
 
 export function ThemeProvider({
   children,
-  defaultTheme = "light",
+  defaultTheme = "dark",
   storageKey = "tburn-ui-theme",
   ...props
 }: ThemeProviderProps) {
-  const [theme, setTheme] = useState<Theme>(
-    () => (localStorage.getItem(storageKey) as Theme) || defaultTheme
-  );
+  const [theme, setTheme] = useState<Theme>(() => {
+    // CRITICAL: Default to dark for TBURN (dark-first blockchain platform)
+    if (typeof localStorage === 'undefined') return "dark";
+    const stored = localStorage.getItem(storageKey) as Theme;
+    return stored || defaultTheme;
+  });
 
   useEffect(() => {
     const root = window.document.documentElement;

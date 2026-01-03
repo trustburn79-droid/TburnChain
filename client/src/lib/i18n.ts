@@ -66,29 +66,45 @@ i18n
     returnNull: false,
   });
 
-const loadInitialLocale = async () => {
-  const lang = i18n.language || 'en';
+// CRITICAL: This function MUST call changeLanguage to trigger React re-render
+const loadInitialLocale = async (): Promise<void> => {
+  // Default to Korean for TBURN mainnet (Korean-first platform)
+  const storedLang = typeof localStorage !== 'undefined' ? localStorage.getItem('tburn-language') : null;
+  const lang = storedLang || i18n.language || 'ko';
+  
   updateDocumentDirection(lang);
   
-  if (!i18n.hasResourceBundle(lang, 'translation')) {
+  try {
+    const translations = await loadLocale(lang);
+    i18n.addResourceBundle(lang, 'translation', translations, true, true);
+    // CRITICAL: Must call changeLanguage to trigger re-render with loaded translations
+    await i18n.changeLanguage(lang);
+    console.log(`[i18n] Loaded ${lang} translations successfully`);
+  } catch (error) {
+    console.warn(`[i18n] Failed to load locale ${lang}, trying Korean fallback`);
     try {
-      const translations = await loadLocale(lang);
-      i18n.addResourceBundle(lang, 'translation', translations, true, true);
-    } catch (error) {
-      console.warn(`Failed to load locale ${lang}, trying English`);
-      if (lang !== 'en') {
-        try {
-          const enTranslations = await loadLocale('en');
-          i18n.addResourceBundle('en', 'translation', enTranslations, true, true);
-          i18n.changeLanguage('en');
-        } catch {
-          console.warn('Failed to load English locale');
-        }
+      const koTranslations = await loadLocale('ko');
+      i18n.addResourceBundle('ko', 'translation', koTranslations, true, true);
+      await i18n.changeLanguage('ko');
+      console.log('[i18n] Loaded Korean fallback');
+    } catch {
+      // Last resort: try English
+      try {
+        const enTranslations = await loadLocale('en');
+        i18n.addResourceBundle('en', 'translation', enTranslations, true, true);
+        await i18n.changeLanguage('en');
+        console.log('[i18n] Loaded English fallback');
+      } catch {
+        console.error('[i18n] Failed to load any locale');
       }
     }
   }
 };
 
+// Export for synchronous initialization in main.tsx
+export const initializeI18n = loadInitialLocale;
+
+// Auto-initialize (but main.tsx should await initializeI18n for production)
 loadInitialLocale();
 
 i18n.on('languageChanged', async (lang) => {

@@ -135,7 +135,7 @@ setTimeout(() => {
   }
 }, 5000);
 
-const BUILD_VERSION = "2026.01.02.v3";
+const BUILD_VERSION = "2026.01.03.v1";
 
 async function safeInitApp() {
   const htmlVersion = document.documentElement.getAttribute("data-version");
@@ -206,8 +206,11 @@ async function safeInitApp() {
   }
   
   try {
-    // CRITICAL: Load i18n in background - don't block app render
-    import("./lib/i18n").catch(e => console.warn("[TBURN] i18n load error:", e));
+    // CRITICAL: Initialize i18n BEFORE rendering to ensure translations are loaded
+    // This prevents showing translation keys on first render
+    const i18nModule = await import("./lib/i18n");
+    await i18nModule.initializeI18n();
+    console.log("[TBURN] i18n initialized successfully");
     
     // Route-based app shell loading for faster first paint
     // PublicApp includes Web3Provider for scan pages but excludes heavy admin providers
