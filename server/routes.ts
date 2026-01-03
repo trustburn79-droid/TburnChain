@@ -12963,7 +12963,29 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
 
   app.post("/api/admin/token-programs/ecosystem-grants", requireAdmin, async (req, res) => {
     try {
-      const grant = await storage.createEcosystemGrant(req.body);
+      const data = { ...req.body };
+      // Convert empty date strings to null, or parse to Date objects
+      if (data.proposedStartDate === '' || data.proposedStartDate === undefined) {
+        data.proposedStartDate = null;
+      } else if (typeof data.proposedStartDate === 'string') {
+        data.proposedStartDate = new Date(data.proposedStartDate);
+      }
+      if (data.proposedEndDate === '' || data.proposedEndDate === undefined) {
+        data.proposedEndDate = null;
+      } else if (typeof data.proposedEndDate === 'string') {
+        data.proposedEndDate = new Date(data.proposedEndDate);
+      }
+      if (data.actualStartDate === '' || data.actualStartDate === undefined) {
+        data.actualStartDate = null;
+      } else if (typeof data.actualStartDate === 'string') {
+        data.actualStartDate = new Date(data.actualStartDate);
+      }
+      if (data.actualEndDate === '' || data.actualEndDate === undefined) {
+        data.actualEndDate = null;
+      } else if (typeof data.actualEndDate === 'string') {
+        data.actualEndDate = new Date(data.actualEndDate);
+      }
+      const grant = await storage.createEcosystemGrant(data);
       res.json({ success: true, data: grant });
     } catch (error) {
       console.error('[EcosystemGrants] Error creating grant:', error);
@@ -12973,7 +12995,17 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
 
   app.patch("/api/admin/token-programs/ecosystem-grants/:id", requireAdmin, async (req, res) => {
     try {
-      await storage.updateEcosystemGrant(req.params.id, req.body);
+      const data = { ...req.body };
+      // Convert empty date strings to null, or parse to Date objects
+      const dateFields = ['proposedStartDate', 'proposedEndDate', 'actualStartDate', 'actualEndDate'];
+      for (const field of dateFields) {
+        if (data[field] === '' || data[field] === undefined) {
+          data[field] = null;
+        } else if (typeof data[field] === 'string') {
+          data[field] = new Date(data[field]);
+        }
+      }
+      await storage.updateEcosystemGrant(req.params.id, data);
       const grant = await storage.getEcosystemGrantById(req.params.id);
       res.json({ success: true, data: grant });
     } catch (error) {
@@ -12984,7 +13016,17 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
 
   app.post("/api/admin/token-programs/ecosystem-grants/:id/milestones", requireAdmin, async (req, res) => {
     try {
-      const milestone = await storage.createGrantMilestone({ ...req.body, grantId: req.params.id });
+      const data = { ...req.body, grantId: req.params.id };
+      // Convert date fields
+      const dateFields = ['dueDate', 'submittedAt', 'approvedAt', 'paidAt'];
+      for (const field of dateFields) {
+        if (data[field] === '' || data[field] === undefined) {
+          data[field] = null;
+        } else if (typeof data[field] === 'string') {
+          data[field] = new Date(data[field]);
+        }
+      }
+      const milestone = await storage.createGrantMilestone(data);
       res.json({ success: true, data: milestone });
     } catch (error) {
       console.error('[EcosystemGrants] Error creating milestone:', error);
