@@ -1549,13 +1549,19 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       const data = await response.json();
       res.json(data);
     } catch (error) {
+      // Fallback uses actual shard configuration from Enterprise Node
+      const enterpriseNode = getEnterpriseNode();
+      const shardConfig = enterpriseNode.getShardConfiguration();
+      const actualShardCount = shardConfig.currentShardCount;
+      const tpsPerShard = shardConfig.tpsPerShard;
+      
       res.json({
         timestamp: Date.now(),
         networkUptime: 0.998 + Math.random() * 0.002,
         transactionSuccessRate: 0.995 + Math.random() * 0.005,
         averageBlockTime: 0.095 + Math.random() * 0.01,
-        peakTps: 52847,
-        currentTps: 50000 + Math.floor(Math.random() * 2000),
+        peakTps: actualShardCount * tpsPerShard * 1.15,
+        currentTps: actualShardCount * tpsPerShard,
         blockProductionRate: 10,
         totalTransactions: 52847291,
         totalBlocks: 1917863,
@@ -1568,9 +1574,9 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
           network: Math.random() * 0.08 + 0.12
         },
         shardPerformance: {
-          totalShards: 8,
-          activeShards: 8,
-          averageTpsPerShard: 6200 + Math.floor(Math.random() * 400),
+          totalShards: actualShardCount,
+          activeShards: actualShardCount,
+          averageTpsPerShard: tpsPerShard + Math.floor(Math.random() * 400),
           crossShardLatency: 45 + Math.floor(Math.random() * 20)
         }
       });
@@ -10568,14 +10574,19 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       const data = await response.json();
       res.json(data);
     } catch (error) {
-      // Fallback to simulated enterprise data
+      // Fallback to simulated enterprise data - uses actual shard config
+      const enterpriseNode = getEnterpriseNode();
+      const shardConfig = enterpriseNode.getShardConfiguration();
+      const actualShardCount = shardConfig.currentShardCount;
+      const tpsPerShard = shardConfig.tpsPerShard;
+      
       res.json({
         timestamp: Date.now(),
         networkUptime: 0.998 + Math.random() * 0.002,
         transactionSuccessRate: 0.995 + Math.random() * 0.005,
         averageBlockTime: 0.095 + Math.random() * 0.01,
-        peakTps: 52847,
-        currentTps: 50000 + Math.floor(Math.random() * 2000),
+        peakTps: actualShardCount * tpsPerShard * 1.15,
+        currentTps: actualShardCount * tpsPerShard,
         blockProductionRate: 10,
         validatorParticipation: 0.85 + Math.random() * 0.15,
         consensusLatency: Math.floor(Math.random() * 15) + 25,
@@ -10586,9 +10597,9 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
           network: Math.random() * 0.08 + 0.12
         },
         shardPerformance: {
-          totalShards: 8,
-          activeShards: 8,
-          averageTpsPerShard: 6200 + Math.floor(Math.random() * 400),
+          totalShards: actualShardCount,
+          activeShards: actualShardCount,
+          averageTpsPerShard: tpsPerShard + Math.floor(Math.random() * 400),
           crossShardLatency: 45 + Math.floor(Math.random() * 20)
         }
       });
@@ -10596,34 +10607,39 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
 
   // Shard Performance Metrics (detailed per-shard data)
+  // CRITICAL: Uses Enterprise Node's generateShards() for exact shard count synchronization
   app.get("/api/admin/shards/performance", async (_req, res) => {
     try {
-      const response = await fetch("http://localhost:8545/api/shards");
-      if (!response.ok) throw new Error("Enterprise node unavailable");
-      const shardsData = await response.json();
+      // Use Enterprise Node directly for accurate shard data
+      const enterpriseNode = getEnterpriseNode();
+      const shardsData = enterpriseNode.generateShards();
       
-      // Map shard data to performance metrics
-      const shardPerformance = shardsData.shards.map((shard: any) => ({
+      // Map shard data to performance metrics format
+      const shardPerformance = shardsData.map((shard: any) => ({
         shardId: shard.id,
         tps: shard.tps || Math.floor(9500 + Math.random() * 1500),
         latency: shard.latency || Math.floor(175 + Math.random() * 25),
         load: shard.load || Math.floor(55 + Math.random() * 25),
         status: shard.status || (Math.random() > 0.15 ? "healthy" : "warning"),
-        validators: shard.validators || Math.floor(15 + Math.random() * 5),
+        validators: shard.validatorCount || Math.floor(15 + Math.random() * 5),
         pendingTx: shard.pendingTx || Math.floor(100 + Math.random() * 200)
       }));
       
       res.json({ shards: shardPerformance });
     } catch (error) {
-      // Fallback data based on enterprise configuration
-      const shardCount = 8;
+      // Fallback data based on actual enterprise configuration
+      const enterpriseNode = getEnterpriseNode();
+      const shardConfig = enterpriseNode.getShardConfiguration();
+      const shardCount = shardConfig.currentShardCount;
+      const validatorsPerShard = shardConfig.validatorsPerShard;
+      
       const shards = Array.from({ length: shardCount }, (_, i) => ({
         shardId: i,
         tps: Math.floor(9500 + Math.random() * 1500),
         latency: Math.floor(175 + Math.random() * 25),
         load: Math.floor(55 + Math.random() * 25),
         status: Math.random() > 0.15 ? "healthy" : "warning",
-        validators: Math.floor(15 + Math.random() * 5),
+        validators: validatorsPerShard,
         pendingTx: Math.floor(100 + Math.random() * 200)
       }));
       res.json({ shards });
