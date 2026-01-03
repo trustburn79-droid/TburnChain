@@ -115,6 +115,7 @@ const Login = lazy(() => import("@/pages/login"));
 const TokenGenerator = lazy(() => import("@/pages/token-generator"));
 const TreePage = lazy(() => import("@/pages/tree"));
 const AirdropPage = lazy(() => import("@/pages/airdrop"));
+const AirdropClaimPage = lazy(() => import("@/pages/airdrop-claim"));
 const ReferralPage = lazy(() => import("@/pages/referral"));
 const EventsPage = lazy(() => import("@/pages/events"));
 const CommunityProgramPage = lazy(() => import("@/pages/community-program"));
@@ -178,6 +179,16 @@ export function PublicRouter() {
       <ErrorBoundary>
         <Suspense fallback={<PageLoading />}>
           <AirdropPage />
+        </Suspense>
+      </ErrorBoundary>
+    );
+  }
+  
+  if (location === "/airdrop-claim") {
+    return (
+      <ErrorBoundary>
+        <Suspense fallback={<PageLoading />}>
+          <AirdropClaimPage />
         </Suspense>
       </ErrorBoundary>
     );
