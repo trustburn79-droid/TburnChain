@@ -8691,3 +8691,78 @@ export type InsertPublicParticipant = z.infer<typeof insertPublicParticipantSche
 
 export type PublicPayout = typeof publicPayouts.$inferSelect;
 export type InsertPublicPayout = z.infer<typeof insertPublicPayoutSchema>;
+
+// ============================================
+// IDO Launchpad Program Tables (Token Sale)
+// ============================================
+export const idoLaunchpadProjects = pgTable("ido_launchpad_projects", {
+  id: varchar("id").primaryKey(),
+  projectName: text("project_name").notNull(),
+  tokenName: text("token_name").notNull(),
+  tokenSymbol: text("token_symbol").notNull(),
+  tokenAddress: text("token_address"),
+  description: text("description"),
+  website: text("website"),
+  twitter: text("twitter"),
+  telegram: text("telegram"),
+  discord: text("discord"),
+  logoUrl: text("logo_url"),
+  tokenPrice: numeric("token_price").notNull().default("0.01"),
+  totalSupply: text("total_supply").notNull().default("0"),
+  saleAllocation: text("sale_allocation").notNull().default("0"),
+  hardCap: numeric("hard_cap").notNull().default("100000"),
+  softCap: numeric("soft_cap").notNull().default("50000"),
+  raisedAmount: numeric("raised_amount").notNull().default("0"),
+  minContribution: numeric("min_contribution").notNull().default("100"),
+  maxContribution: numeric("max_contribution").notNull().default("10000"),
+  tgePercentage: integer("tge_percentage").notNull().default(20),
+  vestingMonths: integer("vesting_months").notNull().default(12),
+  cliffMonths: integer("cliff_months").notNull().default(1),
+  startDate: timestamp("start_date"),
+  endDate: timestamp("end_date"),
+  listingDate: timestamp("listing_date"),
+  kycRequired: boolean("kyc_required").notNull().default(true),
+  whitelistOnly: boolean("whitelist_only").notNull().default(false),
+  status: text("status").notNull().default("draft"),
+  featured: boolean("featured").notNull().default(false),
+  notes: text("notes"),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
+export const idoLaunchpadParticipants = pgTable("ido_launchpad_participants", {
+  id: varchar("id").primaryKey(),
+  projectId: varchar("project_id").notNull(),
+  walletAddress: text("wallet_address").notNull(),
+  email: text("email"),
+  contributionAmount: numeric("contribution_amount").notNull().default("0"),
+  contributionCurrency: text("contribution_currency").notNull().default("usdt"),
+  tokenAmount: text("token_amount").notNull().default("0"),
+  distributedAmount: text("distributed_amount").notNull().default("0"),
+  txHash: text("tx_hash"),
+  kycVerified: boolean("kyc_verified").notNull().default(false),
+  whitelisted: boolean("whitelisted").notNull().default(false),
+  paymentReceived: boolean("payment_received").notNull().default(false),
+  status: text("status").notNull().default("pending"),
+  notes: text("notes"),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
+export const insertIdoLaunchpadProjectSchema = createInsertSchema(idoLaunchpadProjects).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertIdoLaunchpadParticipantSchema = createInsertSchema(idoLaunchpadParticipants).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export type IdoLaunchpadProject = typeof idoLaunchpadProjects.$inferSelect;
+export type InsertIdoLaunchpadProject = z.infer<typeof insertIdoLaunchpadProjectSchema>;
+
+export type IdoLaunchpadParticipant = typeof idoLaunchpadParticipants.$inferSelect;
+export type InsertIdoLaunchpadParticipant = z.infer<typeof insertIdoLaunchpadParticipantSchema>;

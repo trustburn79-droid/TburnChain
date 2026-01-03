@@ -465,6 +465,12 @@ import {
   type InsertPublicPayout,
   publicParticipants,
   publicPayouts,
+  type IdoLaunchpadProject,
+  type InsertIdoLaunchpadProject,
+  type IdoLaunchpadParticipant,
+  type InsertIdoLaunchpadParticipant,
+  idoLaunchpadProjects,
+  idoLaunchpadParticipants,
 } from "@shared/schema";
 import { randomUUID } from "crypto";
 import { db } from "./db";
@@ -7811,6 +7817,52 @@ export class DbStorage implements IStorage {
 
   async updatePublicPayout(id: string, data: Partial<PublicPayout>): Promise<void> {
     await db.update(publicPayouts).set(data).where(eq(publicPayouts.id, id));
+  }
+
+  // IDO Launchpad Program Implementation
+  async getAllIdoLaunchpadProjects(limit: number = 100): Promise<IdoLaunchpadProject[]> {
+    return db.select().from(idoLaunchpadProjects).orderBy(desc(idoLaunchpadProjects.createdAt)).limit(limit);
+  }
+
+  async getIdoLaunchpadProjectById(id: string): Promise<IdoLaunchpadProject | undefined> {
+    const [result] = await db.select().from(idoLaunchpadProjects).where(eq(idoLaunchpadProjects.id, id));
+    return result;
+  }
+
+  async createIdoLaunchpadProject(data: InsertIdoLaunchpadProject): Promise<IdoLaunchpadProject> {
+    const [result] = await db.insert(idoLaunchpadProjects).values({ ...data, id: `launch-${randomUUID()}` }).returning();
+    return result;
+  }
+
+  async updateIdoLaunchpadProject(id: string, data: Partial<IdoLaunchpadProject>): Promise<void> {
+    await db.update(idoLaunchpadProjects).set({ ...data, updatedAt: new Date() }).where(eq(idoLaunchpadProjects.id, id));
+  }
+
+  async getIdoLaunchpadStats(): Promise<{ totalProjects: number; activeProjects: number; upcomingProjects: number; totalParticipants: number; totalRaised: string }> {
+    const projects = await this.getAllIdoLaunchpadProjects(100000);
+    const active = projects.filter(p => p.status === 'active' || p.status === 'live');
+    const upcoming = projects.filter(p => p.status === 'upcoming' || p.status === 'scheduled');
+    const totalRaised = projects.reduce((sum, p) => sum + parseFloat(p.raisedAmount || '0'), 0);
+    const participants = await db.select().from(idoLaunchpadParticipants);
+    return { totalProjects: projects.length, activeProjects: active.length, upcomingProjects: upcoming.length, totalParticipants: participants.length, totalRaised: totalRaised.toFixed(2) };
+  }
+
+  async getIdoLaunchpadParticipants(projectId: string, limit: number = 100): Promise<IdoLaunchpadParticipant[]> {
+    return db.select().from(idoLaunchpadParticipants).where(eq(idoLaunchpadParticipants.projectId, projectId)).orderBy(desc(idoLaunchpadParticipants.createdAt)).limit(limit);
+  }
+
+  async getIdoLaunchpadParticipantById(id: string): Promise<IdoLaunchpadParticipant | undefined> {
+    const [result] = await db.select().from(idoLaunchpadParticipants).where(eq(idoLaunchpadParticipants.id, id));
+    return result;
+  }
+
+  async createIdoLaunchpadParticipant(data: InsertIdoLaunchpadParticipant): Promise<IdoLaunchpadParticipant> {
+    const [result] = await db.insert(idoLaunchpadParticipants).values({ ...data, id: `lpart-${randomUUID()}` }).returning();
+    return result;
+  }
+
+  async updateIdoLaunchpadParticipant(id: string, data: Partial<IdoLaunchpadParticipant>): Promise<void> {
+    await db.update(idoLaunchpadParticipants).set({ ...data, updatedAt: new Date() }).where(eq(idoLaunchpadParticipants.id, id));
   }
 }
 

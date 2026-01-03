@@ -13145,6 +13145,95 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
+  // IDO Launchpad Program Management
+  app.get("/api/admin/token-programs/launchpad/projects", requireAdmin, async (req, res) => {
+    try {
+      const limit = parseInt(req.query.limit as string) || 100;
+      const projects = await storage.getAllIdoLaunchpadProjects(limit);
+      const stats = await storage.getIdoLaunchpadStats();
+      res.json({ success: true, data: { projects, stats } });
+    } catch (error) {
+      console.error('[Launchpad] Error fetching projects:', error);
+      res.status(500).json({ error: 'Failed to fetch launchpad projects' });
+    }
+  });
+
+  app.get("/api/admin/token-programs/launchpad/projects/:id", requireAdmin, async (req, res) => {
+    try {
+      const project = await storage.getIdoLaunchpadProjectById(req.params.id);
+      if (!project) {
+        return res.status(404).json({ error: 'Project not found' });
+      }
+      const participants = await storage.getIdoLaunchpadParticipants(project.id);
+      res.json({ success: true, data: { project, participants } });
+    } catch (error) {
+      console.error('[Launchpad] Error fetching project:', error);
+      res.status(500).json({ error: 'Failed to fetch project' });
+    }
+  });
+
+  app.post("/api/admin/token-programs/launchpad/projects", requireAdmin, async (req, res) => {
+    try {
+      const data = { ...req.body };
+      const dateFields = ['startDate', 'endDate', 'listingDate'];
+      for (const field of dateFields) {
+        if (data[field] === '' || data[field] === undefined) {
+          data[field] = null;
+        } else if (typeof data[field] === 'string') {
+          data[field] = new Date(data[field]);
+        }
+      }
+      const project = await storage.createIdoLaunchpadProject(data);
+      res.json({ success: true, data: project });
+    } catch (error) {
+      console.error('[Launchpad] Error creating project:', error);
+      res.status(500).json({ error: 'Failed to create launchpad project' });
+    }
+  });
+
+  app.patch("/api/admin/token-programs/launchpad/projects/:id", requireAdmin, async (req, res) => {
+    try {
+      const data = { ...req.body };
+      const dateFields = ['startDate', 'endDate', 'listingDate'];
+      for (const field of dateFields) {
+        if (data[field] === '' || data[field] === undefined) {
+          data[field] = null;
+        } else if (typeof data[field] === 'string') {
+          data[field] = new Date(data[field]);
+        }
+      }
+      await storage.updateIdoLaunchpadProject(req.params.id, data);
+      const project = await storage.getIdoLaunchpadProjectById(req.params.id);
+      res.json({ success: true, data: project });
+    } catch (error) {
+      console.error('[Launchpad] Error updating project:', error);
+      res.status(500).json({ error: 'Failed to update launchpad project' });
+    }
+  });
+
+  app.post("/api/admin/token-programs/launchpad/projects/:projectId/participants", requireAdmin, async (req, res) => {
+    try {
+      const data = { ...req.body, projectId: req.params.projectId };
+      const participant = await storage.createIdoLaunchpadParticipant(data);
+      res.json({ success: true, data: participant });
+    } catch (error) {
+      console.error('[Launchpad] Error creating participant:', error);
+      res.status(500).json({ error: 'Failed to create participant' });
+    }
+  });
+
+  app.patch("/api/admin/token-programs/launchpad/participants/:id", requireAdmin, async (req, res) => {
+    try {
+      const data = { ...req.body };
+      await storage.updateIdoLaunchpadParticipant(req.params.id, data);
+      const participant = await storage.getIdoLaunchpadParticipantById(req.params.id);
+      res.json({ success: true, data: participant });
+    } catch (error) {
+      console.error('[Launchpad] Error updating participant:', error);
+      res.status(500).json({ error: 'Failed to update participant' });
+    }
+  });
+
   // Public Round Program Management
   app.get("/api/admin/token-programs/public-round/participants", requireAdmin, async (req, res) => {
     try {
