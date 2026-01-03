@@ -477,6 +477,12 @@ import {
   type InsertCoinlistParticipant,
   coinlistSales,
   coinlistParticipants,
+  type DaoMakerSho,
+  type InsertDaoMakerSho,
+  type DaoMakerParticipant,
+  type InsertDaoMakerParticipant,
+  daoMakerShos,
+  daoMakerParticipants,
 } from "@shared/schema";
 import { randomUUID } from "crypto";
 import { db } from "./db";
@@ -7924,6 +7930,83 @@ export class DbStorage implements IStorage {
     const winners = shuffled.slice(0, count);
     for (const winner of winners) {
       await db.update(coinlistParticipants).set({ isWinner: true, winnerSelectedDate: new Date(), queuePosition: winners.indexOf(winner) + 1, status: 'winner', updatedAt: new Date() }).where(eq(coinlistParticipants.id, winner.id));
+    }
+    return winners.length;
+  }
+
+  // DAO Maker SHO Program Implementation
+  async getAllDaoMakerShos(limit: number = 100): Promise<DaoMakerSho[]> {
+    return db.select().from(daoMakerShos).orderBy(desc(daoMakerShos.createdAt)).limit(limit);
+  }
+
+  async getDaoMakerShoById(id: string): Promise<DaoMakerSho | undefined> {
+    const [result] = await db.select().from(daoMakerShos).where(eq(daoMakerShos.id, id));
+    return result;
+  }
+
+  async createDaoMakerSho(data: InsertDaoMakerSho): Promise<DaoMakerSho> {
+    const [result] = await db.insert(daoMakerShos).values({ ...data, id: `sho-${randomUUID()}` }).returning();
+    return result;
+  }
+
+  async updateDaoMakerSho(id: string, data: Partial<DaoMakerSho>): Promise<void> {
+    await db.update(daoMakerShos).set({ ...data, updatedAt: new Date() }).where(eq(daoMakerShos.id, id));
+  }
+
+  async getDaoMakerStats(): Promise<{ totalShos: number; activeShos: number; totalParticipants: number; totalWinners: number; totalRaised: string; avgDaoPower: number }> {
+    const shos = await this.getAllDaoMakerShos(100000);
+    const active = shos.filter(s => s.status === 'active' || s.status === 'live');
+    const totalRaised = shos.reduce((sum, s) => sum + parseFloat(s.raisedAmount || '0'), 0);
+    const participants = await db.select().from(daoMakerParticipants);
+    const winners = participants.filter(p => p.isWinner);
+    const avgDaoPower = participants.length > 0 ? Math.round(participants.reduce((sum, p) => sum + (p.daoPower || 0), 0) / participants.length) : 0;
+    return { totalShos: shos.length, activeShos: active.length, totalParticipants: participants.length, totalWinners: winners.length, totalRaised: totalRaised.toFixed(2), avgDaoPower };
+  }
+
+  async getDaoMakerParticipants(shoId: string, limit: number = 100): Promise<DaoMakerParticipant[]> {
+    return db.select().from(daoMakerParticipants).where(eq(daoMakerParticipants.shoId, shoId)).orderBy(desc(daoMakerParticipants.daoPower)).limit(limit);
+  }
+
+  async getDaoMakerParticipantById(id: string): Promise<DaoMakerParticipant | undefined> {
+    const [result] = await db.select().from(daoMakerParticipants).where(eq(daoMakerParticipants.id, id));
+    return result;
+  }
+
+  async createDaoMakerParticipant(data: InsertDaoMakerParticipant): Promise<DaoMakerParticipant> {
+    const tier = (data.daoPower || 0) >= 10000 ? 'diamond' : (data.daoPower || 0) >= 5000 ? 'platinum' : (data.daoPower || 0) >= 2000 ? 'gold' : (data.daoPower || 0) >= 500 ? 'silver' : 'bronze';
+    const [result] = await db.insert(daoMakerParticipants).values({ ...data, tier, id: `dmp-${randomUUID()}` }).returning();
+    return result;
+  }
+
+  async updateDaoMakerParticipant(id: string, data: Partial<DaoMakerParticipant>): Promise<void> {
+    if (data.daoPower !== undefined) {
+      data.tier = data.daoPower >= 10000 ? 'diamond' : data.daoPower >= 5000 ? 'platinum' : data.daoPower >= 2000 ? 'gold' : data.daoPower >= 500 ? 'silver' : 'bronze';
+    }
+    await db.update(daoMakerParticipants).set({ ...data, updatedAt: new Date() }).where(eq(daoMakerParticipants.id, id));
+  }
+
+  async selectDaoMakerWinners(shoId: string, count: number): Promise<number> {
+    const participants = await db.select().from(daoMakerParticipants).where(and(eq(daoMakerParticipants.shoId, shoId), eq(daoMakerParticipants.kycVerified, true), eq(daoMakerParticipants.isWinner, false)));
+    const totalPower = participants.reduce((sum, p) => sum + (p.daoPower || 1), 0);
+    const weighted: { p: DaoMakerParticipant; weight: number }[] = [];
+    for (const p of participants) {
+      const weight = (p.daoPower || 1) / totalPower;
+      weighted.push({ p, weight: weight + (weighted.length > 0 ? weighted[weighted.length - 1].weight : 0) });
+    }
+    const winners: DaoMakerParticipant[] = [];
+    while (winners.length < count && weighted.length > 0) {
+      const rand = Math.random();
+      const idx = weighted.findIndex(w => rand <= w.weight);
+      if (idx >= 0) {
+        winners.push(weighted[idx].p);
+        weighted.splice(idx, 1);
+        let cumulative = 0;
+        const newTotal = weighted.reduce((sum, w) => sum + (w.p.daoPower || 1), 0);
+        for (const w of weighted) { cumulative += (w.p.daoPower || 1) / newTotal; w.weight = cumulative; }
+      }
+    }
+    for (const winner of winners) {
+      await db.update(daoMakerParticipants).set({ isWinner: true, winnerSelectedDate: new Date(), status: 'winner', updatedAt: new Date() }).where(eq(daoMakerParticipants.id, winner.id));
     }
     return winners.length;
   }

@@ -13350,6 +13350,122 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
+  // DAO Maker SHO Program Management
+  app.get("/api/admin/token-programs/dao-maker/shos", requireAdmin, async (req, res) => {
+    try {
+      const limit = parseInt(req.query.limit as string) || 100;
+      const shos = await storage.getAllDaoMakerShos(limit);
+      const stats = await storage.getDaoMakerStats();
+      res.json({ success: true, data: { shos, stats } });
+    } catch (error) {
+      console.error('[DAOMaker] Error fetching SHOs:', error);
+      res.status(500).json({ error: 'Failed to fetch DAO Maker SHOs' });
+    }
+  });
+
+  app.get("/api/admin/token-programs/dao-maker/shos/:id", requireAdmin, async (req, res) => {
+    try {
+      const sho = await storage.getDaoMakerShoById(req.params.id);
+      if (!sho) {
+        return res.status(404).json({ error: 'SHO not found' });
+      }
+      const participants = await storage.getDaoMakerParticipants(sho.id);
+      res.json({ success: true, data: { sho, participants } });
+    } catch (error) {
+      console.error('[DAOMaker] Error fetching SHO:', error);
+      res.status(500).json({ error: 'Failed to fetch SHO' });
+    }
+  });
+
+  app.post("/api/admin/token-programs/dao-maker/shos", requireAdmin, async (req, res) => {
+    try {
+      const data = { ...req.body };
+      const dateFields = ['registrationStart', 'registrationEnd', 'saleStart', 'saleEnd'];
+      for (const field of dateFields) {
+        if (data[field] === '' || data[field] === undefined) {
+          data[field] = null;
+        } else if (typeof data[field] === 'string') {
+          data[field] = new Date(data[field]);
+        }
+      }
+      const sho = await storage.createDaoMakerSho(data);
+      res.json({ success: true, data: sho });
+    } catch (error) {
+      console.error('[DAOMaker] Error creating SHO:', error);
+      res.status(500).json({ error: 'Failed to create DAO Maker SHO' });
+    }
+  });
+
+  app.patch("/api/admin/token-programs/dao-maker/shos/:id", requireAdmin, async (req, res) => {
+    try {
+      const data = { ...req.body };
+      const dateFields = ['registrationStart', 'registrationEnd', 'saleStart', 'saleEnd'];
+      for (const field of dateFields) {
+        if (data[field] === '' || data[field] === undefined) {
+          data[field] = null;
+        } else if (typeof data[field] === 'string') {
+          data[field] = new Date(data[field]);
+        }
+      }
+      await storage.updateDaoMakerSho(req.params.id, data);
+      const sho = await storage.getDaoMakerShoById(req.params.id);
+      res.json({ success: true, data: sho });
+    } catch (error) {
+      console.error('[DAOMaker] Error updating SHO:', error);
+      res.status(500).json({ error: 'Failed to update DAO Maker SHO' });
+    }
+  });
+
+  app.post("/api/admin/token-programs/dao-maker/shos/:shoId/participants", requireAdmin, async (req, res) => {
+    try {
+      const data = { ...req.body, shoId: req.params.shoId };
+      const dateFields = ['kycVerifiedDate', 'winnerSelectedDate', 'paymentReceivedDate'];
+      for (const field of dateFields) {
+        if (data[field] === '' || data[field] === undefined) {
+          data[field] = null;
+        } else if (typeof data[field] === 'string') {
+          data[field] = new Date(data[field]);
+        }
+      }
+      const participant = await storage.createDaoMakerParticipant(data);
+      res.json({ success: true, data: participant });
+    } catch (error) {
+      console.error('[DAOMaker] Error creating participant:', error);
+      res.status(500).json({ error: 'Failed to create participant' });
+    }
+  });
+
+  app.patch("/api/admin/token-programs/dao-maker/participants/:id", requireAdmin, async (req, res) => {
+    try {
+      const data = { ...req.body };
+      const dateFields = ['kycVerifiedDate', 'winnerSelectedDate', 'paymentReceivedDate'];
+      for (const field of dateFields) {
+        if (data[field] === '' || data[field] === undefined) {
+          data[field] = null;
+        } else if (typeof data[field] === 'string') {
+          data[field] = new Date(data[field]);
+        }
+      }
+      await storage.updateDaoMakerParticipant(req.params.id, data);
+      const participant = await storage.getDaoMakerParticipantById(req.params.id);
+      res.json({ success: true, data: participant });
+    } catch (error) {
+      console.error('[DAOMaker] Error updating participant:', error);
+      res.status(500).json({ error: 'Failed to update participant' });
+    }
+  });
+
+  app.post("/api/admin/token-programs/dao-maker/shos/:shoId/select-winners", requireAdmin, async (req, res) => {
+    try {
+      const { count } = req.body;
+      const winnersSelected = await storage.selectDaoMakerWinners(req.params.shoId, count);
+      res.json({ success: true, data: { winnersSelected } });
+    } catch (error) {
+      console.error('[DAOMaker] Error selecting winners:', error);
+      res.status(500).json({ error: 'Failed to select winners' });
+    }
+  });
+
   // Public Round Program Management
   app.get("/api/admin/token-programs/public-round/participants", requireAdmin, async (req, res) => {
     try {

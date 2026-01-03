@@ -8836,3 +8836,75 @@ export type InsertCoinlistSale = z.infer<typeof insertCoinlistSaleSchema>;
 
 export type CoinlistParticipant = typeof coinlistParticipants.$inferSelect;
 export type InsertCoinlistParticipant = z.infer<typeof insertCoinlistParticipantSchema>;
+
+// ============================================
+// DAO Maker SHO Program Tables
+// ============================================
+export const daoMakerShos = pgTable("dao_maker_shos", {
+  id: varchar("id").primaryKey(),
+  shoName: text("sho_name").notNull(),
+  tokenSymbol: text("token_symbol").notNull().default("TBURN"),
+  tokenPrice: numeric("token_price").notNull().default("0.02"),
+  totalAllocation: text("total_allocation").notNull().default("0"),
+  hardCap: numeric("hard_cap").notNull().default("500000"),
+  raisedAmount: numeric("raised_amount").notNull().default("0"),
+  minDaoPower: integer("min_dao_power").notNull().default(100),
+  minPurchase: numeric("min_purchase").notNull().default("100"),
+  maxPurchase: numeric("max_purchase").notNull().default("2500"),
+  totalWinners: integer("total_winners").notNull().default(500),
+  registrationStart: timestamp("registration_start"),
+  registrationEnd: timestamp("registration_end"),
+  saleStart: timestamp("sale_start"),
+  saleEnd: timestamp("sale_end"),
+  tgePercentage: integer("tge_percentage").notNull().default(20),
+  vestingMonths: integer("vesting_months").notNull().default(9),
+  kycRequired: boolean("kyc_required").notNull().default(true),
+  status: text("status").notNull().default("draft"),
+  notes: text("notes"),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
+export const daoMakerParticipants = pgTable("dao_maker_participants", {
+  id: varchar("id").primaryKey(),
+  shoId: varchar("sho_id").notNull(),
+  walletAddress: text("wallet_address").notNull(),
+  email: text("email"),
+  daoPower: integer("dao_power").notNull().default(0),
+  stakedAmount: text("staked_amount").notNull().default("0"),
+  tier: text("tier").notNull().default("bronze"),
+  investmentAmount: numeric("investment_amount").notNull().default("0"),
+  investmentCurrency: text("investment_currency").notNull().default("usdt"),
+  allocationAmount: numeric("allocation_amount").notNull().default("0"),
+  tokenAmount: text("token_amount").notNull().default("0"),
+  distributedAmount: text("distributed_amount").notNull().default("0"),
+  txHash: text("tx_hash"),
+  kycVerified: boolean("kyc_verified").notNull().default(false),
+  kycVerifiedDate: timestamp("kyc_verified_date"),
+  isWinner: boolean("is_winner").notNull().default(false),
+  winnerSelectedDate: timestamp("winner_selected_date"),
+  paymentReceived: boolean("payment_received").notNull().default(false),
+  paymentReceivedDate: timestamp("payment_received_date"),
+  status: text("status").notNull().default("registered"),
+  notes: text("notes"),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
+export const insertDaoMakerShoSchema = createInsertSchema(daoMakerShos).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertDaoMakerParticipantSchema = createInsertSchema(daoMakerParticipants).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export type DaoMakerSho = typeof daoMakerShos.$inferSelect;
+export type InsertDaoMakerSho = z.infer<typeof insertDaoMakerShoSchema>;
+
+export type DaoMakerParticipant = typeof daoMakerParticipants.$inferSelect;
+export type InsertDaoMakerParticipant = z.infer<typeof insertDaoMakerParticipantSchema>;
