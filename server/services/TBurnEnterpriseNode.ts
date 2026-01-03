@@ -251,13 +251,13 @@ export class TBurnEnterpriseNode extends EventEmitter {
 
   // ============================================
   // DYNAMIC SHARD SCALING SYSTEM (Enterprise Grade)
-  // Supports 5-128 shards based on hardware capacity
+  // Supports 5-64 shards - admin selectable via /admin/shards
   // Includes validation, rollback, audit logging, and health monitoring
   // ============================================
   private shardConfig = {
-    currentShardCount: 5,           // Current active shards (5 for dev, 128 for enterprise)
+    currentShardCount: 5,           // Current active shards (5 for dev, 64 for production)
     minShards: 5,                   // Minimum shard count
-    maxShards: 128,                 // Maximum shard count (64-core enterprise optimized)
+    maxShards: 64,                  // Maximum shard count (admin can select 5-64)
     validatorsPerShard: 25,         // Base validators per shard
     tpsPerShard: 10000,             // Base TPS per shard
     crossShardLatencyMs: 50,        // Cross-shard communication latency
@@ -453,11 +453,12 @@ export class TBurnEnterpriseNode extends EventEmitter {
     }
     
     // Auto-detect profile based on hardware specifications
-    // Profile requirements (with tolerance for OS memory overhead):
-    //   development: default (5 shards)
-    //   staging: 16+ cores AND 60+ GB RAM (32 shards) - tolerates 64GB servers reporting ~60-63GB
-    //   production: 32+ cores AND 240+ GB RAM (64 shards) - tolerates 256GB servers reporting ~240-255GB
-    //   enterprise: 64+ cores AND 480+ GB RAM (128 shards) - tolerates 512GB servers reporting ~480-510GB
+    // All profiles now support 5-64 shards (admin selectable)
+    // Profile requirements (for informational display only):
+    //   development: 8+ cores AND 30+ GB RAM
+    //   staging: 16+ cores AND 60+ GB RAM
+    //   production: 32+ cores AND 240+ GB RAM
+    //   enterprise: 64+ cores AND 480+ GB RAM
     let profileName: keyof typeof this.HARDWARE_PROFILES = 'development';
     if (detectedCores >= 64 && detectedRamGB >= 480) {
       profileName = 'enterprise';
@@ -1255,10 +1256,10 @@ export class TBurnEnterpriseNode extends EventEmitter {
 
   // Hardware requirement profiles (no fixed TPS - calculated dynamically)
   private readonly HARDWARE_PROFILES = {
-    development: { cores: 4, ramGB: 16, maxShards: 5 },
-    staging: { cores: 16, ramGB: 64, maxShards: 32 },
+    development: { cores: 8, ramGB: 32, maxShards: 64 },  // Current dev: 8 vCPU, 32GB RAM, supports 5-64 shards
+    staging: { cores: 16, ramGB: 64, maxShards: 64 },
     production: { cores: 32, ramGB: 256, maxShards: 64 },
-    enterprise: { cores: 64, ramGB: 512, maxShards: 128 }
+    enterprise: { cores: 64, ramGB: 512, maxShards: 64 }  // Max 64 shards across all profiles
   };
   
   // ============================================
@@ -2112,9 +2113,9 @@ export class TBurnEnterpriseNode extends EventEmitter {
     const hardwareProfile = this.detectHardwareProfile();
     
     // Allow environment variable override for max shards (useful for production servers)
-    // MAX_SHARDS=64 for 32-core server, MAX_SHARDS=128 for 64-core server
+    // MAX_SHARDS=64 for all profiles (admin can select 5-64 shards)
     const envMaxShards = process.env.MAX_SHARDS ? parseInt(process.env.MAX_SHARDS) : null;
-    const effectiveMaxShards = envMaxShards && envMaxShards >= 5 && envMaxShards <= 128 
+    const effectiveMaxShards = envMaxShards && envMaxShards >= 5 && envMaxShards <= 64 
       ? envMaxShards 
       : hardwareProfile.maxShards;
     
@@ -2137,9 +2138,9 @@ export class TBurnEnterpriseNode extends EventEmitter {
         const envShards = parseInt(process.env.MAX_SHARDS, 10);
         console.log(`[Enterprise Node] ⚡ FORCE OVERRIDE: Setting shards to ${envShards} (Ignoring DB value of ${this.shardConfig.currentShardCount})`);
 
-        this.shardConfig.currentShardCount = envShards;
-        this.shardConfig.minShards = envShards;
-        this.shardConfig.maxShards = 128;
+        this.shardConfig.currentShardCount = Math.min(envShards, 64);  // Clamp to max 64
+        this.shardConfig.minShards = 5;  // Keep min at 5 for admin flexibility
+        this.shardConfig.maxShards = 64;  // Admin can select 5-64 shards
       }
         
       // Verify API key
@@ -2267,8 +2268,8 @@ export class TBurnEnterpriseNode extends EventEmitter {
     // Get hardware profile for a specific shard count (preview)
     this.rpcApp.get('/api/admin/shards/preview/:count', (req: Request, res: Response) => {
       const count = parseInt(req.params.count);
-      if (isNaN(count) || count < 1 || count > 128) {
-        return res.status(400).json({ error: 'Invalid shard count. Must be between 1 and 128.' });
+      if (isNaN(count) || count < 5 || count > 64) {
+        return res.status(400).json({ error: 'Invalid shard count. Must be between 5 and 64.' });
       }
       
       const requirements = this.calculateHardwareRequirements(count);

@@ -10,7 +10,7 @@ I prefer simple language and detailed explanations. I want iterative development
 The platform utilizes a modern web stack with React 18, TypeScript, Vite, Wouter for routing, and TanStack Query v5 for frontend data fetching. The UI/UX features a clean design using Space Grotesk and JetBrains Mono typography, implemented with Shadcn UI and Tailwind CSS. The backend is an Express.js application providing REST APIs and WebSockets for real-time updates. Data persistence is managed by Neon Serverless PostgreSQL with Drizzle ORM.
 
 Core architectural decisions and features include:
-- **Dynamic Shard Management**: Supports dynamic scaling of shards (5-128) and validators with transactional updates and audit logging.
+- **Dynamic Shard Management**: Supports dynamic scaling of shards (5-64) and validators with transactional updates and audit logging. Admin can select shard count at `/admin/shards`.
 - **Unified AI Model Configuration**: Integrates Gemini 3 Pro, Claude Sonnet 4.5, GPT-4o, and Grok 3 with automatic fallback for consistent AI usage.
 - **Internationalization**: Full Korean and English support with fallback for other languages.
 - **Standardized UI Components**: Reusable components for data display, loading states, error handling, and CRUD operations.
