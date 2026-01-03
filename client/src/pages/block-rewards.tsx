@@ -1,13 +1,53 @@
 import { useState } from "react";
 import { Link } from "wouter";
+import { useQuery } from "@tanstack/react-query";
 import { TBurnLogo } from "@/components/tburn-logo";
+import { useWeb3 } from "@/lib/web3-context";
+
+interface BlockRewardsStatsData {
+  currentEpoch: number;
+  totalRewardsDistributed: number;
+  currentBlockReward: number;
+  nextHalvingBlock: number;
+  blocksToHalving: number;
+  rewardSchedule: Array<{
+    year: string;
+    period: string;
+    reward: string;
+    amount: string;
+  }>;
+  distribution: {
+    validators: number;
+    delegators: number;
+    treasury: number;
+  };
+}
+
+interface BlockRewardsStatsResponse {
+  success: boolean;
+  data: BlockRewardsStatsData;
+}
 
 export default function BlockRewardsPage() {
   const [activeFaq, setActiveFaq] = useState<string | null>("faq-1");
   const [stakeAmount, setStakeAmount] = useState(1000000);
+  const { isConnected, address, connect, disconnect, formatAddress } = useWeb3();
+
+  const { data: response, isLoading } = useQuery<BlockRewardsStatsResponse>({
+    queryKey: ['/api/token-programs/block-rewards/stats'],
+  });
+  const stats = response?.data;
 
   const toggleFaq = (id: string) => {
     setActiveFaq(activeFaq === id ? null : id);
+  };
+
+  const handleWalletClick = async () => {
+    if (isConnected) {
+      disconnect();
+    } else {
+      await connect("metamask");
+    }
   };
 
   const halvingSchedule = [
@@ -1161,8 +1201,12 @@ export default function BlockRewardsPage() {
             <a href="#slashing">슬래싱</a>
             <a href="#faq">FAQ</a>
           </nav>
-          <button className="connect-btn" data-testid="button-connect-wallet">
-            🔗 지갑 연결
+          <button 
+            className="connect-btn" 
+            data-testid="button-connect-wallet"
+            onClick={handleWalletClick}
+          >
+            {isConnected && address ? `🔗 ${formatAddress(address)}` : '🔗 지갑 연결'}
           </button>
         </div>
       </header>
@@ -1184,12 +1228,12 @@ export default function BlockRewardsPage() {
           </p>
 
           <div className="network-stats-banner" data-testid="network-stats">
-            <div className="network-stat">
-              <div className="value live">125</div>
+            <div className="network-stat" data-testid="stat-current-epoch">
+              <div className="value live">{isLoading ? '...' : stats?.currentEpoch || 125}</div>
               <div className="label">활성 밸리데이터</div>
             </div>
-            <div className="network-stat">
-              <div className="value">~210K</div>
+            <div className="network-stat" data-testid="stat-blocks-to-halving">
+              <div className="value">{isLoading ? '...' : stats?.blocksToHalving ? `~${(stats.blocksToHalving / 1000).toFixed(0)}K` : '~210K'}</div>
               <div className="label">TPS</div>
             </div>
             <div className="network-stat">
@@ -1207,20 +1251,20 @@ export default function BlockRewardsPage() {
           </div>
 
           <div className="stats-grid">
-            <div className="stat-card" data-testid="stat-total-reward">
-              <div className="stat-value">14.5억</div>
+            <div className="stat-card" data-testid="stat-total-rewards-distributed">
+              <div className="stat-value">{isLoading ? '...' : stats?.totalRewardsDistributed?.toLocaleString() || '14.5억'}</div>
               <div className="stat-label">총 블록 보상 풀</div>
             </div>
-            <div className="stat-card" data-testid="stat-daily-emission">
-              <div className="stat-value">~200,000</div>
+            <div className="stat-card" data-testid="stat-current-block-reward">
+              <div className="stat-value">{isLoading ? '...' : stats?.currentBlockReward?.toLocaleString() || '~200,000'}</div>
               <div className="stat-label">일일 발행량 (Year 1)</div>
             </div>
-            <div className="stat-card" data-testid="stat-duration">
-              <div className="stat-value">20년</div>
+            <div className="stat-card" data-testid="stat-next-halving">
+              <div className="stat-value">{isLoading ? '...' : stats?.nextHalvingBlock?.toLocaleString() || '20년'}</div>
               <div className="stat-label">보상 기간</div>
             </div>
-            <div className="stat-card" data-testid="stat-apy">
-              <div className="stat-value">15~25%</div>
+            <div className="stat-card" data-testid="stat-distribution-validators">
+              <div className="stat-value">{isLoading ? '...' : stats?.distribution?.validators ? `${stats.distribution.validators}%` : '15~25%'}</div>
               <div className="stat-label">예상 APY</div>
             </div>
           </div>

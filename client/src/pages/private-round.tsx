@@ -1,9 +1,50 @@
 import { useState } from "react";
 import { Link } from "wouter";
+import { useQuery } from "@tanstack/react-query";
 import { TBurnLogo } from "@/components/tburn-logo";
+import { useWeb3 } from "@/lib/web3-context";
+
+interface InvestmentRound {
+  name: string;
+  status: string;
+  allocation: string;
+  price: string;
+  raised: string;
+  investors: number;
+  vesting: string;
+  unlocked: string;
+}
+
+interface InvestmentRoundsStatsData {
+  rounds: InvestmentRound[];
+  totalRaised: string;
+  totalInvestors: number;
+  nextUnlock: string;
+}
+
+interface InvestmentRoundsStatsResponse {
+  success: boolean;
+  data: InvestmentRoundsStatsData;
+}
 
 export default function PrivateRoundPage() {
   const [activeFaq, setActiveFaq] = useState<string | null>("faq-1");
+  const { isConnected, address, connect, disconnect, formatAddress } = useWeb3();
+
+  const { data: response, isLoading } = useQuery<InvestmentRoundsStatsResponse>({
+    queryKey: ['/api/token-programs/investment-rounds/stats'],
+  });
+  const stats = response?.data;
+
+  const privateRound = stats?.rounds?.find(r => r.name.toLowerCase().includes('private'));
+
+  const handleWalletClick = async () => {
+    if (isConnected) {
+      disconnect();
+    } else {
+      await connect("metamask");
+    }
+  };
 
   const toggleFaq = (id: string) => {
     setActiveFaq(activeFaq === id ? null : id);
@@ -940,8 +981,12 @@ export default function PrivateRoundPage() {
             <a href="#investors">투자자</a>
             <a href="#faq">FAQ</a>
           </nav>
-          <button className="connect-btn" data-testid="button-invest-private">
-            🔐 기관 투자 문의
+          <button 
+            className="connect-btn" 
+            onClick={handleWalletClick}
+            data-testid="button-connect-wallet"
+          >
+            {isConnected ? formatAddress(address!) : "🔐 기관 투자 문의"}
           </button>
         </div>
       </header>
@@ -988,22 +1033,30 @@ export default function PrivateRoundPage() {
           </div>
 
           <div className="stats-grid">
-            <div className="stat-card" data-testid="stat-total-private">
-              <div className="stat-value">9억</div>
-              <div className="stat-label">프라이빗 배정</div>
-            </div>
-            <div className="stat-card" data-testid="stat-price">
-              <div className="stat-value">$0.015</div>
-              <div className="stat-label">토큰 가격</div>
-            </div>
-            <div className="stat-card" data-testid="stat-hardcap">
-              <div className="stat-value">$13.5M</div>
-              <div className="stat-label">하드캡</div>
-            </div>
-            <div className="stat-card" data-testid="stat-investors">
-              <div className="stat-value">28+</div>
-              <div className="stat-label">기관 투자자</div>
-            </div>
+            {isLoading ? (
+              <div className="stat-card" data-testid="loading-indicator">
+                <div className="stat-value" style={{ opacity: 0.5 }}>로딩중...</div>
+              </div>
+            ) : (
+              <>
+                <div className="stat-card" data-testid="stat-total-private">
+                  <div className="stat-value">{privateRound?.allocation || "9억"}</div>
+                  <div className="stat-label">프라이빗 배정</div>
+                </div>
+                <div className="stat-card" data-testid="stat-price">
+                  <div className="stat-value">{privateRound?.price || "$0.015"}</div>
+                  <div className="stat-label">토큰 가격</div>
+                </div>
+                <div className="stat-card" data-testid="stat-hardcap">
+                  <div className="stat-value">{privateRound?.raised || "$13.5M"}</div>
+                  <div className="stat-label">하드캡</div>
+                </div>
+                <div className="stat-card" data-testid="stat-investors">
+                  <div className="stat-value">{privateRound?.investors || 28}+</div>
+                  <div className="stat-label">기관 투자자</div>
+                </div>
+              </>
+            )}
           </div>
 
           <div className="cta-group">

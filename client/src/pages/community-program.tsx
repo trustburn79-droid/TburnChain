@@ -1,12 +1,41 @@
 import { useState } from "react";
 import { Link } from "wouter";
+import { useQuery } from "@tanstack/react-query";
 import { TBurnLogo } from "@/components/tburn-logo";
+import { useWeb3 } from "@/lib/web3-context";
+
+interface CommunityStatsData {
+  totalContributors: number;
+  totalContributions: number;
+  totalRewardsDistributed: number;
+  activeTasks: number;
+  categories: Array<{ name: string; count: number }>;
+}
+
+interface CommunityStatsResponse {
+  success: boolean;
+  data: CommunityStatsData;
+}
 
 export default function CommunityProgramPage() {
   const [activeFaq, setActiveFaq] = useState<string | null>("faq-1");
+  const { isConnected, address, connect, disconnect, formatAddress } = useWeb3();
+
+  const { data: response, isLoading } = useQuery<CommunityStatsResponse>({
+    queryKey: ['/api/token-programs/community/stats'],
+  });
+  const stats = response?.data;
 
   const toggleFaq = (id: string) => {
     setActiveFaq(activeFaq === id ? null : id);
+  };
+
+  const handleWalletClick = async () => {
+    if (isConnected) {
+      disconnect();
+    } else {
+      await connect("metamask");
+    }
   };
 
   const programs = [
@@ -969,8 +998,12 @@ export default function CommunityProgramPage() {
             <a href="#leaderboard">리더보드</a>
             <a href="#faq">FAQ</a>
           </nav>
-          <button className="connect-btn" data-testid="button-connect-wallet">
-            🔗 지갑 연결
+          <button 
+            className="connect-btn" 
+            data-testid="button-connect-wallet"
+            onClick={handleWalletClick}
+          >
+            {isConnected && address ? `🔗 ${formatAddress(address)}` : '🔗 지갑 연결'}
           </button>
         </div>
       </header>
@@ -992,20 +1025,20 @@ export default function CommunityProgramPage() {
           </p>
 
           <div className="stats-grid">
-            <div className="stat-card" data-testid="stat-total-reward">
-              <div className="stat-value">3억</div>
+            <div className="stat-card" data-testid="stat-total-contributors">
+              <div className="stat-value">{isLoading ? '...' : stats?.totalContributors?.toLocaleString() || '3억'}</div>
               <div className="stat-label">총 커뮤니티 보상 풀</div>
             </div>
-            <div className="stat-card" data-testid="stat-tge-unlock">
-              <div className="stat-value">4,500만</div>
+            <div className="stat-card" data-testid="stat-total-contributions">
+              <div className="stat-value">{isLoading ? '...' : stats?.totalContributions?.toLocaleString() || '4,500만'}</div>
               <div className="stat-label">TGE 즉시 해제 (15%)</div>
             </div>
-            <div className="stat-card" data-testid="stat-vesting">
-              <div className="stat-value">36개월</div>
+            <div className="stat-card" data-testid="stat-total-rewards">
+              <div className="stat-value">{isLoading ? '...' : stats?.totalRewardsDistributed?.toLocaleString() || '36개월'}</div>
               <div className="stat-label">베스팅 기간</div>
             </div>
-            <div className="stat-card" data-testid="stat-programs-count">
-              <div className="stat-value">6가지</div>
+            <div className="stat-card" data-testid="stat-active-tasks">
+              <div className="stat-value">{isLoading ? '...' : stats?.activeTasks || '6가지'}</div>
               <div className="stat-label">참여 프로그램</div>
             </div>
           </div>

@@ -1,11 +1,44 @@
 import { useState, useEffect } from "react";
 import { Link } from "wouter";
+import { useQuery } from "@tanstack/react-query";
 import { TBurnLogo } from "@/components/tburn-logo";
+import { useWeb3 } from "@/lib/web3-context";
+
+interface ApiEvent {
+  id: string;
+  name: string;
+  description: string;
+  status: string;
+  startDate: string;
+  endDate: string;
+  rewardPool: string;
+  participantCount: number;
+  category?: string;
+  icon?: string;
+}
+
+interface EventsApiResponse {
+  success: boolean;
+  data: {
+    totalEvents: number;
+    activeEventsCount: number;
+    totalParticipants: number;
+    totalRewardsDistributed: string;
+    upcomingEvents: ApiEvent[];
+    activeEvents: ApiEvent[];
+  };
+}
 
 export default function EventsPage() {
   const [activeCategory, setActiveCategory] = useState("all");
   const [activeFaq, setActiveFaq] = useState<string | null>("faq-1");
   const [countdown, setCountdown] = useState({ days: 14, hours: 23, minutes: 59, seconds: 59 });
+  
+  const { isConnected, address, connect, disconnect, formatAddress } = useWeb3();
+
+  const { data: eventsData, isLoading: isEventsLoading } = useQuery<EventsApiResponse>({
+    queryKey: ['/api/token-programs/events/list'],
+  });
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -26,7 +59,30 @@ export default function EventsPage() {
     setActiveFaq(activeFaq === id ? null : id);
   };
 
-  const events = [
+  const handleWalletClick = async () => {
+    if (isConnected) {
+      disconnect();
+    } else {
+      await connect("metamask");
+    }
+  };
+
+  const handleParticipate = async (eventId: string) => {
+    if (!isConnected) {
+      await connect("metamask");
+    }
+  };
+
+  const apiData = eventsData?.data;
+  const activeEventsCount = apiData?.activeEventsCount ?? (Array.isArray(apiData?.activeEvents) ? apiData.activeEvents.length : 0);
+  const apiStats = {
+    totalEvents: apiData?.totalEvents ?? 0,
+    activeEvents: activeEventsCount,
+    totalParticipants: apiData?.totalParticipants ?? 0,
+    totalRewardsDistributed: apiData?.totalRewardsDistributed ?? "0",
+  };
+
+  const staticEvents = [
     { id: "launch", category: "launch live", icon: "🚀", status: "진행중", statusClass: "live", title: "메인넷 런칭 그랜드 이벤트", desc: "TBURN Chain 메인넷 런칭을 기념하는 최대 규모 이벤트! 참여만 해도 보상 획득", reward: "5,000만", date: "~2026.01.31", featured: true },
     { id: "trading", category: "trading live", icon: "📊", status: "진행중", statusClass: "live", title: "트레이딩 대회 시즌 1", desc: "거래량 TOP 100에게 총 2,000만 TBURN 배분! 수익률 경쟁도 진행", reward: "2,000만", date: "~2026.02.28", featured: false },
     { id: "staking", category: "staking live", icon: "💎", status: "진행중", statusClass: "live", title: "스테이킹 부스트 이벤트", desc: "첫 30일 스테이킹 APY 2배! 얼리 스테이커 특별 보너스", reward: "3,000만", date: "~2026.02.15", featured: false },
@@ -34,6 +90,34 @@ export default function EventsPage() {
     { id: "quiz", category: "community live", icon: "🧠", status: "진행중", statusClass: "live", title: "TBURN 퀴즈 챌린지", desc: "TBURN Chain에 대한 퀴즈를 풀고 보상을 받으세요! 매일 새로운 문제", reward: "1,000만", date: "상시 진행", featured: false },
     { id: "dex", category: "partner", icon: "🤝", status: "예정", statusClass: "upcoming", title: "DEX 런칭 기념 이벤트", desc: "TBURN DEX 런칭 기념! 유동성 공급자 특별 보상", reward: "2,000만", date: "2026.02.01~", featured: false },
   ];
+
+  const apiActiveEvents = (Array.isArray(apiData?.activeEvents) ? apiData.activeEvents : []).map((e: ApiEvent) => ({
+    id: e.id,
+    category: e.category || "live",
+    icon: e.icon || "🎯",
+    status: "진행중",
+    statusClass: "live",
+    title: e.name,
+    desc: e.description,
+    reward: Number(e.rewardPool).toLocaleString(),
+    date: `~${new Date(e.endDate).toLocaleDateString('ko-KR')}`,
+    featured: false,
+  })) || [];
+
+  const apiUpcomingEvents = (Array.isArray(apiData?.upcomingEvents) ? apiData.upcomingEvents : []).map((e: ApiEvent) => ({
+    id: e.id,
+    category: e.category || "upcoming",
+    icon: e.icon || "📅",
+    status: "예정",
+    statusClass: "upcoming",
+    title: e.name,
+    desc: e.description,
+    reward: Number(e.rewardPool).toLocaleString(),
+    date: `${new Date(e.startDate).toLocaleDateString('ko-KR')}~`,
+    featured: false,
+  })) || [];
+
+  const events = [...staticEvents, ...apiActiveEvents, ...apiUpcomingEvents];
 
   const filteredEvents = activeCategory === "all" 
     ? events 
@@ -886,8 +970,12 @@ export default function EventsPage() {
             <a href="#leaderboard">리더보드</a>
             <a href="#faq">FAQ</a>
           </nav>
-          <button className="connect-btn" data-testid="button-connect-wallet">
-            🔗 지갑 연결
+          <button 
+            className="connect-btn" 
+            data-testid="button-connect-wallet"
+            onClick={handleWalletClick}
+          >
+            {isConnected && address ? `🔗 ${formatAddress(address)}` : '🔗 지갑 연결'}
           </button>
         </div>
       </header>
@@ -935,27 +1023,39 @@ export default function EventsPage() {
                 <div className="countdown-label">초</div>
               </div>
             </div>
-            <button className="live-cta" data-testid="button-participate">
-              ➜ 참여하기
+            <button 
+              className="live-cta" 
+              data-testid="button-participate"
+              onClick={() => handleParticipate('launch')}
+            >
+              {isConnected ? '➜ 참여하기' : '➜ 지갑 연결'}
             </button>
           </div>
 
-          <div className="stats-grid">
-            <div className="stat-card" data-testid="stat-total-reward">
-              <div className="stat-value">4억</div>
-              <div className="stat-label">총 이벤트 보상 풀</div>
+          <div className="stats-grid" data-testid="stats-grid">
+            <div className="stat-card" data-testid="stat-total-events">
+              <div className="stat-value">
+                {isEventsLoading ? '...' : (apiStats.totalEvents > 0 ? apiStats.totalEvents.toLocaleString() : '12+')}
+              </div>
+              <div className="stat-label">총 이벤트 수</div>
             </div>
-            <div className="stat-card" data-testid="stat-tge-unlock">
-              <div className="stat-value">6,000만</div>
-              <div className="stat-label">TGE 즉시 해제 (15%)</div>
+            <div className="stat-card" data-testid="stat-active-events">
+              <div className="stat-value">
+                {isEventsLoading ? '...' : (apiStats.activeEvents > 0 ? apiStats.activeEvents.toLocaleString() : '6')}
+              </div>
+              <div className="stat-label">진행중 이벤트</div>
             </div>
-            <div className="stat-card" data-testid="stat-vesting">
-              <div className="stat-value">24개월</div>
-              <div className="stat-label">베스팅 기간</div>
+            <div className="stat-card" data-testid="stat-total-participants">
+              <div className="stat-value">
+                {isEventsLoading ? '...' : (apiStats.totalParticipants > 0 ? apiStats.totalParticipants.toLocaleString() : '0')}
+              </div>
+              <div className="stat-label">총 참여자</div>
             </div>
-            <div className="stat-card" data-testid="stat-events-count">
-              <div className="stat-value">12+</div>
-              <div className="stat-label">진행 예정 이벤트</div>
+            <div className="stat-card" data-testid="stat-rewards-distributed">
+              <div className="stat-value">
+                {isEventsLoading ? '...' : (Number(apiStats.totalRewardsDistributed) > 0 ? Number(apiStats.totalRewardsDistributed).toLocaleString() : '4억')}
+              </div>
+              <div className="stat-label">총 보상 풀</div>
             </div>
           </div>
         </div>
@@ -1032,28 +1132,44 @@ export default function EventsPage() {
           </button>
         </div>
 
-        <div className="events-grid">
-          {filteredEvents.map(event => (
-            <div key={event.id} className={`event-card ${event.featured ? 'featured' : ''}`} data-testid={`event-${event.id}`}>
-              <div className={`event-image ${event.category.split(' ')[0]}`}>
-                <div className="event-icon">{event.icon}</div>
-                <span className={`event-status ${event.statusClass}`}>{event.status}</span>
-              </div>
-              <div className="event-content">
-                <h3 className="event-title">{event.title}</h3>
-                <p className="event-desc">{event.desc}</p>
-                <div className="event-meta">
-                  <div className="event-reward">
-                    🪙 <span>{event.reward} TBURN</span>
-                  </div>
-                  <span className="event-date">{event.date}</span>
-                </div>
-                <button className={`event-btn ${event.statusClass === 'upcoming' ? 'secondary' : ''}`}>
-                  {event.statusClass === 'upcoming' ? '곧 시작' : '참여하기'}
-                </button>
-              </div>
+        <div className="events-grid" data-testid="events-grid">
+          {isEventsLoading ? (
+            <div className="stat-card" style={{ gridColumn: '1 / -1', textAlign: 'center', padding: '3rem' }} data-testid="events-loading">
+              <div className="stat-value">Loading...</div>
+              <div className="stat-label">이벤트 데이터를 불러오는 중...</div>
             </div>
-          ))}
+          ) : filteredEvents.length === 0 ? (
+            <div className="stat-card" style={{ gridColumn: '1 / -1', textAlign: 'center', padding: '3rem' }} data-testid="events-empty">
+              <div className="stat-value">No Events</div>
+              <div className="stat-label">해당 카테고리에 이벤트가 없습니다</div>
+            </div>
+          ) : (
+            filteredEvents.map(event => (
+              <div key={event.id} className={`event-card ${event.featured ? 'featured' : ''}`} data-testid={`event-card-${event.id}`}>
+                <div className={`event-image ${event.category.split(' ')[0]}`}>
+                  <div className="event-icon">{event.icon}</div>
+                  <span className={`event-status ${event.statusClass}`} data-testid={`event-status-${event.id}`}>{event.status}</span>
+                </div>
+                <div className="event-content">
+                  <h3 className="event-title" data-testid={`event-title-${event.id}`}>{event.title}</h3>
+                  <p className="event-desc" data-testid={`event-desc-${event.id}`}>{event.desc}</p>
+                  <div className="event-meta">
+                    <div className="event-reward" data-testid={`event-reward-${event.id}`}>
+                      🪙 <span>{event.reward} TBURN</span>
+                    </div>
+                    <span className="event-date" data-testid={`event-date-${event.id}`}>{event.date}</span>
+                  </div>
+                  <button 
+                    className={`event-btn ${event.statusClass === 'upcoming' ? 'secondary' : ''}`}
+                    onClick={() => handleParticipate(event.id)}
+                    data-testid={`button-event-participate-${event.id}`}
+                  >
+                    {event.statusClass === 'upcoming' ? '곧 시작' : (isConnected ? '참여하기' : '지갑 연결')}
+                  </button>
+                </div>
+              </div>
+            ))
+          )}
         </div>
       </section>
 
@@ -1163,15 +1279,20 @@ export default function EventsPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="cta-section">
+      <section className="cta-section" data-testid="cta-section">
         <div style={{ maxWidth: '800px', margin: '0 auto' }}>
           <h2 style={{ fontSize: '2.5rem', fontWeight: 800, marginBottom: '1rem' }}>지금 이벤트에 참여하세요!</h2>
           <p style={{ color: 'rgba(255,255,255,0.8)', fontSize: '1.125rem', marginBottom: '2rem' }}>
             다양한 이벤트에 참여하고 최대 4억 TBURN 보상을 받아가세요.<br />
             빠른 참여 = 더 많은 보상!
           </p>
-          <button className="connect-btn" style={{ background: 'var(--white)', color: 'var(--orange)', fontSize: '1.25rem', padding: '20px 50px' }}>
-            🚀 지금 참여하기
+          <button 
+            className="connect-btn" 
+            style={{ background: 'var(--white)', color: 'var(--orange)', fontSize: '1.25rem', padding: '20px 50px' }}
+            onClick={handleWalletClick}
+            data-testid="button-cta-participate"
+          >
+            {isConnected ? '🚀 지금 참여하기' : '🔗 지갑 연결하고 시작하기'}
           </button>
         </div>
       </section>

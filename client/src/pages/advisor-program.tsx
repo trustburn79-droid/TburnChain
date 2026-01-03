@@ -1,9 +1,52 @@
 import { useState } from "react";
 import { Link } from "wouter";
 import { TBurnLogo } from "@/components/tburn-logo";
+import { useQuery } from "@tanstack/react-query";
+import { useWeb3 } from "@/lib/web3-context";
+
+interface PartnershipStatsData {
+  partnerships: {
+    total: number;
+    strategic: number;
+    technical: number;
+    marketing: number;
+    allocation: string;
+    distributed: string;
+  };
+  marketing: {
+    totalBudget: string;
+    spent: string;
+    campaigns: number;
+    activeCampaigns: number;
+    reach: string;
+    conversions: number;
+  };
+  advisors: {
+    total: number;
+    allocation: string;
+    vesting: string;
+    unlocked: number;
+  };
+  strategicPartners: Array<{
+    name: string;
+    type: string;
+    allocation: string;
+  }>;
+}
+
+interface PartnershipStatsResponse {
+  success: boolean;
+  data: PartnershipStatsData;
+}
 
 export default function AdvisorProgramPage() {
+  const { isConnected, address, connect, disconnect, formatAddress } = useWeb3();
   const [activeFaq, setActiveFaq] = useState<string | null>("faq-1");
+
+  const { data: statsResponse, isLoading: isLoadingStats } = useQuery<PartnershipStatsResponse>({
+    queryKey: ['/api/token-programs/partnerships/stats'],
+  });
+  const advisorData = statsResponse?.data?.advisors;
 
   const toggleFaq = (id: string) => {
     setActiveFaq(activeFaq === id ? null : id);
@@ -900,8 +943,12 @@ export default function AdvisorProgramPage() {
             <a href="#process">지원 절차</a>
             <a href="#faq">FAQ</a>
           </nav>
-          <button className="connect-btn" data-testid="button-apply-advisor">
-            💡 자문단 지원
+          <button 
+            className="connect-btn" 
+            data-testid="button-connect-wallet"
+            onClick={() => isConnected ? disconnect() : connect("metamask")}
+          >
+            {isConnected ? `🔗 ${formatAddress(address || '')}` : '🔗 지갑 연결'}
           </button>
         </div>
       </header>
@@ -934,22 +981,30 @@ export default function AdvisorProgramPage() {
             ))}
           </div>
 
-          <div className="stats-grid">
+          <div className="stats-grid" data-testid="advisor-stats-grid">
             <div className="stat-card" data-testid="stat-total-advisor">
-              <div className="stat-value">2억</div>
+              <div className="stat-value">
+                {isLoadingStats ? '...' : advisorData?.allocation ? `${(parseInt(advisorData.allocation) / 1000000).toFixed(0)}M` : '2억'}
+              </div>
               <div className="stat-label">총 자문 예산</div>
             </div>
             <div className="stat-card" data-testid="stat-advisors">
-              <div className="stat-value">25+</div>
+              <div className="stat-value">
+                {isLoadingStats ? '...' : `${advisorData?.total || 12}+`}
+              </div>
               <div className="stat-label">현재 자문위원</div>
             </div>
             <div className="stat-card" data-testid="stat-fields">
-              <div className="stat-value">5개</div>
-              <div className="stat-label">자문 분야</div>
+              <div className="stat-value">
+                {isLoadingStats ? '...' : `${advisorData?.unlocked || 8}명`}
+              </div>
+              <div className="stat-label">활성 자문위원</div>
             </div>
             <div className="stat-card" data-testid="stat-max-reward">
-              <div className="stat-value">1,500만</div>
-              <div className="stat-label">최대 연간 보상</div>
+              <div className="stat-value">
+                {isLoadingStats ? '...' : advisorData?.vesting || '24개월'}
+              </div>
+              <div className="stat-label">베스팅 기간</div>
             </div>
           </div>
 

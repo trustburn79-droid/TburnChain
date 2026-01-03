@@ -1,9 +1,39 @@
 import { useState } from "react";
 import { Link } from "wouter";
+import { useQuery } from "@tanstack/react-query";
 import { TBurnLogo } from "@/components/tburn-logo";
+import { useWeb3 } from "@/lib/web3-context";
+
+interface EcosystemFundStatsData {
+  totalFundSize: string;
+  totalAllocated: string;
+  totalProjects: number;
+  activeProjects: number;
+  categories: Array<{ name: string; allocation: string; percent: string }>;
+  recentGrants: Array<{ name: string; amount: string; category: string }>;
+}
+
+interface EcosystemFundStatsResponse {
+  success: boolean;
+  data: EcosystemFundStatsData;
+}
 
 export default function EcosystemFundPage() {
   const [activeFaq, setActiveFaq] = useState<string | null>("faq-1");
+  const { isConnected, address, connect, disconnect, formatAddress } = useWeb3();
+
+  const { data: response, isLoading } = useQuery<EcosystemFundStatsResponse>({
+    queryKey: ['/api/token-programs/ecosystem-fund/stats'],
+  });
+  const stats = response?.data;
+
+  const handleWalletClick = async () => {
+    if (isConnected) {
+      disconnect();
+    } else {
+      await connect("metamask");
+    }
+  };
 
   const toggleFaq = (id: string) => {
     setActiveFaq(activeFaq === id ? null : id);
@@ -898,8 +928,12 @@ export default function EcosystemFundPage() {
             <a href="#portfolio">포트폴리오</a>
             <a href="#faq">FAQ</a>
           </nav>
-          <button className="connect-btn" data-testid="button-connect-wallet">
-            🔗 지갑 연결
+          <button 
+            className="connect-btn" 
+            onClick={handleWalletClick}
+            data-testid="button-connect-wallet"
+          >
+            {isConnected ? formatAddress(address!) : "🔗 지갑 연결"}
           </button>
         </div>
       </header>
@@ -921,26 +955,34 @@ export default function EcosystemFundPage() {
           </p>
 
           <div className="fund-stats-banner" data-testid="fund-stats">
-            <div className="fund-stat">
-              <div className="value">7억</div>
-              <div className="label">총 펀드 규모</div>
-            </div>
-            <div className="fund-stat">
-              <div className="value">124</div>
-              <div className="label">지원 프로젝트</div>
-            </div>
-            <div className="fund-stat">
-              <div className="value">$175M+</div>
-              <div className="label">총 투자 유치</div>
-            </div>
-            <div className="fund-stat">
-              <div className="value">32</div>
-              <div className="label">활성 dApp</div>
-            </div>
-            <div className="fund-stat">
-              <div className="value">85%</div>
-              <div className="label">성공률</div>
-            </div>
+            {isLoading ? (
+              <div className="fund-stat" data-testid="loading-indicator">
+                <div className="value" style={{ opacity: 0.5 }}>로딩중...</div>
+              </div>
+            ) : (
+              <>
+                <div className="fund-stat">
+                  <div className="value" data-testid="stat-fund-size">{stats?.totalFundSize || "7억"}</div>
+                  <div className="label">총 펀드 규모</div>
+                </div>
+                <div className="fund-stat">
+                  <div className="value" data-testid="stat-total-projects">{stats?.totalProjects || 124}</div>
+                  <div className="label">지원 프로젝트</div>
+                </div>
+                <div className="fund-stat">
+                  <div className="value" data-testid="stat-allocated">{stats?.totalAllocated || "$175M+"}</div>
+                  <div className="label">총 투자 유치</div>
+                </div>
+                <div className="fund-stat">
+                  <div className="value" data-testid="stat-active-projects">{stats?.activeProjects || 32}</div>
+                  <div className="label">활성 dApp</div>
+                </div>
+                <div className="fund-stat">
+                  <div className="value">85%</div>
+                  <div className="label">성공률</div>
+                </div>
+              </>
+            )}
           </div>
 
           <div className="stats-grid">

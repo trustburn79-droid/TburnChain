@@ -1,9 +1,52 @@
 import { useState } from "react";
 import { Link } from "wouter";
 import { TBurnLogo } from "@/components/tburn-logo";
+import { useQuery } from "@tanstack/react-query";
+import { useWeb3 } from "@/lib/web3-context";
+
+interface PartnershipStatsData {
+  partnerships: {
+    total: number;
+    strategic: number;
+    technical: number;
+    marketing: number;
+    allocation: string;
+    distributed: string;
+  };
+  marketing: {
+    totalBudget: string;
+    spent: string;
+    campaigns: number;
+    activeCampaigns: number;
+    reach: string;
+    conversions: number;
+  };
+  advisors: {
+    total: number;
+    allocation: string;
+    vesting: string;
+    unlocked: number;
+  };
+  strategicPartners: Array<{
+    name: string;
+    type: string;
+    allocation: string;
+  }>;
+}
+
+interface PartnershipStatsResponse {
+  success: boolean;
+  data: PartnershipStatsData;
+}
 
 export default function MarketingProgramPage() {
+  const { isConnected, address, connect, disconnect, formatAddress } = useWeb3();
   const [activeFaq, setActiveFaq] = useState<string | null>("faq-1");
+
+  const { data: statsResponse, isLoading: isLoadingStats } = useQuery<PartnershipStatsResponse>({
+    queryKey: ['/api/token-programs/partnerships/stats'],
+  });
+  const marketingStats = statsResponse?.data?.marketing;
 
   const toggleFaq = (id: string) => {
     setActiveFaq(activeFaq === id ? null : id);
@@ -892,8 +935,12 @@ export default function MarketingProgramPage() {
             <a href="#leaderboard">리더보드</a>
             <a href="#faq">FAQ</a>
           </nav>
-          <button className="connect-btn" data-testid="button-connect-wallet">
-            🔗 지갑 연결
+          <button 
+            className="connect-btn" 
+            data-testid="button-connect-wallet"
+            onClick={() => isConnected ? disconnect() : connect("metamask")}
+          >
+            {isConnected ? `🔗 ${formatAddress(address || '')}` : '🔗 지갑 연결'}
           </button>
         </div>
       </header>
@@ -924,22 +971,30 @@ export default function MarketingProgramPage() {
             ))}
           </div>
 
-          <div className="stats-grid">
+          <div className="stats-grid" data-testid="marketing-stats-grid">
             <div className="stat-card" data-testid="stat-total-marketing">
-              <div className="stat-value">3억</div>
+              <div className="stat-value">
+                {isLoadingStats ? '...' : marketingStats?.totalBudget ? `${(parseInt(marketingStats.totalBudget) / 1000000).toFixed(0)}M` : '3억'}
+              </div>
               <div className="stat-label">총 마케팅 예산</div>
             </div>
             <div className="stat-card" data-testid="stat-ambassadors">
-              <div className="stat-value">2,500+</div>
+              <div className="stat-value">
+                {isLoadingStats ? '...' : marketingStats?.conversions ? `${(marketingStats.conversions / 1000).toFixed(0)}K+` : '2,500+'}
+              </div>
               <div className="stat-label">활성 앰배서더</div>
             </div>
             <div className="stat-card" data-testid="stat-campaigns">
-              <div className="stat-value">50+</div>
+              <div className="stat-value">
+                {isLoadingStats ? '...' : `${marketingStats?.campaigns || 50}+`}
+              </div>
               <div className="stat-label">진행중 캠페인</div>
             </div>
             <div className="stat-card" data-testid="stat-monthly-reward">
-              <div className="stat-value">월 50만</div>
-              <div className="stat-label">최대 보상</div>
+              <div className="stat-value">
+                {isLoadingStats ? '...' : `${marketingStats?.activeCampaigns || 5}개`}
+              </div>
+              <div className="stat-label">활성 캠페인</div>
             </div>
           </div>
 

@@ -1,7 +1,31 @@
 import { useState, useEffect } from "react";
 import { Link } from "wouter";
+import { useQuery } from "@tanstack/react-query";
+import { useWeb3 } from "@/lib/web3-context";
+
+interface LaunchpadPlatform {
+  name: string;
+  status: string;
+  totalProjects: number;
+  totalRaised: string;
+  avgRoi: string;
+  participants: number;
+  upcomingIdo: number;
+}
+
+interface LaunchpadStatsData {
+  platforms: LaunchpadPlatform[];
+  totalLaunchpadRaised: string;
+  averageRoi: string;
+}
+
+interface LaunchpadStatsResponse {
+  success: boolean;
+  data: LaunchpadStatsData;
+}
 
 export default function CoinListPage() {
+  const { isConnected, address, connect, disconnect, formatAddress } = useWeb3();
   const [activeTab, setActiveTab] = useState("overview");
   const [selectedPayment, setSelectedPayment] = useState("usd");
   const [allocationAmount, setAllocationAmount] = useState(1000);
@@ -9,6 +33,13 @@ export default function CoinListPage() {
   const [modalStatus, setModalStatus] = useState<"pending" | "success">("pending");
   const [countdown, setCountdown] = useState({ days: 14, hours: 8, minutes: 32, seconds: 45 });
   const [expandedFaq, setExpandedFaq] = useState(0);
+
+  const { data: response, isLoading: isLoadingStats } = useQuery<LaunchpadStatsResponse>({
+    queryKey: ['/api/token-programs/launchpad/stats'],
+  });
+  const launchpadStats = response?.data;
+
+  const coinlistPlatform = launchpadStats?.platforms?.find(p => p.name === "CoinList");
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -978,13 +1009,18 @@ export default function CoinListPage() {
               <span className="icon">💰</span>
               <span className="amount">$5,000.00</span>
             </div>
-            <div className="cl-user-menu">
-              <div className="cl-user-avatar">KV</div>
+            <button 
+              className="cl-user-menu"
+              onClick={() => isConnected ? disconnect() : connect("metamask")}
+              data-testid="button-wallet-connect"
+              style={{ cursor: 'pointer', border: 'none', background: 'transparent' }}
+            >
+              <div className="cl-user-avatar">{isConnected ? formatAddress(address || '').slice(0, 2).toUpperCase() : 'CL'}</div>
               <div className="cl-user-info">
-                <div className="name">Kevin</div>
-                <div className="level">Level 3 · Verified</div>
+                <div className="name">{isConnected ? formatAddress(address || '') : '지갑 연결'}</div>
+                <div className="level">{isConnected ? 'Connected' : 'Click to connect'}</div>
               </div>
-            </div>
+            </button>
           </div>
         </div>
       </header>
@@ -1017,21 +1053,23 @@ export default function CoinListPage() {
                   Web3의 미래를 선도합니다. CoinList를 통해 전 세계 투자자들에게 공개됩니다.
                 </p>
 
-                <div className="cl-key-metrics">
-                  <div className="cl-metric-card">
+                <div className="cl-key-metrics" data-testid="coinlist-metrics">
+                  <div className="cl-metric-card" data-testid="stat-token-price">
                     <div className="cl-metric-value gold">$0.020</div>
                     <div className="cl-metric-label">토큰 가격</div>
                   </div>
-                  <div className="cl-metric-card">
+                  <div className="cl-metric-card" data-testid="stat-tge">
                     <div className="cl-metric-value green">15%</div>
                     <div className="cl-metric-label">TGE 해제</div>
                   </div>
-                  <div className="cl-metric-card">
+                  <div className="cl-metric-card" data-testid="stat-total-supply">
                     <div className="cl-metric-value blue">6억</div>
                     <div className="cl-metric-label">총 세일 물량</div>
                   </div>
-                  <div className="cl-metric-card">
-                    <div className="cl-metric-value purple">$12M</div>
+                  <div className="cl-metric-card" data-testid="stat-target">
+                    <div className="cl-metric-value purple">
+                      {isLoadingStats ? '...' : coinlistPlatform?.totalRaised || '$12M'}
+                    </div>
                     <div className="cl-metric-label">목표 모집</div>
                   </div>
                 </div>
@@ -1074,7 +1112,9 @@ export default function CoinListPage() {
                   {/* Progress */}
                   <div className="cl-progress" data-testid="coinlist-progress">
                     <div className="cl-progress-header">
-                      <div className="raised">$5,400,000</div>
+                      <div className="raised" data-testid="text-raised-amount">
+                        {isLoadingStats ? '...' : launchpadStats?.totalLaunchpadRaised || '$5,400,000'}
+                      </div>
                       <div className="goal">/ $12,000,000</div>
                     </div>
                     <div className="cl-progress-bar">
@@ -1082,7 +1122,9 @@ export default function CoinListPage() {
                     </div>
                     <div className="cl-progress-stats">
                       <span className="percent">45% 완료</span>
-                      <span className="participants">8,234명 참여</span>
+                      <span className="participants" data-testid="text-participants">
+                        {isLoadingStats ? '...' : `${coinlistPlatform?.participants?.toLocaleString() || '8,234'}명 참여`}
+                      </span>
                     </div>
                   </div>
 

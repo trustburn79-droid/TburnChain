@@ -1,9 +1,50 @@
 import { useState } from "react";
 import { Link } from "wouter";
+import { useQuery } from "@tanstack/react-query";
 import { TBurnLogo } from "@/components/tburn-logo";
+import { useWeb3 } from "@/lib/web3-context";
+
+interface InvestmentRound {
+  name: string;
+  status: string;
+  allocation: string;
+  price: string;
+  raised: string;
+  investors: number;
+  vesting: string;
+  unlocked: string;
+}
+
+interface InvestmentRoundsStatsData {
+  rounds: InvestmentRound[];
+  totalRaised: string;
+  totalInvestors: number;
+  nextUnlock: string;
+}
+
+interface InvestmentRoundsStatsResponse {
+  success: boolean;
+  data: InvestmentRoundsStatsData;
+}
 
 export default function SeedRoundPage() {
   const [activeFaq, setActiveFaq] = useState<string | null>("faq-1");
+  const { isConnected, address, connect, disconnect, formatAddress } = useWeb3();
+
+  const { data: response, isLoading } = useQuery<InvestmentRoundsStatsResponse>({
+    queryKey: ['/api/token-programs/investment-rounds/stats'],
+  });
+  const stats = response?.data;
+
+  const seedRound = stats?.rounds?.find(r => r.name.toLowerCase().includes('seed'));
+
+  const handleWalletClick = async () => {
+    if (isConnected) {
+      disconnect();
+    } else {
+      await connect("metamask");
+    }
+  };
 
   const toggleFaq = (id: string) => {
     setActiveFaq(activeFaq === id ? null : id);
@@ -878,8 +919,12 @@ export default function SeedRoundPage() {
             <a href="#process">절차</a>
             <a href="#faq">FAQ</a>
           </nav>
-          <button className="connect-btn" data-testid="button-invest">
-            🌱 투자 문의
+          <button 
+            className="connect-btn" 
+            onClick={handleWalletClick}
+            data-testid="button-connect-wallet"
+          >
+            {isConnected ? formatAddress(address!) : "🌱 투자 문의"}
           </button>
         </div>
       </header>
@@ -911,22 +956,30 @@ export default function SeedRoundPage() {
           </div>
 
           <div className="stats-grid">
-            <div className="stat-card" data-testid="stat-total-seed">
-              <div className="stat-value">5억</div>
-              <div className="stat-label">시드 배정</div>
-            </div>
-            <div className="stat-card" data-testid="stat-price">
-              <div className="stat-value">$0.008</div>
-              <div className="stat-label">토큰 가격</div>
-            </div>
-            <div className="stat-card" data-testid="stat-hardcap">
-              <div className="stat-value">$4M</div>
-              <div className="stat-label">하드캡</div>
-            </div>
-            <div className="stat-card" data-testid="stat-investors">
-              <div className="stat-value">15+</div>
-              <div className="stat-label">투자자</div>
-            </div>
+            {isLoading ? (
+              <div className="stat-card" data-testid="loading-indicator">
+                <div className="stat-value" style={{ opacity: 0.5 }}>로딩중...</div>
+              </div>
+            ) : (
+              <>
+                <div className="stat-card" data-testid="stat-total-seed">
+                  <div className="stat-value">{seedRound?.allocation || "5억"}</div>
+                  <div className="stat-label">시드 배정</div>
+                </div>
+                <div className="stat-card" data-testid="stat-price">
+                  <div className="stat-value">{seedRound?.price || "$0.008"}</div>
+                  <div className="stat-label">토큰 가격</div>
+                </div>
+                <div className="stat-card" data-testid="stat-hardcap">
+                  <div className="stat-value">{seedRound?.raised || "$4M"}</div>
+                  <div className="stat-label">하드캡</div>
+                </div>
+                <div className="stat-card" data-testid="stat-investors">
+                  <div className="stat-value">{seedRound?.investors || 15}+</div>
+                  <div className="stat-label">투자자</div>
+                </div>
+              </>
+            )}
           </div>
 
           <div className="cta-group">

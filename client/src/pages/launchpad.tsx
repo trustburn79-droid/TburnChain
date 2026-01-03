@@ -1,17 +1,50 @@
 import { useState, useEffect } from "react";
 import { Link } from "wouter";
 import { TBurnLogo } from "@/components/tburn-logo";
+import { useQuery } from "@tanstack/react-query";
+import { useWeb3 } from "@/lib/web3-context";
+
+interface LaunchpadPlatform {
+  name: string;
+  status: string;
+  totalProjects: number;
+  totalRaised: string;
+  avgRoi: string;
+  participants: number;
+  upcomingIdo: number;
+}
+
+interface LaunchpadStatsData {
+  platforms: LaunchpadPlatform[];
+  totalLaunchpadRaised: string;
+  averageRoi: string;
+}
+
+interface LaunchpadStatsResponse {
+  success: boolean;
+  data: LaunchpadStatsData;
+}
 
 export default function LaunchpadPage() {
-  const [isWalletConnected, setIsWalletConnected] = useState(false);
+  const { isConnected, address, connect, disconnect, formatAddress } = useWeb3();
   const [isKYCVerified, setIsKYCVerified] = useState(false);
-  const [currentStep, setCurrentStep] = useState(1);
+  const [currentStep, setCurrentStep] = useState(isConnected ? 2 : 1);
   const [selectedPayment, setSelectedPayment] = useState("usdt");
   const [investAmount, setInvestAmount] = useState(1000);
-  const [walletAddress, setWalletAddress] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [modalStatus, setModalStatus] = useState<"pending" | "success" | "error">("pending");
   const [countdown, setCountdown] = useState({ days: 14, hours: 8, minutes: 32, seconds: 45 });
+
+  const { data: response, isLoading: isLoadingStats } = useQuery<LaunchpadStatsResponse>({
+    queryKey: ['/api/token-programs/launchpad/stats'],
+  });
+  const launchpadStats = response?.data;
+
+  useEffect(() => {
+    if (isConnected) {
+      setCurrentStep(2);
+    }
+  }, [isConnected]);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -45,12 +78,8 @@ export default function LaunchpadPage() {
   const tgeTokens = totalTokens * 0.15;
   const estimatedValue = totalTokens * listingPrice;
 
-  const handleConnectWallet = () => {
-    setTimeout(() => {
-      setIsWalletConnected(true);
-      setWalletAddress("0x7a3b...9f2c");
-      setCurrentStep(2);
-    }, 1000);
+  const handleConnectWallet = async () => {
+    await connect("metamask");
   };
 
   const handleKYC = () => {
@@ -934,11 +963,11 @@ export default function LaunchpadPage() {
             </div>
 
             <button 
-              className={`wallet-btn ${isWalletConnected ? 'connected' : ''}`}
-              onClick={handleConnectWallet}
+              className={`wallet-btn ${isConnected ? 'connected' : ''}`}
+              onClick={() => isConnected ? disconnect() : connect("metamask")}
               data-testid="button-wallet-connect"
             >
-              👛 {isWalletConnected ? walletAddress : '지갑 연결'}
+              👛 {isConnected ? formatAddress(address || '') : '지갑 연결'}
             </button>
           </div>
         </div>
@@ -988,7 +1017,9 @@ export default function LaunchpadPage() {
 
           <div className="progress-section" data-testid="fundraise-progress">
             <div className="progress-header">
-              <div className="raised">$5,400,000</div>
+              <div className="raised">
+                {isLoadingStats ? '...' : launchpadStats?.totalLaunchpadRaised || '$5,400,000'}
+              </div>
               <div className="goal">목표: $12,000,000</div>
             </div>
             <div className="progress-bar-container">

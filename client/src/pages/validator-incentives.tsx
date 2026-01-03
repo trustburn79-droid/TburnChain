@@ -1,10 +1,42 @@
 import { useState, useEffect } from "react";
 import { Link } from "wouter";
+import { useQuery } from "@tanstack/react-query";
 import { TBurnLogo } from "@/components/tburn-logo";
+import { useWeb3 } from "@/lib/web3-context";
+
+interface ValidatorStatsData {
+  totalValidators: number;
+  activeValidators: number;
+  totalStaked: number;
+  totalRewardsDistributed: number;
+  averageApy: number;
+  tiers: Array<{
+    name: string;
+    slots: number;
+    filled: number;
+    reward: number;
+  }>;
+  topValidators: Array<{
+    name: string;
+    stake: number;
+    rewards: number;
+  }>;
+}
+
+interface ValidatorStatsResponse {
+  success: boolean;
+  data: ValidatorStatsData;
+}
 
 export default function ValidatorIncentivesPage() {
   const [activeFaq, setActiveFaq] = useState<string | null>("faq-1");
   const [countdown, setCountdown] = useState({ days: 12, hours: 8, mins: 45, secs: 30 });
+  const { isConnected, address, connect, disconnect, formatAddress } = useWeb3();
+
+  const { data: response, isLoading } = useQuery<ValidatorStatsResponse>({
+    queryKey: ['/api/token-programs/validator-incentives/stats'],
+  });
+  const stats = response?.data;
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -23,6 +55,14 @@ export default function ValidatorIncentivesPage() {
 
   const toggleFaq = (id: string) => {
     setActiveFaq(activeFaq === id ? null : id);
+  };
+
+  const handleWalletClick = async () => {
+    if (isConnected) {
+      disconnect();
+    } else {
+      await connect("metamask");
+    }
   };
 
   const distributions = [
@@ -1016,8 +1056,12 @@ export default function ValidatorIncentivesPage() {
             <a href="#leaderboard">리더보드</a>
             <a href="#faq">FAQ</a>
           </nav>
-          <button className="connect-btn" data-testid="button-connect-wallet">
-            🔗 지갑 연결
+          <button 
+            className="connect-btn" 
+            data-testid="button-connect-wallet"
+            onClick={handleWalletClick}
+          >
+            {isConnected && address ? `🔗 ${formatAddress(address)}` : '🔗 지갑 연결'}
           </button>
         </div>
       </header>
@@ -1051,45 +1095,45 @@ export default function ValidatorIncentivesPage() {
                 <div className="label">마감까지</div>
                 <div className="countdown-timer">
                   <div className="countdown-item">
-                    <div className="value">{countdown.days}</div>
+                    <div className="value" data-testid="countdown-days">{countdown.days}</div>
                     <div className="unit">일</div>
                   </div>
                   <div className="countdown-item">
-                    <div className="value">{countdown.hours}</div>
+                    <div className="value" data-testid="countdown-hours">{countdown.hours}</div>
                     <div className="unit">시간</div>
                   </div>
                   <div className="countdown-item">
-                    <div className="value">{countdown.mins}</div>
+                    <div className="value" data-testid="countdown-mins">{countdown.mins}</div>
                     <div className="unit">분</div>
                   </div>
                   <div className="countdown-item">
-                    <div className="value">{countdown.secs}</div>
+                    <div className="value" data-testid="countdown-secs">{countdown.secs}</div>
                     <div className="unit">초</div>
                   </div>
                 </div>
               </div>
               <div className="early-bird-slots">
-                <div className="available">52/125</div>
+                <div className="available" data-testid="slots-available">{isLoading ? '...' : stats?.activeValidators ? `${stats.activeValidators}/${stats.totalValidators}` : '52/125'}</div>
                 <div className="total">잔여 슬롯</div>
               </div>
             </div>
           </div>
 
           <div className="stats-grid">
-            <div className="stat-card" data-testid="stat-total-reward">
-              <div className="stat-value">7.5억</div>
+            <div className="stat-card" data-testid="stat-total-validators">
+              <div className="stat-value">{isLoading ? '...' : stats?.totalValidators?.toLocaleString() || '7.5억'}</div>
               <div className="stat-label">총 인센티브 풀</div>
             </div>
-            <div className="stat-card" data-testid="stat-max-bonus">
-              <div className="stat-value">300%</div>
+            <div className="stat-card" data-testid="stat-active-validators">
+              <div className="stat-value">{isLoading ? '...' : stats?.activeValidators?.toLocaleString() || '300%'}</div>
               <div className="stat-label">최대 추가 보상</div>
             </div>
-            <div className="stat-card" data-testid="stat-slots">
-              <div className="stat-value">125</div>
+            <div className="stat-card" data-testid="stat-total-staked">
+              <div className="stat-value">{isLoading ? '...' : stats?.totalStaked?.toLocaleString() || '125'}</div>
               <div className="stat-label">Genesis 밸리데이터</div>
             </div>
-            <div className="stat-card" data-testid="stat-apy">
-              <div className="stat-value">~50%</div>
+            <div className="stat-card" data-testid="stat-average-apy">
+              <div className="stat-value">{isLoading ? '...' : stats?.averageApy ? `~${stats.averageApy}%` : '~50%'}</div>
               <div className="stat-label">최대 예상 APY</div>
             </div>
           </div>

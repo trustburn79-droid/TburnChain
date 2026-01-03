@@ -1,13 +1,44 @@
 import { useState, useEffect } from "react";
 import { Link } from "wouter";
+import { useQuery } from "@tanstack/react-query";
+import { useWeb3 } from "@/lib/web3-context";
+
+interface LaunchpadPlatform {
+  name: string;
+  status: string;
+  totalProjects: number;
+  totalRaised: string;
+  avgRoi: string;
+  participants: number;
+  upcomingIdo: number;
+}
+
+interface LaunchpadStatsData {
+  platforms: LaunchpadPlatform[];
+  totalLaunchpadRaised: string;
+  averageRoi: string;
+}
+
+interface LaunchpadStatsResponse {
+  success: boolean;
+  data: LaunchpadStatsData;
+}
 
 export default function DAOMakerPage() {
+  const { isConnected, address, connect, disconnect, formatAddress } = useWeb3();
   const [activeTab, setActiveTab] = useState("tiers");
   const [allocationAmount, setAllocationAmount] = useState(1000);
   const [showModal, setShowModal] = useState(false);
   const [modalStatus, setModalStatus] = useState<"pending" | "success">("pending");
   const [countdown, setCountdown] = useState({ days: 14, hours: 8, minutes: 32, seconds: 45 });
   const [expandedFaq, setExpandedFaq] = useState(0);
+
+  const { data: response, isLoading: isLoadingStats } = useQuery<LaunchpadStatsResponse>({
+    queryKey: ['/api/token-programs/launchpad/stats'],
+  });
+  const launchpadStats = response?.data;
+
+  const daoMakerPlatform = launchpadStats?.platforms?.find(p => p.name === "DAO Maker");
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -960,7 +991,13 @@ export default function DAOMakerPage() {
                 <div className="value">12,500</div>
               </div>
             </div>
-            <button className="dm-connect-btn">💳 0x7a3b...9f2c</button>
+            <button 
+              className="dm-connect-btn"
+              onClick={() => isConnected ? disconnect() : connect("metamask")}
+              data-testid="button-wallet-connect"
+            >
+              💳 {isConnected ? formatAddress(address || '') : '지갑 연결'}
+            </button>
           </div>
         </div>
       </header>
@@ -1000,23 +1037,25 @@ export default function DAOMakerPage() {
                   DAO Power 보유자에게 우선 참여 기회를 제공합니다.
                 </p>
 
-                <div className="dm-stats-grid">
-                  <div className="dm-stat-card">
+                <div className="dm-stats-grid" data-testid="dao-maker-stats">
+                  <div className="dm-stat-card" data-testid="stat-token-price">
                     <div className="dm-stat-icon">💰</div>
                     <div className="dm-stat-value primary">$0.020</div>
                     <div className="dm-stat-label">토큰 가격</div>
                   </div>
-                  <div className="dm-stat-card">
+                  <div className="dm-stat-card" data-testid="stat-target">
                     <div className="dm-stat-icon">🎯</div>
-                    <div className="dm-stat-value secondary">$12M</div>
+                    <div className="dm-stat-value secondary">
+                      {isLoadingStats ? '...' : daoMakerPlatform?.totalRaised || '$12M'}
+                    </div>
                     <div className="dm-stat-label">목표 모집액</div>
                   </div>
-                  <div className="dm-stat-card">
+                  <div className="dm-stat-card" data-testid="stat-tge">
                     <div className="dm-stat-icon">🔓</div>
                     <div className="dm-stat-value accent">15%</div>
                     <div className="dm-stat-label">TGE 해제</div>
                   </div>
-                  <div className="dm-stat-card">
+                  <div className="dm-stat-card" data-testid="stat-vesting">
                     <div className="dm-stat-icon">⏱️</div>
                     <div className="dm-stat-value pink">15개월</div>
                     <div className="dm-stat-label">총 베스팅</div>

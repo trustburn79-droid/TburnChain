@@ -1,6 +1,43 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "wouter";
+import { useQuery, useMutation } from "@tanstack/react-query";
 import { TBurnLogo } from "@/components/tburn-logo";
+import { useWeb3 } from "@/lib/web3-context";
+import { apiRequest, queryClient } from "@/lib/queryClient";
+import { useToast } from "@/hooks/use-toast";
+
+interface ReferralStats {
+  success: boolean;
+  data: {
+    totalParticipants: number;
+    totalReferrals: number;
+    totalRewardsDistributed: string;
+    activeReferrers: number;
+    tiers: Array<{
+      name: string;
+      commission: number;
+      minReferrals: number;
+      maxReferrals: number | null;
+      benefits: string[];
+    }>;
+    leaderboard: Array<{
+      rank: number;
+      walletAddress: string;
+      tier: string;
+      referralCount: number;
+      totalEarnings: string;
+    }>;
+  };
+}
+
+interface UserReferralData {
+  walletAddress: string;
+  referralCode: string;
+  referralLink: string;
+  tier: string;
+  referralCount: number;
+  totalEarnings: string;
+}
 
 export default function ReferralPage() {
   const [activeTab, setActiveTab] = useState<string | null>("faq-1");
@@ -8,6 +45,61 @@ export default function ReferralPage() {
   const [calcReferrals, setCalcReferrals] = useState(10);
   const [calcVolume, setCalcVolume] = useState(500);
   const [calcPrice, setCalcPrice] = useState(0.5);
+  const [copied, setCopied] = useState(false);
+
+  const { isConnected, address, connect, isConnecting } = useWeb3();
+  const { toast } = useToast();
+
+  const { data: statsData, isLoading: isLoadingStats } = useQuery<ReferralStats>({
+    queryKey: ['/api/token-programs/referral/stats'],
+  });
+
+  const generateReferralMutation = useMutation({
+    mutationFn: async (walletAddress: string) => {
+      const response = await apiRequest('POST', '/api/token-programs/referral/generate', { walletAddress });
+      return response.json();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['/api/token-programs/referral/stats'] });
+    },
+  });
+
+  const [userReferralData, setUserReferralData] = useState<UserReferralData | null>(null);
+
+  useEffect(() => {
+    if (isConnected && address && !userReferralData && !generateReferralMutation.isPending) {
+      generateReferralMutation.mutateAsync(address)
+        .then(result => {
+          if (result?.success && result?.data) {
+            setUserReferralData(result.data);
+          }
+        })
+        .catch(error => {
+          console.error("Failed to generate referral code:", error);
+        });
+    }
+  }, [isConnected, address, userReferralData]);
+
+  const handleConnectWallet = async () => {
+    if (isConnecting) return;
+    await connect("metamask");
+  };
+
+  const handleGetReferralLink = async () => {
+    if (!isConnected || !address) {
+      handleConnectWallet();
+      return;
+    }
+    
+    try {
+      const result = await generateReferralMutation.mutateAsync(address);
+      if (result.success) {
+        setUserReferralData(result.data);
+      }
+    } catch (error) {
+      console.error("Failed to generate referral code:", error);
+    }
+  };
 
   const toggleFaq = (id: string) => {
     setActiveTab(activeTab === id ? null : id);
@@ -20,12 +112,48 @@ export default function ReferralPage() {
   const yearlyTburn = monthlyTburn * 12;
   const yearlyUsd = yearlyTburn * calcPrice;
 
-  const copyRefLink = () => {
-    const input = document.getElementById('refLink') as HTMLInputElement;
-    if (input) {
-      input.select();
-      document.execCommand('copy');
+  const copyRefLink = async () => {
+    const link = userReferralData?.referralLink || `https://tburn.io/ref/${address?.slice(0, 8) || '0x0000'}`;
+    try {
+      await navigator.clipboard.writeText(link);
+      setCopied(true);
+      toast({
+        title: "복사 완료",
+        description: "레퍼럴 링크가 클립보드에 복사되었습니다.",
+      });
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      const input = document.getElementById('refLink') as HTMLInputElement;
+      if (input) {
+        input.select();
+        document.execCommand('copy');
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+      }
     }
+  };
+
+  const stats = statsData?.data;
+  const tiers = stats?.tiers || [];
+  const leaderboard = stats?.leaderboard || [];
+
+  const getTierIcon = (tierName: string) => {
+    switch (tierName.toLowerCase()) {
+      case 'bronze': return '🥉';
+      case 'silver': return '🥈';
+      case 'gold': return '🥇';
+      case 'diamond': return '💎';
+      default: return '🏆';
+    }
+  };
+
+  const getTierClass = (tierName: string) => {
+    return tierName.toLowerCase();
+  };
+
+  const formatAddress = (addr: string) => {
+    if (!addr) return '';
+    return `${addr.slice(0, 6)}...${addr.slice(-4)}`;
   };
 
   return (
@@ -138,6 +266,16 @@ export default function ReferralPage() {
           box-shadow: 0 10px 40px rgba(212, 175, 55, 0.3);
         }
 
+        .connect-btn:disabled {
+          opacity: 0.7;
+          cursor: not-allowed;
+        }
+
+        .connect-btn.connected {
+          background: var(--gradient-purple);
+          color: var(--white);
+        }
+
         .hero {
           min-height: 100vh;
           display: flex;
@@ -240,6 +378,21 @@ export default function ReferralPage() {
           color: var(--light-gray);
         }
 
+        .stat-skeleton {
+          background: linear-gradient(90deg, var(--dark-card) 25%, rgba(255,255,255,0.1) 50%, var(--dark-card) 75%);
+          background-size: 200% 100%;
+          animation: shimmer 1.5s infinite;
+          border-radius: 4px;
+          height: 2rem;
+          width: 80px;
+          margin: 0 auto 0.5rem;
+        }
+
+        @keyframes shimmer {
+          0% { background-position: 200% 0; }
+          100% { background-position: -200% 0; }
+        }
+
         .cta-group {
           display: flex;
           gap: 1rem;
@@ -265,6 +418,11 @@ export default function ReferralPage() {
         .btn-primary:hover {
           transform: translateY(-3px);
           box-shadow: 0 20px 60px rgba(139, 92, 246, 0.4);
+        }
+
+        .btn-primary:disabled {
+          opacity: 0.7;
+          cursor: not-allowed;
         }
 
         .btn-secondary {
@@ -561,6 +719,10 @@ export default function ReferralPage() {
           box-shadow: 0 10px 30px rgba(139, 92, 246, 0.3);
         }
 
+        .copy-btn.copied {
+          background: var(--success);
+        }
+
         .share-buttons {
           display: flex;
           gap: 1rem;
@@ -801,32 +963,31 @@ export default function ReferralPage() {
           display: flex;
           align-items: center;
           gap: 1.5rem;
-          background: rgba(255, 255, 255, 0.03);
+          padding: 1.5rem;
+          background: rgba(255, 255, 255, 0.02);
           border: 1px solid rgba(255, 255, 255, 0.05);
           border-radius: 16px;
-          padding: 1rem 1.5rem;
           transition: all 0.3s;
         }
 
         .leaderboard-item:hover {
           background: rgba(255, 255, 255, 0.05);
-          border-color: rgba(139, 92, 246, 0.3);
         }
 
         .leaderboard-item.top-3 {
-          background: linear-gradient(90deg, rgba(212, 175, 55, 0.1) 0%, transparent 100%);
-          border-color: rgba(212, 175, 55, 0.3);
+          background: linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, rgba(255, 255, 255, 0.02) 100%);
+          border-color: rgba(139, 92, 246, 0.3);
         }
 
         .rank {
-          width: 40px;
-          height: 40px;
-          border-radius: 10px;
+          width: 48px;
+          height: 48px;
+          border-radius: 12px;
           display: flex;
           align-items: center;
           justify-content: center;
+          font-size: 1.25rem;
           font-weight: 800;
-          font-size: 1.125rem;
         }
 
         .rank.gold-rank { background: var(--gradient-gold); color: var(--dark); }
@@ -834,39 +995,38 @@ export default function ReferralPage() {
         .rank.bronze-rank { background: linear-gradient(135deg, #CD7F32, #E8A65D); color: var(--dark); }
         .rank.normal { background: rgba(255, 255, 255, 0.1); color: var(--light-gray); }
 
-        .user-info {
-          flex: 1;
-        }
+        .user-info { flex: 1; }
 
         .user-address {
-          font-weight: 600;
           font-family: monospace;
+          font-weight: 600;
+          margin-bottom: 0.25rem;
         }
 
         .user-tier {
-          font-size: 0.75rem;
-          color: var(--gold);
+          font-size: 0.875rem;
+          color: var(--light-gray);
         }
 
         .referral-count, .earnings {
-          text-align: center;
+          text-align: right;
+          min-width: 120px;
         }
 
         .referral-count .value, .earnings .value {
           font-weight: 700;
-          font-size: 1.25rem;
+          font-size: 1.125rem;
         }
+
+        .earnings .value { color: var(--gold); }
 
         .referral-count .label, .earnings .label {
           font-size: 0.75rem;
           color: var(--light-gray);
         }
 
-        .earnings .value { color: var(--gold); }
-        .earnings { text-align: right; }
-
         .faq-container {
-          max-width: 900px;
+          max-width: 800px;
           margin: 0 auto;
         }
 
@@ -876,19 +1036,19 @@ export default function ReferralPage() {
           border-radius: 16px;
           margin-bottom: 1rem;
           overflow: hidden;
+          transition: all 0.3s;
+        }
+
+        .faq-item:hover {
+          border-color: rgba(139, 92, 246, 0.3);
         }
 
         .faq-question {
-          padding: 1.5rem;
           display: flex;
           justify-content: space-between;
           align-items: center;
+          padding: 1.5rem;
           cursor: pointer;
-          transition: background 0.3s;
-        }
-
-        .faq-question:hover {
-          background: rgba(255, 255, 255, 0.03);
         }
 
         .faq-question h4 {
@@ -897,7 +1057,8 @@ export default function ReferralPage() {
         }
 
         .faq-chevron {
-          color: var(--purple);
+          font-size: 0.75rem;
+          color: var(--light-gray);
           transition: transform 0.3s;
         }
 
@@ -906,15 +1067,14 @@ export default function ReferralPage() {
         }
 
         .faq-answer {
-          padding: 0 1.5rem;
           max-height: 0;
           overflow: hidden;
-          transition: all 0.3s;
+          transition: max-height 0.3s, padding 0.3s;
         }
 
         .faq-item.active .faq-answer {
-          padding: 0 1.5rem 1.5rem;
           max-height: 500px;
+          padding: 0 1.5rem 1.5rem;
         }
 
         .faq-answer p {
@@ -922,16 +1082,10 @@ export default function ReferralPage() {
           line-height: 1.8;
         }
 
-        .cta-section {
-          padding: 100px 2rem;
-          background: var(--gradient-purple);
-          text-align: center;
-        }
-
-        .footer {
-          background: var(--dark);
-          border-top: 1px solid rgba(255, 255, 255, 0.1);
-          padding: 60px 2rem 30px;
+        .referral-footer {
+          background: var(--dark-card);
+          padding: 4rem 2rem 2rem;
+          margin-top: 4rem;
         }
 
         .footer-content {
@@ -939,17 +1093,13 @@ export default function ReferralPage() {
           margin: 0 auto;
           display: grid;
           grid-template-columns: 2fr 1fr 1fr 1fr;
-          gap: 4rem;
+          gap: 3rem;
           margin-bottom: 3rem;
         }
 
-        .footer-brand h3 {
-          font-size: 1.5rem;
-          font-weight: 800;
+        .footer-brand .logo {
           margin-bottom: 1rem;
         }
-
-        .footer-brand h3 span { color: var(--gold); }
 
         .footer-brand p {
           color: var(--light-gray);
@@ -958,19 +1108,20 @@ export default function ReferralPage() {
 
         .social-links {
           display: flex;
-          gap: 1rem;
+          gap: 0.75rem;
         }
 
         .social-links a {
-          width: 44px;
-          height: 44px;
+          width: 40px;
+          height: 40px;
+          border-radius: 10px;
           background: rgba(255, 255, 255, 0.05);
-          border-radius: 12px;
           display: flex;
           align-items: center;
           justify-content: center;
           color: var(--light-gray);
           transition: all 0.3s;
+          text-decoration: none;
         }
 
         .social-links a:hover {
@@ -1003,6 +1154,16 @@ export default function ReferralPage() {
           align-items: center;
           color: var(--gray);
           font-size: 0.875rem;
+        }
+
+        .empty-state {
+          text-align: center;
+          padding: 3rem;
+          color: var(--light-gray);
+        }
+
+        .empty-state p {
+          margin-bottom: 1rem;
         }
 
         @media (max-width: 1200px) {
@@ -1044,8 +1205,13 @@ export default function ReferralPage() {
             <a href="#calculator">보상 계산기</a>
             <a href="#leaderboard">리더보드</a>
           </nav>
-          <button className="connect-btn" data-testid="button-connect-wallet">
-            🔗 지갑 연결
+          <button 
+            className={`connect-btn ${isConnected ? 'connected' : ''}`} 
+            onClick={handleConnectWallet}
+            disabled={isConnecting}
+            data-testid="button-connect-wallet"
+          >
+            {isConnecting ? '연결 중...' : isConnected ? `${formatAddress(address || '')}` : '🔗 지갑 연결'}
           </button>
         </div>
       </header>
@@ -1055,7 +1221,7 @@ export default function ReferralPage() {
         <div className="hero-bg"></div>
         <div className="hero-content">
           <div className="badge">
-            🔥 REFERRAL PROGRAM - 실시간 정산
+            REFERRAL PROGRAM - 실시간 정산
           </div>
           <h1>
             친구를 초대하고<br />
@@ -1067,30 +1233,59 @@ export default function ReferralPage() {
           </p>
 
           <div className="stats-grid">
-            <div className="stat-card" data-testid="stat-reward-pool">
-              <div className="stat-value">3억</div>
-              <div className="stat-label">총 보상 풀</div>
+            <div className="stat-card" data-testid="stat-total-participants">
+              {isLoadingStats ? (
+                <div className="stat-skeleton"></div>
+              ) : (
+                <div className="stat-value" data-testid="text-total-participants">
+                  {stats?.totalParticipants?.toLocaleString() || '0'}
+                </div>
+              )}
+              <div className="stat-label">총 참여자</div>
             </div>
-            <div className="stat-card" data-testid="stat-max-commission">
-              <div className="stat-value">50%</div>
-              <div className="stat-label">최대 커미션율</div>
+            <div className="stat-card" data-testid="stat-total-referrals">
+              {isLoadingStats ? (
+                <div className="stat-skeleton"></div>
+              ) : (
+                <div className="stat-value" data-testid="text-total-referrals">
+                  {stats?.totalReferrals?.toLocaleString() || '0'}
+                </div>
+              )}
+              <div className="stat-label">총 레퍼럴</div>
             </div>
-            <div className="stat-card" data-testid="stat-vesting">
-              <div className="stat-value">36개월</div>
-              <div className="stat-label">베스팅 기간</div>
+            <div className="stat-card" data-testid="stat-total-rewards">
+              {isLoadingStats ? (
+                <div className="stat-skeleton"></div>
+              ) : (
+                <div className="stat-value" data-testid="text-total-rewards">
+                  {Number(stats?.totalRewardsDistributed || 0).toLocaleString()}
+                </div>
+              )}
+              <div className="stat-label">총 보상 분배 (TBURN)</div>
             </div>
-            <div className="stat-card" data-testid="stat-realtime">
-              <div className="stat-value">실시간</div>
-              <div className="stat-label">보상 정산</div>
+            <div className="stat-card" data-testid="stat-active-referrers">
+              {isLoadingStats ? (
+                <div className="stat-skeleton"></div>
+              ) : (
+                <div className="stat-value" data-testid="text-active-referrers">
+                  {stats?.activeReferrers?.toLocaleString() || '0'}
+                </div>
+              )}
+              <div className="stat-label">활성 레퍼러</div>
             </div>
           </div>
 
           <div className="cta-group">
-            <button className="btn-primary" data-testid="button-get-link">
-              🔗 내 초대 링크 받기
+            <button 
+              className="btn-primary" 
+              onClick={handleGetReferralLink}
+              disabled={generateReferralMutation.isPending}
+              data-testid="button-get-link"
+            >
+              {generateReferralMutation.isPending ? '생성 중...' : '🔗 내 초대 링크 받기'}
             </button>
             <a href="#how-it-works" className="btn-secondary">
-              ▶ 작동 방식 보기
+              작동 방식 보기
             </a>
           </div>
         </div>
@@ -1137,64 +1332,91 @@ export default function ReferralPage() {
         </div>
 
         <div className="tier-grid">
-          <div className="tier-card bronze" data-testid="tier-bronze">
-            <span className="tier-badge">STARTER</span>
-            <div className="tier-icon">🥉</div>
-            <h3 className="tier-name">Bronze</h3>
-            <div className="tier-commission">20%</div>
-            <p className="tier-requirement">0 ~ 9명 초대</p>
-            <ul className="tier-benefits">
-              <li><span className="check">✓</span> 기본 커미션 20%</li>
-              <li><span className="check">✓</span> 1단계 레퍼럴</li>
-              <li><span className="check">✓</span> 실시간 정산</li>
-              <li><span className="check">✓</span> 기본 대시보드</li>
-            </ul>
-          </div>
+          {tiers.length > 0 ? (
+            tiers.map((tier, index) => (
+              <div 
+                key={tier.name} 
+                className={`tier-card ${getTierClass(tier.name)} ${tier.name.toLowerCase() === 'gold' ? 'featured' : ''}`}
+                data-testid={`tier-${tier.name.toLowerCase()}`}
+              >
+                <span className="tier-badge">
+                  {tier.name.toLowerCase() === 'gold' ? 'POPULAR' : tier.name.toUpperCase()}
+                </span>
+                <div className="tier-icon">{getTierIcon(tier.name)}</div>
+                <h3 className="tier-name">{tier.name}</h3>
+                <div className="tier-commission">{tier.commission}%</div>
+                <p className="tier-requirement">
+                  {tier.minReferrals} ~ {tier.maxReferrals ? `${tier.maxReferrals}명` : '무제한'} 초대
+                </p>
+                <ul className="tier-benefits">
+                  {tier.benefits.map((benefit, i) => (
+                    <li key={i}><span className="check">✓</span> {benefit}</li>
+                  ))}
+                </ul>
+              </div>
+            ))
+          ) : (
+            <>
+              <div className="tier-card bronze" data-testid="tier-bronze">
+                <span className="tier-badge">STARTER</span>
+                <div className="tier-icon">🥉</div>
+                <h3 className="tier-name">Bronze</h3>
+                <div className="tier-commission">20%</div>
+                <p className="tier-requirement">0 ~ 9명 초대</p>
+                <ul className="tier-benefits">
+                  <li><span className="check">✓</span> 기본 커미션 20%</li>
+                  <li><span className="check">✓</span> 1단계 레퍼럴</li>
+                  <li><span className="check">✓</span> 실시간 정산</li>
+                  <li><span className="check">✓</span> 기본 대시보드</li>
+                </ul>
+              </div>
 
-          <div className="tier-card silver" data-testid="tier-silver">
-            <span className="tier-badge">INTERMEDIATE</span>
-            <div className="tier-icon">🥈</div>
-            <h3 className="tier-name">Silver</h3>
-            <div className="tier-commission">30%</div>
-            <p className="tier-requirement">10 ~ 49명 초대</p>
-            <ul className="tier-benefits">
-              <li><span className="check">✓</span> 커미션 30%</li>
-              <li><span className="check">✓</span> 2단계 레퍼럴 (5%)</li>
-              <li><span className="check">✓</span> 주간 보너스</li>
-              <li><span className="check">✓</span> 프리미엄 대시보드</li>
-            </ul>
-          </div>
+              <div className="tier-card silver" data-testid="tier-silver">
+                <span className="tier-badge">INTERMEDIATE</span>
+                <div className="tier-icon">🥈</div>
+                <h3 className="tier-name">Silver</h3>
+                <div className="tier-commission">30%</div>
+                <p className="tier-requirement">10 ~ 49명 초대</p>
+                <ul className="tier-benefits">
+                  <li><span className="check">✓</span> 커미션 30%</li>
+                  <li><span className="check">✓</span> 2단계 레퍼럴 (5%)</li>
+                  <li><span className="check">✓</span> 주간 보너스</li>
+                  <li><span className="check">✓</span> 프리미엄 대시보드</li>
+                </ul>
+              </div>
 
-          <div className="tier-card gold featured" data-testid="tier-gold">
-            <span className="tier-badge">⭐ POPULAR</span>
-            <div className="tier-icon">🥇</div>
-            <h3 className="tier-name">Gold</h3>
-            <div className="tier-commission">40%</div>
-            <p className="tier-requirement">50 ~ 199명 초대</p>
-            <ul className="tier-benefits">
-              <li><span className="check">✓</span> 커미션 40%</li>
-              <li><span className="check">✓</span> 2단계 레퍼럴 (10%)</li>
-              <li><span className="check">✓</span> 월간 보너스</li>
-              <li><span className="check">✓</span> 전용 매니저</li>
-              <li><span className="check">✓</span> 얼리 액세스</li>
-            </ul>
-          </div>
+              <div className="tier-card gold featured" data-testid="tier-gold">
+                <span className="tier-badge">POPULAR</span>
+                <div className="tier-icon">🥇</div>
+                <h3 className="tier-name">Gold</h3>
+                <div className="tier-commission">40%</div>
+                <p className="tier-requirement">50 ~ 199명 초대</p>
+                <ul className="tier-benefits">
+                  <li><span className="check">✓</span> 커미션 40%</li>
+                  <li><span className="check">✓</span> 2단계 레퍼럴 (10%)</li>
+                  <li><span className="check">✓</span> 월간 보너스</li>
+                  <li><span className="check">✓</span> 전용 매니저</li>
+                  <li><span className="check">✓</span> 얼리 액세스</li>
+                </ul>
+              </div>
 
-          <div className="tier-card diamond" data-testid="tier-diamond">
-            <span className="tier-badge">💎 ELITE</span>
-            <div className="tier-icon">💎</div>
-            <h3 className="tier-name">Diamond</h3>
-            <div className="tier-commission">50%</div>
-            <p className="tier-requirement">200명+ 초대</p>
-            <ul className="tier-benefits">
-              <li><span className="check">✓</span> 최대 커미션 50%</li>
-              <li><span className="check">✓</span> 3단계 레퍼럴 (15%)</li>
-              <li><span className="check">✓</span> VIP 보너스</li>
-              <li><span className="check">✓</span> 1:1 전담 매니저</li>
-              <li><span className="check">✓</span> 독점 이벤트 초대</li>
-              <li><span className="check">✓</span> 거버넌스 보너스</li>
-            </ul>
-          </div>
+              <div className="tier-card diamond" data-testid="tier-diamond">
+                <span className="tier-badge">ELITE</span>
+                <div className="tier-icon">💎</div>
+                <h3 className="tier-name">Diamond</h3>
+                <div className="tier-commission">50%</div>
+                <p className="tier-requirement">200명+ 초대</p>
+                <ul className="tier-benefits">
+                  <li><span className="check">✓</span> 최대 커미션 50%</li>
+                  <li><span className="check">✓</span> 3단계 레퍼럴 (15%)</li>
+                  <li><span className="check">✓</span> VIP 보너스</li>
+                  <li><span className="check">✓</span> 1:1 전담 매니저</li>
+                  <li><span className="check">✓</span> 독점 이벤트 초대</li>
+                  <li><span className="check">✓</span> 거버넌스 보너스</li>
+                </ul>
+              </div>
+            </>
+          )}
         </div>
       </section>
 
@@ -1210,84 +1432,88 @@ export default function ReferralPage() {
           <div className="dashboard-header">
             <div className="dashboard-title">
               <h3>내 레퍼럴 현황</h3>
-              <p>지갑을 연결하면 상세 정보를 확인할 수 있습니다</p>
+              <p>{isConnected ? `지갑 주소: ${formatAddress(address || '')}` : '지갑을 연결하면 상세 정보를 확인할 수 있습니다'}</p>
             </div>
-            <div className="current-tier">
-              <span>👑</span>
-              <span>Gold Tier</span>
-            </div>
+            {userReferralData && (
+              <div className="current-tier" data-testid="user-tier">
+                <span>{getTierIcon(userReferralData.tier)}</span>
+                <span>{userReferralData.tier} Tier</span>
+              </div>
+            )}
           </div>
 
           <div className="referral-link-box">
             <div className="referral-link-label">내 초대 링크</div>
             <div className="referral-link-input">
-              <input type="text" defaultValue="https://tburn.io/ref/0x1234...5678" readOnly id="refLink" />
-              <button className="copy-btn" onClick={copyRefLink} data-testid="button-copy-link">
-                📋 복사
+              <input 
+                type="text" 
+                value={userReferralData?.referralLink || (isConnected ? `https://tburn.io/ref/${address?.slice(0, 8)}` : '지갑을 연결하면 링크가 생성됩니다')} 
+                readOnly 
+                id="refLink"
+                data-testid="input-referral-link"
+              />
+              <button 
+                className={`copy-btn ${copied ? 'copied' : ''}`} 
+                onClick={copyRefLink} 
+                disabled={!isConnected}
+                data-testid="button-copy-link"
+              >
+                {copied ? '✓ 복사됨' : '📋 복사'}
               </button>
             </div>
+            {userReferralData?.referralCode && (
+              <div style={{ marginTop: '0.75rem', fontSize: '0.875rem', color: 'var(--light-gray)' }}>
+                레퍼럴 코드: <span style={{ fontFamily: 'monospace', color: 'var(--gold)' }} data-testid="text-referral-code">{userReferralData.referralCode}</span>
+              </div>
+            )}
             <div className="share-buttons">
-              <button className="share-btn">𝕏 Twitter</button>
-              <button className="share-btn">✈ Telegram</button>
-              <button className="share-btn">💬 Discord</button>
-              <button className="share-btn">💬 KakaoTalk</button>
+              <button className="share-btn" data-testid="button-share-twitter">𝕏 Twitter</button>
+              <button className="share-btn" data-testid="button-share-telegram">Telegram</button>
+              <button className="share-btn" data-testid="button-share-discord">Discord</button>
+              <button className="share-btn" data-testid="button-share-kakaotalk">KakaoTalk</button>
             </div>
           </div>
 
           <div className="dashboard-stats">
             <div className="dash-stat">
-              <div className="dash-stat-value purple">56</div>
+              <div className="dash-stat-value purple" data-testid="text-user-referral-count">
+                {userReferralData?.referralCount?.toLocaleString() || '0'}
+              </div>
               <div className="dash-stat-label">총 초대 수</div>
             </div>
             <div className="dash-stat">
-              <div className="dash-stat-value success">42</div>
+              <div className="dash-stat-value success">
+                {stats?.activeReferrers?.toLocaleString() || '0'}
+              </div>
               <div className="dash-stat-label">활성 유저</div>
             </div>
             <div className="dash-stat">
-              <div className="dash-stat-value gold">12,450</div>
+              <div className="dash-stat-value gold" data-testid="text-user-total-earnings">
+                {Number(userReferralData?.totalEarnings || 0).toLocaleString()}
+              </div>
               <div className="dash-stat-label">총 적립 TBURN</div>
             </div>
             <div className="dash-stat">
-              <div className="dash-stat-value blue">3,250</div>
-              <div className="dash-stat-label">출금 가능 TBURN</div>
+              <div className="dash-stat-value blue">
+                {Number(stats?.totalRewardsDistributed || 0).toLocaleString()}
+              </div>
+              <div className="dash-stat-label">총 분배 TBURN</div>
             </div>
           </div>
 
-          <h4 style={{ marginBottom: '1rem', fontWeight: 600 }}>최근 레퍼럴 활동</h4>
-          <table className="referral-table">
-            <thead>
-              <tr>
-                <th>지갑 주소</th>
-                <th>가입일</th>
-                <th>활동량</th>
-                <th>내 수익</th>
-                <th>상태</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td style={{ fontFamily: 'monospace' }}>0x7a3B...9F2c</td>
-                <td>2025-12-28</td>
-                <td>$1,250</td>
-                <td style={{ color: 'var(--gold)', fontWeight: 600 }}>125 TBURN</td>
-                <td><span className="status-badge active">활성</span></td>
-              </tr>
-              <tr>
-                <td style={{ fontFamily: 'monospace' }}>0x9c1D...4E8a</td>
-                <td>2025-12-27</td>
-                <td>$890</td>
-                <td style={{ color: 'var(--gold)', fontWeight: 600 }}>89 TBURN</td>
-                <td><span className="status-badge active">활성</span></td>
-              </tr>
-              <tr>
-                <td style={{ fontFamily: 'monospace' }}>0x2f5A...1B3d</td>
-                <td>2025-12-26</td>
-                <td>$320</td>
-                <td style={{ color: 'var(--gold)', fontWeight: 600 }}>32 TBURN</td>
-                <td><span className="status-badge pending">대기</span></td>
-              </tr>
-            </tbody>
-          </table>
+          {!isConnected && (
+            <div className="empty-state" data-testid="empty-dashboard">
+              <p>지갑을 연결하여 레퍼럴 활동을 시작하세요</p>
+              <button 
+                className="btn-primary" 
+                onClick={handleConnectWallet}
+                disabled={isConnecting}
+                data-testid="button-dashboard-connect"
+              >
+                {isConnecting ? '연결 중...' : '지갑 연결하기'}
+              </button>
+            </div>
+          )}
         </div>
       </section>
 
@@ -1301,10 +1527,10 @@ export default function ReferralPage() {
 
         <div className="calculator-container">
           <div className="calc-section">
-            <h3>📊 조건 입력</h3>
+            <h3>조건 입력</h3>
             <div className="calc-field">
               <label>내 등급</label>
-              <select value={calcTier} onChange={(e) => setCalcTier(Number(e.target.value))}>
+              <select value={calcTier} onChange={(e) => setCalcTier(Number(e.target.value))} data-testid="select-calc-tier">
                 <option value={20}>Bronze (20%)</option>
                 <option value={30}>Silver (30%)</option>
                 <option value={40}>Gold (40%)</option>
@@ -1313,15 +1539,29 @@ export default function ReferralPage() {
             </div>
             <div className="calc-field">
               <label>예상 초대 수 (월)</label>
-              <input type="number" value={calcReferrals} onChange={(e) => setCalcReferrals(Number(e.target.value))} min={1} max={1000} />
+              <input 
+                type="number" 
+                value={calcReferrals} 
+                onChange={(e) => setCalcReferrals(Number(e.target.value))} 
+                min={1} 
+                max={1000}
+                data-testid="input-calc-referrals"
+              />
             </div>
             <div className="calc-field">
               <label>피추천인 평균 월 거래량 ($)</label>
-              <input type="number" value={calcVolume} onChange={(e) => setCalcVolume(Number(e.target.value))} min={100} max={100000} />
+              <input 
+                type="number" 
+                value={calcVolume} 
+                onChange={(e) => setCalcVolume(Number(e.target.value))} 
+                min={100} 
+                max={100000}
+                data-testid="input-calc-volume"
+              />
             </div>
             <div className="calc-field">
               <label>TBURN 예상 가격 ($)</label>
-              <select value={calcPrice} onChange={(e) => setCalcPrice(Number(e.target.value))}>
+              <select value={calcPrice} onChange={(e) => setCalcPrice(Number(e.target.value))} data-testid="select-calc-price">
                 <option value={0.5}>$0.50 (TGE)</option>
                 <option value={1}>$1.00</option>
                 <option value={2}>$2.00</option>
@@ -1331,10 +1571,10 @@ export default function ReferralPage() {
           </div>
 
           <div className="calc-section result">
-            <h3>📈 예상 수익</h3>
+            <h3>예상 수익</h3>
             <div className="result-item">
               <span className="result-label">총 거래량 (월)</span>
-              <span className="result-value">${totalVolume.toLocaleString()}</span>
+              <span className="result-value" data-testid="text-calc-total-volume">${totalVolume.toLocaleString()}</span>
             </div>
             <div className="result-item">
               <span className="result-label">거래 수수료 (0.1%)</span>
@@ -1346,7 +1586,7 @@ export default function ReferralPage() {
             </div>
             <div className="result-item">
               <span className="result-label">월 수익 (TBURN)</span>
-              <span className="result-value highlight">{monthlyTburn.toFixed(0)} TBURN</span>
+              <span className="result-value highlight" data-testid="text-calc-monthly">{monthlyTburn.toFixed(0)} TBURN</span>
             </div>
             <div className="result-item">
               <span className="result-label">연 수익 (TBURN)</span>
@@ -1354,7 +1594,7 @@ export default function ReferralPage() {
             </div>
             <div className="result-total">
               <div className="result-total-label">연간 예상 수익 (USD)</div>
-              <div className="result-total-value">${yearlyUsd.toFixed(2)}</div>
+              <div className="result-total-value" data-testid="text-calc-yearly-usd">${yearlyUsd.toFixed(2)}</div>
             </div>
             <p style={{ color: 'var(--gray)', fontSize: '0.8rem', marginTop: '1rem', textAlign: 'center' }}>
               * 실제 수익은 시장 상황에 따라 달라질 수 있습니다
@@ -1373,99 +1613,133 @@ export default function ReferralPage() {
 
         <div className="leaderboard-container">
           <div className="leaderboard-header">
-            <h3>🏆 Top Referrers</h3>
+            <h3>Top Referrers</h3>
             <div className="leaderboard-filter">
-              <button className="filter-btn active">전체</button>
-              <button className="filter-btn">이번 주</button>
-              <button className="filter-btn">이번 달</button>
+              <button className="filter-btn active" data-testid="filter-all">전체</button>
+              <button className="filter-btn" data-testid="filter-week">이번 주</button>
+              <button className="filter-btn" data-testid="filter-month">이번 달</button>
             </div>
           </div>
 
-          <div className="leaderboard-list">
-            <div className="leaderboard-item top-3">
-              <div className="rank gold-rank">1</div>
-              <div className="user-info">
-                <div className="user-address">0x1a2B...3c4D</div>
-                <div className="user-tier">💎 Diamond Tier</div>
-              </div>
-              <div className="referral-count">
-                <div className="value">1,247</div>
-                <div className="label">초대 수</div>
-              </div>
-              <div className="earnings">
-                <div className="value">125,000 TBURN</div>
-                <div className="label">총 수익</div>
-              </div>
-            </div>
+          <div className="leaderboard-list" data-testid="leaderboard-list">
+            {leaderboard.length > 0 ? (
+              leaderboard.map((entry, index) => (
+                <div 
+                  key={entry.walletAddress} 
+                  className={`leaderboard-item ${index < 3 ? 'top-3' : ''}`}
+                  data-testid={`leaderboard-item-${index}`}
+                >
+                  <div className={`rank ${index === 0 ? 'gold-rank' : index === 1 ? 'silver-rank' : index === 2 ? 'bronze-rank' : 'normal'}`}>
+                    {entry.rank}
+                  </div>
+                  <div className="user-info">
+                    <div className="user-address" data-testid={`leaderboard-address-${index}`}>
+                      {formatAddress(entry.walletAddress)}
+                    </div>
+                    <div className="user-tier">{getTierIcon(entry.tier)} {entry.tier} Tier</div>
+                  </div>
+                  <div className="referral-count">
+                    <div className="value" data-testid={`leaderboard-count-${index}`}>
+                      {entry.referralCount.toLocaleString()}
+                    </div>
+                    <div className="label">초대 수</div>
+                  </div>
+                  <div className="earnings">
+                    <div className="value" data-testid={`leaderboard-earnings-${index}`}>
+                      {Number(entry.totalEarnings).toLocaleString()} TBURN
+                    </div>
+                    <div className="label">총 수익</div>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <>
+                <div className="leaderboard-item top-3" data-testid="leaderboard-item-0">
+                  <div className="rank gold-rank">1</div>
+                  <div className="user-info">
+                    <div className="user-address">0x1a2B...3c4D</div>
+                    <div className="user-tier">💎 Diamond Tier</div>
+                  </div>
+                  <div className="referral-count">
+                    <div className="value">1,247</div>
+                    <div className="label">초대 수</div>
+                  </div>
+                  <div className="earnings">
+                    <div className="value">125,000 TBURN</div>
+                    <div className="label">총 수익</div>
+                  </div>
+                </div>
 
-            <div className="leaderboard-item top-3">
-              <div className="rank silver-rank">2</div>
-              <div className="user-info">
-                <div className="user-address">0x5e6F...7g8H</div>
-                <div className="user-tier">💎 Diamond Tier</div>
-              </div>
-              <div className="referral-count">
-                <div className="value">892</div>
-                <div className="label">초대 수</div>
-              </div>
-              <div className="earnings">
-                <div className="value">89,200 TBURN</div>
-                <div className="label">총 수익</div>
-              </div>
-            </div>
+                <div className="leaderboard-item top-3" data-testid="leaderboard-item-1">
+                  <div className="rank silver-rank">2</div>
+                  <div className="user-info">
+                    <div className="user-address">0x5e6F...7g8H</div>
+                    <div className="user-tier">💎 Diamond Tier</div>
+                  </div>
+                  <div className="referral-count">
+                    <div className="value">892</div>
+                    <div className="label">초대 수</div>
+                  </div>
+                  <div className="earnings">
+                    <div className="value">89,200 TBURN</div>
+                    <div className="label">총 수익</div>
+                  </div>
+                </div>
 
-            <div className="leaderboard-item top-3">
-              <div className="rank bronze-rank">3</div>
-              <div className="user-info">
-                <div className="user-address">0x9i0J...1k2L</div>
-                <div className="user-tier">💎 Diamond Tier</div>
-              </div>
-              <div className="referral-count">
-                <div className="value">654</div>
-                <div className="label">초대 수</div>
-              </div>
-              <div className="earnings">
-                <div className="value">65,400 TBURN</div>
-                <div className="label">총 수익</div>
-              </div>
-            </div>
+                <div className="leaderboard-item top-3" data-testid="leaderboard-item-2">
+                  <div className="rank bronze-rank">3</div>
+                  <div className="user-info">
+                    <div className="user-address">0x9i0J...1k2L</div>
+                    <div className="user-tier">💎 Diamond Tier</div>
+                  </div>
+                  <div className="referral-count">
+                    <div className="value">654</div>
+                    <div className="label">초대 수</div>
+                  </div>
+                  <div className="earnings">
+                    <div className="value">65,400 TBURN</div>
+                    <div className="label">총 수익</div>
+                  </div>
+                </div>
 
-            <div className="leaderboard-item">
-              <div className="rank normal">4</div>
-              <div className="user-info">
-                <div className="user-address">0x3m4N...5o6P</div>
-                <div className="user-tier">🥇 Gold Tier</div>
-              </div>
-              <div className="referral-count">
-                <div className="value">423</div>
-                <div className="label">초대 수</div>
-              </div>
-              <div className="earnings">
-                <div className="value">42,300 TBURN</div>
-                <div className="label">총 수익</div>
-              </div>
-            </div>
+                <div className="leaderboard-item" data-testid="leaderboard-item-3">
+                  <div className="rank normal">4</div>
+                  <div className="user-info">
+                    <div className="user-address">0x3m4N...5o6P</div>
+                    <div className="user-tier">🥇 Gold Tier</div>
+                  </div>
+                  <div className="referral-count">
+                    <div className="value">423</div>
+                    <div className="label">초대 수</div>
+                  </div>
+                  <div className="earnings">
+                    <div className="value">42,300 TBURN</div>
+                    <div className="label">총 수익</div>
+                  </div>
+                </div>
 
-            <div className="leaderboard-item">
-              <div className="rank normal">5</div>
-              <div className="user-info">
-                <div className="user-address">0x7q8R...9s0T</div>
-                <div className="user-tier">🥇 Gold Tier</div>
-              </div>
-              <div className="referral-count">
-                <div className="value">318</div>
-                <div className="label">초대 수</div>
-              </div>
-              <div className="earnings">
-                <div className="value">31,800 TBURN</div>
-                <div className="label">총 수익</div>
-              </div>
-            </div>
+                <div className="leaderboard-item" data-testid="leaderboard-item-4">
+                  <div className="rank normal">5</div>
+                  <div className="user-info">
+                    <div className="user-address">0x7q8R...9s0T</div>
+                    <div className="user-tier">🥇 Gold Tier</div>
+                  </div>
+                  <div className="referral-count">
+                    <div className="value">318</div>
+                    <div className="label">초대 수</div>
+                  </div>
+                  <div className="earnings">
+                    <div className="value">31,800 TBURN</div>
+                    <div className="label">총 수익</div>
+                  </div>
+                </div>
+              </>
+            )}
           </div>
 
           <div style={{ textAlign: 'center', marginTop: '2rem' }}>
-            <button className="btn-secondary" style={{ padding: '12px 30px' }}>
-              📋 전체 순위 보기
+            <button className="btn-secondary" style={{ padding: '12px 30px' }} data-testid="button-view-all-rankings">
+              전체 순위 보기
             </button>
           </div>
         </div>
@@ -1480,7 +1754,7 @@ export default function ReferralPage() {
         </div>
 
         <div className="faq-container">
-          <div className={`faq-item ${activeTab === 'faq-1' ? 'active' : ''}`}>
+          <div className={`faq-item ${activeTab === 'faq-1' ? 'active' : ''}`} data-testid="faq-1">
             <div className="faq-question" onClick={() => toggleFaq('faq-1')}>
               <h4>레퍼럴 보상 풀 총 물량은 얼마인가요?</h4>
               <span className="faq-chevron">▼</span>
@@ -1490,7 +1764,7 @@ export default function ReferralPage() {
             </div>
           </div>
 
-          <div className={`faq-item ${activeTab === 'faq-2' ? 'active' : ''}`}>
+          <div className={`faq-item ${activeTab === 'faq-2' ? 'active' : ''}`} data-testid="faq-2">
             <div className="faq-question" onClick={() => toggleFaq('faq-2')}>
               <h4>커미션은 어떻게 계산되나요?</h4>
               <span className="faq-chevron">▼</span>
@@ -1500,102 +1774,76 @@ export default function ReferralPage() {
             </div>
           </div>
 
-          <div className={`faq-item ${activeTab === 'faq-3' ? 'active' : ''}`}>
+          <div className={`faq-item ${activeTab === 'faq-3' ? 'active' : ''}`} data-testid="faq-3">
             <div className="faq-question" onClick={() => toggleFaq('faq-3')}>
-              <h4>다단계 레퍼럴이 무엇인가요?</h4>
+              <h4>등급은 어떻게 올릴 수 있나요?</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>Silver 등급부터 다단계 레퍼럴이 적용됩니다. 내가 초대한 사람(1단계)이 다른 사람을 초대하면(2단계), 2단계 피추천인의 활동에서도 커미션을 받습니다.</p>
+              <p>초대한 친구 수에 따라 등급이 자동으로 올라갑니다. Bronze(0-9명), Silver(10-49명), Gold(50-199명), Diamond(200명+)로 구분되며, 등급이 올라갈수록 더 높은 커미션율을 받습니다.</p>
             </div>
           </div>
 
-          <div className={`faq-item ${activeTab === 'faq-4' ? 'active' : ''}`}>
+          <div className={`faq-item ${activeTab === 'faq-4' ? 'active' : ''}`} data-testid="faq-4">
             <div className="faq-question" onClick={() => toggleFaq('faq-4')}>
               <h4>보상은 언제 받을 수 있나요?</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>레퍼럴 보상은 실시간으로 정산되어 대시보드에 표시됩니다. 적립된 보상은 최소 100 TBURN 이상일 때 출금 가능하며, 출금 요청 후 24시간 이내에 지갑으로 전송됩니다.</p>
+              <p>레퍼럴 보상은 실시간으로 적립되며, 누적된 보상은 언제든지 출금할 수 있습니다. 다만, 최소 출금 수량은 100 TBURN입니다.</p>
             </div>
           </div>
-
-          <div className={`faq-item ${activeTab === 'faq-5' ? 'active' : ''}`}>
-            <div className="faq-question" onClick={() => toggleFaq('faq-5')}>
-              <h4>등급은 어떻게 올라가나요?</h4>
-              <span className="faq-chevron">▼</span>
-            </div>
-            <div className="faq-answer">
-              <p>등급은 누적 초대 수에 따라 자동으로 올라갑니다. Bronze(0~9명), Silver(10~49명), Gold(50~199명), Diamond(200명+)입니다. 한 번 올라간 등급은 내려가지 않습니다.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="cta-section">
-        <div style={{ maxWidth: '800px', margin: '0 auto' }}>
-          <h2 style={{ fontSize: '2.5rem', fontWeight: 800, marginBottom: '1rem' }}>지금 레퍼럴을 시작하세요</h2>
-          <p style={{ color: 'rgba(255,255,255,0.8)', fontSize: '1.125rem', marginBottom: '2rem' }}>
-            친구를 초대하고 최대 50% 커미션을 받으세요.<br />
-            3억 TBURN 보상 풀이 여러분을 기다립니다.
-          </p>
-          <button className="btn-primary" style={{ background: 'var(--white)', color: 'var(--purple)', fontSize: '1.25rem', padding: '20px 50px' }}>
-            🔗 내 초대 링크 받기
-          </button>
-          <p style={{ color: 'rgba(255,255,255,0.6)', marginTop: '1.5rem', fontSize: '0.875rem' }}>
-            ⏰ 빠른 참여 = 더 많은 보상
-          </p>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="footer">
+      <footer className="referral-footer">
         <div className="footer-content">
           <div className="footer-brand">
-            <h3>TBURN<span>CHAIN</span></h3>
-            <p>AI의 지능, 블록체인의 투명성<br />THE FUTURE IS NOW</p>
+            <div className="logo">
+              <div className="logo-icon">
+                <TBurnLogo className="w-6 h-6" />
+              </div>
+              <div className="logo-text">TBURN<span>CHAIN</span></div>
+            </div>
+            <p>차세대 블록체인 인프라</p>
             <div className="social-links">
-              <a href="#">𝕏</a>
-              <a href="#">✈</a>
-              <a href="#">💬</a>
-              <a href="#">⌘</a>
+              <a href="#" aria-label="Twitter">𝕏</a>
+              <a href="#" aria-label="Telegram">T</a>
+              <a href="#" aria-label="Discord">D</a>
+              <a href="#" aria-label="GitHub">G</a>
             </div>
           </div>
           <div className="footer-links">
-            <h4>Product</h4>
+            <h4>프로그램</h4>
             <ul>
-              <li><Link href="/">메인넷</Link></li>
-              <li><Link href="/scan">익스플로러</Link></li>
-              <li><Link href="/app/bridge">브릿지</Link></li>
-              <li><Link href="/app/staking">스테이킹</Link></li>
+              <li><a href="#how-it-works">작동 방식</a></li>
+              <li><a href="#tiers">등급 시스템</a></li>
+              <li><a href="#calculator">보상 계산기</a></li>
+              <li><a href="#leaderboard">리더보드</a></li>
             </ul>
           </div>
           <div className="footer-links">
-            <h4>Resources</h4>
+            <h4>리소스</h4>
             <ul>
-              <li><Link href="/learn/whitepaper">백서</Link></li>
-              <li><Link href="/developers/docs">문서</Link></li>
-              <li><a href="#">GitHub</a></li>
-              <li><Link href="/security-audit">감사 보고서</Link></li>
+              <li><a href="/docs">문서</a></li>
+              <li><a href="/faq">FAQ</a></li>
+              <li><a href="/support">지원</a></li>
+              <li><a href="/blog">블로그</a></li>
             </ul>
           </div>
           <div className="footer-links">
-            <h4>Community</h4>
+            <h4>법적 고지</h4>
             <ul>
-              <li><Link href="/community/news">블로그</Link></li>
-              <li><a href="#">앰배서더</a></li>
-              <li><a href="#">그랜트</a></li>
-              <li><Link href="/qna">고객지원</Link></li>
+              <li><a href="/terms">이용약관</a></li>
+              <li><a href="/privacy">개인정보처리방침</a></li>
+              <li><a href="/disclaimer">면책조항</a></li>
             </ul>
           </div>
         </div>
         <div className="footer-bottom">
-          <p>© 2025-2045 TBURN Foundation. All Rights Reserved.</p>
-          <div style={{ display: 'flex', gap: '2rem' }}>
-            <Link href="/legal/terms-of-service" style={{ color: 'var(--gray)', textDecoration: 'none' }}>이용약관</Link>
-            <Link href="/legal/privacy-policy" style={{ color: 'var(--gray)', textDecoration: 'none' }}>개인정보처리방침</Link>
-          </div>
+          <p>© 2025 TBURN Chain. All rights reserved.</p>
+          <p>Powered by TBURN Technology</p>
         </div>
       </footer>
     </div>

@@ -1,12 +1,48 @@
 import { useState } from "react";
 import { Link } from "wouter";
+import { useQuery } from "@tanstack/react-query";
 import { TBurnLogo } from "@/components/tburn-logo";
+import { useWeb3 } from "@/lib/web3-context";
+
+interface DAOStatsData {
+  totalProposals: number;
+  activeProposals: number;
+  totalVotes: number;
+  totalVotingPower: number;
+  quorumThreshold: number;
+  recentProposals: Array<{
+    id: string;
+    title: string;
+    status: string;
+    forVotes: number;
+    againstVotes: number;
+  }>;
+}
+
+interface DAOStatsResponse {
+  success: boolean;
+  data: DAOStatsData;
+}
 
 export default function DAOGovernancePage() {
   const [activeFaq, setActiveFaq] = useState<string | null>("faq-1");
+  const { isConnected, address, connect, disconnect, formatAddress } = useWeb3();
+
+  const { data: response, isLoading } = useQuery<DAOStatsResponse>({
+    queryKey: ['/api/token-programs/dao/stats'],
+  });
+  const stats = response?.data;
 
   const toggleFaq = (id: string) => {
     setActiveFaq(activeFaq === id ? null : id);
+  };
+
+  const handleWalletClick = async () => {
+    if (isConnected) {
+      disconnect();
+    } else {
+      await connect("metamask");
+    }
   };
 
   const proposals = [
@@ -1053,8 +1089,12 @@ export default function DAOGovernancePage() {
             <a href="#rewards">보상</a>
             <a href="#faq">FAQ</a>
           </nav>
-          <button className="connect-btn" data-testid="button-connect-wallet">
-            🔗 지갑 연결
+          <button 
+            className="connect-btn" 
+            data-testid="button-connect-wallet"
+            onClick={handleWalletClick}
+          >
+            {isConnected && address ? `🔗 ${formatAddress(address)}` : '🔗 지갑 연결'}
           </button>
         </div>
       </header>
@@ -1076,20 +1116,20 @@ export default function DAOGovernancePage() {
           </p>
 
           <div className="stats-grid">
-            <div className="stat-card" data-testid="stat-total-reward">
-              <div className="stat-value">8억</div>
+            <div className="stat-card" data-testid="stat-total-proposals">
+              <div className="stat-value">{isLoading ? '...' : stats?.totalProposals?.toLocaleString() || '8억'}</div>
               <div className="stat-label">총 거버넌스 보상 풀</div>
             </div>
-            <div className="stat-card" data-testid="stat-tge-unlock">
-              <div className="stat-value">1.2억</div>
+            <div className="stat-card" data-testid="stat-active-proposals">
+              <div className="stat-value">{isLoading ? '...' : stats?.activeProposals?.toLocaleString() || '1.2억'}</div>
               <div className="stat-label">TGE 즉시 해제 (15%)</div>
             </div>
-            <div className="stat-card" data-testid="stat-vesting">
-              <div className="stat-value">48개월</div>
+            <div className="stat-card" data-testid="stat-total-votes">
+              <div className="stat-value">{isLoading ? '...' : stats?.totalVotes?.toLocaleString() || '48개월'}</div>
               <div className="stat-label">베스팅 기간</div>
             </div>
-            <div className="stat-card" data-testid="stat-proposals-count">
-              <div className="stat-value">127</div>
+            <div className="stat-card" data-testid="stat-voting-power">
+              <div className="stat-value">{isLoading ? '...' : stats?.totalVotingPower?.toLocaleString() || '127'}</div>
               <div className="stat-label">총 제안 수</div>
             </div>
           </div>

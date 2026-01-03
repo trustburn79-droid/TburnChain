@@ -1,9 +1,48 @@
 import { useState } from "react";
 import { Link } from "wouter";
 import { TBurnLogo } from "@/components/tburn-logo";
+import { useQuery } from "@tanstack/react-query";
+import { useWeb3 } from "@/lib/web3-context";
+
+interface PartnershipStatsData {
+  partnerships: {
+    total: number;
+    strategic: number;
+    technical: number;
+    marketing: number;
+    allocation: string;
+    distributed: string;
+  };
+  marketing: {
+    campaigns: number;
+    reach: string;
+    allocation: string;
+  };
+  advisors: {
+    count: number;
+    expertise: string[];
+    allocation: string;
+  };
+  strategicPartners: Array<{
+    name: string;
+    type: string;
+    status: string;
+  }>;
+}
+
+interface PartnershipStatsResponse {
+  success: boolean;
+  data: PartnershipStatsData;
+}
 
 export default function PartnershipProgramPage() {
+  const { isConnected, address, connect, disconnect, formatAddress } = useWeb3();
   const [activeFaq, setActiveFaq] = useState<string | null>("faq-1");
+
+  const { data: response, isLoading: isLoadingStats } = useQuery<PartnershipStatsResponse>({
+    queryKey: ['/api/token-programs/partnerships/stats'],
+  });
+  const partnershipStats = response?.data;
 
   const toggleFaq = (id: string) => {
     setActiveFaq(activeFaq === id ? null : id);
@@ -845,8 +884,12 @@ export default function PartnershipProgramPage() {
             <a href="#success">성공사례</a>
             <a href="#faq">FAQ</a>
           </nav>
-          <button className="connect-btn" data-testid="button-connect-wallet">
-            🔗 지갑 연결
+          <button 
+            className="connect-btn" 
+            data-testid="button-connect-wallet"
+            onClick={() => isConnected ? disconnect() : connect("metamask")}
+          >
+            {isConnected ? `🔗 ${formatAddress(address || '')}` : '🔗 지갑 연결'}
           </button>
         </div>
       </header>
@@ -878,11 +921,15 @@ export default function PartnershipProgramPage() {
 
           <div className="stats-grid">
             <div className="stat-card" data-testid="stat-total-incentive">
-              <div className="stat-value">4억</div>
+              <div className="stat-value">
+                {isLoadingStats ? '...' : partnershipStats?.partnerships?.allocation || '4억'}
+              </div>
               <div className="stat-label">총 파트너 인센티브</div>
             </div>
             <div className="stat-card" data-testid="stat-partners">
-              <div className="stat-value">45+</div>
+              <div className="stat-value">
+                {isLoadingStats ? '...' : `${partnershipStats?.partnerships?.total || 45}+`}
+              </div>
               <div className="stat-label">활성 파트너</div>
             </div>
             <div className="stat-card" data-testid="stat-categories">
