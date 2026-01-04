@@ -49,6 +49,7 @@ import { registerUserDataRoutes } from "./routes/user-data-routes";
 import { registerLaunchEventRoutes } from "./routes/launch-event-routes";
 import { registerScalabilityRoutes } from "./routes/scalability-routes";
 import consensusRoutes from "./routes/consensus-routes";
+import blockProductionRoutes from "./routes/block-production-routes";
 import { nftMarketplaceService } from "./services/NftMarketplaceService";
 import { launchpadService } from "./services/LaunchpadService";
 import { gameFiService } from "./services/GameFiService";
@@ -1891,6 +1892,12 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   // ============================================
   app.use("/api/consensus", consensusRoutes);
   console.log("[Consensus] ✅ Enterprise BFT consensus routes registered");
+
+  // ============================================
+  // BLOCK PRODUCTION ENGINE (100ms Block Time)
+  // ============================================
+  app.use("/api/block-production", blockProductionRoutes);
+  console.log("[BlockProduction] ✅ Enterprise block production routes registered");
 
   // ============================================
   // Network Stats
