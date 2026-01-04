@@ -30,7 +30,7 @@ Core architectural decisions and features include:
 - **Token Distribution Admin System**: Enterprise-level management for various token programs (Airdrops, Referrals, Community Rewards, DAO Governance, etc.).
 
 ## External Dependencies
-- **Database**: Neon Serverless PostgreSQL with 1005+ enterprise-grade indexes (185+ enterprise indexes across 48 categories including validator orchestration, performance tracking, sharding, token distribution, consensus, reward distribution, and core blockchain tables)
+- **Database**: Neon Serverless PostgreSQL with 1044 enterprise-grade indexes (219+ enterprise indexes across 52 categories including validator orchestration, performance tracking with 41 dedicated indexes, sharding, token distribution, consensus, reward distribution, and core blockchain tables)
 - **ORM**: Drizzle ORM
 - **Frontend Framework**: React 18
 - **Language**: TypeScript
