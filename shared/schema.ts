@@ -9407,3 +9407,247 @@ export type InsertValidatorSlashEvent = z.infer<typeof insertValidatorSlashEvent
 
 export type ValidatorSlaAlert = typeof validatorSlaAlerts.$inferSelect;
 export type InsertValidatorSlaAlert = z.infer<typeof insertValidatorSlaAlertSchema>;
+
+// ============================================
+// ENTERPRISE PERFORMANCE INCENTIVE SYSTEM
+// Production-grade 5-tier bonus with auto-distribution
+// Tiers: Bronze(0-59), Silver(60-74), Gold(75-84), Platinum(85-94), Diamond(95-100)
+// ============================================
+
+// Validator Incentive States - Main state table for tier tracking
+export const validatorIncentiveStates = pgTable("validator_incentive_states", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  
+  // Identifiers
+  validatorId: text("validator_id").notNull().unique(),
+  validatorAddress: text("validator_address").notNull(),
+  
+  // Current Tier Status
+  currentTier: text("current_tier").notNull().default("bronze"), // bronze, silver, gold, platinum, diamond
+  tierMinScore: integer("tier_min_score").notNull().default(0),
+  tierMaxScore: integer("tier_max_score").notNull().default(59),
+  tierBonusMultiplier: numeric("tier_bonus_multiplier", { precision: 6, scale: 4 }).notNull().default("1.0000"),
+  
+  // Performance Metrics
+  performanceScore: integer("performance_score").notNull().default(50), // 0-100
+  ewmaPerformanceScore: integer("ewma_performance_score").notNull().default(50),
+  
+  // Streak Tracking
+  consecutiveHighPerformanceEpochs: integer("consecutive_high_performance_epochs").notNull().default(0),
+  highPerformanceThreshold: integer("high_performance_threshold").notNull().default(75),
+  longestStreak: integer("longest_streak").notNull().default(0),
+  streakBonusMultiplier: numeric("streak_bonus_multiplier", { precision: 6, scale: 4 }).notNull().default("1.0000"),
+  maxStreakBonusReached: boolean("max_streak_bonus_reached").notNull().default(false),
+  
+  // Consistency Tracking
+  consistencyScore: integer("consistency_score").notNull().default(50), // 0-100
+  performanceVariance: numeric("performance_variance", { precision: 10, scale: 4 }).notNull().default("0.0000"),
+  consistencyBonusRate: numeric("consistency_bonus_rate", { precision: 6, scale: 4 }).notNull().default("0.0000"),
+  
+  // Tier Transition History
+  tierUpgradeEpoch: bigint("tier_upgrade_epoch", { mode: "number" }),
+  tierDowngradeEpoch: bigint("tier_downgrade_epoch", { mode: "number" }),
+  tierTransitionCount: integer("tier_transition_count").notNull().default(0),
+  lastTierChangeAt: timestamp("last_tier_change_at"),
+  
+  // Bonus Earnings (stored as wei string for precision)
+  totalBonusEarned: text("total_bonus_earned").notNull().default("0"),
+  tierBonusEarned: text("tier_bonus_earned").notNull().default("0"),
+  streakBonusEarned: text("streak_bonus_earned").notNull().default("0"),
+  consistencyBonusEarned: text("consistency_bonus_earned").notNull().default("0"),
+  
+  // Epoch Tracking
+  lastUpdatedEpoch: bigint("last_updated_epoch", { mode: "number" }).notNull().default(0),
+  epochsTracked: integer("epochs_tracked").notNull().default(0),
+  
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
+// Validator Performance Epochs - Per-epoch history for 10-epoch tracking
+export const validatorPerformanceEpochs = pgTable("validator_performance_epochs", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  
+  // Composite Key Fields
+  validatorId: text("validator_id").notNull(),
+  epochNumber: bigint("epoch_number", { mode: "number" }).notNull(),
+  
+  // Performance Data
+  performanceScore: integer("performance_score").notNull().default(0),
+  tierAtEpoch: text("tier_at_epoch").notNull().default("bronze"),
+  ewmaScore: integer("ewma_score").notNull().default(0),
+  varianceSample: numeric("variance_sample", { precision: 10, scale: 4 }).notNull().default("0.0000"),
+  
+  // Streak Data
+  streakCount: integer("streak_count").notNull().default(0),
+  streakMultiplierAtEpoch: numeric("streak_multiplier_at_epoch", { precision: 6, scale: 4 }).notNull().default("1.0000"),
+  
+  // Bonus Components (JSONB for flexibility)
+  bonusComponents: jsonb("bonus_components").notNull().default({}),
+  totalBonusThisEpoch: text("total_bonus_this_epoch").notNull().default("0"),
+  
+  // Block Production
+  blocksProposed: integer("blocks_proposed").notNull().default(0),
+  blocksVerified: integer("blocks_verified").notNull().default(0),
+  blocksMissed: integer("blocks_missed").notNull().default(0),
+  
+  // Rewards
+  proposerRewards: text("proposer_rewards").notNull().default("0"),
+  verifierRewards: text("verifier_rewards").notNull().default("0"),
+  gasRewards: text("gas_rewards").notNull().default("0"),
+  totalRewards: text("total_rewards").notNull().default("0"),
+  
+  // Uptime & Latency
+  uptimeBasisPoints: integer("uptime_basis_points").notNull().default(10000),
+  avgLatencyMs: integer("avg_latency_ms").notNull().default(0),
+  
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+// Reward Distribution Schedules - Auto-distribution scheduler persistence
+export const rewardDistributionSchedules = pgTable("reward_distribution_schedules", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  
+  // Schedule Identification
+  scheduleId: text("schedule_id").notNull().unique(),
+  epochNumber: bigint("epoch_number", { mode: "number" }).notNull(),
+  
+  // Timing
+  scheduledAt: bigint("scheduled_at", { mode: "number" }).notNull(),
+  executedAt: bigint("executed_at", { mode: "number" }),
+  completedAt: bigint("completed_at", { mode: "number" }),
+  nextRunAt: bigint("next_run_at", { mode: "number" }),
+  
+  // Configuration Snapshot (JSONB)
+  configSnapshot: jsonb("config_snapshot").notNull().default({}),
+  intervalMs: integer("interval_ms").notNull().default(100000),
+  minBatchSize: integer("min_batch_size").notNull().default(10),
+  maxBatchSize: integer("max_batch_size").notNull().default(1000),
+  
+  // Status
+  status: text("status").notNull().default("scheduled"), // scheduled, executing, completed, failed, cancelled
+  
+  // Totals
+  totalRewards: integer("total_rewards").notNull().default(0),
+  totalAmount: text("total_amount").notNull().default("0"),
+  totalBatches: integer("total_batches").notNull().default(0),
+  
+  // Retry Tracking
+  retryAttempts: integer("retry_attempts").notNull().default(0),
+  maxRetryAttempts: integer("max_retry_attempts").notNull().default(3),
+  retryDelayMs: integer("retry_delay_ms").notNull().default(5000),
+  lastRetryAt: bigint("last_retry_at", { mode: "number" }),
+  
+  // Error Tracking
+  errorCount: integer("error_count").notNull().default(0),
+  errorLog: jsonb("error_log").notNull().default([]),
+  lastError: text("last_error"),
+  
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
+// Reward Distribution Batches - Batch tracking for distributions
+export const rewardDistributionBatches = pgTable("reward_distribution_batches", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  
+  // References
+  scheduleId: text("schedule_id").notNull(),
+  batchId: text("batch_id").notNull().unique(),
+  epochNumber: bigint("epoch_number", { mode: "number" }).notNull(),
+  
+  // Batch Details
+  batchNumber: integer("batch_number").notNull().default(0),
+  priority: text("priority").notNull().default("normal"), // critical, high, normal, low
+  
+  // Amounts
+  rewardCount: integer("reward_count").notNull().default(0),
+  totalAmount: text("total_amount").notNull().default("0"),
+  
+  // Processing
+  status: text("status").notNull().default("pending"), // pending, processing, completed, failed, retrying
+  processedAt: bigint("processed_at", { mode: "number" }),
+  processingDurationMs: integer("processing_duration_ms").notNull().default(0),
+  
+  // Transaction Tracking
+  txHashes: jsonb("tx_hashes").notNull().default([]),
+  
+  // Retry
+  retryCount: integer("retry_count").notNull().default(0),
+  lastError: text("last_error"),
+  
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+// Validator Incentive Tier Stats - Materialized tier distribution stats
+export const validatorIncentiveTierStats = pgTable("validator_incentive_tier_stats", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  
+  // Tier Information
+  tier: text("tier").notNull().unique(), // bronze, silver, gold, platinum, diamond
+  tierOrder: integer("tier_order").notNull().default(0), // 0-4 for sorting
+  
+  // Current Stats
+  validatorCount: integer("validator_count").notNull().default(0),
+  totalStake: text("total_stake").notNull().default("0"),
+  avgPerformanceScore: integer("avg_performance_score").notNull().default(0),
+  avgStreakLength: integer("avg_streak_length").notNull().default(0),
+  avgConsistencyScore: integer("avg_consistency_score").notNull().default(0),
+  
+  // Bonus Stats
+  totalBonusDistributed: text("total_bonus_distributed").notNull().default("0"),
+  avgBonusPerValidator: text("avg_bonus_per_validator").notNull().default("0"),
+  bonusMultiplier: numeric("bonus_multiplier", { precision: 6, scale: 4 }).notNull().default("1.0000"),
+  
+  // Transitions
+  upgradesThisEpoch: integer("upgrades_this_epoch").notNull().default(0),
+  downgradesThisEpoch: integer("downgrades_this_epoch").notNull().default(0),
+  
+  // Timing
+  lastUpdatedEpoch: bigint("last_updated_epoch", { mode: "number" }).notNull().default(0),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
+// Insert Schemas for Incentive System Tables
+export const insertValidatorIncentiveStateSchema = createInsertSchema(validatorIncentiveStates).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertValidatorPerformanceEpochSchema = createInsertSchema(validatorPerformanceEpochs).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertRewardDistributionScheduleSchema = createInsertSchema(rewardDistributionSchedules).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertRewardDistributionBatchSchema = createInsertSchema(rewardDistributionBatches).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertValidatorIncentiveTierStatSchema = createInsertSchema(validatorIncentiveTierStats).omit({
+  id: true,
+  updatedAt: true,
+});
+
+// Types for Incentive System Tables
+export type ValidatorIncentiveStateDB = typeof validatorIncentiveStates.$inferSelect;
+export type InsertValidatorIncentiveState = z.infer<typeof insertValidatorIncentiveStateSchema>;
+
+export type ValidatorPerformanceEpochDB = typeof validatorPerformanceEpochs.$inferSelect;
+export type InsertValidatorPerformanceEpoch = z.infer<typeof insertValidatorPerformanceEpochSchema>;
+
+export type RewardDistributionScheduleDB = typeof rewardDistributionSchedules.$inferSelect;
+export type InsertRewardDistributionSchedule = z.infer<typeof insertRewardDistributionScheduleSchema>;
+
+export type RewardDistributionBatchDB = typeof rewardDistributionBatches.$inferSelect;
+export type InsertRewardDistributionBatch = z.infer<typeof insertRewardDistributionBatchSchema>;
+
+export type ValidatorIncentiveTierStatDB = typeof validatorIncentiveTierStats.$inferSelect;
+export type InsertValidatorIncentiveTierStat = z.infer<typeof insertValidatorIncentiveTierStatSchema>;
