@@ -34,7 +34,6 @@ import AdminEconomics from "@/pages/admin-portal/economics";
 import AdminCommunity from "@/pages/admin-portal/community";
 import AdminCommunityContent from "@/pages/admin/community-content";
 import AdminTokenomics from "@/pages/admin-portal/tokenomics";
-import TokenomicsSimulation from "@/pages/tokenomics-simulation";
 
 // Group 4: AI Systems (4 pages)
 import AdminAIOrchestration from "@/pages/admin-portal/ai-orchestration";
