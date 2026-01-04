@@ -24,7 +24,8 @@ import {
   createSkipSession,
   checkMemoryStoreCapacity,
   performEmergencyCleanup,
-  forceClearAllSessions
+  forceClearAllSessions,
+  IS_PRODUCTION
 } from "./core/sessions/session-bypass";
 import { productionMonitor } from "./core/monitoring/enterprise-production-monitor";
 
@@ -119,15 +120,18 @@ declare module 'http' {
 const REDIS_URL = process.env.REDIS_URL;
 const hasRedis = !!REDIS_URL; // REDIS_URL이 명시적으로 설정된 경우만 Redis 사용
 
-// ★ 쿠키 보안 설정 - 프로덕션 환경 자동 감지
-// Replit Autoscale 배포 시 HTTPS가 자동으로 활성화되므로 secure 쿠키 필요
-// ★ [수정] 프로덕션 환경 감지 - session-bypass.ts와 일관성 유지
-const isProduction = (
-  process.env.REPLIT_DEPLOYMENT === '1' ||
-  process.env.NODE_ENV === 'production' ||
-  (process.env.REPL_ID && !process.env.REPLIT_DEV_DOMAIN)
-) && process.env.NODE_ENV !== 'development';
-const cookieSecure = isProduction || process.env.COOKIE_SECURE === "true";
+// ★ [2026-01-05 프로덕션 안정성 v3.0] 환경 감지 통합
+// session-bypass.ts의 IS_PRODUCTION을 직접 사용하여 개발/프로덕션 일관성 보장
+// 이전: app.ts에서 별도로 프로덕션 감지 → 불일치 발생 → 프로덕션에서 세션 스킵 실패
+// 현재: IS_PRODUCTION을 session-bypass.ts에서 import하여 단일 진실 소스(Single Source of Truth) 유지
+const cookieSecure = IS_PRODUCTION || process.env.COOKIE_SECURE === "true";
+
+// ★ 프로덕션 환경 감지 로깅 (디버깅용)
+console.log(`[Session] Environment Detection: IS_PRODUCTION=${IS_PRODUCTION}, ` +
+  `REPLIT_DEPLOYMENT=${process.env.REPLIT_DEPLOYMENT}, ` +
+  `NODE_ENV=${process.env.NODE_ENV}, ` +
+  `REPL_ID=${process.env.REPL_ID ? 'set' : 'unset'}, ` +
+  `REPLIT_DEV_DOMAIN=${process.env.REPLIT_DEV_DOMAIN ? 'set' : 'unset'}`);
 
 let sessionStore: session.Store;
 let sessionStoreType: string;
@@ -162,7 +166,7 @@ if (hasRedis) {
   // Redis가 없는 환경: MemoryStore 사용 (Replit 개발 및 Autoscale 배포 모두)
   // ★ [수정 6] 프로덕션 안정성 - 세션 오버플로우 완전 방지
   // 프로덕션에서는 10000개로 증가, 개발에서는 2000개
-  const maxSessions = isProduction ? 10000 : 2000;
+  const maxSessions = IS_PRODUCTION ? 10000 : 2000;
   const memStore = new MemoryStore({
     checkPeriod: 30000, // ★ 30초마다 만료된 세션 정리 (더 적극적)
     max: maxSessions, // ★ 프로덕션 10000 / 개발 2000
@@ -221,7 +225,7 @@ export function getSessionStoreInfo() {
   return {
     isUsingMemoryStore,
     memoryStoreRef,
-    maxSessions: isProduction ? 10000 : 2000,
+    maxSessions: IS_PRODUCTION ? 10000 : 2000,
     getActiveCount: getActiveSessionCount
   };
 }
@@ -258,7 +262,7 @@ app.use((req: Request, res: Response, next: NextFunction) => {
   productionMonitor.recordSessionCreate();
   
   // ★ MemoryStore 용량 모니터링 (프로덕션 안정성)
-  const maxSessions = isProduction ? 10000 : 2000;
+  const maxSessions = IS_PRODUCTION ? 10000 : 2000;
   const activeCount = getActiveSessionCount();
   const capacityResult = checkMemoryStoreCapacity(activeCount, maxSessions);
   
