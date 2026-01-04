@@ -591,6 +591,211 @@ export const ENTERPRISE_INDEXES = {
      ON block_finality_records(verification_time_ms DESC) 
      WHERE finality_status = 'finalized'`,
   ],
+
+  // ============================================
+  // VALIDATOR CORE - 125 Genesis Validators, O(1) Lookups
+  // ============================================
+  VALIDATORS_CORE: [
+    // Active validators listing (primary dashboard query)
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_validators_status_stake 
+     ON validators(status, stake DESC) 
+     WHERE status = 'active'`,
+    
+    // Address lookup (O(1) wallet query)
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_validators_address_status 
+     ON validators(address, status)`,
+    
+    // Voting power ranking
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_validators_voting_power 
+     ON validators(voting_power DESC, status) 
+     WHERE status = 'active'`,
+    
+    // Performance score ranking
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_validators_performance 
+     ON validators(performance_score DESC, uptime DESC) 
+     WHERE status = 'active'`,
+    
+    // Commission rate lookup
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_validators_commission 
+     ON validators(commission, delegated_stake DESC) 
+     WHERE status = 'active'`,
+    
+    // Jailed validators monitoring
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_validators_jailed 
+     ON validators(status, slash_count DESC, last_active_at) 
+     WHERE status = 'jailed'`,
+    
+    // Delegator count ranking
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_validators_delegators 
+     ON validators(delegators DESC, delegated_stake DESC) 
+     WHERE status = 'active'`,
+    
+    // AI trust score ranking
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_validators_ai_trust 
+     ON validators(ai_trust_score DESC, reputation_score DESC) 
+     WHERE status = 'active'`,
+  ],
+
+  // ============================================
+  // VALIDATOR BLOCK REWARDS - Per-block Distribution
+  // ============================================
+  VALIDATOR_BLOCK_REWARDS: [
+    // Validator reward history
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_validator_block_rewards_validator 
+     ON validator_block_rewards(validator_address, block_number DESC)`,
+    
+    // Undistributed rewards processing
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_validator_block_rewards_pending 
+     ON validator_block_rewards(distributed, created_at DESC) 
+     WHERE distributed = false`,
+    
+    // Reward type analytics
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_validator_block_rewards_type 
+     ON validator_block_rewards(reward_type, block_number DESC)`,
+    
+    // Block-based reward lookup
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_validator_block_rewards_block 
+     ON validator_block_rewards(block_number DESC, validator_address)`,
+    
+    // Participation role analysis
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_validator_block_rewards_role 
+     ON validator_block_rewards(participation_role, distributed)`,
+  ],
+
+  // ============================================
+  // BLOCK VERIFICATIONS - Cross-Validator Verification
+  // ============================================
+  BLOCK_VERIFICATIONS: [
+    // Block verification lookup
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_block_verifications_block 
+     ON block_verifications(block_number DESC, verification_result)`,
+    
+    // Validator verification history
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_block_verifications_validator 
+     ON block_verifications(validator_address, created_at DESC)`,
+    
+    // Failed verification tracking
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_block_verifications_invalid 
+     ON block_verifications(verification_result, block_number DESC) 
+     WHERE verification_result != 'valid'`,
+    
+    // Verification time analysis
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_block_verifications_time 
+     ON block_verifications(verification_time_ms DESC, block_number)`,
+    
+    // State root mismatch tracking
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_block_verifications_mismatch 
+     ON block_verifications(state_root_match, receipts_root_match) 
+     WHERE state_root_match = false OR receipts_root_match = false`,
+  ],
+
+  // ============================================
+  // BLOCK FINALITY CONFIRMATIONS - Final State
+  // ============================================
+  BLOCK_FINALITY_CONFIRMATIONS: [
+    // Finality status lookup
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_block_finality_conf_status 
+     ON block_finality_confirmations(finality_status, block_number DESC)`,
+    
+    // Pending finality processing
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_block_finality_conf_pending 
+     ON block_finality_confirmations(finality_status, consensus_start_at) 
+     WHERE finality_status IN ('pending', 'confirmed')`,
+    
+    // Finalized blocks with timing
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_block_finality_conf_finalized 
+     ON block_finality_confirmations(finalized_at DESC, confirmation_latency_ms) 
+     WHERE finality_status = 'finalized'`,
+    
+    // Verification vote analysis
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_block_finality_conf_votes 
+     ON block_finality_confirmations(valid_votes DESC, total_verifications)`,
+  ],
+
+  // ============================================
+  // VALIDATOR PERFORMANCE HISTORY - Time-Series Analytics
+  // ============================================
+  VALIDATOR_PERFORMANCE_HISTORY: [
+    // Validator history lookup (primary)
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_validator_perf_history_addr 
+     ON validator_performance_history(validator_address, period_end DESC)`,
+    
+    // Period-based analytics
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_validator_perf_history_period 
+     ON validator_performance_history(period_type, period_start DESC, period_end DESC)`,
+    
+    // Performance ranking over time
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_validator_perf_history_rank 
+     ON validator_performance_history(uptime DESC, blocks_produced DESC, period_end DESC)`,
+    
+    // Slashing history tracking
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_validator_perf_history_slash 
+     ON validator_performance_history(slash_events DESC, total_slashed DESC) 
+     WHERE slash_events > 0`,
+    
+    // AI score trends
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_validator_perf_history_ai 
+     ON validator_performance_history(ai_trust_score DESC, behavior_score DESC, period_end DESC)`,
+    
+    // Reward analytics
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_validator_perf_history_rewards 
+     ON validator_performance_history(rewards_earned DESC, commissions_earned DESC, period_end DESC)`,
+  ],
+
+  // ============================================
+  // GENESIS VALIDATORS - Mainnet Launch (125 Validators)
+  // ============================================
+  GENESIS_VALIDATORS: [
+    // Config-based validator listing
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_genesis_validators_config 
+     ON genesis_validators(config_id, tier, priority DESC)`,
+    
+    // Address lookup
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_genesis_validators_address 
+     ON genesis_validators(address)`,
+    
+    // Tier-based queries
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_genesis_validators_tier 
+     ON genesis_validators(tier, initial_stake DESC)`,
+    
+    // Verification status
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_genesis_validators_verified 
+     ON genesis_validators(is_verified, kyc_status) 
+     WHERE is_verified = true`,
+    
+    // Pending verification
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_genesis_validators_pending 
+     ON genesis_validators(kyc_status, created_at DESC) 
+     WHERE kyc_status = 'pending'`,
+  ],
+
+  // ============================================
+  // DELEGATIONS - Stake Delegation Tracking
+  // ============================================
+  DELEGATIONS: [
+    // Delegator lookups
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_delegations_delegator 
+     ON delegations(delegator_address, status, created_at DESC)`,
+    
+    // Validator delegation totals
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_delegations_validator 
+     ON delegations(validator_address, status, amount DESC)`,
+    
+    // Active delegations
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_delegations_active 
+     ON delegations(status, amount DESC) 
+     WHERE status = 'active'`,
+    
+    // Unbonding delegations
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_delegations_unbonding 
+     ON delegations(status, unbonding_end_time) 
+     WHERE status = 'unbonding'`,
+    
+    // Reward claim processing
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_delegations_rewards 
+     ON delegations(pending_rewards DESC, last_claim_at) 
+     WHERE pending_rewards != '0'`,
+  ],
 };
 
 /**
