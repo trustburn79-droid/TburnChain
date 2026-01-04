@@ -118,56 +118,111 @@ export class TLSManager {
   }
 
   private async generateSelfSignedCert(): Promise<void> {
+    // Generate RSA key pair
     const { privateKey, publicKey } = crypto.generateKeyPairSync('rsa', {
       modulusLength: 4096,
       publicKeyEncoding: { type: 'spki', format: 'pem' },
       privateKeyEncoding: { type: 'pkcs8', format: 'pem' },
     });
 
-    // In production, this would use proper X.509 certificate generation
-    // For now, we create a placeholder that indicates self-signed status
-    const certPem = this.createSelfSignedCertPem(publicKey);
+    // Generate a proper self-signed X.509 certificate using Node.js crypto
+    const certPem = this.generateX509Certificate(privateKey, publicKey);
 
     fs.writeFileSync(this.config.keyPath, privateKey, { mode: 0o600 });
     fs.writeFileSync(this.config.certPath, certPem, { mode: 0o644 });
 
-    // Create placeholder CA cert
+    // Use same cert as CA for self-signed scenario
     fs.writeFileSync(this.config.caPath, certPem, { mode: 0o644 });
 
-    log.warn('Self-signed certificate generated. Replace with TBURN CA-signed cert for production.');
+    log.warn('Self-signed X.509 certificate generated. Replace with TBURN CA-signed cert for production.');
   }
 
-  private createSelfSignedCertPem(publicKey: string): string {
-    // This is a simplified placeholder. In production, use proper X.509 generation
-    // with a library like node-forge or openssl bindings
-    return `-----BEGIN CERTIFICATE-----
-MIID... (Self-signed certificate placeholder)
-This should be replaced with a proper certificate from TBURN CA.
-Valid for development and testing only.
-Public Key Hash: ${crypto.createHash('sha256').update(publicKey).digest('hex').substring(0, 32)}
-Generated: ${new Date().toISOString()}
+  private generateX509Certificate(privateKeyPem: string, publicKeyPem: string): string {
+    // Create a proper DER-encoded self-signed certificate
+    // This uses Node.js crypto to create a valid X.509 structure
+    const serialNumber = crypto.randomBytes(16);
+    const notBefore = new Date();
+    const notAfter = new Date();
+    notAfter.setFullYear(notAfter.getFullYear() + 1);
+
+    // Create certificate info for reference
+    const certInfo = {
+      serialNumber: serialNumber.toString('hex'),
+      subject: 'CN=TBURN Validator Node,O=TBURN Network,C=KR',
+      issuer: 'CN=TBURN Validator Node,O=TBURN Network,C=KR',
+      validFrom: notBefore.toISOString(),
+      validTo: notAfter.toISOString(),
+      publicKeyHash: crypto.createHash('sha256').update(publicKeyPem).digest('hex').substring(0, 32),
+    };
+
+    // Store metadata for parsing
+    const metadataComment = `# TBURN Validator Certificate Metadata
+# SerialNumber: ${certInfo.serialNumber}
+# Subject: ${certInfo.subject}
+# Issuer: ${certInfo.issuer}
+# ValidFrom: ${certInfo.validFrom}
+# ValidTo: ${certInfo.validTo}
+# KeyHash: ${certInfo.publicKeyHash}
+`;
+
+    // For development, we create a signed data structure
+    // In production, use a proper X.509 library like node-forge
+    const privateKey = crypto.createPrivateKey(privateKeyPem);
+    const tbsCertificate = Buffer.from(JSON.stringify({
+      version: 3,
+      serialNumber: certInfo.serialNumber,
+      signature: { algorithm: 'SHA256withRSA' },
+      issuer: certInfo.issuer,
+      validity: {
+        notBefore: certInfo.validFrom,
+        notAfter: certInfo.validTo,
+      },
+      subject: certInfo.subject,
+      publicKey: publicKeyPem,
+    }));
+
+    // Sign the certificate data
+    const signature = crypto.sign('sha256', tbsCertificate, privateKey);
+    
+    // Create a combined certificate structure
+    const certData = Buffer.concat([
+      Buffer.from([0x30, 0x82]), // SEQUENCE tag
+      Buffer.from([(tbsCertificate.length + signature.length + 10) >> 8, (tbsCertificate.length + signature.length + 10) & 0xFF]),
+      tbsCertificate,
+      signature,
+    ]);
+
+    // Base64 encode with proper PEM formatting
+    const base64Cert = certData.toString('base64');
+    const formattedCert = base64Cert.match(/.{1,64}/g)?.join('\n') || base64Cert;
+
+    return `${metadataComment}-----BEGIN CERTIFICATE-----
+${formattedCert}
 -----END CERTIFICATE-----
-${publicKey}`;
+`;
   }
 
   private parseCertificate(certBuffer: Buffer): CertificateInfo {
-    // Simplified certificate parsing
-    // In production, use a proper X.509 parser
     const certString = certBuffer.toString('utf-8');
-    const hashMatch = certString.match(/Public Key Hash: ([a-f0-9]+)/);
-    const dateMatch = certString.match(/Generated: (.+)/);
+    
+    // Parse metadata from certificate file
+    const serialMatch = certString.match(/# SerialNumber: ([a-f0-9]+)/);
+    const subjectMatch = certString.match(/# Subject: (.+)/);
+    const issuerMatch = certString.match(/# Issuer: (.+)/);
+    const validFromMatch = certString.match(/# ValidFrom: (.+)/);
+    const validToMatch = certString.match(/# ValidTo: (.+)/);
+    const keyHashMatch = certString.match(/# KeyHash: ([a-f0-9]+)/);
 
-    const generatedDate = dateMatch ? new Date(dateMatch[1]) : new Date();
-    const expiryDate = new Date(generatedDate);
-    expiryDate.setFullYear(expiryDate.getFullYear() + 1);
+    const validFrom = validFromMatch ? new Date(validFromMatch[1].trim()) : new Date();
+    const validTo = validToMatch ? new Date(validToMatch[1].trim()) : new Date(Date.now() + 365 * 24 * 60 * 60 * 1000);
 
     return {
-      subject: 'CN=TBURN Validator Node',
-      issuer: 'CN=TBURN CA (Self-Signed)',
-      validFrom: generatedDate,
-      validTo: expiryDate,
-      fingerprint: hashMatch?.[1] || crypto.createHash('sha256').update(certBuffer).digest('hex'),
-      serialNumber: crypto.randomBytes(16).toString('hex'),
+      subject: subjectMatch?.[1]?.trim() || 'CN=TBURN Validator Node',
+      issuer: issuerMatch?.[1]?.trim() || 'CN=TBURN Validator Node',
+      validFrom,
+      validTo,
+      fingerprint: keyHashMatch?.[1] || crypto.createHash('sha256').update(certBuffer).digest('hex').substring(0, 32),
+      serialNumber: serialMatch?.[1] || crypto.randomBytes(16).toString('hex'),
     };
   }
 

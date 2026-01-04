@@ -40,7 +40,7 @@ export declare class TLSManager {
     initialize(): Promise<void>;
     private loadCertificates;
     private generateSelfSignedCert;
-    private createSelfSignedCertPem;
+    private generateX509Certificate;
     private parseCertificate;
     getTLSOptions(): tls.TlsOptions;
     getSecureContextOptions(): tls.SecureContextOptions;

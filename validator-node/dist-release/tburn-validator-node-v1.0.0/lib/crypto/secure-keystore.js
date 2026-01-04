@@ -42,7 +42,7 @@ const logger_1 = require("../utils/logger");
 const log = (0, logger_1.createModuleLogger)('SecureKeystore');
 const CURRENT_VERSION = 1;
 const ALGORITHM = 'aes-256-gcm';
-const KDF = 'argon2id-simulated'; // In production, use proper argon2id
+const KDF = 'pbkdf2-sha512'; // Production alternative: use argon2id library for stronger protection
 class SecureKeystore {
     config;
     isUnlocked = false;
@@ -115,7 +115,10 @@ class SecureKeystore {
         }
     }
     async deriveKey(password) {
-        // Simulated Argon2id using PBKDF2 (in production, use proper argon2id)
+        // PBKDF2 with SHA-512 and 100,000 iterations
+        // For maximum security, consider installing argon2 package and using:
+        // import argon2 from 'argon2';
+        // return argon2.hash(password, { type: argon2.argon2id, memoryCost: 65536, parallelism: 4 });
         const salt = this.getOrCreateSalt();
         return new Promise((resolve, reject) => {
             crypto.pbkdf2(password, salt, 100000, 32, 'sha512', (err, derivedKey) => {
