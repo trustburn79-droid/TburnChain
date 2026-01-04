@@ -24,6 +24,7 @@ import {
   createSkipSession,
   checkMemoryStoreCapacity 
 } from "./core/sessions/session-bypass";
+import { productionMonitor } from "./core/monitoring/enterprise-production-monitor";
 
 declare module "express-session" {
   interface SessionData {
@@ -169,6 +170,9 @@ app.use((req: Request, res: Response, next: NextFunction) => {
     // 세션 없이 빈 세션 객체만 제공 (세션 저장소에 저장하지 않음)
     (req as any).session = createSkipSession();
     
+    // ★ [엔터프라이즈 모니터링] 세션 스킵 기록
+    productionMonitor.recordSessionSkip();
+    
     // 디버깅용 로깅 (선택적)
     if (process.env.DEBUG_SESSION === 'true') {
       console.log(`[Session Skip] ${req.method} ${req.path} - reason: ${bypassResult.reason}`);
@@ -179,9 +183,15 @@ app.use((req: Request, res: Response, next: NextFunction) => {
   
   sessionCreateCount++;
   
+  // ★ [엔터프라이즈 모니터링] 세션 생성 기록
+  productionMonitor.recordSessionCreate();
+  
   // ★ MemoryStore 용량 모니터링 (프로덕션 안정성)
   const maxSessions = isProduction ? 10000 : 2000;
   checkMemoryStoreCapacity(sessionCreateCount, maxSessions);
+  
+  // ★ [엔터프라이즈 모니터링] MemoryStore 용량 업데이트
+  productionMonitor.updateMemoryStoreMetrics(sessionCreateCount, maxSessions);
   
   // 10분마다 세션 사용량 리포트
   const now = Date.now();

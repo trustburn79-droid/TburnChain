@@ -65,6 +65,7 @@ import enterpriseDbOptimizerRoutes from "./routes/enterprise-db-optimizer-routes
 import { enterpriseSessionMetrics } from "./core/monitoring/enterprise-session-metrics";
 import { dbOptimizer } from "./core/db/enterprise-db-optimizer";
 import { healthMonitor } from "./core/health/production-health-monitor";
+import { productionMonitor } from "./core/monitoring/enterprise-production-monitor";
 import { nftMarketplaceService } from "./services/NftMarketplaceService";
 import { launchpadService } from "./services/LaunchpadService";
 import { gameFiService } from "./services/GameFiService";
@@ -378,8 +379,16 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   healthMonitor.start();
   console.log('[Routes] ✅ Production health monitor started');
   
+  // ★ [2026-01-04] Start Enterprise Production Monitor for session metrics
+  productionMonitor.start();
+  console.log('[Routes] ✅ Enterprise production monitor started');
+  
   // Register health monitor routes (early, before rate limiting)
   app.use(healthMonitor.getRoutes());
+  
+  // Register production monitor routes
+  app.use('/api/production-monitor', productionMonitor.getRoutes());
+  console.log('[Routes] ✅ Production monitor routes registered (/api/production-monitor/*)');
   
   // Add request tracking middleware for health metrics
   app.use(healthMonitor.trackRequest());
