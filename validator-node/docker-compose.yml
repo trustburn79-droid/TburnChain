@@ -1,0 +1,107 @@
+# TBURN Validator Node Docker Compose Configuration
+#
+# Usage:
+#   1. Copy this file to your server
+#   2. Initialize validator: docker-compose run --rm validator init
+#   3. Start validator: docker-compose up -d
+#   4. View logs: docker-compose logs -f
+
+version: '3.8'
+
+services:
+  validator:
+    image: tburn/validator-node:latest
+    container_name: tburn-validator
+    restart: unless-stopped
+    
+    ports:
+      - "26656:26656"  # P2P
+      - "8080:8080"    # API
+      - "8545:8545"    # RPC
+      - "8546:8546"    # WebSocket
+      - "9090:9090"    # Prometheus
+
+    volumes:
+      - ./data:/data
+      - ./config:/config
+      - ./logs:/logs
+
+    environment:
+      - NODE_ENV=production
+      - TBURN_CHAIN_ID=6000
+      - TBURN_NETWORK_ID=tburn-mainnet
+      
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/api/v1/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100m"
+        max-file: "5"
+
+    deploy:
+      resources:
+        limits:
+          cpus: '4'
+          memory: 8G
+        reservations:
+          cpus: '2'
+          memory: 4G
+
+    networks:
+      - tburn-network
+
+  # Optional: Prometheus monitoring
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: tburn-prometheus
+    restart: unless-stopped
+    profiles: ["monitoring"]
+    
+    ports:
+      - "9091:9090"
+    
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus-data:/prometheus
+    
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--storage.tsdb.retention.time=30d'
+    
+    networks:
+      - tburn-network
+
+  # Optional: Grafana dashboard
+  grafana:
+    image: grafana/grafana:latest
+    container_name: tburn-grafana
+    restart: unless-stopped
+    profiles: ["monitoring"]
+    
+    ports:
+      - "3000:3000"
+    
+    volumes:
+      - grafana-data:/var/lib/grafana
+    
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_USERS_ALLOW_SIGN_UP=false
+    
+    networks:
+      - tburn-network
+
+networks:
+  tburn-network:
+    driver: bridge
+
+volumes:
+  prometheus-data:
+  grafana-data:

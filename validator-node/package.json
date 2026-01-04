@@ -8,39 +8,54 @@
   },
   "scripts": {
     "build": "tsc",
-    "start": "node dist/index.js",
-    "dev": "tsx src/index.ts",
-    "cli": "tsx src/cli.ts",
+    "start": "node dist/cli.js start",
+    "start:solo": "node dist/cli.js start --solo",
+    "init": "node dist/cli.js init",
+    "status": "node dist/cli.js status",
+    "keys": "node dist/cli.js keys",
+    "dev": "tsx src/cli.ts",
+    "dev:start": "tsx src/cli.ts start --solo",
     "test": "vitest",
     "lint": "eslint src/",
     "clean": "rm -rf dist",
-    "prepare": "npm run build"
+    "prepare": "npm run build",
+    "pack:dist": "npm pack",
+    "docker:build": "docker build -t tburn/validator-node:latest .",
+    "docker:push": "docker push tburn/validator-node:latest"
   },
-  "keywords": ["tburn", "blockchain", "validator", "bft", "consensus"],
+  "keywords": ["tburn", "blockchain", "validator", "bft", "consensus", "mainnet"],
   "author": "TBURN Foundation",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tburn-foundation/validator-node.git"
+  },
+  "homepage": "https://tburn.io/validator",
+  "bugs": {
+    "url": "https://github.com/tburn-foundation/validator-node/issues"
+  },
   "dependencies": {
     "commander": "^12.0.0",
     "ws": "^8.16.0",
-    "level": "^8.0.0",
-    "ethers": "^6.10.0",
     "express": "^4.18.2",
-    "prom-client": "^15.1.0",
-    "winston": "^3.11.0",
-    "dotenv": "^16.3.1",
-    "uuid": "^9.0.0",
-    "node-cron": "^3.0.3"
+    "dotenv": "^16.3.1"
   },
   "devDependencies": {
     "@types/node": "^20.10.0",
     "@types/ws": "^8.5.10",
     "@types/express": "^4.17.21",
-    "@types/uuid": "^9.0.0",
     "typescript": "^5.3.0",
     "tsx": "^4.7.0",
     "vitest": "^1.1.0"
   },
   "engines": {
     "node": ">=20.0.0"
-  }
+  },
+  "files": [
+    "dist",
+    "scripts",
+    "docs",
+    "README.md",
+    "LICENSE"
+  ]
 }
