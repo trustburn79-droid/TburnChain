@@ -51,6 +51,8 @@ interface GenesisConfigData {
   genesisTimestamp?: number;
   executedAt?: string;
   preflightChecks?: any;
+  genesisBlockHash?: string;
+  executionTxHash?: string;
 }
 
 interface GenesisValidator {
@@ -86,6 +88,8 @@ interface GenesisDistributionItem {
   isLocked: boolean;
   lockDurationDays?: number;
   status: string;
+  distributedAt?: string;
+  distributionTxHash?: string;
 }
 
 interface GenesisApprovalItem {
@@ -101,6 +105,8 @@ interface GenesisApprovalItem {
   signatureType: string;
   isVerified: boolean;
   comments?: string;
+  rejectedAt?: string;
+  rejectionReason?: string;
 }
 
 interface PreflightCheck {
@@ -560,15 +566,18 @@ router.put('/config', async (req: Request, res: Response) => {
       genesisConfig = initializeDefaultConfig();
     }
     
-    if (genesisConfig.isExecuted) {
+    const currentConfig = genesisConfig;
+    
+    if (currentConfig.isExecuted) {
       return res.status(400).json({ error: 'Cannot modify executed genesis configuration' });
     }
     
     const updates = req.body;
-    genesisConfig = { ...genesisConfig, ...updates, status: 'draft' };
+    const updatedConfig = { ...currentConfig, ...updates, status: 'draft' };
+    genesisConfig = updatedConfig;
     
     addExecutionLog(
-      genesisConfig.id,
+      updatedConfig.id,
       "config_updated",
       "info",
       "Genesis Configuration Updated",
@@ -1454,8 +1463,390 @@ router.get('/enterprise/summary', (_req: Request, res: Response) => {
   }
 });
 
+// ============================================
+// ENTERPRISE DISTRIBUTION ENGINE ROUTES
+// ============================================
+import { 
+  getDistributionEngine, 
+  initializeDistributionEngine,
+  DistributionCategory,
+  DistributionPriority 
+} from "../core/genesis/enterprise-distribution-engine";
+import { getDistributionMetricsService } from "../core/genesis/enterprise-distribution-metrics";
+
+// GET /api/admin/genesis/distribution/status - Get distribution engine status
+router.get('/distribution/status', (_req: Request, res: Response) => {
+  try {
+    const engine = getDistributionEngine();
+    const metrics = engine.getMetrics();
+    const queueStatus = engine.getQueueStatus();
+    
+    res.json({
+      success: true,
+      data: {
+        isRunning: queueStatus.activeBatches > 0,
+        circuitBreakerState: engine.getCircuitBreakerState(),
+        queue: queueStatus,
+        metrics: {
+          totalTasks: metrics.totalTasks,
+          completedTasks: metrics.completedTasks,
+          failedTasks: metrics.failedTasks,
+          pendingTasks: metrics.pendingTasks,
+          processingTasks: metrics.processingTasks,
+          currentTPS: metrics.currentTPS,
+          peakTPS: metrics.peakTPS,
+          successRate: metrics.successRate,
+          averageLatencyMs: metrics.averageLatencyMs,
+        },
+        categoryProgress: metrics.categoryProgress,
+      },
+      timestamp: Date.now(),
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: error instanceof Error ? error.message : "Unknown error",
+    });
+  }
+});
+
+// POST /api/admin/genesis/distribution/start - Start distribution engine
+router.post('/distribution/start', (_req: Request, res: Response) => {
+  try {
+    const engine = getDistributionEngine();
+    engine.start();
+    
+    res.json({
+      success: true,
+      message: "Distribution engine started",
+      timestamp: Date.now(),
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: error instanceof Error ? error.message : "Unknown error",
+    });
+  }
+});
+
+// POST /api/admin/genesis/distribution/stop - Stop distribution engine
+router.post('/distribution/stop', (_req: Request, res: Response) => {
+  try {
+    const engine = getDistributionEngine();
+    engine.stop();
+    
+    res.json({
+      success: true,
+      message: "Distribution engine stopped",
+      timestamp: Date.now(),
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: error instanceof Error ? error.message : "Unknown error",
+    });
+  }
+});
+
+// POST /api/admin/genesis/distribution/initialize - Initialize genesis distribution tasks
+router.post('/distribution/initialize', (_req: Request, res: Response) => {
+  try {
+    const engine = getDistributionEngine();
+    engine.initializeGenesisDistribution();
+    
+    const metrics = engine.getMetrics();
+    
+    res.json({
+      success: true,
+      message: "Genesis distribution tasks initialized",
+      data: {
+        totalTasks: metrics.totalTasks,
+        categoryProgress: metrics.categoryProgress,
+      },
+      timestamp: Date.now(),
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: error instanceof Error ? error.message : "Unknown error",
+    });
+  }
+});
+
+// GET /api/admin/genesis/distribution/allocations - Get all category allocations
+router.get('/distribution/allocations', (_req: Request, res: Response) => {
+  try {
+    const engine = getDistributionEngine();
+    const allocations = engine.getAllCategoryAllocations();
+    
+    res.json({
+      success: true,
+      data: {
+        totalSupply: 10_000_000_000,
+        totalSupplyFormatted: "10,000,000,000",
+        allocations: allocations.map(a => ({
+          category: a.category,
+          percentage: a.percentage,
+          amount: a.amount,
+          amountFormatted: a.amountFormatted,
+          details: engine.getCategoryAllocation(a.category),
+        })),
+      },
+      timestamp: Date.now(),
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: error instanceof Error ? error.message : "Unknown error",
+    });
+  }
+});
+
+// GET /api/admin/genesis/distribution/category/:category - Get category details
+router.get('/distribution/category/:category', (req: Request, res: Response) => {
+  try {
+    const engine = getDistributionEngine();
+    const categoryKey = req.params.category.toUpperCase() as DistributionCategory;
+    
+    if (!Object.values(DistributionCategory).includes(categoryKey)) {
+      return res.status(400).json({
+        success: false,
+        error: `Invalid category: ${req.params.category}`,
+      });
+    }
+    
+    const allocation = engine.getCategoryAllocation(categoryKey);
+    const metrics = engine.getMetrics();
+    const progress = metrics.categoryProgress[categoryKey];
+    
+    res.json({
+      success: true,
+      data: {
+        category: categoryKey,
+        allocation,
+        progress: {
+          total: progress.total,
+          completed: progress.completed,
+          percentage: progress.percentage,
+          amountDistributed: progress.amountDistributed,
+        },
+      },
+      timestamp: Date.now(),
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: error instanceof Error ? error.message : "Unknown error",
+    });
+  }
+});
+
+// GET /api/admin/genesis/distribution/metrics - Get detailed metrics
+router.get('/distribution/metrics', (_req: Request, res: Response) => {
+  try {
+    const metricsService = getDistributionMetricsService();
+    const performance = metricsService.getPerformanceMetrics();
+    const health = metricsService.getSystemHealth();
+    
+    res.json({
+      success: true,
+      data: {
+        performance,
+        health,
+        alerts: metricsService.getActiveAlerts(),
+      },
+      timestamp: Date.now(),
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: error instanceof Error ? error.message : "Unknown error",
+    });
+  }
+});
+
+// GET /api/admin/genesis/distribution/summary - Get distribution summary
+router.get('/distribution/summary', (_req: Request, res: Response) => {
+  try {
+    const metricsService = getDistributionMetricsService();
+    const summary = metricsService.getDistributionSummary();
+    
+    res.json({
+      success: true,
+      data: {
+        totalSupply: summary.totalSupply.toString(),
+        distributedAmount: summary.distributedAmount.toString(),
+        remainingAmount: summary.remainingAmount.toString(),
+        distributionProgress: summary.distributionProgress,
+        categories: summary.categories,
+        estimatedCompletion: summary.estimatedCompletion,
+        currentPhase: summary.currentPhase,
+      },
+      timestamp: Date.now(),
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: error instanceof Error ? error.message : "Unknown error",
+    });
+  }
+});
+
+// GET /api/admin/genesis/distribution/vesting - Get all vesting schedules
+router.get('/distribution/vesting', (_req: Request, res: Response) => {
+  try {
+    const engine = getDistributionEngine();
+    const schedules = engine.getAllVestingSchedules();
+    
+    res.json({
+      success: true,
+      data: {
+        count: schedules.length,
+        schedules: schedules.map(s => ({
+          id: s.id,
+          taskId: s.taskId,
+          totalAmount: s.totalAmountWei.toString(),
+          releasedAmount: s.releasedAmountWei.toString(),
+          pendingAmount: s.pendingAmountWei.toString(),
+          cliffMonths: s.cliffMonths,
+          durationMonths: s.durationMonths,
+          tgePercent: s.tgePercent,
+          unlockType: s.unlockType,
+          status: s.status,
+          unlockCount: s.unlockSchedule.length,
+          nextUnlock: s.unlockSchedule.find(u => u.status === "pending"),
+        })),
+      },
+      timestamp: Date.now(),
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: error instanceof Error ? error.message : "Unknown error",
+    });
+  }
+});
+
+// GET /api/admin/genesis/distribution/approvals - Get all approval requests
+router.get('/distribution/approvals', (_req: Request, res: Response) => {
+  try {
+    const engine = getDistributionEngine();
+    const approvals = engine.getAllApprovalRequests();
+    
+    res.json({
+      success: true,
+      data: {
+        count: approvals.length,
+        pending: approvals.filter(a => a.status === "pending").length,
+        approved: approvals.filter(a => a.status === "approved").length,
+        rejected: approvals.filter(a => a.status === "rejected").length,
+        expired: approvals.filter(a => a.status === "expired").length,
+        approvals,
+      },
+      timestamp: Date.now(),
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: error instanceof Error ? error.message : "Unknown error",
+    });
+  }
+});
+
+// POST /api/admin/genesis/distribution/circuit-breaker/reset - Reset circuit breaker
+router.post('/distribution/circuit-breaker/reset', (_req: Request, res: Response) => {
+  try {
+    const engine = getDistributionEngine();
+    engine.resetCircuitBreaker();
+    
+    res.json({
+      success: true,
+      message: "Circuit breaker reset",
+      state: engine.getCircuitBreakerState(),
+      timestamp: Date.now(),
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: error instanceof Error ? error.message : "Unknown error",
+    });
+  }
+});
+
+// GET /api/admin/genesis/distribution/prometheus - Get Prometheus metrics
+router.get('/distribution/prometheus', (_req: Request, res: Response) => {
+  try {
+    const metricsService = getDistributionMetricsService();
+    const prometheusMetrics = metricsService.getPrometheusMetrics();
+    
+    res.set('Content-Type', 'text/plain');
+    res.send(prometheusMetrics);
+  } catch (error) {
+    res.status(500).send(`# Error: ${error instanceof Error ? error.message : "Unknown error"}`);
+  }
+});
+
+// GET /api/admin/genesis/distribution/alerts - Get active alerts
+router.get('/distribution/alerts', (_req: Request, res: Response) => {
+  try {
+    const metricsService = getDistributionMetricsService();
+    
+    res.json({
+      success: true,
+      data: {
+        active: metricsService.getActiveAlerts(),
+        all: metricsService.getAllAlerts(),
+        policies: metricsService.getAlertPolicies(),
+      },
+      timestamp: Date.now(),
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: error instanceof Error ? error.message : "Unknown error",
+    });
+  }
+});
+
+// POST /api/admin/genesis/distribution/alerts/:alertId/acknowledge - Acknowledge alert
+router.post('/distribution/alerts/:alertId/acknowledge', (req: Request, res: Response) => {
+  try {
+    const metricsService = getDistributionMetricsService();
+    const acknowledged = metricsService.acknowledgeAlert(req.params.alertId);
+    
+    if (acknowledged) {
+      res.json({
+        success: true,
+        message: "Alert acknowledged",
+        timestamp: Date.now(),
+      });
+    } else {
+      res.status(404).json({
+        success: false,
+        error: "Alert not found or already acknowledged",
+      });
+    }
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: error instanceof Error ? error.message : "Unknown error",
+    });
+  }
+});
+
 export function registerGenesisRoutes(app: any) {
   app.use('/api/admin/genesis', router);
+  
+  const engine = initializeDistributionEngine({
+    maxConcurrentBatches: 8,
+    maxTasksPerBatch: 1000,
+    workerPoolSize: 16,
+  });
+  
+  const metricsService = getDistributionMetricsService();
+  metricsService.start();
+  
+  console.log("[Genesis] ✅ Enterprise Distribution Engine initialized");
 }
 
 export default router;
