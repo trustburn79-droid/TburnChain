@@ -1,7 +1,7 @@
 # TBURN Blockchain Mainnet Explorer
 
 ## Overview
-The TBURN Blockchain Mainnet Explorer is a production-ready DeFi ecosystem platform providing comprehensive insights into the TBURN Mainnet. It features extensive public and authenticated application pages, supporting 12 languages with RTL compatibility. The platform integrates advanced AI for burn optimization, governance analysis, and multi-chain bridge risk assessment. Key capabilities include a real-time dashboard with tokenomics, block and transaction explorers, advanced wallet management, robust token standards (TBC-20/721/1155) with quantum-resistant signatures, staking, and a full suite of DeFi functionalities (DEX, lending, yield farming, liquid staking, NFT marketplaces, GameFi hub). The platform's business vision is to provide a transparent, efficient, and secure gateway to the TBURN Mainnet, fostering adoption and innovation within its DeFi ecosystem.
+The TBURN Blockchain Mainnet Explorer is a production-ready DeFi ecosystem platform providing comprehensive insights into the TBURN Mainnet. It features extensive public and authenticated application pages, supporting 12 languages with RTL compatibility. The platform integrates advanced AI for burn optimization, governance analysis, and multi-chain bridge risk assessment. Key capabilities include a real-time dashboard with tokenomics, block and transaction explorers, advanced wallet management, robust token standards (TBC-20/721/1155) with quantum-resistant signatures, staking, and a full suite of DeFi functionalities (DEX, lending, yield farming, liquid staking, NFT marketplaces, GameFi hub). The business vision is to provide a transparent, efficient, and secure gateway to the TBURN Mainnet, fostering adoption and innovation within its DeFi ecosystem.
 
 ## User Preferences
 I prefer simple language and detailed explanations. I want iterative development with clear communication on progress. Ask before making major changes to the codebase. Do not make changes to files within the `shared/` directory without explicit approval.
@@ -10,86 +10,34 @@ I prefer simple language and detailed explanations. I want iterative development
 The platform utilizes a modern web stack with React 18, TypeScript, Vite, Wouter for routing, and TanStack Query v5 for frontend data fetching. The UI/UX features a clean design using Space Grotesk and JetBrains Mono typography, implemented with Shadcn UI and Tailwind CSS. The backend is an Express.js application providing REST APIs and WebSockets for real-time updates. Data persistence is managed by Neon Serverless PostgreSQL with Drizzle ORM.
 
 Core architectural decisions and features include:
-- **Dynamic Shard Management**: Supports dynamic scaling of shards (5-64) and validators with transactional updates. Includes an Enterprise Dynamic Sharding Orchestrator targeting 210,000 TPS with EWMA-based metrics, O(1) cross-shard routing, circuit breakers, and automatic scaling.
+- **Dynamic Shard Management**: Supports dynamic scaling of shards (5-64) and validators with transactional updates, targeting 210,000 TPS.
 - **Unified AI Model Configuration**: Integrates Gemini 3 Pro, Claude Sonnet 4.5, GPT-4o, and Grok 3 with automatic fallback.
 - **Internationalization**: Full Korean and English support with fallback for other languages.
 - **Web3 Wallet Integration**: Supports major wallets (MetaMask, Rabby, Trust, Coinbase, Ledger).
 - **Production Data Policy**: All public pages and admin dashboards display real mainnet production data from `TBurnEnterpriseNode`.
 - **Comprehensive Admin Portals**: Production-ready admin pages for Business Intelligence, Analytics, Reporting, Network Operations, AI Training, and Compliance Management.
-- **Enterprise BFT Consensus Engine**: Production-level 5-phase Byzantine Fault Tolerant protocol with lock-based consensus safety, view change protocol, and aggregated signatures.
-- **Enterprise Block Production Engine**: Production-grade 100ms block time with drift compensation, state machine, circuit breaker pattern, and parallel verification pipeline.
+- **Enterprise BFT Consensus Engine**: Production-level 5-phase Byzantine Fault Tolerant protocol with lock-based consensus safety.
+- **Enterprise Block Production Engine**: Production-grade 100ms block time with drift compensation and parallel verification pipeline.
 - **Block Finality System**: Complete block finality infrastructure with cross-validator verification.
 - **Transaction Verification Pipeline**: ECDSA-style signature verification, Merkle root generation, and block integrity verification.
 - **Reward Distribution Engine**: Automatic validator reward distribution based on proposer rewards, verifier rewards, and gas fee distribution.
 - **Mainnet Launch Configuration**: Chain ID 6000, 125 genesis validators, 64 shards, ~210,000 TPS capacity, 20-year deflationary tokenomics, and various burn mechanics.
-- **Performance Optimizations**: Includes instant first load, deferred data fetch, static landing page architecture, route-based code splitting, and enhanced chunk error recovery.
-- **Production Stability v2 (2026-01-04)**: Critical fix for MemoryStore session overflow causing "Internal Server Error" and "upstream request timeout" after 30-60 minutes. Implemented comprehensive conditional session middleware with:
-  - **Path Normalization**: Trailing slash removal for consistent prefix matching (fixes /api/shard-cache vs /api/shard-cache/ mismatch)
-  - **Extended Skip Prefixes**: /api/public, /api/shard-cache, /api/cross-shard-router, /api/shard-rebalancer, /api/batch-processor, /api/validators/status, /api/validators/stats, /api/rewards/stats, /api/rewards/epoch, /api/network/stats, /api/scalability, /api/consensus/state, /api/block-production
-  - **Exact Path Matching**: /api/shards, /api/blocks, /api/transactions, /api/wallets, /api/contracts
-  - **Internal Request Detection**: X-Internal-Request header + User-Agent (node-fetch, undici)
-  - **Protected Paths**: /admin, /config, /maintenance, /auth, /user, /member, /login, /logout, /session - sessions always created
-  - **MemoryStore Optimized**: Production 10000 max / Dev 2000 max, 30-minute TTL, 30-second cleanup cycle
-  - **Session Monitoring**: Skip ratio reporting every 5-10 minutes
-  - **Dual Module Sync**: app.ts and app-services.ts use identical session skip logic
-- **Enterprise Scalability Infrastructure**: Production-grade resilience patterns including `BlockchainOrchestrator` (Circuit Breaker, Health Check, Alert Manager), `PersistenceBatcher` (Priority Queue, Dead Letter Queue, Write-Ahead Log), and `AdaptiveFeeEngine` (EIP-1559 style with TWAP, Fee Prediction, EIP-4844 Blob Fees).
-- **Enterprise Validator Orchestrator**: Production-grade validator management for 125 genesis validators (1M TBURN each) with O(1) lookups, EWMA performance scoring (α=0.3), 32K ring buffer metrics, weighted random selection, committee formation, slashing (5% double-sign, 0.1% downtime), jailing (24h), tombstoning, and reward distribution (40% proposer, 50% verifier, 10% burn). API endpoints at `/api/validators/*`.
-- **Enterprise Validator Performance Tracking**: Production-grade telemetry system with percentile tracking (P50/P95/P99), SLA monitoring (99.90% uptime, 250ms P99 latency targets), real-time alerting with escalation levels (0-5), slashing detection pipeline with confirmation requirements, and debounce windows. Database tables: `validator_performance_snapshots`, `validator_latency_events`, `validator_slash_events`, `validator_sla_alerts`. API endpoints at `/api/validators/telemetry/*`, `/api/validators/alerts/*`, `/api/validators/slashing/*`.
-- **Enterprise Reward Distribution Engine**: Production-grade epoch-based reward system with O(1) lookups, priority queue batch processing (1000/batch), 32K ring buffer history, EWMA gas price tracking, circuit breaker pattern, write-ahead logging for crash recovery. Features include: proposer rewards (40%), verifier rewards (50%), burn allocation (10%), gas fee distribution (EIP-1559 style), staking APY calculation (12.5% base, 5-25% range), and commission handling. API endpoints at `/api/rewards/*`.
-- **Performance-Based Validator Incentive System**: 5-tier performance bonus system with automatic distribution. Tiers: Bronze (0-59, 1.0x), Silver (60-74, 1.05x), Gold (75-84, 1.12x), Platinum (85-94, 1.18x), Diamond (95-100, 1.25x). Includes streak bonuses (up to 20% for consecutive high-performance epochs), consistency bonuses (up to 8% for stable performance variance), and 10-epoch performance history tracking. Auto-distribution scheduler with configurable intervals (default 100s), priority-based batch processing (10-1000 rewards per batch), 3 retry attempts with 5s delay, and epoch-based auto-finalization. API endpoints at `/api/rewards/incentives/*` and `/api/rewards/auto-distribution/*`.
-- **Token Distribution Admin System**: Enterprise-level management for various token programs (Airdrops, Referrals, Community Rewards, DAO Governance, etc.).
-- **Enterprise Cross-Shard Message Router (2026-01-04)**: Production-grade priority queue-based message delivery system for optimal cross-shard communication. Features include:
-  - Consistent Hashing with 150 virtual nodes per shard for load-balanced routing
-  - Fibonacci Heap-based priority queues (O(1) peek, O(log n) insert/extract) with 4 levels (CRITICAL, HIGH, NORMAL, LOW)
-  - Weighted Fair Queuing scheduler preventing starvation of lower priority messages
-  - Lock-free ring buffer batching (256K slots) with adaptive batch sizing (64-1024)
-  - Back-pressure flow control with EWMA-based congestion detection (α=0.2)
-  - Bloom filter message deduplication (1M insertions, 0.1% false positive rate, 60s rotation)
-  - Adaptive retry with exponential backoff (2x multiplier, 30% jitter, max 5 retries)
-  - Per-route circuit breaker (5 failures to open, 3 successes to close, 15s half-open timeout)
-  - WAL (Write-Ahead Log) for durability with 100ms flush interval and crash recovery
-  - P50/P95/P99 latency tracking with 10K sample window
-  - Benchmark: 37,500+ TPS message ingestion, 100% delivery success rate
-  - API endpoints at `/api/cross-shard-router/*` for status, send, batch, routes, circuits, latency, throughput, WAL stats, and admin operations
-- **Enterprise Shard Cache (2026-01-04)**: Production-grade multi-level LRU cache with O(1) shard pair selection. Features include:
-  - Hash-based O(1) lookups for shards, pairs, and routes
-  - 2-second TTL for shards/pairs, 5-second TTL for routes
-  - LRU eviction policy (128 max shards, 8192 max pairs, 16384 max routes)
-  - Lock-free concurrent reads with atomic operations
-  - EWMA hit rate tracking (α=0.2) for adaptive performance monitoring
-  - Preemptive cache warming when TTL remaining < 500ms
-  - Multi-level caching: L1 (shards), L2 (pairs), L3 (routes)
-  - Pair index with consistent hashing for O(1) cross-shard pair selection
-  - Benchmark: 3.76M ops/second, 100% hit rate, 0.27μs average latency
-  - API endpoints at `/api/shard-cache/*` for status, stats, health, shard, shards, pair, route, warm, invalidate, benchmark
-- **Enterprise Batch Processor (2026-01-04)**: Production-grade high-throughput batch message insertion system targeting 200K+ TPS. Features include:
-  - Lock-free concurrent priority queue with O(1) operations supporting 1M messages capacity
-  - Adaptive batch sizing (64-4096 messages) based on EWMA latency/throughput metrics
-  - Memory-efficient pre-allocated buffer pools (32 buffers, 1K-16K capacity each)
-  - Parallel chunk processing (8 workers, 256 messages per chunk)
-  - WAL group commit for durability (1000 messages, 10ms timeout)
-  - Priority-based weighted fair queuing (CRITICAL: 16, HIGH: 8, NORMAL: 4, LOW: 1)
-  - Circuit breaker pattern for downstream protection (10 failures open, 5 successes close)
-  - EWMA-based throughput tracking (α=0.15) and latency tracking (α=0.2)
-  - Direct processing mode for synchronous high-throughput batch operations
-  - Integration with Enterprise Cross-Shard Router for batch routing
-  - Benchmark: 1.7M+ ops/second, 100% success rate, 0.64μs average latency
-  - API endpoints at `/api/batch-processor/*` for status, stats, health, queue, config, insert, insert/direct, benchmark, start, stop, pause, resume, cross-shard/batch
-- **Enterprise Shard Rebalancer (2026-01-04)**: Production-grade threshold-based automatic shard rebalancing system for optimal load distribution. Features include:
-  - Multi-threshold automatic rebalancing (CPU utilization 85%, TPS 3500, latency P99 100ms, queue depth 10K)
-  - EWMA-based load prediction (α=0.2) with trend analysis for proactive scaling
-  - Hysteresis controller to prevent oscillation (5% margin, 30s cooldown, 60s stability window)
-  - Hot/Warm/Cool/Cold shard temperature classification for intelligent redistribution
-  - Weighted load scoring (35% utilization, 30% TPS, 20% queue, 15% latency)
-  - Zero-downtime live migration with batch transaction transfer (1000 items/batch)
-  - Validator-aware shard assignment with migration tracking
-  - Circuit breaker integration for degraded shard handling
-  - Imbalance ratio monitoring (2.0x threshold triggers redistribution)
-  - Benchmark: 37,879 decisions/second, 26.4μs average decision time
-  - API endpoints at `/api/shard-rebalancer/*` for status, stats, health, snapshots, decisions, migrations, thresholds, config, start, stop, pause, resume, force-rebalance, benchmark
+- **Performance Optimizations**: Includes instant first load, deferred data fetch, static landing page architecture, and route-based code splitting.
+- **Production Stability**: Implemented conditional session middleware to prevent session overflow and improve stability.
+- **Enterprise Session Monitoring**: Production-grade session metrics and observability system with Prometheus export, historical tracking, and alerting.
+- **Enterprise Scalability Infrastructure**: Resilience patterns including `BlockchainOrchestrator`, `PersistenceBatcher`, and `AdaptiveFeeEngine`.
+- **Enterprise Validator Orchestrator**: Production-grade validator management for 125 genesis validators with performance scoring, committee formation, slashing, jailing, tombstoning, and reward distribution.
+- **Enterprise Validator Performance Tracking**: Telemetry system with percentile tracking, SLA monitoring, and real-time alerting.
+- **Enterprise Reward Distribution Engine**: Epoch-based reward system with O(1) lookups, priority queue batch processing, and gas price tracking.
+- **Performance-Based Validator Incentive System**: 5-tier performance bonus system with automatic distribution, streak bonuses, and consistency bonuses.
+- **Token Distribution Admin System**: Enterprise-level management for various token programs (Airdrops, Referrals, Community Rewards, DAO Governance).
+- **Enterprise Cross-Shard Message Router**: Priority queue-based message delivery system for optimal cross-shard communication with consistent hashing, adaptive retry, and circuit breakers.
+- **Enterprise Shard Cache**: Multi-level LRU cache with O(1) shard pair selection, TTL, and preemptive cache warming.
+- **Enterprise Batch Processor**: High-throughput batch message insertion system targeting 200K+ TPS with lock-free concurrent priority queue, adaptive batch sizing, and parallel processing.
+- **Enterprise Shard Rebalancer**: Threshold-based automatic shard rebalancing system for optimal load distribution with EWMA-based load prediction and zero-downtime live migration.
 
 ## External Dependencies
-- **Database**: Neon Serverless PostgreSQL with 1,247 enterprise-grade indexes (34 shard rebalancer indexes + 36 batch processor indexes + 52 cross-shard router indexes + 25 shard cache indexes + 60 incentive system indexes + 41 performance tracking indexes + 219 enterprise indexes across 52+ categories including validator orchestration, sharding, token distribution, consensus, reward distribution, and core blockchain tables). Phase 15 Shard Rebalancer tables: `enterprise_rebalancer_snapshots`, `enterprise_rebalance_decisions`, `enterprise_migration_plans`, `enterprise_shard_load_history`, `enterprise_rebalancer_metrics_hourly`. Phase 14 Batch Processor tables: `enterprise_batch_queue_snapshots`, `enterprise_batch_results`, `enterprise_batch_events`, `enterprise_batch_metrics_hourly`. Phase 13 Shard Cache tables: `enterprise_shard_cache_snapshots`, `enterprise_shard_cache_pairs`, `enterprise_shard_cache_events`, `enterprise_shard_cache_metrics_hourly`. Phase 12 Cross-Shard Router tables: `enterprise_cross_shard_messages`, `enterprise_cross_shard_batches`, `wal_segments`, `router_metrics_hourly`, `circuit_breakers`, `shard_validator_assignments`, `latency_histories`, `router_bloom_filters`, `router_daily_stats`.
+- **Database**: Neon Serverless PostgreSQL
 - **ORM**: Drizzle ORM
 - **Frontend Framework**: React 18
 - **Language**: TypeScript

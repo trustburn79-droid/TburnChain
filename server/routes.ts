@@ -59,6 +59,7 @@ import crossShardRouterRoutes from "./routes/cross-shard-router-routes";
 import shardCacheRoutes from "./routes/shard-cache-routes";
 import batchProcessorRoutes from "./routes/batch-processor-routes";
 import shardRebalancerRoutes from "./routes/shard-rebalancer-routes";
+import sessionMonitoringRoutes from "./routes/session-monitoring-routes";
 import { nftMarketplaceService } from "./services/NftMarketplaceService";
 import { launchpadService } from "./services/LaunchpadService";
 import { gameFiService } from "./services/GameFiService";
@@ -1861,6 +1862,14 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     if (req.method === "GET" && req.path.startsWith("/enterprise/scalability/")) {
       return next();
     }
+    // ★ [Phase 16] Skip auth for internal monitoring endpoints (session metrics, soak tests)
+    if (req.path.startsWith("/internal/")) {
+      return next();
+    }
+    // ★ [Phase 16] Skip auth for soak test endpoints (production stability testing)
+    if (req.path.startsWith("/soak-tests/")) {
+      return next();
+    }
     requireAuth(req, res, next);
   });
   // ============================================
@@ -1902,6 +1911,15 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   // ============================================
   registerPublicApiRoutes(app);
   console.log("[Public API] ✅ Public v1 routes registered - no auth required");
+
+  // ============================================
+  // ENTERPRISE SESSION MONITORING (No Auth Required)
+  // Production stability, soak testing, Prometheus metrics
+  // Must be before any requireAuth middleware
+  // ============================================
+  app.use("/api/internal", sessionMonitoringRoutes);
+  app.use("/api/soak-tests", sessionMonitoringRoutes);
+  console.log("[SessionMonitoring] ✅ Enterprise session monitoring routes registered (Prometheus metrics, soak tests, Redis failover)");
 
   // ============================================
   // WALLET DASHBOARD (Enterprise Wallet Management)
@@ -1997,6 +2015,12 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   // ============================================
   app.use("/api/shard-rebalancer", shardRebalancerRoutes);
   console.log("[ShardRebalancer] ✅ Enterprise shard rebalancer routes registered (multi-threshold, EWMA prediction, hysteresis)");
+
+  // ============================================
+  // ENTERPRISE SESSION MONITORING
+  // Production stability, soak testing, and metrics
+  // ============================================
+  console.log("[SessionMonitoring] ✅ Enterprise session monitoring routes registered (Prometheus metrics, soak tests, Redis failover)");
 
   // ============================================
   // Network Stats

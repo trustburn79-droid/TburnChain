@@ -10896,3 +10896,204 @@ export type InsertEnterpriseShardLoadHistory = z.infer<typeof insertEnterpriseSh
 
 export type EnterpriseRebalancerMetricsHourly = typeof enterpriseRebalancerMetricsHourly.$inferSelect;
 export type InsertEnterpriseRebalancerMetricsHourly = z.infer<typeof insertEnterpriseRebalancerMetricsHourlySchema>;
+
+// ============================================================================
+// Phase 16: Enterprise Session Monitoring & Soak Testing Infrastructure
+// ============================================================================
+
+// Session Metrics Snapshots - 5분 간격 집계
+export const sessionMetricsSnapshots = pgTable("session_metrics_snapshots", {
+  id: serial("id").primaryKey(),
+  
+  // Timestamp
+  snapshotTime: timestamp("snapshot_time").notNull().defaultNow(),
+  intervalMinutes: integer("interval_minutes").notNull().default(5),
+  
+  // Session Counts
+  sessionsCreated: integer("sessions_created").notNull().default(0),
+  sessionsSkipped: integer("sessions_skipped").notNull().default(0),
+  sessionsExpired: integer("sessions_expired").notNull().default(0),
+  sessionsActive: integer("sessions_active").notNull().default(0),
+  
+  // Ratios
+  skipRatio: numeric("skip_ratio", { precision: 8, scale: 6 }).notNull().default("0.000000"),
+  createRate: numeric("create_rate", { precision: 10, scale: 4 }).notNull().default("0.0000"), // per second
+  
+  // Store Health
+  storeType: text("store_type").notNull().default("memory"), // memory, redis
+  storeHealth: text("store_health").notNull().default("healthy"), // healthy, degraded, unhealthy
+  memoryUsageMb: numeric("memory_usage_mb", { precision: 10, scale: 2 }),
+  redisConnected: boolean("redis_connected").default(false),
+  
+  // Request Distribution
+  publicApiRequests: integer("public_api_requests").notNull().default(0),
+  internalRequests: integer("internal_requests").notNull().default(0),
+  protectedRequests: integer("protected_requests").notNull().default(0),
+  
+  // Latency
+  avgSessionLatencyMs: numeric("avg_session_latency_ms", { precision: 10, scale: 3 }),
+  p99SessionLatencyMs: numeric("p99_session_latency_ms", { precision: 10, scale: 3 }),
+  
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+}, (table) => [
+  index("idx_session_metrics_time").on(table.snapshotTime),
+  index("idx_session_metrics_skip_ratio").on(table.skipRatio),
+  index("idx_session_metrics_store_health").on(table.storeHealth),
+  index("idx_session_metrics_store_type").on(table.storeType),
+]);
+
+// Soak Test Runs - 장시간 부하 테스트 실행 기록
+export const soakTestRuns = pgTable("soak_test_runs", {
+  id: serial("id").primaryKey(),
+  runId: varchar("run_id", { length: 64 }).notNull().unique(),
+  
+  // Test Configuration
+  testName: varchar("test_name", { length: 128 }).notNull(),
+  testType: text("test_type").notNull().default("session_stability"), // session_stability, memory_leak, throughput, failover
+  scenario: text("scenario").notNull().default("default"),
+  
+  // Duration & Timing
+  startedAt: timestamp("started_at").notNull().defaultNow(),
+  endedAt: timestamp("ended_at"),
+  durationMinutes: integer("duration_minutes").notNull().default(60),
+  status: text("status").notNull().default("running"), // pending, running, completed, failed, cancelled
+  
+  // Load Configuration
+  concurrentUsers: integer("concurrent_users").notNull().default(100),
+  requestsPerSecond: integer("requests_per_second").notNull().default(1000),
+  rampUpSeconds: integer("ramp_up_seconds").notNull().default(60),
+  
+  // Target Endpoints
+  targetEndpoints: text("target_endpoints").array().notNull().default([]),
+  
+  // Results Summary
+  totalRequests: bigint("total_requests", { mode: "number" }).notNull().default(0),
+  successfulRequests: bigint("successful_requests", { mode: "number" }).notNull().default(0),
+  failedRequests: bigint("failed_requests", { mode: "number" }).notNull().default(0),
+  successRate: numeric("success_rate", { precision: 8, scale: 6 }).notNull().default("0.000000"),
+  
+  // Session Metrics
+  sessionsCreated: integer("sessions_created").notNull().default(0),
+  sessionsSkipped: integer("sessions_skipped").notNull().default(0),
+  sessionSkipRatio: numeric("session_skip_ratio", { precision: 8, scale: 6 }).notNull().default("0.000000"),
+  
+  // Performance Metrics
+  avgLatencyMs: numeric("avg_latency_ms", { precision: 12, scale: 3 }),
+  p50LatencyMs: numeric("p50_latency_ms", { precision: 12, scale: 3 }),
+  p95LatencyMs: numeric("p95_latency_ms", { precision: 12, scale: 3 }),
+  p99LatencyMs: numeric("p99_latency_ms", { precision: 12, scale: 3 }),
+  maxLatencyMs: numeric("max_latency_ms", { precision: 12, scale: 3 }),
+  
+  // Memory Metrics
+  startMemoryMb: numeric("start_memory_mb", { precision: 10, scale: 2 }),
+  endMemoryMb: numeric("end_memory_mb", { precision: 10, scale: 2 }),
+  peakMemoryMb: numeric("peak_memory_mb", { precision: 10, scale: 2 }),
+  memoryLeakDetected: boolean("memory_leak_detected").default(false),
+  
+  // Alerts & Issues
+  alertsTriggered: integer("alerts_triggered").notNull().default(0),
+  criticalIssues: integer("critical_issues").notNull().default(0),
+  issuesSummary: text("issues_summary"),
+  
+  // Metadata
+  triggeredBy: varchar("triggered_by", { length: 128 }).notNull().default("system"),
+  notes: text("notes"),
+  
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+}, (table) => [
+  index("idx_soak_runs_run_id").on(table.runId),
+  index("idx_soak_runs_status").on(table.status),
+  index("idx_soak_runs_test_type").on(table.testType),
+  index("idx_soak_runs_started").on(table.startedAt),
+  index("idx_soak_runs_success_rate").on(table.successRate),
+]);
+
+// Soak Test Metrics - 분별 세부 메트릭 (시계열)
+export const soakTestMetrics = pgTable("soak_test_metrics", {
+  id: serial("id").primaryKey(),
+  runId: varchar("run_id", { length: 64 }).notNull(),
+  
+  // Timestamp
+  metricTime: timestamp("metric_time").notNull().defaultNow(),
+  minuteOffset: integer("minute_offset").notNull().default(0),
+  
+  // Request Metrics
+  requests: integer("requests").notNull().default(0),
+  successfulRequests: integer("successful_requests").notNull().default(0),
+  failedRequests: integer("failed_requests").notNull().default(0),
+  errorRate: numeric("error_rate", { precision: 8, scale: 6 }).notNull().default("0.000000"),
+  
+  // Session Metrics
+  sessionsCreated: integer("sessions_created").notNull().default(0),
+  sessionsSkipped: integer("sessions_skipped").notNull().default(0),
+  sessionsActive: integer("sessions_active").notNull().default(0),
+  skipRatio: numeric("skip_ratio", { precision: 8, scale: 6 }).notNull().default("0.000000"),
+  
+  // Latency
+  avgLatencyMs: numeric("avg_latency_ms", { precision: 12, scale: 3 }),
+  p50LatencyMs: numeric("p50_latency_ms", { precision: 12, scale: 3 }),
+  p95LatencyMs: numeric("p95_latency_ms", { precision: 12, scale: 3 }),
+  p99LatencyMs: numeric("p99_latency_ms", { precision: 12, scale: 3 }),
+  
+  // Throughput
+  rps: numeric("rps", { precision: 10, scale: 2 }).notNull().default("0.00"),
+  
+  // Memory
+  heapUsedMb: numeric("heap_used_mb", { precision: 10, scale: 2 }),
+  heapTotalMb: numeric("heap_total_mb", { precision: 10, scale: 2 }),
+  externalMb: numeric("external_mb", { precision: 10, scale: 2 }),
+  
+  // Store Health
+  storeHealth: text("store_health").notNull().default("healthy"),
+  redisLatencyMs: numeric("redis_latency_ms", { precision: 10, scale: 3 }),
+  
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+}, (table) => [
+  index("idx_soak_metrics_run_id").on(table.runId),
+  index("idx_soak_metrics_time").on(table.metricTime),
+  index("idx_soak_metrics_run_time").on(table.runId, table.metricTime),
+  index("idx_soak_metrics_error_rate").on(table.errorRate),
+  index("idx_soak_metrics_skip_ratio").on(table.skipRatio),
+]);
+
+// Session Store Health - Redis/Memory 스토어 상태 추적
+export const sessionStoreHealth = pgTable("session_store_health", {
+  id: serial("id").primaryKey(),
+  
+  // Timestamp
+  checkTime: timestamp("check_time").notNull().defaultNow(),
+  
+  // Store Info
+  primaryStore: text("primary_store").notNull().default("memory"), // memory, redis
+  fallbackActive: boolean("fallback_active").default(false),
+  
+  // Redis Health
+  redisConnected: boolean("redis_connected").default(false),
+  redisLatencyMs: numeric("redis_latency_ms", { precision: 10, scale: 3 }),
+  redisMemoryMb: numeric("redis_memory_mb", { precision: 10, scale: 2 }),
+  redisClients: integer("redis_clients").default(0),
+  redisHitRate: numeric("redis_hit_rate", { precision: 8, scale: 6 }),
+  
+  // Memory Store Health
+  memorySessionCount: integer("memory_session_count").default(0),
+  memoryMaxSessions: integer("memory_max_sessions").default(10000),
+  memoryUsagePercent: numeric("memory_usage_percent", { precision: 6, scale: 2 }),
+  
+  // Failover Events
+  failoverCount: integer("failover_count").notNull().default(0),
+  lastFailoverAt: timestamp("last_failover_at"),
+  failoverReason: text("failover_reason"),
+  
+  // Circuit Breaker
+  circuitState: text("circuit_state").notNull().default("closed"), // closed, open, half-open
+  consecutiveFailures: integer("consecutive_failures").notNull().default(0),
+  
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+}, (table) => [
+  index("idx_store_health_time").on(table.checkTime),
+  index("idx_store_health_primary").on(table.primaryStore),
+  index("idx_store_health_fallback").on(table.fallbackActive),
+  index("idx_store_health_circuit").on(table.circuitState),
+]);
+

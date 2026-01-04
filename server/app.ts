@@ -17,6 +17,7 @@ import { initializeBlockchainOrchestrator, shutdownBlockchainOrchestrator } from
 
 // ★ [수정 1] connect-redis 불러오는 방식 변경 (ESM 호환)
 import { RedisStore } from "connect-redis";
+import { sessionMetrics } from "./core/monitoring/session-metrics";
 
 declare module "express-session" {
   interface SessionData {
@@ -188,6 +189,8 @@ app.use((req: Request, res: Response, next: NextFunction) => {
     '/api/scalability',           // 확장성 API (공개)
     '/api/consensus/state',       // 합의 상태 (공개)
     '/api/block-production',      // 블록 생산 (공개)
+    '/api/internal',              // 내부 모니터링 API (★ Phase 16)
+    '/api/soak-tests',            // Soak 테스트 API (★ Phase 16)
   ];
   
   // ★ 정확히 일치해야 하는 GET 경로 (하위 경로 스킵 안 함)
@@ -199,8 +202,14 @@ app.use((req: Request, res: Response, next: NextFunction) => {
     '/api/contracts',             // 컨트랙트 목록
   ];
   
+  // ★ 접두사 매칭 함수 - skipSessionPrefixes 확인 (requiresSession보다 먼저 체크)
+  const matchesSkipPrefix = skipSessionPrefixes.some(prefix => 
+    normalizedPath === prefix || normalizedPath.startsWith(prefix + '/')
+  );
+  
   // ★ 관리자/인증 필요 경로 패턴 (세션 유지 필수) - 더 포괄적인 체크
-  const requiresSession = 
+  // 단, skipSessionPrefixes에 매칭되면 세션 필요 없음 (내부 모니터링 API 우선)
+  const requiresSession = !matchesSkipPrefix && (
     normalizedPath.includes('/admin') ||
     normalizedPath.includes('/config') ||
     normalizedPath.includes('/maintenance') ||
@@ -215,15 +224,11 @@ app.use((req: Request, res: Response, next: NextFunction) => {
       normalizedPath.includes('/start') ||
       normalizedPath.includes('/stop') ||
       normalizedPath.includes('/benchmark')
-    ));
+    ))
+  );
   
   // 이미 인증 쿠키가 있으면 세션 스킵하지 않음 (기존 세션 유지)
   const hasSessionCookie = !!req.headers.cookie?.includes('connect.sid');
-  
-  // ★ 접두사 매칭 함수 - 정규화된 경로와 비교
-  const matchesPrefix = skipSessionPrefixes.some(prefix => 
-    normalizedPath === prefix || normalizedPath.startsWith(prefix + '/')
-  );
   
   // ★ 정확한 경로 매칭
   const matchesExact = req.method === 'GET' && exactGetPaths.includes(normalizedPath);
@@ -234,7 +239,7 @@ app.use((req: Request, res: Response, next: NextFunction) => {
   // 3. 외부 요청의 경우 쿠키가 있으면 기존 세션 사용
   const shouldSkipSession = !requiresSession && (
     isInternalRequest ||  // ★ 내부 요청은 항상 스킵 (쿠키 유무 관계없음)
-    (!hasSessionCookie && (matchesPrefix || matchesExact))  // 외부 요청: 쿠키 없고 공개 경로
+    (!hasSessionCookie && (matchesSkipPrefix || matchesExact))  // 외부 요청: 쿠키 없고 공개 경로
   );
   
   if (shouldSkipSession) {
@@ -267,6 +272,10 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 log(`Cookie secure: ${cookieSecure} (set COOKIE_SECURE=true for HTTPS-only)`, "session");
 
 log(`Session store: ${sessionStoreType}`, "session");
+
+// ★ [Phase 16] 엔터프라이즈 세션 메트릭 모니터링 시작
+sessionMetrics.start();
+log("Enterprise session metrics monitoring started", "session");
 
 // ============================================
 // Google OAuth Configuration
