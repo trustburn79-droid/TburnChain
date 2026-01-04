@@ -60,6 +60,8 @@ import shardCacheRoutes from "./routes/shard-cache-routes";
 import batchProcessorRoutes from "./routes/batch-processor-routes";
 import shardRebalancerRoutes from "./routes/shard-rebalancer-routes";
 import sessionMonitoringRoutes from "./routes/session-monitoring-routes";
+import enterpriseSessionMonitoringRoutes from "./routes/enterprise-session-monitoring-routes";
+import { enterpriseSessionMetrics } from "./core/monitoring/enterprise-session-metrics";
 import { nftMarketplaceService } from "./services/NftMarketplaceService";
 import { launchpadService } from "./services/LaunchpadService";
 import { gameFiService } from "./services/GameFiService";
@@ -1919,7 +1921,13 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   // ============================================
   app.use("/api/internal", sessionMonitoringRoutes);
   app.use("/api/soak-tests", sessionMonitoringRoutes);
+  app.use("/api/internal", enterpriseSessionMonitoringRoutes);
+  app.use("/api/soak-tests", enterpriseSessionMonitoringRoutes);
+  
+  // Start enterprise session metrics collection
+  enterpriseSessionMetrics.start();
   console.log("[SessionMonitoring] ✅ Enterprise session monitoring routes registered (Prometheus metrics, soak tests, Redis failover)");
+  console.log("[EnterpriseMetrics] ✅ Enterprise v2.0 metrics engine started (granular tracking, advanced alerting, security metrics)");
 
   // ============================================
   // WALLET DASHBOARD (Enterprise Wallet Management)

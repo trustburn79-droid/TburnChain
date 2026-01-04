@@ -11057,6 +11057,332 @@ export const soakTestMetrics = pgTable("soak_test_metrics", {
   index("idx_soak_metrics_skip_ratio").on(table.skipRatio),
 ]);
 
+// ============================================================================
+// Enterprise Session Metrics by Endpoint (Granular Tracking)
+// ============================================================================
+export const sessionMetricsByEndpoint = pgTable("session_metrics_by_endpoint", {
+  id: serial("id").primaryKey(),
+  
+  // Time bucket
+  bucketTime: timestamp("bucket_time").notNull().defaultNow(),
+  bucketIntervalMinutes: integer("bucket_interval_minutes").notNull().default(5),
+  
+  // Endpoint Details
+  endpoint: varchar("endpoint", { length: 256 }).notNull(),
+  httpMethod: varchar("http_method", { length: 10 }).notNull().default("GET"),
+  authScope: varchar("auth_scope", { length: 32 }).notNull().default("public"), // public, authenticated, admin, internal
+  
+  // Request Counts
+  totalRequests: integer("total_requests").notNull().default(0),
+  successfulRequests: integer("successful_requests").notNull().default(0),
+  failedRequests: integer("failed_requests").notNull().default(0),
+  authFailures: integer("auth_failures").notNull().default(0),
+  
+  // Session Impact
+  sessionsCreated: integer("sessions_created").notNull().default(0),
+  sessionsSkipped: integer("sessions_skipped").notNull().default(0),
+  
+  // Latency Distribution
+  avgLatencyMs: numeric("avg_latency_ms", { precision: 12, scale: 3 }),
+  p50LatencyMs: numeric("p50_latency_ms", { precision: 12, scale: 3 }),
+  p95LatencyMs: numeric("p95_latency_ms", { precision: 12, scale: 3 }),
+  p99LatencyMs: numeric("p99_latency_ms", { precision: 12, scale: 3 }),
+  maxLatencyMs: numeric("max_latency_ms", { precision: 12, scale: 3 }),
+  
+  // Throughput
+  rps: numeric("rps", { precision: 10, scale: 4 }),
+  
+  // Error Distribution
+  error4xxCount: integer("error_4xx_count").notNull().default(0),
+  error5xxCount: integer("error_5xx_count").notNull().default(0),
+  timeoutCount: integer("timeout_count").notNull().default(0),
+  
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+}, (table) => [
+  index("idx_metrics_endpoint_time").on(table.bucketTime),
+  index("idx_metrics_endpoint_path").on(table.endpoint),
+  index("idx_metrics_endpoint_method").on(table.httpMethod),
+  index("idx_metrics_endpoint_auth").on(table.authScope),
+  index("idx_metrics_endpoint_composite").on(table.endpoint, table.httpMethod, table.bucketTime),
+]);
+
+// ============================================================================
+// Enterprise Session Hourly Aggregates (Rollup for Long-term Storage)
+// ============================================================================
+export const sessionMetricsHourly = pgTable("session_metrics_hourly", {
+  id: serial("id").primaryKey(),
+  
+  // Hour bucket
+  hourBucket: timestamp("hour_bucket").notNull(),
+  
+  // Aggregated Session Counts
+  totalSessionsCreated: integer("total_sessions_created").notNull().default(0),
+  totalSessionsSkipped: integer("total_sessions_skipped").notNull().default(0),
+  totalSessionsExpired: integer("total_sessions_expired").notNull().default(0),
+  avgActiveSessionCount: numeric("avg_active_session_count", { precision: 12, scale: 2 }),
+  peakActiveSessionCount: integer("peak_active_session_count").notNull().default(0),
+  
+  // Aggregated Ratios
+  avgSkipRatio: numeric("avg_skip_ratio", { precision: 8, scale: 6 }),
+  avgCreateRate: numeric("avg_create_rate", { precision: 10, scale: 4 }),
+  
+  // Request Aggregates
+  totalPublicRequests: bigint("total_public_requests", { mode: "number" }).notNull().default(0),
+  totalInternalRequests: bigint("total_internal_requests", { mode: "number" }).notNull().default(0),
+  totalProtectedRequests: bigint("total_protected_requests", { mode: "number" }).notNull().default(0),
+  totalAuthFailures: integer("total_auth_failures").notNull().default(0),
+  
+  // Latency Aggregates
+  avgLatencyMs: numeric("avg_latency_ms", { precision: 12, scale: 3 }),
+  p50LatencyMs: numeric("p50_latency_ms", { precision: 12, scale: 3 }),
+  p95LatencyMs: numeric("p95_latency_ms", { precision: 12, scale: 3 }),
+  p99LatencyMs: numeric("p99_latency_ms", { precision: 12, scale: 3 }),
+  peakLatencyMs: numeric("peak_latency_ms", { precision: 12, scale: 3 }),
+  
+  // Store Health Summary
+  primaryStoreType: varchar("primary_store_type", { length: 16 }).notNull().default("memory"),
+  failoverEvents: integer("failover_events").notNull().default(0),
+  unhealthyMinutes: integer("unhealthy_minutes").notNull().default(0),
+  
+  // Alerts Summary
+  alertsTriggered: integer("alerts_triggered").notNull().default(0),
+  criticalAlerts: integer("critical_alerts").notNull().default(0),
+  warningAlerts: integer("warning_alerts").notNull().default(0),
+  
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+}, (table) => [
+  index("idx_hourly_bucket").on(table.hourBucket),
+  index("idx_hourly_store_type").on(table.primaryStoreType),
+  index("idx_hourly_failover").on(table.failoverEvents),
+]);
+
+// ============================================================================
+// Enterprise Alert Policies (Configurable Alerting Rules)
+// ============================================================================
+export const sessionAlertPolicies = pgTable("session_alert_policies", {
+  id: serial("id").primaryKey(),
+  
+  // Policy Identification
+  policyId: varchar("policy_id", { length: 64 }).notNull().unique(),
+  policyName: varchar("policy_name", { length: 128 }).notNull(),
+  description: text("description"),
+  
+  // Metric & Condition
+  metricType: varchar("metric_type", { length: 64 }).notNull(), // create_rate, skip_ratio, active_sessions, latency, error_rate, memory_usage
+  operator: varchar("operator", { length: 8 }).notNull().default("gt"), // gt, lt, gte, lte, eq
+  thresholdValue: numeric("threshold_value", { precision: 18, scale: 6 }).notNull(),
+  evaluationPeriodMinutes: integer("evaluation_period_minutes").notNull().default(5),
+  consecutiveBreaches: integer("consecutive_breaches").notNull().default(1),
+  
+  // Severity & Escalation
+  severity: varchar("severity", { length: 16 }).notNull().default("warning"), // info, warning, critical
+  escalationPolicyId: varchar("escalation_policy_id", { length: 64 }),
+  
+  // Notification Channels
+  webhookUrl: varchar("webhook_url", { length: 512 }),
+  slackChannel: varchar("slack_channel", { length: 64 }),
+  emailRecipients: text("email_recipients").array().default([]),
+  pagerDutyIntegrationKey: varchar("pagerduty_integration_key", { length: 128 }),
+  
+  // Suppression
+  suppressionWindowMinutes: integer("suppression_window_minutes").notNull().default(60),
+  suppressDuringMaintenance: boolean("suppress_during_maintenance").default(true),
+  
+  // Status
+  enabled: boolean("enabled").notNull().default(true),
+  
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+}, (table) => [
+  index("idx_alert_policy_id").on(table.policyId),
+  index("idx_alert_policy_metric").on(table.metricType),
+  index("idx_alert_policy_severity").on(table.severity),
+  index("idx_alert_policy_enabled").on(table.enabled),
+]);
+
+// ============================================================================
+// Enterprise Alert Events (Alert History & State Machine)
+// ============================================================================
+export const sessionAlertEvents = pgTable("session_alert_events", {
+  id: serial("id").primaryKey(),
+  
+  // Event Identification
+  alertId: varchar("alert_id", { length: 64 }).notNull().unique(),
+  policyId: varchar("policy_id", { length: 64 }).notNull(),
+  
+  // State Machine
+  state: varchar("state", { length: 16 }).notNull().default("firing"), // firing, acknowledged, resolved, suppressed
+  
+  // Metric Details
+  metricType: varchar("metric_type", { length: 64 }).notNull(),
+  metricValue: numeric("metric_value", { precision: 18, scale: 6 }).notNull(),
+  thresholdValue: numeric("threshold_value", { precision: 18, scale: 6 }).notNull(),
+  severity: varchar("severity", { length: 16 }).notNull().default("warning"),
+  
+  // Context
+  message: text("message").notNull(),
+  labels: jsonb("labels").default({}),
+  annotations: jsonb("annotations").default({}),
+  
+  // Timestamps
+  firedAt: timestamp("fired_at").notNull().defaultNow(),
+  acknowledgedAt: timestamp("acknowledged_at"),
+  acknowledgedBy: varchar("acknowledged_by", { length: 128 }),
+  resolvedAt: timestamp("resolved_at"),
+  resolvedReason: text("resolved_reason"),
+  
+  // Notifications
+  notificationsSent: integer("notifications_sent").notNull().default(0),
+  lastNotificationAt: timestamp("last_notification_at"),
+  notificationChannels: text("notification_channels").array().default([]),
+  
+  // Deduplication
+  fingerprint: varchar("fingerprint", { length: 64 }).notNull(),
+  groupKey: varchar("group_key", { length: 128 }),
+  
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+}, (table) => [
+  index("idx_alert_event_alert_id").on(table.alertId),
+  index("idx_alert_event_policy").on(table.policyId),
+  index("idx_alert_event_state").on(table.state),
+  index("idx_alert_event_severity").on(table.severity),
+  index("idx_alert_event_fired").on(table.firedAt),
+  index("idx_alert_event_fingerprint").on(table.fingerprint),
+]);
+
+// ============================================================================
+// Enterprise Soak Test Baselines (Reference Performance Data)
+// ============================================================================
+export const soakTestBaselines = pgTable("soak_test_baselines", {
+  id: serial("id").primaryKey(),
+  
+  // Baseline Identification
+  baselineId: varchar("baseline_id", { length: 64 }).notNull().unique(),
+  baselineName: varchar("baseline_name", { length: 128 }).notNull(),
+  scenario: varchar("scenario", { length: 64 }).notNull(),
+  
+  // Reference Run
+  referenceRunId: varchar("reference_run_id", { length: 64 }).notNull(),
+  
+  // Performance Benchmarks
+  baselineAvgLatencyMs: numeric("baseline_avg_latency_ms", { precision: 12, scale: 3 }).notNull(),
+  baselineP50LatencyMs: numeric("baseline_p50_latency_ms", { precision: 12, scale: 3 }).notNull(),
+  baselineP95LatencyMs: numeric("baseline_p95_latency_ms", { precision: 12, scale: 3 }).notNull(),
+  baselineP99LatencyMs: numeric("baseline_p99_latency_ms", { precision: 12, scale: 3 }).notNull(),
+  
+  // Throughput Benchmarks
+  baselineRps: numeric("baseline_rps", { precision: 10, scale: 4 }).notNull(),
+  baselineSuccessRate: numeric("baseline_success_rate", { precision: 8, scale: 6 }).notNull(),
+  
+  // Session Benchmarks
+  baselineSkipRatio: numeric("baseline_skip_ratio", { precision: 8, scale: 6 }).notNull(),
+  baselineSessionCreateRate: numeric("baseline_session_create_rate", { precision: 10, scale: 4 }),
+  
+  // Memory Benchmarks
+  baselineHeapUsedMb: numeric("baseline_heap_used_mb", { precision: 10, scale: 2 }),
+  baselineHeapGrowthRateMbPerHour: numeric("baseline_heap_growth_rate", { precision: 10, scale: 4 }),
+  
+  // Tolerance Thresholds
+  latencyTolerancePercent: numeric("latency_tolerance_percent", { precision: 6, scale: 2 }).notNull().default("20.00"),
+  throughputTolerancePercent: numeric("throughput_tolerance_percent", { precision: 6, scale: 2 }).notNull().default("15.00"),
+  memoryTolerancePercent: numeric("memory_tolerance_percent", { precision: 6, scale: 2 }).notNull().default("25.00"),
+  
+  // Status
+  isActive: boolean("is_active").notNull().default(true),
+  
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+}, (table) => [
+  index("idx_baseline_id").on(table.baselineId),
+  index("idx_baseline_scenario").on(table.scenario),
+  index("idx_baseline_active").on(table.isActive),
+]);
+
+// ============================================================================
+// Enterprise Soak Test Regressions (Detected Performance Degradation)
+// ============================================================================
+export const soakTestRegressions = pgTable("soak_test_regressions", {
+  id: serial("id").primaryKey(),
+  
+  // Regression Identification
+  regressionId: varchar("regression_id", { length: 64 }).notNull().unique(),
+  runId: varchar("run_id", { length: 64 }).notNull(),
+  baselineId: varchar("baseline_id", { length: 64 }).notNull(),
+  
+  // Regression Details
+  regressionType: varchar("regression_type", { length: 32 }).notNull(), // latency, throughput, memory, session, error_rate
+  severity: varchar("severity", { length: 16 }).notNull().default("warning"), // info, warning, critical
+  
+  // Metric Comparison
+  metricName: varchar("metric_name", { length: 64 }).notNull(),
+  baselineValue: numeric("baseline_value", { precision: 18, scale: 6 }).notNull(),
+  currentValue: numeric("current_value", { precision: 18, scale: 6 }).notNull(),
+  deviationPercent: numeric("deviation_percent", { precision: 8, scale: 4 }).notNull(),
+  tolerancePercent: numeric("tolerance_percent", { precision: 8, scale: 4 }).notNull(),
+  
+  // Analysis
+  description: text("description").notNull(),
+  possibleCauses: text("possible_causes").array().default([]),
+  recommendations: text("recommendations").array().default([]),
+  
+  // Status
+  status: varchar("status", { length: 16 }).notNull().default("open"), // open, investigating, resolved, false_positive
+  investigatedBy: varchar("investigated_by", { length: 128 }),
+  resolvedAt: timestamp("resolved_at"),
+  resolution: text("resolution"),
+  
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+}, (table) => [
+  index("idx_regression_id").on(table.regressionId),
+  index("idx_regression_run").on(table.runId),
+  index("idx_regression_baseline").on(table.baselineId),
+  index("idx_regression_type").on(table.regressionType),
+  index("idx_regression_severity").on(table.severity),
+  index("idx_regression_status").on(table.status),
+]);
+
+// ============================================================================
+// Enterprise Security Metrics (Auth Failures, Suspicious Patterns)
+// ============================================================================
+export const sessionSecurityMetrics = pgTable("session_security_metrics", {
+  id: serial("id").primaryKey(),
+  
+  // Time bucket
+  bucketTime: timestamp("bucket_time").notNull().defaultNow(),
+  
+  // Auth Failure Metrics
+  authFailuresByType: jsonb("auth_failures_by_type").default({}), // { "invalid_password": 10, "expired_session": 5, ... }
+  totalAuthFailures: integer("total_auth_failures").notNull().default(0),
+  uniqueFailedIps: integer("unique_failed_ips").notNull().default(0),
+  
+  // Suspicious Activity
+  bruteForceAttempts: integer("brute_force_attempts").notNull().default(0),
+  rateLimitBreaches: integer("rate_limit_breaches").notNull().default(0),
+  suspiciousPatterns: integer("suspicious_patterns").notNull().default(0),
+  blockedRequests: integer("blocked_requests").notNull().default(0),
+  
+  // Geographic Distribution (anonymized)
+  requestsByCountry: jsonb("requests_by_country").default({}),
+  failuresByCountry: jsonb("failures_by_country").default({}),
+  
+  // Session Anomalies
+  sessionHijackAttempts: integer("session_hijack_attempts").notNull().default(0),
+  sessionFixationAttempts: integer("session_fixation_attempts").notNull().default(0),
+  crossSiteScriptAttempts: integer("xss_attempts").notNull().default(0),
+  
+  // Risk Score
+  riskScore: numeric("risk_score", { precision: 6, scale: 2 }).notNull().default("0.00"),
+  alertsRaised: integer("alerts_raised").notNull().default(0),
+  
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+}, (table) => [
+  index("idx_security_time").on(table.bucketTime),
+  index("idx_security_risk").on(table.riskScore),
+  index("idx_security_failures").on(table.totalAuthFailures),
+]);
+
 // Session Store Health - Redis/Memory 스토어 상태 추적
 export const sessionStoreHealth = pgTable("session_store_health", {
   id: serial("id").primaryKey(),
