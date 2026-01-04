@@ -95,11 +95,23 @@ interface VestingSchedule {
 
 interface Alert {
   id: string;
-  type: string;
+  policyId?: string;
+  category?: string;
   message: string;
   severity: string;
-  timestamp: string;
-  acknowledged: boolean;
+  triggeredAt?: number;
+  acknowledged?: boolean;
+  value?: number;
+  threshold?: number;
+}
+
+interface AlertsResponse {
+  success: boolean;
+  data: {
+    active: Alert[];
+    all: Alert[];
+    policies: any[];
+  };
 }
 
 const categoryIcons: { [key: string]: any } = {
@@ -153,7 +165,7 @@ export default function AdminDistribution() {
     refetchInterval: 10000,
   });
 
-  const { data: alertsData, refetch: refetchAlerts } = useQuery<{ success: boolean; data: Alert[] }>({
+  const { data: alertsData, refetch: refetchAlerts } = useQuery<AlertsResponse>({
     queryKey: ['/api/admin/genesis/distribution/alerts'],
     refetchInterval: 15000,
   });
@@ -231,8 +243,8 @@ export default function AdminDistribution() {
   const status = statusData?.data;
   const allocations = allocationsData?.data || [];
   const vesting = vestingData?.data || [];
-  const alerts = alertsData?.data || [];
-  const unacknowledgedAlerts = alerts.filter(a => !a.acknowledged).length;
+  const alerts = alertsData?.data?.active || [];
+  const unacknowledgedAlerts = alerts.length;
 
   return (
     <div className="space-y-6 p-6">
@@ -642,7 +654,7 @@ export default function AdminDistribution() {
                               'text-blue-500'
                             }`} />
                             <div>
-                              <p className="text-sm font-medium">{alert.type}</p>
+                              <p className="text-sm font-medium">{alert.category || alert.policyId}</p>
                               <p className="text-xs text-muted-foreground">{alert.message}</p>
                             </div>
                           </div>
@@ -651,7 +663,7 @@ export default function AdminDistribution() {
                               {alert.severity}
                             </Badge>
                             <p className="text-xs text-muted-foreground mt-1">
-                              {new Date(alert.timestamp).toLocaleTimeString('ko-KR')}
+                              {alert.triggeredAt ? new Date(alert.triggeredAt).toLocaleTimeString('ko-KR') : '-'}
                             </p>
                           </div>
                         </div>
