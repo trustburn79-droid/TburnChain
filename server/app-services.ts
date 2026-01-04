@@ -41,11 +41,17 @@ export default async function runAppServices(
   app: Express,
   server: Server,
 ): Promise<void> {
-  // ★ [CRITICAL FIX] 프로덕션 MemoryStore 설정 - 오버플로우 방지
+  // ★ [2026-01-04 프로덕션 안정성 수정] - 세션 오버플로우 완전 방지
+  // 프로덕션 환경 자동 감지 - Autoscale 배포 시 HTTPS가 자동으로 활성화됨
+  const isProduction = process.env.NODE_ENV === "production" || (process.env.REPL_SLUG && !process.env.REPL_ID);
+  const cookieSecure = isProduction || process.env.COOKIE_SECURE === "true";
+  
+  // ★ [CRITICAL FIX] 프로덕션 MemoryStore 설정 - app.ts와 동일하게 설정
+  const maxSessions = isProduction ? 10000 : 2000; // 프로덕션 10000 / 개발 2000 (app.ts와 동일)
   const sessionStore = new MemoryStore({
-    checkPeriod: 60000,     // 1분마다 만료된 세션 정리 (기존 24시간에서 단축!)
-    max: 5000,              // 최대 5000개 세션 (프로덕션 용량 증가)
-    ttl: 1800000,           // 세션 TTL 30분 (기존 24시간에서 단축!)
+    checkPeriod: 30000,     // ★ 30초마다 만료된 세션 정리 (더 적극적)
+    max: maxSessions,       // ★ 프로덕션 10000 / 개발 2000 (app.ts와 동일)
+    ttl: 1800000,           // 세션 TTL 30분
     stale: false,           // 만료된 세션 즉시 삭제
     dispose: (key: string) => {
       if (process.env.DEBUG_SESSION === 'true') {
@@ -53,10 +59,6 @@ export default async function runAppServices(
       }
     }
   });
-
-  // ★ 프로덕션 환경 자동 감지 - Autoscale 배포 시 HTTPS가 자동으로 활성화됨
-  const isProduction = process.env.NODE_ENV === "production" || (process.env.REPL_SLUG && !process.env.REPL_ID);
-  const cookieSecure = isProduction || process.env.COOKIE_SECURE === "true";
 
   // ★ 세션 미들웨어 정의
   const sessionMiddleware = session({
@@ -78,66 +80,96 @@ export default async function runAppServices(
   let sessionSkipCount = 0;
   let lastSessionReport = Date.now();
 
-  // ★ [CRITICAL FIX] 조건부 세션 미들웨어 - 내부 호출 및 공개 API에서 세션 생성 건너뛰기
-  // 이 로직 없이는 ProductionDataPoller, DataCache 등 내부 호출이 세션을 생성하여
-  // MemoryStore가 30-60분 내에 가득 차서 "Internal Server Error" 발생
+  // ★ [2026-01-04 프로덕션 안정성 수정] 조건부 세션 미들웨어
+  // 내부 호출 및 공개 API에서 세션 생성 건너뛰기 - 경로 정규화 적용
   app.use((req: Request, res: Response, next: NextFunction) => {
-    // 내부 API 호출 감지 (X-Internal-Request 헤더)
-    const isInternalRequest = req.headers['x-internal-request'] === 'true';
+    // ★ 경로 정규화 - 트레일링 슬래시 제거하여 일관된 매칭
+    const normalizedPath = req.path.endsWith('/') && req.path.length > 1 
+      ? req.path.slice(0, -1) 
+      : req.path;
     
-    // ★ 세션이 불필요한 경로 - 오직 공개 읽기 전용 API만 (관리자 API 제외)
-    // 주의: 너무 광범위한 경로를 포함하면 관리자 인증이 깨짐
-    const skipSessionPaths = [
-      '/api/public/',              // 공개 API (인증 불필요)
-      '/api/health',               // 헬스 체크
-      '/health',                   // 루트 헬스 체크
-      '/api/public/v1/',           // 공개 API v1
-      '/api/shard-cache/',         // 샤드 캐시 API (공개)
-      '/api/cross-shard-router/',  // 크로스 샤드 라우터 API (공개)
-      '/api/shard-rebalancer/',    // 샤드 리밸런서 API (공개)
-      '/api/batch-processor/',     // 배치 프로세서 API (공개)
+    // 내부 API 호출 감지 (X-Internal-Request 헤더 또는 특정 User-Agent)
+    // ★ axios, node-fetch, undici, got 등 모든 내부 HTTP 클라이언트 감지
+    const userAgent = req.headers['user-agent'] || '';
+    const isInternalRequest = 
+      req.headers['x-internal-request'] === 'true' ||
+      userAgent.includes('node-fetch') ||
+      userAgent.includes('undici') ||
+      userAgent.includes('axios') ||
+      userAgent.includes('got') ||
+      userAgent.includes('node') ||
+      userAgent === '' ||  // 빈 User-Agent는 내부 호출로 간주
+      req.ip === '127.0.0.1' ||
+      req.ip === '::1' ||
+      req.ip === '::ffff:127.0.0.1';
+    
+    // ★ [프로덕션 안정성] 세션 스킵 경로 - 접두사 기반 매칭 (슬래시 없이)
+    const skipSessionPrefixes = [
+      '/api/public',                // 공개 API 전체
+      '/api/health',                // 헬스 체크
+      '/health',                    // 루트 헬스 체크
+      '/api/shard-cache',           // 샤드 캐시 API 전체
+      '/api/cross-shard-router',    // 크로스 샤드 라우터 API 전체
+      '/api/shard-rebalancer',      // 샤드 리밸런서 API 전체
+      '/api/batch-processor',       // 배치 프로세서 API 전체
+      '/api/validators/status',     // 검증자 상태 (공개)
+      '/api/validators/stats',      // 검증자 통계 (공개)
+      '/api/rewards/stats',         // 보상 통계 (공개)
+      '/api/rewards/epoch',         // 에포크 정보 (공개)
+      '/api/network/stats',         // 네트워크 통계 (공개)
+      '/api/scalability',           // 확장성 API (공개)
+      '/api/consensus/state',       // 합의 상태 (공개)
+      '/api/block-production',      // 블록 생산 (공개)
     ];
     
-    // ★ 추가: GET 요청이면서 공개 데이터 조회인 경우만 스킵
-    // 관리자 경로(admin, maintenance, config 등)는 반드시 세션 유지
-    const publicReadOnlyGetPaths = [
-      '/api/network/stats',        // 네트워크 통계 조회
+    // ★ 정확히 일치해야 하는 GET 경로
+    const exactGetPaths = [
+      '/api/shards',                // 샤드 목록
+      '/api/blocks',                // 블록 목록
+      '/api/transactions',          // 트랜잭션 목록
+      '/api/wallets',               // 지갑 목록
+      '/api/contracts',             // 컨트랙트 목록
     ];
     
-    // ★ 정확한 경로 매칭 - 하위 경로가 있으면 스킵하지 않음
-    const exactPublicGetPaths = [
-      '/api/shards',               // 정확히 /api/shards만 (하위 경로 아님)
-      '/api/blocks',               // 정확히 /api/blocks만
-      '/api/transactions',         // 정확히 /api/transactions만
-    ];
-    
-    // 관리자/인증 필요 경로 패턴 (세션 유지 필수)
+    // ★ 관리자/인증 필요 경로 패턴 (세션 유지 필수)
     const requiresSession = 
-      req.path.includes('/admin') ||
-      req.path.includes('/config') ||
-      req.path.includes('/maintenance') ||
-      req.path.includes('/auth') ||
-      req.path.includes('/user') ||
-      req.path.includes('/member');
+      normalizedPath.includes('/admin') ||
+      normalizedPath.includes('/config') ||
+      normalizedPath.includes('/maintenance') ||
+      normalizedPath.includes('/auth') ||
+      normalizedPath.includes('/user') ||
+      normalizedPath.includes('/member') ||
+      normalizedPath.includes('/login') ||
+      normalizedPath.includes('/logout') ||
+      normalizedPath.includes('/session') ||
+      (req.method !== 'GET' && (
+        normalizedPath.includes('/start') ||
+        normalizedPath.includes('/stop') ||
+        normalizedPath.includes('/benchmark')
+      ));
     
     // 이미 인증 쿠키가 있으면 세션 스킵하지 않음
     const hasSessionCookie = !!req.headers.cookie?.includes('connect.sid');
     
-    const isPublicReadOnlyGet = req.method === 'GET' && 
-      !requiresSession &&
-      !hasSessionCookie &&
-      (publicReadOnlyGetPaths.some(path => req.path.startsWith(path)) ||
-       exactPublicGetPaths.includes(req.path));
+    // ★ 접두사 매칭 함수 - 정규화된 경로와 비교
+    const matchesPrefix = skipSessionPrefixes.some(prefix => 
+      normalizedPath === prefix || normalizedPath.startsWith(prefix + '/')
+    );
     
-    const shouldSkipSession = !requiresSession &&
-      !hasSessionCookie &&
-      (isInternalRequest || 
-       skipSessionPaths.some(path => req.path.startsWith(path)) ||
-       isPublicReadOnlyGet);
+    // ★ 정확한 경로 매칭
+    const matchesExact = req.method === 'GET' && exactGetPaths.includes(normalizedPath);
+    
+    // ★ 세션 스킵 조건: 
+    // 1. 관리자 경로가 아니고
+    // 2. (내부 요청이거나 공개 API 경로) - 내부 요청은 쿠키 유무와 관계없이 스킵
+    // 3. 외부 요청의 경우 쿠키가 있으면 기존 세션 사용
+    const shouldSkipSession = !requiresSession && (
+      isInternalRequest ||  // ★ 내부 요청은 항상 스킵 (쿠키 유무 관계없음)
+      (!hasSessionCookie && (matchesPrefix || matchesExact))  // 외부 요청: 쿠키 없고 공개 경로
+    );
     
     if (shouldSkipSession) {
       sessionSkipCount++;
-      // 세션 없이 빈 세션 객체만 제공 (세션 저장소에 저장하지 않음)
       (req as any).session = {
         id: 'skip-session',
         cookie: {},
@@ -163,8 +195,8 @@ export default async function runAppServices(
     return sessionMiddleware(req, res, next);
   });
 
-  log(`Session store: MemoryStore (max: 5000, TTL: 30m, cleanup: 1m)`, "session");
-  log(`Session skip: Enabled for public APIs and internal calls`, "session");
+  log(`Session store: MemoryStore (max: ${maxSessions}, TTL: 30m, cleanup: 30s)`, "session");
+  log(`Session skip: Enabled for public APIs and internal calls (path-normalized)`, "session");
 
   // Google OAuth Configuration
   const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
