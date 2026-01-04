@@ -134,7 +134,7 @@ let executionLogs: GenesisExecutionLogItem[] = [];
 function initializeDefaultConfig(): GenesisConfigData {
   return {
     id: crypto.randomUUID(),
-    chainId: 8888,
+    chainId: 7979,
     chainName: "TBURN Mainnet",
     networkVersion: "v8.0",
     totalSupply: "10000000000000000000000000000", // 10B TBURN in wei
@@ -144,11 +144,11 @@ function initializeDefaultConfig(): GenesisConfigData {
     initialPrice: "0.50",
     blockTimeMs: 100,
     minValidatorStake: "100000000000000000000000", // 100K TBURN
-    maxValidatorCount: 125,
-    initialValidatorCount: 21,
+    maxValidatorCount: 200,
+    initialValidatorCount: 125,
     stakingRewardRate: 1250,
     consensusType: "ai_committee_bft",
-    committeeSize: 21,
+    committeeSize: 125,
     blockProducerCount: 7,
     quorumThreshold: 6700,
     initialShardCount: 8,
@@ -339,49 +339,27 @@ function initializeDefaultApprovers(configId: string): GenesisApprovalItem[] {
   ];
 }
 
-// Initialize default validators
+// Initialize default validators (125 genesis validators for mainnet)
 function initializeDefaultValidators(configId: string): GenesisValidator[] {
-  const baseStake = BigInt("10000000000000000000000000"); // 10M TBURN
+  const baseStake = BigInt("1000000000000000000000000"); // 1M TBURN per validator (125 × 1M = 125M total)
   const validators: GenesisValidator[] = [];
   
-  const validatorNames = [
-    "Genesis Validator Alpha",
-    "Genesis Validator Beta",
-    "Genesis Validator Gamma",
-    "Genesis Validator Delta",
-    "Genesis Validator Epsilon",
-    "Genesis Validator Zeta",
-    "Genesis Validator Eta",
-    "Genesis Validator Theta",
-    "Genesis Validator Iota",
-    "Genesis Validator Kappa",
-    "Genesis Validator Lambda",
-    "Genesis Validator Mu",
-    "Genesis Validator Nu",
-    "Genesis Validator Xi",
-    "Genesis Validator Omicron",
-    "Genesis Validator Pi",
-    "Genesis Validator Rho",
-    "Genesis Validator Sigma",
-    "Genesis Validator Tau",
-    "Genesis Validator Upsilon",
-    "Genesis Validator Phi",
-  ];
-  
-  for (let i = 0; i < 21; i++) {
+  // Generate 125 genesis validators as per mainnet specification
+  for (let i = 0; i < 125; i++) {
+    const validatorNumber = i + 1;
     validators.push({
       id: crypto.randomUUID(),
       configId,
-      address: generateValidatorAddress(i + 1),
-      name: validatorNames[i],
-      description: `Genesis validator node ${i + 1} for TBURN mainnet launch`,
+      address: generateValidatorAddress(validatorNumber),
+      name: `Genesis Validator ${String(validatorNumber).padStart(3, '0')}`,
+      description: `Genesis validator node ${validatorNumber} for TBURN mainnet launch`,
       initialStake: baseStake.toString(),
-      commission: 500 + (i * 50), // 5% - 15% commission
+      commission: 500 + ((i % 21) * 50), // 5% - 15% commission rotating
       nodePublicKey: `0x${crypto.randomBytes(64).toString('hex')}`,
       tier: "genesis",
-      priority: 21 - i,
-      isVerified: false,
-      kycStatus: "pending",
+      priority: 125 - i,
+      isVerified: true, // All genesis validators are pre-verified
+      kycStatus: "approved", // All genesis validators have approved KYC
     });
   }
   
@@ -415,9 +393,9 @@ function initializePreflightChecks(configId: string): PreflightCheck[] {
       id: crypto.randomUUID(),
       checkName: "Validator Count Check",
       checkCategory: "validators",
-      checkDescription: "Verify minimum 21 genesis validators configured",
+      checkDescription: "Verify minimum 125 genesis validators configured",
       status: "pending",
-      expectedValue: "21",
+      expectedValue: "125",
       isCritical: true,
       isRequired: true,
     },
@@ -859,7 +837,7 @@ router.post('/preflight/run', async (req: Request, res: Response) => {
           
         case "Validator Count Check":
           check.actualValue = genesisValidators.length.toString();
-          check.status = genesisValidators.length >= 21 ? 'passed' : 'failed';
+          check.status = genesisValidators.length >= 125 ? 'passed' : 'failed';
           break;
           
         case "Validator Stake Minimum":
@@ -1121,7 +1099,7 @@ router.get('/status', async (req: Request, res: Response) => {
       executedAt: genesisConfig?.executedAt,
       
       configComplete: genesisConfig !== null,
-      validatorsComplete: genesisValidators.length >= 21,
+      validatorsComplete: genesisValidators.length >= 125,
       distributionComplete: genesisDistributions.reduce((sum, d) => sum + d.percentage, 0) === 10000,
       
       approvals: {
@@ -1140,7 +1118,7 @@ router.get('/status', async (req: Request, res: Response) => {
       readyToExecute: 
         genesisConfig !== null &&
         !genesisConfig.isExecuted &&
-        genesisValidators.length >= 21 &&
+        genesisValidators.length >= 125 &&
         genesisDistributions.reduce((sum, d) => sum + d.percentage, 0) === 10000 &&
         approvedCount >= (genesisConfig?.requiredSignatures || 3) &&
         criticalFailed === 0,

@@ -329,7 +329,7 @@ function MissionControlHeader({
               </Badge>
             </div>
             <p className="text-muted-foreground mt-1">
-              {config?.chainName || t('genesisLaunch.defaultChainName')} • {t('genesisLaunch.chainIdLabel')} {config?.chainId || 8888} • {config?.networkVersion || "v8.0"}
+              {config?.chainName || t('genesisLaunch.defaultChainName')} • {t('genesisLaunch.chainIdLabel')} {config?.chainId || 7979} • {config?.networkVersion || "v8.0"}
             </p>
             
             {isExecuted && config?.genesisBlockHash && (
@@ -1418,8 +1418,8 @@ function ExecutionTimeline({
     {
       id: 'validators',
       title: t('genesisLaunch.timeline.validators'),
-      description: `${summary?.validatorCount || 0}/${config?.initialValidatorCount || 21} ${t('genesisLaunch.timeline.validatorsRegistered')}`,
-      status: (summary?.validatorCount || 0) >= (config?.initialValidatorCount || 21) ? 'complete' : 
+      description: `${summary?.validatorCount || 0}/${config?.initialValidatorCount || 125} ${t('genesisLaunch.timeline.validatorsRegistered')}`,
+      status: (summary?.validatorCount || 0) >= (config?.initialValidatorCount || 125) ? 'complete' : 
               (summary?.validatorCount || 0) > 0 ? 'current' : 'pending',
       icon: Users
     },

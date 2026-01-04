@@ -16370,7 +16370,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     
     const result = {
       config: {
-        chainId: '8888',
+        chainId: '7979',
         networkName: 'TBURN Mainnet',
         consensusType: 'AI-Enhanced BFT',
         blockTime: networkStats.blockTime,
@@ -16465,7 +16465,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     const result = {
       checks: [
         { id: 'chk-1', name: 'Network Connectivity', status: 'passed', details: 'All nodes connected' },
-        { id: 'chk-2', name: 'Validator Readiness', status: 'passed', details: '21/21 validators ready' },
+        { id: 'chk-2', name: 'Validator Readiness', status: 'passed', details: '125/125 validators ready' },
         { id: 'chk-3', name: 'Smart Contracts', status: 'passed', details: 'Core contracts deployed' },
         { id: 'chk-4', name: 'Security Audit', status: 'passed', details: 'No critical issues' },
         { id: 'chk-5', name: 'Token Distribution', status: 'passed', details: 'Genesis balances set' }
@@ -16504,7 +16504,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({
         general: {
           chainName: "TBURN Mainnet",
-          chainId: "8888",
+          chainId: "7979",
           rpcEndpoint: "https://rpc.tburn.io",
           wsEndpoint: "wss://ws.tburn.io",
           explorerUrl: "https://explorer.tburn.io",

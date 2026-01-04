@@ -6145,7 +6145,7 @@ export class TBurnEnterpriseNode extends EventEmitter {
       avgTransferTime: '~25s',
       totalBridged: '$2.85B',
       chainCount: 5,
-      validatorCount: 21,
+      validatorCount: 125,
       uptime: '99.97%'
     };
   }
@@ -6323,13 +6323,13 @@ export class TBurnEnterpriseNode extends EventEmitter {
         id: 5,
         name: 'TBURN Mainnet',
         symbol: 'TBURN',
-        chainId: 6000,
+        chainId: 7979,
         status: 'active' as const,
         tvl: '$168.2M',
         volume24h: '$3.8M',
         pendingTx: 2 + (seedValue % 4),
-        validators: 21,
-        maxValidators: 25,
+        validators: 125,
+        maxValidators: 200,
         rpcEndpoint: 'https://mainnet-rpc.tburn.io',
         explorerUrl: 'https://explorer.tburn.io',
         bridgeContract: '0xB2C3D4E5F6A7B8C9D0E1F2A3B4C5D6E7F8A9B0C1',
@@ -6389,7 +6389,7 @@ export class TBurnEnterpriseNode extends EventEmitter {
     const allChains = ['Ethereum', 'BSC', 'Polygon', 'Arbitrum', 'TBURN'];
     const statuses: Array<'active' | 'inactive' | 'slashed'> = ['active', 'active', 'active', 'active', 'active', 'active', 'inactive', 'slashed'];
     
-    const validators = Array.from({ length: 21 }, (_, i) => {
+    const validators = Array.from({ length: 125 }, (_, i) => {
       const valSeed = crypto.createHash('sha256')
         .update(`bridge-val-${i}-${dateSeed}`)
         .digest('hex');
