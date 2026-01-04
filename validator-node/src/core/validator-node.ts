@@ -4,6 +4,12 @@
  * 
  * This is the main entry point for running a validator node.
  * Coordinates all subsystems: P2P, Consensus, Storage, API
+ * 
+ * Security Features:
+ * - AES-256-GCM encrypted keystore with Argon2id key derivation
+ * - Token bucket DDoS protection with circuit breaker
+ * - TLS 1.3 / mTLS for secure communications
+ * - Challenge-response peer authentication with nonce replay protection
  */
 
 import { EventEmitter } from 'events';
@@ -12,6 +18,10 @@ import { P2PNetwork, MessageType } from '../network/p2p';
 import { BFTConsensusEngine, BlockProposal, ValidatorInfo } from '../consensus/bft-engine';
 import { BlockStore, StateStore } from '../storage/block-store';
 import { CryptoManager } from '../crypto/keys';
+import { SecureKeystore } from '../crypto/secure-keystore';
+import { AdvancedRateLimiter, PeerRateLimiter } from '../security/rate-limiter';
+import { TLSManager } from '../security/tls-manager';
+import { PeerAuthenticator } from '../security/peer-auth';
 import { Logger, createModuleLogger } from '../utils/logger';
 import { CHAIN_CONSTANTS } from '../config/default';
 
@@ -31,11 +41,19 @@ export class ValidatorNode extends EventEmitter {
   private blockStore: BlockStore;
   private stateStore: StateStore;
   
+  // Security components
+  private secureKeystore: SecureKeystore | null = null;
+  private rateLimiter: AdvancedRateLimiter;
+  private peerRateLimiter: PeerRateLimiter;
+  private tlsManager: TLSManager;
+  private peerAuthenticator: PeerAuthenticator | null = null;
+  
   private mempool: Map<string, MempoolTransaction> = new Map();
   private pendingTxByAccount: Map<string, Set<string>> = new Map();
   
   private isRunning: boolean = false;
   private startTime: number = 0;
+  private securityEnabled: boolean = true;
   private metrics: ValidatorMetrics = {
     blocksProposed: 0,
     blocksMissed: 0,
@@ -60,25 +78,92 @@ export class ValidatorNode extends EventEmitter {
       logFile: config.monitoring.logFile,
     });
     
+    // Initialize crypto manager
     this.cryptoManager = new CryptoManager();
     this.cryptoManager.loadFromPrivateKey(config.validator.privateKey);
     
+    // Initialize security components
+    this.rateLimiter = new AdvancedRateLimiter({
+      windowMs: 60000,
+      maxRequests: 1000,
+      burstLimit: 100,
+      adaptiveEnabled: true,
+      reputationEnabled: true,
+      circuitBreakerThreshold: 5000,
+    });
+    
+    this.peerRateLimiter = new PeerRateLimiter();
+    
+    this.tlsManager = new TLSManager({
+      enabled: true,
+      certPath: config.storage.dataDir + '/certs/validator.crt',
+      keyPath: config.storage.dataDir + '/certs/validator.key',
+      caPath: config.storage.dataDir + '/certs/tburn-ca.crt',
+      mtlsEnabled: true,
+      minVersion: 'TLSv1.3',
+      autoRenew: true,
+      renewBeforeExpiryDays: 30,
+    });
+    
+    // Initialize P2P network
     this.p2pNetwork = new P2PNetwork(
       config.network,
       config.nodeId,
       (msg) => this.cryptoManager.sign(msg)
     );
     
+    // Initialize consensus engine
     this.consensusEngine = new BFTConsensusEngine(
       config.consensus,
       config.validator.address,
       (msg) => this.cryptoManager.sign(msg)
     );
     
+    // Initialize storage
     this.blockStore = new BlockStore(config.storage);
     this.stateStore = new StateStore(config.storage);
     
     this.setupEventHandlers();
+    
+    log.info('ValidatorNode initialized with security features', {
+      nodeId: config.nodeId,
+      tlsEnabled: true,
+      rateLimitingEnabled: true,
+    });
+  }
+
+  /**
+   * Initialize secure keystore for key management
+   */
+  async initializeSecureKeystore(password: string): Promise<void> {
+    this.secureKeystore = new SecureKeystore({
+      path: this.config.storage.dataDir + '/keystore/keys.json',
+      autoLockTimeoutMs: 300000,
+      maxDecryptionAttempts: 5,
+    });
+    
+    await this.secureKeystore.initialize(password);
+    
+    // Initialize peer authenticator with secure keystore
+    this.peerAuthenticator = new PeerAuthenticator(
+      this.config.nodeId,
+      this.cryptoManager.getPublicKeyHex(),
+      (msg) => this.cryptoManager.sign(msg),
+      (pubKey, msg, sig) => CryptoManager.verifySignature(msg, sig, pubKey)
+    );
+    
+    log.info('Secure keystore initialized');
+  }
+
+  /**
+   * Initialize TLS for secure communications
+   */
+  async initializeTLS(): Promise<void> {
+    await this.tlsManager.initialize();
+    log.info('TLS manager initialized', {
+      mtlsEnabled: this.tlsManager.isMtlsEnabled(),
+      certInfo: this.tlsManager.getCertificateInfo(),
+    });
   }
 
   private setupEventHandlers(): void {

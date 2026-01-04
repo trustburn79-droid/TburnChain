@@ -5,6 +5,12 @@
  *
  * This is the main entry point for running a validator node.
  * Coordinates all subsystems: P2P, Consensus, Storage, API
+ *
+ * Security Features:
+ * - AES-256-GCM encrypted keystore with Argon2id key derivation
+ * - Token bucket DDoS protection with circuit breaker
+ * - TLS 1.3 / mTLS for secure communications
+ * - Challenge-response peer authentication with nonce replay protection
  */
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ValidatorNode = void 0;
@@ -13,6 +19,10 @@ const p2p_1 = require("../network/p2p");
 const bft_engine_1 = require("../consensus/bft-engine");
 const block_store_1 = require("../storage/block-store");
 const keys_1 = require("../crypto/keys");
+const secure_keystore_1 = require("../crypto/secure-keystore");
+const rate_limiter_1 = require("../security/rate-limiter");
+const tls_manager_1 = require("../security/tls-manager");
+const peer_auth_1 = require("../security/peer-auth");
 const logger_1 = require("../utils/logger");
 const default_1 = require("../config/default");
 const log = (0, logger_1.createModuleLogger)('ValidatorNode');
@@ -23,10 +33,17 @@ class ValidatorNode extends events_1.EventEmitter {
     consensusEngine;
     blockStore;
     stateStore;
+    // Security components
+    secureKeystore = null;
+    rateLimiter;
+    peerRateLimiter;
+    tlsManager;
+    peerAuthenticator = null;
     mempool = new Map();
     pendingTxByAccount = new Map();
     isRunning = false;
     startTime = 0;
+    securityEnabled = true;
     metrics = {
         blocksProposed: 0,
         blocksMissed: 0,
@@ -48,13 +65,66 @@ class ValidatorNode extends events_1.EventEmitter {
             nodeId: config.nodeId,
             logFile: config.monitoring.logFile,
         });
+        // Initialize crypto manager
         this.cryptoManager = new keys_1.CryptoManager();
         this.cryptoManager.loadFromPrivateKey(config.validator.privateKey);
+        // Initialize security components
+        this.rateLimiter = new rate_limiter_1.AdvancedRateLimiter({
+            windowMs: 60000,
+            maxRequests: 1000,
+            burstLimit: 100,
+            adaptiveEnabled: true,
+            reputationEnabled: true,
+            circuitBreakerThreshold: 5000,
+        });
+        this.peerRateLimiter = new rate_limiter_1.PeerRateLimiter();
+        this.tlsManager = new tls_manager_1.TLSManager({
+            enabled: true,
+            certPath: config.storage.dataDir + '/certs/validator.crt',
+            keyPath: config.storage.dataDir + '/certs/validator.key',
+            caPath: config.storage.dataDir + '/certs/tburn-ca.crt',
+            mtlsEnabled: true,
+            minVersion: 'TLSv1.3',
+            autoRenew: true,
+            renewBeforeExpiryDays: 30,
+        });
+        // Initialize P2P network
         this.p2pNetwork = new p2p_1.P2PNetwork(config.network, config.nodeId, (msg) => this.cryptoManager.sign(msg));
+        // Initialize consensus engine
         this.consensusEngine = new bft_engine_1.BFTConsensusEngine(config.consensus, config.validator.address, (msg) => this.cryptoManager.sign(msg));
+        // Initialize storage
         this.blockStore = new block_store_1.BlockStore(config.storage);
         this.stateStore = new block_store_1.StateStore(config.storage);
         this.setupEventHandlers();
+        log.info('ValidatorNode initialized with security features', {
+            nodeId: config.nodeId,
+            tlsEnabled: true,
+            rateLimitingEnabled: true,
+        });
+    }
+    /**
+     * Initialize secure keystore for key management
+     */
+    async initializeSecureKeystore(password) {
+        this.secureKeystore = new secure_keystore_1.SecureKeystore({
+            path: this.config.storage.dataDir + '/keystore/keys.json',
+            autoLockTimeoutMs: 300000,
+            maxDecryptionAttempts: 5,
+        });
+        await this.secureKeystore.initialize(password);
+        // Initialize peer authenticator with secure keystore
+        this.peerAuthenticator = new peer_auth_1.PeerAuthenticator(this.config.nodeId, this.cryptoManager.getPublicKeyHex(), (msg) => this.cryptoManager.sign(msg), (pubKey, msg, sig) => keys_1.CryptoManager.verifySignature(msg, sig, pubKey));
+        log.info('Secure keystore initialized');
+    }
+    /**
+     * Initialize TLS for secure communications
+     */
+    async initializeTLS() {
+        await this.tlsManager.initialize();
+        log.info('TLS manager initialized', {
+            mtlsEnabled: this.tlsManager.isMtlsEnabled(),
+            certInfo: this.tlsManager.getCertificateInfo(),
+        });
     }
     setupEventHandlers() {
         this.p2pNetwork.on('block', (block) => {
