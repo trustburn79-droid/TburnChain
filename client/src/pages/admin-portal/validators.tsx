@@ -142,29 +142,7 @@ export default function AdminValidators() {
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [editingValidator, setEditingValidator] = useState<Validator | null>(null);
   
-  const {
-    isOpen: isUnjailDialogOpen,
-    confirm: confirmUnjail,
-    cancel: cancelUnjail,
-    data: unjailValidator,
-    openConfirmation: openUnjailDialog,
-  } = useConfirmation<Validator>();
-  
-  const {
-    isOpen: isSlashDialogOpen,
-    confirm: confirmSlash,
-    cancel: cancelSlash,
-    data: slashValidator,
-    openConfirmation: openSlashDialog,
-  } = useConfirmation<Validator>();
-  
-  const {
-    isOpen: isDeleteDialogOpen,
-    confirm: confirmDelete,
-    cancel: cancelDelete,
-    data: deleteValidator,
-    openConfirmation: openDeleteDialog,
-  } = useConfirmation<Validator>();
+  const { confirm: confirmAction, DialogComponent: ConfirmDialogComponent } = useConfirmation();
 
   const { data: validatorsData, isLoading, error, refetch } = useQuery<ValidatorsResponse>({
     queryKey: ["/api/validators"],
@@ -179,10 +157,7 @@ export default function AdminValidators() {
 
   const addValidatorMutation = useMutation({
     mutationFn: async (data: Partial<Validator>) => {
-      return apiRequest("/api/admin/validators", {
-        method: "POST",
-        body: JSON.stringify(data),
-      });
+      return apiRequest("POST", "/api/admin/validators", data);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/validators"] });
@@ -203,10 +178,7 @@ export default function AdminValidators() {
 
   const updateValidatorMutation = useMutation({
     mutationFn: async ({ address, data }: { address: string; data: Partial<Validator> }) => {
-      return apiRequest(`/api/admin/validators/${address}`, {
-        method: "PATCH",
-        body: JSON.stringify(data),
-      });
+      return apiRequest("PATCH", `/api/admin/validators/${address}`, data);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/validators"] });
@@ -228,9 +200,7 @@ export default function AdminValidators() {
 
   const unjailMutation = useMutation({
     mutationFn: async (address: string) => {
-      return apiRequest(`/api/admin/validators/${address}/unjail`, {
-        method: "POST",
-      });
+      return apiRequest("POST", `/api/admin/validators/${address}/unjail`);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/validators"] });
@@ -250,9 +220,7 @@ export default function AdminValidators() {
 
   const slashMutation = useMutation({
     mutationFn: async (address: string) => {
-      return apiRequest(`/api/admin/validators/${address}/slash`, {
-        method: "POST",
-      });
+      return apiRequest("POST", `/api/admin/validators/${address}/slash`);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/validators"] });
@@ -272,9 +240,7 @@ export default function AdminValidators() {
 
   const deleteValidatorMutation = useMutation({
     mutationFn: async (address: string) => {
-      return apiRequest(`/api/admin/validators/${address}`, {
-        method: "DELETE",
-      });
+      return apiRequest("DELETE", `/api/admin/validators/${address}`);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/validators"] });
@@ -391,25 +357,38 @@ export default function AdminValidators() {
     setIsEditDialogOpen(true);
   };
 
-  const handleUnjailValidator = async (validator: Validator) => {
-    const confirmed = await openUnjailDialog(validator);
-    if (confirmed) {
-      unjailMutation.mutate(validator.address);
-    }
+  const handleUnjailValidator = (validator: Validator) => {
+    confirmAction({
+      title: t("adminValidators.confirmUnjail"),
+      description: t("adminValidators.confirmUnjailDesc", { name: validator.name }),
+      actionType: "restart",
+      onConfirm: async () => { await unjailMutation.mutateAsync(validator.address); },
+      destructive: false,
+    });
   };
 
-  const handleSlashValidator = async (validator: Validator) => {
-    const confirmed = await openSlashDialog(validator);
-    if (confirmed) {
-      slashMutation.mutate(validator.address);
-    }
+  const handleSlashValidator = (validator: Validator) => {
+    confirmAction({
+      title: t("adminValidators.confirmSlash"),
+      description: t("adminValidators.confirmSlashDesc", { name: validator.name }),
+      actionType: "disable",
+      onConfirm: async () => { await slashMutation.mutateAsync(validator.address); },
+      destructive: true,
+      requiresConfirmation: true,
+      confirmationText: validator.name,
+    });
   };
 
-  const handleDeleteValidator = async (validator: Validator) => {
-    const confirmed = await openDeleteDialog(validator);
-    if (confirmed) {
-      deleteValidatorMutation.mutate(validator.address);
-    }
+  const handleDeleteValidator = (validator: Validator) => {
+    confirmAction({
+      title: t("adminValidators.confirmDelete"),
+      description: t("adminValidators.confirmDeleteDesc", { name: validator.name }),
+      actionType: "delete",
+      onConfirm: async () => { await deleteValidatorMutation.mutateAsync(validator.address); },
+      destructive: true,
+      requiresConfirmation: true,
+      confirmationText: validator.name,
+    });
   };
 
   const getValidatorActions = (validator: Validator) => [
@@ -776,14 +755,7 @@ export default function AdminValidators() {
                             </div>
                           </td>
                           <td className="py-3 px-4">
-                            <StatusBadge 
-                              status={validator.status} 
-                              statusMap={{
-                                active: { label: t("adminValidators.statusActive"), variant: "success" },
-                                inactive: { label: t("adminValidators.statusInactive"), variant: "warning" },
-                                jailed: { label: t("adminValidators.statusJailed"), variant: "error" },
-                              }}
-                            />
+                            <StatusBadge status={validator.status} />
                           </td>
                           <td className="py-3 px-4 text-right font-mono" data-testid={`text-validator-stake-${validator.address}`}>{formatTBURN(validator.stake)} TBURN</td>
                           <td className="py-3 px-4 text-right" data-testid={`text-validator-delegators-${validator.address}`}>{validator.delegators.toLocaleString()}</td>
@@ -856,7 +828,7 @@ export default function AdminValidators() {
               setIsDetailOpen(false);
               handleUnjailValidator(selectedValidator);
             },
-            variant: "success" as const,
+            variant: "default" as const,
           }] : [{
             label: t("adminValidators.slash"),
             icon: <Slash className="h-4 w-4" />,
@@ -877,7 +849,7 @@ export default function AdminValidators() {
         fields={getValidatorFormFields()}
         onSubmit={(data) => addValidatorMutation.mutate(data as Partial<Validator>)}
         isLoading={addValidatorMutation.isPending}
-        submitLabel={t("common.create")}
+        submitText={t("common.create")}
       />
 
       <AdminFormDialog
@@ -889,7 +861,7 @@ export default function AdminValidators() {
         title={t("adminValidators.editValidator")}
         description={t("adminValidators.editValidatorDesc")}
         fields={getValidatorFormFields()}
-        defaultValues={editingValidator ? {
+        initialData={editingValidator ? {
           name: editingValidator.name,
           address: editingValidator.address,
           commission: editingValidator.commission,
@@ -897,51 +869,20 @@ export default function AdminValidators() {
           website: editingValidator.website || "",
           description: editingValidator.description || "",
         } : undefined}
-        onSubmit={(data) => editingValidator && updateValidatorMutation.mutate({ 
-          address: editingValidator.address, 
-          data: data as Partial<Validator> 
-        })}
+        onSubmit={(data) => {
+          if (editingValidator) {
+            updateValidatorMutation.mutate({ 
+              address: editingValidator.address, 
+              data: data as Partial<Validator> 
+            });
+          }
+        }}
         isLoading={updateValidatorMutation.isPending}
-        submitLabel={t("common.save")}
+        isEditing={true}
+        submitText={t("common.save")}
       />
 
-      <ConfirmationDialog
-        open={isUnjailDialogOpen}
-        onOpenChange={(open) => !open && cancelUnjail()}
-        title={t("adminValidators.confirmUnjail")}
-        description={t("adminValidators.confirmUnjailDesc", { name: unjailValidator?.name })}
-        onConfirm={confirmUnjail}
-        onCancel={cancelUnjail}
-        confirmLabel={t("adminValidators.unjail")}
-        variant="default"
-        isLoading={unjailMutation.isPending}
-      />
-
-      <ConfirmationDialog
-        open={isSlashDialogOpen}
-        onOpenChange={(open) => !open && cancelSlash()}
-        title={t("adminValidators.confirmSlash")}
-        description={t("adminValidators.confirmSlashDesc", { name: slashValidator?.name })}
-        onConfirm={confirmSlash}
-        onCancel={cancelSlash}
-        confirmLabel={t("adminValidators.slash")}
-        variant="destructive"
-        isLoading={slashMutation.isPending}
-        requireConfirmText={slashValidator?.name}
-      />
-
-      <ConfirmationDialog
-        open={isDeleteDialogOpen}
-        onOpenChange={(open) => !open && cancelDelete()}
-        title={t("adminValidators.confirmDelete")}
-        description={t("adminValidators.confirmDeleteDesc", { name: deleteValidator?.name })}
-        onConfirm={confirmDelete}
-        onCancel={cancelDelete}
-        confirmLabel={t("common.delete")}
-        variant="destructive"
-        isLoading={deleteValidatorMutation.isPending}
-        requireConfirmText={deleteValidator?.name}
-      />
+      <ConfirmDialogComponent />
     </TooltipProvider>
   );
 }

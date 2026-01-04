@@ -972,7 +972,7 @@ function EmissionDetailDialog({ type, tierData, open, onClose }: EmissionDetailD
   const config = configs[type];
   const Icon = config.icon;
 
-  const baseEmission = tierData.emission.dailyEmission;
+  const baseEmission = tierData.emission.dailyGrossEmission;
   const baseBurn = tierData.emission.dailyBurn;
   const baseNet = tierData.emission.dailyNetEmission;
   
