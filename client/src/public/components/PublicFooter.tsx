@@ -1,5 +1,5 @@
 import { Link } from "wouter";
-import { SiX, SiGithub, SiDiscord, SiInstagram, SiTiktok, SiYoutube, SiFacebook, SiReddit } from "react-icons/si";
+import { SiX, SiGithub, SiDiscord, SiInstagram, SiTiktok, SiYoutube, SiFacebook } from "react-icons/si";
 import { Mail, Globe, Shield, Zap, Loader2 } from "lucide-react";
 import { TBurnLogo } from "@/components/tburn-logo";
 import { useTranslation } from "react-i18next";
@@ -16,7 +16,6 @@ const socialLinks = [
   { icon: SiInstagram, href: "https://www.instagram.com/tburnio/", label: "Instagram" },
   { icon: SiTiktok, href: "https://www.tiktok.com/@tburnio", label: "TikTok" },
   { icon: SiFacebook, href: "https://www.facebook.com/profile.php?id=61584329147888", label: "Facebook" },
-  { icon: SiReddit, href: "https://www.reddit.com/user/Living_Break_8249/", label: "Reddit" },
 ];
 
 const ecosystemLinks = [
