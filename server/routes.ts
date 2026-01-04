@@ -58,6 +58,7 @@ import { rewardRoutes } from "./routes/reward-routes";
 import crossShardRouterRoutes from "./routes/cross-shard-router-routes";
 import shardCacheRoutes from "./routes/shard-cache-routes";
 import batchProcessorRoutes from "./routes/batch-processor-routes";
+import shardRebalancerRoutes from "./routes/shard-rebalancer-routes";
 import { nftMarketplaceService } from "./services/NftMarketplaceService";
 import { launchpadService } from "./services/LaunchpadService";
 import { gameFiService } from "./services/GameFiService";
@@ -1686,6 +1687,10 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     if (req.path.startsWith("/batch-processor")) {
       return next();
     }
+    // Skip auth check for shard-rebalancer (public infrastructure monitoring)
+    if (req.path.startsWith("/shard-rebalancer")) {
+      return next();
+    }
     // Skip auth check for consensus (public blockchain data)
     if (req.path.startsWith("/consensus")) {
       return next();
@@ -1985,6 +1990,13 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   // ============================================
   app.use("/api/batch-processor", batchProcessorRoutes);
   console.log("[BatchProcessor] ✅ Enterprise batch processor routes registered (64-4096 adaptive batch, 8 parallel chunks)");
+
+  // ============================================
+  // ENTERPRISE SHARD REBALANCER
+  // Threshold-based automatic shard rebalancing for optimal load distribution
+  // ============================================
+  app.use("/api/shard-rebalancer", shardRebalancerRoutes);
+  console.log("[ShardRebalancer] ✅ Enterprise shard rebalancer routes registered (multi-threshold, EWMA prediction, hysteresis)");
 
   // ============================================
   // Network Stats

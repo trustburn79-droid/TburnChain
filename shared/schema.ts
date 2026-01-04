@@ -1,5 +1,5 @@
 import { sql } from "drizzle-orm";
-import { pgTable, text, varchar, integer, bigint, boolean, jsonb, timestamp, numeric, real } from "drizzle-orm/pg-core";
+import { pgTable, text, varchar, integer, bigint, boolean, jsonb, timestamp, numeric, real, serial, index } from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 
@@ -10556,3 +10556,343 @@ export type InsertEnterpriseBatchEvent = z.infer<typeof insertEnterpriseBatchEve
 
 export type EnterpriseBatchMetricsHourly = typeof enterpriseBatchMetricsHourly.$inferSelect;
 export type InsertEnterpriseBatchMetricsHourly = z.infer<typeof insertEnterpriseBatchMetricsHourlySchema>;
+
+// ================================================================================
+// Enterprise Shard Rebalancer Tables (Phase 15)
+// Production-grade threshold-based automatic shard rebalancing
+// ================================================================================
+
+// Rebalancer State Snapshots (periodic state capture)
+export const enterpriseRebalancerSnapshots = pgTable("enterprise_rebalancer_snapshots", {
+  id: serial("id").primaryKey(),
+  snapshotId: varchar("snapshot_id", { length: 64 }).notNull(),
+  capturedAt: timestamp("captured_at").notNull().defaultNow(),
+  
+  // Rebalancer State
+  rebalancerState: varchar("rebalancer_state", { length: 32 }).notNull().default("IDLE"),
+  uptimeMs: bigint("uptime_ms", { mode: "number" }).notNull().default(0),
+  
+  // Shard Temperature Distribution
+  totalShards: integer("total_shards").notNull().default(64),
+  hotShards: integer("hot_shards").notNull().default(0),
+  warmShards: integer("warm_shards").notNull().default(0),
+  coolShards: integer("cool_shards").notNull().default(0),
+  coldShards: integer("cold_shards").notNull().default(0),
+  
+  // Load Balance Metrics
+  currentImbalanceRatio: numeric("current_imbalance_ratio", { precision: 8, scale: 4 }).notNull().default("1.0000"),
+  avgUtilization: numeric("avg_utilization", { precision: 6, scale: 4 }).notNull().default("0.0000"),
+  minUtilization: numeric("min_utilization", { precision: 6, scale: 4 }).notNull().default("0.0000"),
+  maxUtilization: numeric("max_utilization", { precision: 6, scale: 4 }).notNull().default("0.0000"),
+  stdDevUtilization: numeric("std_dev_utilization", { precision: 8, scale: 6 }).notNull().default("0.000000"),
+  
+  // TPS Distribution
+  totalTps: bigint("total_tps", { mode: "number" }).notNull().default(0),
+  avgTpsPerShard: bigint("avg_tps_per_shard", { mode: "number" }).notNull().default(0),
+  minTps: bigint("min_tps", { mode: "number" }).notNull().default(0),
+  maxTps: bigint("max_tps", { mode: "number" }).notNull().default(0),
+  
+  // Latency Distribution
+  avgLatencyP99Ms: numeric("avg_latency_p99_ms", { precision: 10, scale: 3 }).notNull().default("0.000"),
+  maxLatencyP99Ms: numeric("max_latency_p99_ms", { precision: 10, scale: 3 }).notNull().default("0.000"),
+  
+  // Queue Distribution
+  totalQueueDepth: bigint("total_queue_depth", { mode: "number" }).notNull().default(0),
+  avgQueueDepth: bigint("avg_queue_depth", { mode: "number" }).notNull().default(0),
+  maxQueueDepth: bigint("max_queue_depth", { mode: "number" }).notNull().default(0),
+  
+  // Decision Stats
+  pendingDecisions: integer("pending_decisions").notNull().default(0),
+  totalRebalances: integer("total_rebalances").notNull().default(0),
+  successfulRebalances: integer("successful_rebalances").notNull().default(0),
+  failedRebalances: integer("failed_rebalances").notNull().default(0),
+  
+  // Migration Stats
+  totalMigrations: integer("total_migrations").notNull().default(0),
+  totalTransactionsMigrated: bigint("total_transactions_migrated", { mode: "number" }).notNull().default(0),
+  avgRebalanceDurationMs: numeric("avg_rebalance_duration_ms", { precision: 12, scale: 3 }).notNull().default("0.000"),
+  
+  // Threshold Config at Snapshot Time
+  hotUtilizationThreshold: numeric("hot_utilization_threshold", { precision: 5, scale: 4 }).notNull().default("0.8500"),
+  coldUtilizationThreshold: numeric("cold_utilization_threshold", { precision: 5, scale: 4 }).notNull().default("0.2500"),
+  imbalanceRatioThreshold: numeric("imbalance_ratio_threshold", { precision: 5, scale: 2 }).notNull().default("2.00"),
+  
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+}, (table) => [
+  index("idx_rebalancer_snapshots_snapshot_id").on(table.snapshotId),
+  index("idx_rebalancer_snapshots_captured_at").on(table.capturedAt),
+  index("idx_rebalancer_snapshots_state").on(table.rebalancerState),
+  index("idx_rebalancer_snapshots_imbalance").on(table.currentImbalanceRatio),
+  index("idx_rebalancer_snapshots_hot_shards").on(table.hotShards),
+  index("idx_rebalancer_snapshots_cold_shards").on(table.coldShards),
+]);
+
+// Rebalance Decisions (decision history)
+export const enterpriseRebalanceDecisions = pgTable("enterprise_rebalance_decisions", {
+  id: serial("id").primaryKey(),
+  decisionId: varchar("decision_id", { length: 64 }).notNull().unique(),
+  timestamp: timestamp("timestamp").notNull().defaultNow(),
+  
+  // Decision Details
+  action: varchar("action", { length: 32 }).notNull(),
+  reason: text("reason").notNull(),
+  priority: integer("priority").notNull().default(2),
+  approved: boolean("approved").notNull().default(true),
+  
+  // Source and Target Shards (JSON arrays)
+  sourceShards: text("source_shards").notNull().default("[]"),
+  targetShards: text("target_shards").notNull().default("[]"),
+  sourceShardsCount: integer("source_shards_count").notNull().default(0),
+  targetShardsCount: integer("target_shards_count").notNull().default(0),
+  
+  // Estimated Impact
+  estimatedTpsGain: integer("estimated_tps_gain").notNull().default(0),
+  estimatedLatencyReduction: integer("estimated_latency_reduction").notNull().default(0),
+  estimatedUtilizationBalance: numeric("estimated_utilization_balance", { precision: 6, scale: 4 }).notNull().default("0.0000"),
+  
+  // Execution Status
+  executionStatus: varchar("execution_status", { length: 32 }).notNull().default("PENDING"),
+  executedAt: timestamp("executed_at"),
+  completedAt: timestamp("completed_at"),
+  executionDurationMs: bigint("execution_duration_ms", { mode: "number" }),
+  
+  // Actual Impact (after execution)
+  actualTpsGain: integer("actual_tps_gain"),
+  actualLatencyReduction: integer("actual_latency_reduction"),
+  actualUtilizationBalance: numeric("actual_utilization_balance", { precision: 6, scale: 4 }),
+  
+  // Pre/Post Metrics
+  preImbalanceRatio: numeric("pre_imbalance_ratio", { precision: 8, scale: 4 }),
+  postImbalanceRatio: numeric("post_imbalance_ratio", { precision: 8, scale: 4 }),
+  preAvgUtilization: numeric("pre_avg_utilization", { precision: 6, scale: 4 }),
+  postAvgUtilization: numeric("post_avg_utilization", { precision: 6, scale: 4 }),
+  
+  // Error Handling
+  errorMessage: text("error_message"),
+  
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+}, (table) => [
+  index("idx_rebalance_decisions_decision_id").on(table.decisionId),
+  index("idx_rebalance_decisions_timestamp").on(table.timestamp),
+  index("idx_rebalance_decisions_action").on(table.action),
+  index("idx_rebalance_decisions_priority").on(table.priority),
+  index("idx_rebalance_decisions_status").on(table.executionStatus),
+  index("idx_rebalance_decisions_approved").on(table.approved),
+  index("idx_rebalance_decisions_action_status").on(table.action, table.executionStatus),
+]);
+
+// Migration Plans (detailed migration tracking)
+export const enterpriseMigrationPlans = pgTable("enterprise_migration_plans", {
+  id: serial("id").primaryKey(),
+  planId: varchar("plan_id", { length: 64 }).notNull().unique(),
+  decisionId: varchar("decision_id", { length: 64 }).notNull(),
+  
+  // Migration Details
+  sourceShardId: integer("source_shard_id").notNull(),
+  targetShardId: integer("target_shard_id").notNull(),
+  transactionsToMigrate: bigint("transactions_to_migrate", { mode: "number" }).notNull().default(0),
+  messagesToMigrate: bigint("messages_to_migrate", { mode: "number" }).notNull().default(0),
+  
+  // Status Tracking
+  status: varchar("status", { length: 32 }).notNull().default("PENDING"),
+  startedAt: timestamp("started_at"),
+  completedAt: timestamp("completed_at"),
+  durationMs: bigint("duration_ms", { mode: "number" }),
+  
+  // Progress
+  migratedCount: bigint("migrated_count", { mode: "number" }).notNull().default(0),
+  progressPercent: numeric("progress_percent", { precision: 6, scale: 2 }).notNull().default("0.00"),
+  
+  // Batch Processing
+  totalBatches: integer("total_batches").notNull().default(0),
+  completedBatches: integer("completed_batches").notNull().default(0),
+  failedBatches: integer("failed_batches").notNull().default(0),
+  currentBatchNumber: integer("current_batch_number").notNull().default(0),
+  
+  // Throughput Metrics
+  avgBatchSizeItems: integer("avg_batch_size_items").notNull().default(0),
+  avgBatchDurationMs: numeric("avg_batch_duration_ms", { precision: 10, scale: 3 }),
+  peakThroughputIps: bigint("peak_throughput_ips", { mode: "number" }),
+  
+  // Error Handling
+  retryCount: integer("retry_count").notNull().default(0),
+  maxRetries: integer("max_retries").notNull().default(3),
+  lastError: text("last_error"),
+  errorCount: integer("error_count").notNull().default(0),
+  
+  // Rollback Info
+  isRolledBack: boolean("is_rolled_back").notNull().default(false),
+  rollbackReason: text("rollback_reason"),
+  
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+}, (table) => [
+  index("idx_migration_plans_plan_id").on(table.planId),
+  index("idx_migration_plans_decision_id").on(table.decisionId),
+  index("idx_migration_plans_status").on(table.status),
+  index("idx_migration_plans_source_shard").on(table.sourceShardId),
+  index("idx_migration_plans_target_shard").on(table.targetShardId),
+  index("idx_migration_plans_shard_pair").on(table.sourceShardId, table.targetShardId),
+  index("idx_migration_plans_started_at").on(table.startedAt),
+  index("idx_migration_plans_completed_at").on(table.completedAt),
+  index("idx_migration_plans_status_progress").on(table.status, table.progressPercent),
+]);
+
+// Shard Load History (per-shard load tracking over time)
+export const enterpriseShardLoadHistory = pgTable("enterprise_shard_load_history", {
+  id: serial("id").primaryKey(),
+  shardId: integer("shard_id").notNull(),
+  recordedAt: timestamp("recorded_at").notNull().defaultNow(),
+  
+  // Load Metrics
+  temperature: varchar("temperature", { length: 16 }).notNull().default("WARM"),
+  loadScore: numeric("load_score", { precision: 6, scale: 4 }).notNull().default("0.0000"),
+  trend: numeric("trend", { precision: 8, scale: 6 }).notNull().default("0.000000"),
+  
+  // Utilization
+  utilization: numeric("utilization", { precision: 6, scale: 4 }).notNull().default("0.0000"),
+  utilizationEwma: numeric("utilization_ewma", { precision: 6, scale: 4 }).notNull().default("0.0000"),
+  
+  // TPS
+  currentTps: bigint("current_tps", { mode: "number" }).notNull().default(0),
+  averageTps: bigint("average_tps", { mode: "number" }).notNull().default(0),
+  peakTps: bigint("peak_tps", { mode: "number" }).notNull().default(0),
+  
+  // Queue and Latency
+  queueDepth: bigint("queue_depth", { mode: "number" }).notNull().default(0),
+  pendingMessages: bigint("pending_messages", { mode: "number" }).notNull().default(0),
+  latencyP50Ms: numeric("latency_p50_ms", { precision: 10, scale: 3 }).notNull().default("0.000"),
+  latencyP95Ms: numeric("latency_p95_ms", { precision: 10, scale: 3 }).notNull().default("0.000"),
+  latencyP99Ms: numeric("latency_p99_ms", { precision: 10, scale: 3 }).notNull().default("0.000"),
+  
+  // State
+  shardState: varchar("shard_state", { length: 32 }).notNull().default("ACTIVE"),
+  circuitState: varchar("circuit_state", { length: 32 }).notNull().default("CLOSED"),
+  validatorCount: integer("validator_count").notNull().default(2),
+  
+  // Prediction
+  predictedUtilization: numeric("predicted_utilization", { precision: 6, scale: 4 }),
+  predictionHorizonMs: integer("prediction_horizon_ms"),
+  
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+}, (table) => [
+  index("idx_shard_load_history_shard_id").on(table.shardId),
+  index("idx_shard_load_history_recorded_at").on(table.recordedAt),
+  index("idx_shard_load_history_temperature").on(table.temperature),
+  index("idx_shard_load_history_shard_time").on(table.shardId, table.recordedAt),
+  index("idx_shard_load_history_load_score").on(table.loadScore),
+  index("idx_shard_load_history_utilization").on(table.utilization),
+  index("idx_shard_load_history_hot").on(table.shardId).where(sql`temperature = 'HOT'`),
+  index("idx_shard_load_history_cold").on(table.shardId).where(sql`temperature = 'COLD'`),
+]);
+
+// Rebalancer Metrics Hourly (aggregated metrics)
+export const enterpriseRebalancerMetricsHourly = pgTable("enterprise_rebalancer_metrics_hourly", {
+  id: serial("id").primaryKey(),
+  hourTimestamp: timestamp("hour_timestamp").notNull(),
+  
+  // Operation Counts
+  totalDecisions: integer("total_decisions").notNull().default(0),
+  offloadDecisions: integer("offload_decisions").notNull().default(0),
+  redistributeDecisions: integer("redistribute_decisions").notNull().default(0),
+  scaleUpDecisions: integer("scale_up_decisions").notNull().default(0),
+  scaleDownDecisions: integer("scale_down_decisions").notNull().default(0),
+  consolidateDecisions: integer("consolidate_decisions").notNull().default(0),
+  
+  // Success/Failure
+  successfulDecisions: integer("successful_decisions").notNull().default(0),
+  failedDecisions: integer("failed_decisions").notNull().default(0),
+  successRate: numeric("success_rate", { precision: 6, scale: 4 }).notNull().default("0.0000"),
+  
+  // Migration Stats
+  totalMigrations: integer("total_migrations").notNull().default(0),
+  transactionsMigrated: bigint("transactions_migrated", { mode: "number" }).notNull().default(0),
+  messagesMigrated: bigint("messages_migrated", { mode: "number" }).notNull().default(0),
+  avgMigrationDurationMs: numeric("avg_migration_duration_ms", { precision: 12, scale: 3 }),
+  
+  // Imbalance Metrics
+  avgImbalanceRatio: numeric("avg_imbalance_ratio", { precision: 8, scale: 4 }).notNull().default("1.0000"),
+  minImbalanceRatio: numeric("min_imbalance_ratio", { precision: 8, scale: 4 }).notNull().default("1.0000"),
+  maxImbalanceRatio: numeric("max_imbalance_ratio", { precision: 8, scale: 4 }).notNull().default("1.0000"),
+  
+  // Temperature Distribution
+  avgHotShards: numeric("avg_hot_shards", { precision: 6, scale: 2 }).notNull().default("0.00"),
+  avgColdShards: numeric("avg_cold_shards", { precision: 6, scale: 2 }).notNull().default("0.00"),
+  peakHotShards: integer("peak_hot_shards").notNull().default(0),
+  peakColdShards: integer("peak_cold_shards").notNull().default(0),
+  
+  // Utilization Distribution
+  avgUtilization: numeric("avg_utilization", { precision: 6, scale: 4 }).notNull().default("0.0000"),
+  minUtilization: numeric("min_utilization", { precision: 6, scale: 4 }).notNull().default("0.0000"),
+  maxUtilization: numeric("max_utilization", { precision: 6, scale: 4 }).notNull().default("0.0000"),
+  
+  // TPS Metrics
+  avgTotalTps: bigint("avg_total_tps", { mode: "number" }).notNull().default(0),
+  peakTotalTps: bigint("peak_total_tps", { mode: "number" }).notNull().default(0),
+  
+  // Latency Impact
+  avgLatencyP99Ms: numeric("avg_latency_p99_ms", { precision: 10, scale: 3 }).notNull().default("0.000"),
+  
+  // Hysteresis Events
+  hysteresisBlockedCount: integer("hysteresis_blocked_count").notNull().default(0),
+  cooldownBlockedCount: integer("cooldown_blocked_count").notNull().default(0),
+  
+  // Snapshot Count
+  snapshotCount: integer("snapshot_count").notNull().default(0),
+  
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+}, (table) => [
+  index("idx_rebalancer_metrics_hour").on(table.hourTimestamp),
+  index("idx_rebalancer_metrics_total_decisions").on(table.totalDecisions),
+  index("idx_rebalancer_metrics_success_rate").on(table.successRate),
+  index("idx_rebalancer_metrics_imbalance").on(table.avgImbalanceRatio),
+  index("idx_rebalancer_metrics_utilization").on(table.avgUtilization),
+  index("idx_rebalancer_metrics_migrations").on(table.totalMigrations),
+]);
+
+// ================================================================================
+// Insert Schemas for Enterprise Shard Rebalancer Tables (Phase 15)
+// ================================================================================
+
+export const insertEnterpriseRebalancerSnapshotSchema = createInsertSchema(enterpriseRebalancerSnapshots).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertEnterpriseRebalanceDecisionSchema = createInsertSchema(enterpriseRebalanceDecisions).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertEnterpriseMigrationPlanSchema = createInsertSchema(enterpriseMigrationPlans).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertEnterpriseShardLoadHistorySchema = createInsertSchema(enterpriseShardLoadHistory).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertEnterpriseRebalancerMetricsHourlySchema = createInsertSchema(enterpriseRebalancerMetricsHourly).omit({
+  id: true,
+  createdAt: true,
+});
+
+// ================================================================================
+// Types for Enterprise Shard Rebalancer Tables (Phase 15)
+// ================================================================================
+
+export type EnterpriseRebalancerSnapshot = typeof enterpriseRebalancerSnapshots.$inferSelect;
+export type InsertEnterpriseRebalancerSnapshot = z.infer<typeof insertEnterpriseRebalancerSnapshotSchema>;
+
+export type EnterpriseRebalanceDecision = typeof enterpriseRebalanceDecisions.$inferSelect;
+export type InsertEnterpriseRebalanceDecision = z.infer<typeof insertEnterpriseRebalanceDecisionSchema>;
+
+export type EnterpriseMigrationPlan = typeof enterpriseMigrationPlans.$inferSelect;
+export type InsertEnterpriseMigrationPlan = z.infer<typeof insertEnterpriseMigrationPlanSchema>;
+
+export type EnterpriseShardLoadHistory = typeof enterpriseShardLoadHistory.$inferSelect;
+export type InsertEnterpriseShardLoadHistory = z.infer<typeof insertEnterpriseShardLoadHistorySchema>;
+
+export type EnterpriseRebalancerMetricsHourly = typeof enterpriseRebalancerMetricsHourly.$inferSelect;
+export type InsertEnterpriseRebalancerMetricsHourly = z.infer<typeof insertEnterpriseRebalancerMetricsHourlySchema>;

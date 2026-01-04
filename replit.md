@@ -73,9 +73,21 @@ Core architectural decisions and features include:
   - Integration with Enterprise Cross-Shard Router for batch routing
   - Benchmark: 1.7M+ ops/second, 100% success rate, 0.64μs average latency
   - API endpoints at `/api/batch-processor/*` for status, stats, health, queue, config, insert, insert/direct, benchmark, start, stop, pause, resume, cross-shard/batch
+- **Enterprise Shard Rebalancer (2026-01-04)**: Production-grade threshold-based automatic shard rebalancing system for optimal load distribution. Features include:
+  - Multi-threshold automatic rebalancing (CPU utilization 85%, TPS 3500, latency P99 100ms, queue depth 10K)
+  - EWMA-based load prediction (α=0.2) with trend analysis for proactive scaling
+  - Hysteresis controller to prevent oscillation (5% margin, 30s cooldown, 60s stability window)
+  - Hot/Warm/Cool/Cold shard temperature classification for intelligent redistribution
+  - Weighted load scoring (35% utilization, 30% TPS, 20% queue, 15% latency)
+  - Zero-downtime live migration with batch transaction transfer (1000 items/batch)
+  - Validator-aware shard assignment with migration tracking
+  - Circuit breaker integration for degraded shard handling
+  - Imbalance ratio monitoring (2.0x threshold triggers redistribution)
+  - Benchmark: 37,879 decisions/second, 26.4μs average decision time
+  - API endpoints at `/api/shard-rebalancer/*` for status, stats, health, snapshots, decisions, migrations, thresholds, config, start, stop, pause, resume, force-rebalance, benchmark
 
 ## External Dependencies
-- **Database**: Neon Serverless PostgreSQL with 1,213 enterprise-grade indexes (36 batch processor indexes + 52 cross-shard router indexes + 25 shard cache indexes + 60 incentive system indexes + 41 performance tracking indexes + 219 enterprise indexes across 52+ categories including validator orchestration, sharding, token distribution, consensus, reward distribution, and core blockchain tables). Phase 14 Batch Processor tables: `enterprise_batch_queue_snapshots`, `enterprise_batch_results`, `enterprise_batch_events`, `enterprise_batch_metrics_hourly`. Phase 13 Shard Cache tables: `enterprise_shard_cache_snapshots`, `enterprise_shard_cache_pairs`, `enterprise_shard_cache_events`, `enterprise_shard_cache_metrics_hourly`. Phase 12 Cross-Shard Router tables: `enterprise_cross_shard_messages`, `enterprise_cross_shard_batches`, `wal_segments`, `router_metrics_hourly`, `circuit_breakers`, `shard_validator_assignments`, `latency_histories`, `router_bloom_filters`, `router_daily_stats`.
+- **Database**: Neon Serverless PostgreSQL with 1,247 enterprise-grade indexes (34 shard rebalancer indexes + 36 batch processor indexes + 52 cross-shard router indexes + 25 shard cache indexes + 60 incentive system indexes + 41 performance tracking indexes + 219 enterprise indexes across 52+ categories including validator orchestration, sharding, token distribution, consensus, reward distribution, and core blockchain tables). Phase 15 Shard Rebalancer tables: `enterprise_rebalancer_snapshots`, `enterprise_rebalance_decisions`, `enterprise_migration_plans`, `enterprise_shard_load_history`, `enterprise_rebalancer_metrics_hourly`. Phase 14 Batch Processor tables: `enterprise_batch_queue_snapshots`, `enterprise_batch_results`, `enterprise_batch_events`, `enterprise_batch_metrics_hourly`. Phase 13 Shard Cache tables: `enterprise_shard_cache_snapshots`, `enterprise_shard_cache_pairs`, `enterprise_shard_cache_events`, `enterprise_shard_cache_metrics_hourly`. Phase 12 Cross-Shard Router tables: `enterprise_cross_shard_messages`, `enterprise_cross_shard_batches`, `wal_segments`, `router_metrics_hourly`, `circuit_breakers`, `shard_validator_assignments`, `latency_histories`, `router_bloom_filters`, `router_daily_stats`.
 - **ORM**: Drizzle ORM
 - **Frontend Framework**: React 18
 - **Language**: TypeScript

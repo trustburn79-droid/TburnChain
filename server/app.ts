@@ -159,6 +159,8 @@ app.use((req: Request, res: Response, next: NextFunction) => {
     '/api/public/v1/',           // 공개 API v1
     '/api/shard-cache/',         // 샤드 캐시 API (공개)
     '/api/cross-shard-router/',  // 크로스 샤드 라우터 API (공개)
+    '/api/shard-rebalancer/',    // 샤드 리밸런서 API (공개)
+    '/api/batch-processor/',     // 배치 프로세서 API (공개)
   ];
   
   // ★ 추가: GET 요청이면서 공개 데이터 조회인 경우만 스킵
