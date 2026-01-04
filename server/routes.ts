@@ -67,6 +67,9 @@ import { enterpriseSessionMetrics } from "./core/monitoring/enterprise-session-m
 import { dbOptimizer } from "./core/db/enterprise-db-optimizer";
 import { healthMonitor } from "./core/health/production-health-monitor";
 import { productionMonitor } from "./core/monitoring/enterprise-production-monitor";
+import { systemHealthMonitor } from "./core/monitoring/enterprise-system-health";
+import { alertingService } from "./core/monitoring/enterprise-alerting";
+import { systemHealthRoutes } from "./core/monitoring/system-health-routes";
 import { nftMarketplaceService } from "./services/NftMarketplaceService";
 import { launchpadService } from "./services/LaunchpadService";
 import { gameFiService } from "./services/GameFiService";
@@ -1957,6 +1960,33 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   enterpriseSessionMetrics.start();
   console.log("[SessionMonitoring] ✅ Enterprise session monitoring routes registered (Prometheus metrics, soak tests, Redis failover)");
   console.log("[EnterpriseMetrics] ✅ Enterprise v2.0 metrics engine started (granular tracking, advanced alerting, security metrics)");
+
+  // ============================================
+  // ENTERPRISE SYSTEM HEALTH MONITORING (No Auth Required)
+  // CPU, Memory, Disk, Network, Process, HTTP, Database metrics
+  // Self-healing automation, multi-level alerting
+  // ============================================
+  app.use("/api/system-health", systemHealthRoutes);
+  
+  // HTTP Request Tracking Middleware for System Health
+  app.use((req: Request, res: Response, next: NextFunction) => {
+    const startTime = Date.now();
+    res.on('finish', () => {
+      const responseTime = Date.now() - startTime;
+      systemHealthMonitor.recordHttpRequest(responseTime, res.statusCode);
+    });
+    next();
+  });
+  
+  // Connect alerting service to system health monitor
+  systemHealthMonitor.on('alert', (alert) => {
+    alertingService.processAlert(alert);
+  });
+  
+  // Start system health monitoring
+  systemHealthMonitor.start();
+  console.log("[SystemHealth] ✅ Enterprise system health monitoring started (CPU, Memory, Disk, HTTP, DB metrics)");
+  console.log("[SystemHealth] 📊 Self-healing: enabled | Alerting: enabled | Prometheus: /api/system-health/prometheus");
 
   // ============================================
   // ENTERPRISE DATABASE OPTIMIZER
