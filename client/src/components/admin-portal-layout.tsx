@@ -126,6 +126,7 @@ import AdminNewsletter from "@/pages/admin-portal/newsletter";
 // Group 19: Database & Distribution Management
 import AdminDBOptimizer from "@/pages/admin-portal/db-optimizer";
 import AdminDistribution from "@/pages/admin-portal/distribution";
+import AdminDistributionPrograms from "@/pages/admin-portal/distribution-programs";
 
 // Group 18: Token Distribution Programs (18 sub-pages)
 import AdminTokenDistribution from "@/pages/admin-portal/token-distribution";
@@ -293,6 +294,7 @@ function AdminRouter() {
       {/* Group 19: Database & Distribution Management */}
       <Route path="/admin/db-optimizer" component={AdminDBOptimizer} />
       <Route path="/admin/distribution" component={AdminDistribution} />
+      <Route path="/admin/distribution-programs" component={AdminDistributionPrograms} />
 
       {/* Group 17: Marketing */}
       <Route path="/admin/newsletter" component={AdminNewsletter} />

@@ -62,6 +62,7 @@ import shardRebalancerRoutes from "./routes/shard-rebalancer-routes";
 import sessionMonitoringRoutes from "./routes/session-monitoring-routes";
 import enterpriseSessionMonitoringRoutes from "./routes/enterprise-session-monitoring-routes";
 import enterpriseDbOptimizerRoutes from "./routes/enterprise-db-optimizer-routes";
+import distributionProgramsRoutes from "./routes/distribution-programs-routes";
 import { enterpriseSessionMetrics } from "./core/monitoring/enterprise-session-metrics";
 import { dbOptimizer } from "./core/db/enterprise-db-optimizer";
 import { healthMonitor } from "./core/health/production-health-monitor";
@@ -1970,6 +1971,13 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   // ============================================
   registerGenesisRoutes(app);
   console.log("[Genesis] ✅ Genesis block creation routes registered");
+
+  // ============================================
+  // DISTRIBUTION PROGRAMS (8 Enterprise Token Programs)
+  // Airdrop, Referral, Events, Community, DAO, Block Rewards, Validator, Ecosystem
+  // ============================================
+  app.use("/api/distribution-programs", distributionProgramsRoutes);
+  console.log("[DistributionPrograms] ✅ Enterprise distribution programs routes registered (8 programs)");
 
   // ============================================
   // USER DATA API (User-specific rewards, staking, events)
