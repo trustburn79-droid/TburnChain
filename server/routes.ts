@@ -53,6 +53,7 @@ import blockProductionRoutes from "./routes/block-production-routes";
 import verificationRoutes from "./routes/verification-routes";
 import { registerDbOptimizationRoutes } from "./routes/db-optimization-routes";
 import { registerShardingRoutes } from "./routes/sharding-routes";
+import validatorRoutes from "./routes/validator-routes";
 import { nftMarketplaceService } from "./services/NftMarketplaceService";
 import { launchpadService } from "./services/LaunchpadService";
 import { gameFiService } from "./services/GameFiService";
@@ -1931,6 +1932,12 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   // ============================================
   registerShardingRoutes(app);
   console.log("[Sharding] ✅ Enterprise dynamic sharding routes registered");
+
+  // ============================================
+  // ENTERPRISE VALIDATOR ORCHESTRATOR (125 Validators, 1M TBURN Each)
+  // ============================================
+  app.use("/api/validators", validatorRoutes);
+  console.log("[Validators] ✅ Enterprise validator orchestrator routes registered");
 
   // ============================================
   // Network Stats
