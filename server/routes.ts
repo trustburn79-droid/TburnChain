@@ -51,6 +51,7 @@ import { registerScalabilityRoutes } from "./routes/scalability-routes";
 import consensusRoutes from "./routes/consensus-routes";
 import blockProductionRoutes from "./routes/block-production-routes";
 import verificationRoutes from "./routes/verification-routes";
+import { registerDbOptimizationRoutes } from "./routes/db-optimization-routes";
 import { nftMarketplaceService } from "./services/NftMarketplaceService";
 import { launchpadService } from "./services/LaunchpadService";
 import { gameFiService } from "./services/GameFiService";
@@ -1917,6 +1918,12 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   app.use("/api/block-production", blockProductionRoutes);
   app.use("/api/verification", verificationRoutes);
   console.log("[BlockProduction] ✅ Enterprise block production routes registered");
+
+  // ============================================
+  // DATABASE OPTIMIZATION (Enterprise-Grade Indexing)
+  // ============================================
+  registerDbOptimizationRoutes(app);
+  console.log("[DB Optimization] ✅ Enterprise database optimization routes registered");
 
   // ============================================
   // Network Stats
