@@ -72,12 +72,16 @@ class ProductionHealthMonitor {
   // Thresholds
   private readonly EVENT_LOOP_LAG_WARNING_MS = 100;
   private readonly EVENT_LOOP_LAG_CRITICAL_MS = 500;
+  // ★ [2026-01-04] Higher threshold during startup to prevent false alarms
+  private readonly EVENT_LOOP_LAG_STARTUP_CRITICAL_MS = 5000; // 5 seconds during startup
+  private readonly STARTUP_GRACE_PERIOD_MS = 60000; // 60 seconds startup grace period
   private readonly MEMORY_WARNING_PERCENT = 0.7;
   private readonly MEMORY_CRITICAL_PERCENT = 0.85;
   private readonly ERROR_RATE_WARNING = 0.05; // 5%
   private readonly ERROR_RATE_CRITICAL = 0.15; // 15%
   
   private lastEventLoopCheck = process.hrtime.bigint();
+  private startTime = Date.now();
   
   private constructor() {}
   
@@ -136,9 +140,21 @@ class ProductionHealthMonitor {
     this.healthState.eventLoopLagMs = lag;
     this.lastEventLoopCheck = now;
     
-    // Log critical event loop lag
-    if (lag > this.EVENT_LOOP_LAG_CRITICAL_MS) {
-      console.error(`[HealthMonitor] 🚨 CRITICAL event loop lag: ${lag.toFixed(0)}ms`);
+    // ★ [2026-01-04] Use higher threshold during startup to prevent false alarms
+    const timeSinceStart = Date.now() - this.startTime;
+    const isStartupPhase = timeSinceStart < this.STARTUP_GRACE_PERIOD_MS;
+    const criticalThreshold = isStartupPhase 
+      ? this.EVENT_LOOP_LAG_STARTUP_CRITICAL_MS 
+      : this.EVENT_LOOP_LAG_CRITICAL_MS;
+    
+    // Log critical event loop lag (suppressed during startup grace period)
+    if (lag > criticalThreshold) {
+      if (isStartupPhase) {
+        // During startup, only log if truly catastrophic (>5s)
+        console.warn(`[HealthMonitor] ⚠️ Startup event loop lag: ${lag.toFixed(0)}ms (grace period: ${Math.ceil((this.STARTUP_GRACE_PERIOD_MS - timeSinceStart)/1000)}s remaining)`);
+      } else {
+        console.error(`[HealthMonitor] 🚨 CRITICAL event loop lag: ${lag.toFixed(0)}ms`);
+      }
     }
   }
   

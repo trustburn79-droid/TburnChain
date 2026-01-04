@@ -147,6 +147,10 @@ class EnterpriseProductionMonitor {
   private redisRecommended = false;
   private redisRecommendationReason = '';
   
+  // ★ [2026-01-04] Startup grace period to prevent false alarms
+  private startTime = Date.now();
+  private readonly STARTUP_GRACE_PERIOD_MS = 120000; // 2 minutes startup grace period
+  
   private constructor() {}
   
   static getInstance(): EnterpriseProductionMonitor {
@@ -260,6 +264,10 @@ class EnterpriseProductionMonitor {
   private checkAlerts(): void {
     const now = new Date();
     
+    // ★ [2026-01-04] Skip alerts during startup grace period
+    const timeSinceStart = Date.now() - this.startTime;
+    const isStartupPhase = timeSinceStart < this.STARTUP_GRACE_PERIOD_MS;
+    
     for (const alert of this.alerts) {
       // Check cooldown
       if (alert.lastTriggered) {
@@ -273,10 +281,14 @@ class EnterpriseProductionMonitor {
       
       switch (alert.name) {
         case 'session_skip_ratio_low':
+          // Suppress during startup - skip ratio needs time to stabilize
+          if (isStartupPhase) break;
           shouldTrigger = this.sessionMetrics.skipRatio < alert.threshold && 
                           this.sessionMetrics.skipRatio >= 0.5;
           break;
         case 'session_skip_ratio_critical':
+          // Suppress during startup - skip ratio needs time to stabilize
+          if (isStartupPhase) break;
           shouldTrigger = this.sessionMetrics.skipRatio < alert.threshold;
           break;
         case 'memory_store_warning':
@@ -287,6 +299,8 @@ class EnterpriseProductionMonitor {
           shouldTrigger = this.memoryStoreMetrics.capacityPercent >= alert.threshold * 100;
           break;
         case 'event_loop_lag':
+          // Suppress during startup - event loop lag is expected during initialization
+          if (isStartupPhase) break;
           const healthStatus = healthMonitor.getStatus();
           shouldTrigger = healthStatus.eventLoopLagMs > alert.threshold;
           break;

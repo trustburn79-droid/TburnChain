@@ -400,9 +400,13 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     restartSupervisor.setTBurnClient(tburnClient);
   }
 
-  // Start AI Provider Health Checks
-  aiService.startPeriodicHealthChecks(5); // Check every 5 minutes
-  console.log('[AI Health] ✅ Started periodic health checks (5 minute intervals)');
+  // Start AI Provider Health Checks (deferred 30s to avoid startup event loop blocking)
+  const AI_HEALTH_CHECK_DELAY = 30000; // 30 seconds after startup
+  setTimeout(() => {
+    aiService.startPeriodicHealthChecks(5); // Check every 5 minutes
+    console.log('[AI Health] ✅ Started periodic health checks (5 minute intervals)');
+  }, AI_HEALTH_CHECK_DELAY);
+  console.log(`[Routes] 🕐 AI health checks deferred by ${AI_HEALTH_CHECK_DELAY/1000}s`);
 
   // Initialize TokenRegistry for unified token management (database-persisted)
   const { tokenRegistry } = await import("./services/TokenRegistry");
@@ -414,8 +418,9 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   
   // Defer heavy services in both dev AND production for fast cold-start
   // This allows the server to respond to health checks immediately
+  // ★ [2026-01-04] Increased delays to prevent event loop blocking during startup
   const isDev = process.env.NODE_ENV === 'development';
-  const HEAVY_INIT_DELAY = isDev ? 8000 : 3000; // 8 seconds in dev, 3 seconds in prod (after health check)
+  const HEAVY_INIT_DELAY = isDev ? 15000 : 5000; // 15 seconds in dev, 5 seconds in prod
   
   function startHeavyServices() {
     dataPoller.start().then(() => {
@@ -513,7 +518,8 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   }
   
   // Initialize on startup - deferred in BOTH dev and prod for fast cold-start
-  const VALIDATOR_INIT_DELAY = isDev ? HEAVY_INIT_DELAY + 1000 : 5000; // 9s in dev, 5s in prod
+  // ★ [2026-01-04] Stagger validator init after data poller to prevent event loop blocking
+  const VALIDATOR_INIT_DELAY = isDev ? HEAVY_INIT_DELAY + 5000 : 8000; // 20s in dev, 8s in prod
   setTimeout(() => {
     console.log('[Routes] 🚀 Starting validator simulation (deferred)...');
     initializeValidatorSimulation();
