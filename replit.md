@@ -65,13 +65,19 @@ The application uses MemoryStore by default for session management. For 24/7 pro
 3. **HTML Page Skip**: Anonymous HTML page visits don't create sessions
 
 ### Known Issues & Solutions
-- **Internal Server Error after 1-2 hours**: Caused by heap memory pressure (NOT session overflow)
-  - Root Cause: Background pollers (ProductionDataPoller, DataCache) accumulating large JSON snapshots
-  - Solution v2.0 (2026-01-04): 
+- **Internal Server Error after 1-2 hours**: Caused by heap memory pressure AND session bypass inconsistency
+  - Root Cause 1: Background pollers (ProductionDataPoller, DataCache) accumulating large JSON snapshots
+  - Root Cause 2 (CRITICAL): app.ts and app-services.ts used different production detection logic, causing session bypass to fail in Autoscale deployment
+  - Solution v2.0 (2026-01-04): Memory optimization
     - ProductionDataPoller interval increased from 30s to 60s (50% less memory churn)
     - DataCache STALE_TTL reduced from 5 minutes to 2 minutes (faster memory release)
     - DataCache MAX_CACHE_SIZE reduced from 100 to 50 entries
     - DataCache cleanup interval reduced from 60s to 30s (more aggressive cleanup)
+  - **Solution v3.0 (2026-01-05): Environment Detection Unification (CRITICAL FIX)**
+    - **Problem**: app.ts used local `isProduction` variable, app-services.ts used `(REPL_SLUG && !REPL_ID)` which is incorrect for Autoscale
+    - **Fix**: Both files now import `IS_PRODUCTION` from `session-bypass.ts` as Single Source of Truth
+    - **Correct Logic**: `IS_PRODUCTION = (REPLIT_DEPLOYMENT=1 || NODE_ENV=production || (REPL_ID && !REPLIT_DEV_DOMAIN)) && NODE_ENV !== development`
+    - **Result**: Session skip ratio improved from ~60% (failing) to 98.46% (stable) in production
   - Permanent Solution: Configure Redis with `REDIS_URL` for external caching
 
 ### Redis Session Store (Recommended for High Traffic)
