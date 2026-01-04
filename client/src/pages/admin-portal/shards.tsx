@@ -1275,18 +1275,32 @@ export default function AdminShards() {
                             const adminVal = shardConfig?.totalValidators || 0;
                             const apiVal = stats.totalValidators || shards.reduce((sum, s) => sum + s.validators, 0) || 0;
                             const tolerance = 0.1; // 10% tolerance for validator count
-                            const match = Math.abs(adminVal - apiVal) / Math.max(adminVal, 1) <= tolerance;
-                            return match ? (
-                              <Badge className="bg-green-500/10 text-green-500 text-xs">
-                                <CheckCircle className="h-3 w-3 mr-1" />
-                                {t("status.pass") || "통과"}
-                              </Badge>
-                            ) : (
-                              <Badge className="bg-yellow-500/10 text-yellow-500 text-xs">
-                                <AlertCircle className="h-3 w-3 mr-1" />
-                                {t("status.within10") || "오차범위"}
-                              </Badge>
-                            );
+                            const diff = adminVal > 0 ? Math.abs(adminVal - apiVal) / adminVal : 0;
+                            const isMatch = adminVal === apiVal;
+                            const isWithinTolerance = diff <= tolerance;
+                            
+                            if (isMatch) {
+                              return (
+                                <Badge className="bg-green-500/10 text-green-500 text-xs">
+                                  <CheckCircle className="h-3 w-3 mr-1" />
+                                  {t("status.pass") || "통과"}
+                                </Badge>
+                              );
+                            } else if (isWithinTolerance) {
+                              return (
+                                <Badge className="bg-yellow-500/10 text-yellow-500 text-xs">
+                                  <AlertCircle className="h-3 w-3 mr-1" />
+                                  {t("status.withinTolerance") || "허용범위"}
+                                </Badge>
+                              );
+                            } else {
+                              return (
+                                <Badge className="bg-red-500/10 text-red-500 text-xs">
+                                  <XCircle className="h-3 w-3 mr-1" />
+                                  {t("status.fail") || "불일치"}
+                                </Badge>
+                              );
+                            }
                           })()}
                         </td>
                       </tr>
@@ -1310,19 +1324,33 @@ export default function AdminShards() {
                           {(() => {
                             const adminVal = shardConfig?.estimatedTps || 0;
                             const apiVal = stats.totalTps || 0;
-                            const tolerance = 0.15; // 15% tolerance for TPS
-                            const match = adminVal === 0 || Math.abs(adminVal - apiVal) / Math.max(adminVal, 1) <= tolerance;
-                            return match ? (
-                              <Badge className="bg-green-500/10 text-green-500 text-xs">
-                                <CheckCircle className="h-3 w-3 mr-1" />
-                                {t("status.pass") || "통과"}
-                              </Badge>
-                            ) : (
-                              <Badge className="bg-yellow-500/10 text-yellow-500 text-xs">
-                                <AlertCircle className="h-3 w-3 mr-1" />
-                                {t("status.dynamic") || "동적값"}
-                              </Badge>
-                            );
+                            const tolerance = 0.15; // 15% tolerance for TPS (dynamic value)
+                            const diff = adminVal > 0 ? Math.abs(adminVal - apiVal) / adminVal : 0;
+                            const isMatch = adminVal === apiVal;
+                            const isWithinTolerance = diff <= tolerance;
+                            
+                            if (isMatch || adminVal === 0) {
+                              return (
+                                <Badge className="bg-green-500/10 text-green-500 text-xs">
+                                  <CheckCircle className="h-3 w-3 mr-1" />
+                                  {t("status.pass") || "통과"}
+                                </Badge>
+                              );
+                            } else if (isWithinTolerance) {
+                              return (
+                                <Badge className="bg-yellow-500/10 text-yellow-500 text-xs">
+                                  <AlertCircle className="h-3 w-3 mr-1" />
+                                  {t("status.dynamic") || "동적값"}
+                                </Badge>
+                              );
+                            } else {
+                              return (
+                                <Badge className="bg-red-500/10 text-red-500 text-xs">
+                                  <XCircle className="h-3 w-3 mr-1" />
+                                  {t("status.fail") || "불일치"}
+                                </Badge>
+                              );
+                            }
                           })()}
                         </td>
                       </tr>
@@ -1347,18 +1375,32 @@ export default function AdminShards() {
                             const adminVal = shardConfig?.validatorsPerShard || 0;
                             const apiVal = shards.length > 0 ? Math.round(shards.reduce((sum, s) => sum + s.validators, 0) / shards.length) : 0;
                             const tolerance = 0.15; // 15% tolerance
-                            const match = adminVal === 0 || Math.abs(adminVal - apiVal) / Math.max(adminVal, 1) <= tolerance;
-                            return match ? (
-                              <Badge className="bg-green-500/10 text-green-500 text-xs">
-                                <CheckCircle className="h-3 w-3 mr-1" />
-                                {t("status.pass") || "통과"}
-                              </Badge>
-                            ) : (
-                              <Badge className="bg-yellow-500/10 text-yellow-500 text-xs">
-                                <AlertCircle className="h-3 w-3 mr-1" />
-                                {t("status.within15") || "오차범위"}
-                              </Badge>
-                            );
+                            const diff = adminVal > 0 ? Math.abs(adminVal - apiVal) / adminVal : 0;
+                            const isMatch = adminVal === apiVal;
+                            const isWithinTolerance = diff <= tolerance;
+                            
+                            if (isMatch || adminVal === 0) {
+                              return (
+                                <Badge className="bg-green-500/10 text-green-500 text-xs">
+                                  <CheckCircle className="h-3 w-3 mr-1" />
+                                  {t("status.pass") || "통과"}
+                                </Badge>
+                              );
+                            } else if (isWithinTolerance) {
+                              return (
+                                <Badge className="bg-yellow-500/10 text-yellow-500 text-xs">
+                                  <AlertCircle className="h-3 w-3 mr-1" />
+                                  {t("status.withinTolerance") || "허용범위"}
+                                </Badge>
+                              );
+                            } else {
+                              return (
+                                <Badge className="bg-red-500/10 text-red-500 text-xs">
+                                  <XCircle className="h-3 w-3 mr-1" />
+                                  {t("status.fail") || "불일치"}
+                                </Badge>
+                              );
+                            }
                           })()}
                         </td>
                       </tr>
