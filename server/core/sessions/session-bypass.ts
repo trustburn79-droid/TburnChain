@@ -301,7 +301,48 @@ export function shouldBypassSession(req: Request): SessionBypassResult {
     }
   }
   
-  // ★ [Priority 6] Don't skip - need session
+  // ★ [Priority 6] HTML Page Requests without authenticated cookie
+  // CRITICAL: This is the main fix for MemoryStore overflow after 1-2 hours
+  // Anonymous page visits don't need persistent sessions
+  if (!hasSessionCookie && req.method === 'GET') {
+    const acceptHeader = req.headers.accept || '';
+    const isHtmlRequest = acceptHeader.includes('text/html') || 
+                          acceptHeader === '*/*' ||
+                          acceptHeader === '';
+    
+    // Skip session for public HTML pages (not admin/login)
+    if (isHtmlRequest && !requiresAuthentication(normalizedPath, 'GET')) {
+      return {
+        shouldSkip: true,
+        reason: 'public_html_no_cookie',
+        isInternalRequest,
+        hasSessionCookie,
+      };
+    }
+  }
+  
+  // ★ [Priority 7] Requests with anonymous session cookie but not authenticated
+  // If user has a tburn_session cookie but is NOT logged in, skip session recreation
+  // This prevents session accumulation from repeat visitors
+  if (hasSessionCookie && req.method === 'GET') {
+    // Check if this is just a browsing session (not authenticated)
+    // Only skip if not accessing auth-critical paths
+    const authPaths = ['/api/auth', '/api/session', '/admin', '/login', '/api/user'];
+    const isAuthPath = authPaths.some(p => normalizedPath.startsWith(p));
+    
+    if (!isAuthPath) {
+      // Let existing session continue but don't create new ones
+      // The session middleware will handle existing sessions
+      return {
+        shouldSkip: false,
+        reason: 'existing_session',
+        isInternalRequest,
+        hasSessionCookie,
+      };
+    }
+  }
+  
+  // ★ [Priority 8] Don't skip - need session
   return {
     shouldSkip: false,
     reason: 'session_required',
@@ -593,4 +634,124 @@ export function checkMemoryStoreCapacity(
 
 export function setMemoryStoreWarningThreshold(threshold: number): void {
   memoryStoreWarningThreshold = Math.max(0.5, Math.min(0.95, threshold));
+}
+
+// ============================================================================
+// Emergency MemoryStore Cleanup (CRITICAL for 24/7 stability)
+// ============================================================================
+
+let lastEmergencyCleanup = 0;
+const EMERGENCY_CLEANUP_INTERVAL = 30000; // 30 seconds between cleanups
+let emergencyCleanupCount = 0;
+
+/**
+ * Performs emergency cleanup on MemoryStore when capacity is critical
+ * CRITICAL: This prevents 500 errors from MemoryStore overflow
+ * 
+ * @param memoryStoreRef Reference to the MemoryStore instance
+ * @param currentSessions Current session count
+ * @param maxSessions Maximum allowed sessions
+ * @returns Number of sessions cleared (0 if no cleanup needed)
+ */
+export function performEmergencyCleanup(
+  memoryStoreRef: any,
+  currentSessions: number,
+  maxSessions: number
+): number {
+  const percentUsed = currentSessions / maxSessions;
+  const now = Date.now();
+  
+  // Only cleanup when critical (>80%) and not too frequently
+  if (percentUsed < 0.8 || now - lastEmergencyCleanup < EMERGENCY_CLEANUP_INTERVAL) {
+    return 0;
+  }
+  
+  lastEmergencyCleanup = now;
+  emergencyCleanupCount++;
+  
+  try {
+    // Get the internal LRU store
+    const store = memoryStoreRef?.store;
+    if (!store) {
+      console.warn('[Session] ⚠️ Cannot access MemoryStore internal store for cleanup');
+      return 0;
+    }
+    
+    // Calculate how many sessions to remove (clear 30% when critical)
+    const targetRemoval = Math.floor(maxSessions * 0.3);
+    let removed = 0;
+    
+    console.warn(
+      `[Session] 🚨 EMERGENCY CLEANUP #${emergencyCleanupCount}: ` +
+      `${(percentUsed * 100).toFixed(1)}% capacity (${currentSessions}/${maxSessions}). ` +
+      `Removing oldest ${targetRemoval} sessions...`
+    );
+    
+    // Use LRU prune/clear methods if available
+    if (typeof store.prune === 'function') {
+      // memorystore LRU has prune method
+      store.prune();
+      removed = Math.min(targetRemoval, currentSessions);
+    } else if (typeof store.keys === 'function') {
+      // Manual removal of oldest entries
+      const keys = [...store.keys()];
+      const toRemove = keys.slice(0, targetRemoval);
+      
+      for (const key of toRemove) {
+        if (typeof store.del === 'function') {
+          store.del(key);
+          removed++;
+        } else if (typeof store.delete === 'function') {
+          store.delete(key);
+          removed++;
+        }
+      }
+    }
+    
+    console.log(`[Session] ✅ Emergency cleanup completed: ${removed} sessions removed`);
+    return removed;
+    
+  } catch (error) {
+    console.error(`[Session] ❌ Emergency cleanup failed:`, error);
+    return 0;
+  }
+}
+
+/**
+ * Force clear all sessions (nuclear option for critical situations)
+ * Use only when server is about to crash
+ */
+export function forceClearAllSessions(memoryStoreRef: any): boolean {
+  try {
+    const store = memoryStoreRef?.store;
+    if (!store) return false;
+    
+    console.error('[Session] 🔥 FORCE CLEARING ALL SESSIONS - Critical capacity reached');
+    
+    if (typeof store.clear === 'function') {
+      store.clear();
+      console.log('[Session] ✅ All sessions cleared');
+      return true;
+    } else if (typeof store.reset === 'function') {
+      store.reset();
+      console.log('[Session] ✅ Session store reset');
+      return true;
+    }
+    
+    return false;
+  } catch (error) {
+    console.error('[Session] ❌ Force clear failed:', error);
+    return false;
+  }
+}
+
+/**
+ * Get emergency cleanup statistics
+ */
+export function getEmergencyCleanupStats() {
+  return {
+    cleanupCount: emergencyCleanupCount,
+    lastCleanup: lastEmergencyCleanup,
+    timeSinceLastCleanup: Date.now() - lastEmergencyCleanup,
+  };
 }

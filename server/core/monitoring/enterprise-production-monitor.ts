@@ -519,15 +519,18 @@ class EnterpriseProductionMonitor {
     // Dashboard API
     router.get('/dashboard', (req: Request, res: Response) => {
       const healthStatus = healthMonitor.getStatus();
+      // ★ Calculate skip ratio on-the-fly for accurate real-time data
+      const total = this.sessionMetrics.skipCount + this.sessionMetrics.createCount;
+      const currentSkipRatio = total > 0 ? this.sessionMetrics.skipCount / total : 0;
       res.json({
         success: true,
         data: {
           session: {
-            skipRatio: this.sessionMetrics.skipRatio,
-            skipRatioPercent: (this.sessionMetrics.skipRatio * 100).toFixed(1),
+            skipRatio: currentSkipRatio,
+            skipRatioPercent: (currentSkipRatio * 100).toFixed(1),
             skipCount: this.sessionMetrics.skipCount,
             createCount: this.sessionMetrics.createCount,
-            targetMet: this.sessionMetrics.skipRatio >= 0.8,
+            targetMet: currentSkipRatio >= 0.8,
           },
           memoryStore: {
             currentSessions: this.memoryStoreMetrics.currentSessions,

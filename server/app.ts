@@ -22,7 +22,9 @@ import {
   shouldBypassSession, 
   blockSetCookie, 
   createSkipSession,
-  checkMemoryStoreCapacity 
+  checkMemoryStoreCapacity,
+  performEmergencyCleanup,
+  forceClearAllSessions
 } from "./core/sessions/session-bypass";
 import { productionMonitor } from "./core/monitoring/enterprise-production-monitor";
 
@@ -258,7 +260,18 @@ app.use((req: Request, res: Response, next: NextFunction) => {
   // ★ MemoryStore 용량 모니터링 (프로덕션 안정성)
   const maxSessions = isProduction ? 10000 : 2000;
   const activeCount = getActiveSessionCount();
-  checkMemoryStoreCapacity(activeCount, maxSessions);
+  const capacityResult = checkMemoryStoreCapacity(activeCount, maxSessions);
+  
+  // ★ [CRITICAL] 긴급 정리 - MemoryStore 80% 이상일 때 자동 정리
+  // 이 로직이 1~2시간 후 Internal Server Error 방지의 핵심입니다
+  if (capacityResult.percentUsed >= 0.8 && isUsingMemoryStore && memoryStoreRef) {
+    performEmergencyCleanup(memoryStoreRef, activeCount, maxSessions);
+  }
+  
+  // ★ [NUCLEAR OPTION] 95% 이상일 때 전체 세션 삭제 (서버 크래시 방지)
+  if (capacityResult.percentUsed >= 0.95 && isUsingMemoryStore && memoryStoreRef) {
+    forceClearAllSessions(memoryStoreRef);
+  }
   
   // ★ [엔터프라이즈 모니터링] MemoryStore 용량 업데이트 - 실제 활성 세션 수 사용
   productionMonitor.updateMemoryStoreMetrics(activeCount, maxSessions);
