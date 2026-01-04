@@ -9164,3 +9164,246 @@ export type InsertRewardGasAccumulator = z.infer<typeof insertRewardGasAccumulat
 
 export type RewardWalEntry = typeof rewardWal.$inferSelect;
 export type InsertRewardWalEntry = z.infer<typeof insertRewardWalSchema>;
+
+// ============================================
+// ENTERPRISE VALIDATOR PERFORMANCE TRACKING
+// Production-grade telemetry for 125 validators × 64 shards
+// ============================================
+
+// Validator Performance Snapshots - High-frequency telemetry with EWMA
+export const validatorPerformanceSnapshots = pgTable("validator_performance_snapshots", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  
+  // Identifiers
+  validatorId: text("validator_id").notNull(),
+  validatorAddress: text("validator_address").notNull(),
+  shardId: integer("shard_id").notNull().default(0),
+  epochNumber: bigint("epoch_number", { mode: "number" }).notNull(),
+  blockNumber: bigint("block_number", { mode: "number" }).notNull(),
+  
+  // Uptime Metrics
+  uptimeBasisPoints: integer("uptime_basis_points").notNull().default(10000), // 10000 = 100%
+  consecutiveUptimeBlocks: integer("consecutive_uptime_blocks").notNull().default(0),
+  downtimeEvents: integer("downtime_events").notNull().default(0),
+  lastDowntimeAt: bigint("last_downtime_at", { mode: "number" }),
+  
+  // Latency Metrics (milliseconds)
+  latencyMs: integer("latency_ms").notNull().default(0),
+  ewmaLatencyMs: integer("ewma_latency_ms").notNull().default(0),
+  latencyP50: integer("latency_p50").notNull().default(0),
+  latencyP95: integer("latency_p95").notNull().default(0),
+  latencyP99: integer("latency_p99").notNull().default(0),
+  minLatencyMs: integer("min_latency_ms").notNull().default(0),
+  maxLatencyMs: integer("max_latency_ms").notNull().default(0),
+  
+  // Block Production
+  blocksProposed: integer("blocks_proposed").notNull().default(0),
+  blocksVerified: integer("blocks_verified").notNull().default(0),
+  blocksMissed: integer("blocks_missed").notNull().default(0),
+  blockProductionRate: integer("block_production_rate").notNull().default(10000), // basis points
+  
+  // Success Rates
+  successRate: integer("success_rate").notNull().default(10000), // basis points
+  ewmaSuccessRate: integer("ewma_success_rate").notNull().default(10000),
+  consensusParticipation: integer("consensus_participation").notNull().default(10000),
+  
+  // Performance Scores (0-100)
+  performanceScore: integer("performance_score").notNull().default(100),
+  ewmaPerformanceScore: integer("ewma_performance_score").notNull().default(100),
+  reliabilityScore: integer("reliability_score").notNull().default(100),
+  
+  // Slashing Risk
+  slashingRiskScore: integer("slashing_risk_score").notNull().default(0), // 0-100
+  pendingSlashEvents: integer("pending_slash_events").notNull().default(0),
+  
+  // SLA Compliance
+  slaCompliant: boolean("sla_compliant").notNull().default(true),
+  slaViolationCount: integer("sla_violation_count").notNull().default(0),
+  
+  // Snapshot timing
+  snapshotType: text("snapshot_type").notNull().default("periodic"), // periodic, block, event
+  snapshotInterval: integer("snapshot_interval").notNull().default(1000), // ms
+  
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+// Validator Latency Events - Individual latency measurements
+export const validatorLatencyEvents = pgTable("validator_latency_events", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  
+  // Identifiers
+  eventId: text("event_id").notNull().unique(),
+  validatorId: text("validator_id").notNull(),
+  validatorAddress: text("validator_address").notNull(),
+  shardId: integer("shard_id").notNull().default(0),
+  blockNumber: bigint("block_number", { mode: "number" }).notNull(),
+  
+  // Latency Details
+  eventType: text("event_type").notNull(), // block_proposal, block_verification, consensus_vote, heartbeat
+  latencyMs: integer("latency_ms").notNull(),
+  expectedLatencyMs: integer("expected_latency_ms").notNull().default(100),
+  latencyDeviation: integer("latency_deviation").notNull().default(0), // ms above/below expected
+  
+  // Context
+  networkConditions: text("network_conditions").notNull().default("normal"), // normal, congested, degraded
+  peerCount: integer("peer_count").notNull().default(0),
+  queueDepth: integer("queue_depth").notNull().default(0),
+  
+  // Performance Impact
+  impactedBlocks: integer("impacted_blocks").notNull().default(0),
+  causedMissedBlock: boolean("caused_missed_block").notNull().default(false),
+  triggeredAlert: boolean("triggered_alert").notNull().default(false),
+  
+  // Timestamp
+  measuredAt: bigint("measured_at", { mode: "number" }).notNull(),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+// Validator Slash Events - Enhanced slashing with evidence chains
+export const validatorSlashEvents = pgTable("validator_slash_events", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  
+  // Identifiers
+  slashId: text("slash_id").notNull().unique(),
+  validatorId: text("validator_id").notNull(),
+  validatorAddress: text("validator_address").notNull(),
+  shardId: integer("shard_id").notNull().default(0),
+  epochNumber: bigint("epoch_number", { mode: "number" }).notNull(),
+  blockNumber: bigint("block_number", { mode: "number" }).notNull(),
+  
+  // Slash Details
+  slashType: text("slash_type").notNull(), // double_sign, downtime, invalid_block, consensus_violation
+  severity: text("severity").notNull().default("minor"), // minor, major, critical
+  slashAmountBasisPoints: integer("slash_amount_basis_points").notNull(), // Amount slashed as basis points of stake
+  slashedAmount: text("slashed_amount").notNull().default("0"),
+  remainingStake: text("remaining_stake").notNull().default("0"),
+  
+  // Evidence
+  evidenceHash: text("evidence_hash").notNull(),
+  evidenceData: jsonb("evidence_data").notNull().default({}),
+  evidenceBlockNumbers: jsonb("evidence_block_numbers").notNull().default([]),
+  reporterValidatorId: text("reporter_validator_id"),
+  
+  // Detection
+  detectionMethod: text("detection_method").notNull(), // automated, manual, cross_validation
+  detectionLatencyMs: integer("detection_latency_ms").notNull().default(0),
+  confirmationCount: integer("confirmation_count").notNull().default(0),
+  requiredConfirmations: integer("required_confirmations").notNull().default(2),
+  
+  // Consequences
+  jailApplied: boolean("jail_applied").notNull().default(false),
+  jailDurationSeconds: integer("jail_duration_seconds").notNull().default(0),
+  tombstoned: boolean("tombstoned").notNull().default(false),
+  affectedDelegators: integer("affected_delegators").notNull().default(0),
+  delegatorSlashTotal: text("delegator_slash_total").notNull().default("0"),
+  
+  // Status
+  status: text("status").notNull().default("detected"), // detected, confirmed, executed, reverted, appealed
+  appealDeadline: timestamp("appeal_deadline"),
+  appealStatus: text("appeal_status"), // pending, approved, rejected
+  
+  // Timing
+  detectedAt: bigint("detected_at", { mode: "number" }).notNull(),
+  confirmedAt: bigint("confirmed_at", { mode: "number" }),
+  executedAt: bigint("executed_at", { mode: "number" }),
+  
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
+// Validator SLA Alerts - Real-time alerting with escalation
+export const validatorSlaAlerts = pgTable("validator_sla_alerts", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  
+  // Identifiers
+  alertId: text("alert_id").notNull().unique(),
+  validatorId: text("validator_id").notNull(),
+  validatorAddress: text("validator_address").notNull(),
+  shardId: integer("shard_id").notNull().default(0),
+  epochNumber: bigint("epoch_number", { mode: "number" }).notNull(),
+  
+  // Alert Details
+  alertType: text("alert_type").notNull(), // uptime_violation, latency_spike, missed_blocks, slashing_risk, performance_degradation
+  alertLevel: text("alert_level").notNull().default("warning"), // info, warning, critical, emergency
+  alertMessage: text("alert_message").notNull(),
+  
+  // Thresholds
+  thresholdValue: integer("threshold_value").notNull(),
+  actualValue: integer("actual_value").notNull(),
+  thresholdType: text("threshold_type").notNull(), // min, max, range
+  violationPercentage: integer("violation_percentage").notNull().default(0),
+  
+  // Context
+  contextData: jsonb("context_data").notNull().default({}),
+  affectedBlocks: jsonb("affected_blocks").notNull().default([]),
+  relatedAlerts: jsonb("related_alerts").notNull().default([]),
+  
+  // SLA Metrics
+  slaTarget: integer("sla_target").notNull(), // basis points
+  currentSla: integer("current_sla").notNull(), // basis points
+  slaBreachDuration: integer("sla_breach_duration").notNull().default(0), // seconds
+  
+  // Escalation
+  escalationLevel: integer("escalation_level").notNull().default(0), // 0-5
+  escalatedAt: timestamp("escalated_at"),
+  autoEscalateAt: timestamp("auto_escalate_at"),
+  escalationHistory: jsonb("escalation_history").notNull().default([]),
+  
+  // Status
+  status: text("status").notNull().default("active"), // active, acknowledged, resolved, suppressed
+  acknowledgedBy: text("acknowledged_by"),
+  acknowledgedAt: timestamp("acknowledged_at"),
+  resolvedBy: text("resolved_by"),
+  resolvedAt: timestamp("resolved_at"),
+  resolution: text("resolution"),
+  
+  // Notifications
+  notificationsSent: integer("notifications_sent").notNull().default(0),
+  lastNotificationAt: timestamp("last_notification_at"),
+  notificationChannels: jsonb("notification_channels").notNull().default([]),
+  
+  // Debounce
+  debounceWindowMs: integer("debounce_window_ms").notNull().default(5000),
+  occurrenceCount: integer("occurrence_count").notNull().default(1),
+  firstOccurrenceAt: bigint("first_occurrence_at", { mode: "number" }).notNull(),
+  lastOccurrenceAt: bigint("last_occurrence_at", { mode: "number" }).notNull(),
+  
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
+// Insert Schemas for Validator Performance Tables
+export const insertValidatorPerformanceSnapshotSchema = createInsertSchema(validatorPerformanceSnapshots).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertValidatorLatencyEventSchema = createInsertSchema(validatorLatencyEvents).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertValidatorSlashEventSchema = createInsertSchema(validatorSlashEvents).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertValidatorSlaAlertSchema = createInsertSchema(validatorSlaAlerts).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+// Types for Validator Performance Tables
+export type ValidatorPerformanceSnapshot = typeof validatorPerformanceSnapshots.$inferSelect;
+export type InsertValidatorPerformanceSnapshot = z.infer<typeof insertValidatorPerformanceSnapshotSchema>;
+
+export type ValidatorLatencyEvent = typeof validatorLatencyEvents.$inferSelect;
+export type InsertValidatorLatencyEvent = z.infer<typeof insertValidatorLatencyEventSchema>;
+
+export type ValidatorSlashEvent = typeof validatorSlashEvents.$inferSelect;
+export type InsertValidatorSlashEvent = z.infer<typeof insertValidatorSlashEventSchema>;
+
+export type ValidatorSlaAlert = typeof validatorSlaAlerts.$inferSelect;
+export type InsertValidatorSlaAlert = z.infer<typeof insertValidatorSlaAlertSchema>;
