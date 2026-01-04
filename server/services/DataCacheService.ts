@@ -70,7 +70,10 @@ class DataCacheService {
     const now = Date.now();
     let cleaned = 0;
     
-    for (const [key, entry] of this.cache.entries()) {
+    // ★ ES5 호환 반복자 사용
+    const entries = Array.from(this.cache.entries());
+    for (let i = 0; i < entries.length; i++) {
+      const [key, entry] = entries[i];
       const age = now - entry.timestamp;
       if (age > this.STALE_TTL) {
         this.cache.delete(key);
@@ -104,11 +107,50 @@ class DataCacheService {
   }
 
   /**
-   * ★ 메모리 사용량 로깅
+   * ★ 메모리 사용량 로깅 및 압박 시 자동 GC 트리거
    */
   private logMemoryUsage(): void {
     const used = process.memoryUsage();
-    console.log(`[Memory] Heap: ${Math.round(used.heapUsed / 1024 / 1024)}MB / ${Math.round(used.heapTotal / 1024 / 1024)}MB, Cache entries: ${this.cache.size}`);
+    const heapUsedMB = Math.round(used.heapUsed / 1024 / 1024);
+    const heapTotalMB = Math.round(used.heapTotal / 1024 / 1024);
+    const heapRatio = used.heapUsed / used.heapTotal;
+    
+    console.log(`[Memory] Heap: ${heapUsedMB}MB / ${heapTotalMB}MB, Cache entries: ${this.cache.size}`);
+    
+    // ★ [2026-01-04 메모리 안정성 v3.0] 자동 메모리 보호
+    if (heapRatio > 0.85) {
+      console.warn(`[Memory] ⚠️ High heap usage (${Math.round(heapRatio * 100)}%), triggering emergency cleanup`);
+      
+      // 긴급 캐시 정리 - 절반만 유지
+      const entries = Array.from(this.cache.entries())
+        .sort((a, b) => a[1].timestamp - b[1].timestamp);
+      const toRemove = Math.ceil(entries.length / 2);
+      for (let i = 0; i < toRemove; i++) {
+        this.cache.delete(entries[i][0]);
+      }
+      this.stats.size = this.cache.size;
+      
+      // GC 트리거 (if available)
+      if (global.gc) {
+        global.gc();
+        console.log('[Memory] 🔄 Triggered garbage collection');
+      }
+    }
+  }
+  
+  /**
+   * ★ 강제 캐시 전체 정리 (긴급 상황용)
+   */
+  public emergencyClear(): void {
+    const previousSize = this.cache.size;
+    this.cache.clear();
+    this.stats.size = 0;
+    console.log(`[DataCache] ⚠️ Emergency clear: removed ${previousSize} entries`);
+    
+    if (global.gc) {
+      global.gc();
+      console.log('[DataCache] 🔄 Triggered garbage collection after emergency clear');
+    }
   }
 
   // Cache keys

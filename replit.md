@@ -87,6 +87,15 @@ The application uses MemoryStore by default for session management. For 24/7 pro
     - **Fix**: Both files now import `IS_PRODUCTION` from `session-bypass.ts` as Single Source of Truth
     - **Correct Logic**: `IS_PRODUCTION = (REPLIT_DEPLOYMENT=1 || NODE_ENV=production || (REPL_ID && !REPLIT_DEV_DOMAIN)) && NODE_ENV !== development`
     - **Result**: Session skip ratio improved from ~60% (failing) to 98.46% (stable) in production
+  - **Solution v4.0 (2026-01-04): Enterprise Memory Stability (CRITICAL FIX)**
+    - **Problem**: Production에서 1-2시간 후 "Internal Server Error"와 "upstream request timeout" 발생
+    - **Root Cause**: jobQueue 무제한 성장 + 프로덕션 전용 interval 40개 이상 동시 실행으로 힙 메모리 고갈
+    - **Fix 1**: jobQueue 크기 제한 (MAX 50) + TTL (60초) + 메모리 압박 시 비필수 작업 자동 제거
+    - **Fix 2**: PROD_DISABLED_INTERVALS 추가 - 프로덕션에서 메모리 집약적 브로드캐스트 interval 비활성화
+    - **Fix 3**: 프로덕션 최소 interval 60초 적용 (PROD_MIN_INTERVAL_MS)
+    - **Fix 4**: DataCacheService 85% 힙 사용 시 긴급 캐시 정리 + 자동 GC 트리거
+    - **Fix 5**: emergencyClear() 메서드 추가 - 긴급 상황에서 전체 캐시 삭제 가능
+    - **Result**: 프로덕션 메모리 사용량 안정화, 24/7/365 무중단 운영 목표
   - Permanent Solution: Configure Redis with `REDIS_URL` for external caching
 
 ### Redis Session Store (Recommended for High Traffic)

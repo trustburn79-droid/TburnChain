@@ -108,16 +108,71 @@ const DEV_MIN_INTERVAL_MS = 30000; // Minimum 30 seconds between interval execut
 // ============================================
 // SEQUENTIAL EXECUTION QUEUE - Prevents event loop saturation
 // Only one interval callback runs at a time
+// ★ [2026-01-04 메모리 안정성 v3.0] 큐 크기 제한 및 메모리 보호
 // ============================================
-const jobQueue: Array<{ name: string; callback: () => Promise<void> }> = [];
+const jobQueue: Array<{ name: string; callback: () => Promise<void>; addedAt: number }> = [];
 let isProcessingQueue = false;
+
+// ★ 메모리 보호 상수
+const MAX_JOB_QUEUE_SIZE = 50; // 최대 50개 작업까지만 유지
+const JOB_TTL_MS = 60000; // 60초 이상 된 작업은 삭제
+const MEMORY_PRESSURE_THRESHOLD = 0.85; // 85% 힙 사용 시 비필수 작업 삭제
+
+// ★ 메모리 압박 체크 함수
+function isUnderMemoryPressure(): boolean {
+  const usage = process.memoryUsage();
+  const heapRatio = usage.heapUsed / usage.heapTotal;
+  return heapRatio > MEMORY_PRESSURE_THRESHOLD;
+}
+
+// ★ 큐 정리 함수 - 오래된 작업 및 과잉 작업 제거
+function cleanupJobQueue(): void {
+  const now = Date.now();
+  const initialSize = jobQueue.length;
+  
+  // 1. TTL 초과 작업 제거
+  let i = 0;
+  while (i < jobQueue.length) {
+    if (now - jobQueue[i].addedAt > JOB_TTL_MS) {
+      jobQueue.splice(i, 1);
+    } else {
+      i++;
+    }
+  }
+  
+  // 2. 메모리 압박 시 또는 큐 초과 시 비필수 작업 제거
+  if (isUnderMemoryPressure() || jobQueue.length > MAX_JOB_QUEUE_SIZE) {
+    // 필수 작업만 유지
+    const essentialJobs = jobQueue.filter(job => ESSENTIAL_INTERVALS.has(job.name));
+    jobQueue.length = 0;
+    jobQueue.push(...essentialJobs.slice(-10)); // 최근 10개만 유지
+  }
+  
+  // 3. 그래도 큐가 크면 오래된 작업부터 삭제
+  while (jobQueue.length > MAX_JOB_QUEUE_SIZE) {
+    jobQueue.shift();
+  }
+  
+  if (initialSize !== jobQueue.length) {
+    console.log(`[JobQueue] Cleaned ${initialSize - jobQueue.length} stale jobs, remaining: ${jobQueue.length}`);
+  }
+}
 
 async function processJobQueue() {
   if (isProcessingQueue || jobQueue.length === 0) return;
   
   isProcessingQueue = true;
   
+  // ★ 처리 전 큐 정리
+  cleanupJobQueue();
+  
   while (jobQueue.length > 0) {
+    // ★ 메모리 압박 시 처리 중단
+    if (isUnderMemoryPressure()) {
+      console.warn('[JobQueue] Memory pressure detected, pausing queue processing');
+      break;
+    }
+    
     const job = jobQueue.shift();
     if (!job) break;
     
@@ -200,6 +255,59 @@ const DEV_DISABLED_INTERVALS = new Set([
   'community_stats_broadcast',
 ]);
 
+// ★ [2026-01-04 메모리 안정성 v3.0] 프로덕션에서도 비활성화할 고비용 interval
+// 프로덕션 환경에서 메모리 누수를 유발하는 브로드캐스트 interval 비활성화
+const PROD_DISABLED_INTERVALS = new Set([
+  // DeFi 브로드캐스트 - 메모리 집약적
+  'staking_stats_broadcast',
+  'staking_pools_broadcast',
+  'staking_activity_broadcast',
+  'reward_cycle_broadcast',
+  'staking_tier_broadcast',
+  'dex_pool_stats_broadcast',
+  'dex_swaps_broadcast',
+  'dex_price_feed_broadcast',
+  'dex_circuit_breakers_broadcast',
+  'lending_markets_broadcast',
+  'lending_risk_broadcast',
+  'lending_transactions_broadcast',
+  'lending_rates_broadcast',
+  'lending_liquidations_broadcast',
+  'yield_vaults_broadcast',
+  'yield_positions_broadcast',
+  'yield_harvests_broadcast',
+  'yield_transactions_broadcast',
+  'lst_pools_broadcast',
+  'lst_positions_broadcast',
+  'lst_rebases_broadcast',
+  'lst_transactions_broadcast',
+  // NFT/GameFi 브로드캐스트 - 메모리 집약적
+  'nft_collections_broadcast',
+  'nft_listings_broadcast',
+  'nft_sales_broadcast',
+  'nft_activity_broadcast',
+  'launchpad_projects_broadcast',
+  'launchpad_rounds_broadcast',
+  'launchpad_activity_broadcast',
+  'gamefi_projects_broadcast',
+  'gamefi_tournaments_broadcast',
+  'gamefi_activity_broadcast',
+  // 브릿지/커뮤니티 브로드캐스트
+  'bridge_chains_broadcast',
+  'bridge_transfers_broadcast',
+  'bridge_validators_broadcast',
+  'bridge_activity_broadcast',
+  'bridge_liquidity_broadcast',
+  'community_activity_broadcast',
+  'community_stats_broadcast',
+  // 고비용 AI/데이터 interval
+  'prod_ai_decisions',
+  'prod_cross_shard',
+  'prod_wallets',
+  'prod_consensus_rounds',
+  'prod_consensus_state',
+]);
+
 // Helper function to track intervals for cleanup with OVERLAP PROTECTION and STARTUP DELAY
 // Prevents event loop blocking by skipping execution if previous run hasn't completed
 // Also delays execution until frontend has time to load and stabilize
@@ -213,8 +321,19 @@ function createTrackedInterval(callback: () => void | Promise<void>, ms: number,
     return setTimeout(() => {}, 0);
   }
   
+  // ★ [2026-01-04 메모리 안정성 v3.0] 프로덕션에서도 고비용 interval 비활성화
+  // 프로덕션 환경에서 메모리 누수를 유발하는 브로드캐스트 interval 비활성화
+  if (!IS_DEVELOPMENT && name && PROD_DISABLED_INTERVALS.has(name)) {
+    console.log(`[Enterprise] Interval disabled in prod mode for memory stability: ${name}`);
+    return setTimeout(() => {}, 0);
+  }
+  
   // In development mode, enforce minimum interval to reduce event loop pressure
-  const effectiveMs = IS_DEVELOPMENT ? Math.max(ms, DEV_MIN_INTERVAL_MS) : ms;
+  // ★ 프로덕션에서도 최소 interval 적용 (메모리 안정성)
+  const PROD_MIN_INTERVAL_MS = 60000; // 프로덕션에서 최소 60초 간격
+  const effectiveMs = IS_DEVELOPMENT 
+    ? Math.max(ms, DEV_MIN_INTERVAL_MS) 
+    : Math.max(ms, PROD_MIN_INTERVAL_MS);
   
   // Initialize execution state for this interval
   intervalExecutionState.set(intervalName, { isRunning: false, lastRun: 0, skipCount: 0 });
@@ -242,9 +361,10 @@ function createTrackedInterval(callback: () => void | Promise<void>, ms: number,
     state.isRunning = true;
     state.lastRun = Date.now();
     
-    // Queue the job for sequential execution
+    // Queue the job for sequential execution with timestamp
     jobQueue.push({
       name: intervalName,
+      addedAt: Date.now(),
       callback: async () => {
         try {
           await callback();
