@@ -54,20 +54,34 @@ export default async function runAppServices(
   // 75초 타임아웃으로 "upstream request timeout" 방지
   app.use((req: Request, res: Response, next: NextFunction) => {
     const TIMEOUT_MS = 75000;
+    let timeoutCleared = false;
     
     const timeoutId = setTimeout(() => {
-      if (!res.headersSent) {
-        console.error(`[Timeout] Request timeout after ${TIMEOUT_MS}ms: ${req.method} ${req.path}`);
+      // 이미 타이머가 취소되었거나 응답이 완료된 경우 무시
+      if (timeoutCleared || res.headersSent || res.writableEnded) {
+        return;
+      }
+      console.error(`[Timeout] Request timeout after ${TIMEOUT_MS}ms: ${req.method} ${req.path}`);
+      try {
         res.status(504).json({ 
           error: 'Gateway Timeout',
           message: 'Request processing took too long',
           path: req.path
         });
+      } catch (e) {
+        // 응답 작성 실패 시 무시 (이미 종료된 연결)
       }
     }, TIMEOUT_MS);
     
-    res.on('finish', () => clearTimeout(timeoutId));
-    res.on('close', () => clearTimeout(timeoutId));
+    // 응답 완료 시 타임아웃 즉시 취소 (메모리 누수 방지)
+    const clearTimeoutHandler = () => {
+      if (!timeoutCleared) {
+        timeoutCleared = true;
+        clearTimeout(timeoutId);
+      }
+    };
+    res.on('finish', clearTimeoutHandler);
+    res.on('close', clearTimeoutHandler);
     
     next();
   });
