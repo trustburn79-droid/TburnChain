@@ -72,7 +72,7 @@ Core architectural decisions and features include:
   - **Monitoring APIs**: `/api/enterprise/scalability/*` endpoints including `/status` (full system status with circuit breaker and alerts), `/health` (HTTP 200/207/503 based on component health), `/gas-fees` (TWAP, blob fees, congestion analysis), `/persistence` (DLQ, WAL, priority queue stats), `/block-production` (percentiles, success rate), `/metrics/prometheus` (standard Prometheus format), `/alerts` (CRUD for alert management), and `/circuit-breaker` (state inspection).
 
 ## External Dependencies
-- **Database**: Neon Serverless PostgreSQL with 892 enterprise-grade indexes
+- **Database**: Neon Serverless PostgreSQL with 928 enterprise-grade indexes (64 token distribution indexes + 864 core indexes)
 - **ORM**: Drizzle ORM
 - **Frontend Framework**: React 18
 - **Language**: TypeScript
