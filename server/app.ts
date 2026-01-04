@@ -88,6 +88,8 @@ const cookieSecure = isProduction || process.env.COOKIE_SECURE === "true";
 
 let sessionStore: session.Store;
 let sessionStoreType: string;
+let isUsingMemoryStore = false;
+let memoryStoreRef: InstanceType<typeof MemoryStore> | null = null;
 
 // ★ [수정 4] 세션 스토어 선택 - 안전한 폴백
 // REDIS_URL이 명시적으로 설정된 경우에만 Redis 사용, 그 외에는 MemoryStore
@@ -118,7 +120,7 @@ if (hasRedis) {
   // ★ [수정 6] 프로덕션 안정성 - 세션 오버플로우 완전 방지
   // 프로덕션에서는 10000개로 증가, 개발에서는 2000개
   const maxSessions = isProduction ? 10000 : 2000;
-  sessionStore = new MemoryStore({
+  const memStore = new MemoryStore({
     checkPeriod: 30000, // ★ 30초마다 만료된 세션 정리 (더 적극적)
     max: maxSessions, // ★ 프로덕션 10000 / 개발 2000
     ttl: 1800000, // ★ 세션 TTL 30분
@@ -130,6 +132,9 @@ if (hasRedis) {
       }
     }
   });
+  sessionStore = memStore;
+  memoryStoreRef = memStore;
+  isUsingMemoryStore = true;
   sessionStoreType = `MemoryStore (max: ${maxSessions}, TTL: 30m, cleanup: 30s)`;
   console.log(`[Session] ⚠️ Using MemoryStore - for production scale, configure REDIS_URL`);
 }
@@ -154,6 +159,29 @@ const sessionMiddleware = session({
 let sessionCreateCount = 0;
 let sessionSkipCount = 0;
 let lastSessionReport = Date.now();
+
+// ★ [수정 7] 실제 활성 세션 수 조회 함수 - 정확한 MemoryStore 용량 모니터링
+function getActiveSessionCount(): number {
+  if (isUsingMemoryStore && memoryStoreRef) {
+    // memorystore 내부 LRU 캐시의 itemCount 속성 사용
+    const store = (memoryStoreRef as any).store;
+    if (store && typeof store.itemCount === 'number') {
+      return store.itemCount;
+    }
+  }
+  // Redis 또는 기타 스토어 - 생성 카운트로 추정
+  return sessionCreateCount;
+}
+
+// ★ 세션 스토어 정보 내보내기 (productionMonitor에서 사용)
+export function getSessionStoreInfo() {
+  return {
+    isUsingMemoryStore,
+    memoryStoreRef,
+    maxSessions: isProduction ? 10000 : 2000,
+    getActiveCount: getActiveSessionCount
+  };
+}
 
 // ★ [2026-01-04 프로덕션 안정성 수정] - 통합 세션 바이패스 모듈 사용
 // ★ 조건부 세션 미들웨어: 내부 호출 및 세션이 불필요한 경로 건너뛰기
@@ -188,10 +216,11 @@ app.use((req: Request, res: Response, next: NextFunction) => {
   
   // ★ MemoryStore 용량 모니터링 (프로덕션 안정성)
   const maxSessions = isProduction ? 10000 : 2000;
-  checkMemoryStoreCapacity(sessionCreateCount, maxSessions);
+  const activeCount = getActiveSessionCount();
+  checkMemoryStoreCapacity(activeCount, maxSessions);
   
-  // ★ [엔터프라이즈 모니터링] MemoryStore 용량 업데이트
-  productionMonitor.updateMemoryStoreMetrics(sessionCreateCount, maxSessions);
+  // ★ [엔터프라이즈 모니터링] MemoryStore 용량 업데이트 - 실제 활성 세션 수 사용
+  productionMonitor.updateMemoryStoreMetrics(activeCount, maxSessions);
   
   // 10분마다 세션 사용량 리포트
   const now = Date.now();
