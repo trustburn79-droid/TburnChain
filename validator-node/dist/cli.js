@@ -5,10 +5,13 @@
  * Enterprise-Grade Command Line Interface
  *
  * Usage:
+ *   tburn-validator setup                    # Interactive setup wizard
  *   tburn-validator start --config validator.json
  *   tburn-validator init --name "My Validator" --region seoul
- *   tburn-validator status
  *   tburn-validator keys generate
+ *   tburn-validator keys import --private-key <key>
+ *   tburn-validator keys backup --output backup.json
+ *   tburn-validator keys restore --input backup.json
  */
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
@@ -37,16 +40,241 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const commander_1 = require("commander");
 const fs = __importStar(require("fs"));
 const path = __importStar(require("path"));
+const readline = __importStar(require("readline"));
 const validator_node_1 = require("./core/validator-node");
 const routes_1 = require("./api/routes");
 const keys_1 = require("./crypto/keys");
+const secure_keystore_1 = require("./crypto/secure-keystore");
 const default_1 = require("./config/default");
 const logger_1 = require("./utils/logger");
 const program = new commander_1.Command();
+function createReadlineInterface() {
+    return readline.createInterface({
+        input: process.stdin,
+        output: process.stdout,
+    });
+}
+async function prompt(rl, question) {
+    return new Promise((resolve) => {
+        rl.question(question, (answer) => {
+            resolve(answer.trim());
+        });
+    });
+}
+async function promptPassword(question) {
+    return new Promise((resolve) => {
+        const stdin = process.stdin;
+        const stdout = process.stdout;
+        stdout.write(question);
+        stdin.setRawMode?.(true);
+        stdin.resume();
+        stdin.setEncoding('utf8');
+        let password = '';
+        const onData = (char) => {
+            if (char === '\n' || char === '\r' || char === '\u0004') {
+                stdin.setRawMode?.(false);
+                stdin.pause();
+                stdout.write('\n');
+                stdin.removeListener('data', onData);
+                resolve(password);
+            }
+            else if (char === '\u0003') {
+                process.exit();
+            }
+            else if (char === '\u007F' || char === '\b') {
+                if (password.length > 0) {
+                    password = password.slice(0, -1);
+                    stdout.write('\b \b');
+                }
+            }
+            else {
+                password += char;
+                stdout.write('*');
+            }
+        };
+        stdin.on('data', onData);
+    });
+}
 program
     .name('tburn-validator')
     .description('TBURN Mainnet Validator Node - Enterprise Production Grade')
     .version('1.0.0');
+program
+    .command('setup')
+    .description('Interactive setup wizard for new validators (recommended for beginners)')
+    .action(async () => {
+    console.log('');
+    console.log('╔══════════════════════════════════════════════════════════════╗');
+    console.log('║        TBURN VALIDATOR NODE - INTERACTIVE SETUP              ║');
+    console.log('║                 Welcome to TBURN Mainnet!                    ║');
+    console.log('╚══════════════════════════════════════════════════════════════╝');
+    console.log('');
+    console.log('This wizard will guide you through setting up your validator node.');
+    console.log('');
+    const rl = createReadlineInterface();
+    try {
+        // Step 1: Validator Name
+        console.log('📋 Step 1/6: Basic Information');
+        console.log('─'.repeat(50));
+        const name = await prompt(rl, 'Enter your validator name (e.g., "My TBURN Validator"): ') || 'TBURN Validator';
+        console.log('');
+        // Step 2: Region Selection
+        console.log('🌍 Step 2/6: Region Selection');
+        console.log('─'.repeat(50));
+        console.log('Available regions:');
+        default_1.GENESIS_VALIDATORS_REGIONS.forEach((r, i) => {
+            console.log(`  ${i + 1}. ${r.region} (${r.datacenter})`);
+        });
+        const regionInput = await prompt(rl, 'Enter region number (1-7) [default: 1]: ') || '1';
+        const regionIndex = Math.max(0, Math.min(parseInt(regionInput) - 1, default_1.GENESIS_VALIDATORS_REGIONS.length - 1));
+        const selectedRegion = default_1.GENESIS_VALIDATORS_REGIONS[regionIndex] || default_1.GENESIS_VALIDATORS_REGIONS[0];
+        console.log(`Selected: ${selectedRegion.region} (${selectedRegion.datacenter})`);
+        console.log('');
+        // Step 3: Stake Amount
+        console.log('💰 Step 3/6: Stake Configuration');
+        console.log('─'.repeat(50));
+        console.log('Minimum stake: 1,000,000 TBURN');
+        console.log('Recommended stake: 10,000,000+ TBURN for better rewards');
+        const stakeInput = await prompt(rl, 'Enter stake amount in TBURN [default: 1000000]: ') || '1000000';
+        const stake = Math.max(1000000, parseInt(stakeInput) || 1000000);
+        console.log(`Stake: ${stake.toLocaleString()} TBURN`);
+        console.log('');
+        // Step 4: Commission Rate
+        console.log('📊 Step 4/6: Commission Rate');
+        console.log('─'.repeat(50));
+        console.log('Commission is the fee you take from delegator rewards (0-100%)');
+        console.log('Average network rate: 5-10%');
+        const commissionInput = await prompt(rl, 'Enter commission rate % [default: 10]: ') || '10';
+        const commission = Math.max(0, Math.min(100, parseInt(commissionInput) || 10));
+        console.log(`Commission: ${commission}%`);
+        console.log('');
+        // Step 5: Key Generation or Import
+        console.log('🔑 Step 5/6: Key Setup');
+        console.log('─'.repeat(50));
+        console.log('1. Generate new keys (recommended for new validators)');
+        console.log('2. Import existing keys');
+        const keyChoice = await prompt(rl, 'Enter choice [default: 1]: ') || '1';
+        let keyPair;
+        if (keyChoice === '2') {
+            console.log('');
+            console.log('Enter your existing private key (hex format):');
+            const privateKeyInput = await prompt(rl, '> ');
+            try {
+                const cryptoManager = new keys_1.CryptoManager();
+                cryptoManager.loadFromPrivateKey(privateKeyInput);
+                keyPair = {
+                    privateKey: privateKeyInput,
+                    publicKey: cryptoManager.getPublicKeyHex(),
+                    address: cryptoManager.getAddress(),
+                };
+                console.log(`✅ Key imported successfully!`);
+                console.log(`   Address: ${keyPair.address}`);
+            }
+            catch (error) {
+                console.error('❌ Invalid private key format. Generating new keys instead.');
+                keyPair = keys_1.CryptoManager.generateKeyPair();
+            }
+        }
+        else {
+            keyPair = keys_1.CryptoManager.generateKeyPair();
+            console.log('✅ New keys generated!');
+        }
+        console.log('');
+        console.log(`   Your Validator Address: ${keyPair.address}`);
+        console.log('');
+        // Step 6: Password Protection
+        console.log('🔐 Step 6/6: Security Setup');
+        console.log('─'.repeat(50));
+        console.log('Your private key will be encrypted with a password.');
+        console.log('⚠️  Remember this password! You will need it to start your validator.');
+        console.log('');
+        rl.close();
+        const password = await promptPassword('Enter a secure password: ');
+        const confirmPassword = await promptPassword('Confirm password: ');
+        if (password !== confirmPassword) {
+            console.error('❌ Passwords do not match. Please run setup again.');
+            process.exit(1);
+        }
+        if (password.length < 8) {
+            console.error('❌ Password must be at least 8 characters. Please run setup again.');
+            process.exit(1);
+        }
+        // Create configuration
+        const config = {
+            ...default_1.DEFAULT_CONFIG,
+            validator: {
+                address: keyPair.address,
+                privateKey: '', // Will be stored encrypted
+                publicKey: keyPair.publicKey,
+                stake: (BigInt(stake) * BigInt(10 ** 18)).toString(),
+                commission: commission / 100,
+                name: name,
+                description: `TBURN Mainnet Validator - ${selectedRegion.datacenter}`,
+            },
+            geo: {
+                region: selectedRegion.region,
+                datacenter: selectedRegion.datacenter,
+                latitude: 37.5665,
+                longitude: 126.9780,
+                timezone: 'Asia/Seoul',
+            },
+        };
+        // Initialize secure keystore
+        const keystorePath = path.resolve('keystore.enc');
+        const keystore = new secure_keystore_1.SecureKeystore({
+            path: keystorePath,
+            autoLockTimeoutMs: 30 * 60 * 1000,
+            maxDecryptionAttempts: 5,
+        });
+        await keystore.initialize(password);
+        await keystore.importKey(keyPair.privateKey);
+        keystore.lock();
+        // Save configuration (without private key - it's in the keystore)
+        const configPath = path.resolve('validator.json');
+        fs.writeFileSync(configPath, JSON.stringify(config, null, 2));
+        // Create backup file
+        const backupData = {
+            address: keyPair.address,
+            publicKey: keyPair.publicKey,
+            encryptedPrivateKey: fs.readFileSync(keystorePath, 'utf-8'),
+            createdAt: new Date().toISOString(),
+            region: selectedRegion.region,
+            name: name,
+        };
+        const backupPath = path.resolve(`backup-${keyPair.address.substring(0, 10)}.json`);
+        fs.writeFileSync(backupPath, JSON.stringify(backupData, null, 2));
+        console.log('');
+        console.log('╔══════════════════════════════════════════════════════════════╗');
+        console.log('║                    ✅ SETUP COMPLETE!                        ║');
+        console.log('╚══════════════════════════════════════════════════════════════╝');
+        console.log('');
+        console.log('📁 Files created:');
+        console.log(`   • Configuration: ${configPath}`);
+        console.log(`   • Encrypted Keystore: ${keystorePath}`);
+        console.log(`   • Backup: ${backupPath}`);
+        console.log('');
+        console.log('📋 Your Validator Details:');
+        console.log(`   • Name: ${name}`);
+        console.log(`   • Address: ${keyPair.address}`);
+        console.log(`   • Region: ${selectedRegion.region} (${selectedRegion.datacenter})`);
+        console.log(`   • Stake: ${stake.toLocaleString()} TBURN`);
+        console.log(`   • Commission: ${commission}%`);
+        console.log('');
+        console.log('⚠️  IMPORTANT - Please do these things NOW:');
+        console.log('   1. Save your backup file in a secure location');
+        console.log('   2. Write down your password and store it safely');
+        console.log('   3. Fund your validator address with stake before starting');
+        console.log('');
+        console.log('🚀 To start your validator, run:');
+        console.log('   tburn-validator start --config validator.json');
+        console.log('');
+    }
+    catch (error) {
+        rl.close();
+        console.error(`❌ Setup failed: ${error.message}`);
+        process.exit(1);
+    }
+});
 program
     .command('init')
     .description('Initialize a new validator node configuration')
@@ -117,7 +345,10 @@ program
     const configPath = path.resolve(options.config);
     if (!fs.existsSync(configPath)) {
         console.error(`❌ Configuration file not found: ${configPath}`);
-        console.error('   Run "tburn-validator init" to create a new configuration.');
+        console.error('');
+        console.error('   Quick start options:');
+        console.error('   • Run "tburn-validator setup" for guided setup (recommended)');
+        console.error('   • Run "tburn-validator init" to create a basic configuration');
         process.exit(1);
     }
     let config;
@@ -127,6 +358,48 @@ program
     }
     catch (error) {
         console.error(`❌ Failed to parse configuration file: ${error.message}`);
+        process.exit(1);
+    }
+    // Check if private key is in keystore
+    const keystorePath = path.resolve('keystore.enc');
+    if (!config.validator.privateKey && fs.existsSync(keystorePath)) {
+        console.log('🔐 Loading private key from encrypted keystore...');
+        const password = await promptPassword('Enter keystore password: ');
+        try {
+            const keystore = new secure_keystore_1.SecureKeystore({
+                path: keystorePath,
+                autoLockTimeoutMs: 30 * 60 * 1000,
+                maxDecryptionAttempts: 5,
+            });
+            const unlocked = await keystore.unlock(password);
+            if (!unlocked) {
+                console.error('❌ Invalid password or corrupted keystore');
+                process.exit(1);
+            }
+            // Get the key from keystore (use the address as keyId)
+            const keys = keystore.listKeys();
+            if (keys.length === 0) {
+                console.error('❌ No keys found in keystore');
+                process.exit(1);
+            }
+            // Use the first key that matches our address
+            const matchingKey = keys.find(k => k.address === config.validator.address) || keys[0];
+            // Sign a test message to verify key works
+            const testSignature = await keystore.sign(matchingKey.keyId, Buffer.from('test'));
+            if (testSignature) {
+                console.log('✅ Keystore unlocked and key verified');
+                config.validator.privateKey = matchingKey.keyId; // Store keyId, keystore handles signing
+            }
+            console.log('');
+        }
+        catch (error) {
+            console.error(`❌ Failed to unlock keystore: ${error.message}`);
+            process.exit(1);
+        }
+    }
+    else if (!config.validator.privateKey) {
+        console.error('❌ No private key found in configuration or keystore');
+        console.error('   Run "tburn-validator setup" to create a new validator');
         process.exit(1);
     }
     if (options.dataDir) {
@@ -192,9 +465,12 @@ program
 program
     .command('keys')
     .description('Key management commands')
-    .argument('<action>', 'Action: generate, show, export')
+    .argument('<action>', 'Action: generate, show, export, import, backup, restore')
     .option('-c, --config <file>', 'Configuration file path', 'validator.json')
-    .action((action, options) => {
+    .option('--private-key <key>', 'Private key for import')
+    .option('--output <file>', 'Output file for backup')
+    .option('--input <file>', 'Input file for restore')
+    .action(async (action, options) => {
     switch (action) {
         case 'generate': {
             const keyPair = keys_1.CryptoManager.generateKeyPair();
@@ -205,6 +481,7 @@ program
             console.log(`Private Key: ${keyPair.privateKey}`);
             console.log('');
             console.log('⚠️  Store your private key securely!');
+            console.log('   Consider using "tburn-validator setup" for encrypted storage.');
             break;
         }
         case 'show': {
@@ -215,8 +492,10 @@ program
             }
             const config = JSON.parse(fs.readFileSync(configPath, 'utf-8'));
             console.log('🔑 Validator Keys:');
+            console.log(`   Name: ${config.validator.name}`);
             console.log(`   Address: ${config.validator.address}`);
             console.log(`   Public Key: ${config.validator.publicKey.substring(0, 60)}...`);
+            console.log(`   Private Key: ${config.validator.privateKey ? '(stored in config)' : '(stored in keystore)'}`);
             break;
         }
         case 'export': {
@@ -229,13 +508,96 @@ program
             const exportData = {
                 address: config.validator.address,
                 publicKey: config.validator.publicKey,
+                name: config.validator.name,
+                region: config.geo?.region,
             };
             console.log(JSON.stringify(exportData, null, 2));
             break;
         }
+        case 'import': {
+            if (!options.privateKey) {
+                console.error('❌ Private key required. Use --private-key <key>');
+                process.exit(1);
+            }
+            try {
+                const cryptoManager = new keys_1.CryptoManager();
+                cryptoManager.loadFromPrivateKey(options.privateKey);
+                console.log('✅ Private key validated successfully!');
+                console.log(`   Address: ${cryptoManager.getAddress()}`);
+                console.log(`   Public Key: ${cryptoManager.getPublicKeyHex().substring(0, 60)}...`);
+                console.log('');
+                console.log('To create a configuration with this key, run:');
+                console.log('   tburn-validator setup');
+                console.log('   (choose "Import existing keys" when prompted)');
+            }
+            catch (error) {
+                console.error(`❌ Invalid private key: ${error.message}`);
+                process.exit(1);
+            }
+            break;
+        }
+        case 'backup': {
+            const configPath = path.resolve(options.config);
+            const keystorePath = path.resolve('keystore.enc');
+            if (!fs.existsSync(configPath)) {
+                console.error(`❌ Configuration file not found: ${configPath}`);
+                process.exit(1);
+            }
+            const config = JSON.parse(fs.readFileSync(configPath, 'utf-8'));
+            const backupData = {
+                version: '1.0',
+                createdAt: new Date().toISOString(),
+                address: config.validator.address,
+                publicKey: config.validator.publicKey,
+                name: config.validator.name,
+                region: config.geo?.region,
+            };
+            if (fs.existsSync(keystorePath)) {
+                backupData.encryptedKeystore = fs.readFileSync(keystorePath, 'utf-8');
+                backupData.keystoreType = 'encrypted';
+            }
+            else if (config.validator.privateKey) {
+                console.log('⚠️  Warning: Private key is stored in plain text in config.');
+                console.log('   Consider using "tburn-validator setup" for encrypted storage.');
+                backupData.keystoreType = 'plaintext';
+            }
+            const outputFile = options.output || `backup-${config.validator.address.substring(0, 10)}-${Date.now()}.json`;
+            fs.writeFileSync(outputFile, JSON.stringify(backupData, null, 2));
+            console.log(`✅ Backup created: ${outputFile}`);
+            console.log('   Store this file securely!');
+            break;
+        }
+        case 'restore': {
+            if (!options.input) {
+                console.error('❌ Input file required. Use --input <file>');
+                process.exit(1);
+            }
+            if (!fs.existsSync(options.input)) {
+                console.error(`❌ Backup file not found: ${options.input}`);
+                process.exit(1);
+            }
+            const backupData = JSON.parse(fs.readFileSync(options.input, 'utf-8'));
+            console.log('📋 Backup Contents:');
+            console.log(`   Address: ${backupData.address}`);
+            console.log(`   Name: ${backupData.name}`);
+            console.log(`   Region: ${backupData.region}`);
+            console.log(`   Created: ${backupData.createdAt}`);
+            console.log(`   Keystore Type: ${backupData.keystoreType}`);
+            console.log('');
+            if (backupData.encryptedKeystore) {
+                const keystorePath = path.resolve('keystore.enc');
+                fs.writeFileSync(keystorePath, backupData.encryptedKeystore);
+                console.log(`✅ Keystore restored to: ${keystorePath}`);
+            }
+            console.log('');
+            console.log('To complete restoration, run:');
+            console.log('   tburn-validator init --name "' + backupData.name + '"');
+            console.log('   (or use your existing validator.json if available)');
+            break;
+        }
         default:
             console.error(`Unknown action: ${action}`);
-            console.log('Available actions: generate, show, export');
+            console.log('Available actions: generate, show, export, import, backup, restore');
             process.exit(1);
     }
 });
@@ -282,6 +644,51 @@ program
     }
     console.log('');
     console.log(`Total Genesis Validators: ${default_1.CHAIN_CONSTANTS.MAX_VALIDATORS}`);
+});
+program
+    .command('help-ko')
+    .description('한국어 도움말 표시')
+    .action(() => {
+    console.log('');
+    console.log('╔══════════════════════════════════════════════════════════════╗');
+    console.log('║           TBURN 검증자 노드 - 한국어 안내                    ║');
+    console.log('╚══════════════════════════════════════════════════════════════╝');
+    console.log('');
+    console.log('📋 시작하기');
+    console.log('─'.repeat(50));
+    console.log('');
+    console.log('1. 대화형 설정 (초보자 권장):');
+    console.log('   $ tburn-validator setup');
+    console.log('');
+    console.log('2. 빠른 설정:');
+    console.log('   $ tburn-validator init --name "내 검증자" --region asia-northeast1');
+    console.log('');
+    console.log('3. 검증자 시작:');
+    console.log('   $ tburn-validator start --config validator.json');
+    console.log('');
+    console.log('📋 키 관리');
+    console.log('─'.repeat(50));
+    console.log('');
+    console.log('• 새 키 생성:    tburn-validator keys generate');
+    console.log('• 키 확인:       tburn-validator keys show');
+    console.log('• 키 내보내기:   tburn-validator keys export');
+    console.log('• 키 가져오기:   tburn-validator keys import --private-key <키>');
+    console.log('• 백업 생성:     tburn-validator keys backup --output backup.json');
+    console.log('• 백업 복원:     tburn-validator keys restore --input backup.json');
+    console.log('');
+    console.log('📋 상태 확인');
+    console.log('─'.repeat(50));
+    console.log('');
+    console.log('• 노드 상태:     tburn-validator status');
+    console.log('• 지원 지역:     tburn-validator regions');
+    console.log('');
+    console.log('⚠️  중요 사항');
+    console.log('─'.repeat(50));
+    console.log('');
+    console.log('• 비밀키를 안전하게 보관하세요');
+    console.log('• 검증자 시작 전 스테이크를 충전하세요');
+    console.log('• 정기적으로 백업을 생성하세요');
+    console.log('');
 });
 program.parse(process.argv);
 //# sourceMappingURL=cli.js.map
