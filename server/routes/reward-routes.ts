@@ -15,7 +15,23 @@
  * - POST /api/rewards/epoch/finalize - Finalize epoch
  * - POST /api/rewards/process-batch - Process reward batch
  * - POST /api/rewards/staking/calculate - Calculate staking rewards
+ * 
+ * Performance Incentive System:
+ * - GET  /api/rewards/incentives/dashboard - Incentive dashboard with tiers
+ * - GET  /api/rewards/incentives/validator/:id - Validator incentive state
+ * - POST /api/rewards/incentives/update-performance - Update performance score
+ * - POST /api/rewards/incentives/calculate-bonus - Calculate performance bonus
+ * 
+ * Auto-Distribution Scheduler:
+ * - GET  /api/rewards/auto-distribution/status - Auto-distribution status
+ * - POST /api/rewards/auto-distribution/configure - Configure settings
+ * - POST /api/rewards/auto-distribution/start - Start scheduler
+ * - POST /api/rewards/auto-distribution/stop - Stop scheduler
+ * 
+ * System Operations:
  * - POST /api/rewards/cleanup - Cleanup old data
+ * - POST /api/rewards/wal/replay - Replay WAL entries
+ * - GET  /api/rewards/wal/stats - Get WAL statistics
  */
 
 import { Router, Request, Response } from 'express';
@@ -739,6 +755,286 @@ router.get('/wal/stats', (_req: Request, res: Response) => {
     res.json({
       success: true,
       data: stats,
+      timestamp: Date.now()
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: error instanceof Error ? error.message : 'Unknown error',
+      timestamp: Date.now()
+    });
+  }
+});
+
+// ============================================
+// PERFORMANCE INCENTIVE SYSTEM
+// Enterprise-grade tiered bonus API
+// ============================================
+
+/**
+ * GET /api/rewards/incentives/dashboard
+ * Get incentive dashboard with tier distribution and top performers
+ */
+router.get('/incentives/dashboard', (_req: Request, res: Response) => {
+  try {
+    const dashboard = enterpriseRewardEngine.getIncentiveDashboard();
+    
+    res.json({
+      success: true,
+      data: dashboard,
+      timestamp: Date.now()
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: error instanceof Error ? error.message : 'Unknown error',
+      timestamp: Date.now()
+    });
+  }
+});
+
+/**
+ * GET /api/rewards/incentives/validator/:id
+ * Get incentive state for a specific validator
+ */
+router.get('/incentives/validator/:id', (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const state = enterpriseRewardEngine.getValidatorIncentiveState(id);
+    
+    if (!state) {
+      return res.status(404).json({
+        success: false,
+        error: 'Validator incentive state not found',
+        timestamp: Date.now()
+      });
+    }
+    
+    res.json({
+      success: true,
+      data: {
+        validatorId: state.validatorId,
+        currentTier: state.currentTier,
+        performanceScore: state.performanceScore,
+        consecutiveHighPerformanceEpochs: state.consecutiveHighPerformanceEpochs,
+        streakBonusMultiplier: state.streakBonusMultiplier,
+        consistencyScore: state.consistencyScore,
+        performanceHistoryLength: state.performanceHistory.length,
+        totalBonusEarned: state.totalBonusEarned.toString(),
+        lastUpdatedEpoch: state.lastUpdatedEpoch,
+        tierUpgradeEpoch: state.tierUpgradeEpoch,
+        tierDowngradeEpoch: state.tierDowngradeEpoch
+      },
+      timestamp: Date.now()
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: error instanceof Error ? error.message : 'Unknown error',
+      timestamp: Date.now()
+    });
+  }
+});
+
+/**
+ * POST /api/rewards/incentives/update-performance
+ * Update validator performance score
+ */
+router.post('/incentives/update-performance', (req: Request, res: Response) => {
+  try {
+    const { validatorId, epochNumber, performanceScore } = req.body;
+    
+    if (!validatorId || typeof epochNumber !== 'number' || typeof performanceScore !== 'number') {
+      return res.status(400).json({
+        success: false,
+        error: 'Missing required fields: validatorId, epochNumber, performanceScore',
+        timestamp: Date.now()
+      });
+    }
+    
+    if (performanceScore < 0 || performanceScore > 100) {
+      return res.status(400).json({
+        success: false,
+        error: 'Performance score must be between 0 and 100',
+        timestamp: Date.now()
+      });
+    }
+    
+    enterpriseRewardEngine.updateValidatorPerformance(validatorId, epochNumber, performanceScore);
+    const state = enterpriseRewardEngine.getValidatorIncentiveState(validatorId);
+    
+    res.json({
+      success: true,
+      data: {
+        validatorId,
+        newTier: state?.currentTier,
+        newScore: state?.performanceScore,
+        streakMultiplier: state?.streakBonusMultiplier,
+        consistencyScore: state?.consistencyScore
+      },
+      message: `Performance updated for validator ${validatorId}`,
+      timestamp: Date.now()
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: error instanceof Error ? error.message : 'Unknown error',
+      timestamp: Date.now()
+    });
+  }
+});
+
+/**
+ * POST /api/rewards/incentives/calculate-bonus
+ * Calculate performance bonus for a validator
+ */
+router.post('/incentives/calculate-bonus', (req: Request, res: Response) => {
+  try {
+    const { validatorId, baseReward } = req.body;
+    
+    if (!validatorId || !baseReward) {
+      return res.status(400).json({
+        success: false,
+        error: 'Missing required fields: validatorId, baseReward',
+        timestamp: Date.now()
+      });
+    }
+    
+    const baseRewardBigInt = BigInt(baseReward);
+    const bonus = enterpriseRewardEngine.calculatePerformanceBonus(validatorId, baseRewardBigInt);
+    
+    res.json({
+      success: true,
+      data: {
+        validatorId,
+        baseReward: baseReward,
+        bonus: bonus.bonus.toString(),
+        tierMultiplier: bonus.tierMultiplier,
+        streakMultiplier: bonus.streakMultiplier,
+        consistencyBonus: bonus.consistencyBonus.toString(),
+        totalMultiplier: bonus.totalMultiplier,
+        tier: bonus.tier
+      },
+      timestamp: Date.now()
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: error instanceof Error ? error.message : 'Unknown error',
+      timestamp: Date.now()
+    });
+  }
+});
+
+// ============================================
+// AUTO-DISTRIBUTION SCHEDULER
+// Production-grade automatic reward distribution API
+// ============================================
+
+/**
+ * GET /api/rewards/auto-distribution/status
+ * Get auto-distribution status and configuration
+ */
+router.get('/auto-distribution/status', (_req: Request, res: Response) => {
+  try {
+    const status = enterpriseRewardEngine.getAutoDistributionStatus();
+    
+    res.json({
+      success: true,
+      data: {
+        enabled: status.enabled,
+        config: status.config,
+        recentSchedules: status.recentSchedules.map(s => ({
+          ...s,
+          totalAmount: s.totalAmount.toString()
+        })),
+        nextDistribution: status.nextDistribution
+      },
+      timestamp: Date.now()
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: error instanceof Error ? error.message : 'Unknown error',
+      timestamp: Date.now()
+    });
+  }
+});
+
+/**
+ * POST /api/rewards/auto-distribution/configure
+ * Configure auto-distribution settings
+ */
+router.post('/auto-distribution/configure', (req: Request, res: Response) => {
+  try {
+    const { enabled, intervalMs, minBatchSize, maxBatchSize, retryAttempts, retryDelayMs } = req.body;
+    
+    const config: Record<string, any> = {};
+    if (typeof enabled === 'boolean') config.enabled = enabled;
+    if (typeof intervalMs === 'number') config.intervalMs = intervalMs;
+    if (typeof minBatchSize === 'number') config.minBatchSize = minBatchSize;
+    if (typeof maxBatchSize === 'number') config.maxBatchSize = maxBatchSize;
+    if (typeof retryAttempts === 'number') config.retryAttempts = retryAttempts;
+    if (typeof retryDelayMs === 'number') config.retryDelayMs = retryDelayMs;
+    
+    enterpriseRewardEngine.configureAutoDistribution(config);
+    const status = enterpriseRewardEngine.getAutoDistributionStatus();
+    
+    res.json({
+      success: true,
+      data: {
+        enabled: status.enabled,
+        config: status.config
+      },
+      message: 'Auto-distribution configuration updated',
+      timestamp: Date.now()
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: error instanceof Error ? error.message : 'Unknown error',
+      timestamp: Date.now()
+    });
+  }
+});
+
+/**
+ * POST /api/rewards/auto-distribution/start
+ * Start auto-distribution scheduler
+ */
+router.post('/auto-distribution/start', (_req: Request, res: Response) => {
+  try {
+    enterpriseRewardEngine.configureAutoDistribution({ enabled: true });
+    enterpriseRewardEngine.startAutoDistribution();
+    
+    res.json({
+      success: true,
+      data: { enabled: true },
+      message: 'Auto-distribution scheduler started',
+      timestamp: Date.now()
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: error instanceof Error ? error.message : 'Unknown error',
+      timestamp: Date.now()
+    });
+  }
+});
+
+/**
+ * POST /api/rewards/auto-distribution/stop
+ * Stop auto-distribution scheduler
+ */
+router.post('/auto-distribution/stop', (_req: Request, res: Response) => {
+  try {
+    enterpriseRewardEngine.stopAutoDistribution();
+    enterpriseRewardEngine.configureAutoDistribution({ enabled: false });
+    
+    res.json({
+      success: true,
+      data: { enabled: false },
+      message: 'Auto-distribution scheduler stopped',
       timestamp: Date.now()
     });
   } catch (error) {

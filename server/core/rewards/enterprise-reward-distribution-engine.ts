@@ -205,7 +205,7 @@ export interface CircuitBreakerState {
 export interface WALEntry {
   id: string;
   timestamp: number;
-  operation: 'CALCULATE' | 'DISTRIBUTE' | 'CONFIRM' | 'ROLLBACK';
+  operation: 'CALCULATE' | 'DISTRIBUTE' | 'CONFIRM' | 'ROLLBACK' | 'EPOCH_FINALIZE';
   data: any;
   status: 'PENDING' | 'COMMITTED' | 'ROLLED_BACK';
   checksum: string;
@@ -216,6 +216,61 @@ export type RewardStatus = 'pending' | 'queued' | 'processing' | 'distributed' |
 export type RewardPriority = 'critical' | 'high' | 'normal' | 'low';
 export type BatchStatus = 'pending' | 'processing' | 'completed' | 'failed' | 'partial';
 export type EpochStatus = 'active' | 'finalizing' | 'finalized' | 'archived';
+export type PerformanceTier = 'bronze' | 'silver' | 'gold' | 'platinum' | 'diamond';
+
+// ============================================
+// PERFORMANCE TIER SYSTEM
+// Enterprise-grade tiered bonus multipliers
+// ============================================
+
+export interface PerformanceTierConfig {
+  tier: PerformanceTier;
+  minScore: number;           // Minimum performance score required
+  maxScore: number;           // Maximum score for this tier
+  bonusMultiplier: number;    // Base bonus multiplier (1.0 = no bonus)
+  streakMultiplier: number;   // Additional multiplier per streak epoch
+  maxStreakBonus: number;     // Maximum streak bonus cap
+  consistencyBonus: number;   // Bonus for low variance in performance
+  color: string;              // Display color
+}
+
+export interface ValidatorIncentiveState {
+  validatorId: string;
+  currentTier: PerformanceTier;
+  performanceScore: number;
+  consecutiveHighPerformanceEpochs: number;  // Streak counter
+  streakBonusMultiplier: number;
+  consistencyScore: number;                  // 0-100, lower variance = higher
+  performanceHistory: number[];              // Last 10 epoch scores
+  totalBonusEarned: bigint;
+  lastUpdatedEpoch: number;
+  tierUpgradeEpoch?: number;
+  tierDowngradeEpoch?: number;
+}
+
+export interface AutoDistributionConfig {
+  enabled: boolean;
+  intervalMs: number;              // Distribution interval (default: every epoch)
+  minBatchSize: number;            // Minimum rewards to batch
+  maxBatchSize: number;            // Maximum per batch
+  retryAttempts: number;           // Retry on failure
+  retryDelayMs: number;            // Delay between retries
+  priorityThresholdMs: number;     // Age threshold for priority upgrade
+  autoEpochFinalization: boolean;  // Auto-finalize epochs
+  notifyOnDistribution: boolean;   // Emit events on distribution
+}
+
+export interface DistributionSchedule {
+  scheduleId: string;
+  epochNumber: number;
+  scheduledAt: number;
+  executedAt?: number;
+  status: 'scheduled' | 'executing' | 'completed' | 'failed';
+  totalRewards: number;
+  totalAmount: bigint;
+  batches: number;
+  errors: string[];
+}
 
 // ============================================
 // CONSTANTS
@@ -240,6 +295,80 @@ const GAS_BURN_SHARE = 0.20;     // 20%
 
 const BLOCKS_PER_EPOCH = 1000;
 const EPOCH_DURATION_MS = 100000; // 100 seconds at 100ms block time
+
+// ============================================
+// PERFORMANCE TIER CONFIGURATIONS
+// Enterprise-grade 5-tier bonus system
+// ============================================
+
+const PERFORMANCE_TIERS: PerformanceTierConfig[] = [
+  {
+    tier: 'bronze',
+    minScore: 0,
+    maxScore: 59,
+    bonusMultiplier: 1.00,      // No bonus
+    streakMultiplier: 0.00,     // No streak bonus
+    maxStreakBonus: 0.00,
+    consistencyBonus: 0.00,
+    color: '#CD7F32'
+  },
+  {
+    tier: 'silver',
+    minScore: 60,
+    maxScore: 74,
+    bonusMultiplier: 1.05,      // 5% bonus
+    streakMultiplier: 0.01,     // +1% per streak epoch
+    maxStreakBonus: 0.05,       // Max 5% additional
+    consistencyBonus: 0.02,     // 2% for consistency
+    color: '#C0C0C0'
+  },
+  {
+    tier: 'gold',
+    minScore: 75,
+    maxScore: 84,
+    bonusMultiplier: 1.10,      // 10% bonus
+    streakMultiplier: 0.02,     // +2% per streak epoch
+    maxStreakBonus: 0.10,       // Max 10% additional
+    consistencyBonus: 0.03,     // 3% for consistency
+    color: '#FFD700'
+  },
+  {
+    tier: 'platinum',
+    minScore: 85,
+    maxScore: 94,
+    bonusMultiplier: 1.18,      // 18% bonus
+    streakMultiplier: 0.03,     // +3% per streak epoch
+    maxStreakBonus: 0.15,       // Max 15% additional
+    consistencyBonus: 0.05,     // 5% for consistency
+    color: '#E5E4E2'
+  },
+  {
+    tier: 'diamond',
+    minScore: 95,
+    maxScore: 100,
+    bonusMultiplier: 1.25,      // 25% bonus (max)
+    streakMultiplier: 0.04,     // +4% per streak epoch
+    maxStreakBonus: 0.20,       // Max 20% additional
+    consistencyBonus: 0.08,     // 8% for consistency
+    color: '#B9F2FF'
+  }
+];
+
+// Auto-distribution defaults
+const DEFAULT_AUTO_DISTRIBUTION_CONFIG: AutoDistributionConfig = {
+  enabled: true,
+  intervalMs: EPOCH_DURATION_MS,  // Every epoch
+  minBatchSize: 10,
+  maxBatchSize: 1000,
+  retryAttempts: 3,
+  retryDelayMs: 5000,
+  priorityThresholdMs: 60000,     // Upgrade priority after 1 minute
+  autoEpochFinalization: true,
+  notifyOnDistribution: true
+};
+
+// Performance history depth for consistency calculation
+const PERFORMANCE_HISTORY_DEPTH = 10;
 
 // ============================================
 // RING BUFFER FOR REWARD HISTORY
@@ -428,6 +557,20 @@ export class EnterpriseRewardDistributionEngine {
   private isProcessing: boolean = false;
   private processingInterval: NodeJS.Timeout | null = null;
 
+  // ============================================
+  // PERFORMANCE INCENTIVE SYSTEM
+  // Enterprise-grade tiered bonus tracking
+  // ============================================
+  
+  private validatorIncentiveStates: Map<string, ValidatorIncentiveState> = new Map();
+  private autoDistributionConfig: AutoDistributionConfig = { ...DEFAULT_AUTO_DISTRIBUTION_CONFIG };
+  private distributionSchedules: Map<string, DistributionSchedule> = new Map();
+  private autoDistributionTimer: NodeJS.Timeout | null = null;
+  private totalBonusesDistributed: bigint = BigInt(0);
+  private tierDistribution: Map<PerformanceTier, number> = new Map([
+    ['bronze', 0], ['silver', 0], ['gold', 0], ['platinum', 0], ['diamond', 0]
+  ]);
+
   constructor(config?: Partial<RewardConfig>) {
     this.config = {
       baseBlockReward: BASE_BLOCK_REWARD,
@@ -579,8 +722,8 @@ export class EnterpriseRewardDistributionEngine {
       const orchestrator = getValidatorOrchestrator();
       
       // Check if orchestrator has any validators registered
-      const stats = orchestrator.getStatistics();
-      if (stats.totalValidators === 0) {
+      const status = orchestrator.getStatus() as { totalValidators?: number };
+      if (!status.totalValidators || status.totalValidators === 0) {
         // Orchestrator is empty (no validators registered yet) - allow graceful degradation
         return { valid: true, warning: 'No validators registered in orchestrator (graceful degradation)' };
       }
@@ -1437,6 +1580,385 @@ export class EnterpriseRewardDistributionEngine {
   private formatTBURN(wei: bigint): string {
     const tburn = Number(wei) / 1e18;
     return tburn.toLocaleString('en-US', { maximumFractionDigits: 4 });
+  }
+
+  // ============================================
+  // PERFORMANCE TIER & INCENTIVE SYSTEM
+  // Enterprise-grade tiered bonus calculations
+  // ============================================
+
+  /**
+   * Determine performance tier based on score
+   */
+  private getPerformanceTier(score: number): PerformanceTierConfig {
+    const normalizedScore = Math.max(0, Math.min(100, score));
+    for (const tier of PERFORMANCE_TIERS) {
+      if (normalizedScore >= tier.minScore && normalizedScore <= tier.maxScore) {
+        return tier;
+      }
+    }
+    return PERFORMANCE_TIERS[0]; // Default to bronze
+  }
+
+  /**
+   * Calculate consistency score based on performance variance
+   * Lower variance = higher consistency score (0-100)
+   */
+  private calculateConsistencyScore(history: number[]): number {
+    if (history.length < 2) return 50; // Neutral for new validators
+    
+    const mean = history.reduce((a, b) => a + b, 0) / history.length;
+    const variance = history.reduce((sum, val) => sum + Math.pow(val - mean, 2), 0) / history.length;
+    const stdDev = Math.sqrt(variance);
+    
+    // Map stdDev to consistency score (lower variance = higher score)
+    // stdDev of 0 = 100, stdDev of 30+ = 0
+    const consistencyScore = Math.max(0, Math.min(100, 100 - (stdDev * 3.33)));
+    return Math.round(consistencyScore);
+  }
+
+  /**
+   * Get or create validator incentive state
+   */
+  private getOrCreateIncentiveState(validatorId: string): ValidatorIncentiveState {
+    let state = this.validatorIncentiveStates.get(validatorId);
+    if (!state) {
+      state = {
+        validatorId,
+        currentTier: 'bronze',
+        performanceScore: 50,
+        consecutiveHighPerformanceEpochs: 0,
+        streakBonusMultiplier: 1.0,
+        consistencyScore: 50,
+        performanceHistory: [],
+        totalBonusEarned: BigInt(0),
+        lastUpdatedEpoch: 0
+      };
+      this.validatorIncentiveStates.set(validatorId, state);
+    }
+    return state;
+  }
+
+  /**
+   * Update validator performance state at epoch end
+   */
+  updateValidatorPerformance(validatorId: string, epochNumber: number, performanceScore: number): void {
+    const state = this.getOrCreateIncentiveState(validatorId);
+    const previousTier = state.currentTier;
+    
+    // Update performance history (keep last N epochs)
+    state.performanceHistory.push(performanceScore);
+    if (state.performanceHistory.length > PERFORMANCE_HISTORY_DEPTH) {
+      state.performanceHistory.shift();
+    }
+    
+    // Calculate new tier
+    const tierConfig = this.getPerformanceTier(performanceScore);
+    state.currentTier = tierConfig.tier;
+    state.performanceScore = performanceScore;
+    
+    // Update consistency score
+    state.consistencyScore = this.calculateConsistencyScore(state.performanceHistory);
+    
+    // Track tier changes
+    if (tierConfig.tier !== previousTier) {
+      const tierOrder = ['bronze', 'silver', 'gold', 'platinum', 'diamond'];
+      if (tierOrder.indexOf(tierConfig.tier) > tierOrder.indexOf(previousTier)) {
+        state.tierUpgradeEpoch = epochNumber;
+        console.log(`[RewardEngine] Validator ${validatorId} upgraded to ${tierConfig.tier.toUpperCase()}`);
+      } else {
+        state.tierDowngradeEpoch = epochNumber;
+        console.log(`[RewardEngine] Validator ${validatorId} downgraded to ${tierConfig.tier.toUpperCase()}`);
+      }
+    }
+    
+    // Update streak counter (high performance = score >= 75)
+    if (performanceScore >= 75) {
+      state.consecutiveHighPerformanceEpochs++;
+    } else {
+      state.consecutiveHighPerformanceEpochs = 0;
+    }
+    
+    // Calculate streak bonus multiplier
+    const streakBonus = Math.min(
+      tierConfig.maxStreakBonus,
+      tierConfig.streakMultiplier * state.consecutiveHighPerformanceEpochs
+    );
+    state.streakBonusMultiplier = 1 + streakBonus;
+    
+    state.lastUpdatedEpoch = epochNumber;
+    
+    // Update tier distribution metrics
+    this.updateTierDistribution();
+  }
+
+  /**
+   * Calculate total performance bonus for a validator
+   * Combines tier bonus, streak bonus, and consistency bonus
+   */
+  calculatePerformanceBonus(validatorId: string, baseReward: bigint): {
+    bonus: bigint;
+    tierMultiplier: number;
+    streakMultiplier: number;
+    consistencyBonus: bigint;
+    totalMultiplier: number;
+    tier: PerformanceTier;
+  } {
+    const state = this.getOrCreateIncentiveState(validatorId);
+    const tierConfig = this.getPerformanceTier(state.performanceScore);
+    
+    // Calculate tier multiplier (base bonus for tier)
+    const tierMultiplier = tierConfig.bonusMultiplier;
+    
+    // Calculate streak multiplier
+    const streakMultiplier = state.streakBonusMultiplier;
+    
+    // Calculate consistency bonus (applied if consistency score >= 70)
+    let consistencyBonusRate = 0;
+    if (state.consistencyScore >= 70) {
+      consistencyBonusRate = tierConfig.consistencyBonus * (state.consistencyScore / 100);
+    }
+    
+    // Total multiplier combining all bonuses
+    const totalMultiplier = tierMultiplier * streakMultiplier * (1 + consistencyBonusRate);
+    
+    // Calculate bonus amounts
+    const bonusFromTier = baseReward * BigInt(Math.floor((tierMultiplier - 1) * 10000)) / BigInt(10000);
+    const bonusFromStreak = baseReward * BigInt(Math.floor((streakMultiplier - 1) * 10000)) / BigInt(10000);
+    const consistencyBonus = baseReward * BigInt(Math.floor(consistencyBonusRate * 10000)) / BigInt(10000);
+    
+    const totalBonus = bonusFromTier + bonusFromStreak + consistencyBonus;
+    
+    // Track total bonuses earned
+    state.totalBonusEarned += totalBonus;
+    this.totalBonusesDistributed += totalBonus;
+    
+    return {
+      bonus: totalBonus,
+      tierMultiplier,
+      streakMultiplier,
+      consistencyBonus,
+      totalMultiplier,
+      tier: state.currentTier
+    };
+  }
+
+  /**
+   * Update tier distribution metrics
+   */
+  private updateTierDistribution(): void {
+    this.tierDistribution = new Map([
+      ['bronze', 0], ['silver', 0], ['gold', 0], ['platinum', 0], ['diamond', 0]
+    ]);
+    
+    for (const state of Array.from(this.validatorIncentiveStates.values())) {
+      const count = this.tierDistribution.get(state.currentTier) || 0;
+      this.tierDistribution.set(state.currentTier, count + 1);
+    }
+  }
+
+  /**
+   * Get validator incentive dashboard data
+   */
+  getIncentiveDashboard(): {
+    totalValidators: number;
+    tierDistribution: Record<PerformanceTier, number>;
+    topPerformers: Array<{
+      validatorId: string;
+      tier: PerformanceTier;
+      score: number;
+      streak: number;
+      totalBonus: string;
+    }>;
+    avgPerformanceScore: number;
+    totalBonusesDistributed: string;
+    autoDistributionEnabled: boolean;
+    scheduledDistributions: number;
+  } {
+    const states = Array.from(this.validatorIncentiveStates.values());
+    
+    const topPerformers = states
+      .sort((a, b) => b.performanceScore - a.performanceScore)
+      .slice(0, 10)
+      .map(s => ({
+        validatorId: s.validatorId,
+        tier: s.currentTier,
+        score: s.performanceScore,
+        streak: s.consecutiveHighPerformanceEpochs,
+        totalBonus: this.formatTBURN(s.totalBonusEarned)
+      }));
+    
+    const avgScore = states.length > 0
+      ? states.reduce((sum, s) => sum + s.performanceScore, 0) / states.length
+      : 0;
+    
+    return {
+      totalValidators: states.length,
+      tierDistribution: Object.fromEntries(this.tierDistribution) as Record<PerformanceTier, number>,
+      topPerformers,
+      avgPerformanceScore: Math.round(avgScore * 100) / 100,
+      totalBonusesDistributed: this.formatTBURN(this.totalBonusesDistributed),
+      autoDistributionEnabled: this.autoDistributionConfig.enabled,
+      scheduledDistributions: this.distributionSchedules.size
+    };
+  }
+
+  /**
+   * Get detailed incentive state for a specific validator
+   */
+  getValidatorIncentiveState(validatorId: string): ValidatorIncentiveState | null {
+    return this.validatorIncentiveStates.get(validatorId) || null;
+  }
+
+  // ============================================
+  // AUTO-DISTRIBUTION SCHEDULER
+  // Production-grade automatic reward distribution
+  // ============================================
+
+  /**
+   * Configure automatic distribution settings
+   */
+  configureAutoDistribution(config: Partial<AutoDistributionConfig>): void {
+    this.autoDistributionConfig = { ...this.autoDistributionConfig, ...config };
+    console.log('[RewardEngine] Auto-distribution configured:', this.autoDistributionConfig);
+    
+    // Restart timer if enabled
+    if (this.autoDistributionConfig.enabled) {
+      this.startAutoDistribution();
+    } else {
+      this.stopAutoDistribution();
+    }
+  }
+
+  /**
+   * Start automatic distribution scheduler
+   */
+  startAutoDistribution(): void {
+    if (this.autoDistributionTimer) {
+      clearInterval(this.autoDistributionTimer);
+    }
+    
+    if (!this.autoDistributionConfig.enabled) {
+      console.log('[RewardEngine] Auto-distribution is disabled');
+      return;
+    }
+    
+    this.autoDistributionTimer = setInterval(async () => {
+      await this.executeScheduledDistribution();
+    }, this.autoDistributionConfig.intervalMs);
+    
+    console.log(`[RewardEngine] Auto-distribution started (interval: ${this.autoDistributionConfig.intervalMs}ms)`);
+  }
+
+  /**
+   * Stop automatic distribution scheduler
+   */
+  stopAutoDistribution(): void {
+    if (this.autoDistributionTimer) {
+      clearInterval(this.autoDistributionTimer);
+      this.autoDistributionTimer = null;
+      console.log('[RewardEngine] Auto-distribution stopped');
+    }
+  }
+
+  /**
+   * Execute scheduled distribution with retry logic
+   */
+  private async executeScheduledDistribution(): Promise<void> {
+    if (this.isProcessing) {
+      console.log('[RewardEngine] Distribution already in progress, skipping');
+      return;
+    }
+    
+    const pendingCount = this.pendingQueue.size();
+    if (pendingCount < this.autoDistributionConfig.minBatchSize) {
+      return; // Not enough rewards to process
+    }
+    
+    const scheduleId = `schedule-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
+    const schedule: DistributionSchedule = {
+      scheduleId,
+      epochNumber: this.currentEpoch,
+      scheduledAt: Date.now(),
+      status: 'scheduled',
+      totalRewards: pendingCount,
+      totalAmount: BigInt(0),
+      batches: 0,
+      errors: []
+    };
+    
+    this.distributionSchedules.set(scheduleId, schedule);
+    
+    let retryCount = 0;
+    while (retryCount < this.autoDistributionConfig.retryAttempts) {
+      try {
+        schedule.status = 'executing';
+        
+        // Process batches
+        let batchCount = 0;
+        const initialDistributed = this.totalDistributed;
+        let previousQueueSize = this.pendingQueue.size();
+        
+        while (this.pendingQueue.size() > 0 && batchCount < 10) {
+          const beforeProcess = this.pendingQueue.size();
+          await this.processPendingBatch();
+          
+          // Check if anything was processed
+          if (this.pendingQueue.size() === beforeProcess) break; // No progress made
+          
+          batchCount++;
+          previousQueueSize = this.pendingQueue.size();
+          
+          // Brief yield to prevent blocking
+          await new Promise(resolve => setTimeout(resolve, 10));
+        }
+        
+        const totalAmount = this.totalDistributed - initialDistributed;
+        
+        schedule.batches = batchCount;
+        schedule.totalAmount = totalAmount;
+        schedule.status = 'completed';
+        schedule.executedAt = Date.now();
+        
+        console.log(`[RewardEngine] Auto-distribution completed: ${batchCount} batches, ${this.formatTBURN(totalAmount)} TBURN`);
+        break;
+        
+      } catch (error) {
+        retryCount++;
+        const errorMsg = error instanceof Error ? error.message : String(error);
+        schedule.errors.push(`Attempt ${retryCount}: ${errorMsg}`);
+        
+        if (retryCount >= this.autoDistributionConfig.retryAttempts) {
+          schedule.status = 'failed';
+          console.error(`[RewardEngine] Auto-distribution failed after ${retryCount} attempts`);
+        } else {
+          await new Promise(resolve => setTimeout(resolve, this.autoDistributionConfig.retryDelayMs));
+        }
+      }
+    }
+  }
+
+  /**
+   * Get auto-distribution status
+   */
+  getAutoDistributionStatus(): {
+    enabled: boolean;
+    config: AutoDistributionConfig;
+    recentSchedules: DistributionSchedule[];
+    nextDistribution: number | null;
+  } {
+    const recentSchedules = Array.from(this.distributionSchedules.values())
+      .sort((a, b) => b.scheduledAt - a.scheduledAt)
+      .slice(0, 10);
+    
+    return {
+      enabled: this.autoDistributionConfig.enabled,
+      config: { ...this.autoDistributionConfig },
+      recentSchedules,
+      nextDistribution: this.autoDistributionTimer 
+        ? Date.now() + this.autoDistributionConfig.intervalMs 
+        : null
+    };
   }
 
   // ============================================
