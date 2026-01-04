@@ -52,6 +52,7 @@ import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useToast } from '@/hooks/use-toast';
+import { TOKENOMICS_SUMMARY } from '@/lib/tokenomics-engine';
 
 const VC_DEMO_WALLET = {
   address: '0xVC7979...Demo8888',
@@ -63,14 +64,14 @@ const VC_DEMO_WALLET = {
   }
 };
 
-// Static metrics (will be overridden by real-time data where applicable)
+// Static metrics derived from tokenomics-engine.ts (will be overridden by real-time data where applicable)
 const STATIC_METRICS = {
-  totalSupply: '10,000,000,000 TBURN',
-  circulatingSupply: '6,940,000,000 TBURN',
-  totalBurned: '3,060,000,000 TBURN',
-  burnRate: '70%',
+  totalSupply: `${(TOKENOMICS_SUMMARY.genesisSupply * 100_000_000).toLocaleString()} TBURN`,
+  circulatingSupply: `${(TOKENOMICS_SUMMARY.finalSupply * 100_000_000).toLocaleString()} TBURN`,
+  totalBurned: `${(TOKENOMICS_SUMMARY.totalDeflation * 100_000_000).toLocaleString()} TBURN`,
+  burnRate: `${Math.abs(TOKENOMICS_SUMMARY.deflationPercent).toFixed(1)}%`,
   blockTime: '0.5s',
-  marketCap: '$2.1B',
+  marketCap: `$${(TOKENOMICS_SUMMARY.finalSupply * 0.5 / 10).toFixed(1)}B`,
   tvl: '$890M',
   dailyVolume: '$125M',
   activeWallets: '1.2M+'
