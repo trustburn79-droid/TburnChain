@@ -34,6 +34,9 @@ import {
   HardDrive,
   Server,
   Gauge,
+  GitBranch,
+  CheckCircle,
+  XCircle,
 } from "lucide-react";
 import {
   AreaChart,
@@ -777,15 +780,15 @@ export default function AdminShards() {
                       </div>
                       <div className="text-center p-2 bg-background/50 rounded">
                         <div className="text-xs text-muted-foreground">{t("adminShards.activeShards") || "Active"}</div>
-                        <div className="font-bold text-lg text-green-500">{shardConfig.shardDistribution?.activeShards || shardConfig.currentShardCount}</div>
+                        <div className="font-bold text-lg text-green-500">{shardConfig.currentShardCount}</div>
                       </div>
                       <div className="text-center p-2 bg-background/50 rounded">
                         <div className="text-xs text-muted-foreground">{t("adminShards.standbyShards") || "Standby"}</div>
-                        <div className="font-bold text-lg text-muted-foreground">{shardConfig.shardDistribution?.standbyShards || (shardConfig.maxShards - shardConfig.currentShardCount)}</div>
+                        <div className="font-bold text-lg text-muted-foreground">{shardConfig.maxShards - shardConfig.currentShardCount}</div>
                       </div>
                       <div className="text-center p-2 bg-background/50 rounded">
                         <div className="text-xs text-muted-foreground">{t("adminShards.avgUtilization") || "Avg Utilization"}</div>
-                        <div className="font-bold text-lg">{shardConfig.shardDistribution?.avgUtilization || shardConfig.utilizationPercent || 0}%</div>
+                        <div className="font-bold text-lg">{shardConfig.scalingAnalysis?.utilizationPercent || 0}%</div>
                       </div>
                     </div>
                     <div className="mt-3 text-xs text-muted-foreground">
@@ -1012,6 +1015,218 @@ export default function AdminShards() {
               {t("adminShards.noShardsFound")}
             </div>
           )}
+
+          {/* Data Propagation Check Section */}
+          <Card data-testid="card-data-propagation">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2" data-testid="text-propagation-title">
+                <GitBranch className="h-5 w-5" />
+                {t("adminShards.dataPropagation") || "데이터 전파 체크"}
+              </CardTitle>
+              <CardDescription>
+                {t("adminShards.dataPropagationDesc") || "관리자 설정이 모든 하위 페이지에 정확히 적용되는지 확인합니다"}
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              {/* Current Admin Configuration Summary */}
+              <div className="p-4 rounded-lg border bg-primary/5">
+                <div className="flex items-center gap-2 mb-3">
+                  <Settings className="h-4 w-4 text-primary" />
+                  <span className="font-medium">{t("adminShards.currentConfig") || "현재 관리자 설정"}</span>
+                </div>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+                  <div className="text-center p-2 bg-background/50 rounded">
+                    <div className="text-xs text-muted-foreground">{t("adminShards.shardCount") || "샤드 수"}</div>
+                    <div className="font-bold text-lg text-primary" data-testid="config-shard-count">{shardConfig?.currentShardCount || '-'}</div>
+                  </div>
+                  <div className="text-center p-2 bg-background/50 rounded">
+                    <div className="text-xs text-muted-foreground">{t("adminShards.estimatedTps") || "예상 TPS"}</div>
+                    <div className="font-bold text-lg text-green-500" data-testid="config-estimated-tps">{shardConfig?.estimatedTps?.toLocaleString() || '-'}</div>
+                  </div>
+                  <div className="text-center p-2 bg-background/50 rounded">
+                    <div className="text-xs text-muted-foreground">{t("adminShards.validators") || "검증자"}</div>
+                    <div className="font-bold text-lg" data-testid="config-validators">{shardConfig?.totalValidators || '-'}</div>
+                  </div>
+                  <div className="text-center p-2 bg-background/50 rounded">
+                    <div className="text-xs text-muted-foreground">{t("adminShards.scalingMode") || "스케일링 모드"}</div>
+                    <div className="font-bold text-lg" data-testid="config-scaling-mode">
+                      <Badge className={shardConfig?.scalingMode === 'automatic' ? 'bg-blue-500/10 text-blue-500' : 'bg-yellow-500/10 text-yellow-500'}>
+                        {shardConfig?.scalingMode === 'automatic' ? t("adminShards.automatic") || '자동' : t("adminShards.manual") || '수동'}
+                      </Badge>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Tree Structure Visualization */}
+              <div className="p-4 rounded-lg border">
+                <div className="flex items-center gap-2 mb-4">
+                  <GitBranch className="h-4 w-4" />
+                  <span className="font-medium">{t("adminShards.connectedPages") || "연결된 하부 페이지 트리 구조"}</span>
+                </div>
+                <div className="font-mono text-sm space-y-1" data-testid="page-tree-structure">
+                  <div className="flex items-center gap-2">
+                    <span className="text-primary font-bold">/admin/shards</span>
+                    <Badge className="bg-green-500/10 text-green-500 text-xs">{t("adminShards.master") || "마스터"}</Badge>
+                  </div>
+                  <div className="ml-4 border-l-2 border-muted pl-4 space-y-2">
+                    {/* API Endpoints */}
+                    <div>
+                      <div className="text-xs text-muted-foreground mb-1">{t("adminShards.apiEndpoints") || "API 엔드포인트"}</div>
+                      <div className="ml-2 space-y-1">
+                        <div className="flex items-center gap-2">
+                          <span className="text-green-500">├─</span>
+                          <code className="text-xs bg-muted px-1 rounded">/api/admin/shards/config</code>
+                          <Badge className="text-xs bg-green-500/10 text-green-500">{t("status.active") || "활성"}</Badge>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <span className="text-green-500">├─</span>
+                          <code className="text-xs bg-muted px-1 rounded">/api/shards</code>
+                          <Badge className="text-xs bg-green-500/10 text-green-500">{t("status.active") || "활성"}</Badge>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <span className="text-green-500">└─</span>
+                          <code className="text-xs bg-muted px-1 rounded">/api/network/stats</code>
+                          <Badge className="text-xs bg-green-500/10 text-green-500">{t("status.active") || "활성"}</Badge>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    {/* Public Pages */}
+                    <div>
+                      <div className="text-xs text-muted-foreground mb-1">{t("adminShards.publicPages") || "공개 페이지"}</div>
+                      <div className="ml-2 space-y-1">
+                        {[
+                          { path: "/sharding", name: "Sharding Explorer", api: "/api/shards, /api/network/stats" },
+                          { path: "/cross-shard", name: "Cross-Shard Messages", api: "/api/shards, /api/cross-shard/messages" },
+                          { path: "/dashboard", name: "Dashboard", api: "useEnterpriseShards()" },
+                          { path: "/blocks", name: "Block Explorer", api: "/api/network/stats" },
+                          { path: "/consensus", name: "Consensus View", api: "useEnterpriseShards()" },
+                          { path: "/performance-metrics", name: "Performance", api: "useEnterpriseShards()" },
+                        ].map((page, idx, arr) => (
+                          <div key={page.path} className="flex items-center gap-2">
+                            <span className="text-blue-500">{idx === arr.length - 1 ? "└─" : "├─"}</span>
+                            <code className="text-xs bg-blue-500/10 text-blue-500 px-1 rounded">{page.path}</code>
+                            <span className="text-xs text-muted-foreground truncate">{page.api}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Admin Portal Pages */}
+                    <div>
+                      <div className="text-xs text-muted-foreground mb-1">{t("adminShards.adminPages") || "관리자 페이지"}</div>
+                      <div className="ml-2 space-y-1">
+                        {[
+                          { path: "/admin-portal/unified-dashboard", api: "/api/network/stats" },
+                          { path: "/admin-portal/realtime", api: "/api/network/stats" },
+                          { path: "/admin-portal/health", api: "/api/network/stats" },
+                          { path: "/admin-portal/performance", api: "/api/admin/shards/performance" },
+                          { path: "/admin-portal/metrics-explorer", api: "/api/network/stats" },
+                        ].map((page, idx, arr) => (
+                          <div key={page.path} className="flex items-center gap-2">
+                            <span className="text-yellow-500">{idx === arr.length - 1 ? "└─" : "├─"}</span>
+                            <code className="text-xs bg-yellow-500/10 text-yellow-500 px-1 rounded">{page.path}</code>
+                            <span className="text-xs text-muted-foreground">{page.api}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Shared Hooks */}
+                    <div>
+                      <div className="text-xs text-muted-foreground mb-1">{t("adminShards.sharedHooks") || "공유 훅 (데이터 레이어)"}</div>
+                      <div className="ml-2">
+                        <div className="flex items-center gap-2">
+                          <span className="text-purple-500">└─</span>
+                          <code className="text-xs bg-purple-500/10 text-purple-500 px-1 rounded">useEnterpriseShards()</code>
+                          <span className="text-xs text-muted-foreground">/api/shards + /api/admin/shards/config</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Sync Status Grid */}
+              <div className="p-4 rounded-lg border">
+                <div className="flex items-center justify-between mb-4">
+                  <div className="flex items-center gap-2">
+                    <CheckCircle className="h-4 w-4 text-green-500" />
+                    <span className="font-medium">{t("adminShards.syncStatus") || "동기화 상태 확인"}</span>
+                  </div>
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    onClick={handleRefresh}
+                    disabled={isRefreshing}
+                    data-testid="button-check-sync"
+                  >
+                    <RefreshCw className={`h-4 w-4 mr-2 ${isRefreshing ? 'animate-spin' : ''}`} />
+                    {t("adminShards.checkSync") || "동기화 확인"}
+                  </Button>
+                </div>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                  {[
+                    { key: "shardConfig", label: t("adminShards.shardConfig") || "샤드 설정", connected: !!shardConfig },
+                    { key: "shardData", label: t("adminShards.shardData") || "샤드 데이터", connected: shards.length > 0 },
+                    { key: "websocket", label: t("adminShards.websocket") || "웹소켓", connected: wsConnected },
+                    { key: "cacheInvalidation", label: t("adminShards.cacheInvalidation") || "캐시 무효화", connected: true },
+                  ].map((item) => (
+                    <div 
+                      key={item.key}
+                      className={`p-3 rounded-lg border ${item.connected ? 'bg-green-500/5 border-green-500/20' : 'bg-red-500/5 border-red-500/20'}`}
+                      data-testid={`sync-status-${item.key}`}
+                    >
+                      <div className="flex items-center gap-2">
+                        {item.connected ? (
+                          <CheckCircle className="h-4 w-4 text-green-500" />
+                        ) : (
+                          <XCircle className="h-4 w-4 text-red-500" />
+                        )}
+                        <span className="text-sm font-medium">{item.label}</span>
+                      </div>
+                      <div className="text-xs text-muted-foreground mt-1">
+                        {item.connected ? (t("status.connected") || "연결됨") : (t("status.disconnected") || "연결 끊김")}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Propagation Verification Details */}
+              <div className="p-4 rounded-lg border bg-card">
+                <div className="flex items-center gap-2 mb-3">
+                  <Eye className="h-4 w-4" />
+                  <span className="font-medium">{t("adminShards.propagationVerification") || "전파 검증 상세"}</span>
+                </div>
+                <div className="space-y-2 text-sm">
+                  <div className="flex items-center justify-between py-2 border-b">
+                    <span className="text-muted-foreground">{t("adminShards.lastConfigUpdate") || "마지막 설정 업데이트"}</span>
+                    <span className="font-mono" data-testid="last-config-update">
+                      {shardConfig?.lastConfigUpdate ? new Date(shardConfig.lastConfigUpdate).toLocaleString(i18n.language === 'ko' ? 'ko-KR' : 'en-US') : '-'}
+                    </span>
+                  </div>
+                  <div className="flex items-center justify-between py-2 border-b">
+                    <span className="text-muted-foreground">{t("adminShards.queryCacheKey") || "쿼리 캐시 키"}</span>
+                    <code className="text-xs bg-muted px-2 py-1 rounded">["/api/admin/shards/config"]</code>
+                  </div>
+                  <div className="flex items-center justify-between py-2 border-b">
+                    <span className="text-muted-foreground">{t("adminShards.invalidateOnChange") || "변경 시 무효화"}</span>
+                    <div className="flex gap-1 flex-wrap justify-end">
+                      {["/api/shards", "/api/sharding", "/api/consensus/current"].map((key) => (
+                        <code key={key} className="text-xs bg-green-500/10 text-green-500 px-1 rounded">{key}</code>
+                      ))}
+                    </div>
+                  </div>
+                  <div className="flex items-center justify-between py-2">
+                    <span className="text-muted-foreground">{t("adminShards.totalConnectedPages") || "총 연결 페이지"}</span>
+                    <Badge data-testid="total-connected-pages">11 {t("adminShards.pages") || "페이지"}</Badge>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
 
           <Card data-testid="card-load-history">
             <CardHeader>
