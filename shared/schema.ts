@@ -8908,3 +8908,259 @@ export type InsertDaoMakerSho = z.infer<typeof insertDaoMakerShoSchema>;
 
 export type DaoMakerParticipant = typeof daoMakerParticipants.$inferSelect;
 export type InsertDaoMakerParticipant = z.infer<typeof insertDaoMakerParticipantSchema>;
+
+// ============================================
+// ENTERPRISE REWARD DISTRIBUTION ENGINE TABLES
+// Chain ID: 6000 | 125 Genesis Validators | 210K TPS Target
+// ============================================
+
+// Reward Epochs - Epoch state management and lifecycle tracking
+export const rewardEpochs = pgTable("reward_epochs", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  epochNumber: bigint("epoch_number", { mode: "number" }).notNull().unique(),
+  
+  // Block Range
+  startBlock: bigint("start_block", { mode: "number" }).notNull(),
+  endBlock: bigint("end_block", { mode: "number" }).notNull(),
+  blocksPerEpoch: integer("blocks_per_epoch").notNull().default(1000),
+  targetBlockTime: integer("target_block_time").notNull().default(100), // milliseconds
+  
+  // Epoch Status
+  status: text("status").notNull().default("active"), // active, finalizing, finalized, archived
+  
+  // Reward Configuration (basis points, 10000 = 100%)
+  proposerShare: integer("proposer_share").notNull().default(4000), // 40%
+  verifierShare: integer("verifier_share").notNull().default(5000), // 50%
+  burnShare: integer("burn_share").notNull().default(1000), // 10%
+  
+  // Gas Fee Configuration
+  gasProposerShare: integer("gas_proposer_share").notNull().default(5000), // 50%
+  gasVerifierShare: integer("gas_verifier_share").notNull().default(3000), // 30%
+  gasBurnShare: integer("gas_burn_share").notNull().default(2000), // 20%
+  
+  // Base Reward
+  baseBlockReward: text("base_block_reward").notNull().default("2000000000000000000"), // 2 TBURN
+  
+  // Timing
+  startTimestamp: bigint("start_timestamp", { mode: "number" }).notNull(),
+  endTimestamp: bigint("end_timestamp", { mode: "number" }),
+  finalizedAt: timestamp("finalized_at"),
+  
+  // Validator Count
+  validatorCount: integer("validator_count").notNull().default(0),
+  
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
+// Reward Epoch Metrics - Aggregated statistics per epoch
+export const rewardEpochMetrics = pgTable("reward_epoch_metrics", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  epochNumber: bigint("epoch_number", { mode: "number" }).notNull().unique(),
+  
+  // Block Statistics
+  totalBlocks: integer("total_blocks").notNull().default(0),
+  missedBlocks: integer("missed_blocks").notNull().default(0),
+  blockProductionRate: integer("block_production_rate").notNull().default(10000), // basis points
+  
+  // Reward Totals
+  totalProposerRewards: text("total_proposer_rewards").notNull().default("0"),
+  totalVerifierRewards: text("total_verifier_rewards").notNull().default("0"),
+  totalDistributed: text("total_distributed").notNull().default("0"),
+  totalBurned: text("total_burned").notNull().default("0"),
+  
+  // Gas Statistics
+  totalGasUsed: text("total_gas_used").notNull().default("0"),
+  totalGasFees: text("total_gas_fees").notNull().default("0"),
+  avgGasPrice: text("avg_gas_price").notNull().default("0"),
+  
+  // Performance Metrics
+  avgBlockTime: integer("avg_block_time").notNull().default(100), // ms
+  maxBlockTime: integer("max_block_time").notNull().default(0),
+  minBlockTime: integer("min_block_time").notNull().default(0),
+  
+  // Staking Metrics
+  effectiveApy: integer("effective_apy").notNull().default(1250), // basis points (12.50%)
+  totalStaked: text("total_staked").notNull().default("0"),
+  
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
+// Validator Reward Events - Individual reward records with shard support
+export const validatorRewardEvents = pgTable("validator_reward_events", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  
+  // Identifiers
+  rewardId: text("reward_id").notNull().unique(), // Generated ID for deduplication
+  epochNumber: bigint("epoch_number", { mode: "number" }).notNull(),
+  blockNumber: bigint("block_number", { mode: "number" }).notNull(),
+  shardId: integer("shard_id").notNull().default(0),
+  
+  // Validator Info
+  validatorId: text("validator_id").notNull(),
+  validatorAddress: text("validator_address").notNull(),
+  
+  // Reward Details
+  rewardType: text("reward_type").notNull(), // proposer, verifier, staking, delegation
+  baseReward: text("base_reward").notNull().default("0"),
+  gasReward: text("gas_reward").notNull().default("0"),
+  performanceBonus: text("performance_bonus").notNull().default("0"),
+  totalReward: text("total_reward").notNull().default("0"),
+  
+  // Commission (for delegation rewards)
+  commissionRate: integer("commission_rate").notNull().default(0), // basis points
+  commissionAmount: text("commission_amount").notNull().default("0"),
+  delegatorReward: text("delegator_reward").notNull().default("0"),
+  
+  // Status
+  status: text("status").notNull().default("pending"), // pending, processing, distributed, failed
+  priority: text("priority").notNull().default("normal"), // low, normal, high, critical
+  
+  // Processing Info
+  batchId: text("batch_id"),
+  txHash: text("tx_hash"),
+  retryCount: integer("retry_count").notNull().default(0),
+  errorMessage: text("error_message"),
+  
+  // Timing
+  calculatedAt: bigint("calculated_at", { mode: "number" }).notNull(),
+  distributedAt: bigint("distributed_at", { mode: "number" }),
+  
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+// Reward Batches - Batch processing tracking for high-throughput
+export const rewardBatches = pgTable("reward_batches", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  batchId: text("batch_id").notNull().unique(),
+  epochNumber: bigint("epoch_number", { mode: "number" }).notNull(),
+  
+  // Batch Contents
+  rewardCount: integer("reward_count").notNull().default(0),
+  totalAmount: text("total_amount").notNull().default("0"),
+  
+  // Priority & Status
+  priority: text("priority").notNull().default("normal"), // low, normal, high, critical
+  status: text("status").notNull().default("pending"), // pending, processing, completed, failed
+  
+  // Processing Info
+  txHashes: text("tx_hashes").notNull().default("[]"), // JSON array of tx hashes
+  retryCount: integer("retry_count").notNull().default(0),
+  maxRetries: integer("max_retries").notNull().default(3),
+  errorMessage: text("error_message"),
+  
+  // Timing
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  processedAt: timestamp("processed_at"),
+  completedAt: timestamp("completed_at"),
+  
+  // SLA Tracking
+  targetProcessingTimeMs: integer("target_processing_time_ms").notNull().default(1000),
+  actualProcessingTimeMs: integer("actual_processing_time_ms"),
+});
+
+// Reward Gas Accumulators - EIP-1559 style gas fee tracking per block/epoch
+export const rewardGasAccumulators = pgTable("reward_gas_accumulators", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  epochNumber: bigint("epoch_number", { mode: "number" }).notNull(),
+  blockNumber: bigint("block_number", { mode: "number" }).notNull(),
+  
+  // Gas Usage
+  gasUsed: text("gas_used").notNull().default("0"),
+  gasLimit: text("gas_limit").notNull().default("0"),
+  transactionCount: integer("transaction_count").notNull().default(0),
+  
+  // EIP-1559 Fee Structure
+  baseFee: text("base_fee").notNull().default("1000000000"), // 1 Gwei default
+  priorityFees: text("priority_fees").notNull().default("0"),
+  totalFees: text("total_fees").notNull().default("0"),
+  
+  // EWMA Tracking
+  ewmaGasPrice: text("ewma_gas_price").notNull().default("0"),
+  
+  // Statistics
+  avgGasPrice: text("avg_gas_price").notNull().default("0"),
+  maxGasPrice: text("max_gas_price").notNull().default("0"),
+  minGasPrice: text("min_gas_price").notNull().default("999999999999999999"),
+  
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+// Reward WAL (Write-Ahead Log) - Crash recovery for reward operations
+export const rewardWal = pgTable("reward_wal", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  walId: text("wal_id").notNull().unique(),
+  sequence: bigint("sequence", { mode: "number" }).notNull(),
+  
+  // Operation Details
+  operation: text("operation").notNull(), // CALCULATE, DISTRIBUTE, EPOCH_FINALIZE, BATCH_PROCESS
+  operationData: jsonb("operation_data").notNull(), // Serialized operation parameters
+  
+  // Status
+  status: text("status").notNull().default("PENDING"), // PENDING, COMMITTED, ROLLED_BACK
+  
+  // Integrity
+  checksum: text("checksum").notNull(),
+  
+  // Timing
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  committedAt: timestamp("committed_at"),
+  
+  // Replay Info
+  replayAttempts: integer("replay_attempts").notNull().default(0),
+  lastReplayAt: timestamp("last_replay_at"),
+  replayError: text("replay_error"),
+});
+
+// Insert Schemas for Reward Distribution Tables
+export const insertRewardEpochSchema = createInsertSchema(rewardEpochs).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertRewardEpochMetricsSchema = createInsertSchema(rewardEpochMetrics).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertValidatorRewardEventSchema = createInsertSchema(validatorRewardEvents).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertRewardBatchSchema = createInsertSchema(rewardBatches).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertRewardGasAccumulatorSchema = createInsertSchema(rewardGasAccumulators).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertRewardWalSchema = createInsertSchema(rewardWal).omit({
+  id: true,
+  createdAt: true,
+});
+
+// Types for Reward Distribution Tables
+export type RewardEpoch = typeof rewardEpochs.$inferSelect;
+export type InsertRewardEpoch = z.infer<typeof insertRewardEpochSchema>;
+
+export type RewardEpochMetrics = typeof rewardEpochMetrics.$inferSelect;
+export type InsertRewardEpochMetrics = z.infer<typeof insertRewardEpochMetricsSchema>;
+
+export type ValidatorRewardEvent = typeof validatorRewardEvents.$inferSelect;
+export type InsertValidatorRewardEvent = z.infer<typeof insertValidatorRewardEventSchema>;
+
+export type RewardBatch = typeof rewardBatches.$inferSelect;
+export type InsertRewardBatch = z.infer<typeof insertRewardBatchSchema>;
+
+export type RewardGasAccumulator = typeof rewardGasAccumulators.$inferSelect;
+export type InsertRewardGasAccumulator = z.infer<typeof insertRewardGasAccumulatorSchema>;
+
+export type RewardWalEntry = typeof rewardWal.$inferSelect;
+export type InsertRewardWalEntry = z.infer<typeof insertRewardWalSchema>;
