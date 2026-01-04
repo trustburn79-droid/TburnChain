@@ -28,13 +28,14 @@ import {
 } from "lucide-react";
 
 interface TableStats {
-  tableName: string;
+  table: string;
   rowCount: number;
   sizeBytes: number;
-  lastVacuum: string | null;
-  lastAnalyze: string | null;
-  deadTuples: number;
-  modSinceAnalyze: number;
+  sizeMb?: string;
+  lastVacuum?: string | null;
+  lastAnalyze?: string | null;
+  deadTuples?: number;
+  modSinceAnalyze?: number;
 }
 
 interface OptimizerStatus {
@@ -83,7 +84,7 @@ export default function AdminDBOptimizer() {
     refetchInterval: 30000,
   });
 
-  const { data: tableStats, isLoading: loadingTables, refetch: refetchTables } = useQuery<{ success: boolean; data: TableStats[] }>({
+  const { data: tableStats, isLoading: loadingTables, refetch: refetchTables } = useQuery<{ success: boolean; data: { tables: TableStats[]; summary: { totalTables: number; totalRows: number; totalSizeBytes: number; } } }>({
     queryKey: ['/api/internal/db-optimizer/tables/stats'],
     refetchInterval: 60000,
   });
@@ -162,10 +163,11 @@ export default function AdminDBOptimizer() {
   };
 
   const status = statusData?.data;
-  const tables = tableStats?.data || [];
-  const totalSize = tables.reduce((sum, t) => sum + t.sizeBytes, 0);
-  const totalRows = tables.reduce((sum, t) => sum + t.rowCount, 0);
-  const tablesNeedingVacuum = tables.filter(t => t.deadTuples > 1000).length;
+  const tables = tableStats?.data?.tables || [];
+  const summary = tableStats?.data?.summary;
+  const totalSize = summary?.totalSizeBytes || tables.reduce((sum, t) => sum + t.sizeBytes, 0);
+  const totalRows = summary?.totalRows || tables.reduce((sum, t) => sum + t.rowCount, 0);
+  const tablesNeedingVacuum = tables.filter(t => (t.deadTuples || 0) > 1000).length;
 
   return (
     <div className="space-y-6 p-6">
@@ -402,20 +404,20 @@ export default function AdminDBOptimizer() {
                 </TableHeader>
                 <TableBody>
                   {tables.map((table, index) => (
-                    <TableRow key={table.tableName} data-testid={`row-table-${index}`}>
-                      <TableCell className="font-mono text-sm">{table.tableName}</TableCell>
+                    <TableRow key={table.table} data-testid={`row-table-${index}`}>
+                      <TableCell className="font-mono text-sm">{table.table}</TableCell>
                       <TableCell className="text-right">{formatNumber(table.rowCount)}</TableCell>
                       <TableCell className="text-right">{formatBytes(table.sizeBytes)}</TableCell>
                       <TableCell className="text-right">
-                        <span className={table.deadTuples > 1000 ? 'text-amber-500' : ''}>
-                          {formatNumber(table.deadTuples)}
+                        <span className={(table.deadTuples || 0) > 1000 ? 'text-amber-500' : ''}>
+                          {formatNumber(table.deadTuples || 0)}
                         </span>
                       </TableCell>
                       <TableCell className="text-xs text-muted-foreground">
                         {table.lastVacuum ? new Date(table.lastVacuum).toLocaleDateString('ko-KR') : '-'}
                       </TableCell>
                       <TableCell>
-                        {table.deadTuples > 1000 ? (
+                        {(table.deadTuples || 0) > 1000 ? (
                           <Badge className="bg-amber-500/10 text-amber-500">최적화 필요</Badge>
                         ) : (
                           <Badge className="bg-emerald-500/10 text-emerald-500">정상</Badge>
