@@ -1815,6 +1815,19 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     if (req.path.startsWith("/referral/")) {
       return next();
     }
+    // Skip auth for Block Production GET endpoints only (monitoring is read-only)
+    // POST operations (start/stop) require authentication via requireAuth
+    if (req.method === "GET" && req.path.startsWith("/block-production/")) {
+      return next();
+    }
+    // Skip auth for Consensus monitoring (read-only enterprise endpoints)
+    if (req.method === "GET" && req.path.startsWith("/consensus/")) {
+      return next();
+    }
+    // Skip auth for Enterprise Scalability monitoring (read-only)
+    if (req.method === "GET" && req.path.startsWith("/enterprise/scalability/")) {
+      return next();
+    }
     requireAuth(req, res, next);
   });
   // ============================================

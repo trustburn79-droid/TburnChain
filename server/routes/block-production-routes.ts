@@ -13,6 +13,78 @@ import {
 const router = Router();
 
 /**
+ * POST /api/block-production/start
+ * Start the block production engine (requires authentication via session)
+ * This endpoint requires the user to be authenticated - the requireAuth middleware
+ * handles this before the request reaches this handler
+ */
+router.post('/start', async (req: Request, res: Response) => {
+  try {
+    const engine = getEnterpriseBlockEngine();
+    
+    if (engine.isActive()) {
+      return res.json({
+        success: true,
+        message: 'Block production engine is already running',
+        data: { height: engine.getCurrentHeight() }
+      });
+    }
+    
+    // Initialize with starting height
+    const startHeight = parseInt(req.body?.startHeight as string) || 0;
+    await engine.initialize(startHeight);
+    engine.start();
+    
+    console.log(`[BlockProduction] Engine started by authenticated user at height ${startHeight}`);
+    
+    res.json({
+      success: true,
+      message: 'Block production engine started',
+      data: {
+        height: engine.getCurrentHeight(),
+        isActive: engine.isActive()
+      }
+    });
+  } catch (error: any) {
+    res.status(500).json({
+      success: false,
+      error: error.message
+    });
+  }
+});
+
+/**
+ * POST /api/block-production/stop
+ * Stop the block production engine (requires authentication via session)
+ */
+router.post('/stop', async (req: Request, res: Response) => {
+  try {
+    const engine = getEnterpriseBlockEngine();
+    
+    if (!engine.isActive()) {
+      return res.json({
+        success: true,
+        message: 'Block production engine is already stopped'
+      });
+    }
+    
+    engine.stop();
+    
+    console.log('[BlockProduction] Engine stopped by authenticated user');
+    
+    res.json({
+      success: true,
+      message: 'Block production engine stopped'
+    });
+  } catch (error: any) {
+    res.status(500).json({
+      success: false,
+      error: error.message
+    });
+  }
+});
+
+/**
  * GET /api/block-production/metrics
  * Get current block production metrics
  */

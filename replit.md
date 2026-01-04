@@ -33,6 +33,15 @@ Core architectural decisions and features include:
 - **TBurn Logo Branding System**: Unified SVG-based `TBurnLogo` component for consistent branding.
 - **Whitepaper Page**: Static HTML whitepaper served at `/whitepaper` route detailing TBURN Chain's architecture and tokenomics.
 - **Enterprise BFT Consensus Engine**: Production-level 5-phase Byzantine Fault Tolerant protocol (Propose → Prevote → Precommit → Commit → Finalize) with lock-based consensus safety, view change protocol, optimistic responsiveness, aggregated signatures, parallel vote processing, and O(n) message complexity. API endpoints at `/api/consensus/*` for real-time monitoring.
+- **Enterprise Block Production Engine** (`server/core/block-production/enterprise-block-engine.ts`): Production-grade 100ms block time with:
+  - **Precise 100ms Timing**: Drift compensation with max 20ms adjustment tolerance for consistent block cadence.
+  - **State Machine**: BlockState transitions PENDING → VERIFIED → FINALIZED (or REJECTED on timeout).
+  - **Circuit Breaker Pattern**: CLOSED → OPEN → HALF_OPEN states for fault tolerance (5 failure threshold, 10s reset).
+  - **Ring Buffer**: Fixed 1000 block capacity for memory-efficient block storage.
+  - **Parallel Verification Pipeline**: Batch processing of 10 blocks at a time with 2/3+1 quorum validation.
+  - **Latency Tracking**: P50/P95/P99 percentile calculations for performance monitoring.
+  - **Rejection Handling**: Automatic rejection of blocks exceeding 500ms verification timeout.
+  - **API Endpoints**: 6 monitoring endpoints at `/api/block-production/*` (metrics, health, stats, recent blocks, block by height, blocks by state).
 - **Block Finality System**: Complete block finality infrastructure with cross-validator verification and state transitions (pending → verified → finalized).
 - **Transaction Verification Pipeline**: ECDSA-style signature verification, Merkle root generation, and block integrity verification.
 - **Reward Distribution Engine**: Automatic validator reward distribution based on proposer rewards, verifier rewards, and gas fee distribution with epoch-based cycles.

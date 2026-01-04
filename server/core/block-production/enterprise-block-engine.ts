@@ -506,14 +506,18 @@ export class EnterpriseBlockEngine extends EventEmitter {
 
   /**
    * Process finalization for verified blocks
+   * Also handles rejection of stale pending blocks
    */
   private processFinalization(): void {
+    const now = Date.now();
+    
+    // Process verified blocks for finalization
     const verifiedBlocks = this.blockBuffer.getByState(BlockState.VERIFIED);
     
     for (const block of verifiedBlocks) {
-      // Check finalization depth
+      // Check finalization depth - block must have at least finalizationDepth blocks after it
       if (this.currentHeight - block.height >= this.config.finalizationDepth) {
-        const finalizedAt = Date.now();
+        const finalizedAt = now;
         const totalLatencyMs = finalizedAt - block.createdAt;
 
         this.blockBuffer.update(block.height, {
@@ -532,6 +536,33 @@ export class EnterpriseBlockEngine extends EventEmitter {
           latencyMs: totalLatencyMs
         };
         this.emit('blockFinalized', event);
+      }
+    }
+    
+    // Handle stale pending blocks (reject if verification timeout exceeded)
+    const pendingBlocks = this.blockBuffer.getByState(BlockState.PENDING);
+    for (const block of pendingBlocks) {
+      const age = now - block.createdAt;
+      
+      // Reject blocks that exceed verification timeout
+      if (age > this.config.verificationTimeoutMs) {
+        this.blockBuffer.update(block.height, {
+          state: BlockState.REJECTED
+        });
+
+        this.blocksRejected++;
+
+        const event: StateTransitionEvent = {
+          blockHeight: block.height,
+          blockHash: block.hash,
+          fromState: BlockState.PENDING,
+          toState: BlockState.REJECTED,
+          timestamp: now,
+          latencyMs: age
+        };
+        this.emit('blockRejected', event);
+        
+        console.warn(`[BlockEngine] Block ${block.height} rejected - verification timeout (${age}ms)`);
       }
     }
   }
