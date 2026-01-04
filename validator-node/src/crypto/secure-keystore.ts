@@ -415,4 +415,23 @@ export class SecureKeystore {
   isLocked(): boolean {
     return !this.isUnlocked;
   }
+
+  async exportPrivateKey(keyId: string): Promise<string> {
+    this.ensureUnlocked();
+    const privateKeyBuffer = await this.getPrivateKey(keyId);
+    return privateKeyBuffer.toString('hex');
+  }
+
+  async getKeyByAddress(address: string): Promise<{ keyId: string; privateKey: string } | null> {
+    this.ensureUnlocked();
+    const keys = this.listKeys();
+    const key = keys.find(k => k.address === address);
+    
+    if (!key) {
+      return null;
+    }
+
+    const privateKey = await this.exportPrivateKey(key.keyId);
+    return { keyId: key.keyId, privateKey };
+  }
 }

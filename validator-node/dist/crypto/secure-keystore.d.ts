@@ -84,5 +84,10 @@ export declare class SecureKeystore {
     getKeyMetadata(keyId: string): KeyMetadata | undefined;
     listKeys(): KeyMetadata[];
     isLocked(): boolean;
+    exportPrivateKey(keyId: string): Promise<string>;
+    getKeyByAddress(address: string): Promise<{
+        keyId: string;
+        privateKey: string;
+    } | null>;
 }
 //# sourceMappingURL=secure-keystore.d.ts.map

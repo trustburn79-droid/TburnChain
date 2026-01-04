@@ -199,12 +199,22 @@ program
             console.error('❌ Password must be at least 8 characters. Please run setup again.');
             process.exit(1);
         }
-        // Create configuration
+        // Initialize secure keystore and import key
+        const keystorePath = path.resolve('keystore.enc');
+        const keystore = new secure_keystore_1.SecureKeystore({
+            path: keystorePath,
+            autoLockTimeoutMs: 30 * 60 * 1000,
+            maxDecryptionAttempts: 5,
+        });
+        await keystore.initialize(password);
+        const importedKey = await keystore.importKey(keyPair.privateKey);
+        keystore.lock();
+        // Create configuration with keyId reference (private key stored in keystore)
         const config = {
             ...default_1.DEFAULT_CONFIG,
             validator: {
                 address: keyPair.address,
-                privateKey: '', // Will be stored encrypted
+                privateKey: `keystore:${importedKey.keyId}`, // Reference to keystore
                 publicKey: keyPair.publicKey,
                 stake: (BigInt(stake) * BigInt(10 ** 18)).toString(),
                 commission: commission / 100,
@@ -219,16 +229,6 @@ program
                 timezone: 'Asia/Seoul',
             },
         };
-        // Initialize secure keystore
-        const keystorePath = path.resolve('keystore.enc');
-        const keystore = new secure_keystore_1.SecureKeystore({
-            path: keystorePath,
-            autoLockTimeoutMs: 30 * 60 * 1000,
-            maxDecryptionAttempts: 5,
-        });
-        await keystore.initialize(password);
-        await keystore.importKey(keyPair.privateKey);
-        keystore.lock();
         // Save configuration (without private key - it's in the keystore)
         const configPath = path.resolve('validator.json');
         fs.writeFileSync(configPath, JSON.stringify(config, null, 2));
@@ -360,9 +360,10 @@ program
         console.error(`❌ Failed to parse configuration file: ${error.message}`);
         process.exit(1);
     }
-    // Check if private key is in keystore
+    // Check if private key references keystore
     const keystorePath = path.resolve('keystore.enc');
-    if (!config.validator.privateKey && fs.existsSync(keystorePath)) {
+    const isKeystoreRef = config.validator.privateKey?.startsWith('keystore:');
+    if (isKeystoreRef || (!config.validator.privateKey && fs.existsSync(keystorePath))) {
         console.log('🔐 Loading private key from encrypted keystore...');
         const password = await promptPassword('Enter keystore password: ');
         try {
@@ -376,20 +377,27 @@ program
                 console.error('❌ Invalid password or corrupted keystore');
                 process.exit(1);
             }
-            // Get the key from keystore (use the address as keyId)
-            const keys = keystore.listKeys();
-            if (keys.length === 0) {
-                console.error('❌ No keys found in keystore');
+            let privateKeyHex = null;
+            if (isKeystoreRef) {
+                // Extract keyId from reference
+                const keyId = config.validator.privateKey.replace('keystore:', '');
+                privateKeyHex = await keystore.exportPrivateKey(keyId);
+            }
+            else {
+                // Try to find key by address
+                const keyResult = await keystore.getKeyByAddress(config.validator.address);
+                if (keyResult) {
+                    privateKeyHex = keyResult.privateKey;
+                }
+            }
+            if (!privateKeyHex) {
+                console.error('❌ Private key not found in keystore');
+                console.error('   Run "tburn-validator setup" to create a new validator');
                 process.exit(1);
             }
-            // Use the first key that matches our address
-            const matchingKey = keys.find(k => k.address === config.validator.address) || keys[0];
-            // Sign a test message to verify key works
-            const testSignature = await keystore.sign(matchingKey.keyId, Buffer.from('test'));
-            if (testSignature) {
-                console.log('✅ Keystore unlocked and key verified');
-                config.validator.privateKey = matchingKey.keyId; // Store keyId, keystore handles signing
-            }
+            // Replace keystore reference with actual private key
+            config.validator.privateKey = privateKeyHex;
+            console.log('✅ Private key loaded and verified');
             console.log('');
         }
         catch (error) {

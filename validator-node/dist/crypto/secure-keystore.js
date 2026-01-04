@@ -328,6 +328,21 @@ class SecureKeystore {
     isLocked() {
         return !this.isUnlocked;
     }
+    async exportPrivateKey(keyId) {
+        this.ensureUnlocked();
+        const privateKeyBuffer = await this.getPrivateKey(keyId);
+        return privateKeyBuffer.toString('hex');
+    }
+    async getKeyByAddress(address) {
+        this.ensureUnlocked();
+        const keys = this.listKeys();
+        const key = keys.find(k => k.address === address);
+        if (!key) {
+            return null;
+        }
+        const privateKey = await this.exportPrivateKey(key.keyId);
+        return { keyId: key.keyId, privateKey };
+    }
 }
 exports.SecureKeystore = SecureKeystore;
 //# sourceMappingURL=secure-keystore.js.map
