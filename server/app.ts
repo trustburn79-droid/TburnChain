@@ -119,7 +119,12 @@ const hasRedis = !!REDIS_URL; // REDIS_URL이 명시적으로 설정된 경우�
 
 // ★ 쿠키 보안 설정 - 프로덕션 환경 자동 감지
 // Replit Autoscale 배포 시 HTTPS가 자동으로 활성화되므로 secure 쿠키 필요
-const isProduction = process.env.NODE_ENV === "production" || !process.env.REPL_ID;
+// ★ [수정] 프로덕션 환경 감지 - session-bypass.ts와 일관성 유지
+const isProduction = (
+  process.env.REPLIT_DEPLOYMENT === '1' ||
+  process.env.NODE_ENV === 'production' ||
+  (process.env.REPL_ID && !process.env.REPLIT_DEV_DOMAIN)
+) && process.env.NODE_ENV !== 'development';
 const cookieSecure = isProduction || process.env.COOKIE_SECURE === "true";
 
 let sessionStore: session.Store;
@@ -365,11 +370,26 @@ export default async function runApp(
 ) {
   const server = await registerRoutes(app);
 
-  app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
+  app.use((err: any, req: Request, res: Response, _next: NextFunction) => {
     const status = err.status || err.statusCode || 500;
     const message = err.message || "Internal Server Error";
-    res.status(status).json({ message });
-    throw err;
+    
+    // ★ [Production Stability] 에러 로깅 (throw 대신)
+    console.error(`[Error Handler] ${req.method} ${req.path}: ${status} - ${message}`);
+    if (err.stack) {
+      console.error(`[Error Stack] ${err.stack}`);
+    }
+    
+    // 응답이 이미 전송된 경우 무시
+    if (res.headersSent) {
+      return;
+    }
+    
+    res.status(status).json({ 
+      message,
+      path: req.path,
+      timestamp: new Date().toISOString()
+    });
   });
 
   await setup(app, server);
