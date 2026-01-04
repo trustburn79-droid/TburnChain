@@ -10870,6 +10870,10 @@
             "title": "Smart Contracts",
             "desc": "Write your first contract"
           }
+        },
+        "troubleshooting": {
+          "title": "Troubleshooting Guide",
+          "description": "Common issues and solutions when working with the TBURN SDK. Click on any issue to see the solution and code example."
         }
       },
       "installation": {

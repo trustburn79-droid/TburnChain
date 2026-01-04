@@ -10994,6 +10994,10 @@
             "title": "스마트 컨트랙트",
             "desc": "첫 번째 컨트랙트 작성"
           }
+        },
+        "troubleshooting": {
+          "title": "문제 해결 가이드",
+          "description": "TBURN SDK 작업 시 일반적인 문제와 해결책입니다. 문제를 클릭하면 해결 방법과 코드 예제를 확인할 수 있습니다."
         }
       },
       "installation": {
