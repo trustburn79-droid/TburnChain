@@ -26,11 +26,12 @@ export default function Tokenomics() {
     color: distributionColors[idx % distributionColors.length]
   }));
 
+  // TOKENOMICS_SUMMARY units: values in 억 (100M) - divide by 10 to get billions
   const marketStats = [
-    { value: `$${(TOKENOMICS_SUMMARY.genesisSupply * 0.5).toFixed(1)}B`, label: t('publicPages.learn.tokenomics.marketStats.marketCap'), color: "#ffb800" },
-    { value: `${(TOKENOMICS_SUMMARY.genesisSupply - TOKENOMICS_SUMMARY.cumulativeBurn).toFixed(1)}B`, label: t('publicPages.learn.tokenomics.marketStats.circulatingSupply'), color: "#00f0ff" },
-    { value: `${TOKENOMICS_SUMMARY.cumulativeBurn.toFixed(1)}B`, label: t('publicPages.learn.tokenomics.marketStats.burned'), color: "#ff0055" },
-    { value: `${(TOKENOMICS_SUMMARY.genesisSupply * 0.28).toFixed(1)}B`, label: t('publicPages.learn.tokenomics.marketStats.totalStaked'), color: "#00ff9d" },
+    { value: '$5.0B', label: t('publicPages.learn.tokenomics.marketStats.marketCap'), color: "#ffb800" },
+    { value: `${(TOKENOMICS_SUMMARY.finalSupply / 10).toFixed(1)}B`, label: t('publicPages.learn.tokenomics.marketStats.circulatingSupply'), color: "#00f0ff" },
+    { value: `${(TOKENOMICS_SUMMARY.totalDeflation / 10).toFixed(1)}B`, label: t('publicPages.learn.tokenomics.marketStats.burned'), color: "#ff0055" },
+    { value: '2.8B', label: t('publicPages.learn.tokenomics.marketStats.totalStaked'), color: "#00ff9d" },
   ];
 
   const burnMechanisms = BURN_MECHANISMS.slice(0, 4).map(mech => ({

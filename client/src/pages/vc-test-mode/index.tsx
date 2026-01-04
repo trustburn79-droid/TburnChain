@@ -64,14 +64,15 @@ const VC_DEMO_WALLET = {
   }
 };
 
-// Static metrics derived from tokenomics-engine.ts (will be overridden by real-time data where applicable)
+// Static metrics derived from tokenomics-engine.ts (values in 억 units)
+// TOKENOMICS_SUMMARY units: genesisSupply=100 (억), finalSupply=69.4 (억), etc.
 const STATIC_METRICS = {
-  totalSupply: `${(TOKENOMICS_SUMMARY.genesisSupply * 100_000_000).toLocaleString()} TBURN`,
-  circulatingSupply: `${(TOKENOMICS_SUMMARY.finalSupply * 100_000_000).toLocaleString()} TBURN`,
-  totalBurned: `${(TOKENOMICS_SUMMARY.totalDeflation * 100_000_000).toLocaleString()} TBURN`,
+  totalSupply: `${(TOKENOMICS_SUMMARY.genesisSupply / 10).toFixed(1)}B TBURN`,
+  circulatingSupply: `${(TOKENOMICS_SUMMARY.finalSupply / 10).toFixed(1)}B TBURN`,
+  totalBurned: `${(TOKENOMICS_SUMMARY.totalDeflation / 10).toFixed(1)}B TBURN`,
   burnRate: `${Math.abs(TOKENOMICS_SUMMARY.deflationPercent).toFixed(1)}%`,
   blockTime: '0.5s',
-  marketCap: `$${(TOKENOMICS_SUMMARY.finalSupply * 0.5 / 10).toFixed(1)}B`,
+  marketCap: '$3.5B',
   tvl: '$890M',
   dailyVolume: '$125M',
   activeWallets: '1.2M+'
