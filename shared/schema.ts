@@ -9651,3 +9651,446 @@ export type InsertRewardDistributionBatch = z.infer<typeof insertRewardDistribut
 
 export type ValidatorIncentiveTierStatDB = typeof validatorIncentiveTierStats.$inferSelect;
 export type InsertValidatorIncentiveTierStat = z.infer<typeof insertValidatorIncentiveTierStatSchema>;
+
+// ============================================
+// Phase 12: Enterprise Cross-Shard Router Database Schema
+// Production-Grade High-TPS Message Routing Infrastructure
+// Target: 210K+ TPS with sub-30ms write latency
+// ============================================
+
+// Enterprise Cross-Shard Message Queue - High-performance message persistence
+export const enterpriseCrossShardMessages = pgTable("enterprise_cross_shard_messages", {
+  id: varchar("id", { length: 64 }).primaryKey().default(sql`gen_random_uuid()`),
+  
+  // Message Identity
+  messageId: varchar("message_id", { length: 128 }).notNull().unique(),
+  correlationId: varchar("correlation_id", { length: 128 }),
+  
+  // Routing Information
+  sourceShardId: integer("source_shard_id").notNull(),
+  targetShardId: integer("target_shard_id").notNull(),
+  routeKey: varchar("route_key", { length: 256 }).notNull(),
+  
+  // Priority & Scheduling (4-tier: 0=CRITICAL, 1=HIGH, 2=NORMAL, 3=LOW)
+  priority: integer("priority").notNull().default(2),
+  scheduledAt: bigint("scheduled_at", { mode: "number" }).notNull(),
+  deadlineAt: bigint("deadline_at", { mode: "number" }),
+  
+  // Message Payload
+  messageType: varchar("message_type", { length: 50 }).notNull().default("state_sync"),
+  payload: jsonb("payload").notNull(),
+  payloadHash: varchar("payload_hash", { length: 128 }),
+  payloadSizeBytes: integer("payload_size_bytes").notNull().default(0),
+  
+  // Processing State
+  status: varchar("status", { length: 30 }).notNull().default("pending"),
+  processingAttempts: integer("processing_attempts").notNull().default(0),
+  maxRetries: integer("max_retries").notNull().default(5),
+  lastProcessedAt: bigint("last_processed_at", { mode: "number" }),
+  
+  // Delivery Tracking
+  enqueuedAt: bigint("enqueued_at", { mode: "number" }).notNull(),
+  dequeuedAt: bigint("dequeued_at", { mode: "number" }),
+  deliveredAt: bigint("delivered_at", { mode: "number" }),
+  acknowledgedAt: bigint("acknowledged_at", { mode: "number" }),
+  
+  // Latency Metrics
+  queueLatencyMs: integer("queue_latency_ms").default(0),
+  deliveryLatencyMs: integer("delivery_latency_ms").default(0),
+  totalLatencyMs: integer("total_latency_ms").default(0),
+  
+  // Error Tracking
+  errorCode: varchar("error_code", { length: 50 }),
+  errorMessage: text("error_message"),
+  lastErrorAt: bigint("last_error_at", { mode: "number" }),
+  
+  // Metadata
+  ttlMs: integer("ttl_ms").notNull().default(60000),
+  compressionType: varchar("compression_type", { length: 20 }).default("none"),
+  encryptionType: varchar("encryption_type", { length: 20 }).default("none"),
+  
+  // Timestamps
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
+// Enterprise Cross-Shard Batches - Batch processing for high throughput
+export const enterpriseCrossShardBatches = pgTable("enterprise_cross_shard_batches", {
+  id: varchar("id", { length: 64 }).primaryKey().default(sql`gen_random_uuid()`),
+  
+  // Batch Identity
+  batchId: varchar("batch_id", { length: 128 }).notNull().unique(),
+  
+  // Routing
+  sourceShardId: integer("source_shard_id").notNull(),
+  targetShardId: integer("target_shard_id").notNull(),
+  
+  // Batch Composition
+  messageCount: integer("message_count").notNull().default(0),
+  messageIds: jsonb("message_ids").notNull().default([]),
+  totalPayloadBytes: integer("total_payload_bytes").notNull().default(0),
+  
+  // Priority (inherit from highest priority message)
+  priority: integer("priority").notNull().default(2),
+  
+  // Processing State
+  status: varchar("status", { length: 30 }).notNull().default("pending"),
+  processingAttempts: integer("processing_attempts").notNull().default(0),
+  
+  // Timing
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  scheduledAt: bigint("scheduled_at", { mode: "number" }),
+  processingStartedAt: bigint("processing_started_at", { mode: "number" }),
+  completedAt: bigint("completed_at", { mode: "number" }),
+  
+  // Metrics
+  processingDurationMs: integer("processing_duration_ms").default(0),
+  successCount: integer("success_count").notNull().default(0),
+  failureCount: integer("failure_count").notNull().default(0),
+  
+  // Compression
+  compressionRatio: numeric("compression_ratio", { precision: 5, scale: 2 }).default("1.00"),
+  compressedSizeBytes: integer("compressed_size_bytes").default(0),
+});
+
+// WAL Segments - Write-Ahead Log persistence for crash recovery
+export const walSegments = pgTable("wal_segments", {
+  id: varchar("id", { length: 64 }).primaryKey().default(sql`gen_random_uuid()`),
+  
+  // Segment Identity
+  segmentId: varchar("segment_id", { length: 128 }).notNull().unique(),
+  segmentNumber: bigint("segment_number", { mode: "number" }).notNull(),
+  
+  // File Information
+  filePath: varchar("file_path", { length: 512 }),
+  fileSize: bigint("file_size", { mode: "number" }).notNull().default(0),
+  
+  // Offset Tracking
+  startOffset: bigint("start_offset", { mode: "number" }).notNull(),
+  endOffset: bigint("end_offset", { mode: "number" }).notNull(),
+  entryCount: integer("entry_count").notNull().default(0),
+  
+  // Checksum & Integrity
+  checksum: varchar("checksum", { length: 128 }),
+  checksumAlgorithm: varchar("checksum_algorithm", { length: 30 }).default("xxhash64"),
+  isValid: boolean("is_valid").notNull().default(true),
+  
+  // Status
+  status: varchar("status", { length: 30 }).notNull().default("active"),
+  isFlushed: boolean("is_flushed").notNull().default(false),
+  isArchived: boolean("is_archived").notNull().default(false),
+  
+  // Timing
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  flushedAt: timestamp("flushed_at"),
+  archivedAt: timestamp("archived_at"),
+  
+  // Recovery
+  lastRecoveredAt: timestamp("last_recovered_at"),
+  recoveryAttempts: integer("recovery_attempts").notNull().default(0),
+});
+
+// Router Metrics Hourly - Aggregated performance metrics
+export const routerMetricsHourly = pgTable("router_metrics_hourly", {
+  id: varchar("id", { length: 64 }).primaryKey().default(sql`gen_random_uuid()`),
+  
+  // Time Window
+  hourTimestamp: timestamp("hour_timestamp").notNull(),
+  
+  // Route Identification
+  sourceShardId: integer("source_shard_id").notNull(),
+  targetShardId: integer("target_shard_id").notNull(),
+  
+  // Throughput Metrics
+  messagesSent: bigint("messages_sent", { mode: "number" }).notNull().default(0),
+  messagesDelivered: bigint("messages_delivered", { mode: "number" }).notNull().default(0),
+  messagesFailed: bigint("messages_failed", { mode: "number" }).notNull().default(0),
+  messagesExpired: bigint("messages_expired", { mode: "number" }).notNull().default(0),
+  messagesDeduplicated: bigint("messages_deduplicated", { mode: "number" }).notNull().default(0),
+  
+  // Batch Metrics
+  batchesSent: integer("batches_sent").notNull().default(0),
+  avgBatchSize: numeric("avg_batch_size", { precision: 10, scale: 2 }).default("0"),
+  
+  // Latency Percentiles (microseconds for precision)
+  latencyP50Us: integer("latency_p50_us").notNull().default(0),
+  latencyP95Us: integer("latency_p95_us").notNull().default(0),
+  latencyP99Us: integer("latency_p99_us").notNull().default(0),
+  latencyMaxUs: integer("latency_max_us").notNull().default(0),
+  latencyAvgUs: integer("latency_avg_us").notNull().default(0),
+  
+  // TPS Metrics
+  peakTps: integer("peak_tps").notNull().default(0),
+  avgTps: numeric("avg_tps", { precision: 10, scale: 2 }).default("0"),
+  
+  // Byte Metrics
+  bytesTransferred: bigint("bytes_transferred", { mode: "number" }).notNull().default(0),
+  
+  // Success Rate (basis points)
+  successRateBps: integer("success_rate_bps").notNull().default(10000),
+  
+  // Back-pressure Events
+  backPressureEvents: integer("back_pressure_events").notNull().default(0),
+  
+  // Circuit Breaker Trips
+  circuitBreakerTrips: integer("circuit_breaker_trips").notNull().default(0),
+  
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+// Circuit Breakers - Per-route circuit breaker state
+export const circuitBreakers = pgTable("circuit_breakers", {
+  id: varchar("id", { length: 64 }).primaryKey().default(sql`gen_random_uuid()`),
+  
+  // Route Identification
+  routeKey: varchar("route_key", { length: 256 }).notNull().unique(),
+  sourceShardId: integer("source_shard_id").notNull(),
+  targetShardId: integer("target_shard_id").notNull(),
+  
+  // State Machine (CLOSED, OPEN, HALF_OPEN)
+  state: varchar("state", { length: 20 }).notNull().default("CLOSED"),
+  stateChangedAt: bigint("state_changed_at", { mode: "number" }).notNull(),
+  
+  // Failure Tracking
+  failureCount: integer("failure_count").notNull().default(0),
+  failureThreshold: integer("failure_threshold").notNull().default(5),
+  consecutiveFailures: integer("consecutive_failures").notNull().default(0),
+  
+  // Success Tracking (for HALF_OPEN state)
+  successCount: integer("success_count").notNull().default(0),
+  successThreshold: integer("success_threshold").notNull().default(3),
+  
+  // Timing
+  openedAt: bigint("opened_at", { mode: "number" }),
+  halfOpenTimeout: integer("half_open_timeout_ms").notNull().default(15000),
+  lastFailureAt: bigint("last_failure_at", { mode: "number" }),
+  lastSuccessAt: bigint("last_success_at", { mode: "number" }),
+  
+  // Health Score (0-10000 basis points)
+  healthScore: integer("health_score").notNull().default(10000),
+  
+  // Statistics
+  totalRequests: bigint("total_requests", { mode: "number" }).notNull().default(0),
+  totalFailures: bigint("total_failures", { mode: "number" }).notNull().default(0),
+  totalTrips: integer("total_trips").notNull().default(0),
+  avgRecoveryTimeMs: integer("avg_recovery_time_ms").notNull().default(0),
+  
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
+// Shard Validator Assignments - Shard-to-validator mappings
+export const shardValidatorAssignments = pgTable("shard_validator_assignments", {
+  id: varchar("id", { length: 64 }).primaryKey().default(sql`gen_random_uuid()`),
+  
+  // Assignment Identity
+  shardId: integer("shard_id").notNull(),
+  validatorAddress: varchar("validator_address", { length: 66 }).notNull(),
+  
+  // Role
+  role: varchar("role", { length: 30 }).notNull().default("validator"),
+  isPrimary: boolean("is_primary").notNull().default(false),
+  
+  // Weighting (for load balancing)
+  weight: integer("weight").notNull().default(100),
+  priorityOrder: integer("priority_order").notNull().default(0),
+  
+  // Status
+  status: varchar("status", { length: 20 }).notNull().default("active"),
+  isOnline: boolean("is_online").notNull().default(true),
+  
+  // Performance Metrics
+  messageProcessed: bigint("messages_processed", { mode: "number" }).notNull().default(0),
+  avgLatencyMs: integer("avg_latency_ms").notNull().default(0),
+  successRate: integer("success_rate").notNull().default(10000),
+  
+  // Capacity
+  currentLoad: integer("current_load").notNull().default(0),
+  maxCapacity: integer("max_capacity").notNull().default(10000),
+  
+  // Failover
+  failoverPriority: integer("failover_priority").notNull().default(0),
+  lastFailoverAt: timestamp("last_failover_at"),
+  
+  // Timing
+  assignedAt: timestamp("assigned_at").notNull().defaultNow(),
+  lastActiveAt: timestamp("last_active_at").defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
+// Latency Histories - Detailed latency tracking for SLA monitoring
+export const latencyHistories = pgTable("latency_histories", {
+  id: varchar("id", { length: 64 }).primaryKey().default(sql`gen_random_uuid()`),
+  
+  // Source Identification
+  sourceType: varchar("source_type", { length: 30 }).notNull(),
+  sourceId: varchar("source_id", { length: 128 }).notNull(),
+  
+  // Route Info
+  sourceShardId: integer("source_shard_id").notNull(),
+  targetShardId: integer("target_shard_id").notNull(),
+  
+  // Timing (microseconds for precision)
+  timestamp: bigint("timestamp", { mode: "number" }).notNull(),
+  latencyUs: integer("latency_us").notNull(),
+  
+  // Classification
+  latencyBucket: varchar("latency_bucket", { length: 20 }).notNull(),
+  
+  // Context
+  messageType: varchar("message_type", { length: 50 }),
+  priority: integer("priority"),
+  payloadSizeBytes: integer("payload_size_bytes"),
+  
+  // SLA Tracking
+  slaTargetMs: integer("sla_target_ms").notNull().default(100),
+  slaMet: boolean("sla_met").notNull().default(true),
+  
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+// Router Bloom Filter State - Deduplication filter persistence
+export const routerBloomFilters = pgTable("router_bloom_filters", {
+  id: varchar("id", { length: 64 }).primaryKey().default(sql`gen_random_uuid()`),
+  
+  // Filter Identity
+  filterId: varchar("filter_id", { length: 128 }).notNull().unique(),
+  filterType: varchar("filter_type", { length: 30 }).notNull().default("message_dedup"),
+  
+  // Filter Configuration
+  expectedInsertions: integer("expected_insertions").notNull().default(1000000),
+  falsePositiveRate: numeric("false_positive_rate", { precision: 8, scale: 6 }).default("0.001000"),
+  hashFunctions: integer("hash_functions").notNull().default(7),
+  bitArraySize: bigint("bit_array_size", { mode: "number" }).notNull(),
+  
+  // State
+  currentInsertions: integer("current_insertions").notNull().default(0),
+  serializedState: text("serialized_state"),
+  
+  // Rotation
+  rotationIntervalMs: integer("rotation_interval_ms").notNull().default(60000),
+  lastRotatedAt: timestamp("last_rotated_at"),
+  rotationCount: integer("rotation_count").notNull().default(0),
+  
+  // Status
+  status: varchar("status", { length: 20 }).notNull().default("active"),
+  
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
+// Router Daily Stats - Daily aggregated statistics
+export const routerDailyStats = pgTable("router_daily_stats", {
+  id: varchar("id", { length: 64 }).primaryKey().default(sql`gen_random_uuid()`),
+  
+  // Date
+  statDate: timestamp("stat_date").notNull(),
+  
+  // Overall Metrics
+  totalMessages: bigint("total_messages", { mode: "number" }).notNull().default(0),
+  deliveredMessages: bigint("delivered_messages", { mode: "number" }).notNull().default(0),
+  failedMessages: bigint("failed_messages", { mode: "number" }).notNull().default(0),
+  expiredMessages: bigint("expired_messages", { mode: "number" }).notNull().default(0),
+  
+  // TPS
+  peakTps: integer("peak_tps").notNull().default(0),
+  avgTps: numeric("avg_tps", { precision: 10, scale: 2 }).default("0"),
+  
+  // Latency
+  avgLatencyMs: numeric("avg_latency_ms", { precision: 10, scale: 2 }).default("0"),
+  p99LatencyMs: integer("p99_latency_ms").notNull().default(0),
+  
+  // Success Rate
+  successRateBps: integer("success_rate_bps").notNull().default(10000),
+  
+  // Routes
+  activeRoutes: integer("active_routes").notNull().default(0),
+  degradedRoutes: integer("degraded_routes").notNull().default(0),
+  
+  // Circuit Breakers
+  circuitBreakerTrips: integer("circuit_breaker_trips").notNull().default(0),
+  
+  // WAL
+  walBytesWritten: bigint("wal_bytes_written", { mode: "number" }).notNull().default(0),
+  walSegmentsCreated: integer("wal_segments_created").notNull().default(0),
+  
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+// Insert Schemas for Enterprise Cross-Shard Router Tables
+export const insertEnterpriseCrossShardMessageSchema = createInsertSchema(enterpriseCrossShardMessages).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertEnterpriseCrossShardBatchSchema = createInsertSchema(enterpriseCrossShardBatches).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertWalSegmentSchema = createInsertSchema(walSegments).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertRouterMetricsHourlySchema = createInsertSchema(routerMetricsHourly).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertCircuitBreakerSchema = createInsertSchema(circuitBreakers).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertShardValidatorAssignmentSchema = createInsertSchema(shardValidatorAssignments).omit({
+  id: true,
+  assignedAt: true,
+  updatedAt: true,
+});
+
+export const insertLatencyHistorySchema = createInsertSchema(latencyHistories).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertRouterBloomFilterSchema = createInsertSchema(routerBloomFilters).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertRouterDailyStatSchema = createInsertSchema(routerDailyStats).omit({
+  id: true,
+  createdAt: true,
+});
+
+// Types for Enterprise Cross-Shard Router Tables
+export type EnterpriseCrossShardMessage = typeof enterpriseCrossShardMessages.$inferSelect;
+export type InsertEnterpriseCrossShardMessage = z.infer<typeof insertEnterpriseCrossShardMessageSchema>;
+
+export type EnterpriseCrossShardBatch = typeof enterpriseCrossShardBatches.$inferSelect;
+export type InsertEnterpriseCrossShardBatch = z.infer<typeof insertEnterpriseCrossShardBatchSchema>;
+
+export type WalSegment = typeof walSegments.$inferSelect;
+export type InsertWalSegment = z.infer<typeof insertWalSegmentSchema>;
+
+export type RouterMetricsHourly = typeof routerMetricsHourly.$inferSelect;
+export type InsertRouterMetricsHourly = z.infer<typeof insertRouterMetricsHourlySchema>;
+
+export type CircuitBreaker = typeof circuitBreakers.$inferSelect;
+export type InsertCircuitBreaker = z.infer<typeof insertCircuitBreakerSchema>;
+
+export type ShardValidatorAssignment = typeof shardValidatorAssignments.$inferSelect;
+export type InsertShardValidatorAssignment = z.infer<typeof insertShardValidatorAssignmentSchema>;
+
+export type LatencyHistory = typeof latencyHistories.$inferSelect;
+export type InsertLatencyHistory = z.infer<typeof insertLatencyHistorySchema>;
+
+export type RouterBloomFilter = typeof routerBloomFilters.$inferSelect;
+export type InsertRouterBloomFilter = z.infer<typeof insertRouterBloomFilterSchema>;
+
+export type RouterDailyStat = typeof routerDailyStats.$inferSelect;
+export type InsertRouterDailyStat = z.infer<typeof insertRouterDailyStatSchema>;
