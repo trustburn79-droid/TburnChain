@@ -25,7 +25,7 @@ import { PageLoader } from "@/components/tburn-loader";
 import { Link } from "wouter";
 import { useTranslation } from "react-i18next";
 // i18n is loaded dynamically in main.tsx
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useEffect } from "react";
 
 // CRITICAL: PublicRouter must be lazy-loaded to reduce initial bundle size
 const PublicRouter = lazy(() => import("./public/PublicRouter").then(m => ({ default: m.PublicRouter })));
@@ -335,6 +335,16 @@ function AuthenticatedApp() {
   );
 }
 
+function ScrollToTop() {
+  const [location] = useLocation();
+  
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }, [location]);
+  
+  return null;
+}
+
 function RootRouter() {
   const [location, setLocation] = useLocation();
   
@@ -545,6 +555,7 @@ function App() {
           <Web3Provider>
             <TBurnAlertProvider>
               <AdminPasswordProvider>
+                <ScrollToTop />
                 <RootRouter />
                 <Toaster />
               </AdminPasswordProvider>
