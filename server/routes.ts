@@ -57,6 +57,7 @@ import validatorRoutes from "./routes/validator-routes";
 import { rewardRoutes } from "./routes/reward-routes";
 import crossShardRouterRoutes from "./routes/cross-shard-router-routes";
 import shardCacheRoutes from "./routes/shard-cache-routes";
+import batchProcessorRoutes from "./routes/batch-processor-routes";
 import { nftMarketplaceService } from "./services/NftMarketplaceService";
 import { launchpadService } from "./services/LaunchpadService";
 import { gameFiService } from "./services/GameFiService";
@@ -1681,6 +1682,10 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     if (req.path.startsWith("/cross-shard-router")) {
       return next();
     }
+    // Skip auth check for batch-processor (public infrastructure monitoring)
+    if (req.path.startsWith("/batch-processor")) {
+      return next();
+    }
     // Skip auth check for consensus (public blockchain data)
     if (req.path.startsWith("/consensus")) {
       return next();
@@ -1973,6 +1978,13 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   // ============================================
   app.use("/api/shard-cache", shardCacheRoutes);
   console.log("[ShardCache] ✅ Enterprise shard cache routes registered (2s TTL, O(1) pair selection)");
+
+  // ============================================
+  // ENTERPRISE BATCH PROCESSOR
+  // High-performance batch message insertion targeting 200K+ TPS
+  // ============================================
+  app.use("/api/batch-processor", batchProcessorRoutes);
+  console.log("[BatchProcessor] ✅ Enterprise batch processor routes registered (64-4096 adaptive batch, 8 parallel chunks)");
 
   // ============================================
   // Network Stats
