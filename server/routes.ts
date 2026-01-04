@@ -54,6 +54,7 @@ import verificationRoutes from "./routes/verification-routes";
 import { registerDbOptimizationRoutes } from "./routes/db-optimization-routes";
 import { registerShardingRoutes } from "./routes/sharding-routes";
 import validatorRoutes from "./routes/validator-routes";
+import { rewardRoutes } from "./routes/reward-routes";
 import { nftMarketplaceService } from "./services/NftMarketplaceService";
 import { launchpadService } from "./services/LaunchpadService";
 import { gameFiService } from "./services/GameFiService";
@@ -1640,6 +1641,10 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     if (req.path.startsWith("/validators")) {
       return next();
     }
+    // Skip auth check for rewards (public blockchain data)
+    if (req.path.startsWith("/rewards")) {
+      return next();
+    }
     // Skip auth check for members (public blockchain data)
     if (req.path.startsWith("/members")) {
       return next();
@@ -1938,6 +1943,12 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   // ============================================
   app.use("/api/validators", validatorRoutes);
   console.log("[Validators] ✅ Enterprise validator orchestrator routes registered");
+
+  // ============================================
+  // ENTERPRISE REWARD DISTRIBUTION ENGINE
+  // ============================================
+  app.use("/api/rewards", rewardRoutes);
+  console.log("[Rewards] ✅ Enterprise reward distribution engine routes registered");
 
   // ============================================
   // Network Stats
