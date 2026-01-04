@@ -297,6 +297,12 @@ export function PublicRouter() {
     window.location.href = location;
     return null;
   }
+  
+  // /app/* routes require full App - trigger full page reload for authenticated DeFi pages
+  if (location.startsWith("/app")) {
+    window.location.href = location;
+    return null;
+  }
 
   if (location.startsWith("/learn")) {
     return (
