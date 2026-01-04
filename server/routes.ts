@@ -16370,7 +16370,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     
     const result = {
       config: {
-        chainId: '7979',
+        chainId: '6000',
         networkName: 'TBURN Mainnet',
         consensusType: 'AI-Enhanced BFT',
         blockTime: networkStats.blockTime,
@@ -16504,7 +16504,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({
         general: {
           chainName: "TBURN Mainnet",
-          chainId: "7979",
+          chainId: "6000",
           rpcEndpoint: "https://rpc.tburn.io",
           wsEndpoint: "wss://ws.tburn.io",
           explorerUrl: "https://explorer.tburn.io",

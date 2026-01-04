@@ -35,7 +35,7 @@ Core architectural decisions and features include:
 - **Block Finality System**: Complete block finality infrastructure with cross-validator verification and state transitions (pending → verified → finalized).
 - **Transaction Verification Pipeline**: ECDSA-style signature verification, Merkle root generation, and block integrity verification.
 - **Reward Distribution Engine**: Automatic validator reward distribution based on proposer rewards, verifier rewards, and gas fee distribution with epoch-based cycles.
-- **Mainnet Launch**: Production blockchain infrastructure with 125 genesis validators, 64 shards, ~210,000 TPS capacity, complete block finality, and automated reward distribution. 20-year tokenomics with deflationary model.
+- **Mainnet Launch**: Production blockchain infrastructure with Chain ID 6000, 125 genesis validators, 64 shards, ~210,000 TPS capacity, complete block finality, and automated reward distribution. 20-year tokenomics with deflationary model.
 - **Development Mode Optimization**: Heavy blockchain services are deferred in development to prioritize frontend serving, with increased poll intervals and disabled non-essential broadcasts.
 - **Block Time 100ms Optimization**: Critical fixes to maintain strict 100ms block cadence by optimizing `processBlockFinality()` and `ValidatorSimulation`.
 - **Production Cache-Control Fix**: Critical fix for "Failed to fetch dynamically imported module" errors using proper cache headers and client-side chunk error recovery.

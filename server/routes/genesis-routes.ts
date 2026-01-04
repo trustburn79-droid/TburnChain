@@ -134,7 +134,7 @@ let executionLogs: GenesisExecutionLogItem[] = [];
 function initializeDefaultConfig(): GenesisConfigData {
   return {
     id: crypto.randomUUID(),
-    chainId: 7979,
+    chainId: 6000,
     chainName: "TBURN Mainnet",
     networkVersion: "v8.0",
     totalSupply: "10000000000000000000000000000", // 10B TBURN in wei

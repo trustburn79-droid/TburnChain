@@ -6792,7 +6792,7 @@ export const genesisConfig = pgTable("genesis_config", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
   
   // Chain Parameters
-  chainId: integer("chain_id").notNull().default(8888),
+  chainId: integer("chain_id").notNull().default(6000),
   chainName: text("chain_name").notNull().default("TBURN Mainnet"),
   networkVersion: text("network_version").notNull().default("v8.0"),
   
