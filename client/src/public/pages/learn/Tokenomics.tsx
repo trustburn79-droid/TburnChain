@@ -7,33 +7,37 @@ import {
   Gavel,
   Check
 } from "lucide-react";
+import {
+  GENESIS_DISTRIBUTION,
+  BURN_MECHANISMS,
+  TOKENOMICS_SUMMARY,
+  Y1_TOTAL_BURN,
+} from "@/lib/tokenomics-engine";
 
 export default function Tokenomics() {
   const { t } = useTranslation();
   const containerRef = useRef<HTMLDivElement>(null);
 
+  const distributionColors = ["#7000ff", "#00f0ff", "#00ff9d", "#ffb800", "#ff0055", "#60A5FA"];
+  const tokenDistribution = GENESIS_DISTRIBUTION.map((cat, idx) => ({
+    percent: `${cat.percentage}%`,
+    title: t(cat.nameKey, cat.name),
+    subtitle: t(cat.descriptionKey, cat.description),
+    color: distributionColors[idx % distributionColors.length]
+  }));
+
   const marketStats = [
-    { value: "$5.0B", label: t('publicPages.learn.tokenomics.marketStats.marketCap'), color: "#ffb800" },
-    { value: "8.5B", label: t('publicPages.learn.tokenomics.marketStats.circulatingSupply'), color: "#00f0ff" },
-    { value: "1.2B", label: t('publicPages.learn.tokenomics.marketStats.burned'), color: "#ff0055" },
-    { value: "2.8B", label: t('publicPages.learn.tokenomics.marketStats.totalStaked'), color: "#00ff9d" },
+    { value: `$${(TOKENOMICS_SUMMARY.genesisSupply * 0.5).toFixed(1)}B`, label: t('publicPages.learn.tokenomics.marketStats.marketCap'), color: "#ffb800" },
+    { value: `${(TOKENOMICS_SUMMARY.genesisSupply - TOKENOMICS_SUMMARY.cumulativeBurn).toFixed(1)}B`, label: t('publicPages.learn.tokenomics.marketStats.circulatingSupply'), color: "#00f0ff" },
+    { value: `${TOKENOMICS_SUMMARY.cumulativeBurn.toFixed(1)}B`, label: t('publicPages.learn.tokenomics.marketStats.burned'), color: "#ff0055" },
+    { value: `${(TOKENOMICS_SUMMARY.genesisSupply * 0.28).toFixed(1)}B`, label: t('publicPages.learn.tokenomics.marketStats.totalStaked'), color: "#00ff9d" },
   ];
 
-  const tokenDistribution = [
-    { percent: "30%", title: t('publicPages.learn.tokenomics.distribution.community.title'), subtitle: t('publicPages.learn.tokenomics.distribution.community.subtitle'), color: "#7000ff" },
-    { percent: "22%", title: t('publicPages.learn.tokenomics.distribution.rewards.title'), subtitle: t('publicPages.learn.tokenomics.distribution.rewards.subtitle'), color: "#00f0ff" },
-    { percent: "20%", title: t('publicPages.learn.tokenomics.distribution.investors.title'), subtitle: t('publicPages.learn.tokenomics.distribution.investors.subtitle'), color: "#00ff9d" },
-    { percent: "14%", title: t('publicPages.learn.tokenomics.distribution.ecosystem.title'), subtitle: t('publicPages.learn.tokenomics.distribution.ecosystem.subtitle'), color: "#ffb800" },
-    { percent: "11%", title: t('publicPages.learn.tokenomics.distribution.team.title'), subtitle: t('publicPages.learn.tokenomics.distribution.team.subtitle'), color: "#ff0055" },
-    { percent: "3%", title: t('publicPages.learn.tokenomics.distribution.foundationReserve.title'), subtitle: t('publicPages.learn.tokenomics.distribution.foundationReserve.subtitle'), color: "#60A5FA" },
-  ];
-
-  const burnMechanisms = [
-    { percent: "70%", title: t('publicPages.learn.tokenomics.burn.transactionFees.title'), description: t('publicPages.learn.tokenomics.burn.transactionFees.description') },
-    { percent: "100%", title: t('publicPages.learn.tokenomics.burn.collateralBurn.title'), description: t('publicPages.learn.tokenomics.burn.collateralBurn.description') },
-    { percent: "30%", title: t('publicPages.learn.tokenomics.burn.revenueBuyback.title'), description: t('publicPages.learn.tokenomics.burn.revenueBuyback.description') },
-    { percent: "50%", title: t('publicPages.learn.tokenomics.burn.slashingPenalty.title'), description: t('publicPages.learn.tokenomics.burn.slashingPenalty.description') },
-  ];
+  const burnMechanisms = BURN_MECHANISMS.slice(0, 4).map(mech => ({
+    percent: `${((mech.y1Amount / Y1_TOTAL_BURN) * 100).toFixed(0)}%`,
+    title: t(mech.typeKey, mech.type),
+    description: t(mech.descriptionKey, mech.description)
+  }));
 
   const stakingRewards = [
     { type: t('publicPages.learn.tokenomics.staking.liquidStaking'), apy: "8-10% APY" },
