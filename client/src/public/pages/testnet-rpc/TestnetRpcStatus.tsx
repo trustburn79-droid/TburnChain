@@ -43,10 +43,10 @@ const mockNodes: NodeStatus[] = [
 ];
 
 const mockAlerts: Alert[] = [
-  { id: '1', level: 'info', message: '테스트넷 노드 3 연결 수 증가 (198)', timestamp: '2026-01-04T21:30:00Z', resolved: false },
-  { id: '2', level: 'warning', message: '테스트넷 노드 3 메모리 사용량 높음 (72%)', timestamp: '2026-01-04T21:15:00Z', resolved: false },
-  { id: '3', level: 'info', message: '테스트넷 정기 점검 완료', timestamp: '2026-01-04T20:00:00Z', resolved: true },
-  { id: '4', level: 'critical', message: '테스트넷 노드 동기화 지연 해소', timestamp: '2026-01-04T18:45:00Z', resolved: true },
+  { id: '1', level: 'info', message: 'Testnet node 3 connections increased (198)', timestamp: '2026-01-04T21:30:00Z', resolved: false },
+  { id: '2', level: 'warning', message: 'Testnet node 3 memory usage high (72%)', timestamp: '2026-01-04T21:15:00Z', resolved: false },
+  { id: '3', level: 'info', message: 'Testnet scheduled maintenance complete', timestamp: '2026-01-04T20:00:00Z', resolved: true },
+  { id: '4', level: 'critical', message: 'Testnet node sync delay resolved', timestamp: '2026-01-04T18:45:00Z', resolved: true },
 ];
 
 export default function TestnetRpcStatus() {
@@ -72,7 +72,7 @@ export default function TestnetRpcStatus() {
     await refetch();
     setTimeout(() => {
       setIsRefreshing(false);
-      toast({ title: "새로고침 완료", description: "테스트넷 상태가 업데이트되었습니다." });
+      toast({ title: t('rpc.shared.refreshComplete'), description: t('rpc.shared.testnetStatusUpdated') });
     }, 500);
   };
 
@@ -87,10 +87,10 @@ export default function TestnetRpcStatus() {
 
   const getStatusBadge = (status: string) => {
     switch (status) {
-      case 'healthy': return <Badge className="bg-green-500/20 text-green-500 border-green-500/30">정상</Badge>;
-      case 'degraded': return <Badge className="bg-yellow-500/20 text-yellow-500 border-yellow-500/30">저하</Badge>;
-      case 'down': return <Badge className="bg-red-500/20 text-red-500 border-red-500/30">중단</Badge>;
-      default: return <Badge variant="outline">알 수 없음</Badge>;
+      case 'healthy': return <Badge className="bg-green-500/20 text-green-500 border-green-500/30">{t('rpc.shared.healthy')}</Badge>;
+      case 'degraded': return <Badge className="bg-yellow-500/20 text-yellow-500 border-yellow-500/30">{t('rpc.shared.degraded')}</Badge>;
+      case 'down': return <Badge className="bg-red-500/20 text-red-500 border-red-500/30">{t('rpc.shared.down')}</Badge>;
+      default: return <Badge variant="outline">{t('rpc.shared.unknown')}</Badge>;
     }
   };
 
@@ -117,19 +117,19 @@ export default function TestnetRpcStatus() {
             <div>
               <div className="flex items-center gap-3 mb-4">
                 <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-yellow-500/10 border border-yellow-500/30 text-xs font-mono text-yellow-500">
-                  <Activity className="w-3.5 h-3.5" /> 테스트넷 상태
+                  <Activity className="w-3.5 h-3.5" /> {t('rpc.status.testnetBadge')}
                 </div>
                 <Badge data-testid="badge-testnet-overall-status" className={`text-xs ${healthyNodes === mockNodes.length ? 'bg-green-500/20 text-green-500' : 'bg-yellow-500/20 text-yellow-500'}`}>
-                  {healthyNodes === mockNodes.length ? '모든 노드 정상' : `${healthyNodes}/${mockNodes.length} 정상`}
+                  {healthyNodes === mockNodes.length ? t('rpc.status.allNodesHealthy') : t('rpc.status.nodesHealthy', { count: healthyNodes, total: mockNodes.length })}
                 </Badge>
               </div>
               
               <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-3">
-                테스트넷 RPC <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500">상태 모니터링</span>
+                {t('rpc.status.heroTitle')} <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500">{t('rpc.status.testnetHeroHighlight')}</span>
               </h1>
               
               <p className="text-gray-600 dark:text-gray-400 max-w-xl">
-                TBURN 테스트넷 RPC 노드의 실시간 상태, 성능 메트릭, 알림 내역을 모니터링합니다.
+                {t('rpc.status.testnetHeroDesc')}
               </p>
             </div>
 
@@ -140,7 +140,7 @@ export default function TestnetRpcStatus() {
               data-testid="button-testnet-refresh-status"
             >
               <RefreshCw className={`w-4 h-4 mr-2 ${isRefreshing ? 'animate-spin' : ''}`} />
-              {isRefreshing ? '새로고침 중...' : '새로고침'}
+              {isRefreshing ? t('rpc.shared.refreshing') : t('rpc.shared.refresh')}
             </Button>
           </div>
         </div>
@@ -153,14 +153,14 @@ export default function TestnetRpcStatus() {
               <CardContent className="pt-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm text-gray-500">업타임</p>
+                    <p className="text-sm text-gray-500">{t('rpc.status.uptime')}</p>
                     <p className="text-2xl font-mono font-bold text-green-500" data-testid="text-testnet-uptime">99.95%</p>
                   </div>
                   <div className="p-3 rounded-full bg-green-500/10">
                     <Shield className="w-6 h-6 text-green-500" />
                   </div>
                 </div>
-                <p className="text-xs text-gray-500 mt-2">지난 30일 기준</p>
+                <p className="text-xs text-gray-500 mt-2">{t('rpc.shared.last30Days')}</p>
               </CardContent>
             </Card>
 
@@ -168,14 +168,14 @@ export default function TestnetRpcStatus() {
               <CardContent className="pt-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm text-gray-500">평균 레이턴시</p>
+                    <p className="text-sm text-gray-500">{t('rpc.status.avgLatency')}</p>
                     <p className="text-2xl font-mono font-bold text-yellow-500" data-testid="text-testnet-latency">{avgLatency}ms</p>
                   </div>
                   <div className="p-3 rounded-full bg-yellow-500/10">
                     <Timer className="w-6 h-6 text-yellow-500" />
                   </div>
                 </div>
-                <p className="text-xs text-gray-500 mt-2">글로벌 평균</p>
+                <p className="text-xs text-gray-500 mt-2">{t('rpc.shared.globalAvg')}</p>
               </CardContent>
             </Card>
 
@@ -183,14 +183,14 @@ export default function TestnetRpcStatus() {
               <CardContent className="pt-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm text-gray-500">테스트넷 TPS</p>
+                    <p className="text-sm text-gray-500">{t('rpc.status.testnetTps')}</p>
                     <p className="text-2xl font-mono font-bold text-orange-500" data-testid="text-testnet-tps">{tps.toLocaleString()}</p>
                   </div>
                   <div className="p-3 rounded-full bg-orange-500/10">
                     <Zap className="w-6 h-6 text-orange-500" />
                   </div>
                 </div>
-                <p className="text-xs text-gray-500 mt-2">초당 트랜잭션</p>
+                <p className="text-xs text-gray-500 mt-2">{t('rpc.shared.tps')}</p>
               </CardContent>
             </Card>
 
@@ -198,14 +198,14 @@ export default function TestnetRpcStatus() {
               <CardContent className="pt-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm text-gray-500">블록 높이</p>
+                    <p className="text-sm text-gray-500">{t('rpc.status.blockHeight')}</p>
                     <p className="text-2xl font-mono font-bold text-gray-900 dark:text-white" data-testid="text-testnet-block-height">{blockHeight.toLocaleString()}</p>
                   </div>
                   <div className="p-3 rounded-full bg-gray-500/10">
                     <Globe className="w-6 h-6 text-gray-500" />
                   </div>
                 </div>
-                <p className="text-xs text-gray-500 mt-2">최신 블록</p>
+                <p className="text-xs text-gray-500 mt-2">{t('rpc.shared.latestBlock')}</p>
               </CardContent>
             </Card>
           </div>
@@ -214,7 +214,7 @@ export default function TestnetRpcStatus() {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Activity className="w-5 h-5 text-yellow-500" />
-                실시간 레이턴시 (테스트넷)
+                {t('rpc.status.testnetLiveLatency')}
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -232,24 +232,24 @@ export default function TestnetRpcStatus() {
                 ))}
               </div>
               <div className="flex justify-between text-xs text-gray-500 mt-2">
-                <span>20초 전</span>
-                <span>현재: {liveLatency[liveLatency.length - 1]}ms</span>
+                <span>20s ago</span>
+                <span>{t('rpc.status.current')}: {liveLatency[liveLatency.length - 1]}ms</span>
               </div>
             </CardContent>
           </Card>
 
           <Tabs defaultValue="nodes" className="space-y-4">
             <TabsList>
-              <TabsTrigger value="nodes" data-testid="tab-testnet-nodes">노드 상태</TabsTrigger>
-              <TabsTrigger value="metrics" data-testid="tab-testnet-metrics">성능 메트릭</TabsTrigger>
-              <TabsTrigger value="alerts" data-testid="tab-testnet-alerts">알림 기록</TabsTrigger>
+              <TabsTrigger value="nodes" data-testid="tab-testnet-nodes">{t('rpc.status.tabNodes')}</TabsTrigger>
+              <TabsTrigger value="metrics" data-testid="tab-testnet-metrics">{t('rpc.status.tabMetrics')}</TabsTrigger>
+              <TabsTrigger value="alerts" data-testid="tab-testnet-alerts">{t('rpc.status.tabAlerts')}</TabsTrigger>
             </TabsList>
 
             <TabsContent value="nodes">
               <Card className="bg-white dark:bg-black/40 border-gray-200 dark:border-white/10">
                 <CardHeader>
-                  <CardTitle>테스트넷 노드 상태</CardTitle>
-                  <CardDescription>{mockNodes.length}개 테스트넷 노드 운영 중</CardDescription>
+                  <CardTitle>{t('rpc.status.testnetNodeStatus')}</CardTitle>
+                  <CardDescription>{t('rpc.status.testnetNodesRunning', { count: mockNodes.length })}</CardDescription>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4">
@@ -267,25 +267,25 @@ export default function TestnetRpcStatus() {
                         </div>
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
                           <div>
-                            <p className="text-gray-500">레이턴시</p>
+                            <p className="text-gray-500">{t('rpc.status.latency')}</p>
                             <p className="font-mono font-medium">{node.latency}ms</p>
                           </div>
                           <div>
-                            <p className="text-gray-500">CPU</p>
+                            <p className="text-gray-500">{t('rpc.status.cpu')}</p>
                             <div className="flex items-center gap-2">
                               <Progress value={node.cpu} className="h-2 flex-1" />
                               <span className="font-mono text-xs">{node.cpu}%</span>
                             </div>
                           </div>
                           <div>
-                            <p className="text-gray-500">메모리</p>
+                            <p className="text-gray-500">{t('rpc.status.memory')}</p>
                             <div className="flex items-center gap-2">
                               <Progress value={node.memory} className="h-2 flex-1" />
                               <span className="font-mono text-xs">{node.memory}%</span>
                             </div>
                           </div>
                           <div>
-                            <p className="text-gray-500">연결</p>
+                            <p className="text-gray-500">{t('rpc.status.connections')}</p>
                             <p className="font-mono font-medium">{node.connections}</p>
                           </div>
                         </div>
@@ -299,13 +299,13 @@ export default function TestnetRpcStatus() {
             <TabsContent value="metrics">
               <Card className="bg-white dark:bg-black/40 border-gray-200 dark:border-white/10">
                 <CardHeader>
-                  <CardTitle>테스트넷 성능 메트릭</CardTitle>
+                  <CardTitle>{t('rpc.status.testnetPerformanceMetrics')}</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="grid md:grid-cols-3 gap-6">
                     <div className="space-y-4">
                       <h4 className="font-medium flex items-center gap-2">
-                        <Cpu className="w-4 h-4 text-yellow-500" /> CPU 사용량
+                        <Cpu className="w-4 h-4 text-yellow-500" /> {t('rpc.status.cpuUsage')}
                       </h4>
                       {mockNodes.map(node => (
                         <div key={node.id} className="flex items-center gap-3">
@@ -317,7 +317,7 @@ export default function TestnetRpcStatus() {
                     </div>
                     <div className="space-y-4">
                       <h4 className="font-medium flex items-center gap-2">
-                        <MemoryStick className="w-4 h-4 text-orange-500" /> 메모리 사용량
+                        <MemoryStick className="w-4 h-4 text-orange-500" /> {t('rpc.status.memoryUsage')}
                       </h4>
                       {mockNodes.map(node => (
                         <div key={node.id} className="flex items-center gap-3">
@@ -329,7 +329,7 @@ export default function TestnetRpcStatus() {
                     </div>
                     <div className="space-y-4">
                       <h4 className="font-medium flex items-center gap-2">
-                        <HardDrive className="w-4 h-4 text-purple-500" /> 디스크 사용량
+                        <HardDrive className="w-4 h-4 text-purple-500" /> {t('rpc.status.diskUsage')}
                       </h4>
                       {mockNodes.map(node => (
                         <div key={node.id} className="flex items-center gap-3">
@@ -349,7 +349,7 @@ export default function TestnetRpcStatus() {
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     <Bell className="w-5 h-5" />
-                    테스트넷 알림 기록
+                    {t('rpc.status.testnetAlertHistory')}
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
@@ -369,13 +369,13 @@ export default function TestnetRpcStatus() {
                             <div>
                               <p className="text-sm font-medium text-gray-900 dark:text-white">{alert.message}</p>
                               <p className="text-xs text-gray-500 mt-1">
-                                {new Date(alert.timestamp).toLocaleString('ko-KR')}
+                                {new Date(alert.timestamp).toLocaleString()}
                               </p>
                             </div>
                           </div>
                           {alert.resolved && (
                             <Badge variant="outline" className="text-xs text-green-500 border-green-500/30">
-                              해결됨
+                              {t('common.resolved')}
                             </Badge>
                           )}
                         </div>

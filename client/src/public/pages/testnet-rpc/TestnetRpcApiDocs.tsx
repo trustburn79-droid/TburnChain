@@ -21,13 +21,13 @@ import {
 
 interface RpcMethod {
   name: string;
-  description: string;
-  params: Array<{ name: string; type: string; required: boolean; description: string }>;
+  descriptionKey: string;
+  params: Array<{ name: string; type: string; required: boolean; descriptionKey: string }>;
   example: { request: string; response: string };
 }
 
 interface MethodCategory {
-  name: string;
+  nameKey: string;
   icon: any;
   color: string;
   methods: RpcMethod[];
@@ -35,13 +35,13 @@ interface MethodCategory {
 
 const methodCategories: MethodCategory[] = [
   {
-    name: "블록 조회",
+    nameKey: "rpc.docs.categoryBlocks",
     icon: Layers,
     color: "#ffd700",
     methods: [
       {
         name: "eth_blockNumber",
-        description: "현재 테스트넷 블록 번호를 반환합니다.",
+        descriptionKey: "Returns the current testnet block number",
         params: [],
         example: {
           request: `{
@@ -59,10 +59,10 @@ const methodCategories: MethodCategory[] = [
       },
       {
         name: "eth_getBlockByNumber",
-        description: "블록 번호로 테스트넷 블록 정보를 조회합니다.",
+        descriptionKey: "Query testnet block info by block number",
         params: [
-          { name: "blockNumber", type: "string", required: true, description: "블록 번호 (hex) 또는 'latest', 'earliest', 'pending'" },
-          { name: "fullTransactions", type: "boolean", required: true, description: "트랜잭션 전체 정보 포함 여부" }
+          { name: "blockNumber", type: "string", required: true, descriptionKey: "Block number (hex) or 'latest', 'earliest', 'pending'" },
+          { name: "fullTransactions", type: "boolean", required: true, descriptionKey: "Include full transaction info" }
         ],
         example: {
           request: `{
@@ -86,15 +86,15 @@ const methodCategories: MethodCategory[] = [
     ]
   },
   {
-    name: "트랜잭션",
+    nameKey: "rpc.docs.categoryTransactions",
     icon: Activity,
     color: "#ff9500",
     methods: [
       {
         name: "eth_getTransactionByHash",
-        description: "트랜잭션 해시로 테스트넷 트랜잭션 정보를 조회합니다.",
+        descriptionKey: "Query testnet transaction info by hash",
         params: [
-          { name: "transactionHash", type: "string", required: true, description: "트랜잭션 해시 (32 bytes)" }
+          { name: "transactionHash", type: "string", required: true, descriptionKey: "Transaction hash (32 bytes)" }
         ],
         example: {
           request: `{
@@ -117,9 +117,9 @@ const methodCategories: MethodCategory[] = [
       },
       {
         name: "eth_sendRawTransaction",
-        description: "서명된 트랜잭션을 테스트넷에 전송합니다.",
+        descriptionKey: "Send signed transaction to testnet",
         params: [
-          { name: "signedTransactionData", type: "string", required: true, description: "서명된 트랜잭션 데이터 (hex)" }
+          { name: "signedTransactionData", type: "string", required: true, descriptionKey: "Signed transaction data (hex)" }
         ],
         example: {
           request: `{
@@ -138,16 +138,16 @@ const methodCategories: MethodCategory[] = [
     ]
   },
   {
-    name: "계정",
+    nameKey: "rpc.docs.categoryAccounts",
     icon: Wallet,
     color: "#00ff9d",
     methods: [
       {
         name: "eth_getBalance",
-        description: "테스트넷 계정의 잔액을 조회합니다.",
+        descriptionKey: "Query testnet account balance",
         params: [
-          { name: "address", type: "string", required: true, description: "계정 주소 (20 bytes)" },
-          { name: "blockNumber", type: "string", required: false, description: "블록 번호 또는 'latest'" }
+          { name: "address", type: "string", required: true, descriptionKey: "Account address (20 bytes)" },
+          { name: "blockNumber", type: "string", required: false, descriptionKey: "Block number or 'latest'" }
         ],
         example: {
           request: `{
@@ -166,15 +166,15 @@ const methodCategories: MethodCategory[] = [
     ]
   },
   {
-    name: "테스트넷 전용",
+    nameKey: "rpc.docs.categoryTestnet",
     icon: Droplets,
     color: "#00bfff",
     methods: [
       {
         name: "tburn_testnet_faucet",
-        description: "테스트넷 토큰을 요청합니다 (1일 1회 제한).",
+        descriptionKey: "Request testnet tokens (1 per day limit)",
         params: [
-          { name: "address", type: "string", required: true, description: "수신 주소" }
+          { name: "address", type: "string", required: true, descriptionKey: "Receiving address" }
         ],
         example: {
           request: `{
@@ -196,9 +196,9 @@ const methodCategories: MethodCategory[] = [
       },
       {
         name: "tburn_testnet_getShardInfo",
-        description: "테스트넷 샤드 정보를 조회합니다.",
+        descriptionKey: "Query testnet shard information",
         params: [
-          { name: "shardId", type: "number", required: false, description: "샤드 ID (없으면 전체)" }
+          { name: "shardId", type: "number", required: false, descriptionKey: "Shard ID (omit for all)" }
         ],
         example: {
           request: `{
@@ -220,9 +220,9 @@ const methodCategories: MethodCategory[] = [
       },
       {
         name: "tburn_testnet_resetAccount",
-        description: "테스트넷 계정 상태를 초기화합니다.",
+        descriptionKey: "Reset testnet account state",
         params: [
-          { name: "address", type: "string", required: true, description: "초기화할 주소" }
+          { name: "address", type: "string", required: true, descriptionKey: "Address to reset" }
         ],
         example: {
           request: `{
@@ -325,13 +325,13 @@ export default function TestnetRpcApiDocs() {
   const copyToClipboard = (text: string, id: string) => {
     navigator.clipboard.writeText(text);
     setCopiedCode(id);
-    toast({ title: "복사됨", description: "클립보드에 복사되었습니다." });
+    toast({ title: t('rpc.shared.copied'), description: t('rpc.shared.copiedToClipboard') });
     setTimeout(() => setCopiedCode(null), 2000);
   };
 
   const runTest = async () => {
     if (!testMethod) {
-      toast({ title: "오류", description: "메서드를 입력하세요.", variant: "destructive" });
+      toast({ title: t('rpc.shared.error'), description: t('rpc.docs.method'), variant: "destructive" });
       return;
     }
     
@@ -360,14 +360,14 @@ export default function TestnetRpcApiDocs() {
           ? "0x177a"
           : testMethod === 'net_version'
           ? "6010"
-          : { message: "테스트넷 메서드 실행 완료", blockHeight: data.data?.blockHeight }
+          : { message: "Testnet method executed", blockHeight: data.data?.blockHeight }
       };
 
       setTestResult(JSON.stringify(mockResult, null, 2));
-      toast({ title: "성공", description: "테스트넷 API 호출이 완료되었습니다." });
+      toast({ title: t('rpc.shared.success'), description: t('rpc.shared.testnetApiCallSuccess') });
     } catch (error) {
-      setTestResult(JSON.stringify({ error: "요청 실패" }, null, 2));
-      toast({ title: "오류", description: "API 호출에 실패했습니다.", variant: "destructive" });
+      setTestResult(JSON.stringify({ error: t('rpc.shared.requestFailed') }, null, 2));
+      toast({ title: t('rpc.shared.error'), description: t('rpc.shared.apiCallFailed'), variant: "destructive" });
     } finally {
       setIsTesting(false);
     }
@@ -389,18 +389,18 @@ export default function TestnetRpcApiDocs() {
         <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
           <div className="flex items-center gap-3 mb-4">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-orange-500/10 border border-orange-500/30 text-xs font-mono text-orange-400">
-              <Code className="w-3.5 h-3.5" /> 테스트넷 API 문서
+              <Code className="w-3.5 h-3.5" /> {t('rpc.docs.testnetBadge')}
             </div>
             <Badge variant="outline" className="text-xs border-yellow-500/50 text-yellow-500">TESTNET</Badge>
             <Badge variant="outline" className="text-xs">v2.1.0</Badge>
           </div>
           
           <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-3">
-            테스트넷 RPC <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500">API 문서</span>
+            {t('rpc.docs.heroTitle')} <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500">{t('rpc.docs.heroHighlight')}</span>
           </h1>
           
           <p className="text-gray-600 dark:text-gray-400 max-w-xl">
-            TBURN 테스트넷 JSON-RPC API 전체 레퍼런스. 인터랙티브 테스트와 다양한 언어별 예제 코드를 제공합니다.
+            {t('rpc.docs.testnetHeroDesc')}
           </p>
         </div>
       </section>
@@ -411,7 +411,7 @@ export default function TestnetRpcApiDocs() {
             <div className="lg:col-span-1">
               <Card className="bg-white dark:bg-black/40 border-gray-200 dark:border-white/10 sticky top-24">
                 <CardHeader className="pb-3">
-                  <CardTitle className="text-base">메서드 카테고리</CardTitle>
+                  <CardTitle className="text-base">{t('rpc.docs.methodCategories')}</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-1">
                   {methodCategories.map((category, idx) => (
@@ -423,7 +423,7 @@ export default function TestnetRpcApiDocs() {
                       data-testid={`nav-testnet-category-${idx}`}
                     >
                       <category.icon className="w-4 h-4 mr-2" style={{ color: category.color }} />
-                      {category.name}
+                      {t(category.nameKey)}
                       <Badge variant="outline" className="ml-auto text-xs">
                         {category.methods.length}
                       </Badge>
@@ -438,14 +438,14 @@ export default function TestnetRpcApiDocs() {
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     <Terminal className="w-5 h-5 text-yellow-500" />
-                    테스트넷 API 테스터
+                    {t('rpc.docs.testnetApiTester')}
                   </CardTitle>
-                  <CardDescription>테스트넷에서 실시간으로 RPC 메서드를 테스트해보세요.</CardDescription>
+                  <CardDescription>{t('rpc.docs.testnetApiTesterDesc')}</CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div className="grid md:grid-cols-2 gap-4">
                     <div>
-                      <label className="text-sm text-gray-500 mb-2 block">메서드</label>
+                      <label className="text-sm text-gray-500 mb-2 block">{t('rpc.docs.method')}</label>
                       <Input
                         placeholder="eth_blockNumber"
                         value={testMethod}
@@ -455,7 +455,7 @@ export default function TestnetRpcApiDocs() {
                       />
                     </div>
                     <div>
-                      <label className="text-sm text-gray-500 mb-2 block">파라미터 (JSON)</label>
+                      <label className="text-sm text-gray-500 mb-2 block">{t('rpc.docs.parameters')}</label>
                       <Input
                         placeholder='["latest", true]'
                         value={testParams}
@@ -471,7 +471,7 @@ export default function TestnetRpcApiDocs() {
                     ) : (
                       <Play className="w-4 h-4 mr-2" />
                     )}
-                    {isTesting ? "실행 중..." : "테스트넷에서 실행"}
+                    {isTesting ? t('rpc.shared.running') : t('rpc.docs.runOnTestnet')}
                   </Button>
                   {testResult && (
                     <div className="relative">
@@ -498,7 +498,7 @@ export default function TestnetRpcApiDocs() {
                       const Icon = methodCategories[selectedCategory].icon;
                       return <Icon className="w-5 h-5" style={{ color: methodCategories[selectedCategory].color }} />;
                     })()}
-                    {methodCategories[selectedCategory].name} 메서드
+                    {t(methodCategories[selectedCategory].nameKey)} {t('rpc.docs.methods')}
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
@@ -513,20 +513,20 @@ export default function TestnetRpcApiDocs() {
                         <AccordionTrigger className="hover:no-underline py-3">
                           <div className="flex items-center gap-3">
                             <code className="text-sm font-mono text-yellow-500">{method.name}</code>
-                            <span className="text-sm text-gray-500">{method.description}</span>
+                            <span className="text-sm text-gray-500">{method.descriptionKey}</span>
                           </div>
                         </AccordionTrigger>
                         <AccordionContent className="pt-2 pb-4">
                           {method.params.length > 0 && (
                             <div className="mb-4">
-                              <h4 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">파라미터</h4>
+                              <h4 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">{t('rpc.docs.parameters')}</h4>
                               <table className="w-full text-sm">
                                 <thead className="text-gray-500 border-b border-gray-200 dark:border-white/10">
                                   <tr>
-                                    <th className="text-left py-2">이름</th>
-                                    <th className="text-left py-2">타입</th>
-                                    <th className="text-left py-2">필수</th>
-                                    <th className="text-left py-2">설명</th>
+                                    <th className="text-left py-2">{t('rpc.docs.paramName')}</th>
+                                    <th className="text-left py-2">{t('rpc.docs.paramType')}</th>
+                                    <th className="text-left py-2">{t('rpc.docs.paramRequired')}</th>
+                                    <th className="text-left py-2">{t('rpc.docs.paramDescription')}</th>
                                   </tr>
                                 </thead>
                                 <tbody>
@@ -536,12 +536,12 @@ export default function TestnetRpcApiDocs() {
                                       <td className="py-2 text-gray-500 font-mono text-xs">{param.type}</td>
                                       <td className="py-2">
                                         {param.required ? (
-                                          <Badge variant="outline" className="text-green-500 border-green-500/30 text-xs">필수</Badge>
+                                          <Badge variant="outline" className="text-green-500 border-green-500/30 text-xs">{t('rpc.shared.required')}</Badge>
                                         ) : (
-                                          <Badge variant="outline" className="text-gray-400 text-xs">선택</Badge>
+                                          <Badge variant="outline" className="text-gray-400 text-xs">{t('rpc.shared.optional')}</Badge>
                                         )}
                                       </td>
-                                      <td className="py-2 text-gray-600 dark:text-gray-400">{param.description}</td>
+                                      <td className="py-2 text-gray-600 dark:text-gray-400">{param.descriptionKey}</td>
                                     </tr>
                                   ))}
                                 </tbody>
@@ -551,7 +551,7 @@ export default function TestnetRpcApiDocs() {
                           <div className="grid md:grid-cols-2 gap-4">
                             <div>
                               <div className="flex items-center justify-between mb-2">
-                                <h4 className="text-sm font-medium text-gray-700 dark:text-gray-300">요청</h4>
+                                <h4 className="text-sm font-medium text-gray-700 dark:text-gray-300">{t('rpc.docs.request')}</h4>
                                 <Button
                                   size="sm"
                                   variant="ghost"
@@ -566,7 +566,7 @@ export default function TestnetRpcApiDocs() {
                             </div>
                             <div>
                               <div className="flex items-center justify-between mb-2">
-                                <h4 className="text-sm font-medium text-gray-700 dark:text-gray-300">응답</h4>
+                                <h4 className="text-sm font-medium text-gray-700 dark:text-gray-300">{t('rpc.docs.response')}</h4>
                                 <Button
                                   size="sm"
                                   variant="ghost"
@@ -590,7 +590,7 @@ export default function TestnetRpcApiDocs() {
                             }}
                           >
                             <Play className="w-3 h-3 mr-2" />
-                            테스터에서 실행
+                            {t('rpc.docs.runInTester')}
                           </Button>
                         </AccordionContent>
                       </AccordionItem>
@@ -603,9 +603,9 @@ export default function TestnetRpcApiDocs() {
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     <Code className="w-5 h-5 text-orange-500" />
-                    테스트넷 SDK 코드 예제
+                    {t('rpc.docs.testnetSdkExamples')}
                   </CardTitle>
-                  <CardDescription>다양한 프로그래밍 언어별 테스트넷 예제 코드</CardDescription>
+                  <CardDescription>{t('rpc.docs.testnetSdkExamplesDesc')}</CardDescription>
                 </CardHeader>
                 <CardContent>
                   <Tabs value={selectedLang} onValueChange={(v) => setSelectedLang(v as keyof typeof codeExamples)}>
@@ -627,9 +627,9 @@ export default function TestnetRpcApiDocs() {
                             size="icon"
                             variant="ghost"
                             className="absolute top-2 right-2"
-                            onClick={() => copyToClipboard(code, `code-${lang}`)}
+                            onClick={() => copyToClipboard(code, `sdk-${lang}`)}
                           >
-                            {copiedCode === `code-${lang}` ? <Check className="w-4 h-4 text-green-500" /> : <Copy className="w-4 h-4" />}
+                            {copiedCode === `sdk-${lang}` ? <Check className="w-4 h-4 text-green-500" /> : <Copy className="w-4 h-4" />}
                           </Button>
                           <pre className="bg-gray-900 text-gray-300 p-4 rounded-lg text-sm font-mono overflow-x-auto">
                             {code}

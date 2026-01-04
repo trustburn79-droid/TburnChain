@@ -116,7 +116,7 @@ export default function TestnetRpcBenchmark() {
     abortControllerRef.current = null;
 
     if (aborted) {
-      toast({ title: "벤치마크 중단됨", description: "사용자에 의해 중단되었습니다." });
+      toast({ title: t('rpc.benchmark.benchmarkStopped'), description: t('rpc.benchmark.stoppedByUser') });
       return;
     }
 
@@ -125,10 +125,10 @@ export default function TestnetRpcBenchmark() {
     const completedIterations = latencies.length;
 
     if (validLatencies.length === 0) {
-      setBenchmarkError("모든 요청이 실패했습니다. 네트워크 연결을 확인해주세요.");
+      setBenchmarkError(t('rpc.benchmark.allRequestsFailed'));
       toast({ 
-        title: "벤치마크 실패", 
-        description: "성공한 요청이 없습니다.",
+        title: t('rpc.benchmark.benchmarkFailed'), 
+        description: t('rpc.benchmark.noSuccessfulRequests'),
         variant: "destructive"
       });
       return;
@@ -154,18 +154,18 @@ export default function TestnetRpcBenchmark() {
 
     setResults(prev => [result, ...prev.slice(0, 9)]);
     toast({ 
-      title: "테스트넷 벤치마크 완료", 
-      description: `평균 레이턴시: ${result.avgLatency}ms, 처리량: ${result.throughput.toLocaleString()} req/s` 
+      title: t('rpc.benchmark.testnetBenchmarkComplete'), 
+      description: `${t('rpc.benchmark.avgLatencyResult', { latency: result.avgLatency })}, ${t('rpc.benchmark.throughputResult', { throughput: result.throughput.toLocaleString() })}` 
     });
-  }, [selectedMethod, iterations, concurrency, toast]);
+  }, [selectedMethod, iterations, concurrency, toast, t]);
 
   const stopBenchmark = useCallback(() => {
     if (abortControllerRef.current) {
       abortControllerRef.current.abort();
     }
     setIsRunning(false);
-    toast({ title: "벤치마크 중단", description: "벤치마크를 중단하고 있습니다..." });
-  }, [toast]);
+    toast({ title: t('rpc.benchmark.benchmarkStopped'), description: t('rpc.benchmark.stoppedByUser') });
+  }, [toast, t]);
 
   const tps = networkStats?.data?.tps || 15000;
 
@@ -186,20 +186,20 @@ export default function TestnetRpcBenchmark() {
             <div>
               <div className="flex items-center gap-3 mb-4">
                 <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-yellow-500/10 border border-yellow-500/30 text-xs font-mono text-yellow-500">
-                  <Gauge className="w-3.5 h-3.5" /> 테스트넷 벤치마크
+                  <Gauge className="w-3.5 h-3.5" /> {t('rpc.benchmark.testnetBadge')}
                 </div>
                 <Badge variant="outline" className="text-xs border-yellow-500/50 text-yellow-500">TESTNET</Badge>
                 <Badge variant="outline" className={`text-xs ${isRunning ? 'border-green-500/50 text-green-500' : ''}`}>
-                  {isRunning ? '실행 중' : '대기'}
+                  {isRunning ? t('rpc.benchmark.statusRunning') : t('rpc.benchmark.statusIdle')}
                 </Badge>
               </div>
               
               <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-3">
-                테스트넷 RPC <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500">벤치마크</span>
+                {t('rpc.benchmark.heroTitle')} <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500">{t('rpc.benchmark.heroHighlight')}</span>
               </h1>
               
               <p className="text-gray-600 dark:text-gray-400 max-w-xl">
-                테스트넷 RPC 엔드포인트 성능을 실시간으로 측정하세요. 레이턴시, 처리량, 안정성을 분석합니다.
+                {t('rpc.benchmark.testnetHeroDesc')}
               </p>
             </div>
 
@@ -208,11 +208,11 @@ export default function TestnetRpcBenchmark() {
                 <div className="grid grid-cols-2 gap-3">
                   <div className="text-center p-2 rounded bg-gray-50 dark:bg-white/5">
                     <div className="text-xl font-mono font-bold text-gray-900 dark:text-white">{tps.toLocaleString()}</div>
-                    <div className="text-[10px] text-gray-500">테스트넷 TPS</div>
+                    <div className="text-[10px] text-gray-500">{t('rpc.benchmark.testnetTps')}</div>
                   </div>
                   <div className="text-center p-2 rounded bg-gray-50 dark:bg-white/5">
                     <div className="text-xl font-mono font-bold text-yellow-500">14ms</div>
-                    <div className="text-[10px] text-gray-500">평균 레이턴시</div>
+                    <div className="text-[10px] text-gray-500">{t('rpc.benchmark.avgLatency')}</div>
                   </div>
                 </div>
               </CardContent>
@@ -227,13 +227,13 @@ export default function TestnetRpcBenchmark() {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Target className="w-5 h-5 text-yellow-500" />
-                테스트넷 벤치마크 설정
+                {t('rpc.benchmark.testnetConfigTitle')}
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-6">
               <div className="grid md:grid-cols-4 gap-4">
                 <div>
-                  <label className="text-sm text-gray-500 mb-2 block">RPC 메서드</label>
+                  <label className="text-sm text-gray-500 mb-2 block">{t('rpc.benchmark.rpcMethod')}</label>
                   <Select value={selectedMethod} onValueChange={setSelectedMethod}>
                     <SelectTrigger data-testid="select-testnet-method">
                       <SelectValue />
@@ -248,7 +248,7 @@ export default function TestnetRpcBenchmark() {
                   </Select>
                 </div>
                 <div>
-                  <label className="text-sm text-gray-500 mb-2 block">반복 횟수</label>
+                  <label className="text-sm text-gray-500 mb-2 block">{t('rpc.benchmark.iterations')}</label>
                   <Input
                     type="number"
                     value={iterations}
@@ -259,7 +259,7 @@ export default function TestnetRpcBenchmark() {
                   />
                 </div>
                 <div>
-                  <label className="text-sm text-gray-500 mb-2 block">동시성</label>
+                  <label className="text-sm text-gray-500 mb-2 block">{t('rpc.benchmark.concurrency')}</label>
                   <Input
                     type="number"
                     value={concurrency}
@@ -273,12 +273,12 @@ export default function TestnetRpcBenchmark() {
                   {isRunning ? (
                     <Button onClick={stopBenchmark} variant="destructive" className="w-full" data-testid="button-testnet-stop-benchmark">
                       <Square className="w-4 h-4 mr-2" />
-                      중지
+                      {t('rpc.benchmark.stopBenchmark')}
                     </Button>
                   ) : (
                     <Button onClick={runBenchmark} className="w-full bg-yellow-500 hover:bg-yellow-600" data-testid="button-testnet-run-benchmark">
                       <Play className="w-4 h-4 mr-2" />
-                      벤치마크 시작
+                      {t('rpc.benchmark.startBenchmark')}
                     </Button>
                   )}
                 </div>
@@ -287,7 +287,7 @@ export default function TestnetRpcBenchmark() {
               {isRunning && (
                 <div className="space-y-2">
                   <div className="flex justify-between text-sm">
-                    <span className="text-gray-500">진행률</span>
+                    <span className="text-gray-500">{t('rpc.benchmark.progress')}</span>
                     <span className="font-mono">{progress}%</span>
                   </div>
                   <Progress value={progress} className="h-2" />
@@ -298,7 +298,7 @@ export default function TestnetRpcBenchmark() {
                 <div className="flex items-center gap-3 p-4 rounded-lg bg-red-500/10 border border-red-500/30" data-testid="testnet-benchmark-error">
                   <AlertCircle className="w-5 h-5 text-red-500 shrink-0" />
                   <div>
-                    <div className="font-medium text-red-500">벤치마크 실패</div>
+                    <div className="font-medium text-red-500">{t('rpc.benchmark.benchmarkFailed')}</div>
                     <div className="text-sm text-gray-600 dark:text-gray-400">{benchmarkError}</div>
                   </div>
                 </div>
@@ -306,7 +306,7 @@ export default function TestnetRpcBenchmark() {
 
               {liveLatencies.length > 0 && (
                 <div className="space-y-2">
-                  <div className="text-sm text-gray-500">실시간 레이턴시</div>
+                  <div className="text-sm text-gray-500">{t('rpc.benchmark.liveLatency')}</div>
                   <div className="h-24 flex items-end gap-0.5 bg-gray-50 dark:bg-white/5 rounded-lg p-2">
                     {liveLatencies.map((latency, i) => (
                       <div
@@ -331,7 +331,7 @@ export default function TestnetRpcBenchmark() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <BarChart3 className="w-5 h-5 text-yellow-500" />
-                  최근 테스트넷 결과
+                  {t('rpc.benchmark.testnetRecentResults')}
                 </CardTitle>
               </CardHeader>
               <CardContent>
@@ -350,11 +350,11 @@ export default function TestnetRpcBenchmark() {
                             variant="outline" 
                             className={`text-xs ${result.successRate >= 99.9 ? 'border-green-500/30 text-green-500' : 'border-yellow-500/30 text-yellow-500'}`}
                           >
-                            {result.successRate.toFixed(2)}% success
+                            {result.successRate.toFixed(2)}% {t('rpc.benchmark.successRate').toLowerCase()}
                           </Badge>
                         </div>
                         <span className="text-xs text-gray-500">
-                          {new Date(result.timestamp).toLocaleTimeString('ko-KR')}
+                          {new Date(result.timestamp).toLocaleTimeString()}
                         </span>
                       </div>
                       <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4 text-center">
@@ -362,15 +362,15 @@ export default function TestnetRpcBenchmark() {
                           <div className="text-lg font-mono font-bold" style={{ color: getLatencyColor(result.avgLatency) }}>
                             {result.avgLatency}ms
                           </div>
-                          <div className="text-[10px] text-gray-500">평균</div>
+                          <div className="text-[10px] text-gray-500">{t('rpc.benchmark.avg')}</div>
                         </div>
                         <div>
                           <div className="text-lg font-mono font-bold text-green-500">{result.minLatency}ms</div>
-                          <div className="text-[10px] text-gray-500">최소</div>
+                          <div className="text-[10px] text-gray-500">{t('rpc.benchmark.min')}</div>
                         </div>
                         <div>
                           <div className="text-lg font-mono font-bold text-red-500">{result.maxLatency}ms</div>
-                          <div className="text-[10px] text-gray-500">최대</div>
+                          <div className="text-[10px] text-gray-500">{t('rpc.benchmark.max')}</div>
                         </div>
                         <div>
                           <div className="text-lg font-mono font-bold text-gray-900 dark:text-white">{result.p50}ms</div>
@@ -386,7 +386,7 @@ export default function TestnetRpcBenchmark() {
                         </div>
                         <div>
                           <div className="text-lg font-mono font-bold text-yellow-500">{result.throughput.toLocaleString()}</div>
-                          <div className="text-[10px] text-gray-500">req/s</div>
+                          <div className="text-[10px] text-gray-500">{t('rpc.benchmark.reqPerSec')}</div>
                         </div>
                       </div>
                     </div>
@@ -400,13 +400,13 @@ export default function TestnetRpcBenchmark() {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <TrendingUp className="w-5 h-5 text-green-500" />
-                7일간 테스트넷 성능 추이
+                {t('rpc.benchmark.testnetHistoricalTitle')}
               </CardTitle>
             </CardHeader>
             <CardContent>
               <div className="grid md:grid-cols-3 gap-6">
                 <div>
-                  <div className="text-sm text-gray-500 mb-3">평균 레이턴시 (ms)</div>
+                  <div className="text-sm text-gray-500 mb-3">{t('rpc.benchmark.avgLatencyChart')}</div>
                   <div className="h-32 flex items-end gap-2">
                     {mockHistoricalData.map((data, i) => (
                       <div key={i} className="flex-1 flex flex-col items-center gap-1">
@@ -420,7 +420,7 @@ export default function TestnetRpcBenchmark() {
                   </div>
                 </div>
                 <div>
-                  <div className="text-sm text-gray-500 mb-3">처리량 (TPS)</div>
+                  <div className="text-sm text-gray-500 mb-3">{t('rpc.benchmark.throughputChart')}</div>
                   <div className="h-32 flex items-end gap-2">
                     {mockHistoricalData.map((data, i) => (
                       <div key={i} className="flex-1 flex flex-col items-center gap-1">
@@ -434,7 +434,7 @@ export default function TestnetRpcBenchmark() {
                   </div>
                 </div>
                 <div>
-                  <div className="text-sm text-gray-500 mb-3">성공률 (%)</div>
+                  <div className="text-sm text-gray-500 mb-3">{t('rpc.benchmark.successRateChart')}</div>
                   <div className="h-32 flex items-end gap-2">
                     {mockHistoricalData.map((data, i) => (
                       <div key={i} className="flex-1 flex flex-col items-center gap-1">
@@ -455,28 +455,28 @@ export default function TestnetRpcBenchmark() {
                     <Timer className="w-4 h-4 text-yellow-500" />
                     <span className="text-2xl font-mono font-bold text-gray-900 dark:text-white">14.4ms</span>
                   </div>
-                  <div className="text-xs text-gray-500">7일 평균 레이턴시</div>
+                  <div className="text-xs text-gray-500">{t('rpc.benchmark.sevenDayAvgLatency')}</div>
                 </div>
                 <div className="p-4 rounded-lg bg-gray-50 dark:bg-white/5 text-center">
                   <div className="flex items-center justify-center gap-2 mb-1">
                     <Zap className="w-4 h-4 text-green-500" />
                     <span className="text-2xl font-mono font-bold text-gray-900 dark:text-white">13.4K</span>
                   </div>
-                  <div className="text-xs text-gray-500">7일 평균 TPS</div>
+                  <div className="text-xs text-gray-500">{t('rpc.benchmark.sevenDayAvgTps')}</div>
                 </div>
                 <div className="p-4 rounded-lg bg-gray-50 dark:bg-white/5 text-center">
                   <div className="flex items-center justify-center gap-2 mb-1">
                     <CheckCircle2 className="w-4 h-4 text-orange-500" />
                     <span className="text-2xl font-mono font-bold text-gray-900 dark:text-white">99.94%</span>
                   </div>
-                  <div className="text-xs text-gray-500">7일 평균 성공률</div>
+                  <div className="text-xs text-gray-500">{t('rpc.benchmark.sevenDayAvgSuccess')}</div>
                 </div>
                 <div className="p-4 rounded-lg bg-gray-50 dark:bg-white/5 text-center">
                   <div className="flex items-center justify-center gap-2 mb-1">
                     <Shield className="w-4 h-4 text-yellow-500" />
                     <span className="text-2xl font-mono font-bold text-gray-900 dark:text-white">99.95%</span>
                   </div>
-                  <div className="text-xs text-gray-500">7일 업타임</div>
+                  <div className="text-xs text-gray-500">{t('rpc.benchmark.sevenDayUptime')}</div>
                 </div>
               </div>
             </CardContent>

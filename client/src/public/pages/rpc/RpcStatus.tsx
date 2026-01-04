@@ -134,6 +134,15 @@ export default function RpcStatus() {
     }
   };
 
+  const getStatusText = (status: string) => {
+    switch (status) {
+      case 'healthy': return t('rpc.shared.healthy');
+      case 'degraded': return t('rpc.shared.degraded');
+      case 'down': return t('rpc.shared.down');
+      default: return t('rpc.shared.unknown');
+    }
+  };
+
   const blockHeight = networkStats?.data?.blockHeight || 0;
   const tps = networkStats?.data?.tps || 0;
   const overallStatus = healthData?.status === 'healthy' ? 'healthy' : 'degraded';
@@ -148,20 +157,20 @@ export default function RpcStatus() {
             <div>
               <div className="flex items-center gap-3 mb-4">
                 <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#00f0ff]/10 border border-[#00f0ff]/30 text-xs font-mono text-[#00f0ff]">
-                  <Activity className="w-3.5 h-3.5" /> 상태 모니터링
+                  <Activity className="w-3.5 h-3.5" /> {t('rpc.status.badge')}
                 </div>
                 <Badge className={`${getStatusBg(overallStatus)}`} data-testid="badge-overall-status">
                   <span className={`w-2 h-2 rounded-full ${overallStatus === 'healthy' ? 'bg-green-500' : 'bg-yellow-500'} animate-pulse mr-2`} />
-                  {overallStatus === 'healthy' ? '정상 운영 중' : '일부 장애'}
+                  {overallStatus === 'healthy' ? t('rpc.shared.healthy') : t('rpc.shared.degraded')}
                 </Badge>
               </div>
               
               <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-3">
-                RPC 노드 <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-cyan-500">상태 모니터링</span>
+                {t('rpc.status.heroTitle')} <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-cyan-500">{t('rpc.status.heroHighlight')}</span>
               </h1>
               
               <p className="text-gray-600 dark:text-gray-400 max-w-xl">
-                엔터프라이즈급 실시간 노드 상태 모니터링. 업타임, 레이턴시, 시스템 리소스를 실시간으로 확인하세요.
+                {t('rpc.status.heroDesc')}
               </p>
             </div>
 
@@ -174,10 +183,10 @@ export default function RpcStatus() {
                 data-testid="button-refresh-status"
               >
                 <RefreshCw className={`w-4 h-4 mr-2 ${isRefreshing ? 'animate-spin' : ''}`} />
-                새로고침
+                {t('rpc.shared.refresh')}
               </Button>
               <div className="text-xs text-gray-500">
-                마지막 업데이트: {new Date().toLocaleTimeString('ko-KR')}
+                {t('common.lastUpdate')}: {new Date().toLocaleTimeString()}
               </div>
             </div>
           </div>
@@ -196,7 +205,7 @@ export default function RpcStatus() {
                   </Badge>
                 </div>
                 <div className="text-2xl font-mono font-bold text-gray-900 dark:text-white" data-testid="text-uptime">99.99%</div>
-                <div className="text-xs text-gray-500">업타임 (30일)</div>
+                <div className="text-xs text-gray-500">{t('rpc.status.uptime')} ({t('rpc.shared.last30Days')})</div>
               </CardContent>
             </Card>
 
@@ -209,7 +218,7 @@ export default function RpcStatus() {
                   </Badge>
                 </div>
                 <div className="text-2xl font-mono font-bold text-[#00f0ff]" data-testid="text-latency">8ms</div>
-                <div className="text-xs text-gray-500">평균 레이턴시</div>
+                <div className="text-xs text-gray-500">{t('rpc.status.avgLatency')}</div>
               </CardContent>
             </Card>
 
@@ -222,7 +231,7 @@ export default function RpcStatus() {
                   </Badge>
                 </div>
                 <div className="text-2xl font-mono font-bold text-gray-900 dark:text-white" data-testid="text-tps">{tps.toLocaleString()}</div>
-                <div className="text-xs text-gray-500">현재 TPS</div>
+                <div className="text-xs text-gray-500">{t('rpc.status.networkTps')}</div>
               </CardContent>
             </Card>
 
@@ -231,11 +240,11 @@ export default function RpcStatus() {
                 <div className="flex items-center justify-between mb-2">
                   <Layers className="w-5 h-5 text-purple-500" />
                   <Badge variant="outline" className="text-cyan-500 border-cyan-500/30 text-xs">
-                    실시간
+                    {t('common.realtime')}
                   </Badge>
                 </div>
                 <div className="text-2xl font-mono font-bold text-gray-900 dark:text-white" data-testid="text-block-height">{blockHeight.toLocaleString()}</div>
-                <div className="text-xs text-gray-500">블록 높이</div>
+                <div className="text-xs text-gray-500">{t('rpc.status.blockHeight')}</div>
               </CardContent>
             </Card>
           </div>
@@ -243,13 +252,13 @@ export default function RpcStatus() {
           <Tabs defaultValue="nodes" className="space-y-6">
             <TabsList className="bg-gray-100 dark:bg-white/5">
               <TabsTrigger value="nodes" data-testid="tab-nodes">
-                <Server className="w-4 h-4 mr-2" />노드 상태
+                <Server className="w-4 h-4 mr-2" />{t('rpc.status.tabNodes')}
               </TabsTrigger>
               <TabsTrigger value="metrics" data-testid="tab-metrics">
-                <BarChart3 className="w-4 h-4 mr-2" />성능 메트릭
+                <BarChart3 className="w-4 h-4 mr-2" />{t('rpc.status.tabMetrics')}
               </TabsTrigger>
               <TabsTrigger value="alerts" data-testid="tab-alerts">
-                <AlertCircle className="w-4 h-4 mr-2" />알림 기록
+                <AlertCircle className="w-4 h-4 mr-2" />{t('rpc.status.tabAlerts')}
               </TabsTrigger>
             </TabsList>
 
@@ -264,7 +273,7 @@ export default function RpcStatus() {
                         <Badge variant="outline" className="text-xs">{node.region}</Badge>
                       </div>
                       <Badge className={getStatusBg(node.status)}>
-                        {node.status === 'healthy' ? '정상' : node.status === 'degraded' ? '저하됨' : '다운'}
+                        {getStatusText(node.status)}
                       </Badge>
                     </div>
                   </CardHeader>
@@ -272,36 +281,36 @@ export default function RpcStatus() {
                     <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
                       <div className="space-y-2">
                         <div className="flex items-center justify-between text-xs">
-                          <span className="text-gray-500 flex items-center gap-1"><Cpu className="w-3 h-3" /> CPU</span>
+                          <span className="text-gray-500 flex items-center gap-1"><Cpu className="w-3 h-3" /> {t('rpc.status.cpu')}</span>
                           <span className="font-mono">{node.cpu}%</span>
                         </div>
                         <Progress value={node.cpu} className="h-1.5" />
                       </div>
                       <div className="space-y-2">
                         <div className="flex items-center justify-between text-xs">
-                          <span className="text-gray-500 flex items-center gap-1"><MemoryStick className="w-3 h-3" /> 메모리</span>
+                          <span className="text-gray-500 flex items-center gap-1"><MemoryStick className="w-3 h-3" /> {t('rpc.status.memory')}</span>
                           <span className="font-mono">{node.memory}%</span>
                         </div>
                         <Progress value={node.memory} className="h-1.5" />
                       </div>
                       <div className="space-y-2">
                         <div className="flex items-center justify-between text-xs">
-                          <span className="text-gray-500 flex items-center gap-1"><HardDrive className="w-3 h-3" /> 디스크</span>
+                          <span className="text-gray-500 flex items-center gap-1"><HardDrive className="w-3 h-3" /> {t('rpc.status.disk')}</span>
                           <span className="font-mono">{node.disk}%</span>
                         </div>
                         <Progress value={node.disk} className="h-1.5" />
                       </div>
                       <div className="text-center p-2 rounded bg-gray-50 dark:bg-white/5">
                         <div className="text-lg font-mono font-bold text-gray-900 dark:text-white">{node.latency}ms</div>
-                        <div className="text-[10px] text-gray-500">레이턴시</div>
+                        <div className="text-[10px] text-gray-500">{t('rpc.status.latency')}</div>
                       </div>
                       <div className="text-center p-2 rounded bg-gray-50 dark:bg-white/5">
                         <div className="text-lg font-mono font-bold text-gray-900 dark:text-white">{node.connections.toLocaleString()}</div>
-                        <div className="text-[10px] text-gray-500">활성 연결</div>
+                        <div className="text-[10px] text-gray-500">{t('rpc.status.connections')}</div>
                       </div>
                       <div className="text-center p-2 rounded bg-gray-50 dark:bg-white/5">
                         <div className="text-lg font-mono font-bold text-green-500">{node.errorRate}%</div>
-                        <div className="text-[10px] text-gray-500">에러율</div>
+                        <div className="text-[10px] text-gray-500">{t('common.error')} %</div>
                       </div>
                     </div>
                   </CardContent>
@@ -314,7 +323,7 @@ export default function RpcStatus() {
                 <Card className="bg-white dark:bg-black/40 border-gray-200 dark:border-white/10">
                   <CardHeader>
                     <CardTitle className="text-base flex items-center gap-2">
-                      <Timer className="w-4 h-4 text-cyan-500" />레이턴시 추이 (실시간)
+                      <Timer className="w-4 h-4 text-cyan-500" />{t('rpc.status.liveLatency')}
                     </CardTitle>
                   </CardHeader>
                   <CardContent>
@@ -332,8 +341,8 @@ export default function RpcStatus() {
                       ))}
                     </div>
                     <div className="flex justify-between mt-2 text-[10px] text-gray-500">
-                      <span>60초 전</span>
-                      <span>현재</span>
+                      <span>60s ago</span>
+                      <span>{t('rpc.status.current')}</span>
                     </div>
                   </CardContent>
                 </Card>
@@ -341,7 +350,7 @@ export default function RpcStatus() {
                 <Card className="bg-white dark:bg-black/40 border-gray-200 dark:border-white/10">
                   <CardHeader>
                     <CardTitle className="text-base flex items-center gap-2">
-                      <Zap className="w-4 h-4 text-yellow-500" />TPS 추이 (실시간)
+                      <Zap className="w-4 h-4 text-yellow-500" />TPS {t('rpc.status.liveLatency')}
                     </CardTitle>
                   </CardHeader>
                   <CardContent>
@@ -358,8 +367,8 @@ export default function RpcStatus() {
                       ))}
                     </div>
                     <div className="flex justify-between mt-2 text-[10px] text-gray-500">
-                      <span>60초 전</span>
-                      <span>현재</span>
+                      <span>60s ago</span>
+                      <span>{t('rpc.status.current')}</span>
                     </div>
                   </CardContent>
                 </Card>
@@ -367,37 +376,37 @@ export default function RpcStatus() {
 
               <Card className="bg-white dark:bg-black/40 border-gray-200 dark:border-white/10">
                 <CardHeader>
-                  <CardTitle className="text-base">시스템 상태 요약</CardTitle>
+                  <CardTitle className="text-base">{t('rpc.status.performanceMetrics')}</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                     <div className="p-4 rounded-lg bg-green-500/10 border border-green-500/20">
                       <div className="flex items-center gap-2 mb-2">
                         <ShieldCheck className="w-5 h-5 text-green-500" />
-                        <span className="text-sm font-medium text-gray-700 dark:text-gray-300">보안 상태</span>
+                        <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{t('common.security')}</span>
                       </div>
-                      <div className="text-lg font-bold text-green-500">안전</div>
+                      <div className="text-lg font-bold text-green-500">{t('rpc.shared.healthy')}</div>
                     </div>
                     <div className="p-4 rounded-lg bg-cyan-500/10 border border-cyan-500/20">
                       <div className="flex items-center gap-2 mb-2">
                         <Radio className="w-5 h-5 text-cyan-500" />
                         <span className="text-sm font-medium text-gray-700 dark:text-gray-300">WebSocket</span>
                       </div>
-                      <div className="text-lg font-bold text-cyan-500">연결됨</div>
+                      <div className="text-lg font-bold text-cyan-500">{t('common.connected')}</div>
                     </div>
                     <div className="p-4 rounded-lg bg-purple-500/10 border border-purple-500/20">
                       <div className="flex items-center gap-2 mb-2">
                         <Database className="w-5 h-5 text-purple-500" />
-                        <span className="text-sm font-medium text-gray-700 dark:text-gray-300">데이터베이스</span>
+                        <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Database</span>
                       </div>
-                      <div className="text-lg font-bold text-purple-500">정상</div>
+                      <div className="text-lg font-bold text-purple-500">{t('rpc.shared.healthy')}</div>
                     </div>
                     <div className="p-4 rounded-lg bg-yellow-500/10 border border-yellow-500/20">
                       <div className="flex items-center gap-2 mb-2">
                         <Globe className="w-5 h-5 text-yellow-500" />
                         <span className="text-sm font-medium text-gray-700 dark:text-gray-300">CDN</span>
                       </div>
-                      <div className="text-lg font-bold text-yellow-500">활성</div>
+                      <div className="text-lg font-bold text-yellow-500">{t('common.active')}</div>
                     </div>
                   </div>
                 </CardContent>
@@ -408,9 +417,9 @@ export default function RpcStatus() {
               <Card className="bg-white dark:bg-black/40 border-gray-200 dark:border-white/10">
                 <CardHeader>
                   <CardTitle className="text-base flex items-center gap-2">
-                    <AlertCircle className="w-5 h-5" />최근 알림 기록
+                    <AlertCircle className="w-5 h-5" />{t('rpc.status.alertHistory')}
                   </CardTitle>
-                  <CardDescription>최근 7일간의 알림 내역</CardDescription>
+                  <CardDescription>{t('rpc.shared.last30Days')}</CardDescription>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-3">
@@ -431,13 +440,13 @@ export default function RpcStatus() {
                           <div>
                             <div className="font-medium">{alert.message}</div>
                             <div className="text-xs opacity-70">
-                              {new Date(alert.timestamp).toLocaleString('ko-KR')}
+                              {new Date(alert.timestamp).toLocaleString()}
                             </div>
                           </div>
                         </div>
                         {alert.resolved && (
                           <Badge variant="outline" className="text-green-500 border-green-500/30">
-                            <CheckCircle2 className="w-3 h-3 mr-1" />해결됨
+                            <CheckCircle2 className="w-3 h-3 mr-1" />{t('common.resolved')}
                           </Badge>
                         )}
                       </div>

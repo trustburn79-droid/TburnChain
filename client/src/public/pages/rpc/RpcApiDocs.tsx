@@ -21,13 +21,13 @@ import {
 
 interface RpcMethod {
   name: string;
-  description: string;
-  params: Array<{ name: string; type: string; required: boolean; description: string }>;
+  descriptionKey: string;
+  params: Array<{ name: string; type: string; required: boolean; descriptionKey: string }>;
   example: { request: string; response: string };
 }
 
 interface MethodCategory {
-  name: string;
+  nameKey: string;
   icon: any;
   color: string;
   methods: RpcMethod[];
@@ -35,13 +35,13 @@ interface MethodCategory {
 
 const methodCategories: MethodCategory[] = [
   {
-    name: "블록 조회",
+    nameKey: "rpc.docs.categoryBlocks",
     icon: Layers,
     color: "#00f0ff",
     methods: [
       {
         name: "eth_blockNumber",
-        description: "현재 블록 번호를 반환합니다.",
+        descriptionKey: "Returns the current block number",
         params: [],
         example: {
           request: `{
@@ -59,10 +59,10 @@ const methodCategories: MethodCategory[] = [
       },
       {
         name: "eth_getBlockByNumber",
-        description: "블록 번호로 블록 정보를 조회합니다.",
+        descriptionKey: "Query block information by block number",
         params: [
-          { name: "blockNumber", type: "string", required: true, description: "블록 번호 (hex) 또는 'latest', 'earliest', 'pending'" },
-          { name: "fullTransactions", type: "boolean", required: true, description: "트랜잭션 전체 정보 포함 여부" }
+          { name: "blockNumber", type: "string", required: true, descriptionKey: "Block number (hex) or 'latest', 'earliest', 'pending'" },
+          { name: "fullTransactions", type: "boolean", required: true, descriptionKey: "Include full transaction info" }
         ],
         example: {
           request: `{
@@ -86,15 +86,15 @@ const methodCategories: MethodCategory[] = [
     ]
   },
   {
-    name: "트랜잭션",
+    nameKey: "rpc.docs.categoryTransactions",
     icon: Activity,
     color: "#00ff9d",
     methods: [
       {
         name: "eth_getTransactionByHash",
-        description: "트랜잭션 해시로 트랜잭션 정보를 조회합니다.",
+        descriptionKey: "Query transaction info by hash",
         params: [
-          { name: "transactionHash", type: "string", required: true, description: "트랜잭션 해시 (32 bytes)" }
+          { name: "transactionHash", type: "string", required: true, descriptionKey: "Transaction hash (32 bytes)" }
         ],
         example: {
           request: `{
@@ -117,9 +117,9 @@ const methodCategories: MethodCategory[] = [
       },
       {
         name: "eth_sendRawTransaction",
-        description: "서명된 트랜잭션을 전송합니다.",
+        descriptionKey: "Send signed transaction",
         params: [
-          { name: "signedTransactionData", type: "string", required: true, description: "서명된 트랜잭션 데이터 (hex)" }
+          { name: "signedTransactionData", type: "string", required: true, descriptionKey: "Signed transaction data (hex)" }
         ],
         example: {
           request: `{
@@ -138,16 +138,16 @@ const methodCategories: MethodCategory[] = [
     ]
   },
   {
-    name: "계정",
+    nameKey: "rpc.docs.categoryAccounts",
     icon: Wallet,
     color: "#ffd700",
     methods: [
       {
         name: "eth_getBalance",
-        description: "계정의 잔액을 조회합니다.",
+        descriptionKey: "Query account balance",
         params: [
-          { name: "address", type: "string", required: true, description: "계정 주소 (20 bytes)" },
-          { name: "blockNumber", type: "string", required: false, description: "블록 번호 또는 'latest'" }
+          { name: "address", type: "string", required: true, descriptionKey: "Account address (20 bytes)" },
+          { name: "blockNumber", type: "string", required: false, descriptionKey: "Block number or 'latest'" }
         ],
         example: {
           request: `{
@@ -166,15 +166,15 @@ const methodCategories: MethodCategory[] = [
     ]
   },
   {
-    name: "TBURN 전용",
+    nameKey: "rpc.docs.categoryTburn",
     icon: Sparkles,
     color: "#7000ff",
     methods: [
       {
         name: "tburn_getTrustScore",
-        description: "계정의 신뢰 점수를 조회합니다.",
+        descriptionKey: "Query account trust score",
         params: [
-          { name: "address", type: "string", required: true, description: "계정 주소" }
+          { name: "address", type: "string", required: true, descriptionKey: "Account address" }
         ],
         example: {
           request: `{
@@ -196,9 +196,9 @@ const methodCategories: MethodCategory[] = [
       },
       {
         name: "tburn_getShardInfo",
-        description: "샤드 정보를 조회합니다.",
+        descriptionKey: "Query shard information",
         params: [
-          { name: "shardId", type: "number", required: false, description: "샤드 ID (없으면 전체)" }
+          { name: "shardId", type: "number", required: false, descriptionKey: "Shard ID (omit for all)" }
         ],
         example: {
           request: `{
@@ -220,7 +220,7 @@ const methodCategories: MethodCategory[] = [
       },
       {
         name: "tburn_getBurnStats",
-        description: "TBURN 소각 통계를 조회합니다.",
+        descriptionKey: "Query TBURN burn statistics",
         params: [],
         example: {
           request: `{
@@ -329,13 +329,13 @@ export default function RpcApiDocs() {
   const copyToClipboard = (text: string, id: string) => {
     navigator.clipboard.writeText(text);
     setCopiedCode(id);
-    toast({ title: "복사됨", description: "클립보드에 복사되었습니다." });
+    toast({ title: t('rpc.shared.copied'), description: t('rpc.shared.copiedToClipboard') });
     setTimeout(() => setCopiedCode(null), 2000);
   };
 
   const runTest = async () => {
     if (!testMethod) {
-      toast({ title: "오류", description: "메서드를 입력하세요.", variant: "destructive" });
+      toast({ title: t('rpc.shared.error'), description: t('rpc.docs.method'), variant: "destructive" });
       return;
     }
     
@@ -364,14 +364,14 @@ export default function RpcApiDocs() {
           ? "0x1770"
           : testMethod === 'net_version'
           ? "6000"
-          : { message: "메서드 실행 완료", blockHeight: data.data?.blockHeight }
+          : { message: "Method executed", blockHeight: data.data?.blockHeight }
       };
 
       setTestResult(JSON.stringify(mockResult, null, 2));
-      toast({ title: "성공", description: "API 호출이 완료되었습니다." });
+      toast({ title: t('rpc.shared.success'), description: t('rpc.shared.apiCallSuccess') });
     } catch (error) {
-      setTestResult(JSON.stringify({ error: "요청 실패" }, null, 2));
-      toast({ title: "오류", description: "API 호출에 실패했습니다.", variant: "destructive" });
+      setTestResult(JSON.stringify({ error: t('rpc.shared.requestFailed') }, null, 2));
+      toast({ title: t('rpc.shared.error'), description: t('rpc.shared.apiCallFailed'), variant: "destructive" });
     } finally {
       setIsTesting(false);
     }
@@ -393,17 +393,17 @@ export default function RpcApiDocs() {
         <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
           <div className="flex items-center gap-3 mb-4">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-purple-500/10 border border-purple-500/30 text-xs font-mono text-purple-400">
-              <Code className="w-3.5 h-3.5" /> API 문서
+              <Code className="w-3.5 h-3.5" /> {t('rpc.docs.badge')}
             </div>
             <Badge variant="outline" className="text-xs">v2.1.0</Badge>
           </div>
           
           <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-3">
-            RPC <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-500">API 문서</span>
+            {t('rpc.docs.heroTitle')} <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-500">{t('rpc.docs.heroHighlight')}</span>
           </h1>
           
           <p className="text-gray-600 dark:text-gray-400 max-w-xl">
-            TBURN 메인넷 JSON-RPC API 전체 레퍼런스. 인터랙티브 테스트와 다양한 언어별 예제 코드를 제공합니다.
+            {t('rpc.docs.heroDesc')}
           </p>
         </div>
       </section>
@@ -414,7 +414,7 @@ export default function RpcApiDocs() {
             <div className="lg:col-span-1">
               <Card className="bg-white dark:bg-black/40 border-gray-200 dark:border-white/10 sticky top-24">
                 <CardHeader className="pb-3">
-                  <CardTitle className="text-base">메서드 카테고리</CardTitle>
+                  <CardTitle className="text-base">{t('rpc.docs.methodCategories')}</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-1">
                   {methodCategories.map((category, idx) => (
@@ -426,7 +426,7 @@ export default function RpcApiDocs() {
                       data-testid={`nav-category-${idx}`}
                     >
                       <category.icon className="w-4 h-4 mr-2" style={{ color: category.color }} />
-                      {category.name}
+                      {t(category.nameKey)}
                       <Badge variant="outline" className="ml-auto text-xs">
                         {category.methods.length}
                       </Badge>
@@ -441,14 +441,14 @@ export default function RpcApiDocs() {
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     <Terminal className="w-5 h-5 text-cyan-500" />
-                    인터랙티브 API 테스터
+                    {t('rpc.docs.apiTester')}
                   </CardTitle>
-                  <CardDescription>실시간으로 RPC 메서드를 테스트해보세요.</CardDescription>
+                  <CardDescription>{t('rpc.docs.apiTesterDesc')}</CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div className="grid md:grid-cols-2 gap-4">
                     <div>
-                      <label className="text-sm text-gray-500 mb-2 block">메서드</label>
+                      <label className="text-sm text-gray-500 mb-2 block">{t('rpc.docs.method')}</label>
                       <Input
                         placeholder="eth_blockNumber"
                         value={testMethod}
@@ -458,7 +458,7 @@ export default function RpcApiDocs() {
                       />
                     </div>
                     <div>
-                      <label className="text-sm text-gray-500 mb-2 block">파라미터 (JSON)</label>
+                      <label className="text-sm text-gray-500 mb-2 block">{t('rpc.docs.parameters')}</label>
                       <Input
                         placeholder='["latest", true]'
                         value={testParams}
@@ -474,7 +474,7 @@ export default function RpcApiDocs() {
                     ) : (
                       <Play className="w-4 h-4 mr-2" />
                     )}
-                    {isTesting ? "실행 중..." : "테스트 실행"}
+                    {isTesting ? t('rpc.shared.running') : t('rpc.docs.runTest')}
                   </Button>
                   {testResult && (
                     <div className="relative">
@@ -501,7 +501,7 @@ export default function RpcApiDocs() {
                       const Icon = methodCategories[selectedCategory].icon;
                       return <Icon className="w-5 h-5" style={{ color: methodCategories[selectedCategory].color }} />;
                     })()}
-                    {methodCategories[selectedCategory].name} 메서드
+                    {t(methodCategories[selectedCategory].nameKey)} {t('rpc.docs.methods')}
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
@@ -516,20 +516,20 @@ export default function RpcApiDocs() {
                         <AccordionTrigger className="hover:no-underline py-3">
                           <div className="flex items-center gap-3">
                             <code className="text-sm font-mono text-cyan-500">{method.name}</code>
-                            <span className="text-sm text-gray-500">{method.description}</span>
+                            <span className="text-sm text-gray-500">{method.descriptionKey}</span>
                           </div>
                         </AccordionTrigger>
                         <AccordionContent className="pt-2 pb-4">
                           {method.params.length > 0 && (
                             <div className="mb-4">
-                              <h4 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">파라미터</h4>
+                              <h4 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">{t('rpc.docs.parameters')}</h4>
                               <table className="w-full text-sm">
                                 <thead className="text-gray-500 border-b border-gray-200 dark:border-white/10">
                                   <tr>
-                                    <th className="text-left py-2">이름</th>
-                                    <th className="text-left py-2">타입</th>
-                                    <th className="text-left py-2">필수</th>
-                                    <th className="text-left py-2">설명</th>
+                                    <th className="text-left py-2">{t('rpc.docs.paramName')}</th>
+                                    <th className="text-left py-2">{t('rpc.docs.paramType')}</th>
+                                    <th className="text-left py-2">{t('rpc.docs.paramRequired')}</th>
+                                    <th className="text-left py-2">{t('rpc.docs.paramDescription')}</th>
                                   </tr>
                                 </thead>
                                 <tbody>
@@ -539,12 +539,12 @@ export default function RpcApiDocs() {
                                       <td className="py-2 text-gray-500 font-mono text-xs">{param.type}</td>
                                       <td className="py-2">
                                         {param.required ? (
-                                          <Badge variant="outline" className="text-green-500 border-green-500/30 text-xs">필수</Badge>
+                                          <Badge variant="outline" className="text-green-500 border-green-500/30 text-xs">{t('rpc.shared.required')}</Badge>
                                         ) : (
-                                          <Badge variant="outline" className="text-gray-400 text-xs">선택</Badge>
+                                          <Badge variant="outline" className="text-gray-400 text-xs">{t('rpc.shared.optional')}</Badge>
                                         )}
                                       </td>
-                                      <td className="py-2 text-gray-600 dark:text-gray-400">{param.description}</td>
+                                      <td className="py-2 text-gray-600 dark:text-gray-400">{param.descriptionKey}</td>
                                     </tr>
                                   ))}
                                 </tbody>
@@ -554,7 +554,7 @@ export default function RpcApiDocs() {
                           <div className="grid md:grid-cols-2 gap-4">
                             <div>
                               <div className="flex items-center justify-between mb-2">
-                                <h4 className="text-sm font-medium text-gray-700 dark:text-gray-300">요청</h4>
+                                <h4 className="text-sm font-medium text-gray-700 dark:text-gray-300">{t('rpc.docs.request')}</h4>
                                 <Button
                                   size="sm"
                                   variant="ghost"
@@ -569,7 +569,7 @@ export default function RpcApiDocs() {
                             </div>
                             <div>
                               <div className="flex items-center justify-between mb-2">
-                                <h4 className="text-sm font-medium text-gray-700 dark:text-gray-300">응답</h4>
+                                <h4 className="text-sm font-medium text-gray-700 dark:text-gray-300">{t('rpc.docs.response')}</h4>
                                 <Button
                                   size="sm"
                                   variant="ghost"
@@ -593,7 +593,7 @@ export default function RpcApiDocs() {
                             }}
                           >
                             <Play className="w-3 h-3 mr-2" />
-                            테스터에서 실행
+                            {t('rpc.docs.runInTester')}
                           </Button>
                         </AccordionContent>
                       </AccordionItem>
@@ -606,9 +606,9 @@ export default function RpcApiDocs() {
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     <Code className="w-5 h-5 text-purple-500" />
-                    SDK 코드 예제
+                    {t('rpc.docs.sdkExamples')}
                   </CardTitle>
-                  <CardDescription>다양한 프로그래밍 언어별 예제 코드</CardDescription>
+                  <CardDescription>{t('rpc.docs.sdkExamplesDesc')}</CardDescription>
                 </CardHeader>
                 <CardContent>
                   <Tabs value={selectedLang} onValueChange={(v) => setSelectedLang(v as keyof typeof codeExamples)}>
@@ -630,9 +630,9 @@ export default function RpcApiDocs() {
                             size="icon"
                             variant="ghost"
                             className="absolute top-2 right-2"
-                            onClick={() => copyToClipboard(code, `code-${lang}`)}
+                            onClick={() => copyToClipboard(code, `sdk-${lang}`)}
                           >
-                            {copiedCode === `code-${lang}` ? <Check className="w-4 h-4 text-green-500" /> : <Copy className="w-4 h-4" />}
+                            {copiedCode === `sdk-${lang}` ? <Check className="w-4 h-4 text-green-500" /> : <Copy className="w-4 h-4" />}
                           </Button>
                           <pre className="bg-gray-900 text-gray-300 p-4 rounded-lg text-sm font-mono overflow-x-auto">
                             {code}
