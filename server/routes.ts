@@ -64,6 +64,7 @@ import enterpriseSessionMonitoringRoutes from "./routes/enterprise-session-monit
 import enterpriseDbOptimizerRoutes from "./routes/enterprise-db-optimizer-routes";
 import { enterpriseSessionMetrics } from "./core/monitoring/enterprise-session-metrics";
 import { dbOptimizer } from "./core/db/enterprise-db-optimizer";
+import { healthMonitor } from "./core/health/production-health-monitor";
 import { nftMarketplaceService } from "./services/NftMarketplaceService";
 import { launchpadService } from "./services/LaunchpadService";
 import { gameFiService } from "./services/GameFiService";
@@ -371,7 +372,17 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   const restartSupervisor = getRestartSupervisor(isProductionMode());
   
   // Initialize Connection Health Monitor
-  const healthMonitor = getHealthMonitor();
+  const connectionHealthMonitor = getHealthMonitor();
+  
+  // ★ [2026-01-04] Start Production Health Monitor for 24/7 stability
+  healthMonitor.start();
+  console.log('[Routes] ✅ Production health monitor started');
+  
+  // Register health monitor routes (early, before rate limiting)
+  app.use(healthMonitor.getRoutes());
+  
+  // Add request tracking middleware for health metrics
+  app.use(healthMonitor.trackRequest());
   
   // Initialize TBURN client if in production mode  
   if (isProductionMode()) {
