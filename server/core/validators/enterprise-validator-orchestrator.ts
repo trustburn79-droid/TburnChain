@@ -1517,7 +1517,9 @@ export class EnterpriseValidatorOrchestrator {
         total: this.totalValidators,
         active: this.activeValidators,
         slaCompliant: slaCompliantCount,
-        slaCompliantPercentage: ((slaCompliantCount / this.activeValidators) * 100).toFixed(2),
+        slaCompliantPercentage: this.activeValidators > 0 
+          ? ((slaCompliantCount / this.activeValidators) * 100).toFixed(2) 
+          : '0.00',
       },
       
       latency: {
