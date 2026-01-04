@@ -52,6 +52,7 @@ import consensusRoutes from "./routes/consensus-routes";
 import blockProductionRoutes from "./routes/block-production-routes";
 import verificationRoutes from "./routes/verification-routes";
 import { registerDbOptimizationRoutes } from "./routes/db-optimization-routes";
+import { registerShardingRoutes } from "./routes/sharding-routes";
 import { nftMarketplaceService } from "./services/NftMarketplaceService";
 import { launchpadService } from "./services/LaunchpadService";
 import { gameFiService } from "./services/GameFiService";
@@ -1924,6 +1925,12 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   // ============================================
   registerDbOptimizationRoutes(app);
   console.log("[DB Optimization] ✅ Enterprise database optimization routes registered");
+
+  // ============================================
+  // DYNAMIC SHARDING (5-64 Shards, 210K TPS)
+  // ============================================
+  registerShardingRoutes(app);
+  console.log("[Sharding] ✅ Enterprise dynamic sharding routes registered");
 
   // ============================================
   // Network Stats
