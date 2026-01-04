@@ -23,7 +23,7 @@ Core architectural decisions and features include:
 - **Reward Distribution Engine**: Automatic validator reward distribution based on proposer rewards, verifier rewards, and gas fee distribution.
 - **Mainnet Launch Configuration**: Chain ID 6000, 125 genesis validators, 64 shards, ~210,000 TPS capacity, 20-year deflationary tokenomics, and various burn mechanics.
 - **Performance Optimizations**: Includes instant first load, deferred data fetch, static landing page architecture, and route-based code splitting.
-- **Production Stability**: Implemented conditional session middleware to prevent session overflow and improve stability.
+- **Production Stability v2.0**: Enhanced session bypass module with 98%+ skip ratio targeting. Features production environment detection, 22+ User-Agent patterns for internal/bot detection, static asset filtering, internal IP detection (localhost, Docker, private networks), auth-critical path protection, Set-Cookie header blocking, and WebSocket upgrade handling. Prevents MemoryStore overflow for 24/7 stability.
 - **Enterprise Session Monitoring**: Production-grade session metrics and observability system with Prometheus export, historical tracking, and alerting.
 - **Enterprise Scalability Infrastructure**: Resilience patterns including `BlockchainOrchestrator`, `PersistenceBatcher`, and `AdaptiveFeeEngine`.
 - **Enterprise Validator Orchestrator**: Production-grade validator management for 125 genesis validators with performance scoring, committee formation, slashing, jailing, tombstoning, and reward distribution.
