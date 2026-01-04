@@ -403,3 +403,237 @@ export function generateTokenomicsSummary(
     tburnPriceUSD,
   };
 }
+
+// ============================================
+// ★ OFFICIAL GENESIS ALLOCATION (CANONICAL SOURCE)
+// ============================================
+// Total Supply: 100억 TBURN (10 Billion)
+// This is the SINGLE SOURCE OF TRUTH for all tokenomics allocations
+// All other files MUST reference these values
+
+export const GENESIS_ALLOCATION = {
+  TOTAL_SUPPLY: 10 * BILLION, // 100억 TBURN
+  TOTAL_SUPPLY_FORMATTED: "10,000,000,000",
+  
+  // ============================================
+  // COMMUNITY: 30% = 30억 TBURN (3B)
+  // ============================================
+  COMMUNITY: {
+    percentage: 30,
+    amount: 3 * BILLION, // 30억 TBURN
+    amountFormatted: "3,000,000,000",
+    subcategories: {
+      AIRDROP: {
+        percentage: 40,
+        parentPercentage: 12, // 30% × 40% = 12%
+        amount: 1.2 * BILLION, // 12억 TBURN
+        amountFormatted: "1,200,000,000",
+        description: "에어드랍",
+      },
+      REFERRAL: {
+        percentage: 10,
+        parentPercentage: 3, // 30% × 10% = 3%
+        amount: 0.3 * BILLION, // 3억 TBURN
+        amountFormatted: "300,000,000",
+        description: "레퍼럴",
+      },
+      EVENTS: {
+        percentage: 13.3,
+        parentPercentage: 4, // 30% × 13.3% = 4%
+        amount: 0.4 * BILLION, // 4억 TBURN
+        amountFormatted: "400,000,000",
+        description: "이벤트",
+      },
+      COMMUNITY_ACTIVITY: {
+        percentage: 10,
+        parentPercentage: 3, // 30% × 10% = 3%
+        amount: 0.3 * BILLION, // 3억 TBURN
+        amountFormatted: "300,000,000",
+        description: "커뮤니티활동",
+      },
+      DAO_TREASURY: {
+        percentage: 26.7,
+        parentPercentage: 8, // 30% × 26.7% = 8%
+        amount: 0.8 * BILLION, // 8억 TBURN
+        amountFormatted: "800,000,000",
+        description: "DAO 트레저리",
+      },
+    },
+  },
+  
+  // ============================================
+  // REWARDS: 22% = 22억 TBURN (2.2B)
+  // ============================================
+  REWARDS: {
+    percentage: 22,
+    amount: 2.2 * BILLION, // 22억 TBURN
+    amountFormatted: "2,200,000,000",
+    subcategories: {
+      BLOCK_REWARDS: {
+        percentage: 65.9,
+        parentPercentage: 14.5, // 22% × 65.9% = 14.5%
+        amount: 1.45 * BILLION, // 14.5억 TBURN
+        amountFormatted: "1,450,000,000",
+        description: "블록 보상",
+      },
+      VALIDATOR_INCENTIVES: {
+        percentage: 34.1,
+        parentPercentage: 7.5, // 22% × 34.1% = 7.5%
+        amount: 0.75 * BILLION, // 7.5억 TBURN
+        amountFormatted: "750,000,000",
+        description: "검증자 인센티브",
+      },
+    },
+  },
+  
+  // ============================================
+  // INVESTORS: 20% = 20억 TBURN (2B)
+  // ============================================
+  INVESTORS: {
+    percentage: 20,
+    amount: 2 * BILLION, // 20억 TBURN
+    amountFormatted: "2,000,000,000",
+    subcategories: {
+      SEED_ROUND: {
+        percentage: 25,
+        parentPercentage: 5, // 20% × 25% = 5%
+        amount: 0.5 * BILLION, // 5억 TBURN
+        amountFormatted: "500,000,000",
+        tgePercent: 0,
+        description: "Seed Round (TGE 0%)",
+      },
+      PRIVATE_ROUND: {
+        percentage: 45,
+        parentPercentage: 9, // 20% × 45% = 9%
+        amount: 0.9 * BILLION, // 9억 TBURN
+        amountFormatted: "900,000,000",
+        tgePercent: 5,
+        description: "Private Round (TGE 5%)",
+      },
+      PUBLIC_SALE: {
+        percentage: 30,
+        parentPercentage: 6, // 20% × 30% = 6%
+        amount: 0.6 * BILLION, // 6억 TBURN
+        amountFormatted: "600,000,000",
+        tgePercent: 15,
+        description: "Public Sale (TGE 15%)",
+      },
+    },
+  },
+  
+  // ============================================
+  // ECOSYSTEM: 14% = 14억 TBURN (1.4B)
+  // ============================================
+  ECOSYSTEM: {
+    percentage: 14,
+    amount: 1.4 * BILLION, // 14억 TBURN
+    amountFormatted: "1,400,000,000",
+    subcategories: {
+      ECOSYSTEM_FUND: {
+        percentage: 50,
+        parentPercentage: 7, // 14% × 50% = 7%
+        amount: 0.7 * BILLION, // 7억 TBURN
+        amountFormatted: "700,000,000",
+        description: "생태계 펀드",
+      },
+      PARTNERSHIP: {
+        percentage: 28.6,
+        parentPercentage: 4, // 14% × 28.6% = 4%
+        amount: 0.4 * BILLION, // 4억 TBURN
+        amountFormatted: "400,000,000",
+        description: "파트너십",
+      },
+      MARKETING: {
+        percentage: 21.4,
+        parentPercentage: 3, // 14% × 21.4% = 3%
+        amount: 0.3 * BILLION, // 3억 TBURN
+        amountFormatted: "300,000,000",
+        description: "마케팅",
+      },
+    },
+  },
+  
+  // ============================================
+  // TEAM: 11% = 11억 TBURN (1.1B)
+  // ============================================
+  TEAM: {
+    percentage: 11,
+    amount: 1.1 * BILLION, // 11억 TBURN
+    amountFormatted: "1,100,000,000",
+    subcategories: {
+      CORE_TEAM: {
+        percentage: 63.6,
+        parentPercentage: 7, // 11% × 63.6% = 7%
+        amount: 0.7 * BILLION, // 7억 TBURN
+        amountFormatted: "700,000,000",
+        description: "코어 팀",
+      },
+      ADVISOR: {
+        percentage: 18.2,
+        parentPercentage: 2, // 11% × 18.2% = 2%
+        amount: 0.2 * BILLION, // 2억 TBURN
+        amountFormatted: "200,000,000",
+        description: "어드바이저",
+      },
+      STRATEGIC_PARTNER: {
+        percentage: 18.2,
+        parentPercentage: 2, // 11% × 18.2% = 2%
+        amount: 0.2 * BILLION, // 2억 TBURN
+        amountFormatted: "200,000,000",
+        description: "전략 파트너",
+      },
+    },
+  },
+  
+  // ============================================
+  // FOUNDATION: 3% = 3억 TBURN (0.3B)
+  // ============================================
+  FOUNDATION: {
+    percentage: 3,
+    amount: 0.3 * BILLION, // 3억 TBURN
+    amountFormatted: "300,000,000",
+    subcategories: {
+      OPERATIONS_RESERVE: {
+        percentage: 50,
+        parentPercentage: 1.5, // 3% × 50% = 1.5%
+        amount: 0.15 * BILLION, // 1.5억 TBURN
+        amountFormatted: "150,000,000",
+        tgePercent: 30,
+        description: "운영 예비금 (TGE 30%)",
+      },
+      EMERGENCY_RESERVE: {
+        percentage: 33.3,
+        parentPercentage: 1, // 3% × 33.3% = 1%
+        amount: 0.1 * BILLION, // 1억 TBURN
+        amountFormatted: "100,000,000",
+        tgePercent: 50,
+        description: "긴급 예비금 (TGE 50%)",
+      },
+      STRATEGIC_INVESTMENT: {
+        percentage: 16.7,
+        parentPercentage: 0.5, // 3% × 16.7% = 0.5%
+        amount: 0.05 * BILLION, // 0.5억 TBURN
+        amountFormatted: "50,000,000",
+        description: "전략 투자",
+      },
+    },
+  },
+} as const;
+
+// Helper function to get category by key
+export function getGenesisCategory(category: keyof typeof GENESIS_ALLOCATION) {
+  return GENESIS_ALLOCATION[category];
+}
+
+// Validation function to ensure allocations sum to 100%
+export function validateGenesisAllocations(): boolean {
+  const totalPercent = 
+    GENESIS_ALLOCATION.COMMUNITY.percentage +
+    GENESIS_ALLOCATION.REWARDS.percentage +
+    GENESIS_ALLOCATION.INVESTORS.percentage +
+    GENESIS_ALLOCATION.ECOSYSTEM.percentage +
+    GENESIS_ALLOCATION.TEAM.percentage +
+    GENESIS_ALLOCATION.FOUNDATION.percentage;
+  
+  return Math.abs(totalPercent - 100) < 0.01; // Allow 0.01% tolerance
+}

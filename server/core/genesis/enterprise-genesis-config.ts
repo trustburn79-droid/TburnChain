@@ -2,7 +2,12 @@
  * TBURN Enterprise Genesis Configuration
  * Chain ID: 6000 | 125 Genesis Validators | 10B TBURN Total Supply
  * Production-ready configuration for mainnet launch
+ * 
+ * ★ IMPORTANT: All tokenomics values are imported from shared/tokenomics-config.ts
+ * DO NOT define duplicate allocation values here - use GENESIS_ALLOCATION as the source of truth
  */
+
+import { GENESIS_ALLOCATION, BILLION } from "@shared/tokenomics-config";
 
 // ============================================
 // CHAIN PARAMETERS
@@ -26,109 +31,192 @@ export const CHAIN_CONFIG = {
 
 // ============================================
 // TOTAL SUPPLY & TOKEN ECONOMICS
+// ★ Using GENESIS_ALLOCATION from shared/tokenomics-config.ts as canonical source
 // ============================================
 export const TOKENOMICS = {
-  // Total Supply: 10 Billion TBURN
+  // Total Supply: 10 Billion TBURN (100억)
   TOTAL_SUPPLY: BigInt("10000000000000000000000000000"), // 10B * 10^18
-  TOTAL_SUPPLY_FORMATTED: "10,000,000,000",
+  TOTAL_SUPPLY_FORMATTED: GENESIS_ALLOCATION.TOTAL_SUPPLY_FORMATTED,
   
-  // Genesis Allocation (10B TBURN breakdown)
+  // ★ Genesis Allocation - Official Tokenomics (Single Source of Truth)
+  // Community: 30%, Rewards: 22%, Investors: 20%, Ecosystem: 14%, Team: 11%, Foundation: 3%
   ALLOCATION: {
-    // Validator Stakes: 125M (1.25%)
-    VALIDATOR_STAKES: {
-      amount: BigInt("125000000000000000000000000"), // 125M * 10^18
-      percentage: 1.25,
-      description: "125 Genesis Validators × 1M TBURN each",
+    // ============================================
+    // COMMUNITY: 30% = 30억 TBURN (3B)
+    // ============================================
+    COMMUNITY: {
+      amount: BigInt(GENESIS_ALLOCATION.COMMUNITY.amount) * BigInt(10 ** 18),
+      percentage: GENESIS_ALLOCATION.COMMUNITY.percentage,
+      description: "커뮤니티 (에어드랍, 레퍼럴, 이벤트, 커뮤니티활동, DAO 트레저리)",
+      subcategories: {
+        AIRDROP: {
+          amount: BigInt(GENESIS_ALLOCATION.COMMUNITY.subcategories.AIRDROP.amount) * BigInt(10 ** 18),
+          percentage: GENESIS_ALLOCATION.COMMUNITY.subcategories.AIRDROP.parentPercentage,
+          description: GENESIS_ALLOCATION.COMMUNITY.subcategories.AIRDROP.description,
+        },
+        REFERRAL: {
+          amount: BigInt(GENESIS_ALLOCATION.COMMUNITY.subcategories.REFERRAL.amount) * BigInt(10 ** 18),
+          percentage: GENESIS_ALLOCATION.COMMUNITY.subcategories.REFERRAL.parentPercentage,
+          description: GENESIS_ALLOCATION.COMMUNITY.subcategories.REFERRAL.description,
+        },
+        EVENTS: {
+          amount: BigInt(GENESIS_ALLOCATION.COMMUNITY.subcategories.EVENTS.amount) * BigInt(10 ** 18),
+          percentage: GENESIS_ALLOCATION.COMMUNITY.subcategories.EVENTS.parentPercentage,
+          description: GENESIS_ALLOCATION.COMMUNITY.subcategories.EVENTS.description,
+        },
+        COMMUNITY_ACTIVITY: {
+          amount: BigInt(GENESIS_ALLOCATION.COMMUNITY.subcategories.COMMUNITY_ACTIVITY.amount) * BigInt(10 ** 18),
+          percentage: GENESIS_ALLOCATION.COMMUNITY.subcategories.COMMUNITY_ACTIVITY.parentPercentage,
+          description: GENESIS_ALLOCATION.COMMUNITY.subcategories.COMMUNITY_ACTIVITY.description,
+        },
+        DAO_TREASURY: {
+          amount: BigInt(GENESIS_ALLOCATION.COMMUNITY.subcategories.DAO_TREASURY.amount) * BigInt(10 ** 18),
+          percentage: GENESIS_ALLOCATION.COMMUNITY.subcategories.DAO_TREASURY.parentPercentage,
+          description: GENESIS_ALLOCATION.COMMUNITY.subcategories.DAO_TREASURY.description,
+        },
+      },
     },
     
-    // Ecosystem Growth & Grants: 2.96B (29.625%)
-    ECOSYSTEM_GROWTH: {
-      amount: BigInt("2962500000000000000000000000"), // 2.9625B * 10^18
-      percentage: 29.625,
-      vestingMonths: 48,
-      cliffMonths: 6,
-      description: "Developer grants, ecosystem partnerships, DApp incentives",
-    },
-    
-    // Strategic Treasury: 1.48B (14.8125%)
-    STRATEGIC_TREASURY: {
-      amount: BigInt("1481250000000000000000000000"), // 1.48125B * 10^18
-      percentage: 14.8125,
-      vestingMonths: 60,
-      cliffMonths: 12,
-      description: "Strategic initiatives, acquisitions, emergency fund",
-    },
-    
-    // Community Incentives: 1.185B (11.85%)
-    COMMUNITY_INCENTIVES: {
-      amount: BigInt("1185000000000000000000000000"), // 1.185B * 10^18
-      percentage: 11.85,
-      vestingMonths: 36,
-      cliffMonths: 0,
-      description: "Airdrops, quests, referrals, community events",
-    },
-    
-    // Validator & Delegator Rewards: 987.5M (9.875%)
-    STAKING_REWARDS: {
-      amount: BigInt("987500000000000000000000000"), // 987.5M * 10^18
-      percentage: 9.875,
+    // ============================================
+    // REWARDS: 22% = 22억 TBURN (2.2B)
+    // ============================================
+    REWARDS: {
+      amount: BigInt(GENESIS_ALLOCATION.REWARDS.amount) * BigInt(10 ** 18),
+      percentage: GENESIS_ALLOCATION.REWARDS.percentage,
       vestingMonths: 240, // 20 years
       cliffMonths: 0,
-      description: "Block rewards, staking incentives, delegation rewards",
+      description: "보상 (블록 보상, 검증자 인센티브)",
+      subcategories: {
+        BLOCK_REWARDS: {
+          amount: BigInt(GENESIS_ALLOCATION.REWARDS.subcategories.BLOCK_REWARDS.amount) * BigInt(10 ** 18),
+          percentage: GENESIS_ALLOCATION.REWARDS.subcategories.BLOCK_REWARDS.parentPercentage,
+          description: GENESIS_ALLOCATION.REWARDS.subcategories.BLOCK_REWARDS.description,
+        },
+        VALIDATOR_INCENTIVES: {
+          amount: BigInt(GENESIS_ALLOCATION.REWARDS.subcategories.VALIDATOR_INCENTIVES.amount) * BigInt(10 ** 18),
+          percentage: GENESIS_ALLOCATION.REWARDS.subcategories.VALIDATOR_INCENTIVES.parentPercentage,
+          description: GENESIS_ALLOCATION.REWARDS.subcategories.VALIDATOR_INCENTIVES.description,
+        },
+      },
     },
     
-    // Liquidity & Market Making: 790M (7.9%)
-    LIQUIDITY: {
-      amount: BigInt("790000000000000000000000000"), // 790M * 10^18
-      percentage: 7.9,
-      vestingMonths: 24,
-      cliffMonths: 0,
-      description: "DEX liquidity, CEX listings, market stability",
+    // ============================================
+    // INVESTORS: 20% = 20억 TBURN (2B)
+    // ============================================
+    INVESTORS: {
+      amount: BigInt(GENESIS_ALLOCATION.INVESTORS.amount) * BigInt(10 ** 18),
+      percentage: GENESIS_ALLOCATION.INVESTORS.percentage,
+      description: "투자자 (Seed, Private, Public)",
+      subcategories: {
+        SEED_ROUND: {
+          amount: BigInt(GENESIS_ALLOCATION.INVESTORS.subcategories.SEED_ROUND.amount) * BigInt(10 ** 18),
+          percentage: GENESIS_ALLOCATION.INVESTORS.subcategories.SEED_ROUND.parentPercentage,
+          tgePercent: GENESIS_ALLOCATION.INVESTORS.subcategories.SEED_ROUND.tgePercent,
+          vestingMonths: 24,
+          cliffMonths: 6,
+          description: GENESIS_ALLOCATION.INVESTORS.subcategories.SEED_ROUND.description,
+        },
+        PRIVATE_ROUND: {
+          amount: BigInt(GENESIS_ALLOCATION.INVESTORS.subcategories.PRIVATE_ROUND.amount) * BigInt(10 ** 18),
+          percentage: GENESIS_ALLOCATION.INVESTORS.subcategories.PRIVATE_ROUND.parentPercentage,
+          tgePercent: GENESIS_ALLOCATION.INVESTORS.subcategories.PRIVATE_ROUND.tgePercent,
+          vestingMonths: 18,
+          cliffMonths: 3,
+          description: GENESIS_ALLOCATION.INVESTORS.subcategories.PRIVATE_ROUND.description,
+        },
+        PUBLIC_SALE: {
+          amount: BigInt(GENESIS_ALLOCATION.INVESTORS.subcategories.PUBLIC_SALE.amount) * BigInt(10 ** 18),
+          percentage: GENESIS_ALLOCATION.INVESTORS.subcategories.PUBLIC_SALE.parentPercentage,
+          tgePercent: GENESIS_ALLOCATION.INVESTORS.subcategories.PUBLIC_SALE.tgePercent,
+          vestingMonths: 12,
+          cliffMonths: 0,
+          description: GENESIS_ALLOCATION.INVESTORS.subcategories.PUBLIC_SALE.description,
+        },
+      },
     },
     
-    // R&D & AI Development: 790M (7.9%)
-    RD_AI: {
-      amount: BigInt("790000000000000000000000000"), // 790M * 10^18
-      percentage: 7.9,
+    // ============================================
+    // ECOSYSTEM: 14% = 14억 TBURN (1.4B)
+    // ============================================
+    ECOSYSTEM: {
+      amount: BigInt(GENESIS_ALLOCATION.ECOSYSTEM.amount) * BigInt(10 ** 18),
+      percentage: GENESIS_ALLOCATION.ECOSYSTEM.percentage,
       vestingMonths: 48,
       cliffMonths: 6,
-      description: "AI systems, protocol R&D, quantum-resistant crypto",
+      description: "생태계 (생태계 펀드, 파트너십, 마케팅)",
+      subcategories: {
+        ECOSYSTEM_FUND: {
+          amount: BigInt(GENESIS_ALLOCATION.ECOSYSTEM.subcategories.ECOSYSTEM_FUND.amount) * BigInt(10 ** 18),
+          percentage: GENESIS_ALLOCATION.ECOSYSTEM.subcategories.ECOSYSTEM_FUND.parentPercentage,
+          description: GENESIS_ALLOCATION.ECOSYSTEM.subcategories.ECOSYSTEM_FUND.description,
+        },
+        PARTNERSHIP: {
+          amount: BigInt(GENESIS_ALLOCATION.ECOSYSTEM.subcategories.PARTNERSHIP.amount) * BigInt(10 ** 18),
+          percentage: GENESIS_ALLOCATION.ECOSYSTEM.subcategories.PARTNERSHIP.parentPercentage,
+          description: GENESIS_ALLOCATION.ECOSYSTEM.subcategories.PARTNERSHIP.description,
+        },
+        MARKETING: {
+          amount: BigInt(GENESIS_ALLOCATION.ECOSYSTEM.subcategories.MARKETING.amount) * BigInt(10 ** 18),
+          percentage: GENESIS_ALLOCATION.ECOSYSTEM.subcategories.MARKETING.parentPercentage,
+          description: GENESIS_ALLOCATION.ECOSYSTEM.subcategories.MARKETING.description,
+        },
+      },
     },
     
-    // Enterprise Partnerships: 691.25M (6.9125%)
-    ENTERPRISE: {
-      amount: BigInt("691250000000000000000000000"), // 691.25M * 10^18
-      percentage: 6.9125,
-      vestingMonths: 36,
-      cliffMonths: 3,
-      description: "B2B partnerships, enterprise integrations",
+    // ============================================
+    // TEAM: 11% = 11억 TBURN (1.1B)
+    // ============================================
+    TEAM: {
+      amount: BigInt(GENESIS_ALLOCATION.TEAM.amount) * BigInt(10 ** 18),
+      percentage: GENESIS_ALLOCATION.TEAM.percentage,
+      vestingMonths: 48,
+      cliffMonths: 12,
+      description: "팀 (코어 팀, 어드바이저, 전략 파트너)",
+      subcategories: {
+        CORE_TEAM: {
+          amount: BigInt(GENESIS_ALLOCATION.TEAM.subcategories.CORE_TEAM.amount) * BigInt(10 ** 18),
+          percentage: GENESIS_ALLOCATION.TEAM.subcategories.CORE_TEAM.parentPercentage,
+          description: GENESIS_ALLOCATION.TEAM.subcategories.CORE_TEAM.description,
+        },
+        ADVISOR: {
+          amount: BigInt(GENESIS_ALLOCATION.TEAM.subcategories.ADVISOR.amount) * BigInt(10 ** 18),
+          percentage: GENESIS_ALLOCATION.TEAM.subcategories.ADVISOR.parentPercentage,
+          description: GENESIS_ALLOCATION.TEAM.subcategories.ADVISOR.description,
+        },
+        STRATEGIC_PARTNER: {
+          amount: BigInt(GENESIS_ALLOCATION.TEAM.subcategories.STRATEGIC_PARTNER.amount) * BigInt(10 ** 18),
+          percentage: GENESIS_ALLOCATION.TEAM.subcategories.STRATEGIC_PARTNER.parentPercentage,
+          description: GENESIS_ALLOCATION.TEAM.subcategories.STRATEGIC_PARTNER.description,
+        },
+      },
     },
     
-    // Emergency Stability Fund: 493.75M (4.9375%)
-    STABILITY_FUND: {
-      amount: BigInt("493750000000000000000000000"), // 493.75M * 10^18
-      percentage: 4.9375,
-      vestingMonths: 0, // Immediately available for emergencies
-      cliffMonths: 0,
-      description: "Market stability, emergency interventions",
-    },
-    
-    // Public Launch Liquidity: 296.25M (2.9625%)
-    PUBLIC_LAUNCH: {
-      amount: BigInt("296250000000000000000000000"), // 296.25M * 10^18
-      percentage: 2.9625,
-      vestingMonths: 0,
-      cliffMonths: 0,
-      description: "Initial DEX offering, launch liquidity",
-    },
-    
-    // Security & Bug Bounty: 197.5M (1.975%)
-    SECURITY: {
-      amount: BigInt("197500000000000000000000000"), // 197.5M * 10^18
-      percentage: 1.975,
-      vestingMonths: 60,
-      cliffMonths: 0,
-      description: "Bug bounties, security audits, penetration testing",
+    // ============================================
+    // FOUNDATION: 3% = 3억 TBURN (0.3B)
+    // ============================================
+    FOUNDATION: {
+      amount: BigInt(GENESIS_ALLOCATION.FOUNDATION.amount) * BigInt(10 ** 18),
+      percentage: GENESIS_ALLOCATION.FOUNDATION.percentage,
+      description: "재단 운영 예비금 (운영, 긴급, 전략 투자)",
+      subcategories: {
+        OPERATIONS_RESERVE: {
+          amount: BigInt(GENESIS_ALLOCATION.FOUNDATION.subcategories.OPERATIONS_RESERVE.amount) * BigInt(10 ** 18),
+          percentage: GENESIS_ALLOCATION.FOUNDATION.subcategories.OPERATIONS_RESERVE.parentPercentage,
+          tgePercent: GENESIS_ALLOCATION.FOUNDATION.subcategories.OPERATIONS_RESERVE.tgePercent,
+          description: GENESIS_ALLOCATION.FOUNDATION.subcategories.OPERATIONS_RESERVE.description,
+        },
+        EMERGENCY_RESERVE: {
+          amount: BigInt(GENESIS_ALLOCATION.FOUNDATION.subcategories.EMERGENCY_RESERVE.amount) * BigInt(10 ** 18),
+          percentage: GENESIS_ALLOCATION.FOUNDATION.subcategories.EMERGENCY_RESERVE.parentPercentage,
+          tgePercent: GENESIS_ALLOCATION.FOUNDATION.subcategories.EMERGENCY_RESERVE.tgePercent,
+          description: GENESIS_ALLOCATION.FOUNDATION.subcategories.EMERGENCY_RESERVE.description,
+        },
+        STRATEGIC_INVESTMENT: {
+          amount: BigInt(GENESIS_ALLOCATION.FOUNDATION.subcategories.STRATEGIC_INVESTMENT.amount) * BigInt(10 ** 18),
+          percentage: GENESIS_ALLOCATION.FOUNDATION.subcategories.STRATEGIC_INVESTMENT.parentPercentage,
+          description: GENESIS_ALLOCATION.FOUNDATION.subcategories.STRATEGIC_INVESTMENT.description,
+        },
+      },
     },
   },
 } as const;
