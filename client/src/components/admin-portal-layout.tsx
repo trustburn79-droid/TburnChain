@@ -123,6 +123,10 @@ import AdminAnnouncements from "@/pages/admin-portal/announcements";
 // Group 17: Marketing
 import AdminNewsletter from "@/pages/admin-portal/newsletter";
 
+// Group 19: Database & Distribution Management
+import AdminDBOptimizer from "@/pages/admin-portal/db-optimizer";
+import AdminDistribution from "@/pages/admin-portal/distribution";
+
 // Group 18: Token Distribution Programs (18 sub-pages)
 import AdminTokenDistribution from "@/pages/admin-portal/token-distribution";
 import AdminAirdropProgram from "@/pages/admin-portal/token-distribution/airdrop";
@@ -285,6 +289,10 @@ function AdminRouter() {
 
       {/* Group 16: Genesis Launch */}
       <Route path="/admin/genesis" component={AdminGenesisLaunch} />
+      
+      {/* Group 19: Database & Distribution Management */}
+      <Route path="/admin/db-optimizer" component={AdminDBOptimizer} />
+      <Route path="/admin/distribution" component={AdminDistribution} />
 
       {/* Group 17: Marketing */}
       <Route path="/admin/newsletter" component={AdminNewsletter} />
