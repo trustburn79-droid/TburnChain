@@ -77,3 +77,47 @@ To enable Redis session store:
 ### Monitoring Endpoints
 - `/api/production-monitor/dashboard`: Real-time session metrics and health status
 - Session skip ratio, MemoryStore capacity, active alerts
+
+## Enterprise System Health Monitor (v2.0)
+
+### Overview
+Comprehensive 24/7 system monitoring with automatic alerting and self-healing capabilities.
+
+### API Endpoints
+| Endpoint | Description |
+|----------|-------------|
+| `GET /api/system-health/status` | Overall health status with score (0-100) |
+| `GET /api/system-health/metrics` | Current CPU, Memory, Disk, HTTP, DB metrics |
+| `GET /api/system-health/metrics/history` | Historical metrics (up to 6 hours) |
+| `GET /api/system-health/alerts` | Active and historical alerts |
+| `GET /api/system-health/thresholds` | Threshold configuration reference |
+| `GET /api/system-health/prometheus` | Prometheus-compatible metrics export |
+| `GET /api/system-health/self-healing` | Self-healing action history |
+
+### Target Metrics
+| Category | Metric | Normal | Warning | Critical |
+|----------|--------|--------|---------|----------|
+| CPU | Usage | ≤40% | 40-70% | >70% |
+| Memory | Usage | ≤65% | 65-80% | >80% |
+| Heap | Usage | ≤70% | 70-85% | >85% |
+| Disk | Usage | ≤70% | 70-85% | >85% |
+| Event Loop | Lag | ≤50ms | 50-100ms | >100ms |
+| HTTP | P95 Response | ≤200ms | 200-500ms | >500ms |
+| HTTP | Error Rate | ≤0.1% | 0.1-1% | >1% |
+| Session | Skip Ratio | ≥80% | 60-80% | <60% |
+| Session | Capacity | ≤60% | 60-80% | >80% |
+
+### Alerting Levels
+- **INFO**: Logged only
+- **WARNING**: Console + Slack notification (5min cooldown)
+- **CRITICAL**: Immediate notification + self-healing trigger
+- **EMERGENCY**: Immediate notification + restart consideration
+
+### Self-Healing Actions
+- **Heap > 90%**: Automatic garbage collection trigger
+- **Session Capacity > 85%**: Emergency session cleanup
+
+### Webhook Integration
+Set environment variables for external alerting:
+- `SLACK_WEBHOOK_URL`: Slack webhook for notifications
+- `DISCORD_WEBHOOK_URL`: Discord webhook for notifications

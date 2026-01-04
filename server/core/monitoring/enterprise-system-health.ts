@@ -18,6 +18,8 @@
  */
 
 import { EventEmitter } from 'events';
+import * as os from 'os';
+import { execSync } from 'child_process';
 
 export type AlertSeverity = 'info' | 'warning' | 'critical' | 'emergency';
 
@@ -287,7 +289,6 @@ class EnterpriseSystemHealthMonitor extends EventEmitter {
   }
   
   private collectCpuMetrics(): CpuMetrics {
-    const os = require('os');
     const cpus = os.cpus();
     const loadAvg = os.loadavg();
     
@@ -317,7 +318,6 @@ class EnterpriseSystemHealthMonitor extends EventEmitter {
   }
   
   private collectMemoryMetrics(): MemoryMetrics {
-    const os = require('os');
     const totalMB = Math.round(os.totalmem() / 1024 / 1024);
     const freeMB = Math.round(os.freemem() / 1024 / 1024);
     const usedMB = totalMB - freeMB;
@@ -348,7 +348,6 @@ class EnterpriseSystemHealthMonitor extends EventEmitter {
   
   private async collectDiskMetrics(): Promise<DiskMetrics> {
     try {
-      const { execSync } = require('child_process');
       const output = execSync('df -h / | tail -1', { encoding: 'utf-8' });
       const parts = output.trim().split(/\s+/);
       
@@ -466,8 +465,12 @@ class EnterpriseSystemHealthMonitor extends EventEmitter {
   }
   
   private collectSessionMetrics(): SessionHealthMetrics {
-    const productionMonitor = require('./enterprise-production-monitor').enterpriseProductionMonitor;
-    const dashboard = productionMonitor?.getDashboard?.() || {};
+    let dashboard: any = {};
+    try {
+      const { enterpriseProductionMonitor } = require('./enterprise-production-monitor');
+      dashboard = enterpriseProductionMonitor?.getDashboard?.() || {};
+    } catch {
+    }
     
     const skipRatio = (dashboard.sessionMetrics?.skipRatio || 0) * 100;
     const capacity = dashboard.memoryStore?.capacityPercent || 0;

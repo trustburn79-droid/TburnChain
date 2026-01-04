@@ -1672,6 +1672,18 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     if (req.path.startsWith("/performance")) {
       return next();
     }
+    // Skip auth check for system health monitoring (public infrastructure monitoring)
+    if (req.path.startsWith("/system-health/")) {
+      return next();
+    }
+    // Skip auth check for production monitor (public infrastructure monitoring)
+    if (req.path.startsWith("/production-monitor/")) {
+      return next();
+    }
+    // Skip auth check for internal monitoring routes (soak tests, session monitoring)
+    if (req.path.startsWith("/internal/") || req.path.startsWith("/soak-tests/")) {
+      return next();
+    }
     // Skip auth check for network stats (public data)
     if (req.path.startsWith("/network/")) {
       return next();
