@@ -6,8 +6,9 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { ErrorBoundary } from "@/components/error-boundary";
 import { Web3Provider } from "@/lib/web3-context";
 import { TBurnAlertProvider } from "@/components/tburn-alert-modal";
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useEffect } from "react";
 import { TBurnLoader } from "@/components/tburn-loader";
+import { useLocation } from "wouter";
 
 const PublicRouter = lazy(() => import("./public/PublicRouter").then(m => ({ default: m.PublicRouter })));
 
@@ -19,6 +20,16 @@ function PublicLoading() {
   );
 }
 
+function ScrollToTop() {
+  const [location] = useLocation();
+  
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }, [location]);
+  
+  return null;
+}
+
 export default function PublicApp() {
   return (
     <ErrorBoundary>
@@ -27,6 +38,7 @@ export default function PublicApp() {
           <ThemeProvider>
             <TBurnAlertProvider>
               <Web3Provider>
+                <ScrollToTop />
                 <Suspense fallback={<PublicLoading />}>
                   <PublicRouter />
                 </Suspense>
