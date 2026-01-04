@@ -379,6 +379,218 @@ export const ENTERPRISE_INDEXES = {
     `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_community_member_badges_name 
      ON community_member_badges(badge_name, rarity)`,
   ],
+
+  // ============================================
+  // SHARDING SYSTEM - 64 Shards, 210K TPS
+  // ============================================
+  SHARDS: [
+    // Shard lookup by ID (primary)
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_shards_shard_id_status 
+     ON shards(shard_id, status)`,
+    
+    // Active shards listing
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_shards_status_tps 
+     ON shards(status, tps DESC) 
+     WHERE status = 'active'`,
+    
+    // Validator assignment lookup
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_shards_validator_count 
+     ON shards(validator_count DESC, shard_id)`,
+    
+    // Block height ordering
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_shards_block_height 
+     ON shards(current_block_height DESC, shard_id)`,
+    
+    // Cross-shard transaction tracking
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_shards_cross_shard_tx 
+     ON shards(cross_shard_tx_count DESC) 
+     WHERE cross_shard_tx_count > 0`,
+    
+    // Performance metrics
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_shards_performance 
+     ON shards(tps DESC, latency_ms, shard_id)`,
+    
+    // Sync status monitoring
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_shards_sync_status 
+     ON shards(last_synced_at DESC, status)`,
+  ],
+  
+  CROSS_SHARD_MESSAGES: [
+    // Source shard messages
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_cross_shard_messages_from 
+     ON cross_shard_messages(from_shard_id, status, created_at DESC)`,
+    
+    // Destination shard messages
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_cross_shard_messages_to 
+     ON cross_shard_messages(to_shard_id, status, created_at DESC)`,
+    
+    // Status-based processing
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_cross_shard_messages_status 
+     ON cross_shard_messages(status, priority DESC, created_at) 
+     WHERE status IN ('pending', 'processing')`,
+    
+    // Transaction hash lookup
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_cross_shard_messages_tx 
+     ON cross_shard_messages(tx_hash) 
+     WHERE tx_hash IS NOT NULL`,
+    
+    // Retry queue
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_cross_shard_messages_retry 
+     ON cross_shard_messages(retry_count, status) 
+     WHERE status = 'failed' AND retry_count < 3`,
+    
+    // Route optimization (shard pair)
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_cross_shard_messages_route 
+     ON cross_shard_messages(from_shard_id, to_shard_id, created_at DESC)`,
+  ],
+  
+  SHARD_CONFIGURATIONS: [
+    // Active configuration lookup
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_shard_configurations_active 
+     ON shard_configurations(is_active, updated_at DESC) 
+     WHERE is_active = true`,
+    
+    // Configuration name search
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_shard_configurations_name 
+     ON shard_configurations(config_name)`,
+    
+    // Shard count range
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_shard_configurations_shards 
+     ON shard_configurations(current_shard_count, min_shards, max_shards)`,
+  ],
+  
+  SHARD_SCALING_EVENTS: [
+    // Recent scaling events
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_shard_scaling_events_time 
+     ON shard_scaling_events(event_time DESC, scaling_type)`,
+    
+    // Scaling type analysis
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_shard_scaling_events_type 
+     ON shard_scaling_events(scaling_type, status, event_time DESC)`,
+    
+    // Duration analysis
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_shard_scaling_events_duration 
+     ON shard_scaling_events(duration_ms DESC) 
+     WHERE status = 'completed'`,
+    
+    // Trigger reason tracking
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_shard_scaling_events_trigger 
+     ON shard_scaling_events(trigger_reason, event_time DESC)`,
+    
+    // Pending/failed events
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_shard_scaling_events_status 
+     ON shard_scaling_events(status, event_time) 
+     WHERE status IN ('pending', 'in_progress', 'failed')`,
+  ],
+  
+  SHARD_CONFIG_HISTORY: [
+    // Configuration history by config
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_shard_config_history_config 
+     ON shard_config_history(config_id, changed_at DESC)`,
+    
+    // Admin action tracking
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_shard_config_history_admin 
+     ON shard_config_history(changed_by, changed_at DESC)`,
+    
+    // Change type filtering
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_shard_config_history_type 
+     ON shard_config_history(change_type, changed_at DESC)`,
+  ],
+  
+  SHARD_CONFIG_AUDIT_LOGS: [
+    // Audit trail by action
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_shard_config_audit_action 
+     ON shard_config_audit_logs(action, created_at DESC)`,
+    
+    // Actor tracking
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_shard_config_audit_actor 
+     ON shard_config_audit_logs(actor_id, created_at DESC)`,
+    
+    // IP-based security monitoring
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_shard_config_audit_ip 
+     ON shard_config_audit_logs(ip_address, created_at DESC) 
+     WHERE ip_address IS NOT NULL`,
+  ],
+
+  // ============================================
+  // TRANSACTION SHARDING - High-Volume Queries
+  // ============================================
+  TRANSACTIONS_SHARD: [
+    // Shard-based transaction lookup
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_transactions_shard_id 
+     ON transactions(shard_id, block_number DESC, tx_index)`,
+    
+    // Cross-shard transaction tracking
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_transactions_cross_shard 
+     ON transactions(execution_class, status) 
+     WHERE execution_class = 'cross_shard'`,
+    
+    // Cross-shard message lookup
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_transactions_cross_shard_msg 
+     ON transactions(cross_shard_message_id) 
+     WHERE cross_shard_message_id IS NOT NULL`,
+  ],
+  
+  BLOCKS_SHARD: [
+    // Block shard assignment
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_blocks_shard_id 
+     ON blocks(shard_id, number DESC)`,
+    
+    // Shard block height tracking
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_blocks_shard_height 
+     ON blocks(shard_id, number DESC, timestamp DESC)`,
+  ],
+
+  // ============================================
+  // VALIDATOR SHARD ASSIGNMENT - Genesis Config
+  // ============================================
+  VALIDATORS_SHARD: [
+    // Shard-based validator lookup
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_validators_shard_assignment 
+     ON validators(shard_id, status, stake_amount DESC) 
+     WHERE shard_id IS NOT NULL`,
+    
+    // Active validators per shard
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_validators_active_shard 
+     ON validators(shard_id, is_active, stake_amount DESC) 
+     WHERE is_active = true AND shard_id IS NOT NULL`,
+  ],
+
+  // ============================================
+  // CONSENSUS & BLOCK PRODUCTION - Time-Series
+  // ============================================
+  CONSENSUS_ROUNDS: [
+    // Round number ordering
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_consensus_rounds_number 
+     ON consensus_rounds(round_number DESC, view_number DESC)`,
+    
+    // Phase tracking
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_consensus_rounds_phase 
+     ON consensus_rounds(phase, status, created_at DESC)`,
+    
+    // Block height lookup
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_consensus_rounds_block 
+     ON consensus_rounds(block_height DESC, round_number)`,
+    
+    // Proposer performance
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_consensus_rounds_proposer 
+     ON consensus_rounds(proposer_address, status, created_at DESC)`,
+  ],
+  
+  BLOCK_FINALITY_RECORDS: [
+    // Block height finality
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_block_finality_height 
+     ON block_finality_records(block_height DESC, finality_status)`,
+    
+    // Finality status tracking
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_block_finality_status 
+     ON block_finality_records(finality_status, finalized_at DESC)`,
+    
+    // Verification time analysis
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_block_finality_time 
+     ON block_finality_records(verification_time_ms DESC) 
+     WHERE finality_status = 'finalized'`,
+  ],
 };
 
 /**
@@ -458,6 +670,7 @@ export async function getIndexStatistics(): Promise<{
  */
 export async function analyzeTokenDistributionTables(): Promise<void> {
   const tables = [
+    // Token Distribution
     'token_programs',
     'airdrop_claims',
     'airdrop_distributions',
@@ -478,6 +691,19 @@ export async function analyzeTokenDistributionTables(): Promise<void> {
     'ecosystem_grants',
     'grant_milestones',
     'program_snapshots',
+    // Sharding System
+    'shards',
+    'cross_shard_messages',
+    'shard_configurations',
+    'shard_config_history',
+    'shard_scaling_events',
+    'shard_config_audit_logs',
+    // Core Blockchain
+    'transactions',
+    'blocks',
+    'validators',
+    'consensus_rounds',
+    'block_finality_records',
   ];
   
   console.log('[Enterprise DB] Running ANALYZE on token distribution tables...');
