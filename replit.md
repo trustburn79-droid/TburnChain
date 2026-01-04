@@ -35,6 +35,8 @@ Core architectural decisions and features include:
 - **Enterprise Shard Cache**: Multi-level LRU cache with O(1) shard pair selection, TTL, and preemptive cache warming.
 - **Enterprise Batch Processor**: High-throughput batch message insertion system targeting 200K+ TPS with lock-free concurrent priority queue, adaptive batch sizing, and parallel processing.
 - **Enterprise Shard Rebalancer**: Threshold-based automatic shard rebalancing system for optimal load distribution with EWMA-based load prediction and zero-downtime live migration.
+- **Enterprise Token Distribution System**: Production-grade 100K+ TPS distribution management with 8 specialized programs (Airdrop, Referral, Events, Community, DAO Treasury, Block Rewards, Validator Incentives, Ecosystem Fund). Features lock-free priority queue, token bucket rate limiting, circuit breaker pattern, fraud detection engine, eligibility verification, and multi-sig approval workflow (AUTO/SINGLE/MULTI/COMMITTEE).
+- **Enterprise Distribution Database Schema**: 8 optimized tables for high-TPS operations including distribution_programs, distribution_claims (with partial indexes for pending/processing), distribution_batches, distribution_claim_approvals, distribution_audit_events (immutable compliance logs), distribution_fraud_assessments, distribution_rate_limits, and distribution_metrics_history (time-series for monitoring).
 
 ## External Dependencies
 - **Database**: Neon Serverless PostgreSQL
