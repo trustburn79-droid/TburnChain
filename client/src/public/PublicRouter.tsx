@@ -46,6 +46,8 @@ const CommunityRoutes = lazy(() => import("./routes/CommunityRoutes"));
 const LegalRoutes = lazy(() => import("./routes/LegalRoutes"));
 const ScanRoutes = lazy(() => import("./routes/ScanRoutes"));
 const TestnetScanRoutes = lazy(() => import("./routes/TestnetScanRoutes"));
+const RpcRoutes = lazy(() => import("./routes/RpcRoutes"));
+const TestnetRpcRoutes = lazy(() => import("./routes/TestnetRpcRoutes"));
 const NftMarketplaceStandalone = lazy(() => import("@/pages/nft-marketplace-standalone"));
 
 const Brand = lazy(() => import("./pages/Brand"));
@@ -344,7 +346,27 @@ export function PublicRouter() {
     );
   }
 
-  if (location.startsWith("/network") || location.startsWith("/validator") || location === "/rpc" || location === "/testnet-rpc") {
+  if (location.startsWith("/rpc")) {
+    return (
+      <ErrorBoundary>
+        <Suspense fallback={<PageLoading />}>
+          <RpcRoutes />
+        </Suspense>
+      </ErrorBoundary>
+    );
+  }
+
+  if (location.startsWith("/testnet-rpc")) {
+    return (
+      <ErrorBoundary>
+        <Suspense fallback={<PageLoading />}>
+          <TestnetRpcRoutes />
+        </Suspense>
+      </ErrorBoundary>
+    );
+  }
+
+  if (location.startsWith("/network") || location.startsWith("/validator")) {
     return (
       <ErrorBoundary>
         <PublicLayout>
