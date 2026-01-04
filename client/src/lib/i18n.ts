@@ -1,6 +1,6 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
-import koTranslations from '@/locales/ko.json';
+import enTranslations from '@/locales/en.json';
 
 export const languages = [
   { code: 'en', name: 'English', nativeName: 'English', flag: '🇺🇸', dir: 'ltr' },
@@ -28,10 +28,10 @@ const updateDocumentDirection = (lang: string) => {
 };
 
 const loadLocale = async (lang: string): Promise<Record<string, unknown>> => {
-  if (lang === 'ko') return koTranslations;
+  if (lang === 'en') return enTranslations;
   
   switch (lang) {
-    case 'en': return (await import('@/locales/en.json')).default;
+    case 'ko': return (await import('@/locales/ko.json')).default;
     case 'zh': return (await import('@/locales/zh.json')).default;
     case 'ja': return (await import('@/locales/ja.json')).default;
     case 'hi': return (await import('@/locales/hi.json')).default;
@@ -42,7 +42,7 @@ const loadLocale = async (lang: string): Promise<Record<string, unknown>> => {
     case 'ru': return (await import('@/locales/ru.json')).default;
     case 'pt': return (await import('@/locales/pt.json')).default;
     case 'ur': return (await import('@/locales/ur.json')).default;
-    default: return koTranslations;
+    default: return enTranslations;
   }
 };
 
@@ -52,13 +52,13 @@ i18n
   .use(initReactI18next)
   .init({
     resources: {
-      ko: {
-        translation: koTranslations,
+      en: {
+        translation: enTranslations,
       },
     },
-    lng: 'ko',
+    lng: 'en',
     supportedLngs: ['en', 'zh', 'ja', 'hi', 'es', 'fr', 'ar', 'bn', 'ru', 'pt', 'ur', 'ko'],
-    fallbackLng: 'ko',
+    fallbackLng: 'en',
     debug: false,
     interpolation: {
       escapeValue: false,
@@ -75,18 +75,18 @@ export const initializeI18n = async (): Promise<void> => {
   initialized = true;
   
   const storedLang = typeof localStorage !== 'undefined' ? localStorage.getItem('tburn-language') : null;
-  const targetLang = storedLang || 'ko';
+  const targetLang = storedLang || 'en';
   
   updateDocumentDirection(targetLang);
   
-  if (targetLang !== 'ko' && !i18n.hasResourceBundle(targetLang, 'translation')) {
+  if (targetLang !== 'en' && !i18n.hasResourceBundle(targetLang, 'translation')) {
     try {
       const translations = await loadLocale(targetLang);
       i18n.addResourceBundle(targetLang, 'translation', translations, true, true);
       await i18n.changeLanguage(targetLang);
       console.log(`[i18n] Switched to ${targetLang}`);
     } catch (error) {
-      console.warn(`[i18n] Failed to load ${targetLang}, using Korean`);
+      console.warn(`[i18n] Failed to load ${targetLang}, using English`);
     }
   }
   
@@ -101,8 +101,8 @@ i18n.on('languageChanged', async (lang) => {
       const translations = await loadLocale(lang);
       i18n.addResourceBundle(lang, 'translation', translations, true, true);
     } catch (error) {
-      console.warn(`Failed to load locale ${lang}, falling back to Korean`);
-      i18n.changeLanguage('ko');
+      console.warn(`Failed to load locale ${lang}, falling back to English`);
+      i18n.changeLanguage('en');
     }
   }
 });
