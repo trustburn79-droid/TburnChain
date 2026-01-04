@@ -1,0 +1,36 @@
+{
+  "nodeId": "YOUR_NODE_ID",
+  "chainId": 6000,
+  "networkId": "tburn-mainnet",
+  "validator": {
+    "address": "YOUR_VALIDATOR_ADDRESS",
+    "privateKey": "YOUR_PRIVATE_KEY",
+    "publicKey": "YOUR_PUBLIC_KEY",
+    "stake": "1000000000000000000000000",
+    "commission": 0.1,
+    "name": "My TBURN Validator",
+    "description": "TBURN Mainnet Validator"
+  },
+  "network": {
+    "listenHost": "0.0.0.0",
+    "listenPort": 26656,
+    "rpcPort": 8545,
+    "wsPort": 8546,
+    "bootstrapPeers": [
+      "tcp://seed1.tburn.io:26656",
+      "tcp://seed2.tburn.io:26656",
+      "tcp://seed3.tburn.io:26656"
+    ],
+    "maxPeers": 50,
+    "minPeers": 10
+  },
+  "api": {
+    "enabled": true,
+    "host": "0.0.0.0",
+    "port": 8080
+  },
+  "geo": {
+    "region": "asia-northeast1",
+    "datacenter": "Seoul"
+  }
+}

@@ -309,8 +309,6 @@ export class ValidatorNode extends EventEmitter {
       data: mempoolTx.data,
       signature: mempoolTx.signature,
       timestamp: mempoolTx.timestamp,
-      status: mempoolTx.status,
-      type: mempoolTx.type,
       shardId: mempoolTx.shardId,
     }));
   }
@@ -417,8 +415,6 @@ export class ValidatorNode extends EventEmitter {
       data: tx.data,
       signature: tx.signature,
       timestamp: tx.timestamp,
-      status: tx.status,
-      type: tx.type,
       shardId: tx.shardId,
       receivedAt: Date.now(),
       gasPrice: BigInt(tx.gasPrice),

@@ -1,0 +1,21 @@
+TBURN 메인넷 검증자 노드 설치 가이드
+=====================================
+
+빠른 설치 (Linux):
+  sudo bash scripts/install.sh
+  sudo bash scripts/setup-validator.sh
+
+Docker 설치:
+  bash scripts/quick-start.sh
+
+수동 설치:
+  1. Node.js 20 이상 설치
+  2. npm install
+  3. node lib/cli.js init --name "MyValidator" --region asia-northeast1
+  4. node lib/cli.js start --config config/validator.json
+
+자세한 설명서: docs/VALIDATOR_SETUP_GUIDE_KO.md (한국어)
+                docs/VALIDATOR_SETUP_GUIDE_EN.md (English)
+
+문의: https://discord.gg/tburn
+문서: https://docs.tburn.io/validator
