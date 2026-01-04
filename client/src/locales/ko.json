@@ -19358,7 +19358,11 @@
     "dashboard": "대시보드",
     "blockExplorer": "블록 탐색기",
     "consensusView": "합의 뷰",
-    "performanceMetrics": "성능 메트릭"
+    "performanceMetrics": "성능 메트릭",
+    "tpsCapacityVsCurrent": "TPS (용량 vs 현재)",
+    "tpsCapacityNote": "용량=이론적 최대, 현재=실시간 처리량",
+    "currentTps": "현재",
+    "utilization": "가동률"
   },
   "adminNetworkParams": {
     "title": "네트워크 파라미터",

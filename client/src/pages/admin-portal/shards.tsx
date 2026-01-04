@@ -1305,52 +1305,36 @@ export default function AdminShards() {
                         </td>
                       </tr>
                       
-                      {/* TPS Verification */}
+                      
+                      {/* TPS Verification - Capacity vs Current Throughput (informational) */}
                       <tr className="border-b" data-testid="verify-tps">
                         <td className="py-2 px-3">
                           <div className="flex items-center gap-2">
                             <Zap className="h-4 w-4 text-muted-foreground" />
-                            {t("adminShards.estimatedTpsLabel") || "예상 TPS"}
+                            {t("adminShards.tpsCapacityVsCurrent") || "TPS (용량 vs 현재)"}
                           </div>
-                          <div className="text-xs text-muted-foreground">/api/network/stats → tps</div>
+                          <div className="text-xs text-muted-foreground">{t("adminShards.tpsCapacityNote") || "용량=이론적 최대, 현재=실시간 처리량"}</div>
                         </td>
                         <td className="text-center py-2 px-3 font-mono font-bold text-primary">
+                          <div className="text-xs text-muted-foreground">{t("adminShards.capacity") || "용량"}</div>
                           {shardConfig?.estimatedTps?.toLocaleString() || '-'}
                         </td>
                         <td className="text-center py-2 px-3 font-mono">
+                          <div className="text-xs text-muted-foreground">{t("adminShards.currentTps") || "현재"}</div>
                           {stats.totalTps?.toLocaleString() || '-'}
                         </td>
                         <td className="text-center py-2 px-3">
                           {(() => {
-                            const adminVal = shardConfig?.estimatedTps || 0;
-                            const apiVal = stats.totalTps || 0;
-                            const tolerance = 0.15; // 15% tolerance for TPS (dynamic value)
-                            const diff = adminVal > 0 ? Math.abs(adminVal - apiVal) / adminVal : 0;
-                            const isMatch = adminVal === apiVal;
-                            const isWithinTolerance = diff <= tolerance;
+                            const capacityVal = shardConfig?.estimatedTps || 0;
+                            const currentVal = stats.totalTps || 0;
+                            const utilizationPercent = capacityVal > 0 ? (currentVal / capacityVal * 100).toFixed(1) : 0;
                             
-                            if (isMatch || adminVal === 0) {
-                              return (
-                                <Badge className="bg-green-500/10 text-green-500 text-xs">
-                                  <CheckCircle className="h-3 w-3 mr-1" />
-                                  {t("status.pass") || "통과"}
-                                </Badge>
-                              );
-                            } else if (isWithinTolerance) {
-                              return (
-                                <Badge className="bg-yellow-500/10 text-yellow-500 text-xs">
-                                  <AlertCircle className="h-3 w-3 mr-1" />
-                                  {t("status.dynamic") || "동적값"}
-                                </Badge>
-                              );
-                            } else {
-                              return (
-                                <Badge className="bg-red-500/10 text-red-500 text-xs">
-                                  <XCircle className="h-3 w-3 mr-1" />
-                                  {t("status.fail") || "불일치"}
-                                </Badge>
-                              );
-                            }
+                            return (
+                              <Badge className="bg-blue-500/10 text-blue-500 text-xs">
+                                <Activity className="h-3 w-3 mr-1" />
+                                {utilizationPercent}% {t("adminShards.utilization") || "가동률"}
+                              </Badge>
+                            );
                           })()}
                         </td>
                       </tr>
