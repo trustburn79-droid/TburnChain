@@ -51,7 +51,7 @@ Core architectural decisions and features include:
   - API endpoints at `/api/cross-shard-router/*` for status, send, batch, routes, circuits, latency, throughput, WAL stats, and admin operations
 
 ## External Dependencies
-- **Database**: Neon Serverless PostgreSQL with 1,100 enterprise-grade indexes (60 dedicated incentive system indexes + 41 performance tracking indexes + 219 enterprise indexes across 52+ categories including validator orchestration, sharding, token distribution, consensus, reward distribution, and core blockchain tables). New tables: `validator_incentive_states`, `validator_performance_epochs`, `reward_distribution_schedules`, `reward_distribution_batches`, `validator_incentive_tier_stats`.
+- **Database**: Neon Serverless PostgreSQL with 1,152 enterprise-grade indexes (52 dedicated cross-shard router indexes + 60 incentive system indexes + 41 performance tracking indexes + 219 enterprise indexes across 52+ categories including validator orchestration, sharding, token distribution, consensus, reward distribution, and core blockchain tables). New tables for Phase 12 Cross-Shard Router: `enterprise_cross_shard_messages`, `enterprise_cross_shard_batches`, `wal_segments`, `router_metrics_hourly`, `circuit_breakers`, `shard_validator_assignments`, `latency_histories`, `router_bloom_filters`, `router_daily_stats`.
 - **ORM**: Drizzle ORM
 - **Frontend Framework**: React 18
 - **Language**: TypeScript
