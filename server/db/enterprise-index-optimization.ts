@@ -796,6 +796,149 @@ export const ENTERPRISE_INDEXES = {
      ON delegations(pending_rewards DESC, last_claim_at) 
      WHERE pending_rewards != '0'`,
   ],
+
+  // ============================================
+  // ENTERPRISE REWARD DISTRIBUTION ENGINE INDEXES
+  // Designed for 210K TPS with sub-millisecond query times
+  // ============================================
+  REWARD_EPOCHS: [
+    // Epoch lookup by status - primary dashboard query
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_reward_epochs_status 
+     ON reward_epochs(status, epoch_number DESC)`,
+    
+    // Active epoch fast lookup
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_reward_epochs_active 
+     ON reward_epochs(status) 
+     WHERE status = 'active'`,
+    
+    // Block range queries for epoch identification
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_reward_epochs_blocks 
+     ON reward_epochs(start_block, end_block)`,
+    
+    // Finalized epochs for archival queries
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_reward_epochs_finalized 
+     ON reward_epochs(finalized_at DESC) 
+     WHERE status = 'finalized'`,
+  ],
+
+  REWARD_EPOCH_METRICS: [
+    // Epoch metrics lookup
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_reward_epoch_metrics_epoch 
+     ON reward_epoch_metrics(epoch_number DESC)`,
+    
+    // APY analysis queries
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_reward_epoch_metrics_apy 
+     ON reward_epoch_metrics(effective_apy DESC, epoch_number DESC)`,
+    
+    // Reward totals for analytics
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_reward_epoch_metrics_totals 
+     ON reward_epoch_metrics(total_distributed, total_burned)`,
+  ],
+
+  VALIDATOR_REWARD_EVENTS: [
+    // Primary validator history lookup - most frequent query
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_validator_reward_events_history 
+     ON validator_reward_events(validator_id, epoch_number DESC, block_number DESC)`,
+    
+    // Epoch + shard composite for cross-shard analytics
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_validator_reward_events_epoch_shard 
+     ON validator_reward_events(epoch_number, shard_id, block_number)`,
+    
+    // Status-based processing queue
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_validator_reward_events_status 
+     ON validator_reward_events(status, priority, created_at DESC)`,
+    
+    // Pending rewards for distribution
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_validator_reward_events_pending 
+     ON validator_reward_events(status, priority DESC, calculated_at) 
+     WHERE status = 'pending'`,
+    
+    // Batch processing lookup
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_validator_reward_events_batch 
+     ON validator_reward_events(batch_id, status) 
+     WHERE batch_id IS NOT NULL`,
+    
+    // Validator address lookup (secondary index)
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_validator_reward_events_address 
+     ON validator_reward_events(validator_address, epoch_number DESC)`,
+    
+    // Reward type analytics
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_validator_reward_events_type 
+     ON validator_reward_events(reward_type, epoch_number DESC)`,
+    
+    // Failed rewards for retry processing
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_validator_reward_events_failed 
+     ON validator_reward_events(status, retry_count, created_at) 
+     WHERE status = 'failed'`,
+  ],
+
+  REWARD_BATCHES: [
+    // Epoch + status for batch queue management
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_reward_batches_epoch_status 
+     ON reward_batches(epoch_number, status, priority DESC)`,
+    
+    // Pending batches queue
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_reward_batches_pending 
+     ON reward_batches(status, priority DESC, created_at) 
+     WHERE status = 'pending'`,
+    
+    // Processing batches for SLA tracking
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_reward_batches_processing 
+     ON reward_batches(status, processed_at) 
+     WHERE status = 'processing'`,
+    
+    // Failed batches for retry
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_reward_batches_failed 
+     ON reward_batches(status, retry_count, created_at) 
+     WHERE status = 'failed'`,
+    
+    // Completed batches for analytics
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_reward_batches_completed 
+     ON reward_batches(completed_at DESC) 
+     WHERE status = 'completed'`,
+  ],
+
+  REWARD_GAS_ACCUMULATORS: [
+    // Epoch + block lookup for gas statistics
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_reward_gas_accumulators_epoch_block 
+     ON reward_gas_accumulators(epoch_number, block_number)`,
+    
+    // BRIN index for sequential block access (high-TPS optimization)
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_reward_gas_accumulators_block_brin 
+     ON reward_gas_accumulators USING BRIN (block_number)`,
+    
+    // Base fee tracking for EIP-1559
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_reward_gas_accumulators_base_fee 
+     ON reward_gas_accumulators(epoch_number, base_fee)`,
+    
+    // Recent blocks for EWMA calculation
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_reward_gas_accumulators_recent 
+     ON reward_gas_accumulators(created_at DESC, epoch_number)`,
+  ],
+
+  REWARD_WAL: [
+    // Sequence-based replay ordering
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_reward_wal_sequence 
+     ON reward_wal(sequence, status)`,
+    
+    // Pending WAL entries for recovery
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_reward_wal_pending 
+     ON reward_wal(status, sequence, created_at) 
+     WHERE status = 'PENDING'`,
+    
+    // Operation type lookup
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_reward_wal_operation 
+     ON reward_wal(operation, status, created_at DESC)`,
+    
+    // Recent WAL entries for monitoring
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_reward_wal_recent 
+     ON reward_wal(created_at DESC, status)`,
+    
+    // Committed entries for cleanup
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_reward_wal_committed 
+     ON reward_wal(committed_at DESC) 
+     WHERE status = 'COMMITTED'`,
+  ],
 };
 
 /**
@@ -909,6 +1052,13 @@ export async function analyzeTokenDistributionTables(): Promise<void> {
     'validators',
     'consensus_rounds',
     'block_finality_records',
+    // Enterprise Reward Distribution Engine
+    'reward_epochs',
+    'reward_epoch_metrics',
+    'validator_reward_events',
+    'reward_batches',
+    'reward_gas_accumulators',
+    'reward_wal',
   ];
   
   console.log('[Enterprise DB] Running ANALYZE on token distribution tables...');
