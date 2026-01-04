@@ -24,6 +24,7 @@ Core architectural decisions and features include:
 - **Mainnet Launch Configuration**: Chain ID 6000, 125 genesis validators, 64 shards, ~210,000 TPS capacity, 20-year deflationary tokenomics, and various burn mechanics.
 - **Performance Optimizations**: Includes instant first load, deferred data fetch, static landing page architecture, route-based code splitting, and enhanced chunk error recovery.
 - **Enterprise Scalability Infrastructure**: Production-grade resilience patterns including `BlockchainOrchestrator` (Circuit Breaker, Health Check, Alert Manager), `PersistenceBatcher` (Priority Queue, Dead Letter Queue, Write-Ahead Log), and `AdaptiveFeeEngine` (EIP-1559 style with TWAP, Fee Prediction, EIP-4844 Blob Fees).
+- **Enterprise Validator Orchestrator**: Production-grade validator management for 125 genesis validators (1M TBURN each) with O(1) lookups, EWMA performance scoring (α=0.3), 32K ring buffer metrics, weighted random selection, committee formation, slashing (5% double-sign, 0.1% downtime), jailing (24h), tombstoning, and reward distribution (40% proposer, 50% verifier, 10% burn). API endpoints at `/api/validators/*`.
 - **Token Distribution Admin System**: Enterprise-level management for various token programs (Airdrops, Referrals, Community Rewards, DAO Governance, etc.).
 
 ## External Dependencies
