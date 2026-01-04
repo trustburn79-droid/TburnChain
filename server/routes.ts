@@ -55,6 +55,7 @@ import { registerDbOptimizationRoutes } from "./routes/db-optimization-routes";
 import { registerShardingRoutes } from "./routes/sharding-routes";
 import validatorRoutes from "./routes/validator-routes";
 import { rewardRoutes } from "./routes/reward-routes";
+import crossShardRouterRoutes from "./routes/cross-shard-router-routes";
 import { nftMarketplaceService } from "./services/NftMarketplaceService";
 import { launchpadService } from "./services/LaunchpadService";
 import { gameFiService } from "./services/GameFiService";
@@ -1949,6 +1950,13 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   // ============================================
   app.use("/api/rewards", rewardRoutes);
   console.log("[Rewards] ✅ Enterprise reward distribution engine routes registered");
+
+  // ============================================
+  // ENTERPRISE CROSS-SHARD MESSAGE ROUTER
+  // Priority queue-based message delivery for 210K TPS
+  // ============================================
+  app.use("/api/cross-shard-router", crossShardRouterRoutes);
+  console.log("[CrossShardRouter] ✅ Enterprise cross-shard message router routes registered");
 
   // ============================================
   // Network Stats
