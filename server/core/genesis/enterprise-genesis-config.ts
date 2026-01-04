@@ -7,7 +7,9 @@
  * DO NOT define duplicate allocation values here - use GENESIS_ALLOCATION as the source of truth
  */
 
-import { GENESIS_ALLOCATION, BILLION } from "@shared/tokenomics-config";
+import { GENESIS_ALLOCATION } from "@shared/tokenomics-config";
+
+const WEI_PER_TBURN = 10n ** 18n; // Use pure BigInt for safe integer arithmetic
 
 // ============================================
 // CHAIN PARAMETERS
@@ -45,32 +47,32 @@ export const TOKENOMICS = {
     // COMMUNITY: 30% = 30억 TBURN (3B)
     // ============================================
     COMMUNITY: {
-      amount: BigInt(GENESIS_ALLOCATION.COMMUNITY.amount) * BigInt(10 ** 18),
+      amount: BigInt(GENESIS_ALLOCATION.COMMUNITY.amount) * WEI_PER_TBURN,
       percentage: GENESIS_ALLOCATION.COMMUNITY.percentage,
       description: "커뮤니티 (에어드랍, 레퍼럴, 이벤트, 커뮤니티활동, DAO 트레저리)",
       subcategories: {
         AIRDROP: {
-          amount: BigInt(GENESIS_ALLOCATION.COMMUNITY.subcategories.AIRDROP.amount) * BigInt(10 ** 18),
+          amount: BigInt(GENESIS_ALLOCATION.COMMUNITY.subcategories.AIRDROP.amount) * WEI_PER_TBURN,
           percentage: GENESIS_ALLOCATION.COMMUNITY.subcategories.AIRDROP.parentPercentage,
           description: GENESIS_ALLOCATION.COMMUNITY.subcategories.AIRDROP.description,
         },
         REFERRAL: {
-          amount: BigInt(GENESIS_ALLOCATION.COMMUNITY.subcategories.REFERRAL.amount) * BigInt(10 ** 18),
+          amount: BigInt(GENESIS_ALLOCATION.COMMUNITY.subcategories.REFERRAL.amount) * WEI_PER_TBURN,
           percentage: GENESIS_ALLOCATION.COMMUNITY.subcategories.REFERRAL.parentPercentage,
           description: GENESIS_ALLOCATION.COMMUNITY.subcategories.REFERRAL.description,
         },
         EVENTS: {
-          amount: BigInt(GENESIS_ALLOCATION.COMMUNITY.subcategories.EVENTS.amount) * BigInt(10 ** 18),
+          amount: BigInt(GENESIS_ALLOCATION.COMMUNITY.subcategories.EVENTS.amount) * WEI_PER_TBURN,
           percentage: GENESIS_ALLOCATION.COMMUNITY.subcategories.EVENTS.parentPercentage,
           description: GENESIS_ALLOCATION.COMMUNITY.subcategories.EVENTS.description,
         },
         COMMUNITY_ACTIVITY: {
-          amount: BigInt(GENESIS_ALLOCATION.COMMUNITY.subcategories.COMMUNITY_ACTIVITY.amount) * BigInt(10 ** 18),
+          amount: BigInt(GENESIS_ALLOCATION.COMMUNITY.subcategories.COMMUNITY_ACTIVITY.amount) * WEI_PER_TBURN,
           percentage: GENESIS_ALLOCATION.COMMUNITY.subcategories.COMMUNITY_ACTIVITY.parentPercentage,
           description: GENESIS_ALLOCATION.COMMUNITY.subcategories.COMMUNITY_ACTIVITY.description,
         },
         DAO_TREASURY: {
-          amount: BigInt(GENESIS_ALLOCATION.COMMUNITY.subcategories.DAO_TREASURY.amount) * BigInt(10 ** 18),
+          amount: BigInt(GENESIS_ALLOCATION.COMMUNITY.subcategories.DAO_TREASURY.amount) * WEI_PER_TBURN,
           percentage: GENESIS_ALLOCATION.COMMUNITY.subcategories.DAO_TREASURY.parentPercentage,
           description: GENESIS_ALLOCATION.COMMUNITY.subcategories.DAO_TREASURY.description,
         },
@@ -81,19 +83,19 @@ export const TOKENOMICS = {
     // REWARDS: 22% = 22억 TBURN (2.2B)
     // ============================================
     REWARDS: {
-      amount: BigInt(GENESIS_ALLOCATION.REWARDS.amount) * BigInt(10 ** 18),
+      amount: BigInt(GENESIS_ALLOCATION.REWARDS.amount) * WEI_PER_TBURN,
       percentage: GENESIS_ALLOCATION.REWARDS.percentage,
       vestingMonths: 240, // 20 years
       cliffMonths: 0,
       description: "보상 (블록 보상, 검증자 인센티브)",
       subcategories: {
         BLOCK_REWARDS: {
-          amount: BigInt(GENESIS_ALLOCATION.REWARDS.subcategories.BLOCK_REWARDS.amount) * BigInt(10 ** 18),
+          amount: BigInt(GENESIS_ALLOCATION.REWARDS.subcategories.BLOCK_REWARDS.amount) * WEI_PER_TBURN,
           percentage: GENESIS_ALLOCATION.REWARDS.subcategories.BLOCK_REWARDS.parentPercentage,
           description: GENESIS_ALLOCATION.REWARDS.subcategories.BLOCK_REWARDS.description,
         },
         VALIDATOR_INCENTIVES: {
-          amount: BigInt(GENESIS_ALLOCATION.REWARDS.subcategories.VALIDATOR_INCENTIVES.amount) * BigInt(10 ** 18),
+          amount: BigInt(GENESIS_ALLOCATION.REWARDS.subcategories.VALIDATOR_INCENTIVES.amount) * WEI_PER_TBURN,
           percentage: GENESIS_ALLOCATION.REWARDS.subcategories.VALIDATOR_INCENTIVES.parentPercentage,
           description: GENESIS_ALLOCATION.REWARDS.subcategories.VALIDATOR_INCENTIVES.description,
         },
@@ -104,12 +106,12 @@ export const TOKENOMICS = {
     // INVESTORS: 20% = 20억 TBURN (2B)
     // ============================================
     INVESTORS: {
-      amount: BigInt(GENESIS_ALLOCATION.INVESTORS.amount) * BigInt(10 ** 18),
+      amount: BigInt(GENESIS_ALLOCATION.INVESTORS.amount) * WEI_PER_TBURN,
       percentage: GENESIS_ALLOCATION.INVESTORS.percentage,
       description: "투자자 (Seed, Private, Public)",
       subcategories: {
         SEED_ROUND: {
-          amount: BigInt(GENESIS_ALLOCATION.INVESTORS.subcategories.SEED_ROUND.amount) * BigInt(10 ** 18),
+          amount: BigInt(GENESIS_ALLOCATION.INVESTORS.subcategories.SEED_ROUND.amount) * WEI_PER_TBURN,
           percentage: GENESIS_ALLOCATION.INVESTORS.subcategories.SEED_ROUND.parentPercentage,
           tgePercent: GENESIS_ALLOCATION.INVESTORS.subcategories.SEED_ROUND.tgePercent,
           vestingMonths: 24,
@@ -117,7 +119,7 @@ export const TOKENOMICS = {
           description: GENESIS_ALLOCATION.INVESTORS.subcategories.SEED_ROUND.description,
         },
         PRIVATE_ROUND: {
-          amount: BigInt(GENESIS_ALLOCATION.INVESTORS.subcategories.PRIVATE_ROUND.amount) * BigInt(10 ** 18),
+          amount: BigInt(GENESIS_ALLOCATION.INVESTORS.subcategories.PRIVATE_ROUND.amount) * WEI_PER_TBURN,
           percentage: GENESIS_ALLOCATION.INVESTORS.subcategories.PRIVATE_ROUND.parentPercentage,
           tgePercent: GENESIS_ALLOCATION.INVESTORS.subcategories.PRIVATE_ROUND.tgePercent,
           vestingMonths: 18,
@@ -125,7 +127,7 @@ export const TOKENOMICS = {
           description: GENESIS_ALLOCATION.INVESTORS.subcategories.PRIVATE_ROUND.description,
         },
         PUBLIC_SALE: {
-          amount: BigInt(GENESIS_ALLOCATION.INVESTORS.subcategories.PUBLIC_SALE.amount) * BigInt(10 ** 18),
+          amount: BigInt(GENESIS_ALLOCATION.INVESTORS.subcategories.PUBLIC_SALE.amount) * WEI_PER_TBURN,
           percentage: GENESIS_ALLOCATION.INVESTORS.subcategories.PUBLIC_SALE.parentPercentage,
           tgePercent: GENESIS_ALLOCATION.INVESTORS.subcategories.PUBLIC_SALE.tgePercent,
           vestingMonths: 12,
@@ -139,24 +141,24 @@ export const TOKENOMICS = {
     // ECOSYSTEM: 14% = 14억 TBURN (1.4B)
     // ============================================
     ECOSYSTEM: {
-      amount: BigInt(GENESIS_ALLOCATION.ECOSYSTEM.amount) * BigInt(10 ** 18),
+      amount: BigInt(GENESIS_ALLOCATION.ECOSYSTEM.amount) * WEI_PER_TBURN,
       percentage: GENESIS_ALLOCATION.ECOSYSTEM.percentage,
       vestingMonths: 48,
       cliffMonths: 6,
       description: "생태계 (생태계 펀드, 파트너십, 마케팅)",
       subcategories: {
         ECOSYSTEM_FUND: {
-          amount: BigInt(GENESIS_ALLOCATION.ECOSYSTEM.subcategories.ECOSYSTEM_FUND.amount) * BigInt(10 ** 18),
+          amount: BigInt(GENESIS_ALLOCATION.ECOSYSTEM.subcategories.ECOSYSTEM_FUND.amount) * WEI_PER_TBURN,
           percentage: GENESIS_ALLOCATION.ECOSYSTEM.subcategories.ECOSYSTEM_FUND.parentPercentage,
           description: GENESIS_ALLOCATION.ECOSYSTEM.subcategories.ECOSYSTEM_FUND.description,
         },
         PARTNERSHIP: {
-          amount: BigInt(GENESIS_ALLOCATION.ECOSYSTEM.subcategories.PARTNERSHIP.amount) * BigInt(10 ** 18),
+          amount: BigInt(GENESIS_ALLOCATION.ECOSYSTEM.subcategories.PARTNERSHIP.amount) * WEI_PER_TBURN,
           percentage: GENESIS_ALLOCATION.ECOSYSTEM.subcategories.PARTNERSHIP.parentPercentage,
           description: GENESIS_ALLOCATION.ECOSYSTEM.subcategories.PARTNERSHIP.description,
         },
         MARKETING: {
-          amount: BigInt(GENESIS_ALLOCATION.ECOSYSTEM.subcategories.MARKETING.amount) * BigInt(10 ** 18),
+          amount: BigInt(GENESIS_ALLOCATION.ECOSYSTEM.subcategories.MARKETING.amount) * WEI_PER_TBURN,
           percentage: GENESIS_ALLOCATION.ECOSYSTEM.subcategories.MARKETING.parentPercentage,
           description: GENESIS_ALLOCATION.ECOSYSTEM.subcategories.MARKETING.description,
         },
@@ -167,24 +169,24 @@ export const TOKENOMICS = {
     // TEAM: 11% = 11억 TBURN (1.1B)
     // ============================================
     TEAM: {
-      amount: BigInt(GENESIS_ALLOCATION.TEAM.amount) * BigInt(10 ** 18),
+      amount: BigInt(GENESIS_ALLOCATION.TEAM.amount) * WEI_PER_TBURN,
       percentage: GENESIS_ALLOCATION.TEAM.percentage,
       vestingMonths: 48,
       cliffMonths: 12,
       description: "팀 (코어 팀, 어드바이저, 전략 파트너)",
       subcategories: {
         CORE_TEAM: {
-          amount: BigInt(GENESIS_ALLOCATION.TEAM.subcategories.CORE_TEAM.amount) * BigInt(10 ** 18),
+          amount: BigInt(GENESIS_ALLOCATION.TEAM.subcategories.CORE_TEAM.amount) * WEI_PER_TBURN,
           percentage: GENESIS_ALLOCATION.TEAM.subcategories.CORE_TEAM.parentPercentage,
           description: GENESIS_ALLOCATION.TEAM.subcategories.CORE_TEAM.description,
         },
         ADVISOR: {
-          amount: BigInt(GENESIS_ALLOCATION.TEAM.subcategories.ADVISOR.amount) * BigInt(10 ** 18),
+          amount: BigInt(GENESIS_ALLOCATION.TEAM.subcategories.ADVISOR.amount) * WEI_PER_TBURN,
           percentage: GENESIS_ALLOCATION.TEAM.subcategories.ADVISOR.parentPercentage,
           description: GENESIS_ALLOCATION.TEAM.subcategories.ADVISOR.description,
         },
         STRATEGIC_PARTNER: {
-          amount: BigInt(GENESIS_ALLOCATION.TEAM.subcategories.STRATEGIC_PARTNER.amount) * BigInt(10 ** 18),
+          amount: BigInt(GENESIS_ALLOCATION.TEAM.subcategories.STRATEGIC_PARTNER.amount) * WEI_PER_TBURN,
           percentage: GENESIS_ALLOCATION.TEAM.subcategories.STRATEGIC_PARTNER.parentPercentage,
           description: GENESIS_ALLOCATION.TEAM.subcategories.STRATEGIC_PARTNER.description,
         },
@@ -195,24 +197,24 @@ export const TOKENOMICS = {
     // FOUNDATION: 3% = 3억 TBURN (0.3B)
     // ============================================
     FOUNDATION: {
-      amount: BigInt(GENESIS_ALLOCATION.FOUNDATION.amount) * BigInt(10 ** 18),
+      amount: BigInt(GENESIS_ALLOCATION.FOUNDATION.amount) * WEI_PER_TBURN,
       percentage: GENESIS_ALLOCATION.FOUNDATION.percentage,
       description: "재단 운영 예비금 (운영, 긴급, 전략 투자)",
       subcategories: {
         OPERATIONS_RESERVE: {
-          amount: BigInt(GENESIS_ALLOCATION.FOUNDATION.subcategories.OPERATIONS_RESERVE.amount) * BigInt(10 ** 18),
+          amount: BigInt(GENESIS_ALLOCATION.FOUNDATION.subcategories.OPERATIONS_RESERVE.amount) * WEI_PER_TBURN,
           percentage: GENESIS_ALLOCATION.FOUNDATION.subcategories.OPERATIONS_RESERVE.parentPercentage,
           tgePercent: GENESIS_ALLOCATION.FOUNDATION.subcategories.OPERATIONS_RESERVE.tgePercent,
           description: GENESIS_ALLOCATION.FOUNDATION.subcategories.OPERATIONS_RESERVE.description,
         },
         EMERGENCY_RESERVE: {
-          amount: BigInt(GENESIS_ALLOCATION.FOUNDATION.subcategories.EMERGENCY_RESERVE.amount) * BigInt(10 ** 18),
+          amount: BigInt(GENESIS_ALLOCATION.FOUNDATION.subcategories.EMERGENCY_RESERVE.amount) * WEI_PER_TBURN,
           percentage: GENESIS_ALLOCATION.FOUNDATION.subcategories.EMERGENCY_RESERVE.parentPercentage,
           tgePercent: GENESIS_ALLOCATION.FOUNDATION.subcategories.EMERGENCY_RESERVE.tgePercent,
           description: GENESIS_ALLOCATION.FOUNDATION.subcategories.EMERGENCY_RESERVE.description,
         },
         STRATEGIC_INVESTMENT: {
-          amount: BigInt(GENESIS_ALLOCATION.FOUNDATION.subcategories.STRATEGIC_INVESTMENT.amount) * BigInt(10 ** 18),
+          amount: BigInt(GENESIS_ALLOCATION.FOUNDATION.subcategories.STRATEGIC_INVESTMENT.amount) * WEI_PER_TBURN,
           percentage: GENESIS_ALLOCATION.FOUNDATION.subcategories.STRATEGIC_INVESTMENT.parentPercentage,
           description: GENESIS_ALLOCATION.FOUNDATION.subcategories.STRATEGIC_INVESTMENT.description,
         },
