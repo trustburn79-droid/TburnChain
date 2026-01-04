@@ -46,6 +46,14 @@ Core architectural decisions and features include:
 - **Transaction Verification Pipeline**: ECDSA-style signature verification, Merkle root generation, and block integrity verification.
 - **Reward Distribution Engine**: Automatic validator reward distribution based on proposer rewards, verifier rewards, and gas fee distribution with epoch-based cycles.
 - **Mainnet Launch**: Production blockchain infrastructure with Chain ID 6000, 125 genesis validators, 64 shards, ~210,000 TPS capacity, complete block finality, and automated reward distribution. 20-year tokenomics with deflationary model.
+- **Enterprise Genesis Configuration** (`server/core/genesis/enterprise-genesis-config.ts`): Comprehensive genesis parameters:
+  - **Chain Config**: Chain ID 6000, TBURN symbol, 18 decimals, RPC at `https://mainnet.tburn.io`
+  - **Tokenomics**: 10B total supply distributed across 11 categories - Ecosystem Growth (29.6%), Strategic Treasury (14.8%), Community (11.9%), Staking Rewards (9.9%), Liquidity (7.9%), R&D/AI (7.9%), Enterprise (6.9%), Stability Fund (4.9%), Public Launch (3.0%), Security (2.0%), Validator Stakes (1.25%)
+  - **Validator Distribution**: 125 genesis validators = 122 assigned (2 per shard × 64 shards) + 3 rotation pool. Three tiers: Core (5M stake, 1.5x rewards), Premium (2M, 1.25x), Standard (1M, 1x)
+  - **Slashing**: 5% for double-signing, 0.1% for downtime (1000 blocks), 24h jail, tombstone enabled
+  - **20-Year Emission**: Year 1: 150M TBURN, 12% annual decay, 2.5% floor APR. Year 20: ~13.2M TBURN
+  - **Burn Mechanics**: 25% tx fee burn, 50% slashed stake burn, target 1% annual deflation
+  - **Genesis API**: 12 enterprise endpoints at `/api/admin/genesis/enterprise/*` (network-stats, chain, tokenomics, validators, validators/distribution, shards, block-params, rewards, rewards/emission-schedule, security, summary)
 - **Development Mode Optimization**: Heavy blockchain services are deferred in development to prioritize frontend serving, with increased poll intervals and disabled non-essential broadcasts.
 - **Block Time 100ms Optimization**: Critical fixes to maintain strict 100ms block cadence by optimizing `processBlockFinality()` and `ValidatorSimulation`.
 - **Production Cache-Control Fix**: Critical fix for "Failed to fetch dynamically imported module" errors using proper cache headers and client-side chunk error recovery.
