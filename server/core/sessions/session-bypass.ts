@@ -1,5 +1,5 @@
 /**
- * Enterprise Session Bypass Module
+ * Enterprise Session Bypass Module v2.0
  * 
  * Centralized session skip logic to ensure consistency between:
  * - Development environment
@@ -8,56 +8,132 @@
  * CRITICAL: This module prevents MemoryStore overflow that causes
  * "Internal Server Error" and "upstream request timeout" after 30-60 minutes
  * 
- * Session Skip Rules:
- * 1. Localhost requests (127.0.0.1, ::1) - always skip, even with cookies
- * 2. Empty User-Agent - skip (internal/headless requests)
- * 3. Axios/node-fetch/undici User-Agent - skip (internal HTTP clients)
- * 4. Public API paths - skip for requests without existing session cookies
- * 5. Internal monitoring paths - always skip
+ * Session Skip Rules (Priority Order):
+ * 1. Localhost requests (127.0.0.1, ::1, 10.x.x.x, 172.x.x.x) - ALWAYS skip, even with cookies
+ * 2. Empty User-Agent - ALWAYS skip (internal/headless requests)
+ * 3. Axios/node-fetch/undici User-Agent - ALWAYS skip (internal HTTP clients)
+ * 4. X-Internal-Request header - ALWAYS skip
+ * 5. Internal monitoring paths - ALWAYS skip
+ * 6. Public API paths - skip for requests without existing session cookies
+ * 7. Static assets - ALWAYS skip
+ * 8. WebSocket upgrades - ALWAYS skip
+ * 
+ * Target: ≥80% session skip ratio for production stability
  */
 
 import { Request, Response } from 'express';
 
 // ============================================================================
-// Session Skip Path Configuration
+// Production Environment Detection
 // ============================================================================
 
-// Paths that ALWAYS skip session (regardless of cookies)
+// ★ [수정] 프로덕션 환경 정확히 감지
+// Replit Autoscale 배포 시에만 true, 개발 환경에서는 false
+// - REPLIT_DEPLOYMENT='1' (Autoscale 배포 시 설정됨)
+// - NODE_ENV='production' (명시적 프로덕션 모드)
+// - REPL_ID가 있으면서 REPLIT_DEV_DOMAIN이 없으면 배포 환경
+export const IS_PRODUCTION = (
+  process.env.REPLIT_DEPLOYMENT === '1' ||
+  process.env.NODE_ENV === 'production' ||
+  (process.env.REPL_ID && !process.env.REPLIT_DEV_DOMAIN)
+) && process.env.NODE_ENV !== 'development';
+
+// ============================================================================
+// Session Skip Path Configuration (Extended for Production Stability)
+// ============================================================================
+
+// Paths that ALWAYS skip session (regardless of cookies) - Extended list
 export const ALWAYS_SKIP_PREFIXES = [
+  // Internal APIs
   '/api/internal',              // Internal monitoring API (Phase 16)
   '/api/soak-tests',            // Soak test API (Phase 16)
-  '/api/public',                // Public API
+  '/api/db-optimizer',          // DB optimizer internal API
+  '/api/production-monitor',    // Production monitoring API
+  
+  // Public APIs
+  '/api/public',                // Public API v1
   '/api/health',                // Health checks
   '/health',                    // Root health check
-  '/api/db-optimizer',          // DB optimizer internal API
+  
+  // Enterprise infrastructure
+  '/api/enterprise',            // Enterprise services
+  '/api/metrics',               // Prometheus metrics
+  
+  // Static assets
+  '/assets',                    // Static assets
+  '/static',                    // Static files
+  '/@vite',                     // Vite dev assets
+  '/@fs',                       // Vite file system
+  '/node_modules',              // Node modules
+  
+  // Favicon and manifest
+  '/favicon',                   // Favicon
+  '/manifest',                  // Web manifest
+  '/robots.txt',                // Robots.txt
+  '/sitemap',                   // Sitemap
 ];
 
-// Paths that skip session for non-authenticated requests
+// Paths that skip session for non-authenticated requests - Extended list
 export const PUBLIC_API_PREFIXES = [
+  // Shard APIs
   '/api/shard-cache',           // Shard cache API
   '/api/cross-shard-router',    // Cross-shard router API
   '/api/shard-rebalancer',      // Shard rebalancer API
   '/api/batch-processor',       // Batch processor API
+  
+  // Validator APIs
   '/api/validators/status',     // Validator status (public)
   '/api/validators/stats',      // Validator stats (public)
+  '/api/validators/list',       // Validator list (public)
+  
+  // Network APIs
   '/api/rewards/stats',         // Rewards stats (public)
   '/api/rewards/epoch',         // Epoch info (public)
   '/api/network/stats',         // Network stats (public)
+  '/api/network/info',          // Network info (public)
+  
+  // Scalability APIs
   '/api/scalability',           // Scalability API (public)
   '/api/consensus/state',       // Consensus state (public)
+  '/api/consensus/info',        // Consensus info (public)
   '/api/block-production',      // Block production (public)
+  
+  // DeFi Public APIs
+  '/api/dex/pools',             // DEX pools (public read)
+  '/api/dex/pairs',             // DEX pairs (public read)
+  '/api/lending/markets',       // Lending markets (public read)
+  '/api/yield/vaults',          // Yield vaults (public read)
+  '/api/lst/pools',             // LST pools (public read)
+  '/api/nft/collections',       // NFT collections (public read)
+  '/api/bridge/chains',         // Bridge chains (public read)
+  '/api/gamefi/projects',       // GameFi projects (public read)
+  '/api/launchpad/projects',    // Launchpad projects (public read)
+  
+  // Community APIs
+  '/api/community/content',     // Community content (public read)
+  '/api/newsletter',            // Newsletter (public)
+  
+  // Launch event
+  '/api/launch-event',          // Launch event (public read)
 ];
 
 // Exact GET paths that skip session for non-authenticated requests
 export const EXACT_GET_PATHS = [
   '/api/shards',                // Shard list
   '/api/blocks',                // Block list
+  '/api/blocks/recent',         // Recent blocks
   '/api/transactions',          // Transaction list
+  '/api/transactions/recent',   // Recent transactions
   '/api/wallets',               // Wallet list
   '/api/contracts',             // Contract list
+  '/api/ai/models',             // AI models list
+  '/api/ai/decisions',          // AI decisions list
+  '/api/node/health',           // Node health
+  '/api/performance',           // Performance stats
+  '/api/consensus/rounds',      // Consensus rounds
 ];
 
-// User agents that indicate internal/automated requests
+// User agents that indicate internal/automated requests - Extended list
 export const INTERNAL_USER_AGENTS = [
   'node-fetch',
   'undici',
@@ -68,19 +144,33 @@ export const INTERNAL_USER_AGENTS = [
   'wget',
   'python-requests',
   'httpie',
+  'insomnia',
+  'postman',
+  'rest-client',
+  'http-client',
+  'java',
+  'ruby',
+  'perl',
+  'php',
+  'go-http',
+  'apache-httpclient',
+  'okhttp',
+  'request',
+  'superagent',
 ];
 
-// Paths that ALWAYS require session (never skip)
+// Paths that ALWAYS require session (never skip) - Strict list
 export const AUTH_REQUIRED_PATTERNS = [
-  '/admin',
-  '/config',
-  '/maintenance',
-  '/auth',
-  '/user',
-  '/member',
-  '/login',
-  '/logout',
-  '/session',
+  '/admin',                     // Admin panel
+  '/config',                    // Configuration
+  '/maintenance',               // Maintenance mode
+  '/api/auth',                  // Authentication endpoints
+  '/api/user',                  // User data endpoints
+  '/api/member',                // Member endpoints
+  '/login',                     // Login page
+  '/logout',                    // Logout page
+  '/session',                   // Session management
+  '/api/session',               // Session API
 ];
 
 // ============================================================================
@@ -96,6 +186,7 @@ export interface SessionBypassResult {
 
 /**
  * Determines if a request should bypass session creation
+ * CRITICAL: This function must be fast and aggressive to prevent session overflow
  * 
  * @param req Express request object
  * @returns SessionBypassResult with skip decision and reason
@@ -105,23 +196,43 @@ export function shouldBypassSession(req: Request): SessionBypassResult {
   const userAgent = req.headers['user-agent'] || '';
   const hasInternalHeader = req.headers['x-internal-request'] === 'true';
   
-  // Detect internal requests
-  const isInternalRequest = detectInternalRequest(req, userAgent, hasInternalHeader);
-  
-  // Check for existing session cookie
+  // Fast path: Check for existing session cookie first
   const hasSessionCookie = hasValidSessionCookie(req);
   
-  // 1. Always skip for internal monitoring paths
-  if (matchesPrefix(normalizedPath, ALWAYS_SKIP_PREFIXES)) {
+  // ★ [Priority 0] WebSocket upgrade requests - ALWAYS skip
+  if (req.headers.upgrade === 'websocket') {
     return {
       shouldSkip: true,
-      reason: 'always_skip_path',
-      isInternalRequest,
+      reason: 'websocket_upgrade',
+      isInternalRequest: false,
       hasSessionCookie,
     };
   }
   
-  // 2. Always skip for internal requests (localhost, axios, empty UA)
+  // ★ [Priority 1] Static assets and files - ALWAYS skip (no session needed)
+  if (isStaticAsset(normalizedPath)) {
+    return {
+      shouldSkip: true,
+      reason: 'static_asset',
+      isInternalRequest: false,
+      hasSessionCookie,
+    };
+  }
+  
+  // ★ [Priority 2] Always skip paths - regardless of cookies
+  if (matchesPrefix(normalizedPath, ALWAYS_SKIP_PREFIXES)) {
+    return {
+      shouldSkip: true,
+      reason: 'always_skip_path',
+      isInternalRequest: false,
+      hasSessionCookie,
+    };
+  }
+  
+  // Detect internal requests (localhost, empty UA, axios, etc.)
+  const isInternalRequest = detectInternalRequest(req, userAgent, hasInternalHeader);
+  
+  // ★ [Priority 3] Internal requests - ALWAYS skip (even with cookies)
   if (isInternalRequest) {
     return {
       shouldSkip: true,
@@ -131,7 +242,7 @@ export function shouldBypassSession(req: Request): SessionBypassResult {
     };
   }
   
-  // 3. Check if path requires authentication
+  // ★ [Priority 4] Check if path requires authentication - DO NOT skip
   if (requiresAuthentication(normalizedPath, req.method)) {
     return {
       shouldSkip: false,
@@ -141,8 +252,9 @@ export function shouldBypassSession(req: Request): SessionBypassResult {
     };
   }
   
-  // 4. Skip public API paths for requests without session cookies
+  // ★ [Priority 5] Public API paths - skip if no cookie
   if (!hasSessionCookie) {
+    // Public API prefixes
     if (matchesPrefix(normalizedPath, PUBLIC_API_PREFIXES)) {
       return {
         shouldSkip: true,
@@ -152,6 +264,7 @@ export function shouldBypassSession(req: Request): SessionBypassResult {
       };
     }
     
+    // Exact GET paths
     if (req.method === 'GET' && EXACT_GET_PATHS.includes(normalizedPath)) {
       return {
         shouldSkip: true,
@@ -160,9 +273,35 @@ export function shouldBypassSession(req: Request): SessionBypassResult {
         hasSessionCookie,
       };
     }
+    
+    // ★ [Production Stability] Any GET request to /api/ without cookie should skip
+    // EXCEPT: Auth-related paths that need sessions for CSRF/nonces
+    if (IS_PRODUCTION && req.method === 'GET' && normalizedPath.startsWith('/api/')) {
+      // ★ [중요] 인증 관련 경로는 세션 필요 - 제외
+      const authCriticalPaths = [
+        '/api/auth',        // 인증 체크
+        '/api/session',     // 세션 관리
+        '/api/oauth',       // OAuth 콜백
+        '/api/google',      // Google OAuth
+        '/api/csrf',        // CSRF 토큰
+      ];
+      
+      const isAuthCritical = authCriticalPaths.some(prefix => 
+        normalizedPath === prefix || normalizedPath.startsWith(prefix + '/')
+      );
+      
+      if (!isAuthCritical) {
+        return {
+          shouldSkip: true,
+          reason: 'production_api_get_no_cookie',
+          isInternalRequest,
+          hasSessionCookie,
+        };
+      }
+    }
   }
   
-  // 5. Don't skip - need session
+  // ★ [Priority 6] Don't skip - need session
   return {
     shouldSkip: false,
     reason: 'session_required',
@@ -182,29 +321,135 @@ function normalizePath(path: string): string {
     : path;
 }
 
+// Static asset extensions that never need session
+const STATIC_EXTENSIONS = [
+  '.js', '.mjs', '.cjs',        // JavaScript
+  '.css', '.scss', '.less',     // Styles
+  '.png', '.jpg', '.jpeg', '.gif', '.svg', '.ico', '.webp', '.avif', // Images
+  '.woff', '.woff2', '.ttf', '.eot', '.otf',  // Fonts
+  '.json', '.xml', '.txt',      // Data files
+  '.mp4', '.webm', '.ogg', '.mp3', '.wav',    // Media
+  '.pdf', '.doc', '.docx',      // Documents
+  '.map', '.br', '.gz',         // Source maps, compressed
+];
+
+/**
+ * Check if the request is for a static asset
+ * Static assets never need sessions
+ */
+function isStaticAsset(path: string): boolean {
+  // Check file extension
+  const ext = path.substring(path.lastIndexOf('.')).toLowerCase();
+  if (STATIC_EXTENSIONS.includes(ext)) {
+    return true;
+  }
+  
+  // Check common static asset patterns
+  if (path.includes('/assets/') || 
+      path.includes('/static/') || 
+      path.includes('/@vite/') ||
+      path.includes('/@fs/') ||
+      path.includes('/node_modules/') ||
+      path.startsWith('/src/') ||
+      path.includes('.hot-update.')) {
+    return true;
+  }
+  
+  return false;
+}
+
+/**
+ * Detect internal/automated requests that should never create sessions
+ * CRITICAL: This must be comprehensive for production stability
+ */
 function detectInternalRequest(req: Request, userAgent: string, hasInternalHeader: boolean): boolean {
-  // Check X-Internal-Request header
+  // ★ [1] Check X-Internal-Request header
   if (hasInternalHeader) {
     return true;
   }
   
-  // Check for localhost IP
-  const ip = req.ip || '';
-  if (ip === '127.0.0.1' || ip === '::1' || ip === '::ffff:127.0.0.1') {
+  // ★ [2] Check for localhost/internal IPs (even through proxy)
+  const ip = getClientIP(req);
+  if (isInternalIP(ip)) {
     return true;
   }
   
-  // Check for empty User-Agent (headless/internal requests)
-  if (userAgent === '') {
+  // ★ [3] Check for empty User-Agent (headless/internal requests)
+  if (userAgent === '' || userAgent === undefined) {
     return true;
   }
   
-  // Check for known internal HTTP client User-Agents
+  // ★ [4] Check for known internal HTTP client User-Agents
   const lowerUA = userAgent.toLowerCase();
   for (const internalUA of INTERNAL_USER_AGENTS) {
     if (lowerUA.includes(internalUA)) {
       return true;
     }
+  }
+  
+  // ★ [5] Check for bot/crawler User-Agents (they don't need sessions)
+  if (lowerUA.includes('bot') || 
+      lowerUA.includes('crawler') || 
+      lowerUA.includes('spider') ||
+      lowerUA.includes('monitor') ||
+      lowerUA.includes('check') ||
+      lowerUA.includes('probe') ||
+      lowerUA.includes('health')) {
+    return true;
+  }
+  
+  return false;
+}
+
+/**
+ * Get the real client IP, handling proxy headers
+ */
+function getClientIP(req: Request): string {
+  // Check X-Forwarded-For header (standard proxy header)
+  const xForwardedFor = req.headers['x-forwarded-for'];
+  if (xForwardedFor) {
+    const ips = typeof xForwardedFor === 'string' 
+      ? xForwardedFor.split(',').map(ip => ip.trim())
+      : xForwardedFor;
+    return ips[0] || req.ip || '';
+  }
+  
+  // Check X-Real-IP header (Nginx)
+  const xRealIp = req.headers['x-real-ip'];
+  if (xRealIp) {
+    return typeof xRealIp === 'string' ? xRealIp : xRealIp[0];
+  }
+  
+  // Fallback to req.ip (Express trust proxy)
+  return req.ip || '';
+}
+
+/**
+ * Check if IP is internal (localhost, private network, etc.)
+ */
+function isInternalIP(ip: string): boolean {
+  if (!ip) return false;
+  
+  // Localhost
+  if (ip === '127.0.0.1' || ip === '::1' || ip === '::ffff:127.0.0.1') {
+    return true;
+  }
+  
+  // Private networks (10.x.x.x, 172.16-31.x.x, 192.168.x.x)
+  if (ip.startsWith('10.') || 
+      ip.startsWith('192.168.') ||
+      ip.match(/^172\.(1[6-9]|2[0-9]|3[0-1])\./)) {
+    return true;
+  }
+  
+  // IPv6 private (fc00::/7, fe80::/10)
+  if (ip.startsWith('fc') || ip.startsWith('fd') || ip.startsWith('fe80')) {
+    return true;
+  }
+  
+  // Docker internal networks
+  if (ip.startsWith('172.17.') || ip.startsWith('172.18.')) {
+    return true;
   }
   
   return false;
@@ -248,9 +493,10 @@ function requiresAuthentication(path: string, method: string): boolean {
 /**
  * Blocks Set-Cookie header from being sent
  * Call this when session should be skipped
+ * CRITICAL: This prevents session cookie leaks that cause MemoryStore overflow
  */
 export function blockSetCookie(res: Response): void {
-  // Override setHeader to block Set-Cookie
+  // ★ [1] Override setHeader to block Set-Cookie
   const originalSetHeader = res.setHeader.bind(res);
   res.setHeader = function(name: string, value: any) {
     if (name.toLowerCase() === 'set-cookie') {
@@ -260,8 +506,39 @@ export function blockSetCookie(res: Response): void {
     return originalSetHeader(name, value);
   };
   
-  // Also remove any existing Set-Cookie header
+  // ★ [2] Override appendHeader/writeHead to catch all Set-Cookie attempts
+  const originalWriteHead = res.writeHead?.bind(res);
+  if (originalWriteHead) {
+    (res as any).writeHead = function(statusCode: number, statusMessage?: string | any, headers?: any) {
+      // Handle different overload signatures
+      let finalHeaders = headers;
+      if (typeof statusMessage === 'object') {
+        finalHeaders = statusMessage;
+        statusMessage = undefined;
+      }
+      
+      // Remove Set-Cookie from headers if present
+      if (finalHeaders) {
+        if (typeof finalHeaders === 'object') {
+          delete finalHeaders['set-cookie'];
+          delete finalHeaders['Set-Cookie'];
+        }
+      }
+      
+      // Remove any existing Set-Cookie header
+      res.removeHeader('Set-Cookie');
+      res.removeHeader('set-cookie');
+      
+      if (statusMessage !== undefined) {
+        return originalWriteHead(statusCode, statusMessage, finalHeaders);
+      }
+      return originalWriteHead(statusCode, finalHeaders);
+    };
+  }
+  
+  // ★ [3] Also remove any existing Set-Cookie header
   res.removeHeader('Set-Cookie');
+  res.removeHeader('set-cookie');
 }
 
 /**
