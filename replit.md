@@ -37,10 +37,15 @@ Core architectural decisions and features include:
 - **Enterprise Shard Rebalancer**: Threshold-based automatic shard rebalancing system for optimal load distribution with EWMA-based load prediction and zero-downtime live migration.
 - **Enterprise Token Distribution System**: Production-grade 100K+ TPS distribution management with 8 specialized programs (Airdrop, Referral, Events, Community, DAO Treasury, Block Rewards, Validator Incentives, Ecosystem Fund). Features lock-free priority queue, token bucket rate limiting, circuit breaker pattern, fraud detection engine, eligibility verification, and multi-sig approval workflow (AUTO/SINGLE/MULTI/COMMITTEE).
 - **Enterprise Distribution Database Schema**: 8 optimized tables for high-TPS operations including distribution_programs, distribution_claims (with partial indexes for pending/processing), distribution_batches, distribution_claim_approvals, distribution_audit_events (immutable compliance logs), distribution_fraud_assessments, distribution_rate_limits, and distribution_metrics_history (time-series for monitoring).
-- **Enterprise RPC Pages (2026-01-05)**: Production-grade RPC endpoint management with three enterprise pages:
-  - `/rpc/status`: Real-time node health monitoring with CPU, memory, disk metrics, live latency charts, uptime tracking (99.99%), and alert history with severity levels
-  - `/rpc/docs`: Interactive API documentation with method categories (블록 조회, 트랜잭션, 계정, TBURN 전용), live API tester, multi-language SDK examples (JavaScript, TypeScript, Python, Go, Rust)
-  - `/rpc/benchmark`: Performance benchmarking tool with configurable iterations/concurrency, real-time latency visualization, percentile metrics (P50/P95/P99), AbortController-based cancellation, and 7-day historical performance charts
+- **Enterprise RPC Pages (2026-01-05)**: Production-grade RPC endpoint management with three enterprise pages for both mainnet and testnet:
+  - Mainnet (`/rpc/*`):
+    - `/rpc/status`: Real-time node health monitoring with CPU, memory, disk metrics, live latency charts, uptime tracking (99.99%), and alert history with severity levels
+    - `/rpc/docs`: Interactive API documentation with method categories (블록 조회, 트랜잭션, 계정, TBURN 전용), live API tester, multi-language SDK examples (JavaScript, TypeScript, Python, Go, Rust)
+    - `/rpc/benchmark`: Performance benchmarking tool with configurable iterations/concurrency, real-time latency visualization, percentile metrics (P50/P95/P99), AbortController-based cancellation, and 7-day historical performance charts
+  - Testnet (`/testnet-rpc/*`):
+    - `/testnet-rpc/status`: Testnet node health monitoring with 4-node infrastructure (Seoul, Tokyo, Singapore, Frankfurt)
+    - `/testnet-rpc/docs`: Testnet API documentation with faucet and reset account methods (tburn_testnet_faucet, tburn_testnet_resetAccount)
+    - `/testnet-rpc/benchmark`: Testnet performance benchmarking with yellow/orange theme
 
 ## External Dependencies
 - **Database**: Neon Serverless PostgreSQL
