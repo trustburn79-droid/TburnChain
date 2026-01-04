@@ -12,8 +12,11 @@ import {
   GitBranch, CheckCircle, XCircle, AlertCircle, RefreshCw, 
   Coins, Flame, TrendingUp, Wallet, Layers, Rocket,
   Activity, Settings, Server, Zap, Users, PiggyBank,
-  ArrowRight, Database, Globe, Link2, ChevronDown, ChevronUp
+  ArrowRight, Database, Globe, Link2, ChevronDown, ChevronUp,
+  PlayCircle, StopCircle, CircleOff, Gauge, Shield
 } from "lucide-react";
+import { Progress } from "@/components/ui/progress";
+import { apiRequest } from "@/lib/queryClient";
 import TokenomicsSimulation from "@/pages/tokenomics-simulation";
 
 interface EconomicsData {
@@ -56,6 +59,66 @@ interface GenesisData {
   };
 }
 
+interface DistributionEngineStatus {
+  success: boolean;
+  data: {
+    isRunning: boolean;
+    circuitBreakerState: string;
+    queue: {
+      taskQueueSize: number;
+      batchQueueSize: number;
+      activeBatches: number;
+      completedBatches: number;
+    };
+    metrics: {
+      totalTasks: number;
+      completedTasks: number;
+      failedTasks: number;
+      pendingTasks: number;
+      processingTasks: number;
+      currentTPS: number;
+      peakTPS: number;
+      successRate: number;
+      averageLatencyMs: number;
+    };
+    categoryProgress: {
+      [key: string]: {
+        total: number;
+        completed: number;
+        percentage: number;
+        amountDistributed: number;
+      };
+    };
+  };
+}
+
+interface DistributionAllocations {
+  success: boolean;
+  data: {
+    totalSupply: number;
+    totalSupplyFormatted: string;
+    allocations: Array<{
+      category: string;
+      percentage: number;
+      amount: number;
+      amountFormatted: string;
+      details: {
+        percentage: number;
+        amount: number;
+        amountFormatted: string;
+        subcategories: Record<string, {
+          percentage: number;
+          parentPercentage: number;
+          amount: number;
+          amountFormatted: string;
+          description: string;
+          tgePercent?: number;
+        }>;
+      };
+    }>;
+  };
+}
+
 export default function AdminTokenomics() {
   const { t } = useTranslation();
   const { toast } = useToast();
@@ -94,6 +157,39 @@ export default function AdminTokenomics() {
     refetchInterval: 30000,
   });
 
+  const { data: distributionStatus, isLoading: distributionStatusLoading, refetch: refetchDistribution } = useQuery<DistributionEngineStatus>({
+    queryKey: ['/api/admin/genesis/distribution/status'],
+    refetchInterval: 5000,
+  });
+
+  const { data: distributionAllocations } = useQuery<DistributionAllocations>({
+    queryKey: ['/api/admin/genesis/distribution/allocations'],
+    refetchInterval: 30000,
+  });
+
+  const [distributionOpen, setDistributionOpen] = useState(true);
+  const [isControlling, setIsControlling] = useState(false);
+
+  const handleDistributionControl = async (action: 'start' | 'stop' | 'initialize') => {
+    setIsControlling(true);
+    try {
+      await apiRequest('POST', `/api/admin/genesis/distribution/${action}`);
+      await refetchDistribution();
+      toast({
+        title: action === 'start' ? "분배 엔진 시작됨" : action === 'stop' ? "분배 엔진 중지됨" : "분배 초기화 완료",
+        description: `Genesis 분배 엔진이 ${action === 'start' ? '시작' : action === 'stop' ? '중지' : '초기화'}되었습니다.`,
+      });
+    } catch (error) {
+      toast({
+        title: "오류 발생",
+        description: `분배 엔진 ${action} 중 오류가 발생했습니다.`,
+        variant: "destructive",
+      });
+    } finally {
+      setIsControlling(false);
+    }
+  };
+
   useEffect(() => {
     let ws: WebSocket | null = null;
     let reconnectTimeout: NodeJS.Timeout;
@@ -128,6 +224,8 @@ export default function AdminTokenomics() {
         queryClient.invalidateQueries({ queryKey: ['/api/admin/tokens'] }),
         queryClient.invalidateQueries({ queryKey: ['/api/admin/genesis/config'] }),
         queryClient.invalidateQueries({ queryKey: ['/api/network/stats'] }),
+        queryClient.invalidateQueries({ queryKey: ['/api/admin/genesis/distribution/status'] }),
+        queryClient.invalidateQueries({ queryKey: ['/api/admin/genesis/distribution/allocations'] }),
       ]);
       setLastUpdate(new Date());
       toast({
@@ -504,6 +602,203 @@ export default function AdminTokenomics() {
                         {lastUpdate && (
                           <span>{t("adminTokenomics.lastUpdate") || "마지막 업데이트"}: {lastUpdate.toLocaleTimeString()}</span>
                         )}
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </CollapsibleContent>
+            </Card>
+          </Collapsible>
+        </div>
+
+        {/* Genesis Distribution Engine Section */}
+        <div className="px-6">
+          <Collapsible open={distributionOpen} onOpenChange={setDistributionOpen}>
+            <Card data-testid="card-genesis-distribution">
+              <CollapsibleTrigger asChild>
+                <CardHeader className="cursor-pointer hover-elevate">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <Layers className="h-5 w-5 text-primary" />
+                      <div>
+                        <CardTitle className="text-base" data-testid="text-distribution-title">
+                          Genesis 분배 엔진
+                        </CardTitle>
+                        <CardDescription className="text-xs">
+                          Enterprise Distribution Engine - 10B TBURN 토큰 분배 현황
+                        </CardDescription>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <Badge className={distributionStatus?.data?.isRunning ? "bg-green-500/10 text-green-500" : "bg-yellow-500/10 text-yellow-500"}>
+                        {distributionStatus?.data?.isRunning ? "분배 진행 중" : "대기 중"}
+                      </Badge>
+                      <Badge className={distributionStatus?.data?.circuitBreakerState === 'closed' ? "bg-green-500/10 text-green-500" : "bg-red-500/10 text-red-500"}>
+                        <Shield className="h-3 w-3 mr-1" />
+                        {distributionStatus?.data?.circuitBreakerState === 'closed' ? "정상" : "차단"}
+                      </Badge>
+                      {distributionOpen ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
+                    </div>
+                  </div>
+                </CardHeader>
+              </CollapsibleTrigger>
+              <CollapsibleContent>
+                <CardContent className="space-y-6 pt-0">
+                  {/* Engine Controls */}
+                  <div className="p-4 rounded-lg border bg-card">
+                    <div className="flex items-center justify-between mb-4">
+                      <div className="flex items-center gap-2">
+                        <Settings className="h-4 w-4 text-blue-500" />
+                        <span className="font-medium">분배 엔진 제어</span>
+                      </div>
+                      <div className="flex gap-2">
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => handleDistributionControl('initialize')}
+                          disabled={isControlling || distributionStatus?.data?.isRunning}
+                          data-testid="button-distribution-initialize"
+                        >
+                          <Database className="h-4 w-4 mr-1" />
+                          초기화
+                        </Button>
+                        <Button
+                          variant={distributionStatus?.data?.isRunning ? "destructive" : "default"}
+                          size="sm"
+                          onClick={() => handleDistributionControl(distributionStatus?.data?.isRunning ? 'stop' : 'start')}
+                          disabled={isControlling}
+                          data-testid="button-distribution-toggle"
+                        >
+                          {distributionStatus?.data?.isRunning ? (
+                            <><StopCircle className="h-4 w-4 mr-1" />중지</>
+                          ) : (
+                            <><PlayCircle className="h-4 w-4 mr-1" />시작</>
+                          )}
+                        </Button>
+                      </div>
+                    </div>
+                    
+                    {/* Engine Metrics */}
+                    <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3">
+                      <div className="p-3 rounded-lg border bg-muted/30">
+                        <div className="text-xs text-muted-foreground">총 작업</div>
+                        <div className="text-lg font-bold">{distributionStatus?.data?.metrics?.totalTasks || 0}</div>
+                      </div>
+                      <div className="p-3 rounded-lg border bg-green-500/5">
+                        <div className="text-xs text-muted-foreground">완료</div>
+                        <div className="text-lg font-bold text-green-500">{distributionStatus?.data?.metrics?.completedTasks || 0}</div>
+                      </div>
+                      <div className="p-3 rounded-lg border bg-yellow-500/5">
+                        <div className="text-xs text-muted-foreground">처리 중</div>
+                        <div className="text-lg font-bold text-yellow-500">{distributionStatus?.data?.metrics?.processingTasks || 0}</div>
+                      </div>
+                      <div className="p-3 rounded-lg border bg-red-500/5">
+                        <div className="text-xs text-muted-foreground">실패</div>
+                        <div className="text-lg font-bold text-red-500">{distributionStatus?.data?.metrics?.failedTasks || 0}</div>
+                      </div>
+                      <div className="p-3 rounded-lg border bg-blue-500/5">
+                        <div className="text-xs text-muted-foreground">TPS</div>
+                        <div className="text-lg font-bold text-blue-500">{distributionStatus?.data?.metrics?.currentTPS?.toFixed(2) || '0.00'}</div>
+                      </div>
+                      <div className="p-3 rounded-lg border bg-purple-500/5">
+                        <div className="text-xs text-muted-foreground">성공률</div>
+                        <div className="text-lg font-bold text-purple-500">{distributionStatus?.data?.metrics?.successRate?.toFixed(1) || '100'}%</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Category Allocations */}
+                  <div className="p-4 rounded-lg border">
+                    <div className="flex items-center gap-2 mb-4">
+                      <Coins className="h-4 w-4" />
+                      <span className="font-medium">Genesis 토큰 분배 카테고리</span>
+                      <Badge className="ml-auto">총 {distributionAllocations?.data?.totalSupplyFormatted || '10,000,000,000'} TBURN</Badge>
+                    </div>
+                    
+                    <div className="space-y-4">
+                      {distributionAllocations?.data?.allocations?.map((alloc) => {
+                        const progress = distributionStatus?.data?.categoryProgress?.[alloc.category];
+                        const categoryIcons: Record<string, typeof Coins> = {
+                          'COMMUNITY': Users,
+                          'REWARDS': TrendingUp,
+                          'INVESTORS': PiggyBank,
+                          'ECOSYSTEM': Globe,
+                          'TEAM': Users,
+                          'FOUNDATION': Database,
+                        };
+                        const CategoryIcon = categoryIcons[alloc.category] || Coins;
+                        
+                        return (
+                          <div key={alloc.category} className="p-3 rounded-lg border">
+                            <div className="flex items-center justify-between mb-2">
+                              <div className="flex items-center gap-2">
+                                <CategoryIcon className="h-4 w-4 text-primary" />
+                                <span className="font-medium">{alloc.category}</span>
+                                <Badge variant="outline" className="text-xs">{alloc.percentage}%</Badge>
+                              </div>
+                              <span className="text-sm font-mono">{alloc.amountFormatted} TBURN</span>
+                            </div>
+                            
+                            <Progress 
+                              value={progress?.percentage || 0} 
+                              className="h-2 mb-2"
+                            />
+                            
+                            <div className="flex items-center justify-between text-xs text-muted-foreground">
+                              <span>분배 완료: {progress?.completed || 0}/{progress?.total || 0} 작업</span>
+                              <span>진행률: {(progress?.percentage || 0).toFixed(1)}%</span>
+                            </div>
+                            
+                            {/* Subcategories */}
+                            <div className="mt-3 pl-4 border-l-2 border-muted space-y-1">
+                              {Object.entries(alloc.details?.subcategories || {}).map(([subKey, sub]) => (
+                                <div key={subKey} className="flex items-center justify-between text-xs">
+                                  <span className="text-muted-foreground">
+                                    {sub.description || subKey}
+                                    {sub.tgePercent !== undefined && (
+                                      <Badge variant="outline" className="ml-1 text-xs">TGE {sub.tgePercent}%</Badge>
+                                    )}
+                                  </span>
+                                  <span className="font-mono">{sub.parentPercentage}% ({sub.amountFormatted})</span>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+
+                  {/* API Endpoints Integration */}
+                  <div className="p-4 rounded-lg border bg-muted/30">
+                    <div className="flex items-center gap-2 mb-3">
+                      <Link2 className="h-4 w-4 text-blue-500" />
+                      <span className="font-medium">분배 엔진 API 연동</span>
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-xs font-mono">
+                      <div className="flex items-center gap-2">
+                        <CheckCircle className="h-3 w-3 text-green-500" />
+                        <code className="text-blue-500">/api/admin/genesis/distribution/status</code>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <CheckCircle className="h-3 w-3 text-green-500" />
+                        <code className="text-blue-500">/api/admin/genesis/distribution/allocations</code>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <CheckCircle className="h-3 w-3 text-green-500" />
+                        <code className="text-blue-500">/api/admin/genesis/distribution/category/:cat</code>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <CheckCircle className="h-3 w-3 text-green-500" />
+                        <code className="text-blue-500">/api/admin/genesis/distribution/vesting</code>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <CheckCircle className="h-3 w-3 text-green-500" />
+                        <code className="text-blue-500">/api/admin/genesis/distribution/approvals</code>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <CheckCircle className="h-3 w-3 text-green-500" />
+                        <code className="text-blue-500">/api/admin/genesis/distribution/prometheus</code>
                       </div>
                     </div>
                   </div>

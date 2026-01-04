@@ -15,9 +15,37 @@ import {
   Coins, Gift, Users, Calendar, Award, Vote, Blocks, Server, 
   Sprout, TrendingUp, RefreshCw, CheckCircle2, Clock, AlertCircle,
   ArrowUpRight, BarChart3, Eye, Send, Wifi, WifiOff, Handshake, Megaphone,
-  Briefcase, GraduationCap, Leaf, KeyRound, Globe, Rocket, ListOrdered, Gem, ExternalLink
+  Briefcase, GraduationCap, Leaf, KeyRound, Globe, Rocket, ListOrdered, Gem, ExternalLink,
+  Layers, Shield, Database, Activity
 } from "lucide-react";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, AreaChart, Area, BarChart, Bar, PieChart, Pie, Cell } from "recharts";
+
+interface DistributionEngineStatus {
+  success: boolean;
+  data: {
+    isRunning: boolean;
+    circuitBreakerState: string;
+    metrics: {
+      totalTasks: number;
+      completedTasks: number;
+      failedTasks: number;
+      pendingTasks: number;
+      processingTasks: number;
+      currentTPS: number;
+      peakTPS: number;
+      successRate: number;
+      averageLatencyMs: number;
+    };
+    categoryProgress: {
+      [key: string]: {
+        total: number;
+        completed: number;
+        percentage: number;
+        amountDistributed: number;
+      };
+    };
+  };
+}
 
 interface DashboardStats {
   overview: {
@@ -104,6 +132,11 @@ export default function AdminTokenDistribution() {
     queryKey: ['/api/admin/token-programs/dashboard'],
     refetchInterval: 30000,
     retry: 3,
+  });
+
+  const { data: distributionStatus } = useQuery<DistributionEngineStatus>({
+    queryKey: ['/api/admin/genesis/distribution/status'],
+    refetchInterval: 5000,
   });
 
   const stats = dashboardData?.data;
@@ -246,6 +279,47 @@ export default function AdminTokenDistribution() {
           </CardContent>
         </Card>
       </div>
+
+      {/* Genesis Distribution Engine Status - Integration with tokenomics */}
+      <Card data-testid="card-distribution-engine-status">
+        <CardHeader className="flex flex-row items-center justify-between gap-1 pb-2">
+          <div className="flex items-center gap-2">
+            <Layers className="h-5 w-5 text-primary" />
+            <CardTitle className="text-base">Genesis 분배 엔진 연동</CardTitle>
+          </div>
+          <div className="flex items-center gap-2">
+            <Badge className={distributionStatus?.data?.isRunning ? "bg-green-500/10 text-green-500" : "bg-yellow-500/10 text-yellow-500"}>
+              {distributionStatus?.data?.isRunning ? "분배 진행 중" : "대기 중"}
+            </Badge>
+            <Badge className={distributionStatus?.data?.circuitBreakerState === 'closed' ? "bg-green-500/10 text-green-500" : "bg-red-500/10 text-red-500"}>
+              <Shield className="h-3 w-3 mr-1" />
+              {distributionStatus?.data?.circuitBreakerState === 'closed' ? "정상" : "차단"}
+            </Badge>
+          </div>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3">
+            {Object.entries(distributionStatus?.data?.categoryProgress || {}).map(([category, progress]) => (
+              <div key={category} className="p-3 rounded-lg border">
+                <div className="text-xs text-muted-foreground mb-1">{category}</div>
+                <Progress value={progress.percentage} className="h-1.5 mb-1" />
+                <div className="text-xs font-medium">{progress.percentage.toFixed(1)}%</div>
+              </div>
+            ))}
+          </div>
+          <div className="flex items-center justify-between mt-3 pt-3 border-t text-xs text-muted-foreground">
+            <div className="flex items-center gap-4">
+              <span>작업: {distributionStatus?.data?.metrics?.completedTasks || 0}/{distributionStatus?.data?.metrics?.totalTasks || 0}</span>
+              <span>TPS: {distributionStatus?.data?.metrics?.currentTPS?.toFixed(2) || '0.00'}</span>
+              <span>성공률: {distributionStatus?.data?.metrics?.successRate?.toFixed(1) || '100'}%</span>
+            </div>
+            <Link href="/admin/tokenomics" className="text-primary hover:underline flex items-center gap-1">
+              <Activity className="h-3 w-3" />
+              상세 관리
+            </Link>
+          </div>
+        </CardContent>
+      </Card>
 
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
         <TabsList className="grid w-full grid-cols-4 lg:grid-cols-9">
