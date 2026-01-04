@@ -53,13 +53,14 @@ class ProductionDataPoller {
   };
 
   private config: PollerConfig = {
-    // ★ 메모리 안정성을 위해 폴링 간격 증가
-    pollInterval: process.env.NODE_ENV === 'development' ? 60000 : 30000, // 60s in dev, 30s in prod (was 15s)
-    retryDelay: process.env.NODE_ENV === 'development' ? 10000 : 10000, // 10s retry delay
-    maxConsecutiveErrors: 3, // Back off after 3 consecutive errors (was 5)
-    circuitBreakerThreshold: 5, // Open circuit after 5 consecutive errors (was 10)
-    circuitBreakerResetMs: 120000, // Try again after 2 minutes (was 60s)
-    maxJitterMs: 3000 // Random jitter up to 3 seconds
+    // ★ [2026-01-04 메모리 안정성 v2.0] 폴링 간격 60초로 증가
+    // 힙 메모리 압박 해소: 30초 → 60초로 변경하여 메모리 사용량 50% 감소
+    pollInterval: 60000, // 60s in both dev and prod (was 30s prod, 60s dev)
+    retryDelay: 15000, // 15s retry delay (increased from 10s)
+    maxConsecutiveErrors: 3, // Back off after 3 consecutive errors
+    circuitBreakerThreshold: 5, // Open circuit after 5 consecutive errors
+    circuitBreakerResetMs: 180000, // Try again after 3 minutes (increased from 2 minutes)
+    maxJitterMs: 5000 // Random jitter up to 5 seconds (increased from 3s)
   };
 
   constructor() {

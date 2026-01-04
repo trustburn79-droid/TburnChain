@@ -34,12 +34,13 @@ class DataCacheService {
   };
 
   // Default TTL values in milliseconds
-  private readonly DEFAULT_TTL = 30000; // 30 seconds
-  private readonly STALE_TTL = 300000; // 5 minutes - serve stale data during rate limits
+  // ★ [2026-01-04 메모리 안정성 v2.0] TTL 최적화
+  private readonly DEFAULT_TTL = 45000; // 45 seconds (increased from 30s for less frequent updates)
+  private readonly STALE_TTL = 120000; // 2 minutes (reduced from 5 minutes to free memory faster)
   
-  // ★ 메모리 누수 방지 설정
-  private readonly MAX_CACHE_SIZE = 100; // 최대 캐시 항목 수
-  private readonly CLEANUP_INTERVAL = 60000; // 1분마다 정리
+  // ★ 메모리 누수 방지 설정 - 더 적극적인 정리
+  private readonly MAX_CACHE_SIZE = 50; // 최대 캐시 항목 수 (reduced from 100)
+  private readonly CLEANUP_INTERVAL = 30000; // 30초마다 정리 (reduced from 60s)
   private cleanupTimer: ReturnType<typeof setInterval> | null = null;
 
   constructor() {
@@ -59,7 +60,7 @@ class DataCacheService {
       this.logMemoryUsage();
     }, this.CLEANUP_INTERVAL);
     
-    console.log('[DataCache] Cleanup timer started (interval: 60s)');
+    console.log('[DataCache] Cleanup timer started (interval: 30s)');
   }
 
   /**

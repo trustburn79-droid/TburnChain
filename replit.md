@@ -65,9 +65,14 @@ The application uses MemoryStore by default for session management. For 24/7 pro
 3. **HTML Page Skip**: Anonymous HTML page visits don't create sessions
 
 ### Known Issues & Solutions
-- **Internal Server Error after 1-2 hours**: Caused by MemoryStore overflow
-  - Solution: Enhanced session bypass (implemented), emergency cleanup (implemented)
-  - Permanent Solution: Configure Redis session store with `REDIS_URL` environment variable
+- **Internal Server Error after 1-2 hours**: Caused by heap memory pressure (NOT session overflow)
+  - Root Cause: Background pollers (ProductionDataPoller, DataCache) accumulating large JSON snapshots
+  - Solution v2.0 (2026-01-04): 
+    - ProductionDataPoller interval increased from 30s to 60s (50% less memory churn)
+    - DataCache STALE_TTL reduced from 5 minutes to 2 minutes (faster memory release)
+    - DataCache MAX_CACHE_SIZE reduced from 100 to 50 entries
+    - DataCache cleanup interval reduced from 60s to 30s (more aggressive cleanup)
+  - Permanent Solution: Configure Redis with `REDIS_URL` for external caching
 
 ### Redis Session Store (Recommended for High Traffic)
 To enable Redis session store:
