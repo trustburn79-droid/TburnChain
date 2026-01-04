@@ -10017,6 +10017,162 @@ export const routerDailyStats = pgTable("router_daily_stats", {
   createdAt: timestamp("created_at").notNull().defaultNow(),
 });
 
+// ================================================================================
+// PHASE 13: Enterprise Shard Cache Telemetry Tables
+// Production-grade persistence for cache state, pair analytics, and audit logs
+// ================================================================================
+
+// Enterprise Shard Cache Snapshots - Per-shard state snapshots with hit/miss counters
+export const enterpriseShardCacheSnapshots = pgTable("enterprise_shard_cache_snapshots", {
+  id: varchar("id", { length: 64 }).primaryKey().default(sql`gen_random_uuid()`),
+  
+  // Shard Identification
+  shardId: integer("shard_id").notNull(),
+  shardName: varchar("shard_name", { length: 128 }),
+  
+  // Cache State
+  status: varchar("status", { length: 30 }).notNull().default("active"),
+  ttlMs: integer("ttl_ms").notNull().default(2000),
+  remainingTtlMs: integer("remaining_ttl_ms").notNull().default(2000),
+  
+  // Hit/Miss Counters
+  hits: bigint("hits", { mode: "number" }).notNull().default(0),
+  misses: bigint("misses", { mode: "number" }).notNull().default(0),
+  evictions: bigint("evictions", { mode: "number" }).notNull().default(0),
+  warmings: bigint("warmings", { mode: "number" }).notNull().default(0),
+  
+  // EWMA Metrics (α=0.2)
+  hitRateEwma: numeric("hit_rate_ewma", { precision: 8, scale: 6 }).default("0.500000"),
+  avgLatencyUs: numeric("avg_latency_us", { precision: 12, scale: 4 }).default("0.0000"),
+  
+  // Memory Usage
+  memoryBytes: bigint("memory_bytes", { mode: "number" }).notNull().default(0),
+  entriesCount: integer("entries_count").notNull().default(0),
+  
+  // Cache Version (monotonically increasing)
+  cacheVersion: bigint("cache_version", { mode: "number" }).notNull().default(0),
+  
+  // Timing
+  capturedAt: bigint("captured_at", { mode: "number" }).notNull(),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+// Enterprise Shard Cache Pairs - Pair latency/throughput snapshots
+export const enterpriseShardCachePairs = pgTable("enterprise_shard_cache_pairs", {
+  id: varchar("id", { length: 64 }).primaryKey().default(sql`gen_random_uuid()`),
+  
+  // Pair Identification
+  sourceShardId: integer("source_shard_id").notNull(),
+  targetShardId: integer("target_shard_id").notNull(),
+  routeKey: varchar("route_key", { length: 64 }).notNull(),
+  
+  // Performance Metrics
+  latencyMs: numeric("latency_ms", { precision: 12, scale: 4 }).notNull().default("0.0000"),
+  throughput: numeric("throughput", { precision: 12, scale: 4 }).notNull().default("0.0000"),
+  healthScore: integer("health_score").notNull().default(10000),
+  
+  // Access Patterns
+  accessCount: bigint("access_count", { mode: "number" }).notNull().default(0),
+  lastAccessedAt: bigint("last_accessed_at", { mode: "number" }),
+  
+  // Cache Status
+  isCached: boolean("is_cached").notNull().default(true),
+  cacheLevel: varchar("cache_level", { length: 10 }).default("L2"),
+  
+  // Timing
+  capturedAt: bigint("captured_at", { mode: "number" }).notNull(),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+// Enterprise Shard Cache Events - Warm/invalidate/benchmark audit logs
+export const enterpriseShardCacheEvents = pgTable("enterprise_shard_cache_events", {
+  id: varchar("id", { length: 64 }).primaryKey().default(sql`gen_random_uuid()`),
+  
+  // Event Classification
+  eventType: varchar("event_type", { length: 30 }).notNull(),
+  eventSubtype: varchar("event_subtype", { length: 30 }),
+  
+  // Actor Information
+  actorType: varchar("actor_type", { length: 30 }).notNull().default("system"),
+  actorId: varchar("actor_id", { length: 128 }),
+  ipAddress: varchar("ip_address", { length: 45 }),
+  
+  // Authentication Details
+  authMethod: varchar("auth_method", { length: 30 }),
+  isAdmin: boolean("is_admin").notNull().default(false),
+  
+  // Event Data (JSONB for flexibility)
+  eventData: jsonb("event_data").default({}),
+  
+  // Affected Cache State
+  shardsAffected: integer("shards_affected").notNull().default(0),
+  pairsAffected: integer("pairs_affected").notNull().default(0),
+  routesAffected: integer("routes_affected").notNull().default(0),
+  
+  // Performance Metrics (for benchmarks)
+  durationMs: integer("duration_ms"),
+  opsPerSecond: bigint("ops_per_second", { mode: "number" }),
+  hitRate: numeric("hit_rate", { precision: 8, scale: 6 }),
+  avgLatencyUs: numeric("avg_latency_us", { precision: 12, scale: 4 }),
+  
+  // Outcome
+  success: boolean("success").notNull().default(true),
+  errorMessage: text("error_message"),
+  
+  // Timing
+  eventTimestamp: bigint("event_timestamp", { mode: "number" }).notNull(),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+// Enterprise Shard Cache Metrics Hourly - Hourly EWMA rollups
+export const enterpriseShardCacheMetricsHourly = pgTable("enterprise_shard_cache_metrics_hourly", {
+  id: varchar("id", { length: 64 }).primaryKey().default(sql`gen_random_uuid()`),
+  
+  // Time Window
+  hourTimestamp: timestamp("hour_timestamp").notNull(),
+  
+  // Aggregate Counters
+  totalHits: bigint("total_hits", { mode: "number" }).notNull().default(0),
+  totalMisses: bigint("total_misses", { mode: "number" }).notNull().default(0),
+  totalEvictions: bigint("total_evictions", { mode: "number" }).notNull().default(0),
+  totalWarmings: bigint("total_warmings", { mode: "number" }).notNull().default(0),
+  
+  // Hit Rate (calculated from aggregates)
+  hitRateAvg: numeric("hit_rate_avg", { precision: 8, scale: 6 }).default("0.000000"),
+  hitRateMin: numeric("hit_rate_min", { precision: 8, scale: 6 }).default("0.000000"),
+  hitRateMax: numeric("hit_rate_max", { precision: 8, scale: 6 }).default("0.000000"),
+  
+  // Latency Percentiles (microseconds)
+  latencyP50Us: integer("latency_p50_us").notNull().default(0),
+  latencyP95Us: integer("latency_p95_us").notNull().default(0),
+  latencyP99Us: integer("latency_p99_us").notNull().default(0),
+  latencyMaxUs: integer("latency_max_us").notNull().default(0),
+  latencyAvgUs: numeric("latency_avg_us", { precision: 12, scale: 4 }).default("0.0000"),
+  
+  // Ops/Second Performance
+  peakOpsPerSecond: bigint("peak_ops_per_second", { mode: "number" }).notNull().default(0),
+  avgOpsPerSecond: bigint("avg_ops_per_second", { mode: "number" }).notNull().default(0),
+  
+  // Cache Size Metrics
+  avgShardCacheSize: integer("avg_shard_cache_size").notNull().default(0),
+  avgPairCacheSize: integer("avg_pair_cache_size").notNull().default(0),
+  avgRouteCacheSize: integer("avg_route_cache_size").notNull().default(0),
+  
+  // Memory Usage
+  avgMemoryBytes: bigint("avg_memory_bytes", { mode: "number" }).notNull().default(0),
+  peakMemoryBytes: bigint("peak_memory_bytes", { mode: "number" }).notNull().default(0),
+  
+  // Benchmark Runs (if any)
+  benchmarkCount: integer("benchmark_count").notNull().default(0),
+  avgBenchmarkOps: bigint("avg_benchmark_ops", { mode: "number" }).notNull().default(0),
+  
+  // Cache Health
+  warmEventsCount: integer("warm_events_count").notNull().default(0),
+  invalidateEventsCount: integer("invalidate_events_count").notNull().default(0),
+  
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
 // Insert Schemas for Enterprise Cross-Shard Router Tables
 export const insertEnterpriseCrossShardMessageSchema = createInsertSchema(enterpriseCrossShardMessages).omit({
   id: true,
@@ -10094,3 +10250,43 @@ export type InsertRouterBloomFilter = z.infer<typeof insertRouterBloomFilterSche
 
 export type RouterDailyStat = typeof routerDailyStats.$inferSelect;
 export type InsertRouterDailyStat = z.infer<typeof insertRouterDailyStatSchema>;
+
+// ================================================================================
+// Insert Schemas for Enterprise Shard Cache Tables (Phase 13)
+// ================================================================================
+
+export const insertEnterpriseShardCacheSnapshotSchema = createInsertSchema(enterpriseShardCacheSnapshots).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertEnterpriseShardCachePairSchema = createInsertSchema(enterpriseShardCachePairs).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertEnterpriseShardCacheEventSchema = createInsertSchema(enterpriseShardCacheEvents).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertEnterpriseShardCacheMetricsHourlySchema = createInsertSchema(enterpriseShardCacheMetricsHourly).omit({
+  id: true,
+  createdAt: true,
+});
+
+// ================================================================================
+// Types for Enterprise Shard Cache Tables (Phase 13)
+// ================================================================================
+
+export type EnterpriseShardCacheSnapshot = typeof enterpriseShardCacheSnapshots.$inferSelect;
+export type InsertEnterpriseShardCacheSnapshot = z.infer<typeof insertEnterpriseShardCacheSnapshotSchema>;
+
+export type EnterpriseShardCachePair = typeof enterpriseShardCachePairs.$inferSelect;
+export type InsertEnterpriseShardCachePair = z.infer<typeof insertEnterpriseShardCachePairSchema>;
+
+export type EnterpriseShardCacheEvent = typeof enterpriseShardCacheEvents.$inferSelect;
+export type InsertEnterpriseShardCacheEvent = z.infer<typeof insertEnterpriseShardCacheEventSchema>;
+
+export type EnterpriseShardCacheMetricsHourly = typeof enterpriseShardCacheMetricsHourly.$inferSelect;
+export type InsertEnterpriseShardCacheMetricsHourly = z.infer<typeof insertEnterpriseShardCacheMetricsHourlySchema>;
