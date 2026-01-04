@@ -5,6 +5,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { ThemeProvider } from "@/components/theme-provider";
 import { ErrorBoundary } from "@/components/error-boundary";
 import { Web3Provider } from "@/lib/web3-context";
+import { TBurnAlertProvider } from "@/components/tburn-alert-modal";
 import { lazy, Suspense } from "react";
 import { TBurnLoader } from "@/components/tburn-loader";
 
@@ -24,12 +25,14 @@ export default function PublicApp() {
       <QueryClientProvider client={queryClient}>
         <TooltipProvider>
           <ThemeProvider>
-            <Web3Provider>
-              <Suspense fallback={<PublicLoading />}>
-                <PublicRouter />
-              </Suspense>
-              <Toaster />
-            </Web3Provider>
+            <TBurnAlertProvider>
+              <Web3Provider>
+                <Suspense fallback={<PublicLoading />}>
+                  <PublicRouter />
+                </Suspense>
+                <Toaster />
+              </Web3Provider>
+            </TBurnAlertProvider>
           </ThemeProvider>
         </TooltipProvider>
       </QueryClientProvider>

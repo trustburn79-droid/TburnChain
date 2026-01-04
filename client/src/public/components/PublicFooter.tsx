@@ -102,11 +102,35 @@ export function PublicFooter() {
       return apiRequest("POST", "/api/newsletter/subscribe", { email: emailToSubmit, source: "footer" });
     },
     onSuccess: () => {
-      toast({ title: t('publicPages.footer.subscribeSuccess') || "구독 완료!", description: t('publicPages.footer.subscribeSuccessDesc') || "뉴스레터 구독이 완료되었습니다." });
+      toast({ title: t('publicPages.footer.subscribeSuccess') || "구독 완료!", description: t('publicPages.footer.subscribeSuccessDesc') || "뉴스레터 구독이 완료되었습니다.", duration: 5000 });
       setEmail("");
     },
     onError: (error: any) => {
-      toast({ title: t('publicPages.footer.subscribeError') || "오류", description: error?.message || t('publicPages.footer.subscribeErrorDesc') || "구독 처리 중 오류가 발생했습니다.", variant: "destructive" });
+      let errorMessage = t('publicPages.footer.subscribeErrorDesc') || "구독 처리 중 오류가 발생했습니다.";
+      let errorTitle = t('publicPages.footer.subscribeError') || "오류";
+      
+      // Parse error message from API response (format: "409: {json}")
+      if (error?.message) {
+        const match = error.message.match(/^\d+:\s*(.+)$/);
+        if (match) {
+          try {
+            const parsed = JSON.parse(match[1]);
+            if (parsed.error) {
+              // Check if already subscribed (409 status)
+              if (error.message.startsWith("409:")) {
+                errorTitle = "이미 구독 중";
+                errorMessage = parsed.error;
+              } else {
+                errorMessage = parsed.error;
+              }
+            }
+          } catch {
+            errorMessage = match[1];
+          }
+        }
+      }
+      
+      toast({ title: errorTitle, description: errorMessage, variant: "destructive", duration: 5000 });
     },
   });
 
