@@ -19098,7 +19098,48 @@
       "parameters": "パラメータ (JSON)",
       "runTest": "実行",
       "runOnTestnet": "テストネットで実行",
-      "methods": "メソッド",
+      "methods": {
+        "ethBlockNumber": {
+          "description": "現在のブロック番号を返します。"
+        },
+        "ethGetBlockByNumber": {
+          "description": "ブロック番号でブロック情報を照会します。",
+          "paramBlockNumber": "ブロック番号 (hex) または 'latest', 'earliest', 'pending'",
+          "paramFullTransactions": "完全なトランザクション情報を含める"
+        },
+        "ethGetTransactionByHash": {
+          "description": "トランザクションハッシュでトランザクション情報を照会します。",
+          "paramTransactionHash": "トランザクションハッシュ (32 bytes)"
+        },
+        "ethSendRawTransaction": {
+          "description": "署名済みトランザクションを送信します。",
+          "paramSignedTransactionData": "署名済みトランザクションデータ (hex)"
+        },
+        "ethGetBalance": {
+          "description": "アカウント残高を照会します。",
+          "paramAddress": "アカウントアドレス (20 bytes)",
+          "paramBlockNumber": "ブロック番号または 'latest'"
+        },
+        "tburnGetTrustScore": {
+          "description": "アカウントの信頼スコアを照会します。",
+          "paramAddress": "アカウントアドレス"
+        },
+        "tburnGetShardInfo": {
+          "description": "シャード情報を照会します。",
+          "paramShardId": "シャードID (未指定で全て)"
+        },
+        "tburnGetBurnStats": {
+          "description": "TBURNバーン統計を照会します。"
+        },
+        "tburnTestnetFaucet": {
+          "description": "テストネットトークンをリクエストします。",
+          "paramAddress": "受信アドレス"
+        },
+        "tburnTestnetResetAccount": {
+          "description": "テストネットアカウントをリセットします。",
+          "paramAddress": "リセットするアドレス"
+        }
+      },
       "paramName": "名前",
       "paramType": "型",
       "paramRequired": "必須",

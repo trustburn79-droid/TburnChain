@@ -14270,7 +14270,48 @@
       "parameters": "প্যারামিটার (JSON)",
       "runTest": "চালান",
       "runOnTestnet": "টেস্টনেটে চালান",
-      "methods": "মেথডস",
+      "methods": {
+        "ethBlockNumber": {
+          "description": "বর্তমান ব্লক নম্বর ফেরত দেয়।"
+        },
+        "ethGetBlockByNumber": {
+          "description": "ব্লক নম্বর দ্বারা ব্লক তথ্য জিজ্ঞাসা।",
+          "paramBlockNumber": "ব্লক নম্বর (hex) বা 'latest', 'earliest', 'pending'",
+          "paramFullTransactions": "সম্পূর্ণ লেনদেন তথ্য অন্তর্ভুক্ত করুন"
+        },
+        "ethGetTransactionByHash": {
+          "description": "হ্যাশ দ্বারা লেনদেন তথ্য জিজ্ঞাসা।",
+          "paramTransactionHash": "লেনদেন হ্যাশ (32 bytes)"
+        },
+        "ethSendRawTransaction": {
+          "description": "স্বাক্ষরিত লেনদেন পাঠান।",
+          "paramSignedTransactionData": "স্বাক্ষরিত লেনদেন ডেটা (hex)"
+        },
+        "ethGetBalance": {
+          "description": "অ্যাকাউন্ট ব্যালেন্স জিজ্ঞাসা।",
+          "paramAddress": "অ্যাকাউন্ট ঠিকানা (20 bytes)",
+          "paramBlockNumber": "ব্লক নম্বর বা 'latest'"
+        },
+        "tburnGetTrustScore": {
+          "description": "ট্রাস্ট স্কোর জিজ্ঞাসা।",
+          "paramAddress": "অ্যাকাউন্ট ঠিকানা"
+        },
+        "tburnGetShardInfo": {
+          "description": "শার্ড তথ্য জিজ্ঞাসা।",
+          "paramShardId": "শার্ড আইডি"
+        },
+        "tburnGetBurnStats": {
+          "description": "TBURN বার্ন পরিসংখ্যান জিজ্ঞাসা।"
+        },
+        "tburnTestnetFaucet": {
+          "description": "টেস্টনেট টোকেন অনুরোধ করুন।",
+          "paramAddress": "প্রাপক ঠিকানা"
+        },
+        "tburnTestnetResetAccount": {
+          "description": "টেস্টনেট অ্যাকাউন্ট রিসেট করুন।",
+          "paramAddress": "রিসেট করার ঠিকানা"
+        }
+      },
       "paramName": "নাম",
       "paramType": "টাইপ",
       "paramRequired": "প্রয়োজনীয়",

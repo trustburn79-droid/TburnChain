@@ -16053,7 +16053,48 @@
       "parameters": "المعاملات (JSON)",
       "runTest": "تشغيل",
       "runOnTestnet": "تشغيل على شبكة الاختبار",
-      "methods": "الطرق",
+      "methods": {
+        "ethBlockNumber": {
+          "description": "إرجاع رقم الكتلة الحالي."
+        },
+        "ethGetBlockByNumber": {
+          "description": "استعلام معلومات الكتلة بالرقم.",
+          "paramBlockNumber": "رقم الكتلة (hex) أو 'latest', 'earliest', 'pending'",
+          "paramFullTransactions": "تضمين معلومات المعاملة الكاملة"
+        },
+        "ethGetTransactionByHash": {
+          "description": "استعلام معلومات المعاملة بالهاش.",
+          "paramTransactionHash": "هاش المعاملة (32 bytes)"
+        },
+        "ethSendRawTransaction": {
+          "description": "إرسال معاملة موقعة.",
+          "paramSignedTransactionData": "بيانات المعاملة الموقعة (hex)"
+        },
+        "ethGetBalance": {
+          "description": "استعلام رصيد الحساب.",
+          "paramAddress": "عنوان الحساب (20 bytes)",
+          "paramBlockNumber": "رقم الكتلة أو 'latest'"
+        },
+        "tburnGetTrustScore": {
+          "description": "استعلام درجة الثقة.",
+          "paramAddress": "عنوان الحساب"
+        },
+        "tburnGetShardInfo": {
+          "description": "استعلام معلومات الشارد.",
+          "paramShardId": "معرف الشارد"
+        },
+        "tburnGetBurnStats": {
+          "description": "استعلام إحصائيات الحرق TBURN."
+        },
+        "tburnTestnetFaucet": {
+          "description": "طلب رموز الشبكة التجريبية.",
+          "paramAddress": "عنوان الاستلام"
+        },
+        "tburnTestnetResetAccount": {
+          "description": "إعادة تعيين حساب الشبكة التجريبية.",
+          "paramAddress": "العنوان المراد إعادة تعيينه"
+        }
+      },
       "paramName": "الاسم",
       "paramType": "النوع",
       "paramRequired": "مطلوب",

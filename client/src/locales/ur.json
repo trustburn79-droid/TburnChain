@@ -14514,7 +14514,48 @@
       "parameters": "پیرامیٹرز (JSON)",
       "runTest": "چلائیں",
       "runOnTestnet": "ٹیسٹ نیٹ پر چلائیں",
-      "methods": "میتھڈز",
+      "methods": {
+        "ethBlockNumber": {
+          "description": "موجودہ بلاک نمبر واپس کریں۔"
+        },
+        "ethGetBlockByNumber": {
+          "description": "بلاک نمبر سے بلاک کی معلومات حاصل کریں۔",
+          "paramBlockNumber": "بلاک نمبر (hex) یا 'latest', 'earliest', 'pending'",
+          "paramFullTransactions": "مکمل ٹرانزیکشن کی معلومات شامل کریں"
+        },
+        "ethGetTransactionByHash": {
+          "description": "ہیش سے ٹرانزیکشن کی معلومات حاصل کریں۔",
+          "paramTransactionHash": "ٹرانزیکشن ہیش (32 bytes)"
+        },
+        "ethSendRawTransaction": {
+          "description": "دستخط شدہ ٹرانزیکشن بھیجیں۔",
+          "paramSignedTransactionData": "دستخط شدہ ٹرانزیکشن ڈیٹا (hex)"
+        },
+        "ethGetBalance": {
+          "description": "اکاؤنٹ بیلنس حاصل کریں۔",
+          "paramAddress": "اکاؤنٹ ایڈریس (20 bytes)",
+          "paramBlockNumber": "بلاک نمبر یا 'latest'"
+        },
+        "tburnGetTrustScore": {
+          "description": "ٹرسٹ سکور حاصل کریں۔",
+          "paramAddress": "اکاؤنٹ ایڈریس"
+        },
+        "tburnGetShardInfo": {
+          "description": "شارڈ کی معلومات حاصل کریں۔",
+          "paramShardId": "شارڈ آئی ڈی"
+        },
+        "tburnGetBurnStats": {
+          "description": "TBURN برن کے اعدادوشمار حاصل کریں۔"
+        },
+        "tburnTestnetFaucet": {
+          "description": "ٹیسٹ نیٹ ٹوکنز کی درخواست کریں۔",
+          "paramAddress": "وصول کنندہ کا پتہ"
+        },
+        "tburnTestnetResetAccount": {
+          "description": "ٹیسٹ نیٹ اکاؤنٹ ری سیٹ کریں۔",
+          "paramAddress": "ری سیٹ کرنے کا پتہ"
+        }
+      },
       "paramName": "نام",
       "paramType": "قسم",
       "paramRequired": "ضروری",

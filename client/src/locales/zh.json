@@ -18222,7 +18222,48 @@
       "parameters": "参数 (JSON)",
       "runTest": "运行",
       "runOnTestnet": "在测试网运行",
-      "methods": "方法",
+      "methods": {
+        "ethBlockNumber": {
+          "description": "返回当前区块号。"
+        },
+        "ethGetBlockByNumber": {
+          "description": "通过区块号查询区块信息。",
+          "paramBlockNumber": "区块号 (hex) 或 'latest', 'earliest', 'pending'",
+          "paramFullTransactions": "是否包含完整交易信息"
+        },
+        "ethGetTransactionByHash": {
+          "description": "通过哈希查询交易信息。",
+          "paramTransactionHash": "交易哈希 (32 bytes)"
+        },
+        "ethSendRawTransaction": {
+          "description": "发送已签名的交易。",
+          "paramSignedTransactionData": "已签名的交易数据 (hex)"
+        },
+        "ethGetBalance": {
+          "description": "查询账户余额。",
+          "paramAddress": "账户地址 (20 bytes)",
+          "paramBlockNumber": "区块号或 'latest'"
+        },
+        "tburnGetTrustScore": {
+          "description": "查询账户信任分数。",
+          "paramAddress": "账户地址"
+        },
+        "tburnGetShardInfo": {
+          "description": "查询分片信息。",
+          "paramShardId": "分片ID (不指定则查询全部)"
+        },
+        "tburnGetBurnStats": {
+          "description": "查询TBURN销毁统计。"
+        },
+        "tburnTestnetFaucet": {
+          "description": "请求测试网代币。",
+          "paramAddress": "接收地址"
+        },
+        "tburnTestnetResetAccount": {
+          "description": "重置测试网账户。",
+          "paramAddress": "要重置的地址"
+        }
+      },
       "paramName": "名称",
       "paramType": "类型",
       "paramRequired": "必需",

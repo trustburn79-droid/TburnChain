@@ -41,7 +41,7 @@ const methodCategories: MethodCategory[] = [
     methods: [
       {
         name: "eth_blockNumber",
-        descriptionKey: "Returns the current testnet block number",
+        descriptionKey: "rpc.docs.methods.ethBlockNumber.description",
         params: [],
         example: {
           request: `{
@@ -59,10 +59,10 @@ const methodCategories: MethodCategory[] = [
       },
       {
         name: "eth_getBlockByNumber",
-        descriptionKey: "Query testnet block info by block number",
+        descriptionKey: "rpc.docs.methods.ethGetBlockByNumber.description",
         params: [
-          { name: "blockNumber", type: "string", required: true, descriptionKey: "Block number (hex) or 'latest', 'earliest', 'pending'" },
-          { name: "fullTransactions", type: "boolean", required: true, descriptionKey: "Include full transaction info" }
+          { name: "blockNumber", type: "string", required: true, descriptionKey: "rpc.docs.methods.ethGetBlockByNumber.paramBlockNumber" },
+          { name: "fullTransactions", type: "boolean", required: true, descriptionKey: "rpc.docs.methods.ethGetBlockByNumber.paramFullTransactions" }
         ],
         example: {
           request: `{
@@ -92,9 +92,9 @@ const methodCategories: MethodCategory[] = [
     methods: [
       {
         name: "eth_getTransactionByHash",
-        descriptionKey: "Query testnet transaction info by hash",
+        descriptionKey: "rpc.docs.methods.ethGetTransactionByHash.description",
         params: [
-          { name: "transactionHash", type: "string", required: true, descriptionKey: "Transaction hash (32 bytes)" }
+          { name: "transactionHash", type: "string", required: true, descriptionKey: "rpc.docs.methods.ethGetTransactionByHash.paramTransactionHash" }
         ],
         example: {
           request: `{
@@ -117,9 +117,9 @@ const methodCategories: MethodCategory[] = [
       },
       {
         name: "eth_sendRawTransaction",
-        descriptionKey: "Send signed transaction to testnet",
+        descriptionKey: "rpc.docs.methods.ethSendRawTransaction.description",
         params: [
-          { name: "signedTransactionData", type: "string", required: true, descriptionKey: "Signed transaction data (hex)" }
+          { name: "signedTransactionData", type: "string", required: true, descriptionKey: "rpc.docs.methods.ethSendRawTransaction.paramSignedTransactionData" }
         ],
         example: {
           request: `{
@@ -144,10 +144,10 @@ const methodCategories: MethodCategory[] = [
     methods: [
       {
         name: "eth_getBalance",
-        descriptionKey: "Query testnet account balance",
+        descriptionKey: "rpc.docs.methods.ethGetBalance.description",
         params: [
-          { name: "address", type: "string", required: true, descriptionKey: "Account address (20 bytes)" },
-          { name: "blockNumber", type: "string", required: false, descriptionKey: "Block number or 'latest'" }
+          { name: "address", type: "string", required: true, descriptionKey: "rpc.docs.methods.ethGetBalance.paramAddress" },
+          { name: "blockNumber", type: "string", required: false, descriptionKey: "rpc.docs.methods.ethGetBalance.paramBlockNumber" }
         ],
         example: {
           request: `{
@@ -172,9 +172,9 @@ const methodCategories: MethodCategory[] = [
     methods: [
       {
         name: "tburn_testnet_faucet",
-        descriptionKey: "Request testnet tokens (1 per day limit)",
+        descriptionKey: "rpc.docs.methods.tburnTestnetFaucet.description",
         params: [
-          { name: "address", type: "string", required: true, descriptionKey: "Receiving address" }
+          { name: "address", type: "string", required: true, descriptionKey: "rpc.docs.methods.tburnTestnetFaucet.paramAddress" }
         ],
         example: {
           request: `{
@@ -196,9 +196,9 @@ const methodCategories: MethodCategory[] = [
       },
       {
         name: "tburn_testnet_getShardInfo",
-        descriptionKey: "Query testnet shard information",
+        descriptionKey: "rpc.docs.methods.tburnGetShardInfo.description",
         params: [
-          { name: "shardId", type: "number", required: false, descriptionKey: "Shard ID (omit for all)" }
+          { name: "shardId", type: "number", required: false, descriptionKey: "rpc.docs.methods.tburnGetShardInfo.paramShardId" }
         ],
         example: {
           request: `{
@@ -220,9 +220,9 @@ const methodCategories: MethodCategory[] = [
       },
       {
         name: "tburn_testnet_resetAccount",
-        descriptionKey: "Reset testnet account state",
+        descriptionKey: "rpc.docs.methods.tburnTestnetResetAccount.description",
         params: [
-          { name: "address", type: "string", required: true, descriptionKey: "Address to reset" }
+          { name: "address", type: "string", required: true, descriptionKey: "rpc.docs.methods.tburnTestnetResetAccount.paramAddress" }
         ],
         example: {
           request: `{

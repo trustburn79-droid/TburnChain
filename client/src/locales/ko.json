@@ -31254,7 +31254,48 @@
       "parameters": "파라미터 (JSON)",
       "runTest": "실행",
       "runOnTestnet": "테스트넷에서 실행",
-      "methods": "메서드",
+      "methods": {
+        "ethBlockNumber": {
+          "description": "현재 블록 번호를 반환합니다."
+        },
+        "ethGetBlockByNumber": {
+          "description": "블록 번호로 블록 정보를 조회합니다.",
+          "paramBlockNumber": "블록 번호 (hex) 또는 'latest', 'earliest', 'pending'",
+          "paramFullTransactions": "트랜잭션 전체 정보 포함 여부"
+        },
+        "ethGetTransactionByHash": {
+          "description": "트랜잭션 해시로 트랜잭션 정보를 조회합니다.",
+          "paramTransactionHash": "트랜잭션 해시 (32 bytes)"
+        },
+        "ethSendRawTransaction": {
+          "description": "서명된 트랜잭션을 전송합니다.",
+          "paramSignedTransactionData": "서명된 트랜잭션 데이터 (hex)"
+        },
+        "ethGetBalance": {
+          "description": "계정의 잔액을 조회합니다.",
+          "paramAddress": "계정 주소 (20 bytes)",
+          "paramBlockNumber": "블록 번호 또는 'latest'"
+        },
+        "tburnGetTrustScore": {
+          "description": "계정의 신뢰 점수를 조회합니다.",
+          "paramAddress": "계정 주소"
+        },
+        "tburnGetShardInfo": {
+          "description": "샤드 정보를 조회합니다.",
+          "paramShardId": "샤드 ID (없으면 전체)"
+        },
+        "tburnGetBurnStats": {
+          "description": "TBURN 소각 통계를 조회합니다."
+        },
+        "tburnTestnetFaucet": {
+          "description": "테스트넷 토큰을 요청합니다.",
+          "paramAddress": "수신 주소"
+        },
+        "tburnTestnetResetAccount": {
+          "description": "테스트넷 계정을 초기화합니다.",
+          "paramAddress": "초기화할 주소"
+        }
+      },
       "paramName": "이름",
       "paramType": "타입",
       "paramRequired": "필수",

@@ -15171,7 +15171,48 @@
       "parameters": "Параметры (JSON)",
       "runTest": "Запустить",
       "runOnTestnet": "Запустить в тестовой сети",
-      "methods": "Методы",
+      "methods": {
+        "ethBlockNumber": {
+          "description": "Возвращает текущий номер блока."
+        },
+        "ethGetBlockByNumber": {
+          "description": "Запрос информации о блоке по номеру.",
+          "paramBlockNumber": "Номер блока (hex) или 'latest', 'earliest', 'pending'",
+          "paramFullTransactions": "Включить полную информацию о транзакциях"
+        },
+        "ethGetTransactionByHash": {
+          "description": "Запрос информации о транзакции по хешу.",
+          "paramTransactionHash": "Хеш транзакции (32 bytes)"
+        },
+        "ethSendRawTransaction": {
+          "description": "Отправить подписанную транзакцию.",
+          "paramSignedTransactionData": "Подписанные данные транзакции (hex)"
+        },
+        "ethGetBalance": {
+          "description": "Запрос баланса аккаунта.",
+          "paramAddress": "Адрес аккаунта (20 bytes)",
+          "paramBlockNumber": "Номер блока или 'latest'"
+        },
+        "tburnGetTrustScore": {
+          "description": "Запрос рейтинга доверия.",
+          "paramAddress": "Адрес аккаунта"
+        },
+        "tburnGetShardInfo": {
+          "description": "Запрос информации о шарде.",
+          "paramShardId": "ID шарда"
+        },
+        "tburnGetBurnStats": {
+          "description": "Запрос статистики сжигания TBURN."
+        },
+        "tburnTestnetFaucet": {
+          "description": "Запросить токены тестовой сети.",
+          "paramAddress": "Адрес получателя"
+        },
+        "tburnTestnetResetAccount": {
+          "description": "Сбросить аккаунт тестовой сети.",
+          "paramAddress": "Адрес для сброса"
+        }
+      },
       "paramName": "Имя",
       "paramType": "Тип",
       "paramRequired": "Обязательно",

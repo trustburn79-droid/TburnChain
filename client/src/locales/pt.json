@@ -15879,7 +15879,48 @@
       "parameters": "Parâmetros (JSON)",
       "runTest": "Executar",
       "runOnTestnet": "Executar na Testnet",
-      "methods": "Métodos",
+      "methods": {
+        "ethBlockNumber": {
+          "description": "Retorna o número do bloco atual."
+        },
+        "ethGetBlockByNumber": {
+          "description": "Consulta informações do bloco por número.",
+          "paramBlockNumber": "Número do bloco (hex) ou 'latest', 'earliest', 'pending'",
+          "paramFullTransactions": "Incluir informações completas da transação"
+        },
+        "ethGetTransactionByHash": {
+          "description": "Consulta informações da transação por hash.",
+          "paramTransactionHash": "Hash da transação (32 bytes)"
+        },
+        "ethSendRawTransaction": {
+          "description": "Enviar transação assinada.",
+          "paramSignedTransactionData": "Dados de transação assinados (hex)"
+        },
+        "ethGetBalance": {
+          "description": "Consulta o saldo da conta.",
+          "paramAddress": "Endereço da conta (20 bytes)",
+          "paramBlockNumber": "Número do bloco ou 'latest'"
+        },
+        "tburnGetTrustScore": {
+          "description": "Consulta pontuação de confiança.",
+          "paramAddress": "Endereço da conta"
+        },
+        "tburnGetShardInfo": {
+          "description": "Consulta informações de shard.",
+          "paramShardId": "ID do shard"
+        },
+        "tburnGetBurnStats": {
+          "description": "Consulta estatísticas de queima TBURN."
+        },
+        "tburnTestnetFaucet": {
+          "description": "Solicitar tokens de testnet.",
+          "paramAddress": "Endereço de recebimento"
+        },
+        "tburnTestnetResetAccount": {
+          "description": "Resetar conta de testnet.",
+          "paramAddress": "Endereço a resetar"
+        }
+      },
       "paramName": "Nome",
       "paramType": "Tipo",
       "paramRequired": "Obrigatório",

@@ -16690,7 +16690,48 @@
       "parameters": "पैरामीटर (JSON)",
       "runTest": "चलाएं",
       "runOnTestnet": "टेस्टनेट पर चलाएं",
-      "methods": "मेथड्स",
+      "methods": {
+        "ethBlockNumber": {
+          "description": "वर्तमान ब्लॉक नंबर लौटाता है।"
+        },
+        "ethGetBlockByNumber": {
+          "description": "ब्लॉक नंबर द्वारा ब्लॉक जानकारी की क्वेरी।",
+          "paramBlockNumber": "ब्लॉक नंबर (hex) या 'latest', 'earliest', 'pending'",
+          "paramFullTransactions": "पूर्ण लेनदेन जानकारी शामिल करें"
+        },
+        "ethGetTransactionByHash": {
+          "description": "हैश द्वारा लेनदेन जानकारी की क्वेरी।",
+          "paramTransactionHash": "लेनदेन हैश (32 bytes)"
+        },
+        "ethSendRawTransaction": {
+          "description": "हस्ताक्षरित लेनदेन भेजें।",
+          "paramSignedTransactionData": "हस्ताक्षरित लेनदेन डेटा (hex)"
+        },
+        "ethGetBalance": {
+          "description": "खाता शेष की क्वेरी।",
+          "paramAddress": "खाता पता (20 bytes)",
+          "paramBlockNumber": "ब्लॉक नंबर या 'latest'"
+        },
+        "tburnGetTrustScore": {
+          "description": "ट्रस्ट स्कोर की क्वेरी।",
+          "paramAddress": "खाता पता"
+        },
+        "tburnGetShardInfo": {
+          "description": "शार्ड जानकारी की क्वेरी।",
+          "paramShardId": "शार्ड आईडी"
+        },
+        "tburnGetBurnStats": {
+          "description": "TBURN बर्न आंकड़े की क्वेरी।"
+        },
+        "tburnTestnetFaucet": {
+          "description": "टेस्टनेट टोकन का अनुरोध करें।",
+          "paramAddress": "प्राप्तकर्ता पता"
+        },
+        "tburnTestnetResetAccount": {
+          "description": "टेस्टनेट खाता रीसेट करें।",
+          "paramAddress": "रीसेट करने का पता"
+        }
+      },
       "paramName": "नाम",
       "paramType": "प्रकार",
       "paramRequired": "आवश्यक",

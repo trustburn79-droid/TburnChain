@@ -16123,7 +16123,48 @@
       "parameters": "Paramètres (JSON)",
       "runTest": "Exécuter",
       "runOnTestnet": "Exécuter sur Testnet",
-      "methods": "Méthodes",
+      "methods": {
+        "ethBlockNumber": {
+          "description": "Retourne le numéro de bloc actuel."
+        },
+        "ethGetBlockByNumber": {
+          "description": "Interroge les informations de bloc par numéro.",
+          "paramBlockNumber": "Numéro de bloc (hex) ou 'latest', 'earliest', 'pending'",
+          "paramFullTransactions": "Inclure les informations de transaction complètes"
+        },
+        "ethGetTransactionByHash": {
+          "description": "Interroge les informations de transaction par hash.",
+          "paramTransactionHash": "Hash de transaction (32 bytes)"
+        },
+        "ethSendRawTransaction": {
+          "description": "Envoyer une transaction signée.",
+          "paramSignedTransactionData": "Données de transaction signées (hex)"
+        },
+        "ethGetBalance": {
+          "description": "Interroge le solde du compte.",
+          "paramAddress": "Adresse du compte (20 bytes)",
+          "paramBlockNumber": "Numéro de bloc ou 'latest'"
+        },
+        "tburnGetTrustScore": {
+          "description": "Interroge le score de confiance.",
+          "paramAddress": "Adresse du compte"
+        },
+        "tburnGetShardInfo": {
+          "description": "Interroge les informations de shard.",
+          "paramShardId": "ID de shard"
+        },
+        "tburnGetBurnStats": {
+          "description": "Interroge les statistiques de burn TBURN."
+        },
+        "tburnTestnetFaucet": {
+          "description": "Demander des tokens testnet.",
+          "paramAddress": "Adresse de réception"
+        },
+        "tburnTestnetResetAccount": {
+          "description": "Réinitialiser le compte testnet.",
+          "paramAddress": "Adresse à réinitialiser"
+        }
+      },
       "paramName": "Nom",
       "paramType": "Type",
       "paramRequired": "Requis",

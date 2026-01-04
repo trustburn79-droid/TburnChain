@@ -29976,7 +29976,48 @@
       "parameters": "Parameters (JSON)",
       "runTest": "Run",
       "runOnTestnet": "Run on Testnet",
-      "methods": "Methods",
+      "methods": {
+        "ethBlockNumber": {
+          "description": "Returns the current block number."
+        },
+        "ethGetBlockByNumber": {
+          "description": "Query block information by block number.",
+          "paramBlockNumber": "Block number (hex) or 'latest', 'earliest', 'pending'",
+          "paramFullTransactions": "Include full transaction info"
+        },
+        "ethGetTransactionByHash": {
+          "description": "Query transaction info by hash.",
+          "paramTransactionHash": "Transaction hash (32 bytes)"
+        },
+        "ethSendRawTransaction": {
+          "description": "Send signed transaction.",
+          "paramSignedTransactionData": "Signed transaction data (hex)"
+        },
+        "ethGetBalance": {
+          "description": "Query account balance.",
+          "paramAddress": "Account address (20 bytes)",
+          "paramBlockNumber": "Block number or 'latest'"
+        },
+        "tburnGetTrustScore": {
+          "description": "Query account trust score.",
+          "paramAddress": "Account address"
+        },
+        "tburnGetShardInfo": {
+          "description": "Query shard information.",
+          "paramShardId": "Shard ID (all if not specified)"
+        },
+        "tburnGetBurnStats": {
+          "description": "Query TBURN burn statistics."
+        },
+        "tburnTestnetFaucet": {
+          "description": "Request testnet tokens.",
+          "paramAddress": "Recipient address"
+        },
+        "tburnTestnetResetAccount": {
+          "description": "Reset testnet account.",
+          "paramAddress": "Address to reset"
+        }
+      },
       "paramName": "Name",
       "paramType": "Type",
       "paramRequired": "Required",
