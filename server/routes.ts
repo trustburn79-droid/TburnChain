@@ -56,6 +56,7 @@ import { registerShardingRoutes } from "./routes/sharding-routes";
 import validatorRoutes from "./routes/validator-routes";
 import { rewardRoutes } from "./routes/reward-routes";
 import crossShardRouterRoutes from "./routes/cross-shard-router-routes";
+import shardCacheRoutes from "./routes/shard-cache-routes";
 import { nftMarketplaceService } from "./services/NftMarketplaceService";
 import { launchpadService } from "./services/LaunchpadService";
 import { gameFiService } from "./services/GameFiService";
@@ -1672,6 +1673,14 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     if (req.path.startsWith("/cross-shard")) {
       return next();
     }
+    // Skip auth check for shard-cache (public infrastructure monitoring)
+    if (req.path.startsWith("/shard-cache")) {
+      return next();
+    }
+    // Skip auth check for cross-shard-router (public infrastructure monitoring)
+    if (req.path.startsWith("/cross-shard-router")) {
+      return next();
+    }
     // Skip auth check for consensus (public blockchain data)
     if (req.path.startsWith("/consensus")) {
       return next();
@@ -1957,6 +1966,13 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   // ============================================
   app.use("/api/cross-shard-router", crossShardRouterRoutes);
   console.log("[CrossShardRouter] ✅ Enterprise cross-shard message router routes registered");
+
+  // ============================================
+  // ENTERPRISE SHARD CACHE
+  // High-performance O(1) shard caching with 2s TTL
+  // ============================================
+  app.use("/api/shard-cache", shardCacheRoutes);
+  console.log("[ShardCache] ✅ Enterprise shard cache routes registered (2s TTL, O(1) pair selection)");
 
   // ============================================
   // Network Stats

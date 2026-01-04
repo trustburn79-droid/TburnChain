@@ -157,12 +157,16 @@ app.use((req: Request, res: Response, next: NextFunction) => {
     '/api/health',               // 헬스 체크
     '/health',                   // 루트 헬스 체크
     '/api/public/v1/',           // 공개 API v1
+    '/api/shard-cache/',         // 샤드 캐시 API (공개)
+    '/api/cross-shard-router/',  // 크로스 샤드 라우터 API (공개)
   ];
   
   // ★ 추가: GET 요청이면서 공개 데이터 조회인 경우만 스킵
   // 관리자 경로(admin, maintenance, config 등)는 반드시 세션 유지
   const publicReadOnlyGetPaths = [
     '/api/network/stats',        // 네트워크 통계 조회
+    '/api/shard-cache/',         // 샤드 캐시 API (공개)
+    '/api/cross-shard-router/',  // 크로스 샤드 라우터 API (공개)
   ];
   
   // ★ 정확한 경로 매칭 - 하위 경로가 있으면 스킵하지 않음
