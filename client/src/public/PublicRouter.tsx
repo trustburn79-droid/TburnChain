@@ -294,12 +294,14 @@ export function PublicRouter() {
   
   // /vc route requires full App (VCTestMode page) - trigger full page reload
   if (location === "/vc" || location.startsWith("/vc-test")) {
+    window.scrollTo(0, 0);
     window.location.href = location;
     return null;
   }
   
   // /app/* routes require full App - trigger full page reload for authenticated DeFi pages
   if (location.startsWith("/app")) {
+    window.scrollTo(0, 0);
     window.location.href = location;
     return null;
   }

@@ -53,13 +53,13 @@ function showChunkErrorUI() {
             <stop offset="0%" stop-color="#FF6B35"/><stop offset="100%" stop-color="#FFD700"/>
           </linearGradient></defs>
         </svg>
-        <h2 style="color:#FF6B35;margin-bottom:16px;font-size:24px;">페이지 리소스를 불러올 수 없습니다</h2>
-        <p style="color:#999;margin-bottom:8px;font-size:14px;">브라우저 캐시 문제로 인해 페이지를 불러올 수 없습니다.</p>
-        <p style="color:#666;margin-bottom:24px;font-size:13px;">아래 버튼을 클릭하거나 Ctrl+Shift+R (Mac: Cmd+Shift+R)을 눌러 강제 새로고침하세요.</p>
+        <h2 style="color:#FF6B35;margin-bottom:16px;font-size:24px;">Unable to load page resources</h2>
+        <p style="color:#999;margin-bottom:8px;font-size:14px;">The page could not be loaded due to a browser cache issue.</p>
+        <p style="color:#666;margin-bottom:24px;font-size:13px;">Click the button below or press Ctrl+Shift+R (Mac: Cmd+Shift+R) to force refresh.</p>
         <button onclick="sessionStorage.clear();location.href=location.origin+'?v='+Date.now()" style="background:linear-gradient(135deg,#FF6B35,#F7931E);color:white;border:none;padding:14px 32px;border-radius:8px;cursor:pointer;font-size:16px;font-weight:600;box-shadow:0 4px 12px rgba(255,107,53,0.3);">
-          강제 새로고침
+          Force Refresh
         </button>
-        <p style="color:#555;margin-top:24px;font-size:12px;">문제가 지속되면 브라우저 캐시를 삭제해주세요.</p>
+        <p style="color:#555;margin-top:24px;font-size:12px;">If the problem persists, please clear your browser cache.</p>
       </div>
     `;
   }
@@ -127,6 +127,13 @@ function setupChunkErrorHandler() {
 
 // Initialize chunk error handler immediately
 setupChunkErrorHandler();
+
+// CRITICAL: Disable browser's automatic scroll restoration
+// This ensures pages always start at the top when navigating
+if ('scrollRestoration' in history) {
+  history.scrollRestoration = 'manual';
+}
+window.scrollTo(0, 0);
 
 // Clear reload history if app loads successfully (after 5 seconds)
 setTimeout(() => {
@@ -252,10 +259,10 @@ async function safeInitApp() {
     window.__TBURN_INITIALIZED__ = false;
     rootElement.innerHTML = `
       <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100vh;background:#030407;color:white;font-family:sans-serif;text-align:center;padding:20px;">
-        <h2 style="color:#FF6B35;margin-bottom:16px;">페이지 로딩 오류</h2>
-        <p style="color:#999;margin-bottom:24px;">페이지를 불러오는 중 문제가 발생했습니다.</p>
+        <h2 style="color:#FF6B35;margin-bottom:16px;">Page Loading Error</h2>
+        <p style="color:#999;margin-bottom:24px;">There was a problem loading the page.</p>
         <button onclick="location.reload(true)" style="background:#FF6B35;color:white;border:none;padding:12px 24px;border-radius:8px;cursor:pointer;font-size:16px;">
-          새로고침
+          Refresh
         </button>
       </div>
     `;
