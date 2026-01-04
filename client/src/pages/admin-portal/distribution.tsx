@@ -151,7 +151,7 @@ export default function AdminDistribution() {
     refetchInterval: 5000,
   });
 
-  const { data: allocationsData, isLoading: loadingAllocations, refetch: refetchAllocations } = useQuery<{ success: boolean; data: CategoryAllocation[] }>({
+  const { data: allocationsData, isLoading: loadingAllocations, refetch: refetchAllocations } = useQuery<{ success: boolean; data: { allocations: any[]; totalSupply: number } }>({
     queryKey: ['/api/admin/genesis/distribution/allocations'],
     refetchInterval: 30000,
   });
@@ -241,7 +241,7 @@ export default function AdminDistribution() {
   };
 
   const status = statusData?.data;
-  const allocations = allocationsData?.data || [];
+  const allocations = allocationsData?.data?.allocations || [];
   const vesting = vestingData?.data || [];
   const alerts = alertsData?.data?.active || [];
   const unacknowledgedAlerts = alerts.length;
@@ -471,6 +471,7 @@ export default function AdminDistribution() {
                     const Icon = categoryIcons[allocation.category] || Coins;
                     const color = categoryColors[allocation.category] || 'bg-gray-500';
                     const isExpanded = expandedCategories.includes(allocation.category);
+                    const subcategories = allocation.details?.subcategories ? Object.entries(allocation.details.subcategories) : [];
                     return (
                       <Collapsible key={allocation.category} open={isExpanded} onOpenChange={() => toggleCategory(allocation.category)}>
                         <CollapsibleTrigger className="w-full">
@@ -481,13 +482,13 @@ export default function AdminDistribution() {
                               </div>
                               <div className="text-left">
                                 <p className="font-medium">{allocation.category}</p>
-                                <p className="text-xs text-muted-foreground">{allocation.subcategories.length}개 서브카테고리</p>
+                                <p className="text-xs text-muted-foreground">{subcategories.length}개 서브카테고리</p>
                               </div>
                             </div>
                             <div className="flex items-center gap-3">
                               <div className="text-right">
                                 <p className="font-bold">{allocation.percentage}%</p>
-                                <p className="text-xs text-muted-foreground">{formatTBURN(allocation.totalAmount)} TBURN</p>
+                                <p className="text-xs text-muted-foreground">{formatTBURN(allocation.amount || 0)} TBURN</p>
                               </div>
                               {isExpanded ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
                             </div>
@@ -495,17 +496,17 @@ export default function AdminDistribution() {
                         </CollapsibleTrigger>
                         <CollapsibleContent>
                           <div className="ml-12 mt-2 space-y-2">
-                            {allocation.subcategories.map((sub, idx) => (
-                              <div key={idx} className="flex items-center justify-between p-2 rounded border-l-2 border-muted bg-muted/20">
+                            {subcategories.map(([key, sub]: [string, any]) => (
+                              <div key={key} className="flex items-center justify-between p-2 rounded border-l-2 border-muted bg-muted/20">
                                 <div>
-                                  <p className="text-sm font-medium">{sub.name}</p>
+                                  <p className="text-sm font-medium">{sub.description || key}</p>
                                   <p className="text-xs text-muted-foreground">
-                                    TGE: {sub.tgePercentage}% | 베스팅: {sub.vestingMonths}개월
+                                    TGE: {sub.tgePercent || 0}% | 비율: {sub.parentPercentage || sub.percentage}%
                                   </p>
                                 </div>
                                 <div className="text-right">
                                   <p className="text-sm font-medium">{sub.percentage}%</p>
-                                  <p className="text-xs text-muted-foreground">{formatTBURN(sub.amount)} TBURN</p>
+                                  <p className="text-xs text-muted-foreground">{formatTBURN(sub.amount || 0)} TBURN</p>
                                 </div>
                               </div>
                             ))}
