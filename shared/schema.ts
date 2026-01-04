@@ -10290,3 +10290,269 @@ export type InsertEnterpriseShardCacheEvent = z.infer<typeof insertEnterpriseSha
 
 export type EnterpriseShardCacheMetricsHourly = typeof enterpriseShardCacheMetricsHourly.$inferSelect;
 export type InsertEnterpriseShardCacheMetricsHourly = z.infer<typeof insertEnterpriseShardCacheMetricsHourlySchema>;
+
+// ================================================================================
+// Enterprise Batch Processor Tables (Phase 14) - 200K+ TPS Batch Message Processing
+// ================================================================================
+
+// Enterprise Batch Queue Snapshots - Real-time queue state for monitoring
+export const enterpriseBatchQueueSnapshots = pgTable("enterprise_batch_queue_snapshots", {
+  id: varchar("id", { length: 64 }).primaryKey().default(sql`gen_random_uuid()`),
+  
+  // Snapshot Identification
+  snapshotVersion: integer("snapshot_version").notNull().default(0),
+  processorState: varchar("processor_state", { length: 20 }).notNull().default("IDLE"),
+  circuitBreakerState: varchar("circuit_breaker_state", { length: 20 }).notNull().default("CLOSED"),
+  
+  // Queue Depths by Priority
+  queueDepthTotal: integer("queue_depth_total").notNull().default(0),
+  queueDepthCritical: integer("queue_depth_critical").notNull().default(0),
+  queueDepthHigh: integer("queue_depth_high").notNull().default(0),
+  queueDepthNormal: integer("queue_depth_normal").notNull().default(0),
+  queueDepthLow: integer("queue_depth_low").notNull().default(0),
+  queueUtilization: numeric("queue_utilization", { precision: 8, scale: 6 }).default("0.000000"),
+  
+  // Buffer Pool Stats
+  bufferPoolTotal: integer("buffer_pool_total").notNull().default(32),
+  bufferPoolInUse: integer("buffer_pool_in_use").notNull().default(0),
+  bufferPoolUtilization: numeric("buffer_pool_utilization", { precision: 8, scale: 6 }).default("0.000000"),
+  
+  // Adaptive Batch Sizing
+  currentBatchSize: integer("current_batch_size").notNull().default(512),
+  minBatchSize: integer("min_batch_size").notNull().default(64),
+  maxBatchSize: integer("max_batch_size").notNull().default(4096),
+  
+  // EWMA Metrics
+  ewmaThroughput: numeric("ewma_throughput", { precision: 16, scale: 4 }).default("0.0000"),
+  ewmaLatencyMs: numeric("ewma_latency_ms", { precision: 12, scale: 4 }).default("0.0000"),
+  
+  // Cumulative Stats
+  totalBatchesProcessed: bigint("total_batches_processed", { mode: "number" }).notNull().default(0),
+  totalMessagesProcessed: bigint("total_messages_processed", { mode: "number" }).notNull().default(0),
+  totalMessagesSucceeded: bigint("total_messages_succeeded", { mode: "number" }).notNull().default(0),
+  totalMessagesFailed: bigint("total_messages_failed", { mode: "number" }).notNull().default(0),
+  
+  // Memory Usage
+  memoryUsageMb: numeric("memory_usage_mb", { precision: 12, scale: 2 }).default("0.00"),
+  
+  // WAL State
+  walWriteOffset: bigint("wal_write_offset", { mode: "number" }).notNull().default(0),
+  walBufferSize: integer("wal_buffer_size").notNull().default(0),
+  
+  // Timing
+  uptimeMs: bigint("uptime_ms", { mode: "number" }).notNull().default(0),
+  capturedAt: bigint("captured_at", { mode: "number" }).notNull(),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+// Enterprise Batch Results - Individual batch processing results
+export const enterpriseBatchResults = pgTable("enterprise_batch_results", {
+  id: varchar("id", { length: 64 }).primaryKey().default(sql`gen_random_uuid()`),
+  
+  // Batch Identification
+  batchId: varchar("batch_id", { length: 64 }).notNull(),
+  batchType: varchar("batch_type", { length: 30 }).notNull().default("standard"),
+  
+  // Batch Status
+  status: varchar("status", { length: 20 }).notNull().default("PENDING"),
+  
+  // Message Counts
+  totalMessages: integer("total_messages").notNull().default(0),
+  successCount: integer("success_count").notNull().default(0),
+  failureCount: integer("failure_count").notNull().default(0),
+  
+  // Priority Distribution
+  criticalCount: integer("critical_count").notNull().default(0),
+  highCount: integer("high_count").notNull().default(0),
+  normalCount: integer("normal_count").notNull().default(0),
+  lowCount: integer("low_count").notNull().default(0),
+  
+  // Shard Distribution (source-target pairs as JSONB)
+  shardDistribution: jsonb("shard_distribution").default({}),
+  
+  // Processing Metrics
+  processingTimeMs: integer("processing_time_ms").notNull().default(0),
+  throughputMps: numeric("throughput_mps", { precision: 16, scale: 4 }).default("0.0000"),
+  avgLatencyUs: numeric("avg_latency_us", { precision: 12, scale: 4 }).default("0.0000"),
+  
+  // Chunk Processing Details
+  chunksProcessed: integer("chunks_processed").notNull().default(0),
+  parallelWorkers: integer("parallel_workers").notNull().default(8),
+  chunkSize: integer("chunk_size").notNull().default(256),
+  
+  // Error Details (if any failures)
+  errorSummary: jsonb("error_summary").default([]),
+  
+  // Cross-Shard Integration
+  crossShardRouted: boolean("cross_shard_routed").notNull().default(false),
+  routerBatchId: varchar("router_batch_id", { length: 64 }),
+  
+  // WAL Reference
+  walOffset: bigint("wal_offset", { mode: "number" }),
+  
+  // Timing
+  queuedAt: bigint("queued_at", { mode: "number" }).notNull(),
+  startedAt: bigint("started_at", { mode: "number" }),
+  completedAt: bigint("completed_at", { mode: "number" }),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+// Enterprise Batch Events - Audit log for batch operations
+export const enterpriseBatchEvents = pgTable("enterprise_batch_events", {
+  id: varchar("id", { length: 64 }).primaryKey().default(sql`gen_random_uuid()`),
+  
+  // Event Identification
+  eventType: varchar("event_type", { length: 50 }).notNull(),
+  eventCategory: varchar("event_category", { length: 30 }).notNull().default("operation"),
+  
+  // Associated Batch (if applicable)
+  batchId: varchar("batch_id", { length: 64 }),
+  
+  // Actor Information
+  actorType: varchar("actor_type", { length: 30 }).notNull().default("system"),
+  actorId: varchar("actor_id", { length: 128 }),
+  ipAddress: varchar("ip_address", { length: 45 }),
+  
+  // Authentication Details
+  authMethod: varchar("auth_method", { length: 30 }),
+  isAdmin: boolean("is_admin").notNull().default(false),
+  
+  // Event Data (JSONB for flexibility)
+  eventData: jsonb("event_data").default({}),
+  
+  // Affected State
+  messagesAffected: integer("messages_affected").notNull().default(0),
+  batchesAffected: integer("batches_affected").notNull().default(0),
+  
+  // Performance Metrics (for benchmarks)
+  durationMs: integer("duration_ms"),
+  opsPerSecond: bigint("ops_per_second", { mode: "number" }),
+  throughputMps: numeric("throughput_mps", { precision: 16, scale: 4 }),
+  avgLatencyUs: numeric("avg_latency_us", { precision: 12, scale: 4 }),
+  successRate: numeric("success_rate", { precision: 8, scale: 6 }),
+  
+  // Processor State Changes
+  previousState: varchar("previous_state", { length: 20 }),
+  newState: varchar("new_state", { length: 20 }),
+  
+  // Outcome
+  success: boolean("success").notNull().default(true),
+  errorMessage: text("error_message"),
+  
+  // Timing
+  eventTimestamp: bigint("event_timestamp", { mode: "number" }).notNull(),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+// Enterprise Batch Metrics Hourly - Hourly aggregated metrics for analytics
+export const enterpriseBatchMetricsHourly = pgTable("enterprise_batch_metrics_hourly", {
+  id: varchar("id", { length: 64 }).primaryKey().default(sql`gen_random_uuid()`),
+  
+  // Time Window
+  hourTimestamp: timestamp("hour_timestamp").notNull(),
+  
+  // Aggregate Batch Counts
+  totalBatches: bigint("total_batches", { mode: "number" }).notNull().default(0),
+  completedBatches: bigint("completed_batches", { mode: "number" }).notNull().default(0),
+  partialBatches: bigint("partial_batches", { mode: "number" }).notNull().default(0),
+  failedBatches: bigint("failed_batches", { mode: "number" }).notNull().default(0),
+  
+  // Aggregate Message Counts
+  totalMessages: bigint("total_messages", { mode: "number" }).notNull().default(0),
+  succeededMessages: bigint("succeeded_messages", { mode: "number" }).notNull().default(0),
+  failedMessages: bigint("failed_messages", { mode: "number" }).notNull().default(0),
+  
+  // Priority Distribution
+  criticalMessages: bigint("critical_messages", { mode: "number" }).notNull().default(0),
+  highMessages: bigint("high_messages", { mode: "number" }).notNull().default(0),
+  normalMessages: bigint("normal_messages", { mode: "number" }).notNull().default(0),
+  lowMessages: bigint("low_messages", { mode: "number" }).notNull().default(0),
+  
+  // Throughput Metrics
+  peakThroughputMps: bigint("peak_throughput_mps", { mode: "number" }).notNull().default(0),
+  avgThroughputMps: bigint("avg_throughput_mps", { mode: "number" }).notNull().default(0),
+  minThroughputMps: bigint("min_throughput_mps", { mode: "number" }).notNull().default(0),
+  
+  // Latency Percentiles (microseconds)
+  latencyP50Us: integer("latency_p50_us").notNull().default(0),
+  latencyP95Us: integer("latency_p95_us").notNull().default(0),
+  latencyP99Us: integer("latency_p99_us").notNull().default(0),
+  latencyMaxUs: integer("latency_max_us").notNull().default(0),
+  latencyAvgUs: numeric("latency_avg_us", { precision: 12, scale: 4 }).default("0.0000"),
+  
+  // Processing Time Distribution
+  avgProcessingTimeMs: numeric("avg_processing_time_ms", { precision: 12, scale: 4 }).default("0.0000"),
+  maxProcessingTimeMs: integer("max_processing_time_ms").notNull().default(0),
+  
+  // Queue Health
+  avgQueueDepth: integer("avg_queue_depth").notNull().default(0),
+  peakQueueDepth: integer("peak_queue_depth").notNull().default(0),
+  avgQueueUtilization: numeric("avg_queue_utilization", { precision: 8, scale: 6 }).default("0.000000"),
+  
+  // Buffer Pool Health
+  avgBufferUtilization: numeric("avg_buffer_utilization", { precision: 8, scale: 6 }).default("0.000000"),
+  bufferExhaustionCount: integer("buffer_exhaustion_count").notNull().default(0),
+  
+  // Circuit Breaker Events
+  circuitOpenCount: integer("circuit_open_count").notNull().default(0),
+  circuitCloseCount: integer("circuit_close_count").notNull().default(0),
+  
+  // WAL Stats
+  walBytesWritten: bigint("wal_bytes_written", { mode: "number" }).notNull().default(0),
+  walFlushCount: integer("wal_flush_count").notNull().default(0),
+  
+  // Memory Stats
+  avgMemoryMb: numeric("avg_memory_mb", { precision: 12, scale: 2 }).default("0.00"),
+  peakMemoryMb: numeric("peak_memory_mb", { precision: 12, scale: 2 }).default("0.00"),
+  
+  // Cross-Shard Integration Stats
+  crossShardBatches: bigint("cross_shard_batches", { mode: "number" }).notNull().default(0),
+  crossShardMessages: bigint("cross_shard_messages", { mode: "number" }).notNull().default(0),
+  
+  // Benchmark Runs (if any)
+  benchmarkCount: integer("benchmark_count").notNull().default(0),
+  avgBenchmarkOps: bigint("avg_benchmark_ops", { mode: "number" }).notNull().default(0),
+  peakBenchmarkOps: bigint("peak_benchmark_ops", { mode: "number" }).notNull().default(0),
+  
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+// ================================================================================
+// Insert Schemas for Enterprise Batch Processor Tables (Phase 14)
+// ================================================================================
+
+export const insertEnterpriseBatchQueueSnapshotSchema = createInsertSchema(enterpriseBatchQueueSnapshots).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertEnterpriseBatchResultSchema = createInsertSchema(enterpriseBatchResults).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertEnterpriseBatchEventSchema = createInsertSchema(enterpriseBatchEvents).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertEnterpriseBatchMetricsHourlySchema = createInsertSchema(enterpriseBatchMetricsHourly).omit({
+  id: true,
+  createdAt: true,
+});
+
+// ================================================================================
+// Types for Enterprise Batch Processor Tables (Phase 14)
+// ================================================================================
+
+export type EnterpriseBatchQueueSnapshot = typeof enterpriseBatchQueueSnapshots.$inferSelect;
+export type InsertEnterpriseBatchQueueSnapshot = z.infer<typeof insertEnterpriseBatchQueueSnapshotSchema>;
+
+export type EnterpriseBatchResult = typeof enterpriseBatchResults.$inferSelect;
+export type InsertEnterpriseBatchResult = z.infer<typeof insertEnterpriseBatchResultSchema>;
+
+export type EnterpriseBatchEvent = typeof enterpriseBatchEvents.$inferSelect;
+export type InsertEnterpriseBatchEvent = z.infer<typeof insertEnterpriseBatchEventSchema>;
+
+export type EnterpriseBatchMetricsHourly = typeof enterpriseBatchMetricsHourly.$inferSelect;
+export type InsertEnterpriseBatchMetricsHourly = z.infer<typeof insertEnterpriseBatchMetricsHourlySchema>;
