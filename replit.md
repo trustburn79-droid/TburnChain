@@ -62,7 +62,7 @@ Core architectural decisions and features include:
   - API endpoints at `/api/shard-cache/*` for status, stats, health, shard, shards, pair, route, warm, invalidate, benchmark
 
 ## External Dependencies
-- **Database**: Neon Serverless PostgreSQL with 1,152 enterprise-grade indexes (52 dedicated cross-shard router indexes + 60 incentive system indexes + 41 performance tracking indexes + 219 enterprise indexes across 52+ categories including validator orchestration, sharding, token distribution, consensus, reward distribution, and core blockchain tables). New tables for Phase 12 Cross-Shard Router: `enterprise_cross_shard_messages`, `enterprise_cross_shard_batches`, `wal_segments`, `router_metrics_hourly`, `circuit_breakers`, `shard_validator_assignments`, `latency_histories`, `router_bloom_filters`, `router_daily_stats`.
+- **Database**: Neon Serverless PostgreSQL with 1,177 enterprise-grade indexes (52 cross-shard router indexes + 25 shard cache indexes + 60 incentive system indexes + 41 performance tracking indexes + 219 enterprise indexes across 52+ categories including validator orchestration, sharding, token distribution, consensus, reward distribution, and core blockchain tables). Phase 13 Shard Cache tables: `enterprise_shard_cache_snapshots`, `enterprise_shard_cache_pairs`, `enterprise_shard_cache_events`, `enterprise_shard_cache_metrics_hourly`. Phase 12 Cross-Shard Router tables: `enterprise_cross_shard_messages`, `enterprise_cross_shard_batches`, `wal_segments`, `router_metrics_hourly`, `circuit_breakers`, `shard_validator_assignments`, `latency_histories`, `router_bloom_filters`, `router_daily_stats`.
 - **ORM**: Drizzle ORM
 - **Frontend Framework**: React 18
 - **Language**: TypeScript
