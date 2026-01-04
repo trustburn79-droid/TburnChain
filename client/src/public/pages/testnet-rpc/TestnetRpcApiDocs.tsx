@@ -498,7 +498,7 @@ export default function TestnetRpcApiDocs() {
                       const Icon = methodCategories[selectedCategory].icon;
                       return <Icon className="w-5 h-5" style={{ color: methodCategories[selectedCategory].color }} />;
                     })()}
-                    {t(methodCategories[selectedCategory].nameKey)} {t('rpc.docs.methods')}
+                    {t(methodCategories[selectedCategory].nameKey)}
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
@@ -513,7 +513,7 @@ export default function TestnetRpcApiDocs() {
                         <AccordionTrigger className="hover:no-underline py-3">
                           <div className="flex items-center gap-3">
                             <code className="text-sm font-mono text-yellow-500">{method.name}</code>
-                            <span className="text-sm text-gray-500">{method.descriptionKey}</span>
+                            <span className="text-sm text-gray-500">{t(method.descriptionKey)}</span>
                           </div>
                         </AccordionTrigger>
                         <AccordionContent className="pt-2 pb-4">
@@ -541,7 +541,7 @@ export default function TestnetRpcApiDocs() {
                                           <Badge variant="outline" className="text-gray-400 text-xs">{t('rpc.shared.optional')}</Badge>
                                         )}
                                       </td>
-                                      <td className="py-2 text-gray-600 dark:text-gray-400">{param.descriptionKey}</td>
+                                      <td className="py-2 text-gray-600 dark:text-gray-400">{t(param.descriptionKey)}</td>
                                     </tr>
                                   ))}
                                 </tbody>
