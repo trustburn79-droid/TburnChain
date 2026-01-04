@@ -71,6 +71,30 @@ export const app = express();
 // ★ [수정 2] Nginx 프록시 신뢰 설정 (필수)
 app.set('trust proxy', 1);
 
+// ★ [2026-01-04 프로덕션 안정성] 요청 타임아웃 보호
+// 75초 타임아웃으로 "upstream request timeout" 방지
+app.use((req: Request, res: Response, next: NextFunction) => {
+  // 75초 후 타임아웃 (Nginx 기본 60초보다 길게 설정)
+  const TIMEOUT_MS = 75000;
+  
+  const timeoutId = setTimeout(() => {
+    if (!res.headersSent) {
+      console.error(`[Timeout] Request timeout after ${TIMEOUT_MS}ms: ${req.method} ${req.path}`);
+      res.status(504).json({ 
+        error: 'Gateway Timeout',
+        message: 'Request processing took too long',
+        path: req.path
+      });
+    }
+  }, TIMEOUT_MS);
+  
+  // 응답 완료 시 타임아웃 취소
+  res.on('finish', () => clearTimeout(timeoutId));
+  res.on('close', () => clearTimeout(timeoutId));
+  
+  next();
+});
+
 declare module 'http' {
   interface IncomingMessage {
     rawBody: unknown

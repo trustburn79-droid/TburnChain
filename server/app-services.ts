@@ -7,6 +7,12 @@ import passport from "passport";
 import { Strategy as GoogleStrategy } from "passport-google-oauth20";
 import { log } from "./app";
 import { initializeBlockchainOrchestrator, shutdownBlockchainOrchestrator } from "./services/blockchain-orchestrator";
+import { 
+  shouldBypassSession, 
+  blockSetCookie, 
+  createSkipSession,
+  checkMemoryStoreCapacity 
+} from "./core/sessions/session-bypass";
 
 declare module "express-session" {
   interface SessionData {
@@ -41,6 +47,31 @@ export default async function runAppServices(
   app: Express,
   server: Server,
 ): Promise<void> {
+  // ★ [2026-01-04 프로덕션 안정성] 프록시 신뢰 설정
+  app.set('trust proxy', 1);
+  
+  // ★ [2026-01-04 프로덕션 안정성] 요청 타임아웃 보호
+  // 75초 타임아웃으로 "upstream request timeout" 방지
+  app.use((req: Request, res: Response, next: NextFunction) => {
+    const TIMEOUT_MS = 75000;
+    
+    const timeoutId = setTimeout(() => {
+      if (!res.headersSent) {
+        console.error(`[Timeout] Request timeout after ${TIMEOUT_MS}ms: ${req.method} ${req.path}`);
+        res.status(504).json({ 
+          error: 'Gateway Timeout',
+          message: 'Request processing took too long',
+          path: req.path
+        });
+      }
+    }, TIMEOUT_MS);
+    
+    res.on('finish', () => clearTimeout(timeoutId));
+    res.on('close', () => clearTimeout(timeoutId));
+    
+    next();
+  });
+  
   // ★ [2026-01-04 프로덕션 안정성 수정] - 세션 오버플로우 완전 방지
   // 프로덕션 환경 자동 감지 - Autoscale 배포 시 HTTPS가 자동으로 활성화됨
   const isProduction = process.env.NODE_ENV === "production" || (process.env.REPL_SLUG && !process.env.REPL_ID);
@@ -80,114 +111,40 @@ export default async function runAppServices(
   let sessionSkipCount = 0;
   let lastSessionReport = Date.now();
 
-  // ★ [2026-01-04 프로덕션 안정성 수정] 조건부 세션 미들웨어
-  // 내부 호출 및 공개 API에서 세션 생성 건너뛰기 - 경로 정규화 적용
+  // ★ [2026-01-04 프로덕션 안정성 수정] 통합 세션 바이패스 모듈 사용
+  // app.ts와 동일한 세션 스킵 로직으로 개발/프로덕션 환경 일관성 유지
   app.use((req: Request, res: Response, next: NextFunction) => {
-    // ★ 경로 정규화 - 트레일링 슬래시 제거하여 일관된 매칭
-    const normalizedPath = req.path.endsWith('/') && req.path.length > 1 
-      ? req.path.slice(0, -1) 
-      : req.path;
+    // ★ 통합 세션 바이패스 모듈 사용 (개발/프로덕션 일관성)
+    const bypassResult = shouldBypassSession(req);
     
-    // 내부 API 호출 감지 (X-Internal-Request 헤더 또는 특정 User-Agent)
-    // ★ axios, node-fetch, undici, got 등 모든 내부 HTTP 클라이언트 감지
-    const userAgent = req.headers['user-agent'] || '';
-    const isInternalRequest = 
-      req.headers['x-internal-request'] === 'true' ||
-      userAgent.includes('node-fetch') ||
-      userAgent.includes('undici') ||
-      userAgent.includes('axios') ||
-      userAgent.includes('got') ||
-      userAgent.includes('node') ||
-      userAgent === '' ||  // 빈 User-Agent는 내부 호출로 간주
-      req.ip === '127.0.0.1' ||
-      req.ip === '::1' ||
-      req.ip === '::ffff:127.0.0.1';
-    
-    // ★ [프로덕션 안정성] 세션 스킵 경로 - 접두사 기반 매칭 (슬래시 없이)
-    const skipSessionPrefixes = [
-      '/api/public',                // 공개 API 전체
-      '/api/health',                // 헬스 체크
-      '/health',                    // 루트 헬스 체크
-      '/api/shard-cache',           // 샤드 캐시 API 전체
-      '/api/cross-shard-router',    // 크로스 샤드 라우터 API 전체
-      '/api/shard-rebalancer',      // 샤드 리밸런서 API 전체
-      '/api/batch-processor',       // 배치 프로세서 API 전체
-      '/api/validators/status',     // 검증자 상태 (공개)
-      '/api/validators/stats',      // 검증자 통계 (공개)
-      '/api/rewards/stats',         // 보상 통계 (공개)
-      '/api/rewards/epoch',         // 에포크 정보 (공개)
-      '/api/network/stats',         // 네트워크 통계 (공개)
-      '/api/scalability',           // 확장성 API (공개)
-      '/api/consensus/state',       // 합의 상태 (공개)
-      '/api/block-production',      // 블록 생산 (공개)
-    ];
-    
-    // ★ 정확히 일치해야 하는 GET 경로
-    const exactGetPaths = [
-      '/api/shards',                // 샤드 목록
-      '/api/blocks',                // 블록 목록
-      '/api/transactions',          // 트랜잭션 목록
-      '/api/wallets',               // 지갑 목록
-      '/api/contracts',             // 컨트랙트 목록
-    ];
-    
-    // ★ 관리자/인증 필요 경로 패턴 (세션 유지 필수)
-    const requiresSession = 
-      normalizedPath.includes('/admin') ||
-      normalizedPath.includes('/config') ||
-      normalizedPath.includes('/maintenance') ||
-      normalizedPath.includes('/auth') ||
-      normalizedPath.includes('/user') ||
-      normalizedPath.includes('/member') ||
-      normalizedPath.includes('/login') ||
-      normalizedPath.includes('/logout') ||
-      normalizedPath.includes('/session') ||
-      (req.method !== 'GET' && (
-        normalizedPath.includes('/start') ||
-        normalizedPath.includes('/stop') ||
-        normalizedPath.includes('/benchmark')
-      ));
-    
-    // 이미 인증 쿠키가 있으면 세션 스킵하지 않음
-    const hasSessionCookie = !!req.headers.cookie?.includes('connect.sid');
-    
-    // ★ 접두사 매칭 함수 - 정규화된 경로와 비교
-    const matchesPrefix = skipSessionPrefixes.some(prefix => 
-      normalizedPath === prefix || normalizedPath.startsWith(prefix + '/')
-    );
-    
-    // ★ 정확한 경로 매칭
-    const matchesExact = req.method === 'GET' && exactGetPaths.includes(normalizedPath);
-    
-    // ★ 세션 스킵 조건: 
-    // 1. 관리자 경로가 아니고
-    // 2. (내부 요청이거나 공개 API 경로) - 내부 요청은 쿠키 유무와 관계없이 스킵
-    // 3. 외부 요청의 경우 쿠키가 있으면 기존 세션 사용
-    const shouldSkipSession = !requiresSession && (
-      isInternalRequest ||  // ★ 내부 요청은 항상 스킵 (쿠키 유무 관계없음)
-      (!hasSessionCookie && (matchesPrefix || matchesExact))  // 외부 요청: 쿠키 없고 공개 경로
-    );
-    
-    if (shouldSkipSession) {
+    if (bypassResult.shouldSkip) {
       sessionSkipCount++;
-      (req as any).session = {
-        id: 'skip-session',
-        cookie: {},
-        regenerate: (cb: any) => cb && cb(),
-        destroy: (cb: any) => cb && cb(),
-        reload: (cb: any) => cb && cb(),
-        save: (cb: any) => cb && cb(),
-        touch: () => {},
-      };
+      
+      // ★ [핵심 수정] Set-Cookie 헤더 차단 - 세션 스킵 시 쿠키 설정 방지
+      blockSetCookie(res);
+      
+      // 세션 없이 빈 세션 객체만 제공 (세션 저장소에 저장하지 않음)
+      (req as any).session = createSkipSession();
+      
+      // 디버깅용 로깅 (선택적)
+      if (process.env.DEBUG_SESSION === 'true') {
+        console.log(`[Session Skip] ${req.method} ${req.path} - reason: ${bypassResult.reason}`);
+      }
+      
       return next();
     }
     
     sessionCreateCount++;
     
+    // ★ MemoryStore 용량 모니터링 (프로덕션 안정성)
+    const activeCount = sessionCreateCount;
+    checkMemoryStoreCapacity(activeCount, maxSessions);
+    
     // 5분마다 세션 사용량 리포트
     const now = Date.now();
     if (now - lastSessionReport > 300000) {
-      const skipRatio = ((sessionSkipCount / (sessionCreateCount + sessionSkipCount)) * 100).toFixed(1);
+      const total = sessionCreateCount + sessionSkipCount;
+      const skipRatio = total > 0 ? ((sessionSkipCount / total) * 100).toFixed(1) : '0';
       console.log(`[Session Monitor] Created: ${sessionCreateCount}, Skipped: ${sessionSkipCount}, Skip Ratio: ${skipRatio}%`);
       lastSessionReport = now;
     }
