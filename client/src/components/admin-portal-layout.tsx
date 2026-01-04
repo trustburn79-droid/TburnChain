@@ -33,6 +33,7 @@ import AdminTreasury from "@/pages/admin-portal/treasury";
 import AdminEconomics from "@/pages/admin-portal/economics";
 import AdminCommunity from "@/pages/admin-portal/community";
 import AdminCommunityContent from "@/pages/admin/community-content";
+import AdminTokenomics from "@/pages/admin-portal/tokenomics";
 import TokenomicsSimulation from "@/pages/tokenomics-simulation";
 
 // Group 4: AI Systems (4 pages)
@@ -167,7 +168,7 @@ function AdminRouter() {
       <Route path="/admin/burn-control" component={AdminBurnControl} />
       <Route path="/admin/treasury" component={AdminTreasury} />
       <Route path="/admin/economics" component={AdminEconomics} />
-      <Route path="/admin/tokenomics" component={TokenomicsSimulation} />
+      <Route path="/admin/tokenomics" component={AdminTokenomics} />
       <Route path="/admin/token-distribution" component={AdminTokenDistribution} />
       
       {/* Token Distribution Sub-Pages (18 programs) */}
