@@ -11099,11 +11099,24 @@ export const sessionMetricsByEndpoint = pgTable("session_metrics_by_endpoint", {
   
   createdAt: timestamp("created_at").notNull().defaultNow(),
 }, (table) => [
-  index("idx_metrics_endpoint_time").on(table.bucketTime),
-  index("idx_metrics_endpoint_path").on(table.endpoint),
-  index("idx_metrics_endpoint_method").on(table.httpMethod),
-  index("idx_metrics_endpoint_auth").on(table.authScope),
-  index("idx_metrics_endpoint_composite").on(table.endpoint, table.httpMethod, table.bucketTime),
+  // Primary time-based query pattern (most common for dashboards)
+  index("idx_sme_bucket_time_desc").on(table.bucketTime),
+  
+  // Enterprise composite indexes for common query patterns
+  // Pattern: "Get metrics for endpoint X in time range" (dashboard drilldown)
+  index("idx_sme_bucket_endpoint").on(table.bucketTime, table.endpoint, table.httpMethod, table.authScope),
+  
+  // Pattern: "Get all metrics for an endpoint across time" (endpoint analysis)
+  index("idx_sme_endpoint_method_time").on(table.endpoint, table.httpMethod, table.bucketTime),
+  
+  // Pattern: "Filter by auth scope for security analysis" 
+  index("idx_sme_auth_time").on(table.authScope, table.bucketTime),
+  
+  // Pattern: "Find endpoints with errors" (alert investigation)
+  index("idx_sme_errors").on(table.failedRequests, table.authFailures, table.bucketTime),
+  
+  // Pattern: "Find high latency endpoints" (SLA monitoring)
+  index("idx_sme_latency").on(table.avgLatencyMs, table.bucketTime),
 ]);
 
 // ============================================================================
@@ -11151,9 +11164,90 @@ export const sessionMetricsHourly = pgTable("session_metrics_hourly", {
   
   createdAt: timestamp("created_at").notNull().defaultNow(),
 }, (table) => [
-  index("idx_hourly_bucket").on(table.hourBucket),
-  index("idx_hourly_store_type").on(table.primaryStoreType),
-  index("idx_hourly_failover").on(table.failoverEvents),
+  // Primary time-based query (dashboard)
+  index("idx_smh_hour_bucket_desc").on(table.hourBucket),
+  
+  // Pattern: "SLA reporting with alerts" (operations dashboard)
+  index("idx_smh_hour_scope").on(table.hourBucket, table.primaryStoreType, table.alertsTriggered),
+  
+  // Pattern: "Find unhealthy periods" (incident investigation)
+  index("idx_smh_unhealthy").on(table.unhealthyMinutes, table.failoverEvents, table.hourBucket),
+  
+  // Pattern: "Alert summary by hour" (trend analysis)
+  index("idx_smh_alerts").on(table.criticalAlerts, table.warningAlerts, table.hourBucket),
+]);
+
+// ============================================================================
+// Enterprise Session Daily Rollup (Long-term Analytics - 5 year retention)
+// ============================================================================
+export const sessionMetricsDailyRollup = pgTable("session_metrics_daily_rollup", {
+  id: serial("id").primaryKey(),
+  
+  // Day bucket
+  dayBucket: timestamp("day_bucket").notNull(),
+  
+  // Aggregated Session Counts
+  totalSessionsCreated: bigint("total_sessions_created", { mode: "number" }).notNull().default(0),
+  totalSessionsSkipped: bigint("total_sessions_skipped", { mode: "number" }).notNull().default(0),
+  totalSessionsExpired: bigint("total_sessions_expired", { mode: "number" }).notNull().default(0),
+  
+  // Peak & Average Metrics
+  avgActiveSessionCount: numeric("avg_active_session_count", { precision: 14, scale: 2 }),
+  peakActiveSessionCount: integer("peak_active_session_count").notNull().default(0),
+  minActiveSessionCount: integer("min_active_session_count").notNull().default(0),
+  
+  // Aggregated Ratios
+  avgSkipRatio: numeric("avg_skip_ratio", { precision: 8, scale: 6 }),
+  minSkipRatio: numeric("min_skip_ratio", { precision: 8, scale: 6 }),
+  maxSkipRatio: numeric("max_skip_ratio", { precision: 8, scale: 6 }),
+  
+  // Request Aggregates
+  totalRequests: bigint("total_requests", { mode: "number" }).notNull().default(0),
+  totalPublicRequests: bigint("total_public_requests", { mode: "number" }).notNull().default(0),
+  totalInternalRequests: bigint("total_internal_requests", { mode: "number" }).notNull().default(0),
+  totalProtectedRequests: bigint("total_protected_requests", { mode: "number" }).notNull().default(0),
+  totalAuthFailures: integer("total_auth_failures").notNull().default(0),
+  
+  // Latency Aggregates
+  avgLatencyMs: numeric("avg_latency_ms", { precision: 12, scale: 3 }),
+  p50LatencyMs: numeric("p50_latency_ms", { precision: 12, scale: 3 }),
+  p95LatencyMs: numeric("p95_latency_ms", { precision: 12, scale: 3 }),
+  p99LatencyMs: numeric("p99_latency_ms", { precision: 12, scale: 3 }),
+  peakLatencyMs: numeric("peak_latency_ms", { precision: 12, scale: 3 }),
+  
+  // Error Aggregates
+  totalError4xxCount: bigint("total_error_4xx_count", { mode: "number" }).notNull().default(0),
+  totalError5xxCount: bigint("total_error_5xx_count", { mode: "number" }).notNull().default(0),
+  totalTimeoutCount: integer("total_timeout_count").notNull().default(0),
+  
+  // Store Health Summary
+  primaryStoreType: varchar("primary_store_type", { length: 16 }).notNull().default("memory"),
+  totalFailoverEvents: integer("total_failover_events").notNull().default(0),
+  totalUnhealthyMinutes: integer("total_unhealthy_minutes").notNull().default(0),
+  uptimePercent: numeric("uptime_percent", { precision: 6, scale: 3 }),
+  
+  // Alerts Summary
+  totalAlertsTriggered: integer("total_alerts_triggered").notNull().default(0),
+  totalCriticalAlerts: integer("total_critical_alerts").notNull().default(0),
+  totalWarningAlerts: integer("total_warning_alerts").notNull().default(0),
+  
+  // SLA Metrics
+  slaMet: boolean("sla_met").notNull().default(true),
+  slaBreachMinutes: integer("sla_breach_minutes").notNull().default(0),
+  
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+}, (table) => [
+  // Primary time-based query
+  index("idx_smdr_day_bucket").on(table.dayBucket),
+  
+  // Pattern: "Long-term trend analysis" (executive reporting)
+  index("idx_smdr_day_requests").on(table.dayBucket, table.totalRequests),
+  
+  // Pattern: "SLA compliance reporting" (audits)
+  index("idx_smdr_sla").on(table.slaMet, table.dayBucket),
+  
+  // Pattern: "Error trend analysis" (capacity planning)
+  index("idx_smdr_errors").on(table.totalError5xxCount, table.dayBucket),
 ]);
 
 // ============================================================================
@@ -11243,12 +11337,23 @@ export const sessionAlertEvents = pgTable("session_alert_events", {
   createdAt: timestamp("created_at").notNull().defaultNow(),
   updatedAt: timestamp("updated_at").notNull().defaultNow(),
 }, (table) => [
-  index("idx_alert_event_alert_id").on(table.alertId),
-  index("idx_alert_event_policy").on(table.policyId),
-  index("idx_alert_event_state").on(table.state),
-  index("idx_alert_event_severity").on(table.severity),
-  index("idx_alert_event_fired").on(table.firedAt),
-  index("idx_alert_event_fingerprint").on(table.fingerprint),
+  // Primary lookup
+  index("idx_sae_alert_id").on(table.alertId),
+  
+  // Pattern: "Active alerts by severity" (ops dashboard)
+  index("idx_sae_state_severity").on(table.state, table.severity, table.firedAt),
+  
+  // Pattern: "Policy analysis" (alert tuning)
+  index("idx_sae_policy_fingerprint").on(table.policyId, table.fingerprint),
+  
+  // Pattern: "Recent firing alerts" (incident response)
+  index("idx_sae_fired_desc").on(table.firedAt),
+  
+  // Pattern: "Deduplication lookup" (real-time)
+  index("idx_sae_fingerprint_state").on(table.fingerprint, table.state),
+  
+  // Pattern: "Resolution tracking" (SLA reporting)
+  index("idx_sae_resolved").on(table.resolvedAt, table.state),
 ]);
 
 // ============================================================================

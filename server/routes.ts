@@ -61,7 +61,9 @@ import batchProcessorRoutes from "./routes/batch-processor-routes";
 import shardRebalancerRoutes from "./routes/shard-rebalancer-routes";
 import sessionMonitoringRoutes from "./routes/session-monitoring-routes";
 import enterpriseSessionMonitoringRoutes from "./routes/enterprise-session-monitoring-routes";
+import enterpriseDbOptimizerRoutes from "./routes/enterprise-db-optimizer-routes";
 import { enterpriseSessionMetrics } from "./core/monitoring/enterprise-session-metrics";
+import { dbOptimizer } from "./core/db/enterprise-db-optimizer";
 import { nftMarketplaceService } from "./services/NftMarketplaceService";
 import { launchpadService } from "./services/LaunchpadService";
 import { gameFiService } from "./services/GameFiService";
@@ -1928,6 +1930,14 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   enterpriseSessionMetrics.start();
   console.log("[SessionMonitoring] ✅ Enterprise session monitoring routes registered (Prometheus metrics, soak tests, Redis failover)");
   console.log("[EnterpriseMetrics] ✅ Enterprise v2.0 metrics engine started (granular tracking, advanced alerting, security metrics)");
+
+  // ============================================
+  // ENTERPRISE DATABASE OPTIMIZER
+  // Retention policies, rollup aggregation, connection pool tuning
+  // ============================================
+  app.use("/api/internal/db-optimizer", enterpriseDbOptimizerRoutes);
+  dbOptimizer.start();
+  console.log("[DbOptimizer] ✅ Enterprise database optimizer routes registered (retention: 30d/18mo/5y, pool: 20)");
 
   // ============================================
   // WALLET DASHBOARD (Enterprise Wallet Management)
