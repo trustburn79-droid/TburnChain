@@ -8,6 +8,17 @@ import {
   SYSTEM_ADDRESSES,
   SIGNER_ADDRESSES 
 } from "../utils/tburn-address";
+import {
+  genesisGenerator,
+  GENESIS_CONFIG,
+  CHAIN_CONFIG,
+  TOKENOMICS,
+  VALIDATOR_CONFIG,
+  SHARD_CONFIG,
+  BLOCK_CONFIG,
+  REWARDS_CONFIG,
+  SECURITY_CONFIG,
+} from "../core/genesis/enterprise-genesis-config";
 
 const router = Router();
 
@@ -1158,6 +1169,288 @@ router.post('/reset', async (req: Request, res: Response) => {
   } catch (error) {
     console.error('Error resetting genesis:', error);
     res.status(500).json({ error: 'Failed to reset genesis' });
+  }
+});
+
+// ============================================
+// ENTERPRISE GENESIS CONFIGURATION ENDPOINTS
+// ============================================
+
+// GET /api/admin/genesis/enterprise/network-stats - Enterprise network statistics
+router.get('/enterprise/network-stats', (_req: Request, res: Response) => {
+  try {
+    const stats = genesisGenerator.getNetworkStats();
+    res.json({
+      success: true,
+      data: stats,
+      timestamp: Date.now(),
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: error instanceof Error ? error.message : "Unknown error",
+    });
+  }
+});
+
+// GET /api/admin/genesis/enterprise/chain - Chain configuration
+router.get('/enterprise/chain', (_req: Request, res: Response) => {
+  res.json({
+    success: true,
+    data: {
+      chainId: CHAIN_CONFIG.CHAIN_ID,
+      chainName: CHAIN_CONFIG.CHAIN_NAME,
+      chainSymbol: CHAIN_CONFIG.CHAIN_SYMBOL,
+      decimals: CHAIN_CONFIG.DECIMALS,
+      rpcEndpoint: CHAIN_CONFIG.RPC_ENDPOINT,
+      wsEndpoint: CHAIN_CONFIG.WS_ENDPOINT,
+      explorerUrl: CHAIN_CONFIG.EXPLORER_URL,
+    },
+    timestamp: Date.now(),
+  });
+});
+
+// GET /api/admin/genesis/enterprise/tokenomics - Token economics
+router.get('/enterprise/tokenomics', (_req: Request, res: Response) => {
+  const formatBigInt = (value: bigint) => ({
+    raw: value.toString(),
+    formatted: (Number(value) / 1e18).toLocaleString(),
+  });
+
+  res.json({
+    success: true,
+    data: {
+      totalSupply: formatBigInt(TOKENOMICS.TOTAL_SUPPLY),
+      allocation: Object.entries(TOKENOMICS.ALLOCATION).map(([key, value]) => ({
+        category: key,
+        amount: formatBigInt(value.amount),
+        percentage: value.percentage,
+        description: value.description,
+        vestingMonths: 'vestingMonths' in value ? value.vestingMonths : 0,
+        cliffMonths: 'cliffMonths' in value ? value.cliffMonths : 0,
+      })),
+    },
+    timestamp: Date.now(),
+  });
+});
+
+// GET /api/admin/genesis/enterprise/validators - Validator configuration
+router.get('/enterprise/validators', (_req: Request, res: Response) => {
+  const formatBigInt = (value: bigint) => ({
+    raw: value.toString(),
+    formatted: (Number(value) / 1e18).toLocaleString(),
+  });
+
+  res.json({
+    success: true,
+    data: {
+      genesisValidatorCount: VALIDATOR_CONFIG.GENESIS_VALIDATOR_COUNT,
+      stakePerValidator: formatBigInt(VALIDATOR_CONFIG.STAKE_PER_VALIDATOR),
+      minimumSelfBond: formatBigInt(VALIDATOR_CONFIG.MINIMUM_SELF_BOND),
+      maximumDelegationRatio: VALIDATOR_CONFIG.MAXIMUM_DELEGATION_RATIO,
+      minimumDelegation: formatBigInt(VALIDATOR_CONFIG.MINIMUM_DELEGATION),
+      stakeDistribution: VALIDATOR_CONFIG.STAKE_DISTRIBUTION,
+      tiers: Object.entries(VALIDATOR_CONFIG.TIERS).map(([tier, config]) => ({
+        tier,
+        minStake: formatBigInt(config.minStake),
+        rewardMultiplier: config.rewardMultiplier,
+        aiIntegrationRequired: config.aiIntegrationRequired,
+        uptimeRequirement: config.uptimeRequirement,
+      })),
+      slashing: VALIDATOR_CONFIG.SLASHING,
+    },
+    timestamp: Date.now(),
+  });
+});
+
+// GET /api/admin/genesis/enterprise/validators/distribution - Validator shard distribution
+router.get('/enterprise/validators/distribution', (_req: Request, res: Response) => {
+  try {
+    const { shardAssignments, rotationPool } = genesisGenerator.generateValidatorDistribution();
+    
+    const distribution = Array.from(shardAssignments.entries()).map(([shardId, validators]) => ({
+      shardId,
+      validatorCount: validators.length,
+      validators,
+    }));
+
+    res.json({
+      success: true,
+      data: {
+        totalShards: SHARD_CONFIG.TOTAL_SHARDS,
+        validatorsPerShard: SHARD_CONFIG.VALIDATORS_PER_SHARD,
+        rotationPoolSize: SHARD_CONFIG.ROTATION_POOL_SIZE,
+        shardDistribution: distribution,
+        rotationPool,
+      },
+      timestamp: Date.now(),
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: error instanceof Error ? error.message : "Unknown error",
+    });
+  }
+});
+
+// GET /api/admin/genesis/enterprise/shards - Shard configuration
+router.get('/enterprise/shards', (_req: Request, res: Response) => {
+  res.json({
+    success: true,
+    data: {
+      totalShards: SHARD_CONFIG.TOTAL_SHARDS,
+      minShards: SHARD_CONFIG.MIN_SHARDS,
+      maxShards: SHARD_CONFIG.MAX_SHARDS,
+      validatorsPerShard: SHARD_CONFIG.VALIDATORS_PER_SHARD,
+      rotationPoolSize: SHARD_CONFIG.ROTATION_POOL_SIZE,
+      quorumThreshold: SHARD_CONFIG.QUORUM_THRESHOLD_PERCENT,
+      fastFinalityThreshold: SHARD_CONFIG.FAST_FINALITY_THRESHOLD_PERCENT,
+      committeeRotationBlocks: SHARD_CONFIG.COMMITTEE_ROTATION_BLOCKS,
+      crossShard: SHARD_CONFIG.CROSS_SHARD,
+      performance: SHARD_CONFIG.PERFORMANCE,
+    },
+    timestamp: Date.now(),
+  });
+});
+
+// GET /api/admin/genesis/enterprise/block-params - Block parameters
+router.get('/enterprise/block-params', (_req: Request, res: Response) => {
+  const formatBigInt = (value: bigint) => ({
+    raw: value.toString(),
+    formatted: (Number(value) / 1e18).toLocaleString(),
+  });
+
+  res.json({
+    success: true,
+    data: {
+      targetBlockTimeMs: BLOCK_CONFIG.TARGET_BLOCK_TIME_MS,
+      maxBlockTimeMs: BLOCK_CONFIG.MAX_BLOCK_TIME_MS,
+      minBlockTimeMs: BLOCK_CONFIG.MIN_BLOCK_TIME_MS,
+      blockGasLimit: BLOCK_CONFIG.BLOCK_GAS_LIMIT,
+      gasLimitIncreaseRate: BLOCK_CONFIG.GAS_LIMIT_INCREASE_RATE,
+      gasLimitDecreaseRate: BLOCK_CONFIG.GAS_LIMIT_DECREASE_RATE,
+      minGasPrice: formatBigInt(BLOCK_CONFIG.MIN_GAS_PRICE),
+      bftTimeoutsMs: BLOCK_CONFIG.BFT_TIMEOUTS_MS,
+      maxTransactionsPerBlock: BLOCK_CONFIG.MAX_TRANSACTIONS_PER_BLOCK,
+      maxBlockSizeBytes: BLOCK_CONFIG.MAX_BLOCK_SIZE_BYTES,
+      finalityConfirmations: BLOCK_CONFIG.FINALITY_CONFIRMATIONS,
+    },
+    timestamp: Date.now(),
+  });
+});
+
+// GET /api/admin/genesis/enterprise/rewards - Rewards and inflation
+router.get('/enterprise/rewards', (_req: Request, res: Response) => {
+  const formatBigInt = (value: bigint) => ({
+    raw: value.toString(),
+    formatted: (Number(value) / 1e18).toLocaleString(),
+  });
+
+  res.json({
+    success: true,
+    data: {
+      year1Emission: formatBigInt(REWARDS_CONFIG.YEAR_1_EMISSION),
+      emissionSchedule: REWARDS_CONFIG.EMISSION_SCHEDULE,
+      distribution: REWARDS_CONFIG.DISTRIBUTION,
+      performanceMultipliers: REWARDS_CONFIG.PERFORMANCE_MULTIPLIERS,
+      burn: REWARDS_CONFIG.BURN,
+      epoch: REWARDS_CONFIG.EPOCH,
+    },
+    timestamp: Date.now(),
+  });
+});
+
+// GET /api/admin/genesis/enterprise/rewards/emission-schedule - 20-year emission schedule
+router.get('/enterprise/rewards/emission-schedule', (_req: Request, res: Response) => {
+  try {
+    const schedule = genesisGenerator.calculateEmissionSchedule();
+    
+    const formattedSchedule = schedule.map(({ year, emission, apr }) => ({
+      year,
+      emission: {
+        raw: emission.toString(),
+        formatted: (Number(emission) / 1e18).toLocaleString(),
+      },
+      apr: (apr * 100).toFixed(2) + "%",
+    }));
+
+    res.json({
+      success: true,
+      data: {
+        totalYears: REWARDS_CONFIG.EMISSION_SCHEDULE.TOTAL_YEARS,
+        annualDecayRate: REWARDS_CONFIG.EMISSION_SCHEDULE.ANNUAL_DECAY_RATE,
+        floorApr: REWARDS_CONFIG.EMISSION_SCHEDULE.FLOOR_APR,
+        schedule: formattedSchedule,
+      },
+      timestamp: Date.now(),
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: error instanceof Error ? error.message : "Unknown error",
+    });
+  }
+});
+
+// GET /api/admin/genesis/enterprise/security - Security configuration
+router.get('/enterprise/security', (_req: Request, res: Response) => {
+  res.json({
+    success: true,
+    data: {
+      crypto: SECURITY_CONFIG.CRYPTO,
+      keyCeremony: SECURITY_CONFIG.KEY_CEREMONY,
+      network: SECURITY_CONFIG.NETWORK,
+      audit: SECURITY_CONFIG.AUDIT,
+    },
+    timestamp: Date.now(),
+  });
+});
+
+// GET /api/admin/genesis/enterprise/summary - Complete genesis summary
+router.get('/enterprise/summary', (_req: Request, res: Response) => {
+  try {
+    const stats = genesisGenerator.getNetworkStats();
+    const { shardAssignments, rotationPool } = genesisGenerator.generateValidatorDistribution();
+    const emissionSchedule = genesisGenerator.calculateEmissionSchedule();
+
+    res.json({
+      success: true,
+      data: {
+        chain: {
+          id: CHAIN_CONFIG.CHAIN_ID,
+          name: CHAIN_CONFIG.CHAIN_NAME,
+          symbol: CHAIN_CONFIG.CHAIN_SYMBOL,
+        },
+        network: stats,
+        validators: {
+          total: VALIDATOR_CONFIG.GENESIS_VALIDATOR_COUNT,
+          assignedToShards: VALIDATOR_CONFIG.GENESIS_VALIDATOR_COUNT - SHARD_CONFIG.ROTATION_POOL_SIZE,
+          rotationPool: rotationPool.length,
+          shardsWithValidators: shardAssignments.size,
+        },
+        tokenomics: {
+          totalSupply: TOKENOMICS.TOTAL_SUPPLY_FORMATTED,
+          year1Emission: REWARDS_CONFIG.YEAR_1_EMISSION_FORMATTED,
+          year20Emission: {
+            raw: emissionSchedule[19].emission.toString(),
+            formatted: (Number(emissionSchedule[19].emission) / 1e18).toLocaleString(),
+          },
+          txFeeBurnRate: REWARDS_CONFIG.BURN.TRANSACTION_FEE_BURN_PERCENT + "%",
+        },
+        performance: {
+          targetTps: SHARD_CONFIG.PERFORMANCE.TARGET_TOTAL_TPS,
+          blockTimeMs: BLOCK_CONFIG.TARGET_BLOCK_TIME_MS,
+          shards: SHARD_CONFIG.TOTAL_SHARDS,
+          tpsPerShard: SHARD_CONFIG.PERFORMANCE.TPS_PER_SHARD,
+        },
+      },
+      timestamp: Date.now(),
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: error instanceof Error ? error.message : "Unknown error",
+    });
   }
 });
 
