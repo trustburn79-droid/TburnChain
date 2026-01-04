@@ -150,20 +150,51 @@ app.use((req: Request, res: Response, next: NextFunction) => {
   // 내부 API 호출 감지 (X-Internal-Request 헤더 또는 localhost fetch)
   const isInternalRequest = req.headers['x-internal-request'] === 'true';
   
-  // 세션이 불필요한 공개 API 경로
+  // ★ 세션이 불필요한 경로 - 오직 공개 읽기 전용 API만 (관리자 API 제외)
+  // 주의: 너무 광범위한 경로를 포함하면 관리자 인증이 깨짐
   const skipSessionPaths = [
-    '/api/public/',           // 공개 API
-    '/api/health',            // 헬스 체크
-    '/health',                // 루트 헬스 체크
-    '/api/network/stats',     // 네트워크 통계 (공개)
-    '/api/shards',            // 샤드 정보 (공개)
-    '/api/validators',        // 검증인 정보 (공개)
-    '/api/blocks',            // 블록 정보 (공개)
-    '/api/transactions',      // 트랜잭션 정보 (공개)
-    '/api/enterprise/',       // 엔터프라이즈 내부 API
+    '/api/public/',              // 공개 API (인증 불필요)
+    '/api/health',               // 헬스 체크
+    '/health',                   // 루트 헬스 체크
+    '/api/public/v1/',           // 공개 API v1
   ];
   
-  const shouldSkipSession = isInternalRequest || skipSessionPaths.some(path => req.path.startsWith(path));
+  // ★ 추가: GET 요청이면서 공개 데이터 조회인 경우만 스킵
+  // 관리자 경로(admin, maintenance, config 등)는 반드시 세션 유지
+  const publicReadOnlyGetPaths = [
+    '/api/network/stats',        // 네트워크 통계 조회
+  ];
+  
+  // ★ 정확한 경로 매칭 - 하위 경로가 있으면 스킵하지 않음
+  const exactPublicGetPaths = [
+    '/api/shards',               // 정확히 /api/shards만 (하위 경로 아님)
+    '/api/blocks',               // 정확히 /api/blocks만
+    '/api/transactions',         // 정확히 /api/transactions만
+  ];
+  
+  // 관리자/인증 필요 경로 패턴 (세션 유지 필수)
+  const requiresSession = 
+    req.path.includes('/admin') ||
+    req.path.includes('/config') ||
+    req.path.includes('/maintenance') ||
+    req.path.includes('/auth') ||
+    req.path.includes('/user') ||
+    req.path.includes('/member');
+  
+  // 이미 인증 쿠키가 있으면 세션 스킵하지 않음
+  const hasSessionCookie = !!req.headers.cookie?.includes('connect.sid');
+  
+  const isPublicReadOnlyGet = req.method === 'GET' && 
+    !requiresSession &&
+    !hasSessionCookie &&
+    (publicReadOnlyGetPaths.some(path => req.path.startsWith(path)) ||
+     exactPublicGetPaths.includes(req.path));
+  
+  const shouldSkipSession = !requiresSession &&
+    !hasSessionCookie &&
+    (isInternalRequest || 
+     skipSessionPaths.some(path => req.path.startsWith(path)) ||
+     isPublicReadOnlyGet);
   
   if (shouldSkipSession) {
     sessionSkipCount++;

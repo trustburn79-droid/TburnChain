@@ -41,32 +41,126 @@ export default async function runAppServices(
   app: Express,
   server: Server,
 ): Promise<void> {
-  // Session configuration - MemoryStore for Autoscale (no Redis delay)
+  // ★ [CRITICAL FIX] 프로덕션 MemoryStore 설정 - 오버플로우 방지
   const sessionStore = new MemoryStore({
-    checkPeriod: 86400000,
+    checkPeriod: 60000,     // 1분마다 만료된 세션 정리 (기존 24시간에서 단축!)
+    max: 5000,              // 최대 5000개 세션 (프로덕션 용량 증가)
+    ttl: 1800000,           // 세션 TTL 30분 (기존 24시간에서 단축!)
+    stale: false,           // 만료된 세션 즉시 삭제
+    dispose: (key: string) => {
+      if (process.env.DEBUG_SESSION === 'true') {
+        console.log(`[Session] Disposed: ${key.substring(0, 8)}...`);
+      }
+    }
   });
 
   // ★ 프로덕션 환경 자동 감지 - Autoscale 배포 시 HTTPS가 자동으로 활성화됨
   const isProduction = process.env.NODE_ENV === "production" || (process.env.REPL_SLUG && !process.env.REPL_ID);
   const cookieSecure = isProduction || process.env.COOKIE_SECURE === "true";
 
-  app.use(
-    session({
-      store: sessionStore,
-      secret: process.env.SESSION_SECRET || "tburn-secret-key-change-in-production",
-      resave: false,
-      saveUninitialized: false,
-      cookie: {
-        secure: cookieSecure,
-        httpOnly: true,
-        maxAge: 24 * 60 * 60 * 1000,
-        sameSite: cookieSecure ? "none" : "lax", // ★ HTTPS 환경에서는 none으로 설정
-      },
-      proxy: true,
-    })
-  );
+  // ★ 세션 미들웨어 정의
+  const sessionMiddleware = session({
+    store: sessionStore,
+    secret: process.env.SESSION_SECRET || "tburn-secret-key-change-in-production",
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      secure: cookieSecure,
+      httpOnly: true,
+      maxAge: 2 * 60 * 60 * 1000, // 2시간으로 단축 (메모리 절약)
+      sameSite: cookieSecure ? "none" : "lax",
+    },
+    proxy: true,
+  });
 
-  log(`Session store: MemoryStore (Production Autoscale)`, "session");
+  // ★ 세션 모니터링 카운터
+  let sessionCreateCount = 0;
+  let sessionSkipCount = 0;
+  let lastSessionReport = Date.now();
+
+  // ★ [CRITICAL FIX] 조건부 세션 미들웨어 - 내부 호출 및 공개 API에서 세션 생성 건너뛰기
+  // 이 로직 없이는 ProductionDataPoller, DataCache 등 내부 호출이 세션을 생성하여
+  // MemoryStore가 30-60분 내에 가득 차서 "Internal Server Error" 발생
+  app.use((req: Request, res: Response, next: NextFunction) => {
+    // 내부 API 호출 감지 (X-Internal-Request 헤더)
+    const isInternalRequest = req.headers['x-internal-request'] === 'true';
+    
+    // ★ 세션이 불필요한 경로 - 오직 공개 읽기 전용 API만 (관리자 API 제외)
+    // 주의: 너무 광범위한 경로를 포함하면 관리자 인증이 깨짐
+    const skipSessionPaths = [
+      '/api/public/',              // 공개 API (인증 불필요)
+      '/api/health',               // 헬스 체크
+      '/health',                   // 루트 헬스 체크
+      '/api/public/v1/',           // 공개 API v1
+    ];
+    
+    // ★ 추가: GET 요청이면서 공개 데이터 조회인 경우만 스킵
+    // 관리자 경로(admin, maintenance, config 등)는 반드시 세션 유지
+    const publicReadOnlyGetPaths = [
+      '/api/network/stats',        // 네트워크 통계 조회
+    ];
+    
+    // ★ 정확한 경로 매칭 - 하위 경로가 있으면 스킵하지 않음
+    const exactPublicGetPaths = [
+      '/api/shards',               // 정확히 /api/shards만 (하위 경로 아님)
+      '/api/blocks',               // 정확히 /api/blocks만
+      '/api/transactions',         // 정확히 /api/transactions만
+    ];
+    
+    // 관리자/인증 필요 경로 패턴 (세션 유지 필수)
+    const requiresSession = 
+      req.path.includes('/admin') ||
+      req.path.includes('/config') ||
+      req.path.includes('/maintenance') ||
+      req.path.includes('/auth') ||
+      req.path.includes('/user') ||
+      req.path.includes('/member');
+    
+    // 이미 인증 쿠키가 있으면 세션 스킵하지 않음
+    const hasSessionCookie = !!req.headers.cookie?.includes('connect.sid');
+    
+    const isPublicReadOnlyGet = req.method === 'GET' && 
+      !requiresSession &&
+      !hasSessionCookie &&
+      (publicReadOnlyGetPaths.some(path => req.path.startsWith(path)) ||
+       exactPublicGetPaths.includes(req.path));
+    
+    const shouldSkipSession = !requiresSession &&
+      !hasSessionCookie &&
+      (isInternalRequest || 
+       skipSessionPaths.some(path => req.path.startsWith(path)) ||
+       isPublicReadOnlyGet);
+    
+    if (shouldSkipSession) {
+      sessionSkipCount++;
+      // 세션 없이 빈 세션 객체만 제공 (세션 저장소에 저장하지 않음)
+      (req as any).session = {
+        id: 'skip-session',
+        cookie: {},
+        regenerate: (cb: any) => cb && cb(),
+        destroy: (cb: any) => cb && cb(),
+        reload: (cb: any) => cb && cb(),
+        save: (cb: any) => cb && cb(),
+        touch: () => {},
+      };
+      return next();
+    }
+    
+    sessionCreateCount++;
+    
+    // 5분마다 세션 사용량 리포트
+    const now = Date.now();
+    if (now - lastSessionReport > 300000) {
+      const skipRatio = ((sessionSkipCount / (sessionCreateCount + sessionSkipCount)) * 100).toFixed(1);
+      console.log(`[Session Monitor] Created: ${sessionCreateCount}, Skipped: ${sessionSkipCount}, Skip Ratio: ${skipRatio}%`);
+      lastSessionReport = now;
+    }
+    
+    return sessionMiddleware(req, res, next);
+  });
+
+  log(`Session store: MemoryStore (max: 5000, TTL: 30m, cleanup: 1m)`, "session");
+  log(`Session skip: Enabled for public APIs and internal calls`, "session");
 
   // Google OAuth Configuration
   const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;

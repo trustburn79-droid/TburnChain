@@ -23,6 +23,13 @@ Core architectural decisions and features include:
 - **Reward Distribution Engine**: Automatic validator reward distribution based on proposer rewards, verifier rewards, and gas fee distribution.
 - **Mainnet Launch Configuration**: Chain ID 6000, 125 genesis validators, 64 shards, ~210,000 TPS capacity, 20-year deflationary tokenomics, and various burn mechanics.
 - **Performance Optimizations**: Includes instant first load, deferred data fetch, static landing page architecture, route-based code splitting, and enhanced chunk error recovery.
+- **Production Stability (2026-01-04)**: Critical fix for MemoryStore session overflow causing "Internal Server Error" and "upstream request timeout". Implemented refined conditional session middleware that:
+  - Skips session creation for public read-only APIs (/api/public/*, /api/network/stats)
+  - Uses exact path matching for /api/shards, /api/blocks, /api/transactions (not subpaths)
+  - Protects admin paths (/admin, /config, /maintenance, /auth, /user, /member) - sessions always created
+  - Preserves sessions for requests with existing connect.sid cookie
+  - MemoryStore optimized: production 5000 max / dev 2000 max, 30-minute TTL, 1-minute cleanup cycle
+  - Session monitoring with skip ratio reporting every 5-10 minutes
 - **Enterprise Scalability Infrastructure**: Production-grade resilience patterns including `BlockchainOrchestrator` (Circuit Breaker, Health Check, Alert Manager), `PersistenceBatcher` (Priority Queue, Dead Letter Queue, Write-Ahead Log), and `AdaptiveFeeEngine` (EIP-1559 style with TWAP, Fee Prediction, EIP-4844 Blob Fees).
 - **Enterprise Validator Orchestrator**: Production-grade validator management for 125 genesis validators (1M TBURN each) with O(1) lookups, EWMA performance scoring (α=0.3), 32K ring buffer metrics, weighted random selection, committee formation, slashing (5% double-sign, 0.1% downtime), jailing (24h), tombstoning, and reward distribution (40% proposer, 50% verifier, 10% burn). API endpoints at `/api/validators/*`.
 - **Enterprise Validator Performance Tracking**: Production-grade telemetry system with percentile tracking (P50/P95/P99), SLA monitoring (99.90% uptime, 250ms P99 latency targets), real-time alerting with escalation levels (0-5), slashing detection pipeline with confirmation requirements, and debounce windows. Database tables: `validator_performance_snapshots`, `validator_latency_events`, `validator_slash_events`, `validator_sla_alerts`. API endpoints at `/api/validators/telemetry/*`, `/api/validators/alerts/*`, `/api/validators/slashing/*`.
