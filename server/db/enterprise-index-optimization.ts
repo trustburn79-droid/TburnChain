@@ -939,6 +939,172 @@ export const ENTERPRISE_INDEXES = {
      ON reward_wal(committed_at DESC) 
      WHERE status = 'COMMITTED'`,
   ],
+
+  // ============================================
+  // VALIDATOR PERFORMANCE TRACKING - Enterprise Telemetry
+  // High-frequency queries for 125 validators × 64 shards
+  // ============================================
+  VALIDATOR_PERFORMANCE_SNAPSHOTS: [
+    // Primary lookup: validator + epoch (time-series queries)
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_vps_validator_epoch 
+     ON validator_performance_snapshots(validator_id, epoch_number DESC, block_number DESC)`,
+    
+    // Shard-based queries (dashboard per-shard views)
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_vps_shard_epoch 
+     ON validator_performance_snapshots(shard_id, epoch_number DESC, created_at DESC)`,
+    
+    // Performance score filtering (top performers dashboard)
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_vps_performance_score 
+     ON validator_performance_snapshots(performance_score DESC, validator_id) 
+     WHERE sla_compliant = true`,
+    
+    // SLA violation tracking
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_vps_sla_violations 
+     ON validator_performance_snapshots(sla_compliant, sla_violation_count DESC, validator_id) 
+     WHERE sla_compliant = false`,
+    
+    // Slashing risk monitoring
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_vps_slashing_risk 
+     ON validator_performance_snapshots(slashing_risk_score DESC, validator_id) 
+     WHERE slashing_risk_score > 20`,
+    
+    // Block number range queries (BRIN-style optimization)
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_vps_block_range 
+     ON validator_performance_snapshots(block_number DESC, created_at DESC)`,
+    
+    // Latency percentile analysis
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_vps_latency_p99 
+     ON validator_performance_snapshots(latency_p99 DESC, validator_id)`,
+    
+    // Uptime tracking
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_vps_uptime 
+     ON validator_performance_snapshots(uptime_basis_points DESC, consecutive_uptime_blocks DESC)`,
+    
+    // Recent snapshots for real-time dashboard
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_vps_recent 
+     ON validator_performance_snapshots(created_at DESC, snapshot_type)`,
+  ],
+
+  VALIDATOR_LATENCY_EVENTS: [
+    // Primary lookup: validator + block (event correlation)
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_vle_validator_block 
+     ON validator_latency_events(validator_id, block_number DESC, measured_at DESC)`,
+    
+    // Event type analysis
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_vle_event_type 
+     ON validator_latency_events(event_type, latency_ms DESC, created_at DESC)`,
+    
+    // High latency events (alerting)
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_vle_high_latency 
+     ON validator_latency_events(latency_ms DESC, validator_id, triggered_alert) 
+     WHERE latency_ms > 100`,
+    
+    // Missed block correlation
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_vle_missed_blocks 
+     ON validator_latency_events(caused_missed_block, validator_id, block_number DESC) 
+     WHERE caused_missed_block = true`,
+    
+    // Network conditions analysis
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_vle_network_conditions 
+     ON validator_latency_events(network_conditions, created_at DESC)`,
+    
+    // Shard-based latency analysis
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_vle_shard 
+     ON validator_latency_events(shard_id, event_type, latency_ms DESC)`,
+    
+    // Recent events for monitoring
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_vle_recent 
+     ON validator_latency_events(measured_at DESC, event_type)`,
+  ],
+
+  VALIDATOR_SLASH_EVENTS: [
+    // Primary lookup: validator + epoch
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_vse_validator_epoch 
+     ON validator_slash_events(validator_id, epoch_number DESC, detected_at DESC)`,
+    
+    // Slash type analysis
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_vse_slash_type 
+     ON validator_slash_events(slash_type, severity, status, created_at DESC)`,
+    
+    // Pending confirmation (requires attention)
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_vse_pending 
+     ON validator_slash_events(status, confirmation_count, created_at DESC) 
+     WHERE status IN ('detected', 'confirmed')`,
+    
+    // Severity-based filtering
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_vse_severity 
+     ON validator_slash_events(severity DESC, slash_type, validator_id) 
+     WHERE severity IN ('major', 'critical')`,
+    
+    // Evidence lookup
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_vse_evidence 
+     ON validator_slash_events(evidence_hash, detection_method)`,
+    
+    // Shard-based slashing analysis
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_vse_shard 
+     ON validator_slash_events(shard_id, slash_type, status)`,
+    
+    // Appeal tracking
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_vse_appeals 
+     ON validator_slash_events(appeal_status, appeal_deadline) 
+     WHERE appeal_status IS NOT NULL`,
+    
+    // Recent slashing for dashboard
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_vse_recent 
+     ON validator_slash_events(detected_at DESC, status)`,
+    
+    // Tombstoned validators
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_vse_tombstoned 
+     ON validator_slash_events(tombstoned, validator_id, executed_at DESC) 
+     WHERE tombstoned = true`,
+  ],
+
+  VALIDATOR_SLA_ALERTS: [
+    // Primary lookup: validator + epoch
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_vsa_validator_epoch 
+     ON validator_sla_alerts(validator_id, epoch_number DESC, created_at DESC)`,
+    
+    // Active alerts (dashboard)
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_vsa_active 
+     ON validator_sla_alerts(status, alert_level, validator_id) 
+     WHERE status = 'active'`,
+    
+    // Alert level prioritization
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_vsa_level 
+     ON validator_sla_alerts(alert_level, alert_type, created_at DESC)`,
+    
+    // Escalation tracking
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_vsa_escalation 
+     ON validator_sla_alerts(escalation_level DESC, auto_escalate_at, status) 
+     WHERE status = 'active'`,
+    
+    // Alert type analysis
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_vsa_type 
+     ON validator_sla_alerts(alert_type, status, occurrence_count DESC)`,
+    
+    // SLA breach duration (critical alerts)
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_vsa_breach 
+     ON validator_sla_alerts(sla_breach_duration DESC, validator_id) 
+     WHERE sla_breach_duration > 0`,
+    
+    // Shard-based alerts
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_vsa_shard 
+     ON validator_sla_alerts(shard_id, alert_level, status)`,
+    
+    // Recent alerts for monitoring
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_vsa_recent 
+     ON validator_sla_alerts(last_occurrence_at DESC, status, alert_level)`,
+    
+    // Notification tracking
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_vsa_notifications 
+     ON validator_sla_alerts(last_notification_at, notifications_sent) 
+     WHERE notifications_sent > 0`,
+    
+    // Acknowledgement tracking
+    `CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_vsa_acknowledged 
+     ON validator_sla_alerts(acknowledged_by, acknowledged_at DESC) 
+     WHERE acknowledged_by IS NOT NULL`,
+  ],
 };
 
 /**
@@ -1059,6 +1225,11 @@ export async function analyzeTokenDistributionTables(): Promise<void> {
     'reward_batches',
     'reward_gas_accumulators',
     'reward_wal',
+    // Validator Performance Tracking
+    'validator_performance_snapshots',
+    'validator_latency_events',
+    'validator_slash_events',
+    'validator_sla_alerts',
   ];
   
   console.log('[Enterprise DB] Running ANALYZE on token distribution tables...');

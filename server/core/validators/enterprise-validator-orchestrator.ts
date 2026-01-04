@@ -125,6 +125,24 @@ const TOTAL_GENESIS_VALIDATORS = 125;
 const VALIDATORS_PER_SHARD = 2;
 const ROTATION_POOL_SIZE = 3;
 
+// SLA Configuration
+const SLA_CONFIG = {
+  UPTIME_TARGET_BASIS_POINTS: 9990, // 99.90%
+  LATENCY_TARGET_MS: 100,
+  LATENCY_P99_TARGET_MS: 250,
+  BLOCK_PRODUCTION_RATE_TARGET: 9900, // 99%
+  ALERT_DEBOUNCE_MS: 5000,
+  ESCALATION_THRESHOLDS: [1, 3, 5, 10, 20], // occurrence counts for escalation levels
+};
+
+// Slashing Detection Configuration
+const SLASHING_DETECTION_CONFIG = {
+  DOUBLE_SIGN_DETECTION_WINDOW_BLOCKS: 100,
+  DOWNTIME_STREAK_THRESHOLD: 50,
+  REQUIRED_CONFIRMATIONS: 2,
+  APPEAL_WINDOW_SECONDS: 86400, // 24 hours
+};
+
 // ============================================
 // RING BUFFER FOR METRICS
 // ============================================
@@ -178,6 +196,110 @@ class MetricsRingBuffer {
 }
 
 // ============================================
+// PERCENTILE RING BUFFER FOR LATENCY TRACKING
+// ============================================
+
+class PercentileRingBuffer {
+  private buffer: number[];
+  private writeIndex: number = 0;
+  private count: number = 0;
+  private readonly capacity: number;
+  private sortedCache: number[] | null = null;
+  private cacheValid: boolean = false;
+
+  constructor(capacity: number = 1024) {
+    this.capacity = capacity;
+    this.buffer = new Array(capacity);
+  }
+
+  push(value: number): void {
+    this.buffer[this.writeIndex] = value;
+    this.writeIndex = (this.writeIndex + 1) % this.capacity;
+    if (this.count < this.capacity) this.count++;
+    this.cacheValid = false;
+  }
+
+  private ensureSortedCache(): void {
+    if (!this.cacheValid) {
+      this.sortedCache = this.buffer.slice(0, this.count).sort((a, b) => a - b);
+      this.cacheValid = true;
+    }
+  }
+
+  getPercentile(p: number): number {
+    if (this.count === 0) return 0;
+    this.ensureSortedCache();
+    const idx = Math.min(Math.floor(p * this.count / 100), this.count - 1);
+    return this.sortedCache![idx];
+  }
+
+  getP50(): number { return this.getPercentile(50); }
+  getP95(): number { return this.getPercentile(95); }
+  getP99(): number { return this.getPercentile(99); }
+
+  getMin(): number {
+    if (this.count === 0) return 0;
+    this.ensureSortedCache();
+    return this.sortedCache![0];
+  }
+
+  getMax(): number {
+    if (this.count === 0) return 0;
+    this.ensureSortedCache();
+    return this.sortedCache![this.count - 1];
+  }
+
+  getAvg(): number {
+    if (this.count === 0) return 0;
+    let sum = 0;
+    for (let i = 0; i < this.count; i++) {
+      sum += this.buffer[i];
+    }
+    return sum / this.count;
+  }
+
+  size(): number { return this.count; }
+
+  clear(): void {
+    this.buffer = new Array(this.capacity);
+    this.writeIndex = 0;
+    this.count = 0;
+    this.cacheValid = false;
+  }
+}
+
+// ============================================
+// SLA ALERT TRACKER
+// ============================================
+
+interface SlaAlert {
+  alertId: string;
+  validatorId: string;
+  alertType: string;
+  alertLevel: 'info' | 'warning' | 'critical' | 'emergency';
+  message: string;
+  thresholdValue: number;
+  actualValue: number;
+  occurrenceCount: number;
+  escalationLevel: number;
+  firstOccurrenceAt: number;
+  lastOccurrenceAt: number;
+  status: 'active' | 'acknowledged' | 'resolved';
+}
+
+interface SlashingDetection {
+  slashId: string;
+  validatorId: string;
+  slashType: SlashReason;
+  severity: 'minor' | 'major' | 'critical';
+  evidenceHash: string;
+  evidenceData: object;
+  confirmationCount: number;
+  detectedAt: number;
+  status: 'detected' | 'confirmed' | 'executed';
+}
+
+// ============================================
 // ENTERPRISE VALIDATOR ORCHESTRATOR
 // ============================================
 
@@ -190,14 +312,24 @@ export class EnterpriseValidatorOrchestrator {
   private metricsBuffer: MetricsRingBuffer;
   private performanceScores: Map<string, number> = new Map();
   
+  // Enhanced telemetry structures
+  private latencyBuffers: Map<string, PercentileRingBuffer> = new Map();
+  private uptimeTrackers: Map<string, { consecutiveBlocks: number; lastActive: number; downtimeEvents: number }> = new Map();
+  private activeAlerts: Map<string, SlaAlert> = new Map();
+  private pendingSlashDetections: Map<string, SlashingDetection> = new Map();
+  private alertHistory: SlaAlert[] = [];
+  private slashingHistory: SlashingDetection[] = [];
+  
   private currentEpoch: number = 0;
   private currentBlockNumber: number = 0;
   private lastHealthCheckTime: number = 0;
   private lastRotationTime: number = 0;
+  private lastSnapshotTime: number = 0;
   
   private isRunning: boolean = false;
   private healthCheckTimer?: NodeJS.Timeout;
   private metricsTimer?: NodeJS.Timeout;
+  private telemetryTimer?: NodeJS.Timeout;
 
   private totalActiveStake: bigint = BigInt(0);
   private totalValidators: number = 0;
@@ -207,6 +339,7 @@ export class EnterpriseValidatorOrchestrator {
   private blocksProduced: number = 0;
   private blocksVerified: number = 0;
   private totalRewardsDistributed: bigint = BigInt(0);
+  private telemetryEnabled: boolean = true;
 
   constructor() {
     this.metricsBuffer = new MetricsRingBuffer(METRICS_RING_BUFFER_SIZE);
@@ -1060,6 +1193,361 @@ export class EnterpriseValidatorOrchestrator {
     if (hours > 0) return `${hours}h ${minutes % 60}m ${seconds % 60}s`;
     if (minutes > 0) return `${minutes}m ${seconds % 60}s`;
     return `${seconds}s`;
+  }
+
+  // ============================================
+  // PRODUCTION-GRADE TELEMETRY
+  // ============================================
+
+  recordLatencyEvent(validatorId: string, latencyMs: number, eventType: string = 'heartbeat'): void {
+    if (!this.telemetryEnabled) return;
+    
+    const validator = this.validators.get(validatorId);
+    if (!validator) return;
+
+    // Initialize latency buffer if not exists
+    if (!this.latencyBuffers.has(validatorId)) {
+      this.latencyBuffers.set(validatorId, new PercentileRingBuffer(1024));
+    }
+    
+    const buffer = this.latencyBuffers.get(validatorId)!;
+    buffer.push(latencyMs);
+    
+    // Update EWMA latency (α = 0.3)
+    validator.metrics.ewmaLatency = EWMA_ALPHA * latencyMs + (1 - EWMA_ALPHA) * validator.metrics.ewmaLatency;
+    validator.metrics.latencyMs = latencyMs;
+    
+    // Check for SLA violation
+    if (latencyMs > SLA_CONFIG.LATENCY_TARGET_MS) {
+      this.triggerSlaAlert(validatorId, 'latency_spike', latencyMs, SLA_CONFIG.LATENCY_TARGET_MS);
+    }
+    
+    // Check P99 latency
+    const p99 = buffer.getP99();
+    if (p99 > SLA_CONFIG.LATENCY_P99_TARGET_MS) {
+      this.triggerSlaAlert(validatorId, 'latency_p99_violation', p99, SLA_CONFIG.LATENCY_P99_TARGET_MS);
+    }
+  }
+
+  recordUptimeEvent(validatorId: string, isActive: boolean): void {
+    if (!this.telemetryEnabled) return;
+    
+    const validator = this.validators.get(validatorId);
+    if (!validator) return;
+
+    // Initialize uptime tracker if not exists
+    if (!this.uptimeTrackers.has(validatorId)) {
+      this.uptimeTrackers.set(validatorId, { consecutiveBlocks: 0, lastActive: Date.now(), downtimeEvents: 0 });
+    }
+    
+    const tracker = this.uptimeTrackers.get(validatorId)!;
+    
+    if (isActive) {
+      tracker.consecutiveBlocks++;
+      tracker.lastActive = Date.now();
+    } else {
+      // Downtime detected
+      if (tracker.consecutiveBlocks > 0) {
+        tracker.downtimeEvents++;
+      }
+      tracker.consecutiveBlocks = 0;
+      
+      // Check for consecutive downtime (slashing threshold)
+      if (tracker.downtimeEvents >= SLASHING_DETECTION_CONFIG.DOWNTIME_STREAK_THRESHOLD) {
+        this.detectSlashingEvent(validatorId, 'downtime', 'minor', {
+          downtimeEvents: tracker.downtimeEvents,
+          lastActive: tracker.lastActive,
+        });
+      }
+      
+      // Trigger SLA alert for downtime
+      this.triggerSlaAlert(validatorId, 'uptime_violation', tracker.downtimeEvents, 0);
+    }
+    
+    // Calculate uptime basis points
+    const totalBlocks = Math.max(1, tracker.consecutiveBlocks + tracker.downtimeEvents);
+    const uptimeBasisPoints = Math.floor((tracker.consecutiveBlocks / totalBlocks) * 10000);
+    validator.metrics.uptime = uptimeBasisPoints / 100;
+  }
+
+  triggerSlaAlert(
+    validatorId: string, 
+    alertType: string, 
+    actualValue: number, 
+    thresholdValue: number
+  ): void {
+    const alertKey = `${validatorId}:${alertType}`;
+    const now = Date.now();
+    
+    if (this.activeAlerts.has(alertKey)) {
+      // Update existing alert
+      const alert = this.activeAlerts.get(alertKey)!;
+      
+      // Check debounce window
+      if (now - alert.lastOccurrenceAt < SLA_CONFIG.ALERT_DEBOUNCE_MS) {
+        return; // Skip due to debounce
+      }
+      
+      alert.occurrenceCount++;
+      alert.lastOccurrenceAt = now;
+      alert.actualValue = actualValue;
+      
+      // Check for escalation
+      for (let i = SLA_CONFIG.ESCALATION_THRESHOLDS.length - 1; i >= 0; i--) {
+        if (alert.occurrenceCount >= SLA_CONFIG.ESCALATION_THRESHOLDS[i]) {
+          alert.escalationLevel = i + 1;
+          break;
+        }
+      }
+      
+      // Update alert level based on escalation
+      if (alert.escalationLevel >= 4) {
+        alert.alertLevel = 'emergency';
+      } else if (alert.escalationLevel >= 3) {
+        alert.alertLevel = 'critical';
+      } else if (alert.escalationLevel >= 2) {
+        alert.alertLevel = 'warning';
+      }
+    } else {
+      // Create new alert
+      const alertId = `alert-${validatorId}-${alertType}-${now}`;
+      const alert: SlaAlert = {
+        alertId,
+        validatorId,
+        alertType,
+        alertLevel: 'warning',
+        message: `SLA violation: ${alertType} - actual: ${actualValue}, threshold: ${thresholdValue}`,
+        thresholdValue,
+        actualValue,
+        occurrenceCount: 1,
+        escalationLevel: 0,
+        firstOccurrenceAt: now,
+        lastOccurrenceAt: now,
+        status: 'active',
+      };
+      
+      this.activeAlerts.set(alertKey, alert);
+    }
+  }
+
+  detectSlashingEvent(
+    validatorId: string,
+    slashType: SlashReason,
+    severity: 'minor' | 'major' | 'critical',
+    evidenceData: object
+  ): void {
+    const now = Date.now();
+    const slashId = `slash-${validatorId}-${slashType}-${now}`;
+    const evidenceHash = this.hashString(JSON.stringify(evidenceData));
+    
+    const detection: SlashingDetection = {
+      slashId,
+      validatorId,
+      slashType,
+      severity,
+      evidenceHash,
+      evidenceData,
+      confirmationCount: 1,
+      detectedAt: now,
+      status: 'detected',
+    };
+    
+    this.pendingSlashDetections.set(slashId, detection);
+    
+    console.log(`[ValidatorOrchestrator] Slashing detected: ${slashId} - ${slashType} (${severity})`);
+  }
+
+  confirmSlashingDetection(slashId: string): boolean {
+    const detection = this.pendingSlashDetections.get(slashId);
+    if (!detection) return false;
+    
+    detection.confirmationCount++;
+    
+    if (detection.confirmationCount >= SLASHING_DETECTION_CONFIG.REQUIRED_CONFIRMATIONS) {
+      detection.status = 'confirmed';
+      
+      // Execute slashing based on type
+      if (detection.slashType === 'double_sign') {
+        this.slashForDoubleSign(detection.validatorId, detection.evidenceHash);
+      } else if (detection.slashType === 'downtime') {
+        this.slashForDowntime(detection.validatorId);
+      }
+      
+      detection.status = 'executed';
+      this.slashingHistory.push(detection);
+      this.pendingSlashDetections.delete(slashId);
+      
+      return true;
+    }
+    
+    return false;
+  }
+
+  acknowledgeAlert(alertKey: string): boolean {
+    const alert = this.activeAlerts.get(alertKey);
+    if (!alert) return false;
+    
+    alert.status = 'acknowledged';
+    return true;
+  }
+
+  resolveAlert(alertKey: string): boolean {
+    const alert = this.activeAlerts.get(alertKey);
+    if (!alert) return false;
+    
+    alert.status = 'resolved';
+    this.alertHistory.push(alert);
+    this.activeAlerts.delete(alertKey);
+    return true;
+  }
+
+  getValidatorTelemetry(validatorId: string): object | null {
+    const validator = this.validators.get(validatorId);
+    if (!validator) return null;
+    
+    const latencyBuffer = this.latencyBuffers.get(validatorId);
+    const uptimeTracker = this.uptimeTrackers.get(validatorId);
+    
+    return {
+      validatorId,
+      shardId: validator.shardId,
+      status: validator.status,
+      
+      // Latency metrics
+      latency: {
+        current: validator.metrics.latencyMs.toFixed(2),
+        ewma: validator.metrics.ewmaLatency.toFixed(2),
+        p50: latencyBuffer?.getP50().toFixed(2) || '0',
+        p95: latencyBuffer?.getP95().toFixed(2) || '0',
+        p99: latencyBuffer?.getP99().toFixed(2) || '0',
+        min: latencyBuffer?.getMin().toFixed(2) || '0',
+        max: latencyBuffer?.getMax().toFixed(2) || '0',
+        sampleCount: latencyBuffer?.size() || 0,
+      },
+      
+      // Uptime metrics
+      uptime: {
+        percentage: validator.metrics.uptime.toFixed(2),
+        consecutiveBlocks: uptimeTracker?.consecutiveBlocks || 0,
+        downtimeEvents: uptimeTracker?.downtimeEvents || 0,
+        lastActive: uptimeTracker?.lastActive ? new Date(uptimeTracker.lastActive).toISOString() : null,
+      },
+      
+      // Block production
+      blocks: {
+        produced: validator.metrics.blockProducedCount,
+        missed: validator.metrics.blockMissedCount,
+        successRate: validator.metrics.successRate.toFixed(2),
+        ewmaSuccessRate: validator.metrics.ewmaSuccessRate.toFixed(2),
+      },
+      
+      // Performance scores
+      performance: {
+        score: validator.metrics.performanceScore.toFixed(2),
+        tier: validator.tier,
+      },
+      
+      // Slashing status
+      slashing: {
+        totalSlashed: validator.slashingInfo?.totalSlashed?.toString() || '0',
+        slashEvents: validator.slashingInfo?.slashEvents?.length || 0,
+        isTombstoned: validator.slashingInfo?.isTombstoned || false,
+      },
+      
+      // SLA compliance
+      sla: {
+        compliant: this.checkSlaCompliance(validatorId),
+        activeAlerts: Array.from(this.activeAlerts.values()).filter(a => a.validatorId === validatorId).length,
+      },
+    };
+  }
+
+  checkSlaCompliance(validatorId: string): boolean {
+    const validator = this.validators.get(validatorId);
+    if (!validator) return false;
+    
+    const latencyBuffer = this.latencyBuffers.get(validatorId);
+    const uptimeTracker = this.uptimeTrackers.get(validatorId);
+    
+    // Check uptime target
+    const uptimeBasisPoints = validator.metrics.uptime * 100;
+    if (uptimeBasisPoints < SLA_CONFIG.UPTIME_TARGET_BASIS_POINTS) return false;
+    
+    // Check P99 latency
+    if (latencyBuffer && latencyBuffer.getP99() > SLA_CONFIG.LATENCY_P99_TARGET_MS) return false;
+    
+    // Check block production rate
+    const totalBlocks = validator.metrics.blockProducedCount + validator.metrics.blockMissedCount;
+    if (totalBlocks > 0) {
+      const productionRate = Math.floor((validator.metrics.blockProducedCount / totalBlocks) * 10000);
+      if (productionRate < SLA_CONFIG.BLOCK_PRODUCTION_RATE_TARGET) return false;
+    }
+    
+    return true;
+  }
+
+  getActiveAlerts(): SlaAlert[] {
+    return Array.from(this.activeAlerts.values());
+  }
+
+  getPendingSlashingDetections(): SlashingDetection[] {
+    return Array.from(this.pendingSlashDetections.values());
+  }
+
+  getSlashingHistory(limit: number = 100): SlashingDetection[] {
+    return this.slashingHistory.slice(-limit);
+  }
+
+  getTelemetrySummary(): object {
+    const activeValidators = this.getActiveValidators();
+    const slaCompliantCount = activeValidators.filter(v => this.checkSlaCompliance(v.id)).length;
+    
+    // Aggregate latency percentiles across all validators
+    let totalP50 = 0, totalP99 = 0, count = 0;
+    for (const buffer of this.latencyBuffers.values()) {
+      if (buffer.size() > 0) {
+        totalP50 += buffer.getP50();
+        totalP99 += buffer.getP99();
+        count++;
+      }
+    }
+    
+    return {
+      validators: {
+        total: this.totalValidators,
+        active: this.activeValidators,
+        slaCompliant: slaCompliantCount,
+        slaCompliantPercentage: ((slaCompliantCount / this.activeValidators) * 100).toFixed(2),
+      },
+      
+      latency: {
+        avgP50: count > 0 ? (totalP50 / count).toFixed(2) : '0',
+        avgP99: count > 0 ? (totalP99 / count).toFixed(2) : '0',
+        target: SLA_CONFIG.LATENCY_TARGET_MS,
+        p99Target: SLA_CONFIG.LATENCY_P99_TARGET_MS,
+      },
+      
+      uptime: {
+        target: (SLA_CONFIG.UPTIME_TARGET_BASIS_POINTS / 100).toFixed(2) + '%',
+      },
+      
+      alerts: {
+        active: this.activeAlerts.size,
+        byLevel: {
+          info: Array.from(this.activeAlerts.values()).filter(a => a.alertLevel === 'info').length,
+          warning: Array.from(this.activeAlerts.values()).filter(a => a.alertLevel === 'warning').length,
+          critical: Array.from(this.activeAlerts.values()).filter(a => a.alertLevel === 'critical').length,
+          emergency: Array.from(this.activeAlerts.values()).filter(a => a.alertLevel === 'emergency').length,
+        },
+      },
+      
+      slashing: {
+        pending: this.pendingSlashDetections.size,
+        executed: this.slashingHistory.length,
+      },
+      
+      telemetryStatus: this.telemetryEnabled ? 'enabled' : 'disabled',
+    };
   }
 
   // ============================================

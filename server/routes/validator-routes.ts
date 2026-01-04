@@ -506,4 +506,259 @@ router.post('/slash-double-sign', async (req: Request, res: Response) => {
   }
 });
 
+// ============================================
+// PRODUCTION-GRADE TELEMETRY ENDPOINTS
+// ============================================
+
+router.get('/telemetry/summary', async (req: Request, res: Response) => {
+  try {
+    const orchestrator = getValidatorOrchestrator();
+    const summary = orchestrator.getTelemetrySummary();
+    res.json({ 
+      success: true, 
+      data: summary, 
+      timestamp: Date.now() 
+    });
+  } catch (error) {
+    res.status(500).json({ 
+      success: false, 
+      error: error instanceof Error ? error.message : 'Unknown error' 
+    });
+  }
+});
+
+router.get('/telemetry/:validatorId', async (req: Request, res: Response) => {
+  try {
+    const { validatorId } = req.params;
+    const orchestrator = getValidatorOrchestrator();
+    const telemetry = orchestrator.getValidatorTelemetry(validatorId);
+    
+    if (!telemetry) {
+      return res.status(404).json({ 
+        success: false, 
+        error: 'Validator not found' 
+      });
+    }
+    
+    res.json({ 
+      success: true, 
+      data: telemetry, 
+      timestamp: Date.now() 
+    });
+  } catch (error) {
+    res.status(500).json({ 
+      success: false, 
+      error: error instanceof Error ? error.message : 'Unknown error' 
+    });
+  }
+});
+
+router.get('/alerts/active', async (req: Request, res: Response) => {
+  try {
+    const orchestrator = getValidatorOrchestrator();
+    const alerts = orchestrator.getActiveAlerts();
+    res.json({ 
+      success: true, 
+      data: { alerts, count: alerts.length }, 
+      timestamp: Date.now() 
+    });
+  } catch (error) {
+    res.status(500).json({ 
+      success: false, 
+      error: error instanceof Error ? error.message : 'Unknown error' 
+    });
+  }
+});
+
+router.post('/alerts/:alertKey/acknowledge', async (req: Request, res: Response) => {
+  try {
+    const { alertKey } = req.params;
+    const orchestrator = getValidatorOrchestrator();
+    const success = orchestrator.acknowledgeAlert(alertKey);
+    
+    if (!success) {
+      return res.status(404).json({ 
+        success: false, 
+        error: 'Alert not found' 
+      });
+    }
+    
+    res.json({ 
+      success: true, 
+      message: 'Alert acknowledged',
+      timestamp: Date.now() 
+    });
+  } catch (error) {
+    res.status(500).json({ 
+      success: false, 
+      error: error instanceof Error ? error.message : 'Unknown error' 
+    });
+  }
+});
+
+router.post('/alerts/:alertKey/resolve', async (req: Request, res: Response) => {
+  try {
+    const { alertKey } = req.params;
+    const orchestrator = getValidatorOrchestrator();
+    const success = orchestrator.resolveAlert(alertKey);
+    
+    if (!success) {
+      return res.status(404).json({ 
+        success: false, 
+        error: 'Alert not found' 
+      });
+    }
+    
+    res.json({ 
+      success: true, 
+      message: 'Alert resolved',
+      timestamp: Date.now() 
+    });
+  } catch (error) {
+    res.status(500).json({ 
+      success: false, 
+      error: error instanceof Error ? error.message : 'Unknown error' 
+    });
+  }
+});
+
+router.get('/slashing/pending', async (req: Request, res: Response) => {
+  try {
+    const orchestrator = getValidatorOrchestrator();
+    const detections = orchestrator.getPendingSlashingDetections();
+    res.json({ 
+      success: true, 
+      data: { detections, count: detections.length }, 
+      timestamp: Date.now() 
+    });
+  } catch (error) {
+    res.status(500).json({ 
+      success: false, 
+      error: error instanceof Error ? error.message : 'Unknown error' 
+    });
+  }
+});
+
+router.get('/slashing/history', async (req: Request, res: Response) => {
+  try {
+    const limit = parseInt(req.query.limit as string) || 100;
+    const orchestrator = getValidatorOrchestrator();
+    const history = orchestrator.getSlashingHistory(limit);
+    res.json({ 
+      success: true, 
+      data: { history, count: history.length }, 
+      timestamp: Date.now() 
+    });
+  } catch (error) {
+    res.status(500).json({ 
+      success: false, 
+      error: error instanceof Error ? error.message : 'Unknown error' 
+    });
+  }
+});
+
+router.post('/slashing/:slashId/confirm', async (req: Request, res: Response) => {
+  try {
+    const { slashId } = req.params;
+    const orchestrator = getValidatorOrchestrator();
+    const executed = orchestrator.confirmSlashingDetection(slashId);
+    
+    res.json({ 
+      success: true, 
+      data: { 
+        slashId, 
+        executed,
+        message: executed ? 'Slashing confirmed and executed' : 'Confirmation recorded, awaiting more confirmations'
+      },
+      timestamp: Date.now() 
+    });
+  } catch (error) {
+    res.status(500).json({ 
+      success: false, 
+      error: error instanceof Error ? error.message : 'Unknown error' 
+    });
+  }
+});
+
+router.post('/telemetry/record-latency', async (req: Request, res: Response) => {
+  try {
+    const { validatorId, latencyMs, eventType } = req.body;
+    
+    if (!validatorId || latencyMs === undefined) {
+      return res.status(400).json({ 
+        success: false, 
+        error: 'Missing required fields: validatorId, latencyMs' 
+      });
+    }
+    
+    const orchestrator = getValidatorOrchestrator();
+    orchestrator.recordLatencyEvent(validatorId, latencyMs, eventType || 'heartbeat');
+    
+    res.json({ 
+      success: true, 
+      message: 'Latency event recorded',
+      timestamp: Date.now() 
+    });
+  } catch (error) {
+    res.status(500).json({ 
+      success: false, 
+      error: error instanceof Error ? error.message : 'Unknown error' 
+    });
+  }
+});
+
+router.post('/telemetry/record-uptime', async (req: Request, res: Response) => {
+  try {
+    const { validatorId, isActive } = req.body;
+    
+    if (!validatorId || isActive === undefined) {
+      return res.status(400).json({ 
+        success: false, 
+        error: 'Missing required fields: validatorId, isActive' 
+      });
+    }
+    
+    const orchestrator = getValidatorOrchestrator();
+    orchestrator.recordUptimeEvent(validatorId, isActive);
+    
+    res.json({ 
+      success: true, 
+      message: 'Uptime event recorded',
+      timestamp: Date.now() 
+    });
+  } catch (error) {
+    res.status(500).json({ 
+      success: false, 
+      error: error instanceof Error ? error.message : 'Unknown error' 
+    });
+  }
+});
+
+router.get('/performance/:validatorId/sla', async (req: Request, res: Response) => {
+  try {
+    const { validatorId } = req.params;
+    const orchestrator = getValidatorOrchestrator();
+    const isCompliant = orchestrator.checkSlaCompliance(validatorId);
+    
+    res.json({ 
+      success: true, 
+      data: { 
+        validatorId,
+        slaCompliant: isCompliant,
+        targets: {
+          uptimeTarget: '99.90%',
+          latencyP99Target: '250ms',
+          blockProductionRateTarget: '99%'
+        }
+      }, 
+      timestamp: Date.now() 
+    });
+  } catch (error) {
+    res.status(500).json({ 
+      success: false, 
+      error: error instanceof Error ? error.message : 'Unknown error' 
+    });
+  }
+});
+
 export default router;
