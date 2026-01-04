@@ -32,6 +32,7 @@ Core architectural decisions and features include:
 - **Standardized RPC Endpoints**: All network endpoints standardized to `tburn.io` domain format.
 - **TBurn Logo Branding System**: Unified SVG-based `TBurnLogo` component for consistent branding.
 - **Whitepaper Page**: Static HTML whitepaper served at `/whitepaper` route detailing TBURN Chain's architecture and tokenomics.
+- **Enterprise BFT Consensus Engine**: Production-level 5-phase Byzantine Fault Tolerant protocol (Propose → Prevote → Precommit → Commit → Finalize) with lock-based consensus safety, view change protocol, optimistic responsiveness, aggregated signatures, parallel vote processing, and O(n) message complexity. API endpoints at `/api/consensus/*` for real-time monitoring.
 - **Block Finality System**: Complete block finality infrastructure with cross-validator verification and state transitions (pending → verified → finalized).
 - **Transaction Verification Pipeline**: ECDSA-style signature verification, Merkle root generation, and block integrity verification.
 - **Reward Distribution Engine**: Automatic validator reward distribution based on proposer rewards, verifier rewards, and gas fee distribution with epoch-based cycles.
