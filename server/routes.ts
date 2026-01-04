@@ -50,6 +50,7 @@ import { registerLaunchEventRoutes } from "./routes/launch-event-routes";
 import { registerScalabilityRoutes } from "./routes/scalability-routes";
 import consensusRoutes from "./routes/consensus-routes";
 import blockProductionRoutes from "./routes/block-production-routes";
+import verificationRoutes from "./routes/verification-routes";
 import { nftMarketplaceService } from "./services/NftMarketplaceService";
 import { launchpadService } from "./services/LaunchpadService";
 import { gameFiService } from "./services/GameFiService";
@@ -1820,6 +1821,10 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     if (req.method === "GET" && req.path.startsWith("/block-production/")) {
       return next();
     }
+    // Skip auth for Verification endpoints (enterprise monitoring and verification APIs)
+    if (req.path.startsWith("/verification/")) {
+      return next();
+    }
     // Skip auth for Consensus monitoring (read-only enterprise endpoints)
     if (req.method === "GET" && req.path.startsWith("/consensus/")) {
       return next();
@@ -1910,6 +1915,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   // BLOCK PRODUCTION ENGINE (100ms Block Time)
   // ============================================
   app.use("/api/block-production", blockProductionRoutes);
+  app.use("/api/verification", verificationRoutes);
   console.log("[BlockProduction] ✅ Enterprise block production routes registered");
 
   // ============================================
