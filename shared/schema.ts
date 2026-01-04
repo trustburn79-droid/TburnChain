@@ -11528,3 +11528,563 @@ export const sessionStoreHealth = pgTable("session_store_health", {
   index("idx_store_health_circuit").on(table.circuitState),
 ]);
 
+// ============================================================================
+// ENTERPRISE TOKEN DISTRIBUTION SYSTEM
+// Production-Grade 100K+ TPS Distribution Management
+// ============================================================================
+
+// Distribution Program Type Enum
+export const DISTRIBUTION_PROGRAM_TYPE = [
+  "AIRDROP",
+  "REFERRAL", 
+  "EVENTS",
+  "COMMUNITY_ACTIVITY",
+  "DAO_TREASURY",
+  "BLOCK_REWARDS",
+  "VALIDATOR_INCENTIVES",
+  "ECOSYSTEM_FUND"
+] as const;
+
+export const DISTRIBUTION_CLAIM_STATUS = [
+  "pending",
+  "eligible",
+  "approved",
+  "processing",
+  "completed",
+  "failed",
+  "rejected",
+  "expired",
+  "cancelled"
+] as const;
+
+export const APPROVAL_LEVEL = [
+  "AUTO",
+  "SINGLE",
+  "MULTI",
+  "COMMITTEE"
+] as const;
+
+// ============================================================================
+// Distribution Programs Configuration
+// Master configuration for all 8 distribution programs
+// ============================================================================
+export const distributionPrograms = pgTable("distribution_programs", {
+  id: serial("id").primaryKey(),
+  
+  // Program Identity
+  programId: varchar("program_id", { length: 64 }).notNull().unique(),
+  programType: text("program_type").notNull(), // AIRDROP, REFERRAL, etc.
+  name: text("name").notNull(),
+  description: text("description"),
+  
+  // Allocation Configuration (stored as text for BigInt precision)
+  totalAllocationTBURN: text("total_allocation_tburn").notNull(), // Human-readable TBURN amount
+  totalAllocationWei: text("total_allocation_wei").notNull(), // Wei precision (18 decimals)
+  distributedTBURN: text("distributed_tburn").notNull().default("0"),
+  distributedWei: text("distributed_wei").notNull().default("0"),
+  remainingTBURN: text("remaining_tburn").notNull(),
+  remainingWei: text("remaining_wei").notNull(),
+  
+  // Program Status
+  enabled: boolean("enabled").notNull().default(true),
+  paused: boolean("paused").notNull().default(false),
+  pauseReason: text("pause_reason"),
+  pausedAt: timestamp("paused_at"),
+  pausedBy: varchar("paused_by", { length: 128 }),
+  
+  // Rate Limiting Configuration
+  claimsPerSecond: integer("claims_per_second").notNull().default(1000),
+  maxClaimPerAddress: text("max_claim_per_address").notNull().default("0"), // 0 = no limit
+  cooldownPeriodSeconds: integer("cooldown_period_seconds").notNull().default(0),
+  
+  // Approval Thresholds (in TBURN)
+  autoApprovalThreshold: text("auto_approval_threshold").notNull().default("100"),
+  singleApprovalThreshold: text("single_approval_threshold").notNull().default("10000"),
+  multiApprovalThreshold: text("multi_approval_threshold").notNull().default("100000"),
+  
+  // Fraud Detection Thresholds
+  fraudScoreThreshold: integer("fraud_score_threshold").notNull().default(70), // 0-100
+  eligibilityScoreThreshold: integer("eligibility_score_threshold").notNull().default(50),
+  
+  // Vesting Configuration
+  vestingEnabled: boolean("vesting_enabled").notNull().default(false),
+  vestingPeriodDays: integer("vesting_period_days").notNull().default(0),
+  vestingCliffDays: integer("vesting_cliff_days").notNull().default(0),
+  vestingUnlockPercentage: integer("vesting_unlock_percentage").notNull().default(100),
+  
+  // Program Schedule
+  startDate: timestamp("start_date"),
+  endDate: timestamp("end_date"),
+  
+  // Metrics Summary (denormalized for fast reads)
+  totalClaims: integer("total_claims").notNull().default(0),
+  completedClaims: integer("completed_claims").notNull().default(0),
+  pendingClaims: integer("pending_claims").notNull().default(0),
+  failedClaims: integer("failed_claims").notNull().default(0),
+  rejectedClaims: integer("rejected_claims").notNull().default(0),
+  uniqueRecipients: integer("unique_recipients").notNull().default(0),
+  
+  // Performance Metrics
+  avgProcessingTimeMs: integer("avg_processing_time_ms").notNull().default(0),
+  peakTps: integer("peak_tps").notNull().default(0),
+  
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+}, (table) => [
+  index("idx_dist_program_type").on(table.programType),
+  index("idx_dist_program_enabled").on(table.enabled),
+  index("idx_dist_program_paused").on(table.paused),
+]);
+
+// ============================================================================
+// Distribution Claims
+// High-volume claims table with indexes optimized for 100K+ TPS
+// ============================================================================
+export const distributionClaims = pgTable("distribution_claims", {
+  id: serial("id").primaryKey(),
+  
+  // Claim Identity
+  claimId: varchar("claim_id", { length: 64 }).notNull().unique(),
+  programType: text("program_type").notNull(),
+  batchId: varchar("batch_id", { length: 64 }), // For batch processing
+  
+  // Recipient Information
+  recipientAddress: text("recipient_address").notNull(),
+  recipientUserId: varchar("recipient_user_id", { length: 64 }),
+  
+  // Claim Amount (Wei precision)
+  amountTBURN: text("amount_tburn").notNull(),
+  amountWei: text("amount_wei").notNull(),
+  
+  // Claim Status
+  status: text("status").notNull().default("pending"),
+  statusReason: text("status_reason"),
+  
+  // Verification Scores
+  eligibilityScore: integer("eligibility_score").notNull().default(0), // 0-100
+  fraudScore: integer("fraud_score").notNull().default(0), // 0-100
+  riskLevel: text("risk_level").notNull().default("low"), // low, medium, high, critical
+  
+  // Approval Workflow
+  approvalLevel: text("approval_level").notNull().default("AUTO"),
+  approvalsRequired: integer("approvals_required").notNull().default(0),
+  approvalsReceived: integer("approvals_received").notNull().default(0),
+  approvedAt: timestamp("approved_at"),
+  
+  // Vesting Information
+  vestingApplied: boolean("vesting_applied").notNull().default(false),
+  vestingScheduleId: varchar("vesting_schedule_id", { length: 64 }),
+  vestedAmount: text("vested_amount").notNull().default("0"),
+  unlockedAmount: text("unlocked_amount").notNull().default("0"),
+  
+  // Transaction Information
+  txHash: text("tx_hash"),
+  blockNumber: bigint("block_number", { mode: "number" }),
+  gasUsed: text("gas_used"),
+  
+  // Processing Metrics
+  submittedAt: timestamp("submitted_at").notNull().defaultNow(),
+  processedAt: timestamp("processed_at"),
+  completedAt: timestamp("completed_at"),
+  processingTimeMs: integer("processing_time_ms"),
+  retryCount: integer("retry_count").notNull().default(0),
+  
+  // Expiration
+  expiresAt: timestamp("expires_at"),
+  
+  // Audit Trail
+  sourceIp: text("source_ip"),
+  userAgent: text("user_agent"),
+  
+  // Metadata
+  metadata: jsonb("metadata").default({}),
+  
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+}, (table) => [
+  // High-TPS query optimization indexes
+  index("idx_claim_program_status_created").on(table.programType, table.status, table.createdAt),
+  index("idx_claim_recipient_program").on(table.recipientAddress, table.programType),
+  index("idx_claim_batch").on(table.batchId),
+  index("idx_claim_status_created").on(table.status, table.createdAt),
+  index("idx_claim_pending").on(table.status).where(sql`status = 'pending'`),
+  index("idx_claim_processing").on(table.status).where(sql`status = 'processing'`),
+  index("idx_claim_expires").on(table.expiresAt).where(sql`expires_at IS NOT NULL`),
+  index("idx_claim_fraud_score").on(table.fraudScore).where(sql`fraud_score >= 70`),
+]);
+
+// ============================================================================
+// Distribution Batches
+// Batch processing tracking for high-throughput operations
+// ============================================================================
+export const distributionBatches = pgTable("distribution_batches", {
+  id: serial("id").primaryKey(),
+  
+  // Batch Identity
+  batchId: varchar("batch_id", { length: 64 }).notNull().unique(),
+  programType: text("program_type").notNull(),
+  
+  // Batch Configuration
+  totalClaims: integer("total_claims").notNull(),
+  processedClaims: integer("processed_claims").notNull().default(0),
+  completedClaims: integer("completed_claims").notNull().default(0),
+  failedClaims: integer("failed_claims").notNull().default(0),
+  
+  // Amount Tracking
+  totalAmountTBURN: text("total_amount_tburn").notNull(),
+  totalAmountWei: text("total_amount_wei").notNull(),
+  distributedAmountTBURN: text("distributed_amount_tburn").notNull().default("0"),
+  distributedAmountWei: text("distributed_amount_wei").notNull().default("0"),
+  
+  // Batch Status
+  status: text("status").notNull().default("pending"), // pending, processing, completed, failed, cancelled
+  priority: integer("priority").notNull().default(5), // 1-10
+  
+  // Performance Metrics
+  startedAt: timestamp("started_at"),
+  completedAt: timestamp("completed_at"),
+  processingTimeMs: integer("processing_time_ms"),
+  avgClaimTimeMs: integer("avg_claim_time_ms"),
+  peakTps: integer("peak_tps"),
+  
+  // Worker Information
+  workerPoolSize: integer("worker_pool_size").notNull().default(4),
+  activeWorkers: integer("active_workers").notNull().default(0),
+  
+  // Error Tracking
+  errorCount: integer("error_count").notNull().default(0),
+  lastError: text("last_error"),
+  lastErrorAt: timestamp("last_error_at"),
+  
+  createdBy: varchar("created_by", { length: 128 }),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+}, (table) => [
+  index("idx_batch_program").on(table.programType),
+  index("idx_batch_status").on(table.status),
+  index("idx_batch_priority").on(table.priority),
+  index("idx_batch_created").on(table.createdAt),
+]);
+
+// ============================================================================
+// Distribution Claim Approvals
+// Multi-signature approval workflow tracking
+// ============================================================================
+export const distributionClaimApprovals = pgTable("distribution_claim_approvals", {
+  id: serial("id").primaryKey(),
+  
+  // Reference
+  claimId: varchar("claim_id", { length: 64 }).notNull(),
+  approvalId: varchar("approval_id", { length: 64 }).notNull().unique(),
+  
+  // Approver Information
+  approverAddress: text("approver_address").notNull(),
+  approverRole: text("approver_role").notNull(), // admin, committee_member, validator
+  
+  // Approval Decision
+  decision: text("decision").notNull(), // approved, rejected, abstained
+  decisionReason: text("decision_reason"),
+  
+  // Signature
+  signature: text("signature"), // Cryptographic signature
+  signatureVerified: boolean("signature_verified").notNull().default(false),
+  
+  // Timing
+  requestedAt: timestamp("requested_at").notNull().defaultNow(),
+  decidedAt: timestamp("decided_at"),
+  expiresAt: timestamp("expires_at"),
+  
+  // Audit
+  sourceIp: text("source_ip"),
+  
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+}, (table) => [
+  index("idx_approval_claim").on(table.claimId),
+  index("idx_approval_approver").on(table.approverAddress),
+  index("idx_approval_decision").on(table.decision),
+  index("idx_approval_pending").on(table.decidedAt).where(sql`decided_at IS NULL`),
+]);
+
+// ============================================================================
+// Distribution Audit Events
+// Immutable audit log for compliance and traceability
+// ============================================================================
+export const distributionAuditEvents = pgTable("distribution_audit_events", {
+  id: serial("id").primaryKey(),
+  
+  // Event Identity
+  eventId: varchar("event_id", { length: 64 }).notNull().unique(),
+  
+  // Event Classification
+  eventType: text("event_type").notNull(), // claim_submitted, claim_approved, claim_rejected, claim_completed, etc.
+  eventCategory: text("event_category").notNull(), // claim, approval, fraud, system, config
+  severity: text("severity").notNull().default("info"), // info, warning, error, critical
+  
+  // Reference
+  programType: text("program_type"),
+  claimId: varchar("claim_id", { length: 64 }),
+  batchId: varchar("batch_id", { length: 64 }),
+  
+  // Actor Information
+  actorType: text("actor_type").notNull(), // user, admin, system, validator
+  actorAddress: text("actor_address"),
+  actorRole: text("actor_role"),
+  
+  // Event Details
+  action: text("action").notNull(),
+  description: text("description"),
+  previousState: jsonb("previous_state"),
+  newState: jsonb("new_state"),
+  
+  // Amount Changes
+  amountTBURN: text("amount_tburn"),
+  amountWei: text("amount_wei"),
+  
+  // Transaction Reference
+  txHash: text("tx_hash"),
+  blockNumber: bigint("block_number", { mode: "number" }),
+  
+  // Context
+  sourceIp: text("source_ip"),
+  userAgent: text("user_agent"),
+  sessionId: varchar("session_id", { length: 64 }),
+  
+  // Metadata
+  metadata: jsonb("metadata").default({}),
+  
+  // Immutable timestamp
+  eventTimestamp: timestamp("event_timestamp").notNull().defaultNow(),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+}, (table) => [
+  index("idx_audit_event_type").on(table.eventType),
+  index("idx_audit_category").on(table.eventCategory),
+  index("idx_audit_program").on(table.programType),
+  index("idx_audit_claim").on(table.claimId),
+  index("idx_audit_actor").on(table.actorAddress),
+  index("idx_audit_timestamp").on(table.eventTimestamp),
+  index("idx_audit_severity").on(table.severity),
+]);
+
+// ============================================================================
+// Distribution Fraud Assessments
+// Fraud detection scoring and history
+// ============================================================================
+export const distributionFraudAssessments = pgTable("distribution_fraud_assessments", {
+  id: serial("id").primaryKey(),
+  
+  // Assessment Identity
+  assessmentId: varchar("assessment_id", { length: 64 }).notNull().unique(),
+  claimId: varchar("claim_id", { length: 64 }).notNull(),
+  
+  // Assessment Scores
+  overallScore: integer("overall_score").notNull(), // 0-100 (higher = more suspicious)
+  velocityScore: integer("velocity_score").notNull().default(0), // Transaction velocity check
+  patternScore: integer("pattern_score").notNull().default(0), // Suspicious pattern detection
+  sybilScore: integer("sybil_score").notNull().default(0), // Sybil attack detection
+  behaviorScore: integer("behavior_score").notNull().default(0), // Abnormal behavior
+  networkScore: integer("network_score").notNull().default(0), // Network analysis (connected addresses)
+  
+  // Risk Classification
+  riskLevel: text("risk_level").notNull(), // low, medium, high, critical
+  flagged: boolean("flagged").notNull().default(false),
+  flagReason: text("flag_reason"),
+  
+  // Detection Details
+  detectedIndicators: jsonb("detected_indicators").default([]), // Array of fraud indicators
+  relatedAddresses: jsonb("related_addresses").default([]), // Suspicious connected addresses
+  historicalViolations: integer("historical_violations").notNull().default(0),
+  
+  // Model Information
+  modelVersion: varchar("model_version", { length: 32 }).notNull(),
+  confidenceLevel: integer("confidence_level").notNull().default(0), // 0-100
+  
+  // Review Status
+  reviewed: boolean("reviewed").notNull().default(false),
+  reviewedBy: varchar("reviewed_by", { length: 128 }),
+  reviewedAt: timestamp("reviewed_at"),
+  reviewDecision: text("review_decision"), // confirmed_fraud, false_positive, needs_investigation
+  reviewNotes: text("review_notes"),
+  
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+}, (table) => [
+  index("idx_fraud_claim").on(table.claimId),
+  index("idx_fraud_score").on(table.overallScore),
+  index("idx_fraud_risk").on(table.riskLevel),
+  index("idx_fraud_flagged").on(table.flagged).where(sql`flagged = true`),
+  index("idx_fraud_review").on(table.reviewed).where(sql`reviewed = false`),
+]);
+
+// ============================================================================
+// Distribution Rate Limits
+// Persistent rate limiting state for addresses
+// ============================================================================
+export const distributionRateLimits = pgTable("distribution_rate_limits", {
+  id: serial("id").primaryKey(),
+  
+  // Rate Limit Identity
+  limitId: varchar("limit_id", { length: 64 }).notNull().unique(),
+  
+  // Target
+  address: text("address").notNull(),
+  programType: text("program_type").notNull(),
+  
+  // Token Bucket State
+  tokens: numeric("tokens", { precision: 18, scale: 6 }).notNull(),
+  maxTokens: numeric("max_tokens", { precision: 18, scale: 6 }).notNull(),
+  refillRate: numeric("refill_rate", { precision: 18, scale: 6 }).notNull(), // tokens per second
+  lastRefillAt: timestamp("last_refill_at").notNull().defaultNow(),
+  
+  // Request Tracking
+  totalRequests: integer("total_requests").notNull().default(0),
+  acceptedRequests: integer("accepted_requests").notNull().default(0),
+  rejectedRequests: integer("rejected_requests").notNull().default(0),
+  lastRequestAt: timestamp("last_request_at"),
+  
+  // Cooldown State
+  cooldownUntil: timestamp("cooldown_until"),
+  cooldownReason: text("cooldown_reason"),
+  
+  // Violation Tracking
+  consecutiveViolations: integer("consecutive_violations").notNull().default(0),
+  totalViolations: integer("total_violations").notNull().default(0),
+  lastViolationAt: timestamp("last_violation_at"),
+  
+  // Blocklist
+  blocked: boolean("blocked").notNull().default(false),
+  blockedAt: timestamp("blocked_at"),
+  blockedReason: text("blocked_reason"),
+  blockedUntil: timestamp("blocked_until"), // null = permanent
+  
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+}, (table) => [
+  index("idx_rate_limit_address_program").on(table.address, table.programType),
+  index("idx_rate_limit_blocked").on(table.blocked).where(sql`blocked = true`),
+  index("idx_rate_limit_cooldown").on(table.cooldownUntil).where(sql`cooldown_until IS NOT NULL`),
+]);
+
+// ============================================================================
+// Distribution Program Metrics History
+// Time-series metrics for analysis and monitoring
+// ============================================================================
+export const distributionMetricsHistory = pgTable("distribution_metrics_history", {
+  id: serial("id").primaryKey(),
+  
+  // Time Bucket (1-minute granularity)
+  bucketTime: timestamp("bucket_time").notNull(),
+  programType: text("program_type").notNull(),
+  
+  // Throughput Metrics
+  claimsSubmitted: integer("claims_submitted").notNull().default(0),
+  claimsProcessed: integer("claims_processed").notNull().default(0),
+  claimsCompleted: integer("claims_completed").notNull().default(0),
+  claimsFailed: integer("claims_failed").notNull().default(0),
+  claimsRejected: integer("claims_rejected").notNull().default(0),
+  
+  // Amount Metrics (Wei)
+  amountDistributedWei: text("amount_distributed_wei").notNull().default("0"),
+  amountRejectedWei: text("amount_rejected_wei").notNull().default("0"),
+  
+  // Performance Metrics
+  avgProcessingTimeMs: integer("avg_processing_time_ms").notNull().default(0),
+  p50LatencyMs: integer("p50_latency_ms").notNull().default(0),
+  p95LatencyMs: integer("p95_latency_ms").notNull().default(0),
+  p99LatencyMs: integer("p99_latency_ms").notNull().default(0),
+  peakTps: integer("peak_tps").notNull().default(0),
+  avgTps: numeric("avg_tps", { precision: 10, scale: 2 }).notNull().default("0"),
+  
+  // Queue Metrics
+  queueDepth: integer("queue_depth").notNull().default(0),
+  queueLatencyMs: integer("queue_latency_ms").notNull().default(0),
+  
+  // Error Metrics
+  errorCount: integer("error_count").notNull().default(0),
+  timeoutCount: integer("timeout_count").notNull().default(0),
+  
+  // Fraud Metrics
+  fraudFlagged: integer("fraud_flagged").notNull().default(0),
+  avgFraudScore: numeric("avg_fraud_score", { precision: 6, scale: 2 }).notNull().default("0"),
+  
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+}, (table) => [
+  index("idx_metrics_time_program").on(table.bucketTime, table.programType),
+  index("idx_metrics_program").on(table.programType),
+  index("idx_metrics_bucket").on(table.bucketTime),
+]);
+
+// ============================================================================
+// Insert Schemas for Distribution System
+// ============================================================================
+export const insertDistributionProgramSchema = createInsertSchema(distributionPrograms).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertDistributionClaimSchema = createInsertSchema(distributionClaims).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertDistributionBatchSchema = createInsertSchema(distributionBatches).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertDistributionClaimApprovalSchema = createInsertSchema(distributionClaimApprovals).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertDistributionAuditEventSchema = createInsertSchema(distributionAuditEvents).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertDistributionFraudAssessmentSchema = createInsertSchema(distributionFraudAssessments).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertDistributionRateLimitSchema = createInsertSchema(distributionRateLimits).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertDistributionMetricsHistorySchema = createInsertSchema(distributionMetricsHistory).omit({
+  id: true,
+  createdAt: true,
+});
+
+// ============================================================================
+// Types for Distribution System
+// ============================================================================
+export type DistributionProgramDB = typeof distributionPrograms.$inferSelect;
+export type InsertDistributionProgram = z.infer<typeof insertDistributionProgramSchema>;
+
+export type DistributionClaimDB = typeof distributionClaims.$inferSelect;
+export type InsertDistributionClaim = z.infer<typeof insertDistributionClaimSchema>;
+
+export type DistributionBatchDB = typeof distributionBatches.$inferSelect;
+export type InsertDistributionBatch = z.infer<typeof insertDistributionBatchSchema>;
+
+export type DistributionClaimApprovalDB = typeof distributionClaimApprovals.$inferSelect;
+export type InsertDistributionClaimApproval = z.infer<typeof insertDistributionClaimApprovalSchema>;
+
+export type DistributionAuditEventDB = typeof distributionAuditEvents.$inferSelect;
+export type InsertDistributionAuditEvent = z.infer<typeof insertDistributionAuditEventSchema>;
+
+export type DistributionFraudAssessmentDB = typeof distributionFraudAssessments.$inferSelect;
+export type InsertDistributionFraudAssessment = z.infer<typeof insertDistributionFraudAssessmentSchema>;
+
+export type DistributionRateLimitDB = typeof distributionRateLimits.$inferSelect;
+export type InsertDistributionRateLimit = z.infer<typeof insertDistributionRateLimitSchema>;
+
+export type DistributionMetricsHistoryDB = typeof distributionMetricsHistory.$inferSelect;
+export type InsertDistributionMetricsHistory = z.infer<typeof insertDistributionMetricsHistorySchema>;
+
