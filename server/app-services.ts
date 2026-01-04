@@ -11,7 +11,8 @@ import {
   shouldBypassSession, 
   blockSetCookie, 
   createSkipSession,
-  checkMemoryStoreCapacity 
+  checkMemoryStoreCapacity,
+  IS_PRODUCTION
 } from "./core/sessions/session-bypass";
 
 declare module "express-session" {
@@ -86,13 +87,19 @@ export default async function runAppServices(
     next();
   });
   
-  // ★ [2026-01-04 프로덕션 안정성 수정] - 세션 오버플로우 완전 방지
-  // 프로덕션 환경 자동 감지 - Autoscale 배포 시 HTTPS가 자동으로 활성화됨
-  const isProduction = process.env.NODE_ENV === "production" || (process.env.REPL_SLUG && !process.env.REPL_ID);
-  const cookieSecure = isProduction || process.env.COOKIE_SECURE === "true";
+  // ★ [2026-01-05 프로덕션 안정성 v3.0] - 통합 환경 감지
+  // session-bypass.ts의 IS_PRODUCTION을 직접 사용하여 app.ts와 완전히 동일한 환경 감지
+  // 이전 문제: 다른 환경 감지 로직 (REPL_SLUG && !REPL_ID) 사용 → 프로덕션에서 세션 스킵 실패
+  // 수정: IS_PRODUCTION을 session-bypass.ts에서 import하여 단일 진실 소스(Single Source of Truth) 유지
+  const cookieSecure = IS_PRODUCTION || process.env.COOKIE_SECURE === "true";
+  
+  // ★ 프로덕션 환경 감지 로깅 (디버깅용)
+  console.log(`[app-services] Environment Detection: IS_PRODUCTION=${IS_PRODUCTION}, ` +
+    `REPLIT_DEPLOYMENT=${process.env.REPLIT_DEPLOYMENT}, ` +
+    `NODE_ENV=${process.env.NODE_ENV}`);
   
   // ★ [CRITICAL FIX] 프로덕션 MemoryStore 설정 - app.ts와 동일하게 설정
-  const maxSessions = isProduction ? 10000 : 2000; // 프로덕션 10000 / 개발 2000 (app.ts와 동일)
+  const maxSessions = IS_PRODUCTION ? 10000 : 2000; // 프로덕션 10000 / 개발 2000 (app.ts와 동일)
   const sessionStore = new MemoryStore({
     checkPeriod: 30000,     // ★ 30초마다 만료된 세션 정리 (더 적극적)
     max: maxSessions,       // ★ 프로덕션 10000 / 개발 2000 (app.ts와 동일)
