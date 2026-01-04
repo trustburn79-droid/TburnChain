@@ -12,15 +12,18 @@ function Loading() {
 }
 
 const RpcProviders = lazy(() => import("../pages/network/RpcProviders"));
+const RpcStatus = lazy(() => import("../pages/rpc/RpcStatus"));
+const RpcApiDocs = lazy(() => import("../pages/rpc/RpcApiDocs"));
+const RpcBenchmark = lazy(() => import("../pages/rpc/RpcBenchmark"));
 
 export default function RpcRoutes() {
   return (
     <RpcLayout>
       <Suspense fallback={<Loading />}>
         <Switch>
-          <Route path="/rpc/status" component={RpcProviders} />
-          <Route path="/rpc/docs" component={RpcProviders} />
-          <Route path="/rpc/benchmark" component={RpcProviders} />
+          <Route path="/rpc/status" component={RpcStatus} />
+          <Route path="/rpc/docs" component={RpcApiDocs} />
+          <Route path="/rpc/benchmark" component={RpcBenchmark} />
           <Route path="/rpc" component={RpcProviders} />
           <Route component={RpcProviders} />
         </Switch>
