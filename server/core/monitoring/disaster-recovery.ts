@@ -343,10 +343,11 @@ class DisasterRecoveryManager extends EventEmitter {
       console.log('[DR] Triggering V8 memory pressure...');
       
       // Create then immediately discard large arrays to trigger V8's internal GC
+      // Use let instead of const to allow reassignment
       for (let i = 0; i < 3; i++) {
-        const _temp = new Array(1024 * 1024).fill(0);
+        let temp: number[] | null = new Array(1024 * 1024).fill(0);
         // Immediately dereference
-        (_temp as any) = null;
+        temp = null;
       }
       
       // Use setImmediate to allow V8 to schedule GC

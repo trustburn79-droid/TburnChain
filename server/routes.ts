@@ -545,14 +545,14 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
   
-  disasterRecovery.on('clearSessions', () => {
+  disasterRecovery.on('clearSessions', async () => {
     try {
       console.log('[DR] Triggering session cleanup...');
-      const { getSessionStoreInfo } = require('./app');
-      const storeInfo = getSessionStoreInfo();
+      const appModule = await import('./app');
+      const storeInfo = appModule.getSessionStoreInfo();
       if (storeInfo.isUsingMemoryStore && storeInfo.memoryStoreRef) {
-        const { forceClearAllSessions } = require('./core/sessions/session-bypass');
-        forceClearAllSessions(storeInfo.memoryStoreRef);
+        const bypassModule = await import('./core/sessions/session-bypass');
+        bypassModule.forceClearAllSessions(storeInfo.memoryStoreRef);
       }
     } catch (e) {
       console.warn('[DR] Session clear failed:', e);
