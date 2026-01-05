@@ -39,6 +39,7 @@ Core architectural decisions and features include:
 - **Enterprise Distribution Database Schema**: 8 optimized tables for high-TPS operations including distribution_programs, distribution_claims, and audit logs.
 - **Enterprise RPC Pages**: Production-grade RPC endpoint management for mainnet and testnet, including status, interactive API documentation with live tester and SDK examples, and performance benchmarking tools.
 - **Enterprise System Health Monitor**: Comprehensive 24/7 system monitoring with automatic alerting, self-healing capabilities, and Prometheus-compatible metrics export, tracking CPU, Memory, Disk, HTTP, DB, and Session metrics.
+- **Enterprise Crash Diagnostics System**: Production-grade crash analysis with uncaughtException/unhandledRejection handlers, heap snapshot capture at 85% memory, crash context persistence to `/tmp/tburn-crash-logs/`, and detailed Express error middleware with stack traces and memory state.
 
 ## External Dependencies
 - **Database**: Neon Serverless PostgreSQL
