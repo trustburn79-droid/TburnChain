@@ -1524,8 +1524,8 @@ export class MemStorage implements IStorage {
       totalValidators: 1600,
       totalTransactions: 89234567,
       totalAccounts: 234567,
-      marketCap: "12450000000",
-      circulatingSupply: "500000000",
+      marketCap: "3710000000", // $3.71B = $0.53 × 7B circulating supply
+      circulatingSupply: "7000000000", // 7B (70%) of 10B total supply
       successRate: 9970, // 99.70% success rate (basis points)
       updatedAt: new Date(),
       // TBURN v7.0: Predictive Self-Healing System (4 Prediction Algorithms) - Enterprise Grade 99%+
@@ -2956,8 +2956,8 @@ export class DbStorage implements IStorage {
         totalValidators: 1600,
         totalTransactions: 89234567,
         totalAccounts: 234567,
-        marketCap: "12450000000",
-        circulatingSupply: "500000000",
+        marketCap: "3710000000", // $3.71B = $0.53 × 7B circulating supply
+        circulatingSupply: "7000000000", // 7B (70%) of 10B total supply
         successRate: 9970,
         updatedAt: new Date(),
         // TBURN v7.0: Predictive Self-Healing System (4 Prediction Algorithms) - Enterprise Grade 99%+
