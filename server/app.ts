@@ -411,24 +411,31 @@ export default async function runApp(
 
   await setup(app, server);
 
-  // Initialize Enterprise Scalability Infrastructure (dev mode)
-  const IS_DEV = process.env.NODE_ENV === 'development';
-  try {
-    initializeBlockchainOrchestrator({
-      shardCount: 5,
-      validatorsPerShard: 25,
-      blockTimeMs: IS_DEV ? 1000 : 100,
-      enableWorkerThreads: false,  // Disabled for Replit compatibility
-      enableBatchPersistence: true,
-      enableAdaptiveFees: true,
-      batchFlushIntervalMs: IS_DEV ? 5000 : 1000,
-    }).then(() => {
-      log(`✅ Enterprise Scalability initialized (dev mode)`, "scalability");
-    }).catch((error) => {
-      log(`⚠️ Scalability init error: ${error}`, "scalability");
-    });
-  } catch (error) {
-    log(`⚠️ Scalability setup error: ${error}`, "scalability");
+  // ★ [2026-01-05 CRITICAL FIX] 프로덕션에서 BlockchainOrchestrator 비활성화
+  // Autoscale 512MB 환경에서 고빈도 interval들이 70-90분 후 힙 메모리 고갈 유발
+  if (IS_PRODUCTION) {
+    log(`🔒 Production mode - BlockchainOrchestrator DISABLED for memory stability`, "scalability");
+    log(`📊 Using lightweight static data mode for 24/7/365 operation`, "scalability");
+  } else {
+    // Development: Initialize Enterprise Scalability Infrastructure
+    const IS_DEV = process.env.NODE_ENV === 'development';
+    try {
+      initializeBlockchainOrchestrator({
+        shardCount: 5,
+        validatorsPerShard: 25,
+        blockTimeMs: IS_DEV ? 1000 : 100,
+        enableWorkerThreads: false,  // Disabled for Replit compatibility
+        enableBatchPersistence: true,
+        enableAdaptiveFees: true,
+        batchFlushIntervalMs: IS_DEV ? 5000 : 1000,
+      }).then(() => {
+        log(`✅ Enterprise Scalability initialized (dev mode)`, "scalability");
+      }).catch((error) => {
+        log(`⚠️ Scalability init error: ${error}`, "scalability");
+      });
+    } catch (error) {
+      log(`⚠️ Scalability setup error: ${error}`, "scalability");
+    }
   }
 
   // Graceful shutdown handler

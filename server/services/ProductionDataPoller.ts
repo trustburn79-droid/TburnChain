@@ -6,6 +6,9 @@
  * 2. Updates the DataCacheService with fresh data
  * 3. Decouples UI requests from live RPC calls
  * 4. Ensures data is always available even during rate limits
+ * 
+ * ★ [2026-01-05 CRITICAL FIX] 프로덕션에서 완전 비활성화
+ * Autoscale 512MB 환경에서 TBurnEnterpriseNode 폴링이 힙 메모리 고갈 유발
  */
 
 import { createHash } from 'crypto';
@@ -13,6 +16,11 @@ import { getDataCache, DataCacheService } from './DataCacheService';
 import { storage } from '../storage';
 import { formatPublicNetworkStats, formatPublicTestnetStats } from '../routes/public-api-routes';
 import { dataHub } from './DataHub';
+import { IS_PRODUCTION } from '../core/sessions/session-bypass';
+
+// ★ [2026-01-05 CRITICAL FIX] 프로덕션에서 폴러 비활성화
+// Autoscale 512MB 환경에서 70-90분 후 힙 메모리 고갈 방지
+const DISABLE_POLLER_IN_PRODUCTION = true;
 
 interface PollerConfig {
   pollInterval: number; // Interval between polls in ms
@@ -715,12 +723,66 @@ class ProductionDataPoller {
 // Singleton instance
 let pollerInstance: ProductionDataPoller | null = null;
 
+// ★ [2026-01-05 CRITICAL FIX] 프로덕션용 경량 폴러
+// 프로덕션에서는 정적 데이터 서비스를 사용하여 캐시 워밍
+class NoOpDataPoller {
+  private staticDataService: any = null;
+  private isRunning: boolean = false;
+  
+  async start(): Promise<void> {
+    console.log('[ProductionDataPoller] 🔒 Production mode - Using lightweight static data service');
+    
+    try {
+      const { getProductionStaticDataService } = await import('./ProductionStaticDataService');
+      this.staticDataService = getProductionStaticDataService();
+      await this.staticDataService.warmCache();
+      this.isRunning = true;
+      console.log('[ProductionDataPoller] ✅ Static data cache warmed for production');
+    } catch (error) {
+      console.error('[ProductionDataPoller] Failed to warm static cache:', error);
+    }
+  }
+  async stop(): Promise<void> {
+    this.isRunning = false;
+  }
+  getStats(): any {
+    return {
+      isRunning: this.isRunning,
+      lastPollTime: new Date(),
+      lastSuccessTime: new Date(),
+      pollCount: 1,
+      errorCount: 0,
+      consecutiveErrors: 0,
+      circuitState: 'closed',
+      circuitOpenedAt: null,
+      isPollInProgress: false
+    };
+  }
+  async forceRefresh(): Promise<void> {
+    if (this.staticDataService) {
+      await this.staticDataService.warmCache();
+    }
+  }
+  isPollerRunning(): boolean { return this.isRunning; }
+  isDataReady(): boolean { return this.isRunning; }
+}
+
 export function getProductionDataPoller(): ProductionDataPoller {
+  // ★ [2026-01-05 CRITICAL FIX] 프로덕션에서는 No-op 폴러 반환
+  if (IS_PRODUCTION && DISABLE_POLLER_IN_PRODUCTION) {
+    if (!pollerInstance) {
+      console.log('[ProductionDataPoller] 🔒 Production mode - Using NoOp poller for 24/7/365 stability');
+      pollerInstance = new NoOpDataPoller() as any;
+    }
+    return pollerInstance!;
+  }
+  
+  // Development: 정상 폴러 사용
   if (!pollerInstance) {
     pollerInstance = new ProductionDataPoller();
     console.log('[ProductionDataPoller] Service initialized');
   }
-  return pollerInstance;
+  return pollerInstance!;
 }
 
 export { ProductionDataPoller };

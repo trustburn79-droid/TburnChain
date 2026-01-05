@@ -2,6 +2,12 @@ import WebSocket from 'ws';
 import { request } from 'undici';
 import { createHash } from 'crypto';
 import { getDataCache, DataCacheService } from './services/DataCacheService';
+import { IS_PRODUCTION } from './core/sessions/session-bypass';
+
+// ★ [2026-01-05 CRITICAL FIX] 프로덕션에서 엔터프라이즈 시뮬레이터 비활성화
+// Autoscale 512MB 환경에서 엔터프라이즈 노드가 70-90분 후 힙 메모리 고갈 유발
+// 개발 환경에서만 시뮬레이터 활성화, 프로덕션에서는 정적 데이터 사용
+const DISABLE_ENTERPRISE_IN_PRODUCTION = true;
 
 export interface TBurnNodeConfig {
   rpcUrl: string;
@@ -88,8 +94,17 @@ export class TBurnClient {
 
   constructor(config: TBurnNodeConfig) {
     this.config = config;
-    // Enterprise mode enabled for any valid API key (tburn*, admin*, or any configured key)
-    // This ensures the local enterprise node is always used instead of external HTTP calls
+    
+    // ★ [2026-01-05 CRITICAL FIX] 프로덕션에서 엔터프라이즈 시뮬레이터 완전 비활성화
+    // Autoscale 512MB 환경에서 70-90분 후 힙 메모리 고갈로 인한 크래시 방지
+    if (IS_PRODUCTION && DISABLE_ENTERPRISE_IN_PRODUCTION) {
+      this.isEnterpriseMode = false;
+      console.log('[TBURN Client] 🔒 Production mode - Enterprise simulator DISABLED for memory stability');
+      console.log('[TBURN Client] 📊 Using lightweight static data mode for 24/7/365 operation');
+      return;
+    }
+    
+    // Development: Enterprise mode enabled for any valid API key
     if (config.apiKey && config.apiKey.length > 0) {
       this.isEnterpriseMode = true;
       console.log('[TBURN Client] 🏢 Enterprise mode ENABLED with API key:', config.apiKey.substring(0, 8) + '...');
