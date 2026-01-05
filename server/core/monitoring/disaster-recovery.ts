@@ -1,5 +1,5 @@
 /**
- * Disaster Recovery Manager v1.0.0
+ * Disaster Recovery Manager v2.0.0
  * 
  * Purpose: 24/7/365 무중단 운영을 위한 재해 복구 시스템
  * 
@@ -10,6 +10,13 @@
  * - Automatic emergency handling
  * - Graceful shutdown/restart
  * - Signal handlers (SIGTERM, SIGINT)
+ * 
+ * v2.0.0 Changes:
+ * - Enhanced memory relief without --expose-gc
+ * - Aggressive cache clearing on emergency
+ * - Interval/timer cleanup system
+ * - Memory pressure trigger via large allocations
+ * - Auto-restart enabled for production stability
  */
 
 import { EventEmitter } from 'events';
@@ -60,10 +67,46 @@ const DEFAULT_CONFIG: DisasterRecoveryConfig = {
   },
   healthCheckInterval: 30000,  // 30 seconds
   recovery: {
-    autoRestart: false,  // Disabled by default
+    autoRestart: true,  // ★ [v2.0] ENABLED for production stability
     gracefulShutdownTimeout: 5000,
   },
 };
+
+// ★ [v2.0] Global registry for managed intervals/timers
+const managedIntervals: Set<NodeJS.Timeout> = new Set();
+const managedTimeouts: Set<NodeJS.Timeout> = new Set();
+
+export function registerManagedInterval(interval: NodeJS.Timeout): void {
+  managedIntervals.add(interval);
+}
+
+export function registerManagedTimeout(timeout: NodeJS.Timeout): void {
+  managedTimeouts.add(timeout);
+}
+
+export function unregisterManagedInterval(interval: NodeJS.Timeout): void {
+  managedIntervals.delete(interval);
+}
+
+export function clearAllManagedIntervals(): number {
+  let cleared = 0;
+  managedIntervals.forEach(interval => {
+    clearInterval(interval);
+    cleared++;
+  });
+  managedIntervals.clear();
+  return cleared;
+}
+
+export function clearAllManagedTimeouts(): number {
+  let cleared = 0;
+  managedTimeouts.forEach(timeout => {
+    clearTimeout(timeout);
+    cleared++;
+  });
+  managedTimeouts.clear();
+  return cleared;
+}
 
 // ============================================================================
 // Metrics
@@ -255,6 +298,9 @@ class DisasterRecoveryManager extends EventEmitter {
     console.error('[DR] EMERGENCY DETECTED:', issues.join(', '));
     this.emit('emergency', issues);
     
+    // ★ [v2.0] Aggressive memory relief - multiple stages
+    this.emergencyMemoryRelief();
+    
     // Force garbage collection if available
     this.tryGarbageCollection();
     
@@ -262,6 +308,54 @@ class DisasterRecoveryManager extends EventEmitter {
     if (this.config.recovery.autoRestart && !this.isShuttingDown) {
       console.log('[DR] Initiating graceful restart...');
       this.gracefulRestart();
+    }
+  }
+  
+  /**
+   * ★ [v2.0] Aggressive memory relief without --expose-gc
+   */
+  private emergencyMemoryRelief(): void {
+    console.log('[DR] ⚡ Starting emergency memory relief...');
+    
+    // Stage 1: Clear all managed intervals/timeouts
+    const clearedIntervals = clearAllManagedIntervals();
+    const clearedTimeouts = clearAllManagedTimeouts();
+    console.log(`[DR] Cleared ${clearedIntervals} intervals, ${clearedTimeouts} timeouts`);
+    
+    // Stage 2: Clear caches (will be implemented via event)
+    this.emit('clearCaches');
+    
+    // Stage 3: Clear session store (will be implemented via event)
+    this.emit('clearSessions');
+    
+    // Stage 4: Force V8 memory pressure via allocation/deallocation
+    this.triggerV8MemoryPressure();
+    
+    console.log('[DR] ✅ Emergency memory relief complete');
+  }
+  
+  /**
+   * ★ [v2.0] Trigger V8 memory pressure without --expose-gc
+   * Creates and immediately dereferences large allocations to trigger internal GC
+   */
+  private triggerV8MemoryPressure(): void {
+    try {
+      console.log('[DR] Triggering V8 memory pressure...');
+      
+      // Create then immediately discard large arrays to trigger V8's internal GC
+      for (let i = 0; i < 3; i++) {
+        const _temp = new Array(1024 * 1024).fill(0);
+        // Immediately dereference
+        (_temp as any) = null;
+      }
+      
+      // Use setImmediate to allow V8 to schedule GC
+      setImmediate(() => {
+        // Empty callback - just gives V8 a chance to clean up
+      });
+      
+    } catch (e) {
+      console.warn('[DR] Memory pressure trigger failed:', e);
     }
   }
   

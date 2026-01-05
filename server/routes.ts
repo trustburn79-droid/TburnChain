@@ -534,6 +534,31 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   disasterRecovery.start();
   console.log('[Routes] ✅ Disaster recovery manager started');
   
+  // ★ [v2.0] Connect disaster recovery events to memory relief systems
+  disasterRecovery.on('clearCaches', () => {
+    try {
+      console.log('[DR] Clearing all caches...');
+      const dataCache = getDataCache();
+      dataCache.emergencyClear();
+    } catch (e) {
+      console.warn('[DR] Cache clear failed:', e);
+    }
+  });
+  
+  disasterRecovery.on('clearSessions', () => {
+    try {
+      console.log('[DR] Triggering session cleanup...');
+      const { getSessionStoreInfo } = require('./app');
+      const storeInfo = getSessionStoreInfo();
+      if (storeInfo.isUsingMemoryStore && storeInfo.memoryStoreRef) {
+        const { forceClearAllSessions } = require('./core/sessions/session-bypass');
+        forceClearAllSessions(storeInfo.memoryStoreRef);
+      }
+    } catch (e) {
+      console.warn('[DR] Session clear failed:', e);
+    }
+  });
+  
   // Apply disaster recovery middleware for request tracking
   app.use(disasterRecoveryMiddleware());
   
