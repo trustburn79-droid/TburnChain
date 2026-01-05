@@ -18722,6 +18722,549 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   console.log('[Demo Wallets] ✅ Enterprise demo wallet routes registered');
 
   // ============================================
+  // Token Custody & Multisig Wallet Management
+  // Enterprise Production-Grade Custody System v4.3.1
+  // ============================================
+
+  // Get all multisig wallets
+  app.get("/api/custody/multisig-wallets", async (req, res) => {
+    try {
+      const wallets = [
+        {
+          walletId: "msw-ecosystem-001",
+          address: "tb1msw0ecosystem0fund0000000001",
+          name: "생태계 펀드 지갑",
+          description: "그랜트, 파트너십, 마케팅 집행용",
+          purpose: "ecosystem_fund",
+          custodyMechanism: "FOUNDATION_MULTISIG",
+          signaturesRequired: 3,
+          totalSigners: 5,
+          timelockHours: 168,
+          allocatedAmount: "14000000000",
+          remainingAmount: "13250000000",
+          distributedAmount: "750000000",
+          status: "active",
+          isEmergencyEnabled: false,
+          executionCount: 24,
+          lastExecutionAt: "2026-01-03T14:30:00Z",
+          lastReportQuarter: "2025-Q4"
+        },
+        {
+          walletId: "msw-foundation-001",
+          address: "tb1msw0foundation0ops00000001",
+          name: "재단 운영 지갑",
+          description: "운영비, 긴급 대응용",
+          purpose: "foundation_ops",
+          custodyMechanism: "FOUNDATION_MULTISIG",
+          signaturesRequired: 3,
+          totalSigners: 5,
+          timelockHours: 72,
+          allocatedAmount: "2500000000",
+          remainingAmount: "2100000000",
+          distributedAmount: "400000000",
+          status: "active",
+          isEmergencyEnabled: true,
+          executionCount: 15,
+          lastExecutionAt: "2026-01-02T10:00:00Z",
+          lastReportQuarter: "2025-Q4"
+        },
+        {
+          walletId: "msw-strategic-001",
+          address: "tb1msw0strategic0invest000001",
+          name: "전략 투자 지갑",
+          description: "전략적 프로젝트 투자",
+          purpose: "strategic_investment",
+          custodyMechanism: "FOUNDATION_MULTISIG",
+          signaturesRequired: 4,
+          totalSigners: 5,
+          timelockHours: 336,
+          allocatedAmount: "500000000",
+          remainingAmount: "450000000",
+          distributedAmount: "50000000",
+          status: "active",
+          isEmergencyEnabled: false,
+          executionCount: 3,
+          lastExecutionAt: "2025-12-15T16:00:00Z",
+          lastReportQuarter: "2025-Q4"
+        },
+        {
+          walletId: "msw-liquidity-001",
+          address: "tb1msw0dex0liquidity00000001",
+          name: "DEX 유동성 지갑",
+          description: "LP 락업 관리",
+          purpose: "dex_liquidity",
+          custodyMechanism: "FOUNDATION_MULTISIG",
+          signaturesRequired: 5,
+          totalSigners: 7,
+          timelockHours: 168,
+          allocatedAmount: "5000000000",
+          remainingAmount: "4800000000",
+          distributedAmount: "200000000",
+          status: "active",
+          isEmergencyEnabled: true,
+          executionCount: 8,
+          lastExecutionAt: "2025-12-28T09:00:00Z",
+          lastReportQuarter: "2025-Q4"
+        }
+      ];
+      res.json(wallets);
+    } catch (error: unknown) {
+      console.error('[Custody] Error fetching multisig wallets:', error);
+      res.status(500).json({ error: "Failed to fetch multisig wallets" });
+    }
+  });
+
+  // Get multisig wallet by ID
+  app.get("/api/custody/multisig-wallets/:walletId", async (req, res) => {
+    try {
+      const { walletId } = req.params;
+      const wallet = {
+        walletId,
+        address: `tb1msw0${walletId.substring(0, 20)}`,
+        name: "생태계 펀드 지갑",
+        description: "그랜트, 파트너십, 마케팅 집행용",
+        purpose: "ecosystem_fund",
+        custodyMechanism: "FOUNDATION_MULTISIG",
+        signaturesRequired: 3,
+        totalSigners: 5,
+        timelockHours: 168,
+        allocatedAmount: "14000000000",
+        remainingAmount: "13250000000",
+        distributedAmount: "750000000",
+        status: "active",
+        isEmergencyEnabled: false,
+        executionCount: 24,
+        lastExecutionAt: "2026-01-03T14:30:00Z",
+        lastReportQuarter: "2025-Q4"
+      };
+      res.json(wallet);
+    } catch (error: unknown) {
+      console.error('[Custody] Error fetching multisig wallet:', error);
+      res.status(500).json({ error: "Failed to fetch multisig wallet" });
+    }
+  });
+
+  // Get signers for a multisig wallet
+  app.get("/api/custody/multisig-wallets/:walletId/signers", async (req, res) => {
+    try {
+      const { walletId } = req.params;
+      const signers = [
+        {
+          signerId: "signer-001",
+          walletId,
+          name: "김태훈",
+          role: "board_member",
+          signerAddress: "tb1signer0board0member000001",
+          isActive: true,
+          canApproveEmergency: true,
+          totalSignatures: 18,
+          lastSignatureAt: "2026-01-03T14:30:00Z"
+        },
+        {
+          signerId: "signer-002",
+          walletId,
+          name: "박민지",
+          role: "foundation_officer",
+          signerAddress: "tb1signer0foundation00000002",
+          isActive: true,
+          canApproveEmergency: true,
+          totalSignatures: 22,
+          lastSignatureAt: "2026-01-02T10:00:00Z"
+        },
+        {
+          signerId: "signer-003",
+          walletId,
+          name: "이준영",
+          role: "technical_lead",
+          signerAddress: "tb1signer0technical0lead0003",
+          isActive: true,
+          canApproveEmergency: false,
+          totalSignatures: 15,
+          lastSignatureAt: "2026-01-01T16:00:00Z"
+        },
+        {
+          signerId: "signer-004",
+          walletId,
+          name: "최수진",
+          role: "legal_officer",
+          signerAddress: "tb1signer0legal0officer00004",
+          isActive: true,
+          canApproveEmergency: false,
+          totalSignatures: 12,
+          lastSignatureAt: "2025-12-28T09:00:00Z"
+        },
+        {
+          signerId: "signer-005",
+          walletId,
+          name: "정하늘",
+          role: "community_representative",
+          signerAddress: "tb1signer0community00rep0005",
+          isActive: true,
+          canApproveEmergency: false,
+          totalSignatures: 8,
+          lastSignatureAt: "2025-12-20T11:00:00Z"
+        }
+      ];
+      res.json(signers);
+    } catch (error: unknown) {
+      console.error('[Custody] Error fetching signers:', error);
+      res.status(500).json({ error: "Failed to fetch signers" });
+    }
+  });
+
+  // Get custody transactions
+  app.get("/api/custody/transactions", async (req, res) => {
+    try {
+      const { status, walletId, limit = 50 } = req.query;
+      const transactions = [
+        {
+          transactionId: "ctx-001",
+          walletId: "msw-ecosystem-001",
+          transactionType: "grant_disbursement",
+          recipientAddress: "tb1grant0recipient00000001",
+          recipientName: "TBURN DeFi Grant Program - Phase 1",
+          amount: "50000000",
+          amountUsd: "2500000",
+          status: "executed",
+          approvalCount: 3,
+          requiredApprovals: 3,
+          purpose: "DeFi 생태계 그랜트 프로그램 1단계 배분",
+          justification: "25개 DeFi 프로젝트 선정 완료, 첫 번째 배분",
+          proposedAt: "2026-01-01T10:00:00Z",
+          proposedBy: "signer-001",
+          executedAt: "2026-01-03T14:30:00Z",
+          executedBy: "signer-002",
+          executedTxHash: "0x8a7f3c4d5e6b9a1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c"
+        },
+        {
+          transactionId: "ctx-002",
+          walletId: "msw-ecosystem-001",
+          transactionType: "partnership_payment",
+          recipientAddress: "tb1partner0binance00000001",
+          recipientName: "Binance Listing Support",
+          amount: "25000000",
+          amountUsd: "1250000",
+          status: "approved",
+          approvalCount: 3,
+          requiredApprovals: 3,
+          purpose: "바이낸스 상장 지원 및 마케팅 협력",
+          justification: "바이낸스 상장 MOU 체결 후 첫 지불",
+          proposedAt: "2026-01-04T09:00:00Z",
+          proposedBy: "signer-002",
+          timelockExpiresAt: "2026-01-11T09:00:00Z"
+        },
+        {
+          transactionId: "ctx-003",
+          walletId: "msw-foundation-001",
+          transactionType: "marketing_spend",
+          recipientAddress: "tb1marketing0agency000001",
+          recipientName: "Global Marketing Campaign Q1",
+          amount: "15000000",
+          amountUsd: "750000",
+          status: "pending_approval",
+          approvalCount: 2,
+          requiredApprovals: 3,
+          purpose: "Q1 글로벌 마케팅 캠페인 집행",
+          justification: "아시아 및 유럽 시장 확대를 위한 마케팅",
+          proposedAt: "2026-01-05T11:00:00Z",
+          proposedBy: "signer-003"
+        }
+      ];
+      
+      let filtered = transactions;
+      if (status) {
+        filtered = filtered.filter(tx => tx.status === status);
+      }
+      if (walletId) {
+        filtered = filtered.filter(tx => tx.walletId === walletId);
+      }
+      
+      res.json(filtered.slice(0, Number(limit)));
+    } catch (error: unknown) {
+      console.error('[Custody] Error fetching transactions:', error);
+      res.status(500).json({ error: "Failed to fetch custody transactions" });
+    }
+  });
+
+  // Get vesting contracts
+  app.get("/api/custody/vesting-contracts", async (req, res) => {
+    try {
+      const contracts = [
+        {
+          contractId: "vest-seed-001",
+          contractAddress: "tb1vest0seed0round000000001",
+          contractName: "시드 라운드 베스팅 컨트랙트",
+          categoryId: "seed",
+          categoryName: "시드 라운드",
+          totalAllocation: "5000000000",
+          releasedAmount: "0",
+          remainingAmount: "5000000000",
+          tgePercent: 0,
+          cliffMonths: 12,
+          vestingMonths: 24,
+          vestingType: "linear",
+          tgeDate: "2026-01-01T00:00:00Z",
+          cliffEndDate: "2027-01-01T00:00:00Z",
+          vestingEndDate: "2029-01-01T00:00:00Z",
+          status: "active",
+          isVerified: true,
+          auditor: "CertiK"
+        },
+        {
+          contractId: "vest-private-001",
+          contractAddress: "tb1vest0private0round000001",
+          contractName: "프라이빗 라운드 베스팅 컨트랙트",
+          categoryId: "private",
+          categoryName: "프라이빗 라운드",
+          totalAllocation: "9000000000",
+          releasedAmount: "450000000",
+          remainingAmount: "8550000000",
+          tgePercent: 5,
+          cliffMonths: 9,
+          vestingMonths: 18,
+          vestingType: "linear",
+          tgeDate: "2026-01-01T00:00:00Z",
+          cliffEndDate: "2026-10-01T00:00:00Z",
+          vestingEndDate: "2028-04-01T00:00:00Z",
+          status: "active",
+          isVerified: true,
+          auditor: "CertiK"
+        },
+        {
+          contractId: "vest-public-001",
+          contractAddress: "tb1vest0public0sale00000001",
+          contractName: "퍼블릭 세일 베스팅 컨트랙트",
+          categoryId: "public",
+          categoryName: "퍼블릭 세일",
+          totalAllocation: "6000000000",
+          releasedAmount: "900000000",
+          remainingAmount: "5100000000",
+          tgePercent: 15,
+          cliffMonths: 3,
+          vestingMonths: 9,
+          vestingType: "linear",
+          tgeDate: "2026-01-01T00:00:00Z",
+          cliffEndDate: "2026-04-01T00:00:00Z",
+          vestingEndDate: "2027-01-01T00:00:00Z",
+          status: "active",
+          isVerified: true,
+          auditor: "CertiK"
+        },
+        {
+          contractId: "vest-team-001",
+          contractAddress: "tb1vest0core0team000000001",
+          contractName: "코어 팀 베스팅 컨트랙트",
+          categoryId: "coreTeam",
+          categoryName: "코어 팀",
+          totalAllocation: "7000000000",
+          releasedAmount: "0",
+          remainingAmount: "7000000000",
+          tgePercent: 0,
+          cliffMonths: 18,
+          vestingMonths: 36,
+          vestingType: "linear",
+          tgeDate: "2026-01-01T00:00:00Z",
+          cliffEndDate: "2027-07-01T00:00:00Z",
+          vestingEndDate: "2030-07-01T00:00:00Z",
+          status: "active",
+          isVerified: true,
+          auditor: "CertiK"
+        },
+        {
+          contractId: "vest-advisor-001",
+          contractAddress: "tb1vest0advisor0000000001",
+          contractName: "어드바이저 베스팅 컨트랙트",
+          categoryId: "advisor",
+          categoryName: "어드바이저",
+          totalAllocation: "2000000000",
+          releasedAmount: "0",
+          remainingAmount: "2000000000",
+          tgePercent: 0,
+          cliffMonths: 12,
+          vestingMonths: 24,
+          vestingType: "linear",
+          tgeDate: "2026-01-01T00:00:00Z",
+          cliffEndDate: "2027-01-01T00:00:00Z",
+          vestingEndDate: "2029-01-01T00:00:00Z",
+          status: "active",
+          isVerified: true,
+          auditor: "CertiK"
+        },
+        {
+          contractId: "vest-partner-001",
+          contractAddress: "tb1vest0strategic0partner01",
+          contractName: "전략 파트너 베스팅 컨트랙트",
+          categoryId: "strategicPartner",
+          categoryName: "전략 파트너",
+          totalAllocation: "2000000000",
+          releasedAmount: "0",
+          remainingAmount: "2000000000",
+          tgePercent: 0,
+          cliffMonths: 6,
+          vestingMonths: 18,
+          vestingType: "linear",
+          tgeDate: "2026-01-01T00:00:00Z",
+          cliffEndDate: "2026-07-01T00:00:00Z",
+          vestingEndDate: "2028-01-01T00:00:00Z",
+          status: "active",
+          isVerified: true,
+          auditor: "CertiK"
+        }
+      ];
+      res.json(contracts);
+    } catch (error: unknown) {
+      console.error('[Custody] Error fetching vesting contracts:', error);
+      res.status(500).json({ error: "Failed to fetch vesting contracts" });
+    }
+  });
+
+  // Get custody distribution schedule (20-year)
+  app.get("/api/custody/distribution-schedule", async (req, res) => {
+    try {
+      const schedule = [
+        { year: 0, protocolAutomatic: "0", vestingContract: "0", foundationMultisig: "0", communityPool: "0", totalRelease: "0", cumulativeCirculation: "0" },
+        { year: 1, protocolAutomatic: "4.00", vestingContract: "7.65", foundationMultisig: "5.35", communityPool: "16.03", totalRelease: "33.03", cumulativeCirculation: "33.03" },
+        { year: 2, protocolAutomatic: "3.20", vestingContract: "6.50", foundationMultisig: "3.80", communityPool: "5.50", totalRelease: "19.00", cumulativeCirculation: "52.03" },
+        { year: 3, protocolAutomatic: "2.85", vestingContract: "4.20", foundationMultisig: "2.50", communityPool: "4.00", totalRelease: "13.55", cumulativeCirculation: "65.58" },
+        { year: 4, protocolAutomatic: "2.50", vestingContract: "2.50", foundationMultisig: "1.80", communityPool: "2.50", totalRelease: "9.30", cumulativeCirculation: "74.88" },
+        { year: 5, protocolAutomatic: "2.20", vestingContract: "1.80", foundationMultisig: "1.20", communityPool: "1.80", totalRelease: "7.00", cumulativeCirculation: "81.88" },
+        { year: 6, protocolAutomatic: "1.40", vestingContract: "1.20", foundationMultisig: "0.80", communityPool: "1.20", totalRelease: "4.60", cumulativeCirculation: "86.48" },
+        { year: 7, protocolAutomatic: "1.20", vestingContract: "0.90", foundationMultisig: "0.60", communityPool: "0.90", totalRelease: "3.60", cumulativeCirculation: "90.08" },
+        { year: 8, protocolAutomatic: "1.00", vestingContract: "0.60", foundationMultisig: "0.40", communityPool: "0.60", totalRelease: "2.60", cumulativeCirculation: "92.68" },
+        { year: 9, protocolAutomatic: "0.80", vestingContract: "0.30", foundationMultisig: "0.30", communityPool: "0.40", totalRelease: "1.80", cumulativeCirculation: "94.48" },
+        { year: 10, protocolAutomatic: "0.65", vestingContract: "0.20", foundationMultisig: "0.25", communityPool: "0.30", totalRelease: "1.40", cumulativeCirculation: "95.88" },
+        { year: 11, protocolAutomatic: "0.50", vestingContract: "0.10", foundationMultisig: "0.20", communityPool: "0.25", totalRelease: "1.05", cumulativeCirculation: "96.93" },
+        { year: 12, protocolAutomatic: "0.45", vestingContract: "0.05", foundationMultisig: "0.15", communityPool: "0.20", totalRelease: "0.85", cumulativeCirculation: "97.78" },
+        { year: 13, protocolAutomatic: "0.40", vestingContract: "0", foundationMultisig: "0.12", communityPool: "0.18", totalRelease: "0.70", cumulativeCirculation: "98.48" },
+        { year: 14, protocolAutomatic: "0.35", vestingContract: "0", foundationMultisig: "0.10", communityPool: "0.15", totalRelease: "0.60", cumulativeCirculation: "99.08" },
+        { year: 15, protocolAutomatic: "0.30", vestingContract: "0", foundationMultisig: "0.08", communityPool: "0.12", totalRelease: "0.50", cumulativeCirculation: "99.58" },
+        { year: 16, protocolAutomatic: "0.12", vestingContract: "0", foundationMultisig: "0.05", communityPool: "0.08", totalRelease: "0.25", cumulativeCirculation: "99.83" },
+        { year: 17, protocolAutomatic: "0.06", vestingContract: "0", foundationMultisig: "0.03", communityPool: "0.04", totalRelease: "0.13", cumulativeCirculation: "99.96" },
+        { year: 18, protocolAutomatic: "0.02", vestingContract: "0", foundationMultisig: "0.01", communityPool: "0.01", totalRelease: "0.04", cumulativeCirculation: "100.00" },
+        { year: 19, protocolAutomatic: "0", vestingContract: "0", foundationMultisig: "0", communityPool: "0", totalRelease: "0", cumulativeCirculation: "100.00" },
+        { year: 20, protocolAutomatic: "0", vestingContract: "0", foundationMultisig: "0", communityPool: "0", totalRelease: "0", cumulativeCirculation: "100.00" }
+      ];
+      res.json(schedule);
+    } catch (error: unknown) {
+      console.error('[Custody] Error fetching distribution schedule:', error);
+      res.status(500).json({ error: "Failed to fetch distribution schedule" });
+    }
+  });
+
+  // Get quarterly reports
+  app.get("/api/custody/quarterly-reports", async (req, res) => {
+    try {
+      const reports = [
+        {
+          reportId: "qr-2025-q4",
+          quarter: "2025-Q4",
+          year: 2025,
+          totalDistributed: "2500000000",
+          programmaticDistributed: "1500000000",
+          discretionaryDistributed: "1000000000",
+          grantsDistributed: "500000000",
+          marketingDistributed: "200000000",
+          partnershipDistributed: "200000000",
+          operationsDistributed: "100000000",
+          totalTransactions: 47,
+          approvedTransactions: 45,
+          rejectedTransactions: 2,
+          reportUrl: "https://tburn.io/reports/2025-Q4-custody-report.pdf",
+          publishedAt: "2026-01-05T00:00:00Z"
+        },
+        {
+          reportId: "qr-2025-q3",
+          quarter: "2025-Q3",
+          year: 2025,
+          totalDistributed: "1800000000",
+          programmaticDistributed: "1200000000",
+          discretionaryDistributed: "600000000",
+          grantsDistributed: "300000000",
+          marketingDistributed: "150000000",
+          partnershipDistributed: "100000000",
+          operationsDistributed: "50000000",
+          totalTransactions: 38,
+          approvedTransactions: 37,
+          rejectedTransactions: 1,
+          reportUrl: "https://tburn.io/reports/2025-Q3-custody-report.pdf",
+          publishedAt: "2025-10-05T00:00:00Z"
+        }
+      ];
+      res.json(reports);
+    } catch (error: unknown) {
+      console.error('[Custody] Error fetching quarterly reports:', error);
+      res.status(500).json({ error: "Failed to fetch quarterly reports" });
+    }
+  });
+
+  // Get custody mechanism summary
+  app.get("/api/custody/summary", async (req, res) => {
+    try {
+      const summary = {
+        mechanisms: [
+          {
+            id: "PROTOCOL_AUTOMATIC",
+            code: "A",
+            name: "프로토콜 자동 발행",
+            allocationPercent: 22,
+            allocationBillion: 22.0,
+            distributedAmount: "4000000000",
+            remainingAmount: "18000000000",
+            isProgrammatic: true,
+            executionEntity: "프로토콜"
+          },
+          {
+            id: "VESTING_CONTRACT",
+            code: "B",
+            name: "스마트 컨트랙트 베스팅",
+            allocationPercent: 31,
+            allocationBillion: 31.0,
+            distributedAmount: "1350000000",
+            remainingAmount: "29650000000",
+            isProgrammatic: true,
+            executionEntity: "자동 해제"
+          },
+          {
+            id: "FOUNDATION_MULTISIG",
+            code: "C",
+            name: "재단 멀티시그 지갑",
+            allocationPercent: 17,
+            allocationBillion: 17.0,
+            distributedAmount: "1400000000",
+            remainingAmount: "15600000000",
+            isProgrammatic: false,
+            executionEntity: "재단 재량"
+          },
+          {
+            id: "COMMUNITY_POOL",
+            code: "D",
+            name: "커뮤니티 풀",
+            allocationPercent: 30,
+            allocationBillion: 30.0,
+            distributedAmount: "16030000000",
+            remainingAmount: "13970000000",
+            isProgrammatic: false,
+            executionEntity: "재단 + DAO"
+          }
+        ],
+        totals: {
+          programmaticPercent: 53,
+          discretionaryPercent: 47,
+          totalDistributed: "22780000000",
+          totalRemaining: "77220000000"
+        },
+        lastUpdated: new Date().toISOString()
+      };
+      res.json(summary);
+    } catch (error: unknown) {
+      console.error('[Custody] Error fetching custody summary:', error);
+      res.status(500).json({ error: "Failed to fetch custody summary" });
+    }
+  });
+
+  console.log('[Custody] ✅ Token custody & multisig wallet routes registered');
+
+  // ============================================
   // Consensus Rounds
   // ============================================
   app.get("/api/consensus/rounds", async (req, res) => {
