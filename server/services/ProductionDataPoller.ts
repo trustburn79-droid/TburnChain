@@ -79,6 +79,12 @@ class ProductionDataPoller {
    * Start the poller
    */
   async start(): Promise<void> {
+    // ★ [2026-01-05 CRITICAL FIX] 프로덕션에서 폴러 완전 비활성화
+    if (IS_PRODUCTION && DISABLE_POLLER_IN_PRODUCTION) {
+      console.log('[ProductionDataPoller] ⛔ DISABLED in production (512MB memory protection)');
+      return;
+    }
+    
     if (this.isRunning) {
       console.log('[ProductionDataPoller] Already running');
       return;

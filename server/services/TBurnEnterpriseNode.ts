@@ -57,6 +57,7 @@ import {
   type BlockData, 
   type ValidatorInfo 
 } from './block-finality-engine';
+import { IS_PRODUCTION } from '../core/sessions/session-bypass';
 import { 
   rewardDistributionEngine 
 } from './reward-distribution-engine';
@@ -1503,6 +1504,12 @@ export class TBurnEnterpriseNode extends EventEmitter {
   
   // Check if scaling is needed and execute
   public checkAndScaleShards(): { action: 'none' | 'scale_up' | 'scale_down' | 'redistribute'; details: string } {
+    // ★ [2026-01-05 CRITICAL] 프로덕션 환경에서 스케일업 비활성화 (512MB 메모리 보호)
+    // 메모리 사용량 급증 방지: 샤드가 5 → 44개로 증가하며 메모리 고갈 발생
+    if (IS_PRODUCTION) {
+      return { action: 'none', details: 'Scaling disabled in production (memory protection)' };
+    }
+    
     const now = Date.now();
     
     // Respect cooldown
