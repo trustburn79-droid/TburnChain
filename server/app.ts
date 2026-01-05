@@ -357,7 +357,13 @@ if (GOOGLE_CLIENT_ID && GOOGLE_CLIENT_SECRET) {
   });
 
   app.use(passport.initialize());
-  app.use(passport.session());
+  // ★ [2026-01-05 v3.2] passport.session()을 조건부로 실행 - skipSession=true면 스킵
+  app.use((req: Request, res: Response, next: NextFunction) => {
+    if ((req as any).skipSession) {
+      return next(); // 세션 스킵된 요청에는 passport.session() 실행 안함
+    }
+    return passport.session()(req, res, next);
+  });
   
   log(`✅ Google OAuth configured (Callback: ${GOOGLE_CALLBACK_URL})`, "auth");
 } else {
