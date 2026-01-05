@@ -724,10 +724,13 @@ class ProductionDataPoller {
 let pollerInstance: ProductionDataPoller | null = null;
 
 // ★ [2026-01-05 CRITICAL FIX] 프로덕션용 경량 폴러
-// 프로덕션에서는 정적 데이터 서비스를 사용하여 캐시 워밍
+// 프로덕션에서는 정적 데이터 서비스를 사용하여 캐시 워밍 + 주기적 새로고침
 class NoOpDataPoller {
   private staticDataService: any = null;
   private isRunning: boolean = false;
+  private refreshInterval: NodeJS.Timeout | null = null;
+  private pollCount: number = 0;
+  private lastPollTime: Date | null = null;
   
   async start(): Promise<void> {
     console.log('[ProductionDataPoller] 🔒 Production mode - Using lightweight static data service');
@@ -737,20 +740,43 @@ class NoOpDataPoller {
       this.staticDataService = getProductionStaticDataService();
       await this.staticDataService.warmCache();
       this.isRunning = true;
+      this.pollCount = 1;
+      this.lastPollTime = new Date();
       console.log('[ProductionDataPoller] ✅ Static data cache warmed for production');
+      
+      // 주기적 캐시 새로고침 (5분마다) - 프로덕션 안정성 유지
+      this.refreshInterval = setInterval(async () => {
+        try {
+          if (this.staticDataService) {
+            await this.staticDataService.warmCache();
+            this.pollCount++;
+            this.lastPollTime = new Date();
+            console.log(`[ProductionDataPoller] 🔄 Cache refreshed (poll #${this.pollCount})`);
+          }
+        } catch (error) {
+          console.error('[ProductionDataPoller] Periodic refresh failed:', error);
+        }
+      }, 300000); // 5분 = 300000ms (메모리 효율적)
+      
     } catch (error) {
       console.error('[ProductionDataPoller] Failed to warm static cache:', error);
     }
   }
+  
   async stop(): Promise<void> {
     this.isRunning = false;
+    if (this.refreshInterval) {
+      clearInterval(this.refreshInterval);
+      this.refreshInterval = null;
+    }
   }
+  
   getStats(): any {
     return {
       isRunning: this.isRunning,
-      lastPollTime: new Date(),
-      lastSuccessTime: new Date(),
-      pollCount: 1,
+      lastPollTime: this.lastPollTime,
+      lastSuccessTime: this.lastPollTime,
+      pollCount: this.pollCount,
       errorCount: 0,
       consecutiveErrors: 0,
       circuitState: 'closed',
@@ -758,11 +784,15 @@ class NoOpDataPoller {
       isPollInProgress: false
     };
   }
+  
   async forceRefresh(): Promise<void> {
     if (this.staticDataService) {
       await this.staticDataService.warmCache();
+      this.pollCount++;
+      this.lastPollTime = new Date();
     }
   }
+  
   isPollerRunning(): boolean { return this.isRunning; }
   isDataReady(): boolean { return this.isRunning; }
 }

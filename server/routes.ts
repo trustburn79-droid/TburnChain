@@ -21595,12 +21595,17 @@ Provide JSON portfolio analysis:
   // Triggers actual AI API calls for blockchain events
   // ============================================
   
-  // Start the AI Orchestrator
-  aiOrchestrator.start().then(() => {
-    console.log('[Routes] AI Orchestrator started for real AI decisions');
-  }).catch(err => {
-    console.error('[Routes] Failed to start AI Orchestrator:', err);
-  });
+  // Start the AI Orchestrator (disabled in production for memory stability)
+  // ★ [2026-01-05] 프로덕션에서는 AI Orchestrator 비활성화 - 메모리 안정성
+  if (!isProductionMode()) {
+    aiOrchestrator.start().then(() => {
+      console.log('[Routes] AI Orchestrator started for real AI decisions');
+    }).catch(err => {
+      console.error('[Routes] Failed to start AI Orchestrator:', err);
+    });
+  } else {
+    console.log('[Routes] 🔒 AI Orchestrator DISABLED in production for memory stability');
+  }
 
   // Process blockchain events with real AI every 30 seconds
   // This generates REAL AI decisions using Gemini, Claude, GPT-4o, Grok
