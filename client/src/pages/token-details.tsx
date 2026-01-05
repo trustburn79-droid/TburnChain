@@ -202,7 +202,7 @@ export default function TokenDetails() {
 
         .td-hero { padding: 100px 0 60px; text-align: center; position: relative; }
         .td-hero h1 {
-          font-size: clamp(3rem, 6vw, 4.5rem);
+          font-size: clamp(2.25rem, 5vw, 3.75rem);
           font-weight: 700;
           margin-bottom: 24px;
           letter-spacing: -0.025em;
@@ -354,7 +354,7 @@ export default function TokenDetails() {
         .td-mt-6 { margin-top: 24px; }
 
         @media (max-width: 768px) {
-          .td-hero h1 { font-size: 2.5rem; }
+          .td-hero h1 { font-size: 2rem; }
           .td-section-title { font-size: 1.5rem; }
           .td-card { padding: 20px; }
         }

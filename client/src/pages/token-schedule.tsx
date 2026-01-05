@@ -226,7 +226,7 @@ export default function TokenSchedule() {
           position: relative;
         }
         .ts-hero h1 {
-          font-size: clamp(3rem, 6vw, 4.5rem);
+          font-size: clamp(2.25rem, 5vw, 3.75rem);
           font-weight: 700;
           margin-bottom: 24px;
           letter-spacing: -0.025em;
@@ -361,7 +361,7 @@ export default function TokenSchedule() {
         .ts-pb-2 { padding-bottom: 8px; }
 
         @media (max-width: 768px) {
-          .ts-hero h1 { font-size: 2.5rem; }
+          .ts-hero h1 { font-size: 2rem; }
           .ts-hero-stats { grid-template-columns: 1fr 1fr; }
           .ts-section-title { font-size: 1.5rem; }
           .ts-card { padding: 20px; }
