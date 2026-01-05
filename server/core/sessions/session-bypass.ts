@@ -1,181 +1,271 @@
 /**
- * Enterprise Session Bypass Module v2.0
+ * Enterprise Session Bypass Module v3.0.0
  * 
- * Centralized session skip logic to ensure consistency between:
- * - Development environment
- * - Production environment (Autoscale deployment)
+ * Purpose: 24/7/365 무중단 운영을 위한 세션 바이패스
  * 
  * CRITICAL: This module prevents MemoryStore overflow that causes
- * "Internal Server Error" and "upstream request timeout" after 30-60 minutes
+ * "Internal Server Error" and "upstream request timeout" after 1-2 hours
  * 
- * Session Skip Rules (Priority Order):
- * 1. Localhost requests (127.0.0.1, ::1, 10.x.x.x, 172.x.x.x) - ALWAYS skip, even with cookies
- * 2. Empty User-Agent - ALWAYS skip (internal/headless requests)
- * 3. Axios/node-fetch/undici User-Agent - ALWAYS skip (internal HTTP clients)
- * 4. X-Internal-Request header - ALWAYS skip
- * 5. Internal monitoring paths - ALWAYS skip
- * 6. Public API paths - skip for requests without existing session cookies
- * 7. Static assets - ALWAYS skip
- * 8. WebSocket upgrades - ALWAYS skip
- * 
- * Target: ≥80% session skip ratio for production stability
+ * Changes in v3.0:
+ * - Enhanced environment detection (unified with app.ts)
+ * - Aggressive session skip for bots, crawlers, internal requests
+ * - Set-Cookie header blocking for skipped sessions
+ * - Memory-based emergency cleanup
+ * - Comprehensive metrics collection
+ * - Target: ≥95% session skip ratio for production stability
  */
 
-import { Request, Response } from 'express';
+import { Request, Response, NextFunction, RequestHandler } from 'express';
+import session from 'express-session';
+import * as fs from 'fs';
 
 // ============================================================================
-// Production Environment Detection
+// Configuration Constants
 // ============================================================================
 
-// ★ [수정] 프로덕션 환경 정확히 감지
-// Replit Autoscale 배포 시에만 true, 개발 환경에서는 false
-// - REPLIT_DEPLOYMENT='1' (Autoscale 배포 시 설정됨)
-// - NODE_ENV='production' (명시적 프로덕션 모드)
-// - REPL_ID가 있으면서 REPLIT_DEV_DOMAIN이 없으면 배포 환경
-export const IS_PRODUCTION = (
-  process.env.REPLIT_DEPLOYMENT === '1' ||
-  process.env.NODE_ENV === 'production' ||
-  (process.env.REPL_ID && !process.env.REPLIT_DEV_DOMAIN)
-) && process.env.NODE_ENV !== 'development';
+export const CONFIG = {
+  // Memory thresholds
+  MEMORY_WARNING_THRESHOLD: 0.70,    // 70% - start warning
+  MEMORY_CRITICAL_THRESHOLD: 0.85,   // 85% - emergency cleanup
+  MEMORY_EMERGENCY_THRESHOLD: 0.95,  // 95% - full clear
+  
+  // Session settings
+  SESSION_MAX_AGE: 24 * 60 * 60 * 1000,  // 24 hours
+  SESSION_CLEANUP_INTERVAL: 60 * 1000,    // 1 minute cleanup
+  MAX_SESSIONS: 10000,                     // Maximum session count
+  
+  // Skip ratio target
+  TARGET_SKIP_RATIO: 0.95,  // Target ≥95% skip
+} as const;
 
 // ============================================================================
-// Session Skip Path Configuration (Extended for Production Stability)
+// Environment Detection (Unified)
 // ============================================================================
 
-// Paths that ALWAYS skip session (regardless of cookies) - Extended list
-export const ALWAYS_SKIP_PREFIXES = [
-  // Internal APIs
-  '/api/internal',              // Internal monitoring API (Phase 16)
-  '/api/soak-tests',            // Soak test API (Phase 16)
-  '/api/db-optimizer',          // DB optimizer internal API
-  '/api/production-monitor',    // Production monitoring API
+interface EnvironmentInfo {
+  isProduction: boolean;
+  isReplit: boolean;
+  isDocker: boolean;
+  isKubernetes: boolean;
+  hostname: string;
+  nodeEnv: string;
+}
+
+function detectEnvironment(): EnvironmentInfo {
+  const env = process.env;
   
-  // Public APIs
-  '/api/public',                // Public API v1
-  '/api/health',                // Health checks
-  '/health',                    // Root health check
+  let isDocker = false;
+  try {
+    isDocker = env.DOCKER === '1' || fs.existsSync('/.dockerenv');
+  } catch {
+    isDocker = env.DOCKER === '1';
+  }
   
-  // Enterprise infrastructure
-  '/api/enterprise',            // Enterprise services
-  '/api/metrics',               // Prometheus metrics
-  
-  // Static assets
-  '/assets',                    // Static assets
-  '/static',                    // Static files
-  '/@vite',                     // Vite dev assets
-  '/@fs',                       // Vite file system
-  '/node_modules',              // Node modules
-  
-  // Favicon and manifest
-  '/favicon',                   // Favicon
-  '/manifest',                  // Web manifest
-  '/robots.txt',                // Robots.txt
-  '/sitemap',                   // Sitemap
+  return {
+    isProduction: 
+      env.NODE_ENV === 'production' ||
+      env.REPL_SLUG !== undefined ||
+      env.REPLIT_DEPLOYMENT === '1' ||
+      env.REPLIT_DEV_DOMAIN !== undefined ||
+      env.KUBERNETES_SERVICE_HOST !== undefined ||
+      env.DYNO !== undefined,  // Heroku
+      
+    isReplit: 
+      env.REPL_SLUG !== undefined ||
+      env.REPLIT_DEPLOYMENT === '1' ||
+      env.REPLIT_DEV_DOMAIN !== undefined,
+      
+    isDocker,
+      
+    isKubernetes:
+      env.KUBERNETES_SERVICE_HOST !== undefined,
+      
+    hostname: env.HOSTNAME || env.REPL_SLUG || 'unknown',
+    nodeEnv: env.NODE_ENV || 'development',
+  };
+}
+
+const ENVIRONMENT = detectEnvironment();
+
+// Export IS_PRODUCTION for external use
+export const IS_PRODUCTION = ENVIRONMENT.isProduction && process.env.NODE_ENV !== 'development';
+
+// ============================================================================
+// Session Skip Path Configuration
+// ============================================================================
+
+// Static asset extensions that never need sessions
+const STATIC_EXTENSIONS = new Set([
+  '.js', '.mjs', '.cjs',
+  '.css', '.scss', '.sass', '.less',
+  '.png', '.jpg', '.jpeg', '.gif', '.svg', '.webp', '.ico', '.avif',
+  '.woff', '.woff2', '.ttf', '.eot', '.otf',
+  '.mp3', '.mp4', '.webm', '.ogg', '.wav',
+  '.pdf', '.zip', '.gz', '.br',
+  '.json', '.xml', '.txt', '.md',
+  '.map', '.LICENSE',
+]);
+
+// Static path prefixes
+const STATIC_PREFIXES = [
+  '/assets/',
+  '/static/',
+  '/public/',
+  '/dist/',
+  '/build/',
+  '/node_modules/',
+  '/_next/',
+  '/__vite',
+  '/@vite',
+  '/@fs',
+  '/favicon',
+  '/robots.txt',
+  '/sitemap',
+  '/manifest',
+  '/.well-known/',
+  '/src/',
 ];
 
-// Paths that skip session for non-authenticated requests - Extended list
-export const PUBLIC_API_PREFIXES = [
-  // Shard APIs
-  '/api/shard-cache',           // Shard cache API
-  '/api/cross-shard-router',    // Cross-shard router API
-  '/api/shard-rebalancer',      // Shard rebalancer API
-  '/api/batch-processor',       // Batch processor API
+// Internal/automated User-Agent patterns
+const INTERNAL_USER_AGENTS = [
+  // HTTP clients
+  'axios', 'node-fetch', 'got', 'superagent', 'request',
+  'undici', 'needle', 'bent', 'phin',
   
-  // Validator APIs
-  '/api/validators/status',     // Validator status (public)
-  '/api/validators/stats',      // Validator stats (public)
-  '/api/validators/list',       // Validator list (public)
+  // Command line tools
+  'curl', 'wget', 'httpie', 'postman', 'insomnia',
   
-  // Network APIs
-  '/api/rewards/stats',         // Rewards stats (public)
-  '/api/rewards/epoch',         // Epoch info (public)
-  '/api/network/stats',         // Network stats (public)
-  '/api/network/info',          // Network info (public)
+  // Monitoring/health checks
+  'uptimerobot', 'pingdom', 'newrelic', 'datadog',
+  'prometheus', 'grafana', 'zabbix', 'nagios',
+  'healthcheck', 'kube-probe', 'googlehc',
   
-  // Scalability APIs
-  '/api/scalability',           // Scalability API (public)
-  '/api/consensus/state',       // Consensus state (public)
-  '/api/consensus/info',        // Consensus info (public)
-  '/api/block-production',      // Block production (public)
+  // Cloud services
+  'replit', 'heroku', 'vercel', 'netlify', 'cloudflare',
+  'aws', 'azure', 'gcp', 'digitalocean',
   
-  // DeFi Public APIs
-  '/api/dex/pools',             // DEX pools (public read)
-  '/api/dex/pairs',             // DEX pairs (public read)
-  '/api/lending/markets',       // Lending markets (public read)
-  '/api/yield/vaults',          // Yield vaults (public read)
-  '/api/lst/pools',             // LST pools (public read)
-  '/api/nft/collections',       // NFT collections (public read)
-  '/api/bridge/chains',         // Bridge chains (public read)
-  '/api/gamefi/projects',       // GameFi projects (public read)
-  '/api/launchpad/projects',    // Launchpad projects (public read)
+  // Bots/crawlers
+  'googlebot', 'bingbot', 'yandexbot', 'duckduckbot',
+  'baiduspider', 'slurp', 'facebookexternalhit',
+  'twitterbot', 'linkedinbot', 'slackbot', 'discordbot',
+  'telegrambot', 'whatsapp', 'applebot',
+  'semrushbot', 'ahrefsbot', 'mj12bot', 'dotbot',
+  'petalbot', 'bytespider', 'gptbot', 'claudebot',
   
-  // Community APIs
-  '/api/community/content',     // Community content (public read)
-  '/api/newsletter',            // Newsletter (public)
+  // Testing tools
+  'playwright', 'puppeteer', 'selenium', 'cypress',
+  'jest', 'mocha', 'vitest',
   
-  // Launch event
-  '/api/launch-event',          // Launch event (public read)
+  // Generic patterns
+  'bot', 'crawler', 'spider', 'monitor', 'check', 'probe', 'health',
 ];
 
-// Exact GET paths that skip session for non-authenticated requests
-export const EXACT_GET_PATHS = [
-  '/api/shards',                // Shard list
-  '/api/blocks',                // Block list
-  '/api/blocks/recent',         // Recent blocks
-  '/api/transactions',          // Transaction list
-  '/api/transactions/recent',   // Recent transactions
-  '/api/wallets',               // Wallet list
-  '/api/contracts',             // Contract list
-  '/api/ai/models',             // AI models list
-  '/api/ai/decisions',          // AI decisions list
-  '/api/node/health',           // Node health
-  '/api/performance',           // Performance stats
-  '/api/consensus/rounds',      // Consensus rounds
+// Internal IP patterns
+const INTERNAL_IP_PATTERNS = [
+  /^127\./,                    // localhost
+  /^10\./,                     // Class A private
+  /^172\.(1[6-9]|2\d|3[01])\./, // Class B private
+  /^192\.168\./,               // Class C private
+  /^::1$/,                     // IPv6 localhost
+  /^::ffff:127\./,             // IPv6 mapped localhost
+  /^fe80:/i,                   // IPv6 link-local
+  /^fc00:/i,                   // IPv6 unique local
+  /^fd00:/i,                   // IPv6 unique local
 ];
 
-// User agents that indicate internal/automated requests - Extended list
-export const INTERNAL_USER_AGENTS = [
-  'node-fetch',
-  'undici',
-  'axios',
-  'got',
-  'node',
-  'curl',
-  'wget',
-  'python-requests',
-  'httpie',
-  'insomnia',
-  'postman',
-  'rest-client',
-  'http-client',
-  'java',
-  'ruby',
-  'perl',
-  'php',
-  'go-http',
-  'apache-httpclient',
-  'okhttp',
-  'request',
-  'superagent',
+// Auth-required paths (must NOT skip session)
+const AUTH_REQUIRED_PATHS = [
+  '/api/auth/',
+  '/api/auth',
+  '/api/session',
+  '/api/user',
+  '/api/admin',
+  '/api/wallet',
+  '/api/transaction',
+  '/api/stake',
+  '/api/governance',
+  '/api/oauth',
+  '/api/google',
+  '/api/csrf',
+  '/api/member',
+  '/login',
+  '/register',
+  '/dashboard',
+  '/profile',
+  '/settings',
+  '/admin',
+  '/config',
+  '/maintenance',
+  '/logout',
 ];
 
-// Paths that ALWAYS require session (never skip) - Strict list
-export const AUTH_REQUIRED_PATTERNS = [
-  '/admin',                     // Admin panel
-  '/config',                    // Configuration
-  '/maintenance',               // Maintenance mode
-  '/api/auth',                  // Authentication endpoints
-  '/api/user',                  // User data endpoints
-  '/api/member',                // Member endpoints
-  '/login',                     // Login page
-  '/logout',                    // Logout page
-  '/session',                   // Session management
-  '/api/session',               // Session API
+// Session-free API paths
+const SESSION_FREE_API_PATHS = [
+  '/api/health',
+  '/api/status',
+  '/api/metrics',
+  '/api/ping',
+  '/api/version',
+  '/api/blocks',
+  '/api/transactions/public',
+  '/api/transactions/recent',
+  '/api/validators/list',
+  '/api/validators/status',
+  '/api/validators/stats',
+  '/api/network/stats',
+  '/api/network/info',
+  '/api/price',
+  '/api/market',
+  '/api/explorer/',
+  '/api/production-monitor/',
+  '/api/session-health',
+  '/api/internal',
+  '/api/soak-tests',
+  '/api/db-optimizer',
+  '/api/public',
+  '/api/enterprise',
+  '/api/shard-cache',
+  '/api/cross-shard-router',
+  '/api/shard-rebalancer',
+  '/api/batch-processor',
+  '/api/rewards/stats',
+  '/api/rewards/epoch',
+  '/api/scalability',
+  '/api/consensus/state',
+  '/api/consensus/info',
+  '/api/consensus/rounds',
+  '/api/block-production',
+  '/api/dex/pools',
+  '/api/dex/pairs',
+  '/api/lending/markets',
+  '/api/yield/vaults',
+  '/api/lst/pools',
+  '/api/nft/collections',
+  '/api/bridge/chains',
+  '/api/gamefi/projects',
+  '/api/launchpad/projects',
+  '/api/community/content',
+  '/api/newsletter',
+  '/api/launch-event',
+  '/api/shards',
+  '/api/wallets',
+  '/api/contracts',
+  '/api/ai/models',
+  '/api/ai/decisions',
+  '/api/node/health',
+  '/api/performance',
+  '/health',
 ];
 
 // ============================================================================
-// Session Bypass Detection
+// Skip Decision Interface
 // ============================================================================
+
+export interface SkipDecision {
+  skip: boolean;
+  reason: string;
+  priority: number;
+}
 
 export interface SessionBypassResult {
   shouldSkip: boolean;
@@ -184,316 +274,40 @@ export interface SessionBypassResult {
   hasSessionCookie: boolean;
 }
 
-/**
- * Determines if a request should bypass session creation
- * CRITICAL: This function must be fast and aggressive to prevent session overflow
- * 
- * @param req Express request object
- * @returns SessionBypassResult with skip decision and reason
- */
-export function shouldBypassSession(req: Request): SessionBypassResult {
-  const normalizedPath = normalizePath(req.path);
-  const userAgent = req.headers['user-agent'] || '';
-  const hasInternalHeader = req.headers['x-internal-request'] === 'true';
-  
-  // Fast path: Check for existing session cookie first
-  const hasSessionCookie = hasValidSessionCookie(req);
-  
-  // ★ [Priority 0] WebSocket upgrade requests - ALWAYS skip
-  if (req.headers.upgrade === 'websocket') {
-    return {
-      shouldSkip: true,
-      reason: 'websocket_upgrade',
-      isInternalRequest: false,
-      hasSessionCookie,
-    };
-  }
-  
-  // ★ [Priority 1] Static assets and files - ALWAYS skip (no session needed)
-  if (isStaticAsset(normalizedPath)) {
-    return {
-      shouldSkip: true,
-      reason: 'static_asset',
-      isInternalRequest: false,
-      hasSessionCookie,
-    };
-  }
-  
-  // ★ [Priority 2] Always skip paths - regardless of cookies
-  if (matchesPrefix(normalizedPath, ALWAYS_SKIP_PREFIXES)) {
-    return {
-      shouldSkip: true,
-      reason: 'always_skip_path',
-      isInternalRequest: false,
-      hasSessionCookie,
-    };
-  }
-  
-  // Detect internal requests (localhost, empty UA, axios, etc.)
-  const isInternalRequest = detectInternalRequest(req, userAgent, hasInternalHeader);
-  
-  // ★ [Priority 3] Internal requests - ALWAYS skip (even with cookies)
-  if (isInternalRequest) {
-    return {
-      shouldSkip: true,
-      reason: 'internal_request',
-      isInternalRequest: true,
-      hasSessionCookie,
-    };
-  }
-  
-  // ★ [Priority 4] Check if path requires authentication - DO NOT skip
-  if (requiresAuthentication(normalizedPath, req.method)) {
-    return {
-      shouldSkip: false,
-      reason: 'auth_required_path',
-      isInternalRequest,
-      hasSessionCookie,
-    };
-  }
-  
-  // ★ [Priority 5] Public API paths - skip if no cookie
-  if (!hasSessionCookie) {
-    // Public API prefixes
-    if (matchesPrefix(normalizedPath, PUBLIC_API_PREFIXES)) {
-      return {
-        shouldSkip: true,
-        reason: 'public_api_no_cookie',
-        isInternalRequest,
-        hasSessionCookie,
-      };
-    }
-    
-    // Exact GET paths
-    if (req.method === 'GET' && EXACT_GET_PATHS.includes(normalizedPath)) {
-      return {
-        shouldSkip: true,
-        reason: 'exact_get_no_cookie',
-        isInternalRequest,
-        hasSessionCookie,
-      };
-    }
-    
-    // ★ [Production Stability] Any GET request to /api/ without cookie should skip
-    // EXCEPT: Auth-related paths that need sessions for CSRF/nonces
-    if (IS_PRODUCTION && req.method === 'GET' && normalizedPath.startsWith('/api/')) {
-      // ★ [중요] 인증 관련 경로는 세션 필요 - 제외
-      const authCriticalPaths = [
-        '/api/auth',        // 인증 체크
-        '/api/session',     // 세션 관리
-        '/api/oauth',       // OAuth 콜백
-        '/api/google',      // Google OAuth
-        '/api/csrf',        // CSRF 토큰
-      ];
-      
-      const isAuthCritical = authCriticalPaths.some(prefix => 
-        normalizedPath === prefix || normalizedPath.startsWith(prefix + '/')
-      );
-      
-      if (!isAuthCritical) {
-        return {
-          shouldSkip: true,
-          reason: 'production_api_get_no_cookie',
-          isInternalRequest,
-          hasSessionCookie,
-        };
-      }
-    }
-  }
-  
-  // ★ [Priority 6] HTML Page Requests without authenticated cookie
-  // CRITICAL: This is the main fix for MemoryStore overflow after 1-2 hours
-  // Anonymous page visits don't need persistent sessions
-  if (!hasSessionCookie && req.method === 'GET') {
-    const acceptHeader = req.headers.accept || '';
-    const isHtmlRequest = acceptHeader.includes('text/html') || 
-                          acceptHeader === '*/*' ||
-                          acceptHeader === '';
-    
-    // Skip session for public HTML pages (not admin/login)
-    if (isHtmlRequest && !requiresAuthentication(normalizedPath, 'GET')) {
-      return {
-        shouldSkip: true,
-        reason: 'public_html_no_cookie',
-        isInternalRequest,
-        hasSessionCookie,
-      };
-    }
-  }
-  
-  // ★ [Priority 7] Requests with anonymous session cookie but not authenticated
-  // If user has a tburn_session cookie but is NOT logged in, skip session recreation
-  // This prevents session accumulation from repeat visitors
-  if (hasSessionCookie && req.method === 'GET') {
-    // Check if this is just a browsing session (not authenticated)
-    // Only skip if not accessing auth-critical paths
-    const authPaths = ['/api/auth', '/api/session', '/admin', '/login', '/api/user'];
-    const isAuthPath = authPaths.some(p => normalizedPath.startsWith(p));
-    
-    if (!isAuthPath) {
-      // Let existing session continue but don't create new ones
-      // The session middleware will handle existing sessions
-      return {
-        shouldSkip: false,
-        reason: 'existing_session',
-        isInternalRequest,
-        hasSessionCookie,
-      };
-    }
-  }
-  
-  // ★ [Priority 8] Don't skip - need session
-  return {
-    shouldSkip: false,
-    reason: 'session_required',
-    isInternalRequest,
-    hasSessionCookie,
-  };
-}
-
 // ============================================================================
-// Helper Functions
+// Skip Decision Function
 // ============================================================================
 
-function normalizePath(path: string): string {
-  // Remove trailing slash for consistent matching
-  return path.endsWith('/') && path.length > 1 
-    ? path.slice(0, -1) 
-    : path;
+function getExtension(path: string): string | null {
+  const lastDot = path.lastIndexOf('.');
+  if (lastDot === -1 || lastDot === path.length - 1) return null;
+  const ext = path.slice(lastDot).toLowerCase();
+  return ext.split('?')[0];
 }
 
-// Static asset extensions that never need session
-const STATIC_EXTENSIONS = [
-  '.js', '.mjs', '.cjs',        // JavaScript
-  '.css', '.scss', '.less',     // Styles
-  '.png', '.jpg', '.jpeg', '.gif', '.svg', '.ico', '.webp', '.avif', // Images
-  '.woff', '.woff2', '.ttf', '.eot', '.otf',  // Fonts
-  '.json', '.xml', '.txt',      // Data files
-  '.mp4', '.webm', '.ogg', '.mp3', '.wav',    // Media
-  '.pdf', '.doc', '.docx',      // Documents
-  '.map', '.br', '.gz',         // Source maps, compressed
-];
-
-/**
- * Check if the request is for a static asset
- * Static assets never need sessions
- */
-function isStaticAsset(path: string): boolean {
-  // Check file extension
-  const ext = path.substring(path.lastIndexOf('.')).toLowerCase();
-  if (STATIC_EXTENSIONS.includes(ext)) {
-    return true;
-  }
-  
-  // Check common static asset patterns
-  if (path.includes('/assets/') || 
-      path.includes('/static/') || 
-      path.includes('/@vite/') ||
-      path.includes('/@fs/') ||
-      path.includes('/node_modules/') ||
-      path.startsWith('/src/') ||
-      path.includes('.hot-update.')) {
-    return true;
-  }
-  
-  return false;
-}
-
-/**
- * Detect internal/automated requests that should never create sessions
- * CRITICAL: This must be comprehensive for production stability
- */
-function detectInternalRequest(req: Request, userAgent: string, hasInternalHeader: boolean): boolean {
-  // ★ [1] Check X-Internal-Request header
-  if (hasInternalHeader) {
-    return true;
-  }
-  
-  // ★ [2] Check for localhost/internal IPs (even through proxy)
-  const ip = getClientIP(req);
-  if (isInternalIP(ip)) {
-    return true;
-  }
-  
-  // ★ [3] Check for empty User-Agent (headless/internal requests)
-  if (userAgent === '' || userAgent === undefined) {
-    return true;
-  }
-  
-  // ★ [4] Check for known internal HTTP client User-Agents
-  const lowerUA = userAgent.toLowerCase();
-  for (const internalUA of INTERNAL_USER_AGENTS) {
-    if (lowerUA.includes(internalUA)) {
-      return true;
-    }
-  }
-  
-  // ★ [5] Check for bot/crawler User-Agents (they don't need sessions)
-  if (lowerUA.includes('bot') || 
-      lowerUA.includes('crawler') || 
-      lowerUA.includes('spider') ||
-      lowerUA.includes('monitor') ||
-      lowerUA.includes('check') ||
-      lowerUA.includes('probe') ||
-      lowerUA.includes('health')) {
-    return true;
-  }
-  
-  return false;
-}
-
-/**
- * Get the real client IP, handling proxy headers
- */
 function getClientIP(req: Request): string {
-  // Check X-Forwarded-For header (standard proxy header)
-  const xForwardedFor = req.headers['x-forwarded-for'];
-  if (xForwardedFor) {
-    const ips = typeof xForwardedFor === 'string' 
-      ? xForwardedFor.split(',').map(ip => ip.trim())
-      : xForwardedFor;
-    return ips[0] || req.ip || '';
+  const forwarded = req.headers['x-forwarded-for'];
+  if (forwarded) {
+    const ips = Array.isArray(forwarded) ? forwarded[0] : forwarded;
+    return ips.split(',')[0].trim();
   }
-  
-  // Check X-Real-IP header (Nginx)
   const xRealIp = req.headers['x-real-ip'];
   if (xRealIp) {
     return typeof xRealIp === 'string' ? xRealIp : xRealIp[0];
   }
-  
-  // Fallback to req.ip (Express trust proxy)
-  return req.ip || '';
+  return req.ip || req.socket?.remoteAddress || '0.0.0.0';
 }
 
-/**
- * Check if IP is internal (localhost, private network, etc.)
- */
 function isInternalIP(ip: string): boolean {
   if (!ip) return false;
-  
-  // Localhost
-  if (ip === '127.0.0.1' || ip === '::1' || ip === '::ffff:127.0.0.1') {
-    return true;
-  }
-  
-  // Private networks (10.x.x.x, 172.16-31.x.x, 192.168.x.x)
-  if (ip.startsWith('10.') || 
-      ip.startsWith('192.168.') ||
-      ip.match(/^172\.(1[6-9]|2[0-9]|3[0-1])\./)) {
-    return true;
-  }
-  
-  // IPv6 private (fc00::/7, fe80::/10)
-  if (ip.startsWith('fc') || ip.startsWith('fd') || ip.startsWith('fe80')) {
-    return true;
-  }
-  
-  // Docker internal networks
-  if (ip.startsWith('172.17.') || ip.startsWith('172.18.')) {
-    return true;
-  }
-  
-  return false;
+  return INTERNAL_IP_PATTERNS.some(pattern => pattern.test(ip));
+}
+
+function isAuthRequired(path: string): boolean {
+  const normalizedPath = path.toLowerCase();
+  return AUTH_REQUIRED_PATHS.some(authPath => 
+    normalizedPath === authPath || normalizedPath.startsWith(authPath + '/')
+  );
 }
 
 function hasValidSessionCookie(req: Request): boolean {
@@ -501,30 +315,285 @@ function hasValidSessionCookie(req: Request): boolean {
   return cookie.includes('connect.sid');
 }
 
-function matchesPrefix(path: string, prefixes: string[]): boolean {
-  return prefixes.some(prefix => 
-    path === prefix || path.startsWith(prefix + '/')
-  );
-}
-
-function requiresAuthentication(path: string, method: string): boolean {
-  // Check auth-required patterns
-  for (const pattern of AUTH_REQUIRED_PATTERNS) {
-    if (path.includes(pattern)) {
+function isStaticAsset(path: string): boolean {
+  const ext = getExtension(path);
+  if (ext && STATIC_EXTENSIONS.has(ext)) {
+    return true;
+  }
+  
+  for (const prefix of STATIC_PREFIXES) {
+    if (path.startsWith(prefix)) {
       return true;
     }
   }
   
-  // POST/PUT/DELETE on protected routes
-  if (method !== 'GET') {
-    if (path.includes('/start') || 
-        path.includes('/stop') || 
-        path.includes('/benchmark')) {
+  if (path.includes('.hot-update.')) {
+    return true;
+  }
+  
+  return false;
+}
+
+function isSessionFreeAPI(path: string): boolean {
+  const normalizedPath = path.toLowerCase();
+  return SESSION_FREE_API_PATHS.some(apiPath => 
+    normalizedPath === apiPath || normalizedPath.startsWith(apiPath)
+  );
+}
+
+function detectInternalRequest(req: Request, userAgent: string, hasInternalHeader: boolean): boolean {
+  if (hasInternalHeader) {
+    return true;
+  }
+  
+  const ip = getClientIP(req);
+  if (isInternalIP(ip)) {
+    return true;
+  }
+  
+  if (!userAgent || userAgent.length < 10) {
+    return true;
+  }
+  
+  const lowerUA = userAgent.toLowerCase();
+  for (const pattern of INTERNAL_USER_AGENTS) {
+    if (lowerUA.includes(pattern)) {
       return true;
     }
   }
   
   return false;
+}
+
+/**
+ * Determines if a request should bypass session creation
+ * CRITICAL: This function must be fast and aggressive to prevent session overflow
+ */
+export function shouldBypassSession(req: Request): SessionBypassResult {
+  const url = req.url || req.originalUrl || '/';
+  const path = url.split('?')[0].toLowerCase();
+  const method = req.method?.toUpperCase() || 'GET';
+  const userAgent = (req.headers['user-agent'] || '').toLowerCase();
+  const accept = (req.headers['accept'] || '').toLowerCase();
+  const hasInternalHeader = req.headers['x-internal-request'] === 'true';
+  const hasSessionCookie = hasValidSessionCookie(req);
+  
+  // Priority 1: WebSocket upgrade
+  if (req.headers['upgrade']?.toLowerCase() === 'websocket') {
+    return { shouldSkip: true, reason: 'websocket_upgrade', isInternalRequest: false, hasSessionCookie };
+  }
+  
+  // Priority 2: Static assets (extensions)
+  if (isStaticAsset(path)) {
+    return { shouldSkip: true, reason: 'static_asset', isInternalRequest: false, hasSessionCookie };
+  }
+  
+  // Priority 3: Session-free API paths
+  if (isSessionFreeAPI(path)) {
+    return { shouldSkip: true, reason: 'session_free_api', isInternalRequest: false, hasSessionCookie };
+  }
+  
+  // Priority 4: Internal requests (localhost, empty UA, axios, etc.)
+  const isInternalRequest = detectInternalRequest(req, userAgent, hasInternalHeader);
+  if (isInternalRequest && !isAuthRequired(path)) {
+    return { shouldSkip: true, reason: 'internal_request', isInternalRequest: true, hasSessionCookie };
+  }
+  
+  // Priority 5: Check if path requires authentication - DO NOT skip
+  if (isAuthRequired(path)) {
+    return { shouldSkip: false, reason: 'auth_required', isInternalRequest, hasSessionCookie };
+  }
+  
+  // Priority 6: Preflight requests
+  if (method === 'OPTIONS' || method === 'HEAD') {
+    return { shouldSkip: true, reason: 'preflight_request', isInternalRequest, hasSessionCookie };
+  }
+  
+  // Priority 7: Non-browser Accept header
+  if (accept && !accept.includes('text/html') && !accept.includes('application/json')) {
+    if (method === 'GET') {
+      return { shouldSkip: true, reason: 'non_browser_accept', isInternalRequest, hasSessionCookie };
+    }
+  }
+  
+  // Priority 8: Production - unauthenticated API GET requests without cookie
+  if (IS_PRODUCTION && method === 'GET' && path.startsWith('/api/') && !hasSessionCookie) {
+    return { shouldSkip: true, reason: 'production_api_get_no_cookie', isInternalRequest, hasSessionCookie };
+  }
+  
+  // Priority 9: Public HTML page without cookie
+  if (!hasSessionCookie && method === 'GET') {
+    const isHtmlRequest = accept.includes('text/html') || accept === '*/*' || accept === '';
+    if (isHtmlRequest) {
+      return { shouldSkip: true, reason: 'public_html_no_cookie', isInternalRequest, hasSessionCookie };
+    }
+  }
+  
+  // Priority 10: Has cookie but browsing (not auth path)
+  if (hasSessionCookie && method === 'GET') {
+    const authPaths = ['/api/auth', '/api/session', '/admin', '/login', '/api/user'];
+    const isAuthPath = authPaths.some(p => path.startsWith(p));
+    if (!isAuthPath) {
+      return { shouldSkip: false, reason: 'existing_session', isInternalRequest, hasSessionCookie };
+    }
+  }
+  
+  // Default: Need session
+  return { shouldSkip: false, reason: 'session_required', isInternalRequest, hasSessionCookie };
+}
+
+// ============================================================================
+// Metrics Collection
+// ============================================================================
+
+interface SessionMetrics {
+  totalRequests: number;
+  skippedRequests: number;
+  sessionRequests: number;
+  skipReasons: Map<string, number>;
+  lastReset: Date;
+  memoryUsage: number;
+  activeSessions: number;
+}
+
+const metrics: SessionMetrics = {
+  totalRequests: 0,
+  skippedRequests: 0,
+  sessionRequests: 0,
+  skipReasons: new Map(),
+  lastReset: new Date(),
+  memoryUsage: 0,
+  activeSessions: 0,
+};
+
+export function updateMetrics(decision: SessionBypassResult): void {
+  metrics.totalRequests++;
+  
+  if (decision.shouldSkip) {
+    metrics.skippedRequests++;
+    const count = metrics.skipReasons.get(decision.reason) || 0;
+    metrics.skipReasons.set(decision.reason, count + 1);
+  } else {
+    metrics.sessionRequests++;
+  }
+  
+  const heapUsed = process.memoryUsage().heapUsed;
+  const heapTotal = process.memoryUsage().heapTotal;
+  metrics.memoryUsage = heapUsed / heapTotal;
+}
+
+export function getSessionMetrics(): SessionMetrics & { skipRatio: number; skipReasonsObject: Record<string, number> } {
+  const skipReasonsObject: Record<string, number> = {};
+  metrics.skipReasons.forEach((value, key) => {
+    skipReasonsObject[key] = value;
+  });
+  
+  return {
+    ...metrics,
+    skipRatio: metrics.totalRequests > 0 
+      ? metrics.skippedRequests / metrics.totalRequests 
+      : 0,
+    skipReasonsObject,
+  };
+}
+
+export function resetMetrics(): void {
+  metrics.totalRequests = 0;
+  metrics.skippedRequests = 0;
+  metrics.sessionRequests = 0;
+  metrics.skipReasons.clear();
+  metrics.lastReset = new Date();
+}
+
+// ============================================================================
+// MemoryStore Management
+// ============================================================================
+
+let sessionStore: session.MemoryStore | any = null;
+
+export function setSessionStore(store: session.MemoryStore | any): void {
+  sessionStore = store;
+}
+
+export function getSessionCount(): number {
+  if (!sessionStore) return 0;
+  
+  // Try to access internal sessions object
+  const sessions = (sessionStore as any).sessions;
+  if (sessions && typeof sessions === 'object') {
+    return Object.keys(sessions).length;
+  }
+  
+  // Try LRU cache
+  const store = (sessionStore as any).store;
+  if (store && typeof store.itemCount === 'number') {
+    return store.itemCount;
+  }
+  
+  return 0;
+}
+
+export function emergencySessionCleanup(targetPercentage: number = 0.3): number {
+  if (!sessionStore) return 0;
+  
+  const sessions = (sessionStore as any).sessions;
+  if (!sessions) {
+    // Try LRU cache cleanup
+    const store = (sessionStore as any).store;
+    if (store && typeof store.prune === 'function') {
+      store.prune();
+      console.log(`[SESSION-BYPASS] Emergency prune executed on LRU cache`);
+      return 0;
+    }
+    return 0;
+  }
+  
+  const sessionIds = Object.keys(sessions);
+  const deleteCount = Math.floor(sessionIds.length * targetPercentage);
+  
+  // Delete oldest sessions first
+  const sortedIds = sessionIds.sort((a, b) => {
+    try {
+      const sessionA = JSON.parse(sessions[a]);
+      const sessionB = JSON.parse(sessions[b]);
+      const timeA = sessionA.cookie?.expires ? new Date(sessionA.cookie.expires).getTime() : 0;
+      const timeB = sessionB.cookie?.expires ? new Date(sessionB.cookie.expires).getTime() : 0;
+      return timeA - timeB;
+    } catch {
+      return 0;
+    }
+  });
+  
+  let deleted = 0;
+  for (let i = 0; i < deleteCount && i < sortedIds.length; i++) {
+    delete sessions[sortedIds[i]];
+    deleted++;
+  }
+  
+  console.log(`[SESSION-BYPASS] Emergency cleanup: deleted ${deleted} sessions`);
+  return deleted;
+}
+
+export function forceClearAllSessions(memoryStoreRef?: any): void {
+  const store = memoryStoreRef || sessionStore;
+  if (!store) return;
+  
+  const sessions = (store as any).sessions;
+  if (sessions) {
+    const count = Object.keys(sessions).length;
+    for (const key of Object.keys(sessions)) {
+      delete sessions[key];
+    }
+    console.log(`[SESSION-BYPASS] CRITICAL: Cleared all ${count} sessions to prevent crash`);
+    return;
+  }
+  
+  // Try LRU cache
+  const lruStore = (store as any).store;
+  if (lruStore && typeof lruStore.reset === 'function') {
+    lruStore.reset();
+    console.log(`[SESSION-BYPASS] CRITICAL: Reset LRU cache to prevent crash`);
+  }
 }
 
 // ============================================================================
@@ -533,51 +602,49 @@ function requiresAuthentication(path: string, method: string): boolean {
 
 /**
  * Blocks Set-Cookie header from being sent
- * Call this when session should be skipped
  * CRITICAL: This prevents session cookie leaks that cause MemoryStore overflow
  */
 export function blockSetCookie(res: Response): void {
-  // ★ [1] Override setHeader to block Set-Cookie
   const originalSetHeader = res.setHeader.bind(res);
+  const originalWriteHead = res.writeHead?.bind(res);
+  
   res.setHeader = function(name: string, value: any) {
     if (name.toLowerCase() === 'set-cookie') {
-      // Block Set-Cookie header for skipped sessions
-      return res;
+      // Filter out session cookies
+      if (Array.isArray(value)) {
+        value = value.filter((v: string) => !v.includes('connect.sid'));
+        if (value.length === 0) return res;
+      } else if (typeof value === 'string' && value.includes('connect.sid')) {
+        return res;
+      }
     }
     return originalSetHeader(name, value);
   };
   
-  // ★ [2] Override appendHeader/writeHead to catch all Set-Cookie attempts
-  const originalWriteHead = res.writeHead?.bind(res);
   if (originalWriteHead) {
-    (res as any).writeHead = function(statusCode: number, statusMessage?: string | any, headers?: any) {
-      // Handle different overload signatures
-      let finalHeaders = headers;
-      if (typeof statusMessage === 'object') {
-        finalHeaders = statusMessage;
-        statusMessage = undefined;
-      }
-      
-      // Remove Set-Cookie from headers if present
-      if (finalHeaders) {
-        if (typeof finalHeaders === 'object') {
-          delete finalHeaders['set-cookie'];
-          delete finalHeaders['Set-Cookie'];
+    (res as any).writeHead = function(statusCode: number, ...args: any[]) {
+      const headers = args.find(arg => typeof arg === 'object' && !Array.isArray(arg));
+      if (headers) {
+        for (const key of Object.keys(headers)) {
+          if (key.toLowerCase() === 'set-cookie') {
+            const value = headers[key];
+            if (Array.isArray(value)) {
+              headers[key] = value.filter((v: string) => !v.includes('connect.sid'));
+              if (headers[key].length === 0) delete headers[key];
+            } else if (typeof value === 'string' && value.includes('connect.sid')) {
+              delete headers[key];
+            }
+          }
         }
       }
       
-      // Remove any existing Set-Cookie header
       res.removeHeader('Set-Cookie');
       res.removeHeader('set-cookie');
       
-      if (statusMessage !== undefined) {
-        return originalWriteHead(statusCode, statusMessage, finalHeaders);
-      }
-      return originalWriteHead(statusCode, finalHeaders);
+      return originalWriteHead(statusCode, ...args);
     };
   }
   
-  // ★ [3] Also remove any existing Set-Cookie header
   res.removeHeader('Set-Cookie');
   res.removeHeader('set-cookie');
 }
@@ -601,16 +668,15 @@ export function createSkipSession(): any {
 // MemoryStore Capacity Monitoring
 // ============================================================================
 
-let memoryStoreWarningThreshold = 0.7; // 70% capacity warning
 let lastCapacityWarning = 0;
-const CAPACITY_WARNING_INTERVAL = 60000; // 1 minute between warnings
+const CAPACITY_WARNING_INTERVAL = 60000;
 
 export function checkMemoryStoreCapacity(
   currentSessions: number,
   maxSessions: number
 ): { isWarning: boolean; isCritical: boolean; percentUsed: number } {
   const percentUsed = currentSessions / maxSessions;
-  const isWarning = percentUsed >= memoryStoreWarningThreshold;
+  const isWarning = percentUsed >= CONFIG.MEMORY_WARNING_THRESHOLD;
   const isCritical = percentUsed >= 0.9;
   
   const now = Date.now();
@@ -632,27 +698,14 @@ export function checkMemoryStoreCapacity(
   return { isWarning, isCritical, percentUsed };
 }
 
-export function setMemoryStoreWarningThreshold(threshold: number): void {
-  memoryStoreWarningThreshold = Math.max(0.5, Math.min(0.95, threshold));
-}
-
 // ============================================================================
-// Emergency MemoryStore Cleanup (CRITICAL for 24/7 stability)
+// Emergency Cleanup Tracking
 // ============================================================================
 
 let lastEmergencyCleanup = 0;
-const EMERGENCY_CLEANUP_INTERVAL = 30000; // 30 seconds between cleanups
+const EMERGENCY_CLEANUP_INTERVAL = 30000;
 let emergencyCleanupCount = 0;
 
-/**
- * Performs emergency cleanup on MemoryStore when capacity is critical
- * CRITICAL: This prevents 500 errors from MemoryStore overflow
- * 
- * @param memoryStoreRef Reference to the MemoryStore instance
- * @param currentSessions Current session count
- * @param maxSessions Maximum allowed sessions
- * @returns Number of sessions cleared (0 if no cleanup needed)
- */
 export function performEmergencyCleanup(
   memoryStoreRef: any,
   currentSessions: number,
@@ -661,7 +714,6 @@ export function performEmergencyCleanup(
   const percentUsed = currentSessions / maxSessions;
   const now = Date.now();
   
-  // Only cleanup when critical (>80%) and not too frequently
   if (percentUsed < 0.8 || now - lastEmergencyCleanup < EMERGENCY_CLEANUP_INTERVAL) {
     return 0;
   }
@@ -669,89 +721,159 @@ export function performEmergencyCleanup(
   lastEmergencyCleanup = now;
   emergencyCleanupCount++;
   
+  console.log(`[SESSION-BYPASS] Performing emergency cleanup #${emergencyCleanupCount} at ${(percentUsed * 100).toFixed(1)}% capacity`);
+  
   try {
-    // Get the internal LRU store
-    const store = memoryStoreRef?.store;
-    if (!store) {
-      console.warn('[Session] ⚠️ Cannot access MemoryStore internal store for cleanup');
-      return 0;
-    }
-    
-    // Calculate how many sessions to remove (clear 30% when critical)
-    const targetRemoval = Math.floor(maxSessions * 0.3);
-    let removed = 0;
-    
-    console.warn(
-      `[Session] 🚨 EMERGENCY CLEANUP #${emergencyCleanupCount}: ` +
-      `${(percentUsed * 100).toFixed(1)}% capacity (${currentSessions}/${maxSessions}). ` +
-      `Removing oldest ${targetRemoval} sessions...`
-    );
-    
-    // Use LRU prune/clear methods if available
-    if (typeof store.prune === 'function') {
-      // memorystore LRU has prune method
+    const store = (memoryStoreRef as any).store;
+    if (store && typeof store.prune === 'function') {
       store.prune();
-      removed = Math.min(targetRemoval, currentSessions);
-    } else if (typeof store.keys === 'function') {
-      // Manual removal of oldest entries
-      const keys = [...store.keys()];
-      const toRemove = keys.slice(0, targetRemoval);
-      
-      for (const key of toRemove) {
-        if (typeof store.del === 'function') {
-          store.del(key);
-          removed++;
-        } else if (typeof store.delete === 'function') {
-          store.delete(key);
-          removed++;
-        }
-      }
     }
     
-    console.log(`[Session] ✅ Emergency cleanup completed: ${removed} sessions removed`);
-    return removed;
+    // Also trigger GC if available
+    if (global.gc) {
+      global.gc();
+    }
     
+    return 1;
   } catch (error) {
-    console.error(`[Session] ❌ Emergency cleanup failed:`, error);
+    console.error('[SESSION-BYPASS] Emergency cleanup error:', error);
     return 0;
   }
 }
 
-/**
- * Force clear all sessions (nuclear option for critical situations)
- * Use only when server is about to crash
- */
-export function forceClearAllSessions(memoryStoreRef: any): boolean {
-  try {
-    const store = memoryStoreRef?.store;
-    if (!store) return false;
-    
-    console.error('[Session] 🔥 FORCE CLEARING ALL SESSIONS - Critical capacity reached');
-    
-    if (typeof store.clear === 'function') {
-      store.clear();
-      console.log('[Session] ✅ All sessions cleared');
-      return true;
-    } else if (typeof store.reset === 'function') {
-      store.reset();
-      console.log('[Session] ✅ Session store reset');
-      return true;
-    }
-    
-    return false;
-  } catch (error) {
-    console.error('[Session] ❌ Force clear failed:', error);
-    return false;
-  }
+// ============================================================================
+// Session Bypass Middleware Factory
+// ============================================================================
+
+export interface SessionBypassOptions {
+  sessionMiddleware: RequestHandler;
+  enableMetrics?: boolean;
+  enableEmergencyCleanup?: boolean;
+  cleanupInterval?: number;
 }
 
-/**
- * Get emergency cleanup statistics
- */
-export function getEmergencyCleanupStats() {
-  return {
-    cleanupCount: emergencyCleanupCount,
-    lastCleanup: lastEmergencyCleanup,
-    timeSinceLastCleanup: Date.now() - lastEmergencyCleanup,
+export function createSessionBypassMiddleware(options: SessionBypassOptions): RequestHandler {
+  const {
+    sessionMiddleware,
+    enableMetrics = true,
+    enableEmergencyCleanup = true,
+    cleanupInterval = CONFIG.SESSION_CLEANUP_INTERVAL,
+  } = options;
+  
+  // Set up periodic cleanup
+  if (enableEmergencyCleanup) {
+    setInterval(() => {
+      const sessionCount = getSessionCount();
+      metrics.activeSessions = sessionCount;
+      
+      const heapUsed = process.memoryUsage().heapUsed;
+      const heapTotal = process.memoryUsage().heapTotal;
+      const memoryRatio = heapUsed / heapTotal;
+      
+      // Session count based cleanup
+      if (sessionCount > CONFIG.MAX_SESSIONS) {
+        console.log(`[SESSION-BYPASS] Session count (${sessionCount}) exceeds max (${CONFIG.MAX_SESSIONS})`);
+        emergencySessionCleanup(0.5);
+      }
+      
+      // Memory based cleanup
+      if (memoryRatio > CONFIG.MEMORY_EMERGENCY_THRESHOLD) {
+        console.log(`[SESSION-BYPASS] EMERGENCY: Memory at ${(memoryRatio * 100).toFixed(1)}%`);
+        forceClearAllSessions();
+      } else if (memoryRatio > CONFIG.MEMORY_CRITICAL_THRESHOLD) {
+        console.log(`[SESSION-BYPASS] CRITICAL: Memory at ${(memoryRatio * 100).toFixed(1)}%`);
+        emergencySessionCleanup(0.5);
+      } else if (memoryRatio > CONFIG.MEMORY_WARNING_THRESHOLD) {
+        console.log(`[SESSION-BYPASS] WARNING: Memory at ${(memoryRatio * 100).toFixed(1)}%`);
+        emergencySessionCleanup(0.3);
+      }
+      
+    }, cleanupInterval);
+  }
+  
+  console.log('[SESSION-BYPASS] Middleware initialized v3.0.0');
+  console.log(`[SESSION-BYPASS] Environment: ${ENVIRONMENT.nodeEnv}, Replit: ${ENVIRONMENT.isReplit}, Production: ${ENVIRONMENT.isProduction}`);
+  
+  return (req: Request, res: Response, next: NextFunction) => {
+    const decision = shouldBypassSession(req);
+    
+    if (enableMetrics) {
+      updateMetrics(decision);
+    }
+    
+    if (decision.shouldSkip) {
+      // Block Set-Cookie header
+      blockSetCookie(res);
+      
+      // Provide fake session object
+      (req as any).session = createSkipSession();
+      
+      return next();
+    }
+    
+    // Use actual session middleware
+    return sessionMiddleware(req, res, next);
   };
 }
+
+// ============================================================================
+// Health Check Endpoint Data
+// ============================================================================
+
+export function getSessionHealthData(): {
+  healthy: boolean;
+  metrics: {
+    totalRequests: number;
+    skippedRequests: number;
+    sessionRequests: number;
+    skipRatio: string;
+    activeSessions: number;
+    skipReasons: Record<string, number>;
+  };
+  memory: {
+    heapUsed: number;
+    heapTotal: number;
+    heapPercent: number;
+    rss: number;
+  };
+  config: {
+    maxSessions: number;
+    isProduction: boolean;
+    sessionStoreType: string;
+  };
+} {
+  const mem = process.memoryUsage();
+  const metricsData = getSessionMetrics();
+  
+  const heapPercent = (mem.heapUsed / mem.heapTotal) * 100;
+  const healthy = heapPercent < 90 && metricsData.activeSessions < CONFIG.MAX_SESSIONS * 0.9;
+  
+  return {
+    healthy,
+    metrics: {
+      totalRequests: metricsData.totalRequests,
+      skippedRequests: metricsData.skippedRequests,
+      sessionRequests: metricsData.sessionRequests,
+      skipRatio: (metricsData.skipRatio * 100).toFixed(2) + '%',
+      activeSessions: metricsData.activeSessions,
+      skipReasons: metricsData.skipReasonsObject,
+    },
+    memory: {
+      heapUsed: Math.round(mem.heapUsed / 1024 / 1024),
+      heapTotal: Math.round(mem.heapTotal / 1024 / 1024),
+      heapPercent: Math.round(heapPercent),
+      rss: Math.round(mem.rss / 1024 / 1024),
+    },
+    config: {
+      maxSessions: CONFIG.MAX_SESSIONS,
+      isProduction: IS_PRODUCTION,
+      sessionStoreType: sessionStore ? 'configured' : 'not_set',
+    },
+  };
+}
+
+// Also export legacy names for backward compatibility
+export const ALWAYS_SKIP_PREFIXES = [...STATIC_PREFIXES, ...SESSION_FREE_API_PATHS.map(p => p.endsWith('/') ? p : p)];
+export const PUBLIC_API_PREFIXES = SESSION_FREE_API_PATHS;
+export const EXACT_GET_PATHS = SESSION_FREE_API_PATHS;
+export const AUTH_REQUIRED_PATTERNS = AUTH_REQUIRED_PATHS;

@@ -80,6 +80,8 @@ import { aiDecisionExecutor } from "./services/AIDecisionExecutor";
 import { getHealthMonitor, validateCriticalConfiguration, HealthStatus } from "./services/ConnectionHealthMonitor";
 import { getDataCache, DataCacheService } from "./services/DataCacheService";
 import { getProductionDataPoller } from "./services/ProductionDataPoller";
+import { getSessionHealthData } from "./core/sessions/session-bypass";
+import { disasterRecovery, disasterRecoveryMiddleware } from "./core/monitoring/disaster-recovery";
 
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "admin7979";
 const ADMIN_EMAIL = process.env.ADMIN_EMAIL || "trustburn79@gmail.com";
@@ -506,6 +508,13 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   // ★ [2026-01-04] Start Enterprise Production Monitor for session metrics
   productionMonitor.start();
   console.log('[Routes] ✅ Enterprise production monitor started');
+  
+  // ★ [2026-01-05] Start Disaster Recovery Manager for 24/7/365 stability
+  disasterRecovery.start();
+  console.log('[Routes] ✅ Disaster recovery manager started');
+  
+  // Apply disaster recovery middleware for request tracking
+  app.use(disasterRecoveryMiddleware());
   
   // Register health monitor routes (early, before rate limiting)
   app.use(healthMonitor.getRoutes());
@@ -1707,6 +1716,44 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
+  // ============================================
+  // Session Health Check Endpoint (Public - No Auth Required)
+  // ★ [v3.0] 24/7/365 세션 상태 모니터링
+  // ============================================
+  app.get("/api/session-health", async (_req, res) => {
+    try {
+      const sessionHealth = getSessionHealthData();
+      res.json(sessionHealth);
+    } catch (error) {
+      res.status(500).json({ 
+        healthy: false, 
+        error: 'Failed to get session health data',
+        message: error instanceof Error ? error.message : 'Unknown error'
+      });
+    }
+  });
+
+  // ============================================
+  // API Health Check (Public)
+  // ============================================
+  app.get("/api/health", async (_req, res) => {
+    try {
+      const mem = process.memoryUsage();
+      res.json({ 
+        status: 'ok', 
+        timestamp: new Date().toISOString(),
+        uptime: Math.round(process.uptime()),
+        memory: {
+          heapUsed: Math.round(mem.heapUsed / 1024 / 1024),
+          heapTotal: Math.round(mem.heapTotal / 1024 / 1024),
+          rss: Math.round(mem.rss / 1024 / 1024)
+        }
+      });
+    } catch (error) {
+      res.status(500).json({ status: 'error', error: 'Health check failed' });
+    }
+  });
+
   // Public Performance Metrics (No Auth - for monitoring tools)
   app.get("/api/performance", async (_req, res) => {
     try {
@@ -1786,6 +1833,10 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
     // Skip auth check for node health (public monitoring)
     if (req.path.startsWith("/node/health")) {
+      return next();
+    }
+    // Skip auth check for session health (public monitoring)
+    if (req.path === "/session-health" || req.path === "/health") {
       return next();
     }
     // Skip auth check for performance metrics (public monitoring)

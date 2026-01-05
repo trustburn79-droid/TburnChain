@@ -236,54 +236,58 @@ export function getSessionStoreInfo() {
   };
 }
 
-// ★ [2026-01-04 프로덕션 안정성 수정] - 통합 세션 바이패스 모듈 사용
-// ★ 조건부 세션 미들웨어: 내부 호출 및 세션이 불필요한 경로 건너뛰기
+// ★ [2026-01-05 v3.1] 두 단계 미들웨어 구조 - 세션 완전 바이패스
+// Phase 1: 바이패스 결정 미들웨어 (express-session 이전에 실행)
 app.use((req: Request, res: Response, next: NextFunction) => {
-  // ★ 통합 세션 바이패스 모듈 사용 (개발/프로덕션 일관성)
   const bypassResult = shouldBypassSession(req);
   
   if (bypassResult.shouldSkip) {
+    // ★ [CRITICAL] req.skipSession 플래그 설정 - Phase 2에서 세션 생성 완전 방지
+    (req as any).skipSession = true;
     sessionSkipCount++;
     
-    // ★ [핵심 수정] Set-Cookie 헤더 차단 - 세션 스킵 시 쿠키 설정 방지
+    // Set-Cookie 헤더 차단 - 세션 쿠키 누출 방지
     blockSetCookie(res);
     
-    // 세션 없이 빈 세션 객체만 제공 (세션 저장소에 저장하지 않음)
+    // 빈 세션 객체 제공 (MemoryStore에 저장되지 않음)
     (req as any).session = createSkipSession();
     
-    // ★ [엔터프라이즈 모니터링] 세션 스킵 기록
+    // 엔터프라이즈 모니터링
     productionMonitor.recordSessionSkip();
     
-    // 디버깅용 로깅 (선택적)
     if (process.env.DEBUG_SESSION === 'true') {
       console.log(`[Session Skip] ${req.method} ${req.path} - reason: ${bypassResult.reason}`);
     }
-    
+  }
+  
+  next();
+});
+
+// ★ Phase 2: 조건부 세션 미들웨어 - skipSession=true인 경우 express-session 완전 스킵
+app.use((req: Request, res: Response, next: NextFunction) => {
+  // skipSession 플래그가 있으면 express-session 실행하지 않음 (MemoryStore 할당 없음)
+  if ((req as any).skipSession) {
     return next();
   }
   
   sessionCreateCount++;
-  
-  // ★ [엔터프라이즈 모니터링] 세션 생성 기록
   productionMonitor.recordSessionCreate();
   
-  // ★ MemoryStore 용량 모니터링 (프로덕션 안정성)
+  // ★ MemoryStore 용량 모니터링 (세션 생성 시에만)
   const maxSessions = IS_PRODUCTION ? 10000 : 2000;
   const activeCount = getActiveSessionCount();
   const capacityResult = checkMemoryStoreCapacity(activeCount, maxSessions);
   
-  // ★ [CRITICAL] 긴급 정리 - MemoryStore 80% 이상일 때 자동 정리
-  // 이 로직이 1~2시간 후 Internal Server Error 방지의 핵심입니다
+  // ★ [CRITICAL] 긴급 정리 - 80% 이상 시 자동 정리
   if (capacityResult.percentUsed >= 0.8 && isUsingMemoryStore && memoryStoreRef) {
     performEmergencyCleanup(memoryStoreRef, activeCount, maxSessions);
   }
   
-  // ★ [NUCLEAR OPTION] 95% 이상일 때 전체 세션 삭제 (서버 크래시 방지)
+  // ★ [NUCLEAR OPTION] 95% 이상 시 전체 세션 삭제 (서버 크래시 방지)
   if (capacityResult.percentUsed >= 0.95 && isUsingMemoryStore && memoryStoreRef) {
     forceClearAllSessions(memoryStoreRef);
   }
   
-  // ★ [엔터프라이즈 모니터링] MemoryStore 용량 업데이트 - 실제 활성 세션 수 사용
   productionMonitor.updateMemoryStoreMetrics(activeCount, maxSessions);
   
   // 10분마다 세션 사용량 리포트
@@ -296,6 +300,7 @@ app.use((req: Request, res: Response, next: NextFunction) => {
     lastSessionReport = now;
   }
   
+  // express-session 실제 실행 (세션 생성)
   return sessionMiddleware(req, res, next);
 });
 
