@@ -29,6 +29,7 @@ import {
 } from "./core/sessions/session-bypass";
 import { productionMonitor } from "./core/monitoring/enterprise-production-monitor";
 import { crashDiagnostics } from "./core/monitoring/crash-diagnostics";
+import { disasterRecovery } from "./core/monitoring/disaster-recovery";
 
 // ★ [2026-01-05] 프로세스 크래시 핸들러 즉시 등록 (최우선)
 // uncaughtException, unhandledRejection 핸들러가 모든 에러를 캡처
@@ -203,6 +204,14 @@ if (hasRedis) {
   isUsingMemoryStore = true;
   sessionStoreType = `MemoryStore (max: ${maxSessions}, TTL: 30m, cleanup: 30s)`;
   console.log(`[Session] ⚠️ Using MemoryStore - for production scale, configure REDIS_URL`);
+  
+  // ★ [v3.0] MemoryStore를 재해복구 시스템에 등록
+  disasterRecovery.setSessionStore(memStore);
+}
+
+// ★ [v3.0] Redis를 사용하는 경우에도 세션 스토어 등록
+if (hasRedis) {
+  disasterRecovery.setSessionStore(sessionStore);
 }
 
 // ★ [수정 5] 세션 미들웨어 - 내부 API 호출에서는 세션 생성 건너뛰기
