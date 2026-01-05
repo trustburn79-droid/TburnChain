@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Globe } from 'lucide-react';
-import { languages } from '@/lib/i18n';
+import { languages, changeLanguageWithPreload } from '@/lib/i18n';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -17,12 +17,19 @@ interface LanguageSelectorProps {
 export function LanguageSelector({ isDark = true }: LanguageSelectorProps) {
   const { i18n } = useTranslation();
   const [open, setOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const currentLanguage = languages.find(lang => lang.code === i18n.language) || languages[0];
 
-  const handleLanguageChange = (langCode: string) => {
-    i18n.changeLanguage(langCode);
-    setOpen(false);
+  const handleLanguageChange = async (langCode: string) => {
+    setIsLoading(true);
+    try {
+      localStorage.setItem('tburn-language', langCode);
+      await changeLanguageWithPreload(langCode);
+    } finally {
+      setIsLoading(false);
+      setOpen(false);
+    }
   };
 
   return (
@@ -32,9 +39,10 @@ export function LanguageSelector({ isDark = true }: LanguageSelectorProps) {
           variant="ghost"
           size="icon"
           data-testid="button-language-selector"
+          disabled={isLoading}
           className={`${isDark ? 'text-gray-300 hover:text-white hover:bg-gray-800' : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'}`}
         >
-          <Globe className="h-5 w-5" />
+          <Globe className={`h-5 w-5 ${isLoading ? 'animate-spin' : ''}`} />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent 
