@@ -104,13 +104,13 @@ export default function TokenSchedule() {
             radial-gradient(circle at 15% 50%, rgba(255, 107, 53, 0.08), transparent 25%),
             radial-gradient(circle at 85% 30%, rgba(0, 212, 170, 0.08), transparent 25%);
           color: var(--ts-text-main);
-          font-family: 'Inter', sans-serif;
+          font-family: ui-sans-serif, system-ui, sans-serif;
           line-height: 1.6;
           overflow-x: hidden;
           min-height: 100vh;
         }
 
-        .ts-root h1, .ts-root h2, .ts-root h3, .ts-root h4, .ts-font-orbitron { font-family: 'Orbitron', sans-serif; letter-spacing: 0.5px; }
+        .ts-root h1, .ts-root h2, .ts-root h3, .ts-root h4 { font-family: ui-sans-serif, system-ui, sans-serif; font-weight: 700; }
         .ts-font-mono { font-family: 'JetBrains Mono', monospace; }
 
         .ts-container { max-width: var(--ts-container-width); margin: 0 auto; padding: 0 32px; }
@@ -300,11 +300,11 @@ export default function TokenSchedule() {
         .ts-root td { padding: 16px; border-top: 1px solid var(--ts-border-glass); color: #fff; }
         .ts-root tr:hover td { background: rgba(255,255,255,0.02); }
         
-        .ts-phase-header td { background: rgba(255,255,255,0.05); color: var(--ts-accent); font-weight: 700; font-family: 'Orbitron'; letter-spacing: 1px; }
+        .ts-phase-header td { background: rgba(255,255,255,0.05); color: var(--ts-accent); font-weight: 700; letter-spacing: 0.5px; }
         .ts-total-row td { background: rgba(255, 107, 53, 0.1); font-weight: 700; color: var(--ts-primary); border-top: 2px solid rgba(255, 107, 53, 0.3); }
 
         .ts-chart-row { display: flex; align-items: center; margin-bottom: 12px; height: 36px; }
-        .ts-chart-label { width: 60px; font-family: 'Orbitron'; font-weight: 600; color: var(--ts-text-muted); font-size: 0.9rem; }
+        .ts-chart-label { width: 60px; font-weight: 600; color: var(--ts-text-muted); font-size: 0.9rem; }
         .ts-chart-track { flex: 1; background: rgba(255,255,255,0.05); height: 100%; border-radius: 6px; overflow: hidden; position: relative; margin: 0 15px; }
         .ts-chart-fill { height: 100%; display: flex; align-items: center; padding-left: 12px; font-size: 0.85rem; font-weight: 700; color: #000; transition: width 1s ease-out; }
         .ts-chart-value-text { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); font-size: 0.85rem; color: #fff; font-weight: 600; }
@@ -317,7 +317,7 @@ export default function TokenSchedule() {
           margin-bottom: 12px;
         }
         .ts-milestone.ts-milestone-active { border-left-color: var(--ts-secondary); background: linear-gradient(90deg, rgba(0,212,170,0.1), transparent); }
-        .ts-m-year { font-family: 'Orbitron'; font-size: 1.2rem; font-weight: 700; color: #fff; width: 60px; }
+        .ts-m-year { font-size: 1.2rem; font-weight: 700; color: #fff; width: 60px; }
         .ts-m-val { font-family: 'JetBrains Mono'; color: var(--ts-secondary); font-weight: 700; width: 140px; }
         .ts-m-desc { color: var(--ts-text-muted); font-size: 0.95rem; }
 
@@ -370,7 +370,7 @@ export default function TokenSchedule() {
       
       <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@400;500;600;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
+      <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
       <div className="ts-root">

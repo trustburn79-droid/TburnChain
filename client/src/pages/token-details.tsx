@@ -104,13 +104,13 @@ export default function TokenDetails() {
             radial-gradient(circle at 15% 50%, rgba(255, 107, 53, 0.08), transparent 25%),
             radial-gradient(circle at 85% 30%, rgba(0, 212, 170, 0.08), transparent 25%);
           color: var(--td-text-main);
-          font-family: 'Inter', sans-serif;
+          font-family: ui-sans-serif, system-ui, sans-serif;
           line-height: 1.6;
           overflow-x: hidden;
           min-height: 100vh;
         }
 
-        .td-root h1, .td-root h2, .td-root h3, .td-root h4, .td-font-orbitron { font-family: 'Orbitron', sans-serif; letter-spacing: 0.5px; }
+        .td-root h1, .td-root h2, .td-root h3, .td-root h4 { font-family: ui-sans-serif, system-ui, sans-serif; font-weight: 700; }
         .td-font-mono { font-family: 'JetBrains Mono', monospace; }
 
         .td-container { max-width: var(--td-container-width); margin: 0 auto; padding: 0 32px; }
@@ -223,7 +223,7 @@ export default function TokenDetails() {
         }
         .td-meta-item:hover { transform: translateY(-5px); border-color: rgba(255,255,255,0.2); }
         .td-meta-label { font-size: 0.8rem; color: var(--td-text-muted); margin-bottom: 5px; text-transform: uppercase; letter-spacing: 1px; }
-        .td-meta-value { font-family: 'Orbitron'; font-weight: 700; color: var(--td-primary); font-size: 1.1rem; }
+        .td-meta-value { font-weight: 700; color: var(--td-primary); font-size: 1.1rem; }
 
         .td-section { padding: 80px 0; border-bottom: 1px solid rgba(255,255,255,0.03); scroll-margin-top: 140px; }
         .td-section-header { margin-bottom: 40px; display: flex; align-items: center; gap: 15px; }
@@ -261,7 +261,7 @@ export default function TokenDetails() {
           transition: transform 0.3s;
         }
         .td-dist-item:hover { transform: translateY(-5px); background: rgba(255,255,255,0.05); }
-        .td-dist-pct { font-family: 'Orbitron'; font-size: 2.5rem; font-weight: 700; margin-bottom: 5px; line-height: 1; }
+        .td-dist-pct { font-size: 2.5rem; font-weight: 700; margin-bottom: 5px; line-height: 1; }
         .td-dist-amt { font-size: 1rem; font-weight: 600; margin-bottom: 8px; color: #fff; }
         .td-dist-lbl { font-size: 0.85rem; color: var(--td-text-muted); text-transform: uppercase; }
 
@@ -275,7 +275,7 @@ export default function TokenDetails() {
         .td-info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
         .td-info-box { background: rgba(255,255,255,0.03); border: 1px solid var(--td-border-glass); border-radius: 12px; padding: 20px; }
         .td-info-lbl { font-size: 0.85rem; color: var(--td-text-muted); margin-bottom: 5px; }
-        .td-info-val { font-family: 'Orbitron'; font-size: 1.1rem; font-weight: 600; color: #fff; }
+        .td-info-val { font-size: 1.1rem; font-weight: 600; color: #fff; }
 
         .td-step { 
           display: flex; align-items: flex-start; gap: 15px; padding: 20px; 
@@ -304,7 +304,7 @@ export default function TokenDetails() {
           content: ''; position: absolute; left: 20px; top: 25px; width: 14px; height: 14px; 
           background: var(--td-primary); border-radius: 50%; box-shadow: 0 0 10px var(--td-primary); 
         }
-        .td-t-date { font-family: 'Orbitron'; font-size: 0.9rem; color: var(--td-primary); margin-bottom: 5px; }
+        .td-t-date { font-size: 0.9rem; color: var(--td-primary); margin-bottom: 5px; }
         .td-t-title { font-weight: 700; font-size: 1.1rem; margin-bottom: 5px; color: #fff; }
         .td-t-desc { color: var(--td-text-muted); font-size: 0.9rem; }
 
@@ -313,7 +313,7 @@ export default function TokenDetails() {
           background: rgba(255,255,255,0.03); border: 1px solid var(--td-border-glass); 
           border-radius: 16px; padding: 20px; text-align: center; 
         }
-        .td-stat-v { font-family: 'Orbitron'; font-size: 1.5rem; font-weight: 700; color: #fff; margin-bottom: 5px; }
+        .td-stat-v { font-size: 1.5rem; font-weight: 700; color: #fff; margin-bottom: 5px; }
         .td-stat-l { color: var(--td-text-muted); font-size: 0.85rem; }
 
         .td-highlight-box { padding: 20px; border-radius: 12px; margin: 20px 0; background: rgba(255,255,255,0.03); border-left: 4px solid #fff; }
@@ -362,7 +362,7 @@ export default function TokenDetails() {
       
       <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@400;500;600;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
+      <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
       <div className="td-root">
