@@ -578,11 +578,11 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     restartSupervisor.setTBurnClient(tburnClient);
   }
 
-  // Start AI Provider Health Checks (deferred 30s to avoid startup event loop blocking)
-  const AI_HEALTH_CHECK_DELAY = 30000; // 30 seconds after startup
+  // Start AI Provider Health Checks (deferred 120s to avoid startup memory pressure)
+  const AI_HEALTH_CHECK_DELAY = 120000; // 120 seconds after startup for memory stability
   setTimeout(() => {
-    aiService.startPeriodicHealthChecks(5); // Check every 5 minutes
-    console.log('[AI Health] ✅ Started periodic health checks (5 minute intervals)');
+    aiService.startPeriodicHealthChecks(10); // Check every 10 minutes (reduced frequency)
+    console.log('[AI Health] ✅ Started periodic health checks (10 minute intervals)');
   }, AI_HEALTH_CHECK_DELAY);
   console.log(`[Routes] 🕐 AI health checks deferred by ${AI_HEALTH_CHECK_DELAY/1000}s`);
 

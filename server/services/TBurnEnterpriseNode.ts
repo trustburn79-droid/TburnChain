@@ -1706,7 +1706,7 @@ export class TBurnEnterpriseNode extends EventEmitter {
   // Maintains consistent wallet data to prevent flickering
   // ============================================
   private walletCache: Map<string, any> = new Map();
-  private readonly WALLET_COUNT = 100; // Standard 100 wallets for consistency
+  private readonly WALLET_COUNT = 20; // Reduced from 100 for memory optimization
   private walletsInitialized = false;
 
   constructor(config: NodeConfig) {

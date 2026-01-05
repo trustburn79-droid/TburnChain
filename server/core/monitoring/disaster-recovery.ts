@@ -67,7 +67,7 @@ const DEFAULT_CONFIG: DisasterRecoveryConfig = {
   },
   healthCheckInterval: 30000,  // 30 seconds
   recovery: {
-    autoRestart: true,  // ★ [v2.0] ENABLED for production stability
+    autoRestart: false,  // ★ [v2.0] DISABLED to prevent restart loops
     gracefulShutdownTimeout: 5000,
   },
 };
