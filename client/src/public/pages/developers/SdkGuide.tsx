@@ -120,6 +120,114 @@ try {
   }
 }`;
 
+const consensusExample = `import { TBurnClient } from '@tburn/sdk';
+
+const client = new TBurnClient({ apiKey: 'YOUR_KEY', network: 'mainnet' });
+
+// 1. Get current consensus state (5-phase BFT)
+const state = await client.consensus.getState();
+console.log(\`Chain ID: \${state.chainId}\`);        // 6000
+console.log(\`Height: #\${state.currentHeight}\`);  // 25,847,392
+console.log(\`Phase: \${state.phase}\`);             // PROPOSE | PREVOTE | PRECOMMIT | COMMIT | FINALIZE
+console.log(\`TPS: \${state.metrics.currentTPS}\`);  // ~185,420
+
+// 2. Monitor consensus rounds in real-time
+client.ws.subscribeConsensus((round) => {
+  console.log(\`Round \${round.number}: \${round.phase} (proposer: \${round.proposer})\`);
+  console.log(\`Votes: \${round.votes.prevote.count}/125 validators\`);
+});
+
+// 3. Get detailed round info for a specific height
+const roundInfo = await client.consensus.getRound(25847392);
+console.log(\`Phase timings (ms): propose=\${roundInfo.phaseTimings.propose}, prevote=\${roundInfo.phaseTimings.prevote}\`);`;
+
+const validatorsExample = `import { TBurnClient } from '@tburn/sdk';
+
+const client = new TBurnClient({ apiKey: 'YOUR_KEY', network: 'mainnet' });
+
+// 1. Get all validators (125 genesis validators)
+const { validators, summary } = await client.validators.list({
+  status: 'active',
+  sortBy: 'performance',
+  limit: 125
+});
+console.log(\`Active validators: \${summary.activeValidators}/\${summary.totalValidators}\`);
+console.log(\`Total stake: \${summary.totalStake} TBURN\`);
+
+// 2. Get validator performance metrics
+for (const validator of validators.slice(0, 5)) {
+  console.log(\`\${validator.moniker}: uptime=\${validator.uptime}%, tier=\${validator.performanceTier}\`);
+}
+
+// 3. Get validator rewards breakdown
+const rewards = await client.validators.getRewards('0x742d35Cc6634C0532...');
+console.log(\`Total rewards: \${rewards.totalRewards} TBURN\`);
+console.log(\`Proposer: \${rewards.rewardBreakdown.proposerRewards}\`);
+console.log(\`Verifier: \${rewards.rewardBreakdown.verifierRewards}\`);
+
+// 4. Subscribe to validator status changes
+client.ws.subscribeValidators((update) => {
+  console.log(\`Validator \${update.address}: \${update.oldStatus} → \${update.newStatus}\`);
+});`;
+
+const shardingExample = `import { TBurnClient } from '@tburn/sdk';
+
+const client = new TBurnClient({ apiKey: 'YOUR_KEY', network: 'mainnet' });
+
+// 1. Get shard overview (64 shards for ~210K TPS)
+const shards = await client.shards.list();
+console.log(\`Total shards: \${shards.totalShards}\`);  // 64
+console.log(\`Global TPS: \${shards.globalTPS}\`);       // ~185,420
+console.log(\`Target TPS: \${shards.targetTPS}\`);       // 210,000
+
+// 2. Get specific shard info
+const shard = await client.shards.get(12);
+console.log(\`Shard #\${shard.id}: TPS=\${shard.currentTPS}, validators=\${shard.validators}\`);
+console.log(\`Cross-shard messages: in=\${shard.crossShardMessages.incoming}, out=\${shard.crossShardMessages.outgoing}\`);
+
+// 3. Track cross-shard message
+const message = await client.shards.trackMessage('csm_8a7b6c5d4e3f2a1b');
+console.log(\`Status: \${message.status}, latency: \${message.latencyMs}ms\`);
+
+// 4. Subscribe to shard rebalancing events
+client.ws.subscribeShardRebalance((event) => {
+  console.log(\`Rebalancing: shard \${event.shardId} load \${event.oldLoad}% → \${event.newLoad}%\`);
+});`;
+
+const aiDecisionsExample = `import { TBurnClient } from '@tburn/sdk';
+
+const client = new TBurnClient({ apiKey: 'YOUR_KEY', network: 'mainnet' });
+
+// 1. Get AI trust score for a contract
+const trustScore = await client.ai.getTrustScore('0x742d35Cc6634C0532...');
+console.log(\`Trust Score: \${trustScore.trustScore}/100 (Grade: \${trustScore.grade})\`);
+console.log(\`Factors:\`);
+for (const [factor, data] of Object.entries(trustScore.factors)) {
+  console.log(\`  \${factor}: \${data.score} (weight: \${data.weight})\`);
+}
+
+// 2. Get AI burn optimization decisions
+const decisions = await client.ai.getDecisions({
+  type: 'burn_optimization',
+  limit: 10
+});
+for (const decision of decisions) {
+  console.log(\`[\${decision.model}] \${decision.recommendation.action}: confidence \${decision.confidence}\`);
+}
+
+// 3. Get governance analysis
+const governance = await client.ai.analyzeGovernance({
+  proposalId: 'prop_12345',
+  includeVoterAnalysis: true
+});
+console.log(\`Proposal sentiment: \${governance.sentiment}\`);
+console.log(\`Predicted outcome: \${governance.predictedOutcome} (\${governance.confidence}% confidence)\`);
+
+// 4. Subscribe to AI decision updates
+client.ws.subscribeAIDecisions((decision) => {
+  console.log(\`New AI decision: \${decision.type} by \${decision.model}\`);
+});`;
+
 const pythonExample = `from tburn_sdk import TBurnClient
 from tburn_sdk.exceptions import TBurnError, RateLimitError
 
@@ -282,7 +390,11 @@ export default function SdkGuide() {
     t('publicPages.developers.sdk.examples.core'),
     t('publicPages.developers.sdk.examples.defi'),
     t('publicPages.developers.sdk.examples.streaming'),
-    "Error Handling"
+    "Error Handling",
+    "Consensus",
+    "Validators",
+    "Sharding",
+    "AI Decisions"
   ];
 
   const handleCopy = (text: string, index: number) => {
@@ -296,6 +408,10 @@ export default function SdkGuide() {
       case t('publicPages.developers.sdk.examples.defi'): return defiExample;
       case t('publicPages.developers.sdk.examples.streaming'): return streamingExample;
       case "Error Handling": return errorHandlingExample;
+      case "Consensus": return consensusExample;
+      case "Validators": return validatorsExample;
+      case "Sharding": return shardingExample;
+      case "AI Decisions": return aiDecisionsExample;
       default: return coreExample;
     }
   };

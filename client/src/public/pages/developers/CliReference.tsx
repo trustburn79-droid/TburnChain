@@ -41,6 +41,9 @@ export default function CliReference() {
     { name: "Staking", icon: TrendingUp },
     { name: "Bridge", icon: Link2 },
     { name: "Token", icon: Coins },
+    { name: "Consensus", icon: Zap },
+    { name: "Validators", icon: Server },
+    { name: "Sharding", icon: FileCode },
   ];
 
   const commands = [
@@ -271,6 +274,217 @@ tburn token approve TBURN 0xDexContract... 1000
 
 # Approve unlimited for DeFi protocol
 tburn token approve USDC 0xProtocol... --unlimited`,
+    },
+  ];
+
+  const consensusCommands = [
+    {
+      cmd: "tburn consensus status",
+      desc: "Get current BFT consensus state (Chain ID 6000, 5-phase protocol)",
+      usage: "tburn consensus status [options]",
+      options: [
+        { flag: "--metrics", desc: "Include detailed performance metrics", default: "false" },
+        { flag: "--validators", desc: "Include current validator set", default: "false" },
+      ],
+      examples: `# Get current consensus state
+tburn consensus status
+
+# Get detailed metrics with validator info
+tburn consensus status --metrics --validators
+
+# Output:
+# Chain ID: 6000
+# Height: 25,847,392
+# Phase: FINALIZE
+# TPS: 185,420 / 210,000 (peak)
+# Block Time: 98ms (target: 100ms)`,
+    },
+    {
+      cmd: "tburn consensus round",
+      desc: "Get detailed information about a specific consensus round",
+      usage: "tburn consensus round <height> [options]",
+      options: [
+        { flag: "--votes", desc: "Include voting details", default: "false" },
+        { flag: "--timings", desc: "Include phase timing breakdown", default: "true" },
+      ],
+      examples: `# Get round info for block 25847392
+tburn consensus round 25847392
+
+# Include voting details
+tburn consensus round 25847392 --votes
+
+# Output:
+# Round 0 @ Height 25847392
+# Proposer: TBURN Genesis Validator #1
+# Phases: propose(12ms) → prevote(18ms) → precommit(22ms) → commit(25ms) → finalize(18ms)
+# Total: 95ms`,
+    },
+    {
+      cmd: "tburn consensus watch",
+      desc: "Watch consensus rounds in real-time",
+      usage: "tburn consensus watch [options]",
+      options: [
+        { flag: "--blocks", desc: "Number of blocks to watch", default: "∞" },
+        { flag: "--phase", desc: "Filter by specific phase", default: "all" },
+      ],
+      examples: `# Watch consensus in real-time
+tburn consensus watch
+
+# Watch 100 blocks
+tburn consensus watch --blocks=100
+
+# Watch only FINALIZE phases
+tburn consensus watch --phase=FINALIZE`,
+    },
+  ];
+
+  const validatorsCommands = [
+    {
+      cmd: "tburn validators list",
+      desc: "List all 125 genesis validators with performance metrics",
+      usage: "tburn validators list [options]",
+      options: [
+        { flag: "--status", desc: "Filter by status (active/inactive/jailed)", default: "all" },
+        { flag: "--sort", desc: "Sort by (stake/uptime/performance/apr)", default: "stake" },
+        { flag: "--limit", desc: "Number of results", default: "50" },
+        { flag: "--tier", desc: "Filter by performance tier", default: "all" },
+      ],
+      examples: `# List top 10 validators by performance
+tburn validators list --sort=performance --limit=10
+
+# List platinum tier validators
+tburn validators list --tier=platinum
+
+# List jailed validators
+tburn validators list --status=jailed`,
+    },
+    {
+      cmd: "tburn validators info",
+      desc: "Get detailed information about a specific validator",
+      usage: "tburn validators info <address> [options]",
+      options: [
+        { flag: "--rewards", desc: "Include reward history", default: "false" },
+        { flag: "--delegators", desc: "Include delegator list", default: "false" },
+        { flag: "--blocks", desc: "Include proposed blocks", default: "false" },
+      ],
+      examples: `# Get validator details
+tburn validators info 0x742d35Cc6634C0532...
+
+# Include reward breakdown
+tburn validators info 0x742d35Cc6634C0532... --rewards
+
+# Output:
+# TBURN Genesis Validator #1
+# Status: Active | Tier: Platinum
+# Uptime: 99.98% | Missed: 3 blocks
+# Stake: 1,000,000 TBURN | Delegators: 1,847
+# APR: 12.5% | Commission: 5%`,
+    },
+    {
+      cmd: "tburn validators rewards",
+      desc: "View validator reward distribution breakdown",
+      usage: "tburn validators rewards <address> [options]",
+      options: [
+        { flag: "--epoch", desc: "Specific epoch to query", default: "current" },
+        { flag: "--history", desc: "Number of past epochs", default: "10" },
+      ],
+      examples: `# View current epoch rewards
+tburn validators rewards 0x742d35Cc6634C0532...
+
+# View last 30 epochs
+tburn validators rewards 0x742d35Cc6634C0532... --history=30
+
+# Output:
+# Epoch 2584 Rewards:
+# Proposer: 8,423,196 TBURN
+# Verifier: 4,212,098 TBURN
+# Gas Fees: 3,212,098 TBURN
+# Bonuses: Streak(+150k) Consistency(+75k) Uptime(+50k)`,
+    },
+  ];
+
+  const shardingCommands = [
+    {
+      cmd: "tburn shards list",
+      desc: "List all 64 shards with load and TPS metrics",
+      usage: "tburn shards list [options]",
+      options: [
+        { flag: "--sort", desc: "Sort by (id/load/tps)", default: "id" },
+        { flag: "--status", desc: "Filter by status", default: "all" },
+        { flag: "--threshold", desc: "Show shards above load threshold", default: "" },
+      ],
+      examples: `# List all shards
+tburn shards list
+
+# List overloaded shards (>80% load)
+tburn shards list --threshold=80
+
+# Sort by TPS descending
+tburn shards list --sort=tps
+
+# Output:
+# Total: 64 shards | Global TPS: 185,420 / 210,000
+# Shard 0: TPS=2,897 Load=72% Validators=8
+# Shard 1: TPS=3,012 Load=75% Validators=8`,
+    },
+    {
+      cmd: "tburn shards info",
+      desc: "Get detailed information about a specific shard",
+      usage: "tburn shards info <shard-id> [options]",
+      options: [
+        { flag: "--validators", desc: "Include assigned validators", default: "false" },
+        { flag: "--messages", desc: "Include cross-shard stats", default: "true" },
+      ],
+      examples: `# Get shard 12 details
+tburn shards info 12
+
+# Include validator assignments
+tburn shards info 12 --validators
+
+# Output:
+# Shard #12
+# Status: Active | Load: 72%
+# TPS: 2,897 | Block Time: 98ms
+# Cross-shard: IN=847 OUT=923 PENDING=12
+# Validators: 8 assigned`,
+    },
+    {
+      cmd: "tburn shards messages",
+      desc: "Track cross-shard message routing",
+      usage: "tburn shards messages [options]",
+      options: [
+        { flag: "--source", desc: "Filter by source shard", default: "" },
+        { flag: "--dest", desc: "Filter by destination shard", default: "" },
+        { flag: "--status", desc: "Filter by status (pending/delivered/failed)", default: "all" },
+        { flag: "--limit", desc: "Number of results", default: "50" },
+      ],
+      examples: `# View cross-shard messages from shard 12 to 45
+tburn shards messages --source=12 --dest=45
+
+# View pending messages
+tburn shards messages --status=pending
+
+# Track specific message
+tburn shards message track csm_8a7b6c5d4e3f2a1b`,
+    },
+    {
+      cmd: "tburn shards rebalance",
+      desc: "View shard rebalancing status and history",
+      usage: "tburn shards rebalance [options]",
+      options: [
+        { flag: "--history", desc: "Number of past rebalances", default: "10" },
+        { flag: "--watch", desc: "Watch for rebalancing events", default: "false" },
+      ],
+      examples: `# Check rebalance status
+tburn shards rebalance
+
+# Watch rebalancing in real-time
+tburn shards rebalance --watch
+
+# Output:
+# Rebalancing: Enabled | Threshold: 85%
+# Last: 2025-01-05 14:30:00 UTC
+# Moved: Shard 23 → 45 (15% load reduction)`,
     },
   ];
 
@@ -643,6 +857,9 @@ echo "Total holders: $((HOLDER_COUNT - 1))"`,
                     if (activeCategory === "Staking") commandsToRender = stakingCommands;
                     else if (activeCategory === "Bridge") commandsToRender = bridgeCommands;
                     else if (activeCategory === "Token") commandsToRender = tokenCommands;
+                    else if (activeCategory === "Consensus") commandsToRender = consensusCommands;
+                    else if (activeCategory === "Validators") commandsToRender = validatorsCommands;
+                    else if (activeCategory === "Sharding") commandsToRender = shardingCommands;
                     
                     return commandsToRender.map((command, index) => (
                       <div key={index} className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-8">

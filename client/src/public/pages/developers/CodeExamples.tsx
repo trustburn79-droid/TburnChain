@@ -10,7 +10,10 @@ import {
   Bot,
   Images,
   ArrowLeftRight,
-  Database
+  Database,
+  Shield,
+  Server,
+  Network
 } from "lucide-react";
 import { SiGithub } from "react-icons/si";
 
@@ -186,6 +189,190 @@ contract TBurnNFT is TBC721 {
         require(_exists(tokenId), "Token does not exist");
         return string(abi.encodePacked(_baseTokenURI, _tokenURIs[tokenId]));
     }
+}`,
+  "ConsensusMonitor.ts": `import { TBurnClient } from '@tburn/sdk';
+
+// Enterprise Consensus Monitoring for Chain ID 6000
+// Track 5-phase BFT: Propose → Prevote → Precommit → Commit → Finalize
+
+const client = new TBurnClient({ 
+  apiKey: 'YOUR_API_KEY',
+  network: 'mainnet'
+});
+
+// 1. Get current consensus state
+async function getConsensusState() {
+  const state = await client.consensus.getState();
+  console.log(\`Chain ID: \${state.chainId}\`);           // 6000
+  console.log(\`Height: #\${state.currentHeight}\`);      // 25,847,392
+  console.log(\`Phase: \${state.phase}\`);                 // FINALIZE
+  console.log(\`Block Time: \${state.avgRoundTimeMs}ms\`); // ~95ms (target: 100ms)
+  console.log(\`TPS: \${state.metrics.currentTPS}\`);      // ~185,420
+  
+  return state;
+}
+
+// 2. Real-time consensus monitoring
+function subscribeToConsensus() {
+  client.ws.subscribeConsensus((round) => {
+    console.log(\`Height \${round.height} | Phase: \${round.phase}\`);
+    console.log(\`Proposer: \${round.proposer}\`);
+    console.log(\`Votes: \${round.votes.count}/125 validators (\${round.votes.power}%)\`);
+    
+    if (round.phase === 'FINALIZE') {
+      console.log(\`Block finalized in \${round.totalTimeMs}ms\`);
+    }
+  });
+}
+
+// 3. Analyze consensus performance
+async function analyzeConsensusPerformance() {
+  const state = await client.consensus.getState();
+  const { metrics } = state;
+  
+  return {
+    successRate: (metrics.successfulRounds / metrics.totalRounds * 100).toFixed(2) + '%',
+    avgBlockTime: metrics.avgRoundTimeMs + 'ms',
+    quorumRate: metrics.quorumAchievementRate + '%',
+    latency: {
+      p50: metrics.p50LatencyMs + 'ms',
+      p95: metrics.p95LatencyMs + 'ms',
+      p99: metrics.p99LatencyMs + 'ms'
+    }
+  };
+}`,
+  "ValidatorDashboard.ts": `import { TBurnClient } from '@tburn/sdk';
+
+// Enterprise Validator Management for 125 Genesis Validators
+// Performance scoring, rewards, and real-time monitoring
+
+const client = new TBurnClient({ 
+  apiKey: 'YOUR_API_KEY',
+  network: 'mainnet'
+});
+
+// 1. List all validators with performance metrics
+async function getValidatorList() {
+  const { validators, summary } = await client.validators.list({
+    status: 'active',
+    sortBy: 'performance',
+    limit: 125
+  });
+  
+  console.log(\`Total Validators: \${summary.totalValidators}\`);
+  console.log(\`Active: \${summary.activeValidators}\`);
+  console.log(\`Avg Uptime: \${summary.averageUptime}%\`);
+  
+  // Top 5 performers
+  for (const v of validators.slice(0, 5)) {
+    console.log(\`\${v.moniker}: score=\${v.performanceScore}, tier=\${v.performanceTier}\`);
+  }
+  
+  return validators;
+}
+
+// 2. Get detailed validator rewards
+async function getValidatorRewards(address: string) {
+  const rewards = await client.validators.getRewards(address);
+  
+  console.log(\`Validator: \${address}\`);
+  console.log(\`Total Rewards: \${rewards.totalRewards} TBURN\`);
+  console.log(\`Breakdown:\`);
+  console.log(\`  Proposer: \${rewards.rewardBreakdown.proposerRewards}\`);
+  console.log(\`  Verifier: \${rewards.rewardBreakdown.verifierRewards}\`);
+  console.log(\`  Gas Fees: \${rewards.rewardBreakdown.gasFeeRewards}\`);
+  console.log(\`Bonuses:\`);
+  console.log(\`  Streak: \${rewards.performanceBonuses.streakBonus}\`);
+  console.log(\`  Consistency: \${rewards.performanceBonuses.consistencyBonus}\`);
+  
+  return rewards;
+}
+
+// 3. Monitor validator status changes
+function subscribeToValidatorEvents() {
+  client.ws.subscribeValidators((event) => {
+    if (event.type === 'status.change') {
+      console.log(\`Validator \${event.address}: \${event.oldStatus} → \${event.newStatus}\`);
+    } else if (event.type === 'reward.distributed') {
+      console.log(\`Epoch \${event.epoch} reward: \${event.total} TBURN\`);
+    } else if (event.type === 'slashing') {
+      console.log(\`WARNING: Validator slashed for \${event.reason}\`);
+    }
+  });
+}`,
+  "CrossShardBridge.ts": `import { TBurnClient } from '@tburn/sdk';
+
+// Enterprise Cross-Shard Operations for 64 Shards
+// ~210K TPS capacity with priority queue routing
+
+const client = new TBurnClient({ 
+  apiKey: 'YOUR_API_KEY',
+  network: 'mainnet'
+});
+
+// 1. Get shard overview
+async function getShardStatus() {
+  const shards = await client.shards.list();
+  
+  console.log(\`Total Shards: \${shards.totalShards}\`);       // 64
+  console.log(\`Global TPS: \${shards.globalTPS}\`);            // ~185,420
+  console.log(\`Target TPS: \${shards.targetTPS}\`);            // 210,000
+  
+  // Find high-load shards
+  const highLoad = shards.shards.filter(s => s.load > 0.8);
+  console.log(\`High-load shards: \${highLoad.length}\`);
+  
+  return shards;
+}
+
+// 2. Cross-shard token transfer
+async function crossShardTransfer(
+  to: string,
+  amount: string,
+  targetShard: number
+) {
+  // Calculate optimal routing
+  const route = await client.shards.getOptimalRoute(targetShard);
+  console.log(\`Routing through: \${route.path.join(' → ')}\`);
+  
+  // Execute cross-shard transfer
+  const tx = await client.shards.transfer({
+    to,
+    amount,
+    targetShard,
+    priority: 'high'
+  });
+  
+  console.log(\`Message ID: \${tx.messageId}\`);
+  console.log(\`Estimated latency: \${tx.estimatedLatencyMs}ms\`);
+  
+  return tx;
+}
+
+// 3. Track cross-shard message
+async function trackMessage(messageId: string) {
+  const message = await client.shards.trackMessage(messageId);
+  
+  console.log(\`Status: \${message.status}\`);
+  console.log(\`Source: Shard \${message.sourceShard}\`);
+  console.log(\`Dest: Shard \${message.destShard}\`);
+  console.log(\`Latency: \${message.latencyMs}ms\`);
+  console.log(\`Retries: \${message.retries}\`);
+  
+  return message;
+}
+
+// 4. Monitor shard rebalancing
+function subscribeToShardEvents() {
+  client.ws.subscribeShards((event) => {
+    if (event.type === 'load.update') {
+      console.log(\`Shard \${event.shardId} load: \${event.load}%\`);
+    } else if (event.type === 'rebalance.started') {
+      console.log(\`Rebalancing: \${event.sourceShard} → \${event.destShard}\`);
+    } else if (event.type === 'message.routed') {
+      console.log(\`Message \${event.messageId} delivered in \${event.latencyMs}ms\`);
+    }
+  });
 }`
 };
 
@@ -218,7 +405,8 @@ export default function CodeExamples() {
     t('publicPages.developers.examples.categories.smartContracts'),
     t('publicPages.developers.examples.categories.defi'),
     t('publicPages.developers.examples.categories.nfts'),
-    t('publicPages.developers.examples.categories.wallets')
+    t('publicPages.developers.examples.categories.wallets'),
+    "Enterprise"
   ];
 
   const commonRecipes = [
@@ -269,6 +457,30 @@ export default function CodeExamples() {
       color: "#3b82f6",
       category: t('publicPages.developers.examples.recipes.indexerSetup.category'),
       tags: ["#graph", "#data"]
+    },
+    {
+      title: "Consensus Monitor",
+      description: "Real-time 5-phase BFT consensus monitoring with Chain ID 6000, 100ms block time",
+      icon: Shield,
+      color: "#7000ff",
+      category: "Enterprise",
+      tags: ["#consensus", "#bft", "#monitoring"]
+    },
+    {
+      title: "Validator Dashboard",
+      description: "Monitor 125 validators with performance scoring, rewards tracking, and slashing alerts",
+      icon: Server,
+      color: "#00ff9d",
+      category: "Enterprise",
+      tags: ["#validator", "#rewards", "#performance"]
+    },
+    {
+      title: "Cross-Shard Bridge",
+      description: "64 shard operations with ~210K TPS, priority queue routing, and message tracking",
+      icon: Network,
+      color: "#ffd700",
+      category: "Enterprise",
+      tags: ["#sharding", "#crossshard", "#210ktps"]
     },
   ];
 

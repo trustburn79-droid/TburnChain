@@ -139,6 +139,99 @@ export default function WebSocketApi() {
   "params": { "pools": ["TBURN/ETH"] }
 }`
     },
+    {
+      name: "consensus",
+      icon: Shield,
+      color: "#7000ff",
+      borderColor: "border-l-[#7000ff]",
+      methods: ["round.start", "round.phase", "round.complete", "vote.received"],
+      desc: "Real-time 5-phase BFT consensus updates. Track Propose → Prevote → Precommit → Commit → Finalize phases.",
+      code: `{
+  "type": "subscribe",
+  "channel": "consensus",
+  "params": { 
+    "phases": ["all"],
+    "includeVotes": true,
+    "includeTimings": true
+  }
+}
+
+// Response: Round phase update
+{
+  "channel": "consensus",
+  "event": "round.phase",
+  "data": {
+    "height": 25847392,
+    "round": 0,
+    "phase": "PRECOMMIT",
+    "proposer": "0x742d35Cc...",
+    "votes": { "count": 124, "power": "99.2%" },
+    "phaseTimeMs": 22,
+    "timestamp": 1735689600000
+  }
+}`
+    },
+    {
+      name: "validators",
+      icon: Server,
+      color: "#00ff9d",
+      borderColor: "border-l-[#00ff9d]",
+      methods: ["status.change", "block.proposed", "reward.distributed", "slashing"],
+      desc: "Monitor 125 validators in real-time. Track status changes, rewards, and performance metrics.",
+      code: `{
+  "type": "subscribe",
+  "channel": "validators",
+  "params": { 
+    "addresses": ["0x742d35Cc..."],
+    "events": ["status.change", "reward.distributed"]
+  }
+}
+
+// Response: Validator reward
+{
+  "channel": "validators",
+  "event": "reward.distributed",
+  "data": {
+    "validator": "0x742d35Cc...",
+    "epoch": 2584,
+    "proposerReward": "842319600000000000000",
+    "verifierReward": "421209800000000000000",
+    "gasFeeReward": "321209800000000000000",
+    "bonuses": { "streak": true, "consistency": true }
+  }
+}`
+    },
+    {
+      name: "shards",
+      icon: Network,
+      color: "#ffd700",
+      borderColor: "border-l-[#ffd700]",
+      methods: ["load.update", "message.routed", "rebalance.started", "rebalance.completed"],
+      desc: "Monitor 64 shards for cross-shard messaging and load balancing events.",
+      code: `{
+  "type": "subscribe",
+  "channel": "shards",
+  "params": { 
+    "shardIds": [12, 45],
+    "events": ["message.routed", "load.update"]
+  }
+}
+
+// Response: Cross-shard message
+{
+  "channel": "shards",
+  "event": "message.routed",
+  "data": {
+    "messageId": "csm_8a7b6c5d4e3f2a1b",
+    "sourceShard": 12,
+    "destShard": 45,
+    "type": "token_transfer",
+    "priority": "high",
+    "latencyMs": 5,
+    "status": "delivered"
+  }
+}`
+    },
   ];
 
   const handleCopy = (text: string, index: number) => {

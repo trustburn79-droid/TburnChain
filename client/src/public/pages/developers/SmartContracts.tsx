@@ -152,6 +152,232 @@ contract TBurnGovernor is Governor, GovernorVotes, GovernorCountingSimple {
     }
 }`;
 
+const tbc20Code = `// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.19;
+
+import "@tburn/contracts/token/TBC20/TBC20.sol";
+import "@tburn/contracts/token/TBC20/extensions/TBC20Burnable.sol";
+import "@tburn/contracts/security/QuantumResistant.sol";
+
+/**
+ * @title TBC-20 Token Standard
+ * @notice TBURN Chain native token standard with quantum-resistant signatures
+ * @dev Chain ID 6000 optimized with cross-shard transfer support
+ */
+contract MyTBC20Token is TBC20, TBC20Burnable, QuantumResistant {
+    uint256 public constant INITIAL_SUPPLY = 1_000_000_000 * 10**18;
+    
+    // Cross-shard transfer optimization for 64 shards
+    mapping(uint8 => uint256) public shardBalances;
+    
+    constructor() TBC20("My TBC20 Token", "MTK") {
+        _mint(msg.sender, INITIAL_SUPPLY);
+    }
+    
+    /**
+     * @notice Cross-shard optimized transfer
+     * @param to Recipient address
+     * @param amount Transfer amount
+     * @param targetShard Destination shard (0-63)
+     */
+    function crossShardTransfer(
+        address to,
+        uint256 amount,
+        uint8 targetShard
+    ) external returns (bytes32 messageId) {
+        require(targetShard < 64, "Invalid shard");
+        _burn(msg.sender, amount);
+        
+        // Emit cross-shard message for router
+        messageId = keccak256(abi.encodePacked(
+            block.chainid, // 6000
+            msg.sender,
+            to,
+            amount,
+            targetShard,
+            block.timestamp
+        ));
+        
+        emit CrossShardTransfer(msg.sender, to, amount, targetShard, messageId);
+        return messageId;
+    }
+    
+    event CrossShardTransfer(
+        address indexed from,
+        address indexed to,
+        uint256 amount,
+        uint8 targetShard,
+        bytes32 messageId
+    );
+}`;
+
+const tbc721Code = `// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.19;
+
+import "@tburn/contracts/token/TBC721/TBC721.sol";
+import "@tburn/contracts/token/TBC721/extensions/TBC721URIStorage.sol";
+import "@tburn/contracts/security/QuantumResistant.sol";
+import "@tburn/contracts/ai/ITrustScore.sol";
+
+/**
+ * @title TBC-721 NFT Standard
+ * @notice TBURN Chain native NFT with AI trust verification
+ * @dev Optimized for 210K TPS with parallel minting support
+ */
+contract MyTBC721NFT is TBC721, TBC721URIStorage, QuantumResistant {
+    ITrustScore public trustOracle;
+    uint256 public minMintTrustScore = 50;
+    uint256 private _tokenIdCounter;
+    
+    struct NFTMetadata {
+        uint256 mintedAt;
+        uint8 originShard;
+        uint256 trustScoreAtMint;
+        bool crossShardVerified;
+    }
+    
+    mapping(uint256 => NFTMetadata) public tokenMetadata;
+    
+    constructor(address _trustOracle) TBC721("My TBC721 NFT", "MNFT") {
+        trustOracle = ITrustScore(_trustOracle);
+    }
+    
+    /**
+     * @notice Mint NFT with trust score verification
+     * @param to Recipient address
+     * @param uri Token metadata URI
+     */
+    function safeMint(address to, string memory uri) external returns (uint256) {
+        uint256 senderTrust = trustOracle.getScore(msg.sender);
+        require(senderTrust >= minMintTrustScore, "Trust score too low");
+        
+        uint256 tokenId = _tokenIdCounter++;
+        _safeMint(to, tokenId);
+        _setTokenURI(tokenId, uri);
+        
+        tokenMetadata[tokenId] = NFTMetadata({
+            mintedAt: block.timestamp,
+            originShard: uint8(block.number % 64),
+            trustScoreAtMint: senderTrust,
+            crossShardVerified: false
+        });
+        
+        return tokenId;
+    }
+    
+    /**
+     * @notice Cross-shard NFT transfer with atomic verification
+     */
+    function crossShardTransfer(
+        address to,
+        uint256 tokenId,
+        uint8 targetShard
+    ) external {
+        require(ownerOf(tokenId) == msg.sender, "Not owner");
+        require(targetShard < 64, "Invalid shard");
+        
+        tokenMetadata[tokenId].crossShardVerified = true;
+        _transfer(msg.sender, to, tokenId);
+        
+        emit CrossShardNFTTransfer(msg.sender, to, tokenId, targetShard);
+    }
+    
+    event CrossShardNFTTransfer(
+        address indexed from,
+        address indexed to,
+        uint256 indexed tokenId,
+        uint8 targetShard
+    );
+}`;
+
+const tbc1155Code = `// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.19;
+
+import "@tburn/contracts/token/TBC1155/TBC1155.sol";
+import "@tburn/contracts/token/TBC1155/extensions/TBC1155Supply.sol";
+import "@tburn/contracts/security/QuantumResistant.sol";
+
+/**
+ * @title TBC-1155 Multi-Token Standard
+ * @notice TBURN Chain native multi-token with batch operations
+ * @dev Optimized for high-throughput gaming and DeFi applications
+ */
+contract MyTBC1155Token is TBC1155, TBC1155Supply, QuantumResistant {
+    // Token type constants
+    uint256 public constant GOLD = 0;
+    uint256 public constant SILVER = 1;
+    uint256 public constant DIAMOND = 2;
+    
+    // Cross-shard batch optimization
+    uint256 public constant MAX_BATCH_SIZE = 1000;
+    
+    mapping(uint256 => string) private _tokenURIs;
+    
+    constructor() TBC1155("https://api.tburn.io/metadata/") {}
+    
+    /**
+     * @notice High-throughput batch mint for gaming
+     * @param to Recipient address
+     * @param ids Token IDs array
+     * @param amounts Amounts array
+     */
+    function mintBatch(
+        address to,
+        uint256[] memory ids,
+        uint256[] memory amounts
+    ) external {
+        require(ids.length <= MAX_BATCH_SIZE, "Batch too large");
+        _mintBatch(to, ids, amounts, "");
+    }
+    
+    /**
+     * @notice Cross-shard batch transfer with parallel execution
+     * @param to Recipient address
+     * @param ids Token IDs to transfer
+     * @param amounts Amounts to transfer
+     * @param targetShard Destination shard
+     */
+    function crossShardBatchTransfer(
+        address to,
+        uint256[] memory ids,
+        uint256[] memory amounts,
+        uint8 targetShard
+    ) external returns (bytes32 batchId) {
+        require(ids.length == amounts.length, "Length mismatch");
+        require(targetShard < 64, "Invalid shard");
+        
+        _safeBatchTransferFrom(msg.sender, to, ids, amounts, "");
+        
+        batchId = keccak256(abi.encodePacked(
+            block.chainid,
+            msg.sender,
+            to,
+            ids,
+            amounts,
+            targetShard,
+            block.timestamp
+        ));
+        
+        emit CrossShardBatchTransfer(msg.sender, to, ids, amounts, targetShard, batchId);
+        return batchId;
+    }
+    
+    function uri(uint256 tokenId) public view override returns (string memory) {
+        string memory tokenURI = _tokenURIs[tokenId];
+        if (bytes(tokenURI).length > 0) return tokenURI;
+        return super.uri(tokenId);
+    }
+    
+    event CrossShardBatchTransfer(
+        address indexed from,
+        address indexed to,
+        uint256[] ids,
+        uint256[] amounts,
+        uint8 targetShard,
+        bytes32 batchId
+    );
+}`;
+
 export default function SmartContracts() {
   const { t } = useTranslation();
   const [activeTemplate, setActiveTemplate] = useState("Basic Token");
@@ -208,6 +434,9 @@ export default function SmartContracts() {
     { name: t('publicPages.developers.contracts.templates.autoBurn'), active: false },
     { name: t('publicPages.developers.contracts.templates.staking'), active: false },
     { name: t('publicPages.developers.contracts.templates.governance'), active: false },
+    { name: "TBC-20", active: false },
+    { name: "TBC-721", active: false },
+    { name: "TBC-1155", active: false },
   ];
 
   const securityChecklist = [
@@ -231,6 +460,9 @@ export default function SmartContracts() {
       case t('publicPages.developers.contracts.templates.autoBurn'): return autoBurnCode;
       case t('publicPages.developers.contracts.templates.staking'): return stakingCode;
       case t('publicPages.developers.contracts.templates.governance'): return governanceCode;
+      case "TBC-20": return tbc20Code;
+      case "TBC-721": return tbc721Code;
+      case "TBC-1155": return tbc1155Code;
       default: return basicTokenCode;
     }
   };

@@ -101,6 +101,11 @@ export default function ApiDocs() {
     { id: "token", label: t("apiDocs.sidebar.token", "Token"), icon: Coins },
     { id: "staking", label: t("apiDocs.sidebar.staking", "Staking"), icon: TrendingUp },
     { id: "bridge", label: t("apiDocs.sidebar.bridge", "Bridge"), icon: Link2 },
+    { section: "ENTERPRISE" },
+    { id: "consensus", label: "Consensus", icon: Shield },
+    { id: "validators", label: "Validators", icon: Server },
+    { id: "sharding", label: "Sharding", icon: Layers },
+    { id: "ai-decisions", label: "AI Decisions", icon: Cpu },
     { section: t("apiDocs.sidebar.websocket", "WEBSOCKET") },
     { id: "realtime-events", label: t("apiDocs.sidebar.realtimeEvents", "Real-time Events"), icon: Zap },
   ];
@@ -1440,6 +1445,427 @@ X-RateLimit-Window: 60`} />
     ],
     "initiatedAt": 1733493600,
     "estimatedArrival": 1733494200
+  }
+}`} />
+                  </div>
+                </div>
+              </section>
+
+              {/* Consensus API Section */}
+              <section id="consensus" className="scroll-mt-24">
+                <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-3">
+                  <Shield className="w-8 h-8 text-[#7000ff]" /> Consensus API
+                </h2>
+                
+                <div className="mb-6 p-4 rounded-lg bg-[#7000ff]/10 border border-[#7000ff]/30">
+                  <p className="text-sm text-[#7000ff]">
+                    TBURN uses a 5-phase Enterprise BFT Consensus: Propose → Prevote → Precommit → Commit → Finalize. Chain ID: 6000, 125 validators, 100ms block time.
+                  </p>
+                </div>
+
+                <div className="space-y-6">
+                  <div className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-6">
+                    <div className="flex items-center gap-3 mb-4">
+                      <MethodBadge method="GET" />
+                      <code className="text-gray-900 dark:text-white font-mono text-lg">/consensus/state</code>
+                    </div>
+                    <p className="text-gray-600 dark:text-gray-400 mb-4">Get the current consensus state including phase, round, and proposer information.</p>
+                    
+                    <h4 className="text-sm font-bold text-gray-500 uppercase mb-3 mt-6">Response</h4>
+                    <CodeBlock code={`{
+  "success": true,
+  "data": {
+    "chainId": 6000,
+    "currentHeight": 25847392,
+    "currentRound": 0,
+    "phase": "FINALIZE",
+    "state": "running",
+    "proposer": "0x742d35Cc6634C0532925a3b844Bc9e7595f8c3b4",
+    "proposerName": "TBURN Genesis Validator #1",
+    "lockedRound": -1,
+    "lockedBlockHash": null,
+    "validRound": 0,
+    "validBlockHash": "0x8a3b4c5d6e7f...",
+    "lastBlockTime": 1735689600000,
+    "avgRoundTimeMs": 95.4,
+    "quorumThreshold": "66.67%",
+    "totalVotingPower": "125000000000000000000000",
+    "metrics": {
+      "totalRounds": 25847392,
+      "successfulRounds": 25847389,
+      "failedRounds": 3,
+      "viewChanges": 7,
+      "votingParticipationRate": 99.97,
+      "quorumAchievementRate": 99.99,
+      "currentTPS": 185420,
+      "peakTPS": 210542,
+      "p50LatencyMs": 48,
+      "p95LatencyMs": 85,
+      "p99LatencyMs": 98
+    }
+  }
+}`} />
+                  </div>
+
+                  <div className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-6">
+                    <div className="flex items-center gap-3 mb-4">
+                      <MethodBadge method="GET" />
+                      <code className="text-gray-900 dark:text-white font-mono text-lg">/consensus/rounds/{'{height}'}</code>
+                    </div>
+                    <p className="text-gray-600 dark:text-gray-400 mb-4">Get detailed consensus round information for a specific block height.</p>
+                    
+                    <h4 className="text-sm font-bold text-gray-500 uppercase mb-3">Path Parameters</h4>
+                    <ParamTable params={[
+                      { name: "height", type: "integer", required: true, desc: "Block height to query" },
+                    ]} />
+
+                    <h4 className="text-sm font-bold text-gray-500 uppercase mb-3 mt-6">Response</h4>
+                    <CodeBlock code={`{
+  "success": true,
+  "data": {
+    "height": 25847392,
+    "round": 0,
+    "proposer": "0x742d35Cc6634C0532925a3b844Bc9e7595f8c3b4",
+    "blockHash": "0x8a3b4c5d6e7f...",
+    "phaseTimings": {
+      "propose": 12,
+      "prevote": 18,
+      "precommit": 22,
+      "commit": 25,
+      "finalize": 18
+    },
+    "totalTimeMs": 95,
+    "votes": {
+      "prevote": { "count": 125, "power": "125000000000000000000000" },
+      "precommit": { "count": 124, "power": "124800000000000000000000" },
+      "commit": { "count": 125, "power": "125000000000000000000000" }
+    },
+    "quorumReached": true,
+    "finalized": true,
+    "timestamp": 1735689600000
+  }
+}`} />
+                  </div>
+                </div>
+              </section>
+
+              {/* Validators API Section */}
+              <section id="validators" className="scroll-mt-24">
+                <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-3">
+                  <Server className="w-8 h-8 text-[#00ff9d]" /> Validators API
+                </h2>
+
+                <div className="mb-6 p-4 rounded-lg bg-[#00ff9d]/10 border border-[#00ff9d]/30">
+                  <p className="text-sm text-[#00ff9d]">
+                    TBURN Mainnet operates with 125 genesis validators. Enterprise-grade validator management with performance scoring, reward distribution, and slashing.
+                  </p>
+                </div>
+
+                <div className="space-y-6">
+                  <div className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-6">
+                    <div className="flex items-center gap-3 mb-4">
+                      <MethodBadge method="GET" />
+                      <code className="text-gray-900 dark:text-white font-mono text-lg">/validators</code>
+                    </div>
+                    <p className="text-gray-600 dark:text-gray-400 mb-4">Get the list of all validators with their current status and performance metrics.</p>
+
+                    <h4 className="text-sm font-bold text-gray-500 uppercase mb-3">Query Parameters</h4>
+                    <ParamTable params={[
+                      { name: "status", type: "string", desc: "Filter by status: active, inactive, jailed (default: all)" },
+                      { name: "sortBy", type: "string", desc: "Sort by: stake, uptime, apr, performance (default: stake)" },
+                      { name: "limit", type: "integer", desc: "Results per page (default: 50, max: 125)" },
+                      { name: "page", type: "integer", desc: "Page number (default: 1)" },
+                    ]} />
+
+                    <h4 className="text-sm font-bold text-gray-500 uppercase mb-3 mt-6">Response</h4>
+                    <CodeBlock code={`{
+  "success": true,
+  "data": {
+    "validators": [
+      {
+        "address": "0x742d35Cc6634C0532925a3b844Bc9e7595f8c3b4",
+        "moniker": "TBURN Genesis Validator #1",
+        "status": "active",
+        "votingPower": "1000000000000000000000",
+        "votingPowerPercentage": 0.8,
+        "commission": 5.0,
+        "selfStake": "500000000000000000000",
+        "totalStake": "1000000000000000000000",
+        "delegators": 1847,
+        "uptime": 99.98,
+        "missedBlocks": 3,
+        "proposedBlocks": 206779,
+        "performanceScore": 98.5,
+        "performanceTier": "platinum",
+        "apr": 12.5,
+        "lastActive": 1735689600000
+      }
+    ],
+    "summary": {
+      "totalValidators": 125,
+      "activeValidators": 124,
+      "inactiveValidators": 0,
+      "jailedValidators": 1,
+      "totalStake": "125000000000000000000000000",
+      "averageUptime": 99.87
+    },
+    "pagination": {
+      "page": 1,
+      "limit": 50,
+      "total": 125,
+      "totalPages": 3
+    }
+  }
+}`} />
+                  </div>
+
+                  <div className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-6">
+                    <div className="flex items-center gap-3 mb-4">
+                      <MethodBadge method="GET" />
+                      <code className="text-gray-900 dark:text-white font-mono text-lg">/validators/{'{address}'}/rewards</code>
+                    </div>
+                    <p className="text-gray-600 dark:text-gray-400 mb-4">Get the reward distribution history for a specific validator.</p>
+
+                    <h4 className="text-sm font-bold text-gray-500 uppercase mb-3">Path Parameters</h4>
+                    <ParamTable params={[
+                      { name: "address", type: "string", required: true, desc: "Validator address" },
+                    ]} />
+
+                    <h4 className="text-sm font-bold text-gray-500 uppercase mb-3 mt-6">Response</h4>
+                    <CodeBlock code={`{
+  "success": true,
+  "data": {
+    "validator": "0x742d35Cc6634C0532925a3b844Bc9e7595f8c3b4",
+    "totalRewards": "15847392000000000000000",
+    "pendingRewards": "284700000000000000",
+    "claimedRewards": "15847107300000000000000",
+    "rewardBreakdown": {
+      "proposerRewards": "8423196000000000000000",
+      "verifierRewards": "4212098000000000000000",
+      "gasFeeRewards": "3212098000000000000000"
+    },
+    "performanceBonuses": {
+      "streakBonus": "150000000000000000000",
+      "consistencyBonus": "75000000000000000000",
+      "uptimeBonus": "50000000000000000000"
+    },
+    "lastDistribution": 1735689600000,
+    "currentEpoch": 2584
+  }
+}`} />
+                  </div>
+                </div>
+              </section>
+
+              {/* Sharding API Section */}
+              <section id="sharding" className="scroll-mt-24">
+                <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-3">
+                  <Layers className="w-8 h-8 text-[#00f0ff]" /> Sharding API
+                </h2>
+
+                <div className="mb-6 p-4 rounded-lg bg-[#00f0ff]/10 border border-[#00f0ff]/30">
+                  <p className="text-sm text-[#00f0ff]">
+                    TBURN supports dynamic sharding with 5-64 shards. Current mainnet: 64 shards, ~210,000 TPS capacity. Cross-shard messaging with priority queue routing.
+                  </p>
+                </div>
+
+                <div className="space-y-6">
+                  <div className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-6">
+                    <div className="flex items-center gap-3 mb-4">
+                      <MethodBadge method="GET" />
+                      <code className="text-gray-900 dark:text-white font-mono text-lg">/shards</code>
+                    </div>
+                    <p className="text-gray-600 dark:text-gray-400 mb-4">Get the status of all shards including load metrics and cross-shard communication stats.</p>
+
+                    <h4 className="text-sm font-bold text-gray-500 uppercase mb-3 mt-6">Response</h4>
+                    <CodeBlock code={`{
+  "success": true,
+  "data": {
+    "totalShards": 64,
+    "activeShards": 64,
+    "globalTPS": 185420,
+    "targetTPS": 210000,
+    "shards": [
+      {
+        "id": 0,
+        "status": "active",
+        "validators": 8,
+        "currentTPS": 2897,
+        "avgBlockTime": 98,
+        "pendingTransactions": 1247,
+        "crossShardMessages": {
+          "incoming": 847,
+          "outgoing": 923,
+          "pending": 12
+        },
+        "load": 0.72,
+        "lastBlockHeight": 25847392
+      }
+    ],
+    "rebalanceStatus": {
+      "enabled": true,
+      "lastRebalance": 1735689000000,
+      "nextScheduled": null,
+      "threshold": 0.85
+    }
+  }
+}`} />
+                  </div>
+
+                  <div className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-6">
+                    <div className="flex items-center gap-3 mb-4">
+                      <MethodBadge method="GET" />
+                      <code className="text-gray-900 dark:text-white font-mono text-lg">/shards/cross-shard/messages</code>
+                    </div>
+                    <p className="text-gray-600 dark:text-gray-400 mb-4">Get recent cross-shard messages with routing and delivery status.</p>
+
+                    <h4 className="text-sm font-bold text-gray-500 uppercase mb-3">Query Parameters</h4>
+                    <ParamTable params={[
+                      { name: "sourceShard", type: "integer", desc: "Filter by source shard ID" },
+                      { name: "destShard", type: "integer", desc: "Filter by destination shard ID" },
+                      { name: "status", type: "string", desc: "pending, delivered, failed (default: all)" },
+                      { name: "limit", type: "integer", desc: "Results per page (default: 50)" },
+                    ]} />
+
+                    <h4 className="text-sm font-bold text-gray-500 uppercase mb-3 mt-6">Response</h4>
+                    <CodeBlock code={`{
+  "success": true,
+  "data": {
+    "messages": [
+      {
+        "id": "csm_8a7b6c5d4e3f2a1b",
+        "sourceShard": 12,
+        "destShard": 45,
+        "type": "token_transfer",
+        "priority": "high",
+        "payload": "0x...",
+        "status": "delivered",
+        "createdAt": 1735689590000,
+        "deliveredAt": 1735689595000,
+        "latencyMs": 5,
+        "retries": 0
+      }
+    ],
+    "stats": {
+      "totalMessages24h": 2847392,
+      "avgLatencyMs": 4.2,
+      "successRate": 99.99,
+      "pendingCount": 127
+    }
+  }
+}`} />
+                  </div>
+                </div>
+              </section>
+
+              {/* AI Decisions API Section */}
+              <section id="ai-decisions" className="scroll-mt-24">
+                <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-3">
+                  <Cpu className="w-8 h-8 text-[#ffd700]" /> AI Decisions API
+                </h2>
+
+                <div className="mb-6 p-4 rounded-lg bg-[#ffd700]/10 border border-[#ffd700]/30">
+                  <p className="text-sm text-[#ffd700]">
+                    TBURN integrates AI for burn optimization, governance analysis, bridge risk assessment, and trust scoring. Powered by Gemini 3 Pro, Claude Sonnet 4.5, GPT-4o, and Grok 3.
+                  </p>
+                </div>
+
+                <div className="space-y-6">
+                  <div className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-6">
+                    <div className="flex items-center gap-3 mb-4">
+                      <MethodBadge method="GET" />
+                      <code className="text-gray-900 dark:text-white font-mono text-lg">/ai/decisions</code>
+                    </div>
+                    <p className="text-gray-600 dark:text-gray-400 mb-4">Get recent AI decisions and recommendations for burn rate, governance, and risk assessment.</p>
+
+                    <h4 className="text-sm font-bold text-gray-500 uppercase mb-3">Query Parameters</h4>
+                    <ParamTable params={[
+                      { name: "type", type: "string", desc: "burn_optimization, governance, bridge_risk, trust_score" },
+                      { name: "model", type: "string", desc: "gemini, claude, gpt4o, grok (default: all)" },
+                      { name: "limit", type: "integer", desc: "Results per page (default: 20)" },
+                    ]} />
+
+                    <h4 className="text-sm font-bold text-gray-500 uppercase mb-3 mt-6">Response</h4>
+                    <CodeBlock code={`{
+  "success": true,
+  "data": {
+    "decisions": [
+      {
+        "id": "ai_dec_8a7b6c5d",
+        "type": "burn_optimization",
+        "model": "gemini",
+        "confidence": 0.94,
+        "recommendation": {
+          "action": "increase_burn_rate",
+          "currentRate": 2.5,
+          "suggestedRate": 2.8,
+          "rationale": "High network activity and positive market sentiment support increased deflationary pressure",
+          "expectedImpact": {
+            "burnedTokens24h": "+15%",
+            "priceImpact": "+0.3%",
+            "supplyReduction": "2.8M TBURN"
+          }
+        },
+        "dataPoints": {
+          "networkActivity": "high",
+          "marketSentiment": 0.72,
+          "volumeChange24h": "+18.5%"
+        },
+        "createdAt": 1735689600000,
+        "executedAt": 1735689605000,
+        "status": "executed"
+      }
+    ],
+    "summary": {
+      "totalDecisions24h": 847,
+      "avgConfidence": 0.91,
+      "executionRate": 98.7,
+      "modelUsage": {
+        "gemini": 35,
+        "claude": 30,
+        "gpt4o": 25,
+        "grok": 10
+      }
+    }
+  }
+}`} />
+                  </div>
+
+                  <div className="bg-white dark:bg-transparent shadow-sm border border-gray-200 dark:border-white/10 dark:spotlight-card rounded-xl p-6">
+                    <div className="flex items-center gap-3 mb-4">
+                      <MethodBadge method="GET" />
+                      <code className="text-gray-900 dark:text-white font-mono text-lg">/ai/trust-score/{'{address}'}</code>
+                    </div>
+                    <p className="text-gray-600 dark:text-gray-400 mb-4">Get the AI-computed trust score for a contract or address.</p>
+
+                    <h4 className="text-sm font-bold text-gray-500 uppercase mb-3">Path Parameters</h4>
+                    <ParamTable params={[
+                      { name: "address", type: "string", required: true, desc: "Contract or wallet address" },
+                    ]} />
+
+                    <h4 className="text-sm font-bold text-gray-500 uppercase mb-3 mt-6">Response</h4>
+                    <CodeBlock code={`{
+  "success": true,
+  "data": {
+    "address": "0x742d35Cc6634C0532925a3b844Bc9e7595f8c3b4",
+    "type": "contract",
+    "trustScore": 87,
+    "grade": "A",
+    "factors": {
+      "codeQuality": { "score": 92, "weight": 0.25 },
+      "auditStatus": { "score": 95, "weight": 0.20 },
+      "ownershipTransparency": { "score": 88, "weight": 0.15 },
+      "liquidityHealth": { "score": 79, "weight": 0.15 },
+      "communityTrust": { "score": 82, "weight": 0.15 },
+      "historicalBehavior": { "score": 85, "weight": 0.10 }
+    },
+    "riskFlags": [],
+    "recommendations": [
+      "Consider time-lock on admin functions",
+      "Add multi-sig for treasury operations"
+    ],
+    "lastUpdated": 1735689600000,
+    "nextUpdate": 1735776000000
   }
 }`} />
                   </div>
