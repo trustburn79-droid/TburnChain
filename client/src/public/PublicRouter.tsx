@@ -384,6 +384,12 @@ export function PublicRouter() {
     );
   }
 
+  if (location === "/validator/infrastructure" || location === "/validator-governance") {
+    window.scrollTo(0, 0);
+    window.location.href = location;
+    return null;
+  }
+
   if (location.startsWith("/network") || location.startsWith("/validator")) {
     return (
       <ErrorBoundary>
