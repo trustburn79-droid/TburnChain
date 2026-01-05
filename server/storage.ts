@@ -483,6 +483,16 @@ import {
   type InsertDaoMakerParticipant,
   daoMakerShos,
   daoMakerParticipants,
+  // Demo Wallet System
+  type DemoWalletDB,
+  type InsertDemoWallet,
+  type DemoWalletTransactionDB,
+  type InsertDemoWalletTransaction,
+  type DemoWalletSessionDB,
+  type InsertDemoWalletSession,
+  demoWallets,
+  demoWalletTransactions,
+  demoWalletSessions,
 } from "@shared/schema";
 import { randomUUID } from "crypto";
 import { db } from "./db";
@@ -1434,6 +1444,42 @@ export interface IStorage {
   getPartnershipPayouts(partnershipId: string): Promise<PartnershipPayout[]>;
   createPartnershipPayout(data: InsertPartnershipPayout): Promise<PartnershipPayout>;
   updatePartnershipPayout(id: string, data: Partial<PartnershipPayout>): Promise<void>;
+
+  // ============================================
+  // DEMO WALLET SYSTEM (Enterprise Production)
+  // ============================================
+  
+  // Demo Wallets
+  getAllDemoWallets(limit?: number): Promise<DemoWalletDB[]>;
+  getDemoWalletById(walletId: string): Promise<DemoWalletDB | undefined>;
+  getDemoWalletByAddress(address: string): Promise<DemoWalletDB | undefined>;
+  getDemoWalletByAccessCode(accessCode: string): Promise<DemoWalletDB | undefined>;
+  getDemoWalletsByType(walletType: string): Promise<DemoWalletDB[]>;
+  getActiveDemoWallets(): Promise<DemoWalletDB[]>;
+  createDemoWallet(data: InsertDemoWallet): Promise<DemoWalletDB>;
+  updateDemoWallet(walletId: string, data: Partial<DemoWalletDB>): Promise<void>;
+  deleteDemoWallet(walletId: string): Promise<void>;
+  resetDailyTransactionCounts(): Promise<void>;
+  getDemoWalletStats(): Promise<{
+    totalWallets: number;
+    activeWallets: number;
+    totalTransactions: number;
+    totalVolumeUsdt: string;
+  }>;
+  
+  // Demo Wallet Transactions
+  getDemoWalletTransactions(walletId: string, limit?: number): Promise<DemoWalletTransactionDB[]>;
+  getDemoWalletTransactionById(transactionId: string): Promise<DemoWalletTransactionDB | undefined>;
+  createDemoWalletTransaction(data: InsertDemoWalletTransaction): Promise<DemoWalletTransactionDB>;
+  updateDemoWalletTransaction(transactionId: string, data: Partial<DemoWalletTransactionDB>): Promise<void>;
+  getRecentDemoWalletTransactions(limit?: number): Promise<DemoWalletTransactionDB[]>;
+  
+  // Demo Wallet Sessions
+  getDemoWalletSessions(walletId: string): Promise<DemoWalletSessionDB[]>;
+  getActiveDemoWalletSession(walletId: string): Promise<DemoWalletSessionDB | undefined>;
+  createDemoWalletSession(data: InsertDemoWalletSession): Promise<DemoWalletSessionDB>;
+  updateDemoWalletSession(sessionId: string, data: Partial<DemoWalletSessionDB>): Promise<void>;
+  expireDemoWalletSessions(): Promise<void>;
 }
 
 export class MemStorage implements IStorage {
@@ -8009,6 +8055,116 @@ export class DbStorage implements IStorage {
       await db.update(daoMakerParticipants).set({ isWinner: true, winnerSelectedDate: new Date(), status: 'winner', updatedAt: new Date() }).where(eq(daoMakerParticipants.id, winner.id));
     }
     return winners.length;
+  }
+
+  // ============================================
+  // DEMO WALLET SYSTEM (Enterprise Production)
+  // ============================================
+  
+  async getAllDemoWallets(limit: number = 100): Promise<DemoWalletDB[]> {
+    return db.select().from(demoWallets).orderBy(desc(demoWallets.createdAt)).limit(limit);
+  }
+
+  async getDemoWalletById(walletId: string): Promise<DemoWalletDB | undefined> {
+    const [result] = await db.select().from(demoWallets).where(eq(demoWallets.walletId, walletId));
+    return result;
+  }
+
+  async getDemoWalletByAddress(address: string): Promise<DemoWalletDB | undefined> {
+    const [result] = await db.select().from(demoWallets).where(eq(demoWallets.address, address));
+    return result;
+  }
+
+  async getDemoWalletByAccessCode(accessCode: string): Promise<DemoWalletDB | undefined> {
+    const [result] = await db.select().from(demoWallets).where(eq(demoWallets.accessCode, accessCode));
+    return result;
+  }
+
+  async getDemoWalletsByType(walletType: string): Promise<DemoWalletDB[]> {
+    return db.select().from(demoWallets).where(eq(demoWallets.walletType, walletType)).orderBy(desc(demoWallets.createdAt));
+  }
+
+  async getActiveDemoWallets(): Promise<DemoWalletDB[]> {
+    return db.select().from(demoWallets).where(eq(demoWallets.isActive, true)).orderBy(desc(demoWallets.createdAt));
+  }
+
+  async createDemoWallet(data: InsertDemoWallet): Promise<DemoWalletDB> {
+    const [result] = await db.insert(demoWallets).values(data).returning();
+    return result;
+  }
+
+  async updateDemoWallet(walletId: string, data: Partial<DemoWalletDB>): Promise<void> {
+    await db.update(demoWallets).set({ ...data, updatedAt: new Date() }).where(eq(demoWallets.walletId, walletId));
+  }
+
+  async deleteDemoWallet(walletId: string): Promise<void> {
+    await db.delete(demoWallets).where(eq(demoWallets.walletId, walletId));
+  }
+
+  async resetDailyTransactionCounts(): Promise<void> {
+    await db.update(demoWallets).set({ 
+      dailyTransactionsUsed: 0, 
+      lastTransactionResetAt: new Date() 
+    });
+  }
+
+  async getDemoWalletStats(): Promise<{ totalWallets: number; activeWallets: number; totalTransactions: number; totalVolumeUsdt: string }> {
+    const wallets = await this.getAllDemoWallets(100000);
+    const activeWallets = wallets.filter(w => w.isActive);
+    const totalTransactions = wallets.reduce((sum, w) => sum + (w.totalTransactions || 0), 0);
+    const totalVolumeUsdt = wallets.reduce((sum, w) => sum + parseFloat(w.totalVolumeUsdt || '0'), 0);
+    return { 
+      totalWallets: wallets.length, 
+      activeWallets: activeWallets.length, 
+      totalTransactions, 
+      totalVolumeUsdt: totalVolumeUsdt.toFixed(2) 
+    };
+  }
+
+  // Demo Wallet Transactions
+  async getDemoWalletTransactions(walletId: string, limit: number = 50): Promise<DemoWalletTransactionDB[]> {
+    return db.select().from(demoWalletTransactions).where(eq(demoWalletTransactions.walletId, walletId)).orderBy(desc(demoWalletTransactions.createdAt)).limit(limit);
+  }
+
+  async getDemoWalletTransactionById(transactionId: string): Promise<DemoWalletTransactionDB | undefined> {
+    const [result] = await db.select().from(demoWalletTransactions).where(eq(demoWalletTransactions.transactionId, transactionId));
+    return result;
+  }
+
+  async createDemoWalletTransaction(data: InsertDemoWalletTransaction): Promise<DemoWalletTransactionDB> {
+    const [result] = await db.insert(demoWalletTransactions).values(data).returning();
+    return result;
+  }
+
+  async updateDemoWalletTransaction(transactionId: string, data: Partial<DemoWalletTransactionDB>): Promise<void> {
+    await db.update(demoWalletTransactions).set(data).where(eq(demoWalletTransactions.transactionId, transactionId));
+  }
+
+  async getRecentDemoWalletTransactions(limit: number = 50): Promise<DemoWalletTransactionDB[]> {
+    return db.select().from(demoWalletTransactions).orderBy(desc(demoWalletTransactions.createdAt)).limit(limit);
+  }
+
+  // Demo Wallet Sessions
+  async getDemoWalletSessions(walletId: string): Promise<DemoWalletSessionDB[]> {
+    return db.select().from(demoWalletSessions).where(eq(demoWalletSessions.walletId, walletId)).orderBy(desc(demoWalletSessions.createdAt));
+  }
+
+  async getActiveDemoWalletSession(walletId: string): Promise<DemoWalletSessionDB | undefined> {
+    const [result] = await db.select().from(demoWalletSessions).where(and(eq(demoWalletSessions.walletId, walletId), eq(demoWalletSessions.isActive, true)));
+    return result;
+  }
+
+  async createDemoWalletSession(data: InsertDemoWalletSession): Promise<DemoWalletSessionDB> {
+    const [result] = await db.insert(demoWalletSessions).values(data).returning();
+    return result;
+  }
+
+  async updateDemoWalletSession(sessionId: string, data: Partial<DemoWalletSessionDB>): Promise<void> {
+    await db.update(demoWalletSessions).set(data).where(eq(demoWalletSessions.sessionId, sessionId));
+  }
+
+  async expireDemoWalletSessions(): Promise<void> {
+    await db.update(demoWalletSessions).set({ isActive: false }).where(sql`expires_at < NOW()`);
   }
 }
 
