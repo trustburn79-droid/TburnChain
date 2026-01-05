@@ -836,6 +836,11 @@ export default function Dashboard() {
   const defiLoading = dexStatsLoading || lendingStatsLoading || yieldStatsLoading || lstStatsLoading || 
                       nftStatsLoading || launchpadStatsLoading || gameFiStatsLoading || bridgeStatsLoading;
 
+  const validatorOnlinePercent = useMemo(() => {
+    if (!networkStats?.activeValidators || !networkStats?.totalValidators) return 0;
+    return (networkStats.activeValidators / networkStats.totalValidators * 100);
+  }, [networkStats]);
+
   return (
     <div className="flex flex-col gap-6 p-6">
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
@@ -887,6 +892,9 @@ export default function Dashboard() {
                 <div className="text-2xl font-semibold tabular-nums">
                   {formatNumber(networkStats?.tps || 0)} <span className="text-sm text-muted-foreground">TPS</span>
                 </div>
+                <p className="text-xs text-muted-foreground mb-2">
+                  {t("dashboard.peak")}: {formatNumber(networkStats?.peakTps || 0)} TPS
+                </p>
                 <TpsChart data={tpsHistory} />
               </CardContent>
             </Card>
@@ -894,16 +902,20 @@ export default function Dashboard() {
               title={t("dashboard.blockHeight")}
               value={formatNumber(networkStats?.currentBlockHeight || 0)}
               icon={Blocks}
+              subtitle={t("dashboard.latestBlock")}
             />
             <StatCard
               title={t("dashboard.blockTime")}
               value={`${networkStats?.avgBlockTime || 0}ms`}
               icon={Clock}
+              trend={{ value: 5.2, isPositive: false }}
+              subtitle={`P99: ${networkStats?.blockTimeP99 || 0}ms`}
             />
             <StatCard
               title={t("dashboard.slaUptime")}
               value={`${((networkStats?.slaUptime || 9990) / 100).toFixed(2)}%`}
               icon={Activity}
+              subtitle={t("dashboard.last30Days")}
             />
           </>
         )}
@@ -925,8 +937,11 @@ export default function Dashboard() {
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-semibold tabular-nums" data-testid="stat-active-shards">
-                  {activeShards}
+                  {activeShards} / {totalShards}
                 </div>
+                <p className="text-xs text-muted-foreground mt-1">
+                  {shardConfig?.validatorsPerShard || 25} {t("dashboard.validatorsPerShard")}
+                </p>
               </CardContent>
             </Card>
             <Card className="hover-elevate">
@@ -960,12 +975,15 @@ export default function Dashboard() {
                 <CardTitle className="text-sm font-medium text-muted-foreground">
                   {t("dashboard.tburnPrice")}
                 </CardTitle>
-                <TrendingUp className="h-4 w-4 text-primary" />
+                <TrendingUp className={`h-4 w-4 ${((networkStats as any)?.priceChangePercent || 0) >= 0 ? 'text-green-500' : 'text-red-500'}`} />
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-semibold tabular-nums" data-testid="stat-tburn-price">
                   ${((networkStats as any)?.tokenPrice || 28.91).toFixed(2)}
                 </div>
+                <p className={`text-xs mt-1 ${((networkStats as any)?.priceChangePercent || 0) >= 0 ? 'text-green-500' : 'text-red-500'}`}>
+                  {((networkStats as any)?.priceChangePercent || 0) >= 0 ? '↑' : '↓'} {Math.abs((networkStats as any)?.priceChangePercent || 0).toFixed(2)}%
+                </p>
               </CardContent>
             </Card>
             <Card className="hover-elevate">
@@ -979,6 +997,9 @@ export default function Dashboard() {
                 <div className="text-2xl font-semibold tabular-nums" data-testid="stat-market-cap">
                   ${formatNumber(networkStats?.marketCap || 0)}
                 </div>
+                <p className="text-xs text-muted-foreground mt-1">
+                  {t("dashboard.priceFormula")}
+                </p>
               </CardContent>
             </Card>
             <Card className="hover-elevate">
@@ -990,8 +1011,12 @@ export default function Dashboard() {
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-semibold tabular-nums" data-testid="stat-active-validators">
-                  {networkStats?.activeValidators || Math.floor(enterpriseValidators * 0.98)}
+                  {networkStats?.activeValidators || Math.floor(enterpriseValidators * 0.98)} / {enterpriseValidators || networkStats?.totalValidators || 0}
                 </div>
+                <Progress value={validatorOnlinePercent || 98} className="h-1 mt-2" />
+                <p className="text-xs text-muted-foreground mt-1">
+                  {t("dashboard.percentOnline", { percent: (validatorOnlinePercent || 98).toFixed(1) })}
+                </p>
               </CardContent>
             </Card>
           </>
