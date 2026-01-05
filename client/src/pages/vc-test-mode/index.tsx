@@ -51,17 +51,50 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Input } from '@/components/ui/input';
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog';
+import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
+import { apiRequest } from '@/lib/queryClient';
 import { TOKENOMICS_SUMMARY } from '@/lib/tokenomics-engine';
 
-const VC_DEMO_WALLET = {
-  address: '0xVC7979...Demo8888',
-  fullAddress: '0xVC7979DemoWallet1234567890TBURN8888',
-  balance: {
-    TBURN: 1000000,
-    ETH: 10,
-    USDT: 50000
-  }
+interface DemoWalletData {
+  walletId: string;
+  address: string;
+  walletType: string;
+  label: string | null;
+  balanceTburn: string;
+  balanceEth: string;
+  balanceUsdt: string;
+  dailyTransactionLimit: number;
+  dailyTransactionsUsed: number;
+  totalTransactions: number;
+  isActive: boolean;
+}
+
+const DEFAULT_DEMO_WALLET: DemoWalletData = {
+  walletId: 'demo-default',
+  address: '0xVC7979DemoWallet1234567890TBURN8888',
+  walletType: 'demo',
+  label: 'Demo Wallet',
+  balanceTburn: '1000000',
+  balanceEth: '10',
+  balanceUsdt: '50000',
+  dailyTransactionLimit: 100,
+  dailyTransactionsUsed: 0,
+  totalTransactions: 0,
+  isActive: true,
+};
+
+const safeParseBalance = (value: string | number | null | undefined, fallback = 0): number => {
+  if (value === null || value === undefined || value === '') return fallback;
+  const parsed = typeof value === 'number' ? value : parseFloat(value);
+  return isNaN(parsed) ? fallback : parsed;
+};
+
+const formatBalance = (value: string | number | null | undefined): string => {
+  const num = safeParseBalance(value, 0);
+  return num.toLocaleString();
 };
 
 // Static metrics derived from tokenomics-engine.ts (values in 억 units)
@@ -280,29 +313,77 @@ export default function VCTestMode() {
   const [, setLocation] = useLocation();
   const [copied, setCopied] = useState(false);
   const [selectedTab, setSelectedTab] = useState('overview');
-  const [demoWallet, setDemoWallet] = useState(VC_DEMO_WALLET);
+  const [demoWallet, setDemoWallet] = useState<DemoWalletData>(DEFAULT_DEMO_WALLET);
   const [tourStep, setTourStep] = useState(0);
   const [showTour, setShowTour] = useState(false);
+  const [showAccessDialog, setShowAccessDialog] = useState(false);
+  const [accessCode, setAccessCode] = useState('');
+  const [isAccessLoading, setIsAccessLoading] = useState(false);
+  const [isWalletConnected, setIsWalletConnected] = useState(false);
   
   // CRITICAL: Get real-time TPS from unified source (same as /admin/shards)
   const PLATFORM_METRICS = usePlatformMetrics();
 
   const copyAddress = () => {
-    navigator.clipboard.writeText(demoWallet.fullAddress);
+    navigator.clipboard.writeText(demoWallet.address);
     setCopied(true);
     toast({
       title: t('vcTestMode.walletCopied', 'Wallet address copied'),
-      description: demoWallet.fullAddress
+      description: demoWallet.address
     });
     setTimeout(() => setCopied(false), 2000);
   };
 
   const resetDemoWallet = () => {
-    setDemoWallet(VC_DEMO_WALLET);
+    setDemoWallet(DEFAULT_DEMO_WALLET);
+    setIsWalletConnected(false);
     toast({
       title: t('vcTestMode.walletReset', 'Demo wallet reset'),
       description: t('vcTestMode.walletResetDesc', 'Your demo wallet has been reset to initial balance')
     });
+  };
+
+  const handleAccessWallet = async () => {
+    if (!accessCode.trim()) {
+      toast({
+        title: 'Access Code Required',
+        description: 'Please enter your access code',
+        variant: 'destructive'
+      });
+      return;
+    }
+
+    setIsAccessLoading(true);
+    try {
+      const response = await apiRequest('/api/demo-wallets/access', {
+        method: 'POST',
+        body: JSON.stringify({ accessCode: accessCode.trim() }),
+      });
+      
+      if (response && response.walletId) {
+        setDemoWallet(response);
+        setIsWalletConnected(true);
+        setShowAccessDialog(false);
+        setAccessCode('');
+        toast({
+          title: 'Wallet Connected',
+          description: `Connected to ${response.label || 'Demo Wallet'}`
+        });
+      }
+    } catch (error: any) {
+      toast({
+        title: 'Access Failed',
+        description: error.message || 'Invalid access code',
+        variant: 'destructive'
+      });
+    } finally {
+      setIsAccessLoading(false);
+    }
+  };
+
+  const shortenAddress = (address: string) => {
+    if (address.length <= 16) return address;
+    return `${address.slice(0, 8)}...${address.slice(-6)}`;
   };
 
   const startTour = () => {
@@ -357,24 +438,40 @@ export default function VCTestMode() {
                 <div className="flex items-center justify-between">
                   <CardTitle className="text-lg flex items-center gap-2">
                     <Wallet className="w-5 h-5 text-purple-400" />
-                    {t('vcTestMode.demoWallet', 'Demo Wallet')}
+                    {demoWallet.label || t('vcTestMode.demoWallet', 'Demo Wallet')}
+                    {isWalletConnected && (
+                      <Badge className="bg-green-500/20 text-green-400 text-xs">Connected</Badge>
+                    )}
                   </CardTitle>
-                  <Button 
-                    size="sm" 
-                    variant="ghost" 
-                    onClick={resetDemoWallet}
-                    className="text-gray-400 hover:text-white hover:bg-white/10"
-                    data-testid="button-reset-wallet"
-                  >
-                    <RefreshCw className="w-4 h-4" />
-                  </Button>
+                  <div className="flex items-center gap-1">
+                    {isWalletConnected && (
+                      <Button 
+                        size="sm" 
+                        variant="ghost" 
+                        onClick={resetDemoWallet}
+                        className="text-gray-400 hover:text-white hover:bg-white/10"
+                        data-testid="button-reset-wallet"
+                      >
+                        <RefreshCw className="w-4 h-4" />
+                      </Button>
+                    )}
+                    <Button 
+                      size="sm" 
+                      variant="ghost" 
+                      onClick={() => setShowAccessDialog(true)}
+                      className="text-purple-400 hover:text-white hover:bg-white/10"
+                      data-testid="button-access-wallet"
+                    >
+                      <Lock className="w-4 h-4" />
+                    </Button>
+                  </div>
                 </div>
                 <div 
                   className="flex items-center gap-2 bg-white/10 rounded-lg px-3 py-2 cursor-pointer hover:bg-white/15 transition"
                   onClick={copyAddress}
                   data-testid="button-copy-address"
                 >
-                  <code className="text-sm text-gray-300 flex-1 truncate">{demoWallet.address}</code>
+                  <code className="text-sm text-gray-300 flex-1 truncate">{shortenAddress(demoWallet.address)}</code>
                   {copied ? <Check className="w-4 h-4 text-green-400" /> : <Copy className="w-4 h-4 text-gray-400" />}
                 </div>
               </CardHeader>
@@ -385,26 +482,40 @@ export default function VCTestMode() {
                       <TBurnLogo className="w-10 h-10" showText={true} textColor="#000000" />
                       <span className="text-gray-300">TBURN</span>
                     </div>
-                    <span className="font-mono font-bold">{demoWallet.balance.TBURN.toLocaleString()}</span>
+                    <span className="font-mono font-bold" data-testid="balance-tburn">
+                      {formatBalance(demoWallet.balanceTburn)}
+                    </span>
                   </div>
                   <div className="flex items-center justify-between p-3 bg-white/5 rounded-lg">
                     <div className="flex items-center gap-2">
                       <div className="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center text-xs font-bold">ETH</div>
                       <span className="text-gray-300">ETH</span>
                     </div>
-                    <span className="font-mono font-bold">{demoWallet.balance.ETH.toLocaleString()}</span>
+                    <span className="font-mono font-bold" data-testid="balance-eth">
+                      {formatBalance(demoWallet.balanceEth)}
+                    </span>
                   </div>
                   <div className="flex items-center justify-between p-3 bg-white/5 rounded-lg">
                     <div className="flex items-center gap-2">
                       <div className="w-8 h-8 rounded-full bg-green-500 flex items-center justify-center text-xs font-bold">$</div>
                       <span className="text-gray-300">USDT</span>
                     </div>
-                    <span className="font-mono font-bold">${demoWallet.balance.USDT.toLocaleString()}</span>
+                    <span className="font-mono font-bold" data-testid="balance-usdt">
+                      ${formatBalance(demoWallet.balanceUsdt)}
+                    </span>
                   </div>
                 </div>
+                {isWalletConnected && (
+                  <div className="text-xs text-gray-400 flex items-center justify-between">
+                    <span>Daily limit: {demoWallet.dailyTransactionsUsed}/{demoWallet.dailyTransactionLimit}</span>
+                    <span>Total txs: {demoWallet.totalTransactions}</span>
+                  </div>
+                )}
                 <div className="pt-2 border-t border-white/10">
                   <p className="text-xs text-gray-400 text-center">
-                    {t('vcTestMode.testFunds', 'Test funds for platform evaluation. No real value.')}
+                    {isWalletConnected 
+                      ? t('vcTestMode.enterpriseWallet', 'Enterprise demo wallet for platform evaluation.')
+                      : t('vcTestMode.testFunds', 'Test funds for platform evaluation. No real value.')}
                   </p>
                 </div>
               </CardContent>
@@ -1440,6 +1551,60 @@ export default function VCTestMode() {
           </div>
         </div>
       </section>
+
+      {/* Access Code Dialog */}
+      <Dialog open={showAccessDialog} onOpenChange={setShowAccessDialog}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <Lock className="w-5 h-5 text-purple-500" />
+              {t('vcTestMode.accessWallet', 'Access Enterprise Wallet')}
+            </DialogTitle>
+            <DialogDescription>
+              {t('vcTestMode.accessDescription', 'Enter your access code to connect to your enterprise demo wallet with custom balances and limits.')}
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-4 py-4">
+            <div className="space-y-2">
+              <Label htmlFor="access-code">{t('vcTestMode.accessCode', 'Access Code')}</Label>
+              <Input
+                id="access-code"
+                value={accessCode}
+                onChange={(e) => setAccessCode(e.target.value)}
+                placeholder="TBURN-XXXX-XXXX"
+                className="font-mono"
+                data-testid="input-access-code"
+                onKeyDown={(e) => e.key === 'Enter' && handleAccessWallet()}
+              />
+            </div>
+            <p className="text-xs text-muted-foreground">
+              {t('vcTestMode.accessNote', 'Contact our team to receive an access code for your enterprise demo wallet.')}
+            </p>
+          </div>
+          <DialogFooter className="gap-2">
+            <Button 
+              variant="outline" 
+              onClick={() => setShowAccessDialog(false)}
+              data-testid="button-cancel-access"
+            >
+              {t('common.cancel', 'Cancel')}
+            </Button>
+            <Button 
+              onClick={handleAccessWallet}
+              disabled={isAccessLoading}
+              className="bg-gradient-to-r from-purple-600 to-blue-600"
+              data-testid="button-submit-access"
+            >
+              {isAccessLoading ? (
+                <RefreshCw className="w-4 h-4 mr-2 animate-spin" />
+              ) : (
+                <Lock className="w-4 h-4 mr-2" />
+              )}
+              {t('vcTestMode.connect', 'Connect Wallet')}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

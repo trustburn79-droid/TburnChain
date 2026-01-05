@@ -161,6 +161,7 @@ const adminMenuItems = [
   { titleKey: "adminNav.contractTools", url: "/admin/contract-tools", icon: Terminal, groupKey: "adminNav.developerTools", badge: null },
   { titleKey: "adminNav.testnetControl", url: "/admin/testnet", icon: TestTube, groupKey: "adminNav.developerTools", badge: null },
   { titleKey: "adminNav.debugConsole", url: "/admin/debug", icon: Monitor, groupKey: "adminNav.developerTools", badge: null },
+  { titleKey: "adminNav.demoWallets", url: "/admin/demo-wallets", icon: Wallet, groupKey: "adminNav.developerTools", badge: "NEW" },
   
   // Group 13: Monitoring & Alerts
   { titleKey: "adminNav.realTimeMonitor", url: "/admin/realtime", icon: Monitor, groupKey: "adminNav.monitoringAlerts", badge: null },

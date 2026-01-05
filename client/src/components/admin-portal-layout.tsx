@@ -128,6 +128,9 @@ import AdminDBOptimizer from "@/pages/admin-portal/db-optimizer";
 import AdminDistribution from "@/pages/admin-portal/distribution";
 import AdminDistributionPrograms from "@/pages/admin-portal/distribution-programs";
 
+// Group 20: Demo Wallet Management
+import AdminDemoWallets from "@/pages/admin-portal/demo-wallets";
+
 // Group 18: Token Distribution Programs (18 sub-pages)
 import AdminTokenDistribution from "@/pages/admin-portal/token-distribution";
 import AdminAirdropProgram from "@/pages/admin-portal/token-distribution/airdrop";
@@ -295,6 +298,9 @@ function AdminRouter() {
       <Route path="/admin/db-optimizer" component={AdminDBOptimizer} />
       <Route path="/admin/distribution" component={AdminDistribution} />
       <Route path="/admin/distribution-programs" component={AdminDistributionPrograms} />
+
+      {/* Group 20: Demo Wallet Management */}
+      <Route path="/admin/demo-wallets" component={AdminDemoWallets} />
 
       {/* Group 17: Marketing */}
       <Route path="/admin/newsletter" component={AdminNewsletter} />
