@@ -40,6 +40,13 @@ Core architectural decisions and features include:
 - **Enterprise RPC Pages**: Production-grade RPC endpoint management for mainnet and testnet, including status, interactive API documentation with live tester and SDK examples, and performance benchmarking tools.
 - **Enterprise System Health Monitor**: Comprehensive 24/7 system monitoring with automatic alerting, self-healing capabilities, and Prometheus-compatible metrics export, tracking CPU, Memory, Disk, HTTP, DB, and Session metrics.
 - **Enterprise Crash Diagnostics System**: Production-grade crash analysis with uncaughtException/unhandledRejection handlers, heap snapshot capture at 85% memory, crash context persistence to `/tmp/tburn-crash-logs/`, and detailed Express error middleware with stack traces and memory state.
+- **Enterprise Token Custody Mechanism**: Production-grade 4-category custody system with clear distinction between programmatic (53%) and foundation-managed (47%) token portions:
+  - **Protocol Automatic (22%)**: On-chain automatic execution including block rewards, staking rewards, and burn mechanisms
+  - **Vesting Contract (31%)**: Smart contract-based time-locked release for team, advisor, and investor allocations
+  - **Foundation Multisig (17%)**: 3/5 multisig with 7-day (168-hour) timelock for treasury and strategic reserves
+  - **Community Pool (30%)**: DAO governance voting-based distribution for ecosystem grants, marketing, and community events
+- **Multisig Wallet Management**: 7 database tables for custody tracking (multisigWallets, multisigSigners, custodyTransactions, custodyTransactionApprovals, vestingContracts, custodyDistributionSchedule, custodyQuarterlyReports)
+- **20-Year Distribution Schedule**: Verified custody mechanism-based annual token release plan summing exactly to 500B TBURN with stacked area visualization and cumulative progress tracking
 
 ## External Dependencies
 - **Database**: Neon Serverless PostgreSQL
