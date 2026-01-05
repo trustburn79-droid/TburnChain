@@ -11478,6 +11478,150 @@
           "enterValidAmount": "कृपया एक मान्य राशि दर्ज करें",
           "error": "लेनदेन विफल। कृपया पुनः प्रयास करें।"
         }
+      },
+      "testnetRpc": {
+        "tag": "TESTNET RPC",
+        "heroTitle": "TBurn",
+        "heroTitleHighlight": "Testnet",
+        "heroTitleSuffix": "RPC Infrastructure",
+        "heroDescription": "Free testnet RPC endpoints for development and testing. Get unlimited tTBURN from our faucet and deploy your smart contracts risk-free.",
+        "status": {
+          "operational": "Operational"
+        },
+        "metrics": {
+          "free": "FREE",
+          "access": "Access",
+          "latency": "Latency",
+          "regions": "Regions",
+          "unlimited": "Unlimited",
+          "faucet": "Faucet"
+        },
+        "buttons": {
+          "getFreeTokens": "Get Free tTBURN",
+          "quickStart": "Quick Start",
+          "testConnection": "Test Connection",
+          "testing": "Testing...",
+          "switchToMainnet": "Switch to Mainnet RPC"
+        },
+        "dashboard": {
+          "title": "Testnet Live Status",
+          "blockHeight": "Block Height",
+          "tps": "TPS",
+          "avgLatency": "Average Latency",
+          "testnetNodes": "Testnet Nodes",
+          "online": "Online"
+        },
+        "endpoints": {
+          "httpTitle": "HTTP RPC Endpoint",
+          "httpDesc": "Standard JSON-RPC endpoint for blockchain interactions",
+          "wsTitle": "WebSocket Endpoint",
+          "wsDesc": "Real-time streaming connection for live updates",
+          "testnet": "Testnet",
+          "live": "Live",
+          "postRequests": "POST Requests",
+          "batchSupport": "Batch Support",
+          "noLimits": "No Limits",
+          "newBlocks": "New Blocks",
+          "pendingTxs": "Pending Txs",
+          "logFilters": "Log Filters"
+        },
+        "config": {
+          "title": "Network Configuration",
+          "description": "Add TBurn Testnet to your wallet",
+          "networkName": "Network Name",
+          "chainId": "Chain ID",
+          "symbol": "Symbol",
+          "decimals": "Decimals",
+          "explorerUrl": "Explorer URL",
+          "explorer": "Explorer",
+          "faucet": "Faucet",
+          "getTtburn": "Get tTBURN"
+        },
+        "features": {
+          "title": "Testnet Features",
+          "subtitle": "Everything you need for development and testing",
+          "freeEnvironment": {
+            "title": "Free Testing Environment",
+            "desc": "Unlimited access to testnet for development and testing"
+          },
+          "faucet": {
+            "title": "Testnet Faucet",
+            "desc": "Get free tTBURN tokens instantly for testing"
+          },
+          "fastBlocks": {
+            "title": "Fast Block Times",
+            "desc": "Same performance as mainnet for realistic testing"
+          },
+          "riskFree": {
+            "title": "Risk-Free Development",
+            "desc": "Deploy and test contracts without real value at stake"
+          },
+          "debugMode": {
+            "title": "Debug Mode Enabled",
+            "desc": "Full access to trace and debug RPC methods"
+          },
+          "regularResets": {
+            "title": "Regular Resets",
+            "desc": "Testnet state resets periodically for clean testing"
+          }
+        },
+        "nodes": {
+          "title": "Testnet RPC Nodes",
+          "subtitle": "Geo-distributed testnet infrastructure",
+          "nodesOnline": "Nodes Online",
+          "latency": "Latency",
+          "uptime": "Uptime",
+          "load": "Load",
+          "requests24h": "24h Requests",
+          "version": "Version"
+        },
+        "methods": {
+          "title": "Supported RPC Methods",
+          "subtitle": "Full EVM compatibility with TBurn custom methods"
+        },
+        "sdk": {
+          "title": "SDK & Code Examples",
+          "subtitle": "Connect to TBurn Testnet in your preferred language"
+        },
+        "resources": {
+          "title": "Developer Resources",
+          "faucet": {
+            "title": "Testnet Faucet",
+            "desc": "Get free tTBURN tokens"
+          },
+          "documentation": {
+            "title": "Documentation",
+            "desc": "Complete API reference guide"
+          },
+          "explorer": {
+            "title": "Testnet Explorer",
+            "desc": "Browse testnet transactions"
+          },
+          "mainnet": {
+            "title": "Mainnet RPC",
+            "desc": "Switch to production"
+          }
+        },
+        "cta": {
+          "title": "Ready to Build on Testnet?",
+          "description": "Start developing with free tTBURN tokens. Test your smart contracts and dApps risk-free before deploying to mainnet.",
+          "quickStartGuide": "Quick Start Guide"
+        },
+        "connection": {
+          "success": "Connection Successful",
+          "failed": "Connection Failed",
+          "connected": "Connected",
+          "unableToConnect": "Unable to connect to RPC endpoint",
+          "error": "Connection failed. Please try again."
+        },
+        "copied": {
+          "title": "Copied!",
+          "description": "Copied to clipboard"
+        },
+        "network": {
+          "sslEncrypted": "SSL Encrypted",
+          "noRateLimits": "No Rate Limits"
+        }
       }
     },
     "community": {

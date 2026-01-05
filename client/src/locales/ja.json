@@ -13821,6 +13821,143 @@
           "enterValidAmount": "有効な金額を入力してください",
           "error": "取引に失敗しました。再度お試しください。"
         }
+      },
+      "testnetRpc": {
+        "tag": "TESTNET RPC",
+        "heroTitle": "TBurn",
+        "heroTitleHighlight": "テストネット",
+        "heroTitleSuffix": "RPCインフラストラクチャ",
+        "heroDescription": "開発とテスト用の無料テストネットRPCエンドポイント。ファウセットから無制限のtTBURNを取得し、リスクなくスマートコントラクトをデプロイ。",
+        "status": {
+          "operational": "稼働中"
+        },
+        "metrics": {
+          "free": "無料",
+          "access": "アクセス",
+          "latency": "レイテンシ",
+          "regions": "リージョン",
+          "unlimited": "無制限",
+          "faucet": "ファウセット"
+        },
+        "buttons": {
+          "getFreeTokens": "無料tTBURNを取得",
+          "quickStart": "クイックスタート",
+          "testConnection": "接続テスト",
+          "testing": "テスト中...",
+          "switchToMainnet": "メインネットRPCへ切替"
+        },
+        "dashboard": {
+          "title": "テストネットライブ状況",
+          "blockHeight": "ブロック高",
+          "tps": "TPS",
+          "avgLatency": "平均レイテンシ",
+          "testnetNodes": "テストネットノード",
+          "online": "オンライン"
+        },
+        "endpoints": {
+          "http": {
+            "title": "HTTP RPCエンドポイント",
+            "badge": "テストネット",
+            "desc": "ブロックチェーンインタラクション用の標準JSON-RPCエンドポイント"
+          },
+          "ws": {
+            "title": "WebSocketエンドポイント",
+            "badge": "ライブ",
+            "desc": "リアルタイム更新用のストリーミング接続"
+          },
+          "features": {
+            "post": "POSTリクエスト",
+            "batch": "バッチサポート",
+            "noLimits": "制限なし",
+            "newBlocks": "新規ブロック",
+            "pendingTx": "ペンディングトランザクション",
+            "logFilters": "ログフィルター"
+          }
+        },
+        "config": {
+          "title": "テストネット構成",
+          "badge": "テストネット",
+          "networkName": "ネットワーク名",
+          "chainId": "チェーンID",
+          "symbol": "シンボル",
+          "rpcUrl": "RPC URL",
+          "wsUrl": "WebSocket URL",
+          "explorerUrl": "エクスプローラーURL",
+          "addToMetaMask": "MetaMaskに追加",
+          "copied": "コピー済み!"
+        },
+        "features": {
+          "freeEnvironment": {
+            "title": "無料開発環境",
+            "desc": "実際の資金なしで開発・テスト"
+          },
+          "faucet": {
+            "title": "無制限ファウセット",
+            "desc": "いつでも無料tTBURNトークンを取得"
+          },
+          "fastBlocks": {
+            "title": "高速ブロック",
+            "desc": "高速テスト用100msブロックタイム"
+          },
+          "riskFree": {
+            "title": "リスクなし",
+            "desc": "実験と学習に安全"
+          },
+          "debugMode": {
+            "title": "デバッグモード",
+            "desc": "トレースとデバッグツール有効"
+          },
+          "regularResets": {
+            "title": "定期リセット",
+            "desc": "定期的な状態初期化"
+          }
+        },
+        "nodes": {
+          "status": "ノード状態",
+          "testnetNodes": "テストネットノード",
+          "running": "{{count}}ノード稼働中",
+          "latency": "レイテンシ",
+          "region": "リージョン",
+          "load": "負荷",
+          "uptime": "稼働時間"
+        },
+        "methods": {
+          "title": "RPCメソッド",
+          "supported": "サポート"
+        },
+        "sdk": {
+          "title": "SDKサンプル",
+          "typescript": "TypeScript",
+          "python": "Python"
+        },
+        "resources": {
+          "title": "開発者リソース",
+          "docs": "ドキュメント",
+          "api": "APIリファレンス",
+          "github": "GitHub",
+          "discord": "Discord",
+          "faucet": "ファウセット"
+        },
+        "cta": {
+          "title": "テストネットで構築開始",
+          "desc": "無料tTBURNでデプロイを始めましょう",
+          "button": "ファウセットへ"
+        },
+        "connection": {
+          "success": "接続成功",
+          "error": "接続エラー",
+          "failed": "接続失敗",
+          "unableToConnect": "テストネットに接続できません",
+          "connected": "接続済み"
+        },
+        "copied": {
+          "title": "コピー済み",
+          "description": "クリップボードにコピーしました"
+        },
+        "network": {
+          "sslEncrypted": "SSL暗号化",
+          "noRateLimits": "レート制限なし"
+        }
       }
     },
     "community": {

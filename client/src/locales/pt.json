@@ -10670,6 +10670,143 @@
           "enterValidAmount": "Por favor, insira um valor válido",
           "error": "Transação falhou. Por favor, tente novamente."
         }
+      },
+      "testnetRpc": {
+        "tag": "TESTNET RPC",
+        "heroTitle": "TBurn",
+        "heroTitleHighlight": "Testnet",
+        "heroTitleSuffix": "Infraestrutura RPC",
+        "heroDescription": "Pontos de acesso RPC testnet gratuitos para desenvolvimento e testes. Obtenha tTBURN ilimitado da torneira e implante contratos inteligentes sem risco.",
+        "status": {
+          "operational": "Operacional"
+        },
+        "metrics": {
+          "free": "GRÁTIS",
+          "access": "Acesso",
+          "latency": "Latência",
+          "regions": "Regiões",
+          "unlimited": "Ilimitado",
+          "faucet": "Torneira"
+        },
+        "buttons": {
+          "getFreeTokens": "Obter tTBURN Grátis",
+          "quickStart": "Início Rápido",
+          "testConnection": "Testar Conexão",
+          "testing": "Testando...",
+          "switchToMainnet": "Mudar para Mainnet RPC"
+        },
+        "dashboard": {
+          "title": "Status ao Vivo do Testnet",
+          "blockHeight": "Altura do Bloco",
+          "tps": "TPS",
+          "avgLatency": "Latência Média",
+          "testnetNodes": "Nós do Testnet",
+          "online": "Online"
+        },
+        "endpoints": {
+          "http": {
+            "title": "Endpoint HTTP RPC",
+            "badge": "Testnet",
+            "desc": "Endpoint JSON-RPC padrão para interações blockchain"
+          },
+          "ws": {
+            "title": "Endpoint WebSocket",
+            "badge": "Ao Vivo",
+            "desc": "Conexão de streaming para atualizações em tempo real"
+          },
+          "features": {
+            "post": "Requisições POST",
+            "batch": "Suporte a Lotes",
+            "noLimits": "Sem Limites",
+            "newBlocks": "Novos Blocos",
+            "pendingTx": "Transações Pendentes",
+            "logFilters": "Filtros de Log"
+          }
+        },
+        "config": {
+          "title": "Configuração Testnet",
+          "badge": "Testnet",
+          "networkName": "Nome da Rede",
+          "chainId": "ID da Cadeia",
+          "symbol": "Símbolo",
+          "rpcUrl": "URL RPC",
+          "wsUrl": "URL WebSocket",
+          "explorerUrl": "URL do Explorador",
+          "addToMetaMask": "Adicionar ao MetaMask",
+          "copied": "Copiado!"
+        },
+        "features": {
+          "freeEnvironment": {
+            "title": "Ambiente de Desenvolvimento Grátis",
+            "desc": "Desenvolva e teste sem fundos reais"
+          },
+          "faucet": {
+            "title": "Torneira Ilimitada",
+            "desc": "Obtenha tokens tTBURN grátis a qualquer momento"
+          },
+          "fastBlocks": {
+            "title": "Blocos Rápidos",
+            "desc": "Tempo de bloco de 100ms para testes rápidos"
+          },
+          "riskFree": {
+            "title": "Sem Risco",
+            "desc": "Seguro para experimentação e aprendizado"
+          },
+          "debugMode": {
+            "title": "Modo Debug",
+            "desc": "Ferramentas de rastreamento e depuração habilitadas"
+          },
+          "regularResets": {
+            "title": "Reinicializações Regulares",
+            "desc": "Inicialização periódica do estado"
+          }
+        },
+        "nodes": {
+          "status": "Status do Nó",
+          "testnetNodes": "Nós do Testnet",
+          "running": "{{count}} nós em execução",
+          "latency": "Latência",
+          "region": "Região",
+          "load": "Carga",
+          "uptime": "Tempo de atividade"
+        },
+        "methods": {
+          "title": "Métodos RPC",
+          "supported": "Suportados"
+        },
+        "sdk": {
+          "title": "Exemplos SDK",
+          "typescript": "TypeScript",
+          "python": "Python"
+        },
+        "resources": {
+          "title": "Recursos para Desenvolvedores",
+          "docs": "Documentação",
+          "api": "Referência API",
+          "github": "GitHub",
+          "discord": "Discord",
+          "faucet": "Torneira"
+        },
+        "cta": {
+          "title": "Comece a Construir no Testnet",
+          "desc": "Comece a implantar com tTBURN grátis",
+          "button": "Ir para a Torneira"
+        },
+        "connection": {
+          "success": "Conexão bem-sucedida",
+          "error": "Erro de conexão",
+          "failed": "Conexão falhou",
+          "unableToConnect": "Não foi possível conectar ao testnet",
+          "connected": "Conectado"
+        },
+        "copied": {
+          "title": "Copiado",
+          "description": "Copiado para a área de transferência"
+        },
+        "network": {
+          "sslEncrypted": "SSL Criptografado",
+          "noRateLimits": "Sem Limites de Taxa"
+        }
       }
     },
     "community": {

@@ -12967,6 +12967,143 @@
           "enterValidAmount": "请输入有效金额",
           "error": "交易失败，请重试。"
         }
+      },
+      "testnetRpc": {
+        "tag": "TESTNET RPC",
+        "heroTitle": "TBurn",
+        "heroTitleHighlight": "测试网",
+        "heroTitleSuffix": "RPC基础设施",
+        "heroDescription": "用于开发和测试的免费测试网RPC端点。从水龙头获取无限tTBURN，无风险部署智能合约。",
+        "status": {
+          "operational": "运行中"
+        },
+        "metrics": {
+          "free": "免费",
+          "access": "访问",
+          "latency": "延迟",
+          "regions": "区域",
+          "unlimited": "无限制",
+          "faucet": "水龙头"
+        },
+        "buttons": {
+          "getFreeTokens": "获取免费tTBURN",
+          "quickStart": "快速开始",
+          "testConnection": "测试连接",
+          "testing": "测试中...",
+          "switchToMainnet": "切换到主网RPC"
+        },
+        "dashboard": {
+          "title": "测试网实时状态",
+          "blockHeight": "区块高度",
+          "tps": "TPS",
+          "avgLatency": "平均延迟",
+          "testnetNodes": "测试网节点",
+          "online": "在线"
+        },
+        "endpoints": {
+          "http": {
+            "title": "HTTP RPC端点",
+            "badge": "测试网",
+            "desc": "用于区块链交互的标准JSON-RPC端点"
+          },
+          "ws": {
+            "title": "WebSocket端点",
+            "badge": "实时",
+            "desc": "用于实时更新的流连接"
+          },
+          "features": {
+            "post": "POST请求",
+            "batch": "批量支持",
+            "noLimits": "无限制",
+            "newBlocks": "新区块",
+            "pendingTx": "待处理交易",
+            "logFilters": "日志过滤"
+          }
+        },
+        "config": {
+          "title": "测试网配置",
+          "badge": "测试网",
+          "networkName": "网络名称",
+          "chainId": "链ID",
+          "symbol": "符号",
+          "rpcUrl": "RPC URL",
+          "wsUrl": "WebSocket URL",
+          "explorerUrl": "浏览器URL",
+          "addToMetaMask": "添加到MetaMask",
+          "copied": "已复制!"
+        },
+        "features": {
+          "freeEnvironment": {
+            "title": "免费开发环境",
+            "desc": "无需真实资金进行开发和测试"
+          },
+          "faucet": {
+            "title": "无限水龙头",
+            "desc": "随时获取免费tTBURN代币"
+          },
+          "fastBlocks": {
+            "title": "快速区块",
+            "desc": "100ms区块时间用于快速测试"
+          },
+          "riskFree": {
+            "title": "零风险",
+            "desc": "安全的实验和学习环境"
+          },
+          "debugMode": {
+            "title": "调试模式",
+            "desc": "启用跟踪和调试工具"
+          },
+          "regularResets": {
+            "title": "定期重置",
+            "desc": "周期性状态初始化"
+          }
+        },
+        "nodes": {
+          "status": "节点状态",
+          "testnetNodes": "测试网节点",
+          "running": "{{count}}个节点运行中",
+          "latency": "延迟",
+          "region": "区域",
+          "load": "负载",
+          "uptime": "运行时间"
+        },
+        "methods": {
+          "title": "RPC方法",
+          "supported": "支持"
+        },
+        "sdk": {
+          "title": "SDK示例",
+          "typescript": "TypeScript",
+          "python": "Python"
+        },
+        "resources": {
+          "title": "开发者资源",
+          "docs": "文档",
+          "api": "API参考",
+          "github": "GitHub",
+          "discord": "Discord",
+          "faucet": "水龙头"
+        },
+        "cta": {
+          "title": "开始在测试网构建",
+          "desc": "使用免费tTBURN开始部署",
+          "button": "前往水龙头"
+        },
+        "connection": {
+          "success": "连接成功",
+          "error": "连接错误",
+          "failed": "连接失败",
+          "unableToConnect": "无法连接到测试网",
+          "connected": "已连接"
+        },
+        "copied": {
+          "title": "已复制",
+          "description": "已复制到剪贴板"
+        },
+        "network": {
+          "sslEncrypted": "SSL加密",
+          "noRateLimits": "无速率限制"
+        }
       }
     },
     "community": {

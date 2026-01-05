@@ -10842,6 +10842,143 @@
           "enterValidAmount": "الرجاء إدخال مبلغ صالح",
           "error": "فشلت المعاملة. يرجى المحاولة مرة أخرى."
         }
+      },
+      "testnetRpc": {
+        "tag": "TESTNET RPC",
+        "heroTitle": "TBurn",
+        "heroTitleHighlight": "الشبكة التجريبية",
+        "heroTitleSuffix": "بنية RPC التحتية",
+        "heroDescription": "نقاط نهاية RPC مجانية للشبكة التجريبية للتطوير والاختبار. احصل على tTBURN غير محدود من الصنبور وانشر العقود الذكية بدون مخاطر.",
+        "status": {
+          "operational": "يعمل"
+        },
+        "metrics": {
+          "free": "مجاني",
+          "access": "الوصول",
+          "latency": "زمن الاستجابة",
+          "regions": "المناطق",
+          "unlimited": "غير محدود",
+          "faucet": "الصنبور"
+        },
+        "buttons": {
+          "getFreeTokens": "احصل على tTBURN مجاني",
+          "quickStart": "بداية سريعة",
+          "testConnection": "اختبار الاتصال",
+          "testing": "جاري الاختبار...",
+          "switchToMainnet": "التبديل إلى RPC الرئيسي"
+        },
+        "dashboard": {
+          "title": "حالة الشبكة التجريبية المباشرة",
+          "blockHeight": "ارتفاع الكتلة",
+          "tps": "TPS",
+          "avgLatency": "متوسط زمن الاستجابة",
+          "testnetNodes": "عقد الشبكة التجريبية",
+          "online": "متصل"
+        },
+        "endpoints": {
+          "http": {
+            "title": "نقطة نهاية HTTP RPC",
+            "badge": "الشبكة التجريبية",
+            "desc": "نقطة نهاية JSON-RPC قياسية للتفاعلات مع البلوكتشين"
+          },
+          "ws": {
+            "title": "نقطة نهاية WebSocket",
+            "badge": "مباشر",
+            "desc": "اتصال البث للتحديثات الفورية"
+          },
+          "features": {
+            "post": "طلبات POST",
+            "batch": "دعم الدفعات",
+            "noLimits": "بدون حدود",
+            "newBlocks": "الكتل الجديدة",
+            "pendingTx": "المعاملات المعلقة",
+            "logFilters": "مرشحات السجل"
+          }
+        },
+        "config": {
+          "title": "إعدادات الشبكة التجريبية",
+          "badge": "الشبكة التجريبية",
+          "networkName": "اسم الشبكة",
+          "chainId": "معرف السلسلة",
+          "symbol": "الرمز",
+          "rpcUrl": "رابط RPC",
+          "wsUrl": "رابط WebSocket",
+          "explorerUrl": "رابط المستكشف",
+          "addToMetaMask": "إضافة إلى MetaMask",
+          "copied": "تم النسخ!"
+        },
+        "features": {
+          "freeEnvironment": {
+            "title": "بيئة تطوير مجانية",
+            "desc": "التطوير والاختبار بدون أموال حقيقية"
+          },
+          "faucet": {
+            "title": "صنبور غير محدود",
+            "desc": "احصل على رموز tTBURN مجانية في أي وقت"
+          },
+          "fastBlocks": {
+            "title": "كتل سريعة",
+            "desc": "وقت كتلة 100 مللي ثانية للاختبار السريع"
+          },
+          "riskFree": {
+            "title": "بدون مخاطر",
+            "desc": "آمن للتجربة والتعلم"
+          },
+          "debugMode": {
+            "title": "وضع التصحيح",
+            "desc": "أدوات التتبع والتصحيح مفعلة"
+          },
+          "regularResets": {
+            "title": "إعادة تعيين منتظمة",
+            "desc": "تهيئة دورية للحالة"
+          }
+        },
+        "nodes": {
+          "status": "حالة العقدة",
+          "testnetNodes": "عقد الشبكة التجريبية",
+          "running": "{{count}} عقدة تعمل",
+          "latency": "زمن الاستجابة",
+          "region": "المنطقة",
+          "load": "الحمل",
+          "uptime": "وقت التشغيل"
+        },
+        "methods": {
+          "title": "طرق RPC",
+          "supported": "مدعومة"
+        },
+        "sdk": {
+          "title": "أمثلة SDK",
+          "typescript": "TypeScript",
+          "python": "Python"
+        },
+        "resources": {
+          "title": "موارد المطورين",
+          "docs": "الوثائق",
+          "api": "مرجع API",
+          "github": "GitHub",
+          "discord": "Discord",
+          "faucet": "الصنبور"
+        },
+        "cta": {
+          "title": "ابدأ البناء على الشبكة التجريبية",
+          "desc": "ابدأ النشر مع tTBURN مجاني",
+          "button": "اذهب إلى الصنبور"
+        },
+        "connection": {
+          "success": "نجح الاتصال",
+          "error": "خطأ في الاتصال",
+          "failed": "فشل الاتصال",
+          "unableToConnect": "غير قادر على الاتصال بالشبكة التجريبية",
+          "connected": "متصل"
+        },
+        "copied": {
+          "title": "تم النسخ",
+          "description": "تم النسخ إلى الحافظة"
+        },
+        "network": {
+          "sslEncrypted": "مشفر SSL",
+          "noRateLimits": "بدون حدود معدل"
+        }
       }
     },
     "community": {

@@ -10479,6 +10479,143 @@
           "enterValidAmount": "Пожалуйста, введите корректную сумму",
           "error": "Транзакция не удалась. Попробуйте снова."
         }
+      },
+      "testnetRpc": {
+        "tag": "TESTNET RPC",
+        "heroTitle": "TBurn",
+        "heroTitleHighlight": "Тестовая сеть",
+        "heroTitleSuffix": "RPC Инфраструктура",
+        "heroDescription": "Бесплатные RPC точки доступа тестовой сети для разработки и тестирования. Получайте неограниченные tTBURN из крана и развертывайте смарт-контракты без риска.",
+        "status": {
+          "operational": "Работает"
+        },
+        "metrics": {
+          "free": "БЕСПЛАТНО",
+          "access": "Доступ",
+          "latency": "Задержка",
+          "regions": "Регионы",
+          "unlimited": "Безлимит",
+          "faucet": "Кран"
+        },
+        "buttons": {
+          "getFreeTokens": "Получить бесплатные tTBURN",
+          "quickStart": "Быстрый старт",
+          "testConnection": "Тест соединения",
+          "testing": "Тестирование...",
+          "switchToMainnet": "Переключиться на Mainnet RPC"
+        },
+        "dashboard": {
+          "title": "Статус тестовой сети",
+          "blockHeight": "Высота блока",
+          "tps": "TPS",
+          "avgLatency": "Средняя задержка",
+          "testnetNodes": "Узлы тестовой сети",
+          "online": "Онлайн"
+        },
+        "endpoints": {
+          "http": {
+            "title": "HTTP RPC Точка доступа",
+            "badge": "Тестовая сеть",
+            "desc": "Стандартная JSON-RPC точка доступа для взаимодействия с блокчейном"
+          },
+          "ws": {
+            "title": "WebSocket Точка доступа",
+            "badge": "В реальном времени",
+            "desc": "Потоковое соединение для обновлений в реальном времени"
+          },
+          "features": {
+            "post": "POST запросы",
+            "batch": "Пакетная поддержка",
+            "noLimits": "Без лимитов",
+            "newBlocks": "Новые блоки",
+            "pendingTx": "Ожидающие транзакции",
+            "logFilters": "Фильтры логов"
+          }
+        },
+        "config": {
+          "title": "Конфигурация тестовой сети",
+          "badge": "Тестовая сеть",
+          "networkName": "Название сети",
+          "chainId": "ID цепи",
+          "symbol": "Символ",
+          "rpcUrl": "RPC URL",
+          "wsUrl": "WebSocket URL",
+          "explorerUrl": "URL обозревателя",
+          "addToMetaMask": "Добавить в MetaMask",
+          "copied": "Скопировано!"
+        },
+        "features": {
+          "freeEnvironment": {
+            "title": "Бесплатная среда разработки",
+            "desc": "Разрабатывайте и тестируйте без реальных средств"
+          },
+          "faucet": {
+            "title": "Безлимитный кран",
+            "desc": "Получайте бесплатные tTBURN токены в любое время"
+          },
+          "fastBlocks": {
+            "title": "Быстрые блоки",
+            "desc": "Время блока 100мс для быстрого тестирования"
+          },
+          "riskFree": {
+            "title": "Без риска",
+            "desc": "Безопасно для экспериментов и обучения"
+          },
+          "debugMode": {
+            "title": "Режим отладки",
+            "desc": "Инструменты трассировки и отладки включены"
+          },
+          "regularResets": {
+            "title": "Регулярные сбросы",
+            "desc": "Периодическая инициализация состояния"
+          }
+        },
+        "nodes": {
+          "status": "Статус узла",
+          "testnetNodes": "Узлы тестовой сети",
+          "running": "{{count}} узлов работает",
+          "latency": "Задержка",
+          "region": "Регион",
+          "load": "Нагрузка",
+          "uptime": "Время работы"
+        },
+        "methods": {
+          "title": "RPC Методы",
+          "supported": "Поддерживаемые"
+        },
+        "sdk": {
+          "title": "SDK Примеры",
+          "typescript": "TypeScript",
+          "python": "Python"
+        },
+        "resources": {
+          "title": "Ресурсы разработчика",
+          "docs": "Документация",
+          "api": "API Справочник",
+          "github": "GitHub",
+          "discord": "Discord",
+          "faucet": "Кран"
+        },
+        "cta": {
+          "title": "Начните строить в тестовой сети",
+          "desc": "Начните развертывание с бесплатными tTBURN",
+          "button": "Перейти к крану"
+        },
+        "connection": {
+          "success": "Соединение успешно",
+          "error": "Ошибка соединения",
+          "failed": "Соединение не удалось",
+          "unableToConnect": "Не удается подключиться к тестовой сети",
+          "connected": "Подключено"
+        },
+        "copied": {
+          "title": "Скопировано",
+          "description": "Скопировано в буфер обмена"
+        },
+        "network": {
+          "sslEncrypted": "SSL шифрование",
+          "noRateLimits": "Без ограничения скорости"
+        }
       }
     },
     "community": {
