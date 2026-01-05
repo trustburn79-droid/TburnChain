@@ -2412,8 +2412,8 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       
       // Merge database stats with real-time self-healing scores and token economics
       // CRITICAL: Market Cap = tokenPrice × circulatingSupply (dynamically calculated)
-      // Price Formula: BasePrice × exp(DemandTerm - SupplyTerm) with $1-$1000 range
-      const getTokenPrice = () => tokenEconomics?.tokenPrice || 28.91;
+      // Price Formula: BasePrice × exp(DemandTerm - SupplyTerm) scaled for 10B supply
+      const getTokenPrice = () => tokenEconomics?.tokenPrice || 0.2891;
       const getCirculatingSupply = () => Number(tokenEconomics?.circulatingSupply) || 7_000_000_000;
       const calculateDynamicMarketCap = () => Math.floor(getTokenPrice() * getCirculatingSupply()).toString();
       

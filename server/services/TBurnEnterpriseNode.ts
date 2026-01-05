@@ -182,10 +182,10 @@ export class TBurnEnterpriseNode extends EventEmitter {
   // Token Economics Engine
   // TBURN Token Model: Demand-Supply Equilibrium Based Pricing
   // Updated for 10B supply - demand-supply equilibrium price
-  private tokenPrice = 28.91; // Initial price in USD (mainnet equilibrium price)
+  private tokenPrice = 0.2891; // Initial price in USD (scaled for 10B supply)
   private priceChangePercent = 0; // 24h change percentage
   private lastPriceUpdate = Date.now();
-  private priceHistory: number[] = [28.91]; // Track price history for volatility
+  private priceHistory: number[] = [0.2891]; // Track price history for volatility
   
   // Supply Dynamics (20-Year Tokenomics: Genesis 100억 → Y20 69.40억)
   private readonly TOTAL_SUPPLY = 10_000_000_000; // 10B (100억) TBURN total supply
@@ -214,12 +214,13 @@ export class TBurnEnterpriseNode extends EventEmitter {
   
   // Advanced Tokenomics Parameters (Demand-Supply Formula)
   // Price = BasePrice × exp(DemandTerm - SupplyTerm)
-  private readonly BASE_PRICE = 28.91; // Base equilibrium price ($28.91 mainnet target)
+  // Scaled for 10B (100억) total supply (original $28.91 was for 100M)
+  private readonly BASE_PRICE = 0.2891; // Base equilibrium price ($28.91 / 100 for 10B supply)
   private readonly TPS_MAX = 520000; // Maximum theoretical TPS
   private readonly PRICE_UPDATE_INTERVAL = 5000; // Update every 5 seconds
   private readonly MAX_PRICE_CHANGE = 0.05; // Max ±5% change per update
-  private readonly PRICE_MIN = 1; // Minimum price floor $1
-  private readonly PRICE_MAX = 1000; // Maximum price ceiling $1,000
+  private readonly PRICE_MIN = 0.01; // Minimum price floor $0.01
+  private readonly PRICE_MAX = 100; // Maximum price ceiling $100
   
   // Demand-side coefficients
   private readonly ALPHA = 0.4;   // TPS utilization weight
