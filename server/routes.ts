@@ -651,11 +651,20 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   
   // Initialize on startup - deferred in BOTH dev and prod for fast cold-start
   // ★ [2026-01-04] Stagger validator init after data poller to prevent event loop blocking
-  const VALIDATOR_INIT_DELAY = isDev ? HEAVY_INIT_DELAY + 5000 : 8000; // 20s in dev, 8s in prod
-  setTimeout(() => {
-    console.log('[Routes] 🚀 Starting validator simulation (deferred)...');
-    initializeValidatorSimulation();
-  }, VALIDATOR_INIT_DELAY);
+  // ★ [2026-01-05] Skip validator simulation in dev if memory is constrained
+  const SKIP_VALIDATOR_SIM = process.env.SKIP_VALIDATOR_SIMULATION === 'true' || 
+    (isDev && process.env.ENABLE_VALIDATOR_SIMULATION !== 'true');
+  
+  if (SKIP_VALIDATOR_SIM) {
+    console.log('[Routes] ⚠️ Validator simulation DISABLED (memory optimization)');
+    console.log('[Routes] Set ENABLE_VALIDATOR_SIMULATION=true to enable');
+  } else {
+    const VALIDATOR_INIT_DELAY = isDev ? HEAVY_INIT_DELAY + 5000 : 8000; // 20s in dev, 8s in prod
+    setTimeout(() => {
+      console.log('[Routes] 🚀 Starting validator simulation (deferred)...');
+      initializeValidatorSimulation();
+    }, VALIDATOR_INIT_DELAY);
+  }
 
   // WebSocket clients - initialized early for use in broadcast functions
   const clients = new Set<WebSocket>();

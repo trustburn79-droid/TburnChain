@@ -71,3 +71,4 @@ MAX_SHARDS = "64"
 [userenv.development]
 NODE_ENV = "development"
 MAX_SHARDS = "64"
+SKIP_VALIDATOR_SIMULATION = "true"
