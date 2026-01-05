@@ -1,5 +1,6 @@
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
+import { useLocation } from "wouter";
 import { queryClient, apiRequest } from "@/lib/queryClient";
 import { 
   Server, Award, Users, TrendingUp, Shield, Target, Brain, Vote, Coins, Crown, 
@@ -1577,6 +1578,7 @@ function ValidatorStatsDialog({ type, validators, tierData, open, onClose }: Val
 export default function Validators() {
   const { t } = useTranslation();
   const { toast } = useToast();
+  const [, setLocation] = useLocation();
   const { data: validators, isLoading } = useQuery<Validator[]>({
     queryKey: ["/api/validators"],
     select: (data: any) => Array.isArray(data) ? data : (data?.validators || []),
@@ -2014,8 +2016,7 @@ export default function Validators() {
                         className="hover-elevate cursor-pointer"
                         data-testid={`row-validator-${validator.address?.slice(0, 10) || 'unknown'}`}
                         onClick={() => {
-                          setSelectedValidator(validator);
-                          setIsModalOpen(true);
+                          setLocation(`/app/validator/${validator.address}`);
                         }}
                       >
                         <TableCell className="font-mono text-sm">
