@@ -2411,6 +2411,11 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       const dbStats = await storage.getNetworkStats();
       
       // Merge database stats with real-time self-healing scores and token economics
+      // CRITICAL: Market Cap = tokenPrice × circulatingSupply (dynamically calculated)
+      const getTokenPrice = () => tokenEconomics?.tokenPrice || 0.53;
+      const getCirculatingSupply = () => Number(tokenEconomics?.circulatingSupply) || 7_000_000_000;
+      const calculateDynamicMarketCap = () => Math.floor(getTokenPrice() * getCirculatingSupply()).toString();
+      
       const mergeWithHealingScores = (baseStats: any) => ({
         ...baseStats,
         trendAnalysisScore: healingScores.trendAnalysisScore,
@@ -2422,16 +2427,17 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
         predictedFailureRisk: healingScores.predictedFailureRisk,
         selfHealingStatus: healingScores.selfHealingStatus,
         // Real-time token economics from Enterprise Node
-        tokenPrice: tokenEconomics?.tokenPrice || 28.91,
+        tokenPrice: getTokenPrice(),
         priceChangePercent: tokenEconomics?.priceChangePercent || 0,
-        marketCap: tokenEconomics?.marketCap || baseStats.marketCap || "2891000000",
+        // ALWAYS calculate Market Cap dynamically: Price × Circulating Supply
+        marketCap: calculateDynamicMarketCap(),
         demandIndex: tokenEconomics?.demandIndex || 0.28,
         supplyPressure: tokenEconomics?.supplyPressure || -0.01,
         priceDriver: tokenEconomics?.priceDriver || 'demand',
         tpsUtilization: tokenEconomics?.tpsUtilization || 9.6,
         activityIndex: tokenEconomics?.activityIndex || 1.0,
-        stakedAmount: tokenEconomics?.stakedAmount?.toString() || baseStats.stakedAmount || "32000000",
-        circulatingSupply: tokenEconomics?.circulatingSupply?.toString() || baseStats.circulatingSupply || "68000000",
+        stakedAmount: tokenEconomics?.stakedAmount?.toString() || baseStats.stakedAmount || "3200000000",
+        circulatingSupply: getCirculatingSupply().toString(),
       });
       
       if (isProductionMode()) {
