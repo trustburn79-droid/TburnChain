@@ -71,12 +71,48 @@ export default function ValidatorIntelligence() {
   const mockWalletAddress = "tb1qw508d6qejxtdg4y5r3zarvary0c5xw7kxpjzsx";
   const mockWalletBalance = 50000;
 
-  const { data: validator, isLoading } = useQuery<ValidatorData>({
+  const { data: validatorResponse, isLoading } = useQuery<any>({
     queryKey: [`/api/validators/${validatorAddress}`],
     enabled: !!validatorAddress,
     staleTime: 15000,
     refetchInterval: 30000,
   });
+  
+  // Normalize the validator data from the response
+  const validator: ValidatorData | null = (() => {
+    if (!validatorResponse) return null;
+    const data = validatorResponse?.data || validatorResponse;
+    if (!data || validatorResponse.success === false) return null;
+    
+    return {
+      id: data.id || data.address,
+      address: data.address,
+      name: data.name,
+      stake: typeof data.stake === 'object' ? data.stake.self : data.stake?.toString(),
+      votingPower: data.votingPower?.toString() || "0",
+      commission: data.commission || 0,
+      status: data.status,
+      uptime: data.metrics?.uptime || data.uptime || 99.5,
+      blocksProduced: data.metrics?.blocksProduced || data.blocksProduced || 0,
+      lastBlockTime: data.metrics?.lastBlockTime?.toString() || "",
+      version: data.version || "v1.14.17",
+      location: data.region || data.location || "Unknown",
+      isp: data.isp || "Unknown",
+      shardId: data.shardId || 0,
+      aiTrustScore: data.metrics?.performanceScore || data.aiTrustScore || 9000,
+      delegatedStake: typeof data.stake === 'object' ? data.stake.delegated : data.delegatedStake?.toString(),
+      selfStake: typeof data.stake === 'object' ? data.stake.self : data.selfDelegation?.toString(),
+      totalDelegators: data.delegators || 0,
+      rewardsEarned: typeof data.rewards === 'object' ? data.rewards.totalEarned : data.rewards?.toString(),
+      slashingEvents: data.slashingEvents || 0,
+      jailCount: data.jailInfo ? 1 : 0,
+      lastActiveAt: new Date().toISOString(),
+      createdAt: new Date(data.createdAt || Date.now()).toISOString(),
+      region: data.region || "Unknown",
+      delegators: data.delegators || 0,
+      apy: data.apy || 8.5,
+    } as ValidatorData;
+  })();
 
   const latencyChartData = useMemo(() => ({
     labels: Array.from({ length: 50 }, (_, i) => i),

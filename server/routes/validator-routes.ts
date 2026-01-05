@@ -257,6 +257,71 @@ router.get('/:validatorId', async (req: Request, res: Response) => {
       validator = orchestrator.getValidatorByAddress(validatorId);
     }
     
+    // Fallback to EnterpriseNode data if not found in orchestrator
+    if (!validator && validatorId.startsWith('0x')) {
+      try {
+        const { getEnterpriseNode } = await import('../services/TBurnEnterpriseNode');
+        const enterpriseNode = getEnterpriseNode();
+        const allValidators = enterpriseNode.getValidators();
+        const foundValidator = allValidators.find((v: any) => 
+          v.address.toLowerCase() === validatorId.toLowerCase()
+        );
+        
+        if (foundValidator) {
+          // Return EnterpriseNode validator data in a compatible format
+          return res.json({ 
+            success: true, 
+            data: {
+              id: foundValidator.address,
+              address: foundValidator.address,
+              name: foundValidator.name,
+              tier: foundValidator.tier,
+              status: foundValidator.status,
+              shardId: 0,
+              stake: {
+                self: foundValidator.stake?.toString() || "0",
+                delegated: foundValidator.delegatedStake?.toString() || "0",
+                total: (BigInt(foundValidator.stake || 0) + BigInt(foundValidator.delegatedStake || 0)).toString(),
+              },
+              votingPower: foundValidator.votingPower || 0,
+              commission: foundValidator.commission || 500,
+              metrics: {
+                uptime: foundValidator.uptime || 99.5,
+                latencyMs: 50,
+                successRate: (foundValidator.uptime || 99.5) / 100,
+                performanceScore: foundValidator.aiTrustScore || 9000,
+                blocksProduced: foundValidator.blocksProduced || 0,
+                blocksMissed: foundValidator.missedBlocks || 0,
+                lastBlockTime: Date.now(),
+              },
+              rewards: {
+                totalEarned: foundValidator.rewards?.toString() || "0",
+                pending: "0",
+                proposerRewards: "0",
+                verifierRewards: "0",
+                commissionEarned: "0",
+                lastRewardBlock: 0,
+              },
+              jailInfo: null,
+              slashingInfo: null,
+              createdAt: Date.now() - 86400000 * 30,
+              updatedAt: Date.now(),
+              // Additional fields from EnterpriseNode
+              delegators: foundValidator.delegators || 0,
+              region: foundValidator.region || "Unknown",
+              selfDelegation: foundValidator.selfDelegation || "0",
+              minDelegation: foundValidator.minDelegation || "0",
+              slashingEvents: foundValidator.slashingEvents || 0,
+              signatureRate: foundValidator.signatureRate || 99.5,
+            },
+            timestamp: Date.now() 
+          });
+        }
+      } catch (e) {
+        // Continue to 404 if EnterpriseNode lookup fails
+      }
+    }
+    
     if (!validator) {
       return res.status(404).json({ 
         success: false, 
