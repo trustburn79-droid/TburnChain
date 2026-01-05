@@ -382,6 +382,21 @@ export function PublicRouter() {
     return null;
   }
 
+  // Validator detail pages (/validator/0x...) render as standalone without navigation
+  const isValidatorDetailPage = location.startsWith("/validator/") && 
+    location !== "/validator/infrastructure" && 
+    !location.startsWith("/validator/governance");
+  
+  if (isValidatorDetailPage) {
+    return (
+      <ErrorBoundary>
+        <Suspense fallback={<PageLoading />}>
+          <NetworkRoutes />
+        </Suspense>
+      </ErrorBoundary>
+    );
+  }
+
   if (location.startsWith("/network") || location.startsWith("/validator")) {
     return (
       <ErrorBoundary>
