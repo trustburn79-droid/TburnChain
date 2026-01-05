@@ -8034,7 +8034,9 @@
         "viewGithub": "在GitHub上查看",
         "heroDescription": "面向区块链项目的去中心化信任基础设施。",
         "heroSubDescription": "独立的Layer 1解决方案，以100%链上透明度验证可靠性。",
-        "viewSource": "查看源码"
+        "viewSource": "查看源码",
+        "webWhitepaperButton": "网页版白皮书",
+        "technicalWhitepaperButton": "技术白皮书"
       },
       "tokenomics": {
         "tag": "经济学",

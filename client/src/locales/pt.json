@@ -5259,7 +5259,9 @@
         "viewGithub": "Ver no GitHub",
         "heroDescription": "Infraestrutura de Confiança Descentralizada para Projetos Blockchain.",
         "heroSubDescription": "Solução Layer 1 independente verificando confiabilidade com 100% de transparência on-chain.",
-        "viewSource": "Ver Código Fonte"
+        "viewSource": "Ver Código Fonte",
+        "webWhitepaperButton": "Whitepaper Web",
+        "technicalWhitepaperButton": "Whitepaper Técnico"
       },
       "tokenomics": {
         "tag": "ECONOMIA",

@@ -169,7 +169,7 @@ export default function Whitepaper() {
                 }}
                 data-testid="button-web-whitepaper"
               >
-                <FileText className="w-4 h-4" /> 웹 백서
+                <FileText className="w-4 h-4" /> {t('publicPages.learn.whitepaper.webWhitepaperButton')}
               </button>
             </a>
             <a 
@@ -177,7 +177,7 @@ export default function Whitepaper() {
               className="px-8 py-3 rounded-lg border border-gray-300 dark:border-white/20 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-white/5 transition flex items-center gap-2"
               data-testid="link-technical-whitepaper"
             >
-              <FileCode className="w-4 h-4" /> 기술백서
+              <FileCode className="w-4 h-4" /> {t('publicPages.learn.whitepaper.technicalWhitepaperButton')}
             </a>
           </div>
         </div>

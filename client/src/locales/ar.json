@@ -6023,7 +6023,9 @@
               "description": "Secure atomic swaps connected to 7+ major blockchains."
             }
           }
-        }
+        },
+        "webWhitepaperButton": "الورقة البيضاء الإلكترونية",
+        "technicalWhitepaperButton": "الورقة البيضاء التقنية"
       },
       "tokenomics": {
         "tag": "الاقتصاد",

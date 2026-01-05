@@ -4381,7 +4381,9 @@
         "viewGithub": "GitHub-এ দেখুন",
         "heroDescription": "ব্লকচেইন প্রকল্পের জন্য বিকেন্দ্রীভূত ট্রাস্ট অবকাঠামো।",
         "heroSubDescription": "১০০% অন-চেইন স্বচ্ছতার সাথে নির্ভরযোগ্যতা যাচাই করে স্বতন্ত্র Layer 1 সমাধান।",
-        "viewSource": "সোর্স দেখুন"
+        "viewSource": "সোর্স দেখুন",
+        "webWhitepaperButton": "ওয়েব হোয়াইটপেপার",
+        "technicalWhitepaperButton": "টেকনিক্যাল হোয়াইটপেপার"
       },
       "tokenomics": {
         "tag": "অর্থনীতি",

@@ -6703,7 +6703,9 @@
           "pdf": "Descargar PDF",
           "version": "Versión",
           "updated": "Última Actualización"
-        }
+        },
+        "webWhitepaperButton": "Whitepaper Web",
+        "technicalWhitepaperButton": "Whitepaper Técnico"
       },
       "tokenomics": {
         "tag": "ECONOMÍA",

@@ -8697,7 +8697,9 @@
         "viewGithub": "GitHubで表示",
         "heroDescription": "ブロックチェーンプロジェクト向け分散型信頼インフラストラクチャ。",
         "heroSubDescription": "100%オンチェーン透明性で信頼性を検証する独立したLayer 1ソリューション。",
-        "viewSource": "ソースを見る"
+        "viewSource": "ソースを見る",
+        "webWhitepaperButton": "ウェブホワイトペーパー",
+        "technicalWhitepaperButton": "技術ホワイトペーパー"
       },
       "tokenomics": {
         "tag": "エコノミクス",

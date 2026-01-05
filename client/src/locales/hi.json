@@ -6550,7 +6550,9 @@
         "viewGithub": "GitHub पर देखें",
         "heroDescription": "ब्लॉकचेन प्रोजेक्ट्स के लिए विकेंद्रीकृत विश्वास अवसंरचना।",
         "heroSubDescription": "100% ऑन-चेन पारदर्शिता के साथ विश्वसनीयता सत्यापित करने वाला स्वतंत्र Layer 1 समाधान।",
-        "viewSource": "स्रोत देखें"
+        "viewSource": "स्रोत देखें",
+        "webWhitepaperButton": "वेब व्हाइटपेपर",
+        "technicalWhitepaperButton": "तकनीकी व्हाइटपेपर"
       },
       "tokenomics": {
         "tag": "अर्थशास्त्र",

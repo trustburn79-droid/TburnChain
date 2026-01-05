@@ -8901,7 +8901,9 @@
             }
           }
         },
-        "viewGithub": "GitHub에서 보기"
+        "viewGithub": "GitHub에서 보기",
+        "webWhitepaperButton": "Web Whitepaper",
+        "technicalWhitepaperButton": "Technical Whitepaper"
       },
       "tokenomics": {
         "tag": "v8.0 ECONOMICS",
