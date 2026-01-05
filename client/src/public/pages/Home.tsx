@@ -1,5 +1,5 @@
 import { Link } from "wouter";
-import { useEffect, useRef, useState, lazy, Suspense } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { 
   ArrowRight, 
@@ -13,9 +13,6 @@ import {
 } from "lucide-react";
 import { TBurnLogo } from "@/components/tburn-logo";
 import "../styles/public.css";
-
-// CRITICAL: Lazy load AITerminal to reduce initial bundle size
-const AITerminal = lazy(() => import("../components/AITerminal").then(m => ({ default: m.AITerminal })));
 
 const SCRAMBLE_CHARS = "!<>-_\\/[]{}—=+*^?#";
 
@@ -482,9 +479,6 @@ export default function Home() {
             </div>
           </div>
         </section>
-      <Suspense fallback={null}>
-        <AITerminal />
-      </Suspense>
     </div>
   );
 }
