@@ -29,6 +29,7 @@ export default function DeveloperRoutes() {
       <Switch>
         <Route path="/developers" component={DeveloperHub} />
         <Route path="/developers/docs" component={Documentation} />
+        <Route path="/developers/documentation" component={Documentation} />
         <Route path="/developers/api" component={ApiDocs} />
         <Route path="/developers/cli" component={CliReference} />
         <Route path="/developers/sdk" component={SdkGuide} />
