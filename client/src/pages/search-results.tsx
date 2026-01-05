@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { Link } from "wouter";
+import { Link, useLocation } from "wouter";
 import { useTranslation } from "react-i18next";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
@@ -331,12 +331,13 @@ function SearchSkeleton() {
 
 function EmptyQueryState() {
   const { t } = useTranslation();
+  const [, setLocation] = useLocation();
   const [searchInput, setSearchInput] = useState("");
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     if (searchInput.trim()) {
-      window.location.href = `/search?q=${encodeURIComponent(searchInput.trim())}`;
+      setLocation(`/search?q=${encodeURIComponent(searchInput.trim())}`);
     }
   };
 
@@ -413,7 +414,7 @@ function EmptyQueryState() {
                     variant="outline"
                     size="sm"
                     className="text-xs"
-                    onClick={() => window.location.href = `/search?q=${encodeURIComponent(example.query)}`}
+                    onClick={() => setLocation(`/search?q=${encodeURIComponent(example.query)}`)}
                     data-testid={`button-example-${example.type}`}
                   >
                     {example.label}
@@ -449,6 +450,7 @@ function EmptyQueryState() {
 
 export default function SearchResults() {
   const { t } = useTranslation();
+  const [, setLocation] = useLocation();
   const [activeFilter, setActiveFilter] = useState<string>("all");
   const [searchInput, setSearchInput] = useState("");
   const [currentQuery, setCurrentQuery] = useState("");
@@ -523,8 +525,7 @@ export default function SearchResults() {
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     if (searchInput.trim()) {
-      // Use window.location.href to properly include query parameters
-      window.location.href = `/search?q=${encodeURIComponent(searchInput.trim())}`;
+      setLocation(`/search?q=${encodeURIComponent(searchInput.trim())}`);
     }
   };
 

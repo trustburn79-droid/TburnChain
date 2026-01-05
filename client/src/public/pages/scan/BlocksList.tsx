@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { Link } from "wouter";
+import { Link, useLocation } from "wouter";
 import { useTranslation } from "react-i18next";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -48,6 +48,7 @@ interface NetworkStats {
 export default function BlocksList() {
   const { t } = useTranslation();
   const { toast } = useToast();
+  const [, setLocation] = useLocation();
   const { isConnected } = useScanWebSocket();
   const [page, setPage] = useState(1);
   const [searchBlock, setSearchBlock] = useState("");
@@ -109,7 +110,7 @@ export default function BlocksList() {
     if (searchBlock.trim()) {
       const blockNum = parseInt(searchBlock);
       if (!isNaN(blockNum)) {
-        window.location.href = `/scan/block/${blockNum}`;
+        setLocation(`/scan/block/${blockNum}`);
       }
     }
   };

@@ -53,8 +53,9 @@ const NftMarketplaceStandalone = lazy(() => import("@/pages/nft-marketplace-stan
 const Brand = lazy(() => import("./pages/Brand"));
 
 function LoginPage() {
+  const [, setLocation] = useLocation();
   const handleLoginSuccess = () => {
-    window.location.href = "/app/dashboard";
+    setLocation("/app/dashboard");
   };
   return <Login onLoginSuccess={handleLoginSuccess} />;
 }
@@ -292,17 +293,9 @@ export function PublicRouter() {
     );
   }
   
-  // /vc route requires full App (VCTestMode page) - trigger full page reload
-  if (location === "/vc" || location.startsWith("/vc-test")) {
-    window.scrollTo(0, 0);
-    window.location.href = location;
-    return null;
-  }
-  
-  // /app/* routes require full App - trigger full page reload for authenticated DeFi pages
-  if (location.startsWith("/app")) {
-    window.scrollTo(0, 0);
-    window.location.href = location;
+  // /vc and /app/* routes are handled by RootRouter in App.tsx
+  // Return null to let the parent router handle them (SPA navigation, no reload)
+  if (location === "/vc" || location.startsWith("/vc-test") || location.startsWith("/app")) {
     return null;
   }
 
@@ -384,9 +377,8 @@ export function PublicRouter() {
     );
   }
 
+  // /validator/infrastructure and /validator-governance are handled by RootRouter in App.tsx
   if (location === "/validator/infrastructure" || location === "/validator-governance") {
-    window.scrollTo(0, 0);
-    window.location.href = location;
     return null;
   }
 

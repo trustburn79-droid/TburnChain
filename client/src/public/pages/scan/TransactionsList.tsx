@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { Link } from "wouter";
+import { Link, useLocation } from "wouter";
 import { useTranslation } from "react-i18next";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -41,6 +41,7 @@ interface Transaction {
 export default function TransactionsList() {
   const { t } = useTranslation();
   const { toast } = useToast();
+  const [, setLocation] = useLocation();
   const { isConnected } = useScanWebSocket();
   
   const [page, setPage] = useState(1);
@@ -98,7 +99,7 @@ export default function TransactionsList() {
 
   const handleSearchTx = () => {
     if (searchTx.trim() && searchTx.startsWith("0x")) {
-      window.location.href = `/scan/tx/${searchTx.trim()}`;
+      setLocation(`/scan/tx/${searchTx.trim()}`);
     }
   };
 

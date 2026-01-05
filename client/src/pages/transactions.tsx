@@ -180,6 +180,7 @@ function TransactionRow({
   t: any;
 }) {
   const { toast } = useToast();
+  const [, setLocation] = useLocation();
   
   const copyHash = useCallback((e: React.MouseEvent) => {
     e.stopPropagation();
@@ -320,7 +321,7 @@ function TransactionRow({
             <DropdownMenuSeparator />
             <DropdownMenuItem onClick={(e) => { 
               e.stopPropagation(); 
-              window.location.href = `/blocks/${tx.blockNumber}`;
+              setLocation(`/app/blocks/${tx.blockNumber}`);
             }}>
               <Box className="h-4 w-4 mr-2" />
               {t('transactions.viewBlock')}

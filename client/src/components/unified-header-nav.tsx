@@ -35,13 +35,8 @@ export function UnifiedHeaderNav({ variant = "dark" }: UnifiedHeaderNavProps) {
   };
 
   const navigate = (path: string) => {
-    // Routes that require full App (not PublicApp) need full page reload
-    const fullAppRoutes = ["/user", "/app", "/nft-marketplace"];
-    if (fullAppRoutes.some(route => path === route || path.startsWith(route + "/"))) {
-      window.location.href = path;
-    } else {
-      setLocation(path);
-    }
+    // Use SPA navigation for all routes - wouter handles them correctly
+    setLocation(path);
   };
 
   const baseButtonClass = variant === "dark" 

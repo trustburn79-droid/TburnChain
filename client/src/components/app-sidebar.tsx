@@ -52,31 +52,35 @@ import {
 import { Link, useLocation } from "wouter";
 
 function NavLink({ href, children, ...props }: { href: string; children: React.ReactNode; [key: string]: any }) {
+  const [, setLocation] = useLocation();
   const hasHash = href.includes("#");
   const basePath = hasHash ? href.split("#")[0] : href;
   const hash = hasHash ? href.split("#")[1] : "";
   
   const handleClick = (e: React.MouseEvent) => {
+    e.preventDefault();
     if (hasHash) {
-      e.preventDefault();
       if (window.location.pathname !== basePath) {
-        window.location.href = href;
+        // Navigate to page first, then set hash after a microtask
+        setLocation(basePath);
+        requestAnimationFrame(() => {
+          window.location.hash = hash;
+          window.dispatchEvent(new HashChangeEvent("hashchange"));
+        });
       } else {
         window.location.hash = hash;
         window.dispatchEvent(new HashChangeEvent("hashchange"));
       }
+    } else {
+      setLocation(href);
     }
   };
   
-  if (hasHash) {
-    return (
-      <a href={href} onClick={handleClick} {...props}>
-        {children}
-      </a>
-    );
-  }
-  
-  return <Link href={href} {...props}>{children}</Link>;
+  return (
+    <a href={href} onClick={handleClick} {...props}>
+      {children}
+    </a>
+  );
 }
 
 const menuItems = [

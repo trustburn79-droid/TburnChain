@@ -235,6 +235,7 @@ function LiveIndicator({ isLive, lastUpdate }: { isLive: boolean; lastUpdate: Da
 function BlockRow({ block, onClick }: { block: Block; onClick: () => void }) {
   const { t } = useTranslation();
   const { toast } = useToast();
+  const [, setLocation] = useLocation();
   const gasUsagePercent = block.gasLimit > 0 ? (block.gasUsed / block.gasLimit) * 100 : 0;
   
   const copyHash = (e: React.MouseEvent) => {
@@ -353,7 +354,7 @@ function BlockRow({ block, onClick }: { block: Block; onClick: () => void }) {
             <DropdownMenuSeparator />
             <DropdownMenuItem onClick={(e) => { 
               e.stopPropagation(); 
-              window.location.href = `/transactions?block=${block.blockNumber}`;
+              setLocation(`/app/transactions?block=${block.blockNumber}`);
             }}>
               <Zap className="h-4 w-4 mr-2" />
               {t('blocks.viewTransactions')}

@@ -1,4 +1,4 @@
-import { Switch, Route } from "wouter";
+import { Switch, Route, useLocation } from "wouter";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AdminPortalSidebar } from "@/components/admin-portal-sidebar";
 import { ThemeToggle } from "@/components/theme-toggle";
@@ -312,6 +312,7 @@ function AdminRouter() {
 }
 
 export function AdminPortalLayout() {
+  const [, setLocation] = useLocation();
   const { data: authData, isLoading, refetch } = useQuery<{ authenticated: boolean }>({
     queryKey: ["/api/admin/auth/check"],
     refetchInterval: 60000,
@@ -323,7 +324,7 @@ export function AdminPortalLayout() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/admin/auth/check"] });
-      window.location.href = "/";
+      setLocation("/");
     },
   });
 
@@ -366,7 +367,7 @@ export function AdminPortalLayout() {
                 <ThemeToggle />
                 <ProfileBadge onLogout={() => {
                   queryClient.invalidateQueries({ queryKey: ["/api/admin/auth/check"] });
-                  window.location.href = "/";
+                  setLocation("/");
                 }} />
               </div>
             </header>
