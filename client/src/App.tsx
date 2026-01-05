@@ -358,15 +358,11 @@ function RootRouter() {
   
   if (location === "/user" || location.startsWith("/user")) {
     return (
-      <Web3Provider>
-        <TBurnAlertProvider>
-          <AuthGuard>
-            <Suspense fallback={<PageLoading />}>
-              <UserPage />
-            </Suspense>
-          </AuthGuard>
-        </TBurnAlertProvider>
-      </Web3Provider>
+      <AuthGuard>
+        <Suspense fallback={<PageLoading />}>
+          <UserPage />
+        </Suspense>
+      </AuthGuard>
     );
   }
   

@@ -220,21 +220,35 @@ async function safeInitApp() {
     console.log("[TBURN] i18n initialized successfully");
     
     // Route-based app shell loading for faster first paint
-    // PublicApp includes Web3Provider for scan pages but excludes heavy admin providers
+    // PublicApp: lightweight shell for public pages (no sidebar, websocket, heavy providers)
+    // App: full shell with all providers for authenticated/complex pages
     const path = window.location.pathname;
+    
+    // Routes that load via PublicRouter (must be defined in PublicRouter.tsx)
     const isPublicRoute = path === "/" || 
                           path === "/scan" || 
+                          path.startsWith("/scan/") ||
                           path === "/whitepaper" ||
                           path.startsWith("/learn") ||
-                          path.startsWith("/token-generator") ||
-                          path.startsWith("/nft-marketplace") ||
-                          path.startsWith("/bug-bounty") ||
-                          path.startsWith("/official-channels") ||
-                          path.startsWith("/launch-event") ||
-                          path.startsWith("/security-audit") ||
-                          path.startsWith("/tree") ||
-                          path.startsWith("/qna") ||
-                          path.startsWith("/user/") ||
+                          path.startsWith("/developers") ||
+                          path.startsWith("/solutions") ||
+                          path.startsWith("/use-cases") ||
+                          path.startsWith("/network") ||
+                          path.startsWith("/community") ||
+                          path.startsWith("/legal") ||
+                          path.startsWith("/rpc") ||
+                          path.startsWith("/testnet-rpc") ||
+                          path.startsWith("/testnet-scan") ||
+                          path === "/brand" ||
+                          path === "/token-generator" ||
+                          path === "/tree" ||
+                          path === "/airdrop" ||
+                          path === "/referral" ||
+                          path === "/events" ||
+                          path.startsWith("/token-schedule") ||
+                          path.startsWith("/token-details") ||
+                          path === "/nft-marketplace" ||
+                          path.startsWith("/nft-marketplace/") ||
                           path === "/login" ||
                           path === "/signup";
     
