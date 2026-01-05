@@ -150,13 +150,26 @@ if (hasRedis) {
   // Redis가 설정된 환경: Redis 사용
   console.log(`[Init] Attempting to connect to Redis...`);
 
-  const redisClient = createClient({ url: REDIS_URL });
+  // Upstash 및 TLS 지원 Redis 서비스를 위한 설정
+  // rediss:// URL은 TLS 연결 필요
+  const isTLS = REDIS_URL!.startsWith('rediss://');
+  
+  const redisClient = createClient({ 
+    url: REDIS_URL,
+    socket: isTLS ? {
+      tls: true,
+      rejectUnauthorized: false, // Upstash 인증서 허용
+    } : undefined,
+  });
 
   redisClient.on("error", (err) => {
     console.error("[Redis] Connection Error:", err);
   });
   redisClient.on("connect", () => {
     log("✅ Redis connected successfully", "session");
+  });
+  redisClient.on("ready", () => {
+    log("✅ Redis ready for commands", "session");
   });
 
   // Redis 클라이언트 연결 시작
@@ -167,7 +180,7 @@ if (hasRedis) {
     client: redisClient,
     prefix: "tburn:",
   });
-  sessionStoreType = "Redis";
+  sessionStoreType = "Redis (TLS: " + isTLS + ")";
 } else {
   // Redis가 없는 환경: MemoryStore 사용 (Replit 개발 및 Autoscale 배포 모두)
   // ★ [수정 6] 프로덕션 안정성 - 세션 오버플로우 완전 방지
