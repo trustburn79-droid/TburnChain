@@ -22,7 +22,7 @@ import {
 } from "lucide-react";
 import { TBurnLogo } from "@/components/tburn-logo";
 import { ProfileBadge } from "@/components/profile-badge";
-import { useState, ReactNode } from "react";
+import { useState, useMemo, ReactNode } from "react";
 import i18n, { languages } from "@/lib/i18n";
 
 interface TestnetRpcLayoutProps {
@@ -39,12 +39,12 @@ export default function TestnetRpcLayout({ children }: TestnetRpcLayoutProps) {
     i18n.changeLanguage(value);
   };
 
-  const navItems = [
-    { path: "/testnet-rpc", label: "RPC 엔드포인트", icon: Server },
-    { path: "/testnet-rpc/status", label: "상태 모니터링", icon: Activity },
-    { path: "/testnet-rpc/faucet", label: "Faucet", icon: Droplets },
-    { path: "/testnet-rpc/docs", label: "API 문서", icon: BookOpen },
-  ];
+  const navItems = useMemo(() => [
+    { path: "/testnet-rpc", label: t('rpc.layout.rpcEndpoints'), icon: Server },
+    { path: "/testnet-rpc/status", label: t('rpc.layout.statusMonitoring'), icon: Activity },
+    { path: "/testnet-rpc/faucet", label: t('rpc.layout.faucet'), icon: Droplets },
+    { path: "/testnet-rpc/docs", label: t('rpc.layout.apiDocs'), icon: BookOpen },
+  ], [language, t]);
 
   const isActive = (path: string) => {
     if (path === "/testnet-rpc") return location === "/testnet-rpc";
@@ -113,20 +113,20 @@ export default function TestnetRpcLayout({ children }: TestnetRpcLayoutProps) {
               <Link href="/">
                 <Button variant="ghost" size="sm" className="text-gray-400 hover:text-white" data-testid="link-main-site">
                   <Home className="h-4 w-4 mr-1" />
-                  메인
+                  {t('rpc.layout.main')}
                 </Button>
               </Link>
 
               <Link href="/rpc">
                 <Button variant="outline" size="sm" className="border-cyan-500/50 text-cyan-500 hover:bg-cyan-500/10" data-testid="link-mainnet-rpc">
-                  메인넷 RPC
+                  {t('rpc.layout.mainnetRpc')}
                 </Button>
               </Link>
 
               <Link href="/app">
                 <Button variant="ghost" size="sm" className="text-gray-400 hover:text-white" data-testid="link-app">
                   <LayoutDashboard className="h-4 w-4 mr-1" />
-                  앱
+                  {t('rpc.layout.app')}
                 </Button>
               </Link>
 
@@ -181,7 +181,7 @@ export default function TestnetRpcLayout({ children }: TestnetRpcLayoutProps) {
                 TBURNScan
               </Link>
               <Link href="/developers/docs" className="hover:text-yellow-400 transition">
-                문서
+                {t('rpc.layout.documents')}
               </Link>
               <a href="https://github.com/tburnchain" target="_blank" rel="noopener noreferrer" className="hover:text-yellow-400 transition">
                 GitHub

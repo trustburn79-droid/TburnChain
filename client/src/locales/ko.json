@@ -31199,6 +31199,21 @@
       "tps": "초당 트랜잭션",
       "latestBlock": "최신 블록"
     },
+    "layout": {
+      "rpcEndpoints": "RPC 엔드포인트",
+      "statusMonitoring": "상태 모니터링",
+      "apiDocs": "API 문서",
+      "benchmark": "벤치마크",
+      "main": "메인",
+      "app": "앱",
+      "testnetRpc": "테스트넷 RPC",
+      "mainnetRpc": "메인넷 RPC",
+      "faucet": "Faucet",
+      "documents": "문서",
+      "footer": {
+        "copyright": "© 2025 TBurn Chain. All rights reserved."
+      }
+    },
     "status": {
       "badge": "노드 상태",
       "testnetBadge": "테스트넷 상태",

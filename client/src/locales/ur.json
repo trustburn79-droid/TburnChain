@@ -14460,6 +14460,21 @@
       "latestBlock": "تازہ ترین بلاک"
     },
     "status": {
+    "layout": {
+      "rpcEndpoints": "RPC Endpoints",
+      "statusMonitoring": "Status Monitoring",
+      "apiDocs": "API Docs",
+      "benchmark": "Benchmark",
+      "main": "Main",
+      "app": "App",
+      "testnetRpc": "Testnet RPC",
+      "mainnetRpc": "Mainnet RPC",
+      "faucet": "Faucet",
+      "documents": "Docs",
+      "footer": {
+        "copyright": "© 2025 TBurn Chain. All rights reserved."
+      }
+    },
       "badge": "نوڈ سٹیٹس",
       "testnetBadge": "ٹیسٹ نیٹ سٹیٹس",
       "heroTitle": "RPC",
