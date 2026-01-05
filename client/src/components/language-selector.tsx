@@ -1,5 +1,6 @@
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { languages, type LanguageCode } from '@/lib/i18n';
+import { languages, type LanguageCode, changeLanguageWithPreload } from '@/lib/i18n';
 import { Globe } from 'lucide-react';
 import {
   DropdownMenu,
@@ -11,18 +12,24 @@ import { Button } from '@/components/ui/button';
 
 export function LanguageSelector() {
   const { i18n, t } = useTranslation();
+  const [isChanging, setIsChanging] = useState(false);
 
   const currentLanguage = languages.find(lang => lang.code === i18n.language) || languages[0];
 
-  const handleLanguageChange = (code: LanguageCode) => {
-    i18n.changeLanguage(code);
-    localStorage.setItem('tburn-language', code);
+  const handleLanguageChange = async (code: LanguageCode) => {
+    if (isChanging) return;
     
-    const language = languages.find(l => l.code === code);
-    if (language?.dir === 'rtl') {
-      document.documentElement.dir = 'rtl';
-    } else {
-      document.documentElement.dir = 'ltr';
+    setIsChanging(true);
+    try {
+      localStorage.setItem('tburn-language', code);
+      await changeLanguageWithPreload(code);
+      
+      const language = languages.find(l => l.code === code);
+      document.documentElement.dir = language?.dir === 'rtl' ? 'rtl' : 'ltr';
+    } catch (error) {
+      console.error('[i18n] Language change failed:', error);
+    } finally {
+      setIsChanging(false);
     }
   };
 

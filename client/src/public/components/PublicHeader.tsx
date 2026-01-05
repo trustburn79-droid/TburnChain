@@ -161,10 +161,24 @@ export function PublicHeader() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  const changeLanguage = (langCode: string) => {
-    i18n.changeLanguage(langCode);
-    setLanguageMenuOpen(false);
-    document.documentElement.dir = languages.find(l => l.code === langCode)?.dir || 'ltr';
+  const changeLanguage = async (langCode: string) => {
+    try {
+      // Save preference first
+      localStorage.setItem('tburn-language', langCode);
+      
+      // Import and use preload function for faster language switch
+      const { changeLanguageWithPreload } = await import('@/lib/i18n');
+      await changeLanguageWithPreload(langCode);
+      
+      // Update document direction
+      document.documentElement.dir = languages.find(l => l.code === langCode)?.dir || 'ltr';
+    } catch (error) {
+      console.error('[i18n] Language change failed:', error);
+      // Fallback to direct change
+      i18n.changeLanguage(langCode);
+    } finally {
+      setLanguageMenuOpen(false);
+    }
   };
 
   return (

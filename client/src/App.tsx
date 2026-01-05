@@ -548,6 +548,8 @@ function RootRouter() {
 }
 
 function App() {
+  const { i18n } = useTranslation();
+  
   return (
     <ErrorBoundary>
       <QueryClientProvider client={queryClient}>
@@ -555,9 +557,11 @@ function App() {
           <Web3Provider>
             <TBurnAlertProvider>
               <AdminPasswordProvider>
-                <ScrollToTop />
-                <RootRouter />
-                <Toaster />
+                <div key={i18n.language}>
+                  <ScrollToTop />
+                  <RootRouter />
+                  <Toaster />
+                </div>
               </AdminPasswordProvider>
             </TBurnAlertProvider>
           </Web3Provider>

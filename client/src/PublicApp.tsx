@@ -9,6 +9,7 @@ import { TBurnAlertProvider } from "@/components/tburn-alert-modal";
 import { lazy, Suspense, useEffect } from "react";
 import { TBurnLoader } from "@/components/tburn-loader";
 import { useLocation } from "wouter";
+import { useTranslation } from "react-i18next";
 
 const PublicRouter = lazy(() => import("./public/PublicRouter").then(m => ({ default: m.PublicRouter })));
 
@@ -31,6 +32,8 @@ function ScrollToTop() {
 }
 
 export default function PublicApp() {
+  const { i18n } = useTranslation();
+  
   return (
     <ErrorBoundary>
       <QueryClientProvider client={queryClient}>
@@ -38,11 +41,13 @@ export default function PublicApp() {
           <ThemeProvider>
             <TBurnAlertProvider>
               <Web3Provider>
-                <ScrollToTop />
-                <Suspense fallback={<PublicLoading />}>
-                  <PublicRouter />
-                </Suspense>
-                <Toaster />
+                <div key={i18n.language}>
+                  <ScrollToTop />
+                  <Suspense fallback={<PublicLoading />}>
+                    <PublicRouter />
+                  </Suspense>
+                  <Toaster />
+                </div>
               </Web3Provider>
             </TBurnAlertProvider>
           </ThemeProvider>
