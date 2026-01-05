@@ -28,6 +28,12 @@ import {
   IS_PRODUCTION
 } from "./core/sessions/session-bypass";
 import { productionMonitor } from "./core/monitoring/enterprise-production-monitor";
+import { crashDiagnostics } from "./core/monitoring/crash-diagnostics";
+
+// ★ [2026-01-05] 프로세스 크래시 핸들러 즉시 등록 (최우선)
+// uncaughtException, unhandledRejection 핸들러가 모든 에러를 캡처
+crashDiagnostics.registerProcessHandlers();
+crashDiagnostics.startMemoryMonitoring();
 
 declare module "express-session" {
   interface SessionData {
@@ -387,25 +393,60 @@ export default async function runApp(
 ) {
   const server = await registerRoutes(app);
 
+  // ★ [2026-01-05] 글로벌 에러 핸들러 - 상세 진단 로깅
   app.use((err: any, req: Request, res: Response, _next: NextFunction) => {
     const status = err.status || err.statusCode || 500;
     const message = err.message || "Internal Server Error";
+    const errorId = `ERR-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
     
-    // ★ [Production Stability] 에러 로깅 (throw 대신)
-    console.error(`[Error Handler] ${req.method} ${req.path}: ${status} - ${message}`);
+    // 메모리 상태 캡처
+    const mem = process.memoryUsage();
+    const memInfo = {
+      heapUsed: Math.round(mem.heapUsed / 1024 / 1024),
+      heapTotal: Math.round(mem.heapTotal / 1024 / 1024),
+      heapPercent: Math.round((mem.heapUsed / mem.heapTotal) * 100),
+    };
+    
+    // ★ 상세 에러 로그 출력
+    console.error('');
+    console.error('═══════════════════════════════════════════════════════════════');
+    console.error(`[Express Error] ID: ${errorId}`);
+    console.error('═══════════════════════════════════════════════════════════════');
+    console.error(`Status: ${status}`);
+    console.error(`Message: ${message}`);
+    console.error(`Method: ${req.method}`);
+    console.error(`Path: ${req.path}`);
+    console.error(`Query: ${JSON.stringify(req.query)}`);
+    console.error(`Timestamp: ${new Date().toISOString()}`);
+    console.error(`Memory: ${memInfo.heapUsed}MB / ${memInfo.heapTotal}MB (${memInfo.heapPercent}%)`);
+    console.error(`Uptime: ${Math.round(process.uptime())}s`);
     if (err.stack) {
-      console.error(`[Error Stack] ${err.stack}`);
+      console.error('');
+      console.error('Stack Trace:');
+      console.error(err.stack);
     }
+    if (err.cause) {
+      console.error('');
+      console.error('Cause:', err.cause);
+    }
+    console.error('═══════════════════════════════════════════════════════════════');
+    console.error('');
+    
+    // crashDiagnostics에 로그 기록
+    crashDiagnostics.log(`Express Error ${status}: ${message} at ${req.method} ${req.path}`, 'error');
     
     // 응답이 이미 전송된 경우 무시
     if (res.headersSent) {
       return;
     }
     
+    // 프로덕션에서는 상세 에러 정보 제공 (디버깅용)
     res.status(status).json({ 
       message,
+      errorId,
       path: req.path,
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
+      ...(IS_PRODUCTION ? {} : { stack: err.stack }),
     });
   });
 
