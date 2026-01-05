@@ -22,7 +22,7 @@ import {
 import { TBurnLogo } from "@/components/tburn-logo";
 import { ProfileBadge } from "@/components/profile-badge";
 import { useState, ReactNode } from "react";
-import i18n from "@/lib/i18n";
+import i18n, { languages } from "@/lib/i18n";
 
 interface RpcLayoutProps {
   children: ReactNode;
@@ -91,16 +91,21 @@ export default function RpcLayout({ children }: RpcLayoutProps) {
                 <DropdownMenuTrigger asChild>
                   <Button variant="ghost" size="sm" className="text-gray-400 hover:text-white" data-testid="button-language-toggle">
                     <Globe className="h-4 w-4 mr-1" />
-                    {language === 'ko' ? 'KO' : 'EN'}
+                    {languages.find(l => l.code === language)?.code.toUpperCase() || 'EN'}
                   </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="bg-gray-900 border-gray-800">
-                  <DropdownMenuItem onClick={() => handleLanguageChange('en')} className="text-gray-300 hover:text-white hover:bg-gray-800">
-                    English
-                  </DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => handleLanguageChange('ko')} className="text-gray-300 hover:text-white hover:bg-gray-800">
-                    한국어
-                  </DropdownMenuItem>
+                <DropdownMenuContent align="end" className="bg-gray-900 border-gray-800 max-h-80 overflow-y-auto">
+                  {languages.map((lang) => (
+                    <DropdownMenuItem 
+                      key={lang.code}
+                      onClick={() => handleLanguageChange(lang.code)} 
+                      className={`text-gray-300 hover:text-white hover:bg-gray-800 flex items-center gap-2 ${language === lang.code ? 'bg-cyan-500/20 text-cyan-400' : ''}`}
+                      data-testid={`menu-item-language-${lang.code}`}
+                    >
+                      <span className="text-base">{lang.flag}</span>
+                      <span>{lang.nativeName}</span>
+                    </DropdownMenuItem>
+                  ))}
                 </DropdownMenuContent>
               </DropdownMenu>
 
