@@ -2962,7 +2962,7 @@
       "tabTitle": "Due Diligence",
       "chainConfig": "Chain Configuration",
       "chainConfigDesc": "TBURN Mainnet technical specifications",
-      "rpcEndpoints": "RPC Endpoints",
+      "rpcEndpoints": "RPC اینڈ پوائنٹس",
       "rpcEndpointsDesc": "Public JSON-RPC endpoints for blockchain interaction",
       "liveNetworkTelemetry": "Live Network Telemetry",
       "liveNetworkTelemetryDesc": "Real-time data from TBURN RPC cluster (updates every 5s)",
@@ -14460,21 +14460,6 @@
       "latestBlock": "تازہ ترین بلاک"
     },
     "status": {
-    "layout": {
-      "rpcEndpoints": "RPC Endpoints",
-      "statusMonitoring": "Status Monitoring",
-      "apiDocs": "API Docs",
-      "benchmark": "Benchmark",
-      "main": "Main",
-      "app": "App",
-      "testnetRpc": "Testnet RPC",
-      "mainnetRpc": "Mainnet RPC",
-      "faucet": "Faucet",
-      "documents": "Docs",
-      "footer": {
-        "copyright": "© 2025 TBurn Chain. All rights reserved."
-      }
-    },
       "badge": "نوڈ سٹیٹس",
       "testnetBadge": "ٹیسٹ نیٹ سٹیٹس",
       "heroTitle": "RPC",
@@ -14635,6 +14620,21 @@
       "sevenDayAvgTps": "7 دن اوسط TPS",
       "sevenDayAvgSuccess": "7 دن اوسط کامیابی",
       "sevenDayUptime": "7 دن اپ ٹائم"
+    },
+    "layout": {
+      "rpcEndpoints": "RPC اینڈ پوائنٹس",
+      "statusMonitoring": "اسٹیٹس مانیٹرنگ",
+      "apiDocs": "API دستاویزات",
+      "benchmark": "بینچ مارک",
+      "main": "ہوم",
+      "app": "ایپ",
+      "testnetRpc": "ٹیسٹ نیٹ RPC",
+      "mainnetRpc": "مین نیٹ RPC",
+      "faucet": "فاسٹ",
+      "documents": "دستاویزات",
+      "footer": {
+        "copyright": "© 2025 TBurn Chain. All rights reserved."
+      }
     }
   }
 }

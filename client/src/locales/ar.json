@@ -4654,7 +4654,7 @@
       "tabTitle": "Due Diligence",
       "chainConfig": "Chain Configuration",
       "chainConfigDesc": "TBURN Mainnet technical specifications",
-      "rpcEndpoints": "RPC Endpoints",
+      "rpcEndpoints": "نقاط RPC",
       "rpcEndpointsDesc": "Public JSON-RPC endpoints for blockchain interaction",
       "liveNetworkTelemetry": "Live Network Telemetry",
       "liveNetworkTelemetryDesc": "Real-time data from TBURN RPC cluster (updates every 5s)",
@@ -15999,21 +15999,6 @@
       "latestBlock": "أحدث كتلة"
     },
     "status": {
-    "layout": {
-      "rpcEndpoints": "RPC Endpoints",
-      "statusMonitoring": "Status Monitoring",
-      "apiDocs": "API Docs",
-      "benchmark": "Benchmark",
-      "main": "Main",
-      "app": "App",
-      "testnetRpc": "Testnet RPC",
-      "mainnetRpc": "Mainnet RPC",
-      "faucet": "Faucet",
-      "documents": "Docs",
-      "footer": {
-        "copyright": "© 2025 TBurn Chain. All rights reserved."
-      }
-    },
       "badge": "حالة العقدة",
       "testnetBadge": "حالة شبكة الاختبار",
       "heroTitle": "RPC",
@@ -16174,6 +16159,21 @@
       "sevenDayAvgTps": "متوسط TPS 7 أيام",
       "sevenDayAvgSuccess": "متوسط النجاح 7 أيام",
       "sevenDayUptime": "وقت التشغيل 7 أيام"
+    },
+    "layout": {
+      "rpcEndpoints": "نقاط RPC",
+      "statusMonitoring": "مراقبة الحالة",
+      "apiDocs": "وثائق API",
+      "benchmark": "اختبار الأداء",
+      "main": "الرئيسية",
+      "app": "التطبيق",
+      "testnetRpc": "RPC الشبكة التجريبية",
+      "mainnetRpc": "RPC الشبكة الرئيسية",
+      "faucet": "صنبور",
+      "documents": "المستندات",
+      "footer": {
+        "copyright": "© 2025 TBurn Chain. All rights reserved."
+      }
     }
   }
 }

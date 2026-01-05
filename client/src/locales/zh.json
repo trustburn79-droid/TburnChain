@@ -18168,21 +18168,6 @@
       "latestBlock": "最新区块"
     },
     "status": {
-    "layout": {
-      "rpcEndpoints": "RPC Endpoints",
-      "statusMonitoring": "Status Monitoring",
-      "apiDocs": "API Docs",
-      "benchmark": "Benchmark",
-      "main": "Main",
-      "app": "App",
-      "testnetRpc": "Testnet RPC",
-      "mainnetRpc": "Mainnet RPC",
-      "faucet": "Faucet",
-      "documents": "Docs",
-      "footer": {
-        "copyright": "© 2025 TBurn Chain. All rights reserved."
-      }
-    },
       "badge": "节点状态",
       "testnetBadge": "测试网状态",
       "heroTitle": "RPC",
@@ -18343,6 +18328,21 @@
       "sevenDayAvgTps": "7天平均TPS",
       "sevenDayAvgSuccess": "7天平均成功率",
       "sevenDayUptime": "7天正常运行时间"
+    },
+    "layout": {
+      "rpcEndpoints": "RPC端点",
+      "statusMonitoring": "状态监控",
+      "apiDocs": "API文档",
+      "benchmark": "基准测试",
+      "main": "首页",
+      "app": "应用",
+      "testnetRpc": "测试网RPC",
+      "mainnetRpc": "主网RPC",
+      "faucet": "水龙头",
+      "documents": "文档",
+      "footer": {
+        "copyright": "© 2025 TBurn Chain. All rights reserved."
+      }
     }
   }
 }

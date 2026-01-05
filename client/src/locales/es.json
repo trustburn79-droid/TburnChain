@@ -5175,7 +5175,7 @@
       "tabTitle": "Due Diligence",
       "chainConfig": "Chain Configuration",
       "chainConfigDesc": "TBURN Mainnet technical specifications",
-      "rpcEndpoints": "RPC Endpoints",
+      "rpcEndpoints": "Puntos de Acceso RPC",
       "rpcEndpointsDesc": "Public JSON-RPC endpoints for blockchain interaction",
       "liveNetworkTelemetry": "Live Network Telemetry",
       "liveNetworkTelemetryDesc": "Real-time data from TBURN RPC cluster (updates every 5s)",
@@ -18100,21 +18100,6 @@
       "latestBlock": "Último bloque"
     },
     "status": {
-    "layout": {
-      "rpcEndpoints": "RPC Endpoints",
-      "statusMonitoring": "Status Monitoring",
-      "apiDocs": "API Docs",
-      "benchmark": "Benchmark",
-      "main": "Main",
-      "app": "App",
-      "testnetRpc": "Testnet RPC",
-      "mainnetRpc": "Mainnet RPC",
-      "faucet": "Faucet",
-      "documents": "Docs",
-      "footer": {
-        "copyright": "© 2025 TBurn Chain. All rights reserved."
-      }
-    },
       "badge": "Estado del Nodo",
       "testnetBadge": "Estado de Testnet",
       "heroTitle": "RPC",
@@ -18275,6 +18260,21 @@
       "sevenDayAvgTps": "TPS Promedio 7 Días",
       "sevenDayAvgSuccess": "Éxito Promedio 7 Días",
       "sevenDayUptime": "Uptime 7 Días"
+    },
+    "layout": {
+      "rpcEndpoints": "Puntos de Acceso RPC",
+      "statusMonitoring": "Monitoreo de Estado",
+      "apiDocs": "Documentación API",
+      "benchmark": "Rendimiento",
+      "main": "Inicio",
+      "app": "App",
+      "testnetRpc": "RPC Testnet",
+      "mainnetRpc": "RPC Mainnet",
+      "faucet": "Grifo",
+      "documents": "Docs",
+      "footer": {
+        "copyright": "© 2025 TBurn Chain. All rights reserved."
+      }
     }
   }
 }

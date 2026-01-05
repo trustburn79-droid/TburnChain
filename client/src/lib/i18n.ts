@@ -107,4 +107,23 @@ i18n.on('languageChanged', async (lang) => {
   }
 });
 
+export const changeLanguageWithPreload = async (lang: string): Promise<void> => {
+  if (lang === 'en') {
+    await i18n.changeLanguage(lang);
+    return;
+  }
+  
+  if (!i18n.hasResourceBundle(lang, 'translation')) {
+    try {
+      const translations = await loadLocale(lang);
+      i18n.addResourceBundle(lang, 'translation', translations, true, true);
+    } catch (error) {
+      console.warn(`[i18n] Failed to load ${lang}, falling back to English`);
+      return;
+    }
+  }
+  
+  await i18n.changeLanguage(lang);
+};
+
 export default i18n;

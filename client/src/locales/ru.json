@@ -4137,7 +4137,7 @@
       "tabTitle": "Due Diligence",
       "chainConfig": "Chain Configuration",
       "chainConfigDesc": "TBURN Mainnet technical specifications",
-      "rpcEndpoints": "RPC Endpoints",
+      "rpcEndpoints": "RPC Эндпоинты",
       "rpcEndpointsDesc": "Public JSON-RPC endpoints for blockchain interaction",
       "liveNetworkTelemetry": "Live Network Telemetry",
       "liveNetworkTelemetryDesc": "Real-time data from TBURN RPC cluster (updates every 5s)",
@@ -15117,21 +15117,6 @@
       "latestBlock": "Последний блок"
     },
     "status": {
-    "layout": {
-      "rpcEndpoints": "RPC Endpoints",
-      "statusMonitoring": "Status Monitoring",
-      "apiDocs": "API Docs",
-      "benchmark": "Benchmark",
-      "main": "Main",
-      "app": "App",
-      "testnetRpc": "Testnet RPC",
-      "mainnetRpc": "Mainnet RPC",
-      "faucet": "Faucet",
-      "documents": "Docs",
-      "footer": {
-        "copyright": "© 2025 TBurn Chain. All rights reserved."
-      }
-    },
       "badge": "Статус узла",
       "testnetBadge": "Статус тестовой сети",
       "heroTitle": "RPC",
@@ -15292,6 +15277,21 @@
       "sevenDayAvgTps": "Средний TPS за 7 дней",
       "sevenDayAvgSuccess": "Средняя успешность за 7 дней",
       "sevenDayUptime": "Время работы за 7 дней"
+    },
+    "layout": {
+      "rpcEndpoints": "RPC Эндпоинты",
+      "statusMonitoring": "Мониторинг",
+      "apiDocs": "API Документация",
+      "benchmark": "Тест производ.",
+      "main": "Главная",
+      "app": "Приложение",
+      "testnetRpc": "RPC Тестнет",
+      "mainnetRpc": "RPC Мейннет",
+      "faucet": "Кран",
+      "documents": "Документы",
+      "footer": {
+        "copyright": "© 2025 TBurn Chain. All rights reserved."
+      }
     }
   }
 }

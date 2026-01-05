@@ -19044,21 +19044,6 @@
       "latestBlock": "最新ブロック"
     },
     "status": {
-    "layout": {
-      "rpcEndpoints": "RPC Endpoints",
-      "statusMonitoring": "Status Monitoring",
-      "apiDocs": "API Docs",
-      "benchmark": "Benchmark",
-      "main": "Main",
-      "app": "App",
-      "testnetRpc": "Testnet RPC",
-      "mainnetRpc": "Mainnet RPC",
-      "faucet": "Faucet",
-      "documents": "Docs",
-      "footer": {
-        "copyright": "© 2025 TBurn Chain. All rights reserved."
-      }
-    },
       "badge": "ノードステータス",
       "testnetBadge": "テストネットステータス",
       "heroTitle": "RPC",
@@ -19219,6 +19204,21 @@
       "sevenDayAvgTps": "7日平均TPS",
       "sevenDayAvgSuccess": "7日平均成功率",
       "sevenDayUptime": "7日アップタイム"
+    },
+    "layout": {
+      "rpcEndpoints": "RPCエンドポイント",
+      "statusMonitoring": "ステータス監視",
+      "apiDocs": "APIドキュメント",
+      "benchmark": "ベンチマーク",
+      "main": "メイン",
+      "app": "アプリ",
+      "testnetRpc": "テストネットRPC",
+      "mainnetRpc": "メインネットRPC",
+      "faucet": "フォーセット",
+      "documents": "ドキュメント",
+      "footer": {
+        "copyright": "© 2025 TBurn Chain. All rights reserved."
+      }
     }
   }
 }

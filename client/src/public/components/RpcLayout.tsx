@@ -22,7 +22,7 @@ import {
 import { TBurnLogo } from "@/components/tburn-logo";
 import { ProfileBadge } from "@/components/profile-badge";
 import { useState, useMemo, ReactNode } from "react";
-import i18n, { languages } from "@/lib/i18n";
+import i18n, { languages, changeLanguageWithPreload } from "@/lib/i18n";
 
 interface RpcLayoutProps {
   children: ReactNode;
@@ -33,9 +33,9 @@ export default function RpcLayout({ children }: RpcLayoutProps) {
   const [location, setLocation] = useLocation();
   const [language, setLanguage] = useState(i18n.language || 'en');
 
-  const handleLanguageChange = (value: string) => {
+  const handleLanguageChange = async (value: string) => {
+    await changeLanguageWithPreload(value);
     setLanguage(value);
-    i18n.changeLanguage(value);
   };
 
   const navItems = useMemo(() => [
