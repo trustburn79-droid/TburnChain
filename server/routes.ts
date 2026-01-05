@@ -18449,6 +18449,270 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
 
   // ============================================
+  // Demo Wallets (Enterprise VC/Developer Demo System)
+  // ============================================
+  
+  // Get all demo wallets (admin only)
+  app.get("/api/demo-wallets", async (req, res) => {
+    try {
+      const limit = parseInt(req.query.limit as string) || 100;
+      const walletType = req.query.type as string | undefined;
+      
+      let wallets;
+      if (walletType) {
+        wallets = await storage.getDemoWalletsByType(walletType);
+      } else {
+        wallets = await storage.getAllDemoWallets(limit);
+      }
+      
+      res.json(wallets);
+    } catch (error: unknown) {
+      console.error('[Demo Wallets] Error fetching wallets:', error);
+      res.status(500).json({ error: "Failed to fetch demo wallets" });
+    }
+  });
+
+  // Get demo wallet stats
+  app.get("/api/demo-wallets/stats", async (req, res) => {
+    try {
+      const stats = await storage.getDemoWalletStats();
+      res.json(stats);
+    } catch (error: unknown) {
+      console.error('[Demo Wallets] Error fetching stats:', error);
+      res.status(500).json({ error: "Failed to fetch demo wallet stats" });
+    }
+  });
+
+  // Get demo wallet by ID
+  app.get("/api/demo-wallets/:walletId", async (req, res) => {
+    try {
+      const wallet = await storage.getDemoWalletById(req.params.walletId);
+      if (!wallet) {
+        return res.status(404).json({ error: "Demo wallet not found" });
+      }
+      res.json(wallet);
+    } catch (error: unknown) {
+      console.error('[Demo Wallets] Error fetching wallet:', error);
+      res.status(500).json({ error: "Failed to fetch demo wallet" });
+    }
+  });
+
+  // Access demo wallet with access code (public - for VC page)
+  app.post("/api/demo-wallets/access", async (req, res) => {
+    try {
+      const { accessCode } = req.body;
+      
+      if (!accessCode) {
+        return res.status(400).json({ error: "Access code is required" });
+      }
+      
+      const wallet = await storage.getDemoWalletByAccessCode(accessCode);
+      
+      if (!wallet) {
+        return res.status(404).json({ error: "Invalid access code" });
+      }
+      
+      if (!wallet.isActive) {
+        return res.status(403).json({ error: "This demo wallet is deactivated" });
+      }
+      
+      if (wallet.expiresAt && new Date(wallet.expiresAt) < new Date()) {
+        return res.status(403).json({ error: "This demo wallet has expired" });
+      }
+      
+      // Update last activity
+      await storage.updateDemoWallet(wallet.walletId, { lastActivityAt: new Date() });
+      
+      // Return wallet info (without sensitive admin fields)
+      res.json({
+        walletId: wallet.walletId,
+        address: wallet.address,
+        walletType: wallet.walletType,
+        label: wallet.label,
+        balanceTburn: wallet.balanceTburn,
+        balanceEth: wallet.balanceEth,
+        balanceUsdt: wallet.balanceUsdt,
+        dailyTransactionLimit: wallet.dailyTransactionLimit,
+        dailyTransactionsUsed: wallet.dailyTransactionsUsed,
+        totalTransactions: wallet.totalTransactions,
+        isActive: wallet.isActive,
+      });
+    } catch (error: unknown) {
+      console.error('[Demo Wallets] Error accessing wallet:', error);
+      res.status(500).json({ error: "Failed to access demo wallet" });
+    }
+  });
+
+  // Create demo wallet (admin only)
+  app.post("/api/demo-wallets", async (req, res) => {
+    try {
+      const { walletType, label, balanceTburn, balanceEth, balanceUsdt, accessCode, expiresAt, dailyTransactionLimit, notes } = req.body;
+      
+      // Generate unique wallet ID and address
+      const walletId = `demo-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+      const address = `0x${Array.from({ length: 40 }, () => Math.floor(Math.random() * 16).toString(16)).join('')}`;
+      
+      const wallet = await storage.createDemoWallet({
+        walletId,
+        address,
+        walletType: walletType || 'vc',
+        label,
+        balanceTburn: balanceTburn || '1000000',
+        balanceEth: balanceEth || '10',
+        balanceUsdt: balanceUsdt || '50000',
+        accessCode,
+        expiresAt: expiresAt ? new Date(expiresAt) : null,
+        dailyTransactionLimit: dailyTransactionLimit || 1000,
+        notes,
+        createdBy: (req as any).user?.email || 'admin',
+      });
+      
+      console.log(`[Demo Wallets] Created new wallet: ${walletId}`);
+      res.status(201).json(wallet);
+    } catch (error: unknown) {
+      console.error('[Demo Wallets] Error creating wallet:', error);
+      res.status(500).json({ error: "Failed to create demo wallet" });
+    }
+  });
+
+  // Update demo wallet (admin only)
+  app.patch("/api/demo-wallets/:walletId", async (req, res) => {
+    try {
+      const { walletId } = req.params;
+      const wallet = await storage.getDemoWalletById(walletId);
+      
+      if (!wallet) {
+        return res.status(404).json({ error: "Demo wallet not found" });
+      }
+      
+      await storage.updateDemoWallet(walletId, req.body);
+      const updated = await storage.getDemoWalletById(walletId);
+      
+      console.log(`[Demo Wallets] Updated wallet: ${walletId}`);
+      res.json(updated);
+    } catch (error: unknown) {
+      console.error('[Demo Wallets] Error updating wallet:', error);
+      res.status(500).json({ error: "Failed to update demo wallet" });
+    }
+  });
+
+  // Delete demo wallet (admin only)
+  app.delete("/api/demo-wallets/:walletId", async (req, res) => {
+    try {
+      const { walletId } = req.params;
+      const wallet = await storage.getDemoWalletById(walletId);
+      
+      if (!wallet) {
+        return res.status(404).json({ error: "Demo wallet not found" });
+      }
+      
+      await storage.deleteDemoWallet(walletId);
+      console.log(`[Demo Wallets] Deleted wallet: ${walletId}`);
+      res.json({ success: true });
+    } catch (error: unknown) {
+      console.error('[Demo Wallets] Error deleting wallet:', error);
+      res.status(500).json({ error: "Failed to delete demo wallet" });
+    }
+  });
+
+  // Create demo transaction (simulate transaction)
+  app.post("/api/demo-wallets/:walletId/transactions", async (req, res) => {
+    try {
+      const { walletId } = req.params;
+      const { transactionType, fromToken, toToken, amount, toAddress, amountUsd } = req.body;
+      
+      const wallet = await storage.getDemoWalletById(walletId);
+      if (!wallet) {
+        return res.status(404).json({ error: "Demo wallet not found" });
+      }
+      
+      if (!wallet.isActive) {
+        return res.status(403).json({ error: "This demo wallet is deactivated" });
+      }
+      
+      // Check daily limit
+      if (wallet.dailyTransactionsUsed >= wallet.dailyTransactionLimit) {
+        return res.status(429).json({ error: "Daily transaction limit reached" });
+      }
+      
+      // Generate transaction ID
+      const transactionId = `dtx-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+      
+      // Simulate gas calculation
+      const gasUsed = Math.floor(21000 + Math.random() * 50000).toString();
+      const gasPriceGwei = (5 + Math.random() * 20).toFixed(2);
+      
+      const transaction = await storage.createDemoWalletTransaction({
+        transactionId,
+        walletId,
+        transactionType: transactionType || 'transfer',
+        fromToken: fromToken || 'TBURN',
+        toToken,
+        amount: amount || '0',
+        amountUsd: amountUsd || '0',
+        toAddress,
+        fromAddress: wallet.address,
+        status: 'completed',
+        gasUsed,
+        gasPriceGwei,
+      });
+      
+      // Update wallet stats
+      await storage.updateDemoWallet(walletId, {
+        dailyTransactionsUsed: wallet.dailyTransactionsUsed + 1,
+        totalTransactions: wallet.totalTransactions + 1,
+        totalVolumeUsdt: (parseFloat(wallet.totalVolumeUsdt || '0') + parseFloat(amountUsd || '0')).toString(),
+        lastActivityAt: new Date(),
+      });
+      
+      // Update balance based on transaction type
+      if (transactionType === 'transfer' && fromToken === 'TBURN') {
+        const newBalance = parseFloat(wallet.balanceTburn) - parseFloat(amount || '0');
+        await storage.updateDemoWallet(walletId, { balanceTburn: Math.max(0, newBalance).toString() });
+      }
+      
+      console.log(`[Demo Wallets] Created transaction: ${transactionId} for wallet: ${walletId}`);
+      res.status(201).json(transaction);
+    } catch (error: unknown) {
+      console.error('[Demo Wallets] Error creating transaction:', error);
+      res.status(500).json({ error: "Failed to create demo transaction" });
+    }
+  });
+
+  // Get demo wallet transactions
+  app.get("/api/demo-wallets/:walletId/transactions", async (req, res) => {
+    try {
+      const { walletId } = req.params;
+      const limit = parseInt(req.query.limit as string) || 50;
+      
+      const wallet = await storage.getDemoWalletById(walletId);
+      if (!wallet) {
+        return res.status(404).json({ error: "Demo wallet not found" });
+      }
+      
+      const transactions = await storage.getDemoWalletTransactions(walletId, limit);
+      res.json(transactions);
+    } catch (error: unknown) {
+      console.error('[Demo Wallets] Error fetching transactions:', error);
+      res.status(500).json({ error: "Failed to fetch demo wallet transactions" });
+    }
+  });
+
+  // Reset daily transaction counts (scheduled job)
+  app.post("/api/demo-wallets/reset-daily", async (req, res) => {
+    try {
+      await storage.resetDailyTransactionCounts();
+      console.log('[Demo Wallets] Reset daily transaction counts');
+      res.json({ success: true });
+    } catch (error: unknown) {
+      console.error('[Demo Wallets] Error resetting daily counts:', error);
+      res.status(500).json({ error: "Failed to reset daily transaction counts" });
+    }
+  });
+
+  console.log('[Demo Wallets] ✅ Enterprise demo wallet routes registered');
+
+  // ============================================
   // Consensus Rounds
   // ============================================
   app.get("/api/consensus/rounds", async (req, res) => {
