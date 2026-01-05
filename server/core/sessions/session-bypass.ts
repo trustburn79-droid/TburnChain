@@ -255,7 +255,35 @@ const SESSION_FREE_API_PATHS = [
   '/api/node/health',
   '/api/performance',
   '/health',
+  // ★ [2026-01-05 v3.2] RPC 페이지 추가 - 세션 불필요
+  '/rpc',
+  '/api/rpc',
+  '/rpc-docs',
+  '/api/rpc-docs',
+  '/docs',
+  '/api/docs',
+  // ★ 추가 공개 페이지
+  '/explorer',
+  '/blocks',
+  '/transactions',
+  '/validators',
+  '/staking',
+  '/governance',
+  '/tokenomics',
+  '/ecosystem',
+  '/bridge',
+  '/defi',
+  '/nft',
+  '/gamefi',
+  '/launchpad',
+  '/community',
+  '/custody',
+  '/distribution',
 ];
+
+// ★ [2026-01-05 v3.2] 타임스탬프 쿼리 파라미터 패턴
+// ?_t=1767653039282 형태의 캐시 버스팅 파라미터 감지
+const CACHE_BUST_PARAMS = ['_t', '_ts', '_timestamp', '_v', '_version', 'v', 't', 'ts'];
 
 // ============================================================================
 // Skip Decision Interface
@@ -366,8 +394,33 @@ function detectInternalRequest(req: Request, userAgent: string, hasInternalHeade
 }
 
 /**
+ * ★ [2026-01-05 v3.2] 타임스탬프 캐시 버스팅 파라미터 감지
+ * ?_t=1767653039282 형태의 파라미터가 있으면 캐시 버스팅 요청으로 판단
+ */
+function hasCacheBustParam(url: string): boolean {
+  const queryStart = url.indexOf('?');
+  if (queryStart === -1) return false;
+  
+  const queryString = url.slice(queryStart + 1);
+  const params = queryString.split('&');
+  
+  for (const param of params) {
+    const [key] = param.split('=');
+    if (key && CACHE_BUST_PARAMS.includes(key.toLowerCase())) {
+      return true;
+    }
+  }
+  return false;
+}
+
+/**
  * Determines if a request should bypass session creation
  * CRITICAL: This function must be fast and aggressive to prevent session overflow
+ * 
+ * ★ [2026-01-05 v3.2] 강화된 세션 바이패스 로직:
+ * - 타임스탬프 쿼리 파라미터 (?_t=xxx) 감지 및 스킵
+ * - RPC 페이지 세션 스킵
+ * - 공개 페이지 세션 스킵
  */
 export function shouldBypassSession(req: Request): SessionBypassResult {
   const url = req.url || req.originalUrl || '/';
@@ -377,6 +430,12 @@ export function shouldBypassSession(req: Request): SessionBypassResult {
   const accept = (req.headers['accept'] || '').toLowerCase();
   const hasInternalHeader = req.headers['x-internal-request'] === 'true';
   const hasSessionCookie = hasValidSessionCookie(req);
+  
+  // ★ [PRIORITY 0] 타임스탬프 캐시 버스팅 파라미터가 있는 GET 요청 스킵
+  // ?_t=1767653039282 형태의 요청은 브라우저 새로고침/탭 복구로 세션 불필요
+  if (method === 'GET' && hasCacheBustParam(url) && !isAuthRequired(path)) {
+    return { shouldSkip: true, reason: 'cache_bust_param', isInternalRequest: false, hasSessionCookie };
+  }
   
   // Priority 1: WebSocket upgrade
   if (req.headers['upgrade']?.toLowerCase() === 'websocket') {
@@ -388,7 +447,7 @@ export function shouldBypassSession(req: Request): SessionBypassResult {
     return { shouldSkip: true, reason: 'static_asset', isInternalRequest: false, hasSessionCookie };
   }
   
-  // Priority 3: Session-free API paths
+  // Priority 3: Session-free API paths (includes /rpc, /explorer, etc.)
   if (isSessionFreeAPI(path)) {
     return { shouldSkip: true, reason: 'session_free_api', isInternalRequest: false, hasSessionCookie };
   }
