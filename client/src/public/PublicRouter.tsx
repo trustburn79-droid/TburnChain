@@ -14,6 +14,7 @@ function PageLoading() {
 
 const Home = lazy(() => import("./pages/Home"));
 const Login = lazy(() => import("@/pages/login"));
+const Signup = lazy(() => import("@/pages/signup"));
 const TokenGenerator = lazy(() => import("@/pages/token-generator"));
 const TreePage = lazy(() => import("@/pages/tree"));
 
@@ -68,6 +69,16 @@ export function PublicRouter() {
       <ErrorBoundary>
         <Suspense fallback={<PageLoading />}>
           <LoginPage />
+        </Suspense>
+      </ErrorBoundary>
+    );
+  }
+  
+  if (location === "/signup") {
+    return (
+      <ErrorBoundary>
+        <Suspense fallback={<PageLoading />}>
+          <Signup />
         </Suspense>
       </ErrorBoundary>
     );
