@@ -6005,7 +6005,9 @@
             "title": "Brûlage par Rachat de Revenus",
             "description": "Les revenus du protocole sont utilisés pour acheter et brûler des TBURN trimestriellement, créant une pression déflationniste"
           }
-        }
+        },
+        "tokenScheduleButton": "Calendrier des Tokens",
+        "tokenDistributionGuide": "Guide de Distribution des Tokens"
       },
       "roadmap": {
         "tag": "DÉVELOPPEMENT",

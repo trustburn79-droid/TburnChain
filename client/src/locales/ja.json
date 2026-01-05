@@ -8843,7 +8843,9 @@
             "title": "スラッシングペナルティバーン",
             "description": "バリデーターの不正行為に対するペナルティがバーンされ、ネットワークセキュリティインセンティブを強化"
           }
-        }
+        },
+        "tokenScheduleButton": "トークンスケジュール",
+        "tokenDistributionGuide": "トークン配布ガイド"
       },
       "roadmap": {
         "tag": "開発",

@@ -4527,7 +4527,9 @@
             "title": "ریونیو بائی بیک",
             "description": "پروٹوکول کی آمدنی سہ ماہی TBURN خریدنے اور جلانے کے لیے استعمال ہوتی ہے"
           }
-        }
+        },
+        "tokenScheduleButton": "ٹوکن شیڈول",
+        "tokenDistributionGuide": "ٹوکن تقسیم گائیڈ"
       },
       "roadmap": {
         "tag": "ترقی",

@@ -4527,7 +4527,9 @@
             "title": "রাজস্ব বাইব্যাক",
             "description": "প্রোটোকল রাজস্ব ত্রৈমাসিক TBURN কেনা এবং পোড়ানোর জন্য ব্যবহৃত হয়"
           }
-        }
+        },
+        "tokenScheduleButton": "টোকেন শিডিউল",
+        "tokenDistributionGuide": "টোকেন বিতরণ গাইড"
       },
       "roadmap": {
         "tag": "উন্নয়ন",

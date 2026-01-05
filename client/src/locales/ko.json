@@ -9065,7 +9065,9 @@
             "approveTreasury": "트레저리 배분 및 생태계 그랜트 승인",
             "decideSlashing": "슬래싱 제안 및 검증자 분쟁 결정"
           }
-        }
+        },
+        "tokenScheduleButton": "토큰 스케줄",
+        "tokenDistributionGuide": "토큰배분 가이드"
       },
       "roadmap": {
         "tag": "개발",

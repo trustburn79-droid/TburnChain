@@ -6169,7 +6169,9 @@
             "approveTreasury": "الموافقة على تخصيصات الخزينة ومنح النظام البيئي",
             "decideSlashing": "اتخاذ القرار بشأن مقترحات السلاشينغ ونزاعات المدققين"
           }
-        }
+        },
+        "tokenScheduleButton": "جدول التوكن",
+        "tokenDistributionGuide": "دليل توزيع التوكن"
       },
       "roadmap": {
         "tag": "DEVELOPMENT ROADMAP",

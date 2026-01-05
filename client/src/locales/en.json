@@ -9063,7 +9063,9 @@
             "approveTreasury": "Approve treasury allocations and ecosystem grants",
             "decideSlashing": "Decide on slashing proposals and validator disputes"
           }
-        }
+        },
+        "tokenScheduleButton": "Token Schedule",
+        "tokenDistributionGuide": "Token Distribution Guide"
       },
       "roadmap": {
         "tag": "DEVELOPMENT ROADMAP",

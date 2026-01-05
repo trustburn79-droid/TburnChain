@@ -6849,7 +6849,9 @@
             "title": "Recompra de Ingresos",
             "description": "Los ingresos del protocolo se usan para comprar y quemar TBURN trimestralmente"
           }
-        }
+        },
+        "tokenScheduleButton": "Calendario de Tokens",
+        "tokenDistributionGuide": "Guía de Distribución de Tokens"
       },
       "roadmap": {
         "tag": "DESARROLLO",

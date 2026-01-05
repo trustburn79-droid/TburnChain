@@ -8180,7 +8180,9 @@
             "approveTreasury": "批准国库分配和生态系统资助",
             "decideSlashing": "决定削减提案和验证者争议"
           }
-        }
+        },
+        "tokenScheduleButton": "代币时间表",
+        "tokenDistributionGuide": "代币分配指南"
       },
       "roadmap": {
         "tag": "发展",

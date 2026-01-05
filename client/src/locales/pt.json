@@ -5405,7 +5405,9 @@
             "title": "Recompra de Receitas",
             "description": "Receitas do protocolo são usadas para comprar e queimar TBURN trimestralmente"
           }
-        }
+        },
+        "tokenScheduleButton": "Cronograma de Tokens",
+        "tokenDistributionGuide": "Guia de Distribuição de Tokens"
       },
       "roadmap": {
         "tag": "DESENVOLVIMENTO",
