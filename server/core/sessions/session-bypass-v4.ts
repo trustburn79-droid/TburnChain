@@ -16,8 +16,10 @@
  */
 
 import { Request, Response, NextFunction, RequestHandler } from 'express';
-import session from 'express-session';
+import * as sessionModule from 'express-session';
 import { EventEmitter } from 'events';
+
+type SessionStore = sessionModule.Store;
 
 export const CONFIG = {
   MEMORY_WARNING_THRESHOLD: 0.60,
