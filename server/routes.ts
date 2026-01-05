@@ -2502,8 +2502,8 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
               totalValidators: shardTps.validators,
               totalTransactions: 71000000,
               totalAccounts: 527849,
-              marketCap: "12450000000",
-              circulatingSupply: "500000000",
+              marketCap: "3710000000", // $3.71B = $0.53 × 7B circulating supply
+              circulatingSupply: "7000000000", // 7B (70%) of 10B total supply
               successRate: 9992, // 99.92%
               updatedAt: new Date(),
             });
@@ -2529,8 +2529,8 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
             totalValidators: shardTps.validators,
             totalTransactions: 71000000,
             totalAccounts: 527849,
-            marketCap: "12450000000",
-            circulatingSupply: "500000000",
+            marketCap: "3710000000", // $3.71B = $0.53 × 7B circulating supply
+            circulatingSupply: "7000000000", // 7B (70%) of 10B total supply
             successRate: 9992, // 99.92%
             updatedAt: new Date(),
           });

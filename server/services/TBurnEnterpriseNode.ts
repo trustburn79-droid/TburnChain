@@ -181,11 +181,11 @@ export class TBurnEnterpriseNode extends EventEmitter {
   
   // Token Economics Engine
   // TBURN Token Model: Demand-Supply Equilibrium Based Pricing
-  // Updated for 10B supply (100x from original 100M, so price is 1/100th)
-  private tokenPrice = 0.29; // Initial price in USD (scaled for 10B supply)
+  // Updated for 10B supply - stable mainnet price target $0.53
+  private tokenPrice = 0.53; // Initial price in USD (stable mainnet price)
   private priceChangePercent = 0; // 24h change percentage
   private lastPriceUpdate = Date.now();
-  private priceHistory: number[] = [0.29]; // Track price history for volatility
+  private priceHistory: number[] = [0.53]; // Track price history for volatility
   
   // Supply Dynamics (20-Year Tokenomics: Genesis 100억 → Y20 69.40억)
   private readonly TOTAL_SUPPLY = 10_000_000_000; // 10B (100억) TBURN total supply
@@ -213,11 +213,11 @@ export class TBurnEnterpriseNode extends EventEmitter {
   private netDailyEmission = 150_000; // Net positive initially, becomes negative over time
   
   // Advanced Tokenomics Parameters (Demand-Supply Formula)
-  // BASE_PRICE adjusted for 10B supply (1/100th of original $25 for 100M supply)
-  private readonly BASE_PRICE = 0.25; // Base equilibrium price (adjusted for 10B supply)
+  // BASE_PRICE set to stable mainnet target price
+  private readonly BASE_PRICE = 0.53; // Base equilibrium price (stable mainnet target)
   private readonly TPS_MAX = 520000; // Maximum theoretical TPS
   private readonly PRICE_UPDATE_INTERVAL = 5000; // Update every 5 seconds
-  private readonly MAX_PRICE_CHANGE = 0.05; // Max 5% change per update
+  private readonly MAX_PRICE_CHANGE = 0.01; // Max 1% change per update (reduced for stability)
   
   // Demand-side coefficients
   private readonly ALPHA = 0.4;   // TPS utilization weight
@@ -4142,8 +4142,8 @@ export class TBurnEnterpriseNode extends EventEmitter {
     const marketNoise = 1 + (Math.random() - 0.5) * 0.004; // ±0.2% noise
     newPrice *= marketNoise;
     
-    // 12. Update price (minimum $0.01, maximum $10 for 10B supply)
-    this.tokenPrice = Math.max(0.01, Math.min(10, newPrice));
+    // 12. Update price (stable range $0.40-$0.70 for mainnet)
+    this.tokenPrice = Math.max(0.40, Math.min(0.70, newPrice));
     this.tokenPrice = Math.round(this.tokenPrice * 100) / 100; // Round to 2 decimals
     
     // 13. Track price history
