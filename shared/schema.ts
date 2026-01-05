@@ -12227,3 +12227,374 @@ export type InsertDemoWalletTransaction = z.infer<typeof insertDemoWalletTransac
 export type DemoWalletSessionDB = typeof demoWalletSessions.$inferSelect;
 export type InsertDemoWalletSession = z.infer<typeof insertDemoWalletSessionSchema>;
 
+// ============================================================================
+// Token Custody & Multisig Wallet System - Enterprise Production-Grade
+// Manages foundation-controlled wallets, vesting contracts, and custody tracking
+// ============================================================================
+
+// Custody Mechanism Types
+export const CUSTODY_MECHANISM_TYPES = [
+  "PROTOCOL_AUTOMATIC",
+  "VESTING_CONTRACT", 
+  "FOUNDATION_MULTISIG",
+  "COMMUNITY_POOL"
+] as const;
+
+// Multisig Wallet Status
+export const MULTISIG_WALLET_STATUS = ["active", "locked", "suspended", "deprecated"] as const;
+
+// Custody Transaction Status
+export const CUSTODY_TX_STATUS = ["pending_approval", "approved", "executed", "rejected", "cancelled"] as const;
+
+// Signer Role
+export const SIGNER_ROLE = ["board_member", "foundation_officer", "technical_lead", "legal_officer", "community_representative"] as const;
+
+// Multisig Wallets - Foundation-controlled custody wallets
+export const multisigWallets = pgTable("multisig_wallets", {
+  id: serial("id").primaryKey(),
+  
+  // Wallet Identity
+  walletId: varchar("wallet_id", { length: 64 }).notNull().unique(),
+  address: text("address").notNull().unique(),
+  name: text("name").notNull(),
+  description: text("description"),
+  
+  // Wallet Purpose
+  purpose: text("purpose").notNull(), // ecosystem_fund, foundation_ops, strategic_investment, dex_liquidity
+  custodyMechanism: text("custody_mechanism").notNull().default("FOUNDATION_MULTISIG"), // FOUNDATION_MULTISIG, COMMUNITY_POOL
+  
+  // Multisig Configuration
+  signaturesRequired: integer("signatures_required").notNull().default(3), // e.g., 3 of 5
+  totalSigners: integer("total_signers").notNull().default(5),
+  timelockHours: integer("timelock_hours").notNull().default(168), // 7 days default
+  
+  // Token Allocation (stored as string for precision)
+  allocatedAmount: text("allocated_amount").notNull().default("0"), // Total allocated TBURN
+  remainingAmount: text("remaining_amount").notNull().default("0"), // Remaining balance
+  distributedAmount: text("distributed_amount").notNull().default("0"), // Total distributed
+  
+  // Status
+  status: text("status").notNull().default("active"), // active, locked, suspended, deprecated
+  isEmergencyEnabled: boolean("is_emergency_enabled").notNull().default(false),
+  
+  // Audit Trail
+  lastExecutionAt: timestamp("last_execution_at"),
+  executionCount: integer("execution_count").notNull().default(0),
+  
+  // Quarterly Report
+  lastReportQuarter: varchar("last_report_quarter", { length: 8 }), // e.g., "2026-Q1"
+  reportUrl: text("report_url"),
+  
+  // Metadata
+  metadata: jsonb("metadata").default({}),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+}, (table) => [
+  index("idx_multisig_wallet_purpose").on(table.purpose),
+  index("idx_multisig_wallet_status").on(table.status),
+  index("idx_multisig_wallet_custody").on(table.custodyMechanism),
+]);
+
+// Multisig Signers - Authorized signers for multisig wallets
+export const multisigSigners = pgTable("multisig_signers", {
+  id: serial("id").primaryKey(),
+  
+  // Signer Identity
+  signerId: varchar("signer_id", { length: 64 }).notNull().unique(),
+  walletId: varchar("wallet_id", { length: 64 }).notNull(), // References multisigWallets.walletId
+  
+  // Signer Details
+  name: text("name").notNull(),
+  role: text("role").notNull(), // board_member, foundation_officer, technical_lead, legal_officer, community_representative
+  signerAddress: text("signer_address").notNull(), // On-chain address for signing
+  
+  // Contact Info
+  email: text("email"),
+  publicKey: text("public_key"), // For signature verification
+  
+  // Status
+  isActive: boolean("is_active").notNull().default(true),
+  canApproveEmergency: boolean("can_approve_emergency").notNull().default(false),
+  
+  // Signing Stats
+  totalSignatures: integer("total_signatures").notNull().default(0),
+  lastSignatureAt: timestamp("last_signature_at"),
+  
+  // Audit
+  addedBy: varchar("added_by", { length: 128 }),
+  addedAt: timestamp("added_at").notNull().defaultNow(),
+  removedAt: timestamp("removed_at"),
+  removalReason: text("removal_reason"),
+  
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+}, (table) => [
+  index("idx_multisig_signer_wallet").on(table.walletId),
+  index("idx_multisig_signer_active").on(table.isActive).where(sql`is_active = true`),
+]);
+
+// Custody Transactions - Transactions pending or completed through custody wallets
+export const custodyTransactions = pgTable("custody_transactions", {
+  id: serial("id").primaryKey(),
+  
+  // Transaction Identity
+  transactionId: varchar("transaction_id", { length: 64 }).notNull().unique(),
+  walletId: varchar("wallet_id", { length: 64 }).notNull(), // References multisigWallets.walletId
+  
+  // Transaction Details
+  transactionType: text("transaction_type").notNull(), // grant_disbursement, marketing_spend, partnership_payment, emergency_transfer, dao_execution
+  recipientAddress: text("recipient_address").notNull(),
+  recipientName: text("recipient_name"),
+  
+  // Amount
+  amount: text("amount").notNull(), // TBURN amount
+  amountUsd: text("amount_usd"), // USD equivalent at time of execution
+  
+  // Approval Status
+  status: text("status").notNull().default("pending_approval"), // pending_approval, approved, executed, rejected, cancelled
+  approvalCount: integer("approval_count").notNull().default(0),
+  requiredApprovals: integer("required_approvals").notNull(),
+  
+  // Purpose & Justification
+  purpose: text("purpose").notNull(),
+  justification: text("justification"),
+  documentationUrl: text("documentation_url"),
+  
+  // Execution
+  executedTxHash: text("executed_tx_hash"),
+  executedAt: timestamp("executed_at"),
+  executedBy: varchar("executed_by", { length: 128 }),
+  
+  // Timeline
+  proposedAt: timestamp("proposed_at").notNull().defaultNow(),
+  proposedBy: varchar("proposed_by", { length: 128 }).notNull(),
+  timelockExpiresAt: timestamp("timelock_expires_at"),
+  
+  // Rejection (if applicable)
+  rejectedAt: timestamp("rejected_at"),
+  rejectedBy: varchar("rejected_by", { length: 128 }),
+  rejectionReason: text("rejection_reason"),
+  
+  // Metadata
+  metadata: jsonb("metadata").default({}),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+}, (table) => [
+  index("idx_custody_tx_wallet").on(table.walletId),
+  index("idx_custody_tx_status").on(table.status),
+  index("idx_custody_tx_type").on(table.transactionType),
+  index("idx_custody_tx_proposed").on(table.proposedAt),
+]);
+
+// Custody Transaction Approvals - Individual approval records
+export const custodyTransactionApprovals = pgTable("custody_transaction_approvals", {
+  id: serial("id").primaryKey(),
+  
+  // Approval Identity
+  approvalId: varchar("approval_id", { length: 64 }).notNull().unique(),
+  transactionId: varchar("transaction_id", { length: 64 }).notNull(), // References custodyTransactions.transactionId
+  signerId: varchar("signer_id", { length: 64 }).notNull(), // References multisigSigners.signerId
+  
+  // Approval Decision
+  decision: text("decision").notNull(), // approve, reject, abstain
+  signature: text("signature"), // Cryptographic signature
+  
+  // Reasoning
+  comment: text("comment"),
+  
+  // Timestamps
+  decidedAt: timestamp("decided_at").notNull().defaultNow(),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+}, (table) => [
+  index("idx_custody_approval_tx").on(table.transactionId),
+  index("idx_custody_approval_signer").on(table.signerId),
+]);
+
+// Vesting Contracts - Smart contract vesting schedules
+export const vestingContracts = pgTable("vesting_contracts", {
+  id: serial("id").primaryKey(),
+  
+  // Contract Identity
+  contractId: varchar("contract_id", { length: 64 }).notNull().unique(),
+  contractAddress: text("contract_address").notNull().unique(),
+  contractName: text("contract_name").notNull(),
+  
+  // Category
+  categoryId: varchar("category_id", { length: 64 }).notNull(), // seed, private, public, coreTeam, advisor, strategicPartner
+  categoryName: text("category_name").notNull(),
+  
+  // Allocation
+  totalAllocation: text("total_allocation").notNull(), // Total TBURN in contract
+  releasedAmount: text("released_amount").notNull().default("0"),
+  remainingAmount: text("remaining_amount").notNull(),
+  
+  // Vesting Schedule
+  tgePercent: integer("tge_percent").notNull().default(0), // Percentage released at TGE
+  cliffMonths: integer("cliff_months").notNull().default(0),
+  vestingMonths: integer("vesting_months").notNull(),
+  vestingType: text("vesting_type").notNull().default("linear"), // linear, halving, milestone
+  
+  // Timeline
+  tgeDate: timestamp("tge_date").notNull(),
+  cliffEndDate: timestamp("cliff_end_date"),
+  vestingEndDate: timestamp("vesting_end_date").notNull(),
+  
+  // Status
+  status: text("status").notNull().default("active"), // active, completed, paused
+  isVerified: boolean("is_verified").notNull().default(false), // Contract audited & verified
+  verificationUrl: text("verification_url"),
+  
+  // Audit Info
+  auditor: text("auditor"),
+  auditDate: timestamp("audit_date"),
+  auditReportUrl: text("audit_report_url"),
+  
+  // Metadata
+  metadata: jsonb("metadata").default({}),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+}, (table) => [
+  index("idx_vesting_contract_category").on(table.categoryId),
+  index("idx_vesting_contract_status").on(table.status),
+]);
+
+// Custody Distribution Schedule - 20-year token distribution by custody mechanism
+export const custodyDistributionSchedule = pgTable("custody_distribution_schedule", {
+  id: serial("id").primaryKey(),
+  
+  // Period Identity
+  year: integer("year").notNull(),
+  quarter: varchar("quarter", { length: 4 }), // Q1, Q2, Q3, Q4 (null for annual)
+  
+  // Distribution by Custody Mechanism (stored as string for precision)
+  protocolAutomatic: text("protocol_automatic").notNull().default("0"), // Blocks rewards + validator incentives
+  vestingContract: text("vesting_contract").notNull().default("0"), // Investor + Team releases
+  foundationMultisig: text("foundation_multisig").notNull().default("0"), // Ecosystem + Reserve
+  communityPool: text("community_pool").notNull().default("0"), // Airdrop + DAO + Events
+  
+  // Totals
+  totalRelease: text("total_release").notNull().default("0"),
+  cumulativeCirculation: text("cumulative_circulation").notNull().default("0"),
+  
+  // Actual vs Planned
+  isActual: boolean("is_actual").notNull().default(false), // false = planned, true = actual
+  actualExecutionDate: timestamp("actual_execution_date"),
+  
+  // Notes
+  notes: text("notes"),
+  
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+}, (table) => [
+  index("idx_custody_schedule_year").on(table.year),
+  index("idx_custody_schedule_actual").on(table.isActual),
+]);
+
+// Quarterly Custody Reports - Foundation transparency reports
+export const custodyQuarterlyReports = pgTable("custody_quarterly_reports", {
+  id: serial("id").primaryKey(),
+  
+  // Report Identity
+  reportId: varchar("report_id", { length: 64 }).notNull().unique(),
+  quarter: varchar("quarter", { length: 8 }).notNull(), // e.g., "2026-Q1"
+  year: integer("year").notNull(),
+  
+  // Summary Metrics
+  totalDistributed: text("total_distributed").notNull().default("0"), // Total TBURN distributed in quarter
+  programmaticDistributed: text("programmatic_distributed").notNull().default("0"),
+  discretionaryDistributed: text("discretionary_distributed").notNull().default("0"),
+  
+  // Breakdown by Purpose
+  grantsDistributed: text("grants_distributed").notNull().default("0"),
+  marketingDistributed: text("marketing_distributed").notNull().default("0"),
+  partnershipDistributed: text("partnership_distributed").notNull().default("0"),
+  operationsDistributed: text("operations_distributed").notNull().default("0"),
+  
+  // Multisig Activity
+  totalTransactions: integer("total_transactions").notNull().default(0),
+  approvedTransactions: integer("approved_transactions").notNull().default(0),
+  rejectedTransactions: integer("rejected_transactions").notNull().default(0),
+  
+  // Report Details
+  reportUrl: text("report_url"),
+  ipfsHash: text("ipfs_hash"), // IPFS hash for immutable storage
+  publishedAt: timestamp("published_at"),
+  
+  // Approval
+  approvedBy: jsonb("approved_by").default([]), // Array of signers who approved report
+  
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+}, (table) => [
+  index("idx_custody_report_quarter").on(table.quarter),
+  index("idx_custody_report_year").on(table.year),
+]);
+
+// ============================================================================
+// Insert Schemas for Custody System
+// ============================================================================
+export const insertMultisigWalletSchema = createInsertSchema(multisigWallets).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertMultisigSignerSchema = createInsertSchema(multisigSigners).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertCustodyTransactionSchema = createInsertSchema(custodyTransactions).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertCustodyTransactionApprovalSchema = createInsertSchema(custodyTransactionApprovals).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertVestingContractSchema = createInsertSchema(vestingContracts).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertCustodyDistributionScheduleSchema = createInsertSchema(custodyDistributionSchedule).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertCustodyQuarterlyReportSchema = createInsertSchema(custodyQuarterlyReports).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+// ============================================================================
+// Types for Custody System
+// ============================================================================
+export type MultisigWalletDB = typeof multisigWallets.$inferSelect;
+export type InsertMultisigWallet = z.infer<typeof insertMultisigWalletSchema>;
+
+export type MultisigSignerDB = typeof multisigSigners.$inferSelect;
+export type InsertMultisigSigner = z.infer<typeof insertMultisigSignerSchema>;
+
+export type CustodyTransactionDB = typeof custodyTransactions.$inferSelect;
+export type InsertCustodyTransaction = z.infer<typeof insertCustodyTransactionSchema>;
+
+export type CustodyTransactionApprovalDB = typeof custodyTransactionApprovals.$inferSelect;
+export type InsertCustodyTransactionApproval = z.infer<typeof insertCustodyTransactionApprovalSchema>;
+
+export type VestingContractDB = typeof vestingContracts.$inferSelect;
+export type InsertVestingContract = z.infer<typeof insertVestingContractSchema>;
+
+export type CustodyDistributionScheduleDB = typeof custodyDistributionSchedule.$inferSelect;
+export type InsertCustodyDistributionSchedule = z.infer<typeof insertCustodyDistributionScheduleSchema>;
+
+export type CustodyQuarterlyReportDB = typeof custodyQuarterlyReports.$inferSelect;
+export type InsertCustodyQuarterlyReport = z.infer<typeof insertCustodyQuarterlyReportSchema>;
+
