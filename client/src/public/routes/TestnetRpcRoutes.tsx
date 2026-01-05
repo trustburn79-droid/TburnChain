@@ -15,18 +15,19 @@ const TestnetRpcProviders = lazy(() => import("../pages/network/TestnetRpcProvid
 const TestnetRpcStatus = lazy(() => import("../pages/testnet-rpc/TestnetRpcStatus"));
 const TestnetRpcApiDocs = lazy(() => import("../pages/testnet-rpc/TestnetRpcApiDocs"));
 const TestnetRpcBenchmark = lazy(() => import("../pages/testnet-rpc/TestnetRpcBenchmark"));
+const NotFound = lazy(() => import("@/pages/not-found"));
 
 export default function TestnetRpcRoutes() {
   return (
     <TestnetRpcLayout>
       <Suspense fallback={<Loading />}>
         <Switch>
+          <Route path="/testnet-rpc" component={TestnetRpcProviders} />
           <Route path="/testnet-rpc/status" component={TestnetRpcStatus} />
           <Route path="/testnet-rpc/docs" component={TestnetRpcApiDocs} />
           <Route path="/testnet-rpc/benchmark" component={TestnetRpcBenchmark} />
           <Route path="/testnet-rpc/faucet" component={TestnetRpcProviders} />
-          <Route path="/testnet-rpc" component={TestnetRpcProviders} />
-          <Route component={TestnetRpcProviders} />
+          <Route component={NotFound} />
         </Switch>
       </Suspense>
     </TestnetRpcLayout>

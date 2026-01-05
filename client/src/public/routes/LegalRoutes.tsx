@@ -13,15 +13,17 @@ function Loading() {
 const TermsOfService = lazy(() => import("../pages/legal/TermsOfService"));
 const PrivacyPolicy = lazy(() => import("../pages/legal/PrivacyPolicy"));
 const Disclaimer = lazy(() => import("../pages/legal/Disclaimer"));
+const NotFound = lazy(() => import("@/pages/not-found"));
 
 export default function LegalRoutes() {
   return (
     <Suspense fallback={<Loading />}>
       <Switch>
+        <Route path="/legal" component={TermsOfService} />
         <Route path="/legal/terms-of-service" component={TermsOfService} />
         <Route path="/legal/privacy-policy" component={PrivacyPolicy} />
         <Route path="/legal/disclaimer" component={Disclaimer} />
-        <Route component={TermsOfService} />
+        <Route component={NotFound} />
       </Switch>
     </Suspense>
   );

@@ -23,11 +23,13 @@ const ArtistsCreators = lazy(() => import("../pages/solutions/ArtistsCreators"))
 const Btcfi = lazy(() => import("../pages/solutions/Btcfi"));
 const CrossChainBridge = lazy(() => import("../pages/solutions/CrossChainBridge"));
 const DefiHub = lazy(() => import("../pages/solutions/DefiHub"));
+const NotFound = lazy(() => import("@/pages/not-found"));
 
 export default function SolutionsRoutes() {
   return (
     <Suspense fallback={<Loading />}>
       <Switch>
+        <Route path="/solutions" component={TokenExtensions} />
         <Route path="/solutions/token-extensions" component={TokenExtensions} />
         <Route path="/solutions/actions-blinks" component={ActionsBlinks} />
         <Route path="/solutions/wallets" component={Wallets} />
@@ -41,7 +43,7 @@ export default function SolutionsRoutes() {
         <Route path="/solutions/btcfi" component={Btcfi} />
         <Route path="/solutions/cross-chain-bridge" component={CrossChainBridge} />
         <Route path="/solutions/defi-hub" component={DefiHub} />
-        <Route component={TokenExtensions} />
+        <Route component={NotFound} />
       </Switch>
     </Suspense>
   );

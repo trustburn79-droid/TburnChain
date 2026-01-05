@@ -21,11 +21,13 @@ const ScanSearchResults = lazy(() => import("../pages/scan/SearchResults"));
 const NetworkStats = lazy(() => import("../pages/scan/NetworkStats"));
 const TokensList = lazy(() => import("../pages/scan/TokensList"));
 const TokenDetail = lazy(() => import("../pages/scan/TokenDetail"));
+const NotFound = lazy(() => import("@/pages/not-found"));
 
 export default function ScanRoutes() {
   return (
     <Suspense fallback={<Loading />}>
       <Switch>
+        <Route path="/scan" component={ScanHome} />
         <Route path="/scan/blocks" component={BlocksList} />
         <Route path="/scan/block/:blockNumber">{(params) => <BlockDetail key={params.blockNumber} />}</Route>
         <Route path="/scan/txs" component={TransactionsList} />
@@ -36,8 +38,7 @@ export default function ScanRoutes() {
         <Route path="/scan/tokens" component={TokensList} />
         <Route path="/scan/stats" component={NetworkStats} />
         <Route path="/scan/search" component={ScanSearchResults} />
-        <Route path="/scan" component={ScanHome} />
-        <Route component={ScanHome} />
+        <Route component={NotFound} />
       </Switch>
     </Suspense>
   );

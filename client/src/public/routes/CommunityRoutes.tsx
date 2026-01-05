@@ -16,18 +16,20 @@ const Events = lazy(() => import("../pages/community/Events"));
 const EventDetail = lazy(() => import("../pages/community/EventDetail"));
 const CommunityHub = lazy(() => import("../pages/community/CommunityHub"));
 const PostDetail = lazy(() => import("../pages/community/PostDetail"));
+const NotFound = lazy(() => import("@/pages/not-found"));
 
 export default function CommunityRoutes() {
   return (
     <Suspense fallback={<Loading />}>
       <Switch>
+        <Route path="/community" component={CommunityHub} />
         <Route path="/community/news/:slug">{(params) => <NewsDetail key={params.slug} />}</Route>
         <Route path="/community/news" component={NewsBlog} />
         <Route path="/community/events/:id">{(params) => <EventDetail key={params.id} />}</Route>
         <Route path="/community/events" component={Events} />
         <Route path="/community/hub/post/:id">{(params) => <PostDetail key={params.id} />}</Route>
         <Route path="/community/hub" component={CommunityHub} />
-        <Route component={NewsBlog} />
+        <Route component={NotFound} />
       </Switch>
     </Suspense>
   );

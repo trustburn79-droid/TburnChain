@@ -19,6 +19,7 @@ const ValidatorCommandCenter = lazy(() => import("@/pages/validator"));
 const ValidatorIntelligence = lazy(() => import("@/pages/validator-intelligence"));
 const ValidatorGovernance = lazy(() => import("@/pages/validator-governance"));
 const ValidatorInfrastructure = lazy(() => import("@/pages/validator-infrastructure"));
+const NotFound = lazy(() => import("@/pages/not-found"));
 
 export default function NetworkRoutes() {
   return (
@@ -35,7 +36,7 @@ export default function NetworkRoutes() {
         <Route path="/testnet-rpc" component={TestnetRpcProviders} />
         <Route path="/network/status" component={NetworkStatus} />
         <Route path="/network/ramp" component={Ramp} />
-        <Route component={ValidatorCommandCenter} />
+        <Route component={NotFound} />
       </Switch>
     </Suspense>
   );

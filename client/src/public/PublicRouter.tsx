@@ -482,11 +482,26 @@ export function PublicRouter() {
     );
   }
   
+  // Home page for root path only
+  if (location === "/" || location === "") {
+    return (
+      <ErrorBoundary>
+        <PublicLayout>
+          <Suspense fallback={<PageLoading />}>
+            <Home />
+          </Suspense>
+        </PublicLayout>
+      </ErrorBoundary>
+    );
+  }
+  
+  // 404 for unmatched routes
+  const NotFound = lazy(() => import("@/pages/not-found"));
   return (
     <ErrorBoundary>
       <PublicLayout>
         <Suspense fallback={<PageLoading />}>
-          <Home />
+          <NotFound />
         </Suspense>
       </PublicLayout>
     </ErrorBoundary>

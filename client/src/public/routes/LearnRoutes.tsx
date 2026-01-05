@@ -25,6 +25,7 @@ const BlockchainBasics = lazy(() => import("../pages/learn/BlockchainBasics"));
 const DefiMastery = lazy(() => import("../pages/learn/DefiMastery"));
 const DeveloperCourse = lazy(() => import("../pages/learn/DeveloperCourse"));
 const IntroToDefi = lazy(() => import("../pages/learn/IntroToDefi"));
+const NotFound = lazy(() => import("@/pages/not-found"));
 
 export default function LearnRoutes() {
   return (
@@ -45,7 +46,7 @@ export default function LearnRoutes() {
         <Route path="/learn/developer-course" component={DeveloperCourse} />
         <Route path="/learn/intro-to-defi" component={IntroToDefi} />
         <Route path="/learn/education-programs" component={EducationPrograms} />
-        <Route component={LearnHub} />
+        <Route component={NotFound} />
       </Switch>
     </Suspense>
   );
