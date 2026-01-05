@@ -1852,3 +1852,584 @@ export const Y1_TOTALS = {
   y1Release: 33.03, // 억 - 문서 사양 Y1 총 배분량
   y1Percent: 33.03
 };
+
+// ============================================================================
+// 토큰 보관 및 집행 메커니즘 (Token Custody & Execution Mechanism) v4.3.1
+// Enterprise-grade custody classification for 20-year tokenomics
+// ============================================================================
+
+/**
+ * Custody Mechanism Types
+ * 
+ * [A] Protocol Automatic (On-chain Programmatic) - 프로토콜 자동 발행
+ *     - Block rewards: 22% (auto-issued by protocol, distributed to validators)
+ *     - AI Burn: 50% of fees automatically burned
+ * 
+ * [B] Smart Contract Vesting - 스마트 컨트랙트 베스팅
+ *     - Investors: 20% (locked in vesting contract, auto-released on schedule)
+ *     - Team: 11% (locked in vesting contract, auto-released on schedule)
+ *     - Transparency: Contract addresses public, verifiable by anyone
+ * 
+ * [C] Foundation Multisig - 재단 멀티시그 지갑
+ *     - Ecosystem: 14% (3/5 multisig wallet)
+ *     - Foundation Reserve: 3% (3/5 multisig wallet)
+ *     - Execution: Board approval → Multisig signature → Execution
+ *     - Transparency: Quarterly disclosure of all executions
+ * 
+ * [D] Community Pool - 커뮤니티 풀
+ *     - Airdrop: 12% (Foundation managed, distributed when criteria met)
+ *     - DAO Treasury: 8% (Executed by DAO voting)
+ *     - Events/Campaign: 4% (Foundation discretionary)
+ */
+export enum CustodyMechanism {
+  PROTOCOL_AUTOMATIC = 'PROTOCOL_AUTOMATIC',
+  VESTING_CONTRACT = 'VESTING_CONTRACT',
+  FOUNDATION_MULTISIG = 'FOUNDATION_MULTISIG',
+  COMMUNITY_POOL = 'COMMUNITY_POOL'
+}
+
+/**
+ * Custody mechanism details
+ */
+export interface CustodyMechanismDetail {
+  id: CustodyMechanism;
+  code: 'A' | 'B' | 'C' | 'D';
+  name: string;
+  nameKey: string;
+  description: string;
+  descriptionKey: string;
+  allocationPercent: number;
+  allocationBillion: number;
+  executionEntity: string;
+  executionEntityKey: string;
+  transparency: string;
+  transparencyKey: string;
+  isProgrammatic: boolean;
+  requiresFoundationApproval: boolean;
+}
+
+/**
+ * Token Custody Mechanism Configuration - v4.3.1
+ * Based on whitepaper token custody and execution mechanism specification
+ */
+export const CUSTODY_MECHANISMS: CustodyMechanismDetail[] = [
+  {
+    id: CustodyMechanism.PROTOCOL_AUTOMATIC,
+    code: 'A',
+    name: '프로토콜 자동 발행',
+    nameKey: 'tokenomics.custody.protocolAutomatic',
+    description: '프로토콜에서 자동 발행, 검증자에게 직접 분배. 수수료의 50% 자동 소각.',
+    descriptionKey: 'tokenomics.custody.protocolAutomatic.desc',
+    allocationPercent: 22,
+    allocationBillion: 22.0,
+    executionEntity: '프로토콜',
+    executionEntityKey: 'tokenomics.custody.entity.protocol',
+    transparency: '온체인 자동 실행, 모든 트랜잭션 검증 가능',
+    transparencyKey: 'tokenomics.custody.protocolAutomatic.transparency',
+    isProgrammatic: true,
+    requiresFoundationApproval: false
+  },
+  {
+    id: CustodyMechanism.VESTING_CONTRACT,
+    code: 'B',
+    name: '스마트 컨트랙트 베스팅',
+    nameKey: 'tokenomics.custody.vestingContract',
+    description: '베스팅 컨트랙트에 락업, 스케줄에 따라 자동 해제. 컨트랙트 주소 공개.',
+    descriptionKey: 'tokenomics.custody.vestingContract.desc',
+    allocationPercent: 31,
+    allocationBillion: 31.0,
+    executionEntity: '자동 해제',
+    executionEntityKey: 'tokenomics.custody.entity.autoRelease',
+    transparency: '컨트랙트 주소 공개, 누구나 검증 가능',
+    transparencyKey: 'tokenomics.custody.vestingContract.transparency',
+    isProgrammatic: true,
+    requiresFoundationApproval: false
+  },
+  {
+    id: CustodyMechanism.FOUNDATION_MULTISIG,
+    code: 'C',
+    name: '재단 멀티시그 지갑',
+    nameKey: 'tokenomics.custody.foundationMultisig',
+    description: '3/5 멀티시그 지갑에 보관. 재단 이사회 승인 → 멀티시그 서명 → 집행.',
+    descriptionKey: 'tokenomics.custody.foundationMultisig.desc',
+    allocationPercent: 17,
+    allocationBillion: 17.0,
+    executionEntity: '재단 재량',
+    executionEntityKey: 'tokenomics.custody.entity.foundationDiscretion',
+    transparency: '모든 집행 내역 분기별 공개',
+    transparencyKey: 'tokenomics.custody.foundationMultisig.transparency',
+    isProgrammatic: false,
+    requiresFoundationApproval: true
+  },
+  {
+    id: CustodyMechanism.COMMUNITY_POOL,
+    code: 'D',
+    name: '커뮤니티 풀',
+    nameKey: 'tokenomics.custody.communityPool',
+    description: '에어드랍 기준 충족 시 배분, DAO 트레저리는 DAO 투표로 집행.',
+    descriptionKey: 'tokenomics.custody.communityPool.desc',
+    allocationPercent: 30,
+    allocationBillion: 30.0,
+    executionEntity: '재단 + DAO',
+    executionEntityKey: 'tokenomics.custody.entity.foundationDao',
+    transparency: '배분 기준 및 집행 내역 공개',
+    transparencyKey: 'tokenomics.custody.communityPool.transparency',
+    isProgrammatic: false,
+    requiresFoundationApproval: true
+  }
+];
+
+/**
+ * Category to Custody Mechanism mapping
+ */
+export interface CategoryCustodyMapping {
+  categoryId: string;
+  category: string;
+  categoryKey: string;
+  allocationPercent: number;
+  allocationBillion: number;
+  custodyMechanism: CustodyMechanism;
+  executionMethod: string;
+  executionMethodKey: string;
+  vestingContractAddress?: string;
+  multisigWalletAddress?: string;
+}
+
+/**
+ * Complete Category to Custody Mechanism Mapping - v4.3.1
+ * Maps each token distribution category to its custody mechanism
+ */
+export const CATEGORY_CUSTODY_MAPPING: CategoryCustodyMapping[] = [
+  // [A] Protocol Automatic - 22%
+  {
+    categoryId: 'blockReward',
+    category: '블록 보상',
+    categoryKey: 'tokenomics.custody.category.blockReward',
+    allocationPercent: 14.5,
+    allocationBillion: 14.5,
+    custodyMechanism: CustodyMechanism.PROTOCOL_AUTOMATIC,
+    executionMethod: '프로토콜에서 자동 발행, 검증자에게 직접 분배',
+    executionMethodKey: 'tokenomics.custody.method.protocolDirect'
+  },
+  {
+    categoryId: 'validatorIncentive',
+    category: '검증자 인센티브',
+    categoryKey: 'tokenomics.custody.category.validatorIncentive',
+    allocationPercent: 7.5,
+    allocationBillion: 7.5,
+    custodyMechanism: CustodyMechanism.PROTOCOL_AUTOMATIC,
+    executionMethod: '성과 기반 프로토콜 자동 분배',
+    executionMethodKey: 'tokenomics.custody.method.performanceBased'
+  },
+  
+  // [B] Vesting Contract - 31% (Investors 20% + Team 11%)
+  {
+    categoryId: 'seed',
+    category: '시드 라운드',
+    categoryKey: 'tokenomics.custody.category.seed',
+    allocationPercent: 5,
+    allocationBillion: 5.0,
+    custodyMechanism: CustodyMechanism.VESTING_CONTRACT,
+    executionMethod: '12개월 클리프 + 24개월 선형 베스팅',
+    executionMethodKey: 'tokenomics.custody.method.cliff12Linear24'
+  },
+  {
+    categoryId: 'private',
+    category: '프라이빗 라운드',
+    categoryKey: 'tokenomics.custody.category.private',
+    allocationPercent: 9,
+    allocationBillion: 9.0,
+    custodyMechanism: CustodyMechanism.VESTING_CONTRACT,
+    executionMethod: 'TGE 5% + 9개월 클리프 + 18개월 선형',
+    executionMethodKey: 'tokenomics.custody.method.tge5Cliff9Linear18'
+  },
+  {
+    categoryId: 'public',
+    category: '퍼블릭 세일',
+    categoryKey: 'tokenomics.custody.category.public',
+    allocationPercent: 6,
+    allocationBillion: 6.0,
+    custodyMechanism: CustodyMechanism.VESTING_CONTRACT,
+    executionMethod: 'TGE 15% + 3개월 클리프 + 9개월 선형',
+    executionMethodKey: 'tokenomics.custody.method.tge15Cliff3Linear9'
+  },
+  {
+    categoryId: 'coreTeam',
+    category: '코어 팀',
+    categoryKey: 'tokenomics.custody.category.coreTeam',
+    allocationPercent: 7,
+    allocationBillion: 7.0,
+    custodyMechanism: CustodyMechanism.VESTING_CONTRACT,
+    executionMethod: '18개월 클리프 + 36개월 선형 베스팅',
+    executionMethodKey: 'tokenomics.custody.method.cliff18Linear36'
+  },
+  {
+    categoryId: 'advisor',
+    category: '어드바이저',
+    categoryKey: 'tokenomics.custody.category.advisor',
+    allocationPercent: 2,
+    allocationBillion: 2.0,
+    custodyMechanism: CustodyMechanism.VESTING_CONTRACT,
+    executionMethod: '12개월 클리프 + 24개월 선형 베스팅',
+    executionMethodKey: 'tokenomics.custody.method.cliff12Linear24'
+  },
+  {
+    categoryId: 'strategicPartner',
+    category: '전략 파트너',
+    categoryKey: 'tokenomics.custody.category.strategicPartner',
+    allocationPercent: 2,
+    allocationBillion: 2.0,
+    custodyMechanism: CustodyMechanism.VESTING_CONTRACT,
+    executionMethod: '6개월 클리프 + 18개월 선형 베스팅',
+    executionMethodKey: 'tokenomics.custody.method.cliff6Linear18'
+  },
+  
+  // [C] Foundation Multisig - 17% (Ecosystem 14% + Foundation Reserve 3%)
+  {
+    categoryId: 'ecosystem',
+    category: '생태계 펀드',
+    categoryKey: 'tokenomics.custody.category.ecosystem',
+    allocationPercent: 7,
+    allocationBillion: 7.0,
+    custodyMechanism: CustodyMechanism.FOUNDATION_MULTISIG,
+    executionMethod: '3/5 멀티시그 지갑, 그랜트 기반 집행',
+    executionMethodKey: 'tokenomics.custody.method.multisigGrant'
+  },
+  {
+    categoryId: 'partnership',
+    category: '파트너십',
+    categoryKey: 'tokenomics.custody.category.partnership',
+    allocationPercent: 4,
+    allocationBillion: 4.0,
+    custodyMechanism: CustodyMechanism.FOUNDATION_MULTISIG,
+    executionMethod: '3/5 멀티시그 지갑, 파트너 계약 기반',
+    executionMethodKey: 'tokenomics.custody.method.multisigPartner'
+  },
+  {
+    categoryId: 'marketing',
+    category: '마케팅',
+    categoryKey: 'tokenomics.custody.category.marketing',
+    allocationPercent: 3,
+    allocationBillion: 3.0,
+    custodyMechanism: CustodyMechanism.FOUNDATION_MULTISIG,
+    executionMethod: '3/5 멀티시그 지갑, 마케팅 캠페인 기반',
+    executionMethodKey: 'tokenomics.custody.method.multisigMarketing'
+  },
+  {
+    categoryId: 'foundationOps',
+    category: '운영 예비금',
+    categoryKey: 'tokenomics.custody.category.foundationOps',
+    allocationPercent: 1.5,
+    allocationBillion: 1.5,
+    custodyMechanism: CustodyMechanism.FOUNDATION_MULTISIG,
+    executionMethod: '3/5 멀티시그 지갑, 운영비 집행',
+    executionMethodKey: 'tokenomics.custody.method.multisigOps'
+  },
+  {
+    categoryId: 'foundationEmergency',
+    category: '긴급 예비금',
+    categoryKey: 'tokenomics.custody.category.foundationEmergency',
+    allocationPercent: 1.0,
+    allocationBillion: 1.0,
+    custodyMechanism: CustodyMechanism.FOUNDATION_MULTISIG,
+    executionMethod: '3/5 멀티시그 지갑, 긴급 대응용',
+    executionMethodKey: 'tokenomics.custody.method.multisigEmergency'
+  },
+  {
+    categoryId: 'strategicInvestment',
+    category: '전략 투자',
+    categoryKey: 'tokenomics.custody.category.strategicInvestment',
+    allocationPercent: 0.5,
+    allocationBillion: 0.5,
+    custodyMechanism: CustodyMechanism.FOUNDATION_MULTISIG,
+    executionMethod: '3/5 멀티시그 지갑, 전략적 투자 집행',
+    executionMethodKey: 'tokenomics.custody.method.multisigInvestment'
+  },
+  
+  // [D] Community Pool - 30%
+  {
+    categoryId: 'airdrop',
+    category: '에어드랍',
+    categoryKey: 'tokenomics.custody.category.airdrop',
+    allocationPercent: 12,
+    allocationBillion: 12.0,
+    custodyMechanism: CustodyMechanism.COMMUNITY_POOL,
+    executionMethod: '재단 관리, 기준 충족 시 배분',
+    executionMethodKey: 'tokenomics.custody.method.criteriaDistribution'
+  },
+  {
+    categoryId: 'referral',
+    category: '레퍼럴 보상',
+    categoryKey: 'tokenomics.custody.category.referral',
+    allocationPercent: 3,
+    allocationBillion: 3.0,
+    custodyMechanism: CustodyMechanism.COMMUNITY_POOL,
+    executionMethod: '추천 활동 기반 자동 배분',
+    executionMethodKey: 'tokenomics.custody.method.referralAuto'
+  },
+  {
+    categoryId: 'events',
+    category: '이벤트/캠페인',
+    categoryKey: 'tokenomics.custody.category.events',
+    allocationPercent: 4,
+    allocationBillion: 4.0,
+    custodyMechanism: CustodyMechanism.COMMUNITY_POOL,
+    executionMethod: '재단 재량 집행, 이벤트별 배분',
+    executionMethodKey: 'tokenomics.custody.method.eventDistribution'
+  },
+  {
+    categoryId: 'community',
+    category: '커뮤니티 활동',
+    categoryKey: 'tokenomics.custody.category.community',
+    allocationPercent: 3,
+    allocationBillion: 3.0,
+    custodyMechanism: CustodyMechanism.COMMUNITY_POOL,
+    executionMethod: '커뮤니티 활동 기반 배분',
+    executionMethodKey: 'tokenomics.custody.method.communityActivity'
+  },
+  {
+    categoryId: 'dao',
+    category: 'DAO 트레저리',
+    categoryKey: 'tokenomics.custody.category.dao',
+    allocationPercent: 8,
+    allocationBillion: 8.0,
+    custodyMechanism: CustodyMechanism.COMMUNITY_POOL,
+    executionMethod: 'DAO 투표로 집행',
+    executionMethodKey: 'tokenomics.custody.method.daoVoting'
+  }
+];
+
+/**
+ * Custody Summary Table - v4.3.1
+ * Summary of custody mechanisms for whitepaper
+ */
+export interface CustodySummaryRow {
+  category: string;
+  categoryKey: string;
+  allocationPercent: number;
+  custodyMethod: string;
+  custodyMethodKey: string;
+  executionEntity: string;
+  executionEntityKey: string;
+}
+
+export const CUSTODY_SUMMARY_TABLE: CustodySummaryRow[] = [
+  {
+    category: '블록 보상',
+    categoryKey: 'tokenomics.custody.summary.blockReward',
+    allocationPercent: 22,
+    custodyMethod: '프로토콜 자동',
+    custodyMethodKey: 'tokenomics.custody.summary.method.protocol',
+    executionEntity: '프로토콜',
+    executionEntityKey: 'tokenomics.custody.summary.entity.protocol'
+  },
+  {
+    category: '투자자',
+    categoryKey: 'tokenomics.custody.summary.investors',
+    allocationPercent: 20,
+    custodyMethod: '베스팅 컨트랙트',
+    custodyMethodKey: 'tokenomics.custody.summary.method.vesting',
+    executionEntity: '자동 해제',
+    executionEntityKey: 'tokenomics.custody.summary.entity.autoRelease'
+  },
+  {
+    category: '팀',
+    categoryKey: 'tokenomics.custody.summary.team',
+    allocationPercent: 11,
+    custodyMethod: '베스팅 컨트랙트',
+    custodyMethodKey: 'tokenomics.custody.summary.method.vesting',
+    executionEntity: '자동 해제',
+    executionEntityKey: 'tokenomics.custody.summary.entity.autoRelease'
+  },
+  {
+    category: '생태계',
+    categoryKey: 'tokenomics.custody.summary.ecosystem',
+    allocationPercent: 14,
+    custodyMethod: '멀티시그 지갑',
+    custodyMethodKey: 'tokenomics.custody.summary.method.multisig',
+    executionEntity: '재단 재량',
+    executionEntityKey: 'tokenomics.custody.summary.entity.foundationDiscretion'
+  },
+  {
+    category: '커뮤니티',
+    categoryKey: 'tokenomics.custody.summary.community',
+    allocationPercent: 30,
+    custodyMethod: '재단 관리',
+    custodyMethodKey: 'tokenomics.custody.summary.method.foundationManaged',
+    executionEntity: '재단 + DAO',
+    executionEntityKey: 'tokenomics.custody.summary.entity.foundationDao'
+  },
+  {
+    category: '재단 예비금',
+    categoryKey: 'tokenomics.custody.summary.foundationReserve',
+    allocationPercent: 3,
+    custodyMethod: '멀티시그 지갑',
+    custodyMethodKey: 'tokenomics.custody.summary.method.multisig',
+    executionEntity: '재단 재량',
+    executionEntityKey: 'tokenomics.custody.summary.entity.foundationDiscretion'
+  }
+];
+
+/**
+ * Multisig Wallet Configuration
+ */
+export interface MultisigWalletConfig {
+  id: string;
+  name: string;
+  nameKey: string;
+  purpose: string;
+  purposeKey: string;
+  signaturesRequired: number;
+  totalSigners: number;
+  timelockDays: number;
+  allocatedAmount: number; // 억 TBURN
+  remainingAmount: number; // 억 TBURN
+  isEmergencyEnabled: boolean;
+}
+
+/**
+ * Default Multisig Wallet Configuration - v4.3.1
+ * Foundation-controlled wallets requiring multisig approval
+ */
+export const DEFAULT_MULTISIG_CONFIG: MultisigWalletConfig[] = [
+  {
+    id: 'ecosystem_fund',
+    name: '생태계 펀드 지갑',
+    nameKey: 'tokenomics.multisig.ecosystemFund',
+    purpose: '그랜트, 파트너십, 마케팅 집행',
+    purposeKey: 'tokenomics.multisig.ecosystemFund.purpose',
+    signaturesRequired: 3,
+    totalSigners: 5,
+    timelockDays: 7,
+    allocatedAmount: 14.0,
+    remainingAmount: 14.0,
+    isEmergencyEnabled: false
+  },
+  {
+    id: 'foundation_ops',
+    name: '재단 운영 지갑',
+    nameKey: 'tokenomics.multisig.foundationOps',
+    purpose: '운영비, 긴급 대응',
+    purposeKey: 'tokenomics.multisig.foundationOps.purpose',
+    signaturesRequired: 3,
+    totalSigners: 5,
+    timelockDays: 3,
+    allocatedAmount: 2.5,
+    remainingAmount: 2.5,
+    isEmergencyEnabled: true
+  },
+  {
+    id: 'strategic_investment',
+    name: '전략 투자 지갑',
+    nameKey: 'tokenomics.multisig.strategicInvestment',
+    purpose: '전략적 프로젝트 투자',
+    purposeKey: 'tokenomics.multisig.strategicInvestment.purpose',
+    signaturesRequired: 4,
+    totalSigners: 5,
+    timelockDays: 14,
+    allocatedAmount: 0.5,
+    remainingAmount: 0.5,
+    isEmergencyEnabled: false
+  },
+  {
+    id: 'dex_liquidity',
+    name: 'DEX 유동성 지갑',
+    nameKey: 'tokenomics.multisig.dexLiquidity',
+    purpose: 'LP 락업 관리',
+    purposeKey: 'tokenomics.multisig.dexLiquidity.purpose',
+    signaturesRequired: 5,
+    totalSigners: 7,
+    timelockDays: 7,
+    allocatedAmount: 5.0,
+    remainingAmount: 5.0,
+    isEmergencyEnabled: true
+  }
+];
+
+/**
+ * 20-Year Custody Distribution Schedule
+ * Shows how each custody mechanism releases tokens over 20 years
+ */
+export interface YearlyCustodyDistribution {
+  year: number;
+  protocolAutomatic: number;
+  vestingContract: number;
+  foundationMultisig: number;
+  communityPool: number;
+  totalRelease: number;
+  cumulativeCirculation: number;
+}
+
+/**
+ * 20-Year Custody Distribution Schedule - v4.3.1
+ * Programmatic portions are deterministic, foundation-managed are discretionary
+ */
+export const YEARLY_CUSTODY_DISTRIBUTION: YearlyCustodyDistribution[] = [
+  { year: 0, protocolAutomatic: 0, vestingContract: 0, foundationMultisig: 0, communityPool: 0, totalRelease: 0, cumulativeCirculation: 0 },
+  { year: 1, protocolAutomatic: 4.00, vestingContract: 7.65, foundationMultisig: 5.35, communityPool: 16.03, totalRelease: 33.03, cumulativeCirculation: 33.03 },
+  { year: 2, protocolAutomatic: 3.20, vestingContract: 6.50, foundationMultisig: 3.80, communityPool: 5.50, totalRelease: 19.00, cumulativeCirculation: 52.03 },
+  { year: 3, protocolAutomatic: 2.85, vestingContract: 4.20, foundationMultisig: 2.50, communityPool: 4.00, totalRelease: 13.55, cumulativeCirculation: 65.58 },
+  { year: 4, protocolAutomatic: 2.50, vestingContract: 2.50, foundationMultisig: 1.80, communityPool: 2.50, totalRelease: 9.30, cumulativeCirculation: 74.88 },
+  { year: 5, protocolAutomatic: 2.20, vestingContract: 1.80, foundationMultisig: 1.20, communityPool: 1.80, totalRelease: 7.00, cumulativeCirculation: 81.88 },
+  { year: 6, protocolAutomatic: 1.40, vestingContract: 1.20, foundationMultisig: 0.80, communityPool: 1.20, totalRelease: 4.60, cumulativeCirculation: 86.48 },
+  { year: 7, protocolAutomatic: 1.20, vestingContract: 0.90, foundationMultisig: 0.60, communityPool: 0.90, totalRelease: 3.60, cumulativeCirculation: 90.08 },
+  { year: 8, protocolAutomatic: 1.00, vestingContract: 0.60, foundationMultisig: 0.40, communityPool: 0.60, totalRelease: 2.60, cumulativeCirculation: 92.68 },
+  { year: 9, protocolAutomatic: 0.80, vestingContract: 0.30, foundationMultisig: 0.30, communityPool: 0.40, totalRelease: 1.80, cumulativeCirculation: 94.48 },
+  { year: 10, protocolAutomatic: 0.65, vestingContract: 0.20, foundationMultisig: 0.25, communityPool: 0.30, totalRelease: 1.40, cumulativeCirculation: 95.88 },
+  { year: 11, protocolAutomatic: 0.50, vestingContract: 0.10, foundationMultisig: 0.20, communityPool: 0.25, totalRelease: 1.05, cumulativeCirculation: 96.93 },
+  { year: 12, protocolAutomatic: 0.45, vestingContract: 0.05, foundationMultisig: 0.15, communityPool: 0.20, totalRelease: 0.85, cumulativeCirculation: 97.78 },
+  { year: 13, protocolAutomatic: 0.40, vestingContract: 0, foundationMultisig: 0.12, communityPool: 0.18, totalRelease: 0.70, cumulativeCirculation: 98.48 },
+  { year: 14, protocolAutomatic: 0.35, vestingContract: 0, foundationMultisig: 0.10, communityPool: 0.15, totalRelease: 0.60, cumulativeCirculation: 99.08 },
+  { year: 15, protocolAutomatic: 0.30, vestingContract: 0, foundationMultisig: 0.08, communityPool: 0.12, totalRelease: 0.50, cumulativeCirculation: 99.58 },
+  { year: 16, protocolAutomatic: 0.12, vestingContract: 0, foundationMultisig: 0.05, communityPool: 0.08, totalRelease: 0.25, cumulativeCirculation: 99.83 },
+  { year: 17, protocolAutomatic: 0.06, vestingContract: 0, foundationMultisig: 0.03, communityPool: 0.04, totalRelease: 0.13, cumulativeCirculation: 99.96 },
+  { year: 18, protocolAutomatic: 0.02, vestingContract: 0, foundationMultisig: 0.01, communityPool: 0.01, totalRelease: 0.04, cumulativeCirculation: 100.00 },
+  { year: 19, protocolAutomatic: 0, vestingContract: 0, foundationMultisig: 0, communityPool: 0, totalRelease: 0, cumulativeCirculation: 100.00 },
+  { year: 20, protocolAutomatic: 0, vestingContract: 0, foundationMultisig: 0, communityPool: 0, totalRelease: 0, cumulativeCirculation: 100.00 }
+];
+
+/**
+ * Get custody mechanism by category ID
+ */
+export function getCustodyByCategoryId(categoryId: string): CustodyMechanism | undefined {
+  const mapping = CATEGORY_CUSTODY_MAPPING.find(c => c.categoryId === categoryId);
+  return mapping?.custodyMechanism;
+}
+
+/**
+ * Get all categories for a custody mechanism
+ */
+export function getCategoriesByCustody(mechanism: CustodyMechanism): CategoryCustodyMapping[] {
+  return CATEGORY_CUSTODY_MAPPING.filter(c => c.custodyMechanism === mechanism);
+}
+
+/**
+ * Calculate total allocation by custody mechanism
+ */
+export function calculateCustodyTotals(): Record<CustodyMechanism, { percent: number; billion: number }> {
+  const totals: Record<CustodyMechanism, { percent: number; billion: number }> = {
+    [CustodyMechanism.PROTOCOL_AUTOMATIC]: { percent: 0, billion: 0 },
+    [CustodyMechanism.VESTING_CONTRACT]: { percent: 0, billion: 0 },
+    [CustodyMechanism.FOUNDATION_MULTISIG]: { percent: 0, billion: 0 },
+    [CustodyMechanism.COMMUNITY_POOL]: { percent: 0, billion: 0 }
+  };
+  
+  CATEGORY_CUSTODY_MAPPING.forEach(mapping => {
+    totals[mapping.custodyMechanism].percent += mapping.allocationPercent;
+    totals[mapping.custodyMechanism].billion += mapping.allocationBillion;
+  });
+  
+  return totals;
+}
+
+/**
+ * Get programmatic vs discretionary split
+ */
+export function getProgrammaticSplit(): { programmatic: number; discretionary: number } {
+  const totals = calculateCustodyTotals();
+  const programmatic = totals[CustodyMechanism.PROTOCOL_AUTOMATIC].percent + 
+                       totals[CustodyMechanism.VESTING_CONTRACT].percent;
+  const discretionary = totals[CustodyMechanism.FOUNDATION_MULTISIG].percent + 
+                        totals[CustodyMechanism.COMMUNITY_POOL].percent;
+  return { programmatic, discretionary };
+}
