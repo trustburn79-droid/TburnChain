@@ -82,7 +82,7 @@ const quickLinks = [
   { title: "VC", href: "/vc" },
   { title: "RPC", href: "/rpc" },
   { title: "Testnet RPC", href: "/testnet-rpc", isTestnet: true },
-  { title: "Validator", href: "/validator", isValidator: true },
+  { title: "Validator", href: "/validator" },
 ];
 
 export function PublicFooter() {
@@ -380,7 +380,7 @@ export function PublicFooter() {
                 <Link 
                   key={link.href}
                   href={link.href} 
-                  className={`${link.isValidator ? 'text-[#00D9A5] hover:text-[#00FFB8]' : link.isTestnet ? 'text-orange-500 hover:text-orange-400' : 'text-[#00f0ff] hover:text-white'} transition font-medium`}
+                  className={`${link.isTestnet ? 'text-orange-500 hover:text-orange-400' : 'text-[#00f0ff] hover:text-white'} transition font-medium`}
                   data-testid={`link-footer-${link.title.toLowerCase().replace(/\s+/g, '-')}`}
                 >
                   {link.title}

@@ -374,6 +374,16 @@ export function PublicRouter() {
     );
   }
 
+  if (location === "/validator") {
+    return (
+      <ErrorBoundary>
+        <Suspense fallback={<PageLoading />}>
+          <NetworkRoutes />
+        </Suspense>
+      </ErrorBoundary>
+    );
+  }
+
   if (location.startsWith("/network") || location.startsWith("/validator")) {
     return (
       <ErrorBoundary>
