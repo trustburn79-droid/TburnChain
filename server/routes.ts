@@ -202,8 +202,19 @@ const ESSENTIAL_INTERVALS = new Set([
   'shards_snapshot',
 ]);
 
-// Intervals that should be disabled in development for performance
+// ★ [2026-01-05 메모리 안정성 v4.0] 개발 환경에서 비활성화할 interval
+// 무한 스킵되는 interval 추가 - 완료되지 않는 async 작업으로 메모리 누수 유발
 const DEV_DISABLED_INTERVALS = new Set([
+  // ★ CRITICAL: 무한 스킵되는 interval - 메모리 누수 방지
+  'network_stats',
+  'shards_realtime',
+  'block_updates',
+  'consensus_state',
+  'validators_update',
+  'shards_snapshot',
+  'voting_activity',
+  'validator_broadcast',
+  // AI 관련
   'real_ai_decisions',
   'validator_scheduling_ai',
   'governance_prevalidation_ai',
@@ -257,9 +268,19 @@ const DEV_DISABLED_INTERVALS = new Set([
   'community_stats_broadcast',
 ]);
 
-// ★ [2026-01-04 메모리 안정성 v3.0] 프로덕션에서도 비활성화할 고비용 interval
+// ★ [2026-01-05 메모리 안정성 v4.0] 프로덕션에서도 비활성화할 고비용 interval
 // 프로덕션 환경에서 메모리 누수를 유발하는 브로드캐스트 interval 비활성화
+// ★ CRITICAL: 무한 스킵되는 interval 추가 (이전 실행이 완료되지 않아 메모리 누적)
 const PROD_DISABLED_INTERVALS = new Set([
+  // ★ [2026-01-05] 무한 스킵되는 interval - 완료되지 않는 async 작업으로 메모리 누수 유발
+  'network_stats',
+  'shards_realtime',
+  'block_updates',
+  'consensus_state',
+  'validators_update',
+  'shards_snapshot',
+  'voting_activity',
+  'validator_broadcast',
   // DeFi 브로드캐스트 - 메모리 집약적
   'staking_stats_broadcast',
   'staking_pools_broadcast',
