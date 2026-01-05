@@ -12088,3 +12088,142 @@ export type InsertDistributionRateLimit = z.infer<typeof insertDistributionRateL
 export type DistributionMetricsHistoryDB = typeof distributionMetricsHistory.$inferSelect;
 export type InsertDistributionMetricsHistory = z.infer<typeof insertDistributionMetricsHistorySchema>;
 
+// ============================================================================
+// Demo Wallets - Enterprise Production-Grade Demo Wallet System
+// For VC investors, developers, and platform evaluation
+// ============================================================================
+export const demoWallets = pgTable("demo_wallets", {
+  id: serial("id").primaryKey(),
+  
+  // Wallet Identity
+  walletId: varchar("wallet_id", { length: 64 }).notNull().unique(),
+  address: text("address").notNull().unique(),
+  
+  // Wallet Type
+  walletType: text("wallet_type").notNull().default("vc"), // vc, developer, enterprise, test
+  label: varchar("label", { length: 128 }), // Custom label for identification
+  
+  // Token Balances (stored as string for precision)
+  balanceTburn: text("balance_tburn").notNull().default("1000000"), // TBURN tokens
+  balanceEth: text("balance_eth").notNull().default("10"), // ETH for gas
+  balanceUsdt: text("balance_usdt").notNull().default("50000"), // USDT stablecoin
+  
+  // Access Control
+  accessCode: varchar("access_code", { length: 128 }), // Optional access code
+  isActive: boolean("is_active").notNull().default(true),
+  expiresAt: timestamp("expires_at"), // null = never expires
+  
+  // Usage Limits
+  dailyTransactionLimit: integer("daily_transaction_limit").notNull().default(1000),
+  dailyTransactionsUsed: integer("daily_transactions_used").notNull().default(0),
+  lastTransactionResetAt: timestamp("last_transaction_reset_at").notNull().defaultNow(),
+  
+  // Activity Tracking
+  totalTransactions: integer("total_transactions").notNull().default(0),
+  totalVolumeUsdt: text("total_volume_usdt").notNull().default("0"),
+  lastActivityAt: timestamp("last_activity_at"),
+  
+  // Metadata
+  createdBy: varchar("created_by", { length: 128 }), // Admin who created
+  notes: text("notes"), // Admin notes
+  metadata: jsonb("metadata").default({}), // Additional custom data
+  
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+}, (table) => [
+  index("idx_demo_wallet_type").on(table.walletType),
+  index("idx_demo_wallet_active").on(table.isActive).where(sql`is_active = true`),
+  index("idx_demo_wallet_access").on(table.accessCode).where(sql`access_code IS NOT NULL`),
+]);
+
+// Demo Wallet Transactions - Track all demo wallet activity
+export const demoWalletTransactions = pgTable("demo_wallet_transactions", {
+  id: serial("id").primaryKey(),
+  
+  // Transaction Identity
+  transactionId: varchar("transaction_id", { length: 64 }).notNull().unique(),
+  walletId: varchar("wallet_id", { length: 64 }).notNull(),
+  
+  // Transaction Details
+  transactionType: text("transaction_type").notNull(), // transfer, swap, stake, unstake, bridge, mint, burn
+  fromToken: varchar("from_token", { length: 32 }).notNull(),
+  toToken: varchar("to_token", { length: 32 }), // For swaps
+  amount: text("amount").notNull(),
+  amountUsd: text("amount_usd").notNull().default("0"),
+  
+  // Counterparty
+  toAddress: text("to_address"),
+  fromAddress: text("from_address"),
+  
+  // Status
+  status: text("status").notNull().default("pending"), // pending, completed, failed
+  errorMessage: text("error_message"),
+  
+  // Gas Simulation
+  gasUsed: text("gas_used").notNull().default("0"),
+  gasPriceGwei: text("gas_price_gwei").notNull().default("0"),
+  
+  // Metadata
+  metadata: jsonb("metadata").default({}),
+  
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+}, (table) => [
+  index("idx_demo_tx_wallet").on(table.walletId),
+  index("idx_demo_tx_type").on(table.transactionType),
+  index("idx_demo_tx_created").on(table.createdAt),
+]);
+
+// Demo Wallet Sessions - Track active sessions
+export const demoWalletSessions = pgTable("demo_wallet_sessions", {
+  id: serial("id").primaryKey(),
+  
+  // Session Identity
+  sessionId: varchar("session_id", { length: 64 }).notNull().unique(),
+  walletId: varchar("wallet_id", { length: 64 }).notNull(),
+  
+  // Session Data
+  ipAddress: varchar("ip_address", { length: 45 }),
+  userAgent: text("user_agent"),
+  
+  // Session State
+  isActive: boolean("is_active").notNull().default(true),
+  lastActivityAt: timestamp("last_activity_at").notNull().defaultNow(),
+  expiresAt: timestamp("expires_at").notNull(),
+  
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+}, (table) => [
+  index("idx_demo_session_wallet").on(table.walletId),
+  index("idx_demo_session_active").on(table.isActive).where(sql`is_active = true`),
+]);
+
+// ============================================================================
+// Insert Schemas for Demo Wallet System
+// ============================================================================
+export const insertDemoWalletSchema = createInsertSchema(demoWallets).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertDemoWalletTransactionSchema = createInsertSchema(demoWalletTransactions).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertDemoWalletSessionSchema = createInsertSchema(demoWalletSessions).omit({
+  id: true,
+  createdAt: true,
+});
+
+// ============================================================================
+// Types for Demo Wallet System
+// ============================================================================
+export type DemoWalletDB = typeof demoWallets.$inferSelect;
+export type InsertDemoWallet = z.infer<typeof insertDemoWalletSchema>;
+
+export type DemoWalletTransactionDB = typeof demoWalletTransactions.$inferSelect;
+export type InsertDemoWalletTransaction = z.infer<typeof insertDemoWalletTransactionSchema>;
+
+export type DemoWalletSessionDB = typeof demoWalletSessions.$inferSelect;
+export type InsertDemoWalletSession = z.infer<typeof insertDemoWalletSessionSchema>;
+
