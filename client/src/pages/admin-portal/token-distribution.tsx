@@ -16,7 +16,7 @@ import {
   Sprout, TrendingUp, RefreshCw, CheckCircle2, Clock, AlertCircle,
   ArrowUpRight, BarChart3, Eye, Send, Wifi, WifiOff, Handshake, Megaphone,
   Briefcase, GraduationCap, Leaf, KeyRound, Globe, Rocket, ListOrdered, Gem, ExternalLink,
-  Layers, Shield, Database, Activity
+  Layers, Shield, Database, Activity, Lock, Key, Building2, FileCheck, Zap
 } from "lucide-react";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, AreaChart, Area, BarChart, Bar, PieChart, Pie, Cell } from "recharts";
 
@@ -322,8 +322,9 @@ export default function AdminTokenDistribution() {
       </Card>
 
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-        <TabsList className="grid w-full grid-cols-4 lg:grid-cols-9">
+        <TabsList className="grid w-full grid-cols-5 lg:grid-cols-10">
           <TabsTrigger value="overview" data-testid="tab-overview">Overview</TabsTrigger>
+          <TabsTrigger value="custody" data-testid="tab-custody">Custody</TabsTrigger>
           <TabsTrigger value="airdrop" data-testid="tab-airdrop">Airdrop</TabsTrigger>
           <TabsTrigger value="referral" data-testid="tab-referral">Referral</TabsTrigger>
           <TabsTrigger value="events" data-testid="tab-events">Events</TabsTrigger>
@@ -455,6 +456,10 @@ export default function AdminTokenDistribution() {
           </div>
         </TabsContent>
 
+        <TabsContent value="custody" className="space-y-6">
+          <CustodySection />
+        </TabsContent>
+
         <TabsContent value="airdrop" className="space-y-6">
           <AirdropSection stats={stats?.airdrop} />
         </TabsContent>
@@ -489,6 +494,533 @@ export default function AdminTokenDistribution() {
       </Tabs>
     </div>
   );
+}
+
+// Token Custody Mechanism Section - 4-Category Breakdown
+function CustodySection() {
+  const { data: custodySummary, isLoading } = useQuery<{ success: boolean; data: any }>({
+    queryKey: ['/api/custody/summary'],
+  });
+
+  const TOTAL_SUPPLY = 500_000_000_000; // 500B TBURN
+  
+  // 4-Category Custody Mechanism
+  const custodyCategories = [
+    {
+      id: 'protocol_automatic',
+      name: '프로토콜 자동화',
+      nameEn: 'Protocol Automatic',
+      icon: Zap,
+      percentage: 22,
+      amount: (TOTAL_SUPPLY * 0.22),
+      color: 'bg-emerald-500',
+      bgColor: 'bg-emerald-500/10',
+      textColor: 'text-emerald-500',
+      type: 'programmatic',
+      description: '온체인 자동 실행 - 블록 보상, 스테이킹, 소각',
+      components: ['Block Rewards (10%)', 'Staking Rewards (7%)', 'Burn Mechanism (5%)']
+    },
+    {
+      id: 'vesting_contract',
+      name: '베스팅 컨트랙트',
+      nameEn: 'Vesting Contract',
+      icon: Lock,
+      percentage: 31,
+      amount: (TOTAL_SUPPLY * 0.31),
+      color: 'bg-blue-500',
+      bgColor: 'bg-blue-500/10',
+      textColor: 'text-blue-500',
+      type: 'programmatic',
+      description: '스마트 컨트랙트 기반 시간 락 해제',
+      components: ['Team Vesting (15%)', 'Advisor Vesting (6%)', 'Investor Vesting (10%)']
+    },
+    {
+      id: 'foundation_multisig',
+      name: '재단 멀티시그',
+      nameEn: 'Foundation Multisig',
+      icon: Building2,
+      percentage: 17,
+      amount: (TOTAL_SUPPLY * 0.17),
+      color: 'bg-purple-500',
+      bgColor: 'bg-purple-500/10',
+      textColor: 'text-purple-500',
+      type: 'discretionary',
+      description: '3/5 멀티시그 + 7일 타임락 승인 필요',
+      components: ['Treasury (10%)', 'Strategic Reserve (7%)']
+    },
+    {
+      id: 'community_pool',
+      name: '커뮤니티 풀',
+      nameEn: 'Community Pool',
+      icon: Users,
+      percentage: 30,
+      amount: (TOTAL_SUPPLY * 0.30),
+      color: 'bg-amber-500',
+      bgColor: 'bg-amber-500/10',
+      textColor: 'text-amber-500',
+      type: 'discretionary',
+      description: 'DAO 거버넌스 투표를 통한 배분',
+      components: ['Ecosystem Grants (12%)', 'Marketing (8%)', 'Community Events (10%)']
+    }
+  ];
+
+  const programmaticTotal = custodyCategories.filter(c => c.type === 'programmatic').reduce((acc, c) => acc + c.percentage, 0);
+  const discretionaryTotal = custodyCategories.filter(c => c.type === 'discretionary').reduce((acc, c) => acc + c.percentage, 0);
+
+  if (isLoading) {
+    return (
+      <div className="space-y-6">
+        <Skeleton className="h-48" />
+        <div className="grid grid-cols-2 gap-4">
+          {[1, 2, 3, 4].map(i => <Skeleton key={i} className="h-40" />)}
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="space-y-6">
+      {/* Summary Banner */}
+      <Card className="border-primary/30">
+        <CardHeader>
+          <div className="flex items-center justify-between">
+            <div>
+              <CardTitle className="flex items-center gap-2">
+                <Shield className="h-5 w-5" />
+                토큰 커스터디 메커니즘
+              </CardTitle>
+              <CardDescription>프로그래밍 방식 vs 재단 관리 토큰 분류</CardDescription>
+            </div>
+            <div className="flex gap-4">
+              <div className="text-center">
+                <div className="text-2xl font-bold text-emerald-500">{programmaticTotal}%</div>
+                <div className="text-xs text-muted-foreground">프로그래밍 방식</div>
+              </div>
+              <div className="h-12 w-px bg-border" />
+              <div className="text-center">
+                <div className="text-2xl font-bold text-amber-500">{discretionaryTotal}%</div>
+                <div className="text-xs text-muted-foreground">재단 관리</div>
+              </div>
+            </div>
+          </div>
+        </CardHeader>
+        <CardContent>
+          <div className="flex gap-1 h-4 rounded-full overflow-hidden">
+            {custodyCategories.map(cat => (
+              <div 
+                key={cat.id}
+                className={`${cat.color}`}
+                style={{ width: `${cat.percentage}%` }}
+              />
+            ))}
+          </div>
+          <div className="flex flex-wrap gap-4 mt-4">
+            {custodyCategories.map(cat => (
+              <div key={cat.id} className="flex items-center gap-2">
+                <div className={`h-3 w-3 rounded ${cat.color}`} />
+                <span className="text-xs">{cat.name} ({cat.percentage}%)</span>
+              </div>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* 4-Category Cards */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {custodyCategories.map(category => (
+          <Card key={category.id} className={`${category.bgColor} border-0`} data-testid={`card-custody-${category.id}`}>
+            <CardHeader>
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <div className={`p-2 rounded-lg ${category.color}`}>
+                    <category.icon className="h-5 w-5 text-white" />
+                  </div>
+                  <div>
+                    <CardTitle className="text-base">{category.name}</CardTitle>
+                    <CardDescription className={category.textColor}>{category.nameEn}</CardDescription>
+                  </div>
+                </div>
+                <div className="text-right">
+                  <div className={`text-2xl font-bold ${category.textColor}`}>{category.percentage}%</div>
+                  <Badge variant="outline" className={`text-xs ${category.type === 'programmatic' ? 'border-emerald-500 text-emerald-500' : 'border-amber-500 text-amber-500'}`}>
+                    {category.type === 'programmatic' ? '자동화' : '재량적'}
+                  </Badge>
+                </div>
+              </div>
+            </CardHeader>
+            <CardContent>
+              <p className="text-sm text-muted-foreground mb-4">{category.description}</p>
+              <div className="space-y-2">
+                <div className="text-xs font-medium text-muted-foreground">구성 요소:</div>
+                <div className="flex flex-wrap gap-2">
+                  {category.components.map((comp, idx) => (
+                    <Badge key={idx} variant="outline" className="text-xs">
+                      {comp}
+                    </Badge>
+                  ))}
+                </div>
+              </div>
+              <div className="mt-4 pt-4 border-t">
+                <div className="flex items-center justify-between text-sm">
+                  <span className="text-muted-foreground">할당량</span>
+                  <span className="font-mono font-medium">{(category.amount / 1e9).toFixed(1)}B TBURN</span>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+
+      {/* Execution Mechanism Comparison */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-emerald-500">
+              <Zap className="h-5 w-5" />
+              프로그래밍 방식 실행 (53%)
+            </CardTitle>
+            <CardDescription>온체인 자동화 및 스마트 컨트랙트 기반</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-4">
+              <div className="p-3 rounded-lg bg-emerald-500/10">
+                <div className="flex items-center gap-2 mb-2">
+                  <Zap className="h-4 w-4 text-emerald-500" />
+                  <span className="font-medium">프로토콜 자동화 (22%)</span>
+                </div>
+                <ul className="text-sm text-muted-foreground space-y-1 ml-6">
+                  <li>블록 생성시 자동 보상 분배</li>
+                  <li>스테이킹 보상 실시간 계산</li>
+                  <li>거래 수수료 기반 자동 소각</li>
+                </ul>
+              </div>
+              <div className="p-3 rounded-lg bg-blue-500/10">
+                <div className="flex items-center gap-2 mb-2">
+                  <Lock className="h-4 w-4 text-blue-500" />
+                  <span className="font-medium">베스팅 컨트랙트 (31%)</span>
+                </div>
+                <ul className="text-sm text-muted-foreground space-y-1 ml-6">
+                  <li>시간 락 기반 자동 해제</li>
+                  <li>클리프 기간 후 선형 베스팅</li>
+                  <li>수정 불가능한 스마트 컨트랙트</li>
+                </ul>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-amber-500">
+              <Building2 className="h-5 w-5" />
+              재단 관리 실행 (47%)
+            </CardTitle>
+            <CardDescription>멀티시그 및 DAO 거버넌스 승인 필요</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-4">
+              <div className="p-3 rounded-lg bg-purple-500/10">
+                <div className="flex items-center gap-2 mb-2">
+                  <Key className="h-4 w-4 text-purple-500" />
+                  <span className="font-medium">재단 멀티시그 (17%)</span>
+                </div>
+                <ul className="text-sm text-muted-foreground space-y-1 ml-6">
+                  <li>3/5 서명자 승인 필요</li>
+                  <li>7일 (168시간) 타임락</li>
+                  <li>분기별 투명성 보고서 공개</li>
+                </ul>
+              </div>
+              <div className="p-3 rounded-lg bg-amber-500/10">
+                <div className="flex items-center gap-2 mb-2">
+                  <Users className="h-4 w-4 text-amber-500" />
+                  <span className="font-medium">커뮤니티 풀 (30%)</span>
+                </div>
+                <ul className="text-sm text-muted-foreground space-y-1 ml-6">
+                  <li>DAO 거버넌스 제안 필요</li>
+                  <li>커뮤니티 투표 과반수 승인</li>
+                  <li>사용 목적 명확한 문서화</li>
+                </ul>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Multisig Configuration */}
+      <Card data-testid="card-multisig-config">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <FileCheck className="h-5 w-5" />
+            멀티시그 구성 및 투명성
+          </CardTitle>
+          <CardDescription>재단 관리 토큰 실행 프로토콜</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="space-y-3">
+              <h4 className="font-medium flex items-center gap-2">
+                <Key className="h-4 w-4 text-primary" />
+                서명 요구사항
+              </h4>
+              <div className="space-y-2 text-sm">
+                <div className="flex justify-between p-2 bg-muted/50 rounded">
+                  <span>필요 서명 수</span>
+                  <span className="font-medium">3/5</span>
+                </div>
+                <div className="flex justify-between p-2 bg-muted/50 rounded">
+                  <span>총 서명자</span>
+                  <span className="font-medium">5명</span>
+                </div>
+                <div className="flex justify-between p-2 bg-muted/50 rounded">
+                  <span>키 분산</span>
+                  <span className="font-medium">지리적 분산</span>
+                </div>
+              </div>
+            </div>
+            <div className="space-y-3">
+              <h4 className="font-medium flex items-center gap-2">
+                <Clock className="h-4 w-4 text-primary" />
+                타임락 메커니즘
+              </h4>
+              <div className="space-y-2 text-sm">
+                <div className="flex justify-between p-2 bg-muted/50 rounded">
+                  <span>표준 타임락</span>
+                  <span className="font-medium">168시간 (7일)</span>
+                </div>
+                <div className="flex justify-between p-2 bg-muted/50 rounded">
+                  <span>긴급 타임락</span>
+                  <span className="font-medium">48시간 (5/5 서명)</span>
+                </div>
+                <div className="flex justify-between p-2 bg-muted/50 rounded">
+                  <span>최대 타임락</span>
+                  <span className="font-medium">30일</span>
+                </div>
+              </div>
+            </div>
+            <div className="space-y-3">
+              <h4 className="font-medium flex items-center gap-2">
+                <FileCheck className="h-4 w-4 text-primary" />
+                투명성 요구사항
+              </h4>
+              <div className="space-y-2 text-sm">
+                <div className="flex justify-between p-2 bg-muted/50 rounded">
+                  <span>분기 보고서</span>
+                  <span className="font-medium">필수</span>
+                </div>
+                <div className="flex justify-between p-2 bg-muted/50 rounded">
+                  <span>온체인 공개</span>
+                  <span className="font-medium">모든 트랜잭션</span>
+                </div>
+                <div className="flex justify-between p-2 bg-muted/50 rounded">
+                  <span>외부 감사</span>
+                  <span className="font-medium">연간</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* 20-Year Distribution Schedule */}
+      <Card data-testid="card-20year-schedule">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Calendar className="h-5 w-5" />
+            20년 토큰 분배 스케줄
+          </CardTitle>
+          <CardDescription>커스터디 메커니즘별 연간 토큰 해제 계획</CardDescription>
+        </CardHeader>
+        <CardContent>
+          {/* Distribution Chart */}
+          <div className="h-80 mb-6">
+            <ResponsiveContainer width="100%" height="100%">
+              <AreaChart data={generate20YearSchedule()}>
+                <CartesianGrid strokeDasharray="3 3" className="opacity-30" />
+                <XAxis dataKey="year" />
+                <YAxis tickFormatter={(value) => `${(value / 1e9).toFixed(0)}B`} />
+                <Tooltip 
+                  formatter={(value: number, name: string) => [
+                    `${(value / 1e9).toFixed(2)}B TBURN`,
+                    name
+                  ]}
+                />
+                <Area 
+                  type="monotone" 
+                  dataKey="protocol" 
+                  stackId="1" 
+                  stroke="#10B981" 
+                  fill="#10B981" 
+                  name="프로토콜 자동화"
+                />
+                <Area 
+                  type="monotone" 
+                  dataKey="vesting" 
+                  stackId="1" 
+                  stroke="#3B82F6" 
+                  fill="#3B82F6" 
+                  name="베스팅 컨트랙트"
+                />
+                <Area 
+                  type="monotone" 
+                  dataKey="foundation" 
+                  stackId="1" 
+                  stroke="#8B5CF6" 
+                  fill="#8B5CF6" 
+                  name="재단 멀티시그"
+                />
+                <Area 
+                  type="monotone" 
+                  dataKey="community" 
+                  stackId="1" 
+                  stroke="#F59E0B" 
+                  fill="#F59E0B" 
+                  name="커뮤니티 풀"
+                />
+              </AreaChart>
+            </ResponsiveContainer>
+          </div>
+
+          {/* Schedule Table */}
+          <ScrollArea className="h-80">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead className="sticky top-0 bg-background">연도</TableHead>
+                  <TableHead className="sticky top-0 bg-background">프로토콜 자동화</TableHead>
+                  <TableHead className="sticky top-0 bg-background">베스팅 컨트랙트</TableHead>
+                  <TableHead className="sticky top-0 bg-background">재단 멀티시그</TableHead>
+                  <TableHead className="sticky top-0 bg-background">커뮤니티 풀</TableHead>
+                  <TableHead className="sticky top-0 bg-background">연간 합계</TableHead>
+                  <TableHead className="sticky top-0 bg-background">누적 비율</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {generate20YearSchedule().map((row, idx) => (
+                  <TableRow key={row.year} data-testid={`row-schedule-year-${idx}`}>
+                    <TableCell className="font-medium">{row.year}</TableCell>
+                    <TableCell className="font-mono text-xs">{(row.protocol / 1e9).toFixed(2)}B</TableCell>
+                    <TableCell className="font-mono text-xs">{(row.vesting / 1e9).toFixed(2)}B</TableCell>
+                    <TableCell className="font-mono text-xs">{(row.foundation / 1e9).toFixed(2)}B</TableCell>
+                    <TableCell className="font-mono text-xs">{(row.community / 1e9).toFixed(2)}B</TableCell>
+                    <TableCell className="font-mono text-xs font-medium">{(row.total / 1e9).toFixed(2)}B</TableCell>
+                    <TableCell>
+                      <div className="flex items-center gap-2">
+                        <Progress value={row.cumulative} className="h-2 w-16" />
+                        <span className="text-xs text-muted-foreground">{row.cumulative.toFixed(1)}%</span>
+                      </div>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </ScrollArea>
+
+          {/* Schedule Summary */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6 pt-6 border-t">
+            <div className="p-3 rounded-lg bg-emerald-500/10 text-center">
+              <div className="text-xs text-muted-foreground mb-1">프로토콜 자동화 총합</div>
+              <div className="text-lg font-bold text-emerald-500">110B TBURN</div>
+              <div className="text-xs text-muted-foreground">22%</div>
+            </div>
+            <div className="p-3 rounded-lg bg-blue-500/10 text-center">
+              <div className="text-xs text-muted-foreground mb-1">베스팅 컨트랙트 총합</div>
+              <div className="text-lg font-bold text-blue-500">155B TBURN</div>
+              <div className="text-xs text-muted-foreground">31%</div>
+            </div>
+            <div className="p-3 rounded-lg bg-purple-500/10 text-center">
+              <div className="text-xs text-muted-foreground mb-1">재단 멀티시그 총합</div>
+              <div className="text-lg font-bold text-purple-500">85B TBURN</div>
+              <div className="text-xs text-muted-foreground">17%</div>
+            </div>
+            <div className="p-3 rounded-lg bg-amber-500/10 text-center">
+              <div className="text-xs text-muted-foreground mb-1">커뮤니티 풀 총합</div>
+              <div className="text-lg font-bold text-amber-500">150B TBURN</div>
+              <div className="text-xs text-muted-foreground">30%</div>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+    </div>
+  );
+}
+
+// Generate 20-year distribution schedule data
+// Verified to sum exactly to 100% (500B TBURN)
+function generate20YearSchedule() {
+  const TOTAL_SUPPLY = 500_000_000_000;
+  const schedule = [];
+  let cumulativePercent = 0;
+
+  // Define release patterns for each custody category
+  // Protocol: 22% = 110B, linear 5% per year = 5.5B/year
+  const protocolPerYear = TOTAL_SUPPLY * 0.22 / 20; // 5.5B per year
+  
+  // Vesting: 31% = 155B
+  // First 4 years: 60% (93B) = 23.25B/year
+  // Years 5-20: 40% (62B) = 3.875B/year
+  const vestingEarly = TOTAL_SUPPLY * 0.31 * 0.60 / 4; // 23.25B/year for years 1-4
+  const vestingLate = TOTAL_SUPPLY * 0.31 * 0.40 / 16; // 3.875B/year for years 5-20
+  
+  // Foundation: 17% = 85B
+  // First 5 years: 50% (42.5B) = 8.5B/year
+  // Years 6-10: 30% (25.5B) = 5.1B/year
+  // Years 11-20: 20% (17B) = 1.7B/year
+  const foundationEarly = TOTAL_SUPPLY * 0.17 * 0.50 / 5; // 8.5B/year
+  const foundationMid = TOTAL_SUPPLY * 0.17 * 0.30 / 5; // 5.1B/year
+  const foundationLate = TOTAL_SUPPLY * 0.17 * 0.20 / 10; // 1.7B/year
+  
+  // Community: 30% = 150B
+  // First 5 years: 20% (30B) = 6B/year
+  // Years 6-10: 30% (45B) = 9B/year
+  // Years 11-20: 50% (75B) = 7.5B/year
+  const communityEarly = TOTAL_SUPPLY * 0.30 * 0.20 / 5; // 6B/year
+  const communityMid = TOTAL_SUPPLY * 0.30 * 0.30 / 5; // 9B/year
+  const communityLate = TOTAL_SUPPLY * 0.30 * 0.50 / 10; // 7.5B/year
+
+  for (let i = 0; i < 20; i++) {
+    const year = 2025 + i;
+    
+    // Protocol: Linear release over 20 years
+    const protocol = protocolPerYear;
+    
+    // Vesting: Front-loaded
+    const vesting = i < 4 ? vestingEarly : vestingLate;
+    
+    // Foundation: Decreasing over time
+    let foundation = 0;
+    if (i < 5) {
+      foundation = foundationEarly;
+    } else if (i < 10) {
+      foundation = foundationMid;
+    } else {
+      foundation = foundationLate;
+    }
+    
+    // Community: DAO-driven, increasing over time
+    let community = 0;
+    if (i < 5) {
+      community = communityEarly;
+    } else if (i < 10) {
+      community = communityMid;
+    } else {
+      community = communityLate;
+    }
+
+    const total = protocol + vesting + foundation + community;
+    cumulativePercent += (total / TOTAL_SUPPLY) * 100;
+
+    schedule.push({
+      year: year.toString(),
+      protocol,
+      vesting,
+      foundation,
+      community,
+      total,
+      cumulative: Math.min(cumulativePercent, 100)
+    });
+  }
+
+  return schedule;
 }
 
 function AirdropSection({ stats }: { stats?: DashboardStats['airdrop'] }) {

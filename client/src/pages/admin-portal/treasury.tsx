@@ -76,6 +76,47 @@ interface TreasuryData {
   signers: MultiSigSigner[];
 }
 
+interface MultisigWallet {
+  walletId: string;
+  address: string;
+  name: string;
+  description: string;
+  purpose: string;
+  custodyMechanism: string;
+  signaturesRequired: number;
+  totalSigners: number;
+  timelockHours: number;
+  allocatedAmount: string;
+  remainingAmount: string;
+  distributedAmount: string;
+  status: string;
+  isEmergencyEnabled: boolean;
+  executionCount: number;
+  lastExecutionAt: string;
+  lastReportQuarter: string;
+}
+
+interface CustodyTransaction {
+  transactionId: string;
+  walletId: string;
+  transactionType: string;
+  recipientAddress: string;
+  recipientName: string;
+  amount: string;
+  amountUsd: string;
+  status: string;
+  approvalCount: number;
+  requiredApprovals: number;
+  purpose: string;
+  justification?: string;
+  proposedAt: string;
+  proposedBy: string;
+  timelockExpiresAt?: string;
+  executedAt?: string;
+  executedBy?: string;
+  executedTxHash?: string;
+}
+
 export default function AdminTreasury() {
   const { t } = useTranslation();
   const { toast } = useToast();
@@ -90,6 +131,16 @@ export default function AdminTreasury() {
 
   const { data, isLoading, error, refetch } = useQuery<TreasuryData>({
     queryKey: ['/api/admin/treasury'],
+    refetchInterval: 30000,
+  });
+
+  const { data: multisigWallets, isLoading: walletsLoading } = useQuery<MultisigWallet[]>({
+    queryKey: ['/api/custody/multisig-wallets'],
+    refetchInterval: 30000,
+  });
+
+  const { data: custodyTransactions, isLoading: txLoading } = useQuery<CustodyTransaction[]>({
+    queryKey: ['/api/custody/transactions'],
     refetchInterval: 30000,
   });
 
@@ -977,58 +1028,209 @@ export default function AdminTreasury() {
           </TabsContent>
 
           <TabsContent value="multisig">
-            <Card data-testid="card-multisig">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Lock className="w-5 h-5" />
-                  {t("adminTreasury.multiSigWallet")}
-                </CardTitle>
-                <CardDescription>{t("adminTreasury.multiSigDesc")}</CardDescription>
-              </CardHeader>
-              <CardContent>
-                {isLoading ? (
-                  <div className="space-y-4">
-                    {Array.from({ length: 5 }).map((_, i) => (
-                      <Skeleton key={i} className="h-12 w-full" />
-                    ))}
+            <div className="space-y-6">
+              {/* Custody Wallets */}
+              <Card data-testid="card-custody-wallets">
+                <CardHeader>
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <CardTitle className="flex items-center gap-2">
+                        <Lock className="w-5 h-5" />
+                        멀티시그 커스터디 지갑
+                      </CardTitle>
+                      <CardDescription>재단 관리 토큰 커스터디 지갑 현황</CardDescription>
+                    </div>
+                    <div className="flex gap-2">
+                      <Badge className="bg-blue-500/10 text-blue-500">
+                        <Key className="h-3 w-3 mr-1" />
+                        3/5 서명
+                      </Badge>
+                      <Badge className="bg-purple-500/10 text-purple-500">
+                        <Clock className="h-3 w-3 mr-1" />
+                        7일 타임락
+                      </Badge>
+                    </div>
                   </div>
-                ) : (
-                  <>
-                    <Table data-testid="table-signers">
+                </CardHeader>
+                <CardContent>
+                  {walletsLoading ? (
+                    <div className="space-y-4">
+                      {Array.from({ length: 4 }).map((_, i) => (
+                        <Skeleton key={i} className="h-24 w-full" />
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      {multisigWallets?.map((wallet) => (
+                        <div 
+                          key={wallet.walletId}
+                          className="p-4 rounded-lg border bg-card hover-elevate"
+                          data-testid={`wallet-${wallet.walletId}`}
+                        >
+                          <div className="flex items-center justify-between mb-2">
+                            <span className="font-medium">{wallet.name}</span>
+                            <Badge className={wallet.status === 'active' ? 'bg-green-500/10 text-green-500' : 'bg-yellow-500/10 text-yellow-500'}>
+                              {wallet.status === 'active' ? '활성' : wallet.status}
+                            </Badge>
+                          </div>
+                          <p className="text-xs text-muted-foreground mb-3">{wallet.description}</p>
+                          <div className="grid grid-cols-2 gap-2 text-xs mb-3">
+                            <div>
+                              <span className="text-muted-foreground">할당량</span>
+                              <div className="font-mono font-medium">{(parseFloat(wallet.allocatedAmount) / 1e9).toFixed(2)}B</div>
+                            </div>
+                            <div>
+                              <span className="text-muted-foreground">잔여</span>
+                              <div className="font-mono font-medium text-primary">{(parseFloat(wallet.remainingAmount) / 1e9).toFixed(2)}B</div>
+                            </div>
+                            <div>
+                              <span className="text-muted-foreground">서명 요구</span>
+                              <div className="font-medium">{wallet.signaturesRequired}/{wallet.totalSigners}</div>
+                            </div>
+                            <div>
+                              <span className="text-muted-foreground">타임락</span>
+                              <div className="font-medium">{wallet.timelockHours}시간</div>
+                            </div>
+                          </div>
+                          <Progress 
+                            value={(parseFloat(wallet.distributedAmount) / parseFloat(wallet.allocatedAmount)) * 100}
+                            className="h-1.5"
+                          />
+                          <div className="flex items-center justify-between mt-2 text-xs text-muted-foreground">
+                            <span>실행: {wallet.executionCount}건</span>
+                            <span>배분률: {((parseFloat(wallet.distributedAmount) / parseFloat(wallet.allocatedAmount)) * 100).toFixed(1)}%</span>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+
+              {/* Custody Transactions */}
+              <Card data-testid="card-custody-transactions">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <History className="w-5 h-5" />
+                    커스터디 트랜잭션
+                  </CardTitle>
+                  <CardDescription>멀티시그 승인 대기 및 완료된 트랜잭션</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  {txLoading ? (
+                    <div className="space-y-4">
+                      {Array.from({ length: 3 }).map((_, i) => (
+                        <Skeleton key={i} className="h-16 w-full" />
+                      ))}
+                    </div>
+                  ) : (
+                    <Table data-testid="table-custody-transactions">
                       <TableHeader>
                         <TableRow>
-                          <TableHead>{t("adminTreasury.signer")}</TableHead>
-                          <TableHead>{t("adminTreasury.address")}</TableHead>
-                          <TableHead>{t("adminTreasury.status")}</TableHead>
+                          <TableHead>유형</TableHead>
+                          <TableHead>수신자</TableHead>
+                          <TableHead>금액</TableHead>
+                          <TableHead>승인</TableHead>
+                          <TableHead>상태</TableHead>
                         </TableRow>
                       </TableHeader>
                       <TableBody>
-                        {multiSigSigners.map((signer, index) => (
-                          <TableRow key={index} data-testid={`row-signer-${index}`}>
-                            <TableCell className="font-medium">{signer.name}</TableCell>
-                            <TableCell className="font-mono">{signer.address}</TableCell>
+                        {custodyTransactions?.map((tx) => (
+                          <TableRow key={tx.transactionId} data-testid={`row-custody-tx-${tx.transactionId}`}>
                             <TableCell>
-                              {signer.signed ? (
-                                <Badge className="bg-green-500">{t("adminTreasury.signed")}</Badge>
-                              ) : (
-                                <Badge variant="outline">{t("adminTreasury.pendingStatus")}</Badge>
-                              )}
+                              <Badge variant="outline" className="text-xs">
+                                {tx.transactionType === 'grant_disbursement' ? '그랜트' : 
+                                 tx.transactionType === 'partnership_payment' ? '파트너십' : 
+                                 tx.transactionType === 'marketing_spend' ? '마케팅' : tx.transactionType}
+                              </Badge>
+                            </TableCell>
+                            <TableCell>
+                              <div className="font-medium">{tx.recipientName}</div>
+                              <div className="text-xs text-muted-foreground font-mono">{tx.recipientAddress.substring(0, 20)}...</div>
+                            </TableCell>
+                            <TableCell className="font-mono">
+                              {(parseFloat(tx.amount) / 1e6).toFixed(2)}M
+                            </TableCell>
+                            <TableCell>
+                              <Badge variant="outline">
+                                {tx.approvalCount}/{tx.requiredApprovals}
+                              </Badge>
+                            </TableCell>
+                            <TableCell>
+                              <Badge className={
+                                tx.status === 'executed' ? 'bg-green-500/10 text-green-500' :
+                                tx.status === 'approved' ? 'bg-blue-500/10 text-blue-500' :
+                                tx.status === 'pending_approval' ? 'bg-yellow-500/10 text-yellow-500' :
+                                'bg-red-500/10 text-red-500'
+                              }>
+                                {tx.status === 'executed' ? '실행 완료' :
+                                 tx.status === 'approved' ? '승인 완료' :
+                                 tx.status === 'pending_approval' ? '승인 대기' :
+                                 tx.status}
+                              </Badge>
                             </TableCell>
                           </TableRow>
                         ))}
                       </TableBody>
                     </Table>
-                    <div className="mt-4 p-4 bg-muted/50 rounded-lg" data-testid="pending-transactions-info">
-                      <h4 className="font-medium mb-2">{t("adminTreasury.pendingTransactions")}</h4>
-                      <div className="flex items-center justify-between">
-                        <span className="text-sm">Transfer 7,500,000 TBURN to Development Fund</span>
-                        <Badge variant="outline">2/3 {t("adminTreasury.signatures")}</Badge>
-                      </div>
+                  )}
+                </CardContent>
+              </Card>
+
+              {/* Legacy Signers Section */}
+              <Card data-testid="card-multisig">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Users className="w-5 h-5" />
+                    {t("adminTreasury.multiSigWallet")}
+                  </CardTitle>
+                  <CardDescription>{t("adminTreasury.multiSigDesc")}</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  {isLoading ? (
+                    <div className="space-y-4">
+                      {Array.from({ length: 5 }).map((_, i) => (
+                        <Skeleton key={i} className="h-12 w-full" />
+                      ))}
                     </div>
-                  </>
-                )}
-              </CardContent>
-            </Card>
+                  ) : (
+                    <>
+                      <Table data-testid="table-signers">
+                        <TableHeader>
+                          <TableRow>
+                            <TableHead>{t("adminTreasury.signer")}</TableHead>
+                            <TableHead>{t("adminTreasury.address")}</TableHead>
+                            <TableHead>{t("adminTreasury.status")}</TableHead>
+                          </TableRow>
+                        </TableHeader>
+                        <TableBody>
+                          {multiSigSigners.map((signer, index) => (
+                            <TableRow key={index} data-testid={`row-signer-${index}`}>
+                              <TableCell className="font-medium">{signer.name}</TableCell>
+                              <TableCell className="font-mono">{signer.address}</TableCell>
+                              <TableCell>
+                                {signer.signed ? (
+                                  <Badge className="bg-green-500">{t("adminTreasury.signed")}</Badge>
+                                ) : (
+                                  <Badge variant="outline">{t("adminTreasury.pendingStatus")}</Badge>
+                                )}
+                              </TableCell>
+                            </TableRow>
+                          ))}
+                        </TableBody>
+                      </Table>
+                      <div className="mt-4 p-4 bg-muted/50 rounded-lg" data-testid="pending-transactions-info">
+                        <h4 className="font-medium mb-2">{t("adminTreasury.pendingTransactions")}</h4>
+                        <div className="flex items-center justify-between">
+                          <span className="text-sm">Transfer 7,500,000 TBURN to Development Fund</span>
+                          <Badge variant="outline">2/3 {t("adminTreasury.signatures")}</Badge>
+                        </div>
+                      </div>
+                    </>
+                  )}
+                </CardContent>
+              </Card>
+            </div>
           </TabsContent>
 
           <TabsContent value="reports">

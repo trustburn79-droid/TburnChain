@@ -13,7 +13,8 @@ import {
   Coins, Flame, TrendingUp, Wallet, Layers, Rocket,
   Activity, Settings, Server, Zap, Users, PiggyBank,
   ArrowRight, Database, Globe, Link2, ChevronDown, ChevronUp,
-  PlayCircle, StopCircle, CircleOff, Gauge, Shield
+  PlayCircle, StopCircle, CircleOff, Gauge, Shield,
+  Lock, Key, FileCheck, Building2, Clock, ExternalLink
 } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
 import { apiRequest } from "@/lib/queryClient";
@@ -119,6 +120,29 @@ interface DistributionAllocations {
   };
 }
 
+interface CustodyMechanism {
+  id: string;
+  code: string;
+  name: string;
+  allocationPercent: number;
+  allocationBillion: number;
+  distributedAmount: string;
+  remainingAmount: string;
+  isProgrammatic: boolean;
+  executionEntity: string;
+}
+
+interface CustodySummary {
+  mechanisms: CustodyMechanism[];
+  totals: {
+    programmaticPercent: number;
+    discretionaryPercent: number;
+    totalDistributed: string;
+    totalRemaining: string;
+  };
+  lastUpdated: string;
+}
+
 export default function AdminTokenomics() {
   const { t } = useTranslation();
   const { toast } = useToast();
@@ -167,7 +191,13 @@ export default function AdminTokenomics() {
     refetchInterval: 30000,
   });
 
+  const { data: custodySummary, isLoading: custodyLoading } = useQuery<CustodySummary>({
+    queryKey: ['/api/custody/summary'],
+    refetchInterval: 30000,
+  });
+
   const [distributionOpen, setDistributionOpen] = useState(true);
+  const [custodyOpen, setCustodyOpen] = useState(true);
   const [isControlling, setIsControlling] = useState(false);
 
   const handleDistributionControl = async (action: 'start' | 'stop' | 'initialize') => {
@@ -799,6 +829,259 @@ export default function AdminTokenomics() {
                       <div className="flex items-center gap-2">
                         <CheckCircle className="h-3 w-3 text-green-500" />
                         <code className="text-blue-500">/api/admin/genesis/distribution/prometheus</code>
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </CollapsibleContent>
+            </Card>
+          </Collapsible>
+        </div>
+
+        {/* Token Custody Mechanism Section */}
+        <div className="px-6">
+          <Collapsible open={custodyOpen} onOpenChange={setCustodyOpen}>
+            <Card data-testid="card-custody-mechanism">
+              <CollapsibleTrigger asChild>
+                <CardHeader className="cursor-pointer hover-elevate">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <Lock className="h-5 w-5 text-primary" />
+                      <div>
+                        <CardTitle className="text-base" data-testid="text-custody-title">
+                          토큰 커스터디 메커니즘
+                        </CardTitle>
+                        <CardDescription className="text-xs">
+                          Enterprise Token Custody System - 4가지 카테고리 / 53% 프로그래매틱 vs 47% 재단 재량
+                        </CardDescription>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <Badge className="bg-blue-500/10 text-blue-500">
+                        <Key className="h-3 w-3 mr-1" />
+                        3/5 멀티시그
+                      </Badge>
+                      <Badge className="bg-purple-500/10 text-purple-500">
+                        <Clock className="h-3 w-3 mr-1" />
+                        7일 타임락
+                      </Badge>
+                      {custodyOpen ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
+                    </div>
+                  </div>
+                </CardHeader>
+              </CollapsibleTrigger>
+              <CollapsibleContent>
+                <CardContent className="space-y-6 pt-0">
+                  {/* Custody Mechanism Overview */}
+                  <div className="p-4 rounded-lg border bg-card">
+                    <div className="flex items-center justify-between mb-4">
+                      <div className="flex items-center gap-2">
+                        <Shield className="h-4 w-4 text-blue-500" />
+                        <span className="font-medium">커스터디 메커니즘 분류</span>
+                      </div>
+                      <div className="flex gap-2">
+                        <Badge className="bg-green-500/10 text-green-500 border-green-500/30">
+                          프로그래매틱 53%
+                        </Badge>
+                        <Badge className="bg-orange-500/10 text-orange-500 border-orange-500/30">
+                          재단 재량 47%
+                        </Badge>
+                      </div>
+                    </div>
+                    
+                    {/* 4 Custody Categories */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                      {custodySummary?.mechanisms?.map((mechanism) => {
+                        const mechanismIcons: Record<string, typeof Coins> = {
+                          'PROTOCOL_AUTOMATIC': Zap,
+                          'VESTING_CONTRACT': FileCheck,
+                          'FOUNDATION_MULTISIG': Building2,
+                          'COMMUNITY_POOL': Users,
+                        };
+                        const mechanismColors: Record<string, string> = {
+                          'PROTOCOL_AUTOMATIC': 'bg-green-500/10 border-green-500/30 text-green-500',
+                          'VESTING_CONTRACT': 'bg-blue-500/10 border-blue-500/30 text-blue-500',
+                          'FOUNDATION_MULTISIG': 'bg-orange-500/10 border-orange-500/30 text-orange-500',
+                          'COMMUNITY_POOL': 'bg-purple-500/10 border-purple-500/30 text-purple-500',
+                        };
+                        const MechanismIcon = mechanismIcons[mechanism.id] || Coins;
+                        const colorClass = mechanismColors[mechanism.id] || 'bg-muted/30 border-muted';
+                        
+                        return (
+                          <div 
+                            key={mechanism.id} 
+                            className={`p-4 rounded-lg border ${mechanism.isProgrammatic ? 'bg-green-500/5' : 'bg-orange-500/5'}`}
+                            data-testid={`custody-mechanism-${mechanism.id.toLowerCase()}`}
+                          >
+                            <div className="flex items-center justify-between mb-3">
+                              <div className="flex items-center gap-2">
+                                <Badge className={`${colorClass} font-mono text-xs`}>{mechanism.code}</Badge>
+                                <MechanismIcon className="h-4 w-4 text-muted-foreground" />
+                              </div>
+                              <Badge variant="outline" className="text-xs">
+                                {mechanism.allocationPercent}%
+                              </Badge>
+                            </div>
+                            <div className="font-medium mb-1">{mechanism.name}</div>
+                            <div className="text-xs text-muted-foreground mb-3">
+                              {mechanism.executionEntity}
+                            </div>
+                            <div className="text-sm font-mono font-bold text-primary mb-2">
+                              {(mechanism.allocationBillion).toFixed(1)}B TBURN
+                            </div>
+                            <Progress 
+                              value={(parseFloat(mechanism.distributedAmount) / (parseFloat(mechanism.distributedAmount) + parseFloat(mechanism.remainingAmount))) * 100} 
+                              className="h-1.5 mb-2"
+                            />
+                            <div className="flex items-center justify-between text-xs text-muted-foreground">
+                              <span>배분 완료</span>
+                              <span>{((parseFloat(mechanism.distributedAmount) / (parseFloat(mechanism.distributedAmount) + parseFloat(mechanism.remainingAmount))) * 100).toFixed(1)}%</span>
+                            </div>
+                          </div>
+                        );
+                      }) || (
+                        <div className="col-span-4 text-center py-8 text-muted-foreground">
+                          {custodyLoading ? "데이터 로딩 중..." : "커스터디 메커니즘 데이터를 불러오는 중입니다"}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Programmatic vs Discretionary Split */}
+                  <div className="p-4 rounded-lg border">
+                    <div className="flex items-center gap-2 mb-4">
+                      <Activity className="h-4 w-4" />
+                      <span className="font-medium">실행 유형별 분류</span>
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div className="p-4 rounded-lg bg-green-500/5 border border-green-500/20">
+                        <div className="flex items-center gap-2 mb-3">
+                          <Zap className="h-5 w-5 text-green-500" />
+                          <span className="font-medium text-green-500">프로그래매틱 실행</span>
+                          <Badge className="ml-auto bg-green-500/10 text-green-500">
+                            {custodySummary?.totals?.programmaticPercent || 53}%
+                          </Badge>
+                        </div>
+                        <div className="space-y-2 text-sm">
+                          <div className="flex items-center justify-between">
+                            <span className="flex items-center gap-2 text-muted-foreground">
+                              <Badge className="bg-green-500/10 text-green-500 text-xs font-mono">A</Badge>
+                              프로토콜 자동 발행
+                            </span>
+                            <span className="font-mono">22B</span>
+                          </div>
+                          <div className="flex items-center justify-between">
+                            <span className="flex items-center gap-2 text-muted-foreground">
+                              <Badge className="bg-blue-500/10 text-blue-500 text-xs font-mono">B</Badge>
+                              스마트 컨트랙트 베스팅
+                            </span>
+                            <span className="font-mono">31B</span>
+                          </div>
+                        </div>
+                        <div className="mt-3 pt-3 border-t border-green-500/20">
+                          <div className="text-xs text-muted-foreground">
+                            자동화된 온체인 실행 - 재단 개입 없음
+                          </div>
+                        </div>
+                      </div>
+                      <div className="p-4 rounded-lg bg-orange-500/5 border border-orange-500/20">
+                        <div className="flex items-center gap-2 mb-3">
+                          <Building2 className="h-5 w-5 text-orange-500" />
+                          <span className="font-medium text-orange-500">재단 재량 실행</span>
+                          <Badge className="ml-auto bg-orange-500/10 text-orange-500">
+                            {custodySummary?.totals?.discretionaryPercent || 47}%
+                          </Badge>
+                        </div>
+                        <div className="space-y-2 text-sm">
+                          <div className="flex items-center justify-between">
+                            <span className="flex items-center gap-2 text-muted-foreground">
+                              <Badge className="bg-orange-500/10 text-orange-500 text-xs font-mono">C</Badge>
+                              재단 멀티시그 지갑
+                            </span>
+                            <span className="font-mono">17B</span>
+                          </div>
+                          <div className="flex items-center justify-between">
+                            <span className="flex items-center gap-2 text-muted-foreground">
+                              <Badge className="bg-purple-500/10 text-purple-500 text-xs font-mono">D</Badge>
+                              커뮤니티 풀
+                            </span>
+                            <span className="font-mono">30B</span>
+                          </div>
+                        </div>
+                        <div className="mt-3 pt-3 border-t border-orange-500/20">
+                          <div className="text-xs text-muted-foreground">
+                            3/5 멀티시그 + 7일 타임락 + 분기별 투명성 보고서
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Multisig Configuration */}
+                  <div className="p-4 rounded-lg border bg-muted/30">
+                    <div className="flex items-center justify-between mb-3">
+                      <div className="flex items-center gap-2">
+                        <Key className="h-4 w-4 text-blue-500" />
+                        <span className="font-medium">멀티시그 구성</span>
+                      </div>
+                      <a 
+                        href="/admin/treasury" 
+                        className="flex items-center gap-1 text-xs text-blue-500 hover:underline"
+                      >
+                        재무 관리 페이지
+                        <ExternalLink className="h-3 w-3" />
+                      </a>
+                    </div>
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+                      <div className="p-3 rounded-lg border bg-card">
+                        <div className="text-xs text-muted-foreground mb-1">서명 요구</div>
+                        <div className="font-bold text-primary">3 of 5</div>
+                      </div>
+                      <div className="p-3 rounded-lg border bg-card">
+                        <div className="text-xs text-muted-foreground mb-1">타임락</div>
+                        <div className="font-bold text-primary">168시간 (7일)</div>
+                      </div>
+                      <div className="p-3 rounded-lg border bg-card">
+                        <div className="text-xs text-muted-foreground mb-1">투명성 보고</div>
+                        <div className="font-bold text-primary">분기별</div>
+                      </div>
+                      <div className="p-3 rounded-lg border bg-card">
+                        <div className="text-xs text-muted-foreground mb-1">긴급 실행</div>
+                        <div className="font-bold text-primary">4/5 + 24시간</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* API Endpoints */}
+                  <div className="p-4 rounded-lg border bg-muted/30">
+                    <div className="flex items-center gap-2 mb-3">
+                      <Link2 className="h-4 w-4 text-blue-500" />
+                      <span className="font-medium">커스터디 API 연동</span>
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-xs font-mono">
+                      <div className="flex items-center gap-2">
+                        <CheckCircle className="h-3 w-3 text-green-500" />
+                        <code className="text-blue-500">/api/custody/summary</code>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <CheckCircle className="h-3 w-3 text-green-500" />
+                        <code className="text-blue-500">/api/custody/multisig-wallets</code>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <CheckCircle className="h-3 w-3 text-green-500" />
+                        <code className="text-blue-500">/api/custody/vesting-contracts</code>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <CheckCircle className="h-3 w-3 text-green-500" />
+                        <code className="text-blue-500">/api/custody/distribution-schedule</code>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <CheckCircle className="h-3 w-3 text-green-500" />
+                        <code className="text-blue-500">/api/custody/transactions</code>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <CheckCircle className="h-3 w-3 text-green-500" />
+                        <code className="text-blue-500">/api/custody/quarterly-reports</code>
                       </div>
                     </div>
                   </div>
