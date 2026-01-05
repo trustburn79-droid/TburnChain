@@ -32,6 +32,16 @@ import {
 import { productionMonitor } from "./core/monitoring/enterprise-production-monitor";
 import { crashDiagnostics } from "./core/monitoring/crash-diagnostics";
 import { disasterRecovery } from "./core/monitoring/disaster-recovery";
+import { 
+  createSessionBypassMiddleware as createSessionBypassV4,
+  createPreSessionMiddleware,
+  setSessionStore as setBypassSessionStoreV4,
+  disasterRecovery as disasterRecoveryV4,
+  ENVIRONMENT as ENV_V4,
+  getSessionMetrics as getSessionMetricsV4,
+  CONFIG as CONFIG_V4,
+} from "./core/sessions/session-bypass-v4";
+import cookieParser from "cookie-parser";
 
 // ★ [2026-01-05] 프로세스 크래시 핸들러 즉시 등록 (최우선)
 // uncaughtException, unhandledRejection 핸들러가 모든 에러를 캡처
@@ -82,6 +92,58 @@ export const app = express();
 
 // ★ [수정 2] Nginx 프록시 신뢰 설정 (필수)
 app.set('trust proxy', 1);
+
+// ★ [v4.0] Cookie Parser - MUST come before session for decision making
+app.use(cookieParser(process.env.COOKIE_SECRET || 'tburn-cookie-secret'));
+
+// ★ [v4.0 CRITICAL] PRE-SESSION FILTER - MUST be BEFORE express-session
+// This blocks RPC and stateless requests BEFORE session middleware even loads
+// This is THE KEY FIX for /rpc?_t=timestamp Internal Server Error
+const RPC_PATHS_V4 = ['/rpc', '/jsonrpc', '/json-rpc', '/eth', '/ws', '/wss'];
+const HEALTH_PATHS_V4 = ['/health', '/healthz', '/readyz', '/livez', '/ping', '/status', '/metrics'];
+const CACHE_BUST_REGEX_V4 = /[?&](_t|_|t|timestamp|ts|cachebust|cb|nocache|v|ver|nonce|rand)=/i;
+const TIMESTAMP_REGEX_V4 = /[?&][^=]+=\d{10,13}(&|$)/;
+const STATIC_EXT_REGEX_V4 = /\.(js|css|png|jpg|jpeg|gif|svg|ico|woff|woff2|ttf|json|map|mjs|cjs)$/i;
+
+app.use((req: Request, res: Response, next: NextFunction) => {
+  const url = req.url || '';
+  const path = url.split('?')[0].toLowerCase();
+  
+  const isRPC = RPC_PATHS_V4.some(p => path.startsWith(p));
+  const isHealth = HEALTH_PATHS_V4.some(p => path.startsWith(p) || path.startsWith(`/api${p}`));
+  const hasCacheBust = CACHE_BUST_REGEX_V4.test(url) || TIMESTAMP_REGEX_V4.test(url);
+  const isStatic = STATIC_EXT_REGEX_V4.test(path);
+  const isPublicPage = path.startsWith('/explorer') || path.startsWith('/scan') || 
+                       path.startsWith('/blocks') || path.startsWith('/transactions') ||
+                       path.startsWith('/validators') || path.startsWith('/staking') ||
+                       path.startsWith('/governance') || path.startsWith('/bridge') ||
+                       path.startsWith('/docs') || path.startsWith('/api-docs') ||
+                       path.startsWith('/sdk') || path.startsWith('/cli');
+  
+  if (isRPC || isHealth || hasCacheBust || isStatic || isPublicPage) {
+    (req as any)._skipSession = true;
+    (req as any).session = null;
+    (req as any).sessionID = null;
+    
+    const originalSetHeader = res.setHeader.bind(res);
+    res.setHeader = function(name: string, value: any) {
+      if (name.toLowerCase() === 'set-cookie') {
+        if (Array.isArray(value)) {
+          value = value.filter((v: string) => !v.includes('connect.sid'));
+          if (value.length === 0) return res;
+        } else if (typeof value === 'string' && value.includes('connect.sid')) {
+          return res;
+        }
+      }
+      return originalSetHeader(name, value);
+    };
+  }
+  
+  next();
+});
+
+// ★ [v4.0] Also add the comprehensive pre-session middleware from v4
+app.use(createPreSessionMiddleware());
 
 // ★ [2026-01-04 프로덕션 안정성] 요청 타임아웃 보호
 // 75초 타임아웃으로 "upstream request timeout" 방지
@@ -212,12 +274,17 @@ if (hasRedis) {
   
   // ★ [v3.0] session-bypass에도 세션 스토어 등록 (activeSessions 카운트용)
   setBypassSessionStore(memStore);
+  
+  // ★ [v4.0] session-bypass-v4에도 세션 스토어 등록
+  setBypassSessionStoreV4(memStore);
 }
 
 // ★ [v3.0] Redis를 사용하는 경우에도 세션 스토어 등록
 if (hasRedis) {
   disasterRecovery.setSessionStore(sessionStore);
   setBypassSessionStore(sessionStore);
+  // ★ [v4.0] Redis도 v4 시스템에 등록
+  setBypassSessionStoreV4(sessionStore as any);
 }
 
 // ★ [수정 5] 세션 미들웨어 - 내부 API 호출에서는 세션 생성 건너뛰기
@@ -299,8 +366,8 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 
 // ★ Phase 2: 조건부 세션 미들웨어 - skipSession=true인 경우 express-session 완전 스킵
 app.use((req: Request, res: Response, next: NextFunction) => {
-  // skipSession 플래그가 있으면 express-session 실행하지 않음 (MemoryStore 할당 없음)
-  if ((req as any).skipSession) {
+  // ★ [v4.0] _skipSession 또는 skipSession 플래그가 있으면 express-session 실행하지 않음
+  if ((req as any).skipSession || (req as any)._skipSession) {
     return next();
   }
   
@@ -382,9 +449,9 @@ if (GOOGLE_CLIENT_ID && GOOGLE_CLIENT_SECRET) {
   });
 
   app.use(passport.initialize());
-  // ★ [2026-01-05 v3.2] passport.session()을 조건부로 실행 - skipSession=true면 스킵
+  // ★ [v4.0] passport.session()을 조건부로 실행 - skipSession 또는 _skipSession=true면 스킵
   app.use((req: Request, res: Response, next: NextFunction) => {
-    if ((req as any).skipSession) {
+    if ((req as any).skipSession || (req as any)._skipSession) {
       return next(); // 세션 스킵된 요청에는 passport.session() 실행 안함
     }
     return passport.session()(req, res, next);
