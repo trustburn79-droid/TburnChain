@@ -132,7 +132,7 @@ export function PublicHeader() {
       titleKey: "publicPages.header.nav.network.title",
       items: [
         { titleKey: "publicPages.header.nav.network.validators.title", href: "/validator" },
-        { titleKey: "publicPages.header.nav.network.rpc.title", href: "/network/rpc" },
+        { titleKey: "publicPages.header.nav.network.rpc.title", href: "/rpc" },
         { titleKey: "publicPages.header.nav.network.status.title", href: "/network/status" },
         { titleKey: "publicPages.header.nav.network.ramp.title", href: "/network/ramp" },
       ],
