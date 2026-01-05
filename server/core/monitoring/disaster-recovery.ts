@@ -1,7 +1,7 @@
 /**
- * Disaster Recovery Manager v2.0.0
+ * Enterprise Disaster Recovery Manager v3.0.0
  * 
- * Purpose: 24/7/365 무중단 운영을 위한 재해 복구 시스템
+ * Purpose: 24/7/365 무중단 운영을 위한 엔터프라이즈급 재해 복구 시스템
  * 
  * Features:
  * - Memory monitoring with V8 heap statistics
@@ -10,17 +10,26 @@
  * - Automatic emergency handling
  * - Graceful shutdown/restart
  * - Signal handlers (SIGTERM, SIGINT)
+ * - ★ [v3.0] Enterprise Session Protection
+ * - ★ [v3.0] Proactive MemoryStore overflow prevention
+ * - ★ [v3.0] Session metrics integration
  * 
- * v2.0.0 Changes:
- * - Enhanced memory relief without --expose-gc
- * - Aggressive cache clearing on emergency
- * - Interval/timer cleanup system
- * - Memory pressure trigger via large allocations
- * - Auto-restart enabled for production stability
+ * v3.0.0 Changes:
+ * - Enterprise session protection with proactive cleanup
+ * - MemoryStore overflow prevention
+ * - Session metrics integration
+ * - Enhanced memory relief with session-aware cleanup
+ * - Auto-restart disabled to prevent loops
  */
 
 import { EventEmitter } from 'events';
 import { Request, Response, NextFunction } from 'express';
+import { 
+  forceClearAllSessions, 
+  emergencySessionCleanup,
+  getSessionMetrics,
+  setSessionStore 
+} from '../sessions/session-bypass';
 
 // ============================================================================
 // Configuration
@@ -47,6 +56,15 @@ interface DisasterRecoveryConfig {
     autoRestart: boolean;
     gracefulShutdownTimeout: number;
   };
+  // ★ [v3.0] Session protection settings
+  sessionProtection: {
+    enabled: boolean;
+    maxSessions: number;
+    warningThreshold: number;      // % of max sessions
+    criticalThreshold: number;     // % of max sessions  
+    emergencyThreshold: number;    // % of max sessions
+    proactiveCleanupInterval: number; // ms
+  };
 }
 
 const DEFAULT_CONFIG: DisasterRecoveryConfig = {
@@ -67,8 +85,17 @@ const DEFAULT_CONFIG: DisasterRecoveryConfig = {
   },
   healthCheckInterval: 30000,  // 30 seconds
   recovery: {
-    autoRestart: false,  // ★ [v2.0] DISABLED to prevent restart loops
+    autoRestart: false,  // ★ [v3.0] DISABLED to prevent restart loops
     gracefulShutdownTimeout: 5000,
+  },
+  // ★ [v3.0] Enterprise session protection
+  sessionProtection: {
+    enabled: true,
+    maxSessions: 10000,
+    warningThreshold: 0.70,      // 70% - start warning
+    criticalThreshold: 0.85,     // 85% - emergency cleanup
+    emergencyThreshold: 0.95,    // 95% - full clear
+    proactiveCleanupInterval: 60000, // 1 minute
   },
 };
 
@@ -129,8 +156,14 @@ class DisasterRecoveryManager extends EventEmitter {
   private config: DisasterRecoveryConfig;
   private metrics: Metrics;
   private checkInterval: NodeJS.Timeout | null = null;
+  private sessionCheckInterval: NodeJS.Timeout | null = null;
   private isShuttingDown: boolean = false;
   private startTime: number;
+  
+  // ★ [v3.0] Session store reference for direct cleanup
+  private sessionStoreRef: any = null;
+  private sessionCleanupCount: number = 0;
+  private lastSessionCleanup: number = 0;
   
   constructor(config: Partial<DisasterRecoveryConfig> = {}) {
     super();
@@ -142,6 +175,22 @@ class DisasterRecoveryManager extends EventEmitter {
       lastCheck: Date.now(),
     };
     this.startTime = Date.now();
+  }
+  
+  /**
+   * ★ [v3.0] Set session store reference for direct cleanup
+   */
+  setSessionStore(store: any): void {
+    this.sessionStoreRef = store;
+    setSessionStore(store); // Also set in session-bypass module
+    console.log('[DR] Session store registered for disaster recovery');
+  }
+  
+  /**
+   * ★ [v3.0] Get session store reference
+   */
+  getSessionStore(): any {
+    return this.sessionStoreRef;
   }
   
   /**
@@ -158,10 +207,142 @@ class DisasterRecoveryManager extends EventEmitter {
       this.performHealthCheck();
     }, this.config.healthCheckInterval);
     
+    // ★ [v3.0] Start proactive session protection monitoring
+    if (this.config.sessionProtection.enabled) {
+      this.startSessionProtection();
+    }
+    
     this.setupMemoryMonitoring();
     this.setupSignalHandlers();
     
     this.emit('started');
+  }
+  
+  /**
+   * ★ [v3.0] Start proactive session protection monitoring
+   */
+  private startSessionProtection(): void {
+    if (this.sessionCheckInterval) {
+      return;
+    }
+    
+    console.log('[DR] Starting proactive session protection...');
+    
+    this.sessionCheckInterval = setInterval(() => {
+      this.performSessionHealthCheck();
+    }, this.config.sessionProtection.proactiveCleanupInterval);
+    
+    console.log(`[DR] Session protection started (interval: ${this.config.sessionProtection.proactiveCleanupInterval}ms)`);
+  }
+  
+  /**
+   * ★ [v3.0] Perform session health check and proactive cleanup
+   */
+  private performSessionHealthCheck(): void {
+    if (!this.sessionStoreRef) {
+      return;
+    }
+    
+    try {
+      // Get current session count
+      const sessionMetrics = getSessionMetrics();
+      const currentSessions = sessionMetrics.activeSessions || this.getSessionCount();
+      const maxSessions = this.config.sessionProtection.maxSessions;
+      const usageRatio = currentSessions / maxSessions;
+      
+      // Update metrics
+      this.emit('sessionCheck', {
+        currentSessions,
+        maxSessions,
+        usageRatio,
+        skipRatio: sessionMetrics.skipRatio,
+      });
+      
+      // Proactive cleanup based on thresholds
+      if (usageRatio >= this.config.sessionProtection.emergencyThreshold) {
+        console.error(`[DR] 🚨 SESSION EMERGENCY: ${(usageRatio * 100).toFixed(1)}% capacity - clearing all sessions`);
+        this.performEmergencySessionClear();
+      } else if (usageRatio >= this.config.sessionProtection.criticalThreshold) {
+        console.warn(`[DR] ⚠️ SESSION CRITICAL: ${(usageRatio * 100).toFixed(1)}% capacity - cleaning 50%`);
+        this.performSessionCleanup(0.5);
+      } else if (usageRatio >= this.config.sessionProtection.warningThreshold) {
+        console.log(`[DR] SESSION WARNING: ${(usageRatio * 100).toFixed(1)}% capacity - cleaning 30%`);
+        this.performSessionCleanup(0.3);
+      }
+      
+      // Log session skip ratio for monitoring
+      if (sessionMetrics.skipRatio < 0.8 && sessionMetrics.totalRequests > 100) {
+        console.warn(`[DR] ⚠️ Low session skip ratio: ${(sessionMetrics.skipRatio * 100).toFixed(1)}% - target is ≥80%`);
+      }
+      
+    } catch (e) {
+      console.error('[DR] Session health check failed:', e);
+    }
+  }
+  
+  /**
+   * ★ [v3.0] Get current session count from store
+   */
+  private getSessionCount(): number {
+    if (!this.sessionStoreRef) return 0;
+    
+    try {
+      // Try LRU cache itemCount (memorystore)
+      const store = (this.sessionStoreRef as any).store;
+      if (store && typeof store.itemCount === 'number') {
+        return store.itemCount;
+      }
+      
+      // Try sessions object (express-session default MemoryStore)
+      const sessions = (this.sessionStoreRef as any).sessions;
+      if (sessions && typeof sessions === 'object') {
+        return Object.keys(sessions).length;
+      }
+    } catch (e) {
+      // Ignore errors
+    }
+    
+    return 0;
+  }
+  
+  /**
+   * ★ [v3.0] Perform proactive session cleanup
+   */
+  private performSessionCleanup(targetPercentage: number): void {
+    const now = Date.now();
+    
+    // Rate limit cleanup (minimum 30 seconds between cleanups)
+    if (now - this.lastSessionCleanup < 30000) {
+      return;
+    }
+    
+    this.lastSessionCleanup = now;
+    this.sessionCleanupCount++;
+    
+    console.log(`[DR] Performing session cleanup #${this.sessionCleanupCount} (target: ${(targetPercentage * 100).toFixed(0)}%)`);
+    
+    try {
+      const cleaned = emergencySessionCleanup(targetPercentage);
+      console.log(`[DR] Session cleanup complete: ${cleaned} sessions removed`);
+      this.emit('sessionCleanup', { cleaned, targetPercentage });
+    } catch (e) {
+      console.error('[DR] Session cleanup failed:', e);
+    }
+  }
+  
+  /**
+   * ★ [v3.0] Emergency: Clear all sessions
+   */
+  private performEmergencySessionClear(): void {
+    console.error('[DR] 🔥 EMERGENCY SESSION CLEAR - clearing all sessions to prevent crash');
+    
+    try {
+      forceClearAllSessions(this.sessionStoreRef);
+      this.emit('emergencySessionClear');
+      console.log('[DR] Emergency session clear complete');
+    } catch (e) {
+      console.error('[DR] Emergency session clear failed:', e);
+    }
   }
   
   /**
@@ -171,6 +352,12 @@ class DisasterRecoveryManager extends EventEmitter {
     if (this.checkInterval) {
       clearInterval(this.checkInterval);
       this.checkInterval = null;
+    }
+    
+    // ★ [v3.0] Stop session protection
+    if (this.sessionCheckInterval) {
+      clearInterval(this.sessionCheckInterval);
+      this.sessionCheckInterval = null;
     }
     
     console.log('[DR] Disaster Recovery Manager stopped');
@@ -312,7 +499,8 @@ class DisasterRecoveryManager extends EventEmitter {
   }
   
   /**
-   * ★ [v2.0] Aggressive memory relief without --expose-gc
+   * ★ [v3.0] Aggressive memory relief without --expose-gc
+   * Enhanced with direct session cleanup
    */
   private emergencyMemoryRelief(): void {
     console.log('[DR] ⚡ Starting emergency memory relief...');
@@ -323,12 +511,26 @@ class DisasterRecoveryManager extends EventEmitter {
     console.log(`[DR] Cleared ${clearedIntervals} intervals, ${clearedTimeouts} timeouts`);
     
     // Stage 2: Clear caches (will be implemented via event)
+    console.log('[DR] Clearing all caches...');
     this.emit('clearCaches');
     
-    // Stage 3: Clear session store (will be implemented via event)
-    this.emit('clearSessions');
+    // ★ [v3.0] Stage 3: Direct session cleanup (if store is available)
+    if (this.sessionStoreRef) {
+      console.log('[DR] Clearing all sessions...');
+      try {
+        forceClearAllSessions(this.sessionStoreRef);
+        console.log('[DR] Session clear complete');
+      } catch (e) {
+        console.error('[DR] Session clear failed:', e);
+      }
+    } else {
+      // Fallback to event-based clearing
+      console.log('[DR] Triggering session cleanup via event...');
+      this.emit('clearSessions');
+    }
     
     // Stage 4: Force V8 memory pressure via allocation/deallocation
+    console.log('[DR] Triggering V8 memory pressure...');
     this.triggerV8MemoryPressure();
     
     console.log('[DR] ✅ Emergency memory relief complete');
