@@ -25,7 +25,9 @@ import {
   checkMemoryStoreCapacity,
   performEmergencyCleanup,
   forceClearAllSessions,
-  IS_PRODUCTION
+  IS_PRODUCTION,
+  updateMetrics,
+  setSessionStore as setBypassSessionStore
 } from "./core/sessions/session-bypass";
 import { productionMonitor } from "./core/monitoring/enterprise-production-monitor";
 import { crashDiagnostics } from "./core/monitoring/crash-diagnostics";
@@ -207,11 +209,15 @@ if (hasRedis) {
   
   // ★ [v3.0] MemoryStore를 재해복구 시스템에 등록
   disasterRecovery.setSessionStore(memStore);
+  
+  // ★ [v3.0] session-bypass에도 세션 스토어 등록 (activeSessions 카운트용)
+  setBypassSessionStore(memStore);
 }
 
 // ★ [v3.0] Redis를 사용하는 경우에도 세션 스토어 등록
 if (hasRedis) {
   disasterRecovery.setSessionStore(sessionStore);
+  setBypassSessionStore(sessionStore);
 }
 
 // ★ [수정 5] 세션 미들웨어 - 내부 API 호출에서는 세션 생성 건너뛰기
@@ -263,6 +269,9 @@ export function getSessionStoreInfo() {
 app.use((req: Request, res: Response, next: NextFunction) => {
   const bypassResult = shouldBypassSession(req);
   
+  // ★ [v3.0] 모든 요청에 대해 메트릭 업데이트 - DR에서 skip ratio 정확히 추적
+  updateMetrics(bypassResult);
+  
   if (bypassResult.shouldSkip) {
     // ★ [CRITICAL] req.skipSession 플래그 설정 - Phase 2에서 세션 생성 완전 방지
     (req as any).skipSession = true;
@@ -273,6 +282,9 @@ app.use((req: Request, res: Response, next: NextFunction) => {
     
     // 빈 세션 객체 제공 (MemoryStore에 저장되지 않음)
     (req as any).session = createSkipSession();
+    
+    // ★ [v3.0] 엔터프라이즈 세션 메트릭에 기록 - DR에서 skip ratio 추적 가능
+    sessionMetrics.recordSessionSkipped();
     
     // 엔터프라이즈 모니터링
     productionMonitor.recordSessionSkip();
@@ -293,6 +305,10 @@ app.use((req: Request, res: Response, next: NextFunction) => {
   }
   
   sessionCreateCount++;
+  
+  // ★ [v3.0] 엔터프라이즈 세션 메트릭에 기록 - DR에서 skip ratio 추적 가능
+  sessionMetrics.recordSessionCreated();
+  
   productionMonitor.recordSessionCreate();
   
   // ★ MemoryStore 용량 모니터링 (세션 생성 시에만)

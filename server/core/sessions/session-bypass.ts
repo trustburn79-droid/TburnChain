@@ -539,6 +539,9 @@ export function updateMetrics(decision: SessionBypassResult): void {
   const heapUsed = process.memoryUsage().heapUsed;
   const heapTotal = process.memoryUsage().heapTotal;
   metrics.memoryUsage = heapUsed / heapTotal;
+  
+  // ★ [v3.0] 활성 세션 수 업데이트 - DR에서 정확한 용량 추적
+  metrics.activeSessions = getSessionCount();
 }
 
 export function getSessionMetrics(): SessionMetrics & { skipRatio: number; skipReasonsObject: Record<string, number> } {
