@@ -12598,3 +12598,162 @@ export type InsertCustodyDistributionSchedule = z.infer<typeof insertCustodyDist
 export type CustodyQuarterlyReportDB = typeof custodyQuarterlyReports.$inferSelect;
 export type InsertCustodyQuarterlyReport = z.infer<typeof insertCustodyQuarterlyReportSchema>;
 
+// ============================================================================
+// Phase 17: Enterprise Session Bypass v5.1 & AI Provider Registry
+// ============================================================================
+
+// AI Providers Registry (Brand-only naming: Gemini, Claude, ChatGPT, Grok)
+export const aiProviders = pgTable("ai_providers", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  
+  // Provider Identity (Brand-only names)
+  brandName: text("brand_name").notNull().unique(), // Gemini, Claude, ChatGPT, Grok
+  displayName: text("display_name").notNull(), // User-facing name
+  internalModel: text("internal_model").notNull(), // Internal model identifier
+  
+  // Provider Configuration
+  priority: integer("priority").notNull().default(1), // 1=Primary, 2=Secondary, 3=Tertiary, 4=Fallback
+  status: text("status").notNull().default("active"), // active, inactive, maintenance, rate_limited
+  
+  // Capabilities
+  capabilities: jsonb("capabilities").default([]), // ["text", "code", "vision", "embedding"]
+  maxTokens: integer("max_tokens").notNull().default(4096),
+  contextWindow: integer("context_window").notNull().default(128000),
+  
+  // Performance Metrics
+  avgLatencyMs: integer("avg_latency_ms").notNull().default(0),
+  successRate: numeric("success_rate", { precision: 8, scale: 6 }).notNull().default("1.000000"),
+  totalRequests: bigint("total_requests", { mode: "number" }).notNull().default(0),
+  failedRequests: bigint("failed_requests", { mode: "number" }).notNull().default(0),
+  
+  // Cost Tracking
+  costPerInputToken: numeric("cost_per_input_token", { precision: 12, scale: 8 }),
+  costPerOutputToken: numeric("cost_per_output_token", { precision: 12, scale: 8 }),
+  totalCostUsd: numeric("total_cost_usd", { precision: 16, scale: 4 }).notNull().default("0.0000"),
+  
+  // Failover Configuration
+  failoverEnabled: boolean("failover_enabled").notNull().default(true),
+  failoverThreshold: integer("failover_threshold").notNull().default(3), // Consecutive failures before failover
+  cooldownSeconds: integer("cooldown_seconds").notNull().default(60),
+  
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+}, (table) => [
+  index("idx_ai_providers_brand").on(table.brandName),
+  index("idx_ai_providers_priority").on(table.priority),
+  index("idx_ai_providers_status").on(table.status),
+]);
+
+// Session Bypass Metrics v5.1 (O(1) Set-based tracking with persistence)
+export const sessionBypassMetrics = pgTable("session_bypass_metrics", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  
+  // Timestamp & Interval
+  recordedAt: timestamp("recorded_at").notNull().defaultNow(),
+  intervalMinutes: integer("interval_minutes").notNull().default(5),
+  
+  // Core v5.1 Metrics
+  totalRequests: bigint("total_requests", { mode: "number" }).notNull().default(0),
+  sessionSkipped: bigint("session_skipped", { mode: "number" }).notNull().default(0),
+  sessionCreated: bigint("session_created", { mode: "number" }).notNull().default(0),
+  skipRatio: numeric("skip_ratio", { precision: 8, scale: 6 }).notNull().default("0.000000"),
+  
+  // Skip Reason Breakdown (O(1) Set-based categorization)
+  skippedByExactPath: bigint("skipped_by_exact_path", { mode: "number" }).notNull().default(0),
+  skippedByPrefixMatch: bigint("skipped_by_prefix_match", { mode: "number" }).notNull().default(0),
+  skippedByHeaderTrust: bigint("skipped_by_header_trust", { mode: "number" }).notNull().default(0),
+  skippedByStaticAsset: bigint("skipped_by_static_asset", { mode: "number" }).notNull().default(0),
+  
+  // Security Metrics
+  urlEncodingAttemptsBlocked: bigint("url_encoding_attempts_blocked", { mode: "number" }).notNull().default(0),
+  untrustedHeaderRejections: bigint("untrusted_header_rejections", { mode: "number" }).notNull().default(0),
+  
+  // Performance
+  avgLookupTimeNs: bigint("avg_lookup_time_ns", { mode: "number" }).notNull().default(0),
+  p99LookupTimeNs: bigint("p99_lookup_time_ns", { mode: "number" }).notNull().default(0),
+  
+  // Store Health
+  storeType: text("store_type").notNull().default("pg"), // pg, memory, redis
+  storeHealthy: boolean("store_healthy").notNull().default(true),
+  
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+}, (table) => [
+  index("idx_session_bypass_recorded_at").on(table.recordedAt),
+  index("idx_session_bypass_skip_ratio").on(table.skipRatio),
+  index("idx_session_bypass_store_type").on(table.storeType),
+]);
+
+// QnA Entries (Bilingual with locale support - 126 items)
+export const qnaEntries = pgTable("qna_entries", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  entryId: integer("entry_id").notNull().unique(), // Original ID from qna-data.ts (1-126)
+  
+  // Category
+  category: text("category").notNull(), // Korean category name
+  categoryKey: text("category_key").notNull(), // getting-started, wallet, staking, etc.
+  
+  // Content - Korean
+  questionKo: text("question_ko").notNull(),
+  answerKo: text("answer_ko").notNull(),
+  
+  // Content - English
+  questionEn: text("question_en").notNull(),
+  answerEn: text("answer_en").notNull(),
+  
+  // Metadata
+  relatedPage: text("related_page"),
+  tags: jsonb("tags").default([]),
+  
+  // Search Optimization
+  searchVector: text("search_vector"), // Concatenated searchable text
+  
+  // Analytics
+  viewCount: bigint("view_count", { mode: "number" }).notNull().default(0),
+  helpfulCount: integer("helpful_count").notNull().default(0),
+  notHelpfulCount: integer("not_helpful_count").notNull().default(0),
+  
+  // Status
+  isActive: boolean("is_active").notNull().default(true),
+  lastReviewedAt: timestamp("last_reviewed_at"),
+  
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+}, (table) => [
+  index("idx_qna_entry_id").on(table.entryId),
+  index("idx_qna_category_key").on(table.categoryKey),
+  index("idx_qna_is_active").on(table.isActive),
+  index("idx_qna_view_count").on(table.viewCount),
+]);
+
+// ============================================================================
+// Insert Schemas for Phase 17
+// ============================================================================
+export const insertAiProviderSchema = createInsertSchema(aiProviders).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertSessionBypassMetricSchema = createInsertSchema(sessionBypassMetrics).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertQnaEntrySchema = createInsertSchema(qnaEntries).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+// ============================================================================
+// Types for Phase 17
+// ============================================================================
+export type AiProviderDB = typeof aiProviders.$inferSelect;
+export type InsertAiProvider = z.infer<typeof insertAiProviderSchema>;
+
+export type SessionBypassMetricDB = typeof sessionBypassMetrics.$inferSelect;
+export type InsertSessionBypassMetric = z.infer<typeof insertSessionBypassMetricSchema>;
+
+export type QnaEntryDB = typeof qnaEntries.$inferSelect;
+export type InsertQnaEntry = z.infer<typeof insertQnaEntrySchema>;
+
