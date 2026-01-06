@@ -209,109 +209,99 @@ class RealtimeMetricsService {
   }
   
   /**
-   * ★ [ARCHITECT FIX] 오프라인 시 합성 데이터 생성 (uptime 기반)
+   * ★ [PRODUCTION FIX] DB에서 데이터 재로드 시도 (합성 데이터 제거)
    */
   private updateSyntheticData(): void {
-    const uptime = (Date.now() - this.startTime) / 1000;
-    const estimatedBlocks = Math.floor(uptime / 0.1); // 100ms per block
+    // ★ 합성 데이터 대신 DB 재로드 시도
+    this.loadShardDataFromDB();
     
-    // 기존 높이에서 점진적으로 증가
-    if (this.lastBlockHeight < 42000000) {
-      this.lastBlockHeight = 42000000;
+    // 블록 높이만 점진적 증가 (DB에서 가져온 TPS 유지)
+    if (this.lastBlockHeight > 0) {
+      this.lastBlockHeight += 1;
+      this.totalTransactions += Math.floor(this.currentTps * 0.1); // 100ms block time
     }
-    this.lastBlockHeight += Math.floor(Math.random() * 5) + 1; // 1-5 블록씩 증가
-    this.totalTransactions += Math.floor(Math.random() * 750) + 150; // 150-900 tx씩 증가
-    
-    // 합성 TPS (8000-12000 범위)
-    this.currentTps = 8000 + Math.floor(Math.random() * 4000);
-    this.avgBlockTime = 0.095 + Math.random() * 0.01; // 95-105ms
+    this.avgBlockTime = 0.1; // 100ms 고정
   }
   
   /**
-   * ★ [ARCHITECT FIX v3] 2차 데이터 폴링 - 샤드별 실시간 TPS 계산
+   * ★ [PRODUCTION FIX] 2차 데이터 폴링 - DB에서 실제 샤드 TPS 가져오기
    */
   private async pollSecondaryData(): Promise<void> {
     try {
       const shards = await storage.getAllShards();
-      const shardCount = shards?.length || 8;
       const now = Date.now();
       
-      // ★ 전체 TPS를 샤드별로 분배 (실시간 계산)
-      const totalTps = this.currentTps || 50000;
-      const basePerShard = Math.floor(totalTps / shardCount);
-      
-      // 샤드별 TPS 분배 (±15% 변동으로 자연스러운 분산)
-      for (let i = 0; i < shardCount; i++) {
-        // 시간 기반 시드로 일관된 변동 (5초마다 변경)
-        const timeSeed = Math.floor(now / 5000) + i;
-        const variance = Math.sin(timeSeed * 0.7) * 0.15; // -15% ~ +15%
-        const shardTps = Math.floor(basePerShard * (1 + variance));
+      if (shards && shards.length > 0) {
+        // ★ DB에서 실제 샤드 TPS 사용 (합성 데이터 아님)
+        for (const shard of shards) {
+          const shardId = shard.shardId ?? 0;
+          const existing = this.shardMetrics.get(shardId);
+          const prevTxCount = existing?.txCount || shard.transactionCount || 0;
+          const txIncrement = Math.floor((shard.tps || 0) * 5); // 5초 간격 * TPS
+          
+          this.shardMetrics.set(shardId, {
+            id: shardId,
+            tps: shard.tps || 0, // ★ DB 실제 TPS
+            txCount: prevTxCount + txIncrement,
+            lastUpdated: now
+          });
+        }
         
-        // 기존 트랜잭션 수 누적
-        const existing = this.shardMetrics.get(i);
-        const prevTxCount = existing?.txCount || 1500000000 + (i * 100000000);
-        const txIncrement = Math.floor(shardTps * 5); // 5초 간격 * TPS
-        
-        this.shardMetrics.set(i, {
-          id: i,
-          tps: shardTps,
-          txCount: prevTxCount + txIncrement,
-          lastUpdated: now
-        });
+        // 전체 TPS 계산 (DB 샤드 TPS 합계)
+        this.currentTps = shards.reduce((sum, s) => sum + (s.tps || 0), 0);
+        console.log(`[RealtimeMetrics] ✅ DB shards loaded: ${shards.length} shards, total TPS: ${this.currentTps}`);
+      } else {
+        console.warn('[RealtimeMetrics] ⚠️ No shard data in DB');
       }
     } catch (error) {
-      // 오류 시 합성 샤드 데이터 생성
-      this.generateSyntheticShardData();
+      console.error('[RealtimeMetrics] ❌ Failed to load shard data:', error);
     }
   }
   
   /**
-   * ★ [ARCHITECT FIX v3] 매 폴링마다 샤드 TPS 업데이트 (경량)
+   * ★ [PRODUCTION FIX] 샤드 txCount만 업데이트 (TPS는 DB 값 유지)
    */
   private updateShardTps(): void {
-    const shardCount = this.shardMetrics.size || 8;
     const now = Date.now();
-    const totalTps = this.currentTps || 50000;
-    const basePerShard = Math.floor(totalTps / shardCount);
     
-    for (let i = 0; i < shardCount; i++) {
-      // 시간 기반 시드로 일관된 변동 (5초마다 변경)
-      const timeSeed = Math.floor(now / 5000) + i;
-      const variance = Math.sin(timeSeed * 0.7) * 0.15; // -15% ~ +15%
-      const shardTps = Math.floor(basePerShard * (1 + variance));
-      
-      const existing = this.shardMetrics.get(i);
-      if (existing) {
-        existing.tps = shardTps;
-        existing.lastUpdated = now;
-        existing.txCount += Math.floor(shardTps * 5); // 5초 * TPS
-      }
+    // ★ DB에서 가져온 TPS 유지, txCount만 누적
+    for (const [shardId, shard] of this.shardMetrics) {
+      shard.txCount += Math.floor(shard.tps * 5); // 5초 * DB TPS
+      shard.lastUpdated = now;
     }
   }
   
   /**
-   * ★ 합성 샤드 데이터 생성 (fallback/초기화)
+   * ★ [PRODUCTION FIX] 초기 샤드 데이터 로드 (DB에서 비동기 로드)
    */
   private generateSyntheticShardData(): void {
-    const shardCount = 8;
-    const now = Date.now();
-    const totalTps = this.currentTps || 50000;
-    const basePerShard = Math.floor(totalTps / shardCount);
-    
-    for (let i = 0; i < shardCount; i++) {
-      const timeSeed = Math.floor(now / 5000) + i;
-      const variance = Math.sin(timeSeed * 0.7) * 0.15;
-      const shardTps = Math.floor(basePerShard * (1 + variance));
+    // 비동기로 DB에서 실제 샤드 데이터 로드
+    this.loadShardDataFromDB();
+  }
+  
+  /**
+   * ★ DB에서 샤드 데이터 비동기 로드
+   */
+  private async loadShardDataFromDB(): Promise<void> {
+    try {
+      const shards = await storage.getAllShards();
+      const now = Date.now();
       
-      const existing = this.shardMetrics.get(i);
-      const prevTxCount = existing?.txCount || 1500000000 + (i * 100000000);
-      
-      this.shardMetrics.set(i, {
-        id: i,
-        tps: shardTps,
-        txCount: prevTxCount + Math.floor(shardTps * 5),
-        lastUpdated: now
-      });
+      if (shards && shards.length > 0) {
+        for (const shard of shards) {
+          const shardId = shard.shardId ?? 0;
+          this.shardMetrics.set(shardId, {
+            id: shardId,
+            tps: shard.tps || 0, // ★ DB 실제 TPS
+            txCount: shard.transactionCount || 0,
+            lastUpdated: now
+          });
+        }
+        this.currentTps = shards.reduce((sum, s) => sum + (s.tps || 0), 0);
+        console.log(`[RealtimeMetrics] ✅ Initial DB load: ${shards.length} shards, TPS: ${this.currentTps}`);
+      }
+    } catch (error) {
+      console.error('[RealtimeMetrics] ❌ Initial load failed:', error);
     }
   }
   
