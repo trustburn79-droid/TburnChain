@@ -119,10 +119,7 @@ export default function AdminDemoWallets() {
 
   const createMutation = useMutation({
     mutationFn: async (data: typeof formData) => {
-      return apiRequest('/api/demo-wallets', {
-        method: 'POST',
-        body: JSON.stringify(data),
-      });
+      return apiRequest('POST', '/api/demo-wallets', data);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/demo-wallets'] });
@@ -138,10 +135,7 @@ export default function AdminDemoWallets() {
 
   const updateMutation = useMutation({
     mutationFn: async ({ walletId, data }: { walletId: string; data: Partial<DemoWallet> }) => {
-      return apiRequest(`/api/demo-wallets/${walletId}`, {
-        method: 'PATCH',
-        body: JSON.stringify(data),
-      });
+      return apiRequest('PATCH', `/api/demo-wallets/${walletId}`, data);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/demo-wallets'] });
@@ -156,9 +150,7 @@ export default function AdminDemoWallets() {
 
   const deleteMutation = useMutation({
     mutationFn: async (walletId: string) => {
-      return apiRequest(`/api/demo-wallets/${walletId}`, {
-        method: 'DELETE',
-      });
+      return apiRequest('DELETE', `/api/demo-wallets/${walletId}`);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/demo-wallets'] });
