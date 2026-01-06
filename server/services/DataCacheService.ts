@@ -34,13 +34,13 @@ class DataCacheService {
   };
 
   // Default TTL values in milliseconds
-  // ★ [2026-01-04 메모리 안정성 v2.0] TTL 최적화
-  private readonly DEFAULT_TTL = 45000; // 45 seconds (increased from 30s for less frequent updates)
-  private readonly STALE_TTL = 120000; // 2 minutes (reduced from 5 minutes to free memory faster)
+  // ★ [2026-01-06 메모리 안정성 v3.1] 극단적 TTL 최적화
+  private readonly DEFAULT_TTL = 60000; // 60 seconds (longer cache = less frequent updates = less memory churn)
+  private readonly STALE_TTL = 90000; // 1.5 minutes (aggressive cleanup)
   
-  // ★ 메모리 누수 방지 설정 - 더 적극적인 정리
-  private readonly MAX_CACHE_SIZE = 50; // 최대 캐시 항목 수 (reduced from 100)
-  private readonly CLEANUP_INTERVAL = 30000; // 30초마다 정리 (reduced from 60s)
+  // ★ [v3.1] 메모리 누수 방지 설정 - 최소 캐시 크기
+  private readonly MAX_CACHE_SIZE = 15; // ★ 극단적 축소: 15개 (essential data only)
+  private readonly CLEANUP_INTERVAL = 60000; // ★ 60초로 늘림 (오버헤드 감소)
   private cleanupTimer: ReturnType<typeof setInterval> | null = null;
 
   constructor() {

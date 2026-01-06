@@ -220,26 +220,20 @@ class ProductionStaticDataService {
 
   /**
    * 캐시에 데이터 로드 (초기화용)
+   * ★ [v3.1] 극단적 경량화 - 필수 데이터만 로드
    */
   async warmCache(): Promise<void> {
-    console.log('[StaticData] Warming cache with database data...');
+    console.log('[StaticData] Warming cache with database data (lightweight v3.1)...');
     
     try {
-      const [networkStats, shards, blocks, transactions, validators] = await Promise.all([
-        this.getNetworkStats(),
-        this.getShards(),
-        this.getRecentBlocks(20),
-        this.getRecentTransactions(20),
-        this.getValidators()
-      ]);
+      // ★ [v3.1] 순차적 로드로 메모리 피크 방지 (병렬 로드 비활성화)
+      const networkStats = await this.getNetworkStats();
+      this.cache.set(DataCacheService.KEYS.NETWORK_STATS, networkStats, 120000); // 2분 TTL
       
-      this.cache.set(DataCacheService.KEYS.NETWORK_STATS, networkStats, 60000);
-      this.cache.set(DataCacheService.KEYS.SHARDS, shards, 60000);
-      this.cache.set(DataCacheService.KEYS.RECENT_BLOCKS, blocks, 30000);
-      this.cache.set(DataCacheService.KEYS.RECENT_TRANSACTIONS, transactions, 30000);
-      this.cache.set(DataCacheService.KEYS.VALIDATORS, validators, 120000);
+      // ★ [v3.1] 블록/트랜잭션 데이터는 온디맨드로만 로드 (캐시 워밍에서 제외)
+      // 이렇게 하면 초기 메모리 사용량 크게 감소
       
-      console.log('[StaticData] ✅ Cache warmed with database data');
+      console.log('[StaticData] ✅ Minimal cache warmed (network stats only)');
     } catch (error) {
       console.error('[StaticData] Failed to warm cache:', error);
     }
