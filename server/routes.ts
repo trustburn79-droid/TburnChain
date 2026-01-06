@@ -9929,25 +9929,36 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  // Sharding API - Dynamic shard configuration from TBurnEnterpriseNode
+  // Sharding API - Dynamic shard configuration with REALTIME TPS from RealtimeMetricsService
   app.get("/api/sharding", async (_req, res) => {
     try {
       // Get shards directly from EnterpriseNode (no HTTP fetch needed)
       const enterpriseNode = getEnterpriseNode();
       const enterpriseShards = enterpriseNode.generateShards();
       
-      // Transform to expected format with stable pendingTx values
-      const shards = enterpriseShards.map((s: any, idx: number) => ({
-        id: s.shardId,
-        name: s.name,
-        validators: s.validatorCount,
-        tps: s.tps,
-        load: s.load,
-        pendingTx: 50 + idx * 25, // Stable values instead of random
-        crossShardTx: s.crossShardTxCount,
-        status: s.load > 70 ? 'warning' : 'healthy' as "healthy" | "warning" | "critical",
-        rebalanceScore: s.mlOptimizationScore ? Math.floor(s.mlOptimizationScore / 100) : 85
-      }));
+      // ★ [FIX] Get realtime shard TPS from RealtimeMetricsService
+      const { getRealtimeMetricsService } = await import('./services/RealtimeMetricsService');
+      const realtimeMetrics = getRealtimeMetricsService();
+      const realtimeShardData = realtimeMetrics.getShardMetrics();
+      
+      // Transform to expected format with REALTIME TPS values
+      const shards = enterpriseShards.map((s: any, idx: number) => {
+        // ★ Use realtime TPS from RealtimeMetricsService (updated every 5s)
+        const realtimeShard = realtimeShardData.find(r => r.id === idx);
+        const realtimeTps = realtimeShard?.tps || s.tps;
+        
+        return {
+          id: s.shardId,
+          name: s.name,
+          validators: s.validatorCount,
+          tps: realtimeTps, // ★ REALTIME TPS
+          load: s.load,
+          pendingTx: 50 + idx * 25, // Stable values instead of random
+          crossShardTx: s.crossShardTxCount,
+          status: s.load > 70 ? 'warning' : 'healthy' as "healthy" | "warning" | "critical",
+          rebalanceScore: s.mlOptimizationScore ? Math.floor(s.mlOptimizationScore / 100) : 85
+        };
+      });
       
       const totalTps = shards.reduce((sum: number, s: any) => sum + s.tps, 0);
       const avgLoad = Math.round(shards.reduce((sum: number, s: any) => sum + s.load, 0) / shards.length);
