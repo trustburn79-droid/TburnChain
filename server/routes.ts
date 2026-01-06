@@ -81,6 +81,7 @@ import { getHealthMonitor, validateCriticalConfiguration, HealthStatus } from ".
 import { getDataCache, DataCacheService } from "./services/DataCacheService";
 import { getProductionDataPoller } from "./services/ProductionDataPoller";
 import { getSessionHealthData } from "./core/sessions/session-bypass";
+import { getSessionSkipMetrics } from "./app";
 import { disasterRecovery, disasterRecoveryMiddleware } from "./core/monitoring/disaster-recovery";
 
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "admin7979";
@@ -1778,7 +1779,14 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   app.get("/api/session-health", async (_req, res) => {
     try {
       const sessionHealth = getSessionHealthData();
-      res.json(sessionHealth);
+      const skipMetrics = getSessionSkipMetrics();
+      
+      res.json({
+        ...sessionHealth,
+        v51Metrics: skipMetrics,
+        version: '5.1',
+        timestamp: new Date().toISOString(),
+      });
     } catch (error) {
       res.status(500).json({ 
         healthy: false, 
@@ -1806,6 +1814,47 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       });
     } catch (error) {
       res.status(500).json({ status: 'error', error: 'Health check failed' });
+    }
+  });
+
+  // ============================================
+  // /tmp Disk Monitoring (v5.1 Enterprise - Secure Async)
+  // ============================================
+  app.get("/api/tmp-status", async (_req, res) => {
+    try {
+      const fs = await import('fs/promises');
+      const path = await import('path');
+      
+      // Get /tmp directory size safely using fs.readdir
+      let totalSize = 0;
+      let fileCount = 0;
+      
+      try {
+        const entries = await fs.readdir('/tmp', { withFileTypes: true });
+        for (const entry of entries) {
+          try {
+            const fullPath = path.join('/tmp', entry.name);
+            const stat = await fs.stat(fullPath);
+            totalSize += stat.size;
+            fileCount++;
+          } catch {
+            // Skip inaccessible files
+          }
+        }
+      } catch {
+        // /tmp not accessible
+      }
+      
+      const sizeInMB = (totalSize / 1024 / 1024).toFixed(2);
+      
+      res.json({
+        status: 'ok',
+        tmpSize: `${sizeInMB}MB`,
+        fileCount,
+        timestamp: new Date().toISOString(),
+      });
+    } catch (error) {
+      res.status(500).json({ status: 'error', error: 'Failed to get /tmp status' });
     }
   });
 
