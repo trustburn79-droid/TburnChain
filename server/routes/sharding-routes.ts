@@ -1,6 +1,6 @@
 /**
  * TBURN Enterprise Sharding API Routes
- * Production-grade sharding system endpoints
+ * Production-grade sharding system endpoints with v6.0 shard scaling
  */
 
 import { Router, Request, Response } from "express";
@@ -9,6 +9,9 @@ import {
   startShardOrchestrator,
   SHARD_CONFIG,
 } from "../core/sharding/enterprise-shard-orchestrator";
+import { shardBootPipeline } from "../core/sharding/shard-boot-pipeline";
+import { memoryGovernor } from "../core/sharding/memory-governor";
+import { requestShedder } from "../core/sharding/request-shedder";
 
 const router = Router();
 
@@ -418,6 +421,240 @@ router.get('/performance', (_req: Request, res: Response) => {
         },
       },
       timestamp: Date.now(),
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: error instanceof Error ? error.message : 'Unknown error',
+    });
+  }
+});
+
+// ============================================
+// V6.0 SHARD SCALING CORE ENDPOINTS
+// ============================================
+
+// GET /api/sharding/v6/prometheus - Prometheus metrics for all v6.0 modules
+router.get('/v6/prometheus', (_req: Request, res: Response) => {
+  try {
+    const pipelineMetrics = shardBootPipeline.toPrometheusMetrics();
+    const governorMetrics = memoryGovernor.toPrometheusMetrics();
+    const shedderMetrics = requestShedder.toPrometheusMetrics();
+    
+    const combined = [
+      '# TBURN v6.0 Shard Scaling Core Metrics',
+      '# Generated at ' + new Date().toISOString(),
+      '',
+      '# === SHARD BOOT PIPELINE ===',
+      pipelineMetrics,
+      '',
+      '# === MEMORY GOVERNOR ===',
+      governorMetrics,
+      '',
+      '# === REQUEST SHEDDER ===',
+      shedderMetrics,
+    ].join('\n');
+    
+    res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+    res.send(combined);
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: error instanceof Error ? error.message : 'Unknown error',
+    });
+  }
+});
+
+// GET /api/sharding/v6/health - Combined health status of all v6.0 modules
+router.get('/v6/health', (_req: Request, res: Response) => {
+  try {
+    const pipelineHealth = shardBootPipeline.getHealthStatus();
+    const governorHealth = memoryGovernor.getHealthStatus();
+    const shedderHealth = requestShedder.getHealthStatus();
+    
+    const overallHealthy = pipelineHealth.healthy && 
+                           governorHealth.healthy && 
+                           shedderHealth.healthy;
+    
+    const overallStatus = !overallHealthy 
+      ? (governorHealth.status === 'critical' || shedderHealth.status === 'overloaded' 
+         ? 'critical' 
+         : 'degraded')
+      : 'healthy';
+    
+    res.json({
+      success: true,
+      data: {
+        overall: {
+          healthy: overallHealthy,
+          status: overallStatus,
+        },
+        pipeline: pipelineHealth,
+        memoryGovernor: governorHealth,
+        requestShedder: shedderHealth,
+      },
+      timestamp: Date.now(),
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: error instanceof Error ? error.message : 'Unknown error',
+    });
+  }
+});
+
+// GET /api/sharding/v6/metrics - JSON metrics for all v6.0 modules
+router.get('/v6/metrics', (_req: Request, res: Response) => {
+  try {
+    res.json({
+      success: true,
+      data: {
+        pipeline: shardBootPipeline.getMetrics(),
+        memoryGovernor: memoryGovernor.getMetrics(),
+        requestShedder: requestShedder.getMetrics(),
+      },
+      timestamp: Date.now(),
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: error instanceof Error ? error.message : 'Unknown error',
+    });
+  }
+});
+
+// GET /api/sharding/v6/pipeline - Shard boot pipeline status
+router.get('/v6/pipeline', (_req: Request, res: Response) => {
+  try {
+    const metrics = shardBootPipeline.getMetrics();
+    const health = shardBootPipeline.getHealthStatus();
+    const shells = shardBootPipeline.getAllShells();
+    
+    res.json({
+      success: true,
+      data: {
+        health,
+        metrics,
+        activeShells: shells.map(s => ({
+          id: s.id,
+          status: s.status,
+          loadProgress: s.loadProgress,
+          validatorCount: s.validatorCount,
+          memoryFootprintMB: s.memoryFootprintMB,
+          healthCheckPassed: s.healthCheckPassed,
+          activationDurationMs: s.activationDurationMs,
+        })),
+      },
+      timestamp: Date.now(),
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: error instanceof Error ? error.message : 'Unknown error',
+    });
+  }
+});
+
+// GET /api/sharding/v6/memory - Memory governor status
+router.get('/v6/memory', (_req: Request, res: Response) => {
+  try {
+    const metrics = memoryGovernor.getMetrics();
+    const health = memoryGovernor.getHealthStatus();
+    const snapshot = memoryGovernor.getMemorySnapshot();
+    
+    res.json({
+      success: true,
+      data: {
+        health,
+        metrics,
+        snapshot,
+        thresholds: {
+          warning: 75,
+          defer: 85,
+          hibernate: 90,
+          critical: 95,
+        },
+      },
+      timestamp: Date.now(),
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: error instanceof Error ? error.message : 'Unknown error',
+    });
+  }
+});
+
+// GET /api/sharding/v6/shedder - Request shedder status
+router.get('/v6/shedder', (_req: Request, res: Response) => {
+  try {
+    const metrics = requestShedder.getMetrics();
+    const health = requestShedder.getHealthStatus();
+    
+    res.json({
+      success: true,
+      data: {
+        health,
+        metrics,
+        config: {
+          maxEventLoopLagMs: 150,
+          degradedModeDurationMs: 60000,
+          cachedResponseTtlMs: 30000,
+          backpressureThreshold: 100,
+        },
+      },
+      timestamp: Date.now(),
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: error instanceof Error ? error.message : 'Unknown error',
+    });
+  }
+});
+
+// POST /api/sharding/v6/pipeline/reset-circuit-breaker - Reset circuit breaker
+router.post('/v6/pipeline/reset-circuit-breaker', (_req: Request, res: Response) => {
+  try {
+    shardBootPipeline.resetCircuitBreaker();
+    res.json({
+      success: true,
+      message: 'Circuit breaker reset successfully',
+      newState: shardBootPipeline.getMetrics().circuitBreakerState,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: error instanceof Error ? error.message : 'Unknown error',
+    });
+  }
+});
+
+// POST /api/sharding/v6/shedder/clear-cache - Clear response cache
+router.post('/v6/shedder/clear-cache', (_req: Request, res: Response) => {
+  try {
+    const cleared = requestShedder.clearCache();
+    res.json({
+      success: true,
+      message: `Cleared ${cleared} cached entries`,
+      newCacheSize: requestShedder.getMetrics().cacheSize,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: error instanceof Error ? error.message : 'Unknown error',
+    });
+  }
+});
+
+// POST /api/sharding/v6/shedder/exit-degraded - Force exit degraded mode
+router.post('/v6/shedder/exit-degraded', (_req: Request, res: Response) => {
+  try {
+    requestShedder.forceExitDegradedMode();
+    res.json({
+      success: true,
+      message: 'Degraded mode force-exited',
+      isDegradedMode: requestShedder.getMetrics().isDegradedMode,
     });
   } catch (error) {
     res.status(500).json({
