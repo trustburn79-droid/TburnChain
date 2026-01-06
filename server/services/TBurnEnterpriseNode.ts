@@ -1602,14 +1602,7 @@ export class TBurnEnterpriseNode extends EventEmitter {
   
   // Activate standby shards using v6.0 Staged Boot Pipeline
   private activateStandbyShards(count: number): void {
-    // v6.0: Check memory governor before activation
-    const memoryCheck = memoryGovernor.shouldDeferActivation(0);
-    if (memoryCheck.defer) {
-      console.log(`[Shard Distribution] ⏸️ Activation deferred: ${memoryCheck.reason}`);
-      return;
-    }
-    
-    // Collect standby shard IDs
+    // Collect standby shard IDs first to get actual count
     const standbyShardIds: number[] = [];
     for (const state of this.shardStates.values()) {
       if (state.status === 'standby' && standbyShardIds.length < count) {
@@ -1619,6 +1612,19 @@ export class TBurnEnterpriseNode extends EventEmitter {
     
     if (standbyShardIds.length === 0) {
       console.log('[Shard Distribution] No standby shards available');
+      return;
+    }
+    
+    // v6.0: Check memory governor with actual shard count to project footprint
+    const projectedUsage = memoryGovernor.projectMemoryAfterActivation(standbyShardIds.length);
+    if (projectedUsage > 85) {
+      console.log(`[Shard Distribution] ⏸️ Activation deferred: Projected memory ${projectedUsage.toFixed(1)}% exceeds 85% limit`);
+      return;
+    }
+    
+    // Also check memory governor state
+    if (!memoryGovernor.canActivate()) {
+      console.log(`[Shard Distribution] ⏸️ Activation deferred: Memory state is ${memoryGovernor.getState()}`);
       return;
     }
     
@@ -1648,13 +1654,19 @@ export class TBurnEnterpriseNode extends EventEmitter {
     // Register with memory governor
     memoryGovernor.registerShard(shardId, shell.memoryFootprintMB);
     
-    // Check if all queued shards are done
+    // Check if all queued shards are done and reset scaling flag
+    this.checkAndResetScalingFlag();
+    
+    console.log(`[Shard Distribution] ✅ Shard ${shardId} activated via pipeline. Active: ${this.activeShardCount}, Standby: ${this.standbyShardCount}`);
+  }
+  
+  // v6.0: Check and reset scaling flag when pipeline is idle
+  private checkAndResetScalingFlag(): void {
     const metrics = shardBootPipeline.getMetrics();
     if (metrics.pendingIntents === 0 && metrics.activeActivations === 0) {
       requestShedder.setScalingInProgress(false);
+      console.log('[Shard Distribution] ✅ Pipeline idle, scaling complete');
     }
-    
-    console.log(`[Shard Distribution] ✅ Shard ${shardId} activated via pipeline. Active: ${this.activeShardCount}, Standby: ${this.standbyShardCount}`);
   }
   
   // Deactivate active shards (lowest utilization first)
@@ -1776,10 +1788,15 @@ export class TBurnEnterpriseNode extends EventEmitter {
       this.handleShardReady(shardId, shell);
     });
     
-    // Handle shard failure events
+    // Handle shard failure events - check if all intents are processed
     shardBootPipeline.on('shardFailed', ({ shardId, error }) => {
       console.error(`[Shard Distribution] ❌ Shard ${shardId} failed to activate:`, error);
-      requestShedder.setScalingInProgress(false);
+      this.checkAndResetScalingFlag();
+    });
+    
+    // Handle queue empty - ensure scaling flag is reset
+    shardBootPipeline.on('intentsQueued', () => {
+      // Will be reset when all intents are processed
     });
     
     // Handle memory governor state changes
