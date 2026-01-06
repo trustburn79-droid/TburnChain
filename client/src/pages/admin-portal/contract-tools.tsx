@@ -65,12 +65,13 @@ export default function ContractTools() {
   const [selectedContract, setSelectedContract] = useState<Contract | null>(null);
   const [showDeployConfirm, setShowDeployConfirm] = useState(false);
 
-  const { data: contractsData, isLoading, error, refetch } = useQuery<ContractsData>({
+  const { data: contractsData, isLoading, refetch } = useQuery<ContractsData>({
     queryKey: ["/api/enterprise/admin/developer/contracts"],
     refetchInterval: 30000,
     staleTime: 30000,
     refetchOnMount: false,
     refetchOnWindowFocus: false,
+    retry: 1,
   });
 
   const deployMutation = useMutation({
@@ -215,24 +216,6 @@ export default function ContractTools() {
     deployMutation.mutate({ sourceCode: "", contractName: "", compiler: "0.8.20" });
     setShowDeployConfirm(false);
   }, [deployMutation]);
-
-  if (error) {
-    return (
-      <div className="flex-1 flex items-center justify-center" data-testid="contracts-error">
-        <Card className="max-w-md">
-          <CardContent className="p-6 text-center">
-            <AlertCircle className="h-12 w-12 text-destructive mx-auto mb-4" />
-            <h2 className="text-xl font-bold mb-2">{t("adminContracts.error.title")}</h2>
-            <p className="text-muted-foreground mb-4">{t("adminContracts.error.description")}</p>
-            <Button onClick={() => refetch()} data-testid="button-retry">
-              <RefreshCw className="h-4 w-4 mr-2" />
-              {t("adminContracts.retry")}
-            </Button>
-          </CardContent>
-        </Card>
-      </div>
-    );
-  }
 
   return (
     <div className="flex-1 overflow-auto" data-testid="contract-tools-page">

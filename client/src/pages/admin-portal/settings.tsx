@@ -132,6 +132,53 @@ function MetricCard({
   );
 }
 
+const defaultSettings: SystemSettings = {
+  general: {
+    chainName: "TBURN Mainnet",
+    chainId: "6000",
+    rpcEndpoint: "https://rpc.tburn.io",
+    wsEndpoint: "wss://ws.tburn.io",
+    explorerUrl: "https://explorer.tburn.io",
+    timezone: "UTC",
+  },
+  database: {
+    autoBackup: true,
+    dataRetention: "90",
+  },
+  network: {
+    blockTime: 1,
+    maxBlockSize: 2,
+    gasLimit: "30000000",
+    minGasPrice: "0.001",
+    maxValidators: 125,
+    minStake: "1000000",
+    aiEnhancedBft: true,
+    dynamicSharding: true,
+  },
+  security: {
+    twoFactorAuth: true,
+    sessionTimeout: "60",
+    ipWhitelist: true,
+    rateLimiting: true,
+    autoKeyRotation: "30",
+  },
+  notifications: {
+    criticalAlerts: true,
+    securityEvents: true,
+    validatorStatus: true,
+    bridgeAlerts: true,
+    aiSystemAlerts: true,
+    maintenanceReminders: true,
+    alertEmail: "admin@tburn.io",
+    smtpServer: "smtp.tburn.io",
+  },
+  appearance: {
+    defaultTheme: "dark",
+    defaultLanguage: "en",
+    compactMode: false,
+  },
+};
+
 export default function AdminSettings() {
   const { t, i18n } = useTranslation();
   const { toast } = useToast();
@@ -145,6 +192,10 @@ export default function AdminSettings() {
   const { data: settings, isLoading, error, refetch } = useQuery<SystemSettings>({
     queryKey: ["/api/enterprise/admin/settings"],
     refetchInterval: 30000,
+    retry: 1,
+    staleTime: 30000,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
   });
 
   useEffect(() => {
@@ -243,7 +294,7 @@ export default function AdminSettings() {
     resetSettingsMutation.mutate();
   }, [resetSettingsMutation]);
 
-  const currentSettings = localSettings || settings;
+  const currentSettings = localSettings || settings || defaultSettings;
 
   const getDetailSections = useCallback((): DetailSection[] => {
     if (!selectedSection || !currentSettings) return [];

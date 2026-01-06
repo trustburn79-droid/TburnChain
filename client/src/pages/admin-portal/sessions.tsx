@@ -137,12 +137,13 @@ export default function Sessions() {
   const [showTerminateConfirm, setShowTerminateConfirm] = useState(false);
   const [pendingTerminateId, setPendingTerminateId] = useState<string | null>(null);
 
-  const { data: sessionsData, isLoading, error, refetch } = useQuery<SessionsData>({
+  const { data: sessionsData, isLoading, refetch } = useQuery<SessionsData>({
     queryKey: ["/api/enterprise/admin/sessions"],
     refetchInterval: wsConnected ? false : 30000,
     staleTime: 30000,
     refetchOnMount: false,
     refetchOnWindowFocus: false,
+    retry: 1,
   });
 
   const terminateSessionMutation = useMutation({
@@ -326,28 +327,6 @@ export default function Sessions() {
     const matchesStatus = filterStatus === "all" || session.status === filterStatus;
     return matchesSearch && matchesStatus;
   });
-
-  if (error) {
-    return (
-      <div className="flex-1 overflow-auto" data-testid="sessions-error-container">
-        <div className="container max-w-[1800px] mx-auto p-6">
-          <Card className="border-red-500/50 bg-red-500/10">
-            <CardContent className="flex items-center gap-4 py-6">
-              <AlertCircle className="h-8 w-8 text-red-500" />
-              <div>
-                <h3 className="font-semibold text-red-500">{t("adminSessions.errorLoading")}</h3>
-                <p className="text-sm text-muted-foreground">{t("adminSessions.errorLoadingDesc")}</p>
-              </div>
-              <Button variant="outline" onClick={() => refetch()} className="ml-auto" data-testid="button-retry">
-                <RefreshCw className="h-4 w-4 mr-2" />
-                {t("adminSessions.retry")}
-              </Button>
-            </CardContent>
-          </Card>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className="flex-1 overflow-auto" data-testid="sessions-container">

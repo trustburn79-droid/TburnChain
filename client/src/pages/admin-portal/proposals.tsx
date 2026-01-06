@@ -140,12 +140,13 @@ export default function Proposals() {
   const [selectedProposal, setSelectedProposal] = useState<Proposal | null>(null);
   const [proposalToDelete, setProposalToDelete] = useState<Proposal | null>(null);
 
-  const { data, isLoading, error, refetch } = useQuery<ProposalsData>({
+  const { data, isLoading, refetch } = useQuery<ProposalsData>({
     queryKey: ['/api/enterprise/admin/governance/proposals'],
     refetchInterval: 30000,
     staleTime: 30000,
     refetchOnMount: false,
     refetchOnWindowFocus: false,
+    retry: 1,
   });
 
   useEffect(() => {
@@ -478,27 +479,6 @@ export default function Proposals() {
   const activeCount = proposals.filter(p => p.status === "active").length;
   const passedCount = proposals.filter(p => p.status === "passed" || p.status === "executed").length;
   const rejectedCount = proposals.filter(p => p.status === "rejected").length;
-
-  if (error) {
-    return (
-      <div className="flex-1 overflow-auto" data-testid="proposals-error">
-        <div className="container max-w-[1800px] mx-auto p-6">
-          <Card className="border-red-500/50 bg-red-500/10">
-            <CardContent className="pt-6">
-              <div className="flex items-center gap-2 text-red-500">
-                <AlertTriangle className="h-5 w-5" />
-                <span>{t("adminProposals.loadError")}</span>
-              </div>
-              <Button onClick={() => refetch()} className="mt-4" data-testid="button-retry">
-                <RefreshCw className="h-4 w-4 mr-2" />
-                {t("adminProposals.retry")}
-              </Button>
-            </CardContent>
-          </Card>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className="flex-1 overflow-auto" data-testid="proposals-page">

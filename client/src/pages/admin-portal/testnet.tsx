@@ -182,12 +182,13 @@ export default function TestnetManagement() {
   const [showAddToWallet, setShowAddToWallet] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
 
-  const { data: testnetData, isLoading, error, refetch } = useQuery<TestnetData>({
+  const { data: testnetData, isLoading, refetch } = useQuery<TestnetData>({
     queryKey: ["/api/enterprise/admin/testnet"],
     refetchInterval: 30000,
     staleTime: 30000,
     refetchOnMount: false,
     refetchOnWindowFocus: false,
+    retry: 1,
   });
 
   const faucetMutation = useMutation({
@@ -328,24 +329,6 @@ export default function TestnetManagement() {
       default: return <CircleDot className="h-4 w-4 text-blue-500" />;
     }
   };
-
-  if (error) {
-    return (
-      <div className="flex-1 flex items-center justify-center" data-testid="testnet-error">
-        <Card className="max-w-md">
-          <CardContent className="p-6 text-center">
-            <AlertCircle className="h-12 w-12 text-destructive mx-auto mb-4" />
-            <h2 className="text-xl font-bold mb-2">{t("adminTestnet.failedLoadTestnet")}</h2>
-            <p className="text-muted-foreground mb-4">{t("adminTestnet.unableConnectServices")}</p>
-            <Button onClick={() => refetch()} data-testid="button-retry">
-              <RefreshCw className="h-4 w-4 mr-2" />
-              {t("adminTestnet.retry")}
-            </Button>
-          </CardContent>
-        </Card>
-      </div>
-    );
-  }
 
   return (
     <div className="flex-1 overflow-auto" data-testid="testnet-page">
