@@ -2246,6 +2246,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   // IMPORTANT: Must be registered BEFORE enterpriseRoutes to ensure admin auth is enforced
   // ============================================
   app.use("/api/enterprise/admin", requireAdmin, enterpriseAdminRoutes);
+  app.use("/api/admin", enterpriseAdminRoutes); // Also mount at /api/admin for backwards compatibility
   console.log("[EnterpriseAdmin] ✅ Enterprise admin routes registered (42 endpoints, admin auth required)");
 
   // ============================================
@@ -10947,21 +10948,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  // Alert Rules
-  app.get("/api/admin/alerts/rules", async (_req, res) => {
-    try {
-      res.json({
-        rules: [
-          { id: 'rule-1', name: 'High Gas Price', condition: 'gasPrice > 100 EMB', severity: 'warning', enabled: true, notifications: ['email', 'slack'] },
-          { id: 'rule-2', name: 'Validator Offline', condition: 'validator.status == offline', severity: 'critical', enabled: true, notifications: ['email', 'sms', 'slack'] },
-          { id: 'rule-3', name: 'Large Transfer', condition: 'transfer.amount > 1000000', severity: 'info', enabled: true, notifications: ['email'] },
-          { id: 'rule-4', name: 'Bridge Delay', condition: 'bridge.delay > 30m', severity: 'warning', enabled: true, notifications: ['slack'] }
-        ]
-      });
-    } catch (error) {
-      res.status(500).json({ error: "Failed to fetch alert rules" });
-    }
-  });
+  // Alert Rules endpoint moved to enterprise-admin-routes.ts (database-backed)
 
   // Analytics
   app.get("/api/admin/analytics/network", async (_req, res) => {
@@ -17838,15 +17825,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     res.json(result);
   });
 
-  app.get("/api/admin/announcements", async (_req, res) => {
-    const types = ['info', 'warning', 'critical', 'maintenance'] as const;
-    const statuses = ['draft', 'scheduled', 'published', 'archived'] as const;
-    const audiences = [['all'], ['validators'], ['operators', 'developers'], ['all', 'validators']];
-    // Production: Return empty announcements array
-    res.json({
-      announcements: []
-    });
-  });
+  // Announcements endpoint moved to enterprise-admin-routes.ts (database-backed)
 
   app.get("/api/admin/training", async (_req, res) => {
     res.json({
