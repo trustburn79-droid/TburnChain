@@ -43,6 +43,14 @@ Core architectural decisions and features include:
   - **v6_health_snapshots_hourly** (27 columns): Hourly aggregates for historical analysis, event summaries, SLA tracking
   - **28 optimized indexes** for time-series queries, state filtering, correlation lookups, and percentile analysis
 - **Enterprise Session Monitoring**: Production-grade session metrics and observability system with Prometheus export, historical tracking, and alerting.
+- **Enterprise Session Policy v7.0**: Centralized session bypass policy module (`session-policy.ts`) as single source of truth for all bypass decisions:
+  - O(1) Set-based path matching for session-free and auth-required paths
+  - CIDR-aware trusted IP validation for X-Skip-Session header security
+  - Unified cookie validation with signed cookie support
+  - Centralized bypass decision function across all three bypass layers
+  - Prometheus metrics export at `/api/session-policy/prometheus`
+  - JSON metrics endpoint at `/api/session-policy/metrics`
+  - Enterprise logging system with LogLevel enum and log buffering
 - **Enterprise Scalability Infrastructure**: Resilience patterns including `BlockchainOrchestrator`, `PersistenceBatcher`, and `AdaptiveFeeEngine`.
 - **Enterprise Validator Orchestrator**: Production-grade validator management for 125 genesis validators with performance scoring, slashing, and reward distribution.
 - **Enterprise Validator Performance Tracking**: Telemetry system with percentile tracking, SLA monitoring, and real-time alerting.
