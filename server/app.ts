@@ -240,6 +240,23 @@ app.use((req: Request, res: Response, next: NextFunction) => {
   let shouldSkip = false;
   let skipReason = '';
   
+  // ★ [2026-01-06 CRITICAL FIX] NEVER skip session for auth-required paths
+  // This takes absolute precedence over ALL other bypass rules
+  const isAuthRequiredPath = path.startsWith('/api/admin') || 
+                              path.startsWith('/api/enterprise/admin') ||
+                              path.startsWith('/api/auth') ||
+                              path.startsWith('/api/session') ||
+                              path.startsWith('/api/user') ||
+                              path.startsWith('/api/oauth') ||
+                              path.startsWith('/api/member');
+  
+  if (isAuthRequiredPath) {
+    // Auth-required paths must NEVER skip session - go directly to next()
+    console.log(`[SessionBypassV5] Auth-required path detected: ${path}, skipping all bypass logic`);
+    next();
+    return;
+  }
+  
   // 1. 헤더 기반 스킵 (신뢰할 수 있는 프록시만)
   if (trustedSkipHeader) {
     shouldSkip = true;

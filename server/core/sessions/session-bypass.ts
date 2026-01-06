@@ -180,6 +180,7 @@ const AUTH_REQUIRED_PATHS = [
   '/api/session',
   '/api/user',
   '/api/admin',
+  '/api/enterprise/admin',  // ★ [2026-01-06] Enterprise admin portal routes require authentication
   '/api/wallet',
   '/api/transaction',
   '/api/stake',
@@ -430,6 +431,12 @@ export function shouldBypassSession(req: Request): SessionBypassResult {
   const accept = (req.headers['accept'] || '').toLowerCase();
   const hasInternalHeader = req.headers['x-internal-request'] === 'true';
   const hasSessionCookie = hasValidSessionCookie(req);
+  
+  // ★ [2026-01-06 CRITICAL FIX] PRIORITY -1: Auth-required paths NEVER skip session
+  // This check MUST come before ALL other checks to ensure session is always loaded
+  if (isAuthRequired(path)) {
+    return { shouldSkip: false, reason: 'auth_required_priority', isInternalRequest: false, hasSessionCookie };
+  }
   
   // ★ [PRIORITY 0] 타임스탬프 캐시 버스팅 파라미터가 있는 GET 요청 스킵
   // ?_t=1767653039282 형태의 요청은 브라우저 새로고침/탭 복구로 세션 불필요

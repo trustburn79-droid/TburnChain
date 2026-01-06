@@ -514,20 +514,11 @@ class DisasterRecoveryManager extends EventEmitter {
     console.log('[DR] Clearing all caches...');
     this.emit('clearCaches');
     
-    // ★ [v3.0] Stage 3: Direct session cleanup (if store is available)
-    if (this.sessionStoreRef) {
-      console.log('[DR] Clearing all sessions...');
-      try {
-        forceClearAllSessions(this.sessionStoreRef);
-        console.log('[DR] Session clear complete');
-      } catch (e) {
-        console.error('[DR] Session clear failed:', e);
-      }
-    } else {
-      // Fallback to event-based clearing
-      console.log('[DR] Triggering session cleanup via event...');
-      this.emit('clearSessions');
-    }
+    // ★ [v3.0] Stage 3: Session preservation
+    // IMPORTANT: Sessions are stored in Redis and don't affect server heap memory.
+    // Clearing sessions breaks admin authentication and provides no memory benefit.
+    // Skip session clearing to maintain user authentication state.
+    console.log('[DR] Skipping session clear (stored in Redis, does not affect heap)');
     
     // Stage 4: Force V8 memory pressure via allocation/deallocation
     console.log('[DR] Triggering V8 memory pressure...');

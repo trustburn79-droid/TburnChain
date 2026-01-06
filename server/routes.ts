@@ -471,8 +471,12 @@ function requireAuth(req: Request, res: Response, next: NextFunction) {
 
 // Admin authentication middleware
 function requireAdmin(req: Request, res: Response, next: NextFunction) {
+  // Debug: Log session state
+  console.log('[Admin] requireAdmin check - sessionID:', req.sessionID, 'adminAuthenticated:', req.session.adminAuthenticated, 'path:', req.path);
+  
   // Check admin session authentication (set by /api/admin/auth/login)
   if (req.session.adminAuthenticated) {
+    console.log('[Admin] ✅ Admin access granted for session:', req.sessionID);
     return next();
   }
   
@@ -2031,7 +2035,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       return next();
     }
     // Skip auth check for enterprise read-only endpoints (public data)
-    // Note: /enterprise/admin/* routes are protected by requireAdmin middleware (see route registration)
+    // Note: /enterprise/admin/* routes are skipped here but protected by requireAdmin middleware at route level
     if (req.path.startsWith("/enterprise/snapshot") || 
         req.path.startsWith("/enterprise/health") ||
         req.path.startsWith("/enterprise/metrics") ||
@@ -2042,6 +2046,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
         req.path.startsWith("/enterprise/staking-defi/correlation") ||
         req.path.startsWith("/enterprise/bridge-defi/integration") ||
         req.path.startsWith("/enterprise/governance/overview") ||
+        req.path.startsWith("/enterprise/admin/") ||
         req.path.startsWith("/enterprise/operator/dashboard") ||
         req.path.startsWith("/enterprise/operator/session") ||
         req.path.startsWith("/enterprise/dashboard/unified") ||
@@ -2220,6 +2225,15 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   gameFiService.initialize().catch(err => console.error("[GameFi] Init error:", err));
 
   // ============================================
+  // ENTERPRISE ADMIN ROUTES (42 Admin Endpoints)
+  // Security, Analytics, Governance, Finance, Monitoring, etc.
+  // Protected by requireAdmin middleware for session-based admin authentication
+  // IMPORTANT: Must be registered BEFORE enterpriseRoutes to ensure admin auth is enforced
+  // ============================================
+  app.use("/api/enterprise/admin", requireAdmin, enterpriseAdminRoutes);
+  console.log("[EnterpriseAdmin] ✅ Enterprise admin routes registered (42 endpoints, admin auth required)");
+
+  // ============================================
   // ENTERPRISE DATA HUB & ORCHESTRATION (Cross-Module Integration)
   // ============================================
   app.use("/api/enterprise", enterpriseRoutes);
@@ -2299,14 +2313,6 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   // ============================================
   app.use("/api/distribution-programs", distributionProgramsRoutes);
   console.log("[DistributionPrograms] ✅ Enterprise distribution programs routes registered (8 programs)");
-
-  // ============================================
-  // ENTERPRISE ADMIN ROUTES (42 Admin Endpoints)
-  // Security, Analytics, Governance, Finance, Monitoring, etc.
-  // Protected by requireAdmin middleware for session-based admin authentication
-  // ============================================
-  app.use("/api/enterprise/admin", requireAdmin, enterpriseAdminRoutes);
-  console.log("[EnterpriseAdmin] ✅ Enterprise admin routes registered (42 endpoints, admin auth required)");
 
   // ============================================
   // USER DATA API (User-specific rewards, staking, events)

@@ -201,6 +201,7 @@ const CACHE_BUST_PARAMS = [
 
 const AUTH_REQUIRED_PATHS = [
   '/api/auth/', '/api/session', '/api/user', '/api/admin',
+  '/api/enterprise/admin',  // Enterprise admin portal routes require authentication
   '/api/wallet/private', '/api/transaction/sign', '/api/stake/manage',
   '/api/governance/vote', '/api/profile', '/api/settings',
   '/api/notifications', '/api/private/',
@@ -390,6 +391,16 @@ export function shouldSkipSession(req: Request): SkipDecision {
   const ip = getClientIP(req);
   const contentType = (req.headers['content-type'] || '').toLowerCase();
   
+  // ★ [2026-01-06 CRITICAL FIX] Priority -1: NEVER skip session for auth-required paths
+  // This takes absolute precedence over ALL other bypass rules
+  const authRequired = isAuthRequired(path);
+  if (path.includes('enterprise/admin') || path.includes('/admin/')) {
+    console.log(`[SessionBypass] Auth check - path: ${path}, url: ${url}, authRequired: ${authRequired}`);
+  }
+  if (authRequired) {
+    return { skip: false, reason: 'auth_required_path', priority: -1, confidence: 'high' };
+  }
+  
   // ★ [2026-01-06 PRODUCTION FIX] Priority 0: Header-based session skip
   // CDN/Load Balancer may strip query strings but can set headers
   const skipHeader = req.headers['x-skip-session'] === 'true' || 
@@ -435,7 +446,7 @@ export function shouldSkipSession(req: Request): SkipDecision {
     return { skip: true, reason: `internal_ip:${ip}`, priority: 7, confidence: 'high' };
   }
   
-  if (userAgent) {
+  if (userAgent && !isAuthRequired(path)) {
     for (const pattern of INTERNAL_USER_AGENTS) {
       if (userAgent.includes(pattern)) {
         return { skip: true, reason: `internal_ua:${pattern}`, priority: 8, confidence: 'high' };
@@ -758,6 +769,21 @@ export function createPreSessionMiddleware(): RequestHandler {
   return (req: Request, res: Response, next: NextFunction) => {
     const url = req.url || req.originalUrl || '/';
     const path = url.split('?')[0].toLowerCase();
+    
+    // ★ [2026-01-06 CRITICAL FIX] NEVER skip session for auth-required paths
+    const isAuthRequiredPath = path.startsWith('/api/admin') || 
+                                path.startsWith('/api/enterprise/admin') ||
+                                path.startsWith('/api/auth') ||
+                                path.startsWith('/api/session') ||
+                                path.startsWith('/api/user') ||
+                                path.startsWith('/api/oauth') ||
+                                path.startsWith('/api/member');
+    
+    if (isAuthRequiredPath) {
+      // Auth-required paths must NEVER skip session
+      next();
+      return;
+    }
     
     if (isRPCOrStatelessPath(path) || hasCacheBustParam(url)) {
       (req as any).session = null;
