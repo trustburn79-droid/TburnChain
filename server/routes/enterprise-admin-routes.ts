@@ -1,4 +1,5 @@
 import { Router, Request, Response } from 'express';
+import { storage } from '../storage';
 
 const router = Router();
 
@@ -864,30 +865,68 @@ router.get('/monitoring/metrics', (_req: Request, res: Response) => {
 // ============================================
 // ALERTS
 // ============================================
-router.get('/alerts/rules', (_req: Request, res: Response) => {
-  res.json({
-    rules: [
-      { id: '1', name: 'High CPU Usage', description: 'Alert when CPU usage exceeds 80%', condition: 'cpu > 80', severity: 'high', enabled: true, lastTriggered: null, notifications: ['email', 'slack'], triggerCount: 0, category: 'resources', cooldown: 300 },
-      { id: '2', name: 'Memory Critical', description: 'Critical alert for memory usage above 90%', condition: 'memory > 90', severity: 'critical', enabled: true, lastTriggered: new Date(Date.now() - 86400000).toISOString(), notifications: ['email', 'slack', 'pagerduty'], triggerCount: 3, category: 'resources', cooldown: 120 },
-      { id: '3', name: 'Error Rate Spike', description: 'Alert when error rate exceeds 1%', condition: 'errorRate > 1', severity: 'critical', enabled: true, lastTriggered: null, notifications: ['email', 'slack', 'sms'], triggerCount: 0, category: 'performance', cooldown: 60 },
-      { id: '4', name: 'Low Disk Space', description: 'Warning when disk usage exceeds 85%', condition: 'disk > 85', severity: 'medium', enabled: true, lastTriggered: null, notifications: ['email'], triggerCount: 1, category: 'resources', cooldown: 600 },
-      { id: '5', name: 'TPS Below Threshold', description: 'Alert when TPS drops below 80K', condition: 'tps < 80000', severity: 'critical', enabled: true, lastTriggered: null, notifications: ['email', 'slack', 'pagerduty', 'sms'], triggerCount: 0, category: 'performance', cooldown: 60 },
-      { id: '6', name: 'Validator Offline', description: 'Alert when validator goes offline', condition: 'validator_status != healthy', severity: 'critical', enabled: true, lastTriggered: null, notifications: ['email', 'slack', 'pagerduty'], triggerCount: 0, category: 'validators', cooldown: 30 }
-    ],
-    totalCount: 6
-  });
+router.get('/alerts/rules', async (_req: Request, res: Response) => {
+  try {
+    const rules = await storage.getAllAlertRules();
+    const formattedRules = rules.map(rule => ({
+      id: rule.id,
+      name: rule.name,
+      description: rule.description,
+      condition: rule.condition,
+      category: rule.category,
+      severity: rule.severity,
+      notifications: rule.notifications || [],
+      cooldown: rule.cooldown,
+      enabled: rule.enabled,
+      triggerCount: rule.triggerCount,
+      lastTriggered: rule.lastTriggeredAt?.toISOString() || null
+    }));
+    res.json({ rules: formattedRules, totalCount: rules.length });
+  } catch (error) {
+    console.error('[AlertRules] Error fetching rules:', error);
+    res.status(500).json({ error: 'Failed to fetch alert rules' });
+  }
 });
 
-router.post('/alerts/rules', (req: Request, res: Response) => {
-  res.json({ success: true, rule: { id: Date.now().toString(), ...req.body, enabled: true, lastTriggered: null } });
+router.post('/alerts/rules', async (req: Request, res: Response) => {
+  try {
+    const rule = await storage.createAlertRule({
+      name: req.body.name,
+      description: req.body.description,
+      condition: req.body.condition,
+      category: req.body.category || 'system',
+      severity: req.body.severity || 'medium',
+      notifications: req.body.notifications || [],
+      cooldown: req.body.cooldown || 300,
+      enabled: req.body.enabled ?? true,
+      createdBy: req.body.createdBy
+    });
+    res.json({ success: true, rule });
+  } catch (error) {
+    console.error('[AlertRules] Error creating rule:', error);
+    res.status(500).json({ error: 'Failed to create alert rule' });
+  }
 });
 
-router.patch('/alerts/rules/:id', (req: Request, res: Response) => {
-  res.json({ success: true, rule: { id: req.params.id, ...req.body } });
+router.patch('/alerts/rules/:id', async (req: Request, res: Response) => {
+  try {
+    await storage.updateAlertRule(req.params.id, req.body);
+    const rule = await storage.getAlertRuleById(req.params.id);
+    res.json({ success: true, rule });
+  } catch (error) {
+    console.error('[AlertRules] Error updating rule:', error);
+    res.status(500).json({ error: 'Failed to update alert rule' });
+  }
 });
 
-router.delete('/alerts/rules/:id', (_req: Request, res: Response) => {
-  res.json({ success: true });
+router.delete('/alerts/rules/:id', async (req: Request, res: Response) => {
+  try {
+    await storage.deleteAlertRule(req.params.id);
+    res.json({ success: true });
+  } catch (error) {
+    console.error('[AlertRules] Error deleting rule:', error);
+    res.status(500).json({ error: 'Failed to delete alert rule' });
+  }
 });
 
 router.post('/alerts/rules/test', (_req: Request, res: Response) => {
@@ -1097,32 +1136,80 @@ router.patch('/tickets/:id', (req: Request, res: Response) => {
 // ============================================
 // ANNOUNCEMENTS
 // ============================================
-router.get('/announcements', (_req: Request, res: Response) => {
-  res.json({
-    announcements: [
-      { id: 'ann-1', title: 'Mainnet Launch Announcement', content: 'TBURN Chain Mainnet is now live! Chain ID: 6000. All systems operational.', type: 'critical', audience: ['All Users', 'Validators'], status: 'published', pinned: true, publishedAt: new Date(Date.now() - 7 * 86400000).toISOString(), scheduledFor: null, author: 'TBURN Foundation', views: 15847 },
-      { id: 'ann-2', title: 'Network Upgrade v8.1 Scheduled', content: 'Scheduled maintenance window for network upgrade. Expected duration: 2 hours.', type: 'maintenance', audience: ['All Users', 'Developers'], status: 'scheduled', pinned: false, publishedAt: null, scheduledFor: new Date(Date.now() + 7 * 86400000).toISOString(), author: 'Engineering Team', views: 0 },
-      { id: 'ann-3', title: 'New Staking Rewards Program', content: 'Introducing enhanced staking rewards for early validators. Up to 25% APY.', type: 'info', audience: ['Validators', 'Stakers'], status: 'draft', pinned: false, publishedAt: null, scheduledFor: null, author: 'DeFi Team', views: 0 },
-      { id: 'ann-4', title: 'Security Alert: Phishing Warning', content: 'Please be cautious of phishing attempts. TBURN team will never ask for private keys.', type: 'warning', audience: ['All Users'], status: 'published', pinned: true, publishedAt: new Date(Date.now() - 2 * 86400000).toISOString(), scheduledFor: null, author: 'Security Team', views: 8234 },
-      { id: 'ann-5', title: 'Validator Registration Open', content: 'Genesis validator program is now open. Stake 20M TBURN to become a Tier 1 validator.', type: 'info', audience: ['Validators', 'Partners'], status: 'published', pinned: false, publishedAt: new Date(Date.now() - 5 * 86400000).toISOString(), scheduledFor: null, author: 'Validator Operations', views: 5621 }
-    ]
-  });
+router.get('/announcements', async (_req: Request, res: Response) => {
+  try {
+    const announcements = await storage.getAllAnnouncements();
+    const formattedAnnouncements = announcements.map(ann => ({
+      id: ann.id,
+      title: ann.title,
+      content: ann.content,
+      type: ann.type,
+      audience: ann.audience || [],
+      status: ann.status,
+      pinned: ann.pinned,
+      publishedAt: ann.publishedAt?.toISOString() || null,
+      scheduledFor: ann.scheduledFor?.toISOString() || null,
+      author: ann.author,
+      views: ann.views
+    }));
+    res.json({ announcements: formattedAnnouncements });
+  } catch (error) {
+    console.error('[Announcements] Error fetching announcements:', error);
+    res.status(500).json({ error: 'Failed to fetch announcements' });
+  }
 });
 
-router.post('/announcements', (req: Request, res: Response) => {
-  res.json({ success: true, announcement: { id: `ann-${Date.now()}`, ...req.body, status: 'draft', createdAt: new Date().toISOString() } });
+router.post('/announcements', async (req: Request, res: Response) => {
+  try {
+    const announcement = await storage.createAnnouncement({
+      title: req.body.title,
+      content: req.body.content,
+      type: req.body.type || 'info',
+      audience: req.body.audience || [],
+      pinned: req.body.pinned || false,
+      priority: req.body.priority || 50,
+      status: 'draft',
+      scheduledFor: req.body.scheduledFor ? new Date(req.body.scheduledFor) : undefined,
+      author: req.body.author || 'System',
+      authorId: req.body.authorId
+    });
+    res.json({ success: true, announcement });
+  } catch (error) {
+    console.error('[Announcements] Error creating announcement:', error);
+    res.status(500).json({ error: 'Failed to create announcement' });
+  }
 });
 
-router.patch('/announcements/:id', (req: Request, res: Response) => {
-  res.json({ success: true, announcement: { id: req.params.id, ...req.body, updatedAt: new Date().toISOString() } });
+router.patch('/announcements/:id', async (req: Request, res: Response) => {
+  try {
+    await storage.updateAnnouncement(req.params.id, req.body);
+    const announcement = await storage.getAnnouncementById(req.params.id);
+    res.json({ success: true, announcement });
+  } catch (error) {
+    console.error('[Announcements] Error updating announcement:', error);
+    res.status(500).json({ error: 'Failed to update announcement' });
+  }
 });
 
-router.post('/announcements/:id/publish', (req: Request, res: Response) => {
-  res.json({ success: true, id: req.params.id, status: 'published', publishedAt: new Date().toISOString() });
+router.post('/announcements/:id/publish', async (req: Request, res: Response) => {
+  try {
+    await storage.publishAnnouncement(req.params.id);
+    const announcement = await storage.getAnnouncementById(req.params.id);
+    res.json({ success: true, id: req.params.id, status: 'published', publishedAt: announcement?.publishedAt?.toISOString() });
+  } catch (error) {
+    console.error('[Announcements] Error publishing announcement:', error);
+    res.status(500).json({ error: 'Failed to publish announcement' });
+  }
 });
 
-router.post('/announcements/:id/archive', (req: Request, res: Response) => {
-  res.json({ success: true, id: req.params.id, status: 'archived' });
+router.post('/announcements/:id/archive', async (req: Request, res: Response) => {
+  try {
+    await storage.archiveAnnouncement(req.params.id);
+    res.json({ success: true, id: req.params.id, status: 'archived' });
+  } catch (error) {
+    console.error('[Announcements] Error archiving announcement:', error);
+    res.status(500).json({ error: 'Failed to archive announcement' });
+  }
 });
 
 // ============================================

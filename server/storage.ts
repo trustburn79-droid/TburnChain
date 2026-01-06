@@ -493,6 +493,19 @@ import {
   demoWallets,
   demoWalletTransactions,
   demoWalletSessions,
+  // Alert Rules & Announcements
+  type AlertRuleDB,
+  type InsertAlertRule,
+  type AlertRuleTriggerDB,
+  type InsertAlertRuleTrigger,
+  type AnnouncementDB,
+  type InsertAnnouncement,
+  type AnnouncementInteractionDB,
+  type InsertAnnouncementInteraction,
+  alertRules,
+  alertRuleTriggers,
+  announcements,
+  announcementInteractions,
 } from "@shared/schema";
 import { randomUUID } from "crypto";
 import { db } from "./db";
@@ -1480,6 +1493,43 @@ export interface IStorage {
   createDemoWalletSession(data: InsertDemoWalletSession): Promise<DemoWalletSessionDB>;
   updateDemoWalletSession(sessionId: string, data: Partial<DemoWalletSessionDB>): Promise<void>;
   expireDemoWalletSessions(): Promise<void>;
+
+  // ============================================
+  // ALERT RULES & ANNOUNCEMENTS (Admin Portal)
+  // ============================================
+  
+  // Alert Rules
+  getAllAlertRules(): Promise<AlertRuleDB[]>;
+  getAlertRuleById(id: string): Promise<AlertRuleDB | undefined>;
+  getAlertRulesByCategory(category: string): Promise<AlertRuleDB[]>;
+  getEnabledAlertRules(): Promise<AlertRuleDB[]>;
+  createAlertRule(data: InsertAlertRule): Promise<AlertRuleDB>;
+  updateAlertRule(id: string, data: Partial<AlertRuleDB>): Promise<void>;
+  deleteAlertRule(id: string): Promise<void>;
+  incrementAlertRuleTriggerCount(id: string): Promise<void>;
+
+  // Alert Rule Triggers
+  getAlertRuleTriggers(ruleId: string, limit?: number): Promise<AlertRuleTriggerDB[]>;
+  getRecentAlertRuleTriggers(limit?: number): Promise<AlertRuleTriggerDB[]>;
+  createAlertRuleTrigger(data: InsertAlertRuleTrigger): Promise<AlertRuleTriggerDB>;
+  updateAlertRuleTrigger(id: string, data: Partial<AlertRuleTriggerDB>): Promise<void>;
+  
+  // Announcements
+  getAllAnnouncements(): Promise<AnnouncementDB[]>;
+  getAnnouncementById(id: string): Promise<AnnouncementDB | undefined>;
+  getAnnouncementsByStatus(status: string): Promise<AnnouncementDB[]>;
+  getPublishedAnnouncements(): Promise<AnnouncementDB[]>;
+  getPinnedAnnouncements(): Promise<AnnouncementDB[]>;
+  createAnnouncement(data: InsertAnnouncement): Promise<AnnouncementDB>;
+  updateAnnouncement(id: string, data: Partial<AnnouncementDB>): Promise<void>;
+  deleteAnnouncement(id: string): Promise<void>;
+  publishAnnouncement(id: string): Promise<void>;
+  archiveAnnouncement(id: string): Promise<void>;
+  incrementAnnouncementViews(id: string): Promise<void>;
+
+  // Announcement Interactions
+  createAnnouncementInteraction(data: InsertAnnouncementInteraction): Promise<AnnouncementInteractionDB>;
+  getAnnouncementInteractions(announcementId: string): Promise<AnnouncementInteractionDB[]>;
 }
 
 export class MemStorage implements IStorage {
@@ -2933,6 +2983,35 @@ export class MemStorage implements IStorage {
       this.aiParametersMap.set(id, { ...existing, ...data, updatedAt: new Date() });
     }
   }
+
+  // ============================================
+  // ALERT RULES & ANNOUNCEMENTS (Stub implementations for MemStorage)
+  // ============================================
+  async getAllAlertRules(): Promise<AlertRuleDB[]> { return []; }
+  async getAlertRuleById(_id: string): Promise<AlertRuleDB | undefined> { return undefined; }
+  async getAlertRulesByCategory(_category: string): Promise<AlertRuleDB[]> { return []; }
+  async getEnabledAlertRules(): Promise<AlertRuleDB[]> { return []; }
+  async createAlertRule(_data: InsertAlertRule): Promise<AlertRuleDB> { throw new Error("Use DbStorage"); }
+  async updateAlertRule(_id: string, _data: Partial<AlertRuleDB>): Promise<void> {}
+  async deleteAlertRule(_id: string): Promise<void> {}
+  async incrementAlertRuleTriggerCount(_id: string): Promise<void> {}
+  async getAlertRuleTriggers(_ruleId: string, _limit?: number): Promise<AlertRuleTriggerDB[]> { return []; }
+  async getRecentAlertRuleTriggers(_limit?: number): Promise<AlertRuleTriggerDB[]> { return []; }
+  async createAlertRuleTrigger(_data: InsertAlertRuleTrigger): Promise<AlertRuleTriggerDB> { throw new Error("Use DbStorage"); }
+  async updateAlertRuleTrigger(_id: string, _data: Partial<AlertRuleTriggerDB>): Promise<void> {}
+  async getAllAnnouncements(): Promise<AnnouncementDB[]> { return []; }
+  async getAnnouncementById(_id: string): Promise<AnnouncementDB | undefined> { return undefined; }
+  async getAnnouncementsByStatus(_status: string): Promise<AnnouncementDB[]> { return []; }
+  async getPublishedAnnouncements(): Promise<AnnouncementDB[]> { return []; }
+  async getPinnedAnnouncements(): Promise<AnnouncementDB[]> { return []; }
+  async createAnnouncement(_data: InsertAnnouncement): Promise<AnnouncementDB> { throw new Error("Use DbStorage"); }
+  async updateAnnouncement(_id: string, _data: Partial<AnnouncementDB>): Promise<void> {}
+  async deleteAnnouncement(_id: string): Promise<void> {}
+  async publishAnnouncement(_id: string): Promise<void> {}
+  async archiveAnnouncement(_id: string): Promise<void> {}
+  async incrementAnnouncementViews(_id: string): Promise<void> {}
+  async createAnnouncementInteraction(_data: InsertAnnouncementInteraction): Promise<AnnouncementInteractionDB> { throw new Error("Use DbStorage"); }
+  async getAnnouncementInteractions(_announcementId: string): Promise<AnnouncementInteractionDB[]> { return []; }
 }
 
 // PostgreSQL-based storage implementation
@@ -8165,6 +8244,123 @@ export class DbStorage implements IStorage {
 
   async expireDemoWalletSessions(): Promise<void> {
     await db.update(demoWalletSessions).set({ isActive: false }).where(sql`expires_at < NOW()`);
+  }
+
+  // ============================================
+  // ALERT RULES & ANNOUNCEMENTS (Admin Portal)
+  // ============================================
+
+  // Alert Rules
+  async getAllAlertRules(): Promise<AlertRuleDB[]> {
+    return db.select().from(alertRules).orderBy(desc(alertRules.createdAt));
+  }
+
+  async getAlertRuleById(id: string): Promise<AlertRuleDB | undefined> {
+    const [result] = await db.select().from(alertRules).where(eq(alertRules.id, id));
+    return result;
+  }
+
+  async getAlertRulesByCategory(category: string): Promise<AlertRuleDB[]> {
+    return db.select().from(alertRules).where(eq(alertRules.category, category));
+  }
+
+  async getEnabledAlertRules(): Promise<AlertRuleDB[]> {
+    return db.select().from(alertRules).where(eq(alertRules.enabled, true));
+  }
+
+  async createAlertRule(data: InsertAlertRule): Promise<AlertRuleDB> {
+    const [result] = await db.insert(alertRules).values(data).returning();
+    return result;
+  }
+
+  async updateAlertRule(id: string, data: Partial<AlertRuleDB>): Promise<void> {
+    await db.update(alertRules).set({ ...data, updatedAt: new Date() }).where(eq(alertRules.id, id));
+  }
+
+  async deleteAlertRule(id: string): Promise<void> {
+    await db.delete(alertRules).where(eq(alertRules.id, id));
+  }
+
+  async incrementAlertRuleTriggerCount(id: string): Promise<void> {
+    await db.update(alertRules).set({ 
+      triggerCount: sql`${alertRules.triggerCount} + 1`,
+      lastTriggeredAt: new Date()
+    }).where(eq(alertRules.id, id));
+  }
+
+  // Alert Rule Triggers
+  async getAlertRuleTriggers(ruleId: string, limit: number = 100): Promise<AlertRuleTriggerDB[]> {
+    return db.select().from(alertRuleTriggers).where(eq(alertRuleTriggers.ruleId, ruleId)).orderBy(desc(alertRuleTriggers.triggeredAt)).limit(limit);
+  }
+
+  async getRecentAlertRuleTriggers(limit: number = 50): Promise<AlertRuleTriggerDB[]> {
+    return db.select().from(alertRuleTriggers).orderBy(desc(alertRuleTriggers.triggeredAt)).limit(limit);
+  }
+
+  async createAlertRuleTrigger(data: InsertAlertRuleTrigger): Promise<AlertRuleTriggerDB> {
+    const [result] = await db.insert(alertRuleTriggers).values(data).returning();
+    return result;
+  }
+
+  async updateAlertRuleTrigger(id: string, data: Partial<AlertRuleTriggerDB>): Promise<void> {
+    await db.update(alertRuleTriggers).set(data).where(eq(alertRuleTriggers.id, id));
+  }
+
+  // Announcements
+  async getAllAnnouncements(): Promise<AnnouncementDB[]> {
+    return db.select().from(announcements).orderBy(desc(announcements.createdAt));
+  }
+
+  async getAnnouncementById(id: string): Promise<AnnouncementDB | undefined> {
+    const [result] = await db.select().from(announcements).where(eq(announcements.id, id));
+    return result;
+  }
+
+  async getAnnouncementsByStatus(status: string): Promise<AnnouncementDB[]> {
+    return db.select().from(announcements).where(eq(announcements.status, status));
+  }
+
+  async getPublishedAnnouncements(): Promise<AnnouncementDB[]> {
+    return db.select().from(announcements).where(eq(announcements.status, "published")).orderBy(desc(announcements.publishedAt));
+  }
+
+  async getPinnedAnnouncements(): Promise<AnnouncementDB[]> {
+    return db.select().from(announcements).where(and(eq(announcements.pinned, true), eq(announcements.status, "published")));
+  }
+
+  async createAnnouncement(data: InsertAnnouncement): Promise<AnnouncementDB> {
+    const [result] = await db.insert(announcements).values(data).returning();
+    return result;
+  }
+
+  async updateAnnouncement(id: string, data: Partial<AnnouncementDB>): Promise<void> {
+    await db.update(announcements).set({ ...data, updatedAt: new Date() }).where(eq(announcements.id, id));
+  }
+
+  async deleteAnnouncement(id: string): Promise<void> {
+    await db.delete(announcements).where(eq(announcements.id, id));
+  }
+
+  async publishAnnouncement(id: string): Promise<void> {
+    await db.update(announcements).set({ status: "published", publishedAt: new Date(), updatedAt: new Date() }).where(eq(announcements.id, id));
+  }
+
+  async archiveAnnouncement(id: string): Promise<void> {
+    await db.update(announcements).set({ status: "archived", archivedAt: new Date(), updatedAt: new Date() }).where(eq(announcements.id, id));
+  }
+
+  async incrementAnnouncementViews(id: string): Promise<void> {
+    await db.update(announcements).set({ views: sql`${announcements.views} + 1` }).where(eq(announcements.id, id));
+  }
+
+  // Announcement Interactions
+  async createAnnouncementInteraction(data: InsertAnnouncementInteraction): Promise<AnnouncementInteractionDB> {
+    const [result] = await db.insert(announcementInteractions).values(data).returning();
+    return result;
+  }
+
+  async getAnnouncementInteractions(announcementId: string): Promise<AnnouncementInteractionDB[]> {
+    return db.select().from(announcementInteractions).where(eq(announcementInteractions.announcementId, announcementId));
   }
 }
 
