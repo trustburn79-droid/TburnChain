@@ -1,99 +1,107 @@
 /**
  * TBURN Enterprise Metrics Configuration v7.0
  * 
- * Production-grade configuration for 32GB RAM enterprise environment
- * Optimized for high-throughput blockchain operations (~210K TPS)
+ * Auto-scaling configuration that adapts to available memory
+ * Supports both small (512MB) and large (32GB) environments
  * 
  * @version 7.0.0-enterprise
  */
 
+// 동적 하드웨어 감지
+const osModule = require('os');
+const detectedRAM = Math.round(osModule.totalmem() / (1024 * 1024 * 1024));
+const detectedCores = osModule.cpus()?.length || 4;
+const isLargeEnv = detectedRAM >= 8;
+
 export const METRICS_CONFIG = {
-  // 수집 간격 (프로덕션 최적화)
-  COLLECTION_INTERVAL: 10 * 1000,        // 10초 (정밀 모니터링)
-  CRITICAL_METRICS_INTERVAL: 5 * 1000,   // 5초 (TPS, 에러율, 지연시간)
-  HEAVY_METRICS_INTERVAL: 30 * 1000,     // 30초 (상세 블록 분석)
+  // 수집 간격 (환경 적응형)
+  COLLECTION_INTERVAL: isLargeEnv ? 10 * 1000 : 30 * 1000,
+  CRITICAL_METRICS_INTERVAL: isLargeEnv ? 5 * 1000 : 10 * 1000,
+  HEAVY_METRICS_INTERVAL: isLargeEnv ? 30 * 1000 : 60 * 1000,
   
-  // 블록 생산 설정 (초당 10블록 유지)
+  // 블록 생산 설정
   BLOCK_PRODUCTION: {
-    INTERVAL_MS: 100,              // 100ms (초당 10블록)
-    MAX_TX_PER_BLOCK: 21000,       // 블록당 최대 트랜잭션 (210K TPS / 10 blocks)
-    MAX_BLOCK_SIZE: 8 * 1024 * 1024, // 8MB 블록 크기 제한
-    KEEP_RECENT_BLOCKS: 1000,      // 메모리에 1000블록 유지 (100초분)
-    FLUSH_INTERVAL: 500,           // 500ms마다 디스크 플러시
-    PARALLEL_VERIFY_WORKERS: 8,    // 8코어 병렬 검증
+    INTERVAL_MS: 100,
+    MAX_TX_PER_BLOCK: isLargeEnv ? 21000 : 5000,
+    MAX_BLOCK_SIZE: isLargeEnv ? 8 * 1024 * 1024 : 2 * 1024 * 1024,
+    KEEP_RECENT_BLOCKS: isLargeEnv ? 1000 : 100,
+    FLUSH_INTERVAL: isLargeEnv ? 500 : 1000,
+    PARALLEL_VERIFY_WORKERS: Math.min(detectedCores, 8),
   },
   
-  // 메트릭 보존 기간 (엔터프라이즈급)
+  // 메트릭 보존 기간
   RETENTION: {
-    RAW: 6 * 60 * 60 * 1000,              // 6시간 (원본)
-    AGGREGATED_1M: 7 * 24 * 60 * 60 * 1000, // 7일 (1분 집계)
-    AGGREGATED_1H: 30 * 24 * 60 * 60 * 1000, // 30일 (1시간 집계)
-    AGGREGATED_1D: 365 * 24 * 60 * 60 * 1000, // 1년 (1일 집계)
+    RAW: isLargeEnv ? 6 * 60 * 60 * 1000 : 1 * 60 * 60 * 1000,
+    AGGREGATED_1M: isLargeEnv ? 7 * 24 * 60 * 60 * 1000 : 24 * 60 * 60 * 1000,
+    AGGREGATED_1H: isLargeEnv ? 30 * 24 * 60 * 60 * 1000 : 7 * 24 * 60 * 60 * 1000,
+    AGGREGATED_1D: 365 * 24 * 60 * 60 * 1000,
   },
   
-  // 메모리 한도 (32GB RAM - 25% 할당)
-  MAX_MEMORY_MB: 8192,           // 8GB 메트릭 전용
-  MAX_DATAPOINTS: 100000,        // 최대 100K 데이터포인트
+  // 메모리 한도 (자동 스케일링)
+  MAX_MEMORY_MB: isLargeEnv ? 2048 : 150,
+  MAX_DATAPOINTS: isLargeEnv ? 50000 : 1000,
   
-  // 블록 캐시 설정 (32GB 환경)
+  // 블록 캐시 설정 (자동 스케일링)
   BLOCK_CACHE: {
-    IN_MEMORY_BLOCKS: 1000,      // 최근 1000블록 메모리 (100초분)
-    HOT_CACHE_BLOCKS: 10000,     // 10000블록 LRU 캐시 (~17분)
-    WARM_CACHE_BLOCKS: 50000,    // 50000블록 워밍 캐시 (~83분)
-    MAX_CACHE_SIZE_MB: 2048,     // 2GB 최대
-    TTL_HOT_MS: 60 * 1000,       // 핫 캐시 TTL 60초
-    TTL_WARM_MS: 300 * 1000,     // 워밍 캐시 TTL 5분
-    PRELOAD_BLOCKS: 100,         // 시작 시 100블록 프리로드
+    IN_MEMORY_BLOCKS: isLargeEnv ? 500 : 50,
+    HOT_CACHE_BLOCKS: isLargeEnv ? 2000 : 100,
+    WARM_CACHE_BLOCKS: isLargeEnv ? 5000 : 200,
+    MAX_CACHE_SIZE_MB: isLargeEnv ? 512 : 15,
+    TTL_HOT_MS: 60 * 1000,
+    TTL_WARM_MS: 300 * 1000,
+    PRELOAD_BLOCKS: isLargeEnv ? 50 : 10,
   },
   
-  // GC 임계값 (32GB 환경 - 여유있게)
+  // GC 임계값 (작은 환경은 더 보수적)
   GC_THRESHOLDS: {
-    WARNING: 0.70,      // 70% 사용 시 경고
-    TRIGGER: 0.75,      // 75% 사용 시 GC 트리거
-    CRITICAL: 0.85,     // 85% 사용 시 강제 정리
-    EMERGENCY: 0.90,    // 90% 사용 시 비상 정리
+    WARNING: isLargeEnv ? 0.70 : 0.55,
+    TRIGGER: isLargeEnv ? 0.75 : 0.60,
+    CRITICAL: isLargeEnv ? 0.85 : 0.70,
+    EMERGENCY: isLargeEnv ? 0.90 : 0.80,
   },
   
   // 모니터링 간격
-  MONITORING_INTERVAL: 5 * 1000,   // 5초 모니터링
-  HEALTH_CHECK_INTERVAL: 10 * 1000, // 10초 헬스체크
+  MONITORING_INTERVAL: isLargeEnv ? 5 * 1000 : 10 * 1000,
+  HEALTH_CHECK_INTERVAL: 10 * 1000,
   
-  // 메모리 풀 설정
+  // 메모리 풀 설정 (작은 환경에서는 비활성화)
   MEMORY_POOL: {
-    ENABLED: true,
-    INITIAL_SIZE_MB: 512,        // 초기 512MB 풀
-    MAX_SIZE_MB: 4096,           // 최대 4GB 풀
-    OBJECT_REUSE: true,          // 객체 재사용 활성화
-    POOL_CLEANUP_INTERVAL: 60 * 1000, // 1분마다 풀 정리
+    ENABLED: isLargeEnv,
+    INITIAL_SIZE_MB: isLargeEnv ? 256 : 0,
+    MAX_SIZE_MB: isLargeEnv ? 1024 : 0,
+    OBJECT_REUSE: isLargeEnv,
+    POOL_CLEANUP_INTERVAL: 60 * 1000,
   },
   
   // 힙 스냅샷 설정
   HEAP_SNAPSHOT: {
-    ENABLED: true,
-    AUTO_CAPTURE_THRESHOLD: 0.85, // 85% 이상 시 자동 캡처
-    MAX_SNAPSHOTS: 10,           // 최대 10개 스냅샷 유지
+    ENABLED: isLargeEnv,
+    AUTO_CAPTURE_THRESHOLD: 0.85,
+    MAX_SNAPSHOTS: 5,
     SNAPSHOT_DIR: '/tmp/tburn-heap-snapshots',
-    CAPTURE_INTERVAL_MIN: 5 * 60 * 1000, // 최소 5분 간격
+    CAPTURE_INTERVAL_MIN: 5 * 60 * 1000,
   },
   
   // 알림 설정
   ALERTING: {
     ENABLED: true,
-    MEMORY_WARNING_THRESHOLD: 0.70,
-    MEMORY_CRITICAL_THRESHOLD: 0.85,
+    MEMORY_WARNING_THRESHOLD: isLargeEnv ? 0.70 : 0.55,
+    MEMORY_CRITICAL_THRESHOLD: isLargeEnv ? 0.85 : 0.70,
     LATENCY_WARNING_MS: 100,
     LATENCY_CRITICAL_MS: 500,
-    ERROR_RATE_WARNING: 0.01,     // 1%
-    ERROR_RATE_CRITICAL: 0.05,   // 5%
-    COOLDOWN_MS: 60 * 1000,      // 알림 쿨다운 1분
+    ERROR_RATE_WARNING: 0.01,
+    ERROR_RATE_CRITICAL: 0.05,
+    COOLDOWN_MS: 60 * 1000,
   },
   
-  // 하드웨어 프로파일
+  // 감지된 하드웨어 프로파일
   HARDWARE: {
-    CPU_CORES: 8,
-    RAM_GB: 32,
-    TARGET_HEAP_GB: 8,            // 목표 힙 8GB
-    MAX_HEAP_GB: 16,              // 최대 힙 16GB
+    CPU_CORES: detectedCores,
+    RAM_GB: detectedRAM,
+    TARGET_HEAP_GB: isLargeEnv ? Math.min(detectedRAM / 4, 8) : 0.3,
+    MAX_HEAP_GB: isLargeEnv ? Math.min(detectedRAM / 2, 16) : 0.5,
+    IS_LARGE_ENV: isLargeEnv,
+    DETECTED_AT: new Date().toISOString(),
   },
 };
 

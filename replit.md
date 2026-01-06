@@ -73,13 +73,14 @@ Core architectural decisions and features include:
   - **Community Pool (30%)**: DAO governance voting-based distribution for ecosystem grants, marketing, and community events
 - **Multisig Wallet Management**: 7 database tables for custody tracking (multisigWallets, multisigSigners, custodyTransactions, custodyTransactionApprovals, vestingContracts, custodyDistributionSchedule, custodyQuarterlyReports)
 - **20-Year Distribution Schedule**: Verified custody mechanism-based annual token release plan summing exactly to 500B TBURN with stacked area visualization and cumulative progress tracking
-- **Enterprise Memory Optimization v6.0**: Production-grade memory management for 512MB Replit environment:
-  - **METRICS_CONFIG**: Optimized collection intervals (30s), conservative memory limits (200MB for metrics, 20MB for block cache)
-  - **CircularBuffer**: Fixed-memory circular buffer with capacity 600 for metric storage
-  - **MetricsAggregator**: Automatic downsampling to 1min and 1hour aggregates, force cleanup on memory pressure
-  - **BlockMemoryManager**: LRU cache for blocks (100 blocks max, 20MB limit, TTL-based eviction)
-  - **MemoryManager**: Automatic GC with 5s check interval, thresholds at 60%/65%/75%/80%
-  - **API Endpoints**: `/api/memory/metrics` (fast JSON), `/api/memory/prometheus`, `/api/memory/gc`
+- **Enterprise Memory Optimization v7.0**: Production-grade auto-scaling memory management:
+  - **METRICS_CONFIG**: Auto-detecting hardware profile with dynamic configuration for small (512MB) and large (32GB+) environments
+  - **CircularBuffer**: High-performance ring buffer with batch operations, time-range filtering, reduce/aggregate functions, and dynamic resizing
+  - **MetricsAggregator**: Multi-tier aggregation (1min/1hour/1day), anomaly detection with severity levels (low/medium/high/critical), trend analysis with growth rate calculation, Prometheus export
+  - **BlockMemoryManager**: Multi-tier LRU cache (Hot/Warm/Cold tiers), TTL-based eviction (60s hot, 300s warm), automatic tier promotion/demotion, hit rate tracking
+  - **MemoryManager**: Adaptive GC with heap growth prediction, memory pooling for object/buffer reuse, heap snapshot capture to `/tmp/tburn-heap-snapshots/`, OOM time estimation
+  - **API Endpoints**: 8 endpoints - `/api/memory/metrics`, `/api/memory/detailed`, `/api/memory/prometheus`, `/api/memory/gc`, `/api/memory/anomalies`, `/api/memory/snapshots`, `/api/memory/block-cache`
+  - **Hardware Detection**: Automatic RAM/CPU detection via os module, adaptive thresholds based on environment size
   - **QueryClient Enhancement**: Server error retry with 3 attempts for 500 errors
   - **Warmup Integration**: DB keep-alive with 30s interval, session-free warmup path
 
