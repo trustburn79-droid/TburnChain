@@ -92,21 +92,46 @@ export const app = express();
 // ★ [수정 2] Nginx 프록시 신뢰 설정 (필수)
 app.set('trust proxy', 1);
 
-// ★ [v4.1 CRITICAL] PRE-SESSION FILTER - MUST be BEFORE express-session
+// ★ [v5.0 FINAL FIX] PRE-SESSION FILTER - MUST be BEFORE express-session
 // This blocks RPC and stateless requests BEFORE session middleware even loads
 // This is THE KEY FIX for /rpc?_t=timestamp Internal Server Error
 // 
-// ★ [2026-01-06 PRODUCTION FIX] Added:
+// ★ [2026-01-06 PRODUCTION FIX v5.0] Complete path-based session skipping
 // - X-Skip-Session header check (for CDN/proxy query string stripping)
 // - Original URL preservation from X-Original-URL header
-// - Enhanced cache-busting detection
-const RPC_PATHS_V4 = ['/rpc', '/jsonrpc', '/json-rpc', '/eth', '/ws', '/wss'];
-const HEALTH_PATHS_V4 = ['/health', '/healthz', '/readyz', '/livez', '/ping', '/status', '/metrics'];
-const CACHE_BUST_REGEX_V4 = /[?&](_t|_|t|timestamp|ts|cachebust|cb|nocache|v|ver|nonce|rand)=/i;
-const TIMESTAMP_REGEX_V4 = /[?&][^=]+=\d{10,13}(&|$)/;
-const STATIC_EXT_REGEX_V4 = /\.(js|css|png|jpg|jpeg|gif|svg|ico|woff|woff2|ttf|json|map|mjs|cjs)$/i;
+// - Comprehensive path-based skipping (CDN query removal immune)
+// - OPTIONS/HEAD method skipping
+// - WebSocket upgrade detection
+
+// 세션이 필요 없는 경로들 (쿼리 스트링 무관 - CDN 대응)
+const SESSION_FREE_PATHS = [
+  // RPC 엔드포인트 (PRIMARY)
+  '/rpc', '/jsonrpc', '/json-rpc', '/eth', '/api/rpc',
+  // WebSocket
+  '/ws', '/wss', '/socket', '/socket.io',
+  // Health checks
+  '/health', '/healthz', '/readyz', '/livez', '/ping', '/status', '/metrics',
+  '/api/health', '/api/status', '/api/ping', '/api/metrics',
+  // Public API
+  '/api/blocks', '/api/block', '/api/transactions', '/api/tx', '/api/txs',
+  '/api/validators', '/api/network', '/api/price', '/api/market',
+  '/api/explorer', '/api/chain', '/api/stats', '/api/supply', '/api/gas',
+  '/api/info', '/api/version',
+  // Monitoring
+  '/api/production-monitor', '/api/session-health', '/api/disaster-recovery',
+  // Public pages
+  '/explorer', '/scan', '/blocks', '/transactions', '/validators',
+  '/staking', '/governance', '/bridge', '/community', '/docs', '/api-docs', '/sdk', '/cli',
+];
+
+const STATIC_EXT_REGEX_V5 = /\.(js|mjs|cjs|jsx|ts|tsx|css|scss|sass|less|png|jpg|jpeg|gif|svg|webp|ico|avif|bmp|woff|woff2|ttf|eot|otf|mp3|mp4|webm|ogg|wav|pdf|zip|gz|json|xml|txt|md|yaml|yml|map|wasm)$/i;
+const STATIC_PREFIXES = ['/assets', '/static', '/public', '/dist', '/build', '/chunks', '/js', '/css', '/fonts', '/images', '/icons', '/media', '/__vite', '/@vite', '/@fs', '/_next', '/node_modules', '/favicon', '/robots.txt', '/sitemap', '/manifest'];
+const CACHE_BUST_REGEX_V5 = /[?&](_t|_|t|timestamp|ts|cachebust|cb|nocache|v|ver|nonce|rand)=/i;
+const TIMESTAMP_REGEX_V5 = /[?&][^=]+=\d{10,13}(&|$)/;
 
 app.use((req: Request, res: Response, next: NextFunction) => {
+  const method = (req.method || 'GET').toUpperCase();
+  
   // ★ [PRODUCTION FIX] Check headers for session skip (CDN may strip query strings)
   const skipHeader = req.headers['x-skip-session'] === 'true' || 
                      req.headers['x-skip-session'] === '1';
@@ -116,19 +141,44 @@ app.use((req: Request, res: Response, next: NextFunction) => {
   const url = originalUrl || req.url || '';
   const path = url.split('?')[0].toLowerCase();
   
-  const isRPC = RPC_PATHS_V4.some(p => path.startsWith(p));
-  const isHealth = HEALTH_PATHS_V4.some(p => path.startsWith(p) || path.startsWith(`/api${p}`));
-  const hasCacheBust = CACHE_BUST_REGEX_V4.test(url) || TIMESTAMP_REGEX_V4.test(url);
-  const isStatic = STATIC_EXT_REGEX_V4.test(path);
-  const isPublicPage = path.startsWith('/explorer') || path.startsWith('/scan') || 
-                       path.startsWith('/blocks') || path.startsWith('/transactions') ||
-                       path.startsWith('/validators') || path.startsWith('/staking') ||
-                       path.startsWith('/governance') || path.startsWith('/bridge') ||
-                       path.startsWith('/docs') || path.startsWith('/api-docs') ||
-                       path.startsWith('/sdk') || path.startsWith('/cli');
+  let shouldSkip = false;
   
-  // ★ [PRODUCTION FIX] Include header-based skip check
-  if (skipHeader || isRPC || isHealth || hasCacheBust || isStatic || isPublicPage) {
+  // 1. 헤더 기반 스킵 (CDN 설정)
+  if (skipHeader) shouldSkip = true;
+  
+  // 2. 경로 기반 스킵 (가장 중요! 쿼리 스트링 무관)
+  if (!shouldSkip) {
+    for (const freePath of SESSION_FREE_PATHS) {
+      if (path === freePath || path.startsWith(freePath + '/')) {
+        shouldSkip = true;
+        break;
+      }
+    }
+  }
+  
+  // 3. 정적 파일 확장자
+  if (!shouldSkip && STATIC_EXT_REGEX_V5.test(path)) shouldSkip = true;
+  
+  // 4. 정적 파일 경로 접두사
+  if (!shouldSkip) {
+    for (const prefix of STATIC_PREFIXES) {
+      if (path.startsWith(prefix)) {
+        shouldSkip = true;
+        break;
+      }
+    }
+  }
+  
+  // 5. OPTIONS/HEAD 메서드
+  if (!shouldSkip && (method === 'OPTIONS' || method === 'HEAD')) shouldSkip = true;
+  
+  // 6. WebSocket 업그레이드
+  if (!shouldSkip && req.headers['upgrade']?.toLowerCase() === 'websocket') shouldSkip = true;
+  
+  // 7. 캐시버스팅 쿼리 (CDN이 제거하지 않은 경우)
+  if (!shouldSkip && (CACHE_BUST_REGEX_V5.test(url) || TIMESTAMP_REGEX_V5.test(url))) shouldSkip = true;
+  
+  if (shouldSkip) {
     (req as any)._skipSession = true;
     (req as any).session = null;
     (req as any).sessionID = null;
