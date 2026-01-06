@@ -1,16 +1,18 @@
 /**
  * ProductionStaticDataService - 프로덕션 경량 데이터 서비스
  * 
- * ★ [2026-01-05 CRITICAL FIX] 엔터프라이즈 시뮬레이터 비활성화 후 대체 데이터 소스
+ * ★ [2026-01-06 REALTIME UPDATE] 실시간 메트릭 서비스 통합
  * 
  * 이 서비스는:
- * 1. 데이터베이스에서 직접 데이터를 읽어옴 (시뮬레이터 없이)
- * 2. 메모리 사용량 최소화를 위해 캐시 없이 온디맨드 쿼리
- * 3. 프로덕션 24/7/365 안정성을 위해 설계됨
+ * 1. RealtimeMetricsService를 통해 실시간 TPS/블록시간 제공
+ * 2. 데이터베이스에서 직접 데이터를 읽어옴 (시뮬레이터 없이)
+ * 3. 메모리 사용량 최소화를 위해 경량 링 버퍼 사용
+ * 4. 프로덕션 24/7/365 안정성을 위해 설계됨
  */
 
 import { storage } from '../storage';
 import { getDataCache, DataCacheService } from './DataCacheService';
+import { getRealtimeMetricsService } from './RealtimeMetricsService';
 
 export interface LightweightNetworkStats {
   currentBlockHeight: number;
@@ -35,92 +37,84 @@ export interface LightweightShardInfo {
 
 class ProductionStaticDataService {
   private cache: DataCacheService;
+  private realtimeMetrics = getRealtimeMetricsService();
   private lastBlockHeight: number = 42000000;
   private lastTotalTransactions: number = 12000000000;
   private startTime: number = Date.now();
   
   constructor() {
     this.cache = getDataCache();
-    console.log('[StaticData] 🔒 Production static data service initialized');
+    console.log('[StaticData] 🔒 Production static data service initialized (with realtime metrics)');
   }
 
   /**
-   * 네트워크 통계 가져오기 - 데이터베이스 + 계산된 값
+   * 네트워크 통계 가져오기 - ★ RealtimeMetricsService 사용
    */
   async getNetworkStats(): Promise<LightweightNetworkStats> {
     try {
-      const uptime = (Date.now() - this.startTime) / 1000;
-      const estimatedBlocks = Math.floor(uptime / 0.1); // 100ms block time
+      // ★ [2026-01-06] 실시간 메트릭 서비스에서 TPS, 블록시간 가져오기
+      const realtimeStats = this.realtimeMetrics.getNetworkStats();
       
-      const stats = await storage.getNetworkStats();
+      // DB에서도 최신 데이터 가져오기
+      const dbStats = await storage.getNetworkStats();
       
-      if (stats) {
-        return {
-          currentBlockHeight: stats.currentBlockHeight || this.lastBlockHeight + estimatedBlocks,
-          totalTransactions: stats.totalTransactions || this.lastTotalTransactions + estimatedBlocks * 150,
-          tps: stats.tps || 8500,
-          peakTps: stats.peakTps || 210000,
-          avgBlockTime: stats.avgBlockTime || 0.1,
-          activeValidators: stats.activeValidators || 120,
-          totalValidators: stats.totalValidators || 125,
-          networkHashrate: '1.2 EH/s',
-          lastUpdated: new Date()
-        };
-      }
-      
+      // 실시간 메트릭과 DB 데이터 병합 (실시간 우선)
       return {
-        currentBlockHeight: this.lastBlockHeight + estimatedBlocks,
-        totalTransactions: this.lastTotalTransactions + estimatedBlocks * 150,
-        tps: 8500,
-        peakTps: 210000,
-        avgBlockTime: 0.1,
-        activeValidators: 120,
-        totalValidators: 125,
+        currentBlockHeight: realtimeStats.currentBlockHeight || dbStats?.currentBlockHeight || this.lastBlockHeight,
+        totalTransactions: realtimeStats.totalTransactions || dbStats?.totalTransactions || this.lastTotalTransactions,
+        tps: realtimeStats.tps, // ★ 항상 실시간 TPS 사용
+        peakTps: realtimeStats.peakTps, // ★ 항상 실시간 peakTps 사용
+        avgBlockTime: realtimeStats.avgBlockTime, // ★ 항상 실시간 블록시간 사용
+        activeValidators: dbStats?.activeValidators || 120,
+        totalValidators: dbStats?.totalValidators || 125,
         networkHashrate: '1.2 EH/s',
         lastUpdated: new Date()
       };
     } catch (error) {
       console.error('[StaticData] Error fetching network stats:', error);
-      return {
-        currentBlockHeight: this.lastBlockHeight,
-        totalTransactions: this.lastTotalTransactions,
-        tps: 8500,
-        peakTps: 210000,
-        avgBlockTime: 0.1,
-        activeValidators: 120,
-        totalValidators: 125,
-        networkHashrate: '1.2 EH/s',
-        lastUpdated: new Date()
-      };
+      // 오류 시에도 실시간 메트릭 반환
+      return this.realtimeMetrics.getNetworkStats() as LightweightNetworkStats;
     }
   }
 
   /**
-   * 샤드 정보 가져오기 - 데이터베이스에서
+   * 샤드 정보 가져오기 - ★ 실시간 메트릭 + 데이터베이스
    */
   async getShards(): Promise<LightweightShardInfo[]> {
     try {
+      // ★ 실시간 샤드 메트릭 가져오기
+      const realtimeShards = this.realtimeMetrics.getShardMetrics();
+      
+      // DB에서 샤드 설정 가져오기
       const dbShards = await storage.getAllShards();
       
       if (dbShards && dbShards.length > 0) {
-        return dbShards.map((s, idx) => ({
-          id: idx,
-          name: `Shard-${idx}`,
-          status: s.status || 'active',
-          validators: s.validatorCount || 15,
-          transactions: s.transactionCount || 1500000000,
-          tps: s.tps || 3200
-        }));
+        return dbShards.map((s, idx) => {
+          // 실시간 메트릭이 있으면 TPS 업데이트
+          const realtime = realtimeShards.find(r => r.id === idx);
+          return {
+            id: idx,
+            name: `Shard-${idx}`,
+            status: s.status || 'active',
+            validators: s.validatorCount || 15,
+            transactions: realtime?.txCount || s.transactionCount || 1500000000,
+            tps: realtime?.tps || s.tps || 3200 // ★ 실시간 TPS 우선
+          };
+        });
       }
       
-      return Array.from({ length: 8 }, (_, i) => ({
-        id: i,
-        name: `Shard-${i}`,
-        status: 'active',
-        validators: 15,
-        transactions: 1500000000,
-        tps: 3200 + Math.floor(Math.random() * 500)
-      }));
+      // fallback - 실시간 메트릭 기반
+      return Array.from({ length: 8 }, (_, i) => {
+        const realtime = realtimeShards.find(r => r.id === i);
+        return {
+          id: i,
+          name: `Shard-${i}`,
+          status: 'active',
+          validators: 15,
+          transactions: realtime?.txCount || 1500000000,
+          tps: realtime?.tps || 3200 + Math.floor(Math.random() * 500)
+        };
+      });
     } catch (error) {
       console.error('[StaticData] Error fetching shards:', error);
       return Array.from({ length: 8 }, (_, i) => ({
@@ -135,21 +129,28 @@ class ProductionStaticDataService {
   }
 
   /**
-   * 최근 블록 가져오기 - 데이터베이스에서
+   * 최근 블록 가져오기 - ★ 실시간 + 데이터베이스
    */
   async getRecentBlocks(limit: number = 10): Promise<any[]> {
     try {
-      const blocks = await storage.getAllBlocks();
+      // ★ 먼저 DB에서 가져오기
+      const blocks = await storage.getRecentBlocks(limit);
       
       if (blocks && blocks.length > 0) {
-        return blocks;
+        // ★ 실시간 블록 높이로 업데이트
+        const currentHeight = this.realtimeMetrics.getCurrentBlockHeight();
+        return blocks.map((b, i) => ({
+          ...b,
+          blockNumber: b.height || b.blockNumber || (currentHeight - i),
+          timestamp: b.timestamp || Date.now() - (i * 100)
+        }));
       }
       
-      const uptime = (Date.now() - this.startTime) / 1000;
-      const currentHeight = this.lastBlockHeight + Math.floor(uptime / 0.1);
-      
+      // ★ fallback: 실시간 메트릭 기반 생성
+      const currentHeight = this.realtimeMetrics.getCurrentBlockHeight();
       return Array.from({ length: limit }, (_, i) => ({
         blockNumber: currentHeight - i,
+        height: currentHeight - i,
         hash: `0x${Math.random().toString(16).slice(2)}${Math.random().toString(16).slice(2)}`,
         timestamp: Date.now() - (i * 100),
         transactionCount: 150 + Math.floor(Math.random() * 100),
@@ -165,19 +166,25 @@ class ProductionStaticDataService {
   }
 
   /**
-   * 최근 트랜잭션 가져오기 - 데이터베이스에서
+   * 최근 트랜잭션 가져오기 - ★ 실시간 + 데이터베이스
    */
   async getRecentTransactions(limit: number = 10): Promise<any[]> {
     try {
-      const transactions = await storage.getAllTransactions();
+      // ★ 먼저 DB에서 가져오기
+      const transactions = await storage.getRecentTransactions(limit);
       
       if (transactions && transactions.length > 0) {
-        return transactions;
+        return transactions.map((tx, i) => ({
+          ...tx,
+          timestamp: tx.timestamp || Date.now() - (i * 100)
+        }));
       }
       
+      // ★ fallback: 실시간 메트릭 기반 생성
+      const currentHeight = this.realtimeMetrics.getCurrentBlockHeight();
       return Array.from({ length: limit }, (_, i) => ({
         hash: `0x${Math.random().toString(16).slice(2)}${Math.random().toString(16).slice(2)}`,
-        blockHeight: this.lastBlockHeight - i,
+        blockHeight: currentHeight - Math.floor(i / 10),
         from: `0x${Math.random().toString(16).slice(2, 42)}`,
         to: `0x${Math.random().toString(16).slice(2, 42)}`,
         value: (Math.random() * 100).toFixed(4),
@@ -220,20 +227,24 @@ class ProductionStaticDataService {
 
   /**
    * 캐시에 데이터 로드 (초기화용)
-   * ★ [v3.1] 극단적 경량화 - 필수 데이터만 로드
+   * ★ [v3.2] 실시간 메트릭 서비스 시작 + 경량 캐시 워밍
    */
   async warmCache(): Promise<void> {
-    console.log('[StaticData] Warming cache with database data (lightweight v3.1)...');
+    console.log('[StaticData] Warming cache with realtime metrics (v3.2)...');
     
     try {
-      // ★ [v3.1] 순차적 로드로 메모리 피크 방지 (병렬 로드 비활성화)
+      // ★ [2026-01-06] 실시간 메트릭 서비스 시작 (2초 폴링)
+      this.realtimeMetrics.start();
+      console.log('[StaticData] 🔄 Realtime metrics polling started');
+      
+      // 잠시 대기하여 첫 번째 폴링 완료
+      await new Promise(resolve => setTimeout(resolve, 500));
+      
+      // 네트워크 통계 캐싱
       const networkStats = await this.getNetworkStats();
-      this.cache.set(DataCacheService.KEYS.NETWORK_STATS, networkStats, 120000); // 2분 TTL
+      this.cache.set(DataCacheService.KEYS.NETWORK_STATS, networkStats, 60000); // 1분 TTL (더 자주 갱신)
       
-      // ★ [v3.1] 블록/트랜잭션 데이터는 온디맨드로만 로드 (캐시 워밍에서 제외)
-      // 이렇게 하면 초기 메모리 사용량 크게 감소
-      
-      console.log('[StaticData] ✅ Minimal cache warmed (network stats only)');
+      console.log('[StaticData] ✅ Realtime cache warmed (TPS, block time active)');
     } catch (error) {
       console.error('[StaticData] Failed to warm cache:', error);
     }
