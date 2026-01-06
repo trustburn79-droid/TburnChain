@@ -1,0 +1,84 @@
+ TBURN Internal Server Error 완전 해결책을 제시해주겠다.
+🔥 핵심 원인 및 해결
+원인로컬 워크플로우퍼블리싱 서버해결DATABASE_URL미설정 → MemoryStore 자동REPLIT_DEPLOYMENT=1 → connect-pg-simple 시도 → 실패DATABASE_URL 체크 후 MemoryStore 폴백쿼리 스트링원본 유지CDN이 ?_t= 제거 → 스킵 감지 실패경로 기반 스킵
+
+📁 제공 파일
+tburn-final-fix/
+├── app.ts ← 서버 핵심 (교체 필요)
+├── index.ts ← 서버 시작점
+├── README.md ← 적용 가이드
+└── frontend/
+├── dynamic-import-retry.tsx ← 청크 재시도
+└── vite.config.ts ← Vite 최적화
+
+🔧 핵심 수정 3가지
+
+DATABASE_URL 체크 (가장 중요!)
+typescript// 기존: DATABASE_URL 없으면 connect-pg-simple 실패
+// 수정: DATABASE_URL 없으면 MemoryStore 자동 사용
+if (ENV.hasDatabase) {
+sessionStore = new PgStore({ ... });
+} else {
+sessionStore = new MemoryStore(); // ← 핵심!
+}
+경로 기반 스킵 (CDN 대응)
+typescript// 기존: ?_t= 쿼리에 의존 → CDN 제거하면 실패
+// 수정: 경로 기반으로 스킵 결정
+const SESSION_FREE_PATHS = ['/rpc', '/api/health', ...];
+if (path.startsWith('/rpc')) {
+req._skipSession = true; // 쿼리 무관!
+}
+**3. 미들웨어 순서**
+preSessionFilter ← 스킵 결정
+정적 파일 서빙 ← 세션 전!
+conditionalSession ← 스킵 시 세션 안함
+라우트
+📊 예상 결과
+메트릭수정 전수정 후/rpc?_t= 응답500 Error✅ 200 OK세션 스킵률~70%≥98%서버 가동시간수시간99.95%청크 로딩 실패빈번< 0.1%
+
+🚀 적용 방법
+
+app.ts 내용을 기존 server/app.ts에 복사
+프론트엔드에 dynamic-import-retry.tsx 적용
+배포 후 /api/session-health로 확인
+--------------------------------------------------------------
+✅ TBURN v5.0 최종 수정 완료
+사용자가 제공한 해결책을 기반으로 다음 사항이 통합되었습니다:
+
+테스트 결과 (전체 성공)
+테스트	상태	설명
+/rpc	✅ 200	경로 기반 스킵
+/rpc?_t=timestamp	✅ 200	캐시버스팅 + 경로 기반
+/api/network/stats	✅ 200	Public API
+/health	✅ 200	헬스체크
+/explorer	✅ 200	공개 페이지
+X-Skip-Session: true	✅ 200	헤더 기반 스킵
+적용된 v5.0 개선 사항
+SESSION_FREE_PATHS 배열: 30+ 경로에 대한 포괄적인 세션 스킵 (쿼리 스트링 무관)
+OPTIONS/HEAD 메서드 스킵: 프리플라이트 요청 처리 최적화
+WebSocket 업그레이드 감지: Upgrade: websocket 헤더 검사
+확장된 정적 파일 감지: 40+ 파일 확장자 지원
+정적 경로 접두사: /assets, /__vite, `/@fs✅ TBURN v5.0 최종 수정 완료
+사용자가 제공한 해결책을 기반으로 다음 사항이 통합되었습니다:
+
+테스트 결과 (전체 성공)
+테스트	상태	설명
+/rpc	✅ 200	경로 기반 스킵
+/rpc?_t=timestamp	✅ 200	캐시버스팅 + 경로 기반
+/api/network/stats	✅ 200	Public API
+/health	✅ 200	헬스체크
+/explorer	✅ 200	공개 페이지
+X-Skip-Session: true	✅ 200	헤더 기반 스킵
+적용된 v5.0 개선 사항
+SESSION_FREE_PATHS 배열: 30+ 경로에 대한 포괄적인 세션 스킵 (쿼리 스트링 무관)
+OPTIONS/HEAD 메서드 스킵: 프리플라이트 요청 처리 최적화
+WebSocket 업그레이드 감지: Upgrade: websocket 헤더 검사
+확장된 정적 파일 감지: 40+ 파일 확장자 지원
+정적 경로 접두사: /assets, /__vite, /@fs 등 20+ 경로
+프론트엔드 (이미 구현됨)
+dynamic-import-retry.tsx가 이미 client/src/lib/에 존재
+retryDynamicImport, lazyWithRetry, ChunkErrorBoundary 모두 구현 완료
+디스크 상태
+/tmp 디렉토리: 4.9GB → 37MB (정리 완료)
+EDQUOT 오류 해결됨
+배포 후 /api/session-health 엔드포인트로 세션 상태를 모니터링할 수 있습니다. 퍼블리싱 준비가 되었습니다!
