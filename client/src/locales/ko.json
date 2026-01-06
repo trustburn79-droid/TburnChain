@@ -31373,5 +31373,12 @@
       "sevenDayAvgSuccess": "7일 평균 성공률",
       "sevenDayUptime": "7일 업타임"
     }
+  },
+  "status": {
+    "connected": "연결됨",
+    "disconnected": "연결 끊김",
+    "pass": "통과",
+    "fail": "불일치",
+    "withinTolerance": "허용범위"
   }
 }
