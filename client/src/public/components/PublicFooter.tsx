@@ -3,7 +3,7 @@ import { SiX, SiGithub, SiDiscord, SiInstagram, SiTiktok, SiYoutube, SiFacebook 
 import { Mail, Globe, Shield, Zap, Loader2 } from "lucide-react";
 import { TBurnLogo } from "@/components/tburn-logo";
 import { useTranslation } from "react-i18next";
-import { useQuery, useMutation } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
@@ -90,14 +90,6 @@ export function PublicFooter() {
   const [email, setEmail] = useState("");
   const { toast } = useToast();
 
-  const { data: networkStats } = useQuery<{ success: boolean; data: any }>({
-    queryKey: ['/api/public/v1/network/stats'],
-    staleTime: 30000, // Match backend cache TTL for consistent display
-    refetchOnMount: false, // Use cached value for consistency across pages
-    refetchOnWindowFocus: false,
-    refetchInterval: 30000,
-  });
-
   const subscribeMutation = useMutation({
     mutationFn: async (emailToSubmit: string) => {
       return apiRequest("POST", "/api/newsletter/subscribe", { email: emailToSubmit, source: "footer" });
@@ -143,50 +135,11 @@ export function PublicFooter() {
     subscribeMutation.mutate(email);
   };
 
-  const stats = networkStats?.data ? [
-    { 
-      value: networkStats.data.tps >= 1000 
-        ? Math.floor(networkStats.data.tps / 1000).toLocaleString() + "K" 
-        : (networkStats.data.tps || 210000).toLocaleString(), 
-      labelKey: "tps" 
-    },
-    { 
-      value: networkStats.data.blockHeight >= 1000000 
-        ? (networkStats.data.blockHeight / 1000000).toFixed(1) + "M" 
-        : networkStats.data.blockHeight?.toLocaleString() || "1.9M", 
-      labelKey: "blocks" 
-    },
-    { 
-      value: networkStats.data.totalTransactions >= 1000000 
-        ? (networkStats.data.totalTransactions / 1000000).toFixed(1) + "M" 
-        : networkStats.data.totalTransactions >= 1000 
-          ? Math.floor(networkStats.data.totalTransactions / 1000).toLocaleString() + "K" 
-          : networkStats.data.totalTransactions?.toLocaleString() || "56.3M", 
-      labelKey: "dailyTxs" 
-    },
-    { value: networkStats.data.uptime || "99.99%", labelKey: "uptime" },
-  ] : [
-    { value: "210K", labelKey: "tps" },
-    { value: "1.9M", labelKey: "blocks" },
-    { value: "56.3M", labelKey: "dailyTxs" },
-    { value: "99.99%", labelKey: "uptime" },
-  ];
-
   return (
     <footer className="border-t border-white/5 bg-black/80 backdrop-blur-xl relative">
       <div className="absolute inset-0 bg-gradient-to-t from-[#7000ff]/5 to-transparent pointer-events-none" />
       
       <div className="max-w-7xl mx-auto px-6 lg:px-8 py-16 relative z-10">
-        {/* Stats Bar */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12 pb-12 border-b border-white/5">
-          {stats.map((stat) => (
-            <div key={stat.labelKey} className="text-center">
-              <div className="text-2xl md:text-3xl font-bold text-white mb-1">{stat.value}</div>
-              <div className="text-sm text-gray-500">{t(`publicPages.footer.stats.${stat.labelKey}`)}</div>
-            </div>
-          ))}
-        </div>
-
         {/* Main Footer Grid */}
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 mb-12">
           {/* Brand Column */}
