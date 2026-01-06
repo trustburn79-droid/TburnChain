@@ -1,0 +1,142 @@
+아직도 Internal Server Error 문제가 지속되고 다른 문제들도 지속된다. 아래의 내용과 첨부파일에 정확한 해결책이 있다. 빠짐없이 모두 정확히 읽고 아래 내용과 첨부파일을 최대한 적용하여 4일째 Internal Server Error에 문제와 타입오류, 타임스템프 오류등의 모든 오류를 완벽하게 해결해줘.
+
+✅ TBURN 프로덕션 안정성 수정 완료
+🔥 핵심 문제 해결: /rpc?_t=timestamp Internal Server Error
+문제원인해결책/rpc?_t=1767653039282 요청 → 서버 다운RPC 요청이 세션 생성 → MemoryStore 오버플로우Pre-session 필터가 RPC 요청 완전 차단Set-Cookie 헤더 발행express-session이 먼저 실행됨미들웨어 순서 수정 + Set-Cookie 차단시간 경과 후 크래시세션 누적 → 메모리 초과Disaster Recovery + Circuit Breaker
+
+📁 제공된 파일
+파일버전역할app.tsv4.0미들웨어 순서 수정, Pre-session 필터session-bypass-v4.tsv4.0RPC/타임스탬프 감지, 세션 스킵disaster-recovery-v2.tsv2.0자동 복구, Circuit Breaker
+
+🔧 핵심 수정 사항
+
+Pre-Session 필터 (미들웨어 순서 수정)
+typescript// BEFORE: express-session → session-bypass (이미 늦음!)
+// AFTER: preSessionFilter → session-bypass → express-session
+const preSessionFilter = (req, res, next) => {
+const path = req.url.split('?')[0].toLowerCase();
+
+// RPC 경로 또는 캐시버스팅 파라미터 감지
+if (path.startsWith('/rpc') || /[?&]_t=\d+/.test(req.url)) {
+req._skipSession = true; // 세션 완전 스킵
+req.session = null;
+// Set-Cookie 차단
+}
+next();
+};
+
+캐시버스팅 파라미터 감지
+typescript// 감지되는 파라미터:
+// ?t=1767653039282 ← 타임스탬프
+// ?=1234567890 ← jQuery 캐시버스트
+// ?timestamp=... ← 명시적 타임스탬프
+// ?v=1.2.3 ← 버전
+// ?nonce=abc123 ← 논스
+**3. Circuit Breaker 패턴**
+메모리 사용률:
+├─ < 60%: 정상
+├─ 60-70%: 경고 (세션 20% 정리)
+├─ 70-80%: 위험 (세션 35% 정리 + GC)
+├─ 80-88%: 심각 (세션 60% 정리)
+├─ 88-93%: 비상 (세션 85% 정리)
+└─ > 93%: 치명적 → Circuit Breaker OPEN (모든 새 세션 차단)
+
+🚀 적용 방법
+typescript// 1. 파일 복사
+// session-bypass-v4.ts → /src/middleware/
+// disaster-recovery-v2.ts → /src/services/
+// app.ts 내용을 기존 app.ts에 적용
+
+// 2. import 수정
+import {
+createSessionBypassMiddleware,
+createPreSessionMiddleware,
+setSessionStore,
+} from './middleware/session-bypass-v4';
+
+// 3. 미들웨어 순서 확인 (CRITICAL)
+app.use(preSessionFilter); // ← 1. RPC 필터 (가장 먼저!)
+app.use(createPreSessionMiddleware()); // ← 2. 세션 전 필터
+app.use(conditionalSessionMiddleware); // ← 3. 조건부 세션
+
+📊 예상 결과
+메트릭수정 전수정 후세션 스킵률~70%≥98%RPC 세션 생성✅ 생성됨❌ 완전 차단Set-Cookie 발행✅ 발행됨❌ 차단됨서버 다운 빈도수시간 후99.95% 가동시간MemoryStore 오버플로우발생Disaster Recovery 자동 처리
+✅ 청크 로딩 실패 문제 해결 완료
+🔥 추가 문제 해결: Failed to fetch dynamically imported module
+문제원인해결책ScanRoutes-CsSDnY9W.js 로딩 실패정적 파일이 세션 미들웨어 이후 처리됨정적 파일을 세션 이전에 서빙새로고침 시 청크 실패Set-Cookie가 정적 파일에 붙음Set-Cookie 완전 차단서버 과부하 시 청크 실패서버가 요청 거부프론트엔드 재시도 로직
+
+📁 제공 파일
+파일역할app.ts정적 파일을 세션 전에 서빙, 청크 404 핸들링session-bypass-v4.tsVite 청크 경로 완전 스킵frontend/dynamic-import-retry.tsx프론트엔드 재시도 로직frontend/vite.config.ts최적화된 청크 분할 설정
+
+🔧 핵심 수정 - 미들웨어 순서
+수정 전 (문제):
+
+Body parsers
+Cookie parser
+Session bypass ← 세션이 이미 개입
+Static files ← 늦음! Set-Cookie 발행됨
+Routes
+수정 후 (해결):
+
+Body parsers
+Cookie parser
+Pre-session filter
+★ Static files ★ ← 세션 전에 서빙!
+Session bypass
+Routes
+🖥️ 프론트엔드 적용
+tsx// main.tsx
+import { installChunkErrorHandler, lazyWithRetry } from './dynamic-import-retry';
+
+// 앱 시작 시 글로벌 핸들러 설치
+installChunkErrorHandler();
+
+// 기존 lazy 대신 lazyWithRetry 사용
+const ScanRoutes = lazyWithRetry(() => import('./pages/ScanRoutes'));
+const Dashboard = lazyWithRetry(() => import('./pages/Dashboard'));
+
+function App() {
+return (
+<ChunkErrorBoundary>
+<Suspense fallback={<Loading />}>
+<Routes>
+<Route path="/scan/*" element={<ScanRoutes />} />
+</Routes>
+</Suspense>
+</ChunkErrorBoundary>
+);
+}
+
+---
+### 📊 예상 결과
+| 메트릭 | 수정 전 | 수정 후 |
+|--------|--------|--------|
+| 청크 로딩 실패율 | 새로고침 시 빈번 | **< 0.1%** |
+| 정적 파일 Set-Cookie | ✅ 발행됨 | ❌ 완전 차단 |
+| 청크 캐싱 | 불안정 | **immutable 캐시** |
+| 실패 시 복구 | 수동 새로고침 | **자동 재시도 3회** |
+---
+### 📋 전체 파일 구조
+tburn-production-fix/
+├── app.ts # Express 앱 (미들웨어 순서 수정)
+├── session-bypass-v4.ts # 세션 스킵 로직 v4.0
+├── disaster-recovery-v2.ts # 재해복구 시스템
+└── frontend/
+├── dynamic-import-retry.tsx # 청크 재시도 유틸
+└── vite.config.ts # Vite 최적화 설정
+==================================================
+
+====================================================
+
+🔍 10분 유휴 후 Internal Server Error 심층 분석원인 분석타임라인:
+0분   → 페이지 정상 로드
+10분  → 유휴 상태 (Replit 컨테이너 슬립 모드 진입)
+10분+ → 새로고침 → Internal Server Error ❌
+10분+ → 다시 새로고침 → 정상 ✅
+
+왜 첫 번째는 실패하고 두 번째는 성공하는가?단계첫 번째 새로고침두 번째 새로고침컨테이너 상태슬립 → 웨이크업 중활성화됨DB 연결 풀idle timeout → 연결 끊김재연결 완료세션 스토어초기화 중 / 연결 실패준비 완료세션 쿠키만료된 세션 ID로 조회 시도새 세션 생성결과500 Error✅ 200 OK근본 원인 3가지1. Replit 슬립 모드 (Cold Start)
+10분 유휴 → 컨테이너 슬립 → 첫 요청 시 웨이크업 필요 (2-5초)
+웨이크업 중 DB 연결/세션 스토어 준비 안됨 → 에러2. PostgreSQL 연결 풀 타임아웃
+idle 연결 30초 후 자동 종료 → 첫 쿼리 시 "Connection terminated" 에러3. 만료된 세션 쿠키 처리 실패
+클라이언트: connect.sid=abc123 (10분 전 세션)
+서버: 해당 세션 없음 → 복원 시도 → 실패 → 500 Error
+
