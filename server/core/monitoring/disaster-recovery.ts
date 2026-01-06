@@ -69,9 +69,9 @@ interface DisasterRecoveryConfig {
 
 const DEFAULT_CONFIG: DisasterRecoveryConfig = {
   memoryThresholds: {
-    warning: 0.70,
-    critical: 0.85,
-    emergency: 0.95,
+    warning: 0.50,     // ★ [v3.1] 50%에서 경고 시작 (메모리 여유 확보)
+    critical: 0.65,    // ★ [v3.1] 65%에서 위험 (더 일찍 정리)
+    emergency: 0.80,   // ★ [v3.1] 80%에서 긴급 (크래시 방지)
   },
   errorRateThresholds: {
     warning: 0.01,    // 1%
@@ -83,7 +83,7 @@ const DEFAULT_CONFIG: DisasterRecoveryConfig = {
     critical: 3000,   // 3s
     emergency: 10000, // 10s
   },
-  healthCheckInterval: 30000,  // 30 seconds
+  healthCheckInterval: 60000,  // ★ [v3.1] 60초로 늘림 (오버헤드 감소)
   recovery: {
     autoRestart: false,  // ★ [v3.0] DISABLED to prevent restart loops
     gracefulShutdownTimeout: 5000,
@@ -91,11 +91,11 @@ const DEFAULT_CONFIG: DisasterRecoveryConfig = {
   // ★ [v3.0] Enterprise session protection
   sessionProtection: {
     enabled: true,
-    maxSessions: 10000,
-    warningThreshold: 0.70,      // 70% - start warning
-    criticalThreshold: 0.85,     // 85% - emergency cleanup
-    emergencyThreshold: 0.95,    // 95% - full clear
-    proactiveCleanupInterval: 60000, // 1 minute
+    maxSessions: 5000,           // ★ [v3.1] 5000으로 축소 (메모리 절약)
+    warningThreshold: 0.50,      // ★ [v3.1] 50% - start warning
+    criticalThreshold: 0.70,     // ★ [v3.1] 70% - emergency cleanup
+    emergencyThreshold: 0.85,    // ★ [v3.1] 85% - full clear
+    proactiveCleanupInterval: 120000, // ★ [v3.1] 2분으로 늘림
   },
 };
 

@@ -460,13 +460,13 @@ if (hasRedis) {
   sessionStoreType = "Redis (TLS: " + isTLS + ")";
 } else {
   // Redis가 없는 환경: MemoryStore 사용 (Replit 개발 및 Autoscale 배포 모두)
-  // ★ [수정 6] 프로덕션 안정성 - 세션 오버플로우 완전 방지
-  // 프로덕션에서는 10000개로 증가, 개발에서는 2000개
-  const maxSessions = IS_PRODUCTION ? 10000 : 2000;
+  // ★ [수정 6] 프로덕션 안정성 v3.1 - 메모리 최적화
+  // 세션 수 대폭 축소로 메모리 절약 (5000 → 2000)
+  const maxSessions = IS_PRODUCTION ? 2000 : 1000;
   const memStore = new MemoryStore({
-    checkPeriod: 30000, // ★ 30초마다 만료된 세션 정리 (더 적극적)
-    max: maxSessions, // ★ 프로덕션 10000 / 개발 2000
-    ttl: 1800000, // ★ 세션 TTL 30분
+    checkPeriod: 60000, // ★ [v3.1] 60초마다 만료된 세션 정리 (오버헤드 감소)
+    max: maxSessions, // ★ [v3.1] 프로덕션 2000 / 개발 1000 (메모리 절약)
+    ttl: 900000, // ★ [v3.1] 세션 TTL 15분으로 단축 (메모리 회수 빠르게)
     stale: false, // ★ 만료된 세션 즉시 삭제 (메모리 절약)
     dispose: (key: string) => {
       // 세션 삭제 로깅 (디버깅용)
@@ -538,7 +538,7 @@ export function getSessionStoreInfo() {
   return {
     isUsingMemoryStore,
     memoryStoreRef,
-    maxSessions: IS_PRODUCTION ? 10000 : 2000,
+    maxSessions: IS_PRODUCTION ? 2000 : 1000,  // ★ [v3.1] 메모리 최적화
     getActiveCount: getActiveSessionCount
   };
 }
