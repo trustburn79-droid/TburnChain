@@ -867,11 +867,14 @@ router.get('/monitoring/metrics', (_req: Request, res: Response) => {
 router.get('/alerts/rules', (_req: Request, res: Response) => {
   res.json({
     rules: [
-      { id: '1', name: 'High CPU Usage', condition: 'cpu > 80', severity: 'warning', enabled: true, lastTriggered: null },
-      { id: '2', name: 'Memory Critical', condition: 'memory > 90', severity: 'critical', enabled: true, lastTriggered: new Date(Date.now() - 86400000).toISOString() },
-      { id: '3', name: 'Error Rate Spike', condition: 'errorRate > 1', severity: 'critical', enabled: true, lastTriggered: null },
-      { id: '4', name: 'Low Disk Space', condition: 'disk > 85', severity: 'warning', enabled: true, lastTriggered: null }
-    ]
+      { id: '1', name: 'High CPU Usage', description: 'Alert when CPU usage exceeds 80%', condition: 'cpu > 80', severity: 'high', enabled: true, lastTriggered: null, notifications: ['email', 'slack'], triggerCount: 0, category: 'resources', cooldown: 300 },
+      { id: '2', name: 'Memory Critical', description: 'Critical alert for memory usage above 90%', condition: 'memory > 90', severity: 'critical', enabled: true, lastTriggered: new Date(Date.now() - 86400000).toISOString(), notifications: ['email', 'slack', 'pagerduty'], triggerCount: 3, category: 'resources', cooldown: 120 },
+      { id: '3', name: 'Error Rate Spike', description: 'Alert when error rate exceeds 1%', condition: 'errorRate > 1', severity: 'critical', enabled: true, lastTriggered: null, notifications: ['email', 'slack', 'sms'], triggerCount: 0, category: 'performance', cooldown: 60 },
+      { id: '4', name: 'Low Disk Space', description: 'Warning when disk usage exceeds 85%', condition: 'disk > 85', severity: 'medium', enabled: true, lastTriggered: null, notifications: ['email'], triggerCount: 1, category: 'resources', cooldown: 600 },
+      { id: '5', name: 'TPS Below Threshold', description: 'Alert when TPS drops below 80K', condition: 'tps < 80000', severity: 'critical', enabled: true, lastTriggered: null, notifications: ['email', 'slack', 'pagerduty', 'sms'], triggerCount: 0, category: 'performance', cooldown: 60 },
+      { id: '6', name: 'Validator Offline', description: 'Alert when validator goes offline', condition: 'validator_status != healthy', severity: 'critical', enabled: true, lastTriggered: null, notifications: ['email', 'slack', 'pagerduty'], triggerCount: 0, category: 'validators', cooldown: 30 }
+    ],
+    totalCount: 6
   });
 });
 
@@ -1097,9 +1100,11 @@ router.patch('/tickets/:id', (req: Request, res: Response) => {
 router.get('/announcements', (_req: Request, res: Response) => {
   res.json({
     announcements: [
-      { id: 'ann-1', title: 'Mainnet Launch Announcement', content: 'TBURN Chain Mainnet is now live! Chain ID: 6000. All systems operational.', type: 'launch', priority: 'high', status: 'published', createdAt: new Date(Date.now() - 7 * 86400000).toISOString(), publishedAt: new Date(Date.now() - 7 * 86400000).toISOString() },
-      { id: 'ann-2', title: 'Network Upgrade v8.1 Scheduled', content: 'Scheduled maintenance window for network upgrade. Expected duration: 2 hours.', type: 'maintenance', priority: 'medium', status: 'scheduled', createdAt: new Date(Date.now() - 1 * 86400000).toISOString(), scheduledAt: new Date(Date.now() + 7 * 86400000).toISOString() },
-      { id: 'ann-3', title: 'New Staking Rewards Program', content: 'Introducing enhanced staking rewards for early validators. Up to 25% APY.', type: 'feature', priority: 'medium', status: 'draft', createdAt: new Date(Date.now() - 3600000).toISOString() }
+      { id: 'ann-1', title: 'Mainnet Launch Announcement', content: 'TBURN Chain Mainnet is now live! Chain ID: 6000. All systems operational.', type: 'critical', audience: ['All Users', 'Validators'], status: 'published', pinned: true, publishedAt: new Date(Date.now() - 7 * 86400000).toISOString(), scheduledFor: null, author: 'TBURN Foundation', views: 15847 },
+      { id: 'ann-2', title: 'Network Upgrade v8.1 Scheduled', content: 'Scheduled maintenance window for network upgrade. Expected duration: 2 hours.', type: 'maintenance', audience: ['All Users', 'Developers'], status: 'scheduled', pinned: false, publishedAt: null, scheduledFor: new Date(Date.now() + 7 * 86400000).toISOString(), author: 'Engineering Team', views: 0 },
+      { id: 'ann-3', title: 'New Staking Rewards Program', content: 'Introducing enhanced staking rewards for early validators. Up to 25% APY.', type: 'info', audience: ['Validators', 'Stakers'], status: 'draft', pinned: false, publishedAt: null, scheduledFor: null, author: 'DeFi Team', views: 0 },
+      { id: 'ann-4', title: 'Security Alert: Phishing Warning', content: 'Please be cautious of phishing attempts. TBURN team will never ask for private keys.', type: 'warning', audience: ['All Users'], status: 'published', pinned: true, publishedAt: new Date(Date.now() - 2 * 86400000).toISOString(), scheduledFor: null, author: 'Security Team', views: 8234 },
+      { id: 'ann-5', title: 'Validator Registration Open', content: 'Genesis validator program is now open. Stake 20M TBURN to become a Tier 1 validator.', type: 'info', audience: ['Validators', 'Partners'], status: 'published', pinned: false, publishedAt: new Date(Date.now() - 5 * 86400000).toISOString(), scheduledFor: null, author: 'Validator Operations', views: 5621 }
     ]
   });
 });
