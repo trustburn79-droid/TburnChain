@@ -1,5 +1,5 @@
 /**
- * TBURN Mainnet Session Bypass Middleware v4.0
+ * TBURN Mainnet Session Bypass Middleware v4.1
  * Enterprise-grade production session management with Disaster Recovery
  * 
  * FIXES:
@@ -8,16 +8,25 @@
  * - Set-Cookie header still being issued
  * - Production detection mismatch with app.ts
  * 
+ * Changes in v4.1:
+ * - ★ [2026-01-06] Integrated with centralized session-policy.ts module
+ * - Uses shared isAuthRequired function for consistent policy
+ * 
  * Target: ≥98% session skip ratio, 99.95% uptime
  * 
  * @author TBURN Development Team
- * @version 4.0.0
+ * @version 4.1.0
  * @date 2026-01-06
  */
 
 import { Request, Response, NextFunction, RequestHandler } from 'express';
 import * as sessionModule from 'express-session';
 import { EventEmitter } from 'events';
+
+// ★ [2026-01-06] Import centralized policy functions
+import {
+  isAuthRequired as policyIsAuthRequired,
+} from './session-policy';
 
 type SessionStore = sessionModule.Store;
 
@@ -209,13 +218,13 @@ const AUTH_REQUIRED_PATHS = [
   '/admin', '/account',
 ];
 
-let sessionStore: session.MemoryStore | null = null;
+let sessionStore: sessionModule.MemoryStore | null = null;
 
-export function setSessionStore(store: session.MemoryStore): void {
+export function setSessionStore(store: sessionModule.MemoryStore): void {
   sessionStore = store;
 }
 
-export function getSessionStore(): session.MemoryStore | null {
+export function getSessionStore(): sessionModule.MemoryStore | null {
   return sessionStore;
 }
 
@@ -337,8 +346,9 @@ function isInternalIP(ip: string): boolean {
   return INTERNAL_IP_PATTERNS.some(pattern => pattern.test(ip));
 }
 
+// ★ [2026-01-06] Use centralized policy function for consistent auth path detection
 function isAuthRequired(path: string): boolean {
-  return AUTH_REQUIRED_PATHS.some(authPath => path.startsWith(authPath));
+  return policyIsAuthRequired(path);
 }
 
 function isRPCOrStatelessPath(path: string): boolean {

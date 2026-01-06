@@ -42,6 +42,15 @@ import {
   CONFIG as CONFIG_V4,
 } from "./core/sessions/session-bypass-v4";
 
+// ★ [2026-01-06] Import centralized session policy module
+import {
+  isAuthRequired as policyIsAuthRequired,
+  isTrustedIP as policyIsTrustedIP,
+  isValidSkipSessionHeader,
+  recordBypassDecision,
+  getPrometheusMetrics as getPolicyPrometheusMetrics,
+} from "./core/sessions/session-policy";
+
 // ★ [2026-01-05] 프로세스 크래시 핸들러 즉시 등록 (최우선)
 // uncaughtException, unhandledRejection 핸들러가 모든 에러를 캡처
 crashDiagnostics.registerProcessHandlers();
@@ -242,17 +251,11 @@ app.use((req: Request, res: Response, next: NextFunction) => {
   
   // ★ [2026-01-06 CRITICAL FIX] NEVER skip session for auth-required paths
   // This takes absolute precedence over ALL other bypass rules
-  const isAuthRequiredPath = path.startsWith('/api/admin') || 
-                              path.startsWith('/api/enterprise/admin') ||
-                              path.startsWith('/api/auth') ||
-                              path.startsWith('/api/session') ||
-                              path.startsWith('/api/user') ||
-                              path.startsWith('/api/oauth') ||
-                              path.startsWith('/api/member');
+  // Uses centralized policy module for consistent path detection
+  const isAuthRequiredPath = policyIsAuthRequired(path);
   
   if (isAuthRequiredPath) {
     // Auth-required paths must NEVER skip session - go directly to next()
-    console.log(`[SessionBypassV5] Auth-required path detected: ${path}, skipping all bypass logic`);
     next();
     return;
   }

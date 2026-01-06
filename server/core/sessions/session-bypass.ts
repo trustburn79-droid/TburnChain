@@ -1,10 +1,17 @@
 /**
- * Enterprise Session Bypass Module v3.0.0
+ * Enterprise Session Bypass Module v3.1.0
  * 
  * Purpose: 24/7/365 무중단 운영을 위한 세션 바이패스
  * 
  * CRITICAL: This module prevents MemoryStore overflow that causes
  * "Internal Server Error" and "upstream request timeout" after 1-2 hours
+ * 
+ * Changes in v3.1:
+ * - ★ [2026-01-06] Integrated with centralized session-policy.ts module
+ * - Uses shared isAuthRequired, isSessionFree, isTrustedIP functions
+ * - Consistent policy across all bypass layers
+ * - CIDR-aware trusted IP validation
+ * - Enhanced Prometheus metrics
  * 
  * Changes in v3.0:
  * - Enhanced environment detection (unified with app.ts)
@@ -18,6 +25,25 @@
 import { Request, Response, NextFunction, RequestHandler } from 'express';
 import session from 'express-session';
 import * as fs from 'fs';
+
+// ★ [2026-01-06] Import centralized policy functions
+import {
+  isAuthRequired as policyIsAuthRequired,
+  isSessionFree as policyIsSessionFree,
+  isStaticAsset as policyIsStaticAsset,
+  isTrustedIP as policyIsTrustedIP,
+  isInternalUserAgent as policyIsInternalUA,
+  hasValidSessionCookie as policyHasValidSessionCookie,
+  hasCacheBustParam as policyHasCacheBustParam,
+  isValidSkipSessionHeader,
+  makeBypassDecision,
+  recordBypassDecision,
+  getBypassMetrics,
+  getPrometheusMetrics,
+  ENVIRONMENT as POLICY_ENVIRONMENT,
+  IS_PRODUCTION as POLICY_IS_PRODUCTION,
+  CONFIG as POLICY_CONFIG,
+} from './session-policy';
 
 // ============================================================================
 // Configuration Constants
@@ -332,11 +358,9 @@ function isInternalIP(ip: string): boolean {
   return INTERNAL_IP_PATTERNS.some(pattern => pattern.test(ip));
 }
 
+// ★ [2026-01-06] Use centralized policy function for consistent auth path detection
 function isAuthRequired(path: string): boolean {
-  const normalizedPath = path.toLowerCase();
-  return AUTH_REQUIRED_PATHS.some(authPath => 
-    normalizedPath === authPath || normalizedPath.startsWith(authPath + '/')
-  );
+  return policyIsAuthRequired(path);
 }
 
 function hasValidSessionCookie(req: Request): boolean {

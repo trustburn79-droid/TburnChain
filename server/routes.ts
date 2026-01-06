@@ -83,6 +83,10 @@ import { getDataCache, DataCacheService } from "./services/DataCacheService";
 import { getProductionDataPoller } from "./services/ProductionDataPoller";
 import { getSessionHealthData } from "./core/sessions/session-bypass";
 import { getSessionSkipMetrics } from "./app";
+import { 
+  getPrometheusMetrics as getSessionPolicyPrometheus,
+  getBypassMetrics as getSessionPolicyMetrics,
+} from "./core/sessions/session-policy";
 import { disasterRecovery, disasterRecoveryMiddleware } from "./core/monitoring/disaster-recovery";
 
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "admin7979";
@@ -574,6 +578,17 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   // Register production monitor routes
   app.use('/api/production-monitor', productionMonitor.getRoutes());
   console.log('[Routes] ✅ Production monitor routes registered (/api/production-monitor/*)');
+  
+  // ★ [2026-01-06] Enterprise Session Policy Prometheus Metrics
+  app.get('/api/session-policy/prometheus', (req, res) => {
+    res.set('Content-Type', 'text/plain; charset=utf-8');
+    res.send(getSessionPolicyPrometheus());
+  });
+  
+  app.get('/api/session-policy/metrics', (req, res) => {
+    res.json(getSessionPolicyMetrics());
+  });
+  console.log('[Routes] ✅ Session policy metrics registered (/api/session-policy/*)');
   
   // Add request tracking middleware for health metrics
   app.use(healthMonitor.trackRequest());
