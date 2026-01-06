@@ -92,9 +92,14 @@ export const app = express();
 // ★ [수정 2] Nginx 프록시 신뢰 설정 (필수)
 app.set('trust proxy', 1);
 
-// ★ [v4.0 CRITICAL] PRE-SESSION FILTER - MUST be BEFORE express-session
+// ★ [v4.1 CRITICAL] PRE-SESSION FILTER - MUST be BEFORE express-session
 // This blocks RPC and stateless requests BEFORE session middleware even loads
 // This is THE KEY FIX for /rpc?_t=timestamp Internal Server Error
+// 
+// ★ [2026-01-06 PRODUCTION FIX] Added:
+// - X-Skip-Session header check (for CDN/proxy query string stripping)
+// - Original URL preservation from X-Original-URL header
+// - Enhanced cache-busting detection
 const RPC_PATHS_V4 = ['/rpc', '/jsonrpc', '/json-rpc', '/eth', '/ws', '/wss'];
 const HEALTH_PATHS_V4 = ['/health', '/healthz', '/readyz', '/livez', '/ping', '/status', '/metrics'];
 const CACHE_BUST_REGEX_V4 = /[?&](_t|_|t|timestamp|ts|cachebust|cb|nocache|v|ver|nonce|rand)=/i;
@@ -102,7 +107,13 @@ const TIMESTAMP_REGEX_V4 = /[?&][^=]+=\d{10,13}(&|$)/;
 const STATIC_EXT_REGEX_V4 = /\.(js|css|png|jpg|jpeg|gif|svg|ico|woff|woff2|ttf|json|map|mjs|cjs)$/i;
 
 app.use((req: Request, res: Response, next: NextFunction) => {
-  const url = req.url || '';
+  // ★ [PRODUCTION FIX] Check headers for session skip (CDN may strip query strings)
+  const skipHeader = req.headers['x-skip-session'] === 'true' || 
+                     req.headers['x-skip-session'] === '1';
+  
+  // ★ [PRODUCTION FIX] Use original URL if CDN preserved it
+  const originalUrl = (req.headers['x-original-url'] as string) || req.url || '';
+  const url = originalUrl || req.url || '';
   const path = url.split('?')[0].toLowerCase();
   
   const isRPC = RPC_PATHS_V4.some(p => path.startsWith(p));
@@ -116,7 +127,8 @@ app.use((req: Request, res: Response, next: NextFunction) => {
                        path.startsWith('/docs') || path.startsWith('/api-docs') ||
                        path.startsWith('/sdk') || path.startsWith('/cli');
   
-  if (isRPC || isHealth || hasCacheBust || isStatic || isPublicPage) {
+  // ★ [PRODUCTION FIX] Include header-based skip check
+  if (skipHeader || isRPC || isHealth || hasCacheBust || isStatic || isPublicPage) {
     (req as any)._skipSession = true;
     (req as any).session = null;
     (req as any).sessionID = null;
