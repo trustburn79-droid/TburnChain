@@ -380,13 +380,23 @@ export interface SkipDecision {
 }
 
 export function shouldSkipSession(req: Request): SkipDecision {
-  const url = req.url || req.originalUrl || '/';
+  // ★ [2026-01-06 PRODUCTION FIX] Check X-Original-URL header for CDN/proxy preserved URLs
+  const originalUrl = (req.headers['x-original-url'] as string) || req.url || req.originalUrl || '/';
+  const url = originalUrl;
   const path = url.split('?')[0].toLowerCase();
   const method = (req.method || 'GET').toUpperCase();
   const userAgent = (req.headers['user-agent'] || '').toLowerCase();
   const accept = (req.headers['accept'] || '').toLowerCase();
   const ip = getClientIP(req);
   const contentType = (req.headers['content-type'] || '').toLowerCase();
+  
+  // ★ [2026-01-06 PRODUCTION FIX] Priority 0: Header-based session skip
+  // CDN/Load Balancer may strip query strings but can set headers
+  const skipHeader = req.headers['x-skip-session'] === 'true' || 
+                     req.headers['x-skip-session'] === '1';
+  if (skipHeader) {
+    return { skip: true, reason: 'x-skip-session_header', priority: 0, confidence: 'high' };
+  }
   
   if (metrics.isCircuitBreakerOpen) {
     return { skip: true, reason: 'circuit_breaker_open', priority: 0, confidence: 'high' };
