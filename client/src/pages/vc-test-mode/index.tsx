@@ -1441,19 +1441,19 @@ export default function VCTestMode() {
                 </CardHeader>
                 <CardContent className="space-y-3">
                   <div className="p-3 bg-purple-500/10 rounded-lg">
-                    <div className="font-medium text-purple-600 dark:text-purple-400">Gemini 3 Pro</div>
+                    <div className="font-medium text-purple-600 dark:text-purple-400">Gemini</div>
                     <div className="text-sm text-gray-500 dark:text-gray-400">{t('vcTestMode.ai.primary', 'Primary - Network optimization')}</div>
                   </div>
                   <div className="p-3 bg-blue-500/10 rounded-lg">
-                    <div className="font-medium text-blue-600 dark:text-blue-400">Claude Sonnet 4.5</div>
+                    <div className="font-medium text-blue-600 dark:text-blue-400">Claude</div>
                     <div className="text-sm text-gray-500 dark:text-gray-400">{t('vcTestMode.ai.analysis', 'Analysis - Smart contract audit')}</div>
                   </div>
                   <div className="p-3 bg-green-500/10 rounded-lg">
-                    <div className="font-medium text-green-600 dark:text-green-400">GPT-4o</div>
+                    <div className="font-medium text-green-600 dark:text-green-400">ChatGPT</div>
                     <div className="text-sm text-gray-500 dark:text-gray-400">{t('vcTestMode.ai.prediction', 'Prediction - Market analytics')}</div>
                   </div>
                   <div className="p-3 bg-orange-500/10 rounded-lg">
-                    <div className="font-medium text-orange-600 dark:text-orange-400">Grok 3</div>
+                    <div className="font-medium text-orange-600 dark:text-orange-400">Grok</div>
                     <div className="text-sm text-gray-500 dark:text-gray-400">{t('vcTestMode.ai.fallback', 'Fallback - Redundancy layer')}</div>
                   </div>
                 </CardContent>

@@ -1900,9 +1900,9 @@ export default function AdminAIOrchestration() {
                             </TableCell>
                             <TableCell>
                               <span className="text-sm text-muted-foreground">
-                                {log.impactLevel === 'critical' ? 'Gemini 3 Pro' : 
+                                {log.impactLevel === 'critical' ? 'Gemini' : 
                                  log.impactLevel === 'high' ? 'Claude Sonnet' : 
-                                 log.impactLevel === 'medium' ? 'GPT-4o' : 'Grok 3'}
+                                 log.impactLevel === 'medium' ? 'ChatGPT' : 'Grok'}
                               </span>
                             </TableCell>
                             <TableCell className="text-muted-foreground text-sm">
@@ -2047,10 +2047,10 @@ export default function AdminAIOrchestration() {
                         <YAxis />
                         <Tooltip />
                         <Legend />
-                        <Line type="monotone" dataKey="gemini" stroke="#3b82f6" name="Gemini 3 Pro" strokeWidth={2} />
+                        <Line type="monotone" dataKey="gemini" stroke="#3b82f6" name="Gemini" strokeWidth={2} />
                         <Line type="monotone" dataKey="claude" stroke="#a855f7" name="Claude" strokeWidth={2} />
-                        <Line type="monotone" dataKey="openai" stroke="#22c55e" name="GPT-4o" strokeWidth={2} />
-                        <Line type="monotone" dataKey="grok" stroke="#f97316" name="Grok 3" strokeWidth={2} />
+                        <Line type="monotone" dataKey="openai" stroke="#22c55e" name="ChatGPT" strokeWidth={2} />
+                        <Line type="monotone" dataKey="grok" stroke="#f97316" name="Grok" strokeWidth={2} />
                       </LineChart>
                     </ResponsiveContainer>
                   </div>

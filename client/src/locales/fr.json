@@ -89,7 +89,7 @@
     "showing": "Affichage",
     "page": "Page",
     "unknown": "Inconnu",
-    "claudeSonnet": "Claude Sonnet 4.5",
+    "claudeSonnet": "Claude",
     "gpt5": "GPT-5",
     "llama4": "Llama 4",
     "gemini": "Gemini 2.0",
@@ -952,7 +952,7 @@
     "tbc721Description": "NFT amélioré par IA avec authentification et notation de rareté",
     "tbc1155Description": "Standard multi-token avec optimisation par lots",
     "aiModelGpt5": "GPT-5 Turbo",
-    "aiModelClaude": "Claude Sonnet 4.5",
+    "aiModelClaude": "Claude",
     "aiModelLlama": "Llama 3.3 70B",
     "tripleBandAiTitle": "Gestion de tokens IA Triple-Bande",
     "tripleBandAiDesc": "Gestion de tokens IA-first avec couches stratégique, tactique et opérationnelle",
@@ -1002,7 +1002,7 @@
     "describeToken": "Décrivez votre token...",
     "website": "Site web",
     "symbolLogo": "Logo du symbole",
-    "claudeSonnet": "Claude Sonnet 4.5",
+    "claudeSonnet": "Claude",
     "llama4": "Llama 4",
     "modelWeight": "Poids du modèle",
     "requestCount": "Nombre de requêtes",
@@ -1923,7 +1923,7 @@
     "recentPosts": "Publications Récentes",
     "tripleBandAi": "IA Triple-Bande",
     "gpt5": "GPT-5",
-    "claudeSonnet": "Claude Sonnet 4.5",
+    "claudeSonnet": "Claude",
     "llama4": "Llama 4",
     "modelWeight": "Poids du modèle",
     "requestCount": "Nombre de requêtes",
@@ -3846,7 +3846,7 @@
     "analyzed": "{{count}} analysées",
     "gpt5TurboAnalysis": "Analyse GPT-5 Turbo",
     "gpt5TurboDesc": "La couche stratégique analyse l'impact économique, les implications de sécurité et fournit une évaluation des risques pour chaque proposition.",
-    "claudeSonnetPrediction": "Prédiction Claude Sonnet 4.5",
+    "claudeSonnetPrediction": "Prédiction Claude",
     "claudeSonnetDesc": "La couche tactique prédit les résultats de vote basés sur le sentiment de la communauté, les modèles historiques et le contenu de la proposition.",
     "llamaRecommendations": "Recommandations Llama 3.3 70B",
     "llamaDesc": "La couche opérationnelle fournit des recommandations de vote personnalisées basées sur l'historique du votant et l'alignement du stake.",
@@ -10758,7 +10758,7 @@
           },
           "tactical": {
             "title": "IA Tactique",
-            "model": "Claude Sonnet 4.5"
+            "model": "Claude"
           },
           "operational": {
             "title": "IA Opérationnelle",
@@ -11252,7 +11252,7 @@
                 "1": "Caractéristiques Clés de TBURN v7.0 :",
                 "2": "Consensus BFT de Comité Amélioré par IA : Notre mécanisme de consensus propriétaire combine la tolérance aux pannes byzantines traditionnelle avec des algorithmes d'IA avancés.",
                 "3": "Système de Fragmentation Dynamique : Le réseau prend désormais en charge l'équilibrage de charge automatique sur plusieurs fragments.",
-                "4": "Orchestration Triple-Band AI : Trois systèmes d'IA indépendants (GPT-5, Claude Sonnet 4.5, Llama 4) travaillent en harmonie pour optimiser les opérations réseau.",
+                "4": "Orchestration Triple-Band AI : Trois systèmes d'IA indépendants (GPT-5, Claude, Llama 4) travaillent en harmonie pour optimiser les opérations réseau.",
                 "5": "Standards de Tokens Entreprise (TBC-20, TBC-721, TBC-1155) : Nos standards de tokens améliorés offrent une sécurité résistante aux quantiques.",
                 "6": "Le lancement du mainnet inclut un écosystème DeFi complet avec DEX/AMM, protocoles de prêt, staking liquide, marketplace NFT et capacités de pont cross-chain.",
                 "7": "Nous invitons les développeurs, validateurs et utilisateurs à nous rejoindre pour construire l'avenir de la finance décentralisée sur TBURN v7.0."
@@ -11278,7 +11278,7 @@
                 "0": "Le système d'Orchestration IA TBURN v7.0 représente une avancée majeure dans la technologie blockchain.",
                 "1": "Comprendre l'Architecture Triple-Band :",
                 "2": "Primary Band (GPT-5) : Gère les tâches analytiques complexes incluant le scoring de confiance des validateurs.",
-                "3": "Secondary Band (Claude Sonnet 4.5) : Spécialisé dans l'analyse de code et l'audit de smart contracts.",
+                "3": "Secondary Band (Claude) : Spécialisé dans l'analyse de code et l'audit de smart contracts.",
                 "4": "Tertiary Band (Llama 4) : Fournit un traitement à haut débit et faible latence pour le routage de transactions en temps réel.",
                 "5": "Interaction Cross-Band : Les trois systèmes analysent indépendamment et combinent leurs sorties pondérées par précision historique.",
                 "6": "Système d'Apprentissage par Feedback : Toutes les décisions IA sont suivies et évaluées. La précision dépasse actuellement 99.7%.",
@@ -11895,7 +11895,7 @@
         },
         "aiOrchestration": {
           "title": "Système d'orchestration IA en ligne",
-          "content": "Le système d'orchestration Quad-Band AI est maintenant pleinement opérationnel avec Gemini 3 Pro en principal, Claude Sonnet 4.5, GPT-4o et Grok 3 en secours."
+          "content": "Le système d'orchestration Quad-Band AI est maintenant pleinement opérationnel avec Gemini en principal, Claude, ChatGPT et Grok en secours."
         }
       },
       "posts": {
@@ -13627,7 +13627,7 @@
       },
       "51": {
         "question": "Qu'est-ce que l'orchestration IA ?",
-        "answer": "L'orchestration IA intègre plusieurs modèles d'IA (Gemini, Claude, GPT-4o, Grok) pour automatiser l'optimisation du réseau, l'ajustement du taux de burn, la détection des menaces de sécurité et plus encore.",
+        "answer": "L'orchestration IA intègre plusieurs modèles d'IA (Gemini, Claude, ChatGPT, Grok) pour automatiser l'optimisation du réseau, l'ajustement du taux de burn, la détection des menaces de sécurité et plus encore.",
         "tags": [
           "AI",
           "optimization",
@@ -13978,7 +13978,7 @@
       },
       "90": {
         "question": "Quelles fonctionnalités IA sont disponibles ?",
-        "answer": "Fournit l'optimisation du burn basée sur l'IA, l'analyse de gouvernance, l'évaluation des risques de pont, la détection d'anomalies et la planification des validateurs. Plusieurs modèles d'IA (Gemini, Claude, GPT-4o, Grok) sont intégrés.",
+        "answer": "Fournit l'optimisation du burn basée sur l'IA, l'analyse de gouvernance, l'évaluation des risques de pont, la détection d'anomalies et la planification des validateurs. Plusieurs modèles d'IA (Gemini, Claude, ChatGPT, Grok) sont intégrés.",
         "tags": [
           "AI",
           "optimization",
@@ -14494,7 +14494,7 @@
     "enterpriseFeatures": "Configurez les options IA et sécurité entreprise",
     "aiOptimizationEnabled": "Optimisation IA Activée",
     "aiOptimizationEnabledDesc": "Active les fonctionnalités d'optimisation par IA",
-    "gpt4oStrategic": "GPT-4o Stratégique",
+    "gpt4oStrategic": "ChatGPT Stratégique",
     "claudeTactical": "Claude Tactique",
     "geminiOperational": "Gemini Opérationnel",
     "aiBurnOptimization": "Optimisation Burn IA",

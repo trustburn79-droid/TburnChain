@@ -1766,7 +1766,7 @@ X-RateLimit-Window: 60`} />
 
                 <div className="mb-6 p-4 rounded-lg bg-[#ffd700]/10 border border-[#ffd700]/30">
                   <p className="text-sm text-[#ffd700]">
-                    TBURN integrates AI for burn optimization, governance analysis, bridge risk assessment, and trust scoring. Powered by Gemini 3 Pro, Claude Sonnet 4.5, GPT-4o, and Grok 3.
+                    TBURN integrates AI for burn optimization, governance analysis, bridge risk assessment, and trust scoring. Powered by Gemini, Claude, ChatGPT, and Grok.
                   </p>
                 </div>
 

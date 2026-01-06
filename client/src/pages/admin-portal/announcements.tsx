@@ -206,7 +206,7 @@ export default function AnnouncementsManagement() {
     {
       id: "ANN-002",
       title: "Triple-Band AI Orchestration System Active",
-      content: "Our Quad-Band AI system is now fully operational: Gemini 3 Pro (primary), Claude Sonnet 4.5 (secondary), GPT-4o (tertiary), Grok 3 (fallback). Automatic failover ensures 99.99% AI availability for consensus optimization and burn rate calculations.",
+      content: "Our Quad-Band AI system is now fully operational: Gemini (primary), Claude (secondary), ChatGPT (tertiary), Grok (fallback). Automatic failover ensures 99.99% AI availability for consensus optimization and burn rate calculations.",
       type: "info",
       audience: ["All Users", "Validators"],
       status: "published",

@@ -124,7 +124,7 @@
     "approve": "승인",
     "reject": "거부",
     "unknown": "알 수 없음",
-    "claudeSonnet": "Claude Sonnet 4.5",
+    "claudeSonnet": "Claude",
     "gpt5": "GPT-5",
     "llama4": "Llama 4",
     "gemini": "Gemini 2.0",
@@ -1815,10 +1815,10 @@
     "pauseSuccessDesc": "토큰 전송이 일시정지되었습니다.",
     "tokenStatsBreakdown": "토큰 통계 분석",
     "percentPopular": "인기 비율",
-    "aiModelGemini": "Gemini 3 Pro",
-    "aiModelClaude": "Claude Sonnet 4.5",
-    "aiModelGpt4o": "GPT-4o",
-    "aiModelGrok": "Grok 3",
+    "aiModelGemini": "Gemini",
+    "aiModelClaude": "Claude",
+    "aiModelGpt4o": "ChatGPT",
+    "aiModelGrok": "Grok",
     "multisig2ofN": "2/N 다중서명",
     "multisig3ofN": "3/N 다중서명",
     "multisig4ofN": "4/N 다중서명",
@@ -3122,7 +3122,7 @@
     "bridge": "브릿지",
     "chainsTab": "체인",
     "aiRiskAssessment": "AI 위험 평가",
-    "aiRiskAssessmentDesc": "GPT-4o가 사기, 의심스러운 패턴 및 보안 위협에 대해 전송을 분석합니다.",
+    "aiRiskAssessmentDesc": "ChatGPT가 사기, 의심스러운 패턴 및 보안 위협에 대해 전송을 분석합니다.",
     "accuracy": "{{percent}}% 정확도",
     "routeOptimization": "경로 최적화",
     "routeOptimizationDesc": "AI 최적화 경로로 가스 비용을 최소화하고, 유동성을 극대화하며, 빠른 전송을 보장합니다.",
@@ -3222,7 +3222,7 @@
     "recentPosts": "최근 게시물",
     "tripleBandAi": "트리플밴드 AI",
     "gpt5": "GPT-5",
-    "claudeSonnet": "Claude Sonnet 4.5",
+    "claudeSonnet": "Claude",
     "llama4": "Llama 4",
     "modelWeight": "모델 가중치",
     "requestCount": "요청 수",
@@ -6918,11 +6918,11 @@
       "title": "AI 소각 최적화 엔진",
       "description": "쿼드밴드 AI를 사용하여 시장 상황과 토크노믹스 목표에 따라 소각률 최적화",
       "strategicAnalysis": "전략적 분석",
-      "strategicAnalysisDesc": "Gemini 3 Pro가 장기 공급 목표, 시장 상황 및 경제적 영향을 분석하여 최적의 소각 목표 설정.",
+      "strategicAnalysisDesc": "Gemini가 장기 공급 목표, 시장 상황 및 경제적 영향을 분석하여 최적의 소각 목표 설정.",
       "tacticalAdjustment": "전술적 조정",
-      "tacticalAdjustmentDesc": "Claude Sonnet 4.5가 네트워크 혼잡, 거래량 및 가격 변동성에 따라 실시간 조정 수행.",
+      "tacticalAdjustmentDesc": "Claude가 네트워크 혼잡, 거래량 및 가격 변동성에 따라 실시간 조정 수행.",
       "operationalExecution": "운영적 실행",
-      "operationalExecutionDesc": "GPT-4o가 가스 비용과 네트워크 상황을 고려하여 최적의 시점에 소각 실행.",
+      "operationalExecutionDesc": "ChatGPT가 가스 비용과 네트워크 상황을 고려하여 최적의 시점에 소각 실행.",
       "burnOptimizationFactors": "소각 최적화 요소",
       "currentSupplyVsTarget": "현재 공급량 대 목표",
       "marketPriceAnalysis": "시장 가격 분석",
@@ -14555,15 +14555,15 @@
           "latency": "지연 시간",
           "strategic": {
             "title": "전략적 AI",
-            "model": "Gemini 3 Pro"
+            "model": "Gemini"
           },
           "tactical": {
             "title": "전술적 AI",
-            "model": "Claude Sonnet 4.5"
+            "model": "Claude"
           },
           "operational": {
             "title": "운영 AI",
-            "model": "GPT-4o"
+            "model": "ChatGPT"
           }
         },
         "uptime": {
@@ -15089,7 +15089,7 @@
                 "1": "TBURN v7.0의 주요 기능:",
                 "2": "AI 강화 위원회 BFT 합의: 전통적인 비잔틴 장애 허용과 최적의 검증자 선택 및 네트워크 보안을 위한 고급 AI 알고리즘을 결합한 독자적인 합의 메커니즘입니다.",
                 "3": "동적 샤딩 시스템: 네트워크는 이제 여러 샤드에 걸쳐 자동 로드 밸런싱을 지원하여 탈중앙화를 희생하지 않으면서도 전례 없는 확장성을 가능하게 합니다.",
-                "4": "Triple-Band AI 오케스트레이션: 세 개의 독립적인 AI 시스템(GPT-5, Claude Sonnet 4.5, Llama 4)이 조화롭게 작동하여 트랜잭션 라우팅에서 리소스 할당까지 네트워크 운영을 최적화합니다.",
+                "4": "Triple-Band AI 오케스트레이션: 세 개의 독립적인 AI 시스템(GPT-5, Claude, Llama 4)이 조화롭게 작동하여 트랜잭션 라우팅에서 리소스 할당까지 네트워크 운영을 최적화합니다.",
                 "5": "엔터프라이즈 토큰 표준(TBC-20, TBC-721, TBC-1155): 강화된 토큰 표준은 기관 채택을 위한 양자 저항 보안과 내장 규정 준수 기능을 제공합니다.",
                 "6": "메인넷 출시에는 DEX/AMM, 렌딩 프로토콜, 리퀴드 스테이킹, NFT 마켓플레이스, 크로스체인 브릿지 기능을 갖춘 종합적인 DeFi 생태계가 포함됩니다.",
                 "7": "개발자, 검증자, 사용자 여러분을 TBURN v7.0에서 탈중앙화 금융의 미래를 함께 만들어 가실 것을 초대합니다."
@@ -15115,7 +15115,7 @@
                 "0": "TBURN v7.0 AI 오케스트레이션 시스템은 중복성, 정확성, 최적의 의사결정을 위해 여러 AI 제공자를 결합한 블록체인 기술의 혁신입니다.",
                 "1": "Triple-Band 아키텍처 이해:",
                 "2": "Primary Band (GPT-5): 검증자 신뢰 점수, 이상 감지, 예측 유지보수를 포함한 복잡한 분석 작업을 처리합니다.",
-                "3": "Secondary Band (Claude Sonnet 4.5): 코드 분석, 스마트 컨트랙트 감사, 거버넌스 제안의 자연어 처리를 전문으로 합니다.",
+                "3": "Secondary Band (Claude): 코드 분석, 스마트 컨트랙트 감사, 거버넌스 제안의 자연어 처리를 전문으로 합니다.",
                 "4": "Tertiary Band (Llama 4): 실시간 트랜잭션 라우팅 및 로드 밸런싱 결정을 위한 고처리량, 저지연 처리를 제공합니다.",
                 "5": "Cross-Band 상호작용: 높은 신뢰도가 필요한 결정의 경우, 세 AI 시스템이 독립적으로 상황을 분석합니다. 그런 다음 합의 메커니즘이 각각의 출력을 결합하며, 유사한 결정 유형에 대한 과거 정확도를 기반으로 가중치를 부여합니다.",
                 "6": "피드백 학습 시스템: 모든 AI 결정은 추적되고 실제 결과와 비교 평가됩니다. 이러한 지속적인 피드백 루프를 통해 시스템은 시간이 지남에 따라 개선되며, 현재 검증자 선택 결정에 대해 99.7%를 초과하는 정확도를 기록하고 있습니다.",
@@ -15808,7 +15808,7 @@
         },
         "aiOrchestration": {
           "title": "AI 오케스트레이션 시스템 가동",
-          "content": "Quad-Band AI 오케스트레이션 시스템이 Gemini 3 Pro를 기본으로 Claude Sonnet 4.5, GPT-4o, Grok 3를 폴백으로 완전히 가동되었습니다."
+          "content": "Quad-Band AI 오케스트레이션 시스템이 Gemini를 기본으로 Claude, ChatGPT, Grok를 폴백으로 완전히 가동되었습니다."
         }
       },
       "posts": {
@@ -28125,7 +28125,7 @@
       },
       "51": {
         "question": "AI 오케스트레이션이란?",
-        "answer": "AI 오케스트레이션은 다중 AI 모델(Gemini, Claude, GPT-4o, Grok)을 통합하여 네트워크 최적화, 번 비율 조정, 보안 위협 감지 등을 자동화합니다.",
+        "answer": "AI 오케스트레이션은 다중 AI 모델(Gemini, Claude, ChatGPT, Grok)을 통합하여 네트워크 최적화, 번 비율 조정, 보안 위협 감지 등을 자동화합니다.",
         "tags": [
           "AI",
           "최적화",
@@ -28476,7 +28476,7 @@
       },
       "90": {
         "question": "AI 기능은 무엇이 있나요?",
-        "answer": "AI 기반 번 최적화, 거버넌스 분석, 브릿지 리스크 평가, 이상 탐지, 밸리데이터 스케줄링을 제공합니다. 다중 AI 모델(Gemini, Claude, GPT-4o, Grok)이 통합되어 있습니다.",
+        "answer": "AI 기반 번 최적화, 거버넌스 분석, 브릿지 리스크 평가, 이상 탐지, 밸리데이터 스케줄링을 제공합니다. 다중 AI 모델(Gemini, Claude, ChatGPT, Grok)이 통합되어 있습니다.",
         "tags": [
           "AI",
           "최적화",
@@ -28934,7 +28934,7 @@
     },
     "q90": {
       "question": "AI 기능은 무엇이 있나요?",
-      "answer": "AI 기반 번 최적화, 거버넌스 분석, 브릿지 리스크 평가, 이상 탐지, 밸리데이터 스케줄링을 제공합니다. 다중 AI 모델(Gemini, Claude, GPT-4o, Grok)이 통합되어 있습니다."
+      "answer": "AI 기반 번 최적화, 거버넌스 분석, 브릿지 리스크 평가, 이상 탐지, 밸리데이터 스케줄링을 제공합니다. 다중 AI 모델(Gemini, Claude, ChatGPT, Grok)이 통합되어 있습니다."
     },
     "q91": {
       "question": "엔터프라이즈 사용 사례는?",
@@ -29425,7 +29425,7 @@
     "enterpriseFeatures": "엔터프라이즈급 AI 및 보안 옵션 구성",
     "aiOptimizationEnabled": "AI 최적화 활성화",
     "aiOptimizationEnabledDesc": "AI 기반 토큰 최적화 기능 활성화",
-    "gpt4oStrategic": "GPT-4o 전략적",
+    "gpt4oStrategic": "ChatGPT 전략적",
     "claudeTactical": "Claude 전술적",
     "geminiOperational": "Gemini 운영적",
     "aiBurnOptimization": "AI 소각 최적화",

@@ -121,7 +121,7 @@
     "approve": "Approve",
     "reject": "Reject",
     "unknown": "Unknown",
-    "claudeSonnet": "Claude Sonnet 4.5",
+    "claudeSonnet": "Claude",
     "gpt5": "GPT-5",
     "llama4": "Llama 4",
     "gemini": "Gemini 2.0",
@@ -1972,10 +1972,10 @@
     "addressCopied": "Address copied to clipboard",
     "tokenStatsBreakdown": "TBC-20: {{tbc20}} | TBC-721: {{tbc721}} | TBC-1155: {{tbc1155}}",
     "percentPopular": "{{percent}}% popular",
-    "aiModelGemini": "Gemini 3 Pro",
-    "aiModelClaude": "Claude Sonnet 4.5",
-    "aiModelGpt4o": "GPT-4o",
-    "aiModelGrok": "Grok 3",
+    "aiModelGemini": "Gemini",
+    "aiModelClaude": "Claude",
+    "aiModelGpt4o": "ChatGPT",
+    "aiModelGrok": "Grok",
     "multisig2ofN": "2 of N",
     "multisig3ofN": "3 of N",
     "multisig4ofN": "4 of N",
@@ -3296,7 +3296,7 @@
     "bridge": "Bridge",
     "chainsTab": "Chains",
     "aiRiskAssessment": "AI Risk Assessment",
-    "aiRiskAssessmentDesc": "GPT-4o analyzes transfers for fraud, suspicious patterns, and security threats.",
+    "aiRiskAssessmentDesc": "ChatGPT analyzes transfers for fraud, suspicious patterns, and security threats.",
     "accuracy": "{{percent}}% Accuracy",
     "routeOptimization": "Route Optimization",
     "routeOptimizationDesc": "AI-optimized routes minimize gas costs, maximize liquidity, and ensure fast transfers.",
@@ -3393,7 +3393,7 @@
     "subtitle": "Triple-Band AI system monitoring and management",
     "tripleBandAi": "Triple-Band AI",
     "gpt5": "GPT-5",
-    "claudeSonnet": "Claude Sonnet 4.5",
+    "claudeSonnet": "Claude",
     "llama4": "Llama 4",
     "modelWeight": "Model Weight",
     "requestCount": "Request Count",
@@ -6987,11 +6987,11 @@
       "title": "AI Burn Optimization Engine",
       "description": "Uses Quad-Band AI to optimize burn rates based on market conditions and tokenomics goals",
       "strategicAnalysis": "Strategic Analysis",
-      "strategicAnalysisDesc": "Gemini 3 Pro analyzes long-term supply goals, market conditions, and economic impact to set optimal burn targets.",
+      "strategicAnalysisDesc": "Gemini analyzes long-term supply goals, market conditions, and economic impact to set optimal burn targets.",
       "tacticalAdjustment": "Tactical Adjustment",
-      "tacticalAdjustmentDesc": "Claude Sonnet 4.5 makes real-time adjustments based on network congestion, transaction volume, and price volatility.",
+      "tacticalAdjustmentDesc": "Claude makes real-time adjustments based on network congestion, transaction volume, and price volatility.",
       "operationalExecution": "Operational Execution",
-      "operationalExecutionDesc": "GPT-4o executes burns at optimal times, considering gas costs and network conditions.",
+      "operationalExecutionDesc": "ChatGPT executes burns at optimal times, considering gas costs and network conditions.",
       "burnOptimizationFactors": "Burn Optimization Factors",
       "currentSupplyVsTarget": "Current Supply vs Target",
       "marketPriceAnalysis": "Market Price Analysis",
@@ -14279,15 +14279,15 @@
           "latency": "Latency",
           "strategic": {
             "title": "Strategic AI",
-            "model": "Gemini 3 Pro"
+            "model": "Gemini"
           },
           "tactical": {
             "title": "Tactical AI",
-            "model": "Claude Sonnet 4.5"
+            "model": "Claude"
           },
           "operational": {
             "title": "Operational AI",
-            "model": "GPT-4o"
+            "model": "ChatGPT"
           }
         },
         "uptime": {
@@ -14795,7 +14795,7 @@
                 "1": "Key Features of TBURN v7.0:",
                 "2": "AI-Enhanced Committee BFT Consensus: Our proprietary consensus mechanism combines traditional Byzantine Fault Tolerance with advanced AI algorithms for optimal validator selection and network security.",
                 "3": "Dynamic Sharding System: The network now supports automatic load balancing across multiple shards, enabling unprecedented scalability without sacrificing decentralization.",
-                "4": "Triple-Band AI Orchestration: Three independent AI systems (GPT-5, Claude Sonnet 4.5, Llama 4) work in harmony to optimize network operations, from transaction routing to resource allocation.",
+                "4": "Triple-Band AI Orchestration: Three independent AI systems (GPT-5, Claude, Llama 4) work in harmony to optimize network operations, from transaction routing to resource allocation.",
                 "5": "Enterprise Token Standards (TBC-20, TBC-721, TBC-1155): Our enhanced token standards provide quantum-resistant security and built-in compliance features for institutional adoption.",
                 "6": "The mainnet launch includes a comprehensive DeFi ecosystem with DEX/AMM, lending protocols, liquid staking, NFT marketplace, and cross-chain bridge capabilities.",
                 "7": "We invite developers, validators, and users to join us in building the future of decentralized finance on TBURN v7.0."
@@ -14821,7 +14821,7 @@
                 "0": "The TBURN v7.0 AI Orchestration system represents a breakthrough in blockchain technology, combining multiple AI providers for redundancy, accuracy, and optimal decision-making.",
                 "1": "Understanding Triple-Band Architecture:",
                 "2": "Primary Band (GPT-5): Handles complex analytical tasks including validator trust scoring, anomaly detection, and predictive maintenance.",
-                "3": "Secondary Band (Claude Sonnet 4.5): Specializes in code analysis, smart contract auditing, and natural language processing for governance proposals.",
+                "3": "Secondary Band (Claude): Specializes in code analysis, smart contract auditing, and natural language processing for governance proposals.",
                 "4": "Tertiary Band (Llama 4): Provides high-throughput, low-latency processing for real-time transaction routing and load balancing decisions.",
                 "5": "Cross-Band Interaction: When a decision requires high confidence, all three AI systems independently analyze the situation. A consensus mechanism then combines their outputs, weighting each based on historical accuracy for similar decision types.",
                 "6": "Feedback Learning System: Every AI decision is tracked and evaluated against actual outcomes. This continuous feedback loop enables the system to improve over time, with accuracy metrics currently exceeding 99.7% for validator selection decisions.",
@@ -15490,7 +15490,7 @@
         },
         "aiOrchestration": {
           "title": "AI Orchestration System Goes Live",
-          "content": "The Quad-Band AI Orchestration System is now fully operational with Gemini 3 Pro as primary, Claude Sonnet 4.5, GPT-4o, and Grok 3 as fallback."
+          "content": "The Quad-Band AI Orchestration System is now fully operational with Gemini as primary, Claude, ChatGPT, and Grok as fallback."
         }
       },
       "posts": {
@@ -27123,7 +27123,7 @@
       },
       "51": {
         "question": "What is AI orchestration?",
-        "answer": "AI orchestration integrates multiple AI models (Gemini, Claude, GPT-4o, Grok) to automate network optimization, burn rate adjustment, security threat detection, and more.",
+        "answer": "AI orchestration integrates multiple AI models (Gemini, Claude, ChatGPT, Grok) to automate network optimization, burn rate adjustment, security threat detection, and more.",
         "tags": [
           "AI",
           "optimization",
@@ -27474,7 +27474,7 @@
       },
       "90": {
         "question": "What AI features are available?",
-        "answer": "Provides AI-based burn optimization, governance analysis, bridge risk assessment, anomaly detection, and validator scheduling. Multiple AI models (Gemini, Claude, GPT-4o, Grok) are integrated.",
+        "answer": "Provides AI-based burn optimization, governance analysis, bridge risk assessment, anomaly detection, and validator scheduling. Multiple AI models (Gemini, Claude, ChatGPT, Grok) are integrated.",
         "tags": [
           "AI",
           "optimization",
@@ -27932,7 +27932,7 @@
     },
     "q90": {
       "question": "What AI features are available?",
-      "answer": "Provides AI-based burn optimization, governance analysis, bridge risk assessment, anomaly detection, and validator scheduling. Multiple AI models (Gemini, Claude, GPT-4o, Grok) are integrated."
+      "answer": "Provides AI-based burn optimization, governance analysis, bridge risk assessment, anomaly detection, and validator scheduling. Multiple AI models (Gemini, Claude, ChatGPT, Grok) are integrated."
     },
     "q91": {
       "question": "What are enterprise use cases?",
@@ -28424,7 +28424,7 @@
     "enterpriseFeatures": "Configure enterprise-grade AI and security options",
     "aiOptimizationEnabled": "AI Optimization Enabled",
     "aiOptimizationEnabledDesc": "Enable AI-powered token optimization features",
-    "gpt4oStrategic": "GPT-4o Strategic",
+    "gpt4oStrategic": "ChatGPT Strategic",
     "claudeTactical": "Claude Tactical",
     "geminiOperational": "Gemini Operational",
     "aiBurnOptimization": "AI Burn Optimization",

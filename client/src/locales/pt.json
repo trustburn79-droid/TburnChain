@@ -83,7 +83,7 @@
     "light": "Claro",
     "system": "Sistema",
     "unknown": "Desconhecido",
-    "claudeSonnet": "Claude Sonnet 4.5",
+    "claudeSonnet": "Claude",
     "gpt5": "GPT-5",
     "llama4": "Llama 4",
     "gemini": "Gemini 2.0",
@@ -1062,7 +1062,7 @@
     "recentPosts": "Postagens Recentes",
     "tripleBandAi": "Triple-Band IA",
     "gpt5": "GPT-5",
-    "claudeSonnet": "Claude Sonnet 4.5",
+    "claudeSonnet": "Claude",
     "llama4": "Llama 4",
     "modelWeight": "Peso do Modelo",
     "requestCount": "Contagem de Requisições",
@@ -2797,7 +2797,7 @@
     "tokenStatsBreakdown": "TBC-20: {{tbc20}} | TBC-721: {{tbc721}} | TBC-1155: {{tbc1155}}",
     "percentPopular": "{{percent}}% popular",
     "aiModelGpt5": "GPT-5 Turbo",
-    "aiModelClaude": "Claude Sonnet 4.5",
+    "aiModelClaude": "Claude",
     "aiModelLlama": "Llama 3.3 70B",
     "multisig2ofN": "2 de N",
     "multisig3ofN": "3 de N",
@@ -3315,7 +3315,7 @@
     "analyzed": "{{count}} analisadas",
     "gpt5TurboAnalysis": "Análise GPT-5 Turbo",
     "gpt5TurboDesc": "A camada estratégica analisa impacto econômico, implicações de segurança e fornece avaliação de risco para cada proposta.",
-    "claudeSonnetPrediction": "Previsão Claude Sonnet 4.5",
+    "claudeSonnetPrediction": "Previsão Claude",
     "claudeSonnetDesc": "A camada tática prevê resultados de votação com base no sentimento da comunidade, padrões históricos e conteúdo da proposta.",
     "llamaRecommendations": "Recomendações Llama 3.3 70B",
     "llamaDesc": "A camada operacional fornece recomendações de voto personalizadas com base no histórico do votante e alinhamento de stake.",
@@ -10550,7 +10550,7 @@
           },
           "tactical": {
             "title": "IA Tática",
-            "model": "Claude Sonnet 4.5"
+            "model": "Claude"
           },
           "operational": {
             "title": "IA Operacional",
@@ -11037,7 +11037,7 @@
                 "1": "Principais Recursos do TBURN v7.0:",
                 "2": "Consenso BFT de Comitê Aprimorado por IA: Nosso mecanismo de consenso proprietário combina tolerância a falhas bizantinas tradicional com algoritmos de IA avançados.",
                 "3": "Sistema de Fragmentação Dinâmica: A rede agora suporta balanceamento de carga automático em múltiplos fragmentos.",
-                "4": "Orquestração Triple-Band AI: Três sistemas de IA independentes (GPT-5, Claude Sonnet 4.5, Llama 4) trabalham em harmonia.",
+                "4": "Orquestração Triple-Band AI: Três sistemas de IA independentes (GPT-5, Claude, Llama 4) trabalham em harmonia.",
                 "5": "Padrões de Token Empresarial (TBC-20, TBC-721, TBC-1155): Fornecem segurança resistente a quantum.",
                 "6": "O lançamento do mainnet inclui um ecossistema DeFi completo com DEX/AMM, protocolos de empréstimo, staking líquido, marketplace NFT e pontes cross-chain.",
                 "7": "Convidamos desenvolvedores, validadores e usuários a se juntarem a nós na construção do futuro das finanças descentralizadas no TBURN v7.0."
@@ -11063,7 +11063,7 @@
                 "0": "O sistema de Orquestração de IA TBURN v7.0 representa um avanço na tecnologia blockchain.",
                 "1": "Entendendo a Arquitetura Triple-Band:",
                 "2": "Primary Band (GPT-5): Lida com tarefas analíticas complexas, incluindo pontuação de confiança de validadores.",
-                "3": "Secondary Band (Claude Sonnet 4.5): Especializado em análise de código e auditoria de smart contracts.",
+                "3": "Secondary Band (Claude): Especializado em análise de código e auditoria de smart contracts.",
                 "4": "Tertiary Band (Llama 4): Fornece processamento de alta taxa e baixa latência para roteamento de transações.",
                 "5": "Interação Cross-Band: Os três sistemas analisam independentemente e combinam suas saídas.",
                 "6": "Sistema de Aprendizado por Feedback: Todas as decisões de IA são rastreadas e avaliadas. A precisão atualmente excede 99.7%.",
@@ -11684,7 +11684,7 @@
         },
         "aiOrchestration": {
           "title": "Sistema de orquestração de IA ativo",
-          "content": "O sistema de orquestração Quad-Band AI agora está totalmente operacional com Gemini 3 Pro como primário, Claude Sonnet 4.5, GPT-4o e Grok 3 como fallback."
+          "content": "O sistema de orquestração Quad-Band AI agora está totalmente operacional com Gemini como primário, Claude, ChatGPT e Grok como fallback."
         }
       },
       "posts": {
@@ -13377,7 +13377,7 @@
       },
       "51": {
         "question": "What is AI orchestration?",
-        "answer": "AI orchestration integrates multiple AI models (Gemini, Claude, GPT-4o, Grok) to automate network optimization, burn rate adjustment, security threat detection, and more.",
+        "answer": "AI orchestration integrates multiple AI models (Gemini, Claude, ChatGPT, Grok) to automate network optimization, burn rate adjustment, security threat detection, and more.",
         "tags": [
           "AI",
           "optimization",
@@ -13728,7 +13728,7 @@
       },
       "90": {
         "question": "What AI features are available?",
-        "answer": "Provides AI-based burn optimization, governance analysis, bridge risk assessment, anomaly detection, and validator scheduling. Multiple AI models (Gemini, Claude, GPT-4o, Grok) are integrated.",
+        "answer": "Provides AI-based burn optimization, governance analysis, bridge risk assessment, anomaly detection, and validator scheduling. Multiple AI models (Gemini, Claude, ChatGPT, Grok) are integrated.",
         "tags": [
           "AI",
           "optimization",
@@ -14243,7 +14243,7 @@
     "enterpriseFeatures": "Configure opções de IA e segurança de nível empresarial",
     "aiOptimizationEnabled": "Otimização IA Habilitada",
     "aiOptimizationEnabledDesc": "Habilitar recursos de otimização de token por IA",
-    "gpt4oStrategic": "GPT-4o Estratégico",
+    "gpt4oStrategic": "ChatGPT Estratégico",
     "claudeTactical": "Claude Tático",
     "geminiOperational": "Gemini Operacional",
     "aiBurnOptimization": "Otimização de Queima por IA",

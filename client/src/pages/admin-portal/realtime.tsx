@@ -326,7 +326,7 @@ export default function RealtimeMonitor() {
     { id: "1", type: "success", message: "TBURN Mainnet v8.0 Genesis - Dec 23, 2024 Official Launch", timestamp: new Date().toISOString(), source: "Genesis" },
     { id: "2", type: "success", message: `${realValidators} Validators online - BFT Consensus Active`, timestamp: new Date(Date.now() - 1000).toISOString(), source: "Consensus" },
     { id: "3", type: "success", message: `${realShards} Shards operational - ${Math.floor(baseTps / 1000)}K+ TPS capacity confirmed`, timestamp: new Date(Date.now() - 2000).toISOString(), source: "Sharding" },
-    { id: "4", type: "success", message: "Quad-Band AI Orchestration initialized - Gemini 3 Pro, Claude 4.5 Sonnet, GPT-4o, Grok 3", timestamp: new Date(Date.now() - 3000).toISOString(), source: "AI" },
+    { id: "4", type: "success", message: "Quad-Band AI Orchestration initialized - Gemini, Claude, ChatGPT, Grok", timestamp: new Date(Date.now() - 3000).toISOString(), source: "AI" },
     { id: "5", type: "info", message: "Network latency: 42ms P99 - Enterprise-grade performance", timestamp: new Date(Date.now() - 4000).toISOString(), source: "Network" },
     { id: "6", type: "success", message: "Multi-chain Bridge v2.0 connected: ETH, BSC, Polygon, Arbitrum", timestamp: new Date(Date.now() - 5000).toISOString(), source: "Bridge" },
     { id: "7", type: "success", message: "10B TBURN supply initialized - Y20 target: 6.94B (30.60% deflation)", timestamp: new Date(Date.now() - 6000).toISOString(), source: "Tokenomics" },

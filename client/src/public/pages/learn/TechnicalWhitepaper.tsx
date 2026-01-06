@@ -337,10 +337,10 @@ export default function TechnicalWhitepaper() {
               </tr>
             </thead>
             <tbody>
-              <tr><td><span className="tw-highlight">Band 1</span></td><td>Gemini 3 Pro</td><td>{t('technicalWhitepaper.sections.aiSystem.modelConfig.band1Func')}</td><td>&lt;100ms</td></tr>
-              <tr><td><span className="tw-highlight">Band 2</span></td><td>Claude Sonnet 4.5</td><td>{t('technicalWhitepaper.sections.aiSystem.modelConfig.band2Func')}</td><td>&lt;200ms</td></tr>
-              <tr><td><span className="tw-highlight">Band 3</span></td><td>GPT-4o</td><td>{t('technicalWhitepaper.sections.aiSystem.modelConfig.band3Func')}</td><td>&lt;150ms</td></tr>
-              <tr><td><span className="tw-highlight">Band 4</span></td><td>Grok 3</td><td>{t('technicalWhitepaper.sections.aiSystem.modelConfig.band4Func')}</td><td>&lt;100ms</td></tr>
+              <tr><td><span className="tw-highlight">Band 1</span></td><td>Gemini</td><td>{t('technicalWhitepaper.sections.aiSystem.modelConfig.band1Func')}</td><td>&lt;100ms</td></tr>
+              <tr><td><span className="tw-highlight">Band 2</span></td><td>Claude</td><td>{t('technicalWhitepaper.sections.aiSystem.modelConfig.band2Func')}</td><td>&lt;200ms</td></tr>
+              <tr><td><span className="tw-highlight">Band 3</span></td><td>ChatGPT</td><td>{t('technicalWhitepaper.sections.aiSystem.modelConfig.band3Func')}</td><td>&lt;150ms</td></tr>
+              <tr><td><span className="tw-highlight">Band 4</span></td><td>Grok</td><td>{t('technicalWhitepaper.sections.aiSystem.modelConfig.band4Func')}</td><td>&lt;100ms</td></tr>
             </tbody>
           </table>
 

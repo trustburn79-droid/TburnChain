@@ -948,7 +948,7 @@ export default function TokenSystemPage() {
               <span className="text-xs font-semibold">{t('tokenGenerator.tripleBandAi')}</span>
             </div>
             <p className={`text-xs ${isDark ? 'text-gray-400' : 'text-slate-500'}`}>
-              GPT-4o + Claude + Gemini
+              ChatGPT + Claude + Gemini
             </p>
           </div>
         </div>
@@ -2445,7 +2445,7 @@ function VerificationContent({ isDark }: { isDark: boolean }) {
             <div className={`p-4 rounded-xl border ${isDark ? 'bg-gradient-to-br from-blue-900/30 to-blue-800/10 border-blue-500/20' : 'bg-gradient-to-br from-blue-50 to-blue-100 border-blue-200'}`}>
               <div className="flex items-center gap-2 mb-2">
                 <TrendingUp className="w-5 h-5 text-blue-500" />
-                <span className="font-semibold">GPT-4o Strategic</span>
+                <span className="font-semibold">ChatGPT Strategic</span>
               </div>
               <p className={`text-sm ${isDark ? 'text-gray-400' : 'text-slate-600'}`}>
                 Token economics and governance analysis

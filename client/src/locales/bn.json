@@ -82,7 +82,7 @@
     "light": "লাইট",
     "system": "সিস্টেম",
     "unknown": "অজানা",
-    "claudeSonnet": "Claude Sonnet 4.5",
+    "claudeSonnet": "Claude",
     "gpt5": "GPT-5",
     "llama4": "Llama 4",
     "gemini": "Gemini 2.0",
@@ -1162,7 +1162,7 @@
     "recentPosts": "সাম্প্রতিক পোস্ট",
     "tripleBandAi": "ট্রিপল-ব্যান্ড AI",
     "gpt5": "GPT-5",
-    "claudeSonnet": "Claude Sonnet 4.5",
+    "claudeSonnet": "Claude",
     "llama4": "Llama 4",
     "modelWeight": "মডেল ওয়েট",
     "requestCount": "রিকোয়েস্ট কাউন্ট",
@@ -2413,7 +2413,7 @@
     "tokenStatsBreakdown": "TBC-20: {{tbc20}} | TBC-721: {{tbc721}} | TBC-1155: {{tbc1155}}",
     "percentPopular": "{{percent}}% জনপ্রিয়",
     "aiModelGpt5": "GPT-5 টার্বো",
-    "aiModelClaude": "Claude Sonnet 4.5",
+    "aiModelClaude": "Claude",
     "aiModelLlama": "Llama 3.3 70B",
     "multisig2ofN": "N এর মধ্যে ২",
     "multisig3ofN": "N এর মধ্যে ৩",
@@ -2718,7 +2718,7 @@
     "analyzed": "{{count}} বিশ্লেষিত",
     "gpt5TurboAnalysis": "GPT-5 Turbo বিশ্লেষণ",
     "gpt5TurboDesc": "কৌশলগত স্তর অর্থনৈতিক প্রভাব, নিরাপত্তা জড়িত বিষয়গুলি বিশ্লেষণ করে এবং প্রতিটি প্রস্তাবের জন্য ঝুঁকি মূল্যায়ন প্রদান করে।",
-    "claudeSonnetPrediction": "Claude Sonnet 4.5 পূর্বাভাস",
+    "claudeSonnetPrediction": "Claude পূর্বাভাস",
     "claudeSonnetDesc": "কৌশলগত স্তর সম্প্রদায়ের মনোভাব, ঐতিহাসিক প্যাটার্ন এবং প্রস্তাব বিষয়বস্তুর উপর ভিত্তি করে ভোটের ফলাফল পূর্বাভাস দেয়।",
     "llamaRecommendations": "Llama 3.3 70B সুপারিশ",
     "llamaDesc": "অপারেশনাল স্তর ভোটারের ইতিহাস এবং স্টেক সারিবদ্ধতার উপর ভিত্তি করে ব্যক্তিগতকৃত ভোটের সুপারিশ প্রদান করে।",
@@ -9187,7 +9187,7 @@
           },
           "tactical": {
             "title": "সামরিক AI",
-            "model": "Claude Sonnet 4.5"
+            "model": "Claude"
           },
           "operational": {
             "title": "অপারেশনাল AI",
@@ -9707,7 +9707,7 @@
                 "0": "TBURN v7.0 AI অর্কেস্ট্রেশন সিস্টেম ব্লকচেইন প্রযুক্তিতে একটি যুগান্তকারী অগ্রগতি।",
                 "1": "ট্রিপল-ব্যান্ড আর্কিটেকচার বোঝা:",
                 "2": "প্রাইমারি ব্যান্ড (GPT-5): জটিল বিশ্লেষণমূলক কাজ পরিচালনা করে।",
-                "3": "সেকেন্ডারি ব্যান্ড (Claude Sonnet 4.5): কোড বিশ্লেষণে বিশেষজ্ঞ।",
+                "3": "সেকেন্ডারি ব্যান্ড (Claude): কোড বিশ্লেষণে বিশেষজ্ঞ।",
                 "4": "টার্শিয়ারি ব্যান্ড (Llama 4): হাই-থ্রুপুট প্রসেসিং প্রদান করে।",
                 "5": "ক্রস-ব্যান্ড ইন্টারঅ্যাকশন: তিনটি সিস্টেম স্বাধীনভাবে বিশ্লেষণ করে।",
                 "6": "ফিডব্যাক লার্নিং সিস্টেম: নির্ভুলতা 99.7% এর বেশি।",
@@ -10082,7 +10082,7 @@
         },
         "aiOrchestration": {
           "title": "AI অর্কেস্ট্রেশন সিস্টেম লাইভ",
-          "content": "Quad-Band AI অর্কেস্ট্রেশন সিস্টেম এখন Gemini 3 Pro প্রাইমারি হিসেবে, Claude Sonnet 4.5, GPT-4o এবং Grok 3 ফলব্যাক হিসেবে সম্পূর্ণরূপে কার্যকর।"
+          "content": "Quad-Band AI অর্কেস্ট্রেশন সিস্টেম এখন Gemini প্রাইমারি হিসেবে, Claude, ChatGPT এবং Grok ফলব্যাক হিসেবে সম্পূর্ণরূপে কার্যকর।"
         }
       },
       "posts": {
@@ -11775,7 +11775,7 @@
       },
       "51": {
         "question": "What is AI orchestration?",
-        "answer": "AI orchestration integrates multiple AI models (Gemini, Claude, GPT-4o, Grok) to automate network optimization, burn rate adjustment, security threat detection, and more.",
+        "answer": "AI orchestration integrates multiple AI models (Gemini, Claude, ChatGPT, Grok) to automate network optimization, burn rate adjustment, security threat detection, and more.",
         "tags": [
           "AI",
           "optimization",
@@ -12126,7 +12126,7 @@
       },
       "90": {
         "question": "What AI features are available?",
-        "answer": "Provides AI-based burn optimization, governance analysis, bridge risk assessment, anomaly detection, and validator scheduling. Multiple AI models (Gemini, Claude, GPT-4o, Grok) are integrated.",
+        "answer": "Provides AI-based burn optimization, governance analysis, bridge risk assessment, anomaly detection, and validator scheduling. Multiple AI models (Gemini, Claude, ChatGPT, Grok) are integrated.",
         "tags": [
           "AI",
           "optimization",
@@ -12641,7 +12641,7 @@
     "enterpriseFeatures": "Configure enterprise-grade AI and security options",
     "aiOptimizationEnabled": "AI Optimization Enabled",
     "aiOptimizationEnabledDesc": "Enable AI-powered token optimization features",
-    "gpt4oStrategic": "GPT-4o Strategic",
+    "gpt4oStrategic": "ChatGPT Strategic",
     "claudeTactical": "Claude Tactical",
     "geminiOperational": "Gemini Operational",
     "aiBurnOptimization": "AI Burn Optimization",

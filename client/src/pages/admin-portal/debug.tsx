@@ -163,7 +163,7 @@ export default function DebugTools() {
   const defaultDebugLogs: DebugLog[] = [
     { id: "1", level: "info", timestamp: "23:59:59.999", source: "genesis", message: "TBURN Mainnet v8.0 genesis block initialized - Dec 8, 2024" },
     { id: "2", level: "info", timestamp: "23:59:59.998", source: "consensus", message: "BFT consensus engine started - 156 validators online" },
-    { id: "3", level: "info", timestamp: "23:59:59.997", source: "ai", message: "Triple-Band AI Orchestration active - Gemini 3 Pro primary" },
+    { id: "3", level: "info", timestamp: "23:59:59.997", source: "ai", message: "Triple-Band AI Orchestration active - Gemini primary" },
     { id: "4", level: "info", timestamp: "23:59:59.996", source: "shards", message: "8 shards operational - 100K+ TPS capacity confirmed" },
     { id: "5", level: "info", timestamp: "23:59:59.995", source: "network", message: "Network latency: 42ms P99 - within target threshold" },
     { id: "6", level: "info", timestamp: "23:59:59.994", source: "security", message: "Quantum-resistant signatures enabled - 99.7% security score" },
@@ -218,7 +218,7 @@ Gas Analysis:
   Status: SUCCESS
 
 AI Optimization:
-  Model: Triple-Band (Gemini 3 Pro)
+  Model: Triple-Band (Gemini)
   Optimization Score: 98.7%
   Quantum Signature: VERIFIED
 

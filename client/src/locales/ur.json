@@ -82,7 +82,7 @@
     "light": "لائٹ",
     "system": "سسٹم",
     "unknown": "نامعلوم",
-    "claudeSonnet": "Claude Sonnet 4.5",
+    "claudeSonnet": "Claude",
     "gpt5": "GPT-5",
     "llama4": "Llama 4",
     "gemini": "Gemini 2.0",
@@ -881,7 +881,7 @@
     "recentPosts": "حالیہ پوسٹس",
     "tripleBandAi": "ٹرپل بینڈ AI",
     "gpt5": "GPT-5",
-    "claudeSonnet": "Claude Sonnet 4.5",
+    "claudeSonnet": "Claude",
     "llama4": "Llama 4",
     "modelWeight": "ماڈل وزن",
     "requestCount": "درخواست کی گنتی",
@@ -2132,7 +2132,7 @@
     "tokenStatsBreakdown": "TBC-20: {{tbc20}} | TBC-721: {{tbc721}} | TBC-1155: {{tbc1155}}",
     "percentPopular": "{{percent}}% مقبول",
     "aiModelGpt5": "GPT-5 ٹربو",
-    "aiModelClaude": "Claude Sonnet 4.5",
+    "aiModelClaude": "Claude",
     "aiModelLlama": "Llama 3.3 70B",
     "multisig2ofN": "N میں سے 2",
     "multisig3ofN": "N میں سے 3",
@@ -2437,7 +2437,7 @@
     "analyzed": "{{count}} تجزیہ شدہ",
     "gpt5TurboAnalysis": "GPT-5 Turbo تجزیہ",
     "gpt5TurboDesc": "اسٹریٹجک پرت معاشی اثرات، حفاظتی مضمرات کا تجزیہ کرتی ہے اور ہر تجویز کے لیے خطرے کی تشخیص فراہم کرتی ہے۔",
-    "claudeSonnetPrediction": "Claude Sonnet 4.5 پیش گوئی",
+    "claudeSonnetPrediction": "Claude پیش گوئی",
     "claudeSonnetDesc": "ٹیکٹیکل پرت کمیونٹی کے جذبات، تاریخی نمونوں اور تجویز کے مواد کی بنیاد پر ووٹنگ کے نتائج کی پیش گوئی کرتی ہے۔",
     "llamaRecommendations": "Llama 3.3 70B سفارشات",
     "llamaDesc": "آپریشنل پرت ووٹر کی تاریخ اور اسٹیک ترتیب کی بنیاد پر ذاتی نوعیت کی ووٹنگ سفارشات فراہم کرتی ہے۔",
@@ -9182,7 +9182,7 @@
           },
           "tactical": {
             "title": "تکنیکی AI",
-            "model": "Claude Sonnet 4.5"
+            "model": "Claude"
           },
           "operational": {
             "title": "آپریشنل AI",
@@ -9676,7 +9676,7 @@
                 "1": "TBURN v7.0 کی اہم خصوصیات:",
                 "2": "AI-بہتر کمیٹی BFT اتفاق رائے: ہمارا ملکیتی اتفاق رائے میکانزم روایتی Byzantine Fault Tolerance کو جدید AI الگورتھم کے ساتھ جوڑتا ہے۔",
                 "3": "متحرک شارڈنگ سسٹم: نیٹ ورک اب متعدد شارڈز میں خودکار لوڈ بیلنسنگ کی حمایت کرتا ہے۔",
-                "4": "ٹرپل-بینڈ AI آرکیسٹریشن: تین آزاد AI سسٹمز (GPT-5, Claude Sonnet 4.5, Llama 4) ہم آہنگی سے کام کرتے ہیں۔",
+                "4": "ٹرپل-بینڈ AI آرکیسٹریشن: تین آزاد AI سسٹمز (GPT-5, Claude, Llama 4) ہم آہنگی سے کام کرتے ہیں۔",
                 "5": "انٹرپرائز ٹوکن معیارات (TBC-20, TBC-721, TBC-1155): کوانٹم مزاحم سیکورٹی فراہم کرتے ہیں۔",
                 "6": "مین نیٹ لانچ میں DEX/AMM، قرض دینے کے پروٹوکول، لیکویڈ سٹیکنگ، NFT مارکیٹ پلیس اور کراس چین بریجز کے ساتھ ایک مکمل DeFi ایکو سسٹم شامل ہے۔",
                 "7": "ہم ڈویلپرز، ویلیڈیٹرز اور صارفین کو TBURN v7.0 پر غیر مرکزی مالیات کے مستقبل کی تعمیر میں شامل ہونے کی دعوت دیتے ہیں۔"
@@ -9702,7 +9702,7 @@
                 "0": "TBURN v7.0 AI آرکیسٹریشن سسٹم بلاک چین ٹیکنالوجی میں ایک پیش رفت کی نمائندگی کرتا ہے۔",
                 "1": "ٹرپل-بینڈ فن تعمیر کو سمجھنا:",
                 "2": "پرائمری بینڈ (GPT-5): ویلیڈیٹر ٹرسٹ اسکورنگ سمیت پیچیدہ تجزیاتی کاموں کو سنبھالتا ہے۔",
-                "3": "سیکنڈری بینڈ (Claude Sonnet 4.5): کوڈ تجزیہ اور سمارٹ کنٹریکٹ آڈٹنگ میں مہارت رکھتا ہے۔",
+                "3": "سیکنڈری بینڈ (Claude): کوڈ تجزیہ اور سمارٹ کنٹریکٹ آڈٹنگ میں مہارت رکھتا ہے۔",
                 "4": "ٹرشری بینڈ (Llama 4): ریئل ٹائم ٹرانزیکشن روٹنگ کے لیے ہائی-تھروپٹ، لو-لیٹینسی پراسیسنگ فراہم کرتا ہے۔",
                 "5": "کراس-بینڈ تعامل: تینوں AI سسٹمز آزادانہ طور پر تجزیہ کرتے ہیں اور اپنے آؤٹ پٹس کو ملاتے ہیں۔",
                 "6": "فیڈ بیک لرننگ سسٹم: تمام AI فیصلوں کو ٹریک اور جانچا جاتا ہے۔ درستگی فی الحال 99.7% سے زیادہ ہے۔",
@@ -10323,7 +10323,7 @@
         },
         "aiOrchestration": {
           "title": "AI آرکیسٹریشن سسٹم لائیو",
-          "content": "Quad-Band AI آرکیسٹریشن سسٹم اب Gemini 3 Pro کو پرائمری کے طور پر، Claude Sonnet 4.5، GPT-4o اور Grok 3 فال بیک کے طور پر مکمل طور پر فعال ہے۔"
+          "content": "Quad-Band AI آرکیسٹریشن سسٹم اب Gemini کو پرائمری کے طور پر، Claude، ChatGPT اور Grok فال بیک کے طور پر مکمل طور پر فعال ہے۔"
         }
       },
       "posts": {
@@ -12019,7 +12019,7 @@
       },
       "51": {
         "question": "What is AI orchestration?",
-        "answer": "AI orchestration integrates multiple AI models (Gemini, Claude, GPT-4o, Grok) to automate network optimization, burn rate adjustment, security threat detection, and more.",
+        "answer": "AI orchestration integrates multiple AI models (Gemini, Claude, ChatGPT, Grok) to automate network optimization, burn rate adjustment, security threat detection, and more.",
         "tags": [
           "AI",
           "optimization",
@@ -12370,7 +12370,7 @@
       },
       "90": {
         "question": "What AI features are available?",
-        "answer": "Provides AI-based burn optimization, governance analysis, bridge risk assessment, anomaly detection, and validator scheduling. Multiple AI models (Gemini, Claude, GPT-4o, Grok) are integrated.",
+        "answer": "Provides AI-based burn optimization, governance analysis, bridge risk assessment, anomaly detection, and validator scheduling. Multiple AI models (Gemini, Claude, ChatGPT, Grok) are integrated.",
         "tags": [
           "AI",
           "optimization",
@@ -12885,7 +12885,7 @@
     "enterpriseFeatures": "Configure enterprise-grade AI and security options",
     "aiOptimizationEnabled": "AI Optimization Enabled",
     "aiOptimizationEnabledDesc": "Enable AI-powered token optimization features",
-    "gpt4oStrategic": "GPT-4o Strategic",
+    "gpt4oStrategic": "ChatGPT Strategic",
     "claudeTactical": "Claude Tactical",
     "geminiOperational": "Gemini Operational",
     "aiBurnOptimization": "AI Burn Optimization",

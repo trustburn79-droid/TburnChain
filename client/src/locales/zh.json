@@ -92,7 +92,7 @@
     "page": "页",
     "noDataAvailable": "暂无数据",
     "unknown": "未知",
-    "claudeSonnet": "Claude Sonnet 4.5",
+    "claudeSonnet": "Claude",
     "gpt5": "GPT-5",
     "llama4": "Llama 4",
     "gemini": "Gemini 2.0",
@@ -2702,7 +2702,7 @@
     "bridge": "桥接",
     "chainsTab": "链",
     "aiRiskAssessment": "AI 风险评估",
-    "aiRiskAssessmentDesc": "Claude Sonnet 4.5 分析转账以检测欺诈、可疑模式和安全威胁。",
+    "aiRiskAssessmentDesc": "Claude 分析转账以检测欺诈、可疑模式和安全威胁。",
     "accuracy": "{{percent}}% 准确率",
     "routeOptimization": "路由优化",
     "routeOptimizationDesc": "AI 优化的路由最小化 Gas 成本，最大化流动性，确保快速转账。",
@@ -2802,7 +2802,7 @@
     "recentPosts": "最近帖子",
     "tripleBandAi": "三带 AI",
     "gpt5": "GPT-5",
-    "claudeSonnet": "Claude Sonnet 4.5",
+    "claudeSonnet": "Claude",
     "llama4": "Llama 4",
     "modelWeight": "模型权重",
     "requestCount": "请求数",
@@ -5767,7 +5767,7 @@
     "analyzed": "{{count}} 个已分析",
     "gpt5TurboAnalysis": "GPT-5 Turbo 分析",
     "gpt5TurboDesc": "战略层分析经济影响、安全隐患，并为每个提案提供风险评估。",
-    "claudeSonnetPrediction": "Claude Sonnet 4.5 预测",
+    "claudeSonnetPrediction": "Claude 预测",
     "claudeSonnetDesc": "战术层基于社区情绪、历史模式和提案内容预测投票结果。",
     "llamaRecommendations": "Llama 3.3 70B 推荐",
     "llamaDesc": "运营层基于投票者历史和质押配置提供个性化投票建议。",
@@ -12847,7 +12847,7 @@
           },
           "tactical": {
             "title": "战术 AI",
-            "model": "Claude Sonnet 4.5"
+            "model": "Claude"
           },
           "operational": {
             "title": "运营 AI",
@@ -13334,7 +13334,7 @@
                 "1": "TBURN v7.0 的主要特性：",
                 "2": "AI 增强委员会 BFT 共识：我们专有的共识机制将传统的拜占庭容错与先进的 AI 算法相结合，实现最优验证者选择和网络安全。",
                 "3": "动态分片系统：网络现支持跨多个分片的自动负载均衡，在不牺牲去中心化的情况下实现前所未有的可扩展性。",
-                "4": "Triple-Band AI 编排：三个独立的 AI 系统（GPT-5、Claude Sonnet 4.5、Llama 4）协同工作，从交易路由到资源分配优化网络运营。",
+                "4": "Triple-Band AI 编排：三个独立的 AI 系统（GPT-5、Claude、Llama 4）协同工作，从交易路由到资源分配优化网络运营。",
                 "5": "企业代币标准（TBC-20、TBC-721、TBC-1155）：增强的代币标准为机构采用提供量子抗性安全和内置合规功能。",
                 "6": "主网启动包含完整的 DeFi 生态系统，包括 DEX/AMM、借贷协议、流动性质押、NFT 市场和跨链桥功能。",
                 "7": "我们邀请开发者、验证者和用户加入我们，在 TBURN v7.0 上共同构建去中心化金融的未来。"
@@ -13360,7 +13360,7 @@
                 "0": "TBURN v7.0 AI 编排系统代表了区块链技术的突破，结合多个 AI 提供商以实现冗余、准确性和最优决策。",
                 "1": "理解 Triple-Band 架构：",
                 "2": "Primary Band（GPT-5）：处理复杂的分析任务，包括验证者信任评分、异常检测和预测性维护。",
-                "3": "Secondary Band（Claude Sonnet 4.5）：专门进行代码分析、智能合约审计和治理提案的自然语言处理。",
+                "3": "Secondary Band（Claude）：专门进行代码分析、智能合约审计和治理提案的自然语言处理。",
                 "4": "Tertiary Band（Llama 4）：为实时交易路由和负载均衡决策提供高吞吐量、低延迟处理。",
                 "5": "跨 Band 交互：当决策需要高置信度时，三个 AI 系统独立分析情况，然后共识机制结合它们的输出，根据类似决策类型的历史准确性加权。",
                 "6": "反馈学习系统：所有 AI 决策都被跟踪并与实际结果进行评估。这个持续的反馈循环使系统能够不断改进，验证者选择决策的准确率目前超过 99.7%。",
@@ -13981,7 +13981,7 @@
         },
         "aiOrchestration": {
           "title": "AI编排系统上线",
-          "content": "Quad-Band AI编排系统现已全面运行，Gemini 3 Pro为主，Claude Sonnet 4.5、GPT-4o和Grok 3为备用。"
+          "content": "Quad-Band AI编排系统现已全面运行，Gemini为主，Claude、ChatGPT和Grok为备用。"
         }
       },
       "posts": {
@@ -15713,7 +15713,7 @@
       },
       "51": {
         "question": "什么是AI编排？",
-        "answer": "AI编排集成多个AI模型（Gemini、Claude、GPT-4o、Grok）来自动化网络优化、燃烧率调整、安全威胁检测等功能。",
+        "answer": "AI编排集成多个AI模型（Gemini、Claude、ChatGPT、Grok）来自动化网络优化、燃烧率调整、安全威胁检测等功能。",
         "tags": [
           "AI",
           "优化",
@@ -16064,7 +16064,7 @@
       },
       "90": {
         "question": "有哪些AI功能？",
-        "answer": "提供基于AI的燃烧优化、治理分析、桥接风险评估、异常检测和验证者调度。集成多个AI模型（Gemini、Claude、GPT-4o、Grok）。",
+        "answer": "提供基于AI的燃烧优化、治理分析、桥接风险评估、异常检测和验证者调度。集成多个AI模型（Gemini、Claude、ChatGPT、Grok）。",
         "tags": [
           "AI",
           "优化",
@@ -16586,7 +16586,7 @@
     "enterpriseFeatures": "配置企业级AI和安全选项",
     "aiOptimizationEnabled": "启用AI优化",
     "aiOptimizationEnabledDesc": "启用AI驱动的代币优化功能",
-    "gpt4oStrategic": "GPT-4o 战略层",
+    "gpt4oStrategic": "ChatGPT 战略层",
     "claudeTactical": "Claude 战术层",
     "geminiOperational": "Gemini 运营层",
     "aiBurnOptimization": "AI销毁优化",

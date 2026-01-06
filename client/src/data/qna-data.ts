@@ -1046,8 +1046,8 @@ export const qnaData: QnAItem[] = [
     categoryKey: 'solutions',
     question: 'AI 기능은 무엇이 있나요?',
     questionEn: 'What AI features are available?',
-    answer: 'AI 기반 번 최적화, 거버넌스 분석, 브릿지 리스크 평가, 이상 탐지, 밸리데이터 스케줄링을 제공합니다. 다중 AI 모델(Gemini, Claude, GPT-4o, Grok)이 통합되어 있습니다.',
-    answerEn: 'Provides AI-based burn optimization, governance analysis, bridge risk assessment, anomaly detection, and validator scheduling. Multiple AI models (Gemini, Claude, GPT-4o, Grok) are integrated.',
+    answer: 'AI 기반 번 최적화, 거버넌스 분석, 브릿지 리스크 평가, 이상 탐지, 밸리데이터 스케줄링을 제공합니다. 다중 AI 모델(Gemini, Claude, ChatGPT, Grok)이 통합되어 있습니다.',
+    answerEn: 'Provides AI-based burn optimization, governance analysis, bridge risk assessment, anomaly detection, and validator scheduling. Multiple AI models (Gemini, Claude, ChatGPT, Grok) are integrated.',
     relatedPage: '/solutions/ai-features',
     tags: ['AI', '최적화', '분석']
   },
