@@ -1272,11 +1272,11 @@ export class TBurnEnterpriseNode extends EventEmitter {
   // Shards replicate optimal performance and distribute load algorithmically
   // ============================================
   
-  // Core Constants
+  // Core Constants - v5.1 Memory Optimized
   private readonly SHARD_BASELINE_TPS = 10000;        // Each shard's optimal TPS
-  private readonly ACTIVATION_THRESHOLD = 0.75;       // Activate standby when active shards reach 75%
-  private readonly DEACTIVATION_THRESHOLD = 0.45;     // Deactivate shard when load drops below 45%
-  private readonly REDISTRIBUTION_THRESHOLD = 0.95;   // Redistribute load at 95%
+  private readonly ACTIVATION_THRESHOLD = 0.95;       // Activate standby when active shards reach 95% (was 75%)
+  private readonly DEACTIVATION_THRESHOLD = 0.35;     // Deactivate shard when load drops below 35% (was 45%)
+  private readonly REDISTRIBUTION_THRESHOLD = 0.98;   // Redistribute load at 98% (was 95%)
   private readonly CROSS_SHARD_PENALTY_BASE = 0.005;  // 0.5% penalty per 1k cross-shard tx
   private readonly COORDINATION_OVERHEAD_ALPHA = 0.001; // Cross-shard message overhead coefficient
   private readonly COORDINATION_OVERHEAD_BETA = 0.0001; // Latency variance overhead coefficient
@@ -1296,7 +1296,7 @@ export class TBurnEnterpriseNode extends EventEmitter {
   private activeShardCount = 5;   // Currently active shards
   private standbyShardCount = 0;  // Shards in standby mode
   private lastScaleEvent = 0;     // Timestamp of last scale event
-  private scaleEventCooldown = 30000; // 30 second cooldown between scale events
+  private scaleEventCooldown = 120000; // 2 minute cooldown between scale events (was 30s) - v5.1 Memory Optimized
   
   // Get shard efficiency based on utilization and cross-shard overhead
   private calculateShardEfficiency(utilization: number, crossShardMsgRate: number): number {

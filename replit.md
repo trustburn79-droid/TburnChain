@@ -31,6 +31,7 @@ Core architectural decisions and features include:
   - Session skip metrics with per-reason counters and skip ratio tracking
   - /tmp disk monitoring endpoint (/api/tmp-status)
   - MemoryStore automatic fallback when DATABASE_URL is not set
+  - **v5.1 Memory Optimization**: Conservative shard scaling (ACTIVATION_THRESHOLD 75%→95%, cooldown 30s→2min) to prevent upstream timeout
 - **Enterprise Session Monitoring**: Production-grade session metrics and observability system with Prometheus export, historical tracking, and alerting.
 - **Enterprise Scalability Infrastructure**: Resilience patterns including `BlockchainOrchestrator`, `PersistenceBatcher`, and `AdaptiveFeeEngine`.
 - **Enterprise Validator Orchestrator**: Production-grade validator management for 125 genesis validators with performance scoring, slashing, and reward distribution.
