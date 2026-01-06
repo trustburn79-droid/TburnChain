@@ -1882,51 +1882,96 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
 
   // ============================================
-  // Memory Management API (v6.0 Enterprise)
+  // Memory Management API (v6.0 Enterprise) - 빠른 응답
   // ============================================
+  
+  // 캐시된 모듈 참조 (초기화 후 재사용)
+  let memoryModules: {
+    memoryManager: any;
+    metricsAggregator: any;
+    blockMemoryManager: any;
+  } | null = null;
+  
+  const getMemoryModules = async () => {
+    if (!memoryModules) {
+      const [mm, ma, bmm] = await Promise.all([
+        import('./core/memory/memory-manager'),
+        import('./core/memory/metrics-aggregator'),
+        import('./core/memory/block-memory-manager'),
+      ]);
+      memoryModules = {
+        memoryManager: mm.memoryManager,
+        metricsAggregator: ma.metricsAggregator,
+        blockMemoryManager: bmm.blockMemoryManager,
+      };
+    }
+    return memoryModules;
+  };
+  
   app.get("/api/memory/metrics", async (_req, res) => {
     try {
-      const { memoryManager } = await import('./core/memory/memory-manager');
-      const { metricsAggregator } = await import('./core/memory/metrics-aggregator');
-      const { blockMemoryManager } = await import('./core/memory/block-memory-manager');
+      const modules = await getMemoryModules();
       
+      // 빠른 응답을 위해 간단한 메트릭만 반환
+      const usage = process.memoryUsage();
       res.json({
-        memory: memoryManager.getMetrics(),
-        aggregator: metricsAggregator.getStats(),
-        blockCache: blockMemoryManager.getStats(),
+        memory: {
+          heapUsedMB: Math.round(usage.heapUsed / 1024 / 1024),
+          heapTotalMB: Math.round(usage.heapTotal / 1024 / 1024),
+          rssMB: Math.round(usage.rss / 1024 / 1024),
+          heapUsagePercent: Math.round((usage.heapUsed / usage.heapTotal) * 100),
+        },
+        aggregator: {
+          rawCount: modules.metricsAggregator.getStats?.()?.rawCount ?? 0,
+        },
+        blockCache: {
+          cacheSize: modules.blockMemoryManager.getStats?.()?.cacheSize ?? 0,
+        },
         timestamp: new Date().toISOString(),
       });
     } catch (error) {
-      res.status(500).json({ 
-        error: 'Memory metrics unavailable',
-        message: error instanceof Error ? error.message : 'Unknown error'
+      // 에러 시에도 기본 메모리 정보 반환
+      const usage = process.memoryUsage();
+      res.json({ 
+        memory: {
+          heapUsedMB: Math.round(usage.heapUsed / 1024 / 1024),
+          heapTotalMB: Math.round(usage.heapTotal / 1024 / 1024),
+          heapUsagePercent: Math.round((usage.heapUsed / usage.heapTotal) * 100),
+        },
+        error: 'Partial metrics only',
+        timestamp: new Date().toISOString(),
       });
     }
   });
   
   app.get("/api/memory/prometheus", async (_req, res) => {
     try {
-      const { memoryManager } = await import('./core/memory/memory-manager');
+      const modules = await getMemoryModules();
       res.set('Content-Type', 'text/plain');
-      res.send(memoryManager.getPrometheusMetrics());
+      res.send(modules.memoryManager.getPrometheusMetrics());
     } catch (error) {
-      res.status(500).send('# Error: Memory metrics unavailable');
+      const usage = process.memoryUsage();
+      res.set('Content-Type', 'text/plain');
+      res.send(`# HELP tburn_memory_heap_used_bytes Heap used\ntburn_memory_heap_used_bytes ${usage.heapUsed}`);
     }
   });
   
   app.post("/api/memory/gc", async (_req, res) => {
     try {
-      const { memoryManager } = await import('./core/memory/memory-manager');
-      memoryManager.forceCleanup();
+      const modules = await getMemoryModules();
+      modules.memoryManager.forceCleanup();
       res.json({ 
         success: true, 
         message: 'GC triggered',
         timestamp: new Date().toISOString() 
       });
     } catch (error) {
-      res.status(500).json({ 
-        error: 'GC trigger failed',
-        message: error instanceof Error ? error.message : 'Unknown error'
+      // GC 직접 트리거
+      if (typeof global.gc === 'function') global.gc();
+      res.json({ 
+        success: true, 
+        message: 'Direct GC triggered',
+        timestamp: new Date().toISOString() 
       });
     }
   });

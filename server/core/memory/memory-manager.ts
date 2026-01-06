@@ -48,11 +48,11 @@ export class MemoryManager extends EventEmitter {
     super();
     
     this.config = {
-      maxHeapMB: config?.maxHeapMB || 512, // Replit 환경
+      maxHeapMB: config?.maxHeapMB || 400, // Replit 512MB 환경 - 80% 타겟
       gcThreshold: config?.gcThreshold || METRICS_CONFIG.GC_THRESHOLDS.TRIGGER,
       criticalThreshold: config?.criticalThreshold || METRICS_CONFIG.GC_THRESHOLDS.CRITICAL,
       emergencyThreshold: config?.emergencyThreshold || METRICS_CONFIG.GC_THRESHOLDS.EMERGENCY,
-      checkIntervalMs: config?.checkIntervalMs || METRICS_CONFIG.MONITORING_INTERVAL,
+      checkIntervalMs: config?.checkIntervalMs || 5000, // 5초로 더 자주 체크
     };
   }
   

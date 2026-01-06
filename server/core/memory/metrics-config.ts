@@ -33,23 +33,23 @@ export const METRICS_CONFIG = {
     AGGREGATED_1H: 7 * 24 * 60 * 60 * 1000, // 7일 (1시간 집계)
   },
   
-  // 메모리 한도 (Replit 512MB 환경 최적화)
-  MAX_MEMORY_MB: 400,  // 메트릭용 최대 400MB
-  MAX_DATAPOINTS: 10000, // 최대 데이터포인트
+  // 메모리 한도 (Replit 512MB 환경 최적화 - 더 보수적)
+  MAX_MEMORY_MB: 200,  // 메트릭용 최대 200MB (512MB의 40%)
+  MAX_DATAPOINTS: 2000, // 최대 데이터포인트 (축소)
   
-  // 블록 캐시 설정
+  // 블록 캐시 설정 (512MB 환경 최적화)
   BLOCK_CACHE: {
-    IN_MEMORY_BLOCKS: 1000,     // 최근 1000블록만 메모리 (100초분)
-    HOT_CACHE_BLOCKS: 5000,     // 5000블록 LRU 캐시
-    MAX_CACHE_SIZE_MB: 100,     // 100MB 최대
+    IN_MEMORY_BLOCKS: 100,      // 최근 100블록만 메모리 (10초분)
+    HOT_CACHE_BLOCKS: 500,      // 500블록 LRU 캐시
+    MAX_CACHE_SIZE_MB: 20,      // 20MB 최대
   },
   
-  // GC 임계값
+  // GC 임계값 (512MB 환경 - 더 적극적)
   GC_THRESHOLDS: {
-    WARNING: 0.70,      // 70% 사용 시 경고
-    TRIGGER: 0.75,      // 75% 사용 시 GC 트리거
-    CRITICAL: 0.85,     // 85% 사용 시 강제 정리
-    EMERGENCY: 0.90,    // 90% 사용 시 비상 정리
+    WARNING: 0.60,      // 60% 사용 시 경고
+    TRIGGER: 0.65,      // 65% 사용 시 GC 트리거
+    CRITICAL: 0.75,     // 75% 사용 시 강제 정리
+    EMERGENCY: 0.80,    // 80% 사용 시 비상 정리
   },
   
   // 모니터링 간격

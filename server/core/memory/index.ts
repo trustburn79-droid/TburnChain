@@ -11,6 +11,9 @@
  * @version 6.0.0-enterprise
  */
 
+import { metricsAggregator as _metricsAggregator } from './metrics-aggregator';
+import { memoryManager as _memoryManager } from './memory-manager';
+
 export { METRICS_CONFIG, type MetricsConfigType } from './metrics-config';
 export { CircularBuffer, type MetricPoint } from './circular-buffer';
 export { 
@@ -36,11 +39,8 @@ export {
  * Initialize all memory management systems
  */
 export function initializeMemoryManagement(): void {
-  const { metricsAggregator } = require('./metrics-aggregator');
-  const { memoryManager } = require('./memory-manager');
-  
-  metricsAggregator.start();
-  memoryManager.start();
+  _metricsAggregator.start();
+  _memoryManager.start();
   
   console.log('[MemoryModule] ✅ All memory management systems initialized');
 }
@@ -49,11 +49,8 @@ export function initializeMemoryManagement(): void {
  * Shutdown all memory management systems
  */
 export function shutdownMemoryManagement(): void {
-  const { metricsAggregator } = require('./metrics-aggregator');
-  const { memoryManager } = require('./memory-manager');
-  
-  metricsAggregator.stop();
-  memoryManager.stop();
+  _metricsAggregator.stop();
+  _memoryManager.stop();
   
   console.log('[MemoryModule] Memory management systems stopped');
 }

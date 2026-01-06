@@ -47,14 +47,10 @@ export class MetricsAggregator extends EventEmitter {
   constructor() {
     super();
     
-    // 원본 데이터: 최근 1시간만 (원형 버퍼로 메모리 고정)
-    // 30초 간격 × 20개 메트릭 타입 × 120개 (1시간분) = 2400
-    const bufferCapacity = Math.ceil(
-      (METRICS_CONFIG.RETENTION.RAW / METRICS_CONFIG.COLLECTION_INTERVAL) * 20
-    );
-    this.rawMetrics = new CircularBuffer<MetricPoint>(
-      Math.min(bufferCapacity, METRICS_CONFIG.MAX_DATAPOINTS)
-    );
+    // 원본 데이터: 512MB 환경 최적화 (작은 버퍼)
+    // 30초 간격 × 10개 핵심 메트릭 × 60개 (30분분) = 600
+    const bufferCapacity = Math.min(600, METRICS_CONFIG.MAX_DATAPOINTS);
+    this.rawMetrics = new CircularBuffer<MetricPoint>(bufferCapacity);
   }
   
   start(): void {
