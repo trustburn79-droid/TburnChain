@@ -2031,7 +2031,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       return next();
     }
     // Skip auth check for enterprise read-only endpoints (public data)
-    // Note: All /enterprise/admin/* routes are allowed for authenticated admin portal access
+    // Note: /enterprise/admin/* routes are protected by requireAdmin middleware (see route registration)
     if (req.path.startsWith("/enterprise/snapshot") || 
         req.path.startsWith("/enterprise/health") ||
         req.path.startsWith("/enterprise/metrics") ||
@@ -2042,7 +2042,6 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
         req.path.startsWith("/enterprise/staking-defi/correlation") ||
         req.path.startsWith("/enterprise/bridge-defi/integration") ||
         req.path.startsWith("/enterprise/governance/overview") ||
-        req.path.startsWith("/enterprise/admin/") ||
         req.path.startsWith("/enterprise/operator/dashboard") ||
         req.path.startsWith("/enterprise/operator/session") ||
         req.path.startsWith("/enterprise/dashboard/unified") ||
@@ -2304,9 +2303,10 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   // ============================================
   // ENTERPRISE ADMIN ROUTES (42 Admin Endpoints)
   // Security, Analytics, Governance, Finance, Monitoring, etc.
+  // Protected by requireAdmin middleware for session-based admin authentication
   // ============================================
-  app.use("/api/enterprise/admin", enterpriseAdminRoutes);
-  console.log("[EnterpriseAdmin] ✅ Enterprise admin routes registered (42 endpoints)");
+  app.use("/api/enterprise/admin", requireAdmin, enterpriseAdminRoutes);
+  console.log("[EnterpriseAdmin] ✅ Enterprise admin routes registered (42 endpoints, admin auth required)");
 
   // ============================================
   // USER DATA API (User-specific rewards, staking, events)
