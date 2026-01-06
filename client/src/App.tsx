@@ -349,7 +349,11 @@ function RootRouter() {
   const [location, setLocation] = useLocation();
   
   if (location.startsWith("/admin")) {
-    return <AdminPortalLayout />;
+    return (
+      <Suspense fallback={<PageLoading />}>
+        <AdminPortalLayout />
+      </Suspense>
+    );
   }
   
   if (location.startsWith("/app")) {
