@@ -1,6 +1,7 @@
 import { Link } from "wouter";
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useQuery } from "@tanstack/react-query";
 import { 
   ArrowRight, 
   Book, 
@@ -212,19 +213,44 @@ function RotatingTitle({ keywords }: { keywords: string[] }) {
   );
 }
 
-// Static placeholder values for instant rendering (no API calls needed)
-const STATIC_STATS = {
-  tps: 210000,
+// Default fallback values for instant rendering before API response
+const DEFAULT_STATS = {
+  tps: 97000,
   blockHeight: 40200000,
   totalTransactions: 298500000,
   uptime: "99.99%"
 };
 
+// Network stats interface for API response
+interface NetworkStatsResponse {
+  success: boolean;
+  data: {
+    tps: number;
+    blockHeight: number;
+    totalTransactions: number;
+    uptime?: string;
+  };
+}
+
 export default function Home() {
   const { t } = useTranslation();
   
-  // Use static values for instant rendering - no API calls
-  const stats = STATIC_STATS;
+  // ★ [LEGAL REQUIREMENT] Fetch real-time TPS from API - 5 second refresh
+  const { data: networkStats } = useQuery<NetworkStatsResponse>({
+    queryKey: ["/api/public/v1/network/stats"],
+    refetchInterval: 5000, // Match RealtimeMetricsService 5-second update
+    staleTime: 5000,
+    refetchOnMount: true,
+    refetchOnWindowFocus: false,
+  });
+  
+  // Merge API data with defaults for instant rendering
+  const stats = {
+    tps: networkStats?.data?.tps || DEFAULT_STATS.tps,
+    blockHeight: networkStats?.data?.blockHeight || DEFAULT_STATS.blockHeight,
+    totalTransactions: networkStats?.data?.totalTransactions || DEFAULT_STATS.totalTransactions,
+    uptime: DEFAULT_STATS.uptime // Uptime is always 99.99%
+  };
   
   // Auto-cycling highlight effect for stat cards
   const [activeStatIndex, setActiveStatIndex] = useState(0);
