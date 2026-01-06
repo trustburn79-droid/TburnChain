@@ -95,7 +95,8 @@ function detectEnvironment(): EnvironmentInfo {
 }
 
 export const ENVIRONMENT = detectEnvironment();
-export const IS_PRODUCTION = ENVIRONMENT.isProduction && process.env.NODE_ENV !== 'development';
+// ★ [2026-01-06 CRITICAL FIX] Replit 환경에서는 NODE_ENV와 관계없이 프로덕션으로 간주
+export const IS_PRODUCTION = ENVIRONMENT.isProduction || ENVIRONMENT.isReplit;
 
 // ============================================================================
 // Configuration Constants

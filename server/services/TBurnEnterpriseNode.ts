@@ -3594,9 +3594,13 @@ export class TBurnEnterpriseNode extends EventEmitter {
   }
 
   private startBlockProduction(): void {
-    // Produce blocks at optimal 100ms intervals (10 blocks/second)
-    // CRITICAL: Block production must complete in <100ms to maintain cadence
-    const isDev = process.env.NODE_ENV === 'development';
+    // ★ [2026-01-06 CRITICAL FIX] 메모리 안정성을 위해 블록 생산 간격 증가
+    // 512MB Replit 환경에서 100ms 간격은 힙 메모리 고갈 유발
+    // 프로덕션: 1000ms (1 block/sec), 개발: 500ms (2 blocks/sec)
+    const isProduction = process.env.REPL_SLUG !== undefined || 
+                         process.env.REPLIT_DEPLOYMENT === '1' ||
+                         process.env.REPLIT_DEV_DOMAIN !== undefined;
+    const blockInterval = isProduction ? 1000 : 500; // 1s prod, 500ms dev
     
     this.blockProductionInterval = setInterval(() => {
       if (!this.isRunning) return;
@@ -3605,14 +3609,15 @@ export class TBurnEnterpriseNode extends EventEmitter {
       this.broadcastBlock(block);
       this.emit('block', block);
       
-      // In development: Only process finality every 100 blocks to avoid CPU blocking
-      // In production: Process every block for real-time finality
-      if (!isDev || block.height % 100 === 0) {
+      // Only process finality every 10 blocks to reduce CPU/memory load
+      if (block.height % 10 === 0) {
         setImmediate(() => {
           this.processBlockFinality(block);
         });
       }
-    }, 100); // 100ms = 10 blocks per second for 520k+ TPS capability
+    }, blockInterval); // ★ Dynamic interval based on environment
+    
+    console.log(`[Enterprise Node] Block production started: ${blockInterval}ms interval (${isProduction ? 'production' : 'development'} mode)`);
   }
 
   private produceBlock(): BlockProduction {
@@ -3926,7 +3931,7 @@ export class TBurnEnterpriseNode extends EventEmitter {
           client.send(priceUpdate);
         }
       });
-    }, 5000); // Collect metrics every 5 seconds
+    }, 30000); // ★ [2026-01-06 CRITICAL FIX] Collect metrics every 30 seconds (was 5s) for memory stability
   }
 
   private collectMetrics(): any {
