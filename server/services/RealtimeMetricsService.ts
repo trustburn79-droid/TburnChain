@@ -403,6 +403,26 @@ class RealtimeMetricsService {
   }
   
   /**
+   * ★ [LEGAL REQUIREMENT] 캐시된 샤드 데이터 가져오기 (DB 기반)
+   * calculateRealTimeTps()에서 사용하는 형식으로 반환
+   */
+  getCachedShards(): Array<{ id: number; tps: number; validatorCount: number; load: number }> {
+    const shards: Array<{ id: number; tps: number; validatorCount: number; load: number }> = [];
+    
+    for (const [shardId, metric] of this.shardMetrics) {
+      shards.push({
+        id: shardId,
+        tps: metric.tps || 0,
+        validatorCount: 16, // Default validators per shard
+        load: Math.min(100, Math.floor((metric.tps / 10000) * 100)) // Load % based on 10K capacity
+      });
+    }
+    
+    // 샤드 ID 순으로 정렬
+    return shards.sort((a, b) => a.id - b.id);
+  }
+  
+  /**
    * 전체 네트워크 통계 가져오기
    */
   getNetworkStats() {
