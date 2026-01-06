@@ -65,6 +65,19 @@ import {
   TransactionVerifier, 
   BlockVerifier 
 } from '../utils/transaction-verifier';
+import { 
+  shardBootPipeline, 
+  ShardBootPipeline,
+  type ShardShell 
+} from '../core/sharding/shard-boot-pipeline';
+import { 
+  memoryGovernor, 
+  MemoryGovernor 
+} from '../core/sharding/memory-governor';
+import { 
+  requestShedder, 
+  RequestShedder 
+} from '../core/sharding/request-shedder';
 
 export interface NodeConfig {
   nodeId: string;
@@ -1272,11 +1285,11 @@ export class TBurnEnterpriseNode extends EventEmitter {
   // Shards replicate optimal performance and distribute load algorithmically
   // ============================================
   
-  // Core Constants - v5.1 Memory Optimized
+  // Core Constants - v6.0 Staged Boot Pipeline
   private readonly SHARD_BASELINE_TPS = 10000;        // Each shard's optimal TPS
-  private readonly ACTIVATION_THRESHOLD = 0.95;       // Activate standby when active shards reach 95% (was 75%)
-  private readonly DEACTIVATION_THRESHOLD = 0.35;     // Deactivate shard when load drops below 35% (was 45%)
-  private readonly REDISTRIBUTION_THRESHOLD = 0.98;   // Redistribute load at 98% (was 95%)
+  private readonly ACTIVATION_THRESHOLD = 0.75;       // Activate standby when active shards reach 75% (restored - pipeline handles safely)
+  private readonly DEACTIVATION_THRESHOLD = 0.45;     // Deactivate shard when load drops below 45% (restored)
+  private readonly REDISTRIBUTION_THRESHOLD = 0.95;   // Redistribute load at 95% (restored)
   private readonly CROSS_SHARD_PENALTY_BASE = 0.005;  // 0.5% penalty per 1k cross-shard tx
   private readonly COORDINATION_OVERHEAD_ALPHA = 0.001; // Cross-shard message overhead coefficient
   private readonly COORDINATION_OVERHEAD_BETA = 0.0001; // Latency variance overhead coefficient
@@ -1296,7 +1309,7 @@ export class TBurnEnterpriseNode extends EventEmitter {
   private activeShardCount = 5;   // Currently active shards
   private standbyShardCount = 0;  // Shards in standby mode
   private lastScaleEvent = 0;     // Timestamp of last scale event
-  private scaleEventCooldown = 120000; // 2 minute cooldown between scale events (was 30s) - v5.1 Memory Optimized
+  private scaleEventCooldown = 30000; // 30s cooldown (restored - pipeline handles pacing)
   
   // Get shard efficiency based on utilization and cross-shard overhead
   private calculateShardEfficiency(utilization: number, crossShardMsgRate: number): number {
@@ -1587,27 +1600,61 @@ export class TBurnEnterpriseNode extends EventEmitter {
     return { action: 'none', details: `Stable (avg utilization: ${(avgUtilization * 100).toFixed(1)}%)` };
   }
   
-  // Activate standby shards
+  // Activate standby shards using v6.0 Staged Boot Pipeline
   private activateStandbyShards(count: number): void {
-    let activated = 0;
+    // v6.0: Check memory governor before activation
+    const memoryCheck = memoryGovernor.shouldDeferActivation(0);
+    if (memoryCheck.defer) {
+      console.log(`[Shard Distribution] ⏸️ Activation deferred: ${memoryCheck.reason}`);
+      return;
+    }
     
+    // Collect standby shard IDs
+    const standbyShardIds: number[] = [];
     for (const state of this.shardStates.values()) {
-      if (state.status === 'standby' && activated < count) {
-        state.status = 'active';
-        state.utilization = 0.40; // Start at 40% after activation
-        state.currentTps = Math.round(this.SHARD_BASELINE_TPS * 0.40);
-        state.effectiveTps = this.SHARD_BASELINE_TPS;
-        state.crossShardMsgRate = 500;
-        state.activatedAt = Date.now();
-        state.deactivatedAt = null;
-        activated++;
+      if (state.status === 'standby' && standbyShardIds.length < count) {
+        standbyShardIds.push(state.id);
       }
     }
     
-    this.activeShardCount += activated;
-    this.standbyShardCount -= activated;
+    if (standbyShardIds.length === 0) {
+      console.log('[Shard Distribution] No standby shards available');
+      return;
+    }
     
-    console.log(`[Shard Distribution] Activated ${activated} shards. Active: ${this.activeShardCount}, Standby: ${this.standbyShardCount}`);
+    // v6.0: Use staged boot pipeline instead of synchronous activation
+    requestShedder.setScalingInProgress(true);
+    shardBootPipeline.queueScaleIntent(standbyShardIds, 'normal');
+    
+    console.log(`[Shard Distribution] Queued ${standbyShardIds.length} shards for staged activation`);
+  }
+  
+  // v6.0: Handle shard ready event from pipeline
+  private handleShardReady(shardId: number, shell: ShardShell): void {
+    const state = this.shardStates.get(shardId);
+    if (!state) return;
+    
+    state.status = 'active';
+    state.utilization = 0.40;
+    state.currentTps = Math.round(this.SHARD_BASELINE_TPS * 0.40);
+    state.effectiveTps = this.SHARD_BASELINE_TPS;
+    state.crossShardMsgRate = 500;
+    state.activatedAt = Date.now();
+    state.deactivatedAt = null;
+    
+    this.activeShardCount++;
+    this.standbyShardCount--;
+    
+    // Register with memory governor
+    memoryGovernor.registerShard(shardId, shell.memoryFootprintMB);
+    
+    // Check if all queued shards are done
+    const metrics = shardBootPipeline.getMetrics();
+    if (metrics.pendingIntents === 0 && metrics.activeActivations === 0) {
+      requestShedder.setScalingInProgress(false);
+    }
+    
+    console.log(`[Shard Distribution] ✅ Shard ${shardId} activated via pipeline. Active: ${this.activeShardCount}, Standby: ${this.standbyShardCount}`);
   }
   
   // Deactivate active shards (lowest utilization first)
@@ -1632,6 +1679,10 @@ export class TBurnEnterpriseNode extends EventEmitter {
         state.crossShardMsgRate = 0;
         state.deactivatedAt = Date.now();
         deactivated++;
+        
+        // v6.0: Unregister from memory governor and pipeline
+        memoryGovernor.unregisterShard(shard.id);
+        shardBootPipeline.removeShell(shard.id);
       }
     }
     
@@ -1713,6 +1764,56 @@ export class TBurnEnterpriseNode extends EventEmitter {
     super();
     this.config = config;
     console.log(`[Enterprise Node] Initializing TBURN node: ${config.nodeId}`);
+    
+    // v6.0: Setup shard boot pipeline event handlers
+    this.initializeShardPipelineEvents();
+  }
+  
+  // v6.0: Initialize shard pipeline event handlers
+  private initializeShardPipelineEvents(): void {
+    // Handle shard ready events from pipeline
+    shardBootPipeline.on('shardReady', ({ shardId, shell }) => {
+      this.handleShardReady(shardId, shell);
+    });
+    
+    // Handle shard failure events
+    shardBootPipeline.on('shardFailed', ({ shardId, error }) => {
+      console.error(`[Shard Distribution] ❌ Shard ${shardId} failed to activate:`, error);
+      requestShedder.setScalingInProgress(false);
+    });
+    
+    // Handle memory governor state changes
+    memoryGovernor.on('stateChange', ({ oldState, newState, snapshot }) => {
+      console.log(`[Memory Governor] State: ${oldState} → ${newState} (heap: ${snapshot.heapUsagePercent.toFixed(1)}%)`);
+      
+      // If entering hibernating/critical, clear pending intents
+      if (newState === 'hibernating' || newState === 'critical') {
+        const cleared = shardBootPipeline.clearPendingIntents();
+        if (cleared > 0) {
+          console.log(`[Memory Governor] Cleared ${cleared} pending shard activations`);
+        }
+        requestShedder.setScalingInProgress(false);
+      }
+    });
+    
+    // Handle shard hibernation from memory governor
+    memoryGovernor.on('shardHibernated', ({ shardId, freedMemoryMB }) => {
+      const state = this.shardStates.get(shardId);
+      if (state && state.status === 'active') {
+        state.status = 'standby';
+        state.utilization = 0;
+        state.currentTps = 0;
+        state.effectiveTps = 0;
+        state.deactivatedAt = Date.now();
+        
+        this.activeShardCount--;
+        this.standbyShardCount++;
+        
+        console.log(`[Shard Distribution] 💤 Shard ${shardId} hibernated by memory governor`);
+      }
+    });
+    
+    console.log('[Enterprise Node] ✅ v6.0 Shard Pipeline events initialized');
   }
 
   // ============================================

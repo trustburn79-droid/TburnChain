@@ -23,7 +23,7 @@ Core architectural decisions and features include:
 - **Reward Distribution Engine**: Automatic validator reward distribution based on proposer rewards, verifier rewards, and gas fee distribution.
 - **Mainnet Launch Configuration**: Chain ID 6000, 125 genesis validators, 64 shards, ~210,000 TPS capacity, 20-year deflationary tokenomics, and various burn mechanics.
 - **Performance Optimizations**: Includes instant first load, deferred data fetch, static landing page architecture, and route-based code splitting.
-- **Production Stability v5.1**: Enterprise-grade session bypass with O(1) Set-based path lookup, URL encoding attack prevention, trusted proxy validation for X-Skip-Session header, Prometheus-compatible metrics tracking, and CDN query string removal immunity. Key improvements:
+- **Production Stability v6.0**: Enterprise-grade shard scaling with staged boot pipeline, memory governor, and request shedding. Key improvements:
   - Set-based O(1) exact path lookup (replaces O(n) linear scan)
   - Sorted prefix arrays for longest-match-first optimization
   - URL decoding attack prevention via sanitizePath()
@@ -31,7 +31,9 @@ Core architectural decisions and features include:
   - Session skip metrics with per-reason counters and skip ratio tracking
   - /tmp disk monitoring endpoint (/api/tmp-status)
   - MemoryStore automatic fallback when DATABASE_URL is not set
-  - **v5.1 Memory Optimization**: Conservative shard scaling (ACTIVATION_THRESHOLD 75%→95%, cooldown 30s→2min) to prevent upstream timeout
+  - **v6.0 Staged Shard Boot Pipeline**: Intent queue, shell warming, async streaming, readiness confirmation (max 2 concurrent, 5s spacing)
+  - **v6.0 Memory Governor**: Dynamic ceiling calculation, shard hibernation, diff-based compaction (75% warn, 85% defer, 90% hibernate)
+  - **v6.0 Request Shedder**: Priority-based endpoint classification, cached responses, degraded mode (150ms event loop lag limit)
 - **Enterprise Session Monitoring**: Production-grade session metrics and observability system with Prometheus export, historical tracking, and alerting.
 - **Enterprise Scalability Infrastructure**: Resilience patterns including `BlockchainOrchestrator`, `PersistenceBatcher`, and `AdaptiveFeeEngine`.
 - **Enterprise Validator Orchestrator**: Production-grade validator management for 125 genesis validators with performance scoring, slashing, and reward distribution.
