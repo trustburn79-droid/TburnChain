@@ -1,6 +1,13 @@
 import { createRoot, Root } from "react-dom/client";
 import "./index.css";
+import { installVisibilityWarmup, warmupServer } from "./lib/api-client";
 // CRITICAL: App and i18n are loaded dynamically to reduce initial bundle size
+
+// ============================================
+// Cold Start Protection: Server Warmup
+// ★ [v6.0] 10분 유휴 후 에러 방지
+// ============================================
+installVisibilityWarmup();
 
 declare global {
   interface Window {

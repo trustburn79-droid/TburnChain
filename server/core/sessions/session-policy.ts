@@ -177,6 +177,7 @@ const SESSION_FREE_EXACT_PATHS = new Set([
   '/api/ping',
   '/api/version',
   '/api/info',
+  '/api/warmup',
   '/health',
   '/healthz',
   '/readyz',

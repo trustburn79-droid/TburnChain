@@ -544,6 +544,16 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   disasterRecovery.start();
   console.log('[Routes] ✅ Disaster recovery manager started');
   
+  // ★ [v6.0] Initialize Warmup Manager for cold start protection
+  try {
+    const { warmupManager } = await import('./core/warmup/warmup-manager');
+    warmupManager.setDbPool(sharedPool);
+    warmupManager.start();
+    console.log('[Routes] ✅ Warmup manager started (DB keep-alive enabled)');
+  } catch (e) {
+    console.warn('[Routes] Warmup manager initialization failed:', e);
+  }
+  
   // ★ [v2.0] Connect disaster recovery events to memory relief systems
   disasterRecovery.on('clearCaches', () => {
     try {
@@ -1834,6 +1844,31 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       });
     } catch (error) {
       res.status(500).json({ status: 'error', error: 'Health check failed' });
+    }
+  });
+
+  // ============================================
+  // Server Warmup Endpoint (Cold Start Prevention)
+  // ★ [v6.0] 10분 유휴 후 첫 요청 에러 방지
+  // ============================================
+  app.get("/api/warmup", async (_req, res) => {
+    try {
+      const { warmupManager } = await import('./core/warmup/warmup-manager');
+      const wasCold = await warmupManager.checkAndWarmup();
+      
+      res.json({
+        status: wasCold ? 'warming' : 'warm',
+        wasCold,
+        timestamp: new Date().toISOString(),
+        uptime: Math.round(process.uptime()),
+        message: wasCold ? 'Server was cold, now warming up' : 'Server is warm',
+      });
+    } catch (error) {
+      res.status(500).json({ 
+        status: 'error', 
+        error: 'Warmup check failed',
+        message: error instanceof Error ? error.message : 'Unknown error'
+      });
     }
   });
 
