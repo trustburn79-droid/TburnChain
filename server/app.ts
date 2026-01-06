@@ -41,7 +41,6 @@ import {
   getSessionMetrics as getSessionMetricsV4,
   CONFIG as CONFIG_V4,
 } from "./core/sessions/session-bypass-v4";
-import cookieParser from "cookie-parser";
 
 // ★ [2026-01-05] 프로세스 크래시 핸들러 즉시 등록 (최우선)
 // uncaughtException, unhandledRejection 핸들러가 모든 에러를 캡처
@@ -92,9 +91,6 @@ export const app = express();
 
 // ★ [수정 2] Nginx 프록시 신뢰 설정 (필수)
 app.set('trust proxy', 1);
-
-// ★ [v4.0] Cookie Parser - MUST come before session for decision making
-app.use(cookieParser(process.env.COOKIE_SECRET || 'tburn-cookie-secret'));
 
 // ★ [v4.0 CRITICAL] PRE-SESSION FILTER - MUST be BEFORE express-session
 // This blocks RPC and stateless requests BEFORE session middleware even loads
