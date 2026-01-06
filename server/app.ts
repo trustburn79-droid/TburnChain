@@ -14,6 +14,7 @@ import { registerRoutes } from "./routes";
 import passport from "passport";
 import { Strategy as GoogleStrategy } from "passport-google-oauth20";
 import { initializeBlockchainOrchestrator, shutdownBlockchainOrchestrator } from "./services/blockchain-orchestrator";
+import { memoryGuardian } from "./services/memory-guardian";
 
 // ★ [수정 1] connect-redis 불러오는 방식 변경 (ESM 호환)
 import { RedisStore } from "connect-redis";
@@ -811,6 +812,7 @@ export default async function runApp(
   process.on('SIGTERM', async () => {
     log(`🛑 SIGTERM received, shutting down gracefully...`, "shutdown");
     try {
+      memoryGuardian.stop();
       await shutdownBlockchainOrchestrator();
     } catch (e) {
       // Ignore shutdown errors
@@ -825,5 +827,9 @@ export default async function runApp(
     reusePort: true,
   }, () => {
     log(`serving on port ${port}`);
+    
+    // ★ [v7.0] Start Memory Guardian for automated memory management
+    memoryGuardian.start();
+    log(`🛡️ Memory Guardian started - monitoring heap usage`, "memory");
   });
 }

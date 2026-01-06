@@ -2087,7 +2087,47 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
   
-  console.log('[Routes] ✅ Memory Management API v7.0 registered (8 endpoints)');
+  // ★ [v7.0] Memory Guardian Status
+  app.get("/api/memory/guardian", async (_req, res) => {
+    try {
+      const { memoryGuardian } = await import('./services/memory-guardian');
+      const status = memoryGuardian.getStatus();
+      res.json({
+        version: '7.0.0-guardian',
+        ...status,
+        timestamp: new Date().toISOString(),
+      });
+    } catch (error) {
+      res.status(500).json({ error: 'Failed to get guardian status' });
+    }
+  });
+
+  // ★ [v7.0] Manual Cleanup Trigger
+  app.post("/api/memory/guardian/cleanup", async (req, res) => {
+    try {
+      const { memoryGuardian } = await import('./services/memory-guardian');
+      const level = (req.body?.level || 'soft') as 'soft' | 'aggressive' | 'emergency';
+      
+      const beforeUsage = process.memoryUsage();
+      memoryGuardian.forceCleanup(level);
+      
+      setTimeout(() => {
+        const afterUsage = process.memoryUsage();
+        res.json({
+          success: true,
+          level,
+          before: { heapUsedMB: Math.round(beforeUsage.heapUsed / 1024 / 1024) },
+          after: { heapUsedMB: Math.round(afterUsage.heapUsed / 1024 / 1024) },
+          freedMB: Math.round((beforeUsage.heapUsed - afterUsage.heapUsed) / 1024 / 1024),
+          timestamp: new Date().toISOString(),
+        });
+      }, 2000);
+    } catch (error) {
+      res.status(500).json({ error: 'Failed to trigger cleanup' });
+    }
+  });
+
+  console.log('[Routes] ✅ Memory Management API v7.0 registered (10 endpoints)');
   
   // ============================================
   // /tmp Disk Monitoring (v5.1 Enterprise - Secure Async)
