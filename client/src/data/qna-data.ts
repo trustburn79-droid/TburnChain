@@ -35,8 +35,8 @@ export const qnaData: QnAItem[] = [
     categoryKey: 'getting-started',
     question: 'TBURN이란 무엇인가요?',
     questionEn: 'What is TBURN?',
-    answer: 'TBURN은 Chain ID 6000 메인넷에서 운영되는 차세대 Layer 1 블록체인입니다. 125개의 제네시스 밸리데이터와 64개의 동적 샤드를 통해 약 210,000 TPS를 처리하며 100ms 블록 타임을 제공합니다. AI 강화 BFT 합의 메커니즘으로 높은 보안성과 확장성을 제공하고, 500B 총 공급량의 디플레이션 토큰 경제 모델을 운영합니다.',
-    answerEn: 'TBURN is a next-generation Layer 1 blockchain operating on Chain ID 6000 mainnet. With 125 genesis validators and 64 dynamic shards, it processes approximately 210,000 TPS with 100ms block time. It uses an AI-enhanced BFT consensus mechanism for high security and scalability, with a deflationary token economic model of 500B total supply.',
+    answer: 'TBURN은 Chain ID 6000 메인넷에서 운영되는 차세대 Layer 1 블록체인입니다. 125개의 제네시스 밸리데이터와 64개의 동적 샤드를 통해 약 210,000 TPS를 처리하며 100ms 블록 타임을 제공합니다. AI 강화 BFT 합의 메커니즘으로 높은 보안성과 확장성을 제공하고, 10B(100억) 총 공급량의 디플레이션 토큰 경제 모델을 운영합니다.',
+    answerEn: 'TBURN is a next-generation Layer 1 blockchain operating on Chain ID 6000 mainnet. With 125 genesis validators and 64 dynamic shards, it processes approximately 210,000 TPS with 100ms block time. It uses an AI-enhanced BFT consensus mechanism for high security and scalability, with a deflationary token economic model of 10B total supply.',
     relatedPage: '/learn/whitepaper',
     tags: ['기초', '블록체인', '소개', 'Chain ID 6000']
   },
@@ -1212,8 +1212,8 @@ export const qnaData: QnAItem[] = [
     categoryKey: 'tokenomics',
     question: '토큰 배포 스케줄은 어떻게 되나요?',
     questionEn: 'What is the token distribution schedule?',
-    answer: 'Token Schedule 페이지에서 20년 토큰 배포 계획을 확인할 수 있습니다. 500B TBURN 총 공급량이 4가지 수탁 메커니즘으로 배포됩니다: 프로토콜 자동(22%), 베스팅 계약(31%), 파운데이션 멀티시그(17%), 커뮤니티 풀(30%). 연도별 배포량과 누적 진행률을 시각화된 차트로 확인 가능합니다.',
-    answerEn: 'The Token Schedule page shows the 20-year token distribution plan. 500B TBURN total supply is distributed through 4 custody mechanisms: Protocol Automatic (22%), Vesting Contract (31%), Foundation Multisig (17%), Community Pool (30%). Annual distribution amounts and cumulative progress are visualized in charts.',
+    answer: 'Token Schedule 페이지에서 20년 토큰 배포 계획을 확인할 수 있습니다. 10B(100억) TBURN 총 공급량이 4가지 수탁 메커니즘으로 배포됩니다: 프로토콜 자동(22%), 베스팅 계약(31%), 파운데이션 멀티시그(17%), 커뮤니티 풀(30%). 연도별 배포량과 누적 진행률을 시각화된 차트로 확인 가능합니다.',
+    answerEn: 'The Token Schedule page shows the 20-year token distribution plan. 10B TBURN total supply is distributed through 4 custody mechanisms: Protocol Automatic (22%), Vesting Contract (31%), Foundation Multisig (17%), Community Pool (30%). Annual distribution amounts and cumulative progress are visualized in charts.',
     relatedPage: '/token-schedule',
     tags: ['토큰 스케줄', '배포', '베스팅', '20년']
   },
@@ -1223,10 +1223,10 @@ export const qnaData: QnAItem[] = [
     categoryKey: 'tokenomics',
     question: '토큰 상세 정보는 어디서 확인하나요?',
     questionEn: 'Where can I view token details?',
-    answer: 'Token Details 페이지에서 TBURN 토큰의 핵심 정보를 확인합니다. 500B 총 공급량, 현재 유통량, 총 소각량, 실시간 가격, 시가총액, 24시간 거래량 등 상세 통계를 제공합니다. TBC-20 토큰 표준 정보와 계약 주소도 확인 가능합니다.',
-    answerEn: 'The Token Details page shows core TBURN token information. Detailed statistics include 500B total supply, current circulating supply, total burned amount, real-time price, market cap, and 24-hour trading volume. TBC-20 token standard info and contract address are also available.',
+    answer: 'Token Details 페이지에서 TBURN 토큰의 핵심 정보를 확인합니다. 10B(100억) 총 공급량, 현재 유통량, 총 소각량, 실시간 가격, 시가총액, 24시간 거래량 등 상세 통계를 제공합니다. TBC-20 토큰 표준 정보와 계약 주소도 확인 가능합니다.',
+    answerEn: 'The Token Details page shows core TBURN token information. Detailed statistics include 10B total supply, current circulating supply, total burned amount, real-time price, market cap, and 24-hour trading volume. TBC-20 token standard info and contract address are also available.',
     relatedPage: '/token-details',
-    tags: ['토큰 상세', '공급량', '가격', '500B']
+    tags: ['토큰 상세', '공급량', '가격', '10B']
   },
 
   // ============================================
@@ -1467,8 +1467,8 @@ export const qnaData: QnAItem[] = [
     categoryKey: 'network',
     question: 'TBURN 메인넷 핵심 사양은?',
     questionEn: 'What are TBURN mainnet core specifications?',
-    answer: 'TBURN 메인넷 핵심 사양: Chain ID 6000, 125개 제네시스 밸리데이터, 64개 동적 샤드, ~210,000 TPS 용량, 100ms 블록 타임, 500B TBURN 총 공급량, 5단계 BFT 합의, 20년 디플레이션 토크노믹스. AI 강화 거버넌스와 자동 리밸런싱 시스템을 갖추고 있습니다.',
-    answerEn: 'TBURN mainnet core specs: Chain ID 6000, 125 genesis validators, 64 dynamic shards, ~210,000 TPS capacity, 100ms block time, 500B TBURN total supply, 5-phase BFT consensus, 20-year deflationary tokenomics. Features AI-enhanced governance and automatic rebalancing systems.',
+    answer: 'TBURN 메인넷 핵심 사양: Chain ID 6000, 125개 제네시스 밸리데이터, 64개 동적 샤드, ~210,000 TPS 용량, 100ms 블록 타임, 10B(100억) TBURN 총 공급량, 5단계 BFT 합의, 20년 디플레이션 토크노믹스(Y20 목표: 6.94B). AI 강화 거버넌스와 자동 리밸런싱 시스템을 갖추고 있습니다.',
+    answerEn: 'TBURN mainnet core specs: Chain ID 6000, 125 genesis validators, 64 dynamic shards, ~210,000 TPS capacity, 100ms block time, 10B TBURN total supply, 5-phase BFT consensus, 20-year deflationary tokenomics (Y20 target: 6.94B). Features AI-enhanced governance and automatic rebalancing systems.',
     relatedPage: '/learn/whitepaper',
     tags: ['메인넷', '사양', 'Chain ID 6000', '210K TPS']
   },
