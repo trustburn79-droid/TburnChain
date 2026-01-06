@@ -2222,6 +2222,36 @@ export class TBurnEnterpriseNode extends EventEmitter {
 
   private isStarting = false;
   
+  /**
+   * Load essential data only (for DEV_SAFE_MODE - lightweight mode)
+   * Skips RPC server, WebSocket, peer discovery, block production
+   */
+  async loadEssentialData(): Promise<void> {
+    console.log('[Enterprise Node] 📊 Loading essential data in lightweight mode...');
+    
+    try {
+      // Load shard config from database
+      await this.loadConfigFromDatabase();
+      
+      // Load block height from database
+      await this.loadBlockHeightFromDatabase();
+      
+      // Initialize wallet cache (minimal wallets)
+      this.initializeWalletCache();
+      
+      // Load wallets from database
+      await this.loadWalletsFromDatabase();
+      
+      this.isRunning = true;
+      this.startTime = Date.now();
+      
+      console.log('[Enterprise Node] ✅ Essential data loaded (lightweight mode active)');
+      console.log(`[Enterprise Node] 📊 Block height: ${this.currentBlockHeight}, Shards: ${this.shardConfig.currentShardCount}`);
+    } catch (error) {
+      console.error('[Enterprise Node] ❌ Failed to load essential data:', error);
+    }
+  }
+
   async start(): Promise<void> {
     if (this.isRunning) {
       console.log('[Enterprise Node] Node already running');
@@ -9983,6 +10013,10 @@ export class TBurnEnterpriseNode extends EventEmitter {
 
 // Singleton instance
 let enterpriseNode: TBurnEnterpriseNode | null = null;
+let isLightweightMode = false;
+
+// Import DEV_SAFE_MODE check
+import { DEV_SAFE_MODE } from '../core/memory/metrics-config';
 
 export function getEnterpriseNode(): TBurnEnterpriseNode {
   if (!enterpriseNode) {
@@ -9993,15 +10027,29 @@ export function getEnterpriseNode(): TBurnEnterpriseNode {
       wsPort: 8546,
       p2pPort: 30303,
       dataDir: '/var/lib/tburn',
-      enableMetrics: true,
-      enableSnapshots: true
+      enableMetrics: !DEV_SAFE_MODE, // Disable heavy metrics in DEV_SAFE_MODE
+      enableSnapshots: !DEV_SAFE_MODE // Disable snapshots in DEV_SAFE_MODE
     });
     
-    // Auto-start the node immediately
-    console.log('[Enterprise Node] Auto-starting enterprise node...');
-    enterpriseNode.start().catch(error => {
-      console.error('[Enterprise Node] Failed to auto-start:', error);
-    });
+    // DEV_SAFE_MODE: Skip auto-start of heavy services (RPC server, peer discovery, etc)
+    if (DEV_SAFE_MODE) {
+      console.log('[Enterprise Node] ⚡ DEV_SAFE_MODE - Lightweight initialization (no RPC server)');
+      isLightweightMode = true;
+      // Load essential data only (block height, shard config, etc) without starting servers
+      enterpriseNode.loadEssentialData().catch(error => {
+        console.error('[Enterprise Node] Failed to load essential data:', error);
+      });
+    } else {
+      // Full enterprise node initialization
+      console.log('[Enterprise Node] Auto-starting enterprise node...');
+      enterpriseNode.start().catch(error => {
+        console.error('[Enterprise Node] Failed to auto-start:', error);
+      });
+    }
   }
   return enterpriseNode;
+}
+
+export function isEnterpriseNodeLightweight(): boolean {
+  return isLightweightMode;
 }
