@@ -54,12 +54,12 @@ export default function BlocksList() {
   const [searchBlock, setSearchBlock] = useState("");
   const pageSize = 25;
 
-  // Fetch real network stats for block height - uses 30s cache for consistency
+  // Fetch real network stats for block height - uses 5s cache for realtime TPS
   const { data: networkStats } = useQuery<NetworkStats>({
     queryKey: ["/api/network/stats"],
-    staleTime: 30000, // Match backend cache TTL for consistent display
-    refetchInterval: 30000,
-    refetchOnMount: false,
+    staleTime: 5000, // ★ REALTIME: Match RealtimeMetricsService poll interval
+    refetchInterval: 5000,
+    refetchOnMount: true,
     refetchOnWindowFocus: false,
   });
 

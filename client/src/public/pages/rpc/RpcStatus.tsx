@@ -74,8 +74,8 @@ export default function RpcStatus() {
 
   const { data: networkStats, refetch } = useQuery<{ success: boolean; data: any }>({
     queryKey: ['/api/public/v1/network/stats'],
-    staleTime: 30000,
-    refetchInterval: 30000,
+    staleTime: 5000, // ★ REALTIME: Match RealtimeMetricsService poll interval
+    refetchInterval: 5000,
   });
 
   const { data: healthData } = useQuery<{ status: string; timestamp: string }>({

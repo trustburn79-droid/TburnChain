@@ -65,8 +65,8 @@ export default function ValidatorCommandCenter() {
 
   const { data: networkStats } = useQuery<NetworkStats>({
     queryKey: ["/api/network/stats"],
-    staleTime: 30000,
-    refetchInterval: 30000,
+    staleTime: 5000,
+    refetchInterval: 5000, // ★ REALTIME: Match RealtimeMetricsService poll interval
   });
 
   const { data: validatorResponse, isLoading: validatorsLoading } = useQuery<ValidatorApiResponse>({

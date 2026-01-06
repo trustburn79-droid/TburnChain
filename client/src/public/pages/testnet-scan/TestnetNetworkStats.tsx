@@ -46,9 +46,9 @@ export default function TestnetNetworkStats() {
 
   const { data, isLoading } = useQuery<{ success: boolean; data: NetworkStats }>({
     queryKey: ["/api/public/v1/testnet/network/stats"],
-    refetchInterval: 30000, // Match backend cache TTL for consistent display
-    staleTime: 30000,
-    refetchOnMount: false,
+    refetchInterval: 5000, // ★ REALTIME: Match RealtimeMetricsService poll interval
+    staleTime: 5000,
+    refetchOnMount: true,
     refetchOnWindowFocus: false,
   });
 

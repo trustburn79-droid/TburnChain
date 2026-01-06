@@ -145,10 +145,10 @@ export default function ScanHome() {
 
   const { data: statsData, isLoading: statsLoading, error: statsError } = useQuery<{ success: boolean; data: NetworkStats }>({
     queryKey: ["/api/public/v1/network/stats"],
-    staleTime: 30000, // Match backend cache TTL for consistent display
-    refetchOnMount: false,
+    staleTime: 5000, // ★ REALTIME: Match RealtimeMetricsService poll interval
+    refetchOnMount: true,
     refetchOnWindowFocus: false,
-    refetchInterval: 30000, // Match backend cache TTL
+    refetchInterval: 5000, // ★ REALTIME: 5s refresh for live TPS
     retry: 3,
   });
 

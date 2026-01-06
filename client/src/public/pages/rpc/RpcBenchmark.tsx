@@ -63,7 +63,8 @@ export default function RpcBenchmark() {
 
   const { data: networkStats } = useQuery<{ success: boolean; data: any }>({
     queryKey: ['/api/public/v1/network/stats'],
-    staleTime: 30000,
+    staleTime: 5000, // ★ REALTIME: Match RealtimeMetricsService poll interval
+    refetchInterval: 5000,
   });
 
   const runBenchmark = useCallback(async () => {

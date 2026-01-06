@@ -57,7 +57,8 @@ export default function TestnetRpcStatus() {
 
   const { data: networkStats, refetch } = useQuery<{ success: boolean; data: any }>({
     queryKey: ['/api/public/v1/testnet/stats'],
-    staleTime: 30000,
+    staleTime: 5000, // ★ REALTIME: Match RealtimeMetricsService poll interval
+    refetchInterval: 5000,
   });
 
   useEffect(() => {
