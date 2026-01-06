@@ -31,9 +31,17 @@ Core architectural decisions and features include:
   - Session skip metrics with per-reason counters and skip ratio tracking
   - /tmp disk monitoring endpoint (/api/tmp-status)
   - MemoryStore automatic fallback when DATABASE_URL is not set
-  - **v6.0 Staged Shard Boot Pipeline**: Intent queue, shell warming, async streaming, readiness confirmation (max 2 concurrent, 5s spacing)
-  - **v6.0 Memory Governor**: Dynamic ceiling calculation, shard hibernation, diff-based compaction (75% warn, 85% defer, 90% hibernate)
-  - **v6.0 Request Shedder**: Priority-based endpoint classification, cached responses, degraded mode (150ms event loop lag limit)
+  - **v6.0 Staged Shard Boot Pipeline**: Intent queue, shell warming, async streaming, readiness confirmation (max 2 concurrent, 5s spacing), circuit breaker (5 failures threshold, 60s reset)
+  - **v6.0 Memory Governor**: Dynamic ceiling calculation, shard hibernation, diff-based compaction (75% warn, 85% defer, 90% hibernate, 2% hysteresis, EWMA alpha 0.3)
+  - **v6.0 Request Shedder**: Priority-based endpoint classification, cached responses, degraded mode (adaptive 50-300ms threshold, 100 RPS backpressure)
+  - **v6.0 API Endpoints**: `/api/sharding/v6/prometheus`, `/api/sharding/v6/health`, `/api/sharding/v6/metrics`, `/api/sharding/v6/pipeline`, `/api/sharding/v6/memory`, `/api/sharding/v6/shedder`
+- **Phase 18 v6.0 Database Infrastructure**: Enterprise-grade metrics persistence for shard scaling modules:
+  - **v6_shard_pipeline_metrics** (23 columns): Intent queue, activation percentiles (p50/p95/p99), circuit breaker state, health checks
+  - **v6_memory_governor_metrics** (30 columns): Heap usage, EWMA smoothing, memory trends, GC metrics, hibernation tracking, threshold history
+  - **v6_request_shedder_metrics** (27 columns): Event loop lag, adaptive thresholds, shedding by priority, cache metrics, backpressure tracking
+  - **v6_scaling_events** (19 columns): Combined event log with severity, state transitions, correlation IDs, duration tracking
+  - **v6_health_snapshots_hourly** (27 columns): Hourly aggregates for historical analysis, event summaries, SLA tracking
+  - **28 optimized indexes** for time-series queries, state filtering, correlation lookups, and percentile analysis
 - **Enterprise Session Monitoring**: Production-grade session metrics and observability system with Prometheus export, historical tracking, and alerting.
 - **Enterprise Scalability Infrastructure**: Resilience patterns including `BlockchainOrchestrator`, `PersistenceBatcher`, and `AdaptiveFeeEngine`.
 - **Enterprise Validator Orchestrator**: Production-grade validator management for 125 genesis validators with performance scoring, slashing, and reward distribution.

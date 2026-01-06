@@ -12757,3 +12757,329 @@ export type InsertSessionBypassMetric = z.infer<typeof insertSessionBypassMetric
 export type QnaEntryDB = typeof qnaEntries.$inferSelect;
 export type InsertQnaEntry = z.infer<typeof insertQnaEntrySchema>;
 
+// ============================================================================
+// PHASE 18: V6.0 SHARD SCALING CORE DATABASE INFRASTRUCTURE
+// ============================================================================
+// Enterprise-grade metrics tracking for v6.0 shard scaling modules:
+// - ShardBootPipeline: Staged shard activation with circuit breaker
+// - MemoryGovernor: Adaptive memory management with hysteresis
+// - RequestShedder: Surge-aware request shedding with backpressure
+
+// V6.0 Shard Boot Pipeline Metrics (Staged Activation Tracking)
+export const v6ShardPipelineMetrics = pgTable("v6_shard_pipeline_metrics", {
+  id: serial("id").primaryKey(),
+  
+  // Correlation & Timing
+  correlationId: varchar("correlation_id", { length: 64 }),
+  recordedAt: timestamp("recorded_at").notNull().defaultNow(),
+  
+  // Intent Queue Metrics
+  totalIntents: bigint("total_intents", { mode: "number" }).notNull().default(0),
+  pendingIntents: integer("pending_intents").notNull().default(0),
+  processedIntents: bigint("processed_intents", { mode: "number" }).notNull().default(0),
+  
+  // Activation Metrics
+  activeActivations: integer("active_activations").notNull().default(0),
+  completedActivations: bigint("completed_activations", { mode: "number" }).notNull().default(0),
+  failedActivations: bigint("failed_activations", { mode: "number" }).notNull().default(0),
+  
+  // Performance Metrics (Percentiles)
+  avgActivationTimeMs: real("avg_activation_time_ms").notNull().default(0),
+  p50ActivationTimeMs: real("p50_activation_time_ms").notNull().default(0),
+  p95ActivationTimeMs: real("p95_activation_time_ms").notNull().default(0),
+  p99ActivationTimeMs: real("p99_activation_time_ms").notNull().default(0),
+  
+  // Circuit Breaker State
+  circuitBreakerState: varchar("circuit_breaker_state", { length: 20 }).notNull().default("closed"), // closed, half-open, open
+  circuitBreakerTrips: integer("circuit_breaker_trips").notNull().default(0),
+  consecutiveFailures: integer("consecutive_failures").notNull().default(0),
+  lastCircuitBreakerTripAt: timestamp("last_circuit_breaker_trip_at"),
+  
+  // Health Check Metrics
+  healthChecksPassed: bigint("health_checks_passed", { mode: "number" }).notNull().default(0),
+  healthChecksFailed: bigint("health_checks_failed", { mode: "number" }).notNull().default(0),
+  
+  // Throughput
+  throughputPerMinute: real("throughput_per_minute").notNull().default(0),
+  
+  // Active Shells (JSONB for detailed tracking)
+  activeShells: jsonb("active_shells").default([]),
+  
+  // Uptime
+  uptimeMs: bigint("uptime_ms", { mode: "number" }).notNull().default(0),
+  
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+}, (table) => [
+  index("idx_v6_pipeline_recorded_at").on(table.recordedAt),
+  index("idx_v6_pipeline_circuit_state").on(table.circuitBreakerState),
+  index("idx_v6_pipeline_failed_activations").on(table.failedActivations),
+  index("idx_v6_pipeline_correlation").on(table.correlationId),
+  index("idx_v6_pipeline_p95_time").on(table.p95ActivationTimeMs),
+]);
+
+// V6.0 Memory Governor Metrics (Adaptive Memory Management)
+export const v6MemoryGovernorMetrics = pgTable("v6_memory_governor_metrics", {
+  id: serial("id").primaryKey(),
+  
+  // Correlation & Timing
+  correlationId: varchar("correlation_id", { length: 64 }),
+  recordedAt: timestamp("recorded_at").notNull().defaultNow(),
+  
+  // Memory State
+  currentState: varchar("current_state", { length: 20 }).notNull().default("normal"), // normal, warning, deferred, hibernating, critical
+  previousState: varchar("previous_state", { length: 20 }),
+  stateTransitions: integer("state_transitions").notNull().default(0),
+  lastStateChangeAt: timestamp("last_state_change_at"),
+  
+  // Heap Memory Metrics
+  heapUsagePercent: real("heap_usage_percent").notNull().default(0),
+  heapUsedMB: real("heap_used_mb").notNull().default(0),
+  heapTotalMB: real("heap_total_mb").notNull().default(0),
+  
+  // EWMA Smoothed Metrics
+  ewmaHeapPercent: real("ewma_heap_percent").notNull().default(0),
+  memoryTrend: varchar("memory_trend", { length: 20 }).notNull().default("stable"), // increasing, decreasing, stable
+  
+  // Predictive Metrics
+  projectedPeakPercent: real("projected_peak_percent").notNull().default(0),
+  predictedScaleTime: timestamp("predicted_scale_time"),
+  
+  // Shard Memory Tracking
+  activeShardsMemoryMB: real("active_shards_memory_mb").notNull().default(0),
+  activeShardCount: integer("active_shard_count").notNull().default(0),
+  hibernatedShardCount: integer("hibernated_shard_count").notNull().default(0),
+  
+  // GC Metrics
+  gcRequestCount: integer("gc_request_count").notNull().default(0),
+  lastGcAt: timestamp("last_gc_at"),
+  gcDurationMs: real("gc_duration_ms").notNull().default(0),
+  
+  // Deferred/Hibernation Counts
+  deferredActivations: bigint("deferred_activations", { mode: "number" }).notNull().default(0),
+  totalHibernations: bigint("total_hibernations", { mode: "number" }).notNull().default(0),
+  totalWakeups: bigint("total_wakeups", { mode: "number" }).notNull().default(0),
+  
+  // Thresholds (for historical analysis)
+  warningThreshold: real("warning_threshold").notNull().default(75),
+  deferThreshold: real("defer_threshold").notNull().default(85),
+  hibernateThreshold: real("hibernate_threshold").notNull().default(90),
+  criticalThreshold: real("critical_threshold").notNull().default(95),
+  hysteresis: real("hysteresis").notNull().default(2),
+  
+  // Uptime
+  uptimeMs: bigint("uptime_ms", { mode: "number" }).notNull().default(0),
+  
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+}, (table) => [
+  index("idx_v6_memory_recorded_at").on(table.recordedAt),
+  index("idx_v6_memory_state").on(table.currentState),
+  index("idx_v6_memory_heap_percent").on(table.heapUsagePercent),
+  index("idx_v6_memory_correlation").on(table.correlationId),
+  index("idx_v6_memory_projected_peak").on(table.projectedPeakPercent),
+  index("idx_v6_memory_trend").on(table.memoryTrend),
+]);
+
+// V6.0 Request Shedder Metrics (Surge-Aware Load Management)
+export const v6RequestShedderMetrics = pgTable("v6_request_shedder_metrics", {
+  id: serial("id").primaryKey(),
+  
+  // Correlation & Timing
+  correlationId: varchar("correlation_id", { length: 64 }),
+  recordedAt: timestamp("recorded_at").notNull().defaultNow(),
+  
+  // Scaling State
+  isScalingInProgress: boolean("is_scaling_in_progress").notNull().default(false),
+  isDegradedMode: boolean("is_degraded_mode").notNull().default(false),
+  
+  // Event Loop Metrics
+  eventLoopLagMs: real("event_loop_lag_ms").notNull().default(0),
+  avgEventLoopLagMs: real("avg_event_loop_lag_ms").notNull().default(0),
+  maxEventLoopLagMs: real("max_event_loop_lag_ms").notNull().default(0),
+  minEventLoopLagMs: real("min_event_loop_lag_ms").notNull().default(0),
+  
+  // Adaptive Threshold
+  adaptiveThresholdMs: real("adaptive_threshold_ms").notNull().default(150),
+  thresholdAdjustments: integer("threshold_adjustments").notNull().default(0),
+  
+  // Shedding Metrics
+  totalSheddedRequests: bigint("total_shedded_requests", { mode: "number" }).notNull().default(0),
+  sheddedHighPriority: bigint("shedded_high_priority", { mode: "number" }).notNull().default(0),
+  sheddedMediumPriority: bigint("shedded_medium_priority", { mode: "number" }).notNull().default(0),
+  sheddedLowPriority: bigint("shedded_low_priority", { mode: "number" }).notNull().default(0),
+  
+  // Cache Metrics
+  cachedResponsesServed: bigint("cached_responses_served", { mode: "number" }).notNull().default(0),
+  cacheHitRate: real("cache_hit_rate").notNull().default(0),
+  cacheSize: integer("cache_size").notNull().default(0),
+  
+  // Degraded Mode Tracking
+  degradedModeEntries: integer("degraded_mode_entries").notNull().default(0),
+  degradedModeDurationMs: bigint("degraded_mode_duration_ms", { mode: "number" }).notNull().default(0),
+  lastDegradedModeAt: timestamp("last_degraded_mode_at"),
+  
+  // Backpressure Metrics
+  backpressureActive: boolean("backpressure_active").notNull().default(false),
+  backpressureEvents: integer("backpressure_events").notNull().default(0),
+  requestsPerSecond: real("requests_per_second").notNull().default(0),
+  
+  // Priority Queue Stats (JSONB)
+  priorityQueueStats: jsonb("priority_queue_stats").default({}),
+  
+  // Uptime
+  uptimeMs: bigint("uptime_ms", { mode: "number" }).notNull().default(0),
+  
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+}, (table) => [
+  index("idx_v6_shedder_recorded_at").on(table.recordedAt),
+  index("idx_v6_shedder_degraded_mode").on(table.isDegradedMode),
+  index("idx_v6_shedder_event_loop_lag").on(table.eventLoopLagMs),
+  index("idx_v6_shedder_correlation").on(table.correlationId),
+  index("idx_v6_shedder_backpressure").on(table.backpressureActive),
+  index("idx_v6_shedder_shedded").on(table.totalSheddedRequests),
+]);
+
+// V6.0 Scaling Events (Combined Event Log)
+export const v6ScalingEvents = pgTable("v6_scaling_events", {
+  id: serial("id").primaryKey(),
+  
+  // Event Identification
+  eventId: varchar("event_id", { length: 64 }).notNull().unique().default(sql`gen_random_uuid()`),
+  correlationId: varchar("correlation_id", { length: 64 }),
+  
+  // Event Type
+  eventType: varchar("event_type", { length: 50 }).notNull(), // SHARD_ACTIVATE, SHARD_DEACTIVATE, MEMORY_THRESHOLD, BACKPRESSURE, CIRCUIT_BREAK, GC_REQUEST
+  eventSource: varchar("event_source", { length: 30 }).notNull(), // pipeline, memory_governor, request_shedder
+  severity: varchar("severity", { length: 20 }).notNull().default("info"), // debug, info, warning, error, critical
+  
+  // Event Details
+  eventData: jsonb("event_data").default({}),
+  message: text("message"),
+  
+  // State Before/After
+  previousState: jsonb("previous_state").default({}),
+  newState: jsonb("new_state").default({}),
+  
+  // Metrics at Event Time
+  heapUsagePercent: real("heap_usage_percent"),
+  eventLoopLagMs: real("event_loop_lag_ms"),
+  activeShardCount: integer("active_shard_count"),
+  
+  // Duration (for events with duration)
+  durationMs: bigint("duration_ms", { mode: "number" }),
+  
+  // Outcome
+  success: boolean("success").notNull().default(true),
+  errorMessage: text("error_message"),
+  
+  // Timing
+  occurredAt: timestamp("occurred_at").notNull().defaultNow(),
+  resolvedAt: timestamp("resolved_at"),
+  
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+}, (table) => [
+  index("idx_v6_events_occurred_at").on(table.occurredAt),
+  index("idx_v6_events_type").on(table.eventType),
+  index("idx_v6_events_source").on(table.eventSource),
+  index("idx_v6_events_severity").on(table.severity),
+  index("idx_v6_events_correlation").on(table.correlationId),
+  index("idx_v6_events_success").on(table.success),
+  index("idx_v6_events_type_severity").on(table.eventType, table.severity),
+]);
+
+// V6.0 Combined Health Snapshots (Hourly Aggregates)
+export const v6HealthSnapshotsHourly = pgTable("v6_health_snapshots_hourly", {
+  id: serial("id").primaryKey(),
+  
+  // Time Bucket
+  hourBucket: timestamp("hour_bucket").notNull(),
+  
+  // Overall Health
+  overallHealthy: boolean("overall_healthy").notNull().default(true),
+  overallStatus: varchar("overall_status", { length: 20 }).notNull().default("healthy"), // healthy, degraded, critical
+  
+  // Pipeline Health (Aggregated)
+  pipelineHealthy: boolean("pipeline_healthy").notNull().default(true),
+  pipelineAvgActivationTimeMs: real("pipeline_avg_activation_time_ms").notNull().default(0),
+  pipelineP95ActivationTimeMs: real("pipeline_p95_activation_time_ms").notNull().default(0),
+  pipelineTotalActivations: bigint("pipeline_total_activations", { mode: "number" }).notNull().default(0),
+  pipelineFailedActivations: integer("pipeline_failed_activations").notNull().default(0),
+  pipelineCircuitBreakerTrips: integer("pipeline_circuit_breaker_trips").notNull().default(0),
+  
+  // Memory Governor Health (Aggregated)
+  memoryHealthy: boolean("memory_healthy").notNull().default(true),
+  memoryAvgHeapPercent: real("memory_avg_heap_percent").notNull().default(0),
+  memoryMaxHeapPercent: real("memory_max_heap_percent").notNull().default(0),
+  memoryStateDistribution: jsonb("memory_state_distribution").default({}), // {"normal": 50, "warning": 10, ...}
+  memoryTotalHibernations: integer("memory_total_hibernations").notNull().default(0),
+  memoryTotalGcRequests: integer("memory_total_gc_requests").notNull().default(0),
+  
+  // Request Shedder Health (Aggregated)
+  shedderHealthy: boolean("shedder_healthy").notNull().default(true),
+  shedderAvgEventLoopLagMs: real("shedder_avg_event_loop_lag_ms").notNull().default(0),
+  shedderMaxEventLoopLagMs: real("shedder_max_event_loop_lag_ms").notNull().default(0),
+  shedderTotalSheddedRequests: bigint("shedder_total_shedded_requests", { mode: "number" }).notNull().default(0),
+  shedderDegradedModeDurationMs: bigint("shedder_degraded_mode_duration_ms", { mode: "number" }).notNull().default(0),
+  shedderBackpressureEvents: integer("shedder_backpressure_events").notNull().default(0),
+  
+  // Event Summary
+  totalEvents: integer("total_events").notNull().default(0),
+  criticalEvents: integer("critical_events").notNull().default(0),
+  warningEvents: integer("warning_events").notNull().default(0),
+  
+  // Sample Count (how many metrics were aggregated)
+  sampleCount: integer("sample_count").notNull().default(0),
+  
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+}, (table) => [
+  index("idx_v6_health_hour_bucket").on(table.hourBucket),
+  index("idx_v6_health_overall_status").on(table.overallStatus),
+  index("idx_v6_health_overall_healthy").on(table.overallHealthy),
+  index("idx_v6_health_critical_events").on(table.criticalEvents),
+]);
+
+// ============================================================================
+// Insert Schemas for Phase 18 (V6.0 Shard Scaling)
+// ============================================================================
+export const insertV6ShardPipelineMetricSchema = createInsertSchema(v6ShardPipelineMetrics).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertV6MemoryGovernorMetricSchema = createInsertSchema(v6MemoryGovernorMetrics).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertV6RequestShedderMetricSchema = createInsertSchema(v6RequestShedderMetrics).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertV6ScalingEventSchema = createInsertSchema(v6ScalingEvents).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertV6HealthSnapshotHourlySchema = createInsertSchema(v6HealthSnapshotsHourly).omit({
+  id: true,
+  createdAt: true,
+});
+
+// ============================================================================
+// Types for Phase 18 (V6.0 Shard Scaling)
+// ============================================================================
+export type V6ShardPipelineMetricDB = typeof v6ShardPipelineMetrics.$inferSelect;
+export type InsertV6ShardPipelineMetric = z.infer<typeof insertV6ShardPipelineMetricSchema>;
+
+export type V6MemoryGovernorMetricDB = typeof v6MemoryGovernorMetrics.$inferSelect;
+export type InsertV6MemoryGovernorMetric = z.infer<typeof insertV6MemoryGovernorMetricSchema>;
+
+export type V6RequestShedderMetricDB = typeof v6RequestShedderMetrics.$inferSelect;
+export type InsertV6RequestShedderMetric = z.infer<typeof insertV6RequestShedderMetricSchema>;
+
+export type V6ScalingEventDB = typeof v6ScalingEvents.$inferSelect;
+export type InsertV6ScalingEvent = z.infer<typeof insertV6ScalingEventSchema>;
+
+export type V6HealthSnapshotHourlyDB = typeof v6HealthSnapshotsHourly.$inferSelect;
+export type InsertV6HealthSnapshotHourly = z.infer<typeof insertV6HealthSnapshotHourlySchema>;
+
