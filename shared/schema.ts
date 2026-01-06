@@ -13217,3 +13217,52 @@ export type InsertV6ScalingEvent = z.infer<typeof insertV6ScalingEventSchema>;
 export type V6HealthSnapshotHourlyDB = typeof v6HealthSnapshotsHourly.$inferSelect;
 export type InsertV6HealthSnapshotHourly = z.infer<typeof insertV6HealthSnapshotHourlySchema>;
 
+// ============================================================================
+// Insert Schemas for Alert Rules & Announcements
+// ============================================================================
+export const insertAlertRuleSchema = createInsertSchema(alertRules).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+  triggerCount: true,
+  lastTriggeredAt: true,
+  lastTriggeredValue: true,
+});
+
+export const insertAlertRuleTriggerSchema = createInsertSchema(alertRuleTriggers).omit({
+  id: true,
+  triggeredAt: true,
+  acknowledgedAt: true,
+  resolvedAt: true,
+});
+
+export const insertAnnouncementSchema = createInsertSchema(announcements).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+  publishedAt: true,
+  archivedAt: true,
+  views: true,
+  dismissals: true,
+});
+
+export const insertAnnouncementInteractionSchema = createInsertSchema(announcementInteractions).omit({
+  id: true,
+  createdAt: true,
+});
+
+// ============================================================================
+// Types for Alert Rules & Announcements
+// ============================================================================
+export type AlertRuleDB = typeof alertRules.$inferSelect;
+export type InsertAlertRule = z.infer<typeof insertAlertRuleSchema>;
+
+export type AlertRuleTriggerDB = typeof alertRuleTriggers.$inferSelect;
+export type InsertAlertRuleTrigger = z.infer<typeof insertAlertRuleTriggerSchema>;
+
+export type AnnouncementDB = typeof announcements.$inferSelect;
+export type InsertAnnouncement = z.infer<typeof insertAnnouncementSchema>;
+
+export type AnnouncementInteractionDB = typeof announcementInteractions.$inferSelect;
+export type InsertAnnouncementInteraction = z.infer<typeof insertAnnouncementInteractionSchema>;
+
