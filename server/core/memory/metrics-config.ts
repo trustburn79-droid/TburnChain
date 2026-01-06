@@ -29,9 +29,9 @@ console.log(`[METRICS_CONFIG] V8 heap limit: ${v8HeapLimitMB}MB, Replit: ${isRep
 
 export const METRICS_CONFIG = {
   // 수집 간격 (환경 적응형) - 프로덕션 안정성을 위해 더 긴 간격
-  COLLECTION_INTERVAL: isLargeEnv ? 10 * 1000 : 60 * 1000,
-  CRITICAL_METRICS_INTERVAL: isLargeEnv ? 5 * 1000 : 30 * 1000,
-  HEAVY_METRICS_INTERVAL: isLargeEnv ? 30 * 1000 : 120 * 1000,
+  COLLECTION_INTERVAL: isLargeEnv ? 10 * 1000 : 120 * 1000,
+  CRITICAL_METRICS_INTERVAL: isLargeEnv ? 5 * 1000 : 60 * 1000,
+  HEAVY_METRICS_INTERVAL: isLargeEnv ? 30 * 1000 : 300 * 1000,
   
   // 블록 생산 설정 - 메모리 절약을 위해 축소
   BLOCK_PRODUCTION: {
@@ -52,17 +52,17 @@ export const METRICS_CONFIG = {
   },
   
   // 메모리 한도 (자동 스케일링) - 프로덕션 안정성을 위해 더 작은 한도
-  MAX_MEMORY_MB: isLargeEnv ? 2048 : 50,
-  MAX_DATAPOINTS: isLargeEnv ? 50000 : 200,
+  MAX_MEMORY_MB: isLargeEnv ? 2048 : 30,
+  MAX_DATAPOINTS: isLargeEnv ? 50000 : 100,
   
   // 블록 캐시 설정 (자동 스케일링) - 프로덕션 안정성을 위해 대폭 축소
   BLOCK_CACHE: {
-    IN_MEMORY_BLOCKS: isLargeEnv ? 500 : 10,
-    HOT_CACHE_BLOCKS: isLargeEnv ? 2000 : 25,
-    WARM_CACHE_BLOCKS: isLargeEnv ? 5000 : 50,
-    MAX_CACHE_SIZE_MB: isLargeEnv ? 512 : 5,
-    TTL_HOT_MS: isLargeEnv ? 60 * 1000 : 30 * 1000,
-    TTL_WARM_MS: isLargeEnv ? 300 * 1000 : 60 * 1000,
+    IN_MEMORY_BLOCKS: isLargeEnv ? 500 : 5,
+    HOT_CACHE_BLOCKS: isLargeEnv ? 2000 : 10,
+    WARM_CACHE_BLOCKS: isLargeEnv ? 5000 : 20,
+    MAX_CACHE_SIZE_MB: isLargeEnv ? 512 : 2,
+    TTL_HOT_MS: isLargeEnv ? 60 * 1000 : 15 * 1000,
+    TTL_WARM_MS: isLargeEnv ? 300 * 1000 : 30 * 1000,
     PRELOAD_BLOCKS: isLargeEnv ? 50 : 0,
   },
   

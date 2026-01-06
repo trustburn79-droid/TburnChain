@@ -1,0 +1,374 @@
+✅ 실제적 해결책
+1️⃣ 메트릭 수집 최적화 (5초 → 30초~60초)
+typescript// metrics-config.ts
+
+export const METRICS_CONFIG = {
+  // 기존: 5초 → 변경: 30초 (프로덕션 권장)
+  COLLECTION_INTERVAL: 30 * 1000,
+  
+  // 실시간 필요한 메트릭만 짧은 주기
+  CRITICAL_METRICS_INTERVAL: 10 * 1000,  // TPS, 에러율
+  
+  // 무거운 메트릭은 긴 주기
+  HEAVY_METRICS_INTERVAL: 60 * 1000,     // 상세 블록 분석
+  
+  // 메트릭 보존 기간
+  RETENTION: {
+    RAW: 1 * 60 * 60 * 1000,      // 1시간 (원본)
+    AGGREGATED_1M: 24 * 60 * 60 * 1000,  // 24시간 (1분 집계)
+    AGGREGATED_1H: 7 * 24 * 60 * 60 * 1000, // 7일 (1시간 집계)
+  },
+  
+  // 메모리 한도
+  MAX_MEMORY_MB: 2048,  // 메트릭용 최대 2GB
+  MAX_DATAPOINTS: 100000,
+};
+2️⃣ 블록 데이터 메모리 관리 전략
+typescript// block-memory-manager.ts
+
+interface BlockRetentionPolicy {
+  // 메모리에 유지할 최근 블록 수
+  inMemoryBlocks: number;
+  // 빠른 조회용 캐시 블록 수
+  hotCacheBlocks: number;
+  // 디스크 캐시 블록 수
+  warmCacheBlocks: number;
+}
+
+class BlockMemoryManager {
+  private readonly policy: BlockRetentionPolicy = {
+    inMemoryBlocks: 1000,      // 최근 1000블록만 메모리 (100초분)
+    hotCacheBlocks: 10000,     // 10000블록 LRU 캐시
+    warmCacheBlocks: 100000,   // 디스크 기반 캐시
+  };
+  
+  // 메모리 내 블록 저장소 (제한된 크기)
+  private blockCache = new LRUCache<number, Block>({
+    max: this.policy.inMemoryBlocks,
+    maxSize: 500 * 1024 * 1024, // 500MB 최대
+    sizeCalculation: (block) => JSON.stringify(block).length,
+    dispose: (block, key) => {
+      // 캐시에서 제거 시 디스크로 이동
+      this.moveToWarmCache(key, block);
+    },
+  });
+  
+  // 블록 추가 (자동 LRU 관리)
+  addBlock(block: Block): void {
+    this.blockCache.set(block.number, block);
+    
+    // 주기적 GC 힌트
+    if (block.number % 100 === 0) {
+      this.triggerGCHint();
+    }
+  }
+  
+  // 블록 조회 (계층적 캐시)
+  async getBlock(blockNumber: number): Promise<Block | null> {
+    // 1. 메모리 캐시
+    let block = this.blockCache.get(blockNumber);
+    if (block) return block;
+    
+    // 2. 디스크 캐시 (LevelDB/RocksDB)
+    block = await this.warmCache.get(blockNumber);
+    if (block) {
+      // 자주 조회되면 메모리로 승격
+      this.blockCache.set(blockNumber, block);
+      return block;
+    }
+    
+    // 3. 데이터베이스
+    return this.database.getBlock(blockNumber);
+  }
+  
+  private triggerGCHint(): void {
+    if (global.gc) {
+      setImmediate(() => global.gc!());
+    }
+  }
+}
+3️⃣ 메트릭 집계 및 다운샘플링
+typescript// metrics-aggregator.ts
+
+class MetricsAggregator {
+  private rawMetrics: CircularBuffer<MetricPoint>;
+  private aggregated1m: Map<string, AggregatedMetric>;
+  private aggregated1h: Map<string, AggregatedMetric>;
+  
+  constructor() {
+    // 원본 데이터: 최근 1시간만 (원형 버퍼로 메모리 고정)
+    this.rawMetrics = new CircularBuffer<MetricPoint>(
+      3600 / 30 * Object.keys(METRIC_TYPES).length  // 30초 간격 기준
+    );
+    
+    this.aggregated1m = new Map();
+    this.aggregated1h = new Map();
+    
+    // 주기적 집계
+    setInterval(() => this.aggregateToMinute(), 60 * 1000);
+    setInterval(() => this.aggregateToHour(), 60 * 60 * 1000);
+    setInterval(() => this.cleanup(), 10 * 60 * 1000);
+  }
+  
+  // 메트릭 추가 (원형 버퍼 - 자동 오래된 데이터 제거)
+  record(metric: MetricPoint): void {
+    this.rawMetrics.push(metric);  // 오래된 데이터 자동 덮어쓰기
+  }
+  
+  // 1분 집계
+  private aggregateToMinute(): void {
+    const now = Date.now();
+    const oneMinuteAgo = now - 60 * 1000;
+    
+    const recentMetrics = this.rawMetrics.filter(m => m.timestamp >= oneMinuteAgo);
+    
+    // 집계 계산 (avg, min, max, p95, p99)
+    const aggregated = this.computeAggregates(recentMetrics);
+    
+    const key = `${Math.floor(now / 60000)}`;
+    this.aggregated1m.set(key, aggregated);
+    
+    // 24시간 이상 된 1분 집계 삭제
+    this.cleanupOldAggregates(this.aggregated1m, 24 * 60);
+  }
+  
+  // 1시간 집계
+  private aggregateToHour(): void {
+    const now = Date.now();
+    const oneHourKeys = this.getKeysInRange(
+      this.aggregated1m,
+      now - 60 * 60 * 1000,
+      now
+    );
+    
+    const hourlyAggregated = this.computeFromAggregates(
+      oneHourKeys.map(k => this.aggregated1m.get(k)!)
+    );
+    
+    const key = `${Math.floor(now / 3600000)}`;
+    this.aggregated1h.set(key, hourlyAggregated);
+    
+    // 7일 이상 된 1시간 집계 삭제
+    this.cleanupOldAggregates(this.aggregated1h, 7 * 24);
+  }
+  
+  private cleanup(): void {
+    const memUsage = process.memoryUsage();
+    
+    if (memUsage.heapUsed > METRICS_CONFIG.MAX_MEMORY_MB * 1024 * 1024) {
+      console.warn('[METRICS] Memory limit reached, forcing cleanup');
+      
+      // 강제 정리: 오래된 집계 데이터 삭제
+      this.cleanupOldAggregates(this.aggregated1m, 6 * 60);  // 6시간만 유지
+      this.cleanupOldAggregates(this.aggregated1h, 3 * 24);  // 3일만 유지
+      
+      if (global.gc) global.gc();
+    }
+  }
+}
+
+// 원형 버퍼 구현 (고정 메모리)
+class CircularBuffer<T> {
+  private buffer: T[];
+  private head = 0;
+  private tail = 0;
+  private size = 0;
+  
+  constructor(private capacity: number) {
+    this.buffer = new Array(capacity);
+  }
+  
+  push(item: T): void {
+    this.buffer[this.tail] = item;
+    this.tail = (this.tail + 1) % this.capacity;
+    
+    if (this.size < this.capacity) {
+      this.size++;
+    } else {
+      // 가장 오래된 데이터 덮어쓰기
+      this.head = (this.head + 1) % this.capacity;
+    }
+  }
+  
+  filter(predicate: (item: T) => boolean): T[] {
+    const result: T[] = [];
+    for (let i = 0; i < this.size; i++) {
+      const idx = (this.head + i) % this.capacity;
+      if (predicate(this.buffer[idx])) {
+        result.push(this.buffer[idx]);
+      }
+    }
+    return result;
+  }
+}
+4️⃣ 블록 생산 최적화 (초당 10블록 유지하면서)
+typescript// block-producer-optimized.ts
+
+class OptimizedBlockProducer {
+  private pendingTransactions: TransactionPool;
+  private lastBlockTime = 0;
+  
+  // 블록 생산 설정
+  private readonly config = {
+    blockInterval: 100,           // 100ms (초당 10블록 유지)
+    maxTxPerBlock: 5000,          // 블록당 최대 트랜잭션
+    maxBlockSize: 2 * 1024 * 1024, // 2MB 블록 크기 제한
+    
+    // 메모리 관리
+    keepRecentBlocks: 100,        // 메모리에 100블록만 유지 (10초분)
+    flushInterval: 1000,          // 1초마다 디스크 플러시
+  };
+  
+  async produceBlock(): Promise<Block> {
+    const startTime = Date.now();
+    
+    // 1. 트랜잭션 선택 (메모리 효율적)
+    const transactions = this.selectTransactions();
+    
+    // 2. 상태 루트 계산 (증분 업데이트)
+    const stateRoot = await this.computeStateRoot(transactions);
+    
+    // 3. 블록 생성
+    const block: Block = {
+      number: this.lastBlockNumber + 1,
+      timestamp: startTime,
+      transactions: transactions.map(tx => tx.hash), // 해시만 저장
+      stateRoot,
+      // ... 기타 필드
+    };
+    
+    // 4. 비동기 저장 (블록 생산 지연 방지)
+    this.saveBlockAsync(block, transactions);
+    
+    // 5. 메모리에서 처리된 트랜잭션 제거
+    this.pendingTransactions.removeProcessed(transactions);
+    
+    return block;
+  }
+  
+  private async saveBlockAsync(block: Block, transactions: Transaction[]): Promise<void> {
+    // 디스크 I/O는 별도 워커에서 처리
+    setImmediate(async () => {
+      await this.database.saveBlock(block);
+      await this.database.saveTransactions(transactions);
+      
+      // 오래된 블록 메모리에서 제거
+      this.evictOldBlocks();
+    });
+  }
+  
+  private evictOldBlocks(): void {
+    const cutoff = this.lastBlockNumber - this.config.keepRecentBlocks;
+    this.blockCache.evictBefore(cutoff);
+  }
+}
+5️⃣ Node.js 메모리 관리 최적화
+typescript// memory-manager.ts
+
+class MemoryManager {
+  private readonly config = {
+    // 힙 크기 설정 (시작 시 node --max-old-space-size=8192)
+    maxHeapSize: 8 * 1024,  // 8GB
+    
+    // GC 임계값
+    gcThreshold: 0.7,       // 70% 사용 시 GC
+    criticalThreshold: 0.85, // 85% 사용 시 강제 정리
+    
+    // 모니터링 간격
+    checkInterval: 10 * 1000,  // 10초
+  };
+  
+  constructor() {
+    this.startMonitoring();
+  }
+  
+  private startMonitoring(): void {
+    setInterval(() => {
+      const usage = process.memoryUsage();
+      const heapUsedMB = usage.heapUsed / 1024 / 1024;
+      const heapTotalMB = usage.heapTotal / 1024 / 1024;
+      const ratio = usage.heapUsed / usage.heapTotal;
+      
+      console.log(`[MEMORY] Heap: ${heapUsedMB.toFixed(0)}MB / ${heapTotalMB.toFixed(0)}MB (${(ratio * 100).toFixed(1)}%)`);
+      
+      if (ratio > this.config.criticalThreshold) {
+        console.warn('[MEMORY] CRITICAL - Forcing cleanup');
+        this.emergencyCleanup();
+      } else if (ratio > this.config.gcThreshold) {
+        console.log('[MEMORY] Triggering GC');
+        this.triggerGC();
+      }
+    }, this.config.checkInterval);
+  }
+  
+  private triggerGC(): void {
+    if (global.gc) {
+      global.gc();
+    }
+  }
+  
+  private emergencyCleanup(): void {
+    // 1. 캐시 정리
+    blockCache.clear();
+    metricsAggregator.forceCleanup();
+    
+    // 2. 강제 GC
+    if (global.gc) {
+      global.gc();
+      setTimeout(() => global.gc!(), 1000);
+    }
+    
+    // 3. 여전히 높으면 알림
+    setTimeout(() => {
+      const usage = process.memoryUsage();
+      if (usage.heapUsed / usage.heapTotal > this.config.criticalThreshold) {
+        console.error('[MEMORY] Still critical after cleanup - consider restart');
+        // 선택적: 자동 재시작
+        // process.exit(1);  // PM2/Docker가 재시작
+      }
+    }, 5000);
+  }
+}
+6️⃣ 프로세스 시작 옵션
+bash# start.sh - 최적화된 Node.js 시작 스크립트
+
+#!/bin/bash
+
+# 메모리 설정
+export NODE_OPTIONS="--max-old-space-size=8192 --expose-gc"
+
+# GC 최적화
+export NODE_OPTIONS="$NODE_OPTIONS --gc-interval=100"
+
+# 클러스터 모드로 시작 (PM2)
+pm2 start ecosystem.config.js
+javascript// ecosystem.config.js
+module.exports = {
+  apps: [{
+    name: 'tburn-mainnet',
+    script: './dist/index.js',
+    instances: 1,  // 블록체인 노드는 보통 단일 인스턴스
+    exec_mode: 'fork',
+    
+    // 메모리 관리
+    max_memory_restart: '12G',  // 12GB 초과 시 재시작
+    
+    // 환경 변수
+    env: {
+      NODE_ENV: 'production',
+      METRICS_INTERVAL: '30000',      // 30초
+      BLOCK_CACHE_SIZE: '1000',       // 1000블록
+      MAX_HEAP_MB: '8192',            // 8GB
+    },
+    
+    // 로그
+    error_file: './logs/error.log',
+    out_file: './logs/out.log',
+    log_date_format: 'YYYY-MM-DD HH:mm:ss Z',
+    
+    // 재시작 정책
+    restart_delay: 5000,
+    max_restarts: 10,
+    min_uptime: '10s',
+  }]
+};
