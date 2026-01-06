@@ -35,10 +35,10 @@ export const qnaData: QnAItem[] = [
     categoryKey: 'getting-started',
     question: 'TBURN이란 무엇인가요?',
     questionEn: 'What is TBURN?',
-    answer: 'TBURN은 초당 520,000 TPS를 처리하고 100ms 블록 타임을 제공하는 차세대 Layer 1 블록체인입니다. AI 강화 BFT 합의 메커니즘을 사용하여 높은 보안성과 확장성을 제공하며, 디플레이션 토큰 경제 모델을 통해 지속 가능한 가치 창출을 목표로 합니다.',
-    answerEn: 'TBURN is a next-generation Layer 1 blockchain that processes 520,000 TPS with 100ms block time. It uses an AI-enhanced BFT consensus mechanism to provide high security and scalability, with a deflationary token economic model aimed at sustainable value creation.',
+    answer: 'TBURN은 Chain ID 6000 메인넷에서 운영되는 차세대 Layer 1 블록체인입니다. 125개의 제네시스 밸리데이터와 64개의 동적 샤드를 통해 약 210,000 TPS를 처리하며 100ms 블록 타임을 제공합니다. AI 강화 BFT 합의 메커니즘으로 높은 보안성과 확장성을 제공하고, 500B 총 공급량의 디플레이션 토큰 경제 모델을 운영합니다.',
+    answerEn: 'TBURN is a next-generation Layer 1 blockchain operating on Chain ID 6000 mainnet. With 125 genesis validators and 64 dynamic shards, it processes approximately 210,000 TPS with 100ms block time. It uses an AI-enhanced BFT consensus mechanism for high security and scalability, with a deflationary token economic model of 500B total supply.',
     relatedPage: '/learn/whitepaper',
-    tags: ['기초', '블록체인', '소개']
+    tags: ['기초', '블록체인', '소개', 'Chain ID 6000']
   },
   {
     id: 2,
@@ -1168,6 +1168,320 @@ export const qnaData: QnAItem[] = [
     answerEn: 'A 0.5% burn fee applies to all transfers, permanently burning that amount. Part of network fees are also burned. This deflationary model supports token value.',
     relatedPage: '/learn/tokenomics',
     tags: ['번', '소각', '디플레이션']
+  },
+
+  // ============================================
+  // 익스플로러 & RPC (Explorer & RPC) - Questions 101-105
+  // ============================================
+  {
+    id: 101,
+    category: '네트워크',
+    categoryKey: 'network',
+    question: 'TBURNscan에서 무엇을 확인할 수 있나요?',
+    questionEn: 'What can I view on TBURNscan?',
+    answer: 'TBURNscan은 TBURN 메인넷(Chain ID 6000)의 공식 블록체인 탐색기입니다. 실시간 블록 생성(100ms), 트랜잭션 내역, 지갑 잔액, 스마트 계약, 64개 샤드 상태, 125개 밸리데이터 정보를 투명하게 조회할 수 있습니다. 현재 블록 높이, TPS, 총 소각량 등 네트워크 통계도 확인 가능합니다.',
+    answerEn: 'TBURNscan is the official blockchain explorer for TBURN mainnet (Chain ID 6000). You can transparently view real-time block production (100ms), transaction history, wallet balances, smart contracts, 64 shard states, and 125 validator information. Network statistics like current block height, TPS, and total burn amount are also available.',
+    relatedPage: '/scan',
+    tags: ['TBURNscan', '익스플로러', '블록', '트랜잭션']
+  },
+  {
+    id: 102,
+    category: '네트워크',
+    categoryKey: 'network',
+    question: 'RPC 엔드포인트 정보는 어디서 확인하나요?',
+    questionEn: 'Where can I find RPC endpoint information?',
+    answer: 'RPC 페이지에서 메인넷/테스트넷 RPC 엔드포인트, WebSocket URL, Chain ID(6000), 네이티브 통화 정보를 확인할 수 있습니다. 인터랙티브 API 테스터로 직접 RPC 호출을 시험하고, SDK 코드 예제와 성능 벤치마크 도구도 제공됩니다.',
+    answerEn: 'The RPC page provides mainnet/testnet RPC endpoints, WebSocket URLs, Chain ID (6000), and native currency information. Test RPC calls directly with the interactive API tester, and access SDK code examples and performance benchmarking tools.',
+    relatedPage: '/rpc',
+    tags: ['RPC', '엔드포인트', 'API', 'Chain ID']
+  },
+  {
+    id: 103,
+    category: '네트워크',
+    categoryKey: 'network',
+    question: '밸리데이터 페이지에서 무엇을 볼 수 있나요?',
+    questionEn: 'What can I see on the Validators page?',
+    answer: '125개 제네시스 밸리데이터의 상세 정보를 확인할 수 있습니다. 각 밸리데이터의 스테이킹 금액, 위임자 수, 업타임(가동률), 커미션율, 성능 점수, 블록 제안/검증 통계를 조회합니다. 5단계 성능 티어(Diamond, Platinum, Gold, Silver, Bronze)와 인센티브 보너스 정보도 표시됩니다.',
+    answerEn: 'View detailed information on 125 genesis validators. Check each validator\'s staking amount, delegator count, uptime, commission rate, performance score, and block proposal/verification statistics. 5-tier performance levels (Diamond, Platinum, Gold, Silver, Bronze) and incentive bonus information are also displayed.',
+    relatedPage: '/network/validators',
+    tags: ['밸리데이터', '스테이킹', '성능', '125']
+  },
+  {
+    id: 104,
+    category: '토크노믹스',
+    categoryKey: 'tokenomics',
+    question: '토큰 배포 스케줄은 어떻게 되나요?',
+    questionEn: 'What is the token distribution schedule?',
+    answer: 'Token Schedule 페이지에서 20년 토큰 배포 계획을 확인할 수 있습니다. 500B TBURN 총 공급량이 4가지 수탁 메커니즘으로 배포됩니다: 프로토콜 자동(22%), 베스팅 계약(31%), 파운데이션 멀티시그(17%), 커뮤니티 풀(30%). 연도별 배포량과 누적 진행률을 시각화된 차트로 확인 가능합니다.',
+    answerEn: 'The Token Schedule page shows the 20-year token distribution plan. 500B TBURN total supply is distributed through 4 custody mechanisms: Protocol Automatic (22%), Vesting Contract (31%), Foundation Multisig (17%), Community Pool (30%). Annual distribution amounts and cumulative progress are visualized in charts.',
+    relatedPage: '/token-schedule',
+    tags: ['토큰 스케줄', '배포', '베스팅', '20년']
+  },
+  {
+    id: 105,
+    category: '토크노믹스',
+    categoryKey: 'tokenomics',
+    question: '토큰 상세 정보는 어디서 확인하나요?',
+    questionEn: 'Where can I view token details?',
+    answer: 'Token Details 페이지에서 TBURN 토큰의 핵심 정보를 확인합니다. 500B 총 공급량, 현재 유통량, 총 소각량, 실시간 가격, 시가총액, 24시간 거래량 등 상세 통계를 제공합니다. TBC-20 토큰 표준 정보와 계약 주소도 확인 가능합니다.',
+    answerEn: 'The Token Details page shows core TBURN token information. Detailed statistics include 500B total supply, current circulating supply, total burned amount, real-time price, market cap, and 24-hour trading volume. TBC-20 token standard info and contract address are also available.',
+    relatedPage: '/token-details',
+    tags: ['토큰 상세', '공급량', '가격', '500B']
+  },
+
+  // ============================================
+  // 토큰 배포 프로그램 (Token Distribution Programs) - Questions 106-115
+  // ============================================
+  {
+    id: 106,
+    category: '커뮤니티',
+    categoryKey: 'community',
+    question: '에어드랍(Airdrop) 프로그램이란?',
+    questionEn: 'What is the Airdrop program?',
+    answer: '에어드랍은 초기 사용자와 커뮤니티 참여자에게 무료 TBURN 토큰을 배포하는 프로그램입니다. 지갑 연결, 소셜 미디어 팔로우, 특정 조건 충족 시 토큰을 받을 수 있습니다. 자격 조건 확인 및 청구는 Airdrop 페이지에서 가능합니다.',
+    answerEn: 'Airdrop is a program distributing free TBURN tokens to early users and community participants. Receive tokens by connecting wallet, following social media, and meeting specific conditions. Check eligibility and claim on the Airdrop page.',
+    relatedPage: '/airdrop',
+    tags: ['에어드랍', '무료', '토큰 배포']
+  },
+  {
+    id: 107,
+    category: '커뮤니티',
+    categoryKey: 'community',
+    question: '리퍼럴(Referral) 프로그램은 어떻게 작동하나요?',
+    questionEn: 'How does the Referral program work?',
+    answer: '고유 리퍼럴 링크로 새 사용자를 초대하면 보상을 받습니다. 초대받은 사용자가 지갑을 연결하고 특정 활동을 완료하면 양쪽 모두에게 TBURN 토큰이 지급됩니다. 리퍼럴 통계와 보상은 Referral 페이지에서 추적 가능합니다.',
+    answerEn: 'Invite new users with your unique referral link to earn rewards. When invited users connect wallet and complete specific activities, both parties receive TBURN tokens. Track referral statistics and rewards on the Referral page.',
+    relatedPage: '/referral',
+    tags: ['리퍼럴', '초대', '보상']
+  },
+  {
+    id: 108,
+    category: '커뮤니티',
+    categoryKey: 'community',
+    question: '이벤트(Events) 페이지에서는 무엇을 하나요?',
+    questionEn: 'What can I do on the Events page?',
+    answer: 'Events 페이지에서 진행 중인 캠페인, 밋업, 해커톤, 커뮤니티 이벤트 정보를 확인합니다. 이벤트 참여로 특별 보상과 NFT를 획득할 수 있습니다. 지난 이벤트 기록과 당첨자 발표도 확인 가능합니다.',
+    answerEn: 'The Events page shows ongoing campaigns, meetups, hackathons, and community events. Participate to earn special rewards and NFTs. Past event records and winner announcements are also available.',
+    relatedPage: '/events',
+    tags: ['이벤트', '캠페인', '밋업']
+  },
+  {
+    id: 109,
+    category: '커뮤니티',
+    categoryKey: 'community',
+    question: '커뮤니티 프로그램(Community Program)이란?',
+    questionEn: 'What is the Community Program?',
+    answer: '커뮤니티 프로그램은 적극적인 커뮤니티 기여자에게 보상하는 시스템입니다. 콘텐츠 제작, 번역, 모더레이션, 기술 지원 등 다양한 활동으로 TBURN 토큰을 획득할 수 있습니다. 30%의 커뮤니티 풀에서 보상이 지급됩니다.',
+    answerEn: 'Community Program rewards active community contributors. Earn TBURN tokens through content creation, translation, moderation, technical support, and more. Rewards are distributed from the 30% Community Pool.',
+    relatedPage: '/community-program',
+    tags: ['커뮤니티', '프로그램', '기여']
+  },
+  {
+    id: 110,
+    category: '커뮤니티',
+    categoryKey: 'community',
+    question: 'DAO 거버넌스(DAO Governance)란 무엇인가요?',
+    questionEn: 'What is DAO Governance?',
+    answer: 'DAO Governance는 TBURN 토큰 홀더가 네트워크 의사결정에 참여하는 탈중앙화 거버넌스 시스템입니다. 스테이킹된 토큰으로 제안 생성과 투표가 가능하며, 커뮤니티 풀(30%) 자금 사용, 프로토콜 업그레이드, 파라미터 변경 등을 결정합니다.',
+    answerEn: 'DAO Governance is a decentralized governance system where TBURN token holders participate in network decisions. Staked tokens enable proposal creation and voting to decide Community Pool (30%) fund usage, protocol upgrades, and parameter changes.',
+    relatedPage: '/dao-governance',
+    tags: ['DAO', '거버넌스', '투표', '제안']
+  },
+
+  // ============================================
+  // 보상 시스템 (Reward Systems) - Questions 111-115
+  // ============================================
+  {
+    id: 111,
+    category: '토크노믹스',
+    categoryKey: 'tokenomics',
+    question: '블록 리워드(Block Rewards)는 어떻게 배분되나요?',
+    questionEn: 'How are Block Rewards distributed?',
+    answer: '블록 리워드는 프로토콜 자동(22%) 수탁 메커니즘에서 배분됩니다. 블록 제안자(40%), 검증자(50%), 소각(10%)으로 나뉘며, 1000블록(약 100초)마다 에포크 기반으로 정산됩니다. 100ms 블록 타임으로 빠른 보상 사이클이 운영됩니다.',
+    answerEn: 'Block Rewards are distributed from Protocol Automatic (22%) custody mechanism. Split between block proposer (40%), verifiers (50%), and burn (10%), settled on epoch basis every 1000 blocks (~100 seconds). Fast reward cycles operate with 100ms block time.',
+    relatedPage: '/block-rewards',
+    tags: ['블록 리워드', '보상', '프로토콜']
+  },
+  {
+    id: 112,
+    category: '토크노믹스',
+    categoryKey: 'tokenomics',
+    question: '밸리데이터 인센티브(Validator Incentives)란?',
+    questionEn: 'What are Validator Incentives?',
+    answer: '125개 제네시스 밸리데이터를 위한 5단계 성능 기반 보너스 시스템입니다. Diamond(+25%), Platinum(+20%), Gold(+15%), Silver(+10%), Bronze(기본) 티어로 나뉘며, 업타임과 블록 검증 성과에 따라 추가 보상이 지급됩니다. 연속 성과 보너스와 일관성 보너스도 제공됩니다.',
+    answerEn: 'A 5-tier performance-based bonus system for 125 genesis validators. Tiers include Diamond (+25%), Platinum (+20%), Gold (+15%), Silver (+10%), and Bronze (base). Additional rewards based on uptime and block verification performance. Streak bonuses and consistency bonuses also available.',
+    relatedPage: '/validator-incentives',
+    tags: ['밸리데이터', '인센티브', '성능', '티어']
+  },
+  {
+    id: 113,
+    category: '토크노믹스',
+    categoryKey: 'tokenomics',
+    question: '에코시스템 펀드(Ecosystem Fund)란?',
+    questionEn: 'What is the Ecosystem Fund?',
+    answer: '에코시스템 펀드는 TBURN 생태계 성장을 위한 전략적 자금입니다. 커뮤니티 풀(30%)에서 관리되며, 개발자 그랜트, 기술 지원, 생태계 프로젝트 투자, 해커톤 상금 등에 사용됩니다. DAO 거버넌스 투표를 통해 자금 사용이 결정됩니다.',
+    answerEn: 'Ecosystem Fund is strategic funding for TBURN ecosystem growth. Managed from Community Pool (30%), used for developer grants, technical support, ecosystem project investments, and hackathon prizes. Fund usage is decided through DAO governance voting.',
+    relatedPage: '/ecosystem-fund',
+    tags: ['에코시스템', '펀드', '그랜트']
+  },
+
+  // ============================================
+  // 파트너십 & 마케팅 (Partnership & Marketing) - Questions 114-117
+  // ============================================
+  {
+    id: 114,
+    category: '커뮤니티',
+    categoryKey: 'community',
+    question: '파트너십 프로그램(Partnership Program)이란?',
+    questionEn: 'What is the Partnership Program?',
+    answer: 'TBURN과 전략적 협력을 원하는 기업/프로젝트를 위한 프로그램입니다. 기술 통합, 공동 마케팅, 생태계 확장을 위한 지원과 토큰 인센티브가 제공됩니다. 파운데이션 멀티시그(17%)의 전략적 준비금에서 파트너 지원 자금이 관리됩니다.',
+    answerEn: 'Program for companies/projects seeking strategic collaboration with TBURN. Provides support and token incentives for technical integration, joint marketing, and ecosystem expansion. Partner support funds managed from Foundation Multisig (17%) strategic reserves.',
+    relatedPage: '/partnership-program',
+    tags: ['파트너십', '협력', '통합']
+  },
+  {
+    id: 115,
+    category: '커뮤니티',
+    categoryKey: 'community',
+    question: '마케팅 프로그램(Marketing Program)이란?',
+    questionEn: 'What is the Marketing Program?',
+    answer: 'TBURN 브랜드 인지도와 사용자 확보를 위한 마케팅 활동 프로그램입니다. 인플루언서 협업, 광고 캠페인, 콘텐츠 제작, 이벤트 후원 등이 포함됩니다. 커뮤니티 풀(30%)에서 마케팅 예산이 지원됩니다.',
+    answerEn: 'Marketing activity program for TBURN brand awareness and user acquisition. Includes influencer collaborations, ad campaigns, content creation, and event sponsorships. Marketing budget supported from Community Pool (30%).',
+    relatedPage: '/marketing-program',
+    tags: ['마케팅', '캠페인', '브랜드']
+  },
+  {
+    id: 116,
+    category: '토크노믹스',
+    categoryKey: 'tokenomics',
+    question: '전략적 파트너(Strategic Partner) 배분이란?',
+    questionEn: 'What is Strategic Partner allocation?',
+    answer: '전략적 파트너 배분은 TBURN 성장에 핵심적인 파트너사에 대한 토큰 할당입니다. 베스팅 계약(31%) 메커니즘을 통해 시간 잠금 방식으로 배포되며, 파트너의 장기적 참여와 생태계 기여를 보장합니다.',
+    answerEn: 'Strategic Partner allocation is token allocation for partners crucial to TBURN growth. Distributed through Vesting Contract (31%) mechanism with time-lock, ensuring partners\' long-term participation and ecosystem contribution.',
+    relatedPage: '/strategic-partner',
+    tags: ['전략적 파트너', '배분', '베스팅']
+  },
+  {
+    id: 117,
+    category: '토크노믹스',
+    categoryKey: 'tokenomics',
+    question: '어드바이저 프로그램(Advisor Program)이란?',
+    questionEn: 'What is the Advisor Program?',
+    answer: '어드바이저 프로그램은 업계 전문가와 자문위원에 대한 토큰 보상 시스템입니다. 베스팅 계약(31%)을 통해 2-4년 베스팅 기간으로 배포되며, 전략 조언, 네트워크 연결, 기술 자문 등에 대한 대가입니다.',
+    answerEn: 'Advisor Program is a token compensation system for industry experts and advisors. Distributed through Vesting Contract (31%) with 2-4 year vesting periods, compensating for strategic advice, network connections, and technical consulting.',
+    relatedPage: '/advisor-program',
+    tags: ['어드바이저', '자문', '베스팅']
+  },
+
+  // ============================================
+  // 투자 라운드 (Investment Rounds) - Questions 118-120
+  // ============================================
+  {
+    id: 118,
+    category: '토크노믹스',
+    categoryKey: 'tokenomics',
+    question: '시드 라운드(Seed Round)란?',
+    questionEn: 'What is the Seed Round?',
+    answer: '시드 라운드는 TBURN 초기 개발 단계의 첫 번째 투자 라운드입니다. 초기 투자자에게 가장 유리한 가격으로 토큰이 제공되며, 베스팅 계약(31%)을 통해 12-24개월 락업 후 점진적 배포됩니다.',
+    answerEn: 'Seed Round is the first investment round in TBURN\'s early development stage. Tokens offered to early investors at the most favorable price, distributed gradually after 12-24 month lockup through Vesting Contract (31%).',
+    relatedPage: '/seed-round',
+    tags: ['시드 라운드', '투자', '초기']
+  },
+  {
+    id: 119,
+    category: '토크노믹스',
+    categoryKey: 'tokenomics',
+    question: '프라이빗 라운드(Private Round)란?',
+    questionEn: 'What is the Private Round?',
+    answer: '프라이빗 라운드는 시드 라운드 이후 기관 투자자와 전략적 투자자를 대상으로 하는 투자 라운드입니다. 시드보다 높은 가격이지만 퍼블릭 세일보다 할인된 가격으로 제공되며, 6-18개월 베스팅 조건이 적용됩니다.',
+    answerEn: 'Private Round is an investment round for institutional and strategic investors after Seed Round. Offered at higher price than seed but discounted from public sale, with 6-18 month vesting conditions.',
+    relatedPage: '/private-round',
+    tags: ['프라이빗', '투자', '기관']
+  },
+  {
+    id: 120,
+    category: '토크노믹스',
+    categoryKey: 'tokenomics',
+    question: '퍼블릭 라운드(Public Round)란?',
+    questionEn: 'What is the Public Round?',
+    answer: '퍼블릭 라운드는 일반 대중이 참여할 수 있는 공개 토큰 세일입니다. KYC 인증을 완료한 누구나 참여 가능하며, 런치패드 플랫폼(CoinList, DAO Maker 등)을 통해 진행됩니다. 짧은 락업 기간 또는 즉시 유통이 가능합니다.',
+    answerEn: 'Public Round is an open token sale where general public can participate. Anyone completing KYC verification can join, conducted through launchpad platforms (CoinList, DAO Maker, etc.). Short lockup period or immediate distribution available.',
+    relatedPage: '/public-round',
+    tags: ['퍼블릭', '공개 세일', 'KYC']
+  },
+
+  // ============================================
+  // 런치패드 (Launchpads) - Questions 121-123
+  // ============================================
+  {
+    id: 121,
+    category: '토크노믹스',
+    categoryKey: 'tokenomics',
+    question: '런치패드(Launchpad)란?',
+    questionEn: 'What is the Launchpad?',
+    answer: 'TBURN 런치패드는 새로운 프로젝트가 TBURN 네트워크에서 토큰을 발행하고 자금을 조달하는 플랫폼입니다. IDO(Initial DEX Offering) 형식으로 진행되며, TBURN 스테이커는 티어에 따라 참여 기회와 할당량을 받습니다.',
+    answerEn: 'TBURN Launchpad is a platform for new projects to issue tokens and raise funds on TBURN network. Conducted as IDO (Initial DEX Offering), where TBURN stakers receive participation opportunities and allocations based on tier.',
+    relatedPage: '/launchpad',
+    tags: ['런치패드', 'IDO', '프로젝트']
+  },
+  {
+    id: 122,
+    category: '토크노믹스',
+    categoryKey: 'tokenomics',
+    question: 'CoinList 세일이란?',
+    questionEn: 'What is the CoinList sale?',
+    answer: 'CoinList는 규정을 준수하는 글로벌 토큰 세일 플랫폼입니다. TBURN 퍼블릭 세일이 CoinList를 통해 진행되어 전 세계 인증된 투자자가 안전하게 참여할 수 있습니다. 복권 및 선착순 방식으로 할당이 결정됩니다.',
+    answerEn: 'CoinList is a compliant global token sale platform. TBURN public sale conducted through CoinList allows verified investors worldwide to participate safely. Allocations determined through lottery and first-come-first-served methods.',
+    relatedPage: '/coinlist',
+    tags: ['CoinList', '토큰 세일', '글로벌']
+  },
+  {
+    id: 123,
+    category: '토크노믹스',
+    categoryKey: 'tokenomics',
+    question: 'DAO Maker 세일이란?',
+    questionEn: 'What is the DAO Maker sale?',
+    answer: 'DAO Maker는 DAO 파워 스테이킹 기반의 런치패드 플랫폼입니다. TBURN 토큰 세일이 DAO Maker를 통해 진행되며, DAO 토큰 스테이커가 우선 참여 기회를 얻습니다. 강력한 커뮤니티와 개인 투자자 중심의 플랫폼입니다.',
+    answerEn: 'DAO Maker is a launchpad platform based on DAO Power staking. TBURN token sale conducted through DAO Maker, where DAO token stakers get priority participation. A platform focused on strong community and individual investors.',
+    relatedPage: '/dao-maker',
+    tags: ['DAO Maker', '런치패드', 'DAO']
+  },
+
+  // ============================================
+  // 샤드 & 인프라 (Sharding & Infrastructure) - Questions 124-126
+  // ============================================
+  {
+    id: 124,
+    category: '네트워크',
+    categoryKey: 'network',
+    question: 'TBURN의 동적 샤딩은 어떻게 작동하나요?',
+    questionEn: 'How does TBURN\'s dynamic sharding work?',
+    answer: 'TBURN은 5-64개 범위에서 동적으로 샤드를 확장합니다. 네트워크 부하에 따라 자동으로 샤드가 활성화/비활성화되며, 현재 64개 최대 샤드에서 약 210,000 TPS를 처리합니다. 크로스샤드 메시징으로 샤드 간 통신이 원활하게 이루어집니다.',
+    answerEn: 'TBURN dynamically scales shards between 5-64. Shards automatically activate/deactivate based on network load, currently processing approximately 210,000 TPS with 64 maximum shards. Cross-shard messaging enables seamless communication between shards.',
+    relatedPage: '/sharding',
+    tags: ['샤딩', '동적', 'TPS', '64']
+  },
+  {
+    id: 125,
+    category: '네트워크',
+    categoryKey: 'network',
+    question: 'TBURN 메인넷 핵심 사양은?',
+    questionEn: 'What are TBURN mainnet core specifications?',
+    answer: 'TBURN 메인넷 핵심 사양: Chain ID 6000, 125개 제네시스 밸리데이터, 64개 동적 샤드, ~210,000 TPS 용량, 100ms 블록 타임, 500B TBURN 총 공급량, 5단계 BFT 합의, 20년 디플레이션 토크노믹스. AI 강화 거버넌스와 자동 리밸런싱 시스템을 갖추고 있습니다.',
+    answerEn: 'TBURN mainnet core specs: Chain ID 6000, 125 genesis validators, 64 dynamic shards, ~210,000 TPS capacity, 100ms block time, 500B TBURN total supply, 5-phase BFT consensus, 20-year deflationary tokenomics. Features AI-enhanced governance and automatic rebalancing systems.',
+    relatedPage: '/learn/whitepaper',
+    tags: ['메인넷', '사양', 'Chain ID 6000', '210K TPS']
+  },
+  {
+    id: 126,
+    category: '네트워크',
+    categoryKey: 'network',
+    question: '밸리데이터 인프라 요구사항은?',
+    questionEn: 'What are validator infrastructure requirements?',
+    answer: '밸리데이터 노드 운영을 위한 최소 요구사항: 8코어 CPU, 32GB RAM, 1TB NVMe SSD, 100Mbps 네트워크. 고성능 노드는 16코어, 64GB RAM, 2TB SSD를 권장합니다. 티어에 따라 1,000-100,000 TB 스테이킹이 필요합니다.',
+    answerEn: 'Minimum requirements for validator node operation: 8-core CPU, 32GB RAM, 1TB NVMe SSD, 100Mbps network. High-performance nodes recommend 16-core, 64GB RAM, 2TB SSD. 1,000-100,000 TB staking required depending on tier.',
+    relatedPage: '/validator/infrastructure',
+    tags: ['인프라', '노드', '요구사항']
   }
 ];
 
