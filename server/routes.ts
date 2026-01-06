@@ -9932,10 +9932,9 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   // Sharding API - Dynamic shard configuration from TBurnEnterpriseNode
   app.get("/api/sharding", async (_req, res) => {
     try {
-      // REAL-TIME: Skip cache for dynamic shard data updates
-      // Fetch dynamic shards from TBurnEnterpriseNode
-      const shardResponse = await fetch('http://localhost:8545/api/shards');
-      const enterpriseShards = await shardResponse.json();
+      // Get shards directly from EnterpriseNode (no HTTP fetch needed)
+      const enterpriseNode = getEnterpriseNode();
+      const enterpriseShards = enterpriseNode.generateShards();
       
       // Transform to expected format with stable pendingTx values
       const shards = enterpriseShards.map((s: any, idx: number) => ({
@@ -10000,8 +9999,9 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       const cached = cache.get<any>(cacheKey);
       if (cached) return res.json(cached);
       
-      const response = await fetch('http://localhost:8545/api/admin/shards/config');
-      const config = await response.json();
+      // Get config directly from EnterpriseNode (no HTTP fetch needed)
+      const enterpriseNode = getEnterpriseNode();
+      const config = enterpriseNode.getShardConfiguration();
       cache.set(cacheKey, config, 5000); // 5s TTL for real-time TPS sync
       res.json(config);
     } catch (error) {
