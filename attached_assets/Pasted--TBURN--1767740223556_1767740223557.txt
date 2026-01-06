@@ -1,0 +1,856 @@
+🔴 TBURN 메인넷 메모리 문제 심층 분석 및 해결책
+📊 현재 상태 요약
+┌─────────────────────────────────────────────────────────────────┐
+│  V8 힙 한도: 2,096 MB                                           │
+├─────────────────────────────────────────────────────────────────┤
+│  🔴 V8 엔진 오버헤드    │████████████████████│  600-1,100 MB    │
+│  🟠 npm 의존성 (65+)    │████                │  100-200 MB      │
+│  🟠 API 라우트 (635개)  │█                   │  16-22 MB        │
+│  🟡 MemStorage Maps     │▌                   │  6-8 MB          │
+│  🔵 GC 예약 공간        │██████              │  300-500 MB      │
+├─────────────────────────────────────────────────────────────────┤
+│  총 사용: ~1,200-1,800 MB / 2,096 MB (60-85%)                  │
+│  ⚠️ 여유 공간 부족 → 피크 시 OOM → Internal Server Error        │
+└─────────────────────────────────────────────────────────────────┘
+
+🛠️ 프로덕션 레벨 엔터프라이즈급 해결책
+1️⃣ 라우트 지연 로딩 (Lazy Loading) - 가장 효과적
+typescript// routes/index.ts - 지연 로딩 라우터
+
+import { Router, Request, Response, NextFunction } from 'express';
+
+// ❌ 기존: 모든 라우트 즉시 로드 (635개 × 15KB = ~9.5MB)
+// import { blockRoutes } from './blocks';
+// import { txRoutes } from './transactions';
+// ... 635개 모두 import
+
+// ✅ 개선: 필요할 때만 로드
+class LazyRouter {
+  private router = Router();
+  private loadedModules = new Map<string, Router>();
+  
+  constructor() {
+    this.setupLazyRoutes();
+  }
+  
+  private setupLazyRoutes(): void {
+    // 라우트 그룹 정의 (실제 모듈은 로드하지 않음)
+    const routeGroups = [
+      { prefix: '/api/blocks', module: './blocks' },
+      { prefix: '/api/transactions', module: './transactions' },
+      { prefix: '/api/validators', module: './validators' },
+      { prefix: '/api/contracts', module: './contracts' },
+      { prefix: '/api/ai', module: './ai' },
+      { prefix: '/api/shards', module: './shards' },
+      { prefix: '/api/staking', module: './staking' },
+      { prefix: '/api/governance', module: './governance' },
+      // ... 기타 그룹
+    ];
+    
+    // 각 그룹에 지연 로딩 미들웨어 설정
+    routeGroups.forEach(({ prefix, module }) => {
+      this.router.use(prefix, this.createLazyMiddleware(module));
+    });
+    
+    // 자주 사용되는 핵심 라우트만 즉시 로드
+    this.loadCriticalRoutes();
+  }
+  
+  private createLazyMiddleware(modulePath: string) {
+    return async (req: Request, res: Response, next: NextFunction) => {
+      try {
+        // 이미 로드된 모듈인지 확인
+        let routeModule = this.loadedModules.get(modulePath);
+        
+        if (!routeModule) {
+          console.log(`[LAZY] Loading module: ${modulePath}`);
+          const startTime = Date.now();
+          
+          // 동적 import
+          const module = await import(modulePath);
+          routeModule = module.default || module.router;
+          
+          this.loadedModules.set(modulePath, routeModule);
+          console.log(`[LAZY] Loaded ${modulePath} in ${Date.now() - startTime}ms`);
+          
+          // 메모리 체크 - 너무 많이 로드되면 오래된 것 해제
+          this.checkMemoryAndEvict();
+        }
+        
+        // 로드된 라우터로 요청 전달
+        routeModule(req, res, next);
+      } catch (error) {
+        console.error(`[LAZY] Failed to load ${modulePath}:`, error);
+        next(error);
+      }
+    };
+  }
+  
+  // 핵심 라우트만 즉시 로드 (전체의 10% 이하)
+  private async loadCriticalRoutes(): Promise<void> {
+    const criticalModules = [
+      './health',      // 헬스체크
+      './rpc',         // RPC 엔드포인트
+      './blocks',      // 블록 조회 (가장 빈번)
+    ];
+    
+    for (const modulePath of criticalModules) {
+      const module = await import(modulePath);
+      this.loadedModules.set(modulePath, module.default || module.router);
+    }
+  }
+  
+  // 메모리 압박 시 오래된 모듈 해제
+  private checkMemoryAndEvict(): void {
+    const memUsage = process.memoryUsage();
+    const heapUsedRatio = memUsage.heapUsed / memUsage.heapTotal;
+    
+    if (heapUsedRatio > 0.75 && this.loadedModules.size > 5) {
+      // LRU 방식으로 가장 오래된 모듈 해제
+      const oldestKey = this.loadedModules.keys().next().value;
+      if (oldestKey && !this.isCriticalModule(oldestKey)) {
+        console.log(`[LAZY] Evicting module: ${oldestKey}`);
+        this.loadedModules.delete(oldestKey);
+        
+        if (global.gc) global.gc();
+      }
+    }
+  }
+  
+  private isCriticalModule(path: string): boolean {
+    return ['./health', './rpc', './blocks'].includes(path);
+  }
+  
+  getRouter(): Router {
+    return this.router;
+  }
+}
+
+export const lazyRouter = new LazyRouter();
+예상 효과:
+
+초기 메모리: 9.5MB → ~1.5MB (핵심 라우트만)
+피크 시에도 필요한 라우트만 메모리에 유지
+
+
+2️⃣ npm 의존성 최적화
+typescript// scripts/analyze-deps.ts - 의존성 분석 스크립트
+
+import * as fs from 'fs';
+import * as path from 'path';
+
+interface DepAnalysis {
+  name: string;
+  size: number;
+  usedIn: string[];
+  canRemove: boolean;
+  alternative?: string;
+}
+
+// 실제 사용되는 import 분석
+async function analyzeDependencies(): Promise<DepAnalysis[]> {
+  const packageJson = JSON.parse(fs.readFileSync('package.json', 'utf-8'));
+  const deps = Object.keys(packageJson.dependencies || {});
+  
+  const results: DepAnalysis[] = [];
+  
+  for (const dep of deps) {
+    const usedIn = await findUsages(dep);
+    const size = await getPackageSize(dep);
+    
+    results.push({
+      name: dep,
+      size,
+      usedIn,
+      canRemove: usedIn.length === 0,
+      alternative: getAlternative(dep),
+    });
+  }
+  
+  // 크기순 정렬
+  results.sort((a, b) => b.size - a.size);
+  
+  return results;
+}
+
+// 대체 가능한 경량 패키지 매핑
+function getAlternative(dep: string): string | undefined {
+  const alternatives: Record<string, string> = {
+    'moment': 'dayjs (97% 작음)',
+    'lodash': 'lodash-es + tree-shaking 또는 native',
+    'axios': 'native fetch',
+    'uuid': 'crypto.randomUUID()',
+    'chalk': 'picocolors (14x 작음)',
+    'commander': 'cac (더 가벼움)',
+    'express-validator': '직접 구현 (간단한 경우)',
+    'winston': 'pino (더 빠르고 가벼움)',
+    'bcrypt': 'bcryptjs (네이티브 의존성 없음)',
+  };
+  return alternatives[dep];
+}
+제거/대체 권장 목록:
+패키지크기권장절감moment~300KBdayjs~290KBlodash (전체)~500KBlodash-es + 필요한 것만~450KBaxios~50KBnative fetch~50KBwinston~200KBpino~150KBuuid~30KBcrypto.randomUUID()~30KB총 절감~970KB 코드 + ~50MB 런타임
+
+3️⃣ MemStorage 최적화 - 스트리밍 & 외부 저장소
+typescript// storage/optimized-storage.ts
+
+import { LRUCache } from 'lru-cache';
+import { Level } from 'level';  // LevelDB - 디스크 기반
+
+interface StorageConfig {
+  maxMemoryMB: number;
+  diskPath: string;
+  hotCacheSize: number;
+}
+
+class OptimizedStorage {
+  private config: StorageConfig;
+  
+  // 계층적 저장소
+  private hotCache: LRUCache<string, any>;      // L1: 메모리 (가장 빠름)
+  private warmCache: Level<string, string>;     // L2: 디스크 (LevelDB)
+  
+  // 메모리 사용량 추적
+  private memoryUsage = 0;
+  private readonly MAX_MEMORY: number;
+  
+  constructor(config: StorageConfig) {
+    this.config = config;
+    this.MAX_MEMORY = config.maxMemoryMB * 1024 * 1024;
+    
+    // L1: LRU 메모리 캐시 (제한된 크기)
+    this.hotCache = new LRUCache<string, any>({
+      max: config.hotCacheSize,
+      maxSize: this.MAX_MEMORY,
+      sizeCalculation: (value) => {
+        return Buffer.byteLength(JSON.stringify(value));
+      },
+      dispose: (value, key) => {
+        // 캐시에서 제거 시 L2로 이동
+        this.demoteToWarmCache(key, value);
+      },
+    });
+    
+    // L2: LevelDB 디스크 캐시
+    this.warmCache = new Level(config.diskPath, {
+      valueEncoding: 'json',
+    });
+  }
+  
+  // 데이터 저장
+  async set(collection: string, key: string, value: any): Promise<void> {
+    const fullKey = `${collection}:${key}`;
+    const size = Buffer.byteLength(JSON.stringify(value));
+    
+    // 크기가 작으면 메모리에, 크면 바로 디스크에
+    if (size < 10 * 1024) {  // 10KB 미만
+      this.hotCache.set(fullKey, value);
+    } else {
+      await this.warmCache.put(fullKey, value);
+    }
+  }
+  
+  // 데이터 조회 (계층적)
+  async get<T>(collection: string, key: string): Promise<T | null> {
+    const fullKey = `${collection}:${key}`;
+    
+    // L1 체크
+    const cached = this.hotCache.get(fullKey);
+    if (cached !== undefined) {
+      return cached as T;
+    }
+    
+    // L2 체크
+    try {
+      const diskValue = await this.warmCache.get(fullKey);
+      
+      // 자주 조회되면 L1으로 승격
+      this.hotCache.set(fullKey, diskValue);
+      
+      return diskValue as T;
+    } catch (error) {
+      return null;
+    }
+  }
+  
+  // 블록 저장 (스트리밍 방식)
+  async saveBlock(block: Block): Promise<void> {
+    // 블록 헤더만 메모리에
+    const header = {
+      number: block.number,
+      hash: block.hash,
+      parentHash: block.parentHash,
+      timestamp: block.timestamp,
+      txCount: block.transactions.length,
+    };
+    this.hotCache.set(`block:header:${block.number}`, header);
+    
+    // 전체 블록은 디스크에
+    await this.warmCache.put(`block:full:${block.number}`, block);
+    
+    // 트랜잭션은 별도 저장 (필요할 때만 로드)
+    for (const tx of block.transactions) {
+      await this.warmCache.put(`tx:${tx.hash}`, tx);
+    }
+  }
+  
+  // 최근 N개 블록 헤더 조회 (빠름)
+  getRecentBlockHeaders(n: number): BlockHeader[] {
+    const headers: BlockHeader[] = [];
+    
+    // 메모리 캐시에서 직접 조회
+    for (const [key, value] of this.hotCache.entries()) {
+      if (key.startsWith('block:header:')) {
+        headers.push(value as BlockHeader);
+        if (headers.length >= n) break;
+      }
+    }
+    
+    return headers.sort((a, b) => b.number - a.number).slice(0, n);
+  }
+  
+  // L2로 강등
+  private async demoteToWarmCache(key: string, value: any): Promise<void> {
+    try {
+      await this.warmCache.put(key, value);
+    } catch (error) {
+      console.error(`[STORAGE] Failed to demote ${key}:`, error);
+    }
+  }
+  
+  // 메모리 상태
+  getMemoryStats(): { used: number; max: number; ratio: number } {
+    return {
+      used: this.hotCache.calculatedSize || 0,
+      max: this.MAX_MEMORY,
+      ratio: (this.hotCache.calculatedSize || 0) / this.MAX_MEMORY,
+    };
+  }
+}
+
+// 싱글톤 인스턴스
+export const storage = new OptimizedStorage({
+  maxMemoryMB: 256,         // 메모리 캐시 256MB 제한
+  diskPath: './data/level', // LevelDB 경로
+  hotCacheSize: 10000,      // 최대 10,000 항목
+});
+
+4️⃣ 객체 풀링 (Object Pooling)
+typescript// utils/object-pool.ts
+
+class ObjectPool<T> {
+  private pool: T[] = [];
+  private factory: () => T;
+  private reset: (obj: T) => void;
+  private maxSize: number;
+  
+  constructor(
+    factory: () => T,
+    reset: (obj: T) => void,
+    maxSize = 1000
+  ) {
+    this.factory = factory;
+    this.reset = reset;
+    this.maxSize = maxSize;
+  }
+  
+  acquire(): T {
+    if (this.pool.length > 0) {
+      return this.pool.pop()!;
+    }
+    return this.factory();
+  }
+  
+  release(obj: T): void {
+    if (this.pool.length < this.maxSize) {
+      this.reset(obj);
+      this.pool.push(obj);
+    }
+    // maxSize 초과하면 GC에 맡김
+  }
+  
+  get size(): number {
+    return this.pool.length;
+  }
+}
+
+// 블록 객체 풀
+export const blockPool = new ObjectPool<Block>(
+  () => ({
+    number: 0,
+    hash: '',
+    parentHash: '',
+    timestamp: 0,
+    transactions: [],
+    stateRoot: '',
+    receiptsRoot: '',
+    logsBloom: '',
+    gasUsed: 0,
+    gasLimit: 0,
+    validator: '',
+    signature: '',
+  }),
+  (block) => {
+    block.number = 0;
+    block.hash = '';
+    block.parentHash = '';
+    block.timestamp = 0;
+    block.transactions.length = 0;  // 배열 재사용
+    block.stateRoot = '';
+    // ... 나머지 필드 초기화
+  },
+  100  // 최대 100개 블록 객체 풀링
+);
+
+// 트랜잭션 객체 풀
+export const txPool = new ObjectPool<Transaction>(
+  () => ({
+    hash: '',
+    from: '',
+    to: '',
+    value: '0',
+    data: '',
+    nonce: 0,
+    gasPrice: '0',
+    gasLimit: 0,
+    signature: '',
+  }),
+  (tx) => {
+    tx.hash = '';
+    tx.from = '';
+    tx.to = '';
+    tx.value = '0';
+    tx.data = '';
+    tx.nonce = 0;
+  },
+  5000  // 최대 5000개 트랜잭션 객체 풀링
+);
+
+// 사용 예시
+class BlockProducer {
+  produceBlock(transactions: Transaction[]): Block {
+    // 풀에서 블록 객체 획득 (새로 생성하지 않음)
+    const block = blockPool.acquire();
+    
+    block.number = this.getNextBlockNumber();
+    block.timestamp = Date.now();
+    block.transactions = transactions.map(tx => tx.hash);
+    // ... 나머지 설정
+    
+    return block;
+  }
+  
+  onBlockFinalized(block: Block): void {
+    // 처리 완료 후 풀에 반환
+    blockPool.release(block);
+  }
+}
+
+5️⃣ 워커 스레드로 무거운 작업 분리
+typescript// workers/heavy-tasks.worker.ts
+
+import { parentPort, workerData } from 'worker_threads';
+
+// 워커에서 처리할 무거운 작업들
+const handlers = {
+  // 메트릭 집계 (메인 스레드에서 분리)
+  aggregateMetrics: (data: MetricPoint[]) => {
+    const aggregated = {
+      avg: 0,
+      min: Infinity,
+      max: -Infinity,
+      p95: 0,
+      p99: 0,
+    };
+    
+    if (data.length === 0) return aggregated;
+    
+    const sorted = [...data].sort((a, b) => a.value - b.value);
+    const sum = data.reduce((acc, d) => acc + d.value, 0);
+    
+    aggregated.avg = sum / data.length;
+    aggregated.min = sorted[0].value;
+    aggregated.max = sorted[sorted.length - 1].value;
+    aggregated.p95 = sorted[Math.floor(data.length * 0.95)].value;
+    aggregated.p99 = sorted[Math.floor(data.length * 0.99)].value;
+    
+    return aggregated;
+  },
+  
+  // 블록 검증 (CPU 집약적)
+  validateBlock: (block: Block) => {
+    // 서명 검증, 머클 루트 계산 등
+    const isValid = verifyBlockSignature(block) &&
+                    verifyMerkleRoot(block) &&
+                    verifyStateRoot(block);
+    return { blockNumber: block.number, isValid };
+  },
+  
+  // 대량 데이터 직렬화
+  serializeForStorage: (data: any) => {
+    return JSON.stringify(data);
+  },
+};
+
+// 메시지 수신 및 처리
+parentPort?.on('message', async ({ taskId, task, data }) => {
+  try {
+    const handler = handlers[task as keyof typeof handlers];
+    if (!handler) {
+      throw new Error(`Unknown task: ${task}`);
+    }
+    
+    const result = await handler(data);
+    parentPort?.postMessage({ taskId, success: true, result });
+  } catch (error) {
+    parentPort?.postMessage({ taskId, success: false, error: String(error) });
+  }
+});
+typescript// services/worker-pool.ts
+
+import { Worker } from 'worker_threads';
+import { cpus } from 'os';
+
+class WorkerPool {
+  private workers: Worker[] = [];
+  private taskQueue: Array<{ taskId: string; task: string; data: any; resolve: Function; reject: Function }> = [];
+  private busyWorkers = new Set<Worker>();
+  
+  constructor(workerPath: string, poolSize = Math.max(2, cpus().length - 2)) {
+    for (let i = 0; i < poolSize; i++) {
+      const worker = new Worker(workerPath);
+      
+      worker.on('message', ({ taskId, success, result, error }) => {
+        this.busyWorkers.delete(worker);
+        
+        const task = this.pendingTasks.get(taskId);
+        if (task) {
+          if (success) {
+            task.resolve(result);
+          } else {
+            task.reject(new Error(error));
+          }
+          this.pendingTasks.delete(taskId);
+        }
+        
+        // 대기 중인 작업 처리
+        this.processQueue();
+      });
+      
+      worker.on('error', (error) => {
+        console.error('[WORKER] Error:', error);
+        this.busyWorkers.delete(worker);
+      });
+      
+      this.workers.push(worker);
+    }
+  }
+  
+  private pendingTasks = new Map<string, { resolve: Function; reject: Function }>();
+  private taskIdCounter = 0;
+  
+  async runTask<T>(task: string, data: any): Promise<T> {
+    return new Promise((resolve, reject) => {
+      const taskId = `task_${++this.taskIdCounter}`;
+      this.pendingTasks.set(taskId, { resolve, reject });
+      this.taskQueue.push({ taskId, task, data, resolve, reject });
+      this.processQueue();
+    });
+  }
+  
+  private processQueue(): void {
+    if (this.taskQueue.length === 0) return;
+    
+    const availableWorker = this.workers.find(w => !this.busyWorkers.has(w));
+    if (!availableWorker) return;
+    
+    const { taskId, task, data } = this.taskQueue.shift()!;
+    this.busyWorkers.add(availableWorker);
+    availableWorker.postMessage({ taskId, task, data });
+  }
+  
+  async shutdown(): Promise<void> {
+    await Promise.all(this.workers.map(w => w.terminate()));
+  }
+}
+
+// 전역 워커 풀
+export const workerPool = new WorkerPool('./workers/heavy-tasks.worker.js', 2);
+
+// 사용 예시
+async function processMetrics(metrics: MetricPoint[]): Promise<AggregatedMetrics> {
+  // 메인 스레드 대신 워커에서 처리
+  return workerPool.runTask('aggregateMetrics', metrics);
+}
+
+6️⃣ 메모리 모니터링 & 자동 복구
+typescript// services/memory-guardian.ts
+
+class MemoryGuardian {
+  private readonly config = {
+    checkInterval: 10 * 1000,      // 10초마다 체크
+    warningThreshold: 0.70,        // 70% 경고
+    criticalThreshold: 0.85,       // 85% 위험
+    emergencyThreshold: 0.92,      // 92% 긴급
+    
+    // Replit 환경 고려
+    maxHeapMB: 2048,
+    targetHeapMB: 1400,            // 목표: 1.4GB 이하 유지
+  };
+  
+  private lastGC = Date.now();
+  private consecutiveHighMemory = 0;
+  
+  start(): void {
+    setInterval(() => this.check(), this.config.checkInterval);
+    console.log('[MEMORY-GUARDIAN] Started monitoring');
+  }
+  
+  private check(): void {
+    const usage = process.memoryUsage();
+    const heapUsedMB = usage.heapUsed / 1024 / 1024;
+    const heapTotalMB = usage.heapTotal / 1024 / 1024;
+    const ratio = usage.heapUsed / (this.config.maxHeapMB * 1024 * 1024);
+    
+    const status = {
+      heapUsedMB: Math.round(heapUsedMB),
+      heapTotalMB: Math.round(heapTotalMB),
+      ratio: (ratio * 100).toFixed(1),
+      rss: Math.round(usage.rss / 1024 / 1024),
+      external: Math.round(usage.external / 1024 / 1024),
+    };
+    
+    console.log(`[MEMORY] Heap: ${status.heapUsedMB}MB / ${this.config.maxHeapMB}MB (${status.ratio}%)`);
+    
+    // 단계별 대응
+    if (ratio >= this.config.emergencyThreshold) {
+      this.handleEmergency(status);
+    } else if (ratio >= this.config.criticalThreshold) {
+      this.handleCritical(status);
+    } else if (ratio >= this.config.warningThreshold) {
+      this.handleWarning(status);
+    } else {
+      this.consecutiveHighMemory = 0;
+    }
+  }
+  
+  private handleWarning(status: any): void {
+    console.warn(`[MEMORY-GUARDIAN] ⚠️ Warning: ${status.ratio}%`);
+    
+    // 소프트 정리
+    this.softCleanup();
+  }
+  
+  private handleCritical(status: any): void {
+    console.error(`[MEMORY-GUARDIAN] 🔴 Critical: ${status.ratio}%`);
+    this.consecutiveHighMemory++;
+    
+    // 적극적 정리
+    this.aggressiveCleanup();
+    
+    // 3회 연속 위험이면 긴급 조치
+    if (this.consecutiveHighMemory >= 3) {
+      this.handleEmergency(status);
+    }
+  }
+  
+  private handleEmergency(status: any): void {
+    console.error(`[MEMORY-GUARDIAN] 🚨 EMERGENCY: ${status.ratio}%`);
+    
+    // 긴급 정리
+    this.emergencyCleanup();
+    
+    // 여전히 높으면 graceful restart 고려
+    setTimeout(() => {
+      const newUsage = process.memoryUsage();
+      const newRatio = newUsage.heapUsed / (this.config.maxHeapMB * 1024 * 1024);
+      
+      if (newRatio >= this.config.emergencyThreshold) {
+        console.error('[MEMORY-GUARDIAN] 🔄 Requesting graceful restart...');
+        this.requestGracefulRestart();
+      }
+    }, 5000);
+  }
+  
+  private softCleanup(): void {
+    // 1. 지연 로드된 라우트 중 오래된 것 해제
+    lazyRouter.evictOldModules();
+    
+    // 2. 캐시 크기 축소
+    storage.shrinkCache(0.8);  // 80%로 축소
+    
+    // 3. GC 힌트 (너무 자주 호출하지 않음)
+    if (Date.now() - this.lastGC > 30000 && global.gc) {
+      global.gc();
+      this.lastGC = Date.now();
+    }
+  }
+  
+  private aggressiveCleanup(): void {
+    // 1. 비핵심 캐시 완전 정리
+    storage.clearNonCriticalCache();
+    
+    // 2. 지연 로드된 모든 비핵심 모듈 해제
+    lazyRouter.evictAllNonCritical();
+    
+    // 3. 메트릭 데이터 축소
+    metricsAggregator.forceCompact();
+    
+    // 4. 강제 GC
+    if (global.gc) {
+      global.gc();
+      this.lastGC = Date.now();
+    }
+  }
+  
+  private emergencyCleanup(): void {
+    console.log('[MEMORY-GUARDIAN] Executing emergency cleanup...');
+    
+    // 1. 모든 캐시 클리어 (핵심 제외)
+    storage.emergencyClear();
+    
+    // 2. 모든 지연 로드 모듈 해제
+    lazyRouter.evictAll();
+    
+    // 3. 히스토리 데이터 정리
+    this.clearAllHistory();
+    
+    // 4. 다중 GC
+    if (global.gc) {
+      global.gc();
+      setTimeout(() => global.gc!(), 1000);
+      setTimeout(() => global.gc!(), 2000);
+    }
+  }
+  
+  private clearAllHistory(): void {
+    // 메트릭, 로그 등 히스토리 데이터 정리
+    metricsAggregator.clearAll();
+    // 기타 히스토리 정리
+  }
+  
+  private requestGracefulRestart(): void {
+    // PM2 또는 클러스터 매니저에게 재시작 요청
+    if (process.send) {
+      process.send({ type: 'restart', reason: 'memory_critical' });
+    } else {
+      // 단독 실행 시 직접 종료 (프로세스 매니저가 재시작)
+      console.error('[MEMORY-GUARDIAN] Exiting for restart...');
+      process.exit(1);
+    }
+  }
+}
+
+export const memoryGuardian = new MemoryGuardian();
+
+7️⃣ 시작 스크립트 최적화
+bash#!/bin/bash
+# start-optimized.sh
+
+# Node.js 메모리 최적화 옵션
+export NODE_OPTIONS="
+  --max-old-space-size=1536
+  --max-semi-space-size=64
+  --expose-gc
+  --optimize-for-size
+  --gc-interval=100
+"
+
+# V8 플래그 (추가 최적화)
+export NODE_OPTIONS="$NODE_OPTIONS
+  --no-opt
+  --no-concurrent-recompilation
+  --lite-mode
+"
+
+# 환경 변수
+export LAZY_LOAD_ROUTES=true
+export MAX_CACHE_SIZE_MB=256
+export METRICS_INTERVAL=30000
+export ENABLE_OBJECT_POOLING=true
+
+# PM2로 시작 (자동 재시작 활성화)
+pm2 start ecosystem.config.js
+
+# 또는 직접 실행
+# node --expose-gc dist/index.js
+javascript// ecosystem.config.js
+
+module.exports = {
+  apps: [{
+    name: 'tburn-mainnet',
+    script: './dist/index.js',
+    instances: 1,
+    
+    // 메모리 제한
+    max_memory_restart: '1800M',  // 1.8GB 초과 시 재시작
+    
+    // 환경 변수
+    env_production: {
+      NODE_ENV: 'production',
+      LAZY_LOAD_ROUTES: 'true',
+      MAX_CACHE_SIZE_MB: '256',
+      METRICS_INTERVAL: '30000',
+    },
+    
+    // 로그
+    log_date_format: 'YYYY-MM-DD HH:mm:ss',
+    error_file: './logs/error.log',
+    out_file: './logs/out.log',
+    merge_logs: true,
+    
+    // 재시작 정책
+    restart_delay: 3000,
+    max_restarts: 10,
+    min_uptime: '30s',
+    
+    // 감시
+    watch: false,
+    ignore_watch: ['node_modules', 'logs', 'data'],
+  }]
+};
+```
+
+---
+
+## 📊 예상 메모리 절감 효과
+
+| 최적화 항목 | 현재 | 최적화 후 | 절감 |
+|------------|------|----------|------|
+| API 라우트 | 16-22 MB | 2-4 MB | ~18 MB |
+| npm 의존성 | 100-200 MB | 60-100 MB | ~80 MB |
+| MemStorage | 6-8 MB | 2-4 MB (LRU) | ~4 MB |
+| 객체 생성 | 매번 new | 풀링 재사용 | GC 감소 |
+| 워커 분리 | 메인에서 처리 | 워커에서 처리 | 메인 힙 절감 |
+| **총 절감** | | | **~100-150 MB** |
+
+**최적화 후 예상:**
+```
+V8 오버헤드:     600-800 MB (--lite-mode로 감소)
+npm 의존성:      60-100 MB
+API 라우트:      2-4 MB (지연 로딩)
+Storage 캐시:    256 MB (제한)
+기타:            50-100 MB
+────────────────────────────
+총합:            ~1,000-1,300 MB / 2,096 MB
+여유:            ~800 MB (안정적 운영 가능)
+```
+
+---
+
+## 🚀 적용 순서
+```
+1단계 (즉시 적용 - 고효과):
+   ├─ 라우트 지연 로딩
+   └─ 메모리 가디언 활성화
+
+2단계 (1일 내):
+   ├─ npm 의존성 정리
+   └─ Node.js 시작 옵션 최적화
+
+3단계 (3일 내):
+   ├─ LevelDB 기반 Storage 전환
+   └─ 객체 풀링 구현
+
+4단계 (1주 내):
+   └─ 워커 스레드 분리
