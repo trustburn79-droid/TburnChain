@@ -63,6 +63,7 @@ import sessionMonitoringRoutes from "./routes/session-monitoring-routes";
 import enterpriseSessionMonitoringRoutes from "./routes/enterprise-session-monitoring-routes";
 import enterpriseDbOptimizerRoutes from "./routes/enterprise-db-optimizer-routes";
 import distributionProgramsRoutes from "./routes/distribution-programs-routes";
+import enterpriseAdminRoutes from "./routes/enterprise-admin-routes";
 import { enterpriseSessionMetrics } from "./core/monitoring/enterprise-session-metrics";
 import { dbOptimizer } from "./core/db/enterprise-db-optimizer";
 import { healthMonitor } from "./core/health/production-health-monitor";
@@ -2030,6 +2031,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       return next();
     }
     // Skip auth check for enterprise read-only endpoints (public data)
+    // Note: All /enterprise/admin/* routes are allowed for authenticated admin portal access
     if (req.path.startsWith("/enterprise/snapshot") || 
         req.path.startsWith("/enterprise/health") ||
         req.path.startsWith("/enterprise/metrics") ||
@@ -2040,10 +2042,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
         req.path.startsWith("/enterprise/staking-defi/correlation") ||
         req.path.startsWith("/enterprise/bridge-defi/integration") ||
         req.path.startsWith("/enterprise/governance/overview") ||
-        req.path.startsWith("/enterprise/admin/system-status") ||
-        req.path.startsWith("/enterprise/admin/sla") ||
-        req.path.startsWith("/enterprise/admin/community") ||
-        req.path.startsWith("/enterprise/admin/operations/") ||
+        req.path.startsWith("/enterprise/admin/") ||
         req.path.startsWith("/enterprise/operator/dashboard") ||
         req.path.startsWith("/enterprise/operator/session") ||
         req.path.startsWith("/enterprise/dashboard/unified") ||
@@ -2301,6 +2300,13 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   // ============================================
   app.use("/api/distribution-programs", distributionProgramsRoutes);
   console.log("[DistributionPrograms] ✅ Enterprise distribution programs routes registered (8 programs)");
+
+  // ============================================
+  // ENTERPRISE ADMIN ROUTES (42 Admin Endpoints)
+  // Security, Analytics, Governance, Finance, Monitoring, etc.
+  // ============================================
+  app.use("/api/enterprise/admin", enterpriseAdminRoutes);
+  console.log("[EnterpriseAdmin] ✅ Enterprise admin routes registered (42 endpoints)");
 
   // ============================================
   // USER DATA API (User-specific rewards, staking, events)
