@@ -4,310 +4,246 @@ import { AdminPortalSidebar } from "@/components/admin-portal-sidebar";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { LanguageSelector } from "@/components/language-selector";
 import { ProfileBadge } from "@/components/profile-badge";
-import { Button } from "@/components/ui/button";
-import { LogOut, Shield } from "lucide-react";
+import { Shield, Loader2 } from "lucide-react";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { apiRequest, queryClient } from "@/lib/queryClient";
-import { Tooltip, TooltipContent, TooltipTrigger, TooltipProvider } from "@/components/ui/tooltip";
-import Login from "@/pages/login";
+import { TooltipProvider } from "@/components/ui/tooltip";
+import { lazy, Suspense } from "react";
 
-// Group 1: System Dashboard (5 pages)
-import UnifiedDashboard from "@/pages/admin-portal/unified-dashboard";
-import AdminPerformance from "@/pages/admin-portal/performance";
-import AdminHealth from "@/pages/admin-portal/health";
-import AdminAlerts from "@/pages/admin-portal/alerts";
-import AdminLogs from "@/pages/admin-portal/logs";
+// Lazy load Login component
+const Login = lazy(() => import("@/pages/login"));
 
-// Group 2: Network Operations (6 pages)
-import AdminNodes from "@/pages/admin-portal/nodes";
-import AdminValidators from "@/pages/admin-portal/validators";
-import AdminMembers from "@/pages/members";
-import AdminConsensus from "@/pages/admin-portal/consensus";
-import AdminShards from "@/pages/admin-portal/shards";
-import AdminNetworkParams from "@/pages/admin-portal/network-params";
+// Loading fallback component
+function AdminPageLoading() {
+  return (
+    <div className="flex items-center justify-center h-full min-h-[400px]">
+      <div className="flex flex-col items-center gap-4">
+        <Loader2 className="h-8 w-8 animate-spin text-primary" />
+        <p className="text-muted-foreground text-sm">Loading...</p>
+      </div>
+    </div>
+  );
+}
 
-// Group 3: Token & Economy (6 pages)
-import AdminTokenIssuance from "@/pages/admin-portal/token-issuance";
-import AdminBurnControl from "@/pages/admin-portal/burn-control";
-import AdminTreasury from "@/pages/admin-portal/treasury";
-import AdminEconomics from "@/pages/admin-portal/economics";
-import AdminCommunity from "@/pages/admin-portal/community";
-import AdminCommunityContent from "@/pages/admin/community-content";
-import AdminTokenomics from "@/pages/admin-portal/tokenomics";
-
-// Group 4: AI Systems (4 pages)
-import AdminAIOrchestration from "@/pages/admin-portal/ai-orchestration";
-import AdminAITuning from "@/pages/admin-portal/ai-tuning";
-import AdminAITraining from "@/pages/admin-portal/ai-training";
-import AdminAIAnalytics from "@/pages/admin-portal/ai-analytics";
-
-// Group 5: Bridge & Cross-Chain (5 pages)
-import AdminBridgeDashboard from "@/pages/admin-portal/bridge-dashboard";
-import AdminBridgeLiquidity from "@/pages/admin-portal/bridge-liquidity";
-import AdminBridgeTransfers from "@/pages/admin-portal/bridge-transfers";
-import AdminBridgeValidators from "@/pages/admin-portal/bridge-validators";
-import AdminChainConnections from "@/pages/admin-portal/chain-connections";
-
-// Group 6: Security & Audit (6 pages)
-import AdminSecurity from "@/pages/admin-portal/security";
-import AdminThreatDetection from "@/pages/admin-portal/threat-detection";
-import AdminAuditLogs from "@/pages/admin-portal/audit-logs";
-import AdminCompliance from "@/pages/admin-portal/compliance";
-import AdminAccessControl from "@/pages/admin-portal/access-control";
-import AdminBugBounty from "@/pages/admin-portal/bug-bounty";
-
-// Group 7: Data & Analytics (5 pages)
-import AdminNetworkAnalytics from "@/pages/admin-portal/network-analytics";
-import AdminTxAnalytics from "@/pages/admin-portal/tx-analytics";
-import AdminUserAnalytics from "@/pages/admin-portal/user-analytics";
-import AdminBIDashboard from "@/pages/admin-portal/bi-dashboard";
-import AdminReportGenerator from "@/pages/admin-portal/report-generator";
-
-// Group 8: Operations Tools (5 pages)
-import AdminMaintenance from "@/pages/admin-portal/maintenance";
-import AdminBackup from "@/pages/admin-portal/backup";
-import AdminUpdates from "@/pages/admin-portal/updates";
-import AdminEmergency from "@/pages/admin-portal/emergency";
-import AdminExecution from "@/pages/admin-portal/execution";
-
-// Group 9: Configuration (5 pages)
-import AdminSettings from "@/pages/admin-portal/settings";
-import AdminAppearance from "@/pages/admin-portal/appearance";
-import AdminNotificationSettings from "@/pages/admin-portal/notification-settings";
-import AdminIntegrations from "@/pages/admin-portal/integrations";
-import AdminAPIConfig from "@/pages/admin-portal/api-config";
-
-// Group 10: User Management (5 pages)
-import AdminAccounts from "@/pages/admin-portal/accounts";
-import AdminRoles from "@/pages/admin-portal/roles";
-import AdminPermissions from "@/pages/admin-portal/permissions";
-import AdminSessions from "@/pages/admin-portal/sessions";
-import AdminActivity from "@/pages/admin-portal/activity";
-
-// Group 11: Governance (5 pages)
-import AdminProposals from "@/pages/admin-portal/proposals";
-import AdminVoting from "@/pages/admin-portal/voting";
-import AdminGovParams from "@/pages/admin-portal/gov-params";
-import AdminTestnet from "@/pages/admin-portal/testnet";
-import AdminDebug from "@/pages/admin-portal/debug";
-
-// Group 16: Genesis Launch
-import AdminGenesisLaunch from "@/pages/admin-portal/genesis-launch";
-
-// Group 12: Developer Tools (5 pages)
-import AdminAPIDocs from "@/pages/admin-portal/api-docs";
-import AdminSDK from "@/pages/admin-portal/sdk";
-import AdminContractTools from "@/pages/admin-portal/contract-tools";
-
-// Group 13: Monitoring & Alerts (5 pages)
-import AdminRealtime from "@/pages/admin-portal/realtime";
-import AdminMetricsExplorer from "@/pages/admin-portal/metrics-explorer";
-import AdminAlertRules from "@/pages/admin-portal/alert-rules";
-import AdminDashboardBuilder from "@/pages/admin-portal/dashboard-builder";
-import AdminSLA from "@/pages/admin-portal/sla";
-
-// Group 14: Finance & Accounting (5 pages)
-import AdminFinance from "@/pages/admin-portal/finance";
-import AdminTxAccounting from "@/pages/admin-portal/tx-accounting";
-import AdminBudget from "@/pages/admin-portal/budget";
-import AdminCostAnalysis from "@/pages/admin-portal/cost-analysis";
-import AdminTax from "@/pages/admin-portal/tax";
-
-// Group 15: Education & Support (5 pages)
-import AdminHelp from "@/pages/admin-portal/help";
-import AdminTraining from "@/pages/admin-portal/training";
-import AdminTickets from "@/pages/admin-portal/tickets";
-import AdminFeedback from "@/pages/admin-portal/feedback";
-import AdminAnnouncements from "@/pages/admin-portal/announcements";
-
-// Group 17: Marketing
-import AdminNewsletter from "@/pages/admin-portal/newsletter";
-
-// Group 19: Database & Distribution Management
-import AdminDBOptimizer from "@/pages/admin-portal/db-optimizer";
-import AdminDistribution from "@/pages/admin-portal/distribution";
-import AdminDistributionPrograms from "@/pages/admin-portal/distribution-programs";
-
-// Group 20: Demo Wallet Management
-import AdminDemoWallets from "@/pages/admin-portal/demo-wallets";
-
-// Group 18: Token Distribution Programs (18 sub-pages)
-import AdminTokenDistribution from "@/pages/admin-portal/token-distribution";
-import AdminAirdropProgram from "@/pages/admin-portal/token-distribution/airdrop";
-import AdminReferralProgram from "@/pages/admin-portal/token-distribution/referral";
-import AdminEventsCenter from "@/pages/admin-portal/token-distribution/events";
-import AdminCommunityProgram from "@/pages/admin-portal/token-distribution/community-program";
-import AdminDAOGovernance from "@/pages/admin-portal/token-distribution/dao-governance";
-import AdminBlockRewards from "@/pages/admin-portal/token-distribution/block-rewards";
-import AdminValidatorIncentives from "@/pages/admin-portal/token-distribution/validator-incentives";
-import AdminEcosystemFund from "@/pages/admin-portal/token-distribution/ecosystem-fund";
-import AdminPartnershipProgram from "@/pages/admin-portal/token-distribution/partnership-program";
-import AdminMarketingProgram from "@/pages/admin-portal/token-distribution/marketing-program";
-import AdminStrategicPartner from "@/pages/admin-portal/token-distribution/strategic-partner";
-import AdminAdvisorProgram from "@/pages/admin-portal/token-distribution/advisor-program";
-import AdminSeedRound from "@/pages/admin-portal/token-distribution/seed-round";
-import AdminPrivateRound from "@/pages/admin-portal/token-distribution/private-round";
-import AdminPublicRound from "@/pages/admin-portal/token-distribution/public-round";
-import AdminLaunchpad from "@/pages/admin-portal/token-distribution/launchpad";
-import AdminCoinlist from "@/pages/admin-portal/token-distribution/coinlist";
-import AdminDAOMaker from "@/pages/admin-portal/token-distribution/dao-maker";
+// Lazy load all admin pages
+const UnifiedDashboard = lazy(() => import("@/pages/admin-portal/unified-dashboard"));
+const AdminPerformance = lazy(() => import("@/pages/admin-portal/performance"));
+const AdminHealth = lazy(() => import("@/pages/admin-portal/health"));
+const AdminAlerts = lazy(() => import("@/pages/admin-portal/alerts"));
+const AdminLogs = lazy(() => import("@/pages/admin-portal/logs"));
+const AdminNodes = lazy(() => import("@/pages/admin-portal/nodes"));
+const AdminValidators = lazy(() => import("@/pages/admin-portal/validators"));
+const AdminMembers = lazy(() => import("@/pages/members"));
+const AdminConsensus = lazy(() => import("@/pages/admin-portal/consensus"));
+const AdminShards = lazy(() => import("@/pages/admin-portal/shards"));
+const AdminNetworkParams = lazy(() => import("@/pages/admin-portal/network-params"));
+const AdminTokenIssuance = lazy(() => import("@/pages/admin-portal/token-issuance"));
+const AdminBurnControl = lazy(() => import("@/pages/admin-portal/burn-control"));
+const AdminTreasury = lazy(() => import("@/pages/admin-portal/treasury"));
+const AdminEconomics = lazy(() => import("@/pages/admin-portal/economics"));
+const AdminCommunity = lazy(() => import("@/pages/admin-portal/community"));
+const AdminCommunityContent = lazy(() => import("@/pages/admin/community-content"));
+const AdminTokenomics = lazy(() => import("@/pages/admin-portal/tokenomics"));
+const AdminAIOrchestration = lazy(() => import("@/pages/admin-portal/ai-orchestration"));
+const AdminAITuning = lazy(() => import("@/pages/admin-portal/ai-tuning"));
+const AdminAITraining = lazy(() => import("@/pages/admin-portal/ai-training"));
+const AdminAIAnalytics = lazy(() => import("@/pages/admin-portal/ai-analytics"));
+const AdminBridgeDashboard = lazy(() => import("@/pages/admin-portal/bridge-dashboard"));
+const AdminBridgeLiquidity = lazy(() => import("@/pages/admin-portal/bridge-liquidity"));
+const AdminBridgeTransfers = lazy(() => import("@/pages/admin-portal/bridge-transfers"));
+const AdminBridgeValidators = lazy(() => import("@/pages/admin-portal/bridge-validators"));
+const AdminChainConnections = lazy(() => import("@/pages/admin-portal/chain-connections"));
+const AdminSecurity = lazy(() => import("@/pages/admin-portal/security"));
+const AdminThreatDetection = lazy(() => import("@/pages/admin-portal/threat-detection"));
+const AdminAuditLogs = lazy(() => import("@/pages/admin-portal/audit-logs"));
+const AdminCompliance = lazy(() => import("@/pages/admin-portal/compliance"));
+const AdminAccessControl = lazy(() => import("@/pages/admin-portal/access-control"));
+const AdminBugBounty = lazy(() => import("@/pages/admin-portal/bug-bounty"));
+const AdminNetworkAnalytics = lazy(() => import("@/pages/admin-portal/network-analytics"));
+const AdminTxAnalytics = lazy(() => import("@/pages/admin-portal/tx-analytics"));
+const AdminUserAnalytics = lazy(() => import("@/pages/admin-portal/user-analytics"));
+const AdminBIDashboard = lazy(() => import("@/pages/admin-portal/bi-dashboard"));
+const AdminReportGenerator = lazy(() => import("@/pages/admin-portal/report-generator"));
+const AdminMaintenance = lazy(() => import("@/pages/admin-portal/maintenance"));
+const AdminBackup = lazy(() => import("@/pages/admin-portal/backup"));
+const AdminUpdates = lazy(() => import("@/pages/admin-portal/updates"));
+const AdminEmergency = lazy(() => import("@/pages/admin-portal/emergency"));
+const AdminExecution = lazy(() => import("@/pages/admin-portal/execution"));
+const AdminSettings = lazy(() => import("@/pages/admin-portal/settings"));
+const AdminAppearance = lazy(() => import("@/pages/admin-portal/appearance"));
+const AdminNotificationSettings = lazy(() => import("@/pages/admin-portal/notification-settings"));
+const AdminIntegrations = lazy(() => import("@/pages/admin-portal/integrations"));
+const AdminAPIConfig = lazy(() => import("@/pages/admin-portal/api-config"));
+const AdminAccounts = lazy(() => import("@/pages/admin-portal/accounts"));
+const AdminRoles = lazy(() => import("@/pages/admin-portal/roles"));
+const AdminPermissions = lazy(() => import("@/pages/admin-portal/permissions"));
+const AdminSessions = lazy(() => import("@/pages/admin-portal/sessions"));
+const AdminActivity = lazy(() => import("@/pages/admin-portal/activity"));
+const AdminProposals = lazy(() => import("@/pages/admin-portal/proposals"));
+const AdminVoting = lazy(() => import("@/pages/admin-portal/voting"));
+const AdminGovParams = lazy(() => import("@/pages/admin-portal/gov-params"));
+const AdminTestnet = lazy(() => import("@/pages/admin-portal/testnet"));
+const AdminDebug = lazy(() => import("@/pages/admin-portal/debug"));
+const AdminGenesisLaunch = lazy(() => import("@/pages/admin-portal/genesis-launch"));
+const AdminAPIDocs = lazy(() => import("@/pages/admin-portal/api-docs"));
+const AdminSDK = lazy(() => import("@/pages/admin-portal/sdk"));
+const AdminContractTools = lazy(() => import("@/pages/admin-portal/contract-tools"));
+const AdminRealtime = lazy(() => import("@/pages/admin-portal/realtime"));
+const AdminMetricsExplorer = lazy(() => import("@/pages/admin-portal/metrics-explorer"));
+const AdminAlertRules = lazy(() => import("@/pages/admin-portal/alert-rules"));
+const AdminDashboardBuilder = lazy(() => import("@/pages/admin-portal/dashboard-builder"));
+const AdminSLA = lazy(() => import("@/pages/admin-portal/sla"));
+const AdminFinance = lazy(() => import("@/pages/admin-portal/finance"));
+const AdminTxAccounting = lazy(() => import("@/pages/admin-portal/tx-accounting"));
+const AdminBudget = lazy(() => import("@/pages/admin-portal/budget"));
+const AdminCostAnalysis = lazy(() => import("@/pages/admin-portal/cost-analysis"));
+const AdminTax = lazy(() => import("@/pages/admin-portal/tax"));
+const AdminHelp = lazy(() => import("@/pages/admin-portal/help"));
+const AdminTraining = lazy(() => import("@/pages/admin-portal/training"));
+const AdminTickets = lazy(() => import("@/pages/admin-portal/tickets"));
+const AdminFeedback = lazy(() => import("@/pages/admin-portal/feedback"));
+const AdminAnnouncements = lazy(() => import("@/pages/admin-portal/announcements"));
+const AdminNewsletter = lazy(() => import("@/pages/admin-portal/newsletter"));
+const AdminDBOptimizer = lazy(() => import("@/pages/admin-portal/db-optimizer"));
+const AdminDistribution = lazy(() => import("@/pages/admin-portal/distribution"));
+const AdminDistributionPrograms = lazy(() => import("@/pages/admin-portal/distribution-programs"));
+const AdminDemoWallets = lazy(() => import("@/pages/admin-portal/demo-wallets"));
+const AdminTokenDistribution = lazy(() => import("@/pages/admin-portal/token-distribution"));
+const AdminAirdropProgram = lazy(() => import("@/pages/admin-portal/token-distribution/airdrop"));
+const AdminReferralProgram = lazy(() => import("@/pages/admin-portal/token-distribution/referral"));
+const AdminEventsCenter = lazy(() => import("@/pages/admin-portal/token-distribution/events"));
+const AdminCommunityProgram = lazy(() => import("@/pages/admin-portal/token-distribution/community-program"));
+const AdminDAOGovernance = lazy(() => import("@/pages/admin-portal/token-distribution/dao-governance"));
+const AdminBlockRewards = lazy(() => import("@/pages/admin-portal/token-distribution/block-rewards"));
+const AdminValidatorIncentives = lazy(() => import("@/pages/admin-portal/token-distribution/validator-incentives"));
+const AdminEcosystemFund = lazy(() => import("@/pages/admin-portal/token-distribution/ecosystem-fund"));
+const AdminPartnershipProgram = lazy(() => import("@/pages/admin-portal/token-distribution/partnership-program"));
+const AdminMarketingProgram = lazy(() => import("@/pages/admin-portal/token-distribution/marketing-program"));
+const AdminStrategicPartner = lazy(() => import("@/pages/admin-portal/token-distribution/strategic-partner"));
+const AdminAdvisorProgram = lazy(() => import("@/pages/admin-portal/token-distribution/advisor-program"));
+const AdminSeedRound = lazy(() => import("@/pages/admin-portal/token-distribution/seed-round"));
+const AdminPrivateRound = lazy(() => import("@/pages/admin-portal/token-distribution/private-round"));
+const AdminPublicRound = lazy(() => import("@/pages/admin-portal/token-distribution/public-round"));
+const AdminLaunchpad = lazy(() => import("@/pages/admin-portal/token-distribution/launchpad"));
+const AdminCoinlist = lazy(() => import("@/pages/admin-portal/token-distribution/coinlist"));
+const AdminDAOMaker = lazy(() => import("@/pages/admin-portal/token-distribution/dao-maker"));
 
 function AdminRouter() {
   return (
-    <Switch>
-      {/* Group 1: System Dashboard */}
-      <Route path="/admin" component={UnifiedDashboard} />
-      <Route path="/admin/performance" component={AdminPerformance} />
-      <Route path="/admin/health" component={AdminHealth} />
-      <Route path="/admin/alerts" component={AdminAlerts} />
-      <Route path="/admin/logs" component={AdminLogs} />
-
-      {/* Group 2: Network Operations */}
-      <Route path="/admin/nodes" component={AdminNodes} />
-      <Route path="/admin/validators" component={AdminValidators} />
-      <Route path="/admin/members" component={AdminMembers} />
-      <Route path="/admin/consensus" component={AdminConsensus} />
-      <Route path="/admin/shards" component={AdminShards} />
-      <Route path="/admin/network-params" component={AdminNetworkParams} />
-
-      {/* Group 3: Token & Economy */}
-      <Route path="/admin/token-issuance" component={AdminTokenIssuance} />
-      <Route path="/admin/burn-control" component={AdminBurnControl} />
-      <Route path="/admin/treasury" component={AdminTreasury} />
-      <Route path="/admin/economics" component={AdminEconomics} />
-      <Route path="/admin/tokenomics" component={AdminTokenomics} />
-      <Route path="/admin/token-distribution" component={AdminTokenDistribution} />
-      
-      {/* Token Distribution Sub-Pages (18 programs) */}
-      <Route path="/admin/token-distribution/airdrop" component={AdminAirdropProgram} />
-      <Route path="/admin/token-distribution/referral" component={AdminReferralProgram} />
-      <Route path="/admin/token-distribution/events" component={AdminEventsCenter} />
-      <Route path="/admin/token-distribution/community-program" component={AdminCommunityProgram} />
-      <Route path="/admin/token-distribution/dao-governance" component={AdminDAOGovernance} />
-      <Route path="/admin/token-distribution/block-rewards" component={AdminBlockRewards} />
-      <Route path="/admin/token-distribution/validator-incentives" component={AdminValidatorIncentives} />
-      <Route path="/admin/token-distribution/ecosystem-fund" component={AdminEcosystemFund} />
-      <Route path="/admin/token-distribution/partnership-program" component={AdminPartnershipProgram} />
-      <Route path="/admin/token-distribution/marketing-program" component={AdminMarketingProgram} />
-      <Route path="/admin/token-distribution/strategic-partner" component={AdminStrategicPartner} />
-      <Route path="/admin/token-distribution/advisor-program" component={AdminAdvisorProgram} />
-      <Route path="/admin/token-distribution/seed-round" component={AdminSeedRound} />
-      <Route path="/admin/token-distribution/private-round" component={AdminPrivateRound} />
-      <Route path="/admin/token-distribution/public-round" component={AdminPublicRound} />
-      <Route path="/admin/token-distribution/launchpad" component={AdminLaunchpad} />
-      <Route path="/admin/token-distribution/coinlist" component={AdminCoinlist} />
-      <Route path="/admin/token-distribution/dao-maker" component={AdminDAOMaker} />
-
-      {/* Group 4: AI Systems */}
-      <Route path="/admin/ai" component={AdminAIOrchestration} />
-      <Route path="/admin/ai-orchestration" component={AdminAIOrchestration} />
-      <Route path="/admin/ai-tuning" component={AdminAITuning} />
-      <Route path="/admin/ai-training" component={AdminAITraining} />
-      <Route path="/admin/ai-analytics" component={AdminAIAnalytics} />
-
-      {/* Group 5: Bridge & Cross-Chain */}
-      <Route path="/admin/bridge" component={AdminBridgeDashboard} />
-      <Route path="/admin/bridge-dashboard" component={AdminBridgeDashboard} />
-      <Route path="/admin/bridge-liquidity" component={AdminBridgeLiquidity} />
-      <Route path="/admin/bridge-transfers" component={AdminBridgeTransfers} />
-      <Route path="/admin/bridge-validators" component={AdminBridgeValidators} />
-      <Route path="/admin/chains" component={AdminChainConnections} />
-      <Route path="/admin/chain-connections" component={AdminChainConnections} />
-
-      {/* Group 6: Security & Audit */}
-      <Route path="/admin/security" component={AdminSecurity} />
-      <Route path="/admin/threats" component={AdminThreatDetection} />
-      <Route path="/admin/threat-detection" component={AdminThreatDetection} />
-      <Route path="/admin/audit-logs" component={AdminAuditLogs} />
-      <Route path="/admin/compliance" component={AdminCompliance} />
-      <Route path="/admin/access-control" component={AdminAccessControl} />
-      <Route path="/admin/bug-bounty" component={AdminBugBounty} />
-
-      {/* Group 7: Data & Analytics */}
-      <Route path="/admin/bi" component={AdminBIDashboard} />
-      <Route path="/admin/bi-dashboard" component={AdminBIDashboard} />
-      <Route path="/admin/tx-analytics" component={AdminTxAnalytics} />
-      <Route path="/admin/user-analytics" component={AdminUserAnalytics} />
-      <Route path="/admin/network-analytics" component={AdminNetworkAnalytics} />
-      <Route path="/admin/reports" component={AdminReportGenerator} />
-      <Route path="/admin/report-generator" component={AdminReportGenerator} />
-
-      {/* Group 8: Operations Tools */}
-      <Route path="/admin/emergency" component={AdminEmergency} />
-      <Route path="/admin/maintenance" component={AdminMaintenance} />
-      <Route path="/admin/backup" component={AdminBackup} />
-      <Route path="/admin/updates" component={AdminUpdates} />
-      <Route path="/admin/logs" component={AdminLogs} />
-
-      {/* Group 9: Configuration */}
-      <Route path="/admin/settings" component={AdminSettings} />
-      <Route path="/admin/api-config" component={AdminAPIConfig} />
-      <Route path="/admin/integrations" component={AdminIntegrations} />
-      <Route path="/admin/notification-settings" component={AdminNotificationSettings} />
-      <Route path="/admin/appearance" component={AdminAppearance} />
-
-      {/* Group 10: User Management */}
-      <Route path="/admin/accounts" component={AdminAccounts} />
-      <Route path="/admin/roles" component={AdminRoles} />
-      <Route path="/admin/permissions" component={AdminPermissions} />
-      <Route path="/admin/activity" component={AdminActivity} />
-      <Route path="/admin/sessions" component={AdminSessions} />
-
-      {/* Group 11: Governance */}
-      <Route path="/admin/proposals" component={AdminProposals} />
-      <Route path="/admin/voting-config" component={AdminVoting} />
-      <Route path="/admin/voting" component={AdminVoting} />
-      <Route path="/admin/execution" component={AdminExecution} />
-      <Route path="/admin/gov-params" component={AdminGovParams} />
-      <Route path="/admin/community-feedback" component={AdminFeedback} />
-      <Route path="/admin/community" component={AdminCommunity} />
-      <Route path="/admin/community-content" component={AdminCommunityContent} />
-
-      {/* Group 12: Developer Tools */}
-      <Route path="/admin/api-docs" component={AdminAPIDocs} />
-      <Route path="/admin/sdk" component={AdminSDK} />
-      <Route path="/admin/contract-tools" component={AdminContractTools} />
-      <Route path="/admin/testnet" component={AdminTestnet} />
-      <Route path="/admin/debug" component={AdminDebug} />
-
-      {/* Group 13: Monitoring & Alerts */}
-      <Route path="/admin/realtime" component={AdminRealtime} />
-      <Route path="/admin/metrics-explorer" component={AdminMetricsExplorer} />
-      <Route path="/admin/alert-rules" component={AdminAlertRules} />
-      <Route path="/admin/dashboard-builder" component={AdminDashboardBuilder} />
-      <Route path="/admin/sla" component={AdminSLA} />
-
-      {/* Group 14: Finance & Accounting */}
-      <Route path="/admin/finance" component={AdminFinance} />
-      <Route path="/admin/tx-accounting" component={AdminTxAccounting} />
-      <Route path="/admin/budget" component={AdminBudget} />
-      <Route path="/admin/cost-analysis" component={AdminCostAnalysis} />
-      <Route path="/admin/tax" component={AdminTax} />
-
-      {/* Group 15: Education & Support */}
-      <Route path="/admin/help" component={AdminHelp} />
-      <Route path="/admin/training" component={AdminTraining} />
-      <Route path="/admin/tickets" component={AdminTickets} />
-      <Route path="/admin/feedback" component={AdminFeedback} />
-      <Route path="/admin/announcements" component={AdminAnnouncements} />
-
-      {/* Group 16: Genesis Launch */}
-      <Route path="/admin/genesis" component={AdminGenesisLaunch} />
-      
-      {/* Group 19: Database & Distribution Management */}
-      <Route path="/admin/db-optimizer" component={AdminDBOptimizer} />
-      <Route path="/admin/distribution" component={AdminDistribution} />
-      <Route path="/admin/distribution-programs" component={AdminDistributionPrograms} />
-
-      {/* Group 20: Demo Wallet Management */}
-      <Route path="/admin/demo-wallets" component={AdminDemoWallets} />
-
-      {/* Group 17: Marketing */}
-      <Route path="/admin/newsletter" component={AdminNewsletter} />
-
-      {/* Default fallback */}
-      <Route component={UnifiedDashboard} />
-    </Switch>
+    <Suspense fallback={<AdminPageLoading />}>
+      <Switch>
+        <Route path="/admin" component={UnifiedDashboard} />
+        <Route path="/admin/performance" component={AdminPerformance} />
+        <Route path="/admin/health" component={AdminHealth} />
+        <Route path="/admin/alerts" component={AdminAlerts} />
+        <Route path="/admin/logs" component={AdminLogs} />
+        <Route path="/admin/nodes" component={AdminNodes} />
+        <Route path="/admin/validators" component={AdminValidators} />
+        <Route path="/admin/members" component={AdminMembers} />
+        <Route path="/admin/consensus" component={AdminConsensus} />
+        <Route path="/admin/shards" component={AdminShards} />
+        <Route path="/admin/network-params" component={AdminNetworkParams} />
+        <Route path="/admin/token-issuance" component={AdminTokenIssuance} />
+        <Route path="/admin/burn-control" component={AdminBurnControl} />
+        <Route path="/admin/treasury" component={AdminTreasury} />
+        <Route path="/admin/economics" component={AdminEconomics} />
+        <Route path="/admin/tokenomics" component={AdminTokenomics} />
+        <Route path="/admin/token-distribution" component={AdminTokenDistribution} />
+        <Route path="/admin/token-distribution/airdrop" component={AdminAirdropProgram} />
+        <Route path="/admin/token-distribution/referral" component={AdminReferralProgram} />
+        <Route path="/admin/token-distribution/events" component={AdminEventsCenter} />
+        <Route path="/admin/token-distribution/community-program" component={AdminCommunityProgram} />
+        <Route path="/admin/token-distribution/dao-governance" component={AdminDAOGovernance} />
+        <Route path="/admin/token-distribution/block-rewards" component={AdminBlockRewards} />
+        <Route path="/admin/token-distribution/validator-incentives" component={AdminValidatorIncentives} />
+        <Route path="/admin/token-distribution/ecosystem-fund" component={AdminEcosystemFund} />
+        <Route path="/admin/token-distribution/partnership-program" component={AdminPartnershipProgram} />
+        <Route path="/admin/token-distribution/marketing-program" component={AdminMarketingProgram} />
+        <Route path="/admin/token-distribution/strategic-partner" component={AdminStrategicPartner} />
+        <Route path="/admin/token-distribution/advisor-program" component={AdminAdvisorProgram} />
+        <Route path="/admin/token-distribution/seed-round" component={AdminSeedRound} />
+        <Route path="/admin/token-distribution/private-round" component={AdminPrivateRound} />
+        <Route path="/admin/token-distribution/public-round" component={AdminPublicRound} />
+        <Route path="/admin/token-distribution/launchpad" component={AdminLaunchpad} />
+        <Route path="/admin/token-distribution/coinlist" component={AdminCoinlist} />
+        <Route path="/admin/token-distribution/dao-maker" component={AdminDAOMaker} />
+        <Route path="/admin/ai" component={AdminAIOrchestration} />
+        <Route path="/admin/ai-orchestration" component={AdminAIOrchestration} />
+        <Route path="/admin/ai-tuning" component={AdminAITuning} />
+        <Route path="/admin/ai-training" component={AdminAITraining} />
+        <Route path="/admin/ai-analytics" component={AdminAIAnalytics} />
+        <Route path="/admin/bridge" component={AdminBridgeDashboard} />
+        <Route path="/admin/bridge-dashboard" component={AdminBridgeDashboard} />
+        <Route path="/admin/bridge-liquidity" component={AdminBridgeLiquidity} />
+        <Route path="/admin/bridge-transfers" component={AdminBridgeTransfers} />
+        <Route path="/admin/bridge-validators" component={AdminBridgeValidators} />
+        <Route path="/admin/chains" component={AdminChainConnections} />
+        <Route path="/admin/chain-connections" component={AdminChainConnections} />
+        <Route path="/admin/security" component={AdminSecurity} />
+        <Route path="/admin/threats" component={AdminThreatDetection} />
+        <Route path="/admin/threat-detection" component={AdminThreatDetection} />
+        <Route path="/admin/audit-logs" component={AdminAuditLogs} />
+        <Route path="/admin/compliance" component={AdminCompliance} />
+        <Route path="/admin/access-control" component={AdminAccessControl} />
+        <Route path="/admin/bug-bounty" component={AdminBugBounty} />
+        <Route path="/admin/bi" component={AdminBIDashboard} />
+        <Route path="/admin/bi-dashboard" component={AdminBIDashboard} />
+        <Route path="/admin/tx-analytics" component={AdminTxAnalytics} />
+        <Route path="/admin/user-analytics" component={AdminUserAnalytics} />
+        <Route path="/admin/network-analytics" component={AdminNetworkAnalytics} />
+        <Route path="/admin/report-generator" component={AdminReportGenerator} />
+        <Route path="/admin/emergency" component={AdminEmergency} />
+        <Route path="/admin/maintenance" component={AdminMaintenance} />
+        <Route path="/admin/backup" component={AdminBackup} />
+        <Route path="/admin/updates" component={AdminUpdates} />
+        <Route path="/admin/logs" component={AdminLogs} />
+        <Route path="/admin/settings" component={AdminSettings} />
+        <Route path="/admin/api-config" component={AdminAPIConfig} />
+        <Route path="/admin/integrations" component={AdminIntegrations} />
+        <Route path="/admin/notification-settings" component={AdminNotificationSettings} />
+        <Route path="/admin/appearance" component={AdminAppearance} />
+        <Route path="/admin/accounts" component={AdminAccounts} />
+        <Route path="/admin/roles" component={AdminRoles} />
+        <Route path="/admin/permissions" component={AdminPermissions} />
+        <Route path="/admin/activity" component={AdminActivity} />
+        <Route path="/admin/sessions" component={AdminSessions} />
+        <Route path="/admin/proposals" component={AdminProposals} />
+        <Route path="/admin/voting-config" component={AdminVoting} />
+        <Route path="/admin/voting" component={AdminVoting} />
+        <Route path="/admin/execution" component={AdminExecution} />
+        <Route path="/admin/gov-params" component={AdminGovParams} />
+        <Route path="/admin/community-feedback" component={AdminFeedback} />
+        <Route path="/admin/community" component={AdminCommunity} />
+        <Route path="/admin/community-content" component={AdminCommunityContent} />
+        <Route path="/admin/api-docs" component={AdminAPIDocs} />
+        <Route path="/admin/sdk" component={AdminSDK} />
+        <Route path="/admin/contract-tools" component={AdminContractTools} />
+        <Route path="/admin/testnet" component={AdminTestnet} />
+        <Route path="/admin/debug" component={AdminDebug} />
+        <Route path="/admin/realtime" component={AdminRealtime} />
+        <Route path="/admin/metrics-explorer" component={AdminMetricsExplorer} />
+        <Route path="/admin/alert-rules" component={AdminAlertRules} />
+        <Route path="/admin/dashboard-builder" component={AdminDashboardBuilder} />
+        <Route path="/admin/sla" component={AdminSLA} />
+        <Route path="/admin/finance" component={AdminFinance} />
+        <Route path="/admin/tx-accounting" component={AdminTxAccounting} />
+        <Route path="/admin/budget" component={AdminBudget} />
+        <Route path="/admin/cost-analysis" component={AdminCostAnalysis} />
+        <Route path="/admin/tax" component={AdminTax} />
+        <Route path="/admin/help" component={AdminHelp} />
+        <Route path="/admin/training" component={AdminTraining} />
+        <Route path="/admin/tickets" component={AdminTickets} />
+        <Route path="/admin/feedback" component={AdminFeedback} />
+        <Route path="/admin/announcements" component={AdminAnnouncements} />
+        <Route path="/admin/genesis" component={AdminGenesisLaunch} />
+        <Route path="/admin/db-optimizer" component={AdminDBOptimizer} />
+        <Route path="/admin/distribution" component={AdminDistribution} />
+        <Route path="/admin/distribution-programs" component={AdminDistributionPrograms} />
+        <Route path="/admin/demo-wallets" component={AdminDemoWallets} />
+        <Route path="/admin/newsletter" component={AdminNewsletter} />
+        <Route component={UnifiedDashboard} />
+      </Switch>
+    </Suspense>
   );
 }
 
@@ -345,7 +281,18 @@ export function AdminPortalLayout() {
   }
 
   if (!authData?.authenticated) {
-    return <Login onLoginSuccess={() => refetch()} isAdminLogin={true} />;
+    return (
+      <Suspense fallback={
+        <div className="min-h-screen flex items-center justify-center bg-background">
+          <div className="flex flex-col items-center gap-4">
+            <Shield className="h-12 w-12 text-primary animate-pulse" />
+            <p className="text-muted-foreground">Loading Login...</p>
+          </div>
+        </div>
+      }>
+        <Login onLoginSuccess={() => refetch()} isAdminLogin={true} />
+      </Suspense>
+    );
   }
 
   return (
