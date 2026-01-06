@@ -272,13 +272,13 @@ class ProductionDataPoller {
       let successCount = 0;
       
       if (networkStats.status === 'fulfilled' && networkStats.value) {
-        this.cache.set(DataCacheService.KEYS.NETWORK_STATS, networkStats.value, 30000);
+        this.cache.set(DataCacheService.KEYS.NETWORK_STATS, networkStats.value, 5000);
         successCount++;
       }
       
       // Only cache shards if we got valid data (non-empty array)
       if (shards.status === 'fulfilled' && shards.value && Array.isArray(shards.value) && shards.value.length > 0) {
-        this.cache.set(DataCacheService.KEYS.SHARDS, shards.value, 30000);
+        this.cache.set(DataCacheService.KEYS.SHARDS, shards.value, 5000);
         successCount++;
       }
       
@@ -329,7 +329,7 @@ class ProductionDataPoller {
             snapshot || networkStats.value,
             moduleMetrics || {}
           );
-          this.cache.set('public_network_stats', publicNetworkData, 30000);
+          this.cache.set('public_network_stats', publicNetworkData, 5000);
           successCount++;
           
           // Testnet uses same data sources
@@ -337,7 +337,7 @@ class ProductionDataPoller {
             networkStats.value,
             snapshot || networkStats.value
           );
-          this.cache.set('public_testnet_stats', publicTestnetData, 30000);
+          this.cache.set('public_testnet_stats', publicTestnetData, 5000);
           successCount++;
         } catch (e) {
           console.log('[ProductionDataPoller] Failed to warm public API caches');

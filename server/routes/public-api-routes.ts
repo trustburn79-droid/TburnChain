@@ -12,6 +12,7 @@ import { getTBurnClient, isProductionMode } from '../tburn-client';
 import { getDataCache } from '../services/DataCacheService';
 import { formatTBurnAddress, addressFromString, SYSTEM_ADDRESSES } from '../utils/tburn-address';
 import { getEnterpriseNode } from '../services/TBurnEnterpriseNode';
+import { getRealtimeMetricsService } from '../services/RealtimeMetricsService';
 import type { Block, Transaction, Validator } from '@shared/schema';
 
 const router = Router();
@@ -85,29 +86,52 @@ function setCacheHeaders(res: Response, maxAge: number) {
 }
 
 /**
- * Get real-time TPS and transaction count from Enterprise Node (unified source for all pages)
- * CRITICAL: Dec 26 Launch - This ensures /admin/shards, /app, /scan, /rpc all show same stats
- * Uses generateShards() and sums TPS for EXACT synchronization with /api/sharding
+ * Get real-time TPS from RealtimeMetricsService (unified source for all pages)
+ * CRITICAL: Jan 6 Launch - EXACT sync with /api/sharding using same data source
+ * Uses getCachedShards() to sum TPS - same as routes.ts calculateRealTimeTps()
  */
 function getUnifiedTpsData(): { tps: number; shardCount: number; validators: number; peakTps: number; totalTransactions: number; blockHeight: number } {
   try {
+    // PRIORITY 1: Use RealtimeMetricsService.getCachedShards() for EXACT sync with /api/sharding
+    // This is the same method used by routes.ts calculateRealTimeTps()
+    const realtimeService = getRealtimeMetricsService();
+    if (realtimeService) {
+      const dbShards = realtimeService.getCachedShards();
+      
+      if (dbShards && dbShards.length > 0) {
+        // Sum TPS from all shards - EXACT same calculation as /api/sharding
+        const totalTps = dbShards.reduce((sum, s) => sum + (s.tps || 0), 0);
+        const totalValidators = dbShards.reduce((sum, s) => sum + (s.validatorCount || 16), 0);
+        const shardCount = dbShards.length;
+        
+        const enterpriseNode = getEnterpriseNode();
+        const totalTx = enterpriseNode?.getTotalTransactions() || 80452000;
+        const blockHeight = enterpriseNode?.getCurrentBlockHeight() || 2000000;
+        const peakTps = enterpriseNode?.getRealTimeTPS()?.peak || Math.floor(totalTps * 1.2);
+        
+        return {
+          tps: totalTps, // EXACT match with /api/sharding
+          shardCount,
+          validators: totalValidators,
+          peakTps,
+          totalTransactions: totalTx,
+          blockHeight
+        };
+      }
+    }
+    
+    // FALLBACK: Use Enterprise Node if RealtimeMetricsService not ready
     const enterpriseNode = getEnterpriseNode();
     if (enterpriseNode) {
-      // Use generateShards() for EXACT TPS match with /api/shards and /api/sharding
       const shards = enterpriseNode.generateShards();
       const totalTps = shards.reduce((sum: number, s: any) => sum + s.tps, 0);
       const totalValidators = shards.reduce((sum: number, s: any) => sum + s.validatorCount, 0);
       const realTimeTps = enterpriseNode.getRealTimeTPS();
-      
-      // Get totalTransactions directly from Enterprise Node for consistency
-      // Use stable value from the node's internal counter (synchronous getter)
       const totalTx = enterpriseNode.getTotalTransactions() || 80452000;
-      
-      // CRITICAL: Get blockHeight from Enterprise Node for unified display
       const blockHeight = enterpriseNode.getCurrentBlockHeight() || 2000000;
       
       return {
-        tps: totalTps, // Sum of shard TPS for exact sync
+        tps: totalTps,
         shardCount: shards.length,
         validators: totalValidators,
         peakTps: realTimeTps.peak,
@@ -116,7 +140,7 @@ function getUnifiedTpsData(): { tps: number; shardCount: number; validators: num
       };
     }
   } catch (e) {
-    console.log('[Public API] Enterprise node not ready, using fallback');
+    console.log('[Public API] RealtimeMetrics not ready, using fallback');
   }
   return { tps: 210000, shardCount: 64, validators: 125, peakTps: 250000, totalTransactions: 80452000, blockHeight: 2000000 };
 }
@@ -1604,8 +1628,8 @@ router.get('/testnet/network/stats', async (req: Request, res: Response) => {
     // Build data using shared formatter
     const data = await buildPublicTestnetStats();
     
-    // Cache for 30 seconds
-    cache.set(PUBLIC_CACHE_KEYS.TESTNET_STATS, data, 30000);
+    // Cache for 5 seconds (real-time TPS sync)
+    cache.set(PUBLIC_CACHE_KEYS.TESTNET_STATS, data, 5000);
     
     res.json({ success: true, data, lastUpdated: now });
   } catch (error) {
