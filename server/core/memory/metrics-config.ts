@@ -7,10 +7,10 @@
  * @version 7.0.0-enterprise
  */
 
-// 동적 하드웨어 감지
-const osModule = require('os');
-const detectedRAM = Math.round(osModule.totalmem() / (1024 * 1024 * 1024));
-const detectedCores = osModule.cpus()?.length || 4;
+import * as os from 'os';
+
+const detectedRAM = Math.round(os.totalmem() / (1024 * 1024 * 1024));
+const detectedCores = os.cpus()?.length || 4;
 const isLargeEnv = detectedRAM >= 8;
 
 export const METRICS_CONFIG = {
