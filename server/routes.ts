@@ -1882,7 +1882,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
 
   // ============================================
-  // Memory Management API (v6.0 Enterprise) - 빠른 응답
+  // Memory Management API (v7.0 Enterprise - 32GB Production)
   // ============================================
   
   // 캐시된 모듈 참조 (초기화 후 재사용)
@@ -1890,83 +1890,138 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     memoryManager: any;
     metricsAggregator: any;
     blockMemoryManager: any;
+    METRICS_CONFIG: any;
   } | null = null;
   
   const getMemoryModules = async () => {
     if (!memoryModules) {
-      const [mm, ma, bmm] = await Promise.all([
+      const [mm, ma, bmm, mc] = await Promise.all([
         import('./core/memory/memory-manager'),
         import('./core/memory/metrics-aggregator'),
         import('./core/memory/block-memory-manager'),
+        import('./core/memory/metrics-config'),
       ]);
       memoryModules = {
         memoryManager: mm.memoryManager,
         metricsAggregator: ma.metricsAggregator,
         blockMemoryManager: bmm.blockMemoryManager,
+        METRICS_CONFIG: mc.METRICS_CONFIG,
       };
     }
     return memoryModules;
   };
   
+  // 기본 메모리 메트릭
   app.get("/api/memory/metrics", async (_req, res) => {
     try {
       const modules = await getMemoryModules();
+      const memoryMetrics = modules.memoryManager.getMetrics();
+      const aggregatorStats = modules.metricsAggregator.getStats();
+      const blockCacheStats = modules.blockMemoryManager.getStats();
       
-      // 빠른 응답을 위해 간단한 메트릭만 반환
-      const usage = process.memoryUsage();
       res.json({
+        version: '7.0.0-enterprise',
+        memory: memoryMetrics,
+        aggregator: aggregatorStats,
+        blockCache: blockCacheStats,
+        hardware: {
+          cpuCores: modules.METRICS_CONFIG.HARDWARE.CPU_CORES,
+          ramGB: modules.METRICS_CONFIG.HARDWARE.RAM_GB,
+          targetHeapGB: modules.METRICS_CONFIG.HARDWARE.TARGET_HEAP_GB,
+        },
+        timestamp: new Date().toISOString(),
+      });
+    } catch (error) {
+      const usage = process.memoryUsage();
+      res.json({ 
+        version: '7.0.0-enterprise',
         memory: {
           heapUsedMB: Math.round(usage.heapUsed / 1024 / 1024),
           heapTotalMB: Math.round(usage.heapTotal / 1024 / 1024),
           rssMB: Math.round(usage.rss / 1024 / 1024),
           heapUsagePercent: Math.round((usage.heapUsed / usage.heapTotal) * 100),
         },
-        aggregator: {
-          rawCount: modules.metricsAggregator.getStats?.()?.rawCount ?? 0,
-        },
-        blockCache: {
-          cacheSize: modules.blockMemoryManager.getStats?.()?.cacheSize ?? 0,
-        },
-        timestamp: new Date().toISOString(),
-      });
-    } catch (error) {
-      // 에러 시에도 기본 메모리 정보 반환
-      const usage = process.memoryUsage();
-      res.json({ 
-        memory: {
-          heapUsedMB: Math.round(usage.heapUsed / 1024 / 1024),
-          heapTotalMB: Math.round(usage.heapTotal / 1024 / 1024),
-          heapUsagePercent: Math.round((usage.heapUsed / usage.heapTotal) * 100),
-        },
-        error: 'Partial metrics only',
+        error: 'Partial metrics - modules loading',
         timestamp: new Date().toISOString(),
       });
     }
   });
   
+  // 상세 메트릭 (Grafana 대시보드용)
+  app.get("/api/memory/detailed", async (_req, res) => {
+    try {
+      const modules = await getMemoryModules();
+      const memoryMetrics = modules.memoryManager.getMetrics();
+      const aggregatorStats = modules.metricsAggregator.getStats();
+      const blockCacheStats = modules.blockMemoryManager.getStats();
+      const snapshots = modules.memoryManager.getSnapshots();
+      const anomalies = modules.metricsAggregator.getAnomalies(Date.now() - 3600000);
+      
+      res.json({
+        version: '7.0.0-enterprise',
+        memory: memoryMetrics,
+        aggregator: aggregatorStats,
+        blockCache: blockCacheStats,
+        snapshots: snapshots.slice(-5),
+        recentAnomalies: anomalies.slice(-10),
+        config: {
+          collectionInterval: modules.METRICS_CONFIG.COLLECTION_INTERVAL,
+          maxMemoryMB: modules.METRICS_CONFIG.MAX_MEMORY_MB,
+          gcThresholds: modules.METRICS_CONFIG.GC_THRESHOLDS,
+          blockCacheConfig: modules.METRICS_CONFIG.BLOCK_CACHE,
+        },
+        timestamp: new Date().toISOString(),
+      });
+    } catch (error) {
+      res.status(500).json({ error: 'Failed to get detailed metrics' });
+    }
+  });
+  
+  // Prometheus 형식 메트릭
   app.get("/api/memory/prometheus", async (_req, res) => {
     try {
       const modules = await getMemoryModules();
+      const memoryProm = modules.memoryManager.getPrometheusMetrics();
+      const aggregatorProm = modules.metricsAggregator.getPrometheusMetrics();
+      
       res.set('Content-Type', 'text/plain');
-      res.send(modules.memoryManager.getPrometheusMetrics());
+      res.send(`${memoryProm}\n\n${aggregatorProm}`);
     } catch (error) {
       const usage = process.memoryUsage();
       res.set('Content-Type', 'text/plain');
-      res.send(`# HELP tburn_memory_heap_used_bytes Heap used\ntburn_memory_heap_used_bytes ${usage.heapUsed}`);
+      res.send([
+        `# HELP tburn_memory_heap_used_bytes Heap used`,
+        `# TYPE tburn_memory_heap_used_bytes gauge`,
+        `tburn_memory_heap_used_bytes ${usage.heapUsed}`,
+      ].join('\n'));
     }
   });
   
+  // GC 트리거
   app.post("/api/memory/gc", async (_req, res) => {
     try {
       const modules = await getMemoryModules();
+      const beforeUsage = process.memoryUsage();
+      
       modules.memoryManager.forceCleanup();
-      res.json({ 
-        success: true, 
-        message: 'GC triggered',
-        timestamp: new Date().toISOString() 
-      });
+      
+      // 1초 후 결과 확인
+      setTimeout(() => {
+        const afterUsage = process.memoryUsage();
+        res.json({ 
+          success: true, 
+          message: 'GC triggered',
+          before: {
+            heapUsedMB: Math.round(beforeUsage.heapUsed / 1024 / 1024),
+          },
+          after: {
+            heapUsedMB: Math.round(afterUsage.heapUsed / 1024 / 1024),
+          },
+          freedMB: Math.round((beforeUsage.heapUsed - afterUsage.heapUsed) / 1024 / 1024),
+          timestamp: new Date().toISOString() 
+        });
+      }, 1000);
     } catch (error) {
-      // GC 직접 트리거
       if (typeof global.gc === 'function') global.gc();
       res.json({ 
         success: true, 
@@ -1975,6 +2030,63 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       });
     }
   });
+  
+  // 이상 탐지 조회
+  app.get("/api/memory/anomalies", async (req, res) => {
+    try {
+      const modules = await getMemoryModules();
+      const since = req.query.since ? parseInt(req.query.since as string) : Date.now() - 3600000;
+      const anomalies = modules.metricsAggregator.getAnomalies(since);
+      
+      res.json({
+        count: anomalies.length,
+        anomalies,
+        since: new Date(since).toISOString(),
+        timestamp: new Date().toISOString(),
+      });
+    } catch (error) {
+      res.json({ count: 0, anomalies: [], timestamp: new Date().toISOString() });
+    }
+  });
+  
+  // 힙 스냅샷 조회
+  app.get("/api/memory/snapshots", async (_req, res) => {
+    try {
+      const modules = await getMemoryModules();
+      const snapshots = modules.memoryManager.getSnapshots();
+      
+      res.json({
+        count: snapshots.length,
+        snapshots,
+        timestamp: new Date().toISOString(),
+      });
+    } catch (error) {
+      res.json({ count: 0, snapshots: [], timestamp: new Date().toISOString() });
+    }
+  });
+  
+  // 블록 캐시 상세
+  app.get("/api/memory/block-cache", async (_req, res) => {
+    try {
+      const modules = await getMemoryModules();
+      const stats = modules.blockMemoryManager.getStats();
+      
+      res.json({
+        stats,
+        policy: {
+          inMemoryBlocks: modules.METRICS_CONFIG.BLOCK_CACHE.IN_MEMORY_BLOCKS,
+          hotCacheBlocks: modules.METRICS_CONFIG.BLOCK_CACHE.HOT_CACHE_BLOCKS,
+          warmCacheBlocks: modules.METRICS_CONFIG.BLOCK_CACHE.WARM_CACHE_BLOCKS,
+          maxCacheSizeMB: modules.METRICS_CONFIG.BLOCK_CACHE.MAX_CACHE_SIZE_MB,
+        },
+        timestamp: new Date().toISOString(),
+      });
+    } catch (error) {
+      res.status(500).json({ error: 'Failed to get block cache stats' });
+    }
+  });
+  
+  console.log('[Routes] ✅ Memory Management API v7.0 registered (8 endpoints)');
   
   // ============================================
   // /tmp Disk Monitoring (v5.1 Enterprise - Secure Async)

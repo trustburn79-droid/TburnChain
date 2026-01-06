@@ -1,10 +1,10 @@
 /**
- * TBURN Enterprise Metrics Aggregator v6.0
+ * TBURN Enterprise Metrics Aggregator v7.0
  * 
- * Memory-efficient metric aggregation with circular buffer storage
- * and automatic downsampling (1-minute, 1-hour aggregates)
+ * Production-grade metric aggregation with advanced analytics
+ * Includes percentile calculations, anomaly detection, and trend analysis
  * 
- * @version 6.0.0-enterprise
+ * @version 7.0.0-enterprise
  */
 
 import { EventEmitter } from 'events';
@@ -20,36 +20,58 @@ export interface AggregatedMetric {
   min: number;
   max: number;
   p50: number;
+  p90: number;
   p95: number;
   p99: number;
+  stdDev: number;
+  rate: number;           // 변화율
+  trend: 'up' | 'down' | 'stable';
 }
 
-interface MetricBucket {
+export interface AnomalyDetection {
+  timestamp: number;
+  metricName: string;
+  value: number;
+  expected: number;
+  deviation: number;
+  severity: 'low' | 'medium' | 'high' | 'critical';
+  message: string;
+}
+
+interface TrendData {
   values: number[];
-  count: number;
-  sum: number;
-  min: number;
-  max: number;
+  timestamps: number[];
+  avg: number;
+  stdDev: number;
 }
 
 export class MetricsAggregator extends EventEmitter {
   private rawMetrics: CircularBuffer<MetricPoint>;
   private aggregated1m: Map<string, AggregatedMetric> = new Map();
   private aggregated1h: Map<string, AggregatedMetric> = new Map();
+  private aggregated1d: Map<string, AggregatedMetric> = new Map();
+  
+  private trendData: Map<string, TrendData> = new Map();
+  private anomalies: AnomalyDetection[] = [];
   
   private aggregateMinuteTimer: NodeJS.Timeout | null = null;
   private aggregateHourTimer: NodeJS.Timeout | null = null;
+  private aggregateDayTimer: NodeJS.Timeout | null = null;
   private cleanupTimer: NodeJS.Timeout | null = null;
+  private anomalyCheckTimer: NodeJS.Timeout | null = null;
   
   private isRunning = false;
   private startTime = Date.now();
+  private recordCount = 0;
   
   constructor() {
     super();
     
-    // 원본 데이터: 512MB 환경 최적화 (작은 버퍼)
-    // 30초 간격 × 10개 핵심 메트릭 × 60개 (30분분) = 600
-    const bufferCapacity = Math.min(600, METRICS_CONFIG.MAX_DATAPOINTS);
+    // 32GB 환경: 대용량 버퍼 (10초 간격 × 100개 메트릭 × 360개 (1시간분) = 36000)
+    const bufferCapacity = Math.min(
+      Math.ceil((METRICS_CONFIG.RETENTION.RAW / METRICS_CONFIG.COLLECTION_INTERVAL) * 100),
+      METRICS_CONFIG.MAX_DATAPOINTS
+    );
     this.rawMetrics = new CircularBuffer<MetricPoint>(bufferCapacity);
   }
   
@@ -69,10 +91,22 @@ export class MetricsAggregator extends EventEmitter {
       60 * 60 * 1000
     );
     
-    // 10분마다 정리
+    // 1일마다 집계
+    this.aggregateDayTimer = setInterval(
+      () => this.aggregateToDay(),
+      24 * 60 * 60 * 1000
+    );
+    
+    // 5분마다 정리
     this.cleanupTimer = setInterval(
       () => this.cleanup(),
-      10 * 60 * 1000
+      5 * 60 * 1000
+    );
+    
+    // 30초마다 이상 탐지
+    this.anomalyCheckTimer = setInterval(
+      () => this.detectAnomalies(),
+      30 * 1000
     );
     
     console.log('[MetricsAggregator] Started with buffer capacity:', 
@@ -83,23 +117,28 @@ export class MetricsAggregator extends EventEmitter {
     if (!this.isRunning) return;
     this.isRunning = false;
     
-    if (this.aggregateMinuteTimer) {
-      clearInterval(this.aggregateMinuteTimer);
-      this.aggregateMinuteTimer = null;
+    const timers = [
+      this.aggregateMinuteTimer,
+      this.aggregateHourTimer,
+      this.aggregateDayTimer,
+      this.cleanupTimer,
+      this.anomalyCheckTimer,
+    ];
+    
+    for (const timer of timers) {
+      if (timer) clearInterval(timer);
     }
-    if (this.aggregateHourTimer) {
-      clearInterval(this.aggregateHourTimer);
-      this.aggregateHourTimer = null;
-    }
-    if (this.cleanupTimer) {
-      clearInterval(this.cleanupTimer);
-      this.cleanupTimer = null;
-    }
+    
+    this.aggregateMinuteTimer = null;
+    this.aggregateHourTimer = null;
+    this.aggregateDayTimer = null;
+    this.cleanupTimer = null;
+    this.anomalyCheckTimer = null;
     
     console.log('[MetricsAggregator] Stopped');
   }
   
-  // 메트릭 추가 (원형 버퍼 - 자동 오래된 데이터 제거)
+  // 메트릭 추가
   record(name: string, value: number, tags?: Record<string, string>): void {
     const metric: MetricPoint = {
       timestamp: Date.now(),
@@ -108,6 +147,46 @@ export class MetricsAggregator extends EventEmitter {
       tags,
     };
     this.rawMetrics.push(metric);
+    this.recordCount++;
+    
+    // 트렌드 데이터 업데이트
+    this.updateTrendData(name, value, metric.timestamp);
+  }
+  
+  // 배치 기록 (고성능)
+  recordBatch(metrics: Array<{ name: string; value: number; tags?: Record<string, string> }>): void {
+    const now = Date.now();
+    for (const m of metrics) {
+      this.rawMetrics.push({
+        timestamp: now,
+        name: m.name,
+        value: m.value,
+        tags: m.tags,
+      });
+      this.updateTrendData(m.name, m.value, now);
+    }
+    this.recordCount += metrics.length;
+  }
+  
+  private updateTrendData(name: string, value: number, timestamp: number): void {
+    let trend = this.trendData.get(name);
+    if (!trend) {
+      trend = { values: [], timestamps: [], avg: 0, stdDev: 0 };
+      this.trendData.set(name, trend);
+    }
+    
+    trend.values.push(value);
+    trend.timestamps.push(timestamp);
+    
+    // 최근 100개만 유지
+    if (trend.values.length > 100) {
+      trend.values.shift();
+      trend.timestamps.shift();
+    }
+    
+    // 통계 업데이트
+    trend.avg = trend.values.reduce((a, b) => a + b, 0) / trend.values.length;
+    trend.stdDev = this.calculateStdDev(trend.values, trend.avg);
   }
   
   // 1분 집계
@@ -115,9 +194,7 @@ export class MetricsAggregator extends EventEmitter {
     const now = Date.now();
     const oneMinuteAgo = now - 60 * 1000;
     
-    const recentMetrics = this.rawMetrics.filter(
-      m => m.timestamp >= oneMinuteAgo
-    );
+    const recentMetrics = this.rawMetrics.filterByTimeRange(oneMinuteAgo, now);
     
     // 메트릭 이름별로 그룹화
     const grouped = new Map<string, number[]>();
@@ -134,8 +211,8 @@ export class MetricsAggregator extends EventEmitter {
       this.aggregated1m.set(key, aggregated);
     }
     
-    // 24시간 이상 된 1분 집계 삭제
-    this.cleanupOldAggregates(this.aggregated1m, 24 * 60);
+    // 7일 이상 된 1분 집계 삭제
+    this.cleanupOldAggregates(this.aggregated1m, 7 * 24 * 60);
     
     this.emit('minuteAggregated', { timestamp: now, count: grouped.size });
   }
@@ -145,7 +222,6 @@ export class MetricsAggregator extends EventEmitter {
     const now = Date.now();
     const oneHourAgo = now - 60 * 60 * 1000;
     
-    // 지난 1시간의 1분 집계에서 데이터 수집
     const hourlyData = new Map<string, number[]>();
     
     for (const [key, agg] of this.aggregated1m) {
@@ -154,22 +230,51 @@ export class MetricsAggregator extends EventEmitter {
       
       if (timestamp >= oneHourAgo && timestamp < now) {
         const values = hourlyData.get(name) || [];
-        values.push(agg.avg); // 평균값들을 사용
+        values.push(agg.avg);
         hourlyData.set(name, values);
       }
     }
     
-    // 1시간 집계 계산
     for (const [name, values] of hourlyData) {
       const aggregated = this.computeAggregates(name, values, now);
       const key = `${name}:${Math.floor(now / 3600000)}`;
       this.aggregated1h.set(key, aggregated);
     }
     
-    // 7일 이상 된 1시간 집계 삭제
-    this.cleanupOldAggregates(this.aggregated1h, 7 * 24);
+    // 30일 이상 된 1시간 집계 삭제
+    this.cleanupOldAggregates(this.aggregated1h, 30 * 24);
     
     this.emit('hourAggregated', { timestamp: now, count: hourlyData.size });
+  }
+  
+  // 1일 집계
+  private aggregateToDay(): void {
+    const now = Date.now();
+    const oneDayAgo = now - 24 * 60 * 60 * 1000;
+    
+    const dailyData = new Map<string, number[]>();
+    
+    for (const [key, agg] of this.aggregated1h) {
+      const [name, timestampKey] = key.split(':');
+      const timestamp = parseInt(timestampKey) * 3600000;
+      
+      if (timestamp >= oneDayAgo && timestamp < now) {
+        const values = dailyData.get(name) || [];
+        values.push(agg.avg);
+        dailyData.set(name, values);
+      }
+    }
+    
+    for (const [name, values] of dailyData) {
+      const aggregated = this.computeAggregates(name, values, now);
+      const key = `${name}:${Math.floor(now / 86400000)}`;
+      this.aggregated1d.set(key, aggregated);
+    }
+    
+    // 1년 이상 된 1일 집계 삭제
+    this.cleanupOldAggregates(this.aggregated1d, 365);
+    
+    this.emit('dayAggregated', { timestamp: now, count: dailyData.size });
   }
   
   private computeAggregates(
@@ -187,26 +292,58 @@ export class MetricsAggregator extends EventEmitter {
         min: 0,
         max: 0,
         p50: 0,
+        p90: 0,
         p95: 0,
         p99: 0,
+        stdDev: 0,
+        rate: 0,
+        trend: 'stable',
       };
     }
     
     const sorted = [...values].sort((a, b) => a - b);
     const sum = values.reduce((a, b) => a + b, 0);
+    const avg = sum / values.length;
+    const stdDev = this.calculateStdDev(values, avg);
+    
+    // 트렌드 분석
+    const trendInfo = this.trendData.get(name);
+    let trend: 'up' | 'down' | 'stable' = 'stable';
+    let rate = 0;
+    
+    if (trendInfo && trendInfo.values.length >= 3) {
+      const recentAvg = trendInfo.values.slice(-3).reduce((a, b) => a + b, 0) / 3;
+      const oldAvg = trendInfo.values.slice(0, 3).reduce((a, b) => a + b, 0) / 
+        Math.min(3, trendInfo.values.length);
+      
+      rate = oldAvg !== 0 ? ((recentAvg - oldAvg) / oldAvg) * 100 : 0;
+      
+      if (rate > 10) trend = 'up';
+      else if (rate < -10) trend = 'down';
+    }
     
     return {
       timestamp,
       name,
       count: values.length,
       sum,
-      avg: sum / values.length,
+      avg,
       min: sorted[0],
       max: sorted[sorted.length - 1],
       p50: this.percentile(sorted, 0.5),
+      p90: this.percentile(sorted, 0.9),
       p95: this.percentile(sorted, 0.95),
       p99: this.percentile(sorted, 0.99),
+      stdDev,
+      rate,
+      trend,
     };
+  }
+  
+  private calculateStdDev(values: number[], avg: number): number {
+    if (values.length < 2) return 0;
+    const sumSquares = values.reduce((sum, val) => sum + Math.pow(val - avg, 2), 0);
+    return Math.sqrt(sumSquares / (values.length - 1));
   }
   
   private percentile(sorted: number[], p: number): number {
@@ -215,13 +352,48 @@ export class MetricsAggregator extends EventEmitter {
     return sorted[Math.max(0, Math.min(index, sorted.length - 1))];
   }
   
+  // 이상 탐지
+  private detectAnomalies(): void {
+    const now = Date.now();
+    
+    for (const [name, trend] of this.trendData) {
+      if (trend.values.length < 10) continue;
+      
+      const lastValue = trend.values[trend.values.length - 1];
+      const deviation = Math.abs(lastValue - trend.avg) / (trend.stdDev || 1);
+      
+      if (deviation > 3) {
+        const severity = deviation > 5 ? 'critical' : 
+                        deviation > 4 ? 'high' : 
+                        deviation > 3.5 ? 'medium' : 'low';
+        
+        const anomaly: AnomalyDetection = {
+          timestamp: now,
+          metricName: name,
+          value: lastValue,
+          expected: trend.avg,
+          deviation,
+          severity,
+          message: `${name} deviated by ${deviation.toFixed(2)} std devs (value: ${lastValue.toFixed(2)}, expected: ${trend.avg.toFixed(2)})`,
+        };
+        
+        this.anomalies.push(anomaly);
+        this.emit('anomalyDetected', anomaly);
+        
+        // 최근 100개만 유지
+        if (this.anomalies.length > 100) {
+          this.anomalies.shift();
+        }
+      }
+    }
+  }
+  
   private cleanupOldAggregates(
     map: Map<string, AggregatedMetric>, 
     maxEntries: number
   ): void {
     if (map.size <= maxEntries) return;
     
-    // 가장 오래된 항목들 삭제
     const entries = Array.from(map.entries())
       .sort((a, b) => a[1].timestamp - b[1].timestamp);
     
@@ -235,12 +407,20 @@ export class MetricsAggregator extends EventEmitter {
     const memUsage = process.memoryUsage();
     const heapUsedMB = memUsage.heapUsed / 1024 / 1024;
     
-    if (heapUsedMB > METRICS_CONFIG.MAX_MEMORY_MB) {
-      console.warn('[MetricsAggregator] Memory limit reached, forcing cleanup');
+    if (heapUsedMB > METRICS_CONFIG.MAX_MEMORY_MB * 0.8) {
+      console.warn('[MetricsAggregator] Memory limit approaching, forcing cleanup');
       
-      // 강제 정리: 오래된 집계 데이터 삭제
-      this.cleanupOldAggregates(this.aggregated1m, 6 * 60);  // 6시간만 유지
-      this.cleanupOldAggregates(this.aggregated1h, 3 * 24);  // 3일만 유지
+      this.cleanupOldAggregates(this.aggregated1m, 24 * 60);
+      this.cleanupOldAggregates(this.aggregated1h, 7 * 24);
+      this.cleanupOldAggregates(this.aggregated1d, 30);
+      
+      // 트렌드 데이터 정리
+      for (const [, trend] of this.trendData) {
+        if (trend.values.length > 50) {
+          trend.values = trend.values.slice(-50);
+          trend.timestamps = trend.timestamps.slice(-50);
+        }
+      }
       
       this.emit('forceCleanup', { heapUsedMB, timestamp: Date.now() });
       
@@ -253,6 +433,9 @@ export class MetricsAggregator extends EventEmitter {
   forceCleanup(): void {
     this.aggregated1m.clear();
     this.aggregated1h.clear();
+    this.aggregated1d.clear();
+    this.trendData.clear();
+    this.anomalies = [];
     this.rawMetrics.clear();
     
     if (typeof global.gc === 'function') {
@@ -265,9 +448,7 @@ export class MetricsAggregator extends EventEmitter {
   // 메트릭 조회
   getRecentMetrics(name: string, durationMs: number): MetricPoint[] {
     const since = Date.now() - durationMs;
-    return this.rawMetrics.filter(
-      m => m.name === name && m.timestamp >= since
-    );
+    return this.rawMetrics.filterByTimeRange(since);
   }
   
   getMinuteAggregates(name: string, count: number): AggregatedMetric[] {
@@ -296,22 +477,85 @@ export class MetricsAggregator extends EventEmitter {
     return results.reverse();
   }
   
+  getDayAggregates(name: string, count: number): AggregatedMetric[] {
+    const results: AggregatedMetric[] = [];
+    const now = Date.now();
+    
+    for (let i = 0; i < count; i++) {
+      const key = `${name}:${Math.floor((now - i * 86400000) / 86400000)}`;
+      const agg = this.aggregated1d.get(key);
+      if (agg) results.push(agg);
+    }
+    
+    return results.reverse();
+  }
+  
+  getAnomalies(since?: number): AnomalyDetection[] {
+    if (!since) return [...this.anomalies];
+    return this.anomalies.filter(a => a.timestamp >= since);
+  }
+  
+  getTrend(name: string): TrendData | undefined {
+    return this.trendData.get(name);
+  }
+  
   getStats(): {
     rawCount: number;
     rawCapacity: number;
     minute1Count: number;
     hour1Count: number;
+    day1Count: number;
+    trendMetrics: number;
+    anomalyCount: number;
     memoryUsage: { bytes: number; items: number };
     uptime: number;
+    recordsPerSecond: number;
   } {
+    const uptime = (Date.now() - this.startTime) / 1000;
+    
     return {
       rawCount: this.rawMetrics.getSize(),
       rawCapacity: this.rawMetrics.getCapacity(),
       minute1Count: this.aggregated1m.size,
       hour1Count: this.aggregated1h.size,
+      day1Count: this.aggregated1d.size,
+      trendMetrics: this.trendData.size,
+      anomalyCount: this.anomalies.length,
       memoryUsage: this.rawMetrics.getMemoryUsage(),
       uptime: Date.now() - this.startTime,
+      recordsPerSecond: this.recordCount / uptime,
     };
+  }
+  
+  // Prometheus 형식 출력
+  getPrometheusMetrics(): string {
+    const stats = this.getStats();
+    
+    return [
+      `# HELP tburn_metrics_raw_count Raw metric count in buffer`,
+      `# TYPE tburn_metrics_raw_count gauge`,
+      `tburn_metrics_raw_count ${stats.rawCount}`,
+      ``,
+      `# HELP tburn_metrics_raw_capacity Raw metric buffer capacity`,
+      `# TYPE tburn_metrics_raw_capacity gauge`,
+      `tburn_metrics_raw_capacity ${stats.rawCapacity}`,
+      ``,
+      `# HELP tburn_metrics_aggregated_1m 1-minute aggregates count`,
+      `# TYPE tburn_metrics_aggregated_1m gauge`,
+      `tburn_metrics_aggregated_1m ${stats.minute1Count}`,
+      ``,
+      `# HELP tburn_metrics_aggregated_1h 1-hour aggregates count`,
+      `# TYPE tburn_metrics_aggregated_1h gauge`,
+      `tburn_metrics_aggregated_1h ${stats.hour1Count}`,
+      ``,
+      `# HELP tburn_metrics_anomaly_count Detected anomalies count`,
+      `# TYPE tburn_metrics_anomaly_count gauge`,
+      `tburn_metrics_anomaly_count ${stats.anomalyCount}`,
+      ``,
+      `# HELP tburn_metrics_records_per_second Records ingested per second`,
+      `# TYPE tburn_metrics_records_per_second gauge`,
+      `tburn_metrics_records_per_second ${stats.recordsPerSecond.toFixed(2)}`,
+    ].join('\n');
   }
 }
 

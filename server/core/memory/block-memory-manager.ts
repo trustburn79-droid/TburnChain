@@ -1,10 +1,10 @@
 /**
- * TBURN Enterprise Block Memory Manager v6.0
+ * TBURN Enterprise Block Memory Manager v7.0
  * 
- * LRU cache-based block memory management for optimal memory usage
- * Automatically evicts old blocks while maintaining recent block access
+ * Production-grade multi-level LRU cache for block memory management
+ * Features: Hot/Warm/Cold cache tiers, TTL eviction, preloading
  * 
- * @version 6.0.0-enterprise
+ * @version 7.0.0-enterprise
  */
 
 import { EventEmitter } from 'events';
@@ -22,6 +22,8 @@ export interface Block {
   gasUsed: string;
   size: number;
   validatorSignatures: number;
+  finalityStatus?: 'pending' | 'confirmed' | 'finalized';
+  shardId?: number;
 }
 
 interface CacheEntry<T> {
@@ -29,99 +31,336 @@ interface CacheEntry<T> {
   size: number;
   lastAccessed: number;
   accessCount: number;
+  createdAt: number;
+  tier: 'hot' | 'warm' | 'cold';
 }
 
 export interface BlockRetentionPolicy {
   inMemoryBlocks: number;
   hotCacheBlocks: number;
+  warmCacheBlocks: number;
   maxCacheSizeMB: number;
+  ttlHotMs: number;
+  ttlWarmMs: number;
+  preloadBlocks: number;
 }
 
-export class LRUCache<K, V> {
-  private cache: Map<K, CacheEntry<V>> = new Map();
-  private maxItems: number;
+export interface CacheStats {
+  items: number;
+  maxItems: number;
+  sizeBytes: number;
+  maxSizeBytes: number;
+  utilization: number;
+  hitRate: number;
+  evictions: number;
+  promotions: number;
+  demotions: number;
+}
+
+export class MultiLevelLRUCache<K, V> {
+  private hotCache: Map<K, CacheEntry<V>> = new Map();
+  private warmCache: Map<K, CacheEntry<V>> = new Map();
+  private coldCache: Map<K, CacheEntry<V>> = new Map();
+  
+  private maxHotItems: number;
+  private maxWarmItems: number;
+  private maxColdItems: number;
   private maxSizeBytes: number;
   private currentSizeBytes = 0;
-  private accessOrder: K[] = [];
   
-  constructor(maxItems: number, maxSizeMB: number = 100) {
-    this.maxItems = maxItems;
+  private accessOrder: K[] = [];
+  private hitCount = 0;
+  private missCount = 0;
+  private evictionCount = 0;
+  private promotionCount = 0;
+  private demotionCount = 0;
+  
+  private ttlHotMs: number;
+  private ttlWarmMs: number;
+  private ttlCheckTimer: NodeJS.Timeout | null = null;
+  
+  constructor(
+    maxHotItems: number, 
+    maxWarmItems: number,
+    maxColdItems: number,
+    maxSizeMB: number,
+    ttlHotMs: number = 60000,
+    ttlWarmMs: number = 300000
+  ) {
+    this.maxHotItems = maxHotItems;
+    this.maxWarmItems = maxWarmItems;
+    this.maxColdItems = maxColdItems;
     this.maxSizeBytes = maxSizeMB * 1024 * 1024;
+    this.ttlHotMs = ttlHotMs;
+    this.ttlWarmMs = ttlWarmMs;
+    
+    // TTL 체크 시작
+    this.ttlCheckTimer = setInterval(() => this.evictExpired(), 30000);
   }
   
-  set(key: K, value: V): void {
+  set(key: K, value: V, tier: 'hot' | 'warm' = 'hot'): void {
     const size = this.calculateSize(value);
+    const now = Date.now();
     
     // 기존 항목 제거
-    if (this.cache.has(key)) {
-      const existing = this.cache.get(key)!;
-      this.currentSizeBytes -= existing.size;
-      this.removeFromAccessOrder(key);
-    }
+    this.delete(key);
     
     // 공간 확보
-    while (
-      (this.cache.size >= this.maxItems || 
-       this.currentSizeBytes + size > this.maxSizeBytes) &&
-      this.cache.size > 0
-    ) {
-      this.evictLRU();
+    while (this.currentSizeBytes + size > this.maxSizeBytes) {
+      if (!this.evictLRU()) break;
     }
     
-    // 새 항목 추가
-    this.cache.set(key, {
+    const entry: CacheEntry<V> = {
       value,
       size,
-      lastAccessed: Date.now(),
+      lastAccessed: now,
       accessCount: 1,
-    });
+      createdAt: now,
+      tier,
+    };
+    
+    if (tier === 'hot') {
+      this.ensureHotCapacity();
+      this.hotCache.set(key, entry);
+    } else {
+      this.ensureWarmCapacity();
+      this.warmCache.set(key, entry);
+    }
+    
     this.currentSizeBytes += size;
     this.accessOrder.push(key);
   }
   
   get(key: K): V | undefined {
-    const entry = this.cache.get(key);
-    if (!entry) return undefined;
+    const now = Date.now();
     
-    // 접근 정보 업데이트
-    entry.lastAccessed = Date.now();
-    entry.accessCount++;
+    // Hot 캐시 확인
+    let entry = this.hotCache.get(key);
+    if (entry) {
+      entry.lastAccessed = now;
+      entry.accessCount++;
+      this.hitCount++;
+      return entry.value;
+    }
     
-    // 접근 순서 업데이트
-    this.removeFromAccessOrder(key);
-    this.accessOrder.push(key);
+    // Warm 캐시 확인 -> Hot으로 승급
+    entry = this.warmCache.get(key);
+    if (entry) {
+      entry.lastAccessed = now;
+      entry.accessCount++;
+      this.warmCache.delete(key);
+      this.ensureHotCapacity();
+      entry.tier = 'hot';
+      this.hotCache.set(key, entry);
+      this.promotionCount++;
+      this.hitCount++;
+      return entry.value;
+    }
     
-    return entry.value;
+    // Cold 캐시 확인 -> Warm으로 승급
+    entry = this.coldCache.get(key);
+    if (entry) {
+      entry.lastAccessed = now;
+      entry.accessCount++;
+      this.coldCache.delete(key);
+      this.ensureWarmCapacity();
+      entry.tier = 'warm';
+      this.warmCache.set(key, entry);
+      this.promotionCount++;
+      this.hitCount++;
+      return entry.value;
+    }
+    
+    this.missCount++;
+    return undefined;
   }
   
   has(key: K): boolean {
-    return this.cache.has(key);
+    return this.hotCache.has(key) || 
+           this.warmCache.has(key) || 
+           this.coldCache.has(key);
   }
   
   delete(key: K): boolean {
-    const entry = this.cache.get(key);
-    if (!entry) return false;
+    let entry = this.hotCache.get(key);
+    if (entry) {
+      this.currentSizeBytes -= entry.size;
+      this.hotCache.delete(key);
+      this.removeFromAccessOrder(key);
+      return true;
+    }
     
-    this.currentSizeBytes -= entry.size;
-    this.removeFromAccessOrder(key);
-    return this.cache.delete(key);
+    entry = this.warmCache.get(key);
+    if (entry) {
+      this.currentSizeBytes -= entry.size;
+      this.warmCache.delete(key);
+      this.removeFromAccessOrder(key);
+      return true;
+    }
+    
+    entry = this.coldCache.get(key);
+    if (entry) {
+      this.currentSizeBytes -= entry.size;
+      this.coldCache.delete(key);
+      this.removeFromAccessOrder(key);
+      return true;
+    }
+    
+    return false;
   }
   
   clear(): void {
-    this.cache.clear();
+    this.hotCache.clear();
+    this.warmCache.clear();
+    this.coldCache.clear();
     this.accessOrder = [];
     this.currentSizeBytes = 0;
   }
   
-  private evictLRU(): void {
-    if (this.accessOrder.length === 0) return;
-    
-    const lruKey = this.accessOrder.shift()!;
-    const entry = this.cache.get(lruKey);
-    if (entry) {
-      this.currentSizeBytes -= entry.size;
-      this.cache.delete(lruKey);
+  private ensureHotCapacity(): void {
+    while (this.hotCache.size >= this.maxHotItems) {
+      const demoted = this.demoteOldestHot();
+      if (!demoted) break;
     }
+  }
+  
+  private ensureWarmCapacity(): void {
+    while (this.warmCache.size >= this.maxWarmItems) {
+      const demoted = this.demoteOldestWarm();
+      if (!demoted) break;
+    }
+  }
+  
+  private demoteOldestHot(): boolean {
+    let oldestKey: K | null = null;
+    let oldestTime = Infinity;
+    
+    for (const [key, entry] of this.hotCache) {
+      if (entry.lastAccessed < oldestTime) {
+        oldestTime = entry.lastAccessed;
+        oldestKey = key;
+      }
+    }
+    
+    if (oldestKey === null) return false;
+    
+    const entry = this.hotCache.get(oldestKey)!;
+    this.hotCache.delete(oldestKey);
+    
+    // Warm으로 강등
+    if (this.warmCache.size < this.maxWarmItems) {
+      entry.tier = 'warm';
+      this.warmCache.set(oldestKey, entry);
+      this.demotionCount++;
+    } else {
+      // Cold로 강등
+      entry.tier = 'cold';
+      this.coldCache.set(oldestKey, entry);
+      this.demotionCount++;
+      this.ensureColdCapacity();
+    }
+    
+    return true;
+  }
+  
+  private demoteOldestWarm(): boolean {
+    let oldestKey: K | null = null;
+    let oldestTime = Infinity;
+    
+    for (const [key, entry] of this.warmCache) {
+      if (entry.lastAccessed < oldestTime) {
+        oldestTime = entry.lastAccessed;
+        oldestKey = key;
+      }
+    }
+    
+    if (oldestKey === null) return false;
+    
+    const entry = this.warmCache.get(oldestKey)!;
+    this.warmCache.delete(oldestKey);
+    
+    // Cold로 강등
+    entry.tier = 'cold';
+    this.coldCache.set(oldestKey, entry);
+    this.demotionCount++;
+    this.ensureColdCapacity();
+    
+    return true;
+  }
+  
+  private ensureColdCapacity(): void {
+    while (this.coldCache.size > this.maxColdItems) {
+      this.evictColdest();
+    }
+  }
+  
+  private evictColdest(): void {
+    let oldestKey: K | null = null;
+    let oldestTime = Infinity;
+    
+    for (const [key, entry] of this.coldCache) {
+      if (entry.lastAccessed < oldestTime) {
+        oldestTime = entry.lastAccessed;
+        oldestKey = key;
+      }
+    }
+    
+    if (oldestKey !== null) {
+      const entry = this.coldCache.get(oldestKey)!;
+      this.currentSizeBytes -= entry.size;
+      this.coldCache.delete(oldestKey);
+      this.removeFromAccessOrder(oldestKey);
+      this.evictionCount++;
+    }
+  }
+  
+  private evictLRU(): boolean {
+    // Cold -> Warm -> Hot 순서로 제거
+    if (this.coldCache.size > 0) {
+      this.evictColdest();
+      return true;
+    }
+    
+    if (this.warmCache.size > 0) {
+      this.demoteOldestWarm();
+      this.evictColdest();
+      return true;
+    }
+    
+    if (this.hotCache.size > 0) {
+      this.demoteOldestHot();
+      this.demoteOldestWarm();
+      this.evictColdest();
+      return true;
+    }
+    
+    return false;
+  }
+  
+  private evictExpired(): void {
+    const now = Date.now();
+    
+    // Hot 캐시 TTL 체크
+    for (const [key, entry] of this.hotCache) {
+      if (now - entry.createdAt > this.ttlHotMs) {
+        this.hotCache.delete(key);
+        entry.tier = 'warm';
+        this.warmCache.set(key, entry);
+        this.demotionCount++;
+      }
+    }
+    
+    // Warm 캐시 TTL 체크
+    for (const [key, entry] of this.warmCache) {
+      if (now - entry.createdAt > this.ttlWarmMs) {
+        this.warmCache.delete(key);
+        entry.tier = 'cold';
+        this.coldCache.set(key, entry);
+        this.demotionCount++;
+      }
+    }
+    
+    this.ensureColdCapacity();
   }
   
   private removeFromAccessOrder(key: K): void {
@@ -132,52 +371,83 @@ export class LRUCache<K, V> {
   }
   
   private calculateSize(value: V): number {
-    return JSON.stringify(value).length * 2; // UTF-16
+    try {
+      return JSON.stringify(value).length * 2;
+    } catch {
+      return 512;
+    }
   }
   
   evictBefore(threshold: K extends number ? number : never): void {
     if (typeof threshold !== 'number') return;
     
-    const keysToRemove: K[] = [];
-    for (const key of this.cache.keys()) {
-      if (typeof key === 'number' && key < threshold) {
-        keysToRemove.push(key);
+    const evictFromCache = (cache: Map<K, CacheEntry<V>>) => {
+      const keysToRemove: K[] = [];
+      for (const key of cache.keys()) {
+        if (typeof key === 'number' && key < threshold) {
+          keysToRemove.push(key);
+        }
       }
-    }
+      for (const key of keysToRemove) {
+        const entry = cache.get(key);
+        if (entry) {
+          this.currentSizeBytes -= entry.size;
+          cache.delete(key);
+          this.evictionCount++;
+        }
+      }
+    };
     
-    for (const key of keysToRemove) {
-      this.delete(key);
-    }
+    evictFromCache(this.hotCache);
+    evictFromCache(this.warmCache);
+    evictFromCache(this.coldCache);
   }
   
   getSize(): number {
-    return this.cache.size;
+    return this.hotCache.size + this.warmCache.size + this.coldCache.size;
   }
   
   getSizeBytes(): number {
     return this.currentSizeBytes;
   }
   
-  getStats(): {
-    items: number;
-    maxItems: number;
-    sizeBytes: number;
-    maxSizeBytes: number;
-    utilization: number;
-  } {
+  getStats(): CacheStats {
+    const totalItems = this.getSize();
+    const totalQueries = this.hitCount + this.missCount;
+    
     return {
-      items: this.cache.size,
-      maxItems: this.maxItems,
+      items: totalItems,
+      maxItems: this.maxHotItems + this.maxWarmItems + this.maxColdItems,
       sizeBytes: this.currentSizeBytes,
       maxSizeBytes: this.maxSizeBytes,
-      utilization: this.currentSizeBytes / this.maxSizeBytes,
+      utilization: totalItems > 0 ? this.currentSizeBytes / this.maxSizeBytes : 0,
+      hitRate: totalQueries > 0 ? this.hitCount / totalQueries : 0,
+      evictions: this.evictionCount,
+      promotions: this.promotionCount,
+      demotions: this.demotionCount,
     };
+  }
+  
+  getTierStats(): { hot: number; warm: number; cold: number } {
+    return {
+      hot: this.hotCache.size,
+      warm: this.warmCache.size,
+      cold: this.coldCache.size,
+    };
+  }
+  
+  destroy(): void {
+    if (this.ttlCheckTimer) {
+      clearInterval(this.ttlCheckTimer);
+      this.ttlCheckTimer = null;
+    }
+    this.clear();
   }
 }
 
 export class BlockMemoryManager extends EventEmitter {
   private readonly policy: BlockRetentionPolicy;
-  private blockCache: LRUCache<number, Block>;
+  private blockCache: MultiLevelLRUCache<number, Block>;
   private lastBlockNumber = 0;
   private totalBlocksProcessed = 0;
   private evictionCount = 0;
@@ -186,44 +456,66 @@ export class BlockMemoryManager extends EventEmitter {
   constructor(policy?: Partial<BlockRetentionPolicy>) {
     super();
     
+    const cacheConfig = METRICS_CONFIG.BLOCK_CACHE;
+    
     this.policy = {
-      inMemoryBlocks: policy?.inMemoryBlocks || 
-        METRICS_CONFIG.BLOCK_CACHE.IN_MEMORY_BLOCKS,
-      hotCacheBlocks: policy?.hotCacheBlocks || 
-        METRICS_CONFIG.BLOCK_CACHE.HOT_CACHE_BLOCKS,
-      maxCacheSizeMB: policy?.maxCacheSizeMB || 
-        METRICS_CONFIG.BLOCK_CACHE.MAX_CACHE_SIZE_MB,
+      inMemoryBlocks: policy?.inMemoryBlocks || cacheConfig.IN_MEMORY_BLOCKS,
+      hotCacheBlocks: policy?.hotCacheBlocks || cacheConfig.HOT_CACHE_BLOCKS,
+      warmCacheBlocks: policy?.warmCacheBlocks || cacheConfig.WARM_CACHE_BLOCKS || 50000,
+      maxCacheSizeMB: policy?.maxCacheSizeMB || cacheConfig.MAX_CACHE_SIZE_MB,
+      ttlHotMs: policy?.ttlHotMs || cacheConfig.TTL_HOT_MS || 60000,
+      ttlWarmMs: policy?.ttlWarmMs || cacheConfig.TTL_WARM_MS || 300000,
+      preloadBlocks: policy?.preloadBlocks || cacheConfig.PRELOAD_BLOCKS || 100,
     };
     
-    this.blockCache = new LRUCache<number, Block>(
-      this.policy.inMemoryBlocks,
-      this.policy.maxCacheSizeMB
+    this.blockCache = new MultiLevelLRUCache<number, Block>(
+      this.policy.hotCacheBlocks,
+      this.policy.warmCacheBlocks,
+      this.policy.inMemoryBlocks * 2,  // Cold는 2배
+      this.policy.maxCacheSizeMB,
+      this.policy.ttlHotMs,
+      this.policy.ttlWarmMs
     );
+    
+    console.log('[BlockMemoryManager] Initialized with policy:', {
+      hotBlocks: this.policy.hotCacheBlocks,
+      warmBlocks: this.policy.warmCacheBlocks,
+      maxCacheMB: this.policy.maxCacheSizeMB,
+    });
   }
   
-  // 블록 추가 (자동 LRU 관리)
-  addBlock(block: Block): void {
-    this.blockCache.set(block.number, block);
+  addBlock(block: Block, tier: 'hot' | 'warm' = 'hot'): void {
+    this.blockCache.set(block.number, block, tier);
     this.lastBlockNumber = Math.max(this.lastBlockNumber, block.number);
     this.totalBlocksProcessed++;
     
     // 주기적 GC 힌트
-    if (block.number % 100 === 0) {
+    if (block.number % 1000 === 0) {
       this.triggerGCHint();
     }
     
     this.emit('blockAdded', { 
       blockNumber: block.number, 
-      cacheSize: this.blockCache.getSize() 
+      cacheSize: this.blockCache.getSize(),
+      tier,
     });
   }
   
-  // 블록 조회 (LRU 캐시)
+  // 배치 추가 (고성능)
+  addBlocks(blocks: Block[], tier: 'hot' | 'warm' = 'warm'): void {
+    for (const block of blocks) {
+      this.blockCache.set(block.number, block, tier);
+      this.lastBlockNumber = Math.max(this.lastBlockNumber, block.number);
+    }
+    this.totalBlocksProcessed += blocks.length;
+    
+    this.emit('blocksAdded', { count: blocks.length, cacheSize: this.blockCache.getSize() });
+  }
+  
   getBlock(blockNumber: number): Block | undefined {
     return this.blockCache.get(blockNumber);
   }
   
-  // 최근 블록들 조회
   getRecentBlocks(count: number): Block[] {
     const blocks: Block[] = [];
     
@@ -238,7 +530,6 @@ export class BlockMemoryManager extends EventEmitter {
     return blocks;
   }
   
-  // 블록 범위 조회
   getBlockRange(start: number, end: number): Block[] {
     const blocks: Block[] = [];
     
@@ -252,7 +543,6 @@ export class BlockMemoryManager extends EventEmitter {
     return blocks;
   }
   
-  // 오래된 블록 제거
   evictOldBlocks(): void {
     const cutoff = this.lastBlockNumber - this.policy.inMemoryBlocks;
     const beforeSize = this.blockCache.getSize();
@@ -266,7 +556,6 @@ export class BlockMemoryManager extends EventEmitter {
     }
   }
   
-  // 캐시 정리
   clear(): void {
     this.blockCache.clear();
     this.emit('cacheCleared');
@@ -281,27 +570,36 @@ export class BlockMemoryManager extends EventEmitter {
   getStats(): {
     cacheSize: number;
     cacheSizeBytes: number;
+    tierStats: { hot: number; warm: number; cold: number };
     maxBlocks: number;
     maxSizeMB: number;
     lastBlockNumber: number;
     totalBlocksProcessed: number;
     evictionCount: number;
     uptime: number;
+    hitRate: number;
     utilization: number;
   } {
     const cacheStats = this.blockCache.getStats();
+    const tierStats = this.blockCache.getTierStats();
     
     return {
       cacheSize: cacheStats.items,
       cacheSizeBytes: cacheStats.sizeBytes,
-      maxBlocks: this.policy.inMemoryBlocks,
+      tierStats,
+      maxBlocks: this.policy.hotCacheBlocks + this.policy.warmCacheBlocks,
       maxSizeMB: this.policy.maxCacheSizeMB,
       lastBlockNumber: this.lastBlockNumber,
       totalBlocksProcessed: this.totalBlocksProcessed,
-      evictionCount: this.evictionCount,
+      evictionCount: cacheStats.evictions,
       uptime: Date.now() - this.startTime,
+      hitRate: cacheStats.hitRate,
       utilization: cacheStats.utilization,
     };
+  }
+  
+  destroy(): void {
+    this.blockCache.destroy();
   }
 }
 
