@@ -4,14 +4,28 @@
  * Auto-scaling configuration that adapts to available memory
  * Supports both small (512MB) and large (32GB) environments
  * 
- * @version 7.0.0-enterprise
+ * @version 7.0.1-enterprise
+ * @updated 2026-01-06: Added V8 heap detection for Replit environments
  */
 
 import * as os from 'os';
+import * as v8 from 'v8';
 
 const detectedRAM = Math.round(os.totalmem() / (1024 * 1024 * 1024));
 const detectedCores = os.cpus()?.length || 4;
-const isLargeEnv = detectedRAM >= 8;
+
+// V8 힙 제한 감지 (Replit 환경에서 실제 사용 가능한 힙 확인)
+const heapStats = v8.getHeapStatistics();
+const v8HeapLimitMB = Math.floor(heapStats.heap_size_limit / (1024 * 1024));
+const isReplitEnv = Boolean(process.env.REPL_ID);
+
+// DEV_SAFE_MODE: Replit 환경이거나 V8 힙이 1GB 미만이면 메모리 절약 모드
+export const DEV_SAFE_MODE = isReplitEnv || v8HeapLimitMB < 1024;
+
+// 실제 V8 힙 기준으로 환경 결정 (시스템 RAM이 아닌 V8 힙 제한 사용)
+const isLargeEnv = !DEV_SAFE_MODE && v8HeapLimitMB >= 2048;
+
+console.log(`[METRICS_CONFIG] V8 heap limit: ${v8HeapLimitMB}MB, Replit: ${isReplitEnv}, DEV_SAFE_MODE: ${DEV_SAFE_MODE}, isLargeEnv: ${isLargeEnv}`);
 
 export const METRICS_CONFIG = {
   // 수집 간격 (환경 적응형)

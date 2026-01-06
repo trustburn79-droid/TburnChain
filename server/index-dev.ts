@@ -68,7 +68,16 @@ export async function setupVite(app: Express, server: Server) {
   // This ensures the UI loads without waiting for heavy blockchain initialization
   await runApp(setupVite);
   
-  // Defer heavy enterprise infrastructure initialization
+  // Check if we should skip enterprise node in DEV_SAFE_MODE
+  const { DEV_SAFE_MODE } = await import("./core/memory/metrics-config");
+  
+  if (DEV_SAFE_MODE) {
+    console.log('[Enterprise] ⚡ DEV_SAFE_MODE active - Enterprise Node startup SKIPPED for memory optimization');
+    console.log('[Enterprise] 📊 Running in lightweight static data mode');
+    return;
+  }
+  
+  // Defer heavy enterprise infrastructure initialization (only in production/staging)
   // This allows Vite to serve the frontend bundle before blockchain services start
   setTimeout(async () => {
     console.log('[Enterprise] Initializing TBURN enterprise infrastructure (deferred)...');
