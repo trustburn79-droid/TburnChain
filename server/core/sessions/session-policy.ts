@@ -222,6 +222,7 @@ const SESSION_FREE_PREFIX_LIST = [
   '/api/sharding/',
   '/api/tmp-status',
   '/api/disaster-recovery/',
+  '/api/memory/',
   '/rpc/',
   '/explorer/',
   '/blocks/',

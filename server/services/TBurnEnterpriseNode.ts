@@ -3926,7 +3926,7 @@ export class TBurnEnterpriseNode extends EventEmitter {
           client.send(priceUpdate);
         }
       });
-    }, 5000); // Collect metrics every 5 seconds
+    }, 30000); // ★ [v6.0] Optimized: 30초 간격 (메모리 효율)
   }
 
   private collectMetrics(): any {

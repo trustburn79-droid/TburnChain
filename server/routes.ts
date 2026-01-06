@@ -554,6 +554,15 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     console.warn('[Routes] Warmup manager initialization failed:', e);
   }
   
+  // ★ [v6.0] Initialize Memory Management System
+  try {
+    const { initializeMemoryManagement } = await import('./core/memory');
+    initializeMemoryManagement();
+    console.log('[Routes] ✅ Memory management system initialized');
+  } catch (e) {
+    console.warn('[Routes] Memory management initialization failed:', e);
+  }
+  
   // ★ [v2.0] Connect disaster recovery events to memory relief systems
   disasterRecovery.on('clearCaches', () => {
     try {
@@ -1872,6 +1881,56 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
+  // ============================================
+  // Memory Management API (v6.0 Enterprise)
+  // ============================================
+  app.get("/api/memory/metrics", async (_req, res) => {
+    try {
+      const { memoryManager } = await import('./core/memory/memory-manager');
+      const { metricsAggregator } = await import('./core/memory/metrics-aggregator');
+      const { blockMemoryManager } = await import('./core/memory/block-memory-manager');
+      
+      res.json({
+        memory: memoryManager.getMetrics(),
+        aggregator: metricsAggregator.getStats(),
+        blockCache: blockMemoryManager.getStats(),
+        timestamp: new Date().toISOString(),
+      });
+    } catch (error) {
+      res.status(500).json({ 
+        error: 'Memory metrics unavailable',
+        message: error instanceof Error ? error.message : 'Unknown error'
+      });
+    }
+  });
+  
+  app.get("/api/memory/prometheus", async (_req, res) => {
+    try {
+      const { memoryManager } = await import('./core/memory/memory-manager');
+      res.set('Content-Type', 'text/plain');
+      res.send(memoryManager.getPrometheusMetrics());
+    } catch (error) {
+      res.status(500).send('# Error: Memory metrics unavailable');
+    }
+  });
+  
+  app.post("/api/memory/gc", async (_req, res) => {
+    try {
+      const { memoryManager } = await import('./core/memory/memory-manager');
+      memoryManager.forceCleanup();
+      res.json({ 
+        success: true, 
+        message: 'GC triggered',
+        timestamp: new Date().toISOString() 
+      });
+    } catch (error) {
+      res.status(500).json({ 
+        error: 'GC trigger failed',
+        message: error instanceof Error ? error.message : 'Unknown error'
+      });
+    }
+  });
+  
   // ============================================
   // /tmp Disk Monitoring (v5.1 Enterprise - Secure Async)
   // ============================================
