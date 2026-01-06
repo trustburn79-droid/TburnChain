@@ -220,26 +220,23 @@ class ProductionStaticDataService {
 
   /**
    * 캐시에 데이터 로드 (초기화용)
-   * ★ [2026-01-06 CRITICAL FIX] 순차적 로딩으로 메모리 스파이크 방지
    */
   async warmCache(): Promise<void> {
     console.log('[StaticData] Warming cache with database data...');
     
     try {
-      // ★ 순차적 로딩으로 메모리 스파이크 방지 (Promise.all 대신)
-      const networkStats = await this.getNetworkStats();
+      const [networkStats, shards, blocks, transactions, validators] = await Promise.all([
+        this.getNetworkStats(),
+        this.getShards(),
+        this.getRecentBlocks(20),
+        this.getRecentTransactions(20),
+        this.getValidators()
+      ]);
+      
       this.cache.set(DataCacheService.KEYS.NETWORK_STATS, networkStats, 60000);
-      
-      const shards = await this.getShards();
       this.cache.set(DataCacheService.KEYS.SHARDS, shards, 60000);
-      
-      const blocks = await this.getRecentBlocks(20);
       this.cache.set(DataCacheService.KEYS.RECENT_BLOCKS, blocks, 30000);
-      
-      const transactions = await this.getRecentTransactions(20);
       this.cache.set(DataCacheService.KEYS.RECENT_TRANSACTIONS, transactions, 30000);
-      
-      const validators = await this.getValidators();
       this.cache.set(DataCacheService.KEYS.VALIDATORS, validators, 120000);
       
       console.log('[StaticData] ✅ Cache warmed with database data');
