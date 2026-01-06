@@ -1551,6 +1551,140 @@ export const alertQueue = pgTable("alert_queue", {
   updatedAt: timestamp("updated_at").notNull().defaultNow(),
 });
 
+// ============================================
+// ALERT RULES & ANNOUNCEMENTS - Admin Management
+// ============================================
+
+// Alert Rules - Configurable alert conditions
+export const alertRules = pgTable("alert_rules", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  
+  // Rule Definition
+  name: text("name").notNull(),
+  description: text("description"),
+  condition: text("condition").notNull(), // e.g., "cpu > 80", "memory > 90"
+  
+  // Classification
+  category: text("category").notNull().default("system"), // resources, performance, validators, security, network
+  severity: text("severity").notNull().default("medium"), // low, medium, high, critical
+  
+  // Notification Configuration
+  notifications: jsonb("notifications").notNull().default([]), // ['email', 'slack', 'pagerduty', 'sms']
+  notificationConfig: jsonb("notification_config").notNull().default({}), // Channel-specific settings
+  
+  // Cooldown & Rate Limiting
+  cooldown: integer("cooldown").notNull().default(300), // seconds between triggers
+  maxTriggersPerHour: integer("max_triggers_per_hour").notNull().default(10),
+  
+  // Status
+  enabled: boolean("enabled").notNull().default(true),
+  
+  // Trigger History
+  triggerCount: integer("trigger_count").notNull().default(0),
+  lastTriggeredAt: timestamp("last_triggered_at"),
+  lastTriggeredValue: text("last_triggered_value"),
+  
+  // Ownership
+  createdBy: varchar("created_by"),
+  updatedBy: varchar("updated_by"),
+  
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
+// Alert Rule Trigger History - Log of all alert triggers
+export const alertRuleTriggers = pgTable("alert_rule_triggers", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  
+  // Rule Reference
+  ruleId: varchar("rule_id").notNull(),
+  ruleName: text("rule_name").notNull(),
+  
+  // Trigger Context
+  condition: text("condition").notNull(),
+  triggeredValue: text("triggered_value").notNull(),
+  severity: text("severity").notNull(),
+  
+  // Notification Status
+  notificationsSent: jsonb("notifications_sent").notNull().default([]),
+  notificationErrors: jsonb("notification_errors").notNull().default([]),
+  
+  // Resolution
+  status: text("status").notNull().default("triggered"), // triggered, acknowledged, resolved, dismissed
+  acknowledgedBy: varchar("acknowledged_by"),
+  acknowledgedAt: timestamp("acknowledged_at"),
+  resolvedBy: varchar("resolved_by"),
+  resolvedAt: timestamp("resolved_at"),
+  resolution: text("resolution"),
+  
+  // Metadata
+  metadata: jsonb("metadata").notNull().default({}),
+  
+  triggeredAt: timestamp("triggered_at").notNull().defaultNow(),
+});
+
+// Announcements - System-wide announcements
+export const announcements = pgTable("announcements", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  
+  // Content
+  title: text("title").notNull(),
+  content: text("content").notNull(),
+  
+  // Classification
+  type: text("type").notNull().default("info"), // info, warning, critical, maintenance
+  
+  // Audience Targeting
+  audience: jsonb("audience").notNull().default([]), // ['All Users', 'Validators', 'Developers', 'Partners', 'Stakers']
+  
+  // Display Settings
+  pinned: boolean("pinned").notNull().default(false),
+  priority: integer("priority").notNull().default(50), // 1-100, higher = more prominent
+  
+  // Status & Scheduling
+  status: text("status").notNull().default("draft"), // draft, scheduled, published, archived
+  scheduledFor: timestamp("scheduled_for"),
+  publishedAt: timestamp("published_at"),
+  archivedAt: timestamp("archived_at"),
+  expiresAt: timestamp("expires_at"),
+  
+  // Author & Ownership
+  author: text("author").notNull().default("System"),
+  authorId: varchar("author_id"),
+  
+  // Engagement Metrics
+  views: integer("views").notNull().default(0),
+  dismissals: integer("dismissals").notNull().default(0),
+  
+  // Localization
+  translations: jsonb("translations").notNull().default({}), // { ko: { title, content }, en: { title, content } }
+  
+  // Metadata
+  metadata: jsonb("metadata").notNull().default({}),
+  
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
+// Announcement Interactions - Track user interactions with announcements
+export const announcementInteractions = pgTable("announcement_interactions", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  
+  // References
+  announcementId: varchar("announcement_id").notNull(),
+  userId: varchar("user_id"),
+  sessionId: varchar("session_id"),
+  
+  // Interaction Type
+  interactionType: text("interaction_type").notNull(), // view, dismiss, click, expand
+  
+  // Context
+  ipAddress: text("ip_address"),
+  userAgent: text("user_agent"),
+  
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
 // Validator Performance History - Historical performance metrics for validators
 export const validatorPerformanceHistory = pgTable("validator_performance_history", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
