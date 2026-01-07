@@ -286,8 +286,8 @@ export default function Sessions() {
     {
       title: t("adminSessions.detail.sessionInfo"),
       fields: [
-        { label: t("common.name"), value: session.user.name },
-        { label: t("common.email"), value: session.user.email },
+        { label: t("common.name"), value: session.user?.name || '-' },
+        { label: t("common.email"), value: session.user?.email || '-' },
         { 
           label: t("common.status"), 
           value: t(`adminSessions.statusTypes.${session.status}`), 
@@ -320,10 +320,11 @@ export default function Sessions() {
   };
 
   const filteredSessions = sessions.filter((session) => {
+    if (!session || !session.user) return false;
     const matchesSearch = 
-      session.user.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      session.user.email.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      session.ip.includes(searchQuery);
+      (session.user.name || '').toLowerCase().includes(searchQuery.toLowerCase()) ||
+      (session.user.email || '').toLowerCase().includes(searchQuery.toLowerCase()) ||
+      (session.ip || '').includes(searchQuery);
     const matchesStatus = filterStatus === "all" || session.status === filterStatus;
     return matchesSearch && matchesStatus;
   });
@@ -524,18 +525,18 @@ export default function Sessions() {
                       <TableCell>
                         <div className="flex items-center gap-3">
                           <Avatar className="h-10 w-10">
-                            <AvatarImage src={session.user.avatar} />
+                            <AvatarImage src={session.user?.avatar} />
                             <AvatarFallback>{(session.user?.name || "AA").substring(0, 2).toUpperCase()}</AvatarFallback>
                           </Avatar>
                           <div>
                             <div className="flex items-center gap-2">
-                              <p className="font-medium">{session.user.name}</p>
+                              <p className="font-medium">{session.user?.name || '-'}</p>
                               {session.isCurrent && (
                                 <Badge variant="outline" className="text-xs">{t("adminSessions.current")}</Badge>
                               )}
                             </div>
-                            <p className="text-sm text-muted-foreground">{session.user.email}</p>
-                            <Badge variant="secondary" className="text-xs">{session.user.role}</Badge>
+                            <p className="text-sm text-muted-foreground">{session.user?.email || '-'}</p>
+                            <Badge variant="secondary" className="text-xs">{session.user?.role || '-'}</Badge>
                           </div>
                         </div>
                       </TableCell>
@@ -640,8 +641,8 @@ export default function Sessions() {
         <DetailSheet
           open={showSessionDetail}
           onOpenChange={setShowSessionDetail}
-          title={selectedSession.user.name}
-          subtitle={selectedSession.user.email}
+          title={selectedSession.user?.name || '-'}
+          subtitle={selectedSession.user?.email || '-'}
           icon={<Monitor className="h-5 w-5" />}
           sections={getSessionDetailSections(selectedSession)}
           actions={[

@@ -340,7 +340,7 @@ export default function AdminAccessControl() {
                           <TableCell className="font-medium" data-testid={`text-policy-name-${policy.id}`}>{t(`adminAccess.policies.items.${policy.nameKey}`)}</TableCell>
                           <TableCell className="text-muted-foreground">{t(`adminAccess.policies.items.${policy.descKey}`)}</TableCell>
                           <TableCell>
-                            {policy.roles.map((role, i) => (
+                            {(policy.roles || []).map((role, i) => (
                               <Badge key={i} variant="outline" className="mr-1" data-testid={`badge-role-${policy.id}-${i}`}>{role}</Badge>
                             ))}
                           </TableCell>
