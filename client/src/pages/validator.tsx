@@ -174,6 +174,28 @@ export default function ValidatorCommandCenter() {
 
   const realActiveValidators = networkStats?.activeValidators || validators.filter(v => v.performanceStatus === 'good').length || 1600;
 
+  // Show loading skeleton on initial page load
+  if (validatorsLoading && validators.length === 0) {
+    return (
+      <div className="min-h-screen text-slate-300" style={{
+        fontFamily: "'Outfit', 'Noto Sans KR', sans-serif",
+        backgroundColor: '#050509',
+        backgroundImage: 'linear-gradient(rgba(15, 23, 42, 0.9), rgba(5, 5, 9, 1))',
+      }}>
+        <div className="flex flex-col items-center justify-center min-h-[60vh] gap-6">
+          <TBurnLogo className="w-16 h-16" />
+          <CircleNotch className="animate-spin text-orange-500" size={48} />
+          <div className="text-slate-400 text-lg">{t('validatorPage.loadingValidators', { defaultValue: 'Loading validators...' })}</div>
+          <div className="flex gap-2 mt-4">
+            {[1, 2, 3, 4, 5].map(i => (
+              <div key={i} className="w-3 h-3 rounded-full bg-orange-500/30 animate-pulse" style={{ animationDelay: `${i * 100}ms` }} />
+            ))}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen text-slate-300" style={{
       fontFamily: "'Outfit', 'Noto Sans KR', sans-serif",

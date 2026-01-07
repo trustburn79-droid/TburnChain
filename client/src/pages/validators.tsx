@@ -1653,6 +1653,26 @@ export default function Validators() {
     }
   };
 
+  // Show loading skeleton on initial page load
+  if (isLoading) {
+    return (
+      <div className="flex flex-col gap-6 p-6 min-h-screen">
+        <div className="flex flex-col items-center justify-center min-h-[60vh] gap-6">
+          <Server className="h-16 w-16 text-primary animate-pulse" />
+          <div className="flex items-center gap-2">
+            <div className="animate-spin rounded-full h-6 w-6 border-2 border-primary border-t-transparent" />
+            <span className="text-lg text-muted-foreground">{t('validators.loadingValidators', { defaultValue: 'Loading validators...' })}</span>
+          </div>
+          <div className="flex gap-2 mt-4">
+            {[1, 2, 3, 4, 5].map(i => (
+              <div key={i} className="w-3 h-3 rounded-full bg-primary/30 animate-pulse" style={{ animationDelay: `${i * 100}ms` }} />
+            ))}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="flex flex-col gap-6 p-6">
       <div>
