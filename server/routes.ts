@@ -2842,6 +2842,14 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   let lastTpsUpdate = 0;
   const TPS_CACHE_TTL = 2000; // 2s cache for exact sync
   
+  // ★ [TPS SYNC] Expose cache invalidation function for shard config changes
+  // This MUST be called when shard count changes to force TPS recalculation
+  (global as any).__invalidateTpsCache = () => {
+    cachedRealtimeTps = null;
+    lastTpsUpdate = 0;
+    console.log(`[TPS Cache] ✅ Invalidated cachedRealtimeTps for immediate recalculation`);
+  };
+  
   const calculateRealTimeTps = (): { 
     tps: number; 
     baseTps: number; 
@@ -10280,8 +10288,13 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       cache.delete('public_network_stats');
       console.log(`[Cache] Invalidated shard caches after config update`);
       
+      // ★ [TPS SYNC CRITICAL] Invalidate internal TPS cache for /api/network/stats
+      if ((global as any).__invalidateTpsCache) {
+        (global as any).__invalidateTpsCache();
+      }
+      
       // ★ [TPS SYNC FIX] 샤드 변경 시 RealtimeMetricsService 즉시 갱신
-      // 모든 페이지 (/, /app, /app/blocks, /scan, /rps 등)에서 TPS가 동기화됨
+      // 모든 페이지 (/, /app, /app/blocks, /scan, /rps, /vd)에서 TPS가 동기화됨
       try {
         const realtimeMetrics = getRealtimeMetricsService();
         await realtimeMetrics.refreshShardDataImmediately();

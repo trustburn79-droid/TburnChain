@@ -209,12 +209,18 @@ export default function AdminShards() {
         actor: 'admin' // User-initiated changes auto-switch to manual mode in backend
       }),
     onSuccess: () => {
-      // Invalidate all shard-related queries for real-time sync across /admin and /app pages
+      // ★ [TPS SYNC] Invalidate ALL TPS-related queries for real-time sync across ALL pages
+      // Affected pages: /, /app, /app/blocks, /scan, /rps, /vd
       queryClient.invalidateQueries({ queryKey: ["/api/admin/shards/config"] });
       queryClient.invalidateQueries({ queryKey: ["/api/sharding"] });
       queryClient.invalidateQueries({ queryKey: ["/api/shards"] }); // Enterprise node shards data
       queryClient.invalidateQueries({ queryKey: ["/api/cross-shard/messages"] }); // Cross-shard messages
       queryClient.invalidateQueries({ queryKey: ["/api/consensus/current"] }); // Consensus state with validators
+      
+      // ★ [CRITICAL] TPS Sync - These queries display TPS on various pages
+      queryClient.invalidateQueries({ queryKey: ["/api/network/stats"] }); // /app, /app/blocks, /vd
+      queryClient.invalidateQueries({ queryKey: ["/api/public/v1/network/stats"] }); // /, /scan, /rps
+      
       setShowConfigDialog(false);
       setSelectedShardCount(null);
       toast({
@@ -238,6 +244,9 @@ export default function AdminShards() {
       queryClient.invalidateQueries({ queryKey: ["/api/sharding"] });
       queryClient.invalidateQueries({ queryKey: ["/api/shards"] }); // Enterprise node shards data
       queryClient.invalidateQueries({ queryKey: ["/api/cross-shard/messages"] });
+      // ★ [TPS SYNC] Also invalidate network stats for TPS sync across all pages
+      queryClient.invalidateQueries({ queryKey: ["/api/network/stats"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/public/v1/network/stats"] });
       toast({
         title: t("adminShards.rebalanceSuccess"),
         description: t("adminShards.rebalanceSuccessDesc"),

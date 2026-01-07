@@ -2616,7 +2616,18 @@ export class MemStorage implements IStorage {
   async syncShardsWithConfig(shardCount: number, estimatedTps: number, shardNames: string[]): Promise<void> {
     const tpsPerShard = Math.floor(estimatedTps / shardCount);
     let newShardsCreated = 0;
+    let shardsRemoved = 0;
+    let shardsUpdated = 0;
     
+    // ★ [TPS SYNC CRITICAL] Remove shards that exceed the new count
+    for (const [shardId] of this.shards) {
+      if (shardId >= shardCount) {
+        this.shards.delete(shardId);
+        shardsRemoved++;
+      }
+    }
+    
+    // Create or update shards up to shardCount
     for (let i = 0; i < shardCount; i++) {
       const existingShard = this.shards.get(i);
       const shardName = shardNames[i] || `Shard-${i + 1}`;
@@ -2643,10 +2654,16 @@ export class MemStorage implements IStorage {
           capacityUtilization: 5000
         });
         newShardsCreated++;
+      } else {
+        // ★ [TPS SYNC] Update existing shard TPS based on new distribution
+        existingShard.tps = tpsPerShard;
+        this.shards.set(i, existingShard);
+        shardsUpdated++;
       }
     }
-    if (newShardsCreated > 0) {
-      console.log(`[MemStorage] ✅ Created ${newShardsCreated} new shards (total: ${shardCount})`);
+    
+    if (newShardsCreated > 0 || shardsRemoved > 0 || shardsUpdated > 0) {
+      console.log(`[MemStorage] ✅ Synced shards: +${newShardsCreated} created, -${shardsRemoved} removed, ~${shardsUpdated} updated (total: ${shardCount})`);
     }
   }
 
@@ -3564,7 +3581,19 @@ export class DbStorage implements IStorage {
     const existingShards = await this.getAllShards();
     const existingShardIds = new Set(existingShards.map(s => s.shardId));
     let newShardsCreated = 0;
+    let shardsRemoved = 0;
+    let shardsUpdated = 0;
     
+    // ★ [TPS SYNC CRITICAL] Remove shards that exceed the new count
+    // This ensures TPS is correctly recalculated based on actual shard count
+    for (const shard of existingShards) {
+      if (shard.shardId >= shardCount) {
+        await db.delete(shards).where(eq(shards.shardId, shard.shardId));
+        shardsRemoved++;
+      }
+    }
+    
+    // Create or update shards up to shardCount
     for (let i = 0; i < shardCount; i++) {
       const shardName = shardNames[i] || `Shard-${i + 1}`;
       
@@ -3591,10 +3620,17 @@ export class DbStorage implements IStorage {
           capacityUtilization: 5000
         });
         newShardsCreated++;
+      } else {
+        // ★ [TPS SYNC] Update existing shard TPS based on new distribution
+        await db.update(shards)
+          .set({ tps: tpsPerShard, lastSyncedAt: new Date() })
+          .where(eq(shards.shardId, i));
+        shardsUpdated++;
       }
     }
-    if (newShardsCreated > 0) {
-      console.log(`[DatabaseStorage] ✅ Created ${newShardsCreated} new shards (total: ${shardCount})`);
+    
+    if (newShardsCreated > 0 || shardsRemoved > 0 || shardsUpdated > 0) {
+      console.log(`[DatabaseStorage] ✅ Synced shards: +${newShardsCreated} created, -${shardsRemoved} removed, ~${shardsUpdated} updated (total: ${shardCount})`);
     }
   }
 
