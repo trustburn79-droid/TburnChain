@@ -995,6 +995,14 @@ export default function Brand() {
       <section className="brand-hero">
         <div className="brand-hero-bg" />
         <div className="brand-hero-content">
+          {/* Main Logo - Same as header */}
+          <div className="flex items-center justify-center gap-3 mb-8">
+            <TBurnLogo className="w-14 h-14" />
+            <span className="font-bold text-3xl tracking-tight text-white">
+              TBurn <span className="text-cyan-400 font-light">Chain</span>
+            </span>
+          </div>
+          
           <div className="brand-badge">
             <Palette className="w-4 h-4" />
             {t('brandPage.badge')}
