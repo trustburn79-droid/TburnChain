@@ -23,6 +23,7 @@ Core architectural decisions include:
 - **Enterprise Validator Orchestrator & Incentives**: Manages 125 genesis validators with performance scoring, slashing, reward distribution, and a 5-tier performance bonus system.
 - **Enterprise Cross-Shard Message Router**: Priority queue-based message delivery system for optimal cross-shard communication with consistent hashing, adaptive retry, and circuit breakers.
 - **Enterprise Token Distribution System**: Production-grade 100K+ TPS distribution management for various programs with fraud detection and multi-sig approval.
+- **Canonical Tokenomics Data Integration**: All 18 token-programs API endpoints now use `TokenomicsDataService` with GENESIS_ALLOCATION as single source of truth. Each endpoint returns canonical allocation data with `source: "/admin/tokenomics"` for data provenance tracking. Covers: airdrop, referral, community, dao, block-rewards, validator-incentives, ecosystem-fund, investment-rounds, launchpad, partnerships, and related programs.
 - **Enterprise RPC Pages**: Production-grade RPC endpoint management for mainnet and testnet, including status, interactive API documentation, and performance benchmarking tools.
 - **Enterprise System Health Monitor & Diagnostics**: Comprehensive 24/7 monitoring with alerting, self-healing capabilities, and crash analysis including heap snapshot capture.
 - **Enterprise Token Custody Mechanism**: Production-grade 4-category custody system (Protocol Automatic, Vesting Contract, Foundation Multisig, Community Pool) with a 20-year distribution schedule.

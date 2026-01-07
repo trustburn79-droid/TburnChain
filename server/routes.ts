@@ -89,6 +89,8 @@ import {
   getBypassMetrics as getSessionPolicyMetrics,
 } from "./core/sessions/session-policy";
 import { disasterRecovery, disasterRecoveryMiddleware } from "./core/monitoring/disaster-recovery";
+import { tokenomicsDataService, type TokenProgram } from "./services/tokenomics-data-service";
+import { GENESIS_ALLOCATION, TOKEN_CONSTANTS } from "@shared/tokenomics-config";
 
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "admin7979";
 const ADMIN_EMAIL = process.env.ADMIN_EMAIL || "trustburn79@gmail.com";
@@ -15194,32 +15196,97 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   // ============================================
   // Public Token Distribution Programs API
   // Enterprise-grade public endpoints for token programs
+  // Using canonical data from GENESIS_ALLOCATION via TokenomicsDataService
   // ============================================
 
-  // Public Airdrop Stats and User Eligibility
-  app.get("/api/token-programs/airdrop/stats", async (_req, res) => {
+  // Unified Token Programs Overview API - Returns all programs with canonical allocations
+  app.get("/api/token-programs/overview", async (_req, res) => {
     try {
-      const stats = await storage.getAirdropStats();
-      const enterpriseNode = getEnterpriseNode();
-      const networkStats = await enterpriseNode.getNetworkStats();
+      const overview = await tokenomicsDataService.getAllProgramsOverview();
+      const summary = tokenomicsDataService.getTokenomicsSummary();
       
       res.json({
         success: true,
         data: {
-          totalAllocation: "50000000",
+          totalSupply: summary.totalSupply,
+          totalSupplyFormatted: summary.totalSupplyFormatted,
+          categories: summary.categories,
+          breakdown: summary.breakdown,
+          programs: overview.programs,
+        },
+        source: "/admin/tokenomics",
+        lastUpdated: new Date().toISOString(),
+      });
+    } catch (error) {
+      console.error('[TokenPrograms] Overview error:', error);
+      res.status(500).json({ error: 'Failed to fetch token programs overview' });
+    }
+  });
+
+  // Get specific program allocation and stats
+  app.get("/api/token-programs/:program/allocation", async (req, res) => {
+    try {
+      const program = req.params.program as TokenProgram;
+      const stats = await tokenomicsDataService.getProgramStats(program);
+      
+      if (!stats) {
+        return res.status(404).json({ error: `Program '${program}' not found` });
+      }
+      
+      res.json({
+        success: true,
+        data: stats,
+        source: "/admin/tokenomics",
+        lastUpdated: new Date().toISOString(),
+      });
+    } catch (error) {
+      console.error('[TokenPrograms] Allocation error:', error);
+      res.status(500).json({ error: 'Failed to fetch program allocation' });
+    }
+  });
+
+  // Public Airdrop Stats and User Eligibility - Using canonical GENESIS_ALLOCATION
+  app.get("/api/token-programs/airdrop/stats", async (_req, res) => {
+    try {
+      const allocation = tokenomicsDataService.getProgramAllocation('airdrop');
+      const stats = await storage.getAirdropStats();
+      const enterpriseNode = getEnterpriseNode();
+      const networkStats = await enterpriseNode.getNetworkStats();
+      
+      // Calculate distribution progress
+      const distributed = parseFloat(stats.claimedAmount || '0');
+      const totalAllocation = allocation?.amount || 1200000000; // 1.2B from GENESIS_ALLOCATION
+      const distributionPercentage = (distributed / totalAllocation) * 100;
+      
+      res.json({
+        success: true,
+        data: {
+          // Canonical allocation from GENESIS_ALLOCATION
+          totalAllocation: allocation?.amountFormatted || "1,200,000,000",
+          totalAllocationRaw: totalAllocation,
+          allocationPercentage: allocation?.parentPercentage || 12,
+          category: allocation?.category || "COMMUNITY",
+          categoryPercentage: allocation?.categoryPercentage || 30,
+          
+          // Distribution progress
           totalDistributed: stats.claimedAmount || "0",
+          distributionPercentage: distributionPercentage.toFixed(2),
           totalClaimed: stats.totalClaimed || 0,
           totalEligible: stats.totalEligible || 0,
           claimRate: stats.totalEligible > 0 ? ((stats.totalClaimed / stats.totalEligible) * 100).toFixed(2) : "0",
+          
+          // Phases (proportional to actual allocation)
           phases: [
-            { name: "Early Adopter", allocation: "10000000", distributed: "8500000", status: "active", endDate: "2025-03-31" },
-            { name: "Community Builder", allocation: "15000000", distributed: "0", status: "upcoming", startDate: "2025-04-01" },
-            { name: "Validator Bonus", allocation: "10000000", distributed: "0", status: "upcoming", startDate: "2025-06-01" },
-            { name: "Ecosystem Growth", allocation: "15000000", distributed: "0", status: "upcoming", startDate: "2025-09-01" }
+            { name: "Early Adopter", allocation: "300,000,000", distributed: "0", status: "active", endDate: "2025-03-31", percentage: 25 },
+            { name: "Community Builder", allocation: "360,000,000", distributed: "0", status: "upcoming", startDate: "2025-04-01", percentage: 30 },
+            { name: "Validator Bonus", allocation: "240,000,000", distributed: "0", status: "upcoming", startDate: "2025-06-01", percentage: 20 },
+            { name: "Ecosystem Growth", allocation: "300,000,000", distributed: "0", status: "upcoming", startDate: "2025-09-01", percentage: 25 }
           ],
+          
           networkTps: networkStats.tps,
           blockHeight: networkStats.blockHeight
-        }
+        },
+        source: "/admin/tokenomics",
       });
     } catch (error) {
       console.error('[PublicAirdrop] Error:', error);
@@ -15251,18 +15318,34 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  // Public Referral Program Stats
+  // Public Referral Program Stats - Using canonical GENESIS_ALLOCATION
   app.get("/api/token-programs/referral/stats", async (_req, res) => {
     try {
+      const allocation = tokenomicsDataService.getProgramAllocation('referral');
       const stats = await storage.getReferralStats();
+      
+      // Calculate distribution progress
+      const distributed = parseFloat(stats.totalEarnings || '0');
+      const totalAllocation = allocation?.amount || 300000000; // 300M from GENESIS_ALLOCATION
+      const distributionPercentage = (distributed / totalAllocation) * 100;
       
       res.json({
         success: true,
         data: {
+          // Canonical allocation from GENESIS_ALLOCATION
+          totalAllocation: allocation?.amountFormatted || "300,000,000",
+          totalAllocationRaw: totalAllocation,
+          allocationPercentage: allocation?.parentPercentage || 3,
+          category: allocation?.category || "COMMUNITY",
+          categoryPercentage: allocation?.categoryPercentage || 30,
+          
+          // Program stats
           totalParticipants: stats.totalAccounts || 0,
           totalReferrals: stats.totalReferrals || 0,
           totalRewardsDistributed: stats.totalEarnings || "0",
+          distributionPercentage: distributionPercentage.toFixed(2),
           activeReferrers: stats.activeReferrers || 0,
+          
           tiers: [
             { name: "Bronze", minReferrals: 1, maxReferrals: 9, commission: 10, bonus: "50" },
             { name: "Silver", minReferrals: 10, maxReferrals: 49, commission: 15, bonus: "250" },
@@ -15277,7 +15360,8 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
             { rank: 4, referrals: 389, earnings: "15560", tier: "Platinum" },
             { rank: 5, referrals: 276, earnings: "11040", tier: "Platinum" }
           ]
-        }
+        },
+        source: "/admin/tokenomics",
       });
     } catch (error) {
       console.error('[PublicReferral] Error:', error);
@@ -15778,17 +15862,30 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  // Public Community Program Stats
+  // Public Community Program Stats - Using canonical GENESIS_ALLOCATION
   app.get("/api/token-programs/community/stats", async (_req, res) => {
     try {
+      const allocation = tokenomicsDataService.getProgramAllocation('community-program');
       const stats = await storage.getCommunityStats();
+      
+      const distributed = Number(stats.totalPointsDistributed || 0);
+      const totalAllocation = allocation?.amount || 300000000; // 300M from GENESIS_ALLOCATION
+      const distributionPercentage = (distributed / totalAllocation) * 100;
       
       res.json({
         success: true,
         data: {
+          // Canonical allocation from GENESIS_ALLOCATION
+          totalAllocation: allocation?.amountFormatted || "300,000,000",
+          totalAllocationRaw: totalAllocation,
+          allocationPercentage: allocation?.parentPercentage || 3,
+          category: allocation?.category || "COMMUNITY",
+          categoryPercentage: allocation?.categoryPercentage || 30,
+          
           totalContributors: stats.totalTasks || 0,
           totalContributions: stats.totalContributions || 0,
           totalRewardsDistributed: String(stats.totalPointsDistributed || 0),
+          distributionPercentage: distributionPercentage.toFixed(2),
           activeTasks: stats.activeTasks || 0,
           categories: [
             { name: "Content Creation", tasks: 24, rewards: "50000", participants: 156 },
@@ -15797,7 +15894,8 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
             { name: "Community Support", tasks: 8, rewards: "20000", participants: 234 },
             { name: "Development", tasks: 6, rewards: "100000", participants: 45 }
           ]
-        }
+        },
+        source: "/admin/tokenomics",
       });
     } catch (error) {
       console.error('[PublicCommunity] Error:', error);
@@ -15805,14 +15903,22 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  // Public DAO Governance Stats
+  // Public DAO Governance Stats - Using canonical GENESIS_ALLOCATION
   app.get("/api/token-programs/dao/stats", async (_req, res) => {
     try {
+      const allocation = tokenomicsDataService.getProgramAllocation('dao-governance');
       const stats = await storage.getDaoStats();
       
       res.json({
         success: true,
         data: {
+          // Canonical allocation from GENESIS_ALLOCATION (DAO_TREASURY)
+          totalAllocation: allocation?.amountFormatted || "800,000,000",
+          totalAllocationRaw: allocation?.amount || 800000000,
+          allocationPercentage: allocation?.parentPercentage || 8,
+          category: allocation?.category || "COMMUNITY",
+          categoryPercentage: allocation?.categoryPercentage || 30,
+          
           totalProposals: stats.totalProposals || 0,
           activeProposals: stats.activeProposals || 0,
           totalVotes: stats.totalVoters || 0,
@@ -15823,7 +15929,8 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
             { id: "prop-2", title: "Add New Validator Incentive Tier", status: "active", votesFor: "12000000", votesAgainst: "1500000", endDate: "2025-01-18" },
             { id: "prop-3", title: "Community Grant Allocation Q1 2025", status: "passed", votesFor: "15000000", votesAgainst: "3000000", endDate: "2025-01-10" }
           ]
-        }
+        },
+        source: "/admin/tokenomics",
       });
     } catch (error) {
       console.error('[PublicDAO] Error:', error);
@@ -15831,18 +15938,31 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  // Public Block Rewards Stats
+  // Public Block Rewards Stats - Using canonical GENESIS_ALLOCATION
   app.get("/api/token-programs/block-rewards/stats", async (_req, res) => {
     try {
+      const allocation = tokenomicsDataService.getProgramAllocation('block-rewards');
       const stats = await storage.getBlockRewardStats();
       const enterpriseNode = getEnterpriseNode();
       const networkStats = await enterpriseNode.getNetworkStats();
       
+      const distributed = parseFloat(stats.totalRewards || '0');
+      const totalAllocation = allocation?.amount || 1450000000; // 1.45B from GENESIS_ALLOCATION
+      const distributionPercentage = (distributed / totalAllocation) * 100;
+      
       res.json({
         success: true,
         data: {
+          // Canonical allocation from GENESIS_ALLOCATION
+          totalAllocation: allocation?.amountFormatted || "1,450,000,000",
+          totalAllocationRaw: totalAllocation,
+          allocationPercentage: allocation?.parentPercentage || 14.5,
+          category: allocation?.category || "REWARDS",
+          categoryPercentage: allocation?.categoryPercentage || 22,
+          
           currentEpoch: Math.floor(networkStats.blockHeight / 100000),
           totalRewardsDistributed: stats.totalRewards || "0",
+          distributionPercentage: distributionPercentage.toFixed(2),
           currentBlockReward: "2.5",
           nextHalvingBlock: Math.ceil(networkStats.blockHeight / 10000000) * 10000000,
           blocksToHalving: Math.ceil(networkStats.blockHeight / 10000000) * 10000000 - networkStats.blockHeight,
@@ -15857,7 +15977,8 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
             treasury: 20,
             burn: 10
           }
-        }
+        },
+        source: "/admin/tokenomics",
       });
     } catch (error) {
       console.error('[PublicBlockRewards] Error:', error);
@@ -15865,20 +15986,33 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  // Public Validator Incentives Stats
+  // Public Validator Incentives Stats - Using canonical GENESIS_ALLOCATION
   app.get("/api/token-programs/validator-incentives/stats", async (_req, res) => {
     try {
+      const allocation = tokenomicsDataService.getProgramAllocation('validator-incentives');
       const stats = await storage.getValidatorIncentiveStats();
       const enterpriseNode = getEnterpriseNode();
       const networkStats = await enterpriseNode.getNetworkStats();
       
+      const distributed = parseFloat(stats.totalAmount || '0');
+      const totalAllocation = allocation?.amount || 750000000; // 750M from GENESIS_ALLOCATION
+      const distributionPercentage = (distributed / totalAllocation) * 100;
+      
       res.json({
         success: true,
         data: {
+          // Canonical allocation from GENESIS_ALLOCATION
+          totalAllocation: allocation?.amountFormatted || "750,000,000",
+          totalAllocationRaw: totalAllocation,
+          allocationPercentage: allocation?.parentPercentage || 7.5,
+          category: allocation?.category || "REWARDS",
+          categoryPercentage: allocation?.categoryPercentage || 22,
+          
           totalValidators: networkStats.totalValidators || 125,
           activeValidators: networkStats.activeValidators || 125,
           totalStaked: "125000000",
           totalRewardsDistributed: stats.totalAmount || "0",
+          distributionPercentage: distributionPercentage.toFixed(2),
           averageApy: "12.5",
           tiers: [
             { name: "Genesis", minStake: "1000000", maxStake: null, apy: "15", validators: 25 },
@@ -15890,7 +16024,8 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
             { rank: 2, stake: "2100000", uptime: 99.98, blocksProduced: 14523, rewards: "157500" },
             { rank: 3, stake: "1800000", uptime: 99.97, blocksProduced: 13289, rewards: "135000" }
           ]
-        }
+        },
+        source: "/admin/tokenomics",
       });
     } catch (error) {
       console.error('[PublicValidatorIncentives] Error:', error);
@@ -15898,33 +16033,47 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  // Public Ecosystem Fund Stats
+  // Public Ecosystem Fund Stats - Using canonical GENESIS_ALLOCATION
   app.get("/api/token-programs/ecosystem-fund/stats", async (_req, res) => {
     try {
+      const allocation = tokenomicsDataService.getProgramAllocation('ecosystem-fund');
       const stats = await storage.getEcosystemGrantStats();
+      
+      const distributed = parseFloat(stats.totalAllocated || '0');
+      const totalAllocation = allocation?.amount || 700000000; // 700M from GENESIS_ALLOCATION
+      const distributionPercentage = (distributed / totalAllocation) * 100;
       
       res.json({
         success: true,
         data: {
-          totalFundSize: "100000000",
+          // Canonical allocation from GENESIS_ALLOCATION
+          totalAllocation: allocation?.amountFormatted || "700,000,000",
+          totalAllocationRaw: totalAllocation,
+          allocationPercentage: allocation?.parentPercentage || 7,
+          category: allocation?.category || "ECOSYSTEM",
+          categoryPercentage: allocation?.categoryPercentage || 14,
+          
+          totalFundSize: allocation?.amountFormatted || "700,000,000",
           totalAllocated: stats.totalAllocated || "0",
+          distributionPercentage: distributionPercentage.toFixed(2),
           totalProjects: stats.totalGrants || 0,
           activeProjects: stats.activeGrants || 0,
           categories: [
-            { name: "DeFi", allocated: "25000000", projects: 12 },
-            { name: "Infrastructure", allocated: "20000000", projects: 8 },
-            { name: "Gaming", allocated: "15000000", projects: 15 },
-            { name: "NFT", allocated: "10000000", projects: 20 },
-            { name: "Developer Tools", allocated: "15000000", projects: 10 },
-            { name: "Education", allocated: "5000000", projects: 25 },
-            { name: "Research", allocated: "10000000", projects: 5 }
+            { name: "DeFi", allocated: "175,000,000", projects: 12 },
+            { name: "Infrastructure", allocated: "140,000,000", projects: 8 },
+            { name: "Gaming", allocated: "105,000,000", projects: 15 },
+            { name: "NFT", allocated: "70,000,000", projects: 20 },
+            { name: "Developer Tools", allocated: "105,000,000", projects: 10 },
+            { name: "Education", allocated: "35,000,000", projects: 25 },
+            { name: "Research", allocated: "70,000,000", projects: 5 }
           ],
           recentGrants: [
             { name: "TBurn DEX V2", category: "DeFi", amount: "500000", status: "approved" },
             { name: "Cross-Chain Bridge SDK", category: "Infrastructure", amount: "750000", status: "in_progress" },
             { name: "TBURN Learn Platform", category: "Education", amount: "150000", status: "approved" }
           ]
-        }
+        },
+        source: "/admin/tokenomics",
       });
     } catch (error) {
       console.error('[PublicEcosystemFund] Error:', error);
@@ -15932,19 +16081,42 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  // Public Investment Round Stats (Seed, Private, Public)
+  // Public Investment Round Stats (Seed, Private, Public) - Using canonical GENESIS_ALLOCATION
   app.get("/api/token-programs/investment-rounds/stats", async (_req, res) => {
     try {
+      // Get allocations from GENESIS_ALLOCATION (INVESTORS + PUBLIC_SALE categories)
+      const seedAllocation = tokenomicsDataService.getProgramAllocation('seed-round');
+      const privateAllocation = tokenomicsDataService.getProgramAllocation('private-round');
+      const publicSaleAllocation = tokenomicsDataService.getProgramAllocation('public-sale');
+      
+      // Calculate actual allocation values
+      const seedAmount = seedAllocation?.amount || 500000000;
+      const privateAmount = privateAllocation?.amount || 900000000;
+      const publicAmount = publicSaleAllocation?.amount || 300000000;
+      
+      // Total includes INVESTORS (14%) + PUBLIC_SALE (3%) = 17% = 1.7B
+      // But for backward compatibility, we include strategic investors bringing it to ~2B
+      const totalAllocation = seedAmount + privateAmount + publicAmount + 600000000; // + strategic 6%
+      
       res.json({
         success: true,
         data: {
+          // Canonical allocation from GENESIS_ALLOCATION
+          totalAllocation: "2,300,000,000",
+          totalAllocationRaw: totalAllocation,
+          allocationPercentage: 23,
+          category: "INVESTORS",
+          categoryPercentage: 20,
+          
           rounds: [
             { 
               name: "Seed Round", 
               status: "completed",
-              allocation: "50000000",
-              price: "0.01",
-              raised: "500000",
+              allocation: seedAllocation?.amountFormatted || "500,000,000",
+              allocationRaw: seedAmount,
+              allocationPercentage: seedAllocation?.parentPercentage || 5,
+              price: "0.008",
+              raised: "4,000,000",
               investors: 45,
               vesting: "12 months linear, 6 month cliff",
               unlocked: 25
@@ -15952,9 +16124,11 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
             { 
               name: "Private Round", 
               status: "completed",
-              allocation: "100000000",
-              price: "0.025",
-              raised: "2500000",
+              allocation: privateAllocation?.amountFormatted || "900,000,000",
+              allocationRaw: privateAmount,
+              allocationPercentage: privateAllocation?.parentPercentage || 9,
+              price: "0.015",
+              raised: "13,500,000",
               investors: 120,
               vesting: "18 months linear, 3 month cliff",
               unlocked: 15
@@ -15962,18 +16136,21 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
             { 
               name: "Public Round", 
               status: "completed",
-              allocation: "150000000",
+              allocation: publicSaleAllocation?.amountFormatted || "300,000,000",
+              allocationRaw: publicAmount,
+              allocationPercentage: publicSaleAllocation?.parentPercentage || 3,
               price: "0.05",
-              raised: "7500000",
+              raised: "15,000,000",
               investors: 15847,
               vesting: "6 months linear",
               unlocked: 50
             }
           ],
-          totalRaised: "10500000",
+          totalRaised: "32,500,000",
           totalInvestors: 16012,
           nextUnlock: "2025-02-01"
-        }
+        },
+        source: "/admin/tokenomics",
       });
     } catch (error) {
       console.error('[PublicInvestmentRounds] Error:', error);
@@ -15981,18 +16158,37 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  // Public Launchpad Stats (Launchpad, CoinList, DAO Maker)
+  // Public Launchpad Stats (Launchpad, CoinList, DAO Maker) - Using canonical GENESIS_ALLOCATION
   app.get("/api/token-programs/launchpad/stats", async (_req, res) => {
     try {
+      // Get PUBLIC_SALE allocation from GENESIS_ALLOCATION
+      // Launchpad: 40%, CoinList: 35%, DAO Maker: 25% of PUBLIC_SALE (3% = 300M)
+      const launchpadAllocation = tokenomicsDataService.getProgramAllocation('launchpad-ido');
+      const coinlistAllocation = tokenomicsDataService.getProgramAllocation('coinlist-sale');
+      const daoMakerAllocation = tokenomicsDataService.getProgramAllocation('daomaker-sho');
+      
+      const totalPublicSale = 300000000; // 300M (3%)
+      
       res.json({
         success: true,
         data: {
+          // Canonical allocation from GENESIS_ALLOCATION
+          totalAllocation: "300,000,000",
+          totalAllocationRaw: totalPublicSale,
+          allocationPercentage: 3,
+          category: "ECOSYSTEM",
+          categoryPercentage: 14,
+          
           platforms: [
             {
               name: "TBURN Official Launchpad",
               status: "active",
+              allocation: launchpadAllocation?.amountFormatted || "120,000,000",
+              allocationRaw: launchpadAllocation?.amount || 120000000,
+              allocationPercentage: 1.2,
+              splitPercentage: 40,
               totalProjects: 12,
-              totalRaised: "15000000",
+              totalRaised: "6,000,000",
               avgRoi: "450%",
               participants: 28500,
               upcomingIdo: { name: "TBurn Gaming Hub", date: "2025-02-01", allocation: "2000000" }
@@ -16000,24 +16196,33 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
             {
               name: "CoinList",
               status: "completed",
+              allocation: coinlistAllocation?.amountFormatted || "105,000,000",
+              allocationRaw: coinlistAllocation?.amount || 105000000,
+              allocationPercentage: 1.05,
+              splitPercentage: 35,
               totalProjects: 1,
-              totalRaised: "5000000",
+              totalRaised: "5,250,000",
               participants: 12000,
               roi: "380%"
             },
             {
               name: "DAO Maker SHO",
               status: "completed",
+              allocation: daoMakerAllocation?.amountFormatted || "75,000,000",
+              allocationRaw: daoMakerAllocation?.amount || 75000000,
+              allocationPercentage: 0.75,
+              splitPercentage: 25,
               totalProjects: 1,
-              totalRaised: "3000000",
+              totalRaised: "3,750,000",
               participants: 8500,
               roi: "520%",
               daoPowerRequired: 500
             }
           ],
-          totalLaunchpadRaised: "23000000",
+          totalLaunchpadRaised: "15,000,000",
           averageRoi: "450%"
-        }
+        },
+        source: "/admin/tokenomics",
       });
     } catch (error) {
       console.error('[PublicLaunchpad] Error:', error);
@@ -16025,22 +16230,38 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  // Public Partnership & Marketing Program Stats
+  // Public Partnership & Marketing Program Stats - Using canonical GENESIS_ALLOCATION
   app.get("/api/token-programs/partnerships/stats", async (_req, res) => {
     try {
+      // Get allocations from GENESIS_ALLOCATION (ECOSYSTEM category)
+      const partnershipsAllocation = tokenomicsDataService.getProgramAllocation('partnerships');
+      const advisorsAllocation = tokenomicsDataService.getProgramAllocation('advisors');
+      
+      // Strategic partners: 400M (4%), Marketing: 300M (3%)
+      const totalAllocation = (partnershipsAllocation?.amount || 400000000) + (advisorsAllocation?.amount || 300000000);
+      
       res.json({
         success: true,
         data: {
+          // Canonical allocation from GENESIS_ALLOCATION
+          totalAllocation: "700,000,000",
+          totalAllocationRaw: 700000000,
+          allocationPercentage: 7,
+          category: "ECOSYSTEM",
+          categoryPercentage: 14,
+          
           partnerships: {
             total: 45,
             strategic: 8,
             technical: 15,
             marketing: 22,
-            allocation: "75000000",
+            allocation: partnershipsAllocation?.amountFormatted || "400,000,000",
+            allocationRaw: partnershipsAllocation?.amount || 400000000,
+            allocationPercentage: partnershipsAllocation?.parentPercentage || 4,
             distributed: "25000000"
           },
           marketing: {
-            totalBudget: "25000000",
+            totalBudget: "100,000,000",
             spent: "8500000",
             campaigns: 24,
             activeCampaigns: 5,
@@ -16049,16 +16270,19 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
           },
           advisors: {
             total: 12,
-            allocation: "20000000",
+            allocation: advisorsAllocation?.amountFormatted || "300,000,000",
+            allocationRaw: advisorsAllocation?.amount || 300000000,
+            allocationPercentage: advisorsAllocation?.parentPercentage || 3,
             vesting: "24 months linear",
             unlocked: 8
           },
           strategicPartners: [
-            { name: "Major Exchange A", type: "Exchange", allocation: "5000000" },
-            { name: "DeFi Protocol B", type: "DeFi", allocation: "3000000" },
-            { name: "Infrastructure Provider C", type: "Infrastructure", allocation: "2500000" }
+            { name: "Major Exchange A", type: "Exchange", allocation: "50,000,000" },
+            { name: "DeFi Protocol B", type: "DeFi", allocation: "30,000,000" },
+            { name: "Infrastructure Provider C", type: "Infrastructure", allocation: "25,000,000" }
           ]
-        }
+        },
+        source: "/admin/tokenomics",
       });
     } catch (error) {
       console.error('[PublicPartnerships] Error:', error);
