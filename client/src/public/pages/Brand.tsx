@@ -856,15 +856,15 @@ const brandStyles = `
 `;
 
 const logoAssets = [
-  { id: "main-logo-dark", title: "메인 로고 (다크)", desc: "어두운 배경에서 사용하는 기본 로고", bg: "dark-bg", type: "main", dark: false, formats: ["SVG", "PNG", "PDF"] },
-  { id: "main-logo-light", title: "메인 로고 (라이트)", desc: "밝은 배경에서 사용하는 기본 로고", bg: "light-bg", type: "main", dark: true, formats: ["SVG", "PNG", "PDF"] },
-  { id: "main-logo-navy", title: "메인 로고 (네이비)", desc: "네이비 배경에서 사용하는 로고", bg: "navy-bg", type: "main", dark: false, formats: ["SVG", "PNG", "PDF"] },
-  { id: "symbol", title: "심볼 (Symbol)", desc: "아이콘 또는 파비콘으로 사용", bg: "dark-bg", type: "symbol", formats: ["SVG", "PNG", "ICO"] },
-  { id: "symbol-outline", title: "심볼 아웃라인", desc: "아웃라인 버전의 심볼", bg: "dark-bg", type: "symbol-outline", formats: ["SVG", "PNG"] },
-  { id: "symbol-transparent", title: "심볼 (투명 배경)", desc: "투명 배경용 PNG 심볼", bg: "transparent-bg", type: "symbol", formats: ["PNG", "WEBP"] },
-  { id: "wordmark-gold", title: "워드마크 (골드)", desc: "심볼 없이 텍스트만 사용", bg: "dark-bg", type: "wordmark-gold", formats: ["SVG", "PNG"] },
-  { id: "wordmark-white", title: "워드마크 (화이트)", desc: "어두운 배경용 화이트 워드마크", bg: "navy-bg", type: "wordmark-white", formats: ["SVG", "PNG"] },
-  { id: "wordmark-dark", title: "워드마크 (다크)", desc: "밝은 배경용 다크 워드마크", bg: "gold-bg", type: "wordmark-dark", formats: ["SVG", "PNG"] },
+  { id: "main-logo-dark", title: "Main Logo (Dark)", desc: "Primary logo for dark backgrounds", bg: "dark-bg", type: "main", dark: false, formats: ["SVG", "PNG", "PDF"] },
+  { id: "main-logo-light", title: "Main Logo (Light)", desc: "Primary logo for light backgrounds", bg: "light-bg", type: "main", dark: true, formats: ["SVG", "PNG", "PDF"] },
+  { id: "main-logo-navy", title: "Main Logo (Navy)", desc: "Logo for navy backgrounds", bg: "navy-bg", type: "main", dark: false, formats: ["SVG", "PNG", "PDF"] },
+  { id: "symbol", title: "Symbol", desc: "Use as icon or favicon", bg: "dark-bg", type: "symbol", formats: ["SVG", "PNG", "ICO"] },
+  { id: "symbol-outline", title: "Symbol Outline", desc: "Outline version of the symbol", bg: "dark-bg", type: "symbol-outline", formats: ["SVG", "PNG"] },
+  { id: "symbol-transparent", title: "Symbol (Transparent)", desc: "PNG symbol for transparent backgrounds", bg: "transparent-bg", type: "symbol", formats: ["PNG", "WEBP"] },
+  { id: "wordmark-gold", title: "Wordmark (Gold)", desc: "Text only without symbol", bg: "dark-bg", type: "wordmark-gold", formats: ["SVG", "PNG"] },
+  { id: "wordmark-white", title: "Wordmark (White)", desc: "White wordmark for dark backgrounds", bg: "navy-bg", type: "wordmark-white", formats: ["SVG", "PNG"] },
+  { id: "wordmark-dark", title: "Wordmark (Dark)", desc: "Dark wordmark for light backgrounds", bg: "gold-bg", type: "wordmark-dark", formats: ["SVG", "PNG"] },
 ];
 
 const primaryColors = [
@@ -896,10 +896,10 @@ const gradients = [
 ];
 
 const banners = [
-  { id: "hero", title: "히어로 배너", type: "hero-banner", dimension: "1920 × 600", desc: "웹사이트 메인" },
-  { id: "social", title: "소셜 미디어 배너", type: "social-banner", dimension: "1200 × 630", desc: "Facebook/Twitter" },
-  { id: "email", title: "이메일 헤더", type: "email-banner", dimension: "600 × 200", desc: "뉴스레터" },
-  { id: "ad", title: "광고 배너", type: "ad-banner", dimension: "728 × 90", desc: "디스플레이 광고" },
+  { id: "hero", title: "Hero Banner", type: "hero-banner", dimension: "1920 × 600", desc: "Website Main" },
+  { id: "social", title: "Social Media Banner", type: "social-banner", dimension: "1200 × 630", desc: "Facebook/Twitter" },
+  { id: "email", title: "Email Header", type: "email-banner", dimension: "600 × 200", desc: "Newsletter" },
+  { id: "ad", title: "Ad Banner", type: "ad-banner", dimension: "728 × 90", desc: "Display Ads" },
 ];
 
 const iconSet = [
@@ -928,29 +928,29 @@ export default function Brand() {
     try {
       await navigator.clipboard.writeText(value);
       setCopiedId(id);
-      toast({ title: "클립보드에 복사되었습니다!", description: value });
+      toast({ title: "Copied to clipboard!", description: value });
       setTimeout(() => setCopiedId(null), 1000);
     } catch {
-      toast({ title: "복사 실패", variant: "destructive" });
+      toast({ title: "Copy failed", variant: "destructive" });
     }
   };
 
   const downloadAsset = (assetName: string) => {
-    toast({ title: `${assetName} 다운로드를 시작합니다...`, description: "파일이 곧 다운로드됩니다." });
+    toast({ title: `Starting download: ${assetName}...`, description: "File will download shortly." });
   };
 
   const downloadSection = (section: string) => {
-    toast({ title: `${section} 섹션 에셋을 다운로드합니다...` });
+    toast({ title: `Downloading ${section} section assets...` });
   };
 
   const downloadPackage = (type: string) => {
     const packageNames: Record<string, string> = {
-      full: "전체 브랜드 패키지",
-      print: "인쇄용 패키지",
-      digital: "디지털용 패키지",
-      social: "소셜 미디어 패키지",
+      full: "Full Brand Package",
+      print: "Print Package",
+      digital: "Digital Package",
+      social: "Social Media Package",
     };
-    toast({ title: `${packageNames[type]}를 다운로드합니다...` });
+    toast({ title: `Downloading ${packageNames[type]}...` });
   };
 
   const renderLogoDisplay = (type: string, dark: boolean = false) => {
@@ -1002,16 +1002,16 @@ export default function Brand() {
             <span className="gradient-text">Brand Assets</span>
           </h1>
           <p className="brand-hero-subtitle">
-            TBURN Chain의 공식 브랜드 에셋입니다.<br />
-            로고, 컬러, 타이포그래피, 배너를 다운로드하고 올바르게 사용하세요.
+            Official brand assets for TBURN Chain.<br />
+            Download and use logos, colors, typography, and banners correctly.
           </p>
           <div className="asset-categories">
             {[
-              { id: "logos", icon: Shapes, label: "로고" },
-              { id: "colors", icon: Palette, label: "컬러" },
-              { id: "typography", icon: Type, label: "타이포그래피" },
-              { id: "banners", icon: Image, label: "배너" },
-              { id: "icons", icon: Flame, label: "아이콘" },
+              { id: "logos", icon: Shapes, label: "Logos" },
+              { id: "colors", icon: Palette, label: "Colors" },
+              { id: "typography", icon: Type, label: "Typography" },
+              { id: "banners", icon: Image, label: "Banners" },
+              { id: "icons", icon: Flame, label: "Icons" },
             ].map((cat) => (
               <div
                 key={cat.id}
@@ -1030,11 +1030,11 @@ export default function Brand() {
       <section className="brand-section" id="logos">
         <div className="brand-section-header">
           <div className="brand-section-title-group">
-            <h2><Shapes className="w-6 h-6" /> 로고 / Logo</h2>
-            <p>TBURN Chain의 공식 로고와 다양한 버전</p>
+            <h2><Shapes className="w-6 h-6" /> Logos</h2>
+            <p>Official TBURN Chain logos and variations</p>
           </div>
           <button className="download-section-btn" onClick={() => downloadSection("logos")} data-testid="button-download-logos">
-            <Download className="w-4 h-4" /> 로고 전체 다운로드
+            <Download className="w-4 h-4" /> Download All Logos
           </button>
         </div>
 
@@ -1053,7 +1053,7 @@ export default function Brand() {
                   ))}
                 </div>
                 <button className="logo-download-btn" onClick={() => downloadAsset(asset.id)} data-testid={`button-download-${asset.id}`}>
-                  <Download className="w-4 h-4" /> 다운로드
+                  <Download className="w-4 h-4" /> Download
                 </button>
               </div>
             </div>
@@ -1064,7 +1064,7 @@ export default function Brand() {
           <h3 style={{ fontSize: "1.25rem", fontWeight: 700, marginBottom: "0.5rem", display: "flex", alignItems: "center", gap: "8px" }}>
             <Flame className="w-5 h-5 text-orange-500" /> TBurn Logo Symbol
           </h3>
-          <p style={{ color: "var(--gray)", marginBottom: "1.5rem" }}>다양한 배경과 심볼 색상 조합 미리보기</p>
+          <p style={{ color: "var(--gray)", marginBottom: "1.5rem" }}>Preview various background and symbol color combinations</p>
           
           <div style={{ display: "grid", gridTemplateColumns: "repeat(7, 1fr)", gap: "1rem" }} className="logo-variants-grid">
             <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "4px" }}>
@@ -1200,11 +1200,11 @@ export default function Brand() {
       <section className="brand-section" id="colors" style={{ background: "rgba(255,255,255,0.02)" }}>
         <div className="brand-section-header">
           <div className="brand-section-title-group">
-            <h2><Palette className="w-6 h-6" /> 컬러 팔레트 / Color Palette</h2>
-            <p>TBURN Chain의 공식 브랜드 컬러</p>
+            <h2><Palette className="w-6 h-6" /> Color Palette</h2>
+            <p>Official TBURN Chain brand colors</p>
           </div>
           <button className="download-section-btn" onClick={() => downloadSection("colors")} data-testid="button-download-colors">
-            <Download className="w-4 h-4" /> ASE 파일 다운로드
+            <Download className="w-4 h-4" /> Download ASE File
           </button>
         </div>
 
@@ -1308,11 +1308,11 @@ export default function Brand() {
       <section className="brand-section" id="typography">
         <div className="brand-section-header">
           <div className="brand-section-title-group">
-            <h2><Type className="w-6 h-6" /> 타이포그래피 / Typography</h2>
-            <p>TBURN Chain의 공식 서체</p>
+            <h2><Type className="w-6 h-6" /> Typography</h2>
+            <p>Official TBURN Chain typefaces</p>
           </div>
           <button className="download-section-btn" onClick={() => downloadSection("typography")} data-testid="button-download-typography">
-            <Download className="w-4 h-4" /> 폰트 다운로드
+            <Download className="w-4 h-4" /> Download Fonts
           </button>
         </div>
 
@@ -1339,9 +1339,9 @@ export default function Brand() {
             <h4>Secondary Font (Korean)</h4>
             <div className="font-name">Pretendard</div>
             <div className="font-preview">
-              가나다라마바사아자차카타파하<br />
-              다양한 굵기를 지원하는 한글 폰트<br />
-              TBURN 블록체인
+              Korean character support<br />
+              Multiple font weights available<br />
+              TBURN Blockchain
             </div>
             <div className="font-weights">
               <span className="font-weight-tag">Regular <span>400</span></span>
@@ -1356,11 +1356,11 @@ export default function Brand() {
       <section className="brand-section" id="banners" style={{ background: "rgba(255,255,255,0.02)" }}>
         <div className="brand-section-header">
           <div className="brand-section-title-group">
-            <h2><Image className="w-6 h-6" /> 배너 / Banners</h2>
-            <p>다양한 용도의 배너 템플릿</p>
+            <h2><Image className="w-6 h-6" /> Banners</h2>
+            <p>Banner templates for various purposes</p>
           </div>
           <button className="download-section-btn" onClick={() => downloadSection("banners")} data-testid="button-download-banners">
-            <Download className="w-4 h-4" /> 배너 전체 다운로드
+            <Download className="w-4 h-4" /> Download All Banners
           </button>
         </div>
 
@@ -1390,7 +1390,7 @@ export default function Brand() {
                   </div>
                 </div>
                 <button className="banner-download-btn" onClick={() => downloadAsset(banner.id)} data-testid={`button-download-banner-${banner.id}`}>
-                  <Download className="w-4 h-4" /> 다운로드
+                  <Download className="w-4 h-4" /> Download
                 </button>
               </div>
             </div>
@@ -1401,11 +1401,11 @@ export default function Brand() {
       <section className="brand-section" id="icons">
         <div className="brand-section-header">
           <div className="brand-section-title-group">
-            <h2><Flame className="w-6 h-6" /> 아이콘 세트 / Icon Set</h2>
-            <p>TBURN Chain에서 사용하는 아이콘</p>
+            <h2><Flame className="w-6 h-6" /> Icon Set</h2>
+            <p>Icons used in TBURN Chain</p>
           </div>
           <button className="download-section-btn" onClick={() => downloadSection("icons")} data-testid="button-download-icons">
-            <Download className="w-4 h-4" /> 아이콘 전체 다운로드
+            <Download className="w-4 h-4" /> Download All Icons
           </button>
         </div>
 
@@ -1422,33 +1422,33 @@ export default function Brand() {
       <section className="brand-section" id="guidelines" style={{ background: "rgba(255,255,255,0.02)" }}>
         <div className="brand-section-header">
           <div className="brand-section-title-group">
-            <h2><FileText className="w-6 h-6" /> 사용 가이드라인 / Usage Guidelines</h2>
-            <p>브랜드 에셋을 올바르게 사용하는 방법</p>
+            <h2><FileText className="w-6 h-6" /> Usage Guidelines</h2>
+            <p>How to properly use brand assets</p>
           </div>
         </div>
 
         <div className="guidelines-grid">
           <div className="guideline-card do">
             <div className="guideline-header">
-              <Check className="w-5 h-5" /> DO - 올바른 사용
+              <Check className="w-5 h-5" /> DO - Correct Usage
             </div>
             <div className="guideline-content">
               <div className="guideline-items">
                 <div className="guideline-item">
                   <div className="icon"><Check className="w-3 h-3" /></div>
-                  <p>공식 로고 파일을 원본 그대로 사용하세요.</p>
+                  <p>Use official logo files without modifications.</p>
                 </div>
                 <div className="guideline-item">
                   <div className="icon"><Check className="w-3 h-3" /></div>
-                  <p>로고 주변에 충분한 여백을 확보하세요.</p>
+                  <p>Ensure adequate clear space around the logo.</p>
                 </div>
                 <div className="guideline-item">
                   <div className="icon"><Check className="w-3 h-3" /></div>
-                  <p>지정된 컬러 팔레트 내에서 로고를 사용하세요.</p>
+                  <p>Use the logo within the designated color palette.</p>
                 </div>
                 <div className="guideline-item">
                   <div className="icon"><Check className="w-3 h-3" /></div>
-                  <p>고해상도 이미지가 필요할 때 SVG 포맷을 사용하세요.</p>
+                  <p>Use SVG format when high resolution is needed.</p>
                 </div>
               </div>
             </div>
@@ -1456,25 +1456,25 @@ export default function Brand() {
 
           <div className="guideline-card dont">
             <div className="guideline-header">
-              <X className="w-5 h-5" /> DON'T - 잘못된 사용
+              <X className="w-5 h-5" /> DON'T - Incorrect Usage
             </div>
             <div className="guideline-content">
               <div className="guideline-items">
                 <div className="guideline-item">
                   <div className="icon"><X className="w-3 h-3" /></div>
-                  <p>로고의 색상을 임의로 변경하지 마세요.</p>
+                  <p>Do not change the logo colors arbitrarily.</p>
                 </div>
                 <div className="guideline-item">
                   <div className="icon"><X className="w-3 h-3" /></div>
-                  <p>로고를 늘리거나, 기울이거나, 회전하지 마세요. 원본 비율을 유지하세요.</p>
+                  <p>Do not stretch, skew, or rotate the logo. Maintain original proportions.</p>
                 </div>
                 <div className="guideline-item">
                   <div className="icon"><X className="w-3 h-3" /></div>
-                  <p>로고에 그림자, 외곽선, 효과를 추가하지 마세요.</p>
+                  <p>Do not add shadows, outlines, or effects to the logo.</p>
                 </div>
                 <div className="guideline-item">
                   <div className="icon"><X className="w-3 h-3" /></div>
-                  <p>복잡한 배경 위에 로고를 배치하지 마세요. 가독성이 떨어집니다.</p>
+                  <p>Do not place the logo on complex backgrounds. It reduces readability.</p>
                 </div>
               </div>
             </div>
@@ -1482,7 +1482,7 @@ export default function Brand() {
         </div>
 
         <div className="clearspace-container">
-          <h4 style={{ fontSize: "1.125rem", fontWeight: 700, marginBottom: "1.5rem" }}>Clear Space (여백 가이드)</h4>
+          <h4 style={{ fontSize: "1.125rem", fontWeight: 700, marginBottom: "1.5rem" }}>Clear Space Guide</h4>
           <div className="clearspace-visual">
             <div className="clearspace-logo">
               <TBurnLogo className="w-16 h-16" />
@@ -1494,36 +1494,36 @@ export default function Brand() {
             </div>
           </div>
           <div className="clearspace-note">
-            <strong>X = 심볼 높이의 50%</strong><br />
-            로고 주변에 최소 X 만큼의 여백을 확보하여 가독성과 브랜드 임팩트를 유지하세요.
+            <strong>X = 50% of symbol height</strong><br />
+            Maintain at least X clear space around the logo to preserve readability and brand impact.
           </div>
         </div>
       </section>
 
       <section className="brand-section">
         <div className="download-center">
-          <h3>브랜드 에셋 다운로드</h3>
-          <p>필요한 포맷의 에셋 패키지를 다운로드하세요</p>
+          <h3>Download Brand Assets</h3>
+          <p>Download asset packages in the format you need</p>
           <div className="download-options">
             <div className="download-option" onClick={() => downloadPackage("full")} data-testid="download-full">
               <div className="icon"><FileText className="w-10 h-10" /></div>
-              <h4>전체 패키지</h4>
-              <p>모든 에셋 포함 (ZIP)</p>
+              <h4>Full Package</h4>
+              <p>All assets included (ZIP)</p>
             </div>
             <div className="download-option" onClick={() => downloadPackage("print")} data-testid="download-print">
               <div className="icon"><Printer className="w-10 h-10" /></div>
-              <h4>인쇄용</h4>
-              <p>고해상도 PDF, EPS</p>
+              <h4>Print</h4>
+              <p>High resolution PDF, EPS</p>
             </div>
             <div className="download-option" onClick={() => downloadPackage("digital")} data-testid="download-digital">
               <div className="icon"><Monitor className="w-10 h-10" /></div>
-              <h4>디지털용</h4>
+              <h4>Digital</h4>
               <p>SVG, PNG, WebP</p>
             </div>
             <div className="download-option" onClick={() => downloadPackage("social")} data-testid="download-social">
               <div className="icon"><Share2 className="w-10 h-10" /></div>
-              <h4>소셜 미디어</h4>
-              <p>최적화된 배너/프로필</p>
+              <h4>Social Media</h4>
+              <p>Optimized banners/profiles</p>
             </div>
           </div>
         </div>
@@ -1532,7 +1532,7 @@ export default function Brand() {
       <footer className="brand-footer">
         <p>© 2025-2045 TBURN Foundation. All Rights Reserved.</p>
         <p style={{ marginTop: "0.5rem" }}>
-          브랜드 에셋 사용에 관한 문의: <a href="mailto:brand@tburn.io">brand@tburn.io</a>
+          For brand asset inquiries: <a href="mailto:brand@tburn.io">brand@tburn.io</a>
         </p>
       </footer>
     </div>
