@@ -10126,6 +10126,84 @@
           "joinDiscord": "Discord 참여"
         }
       },
+      "tutorialsPage": {
+        "hero": {
+          "badge": "단계별 학습",
+          "title": "TBURN 개발자 튜토리얼",
+          "description": "TBURN 체인에서 빌드하는 데 도움이 되는 실습 가이드. 기본 개념부터 고급 DeFi 애플리케이션까지.",
+          "stats": {
+            "tutorials": "튜토리얼",
+            "hours": "시간 분량의 콘텐츠",
+            "level": "모든 스킬 레벨"
+          }
+        },
+        "featured": {
+          "title": "추천 튜토리얼"
+        },
+        "paths": {
+          "title": "학습 경로"
+        },
+        "all": {
+          "title": "전체 튜토리얼"
+        },
+        "filter": {
+          "all": "전체"
+        },
+        "steps": "단계",
+        "start": "시작",
+        "viewPath": "경로 보기",
+        "cta": {
+          "title": "빌드할 준비가 되셨나요?",
+          "description": "빠른 시작 가이드로 시작하여 15분 안에 TBURN 체인에서 첫 번째 dApp을 빌드하세요.",
+          "quickstart": "빠른 시작 가이드",
+          "sdk": "SDK 문서 보기"
+        },
+        "tutorials": {
+          "gettingStarted": {
+            "title": "TBURN SDK 시작하기",
+            "description": "첫 번째 블록체인 애플리케이션을 위해 TBURN SDK를 설치하고 구성하는 방법을 배웁니다."
+          },
+          "firstTransaction": {
+            "title": "첫 번째 트랜잭션",
+            "description": "네트워크에서 TBURN 토큰을 보내고 받는 단계별 가이드."
+          },
+          "walletIntegration": {
+            "title": "지갑 통합 가이드",
+            "description": "MetaMask, Trust Wallet 및 기타 Web3 지갑을 dApp에 연결합니다."
+          },
+          "smartContracts": {
+            "title": "스마트 컨트랙트 배포",
+            "description": "TBURN 체인에서 첫 번째 스마트 컨트랙트를 작성, 컴파일 및 배포합니다."
+          },
+          "trustScore": {
+            "title": "트러스트 스코어 통합",
+            "description": "애플리케이션에 AI 기반 트러스트 스코어 검증을 구현합니다."
+          },
+          "defiStaking": {
+            "title": "스테이킹 dApp 빌드",
+            "description": "보상 및 위임 기능이 있는 완전한 스테이킹 애플리케이션을 만듭니다."
+          }
+        },
+        "learningPaths": {
+          "fundamentals": {
+            "title": "블록체인 기초",
+            "description": "TBURN으로 처음부터 블록체인 개념 배우기"
+          },
+          "dappDev": {
+            "title": "dApp 개발",
+            "description": "처음부터 분산 애플리케이션 구축"
+          },
+          "defiMastery": {
+            "title": "DeFi 마스터리",
+            "description": "DeFi 프로토콜을 마스터하고 금융 애플리케이션 구축"
+          }
+        },
+        "difficulty": {
+          "beginner": "초급",
+          "intermediate": "중급",
+          "advanced": "고급"
+        }
+      },
       "api": {
         "tag": "API 레퍼런스",
         "title": "API 문서",

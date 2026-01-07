@@ -10046,6 +10046,84 @@
           "joinDiscord": "Join Discord"
         }
       },
+      "tutorialsPage": {
+        "hero": {
+          "badge": "Step-by-Step Learning",
+          "title": "TBURN Developer Tutorials",
+          "description": "Hands-on guides to help you build on TBURN Chain. From basic concepts to advanced DeFi applications.",
+          "stats": {
+            "tutorials": "Tutorials",
+            "hours": "Hours of Content",
+            "level": "All Skill Levels"
+          }
+        },
+        "featured": {
+          "title": "Featured Tutorials"
+        },
+        "paths": {
+          "title": "Learning Paths"
+        },
+        "all": {
+          "title": "All Tutorials"
+        },
+        "filter": {
+          "all": "All"
+        },
+        "steps": "steps",
+        "start": "Start",
+        "viewPath": "View Path",
+        "cta": {
+          "title": "Ready to Build?",
+          "description": "Start with our Quick Start guide and build your first dApp on TBURN Chain in under 15 minutes.",
+          "quickstart": "Quick Start Guide",
+          "sdk": "View SDK Docs"
+        },
+        "tutorials": {
+          "gettingStarted": {
+            "title": "Getting Started with TBURN SDK",
+            "description": "Learn how to install and configure the TBURN SDK for your first blockchain application."
+          },
+          "firstTransaction": {
+            "title": "Your First Transaction",
+            "description": "Step-by-step guide to sending and receiving TBURN tokens on the network."
+          },
+          "walletIntegration": {
+            "title": "Wallet Integration Guide",
+            "description": "Connect MetaMask, Trust Wallet, and other Web3 wallets to your dApp."
+          },
+          "smartContracts": {
+            "title": "Deploy Smart Contracts",
+            "description": "Write, compile, and deploy your first smart contract on TBURN Chain."
+          },
+          "trustScore": {
+            "title": "Trust Score Integration",
+            "description": "Implement AI-powered Trust Score verification in your application."
+          },
+          "defiStaking": {
+            "title": "Build a Staking dApp",
+            "description": "Create a complete staking application with rewards and delegation."
+          }
+        },
+        "learningPaths": {
+          "fundamentals": {
+            "title": "Blockchain Fundamentals",
+            "description": "Start from zero and learn blockchain concepts with TBURN"
+          },
+          "dappDev": {
+            "title": "dApp Development",
+            "description": "Build decentralized applications from scratch"
+          },
+          "defiMastery": {
+            "title": "DeFi Mastery",
+            "description": "Master DeFi protocols and build financial applications"
+          }
+        },
+        "difficulty": {
+          "beginner": "Beginner",
+          "intermediate": "Intermediate",
+          "advanced": "Advanced"
+        }
+      },
       "api": {
         "tag": "API REFERENCE",
         "title": "API Documentation",
