@@ -184,10 +184,11 @@ async function safeInitApp() {
   }
   
   // Show TBURN branded loading indicator while App loads
+  // Include "Loading..." text for better UX during cold starts
   rootElement.innerHTML = `
-    <div style="display:flex;align-items:center;justify-content:center;height:100vh;background:#030407;">
+    <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100vh;background:linear-gradient(135deg, #030407 0%, #0a0a14 100%);">
       <div style="text-align:center;">
-        <svg viewBox="0 0 100 100" style="width:64px;height:64px;animation:tburn-pulse 1.5s ease-in-out infinite;margin:0 auto 16px;">
+        <svg viewBox="0 0 100 100" style="width:72px;height:72px;animation:tburn-pulse 1.5s ease-in-out infinite;margin:0 auto 20px;">
           <defs>
             <linearGradient id="flameGrad" x1="50%" y1="100%" x2="50%" y2="0%">
               <stop offset="0%" stop-color="#FF6B35"/>
@@ -204,8 +205,12 @@ async function safeInitApp() {
           <path d="M50 20 C35 35, 25 50, 30 65 C35 80, 45 85, 50 85 C55 85, 65 80, 70 65 C75 50, 65 35, 50 20" fill="url(#flameGrad)"/>
           <path d="M50 35 C42 45, 38 55, 42 65 C45 72, 48 75, 50 75 C52 75, 55 72, 58 65 C62 55, 58 45, 50 35" fill="#FFD700" opacity="0.8"/>
         </svg>
+        <p style="color:#888;font-size:14px;font-family:'Space Grotesk',system-ui,sans-serif;margin:0;animation:tburn-fade 1.5s ease-in-out infinite;">Loading...</p>
       </div>
-      <style>@keyframes tburn-pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.6;transform:scale(0.95)}}</style>
+      <style>
+        @keyframes tburn-pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.6;transform:scale(0.95)}}
+        @keyframes tburn-fade{0%,100%{opacity:0.5}50%{opacity:1}}
+      </style>
     </div>
   `;
   
@@ -220,6 +225,16 @@ async function safeInitApp() {
   }
   
   try {
+    // CRITICAL: Server warmup before app initialization
+    // This ensures backend is ready before frontend makes requests
+    try {
+      await warmupServer();
+      console.log("[TBURN] Server warmup completed");
+    } catch (warmupError) {
+      console.warn("[TBURN] Server warmup failed, continuing with app load:", warmupError);
+      // Continue anyway - the app should handle API failures gracefully
+    }
+    
     // CRITICAL: Initialize i18n BEFORE rendering to ensure translations are loaded
     // This prevents showing translation keys on first render
     const i18nModule = await import("./lib/i18n");
@@ -275,16 +290,36 @@ async function safeInitApp() {
     window.__TBURN_APP_ROOT__ = createRoot(rootElement);
     window.__TBURN_APP_ROOT__.render(<AppComponent />);
     console.log(`[TBURN] App initialized successfully (v${BUILD_VERSION})`);
-  } catch (error) {
-    console.error("[TBURN] Render failed:", error);
+  } catch (error: any) {
+    // Enhanced error logging to capture full stack trace
+    const errorMessage = error?.message || 'Unknown error';
+    const errorStack = error?.stack || '';
+    const errorName = error?.name || 'Error';
+    console.error("[TBURN] Render failed:", errorName, errorMessage);
+    console.error("[TBURN] Stack trace:", errorStack);
+    
     window.__TBURN_INITIALIZED__ = false;
+    
+    // Show user-friendly error UI with visible loading indicator
     rootElement.innerHTML = `
-      <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100vh;background:#030407;color:white;font-family:sans-serif;text-align:center;padding:20px;">
-        <h2 style="color:#FF6B35;margin-bottom:16px;">Page Loading Error</h2>
-        <p style="color:#999;margin-bottom:24px;">There was a problem loading the page.</p>
-        <button onclick="location.reload(true)" style="background:#FF6B35;color:white;border:none;padding:12px 24px;border-radius:8px;cursor:pointer;font-size:16px;">
-          Refresh
+      <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100vh;background:linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 100%);color:white;font-family:'Space Grotesk',system-ui,sans-serif;text-align:center;padding:20px;">
+        <svg viewBox="0 0 100 100" style="width:80px;height:80px;margin-bottom:24px;">
+          <defs>
+            <linearGradient id="errGrad" x1="50%" y1="100%" x2="50%" y2="0%">
+              <stop offset="0%" stop-color="#FF6B35"/>
+              <stop offset="100%" stop-color="#FFD700"/>
+            </linearGradient>
+          </defs>
+          <circle cx="50" cy="50" r="40" stroke="url(#errGrad)" stroke-width="2" fill="none"/>
+          <path d="M50 20 C35 35, 25 50, 30 65 C35 80, 45 85, 50 85 C55 85, 65 80, 70 65 C75 50, 65 35, 50 20" fill="url(#errGrad)"/>
+        </svg>
+        <h2 style="color:#FF6B35;margin-bottom:16px;font-size:24px;">페이지 로딩 중 오류 발생</h2>
+        <p style="color:#aaa;margin-bottom:8px;font-size:15px;">페이지를 불러오는 중 문제가 발생했습니다.</p>
+        <p style="color:#666;margin-bottom:24px;font-size:13px;">새로고침 버튼을 클릭하거나 잠시 후 다시 시도해 주세요.</p>
+        <button onclick="location.reload()" style="background:linear-gradient(135deg,#FF6B35,#F7931E);color:white;border:none;padding:14px 32px;border-radius:8px;cursor:pointer;font-size:16px;font-weight:600;box-shadow:0 4px 12px rgba(255,107,53,0.3);transition:transform 0.2s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+          새로고침
         </button>
+        <p style="color:#555;margin-top:24px;font-size:12px;">문제가 지속되면 브라우저 캐시를 삭제해 주세요.</p>
       </div>
     `;
   }

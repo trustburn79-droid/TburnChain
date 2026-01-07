@@ -39,8 +39,8 @@ export function TBurnLoader({
 
 export function PageLoader() {
   return (
-    <div className="flex items-center justify-center min-h-[400px]" data-testid="page-loader">
-      <TBurnLoader size="lg" />
+    <div className="flex flex-col items-center justify-center min-h-screen w-full bg-background" data-testid="page-loader">
+      <TBurnLoader size="lg" message="Loading..." />
     </div>
   );
 }
