@@ -10280,40 +10280,33 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       }
       
       // ★ [ENTERPRISE TPS SYNC v2.0] 완전한 동기화 체인
-      // 1단계: DB에 샤드 동기화 (삭제/생성/업데이트)
-      const newShardCount = result.config?.currentShardCount || shardCount;
-      const estimatedTps = newShardCount * 7000; // ~7,000 TPS per shard
+      // DB 동기화는 TBurnEnterpriseNode.updateShardConfiguration()에서 await로 완료됨
+      // 여기서는 캐시 무효화와 RealtimeMetrics 갱신만 수행
       
-      try {
-        console.log(`[TPS Sync] 📊 Step 1: Syncing ${newShardCount} shards to database...`);
-        await storage.syncShardsWithConfig(newShardCount, estimatedTps, []);
-        console.log(`[TPS Sync] ✅ Step 1 complete: DB now has ${newShardCount} shards`);
-      } catch (dbSyncError) {
-        console.error(`[TPS Sync] ❌ DB sync failed:`, dbSyncError);
-      }
-      
-      // 2단계: 모든 캐시 무효화
+      // 1단계: 모든 캐시 무효화
       const cache = getDataCache();
       cache.delete('shards_config');
       cache.delete('shards');
       cache.delete('sharding_data');
       cache.delete('network_stats');
       cache.delete('public_network_stats');
-      console.log(`[TPS Sync] ✅ Step 2: All caches invalidated`);
+      console.log(`[TPS Sync] ✅ Step 1: All caches invalidated`);
       
-      // 3단계: TPS 계산 캐시 무효화
+      // 2단계: TPS 계산 캐시 무효화
       if ((global as any).__invalidateTpsCache) {
         (global as any).__invalidateTpsCache();
       }
-      console.log(`[TPS Sync] ✅ Step 3: TPS calculation cache invalidated`);
+      console.log(`[TPS Sync] ✅ Step 2: TPS calculation cache invalidated`);
       
-      // 4단계: RealtimeMetrics 강제 DB 재로드 (완전 새로고침)
-      try {
-        const realtimeMetrics = getRealtimeMetricsService();
-        const reloadResult = await realtimeMetrics.forceReloadFromDB(newShardCount);
-        console.log(`[TPS Sync] ✅ Step 4: RealtimeMetrics reloaded - ${reloadResult.shardCount} shards, TPS: ${reloadResult.totalTps}`);
-      } catch (syncError) {
-        console.error(`[TPS Sync] ⚠️ RealtimeMetrics reload failed:`, syncError);
+      // 3단계: RealtimeMetrics 강제 DB 재로드 (shardCount 변경 시에만)
+      if (shardCount !== undefined) {
+        try {
+          const realtimeMetrics = getRealtimeMetricsService();
+          const reloadResult = await realtimeMetrics.forceReloadFromDB(parseInt(shardCount));
+          console.log(`[TPS Sync] ✅ Step 3: RealtimeMetrics reloaded - ${reloadResult.shardCount} shards, TPS: ${reloadResult.totalTps}`);
+        } catch (syncError) {
+          console.error(`[TPS Sync] ⚠️ RealtimeMetrics reload failed:`, syncError);
+        }
       }
       
       // Broadcast shard configuration update to all connected clients
