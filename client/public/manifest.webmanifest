@@ -1,0 +1,33 @@
+{
+  "name": "TBURN Blockchain Explorer",
+  "short_name": "TBURN",
+  "description": "TBURN Mainnet Blockchain Explorer - Real-time blockchain data, network statistics, and AI-powered monitoring",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#030407",
+  "theme_color": "#FF6B35",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["finance", "utilities", "business"],
+  "lang": "en",
+  "dir": "ltr"
+}
