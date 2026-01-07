@@ -92,8 +92,27 @@
         </div>
     </header>
 
-    <section class="py-20 px-4 relative bg-[#050505]">
-        <div class="max-w-7xl mx-auto">
+    <section class="py-20 px-4 relative bg-[#050505] overflow-hidden">
+        <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+            <svg viewBox="0 0 100 100" class="w-[600px] h-[600px] md:w-[800px] md:h-[800px] opacity-50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <linearGradient id="bgFlameGradient" x1="50%" y1="100%" x2="50%" y2="0%">
+                        <stop offset="0%" stop-color="#FF6B35" />
+                        <stop offset="50%" stop-color="#F7931E" />
+                        <stop offset="100%" stop-color="#FFD700" />
+                    </linearGradient>
+                    <linearGradient id="bgOuterGlow" x1="50%" y1="100%" x2="50%" y2="0%">
+                        <stop offset="0%" stop-color="#FF4500" stop-opacity="0.8" />
+                        <stop offset="100%" stop-color="#FFD700" stop-opacity="0.2" />
+                    </linearGradient>
+                </defs>
+                <circle cx="50" cy="50" r="45" fill="url(#bgOuterGlow)" opacity="0.3" />
+                <circle cx="50" cy="50" r="40" stroke="url(#bgFlameGradient)" stroke-width="2" fill="none" />
+                <path d="M50 20 C35 35, 25 50, 30 65 C35 80, 45 85, 50 85 C55 85, 65 80, 70 65 C75 50, 65 35, 50 20" fill="url(#bgFlameGradient)" />
+                <path d="M50 35 C42 45, 38 55, 42 65 C45 72, 48 75, 50 75 C52 75, 55 72, 58 65 C62 55, 58 45, 50 35" fill="#FFD700" opacity="0.8" />
+            </svg>
+        </div>
+        <div class="max-w-7xl mx-auto relative z-10">
             <div class="text-center mb-16">
                 <div class="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-red-900/20 border border-red-500/30 text-red-400 text-sm font-bold mb-4">
                     <span class="w-2 h-2 rounded-full bg-red-500 live-dot"></span>
