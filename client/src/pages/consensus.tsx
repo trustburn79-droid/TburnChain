@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import { useState, useEffect, useMemo, useRef } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { useEnterpriseShards } from "@/hooks/use-enterprise-shards";
 import { Progress } from "@/components/ui/progress";
@@ -806,9 +806,8 @@ export default function Consensus() {
   const [statusFilter, setStatusFilter] = useState<string>("all");
   const [selectedTab, setSelectedTab] = useState("overview");
   
-  // Track previous phase state to ensure forward-only progression (1→2→3→4→5)
-  const prevStateRef = useRef<{ blockHeight: number; phase: number }>({ blockHeight: 0, phase: 1 });
-  const [displayPhase, setDisplayPhase] = useState(1);
+  // Display phase directly from server - server calculates correct phase using blockAge modulo
+  // No need for forward-only tracking since server handles 100ms cycle transitions correctly
 
   const { 
     totalValidators: enterpriseValidators, 
@@ -832,27 +831,9 @@ export default function Consensus() {
     retry: 1,
   });
   
-  // Ensure phases progress forward only (1→2→3→4→5) and handle new block transitions
-  useEffect(() => {
-    if (!consensusState) return;
-    
-    const currentBlockHeight = consensusState.blockHeight || 0;
-    const currentPhase = consensusState.currentPhase || 1;
-    const prevBlock = prevStateRef.current.blockHeight;
-    const prevPhase = prevStateRef.current.phase;
-    
-    // New block started - reset to phase 1 and progress forward
-    if (currentBlockHeight > prevBlock) {
-      setDisplayPhase(currentPhase);
-      prevStateRef.current = { blockHeight: currentBlockHeight, phase: currentPhase };
-    }
-    // Same block - only allow forward phase progression (1→2→3→4→5)
-    else if (currentBlockHeight === prevBlock && currentPhase > prevPhase) {
-      setDisplayPhase(currentPhase);
-      prevStateRef.current.phase = currentPhase;
-    }
-    // Phase went backwards due to timing - skip this update (keep current display)
-  }, [consensusState]);
+  // Use server-calculated phase directly - server uses blockAge modulo for accurate 100ms cycling
+  // Phase transitions 1→2→3→4→5→1 are handled correctly by server using (Date.now() - startTime) % 100
+  const displayPhase = consensusState?.currentPhase || 1;
 
   useWebSocketChannel({
     channel: "consensus_state_update",
