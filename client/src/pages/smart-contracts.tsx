@@ -119,28 +119,29 @@ function ContractStatsDialog({
   open,
   onOpenChange,
   statType,
-  contracts,
+  contracts = [],
   t,
 }: {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   statType: StatType | null;
-  contracts: SmartContract[];
+  contracts?: SmartContract[];
   t: TranslationFn;
 }) {
   if (!statType) return null;
-
-  const hasContracts = contracts.length > 0;
+  
+  const safeContracts = contracts ?? [];
+  const hasContracts = safeContracts.length > 0;
 
   const getDialogContent = () => {
     switch (statType) {
       case 'totalContracts': {
         const byType = [
-          { name: 'Token (ERC-20)', count: Math.floor(contracts.length * 0.35), color: CHART_COLORS[0] },
-          { name: 'NFT (ERC-721)', count: Math.floor(contracts.length * 0.25), color: CHART_COLORS[1] },
-          { name: 'DeFi', count: Math.floor(contracts.length * 0.2), color: CHART_COLORS[2] },
-          { name: 'Governance', count: Math.floor(contracts.length * 0.12), color: CHART_COLORS[3] },
-          { name: 'Other', count: Math.floor(contracts.length * 0.08), color: CHART_COLORS[4] },
+          { name: 'Token (ERC-20)', count: Math.floor(safeContracts.length * 0.35), color: CHART_COLORS[0] },
+          { name: 'NFT (ERC-721)', count: Math.floor(safeContracts.length * 0.25), color: CHART_COLORS[1] },
+          { name: 'DeFi', count: Math.floor(safeContracts.length * 0.2), color: CHART_COLORS[2] },
+          { name: 'Governance', count: Math.floor(safeContracts.length * 0.12), color: CHART_COLORS[3] },
+          { name: 'Other', count: Math.floor(safeContracts.length * 0.08), color: CHART_COLORS[4] },
         ];
 
         const deploymentTrend = Array.from({ length: 7 }, (_, i) => ({
@@ -214,15 +215,15 @@ function ContractStatsDialog({
               <CardContent className="pt-4">
                 <div className="grid grid-cols-4 gap-4 text-center">
                   <div>
-                    <div className="text-2xl font-bold text-blue-600">{formatNumber(contracts.length)}</div>
+                    <div className="text-2xl font-bold text-blue-600">{formatNumber(safeContracts.length)}</div>
                     <div className="text-xs text-muted-foreground">{t('smartContracts.totalDeployed')}</div>
                   </div>
                   <div>
-                    <div className="text-2xl font-bold text-green-600">{formatNumber(Math.floor(contracts.length * 0.15))}</div>
+                    <div className="text-2xl font-bold text-green-600">{formatNumber(Math.floor(safeContracts.length * 0.15))}</div>
                     <div className="text-xs text-muted-foreground">{t('smartContracts.thisWeek')}</div>
                   </div>
                   <div>
-                    <div className="text-2xl font-bold text-purple-600">{formatNumber(Math.floor(contracts.length * 0.08))}</div>
+                    <div className="text-2xl font-bold text-purple-600">{formatNumber(Math.floor(safeContracts.length * 0.08))}</div>
                     <div className="text-xs text-muted-foreground">{t('smartContracts.upgradeable')}</div>
                   </div>
                   <div>
@@ -237,9 +238,9 @@ function ContractStatsDialog({
       }
 
       case 'verifiedContracts': {
-        const verified = contracts.filter(c => c.verified).length;
-        const unverified = contracts.length - verified;
-        const verificationRate = contracts.length > 0 ? (verified / contracts.length) * 100 : 0;
+        const verified = safeContracts.filter(c => c.verified).length;
+        const unverified = safeContracts.length - verified;
+        const verificationRate = safeContracts.length > 0 ? (verified / safeContracts.length) * 100 : 0;
 
         const verificationData = [
           { name: t('smartContracts.verified'), value: verified, color: '#10B981' },
@@ -338,7 +339,7 @@ function ContractStatsDialog({
       }
 
       case 'interactions': {
-        const totalInteractions = contracts.reduce((sum, c) => sum + c.transactionCount, 0);
+        const totalInteractions = safeContracts.reduce((sum, c) => sum + c.transactionCount, 0);
         
         const interactionTrend = Array.from({ length: 24 }, (_, i) => ({
           hour: `${i}:00`,
@@ -511,7 +512,7 @@ function ContractStatsDialog({
       }
 
       case 'tvl': {
-        const totalTVLWei = contracts.reduce((sum, c) => {
+        const totalTVLWei = safeContracts.reduce((sum, c) => {
           try {
             return sum + BigInt(c.balance || "0");
           } catch {
@@ -519,7 +520,7 @@ function ContractStatsDialog({
           }
         }, BigInt(0));
         
-        const tvlByContract = contracts
+        const tvlByContract = [...safeContracts]
           .sort((a, b) => {
             try {
               const balanceA = BigInt(a.balance || "0");
@@ -601,7 +602,7 @@ function ContractStatsDialog({
                     <div className="text-xs text-muted-foreground">{t('smartContracts.totalTvl')}</div>
                   </div>
                   <div>
-                    <div className="text-2xl font-bold text-blue-600">{contracts.filter(c => BigInt(c.balance || "0") > BigInt(0)).length}</div>
+                    <div className="text-2xl font-bold text-blue-600">{safeContracts.filter(c => BigInt(c.balance || "0") > BigInt(0)).length}</div>
                     <div className="text-xs text-muted-foreground">{t('smartContracts.contractsWithTvl')}</div>
                   </div>
                   <div>
