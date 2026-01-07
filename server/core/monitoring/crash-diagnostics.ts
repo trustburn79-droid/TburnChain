@@ -135,10 +135,21 @@ class CrashDiagnosticsService {
   }
 
   /**
-   * 힙 스냅샷 저장 (1회만)
+   * 힙 스냅샷 저장 (1회만) - 프로덕션에서는 디스크 절약을 위해 비활성화
    */
   private takeHeapSnapshot() {
     if (this.heapSnapshotTaken) return;
+    
+    // 프로덕션 환경에서는 힙 스냅샷 저장 비활성화 (155MB+ 디스크 사용 방지)
+    const isProduction = process.env.NODE_MODE === 'production' || 
+                         process.env.NODE_ENV === 'production' ||
+                         process.env.REPLIT_DEPLOYMENT === '1';
+    
+    if (isProduction) {
+      console.log('[CrashDiagnostics] 🔒 Heap snapshot SKIPPED in production (disk optimization)');
+      this.heapSnapshotTaken = true;
+      return;
+    }
     
     try {
       const filename = `heapdump-${Date.now()}.heapsnapshot`;
