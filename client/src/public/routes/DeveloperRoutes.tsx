@@ -21,6 +21,7 @@ const CodeExamples = lazy(() => import("../pages/developers/CodeExamples"));
 const QuickStart = lazy(() => import("../pages/developers/QuickStart"));
 const InstallationGuide = lazy(() => import("../pages/developers/InstallationGuide"));
 const EvmMigration = lazy(() => import("../pages/developers/EvmMigration"));
+const Tutorials = lazy(() => import("../pages/developers/Tutorials"));
 const NotFound = lazy(() => import("@/pages/not-found"));
 
 export default function DeveloperRoutes() {
@@ -39,6 +40,7 @@ export default function DeveloperRoutes() {
         <Route path="/developers/quickstart" component={QuickStart} />
         <Route path="/developers/installation" component={InstallationGuide} />
         <Route path="/developers/evm-migration" component={EvmMigration} />
+        <Route path="/developers/tutorials" component={Tutorials} />
         <Route component={NotFound} />
       </Switch>
     </Suspense>
