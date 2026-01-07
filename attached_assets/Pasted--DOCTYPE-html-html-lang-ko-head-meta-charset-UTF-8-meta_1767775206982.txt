@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TBURN CHAIN - Mainnet Vision Declaration</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Noto+Sans+KR:wght@300;400;700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        /* 기본 설정 */
+        body {
+            font-family: 'Inter', 'Noto Sans KR', sans-serif;
+            background-color: #050505;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        /* 커스텀 그라데이션 텍스트 */
+        .text-gradient {
+            background: linear-gradient(to right, #ff3e3e, #ff9d00);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* 배경 그라데이션 효과 */
+        .bg-glow {
+            background: radial-gradient(circle at center, rgba(255, 62, 62, 0.15) 0%, rgba(0, 0, 0, 0) 70%);
+        }
+
+        /* 유리 질감 카드 (Glassmorphism) */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.3s ease;
+        }
+        .glass-card:hover {
+            border-color: rgba(255, 62, 62, 0.5);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px -10px rgba(255, 62, 62, 0.2);
+        }
+
+        /* 테이블 스타일 */
+        .tech-table th {
+            background-color: rgba(255, 255, 255, 0.05);
+            color: #9ca3af;
+        }
+        .tech-table td {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* 애니메이션 */
+        @keyframes pulse-red {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(255, 62, 62, 0.7); }
+            50% { box-shadow: 0 0 0 10px rgba(255, 62, 62, 0); }
+        }
+        .live-dot {
+            animation: pulse-red 2s infinite;
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-red-500 selection:text-white">
+
+    <header class="relative min-h-screen flex flex-col justify-center items-center text-center px-4 bg-[url('https://images.unsplash.com/photo-1639322537228-f710d846310a?q=80&w=2600&auto=format&fit=crop')] bg-cover bg-center bg-no-repeat">
+        <div class="absolute inset-0 bg-black/80"></div>
+        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-black/50 to-[#050505]"></div>
+
+        <div class="relative z-10 max-w-5xl mx-auto mt-10">
+            <div class="mb-6 animate-fade-in-up">
+                <span class="text-6xl md:text-8xl font-black tracking-tighter text-white block">TBURN</span>
+                <span class="text-6xl md:text-8xl font-black tracking-tighter text-gradient block">CHAIN</span>
+            </div>
+            
+            <h2 class="text-xl md:text-2xl font-bold text-gray-400 tracking-[0.3em] uppercase mb-12 border-b border-gray-700 pb-8 inline-block">
+                [cite_start]Mainnet Vision Declaration [cite: 3]
+            </h2>
+
+            <div class="space-y-4 mb-12">
+                <p class="text-2xl md:text-3xl font-light text-gray-300">
+                    "더 이상 미래를 말하지 않습니다."
+                </p>
+                <p class="text-3xl md:text-4xl font-bold text-white">
+                    [cite_start]"우리는 <span class="text-red-500">현재</span>를 보여줍니다." [cite: 5]
+                </p>
+            </div>
+
+            [cite_start]<p class="text-lg text-red-400 font-semibold mb-2">THE FUTURE IS NOW [cite: 6]</p>
+            [cite_start]<p class="text-gray-400 text-sm mb-10">AI의 지능, 블록체인의 투명성 [cite: 7]</p>
+
+            <div class="flex flex-wrap justify-center gap-4 text-xs md:text-sm text-gray-500 border border-gray-800 rounded-full px-6 py-3 bg-black/50 backdrop-blur-sm">
+                [cite_start]<span>Genesis Date: December 22, 2025 [cite: 8]</span>
+                <span class="text-gray-700">|</span>
+                [cite_start]<span>Version: 1.0 Enterprise Production [cite: 9]</span>
+                <span class="text-gray-700">|</span>
+                [cite_start]<span>TBURN Foundation [cite: 10]</span>
+            </div>
+        </div>
+    </header>
+
+    <section class="py-20 px-4 relative bg-[#050505]">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <div class="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-red-900/20 border border-red-500/30 text-red-400 text-sm font-bold mb-4">
+                    <span class="w-2 h-2 rounded-full bg-red-500 live-dot"></span>
+                    [cite_start]LIVE MAINNET - PRODUCTION READY [cite: 13]
+                </div>
+                [cite_start]<h3 class="text-red-600 font-bold tracking-widest uppercase text-sm mb-2">PROOF OF EXISTENCE [cite: 11]</h3>
+                [cite_start]<h2 class="text-4xl md:text-5xl font-bold text-white mb-6">실존 증명 [cite: 12]</h2>
+                <p class="text-gray-400">이 수치들은 계획이 아닙니다. [cite_start]지금 이 순간 실제로 작동하고 있는 증명입니다. [cite: 15]</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="glass-card p-6 rounded-2xl text-center">
+                    <p class="text-gray-400 text-xs uppercase tracking-wider mb-2">Block Height</p>
+                    <h4 class="text-3xl font-bold text-white mb-1">21,332,811+</h4>
+                    [cite_start]<p class="text-xs text-red-400">블록 생성 완료 [cite: 14]</p>
+                </div>
+                <div class="glass-card p-6 rounded-2xl text-center border-red-500/30">
+                    <p class="text-gray-400 text-xs uppercase tracking-wider mb-2">Current TPS</p>
+                    <h4 class="text-3xl font-bold text-gradient mb-1">50,908</h4>
+                    [cite_start]<p class="text-xs text-red-400">실시간 처리량 [cite: 14]</p>
+                </div>
+                <div class="glass-card p-6 rounded-2xl text-center">
+                    <p class="text-gray-400 text-xs uppercase tracking-wider mb-2">Peak TPS</p>
+                    <h4 class="text-3xl font-bold text-white mb-1">520,000+</h4>
+                    [cite_start]<p class="text-xs text-red-400">최대 성능 [cite: 14]</p>
+                </div>
+                <div class="glass-card p-6 rounded-2xl text-center">
+                    <p class="text-gray-400 text-xs uppercase tracking-wider mb-2">Network Uptime</p>
+                    <h4 class="text-3xl font-bold text-green-400 mb-1">99.95%</h4>
+                    [cite_start]<p class="text-xs text-green-600">가동시간 [cite: 14]</p>
+                </div>
+                <div class="glass-card p-6 rounded-2xl text-center">
+                    <p class="text-gray-400 text-xs uppercase tracking-wider mb-2">Active Wallets</p>
+                    <h4 class="text-3xl font-bold text-white mb-1">847,592</h4>
+                    [cite_start]<p class="text-xs text-red-400">활성 지갑 [cite: 14]</p>
+                </div>
+                <div class="glass-card p-6 rounded-2xl text-center">
+                    <p class="text-gray-400 text-xs uppercase tracking-wider mb-2">Validators</p>
+                    <h4 class="text-3xl font-bold text-white mb-1">125</h4>
+                    [cite_start]<p class="text-xs text-red-400">검증자 노드 [cite: 14]</p>
+                </div>
+                <div class="glass-card p-6 rounded-2xl text-center">
+                    <p class="text-gray-400 text-xs uppercase tracking-wider mb-2">E2E Tests</p>
+                    <h4 class="text-3xl font-bold text-green-400 mb-1">100%</h4>
+                    [cite_start]<p class="text-xs text-green-600">테스트 통과 [cite: 14]</p>
+                </div>
+                <div class="glass-card p-6 rounded-2xl text-center">
+                    <p class="text-gray-400 text-xs uppercase tracking-wider mb-2">Security Score</p>
+                    <h4 class="text-3xl font-bold text-white mb-1">98.7%</h4>
+                    [cite_start]<p class="text-xs text-red-400">보안 점수 [cite: 14]</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 px-4 bg-[#0a0a0a] border-t border-gray-900">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16">
+                <h3 class="text-red-600 font-bold tracking-widest uppercase text-sm mb-2">CORE VISION</h3>
+                [cite_start]<h2 class="text-4xl font-bold text-white mb-8">핵심 비전 [cite: 17]</h2>
+                <div class="p-8 border-l-4 border-red-500 bg-gray-900/50 text-left md:text-center max-w-4xl mx-auto rounded-r-xl">
+                    <p class="text-2xl md:text-3xl font-serif italic text-gray-200 leading-relaxed">
+                        [cite_start]"AI와 블록체인의 융합으로<br>진정한 Web3 인프라를 구축한다" [cite: 18]
+                    </p>
+                </div>
+            </div>
+
+            [cite_start]<h4 class="text-xl font-bold text-white mb-8 text-center">5대 핵심 가치 [cite: 19]</h4>
+            <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+                <div class="bg-gray-900 p-6 rounded-xl border border-gray-800 text-center hover:bg-gray-800 transition">
+                    <div class="text-4xl mb-3">🧠</div>
+                    <div class="font-bold text-white text-lg">AI-First</div>
+                    <div class="text-gray-500 text-xs">지능형 자율 운영</div>
+                </div>
+                <div class="bg-gray-900 p-6 rounded-xl border border-gray-800 text-center hover:bg-gray-800 transition">
+                    <div class="text-4xl mb-3">🏢</div>
+                    <div class="font-bold text-white text-lg">Enterprise</div>
+                    <div class="text-gray-500 text-xs">엔터프라이즈급</div>
+                </div>
+                <div class="bg-gray-900 p-6 rounded-xl border border-gray-800 text-center hover:bg-gray-800 transition">
+                    <div class="text-4xl mb-3">♾️</div>
+                    <div class="font-bold text-white text-lg">Sustainable</div>
+                    <div class="text-gray-500 text-xs">20년 지속가능</div>
+                </div>
+                <div class="bg-gray-900 p-6 rounded-xl border border-gray-800 text-center hover:bg-gray-800 transition">
+                    <div class="text-4xl mb-3">🌐</div>
+                    <div class="font-bold text-white text-lg">Decentralized</div>
+                    <div class="text-gray-500 text-xs">완전 탈중앙화</div>
+                </div>
+                <div class="bg-gray-900 p-6 rounded-xl border border-gray-800 text-center hover:bg-gray-800 transition">
+                    <div class="text-4xl mb-3">🏆</div>
+                    <div class="font-bold text-white text-lg">Global TOP 5</div>
+                    <div class="text-gray-500 text-xs">2030 목표</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 px-4 bg-glow relative overflow-hidden">
+        <div class="max-w-7xl mx-auto relative z-10">
+            <div class="text-center mb-16">
+                <h3 class="text-red-600 font-bold tracking-widest uppercase text-sm mb-2">REVOLUTIONARY TECHNOLOGY</h3>
+                [cite_start]<h2 class="text-4xl font-bold text-white mb-4">혁신적 기술 [cite: 22]</h2>
+                <div class="inline-block bg-yellow-500/10 text-yellow-500 border border-yellow-500/50 px-6 py-2 rounded-full font-bold">
+                    [cite_start]🌟 WORLD'S FIRST Triple-Band AI Orchestration System [cite: 23]
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <div>
+                    [cite_start]<h4 class="text-2xl font-bold text-white mb-6 border-b border-gray-800 pb-4">7대 특허급 핵심 기술 [cite: 24]</h4>
+                    <ul class="space-y-4">
+                        <li class="flex items-start group">
+                            <span class="flex-shrink-0 w-8 h-8 rounded bg-red-600 text-white flex items-center justify-center font-bold mr-4 mt-1">1</span>
+                            <div>
+                                <strong class="block text-white group-hover:text-red-400 transition">Triple-Band AI Orchestration</strong>
+                                <span class="text-gray-400 text-sm">전략/전술/운영 3계층 AI 시스템</span>
+                            </div>
+                        </li>
+                        <li class="flex items-start group">
+                            <span class="flex-shrink-0 w-8 h-8 rounded bg-red-600 text-white flex items-center justify-center font-bold mr-4 mt-1">2</span>
+                            <div>
+                                <strong class="block text-white group-hover:text-red-400 transition">AI-Enhanced Committee BFT</strong>
+                                <span class="text-gray-400 text-sm">AI 기반 지능형 합의 메커니즘</span>
+                            </div>
+                        </li>
+                        <li class="flex items-start group">
+                            <span class="flex-shrink-0 w-8 h-8 rounded bg-red-600 text-white flex items-center justify-center font-bold mr-4 mt-1">3</span>
+                            <div>
+                                <strong class="block text-white group-hover:text-red-400 transition">Dynamic AI-Driven Sharding</strong>
+                                <span class="text-gray-400 text-sm">AI 기반 동적 샤딩 시스템</span>
+                            </div>
+                        </li>
+                        <li class="flex items-start group">
+                            <span class="flex-shrink-0 w-8 h-8 rounded bg-red-600 text-white flex items-center justify-center font-bold mr-4 mt-1">4</span>
+                            <div>
+                                <strong class="block text-white group-hover:text-red-400 transition">Predictive Self-Healing</strong>
+                                <span class="text-gray-400 text-sm">예측 기반 자가 치유 시스템</span>
+                            </div>
+                        </li>
+                        <li class="flex items-start group">
+                            <span class="flex-shrink-0 w-8 h-8 rounded bg-gray-700 text-white flex items-center justify-center font-bold mr-4 mt-1">5</span>
+                            <div>
+                                <strong class="block text-white">Hybrid Message Routing</strong>
+                                <span class="text-gray-400 text-sm">하이브리드 메시지 라우팅</span>
+                            </div>
+                        </li>
+                        <li class="flex items-start group">
+                            <span class="flex-shrink-0 w-8 h-8 rounded bg-gray-700 text-white flex items-center justify-center font-bold mr-4 mt-1">6</span>
+                            <div>
+                                <strong class="block text-white">Quantum-Resistant Cryptography</strong>
+                                <span class="text-gray-400 text-sm">양자 내성 암호화 시스템</span>
+                            </div>
+                        </li>
+                        <li class="flex items-start group">
+                            <span class="flex-shrink-0 w-8 h-8 rounded bg-gray-700 text-white flex items-center justify-center font-bold mr-4 mt-1">7</span>
+                            <div>
+                                <strong class="block text-white">Enterprise SDK Architecture</strong>
+                                <span class="text-gray-400 text-sm">엔터프라이즈 개발 도구</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="glass-card p-6 rounded-xl">
+                    [cite_start]<h4 class="text-2xl font-bold text-white mb-6">경쟁 우위 [cite: 26]</h4>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left tech-table">
+                            <thead>
+                                <tr>
+                                    <th class="p-3">항목</th>
+                                    <th class="p-3 text-red-400 font-bold">TBURN</th>
+                                    <th class="p-3">Ethereum</th>
+                                    <th class="p-3 text-white">우위</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-sm">
+                                <tr>
+                                    <td class="p-3 text-gray-400">TPS</td>
+                                    <td class="p-3 text-white font-bold text-lg">520,000+</td>
+                                    <td class="p-3 text-gray-500">15</td>
+                                    <td class="p-3 text-green-400 font-bold">34,667x</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3 text-gray-400">가스비</td>
+                                    <td class="p-3 text-white font-bold text-lg">$0.0001</td>
+                                    <td class="p-3 text-gray-500">$4.70</td>
+                                    <td class="p-3 text-green-400 font-bold">47,000x</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3 text-gray-400">Finality</td>
+                                    <td class="p-3 text-white font-bold text-lg">1.8초</td>
+                                    <td class="p-3 text-gray-500">13분</td>
+                                    <td class="p-3 text-green-400 font-bold">433x</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3 text-gray-400">AI 통합</td>
+                                    <td class="p-3 text-white font-bold text-lg">Triple-Band</td>
+                                    <td class="p-3 text-gray-500">없음</td>
+                                    <td class="p-3 text-yellow-400 font-bold">세계 최초</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 px-4 bg-[#050505]">
+        <div class="max-w-7xl mx-auto">
+            [cite_start]<h2 class="text-4xl font-bold text-white mb-10 text-center">20-YEAR ROADMAP [cite: 28]</h2>
+            
+            <div class="bg-gray-900 rounded-xl overflow-hidden border border-gray-800 mb-12">
+                <table class="w-full text-left">
+                    <thead class="bg-gray-800 text-gray-400 text-sm uppercase">
+                        <tr>
+                            <th class="p-4 md:p-6">Phase</th>
+                            <th class="p-4 md:p-6">기간</th>
+                            <th class="p-4 md:p-6">목표</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-800 text-sm md:text-base">
+                        <tr class="hover:bg-gray-800/50 transition">
+                            <td class="p-4 md:p-6 font-bold text-white">Phase 1: 성장기</td>
+                            <td class="p-4 md:p-6 text-gray-400">Y1~Y5 (2026-2030)</td>
+                            <td class="p-4 md:p-6 text-gray-300">생태계 구축, TOP 10 진입</td>
+                        </tr>
+                        <tr class="hover:bg-gray-800/50 transition">
+                            <td class="p-4 md:p-6 font-bold text-white">Phase 2: 디플레이션기</td>
+                            <td class="p-4 md:p-6 text-gray-400">Y6~Y10 (2031-2035)</td>
+                            <td class="p-4 md:p-6 text-gray-300">1차/2차 반감기, TOP 5</td>
+                        </tr>
+                        <tr class="hover:bg-gray-800/50 transition">
+                            <td class="p-4 md:p-6 font-bold text-white">Phase 3: 균형기</td>
+                            <td class="p-4 md:p-6 text-gray-400">Y11~Y15 (2036-2040)</td>
+                            <td class="p-4 md:p-6 text-gray-300">안정화, 글로벌 인프라</td>
+                        </tr>
+                        <tr class="hover:bg-gray-800/50 transition bg-red-900/10">
+                            <td class="p-4 md:p-6 font-bold text-red-400">Phase 4: 최적화기</td>
+                            <td class="p-4 md:p-6 text-gray-400">Y16~Y20 (2041-2045)</td>
+                            <td class="p-4 md:p-6 text-white font-bold">인류의 디지털 인프라</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="glass-card p-8 rounded-xl border-t-4 border-red-500 text-center md:text-left">
+                [cite_start]<h4 class="text-xl font-bold text-white mb-6">20년 최종 목표 [cite: 31]</h4>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div>
+                        <span class="block text-gray-500 text-sm mb-1">공급량</span>
+                        <strong class="text-xl text-white">100억 → 69.4억</strong>
+                        <span class="text-red-500 text-sm ml-2">(-30.6%)</span>
+                    </div>
+                    <div>
+                        <span class="block text-gray-500 text-sm mb-1">시가총액</span>
+                        <strong class="text-xl text-white">$1.081 Trillion</strong>
+                        <span class="text-yellow-500 text-sm ml-2 font-bold">(TOP 5)</span>
+                    </div>
+                    <div>
+                        <span class="block text-gray-500 text-sm mb-1">위상</span>
+                        <strong class="text-xl text-gradient">인류의 디지털 금융 인프라</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 px-4 bg-gradient-to-b from-gray-900 to-black text-center">
+        <div class="max-w-3xl mx-auto">
+            <h3 class="text-red-600 font-bold tracking-widest uppercase text-sm mb-6">FINAL DECLARATION</h3>
+            [cite_start]<h2 class="text-4xl md:text-5xl font-bold text-white mb-10">최종 선언 [cite: 32]</h2>
+
+            <div class="bg-gray-800/50 p-8 rounded-2xl border border-gray-700 mb-12">
+                <p class="text-xl font-bold text-white mb-6">TBURN Chain은 준비되었습니다.</p>
+                <div class="flex flex-wrap justify-center gap-3 text-sm font-semibold text-green-400 mb-8">
+                    <span class="bg-green-900/20 px-3 py-1 rounded">✅ 기술</span>
+                    <span class="bg-green-900/20 px-3 py-1 rounded">✅ 성능</span>
+                    <span class="bg-green-900/20 px-3 py-1 rounded">✅ 인프라</span>
+                    <span class="bg-green-900/20 px-3 py-1 rounded">✅ 생태계</span>
+                    <span class="bg-green-900/20 px-3 py-1 rounded">✅ 보안</span>
+                    <span class="bg-green-900/20 px-3 py-1 rounded">✅ 법률</span>
+                    <span class="bg-green-900/20 px-3 py-1 rounded">✅ 팀</span>
+                    <span class="bg-green-900/20 px-3 py-1 rounded">✅ 커뮤니티</span>
+                </div>
+                <div class="inline-block bg-green-600 text-white px-8 py-3 rounded-full font-bold shadow-lg shadow-green-500/30">
+                    STATUS: PRODUCTION READY
+                </div>
+            </div>
+
+            <div class="space-y-2 mb-12">
+                <p class="text-2xl font-light text-gray-400">우리는 더 이상 "미래"를 말하지 않습니다.</p>
+                <p class="text-3xl font-black text-white">우리는 "현재"를 보여줍니다.</p>
+            </div>
+
+            <ul class="text-left max-w-lg mx-auto space-y-3 text-gray-300 mb-16 border-l-2 border-red-500 pl-6">
+                <li>• 21,332,811개 블록이 증명합니다</li>
+                <li>• 50,908 TPS가 증명합니다</li>
+                <li>• 99.95% 가동시간이 증명합니다</li>
+                <li>• 847,592개 지갑이 증명합니다</li>
+                <li>• 100% E2E 테스트가 증명합니다</li>
+            </ul>
+
+            <div class="pt-10 border-t border-gray-800">
+                <p class="text-gray-500 mb-4">AI의 지능, 블록체인의 투명성</p>
+                <h1 class="text-2xl md:text-4xl font-black text-gradient uppercase tracking-widest">
+                    🔥 TBURN CHAIN - THE FUTURE IS NOW 🔥
+                </h1>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-black py-12 text-center text-gray-600 text-xs border-t border-gray-900">
+        <p class="font-bold text-gray-500 mb-2">TBURN Foundation</p>
+        <p class="mb-2">Genesis Date: December 22, 2025</p>
+        <p>© 2025-2045 TBURN Foundation. All Rights Reserved.</p>
+    </footer>
+
+</body>
+</html>
