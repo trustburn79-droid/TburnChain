@@ -198,23 +198,22 @@ interface DataSourceStatus {
 function AuthenticatedApp() {
   const { t } = useTranslation();
   const [, setLocation] = useLocation();
-  const { data: authData, isLoading } = useQuery<{ authenticated: boolean }>({
+  const { data: authData, isLoading: authLoading, isFetching: authFetching } = useQuery<{ authenticated: boolean }>({
     queryKey: ["/api/auth/check"],
     staleTime: 30000,
     refetchInterval: 60000,
     refetchOnWindowFocus: false,
     refetchOnMount: true,
-    placeholderData: { authenticated: false }, // Non-blocking: assume not authenticated initially
-    retry: 1, // Reduce retries for faster fallback
+    retry: 1,
   });
   
-  const { data: dataSourceStatus } = useQuery<DataSourceStatus>({
+  const { data: dataSourceStatus, isLoading: dataSourceLoading } = useQuery<DataSourceStatus>({
     queryKey: ["/api/system/data-source"],
     staleTime: 30000,
     refetchOnWindowFocus: false,
     refetchOnMount: true,
     refetchInterval: 30000,
-    placeholderData: { dataSourceType: 'mainnet', isSimulated: false, nodeUrl: '', message: '', connectionStatus: 'connected' }, // Non-blocking default
+    placeholderData: { dataSourceType: 'mainnet', isSimulated: false, nodeUrl: '', message: '', connectionStatus: 'connected' },
     retry: 1,
   });
 
@@ -225,6 +224,21 @@ function AuthenticatedApp() {
 
   const isAuthenticated = authData?.authenticated ?? false;
   const isLiveMode = dataSourceStatus?.connectionStatus === 'connected';
+
+  // Show loading state during initial auth check to prevent black screen
+  if (authLoading && !authData) {
+    return <PageLoading />;
+  }
+
+  // Redirect to login if not authenticated (after auth check completes)
+  if (!authLoading && !isAuthenticated) {
+    // Store intended destination for redirect after login
+    if (typeof window !== 'undefined') {
+      sessionStorage.setItem("redirectAfterLogin", window.location.pathname);
+    }
+    setLocation("/login");
+    return <PageLoading />;
+  }
 
   return (
     <WebSocketProvider>
