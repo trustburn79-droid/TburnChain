@@ -108,6 +108,11 @@ i18n.on('languageChanged', async (lang) => {
 });
 
 export const changeLanguageWithPreload = async (lang: string): Promise<void> => {
+  // Save language preference to localStorage for synchronization with other pages
+  if (typeof localStorage !== 'undefined') {
+    localStorage.setItem('tburn-language', lang);
+  }
+  
   if (lang === 'en') {
     await i18n.changeLanguage(lang);
     return;
