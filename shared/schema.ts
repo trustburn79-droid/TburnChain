@@ -13266,3 +13266,274 @@ export type InsertAnnouncement = z.infer<typeof insertAnnouncementSchema>;
 export type AnnouncementInteractionDB = typeof announcementInteractions.$inferSelect;
 export type InsertAnnouncementInteraction = z.infer<typeof insertAnnouncementInteractionSchema>;
 
+// ============================================================================
+// Memory Guardian v2.0 Enterprise Tables
+// ============================================================================
+
+// Memory Guardian Events - 이벤트 히스토리 영구 저장
+export const memoryGuardianEvents = pgTable("memory_guardian_events", {
+  id: serial("id").primaryKey(),
+  
+  // Event Classification
+  eventType: varchar("event_type", { length: 30 }).notNull(), // cleanup, alert, recovery, state_change, gc_trigger
+  eventLevel: varchar("event_level", { length: 20 }).notNull(), // info, warning, error, critical
+  
+  // Memory State at Event Time
+  heapUsedMB: real("heap_used_mb").notNull(),
+  heapTotalMB: real("heap_total_mb").notNull(),
+  heapRatio: real("heap_ratio").notNull(),
+  rssMB: real("rss_mb").notNull(),
+  externalMB: real("external_mb").notNull().default(0),
+  
+  // State Information
+  previousState: varchar("previous_state", { length: 20 }), // healthy, warning, critical, emergency
+  currentState: varchar("current_state", { length: 20 }).notNull(),
+  
+  // Cleanup Details (if applicable)
+  cleanupType: varchar("cleanup_type", { length: 20 }), // soft, aggressive, emergency
+  freedMB: real("freed_mb").default(0),
+  cleanupDurationMs: integer("cleanup_duration_ms").default(0),
+  
+  // Alert Details (if applicable)
+  alertSeverity: varchar("alert_severity", { length: 20 }),
+  alertMessage: text("alert_message"),
+  alertCooldownMs: integer("alert_cooldown_ms"),
+  
+  // Context
+  consecutiveHighMemory: integer("consecutive_high_memory").notNull().default(0),
+  correlationId: varchar("correlation_id", { length: 36 }),
+  
+  occurredAt: timestamp("occurred_at").notNull().defaultNow(),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+}, (table) => [
+  index("idx_guardian_events_occurred_at").on(table.occurredAt),
+  index("idx_guardian_events_type").on(table.eventType),
+  index("idx_guardian_events_level").on(table.eventLevel),
+  index("idx_guardian_events_state").on(table.currentState),
+  index("idx_guardian_events_correlation").on(table.correlationId),
+  index("idx_guardian_events_cleanup_type").on(table.cleanupType),
+]);
+
+// Memory Guardian SLA Snapshots - SLA 메트릭 스냅샷
+export const memoryGuardianSlaSnapshots = pgTable("memory_guardian_sla_snapshots", {
+  id: serial("id").primaryKey(),
+  
+  // Time Period
+  snapshotPeriod: varchar("snapshot_period", { length: 20 }).notNull(), // hourly, daily, weekly
+  periodStart: timestamp("period_start").notNull(),
+  periodEnd: timestamp("period_end").notNull(),
+  
+  // SLA Metrics
+  totalChecks: bigint("total_checks", { mode: "number" }).notNull().default(0),
+  healthyChecks: bigint("healthy_checks", { mode: "number" }).notNull().default(0),
+  warningChecks: bigint("warning_checks", { mode: "number" }).notNull().default(0),
+  criticalChecks: bigint("critical_checks", { mode: "number" }).notNull().default(0),
+  emergencyChecks: bigint("emergency_checks", { mode: "number" }).notNull().default(0),
+  
+  // Uptime Calculations
+  uptimeMs: bigint("uptime_ms", { mode: "number" }).notNull().default(0),
+  downtimeMs: bigint("downtime_ms", { mode: "number" }).notNull().default(0),
+  uptimePercent: real("uptime_percent").notNull().default(100),
+  healthyPercent: real("healthy_percent").notNull().default(100),
+  
+  // SLA Target Tracking
+  slaTarget: real("sla_target").notNull().default(99.9),
+  slaTargetMet: boolean("sla_target_met").notNull().default(true),
+  
+  // Cleanup Statistics
+  softCleanups: integer("soft_cleanups").notNull().default(0),
+  aggressiveCleanups: integer("aggressive_cleanups").notNull().default(0),
+  emergencyCleanups: integer("emergency_cleanups").notNull().default(0),
+  gcTriggered: integer("gc_triggered").notNull().default(0),
+  totalFreedMB: real("total_freed_mb").notNull().default(0),
+  
+  // Memory Averages
+  avgHeapUsedMB: real("avg_heap_used_mb").notNull().default(0),
+  maxHeapUsedMB: real("max_heap_used_mb").notNull().default(0),
+  minHeapUsedMB: real("min_heap_used_mb").notNull().default(0),
+  avgHeapRatio: real("avg_heap_ratio").notNull().default(0),
+  
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+}, (table) => [
+  index("idx_guardian_sla_period_start").on(table.periodStart),
+  index("idx_guardian_sla_period_type").on(table.snapshotPeriod),
+  index("idx_guardian_sla_target_met").on(table.slaTargetMet),
+  index("idx_guardian_sla_uptime_percent").on(table.uptimePercent),
+]);
+
+// Memory Guardian Trends - 트렌드 분석 데이터
+export const memoryGuardianTrends = pgTable("memory_guardian_trends", {
+  id: serial("id").primaryKey(),
+  
+  // Trend Window
+  windowMinutes: integer("window_minutes").notNull().default(60), // 분석 윈도우 크기
+  recordedAt: timestamp("recorded_at").notNull().defaultNow(),
+  
+  // Growth Rate Analysis
+  growthRateMBPerMin: real("growth_rate_mb_per_min").notNull().default(0),
+  estimatedTimeToWarningMs: bigint("estimated_time_to_warning_ms", { mode: "number" }),
+  estimatedTimeToCriticalMs: bigint("estimated_time_to_critical_ms", { mode: "number" }),
+  
+  // Volatility Metrics
+  volatility: real("volatility").notNull().default(0), // 표준편차
+  volatilityLevel: varchar("volatility_level", { length: 20 }).notNull().default("low"), // low, medium, high
+  
+  // Trend Direction
+  trendDirection: varchar("trend_direction", { length: 20 }).notNull().default("stable"), // increasing, decreasing, stable
+  trendStrength: real("trend_strength").notNull().default(0), // 0-1 scale
+  
+  // Memory Samples Used
+  sampleCount: integer("sample_count").notNull().default(0),
+  
+  // Memory State at Recording
+  currentHeapMB: real("current_heap_mb").notNull(),
+  currentRatio: real("current_ratio").notNull(),
+  currentState: varchar("current_state", { length: 20 }).notNull(),
+  
+  // Predictions
+  predictedPeakMB: real("predicted_peak_mb"),
+  confidenceScore: real("confidence_score").default(0), // 예측 신뢰도 0-1
+  
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+}, (table) => [
+  index("idx_guardian_trends_recorded_at").on(table.recordedAt),
+  index("idx_guardian_trends_direction").on(table.trendDirection),
+  index("idx_guardian_trends_volatility").on(table.volatilityLevel),
+  index("idx_guardian_trends_growth_rate").on(table.growthRateMBPerMin),
+]);
+
+// ============================================================================
+// Object Pool v2.0 Enterprise Tables
+// ============================================================================
+
+// Object Pool Metrics - 풀 성능 메트릭 영구 저장
+export const objectPoolMetrics = pgTable("object_pool_metrics", {
+  id: serial("id").primaryKey(),
+  
+  // Pool Identification
+  poolName: varchar("pool_name", { length: 50 }).notNull(), // block, transaction
+  recordedAt: timestamp("recorded_at").notNull().defaultNow(),
+  
+  // Pool State
+  currentSize: integer("current_size").notNull().default(0),
+  maxSize: integer("max_size").notNull(),
+  minSize: integer("min_size").notNull().default(0),
+  peakSize: integer("peak_size").notNull().default(0),
+  utilization: real("utilization").notNull().default(0),
+  
+  // Operations Counters
+  acquireCount: bigint("acquire_count", { mode: "number" }).notNull().default(0),
+  releaseCount: bigint("release_count", { mode: "number" }).notNull().default(0),
+  createCount: bigint("create_count", { mode: "number" }).notNull().default(0),
+  evictCount: bigint("evict_count", { mode: "number" }).notNull().default(0),
+  
+  // Hit/Miss Statistics
+  hitCount: bigint("hit_count", { mode: "number" }).notNull().default(0),
+  missCount: bigint("miss_count", { mode: "number" }).notNull().default(0),
+  hitRate: real("hit_rate").notNull().default(0),
+  missRate: real("miss_rate").notNull().default(0),
+  
+  // Performance Metrics
+  totalWaitTimeMs: bigint("total_wait_time_ms", { mode: "number" }).notNull().default(0),
+  avgWaitTimeMs: real("avg_wait_time_ms").notNull().default(0),
+  efficiency: real("efficiency").notNull().default(0),
+  
+  // Prewarm/Shrink Events
+  prewarmEvents: integer("prewarm_events").notNull().default(0),
+  shrinkEvents: integer("shrink_events").notNull().default(0),
+  
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+}, (table) => [
+  index("idx_pool_metrics_pool_name").on(table.poolName),
+  index("idx_pool_metrics_recorded_at").on(table.recordedAt),
+  index("idx_pool_metrics_hit_rate").on(table.hitRate),
+  index("idx_pool_metrics_efficiency").on(table.efficiency),
+  index("idx_pool_metrics_utilization").on(table.utilization),
+]);
+
+// Object Pool Hourly Aggregates - 시간별 집계
+export const objectPoolHourlyAggregates = pgTable("object_pool_hourly_aggregates", {
+  id: serial("id").primaryKey(),
+  
+  // Time Bucket
+  hourBucket: timestamp("hour_bucket").notNull(),
+  poolName: varchar("pool_name", { length: 50 }).notNull(),
+  
+  // Aggregated Metrics
+  sampleCount: integer("sample_count").notNull().default(0),
+  
+  // Size Statistics
+  avgSize: real("avg_size").notNull().default(0),
+  maxSize: real("max_size").notNull().default(0),
+  minSize: real("min_size").notNull().default(0),
+  avgPeakSize: real("avg_peak_size").notNull().default(0),
+  
+  // Efficiency Statistics
+  avgHitRate: real("avg_hit_rate").notNull().default(0),
+  avgMissRate: real("avg_miss_rate").notNull().default(0),
+  avgEfficiency: real("avg_efficiency").notNull().default(0),
+  avgUtilization: real("avg_utilization").notNull().default(0),
+  
+  // Operation Totals
+  totalAcquires: bigint("total_acquires", { mode: "number" }).notNull().default(0),
+  totalReleases: bigint("total_releases", { mode: "number" }).notNull().default(0),
+  totalCreates: bigint("total_creates", { mode: "number" }).notNull().default(0),
+  totalEvicts: bigint("total_evicts", { mode: "number" }).notNull().default(0),
+  
+  // Performance
+  avgWaitTimeMs: real("avg_wait_time_ms").notNull().default(0),
+  maxWaitTimeMs: real("max_wait_time_ms").notNull().default(0),
+  
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+}, (table) => [
+  index("idx_pool_hourly_hour_bucket").on(table.hourBucket),
+  index("idx_pool_hourly_pool_name").on(table.poolName),
+  index("idx_pool_hourly_efficiency").on(table.avgEfficiency),
+]);
+
+// ============================================================================
+// Insert Schemas for Memory Guardian & Object Pool v2.0
+// ============================================================================
+export const insertMemoryGuardianEventSchema = createInsertSchema(memoryGuardianEvents).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertMemoryGuardianSlaSnapshotSchema = createInsertSchema(memoryGuardianSlaSnapshots).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertMemoryGuardianTrendSchema = createInsertSchema(memoryGuardianTrends).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertObjectPoolMetricSchema = createInsertSchema(objectPoolMetrics).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertObjectPoolHourlyAggregateSchema = createInsertSchema(objectPoolHourlyAggregates).omit({
+  id: true,
+  createdAt: true,
+});
+
+// ============================================================================
+// Types for Memory Guardian & Object Pool v2.0
+// ============================================================================
+export type MemoryGuardianEventDB = typeof memoryGuardianEvents.$inferSelect;
+export type InsertMemoryGuardianEvent = z.infer<typeof insertMemoryGuardianEventSchema>;
+
+export type MemoryGuardianSlaSnapshotDB = typeof memoryGuardianSlaSnapshots.$inferSelect;
+export type InsertMemoryGuardianSlaSnapshot = z.infer<typeof insertMemoryGuardianSlaSnapshotSchema>;
+
+export type MemoryGuardianTrendDB = typeof memoryGuardianTrends.$inferSelect;
+export type InsertMemoryGuardianTrend = z.infer<typeof insertMemoryGuardianTrendSchema>;
+
+export type ObjectPoolMetricDB = typeof objectPoolMetrics.$inferSelect;
+export type InsertObjectPoolMetric = z.infer<typeof insertObjectPoolMetricSchema>;
+
+export type ObjectPoolHourlyAggregateDB = typeof objectPoolHourlyAggregates.$inferSelect;
+export type InsertObjectPoolHourlyAggregate = z.infer<typeof insertObjectPoolHourlyAggregateSchema>;
+
