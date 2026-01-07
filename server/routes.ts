@@ -10229,15 +10229,46 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   // Update shard configuration
   app.post("/api/admin/shards/config", async (req, res) => {
     try {
-      const response = await fetch('http://localhost:8545/api/admin/shards/config', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(req.body)
-      });
-      const result = await response.json();
-      
-      if (!response.ok) {
-        return res.status(response.status).json(result);
+      const enterpriseNode = getEnterpriseNode();
+      if (!enterpriseNode) {
+        return res.status(503).json({ error: "Enterprise node not available" });
+      }
+
+      const { shardCount, validatorsPerShard, scalingMode, actor, reason, force } = req.body;
+      let result: any;
+
+      if (shardCount !== undefined) {
+        const newCount = parseInt(shardCount);
+        const updateResult = await enterpriseNode.updateShardConfiguration(newCount, {
+          actor: actor || 'admin',
+          reason: reason || 'Manual shard configuration update',
+          force: force || false,
+          dryRun: false
+        });
+
+        if (updateResult.success) {
+          result = {
+            success: true,
+            message: updateResult.message,
+            requestId: updateResult.requestId,
+            config: enterpriseNode.getShardConfig()
+          };
+        } else {
+          return res.status(400).json({
+            success: false,
+            message: updateResult.message,
+            validation: updateResult.validation
+          });
+        }
+      } else {
+        const updates: any = {};
+        if (validatorsPerShard !== undefined) updates.validatorsPerShard = parseInt(validatorsPerShard);
+        if (scalingMode !== undefined) updates.scalingMode = scalingMode;
+
+        result = enterpriseNode.updateShardConfig(updates);
+        if (!result.success) {
+          return res.status(400).json(result);
+        }
       }
       
       // Invalidate all shard-related caches immediately after successful update
@@ -10248,29 +10279,16 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       console.log(`[Cache] Invalidated shard caches after config update`);
       
       // Broadcast shard configuration update to all connected clients
-      // This ensures /app pages receive real-time updates when admin changes config
       try {
-        const shardsResponse = await fetch('http://localhost:8545/api/shards');
-        if (shardsResponse.ok) {
-          const shards = await shardsResponse.json();
-          broadcastUpdate('shards_snapshot', shards, shardsSnapshotSchema);
-          console.log(`[WebSocket] Broadcasted shards_snapshot after config update: ${shards.length} shards`);
-        }
-        
-        // Also broadcast cross-shard messages with updated shard references
-        const messagesResponse = await fetch('http://localhost:8545/api/cross-shard/messages');
-        if (messagesResponse.ok) {
-          const messages = await messagesResponse.json();
-          broadcastUpdate('cross_shard_snapshot', messages, crossShardMessagesSnapshotSchema);
-          console.log(`[WebSocket] Broadcasted cross_shard_snapshot after config update`);
-        }
+        const shards = enterpriseNode.generateShards();
+        broadcastUpdate('shards_snapshot', shards, shardsSnapshotSchema);
+        console.log(`[WebSocket] Broadcasted shards_snapshot after config update: \${shards.length} shards`);
         
         // Broadcast config change event for admin portal real-time updates
         broadcastUpdate('shard_config_update', result.config || result, z.any());
         console.log(`[WebSocket] Broadcasted shard_config_update to admin clients`);
       } catch (broadcastError) {
         console.error('[WebSocket] Failed to broadcast shard updates:', broadcastError);
-        // Don't fail the request just because broadcast failed
       }
       
       res.json(result);
