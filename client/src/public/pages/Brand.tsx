@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Flame, Palette, Type, Image, Shapes, Download, Check, Copy, FileText, Printer, Monitor, Share2, X } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { TBurnLogo } from "@/components/tburn-logo";
+import { useTranslation } from "react-i18next";
 
 const brandStyles = `
   .brand-page {
@@ -912,6 +913,7 @@ const iconSet = [
 ];
 
 export default function Brand() {
+  const { t } = useTranslation();
   const { toast } = useToast();
   const [activeCategory, setActiveCategory] = useState("logos");
   const [copiedId, setCopiedId] = useState<string | null>(null);
@@ -995,23 +997,23 @@ export default function Brand() {
         <div className="brand-hero-content">
           <div className="brand-badge">
             <Palette className="w-4 h-4" />
-            OFFICIAL BRAND ASSETS
+            {t('brandPage.badge')}
           </div>
           <h1>
-            TBURN Chain<br />
-            <span className="gradient-text">Brand Assets</span>
+            {t('brandPage.title')}<br />
+            <span className="gradient-text">{t('brandPage.titleHighlight')}</span>
           </h1>
           <p className="brand-hero-subtitle">
-            Official brand assets for TBURN Chain.<br />
-            Download and use logos, colors, typography, and banners correctly.
+            {t('brandPage.subtitle')}<br />
+            {t('brandPage.subtitleLine2')}
           </p>
           <div className="asset-categories">
             {[
-              { id: "logos", icon: Shapes, label: "Logos" },
-              { id: "colors", icon: Palette, label: "Colors" },
-              { id: "typography", icon: Type, label: "Typography" },
-              { id: "banners", icon: Image, label: "Banners" },
-              { id: "icons", icon: Flame, label: "Icons" },
+              { id: "logos", icon: Shapes, label: t('brandPage.categories.logos') },
+              { id: "colors", icon: Palette, label: t('brandPage.categories.colors') },
+              { id: "typography", icon: Type, label: t('brandPage.categories.typography') },
+              { id: "banners", icon: Image, label: t('brandPage.categories.banners') },
+              { id: "icons", icon: Flame, label: t('brandPage.categories.icons') },
             ].map((cat) => (
               <div
                 key={cat.id}
@@ -1030,11 +1032,11 @@ export default function Brand() {
       <section className="brand-section" id="logos">
         <div className="brand-section-header">
           <div className="brand-section-title-group">
-            <h2><Shapes className="w-6 h-6" /> Logos</h2>
-            <p>Official TBURN Chain logos and variations</p>
+            <h2><Shapes className="w-6 h-6" /> {t('brandPage.logosTitle')}</h2>
+            <p>{t('brandPage.logosDesc')}</p>
           </div>
           <button className="download-section-btn" onClick={() => downloadSection("logos")} data-testid="button-download-logos">
-            <Download className="w-4 h-4" /> Download All Logos
+            <Download className="w-4 h-4" /> {t('brandPage.downloadAllLogos')}
           </button>
         </div>
 
@@ -1053,7 +1055,7 @@ export default function Brand() {
                   ))}
                 </div>
                 <button className="logo-download-btn" onClick={() => downloadAsset(asset.id)} data-testid={`button-download-${asset.id}`}>
-                  <Download className="w-4 h-4" /> Download
+                  <Download className="w-4 h-4" /> {t('brandPage.download')}
                 </button>
               </div>
             </div>
@@ -1062,9 +1064,9 @@ export default function Brand() {
 
         <div style={{ marginTop: "3rem", padding: "2rem", background: "var(--dark-card)", borderRadius: "20px", border: "1px solid rgba(255,255,255,0.1)" }}>
           <h3 style={{ fontSize: "1.25rem", fontWeight: 700, marginBottom: "0.5rem", display: "flex", alignItems: "center", gap: "8px" }}>
-            <Flame className="w-5 h-5 text-orange-500" /> TBurn Logo Symbol
+            <Flame className="w-5 h-5 text-orange-500" /> {t('brandPage.symbolTitle')}
           </h3>
-          <p style={{ color: "var(--gray)", marginBottom: "1.5rem" }}>Preview various background and symbol color combinations</p>
+          <p style={{ color: "var(--gray)", marginBottom: "1.5rem" }}>{t('brandPage.symbolDesc')}</p>
           
           <div style={{ display: "grid", gridTemplateColumns: "repeat(7, 1fr)", gap: "1rem" }} className="logo-variants-grid">
             <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "4px" }}>
