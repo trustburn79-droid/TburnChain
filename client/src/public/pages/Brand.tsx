@@ -860,6 +860,9 @@ const logoAssets = [
   { id: "main-logo-dark", title: "Main Logo (Dark)", desc: "Primary logo for dark backgrounds", bg: "dark-bg", type: "main", dark: false, formats: ["SVG", "PNG", "PDF"] },
   { id: "main-logo-light", title: "Main Logo (Light)", desc: "Primary logo for light backgrounds", bg: "light-bg", type: "main", dark: true, formats: ["SVG", "PNG", "PDF"] },
   { id: "main-logo-navy", title: "Main Logo (Navy)", desc: "Logo for navy backgrounds", bg: "navy-bg", type: "main", dark: false, formats: ["SVG", "PNG", "PDF"] },
+  { id: "symbol-large", title: "Symbol (Large)", desc: "Large symbol for print and display", bg: "dark-bg", type: "symbol-large", formats: ["SVG", "PNG", "PDF"] },
+  { id: "symbol-large-outline", title: "Symbol Outline (Large)", desc: "Large outline version for print", bg: "dark-bg", type: "symbol-large-outline", formats: ["SVG", "PNG", "PDF"] },
+  { id: "symbol-large-transparent", title: "Symbol (Large Transparent)", desc: "Large PNG for transparent backgrounds", bg: "transparent-bg", type: "symbol-large", formats: ["PNG", "WEBP", "PDF"] },
   { id: "symbol", title: "Symbol", desc: "Use as icon or favicon", bg: "dark-bg", type: "symbol", formats: ["SVG", "PNG", "ICO"] },
   { id: "symbol-outline", title: "Symbol Outline", desc: "Outline version of the symbol", bg: "dark-bg", type: "symbol-outline", formats: ["SVG", "PNG"] },
   { id: "symbol-transparent", title: "Symbol (Transparent)", desc: "PNG symbol for transparent backgrounds", bg: "transparent-bg", type: "symbol", formats: ["PNG", "WEBP"] },
@@ -963,6 +966,16 @@ export default function Brand() {
           <span className={`text-2xl font-black ${dark ? "text-gray-900" : "text-white"}`}>
             TBURN<span className="text-[#D4AF37]">CHAIN</span>
           </span>
+        </div>
+      );
+    }
+    if (type === "symbol-large") {
+      return <TBurnLogo className="w-40 h-40" fontSize={32} />;
+    }
+    if (type === "symbol-large-outline") {
+      return (
+        <div className="w-40 h-40 rounded-3xl border-4 border-[#D4AF37] flex items-center justify-center">
+          <TBurnLogo className="w-28 h-28" symbolColor="#D4AF37" textColor="#1a1a2e" fontSize={28} />
         </div>
       );
     }
