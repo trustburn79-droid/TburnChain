@@ -10276,7 +10276,19 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       cache.delete('shards_config');
       cache.delete('shards');
       cache.delete('sharding_data');
+      cache.delete('network_stats');
+      cache.delete('public_network_stats');
       console.log(`[Cache] Invalidated shard caches after config update`);
+      
+      // ★ [TPS SYNC FIX] 샤드 변경 시 RealtimeMetricsService 즉시 갱신
+      // 모든 페이지 (/, /app, /app/blocks, /scan, /rps 등)에서 TPS가 동기화됨
+      try {
+        const realtimeMetrics = getRealtimeMetricsService();
+        await realtimeMetrics.refreshShardDataImmediately();
+        console.log(`[TPS Sync] ✅ RealtimeMetricsService refreshed after shard config change`);
+      } catch (syncError) {
+        console.error(`[TPS Sync] ⚠️ Failed to refresh RealtimeMetricsService:`, syncError);
+      }
       
       // Broadcast shard configuration update to all connected clients
       try {

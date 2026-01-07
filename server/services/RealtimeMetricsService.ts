@@ -98,6 +98,20 @@ class RealtimeMetricsService {
   }
   
   /**
+   * ★ [TPS SYNC FIX] 샤드 데이터 즉시 갱신 - /admin/shards에서 호출
+   * 샤드 수가 변경되면 TPS가 즉시 업데이트되어 모든 페이지에 반영됨
+   */
+  async refreshShardDataImmediately(): Promise<void> {
+    console.log('[RealtimeMetrics] 🔄 Immediate shard refresh triggered');
+    try {
+      await this.pollSecondaryData();
+      console.log(`[RealtimeMetrics] ✅ Immediate refresh complete - shards: ${this.shardMetrics.size}, TPS: ${this.currentTps}`);
+    } catch (error) {
+      console.error('[RealtimeMetrics] ❌ Immediate refresh failed:', error);
+    }
+  }
+  
+  /**
    * 데이터베이스에서 최신 데이터 폴링
    * ★ [ARCHITECT FIX] 경량화 + 오프라인 fallback
    */
