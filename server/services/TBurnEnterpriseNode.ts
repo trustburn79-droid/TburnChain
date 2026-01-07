@@ -628,6 +628,16 @@ export class TBurnEnterpriseNode extends EventEmitter {
       }
     });
     
+    // CRITICAL: Sync shards to database with proper TPS distribution
+    // This ensures all shards (including new ones) have correct TPS values
+    const estimatedTps = newCount * this.shardConfig.tpsPerShard;
+    storage.syncShardsWithConfig(newCount, estimatedTps, this.SHARD_NAMES).catch(err =>
+      console.error('[Enterprise Node] Shard sync failed:', err)
+    );
+    
+    // Clear shard cache to force regeneration with new config
+    this.shardsCache = null;
+    
     // Persist to database (async, non-blocking)
     this.persistConfigToDatabase(actor, reason).catch(err => 
       console.error('[Enterprise Node] Database persistence failed:', err)

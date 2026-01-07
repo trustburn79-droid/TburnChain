@@ -594,6 +594,8 @@ export interface IStorage {
   getAllShards(): Promise<Shard[]>;
   getShardById(shardId: number): Promise<Shard | undefined>;
   updateShard(shardId: number, data: Partial<Shard>): Promise<Shard>;
+  createShard(data: InsertShard): Promise<Shard>;
+  syncShardsWithConfig(shardCount: number, estimatedTps: number, shardNames: string[]): Promise<void>;
 
   // Analytics
   getLatencyDistribution(): Promise<import("@shared/schema").LatencyBucket[]>;
@@ -2584,6 +2586,70 @@ export class MemStorage implements IStorage {
     return updated;
   }
 
+  async createShard(data: InsertShard): Promise<Shard> {
+    const newShard: Shard = {
+      id: `shard-${data.shardId}`,
+      shardId: data.shardId,
+      name: data.name,
+      status: data.status || 'active',
+      blockHeight: data.blockHeight || 0,
+      transactionCount: data.transactionCount || 0,
+      validatorCount: data.validatorCount || 0,
+      tps: data.tps || 0,
+      load: data.load || 0,
+      peakTps: data.peakTps || 10000,
+      avgBlockTime: data.avgBlockTime || 100,
+      crossShardTxCount: data.crossShardTxCount || 0,
+      stateSize: data.stateSize || '100GB',
+      lastSyncedAt: data.lastSyncedAt || new Date(),
+      mlOptimizationScore: data.mlOptimizationScore || 8500,
+      predictedLoad: data.predictedLoad || 0,
+      rebalanceCount: data.rebalanceCount || 0,
+      aiRecommendation: data.aiRecommendation || 'stable',
+      profilingScore: data.profilingScore || 9000,
+      capacityUtilization: data.capacityUtilization || 5000
+    };
+    this.shards.set(data.shardId, newShard);
+    return newShard;
+  }
+
+  async syncShardsWithConfig(shardCount: number, estimatedTps: number, shardNames: string[]): Promise<void> {
+    const tpsPerShard = Math.floor(estimatedTps / shardCount);
+    let newShardsCreated = 0;
+    
+    for (let i = 0; i < shardCount; i++) {
+      const existingShard = this.shards.get(i);
+      const shardName = shardNames[i] || `Shard-${i + 1}`;
+      
+      if (!existingShard) {
+        await this.createShard({
+          shardId: i,
+          name: `Shard ${shardName}`,
+          status: 'active',
+          tps: tpsPerShard,
+          peakTps: 10000,
+          validatorCount: 25,
+          load: Math.floor((tpsPerShard / 10000) * 100),
+          avgBlockTime: 100,
+          blockHeight: 0,
+          transactionCount: 17000000 + (i * 500000),
+          crossShardTxCount: 2000 + (i * 50),
+          stateSize: `${100 + (i * 2)}GB`,
+          mlOptimizationScore: 8500,
+          predictedLoad: 0,
+          rebalanceCount: 0,
+          aiRecommendation: 'stable',
+          profilingScore: 9000,
+          capacityUtilization: 5000
+        });
+        newShardsCreated++;
+      }
+    }
+    if (newShardsCreated > 0) {
+      console.log(`[MemStorage] ✅ Created ${newShardsCreated} new shards (total: ${shardCount})`);
+    }
+  }
+
   // Analytics
   async getLatencyDistribution(): Promise<import("@shared/schema").LatencyBucket[]> {
     const stats = await this.getNetworkStats();
@@ -3486,6 +3552,50 @@ export class DbStorage implements IStorage {
     const result = await this.getShardById(shardId);
     if (!result) throw new Error(`Shard ${shardId} not found`);
     return result;
+  }
+
+  async createShard(data: InsertShard): Promise<Shard> {
+    const result = await db.insert(shards).values(data).returning();
+    return result[0];
+  }
+
+  async syncShardsWithConfig(shardCount: number, estimatedTps: number, shardNames: string[]): Promise<void> {
+    const tpsPerShard = Math.floor(estimatedTps / shardCount);
+    const existingShards = await this.getAllShards();
+    const existingShardIds = new Set(existingShards.map(s => s.shardId));
+    let newShardsCreated = 0;
+    
+    for (let i = 0; i < shardCount; i++) {
+      const shardName = shardNames[i] || `Shard-${i + 1}`;
+      
+      if (!existingShardIds.has(i)) {
+        await db.insert(shards).values({
+          shardId: i,
+          name: `Shard ${shardName}`,
+          status: 'active',
+          tps: tpsPerShard,
+          peakTps: 10000,
+          validatorCount: 25,
+          load: Math.floor((tpsPerShard / 10000) * 100),
+          avgBlockTime: 100,
+          blockHeight: 0,
+          transactionCount: 17000000 + (i * 500000),
+          crossShardTxCount: 2000 + (i * 50),
+          stateSize: `${100 + (i * 2)}GB`,
+          lastSyncedAt: new Date(),
+          mlOptimizationScore: 8500,
+          predictedLoad: 0,
+          rebalanceCount: 0,
+          aiRecommendation: 'stable',
+          profilingScore: 9000,
+          capacityUtilization: 5000
+        });
+        newShardsCreated++;
+      }
+    }
+    if (newShardsCreated > 0) {
+      console.log(`[DatabaseStorage] ✅ Created ${newShardsCreated} new shards (total: ${shardCount})`);
+    }
   }
 
   // Analytics
