@@ -9519,6 +9519,41 @@
       }
     },
     "developers": {
+      "tutorialsPage": {
+        "hero": {
+          "badge": "ステップバイステップ学習",
+          "title": "TBURN開発者チュートリアル",
+          "description": "TBURNチェーンでの構築を支援する実践的なガイド。基本概念から高度なDeFiアプリケーションまで。",
+          "stats": { "tutorials": "チュートリアル", "hours": "時間のコンテンツ", "level": "全スキルレベル" }
+        },
+        "featured": { "title": "注目のチュートリアル" },
+        "paths": { "title": "学習パス" },
+        "all": { "title": "すべてのチュートリアル" },
+        "filter": { "all": "すべて" },
+        "steps": "ステップ",
+        "start": "開始",
+        "viewPath": "パスを見る",
+        "cta": {
+          "title": "構築の準備はできましたか？",
+          "description": "クイックスタートガイドから始めて、15分以内にTBURNチェーンで最初のdAppを構築しましょう。",
+          "quickstart": "クイックスタートガイド",
+          "sdk": "SDKドキュメントを見る"
+        },
+        "tutorials": {
+          "gettingStarted": { "title": "TBURN SDKを始める", "description": "最初のブロックチェーンアプリケーション用にTBURN SDKをインストールして設定する方法を学びます。" },
+          "firstTransaction": { "title": "最初のトランザクション", "description": "ネットワークでTBURNトークンを送受信するためのステップバイステップガイド。" },
+          "walletIntegration": { "title": "ウォレット統合ガイド", "description": "MetaMask、Trust Wallet、その他のWeb3ウォレットをdAppに接続します。" },
+          "smartContracts": { "title": "スマートコントラクトのデプロイ", "description": "TBURNチェーンで最初のスマートコントラクトを書いて、コンパイルして、デプロイします。" },
+          "trustScore": { "title": "トラストスコア統合", "description": "アプリケーションにAI駆動のトラストスコア検証を実装します。" },
+          "defiStaking": { "title": "ステーキングdAppを構築", "description": "報酬と委任機能を備えた完全なステーキングアプリケーションを作成します。" }
+        },
+        "learningPaths": {
+          "fundamentals": { "title": "ブロックチェーンの基礎", "description": "ゼロから始めてTBURNでブロックチェーンの概念を学ぶ" },
+          "dappDev": { "title": "dApp開発", "description": "ゼロから分散型アプリケーションを構築" },
+          "defiMastery": { "title": "DeFiマスタリー", "description": "DeFiプロトコルをマスターし、金融アプリケーションを構築" }
+        },
+        "difficulty": { "beginner": "初心者", "intermediate": "中級者", "advanced": "上級者" }
+      },
       "hub": {
         "tag": "V4 SDK & API 準備完了",
         "title": "開発者ハブ",

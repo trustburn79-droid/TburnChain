@@ -9221,6 +9221,84 @@
         "dailyLimit": "Límite diario: 100 TBURN de prueba",
         "success": "¡Tokens enviados exitosamente!",
         "error": "Error al enviar tokens. Por favor intenta de nuevo."
+      },
+      "tutorialsPage": {
+        "hero": {
+          "badge": "Aprendizaje Paso a Paso",
+          "title": "Tutoriales para Desarrolladores TBURN",
+          "description": "Guías prácticas para ayudarte a construir en TBURN Chain. Desde conceptos básicos hasta aplicaciones DeFi avanzadas.",
+          "stats": {
+            "tutorials": "Tutoriales",
+            "hours": "Horas de Contenido",
+            "level": "Todos los Niveles"
+          }
+        },
+        "featured": {
+          "title": "Tutoriales Destacados"
+        },
+        "paths": {
+          "title": "Rutas de Aprendizaje"
+        },
+        "all": {
+          "title": "Todos los Tutoriales"
+        },
+        "filter": {
+          "all": "Todos"
+        },
+        "steps": "pasos",
+        "start": "Comenzar",
+        "viewPath": "Ver Ruta",
+        "cta": {
+          "title": "¿Listo para Construir?",
+          "description": "Comienza con nuestra guía de inicio rápido y construye tu primera dApp en TBURN Chain en menos de 15 minutos.",
+          "quickstart": "Guía de Inicio Rápido",
+          "sdk": "Ver Docs de SDK"
+        },
+        "tutorials": {
+          "gettingStarted": {
+            "title": "Comenzando con TBURN SDK",
+            "description": "Aprende a instalar y configurar el SDK de TBURN para tu primera aplicación blockchain."
+          },
+          "firstTransaction": {
+            "title": "Tu Primera Transacción",
+            "description": "Guía paso a paso para enviar y recibir tokens TBURN en la red."
+          },
+          "walletIntegration": {
+            "title": "Guía de Integración de Billetera",
+            "description": "Conecta MetaMask, Trust Wallet y otras billeteras Web3 a tu dApp."
+          },
+          "smartContracts": {
+            "title": "Desplegar Contratos Inteligentes",
+            "description": "Escribe, compila y despliega tu primer contrato inteligente en TBURN Chain."
+          },
+          "trustScore": {
+            "title": "Integración de Trust Score",
+            "description": "Implementa verificación de Trust Score impulsada por IA en tu aplicación."
+          },
+          "defiStaking": {
+            "title": "Construir una dApp de Staking",
+            "description": "Crea una aplicación de staking completa con recompensas y delegación."
+          }
+        },
+        "learningPaths": {
+          "fundamentals": {
+            "title": "Fundamentos de Blockchain",
+            "description": "Comienza desde cero y aprende conceptos de blockchain con TBURN"
+          },
+          "dappDev": {
+            "title": "Desarrollo de dApps",
+            "description": "Construye aplicaciones descentralizadas desde cero"
+          },
+          "defiMastery": {
+            "title": "Dominio de DeFi",
+            "description": "Domina los protocolos DeFi y construye aplicaciones financieras"
+          }
+        },
+        "difficulty": {
+          "beginner": "Principiante",
+          "intermediate": "Intermedio",
+          "advanced": "Avanzado"
+        }
       }
     },
     "solutions": {

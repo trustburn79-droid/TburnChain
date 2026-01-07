@@ -8856,6 +8856,41 @@
       }
     },
     "developers": {
+      "tutorialsPage": {
+        "hero": {
+          "badge": "分步学习",
+          "title": "TBURN 开发者教程",
+          "description": "帮助您在 TBURN Chain 上构建的实践指南。从基础概念到高级 DeFi 应用。",
+          "stats": { "tutorials": "教程", "hours": "小时内容", "level": "所有技能水平" }
+        },
+        "featured": { "title": "精选教程" },
+        "paths": { "title": "学习路径" },
+        "all": { "title": "所有教程" },
+        "filter": { "all": "全部" },
+        "steps": "步骤",
+        "start": "开始",
+        "viewPath": "查看路径",
+        "cta": {
+          "title": "准备好构建了吗？",
+          "description": "从我们的快速入门指南开始，在 15 分钟内在 TBURN Chain 上构建您的第一个 dApp。",
+          "quickstart": "快速入门指南",
+          "sdk": "查看 SDK 文档"
+        },
+        "tutorials": {
+          "gettingStarted": { "title": "TBURN SDK 入门", "description": "学习如何为您的第一个区块链应用安装和配置 TBURN SDK。" },
+          "firstTransaction": { "title": "您的第一笔交易", "description": "在网络上发送和接收 TBURN 代币的分步指南。" },
+          "walletIntegration": { "title": "钱包集成指南", "description": "将 MetaMask、Trust Wallet 和其他 Web3 钱包连接到您的 dApp。" },
+          "smartContracts": { "title": "部署智能合约", "description": "在 TBURN Chain 上编写、编译和部署您的第一个智能合约。" },
+          "trustScore": { "title": "Trust Score 集成", "description": "在您的应用中实现 AI 驱动的 Trust Score 验证。" },
+          "defiStaking": { "title": "构建质押 dApp", "description": "创建具有奖励和委托功能的完整质押应用。" }
+        },
+        "learningPaths": {
+          "fundamentals": { "title": "区块链基础", "description": "从零开始，与 TBURN 一起学习区块链概念" },
+          "dappDev": { "title": "dApp 开发", "description": "从头开始构建去中心化应用" },
+          "defiMastery": { "title": "DeFi 精通", "description": "掌握 DeFi 协议并构建金融应用" }
+        },
+        "difficulty": { "beginner": "初学者", "intermediate": "中级", "advanced": "高级" }
+      },
       "hub": {
         "tag": "V4 SDK和API就绪",
         "title": "开发者中心",

@@ -5203,6 +5203,41 @@
       }
     },
     "developers": {
+      "tutorialsPage": {
+        "hero": {
+          "badge": "مرحلہ وار سیکھنا",
+          "title": "TBURN ڈویلپر ٹیوٹوریلز",
+          "description": "TBURN چین پر تعمیر میں مدد کے لیے عملی گائیڈز۔ بنیادی تصورات سے لے کر جدید DeFi ایپلیکیشنز تک۔",
+          "stats": { "tutorials": "ٹیوٹوریلز", "hours": "گھنٹے کا مواد", "level": "تمام مہارت کی سطحیں" }
+        },
+        "featured": { "title": "نمایاں ٹیوٹوریلز" },
+        "paths": { "title": "سیکھنے کے راستے" },
+        "all": { "title": "تمام ٹیوٹوریلز" },
+        "filter": { "all": "سب" },
+        "steps": "مراحل",
+        "start": "شروع کریں",
+        "viewPath": "راستہ دیکھیں",
+        "cta": {
+          "title": "تعمیر کے لیے تیار؟",
+          "description": "ہماری فوری شروعات گائیڈ سے شروع کریں اور 15 منٹ سے کم میں TBURN چین پر اپنی پہلی dApp بنائیں۔",
+          "quickstart": "فوری شروعات گائیڈ",
+          "sdk": "SDK دستاویزات دیکھیں"
+        },
+        "tutorials": {
+          "gettingStarted": { "title": "TBURN SDK کے ساتھ شروع کرنا", "description": "اپنی پہلی بلاکچین ایپلیکیشن کے لیے TBURN SDK انسٹال اور کنفیگر کرنا سیکھیں۔" },
+          "firstTransaction": { "title": "آپ کی پہلی ٹرانزیکشن", "description": "نیٹ ورک پر TBURN ٹوکنز بھیجنے اور وصول کرنے کے لیے مرحلہ وار گائیڈ۔" },
+          "walletIntegration": { "title": "والیٹ انٹیگریشن گائیڈ", "description": "MetaMask، Trust Wallet اور دیگر Web3 والیٹس کو اپنی dApp سے جوڑیں۔" },
+          "smartContracts": { "title": "سمارٹ کنٹریکٹس ڈیپلائے کریں", "description": "TBURN چین پر اپنا پہلا سمارٹ کنٹریکٹ لکھیں، کمپائل کریں اور ڈیپلائے کریں۔" },
+          "trustScore": { "title": "ٹرسٹ سکور انٹیگریشن", "description": "اپنی ایپلیکیشن میں AI سے چلنے والی ٹرسٹ سکور تصدیق نافذ کریں۔" },
+          "defiStaking": { "title": "اسٹیکنگ dApp بنائیں", "description": "انعامات اور وفد کے ساتھ مکمل اسٹیکنگ ایپلیکیشن بنائیں۔" }
+        },
+        "learningPaths": {
+          "fundamentals": { "title": "بلاکچین کی بنیادیں", "description": "صفر سے شروع کریں اور TBURN کے ساتھ بلاکچین تصورات سیکھیں" },
+          "dappDev": { "title": "dApp ڈیولپمنٹ", "description": "شروع سے غیر مرکزی ایپلیکیشنز بنائیں" },
+          "defiMastery": { "title": "DeFi مہارت", "description": "DeFi پروٹوکولز میں مہارت حاصل کریں اور مالیاتی ایپلیکیشنز بنائیں" }
+        },
+        "difficulty": { "beginner": "ابتدائی", "intermediate": "درمیانی", "advanced": "جدید" }
+      },
       "hub": {
         "tag": "V4 SDK اور API تیار",
         "title": "ڈویلپر ہب",

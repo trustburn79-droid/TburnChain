@@ -7941,6 +7941,84 @@
             "answer": "Simple contracts can be migrated in hours. Complex protocols may take 1-2 weeks."
           }
         }
+      },
+      "tutorialsPage": {
+        "hero": {
+          "badge": "التعلم خطوة بخطوة",
+          "title": "دروس مطوري TBURN",
+          "description": "أدلة عملية لمساعدتك في البناء على سلسلة TBURN. من المفاهيم الأساسية إلى تطبيقات DeFi المتقدمة.",
+          "stats": {
+            "tutorials": "دروس",
+            "hours": "ساعات من المحتوى",
+            "level": "جميع مستويات المهارة"
+          }
+        },
+        "featured": {
+          "title": "الدروس المميزة"
+        },
+        "paths": {
+          "title": "مسارات التعلم"
+        },
+        "all": {
+          "title": "جميع الدروس"
+        },
+        "filter": {
+          "all": "الكل"
+        },
+        "steps": "خطوات",
+        "start": "ابدأ",
+        "viewPath": "عرض المسار",
+        "cta": {
+          "title": "هل أنت مستعد للبناء؟",
+          "description": "ابدأ بدليل البداية السريعة وقم ببناء أول تطبيق dApp على سلسلة TBURN في أقل من 15 دقيقة.",
+          "quickstart": "دليل البداية السريعة",
+          "sdk": "عرض وثائق SDK"
+        },
+        "tutorials": {
+          "gettingStarted": {
+            "title": "البدء مع TBURN SDK",
+            "description": "تعلم كيفية تثبيت وتكوين TBURN SDK لأول تطبيق بلوكتشين."
+          },
+          "firstTransaction": {
+            "title": "معاملتك الأولى",
+            "description": "دليل خطوة بخطوة لإرسال واستلام رموز TBURN على الشبكة."
+          },
+          "walletIntegration": {
+            "title": "دليل تكامل المحفظة",
+            "description": "قم بتوصيل MetaMask و Trust Wallet ومحافظ Web3 الأخرى بتطبيقك."
+          },
+          "smartContracts": {
+            "title": "نشر العقود الذكية",
+            "description": "اكتب وقم بتجميع ونشر أول عقد ذكي على سلسلة TBURN."
+          },
+          "trustScore": {
+            "title": "تكامل نقاط الثقة",
+            "description": "قم بتنفيذ التحقق من نقاط الثقة المدعومة بالذكاء الاصطناعي في تطبيقك."
+          },
+          "defiStaking": {
+            "title": "بناء تطبيق Staking",
+            "description": "قم بإنشاء تطبيق staking كامل مع المكافآت والتفويض."
+          }
+        },
+        "learningPaths": {
+          "fundamentals": {
+            "title": "أساسيات البلوكتشين",
+            "description": "ابدأ من الصفر وتعلم مفاهيم البلوكتشين مع TBURN"
+          },
+          "dappDev": {
+            "title": "تطوير التطبيقات اللامركزية",
+            "description": "بناء تطبيقات لامركزية من الصفر"
+          },
+          "defiMastery": {
+            "title": "إتقان DeFi",
+            "description": "أتقن بروتوكولات DeFi وقم ببناء تطبيقات مالية"
+          }
+        },
+        "difficulty": {
+          "beginner": "مبتدئ",
+          "intermediate": "متوسط",
+          "advanced": "متقدم"
+        }
       }
     },
     "solutions": {

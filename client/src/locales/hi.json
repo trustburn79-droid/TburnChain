@@ -8559,6 +8559,84 @@
             "answer": "Simple contracts can be migrated in घंटे. Complex protocols may take 1-2 सप्ताह."
           }
         }
+      },
+      "tutorialsPage": {
+        "hero": {
+          "badge": "चरण-दर-चरण सीखना",
+          "title": "TBURN डेवलपर ट्यूटोरियल",
+          "description": "TBURN Chain पर निर्माण में मदद के लिए व्यावहारिक गाइड। बुनियादी अवधारणाओं से लेकर उन्नत DeFi अनुप्रयोगों तक।",
+          "stats": {
+            "tutorials": "ट्यूटोरियल",
+            "hours": "घंटे का कंटेंट",
+            "level": "सभी कौशल स्तर"
+          }
+        },
+        "featured": {
+          "title": "विशेष ट्यूटोरियल"
+        },
+        "paths": {
+          "title": "सीखने के रास्ते"
+        },
+        "all": {
+          "title": "सभी ट्यूटोरियल"
+        },
+        "filter": {
+          "all": "सभी"
+        },
+        "steps": "चरण",
+        "start": "शुरू करें",
+        "viewPath": "पथ देखें",
+        "cta": {
+          "title": "निर्माण के लिए तैयार?",
+          "description": "हमारे त्वरित प्रारंभ गाइड से शुरू करें और 15 मिनट से कम में TBURN Chain पर अपना पहला dApp बनाएं।",
+          "quickstart": "त्वरित प्रारंभ गाइड",
+          "sdk": "SDK डॉक्स देखें"
+        },
+        "tutorials": {
+          "gettingStarted": {
+            "title": "TBURN SDK से शुरू करना",
+            "description": "अपने पहले ब्लॉकचेन एप्लिकेशन के लिए TBURN SDK इंस्टॉल और कॉन्फ़िगर करना सीखें।"
+          },
+          "firstTransaction": {
+            "title": "आपका पहला लेनदेन",
+            "description": "नेटवर्क पर TBURN टोकन भेजने और प्राप्त करने के लिए चरण-दर-चरण गाइड।"
+          },
+          "walletIntegration": {
+            "title": "वॉलेट इंटीग्रेशन गाइड",
+            "description": "MetaMask, Trust Wallet और अन्य Web3 वॉलेट को अपने dApp से कनेक्ट करें।"
+          },
+          "smartContracts": {
+            "title": "स्मार्ट कॉन्ट्रैक्ट डिप्लॉय करें",
+            "description": "TBURN Chain पर अपना पहला स्मार्ट कॉन्ट्रैक्ट लिखें, कंपाइल करें और डिप्लॉय करें।"
+          },
+          "trustScore": {
+            "title": "ट्रस्ट स्कोर इंटीग्रेशन",
+            "description": "अपने एप्लिकेशन में AI-संचालित ट्रस्ट स्कोर सत्यापन लागू करें।"
+          },
+          "defiStaking": {
+            "title": "स्टेकिंग dApp बनाएं",
+            "description": "पुरस्कार और प्रतिनिधिमंडल के साथ एक पूर्ण स्टेकिंग एप्लिकेशन बनाएं।"
+          }
+        },
+        "learningPaths": {
+          "fundamentals": {
+            "title": "ब्लॉकचेन मूलभूत",
+            "description": "शून्य से शुरू करें और TBURN के साथ ब्लॉकचेन अवधारणाएं सीखें"
+          },
+          "dappDev": {
+            "title": "dApp विकास",
+            "description": "स्क्रैच से विकेन्द्रीकृत अनुप्रयोग बनाएं"
+          },
+          "defiMastery": {
+            "title": "DeFi महारत",
+            "description": "DeFi प्रोटोकॉल में महारत हासिल करें और वित्तीय अनुप्रयोग बनाएं"
+          }
+        },
+        "difficulty": {
+          "beginner": "शुरुआती",
+          "intermediate": "मध्यवर्ती",
+          "advanced": "उन्नत"
+        }
       }
     },
     "solutions": {

@@ -6378,6 +6378,41 @@
       }
     },
     "developers": {
+      "tutorialsPage": {
+        "hero": {
+          "badge": "Пошаговое Обучение",
+          "title": "Руководства для Разработчиков TBURN",
+          "description": "Практические руководства для создания на TBURN Chain. От базовых концепций до продвинутых DeFi приложений.",
+          "stats": { "tutorials": "Руководства", "hours": "Часов Контента", "level": "Все Уровни" }
+        },
+        "featured": { "title": "Избранные Руководства" },
+        "paths": { "title": "Пути Обучения" },
+        "all": { "title": "Все Руководства" },
+        "filter": { "all": "Все" },
+        "steps": "шагов",
+        "start": "Начать",
+        "viewPath": "Смотреть Путь",
+        "cta": {
+          "title": "Готовы к Созданию?",
+          "description": "Начните с нашего руководства быстрого старта и создайте первое dApp на TBURN Chain менее чем за 15 минут.",
+          "quickstart": "Руководство Быстрого Старта",
+          "sdk": "Документация SDK"
+        },
+        "tutorials": {
+          "gettingStarted": { "title": "Начало работы с TBURN SDK", "description": "Узнайте, как установить и настроить TBURN SDK для вашего первого блокчейн-приложения." },
+          "firstTransaction": { "title": "Ваша Первая Транзакция", "description": "Пошаговое руководство по отправке и получению токенов TBURN в сети." },
+          "walletIntegration": { "title": "Руководство по Интеграции Кошелька", "description": "Подключите MetaMask, Trust Wallet и другие Web3 кошельки к вашему dApp." },
+          "smartContracts": { "title": "Развертывание Смарт-Контрактов", "description": "Напишите, скомпилируйте и разверните ваш первый смарт-контракт на TBURN Chain." },
+          "trustScore": { "title": "Интеграция Trust Score", "description": "Внедрите проверку Trust Score на основе ИИ в ваше приложение." },
+          "defiStaking": { "title": "Создание dApp для Стейкинга", "description": "Создайте полноценное приложение для стейкинга с наградами и делегированием." }
+        },
+        "learningPaths": {
+          "fundamentals": { "title": "Основы Блокчейна", "description": "Начните с нуля и изучите концепции блокчейна с TBURN" },
+          "dappDev": { "title": "Разработка dApp", "description": "Создавайте децентрализованные приложения с нуля" },
+          "defiMastery": { "title": "Мастерство DeFi", "description": "Освойте протоколы DeFi и создавайте финансовые приложения" }
+        },
+        "difficulty": { "beginner": "Начинающий", "intermediate": "Средний", "advanced": "Продвинутый" }
+      },
       "hub": {
         "tag": "V4 SDK И API ГОТОВЫ",
         "title": "Хаб разработчика",
