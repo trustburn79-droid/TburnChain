@@ -221,8 +221,15 @@ const DEFAULT_STATS = {
   uptime: "99.99%"
 };
 
-// Network stats interface for API response
-interface NetworkStatsResponse {
+// Network stats interface for internal API (same as /app/transactions page)
+interface InternalNetworkStats {
+  currentBlockHeight: number;
+  tps: number;
+  totalTransactions: number;
+}
+
+// Public API response format
+interface PublicNetworkStatsResponse {
   success: boolean;
   data: {
     tps: number;
@@ -235,20 +242,30 @@ interface NetworkStatsResponse {
 export default function Home() {
   const { t } = useTranslation();
   
-  // ★ [LEGAL REQUIREMENT] Fetch real-time TPS from API - 5 second refresh
-  const { data: networkStats } = useQuery<NetworkStatsResponse>({
-    queryKey: ["/api/public/v1/network/stats"],
+  // ★ [LEGAL REQUIREMENT] Use SAME API as /app/transactions page for data consistency
+  // This ensures homepage displays identical totalTransactions as transactions explorer
+  const { data: internalStats } = useQuery<InternalNetworkStats>({
+    queryKey: ["/api/network/stats"],
     refetchInterval: 5000, // Match RealtimeMetricsService 5-second update
     staleTime: 5000,
     refetchOnMount: true,
     refetchOnWindowFocus: false,
   });
   
+  // Fallback to public API for TPS if internal API not available
+  const { data: publicStats } = useQuery<PublicNetworkStatsResponse>({
+    queryKey: ["/api/public/v1/network/stats"],
+    refetchInterval: 5000,
+    staleTime: 5000,
+    enabled: !internalStats, // Only fetch if internal API didn't respond
+  });
+  
   // Merge API data with defaults for instant rendering
+  // CRITICAL: totalTransactions from internal API for consistency with /app/transactions
   const stats = {
-    tps: networkStats?.data?.tps || DEFAULT_STATS.tps,
-    blockHeight: networkStats?.data?.blockHeight || DEFAULT_STATS.blockHeight,
-    totalTransactions: networkStats?.data?.totalTransactions || DEFAULT_STATS.totalTransactions,
+    tps: internalStats?.tps || publicStats?.data?.tps || DEFAULT_STATS.tps,
+    blockHeight: internalStats?.currentBlockHeight || publicStats?.data?.blockHeight || DEFAULT_STATS.blockHeight,
+    totalTransactions: internalStats?.totalTransactions || publicStats?.data?.totalTransactions || DEFAULT_STATS.totalTransactions,
     uptime: DEFAULT_STATS.uptime // Uptime is always 99.99%
   };
   
