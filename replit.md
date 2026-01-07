@@ -83,6 +83,22 @@ Core architectural decisions and features include:
   - **Hardware Detection**: Automatic RAM/CPU detection via os module, adaptive thresholds based on environment size
   - **QueryClient Enhancement**: Server error retry with 3 attempts for 500 errors
   - **Warmup Integration**: DB keep-alive with 30s interval, session-free warmup path
+- **Enterprise Memory Guardian v2.0**: Production-grade automated memory management system:
+  - **MemoryGuardian Service**: 10-second interval monitoring with 3-tier cleanup (soft 70%, aggressive 85%, emergency 92%)
+  - **Event History**: Configurable event logging (360 events) with type/level classification
+  - **Trend Analysis**: Growth rate prediction (MB/min), estimated time to warning, volatility tracking
+  - **SLA Monitoring**: Uptime percentage tracking, healthy/warning/critical/emergency state counts, target compliance (99.9%)
+  - **Alert System**: Cooldown-based alerting (60s default), severity levels, webhook support
+  - **Recovery Detection**: Automatic state transition logging and recovery confirmation
+  - **API Endpoints**: 8 guardian endpoints - `/api/memory/guardian`, `/api/memory/guardian/cleanup`, `/api/memory/guardian/events`, `/api/memory/guardian/trends`, `/api/memory/guardian/sla`, `/api/memory/guardian/prometheus`, `/api/memory/pools`, `/api/memory/pools/prewarm`
+- **Enterprise Object Pool v2.0**: Production-grade object reuse system:
+  - **ObjectPoolEnterprise**: Enhanced pooling with hit/miss tracking, eviction counts, peak size monitoring
+  - **Pool Metrics**: Efficiency calculation, average wait time, utilization percentage
+  - **Pool History**: 60-minute rolling history snapshots for trend analysis
+  - **Prewarm/Shrink**: Pool size optimization with configurable min/max bounds
+  - **Prometheus Export**: Per-pool metrics (block/transaction) with Grafana-compatible format
+  - **Block Pool**: 100 max size, 10 min size, adaptive enabled
+  - **Transaction Pool**: 5000 max size, 100 min size, adaptive enabled
 
 ## External Dependencies
 - **Database**: Neon Serverless PostgreSQL
