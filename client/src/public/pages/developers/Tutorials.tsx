@@ -122,11 +122,113 @@ export default function Tutorials() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [selectedDifficulty, setSelectedDifficulty] = useState<string>("all");
 
-  const filteredTutorials = selectedDifficulty === "all" 
-    ? tutorials 
-    : tutorials.filter(t => t.difficulty === selectedDifficulty);
+  const translatedTutorials = [
+    {
+      id: "getting-started",
+      title: t('publicPages.developers.tutorialsPage.tutorials.gettingStarted.title', 'Getting Started with TBURN SDK'),
+      description: t('publicPages.developers.tutorialsPage.tutorials.gettingStarted.description', 'Learn how to install and configure the TBURN SDK for your first blockchain application.'),
+      duration: "15 min",
+      difficulty: t('publicPages.developers.tutorialsPage.difficulty.beginner', 'Beginner'),
+      difficultyKey: "beginner",
+      icon: Code,
+      gradient: "from-cyan-500 to-blue-500",
+      steps: 5,
+      featured: true
+    },
+    {
+      id: "first-transaction",
+      title: t('publicPages.developers.tutorialsPage.tutorials.firstTransaction.title', 'Your First Transaction'),
+      description: t('publicPages.developers.tutorialsPage.tutorials.firstTransaction.description', 'Step-by-step guide to sending and receiving TBURN tokens on the network.'),
+      duration: "20 min",
+      difficulty: t('publicPages.developers.tutorialsPage.difficulty.beginner', 'Beginner'),
+      difficultyKey: "beginner",
+      icon: Zap,
+      gradient: "from-green-500 to-emerald-500",
+      steps: 6,
+      featured: true
+    },
+    {
+      id: "wallet-integration",
+      title: t('publicPages.developers.tutorialsPage.tutorials.walletIntegration.title', 'Wallet Integration Guide'),
+      description: t('publicPages.developers.tutorialsPage.tutorials.walletIntegration.description', 'Connect MetaMask, Trust Wallet, and other Web3 wallets to your dApp.'),
+      duration: "25 min",
+      difficulty: t('publicPages.developers.tutorialsPage.difficulty.beginner', 'Beginner'),
+      difficultyKey: "beginner",
+      icon: Wallet,
+      gradient: "from-purple-500 to-pink-500",
+      steps: 7,
+      featured: false
+    },
+    {
+      id: "smart-contracts",
+      title: t('publicPages.developers.tutorialsPage.tutorials.smartContracts.title', 'Deploy Smart Contracts'),
+      description: t('publicPages.developers.tutorialsPage.tutorials.smartContracts.description', 'Write, compile, and deploy your first smart contract on TBURN Chain.'),
+      duration: "45 min",
+      difficulty: t('publicPages.developers.tutorialsPage.difficulty.intermediate', 'Intermediate'),
+      difficultyKey: "intermediate",
+      icon: Shield,
+      gradient: "from-orange-500 to-red-500",
+      steps: 10,
+      featured: true
+    },
+    {
+      id: "trust-score",
+      title: t('publicPages.developers.tutorialsPage.tutorials.trustScore.title', 'Trust Score Integration'),
+      description: t('publicPages.developers.tutorialsPage.tutorials.trustScore.description', 'Implement AI-powered Trust Score verification in your application.'),
+      duration: "30 min",
+      difficulty: t('publicPages.developers.tutorialsPage.difficulty.intermediate', 'Intermediate'),
+      difficultyKey: "intermediate",
+      icon: BarChart3,
+      gradient: "from-indigo-500 to-violet-500",
+      steps: 8,
+      featured: false
+    },
+    {
+      id: "defi-staking",
+      title: t('publicPages.developers.tutorialsPage.tutorials.defiStaking.title', 'Build a Staking dApp'),
+      description: t('publicPages.developers.tutorialsPage.tutorials.defiStaking.description', 'Create a complete staking application with rewards and delegation.'),
+      duration: "60 min",
+      difficulty: t('publicPages.developers.tutorialsPage.difficulty.advanced', 'Advanced'),
+      difficultyKey: "advanced",
+      icon: Coins,
+      gradient: "from-yellow-500 to-orange-500",
+      steps: 12,
+      featured: false
+    }
+  ];
 
-  const featuredTutorials = tutorials.filter(t => t.featured);
+  const translatedLearningPaths = [
+    {
+      title: t('publicPages.developers.tutorialsPage.learningPaths.fundamentals.title', 'Blockchain Fundamentals'),
+      description: t('publicPages.developers.tutorialsPage.learningPaths.fundamentals.description', 'Start from zero and learn blockchain concepts with TBURN'),
+      tutorials: 4,
+      hours: 2,
+      icon: BookOpen,
+      color: "#00f0ff"
+    },
+    {
+      title: t('publicPages.developers.tutorialsPage.learningPaths.dappDev.title', 'dApp Development'),
+      description: t('publicPages.developers.tutorialsPage.learningPaths.dappDev.description', 'Build decentralized applications from scratch'),
+      tutorials: 6,
+      hours: 4,
+      icon: Code,
+      color: "#7000ff"
+    },
+    {
+      title: t('publicPages.developers.tutorialsPage.learningPaths.defiMastery.title', 'DeFi Mastery'),
+      description: t('publicPages.developers.tutorialsPage.learningPaths.defiMastery.description', 'Master DeFi protocols and build financial applications'),
+      tutorials: 5,
+      hours: 5,
+      icon: Coins,
+      color: "#00ff9d"
+    }
+  ];
+
+  const filteredTutorials = selectedDifficulty === "all" 
+    ? translatedTutorials 
+    : translatedTutorials.filter(tut => tut.difficultyKey === selectedDifficulty);
+
+  const featuredTutorials = translatedTutorials.filter(tut => tut.featured);
 
   useEffect(() => {
     const container = containerRef.current;
@@ -166,29 +268,29 @@ export default function Tutorials() {
         <div className="max-w-5xl mx-auto px-6 lg:px-8 text-center relative z-10">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-gray-300 dark:border-white/10 bg-white dark:bg-white/5 text-sm font-medium text-gray-700 dark:text-white/70 mb-6">
             <GraduationCap className="w-4 h-4 text-[#00f0ff]" />
-            <span>{t('publicPages.developers.tutorials.hero.badge', 'Step-by-Step Learning')}</span>
+            <span>{t('publicPages.developers.tutorialsPage.hero.badge', 'Step-by-Step Learning')}</span>
           </div>
           
           <h1 className="text-4xl md:text-5xl font-bold mb-4 text-gray-900 dark:text-white">
-            {t('publicPages.developers.tutorials.hero.title', 'TBURN Developer Tutorials')}
+            {t('publicPages.developers.tutorialsPage.hero.title', 'TBURN Developer Tutorials')}
           </h1>
           
           <p className="text-lg text-gray-600 dark:text-white/60 max-w-2xl mx-auto mb-8">
-            {t('publicPages.developers.tutorials.hero.description', 'Hands-on guides to help you build on TBURN Chain. From basic concepts to advanced DeFi applications.')}
+            {t('publicPages.developers.tutorialsPage.hero.description', 'Hands-on guides to help you build on TBURN Chain. From basic concepts to advanced DeFi applications.')}
           </p>
 
           <div className="flex flex-wrap justify-center gap-4">
             <div className="flex items-center gap-2 text-gray-600 dark:text-white/60">
               <BookOpen className="w-5 h-5 text-[#00f0ff]" />
-              <span>{tutorials.length} {t('publicPages.developers.tutorials.hero.stats.tutorials', 'Tutorials')}</span>
+              <span>{translatedTutorials.length} {t('publicPages.developers.tutorialsPage.hero.stats.tutorials', 'Tutorials')}</span>
             </div>
             <div className="flex items-center gap-2 text-gray-600 dark:text-white/60">
               <Clock className="w-5 h-5 text-[#7000ff]" />
-              <span>3+ {t('publicPages.developers.tutorials.hero.stats.hours', 'Hours of Content')}</span>
+              <span>3+ {t('publicPages.developers.tutorialsPage.hero.stats.hours', 'Hours of Content')}</span>
             </div>
             <div className="flex items-center gap-2 text-gray-600 dark:text-white/60">
               <Users className="w-5 h-5 text-[#00ff9d]" />
-              <span>{t('publicPages.developers.tutorials.hero.stats.level', 'All Skill Levels')}</span>
+              <span>{t('publicPages.developers.tutorialsPage.hero.stats.level', 'All Skill Levels')}</span>
             </div>
           </div>
         </div>
@@ -200,7 +302,7 @@ export default function Tutorials() {
           <div className="flex items-center gap-3 mb-8">
             <Star className="w-6 h-6 text-yellow-500" />
             <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
-              {t('publicPages.developers.tutorials.featured.title', 'Featured Tutorials')}
+              {t('publicPages.developers.tutorialsPage.featured.title', 'Featured Tutorials')}
             </h2>
           </div>
 
@@ -235,11 +337,11 @@ export default function Tutorials() {
 
                 <div className="flex items-center justify-between">
                   <span className="text-sm text-gray-500 dark:text-white/40">
-                    {tutorial.steps} {t('publicPages.developers.tutorials.steps', 'steps')}
+                    {tutorial.steps} {t('publicPages.developers.tutorialsPage.steps', 'steps')}
                   </span>
                   <div className="flex items-center gap-1 text-[#00f0ff] text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity">
                     <Play className="w-4 h-4" />
-                    {t('publicPages.developers.tutorials.start', 'Start')}
+                    {t('publicPages.developers.tutorialsPage.start', 'Start')}
                   </div>
                 </div>
               </div>
@@ -254,12 +356,12 @@ export default function Tutorials() {
           <div className="flex items-center gap-3 mb-8">
             <Trophy className="w-6 h-6 text-[#7000ff]" />
             <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
-              {t('publicPages.developers.tutorials.paths.title', 'Learning Paths')}
+              {t('publicPages.developers.tutorialsPage.paths.title', 'Learning Paths')}
             </h2>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {learningPaths.map((path, index) => (
+            {translatedLearningPaths.map((path, index) => (
               <div
                 key={index}
                 data-testid={`card-path-${index}`}
@@ -292,7 +394,7 @@ export default function Tutorials() {
                 </div>
 
                 <div className="mt-4 flex items-center gap-1 text-[#7000ff] text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity">
-                  {t('publicPages.developers.tutorials.viewPath', 'View Path')}
+                  {t('publicPages.developers.tutorialsPage.viewPath', 'View Path')}
                   <ChevronRight className="w-4 h-4" />
                 </div>
               </div>
@@ -306,22 +408,27 @@ export default function Tutorials() {
         <div className="max-w-6xl mx-auto px-6 lg:px-8">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
             <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
-              {t('publicPages.developers.tutorials.all.title', 'All Tutorials')}
+              {t('publicPages.developers.tutorialsPage.all.title', 'All Tutorials')}
             </h2>
 
             <div className="flex gap-2">
-              {["all", "Beginner", "Intermediate", "Advanced"].map((level) => (
+              {[
+                { key: "all", label: t('publicPages.developers.tutorialsPage.filter.all', 'All') },
+                { key: "beginner", label: t('publicPages.developers.tutorialsPage.difficulty.beginner', 'Beginner') },
+                { key: "intermediate", label: t('publicPages.developers.tutorialsPage.difficulty.intermediate', 'Intermediate') },
+                { key: "advanced", label: t('publicPages.developers.tutorialsPage.difficulty.advanced', 'Advanced') }
+              ].map((level) => (
                 <button
-                  key={level}
-                  data-testid={`button-filter-${level.toLowerCase()}`}
-                  onClick={() => setSelectedDifficulty(level)}
+                  key={level.key}
+                  data-testid={`button-filter-${level.key}`}
+                  onClick={() => setSelectedDifficulty(level.key)}
                   className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
-                    selectedDifficulty === level
+                    selectedDifficulty === level.key
                       ? "bg-[#00f0ff] text-black"
                       : "bg-gray-200 dark:bg-white/10 text-gray-700 dark:text-white/60 hover:bg-gray-300 dark:hover:bg-white/20"
                   }`}
                 >
-                  {level === "all" ? t('publicPages.developers.tutorials.filter.all', 'All') : level}
+                  {level.label}
                 </button>
               ))}
             </div>
@@ -374,10 +481,10 @@ export default function Tutorials() {
           <div className="bg-gradient-to-r from-[#00f0ff]/10 to-[#7000ff]/10 border border-gray-200 dark:border-white/10 rounded-2xl p-8">
             <CheckCircle className="w-12 h-12 text-[#00ff9d] mx-auto mb-4" />
             <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-3">
-              {t('publicPages.developers.tutorials.cta.title', 'Ready to Build?')}
+              {t('publicPages.developers.tutorialsPage.cta.title', 'Ready to Build?')}
             </h2>
             <p className="text-gray-600 dark:text-white/60 mb-6 max-w-xl mx-auto">
-              {t('publicPages.developers.tutorials.cta.description', 'Start with our Quick Start guide and build your first dApp on TBURN Chain in under 15 minutes.')}
+              {t('publicPages.developers.tutorialsPage.cta.description', 'Start with our Quick Start guide and build your first dApp on TBURN Chain in under 15 minutes.')}
             </p>
             <div className="flex flex-wrap justify-center gap-4">
               <Link href="/developers/quickstart">
@@ -385,7 +492,7 @@ export default function Tutorials() {
                   data-testid="button-quickstart"
                   className="px-6 py-3 bg-[#00f0ff] text-black font-medium rounded-lg hover:bg-[#00d4e0] transition-colors"
                 >
-                  {t('publicPages.developers.tutorials.cta.quickstart', 'Quick Start Guide')}
+                  {t('publicPages.developers.tutorialsPage.cta.quickstart', 'Quick Start Guide')}
                 </button>
               </Link>
               <Link href="/developers/sdk">
@@ -393,7 +500,7 @@ export default function Tutorials() {
                   data-testid="button-sdk"
                   className="px-6 py-3 bg-white dark:bg-white/10 border border-gray-300 dark:border-white/20 text-gray-900 dark:text-white font-medium rounded-lg hover:bg-gray-100 dark:hover:bg-white/20 transition-colors"
                 >
-                  {t('publicPages.developers.tutorials.cta.sdk', 'View SDK Docs')}
+                  {t('publicPages.developers.tutorialsPage.cta.sdk', 'View SDK Docs')}
                 </button>
               </Link>
             </div>
