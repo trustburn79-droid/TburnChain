@@ -36,26 +36,26 @@ export const TOKEN_CONSTANTS = {
 // ============================================
 export const TOKEN_PRICING = {
   // Current market price (mainnet launch price)
-  CURRENT_PRICE_USD: 0.05,              // $0.05 USD per TBURN at mainnet launch
+  CURRENT_PRICE_USD: 0.5,               // $0.50 USD per TBURN at mainnet launch
   
   // Investment round prices
-  SEED_ROUND_PRICE: 0.008,              // $0.008 per TBURN (Seed investors)
-  PRIVATE_ROUND_PRICE: 0.015,           // $0.015 per TBURN (Private investors)
-  PUBLIC_ROUND_PRICE: 0.05,             // $0.05 per TBURN (Public sale)
+  SEED_ROUND_PRICE: 0.04,               // $0.04 per TBURN (Seed investors)
+  PRIVATE_ROUND_PRICE: 0.1,             // $0.10 per TBURN (Private investors)
+  PUBLIC_ROUND_PRICE: 0.2,              // $0.20 per TBURN (Public sale)
   
-  // IDO platform prices
-  LAUNCHPAD_PRICE: 0.05,                // $0.05 per TBURN (Official Launchpad)
-  COINLIST_PRICE: 0.05,                 // $0.05 per TBURN (CoinList sale)
-  DAOMAKER_PRICE: 0.05,                 // $0.05 per TBURN (DAO Maker SHO)
+  // IDO platform prices (same as public round)
+  LAUNCHPAD_PRICE: 0.2,                 // $0.20 per TBURN (Official Launchpad)
+  COINLIST_PRICE: 0.2,                  // $0.20 per TBURN (CoinList sale)
+  DAOMAKER_PRICE: 0.2,                  // $0.20 per TBURN (DAO Maker SHO)
   
   // Market metrics
-  FULLY_DILUTED_VALUATION: 500000000,   // $500M FDV at $0.05
-  MARKET_CAP_AT_LAUNCH: 350000000,      // $350M (7B circulating × $0.05)
+  FULLY_DILUTED_VALUATION: 5000000000,  // $5B FDV at $0.50
+  MARKET_CAP_AT_LAUNCH: 3500000000,     // $3.5B (7B circulating × $0.50)
   
   // Price history (for reference)
-  GENESIS_PRICE: 0.05,                  // Launch price
-  ATH_PRICE: 0.05,                      // All-time high (at launch)
-  ATL_PRICE: 0.05,                      // All-time low (at launch)
+  GENESIS_PRICE: 0.5,                   // Launch price
+  ATH_PRICE: 0.5,                       // All-time high (at launch)
+  ATL_PRICE: 0.5,                       // All-time low (at launch)
 };
 
 // ============================================

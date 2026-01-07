@@ -397,9 +397,13 @@ export class TokenomicsDataService {
       
       marketMetrics: {
         fullyDilutedValuation: TOKEN_PRICING.FULLY_DILUTED_VALUATION,
-        fdvFormatted: `$${(TOKEN_PRICING.FULLY_DILUTED_VALUATION / 1000000).toFixed(0)}M`,
+        fdvFormatted: TOKEN_PRICING.FULLY_DILUTED_VALUATION >= 1000000000 
+          ? `$${(TOKEN_PRICING.FULLY_DILUTED_VALUATION / 1000000000).toFixed(1)}B`
+          : `$${(TOKEN_PRICING.FULLY_DILUTED_VALUATION / 1000000).toFixed(0)}M`,
         marketCapAtLaunch: TOKEN_PRICING.MARKET_CAP_AT_LAUNCH,
-        marketCapFormatted: `$${(TOKEN_PRICING.MARKET_CAP_AT_LAUNCH / 1000000).toFixed(0)}M`,
+        marketCapFormatted: TOKEN_PRICING.MARKET_CAP_AT_LAUNCH >= 1000000000
+          ? `$${(TOKEN_PRICING.MARKET_CAP_AT_LAUNCH / 1000000000).toFixed(1)}B`
+          : `$${(TOKEN_PRICING.MARKET_CAP_AT_LAUNCH / 1000000).toFixed(0)}M`,
         genesisPrice: TOKEN_PRICING.GENESIS_PRICE,
         athPrice: TOKEN_PRICING.ATH_PRICE,
         atlPrice: TOKEN_PRICING.ATL_PRICE,
