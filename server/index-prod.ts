@@ -181,9 +181,24 @@ app.get('/technical-whitepaper', async (_req, res) => {
   }
 });
 
+app.get('/vision', async (_req, res) => {
+  try {
+    const visionPath = path.resolve(process.cwd(), 'public', 'vision.html');
+    if (fs.existsSync(visionPath)) {
+      res.setHeader('Content-Type', 'text/html; charset=utf-8');
+      res.sendFile(visionPath);
+    } else {
+      res.status(404).send('Vision page not found');
+    }
+  } catch (error) {
+    console.error('[Vision] Error:', error);
+    res.status(500).send('Error loading vision page');
+  }
+});
+
 // Backend routes that must NOT be intercepted by SPA fallback
 // Verified from routes.ts: only these 3 non-API routes exist
-const BACKEND_ROUTES = ['/api', '/ws', '/health', '/whitepaper', '/technical-whitepaper'];
+const BACKEND_ROUTES = ['/api', '/ws', '/health', '/whitepaper', '/technical-whitepaper', '/vision'];
 
 // Early SPA fallback - serves index.html for SPA routes during initialization
 // This enables instant page load while backend services initialize in background

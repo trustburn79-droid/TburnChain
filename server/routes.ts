@@ -1798,6 +1798,23 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   });
 
   // ============================================
+  // Vision Declaration Page (Public - Mainnet Vision)
+  // ============================================
+  app.get("/vision", async (_req, res) => {
+    try {
+      const fs = await import("fs/promises");
+      const path = await import("path");
+      const visionPath = path.join(process.cwd(), "public", "vision.html");
+      const htmlContent = await fs.readFile(visionPath, "utf-8");
+      res.setHeader("Content-Type", "text/html; charset=utf-8");
+      res.send(htmlContent);
+    } catch (error) {
+      console.error("[Vision] Error serving vision page:", error);
+      res.status(500).send("Error loading vision page");
+    }
+  });
+
+  // ============================================
   // Health Check Endpoint (Public - No Auth Required)
   // Used by monitoring systems for uptime checks
   // ============================================
