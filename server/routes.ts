@@ -21,6 +21,7 @@ import {
   newsletterSubscribers,
   insertMemberSchema,
   airdropClaims,
+  consensusRounds,
   type InsertMember,
   type NetworkStats
 } from "@shared/schema";
@@ -20506,6 +20507,44 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     } catch (error: any) {
       console.error('[Consensus] Error fetching consensus state:', error);
       res.status(500).json({ error: "Failed to fetch consensus state" });
+    }
+  });
+
+  // Consensus voting activity endpoint - for consensus page real-time voting display
+  app.get("/api/consensus/voting-activity", async (_req, res) => {
+    const cache = getDataCache();
+    try {
+      // Check cache first
+      const cached = cache.get<any>('consensus:voting-activity');
+      if (cached) {
+        return res.json(cached);
+      }
+      
+      // Get recent consensus rounds from database directly
+      const rounds = await db
+        .select()
+        .from(consensusRounds)
+        .orderBy(desc(consensusRounds.blockHeight))
+        .limit(20);
+      
+      // Transform to voting activity format
+      const votingActivity = rounds.map(round => ({
+        blockHeight: round.blockHeight,
+        proposer: round.proposerAddress,
+        prevotes: round.prevoteCount,
+        precommits: round.precommitCount,
+        totalValidators: round.totalValidators,
+        quorumReached: round.precommitCount >= round.requiredQuorum,
+        status: round.status,
+      }));
+      
+      // Cache for 5 seconds
+      cache.set('consensus:voting-activity', votingActivity, 5000);
+      
+      res.json(votingActivity);
+    } catch (error: any) {
+      console.error('[Consensus] Error fetching voting activity:', error);
+      res.json([]);
     }
   });
 

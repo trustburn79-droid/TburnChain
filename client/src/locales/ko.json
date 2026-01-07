@@ -7660,6 +7660,7 @@
       },
       "initializeNode": "노드 초기화(회원가입)",
       "initializing": "초기화 중...",
+      "enterEmail": "이메일을 입력하세요",
       "alreadyHaveNode": "이미 노드 ID가 있으신가요?",
       "accessGateway": "게이트웨이 접속(로그인)",
       "systemPrivileges": "시스템 권한",

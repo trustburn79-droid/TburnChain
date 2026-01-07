@@ -7713,6 +7713,7 @@
       },
       "initializeNode": "Initialize Node",
       "initializing": "Initializing...",
+      "enterEmail": "Enter your email",
       "alreadyHaveNode": "Already have a node ID?",
       "accessGateway": "Access Gateway",
       "systemPrivileges": "System Privileges",
