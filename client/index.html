@@ -3,18 +3,44 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+    
+    <!-- PWA & App Icons - MUST be first to prevent Replit override -->
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png" />
+    <link rel="icon" type="image/png" sizes="256x256" href="/icon-256.png" />
+    <link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png" />
+    <link rel="shortcut icon" type="image/png" href="/icon-192.png" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#FF6B35" />
+    <meta name="msapplication-TileColor" content="#030407" />
+    <meta name="msapplication-TileImage" content="/icon-256.png" />
+    <meta name="application-name" content="TBURN" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="TBURN" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    
+    <!-- Open Graph / Social -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="TBURN Blockchain Explorer" />
+    <meta property="og:description" content="Real-time blockchain data, network statistics, and AI-powered monitoring for TBURN Mainnet" />
+    <meta property="og:image" content="/icon-512.png" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:image" content="/icon-512.png" />
+    
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="0" />
     <title>TBURN Blockchain Explorer | Mainnet</title>
     <meta name="description" content="TBURN Blockchain Explorer - Real-time blockchain data, network statistics, validator information, and AI-powered transaction monitoring. Explore blocks, transactions, and smart contracts on the TBURN mainnet.">
     <meta name="build-version" content="2026.01.03.v1">
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="manifest" href="/manifest.webmanifest" />
-    <meta name="theme-color" content="#FF6B35" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    <meta name="apple-mobile-web-app-title" content="TBURN" />
     
     <!-- CRITICAL: Inline error handler - runs BEFORE React loads -->
     <script>
@@ -71,10 +97,6 @@
         }
       })();
     </script>
-    <link rel="alternate icon" type="image/png" href="/favicon.png" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-    <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png" />
-    <link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
