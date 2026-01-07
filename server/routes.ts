@@ -20155,20 +20155,25 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   // Proxy Routes to Enterprise Node
   // ============================================
   
-  // Sharding endpoints - REAL-TIME: Use Enterprise Node RPC for TPS synchronization
-  // CRITICAL: Dec 24 Launch - TPS must be synchronized across all pages (legal responsibility)
-  // Uses generateShards() via RPC for consistency with all other shard endpoints
+  // Sharding endpoints - REAL-TIME: Use Enterprise Node for TPS synchronization
+  // CRITICAL: Jan 8 Launch - TPS must be synchronized across all pages (legal responsibility)
+  // Direct enterpriseNode call ensures consistency across all dashboards
   app.get("/api/shards", async (_req, res) => {
     const cache = getDataCache();
+    
     try {
-      // Call Enterprise Node RPC endpoint for consistent TPS with /api/sharding
-      const response = await fetch('http://localhost:8545/api/shards');
-      if (!response.ok) {
-        throw new Error(`Enterprise Node returned ${response.status}`);
+      // Check cache first for performance (5s TTL)
+      const cached = cache.get<any[]>('shards:all');
+      if (cached) {
+        return res.json(cached);
       }
-      const shards = await response.json();
       
-      // Cache for 5 seconds only (real-time TPS synchronization required)
+      // Direct Enterprise Node call for reliable shard data
+      // Uses generateShards() which respects shardConfig.currentShardCount (64 in production)
+      const enterpriseNode = getEnterpriseNode();
+      const shards = enterpriseNode.generateShards();
+      
+      // Cache for 5 seconds (real-time TPS synchronization required)
       cache.set('shards:all', shards, 5000);
       
       res.json(shards);
@@ -20181,14 +20186,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
         return res.json(staleData);
       }
       
-      // Fallback to direct Enterprise Node call
-      try {
-        const enterpriseNode = getEnterpriseNode();
-        const shards = enterpriseNode.generateShards();
-        res.json(shards);
-      } catch {
-        res.status(500).json({ error: "Failed to fetch shards" });
-      }
+      res.status(500).json({ error: "Failed to fetch shards" });
     }
   });
 

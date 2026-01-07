@@ -913,14 +913,29 @@ export class TBurnEnterpriseNode extends EventEmitter {
     maxShards: number;
     minShards: number;
     version: number;
+    totalValidators: number;
+    estimatedTps: number;
+    scalingMode: 'automatic' | 'manual';
+    lastConfigUpdate: string;
+    crossShardLatencyMs: number;
+    hardwareRequirements: any;
+    scalingAnalysis: any;
   } {
+    const realTimeTps = this.getRealTimeTPS();
     return {
       currentShardCount: this.shardConfig.currentShardCount,
       validatorsPerShard: this.shardConfig.validatorsPerShard,
       tpsPerShard: this.shardConfig.tpsPerShard,
       maxShards: this.shardConfig.maxShards,
       minShards: this.shardConfig.minShards,
-      version: this.shardConfig.version
+      version: this.shardConfig.version,
+      totalValidators: this.shardConfig.currentShardCount * this.shardConfig.validatorsPerShard,
+      estimatedTps: realTimeTps.current,
+      scalingMode: this.shardConfig.scalingMode,
+      lastConfigUpdate: this.shardConfig.lastConfigUpdate,
+      crossShardLatencyMs: this.shardConfig.crossShardLatencyMs,
+      hardwareRequirements: this.shardConfig.hardwareRequirements,
+      scalingAnalysis: this.getScalingAnalysis()
     };
   }
 
