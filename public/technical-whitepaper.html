@@ -312,6 +312,12 @@
       color: #0f172a;
     }
     
+    .lang-option.active {
+      background: rgba(0, 240, 255, 0.1);
+      color: #00f0ff;
+      font-weight: 500;
+    }
+    
     @media (prefers-color-scheme: dark) {
       .lang-option {
         color: #9ca3af;
@@ -319,6 +325,10 @@
       .lang-option:hover {
         background: rgba(255, 255, 255, 0.1);
         color: #ffffff;
+      }
+      .lang-option.active {
+        background: rgba(0, 240, 255, 0.15);
+        color: #00f0ff;
       }
     }
     
@@ -5597,6 +5607,11 @@ Emergency: 1000ms</code></pre>
       
       // Apply translations
       applyTranslations();
+      
+      // Update button active states
+      if (typeof updateLanguageButtons === 'function') {
+        updateLanguageButtons();
+      }
     }
 
     // Apply translations function
@@ -5616,20 +5631,30 @@ Emergency: 1000ms</code></pre>
       });
     }
 
+    // Update language button active states
+    function updateLanguageButtons() {
+      document.querySelectorAll('.lang-option').forEach(btn => {
+        if (btn.dataset.lang === currentLanguage) {
+          btn.classList.add('active');
+        } else {
+          btn.classList.remove('active');
+        }
+      });
+    }
+
     // Initialize on page load
     document.addEventListener('DOMContentLoaded', function() {
-      // Set initial language from localStorage or browser
+      // Set initial language from localStorage, default to English
       const savedLang = localStorage.getItem('techWhitepaperLang');
-      const browserLang = navigator.language.split('-')[0];
       const supportedLangs = Object.keys(translations);
       
       if (savedLang && supportedLangs.includes(savedLang)) {
         setLanguage(savedLang);
-      } else if (supportedLangs.includes(browserLang)) {
-        setLanguage(browserLang);
       } else {
+        // Default to English (no browser language detection)
         setLanguage('en');
       }
+      updateLanguageButtons();
     });
 
     // Theme toggle function (already exists, but ensure it works)
