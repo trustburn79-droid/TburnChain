@@ -967,12 +967,12 @@ export default function Brand() {
       );
     }
     if (type === "symbol") {
-      return <TBurnLogo className="w-20 h-20" showText={false} />;
+      return <TBurnLogo className="w-20 h-20" />;
     }
     if (type === "symbol-outline") {
       return (
         <div className="w-20 h-20 rounded-2xl border-2 border-[#D4AF37] flex items-center justify-center">
-          <TBurnLogo className="w-14 h-14" symbolColor="#D4AF37" showText={false} />
+          <TBurnLogo className="w-14 h-14" symbolColor="#D4AF37" textColor="#1a1a2e" />
         </div>
       );
     }
