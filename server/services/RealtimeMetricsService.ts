@@ -232,6 +232,17 @@ class RealtimeMetricsService {
       const now = Date.now();
       
       if (shards && shards.length > 0) {
+        // ★ [CRITICAL FIX] 삭제된 샤드 제거를 위해 현재 샤드 ID 집합 생성
+        const currentShardIds = new Set(shards.map(s => s.shardId ?? 0));
+        
+        // ★ [CRITICAL FIX] 더 이상 존재하지 않는 샤드 엔트리 제거
+        for (const existingShardId of this.shardMetrics.keys()) {
+          if (!currentShardIds.has(existingShardId)) {
+            this.shardMetrics.delete(existingShardId);
+            console.log(`[RealtimeMetrics] 🗑️ Removed stale shard ${existingShardId} from metrics cache`);
+          }
+        }
+        
         // ★ DB에서 실제 샤드 TPS 사용 (합성 데이터 아님)
         for (const shard of shards) {
           const shardId = shard.shardId ?? 0;
@@ -247,11 +258,15 @@ class RealtimeMetricsService {
           });
         }
         
-        // 전체 TPS 계산 (DB 샤드 TPS 합계)
+        // ★ [CRITICAL FIX] 전체 TPS = 실제 활성 샤드 수 × TPS_PER_SHARD
+        // 샤드 수가 변경되면 TPS도 비례하여 조정됨
         this.currentTps = shards.reduce((sum, s) => sum + (s.tps || 0), 0);
-        console.log(`[RealtimeMetrics] ✅ DB shards loaded: ${shards.length} shards, total TPS: ${this.currentTps}`);
+        console.log(`[RealtimeMetrics] ✅ DB shards loaded: ${shards.length} shards (cache: ${this.shardMetrics.size}), total TPS: ${this.currentTps}`);
       } else {
         console.warn('[RealtimeMetrics] ⚠️ No shard data in DB');
+        // ★ 샤드가 없으면 캐시도 비우고 TPS를 0으로 설정
+        this.shardMetrics.clear();
+        this.currentTps = 0;
       }
     } catch (error) {
       console.error('[RealtimeMetrics] ❌ Failed to load shard data:', error);
@@ -322,6 +337,16 @@ class RealtimeMetricsService {
       const now = Date.now();
       
       if (shards && shards.length > 0) {
+        // ★ [CRITICAL FIX] 삭제된 샤드 제거를 위해 현재 샤드 ID 집합 생성
+        const currentShardIds = new Set(shards.map(s => s.shardId ?? 0));
+        
+        // ★ [CRITICAL FIX] 더 이상 존재하지 않는 샤드 엔트리 제거
+        for (const existingShardId of this.shardMetrics.keys()) {
+          if (!currentShardIds.has(existingShardId)) {
+            this.shardMetrics.delete(existingShardId);
+          }
+        }
+        
         for (const shard of shards) {
           const shardId = shard.shardId ?? 0;
           this.shardMetrics.set(shardId, {
