@@ -1240,7 +1240,7 @@ tburn.on('blockConfirmed', (block) => {
                 const tableTps = document.getElementById('table-tps');
                 if (tableTps) {
                     const tpsValue = formatNumber(data.tps || data.currentTps) + ' (Peak 520K)';
-                    const lang = document.documentElement.lang || 'ko';
+                    const lang = document.documentElement.lang || 'en';
                     const theoreticalText = translations[lang]?.table_tps_theoretical || '(1,000,000)';
                     tableTps.innerHTML = `<div>${tpsValue}</div><div class="text-xs text-gray-500 font-normal mt-1">${theoreticalText}</div>`;
                 }
