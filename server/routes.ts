@@ -90,7 +90,7 @@ import {
 } from "./core/sessions/session-policy";
 import { disasterRecovery, disasterRecoveryMiddleware } from "./core/monitoring/disaster-recovery";
 import { tokenomicsDataService, type TokenProgram } from "./services/tokenomics-data-service";
-import { GENESIS_ALLOCATION, TOKEN_CONSTANTS } from "@shared/tokenomics-config";
+import { GENESIS_ALLOCATION, TOKEN_CONSTANTS, TOKEN_PRICING } from "@shared/tokenomics-config";
 
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "admin7979";
 const ADMIN_EMAIL = process.env.ADMIN_EMAIL || "trustburn79@gmail.com";
@@ -15223,6 +15223,22 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
+  // Get canonical token pricing - Single source of truth for all token prices
+  app.get("/api/token-programs/pricing", (_req, res) => {
+    try {
+      const pricing = tokenomicsDataService.getTokenPricing();
+      
+      res.json({
+        success: true,
+        data: pricing,
+        lastUpdated: new Date().toISOString(),
+      });
+    } catch (error) {
+      console.error('[TokenPrograms] Pricing error:', error);
+      res.status(500).json({ error: 'Failed to fetch token pricing' });
+    }
+  });
+
   // Get specific program allocation and stats
   app.get("/api/token-programs/:program/allocation", async (req, res) => {
     try {
@@ -16115,8 +16131,9 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
               allocation: seedAllocation?.amountFormatted || "500,000,000",
               allocationRaw: seedAmount,
               allocationPercentage: seedAllocation?.parentPercentage || 5,
-              price: "0.008",
-              raised: "4,000,000",
+              price: TOKEN_PRICING.SEED_ROUND_PRICE.toString(),
+              priceFormatted: `$${TOKEN_PRICING.SEED_ROUND_PRICE}`,
+              raised: (seedAmount * TOKEN_PRICING.SEED_ROUND_PRICE).toLocaleString(),
               investors: 45,
               vesting: "12 months linear, 6 month cliff",
               unlocked: 25
@@ -16127,8 +16144,9 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
               allocation: privateAllocation?.amountFormatted || "900,000,000",
               allocationRaw: privateAmount,
               allocationPercentage: privateAllocation?.parentPercentage || 9,
-              price: "0.015",
-              raised: "13,500,000",
+              price: TOKEN_PRICING.PRIVATE_ROUND_PRICE.toString(),
+              priceFormatted: `$${TOKEN_PRICING.PRIVATE_ROUND_PRICE}`,
+              raised: (privateAmount * TOKEN_PRICING.PRIVATE_ROUND_PRICE).toLocaleString(),
               investors: 120,
               vesting: "18 months linear, 3 month cliff",
               unlocked: 15
@@ -16139,8 +16157,9 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
               allocation: publicSaleAllocation?.amountFormatted || "300,000,000",
               allocationRaw: publicAmount,
               allocationPercentage: publicSaleAllocation?.parentPercentage || 3,
-              price: "0.05",
-              raised: "15,000,000",
+              price: TOKEN_PRICING.PUBLIC_ROUND_PRICE.toString(),
+              priceFormatted: `$${TOKEN_PRICING.PUBLIC_ROUND_PRICE}`,
+              raised: (publicAmount * TOKEN_PRICING.PUBLIC_ROUND_PRICE).toLocaleString(),
               investors: 15847,
               vesting: "6 months linear",
               unlocked: 50

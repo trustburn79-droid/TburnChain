@@ -32,6 +32,33 @@ export const TOKEN_CONSTANTS = {
 };
 
 // ============================================
+// Canonical Token Pricing (Single Source of Truth)
+// ============================================
+export const TOKEN_PRICING = {
+  // Current market price (mainnet launch price)
+  CURRENT_PRICE_USD: 0.05,              // $0.05 USD per TBURN at mainnet launch
+  
+  // Investment round prices
+  SEED_ROUND_PRICE: 0.008,              // $0.008 per TBURN (Seed investors)
+  PRIVATE_ROUND_PRICE: 0.015,           // $0.015 per TBURN (Private investors)
+  PUBLIC_ROUND_PRICE: 0.05,             // $0.05 per TBURN (Public sale)
+  
+  // IDO platform prices
+  LAUNCHPAD_PRICE: 0.05,                // $0.05 per TBURN (Official Launchpad)
+  COINLIST_PRICE: 0.05,                 // $0.05 per TBURN (CoinList sale)
+  DAOMAKER_PRICE: 0.05,                 // $0.05 per TBURN (DAO Maker SHO)
+  
+  // Market metrics
+  FULLY_DILUTED_VALUATION: 500000000,   // $500M FDV at $0.05
+  MARKET_CAP_AT_LAUNCH: 350000000,      // $350M (7B circulating × $0.05)
+  
+  // Price history (for reference)
+  GENESIS_PRICE: 0.05,                  // Launch price
+  ATH_PRICE: 0.05,                      // All-time high (at launch)
+  ATL_PRICE: 0.05,                      // All-time low (at launch)
+};
+
+// ============================================
 // Validator Tier System
 // ============================================
 export enum ValidatorTier {

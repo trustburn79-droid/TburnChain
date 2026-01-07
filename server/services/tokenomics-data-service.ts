@@ -12,7 +12,7 @@
  * - Launchpad, CoinList, DAO Maker
  */
 
-import { GENESIS_ALLOCATION, TOKEN_CONSTANTS, BILLION } from "@shared/tokenomics-config";
+import { GENESIS_ALLOCATION, TOKEN_CONSTANTS, TOKEN_PRICING, BILLION } from "@shared/tokenomics-config";
 import { storage } from "../storage";
 
 // Cache configuration
@@ -354,6 +354,81 @@ export class TokenomicsDataService {
    */
   static clearCache(): void {
     cache.clear();
+  }
+  
+  /**
+   * Get canonical token pricing from TOKEN_PRICING
+   * Single source of truth for all token prices
+   */
+  static getTokenPricing() {
+    return {
+      currentPrice: TOKEN_PRICING.CURRENT_PRICE_USD,
+      currentPriceFormatted: `$${TOKEN_PRICING.CURRENT_PRICE_USD}`,
+      
+      investmentRounds: {
+        seed: {
+          price: TOKEN_PRICING.SEED_ROUND_PRICE,
+          priceFormatted: `$${TOKEN_PRICING.SEED_ROUND_PRICE}`,
+        },
+        private: {
+          price: TOKEN_PRICING.PRIVATE_ROUND_PRICE,
+          priceFormatted: `$${TOKEN_PRICING.PRIVATE_ROUND_PRICE}`,
+        },
+        public: {
+          price: TOKEN_PRICING.PUBLIC_ROUND_PRICE,
+          priceFormatted: `$${TOKEN_PRICING.PUBLIC_ROUND_PRICE}`,
+        },
+      },
+      
+      idoPlatforms: {
+        launchpad: {
+          price: TOKEN_PRICING.LAUNCHPAD_PRICE,
+          priceFormatted: `$${TOKEN_PRICING.LAUNCHPAD_PRICE}`,
+        },
+        coinlist: {
+          price: TOKEN_PRICING.COINLIST_PRICE,
+          priceFormatted: `$${TOKEN_PRICING.COINLIST_PRICE}`,
+        },
+        daomaker: {
+          price: TOKEN_PRICING.DAOMAKER_PRICE,
+          priceFormatted: `$${TOKEN_PRICING.DAOMAKER_PRICE}`,
+        },
+      },
+      
+      marketMetrics: {
+        fullyDilutedValuation: TOKEN_PRICING.FULLY_DILUTED_VALUATION,
+        fdvFormatted: `$${(TOKEN_PRICING.FULLY_DILUTED_VALUATION / 1000000).toFixed(0)}M`,
+        marketCapAtLaunch: TOKEN_PRICING.MARKET_CAP_AT_LAUNCH,
+        marketCapFormatted: `$${(TOKEN_PRICING.MARKET_CAP_AT_LAUNCH / 1000000).toFixed(0)}M`,
+        genesisPrice: TOKEN_PRICING.GENESIS_PRICE,
+        athPrice: TOKEN_PRICING.ATH_PRICE,
+        atlPrice: TOKEN_PRICING.ATL_PRICE,
+      },
+      
+      source: "/admin/tokenomics",
+    };
+  }
+  
+  /**
+   * Get price for a specific program/round
+   */
+  static getProgramPrice(program: TokenProgram): { price: number; priceFormatted: string } {
+    switch (program) {
+      case 'seed-round':
+        return { price: TOKEN_PRICING.SEED_ROUND_PRICE, priceFormatted: `$${TOKEN_PRICING.SEED_ROUND_PRICE}` };
+      case 'private-round':
+        return { price: TOKEN_PRICING.PRIVATE_ROUND_PRICE, priceFormatted: `$${TOKEN_PRICING.PRIVATE_ROUND_PRICE}` };
+      case 'public-round':
+        return { price: TOKEN_PRICING.PUBLIC_ROUND_PRICE, priceFormatted: `$${TOKEN_PRICING.PUBLIC_ROUND_PRICE}` };
+      case 'launchpad':
+        return { price: TOKEN_PRICING.LAUNCHPAD_PRICE, priceFormatted: `$${TOKEN_PRICING.LAUNCHPAD_PRICE}` };
+      case 'coinlist':
+        return { price: TOKEN_PRICING.COINLIST_PRICE, priceFormatted: `$${TOKEN_PRICING.COINLIST_PRICE}` };
+      case 'dao-maker':
+        return { price: TOKEN_PRICING.DAOMAKER_PRICE, priceFormatted: `$${TOKEN_PRICING.DAOMAKER_PRICE}` };
+      default:
+        return { price: TOKEN_PRICING.CURRENT_PRICE_USD, priceFormatted: `$${TOKEN_PRICING.CURRENT_PRICE_USD}` };
+    }
   }
 }
 
