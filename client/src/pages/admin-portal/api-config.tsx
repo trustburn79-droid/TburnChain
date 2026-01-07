@@ -154,11 +154,11 @@ export default function ApiConfig() {
       fields: [
         { 
           label: t("adminApiConfig.keys.permissions"), 
-          value: apiKey.permissions.map(p => t(`adminApiConfig.keys.perm.${p}`)).join(", "), 
+          value: (apiKey.permissions || []).map(p => t(`adminApiConfig.keys.perm.${p}`)).join(", ") || '-', 
           type: "text" 
         },
-        { label: t("adminApiConfig.keys.rateLimit"), value: `${apiKey.rateLimit.toLocaleString()}/min`, type: "text" },
-        { label: t("adminApiConfig.keys.tableUsage"), value: apiKey.usageCount.toLocaleString(), type: "text" },
+        { label: t("adminApiConfig.keys.rateLimit"), value: `${(apiKey.rateLimit || 0).toLocaleString()}/min`, type: "text" },
+        { label: t("adminApiConfig.keys.tableUsage"), value: (apiKey.usageCount || 0).toLocaleString(), type: "text" },
       ],
     },
   ];
@@ -471,15 +471,15 @@ export default function ApiConfig() {
                           </TableCell>
                           <TableCell>
                             <div className="flex gap-1 flex-wrap">
-                              {key.permissions.map((perm) => (
+                              {(key.permissions || []).map((perm) => (
                                 <Badge key={perm} variant="outline" className="text-xs">
                                   {t(`adminApiConfig.keys.perm.${perm}`)}
                                 </Badge>
                               ))}
                             </div>
                           </TableCell>
-                          <TableCell>{key.rateLimit.toLocaleString()}/min</TableCell>
-                          <TableCell>{key.usageCount.toLocaleString()}</TableCell>
+                          <TableCell>{(key.rateLimit || 0).toLocaleString()}/min</TableCell>
+                          <TableCell>{(key.usageCount || 0).toLocaleString()}</TableCell>
                           <TableCell className="text-muted-foreground text-sm">{key.lastUsed}</TableCell>
                           <TableCell>
                             <div className="flex gap-1">

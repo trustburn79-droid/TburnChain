@@ -207,7 +207,7 @@ export default function ContractTools() {
       title: t("adminContracts.detail.statistics"),
       fields: [
         { label: t("adminContracts.deployed"), value: contract.deployedAt, type: "date" },
-        { label: t("adminContracts.transactions"), value: contract.transactions.toLocaleString() },
+        { label: t("adminContracts.transactions"), value: (contract.transactions || 0).toLocaleString() },
       ],
     },
   ];
@@ -258,7 +258,7 @@ export default function ContractTools() {
             <CardContent>
               {isLoading ? <Skeleton className="h-8 w-20" /> : (
                 <>
-                  <div className="text-2xl font-bold">{stats.totalContracts.toLocaleString()}</div>
+                  <div className="text-2xl font-bold">{(stats.totalContracts || 0).toLocaleString()}</div>
                   <p className="text-xs text-muted-foreground">{t("adminContracts.deployedOnMainnet")}</p>
                 </>
               )}
@@ -273,7 +273,7 @@ export default function ContractTools() {
             <CardContent>
               {isLoading ? <Skeleton className="h-8 w-16" /> : (
                 <>
-                  <div className="text-2xl font-bold text-green-500">{stats.verified.toLocaleString()}</div>
+                  <div className="text-2xl font-bold text-green-500">{(stats.verified || 0).toLocaleString()}</div>
                   <p className="text-xs text-muted-foreground">{t("adminContracts.sourceVerified")}</p>
                 </>
               )}
@@ -605,7 +605,7 @@ contract MyToken {
                           </TableCell>
                           <TableCell className="text-sm">{contract.compiler}</TableCell>
                           <TableCell className="text-sm text-muted-foreground">{contract.deployedAt}</TableCell>
-                          <TableCell>{contract.transactions.toLocaleString()}</TableCell>
+                          <TableCell>{(contract.transactions || 0).toLocaleString()}</TableCell>
                           <TableCell>
                             <div className="flex gap-1">
                               <Button 

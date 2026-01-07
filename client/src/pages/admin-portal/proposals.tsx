@@ -792,7 +792,7 @@ export default function Proposals() {
                     <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
                       <span className="flex items-center gap-1" data-testid={`text-voters-${proposal.id}`}>
                         <Users className="h-4 w-4" />
-                        {proposal.totalVoters.toLocaleString()} {t("adminProposals.voters")}
+                        {(proposal.totalVoters || 0).toLocaleString()} {t("adminProposals.voters")}
                       </span>
                       <span className="flex items-center gap-1" data-testid={`text-dates-${proposal.id}`}>
                         <Calendar className="h-4 w-4" />
@@ -834,7 +834,7 @@ export default function Proposals() {
               { label: t("adminProposals.detail.votesFor"), value: `${(selectedProposal.votesFor / 1000000).toFixed(2)}M TBURN` },
               { label: t("adminProposals.detail.votesAgainst"), value: `${(selectedProposal.votesAgainst / 1000000).toFixed(2)}M TBURN` },
               { label: t("adminProposals.detail.votesAbstain"), value: `${(selectedProposal.votesAbstain / 1000000).toFixed(2)}M TBURN` },
-              { label: t("adminProposals.detail.totalVoters"), value: selectedProposal.totalVoters.toLocaleString() },
+              { label: t("adminProposals.detail.totalVoters"), value: (selectedProposal.totalVoters || 0).toLocaleString() },
               { label: t("adminProposals.detail.quorum"), value: `${(selectedProposal.quorum / 1000000).toFixed(0)}M TBURN` },
               { label: t("adminProposals.detail.requiredApproval"), value: `${selectedProposal.requiredApproval}%` },
             ],

@@ -294,7 +294,39 @@ export default function AdminSettings() {
     resetSettingsMutation.mutate();
   }, [resetSettingsMutation]);
 
-  const currentSettings = localSettings || settings || defaultSettings;
+  // Deep merge to ensure all nested properties have safe defaults
+  const currentSettings: SystemSettings = {
+    general: {
+      ...defaultSettings.general,
+      ...(settings?.general || {}),
+      ...(localSettings?.general || {}),
+    },
+    database: {
+      ...defaultSettings.database,
+      ...(settings?.database || {}),
+      ...(localSettings?.database || {}),
+    },
+    network: {
+      ...defaultSettings.network,
+      ...(settings?.network || {}),
+      ...(localSettings?.network || {}),
+    },
+    security: {
+      ...defaultSettings.security,
+      ...(settings?.security || {}),
+      ...(localSettings?.security || {}),
+    },
+    notifications: {
+      ...defaultSettings.notifications,
+      ...(settings?.notifications || {}),
+      ...(localSettings?.notifications || {}),
+    },
+    appearance: {
+      ...defaultSettings.appearance,
+      ...(settings?.appearance || {}),
+      ...(localSettings?.appearance || {}),
+    },
+  };
 
   const getDetailSections = useCallback((): DetailSection[] => {
     if (!selectedSection || !currentSettings) return [];
