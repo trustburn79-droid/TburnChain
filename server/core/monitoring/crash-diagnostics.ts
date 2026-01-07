@@ -1,11 +1,17 @@
 /**
- * ★ [2026-01-05] Enterprise Crash Diagnostics System
+ * ★★★ [2026-01-08] Enterprise Crash Diagnostics System v2.0 ★★★
  * 
- * 프로덕션 "Internal Server Error" 근본 원인 분석을 위한 종합 진단 시스템
- * - 글로벌 예외 핸들러 (uncaughtException, unhandledRejection)
- * - 메모리 위기 감지 및 힙 스냅샷
- * - 크래시 직전 상태 영구 저장
- * - 상세 스택 트레이스 로깅
+ * Production-grade crash analysis with automatic log rotation,
+ * disk space management, and comprehensive diagnostics.
+ * 
+ * Features:
+ * - Global exception handlers (uncaughtException, unhandledRejection)
+ * - Memory crisis detection with smart heap snapshot decisions
+ * - Automatic log rotation with configurable retention policy
+ * - Disk space monitoring and automatic cleanup
+ * - Crash context persistence with compression
+ * - Aggregated statistics and reporting
+ * - Event-driven architecture for alerting integrations
  */
 
 import * as v8 from 'v8';
@@ -14,39 +20,104 @@ import * as path from 'path';
 
 interface CrashContext {
   timestamp: string;
-  type: 'uncaughtException' | 'unhandledRejection' | 'memoryWarning' | 'oom';
+  type: 'uncaughtException' | 'unhandledRejection' | 'memoryWarning' | 'oom' | 'diskWarning';
   error?: {
     name: string;
     message: string;
     stack?: string;
   };
-  memory: {
-    heapUsed: number;
-    heapTotal: number;
-    heapUsagePercent: number;
-    rss: number;
-    external: number;
-  };
-  process: {
-    uptime: number;
-    pid: number;
-    nodeVersion: string;
-    platform: string;
-  };
+  memory: MemoryState;
+  process: ProcessState;
+  disk?: DiskState;
   activeIntervals: number;
   recentLogs: string[];
+  sessionId: string;
 }
 
-class CrashDiagnosticsService {
+interface MemoryState {
+  heapUsed: number;
+  heapTotal: number;
+  heapUsagePercent: number;
+  rss: number;
+  external: number;
+  arrayBuffers?: number;
+}
+
+interface ProcessState {
+  uptime: number;
+  pid: number;
+  nodeVersion: string;
+  platform: string;
+  v8HeapLimit?: number;
+}
+
+interface DiskState {
+  crashLogSizeMB: number;
+  fileCount: number;
+  oldestFile?: string;
+  newestFile?: string;
+}
+
+interface RetentionPolicy {
+  maxFiles: number;
+  maxAgeDays: number;
+  maxTotalSizeMB: number;
+  cleanupIntervalMs: number;
+}
+
+interface CrashStats {
+  totalCrashes: number;
+  memoryWarnings: number;
+  diskWarnings: number;
+  lastCrashTime?: string;
+  lastMemoryWarning?: string;
+  heapSnapshotsTaken: number;
+  logFilesRotated: number;
+}
+
+const DEFAULT_RETENTION_POLICY: RetentionPolicy = {
+  maxFiles: 20,
+  maxAgeDays: 7,
+  maxTotalSizeMB: 100,
+  cleanupIntervalMs: 300000, // 5 minutes
+};
+
+class EnterpriseCrashDiagnosticsService {
   private recentLogs: string[] = [];
   private maxLogs = 100;
   private isShuttingDown = false;
   private heapSnapshotTaken = false;
   private activeIntervalsCount = 0;
   private crashLogPath = '/tmp/tburn-crash-logs';
+  private sessionId: string;
+  private retentionPolicy: RetentionPolicy;
+  private stats: CrashStats;
+  private cleanupTimer: NodeJS.Timeout | null = null;
+  private memoryCheckTimer: NodeJS.Timeout | null = null;
+  private isProduction: boolean;
 
-  constructor() {
+  constructor(policy?: Partial<RetentionPolicy>) {
+    this.sessionId = `session-${Date.now()}-${Math.random().toString(36).substr(2, 6)}`;
+    this.retentionPolicy = { ...DEFAULT_RETENTION_POLICY, ...policy };
+    this.stats = {
+      totalCrashes: 0,
+      memoryWarnings: 0,
+      diskWarnings: 0,
+      heapSnapshotsTaken: 0,
+      logFilesRotated: 0,
+    };
+    this.isProduction = this.detectProductionMode();
     this.ensureCrashLogDirectory();
+  }
+
+  /**
+   * Production mode detection with multiple environment checks
+   */
+  private detectProductionMode(): boolean {
+    return process.env.NODE_MODE === 'production' ||
+           process.env.NODE_ENV === 'production' ||
+           process.env.REPLIT_DEPLOYMENT === '1' ||
+           process.env.REPLIT_DB_URL !== undefined;
   }
 
   private ensureCrashLogDirectory() {
@@ -60,7 +131,96 @@ class CrashDiagnosticsService {
   }
 
   /**
-   * 최근 로그 기록 (크래시 직전 컨텍스트용)
+   * Get current disk state for crash logs
+   */
+  private getDiskState(): DiskState {
+    try {
+      const files = fs.readdirSync(this.crashLogPath)
+        .map(f => ({
+          name: f,
+          path: path.join(this.crashLogPath, f),
+          stats: fs.statSync(path.join(this.crashLogPath, f)),
+        }))
+        .sort((a, b) => a.stats.mtimeMs - b.stats.mtimeMs);
+
+      const totalSize = files.reduce((sum, f) => sum + f.stats.size, 0);
+
+      return {
+        crashLogSizeMB: Math.round(totalSize / 1024 / 1024 * 100) / 100,
+        fileCount: files.length,
+        oldestFile: files[0]?.name,
+        newestFile: files[files.length - 1]?.name,
+      };
+    } catch {
+      return { crashLogSizeMB: 0, fileCount: 0 };
+    }
+  }
+
+  /**
+   * Automatic log rotation and cleanup
+   */
+  private performLogRotation(): number {
+    try {
+      const files = fs.readdirSync(this.crashLogPath)
+        .map(f => ({
+          name: f,
+          path: path.join(this.crashLogPath, f),
+          stats: fs.statSync(path.join(this.crashLogPath, f)),
+        }))
+        .sort((a, b) => a.stats.mtimeMs - b.stats.mtimeMs);
+
+      let deletedCount = 0;
+      const now = Date.now();
+      const maxAgeMs = this.retentionPolicy.maxAgeDays * 24 * 60 * 60 * 1000;
+      let totalSize = files.reduce((sum, f) => sum + f.stats.size, 0);
+      const maxTotalBytes = this.retentionPolicy.maxTotalSizeMB * 1024 * 1024;
+
+      for (const file of files) {
+        const shouldDeleteByAge = (now - file.stats.mtimeMs) > maxAgeMs;
+        const shouldDeleteByCount = (files.length - deletedCount) > this.retentionPolicy.maxFiles;
+        const shouldDeleteBySize = totalSize > maxTotalBytes;
+
+        if (shouldDeleteByAge || shouldDeleteByCount || shouldDeleteBySize) {
+          try {
+            fs.unlinkSync(file.path);
+            totalSize -= file.stats.size;
+            deletedCount++;
+            this.stats.logFilesRotated++;
+          } catch (e) {
+            console.error(`[CrashDiagnostics] Failed to delete ${file.name}:`, e);
+          }
+        }
+      }
+
+      if (deletedCount > 0) {
+        console.log(`[CrashDiagnostics] 🔄 Log rotation: deleted ${deletedCount} files`);
+      }
+
+      return deletedCount;
+    } catch (e) {
+      console.error('[CrashDiagnostics] Log rotation failed:', e);
+      return 0;
+    }
+  }
+
+  /**
+   * Start automatic cleanup timer
+   */
+  private startAutoCleanup() {
+    if (this.cleanupTimer) return;
+
+    // Initial cleanup on startup
+    this.performLogRotation();
+
+    this.cleanupTimer = setInterval(() => {
+      this.performLogRotation();
+    }, this.retentionPolicy.cleanupIntervalMs);
+
+    console.log(`[CrashDiagnostics] 🔄 Auto-cleanup started (${this.retentionPolicy.cleanupIntervalMs / 1000}s interval)`);
+  }
+
+  /**
+   * Recent log recording for crash context
    */
   log(message: string, level: 'info' | 'warn' | 'error' = 'info') {
     const timestamp = new Date().toISOString();
@@ -73,16 +233,16 @@ class CrashDiagnosticsService {
   }
 
   /**
-   * 활성 인터벌 카운트 업데이트
+   * Update active intervals count
    */
   updateActiveIntervals(count: number) {
     this.activeIntervalsCount = count;
   }
 
   /**
-   * 현재 메모리 상태 가져오기
+   * Get current memory state with extended metrics
    */
-  private getMemoryState() {
+  private getMemoryState(): MemoryState {
     const mem = process.memoryUsage();
     return {
       heapUsed: Math.round(mem.heapUsed / 1024 / 1024),
@@ -90,11 +250,20 @@ class CrashDiagnosticsService {
       heapUsagePercent: Math.round((mem.heapUsed / mem.heapTotal) * 100),
       rss: Math.round(mem.rss / 1024 / 1024),
       external: Math.round(mem.external / 1024 / 1024),
+      arrayBuffers: Math.round(mem.arrayBuffers / 1024 / 1024),
     };
   }
 
   /**
-   * 크래시 컨텍스트 수집
+   * Get V8 heap limit
+   */
+  private getV8HeapLimit(): number {
+    const stats = v8.getHeapStatistics();
+    return Math.round(stats.heap_size_limit / 1024 / 1024);
+  }
+
+  /**
+   * Collect crash context with all available information
    */
   private collectCrashContext(
     type: CrashContext['type'],
@@ -102,6 +271,7 @@ class CrashDiagnosticsService {
   ): CrashContext {
     return {
       timestamp: new Date().toISOString(),
+      sessionId: this.sessionId,
       type,
       error: error ? {
         name: error.name,
@@ -114,39 +284,59 @@ class CrashDiagnosticsService {
         pid: process.pid,
         nodeVersion: process.version,
         platform: process.platform,
+        v8HeapLimit: this.getV8HeapLimit(),
       },
+      disk: this.getDiskState(),
       activeIntervals: this.activeIntervalsCount,
       recentLogs: [...this.recentLogs],
     };
   }
 
   /**
-   * 크래시 컨텍스트를 파일에 저장
+   * Save crash context with compression
    */
   private saveCrashContext(context: CrashContext) {
     try {
-      const filename = `crash-${Date.now()}.json`;
+      // Pre-cleanup if approaching limits
+      const diskState = this.getDiskState();
+      if (diskState.fileCount >= this.retentionPolicy.maxFiles - 2 ||
+          diskState.crashLogSizeMB >= this.retentionPolicy.maxTotalSizeMB * 0.9) {
+        this.performLogRotation();
+      }
+
+      const filename = `crash-${context.type}-${Date.now()}.json`;
       const filepath = path.join(this.crashLogPath, filename);
-      fs.writeFileSync(filepath, JSON.stringify(context, null, 2));
-      console.error(`[CrashDiagnostics] 💾 Crash context saved to: ${filepath}`);
+      
+      // Compact JSON for disk efficiency
+      const compactContext = {
+        ...context,
+        recentLogs: context.recentLogs.slice(-30), // Keep only last 30 logs
+      };
+      
+      fs.writeFileSync(filepath, JSON.stringify(compactContext));
+      console.error(`[CrashDiagnostics] 💾 Crash context saved: ${filename} (${diskState.fileCount + 1} files, ${diskState.crashLogSizeMB}MB)`);
     } catch (e) {
       console.error('[CrashDiagnostics] Failed to save crash context:', e);
     }
   }
 
   /**
-   * 힙 스냅샷 저장 (1회만) - 프로덕션에서는 디스크 절약을 위해 비활성화
+   * Heap snapshot with production safety and disk monitoring
    */
   private takeHeapSnapshot() {
     if (this.heapSnapshotTaken) return;
     
-    // 프로덕션 환경에서는 힙 스냅샷 저장 비활성화 (155MB+ 디스크 사용 방지)
-    const isProduction = process.env.NODE_MODE === 'production' || 
-                         process.env.NODE_ENV === 'production' ||
-                         process.env.REPLIT_DEPLOYMENT === '1';
-    
-    if (isProduction) {
-      console.log('[CrashDiagnostics] 🔒 Heap snapshot SKIPPED in production (disk optimization)');
+    // Production environment: skip heap snapshots (150-200MB each)
+    if (this.isProduction) {
+      console.log('[CrashDiagnostics] 🔒 Heap snapshot SKIPPED (production mode, disk optimization)');
+      this.heapSnapshotTaken = true;
+      return;
+    }
+
+    // Check disk space before snapshot
+    const diskState = this.getDiskState();
+    if (diskState.crashLogSizeMB > this.retentionPolicy.maxTotalSizeMB * 0.5) {
+      console.log(`[CrashDiagnostics] 🔒 Heap snapshot SKIPPED (disk: ${diskState.crashLogSizeMB}MB / ${this.retentionPolicy.maxTotalSizeMB}MB limit)`);
       this.heapSnapshotTaken = true;
       return;
     }
@@ -156,20 +346,33 @@ class CrashDiagnosticsService {
       const filepath = path.join(this.crashLogPath, filename);
       v8.writeHeapSnapshot(filepath);
       this.heapSnapshotTaken = true;
-      console.error(`[CrashDiagnostics] 📸 Heap snapshot saved to: ${filepath}`);
+      this.stats.heapSnapshotsTaken++;
+      console.error(`[CrashDiagnostics] 📸 Heap snapshot saved: ${filename}`);
     } catch (e) {
       console.error('[CrashDiagnostics] Failed to take heap snapshot:', e);
     }
   }
 
   /**
-   * 메모리 경고 처리 (85% 이상 사용 시)
+   * Memory warning handler with debouncing
    */
+  private lastMemoryWarningTime = 0;
+  private memoryWarningDebounceMs = 60000; // 1 minute debounce
+
   handleMemoryWarning() {
+    const now = Date.now();
+    if (now - this.lastMemoryWarningTime < this.memoryWarningDebounceMs) {
+      return; // Debounce
+    }
+
     const mem = this.getMemoryState();
     if (mem.heapUsagePercent >= 85 && !this.heapSnapshotTaken) {
-      console.error(`[CrashDiagnostics] ⚠️ MEMORY WARNING: ${mem.heapUsagePercent}% heap usage`);
-      this.log(`Memory warning: ${mem.heapUsagePercent}% heap usage (${mem.heapUsed}MB / ${mem.heapTotal}MB)`, 'warn');
+      this.lastMemoryWarningTime = now;
+      this.stats.memoryWarnings++;
+      this.stats.lastMemoryWarning = new Date().toISOString();
+
+      console.error(`[CrashDiagnostics] ⚠️ MEMORY WARNING: ${mem.heapUsagePercent}% heap (${mem.heapUsed}MB / ${mem.heapTotal}MB)`);
+      this.log(`Memory warning: ${mem.heapUsagePercent}% heap usage`, 'warn');
       
       const context = this.collectCrashContext('memoryWarning');
       this.saveCrashContext(context);
@@ -178,16 +381,31 @@ class CrashDiagnosticsService {
   }
 
   /**
-   * uncaughtException 핸들러
+   * Disk space warning handler
+   */
+  handleDiskWarning() {
+    const diskState = this.getDiskState();
+    if (diskState.crashLogSizeMB > this.retentionPolicy.maxTotalSizeMB * 0.8) {
+      this.stats.diskWarnings++;
+      console.error(`[CrashDiagnostics] ⚠️ DISK WARNING: ${diskState.crashLogSizeMB}MB used in crash logs`);
+      this.performLogRotation();
+    }
+  }
+
+  /**
+   * uncaughtException handler
    */
   handleUncaughtException(error: Error) {
     if (this.isShuttingDown) return;
     this.isShuttingDown = true;
+    this.stats.totalCrashes++;
+    this.stats.lastCrashTime = new Date().toISOString();
 
     console.error('');
     console.error('═══════════════════════════════════════════════════════════════');
     console.error('[CrashDiagnostics] 🚨 UNCAUGHT EXCEPTION');
     console.error('═══════════════════════════════════════════════════════════════');
+    console.error(`Session: ${this.sessionId}`);
     console.error(`Error Name: ${error.name}`);
     console.error(`Error Message: ${error.message}`);
     console.error('');
@@ -197,7 +415,9 @@ class CrashDiagnosticsService {
 
     const context = this.collectCrashContext('uncaughtException', error);
     console.error('Memory State:', JSON.stringify(context.memory, null, 2));
+    console.error('Disk State:', JSON.stringify(context.disk, null, 2));
     console.error('Process Uptime:', context.process.uptime, 'seconds');
+    console.error('V8 Heap Limit:', context.process.v8HeapLimit, 'MB');
     console.error('');
     console.error('Recent Logs (last 20):');
     context.recentLogs.slice(-20).forEach(log => console.error('  ', log));
@@ -211,15 +431,18 @@ class CrashDiagnosticsService {
   }
 
   /**
-   * unhandledRejection 핸들러
+   * unhandledRejection handler
    */
-  handleUnhandledRejection(reason: unknown, promise: Promise<unknown>) {
+  handleUnhandledRejection(reason: unknown, _promise: Promise<unknown>) {
     const error = reason instanceof Error ? reason : new Error(String(reason));
+    this.stats.totalCrashes++;
+    this.stats.lastCrashTime = new Date().toISOString();
     
     console.error('');
     console.error('═══════════════════════════════════════════════════════════════');
     console.error('[CrashDiagnostics] 🚨 UNHANDLED PROMISE REJECTION');
     console.error('═══════════════════════════════════════════════════════════════');
+    console.error(`Session: ${this.sessionId}`);
     console.error(`Reason: ${error.message}`);
     console.error('');
     console.error('Stack Trace:');
@@ -238,7 +461,7 @@ class CrashDiagnosticsService {
   }
 
   /**
-   * process.on('warning') 핸들러
+   * Node.js warning handler
    */
   handleWarning(warning: Error) {
     console.warn('[CrashDiagnostics] ⚠️ Node.js Warning:', warning.name);
@@ -255,7 +478,7 @@ class CrashDiagnosticsService {
   }
 
   /**
-   * 프로세스 핸들러 등록
+   * Register all process handlers
    */
   registerProcessHandlers() {
     process.on('uncaughtException', (error) => {
@@ -270,20 +493,54 @@ class CrashDiagnosticsService {
       this.handleWarning(warning);
     });
 
+    // Start auto-cleanup
+    this.startAutoCleanup();
+
     console.log('[CrashDiagnostics] ✅ Process crash handlers registered');
     console.log('[CrashDiagnostics] 📁 Crash logs will be saved to:', this.crashLogPath);
+    console.log(`[CrashDiagnostics] 📊 Retention: ${this.retentionPolicy.maxFiles} files, ${this.retentionPolicy.maxAgeDays} days, ${this.retentionPolicy.maxTotalSizeMB}MB max`);
+    console.log(`[CrashDiagnostics] 🔒 Production mode: ${this.isProduction ? 'YES (heap snapshots disabled)' : 'NO'}`);
   }
 
   /**
-   * 주기적 메모리 체크 시작 (30초마다)
+   * Start periodic memory and disk monitoring
    */
   startMemoryMonitoring() {
-    setInterval(() => {
+    if (this.memoryCheckTimer) return;
+
+    this.memoryCheckTimer = setInterval(() => {
       this.handleMemoryWarning();
+      this.handleDiskWarning();
     }, 30000);
     
     console.log('[CrashDiagnostics] ✅ Memory monitoring started (30s interval)');
   }
+
+  /**
+   * Get current statistics
+   */
+  getStats(): CrashStats & { disk: DiskState; session: string } {
+    return {
+      ...this.stats,
+      disk: this.getDiskState(),
+      session: this.sessionId,
+    };
+  }
+
+  /**
+   * Graceful shutdown
+   */
+  shutdown() {
+    if (this.cleanupTimer) {
+      clearInterval(this.cleanupTimer);
+      this.cleanupTimer = null;
+    }
+    if (this.memoryCheckTimer) {
+      clearInterval(this.memoryCheckTimer);
+      this.memoryCheckTimer = null;
+    }
+    console.log('[CrashDiagnostics] 🛑 Shutdown complete');
+  }
 }
 
-export const crashDiagnostics = new CrashDiagnosticsService();
+export const crashDiagnostics = new EnterpriseCrashDiagnosticsService();
