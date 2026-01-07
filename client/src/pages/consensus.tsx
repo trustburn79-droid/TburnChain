@@ -735,7 +735,7 @@ function ConsensusRoundDetailDialog({
                       {round.prevoteCount}/{round.totalValidators}
                     </span>
                   </div>
-                  <Progress value={(round.prevoteCount / round.totalValidators) * 100} className="h-3" />
+                  <Progress value={round.totalValidators > 0 ? (round.prevoteCount / round.totalValidators) * 100 : 0} className="h-3" />
                 </div>
                 <div>
                   <div className="flex justify-between mb-1">
@@ -744,7 +744,7 @@ function ConsensusRoundDetailDialog({
                       {round.precommitCount}/{round.totalValidators}
                     </span>
                   </div>
-                  <Progress value={(round.precommitCount / round.totalValidators) * 100} className="h-3" />
+                  <Progress value={round.totalValidators > 0 ? (round.precommitCount / round.totalValidators) * 100 : 0} className="h-3" />
                 </div>
               </div>
               <div className="mt-4 p-3 bg-muted rounded-lg">
@@ -1422,7 +1422,7 @@ export default function Consensus() {
                             </div>
                           </div>
                           <Progress 
-                            value={(activity.prevotes / activity.totalValidators) * 100} 
+                            value={activity.totalValidators > 0 ? (activity.prevotes / activity.totalValidators) * 100 : 0} 
                             className="h-1 mt-3" 
                           />
                         </CardContent>
