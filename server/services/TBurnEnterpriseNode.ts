@@ -5404,7 +5404,7 @@ export class TBurnEnterpriseNode extends EventEmitter {
   getConsensusInfo(): {
     currentRound: {
       roundNumber: number;
-      phase: 'propose' | 'prevote' | 'precommit' | 'commit';
+      phase: 'propose' | 'prevote' | 'precommit' | 'commit' | 'finalize';
       proposer: string;
       votesReceived: number;
       votesRequired: number;
@@ -5415,6 +5415,7 @@ export class TBurnEnterpriseNode extends EventEmitter {
         voted: boolean;
         vote: 'approve' | 'reject';
       }>;
+      blockAge: number;  // Position within 100ms block cycle (0-99)
     };
     stats: {
       avgBlockTime: number;
@@ -5492,12 +5493,13 @@ export class TBurnEnterpriseNode extends EventEmitter {
     return {
       currentRound: {
         roundNumber,
-        phase: phase as 'propose' | 'prevote' | 'precommit' | 'commit',
+        phase: phase as 'propose' | 'prevote' | 'precommit' | 'commit' | 'finalize',
         proposer: `0x${proposerHash.slice(0, 8)}...${proposerHash.slice(36, 40)}`,
         votesReceived,
         votesRequired: quorum,
         startTime: new Date(Date.now() - blockAge).toISOString(),
-        committee
+        committee,
+        blockAge  // Expose blockAge for phase calculation in routes
       },
       stats: {
         avgBlockTime,

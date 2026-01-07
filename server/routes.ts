@@ -20497,8 +20497,10 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       
       // Transform to frontend ConsensusState format
       // 100ms block time with 5 phases (20ms each) - synchronized with ~200K TPS
-      const phaseMap: Record<string, number> = { 'propose': 1, 'prevote': 2, 'precommit': 3, 'commit': 4, 'finalize': 5 };
-      const currentPhaseNum = phaseMap[consensusInfo.currentRound.phase] || 1;
+      // CRITICAL: Use blockAge modulo calculation for accurate phase cycling
+      // This ensures phases cycle 1→2→3→4→5→1 correctly without getting stuck at phase 5
+      const blockAge = consensusInfo.currentRound.blockAge;
+      const currentPhaseNum = Math.floor(blockAge / 20) + 1; // 0-19ms=1, 20-39ms=2, 40-59ms=3, 60-79ms=4, 80-99ms=5
       
       // Calculate votes with progressive accumulation based on phase
       const totalValidators = consensusInfo.currentRound.committee.length;
@@ -20508,16 +20510,16 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       // Progressive vote accumulation - votes accumulate as phases progress
       // Phase 2 (Prevote): votes accumulate progressively
       // Phase 3+ (Precommit+): all prevotes complete, precommits accumulating
-      const blockAge = Date.now() % 100;
       const phaseProgress = (blockAge % 20) / 20; // 0.0 to 1.0 within each phase
       
       // 5-phase BFT consensus with real voting data
+      // Use modulo-based phase calculation for proper cycling
       const phases = [
         { number: 1, label: 'Propose', time: '20ms', status: currentPhaseNum > 1 ? 'completed' : (currentPhaseNum === 1 ? 'active' : 'pending') as 'completed' | 'active' | 'pending' },
         { number: 2, label: 'Pre-vote', time: '20ms', status: currentPhaseNum > 2 ? 'completed' : (currentPhaseNum === 2 ? 'active' : 'pending') as 'completed' | 'active' | 'pending' },
         { number: 3, label: 'Pre-commit', time: '20ms', status: currentPhaseNum > 3 ? 'completed' : (currentPhaseNum === 3 ? 'active' : 'pending') as 'completed' | 'active' | 'pending' },
         { number: 4, label: 'Commit', time: '20ms', status: currentPhaseNum > 4 ? 'completed' : (currentPhaseNum === 4 ? 'active' : 'pending') as 'completed' | 'active' | 'pending' },
-        { number: 5, label: 'Finalize', time: '20ms', status: currentPhaseNum === 5 ? 'active' : 'pending' as 'completed' | 'active' | 'pending' },
+        { number: 5, label: 'Finalize', time: '20ms', status: currentPhaseNum >= 5 ? 'active' : 'pending' as 'completed' | 'active' | 'pending' },
       ];
       
       // Real prevote/precommit counts based on phase with progressive accumulation
