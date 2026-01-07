@@ -970,12 +970,12 @@ export default function Brand() {
       );
     }
     if (type === "symbol-large") {
-      return <TBurnLogo className="w-40 h-40" fontSize={32} />;
+      return <TBurnLogo className="w-40 h-40" />;
     }
     if (type === "symbol-large-outline") {
       return (
         <div className="w-40 h-40 rounded-3xl border-4 border-[#D4AF37] flex items-center justify-center">
-          <TBurnLogo className="w-28 h-28" symbolColor="#D4AF37" textColor="#1a1a2e" fontSize={28} />
+          <TBurnLogo className="w-28 h-28" symbolColor="#D4AF37" textColor="#1a1a2e" />
         </div>
       );
     }
