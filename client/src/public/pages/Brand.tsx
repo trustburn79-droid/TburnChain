@@ -1150,7 +1150,7 @@ export default function Brand() {
           </div>
 
           <div style={{ marginTop: "1.5rem", paddingTop: "1.5rem", borderTop: "1px solid rgba(255,255,255,0.1)" }}>
-            <p style={{ fontSize: "0.875rem", fontWeight: 500, marginBottom: "1rem" }}>White T Variants</p>
+            <p style={{ fontSize: "0.875rem", fontWeight: 500, marginBottom: "1rem" }}>{t('brandPage.whiteVariants')}</p>
             <div style={{ display: "grid", gridTemplateColumns: "repeat(7, 1fr)", gap: "1rem" }}>
               <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "4px" }}>
                 <div style={{ width: "48px", height: "48px", borderRadius: "8px", background: "#1f2937", display: "flex", alignItems: "center", justifyContent: "center" }}>
@@ -1202,16 +1202,16 @@ export default function Brand() {
       <section className="brand-section" id="colors" style={{ background: "rgba(255,255,255,0.02)" }}>
         <div className="brand-section-header">
           <div className="brand-section-title-group">
-            <h2><Palette className="w-6 h-6" /> Color Palette</h2>
-            <p>Official TBURN Chain brand colors</p>
+            <h2><Palette className="w-6 h-6" /> {t('brandPage.colorsTitle')}</h2>
+            <p>{t('brandPage.colorsDesc')}</p>
           </div>
           <button className="download-section-btn" onClick={() => downloadSection("colors")} data-testid="button-download-colors">
-            <Download className="w-4 h-4" /> Download ASE File
+            <Download className="w-4 h-4" /> {t('brandPage.downloadAse')}
           </button>
         </div>
 
         <div className="color-section">
-          <div className="color-section-title">Primary Colors</div>
+          <div className="color-section-title">{t('brandPage.primaryColors')}</div>
           <div className="color-grid">
             {primaryColors.map((color) => (
               <div key={color.hex} className="color-card" data-testid={`color-card-${color.hex}`}>
@@ -1244,7 +1244,7 @@ export default function Brand() {
         </div>
 
         <div className="color-section">
-          <div className="color-section-title">Secondary Colors</div>
+          <div className="color-section-title">{t('brandPage.secondaryColors')}</div>
           <div className="color-grid">
             {secondaryColors.map((color) => (
               <div key={color.hex} className="color-card">
@@ -1265,7 +1265,7 @@ export default function Brand() {
         </div>
 
         <div className="color-section">
-          <div className="color-section-title">Accent Colors</div>
+          <div className="color-section-title">{t('brandPage.accentColors')}</div>
           <div className="color-grid">
             {accentColors.map((color) => (
               <div key={color.hex} className="color-card">
@@ -1286,7 +1286,7 @@ export default function Brand() {
         </div>
 
         <div className="color-section">
-          <div className="color-section-title">Gradients</div>
+          <div className="color-section-title">{t('brandPage.gradients')}</div>
           <div className="color-grid">
             {gradients.map((grad, i) => (
               <div key={i} className="color-card">
@@ -1310,17 +1310,17 @@ export default function Brand() {
       <section className="brand-section" id="typography">
         <div className="brand-section-header">
           <div className="brand-section-title-group">
-            <h2><Type className="w-6 h-6" /> Typography</h2>
-            <p>Official TBURN Chain typefaces</p>
+            <h2><Type className="w-6 h-6" /> {t('brandPage.typographyTitle')}</h2>
+            <p>{t('brandPage.typographyDesc')}</p>
           </div>
           <button className="download-section-btn" onClick={() => downloadSection("typography")} data-testid="button-download-typography">
-            <Download className="w-4 h-4" /> Download Fonts
+            <Download className="w-4 h-4" /> {t('brandPage.downloadFonts')}
           </button>
         </div>
 
         <div className="typography-grid">
           <div className="typography-card">
-            <h4>Primary Font</h4>
+            <h4>{t('brandPage.primaryFont')}</h4>
             <div className="font-name" style={{ fontFamily: "Inter" }}>Inter</div>
             <div className="font-preview">
               ABCDEFGHIJKLMNOPQRSTUVWXYZ<br />
@@ -1338,12 +1338,10 @@ export default function Brand() {
             </div>
           </div>
           <div className="typography-card">
-            <h4>Secondary Font (Korean)</h4>
+            <h4>{t('brandPage.secondaryFont')}</h4>
             <div className="font-name">Pretendard</div>
-            <div className="font-preview">
-              Korean character support<br />
-              Multiple font weights available<br />
-              TBURN Blockchain
+            <div className="font-preview" style={{ whiteSpace: 'pre-line' }}>
+              {t('brandPage.fontPreviewSecondary')}
             </div>
             <div className="font-weights">
               <span className="font-weight-tag">Regular <span>400</span></span>
@@ -1358,11 +1356,11 @@ export default function Brand() {
       <section className="brand-section" id="banners" style={{ background: "rgba(255,255,255,0.02)" }}>
         <div className="brand-section-header">
           <div className="brand-section-title-group">
-            <h2><Image className="w-6 h-6" /> Banners</h2>
-            <p>Banner templates for various purposes</p>
+            <h2><Image className="w-6 h-6" /> {t('brandPage.bannersTitle')}</h2>
+            <p>{t('brandPage.bannersDesc')}</p>
           </div>
           <button className="download-section-btn" onClick={() => downloadSection("banners")} data-testid="button-download-banners">
-            <Download className="w-4 h-4" /> Download All Banners
+            <Download className="w-4 h-4" /> {t('brandPage.downloadAllBanners')}
           </button>
         </div>
 
@@ -1376,8 +1374,8 @@ export default function Brand() {
                       <TBurnLogo className="w-12 h-12" />
                       <div className="logo-text-small">TBURN<span>CHAIN</span></div>
                     </div>
-                    <h3>The Future of Decentralized Finance</h3>
-                    <p>Burn to Earn · AI-Powered · Quantum-Resistant</p>
+                    <h3>{t('brandPage.tagline')}</h3>
+                    <p>{t('brandPage.bannerTagline2')}</p>
                   </div>
                   <div className="banner-decoration circles" />
                   <div className="banner-decoration lines" />
@@ -1403,11 +1401,11 @@ export default function Brand() {
       <section className="brand-section" id="icons">
         <div className="brand-section-header">
           <div className="brand-section-title-group">
-            <h2><Flame className="w-6 h-6" /> Icon Set</h2>
-            <p>Icons used in TBURN Chain</p>
+            <h2><Flame className="w-6 h-6" /> {t('brandPage.iconsTitle')}</h2>
+            <p>{t('brandPage.iconsDesc')}</p>
           </div>
           <button className="download-section-btn" onClick={() => downloadSection("icons")} data-testid="button-download-icons">
-            <Download className="w-4 h-4" /> Download All Icons
+            <Download className="w-4 h-4" /> {t('brandPage.downloadAllIcons')}
           </button>
         </div>
 
@@ -1424,33 +1422,33 @@ export default function Brand() {
       <section className="brand-section" id="guidelines" style={{ background: "rgba(255,255,255,0.02)" }}>
         <div className="brand-section-header">
           <div className="brand-section-title-group">
-            <h2><FileText className="w-6 h-6" /> Usage Guidelines</h2>
-            <p>How to properly use brand assets</p>
+            <h2><FileText className="w-6 h-6" /> {t('brandPage.guidelinesTitle')}</h2>
+            <p>{t('brandPage.guidelinesDesc')}</p>
           </div>
         </div>
 
         <div className="guidelines-grid">
           <div className="guideline-card do">
             <div className="guideline-header">
-              <Check className="w-5 h-5" /> DO - Correct Usage
+              <Check className="w-5 h-5" /> {t('brandPage.dosTitle')}
             </div>
             <div className="guideline-content">
               <div className="guideline-items">
                 <div className="guideline-item">
                   <div className="icon"><Check className="w-3 h-3" /></div>
-                  <p>Use official logo files without modifications.</p>
+                  <p>{t('brandPage.do1')}</p>
                 </div>
                 <div className="guideline-item">
                   <div className="icon"><Check className="w-3 h-3" /></div>
-                  <p>Ensure adequate clear space around the logo.</p>
+                  <p>{t('brandPage.do2')}</p>
                 </div>
                 <div className="guideline-item">
                   <div className="icon"><Check className="w-3 h-3" /></div>
-                  <p>Use the logo within the designated color palette.</p>
+                  <p>{t('brandPage.do3')}</p>
                 </div>
                 <div className="guideline-item">
                   <div className="icon"><Check className="w-3 h-3" /></div>
-                  <p>Use SVG format when high resolution is needed.</p>
+                  <p>{t('brandPage.do4')}</p>
                 </div>
               </div>
             </div>
@@ -1458,25 +1456,25 @@ export default function Brand() {
 
           <div className="guideline-card dont">
             <div className="guideline-header">
-              <X className="w-5 h-5" /> DON'T - Incorrect Usage
+              <X className="w-5 h-5" /> {t('brandPage.dontsTitle')}
             </div>
             <div className="guideline-content">
               <div className="guideline-items">
                 <div className="guideline-item">
                   <div className="icon"><X className="w-3 h-3" /></div>
-                  <p>Do not change the logo colors arbitrarily.</p>
+                  <p>{t('brandPage.dont1')}</p>
                 </div>
                 <div className="guideline-item">
                   <div className="icon"><X className="w-3 h-3" /></div>
-                  <p>Do not stretch, skew, or rotate the logo. Maintain original proportions.</p>
+                  <p>{t('brandPage.dont2')}</p>
                 </div>
                 <div className="guideline-item">
                   <div className="icon"><X className="w-3 h-3" /></div>
-                  <p>Do not add shadows, outlines, or effects to the logo.</p>
+                  <p>{t('brandPage.dont3')}</p>
                 </div>
                 <div className="guideline-item">
                   <div className="icon"><X className="w-3 h-3" /></div>
-                  <p>Do not place the logo on complex backgrounds. It reduces readability.</p>
+                  <p>{t('brandPage.dont4')}</p>
                 </div>
               </div>
             </div>
@@ -1484,7 +1482,7 @@ export default function Brand() {
         </div>
 
         <div className="clearspace-container">
-          <h4 style={{ fontSize: "1.125rem", fontWeight: 700, marginBottom: "1.5rem" }}>Clear Space Guide</h4>
+          <h4 style={{ fontSize: "1.125rem", fontWeight: 700, marginBottom: "1.5rem" }}>{t('brandPage.clearspaceTitle')}</h4>
           <div className="clearspace-visual">
             <div className="clearspace-logo">
               <TBurnLogo className="w-16 h-16" />
@@ -1496,45 +1494,45 @@ export default function Brand() {
             </div>
           </div>
           <div className="clearspace-note">
-            <strong>X = 50% of symbol height</strong><br />
-            Maintain at least X clear space around the logo to preserve readability and brand impact.
+            <strong>{t('brandPage.clearspaceFormula')}</strong><br />
+            {t('brandPage.clearspaceNote')}
           </div>
         </div>
       </section>
 
       <section className="brand-section">
         <div className="download-center">
-          <h3>Download Brand Assets</h3>
-          <p>Download asset packages in the format you need</p>
+          <h3>{t('brandPage.downloadTitle')}</h3>
+          <p>{t('brandPage.downloadDesc')}</p>
           <div className="download-options">
             <div className="download-option" onClick={() => downloadPackage("full")} data-testid="download-full">
               <div className="icon"><FileText className="w-10 h-10" /></div>
-              <h4>Full Package</h4>
-              <p>All assets included (ZIP)</p>
+              <h4>{t('brandPage.fullPackage')}</h4>
+              <p>{t('brandPage.fullPackageDesc')}</p>
             </div>
             <div className="download-option" onClick={() => downloadPackage("print")} data-testid="download-print">
               <div className="icon"><Printer className="w-10 h-10" /></div>
-              <h4>Print</h4>
-              <p>High resolution PDF, EPS</p>
+              <h4>{t('brandPage.printPackage')}</h4>
+              <p>{t('brandPage.printPackageDesc')}</p>
             </div>
             <div className="download-option" onClick={() => downloadPackage("digital")} data-testid="download-digital">
               <div className="icon"><Monitor className="w-10 h-10" /></div>
-              <h4>Digital</h4>
-              <p>SVG, PNG, WebP</p>
+              <h4>{t('brandPage.digitalPackage')}</h4>
+              <p>{t('brandPage.digitalPackageDesc')}</p>
             </div>
             <div className="download-option" onClick={() => downloadPackage("social")} data-testid="download-social">
               <div className="icon"><Share2 className="w-10 h-10" /></div>
-              <h4>Social Media</h4>
-              <p>Optimized banners/profiles</p>
+              <h4>{t('brandPage.socialPackage')}</h4>
+              <p>{t('brandPage.socialPackageDesc')}</p>
             </div>
           </div>
         </div>
       </section>
 
       <footer className="brand-footer">
-        <p>© 2025-2045 TBURN Foundation. All Rights Reserved.</p>
+        <p>{t('brandPage.footerCopyright')}</p>
         <p style={{ marginTop: "0.5rem" }}>
-          For brand asset inquiries: <a href="mailto:brand@tburn.io">brand@tburn.io</a>
+          {t('brandPage.footerText')} <a href="mailto:brand@tburn.io">brand@tburn.io</a>
         </p>
       </footer>
     </div>
