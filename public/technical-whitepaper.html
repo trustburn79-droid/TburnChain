@@ -5565,8 +5565,8 @@ Emergency: 1000ms</code></pre>
     // RTL Languages
     const rtlLanguages = ['ar', 'ur'];
 
-    // Current language
-    let currentLanguage = localStorage.getItem('techWhitepaperLang') || 'en';
+    // Sync with main app language setting (tburn-language) or use page-specific as fallback
+    let currentLanguage = localStorage.getItem('tburn-language') || localStorage.getItem('techWhitepaperLang') || 'en';
 
     // Toggle language dropdown
     function toggleLangDropdown() {
@@ -5588,7 +5588,9 @@ Emergency: 1000ms</code></pre>
     // Set language function
     function setLanguage(lang) {
       currentLanguage = lang;
+      // Save to both keys for synchronization with main app
       localStorage.setItem('techWhitepaperLang', lang);
+      localStorage.setItem('tburn-language', lang);
       
       // Close dropdown
       const dropdown = document.getElementById('lang-dropdown');

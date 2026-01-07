@@ -4598,11 +4598,14 @@ tburn.on('blockConfirmed', (block) => {
         }
     };
     
-    let currentLanguage = localStorage.getItem('wp-lang') || 'en';
+    // Sync with main app language setting (tburn-language) or use wp-lang as fallback
+    let currentLanguage = localStorage.getItem('tburn-language') || localStorage.getItem('wp-lang') || 'en';
     
     function setLanguage(lang) {
         currentLanguage = lang;
+        // Save to both keys for synchronization with main app
         localStorage.setItem('wp-lang', lang);
+        localStorage.setItem('tburn-language', lang);
         applyTranslations();
         updateLanguageButtons();
     }
