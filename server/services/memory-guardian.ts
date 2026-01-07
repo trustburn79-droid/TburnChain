@@ -730,7 +730,7 @@ class MemoryGuardianEnterprise {
     if (Date.now() - this.lastTrendPersist < this.trendPersistInterval) return;
 
     try {
-      const analysis = this.analyzeTrends();
+      const analysis = this.getTrendAnalysis();
       const status = this.getMemoryStatus();
 
       await db.insert(memoryGuardianTrends).values({
@@ -766,7 +766,7 @@ class MemoryGuardianEnterprise {
     try {
       const now = new Date();
       
-      const blockStats = blockPool.getDetailedStats();
+      const blockStats = blockPool.getNumericMetrics();
       await db.insert(objectPoolMetrics).values({
         poolName: 'block',
         recordedAt: now,
@@ -774,31 +774,23 @@ class MemoryGuardianEnterprise {
         maxSize: blockStats.maxSize,
         minSize: 10,
         peakSize: blockStats.peakSize,
-        utilization: blockStats.maxSize > 0 ? (blockStats.currentSize / blockStats.maxSize) * 100 : 0,
+        utilization: blockStats.utilization,
         acquireCount: blockStats.acquireCount,
         releaseCount: blockStats.releaseCount,
         createCount: blockStats.createCount,
         evictCount: blockStats.evictCount,
         hitCount: blockStats.hitCount,
         missCount: blockStats.missCount,
-        hitRate: parseFloat(blockStats.acquireCount > 0 
-          ? ((blockStats.hitCount / blockStats.acquireCount) * 100).toFixed(1)
-          : '0'),
-        missRate: parseFloat(blockStats.acquireCount > 0 
-          ? ((blockStats.missCount / blockStats.acquireCount) * 100).toFixed(1)
-          : '0'),
+        hitRate: blockStats.hitRate,
+        missRate: blockStats.missRate,
         totalWaitTimeMs: blockStats.totalWaitTimeMs,
-        avgWaitTimeMs: parseFloat(blockStats.acquireCount > 0 
-          ? (blockStats.totalWaitTimeMs / blockStats.acquireCount).toFixed(3)
-          : '0'),
-        efficiency: blockStats.acquireCount > 0 
-          ? (blockStats.hitCount / blockStats.acquireCount) * 100
-          : 0,
+        avgWaitTimeMs: blockStats.avgWaitTimeMs,
+        efficiency: blockStats.efficiency,
         prewarmEvents: 0,
         shrinkEvents: 0,
       });
 
-      const txStats = txPool.getDetailedStats();
+      const txStats = txPool.getNumericMetrics();
       await db.insert(objectPoolMetrics).values({
         poolName: 'transaction',
         recordedAt: now,
@@ -806,26 +798,18 @@ class MemoryGuardianEnterprise {
         maxSize: txStats.maxSize,
         minSize: 100,
         peakSize: txStats.peakSize,
-        utilization: txStats.maxSize > 0 ? (txStats.currentSize / txStats.maxSize) * 100 : 0,
+        utilization: txStats.utilization,
         acquireCount: txStats.acquireCount,
         releaseCount: txStats.releaseCount,
         createCount: txStats.createCount,
         evictCount: txStats.evictCount,
         hitCount: txStats.hitCount,
         missCount: txStats.missCount,
-        hitRate: parseFloat(txStats.acquireCount > 0 
-          ? ((txStats.hitCount / txStats.acquireCount) * 100).toFixed(1)
-          : '0'),
-        missRate: parseFloat(txStats.acquireCount > 0 
-          ? ((txStats.missCount / txStats.acquireCount) * 100).toFixed(1)
-          : '0'),
+        hitRate: txStats.hitRate,
+        missRate: txStats.missRate,
         totalWaitTimeMs: txStats.totalWaitTimeMs,
-        avgWaitTimeMs: parseFloat(txStats.acquireCount > 0 
-          ? (txStats.totalWaitTimeMs / txStats.acquireCount).toFixed(3)
-          : '0'),
-        efficiency: txStats.acquireCount > 0 
-          ? (txStats.hitCount / txStats.acquireCount) * 100
-          : 0,
+        avgWaitTimeMs: txStats.avgWaitTimeMs,
+        efficiency: txStats.efficiency,
         prewarmEvents: 0,
         shrinkEvents: 0,
       });

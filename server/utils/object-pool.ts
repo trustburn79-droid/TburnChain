@@ -222,6 +222,47 @@ export class ObjectPoolEnterprise<T> {
     };
   }
 
+  getNumericMetrics(): PoolMetrics & {
+    currentSize: number;
+    maxSize: number;
+    utilization: number;
+    hitRate: number;
+    missRate: number;
+    avgWaitTimeMs: number;
+    efficiency: number;
+  } {
+    const utilization = this.config.maxSize > 0
+      ? Math.round((this.pool.length / this.config.maxSize) * 10000) / 100
+      : 0;
+
+    const hitRate = this.metrics.acquireCount > 0
+      ? Math.round((this.metrics.hitCount / this.metrics.acquireCount) * 10000) / 100
+      : 0;
+
+    const missRate = this.metrics.acquireCount > 0
+      ? Math.round((this.metrics.missCount / this.metrics.acquireCount) * 10000) / 100
+      : 0;
+
+    const avgWaitTimeMs = this.metrics.acquireCount > 0
+      ? Math.round((this.metrics.totalWaitTimeMs / this.metrics.acquireCount) * 1000) / 1000
+      : 0;
+
+    const efficiency = this.metrics.createCount > 0 && this.metrics.acquireCount > 0
+      ? Math.round(((this.metrics.acquireCount - this.metrics.createCount) / this.metrics.acquireCount) * 10000) / 100
+      : 0;
+
+    return {
+      ...this.metrics,
+      currentSize: this.pool.length,
+      maxSize: this.config.maxSize,
+      utilization,
+      hitRate,
+      missRate,
+      avgWaitTimeMs,
+      efficiency,
+    };
+  }
+
   getHistory(): PoolHistory[] {
     return [...this.history];
   }
