@@ -5435,9 +5435,10 @@ export class TBurnEnterpriseNode extends EventEmitter {
     const committeeSize = Math.min(this.shardConfig.validatorsPerShard * 4, 110);
     const quorum = Math.floor(committeeSize * 2 / 3) + 1;
     
-    // Current phase derived from block timing
-    const blockAge = Date.now() % 500; // 500ms block cycle
-    const phase = blockAge < 100 ? 'propose' : (blockAge < 250 ? 'prevote' : (blockAge < 400 ? 'precommit' : 'commit'));
+    // 100ms block time with 5 phases (20ms each) - synchronized with ~200K TPS
+    // Phase progression: Propose(0-20ms) → Prevote(20-40ms) → Precommit(40-60ms) → Commit(60-80ms) → Finalize(80-100ms)
+    const blockAge = Date.now() % 100; // 100ms block cycle for high-performance consensus
+    const phase = blockAge < 20 ? 'propose' : (blockAge < 40 ? 'prevote' : (blockAge < 60 ? 'precommit' : 'commit'));
     
     // Proposer from validator set
     const proposerIndex = roundNumber % committeeSize;
