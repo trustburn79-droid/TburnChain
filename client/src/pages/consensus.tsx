@@ -816,14 +816,16 @@ export default function Consensus() {
     return Math.floor((enterpriseValidators * 2) / 3) + 1;
   }, [enterpriseValidators]);
 
+  // REAL-TIME CONSENSUS: 50ms polling for 100ms block time (5 phases × 20ms each)
+  // Must be fast enough to visualize rapid phase transitions matching ~200K TPS
   const { data: consensusState, isLoading } = useQuery<ConsensusState>({
     queryKey: ["/api/consensus/current"],
-    refetchInterval: 5000,
-    staleTime: 5000,
+    refetchInterval: 50, // 50ms for real-time phase visualization
+    staleTime: 0, // Always fetch fresh data
     refetchOnMount: true,
-    refetchOnWindowFocus: false,
-    retry: 3,
-    placeholderData: keepPreviousData,
+    refetchOnWindowFocus: true,
+    refetchIntervalInBackground: true, // Keep updating even when tab not focused
+    retry: 1,
   });
 
   useWebSocketChannel({
