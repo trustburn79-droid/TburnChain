@@ -2087,13 +2087,13 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
   
-  // ★ [v7.0] Memory Guardian Status
+  // ★ [v2.0] Memory Guardian Enterprise Status
   app.get("/api/memory/guardian", async (_req, res) => {
     try {
       const { memoryGuardian } = await import('./services/memory-guardian');
       const status = memoryGuardian.getStatus();
       res.json({
-        version: '7.0.0-guardian',
+        version: '2.0.0-enterprise',
         ...status,
         timestamp: new Date().toISOString(),
       });
@@ -2102,7 +2102,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  // ★ [v7.0] Manual Cleanup Trigger
+  // ★ [v2.0] Manual Cleanup Trigger
   app.post("/api/memory/guardian/cleanup", async (req, res) => {
     try {
       const { memoryGuardian } = await import('./services/memory-guardian');
@@ -2127,7 +2127,114 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
   });
 
-  console.log('[Routes] ✅ Memory Management API v7.0 registered (10 endpoints)');
+  // ★ [v2.0] Memory Guardian Event History
+  app.get("/api/memory/guardian/events", async (req, res) => {
+    try {
+      const { memoryGuardian } = await import('./services/memory-guardian');
+      const limit = parseInt(req.query.limit as string) || 100;
+      const events = memoryGuardian.getEventHistory(limit);
+      res.json({
+        count: events.length,
+        events,
+        timestamp: new Date().toISOString(),
+      });
+    } catch (error) {
+      res.status(500).json({ error: 'Failed to get event history' });
+    }
+  });
+
+  // ★ [v2.0] Memory Trend Analysis
+  app.get("/api/memory/guardian/trends", async (req, res) => {
+    try {
+      const { memoryGuardian } = await import('./services/memory-guardian');
+      const limit = parseInt(req.query.limit as string) || 60;
+      const history = memoryGuardian.getTrendHistory(limit);
+      const analysis = memoryGuardian.getTrendAnalysis();
+      res.json({
+        analysis,
+        history,
+        timestamp: new Date().toISOString(),
+      });
+    } catch (error) {
+      res.status(500).json({ error: 'Failed to get trend analysis' });
+    }
+  });
+
+  // ★ [v2.0] SLA Report
+  app.get("/api/memory/guardian/sla", async (_req, res) => {
+    try {
+      const { memoryGuardian } = await import('./services/memory-guardian');
+      const report = memoryGuardian.getSLAReport();
+      res.json({
+        version: '2.0.0-enterprise',
+        ...report,
+        timestamp: new Date().toISOString(),
+      });
+    } catch (error) {
+      res.status(500).json({ error: 'Failed to get SLA report' });
+    }
+  });
+
+  // ★ [v2.0] Memory Guardian Prometheus Metrics
+  app.get("/api/memory/guardian/prometheus", async (_req, res) => {
+    try {
+      const { memoryGuardian } = await import('./services/memory-guardian');
+      const { getAllPoolsPrometheusMetrics } = await import('./utils/object-pool');
+      
+      const guardianMetrics = memoryGuardian.getPrometheusMetrics();
+      const poolMetrics = getAllPoolsPrometheusMetrics();
+      
+      res.set('Content-Type', 'text/plain');
+      res.send(`${guardianMetrics}\n\n${poolMetrics}`);
+    } catch (error) {
+      res.status(500).send('# Error fetching metrics');
+    }
+  });
+
+  // ★ [v2.0] Object Pools Detailed Stats
+  app.get("/api/memory/pools", async (_req, res) => {
+    try {
+      const { getAllPoolsStats, blockPool, txPool } = await import('./utils/object-pool');
+      const stats = getAllPoolsStats();
+      res.json({
+        version: '2.0.0-enterprise',
+        pools: stats,
+        detailed: {
+          block: blockPool.getDetailedMetrics(),
+          transaction: txPool.getDetailedMetrics(),
+        },
+        timestamp: new Date().toISOString(),
+      });
+    } catch (error) {
+      res.status(500).json({ error: 'Failed to get pool stats' });
+    }
+  });
+
+  // ★ [v2.0] Pool Prewarm
+  app.post("/api/memory/pools/prewarm", async (req, res) => {
+    try {
+      const { blockPool, txPool } = await import('./utils/object-pool');
+      const blockCount = parseInt(req.body?.blockCount) || 50;
+      const txCount = parseInt(req.body?.txCount) || 500;
+      
+      blockPool.prewarm(blockCount);
+      txPool.prewarm(txCount);
+      
+      res.json({
+        success: true,
+        prewarmed: { blocks: blockCount, transactions: txCount },
+        currentSizes: {
+          block: blockPool.size,
+          transaction: txPool.size,
+        },
+        timestamp: new Date().toISOString(),
+      });
+    } catch (error) {
+      res.status(500).json({ error: 'Failed to prewarm pools' });
+    }
+  });
+
+  console.log('[Routes] ✅ Memory Management API v2.0 Enterprise registered (16 endpoints)');
   
   // ============================================
   // /tmp Disk Monitoring (v5.1 Enterprise - Secure Async)
