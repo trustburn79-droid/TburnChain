@@ -1,8 +1,16 @@
 import { blockPool, txPool } from '../utils/object-pool';
+import { db } from '../db';
+import { 
+  memoryGuardianEvents, 
+  memoryGuardianSlaSnapshots, 
+  memoryGuardianTrends,
+  objectPoolMetrics,
+} from '@shared/schema';
 
 // ============================================
 // Enterprise Memory Guardian v2.0
 // Production-grade memory management system
+// with DB persistence
 // ============================================
 
 interface MemoryStatus {
@@ -106,6 +114,17 @@ class MemoryGuardianEnterprise {
     cooldownMs: 60000,
     lastAlertAt: 0,
   };
+
+  // DB Persistence Configuration
+  private dbPersistenceEnabled = true;
+  private lastDbPersist = 0;
+  private dbPersistInterval = 60 * 1000; // 1분마다 DB 저장
+  private lastSlaPersist = 0;
+  private slaPersistInterval = 60 * 60 * 1000; // 1시간마다 SLA 스냅샷
+  private lastTrendPersist = 0;
+  private trendPersistInterval = 5 * 60 * 1000; // 5분마다 트렌드 저장
+  private lastPoolMetricsPersist = 0;
+  private poolMetricsPersistInterval = 60 * 1000; // 1분마다 풀 메트릭 저장
 
   private slaMetrics = {
     totalChecks: 0,
@@ -226,6 +245,13 @@ class MemoryGuardianEnterprise {
     if (previousState !== this.slaMetrics.currentState) {
       if (previousState !== 'healthy' && this.slaMetrics.currentState === 'healthy') {
         this.logEvent('info', 'recovery', `Recovered from ${previousState} state`);
+        this.persistEventToDB('recovery', 'info', previousState);
+      } else {
+        this.persistEventToDB('state_change', 
+          this.slaMetrics.currentState === 'emergency' ? 'critical' : 
+          this.slaMetrics.currentState === 'critical' ? 'error' : 'warn',
+          previousState
+        );
       }
       this.slaMetrics.lastStateChange = Date.now();
     }
@@ -233,6 +259,8 @@ class MemoryGuardianEnterprise {
     if (this.slaMetrics.currentState !== 'healthy') {
       this.slaMetrics.downtimeMs += this.config.checkInterval;
     }
+
+    this.runPeriodicPersistence();
   }
 
   private handleWarning(status: MemoryStatus): void {
@@ -317,6 +345,7 @@ class MemoryGuardianEnterprise {
     }
 
     this.logEvent('info', 'cleanup', `Soft cleanup completed`, { action: 'soft', freedMB });
+    this.persistEventToDB('cleanup', 'info', undefined, 'soft', Math.max(0, freedMB), duration);
   }
 
   private aggressiveCleanup(): void {
@@ -350,6 +379,7 @@ class MemoryGuardianEnterprise {
     }
 
     this.logEvent('warn', 'cleanup', `Aggressive cleanup completed`, { action: 'aggressive', freedMB });
+    this.persistEventToDB('cleanup', 'warn', undefined, 'aggressive', Math.max(0, freedMB), duration);
   }
 
   private emergencyCleanup(): void {
@@ -388,6 +418,7 @@ class MemoryGuardianEnterprise {
     }
 
     this.logEvent('critical', 'cleanup', `Emergency cleanup completed`, { action: 'emergency', freedMB });
+    this.persistEventToDB('cleanup', 'critical', undefined, 'emergency', Math.max(0, freedMB), duration);
   }
 
   getStatus(): {
@@ -597,6 +628,225 @@ class MemoryGuardianEnterprise {
         : '100.00',
       targetMet: uptimePercent >= this.config.slaTargetUptime,
     };
+  }
+
+  // ============================================
+  // DB Persistence Methods
+  // ============================================
+
+  private async persistEventToDB(
+    eventType: string,
+    eventLevel: string,
+    previousState?: string,
+    cleanupType?: string,
+    freedMB?: number,
+    cleanupDurationMs?: number,
+    alertSeverity?: string,
+    alertMessage?: string
+  ): Promise<void> {
+    if (!this.dbPersistenceEnabled || !db) return;
+
+    try {
+      const status = this.getMemoryStatus();
+      await db.insert(memoryGuardianEvents).values({
+        eventType,
+        eventLevel,
+        heapUsedMB: status.heapUsedMB,
+        heapTotalMB: status.heapTotalMB,
+        heapRatio: parseFloat(status.ratio) / 100,
+        rssMB: status.rss,
+        externalMB: status.external,
+        previousState,
+        currentState: this.slaMetrics.currentState,
+        cleanupType,
+        freedMB,
+        cleanupDurationMs,
+        alertSeverity,
+        alertMessage,
+        consecutiveHighMemory: this.consecutiveHighMemory,
+        occurredAt: new Date(),
+      });
+    } catch (error) {
+      console.warn('[MEMORY-GUARDIAN] DB event persist failed:', error);
+    }
+  }
+
+  private async persistSlaToDB(): Promise<void> {
+    if (!this.dbPersistenceEnabled || !db) return;
+    if (Date.now() - this.lastSlaPersist < this.slaPersistInterval) return;
+
+    try {
+      const now = new Date();
+      const periodStart = new Date(this.lastSlaPersist || (this.startedAt || Date.now()));
+      const uptime = this.startedAt ? Date.now() - this.startedAt : 0;
+      const uptimePercent = uptime > 0 ? (uptime - this.slaMetrics.downtimeMs) / uptime * 100 : 100;
+      const healthyPercent = this.slaMetrics.totalChecks > 0 
+        ? this.slaMetrics.healthyChecks / this.slaMetrics.totalChecks * 100 
+        : 100;
+
+      const heapValues = this.trendHistory.map(t => t.heapUsedMB);
+      const avgHeap = heapValues.length > 0 ? heapValues.reduce((a, b) => a + b, 0) / heapValues.length : 0;
+      const maxHeap = heapValues.length > 0 ? Math.max(...heapValues) : 0;
+      const minHeap = heapValues.length > 0 ? Math.min(...heapValues) : 0;
+      const avgRatio = this.trendHistory.length > 0 
+        ? this.trendHistory.reduce((a, b) => a + b.ratio, 0) / this.trendHistory.length / 100
+        : 0;
+
+      await db.insert(memoryGuardianSlaSnapshots).values({
+        snapshotPeriod: 'hourly',
+        periodStart,
+        periodEnd: now,
+        totalChecks: this.slaMetrics.totalChecks,
+        healthyChecks: this.slaMetrics.healthyChecks,
+        warningChecks: this.slaMetrics.warningChecks,
+        criticalChecks: this.slaMetrics.criticalChecks,
+        emergencyChecks: this.slaMetrics.emergencyChecks,
+        uptimeMs: uptime,
+        downtimeMs: this.slaMetrics.downtimeMs,
+        uptimePercent,
+        healthyPercent,
+        slaTarget: this.config.slaTargetUptime,
+        slaTargetMet: uptimePercent >= this.config.slaTargetUptime,
+        softCleanups: this.cleanupStats.softCleanups,
+        aggressiveCleanups: this.cleanupStats.aggressiveCleanups,
+        emergencyCleanups: this.cleanupStats.emergencyCleanups,
+        gcTriggered: this.cleanupStats.gcTriggered,
+        totalFreedMB: this.cleanupStats.totalFreedMB,
+        avgHeapUsedMB: avgHeap,
+        maxHeapUsedMB: maxHeap,
+        minHeapUsedMB: minHeap,
+        avgHeapRatio: avgRatio,
+      });
+
+      this.lastSlaPersist = Date.now();
+      console.log('[MEMORY-GUARDIAN] 📊 SLA snapshot persisted to DB');
+    } catch (error) {
+      console.warn('[MEMORY-GUARDIAN] DB SLA persist failed:', error);
+    }
+  }
+
+  private async persistTrendToDB(): Promise<void> {
+    if (!this.dbPersistenceEnabled || !db) return;
+    if (Date.now() - this.lastTrendPersist < this.trendPersistInterval) return;
+
+    try {
+      const analysis = this.analyzeTrends();
+      const status = this.getMemoryStatus();
+
+      await db.insert(memoryGuardianTrends).values({
+        windowMinutes: this.config.trendWindowSize,
+        recordedAt: new Date(),
+        growthRateMBPerMin: analysis.growthRateMBPerMin,
+        estimatedTimeToWarningMs: analysis.estimatedTimeToWarning > 0 ? analysis.estimatedTimeToWarning : null,
+        estimatedTimeToCriticalMs: null,
+        volatility: analysis.volatility,
+        volatilityLevel: analysis.volatility < 10 ? 'low' : analysis.volatility < 30 ? 'medium' : 'high',
+        trendDirection: analysis.trend,
+        trendStrength: Math.min(Math.abs(analysis.growthRateMBPerMin) / 10, 1),
+        sampleCount: analysis.sampleCount,
+        currentHeapMB: status.heapUsedMB,
+        currentRatio: parseFloat(status.ratio) / 100,
+        currentState: this.slaMetrics.currentState,
+        predictedPeakMB: analysis.growthRateMBPerMin > 0 
+          ? status.heapUsedMB + (analysis.growthRateMBPerMin * 60)
+          : null,
+        confidenceScore: Math.min(analysis.sampleCount / this.config.trendWindowSize, 1),
+      });
+
+      this.lastTrendPersist = Date.now();
+    } catch (error) {
+      console.warn('[MEMORY-GUARDIAN] DB trend persist failed:', error);
+    }
+  }
+
+  private async persistPoolMetricsToDB(): Promise<void> {
+    if (!this.dbPersistenceEnabled || !db) return;
+    if (Date.now() - this.lastPoolMetricsPersist < this.poolMetricsPersistInterval) return;
+
+    try {
+      const now = new Date();
+      
+      const blockStats = blockPool.getDetailedStats();
+      await db.insert(objectPoolMetrics).values({
+        poolName: 'block',
+        recordedAt: now,
+        currentSize: blockStats.currentSize,
+        maxSize: blockStats.maxSize,
+        minSize: 10,
+        peakSize: blockStats.peakSize,
+        utilization: blockStats.maxSize > 0 ? (blockStats.currentSize / blockStats.maxSize) * 100 : 0,
+        acquireCount: blockStats.acquireCount,
+        releaseCount: blockStats.releaseCount,
+        createCount: blockStats.createCount,
+        evictCount: blockStats.evictCount,
+        hitCount: blockStats.hitCount,
+        missCount: blockStats.missCount,
+        hitRate: parseFloat(blockStats.acquireCount > 0 
+          ? ((blockStats.hitCount / blockStats.acquireCount) * 100).toFixed(1)
+          : '0'),
+        missRate: parseFloat(blockStats.acquireCount > 0 
+          ? ((blockStats.missCount / blockStats.acquireCount) * 100).toFixed(1)
+          : '0'),
+        totalWaitTimeMs: blockStats.totalWaitTimeMs,
+        avgWaitTimeMs: parseFloat(blockStats.acquireCount > 0 
+          ? (blockStats.totalWaitTimeMs / blockStats.acquireCount).toFixed(3)
+          : '0'),
+        efficiency: blockStats.acquireCount > 0 
+          ? (blockStats.hitCount / blockStats.acquireCount) * 100
+          : 0,
+        prewarmEvents: 0,
+        shrinkEvents: 0,
+      });
+
+      const txStats = txPool.getDetailedStats();
+      await db.insert(objectPoolMetrics).values({
+        poolName: 'transaction',
+        recordedAt: now,
+        currentSize: txStats.currentSize,
+        maxSize: txStats.maxSize,
+        minSize: 100,
+        peakSize: txStats.peakSize,
+        utilization: txStats.maxSize > 0 ? (txStats.currentSize / txStats.maxSize) * 100 : 0,
+        acquireCount: txStats.acquireCount,
+        releaseCount: txStats.releaseCount,
+        createCount: txStats.createCount,
+        evictCount: txStats.evictCount,
+        hitCount: txStats.hitCount,
+        missCount: txStats.missCount,
+        hitRate: parseFloat(txStats.acquireCount > 0 
+          ? ((txStats.hitCount / txStats.acquireCount) * 100).toFixed(1)
+          : '0'),
+        missRate: parseFloat(txStats.acquireCount > 0 
+          ? ((txStats.missCount / txStats.acquireCount) * 100).toFixed(1)
+          : '0'),
+        totalWaitTimeMs: txStats.totalWaitTimeMs,
+        avgWaitTimeMs: parseFloat(txStats.acquireCount > 0 
+          ? (txStats.totalWaitTimeMs / txStats.acquireCount).toFixed(3)
+          : '0'),
+        efficiency: txStats.acquireCount > 0 
+          ? (txStats.hitCount / txStats.acquireCount) * 100
+          : 0,
+        prewarmEvents: 0,
+        shrinkEvents: 0,
+      });
+
+      this.lastPoolMetricsPersist = Date.now();
+    } catch (error) {
+      console.warn('[MEMORY-GUARDIAN] DB pool metrics persist failed:', error);
+    }
+  }
+
+  async runPeriodicPersistence(): Promise<void> {
+    await Promise.all([
+      this.persistSlaToDB(),
+      this.persistTrendToDB(),
+      this.persistPoolMetricsToDB(),
+    ]);
+  }
+
+  setDbPersistenceEnabled(enabled: boolean): void {
+    this.dbPersistenceEnabled = enabled;
+    console.log(`[MEMORY-GUARDIAN] DB persistence ${enabled ? 'enabled' : 'disabled'}`);
   }
 }
 
