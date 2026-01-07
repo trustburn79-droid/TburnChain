@@ -5438,7 +5438,11 @@ export class TBurnEnterpriseNode extends EventEmitter {
     // 100ms block time with 5 phases (20ms each) - synchronized with ~200K TPS
     // Phase progression: Propose(0-20ms) → Prevote(20-40ms) → Precommit(40-60ms) → Commit(60-80ms) → Finalize(80-100ms)
     const blockAge = Date.now() % 100; // 100ms block cycle for high-performance consensus
-    const phase = blockAge < 20 ? 'propose' : (blockAge < 40 ? 'prevote' : (blockAge < 60 ? 'precommit' : 'commit'));
+    const phase = blockAge < 20 ? 'propose' 
+      : (blockAge < 40 ? 'prevote' 
+      : (blockAge < 60 ? 'precommit' 
+      : (blockAge < 80 ? 'commit' 
+      : 'finalize')));
     
     // Proposer from validator set
     const proposerIndex = roundNumber % committeeSize;
