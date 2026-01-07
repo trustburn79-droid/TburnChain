@@ -98,13 +98,66 @@ class RealtimeMetricsService {
   }
   
   /**
+   * ★ [ENTERPRISE TPS SYNC v2.0] 강제 DB 재로드 - 샤드 구성 변경 시 호출
+   * 
+   * 핵심 동작:
+   * 1. 모든 메모리 캐시 완전 초기화 (shardMetrics.clear())
+   * 2. DB에서만 샤드 데이터 로드 (합성 데이터 절대 사용 안함)
+   * 3. TPS = 실제 DB 샤드 수 × TPS_PER_SHARD
+   * 
+   * 호출 시점: /api/admin/shards/config 엔드포인트에서 샤드 수 변경 후
+   */
+  async forceReloadFromDB(newShardCount?: number): Promise<{ shardCount: number; totalTps: number }> {
+    console.log(`[RealtimeMetrics] 🔄 FORCE DB RELOAD - shardMetrics.clear() + fresh DB load`);
+    
+    // ★ [CRITICAL] 모든 캐시된 샤드 메트릭 완전 삭제
+    this.shardMetrics.clear();
+    this.currentTps = 0;
+    
+    try {
+      const shards = await storage.getAllShards();
+      const now = Date.now();
+      
+      if (shards && shards.length > 0) {
+        let totalTps = 0;
+        
+        for (const shard of shards) {
+          const shardId = shard.shardId ?? 0;
+          const shardTps = shard.tps || 0;
+          
+          this.shardMetrics.set(shardId, {
+            id: shardId,
+            tps: shardTps,
+            txCount: shard.transactionCount || 0,
+            lastUpdated: now
+          });
+          
+          totalTps += shardTps;
+        }
+        
+        this.currentTps = totalTps;
+        console.log(`[RealtimeMetrics] ✅ FORCE RELOAD complete: ${shards.length} shards, TPS: ${totalTps}`);
+        
+        return { shardCount: shards.length, totalTps };
+      } else {
+        console.warn('[RealtimeMetrics] ⚠️ No shards in DB after force reload');
+        return { shardCount: 0, totalTps: 0 };
+      }
+    } catch (error) {
+      console.error('[RealtimeMetrics] ❌ Force reload failed:', error);
+      return { shardCount: 0, totalTps: 0 };
+    }
+  }
+  
+  /**
    * ★ [TPS SYNC FIX] 샤드 데이터 즉시 갱신 - /admin/shards에서 호출
    * 샤드 수가 변경되면 TPS가 즉시 업데이트되어 모든 페이지에 반영됨
    */
   async refreshShardDataImmediately(): Promise<void> {
     console.log('[RealtimeMetrics] 🔄 Immediate shard refresh triggered');
     try {
-      await this.pollSecondaryData();
+      // ★ [v2.0] forceReloadFromDB() 사용으로 완전한 동기화 보장
+      await this.forceReloadFromDB();
       console.log(`[RealtimeMetrics] ✅ Immediate refresh complete - shards: ${this.shardMetrics.size}, TPS: ${this.currentTps}`);
     } catch (error) {
       console.error('[RealtimeMetrics] ❌ Immediate refresh failed:', error);

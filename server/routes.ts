@@ -10279,28 +10279,41 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
         }
       }
       
-      // Invalidate all shard-related caches immediately after successful update
+      // ★ [ENTERPRISE TPS SYNC v2.0] 완전한 동기화 체인
+      // 1단계: DB에 샤드 동기화 (삭제/생성/업데이트)
+      const newShardCount = result.config?.currentShardCount || shardCount;
+      const estimatedTps = newShardCount * 7000; // ~7,000 TPS per shard
+      
+      try {
+        console.log(`[TPS Sync] 📊 Step 1: Syncing ${newShardCount} shards to database...`);
+        await storage.syncShardsWithConfig(newShardCount, estimatedTps, []);
+        console.log(`[TPS Sync] ✅ Step 1 complete: DB now has ${newShardCount} shards`);
+      } catch (dbSyncError) {
+        console.error(`[TPS Sync] ❌ DB sync failed:`, dbSyncError);
+      }
+      
+      // 2단계: 모든 캐시 무효화
       const cache = getDataCache();
       cache.delete('shards_config');
       cache.delete('shards');
       cache.delete('sharding_data');
       cache.delete('network_stats');
       cache.delete('public_network_stats');
-      console.log(`[Cache] Invalidated shard caches after config update`);
+      console.log(`[TPS Sync] ✅ Step 2: All caches invalidated`);
       
-      // ★ [TPS SYNC CRITICAL] Invalidate internal TPS cache for /api/network/stats
+      // 3단계: TPS 계산 캐시 무효화
       if ((global as any).__invalidateTpsCache) {
         (global as any).__invalidateTpsCache();
       }
+      console.log(`[TPS Sync] ✅ Step 3: TPS calculation cache invalidated`);
       
-      // ★ [TPS SYNC FIX] 샤드 변경 시 RealtimeMetricsService 즉시 갱신
-      // 모든 페이지 (/, /app, /app/blocks, /scan, /rps, /vd)에서 TPS가 동기화됨
+      // 4단계: RealtimeMetrics 강제 DB 재로드 (완전 새로고침)
       try {
         const realtimeMetrics = getRealtimeMetricsService();
-        await realtimeMetrics.refreshShardDataImmediately();
-        console.log(`[TPS Sync] ✅ RealtimeMetricsService refreshed after shard config change`);
+        const reloadResult = await realtimeMetrics.forceReloadFromDB(newShardCount);
+        console.log(`[TPS Sync] ✅ Step 4: RealtimeMetrics reloaded - ${reloadResult.shardCount} shards, TPS: ${reloadResult.totalTps}`);
       } catch (syncError) {
-        console.error(`[TPS Sync] ⚠️ Failed to refresh RealtimeMetricsService:`, syncError);
+        console.error(`[TPS Sync] ⚠️ RealtimeMetrics reload failed:`, syncError);
       }
       
       // Broadcast shard configuration update to all connected clients
