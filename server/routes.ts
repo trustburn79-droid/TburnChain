@@ -10306,10 +10306,11 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       const cache = getDataCache();
       cache.delete('shards_config');
       cache.delete('shards');
+      cache.delete('shards:all'); // ★ CRITICAL: /api/shards 엔드포인트에서 사용하는 캐시 키
       cache.delete('sharding_data');
       cache.delete('network_stats');
       cache.delete('public_network_stats');
-      console.log(`[TPS Sync] ✅ Step 1: All caches invalidated`);
+      console.log(`[TPS Sync] ✅ Step 1: All caches invalidated (including shards:all)`);
       
       // 2단계: TPS 계산 캐시 무효화
       if ((global as any).__invalidateTpsCache) {
