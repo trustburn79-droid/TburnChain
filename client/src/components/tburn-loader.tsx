@@ -40,7 +40,10 @@ export function TBurnLoader({
 export function PageLoader() {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen w-full bg-background" data-testid="page-loader">
-      <TBurnLoader size="lg" message="Loading..." />
+      <div className="flex flex-col items-center gap-4">
+        <div className="w-16 h-16 border-4 border-primary border-t-transparent rounded-full animate-spin" />
+        <p className="text-lg font-medium text-foreground animate-pulse">Loading...</p>
+      </div>
     </div>
   );
 }

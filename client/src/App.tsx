@@ -371,7 +371,11 @@ function RootRouter() {
   }
   
   if (location.startsWith("/app")) {
-    return <AuthenticatedApp />;
+    return (
+      <Suspense fallback={<PageLoading />}>
+        <AuthenticatedApp />
+      </Suspense>
+    );
   }
   
   if (location === "/user" || location.startsWith("/user")) {

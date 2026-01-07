@@ -54,9 +54,10 @@ const NftMarketplaceStandalone = lazy(() => import("@/pages/nft-marketplace-stan
 const Brand = lazy(() => import("./pages/Brand"));
 
 function LoginPage() {
-  const [, setLocation] = useLocation();
   const handleLoginSuccess = () => {
-    setLocation("/app/dashboard");
+    const redirectUrl = sessionStorage.getItem("redirectAfterLogin") || "/app/dashboard";
+    sessionStorage.removeItem("redirectAfterLogin");
+    window.location.href = redirectUrl;
   };
   return <Login onLoginSuccess={handleLoginSuccess} />;
 }
