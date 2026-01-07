@@ -18,6 +18,7 @@
  */
 
 import { EventEmitter } from 'events';
+import { crashDiagnostics } from '../monitoring/crash-diagnostics';
 
 export type MemoryState = 'normal' | 'warning' | 'deferred' | 'hibernating' | 'critical';
 
@@ -406,6 +407,13 @@ export class MemoryGovernor extends EventEmitter {
   
   private triggerEmergencyActions(snapshot: MemorySnapshot): void {
     const now = Date.now();
+    
+    // CrashDiagnostics 연동: 메모리 경고 기록
+    crashDiagnostics.handleMemoryWarning();
+    crashDiagnostics.log(
+      `Memory emergency: ${snapshot.heapUsagePercent.toFixed(1)}% heap, state=${this.currentState}`,
+      'error'
+    );
     
     if (now - this.lastHibernationTime < this.config.hibernationCooldownMs) {
       return;

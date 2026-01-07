@@ -11,6 +11,7 @@ import { EventEmitter } from 'events';
 import { METRICS_CONFIG, detectHardwareProfile } from './metrics-config';
 import { metricsAggregator } from './metrics-aggregator';
 import { blockMemoryManager } from './block-memory-manager';
+import { crashDiagnostics } from '../monitoring/crash-diagnostics';
 import * as fs from 'fs';
 import * as path from 'path';
 
@@ -216,6 +217,14 @@ export class MemoryManager extends EventEmitter {
         `[MemoryManager] EMERGENCY - Heap: ${heapUsedMB.toFixed(0)}MB / ` +
         `${heapTotalMB.toFixed(0)}MB (${(ratio * 100).toFixed(1)}%)`
       );
+      
+      // CrashDiagnostics 연동: 긴급 상황 기록
+      crashDiagnostics.handleMemoryWarning();
+      crashDiagnostics.log(
+        `EMERGENCY: Heap ${heapUsedMB.toFixed(0)}MB / ${heapTotalMB.toFixed(0)}MB (${(ratio * 100).toFixed(1)}%)`,
+        'error'
+      );
+      
       this.emergencyCleanup();
       this.captureHeapSnapshot('emergency');
       this.emit('emergency', { heapUsedMB, heapTotalMB, ratio });
@@ -225,6 +234,14 @@ export class MemoryManager extends EventEmitter {
         `[MemoryManager] CRITICAL - Heap: ${heapUsedMB.toFixed(0)}MB / ` +
         `${heapTotalMB.toFixed(0)}MB (${(ratio * 100).toFixed(1)}%)`
       );
+      
+      // CrashDiagnostics 연동: 위험 상황 기록
+      crashDiagnostics.handleMemoryWarning();
+      crashDiagnostics.log(
+        `CRITICAL: Heap ${heapUsedMB.toFixed(0)}MB / ${heapTotalMB.toFixed(0)}MB (${(ratio * 100).toFixed(1)}%)`,
+        'warn'
+      );
+      
       this.aggressiveCleanup();
       this.emit('critical', { heapUsedMB, heapTotalMB, ratio });
     } else if (ratio > effectiveGcThreshold) {
