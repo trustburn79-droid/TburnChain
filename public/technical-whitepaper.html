@@ -1339,26 +1339,26 @@ TPS ≈ 210,000</code></pre>
         <tbody>
           <tr>
             <td><span class="highlight">Band 1</span></td>
-            <td>Gemini 3 Pro</td>
-            <td>Real-time monitoring, anomaly detection</td>
+            <td>Gemini</td>
+            <td data-i18n="ai.band1Function">Real-time monitoring, anomaly detection</td>
             <td>&lt;100ms</td>
           </tr>
           <tr>
             <td><span class="highlight">Band 2</span></td>
-            <td>Claude Sonnet 4.5</td>
-            <td>Governance analysis, compliance validation</td>
+            <td>Claude</td>
+            <td data-i18n="ai.band2Function">Governance analysis, compliance validation</td>
             <td>&lt;200ms</td>
           </tr>
           <tr>
             <td><span class="highlight">Band 3</span></td>
-            <td>GPT-4o</td>
-            <td>Burn optimization, tokenomics modeling</td>
+            <td>GPT</td>
+            <td data-i18n="ai.band3Function">Burn optimization, tokenomics modeling</td>
             <td>&lt;150ms</td>
           </tr>
           <tr>
             <td><span class="highlight">Band 4</span></td>
-            <td>Grok 3</td>
-            <td>Fallback, emergency response</td>
+            <td>Grok</td>
+            <td data-i18n="ai.band4Function">Fallback, emergency response</td>
             <td>&lt;100ms</td>
           </tr>
         </tbody>
@@ -1379,7 +1379,7 @@ TPS ≈ 210,000</code></pre>
         The AI system implements a fail-fast architecture with automatic fallback:
       </p>
       <pre><code>// AI Orchestration Fallback Chain
-Band 1 (Gemini) → Band 2 (Claude) → Band 3 (GPT-4o) → Band 4 (Grok)
+Band 1 (Gemini) → Band 2 (Claude) → Band 3 (GPT) → Band 4 (Grok)
 
 // Timeout Configuration
 Primary: 2000ms
@@ -1966,6 +1966,10 @@ Emergency: 1000ms</code></pre>
         "ai.modelHeader": "Model",
         "ai.primaryFunctionHeader": "Primary Function",
         "ai.latencyHeader": "Latency",
+        "ai.band1Function": "Real-time monitoring, anomaly detection",
+        "ai.band2Function": "Governance analysis, compliance validation",
+        "ai.band3Function": "Burn optimization, tokenomics modeling",
+        "ai.band4Function": "Fallback, emergency response",
         "ai.decisionCategories": "5.2 AI Decision Categories",
         "ai.adjustShards": "<strong>ADJUST_SHARDS:</strong> Dynamic shard count optimization",
         "ai.optimizeBurn": "<strong>OPTIMIZE_BURN:</strong> AI-driven burn rate adjustments",
@@ -2275,6 +2279,10 @@ Emergency: 1000ms</code></pre>
         "ai.modelHeader": "모델",
         "ai.primaryFunctionHeader": "주요 기능",
         "ai.latencyHeader": "지연 시간",
+        "ai.band1Function": "실시간 모니터링, 이상 탐지",
+        "ai.band2Function": "거버넌스 분석, 규정 준수 검증",
+        "ai.band3Function": "소각 최적화, 토크노믹스 모델링",
+        "ai.band4Function": "폴백, 비상 대응",
         "ai.decisionCategories": "5.2 AI 결정 카테고리",
         "ai.adjustShards": "<strong>ADJUST_SHARDS:</strong> 동적 샤드 수 최적화",
         "ai.optimizeBurn": "<strong>OPTIMIZE_BURN:</strong> AI 기반 소각률 조정",
@@ -2584,6 +2592,10 @@ Emergency: 1000ms</code></pre>
         "ai.modelHeader": "模型",
         "ai.primaryFunctionHeader": "主要功能",
         "ai.latencyHeader": "延迟",
+        "ai.band1Function": "实时监控、异常检测",
+        "ai.band2Function": "治理分析、合规验证",
+        "ai.band3Function": "销毁优化、代币经济建模",
+        "ai.band4Function": "备用、紧急响应",
         "ai.decisionCategories": "5.2 AI决策类别",
         "ai.adjustShards": "<strong>ADJUST_SHARDS:</strong> 动态分片数量优化",
         "ai.optimizeBurn": "<strong>OPTIMIZE_BURN:</strong> AI驱动的销毁率调整",
@@ -2891,6 +2903,10 @@ Emergency: 1000ms</code></pre>
         "ai.modelHeader": "モデル",
         "ai.primaryFunctionHeader": "主要機能",
         "ai.latencyHeader": "レイテンシ",
+        "ai.band1Function": "リアルタイム監視、異常検出",
+        "ai.band2Function": "ガバナンス分析、コンプライアンス検証",
+        "ai.band3Function": "バーン最適化、トークノミクスモデリング",
+        "ai.band4Function": "フォールバック、緊急対応",
         "ai.decisionCategories": "5.2 AI決定カテゴリ",
         "ai.adjustShards": "<strong>ADJUST_SHARDS:</strong> 動的シャード数最適化",
         "ai.optimizeBurn": "<strong>OPTIMIZE_BURN:</strong> AI駆動バーン率調整",
@@ -3198,6 +3214,10 @@ Emergency: 1000ms</code></pre>
         "ai.modelHeader": "Modelo",
         "ai.primaryFunctionHeader": "Función Principal",
         "ai.latencyHeader": "Latencia",
+        "ai.band1Function": "Monitoreo en tiempo real, detección de anomalías",
+        "ai.band2Function": "Análisis de gobernanza, validación de cumplimiento",
+        "ai.band3Function": "Optimización de quema, modelado de tokenomics",
+        "ai.band4Function": "Respaldo, respuesta de emergencia",
         "ai.decisionCategories": "5.2 Categorías de Decisión IA",
         "ai.adjustShards": "<strong>ADJUST_SHARDS:</strong> Optimización dinámica del número de fragmentos",
         "ai.optimizeBurn": "<strong>OPTIMIZE_BURN:</strong> Ajustes de tasa de quema impulsados por IA",
@@ -3505,6 +3525,10 @@ Emergency: 1000ms</code></pre>
         "ai.modelHeader": "Modèle",
         "ai.primaryFunctionHeader": "Fonction Principale",
         "ai.latencyHeader": "Latence",
+        "ai.band1Function": "Surveillance en temps réel, détection d'anomalies",
+        "ai.band2Function": "Analyse de gouvernance, validation de conformité",
+        "ai.band3Function": "Optimisation de burn, modélisation tokenomique",
+        "ai.band4Function": "Secours, réponse d'urgence",
         "ai.decisionCategories": "5.2 Catégories de Décision IA",
         "ai.adjustShards": "<strong>ADJUST_SHARDS :</strong> Optimisation dynamique du nombre de shards",
         "ai.optimizeBurn": "<strong>OPTIMIZE_BURN :</strong> Ajustements du taux de brûlage pilotés par IA",
@@ -3812,6 +3836,10 @@ Emergency: 1000ms</code></pre>
         "ai.modelHeader": "النموذج",
         "ai.primaryFunctionHeader": "الوظيفة الأساسية",
         "ai.latencyHeader": "التأخير",
+        "ai.band1Function": "المراقبة في الوقت الفعلي، كشف الشذوذ",
+        "ai.band2Function": "تحليل الحوكمة، التحقق من الامتثال",
+        "ai.band3Function": "تحسين الحرق، نمذجة الاقتصاد الرمزي",
+        "ai.band4Function": "الاحتياطي، الاستجابة للطوارئ",
         "ai.decisionCategories": "5.2 فئات قرار الذكاء الاصطناعي",
         "ai.adjustShards": "<strong>ADJUST_SHARDS:</strong> تحسين عدد الشظايا الديناميكي",
         "ai.optimizeBurn": "<strong>OPTIMIZE_BURN:</strong> تعديلات معدل الحرق المدفوعة بالذكاء الاصطناعي",
@@ -4119,6 +4147,10 @@ Emergency: 1000ms</code></pre>
         "ai.modelHeader": "मॉडल",
         "ai.primaryFunctionHeader": "प्राथमिक फ़ंक्शन",
         "ai.latencyHeader": "विलंबता",
+        "ai.band1Function": "रियल-टाइम मॉनिटरिंग, विसंगति पता लगाना",
+        "ai.band2Function": "गवर्नेंस विश्लेषण, अनुपालन सत्यापन",
+        "ai.band3Function": "बर्न ऑप्टिमाइज़ेशन, टोकनोमिक्स मॉडलिंग",
+        "ai.band4Function": "फ़ॉलबैक, आपातकालीन प्रतिक्रिया",
         "ai.decisionCategories": "5.2 AI निर्णय श्रेणियां",
         "ai.adjustShards": "<strong>ADJUST_SHARDS:</strong> डायनामिक शार्ड काउंट ऑप्टिमाइज़ेशन",
         "ai.optimizeBurn": "<strong>OPTIMIZE_BURN:</strong> AI-संचालित बर्न रेट एडजस्टमेंट",
@@ -4404,6 +4436,10 @@ Emergency: 1000ms</code></pre>
         "ai.modelHeader": "মডেল",
         "ai.primaryFunctionHeader": "প্রাথমিক ফাংশন",
         "ai.latencyHeader": "লেটেন্সি",
+        "ai.band1Function": "রিয়েল-টাইম মনিটরিং, অসঙ্গতি সনাক্তকরণ",
+        "ai.band2Function": "গভার্নেন্স বিশ্লেষণ, কমপ্লায়েন্স যাচাই",
+        "ai.band3Function": "বার্ন অপ্টিমাইজেশন, টোকেনোমিক্স মডেলিং",
+        "ai.band4Function": "ফলব্যাক, জরুরি প্রতিক্রিয়া",
         "ai.decisionCategories": "5.2 AI সিদ্ধান্ত বিভাগ",
         "ai.adjustShards": "<strong>ADJUST_SHARDS:</strong> ডায়নামিক শার্ড কাউন্ট অপ্টিমাইজেশন",
         "ai.optimizeBurn": "<strong>OPTIMIZE_BURN:</strong> AI-চালিত বার্ন রেট অ্যাডজাস্টমেন্ট",
@@ -4711,6 +4747,10 @@ Emergency: 1000ms</code></pre>
         "ai.modelHeader": "Модель",
         "ai.primaryFunctionHeader": "Основная функция",
         "ai.latencyHeader": "Задержка",
+        "ai.band1Function": "Мониторинг в реальном времени, обнаружение аномалий",
+        "ai.band2Function": "Анализ управления, проверка соответствия",
+        "ai.band3Function": "Оптимизация сжигания, моделирование токеномики",
+        "ai.band4Function": "Резервный, аварийное реагирование",
         "ai.decisionCategories": "5.2 Категории решений AI",
         "ai.adjustShards": "<strong>ADJUST_SHARDS:</strong> Динамическая оптимизация количества шардов",
         "ai.optimizeBurn": "<strong>OPTIMIZE_BURN:</strong> AI-управляемая корректировка скорости сжигания",
@@ -5018,6 +5058,10 @@ Emergency: 1000ms</code></pre>
         "ai.modelHeader": "Modelo",
         "ai.primaryFunctionHeader": "Função Principal",
         "ai.latencyHeader": "Latência",
+        "ai.band1Function": "Monitoramento em tempo real, detecção de anomalias",
+        "ai.band2Function": "Análise de governança, validação de conformidade",
+        "ai.band3Function": "Otimização de queima, modelagem de tokenomics",
+        "ai.band4Function": "Fallback, resposta de emergência",
         "ai.decisionCategories": "5.2 Categorias de Decisão IA",
         "ai.adjustShards": "<strong>ADJUST_SHARDS:</strong> Otimização dinâmica da contagem de fragmentos",
         "ai.optimizeBurn": "<strong>OPTIMIZE_BURN:</strong> Ajustes de taxa de queima orientados por IA",
@@ -5325,6 +5369,10 @@ Emergency: 1000ms</code></pre>
         "ai.modelHeader": "ماڈل",
         "ai.primaryFunctionHeader": "بنیادی فنکشن",
         "ai.latencyHeader": "لیٹینسی",
+        "ai.band1Function": "ریئل ٹائم مانیٹرنگ، غیر معمولی واقعات کا پتہ لگانا",
+        "ai.band2Function": "گورننس تجزیہ، تعمیل کی توثیق",
+        "ai.band3Function": "برن آپٹیمائزیشن، ٹوکنومکس ماڈلنگ",
+        "ai.band4Function": "فال بیک، ہنگامی ردعمل",
         "ai.decisionCategories": "5.2 AI فیصلے کے زمرے",
         "ai.adjustShards": "<strong>ADJUST_SHARDS:</strong> ڈائنامک شارڈ کاؤنٹ آپٹیمائزیشن",
         "ai.optimizeBurn": "<strong>OPTIMIZE_BURN:</strong> AI سے چلنے والی برن ریٹ ایڈجسٹمنٹس",
