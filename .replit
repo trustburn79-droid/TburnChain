@@ -63,6 +63,7 @@ NODE_MODE = "production"
 VITE_NODE_MODE = "production"
 ADMIN_EMAIL = "trustburn79@gmail.com"
 EMAIL_FROM = "TBURN Chain <noreply@tburn.io>"
+NODE_OPTIONS = "--max-old-space-size=8192"
 
 [userenv.production]
 NODE_ENV = "production"
