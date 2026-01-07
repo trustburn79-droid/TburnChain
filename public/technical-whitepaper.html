@@ -5646,8 +5646,10 @@ Emergency: 1000ms</code></pre>
 
     // Initialize on page load
     document.addEventListener('DOMContentLoaded', function() {
-      // Set initial language from localStorage, default to English
-      const savedLang = localStorage.getItem('techWhitepaperLang');
+      // Set initial language from localStorage, prioritize main app setting
+      const mainAppLang = localStorage.getItem('tburn-language');
+      const pageLang = localStorage.getItem('techWhitepaperLang');
+      const savedLang = mainAppLang || pageLang;
       const supportedLangs = Object.keys(translations);
       
       if (savedLang && supportedLangs.includes(savedLang)) {
