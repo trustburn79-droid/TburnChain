@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useRef } from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { useEnterpriseShards } from "@/hooks/use-enterprise-shards";
 import { Progress } from "@/components/ui/progress";
@@ -805,6 +805,10 @@ export default function Consensus() {
   const [searchQuery, setSearchQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState<string>("all");
   const [selectedTab, setSelectedTab] = useState("overview");
+  
+  // Track previous phase state to ensure forward-only progression (1→2→3→4→5)
+  const prevStateRef = useRef<{ blockHeight: number; phase: number }>({ blockHeight: 0, phase: 1 });
+  const [displayPhase, setDisplayPhase] = useState(1);
 
   const { 
     totalValidators: enterpriseValidators, 
@@ -827,6 +831,28 @@ export default function Consensus() {
     refetchIntervalInBackground: true, // Keep updating even when tab not focused
     retry: 1,
   });
+  
+  // Ensure phases progress forward only (1→2→3→4→5) and handle new block transitions
+  useEffect(() => {
+    if (!consensusState) return;
+    
+    const currentBlockHeight = consensusState.blockHeight || 0;
+    const currentPhase = consensusState.currentPhase || 1;
+    const prevBlock = prevStateRef.current.blockHeight;
+    const prevPhase = prevStateRef.current.phase;
+    
+    // New block started - reset to phase 1 and progress forward
+    if (currentBlockHeight > prevBlock) {
+      setDisplayPhase(currentPhase);
+      prevStateRef.current = { blockHeight: currentBlockHeight, phase: currentPhase };
+    }
+    // Same block - only allow forward phase progression (1→2→3→4→5)
+    else if (currentBlockHeight === prevBlock && currentPhase > prevPhase) {
+      setDisplayPhase(currentPhase);
+      prevStateRef.current.phase = currentPhase;
+    }
+    // Phase went backwards due to timing - skip this update (keep current display)
+  }, [consensusState]);
 
   useWebSocketChannel({
     channel: "consensus_state_update",
@@ -910,7 +936,29 @@ export default function Consensus() {
     return matchesSearch && matchesStatus;
   }), [rounds, searchQuery, statusFilter]);
 
-  const phases = consensusState?.phases || [];
+  // Use displayPhase for forward-only phase progression (1→2→3→4→5)
+  // This ensures UI shows phases in correct order even with network timing issues
+  const phases = useMemo(() => {
+    const rawPhases = consensusState?.phases || [];
+    if (rawPhases.length === 0) {
+      // Default phases when no data
+      return [
+        { number: 1, label: 'Propose', time: '20ms', status: 'pending' as const },
+        { number: 2, label: 'Pre-vote', time: '20ms', status: 'pending' as const },
+        { number: 3, label: 'Pre-commit', time: '20ms', status: 'pending' as const },
+        { number: 4, label: 'Commit', time: '20ms', status: 'pending' as const },
+        { number: 5, label: 'Finalize', time: '20ms', status: 'pending' as const },
+      ];
+    }
+    // Recalculate status based on displayPhase for smooth forward progression
+    return rawPhases.map(p => ({
+      ...p,
+      status: p.number < displayPhase ? 'completed' as const 
+        : p.number === displayPhase ? 'active' as const 
+        : 'pending' as const
+    }));
+  }, [consensusState?.phases, displayPhase]);
+  
   const currentRound = consensusState?.blockHeight || 0;
   const activePhase = phases.find(p => p.status === "active");
   const completedPhases = phases.filter(p => p.status === "completed").length;
