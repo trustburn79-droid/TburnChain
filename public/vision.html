@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -99,7 +99,6 @@
                         </svg>
                     </button>
                     <div id="langDropdown" class="hidden absolute right-0 mt-2 w-36 bg-gray-900 border border-gray-700 rounded-lg shadow-xl py-2 z-50 max-h-80 overflow-y-auto">
-                        <button onclick="setLanguage('ko')" class="w-full px-4 py-2 text-left text-sm text-gray-300 hover:bg-gray-800">🇰🇷 한국어</button>
                         <button onclick="setLanguage('en')" class="w-full px-4 py-2 text-left text-sm text-gray-300 hover:bg-gray-800">🇺🇸 English</button>
                         <button onclick="setLanguage('zh')" class="w-full px-4 py-2 text-left text-sm text-gray-300 hover:bg-gray-800">🇨🇳 中文</button>
                         <button onclick="setLanguage('ja')" class="w-full px-4 py-2 text-left text-sm text-gray-300 hover:bg-gray-800">🇯🇵 日本語</button>
@@ -111,6 +110,7 @@
                         <button onclick="setLanguage('ru')" class="w-full px-4 py-2 text-left text-sm text-gray-300 hover:bg-gray-800">🇷🇺 Русский</button>
                         <button onclick="setLanguage('pt')" class="w-full px-4 py-2 text-left text-sm text-gray-300 hover:bg-gray-800">🇧🇷 Português</button>
                         <button onclick="setLanguage('ur')" class="w-full px-4 py-2 text-left text-sm text-gray-300 hover:bg-gray-800">🇵🇰 اردو</button>
+                        <button onclick="setLanguage('ko')" class="w-full px-4 py-2 text-left text-sm text-gray-300 hover:bg-gray-800">🇰🇷 한국어</button>
                     </div>
                 </div>
 
@@ -1398,7 +1398,7 @@
             }
         };
 
-        let currentLang = localStorage.getItem('vision-language') || 'ko';
+        let currentLang = localStorage.getItem('vision-language') || 'en';
 
         function toggleLangDropdown() {
             const dropdown = document.getElementById('langDropdown');
