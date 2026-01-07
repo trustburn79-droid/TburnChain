@@ -1,12 +1,18 @@
+import { useState } from "react";
 import { 
   Users, TrendingUp, Crown, GitBranch, ArrowRight, Trophy, Medal,
   CheckCircle, Code, Book, Shield, Megaphone, Vote, MessageSquare,
-  Eye, Heart, Pin, Flame, Loader2, AlertTriangle
+  Eye, Heart, Pin, Flame, Loader2, AlertTriangle, X, Send
 } from "lucide-react";
 import { SiDiscord, SiTelegram, SiX, SiGithub } from "react-icons/si";
 import { Link } from "wouter";
 import { useTranslation } from "react-i18next";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useMutation } from "@tanstack/react-query";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { useToast } from "@/hooks/use-toast";
 
 interface PostData {
   id: string;
@@ -45,8 +51,57 @@ const categoryColors: Record<string, string> = {
 
 export default function CommunityHub() {
   const { t, i18n } = useTranslation();
+  const { toast } = useToast();
+  const [ambassadorModalOpen, setAmbassadorModalOpen] = useState(false);
+  const [ambassadorForm, setAmbassadorForm] = useState({
+    name: "",
+    email: "",
+    telegram: "",
+    twitter: "",
+    reason: "",
+  });
 
   const currentLang = i18n.language;
+
+  const ambassadorMutation = useMutation({
+    mutationFn: async (data: typeof ambassadorForm) => {
+      const response = await fetch('/api/community/ambassador-application', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+      if (!response.ok) throw new Error('Failed to submit application');
+      return response.json();
+    },
+    onSuccess: () => {
+      toast({
+        title: t('publicPages.community.hub.ambassador.successTitle'),
+        description: t('publicPages.community.hub.ambassador.successMessage'),
+      });
+      setAmbassadorModalOpen(false);
+      setAmbassadorForm({ name: "", email: "", telegram: "", twitter: "", reason: "" });
+    },
+    onError: () => {
+      toast({
+        title: t('publicPages.community.hub.ambassador.errorTitle'),
+        description: t('publicPages.community.hub.ambassador.errorMessage'),
+        variant: "destructive",
+      });
+    },
+  });
+
+  const handleAmbassadorSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!ambassadorForm.name || !ambassadorForm.email || !ambassadorForm.reason) {
+      toast({
+        title: t('publicPages.community.hub.ambassador.validationError'),
+        description: t('publicPages.community.hub.ambassador.requiredFields'),
+        variant: "destructive",
+      });
+      return;
+    }
+    ambassadorMutation.mutate(ambassadorForm);
+  };
 
   const { data: posts, isLoading: postsLoading } = useQuery<PostData[]>({
     queryKey: ['/api/community/posts'],
@@ -458,14 +513,13 @@ export default function CommunityHub() {
                 ))}
               </div>
 
-              <Link href="/community/hub">
-                <button 
-                  className="w-full py-3 rounded-lg bg-[#7000ff] text-white font-bold hover:bg-purple-600 transition shadow-[0_0_15px_rgba(112,0,255,0.3)]"
-                  data-testid="button-apply-ambassador"
-                >
-                  {t('publicPages.community.hub.ambassador.applyButton')}
-                </button>
-              </Link>
+              <button 
+                onClick={() => setAmbassadorModalOpen(true)}
+                className="w-full py-3 rounded-lg bg-[#7000ff] text-white font-bold hover:bg-purple-600 transition shadow-[0_0_15px_rgba(112,0,255,0.3)]"
+                data-testid="button-apply-ambassador"
+              >
+                {t('publicPages.community.hub.ambassador.applyButton')}
+              </button>
             </div>
           </div>
         </div>
@@ -527,6 +581,115 @@ export default function CommunityHub() {
           </div>
         </div>
       </section>
+
+      {/* Ambassador Application Modal */}
+      <Dialog open={ambassadorModalOpen} onOpenChange={setAmbassadorModalOpen}>
+        <DialogContent className="sm:max-w-[500px] bg-white dark:bg-[#0a0a14] border border-gray-200 dark:border-[#7000ff]/30">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-3 text-xl">
+              <Medal className="w-6 h-6 text-[#7000ff]" />
+              <span className="text-gray-900 dark:text-white">{t('publicPages.community.hub.ambassador.modalTitle')}</span>
+            </DialogTitle>
+            <DialogDescription className="text-gray-600 dark:text-gray-400">
+              {t('publicPages.community.hub.ambassador.modalDescription')}
+            </DialogDescription>
+          </DialogHeader>
+          
+          <form onSubmit={handleAmbassadorSubmit} className="space-y-4 mt-4">
+            <div className="space-y-2">
+              <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                {t('publicPages.community.hub.ambassador.form.name')} <span className="text-red-500">*</span>
+              </label>
+              <Input
+                value={ambassadorForm.name}
+                onChange={(e) => setAmbassadorForm({ ...ambassadorForm, name: e.target.value })}
+                placeholder={t('publicPages.community.hub.ambassador.form.namePlaceholder')}
+                className="bg-gray-50 dark:bg-white/5 border-gray-200 dark:border-white/10"
+                data-testid="input-ambassador-name"
+              />
+            </div>
+            
+            <div className="space-y-2">
+              <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                {t('publicPages.community.hub.ambassador.form.email')} <span className="text-red-500">*</span>
+              </label>
+              <Input
+                type="email"
+                value={ambassadorForm.email}
+                onChange={(e) => setAmbassadorForm({ ...ambassadorForm, email: e.target.value })}
+                placeholder={t('publicPages.community.hub.ambassador.form.emailPlaceholder')}
+                className="bg-gray-50 dark:bg-white/5 border-gray-200 dark:border-white/10"
+                data-testid="input-ambassador-email"
+              />
+            </div>
+            
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                  {t('publicPages.community.hub.ambassador.form.telegram')}
+                </label>
+                <Input
+                  value={ambassadorForm.telegram}
+                  onChange={(e) => setAmbassadorForm({ ...ambassadorForm, telegram: e.target.value })}
+                  placeholder="@username"
+                  className="bg-gray-50 dark:bg-white/5 border-gray-200 dark:border-white/10"
+                  data-testid="input-ambassador-telegram"
+                />
+              </div>
+              <div className="space-y-2">
+                <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                  {t('publicPages.community.hub.ambassador.form.twitter')}
+                </label>
+                <Input
+                  value={ambassadorForm.twitter}
+                  onChange={(e) => setAmbassadorForm({ ...ambassadorForm, twitter: e.target.value })}
+                  placeholder="@username"
+                  className="bg-gray-50 dark:bg-white/5 border-gray-200 dark:border-white/10"
+                  data-testid="input-ambassador-twitter"
+                />
+              </div>
+            </div>
+            
+            <div className="space-y-2">
+              <label className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                {t('publicPages.community.hub.ambassador.form.reason')} <span className="text-red-500">*</span>
+              </label>
+              <Textarea
+                value={ambassadorForm.reason}
+                onChange={(e) => setAmbassadorForm({ ...ambassadorForm, reason: e.target.value })}
+                placeholder={t('publicPages.community.hub.ambassador.form.reasonPlaceholder')}
+                className="bg-gray-50 dark:bg-white/5 border-gray-200 dark:border-white/10 min-h-[100px]"
+                data-testid="input-ambassador-reason"
+              />
+            </div>
+            
+            <div className="flex gap-3 pt-4">
+              <Button
+                type="button"
+                variant="outline"
+                onClick={() => setAmbassadorModalOpen(false)}
+                className="flex-1"
+                data-testid="button-ambassador-cancel"
+              >
+                {t('publicPages.community.hub.ambassador.form.cancel')}
+              </Button>
+              <Button
+                type="submit"
+                disabled={ambassadorMutation.isPending}
+                className="flex-1 bg-[#7000ff] hover:bg-purple-600 text-white"
+                data-testid="button-ambassador-submit"
+              >
+                {ambassadorMutation.isPending ? (
+                  <Loader2 className="w-4 h-4 animate-spin mr-2" />
+                ) : (
+                  <Send className="w-4 h-4 mr-2" />
+                )}
+                {t('publicPages.community.hub.ambassador.form.submit')}
+              </Button>
+            </div>
+          </form>
+        </DialogContent>
+      </Dialog>
     </main>
   );
 }

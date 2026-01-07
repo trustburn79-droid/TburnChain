@@ -14996,6 +14996,26 @@
             "earlyAccess": "신기능 조기 액세스",
             "nftBadge": "공식 NFT 배지 및 굿즈",
             "directChannel": "팀 직접 소통 채널"
+          },
+          "modalTitle": "앰배서더 신청",
+          "modalDescription": "TBURN 글로벌 앰배서더 프로그램에 참여하여 생태계 성장에 기여하세요. 아래 양식을 작성하여 신청해 주세요.",
+          "successTitle": "신청 완료!",
+          "successMessage": "TBURN 앰배서더 신청이 접수되었습니다. 5-7일 이내에 검토 후 연락드리겠습니다.",
+          "errorTitle": "신청 실패",
+          "errorMessage": "신청서 제출 중 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.",
+          "validationError": "필수 정보 누락",
+          "requiredFields": "필수 항목(이름, 이메일, 지원 동기)을 모두 입력해 주세요.",
+          "form": {
+            "name": "이름",
+            "namePlaceholder": "이름을 입력하세요",
+            "email": "이메일 주소",
+            "emailPlaceholder": "your@email.com",
+            "telegram": "텔레그램",
+            "twitter": "트위터/X",
+            "reason": "앰배서더에 지원하는 이유",
+            "reasonPlaceholder": "TBURN에 대한 경험과 왜 훌륭한 앰배서더가 될 수 있는지 알려주세요...",
+            "cancel": "취소",
+            "submit": "신청서 제출"
           }
         },
         "ambassadorProgram": {

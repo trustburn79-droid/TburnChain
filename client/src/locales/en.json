@@ -14710,6 +14710,26 @@
             "earlyAccess": "Early access to new features",
             "nftBadge": "Official NFT Badge & Swag",
             "directChannel": "Direct team communication channel"
+          },
+          "modalTitle": "Ambassador Application",
+          "modalDescription": "Join our global ambassador program and help grow the TBURN ecosystem. Fill out the form below to apply.",
+          "successTitle": "Application Submitted!",
+          "successMessage": "Thank you for applying to become a TBURN Ambassador. We will review your application and get back to you within 5-7 business days.",
+          "errorTitle": "Submission Failed",
+          "errorMessage": "There was an error submitting your application. Please try again later.",
+          "validationError": "Missing Information",
+          "requiredFields": "Please fill in all required fields (Name, Email, and Reason).",
+          "form": {
+            "name": "Full Name",
+            "namePlaceholder": "Enter your full name",
+            "email": "Email Address",
+            "emailPlaceholder": "your@email.com",
+            "telegram": "Telegram",
+            "twitter": "Twitter/X",
+            "reason": "Why do you want to be an Ambassador?",
+            "reasonPlaceholder": "Tell us about your experience with TBURN and why you would be a great ambassador...",
+            "cancel": "Cancel",
+            "submit": "Submit Application"
           }
         },
         "ambassadorProgram": {

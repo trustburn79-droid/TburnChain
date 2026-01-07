@@ -1198,6 +1198,51 @@ router.get("/activity-log", async (req: Request, res: Response) => {
   }
 });
 
+router.post("/ambassador-application", async (req: Request, res: Response) => {
+  try {
+    const { name, email, telegram, twitter, reason } = req.body;
+    
+    if (!name || !email || !reason) {
+      return res.status(400).json({ error: "Missing required fields: name, email, reason" });
+    }
+    
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      return res.status(400).json({ error: "Invalid email format" });
+    }
+    
+    const applicationId = `AMB-${Date.now()}-${Math.random().toString(36).substr(2, 9).toUpperCase()}`;
+    
+    const application = {
+      id: applicationId,
+      name,
+      email,
+      telegram: telegram || null,
+      twitter: twitter || null,
+      reason,
+      status: 'pending',
+      submittedAt: new Date().toISOString(),
+    };
+    
+    console.log(`[Community] Ambassador application received: ${applicationId}`, { name, email });
+    
+    broadcastToAll('ambassador_application', { 
+      id: applicationId,
+      name,
+      submittedAt: application.submittedAt 
+    });
+    
+    res.status(201).json({ 
+      success: true, 
+      applicationId,
+      message: "Application submitted successfully" 
+    });
+  } catch (error) {
+    console.error("[Community] Error processing ambassador application:", error);
+    res.status(500).json({ error: "Failed to submit application" });
+  }
+});
+
 export function registerCommunityRoutes(app: any) {
   app.use("/api/community", router);
   console.log("[Community] Routes registered with database persistence");
