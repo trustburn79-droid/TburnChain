@@ -88,7 +88,7 @@ export default function CrossShard() {
     placeholderData: keepPreviousData,
   });
 
-  const { data: shards, isLoading: shardsLoading } = useQuery<Shard[]>({
+  const { data: shardsRaw, isLoading: shardsLoading } = useQuery<Shard[]>({
     queryKey: ["/api/shards"],
     refetchInterval: 5000,
     staleTime: 5000,
@@ -97,6 +97,33 @@ export default function CrossShard() {
     retry: 3,
     placeholderData: keepPreviousData,
   });
+
+  // CRITICAL: Fetch real-time TPS from /api/sharding (same source as /admin/shards)
+  const { data: realtimeSharding } = useQuery<{ shards: Array<{ id: number; tps: number; load: number }> }>({
+    queryKey: ["/api/sharding"],
+    refetchInterval: 5000,
+    staleTime: 5000,
+    refetchOnMount: true,
+    refetchOnWindowFocus: false,
+  });
+
+  // Merge real-time TPS data from /api/sharding into /api/shards data
+  const shards = useMemo(() => {
+    if (!shardsRaw) return undefined;
+    if (!realtimeSharding?.shards) return shardsRaw;
+    
+    return shardsRaw.map(shard => {
+      const realtimeShard = realtimeSharding.shards.find(rs => rs.id === shard.shardId);
+      if (realtimeShard) {
+        return {
+          ...shard,
+          tps: realtimeShard.tps,
+          load: realtimeShard.load,
+        };
+      }
+      return shard;
+    });
+  }, [shardsRaw, realtimeSharding]);
 
   useWebSocketChannel({
     channel: "cross_shard_snapshot",

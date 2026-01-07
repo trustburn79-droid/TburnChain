@@ -598,7 +598,7 @@ function ContractStatsDialog({
               <CardContent className="pt-4">
                 <div className="grid grid-cols-4 gap-4 text-center">
                   <div>
-                    <div className="text-2xl font-bold text-green-600">{formatTokenAmount(totalTVLWei.toString())}</div>
+                    <div className="text-2xl font-bold text-green-600">{formatTokenAmount(String(totalTVLWei ?? BigInt(0)))}</div>
                     <div className="text-xs text-muted-foreground">{t('smartContracts.totalTvl')}</div>
                   </div>
                   <div>
@@ -911,13 +911,24 @@ export default function SmartContracts() {
   const verifiedContracts = contracts?.filter(c => c.verified).length || 0;
   const totalContracts = contracts?.length || 0;
   const totalInteractions = contracts?.reduce((sum, c) => sum + c.transactionCount, 0) || 0;
-  const totalTVLWei = contracts?.reduce((sum, c) => {
-    try {
-      return sum + BigInt(c.balance || "0");
-    } catch {
-      return sum;
+  // Safe TVL calculation with defensive guards
+  const totalTVLWei: bigint = useMemo(() => {
+    if (!contracts || !Array.isArray(contracts) || contracts.length === 0) {
+      return BigInt(0);
     }
-  }, BigInt(0)) || BigInt(0);
+    try {
+      return contracts.reduce((sum, c) => {
+        if (!c || !c.balance) return sum;
+        try {
+          return sum + BigInt(c.balance);
+        } catch {
+          return sum;
+        }
+      }, BigInt(0));
+    } catch {
+      return BigInt(0);
+    }
+  }, [contracts]);
 
   const filteredContracts = useMemo(() => {
     if (!contracts) return [];
@@ -1128,7 +1139,7 @@ export default function SmartContracts() {
                     <DollarSign className="h-4 w-4 text-green-500" />
                   </CardHeader>
                   <CardContent>
-                    <div className="text-2xl font-semibold tabular-nums">{formatTokenAmount(totalTVLWei.toString())}</div>
+                    <div className="text-2xl font-semibold tabular-nums">{formatTokenAmount(String(totalTVLWei ?? BigInt(0)))}</div>
                     <div className="text-xs text-muted-foreground flex items-center gap-1 mt-1">
                       <ArrowUpRight className="h-3 w-3 text-green-500" />
                       +15.2% {t('smartContracts.weeklyChange')}

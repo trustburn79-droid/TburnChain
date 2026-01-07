@@ -100,9 +100,10 @@ export function formatNumber(num: number | string | null | undefined): string {
   return n.toLocaleString();
 }
 
-export function formatTokenAmount(amount: string | number, decimals = 18, symbol = 'TBURN'): string {
+export function formatTokenAmount(amount: string | number | bigint | null | undefined, decimals = 18, symbol = 'TBURN'): string {
   try {
-    const amountStr = amount.toString();
+    if (amount == null) return `0 ${symbol}`;
+    const amountStr = String(amount);
     
     // If it contains decimal point or scientific notation, parse as float
     if (amountStr.includes('.') || amountStr.includes('e') || amountStr.includes('E')) {
@@ -126,7 +127,8 @@ export function formatTokenAmount(amount: string | number, decimals = 18, symbol
     return `${whole.toLocaleString()}.${trimmedFraction} ${symbol}`;
   } catch (error) {
     // Fallback for any parsing errors
-    const num = typeof amount === 'number' ? amount : parseFloat(amount.toString());
+    if (amount == null) return `0 ${symbol}`;
+    const num = typeof amount === 'number' ? amount : parseFloat(String(amount));
     if (isNaN(num)) return `0 ${symbol}`;
     return `${num.toLocaleString(undefined, { maximumFractionDigits: 4 })} ${symbol}`;
   }

@@ -62,7 +62,7 @@ export default function Sharding() {
   const [searchQuery, setSearchQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
 
-  const { data: shards, isLoading: shardsLoading } = useQuery<Shard[]>({
+  const { data: shardsRaw, isLoading: shardsLoading } = useQuery<Shard[]>({
     queryKey: ["/api/shards"],
     refetchInterval: 5000,
     staleTime: 5000,
@@ -71,6 +71,33 @@ export default function Sharding() {
     retry: 3,
     placeholderData: keepPreviousData,
   });
+
+  // CRITICAL: Fetch real-time TPS from /api/sharding (same source as /admin/shards)
+  const { data: realtimeSharding } = useQuery<{ shards: Array<{ id: number; tps: number; load: number }> }>({
+    queryKey: ["/api/sharding"],
+    refetchInterval: 5000,
+    staleTime: 5000,
+    refetchOnMount: true,
+    refetchOnWindowFocus: false,
+  });
+
+  // Merge real-time TPS data from /api/sharding into /api/shards data
+  const shards = useMemo(() => {
+    if (!shardsRaw) return undefined;
+    if (!realtimeSharding?.shards) return shardsRaw;
+    
+    return shardsRaw.map(shard => {
+      const realtimeShard = realtimeSharding.shards.find(rs => rs.id === shard.shardId);
+      if (realtimeShard) {
+        return {
+          ...shard,
+          tps: realtimeShard.tps,
+          load: realtimeShard.load,
+        };
+      }
+      return shard;
+    });
+  }, [shardsRaw, realtimeSharding]);
 
   const { data: messages, isLoading: messagesLoading } = useQuery<CrossShardMessage[]>({
     queryKey: ["/api/cross-shard/messages"],
