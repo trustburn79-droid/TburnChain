@@ -5367,7 +5367,23 @@
           ]
         }
       }
-    }
+    },
+    "quickActions": "त्वरित कार्य",
+    "swap": "स्वैप",
+    "stake": "स्टेक",
+    "send": "भेजें",
+    "swapSuccess": "स्वैप सफल",
+    "swapDesc": "TBURN को USDT में बदला गया",
+    "stakeSuccess": "स्टेकिंग शुरू",
+    "stakeDesc": "12.5% APY पर TBURN स्टेकिंग",
+    "transferSuccess": "स्थानांतरण पूर्ण",
+    "transferDesc": "TBURN भेजा गया",
+    "insufficientBalance": "अपर्याप्त शेष",
+    "insufficientBalanceDesc": "TBURN पर्याप्त नहीं। जारी रखने के लिए वॉलेट रीसेट करें।",
+    "tourStep": "चरण",
+    "previous": "पिछला",
+    "next": "अगला",
+    "finish": "समाप्त"
   },
   "publicPages": {
     "common": {

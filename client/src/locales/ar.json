@@ -4890,7 +4890,23 @@
           ]
         }
       }
-    }
+    },
+    "quickActions": "إجراءات سريعة",
+    "swap": "تبديل",
+    "stake": "مراهنة",
+    "send": "إرسال",
+    "swapSuccess": "تم التبديل بنجاح",
+    "swapDesc": "تم تبديل TBURN بـ USDT",
+    "stakeSuccess": "بدء المراهنة",
+    "stakeDesc": "TBURN في المراهنة بنسبة 12.5% APY",
+    "transferSuccess": "تم التحويل",
+    "transferDesc": "تم إرسال TBURN",
+    "insufficientBalance": "رصيد غير كافٍ",
+    "insufficientBalanceDesc": "TBURN غير كافٍ. أعد ضبط المحفظة للمتابعة.",
+    "tourStep": "خطوة",
+    "previous": "السابق",
+    "next": "التالي",
+    "finish": "إنهاء"
   },
   "publicPages": {
     "common": {

@@ -7596,7 +7596,23 @@
           ]
         }
       }
-    }
+    },
+    "quickActions": "빠른 작업",
+    "swap": "스왑",
+    "stake": "스테이킹",
+    "send": "전송",
+    "swapSuccess": "스왑 완료",
+    "swapDesc": "TBURN을 USDT로 교환했습니다",
+    "stakeSuccess": "스테이킹 시작",
+    "stakeDesc": "12.5% APY로 TBURN 스테이킹 시작",
+    "transferSuccess": "전송 완료",
+    "transferDesc": "TBURN을 전송했습니다",
+    "insufficientBalance": "잔액 부족",
+    "insufficientBalanceDesc": "TBURN이 부족합니다. 지갑을 초기화하세요.",
+    "tourStep": "단계",
+    "previous": "이전",
+    "next": "다음",
+    "finish": "완료"
   },
   "publicPages": {
     "common": {

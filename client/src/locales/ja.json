@@ -7519,7 +7519,23 @@
           ]
         }
       }
-    }
+    },
+    "quickActions": "クイックアクション",
+    "swap": "スワップ",
+    "stake": "ステーキング",
+    "send": "送金",
+    "swapSuccess": "スワップ完了",
+    "swapDesc": "TBURNをUSDTに交換しました",
+    "stakeSuccess": "ステーキング開始",
+    "stakeDesc": "12.5% APYでTBURNをステーキング",
+    "transferSuccess": "送金完了",
+    "transferDesc": "TBURNを送金しました",
+    "insufficientBalance": "残高不足",
+    "insufficientBalanceDesc": "TBURNが不足しています。ウォレットをリセットしてください。",
+    "tourStep": "ステップ",
+    "previous": "前へ",
+    "next": "次へ",
+    "finish": "完了"
   },
   "publicPages": {
     "common": {

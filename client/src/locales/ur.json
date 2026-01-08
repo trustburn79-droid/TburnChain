@@ -3198,7 +3198,23 @@
           ]
         }
       }
-    }
+    },
+    "quickActions": "فوری اقدامات",
+    "swap": "تبادلہ",
+    "stake": "سٹیک",
+    "send": "بھیجیں",
+    "swapSuccess": "تبادلہ کامیاب",
+    "swapDesc": "TBURN کو USDT میں تبدیل کیا گیا",
+    "stakeSuccess": "سٹیکنگ شروع",
+    "stakeDesc": "12.5% APY پر TBURN سٹیکنگ",
+    "transferSuccess": "منتقلی مکمل",
+    "transferDesc": "TBURN بھیجا گیا",
+    "insufficientBalance": "ناکافی بیلنس",
+    "insufficientBalanceDesc": "TBURN کافی نہیں۔ جاری رکھنے کیلئے والیٹ ری سیٹ کریں۔",
+    "tourStep": "قدم",
+    "previous": "پچھلا",
+    "next": "اگلا",
+    "finish": "ختم"
   },
   "publicPages": {
     "common": {

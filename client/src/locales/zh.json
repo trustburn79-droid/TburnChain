@@ -6856,7 +6856,23 @@
           ]
         }
       }
-    }
+    },
+    "quickActions": "快速操作",
+    "swap": "兑换",
+    "stake": "质押",
+    "send": "发送",
+    "swapSuccess": "兑换成功",
+    "swapDesc": "已将TBURN兑换为USDT",
+    "stakeSuccess": "质押已启动",
+    "stakeDesc": "以12.5% APY质押TBURN",
+    "transferSuccess": "转账完成",
+    "transferDesc": "已发送TBURN",
+    "insufficientBalance": "余额不足",
+    "insufficientBalanceDesc": "TBURN不足，请重置钱包继续。",
+    "tourStep": "步骤",
+    "previous": "上一步",
+    "next": "下一步",
+    "finish": "完成"
   },
   "publicPages": {
     "common": {

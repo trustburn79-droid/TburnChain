@@ -4373,7 +4373,23 @@
           ]
         }
       }
-    }
+    },
+    "quickActions": "Быстрые Действия",
+    "swap": "Обмен",
+    "stake": "Стейкинг",
+    "send": "Отправить",
+    "swapSuccess": "Обмен Выполнен",
+    "swapDesc": "TBURN обменян на USDT",
+    "stakeSuccess": "Стейкинг Начат",
+    "stakeDesc": "TBURN в стейкинге под 12.5% APY",
+    "transferSuccess": "Перевод Завершён",
+    "transferDesc": "TBURN отправлен",
+    "insufficientBalance": "Недостаточно Средств",
+    "insufficientBalanceDesc": "Недостаточно TBURN. Сбросьте кошелёк для продолжения.",
+    "tourStep": "Шаг",
+    "previous": "Назад",
+    "next": "Далее",
+    "finish": "Готово"
   },
   "publicPages": {
     "common": {

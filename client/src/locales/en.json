@@ -7652,7 +7652,23 @@
           ]
         }
       }
-    }
+    },
+    "quickActions": "Quick Actions",
+    "swap": "Swap",
+    "stake": "Stake",
+    "send": "Send",
+    "swapSuccess": "Swap Successful",
+    "swapDesc": "Swapped TBURN for USDT",
+    "stakeSuccess": "Staking Initiated",
+    "stakeDesc": "Staked TBURN at 12.5% APY",
+    "transferSuccess": "Transfer Complete",
+    "transferDesc": "Sent TBURN to destination",
+    "insufficientBalance": "Insufficient Balance",
+    "insufficientBalanceDesc": "Not enough TBURN. Reset wallet to continue.",
+    "tourStep": "Step",
+    "previous": "Previous",
+    "next": "Next",
+    "finish": "Finish"
   },
   "publicPages": {
     "common": {

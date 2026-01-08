@@ -3198,7 +3198,23 @@
           ]
         }
       }
-    }
+    },
+    "quickActions": "দ্রুত কার্যক্রম",
+    "swap": "সোয়াপ",
+    "stake": "স্টেক",
+    "send": "পাঠান",
+    "swapSuccess": "সোয়াপ সফল",
+    "swapDesc": "TBURN কে USDT তে রূপান্তরিত করা হয়েছে",
+    "stakeSuccess": "স্টেকিং শুরু",
+    "stakeDesc": "12.5% APY তে TBURN স্টেকিং",
+    "transferSuccess": "স্থানান্তর সম্পূর্ণ",
+    "transferDesc": "TBURN পাঠানো হয়েছে",
+    "insufficientBalance": "অপর্যাপ্ত ব্যালেন্স",
+    "insufficientBalanceDesc": "TBURN পর্যাপ্ত নয়। চালিয়ে যেতে ওয়ালেট রিসেট করুন।",
+    "tourStep": "ধাপ",
+    "previous": "পূর্ববর্তী",
+    "next": "পরবর্তী",
+    "finish": "শেষ"
   },
   "publicPages": {
     "common": {

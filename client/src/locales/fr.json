@@ -4676,7 +4676,23 @@
           ]
         }
       }
-    }
+    },
+    "quickActions": "Actions Rapides",
+    "swap": "Échanger",
+    "stake": "Staker",
+    "send": "Envoyer",
+    "swapSuccess": "Échange Réussi",
+    "swapDesc": "TBURN échangé contre USDT",
+    "stakeSuccess": "Staking Initié",
+    "stakeDesc": "TBURN en staking à 12.5% APY",
+    "transferSuccess": "Transfert Terminé",
+    "transferDesc": "TBURN envoyé",
+    "insufficientBalance": "Solde Insuffisant",
+    "insufficientBalanceDesc": "TBURN insuffisant. Réinitialisez le portefeuille pour continuer.",
+    "tourStep": "Étape",
+    "previous": "Précédent",
+    "next": "Suivant",
+    "finish": "Terminer"
   },
   "publicPages": {
     "common": {
