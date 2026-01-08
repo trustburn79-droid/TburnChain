@@ -6,12 +6,13 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { ErrorBoundary } from "@/components/error-boundary";
 import { Web3Provider } from "@/lib/web3-context";
 import { TBurnAlertProvider } from "@/components/tburn-alert-modal";
-import { lazy, Suspense, useEffect } from "react";
+import { Suspense, useEffect } from "react";
 import { TBurnLoader } from "@/components/tburn-loader";
 import { useLocation } from "wouter";
 import { useTranslation } from "react-i18next";
+import { lazyWithRetry } from "@/lib/dynamic-import-retry";
 
-const PublicRouter = lazy(() => import("./public/PublicRouter").then(m => ({ default: m.PublicRouter })));
+const PublicRouter = lazyWithRetry(() => import("./public/PublicRouter").then(m => ({ default: m.PublicRouter })));
 
 function PublicLoading() {
   return (

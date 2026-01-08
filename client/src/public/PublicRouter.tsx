@@ -1,8 +1,9 @@
 import { Switch, Route, useLocation } from "wouter";
-import { lazy, Suspense, useEffect } from "react";
+import { Suspense, useEffect } from "react";
 import { Loader2 } from "lucide-react";
 import { PublicLayout } from "./components/PublicLayout";
 import { ErrorBoundary } from "@/components/error-boundary";
+import { lazyWithRetry } from "@/lib/dynamic-import-retry";
 
 function PageLoading() {
   return (
@@ -19,46 +20,46 @@ function ExternalRedirect({ to }: { to: string }) {
   return <PageLoading />;
 }
 
-const Home = lazy(() => import("./pages/Home"));
-const Login = lazy(() => import("@/pages/login"));
-const Signup = lazy(() => import("@/pages/signup"));
-const TokenGenerator = lazy(() => import("@/pages/token-generator"));
-const TreePage = lazy(() => import("@/pages/tree"));
+const Home = lazyWithRetry(() => import("./pages/Home"));
+const Login = lazyWithRetry(() => import("@/pages/login"));
+const Signup = lazyWithRetry(() => import("@/pages/signup"));
+const TokenGenerator = lazyWithRetry(() => import("@/pages/token-generator"));
+const TreePage = lazyWithRetry(() => import("@/pages/tree"));
 
-const AirdropPage = lazy(() => import("@/pages/airdrop"));
-const AirdropClaimPage = lazy(() => import("@/pages/airdrop-claim"));
-const ReferralPage = lazy(() => import("@/pages/referral"));
-const EventsPage = lazy(() => import("@/pages/events"));
-const CommunityProgramPage = lazy(() => import("@/pages/community-program"));
-const DAOGovernancePage = lazy(() => import("@/pages/dao-governance"));
-const BlockRewardsPage = lazy(() => import("@/pages/block-rewards"));
-const ValidatorIncentivesPage = lazy(() => import("@/pages/validator-incentives"));
-const EcosystemFundPage = lazy(() => import("@/pages/ecosystem-fund"));
-const PartnershipProgramPage = lazy(() => import("@/pages/partnership-program"));
-const MarketingProgramPage = lazy(() => import("@/pages/marketing-program"));
-const StrategicPartnerPage = lazy(() => import("@/pages/strategic-partner"));
-const AdvisorProgramPage = lazy(() => import("@/pages/advisor-program"));
-const SeedRoundPage = lazy(() => import("@/pages/seed-round"));
-const PrivateRoundPage = lazy(() => import("@/pages/private-round"));
-const PublicRoundPage = lazy(() => import("@/pages/public-round"));
-const LaunchpadPage = lazy(() => import("@/pages/launchpad"));
-const CoinListPage = lazy(() => import("@/pages/coinlist"));
-const DAOMakerPage = lazy(() => import("@/pages/dao-maker"));
+const AirdropPage = lazyWithRetry(() => import("@/pages/airdrop"));
+const AirdropClaimPage = lazyWithRetry(() => import("@/pages/airdrop-claim"));
+const ReferralPage = lazyWithRetry(() => import("@/pages/referral"));
+const EventsPage = lazyWithRetry(() => import("@/pages/events"));
+const CommunityProgramPage = lazyWithRetry(() => import("@/pages/community-program"));
+const DAOGovernancePage = lazyWithRetry(() => import("@/pages/dao-governance"));
+const BlockRewardsPage = lazyWithRetry(() => import("@/pages/block-rewards"));
+const ValidatorIncentivesPage = lazyWithRetry(() => import("@/pages/validator-incentives"));
+const EcosystemFundPage = lazyWithRetry(() => import("@/pages/ecosystem-fund"));
+const PartnershipProgramPage = lazyWithRetry(() => import("@/pages/partnership-program"));
+const MarketingProgramPage = lazyWithRetry(() => import("@/pages/marketing-program"));
+const StrategicPartnerPage = lazyWithRetry(() => import("@/pages/strategic-partner"));
+const AdvisorProgramPage = lazyWithRetry(() => import("@/pages/advisor-program"));
+const SeedRoundPage = lazyWithRetry(() => import("@/pages/seed-round"));
+const PrivateRoundPage = lazyWithRetry(() => import("@/pages/private-round"));
+const PublicRoundPage = lazyWithRetry(() => import("@/pages/public-round"));
+const LaunchpadPage = lazyWithRetry(() => import("@/pages/launchpad"));
+const CoinListPage = lazyWithRetry(() => import("@/pages/coinlist"));
+const DAOMakerPage = lazyWithRetry(() => import("@/pages/dao-maker"));
 
-const LearnRoutes = lazy(() => import("./routes/LearnRoutes"));
-const DeveloperRoutes = lazy(() => import("./routes/DeveloperRoutes"));
-const SolutionsRoutes = lazy(() => import("./routes/SolutionsRoutes"));
-const UseCasesRoutes = lazy(() => import("./routes/UseCasesRoutes"));
-const NetworkRoutes = lazy(() => import("./routes/NetworkRoutes"));
-const CommunityRoutes = lazy(() => import("./routes/CommunityRoutes"));
-const LegalRoutes = lazy(() => import("./routes/LegalRoutes"));
-const ScanRoutes = lazy(() => import("./routes/ScanRoutes"));
-const TestnetScanRoutes = lazy(() => import("./routes/TestnetScanRoutes"));
-const RpcRoutes = lazy(() => import("./routes/RpcRoutes"));
-const TestnetRpcRoutes = lazy(() => import("./routes/TestnetRpcRoutes"));
-const NftMarketplaceStandalone = lazy(() => import("@/pages/nft-marketplace-standalone"));
+const LearnRoutes = lazyWithRetry(() => import("./routes/LearnRoutes"));
+const DeveloperRoutes = lazyWithRetry(() => import("./routes/DeveloperRoutes"));
+const SolutionsRoutes = lazyWithRetry(() => import("./routes/SolutionsRoutes"));
+const UseCasesRoutes = lazyWithRetry(() => import("./routes/UseCasesRoutes"));
+const NetworkRoutes = lazyWithRetry(() => import("./routes/NetworkRoutes"));
+const CommunityRoutes = lazyWithRetry(() => import("./routes/CommunityRoutes"));
+const LegalRoutes = lazyWithRetry(() => import("./routes/LegalRoutes"));
+const ScanRoutes = lazyWithRetry(() => import("./routes/ScanRoutes"));
+const TestnetScanRoutes = lazyWithRetry(() => import("./routes/TestnetScanRoutes"));
+const RpcRoutes = lazyWithRetry(() => import("./routes/RpcRoutes"));
+const TestnetRpcRoutes = lazyWithRetry(() => import("./routes/TestnetRpcRoutes"));
+const NftMarketplaceStandalone = lazyWithRetry(() => import("@/pages/nft-marketplace-standalone"));
 
-const Brand = lazy(() => import("./pages/Brand"));
+const Brand = lazyWithRetry(() => import("./pages/Brand"));
 
 function LoginPage() {
   const handleLoginSuccess = () => {
@@ -484,7 +485,7 @@ export function PublicRouter() {
 
   // User dashboard page - standalone without PublicLayout header
   if (location === "/user" || location.startsWith("/user?")) {
-    const User = lazy(() => import("@/pages/user"));
+    const User = lazyWithRetry(() => import("@/pages/user"));
     return (
       <ErrorBoundary>
         <Suspense fallback={<PageLoading />}>
@@ -508,8 +509,8 @@ export function PublicRouter() {
 
 
   if (location.startsWith("/token-schedule") || location.startsWith("/token-details")) {
-    const TokenSchedule = lazy(() => import("@/pages/token-schedule"));
-    const TokenDetails = lazy(() => import("@/pages/token-details"));
+    const TokenSchedule = lazyWithRetry(() => import("@/pages/token-schedule"));
+    const TokenDetails = lazyWithRetry(() => import("@/pages/token-details"));
     return (
       <ErrorBoundary>
         <PublicLayout>
@@ -538,7 +539,7 @@ export function PublicRouter() {
   }
   
   // 404 for unmatched routes
-  const NotFound = lazy(() => import("@/pages/not-found"));
+  const NotFound = lazyWithRetry(() => import("@/pages/not-found"));
   return (
     <ErrorBoundary>
       <PublicLayout>
