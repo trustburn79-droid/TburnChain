@@ -23,6 +23,7 @@ import { type ValidatorData } from "@/lib/validator-utils";
 import { DelegationDialog } from "@/components/DelegationDialog";
 import { Button } from "@/components/ui/button";
 import { LanguageSelector } from "@/components/LanguageSelector";
+import { formatTBurnAddress, truncateTBurnAddress } from "@/lib/utils";
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, BarElement, Filler, Tooltip);
 
@@ -378,9 +379,9 @@ export default function ValidatorIntelligence() {
               <div>
                 <div className="data-label">{t('validatorPage.intelligencePage.validatorAddress', { defaultValue: 'Validator Address' })}</div>
                 <div className="flex items-center justify-between group">
-                  <span className="data-value font-mono text-xs text-cyan-400 truncate max-w-[200px]" data-testid="validator-address">{validator.address}</span>
+                  <span className="data-value font-mono text-xs text-cyan-400 truncate max-w-[200px]" data-testid="validator-address">{truncateTBurnAddress(formatTBurnAddress(validator.address))}</span>
                   <button 
-                    onClick={() => copyToClipboard(validator.address, 'address')}
+                    onClick={() => copyToClipboard(formatTBurnAddress(validator.address), 'address')}
                     className="opacity-0 group-hover:opacity-100 transition text-slate-500 hover:text-cyan-400"
                     data-testid="button-copy-address"
                   >
@@ -392,9 +393,9 @@ export default function ValidatorIntelligence() {
               <div>
                 <div className="data-label">{t('validatorPage.intelligencePage.validatorId', { defaultValue: 'Validator ID' })}</div>
                 <div className="flex items-center justify-between group">
-                  <span className="data-value font-mono text-xs truncate max-w-[200px]">{validator.id}</span>
+                  <span className="data-value font-mono text-xs truncate max-w-[200px]">{truncateTBurnAddress(formatTBurnAddress(validator.id))}</span>
                   <button 
-                    onClick={() => copyToClipboard(validator.id, 'id')}
+                    onClick={() => copyToClipboard(formatTBurnAddress(validator.id), 'id')}
                     className="opacity-0 group-hover:opacity-100 transition text-slate-500 hover:text-cyan-400"
                   >
                     <Copy size={14} weight="bold" />
