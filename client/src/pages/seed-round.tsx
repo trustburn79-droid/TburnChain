@@ -63,10 +63,10 @@ export default function SeedRoundPage() {
   ];
 
   const investorTiers = [
-    { id: "lead", icon: "👑", name: "Lead Investor", subtitle: "리드 투자자", amount: "$1M+", details: [{ label: "최소 투자", value: "$1,000,000" }, { label: "할인율", value: "75%" }, { label: "락업 기간", value: "6개월" }], benefits: ["이사회 참관권", "월간 경영진 미팅", "독점 딜 플로우", "우선 투자권", "전담 IR 매니저"] },
-    { id: "major", icon: "🌱", name: "Major Investor", subtitle: "주요 투자자", amount: "$500K+", details: [{ label: "최소 투자", value: "$500,000" }, { label: "할인율", value: "72%" }, { label: "락업 기간", value: "6개월" }], benefits: ["분기별 전략 미팅", "얼리 액세스", "거버넌스 참여", "우선 배정", "전용 지원"] },
-    { id: "standard", icon: "💎", name: "Standard Investor", subtitle: "일반 투자자", amount: "$100K+", details: [{ label: "최소 투자", value: "$100,000" }, { label: "할인율", value: "70%" }, { label: "락업 기간", value: "6개월" }], benefits: ["월간 뉴스레터", "커뮤니티 접근", "기본 거버넌스", "일반 배정", "이메일 지원"] },
-    { id: "angel", icon: "😇", name: "Angel Investor", subtitle: "엔젤 투자자", amount: "$25K+", details: [{ label: "최소 투자", value: "$25,000" }, { label: "할인율", value: "68%" }, { label: "락업 기간", value: "6개월" }], benefits: ["분기별 업데이트", "커뮤니티 채널", "NFT 뱃지", "엔젤 네트워크", "기본 지원"] },
+    { id: "lead", icon: "👑", name: "Lead Investor", subtitle: "리드 투자자", amount: "$1M+", details: [{ label: "최소 투자", value: "$1,000,000" }, { label: "할인율", value: "85%" }, { label: "락업 기간", value: "12개월" }], benefits: ["이사회 참관권", "월간 경영진 미팅", "독점 딜 플로우", "우선 투자권", "전담 IR 매니저"] },
+    { id: "major", icon: "🌱", name: "Major Investor", subtitle: "주요 투자자", amount: "$500K+", details: [{ label: "최소 투자", value: "$500,000" }, { label: "할인율", value: "82%" }, { label: "락업 기간", value: "12개월" }], benefits: ["분기별 전략 미팅", "얼리 액세스", "거버넌스 참여", "우선 배정", "전용 지원"] },
+    { id: "standard", icon: "💎", name: "Standard Investor", subtitle: "일반 투자자", amount: "$100K+", details: [{ label: "최소 투자", value: "$100,000" }, { label: "할인율", value: "80%" }, { label: "락업 기간", value: "12개월" }], benefits: ["월간 뉴스레터", "커뮤니티 접근", "기본 거버넌스", "일반 배정", "이메일 지원"] },
+    { id: "angel", icon: "😇", name: "Angel Investor", subtitle: "엔젤 투자자", amount: "$25K+", details: [{ label: "최소 투자", value: "$25,000" }, { label: "할인율", value: "78%" }, { label: "락업 기간", value: "12개월" }], benefits: ["분기별 업데이트", "커뮤니티 채널", "NFT 뱃지", "엔젤 네트워크", "기본 지원"] },
   ];
 
   const vestingPhases = [
@@ -94,7 +94,7 @@ export default function SeedRoundPage() {
   const tokenMetrics = [
     { icon: "📊", title: "총 발행량", value: "100억 TBURN", desc: "고정 공급량" },
     { icon: "🌱", title: "시드 배정", value: "5억 TBURN", desc: "총 공급량의 5%" },
-    { icon: "💵", title: "시드 목표", value: "$4,000,000", desc: "하드캡" },
+    { icon: "💵", title: "시드 목표", value: "$20,000,000", desc: "하드캡" },
   ];
 
   const riskItems = [
@@ -971,7 +971,7 @@ export default function SeedRoundPage() {
                   <div className="stat-label">토큰 가격</div>
                 </div>
                 <div className="stat-card" data-testid="stat-hardcap">
-                  <div className="stat-value">{seedRound?.raised || "$4M"}</div>
+                  <div className="stat-value">{seedRound?.raised || "$20M"}</div>
                   <div className="stat-label">하드캡</div>
                 </div>
                 <div className="stat-card" data-testid="stat-investors">
