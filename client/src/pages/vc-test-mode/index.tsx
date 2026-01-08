@@ -63,44 +63,14 @@ const VC_DEMO_WALLET = {
   }
 };
 
-// Guided Tour Steps
-const TOUR_STEPS = [
-  {
-    id: 'welcome',
-    title: 'Welcome to TBURN Platform',
-    content: 'This guided tour will walk you through the key features of the TBURN blockchain ecosystem. Let\'s explore what makes TBURN unique.',
-    target: null,
-  },
-  {
-    id: 'demo-wallet',
-    title: 'Your Demo Wallet',
-    content: 'This pre-funded demo wallet contains 1M TBURN, 10 ETH, and 50K USDT for testing. You can simulate transactions without real funds.',
-    target: 'demo-wallet-card',
-  },
-  {
-    id: 'quick-actions',
-    title: 'Quick Actions',
-    content: 'Use these buttons to simulate swaps, transfers, and staking. Watch your balance update in real-time.',
-    target: 'demo-wallet-actions',
-  },
-  {
-    id: 'metrics',
-    title: 'Real-Time Metrics',
-    content: 'View live network statistics including TPS, validator count, and block height. Data refreshes every 5 seconds.',
-    target: 'investment-highlights',
-  },
-  {
-    id: 'features',
-    title: 'Platform Features',
-    content: 'Explore our comprehensive DeFi suite, infrastructure tools, and ecosystem applications using the tabs below.',
-    target: 'main-tabs',
-  },
-  {
-    id: 'complete',
-    title: 'Tour Complete!',
-    content: 'You\'re ready to explore the TBURN platform. Use the Demo Wallet to test features, or click "Explore Platform" to dive deeper.',
-    target: null,
-  },
+// Guided Tour Steps - uses i18n translation keys
+const TOUR_STEP_KEYS = [
+  { id: 'welcome', titleKey: 'tour.welcome.title', contentKey: 'tour.welcome.content', target: null },
+  { id: 'demo-wallet', titleKey: 'tour.demoWallet.title', contentKey: 'tour.demoWallet.content', target: 'demo-wallet-card' },
+  { id: 'quick-actions', titleKey: 'tour.quickActions.title', contentKey: 'tour.quickActions.content', target: 'demo-wallet-actions' },
+  { id: 'metrics', titleKey: 'tour.metrics.title', contentKey: 'tour.metrics.content', target: 'investment-highlights' },
+  { id: 'features', titleKey: 'tour.features.title', contentKey: 'tour.features.content', target: 'main-tabs' },
+  { id: 'complete', titleKey: 'tour.complete.title', contentKey: 'tour.complete.content', target: null },
 ];
 
 // Static metrics (will be overridden by real-time data where applicable)
@@ -349,7 +319,7 @@ export default function VCTestMode() {
   };
 
   const nextTourStep = () => {
-    if (tourStep < TOUR_STEPS.length - 1) {
+    if (tourStep < TOUR_STEP_KEYS.length - 1) {
       setTourStep(tourStep + 1);
     } else {
       closeTour();
@@ -437,7 +407,7 @@ export default function VCTestMode() {
     });
   };
 
-  const currentTourStep = TOUR_STEPS[tourStep];
+  const currentTourStep = TOUR_STEP_KEYS[tourStep];
 
   return (
     <>
@@ -453,7 +423,7 @@ export default function VCTestMode() {
               <CardHeader className="pb-2">
                 <div className="flex items-center justify-between">
                   <Badge className="bg-purple-500">
-                    {t('vcTestMode.tourStep', 'Step')} {tourStep + 1} / {TOUR_STEPS.length}
+                    {t('vcTestMode.tourStep', 'Step')} {tourStep + 1} / {TOUR_STEP_KEYS.length}
                   </Badge>
                   <Button 
                     size="sm" 
@@ -466,17 +436,17 @@ export default function VCTestMode() {
                   </Button>
                 </div>
                 <CardTitle className="text-xl text-gray-900 dark:text-white mt-2">
-                  {currentTourStep.title}
+                  {t(`vcTestMode.${currentTourStep.titleKey}`, currentTourStep.id)}
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <p className="text-gray-600 dark:text-gray-400">
-                  {currentTourStep.content}
+                  {t(`vcTestMode.${currentTourStep.contentKey}`, '')}
                 </p>
                 
                 {/* Progress dots */}
                 <div className="flex justify-center gap-2">
-                  {TOUR_STEPS.map((_, idx) => (
+                  {TOUR_STEP_KEYS.map((_, idx) => (
                     <div
                       key={idx}
                       className={`w-2 h-2 rounded-full transition-colors ${
@@ -501,7 +471,7 @@ export default function VCTestMode() {
                     className="bg-gradient-to-r from-purple-600 to-blue-600"
                     data-testid="button-next-tour"
                   >
-                    {tourStep === TOUR_STEPS.length - 1 
+                    {tourStep === TOUR_STEP_KEYS.length - 1 
                       ? t('vcTestMode.finish', 'Finish') 
                       : t('vcTestMode.next', 'Next')}
                   </Button>

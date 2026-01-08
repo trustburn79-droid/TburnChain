@@ -5427,7 +5427,33 @@
     "tourStep": "Paso",
     "previous": "Anterior",
     "next": "Siguiente",
-    "finish": "Finalizar"
+    "finish": "Finalizar",
+    "tour": {
+      "welcome": {
+        "title": "Bienvenido a la Plataforma TBURN",
+        "content": "Este tour guiado le mostrará las características clave del ecosistema blockchain TBURN. Exploremos lo que hace único a TBURN."
+      },
+      "demoWallet": {
+        "title": "Tu Billetera Demo",
+        "content": "Esta billetera demo precargada contiene 1M TBURN, 10 ETH y 50K USDT para pruebas. Puede simular transacciones sin fondos reales."
+      },
+      "quickActions": {
+        "title": "Acciones Rápidas",
+        "content": "Use estos botones para simular intercambios, transferencias y staking. Observe cómo su saldo se actualiza en tiempo real."
+      },
+      "metrics": {
+        "title": "Métricas en Tiempo Real",
+        "content": "Vea estadísticas de red en vivo incluyendo TPS, cantidad de validadores y altura del bloque. Los datos se actualizan cada 5 segundos."
+      },
+      "features": {
+        "title": "Características de la Plataforma",
+        "content": "Explore nuestro completo conjunto DeFi, herramientas de infraestructura y aplicaciones del ecosistema usando las pestañas de abajo."
+      },
+      "complete": {
+        "title": "Tour Completado!",
+        "content": "Está listo para explorar la plataforma TBURN. Use la Billetera Demo para probar funciones, o haga clic en Explorar Plataforma para profundizar."
+      }
+    }
   },
   "publicPages": {
     "common": {

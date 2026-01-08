@@ -7668,7 +7668,33 @@
     "tourStep": "Step",
     "previous": "Previous",
     "next": "Next",
-    "finish": "Finish"
+    "finish": "Finish",
+    "tour": {
+      "welcome": {
+        "title": "Welcome to TBURN Platform",
+        "content": "This guided tour will walk you through the key features of the TBURN blockchain ecosystem. Let's explore what makes TBURN unique."
+      },
+      "demoWallet": {
+        "title": "Your Demo Wallet",
+        "content": "This pre-funded demo wallet contains 1M TBURN, 10 ETH, and 50K USDT for testing. You can simulate transactions without real funds."
+      },
+      "quickActions": {
+        "title": "Quick Actions",
+        "content": "Use these buttons to simulate swaps, transfers, and staking. Watch your balance update in real-time."
+      },
+      "metrics": {
+        "title": "Real-Time Metrics",
+        "content": "View live network statistics including TPS, validator count, and block height. Data refreshes every 5 seconds."
+      },
+      "features": {
+        "title": "Platform Features",
+        "content": "Explore our comprehensive DeFi suite, infrastructure tools, and ecosystem applications using the tabs below."
+      },
+      "complete": {
+        "title": "Tour Complete!",
+        "content": "You're ready to explore the TBURN platform. Use the Demo Wallet to test features, or click 'Explore Platform' to dive deeper."
+      }
+    }
   },
   "publicPages": {
     "common": {

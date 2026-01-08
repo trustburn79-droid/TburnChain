@@ -6872,7 +6872,33 @@
     "tourStep": "步骤",
     "previous": "上一步",
     "next": "下一步",
-    "finish": "完成"
+    "finish": "完成",
+    "tour": {
+      "welcome": {
+        "title": "欢迎来到TBURN平台",
+        "content": "本导览将带您了解TBURN区块链生态系统的核心功能。让我们一起探索TBURN的独特之处。"
+      },
+      "demoWallet": {
+        "title": "演示钱包",
+        "content": "这个预充值演示钱包包含100万TBURN、10 ETH和5万USDT供测试使用。您可以在不使用真实资金的情况下模拟交易。"
+      },
+      "quickActions": {
+        "title": "快速操作",
+        "content": "使用这些按钮模拟兑换、转账和质押。实时查看余额更新。"
+      },
+      "metrics": {
+        "title": "实时指标",
+        "content": "查看包括TPS、验证者数量和区块高度在内的实时网络统计数据。数据每5秒刷新一次。"
+      },
+      "features": {
+        "title": "平台功能",
+        "content": "使用下方的标签页探索我们全面的DeFi套件、基础设施工具和生态系统应用。"
+      },
+      "complete": {
+        "title": "导览完成！",
+        "content": "您现在可以开始探索TBURN平台了。使用演示钱包测试功能，或点击探索平台深入了解。"
+      }
+    }
   },
   "publicPages": {
     "common": {

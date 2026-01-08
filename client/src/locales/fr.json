@@ -4692,7 +4692,33 @@
     "tourStep": "Étape",
     "previous": "Précédent",
     "next": "Suivant",
-    "finish": "Terminer"
+    "finish": "Terminer",
+    "tour": {
+      "welcome": {
+        "title": "Bienvenue sur la Plateforme TBURN",
+        "content": "Ce tour guidé vous présentera les fonctionnalités clés de l'écosystème blockchain TBURN. Découvrons ce qui rend TBURN unique."
+      },
+      "demoWallet": {
+        "title": "Votre Portefeuille Démo",
+        "content": "Ce portefeuille démo préchargé contient 1M TBURN, 10 ETH et 50K USDT pour les tests. Vous pouvez simuler des transactions sans fonds réels."
+      },
+      "quickActions": {
+        "title": "Actions Rapides",
+        "content": "Utilisez ces boutons pour simuler des échanges, transferts et du staking. Observez votre solde se mettre à jour en temps réel."
+      },
+      "metrics": {
+        "title": "Métriques en Temps Réel",
+        "content": "Consultez les statistiques réseau en direct, y compris le TPS, le nombre de validateurs et la hauteur du bloc. Les données sont actualisées toutes les 5 secondes."
+      },
+      "features": {
+        "title": "Fonctionnalités de la Plateforme",
+        "content": "Explorez notre suite DeFi complète, nos outils d'infrastructure et les applications de l'écosystème en utilisant les onglets ci-dessous."
+      },
+      "complete": {
+        "title": "Tour Terminé !",
+        "content": "Vous êtes prêt à explorer la plateforme TBURN. Utilisez le Portefeuille Démo pour tester les fonctionnalités, ou cliquez sur Explorer la Plateforme pour approfondir."
+      }
+    }
   },
   "publicPages": {
     "common": {
