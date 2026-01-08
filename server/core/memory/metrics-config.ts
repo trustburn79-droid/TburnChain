@@ -19,11 +19,15 @@ const heapStats = v8.getHeapStatistics();
 const v8HeapLimitMB = Math.floor(heapStats.heap_size_limit / (1024 * 1024));
 const isReplitEnv = Boolean(process.env.REPL_ID);
 
-// DEV_SAFE_MODE: Replit 환경이거나 V8 힙이 1GB 미만이면 메모리 절약 모드
-export const DEV_SAFE_MODE = isReplitEnv || v8HeapLimitMB < 1024;
+// ★ [2026-01-08] DEV_SAFE_MODE 비활성화 - 8GB 힙 최대 활용
+// 환경 변수로 강제 오버라이드 가능: DEV_SAFE_MODE=true 또는 DEV_SAFE_MODE=false
+const envDevSafeMode = process.env.DEV_SAFE_MODE;
+export const DEV_SAFE_MODE = envDevSafeMode === 'true' ? true : 
+                              envDevSafeMode === 'false' ? false : 
+                              v8HeapLimitMB < 1024; // V8 힙이 1GB 미만일 때만 안전 모드
 
-// 실제 V8 힙 기준으로 환경 결정 (시스템 RAM이 아닌 V8 힙 제한 사용)
-const isLargeEnv = !DEV_SAFE_MODE && v8HeapLimitMB >= 2048;
+// V8 힙 2GB 이상이면 대규모 환경으로 판단 (Replit 환경 무시)
+const isLargeEnv = v8HeapLimitMB >= 2048;
 
 console.log(`[METRICS_CONFIG] V8 heap limit: ${v8HeapLimitMB}MB, Replit: ${isReplitEnv}, DEV_SAFE_MODE: ${DEV_SAFE_MODE}, isLargeEnv: ${isLargeEnv}`);
 
@@ -108,12 +112,14 @@ export const METRICS_CONFIG = {
     COOLDOWN_MS: 120 * 1000,
   },
   
-  // 감지된 하드웨어 프로파일
+  // 감지된 하드웨어 프로파일 - V8 힙 최대 활용
   HARDWARE: {
     CPU_CORES: detectedCores,
     RAM_GB: detectedRAM,
-    TARGET_HEAP_GB: isLargeEnv ? Math.min(detectedRAM / 4, 8) : 0.3,
-    MAX_HEAP_GB: isLargeEnv ? Math.min(detectedRAM / 2, 16) : 0.5,
+    V8_HEAP_LIMIT_MB: v8HeapLimitMB,
+    // ★ [2026-01-08] V8 힙 기준으로 최대 활용 (8GB 힙 → 6GB 타깃, 7GB 최대)
+    TARGET_HEAP_GB: Math.min(v8HeapLimitMB / 1024 * 0.75, 6), // V8 힙의 75%, 최대 6GB
+    MAX_HEAP_GB: Math.min(v8HeapLimitMB / 1024 * 0.9, 7.5),   // V8 힙의 90%, 최대 7.5GB
     IS_LARGE_ENV: isLargeEnv,
     DETECTED_AT: new Date().toISOString(),
   },

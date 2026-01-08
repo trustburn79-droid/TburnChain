@@ -184,8 +184,9 @@ export class MemoryManager extends EventEmitter {
   private checkMemory(): void {
     const usage = process.memoryUsage();
     const heapUsedMB = usage.heapUsed / 1024 / 1024;
-    const heapTotalMB = usage.heapTotal / 1024 / 1024;
-    const ratio = usage.heapUsed / usage.heapTotal;
+    // ★ [2026-01-08] V8 힙 제한 또는 설정된 maxHeapMB 사용 (현재 할당된 힙이 아닌 실제 제한)
+    const heapTotalMB = Math.max(usage.heapTotal / 1024 / 1024, this.config.maxHeapMB);
+    const ratio = heapUsedMB / heapTotalMB;
     const now = Date.now();
     
     // 힙 히스토리 업데이트
