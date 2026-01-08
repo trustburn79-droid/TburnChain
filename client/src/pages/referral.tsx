@@ -1470,10 +1470,55 @@ export default function ReferralPage() {
               </div>
             )}
             <div className="share-buttons">
-              <button className="share-btn" data-testid="button-share-twitter">𝕏 Twitter</button>
-              <button className="share-btn" data-testid="button-share-telegram">Telegram</button>
-              <button className="share-btn" data-testid="button-share-discord">Discord</button>
-              <button className="share-btn" data-testid="button-share-kakaotalk">KakaoTalk</button>
+              <button 
+                className="share-btn" 
+                data-testid="button-share-twitter"
+                onClick={() => {
+                  const refLink = userReferralData?.referralLink || `https://tburn.io/ref/${address?.slice(0, 8) || 'TBURN'}`;
+                  const text = encodeURIComponent(`TBURN Chain 레퍼럴 프로그램에 참여하세요! 최대 50% 커미션을 받을 수 있습니다. 🚀 ${refLink}`);
+                  window.open(`https://twitter.com/intent/tweet?text=${text}`, '_blank');
+                  toast({ title: "Twitter 공유", description: "새 창에서 Twitter가 열렸습니다." });
+                }}
+              >
+                𝕏 Twitter
+              </button>
+              <button 
+                className="share-btn" 
+                data-testid="button-share-telegram"
+                onClick={() => {
+                  const refLink = userReferralData?.referralLink || `https://tburn.io/ref/${address?.slice(0, 8) || 'TBURN'}`;
+                  const text = encodeURIComponent(`TBURN Chain 레퍼럴 프로그램에 참여하세요! 최대 50% 커미션을 받을 수 있습니다. 🚀`);
+                  window.open(`https://t.me/share/url?url=${encodeURIComponent(refLink)}&text=${text}`, '_blank');
+                  toast({ title: "Telegram 공유", description: "새 창에서 Telegram이 열렸습니다." });
+                }}
+              >
+                Telegram
+              </button>
+              <button 
+                className="share-btn" 
+                data-testid="button-share-discord"
+                onClick={() => {
+                  window.open('https://discord.gg/tburn', '_blank');
+                  toast({ title: "Discord", description: "TBURN Discord 서버에서 레퍼럴 링크를 공유하세요!" });
+                }}
+              >
+                Discord
+              </button>
+              <button 
+                className="share-btn" 
+                data-testid="button-share-kakaotalk"
+                onClick={async () => {
+                  const refLink = userReferralData?.referralLink || `https://tburn.io/ref/${address?.slice(0, 8) || 'TBURN'}`;
+                  try {
+                    await navigator.clipboard.writeText(`TBURN Chain 레퍼럴 프로그램에 참여하세요! 최대 50% 커미션을 받을 수 있습니다. 🚀 ${refLink}`);
+                    toast({ title: "복사 완료", description: "카카오톡에 붙여넣기 하세요!" });
+                  } catch {
+                    toast({ title: "복사 실패", description: "링크를 수동으로 복사해주세요.", variant: "destructive" });
+                  }
+                }}
+              >
+                KakaoTalk
+              </button>
             </div>
           </div>
 
@@ -1741,7 +1786,18 @@ export default function ReferralPage() {
           </div>
 
           <div style={{ textAlign: 'center', marginTop: '2rem' }}>
-            <button className="btn-secondary" style={{ padding: '12px 30px' }} data-testid="button-view-all-rankings">
+            <button 
+              className="btn-secondary" 
+              style={{ padding: '12px 30px' }} 
+              data-testid="button-view-all-rankings"
+              onClick={() => {
+                if (!isConnected) {
+                  toast({ title: "지갑 연결 필요", description: "전체 순위를 보려면 지갑을 먼저 연결하세요." });
+                  return;
+                }
+                toast({ title: "전체 순위", description: "전체 순위 페이지는 곧 공개됩니다. (Coming Soon)" });
+              }}
+            >
               전체 순위 보기
             </button>
           </div>
@@ -1763,7 +1819,7 @@ export default function ReferralPage() {
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>레퍼럴 프로그램 총 보상 풀은 3억 TBURN입니다. 이는 전체 공급량 100억 TBURN의 3%에 해당합니다. TGE 시점에 5%(1,500만 TBURN)가 해제되고, 나머지는 36개월에 걸쳐 선형 베스팅됩니다.</p>
+              <p>레퍼럴 프로그램 총 보상 풀은 <strong>3억 TBURN</strong>입니다. 이는 전체 공급량 100억 TBURN의 3%에 해당합니다. TGE 시점에 5%(1,500만 TBURN)가 해제되고, 나머지 95%는 36개월에 걸쳐 매월 약 2.64%씩 선형 베스팅됩니다. 현재까지 약 4,200만 TBURN이 레퍼러들에게 배분되었습니다.</p>
             </div>
           </div>
 
@@ -1773,7 +1829,7 @@ export default function ReferralPage() {
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>피추천인이 TBURN Chain에서 거래, 스테이킹, 브릿지 등의 활동을 할 때 발생하는 수수료의 일정 비율을 커미션으로 받습니다. 기본 수수료율은 0.1%이며, 내 등급에 따라 20~50%의 커미션을 받습니다.</p>
+              <p>피추천인이 TBURN Chain에서 거래, 스테이킹, 브릿지 등의 활동을 할 때 발생하는 수수료의 일정 비율을 커미션으로 받습니다. 기본 거래 수수료율은 0.1%이며, 내 등급에 따라 해당 수수료의 20~50%를 커미션으로 받습니다. 예: 피추천인이 $1,000 거래 시 → 수수료 $1 발생 → Gold 등급(40%)이면 $0.40 적립</p>
             </div>
           </div>
 
@@ -1783,7 +1839,7 @@ export default function ReferralPage() {
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>초대한 친구 수에 따라 등급이 자동으로 올라갑니다. Bronze(0-9명), Silver(10-49명), Gold(50-199명), Diamond(200명+)로 구분되며, 등급이 올라갈수록 더 높은 커미션율을 받습니다.</p>
+              <p>초대한 친구 수에 따라 등급이 자동으로 올라갑니다. <strong>Bronze(0-9명, 20%)</strong>, <strong>Silver(10-49명, 30%)</strong>, <strong>Gold(50-199명, 40%)</strong>, <strong>Diamond(200명+, 50%)</strong>로 구분됩니다. 등급이 올라갈수록 커미션율뿐만 아니라 다단계 레퍼럴(2단계, 3단계) 혜택도 증가합니다.</p>
             </div>
           </div>
 
@@ -1793,7 +1849,47 @@ export default function ReferralPage() {
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>레퍼럴 보상은 실시간으로 적립되며, 누적된 보상은 언제든지 출금할 수 있습니다. 다만, 최소 출금 수량은 100 TBURN입니다.</p>
+              <p>레퍼럴 보상은 <strong>실시간으로 적립</strong>되며, 누적된 보상은 언제든지 출금할 수 있습니다. 최소 출금 수량은 100 TBURN이며, 출금 시 가스비(약 0.001 TBURN)가 차감됩니다. 출금은 연결된 지갑 주소로 즉시 전송됩니다.</p>
+            </div>
+          </div>
+
+          <div className={`faq-item ${activeTab === 'faq-5' ? 'active' : ''}`} data-testid="faq-5">
+            <div className="faq-question" onClick={() => toggleFaq('faq-5')}>
+              <h4>다단계(Multi-tier) 레퍼럴이란 무엇인가요?</h4>
+              <span className="faq-chevron">▼</span>
+            </div>
+            <div className="faq-answer">
+              <p>다단계 레퍼럴은 내가 초대한 사람(1단계)뿐만 아니라, 그 사람이 초대한 사람(2단계), 그리고 그 다음 단계(3단계)의 활동에서도 커미션을 받는 시스템입니다. Silver 이상 등급부터 2단계 레퍼럴(5~10%), Diamond 등급에서는 3단계 레퍼럴(15%)까지 혜택을 받을 수 있습니다.</p>
+            </div>
+          </div>
+
+          <div className={`faq-item ${activeTab === 'faq-6' ? 'active' : ''}`} data-testid="faq-6">
+            <div className="faq-question" onClick={() => toggleFaq('faq-6')}>
+              <h4>레퍼럴 링크는 어디서 받나요?</h4>
+              <span className="faq-chevron">▼</span>
+            </div>
+            <div className="faq-answer">
+              <p>지갑을 연결하면 고유한 레퍼럴 링크와 코드가 자동으로 생성됩니다. 대시보드에서 확인할 수 있으며, Twitter, Telegram, Discord, KakaoTalk 등으로 쉽게 공유할 수 있습니다. 지원 지갑: MetaMask, Rabby, Trust Wallet, Coinbase Wallet, Ledger</p>
+            </div>
+          </div>
+
+          <div className={`faq-item ${activeTab === 'faq-7' ? 'active' : ''}`} data-testid="faq-7">
+            <div className="faq-question" onClick={() => toggleFaq('faq-7')}>
+              <h4>레퍼럴 보상에 세금이 부과되나요?</h4>
+              <span className="faq-chevron">▼</span>
+            </div>
+            <div className="faq-answer">
+              <p>암호화폐 수익에 대한 세금은 각 국가의 세법에 따라 다릅니다. TBURN Chain은 세금 관련 자문을 제공하지 않으며, 참여자는 본인 거주 국가의 세법을 준수할 책임이 있습니다. 대시보드에서 수익 내역을 CSV로 다운로드하여 세금 신고에 활용하실 수 있습니다.</p>
+            </div>
+          </div>
+
+          <div className={`faq-item ${activeTab === 'faq-8' ? 'active' : ''}`} data-testid="faq-8">
+            <div className="faq-question" onClick={() => toggleFaq('faq-8')}>
+              <h4>부정 행위에 대한 제재가 있나요?</h4>
+              <span className="faq-chevron">▼</span>
+            </div>
+            <div className="faq-answer">
+              <p>자기 추천(셀프 레퍼럴), 가짜 계정 생성, 봇 사용 등 부정 행위가 감지되면 해당 계정의 레퍼럴 보상이 전액 몰수되고 프로그램에서 영구 제외됩니다. AI 기반 사기 탐지 시스템이 24시간 모니터링하며, 의심 활동 시 지급이 보류될 수 있습니다. 정상적인 활동만 해주세요!</p>
             </div>
           </div>
         </div>
