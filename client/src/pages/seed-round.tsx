@@ -70,10 +70,10 @@ export default function SeedRoundPage() {
   ];
 
   const vestingPhases = [
-    { icon: "🔒", title: "클리프 기간", value: "6개월", desc: "초기 락업" },
-    { icon: "🔓", title: "초기 언락", value: "10%", desc: "TGE 후 6개월" },
+    { icon: "🔒", title: "클리프 기간", value: "12개월", desc: "초기 락업" },
+    { icon: "🔓", title: "초기 언락", value: "10%", desc: "TGE 후 12개월" },
     { icon: "📈", title: "월간 베스팅", value: "7.5%", desc: "12개월간" },
-    { icon: "✅", title: "완전 언락", value: "100%", desc: "18개월 후" },
+    { icon: "✅", title: "완전 언락", value: "100%", desc: "24개월 후" },
   ];
 
   const currentInvestors = [
