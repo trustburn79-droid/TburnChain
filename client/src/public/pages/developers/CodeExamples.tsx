@@ -192,7 +192,7 @@ contract TBurnNFT is TBC721 {
 }`,
   "ConsensusMonitor.ts": `import { TBurnClient } from '@tburn/sdk';
 
-// Enterprise Consensus Monitoring for Chain ID 6000
+// Enterprise Consensus Monitoring for Chain ID 5800
 // Track 5-phase BFT: Propose → Prevote → Precommit → Commit → Finalize
 
 const client = new TBurnClient({ 
@@ -203,7 +203,7 @@ const client = new TBurnClient({
 // 1. Get current consensus state
 async function getConsensusState() {
   const state = await client.consensus.getState();
-  console.log(\`Chain ID: \${state.chainId}\`);           // 6000
+  console.log(\`Chain ID: \${state.chainId}\`);           // 5800
   console.log(\`Height: #\${state.currentHeight}\`);      // 25,847,392
   console.log(\`Phase: \${state.phase}\`);                 // FINALIZE
   console.log(\`Block Time: \${state.avgRoundTimeMs}ms\`); // ~95ms (target: 100ms)
@@ -460,7 +460,7 @@ export default function CodeExamples() {
     },
     {
       title: "Consensus Monitor",
-      description: "Real-time 5-phase BFT consensus monitoring with Chain ID 6000, 100ms block time",
+      description: "Real-time 5-phase BFT consensus monitoring with Chain ID 5800, 100ms block time",
       icon: Shield,
       color: "#7000ff",
       category: "Enterprise",

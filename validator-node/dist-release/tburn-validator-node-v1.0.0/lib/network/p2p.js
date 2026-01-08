@@ -198,7 +198,7 @@ class P2PNetwork extends events_1.EventEmitter {
             from: this.nodeId,
             payload: {
                 version: '1.0.0',
-                chainId: 6000,
+                chainId: 5800,
                 networkId: 'tburn-mainnet',
                 capabilities: ['consensus', 'sync', 'gossip'],
             },
@@ -266,7 +266,7 @@ class P2PNetwork extends events_1.EventEmitter {
     }
     handleHandshake(socket, message, connectionId) {
         const payload = message.payload;
-        if (payload.chainId !== 6000 || payload.networkId !== 'tburn-mainnet') {
+        if (payload.chainId !== 5800 || payload.networkId !== 'tburn-mainnet') {
             socket.close(1008, 'Chain mismatch');
             return;
         }

@@ -106,7 +106,7 @@ The `validator.json` file contains all node settings:
 ```json
 {
   "nodeId": "unique-node-id",
-  "chainId": 6000,
+  "chainId": 5800,
   "networkId": "tburn-mainnet",
   "validator": {
     "address": "tb1...",

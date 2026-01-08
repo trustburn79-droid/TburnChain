@@ -28,7 +28,7 @@ services:
 
     environment:
       - NODE_ENV=production
-      - TBURN_CHAIN_ID=6000
+      - TBURN_CHAIN_ID=5800
       - TBURN_NETWORK_ID=tburn-mainnet
       
     healthcheck:

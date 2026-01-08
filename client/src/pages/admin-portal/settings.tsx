@@ -135,7 +135,7 @@ function MetricCard({
 const defaultSettings: SystemSettings = {
   general: {
     chainName: "TBURN Mainnet",
-    chainId: "6000",
+    chainId: "5800",
     rpcEndpoint: "https://rpc.tburn.io",
     wsEndpoint: "wss://ws.tburn.io",
     explorerUrl: "https://explorer.tburn.io",

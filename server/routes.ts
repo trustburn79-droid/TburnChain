@@ -4383,7 +4383,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       const status = await tokenFactoryService.getFactoryStatus();
       res.json({
         network: "TBURN Mainnet",
-        chainId: 6000,
+        chainId: 5800,
         ...status,
       });
     } catch (error: any) {
@@ -4777,9 +4777,9 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       const now = Date.now();
       
       const sampleTransfers = [
-        { id: "tx-001", sourceChainId: 1, destinationChainId: 6000, tokenSymbol: "TBURN", amount: "100000000000000000000000", status: "pending" },
-        { id: "tx-002", sourceChainId: 56, destinationChainId: 6000, tokenSymbol: "TBURN", amount: "50000000000000000000000", status: "confirming" },
-        { id: "tx-005", sourceChainId: 10, destinationChainId: 6000, tokenSymbol: "TBURN", amount: "75000000000000000000000", status: "bridging" }
+        { id: "tx-001", sourceChainId: 1, destinationChainId: 5800, tokenSymbol: "TBURN", amount: "100000000000000000000000", status: "pending" },
+        { id: "tx-002", sourceChainId: 56, destinationChainId: 5800, tokenSymbol: "TBURN", amount: "50000000000000000000000", status: "confirming" },
+        { id: "tx-005", sourceChainId: 10, destinationChainId: 5800, tokenSymbol: "TBURN", amount: "75000000000000000000000", status: "bridging" }
       ];
       
       const transfer = sampleTransfers.find(t => t.id === transferId);
@@ -16807,7 +16807,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({
         general: {
           chainName: "TBURN Mainnet",
-          chainId: "6000",
+          chainId: "5800",
           rpcEndpoint: "https://rpc.tburn.io",
           wsEndpoint: "wss://ws.tburn.io",
           explorerUrl: "https://explorer.tburn.io",
@@ -17938,7 +17938,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     
     const result = {
       config: {
-        chainId: '6000',
+        chainId: '5800',
         networkName: 'TBURN Mainnet',
         consensusType: 'AI-Enhanced BFT',
         blockTime: networkStats.blockTime,
@@ -18072,7 +18072,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({
         general: {
           chainName: "TBURN Mainnet",
-          chainId: "6000",
+          chainId: "5800",
           rpcEndpoint: "https://rpc.tburn.io",
           wsEndpoint: "wss://ws.tburn.io",
           explorerUrl: "https://explorer.tburn.io",
@@ -21205,7 +21205,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
         version: "2.1.0",
         status: "operational",
         network: "mainnet",
-        chainId: 6000,
+        chainId: 5800,
         rpcEndpoint: "https://rpc.tburn.io",
         wsEndpoint: "wss://ws.tburn.io",
         explorerUrl: "https://explorer.tburn.io",
@@ -21255,7 +21255,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   app.get("/api/wallet-sdk/chains", requireAuth, async (_req, res) => {
     try {
       res.json([
-        { chainId: 6000, name: "TBURN Mainnet", symbol: "TBURN", rpc: "https://rpc.tburn.io", explorer: "https://explorer.tburn.io", status: "active", gasUnit: "EMB" },
+        { chainId: 5800, name: "TBURN Mainnet", symbol: "TBURN", rpc: "https://rpc.tburn.io", explorer: "https://explorer.tburn.io", status: "active", gasUnit: "EMB" },
         { chainId: 1, name: "Ethereum", symbol: "ETH", rpc: "https://eth-rpc.tburn.io", explorer: "https://etherscan.io", status: "bridged", bridgeContract: "0x..." },
         { chainId: 56, name: "BNB Chain", symbol: "BNB", rpc: "https://bsc-rpc.tburn.io", explorer: "https://bscscan.com", status: "bridged", bridgeContract: "0x..." },
         { chainId: 137, name: "Polygon", symbol: "MATIC", rpc: "https://polygon-rpc.tburn.io", explorer: "https://polygonscan.com", status: "bridged", bridgeContract: "0x..." },

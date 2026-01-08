@@ -346,7 +346,7 @@ router.get('/settings', (_req: Request, res: Response) => {
   res.json({
     general: {
       chainName: 'TBURN Mainnet',
-      chainId: '6000',
+      chainId: '5800',
       rpcEndpoint: 'https://rpc.tburn.io',
       wsEndpoint: 'wss://ws.tburn.io',
       explorerUrl: 'https://explorer.tburn.io',

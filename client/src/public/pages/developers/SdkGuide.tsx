@@ -126,7 +126,7 @@ const client = new TBurnClient({ apiKey: 'YOUR_KEY', network: 'mainnet' });
 
 // 1. Get current consensus state (5-phase BFT)
 const state = await client.consensus.getState();
-console.log(\`Chain ID: \${state.chainId}\`);        // 6000
+console.log(\`Chain ID: \${state.chainId}\`);        // 5800
 console.log(\`Height: #\${state.currentHeight}\`);  // 25,847,392
 console.log(\`Phase: \${state.phase}\`);             // PROPOSE | PREVOTE | PRECOMMIT | COMMIT | FINALIZE
 console.log(\`TPS: \${state.metrics.currentTPS}\`);  // ~185,420

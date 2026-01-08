@@ -94,7 +94,7 @@ export default function TechnicalWhitepaper() {
           <div className="flex flex-wrap gap-6 text-sm text-gray-500">
             <div className="flex items-center gap-1.5"><strong className="text-gray-400">{t('technicalWhitepaper.meta.version')}:</strong> 9.0 (Mainnet)</div>
             <div className="flex items-center gap-1.5"><strong className="text-gray-400">{t('technicalWhitepaper.meta.date')}:</strong> December 26, 2025</div>
-            <div className="flex items-center gap-1.5"><strong className="text-gray-400">{t('technicalWhitepaper.meta.chainId')}:</strong> 6000 (0x1770)</div>
+            <div className="flex items-center gap-1.5"><strong className="text-gray-400">{t('technicalWhitepaper.meta.chainId')}:</strong> 5800 (0x16a8)</div>
             <div className="flex items-center gap-1.5"><strong className="text-gray-400">{t('technicalWhitepaper.meta.status')}:</strong> Production</div>
           </div>
         </div>
@@ -191,7 +191,7 @@ export default function TechnicalWhitepaper() {
               </tr>
             </thead>
             <tbody>
-              <tr><td>Chain ID</td><td><code>6000 (0x1770)</code></td><td><code>5900 (0x170C)</code></td></tr>
+              <tr><td>Chain ID</td><td><code>5800 (0x16a8)</code></td><td><code>5900 (0x170C)</code></td></tr>
               <tr><td>RPC Endpoint</td><td><code>https://tburn.io/rpc</code></td><td><code>https://tburn.io/testnet-rpc</code></td></tr>
               <tr><td>WebSocket</td><td><code>wss://tburn.io/ws</code></td><td><code>wss://tburn.io/testnet-ws</code></td></tr>
               <tr><td>Explorer</td><td><code>https://tburn.io/scan</code></td><td><code>https://tburn.io/testnet-scan</code></td></tr>

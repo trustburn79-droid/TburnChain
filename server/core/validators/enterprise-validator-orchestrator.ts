@@ -13,7 +13,7 @@
  * - Slashing & jailing system
  * - Reward distribution engine
  * 
- * Chain ID: 6000 | 125 Genesis Validators | 1M TBURN per validator
+ * Chain ID: 5800 | 125 Genesis Validators | 1M TBURN per validator
  */
 
 import { VALIDATOR_CONFIG, SHARD_CONFIG, CHAIN_CONFIG } from '../genesis/enterprise-genesis-config';

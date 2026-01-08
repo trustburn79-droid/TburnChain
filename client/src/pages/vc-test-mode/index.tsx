@@ -912,7 +912,7 @@ export default function VCTestMode() {
                     <span className="font-medium text-green-600 dark:text-green-400">{t('vcTestMode.dueDiligence.uniqueChainId', 'Unique Chain ID Verified')}</span>
                   </div>
                   <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
-                    {t('vcTestMode.dueDiligence.uniqueChainIdDesc', 'Chain ID 6000 is uniquely registered and does not conflict with any known EVM network. EIP-155 compliant for transaction replay protection.')}
+                    {t('vcTestMode.dueDiligence.uniqueChainIdDesc', 'Chain ID 5800 is uniquely registered and does not conflict with any known EVM network. EIP-155 compliant for transaction replay protection.')}
                   </p>
                 </div>
               </CardContent>

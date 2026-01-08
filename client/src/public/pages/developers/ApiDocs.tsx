@@ -1459,7 +1459,7 @@ X-RateLimit-Window: 60`} />
                 
                 <div className="mb-6 p-4 rounded-lg bg-[#7000ff]/10 border border-[#7000ff]/30">
                   <p className="text-sm text-[#7000ff]">
-                    TBURN uses a 5-phase Enterprise BFT Consensus: Propose → Prevote → Precommit → Commit → Finalize. Chain ID: 6000, 125 validators, 100ms block time.
+                    TBURN uses a 5-phase Enterprise BFT Consensus: Propose → Prevote → Precommit → Commit → Finalize. Chain ID: 5800, 125 validators, 100ms block time.
                   </p>
                 </div>
 
@@ -1475,7 +1475,7 @@ X-RateLimit-Window: 60`} />
                     <CodeBlock code={`{
   "success": true,
   "data": {
-    "chainId": 6000,
+    "chainId": 5800,
     "currentHeight": 25847392,
     "currentRound": 0,
     "phase": "FINALIZE",

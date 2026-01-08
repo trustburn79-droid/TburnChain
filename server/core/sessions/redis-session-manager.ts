@@ -8,7 +8,7 @@
  * - Automatic reconnection with exponential backoff
  * - Session migration utilities
  * 
- * For TBURN Mainnet Production (Chain ID: 6000)
+ * For TBURN Mainnet Production (Chain ID: 5800)
  */
 
 import { createClient, RedisClientType } from 'redis';

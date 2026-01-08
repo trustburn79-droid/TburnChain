@@ -280,7 +280,7 @@ tburn token approve USDC 0xProtocol... --unlimited`,
   const consensusCommands = [
     {
       cmd: "tburn consensus status",
-      desc: "Get current BFT consensus state (Chain ID 6000, 5-phase protocol)",
+      desc: "Get current BFT consensus state (Chain ID 5800, 5-phase protocol)",
       usage: "tburn consensus status [options]",
       options: [
         { flag: "--metrics", desc: "Include detailed performance metrics", default: "false" },
@@ -293,7 +293,7 @@ tburn consensus status
 tburn consensus status --metrics --validators
 
 # Output:
-# Chain ID: 6000
+# Chain ID: 5800
 # Height: 25,847,392
 # Phase: FINALIZE
 # TPS: 185,420 / 210,000 (peak)

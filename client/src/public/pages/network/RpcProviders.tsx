@@ -53,7 +53,7 @@ interface LatencyPoint {
 const networks: Record<string, NetworkConfig> = {
   mainnet: {
     name: "TBurn Mainnet",
-    chainId: 6000,
+    chainId: 5800,
     symbol: "TBURN",
     rpcUrl: "https://tburn.io/rpc",
     wsUrl: "wss://tburn.io/ws",

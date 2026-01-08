@@ -74,7 +74,7 @@ chmod +x "$BUILD_DIR/$PACKAGE_NAME/bin/tburn-validator"
 cat > "$BUILD_DIR/$PACKAGE_NAME/config/validator.example.json" << 'EOF'
 {
   "nodeId": "YOUR_NODE_ID",
-  "chainId": 6000,
+  "chainId": 5800,
   "networkId": "tburn-mainnet",
   "validator": {
     "address": "YOUR_VALIDATOR_ADDRESS",

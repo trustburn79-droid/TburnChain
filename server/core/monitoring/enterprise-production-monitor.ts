@@ -8,7 +8,7 @@
  * - Real-time dashboard API endpoints
  * - Automatic alerting and escalation
  * 
- * Chain ID: 6000 | Target: 210,000 TPS | 125 Genesis Validators
+ * Chain ID: 5800 | Target: 210,000 TPS | 125 Genesis Validators
  */
 
 import { Router, Request, Response } from 'express';

@@ -162,7 +162,7 @@ import "@tburn/contracts/security/QuantumResistant.sol";
 /**
  * @title TBC-20 Token Standard
  * @notice TBURN Chain native token standard with quantum-resistant signatures
- * @dev Chain ID 6000 optimized with cross-shard transfer support
+ * @dev Chain ID 5800 optimized with cross-shard transfer support
  */
 contract MyTBC20Token is TBC20, TBC20Burnable, QuantumResistant {
     uint256 public constant INITIAL_SUPPLY = 1_000_000_000 * 10**18;
@@ -190,7 +190,7 @@ contract MyTBC20Token is TBC20, TBC20Burnable, QuantumResistant {
         
         // Emit cross-shard message for router
         messageId = keccak256(abi.encodePacked(
-            block.chainid, // 6000
+            block.chainid, // 5800
             msg.sender,
             to,
             amount,

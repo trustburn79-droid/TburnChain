@@ -24,7 +24,7 @@ RUN npm run build
 FROM node:20-alpine
 
 LABEL org.opencontainers.image.title="TBURN Validator Node"
-LABEL org.opencontainers.image.description="TBURN Mainnet Validator Node - Chain ID 6000"
+LABEL org.opencontainers.image.description="TBURN Mainnet Validator Node - Chain ID 5800"
 LABEL org.opencontainers.image.version="1.0.0"
 LABEL org.opencontainers.image.vendor="TBURN Foundation"
 

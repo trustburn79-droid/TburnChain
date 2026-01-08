@@ -13,7 +13,7 @@
  * - Parallel batch processing for high throughput
  * - Gas fee distribution with EIP-1559 style base fee
  * 
- * Chain ID: 6000 | 125 Genesis Validators | 1M TBURN per validator
+ * Chain ID: 5800 | 125 Genesis Validators | 1M TBURN per validator
  */
 
 import { VALIDATOR_CONFIG, CHAIN_CONFIG } from '../genesis/enterprise-genesis-config';
