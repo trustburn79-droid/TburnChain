@@ -355,19 +355,17 @@ export default function VCTestMode() {
 
     setIsAccessLoading(true);
     try {
-      const response = await apiRequest('/api/demo-wallets/access', {
-        method: 'POST',
-        body: JSON.stringify({ accessCode: accessCode.trim() }),
-      });
+      const response = await apiRequest('POST', '/api/demo-wallets/access', { accessCode: accessCode.trim() });
+      const data = await response.json() as DemoWalletData;
       
-      if (response && response.walletId) {
-        setDemoWallet(response);
+      if (data && data.walletId) {
+        setDemoWallet(data);
         setIsWalletConnected(true);
         setShowAccessDialog(false);
         setAccessCode('');
         toast({
           title: 'Wallet Connected',
-          description: `Connected to ${response.label || 'Demo Wallet'}`
+          description: `Connected to ${data.label || 'Demo Wallet'}`
         });
       }
     } catch (error: any) {
