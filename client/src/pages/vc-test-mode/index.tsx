@@ -54,8 +54,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useToast } from '@/hooks/use-toast';
 
 const VC_DEMO_WALLET = {
-  address: '0xVC7979...Demo8888',
-  fullAddress: '0xVC7979DemoWallet1234567890TBURN8888',
+  address: '0xVC5800...Demo8888',
+  fullAddress: '0xVC5800DemoWallet1234567890TBURN8888',
   balance: {
     TBURN: 1000000,
     ETH: 10,
@@ -88,7 +88,7 @@ function usePlatformMetrics() {
   
   return useMemo(() => ({
     ...STATIC_METRICS,
-    validators: networkStats?.activeValidators || 1600,
+    validators: networkStats?.activeValidators || 125,
     shards: networkStats?.shardCount || 64,
     tps: networkStats?.tps ? `${Math.floor(networkStats.tps / 1000)}K+` : '210K+',
     peakTps: networkStats?.peakTps ? `${Math.floor(networkStats.peakTps / 1000)}K+` : '250K+',
@@ -169,28 +169,24 @@ const FEATURE_CATEGORIES = [
 
 const INVESTMENT_HIGHLIGHTS = [
   {
-    id: 'marketOpportunity',
     icon: Target,
     title: 'Market Opportunity',
     value: '$500B+',
     desc: 'DeFi market by 2027'
   },
   {
-    id: 'growthRate',
     icon: Rocket,
     title: 'Growth Rate',
     value: '340%',
     desc: 'YoY user growth'
   },
   {
-    id: 'securityScore',
     icon: Shield,
     title: 'Security Score',
     value: 'A+',
     desc: 'CertiK audit rating'
   },
   {
-    id: 'aiInnovation',
     icon: Brain,
     title: 'AI Innovation',
     value: 'Quad-Band',
@@ -199,8 +195,8 @@ const INVESTMENT_HIGHLIGHTS = [
 ];
 
 const MAINNET_CONFIG = {
-  chainId: 6000,
-  chainIdHex: '0x1770',
+  chainId: 5800,
+  chainIdHex: '0x16a8',
   networkName: 'TBURN Mainnet',
   networkType: 'Production Mainnet',
   currency: {
@@ -209,28 +205,28 @@ const MAINNET_CONFIG = {
     decimals: 18
   },
   rpcEndpoints: [
-    { url: 'https://tburn.io/rpc', type: 'Primary', status: 'Active', region: 'US-East' },
-    { url: 'https://eu.tburn.io/rpc', type: 'Secondary', status: 'Active', region: 'EU-West' },
-    { url: 'https://asia.tburn.io/rpc', type: 'Tertiary', status: 'Active', region: 'AP-Seoul' }
+    { url: 'https://rpc.tburn.network', type: 'Primary', status: 'Active', region: 'US-East' },
+    { url: 'https://rpc-mainnet.tburn.io', type: 'Secondary', status: 'Active', region: 'EU-West' },
+    { url: 'https://mainnet.tburn.network/rpc', type: 'Tertiary', status: 'Active', region: 'AP-Seoul' }
   ],
-  blockExplorer: 'https://tburn.io/scan',
+  blockExplorer: 'https://explorer.tburn.network',
   consensus: 'BFT + PoS',
   blockTime: '~100ms',
   genesisDate: '2025-12-22',
   tokenStandards: ['TBC-20', 'TBC-721', 'TBC-1155'],
   chainRegistration: {
     status: 'Registered',
-    chainlistOrg: 'https://chainlist.org/chain/6000',
+    chainlistOrg: 'https://chainlist.org/chain/5800',
     evmCompatible: true,
     replayProtection: 'EIP-155 Compliant'
   },
   contracts: {
-    tburnToken: 'tb1qx8f3k7v2m9n4p5r6s7t8u9v0w1x2y3z4a5btburn',
-    tbc20Factory: 'tb1qfac20r7k9m2n5p8s1t4u7v0x3y6z9a2b5c8fac20',
-    tbc721Factory: 'tb1qfac721x5m8n1p4r7s0t3u6v9w2y5z8a1b4fac721',
-    tbc1155Factory: 'tb1qfac1155k2m5n8p1r4s7t0u3v6w9y2z5fac1155',
-    bridge: 'tb1qbridge9v2m5n8p1r4s7t0u3x6y9z2a5b8bridge',
-    staking: 'tb1qstake7k0m3n6p9r2s5t8u1v4w7x0y3z6stake'
+    tburnToken: 'tb1core5800000000000000000000000000tburn',
+    tbc20Factory: 'tb1factory20790000000000000000000000fac20',
+    tbc721Factory: 'tb1factory721000000000000000000000fac721',
+    tbc1155Factory: 'tb1factory1155000000000000000000fac1155',
+    bridge: 'tb1bridge5800000000000000000000000bridge',
+    staking: 'tb1staking5800000000000000000stake'
   },
   gasPolicy: {
     baseFee: '0.000001 TB',
@@ -420,8 +416,8 @@ export default function VCTestMode() {
               <CardContent className="p-4 text-center">
                 <item.icon className="w-8 h-8 mx-auto mb-2 text-purple-500" />
                 <div className="text-2xl font-bold text-gray-900 dark:text-white">{item.value}</div>
-                <div className="text-sm font-medium text-gray-900 dark:text-white">{t(`vcTestMode.dueDiligence.investmentHighlights.${item.id}`, item.title)}</div>
-                <div className="text-xs text-gray-500 dark:text-gray-400">{t(`vcTestMode.dueDiligence.investmentHighlights.${item.id}Desc`, item.desc)}</div>
+                <div className="text-sm font-medium text-gray-900 dark:text-white">{item.title}</div>
+                <div className="text-xs text-gray-500 dark:text-gray-400">{item.desc}</div>
               </CardContent>
             </Card>
           ))}
@@ -450,7 +446,7 @@ export default function VCTestMode() {
             </TabsTrigger>
             <TabsTrigger value="tech" data-testid="tab-tech">
               <Cpu className="w-4 h-4 mr-2" />
-              {t('vcTestMode.tabs.technology', 'Technology')}
+              {t('vcTestMode.tabs.tech', 'Technology')}
             </TabsTrigger>
           </TabsList>
 
@@ -560,41 +556,41 @@ export default function VCTestMode() {
                 <CardHeader className="bg-gradient-to-r from-purple-500/10 to-blue-500/10">
                   <CardTitle className="flex items-center gap-2">
                     <Hash className="w-5 h-5 text-purple-500" />
-                    {t('vcTestMode.dueDiligence.chainConfig', 'Chain Configuration')}
+                    {t('vcTestMode.chainConfig', 'Chain Configuration')}
                   </CardTitle>
                   <CardDescription>
-                    {t('vcTestMode.dueDiligence.chainConfigDesc', 'TBURN Mainnet technical specifications')}
+                    {t('vcTestMode.chainConfigDesc', 'TBURN Mainnet technical specifications')}
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4 pt-4">
                   <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-white/5 rounded-lg">
-                    <span className="text-gray-600 dark:text-gray-400">{t('vcTestMode.dueDiligence.chainId', 'Chain ID')}</span>
+                    <span className="text-gray-600 dark:text-gray-400">Chain ID</span>
                     <div className="flex items-center gap-2">
                       <code className="font-mono font-bold text-purple-600 dark:text-purple-400 text-lg">{MAINNET_CONFIG.chainId}</code>
                       <Badge variant="outline" className="text-xs">{MAINNET_CONFIG.chainIdHex}</Badge>
                     </div>
                   </div>
                   <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-white/5 rounded-lg">
-                    <span className="text-gray-600 dark:text-gray-400">{t('vcTestMode.dueDiligence.networkName', 'Network Name')}</span>
+                    <span className="text-gray-600 dark:text-gray-400">Network Name</span>
                     <span className="font-bold text-gray-900 dark:text-white">{MAINNET_CONFIG.networkName}</span>
                   </div>
                   <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-white/5 rounded-lg">
-                    <span className="text-gray-600 dark:text-gray-400">{t('vcTestMode.dueDiligence.nativeCurrency', 'Native Currency')}</span>
+                    <span className="text-gray-600 dark:text-gray-400">Native Currency</span>
                     <div className="flex items-center gap-2">
                       <span className="font-bold text-gray-900 dark:text-white">{MAINNET_CONFIG.currency.symbol}</span>
-                      <Badge className="bg-orange-500">{MAINNET_CONFIG.currency.decimals} {t('vcTestMode.dueDiligence.decimals', 'decimals')}</Badge>
+                      <Badge className="bg-orange-500">{MAINNET_CONFIG.currency.decimals} decimals</Badge>
                     </div>
                   </div>
                   <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-white/5 rounded-lg">
-                    <span className="text-gray-600 dark:text-gray-400">{t('vcTestMode.dueDiligence.consensus', 'Consensus')}</span>
+                    <span className="text-gray-600 dark:text-gray-400">Consensus</span>
                     <Badge className="bg-blue-500">{MAINNET_CONFIG.consensus}</Badge>
                   </div>
                   <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-white/5 rounded-lg">
-                    <span className="text-gray-600 dark:text-gray-400">{t('vcTestMode.dueDiligence.blockTime', 'Block Time')}</span>
+                    <span className="text-gray-600 dark:text-gray-400">Block Time</span>
                     <span className="font-bold text-green-500">{MAINNET_CONFIG.blockTime}</span>
                   </div>
                   <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-white/5 rounded-lg">
-                    <span className="text-gray-600 dark:text-gray-400">{t('vcTestMode.dueDiligence.genesisDate', 'Genesis Date')}</span>
+                    <span className="text-gray-600 dark:text-gray-400">Genesis Date</span>
                     <span className="font-mono text-gray-900 dark:text-white">{MAINNET_CONFIG.genesisDate}</span>
                   </div>
                 </CardContent>
@@ -605,17 +601,17 @@ export default function VCTestMode() {
                 <CardHeader className="bg-gradient-to-r from-blue-500/10 to-cyan-500/10">
                   <CardTitle className="flex items-center gap-2">
                     <Link2 className="w-5 h-5 text-blue-500" />
-                    {t('vcTestMode.dueDiligence.rpcEndpoints', 'RPC Endpoints')}
+                    {t('vcTestMode.rpcEndpoints', 'RPC Endpoints')}
                   </CardTitle>
                   <CardDescription>
-                    {t('vcTestMode.dueDiligence.rpcEndpointsDesc', 'Public JSON-RPC endpoints for blockchain interaction')}
+                    {t('vcTestMode.rpcEndpointsDesc', 'Public JSON-RPC endpoints for blockchain interaction')}
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-3 pt-4">
                   {MAINNET_CONFIG.rpcEndpoints.map((endpoint, idx) => (
                     <div key={idx} className="p-3 bg-gray-50 dark:bg-white/5 rounded-lg">
                       <div className="flex items-center justify-between mb-1">
-                        <Badge variant="outline" className="text-xs">{t(`vcTestMode.dueDiligence.rpcEndpointTypes.${endpoint.type.toLowerCase()}`, endpoint.type)}</Badge>
+                        <Badge variant="outline" className="text-xs">{endpoint.type}</Badge>
                         <Badge className="bg-green-500 text-xs">{endpoint.status}</Badge>
                       </div>
                       <code className="text-sm font-mono text-blue-600 dark:text-blue-400 break-all">
@@ -733,7 +729,7 @@ export default function VCTestMode() {
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     <Database className="w-5 h-5 text-orange-500" />
-                    {t('vcTestMode.dueDiligence.tokenStandards', 'Token Standards')}
+                    {t('vcTestMode.tokenStandards', 'Token Standards')}
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-3">
@@ -800,7 +796,7 @@ export default function VCTestMode() {
                     <span className="font-medium text-green-600 dark:text-green-400">{t('vcTestMode.dueDiligence.uniqueChainId', 'Unique Chain ID Verified')}</span>
                   </div>
                   <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
-                    {t('vcTestMode.dueDiligence.uniqueChainIdDesc', 'Chain ID 6000 is uniquely registered and does not conflict with any known EVM network. EIP-155 compliant for transaction replay protection.')}
+                    {t('vcTestMode.dueDiligence.uniqueChainIdDesc', 'Chain ID 5800 is uniquely registered and does not conflict with any known EVM network. EIP-155 compliant for transaction replay protection.')}
                   </p>
                 </div>
               </CardContent>
@@ -980,15 +976,15 @@ export default function VCTestMode() {
                 <CardContent className="space-y-3">
                   <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-white/5 rounded-lg">
                     <span className="text-gray-600 dark:text-gray-400 text-sm">{t('vcTestMode.dueDiligence.nodeRedundancy', 'Node Redundancy')}</span>
-                    <span className="font-bold">{t('vcTestMode.dueDiligence.nodeRedundancyValue', '3x across regions')}</span>
+                    <span className="font-bold">{MAINNET_CONFIG.operations.nodeRedundancy}</span>
                   </div>
                   <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-white/5 rounded-lg">
                     <span className="text-gray-600 dark:text-gray-400 text-sm">{t('vcTestMode.dueDiligence.monitoring', 'Monitoring')}</span>
-                    <span className="font-bold text-sm">{t('vcTestMode.dueDiligence.monitoringValue', '24/7 NOC with PagerDuty')}</span>
+                    <span className="font-bold text-sm">{MAINNET_CONFIG.operations.monitoringSystem}</span>
                   </div>
                   <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-white/5 rounded-lg">
                     <span className="text-gray-600 dark:text-gray-400 text-sm">{t('vcTestMode.dueDiligence.incidentResponse', 'Incident Response')}</span>
-                    <Badge className="bg-green-500">{t('vcTestMode.dueDiligence.incidentResponseValue', '<15min SLA')}</Badge>
+                    <Badge className="bg-green-500">{MAINNET_CONFIG.operations.incidentResponse}</Badge>
                   </div>
                   <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-white/5 rounded-lg">
                     <span className="text-gray-600 dark:text-gray-400 text-sm">{t('vcTestMode.dueDiligence.uptimeTarget', 'Uptime Target')}</span>
@@ -996,7 +992,7 @@ export default function VCTestMode() {
                   </div>
                   <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-white/5 rounded-lg">
                     <span className="text-gray-600 dark:text-gray-400 text-sm">{t('vcTestMode.dueDiligence.rpcFailover', 'RPC Failover')}</span>
-                    <Badge className="bg-blue-500">{t('vcTestMode.dueDiligence.rpcFailoverValue', 'Auto-failover enabled')}</Badge>
+                    <Badge className="bg-blue-500">{MAINNET_CONFIG.operations.backupRpc}</Badge>
                   </div>
                   {/* Monitoring Dashboard Links */}
                   <div className="mt-4 p-3 bg-red-500/10 rounded-lg border border-red-500/30">
@@ -1046,19 +1042,14 @@ export default function VCTestMode() {
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-2">
-                  {Object.entries(MAINNET_CONFIG.walletSupport).map(([wallet, status]) => {
-                    const statusKey = status === 'Full Support' ? 'fullSupport' : 
-                                     status === 'v2.0 Compatible' ? 'v2Compatible' : 
-                                     status === 'Hardware Support' ? 'hardwareSupport' : 'fullSupport';
-                    return (
-                      <div key={wallet} className="flex items-center justify-between p-2 bg-gray-50 dark:bg-white/5 rounded-lg">
-                        <span className="text-gray-700 dark:text-gray-300 capitalize text-sm">
-                          {wallet.replace(/([A-Z])/g, ' $1').trim()}
-                        </span>
-                        <Badge className="bg-green-500 text-xs">{t(`vcTestMode.dueDiligence.walletStatus.${statusKey}`, status)}</Badge>
-                      </div>
-                    );
-                  })}
+                  {Object.entries(MAINNET_CONFIG.walletSupport).map(([wallet, status]) => (
+                    <div key={wallet} className="flex items-center justify-between p-2 bg-gray-50 dark:bg-white/5 rounded-lg">
+                      <span className="text-gray-700 dark:text-gray-300 capitalize text-sm">
+                        {wallet.replace(/([A-Z])/g, ' $1').trim()}
+                      </span>
+                      <Badge className="bg-green-500 text-xs">{status}</Badge>
+                    </div>
+                  ))}
                 </CardContent>
               </Card>
             </div>
@@ -1076,18 +1067,15 @@ export default function VCTestMode() {
               </CardHeader>
               <CardContent>
                 <div className="grid md:grid-cols-4 gap-3">
-                  {MAINNET_CONFIG.bridgeConnections.map((bridge, idx) => {
-                    const statusKey = bridge.status === 'Active' ? 'active' : 'plannedQ12026';
-                    return (
-                      <div key={idx} className="p-3 bg-gray-50 dark:bg-white/5 rounded-lg text-center">
-                        <div className="font-bold text-gray-900 dark:text-white">{bridge.chain}</div>
-                        <div className="text-xs text-gray-500 dark:text-gray-400 mb-2">{t('vcTestMode.dueDiligence.lockAndMint', 'Lock & Mint')}</div>
-                        <Badge className={bridge.status === 'Active' ? 'bg-green-500' : 'bg-yellow-500'}>
-                          {t(`vcTestMode.dueDiligence.bridgeStatus.${statusKey}`, bridge.status)}
-                        </Badge>
-                      </div>
-                    );
-                  })}
+                  {MAINNET_CONFIG.bridgeConnections.map((bridge, idx) => (
+                    <div key={idx} className="p-3 bg-gray-50 dark:bg-white/5 rounded-lg text-center">
+                      <div className="font-bold text-gray-900 dark:text-white">{bridge.chain}</div>
+                      <div className="text-xs text-gray-500 dark:text-gray-400 mb-2">{bridge.type}</div>
+                      <Badge className={bridge.status === 'Active' ? 'bg-green-500' : 'bg-yellow-500'}>
+                        {bridge.status}
+                      </Badge>
+                    </div>
+                  ))}
                 </div>
               </CardContent>
             </Card>
@@ -1097,10 +1085,10 @@ export default function VCTestMode() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Terminal className="w-5 h-5 text-gray-500" />
-                  {t('vcTestMode.dueDiligence.jsonConfig', 'MetaMask / Wallet Configuration')}
+                  {t('vcTestMode.jsonConfig', 'MetaMask / Wallet Configuration')}
                 </CardTitle>
                 <CardDescription>
-                  {t('vcTestMode.dueDiligence.jsonConfigDesc', 'Copy this configuration to add TBURN Mainnet to your wallet')}
+                  {t('vcTestMode.jsonConfigDesc', 'Copy this configuration to add TBURN Mainnet to your wallet')}
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -1158,15 +1146,15 @@ export default function VCTestMode() {
                 </CardHeader>
                 <CardContent className="space-y-2">
                   <div className="flex justify-between">
-                    <span className="text-gray-500 dark:text-gray-400 text-sm">{t('vcTestMode.dueDiligence.totalSupply', 'Total Supply')}</span>
+                    <span className="text-gray-500 dark:text-gray-400 text-sm">Total Supply</span>
                     <span className="font-bold">10B TBURN</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-500 dark:text-gray-400 text-sm">{t('vcTestMode.dueDiligence.circulating', 'Circulating')}</span>
+                    <span className="text-gray-500 dark:text-gray-400 text-sm">Circulating</span>
                     <span className="font-bold">~6.8B (68%)</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-500 dark:text-gray-400 text-sm">{t('vcTestMode.dueDiligence.staked', 'Staked')}</span>
+                    <span className="text-gray-500 dark:text-gray-400 text-sm">Staked</span>
                     <span className="font-bold text-purple-500">~3.2B (32%)</span>
                   </div>
                 </CardContent>
@@ -1201,22 +1189,22 @@ export default function VCTestMode() {
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2 text-base">
                     <Shield className="w-4 h-4 text-green-500" />
-                    {t('vcTestMode.dueDiligence.securityTitle', 'Security')}
+                    Security
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-2">
                   <div className="flex justify-between">
-                    <span className="text-gray-500 dark:text-gray-400 text-sm">{t('vcTestMode.dueDiligence.audit', 'Audit')}</span>
-                    <Badge className="bg-green-500">{t('vcTestMode.dueDiligence.certikAPlus', 'CertiK A+')}</Badge>
+                    <span className="text-gray-500 dark:text-gray-400 text-sm">Audit</span>
+                    <Badge className="bg-green-500">CertiK A+</Badge>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-500 dark:text-gray-400 text-sm">{t('vcTestMode.dueDiligence.insurance', 'Insurance')}</span>
+                    <span className="text-gray-500 dark:text-gray-400 text-sm">Insurance</span>
                     <span className="font-bold">$50M</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-500 dark:text-gray-400 text-sm">{t('vcTestMode.dueDiligence.bugBounty', 'Bug Bounty')}</span>
+                    <span className="text-gray-500 dark:text-gray-400 text-sm">Bug Bounty</span>
                     <Link href="/bug-bounty">
-                      <span className="text-blue-500 hover:underline cursor-pointer">{t('vcTestMode.dueDiligence.activeLink', 'Active →')}</span>
+                      <span className="text-blue-500 hover:underline cursor-pointer">Active →</span>
                     </Link>
                   </div>
                 </CardContent>
@@ -1234,7 +1222,7 @@ export default function VCTestMode() {
                       <div className={`p-2 rounded-lg ${category.bgColor}`}>
                         <category.icon className={`w-5 h-5 ${category.color}`} />
                       </div>
-                      {t(`vcTestMode.features.categories.${category.id}.title`, category.title)}
+                      {category.title}
                     </CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-2">
@@ -1245,8 +1233,8 @@ export default function VCTestMode() {
                           data-testid={`feature-link-${category.id}-${idx}`}
                         >
                           <div>
-                            <div className="font-medium text-gray-900 dark:text-white">{t(`vcTestMode.features.categories.${category.id}.items.${idx}.name`, feature.name)}</div>
-                            <div className="text-sm text-gray-500 dark:text-gray-400">{t(`vcTestMode.features.categories.${category.id}.items.${idx}.desc`, feature.desc)}</div>
+                            <div className="font-medium text-gray-900 dark:text-white">{feature.name}</div>
+                            <div className="text-sm text-gray-500 dark:text-gray-400">{feature.desc}</div>
                           </div>
                           <ArrowRight className="w-4 h-4 text-gray-400 group-hover:text-gray-600 dark:group-hover:text-gray-200 transition" />
                         </div>
@@ -1415,37 +1403,37 @@ export default function VCTestMode() {
             <Link href="/app/dex">
               <Button variant="outline" data-testid="quick-link-dex">
                 <Coins className="w-4 h-4 mr-2" />
-                {t('vcTestMode.quickLinks.dex', 'DEX')}
+                DEX
               </Button>
             </Link>
             <Link href="/app/staking">
               <Button variant="outline" data-testid="quick-link-staking">
                 <Lock className="w-4 h-4 mr-2" />
-                {t('vcTestMode.quickLinks.staking', 'Staking')}
+                Staking
               </Button>
             </Link>
             <Link href="/app/bridge">
               <Button variant="outline" data-testid="quick-link-bridge">
                 <Globe className="w-4 h-4 mr-2" />
-                {t('vcTestMode.quickLinks.bridge', 'Bridge')}
+                Bridge
               </Button>
             </Link>
             <Link href="/app/governance">
               <Button variant="outline" data-testid="quick-link-governance">
                 <Users className="w-4 h-4 mr-2" />
-                {t('vcTestMode.quickLinks.governance', 'Governance')}
+                Governance
               </Button>
             </Link>
             <Link href="/network/validators">
               <Button variant="outline" data-testid="quick-link-validators">
                 <Server className="w-4 h-4 mr-2" />
-                {t('vcTestMode.quickLinks.validators', 'Validators')}
+                Validators
               </Button>
             </Link>
             <Link href="/admin">
               <Button variant="outline" data-testid="quick-link-admin">
                 <Shield className="w-4 h-4 mr-2" />
-                {t('vcTestMode.quickLinks.adminPortal', 'Admin Portal')}
+                Admin Portal
               </Button>
             </Link>
           </div>
