@@ -62,6 +62,10 @@ const NftMarketplaceStandalone = lazyWithRetry(() => import("@/pages/nft-marketp
 
 const Brand = lazyWithRetry(() => import("./pages/Brand"));
 const VCTestMode = lazyWithRetry(() => import("@/pages/vc-test-mode"));
+const UserPage = lazyWithRetry(() => import("@/pages/user"));
+const TokenSchedule = lazyWithRetry(() => import("@/pages/token-schedule"));
+const TokenDetails = lazyWithRetry(() => import("@/pages/token-details"));
+const NotFound = lazyWithRetry(() => import("@/pages/not-found"));
 
 function LoginPage() {
   const handleLoginSuccess = () => {
@@ -501,11 +505,10 @@ export function PublicRouter() {
 
   // User dashboard page - standalone without PublicLayout header
   if (location === "/user" || location.startsWith("/user?")) {
-    const User = lazyWithRetry(() => import("@/pages/user"));
     return (
       <ErrorBoundary>
         <Suspense fallback={<PageLoading />}>
-          <User />
+          <UserPage />
         </Suspense>
       </ErrorBoundary>
     );
@@ -525,8 +528,6 @@ export function PublicRouter() {
 
 
   if (location.startsWith("/token-schedule") || location.startsWith("/token-details")) {
-    const TokenSchedule = lazyWithRetry(() => import("@/pages/token-schedule"));
-    const TokenDetails = lazyWithRetry(() => import("@/pages/token-details"));
     return (
       <ErrorBoundary>
         <PublicLayout>
@@ -555,7 +556,6 @@ export function PublicRouter() {
   }
   
   // 404 for unmatched routes
-  const NotFound = lazyWithRetry(() => import("@/pages/not-found"));
   return (
     <ErrorBoundary>
       <PublicLayout>
