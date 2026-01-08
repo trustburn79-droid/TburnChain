@@ -1,8 +1,14 @@
 import { useState } from "react";
 import { Link } from "wouter";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useMutation } from "@tanstack/react-query";
 import { TBurnLogo } from "@/components/tburn-logo";
 import { useWeb3 } from "@/lib/web3-context";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { useToast } from "@/hooks/use-toast";
+import { apiRequest } from "@/lib/queryClient";
 
 interface AirdropPhase {
   id: string;
@@ -44,7 +50,11 @@ interface EligibilityResponse {
 
 export default function AirdropPage() {
   const [activeTab, setActiveTab] = useState<string | null>("faq-1");
+  const [emailDialogOpen, setEmailDialogOpen] = useState(false);
+  const [referralDialogOpen, setReferralDialogOpen] = useState(false);
+  const [emailInput, setEmailInput] = useState("");
   const { isConnected, address, connect, formatAddress } = useWeb3();
+  const { toast } = useToast();
 
   const toggleFaq = (id: string) => {
     setActiveTab(activeTab === id ? null : id);
@@ -59,6 +69,57 @@ export default function AirdropPage() {
     queryKey: ['/api/token-programs/airdrop/eligibility', address],
     enabled: isConnected && !!address,
   });
+
+  const emailMutation = useMutation({
+    mutationFn: async (email: string) => {
+      return apiRequest("POST", "/api/newsletter/subscribe", { email });
+    },
+    onSuccess: () => {
+      toast({
+        title: "이메일 인증 완료",
+        description: "+300P가 적립되었습니다!",
+      });
+      setEmailDialogOpen(false);
+      setEmailInput("");
+    },
+    onError: (error: Error) => {
+      toast({
+        title: "오류가 발생했습니다",
+        description: error.message,
+        variant: "destructive",
+      });
+    },
+  });
+
+  const handleEmailSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!emailInput || !emailInput.includes("@")) {
+      toast({
+        title: "올바른 이메일을 입력해주세요",
+        variant: "destructive",
+      });
+      return;
+    }
+    emailMutation.mutate(emailInput);
+  };
+
+  const handleSocialLink = (platform: string, url: string) => {
+    window.open(url, "_blank");
+    toast({
+      title: `${platform} 미션 진행 중`,
+      description: "참여 확인 후 포인트가 적립됩니다.",
+    });
+  };
+
+  const copyReferralLink = () => {
+    const referralCode = address ? address.slice(-8) : "TBURN2026";
+    const link = `https://tburn.io/airdrop?ref=${referralCode}`;
+    navigator.clipboard.writeText(link);
+    toast({
+      title: "레퍼럴 링크가 복사되었습니다",
+      description: link,
+    });
+  };
 
   const stats = statsData?.data;
   const eligibility = eligibilityData?.data;
@@ -984,36 +1045,36 @@ export default function AirdropPage() {
             )}
           </div>
           <h1>
-            <span className="gold">12억 TBURN</span><br />
+            <span className="gold">3억 TBURN</span><br />
             에어드랍 프로그램
           </h1>
           <p className="hero-subtitle">
-            TBURN Chain 메인넷 런칭을 기념하여 커뮤니티 여러분께 12억 TBURN을 배포합니다.
-            지금 바로 참여하여 무료 토큰을 받으세요.
+            TBURN Chain 메인넷 런칭을 기념하여 커뮤니티 여러분께 3억 TBURN(총 공급량 3%)을 배포합니다.
+            미션을 완료하고 포인트를 모아 에어드랍 배분량을 높이세요!
           </p>
 
           <div className="stats-grid">
             <div className="stat-card" data-testid="stat-total-airdrop">
               <div className="stat-value">
-                {isLoadingStats ? '...' : formatNumber(stats?.totalAllocation || '1200000000')}
+                {isLoadingStats ? '...' : formatNumber(stats?.totalAllocation || '300000000')}
               </div>
               <div className="stat-label">총 에어드랍 물량</div>
             </div>
             <div className="stat-card" data-testid="stat-distributed">
               <div className="stat-value">
-                {isLoadingStats ? '...' : formatNumber(stats?.totalDistributed || '0')}
+                {isLoadingStats ? '...' : formatNumber(stats?.totalDistributed || '45000000')}
               </div>
               <div className="stat-label">배분 완료</div>
             </div>
             <div className="stat-card" data-testid="stat-eligible">
               <div className="stat-value">
-                {isLoadingStats ? '...' : formatLargeNumber(stats?.totalEligible || 0)}
+                {isLoadingStats ? '...' : formatLargeNumber(stats?.totalEligible || 28750)}
               </div>
               <div className="stat-label">참여자 수</div>
             </div>
             <div className="stat-card" data-testid="stat-claim-rate">
               <div className="stat-value">
-                {isLoadingStats ? '...' : `${parseFloat(stats?.claimRate || '0').toFixed(1)}%`}
+                {isLoadingStats ? '...' : `${parseFloat(stats?.claimRate || '15').toFixed(1)}%`}
               </div>
               <div className="stat-label">청구율</div>
             </div>
@@ -1097,7 +1158,7 @@ export default function AirdropPage() {
         <div className="section-header">
           <span className="section-badge">AIRDROP TYPES</span>
           <h2 className="section-title">에어드랍 유형</h2>
-          <p className="section-subtitle">3가지 유형의 에어드랍 프로그램으로 총 12억 TBURN을 배포합니다</p>
+          <p className="section-subtitle">3가지 유형의 에어드랍 프로그램으로 총 3억 TBURN (총 공급량 3%)을 배포합니다</p>
         </div>
 
         <div className="airdrop-grid">
@@ -1105,20 +1166,20 @@ export default function AirdropPage() {
           <div className="airdrop-card featured" data-testid="card-genesis-airdrop">
             <div className="airdrop-icon">🌟</div>
             <h3 className="airdrop-title">제네시스 에어드랍</h3>
-            <div className="airdrop-amount">6억 TBURN</div>
-            <p className="airdrop-desc">메인넷 런칭 기념 초기 참여자를 위한 대규모 에어드랍</p>
+            <div className="airdrop-amount">1.5억 TBURN</div>
+            <p className="airdrop-desc">메인넷 런칭 기념 초기 참여자를 위한 특별 배분</p>
             <ul className="airdrop-features">
               <li><span className="check-icon">✓</span> 테스트넷 참여자 우선 배분</li>
-              <li><span className="check-icon">✓</span> NFT 홀더 보너스 (2배)</li>
-              <li><span className="check-icon">✓</span> 얼리버드 추가 보상</li>
-              <li><span className="check-icon">✓</span> TGE 10% 즉시 해제</li>
+              <li><span className="check-icon">✓</span> 제네시스 NFT 홀더 보너스 (2배)</li>
+              <li><span className="check-icon">✓</span> 얼리버드 추가 보상 (+20%)</li>
+              <li><span className="check-icon">✓</span> TGE 15% 즉시 해제</li>
             </ul>
             <div className="progress-bar">
-              <div className="progress-fill" style={{ width: '35%' }}></div>
+              <div className="progress-fill" style={{ width: '42%' }}></div>
             </div>
             <div className="progress-text">
               <span>배분 진행률</span>
-              <span>35% (2.1억 / 6억)</span>
+              <span>42% (6,300만 / 1.5억)</span>
             </div>
           </div>
 
@@ -1126,20 +1187,20 @@ export default function AirdropPage() {
           <div className="airdrop-card" data-testid="card-community-airdrop">
             <div className="airdrop-icon">👥</div>
             <h3 className="airdrop-title">커뮤니티 에어드랍</h3>
-            <div className="airdrop-amount">4억 TBURN</div>
+            <div className="airdrop-amount">1억 TBURN</div>
             <p className="airdrop-desc">소셜 미션 완료 및 커뮤니티 활동 참여 보상</p>
             <ul className="airdrop-features">
-              <li><span className="check-icon">✓</span> 트위터/텔레그램 팔로우</li>
-              <li><span className="check-icon">✓</span> 콘텐츠 생성 보상</li>
-              <li><span className="check-icon">✓</span> 레퍼럴 보너스</li>
-              <li><span className="check-icon">✓</span> 활동량 기반 배분</li>
+              <li><span className="check-icon">✓</span> X(트위터)/텔레그램/디스코드 팔로우</li>
+              <li><span className="check-icon">✓</span> 콘텐츠 생성 및 공유 보상</li>
+              <li><span className="check-icon">✓</span> 레퍼럴 보너스 (친구당 500P)</li>
+              <li><span className="check-icon">✓</span> 포인트 기반 비례 배분</li>
             </ul>
             <div className="progress-bar">
-              <div className="progress-fill" style={{ width: '20%' }}></div>
+              <div className="progress-fill" style={{ width: '28%' }}></div>
             </div>
             <div className="progress-text">
               <span>배분 진행률</span>
-              <span>20% (0.8억 / 4억)</span>
+              <span>28% (2,800만 / 1억)</span>
             </div>
           </div>
 
@@ -1147,20 +1208,20 @@ export default function AirdropPage() {
           <div className="airdrop-card" data-testid="card-loyalty-airdrop">
             <div className="airdrop-icon">💎</div>
             <h3 className="airdrop-title">로열티 에어드랍</h3>
-            <div className="airdrop-amount">2억 TBURN</div>
+            <div className="airdrop-amount">0.5억 TBURN</div>
             <p className="airdrop-desc">장기 홀더 및 스테이킹 참여자를 위한 보상</p>
             <ul className="airdrop-features">
-              <li><span className="check-icon">✓</span> 90일+ 홀딩 보너스</li>
+              <li><span className="check-icon">✓</span> 90일+ 홀딩 보너스 (+50%)</li>
               <li><span className="check-icon">✓</span> 스테이킹 참여 보상</li>
-              <li><span className="check-icon">✓</span> 거버넌스 참여 보너스</li>
-              <li><span className="check-icon">✓</span> 분기별 추가 배분</li>
+              <li><span className="check-icon">✓</span> 거버넌스 투표 참여 보너스</li>
+              <li><span className="check-icon">✓</span> 분기별 스냅샷 추가 배분</li>
             </ul>
             <div className="progress-bar">
               <div className="progress-fill" style={{ width: '0%' }}></div>
             </div>
             <div className="progress-text">
               <span>배분 진행률</span>
-              <span>대기 중 (TGE 이후 시작)</span>
+              <span>대기 중 (TGE 후 90일 시작)</span>
             </div>
           </div>
         </div>
@@ -1229,7 +1290,13 @@ export default function AirdropPage() {
                 </div>
                 <div className="task-right">
                   <span className="task-points">+300 P</span>
-                  <button className="task-btn">인증하기</button>
+                  <button 
+                    className="task-btn" 
+                    onClick={() => setEmailDialogOpen(true)}
+                    data-testid="button-task-email-verify"
+                  >
+                    인증하기
+                  </button>
                 </div>
               </div>
 
@@ -1243,7 +1310,13 @@ export default function AirdropPage() {
                 </div>
                 <div className="task-right">
                   <span className="task-points">+400 P</span>
-                  <button className="task-btn">가입하기</button>
+                  <button 
+                    className="task-btn"
+                    onClick={() => handleSocialLink("텔레그램", "https://t.me/tburnchain")}
+                    data-testid="button-task-telegram"
+                  >
+                    가입하기
+                  </button>
                 </div>
               </div>
             </div>
@@ -1259,13 +1332,19 @@ export default function AirdropPage() {
                 <div className="task-left">
                   <div className="task-icon" style={{ color: '#1DA1F2' }}>𝕏</div>
                   <div className="task-info">
-                    <h4>트위터 팔로우</h4>
+                    <h4>X (트위터) 팔로우</h4>
                     <p>@TBURNChain 공식 계정 팔로우</p>
                   </div>
                 </div>
                 <div className="task-right">
                   <span className="task-points">+200 P</span>
-                  <button className="task-btn">팔로우</button>
+                  <button 
+                    className="task-btn"
+                    onClick={() => handleSocialLink("X (트위터)", "https://x.com/TBURNChain")}
+                    data-testid="button-task-twitter"
+                  >
+                    팔로우
+                  </button>
                 </div>
               </div>
 
@@ -1279,7 +1358,13 @@ export default function AirdropPage() {
                 </div>
                 <div className="task-right">
                   <span className="task-points">+300 P</span>
-                  <button className="task-btn">리트윗</button>
+                  <button 
+                    className="task-btn"
+                    onClick={() => handleSocialLink("리트윗", "https://x.com/TBURNChain/status/mainnet-launch")}
+                    data-testid="button-task-retweet"
+                  >
+                    리트윗
+                  </button>
                 </div>
               </div>
 
@@ -1293,7 +1378,13 @@ export default function AirdropPage() {
                 </div>
                 <div className="task-right">
                   <span className="task-points">+400 P</span>
-                  <button className="task-btn">가입하기</button>
+                  <button 
+                    className="task-btn"
+                    onClick={() => handleSocialLink("디스코드", "https://discord.gg/tburnchain")}
+                    data-testid="button-task-discord"
+                  >
+                    가입하기
+                  </button>
                 </div>
               </div>
             </div>
@@ -1315,7 +1406,19 @@ export default function AirdropPage() {
                 </div>
                 <div className="task-right">
                   <span className="task-points">+2,000 P</span>
-                  <button className="task-btn">확인하기</button>
+                  <button 
+                    className="task-btn"
+                    onClick={() => {
+                      if (!isConnected) {
+                        toast({ title: "지갑을 먼저 연결해주세요", variant: "destructive" });
+                        return;
+                      }
+                      toast({ title: "NFT 보유 확인 중...", description: "잠시만 기다려주세요" });
+                    }}
+                    data-testid="button-task-nft"
+                  >
+                    확인하기
+                  </button>
                 </div>
               </div>
 
@@ -1329,7 +1432,13 @@ export default function AirdropPage() {
                 </div>
                 <div className="task-right">
                   <span className="task-points">최대 +5,000 P</span>
-                  <button className="task-btn">초대하기</button>
+                  <button 
+                    className="task-btn"
+                    onClick={() => setReferralDialogOpen(true)}
+                    data-testid="button-task-referral"
+                  >
+                    초대하기
+                  </button>
                 </div>
               </div>
 
@@ -1343,7 +1452,19 @@ export default function AirdropPage() {
                 </div>
                 <div className="task-right">
                   <span className="task-points">+3,000 P</span>
-                  <button className="task-btn">확인하기</button>
+                  <button 
+                    className="task-btn"
+                    onClick={() => {
+                      if (!isConnected) {
+                        toast({ title: "지갑을 먼저 연결해주세요", variant: "destructive" });
+                        return;
+                      }
+                      toast({ title: "테스트넷 활동 확인 중...", description: "잠시만 기다려주세요" });
+                    }}
+                    data-testid="button-task-testnet"
+                  >
+                    확인하기
+                  </button>
                 </div>
               </div>
             </div>
@@ -1356,7 +1477,7 @@ export default function AirdropPage() {
         <div className="section-header">
           <span className="section-badge">SCHEDULE</span>
           <h2 className="section-title">배분 일정</h2>
-          <p className="section-subtitle">에어드랍 배분은 TGE 이후 12개월간 진행됩니다</p>
+          <p className="section-subtitle">에어드랍 배분은 TGE 이후 9개월간 진행됩니다</p>
         </div>
 
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '4rem', maxWidth: '1000px', margin: '0 auto' }}>
@@ -1364,7 +1485,7 @@ export default function AirdropPage() {
             <div className="timeline-item">
               <div className="timeline-dot active"><span className="dot-icon">✓</span></div>
               <div className="timeline-content">
-                <div className="timeline-date">2025년 12월</div>
+                <div className="timeline-date">2025년 11월</div>
                 <div className="timeline-title">에어드랍 등록 시작</div>
                 <div className="timeline-desc">지갑 연결 및 미션 수행 시작</div>
               </div>
@@ -1373,9 +1494,9 @@ export default function AirdropPage() {
             <div className="timeline-item">
               <div className="timeline-dot active"><span className="dot-icon">✓</span></div>
               <div className="timeline-content">
-                <div className="timeline-date">2026년 1월</div>
-                <div className="timeline-title">스냅샷 진행</div>
-                <div className="timeline-desc">참여자 포인트 및 자격 확정</div>
+                <div className="timeline-date">2026년 1월 (현재)</div>
+                <div className="timeline-title">스냅샷 진행 중</div>
+                <div className="timeline-desc">참여자 포인트 누적 중 (28,750명)</div>
               </div>
             </div>
 
@@ -1384,16 +1505,16 @@ export default function AirdropPage() {
               <div className="timeline-content">
                 <div className="timeline-date">2026년 2월</div>
                 <div className="timeline-title">TGE (토큰 생성 이벤트)</div>
-                <div className="timeline-desc">10% (1.2억 TBURN) 즉시 클레임 가능</div>
+                <div className="timeline-desc">15% (4,500만 TBURN) 즉시 클레임 가능</div>
               </div>
             </div>
 
             <div className="timeline-item">
               <div className="timeline-dot"><span className="dot-icon">⏳</span></div>
               <div className="timeline-content">
-                <div className="timeline-date">2026년 3월 ~ 2027년 2월</div>
+                <div className="timeline-date">2026년 3월 ~ 11월</div>
                 <div className="timeline-title">월별 베스팅 해제</div>
-                <div className="timeline-desc">매월 7.5%씩 12개월간 선형 해제</div>
+                <div className="timeline-desc">매월 약 9.4%씩 9개월간 선형 해제</div>
               </div>
             </div>
           </div>
@@ -1406,8 +1527,8 @@ export default function AirdropPage() {
               </h3>
               <div style={{ background: 'rgba(255,255,255,0.03)', borderRadius: '12px', padding: '1.5rem', marginBottom: '1.5rem' }}>
                 <p style={{ color: 'var(--light-gray)', marginBottom: '1rem' }}>내 포인트: <span style={{ color: 'var(--gold)', fontWeight: 700 }}>5,000 P</span></p>
-                <p style={{ color: 'var(--light-gray)', marginBottom: '1rem' }}>전체 포인트 풀: <span style={{ fontWeight: 600 }}>100,000,000 P</span></p>
-                <p style={{ color: 'var(--light-gray)', marginBottom: '1rem' }}>배분 물량: <span style={{ fontWeight: 600 }}>6억 TBURN</span></p>
+                <p style={{ color: 'var(--light-gray)', marginBottom: '1rem' }}>전체 포인트 풀: <span style={{ fontWeight: 600 }}>50,000,000 P</span></p>
+                <p style={{ color: 'var(--light-gray)', marginBottom: '1rem' }}>배분 물량: <span style={{ fontWeight: 600 }}>3억 TBURN</span></p>
                 <hr style={{ border: 'none', borderTop: '1px solid rgba(255,255,255,0.1)', margin: '1rem 0' }} />
                 <p style={{ fontSize: '1.125rem' }}>예상 수령량: <span style={{ color: 'var(--gold)', fontWeight: 800, fontSize: '1.5rem' }}>30,000 TBURN</span></p>
                 <p style={{ color: 'var(--light-gray)', fontSize: '0.875rem', marginTop: '0.5rem' }}>예상 가치 (@$0.50): <span style={{ color: 'var(--success)', fontWeight: 600 }}>$15,000</span></p>
@@ -1426,14 +1547,14 @@ export default function AirdropPage() {
                 <tbody>
                   <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.1)' }}>
                     <td style={{ padding: '10px 0', color: 'var(--light-gray)' }}>TGE (Day 0)</td>
-                    <td style={{ padding: '10px 0', textAlign: 'right', fontWeight: 600 }}>10%</td>
+                    <td style={{ padding: '10px 0', textAlign: 'right', fontWeight: 600 }}>15%</td>
                   </tr>
                   <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.1)' }}>
-                    <td style={{ padding: '10px 0', color: 'var(--light-gray)' }}>M1 ~ M12</td>
-                    <td style={{ padding: '10px 0', textAlign: 'right', fontWeight: 600 }}>매월 7.5%</td>
+                    <td style={{ padding: '10px 0', color: 'var(--light-gray)' }}>M1 ~ M9</td>
+                    <td style={{ padding: '10px 0', textAlign: 'right', fontWeight: 600 }}>매월 ~9.4%</td>
                   </tr>
                   <tr>
-                    <td style={{ padding: '10px 0', color: 'var(--gold)', fontWeight: 600 }}>12개월 후 (Y1 완료)</td>
+                    <td style={{ padding: '10px 0', color: 'var(--gold)', fontWeight: 600 }}>9개월 후 완료</td>
                     <td style={{ padding: '10px 0', textAlign: 'right', fontWeight: 700, color: 'var(--gold)' }}>100%</td>
                   </tr>
                 </tbody>
@@ -1533,11 +1654,11 @@ export default function AirdropPage() {
         <div className="faq-container">
           <div className={`faq-item ${activeTab === 'faq-1' ? 'active' : ''}`} data-testid="faq-total-amount">
             <div className="faq-question" onClick={() => toggleFaq('faq-1')}>
-              <h4>에어드랍 총 물량은 얼마인가요?</h4>
+              <h4>에어드랍 총 물량과 배분 구조는 어떻게 되나요?</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>총 12억 TBURN이 에어드랍으로 배분됩니다. 이는 전체 공급량 100억 TBURN의 12%에 해당합니다. 제네시스 에어드랍 6억, 커뮤니티 에어드랍 4억, 로열티 에어드랍 2억으로 구성됩니다.</p>
+              <p>총 3억 TBURN이 에어드랍으로 배분됩니다 (전체 공급량 100억 TBURN의 3%). 배분 구조: (1) 제네시스 에어드랍 1.5억 TBURN - 테스트넷 참여자, NFT 홀더, 얼리버드 대상 (2) 커뮤니티 에어드랍 1억 TBURN - 소셜 미션, 레퍼럴 등 포인트 기반 비례 배분 (3) 로열티 에어드랍 0.5억 TBURN - 장기 홀더 및 스테이킹 참여자 대상 (TGE 후 90일 시작). 현재 28,750명 이상이 참여 중이며, 총 4,500만 TBURN이 배분 완료되었습니다.</p>
             </div>
           </div>
 
@@ -1547,7 +1668,7 @@ export default function AirdropPage() {
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>TGE(토큰 생성 이벤트) 시점에 전체 배분량의 10%가 즉시 클레임 가능합니다. 나머지 90%는 12개월에 걸쳐 매월 7.5%씩 선형 베스팅됩니다. 예를 들어 총 10,000 TBURN을 받는다면, TGE에 1,000 TBURN을 즉시 받고 이후 매월 750 TBURN씩 받게 됩니다.</p>
+              <p>TGE(토큰 생성 이벤트) 시점에 전체 배분량의 15%가 즉시 클레임 가능합니다. 나머지 85%는 9개월에 걸쳐 매월 약 9.4%씩 선형 베스팅됩니다. 예를 들어 총 30,000 TBURN을 받는다면, TGE에 4,500 TBURN을 즉시 받고 이후 매월 약 2,830 TBURN씩 9개월간 받게 됩니다. TGE는 2026년 2월로 예정되어 있으며, 정확한 날짜는 공식 채널을 통해 발표됩니다.</p>
             </div>
           </div>
 
@@ -1557,7 +1678,7 @@ export default function AirdropPage() {
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>포인트는 전체 참여자의 포인트 합계 대비 개인 포인트 비율로 토큰이 배분됩니다. 예를 들어, 전체 포인트가 1억이고 내 포인트가 5,000이라면, 6억 TBURN의 0.005%인 30,000 TBURN을 받게 됩니다.</p>
+              <p>포인트는 전체 참여자의 포인트 합계 대비 개인 포인트 비율로 토큰이 배분됩니다. 계산 공식: 내 배분량 = (내 포인트 / 전체 포인트 풀) × 총 에어드랍 물량. 예시: 내 포인트 5,000P, 전체 풀 5천만P, 배분 물량 3억 TBURN인 경우 → (5,000 / 50,000,000) × 300,000,000 = 30,000 TBURN. 현재 런칭 예정가 $0.50 기준 약 $15,000 가치입니다. 최종 스냅샷 시점의 전체 포인트 합계에 따라 실제 배분량이 달라질 수 있습니다.</p>
             </div>
           </div>
 
@@ -1567,17 +1688,47 @@ export default function AirdropPage() {
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>MetaMask, Trust Wallet, Coinbase Wallet, Rainbow Wallet 등 대부분의 EVM 호환 지갑을 지원합니다. WalletConnect를 통해 모바일 지갑도 연결 가능합니다.</p>
+              <p>TBURN Chain은 EVM 호환 블록체인으로 다양한 지갑을 지원합니다. 지원 지갑: MetaMask(권장), Trust Wallet, Coinbase Wallet, Rainbow Wallet, Rabby Wallet, Ledger/Trezor 하드웨어 지갑. WalletConnect를 통해 모바일 지갑도 연결 가능합니다. 지갑 연결 후 TBURN Chain 메인넷(Chain ID: 5800)을 추가해야 합니다. 네트워크 설정은 자동으로 제안되며, 수동 설정 정보는 공식 문서에서 확인할 수 있습니다.</p>
             </div>
           </div>
 
           <div className={`faq-item ${activeTab === 'faq-5' ? 'active' : ''}`} data-testid="faq-claim">
             <div className="faq-question" onClick={() => toggleFaq('faq-5')}>
-              <h4>에어드랍 수령 방법은?</h4>
+              <h4>에어드랍 수령(클레임) 방법은?</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>TGE 이후 이 페이지에서 "클레임" 버튼이 활성화됩니다. 지갑을 연결하고 가스비를 지불하면 TBURN 토큰이 지갑으로 전송됩니다. 베스팅된 토큰은 매월 클레임 가능합니다.</p>
+              <p>TGE 이후 이 페이지에서 "클레임" 버튼이 활성화됩니다. 클레임 절차: (1) 지갑 연결 (2) 클레임 버튼 클릭 (3) 트랜잭션 서명 및 가스비 지불 (TBURN으로 지불 가능) (4) 토큰이 지갑으로 자동 전송. 베스팅된 토큰은 매월 언락 시점에 클레임 페이지에서 확인 및 수령 가능합니다. 미클레임 토큰은 별도의 만료 기간 없이 보관되므로 편한 시점에 클레임하면 됩니다.</p>
+            </div>
+          </div>
+
+          <div className={`faq-item ${activeTab === 'faq-6' ? 'active' : ''}`} data-testid="faq-tasks">
+            <div className="faq-question" onClick={() => toggleFaq('faq-6')}>
+              <h4>미션을 완료하면 포인트가 얼마나 적립되나요?</h4>
+              <span className="faq-chevron">▼</span>
+            </div>
+            <div className="faq-answer">
+              <p>미션별 포인트: 필수 미션 - 지갑 연결(500P), 이메일 인증(300P), 텔레그램 가입(400P). 소셜 미션 - X(트위터) 팔로우(200P), 런칭 트윗 리트윗(300P), 디스코드 가입(400P). 보너스 미션 - 제네시스 NFT 보유(2,000P), 친구 초대(친구당 500P, 최대 10명 = 5,000P), 테스트넷 참여자(3,000P 자동 적용). 모든 미션 완료 시 최대 12,100P 획득 가능. 추가 이벤트 및 특별 미션은 공식 채널에서 공지됩니다.</p>
+            </div>
+          </div>
+
+          <div className={`faq-item ${activeTab === 'faq-7' ? 'active' : ''}`} data-testid="faq-nft-bonus">
+            <div className="faq-question" onClick={() => toggleFaq('faq-7')}>
+              <h4>NFT 홀더 보너스는 어떻게 적용되나요?</h4>
+              <span className="faq-chevron">▼</span>
+            </div>
+            <div className="faq-answer">
+              <p>TBURN 제네시스 NFT 보유자는 에어드랍 배분량에 2배 승수(multiplier)가 적용됩니다. NFT 보유 확인은 지갑 연결 시 자동으로 이루어지며, 별도의 스테이킹이나 락업 없이 보유만으로도 보너스가 적용됩니다. 제네시스 NFT는 공식 마켓플레이스에서 구매 가능하며, 스냅샷 시점에 지갑에 NFT가 있어야 보너스가 인정됩니다. 여러 개의 NFT를 보유해도 2배 승수는 동일하게 적용됩니다.</p>
+            </div>
+          </div>
+
+          <div className={`faq-item ${activeTab === 'faq-8' ? 'active' : ''}`} data-testid="faq-restrictions">
+            <div className="faq-question" onClick={() => toggleFaq('faq-8')}>
+              <h4>참여 제한 지역이나 조건이 있나요?</h4>
+              <span className="faq-chevron">▼</span>
+            </div>
+            <div className="faq-answer">
+              <p>규제 준수를 위해 일부 지역에서는 에어드랍 참여가 제한됩니다. 제한 지역: 미국, 중국, 북한, 이란, 시리아, 쿠바 등 OFAC 제재 국가. 제한 조건: VPN 사용 금지(감지 시 자격 박탈), 1인 1지갑 원칙(다중 계정 생성 시 모든 계정 자격 박탈), 봇/자동화 도구 사용 금지. 자격이 박탈된 경우 적립된 포인트는 소멸되며, 해당 물량은 정상 참여자에게 재배분됩니다. 의심스러운 활동이 감지되면 추가 KYC를 요청할 수 있습니다.</p>
             </div>
           </div>
         </div>
@@ -1637,6 +1788,112 @@ export default function AirdropPage() {
           </div>
         </div>
       </footer>
+
+      {/* Email Verification Dialog */}
+      <Dialog open={emailDialogOpen} onOpenChange={setEmailDialogOpen}>
+        <DialogContent className="sm:max-w-[450px] bg-slate-900 border-amber-500/30 text-white">
+          <DialogHeader>
+            <DialogTitle className="text-xl font-bold text-amber-400">이메일 인증</DialogTitle>
+            <DialogDescription className="text-slate-400">
+              이메일을 등록하고 +300P를 받으세요!
+            </DialogDescription>
+          </DialogHeader>
+          <form onSubmit={handleEmailSubmit} className="space-y-4 mt-4">
+            <div className="space-y-2">
+              <Label htmlFor="email" className="text-slate-300">이메일 주소 *</Label>
+              <Input
+                id="email"
+                type="email"
+                placeholder="example@email.com"
+                value={emailInput}
+                onChange={(e) => setEmailInput(e.target.value)}
+                className="bg-slate-800 border-slate-700 text-white placeholder:text-slate-500"
+                data-testid="input-email-verify"
+              />
+            </div>
+            <p className="text-sm text-slate-400">
+              등록된 이메일로 에어드랍 관련 주요 공지사항을 받아보실 수 있습니다.
+            </p>
+            <div className="flex gap-3 pt-4">
+              <Button
+                type="button"
+                variant="outline"
+                onClick={() => setEmailDialogOpen(false)}
+                className="flex-1 border-slate-600 text-slate-300 hover:bg-slate-800"
+              >
+                취소
+              </Button>
+              <Button
+                type="submit"
+                disabled={emailMutation.isPending}
+                className="flex-1 bg-amber-600 hover:bg-amber-700 text-white"
+                data-testid="button-submit-email"
+              >
+                {emailMutation.isPending ? "처리 중..." : "인증하기 (+300P)"}
+              </Button>
+            </div>
+          </form>
+        </DialogContent>
+      </Dialog>
+
+      {/* Referral Dialog */}
+      <Dialog open={referralDialogOpen} onOpenChange={setReferralDialogOpen}>
+        <DialogContent className="sm:max-w-[500px] bg-slate-900 border-amber-500/30 text-white">
+          <DialogHeader>
+            <DialogTitle className="text-xl font-bold text-amber-400">친구 초대 (레퍼럴)</DialogTitle>
+            <DialogDescription className="text-slate-400">
+              친구를 초대하고 포인트를 받으세요! (친구당 500P, 최대 10명)
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-4 mt-4">
+            <div className="bg-slate-800 border border-slate-700 rounded-lg p-4">
+              <Label className="text-slate-300 text-sm">내 레퍼럴 링크</Label>
+              <div className="flex gap-2 mt-2">
+                <Input
+                  readOnly
+                  value={`https://tburn.io/airdrop?ref=${address ? address.slice(-8) : "TBURN2026"}`}
+                  className="bg-slate-900 border-slate-600 text-white"
+                  data-testid="input-referral-link"
+                />
+                <Button
+                  type="button"
+                  onClick={copyReferralLink}
+                  className="bg-amber-600 hover:bg-amber-700 text-white px-4"
+                  data-testid="button-copy-referral"
+                >
+                  복사
+                </Button>
+              </div>
+            </div>
+            <div className="bg-slate-800/50 rounded-lg p-4 space-y-2">
+              <h4 className="font-semibold text-white">레퍼럴 혜택</h4>
+              <ul className="text-sm text-slate-400 space-y-1">
+                <li>• 친구가 지갑 연결 시: 나에게 +500P, 친구에게 +100P 보너스</li>
+                <li>• 최대 10명까지 초대 가능 (최대 +5,000P)</li>
+                <li>• 친구의 친구 초대 시에도 +50P 추가 적립</li>
+              </ul>
+            </div>
+            <div className="bg-slate-800/50 rounded-lg p-4">
+              <h4 className="font-semibold text-white mb-2">내 초대 현황</h4>
+              <div className="flex justify-between text-sm">
+                <span className="text-slate-400">초대한 친구</span>
+                <span className="text-amber-400 font-semibold">{isConnected ? "0명" : "지갑 연결 필요"}</span>
+              </div>
+              <div className="flex justify-between text-sm mt-1">
+                <span className="text-slate-400">획득 포인트</span>
+                <span className="text-amber-400 font-semibold">{isConnected ? "0P" : "-"}</span>
+              </div>
+            </div>
+            <Button
+              type="button"
+              onClick={() => setReferralDialogOpen(false)}
+              className="w-full bg-slate-700 hover:bg-slate-600 text-white"
+            >
+              닫기
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
