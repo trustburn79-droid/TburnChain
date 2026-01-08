@@ -90,7 +90,7 @@ export default function Ramp() {
 
   const handleConfirmBuy = async () => {
     if (!isCorrectNetwork) {
-      const success = await switchNetwork(6000);
+      const success = await switchNetwork(5800);
       if (!success) {
         toast({ title: t('wallet.wrongNetwork'), description: t('wallet.switchToTburn'), variant: "destructive" });
         return;
@@ -116,7 +116,7 @@ export default function Ramp() {
 
   const handleConfirmSell = async () => {
     if (!isCorrectNetwork) {
-      const success = await switchNetwork(6000);
+      const success = await switchNetwork(5800);
       if (!success) {
         toast({ title: t('wallet.wrongNetwork'), description: t('wallet.switchToTburn'), variant: "destructive" });
         return;

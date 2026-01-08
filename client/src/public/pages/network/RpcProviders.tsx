@@ -375,7 +375,7 @@ export default function RpcProviders() {
                   data-testid="button-select-mainnet"
                 >
                   <Globe className="w-4 h-4 mr-2" />
-                  {t('publicPages.network.rpc.network.mainnet')} (6000)
+                  {t('publicPages.network.rpc.network.mainnet')} (5800)
                 </Button>
                 <Button
                   variant={selectedNetwork === 'testnet' ? 'default' : 'outline'}
