@@ -5748,12 +5748,27 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   app.get("/api/transactions/:hash", async (req, res) => {
     try {
       const hash = req.params.hash;
+      const cache = getDataCache();
+      
+      // First check cached real-time transactions (from /api/transactions/recent)
+      const cachedTxs = cache.get<any[]>(DataCacheService.KEYS.RECENT_TRANSACTIONS, true);
+      if (cachedTxs && cachedTxs.length > 0) {
+        const cachedTx = cachedTxs.find((tx: any) => tx.hash === hash);
+        if (cachedTx) {
+          return res.json(cachedTx);
+        }
+      }
       
       // Fetch from TBurnEnterpriseNode for dynamic transaction data
       try {
         const response = await fetch(`http://localhost:8545/api/transactions/${encodeURIComponent(hash)}`);
         
         if (response.status === 404) {
+          // Try database before returning 404
+          const dbTransaction = await storage.getTransactionByHash(hash);
+          if (dbTransaction) {
+            return res.json(dbTransaction);
+          }
           return res.status(404).json({ error: "Transaction not found" });
         }
         
