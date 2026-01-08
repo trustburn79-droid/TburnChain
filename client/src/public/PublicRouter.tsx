@@ -471,6 +471,12 @@ export function PublicRouter() {
     return <PageLoading />;
   }
 
+  // App pages - redirect to full page load (these are handled by authenticated router)
+  if (location.startsWith("/app")) {
+    window.location.href = location;
+    return <PageLoading />;
+  }
+
   // User dashboard page - standalone without PublicLayout header
   if (location === "/user" || location.startsWith("/user?")) {
     const User = lazy(() => import("@/pages/user"));
@@ -478,30 +484,6 @@ export function PublicRouter() {
       <ErrorBoundary>
         <Suspense fallback={<PageLoading />}>
           <User />
-        </Suspense>
-      </ErrorBoundary>
-    );
-  }
-
-  // Operator portal pages - standalone without PublicLayout header
-  if (location.startsWith("/app/operator")) {
-    const OperatorDashboard = lazy(() => import("@/pages/operator/dashboard"));
-    const OperatorMembers = lazy(() => import("@/pages/operator/members"));
-    const OperatorValidators = lazy(() => import("@/pages/operator/validators"));
-    const OperatorSecurity = lazy(() => import("@/pages/operator/security"));
-    const OperatorReports = lazy(() => import("@/pages/operator/reports"));
-    const OperatorStaking = lazy(() => import("@/pages/operator/staking"));
-    return (
-      <ErrorBoundary>
-        <Suspense fallback={<PageLoading />}>
-          <Switch>
-            <Route path="/app/operator/members" component={OperatorMembers} />
-            <Route path="/app/operator/validators" component={OperatorValidators} />
-            <Route path="/app/operator/security" component={OperatorSecurity} />
-            <Route path="/app/operator/reports" component={OperatorReports} />
-            <Route path="/app/operator/staking" component={OperatorStaking} />
-            <Route path="/app/operator" component={OperatorDashboard} />
-          </Switch>
         </Suspense>
       </ErrorBoundary>
     );
