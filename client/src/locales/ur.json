@@ -2907,10 +2907,11 @@
     "techStack": "ٹیکنالوجی اسٹیک",
     "tabs": {
       "overview": "جائزہ",
-      "dueDiligence": "مستعدی سے جانچ",
+      "dueDiligence": "مناسب تحقیق",
       "features": "خصوصیات",
       "metrics": "میٹرکس",
-      "technology": "ٹیکنالوجی"
+      "technology": "ٹیکنالوجی",
+      "tech": "ٹیکنالوجی"
     },
     "stats": {
       "marketCap": "مارکیٹ کیپ",
@@ -3096,18 +3097,18 @@
     },
     "nav": {
       "overview": "جائزہ",
-      "staking": "اسٹیکنگ",
+      "staking": "سٹیکنگ",
       "governance": "گورننس",
       "explorer": "ایکسپلورر",
       "home": "ہوم",
       "demoMode": "ڈیمو موڈ"
     },
     "quickLinks": {
-      "dex": "ڈی ای ایکس",
-      "staking": "اسٹیکنگ",
+      "dex": "DEX",
+      "staking": "سٹیکنگ",
       "bridge": "برج",
       "governance": "گورننس",
-      "validators": "تصدیق کنندگان",
+      "validators": "ویلیڈیٹرز",
       "adminPortal": "ایڈمن پورٹل"
     },
     "copyConfig": "کنفیگریشن کاپی کریں",
@@ -3239,6 +3240,24 @@
       "complete": {
         "title": "ٹور مکمل!",
         "content": "آپ TBURN پلیٹ فارم کو دریافت کرنے کے لیے تیار ہیں۔ فیچرز کی جانچ کے لیے ڈیمو والیٹ استعمال کریں، یا مزید گہرائی میں جانے کے لیے پلیٹ فارم ایکسپلور کریں پر کلک کریں۔"
+      }
+    },
+    "highlights": {
+      "marketOpportunity": {
+        "title": "مارکیٹ کا موقع",
+        "desc": "2027 تک DeFi مارکیٹ"
+      },
+      "growthRate": {
+        "title": "نمو کی شرح",
+        "desc": "سالانہ صارف کی نمو"
+      },
+      "securityScore": {
+        "title": "سیکیورٹی سکور",
+        "desc": "CertiK آڈٹ ریٹنگ"
+      },
+      "aiInnovation": {
+        "title": "AI جدت",
+        "desc": "4 AI ماڈل مربوط"
       }
     }
   },

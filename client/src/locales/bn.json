@@ -2907,10 +2907,11 @@
     "techStack": "প্রযুক্তি স্ট্যাক",
     "tabs": {
       "overview": "সংক্ষিপ্ত বিবরণ",
-      "dueDiligence": "যথাযথ অধ্যবসায়",
+      "dueDiligence": "যথাযথ পরিশ্রম",
       "features": "বৈশিষ্ট্য",
       "metrics": "মেট্রিক্স",
-      "technology": "প্রযুক্তি"
+      "technology": "প্রযুক্তি",
+      "tech": "প্রযুক্তি"
     },
     "stats": {
       "marketCap": "বাজার মূলধন",
@@ -3103,10 +3104,10 @@
       "demoMode": "ডেমো মোড"
     },
     "quickLinks": {
-      "dex": "ডিইএক্স",
+      "dex": "DEX",
       "staking": "স্টেকিং",
       "bridge": "ব্রিজ",
-      "governance": "গভর্নেন্স",
+      "governance": "শাসন",
       "validators": "ভ্যালিডেটর",
       "adminPortal": "অ্যাডমিন পোর্টাল"
     },
@@ -3239,6 +3240,24 @@
       "complete": {
         "title": "ট্যুর সম্পন্ন!",
         "content": "আপনি TBURN প্ল্যাটফর্ম অন্বেষণ করতে প্রস্তুত। বৈশিষ্ট্যগুলি পরীক্ষা করতে ডেমো ওয়ালেট ব্যবহার করুন, অথবা গভীরে যেতে প্ল্যাটফর্ম এক্সপ্লোর করুন-এ ক্লিক করুন।"
+      }
+    },
+    "highlights": {
+      "marketOpportunity": {
+        "title": "বাজারের সুযোগ",
+        "desc": "2027 সালে DeFi বাজার"
+      },
+      "growthRate": {
+        "title": "বৃদ্ধির হার",
+        "desc": "বার্ষিক ব্যবহারকারী বৃদ্ধি"
+      },
+      "securityScore": {
+        "title": "নিরাপত্তা স্কোর",
+        "desc": "CertiK অডিট রেটিং"
+      },
+      "aiInnovation": {
+        "title": "AI উদ্ভাবন",
+        "desc": "4টি AI মডেল একীভূত"
       }
     }
   },

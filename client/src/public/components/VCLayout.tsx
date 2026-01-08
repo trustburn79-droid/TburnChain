@@ -28,7 +28,7 @@ import {
 } from "lucide-react";
 import { TBurnLogo } from "@/components/tburn-logo";
 import { useState, ReactNode } from "react";
-import i18n from "@/lib/i18n";
+import i18n, { changeLanguageWithPreload } from "@/lib/i18n";
 
 interface VCLayoutProps {
   children: ReactNode;
@@ -39,9 +39,9 @@ export default function VCLayout({ children }: VCLayoutProps) {
   const [location, setLocation] = useLocation();
   const [language, setLanguage] = useState(i18n.language || 'en');
 
-  const handleLanguageChange = (value: string) => {
+  const handleLanguageChange = async (value: string) => {
     setLanguage(value);
-    i18n.changeLanguage(value);
+    await changeLanguageWithPreload(value);
   };
 
   const navItems = [

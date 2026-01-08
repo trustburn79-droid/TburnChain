@@ -4602,7 +4602,8 @@
       "dueDiligence": "العناية الواجبة",
       "features": "الميزات",
       "metrics": "المقاييس",
-      "technology": "التكنولوجيا"
+      "technology": "التكنولوجيا",
+      "tech": "التكنولوجيا"
     },
     "stats": {
       "marketCap": "القيمة السوقية",
@@ -4788,19 +4789,19 @@
     },
     "nav": {
       "overview": "نظرة عامة",
-      "staking": "التخزين",
+      "staking": "المراهنة",
       "governance": "الحوكمة",
       "explorer": "المستكشف",
       "home": "الرئيسية",
-      "demoMode": "وضع العرض"
+      "demoMode": "الوضع التجريبي"
     },
     "quickLinks": {
-      "dex": "منصة لامركزية",
-      "staking": "الرهن",
+      "dex": "DEX",
+      "staking": "المراهنة",
       "bridge": "الجسر",
       "governance": "الحوكمة",
       "validators": "المدققون",
-      "adminPortal": "بوابة المسؤول"
+      "adminPortal": "بوابة الإدارة"
     },
     "copyConfig": "نسخ الإعدادات",
     "features": {
@@ -4931,6 +4932,24 @@
       "complete": {
         "title": "اكتملت الجولة!",
         "content": "أنت جاهز لاستكشاف منصة TBURN. استخدم المحفظة التجريبية لاختبار الميزات، أو انقر على استكشاف المنصة للتعمق أكثر."
+      }
+    },
+    "highlights": {
+      "marketOpportunity": {
+        "title": "فرصة السوق",
+        "desc": "سوق DeFi بحلول 2027"
+      },
+      "growthRate": {
+        "title": "معدل النمو",
+        "desc": "نمو المستخدمين السنوي"
+      },
+      "securityScore": {
+        "title": "درجة الأمان",
+        "desc": "تصنيف تدقيق CertiK"
+      },
+      "aiInnovation": {
+        "title": "ابتكار الذكاء الاصطناعي",
+        "desc": "4 نماذج ذكاء اصطناعي متكاملة"
       }
     }
   },

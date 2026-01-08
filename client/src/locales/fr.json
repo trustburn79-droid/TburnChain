@@ -4388,7 +4388,8 @@
       "dueDiligence": "Diligence Raisonnable",
       "features": "Fonctionnalités",
       "metrics": "Métriques",
-      "technology": "Technologie"
+      "technology": "Technologie",
+      "tech": "Technologie"
     },
     "stats": {
       "marketCap": "Cap. du Marché",
@@ -4717,6 +4718,24 @@
       "complete": {
         "title": "Tour Terminé !",
         "content": "Vous êtes prêt à explorer la plateforme TBURN. Utilisez le Portefeuille Démo pour tester les fonctionnalités, ou cliquez sur Explorer la Plateforme pour approfondir."
+      }
+    },
+    "highlights": {
+      "marketOpportunity": {
+        "title": "Opportunité de Marché",
+        "desc": "Marché DeFi d'ici 2027"
+      },
+      "growthRate": {
+        "title": "Taux de Croissance",
+        "desc": "Croissance annuelle des utilisateurs"
+      },
+      "securityScore": {
+        "title": "Score de Sécurité",
+        "desc": "Note d'audit CertiK"
+      },
+      "aiInnovation": {
+        "title": "Innovation IA",
+        "desc": "4 modèles IA orchestrés"
       }
     }
   },

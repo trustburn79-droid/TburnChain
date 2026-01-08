@@ -6568,7 +6568,8 @@
       "dueDiligence": "尽职调查",
       "features": "功能",
       "metrics": "指标",
-      "technology": "技术"
+      "technology": "技术",
+      "tech": "技术"
     },
     "stats": {
       "marketCap": "市值",
@@ -6897,6 +6898,24 @@
       "complete": {
         "title": "导览完成！",
         "content": "您现在可以开始探索TBURN平台了。使用演示钱包测试功能，或点击探索平台深入了解。"
+      }
+    },
+    "highlights": {
+      "marketOpportunity": {
+        "title": "市场机会",
+        "desc": "2027年DeFi市场"
+      },
+      "growthRate": {
+        "title": "增长率",
+        "desc": "年度用户增长"
+      },
+      "securityScore": {
+        "title": "安全评分",
+        "desc": "CertiK审计评级"
+      },
+      "aiInnovation": {
+        "title": "AI创新",
+        "desc": "4个AI模型协调"
       }
     }
   },

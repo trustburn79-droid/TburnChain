@@ -7309,7 +7309,8 @@
       "dueDiligence": "실사 정보",
       "features": "기능",
       "metrics": "지표",
-      "technology": "기술"
+      "technology": "기술",
+      "tech": "기술"
     },
     "stats": {
       "marketCap": "시가총액",
@@ -7496,16 +7497,16 @@
       "overview": "개요",
       "staking": "스테이킹",
       "governance": "거버넌스",
-      "explorer": "익스플로러",
+      "explorer": "탐색기",
       "home": "홈",
       "demoMode": "데모 모드"
     },
     "quickLinks": {
-      "dex": "탈중앙 거래소",
+      "dex": "탈중앙화 거래소",
       "staking": "스테이킹",
       "bridge": "브릿지",
       "governance": "거버넌스",
-      "validators": "검증인",
+      "validators": "검증자",
       "adminPortal": "관리자 포털"
     },
     "copyConfig": "설정 복사",
@@ -7637,6 +7638,24 @@
       "complete": {
         "title": "투어 완료!",
         "content": "이제 TBURN 플랫폼을 탐색할 준비가 되었습니다. 데모 지갑을 사용하여 기능을 테스트하거나 플랫폼 탐색을 클릭하여 더 자세히 알아보세요."
+      }
+    },
+    "highlights": {
+      "marketOpportunity": {
+        "title": "시장 기회",
+        "desc": "2027년 DeFi 시장"
+      },
+      "growthRate": {
+        "title": "성장률",
+        "desc": "연간 사용자 성장"
+      },
+      "securityScore": {
+        "title": "보안 점수",
+        "desc": "CertiK 감사 등급"
+      },
+      "aiInnovation": {
+        "title": "AI 혁신",
+        "desc": "4개 AI 모델 통합"
       }
     }
   },

@@ -7231,7 +7231,8 @@
       "dueDiligence": "デューデリジェンス",
       "features": "機能",
       "metrics": "指標",
-      "technology": "技術"
+      "technology": "技術",
+      "tech": "技術"
     },
     "stats": {
       "marketCap": "時価総額",
@@ -7428,8 +7429,8 @@
       "staking": "ステーキング",
       "bridge": "ブリッジ",
       "governance": "ガバナンス",
-      "validators": "バリデータ",
-      "adminPortal": "管理者ポータル"
+      "validators": "バリデーター",
+      "adminPortal": "管理ポータル"
     },
     "copyConfig": "設定をコピー",
     "features": {
@@ -7560,6 +7561,24 @@
       "complete": {
         "title": "ツアー完了！",
         "content": "TBURNプラットフォームを探索する準備ができました。デモウォレットを使用して機能をテストするか、プラットフォームを探索をクリックしてさらに詳しく見てください。"
+      }
+    },
+    "highlights": {
+      "marketOpportunity": {
+        "title": "市場機会",
+        "desc": "2027年DeFi市場"
+      },
+      "growthRate": {
+        "title": "成長率",
+        "desc": "年間ユーザー成長"
+      },
+      "securityScore": {
+        "title": "セキュリティスコア",
+        "desc": "CertiK監査評価"
+      },
+      "aiInnovation": {
+        "title": "AI革新",
+        "desc": "4つのAIモデル統合"
       }
     }
   },

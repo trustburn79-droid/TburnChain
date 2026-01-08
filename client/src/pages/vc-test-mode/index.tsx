@@ -177,31 +177,12 @@ const FEATURE_CATEGORIES = [
   }
 ];
 
-const INVESTMENT_HIGHLIGHTS = [
-  {
-    icon: Target,
-    title: 'Market Opportunity',
-    value: '$500B+',
-    desc: 'DeFi market by 2027'
-  },
-  {
-    icon: Rocket,
-    title: 'Growth Rate',
-    value: '340%',
-    desc: 'YoY user growth'
-  },
-  {
-    icon: Shield,
-    title: 'Security Score',
-    value: 'A+',
-    desc: 'CertiK audit rating'
-  },
-  {
-    icon: Brain,
-    title: 'AI Innovation',
-    value: 'Quad-Band',
-    desc: '4 AI models orchestrated'
-  }
+// Investment highlights with translation keys
+const INVESTMENT_HIGHLIGHT_KEYS = [
+  { icon: Target, titleKey: 'highlights.marketOpportunity.title', value: '$500B+', descKey: 'highlights.marketOpportunity.desc' },
+  { icon: Rocket, titleKey: 'highlights.growthRate.title', value: '340%', descKey: 'highlights.growthRate.desc' },
+  { icon: Shield, titleKey: 'highlights.securityScore.title', value: 'A+', descKey: 'highlights.securityScore.desc' },
+  { icon: Brain, titleKey: 'highlights.aiInnovation.title', value: 'Quad-Band', descKey: 'highlights.aiInnovation.desc' }
 ];
 
 const MAINNET_CONFIG = {
@@ -628,13 +609,13 @@ export default function VCTestMode() {
       {/* Investment Highlights */}
       <section className="max-w-7xl mx-auto px-6 py-12">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          {INVESTMENT_HIGHLIGHTS.map((item, idx) => (
+          {INVESTMENT_HIGHLIGHT_KEYS.map((item, idx) => (
             <Card key={idx} className="bg-white/50 dark:bg-white/5 border-gray-200 dark:border-white/10" data-testid={`metric-highlight-${idx}`}>
               <CardContent className="p-4 text-center">
                 <item.icon className="w-8 h-8 mx-auto mb-2 text-purple-500" />
                 <div className="text-2xl font-bold text-gray-900 dark:text-white">{item.value}</div>
-                <div className="text-sm font-medium text-gray-900 dark:text-white">{item.title}</div>
-                <div className="text-xs text-gray-500 dark:text-gray-400">{item.desc}</div>
+                <div className="text-sm font-medium text-gray-900 dark:text-white">{t(`vcTestMode.${item.titleKey}`, item.titleKey)}</div>
+                <div className="text-xs text-gray-500 dark:text-gray-400">{t(`vcTestMode.${item.descKey}`, item.descKey)}</div>
               </CardContent>
             </Card>
           ))}
@@ -1620,37 +1601,37 @@ export default function VCTestMode() {
             <Link href="/app/dex">
               <Button variant="outline" data-testid="quick-link-dex">
                 <Coins className="w-4 h-4 mr-2" />
-                DEX
+                {t('vcTestMode.quickLinks.dex', 'DEX')}
               </Button>
             </Link>
             <Link href="/app/staking">
               <Button variant="outline" data-testid="quick-link-staking">
                 <Lock className="w-4 h-4 mr-2" />
-                Staking
+                {t('vcTestMode.quickLinks.staking', 'Staking')}
               </Button>
             </Link>
             <Link href="/app/bridge">
               <Button variant="outline" data-testid="quick-link-bridge">
                 <Globe className="w-4 h-4 mr-2" />
-                Bridge
+                {t('vcTestMode.quickLinks.bridge', 'Bridge')}
               </Button>
             </Link>
             <Link href="/app/governance">
               <Button variant="outline" data-testid="quick-link-governance">
                 <Users className="w-4 h-4 mr-2" />
-                Governance
+                {t('vcTestMode.quickLinks.governance', 'Governance')}
               </Button>
             </Link>
             <Link href="/network/validators">
               <Button variant="outline" data-testid="quick-link-validators">
                 <Server className="w-4 h-4 mr-2" />
-                Validators
+                {t('vcTestMode.quickLinks.validators', 'Validators')}
               </Button>
             </Link>
             <Link href="/admin">
               <Button variant="outline" data-testid="quick-link-admin">
                 <Shield className="w-4 h-4 mr-2" />
-                Admin Portal
+                {t('vcTestMode.quickLinks.adminPortal', 'Admin Portal')}
               </Button>
             </Link>
           </div>

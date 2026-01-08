@@ -5077,9 +5077,10 @@
     "tabs": {
       "overview": "अवलोकन",
       "dueDiligence": "उचित परिश्रम",
-      "features": "विशेषताएं",
+      "features": "सुविधाएँ",
       "metrics": "मेट्रिक्स",
-      "technology": "प्रौद्योगिकी"
+      "technology": "प्रौद्योगिकी",
+      "tech": "प्रौद्योगिकी"
     },
     "stats": {
       "marketCap": "मार्केट कैप",
@@ -5277,7 +5278,7 @@
       "bridge": "ब्रिज",
       "governance": "शासन",
       "validators": "वैलिडेटर",
-      "adminPortal": "व्यवस्थापक पोर्टल"
+      "adminPortal": "एडमिन पोर्टल"
     },
     "copyConfig": "कॉन्फ़िगरेशन कॉपी करें",
     "features": {
@@ -5408,6 +5409,24 @@
       "complete": {
         "title": "टूर पूर्ण!",
         "content": "आप TBURN प्लेटफॉर्म का अन्वेषण करने के लिए तैयार हैं। सुविधाओं का परीक्षण करने के लिए डेमो वॉलेट का उपयोग करें, या गहराई में जाने के लिए प्लेटफॉर्म एक्सप्लोर करें पर क्लिक करें।"
+      }
+    },
+    "highlights": {
+      "marketOpportunity": {
+        "title": "बाजार का अवसर",
+        "desc": "2027 तक DeFi बाजार"
+      },
+      "growthRate": {
+        "title": "विकास दर",
+        "desc": "वार्षिक उपयोगकर्ता वृद्धि"
+      },
+      "securityScore": {
+        "title": "सुरक्षा स्कोर",
+        "desc": "CertiK ऑडिट रेटिंग"
+      },
+      "aiInnovation": {
+        "title": "AI नवाचार",
+        "desc": "4 AI मॉडल एकीकृत"
       }
     }
   },

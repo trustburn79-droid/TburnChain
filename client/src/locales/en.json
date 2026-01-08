@@ -7362,7 +7362,8 @@
       "dueDiligence": "Due Diligence",
       "features": "Features",
       "metrics": "Metrics",
-      "technology": "Technology"
+      "technology": "Technology",
+      "tech": "Technology"
     },
     "stats": {
       "tps": "TPS",
@@ -7693,6 +7694,24 @@
       "complete": {
         "title": "Tour Complete!",
         "content": "You're ready to explore the TBURN platform. Use the Demo Wallet to test features, or click 'Explore Platform' to dive deeper."
+      }
+    },
+    "highlights": {
+      "marketOpportunity": {
+        "title": "Market Opportunity",
+        "desc": "DeFi market by 2027"
+      },
+      "growthRate": {
+        "title": "Growth Rate",
+        "desc": "YoY user growth"
+      },
+      "securityScore": {
+        "title": "Security Score",
+        "desc": "CertiK audit rating"
+      },
+      "aiInnovation": {
+        "title": "AI Innovation",
+        "desc": "4 AI models orchestrated"
       }
     }
   },
