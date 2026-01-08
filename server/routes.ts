@@ -1444,10 +1444,13 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
           return res.redirect(`/google-verify?email=${encodeURIComponent(googleUser.email)}`);
         } else if (!member.googleId) {
           // Link Google account to existing member
+          // Also update email field from Google if member only has encryptedEmail
           await storage.updateMember(member.id, {
             googleId: googleUser.googleId,
+            email: member.email || googleUser.email, // Set email if not already set
             avatarUrl: member.avatarUrl || googleUser.picture || null,
           });
+          console.log(`[Google OAuth] Linked Google account to existing member ${member.id}, email: ${googleUser.email}`);
         }
 
         // EXISTING USER: Set session and redirect
