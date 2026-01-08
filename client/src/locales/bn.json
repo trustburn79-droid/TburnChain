@@ -3347,7 +3347,19 @@
       "active": "সক্রিয়",
       "plannedQ12026": "Q1 2026 পরিকল্পিত"
     },
-    "tokenStandards": "টোকেন স্ট্যান্ডার্ড"
+    "tokenStandards": "টোকেন স্ট্যান্ডার্ড",
+    "chainConfig": "চেইন কনফিগারেশন",
+    "chainConfigDesc": "TBURN মেইননেট প্রযুক্তিগত স্পেসিফিকেশন",
+    "rpcEndpoints": "RPC এন্ডপয়েন্ট",
+    "rpcEndpointsDesc": "ব্লকচেইন ইন্টারঅ্যাকশনের জন্য পাবলিক JSON-RPC এন্ডপয়েন্ট",
+    "jsonConfig": "MetaMask / ওয়ালেট কনফিগারেশন",
+    "jsonConfigDesc": "আপনার ওয়ালেটে TBURN মেইননেট যোগ করতে এই কনফিগারেশন কপি করুন",
+    "operationsValues": {
+      "nodeRedundancy": "3টি অঞ্চলে 3x",
+      "monitoring": "24/7 NOC (PagerDuty সহ)",
+      "incidentResponse": "<15মিনিট SLA",
+      "rpcFailover": "অটো-ফেইলওভার সক্রিয়"
+    }
   },
   "publicPages": {
     "common": {

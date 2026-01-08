@@ -4825,7 +4825,19 @@
       "active": "Actif",
       "plannedQ12026": "Prévu T1 2026"
     },
-    "tokenStandards": "Standards de Token"
+    "tokenStandards": "Standards de Token",
+    "chainConfig": "Configuration de Chaîne",
+    "chainConfigDesc": "Spécifications techniques de TBURN Mainnet",
+    "rpcEndpoints": "Points de Terminaison RPC",
+    "rpcEndpointsDesc": "Points de terminaison JSON-RPC publics pour interaction blockchain",
+    "jsonConfig": "MetaMask / Configuration du Portefeuille",
+    "jsonConfigDesc": "Copiez cette configuration pour ajouter TBURN Mainnet à votre portefeuille",
+    "operationsValues": {
+      "nodeRedundancy": "3x dans toutes les régions",
+      "monitoring": "NOC 24/7 avec PagerDuty",
+      "incidentResponse": "SLA <15min",
+      "rpcFailover": "Basculement automatique activé"
+    }
   },
   "publicPages": {
     "common": {

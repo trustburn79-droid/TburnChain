@@ -5516,7 +5516,19 @@
       "active": "सक्रिय",
       "plannedQ12026": "Q1 2026 नियोजित"
     },
-    "tokenStandards": "टोकन मानक"
+    "tokenStandards": "टोकन मानक",
+    "chainConfig": "चेन कॉन्फ़िगरेशन",
+    "chainConfigDesc": "TBURN मेननेट तकनीकी विनिर्देश",
+    "rpcEndpoints": "RPC एंडपॉइंट्स",
+    "rpcEndpointsDesc": "ब्लॉकचेन इंटरैक्शन के लिए सार्वजनिक JSON-RPC एंडपॉइंट्स",
+    "jsonConfig": "MetaMask / वॉलेट कॉन्फ़िगरेशन",
+    "jsonConfigDesc": "अपने वॉलेट में TBURN मेननेट जोड़ने के लिए इस कॉन्फ़िगरेशन को कॉपी करें",
+    "operationsValues": {
+      "nodeRedundancy": "3 क्षेत्रों में 3x",
+      "monitoring": "24/7 NOC (PagerDuty के साथ)",
+      "incidentResponse": "<15मिनट SLA",
+      "rpcFailover": "ऑटो-फेलओवर सक्षम"
+    }
   },
   "publicPages": {
     "common": {

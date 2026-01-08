@@ -7005,7 +7005,19 @@
       "active": "活跃",
       "plannedQ12026": "2026年Q1计划"
     },
-    "tokenStandards": "代币标准"
+    "tokenStandards": "代币标准",
+    "chainConfig": "链配置",
+    "chainConfigDesc": "TBURN主网技术规格",
+    "rpcEndpoints": "RPC端点",
+    "rpcEndpointsDesc": "用于区块链交互的公共JSON-RPC端点",
+    "jsonConfig": "MetaMask / 钱包配置",
+    "jsonConfigDesc": "复制此配置以将TBURN主网添加到您的钱包",
+    "operationsValues": {
+      "nodeRedundancy": "3个区域3倍冗余",
+      "monitoring": "24/7 NOC (PagerDuty)",
+      "incidentResponse": "<15分钟 SLA",
+      "rpcFailover": "自动故障转移已启用"
+    }
   },
   "publicPages": {
     "common": {

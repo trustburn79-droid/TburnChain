@@ -3347,7 +3347,19 @@
       "active": "فعال",
       "plannedQ12026": "Q1 2026 منصوبہ بند"
     },
-    "tokenStandards": "ٹوکن معیارات"
+    "tokenStandards": "ٹوکن معیارات",
+    "chainConfig": "چین کنفیگریشن",
+    "chainConfigDesc": "TBURN مین نیٹ تکنیکی تفصیلات",
+    "rpcEndpoints": "RPC اینڈ پوائنٹس",
+    "rpcEndpointsDesc": "بلاکچین انٹرایکشن کے لیے پبلک JSON-RPC اینڈ پوائنٹس",
+    "jsonConfig": "MetaMask / والیٹ کنفیگریشن",
+    "jsonConfigDesc": "اپنے والیٹ میں TBURN مین نیٹ شامل کرنے کے لیے یہ کنفیگریشن کاپی کریں",
+    "operationsValues": {
+      "nodeRedundancy": "3 علاقوں میں 3x",
+      "monitoring": "24/7 NOC (PagerDuty کے ساتھ)",
+      "incidentResponse": "<15منٹ SLA",
+      "rpcFailover": "آٹو فیل اوور فعال"
+    }
   },
   "publicPages": {
     "common": {

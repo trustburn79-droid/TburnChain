@@ -7801,7 +7801,19 @@
       "active": "Active",
       "plannedQ12026": "Planned Q1 2026"
     },
-    "tokenStandards": "Token Standards"
+    "tokenStandards": "Token Standards",
+    "chainConfig": "Chain Configuration",
+    "chainConfigDesc": "TBURN Mainnet technical specifications",
+    "rpcEndpoints": "RPC Endpoints",
+    "rpcEndpointsDesc": "Public JSON-RPC endpoints for blockchain interaction",
+    "jsonConfig": "MetaMask / Wallet Configuration",
+    "jsonConfigDesc": "Copy this configuration to add TBURN Mainnet to your wallet",
+    "operationsValues": {
+      "nodeRedundancy": "3x across regions",
+      "monitoring": "24/7 NOC with PagerDuty",
+      "incidentResponse": "<15min SLA",
+      "rpcFailover": "Auto-failover enabled"
+    }
   },
   "publicPages": {
     "common": {

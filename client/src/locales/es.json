@@ -5560,7 +5560,19 @@
       "active": "Activo",
       "plannedQ12026": "Planificado Q1 2026"
     },
-    "tokenStandards": "Estándares de Token"
+    "tokenStandards": "Estándares de Token",
+    "chainConfig": "Configuración de Cadena",
+    "chainConfigDesc": "Especificaciones técnicas de TBURN Mainnet",
+    "rpcEndpoints": "Puntos de Acceso RPC",
+    "rpcEndpointsDesc": "Puntos de acceso JSON-RPC públicos para interacción blockchain",
+    "jsonConfig": "MetaMask / Configuración de Billetera",
+    "jsonConfigDesc": "Copie esta configuración para agregar TBURN Mainnet a su billetera",
+    "operationsValues": {
+      "nodeRedundancy": "3x en todas las regiones",
+      "monitoring": "NOC 24/7 con PagerDuty",
+      "incidentResponse": "SLA <15min",
+      "rpcFailover": "Failover automático habilitado"
+    }
   },
   "publicPages": {
     "common": {

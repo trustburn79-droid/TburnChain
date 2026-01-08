@@ -4522,7 +4522,19 @@
       "active": "Активен",
       "plannedQ12026": "Запланировано Q1 2026"
     },
-    "tokenStandards": "Стандарты Токенов"
+    "tokenStandards": "Стандарты Токенов",
+    "chainConfig": "Конфигурация Сети",
+    "chainConfigDesc": "Технические спецификации TBURN Mainnet",
+    "rpcEndpoints": "RPC Конечные Точки",
+    "rpcEndpointsDesc": "Публичные JSON-RPC конечные точки для взаимодействия с блокчейном",
+    "jsonConfig": "MetaMask / Конфигурация Кошелька",
+    "jsonConfigDesc": "Скопируйте эту конфигурацию, чтобы добавить TBURN Mainnet в ваш кошелек",
+    "operationsValues": {
+      "nodeRedundancy": "3x во всех регионах",
+      "monitoring": "NOC 24/7 с PagerDuty",
+      "incidentResponse": "SLA <15мин",
+      "rpcFailover": "Автоматическое переключение включено"
+    }
   },
   "publicPages": {
     "common": {

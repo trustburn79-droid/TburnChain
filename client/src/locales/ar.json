@@ -5039,7 +5039,19 @@
       "active": "نشط",
       "plannedQ12026": "مخطط Q1 2026"
     },
-    "tokenStandards": "معايير التوكن"
+    "tokenStandards": "معايير التوكن",
+    "chainConfig": "تكوين السلسلة",
+    "chainConfigDesc": "المواصفات التقنية لشبكة TBURN الرئيسية",
+    "rpcEndpoints": "نقاط نهاية RPC",
+    "rpcEndpointsDesc": "نقاط نهاية JSON-RPC العامة للتفاعل مع البلوكتشين",
+    "jsonConfig": "MetaMask / تكوين المحفظة",
+    "jsonConfigDesc": "انسخ هذا التكوين لإضافة TBURN Mainnet إلى محفظتك",
+    "operationsValues": {
+      "nodeRedundancy": "3 أضعاف عبر المناطق",
+      "monitoring": "مركز العمليات 24/7 مع PagerDuty",
+      "incidentResponse": "SLA أقل من 15 دقيقة",
+      "rpcFailover": "تجاوز الفشل التلقائي مفعل"
+    }
   },
   "publicPages": {
     "common": {

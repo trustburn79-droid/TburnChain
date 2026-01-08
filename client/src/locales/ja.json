@@ -7668,7 +7668,19 @@
       "active": "アクティブ",
       "plannedQ12026": "2026年Q1予定"
     },
-    "tokenStandards": "トークン規格"
+    "tokenStandards": "トークン規格",
+    "chainConfig": "チェーン設定",
+    "chainConfigDesc": "TBURNメインネット技術仕様",
+    "rpcEndpoints": "RPCエンドポイント",
+    "rpcEndpointsDesc": "ブロックチェーン相互作用のためのパブリックJSON-RPCエンドポイント",
+    "jsonConfig": "MetaMask / ウォレット設定",
+    "jsonConfigDesc": "この設定をコピーしてTBURNメインネットをウォレットに追加",
+    "operationsValues": {
+      "nodeRedundancy": "3リージョンに3倍",
+      "monitoring": "24/7 NOC (PagerDuty連携)",
+      "incidentResponse": "<15分 SLA",
+      "rpcFailover": "自動フェイルオーバー有効"
+    }
   },
   "publicPages": {
     "common": {
