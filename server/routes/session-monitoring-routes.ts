@@ -304,12 +304,18 @@ router.get('/telemetry/memory', (req: Request, res: Response) => {
   try {
     const memory = process.memoryUsage();
     const uptime = process.uptime();
+    // ★ [2026-01-08] V8 힙 제한 사용
+    let heapLimitMB = 8240;
+    try {
+      const v8 = require('v8');
+      heapLimitMB = v8.getHeapStatistics().heap_size_limit / (1024 * 1024);
+    } catch {}
     
     res.json({
       success: true,
       data: {
         heapUsedMb: (memory.heapUsed / 1024 / 1024).toFixed(2),
-        heapTotalMb: (memory.heapTotal / 1024 / 1024).toFixed(2),
+        heapTotalMb: heapLimitMB.toFixed(2),
         externalMb: (memory.external / 1024 / 1024).toFixed(2),
         rssMb: (memory.rss / 1024 / 1024).toFixed(2),
         arrayBuffersMb: (memory.arrayBuffers / 1024 / 1024).toFixed(2),
@@ -331,15 +337,21 @@ router.get('/telemetry/memory/prometheus', (req: Request, res: Response) => {
   try {
     const memory = process.memoryUsage();
     const uptime = process.uptime();
+    // ★ [2026-01-08] V8 힙 제한 사용
+    let heapLimitBytes = memory.heapTotal;
+    try {
+      const v8 = require('v8');
+      heapLimitBytes = v8.getHeapStatistics().heap_size_limit;
+    } catch {}
     
     const lines = [
       '# HELP tburn_memory_heap_used_bytes Heap memory used in bytes',
       '# TYPE tburn_memory_heap_used_bytes gauge',
       `tburn_memory_heap_used_bytes ${memory.heapUsed}`,
       '',
-      '# HELP tburn_memory_heap_total_bytes Total heap memory in bytes',
+      '# HELP tburn_memory_heap_total_bytes Total heap memory in bytes (V8 limit)',
       '# TYPE tburn_memory_heap_total_bytes gauge',
-      `tburn_memory_heap_total_bytes ${memory.heapTotal}`,
+      `tburn_memory_heap_total_bytes ${heapLimitBytes}`,
       '',
       '# HELP tburn_memory_external_bytes External memory in bytes',
       '# TYPE tburn_memory_external_bytes gauge',

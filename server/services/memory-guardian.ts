@@ -182,7 +182,8 @@ class MemoryGuardianEnterprise {
   private getMemoryStatus(): MemoryStatus {
     const usage = process.memoryUsage();
     const heapUsedMB = usage.heapUsed / 1024 / 1024;
-    const heapTotalMB = usage.heapTotal / 1024 / 1024;
+    // ★ [2026-01-08] V8 힙 제한 사용 (표시용)
+    const heapTotalMB = this.config.maxHeapMB;
     const ratio = usage.heapUsed / (this.config.maxHeapMB * 1024 * 1024);
 
     return {

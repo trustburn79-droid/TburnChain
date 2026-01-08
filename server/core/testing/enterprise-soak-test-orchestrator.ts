@@ -612,7 +612,13 @@ export class EnterpriseSoakTestOrchestrator {
       maxLatencyMs: sortedLatencies.length > 0 ? sortedLatencies[sortedLatencies.length - 1] : 0,
       rps: this.currentMinuteMetrics.requests / 60,
       heapUsedMb: memory.heapUsed / 1024 / 1024,
-      heapTotalMb: memory.heapTotal / 1024 / 1024,
+      // ★ [2026-01-08] V8 힙 제한 사용
+      heapTotalMb: (() => {
+        try {
+          const v8 = require('v8');
+          return v8.getHeapStatistics().heap_size_limit / (1024 * 1024);
+        } catch { return memory.heapTotal / 1024 / 1024; }
+      })(),
       externalMb: memory.external / 1024 / 1024,
       cpuUsagePercent: Math.min(cpuPercent, 100),
     };

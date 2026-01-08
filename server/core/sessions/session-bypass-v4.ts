@@ -841,7 +841,7 @@ export function sessionHealthCheck(req: Request, res: Response): void {
     },
     memory: {
       heapUsed: `${(memUsage.heapUsed / 1024 / 1024).toFixed(2)} MB`,
-      heapTotal: `${(memUsage.heapTotal / 1024 / 1024).toFixed(2)} MB`,
+      heapTotal: `${((METRICS_CONFIG.HARDWARE.V8_HEAP_LIMIT_MB || 8240)).toFixed(2)} MB`,
       rss: `${(memUsage.rss / 1024 / 1024).toFixed(2)} MB`,
       usage: `${(memRatio * 100).toFixed(2)}%`,
       thresholds: {
