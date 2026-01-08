@@ -5116,7 +5116,7 @@
     "growthMetrics": "Métricas de Crecimiento",
     "competitiveEdge": "Ventaja Competitiva",
     "aiSystem": "Sistema de IA Quad-Band",
-    "security": "Arquitectura de Seguridad",
+    "security": "Seguridad",
     "techStack": "Stack Tecnológico",
     "tabs": {
       "overview": "Resumen",
@@ -5472,7 +5472,28 @@
         "title": "Innovación IA",
         "desc": "4 modelos de IA orquestados"
       }
-    }
+    },
+    "chainFields": {
+      "chainId": "ID de Cadena",
+      "networkName": "Nombre de Red",
+      "nativeCurrency": "Moneda Nativa",
+      "decimals": "decimales",
+      "consensus": "Consenso",
+      "blockTime": "Tiempo de Bloque",
+      "genesisDate": "Fecha de Génesis"
+    },
+    "tokenSupplyFields": {
+      "totalSupply": "Suministro Total",
+      "circulating": "Circulante",
+      "staked": "En Staking"
+    },
+    "securityFields": {
+      "audit": "Auditoría",
+      "insurance": "Seguro",
+      "bugBounty": "Programa de Bugs"
+    },
+    "view": "Ver",
+    "active": "Activo"
   },
   "publicPages": {
     "common": {

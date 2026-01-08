@@ -2903,7 +2903,7 @@
     "growthMetrics": "বৃদ্ধি মেট্রিক্স",
     "competitiveEdge": "প্রতিযোগিতামূলক সুবিধা",
     "aiSystem": "কোয়াড-ব্যান্ড AI সিস্টেম",
-    "security": "নিরাপত্তা আর্কিটেকচার",
+    "security": "নিরাপত্তা",
     "techStack": "প্রযুক্তি স্ট্যাক",
     "tabs": {
       "overview": "সংক্ষিপ্ত বিবরণ",
@@ -3259,7 +3259,28 @@
         "title": "AI উদ্ভাবন",
         "desc": "4টি AI মডেল একীভূত"
       }
-    }
+    },
+    "chainFields": {
+      "chainId": "চেইন আইডি",
+      "networkName": "নেটওয়ার্ক নাম",
+      "nativeCurrency": "নেটিভ মুদ্রা",
+      "decimals": "দশমিক",
+      "consensus": "সম্মতি",
+      "blockTime": "ব্লক সময়",
+      "genesisDate": "জেনেসিস তারিখ"
+    },
+    "tokenSupplyFields": {
+      "totalSupply": "মোট সরবরাহ",
+      "circulating": "প্রচলিত",
+      "staked": "স্টেক করা"
+    },
+    "securityFields": {
+      "audit": "অডিট",
+      "insurance": "বীমা",
+      "bugBounty": "বাগ বাউন্টি"
+    },
+    "view": "দেখুন",
+    "active": "সক্রিয়"
   },
   "publicPages": {
     "common": {

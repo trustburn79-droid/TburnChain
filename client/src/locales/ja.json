@@ -7224,7 +7224,7 @@
     "growthMetrics": "成長指標",
     "competitiveEdge": "競争優位性",
     "aiSystem": "クアッドバンドAIシステム",
-    "security": "セキュリティアーキテクチャ",
+    "security": "セキュリティ",
     "techStack": "技術スタック",
     "tabs": {
       "overview": "概要",
@@ -7580,7 +7580,28 @@
         "title": "AI革新",
         "desc": "4つのAIモデル統合"
       }
-    }
+    },
+    "chainFields": {
+      "chainId": "チェーンID",
+      "networkName": "ネットワーク名",
+      "nativeCurrency": "ネイティブ通貨",
+      "decimals": "小数点",
+      "consensus": "コンセンサス",
+      "blockTime": "ブロック時間",
+      "genesisDate": "ジェネシス日"
+    },
+    "tokenSupplyFields": {
+      "totalSupply": "総供給量",
+      "circulating": "流通量",
+      "staked": "ステーキング済み"
+    },
+    "securityFields": {
+      "audit": "監査",
+      "insurance": "保険",
+      "bugBounty": "バグ報奨金"
+    },
+    "view": "表示",
+    "active": "アクティブ"
   },
   "publicPages": {
     "common": {

@@ -7302,7 +7302,7 @@
     "growthMetrics": "성장 지표",
     "competitiveEdge": "경쟁 우위",
     "aiSystem": "Quad-Band AI 시스템",
-    "security": "보안 아키텍처",
+    "security": "보안",
     "techStack": "기술 스택",
     "tabs": {
       "overview": "개요",
@@ -7657,7 +7657,28 @@
         "title": "AI 혁신",
         "desc": "4개 AI 모델 통합"
       }
-    }
+    },
+    "chainFields": {
+      "chainId": "체인 ID",
+      "networkName": "네트워크 이름",
+      "nativeCurrency": "네이티브 통화",
+      "decimals": "소수점",
+      "consensus": "합의 방식",
+      "blockTime": "블록 시간",
+      "genesisDate": "제네시스 날짜"
+    },
+    "tokenSupplyFields": {
+      "totalSupply": "총 공급량",
+      "circulating": "유통량",
+      "staked": "스테이킹됨"
+    },
+    "securityFields": {
+      "audit": "감사",
+      "insurance": "보험",
+      "bugBounty": "버그 바운티"
+    },
+    "view": "보기",
+    "active": "활성"
   },
   "publicPages": {
     "common": {

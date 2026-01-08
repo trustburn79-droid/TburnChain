@@ -6561,7 +6561,7 @@
     "growthMetrics": "增长指标",
     "competitiveEdge": "竞争优势",
     "aiSystem": "四频AI系统",
-    "security": "安全架构",
+    "security": "安全",
     "techStack": "技术栈",
     "tabs": {
       "overview": "概览",
@@ -6917,7 +6917,28 @@
         "title": "AI创新",
         "desc": "4个AI模型协调"
       }
-    }
+    },
+    "chainFields": {
+      "chainId": "链ID",
+      "networkName": "网络名称",
+      "nativeCurrency": "原生货币",
+      "decimals": "小数位",
+      "consensus": "共识机制",
+      "blockTime": "出块时间",
+      "genesisDate": "创世日期"
+    },
+    "tokenSupplyFields": {
+      "totalSupply": "总供应量",
+      "circulating": "流通量",
+      "staked": "质押量"
+    },
+    "securityFields": {
+      "audit": "审计",
+      "insurance": "保险",
+      "bugBounty": "漏洞赏金"
+    },
+    "view": "查看",
+    "active": "活跃"
   },
   "publicPages": {
     "common": {

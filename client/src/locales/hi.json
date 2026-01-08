@@ -5072,7 +5072,7 @@
     "growthMetrics": "वृद्धि मेट्रिक्स",
     "competitiveEdge": "प्रतिस्पर्धी लाभ",
     "aiSystem": "क्वाड-बैंड AI सिस्टम",
-    "security": "सुरक्षा आर्किटेक्चर",
+    "security": "सुरक्षा",
     "techStack": "टेक्नोलॉजी स्टैक",
     "tabs": {
       "overview": "अवलोकन",
@@ -5428,7 +5428,28 @@
         "title": "AI नवाचार",
         "desc": "4 AI मॉडल एकीकृत"
       }
-    }
+    },
+    "chainFields": {
+      "chainId": "चेन आईडी",
+      "networkName": "नेटवर्क नाम",
+      "nativeCurrency": "मूल मुद्रा",
+      "decimals": "दशमलव",
+      "consensus": "सहमति",
+      "blockTime": "ब्लॉक समय",
+      "genesisDate": "जेनेसिस तिथि"
+    },
+    "tokenSupplyFields": {
+      "totalSupply": "कुल आपूर्ति",
+      "circulating": "परिसंचारी",
+      "staked": "स्टेक किया गया"
+    },
+    "securityFields": {
+      "audit": "ऑडिट",
+      "insurance": "बीमा",
+      "bugBounty": "बग बाउंटी"
+    },
+    "view": "देखें",
+    "active": "सक्रिय"
   },
   "publicPages": {
     "common": {

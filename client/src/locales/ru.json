@@ -4078,7 +4078,7 @@
     "growthMetrics": "Метрики роста",
     "competitiveEdge": "Конкурентное преимущество",
     "aiSystem": "Quad-Band AI система",
-    "security": "Архитектура безопасности",
+    "security": "Безопасность",
     "techStack": "Технологический стек",
     "tabs": {
       "overview": "Обзор",
@@ -4434,7 +4434,28 @@
         "title": "ИИ-инновации",
         "desc": "4 модели ИИ интегрированы"
       }
-    }
+    },
+    "chainFields": {
+      "chainId": "ID сети",
+      "networkName": "Название сети",
+      "nativeCurrency": "Нативная валюта",
+      "decimals": "десятичных знаков",
+      "consensus": "Консенсус",
+      "blockTime": "Время блока",
+      "genesisDate": "Дата генезиса"
+    },
+    "tokenSupplyFields": {
+      "totalSupply": "Общее предложение",
+      "circulating": "В обращении",
+      "staked": "В стейкинге"
+    },
+    "securityFields": {
+      "audit": "Аудит",
+      "insurance": "Страхование",
+      "bugBounty": "Баг-баунти"
+    },
+    "view": "Просмотр",
+    "active": "Активно"
   },
   "publicPages": {
     "common": {

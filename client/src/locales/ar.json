@@ -4595,7 +4595,7 @@
     "growthMetrics": "مقاييس النمو",
     "competitiveEdge": "الميزة التنافسية",
     "aiSystem": "نظام الذكاء الاصطناعي رباعي النطاق",
-    "security": "هندسة الأمان",
+    "security": "الأمان",
     "techStack": "المكدس التقني",
     "tabs": {
       "overview": "نظرة عامة",
@@ -4951,7 +4951,28 @@
         "title": "ابتكار الذكاء الاصطناعي",
         "desc": "4 نماذج ذكاء اصطناعي متكاملة"
       }
-    }
+    },
+    "chainFields": {
+      "chainId": "معرف السلسلة",
+      "networkName": "اسم الشبكة",
+      "nativeCurrency": "العملة الأصلية",
+      "decimals": "أرقام عشرية",
+      "consensus": "الإجماع",
+      "blockTime": "وقت الكتلة",
+      "genesisDate": "تاريخ التكوين"
+    },
+    "tokenSupplyFields": {
+      "totalSupply": "إجمالي العرض",
+      "circulating": "متداول",
+      "staked": "مودع"
+    },
+    "securityFields": {
+      "audit": "التدقيق",
+      "insurance": "التأمين",
+      "bugBounty": "مكافأة الأخطاء"
+    },
+    "view": "عرض",
+    "active": "نشط"
   },
   "publicPages": {
     "common": {

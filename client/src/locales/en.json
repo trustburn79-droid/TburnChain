@@ -7355,7 +7355,7 @@
     "growthMetrics": "Growth Metrics",
     "competitiveEdge": "Competitive Edge",
     "aiSystem": "Quad-Band AI System",
-    "security": "Security Architecture",
+    "security": "Security",
     "techStack": "Technology Stack",
     "tabs": {
       "overview": "Overview",
@@ -7713,7 +7713,28 @@
         "title": "AI Innovation",
         "desc": "4 AI models orchestrated"
       }
-    }
+    },
+    "chainFields": {
+      "chainId": "Chain ID",
+      "networkName": "Network Name",
+      "nativeCurrency": "Native Currency",
+      "decimals": "decimals",
+      "consensus": "Consensus",
+      "blockTime": "Block Time",
+      "genesisDate": "Genesis Date"
+    },
+    "tokenSupplyFields": {
+      "totalSupply": "Total Supply",
+      "circulating": "Circulating",
+      "staked": "Staked"
+    },
+    "securityFields": {
+      "audit": "Audit",
+      "insurance": "Insurance",
+      "bugBounty": "Bug Bounty"
+    },
+    "view": "View",
+    "active": "Active"
   },
   "publicPages": {
     "common": {

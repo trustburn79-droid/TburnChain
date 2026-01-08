@@ -762,33 +762,33 @@ export default function VCTestMode() {
                 </CardHeader>
                 <CardContent className="space-y-4 pt-4">
                   <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-white/5 rounded-lg">
-                    <span className="text-gray-600 dark:text-gray-400">Chain ID</span>
+                    <span className="text-gray-600 dark:text-gray-400">{t('vcTestMode.chainFields.chainId', 'Chain ID')}</span>
                     <div className="flex items-center gap-2">
                       <code className="font-mono font-bold text-purple-600 dark:text-purple-400 text-lg">{MAINNET_CONFIG.chainId}</code>
                       <Badge variant="outline" className="text-xs">{MAINNET_CONFIG.chainIdHex}</Badge>
                     </div>
                   </div>
                   <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-white/5 rounded-lg">
-                    <span className="text-gray-600 dark:text-gray-400">Network Name</span>
+                    <span className="text-gray-600 dark:text-gray-400">{t('vcTestMode.chainFields.networkName', 'Network Name')}</span>
                     <span className="font-bold text-gray-900 dark:text-white">{MAINNET_CONFIG.networkName}</span>
                   </div>
                   <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-white/5 rounded-lg">
-                    <span className="text-gray-600 dark:text-gray-400">Native Currency</span>
+                    <span className="text-gray-600 dark:text-gray-400">{t('vcTestMode.chainFields.nativeCurrency', 'Native Currency')}</span>
                     <div className="flex items-center gap-2">
                       <span className="font-bold text-gray-900 dark:text-white">{MAINNET_CONFIG.currency.symbol}</span>
-                      <Badge className="bg-orange-500">{MAINNET_CONFIG.currency.decimals} decimals</Badge>
+                      <Badge className="bg-orange-500">{MAINNET_CONFIG.currency.decimals} {t('vcTestMode.chainFields.decimals', 'decimals')}</Badge>
                     </div>
                   </div>
                   <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-white/5 rounded-lg">
-                    <span className="text-gray-600 dark:text-gray-400">Consensus</span>
+                    <span className="text-gray-600 dark:text-gray-400">{t('vcTestMode.chainFields.consensus', 'Consensus')}</span>
                     <Badge className="bg-blue-500">{MAINNET_CONFIG.consensus}</Badge>
                   </div>
                   <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-white/5 rounded-lg">
-                    <span className="text-gray-600 dark:text-gray-400">Block Time</span>
+                    <span className="text-gray-600 dark:text-gray-400">{t('vcTestMode.chainFields.blockTime', 'Block Time')}</span>
                     <span className="font-bold text-green-500">{MAINNET_CONFIG.blockTime}</span>
                   </div>
                   <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-white/5 rounded-lg">
-                    <span className="text-gray-600 dark:text-gray-400">Genesis Date</span>
+                    <span className="text-gray-600 dark:text-gray-400">{t('vcTestMode.chainFields.genesisDate', 'Genesis Date')}</span>
                     <span className="font-mono text-gray-900 dark:text-white">{MAINNET_CONFIG.genesisDate}</span>
                   </div>
                 </CardContent>
@@ -1344,15 +1344,15 @@ export default function VCTestMode() {
                 </CardHeader>
                 <CardContent className="space-y-2">
                   <div className="flex justify-between">
-                    <span className="text-gray-500 dark:text-gray-400 text-sm">Total Supply</span>
+                    <span className="text-gray-500 dark:text-gray-400 text-sm">{t('vcTestMode.tokenSupplyFields.totalSupply', 'Total Supply')}</span>
                     <span className="font-bold">10B TBURN</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-500 dark:text-gray-400 text-sm">Circulating</span>
+                    <span className="text-gray-500 dark:text-gray-400 text-sm">{t('vcTestMode.tokenSupplyFields.circulating', 'Circulating')}</span>
                     <span className="font-bold">~6.8B (68%)</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-500 dark:text-gray-400 text-sm">Staked</span>
+                    <span className="text-gray-500 dark:text-gray-400 text-sm">{t('vcTestMode.tokenSupplyFields.staked', 'Staked')}</span>
                     <span className="font-bold text-purple-500">~3.2B (32%)</span>
                   </div>
                 </CardContent>
@@ -1377,7 +1377,7 @@ export default function VCTestMode() {
                   <div className="flex justify-between">
                     <span className="text-gray-500 dark:text-gray-400 text-sm">{t('vcTestMode.dueDiligence.tokenSchedule', 'Token Schedule')}</span>
                     <Link href="/TokenSchedule">
-                      <span className="text-blue-500 hover:underline cursor-pointer">View →</span>
+                      <span className="text-blue-500 hover:underline cursor-pointer">{t('vcTestMode.view', 'View')} →</span>
                     </Link>
                   </div>
                 </CardContent>
@@ -1387,22 +1387,22 @@ export default function VCTestMode() {
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2 text-base">
                     <Shield className="w-4 h-4 text-green-500" />
-                    Security
+                    {t('vcTestMode.security', 'Security')}
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-2">
                   <div className="flex justify-between">
-                    <span className="text-gray-500 dark:text-gray-400 text-sm">Audit</span>
+                    <span className="text-gray-500 dark:text-gray-400 text-sm">{t('vcTestMode.securityFields.audit', 'Audit')}</span>
                     <Badge className="bg-green-500">CertiK A+</Badge>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-500 dark:text-gray-400 text-sm">Insurance</span>
+                    <span className="text-gray-500 dark:text-gray-400 text-sm">{t('vcTestMode.securityFields.insurance', 'Insurance')}</span>
                     <span className="font-bold">$50M</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-500 dark:text-gray-400 text-sm">Bug Bounty</span>
+                    <span className="text-gray-500 dark:text-gray-400 text-sm">{t('vcTestMode.securityFields.bugBounty', 'Bug Bounty')}</span>
                     <Link href="/bug-bounty">
-                      <span className="text-blue-500 hover:underline cursor-pointer">Active →</span>
+                      <span className="text-blue-500 hover:underline cursor-pointer">{t('vcTestMode.active', 'Active')} →</span>
                     </Link>
                   </div>
                 </CardContent>

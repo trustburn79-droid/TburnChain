@@ -2903,7 +2903,7 @@
     "growthMetrics": "ترقی کے میٹرکس",
     "competitiveEdge": "مسابقتی فائدہ",
     "aiSystem": "کواڈ بینڈ AI سسٹم",
-    "security": "سیکیورٹی آرکیٹیکچر",
+    "security": "سیکیورٹی",
     "techStack": "ٹیکنالوجی اسٹیک",
     "tabs": {
       "overview": "جائزہ",
@@ -3259,7 +3259,28 @@
         "title": "AI جدت",
         "desc": "4 AI ماڈل مربوط"
       }
-    }
+    },
+    "chainFields": {
+      "chainId": "چین آئی ڈی",
+      "networkName": "نیٹ ورک نام",
+      "nativeCurrency": "مقامی کرنسی",
+      "decimals": "اعشاریہ",
+      "consensus": "اتفاق رائے",
+      "blockTime": "بلاک ٹائم",
+      "genesisDate": "جینیسس تاریخ"
+    },
+    "tokenSupplyFields": {
+      "totalSupply": "کل سپلائی",
+      "circulating": "گردش میں",
+      "staked": "سٹیک شدہ"
+    },
+    "securityFields": {
+      "audit": "آڈٹ",
+      "insurance": "انشورنس",
+      "bugBounty": "بگ باؤنٹی"
+    },
+    "view": "دیکھیں",
+    "active": "فعال"
   },
   "publicPages": {
     "common": {
