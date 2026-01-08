@@ -22,6 +22,7 @@
 import { Request, Response, NextFunction, RequestHandler } from 'express';
 import * as sessionModule from 'express-session';
 import { EventEmitter } from 'events';
+import { METRICS_CONFIG } from '../memory/metrics-config';
 
 // ★ [2026-01-06] Import centralized policy functions
 import {
@@ -296,7 +297,9 @@ class SessionMetricsCollector extends EventEmitter {
   
   getHealthStatus(): 'healthy' | 'degraded' | 'critical' | 'fatal' {
     const memUsage = process.memoryUsage();
-    const memRatio = memUsage.heapUsed / memUsage.heapTotal;
+    // ★ [2026-01-08] V8 힙 제한 사용
+    const heapLimitBytes = (METRICS_CONFIG.HARDWARE.V8_HEAP_LIMIT_MB || 8240) * 1024 * 1024;
+    const memRatio = memUsage.heapUsed / heapLimitBytes;
     
     if (this._circuitBreakerOpen || memRatio > CONFIG.MEMORY_FATAL_THRESHOLD) return 'fatal';
     if (memRatio > CONFIG.MEMORY_CRITICAL_THRESHOLD || this._activeSessions > CONFIG.MAX_SESSIONS) return 'critical';
@@ -651,7 +654,9 @@ class DisasterRecoveryManager {
     metrics.activeSessions = sessionCount;
     
     const memUsage = process.memoryUsage();
-    const memRatio = memUsage.heapUsed / memUsage.heapTotal;
+    // ★ [2026-01-08] V8 힙 제한 사용
+    const heapLimitBytes = (METRICS_CONFIG.HARDWARE.V8_HEAP_LIMIT_MB || 8240) * 1024 * 1024;
+    const memRatio = memUsage.heapUsed / heapLimitBytes;
     
     let healthy = true;
     
@@ -810,7 +815,9 @@ export function createPreSessionMiddleware(): RequestHandler {
 export function sessionHealthCheck(req: Request, res: Response): void {
   const sessionCount = getSessionCount();
   const memUsage = process.memoryUsage();
-  const memRatio = memUsage.heapUsed / memUsage.heapTotal;
+  // ★ [2026-01-08] V8 힙 제한 사용
+  const heapLimitBytes = (METRICS_CONFIG.HARDWARE.V8_HEAP_LIMIT_MB || 8240) * 1024 * 1024;
+  const memRatio = memUsage.heapUsed / heapLimitBytes;
   
   const status = metrics.getHealthStatus();
   const healthy = status === 'healthy' || status === 'degraded';

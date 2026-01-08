@@ -25,6 +25,7 @@
 import { Request, Response, NextFunction, RequestHandler } from 'express';
 import session from 'express-session';
 import * as fs from 'fs';
+import { METRICS_CONFIG } from '../memory/metrics-config';
 
 // ★ [2026-01-06] Import centralized policy functions
 import {
@@ -571,8 +572,9 @@ export function updateMetrics(decision: SessionBypassResult): void {
   }
   
   const heapUsed = process.memoryUsage().heapUsed;
-  const heapTotal = process.memoryUsage().heapTotal;
-  metrics.memoryUsage = heapUsed / heapTotal;
+  // ★ [2026-01-08] V8 힙 제한 사용
+  const heapLimitBytes = (METRICS_CONFIG.HARDWARE.V8_HEAP_LIMIT_MB || 8240) * 1024 * 1024;
+  metrics.memoryUsage = heapUsed / heapLimitBytes;
   
   // ★ [v3.0] 활성 세션 수 업데이트 - DR에서 정확한 용량 추적
   metrics.activeSessions = getSessionCount();
@@ -863,8 +865,9 @@ export function createSessionBypassMiddleware(options: SessionBypassOptions): Re
       metrics.activeSessions = sessionCount;
       
       const heapUsed = process.memoryUsage().heapUsed;
-      const heapTotal = process.memoryUsage().heapTotal;
-      const memoryRatio = heapUsed / heapTotal;
+      // ★ [2026-01-08] V8 힙 제한 사용
+      const heapLimitBytes = (METRICS_CONFIG.HARDWARE.V8_HEAP_LIMIT_MB || 8240) * 1024 * 1024;
+      const memoryRatio = heapUsed / heapLimitBytes;
       
       // Session count based cleanup
       if (sessionCount > CONFIG.MAX_SESSIONS) {
@@ -941,7 +944,9 @@ export function getSessionHealthData(): {
   const mem = process.memoryUsage();
   const metricsData = getSessionMetrics();
   
-  const heapPercent = (mem.heapUsed / mem.heapTotal) * 100;
+  // ★ [2026-01-08] V8 힙 제한 사용
+  const heapLimitBytes = (METRICS_CONFIG.HARDWARE.V8_HEAP_LIMIT_MB || 8240) * 1024 * 1024;
+  const heapPercent = (mem.heapUsed / heapLimitBytes) * 100;
   const healthy = heapPercent < 90 && metricsData.activeSessions < CONFIG.MAX_SESSIONS * 0.9;
   
   return {

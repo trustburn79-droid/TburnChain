@@ -133,7 +133,13 @@ const MEMORY_PRESSURE_THRESHOLD = 0.85; // 85% 힙 사용 시 비필수 작업 �
 // ★ 메모리 압박 체크 함수
 function isUnderMemoryPressure(): boolean {
   const usage = process.memoryUsage();
-  const heapRatio = usage.heapUsed / usage.heapTotal;
+  // ★ [2026-01-08] V8 힙 제한 사용 (동적 로드)
+  let heapLimitMB = 8240;
+  try {
+    const v8 = require('v8');
+    heapLimitMB = v8.getHeapStatistics().heap_size_limit / (1024 * 1024);
+  } catch {}
+  const heapRatio = usage.heapUsed / (heapLimitMB * 1024 * 1024);
   return heapRatio > MEMORY_PRESSURE_THRESHOLD;
 }
 
@@ -1954,13 +1960,19 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       });
     } catch (error) {
       const usage = process.memoryUsage();
+      // ★ [2026-01-08] V8 힙 제한 사용
+      let heapLimitMB = 8240;
+      try {
+        const v8 = require('v8');
+        heapLimitMB = v8.getHeapStatistics().heap_size_limit / (1024 * 1024);
+      } catch {}
       res.json({ 
         version: '7.0.0-enterprise',
         memory: {
           heapUsedMB: Math.round(usage.heapUsed / 1024 / 1024),
-          heapTotalMB: Math.round(usage.heapTotal / 1024 / 1024),
+          heapTotalMB: Math.round(heapLimitMB),
           rssMB: Math.round(usage.rss / 1024 / 1024),
-          heapUsagePercent: Math.round((usage.heapUsed / usage.heapTotal) * 100),
+          heapUsagePercent: Math.round((usage.heapUsed / 1024 / 1024 / heapLimitMB) * 100),
         },
         error: 'Partial metrics - modules loading',
         timestamp: new Date().toISOString(),

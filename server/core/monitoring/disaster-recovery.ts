@@ -24,6 +24,7 @@
 
 import { EventEmitter } from 'events';
 import { Request, Response, NextFunction } from 'express';
+import { METRICS_CONFIG } from '../memory/metrics-config';
 import { 
   forceClearAllSessions, 
   emergencySessionCleanup,
@@ -397,7 +398,9 @@ class DisasterRecoveryManager extends EventEmitter {
     issues: string[];
   } {
     const mem = process.memoryUsage();
-    const heapPercent = mem.heapUsed / mem.heapTotal;
+    // ★ [2026-01-08] V8 힙 제한 사용
+    const heapLimitBytes = (METRICS_CONFIG.HARDWARE.V8_HEAP_LIMIT_MB || 8240) * 1024 * 1024;
+    const heapPercent = mem.heapUsed / heapLimitBytes;
     
     const requestCount = this.metrics.requestCount || 1;
     const errorRate = this.metrics.errorCount / requestCount;
