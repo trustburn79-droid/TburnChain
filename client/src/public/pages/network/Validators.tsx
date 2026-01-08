@@ -45,14 +45,14 @@ export default function Validators() {
           </p>
           
           <div className="flex flex-wrap gap-4">
-            <Link href="/developers/quickstart">
+            <a href="/signup">
               <button 
                 className="px-8 py-3 rounded-lg bg-[#00f0ff] text-black font-bold hover:bg-cyan-400 transition shadow-[0_0_20px_rgba(0,240,255,0.3)]"
                 data-testid="button-apply-now"
               >
                 {t('publicPages.network.validators.applyNow')}
               </button>
-            </Link>
+            </a>
             <Link href="/developers/docs">
               <button 
                 className="px-8 py-3 rounded-lg border border-gray-300 dark:border-white/20 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-white/5 transition"
@@ -358,14 +358,14 @@ export default function Validators() {
               {t('publicPages.network.validators.cta.subtitle')}
             </p>
             <div className="flex flex-wrap justify-center gap-4">
-              <Link href="/developers/quickstart">
+              <a href="/signup">
                 <button 
                   className="px-8 py-3 rounded-lg bg-[#00f0ff] text-black font-bold hover:bg-cyan-400 transition shadow-[0_0_20px_rgba(0,240,255,0.3)]"
                   data-testid="button-start-validating"
                 >
                   {t('publicPages.network.validators.cta.startValidating')}
                 </button>
-              </Link>
+              </a>
               <Link href="/developers/docs">
                 <button 
                   className="px-8 py-3 rounded-lg border border-gray-300 dark:border-white/20 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-white/5 transition flex items-center gap-2"
