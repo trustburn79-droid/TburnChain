@@ -1502,23 +1502,30 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       // Mark as verified (verification already confirmed above)
       await storage.verifyEmailCode(email, code, "google_signup");
       
-      // Create the member account
-      const walletAddress = `tb1${pendingGoogleUser.googleId.slice(0, 32)}gauth`;
+      // Create the member account with TBURN address
+      const tburnAddress = `tb1${pendingGoogleUser.googleId.slice(0, 32)}gauth`;
+      // Generate a placeholder public key for Google OAuth users (not used for signing)
+      const placeholderPublicKey = `0x04google${pendingGoogleUser.googleId.slice(0, 56)}`;
       
       const member = await storage.createMember({
+        // Required fields
+        accountAddress: tburnAddress,
+        publicKey: placeholderPublicKey,
+        // OAuth email (plain text for Google users)
         email: pendingGoogleUser.email,
-        username: pendingGoogleUser.name || pendingGoogleUser.email.split("@")[0],
+        // Identity
+        username: pendingGoogleUser.name?.replace(/\s+/g, '_').toLowerCase() || pendingGoogleUser.email.split("@")[0],
         displayName: pendingGoogleUser.name || "",
-        walletAddress,
-        passwordHash: "", // No password for Google accounts
-        status: "active",
-        emailVerified: true,
-        kycStatus: "pending",
-        kycLevel: 0,
-        membershipTier: "standard",
-        referralCode: `TBURN${Date.now().toString(36).toUpperCase()}`,
+        // Google OAuth
         googleId: pendingGoogleUser.googleId,
         avatarUrl: pendingGoogleUser.picture || null,
+        // Member classification (use correct field names from schema)
+        memberTier: "basic_user",
+        memberStatus: "active",
+        // KYC/AML
+        kycLevel: "none",
+        // Authentication
+        passwordHash: "", // No password for Google accounts
       });
       
       // Set session

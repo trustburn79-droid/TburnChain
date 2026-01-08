@@ -3944,7 +3944,13 @@ export class DbStorage implements IStorage {
   }
 
   async getMemberByEmail(email: string): Promise<Member | undefined> {
-    const result = await db.select().from(members).where(eq(members.encryptedEmail, email)).limit(1);
+    // Check both email fields: plain email (OAuth users) and encryptedEmail (KYC users)
+    // First check plain email field (for OAuth/Google users)
+    let result = await db.select().from(members).where(eq(members.email, email)).limit(1);
+    if (result[0]) return result[0];
+    
+    // Fallback: check encryptedEmail field (for KYC/manual signup users)
+    result = await db.select().from(members).where(eq(members.encryptedEmail, email)).limit(1);
     return result[0];
   }
 
