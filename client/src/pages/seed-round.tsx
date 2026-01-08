@@ -967,11 +967,11 @@ export default function SeedRoundPage() {
                   <div className="stat-label">시드 배정</div>
                 </div>
                 <div className="stat-card" data-testid="stat-price">
-                  <div className="stat-value">{seedRound?.price || "$0.04"}</div>
+                  <div className="stat-value">${seedRound?.price || "0.04"}</div>
                   <div className="stat-label">토큰 가격</div>
                 </div>
                 <div className="stat-card" data-testid="stat-hardcap">
-                  <div className="stat-value">{seedRound?.raised || "$20M"}</div>
+                  <div className="stat-value">${seedRound?.raised || "20M"}</div>
                   <div className="stat-label">하드캡</div>
                 </div>
                 <div className="stat-card" data-testid="stat-investors">
