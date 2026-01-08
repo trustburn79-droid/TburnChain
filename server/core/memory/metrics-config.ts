@@ -19,15 +19,15 @@ const heapStats = v8.getHeapStatistics();
 const v8HeapLimitMB = Math.floor(heapStats.heap_size_limit / (1024 * 1024));
 const isReplitEnv = Boolean(process.env.REPL_ID);
 
-// ★ [2026-01-08] DEV_SAFE_MODE 비활성화 - 8GB 힙 최대 활용
-// 환경 변수로 강제 오버라이드 가능: DEV_SAFE_MODE=true 또는 DEV_SAFE_MODE=false
+// ★ [2026-01-08] DEV_SAFE_MODE 기본 활성화 - 빠른 페이지 로딩 우선
+// 힙은 크게 유지 (OOM 방지), 무거운 엔터프라이즈 초기화는 비활성화
+// 엔터프라이즈 기능 필요시: DEV_SAFE_MODE=false 환경변수 설정
 const envDevSafeMode = process.env.DEV_SAFE_MODE;
-export const DEV_SAFE_MODE = envDevSafeMode === 'true' ? true : 
-                              envDevSafeMode === 'false' ? false : 
-                              v8HeapLimitMB < 1024; // V8 힙이 1GB 미만일 때만 안전 모드
+export const DEV_SAFE_MODE = envDevSafeMode === 'false' ? false : true; // 기본값 true (빠른 시작)
 
-// V8 힙 2GB 이상이면 대규모 환경으로 판단 (Replit 환경 무시)
-const isLargeEnv = v8HeapLimitMB >= 2048;
+// V8 힙 2GB 이상이어도 DEV_SAFE_MODE 우선 적용
+// isLargeEnv는 힙 설정에만 영향, 시작 시간에는 영향 없음
+const isLargeEnv = !DEV_SAFE_MODE && v8HeapLimitMB >= 2048;
 
 console.log(`[METRICS_CONFIG] V8 heap limit: ${v8HeapLimitMB}MB, Replit: ${isReplitEnv}, DEV_SAFE_MODE: ${DEV_SAFE_MODE}, isLargeEnv: ${isLargeEnv}`);
 
