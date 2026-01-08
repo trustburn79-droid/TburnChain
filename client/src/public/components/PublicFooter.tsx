@@ -21,7 +21,7 @@ const socialLinks = [
 const ecosystemLinks = [
   { titleKey: "validators", href: "/network/validators" },
   { titleKey: "bridge", href: "/solutions/cross-chain-bridge" },
-  { titleKey: "explorer", href: "/app" },
+  { titleKey: "explorer", href: "/scan" },
   { titleKey: "staking", href: "/app/staking" },
   { titleKey: "dex", href: "/app/dex" },
   { titleKey: "nftMarketplace", href: "/app/nft-marketplace" },
