@@ -7724,7 +7724,28 @@
         "analytics": "분석",
         "analyticsDesc": "네트워크 지표"
       }
-    }
+    },
+    "rpcTypes": {
+      "primary": "기본",
+      "secondary": "보조",
+      "tertiary": "3차"
+    },
+    "status": {
+      "active": "활성"
+    },
+    "walletStatus": {
+      "FullSupport": "완전 지원",
+      "v20Compatible": "v2.0 호환",
+      "HardwareSupport": "하드웨어 지원"
+    },
+    "bridgeType": {
+      "lockAndMint": "잠금 & 발행"
+    },
+    "bridgeStatus": {
+      "active": "활성",
+      "plannedQ12026": "2026년 1분기 예정"
+    },
+    "tokenStandards": "토큰 표준"
   },
   "publicPages": {
     "common": {

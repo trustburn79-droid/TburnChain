@@ -7780,7 +7780,28 @@
         "analytics": "Analytics",
         "analyticsDesc": "Network metrics"
       }
-    }
+    },
+    "rpcTypes": {
+      "primary": "Primary",
+      "secondary": "Secondary",
+      "tertiary": "Tertiary"
+    },
+    "status": {
+      "active": "Active"
+    },
+    "walletStatus": {
+      "FullSupport": "Full Support",
+      "v20Compatible": "v2.0 Compatible",
+      "HardwareSupport": "Hardware Support"
+    },
+    "bridgeType": {
+      "lockAndMint": "Lock & Mint"
+    },
+    "bridgeStatus": {
+      "active": "Active",
+      "plannedQ12026": "Planned Q1 2026"
+    },
+    "tokenStandards": "Token Standards"
   },
   "publicPages": {
     "common": {

@@ -4670,9 +4670,9 @@
       "lastUpdated": "Last updated",
       "tokenStandards": "معايير التوكن",
       "blockExplorer": "Block Explorer",
-      "tbc20Desc": "Fungible Token Standard (ERC-20 compatible)",
-      "tbc721Desc": "Non-Fungible Token Standard (ERC-721 compatible)",
-      "tbc1155Desc": "Multi-Token Standard (ERC-1155 compatible)",
+      "tbc20Desc": "معيار التوكن القابل للاستبدال (متوافق مع ERC-20)",
+      "tbc721Desc": "معيار التوكن غير القابل للاستبدال (متوافق مع ERC-721)",
+      "tbc1155Desc": "معيار التوكن المتعدد (متوافق مع ERC-1155)",
       "validators": "Validators",
       "activeShards": "Active Shards",
       "quantumResistant": "Quantum-Resistant Signatures",
@@ -5018,7 +5018,28 @@
         "analytics": "التحليلات",
         "analyticsDesc": "مقاييس الشبكة"
       }
-    }
+    },
+    "rpcTypes": {
+      "primary": "أساسي",
+      "secondary": "ثانوي",
+      "tertiary": "ثالثي"
+    },
+    "status": {
+      "active": "نشط"
+    },
+    "walletStatus": {
+      "FullSupport": "دعم كامل",
+      "v20Compatible": "متوافق v2.0",
+      "HardwareSupport": "دعم الأجهزة"
+    },
+    "bridgeType": {
+      "lockAndMint": "قفل وسك"
+    },
+    "bridgeStatus": {
+      "active": "نشط",
+      "plannedQ12026": "مخطط Q1 2026"
+    },
+    "tokenStandards": "معايير التوكن"
   },
   "publicPages": {
     "common": {

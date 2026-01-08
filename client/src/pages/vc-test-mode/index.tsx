@@ -809,8 +809,8 @@ export default function VCTestMode() {
                   {MAINNET_CONFIG.rpcEndpoints.map((endpoint, idx) => (
                     <div key={idx} className="p-3 bg-gray-50 dark:bg-white/5 rounded-lg">
                       <div className="flex items-center justify-between mb-1">
-                        <Badge variant="outline" className="text-xs">{endpoint.type}</Badge>
-                        <Badge className="bg-green-500 text-xs">{endpoint.status}</Badge>
+                        <Badge variant="outline" className="text-xs">{t(`vcTestMode.rpcTypes.${endpoint.type.toLowerCase()}`, endpoint.type)}</Badge>
+                        <Badge className="bg-green-500 text-xs">{t(`vcTestMode.status.${endpoint.status.toLowerCase()}`, endpoint.status)}</Badge>
                       </div>
                       <code className="text-sm font-mono text-blue-600 dark:text-blue-400 break-all">
                         {endpoint.url}
@@ -1174,15 +1174,15 @@ export default function VCTestMode() {
                 <CardContent className="space-y-3">
                   <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-white/5 rounded-lg">
                     <span className="text-gray-600 dark:text-gray-400 text-sm">{t('vcTestMode.dueDiligence.nodeRedundancy', 'Node Redundancy')}</span>
-                    <span className="font-bold">{MAINNET_CONFIG.operations.nodeRedundancy}</span>
+                    <span className="font-bold">{t('vcTestMode.operationsValues.nodeRedundancy', '3x across regions')}</span>
                   </div>
                   <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-white/5 rounded-lg">
                     <span className="text-gray-600 dark:text-gray-400 text-sm">{t('vcTestMode.dueDiligence.monitoring', 'Monitoring')}</span>
-                    <span className="font-bold text-sm">{MAINNET_CONFIG.operations.monitoringSystem}</span>
+                    <span className="font-bold text-sm">{t('vcTestMode.operationsValues.monitoring', '24/7 NOC with PagerDuty')}</span>
                   </div>
                   <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-white/5 rounded-lg">
                     <span className="text-gray-600 dark:text-gray-400 text-sm">{t('vcTestMode.dueDiligence.incidentResponse', 'Incident Response')}</span>
-                    <Badge className="bg-green-500">{MAINNET_CONFIG.operations.incidentResponse}</Badge>
+                    <Badge className="bg-green-500">{t('vcTestMode.operationsValues.incidentResponse', '<15min SLA')}</Badge>
                   </div>
                   <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-white/5 rounded-lg">
                     <span className="text-gray-600 dark:text-gray-400 text-sm">{t('vcTestMode.dueDiligence.uptimeTarget', 'Uptime Target')}</span>
@@ -1190,7 +1190,7 @@ export default function VCTestMode() {
                   </div>
                   <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-white/5 rounded-lg">
                     <span className="text-gray-600 dark:text-gray-400 text-sm">{t('vcTestMode.dueDiligence.rpcFailover', 'RPC Failover')}</span>
-                    <Badge className="bg-blue-500">{MAINNET_CONFIG.operations.backupRpc}</Badge>
+                    <Badge className="bg-blue-500">{t('vcTestMode.operationsValues.rpcFailover', 'Auto-failover enabled')}</Badge>
                   </div>
                   {/* Monitoring Dashboard Links */}
                   <div className="mt-4 p-3 bg-red-500/10 rounded-lg border border-red-500/30">
@@ -1245,7 +1245,7 @@ export default function VCTestMode() {
                       <span className="text-gray-700 dark:text-gray-300 capitalize text-sm">
                         {wallet.replace(/([A-Z])/g, ' $1').trim()}
                       </span>
-                      <Badge className="bg-green-500 text-xs">{status}</Badge>
+                      <Badge className="bg-green-500 text-xs">{t(`vcTestMode.walletStatus.${status.replace(/[\s.]/g, '')}`, status)}</Badge>
                     </div>
                   ))}
                 </CardContent>
@@ -1268,9 +1268,9 @@ export default function VCTestMode() {
                   {MAINNET_CONFIG.bridgeConnections.map((bridge, idx) => (
                     <div key={idx} className="p-3 bg-gray-50 dark:bg-white/5 rounded-lg text-center">
                       <div className="font-bold text-gray-900 dark:text-white">{bridge.chain}</div>
-                      <div className="text-xs text-gray-500 dark:text-gray-400 mb-2">{bridge.type}</div>
+                      <div className="text-xs text-gray-500 dark:text-gray-400 mb-2">{t('vcTestMode.bridgeType.lockAndMint', 'Lock & Mint')}</div>
                       <Badge className={bridge.status === 'Active' ? 'bg-green-500' : 'bg-yellow-500'}>
-                        {bridge.status}
+                        {t(`vcTestMode.bridgeStatus.${bridge.status === 'Active' ? 'active' : 'plannedQ12026'}`, bridge.status)}
                       </Badge>
                     </div>
                   ))}

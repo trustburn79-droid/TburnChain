@@ -4456,9 +4456,9 @@
       "lastUpdated": "Last updated",
       "tokenStandards": "Standards de Tokens",
       "blockExplorer": "Block Explorer",
-      "tbc20Desc": "Fungible Token Standard (ERC-20 compatible)",
-      "tbc721Desc": "Non-Fungible Token Standard (ERC-721 compatible)",
-      "tbc1155Desc": "Multi-Token Standard (ERC-1155 compatible)",
+      "tbc20Desc": "Standard de Token Fongible (compatible ERC-20)",
+      "tbc721Desc": "Standard de Token Non-Fongible (compatible ERC-721)",
+      "tbc1155Desc": "Standard Multi-Token (compatible ERC-1155)",
       "validators": "Validators",
       "activeShards": "Active Shards",
       "quantumResistant": "Quantum-Resistant Signatures",
@@ -4804,7 +4804,28 @@
         "analytics": "Analytiques",
         "analyticsDesc": "Métriques du réseau"
       }
-    }
+    },
+    "rpcTypes": {
+      "primary": "Primaire",
+      "secondary": "Secondaire",
+      "tertiary": "Tertiaire"
+    },
+    "status": {
+      "active": "Actif"
+    },
+    "walletStatus": {
+      "FullSupport": "Support Complet",
+      "v20Compatible": "v2.0 Compatible",
+      "HardwareSupport": "Support Matériel"
+    },
+    "bridgeType": {
+      "lockAndMint": "Verrouillage et Frappe"
+    },
+    "bridgeStatus": {
+      "active": "Actif",
+      "plannedQ12026": "Prévu T1 2026"
+    },
+    "tokenStandards": "Standards de Token"
   },
   "publicPages": {
     "common": {

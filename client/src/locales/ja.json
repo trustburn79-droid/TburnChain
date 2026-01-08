@@ -7647,7 +7647,28 @@
         "analytics": "アナリティクス",
         "analyticsDesc": "ネットワーク指標"
       }
-    }
+    },
+    "rpcTypes": {
+      "primary": "プライマリ",
+      "secondary": "セカンダリ",
+      "tertiary": "ターシャリ"
+    },
+    "status": {
+      "active": "アクティブ"
+    },
+    "walletStatus": {
+      "FullSupport": "フルサポート",
+      "v20Compatible": "v2.0対応",
+      "HardwareSupport": "ハードウェアサポート"
+    },
+    "bridgeType": {
+      "lockAndMint": "ロック＆ミント"
+    },
+    "bridgeStatus": {
+      "active": "アクティブ",
+      "plannedQ12026": "2026年Q1予定"
+    },
+    "tokenStandards": "トークン規格"
   },
   "publicPages": {
     "common": {

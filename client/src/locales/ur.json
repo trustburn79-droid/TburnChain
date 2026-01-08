@@ -2978,9 +2978,9 @@
       "lastUpdated": "Last updated",
       "tokenStandards": "ٹوکن معیارات",
       "blockExplorer": "Block Explorer",
-      "tbc20Desc": "Fungible Token Standard (ERC-20 compatible)",
-      "tbc721Desc": "Non-Fungible Token Standard (ERC-721 compatible)",
-      "tbc1155Desc": "Multi-Token Standard (ERC-1155 compatible)",
+      "tbc20Desc": "قابل تبادلہ ٹوکن معیار (ERC-20 ہم آہنگ)",
+      "tbc721Desc": "غیر قابل تبادلہ ٹوکن معیار (ERC-721 ہم آہنگ)",
+      "tbc1155Desc": "ملٹی ٹوکن معیار (ERC-1155 ہم آہنگ)",
       "validators": "Validators",
       "activeShards": "Active Shards",
       "quantumResistant": "Quantum-Resistant Signatures",
@@ -3326,7 +3326,28 @@
         "analytics": "تجزیات",
         "analyticsDesc": "نیٹ ورک میٹرکس"
       }
-    }
+    },
+    "rpcTypes": {
+      "primary": "بنیادی",
+      "secondary": "ثانوی",
+      "tertiary": "تیسرا"
+    },
+    "status": {
+      "active": "فعال"
+    },
+    "walletStatus": {
+      "FullSupport": "مکمل سپورٹ",
+      "v20Compatible": "v2.0 ہم آہنگ",
+      "HardwareSupport": "ہارڈویئر سپورٹ"
+    },
+    "bridgeType": {
+      "lockAndMint": "لاک اور منٹ"
+    },
+    "bridgeStatus": {
+      "active": "فعال",
+      "plannedQ12026": "Q1 2026 منصوبہ بند"
+    },
+    "tokenStandards": "ٹوکن معیارات"
   },
   "publicPages": {
     "common": {

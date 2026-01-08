@@ -6636,8 +6636,8 @@
       "lastUpdated": "最后更新",
       "tokenStandards": "代币标准",
       "blockExplorer": "区块浏览器",
-      "tbc20Desc": "可替代代币标准（ERC-20兼容）",
-      "tbc721Desc": "不可替代代币标准（ERC-721兼容）",
+      "tbc20Desc": "同质化代币标准（ERC-20兼容）",
+      "tbc721Desc": "非同质化代币标准（ERC-721兼容）",
       "tbc1155Desc": "多代币标准（ERC-1155兼容）",
       "validators": "验证者",
       "activeShards": "活跃分片",
@@ -6984,7 +6984,28 @@
         "analytics": "分析",
         "analyticsDesc": "网络指标"
       }
-    }
+    },
+    "rpcTypes": {
+      "primary": "主要",
+      "secondary": "备用",
+      "tertiary": "第三"
+    },
+    "status": {
+      "active": "活跃"
+    },
+    "walletStatus": {
+      "FullSupport": "完全支持",
+      "v20Compatible": "v2.0兼容",
+      "HardwareSupport": "硬件支持"
+    },
+    "bridgeType": {
+      "lockAndMint": "锁定和铸造"
+    },
+    "bridgeStatus": {
+      "active": "活跃",
+      "plannedQ12026": "2026年Q1计划"
+    },
+    "tokenStandards": "代币标准"
   },
   "publicPages": {
     "common": {

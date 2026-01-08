@@ -4153,9 +4153,9 @@
       "lastUpdated": "Last updated",
       "tokenStandards": "Стандарты токенов",
       "blockExplorer": "Block Explorer",
-      "tbc20Desc": "Fungible Token Standard (ERC-20 compatible)",
-      "tbc721Desc": "Non-Fungible Token Standard (ERC-721 compatible)",
-      "tbc1155Desc": "Multi-Token Standard (ERC-1155 compatible)",
+      "tbc20Desc": "Стандарт Взаимозаменяемых Токенов (совместим с ERC-20)",
+      "tbc721Desc": "Стандарт Невзаимозаменяемых Токенов (совместим с ERC-721)",
+      "tbc1155Desc": "Мульти-токен Стандарт (совместим с ERC-1155)",
       "validators": "Validators",
       "activeShards": "Active Shards",
       "quantumResistant": "Quantum-Resistant Signatures",
@@ -4501,7 +4501,28 @@
         "analytics": "Аналитика",
         "analyticsDesc": "Метрики сети"
       }
-    }
+    },
+    "rpcTypes": {
+      "primary": "Основной",
+      "secondary": "Вторичный",
+      "tertiary": "Третичный"
+    },
+    "status": {
+      "active": "Активен"
+    },
+    "walletStatus": {
+      "FullSupport": "Полная Поддержка",
+      "v20Compatible": "v2.0 Совместимость",
+      "HardwareSupport": "Аппаратная Поддержка"
+    },
+    "bridgeType": {
+      "lockAndMint": "Блокировка и Выпуск"
+    },
+    "bridgeStatus": {
+      "active": "Активен",
+      "plannedQ12026": "Запланировано Q1 2026"
+    },
+    "tokenStandards": "Стандарты Токенов"
   },
   "publicPages": {
     "common": {

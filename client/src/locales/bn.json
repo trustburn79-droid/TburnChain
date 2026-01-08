@@ -2978,9 +2978,9 @@
       "lastUpdated": "Last updated",
       "tokenStandards": "টোকেন স্ট্যান্ডার্ড",
       "blockExplorer": "Block Explorer",
-      "tbc20Desc": "Fungible Token Standard (ERC-20 compatible)",
-      "tbc721Desc": "Non-Fungible Token Standard (ERC-721 compatible)",
-      "tbc1155Desc": "Multi-Token Standard (ERC-1155 compatible)",
+      "tbc20Desc": "বিনিময়যোগ্য টোকেন স্ট্যান্ডার্ড (ERC-20 সামঞ্জস্যপূর্ণ)",
+      "tbc721Desc": "অবিনিময়যোগ্য টোকেন স্ট্যান্ডার্ড (ERC-721 সামঞ্জস্যপূর্ণ)",
+      "tbc1155Desc": "মাল্টি-টোকেন স্ট্যান্ডার্ড (ERC-1155 সামঞ্জস্যপূর্ণ)",
       "validators": "Validators",
       "activeShards": "Active Shards",
       "quantumResistant": "Quantum-Resistant Signatures",
@@ -3326,7 +3326,28 @@
         "analytics": "অ্যানালিটিক্স",
         "analyticsDesc": "নেটওয়ার্ক মেট্রিক্স"
       }
-    }
+    },
+    "rpcTypes": {
+      "primary": "প্রাথমিক",
+      "secondary": "মাধ্যমিক",
+      "tertiary": "তৃতীয়"
+    },
+    "status": {
+      "active": "সক্রিয়"
+    },
+    "walletStatus": {
+      "FullSupport": "সম্পূর্ণ সাপোর্ট",
+      "v20Compatible": "v2.0 সামঞ্জস্যপূর্ণ",
+      "HardwareSupport": "হার্ডওয়্যার সাপোর্ট"
+    },
+    "bridgeType": {
+      "lockAndMint": "লক এবং মিন্ট"
+    },
+    "bridgeStatus": {
+      "active": "সক্রিয়",
+      "plannedQ12026": "Q1 2026 পরিকল্পিত"
+    },
+    "tokenStandards": "টোকেন স্ট্যান্ডার্ড"
   },
   "publicPages": {
     "common": {
