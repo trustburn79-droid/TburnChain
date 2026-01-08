@@ -700,6 +700,9 @@ class DisasterRecoveryManager {
   getStatus(): DisasterRecoveryStatus {
     const memUsage = process.memoryUsage();
     const sessionCount = getSessionCount();
+    // ★ [2026-01-08] V8 힙 제한 사용
+    const heapLimitMB = METRICS_CONFIG.HARDWARE.V8_HEAP_LIMIT_MB;
+    const heapUsedMB = memUsage.heapUsed / 1024 / 1024;
     
     return {
       enabled: this.enabled,
@@ -707,9 +710,9 @@ class DisasterRecoveryManager {
       lastHealthCheck: new Date().toISOString(),
       consecutiveFailures: (metrics as any)._consecutiveFailures || 0,
       memoryStatus: {
-        heapUsed: `${(memUsage.heapUsed / 1024 / 1024).toFixed(2)} MB`,
-        heapTotal: `${(memUsage.heapTotal / 1024 / 1024).toFixed(2)} MB`,
-        usage: `${((memUsage.heapUsed / memUsage.heapTotal) * 100).toFixed(2)}%`,
+        heapUsed: `${heapUsedMB.toFixed(2)} MB`,
+        heapTotal: `${heapLimitMB.toFixed(2)} MB`,
+        usage: `${((heapUsedMB / heapLimitMB) * 100).toFixed(2)}%`,
         threshold: `${(CONFIG.MEMORY_CRITICAL_THRESHOLD * 100).toFixed(0)}%`,
       },
       sessionStatus: {

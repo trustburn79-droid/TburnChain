@@ -192,13 +192,20 @@ export class SelfHealingEngine {
     // TPS derived from actual requests processed
     const tps = Math.max(rps * 100, 1000); // Scale up for blockchain context
     
+    // ★ [2026-01-08] V8 힙 제한 사용
+    let v8HeapLimit = memUsage.heapTotal;
+    try {
+      const v8 = require('v8');
+      v8HeapLimit = v8.getHeapStatistics().heap_size_limit;
+    } catch {}
+    
     // Construct real telemetry data
     const data: TelemetryData = {
       timestamp: now,
       cpu: Math.max(0, Math.min(100, cpuPercent)),
       memory: Math.max(0, Math.min(100, memoryPercent)),
       heapUsed: memUsage.heapUsed,
-      heapTotal: memUsage.heapTotal,
+      heapTotal: v8HeapLimit,
       external: memUsage.external,
       networkLatency: avgLatency,
       tps: tps,

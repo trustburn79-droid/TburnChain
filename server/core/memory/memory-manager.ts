@@ -365,7 +365,9 @@ export class MemoryManager extends EventEmitter {
     // 5. 5초 후 상태 확인
     setTimeout(() => {
       const usage = process.memoryUsage();
-      const ratio = usage.heapUsed / usage.heapTotal;
+      // ★ [2026-01-08] V8 힙 제한 사용
+      const heapLimitMB = Math.max(usage.heapTotal / 1024 / 1024, this.config.maxHeapMB);
+      const ratio = (usage.heapUsed / 1024 / 1024) / heapLimitMB;
       
       if (ratio > this.config.emergencyThreshold) {
         console.error(
@@ -480,8 +482,9 @@ export class MemoryManager extends EventEmitter {
   getMetrics(): MemoryMetrics {
     const usage = process.memoryUsage();
     const heapUsedMB = usage.heapUsed / 1024 / 1024;
-    const heapTotalMB = usage.heapTotal / 1024 / 1024;
-    const ratio = usage.heapUsed / usage.heapTotal;
+    // ★ [2026-01-08] V8 힙 제한 사용
+    const heapTotalMB = Math.max(usage.heapTotal / 1024 / 1024, this.config.maxHeapMB);
+    const ratio = heapUsedMB / heapTotalMB;
     
     let state: MemoryMetrics['state'] = 'normal';
     if (ratio > this.config.emergencyThreshold) state = 'emergency';

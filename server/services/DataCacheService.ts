@@ -112,10 +112,15 @@ class DataCacheService {
   private logMemoryUsage(): void {
     const used = process.memoryUsage();
     const heapUsedMB = Math.round(used.heapUsed / 1024 / 1024);
-    const heapTotalMB = Math.round(used.heapTotal / 1024 / 1024);
-    const heapRatio = used.heapUsed / used.heapTotal;
+    // ★ [2026-01-08] V8 힙 제한 사용 (동적 로드)
+    let heapLimitMB = 8240;
+    try {
+      const v8 = require('v8');
+      heapLimitMB = v8.getHeapStatistics().heap_size_limit / (1024 * 1024);
+    } catch {}
+    const heapRatio = heapUsedMB / heapLimitMB;
     
-    console.log(`[Memory] Heap: ${heapUsedMB}MB / ${heapTotalMB}MB, Cache entries: ${this.cache.size}`);
+    console.log(`[Memory] Heap: ${heapUsedMB}MB / ${Math.round(heapLimitMB)}MB, Cache entries: ${this.cache.size}`);
     
     // ★ [2026-01-04 메모리 안정성 v3.0] 자동 메모리 보호
     if (heapRatio > 0.85) {

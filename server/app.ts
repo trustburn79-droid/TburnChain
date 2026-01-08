@@ -730,10 +730,16 @@ export default async function runApp(
     
     // 메모리 상태 캡처
     const mem = process.memoryUsage();
+    // ★ [2026-01-08] V8 힙 제한 사용
+    let heapLimitMB = 8240;
+    try {
+      const v8 = require('v8');
+      heapLimitMB = v8.getHeapStatistics().heap_size_limit / (1024 * 1024);
+    } catch {}
     const memInfo = {
       heapUsed: Math.round(mem.heapUsed / 1024 / 1024),
-      heapTotal: Math.round(mem.heapTotal / 1024 / 1024),
-      heapPercent: Math.round((mem.heapUsed / mem.heapTotal) * 100),
+      heapTotal: Math.round(heapLimitMB),
+      heapPercent: Math.round((mem.heapUsed / 1024 / 1024 / heapLimitMB) * 100),
     };
     
     // ★ 상세 에러 로그 출력

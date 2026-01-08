@@ -178,6 +178,12 @@ function processCrossShardMessage(request: CrossShardMessageRequest): CrossShard
 
 function getHealthStatus(): HealthCheckResponse {
   const memUsage = process.memoryUsage();
+  // ★ [2026-01-08] V8 힙 제한 사용
+  let heapLimitBytes = memUsage.heapTotal;
+  try {
+    const v8 = require('v8');
+    heapLimitBytes = v8.getHeapStatistics().heap_size_limit;
+  } catch {}
   
   return {
     workerId: state.workerId,
@@ -185,7 +191,7 @@ function getHealthStatus(): HealthCheckResponse {
     uptime: Date.now() - state.startTime,
     processedBlocks: state.processedBlocks,
     processedConsensusRounds: state.processedConsensusRounds,
-    memoryUsage: memUsage.heapUsed / memUsage.heapTotal,
+    memoryUsage: memUsage.heapUsed / heapLimitBytes,
     cpuUsage: 0,
     lastHeartbeat: state.lastHeartbeat,
   };
