@@ -36,8 +36,17 @@ export async function setupVite(app: Express, server: Server) {
   });
 
   app.use(vite.middlewares);
+  
+  // Static HTML pages that should NOT be handled by Vite SPA fallback
+  const STATIC_HTML_ROUTES = ['/vision', '/whitepaper', '/technical-whitepaper'];
+  
   app.use("*", async (req, res, next) => {
     const url = req.originalUrl;
+    
+    // Skip SPA fallback for static HTML pages - let Express routes handle them
+    if (STATIC_HTML_ROUTES.some(route => url === route || url.startsWith(route + '?'))) {
+      return next();
+    }
 
     try {
       const clientTemplate = path.resolve(
