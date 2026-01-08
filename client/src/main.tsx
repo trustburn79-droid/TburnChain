@@ -248,6 +248,8 @@ async function safeInitApp() {
     
     // Routes that load via PublicRouter (must be defined in PublicRouter.tsx)
     const isPublicRoute = path === "/" || 
+                          path === "/vc" ||
+                          path.startsWith("/vc-test") ||
                           path === "/scan" || 
                           path.startsWith("/scan/") ||
                           path === "/whitepaper" ||

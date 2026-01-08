@@ -313,9 +313,20 @@ export function PublicRouter() {
     );
   }
   
-  // /vc and /app/* routes are handled by RootRouter in App.tsx
-  // Return null to let the parent router handle them (SPA navigation, no reload)
-  if (location === "/vc" || location.startsWith("/vc-test") || location.startsWith("/app")) {
+  // /vc route - VC investor page (public, no auth required)
+  if (location === "/vc" || location.startsWith("/vc-test")) {
+    const VCTestMode = lazyWithRetry(() => import("@/pages/vc-test-mode"));
+    return (
+      <ErrorBoundary>
+        <Suspense fallback={<PageLoading />}>
+          <VCTestMode />
+        </Suspense>
+      </ErrorBoundary>
+    );
+  }
+  
+  // /app/* routes are handled by RootRouter in App.tsx
+  if (location.startsWith("/app")) {
     return null;
   }
 
