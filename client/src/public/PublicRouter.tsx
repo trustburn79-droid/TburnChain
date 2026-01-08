@@ -465,6 +465,12 @@ export function PublicRouter() {
     );
   }
 
+  // Static HTML pages - redirect to full page load
+  if (location === "/vision" || location === "/whitepaper" || location === "/technical-whitepaper") {
+    window.location.href = location;
+    return <PageLoading />;
+  }
+
   if (location === "/brand") {
     return (
       <ErrorBoundary>
