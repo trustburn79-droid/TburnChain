@@ -439,12 +439,15 @@ class DisasterRecoveryManager extends EventEmitter {
       issues.push(`Response time CRITICAL: ${avgResponseTime.toFixed(0)}ms`);
     }
     
+    // ★ [2026-01-08] V8 힙 제한 사용 (표시용)
+    const heapLimitMB = METRICS_CONFIG.HARDWARE.V8_HEAP_LIMIT_MB || 8240;
+    
     return {
       status,
       uptime: Math.round((Date.now() - this.startTime) / 1000),
       memory: {
         heapUsed: Math.round(mem.heapUsed / 1024 / 1024),
-        heapTotal: Math.round(mem.heapTotal / 1024 / 1024),
+        heapTotal: Math.round(heapLimitMB),
         heapPercent: Math.round(heapPercent * 100),
         rss: Math.round(mem.rss / 1024 / 1024),
       },

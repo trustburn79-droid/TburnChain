@@ -949,6 +949,9 @@ export function getSessionHealthData(): {
   const heapPercent = (mem.heapUsed / heapLimitBytes) * 100;
   const healthy = heapPercent < 90 && metricsData.activeSessions < CONFIG.MAX_SESSIONS * 0.9;
   
+  // ★ [2026-01-08] V8 힙 제한 사용 (표시용)
+  const heapLimitMB = METRICS_CONFIG.HARDWARE.V8_HEAP_LIMIT_MB || 8240;
+  
   return {
     healthy,
     metrics: {
@@ -961,7 +964,7 @@ export function getSessionHealthData(): {
     },
     memory: {
       heapUsed: Math.round(mem.heapUsed / 1024 / 1024),
-      heapTotal: Math.round(mem.heapTotal / 1024 / 1024),
+      heapTotal: Math.round(heapLimitMB),
       heapPercent: Math.round(heapPercent),
       rss: Math.round(mem.rss / 1024 / 1024),
     },

@@ -1868,13 +1868,19 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   app.get("/api/health", async (_req, res) => {
     try {
       const mem = process.memoryUsage();
+      // ★ [2026-01-08] V8 힙 제한 사용
+      let heapLimitMB = 8240;
+      try {
+        const v8 = require('v8');
+        heapLimitMB = v8.getHeapStatistics().heap_size_limit / (1024 * 1024);
+      } catch {}
       res.json({ 
         status: 'ok', 
         timestamp: new Date().toISOString(),
         uptime: Math.round(process.uptime()),
         memory: {
           heapUsed: Math.round(mem.heapUsed / 1024 / 1024),
-          heapTotal: Math.round(mem.heapTotal / 1024 / 1024),
+          heapTotal: Math.round(heapLimitMB),
           rss: Math.round(mem.rss / 1024 / 1024)
         }
       });
