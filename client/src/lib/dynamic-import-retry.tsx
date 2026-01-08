@@ -19,6 +19,25 @@ const RETRY_CONFIG = {
   JITTER: 0.1,
 };
 
+async function clearModuleCacheBeforeRetry(): Promise<void> {
+  try {
+    if ('caches' in window) {
+      const cacheNames = await caches.keys();
+      for (const name of cacheNames) {
+        const cache = await caches.open(name);
+        const requests = await cache.keys();
+        for (const request of requests) {
+          if (request.url.includes('/assets/') && request.url.endsWith('.js')) {
+            await cache.delete(request);
+          }
+        }
+      }
+    }
+  } catch (e) {
+    console.warn('[DynamicImport] Cache clear failed:', e);
+  }
+}
+
 export async function retryDynamicImport<T>(
   importFn: () => Promise<T>,
   options?: {
@@ -33,6 +52,7 @@ export async function retryDynamicImport<T>(
     try {
       if (attempt > 0) {
         console.log(`[DynamicImport] Retry attempt ${attempt}/${maxRetries}`);
+        await clearModuleCacheBeforeRetry();
       }
       
       return await importFn();
