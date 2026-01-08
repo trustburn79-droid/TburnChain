@@ -4351,11 +4351,9 @@ router.get('/ai/health', async (req: Request, res: Response) => {
       overallStatus = 'degraded';
     }
     
-    // Set appropriate HTTP status code
-    const httpStatus = overallStatus === 'healthy' ? 200 : 
-                       overallStatus === 'degraded' ? 200 : 503;
-    
-    res.status(httpStatus).json({
+    // Always return 200 - status is conveyed in response body
+    // This allows frontend to render gracefully even when AI components are offline
+    res.status(200).json({
       success: true,
       status: overallStatus,
       components: {
