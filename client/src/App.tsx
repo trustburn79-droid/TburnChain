@@ -27,6 +27,7 @@ import { useTranslation } from "react-i18next";
 // i18n is loaded dynamically in main.tsx
 import { Suspense, useEffect } from "react";
 import { lazyWithRetry } from "@/lib/dynamic-import-retry";
+import VCLayout from "@/public/components/VCLayout";
 
 // CRITICAL: All lazy components use lazyWithRetry for automatic retry on chunk load failures
 const PublicRouter = lazyWithRetry(() => import("./public/PublicRouter").then(m => ({ default: m.PublicRouter })));
@@ -77,7 +78,6 @@ const CommunityPage = lazyWithRetry(() => import("@/pages/community"));
 const SearchResults = lazyWithRetry(() => import("@/pages/search-results"));
 const TokenomicsSimulation = lazyWithRetry(() => import("@/pages/tokenomics-simulation"));
 const VCTestMode = lazyWithRetry(() => import("@/pages/vc-test-mode"));
-const VCLayout = lazyWithRetry(() => import("@/public/components/VCLayout"));
 const UserPage = lazyWithRetry(() => import("@/pages/user"));
 const QnAPage = lazyWithRetry(() => import("@/pages/qna"));
 const NftMarketplaceStandalone = lazyWithRetry(() => import("@/pages/nft-marketplace-standalone"));
@@ -551,16 +551,12 @@ function RootRouter() {
   }
   
   if (location === "/vc" || location.startsWith("/vc-test")) {
-    // VC Test Mode page is public - accessible to VCs without login for due diligence
-    return (
-      <ThemeProvider defaultTheme="dark">
-        <Suspense fallback={<PageLoading />}>
-          <VCLayout>
-            <VCTestMode />
-          </VCLayout>
-        </Suspense>
-      </ThemeProvider>
-    );
+    // VC routes are handled by PublicApp - redirect to ensure consistent shell
+    // This prevents duplicate route handling between App and PublicApp
+    if (typeof window !== "undefined") {
+      window.location.href = location;
+    }
+    return <PageLoading />;
   }
   
   return (

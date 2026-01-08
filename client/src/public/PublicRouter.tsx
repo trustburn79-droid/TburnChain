@@ -2,6 +2,7 @@ import { Switch, Route, useLocation } from "wouter";
 import { Suspense, useEffect } from "react";
 import { Loader2 } from "lucide-react";
 import { PublicLayout } from "./components/PublicLayout";
+import VCLayout from "./components/VCLayout";
 import { ErrorBoundary } from "@/components/error-boundary";
 import { lazyWithRetry } from "@/lib/dynamic-import-retry";
 
@@ -60,6 +61,7 @@ const TestnetRpcRoutes = lazyWithRetry(() => import("./routes/TestnetRpcRoutes")
 const NftMarketplaceStandalone = lazyWithRetry(() => import("@/pages/nft-marketplace-standalone"));
 
 const Brand = lazyWithRetry(() => import("./pages/Brand"));
+const VCTestMode = lazyWithRetry(() => import("@/pages/vc-test-mode"));
 
 function LoginPage() {
   const handleLoginSuccess = () => {
@@ -314,16 +316,16 @@ export function PublicRouter() {
   }
   
   // /vc route - VC investor page (public, no auth required)
+  // CRITICAL: VCLayout is a regular import, VCTestMode is lazy-loaded from top-level
+  // This prevents the nested lazy component black screen issue
   if (location === "/vc" || location.startsWith("/vc-test")) {
-    const VCTestMode = lazyWithRetry(() => import("@/pages/vc-test-mode"));
-    const VCLayout = lazyWithRetry(() => import("./components/VCLayout"));
     return (
       <ErrorBoundary>
-        <Suspense fallback={<PageLoading />}>
-          <VCLayout>
+        <VCLayout>
+          <Suspense fallback={<PageLoading />}>
             <VCTestMode />
-          </VCLayout>
-        </Suspense>
+          </Suspense>
+        </VCLayout>
       </ErrorBoundary>
     );
   }
