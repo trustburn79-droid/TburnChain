@@ -1,5 +1,5 @@
 import { Switch, Route, useLocation } from "wouter";
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useEffect } from "react";
 import { Loader2 } from "lucide-react";
 import { PublicLayout } from "./components/PublicLayout";
 import { ErrorBoundary } from "@/components/error-boundary";
@@ -10,6 +10,13 @@ function PageLoading() {
       <Loader2 className="h-8 w-8 animate-spin text-primary" />
     </div>
   );
+}
+
+function ExternalRedirect({ to }: { to: string }) {
+  useEffect(() => {
+    window.location.href = to;
+  }, [to]);
+  return <PageLoading />;
 }
 
 const Home = lazy(() => import("./pages/Home"));
@@ -467,14 +474,12 @@ export function PublicRouter() {
 
   // Static HTML pages - redirect to full page load
   if (location === "/vision" || location === "/whitepaper" || location === "/technical-whitepaper") {
-    window.location.href = location;
-    return <PageLoading />;
+    return <ExternalRedirect to={location} />;
   }
 
   // App pages - redirect to full page load (these are handled by authenticated router)
   if (location.startsWith("/app")) {
-    window.location.href = location;
-    return <PageLoading />;
+    return <ExternalRedirect to={location} />;
   }
 
   // User dashboard page - standalone without PublicLayout header
