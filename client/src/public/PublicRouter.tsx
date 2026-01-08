@@ -318,9 +318,11 @@ export function PublicRouter() {
     const VCTestMode = lazyWithRetry(() => import("@/pages/vc-test-mode"));
     return (
       <ErrorBoundary>
-        <Suspense fallback={<PageLoading />}>
-          <VCTestMode />
-        </Suspense>
+        <PublicLayout>
+          <Suspense fallback={<PageLoading />}>
+            <VCTestMode />
+          </Suspense>
+        </PublicLayout>
       </ErrorBoundary>
     );
   }
