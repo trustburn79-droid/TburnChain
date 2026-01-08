@@ -52,7 +52,6 @@ const TestnetRpcRoutes = lazy(() => import("./routes/TestnetRpcRoutes"));
 const NftMarketplaceStandalone = lazy(() => import("@/pages/nft-marketplace-standalone"));
 
 const Brand = lazy(() => import("./pages/Brand"));
-const Vision = lazy(() => import("./pages/Vision"));
 
 function LoginPage() {
   const handleLoginSuccess = () => {
@@ -478,17 +477,6 @@ export function PublicRouter() {
     );
   }
 
-  if (location === "/vision") {
-    return (
-      <ErrorBoundary>
-        <PublicLayout>
-          <Suspense fallback={<PageLoading />}>
-            <Vision />
-          </Suspense>
-        </PublicLayout>
-      </ErrorBoundary>
-    );
-  }
 
   if (location.startsWith("/token-schedule") || location.startsWith("/token-details")) {
     const TokenSchedule = lazy(() => import("@/pages/token-schedule"));
