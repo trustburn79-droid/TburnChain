@@ -471,16 +471,14 @@ export function PublicRouter() {
     return <PageLoading />;
   }
 
-  // User dashboard page
+  // User dashboard page - standalone without PublicLayout header
   if (location === "/user" || location.startsWith("/user?")) {
     const User = lazy(() => import("@/pages/user"));
     return (
       <ErrorBoundary>
-        <PublicLayout>
-          <Suspense fallback={<PageLoading />}>
-            <User />
-          </Suspense>
-        </PublicLayout>
+        <Suspense fallback={<PageLoading />}>
+          <User />
+        </Suspense>
       </ErrorBoundary>
     );
   }
