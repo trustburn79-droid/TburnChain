@@ -813,7 +813,7 @@ export const GENESIS_DISTRIBUTION: GenesisCategory[] = [
     nameKey: 'tokenomics.genesis.rewards',
     amount: 22,
     percentage: 22,
-    description: '네트워크 보안을 위한 블록 보상 및 검증자 인센티브 (v4.3: 23%→22%)',
+    description: '네트워크 보안을 위한 블록 보상 및 검증자 인센티브',
     descriptionKey: 'tokenomics.genesis.rewards.desc',
     subcategories: [
       { id: 'block_rewards', name: '블록 보상', nameKey: 'tokenomics.genesis.blockRewards', amount: 14.5, percentage: 65.9 },
@@ -840,7 +840,7 @@ export const GENESIS_DISTRIBUTION: GenesisCategory[] = [
     nameKey: 'tokenomics.genesis.ecosystem',
     amount: 14,
     percentage: 14,
-    description: '그랜트, 파트너십 및 생태계 개발 이니셔티브 (v4.3: 15%→14%)',
+    description: '그랜트, 파트너십 및 생태계 개발 이니셔티브',
     descriptionKey: 'tokenomics.genesis.ecosystem.desc',
     subcategories: [
       { id: 'ecosystem_fund', name: '생태계 펀드', nameKey: 'tokenomics.genesis.ecosystemFund', amount: 7, percentage: 50 },
@@ -854,7 +854,7 @@ export const GENESIS_DISTRIBUTION: GenesisCategory[] = [
     nameKey: 'tokenomics.genesis.team',
     amount: 11,
     percentage: 11,
-    description: '4년 베스팅 스케줄이 있는 코어 팀 및 어드바이저 (v4.3: 12%→11%)',
+    description: '4년 베스팅 스케줄이 있는 코어 팀 및 어드바이저',
     descriptionKey: 'tokenomics.genesis.team.desc',
     subcategories: [
       { id: 'core_team', name: '코어 팀', nameKey: 'tokenomics.genesis.coreTeam', amount: 7, percentage: 63.6 },
@@ -868,7 +868,7 @@ export const GENESIS_DISTRIBUTION: GenesisCategory[] = [
     nameKey: 'tokenomics.genesis.foundationReserve',
     amount: 3,
     percentage: 3,
-    description: '초기 운영, 체인 활성화, 긴급 대응을 위한 TGE 가용 물량 (v4.3 신설)',
+    description: '초기 운영, 체인 활성화, 긴급 대응을 위한 TGE 가용 물량',
     descriptionKey: 'tokenomics.genesis.foundationReserve.desc',
     subcategories: [
       { id: 'operations', name: '운영 예비금 (TGE 30%)', nameKey: 'tokenomics.genesis.operations', amount: 1.5, percentage: 50 },
@@ -1656,22 +1656,22 @@ export const VESTING_CATEGORIES: VestingCategory[] = [
   { id: 'events', category: '이벤트/캠페인', categoryKey: 'tokenomics.vesting.events', parentCategory: '커뮤니티', allocationPercent: 4, totalAmount: 4.00, tgePercent: 10, cliffMonths: 0, vestingMonths: 24, vestingType: 'linear', y1ReleasePercent: 55, y1ReleaseAmount: 2.20 },
   { id: 'community', category: '커뮤니티 활동', categoryKey: 'tokenomics.vesting.community', parentCategory: '커뮤니티', allocationPercent: 3, totalAmount: 3.00, tgePercent: 0, cliffMonths: 3, vestingMonths: 36, vestingType: 'linear', y1ReleasePercent: 25, y1ReleaseAmount: 0.75 },
   { id: 'dao', category: 'DAO 트레저리', categoryKey: 'tokenomics.vesting.dao', parentCategory: '커뮤니티', allocationPercent: 8, totalAmount: 8.00, tgePercent: 0, cliffMonths: 12, vestingMonths: 48, vestingType: 'linear', y1ReleasePercent: 0, y1ReleaseAmount: 0.00 },
-  // 보상 (22%) - v4.3: 23%→22%
+  // 보상 (22%)
   { id: 'blockReward', category: '블록 보상', categoryKey: 'tokenomics.vesting.blockReward', parentCategory: '보상', allocationPercent: 14.5, totalAmount: 14.50, tgePercent: 0, cliffMonths: 0, vestingMonths: 240, vestingType: 'halving', y1ReleasePercent: 17.2, y1ReleaseAmount: 2.50 },
   { id: 'validatorIncentive', category: '검증자 인센티브', categoryKey: 'tokenomics.vesting.validatorIncentive', parentCategory: '보상', allocationPercent: 7.5, totalAmount: 7.50, tgePercent: 0, cliffMonths: 0, vestingMonths: 60, vestingType: 'linear', y1ReleasePercent: 20, y1ReleaseAmount: 1.50 },
   // 투자자 (20%) - v4.3 업계 표준 TGE 적용
   { id: 'seed', category: '시드 라운드', categoryKey: 'tokenomics.vesting.seed', parentCategory: '투자자', allocationPercent: 5, totalAmount: 5.00, tgePercent: 0, cliffMonths: 12, vestingMonths: 24, vestingType: 'linear', y1ReleasePercent: 0, y1ReleaseAmount: 0.00 },
   { id: 'private', category: '프라이빗 라운드', categoryKey: 'tokenomics.vesting.private', parentCategory: '투자자', allocationPercent: 9, totalAmount: 9.00, tgePercent: 5, cliffMonths: 9, vestingMonths: 18, vestingType: 'linear', y1ReleasePercent: 21.7, y1ReleaseAmount: 1.95 },
   { id: 'public', category: '퍼블릭 세일', categoryKey: 'tokenomics.vesting.public', parentCategory: '투자자', allocationPercent: 6, totalAmount: 6.00, tgePercent: 15, cliffMonths: 3, vestingMonths: 9, vestingType: 'linear', y1ReleasePercent: 95, y1ReleaseAmount: 5.70 },
-  // 생태계 (14%) - v4.3: 15%→14%
+  // 생태계 (14%)
   { id: 'ecosystem', category: '생태계 펀드', categoryKey: 'tokenomics.vesting.ecosystem', parentCategory: '생태계', allocationPercent: 7, totalAmount: 7.00, tgePercent: 0, cliffMonths: 0, vestingMonths: 60, vestingType: 'linear', y1ReleasePercent: 20, y1ReleaseAmount: 1.40 },
   { id: 'partnership', category: '파트너십', categoryKey: 'tokenomics.vesting.partnership', parentCategory: '생태계', allocationPercent: 4, totalAmount: 4.00, tgePercent: 0, cliffMonths: 6, vestingMonths: 24, vestingType: 'linear', y1ReleasePercent: 16.7, y1ReleaseAmount: 0.67 },
   { id: 'marketing', category: '마케팅', categoryKey: 'tokenomics.vesting.marketing', parentCategory: '생태계', allocationPercent: 3, totalAmount: 3.00, tgePercent: 15, cliffMonths: 0, vestingMonths: 24, vestingType: 'linear', y1ReleasePercent: 57.7, y1ReleaseAmount: 1.73 },
-  // 팀 (11%) - v4.3: 12%→11%
+  // 팀 (11%)
   { id: 'coreTeam', category: '코어 팀', categoryKey: 'tokenomics.vesting.coreTeam', parentCategory: '팀', allocationPercent: 7, totalAmount: 7.00, tgePercent: 0, cliffMonths: 18, vestingMonths: 36, vestingType: 'linear', y1ReleasePercent: 0, y1ReleaseAmount: 0.00 },
   { id: 'advisor', category: '어드바이저', categoryKey: 'tokenomics.vesting.advisor', parentCategory: '팀', allocationPercent: 2, totalAmount: 2.00, tgePercent: 0, cliffMonths: 12, vestingMonths: 24, vestingType: 'linear', y1ReleasePercent: 0, y1ReleaseAmount: 0.00 },
   { id: 'strategicPartner', category: '전략 파트너', categoryKey: 'tokenomics.vesting.strategicPartner', parentCategory: '팀', allocationPercent: 2, totalAmount: 2.00, tgePercent: 0, cliffMonths: 6, vestingMonths: 18, vestingType: 'linear', y1ReleasePercent: 25, y1ReleaseAmount: 0.50 },
-  // 재단 운영 예비금 (3%) - v4.3 신설
+  // 재단 운영 예비금 (3%)
   { id: 'foundationOps', category: '운영 예비금', categoryKey: 'tokenomics.vesting.foundationOps', parentCategory: '재단 예비금', allocationPercent: 1.5, totalAmount: 1.50, tgePercent: 30, cliffMonths: 0, vestingMonths: 24, vestingType: 'linear', y1ReleasePercent: 65.3, y1ReleaseAmount: 0.98 },
   { id: 'foundationEmergency', category: '긴급 예비금', categoryKey: 'tokenomics.vesting.foundationEmergency', parentCategory: '재단 예비금', allocationPercent: 1.0, totalAmount: 1.00, tgePercent: 50, cliffMonths: 0, vestingMonths: 12, vestingType: 'linear', y1ReleasePercent: 100, y1ReleaseAmount: 1.00 },
   { id: 'strategicInvestment', category: '전략 투자', categoryKey: 'tokenomics.vesting.strategicInvestment', parentCategory: '재단 예비금', allocationPercent: 0.5, totalAmount: 0.50, tgePercent: 0, cliffMonths: 6, vestingMonths: 18, vestingType: 'linear', y1ReleasePercent: 34, y1ReleaseAmount: 0.17 }
