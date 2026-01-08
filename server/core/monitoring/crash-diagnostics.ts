@@ -241,13 +241,18 @@ class EnterpriseCrashDiagnosticsService {
 
   /**
    * Get current memory state with extended metrics
+   * ★ [2026-01-08] V8 힙 제한 기준으로 퍼센티지 계산
    */
   private getMemoryState(): MemoryState {
     const mem = process.memoryUsage();
+    const v8HeapLimitMB = this.getV8HeapLimit();
+    const heapUsedMB = Math.round(mem.heapUsed / 1024 / 1024);
+    // V8 힙 제한 기준으로 퍼센티지 계산 (현재 할당된 힙이 아닌 실제 제한)
+    const heapTotalMB = Math.max(Math.round(mem.heapTotal / 1024 / 1024), v8HeapLimitMB);
     return {
-      heapUsed: Math.round(mem.heapUsed / 1024 / 1024),
-      heapTotal: Math.round(mem.heapTotal / 1024 / 1024),
-      heapUsagePercent: Math.round((mem.heapUsed / mem.heapTotal) * 100),
+      heapUsed: heapUsedMB,
+      heapTotal: heapTotalMB,
+      heapUsagePercent: Math.round((heapUsedMB / v8HeapLimitMB) * 100),
       rss: Math.round(mem.rss / 1024 / 1024),
       external: Math.round(mem.external / 1024 / 1024),
       arrayBuffers: Math.round(mem.arrayBuffers / 1024 / 1024),

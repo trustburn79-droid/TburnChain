@@ -19,6 +19,7 @@
 
 import { EventEmitter } from 'events';
 import { crashDiagnostics } from '../monitoring/crash-diagnostics';
+import { METRICS_CONFIG } from '../memory/metrics-config';
 
 export type MemoryState = 'normal' | 'warning' | 'deferred' | 'hibernating' | 'critical';
 
@@ -287,14 +288,9 @@ export class MemoryGovernor extends EventEmitter {
     const heapUsedMB = memUsage.heapUsed / (1024 * 1024);
     const heapTotalMB = memUsage.heapTotal / (1024 * 1024);
     
-    let heapLimit = heapTotalMB;
-    try {
-      const v8 = require('v8');
-      const heapStats = v8.getHeapStatistics();
-      heapLimit = heapStats.heap_size_limit / (1024 * 1024);
-    } catch {
-    }
-    
+    // ★ [2026-01-08] V8 힙 제한 사용 - METRICS_CONFIG와 동기화
+    // METRICS_CONFIG.HARDWARE.V8_HEAP_LIMIT_MB를 사용하여 일관성 유지
+    const heapLimit = METRICS_CONFIG.HARDWARE.V8_HEAP_LIMIT_MB || 8240;
     const heapUsagePercent = (heapUsedMB / heapLimit) * 100;
     
     return {

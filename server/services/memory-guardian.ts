@@ -73,18 +73,33 @@ interface AlertConfig {
 }
 
 class MemoryGuardianEnterprise {
-  private readonly config: MemoryGuardianConfig = {
-    checkInterval: 10 * 1000,
-    warningThreshold: 0.70,
-    criticalThreshold: 0.85,
-    emergencyThreshold: 0.92,
-    maxHeapMB: 2048,
-    targetHeapMB: 1400,
-    historySize: 360,
-    trendWindowSize: 30,
-    adaptiveThresholds: true,
-    slaTargetUptime: 99.9,
-  };
+  // ★ [2026-01-08] V8 힙 제한 기반 동적 설정
+  private static getV8HeapLimitMB(): number {
+    try {
+      const v8 = require('v8');
+      const stats = v8.getHeapStatistics();
+      return Math.floor(stats.heap_size_limit / (1024 * 1024));
+    } catch {
+      return 2048; // 기본값
+    }
+  }
+  
+  private readonly config: MemoryGuardianConfig = (() => {
+    const v8HeapMB = MemoryGuardianEnterprise.getV8HeapLimitMB();
+    return {
+      checkInterval: 10 * 1000,
+      warningThreshold: 0.70,
+      criticalThreshold: 0.85,
+      emergencyThreshold: 0.92,
+      // ★ V8 힙 기준으로 최대/타깃 힙 설정
+      maxHeapMB: Math.min(v8HeapMB * 0.9, 7500),   // V8 힙의 90%, 최대 7.5GB
+      targetHeapMB: Math.min(v8HeapMB * 0.75, 6000), // V8 힙의 75%, 최대 6GB
+      historySize: 360,
+      trendWindowSize: 30,
+      adaptiveThresholds: true,
+      slaTargetUptime: 99.9,
+    };
+  })();
 
   private lastGC = Date.now();
   private consecutiveHighMemory = 0;

@@ -20,6 +20,7 @@
 import { EventEmitter } from 'events';
 import * as os from 'os';
 import { execSync } from 'child_process';
+import { METRICS_CONFIG } from '../memory/metrics-config';
 
 export type AlertSeverity = 'info' | 'warning' | 'critical' | 'emergency';
 
@@ -324,10 +325,10 @@ class EnterpriseSystemHealthMonitor extends EventEmitter {
     const usagePercent = Math.round((usedMB / totalMB) * 100);
     
     const heapUsed = process.memoryUsage().heapUsed;
-    const heapTotal = process.memoryUsage().heapTotal;
     const heapUsedMB = Math.round(heapUsed / 1024 / 1024);
-    const heapTotalMB = Math.round(heapTotal / 1024 / 1024);
-    const heapUsagePercent = Math.round((heapUsed / heapTotal) * 100);
+    // ★ [2026-01-08] V8 힙 제한 사용 - METRICS_CONFIG와 동기화
+    const heapTotalMB = METRICS_CONFIG.HARDWARE.V8_HEAP_LIMIT_MB || 8240;
+    const heapUsagePercent = Math.round((heapUsedMB / heapTotalMB) * 100);
     
     let status: 'normal' | 'warning' | 'critical' = 'normal';
     const effectiveUsage = Math.max(usagePercent, heapUsagePercent);
