@@ -18656,5 +18656,21 @@
     "download": "下载",
     "footerText": "品牌资源咨询：",
     "footerCopyright": "© 2025-2045 TBURN Foundation. All Rights Reserved."
+  },
+  "tokenomics": {
+    "burn": {
+      "txFee": "1. 交易费用销毁 (50%)",
+      "txFeeDesc": "交易费用的50%自动销毁",
+      "bridgeFee": "2. 跨链桥费用销毁 (30%)",
+      "bridgeFeeDesc": "跨链桥费用销毁",
+      "defi": "3. DeFi协议销毁",
+      "defiDesc": "DEX交换费用0.05%销毁",
+      "buyback": "4. 国库回购销毁",
+      "buybackDesc": "季度回购 (Q1: 0.20, Q2: 0.30, H2: 0.80)",
+      "slashing": "5. 验证者惩罚销毁",
+      "slashingDesc": "惩罚代币100%销毁",
+      "aiDynamic": "6. AI动态销毁",
+      "aiDynamicDesc": "基于AI算法的自适应销毁"
+    }
   }
 }

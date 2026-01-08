@@ -17131,5 +17131,21 @@
     "download": "डाउनलोड करें",
     "footerText": "ब्रांड संपत्ति पूछताछ के लिए:",
     "footerCopyright": "© 2025-2045 TBURN Foundation. All Rights Reserved."
+  },
+  "tokenomics": {
+    "burn": {
+      "txFee": "1. TX शुल्क बर्न (50%)",
+      "txFeeDesc": "लेनदेन शुल्क का 50% स्वचालित रूप से बर्न",
+      "bridgeFee": "2. ब्रिज शुल्क बर्न (30%)",
+      "bridgeFeeDesc": "क्रॉस-चेन ब्रिज शुल्क बर्न",
+      "defi": "3. DeFi प्रोटोकॉल बर्न",
+      "defiDesc": "DEX स्वैप शुल्क का 0.05% बर्न",
+      "buyback": "4. ट्रेजरी बायबैक और बर्न",
+      "buybackDesc": "त्रैमासिक बायबैक (Q1: 0.20, Q2: 0.30, H2: 0.80)",
+      "slashing": "5. वैलिडेटर स्लैशिंग बर्न",
+      "slashingDesc": "स्लैश किए गए टोकन का 100% बर्न",
+      "aiDynamic": "6. AI डायनामिक बर्न",
+      "aiDynamicDesc": "AI एल्गोरिथम आधारित अनुकूली बर्न"
+    }
   }
 }

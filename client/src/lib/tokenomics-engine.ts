@@ -1480,12 +1480,12 @@ export interface BurnMechanism {
 }
 
 export const BURN_MECHANISMS: BurnMechanism[] = [
-  { type: '1. TX 수수료 소각 (50%)', typeKey: 'tokenomics.burn.txFee', y1Amount: 0.50, description: '트랜잭션 수수료의 50% 자동 소각', descriptionKey: 'tokenomics.burn.txFee.desc' },
-  { type: '2. 브릿지 수수료 소각 (30%)', typeKey: 'tokenomics.burn.bridgeFee', y1Amount: 0.30, description: '크로스체인 브릿지 수수료 소각', descriptionKey: 'tokenomics.burn.bridgeFee.desc' },
-  { type: '3. DeFi 프로토콜 소각', typeKey: 'tokenomics.burn.defi', y1Amount: 0.50, description: 'DEX 스왑 수수료 0.05% 소각', descriptionKey: 'tokenomics.burn.defi.desc' },
-  { type: '4. 트레저리 바이백 & 소각', typeKey: 'tokenomics.burn.buyback', y1Amount: 1.30, description: '분기별 바이백 (Q1: 0.20, Q2: 0.30, H2: 0.80)', descriptionKey: 'tokenomics.burn.buyback.desc' },
-  { type: '5. 검증자 슬래싱 소각', typeKey: 'tokenomics.burn.slashing', y1Amount: 0.05, description: '슬래싱 토큰 100% 소각', descriptionKey: 'tokenomics.burn.slashing.desc' },
-  { type: '6. AI 동적 소각', typeKey: 'tokenomics.burn.aiDynamic', y1Amount: 2.95, description: 'AI 알고리즘 기반 적응형 소각', descriptionKey: 'tokenomics.burn.aiDynamic.desc' }
+  { type: '1. TX 수수료 소각 (50%)', typeKey: 'tokenomics.burn.txFee', y1Amount: 0.50, description: '트랜잭션 수수료의 50% 자동 소각', descriptionKey: 'tokenomics.burn.txFeeDesc' },
+  { type: '2. 브릿지 수수료 소각 (30%)', typeKey: 'tokenomics.burn.bridgeFee', y1Amount: 0.30, description: '크로스체인 브릿지 수수료 소각', descriptionKey: 'tokenomics.burn.bridgeFeeDesc' },
+  { type: '3. DeFi 프로토콜 소각', typeKey: 'tokenomics.burn.defi', y1Amount: 0.50, description: 'DEX 스왑 수수료 0.05% 소각', descriptionKey: 'tokenomics.burn.defiDesc' },
+  { type: '4. 트레저리 바이백 & 소각', typeKey: 'tokenomics.burn.buyback', y1Amount: 1.30, description: '분기별 바이백 (Q1: 0.20, Q2: 0.30, H2: 0.80)', descriptionKey: 'tokenomics.burn.buybackDesc' },
+  { type: '5. 검증자 슬래싱 소각', typeKey: 'tokenomics.burn.slashing', y1Amount: 0.05, description: '슬래싱 토큰 100% 소각', descriptionKey: 'tokenomics.burn.slashingDesc' },
+  { type: '6. AI 동적 소각', typeKey: 'tokenomics.burn.aiDynamic', y1Amount: 2.95, description: 'AI 알고리즘 기반 적응형 소각', descriptionKey: 'tokenomics.burn.aiDynamicDesc' }
 ];
 
 export const Y1_TOTAL_BURN = 5.60; // 억 TBURN

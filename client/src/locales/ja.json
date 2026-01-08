@@ -19532,5 +19532,21 @@
     "download": "ダウンロード",
     "footerText": "ブランドアセットに関するお問い合わせ：",
     "footerCopyright": "© 2025-2045 TBURN Foundation. All Rights Reserved."
+  },
+  "tokenomics": {
+    "burn": {
+      "txFee": "1. TX手数料バーン (50%)",
+      "txFeeDesc": "取引手数料の50%が自動バーン",
+      "bridgeFee": "2. ブリッジ手数料バーン (30%)",
+      "bridgeFeeDesc": "クロスチェーンブリッジ手数料バーン",
+      "defi": "3. DeFiプロトコルバーン",
+      "defiDesc": "DEXスワップ手数料0.05%バーン",
+      "buyback": "4. トレジャリーバイバック＆バーン",
+      "buybackDesc": "四半期バイバック (Q1: 0.20, Q2: 0.30, H2: 0.80)",
+      "slashing": "5. バリデータースラッシングバーン",
+      "slashingDesc": "スラッシュトークン100%バーン",
+      "aiDynamic": "6. AI動的バーン",
+      "aiDynamicDesc": "AIアルゴリズムベースの適応型バーン"
+    }
   }
 }

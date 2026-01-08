@@ -14955,5 +14955,21 @@
     "download": "ڈاؤن لوڈ کریں",
     "footerText": "برانڈ اثاثوں کی پوچھ گچھ کے لیے:",
     "footerCopyright": "© 2025-2045 TBURN Foundation. All Rights Reserved."
+  },
+  "tokenomics": {
+    "burn": {
+      "txFee": "1. TX فیس برن (50%)",
+      "txFeeDesc": "ٹرانزیکشن فیس کا 50% خود بخود برن",
+      "bridgeFee": "2. برج فیس برن (30%)",
+      "bridgeFeeDesc": "کراس چین برج فیس برن",
+      "defi": "3. DeFi پروٹوکول برن",
+      "defiDesc": "DEX سواپ فیس کا 0.05% برن",
+      "buyback": "4. ٹریژری بائی بیک اور برن",
+      "buybackDesc": "سہ ماہی بائی بیک (Q1: 0.20, Q2: 0.30, H2: 0.80)",
+      "slashing": "5. ویلیڈیٹر سلیشنگ برن",
+      "slashingDesc": "سلیش شدہ ٹوکنز کا 100% برن",
+      "aiDynamic": "6. AI ڈائنامک برن",
+      "aiDynamicDesc": "AI الگورتھم پر مبنی انکولی برن"
+    }
   }
 }
