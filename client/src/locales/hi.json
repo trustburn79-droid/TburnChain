@@ -15342,6 +15342,29 @@
       "transactions": "Transactions",
       "active": "Active",
       "view": "View"
+    },
+    "livePreview": "लाइव प्रीव्यू",
+    "preview": {
+      "totalSupply": "कुल आपूर्ति",
+      "maxItems": "अधिकतम आइटम",
+      "tokenName": "टोकन नाम",
+      "symbol": "सिंबल"
+    },
+    "verifyPage": {
+      "title": "कॉन्ट्रैक्ट सत्यापन",
+      "subtitle": "TBURN मेननेट पर किसी भी टोकन कॉन्ट्रैक्ट को सत्यापित और ऑडिट करें",
+      "verifyContract": "कॉन्ट्रैक्ट सत्यापित करें",
+      "enterAddress": "कॉन्ट्रैक्ट पता दर्ज करें (0x...)",
+      "verify": "सत्यापित करें",
+      "securityScore": "सुरक्षा स्कोर",
+      "aiOptimized": "AI अनुकूलित",
+      "quantumSecure": "क्वांटम सुरक्षित",
+      "audited": "ऑडिट किया गया",
+      "verifiedSecure": "सत्यापित और सुरक्षित",
+      "aiSystemDesc": "हमारा AI सिस्टम व्यापक सुरक्षा विश्लेषण प्रदान करता है",
+      "gptDesc": "टोकन अर्थशास्त्र और गवर्नेंस विश्लेषण",
+      "claudeDesc": "रीयल-टाइम सुरक्षा और MEV सुरक्षा",
+      "geminiDesc": "गैस अनुकूलन और रूटिंग"
     }
   },
   "launchEventPage": {

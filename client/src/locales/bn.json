@@ -12922,6 +12922,29 @@
       "transactions": "Transactions",
       "active": "Active",
       "view": "View"
+    },
+    "livePreview": "লাইভ প্রিভিউ",
+    "preview": {
+      "totalSupply": "মোট সরবরাহ",
+      "maxItems": "সর্বোচ্চ আইটেম",
+      "tokenName": "টোকেন নাম",
+      "symbol": "সিম্বল"
+    },
+    "verifyPage": {
+      "title": "চুক্তি যাচাইকরণ",
+      "subtitle": "TBURN মেইননেটে যেকোনো টোকেন চুক্তি যাচাই এবং অডিট করুন",
+      "verifyContract": "চুক্তি যাচাই করুন",
+      "enterAddress": "চুক্তির ঠিকানা লিখুন (0x...)",
+      "verify": "যাচাই করুন",
+      "securityScore": "নিরাপত্তা স্কোর",
+      "aiOptimized": "AI অপ্টিমাইজড",
+      "quantumSecure": "কোয়ান্টাম সুরক্ষিত",
+      "audited": "অডিট করা হয়েছে",
+      "verifiedSecure": "যাচাই করা এবং সুরক্ষিত",
+      "aiSystemDesc": "আমাদের AI সিস্টেম ব্যাপক নিরাপত্তা বিশ্লেষণ প্রদান করে",
+      "gptDesc": "টোকেন অর্থনীতি এবং গভর্ন্যান্স বিশ্লেষণ",
+      "claudeDesc": "রিয়েল-টাইম নিরাপত্তা এবং MEV সুরক্ষা",
+      "geminiDesc": "গ্যাস অপ্টিমাইজেশন এবং রাউটিং"
     }
   },
   "launchEventPage": {

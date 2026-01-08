@@ -1916,11 +1916,12 @@ function CreateTokenContent({
 }
 
 function LivePreviewCard({ isDark, selectedStandard, formData, formatSupply, getTokenIcon }: any) {
+  const { t } = useTranslation();
   return (
     <Card className={`sticky top-4 ${isDark ? 'bg-[#151E32]/70 border-white/5' : ''}`}>
       <CardHeader className="pb-3">
         <CardTitle className="text-sm uppercase tracking-widest text-muted-foreground">
-          Live Preview
+          {t('tokenGenerator.livePreview')}
         </CardTitle>
       </CardHeader>
       <CardContent>
@@ -1946,24 +1947,24 @@ function LivePreviewCard({ isDark, selectedStandard, formData, formatSupply, get
           
           {selectedStandard === "TBC-20" && (
             <div className="mb-2 relative z-10">
-              <p className="text-xs text-white/60">Total Supply</p>
+              <p className="text-xs text-white/60">{t('tokenGenerator.preview.totalSupply')}</p>
               <p className="text-2xl font-mono font-bold">{formatSupply(formData.totalSupply)}</p>
             </div>
           )}
           {(selectedStandard === "TBC-721" || selectedStandard === "TBC-1155") && (
             <div className="mb-2 relative z-10">
-              <p className="text-xs text-white/60">Max Items</p>
+              <p className="text-xs text-white/60">{t('tokenGenerator.preview.maxItems')}</p>
               <p className="text-2xl font-mono font-bold">{formData.maxTokens || "10,000"}</p>
             </div>
           )}
           
           <div className="relative z-10">
-            <h4 className="text-lg font-bold">{formData.name || "Token Name"}</h4>
+            <h4 className="text-lg font-bold">{formData.name || t('tokenGenerator.preview.tokenName')}</h4>
             <p className={`text-sm font-bold ${
               selectedStandard === "TBC-20" ? 'text-blue-300' :
               selectedStandard === "TBC-721" ? 'text-purple-300' : 'text-amber-300'
             }`}>
-              {formData.symbol || "SYMBOL"}
+              {formData.symbol || t('tokenGenerator.preview.symbol')}
             </p>
           </div>
         </div>
@@ -2361,10 +2362,10 @@ function VerificationContent({ isDark }: { isDark: boolean }) {
     <div className="max-w-4xl mx-auto">
       <div className="mb-6">
         <h1 className={`text-2xl font-bold mb-1 ${isDark ? 'text-white' : 'text-slate-900'}`}>
-          Contract Verification
+          {t('tokenGenerator.verifyPage.title')}
         </h1>
         <p className={isDark ? 'text-gray-400' : 'text-slate-500'}>
-          Verify and audit any token contract on TBURN Mainnet
+          {t('tokenGenerator.verifyPage.subtitle')}
         </p>
       </div>
 
@@ -2372,13 +2373,13 @@ function VerificationContent({ isDark }: { isDark: boolean }) {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Search className="w-5 h-5" />
-            Verify Contract
+            {t('tokenGenerator.verifyPage.verifyContract')}
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="flex gap-3">
             <Input
-              placeholder="Enter contract address (0x...)"
+              placeholder={t('tokenGenerator.verifyPage.enterAddress')}
               value={contractAddress}
               onChange={(e) => setContractAddress(e.target.value)}
               className={`flex-1 ${isDark ? 'bg-[#0B1120] border-gray-700' : ''}`}
@@ -2386,7 +2387,7 @@ function VerificationContent({ isDark }: { isDark: boolean }) {
             />
             <Button onClick={handleVerify} disabled={isVerifying || !contractAddress} data-testid="button-verify">
               {isVerifying ? <Loader2 className="w-4 h-4 animate-spin" /> : <Search className="w-4 h-4" />}
-              <span className="ml-2">Verify</span>
+              <span className="ml-2">{t('tokenGenerator.verifyPage.verify')}</span>
             </Button>
           </div>
 
@@ -2405,25 +2406,25 @@ function VerificationContent({ isDark }: { isDark: boolean }) {
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
                 <div className="text-center p-3 rounded-lg bg-green-500/10">
                   <p className="text-2xl font-bold text-green-500">{verificationResult.securityScore}</p>
-                  <p className="text-xs text-muted-foreground">Security Score</p>
+                  <p className="text-xs text-muted-foreground">{t('tokenGenerator.verifyPage.securityScore')}</p>
                 </div>
                 <div className="text-center p-3 rounded-lg bg-purple-500/10">
                   <Brain className="w-6 h-6 mx-auto text-purple-500" />
-                  <p className="text-xs text-muted-foreground mt-1">AI Optimized</p>
+                  <p className="text-xs text-muted-foreground mt-1">{t('tokenGenerator.verifyPage.aiOptimized')}</p>
                 </div>
                 <div className="text-center p-3 rounded-lg bg-blue-500/10">
                   <Shield className="w-6 h-6 mx-auto text-blue-500" />
-                  <p className="text-xs text-muted-foreground mt-1">Quantum Secure</p>
+                  <p className="text-xs text-muted-foreground mt-1">{t('tokenGenerator.verifyPage.quantumSecure')}</p>
                 </div>
                 <div className="text-center p-3 rounded-lg bg-amber-500/10">
                   <ShieldCheck className="w-6 h-6 mx-auto text-amber-500" />
-                  <p className="text-xs text-muted-foreground mt-1">Audited</p>
+                  <p className="text-xs text-muted-foreground mt-1">{t('tokenGenerator.verifyPage.audited')}</p>
                 </div>
               </div>
 
               <Badge className="bg-green-500/10 text-green-500 border-green-500/20">
                 <CheckCircle className="w-3 h-3 mr-1" />
-                Verified & Secure
+                {t('tokenGenerator.verifyPage.verifiedSecure')}
               </Badge>
             </div>
           )}
@@ -2434,10 +2435,10 @@ function VerificationContent({ isDark }: { isDark: boolean }) {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Brain className="w-5 h-5 text-purple-500" />
-            Triple-Band AI Security
+            {t('tokenGenerator.tripleBandAi')}
           </CardTitle>
           <CardDescription>
-            Our AI system provides comprehensive security analysis
+            {t('tokenGenerator.verifyPage.aiSystemDesc')}
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -2445,28 +2446,28 @@ function VerificationContent({ isDark }: { isDark: boolean }) {
             <div className={`p-4 rounded-xl border ${isDark ? 'bg-gradient-to-br from-blue-900/30 to-blue-800/10 border-blue-500/20' : 'bg-gradient-to-br from-blue-50 to-blue-100 border-blue-200'}`}>
               <div className="flex items-center gap-2 mb-2">
                 <TrendingUp className="w-5 h-5 text-blue-500" />
-                <span className="font-semibold">ChatGPT Strategic</span>
+                <span className="font-semibold">{t('tokenGenerator.gpt4oStrategic')}</span>
               </div>
               <p className={`text-sm ${isDark ? 'text-gray-400' : 'text-slate-600'}`}>
-                Token economics and governance analysis
+                {t('tokenGenerator.verifyPage.gptDesc')}
               </p>
             </div>
             <div className={`p-4 rounded-xl border ${isDark ? 'bg-gradient-to-br from-purple-900/30 to-purple-800/10 border-purple-500/20' : 'bg-gradient-to-br from-purple-50 to-purple-100 border-purple-200'}`}>
               <div className="flex items-center gap-2 mb-2">
                 <Shield className="w-5 h-5 text-purple-500" />
-                <span className="font-semibold">Claude Tactical</span>
+                <span className="font-semibold">{t('tokenGenerator.claudeTactical')}</span>
               </div>
               <p className={`text-sm ${isDark ? 'text-gray-400' : 'text-slate-600'}`}>
-                Real-time security and MEV protection
+                {t('tokenGenerator.verifyPage.claudeDesc')}
               </p>
             </div>
             <div className={`p-4 rounded-xl border ${isDark ? 'bg-gradient-to-br from-amber-900/30 to-amber-800/10 border-amber-500/20' : 'bg-gradient-to-br from-amber-50 to-amber-100 border-amber-200'}`}>
               <div className="flex items-center gap-2 mb-2">
                 <Zap className="w-5 h-5 text-amber-500" />
-                <span className="font-semibold">Gemini Operational</span>
+                <span className="font-semibold">{t('tokenGenerator.geminiOperational')}</span>
               </div>
               <p className={`text-sm ${isDark ? 'text-gray-400' : 'text-slate-600'}`}>
-                Gas optimization and routing
+                {t('tokenGenerator.verifyPage.geminiDesc')}
               </p>
             </div>
           </div>

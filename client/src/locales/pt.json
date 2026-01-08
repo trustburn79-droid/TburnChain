@@ -6134,12 +6134,24 @@
           "badge": "Aprendizado Passo a Passo",
           "title": "Tutoriais para Desenvolvedores TBURN",
           "description": "Guias práticos para ajudá-lo a construir na TBURN Chain. De conceitos básicos a aplicações DeFi avançadas.",
-          "stats": { "tutorials": "Tutoriais", "hours": "Horas de Conteúdo", "level": "Todos os Níveis" }
+          "stats": {
+            "tutorials": "Tutoriais",
+            "hours": "Horas de Conteúdo",
+            "level": "Todos os Níveis"
+          }
         },
-        "featured": { "title": "Tutoriais em Destaque" },
-        "paths": { "title": "Trilhas de Aprendizado" },
-        "all": { "title": "Todos os Tutoriais" },
-        "filter": { "all": "Todos" },
+        "featured": {
+          "title": "Tutoriais em Destaque"
+        },
+        "paths": {
+          "title": "Trilhas de Aprendizado"
+        },
+        "all": {
+          "title": "Todos os Tutoriais"
+        },
+        "filter": {
+          "all": "Todos"
+        },
         "steps": "passos",
         "start": "Iniciar",
         "viewPath": "Ver Trilha",
@@ -6150,19 +6162,50 @@
           "sdk": "Ver Docs do SDK"
         },
         "tutorials": {
-          "gettingStarted": { "title": "Começando com TBURN SDK", "description": "Aprenda a instalar e configurar o SDK TBURN para sua primeira aplicação blockchain." },
-          "firstTransaction": { "title": "Sua Primeira Transação", "description": "Guia passo a passo para enviar e receber tokens TBURN na rede." },
-          "walletIntegration": { "title": "Guia de Integração de Carteira", "description": "Conecte MetaMask, Trust Wallet e outras carteiras Web3 ao seu dApp." },
-          "smartContracts": { "title": "Implantar Contratos Inteligentes", "description": "Escreva, compile e implante seu primeiro contrato inteligente na TBURN Chain." },
-          "trustScore": { "title": "Integração Trust Score", "description": "Implemente verificação Trust Score alimentada por IA em sua aplicação." },
-          "defiStaking": { "title": "Construir um dApp de Staking", "description": "Crie uma aplicação de staking completa com recompensas e delegação." }
+          "gettingStarted": {
+            "title": "Começando com TBURN SDK",
+            "description": "Aprenda a instalar e configurar o SDK TBURN para sua primeira aplicação blockchain."
+          },
+          "firstTransaction": {
+            "title": "Sua Primeira Transação",
+            "description": "Guia passo a passo para enviar e receber tokens TBURN na rede."
+          },
+          "walletIntegration": {
+            "title": "Guia de Integração de Carteira",
+            "description": "Conecte MetaMask, Trust Wallet e outras carteiras Web3 ao seu dApp."
+          },
+          "smartContracts": {
+            "title": "Implantar Contratos Inteligentes",
+            "description": "Escreva, compile e implante seu primeiro contrato inteligente na TBURN Chain."
+          },
+          "trustScore": {
+            "title": "Integração Trust Score",
+            "description": "Implemente verificação Trust Score alimentada por IA em sua aplicação."
+          },
+          "defiStaking": {
+            "title": "Construir um dApp de Staking",
+            "description": "Crie uma aplicação de staking completa com recompensas e delegação."
+          }
         },
         "learningPaths": {
-          "fundamentals": { "title": "Fundamentos Blockchain", "description": "Comece do zero e aprenda conceitos blockchain com TBURN" },
-          "dappDev": { "title": "Desenvolvimento dApp", "description": "Construa aplicações descentralizadas do zero" },
-          "defiMastery": { "title": "Domínio DeFi", "description": "Domine protocolos DeFi e construa aplicações financeiras" }
+          "fundamentals": {
+            "title": "Fundamentos Blockchain",
+            "description": "Comece do zero e aprenda conceitos blockchain com TBURN"
+          },
+          "dappDev": {
+            "title": "Desenvolvimento dApp",
+            "description": "Construa aplicações descentralizadas do zero"
+          },
+          "defiMastery": {
+            "title": "Domínio DeFi",
+            "description": "Domine protocolos DeFi e construa aplicações financeiras"
+          }
         },
-        "difficulty": { "beginner": "Iniciante", "intermediate": "Intermediário", "advanced": "Avançado" }
+        "difficulty": {
+          "beginner": "Iniciante",
+          "intermediate": "Intermediário",
+          "advanced": "Avançado"
+        }
       },
       "hub": {
         "tag": "SDK & API V4 PRONTOS",
@@ -14481,6 +14524,29 @@
       "transactions": "Transações",
       "active": "Ativo",
       "view": "Ver"
+    },
+    "livePreview": "Pré-visualização ao Vivo",
+    "preview": {
+      "totalSupply": "Fornecimento Total",
+      "maxItems": "Máximo de Itens",
+      "tokenName": "Nome do Token",
+      "symbol": "SÍMBOLO"
+    },
+    "verifyPage": {
+      "title": "Verificação de Contrato",
+      "subtitle": "Verificar e auditar qualquer contrato de token na TBURN Mainnet",
+      "verifyContract": "Verificar Contrato",
+      "enterAddress": "Insira o endereço do contrato (0x...)",
+      "verify": "Verificar",
+      "securityScore": "Pontuação de Segurança",
+      "aiOptimized": "IA Otimizada",
+      "quantumSecure": "Segurança Quântica",
+      "audited": "Auditado",
+      "verifiedSecure": "Verificado e Seguro",
+      "aiSystemDesc": "Nosso sistema de IA fornece análise de segurança abrangente",
+      "gptDesc": "Análise de economia de tokens e governança",
+      "claudeDesc": "Segurança em tempo real e proteção MEV",
+      "geminiDesc": "Otimização de gas e roteamento"
     }
   },
   "launchEventPage": {

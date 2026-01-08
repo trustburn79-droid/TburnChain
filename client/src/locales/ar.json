@@ -14698,6 +14698,29 @@
       "transactions": "Transactions",
       "active": "Active",
       "view": "View"
+    },
+    "livePreview": "معاينة مباشرة",
+    "preview": {
+      "totalSupply": "إجمالي العرض",
+      "maxItems": "الحد الأقصى للعناصر",
+      "tokenName": "اسم الرمز",
+      "symbol": "الرمز"
+    },
+    "verifyPage": {
+      "title": "التحقق من العقد",
+      "subtitle": "تحقق من أي عقد رمز وقم بتدقيقه على شبكة TBURN الرئيسية",
+      "verifyContract": "تحقق من العقد",
+      "enterAddress": "أدخل عنوان العقد (0x...)",
+      "verify": "تحقق",
+      "securityScore": "درجة الأمان",
+      "aiOptimized": "محسّن بالذكاء الاصطناعي",
+      "quantumSecure": "أمان كمي",
+      "audited": "مدقق",
+      "verifiedSecure": "موثق وآمن",
+      "aiSystemDesc": "يوفر نظام الذكاء الاصطناعي لدينا تحليلاً أمنياً شاملاً",
+      "gptDesc": "تحليل اقتصاديات الرمز والحوكمة",
+      "claudeDesc": "أمان في الوقت الفعلي وحماية MEV",
+      "geminiDesc": "تحسين الغاز والتوجيه"
     }
   },
   "launchEventPage": {

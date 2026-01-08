@@ -28782,6 +28782,29 @@
       "transactions": "Transactions",
       "active": "Active",
       "view": "View"
+    },
+    "livePreview": "Live Preview",
+    "preview": {
+      "totalSupply": "Total Supply",
+      "maxItems": "Max Items",
+      "tokenName": "Token Name",
+      "symbol": "SYMBOL"
+    },
+    "verifyPage": {
+      "title": "Contract Verification",
+      "subtitle": "Verify and audit any token contract on TBURN Mainnet",
+      "verifyContract": "Verify Contract",
+      "enterAddress": "Enter contract address (0x...)",
+      "verify": "Verify",
+      "securityScore": "Security Score",
+      "aiOptimized": "AI Optimized",
+      "quantumSecure": "Quantum Secure",
+      "audited": "Audited",
+      "verifiedSecure": "Verified & Secure",
+      "aiSystemDesc": "Our AI system provides comprehensive security analysis",
+      "gptDesc": "Token economics and governance analysis",
+      "claudeDesc": "Real-time security and MEV protection",
+      "geminiDesc": "Gas optimization and routing"
     }
   },
   "launchEventPage": {

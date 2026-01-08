@@ -5208,12 +5208,24 @@
           "badge": "مرحلہ وار سیکھنا",
           "title": "TBURN ڈویلپر ٹیوٹوریلز",
           "description": "TBURN چین پر تعمیر میں مدد کے لیے عملی گائیڈز۔ بنیادی تصورات سے لے کر جدید DeFi ایپلیکیشنز تک۔",
-          "stats": { "tutorials": "ٹیوٹوریلز", "hours": "گھنٹے کا مواد", "level": "تمام مہارت کی سطحیں" }
+          "stats": {
+            "tutorials": "ٹیوٹوریلز",
+            "hours": "گھنٹے کا مواد",
+            "level": "تمام مہارت کی سطحیں"
+          }
         },
-        "featured": { "title": "نمایاں ٹیوٹوریلز" },
-        "paths": { "title": "سیکھنے کے راستے" },
-        "all": { "title": "تمام ٹیوٹوریلز" },
-        "filter": { "all": "سب" },
+        "featured": {
+          "title": "نمایاں ٹیوٹوریلز"
+        },
+        "paths": {
+          "title": "سیکھنے کے راستے"
+        },
+        "all": {
+          "title": "تمام ٹیوٹوریلز"
+        },
+        "filter": {
+          "all": "سب"
+        },
         "steps": "مراحل",
         "start": "شروع کریں",
         "viewPath": "راستہ دیکھیں",
@@ -5224,19 +5236,50 @@
           "sdk": "SDK دستاویزات دیکھیں"
         },
         "tutorials": {
-          "gettingStarted": { "title": "TBURN SDK کے ساتھ شروع کرنا", "description": "اپنی پہلی بلاکچین ایپلیکیشن کے لیے TBURN SDK انسٹال اور کنفیگر کرنا سیکھیں۔" },
-          "firstTransaction": { "title": "آپ کی پہلی ٹرانزیکشن", "description": "نیٹ ورک پر TBURN ٹوکنز بھیجنے اور وصول کرنے کے لیے مرحلہ وار گائیڈ۔" },
-          "walletIntegration": { "title": "والیٹ انٹیگریشن گائیڈ", "description": "MetaMask، Trust Wallet اور دیگر Web3 والیٹس کو اپنی dApp سے جوڑیں۔" },
-          "smartContracts": { "title": "سمارٹ کنٹریکٹس ڈیپلائے کریں", "description": "TBURN چین پر اپنا پہلا سمارٹ کنٹریکٹ لکھیں، کمپائل کریں اور ڈیپلائے کریں۔" },
-          "trustScore": { "title": "ٹرسٹ سکور انٹیگریشن", "description": "اپنی ایپلیکیشن میں AI سے چلنے والی ٹرسٹ سکور تصدیق نافذ کریں۔" },
-          "defiStaking": { "title": "اسٹیکنگ dApp بنائیں", "description": "انعامات اور وفد کے ساتھ مکمل اسٹیکنگ ایپلیکیشن بنائیں۔" }
+          "gettingStarted": {
+            "title": "TBURN SDK کے ساتھ شروع کرنا",
+            "description": "اپنی پہلی بلاکچین ایپلیکیشن کے لیے TBURN SDK انسٹال اور کنفیگر کرنا سیکھیں۔"
+          },
+          "firstTransaction": {
+            "title": "آپ کی پہلی ٹرانزیکشن",
+            "description": "نیٹ ورک پر TBURN ٹوکنز بھیجنے اور وصول کرنے کے لیے مرحلہ وار گائیڈ۔"
+          },
+          "walletIntegration": {
+            "title": "والیٹ انٹیگریشن گائیڈ",
+            "description": "MetaMask، Trust Wallet اور دیگر Web3 والیٹس کو اپنی dApp سے جوڑیں۔"
+          },
+          "smartContracts": {
+            "title": "سمارٹ کنٹریکٹس ڈیپلائے کریں",
+            "description": "TBURN چین پر اپنا پہلا سمارٹ کنٹریکٹ لکھیں، کمپائل کریں اور ڈیپلائے کریں۔"
+          },
+          "trustScore": {
+            "title": "ٹرسٹ سکور انٹیگریشن",
+            "description": "اپنی ایپلیکیشن میں AI سے چلنے والی ٹرسٹ سکور تصدیق نافذ کریں۔"
+          },
+          "defiStaking": {
+            "title": "اسٹیکنگ dApp بنائیں",
+            "description": "انعامات اور وفد کے ساتھ مکمل اسٹیکنگ ایپلیکیشن بنائیں۔"
+          }
         },
         "learningPaths": {
-          "fundamentals": { "title": "بلاکچین کی بنیادیں", "description": "صفر سے شروع کریں اور TBURN کے ساتھ بلاکچین تصورات سیکھیں" },
-          "dappDev": { "title": "dApp ڈیولپمنٹ", "description": "شروع سے غیر مرکزی ایپلیکیشنز بنائیں" },
-          "defiMastery": { "title": "DeFi مہارت", "description": "DeFi پروٹوکولز میں مہارت حاصل کریں اور مالیاتی ایپلیکیشنز بنائیں" }
+          "fundamentals": {
+            "title": "بلاکچین کی بنیادیں",
+            "description": "صفر سے شروع کریں اور TBURN کے ساتھ بلاکچین تصورات سیکھیں"
+          },
+          "dappDev": {
+            "title": "dApp ڈیولپمنٹ",
+            "description": "شروع سے غیر مرکزی ایپلیکیشنز بنائیں"
+          },
+          "defiMastery": {
+            "title": "DeFi مہارت",
+            "description": "DeFi پروٹوکولز میں مہارت حاصل کریں اور مالیاتی ایپلیکیشنز بنائیں"
+          }
         },
-        "difficulty": { "beginner": "ابتدائی", "intermediate": "درمیانی", "advanced": "جدید" }
+        "difficulty": {
+          "beginner": "ابتدائی",
+          "intermediate": "درمیانی",
+          "advanced": "جدید"
+        }
       },
       "hub": {
         "tag": "V4 SDK اور API تیار",
@@ -13123,6 +13166,29 @@
       "transactions": "Transactions",
       "active": "Active",
       "view": "View"
+    },
+    "livePreview": "لائیو پیش نظارہ",
+    "preview": {
+      "totalSupply": "کل سپلائی",
+      "maxItems": "زیادہ سے زیادہ آئٹمز",
+      "tokenName": "ٹوکن کا نام",
+      "symbol": "علامت"
+    },
+    "verifyPage": {
+      "title": "معاہدے کی تصدیق",
+      "subtitle": "TBURN مین نیٹ پر کسی بھی ٹوکن معاہدے کی تصدیق اور آڈٹ کریں",
+      "verifyContract": "معاہدے کی تصدیق کریں",
+      "enterAddress": "معاہدے کا پتہ درج کریں (0x...)",
+      "verify": "تصدیق کریں",
+      "securityScore": "سیکیورٹی سکور",
+      "aiOptimized": "AI آپٹمائزڈ",
+      "quantumSecure": "کوانٹم محفوظ",
+      "audited": "آڈٹ شدہ",
+      "verifiedSecure": "تصدیق شدہ اور محفوظ",
+      "aiSystemDesc": "ہمارا AI سسٹم جامع سیکیورٹی تجزیہ فراہم کرتا ہے",
+      "gptDesc": "ٹوکن اکنامکس اور گورننس تجزیہ",
+      "claudeDesc": "ریئل ٹائم سیکیورٹی اور MEV تحفظ",
+      "geminiDesc": "گیس آپٹیمائزیشن اور روٹنگ"
     }
   },
   "launchEventPage": {

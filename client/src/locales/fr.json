@@ -14775,6 +14775,29 @@
       "transactions": "Transactions",
       "active": "Actif",
       "view": "Voir"
+    },
+    "livePreview": "Aperçu en Direct",
+    "preview": {
+      "totalSupply": "Offre Totale",
+      "maxItems": "Éléments Maximum",
+      "tokenName": "Nom du Token",
+      "symbol": "SYMBOLE"
+    },
+    "verifyPage": {
+      "title": "Vérification de Contrat",
+      "subtitle": "Vérifier et auditer tout contrat de token sur TBURN Mainnet",
+      "verifyContract": "Vérifier le Contrat",
+      "enterAddress": "Entrez l'adresse du contrat (0x...)",
+      "verify": "Vérifier",
+      "securityScore": "Score de Sécurité",
+      "aiOptimized": "IA Optimisée",
+      "quantumSecure": "Sécurité Quantique",
+      "audited": "Audité",
+      "verifiedSecure": "Vérifié et Sécurisé",
+      "aiSystemDesc": "Notre système IA fournit une analyse de sécurité complète",
+      "gptDesc": "Analyse de l'économie des tokens et de la gouvernance",
+      "claudeDesc": "Sécurité en temps réel et protection MEV",
+      "geminiDesc": "Optimisation du gas et routage"
     }
   },
   "launchEventPage": {

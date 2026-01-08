@@ -29728,6 +29728,29 @@
       "transactions": "트랜잭션",
       "active": "활성",
       "view": "보기"
+    },
+    "livePreview": "실시간 미리보기",
+    "preview": {
+      "totalSupply": "총 발행량",
+      "maxItems": "최대 항목 수",
+      "tokenName": "토큰 이름",
+      "symbol": "심볼"
+    },
+    "verifyPage": {
+      "title": "컨트랙트 검증",
+      "subtitle": "TBURN 메인넷에서 토큰 컨트랙트 검증 및 감사",
+      "verifyContract": "컨트랙트 검증",
+      "enterAddress": "컨트랙트 주소 입력 (0x...)",
+      "verify": "검증",
+      "securityScore": "보안 점수",
+      "aiOptimized": "AI 최적화",
+      "quantumSecure": "양자 보안",
+      "audited": "감사 완료",
+      "verifiedSecure": "검증 및 보안 확인",
+      "aiSystemDesc": "AI 시스템이 포괄적인 보안 분석을 제공합니다",
+      "gptDesc": "토큰 이코노믹스 및 거버넌스 분석",
+      "claudeDesc": "실시간 보안 및 MEV 보호",
+      "geminiDesc": "가스 최적화 및 라우팅"
     }
   },
   "launchEventPage": {
