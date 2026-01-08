@@ -6,7 +6,7 @@ import { useTranslation } from "react-i18next";
 import { 
   ArrowLeft, User, Shield, Award, Coins, Activity, Clock, 
   AlertCircle, TrendingUp, Users, Ban, Power, DollarSign,
-  CheckCircle, XCircle, History, Zap, Target, Brain
+  CheckCircle, XCircle, History, Zap, Target, Brain, Copy
 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -35,6 +35,7 @@ import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import { useToast } from "@/hooks/use-toast";
 import { formatAddress, formatTokenAmount, formatPercentage, formatNumber } from "@/lib/format";
+import { formatTBurnAddress } from "@/lib/utils";
 import type { Validator } from "@shared/schema";
 import { useState, useEffect } from "react";
 import { useWebSocket } from "@/lib/websocket-context";
@@ -273,7 +274,24 @@ export default function ValidatorDetail() {
           </Button>
           <div>
             <h1 className="text-3xl font-bold">{validator.name}</h1>
-            <p className="text-muted-foreground">{formatAddress(validator.address)}</p>
+            <div className="flex items-center gap-2">
+              <p className="text-muted-foreground font-mono">{formatTBurnAddress(validator.address)}</p>
+              <Button
+                variant="ghost"
+                size="icon"
+                className="h-6 w-6"
+                onClick={() => {
+                  navigator.clipboard.writeText(formatTBurnAddress(validator.address));
+                  toast({
+                    title: t('common.copied'),
+                    description: t('common.addressCopied', 'Address copied to clipboard'),
+                  });
+                }}
+                data-testid="button-copy-address"
+              >
+                <Copy className="h-3 w-3" />
+              </Button>
+            </div>
           </div>
         </div>
         <div className="flex gap-2 items-center">
