@@ -221,12 +221,12 @@ const MAINNET_CONFIG = {
     replayProtection: 'EIP-155 Compliant'
   },
   contracts: {
-    tburnToken: 'tb1core5800000000000000000000000000tburn',
-    tbc20Factory: 'tb1factory20790000000000000000000000fac20',
-    tbc721Factory: 'tb1factory721000000000000000000000fac721',
-    tbc1155Factory: 'tb1factory1155000000000000000000fac1155',
-    bridge: 'tb1bridge5800000000000000000000000bridge',
-    staking: 'tb1staking5800000000000000000stake'
+    tburnToken: 'tb1qcr8te4kr609gcawutmrza0j4xv80jy8zeq5spn',
+    tbc20Factory: 'tb1q9qs7yam54d5w3n2efgv8kyjnk8w2rq3jhx4e0s',
+    tbc721Factory: 'tb1qw508d6qejxtdg4y5r3zarvary0c5xw7kxpjzsx',
+    tbc1155Factory: 'tb1q2nfxmhd4n3c8834pj72xagvyr9gl57n5r94fsl',
+    bridge: 'tb1qrp33g0q5c5txsp9arysrx4k6zdkfs4nce4xj0g',
+    staking: 'tb1qp5d5s9r3e8jv6kqj9y7tz2m9f4q3n8xwk7c5ya'
   },
   gasPolicy: {
     baseFee: '0.000001 TB',
