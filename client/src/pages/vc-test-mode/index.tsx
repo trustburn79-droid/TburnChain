@@ -545,12 +545,13 @@ export default function VCTestMode() {
                   <Play className="w-4 h-4 mr-2" />
                   {t('vcTestMode.startTour', 'Start Guided Tour')}
                 </Button>
-                <Link href="/app">
+                {/* Use native anchor for full page reload (PublicApp → App transition) */}
+                <a href="/app">
                   <Button size="lg" variant="outline" data-testid="button-explore-platform">
                     {t('vcTestMode.explorePlatform', 'Explore Platform')}
                     <ArrowRight className="w-4 h-4 ml-2" />
                   </Button>
-                </Link>
+                </a>
               </div>
             </div>
 

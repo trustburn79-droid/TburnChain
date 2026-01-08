@@ -227,14 +227,16 @@ function AuthenticatedApp() {
   const isLiveMode = dataSourceStatus?.connectionStatus === 'connected';
 
   // Redirect to login if not authenticated (must be in useEffect to avoid render-time setState)
+  // Use full page redirect because /login is handled by PublicApp, not App
   useEffect(() => {
     if (!authLoading && !isAuthenticated) {
       if (typeof window !== 'undefined') {
         sessionStorage.setItem("redirectAfterLogin", window.location.pathname);
+        // Full page reload required: App shell -> PublicApp shell transition
+        window.location.href = "/login";
       }
-      setLocation("/login");
     }
-  }, [authLoading, isAuthenticated, setLocation]);
+  }, [authLoading, isAuthenticated]);
 
   // Show loading state during initial auth check or while redirecting
   if (authLoading || !isAuthenticated) {
