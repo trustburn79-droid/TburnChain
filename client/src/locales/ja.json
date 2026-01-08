@@ -7601,7 +7601,53 @@
       "bugBounty": "バグ報奨金"
     },
     "view": "表示",
-    "active": "アクティブ"
+    "active": "アクティブ",
+    "featureCategories": {
+      "defi": {
+        "title": "DeFiスイート",
+        "dexTrading": "DEX取引",
+        "dexTradingDesc": "AMMベースの分散型取引所",
+        "lendingProtocol": "レンディングプロトコル",
+        "lendingProtocolDesc": "過担保ローン",
+        "yieldFarming": "イールドファーミング",
+        "yieldFarmingDesc": "自動収益最適化",
+        "liquidStaking": "リキッドステーキング",
+        "liquidStakingDesc": "LSTデリバティブ"
+      },
+      "infrastructure": {
+        "title": "インフラストラクチャ",
+        "staking": "ステーキング",
+        "stakingDesc": "バリデーターステーキング報酬",
+        "bridge": "ブリッジ",
+        "bridgeDesc": "クロスチェーン転送",
+        "tokenSystem": "トークンシステム",
+        "tokenSystemDesc": "TBC-20/721/1155トークン",
+        "sharding": "シャーディング",
+        "shardingDesc": "動的AIシャーディング"
+      },
+      "ecosystem": {
+        "title": "エコシステム",
+        "nftMarketplace": "NFTマーケットプレイス",
+        "nftMarketplaceDesc": "デジタルコレクティブル",
+        "launchpad": "ローンチパッド",
+        "launchpadDesc": "IDOプラットフォーム",
+        "gamefiHub": "GameFiハブ",
+        "gamefiHubDesc": "プレイ・トゥ・アーン",
+        "governance": "ガバナンス",
+        "governanceDesc": "DAO投票"
+      },
+      "network": {
+        "title": "ネットワーク",
+        "blockExplorer": "ブロックエクスプローラー",
+        "blockExplorerDesc": "トランザクションエクスプローラー",
+        "validators": "バリデーター",
+        "validatorsDesc": "バリデーターダッシュボード",
+        "consensus": "コンセンサス",
+        "consensusDesc": "BFT可視化",
+        "analytics": "アナリティクス",
+        "analyticsDesc": "ネットワーク指標"
+      }
+    }
   },
   "publicPages": {
     "common": {

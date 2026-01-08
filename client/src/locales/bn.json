@@ -3280,7 +3280,53 @@
       "bugBounty": "বাগ বাউন্টি"
     },
     "view": "দেখুন",
-    "active": "সক্রিয়"
+    "active": "সক্রিয়",
+    "featureCategories": {
+      "defi": {
+        "title": "DeFi স্যুট",
+        "dexTrading": "DEX ট্রেডিং",
+        "dexTradingDesc": "AMM-ভিত্তিক বিকেন্দ্রীভূত এক্সচেঞ্জ",
+        "lendingProtocol": "লেন্ডিং প্রোটোকল",
+        "lendingProtocolDesc": "ওভারকোলেটারালাইজড লেন্ডিং",
+        "yieldFarming": "ইল্ড ফার্মিং",
+        "yieldFarmingDesc": "স্বয়ংক্রিয় ইল্ড অপ্টিমাইজেশন",
+        "liquidStaking": "লিকুইড স্টেকিং",
+        "liquidStakingDesc": "LST ডেরিভেটিভস"
+      },
+      "infrastructure": {
+        "title": "ইনফ্রাস্ট্রাকচার",
+        "staking": "স্টেকিং",
+        "stakingDesc": "ভ্যালিডেটর স্টেকিং রিওয়ার্ড",
+        "bridge": "ব্রিজ",
+        "bridgeDesc": "ক্রস-চেইন ট্রান্সফার",
+        "tokenSystem": "টোকেন সিস্টেম",
+        "tokenSystemDesc": "TBC-20/721/1155 টোকেন",
+        "sharding": "শার্ডিং",
+        "shardingDesc": "ডায়নামিক AI শার্ডিং"
+      },
+      "ecosystem": {
+        "title": "ইকোসিস্টেম",
+        "nftMarketplace": "NFT মার্কেটপ্লেস",
+        "nftMarketplaceDesc": "ডিজিটাল কালেক্টিবল",
+        "launchpad": "লঞ্চপ্যাড",
+        "launchpadDesc": "IDO প্ল্যাটফর্ম",
+        "gamefiHub": "GameFi হাব",
+        "gamefiHubDesc": "প্লে-টু-আর্ন গেমস",
+        "governance": "গভর্ন্যান্স",
+        "governanceDesc": "DAO ভোটিং"
+      },
+      "network": {
+        "title": "নেটওয়ার্ক",
+        "blockExplorer": "ব্লক এক্সপ্লোরার",
+        "blockExplorerDesc": "ট্রানজেকশন এক্সপ্লোরার",
+        "validators": "ভ্যালিডেটর",
+        "validatorsDesc": "ভ্যালিডেটর ড্যাশবোর্ড",
+        "consensus": "কনসেনসাস",
+        "consensusDesc": "BFT ভিজ্যুয়ালাইজেশন",
+        "analytics": "অ্যানালিটিক্স",
+        "analyticsDesc": "নেটওয়ার্ক মেট্রিক্স"
+      }
+    }
   },
   "publicPages": {
     "common": {

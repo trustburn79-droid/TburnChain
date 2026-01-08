@@ -7678,7 +7678,53 @@
       "bugBounty": "버그 바운티"
     },
     "view": "보기",
-    "active": "활성"
+    "active": "활성",
+    "featureCategories": {
+      "defi": {
+        "title": "DeFi 스위트",
+        "dexTrading": "DEX 거래",
+        "dexTradingDesc": "AMM 기반 탈중앙화 거래소",
+        "lendingProtocol": "대출 프로토콜",
+        "lendingProtocolDesc": "과담보 대출",
+        "yieldFarming": "수익률 파밍",
+        "yieldFarmingDesc": "자동화된 수익 최적화",
+        "liquidStaking": "유동적 스테이킹",
+        "liquidStakingDesc": "LST 파생상품"
+      },
+      "infrastructure": {
+        "title": "인프라스트럭처",
+        "staking": "스테이킹",
+        "stakingDesc": "검증자 스테이킹 보상",
+        "bridge": "브릿지",
+        "bridgeDesc": "크로스체인 전송",
+        "tokenSystem": "토큰 시스템",
+        "tokenSystemDesc": "TBC-20/721/1155 토큰",
+        "sharding": "샤딩",
+        "shardingDesc": "동적 AI 샤딩"
+      },
+      "ecosystem": {
+        "title": "에코시스템",
+        "nftMarketplace": "NFT 마켓플레이스",
+        "nftMarketplaceDesc": "디지털 수집품",
+        "launchpad": "런치패드",
+        "launchpadDesc": "IDO 플랫폼",
+        "gamefiHub": "게임파이 허브",
+        "gamefiHubDesc": "플레이 투 언 게임",
+        "governance": "거버넌스",
+        "governanceDesc": "DAO 투표"
+      },
+      "network": {
+        "title": "네트워크",
+        "blockExplorer": "블록 탐색기",
+        "blockExplorerDesc": "트랜잭션 탐색기",
+        "validators": "검증자",
+        "validatorsDesc": "검증자 대시보드",
+        "consensus": "합의",
+        "consensusDesc": "BFT 시각화",
+        "analytics": "분석",
+        "analyticsDesc": "네트워크 지표"
+      }
+    }
   },
   "publicPages": {
     "common": {

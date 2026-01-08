@@ -125,54 +125,54 @@ const VALIDATOR_DISTRIBUTION = [
 const FEATURE_CATEGORIES = [
   {
     id: 'defi',
-    title: 'DeFi Suite',
+    titleKey: 'vcTestMode.featureCategories.defi.title',
     icon: Coins,
     color: 'text-green-500',
     bgColor: 'bg-green-500/10',
     features: [
-      { name: 'DEX Trading', path: '/app/dex', desc: 'AMM-based decentralized exchange' },
-      { name: 'Lending Protocol', path: '/app/lending', desc: 'Overcollateralized lending' },
-      { name: 'Yield Farming', path: '/app/yield', desc: 'Automated yield optimization' },
-      { name: 'Liquid Staking', path: '/app/liquid-staking', desc: 'LST derivatives' }
+      { nameKey: 'vcTestMode.featureCategories.defi.dexTrading', path: '/app/dex', descKey: 'vcTestMode.featureCategories.defi.dexTradingDesc' },
+      { nameKey: 'vcTestMode.featureCategories.defi.lendingProtocol', path: '/app/lending', descKey: 'vcTestMode.featureCategories.defi.lendingProtocolDesc' },
+      { nameKey: 'vcTestMode.featureCategories.defi.yieldFarming', path: '/app/yield', descKey: 'vcTestMode.featureCategories.defi.yieldFarmingDesc' },
+      { nameKey: 'vcTestMode.featureCategories.defi.liquidStaking', path: '/app/liquid-staking', descKey: 'vcTestMode.featureCategories.defi.liquidStakingDesc' }
     ]
   },
   {
     id: 'infrastructure',
-    title: 'Infrastructure',
+    titleKey: 'vcTestMode.featureCategories.infrastructure.title',
     icon: Server,
     color: 'text-blue-500',
     bgColor: 'bg-blue-500/10',
     features: [
-      { name: 'Staking', path: '/app/staking', desc: 'Validator staking rewards' },
-      { name: 'Bridge', path: '/app/bridge', desc: 'Cross-chain transfers' },
-      { name: 'Token System', path: '/app/token-system', desc: 'TBC-20/721/1155 tokens' },
-      { name: 'Sharding', path: '/app/sharding', desc: 'Dynamic AI sharding' }
+      { nameKey: 'vcTestMode.featureCategories.infrastructure.staking', path: '/app/staking', descKey: 'vcTestMode.featureCategories.infrastructure.stakingDesc' },
+      { nameKey: 'vcTestMode.featureCategories.infrastructure.bridge', path: '/app/bridge', descKey: 'vcTestMode.featureCategories.infrastructure.bridgeDesc' },
+      { nameKey: 'vcTestMode.featureCategories.infrastructure.tokenSystem', path: '/app/token-system', descKey: 'vcTestMode.featureCategories.infrastructure.tokenSystemDesc' },
+      { nameKey: 'vcTestMode.featureCategories.infrastructure.sharding', path: '/app/sharding', descKey: 'vcTestMode.featureCategories.infrastructure.shardingDesc' }
     ]
   },
   {
     id: 'ecosystem',
-    title: 'Ecosystem',
+    titleKey: 'vcTestMode.featureCategories.ecosystem.title',
     icon: Globe,
     color: 'text-purple-500',
     bgColor: 'bg-purple-500/10',
     features: [
-      { name: 'NFT Marketplace', path: '/app/nft-marketplace', desc: 'Digital collectibles' },
-      { name: 'Launchpad', path: '/app/launchpad', desc: 'IDO platform' },
-      { name: 'GameFi Hub', path: '/app/gamefi', desc: 'Play-to-earn games' },
-      { name: 'Governance', path: '/app/governance', desc: 'DAO voting' }
+      { nameKey: 'vcTestMode.featureCategories.ecosystem.nftMarketplace', path: '/app/nft-marketplace', descKey: 'vcTestMode.featureCategories.ecosystem.nftMarketplaceDesc' },
+      { nameKey: 'vcTestMode.featureCategories.ecosystem.launchpad', path: '/app/launchpad', descKey: 'vcTestMode.featureCategories.ecosystem.launchpadDesc' },
+      { nameKey: 'vcTestMode.featureCategories.ecosystem.gamefiHub', path: '/app/gamefi', descKey: 'vcTestMode.featureCategories.ecosystem.gamefiHubDesc' },
+      { nameKey: 'vcTestMode.featureCategories.ecosystem.governance', path: '/app/governance', descKey: 'vcTestMode.featureCategories.ecosystem.governanceDesc' }
     ]
   },
   {
     id: 'network',
-    title: 'Network',
+    titleKey: 'vcTestMode.featureCategories.network.title',
     icon: Activity,
     color: 'text-orange-500',
     bgColor: 'bg-orange-500/10',
     features: [
-      { name: 'Block Explorer', path: '/app/explorer', desc: 'Transaction explorer' },
-      { name: 'Validators', path: '/network/validators', desc: 'Validator dashboard' },
-      { name: 'Consensus', path: '/network/consensus', desc: 'BFT visualization' },
-      { name: 'Analytics', path: '/app/analytics', desc: 'Network metrics' }
+      { nameKey: 'vcTestMode.featureCategories.network.blockExplorer', path: '/app/explorer', descKey: 'vcTestMode.featureCategories.network.blockExplorerDesc' },
+      { nameKey: 'vcTestMode.featureCategories.network.validators', path: '/network/validators', descKey: 'vcTestMode.featureCategories.network.validatorsDesc' },
+      { nameKey: 'vcTestMode.featureCategories.network.consensus', path: '/network/consensus', descKey: 'vcTestMode.featureCategories.network.consensusDesc' },
+      { nameKey: 'vcTestMode.featureCategories.network.analytics', path: '/app/analytics', descKey: 'vcTestMode.featureCategories.network.analyticsDesc' }
     ]
   }
 ];
@@ -1420,7 +1420,7 @@ export default function VCTestMode() {
                       <div className={`p-2 rounded-lg ${category.bgColor}`}>
                         <category.icon className={`w-5 h-5 ${category.color}`} />
                       </div>
-                      {category.title}
+                      {t(category.titleKey)}
                     </CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-2">
@@ -1431,8 +1431,8 @@ export default function VCTestMode() {
                           data-testid={`feature-link-${category.id}-${idx}`}
                         >
                           <div>
-                            <div className="font-medium text-gray-900 dark:text-white">{feature.name}</div>
-                            <div className="text-sm text-gray-500 dark:text-gray-400">{feature.desc}</div>
+                            <div className="font-medium text-gray-900 dark:text-white">{t(feature.nameKey)}</div>
+                            <div className="text-sm text-gray-500 dark:text-gray-400">{t(feature.descKey)}</div>
                           </div>
                           <ArrowRight className="w-4 h-4 text-gray-400 group-hover:text-gray-600 dark:group-hover:text-gray-200 transition" />
                         </div>

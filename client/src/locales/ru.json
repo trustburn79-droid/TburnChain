@@ -4455,7 +4455,53 @@
       "bugBounty": "Баг-баунти"
     },
     "view": "Просмотр",
-    "active": "Активно"
+    "active": "Активно",
+    "featureCategories": {
+      "defi": {
+        "title": "DeFi Набор",
+        "dexTrading": "DEX Торговля",
+        "dexTradingDesc": "Децентрализованная биржа на базе AMM",
+        "lendingProtocol": "Протокол Кредитования",
+        "lendingProtocolDesc": "Сверхобеспеченное кредитование",
+        "yieldFarming": "Yield Farming",
+        "yieldFarmingDesc": "Автоматизированная оптимизация доходности",
+        "liquidStaking": "Ликвидный Стейкинг",
+        "liquidStakingDesc": "LST деривативы"
+      },
+      "infrastructure": {
+        "title": "Инфраструктура",
+        "staking": "Стейкинг",
+        "stakingDesc": "Награды за стейкинг валидаторов",
+        "bridge": "Мост",
+        "bridgeDesc": "Кросс-чейн переводы",
+        "tokenSystem": "Система Токенов",
+        "tokenSystemDesc": "Токены TBC-20/721/1155",
+        "sharding": "Шардинг",
+        "shardingDesc": "Динамический AI шардинг"
+      },
+      "ecosystem": {
+        "title": "Экосистема",
+        "nftMarketplace": "NFT Маркетплейс",
+        "nftMarketplaceDesc": "Цифровые коллекционные предметы",
+        "launchpad": "Лаунчпад",
+        "launchpadDesc": "IDO платформа",
+        "gamefiHub": "GameFi Хаб",
+        "gamefiHubDesc": "Игры play-to-earn",
+        "governance": "Управление",
+        "governanceDesc": "Голосование DAO"
+      },
+      "network": {
+        "title": "Сеть",
+        "blockExplorer": "Обозреватель Блоков",
+        "blockExplorerDesc": "Обозреватель транзакций",
+        "validators": "Валидаторы",
+        "validatorsDesc": "Панель валидаторов",
+        "consensus": "Консенсус",
+        "consensusDesc": "Визуализация BFT",
+        "analytics": "Аналитика",
+        "analyticsDesc": "Метрики сети"
+      }
+    }
   },
   "publicPages": {
     "common": {

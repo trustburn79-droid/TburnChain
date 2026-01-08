@@ -4972,7 +4972,53 @@
       "bugBounty": "مكافأة الأخطاء"
     },
     "view": "عرض",
-    "active": "نشط"
+    "active": "نشط",
+    "featureCategories": {
+      "defi": {
+        "title": "مجموعة DeFi",
+        "dexTrading": "تداول DEX",
+        "dexTradingDesc": "بورصة لامركزية قائمة على AMM",
+        "lendingProtocol": "بروتوكول الإقراض",
+        "lendingProtocolDesc": "إقراض بضمان زائد",
+        "yieldFarming": "زراعة العائد",
+        "yieldFarmingDesc": "تحسين العائد الآلي",
+        "liquidStaking": "ستاكينج سائل",
+        "liquidStakingDesc": "مشتقات LST"
+      },
+      "infrastructure": {
+        "title": "البنية التحتية",
+        "staking": "الستاكينج",
+        "stakingDesc": "مكافآت ستاكينج المدققين",
+        "bridge": "الجسر",
+        "bridgeDesc": "تحويلات عبر السلاسل",
+        "tokenSystem": "نظام التوكن",
+        "tokenSystemDesc": "توكنات TBC-20/721/1155",
+        "sharding": "التجزئة",
+        "shardingDesc": "تجزئة ديناميكية بالذكاء الاصطناعي"
+      },
+      "ecosystem": {
+        "title": "النظام البيئي",
+        "nftMarketplace": "سوق NFT",
+        "nftMarketplaceDesc": "المقتنيات الرقمية",
+        "launchpad": "منصة الإطلاق",
+        "launchpadDesc": "منصة IDO",
+        "gamefiHub": "مركز GameFi",
+        "gamefiHubDesc": "ألعاب العب لتربح",
+        "governance": "الحوكمة",
+        "governanceDesc": "تصويت DAO"
+      },
+      "network": {
+        "title": "الشبكة",
+        "blockExplorer": "مستكشف الكتل",
+        "blockExplorerDesc": "مستكشف المعاملات",
+        "validators": "المدققون",
+        "validatorsDesc": "لوحة المدققين",
+        "consensus": "الإجماع",
+        "consensusDesc": "تصور BFT",
+        "analytics": "التحليلات",
+        "analyticsDesc": "مقاييس الشبكة"
+      }
+    }
   },
   "publicPages": {
     "common": {

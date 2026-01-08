@@ -5493,7 +5493,53 @@
       "bugBounty": "Programa de Bugs"
     },
     "view": "Ver",
-    "active": "Activo"
+    "active": "Activo",
+    "featureCategories": {
+      "defi": {
+        "title": "Suite DeFi",
+        "dexTrading": "Trading DEX",
+        "dexTradingDesc": "Exchange descentralizado basado en AMM",
+        "lendingProtocol": "Protocolo de Préstamos",
+        "lendingProtocolDesc": "Préstamos sobrecolateralizados",
+        "yieldFarming": "Yield Farming",
+        "yieldFarmingDesc": "Optimización de rendimiento automatizada",
+        "liquidStaking": "Staking Líquido",
+        "liquidStakingDesc": "Derivados LST"
+      },
+      "infrastructure": {
+        "title": "Infraestructura",
+        "staking": "Staking",
+        "stakingDesc": "Recompensas de staking de validadores",
+        "bridge": "Puente",
+        "bridgeDesc": "Transferencias cross-chain",
+        "tokenSystem": "Sistema de Tokens",
+        "tokenSystemDesc": "Tokens TBC-20/721/1155",
+        "sharding": "Sharding",
+        "shardingDesc": "Sharding dinámico con IA"
+      },
+      "ecosystem": {
+        "title": "Ecosistema",
+        "nftMarketplace": "Mercado NFT",
+        "nftMarketplaceDesc": "Coleccionables digitales",
+        "launchpad": "Launchpad",
+        "launchpadDesc": "Plataforma IDO",
+        "gamefiHub": "Hub GameFi",
+        "gamefiHubDesc": "Juegos play-to-earn",
+        "governance": "Gobernanza",
+        "governanceDesc": "Votación DAO"
+      },
+      "network": {
+        "title": "Red",
+        "blockExplorer": "Explorador de Bloques",
+        "blockExplorerDesc": "Explorador de transacciones",
+        "validators": "Validadores",
+        "validatorsDesc": "Panel de validadores",
+        "consensus": "Consenso",
+        "consensusDesc": "Visualización BFT",
+        "analytics": "Analíticas",
+        "analyticsDesc": "Métricas de red"
+      }
+    }
   },
   "publicPages": {
     "common": {

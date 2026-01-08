@@ -5449,7 +5449,53 @@
       "bugBounty": "बग बाउंटी"
     },
     "view": "देखें",
-    "active": "सक्रिय"
+    "active": "सक्रिय",
+    "featureCategories": {
+      "defi": {
+        "title": "DeFi सुइट",
+        "dexTrading": "DEX ट्रेडिंग",
+        "dexTradingDesc": "AMM-आधारित विकेन्द्रीकृत एक्सचेंज",
+        "lendingProtocol": "लेंडिंग प्रोटोकॉल",
+        "lendingProtocolDesc": "ओवरकोलैटरलाइज्ड लेंडिंग",
+        "yieldFarming": "यील्ड फार्मिंग",
+        "yieldFarmingDesc": "स्वचालित यील्ड ऑप्टिमाइजेशन",
+        "liquidStaking": "लिक्विड स्टेकिंग",
+        "liquidStakingDesc": "LST डेरिवेटिव्स"
+      },
+      "infrastructure": {
+        "title": "इंफ्रास्ट्रक्चर",
+        "staking": "स्टेकिंग",
+        "stakingDesc": "वैलिडेटर स्टेकिंग रिवार्ड्स",
+        "bridge": "ब्रिज",
+        "bridgeDesc": "क्रॉस-चेन ट्रांसफर",
+        "tokenSystem": "टोकन सिस्टम",
+        "tokenSystemDesc": "TBC-20/721/1155 टोकन",
+        "sharding": "शार्डिंग",
+        "shardingDesc": "डायनामिक AI शार्डिंग"
+      },
+      "ecosystem": {
+        "title": "इकोसिस्टम",
+        "nftMarketplace": "NFT मार्केटप्लेस",
+        "nftMarketplaceDesc": "डिजिटल कलेक्टिबल्स",
+        "launchpad": "लॉन्चपैड",
+        "launchpadDesc": "IDO प्लेटफॉर्म",
+        "gamefiHub": "GameFi हब",
+        "gamefiHubDesc": "प्ले-टू-अर्न गेम्स",
+        "governance": "गवर्नेंस",
+        "governanceDesc": "DAO वोटिंग"
+      },
+      "network": {
+        "title": "नेटवर्क",
+        "blockExplorer": "ब्लॉक एक्सप्लोरर",
+        "blockExplorerDesc": "ट्रांजैक्शन एक्सप्लोरर",
+        "validators": "वैलिडेटर्स",
+        "validatorsDesc": "वैलिडेटर डैशबोर्ड",
+        "consensus": "कंसेंसस",
+        "consensusDesc": "BFT विज़ुअलाइज़ेशन",
+        "analytics": "एनालिटिक्स",
+        "analyticsDesc": "नेटवर्क मेट्रिक्स"
+      }
+    }
   },
   "publicPages": {
     "common": {

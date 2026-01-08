@@ -6938,7 +6938,53 @@
       "bugBounty": "漏洞赏金"
     },
     "view": "查看",
-    "active": "活跃"
+    "active": "活跃",
+    "featureCategories": {
+      "defi": {
+        "title": "DeFi套件",
+        "dexTrading": "DEX交易",
+        "dexTradingDesc": "基于AMM的去中心化交易所",
+        "lendingProtocol": "借贷协议",
+        "lendingProtocolDesc": "超额抵押借贷",
+        "yieldFarming": "收益耕作",
+        "yieldFarmingDesc": "自动收益优化",
+        "liquidStaking": "流动性质押",
+        "liquidStakingDesc": "LST衍生品"
+      },
+      "infrastructure": {
+        "title": "基础设施",
+        "staking": "质押",
+        "stakingDesc": "验证者质押奖励",
+        "bridge": "跨链桥",
+        "bridgeDesc": "跨链转账",
+        "tokenSystem": "代币系统",
+        "tokenSystemDesc": "TBC-20/721/1155代币",
+        "sharding": "分片",
+        "shardingDesc": "动态AI分片"
+      },
+      "ecosystem": {
+        "title": "生态系统",
+        "nftMarketplace": "NFT市场",
+        "nftMarketplaceDesc": "数字收藏品",
+        "launchpad": "发射台",
+        "launchpadDesc": "IDO平台",
+        "gamefiHub": "GameFi中心",
+        "gamefiHubDesc": "边玩边赚游戏",
+        "governance": "治理",
+        "governanceDesc": "DAO投票"
+      },
+      "network": {
+        "title": "网络",
+        "blockExplorer": "区块浏览器",
+        "blockExplorerDesc": "交易浏览器",
+        "validators": "验证者",
+        "validatorsDesc": "验证者仪表盘",
+        "consensus": "共识",
+        "consensusDesc": "BFT可视化",
+        "analytics": "分析",
+        "analyticsDesc": "网络指标"
+      }
+    }
   },
   "publicPages": {
     "common": {

@@ -3280,7 +3280,53 @@
       "bugBounty": "بگ باؤنٹی"
     },
     "view": "دیکھیں",
-    "active": "فعال"
+    "active": "فعال",
+    "featureCategories": {
+      "defi": {
+        "title": "DeFi سوٹ",
+        "dexTrading": "DEX ٹریڈنگ",
+        "dexTradingDesc": "AMM پر مبنی غیر مرکزی ایکسچینج",
+        "lendingProtocol": "قرض پروٹوکول",
+        "lendingProtocolDesc": "اوور کولیٹرلائزڈ قرض",
+        "yieldFarming": "ییلڈ فارمنگ",
+        "yieldFarmingDesc": "خودکار ییلڈ آپٹیمائزیشن",
+        "liquidStaking": "لیکوڈ سٹیکنگ",
+        "liquidStakingDesc": "LST ڈیریویٹوز"
+      },
+      "infrastructure": {
+        "title": "انفراسٹرکچر",
+        "staking": "سٹیکنگ",
+        "stakingDesc": "ویلیڈیٹر سٹیکنگ انعامات",
+        "bridge": "پل",
+        "bridgeDesc": "کراس چین ٹرانسفر",
+        "tokenSystem": "ٹوکن سسٹم",
+        "tokenSystemDesc": "TBC-20/721/1155 ٹوکنز",
+        "sharding": "شارڈنگ",
+        "shardingDesc": "ڈائنامک AI شارڈنگ"
+      },
+      "ecosystem": {
+        "title": "ایکو سسٹم",
+        "nftMarketplace": "NFT مارکیٹ پلیس",
+        "nftMarketplaceDesc": "ڈیجیٹل کلیکٹیبلز",
+        "launchpad": "لانچ پیڈ",
+        "launchpadDesc": "IDO پلیٹ فارم",
+        "gamefiHub": "GameFi ہب",
+        "gamefiHubDesc": "کھیلو اور کماؤ گیمز",
+        "governance": "گورننس",
+        "governanceDesc": "DAO ووٹنگ"
+      },
+      "network": {
+        "title": "نیٹ ورک",
+        "blockExplorer": "بلاک ایکسپلورر",
+        "blockExplorerDesc": "ٹرانزیکشن ایکسپلورر",
+        "validators": "ویلیڈیٹرز",
+        "validatorsDesc": "ویلیڈیٹر ڈیش بورڈ",
+        "consensus": "اتفاق رائے",
+        "consensusDesc": "BFT ویژولائزیشن",
+        "analytics": "تجزیات",
+        "analyticsDesc": "نیٹ ورک میٹرکس"
+      }
+    }
   },
   "publicPages": {
     "common": {
