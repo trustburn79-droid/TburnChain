@@ -178,6 +178,7 @@ const SESSION_FREE_EXACT_PATHS = new Set([
   '/api/version',
   '/api/info',
   '/api/warmup',
+  '/api/investment-inquiry',
   '/health',
   '/healthz',
   '/readyz',

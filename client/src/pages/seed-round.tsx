@@ -63,10 +63,7 @@ export default function SeedRoundPage() {
 
   const inquiryMutation = useMutation({
     mutationFn: async (data: typeof formData) => {
-      return apiRequest('/api/investment-inquiry', {
-        method: 'POST',
-        body: JSON.stringify({ ...data, round: 'seed' }),
-      });
+      return apiRequest('POST', '/api/investment-inquiry', { ...data, round: 'seed' });
     },
     onSuccess: () => {
       toast({
@@ -76,13 +73,13 @@ export default function SeedRoundPage() {
       setInquiryDialogOpen(false);
       setFormData({ name: "", email: "", company: "", investmentAmount: "", message: "" });
     },
-    onError: () => {
+    onError: (error) => {
+      console.error('[Investment Inquiry] Error:', error);
       toast({
-        title: "문의 접수 완료",
-        description: "투자 문의가 접수되었습니다. 담당자가 곧 연락드리겠습니다.",
+        title: "문의 접수 실패",
+        description: "일시적인 오류가 발생했습니다. 다시 시도해주세요.",
+        variant: "destructive"
       });
-      setInquiryDialogOpen(false);
-      setFormData({ name: "", email: "", company: "", investmentAmount: "", message: "" });
     }
   });
 

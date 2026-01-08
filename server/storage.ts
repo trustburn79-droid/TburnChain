@@ -506,6 +506,10 @@ import {
   alertRuleTriggers,
   announcements,
   announcementInteractions,
+  // Investment Inquiries
+  type InvestmentInquiry,
+  type InsertInvestmentInquiry,
+  investmentInquiries,
 } from "@shared/schema";
 import { randomUUID } from "crypto";
 import { db } from "./db";
@@ -1532,6 +1536,18 @@ export interface IStorage {
   // Announcement Interactions
   createAnnouncementInteraction(data: InsertAnnouncementInteraction): Promise<AnnouncementInteractionDB>;
   getAnnouncementInteractions(announcementId: string): Promise<AnnouncementInteractionDB[]>;
+
+  // ============================================
+  // INVESTMENT INQUIRIES (Token Rounds Management)
+  // ============================================
+  getAllInvestmentInquiries(): Promise<InvestmentInquiry[]>;
+  getInvestmentInquiryById(id: number): Promise<InvestmentInquiry | undefined>;
+  getInvestmentInquiriesByRound(round: string): Promise<InvestmentInquiry[]>;
+  getInvestmentInquiriesByStatus(status: string): Promise<InvestmentInquiry[]>;
+  createInvestmentInquiry(data: InsertInvestmentInquiry): Promise<InvestmentInquiry>;
+  updateInvestmentInquiry(id: number, data: Partial<InvestmentInquiry>): Promise<void>;
+  deleteInvestmentInquiry(id: number): Promise<void>;
+  getInvestmentInquiryStats(): Promise<{ total: number; pending: number; contacted: number; approved: number; rejected: number; byRound: Record<string, number> }>;
 }
 
 export class MemStorage implements IStorage {
@@ -3095,6 +3111,18 @@ export class MemStorage implements IStorage {
   async incrementAnnouncementViews(_id: string): Promise<void> {}
   async createAnnouncementInteraction(_data: InsertAnnouncementInteraction): Promise<AnnouncementInteractionDB> { throw new Error("Use DbStorage"); }
   async getAnnouncementInteractions(_announcementId: string): Promise<AnnouncementInteractionDB[]> { return []; }
+
+  // Investment Inquiries stubs
+  async getAllInvestmentInquiries(): Promise<InvestmentInquiry[]> { return []; }
+  async getInvestmentInquiryById(_id: number): Promise<InvestmentInquiry | undefined> { return undefined; }
+  async getInvestmentInquiriesByRound(_round: string): Promise<InvestmentInquiry[]> { return []; }
+  async getInvestmentInquiriesByStatus(_status: string): Promise<InvestmentInquiry[]> { return []; }
+  async createInvestmentInquiry(_data: InsertInvestmentInquiry): Promise<InvestmentInquiry> { throw new Error("Not implemented"); }
+  async updateInvestmentInquiry(_id: number, _data: Partial<InvestmentInquiry>): Promise<void> { }
+  async deleteInvestmentInquiry(_id: number): Promise<void> { }
+  async getInvestmentInquiryStats(): Promise<{ total: number; pending: number; contacted: number; approved: number; rejected: number; byRound: Record<string, number> }> { 
+    return { total: 0, pending: 0, contacted: 0, approved: 0, rejected: 0, byRound: {} }; 
+  }
 }
 
 // PostgreSQL-based storage implementation
@@ -8513,6 +8541,55 @@ export class DbStorage implements IStorage {
 
   async getAnnouncementInteractions(announcementId: string): Promise<AnnouncementInteractionDB[]> {
     return db.select().from(announcementInteractions).where(eq(announcementInteractions.announcementId, announcementId));
+  }
+
+  // ============================================
+  // INVESTMENT INQUIRIES (Token Rounds Management)
+  // ============================================
+  async getAllInvestmentInquiries(): Promise<InvestmentInquiry[]> {
+    return db.select().from(investmentInquiries).orderBy(desc(investmentInquiries.createdAt));
+  }
+
+  async getInvestmentInquiryById(id: number): Promise<InvestmentInquiry | undefined> {
+    const [result] = await db.select().from(investmentInquiries).where(eq(investmentInquiries.id, id));
+    return result;
+  }
+
+  async getInvestmentInquiriesByRound(round: string): Promise<InvestmentInquiry[]> {
+    return db.select().from(investmentInquiries).where(eq(investmentInquiries.investmentRound, round)).orderBy(desc(investmentInquiries.createdAt));
+  }
+
+  async getInvestmentInquiriesByStatus(status: string): Promise<InvestmentInquiry[]> {
+    return db.select().from(investmentInquiries).where(eq(investmentInquiries.status, status)).orderBy(desc(investmentInquiries.createdAt));
+  }
+
+  async createInvestmentInquiry(data: InsertInvestmentInquiry): Promise<InvestmentInquiry> {
+    const [result] = await db.insert(investmentInquiries).values(data).returning();
+    return result;
+  }
+
+  async updateInvestmentInquiry(id: number, data: Partial<InvestmentInquiry>): Promise<void> {
+    await db.update(investmentInquiries).set({ ...data, updatedAt: new Date() }).where(eq(investmentInquiries.id, id));
+  }
+
+  async deleteInvestmentInquiry(id: number): Promise<void> {
+    await db.delete(investmentInquiries).where(eq(investmentInquiries.id, id));
+  }
+
+  async getInvestmentInquiryStats(): Promise<{ total: number; pending: number; contacted: number; approved: number; rejected: number; byRound: Record<string, number> }> {
+    const all = await db.select().from(investmentInquiries);
+    const total = all.length;
+    const pending = all.filter(i => i.status === 'pending').length;
+    const contacted = all.filter(i => i.status === 'contacted').length;
+    const approved = all.filter(i => i.status === 'approved').length;
+    const rejected = all.filter(i => i.status === 'rejected').length;
+    
+    const byRound: Record<string, number> = {};
+    all.forEach(i => {
+      byRound[i.investmentRound] = (byRound[i.investmentRound] || 0) + 1;
+    });
+    
+    return { total, pending, contacted, approved, rejected, byRound };
   }
 }
 

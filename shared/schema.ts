@@ -13492,6 +13492,52 @@ export const objectPoolHourlyAggregates = pgTable("object_pool_hourly_aggregates
 ]);
 
 // ============================================================================
+// Investment Inquiries - 시드/프라이빗/퍼블릭 라운드 투자 문의
+// ============================================================================
+export const investmentInquiries = pgTable("investment_inquiries", {
+  id: serial("id").primaryKey(),
+  
+  // Contact Information
+  name: varchar("name", { length: 100 }).notNull(),
+  email: varchar("email", { length: 255 }).notNull(),
+  company: varchar("company", { length: 200 }),
+  
+  // Investment Details
+  investmentRound: varchar("investment_round", { length: 50 }).notNull().default("seed"), // seed, private, public
+  investmentAmount: varchar("investment_amount", { length: 100 }),
+  message: text("message"),
+  
+  // Status Management
+  status: varchar("status", { length: 50 }).notNull().default("pending"), // pending, contacted, approved, rejected, completed
+  adminNotes: text("admin_notes"),
+  processedBy: varchar("processed_by", { length: 100 }),
+  processedAt: timestamp("processed_at"),
+  
+  // Metadata
+  ipAddress: varchar("ip_address", { length: 45 }),
+  userAgent: text("user_agent"),
+  referrer: text("referrer"),
+  
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+}, (table) => [
+  index("idx_investment_inquiries_round").on(table.investmentRound),
+  index("idx_investment_inquiries_status").on(table.status),
+  index("idx_investment_inquiries_email").on(table.email),
+  index("idx_investment_inquiries_created").on(table.createdAt),
+]);
+
+export const insertInvestmentInquirySchema = createInsertSchema(investmentInquiries).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+  processedAt: true,
+});
+
+export type InvestmentInquiry = typeof investmentInquiries.$inferSelect;
+export type InsertInvestmentInquiry = z.infer<typeof insertInvestmentInquirySchema>;
+
+// ============================================================================
 // Insert Schemas for Memory Guardian & Object Pool v2.0
 // ============================================================================
 export const insertMemoryGuardianEventSchema = createInsertSchema(memoryGuardianEvents).omit({

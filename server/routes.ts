@@ -2550,6 +2550,10 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     if (req.method === "POST" && req.path === "/newsletter/subscribe") {
       return next();
     }
+    // Skip auth check for investment inquiry submission (public endpoint)
+    if (req.method === "POST" && req.path === "/investment-inquiry") {
+      return next();
+    }
     // Skip auth check for DeFi stats endpoints (public read-only dashboard data)
     // SECURITY: Only whitelist specific GET stats endpoints, not collections/projects which have write operations
     if (req.method === "GET" && (
@@ -15315,6 +15319,119 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     } catch (error) {
       console.error('[Marketing] Error updating reward:', error);
       res.status(500).json({ error: 'Failed to update reward' });
+    }
+  });
+
+  // ============================================
+  // Investment Inquiries Management API
+  // Manages seed/private/public round investment inquiries
+  // ============================================
+
+  // Public endpoint - Submit investment inquiry (no auth required)
+  app.post("/api/investment-inquiry", async (req, res) => {
+    try {
+      const { name, email, company, investmentAmount, message, round } = req.body;
+      
+      if (!name || !email) {
+        return res.status(400).json({ error: 'Name and email are required' });
+      }
+      
+      const inquiry = await storage.createInvestmentInquiry({
+        name,
+        email,
+        company: company || null,
+        investmentAmount: investmentAmount || null,
+        message: message || null,
+        investmentRound: round || 'seed',
+        status: 'pending',
+        ipAddress: (req.headers['x-forwarded-for'] as string)?.split(',')[0] || req.socket.remoteAddress || null,
+        userAgent: req.headers['user-agent'] || null,
+        referrer: req.headers['referer'] || null,
+      });
+      
+      console.log(`[Investment] New inquiry from ${email} for ${round || 'seed'} round`);
+      res.json({ success: true, data: { id: inquiry.id }, message: 'Investment inquiry submitted successfully' });
+    } catch (error) {
+      console.error('[Investment] Error creating inquiry:', error);
+      res.status(500).json({ error: 'Failed to submit investment inquiry' });
+    }
+  });
+
+  // Admin endpoints for managing investment inquiries
+  app.get("/api/admin/investment-inquiries", requireAdmin, async (req, res) => {
+    try {
+      const round = req.query.round as string;
+      const status = req.query.status as string;
+      
+      let inquiries;
+      if (round) {
+        inquiries = await storage.getInvestmentInquiriesByRound(round);
+      } else if (status) {
+        inquiries = await storage.getInvestmentInquiriesByStatus(status);
+      } else {
+        inquiries = await storage.getAllInvestmentInquiries();
+      }
+      
+      const stats = await storage.getInvestmentInquiryStats();
+      res.json({ success: true, data: { inquiries, stats } });
+    } catch (error) {
+      console.error('[Investment] Error fetching inquiries:', error);
+      res.status(500).json({ error: 'Failed to fetch investment inquiries' });
+    }
+  });
+
+  app.get("/api/admin/investment-inquiries/stats", requireAdmin, async (_req, res) => {
+    try {
+      const stats = await storage.getInvestmentInquiryStats();
+      res.json({ success: true, data: stats });
+    } catch (error) {
+      console.error('[Investment] Error fetching stats:', error);
+      res.status(500).json({ error: 'Failed to fetch inquiry stats' });
+    }
+  });
+
+  app.get("/api/admin/investment-inquiries/:id", requireAdmin, async (req, res) => {
+    try {
+      const inquiry = await storage.getInvestmentInquiryById(parseInt(req.params.id));
+      if (!inquiry) {
+        return res.status(404).json({ error: 'Inquiry not found' });
+      }
+      res.json({ success: true, data: inquiry });
+    } catch (error) {
+      console.error('[Investment] Error fetching inquiry:', error);
+      res.status(500).json({ error: 'Failed to fetch inquiry' });
+    }
+  });
+
+  app.patch("/api/admin/investment-inquiries/:id", requireAdmin, async (req, res) => {
+    try {
+      const { status, adminNotes, processedBy } = req.body;
+      const updateData: any = {};
+      
+      if (status) updateData.status = status;
+      if (adminNotes !== undefined) updateData.adminNotes = adminNotes;
+      if (processedBy) updateData.processedBy = processedBy;
+      
+      if (status && ['contacted', 'approved', 'rejected', 'completed'].includes(status)) {
+        updateData.processedAt = new Date();
+      }
+      
+      await storage.updateInvestmentInquiry(parseInt(req.params.id), updateData);
+      const updated = await storage.getInvestmentInquiryById(parseInt(req.params.id));
+      res.json({ success: true, data: updated });
+    } catch (error) {
+      console.error('[Investment] Error updating inquiry:', error);
+      res.status(500).json({ error: 'Failed to update inquiry' });
+    }
+  });
+
+  app.delete("/api/admin/investment-inquiries/:id", requireAdmin, async (req, res) => {
+    try {
+      await storage.deleteInvestmentInquiry(parseInt(req.params.id));
+      res.json({ success: true, message: 'Inquiry deleted' });
+    } catch (error) {
+      console.error('[Investment] Error deleting inquiry:', error);
+      res.status(500).json({ error: 'Failed to delete inquiry' });
     }
   });
 

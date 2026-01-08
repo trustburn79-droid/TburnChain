@@ -52,6 +52,7 @@ const Consensus = lazyWithRetry(() => import("@/pages/consensus"));
 const TransactionSimulator = lazyWithRetry(() => import("@/pages/transaction-simulator"));
 const ApiKeys = lazyWithRetry(() => import("@/pages/api-keys"));
 const AdminPage = lazyWithRetry(() => import("@/pages/admin"));
+const InvestmentInquiriesAdmin = lazyWithRetry(() => import("@/pages/admin/investment-inquiries"));
 const Members = lazyWithRetry(() => import("@/pages/members"));
 const MemberDetail = lazyWithRetry(() => import("@/pages/member-detail"));
 const NotFound = lazyWithRetry(() => import("@/pages/not-found"));
@@ -175,6 +176,7 @@ function AppRouter() {
         <Route path="/app/consensus" component={Consensus} />
         <Route path="/app/api-keys" component={ApiKeys} />
         <Route path="/app/admin" component={AdminPage} />
+        <Route path="/app/admin/investment-inquiries" component={InvestmentInquiriesAdmin} />
         <Route path="/app/operator" component={ProtectedOperatorDashboard} />
         <Route path="/app/operator/members" component={ProtectedOperatorMembers} />
         <Route path="/app/operator/validators" component={ProtectedOperatorValidators} />
