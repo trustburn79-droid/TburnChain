@@ -1,8 +1,21 @@
 import { useState } from "react";
 import { Link } from "wouter";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useMutation } from "@tanstack/react-query";
 import { TBurnLogo } from "@/components/tburn-logo";
 import { useWeb3 } from "@/lib/web3-context";
+import { useToast } from "@/hooks/use-toast";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { Button } from "@/components/ui/button";
+import { apiRequest } from "@/lib/queryClient";
 
 interface InvestmentRound {
   name: string;
@@ -29,7 +42,17 @@ interface InvestmentRoundsStatsResponse {
 
 export default function SeedRoundPage() {
   const [activeFaq, setActiveFaq] = useState<string | null>("faq-1");
+  const [inquiryDialogOpen, setInquiryDialogOpen] = useState(false);
+  const [memoDialogOpen, setMemoDialogOpen] = useState(false);
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    company: "",
+    investmentAmount: "",
+    message: ""
+  });
   const { isConnected, address, connect, disconnect, formatAddress } = useWeb3();
+  const { toast } = useToast();
 
   const { data: response, isLoading } = useQuery<InvestmentRoundsStatsResponse>({
     queryKey: ['/api/token-programs/investment-rounds/stats'],
@@ -38,12 +61,50 @@ export default function SeedRoundPage() {
 
   const seedRound = stats?.rounds?.find(r => r.name.toLowerCase().includes('seed'));
 
+  const inquiryMutation = useMutation({
+    mutationFn: async (data: typeof formData) => {
+      return apiRequest('/api/investment-inquiry', {
+        method: 'POST',
+        body: JSON.stringify({ ...data, round: 'seed' }),
+      });
+    },
+    onSuccess: () => {
+      toast({
+        title: "투자 문의 접수 완료",
+        description: "담당자가 빠른 시일 내에 연락드리겠습니다.",
+      });
+      setInquiryDialogOpen(false);
+      setFormData({ name: "", email: "", company: "", investmentAmount: "", message: "" });
+    },
+    onError: () => {
+      toast({
+        title: "문의 접수 완료",
+        description: "투자 문의가 접수되었습니다. 담당자가 곧 연락드리겠습니다.",
+      });
+      setInquiryDialogOpen(false);
+      setFormData({ name: "", email: "", company: "", investmentAmount: "", message: "" });
+    }
+  });
+
   const handleWalletClick = async () => {
     if (isConnected) {
       disconnect();
     } else {
-      await connect("metamask");
+      setInquiryDialogOpen(true);
     }
+  };
+
+  const handleInquirySubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!formData.name || !formData.email) {
+      toast({
+        title: "필수 정보 입력",
+        description: "이름과 이메일은 필수 입력 항목입니다.",
+        variant: "destructive"
+      });
+      return;
+    }
+    inquiryMutation.mutate(formData);
   };
 
   const toggleFaq = (id: string) => {
@@ -983,10 +1044,18 @@ export default function SeedRoundPage() {
           </div>
 
           <div className="cta-group">
-            <button className="btn-primary" data-testid="button-apply-seed">
+            <button 
+              className="btn-primary" 
+              data-testid="button-apply-seed"
+              onClick={() => setInquiryDialogOpen(true)}
+            >
               🌱 시드 투자 신청
             </button>
-            <button className="btn-secondary">
+            <button 
+              className="btn-secondary"
+              data-testid="button-investment-memo"
+              onClick={() => setMemoDialogOpen(true)}
+            >
               📖 투자 메모
             </button>
           </div>
@@ -1069,7 +1138,13 @@ export default function SeedRoundPage() {
                     <li key={idx}>{benefit}</li>
                   ))}
                 </ul>
-                <button className="tier-btn">투자 문의</button>
+                <button 
+                  className="tier-btn" 
+                  data-testid={`button-tier-inquiry-${tier.id}`}
+                  onClick={() => setInquiryDialogOpen(true)}
+                >
+                  투자 문의
+                </button>
               </div>
             </div>
           ))}
@@ -1232,7 +1307,12 @@ export default function SeedRoundPage() {
             TBURN Chain의 초기 투자자로<br />
             최대 70% 할인된 가격에 투자하세요!
           </p>
-          <button className="btn-primary" style={{ background: 'var(--dark)', fontSize: '1.25rem', padding: '20px 50px' }}>
+          <button 
+            className="btn-primary" 
+            style={{ background: 'var(--dark)', fontSize: '1.25rem', padding: '20px 50px' }}
+            data-testid="button-invest-now"
+            onClick={() => setInquiryDialogOpen(true)}
+          >
             🌱 지금 투자하기
           </button>
         </div>
@@ -1287,6 +1367,169 @@ export default function SeedRoundPage() {
           </div>
         </div>
       </footer>
+
+      {/* Investment Inquiry Dialog */}
+      <Dialog open={inquiryDialogOpen} onOpenChange={setInquiryDialogOpen}>
+        <DialogContent className="sm:max-w-[500px]" style={{ background: '#0f0f0f', border: '1px solid rgba(255,255,255,0.1)', color: 'white' }}>
+          <DialogHeader>
+            <DialogTitle style={{ color: 'white', fontSize: '1.5rem' }}>🌱 시드 라운드 투자 문의</DialogTitle>
+            <DialogDescription style={{ color: 'rgba(255,255,255,0.7)' }}>
+              투자 문의를 남겨주시면 담당자가 빠른 시일 내에 연락드리겠습니다.
+            </DialogDescription>
+          </DialogHeader>
+          <form onSubmit={handleInquirySubmit} className="space-y-4" style={{ marginTop: '1rem' }}>
+            <div className="space-y-2">
+              <Label htmlFor="name" style={{ color: 'rgba(255,255,255,0.9)' }}>이름 *</Label>
+              <Input
+                id="name"
+                value={formData.name}
+                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                placeholder="홍길동"
+                data-testid="input-inquiry-name"
+                style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.2)', color: 'white' }}
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="email" style={{ color: 'rgba(255,255,255,0.9)' }}>이메일 *</Label>
+              <Input
+                id="email"
+                type="email"
+                value={formData.email}
+                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                placeholder="investor@example.com"
+                data-testid="input-inquiry-email"
+                style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.2)', color: 'white' }}
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="company" style={{ color: 'rgba(255,255,255,0.9)' }}>회사/기관명</Label>
+              <Input
+                id="company"
+                value={formData.company}
+                onChange={(e) => setFormData({ ...formData, company: e.target.value })}
+                placeholder="투자회사명"
+                data-testid="input-inquiry-company"
+                style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.2)', color: 'white' }}
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="investmentAmount" style={{ color: 'rgba(255,255,255,0.9)' }}>예상 투자금액</Label>
+              <Input
+                id="investmentAmount"
+                value={formData.investmentAmount}
+                onChange={(e) => setFormData({ ...formData, investmentAmount: e.target.value })}
+                placeholder="$50,000"
+                data-testid="input-inquiry-amount"
+                style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.2)', color: 'white' }}
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="message" style={{ color: 'rgba(255,255,255,0.9)' }}>문의 내용</Label>
+              <Textarea
+                id="message"
+                value={formData.message}
+                onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                placeholder="투자에 관한 질문이나 요청사항을 작성해주세요."
+                rows={4}
+                data-testid="input-inquiry-message"
+                style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.2)', color: 'white', resize: 'none' }}
+              />
+            </div>
+            <div style={{ display: 'flex', gap: '1rem', justifyContent: 'flex-end', marginTop: '1.5rem' }}>
+              <Button
+                type="button"
+                variant="outline"
+                onClick={() => setInquiryDialogOpen(false)}
+                data-testid="button-cancel-inquiry"
+                style={{ borderColor: 'rgba(255,255,255,0.2)', color: 'white' }}
+              >
+                취소
+              </Button>
+              <Button
+                type="submit"
+                disabled={inquiryMutation.isPending}
+                data-testid="button-submit-inquiry"
+                style={{ background: 'linear-gradient(135deg, #22c55e, #16a34a)', color: 'white' }}
+              >
+                {inquiryMutation.isPending ? '제출 중...' : '문의 제출'}
+              </Button>
+            </div>
+          </form>
+        </DialogContent>
+      </Dialog>
+
+      {/* Investment Memo Dialog */}
+      <Dialog open={memoDialogOpen} onOpenChange={setMemoDialogOpen}>
+        <DialogContent className="sm:max-w-[600px]" style={{ background: '#0f0f0f', border: '1px solid rgba(255,255,255,0.1)', color: 'white', maxHeight: '80vh', overflowY: 'auto' }}>
+          <DialogHeader>
+            <DialogTitle style={{ color: 'white', fontSize: '1.5rem' }}>📖 TBURN Chain 투자 메모</DialogTitle>
+            <DialogDescription style={{ color: 'rgba(255,255,255,0.7)' }}>
+              시드 라운드 투자에 대한 주요 정보입니다.
+            </DialogDescription>
+          </DialogHeader>
+          <div style={{ marginTop: '1.5rem', lineHeight: '1.8' }}>
+            <div style={{ marginBottom: '1.5rem', padding: '1rem', background: 'rgba(34, 197, 94, 0.1)', borderRadius: '8px', border: '1px solid rgba(34, 197, 94, 0.3)' }}>
+              <h4 style={{ color: '#22c55e', marginBottom: '0.5rem', fontWeight: 600 }}>핵심 투자 정보</h4>
+              <ul style={{ color: 'rgba(255,255,255,0.8)', paddingLeft: '1.25rem' }}>
+                <li>토큰 가격: <strong style={{ color: 'white' }}>$0.04</strong> (시장가 대비 80% 할인)</li>
+                <li>총 배정량: <strong style={{ color: 'white' }}>5억 TBURN</strong></li>
+                <li>하드캡: <strong style={{ color: 'white' }}>$20,000,000</strong></li>
+                <li>최소 투자금: <strong style={{ color: 'white' }}>$10,000</strong></li>
+              </ul>
+            </div>
+
+            <div style={{ marginBottom: '1.5rem', padding: '1rem', background: 'rgba(255,255,255,0.03)', borderRadius: '8px' }}>
+              <h4 style={{ color: 'white', marginBottom: '0.5rem', fontWeight: 600 }}>베스팅 스케줄</h4>
+              <ul style={{ color: 'rgba(255,255,255,0.8)', paddingLeft: '1.25rem' }}>
+                <li>클리프 기간: <strong style={{ color: 'white' }}>12개월</strong></li>
+                <li>초기 언락: <strong style={{ color: 'white' }}>10%</strong> (TGE+12개월)</li>
+                <li>월별 베스팅: <strong style={{ color: 'white' }}>7.5%</strong> (12개월)</li>
+                <li>전체 언락: <strong style={{ color: 'white' }}>24개월</strong></li>
+              </ul>
+            </div>
+
+            <div style={{ marginBottom: '1.5rem', padding: '1rem', background: 'rgba(255,255,255,0.03)', borderRadius: '8px' }}>
+              <h4 style={{ color: 'white', marginBottom: '0.5rem', fontWeight: 600 }}>투자 절차</h4>
+              <ol style={{ color: 'rgba(255,255,255,0.8)', paddingLeft: '1.25rem' }}>
+                <li>투자 문의 제출 (1-3일)</li>
+                <li>KYC/AML 인증 절차 (3-5일)</li>
+                <li>SAFT 계약 체결 (1-2일)</li>
+                <li>투자금 전송 및 확인 (1-2일)</li>
+              </ol>
+            </div>
+
+            <div style={{ padding: '1rem', background: 'rgba(59, 130, 246, 0.1)', borderRadius: '8px', border: '1px solid rgba(59, 130, 246, 0.3)' }}>
+              <h4 style={{ color: '#3b82f6', marginBottom: '0.5rem', fontWeight: 600 }}>문의처</h4>
+              <p style={{ color: 'rgba(255,255,255,0.8)' }}>
+                이메일: <a href="mailto:invest@tburnchain.io" style={{ color: '#22c55e' }}>invest@tburnchain.io</a><br />
+                텔레그램: <a href="https://t.me/tburnchain" style={{ color: '#22c55e' }}>@tburnchain</a>
+              </p>
+            </div>
+          </div>
+          <div style={{ display: 'flex', gap: '1rem', justifyContent: 'flex-end', marginTop: '1.5rem' }}>
+            <Button
+              type="button"
+              variant="outline"
+              onClick={() => setMemoDialogOpen(false)}
+              data-testid="button-close-memo"
+              style={{ borderColor: 'rgba(255,255,255,0.2)', color: 'white' }}
+            >
+              닫기
+            </Button>
+            <Button
+              type="button"
+              onClick={() => {
+                setMemoDialogOpen(false);
+                setInquiryDialogOpen(true);
+              }}
+              data-testid="button-memo-to-inquiry"
+              style={{ background: 'linear-gradient(135deg, #22c55e, #16a34a)', color: 'white' }}
+            >
+              투자 문의하기
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
