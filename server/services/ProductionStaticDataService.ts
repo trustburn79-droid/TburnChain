@@ -229,7 +229,15 @@ class ProductionStaticDataService {
    * 캐시에 데이터 로드 (초기화용)
    * ★ [v3.2] 실시간 메트릭 서비스 시작 + 경량 캐시 워밍
    */
+  private cacheWarmed = false;
+  
   async warmCache(): Promise<void> {
+    // ★ [MEMORY FIX] 이미 캐시가 워밍되었으면 재사용
+    if (this.cacheWarmed && this.cache.hasFresh(DataCacheService.KEYS.NETWORK_STATS)) {
+      console.log('[StaticData] ⚡ Cache already warm, skipping re-warm');
+      return;
+    }
+    
     console.log('[StaticData] Warming cache with realtime metrics (v3.2)...');
     
     try {
@@ -244,6 +252,7 @@ class ProductionStaticDataService {
       const networkStats = await this.getNetworkStats();
       this.cache.set(DataCacheService.KEYS.NETWORK_STATS, networkStats, 60000); // 1분 TTL (더 자주 갱신)
       
+      this.cacheWarmed = true;
       console.log('[StaticData] ✅ Realtime cache warmed (TPS, block time active)');
     } catch (error) {
       console.error('[StaticData] Failed to warm cache:', error);

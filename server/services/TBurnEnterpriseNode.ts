@@ -1868,6 +1868,9 @@ export class TBurnEnterpriseNode extends EventEmitter {
   private initializeWalletCache(): void {
     if (this.walletsInitialized) return;
 
+    // ★ [MEMORY FIX] 초기화 전 캐시 정리 (중복 방지)
+    this.walletCache.clear();
+    
     console.log(`[Enterprise Node] Initializing ${this.WALLET_COUNT} wallets with complete schema...`);
     
     // Generate consistent wallet addresses using deterministic seeds
