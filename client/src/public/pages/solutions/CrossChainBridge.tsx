@@ -139,14 +139,14 @@ export default function CrossChainBridge() {
           </div>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/developers/quickstart">
+            <a href="/app/bridge">
               <button 
                 className="bg-gradient-to-r from-[#00f0ff] to-[#3b82f6] text-gray-900 dark:text-white px-8 py-3 rounded-lg font-bold hover:shadow-[0_0_20px_rgba(0,240,255,0.4)] transition flex items-center justify-center gap-2"
                 data-testid="button-launch-bridge"
               >
                 <ArrowLeftRight className="w-4 h-4" /> {t('publicPages.solutions.crossChainBridge.buttons.launchBridge')}
               </button>
-            </Link>
+            </a>
             <Link href="/developers/docs">
               <button 
                 className="spotlight-card border border-white/20 px-8 py-3 rounded-lg font-bold hover:bg-gray-100 dark:bg-white/5 transition flex items-center justify-center gap-2 text-gray-900 dark:text-white"
@@ -454,14 +454,14 @@ export default function CrossChainBridge() {
           <p className="text-gray-600 dark:text-gray-400 mb-8">
             {t('publicPages.solutions.crossChainBridge.cta.description')}
           </p>
-          <Link href="/app/bridge">
+          <a href="/app/bridge">
             <button 
               className="bg-gradient-to-r from-[#00f0ff] to-[#3b82f6] text-gray-900 dark:text-white px-10 py-4 rounded-lg font-bold hover:shadow-[0_0_20px_rgba(0,240,255,0.4)] transition flex items-center justify-center gap-3 mx-auto text-lg"
               data-testid="button-cta-launch"
             >
               <ArrowLeftRight className="w-5 h-5" /> {t('publicPages.solutions.crossChainBridge.cta.button')}
             </button>
-          </Link>
+          </a>
         </div>
       </section>
     </div>
