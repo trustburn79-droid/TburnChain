@@ -6,13 +6,13 @@ export const TBURN_MAINNET_CONFIG = {
   name: "TBURN Mainnet",
   currency: {
     name: "TBURN",
-    symbol: "TB",
+    symbol: "TBURN",
     decimals: 18,
   },
   rpcUrls: [
     "https://tburn.io/rpc",
-    "https://eu.tburn.io/rpc",
-    "https://asia.tburn.io/rpc",
+    "https://tburn.io",
+    "https://mainnet.tburn.network/rpc",
   ],
   blockExplorerUrls: ["https://tburn.io/scan"],
   iconUrls: ["https://tburn.network/logo.png"],

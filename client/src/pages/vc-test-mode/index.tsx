@@ -201,15 +201,15 @@ const MAINNET_CONFIG = {
   networkType: 'Production Mainnet',
   currency: {
     name: 'TBURN',
-    symbol: 'TB',
+    symbol: 'TBURN',
     decimals: 18
   },
   rpcEndpoints: [
-    { url: 'https://rpc.tburn.network', type: 'Primary', status: 'Active', region: 'US-East' },
-    { url: 'https://rpc-mainnet.tburn.io', type: 'Secondary', status: 'Active', region: 'EU-West' },
+    { url: 'https://tburn.io/rpc', type: 'Primary', status: 'Active', region: 'US-East' },
+    { url: 'https://tburn.io', type: 'Secondary', status: 'Active', region: 'EU-West' },
     { url: 'https://mainnet.tburn.network/rpc', type: 'Tertiary', status: 'Active', region: 'AP-Seoul' }
   ],
-  blockExplorer: 'https://explorer.tburn.network',
+  blockExplorer: 'https://tburn.io/scan',
   consensus: 'BFT + PoS',
   blockTime: '~100ms',
   genesisDate: '2025-12-22',

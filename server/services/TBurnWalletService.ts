@@ -24,7 +24,7 @@ export interface TBurnWalletMetadata {
   addressPrefix: string;
 }
 
-const TBURN_CHAIN_ID = 6000;
+const TBURN_CHAIN_ID = 5800;
 const TBURN_NETWORK_NAME = "TBURN Mainnet";
 const TBURN_WALLET_VERSION = "1.0.0";
 
