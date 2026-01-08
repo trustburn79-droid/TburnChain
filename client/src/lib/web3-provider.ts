@@ -1,8 +1,8 @@
 import { ethers, BrowserProvider, JsonRpcSigner, Network } from "ethers";
 
 export const TBURN_MAINNET_CONFIG = {
-  chainId: 6000,
-  chainIdHex: "0x1770",
+  chainId: 5800,
+  chainIdHex: "0x16a8",
   name: "TBURN Mainnet",
   currency: {
     name: "TBURN",

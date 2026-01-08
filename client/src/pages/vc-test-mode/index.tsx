@@ -234,8 +234,8 @@ const INVESTMENT_HIGHLIGHTS = [
 ];
 
 const MAINNET_CONFIG = {
-  chainId: 6000,
-  chainIdHex: '0x1770',
+  chainId: 5800,
+  chainIdHex: '0x16a8',
   networkName: 'TBURN Mainnet',
   networkType: 'Production Mainnet',
   currency: {
@@ -255,7 +255,7 @@ const MAINNET_CONFIG = {
   tokenStandards: ['TBC-20', 'TBC-721', 'TBC-1155'],
   chainRegistration: {
     status: 'Registered',
-    chainlistOrg: 'https://chainlist.org/chain/6000',
+    chainlistOrg: 'https://chainlist.org/chain/5800',
     evmCompatible: true,
     replayProtection: 'EIP-155 Compliant'
   },

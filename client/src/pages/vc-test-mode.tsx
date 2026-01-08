@@ -105,7 +105,7 @@ export default function VCTestMode() {
   ];
 
   const techSpecs = [
-    { label: "Chain ID", value: "6000" },
+    { label: "Chain ID", value: "5800" },
     { label: "Block Time", value: "100ms" },
     { label: "Target TPS", value: "210,000+" },
     { label: "Genesis Validators", value: "125" },

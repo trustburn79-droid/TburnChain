@@ -1563,7 +1563,7 @@ export const TOKENOMICS_DOC_INFO = {
  */
 export const TGE_CONTRACT_PARAMS = {
   network: 'TBURN Mainnet',
-  chainId: 6000,
+  chainId: 5800,
   tgeTimestamp: 1766275200, // 2025-12-22 00:00:00 UTC
   tokenName: 'TBURN',
   tokenSymbol: 'TBURN',

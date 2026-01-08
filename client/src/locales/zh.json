@@ -6650,7 +6650,7 @@
       "evmCompatible": "EVM兼容",
       "replayProtection": "重放保护",
       "uniqueChainId": "唯一链ID已验证",
-      "uniqueChainIdDesc": "链ID 6000已唯一注册，与任何已知EVM网络不冲突。符合EIP-155标准以防止交易重放。",
+      "uniqueChainIdDesc": "链ID 5800已唯一注册，与任何已知EVM网络不冲突。符合EIP-155标准以防止交易重放。",
       "deployedContracts": "已部署核心合约",
       "deployedContractsDesc": "已验证的智能合约地址 - 点击在浏览器中查看",
       "contractsVerified": "所有合约均已验证并开源。点击任何合约可在TBURN浏览器中查看源代码和交易。",
@@ -10000,7 +10000,7 @@
           "chainId": {
             "title": "链 ID",
             "ethereum": "以太坊: 1",
-            "tburn": "TBurn: 6000"
+            "tburn": "TBurn: 5800"
           },
           "consensus": {
             "title": "共识机制",

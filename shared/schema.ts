@@ -6926,7 +6926,7 @@ export const genesisConfig = pgTable("genesis_config", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
   
   // Chain Parameters
-  chainId: integer("chain_id").notNull().default(6000),
+  chainId: integer("chain_id").notNull().default(5800),
   chainName: text("chain_name").notNull().default("TBURN Mainnet"),
   networkVersion: text("network_version").notNull().default("v8.0"),
   
@@ -9045,7 +9045,7 @@ export type InsertDaoMakerParticipant = z.infer<typeof insertDaoMakerParticipant
 
 // ============================================
 // ENTERPRISE REWARD DISTRIBUTION ENGINE TABLES
-// Chain ID: 6000 | 125 Genesis Validators | 210K TPS Target
+// Chain ID: 5800 (0x16a8) | 125 Genesis Validators | 210K TPS Target
 // ============================================
 
 // Reward Epochs - Epoch state management and lifecycle tracking

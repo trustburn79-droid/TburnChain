@@ -5205,7 +5205,7 @@
       "evmCompatible": "EVM Compatible",
       "replayProtection": "Replay Protection",
       "uniqueChainId": "Unique Chain ID Verified",
-      "uniqueChainIdDesc": "Chain ID 6000 is uniquely registered and does not conflict with any known EVM network. EIP-155 compliant for transaction replay protection.",
+      "uniqueChainIdDesc": "Chain ID 5800 is uniquely registered and does not conflict with any known EVM network. EIP-155 compliant for transaction replay protection.",
       "deployedContracts": "Deployed Core Contracts",
       "deployedContractsDesc": "Verified smart contract addresses - click to view in Explorer",
       "contractsVerified": "All contracts are verified and open-source. Click any contract to view source code and transactions in the TBURN Explorer.",
@@ -8906,7 +8906,7 @@
           "chainId": {
             "title": "ID de Cadena",
             "ethereum": "Ethereum: 1",
-            "tburn": "TBurn: 6000"
+            "tburn": "TBurn: 5800"
           },
           "gasToken": {
             "title": "Token de Gas",

@@ -1,5 +1,13 @@
 # TBURN Blockchain Mainnet Explorer
 
+## Chain Configuration
+- **Chain ID**: 5800 (0x16a8)
+- **Currency**: TBURN
+- **Network**: TBURN Mainnet
+- **Genesis Validators**: 125
+- **Target TPS**: 210,000
+- **Block Time**: 100ms
+
 ## Overview
 The TBURN Blockchain Mainnet Explorer is a production-ready DeFi ecosystem platform designed to provide comprehensive insights into the TBURN Mainnet. It features extensive public and authenticated application pages, supporting 12 languages with RTL compatibility. The platform integrates advanced AI for burn optimization, governance analysis, and multi-chain bridge risk assessment. Key capabilities include a real-time dashboard with tokenomics, block and transaction explorers, advanced wallet management, robust token standards (TBC-20/721/1155) with quantum-resistant signatures, staking, and a full suite of DeFi functionalities. The project's vision is to establish a transparent, efficient, and secure gateway to the TBURN Mainnet, thereby fostering adoption and innovation within its DeFi ecosystem.
 

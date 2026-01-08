@@ -11280,7 +11280,7 @@
           "chainId": {
             "title": "체인 ID",
             "ethereum": "Ethereum: 1",
-            "tburn": "TBurn: 6000"
+            "tburn": "TBurn: 5800"
           },
           "consensus": {
             "title": "합의 메커니즘",

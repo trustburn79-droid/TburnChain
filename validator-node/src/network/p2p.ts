@@ -230,7 +230,7 @@ export class P2PNetwork extends EventEmitter {
       from: this.nodeId,
       payload: {
         version: '1.0.0',
-        chainId: 6000,
+        chainId: 5800,
         networkId: 'tburn-mainnet',
         capabilities: ['consensus', 'sync', 'gossip'],
       },
@@ -307,7 +307,7 @@ export class P2PNetwork extends EventEmitter {
       networkId: string;
     };
 
-    if (payload.chainId !== 6000 || payload.networkId !== 'tburn-mainnet') {
+    if (payload.chainId !== 5800 || payload.networkId !== 'tburn-mainnet') {
       socket.close(1008, 'Chain mismatch');
       return;
     }

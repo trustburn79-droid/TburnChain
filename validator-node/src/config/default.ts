@@ -8,7 +8,7 @@ import * as crypto from 'crypto';
 
 export const DEFAULT_CONFIG: Omit<ValidatorNodeConfig, 'validator'> = {
   nodeId: crypto.randomUUID(),
-  chainId: 6000,
+  chainId: 5800,
   networkId: 'tburn-mainnet',
   
   network: {
@@ -108,7 +108,7 @@ export const GENESIS_VALIDATORS_REGIONS = [
 ];
 
 export const CHAIN_CONSTANTS = {
-  CHAIN_ID: 6000,
+  CHAIN_ID: 5800,
   NETWORK_ID: 'tburn-mainnet',
   GENESIS_BLOCK_HASH: '0x0000000000000000000000000000000000000000000000000000000000000000',
   GENESIS_TIMESTAMP: 1735689600000,

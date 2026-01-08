@@ -35,10 +35,10 @@ export const qnaData: QnAItem[] = [
     categoryKey: 'getting-started',
     question: 'TBURN이란 무엇인가요?',
     questionEn: 'What is TBURN?',
-    answer: 'TBURN은 Chain ID 6000 메인넷에서 운영되는 차세대 Layer 1 블록체인입니다. 125개의 제네시스 밸리데이터와 64개의 동적 샤드를 통해 약 210,000 TPS를 처리하며 100ms 블록 타임을 제공합니다. AI 강화 BFT 합의 메커니즘으로 높은 보안성과 확장성을 제공하고, 10B(100억) 총 공급량의 디플레이션 토큰 경제 모델을 운영합니다.',
-    answerEn: 'TBURN is a next-generation Layer 1 blockchain operating on Chain ID 6000 mainnet. With 125 genesis validators and 64 dynamic shards, it processes approximately 210,000 TPS with 100ms block time. It uses an AI-enhanced BFT consensus mechanism for high security and scalability, with a deflationary token economic model of 10B total supply.',
+    answer: 'TBURN은 Chain ID 5800 메인넷에서 운영되는 차세대 Layer 1 블록체인입니다. 125개의 제네시스 밸리데이터와 64개의 동적 샤드를 통해 약 210,000 TPS를 처리하며 100ms 블록 타임을 제공합니다. AI 강화 BFT 합의 메커니즘으로 높은 보안성과 확장성을 제공하고, 10B(100억) 총 공급량의 디플레이션 토큰 경제 모델을 운영합니다.',
+    answerEn: 'TBURN is a next-generation Layer 1 blockchain operating on Chain ID 5800 mainnet. With 125 genesis validators and 64 dynamic shards, it processes approximately 210,000 TPS with 100ms block time. It uses an AI-enhanced BFT consensus mechanism for high security and scalability, with a deflationary token economic model of 10B total supply.',
     relatedPage: '/learn/whitepaper',
-    tags: ['기초', '블록체인', '소개', 'Chain ID 6000']
+    tags: ['기초', '블록체인', '소개', 'Chain ID 5800']
   },
   {
     id: 2,
@@ -1179,8 +1179,8 @@ export const qnaData: QnAItem[] = [
     categoryKey: 'network',
     question: 'TBURNscan에서 무엇을 확인할 수 있나요?',
     questionEn: 'What can I view on TBURNscan?',
-    answer: 'TBURNscan은 TBURN 메인넷(Chain ID 6000)의 공식 블록체인 탐색기입니다. 실시간 블록 생성(100ms), 트랜잭션 내역, 지갑 잔액, 스마트 계약, 64개 샤드 상태, 125개 밸리데이터 정보를 투명하게 조회할 수 있습니다. 현재 블록 높이, TPS, 총 소각량 등 네트워크 통계도 확인 가능합니다.',
-    answerEn: 'TBURNscan is the official blockchain explorer for TBURN mainnet (Chain ID 6000). You can transparently view real-time block production (100ms), transaction history, wallet balances, smart contracts, 64 shard states, and 125 validator information. Network statistics like current block height, TPS, and total burn amount are also available.',
+    answer: 'TBURNscan은 TBURN 메인넷(Chain ID 5800)의 공식 블록체인 탐색기입니다. 실시간 블록 생성(100ms), 트랜잭션 내역, 지갑 잔액, 스마트 계약, 64개 샤드 상태, 125개 밸리데이터 정보를 투명하게 조회할 수 있습니다. 현재 블록 높이, TPS, 총 소각량 등 네트워크 통계도 확인 가능합니다.',
+    answerEn: 'TBURNscan is the official blockchain explorer for TBURN mainnet (Chain ID 5800). You can transparently view real-time block production (100ms), transaction history, wallet balances, smart contracts, 64 shard states, and 125 validator information. Network statistics like current block height, TPS, and total burn amount are also available.',
     relatedPage: '/scan',
     tags: ['TBURNscan', '익스플로러', '블록', '트랜잭션']
   },
@@ -1190,8 +1190,8 @@ export const qnaData: QnAItem[] = [
     categoryKey: 'network',
     question: 'RPC 엔드포인트 정보는 어디서 확인하나요?',
     questionEn: 'Where can I find RPC endpoint information?',
-    answer: 'RPC 페이지에서 메인넷/테스트넷 RPC 엔드포인트, WebSocket URL, Chain ID(6000), 네이티브 통화 정보를 확인할 수 있습니다. 인터랙티브 API 테스터로 직접 RPC 호출을 시험하고, SDK 코드 예제와 성능 벤치마크 도구도 제공됩니다.',
-    answerEn: 'The RPC page provides mainnet/testnet RPC endpoints, WebSocket URLs, Chain ID (6000), and native currency information. Test RPC calls directly with the interactive API tester, and access SDK code examples and performance benchmarking tools.',
+    answer: 'RPC 페이지에서 메인넷/테스트넷 RPC 엔드포인트, WebSocket URL, Chain ID(5800), 네이티브 통화 정보를 확인할 수 있습니다. 인터랙티브 API 테스터로 직접 RPC 호출을 시험하고, SDK 코드 예제와 성능 벤치마크 도구도 제공됩니다.',
+    answerEn: 'The RPC page provides mainnet/testnet RPC endpoints, WebSocket URLs, Chain ID (5800), and native currency information. Test RPC calls directly with the interactive API tester, and access SDK code examples and performance benchmarking tools.',
     relatedPage: '/rpc',
     tags: ['RPC', '엔드포인트', 'API', 'Chain ID']
   },
@@ -1467,10 +1467,10 @@ export const qnaData: QnAItem[] = [
     categoryKey: 'network',
     question: 'TBURN 메인넷 핵심 사양은?',
     questionEn: 'What are TBURN mainnet core specifications?',
-    answer: 'TBURN 메인넷 핵심 사양: Chain ID 6000, 125개 제네시스 밸리데이터, 64개 동적 샤드, ~210,000 TPS 용량, 100ms 블록 타임, 10B(100억) TBURN 총 공급량, 5단계 BFT 합의, 20년 디플레이션 토크노믹스(Y20 목표: 6.94B). AI 강화 거버넌스와 자동 리밸런싱 시스템을 갖추고 있습니다.',
-    answerEn: 'TBURN mainnet core specs: Chain ID 6000, 125 genesis validators, 64 dynamic shards, ~210,000 TPS capacity, 100ms block time, 10B TBURN total supply, 5-phase BFT consensus, 20-year deflationary tokenomics (Y20 target: 6.94B). Features AI-enhanced governance and automatic rebalancing systems.',
+    answer: 'TBURN 메인넷 핵심 사양: Chain ID 5800, 125개 제네시스 밸리데이터, 64개 동적 샤드, ~210,000 TPS 용량, 100ms 블록 타임, 10B(100억) TBURN 총 공급량, 5단계 BFT 합의, 20년 디플레이션 토크노믹스(Y20 목표: 6.94B). AI 강화 거버넌스와 자동 리밸런싱 시스템을 갖추고 있습니다.',
+    answerEn: 'TBURN mainnet core specs: Chain ID 5800, 125 genesis validators, 64 dynamic shards, ~210,000 TPS capacity, 100ms block time, 10B TBURN total supply, 5-phase BFT consensus, 20-year deflationary tokenomics (Y20 target: 6.94B). Features AI-enhanced governance and automatic rebalancing systems.',
     relatedPage: '/learn/whitepaper',
-    tags: ['메인넷', '사양', 'Chain ID 6000', '210K TPS']
+    tags: ['메인넷', '사양', 'Chain ID 5800', '210K TPS']
   },
   {
     id: 126,

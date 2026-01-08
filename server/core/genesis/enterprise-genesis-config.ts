@@ -1,6 +1,6 @@
 /**
  * TBURN Enterprise Genesis Configuration
- * Chain ID: 6000 | 125 Genesis Validators | 10B TBURN Total Supply
+ * Chain ID: 5800 (0x16a8) | 125 Genesis Validators | 10B TBURN Total Supply
  * Production-ready configuration for mainnet launch
  * 
  * ★ IMPORTANT: All tokenomics values are imported from shared/tokenomics-config.ts
@@ -15,7 +15,7 @@ const WEI_PER_TBURN = 10n ** 18n; // Use pure BigInt for safe integer arithmetic
 // CHAIN PARAMETERS
 // ============================================
 export const CHAIN_CONFIG = {
-  CHAIN_ID: 6000,
+  CHAIN_ID: 5800,
   CHAIN_NAME: "TBURN Mainnet",
   CHAIN_SYMBOL: "TBURN",
   DECIMALS: 18,
@@ -626,7 +626,7 @@ export class EnterpriseGenesisGenerator {
       receiptsRoot: "0x0000000000000000000000000000000000000000000000000000000000000003",
       gasLimit: BLOCK_CONFIG.BLOCK_GAS_LIMIT,
       gasUsed: 0,
-      extraData: "TBURN Mainnet Genesis - Chain ID 6000",
+      extraData: "TBURN Mainnet Genesis - Chain ID 5800",
       validators,
       allocations,
       config: this.config,
