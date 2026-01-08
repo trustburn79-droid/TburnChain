@@ -60,14 +60,14 @@ class RealtimeMetricsService {
   
   // 폴링 인터벌
   private pollInterval: ReturnType<typeof setInterval> | null = null;
-  private readonly POLL_INTERVAL_MS = 5000; // ★ 5초로 늘림 (메모리 절약)
+  private readonly POLL_INTERVAL_MS = 30000; // ★ 30초로 늘림 (메모리 최적화)
   
   // ★ [ARCHITECT FIX v2] 결정적 카운터 (10번마다 2차 데이터 폴링)
   private pollCounter = 0;
   private readonly SECONDARY_POLL_INTERVAL = 10; // 10번 = 50초
   
   constructor() {
-    console.log('[RealtimeMetrics] ✅ Service initialized (buffer: 32 blocks, 5s polling)');
+    console.log('[RealtimeMetrics] ✅ Service initialized (buffer: 32 blocks, 30s polling)');
     // ★ 초기 샤드 데이터 생성
     this.generateSyntheticShardData();
   }
@@ -170,6 +170,18 @@ class RealtimeMetricsService {
    */
   private async poll(): Promise<void> {
     try {
+      // ★ [MEMORY OPTIMIZATION v2] 메모리가 높을 때 모든 DB 작업 건너뛰기
+      const mem = process.memoryUsage();
+      const heapPercent = (mem.heapUsed / mem.heapTotal) * 100;
+      if (heapPercent > 85) {
+        // 메모리 압력 시 블록 높이만 증가 (DB 조회 없음)
+        if (this.lastBlockHeight > 0) {
+          this.lastBlockHeight += 1;
+          this.totalTransactions += Math.floor(this.currentTps * 0.1);
+        }
+        return;
+      }
+      
       let dataFetched = false;
       
       // 1. 네트워크 통계에서 블록 높이와 트랜잭션 수 가져오기
@@ -213,26 +225,33 @@ class RealtimeMetricsService {
         }
       }
       
-      // ★ [ARCHITECT FIX v2] 오프라인 시 블록/트랜잭션에서 파생 시도
+      // ★ [MEMORY FIX] 오프라인 시 합성 데이터만 사용 (DB 조회 없음)
       if (!dataFetched) {
         this.isOnline = false;
-        await this.deriveFromBlockData();
+        // DB 조회 대신 블록 높이만 증가
+        if (this.lastBlockHeight > 0) {
+          this.lastBlockHeight += 1;
+          this.totalTransactions += Math.floor(this.currentTps * 0.1);
+        }
       }
       
-      // ★ [REALTIME FIX] 샤드 TPS 실시간 업데이트 및 DB 저장
-      await this.updateShardTps();
-      
-      // DB 조회는 50초마다만 (결정적 카운터) - 기준 TPS 재동기화용
+      // ★ [MEMORY FIX] 샤드 TPS 업데이트는 5분마다만
       this.pollCounter++;
       if (this.pollCounter >= this.SECONDARY_POLL_INTERVAL) {
         this.pollCounter = 0;
-        await this.pollSecondaryData();
+        // 메모리가 낮을 때만 DB 조회
+        const memNow = process.memoryUsage();
+        if ((memNow.heapUsed / memNow.heapTotal) * 100 < 80) {
+          await this.pollSecondaryData();
+        }
       }
       
     } catch (error) {
-      // ★ 오류 시에도 합성 데이터로 계속 진행
+      // ★ 오류 시 블록 높이만 증가 (DB 조회 없음)
       this.isOnline = false;
-      this.updateSyntheticData();
+      if (this.lastBlockHeight > 0) {
+        this.lastBlockHeight += 1;
+      }
     }
   }
   
