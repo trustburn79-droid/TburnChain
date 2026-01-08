@@ -1,8 +1,15 @@
 import { useState } from "react";
 import { Link } from "wouter";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useMutation } from "@tanstack/react-query";
 import { TBurnLogo } from "@/components/tburn-logo";
 import { useWeb3 } from "@/lib/web3-context";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@/components/ui/label";
+import { Button } from "@/components/ui/button";
+import { useToast } from "@/hooks/use-toast";
+import { apiRequest } from "@/lib/queryClient";
 
 interface InvestmentRound {
   name: string;
@@ -29,6 +36,15 @@ interface InvestmentRoundsStatsResponse {
 
 export default function PrivateRoundPage() {
   const [activeFaq, setActiveFaq] = useState<string | null>("faq-1");
+  const [inquiryDialogOpen, setInquiryDialogOpen] = useState(false);
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    company: "",
+    investmentAmount: "",
+    message: "",
+  });
+  const { toast } = useToast();
   const { isConnected, address, connect, disconnect, formatAddress } = useWeb3();
 
   const { data: response, isLoading } = useQuery<InvestmentRoundsStatsResponse>({
@@ -37,6 +53,47 @@ export default function PrivateRoundPage() {
   const stats = response?.data;
 
   const privateRound = stats?.rounds?.find(r => r.name.toLowerCase().includes('private'));
+
+  const inquiryMutation = useMutation({
+    mutationFn: async (data: typeof formData) => {
+      return apiRequest('POST', '/api/investment-inquiry', {
+        name: data.name,
+        email: data.email,
+        company: data.company,
+        investmentRound: 'private',
+        investmentAmount: data.investmentAmount,
+        message: data.message,
+      });
+    },
+    onSuccess: () => {
+      toast({
+        title: "문의가 접수되었습니다",
+        description: "담당자가 1-2 영업일 내에 연락드리겠습니다.",
+      });
+      setInquiryDialogOpen(false);
+      setFormData({ name: "", email: "", company: "", investmentAmount: "", message: "" });
+    },
+    onError: () => {
+      toast({
+        title: "오류 발생",
+        description: "문의 접수에 실패했습니다. 다시 시도해주세요.",
+        variant: "destructive",
+      });
+    },
+  });
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!formData.name || !formData.email || !formData.company) {
+      toast({
+        title: "필수 정보 누락",
+        description: "이름, 이메일, 회사명은 필수 입력 항목입니다.",
+        variant: "destructive",
+      });
+      return;
+    }
+    inquiryMutation.mutate(formData);
+  };
 
   const handleWalletClick = async () => {
     if (isConnected) {
@@ -51,44 +108,44 @@ export default function PrivateRoundPage() {
   };
 
   const investmentHighlights = [
-    { value: "$0.015", label: "토큰당 가격", compare: "시드 대비 +87%" },
-    { value: "50%", label: "시장가 대비 할인", compare: "" },
+    { value: "$0.10", label: "토큰당 가격", compare: "시드 대비 +150%" },
+    { value: "50%", label: "런칭가 대비 할인", compare: "" },
     { value: "5%", label: "TGE 즉시 해제", compare: "" },
-    { value: "15개월", label: "베스팅 기간", compare: "" },
+    { value: "18개월", label: "베스팅 기간", compare: "" },
   ];
 
   const distributions = [
-    { id: "seed", name: "Seed Round", amount: "$0.008", discount: "70%", status: "completed" },
-    { id: "private", name: "Private Round", amount: "$0.015", discount: "50%", status: "current" },
-    { id: "public", name: "Public Round", amount: "$0.025", discount: "20%", status: "" },
+    { id: "seed", name: "Seed Round", amount: "$0.04", discount: "80%", status: "completed" },
+    { id: "private", name: "Private Round", amount: "$0.10", discount: "50%", status: "current" },
+    { id: "public", name: "Public Round", amount: "$0.20", discount: "60%", status: "" },
   ];
 
   const investorTiers = [
-    { id: "institutional", icon: "🏛️", name: "Institutional", subtitle: "기관 투자자", amount: "$5M+", details: [{ label: "최소 투자", value: "$5,000,000" }, { label: "할인율", value: "55%" }, { label: "TGE 해제", value: "7%" }], benefits: ["이사회 옵저버 석", "월간 경영진 브리핑", "독점 공동 투자권", "맞춤 베스팅", "전담 어카운트"] },
-    { id: "strategic", icon: "🎯", name: "Strategic", subtitle: "전략적 투자자", amount: "$2M+", details: [{ label: "최소 투자", value: "$2,000,000" }, { label: "할인율", value: "52%" }, { label: "TGE 해제", value: "6%" }], benefits: ["분기별 전략 세션", "파트너십 우선권", "기술 협력", "마케팅 공동", "네트워크 접근"] },
-    { id: "growth", icon: "📈", name: "Growth", subtitle: "성장 투자자", amount: "$500K+", details: [{ label: "최소 투자", value: "$500,000" }, { label: "할인율", value: "50%" }, { label: "TGE 해제", value: "5%" }], benefits: ["분기별 업데이트", "커뮤니티 액세스", "거버넌스 참여", "얼리 액세스", "전용 지원"] },
-    { id: "standard", icon: "💼", name: "Standard", subtitle: "일반 투자자", amount: "$100K+", details: [{ label: "최소 투자", value: "$100,000" }, { label: "할인율", value: "48%" }, { label: "TGE 해제", value: "5%" }], benefits: ["월간 뉴스레터", "기본 거버넌스", "커뮤니티 채널", "일반 배정", "이메일 지원"] },
+    { id: "institutional", icon: "🏛️", name: "Institutional", subtitle: "기관 투자자", amount: "$5M+", details: [{ label: "최소 투자", value: "$5,000,000" }, { label: "토큰 가격", value: "$0.09" }, { label: "TGE 해제", value: "7%" }], benefits: ["이사회 옵저버 석", "월간 경영진 브리핑", "독점 공동 투자권", "맞춤 베스팅 협의", "전담 IR 매니저"] },
+    { id: "strategic", icon: "🎯", name: "Strategic", subtitle: "전략적 투자자", amount: "$2M+", details: [{ label: "최소 투자", value: "$2,000,000" }, { label: "토큰 가격", value: "$0.095" }, { label: "TGE 해제", value: "6%" }], benefits: ["분기별 전략 세션", "파트너십 우선권", "기술 협력 기회", "공동 마케팅", "네트워크 접근"] },
+    { id: "growth", icon: "📈", name: "Growth", subtitle: "성장 투자자", amount: "$500K+", details: [{ label: "최소 투자", value: "$500,000" }, { label: "토큰 가격", value: "$0.10" }, { label: "TGE 해제", value: "5%" }], benefits: ["분기별 업데이트 콜", "프라이빗 커뮤니티", "거버넌스 참여권", "신규 기능 얼리 액세스", "전용 지원 채널"] },
+    { id: "standard", icon: "💼", name: "Standard", subtitle: "일반 투자자", amount: "$100K+", details: [{ label: "최소 투자", value: "$100,000" }, { label: "토큰 가격", value: "$0.10" }, { label: "TGE 해제", value: "5%" }], benefits: ["월간 투자자 뉴스레터", "기본 거버넌스 투표권", "투자자 전용 채널", "일반 배정", "이메일 지원"] },
   ];
 
   const vestingPhases = [
-    { icon: "🎉", title: "TGE 해제", value: "5%", desc: "즉시 해제" },
-    { icon: "🔒", title: "클리프 기간", value: "3개월", desc: "초기 락업" },
-    { icon: "📈", title: "월간 베스팅", value: "6.3%", desc: "15개월간" },
+    { icon: "🎉", title: "TGE 해제", value: "5%", desc: "상장 즉시" },
+    { icon: "🔒", title: "클리프 기간", value: "6개월", desc: "초기 락업" },
+    { icon: "📈", title: "월간 베스팅", value: "7.9%", desc: "12개월간" },
     { icon: "✅", title: "완전 언락", value: "100%", desc: "18개월 후" },
   ];
 
   const allocationBreakdown = [
-    { icon: "🏛️", name: "VC & 펀드", amount: "4억", percent: "45%" },
-    { icon: "🏢", name: "패밀리 오피스", amount: "2.5억", percent: "28%" },
-    { icon: "🎯", name: "전략 투자자", amount: "1.5억", percent: "17%" },
+    { icon: "🏛️", name: "VC & 펀드", amount: "5억", percent: "50%" },
+    { icon: "🏢", name: "패밀리 오피스", amount: "2억", percent: "20%" },
+    { icon: "🎯", name: "전략 투자자", amount: "2억", percent: "20%" },
     { icon: "💼", name: "기업 투자자", amount: "1억", percent: "10%" },
   ];
 
   const currentInvestors = [
-    { icon: "🏛️", name: "Paradigm Ventures", type: "VC", tier: "institutional" },
-    { icon: "🏢", name: "Kim Family Office", type: "Family Office", tier: "institutional" },
-    { icon: "🎯", name: "Chain Partners", type: "Strategic", tier: "strategic" },
-    { icon: "💼", name: "Tech Holdings", type: "Corporate", tier: "growth" },
+    { icon: "🏛️", name: "Galaxy Digital", type: "VC", tier: "institutional" },
+    { icon: "🏢", name: "Asia Capital Partners", type: "Family Office", tier: "institutional" },
+    { icon: "🎯", name: "Blockchain Partners Korea", type: "Strategic", tier: "strategic" },
+    { icon: "💼", name: "Digital Asset Holdings", type: "Corporate", tier: "growth" },
   ];
 
   const processSteps = [
@@ -1001,24 +1058,24 @@ export default function PrivateRoundPage() {
           </div>
           <h1>
             프라이빗 라운드 투자로<br />
-            <span className="gradient-text">9억 TBURN</span> 기회를 잡으세요
+            <span className="gradient-text">10억 TBURN</span> 기회를 잡으세요
           </h1>
           <p className="hero-subtitle">
             기관 투자자, VC, 패밀리 오피스를 위한 
-            50% 할인 기관 전용 투자 기회. TGE 5% 즉시 해제.
+            런칭가($0.50) 대비 50% 할인된 $0.10 투자 기회. TGE 5% 즉시 해제.
           </p>
 
           <div className="fundraise-progress" data-testid="fundraise-progress">
             <div className="progress-header">
-              <span className="raised">$9,720,000</span>
-              <span className="goal">목표 $13,500,000</span>
+              <span className="raised">$72,000,000</span>
+              <span className="goal">목표 $100,000,000</span>
             </div>
             <div className="progress-bar">
               <div className="progress-fill"></div>
             </div>
             <div className="progress-stats">
               <span className="percent">72% 달성</span>
-              <span className="remaining">$3,780,000 남음</span>
+              <span className="remaining">$28,000,000 남음</span>
             </div>
           </div>
 
@@ -1040,19 +1097,19 @@ export default function PrivateRoundPage() {
             ) : (
               <>
                 <div className="stat-card" data-testid="stat-total-private">
-                  <div className="stat-value">{privateRound?.allocation || "9억"}</div>
-                  <div className="stat-label">프라이빗 배정</div>
+                  <div className="stat-value">{privateRound?.allocation || "10억"}</div>
+                  <div className="stat-label">프라이빗 배정 (10%)</div>
                 </div>
                 <div className="stat-card" data-testid="stat-price">
-                  <div className="stat-value">{privateRound?.price || "$0.015"}</div>
+                  <div className="stat-value">{privateRound?.price || "$0.10"}</div>
                   <div className="stat-label">토큰 가격</div>
                 </div>
                 <div className="stat-card" data-testid="stat-hardcap">
-                  <div className="stat-value">{privateRound?.raised || "$13.5M"}</div>
+                  <div className="stat-value">{privateRound?.raised || "$100M"}</div>
                   <div className="stat-label">하드캡</div>
                 </div>
                 <div className="stat-card" data-testid="stat-investors">
-                  <div className="stat-value">{privateRound?.investors || 28}+</div>
+                  <div className="stat-value">{privateRound?.investors || 45}+</div>
                   <div className="stat-label">기관 투자자</div>
                 </div>
               </>
@@ -1060,10 +1117,10 @@ export default function PrivateRoundPage() {
           </div>
 
           <div className="cta-group">
-            <button className="btn-primary" data-testid="button-apply-private">
+            <button className="btn-primary" data-testid="button-apply-private" onClick={() => setInquiryDialogOpen(true)}>
               🔐 프라이빗 투자 신청
             </button>
-            <button className="btn-secondary">
+            <button className="btn-secondary" onClick={() => window.open('/learn/whitepaper', '_blank')}>
               📖 투자 덱 보기
             </button>
           </div>
@@ -1149,7 +1206,7 @@ export default function PrivateRoundPage() {
                     <li key={idx}>{benefit}</li>
                   ))}
                 </ul>
-                <button className="tier-btn">투자 문의</button>
+                <button className="tier-btn" onClick={() => setInquiryDialogOpen(true)}>투자 문의</button>
               </div>
             </div>
           ))}
@@ -1161,7 +1218,7 @@ export default function PrivateRoundPage() {
         <div className="section-header">
           <span className="section-badge">VESTING</span>
           <h2 className="section-title">베스팅 스케줄</h2>
-          <p className="section-subtitle">TGE 5% 즉시 해제, 이후 월간 베스팅</p>
+          <p className="section-subtitle">TGE 5% 즉시 해제, 6개월 클리프 후 12개월 월간 베스팅</p>
         </div>
 
         <div className="vesting-container">
@@ -1183,7 +1240,7 @@ export default function PrivateRoundPage() {
         <div className="section-header">
           <span className="section-badge">ALLOCATION</span>
           <h2 className="section-title">투자자 유형별 배분</h2>
-          <p className="section-subtitle">9억 TBURN 배분 현황</p>
+          <p className="section-subtitle">10억 TBURN 배분 현황</p>
         </div>
 
         <div className="allocation-container">
@@ -1277,41 +1334,81 @@ export default function PrivateRoundPage() {
         <div className="faq-container">
           <div className={`faq-item ${activeFaq === 'faq-1' ? 'active' : ''}`}>
             <div className="faq-question" onClick={() => toggleFaq('faq-1')}>
-              <h4>프라이빗 라운드 참여 자격은 무엇인가요?</h4>
+              <h4>프라이빗 라운드 참여 자격과 투자 조건은 무엇인가요?</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>프라이빗 라운드는 기관 투자자, VC, 패밀리 오피스, 기업 투자자 등을 대상으로 합니다. 최소 투자 금액은 $100,000이며, 더 높은 티어는 더 큰 할인과 혜택을 제공합니다.</p>
+              <p>프라이빗 라운드는 적격 기관 투자자(VC, 펀드, 패밀리 오피스), 기업 투자자, 전략적 파트너를 대상으로 합니다. 최소 투자 금액은 $100,000(스탠다드 티어)이며, $500,000 이상(그로스 티어), $2,000,000 이상(스트래티직 티어), $5,000,000 이상(인스티튜셔널 티어)으로 투자 규모에 따라 토큰 가격 할인 및 TGE 해제 비율이 차등 적용됩니다. 모든 투자자는 KYC/AML 인증 및 투자자 적격성 검토를 통과해야 합니다.</p>
             </div>
           </div>
 
           <div className={`faq-item ${activeFaq === 'faq-2' ? 'active' : ''}`}>
             <div className="faq-question" onClick={() => toggleFaq('faq-2')}>
-              <h4>시드 라운드와 어떤 차이가 있나요?</h4>
+              <h4>시드 라운드와 프라이빗 라운드의 차이점은 무엇인가요?</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>시드 라운드($0.008, 70% 할인)는 완료되었습니다. 프라이빗 라운드($0.015, 50% 할인)는 시드 대비 높은 가격이지만, TGE 5% 즉시 해제와 더 짧은 클리프 기간(3개월)이 장점입니다.</p>
+              <p>시드 라운드($0.04/토큰, 80% 할인)는 완료되었으며, 12개월 클리프 + 24개월 베스팅 조건입니다. 프라이빗 라운드($0.10/토큰, 50% 할인)는 6개월 클리프 + 12개월 베스팅으로 더 짧은 락업 기간이 장점입니다. 또한 프라이빗 투자자는 TGE 시점에 5~7%가 즉시 해제되어 상장 즉시 일부 유동성을 확보할 수 있습니다. 시드 대비 높은 가격이지만, 더 빠른 유동화와 기관급 투자자 혜택이 제공됩니다.</p>
             </div>
           </div>
 
           <div className={`faq-item ${activeFaq === 'faq-3' ? 'active' : ''}`}>
             <div className="faq-question" onClick={() => toggleFaq('faq-3')}>
-              <h4>TGE 즉시 해제는 어떻게 되나요?</h4>
+              <h4>베스팅 스케줄과 TGE 해제는 어떻게 되나요?</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>Token Generation Event(TGE) 시점에 투자 토큰의 5%가 즉시 해제됩니다. 기관 티어에 따라 최대 7%까지 즉시 해제 가능하며, 나머지는 3개월 클리프 후 월간 베스팅됩니다.</p>
+              <p>TGE(Token Generation Event) 시점에 투자 토큰의 5%가 즉시 해제됩니다. 인스티튜셔널 티어는 최대 7%, 스트래티직 티어는 6%까지 TGE 해제됩니다. 이후 6개월 클리프(락업) 기간이 있으며, 클리프 종료 후 12개월에 걸쳐 매월 약 7.9%씩 선형 베스팅됩니다. 전체 언락까지 총 18개월이 소요됩니다. 인스티튜셔널 티어 투자자는 맞춤 베스팅 일정 협의가 가능합니다.</p>
             </div>
           </div>
 
           <div className={`faq-item ${activeFaq === 'faq-4' ? 'active' : ''}`}>
             <div className="faq-question" onClick={() => toggleFaq('faq-4')}>
-              <h4>실사(Due Diligence) 과정은 어떻게 되나요?</h4>
+              <h4>투자 절차와 실사(Due Diligence) 과정은 어떻게 진행되나요?</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>프라이빗 투자는 양방향 실사가 필요합니다. 투자자는 프로젝트에 대한 기술, 재무, 법률 실사를 진행하고, 프로젝트는 투자자의 자금 출처와 투자 자격을 확인합니다. 일반적으로 1-2주가 소요됩니다.</p>
+              <p>투자 절차: (1) 투자 문의 및 NDA 체결 → (2) 투자 의향서(LOI) 제출 → (3) 양방향 실사(프로젝트 기술/재무/법률 DD + 투자자 자금출처/적격성 확인) → (4) 투자 조건 협상 및 Term Sheet 합의 → (5) SAFT 계약 체결 → (6) 자금 납입(USDT, USDC, 은행송금) → (7) 토큰 배정 확인. 실사 과정은 일반적으로 1-2주 소요되며, 기관 규모에 따라 3-4주까지 연장될 수 있습니다. 전담 IR 매니저가 전 과정을 안내합니다.</p>
+            </div>
+          </div>
+
+          <div className={`faq-item ${activeFaq === 'faq-5' ? 'active' : ''}`}>
+            <div className="faq-question" onClick={() => toggleFaq('faq-5')}>
+              <h4>투자자 보호와 법적 구조는 어떻게 되나요?</h4>
+              <span className="faq-chevron">▼</span>
+            </div>
+            <div className="faq-answer">
+              <p>모든 프라이빗 투자는 SAFT(Simple Agreement for Future Tokens) 계약을 통해 법적으로 보호됩니다. 계약서에는 토큰 할당량, 가격, 베스팅 조건, 투자자 권리, 분쟁 해결 조항이 명시됩니다. 투자금은 케이맨 제도 소재 SPV(Special Purpose Vehicle)를 통해 관리되며, 제3자 에스크로 계정에 예치됩니다. 법률 자문은 글로벌 로펌 Morrison & Foerster와 협력하며, 싱가포르 MAS 규정을 준수합니다.</p>
+            </div>
+          </div>
+
+          <div className={`faq-item ${activeFaq === 'faq-6' ? 'active' : ''}`}>
+            <div className="faq-question" onClick={() => toggleFaq('faq-6')}>
+              <h4>토큰 상장 계획과 런칭 가격은 어떻게 되나요?</h4>
+              <span className="faq-chevron">▼</span>
+            </div>
+            <div className="faq-answer">
+              <p>TBURN 토큰의 런칭 예정 가격은 $0.50입니다(프라이빗 대비 5배). 상장 전략: 메인넷 런칭과 동시에 TGE를 진행하며, Uniswap, PancakeSwap 등 주요 DEX에 초기 유동성을 공급합니다. 이후 Tier-1 CEX(Binance, OKX, Bybit, Coinbase 등)와의 상장 협의가 진행 중이며, 런칭 후 3-6개월 내 주요 거래소 상장을 목표로 합니다. 시장 메이킹은 전문 MM 파트너와 협력합니다.</p>
+            </div>
+          </div>
+
+          <div className={`faq-item ${activeFaq === 'faq-7' ? 'active' : ''}`}>
+            <div className="faq-question" onClick={() => toggleFaq('faq-7')}>
+              <h4>투자자 티어별 혜택과 거버넌스 권한은 무엇인가요?</h4>
+              <span className="faq-chevron">▼</span>
+            </div>
+            <div className="faq-answer">
+              <p>티어별 혜택: (1) 인스티튜셔널($5M+): 이사회 옵저버 석, 월간 경영진 브리핑, 독점 공동투자권, 맞춤 베스팅, 전담 IR 매니저 (2) 스트래티직($2M+): 분기별 전략 세션, 파트너십 우선권, 기술 협력, 공동 마케팅 (3) 그로스($500K+): 분기별 업데이트 콜, 프라이빗 커뮤니티, 거버넌스 참여권, 신규 기능 얼리 액세스 (4) 스탠다드($100K+): 월간 뉴스레터, 기본 거버넌스 투표권, 투자자 전용 채널. 모든 프라이빗 투자자는 DAO 거버넌스 투표권을 보유합니다.</p>
+            </div>
+          </div>
+
+          <div className={`faq-item ${activeFaq === 'faq-8' ? 'active' : ''}`}>
+            <div className="faq-question" onClick={() => toggleFaq('faq-8')}>
+              <h4>결제 방법과 환불 정책은 어떻게 되나요?</h4>
+              <span className="faq-chevron">▼</span>
+            </div>
+            <div className="faq-answer">
+              <p>결제 방법: USDT(ERC-20/TRC-20), USDC(ERC-20), 또는 은행 송금(USD/EUR)이 가능합니다. $1M 이상 투자 시 분할 납입이 가능하며, 납입 일정은 협의 가능합니다. 환불 정책: SAFT 계약 체결 전까지는 전액 환불 가능합니다. 계약 후에는 프로젝트 중단, 메인넷 런칭 실패, 중대한 로드맵 변경 시에만 환불 청구가 가능합니다. 투자자 귀책 사유에 의한 중도 해지는 불가하며, 세부 조건은 SAFT 계약서에 명시됩니다.</p>
             </div>
           </div>
         </div>
@@ -1323,13 +1420,106 @@ export default function PrivateRoundPage() {
           <h2 style={{ fontSize: '2.5rem', fontWeight: 800, marginBottom: '1rem' }}>기관 투자자가 되세요</h2>
           <p style={{ color: 'rgba(255,255,255,0.8)', fontSize: '1.125rem', marginBottom: '2rem' }}>
             TBURN Chain의 프라이빗 투자자로<br />
-            50% 할인과 TGE 즉시 유동성을 확보하세요!
+            런칭가 대비 50% 할인과 TGE 즉시 유동성을 확보하세요!
           </p>
-          <button className="btn-primary" style={{ background: 'var(--dark)', fontSize: '1.25rem', padding: '20px 50px' }}>
+          <button 
+            className="btn-primary" 
+            style={{ background: 'var(--dark)', fontSize: '1.25rem', padding: '20px 50px' }}
+            onClick={() => setInquiryDialogOpen(true)}
+            data-testid="button-invest-now"
+          >
             🔐 지금 투자하기
           </button>
         </div>
       </section>
+
+      {/* Investment Inquiry Dialog */}
+      <Dialog open={inquiryDialogOpen} onOpenChange={setInquiryDialogOpen}>
+        <DialogContent className="sm:max-w-[500px] bg-slate-900 border-purple-500/30 text-white">
+          <DialogHeader>
+            <DialogTitle className="text-xl font-bold text-purple-400">프라이빗 라운드 투자 문의</DialogTitle>
+            <DialogDescription className="text-slate-400">
+              담당자가 1-2 영업일 내에 연락드립니다. 기관 투자자 전용입니다.
+            </DialogDescription>
+          </DialogHeader>
+          <form onSubmit={handleSubmit} className="space-y-4 mt-4">
+            <div className="space-y-2">
+              <Label htmlFor="name" className="text-slate-300">담당자명 *</Label>
+              <Input
+                id="name"
+                placeholder="홍길동"
+                value={formData.name}
+                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                className="bg-slate-800 border-slate-700 text-white placeholder:text-slate-500"
+                data-testid="input-name"
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="email" className="text-slate-300">이메일 *</Label>
+              <Input
+                id="email"
+                type="email"
+                placeholder="contact@company.com"
+                value={formData.email}
+                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                className="bg-slate-800 border-slate-700 text-white placeholder:text-slate-500"
+                data-testid="input-email"
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="company" className="text-slate-300">회사/기관명 *</Label>
+              <Input
+                id="company"
+                placeholder="ABC Ventures"
+                value={formData.company}
+                onChange={(e) => setFormData({ ...formData, company: e.target.value })}
+                className="bg-slate-800 border-slate-700 text-white placeholder:text-slate-500"
+                data-testid="input-company"
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="investmentAmount" className="text-slate-300">투자 예정 금액</Label>
+              <Input
+                id="investmentAmount"
+                placeholder="$500,000"
+                value={formData.investmentAmount}
+                onChange={(e) => setFormData({ ...formData, investmentAmount: e.target.value })}
+                className="bg-slate-800 border-slate-700 text-white placeholder:text-slate-500"
+                data-testid="input-amount"
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="message" className="text-slate-300">추가 메시지</Label>
+              <Textarea
+                id="message"
+                placeholder="투자 관련 추가 문의사항을 입력해주세요"
+                value={formData.message}
+                onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                className="bg-slate-800 border-slate-700 text-white placeholder:text-slate-500 min-h-[80px]"
+                data-testid="input-message"
+              />
+            </div>
+            <div className="flex gap-3 pt-4">
+              <Button
+                type="button"
+                variant="outline"
+                onClick={() => setInquiryDialogOpen(false)}
+                className="flex-1 border-slate-600 text-slate-300 hover:bg-slate-800"
+              >
+                취소
+              </Button>
+              <Button
+                type="submit"
+                disabled={inquiryMutation.isPending}
+                className="flex-1 bg-purple-600 hover:bg-purple-700 text-white"
+                data-testid="button-submit-inquiry"
+              >
+                {inquiryMutation.isPending ? "제출 중..." : "투자 문의 제출"}
+              </Button>
+            </div>
+          </form>
+        </DialogContent>
+      </Dialog>
 
       {/* Footer */}
       <footer className="footer">
