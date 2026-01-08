@@ -63,6 +63,46 @@ const VC_DEMO_WALLET = {
   }
 };
 
+// Guided Tour Steps
+const TOUR_STEPS = [
+  {
+    id: 'welcome',
+    title: 'Welcome to TBURN Platform',
+    content: 'This guided tour will walk you through the key features of the TBURN blockchain ecosystem. Let\'s explore what makes TBURN unique.',
+    target: null,
+  },
+  {
+    id: 'demo-wallet',
+    title: 'Your Demo Wallet',
+    content: 'This pre-funded demo wallet contains 1M TBURN, 10 ETH, and 50K USDT for testing. You can simulate transactions without real funds.',
+    target: 'demo-wallet-card',
+  },
+  {
+    id: 'quick-actions',
+    title: 'Quick Actions',
+    content: 'Use these buttons to simulate swaps, transfers, and staking. Watch your balance update in real-time.',
+    target: 'demo-wallet-actions',
+  },
+  {
+    id: 'metrics',
+    title: 'Real-Time Metrics',
+    content: 'View live network statistics including TPS, validator count, and block height. Data refreshes every 5 seconds.',
+    target: 'investment-highlights',
+  },
+  {
+    id: 'features',
+    title: 'Platform Features',
+    content: 'Explore our comprehensive DeFi suite, infrastructure tools, and ecosystem applications using the tabs below.',
+    target: 'main-tabs',
+  },
+  {
+    id: 'complete',
+    title: 'Tour Complete!',
+    content: 'You\'re ready to explore the TBURN platform. Use the Demo Wallet to test features, or click "Explore Platform" to dive deeper.',
+    target: null,
+  },
+];
+
 // Static metrics (will be overridden by real-time data where applicable)
 const STATIC_METRICS = {
   totalSupply: '10,000,000,000 TBURN',
@@ -303,7 +343,175 @@ export default function VCTestMode() {
     setTourStep(0);
   };
 
+  const closeTour = () => {
+    setShowTour(false);
+    setTourStep(0);
+  };
+
+  const nextTourStep = () => {
+    if (tourStep < TOUR_STEPS.length - 1) {
+      setTourStep(tourStep + 1);
+    } else {
+      closeTour();
+    }
+  };
+
+  const prevTourStep = () => {
+    if (tourStep > 0) {
+      setTourStep(tourStep - 1);
+    }
+  };
+
+  // Demo wallet transaction simulations with balance protection
+  const simulateSwap = () => {
+    const maxSwap = Math.min(demoWallet.balance.TBURN, 10000);
+    if (maxSwap < 100) {
+      toast({
+        title: t('vcTestMode.insufficientBalance', 'Insufficient Balance'),
+        description: t('vcTestMode.insufficientBalanceDesc', 'Not enough TBURN to swap. Reset wallet to continue.'),
+        variant: 'destructive'
+      });
+      return;
+    }
+    const swapAmount = Math.floor(Math.random() * (maxSwap * 0.5)) + Math.floor(maxSwap * 0.1);
+    const receivedUsdt = Math.floor(swapAmount * 0.52);
+    setDemoWallet(prev => ({
+      ...prev,
+      balance: {
+        ...prev.balance,
+        TBURN: Math.max(0, prev.balance.TBURN - swapAmount),
+        USDT: prev.balance.USDT + receivedUsdt
+      }
+    }));
+    toast({
+      title: t('vcTestMode.swapSuccess', 'Swap Successful'),
+      description: t('vcTestMode.swapDesc', `Swapped ${swapAmount.toLocaleString()} TBURN for $${receivedUsdt.toLocaleString()} USDT`)
+    });
+  };
+
+  const simulateStake = () => {
+    const maxStake = Math.min(demoWallet.balance.TBURN, 50000);
+    if (maxStake < 1000) {
+      toast({
+        title: t('vcTestMode.insufficientBalance', 'Insufficient Balance'),
+        description: t('vcTestMode.insufficientBalanceDesc', 'Not enough TBURN to stake. Reset wallet to continue.'),
+        variant: 'destructive'
+      });
+      return;
+    }
+    const stakeAmount = Math.floor(Math.random() * (maxStake * 0.5)) + Math.floor(maxStake * 0.1);
+    setDemoWallet(prev => ({
+      ...prev,
+      balance: {
+        ...prev.balance,
+        TBURN: Math.max(0, prev.balance.TBURN - stakeAmount)
+      }
+    }));
+    toast({
+      title: t('vcTestMode.stakeSuccess', 'Staking Initiated'),
+      description: t('vcTestMode.stakeDesc', `Staked ${stakeAmount.toLocaleString()} TBURN at 12.5% APY`)
+    });
+  };
+
+  const simulateTransfer = () => {
+    const maxTransfer = Math.min(demoWallet.balance.TBURN, 5000);
+    if (maxTransfer < 100) {
+      toast({
+        title: t('vcTestMode.insufficientBalance', 'Insufficient Balance'),
+        description: t('vcTestMode.insufficientBalanceDesc', 'Not enough TBURN to transfer. Reset wallet to continue.'),
+        variant: 'destructive'
+      });
+      return;
+    }
+    const transferAmount = Math.floor(Math.random() * (maxTransfer * 0.5)) + Math.floor(maxTransfer * 0.1);
+    setDemoWallet(prev => ({
+      ...prev,
+      balance: {
+        ...prev.balance,
+        TBURN: Math.max(0, prev.balance.TBURN - transferAmount)
+      }
+    }));
+    toast({
+      title: t('vcTestMode.transferSuccess', 'Transfer Complete'),
+      description: t('vcTestMode.transferDesc', `Sent ${transferAmount.toLocaleString()} TBURN to 0x...7890`)
+    });
+  };
+
+  const currentTourStep = TOUR_STEPS[tourStep];
+
   return (
+    <>
+      {/* Guided Tour Overlay */}
+      {showTour && (
+        <div className="fixed inset-0 z-50" data-testid="guided-tour-overlay">
+          {/* Backdrop */}
+          <div className="absolute inset-0 bg-black/60" onClick={closeTour} />
+          
+          {/* Tour Dialog */}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-md px-4">
+            <Card className="bg-white dark:bg-gray-900 border-2 border-purple-500 shadow-2xl">
+              <CardHeader className="pb-2">
+                <div className="flex items-center justify-between">
+                  <Badge className="bg-purple-500">
+                    {t('vcTestMode.tourStep', 'Step')} {tourStep + 1} / {TOUR_STEPS.length}
+                  </Badge>
+                  <Button 
+                    size="sm" 
+                    variant="ghost" 
+                    onClick={closeTour}
+                    className="h-8 w-8 p-0"
+                    data-testid="button-close-tour"
+                  >
+                    ✕
+                  </Button>
+                </div>
+                <CardTitle className="text-xl text-gray-900 dark:text-white mt-2">
+                  {currentTourStep.title}
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <p className="text-gray-600 dark:text-gray-400">
+                  {currentTourStep.content}
+                </p>
+                
+                {/* Progress dots */}
+                <div className="flex justify-center gap-2">
+                  {TOUR_STEPS.map((_, idx) => (
+                    <div
+                      key={idx}
+                      className={`w-2 h-2 rounded-full transition-colors ${
+                        idx === tourStep ? 'bg-purple-500' : 'bg-gray-300 dark:bg-gray-600'
+                      }`}
+                    />
+                  ))}
+                </div>
+                
+                {/* Navigation buttons */}
+                <div className="flex justify-between pt-2">
+                  <Button
+                    variant="outline"
+                    onClick={prevTourStep}
+                    disabled={tourStep === 0}
+                    data-testid="button-prev-tour"
+                  >
+                    {t('vcTestMode.previous', 'Previous')}
+                  </Button>
+                  <Button
+                    onClick={nextTourStep}
+                    className="bg-gradient-to-r from-purple-600 to-blue-600"
+                    data-testid="button-next-tour"
+                  >
+                    {tourStep === TOUR_STEPS.length - 1 
+                      ? t('vcTestMode.finish', 'Finish') 
+                      : t('vcTestMode.next', 'Next')}
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      )}
+      
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950">
       {/* Hero Section */}
       <section className="relative overflow-hidden border-b border-gray-200 dark:border-white/10">
@@ -397,7 +605,45 @@ export default function VCTestMode() {
                     <span className="font-mono font-bold">${demoWallet.balance.USDT.toLocaleString()}</span>
                   </div>
                 </div>
-                <div className="pt-2 border-t border-white/10">
+                {/* Quick Actions */}
+                <div className="pt-3 border-t border-white/10" id="demo-wallet-actions" data-testid="demo-wallet-actions">
+                  <p className="text-xs text-gray-400 text-center mb-3">
+                    {t('vcTestMode.quickActions', 'Quick Actions')}
+                  </p>
+                  <div className="grid grid-cols-3 gap-2">
+                    <Button 
+                      size="sm" 
+                      onClick={simulateSwap}
+                      className="bg-blue-500/20 hover:bg-blue-500/30 text-blue-300 border-blue-500/30"
+                      variant="outline"
+                      data-testid="button-simulate-swap"
+                    >
+                      <ArrowLeftRight className="w-3 h-3 mr-1" />
+                      {t('vcTestMode.swap', 'Swap')}
+                    </Button>
+                    <Button 
+                      size="sm" 
+                      onClick={simulateStake}
+                      className="bg-purple-500/20 hover:bg-purple-500/30 text-purple-300 border-purple-500/30"
+                      variant="outline"
+                      data-testid="button-simulate-stake"
+                    >
+                      <Lock className="w-3 h-3 mr-1" />
+                      {t('vcTestMode.stake', 'Stake')}
+                    </Button>
+                    <Button 
+                      size="sm" 
+                      onClick={simulateTransfer}
+                      className="bg-green-500/20 hover:bg-green-500/30 text-green-300 border-green-500/30"
+                      variant="outline"
+                      data-testid="button-simulate-transfer"
+                    >
+                      <Wallet className="w-3 h-3 mr-1" />
+                      {t('vcTestMode.send', 'Send')}
+                    </Button>
+                  </div>
+                </div>
+                <div className="pt-2">
                   <p className="text-xs text-gray-400 text-center">
                     {t('vcTestMode.testFunds', 'Test funds for platform evaluation. No real value.')}
                   </p>
@@ -1440,5 +1686,6 @@ export default function VCTestMode() {
         </div>
       </section>
     </div>
+    </>
   );
 }
