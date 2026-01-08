@@ -19,6 +19,112 @@ declare global {
 
 export type WalletType = "metamask" | "rabby" | "trust" | "coinbase" | "ledger" | null;
 
+// Mobile detection utilities
+export function isMobileDevice(): boolean {
+  if (typeof window === "undefined") return false;
+  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+}
+
+export function isInMobileWalletBrowser(): boolean {
+  if (typeof window === "undefined") return false;
+  const ethereum = window.ethereum;
+  if (!ethereum) return false;
+  // Check if we're inside a wallet's built-in browser
+  return !!(ethereum.isMetaMask || ethereum.isTrust || ethereum.isCoinbaseWallet);
+}
+
+// Deep link URLs for mobile wallet apps
+export interface WalletDeepLink {
+  native: string; // Native app scheme (e.g., metamask://)
+  universal: string; // Universal link (https://)
+  appStore: string;
+  playStore: string;
+}
+
+export function getWalletDeepLinks(walletType: WalletType): WalletDeepLink | null {
+  if (!walletType) return null;
+  
+  // Get the current URL to pass to the wallet
+  const currentUrl = typeof window !== "undefined" 
+    ? encodeURIComponent(window.location.href) 
+    : "";
+  const currentHost = typeof window !== "undefined"
+    ? encodeURIComponent(window.location.host)
+    : "";
+
+  const deepLinks: Record<string, WalletDeepLink> = {
+    metamask: {
+      native: `metamask://dapp/${currentHost}`,
+      universal: `https://metamask.app.link/dapp/${typeof window !== "undefined" ? window.location.host + window.location.pathname : ""}`,
+      appStore: "https://apps.apple.com/app/metamask-blockchain-wallet/id1438144202",
+      playStore: "https://play.google.com/store/apps/details?id=io.metamask",
+    },
+    trust: {
+      native: `trust://open_url?coin_id=60&url=${currentUrl}`,
+      universal: `https://link.trustwallet.com/open_url?coin_id=60&url=${currentUrl}`,
+      appStore: "https://apps.apple.com/app/trust-crypto-bitcoin-wallet/id1288339409",
+      playStore: "https://play.google.com/store/apps/details?id=com.wallet.crypto.trustapp",
+    },
+    coinbase: {
+      native: `cbwallet://dapp?url=${currentUrl}`,
+      universal: `https://go.cb-w.com/dapp?cb_url=${currentUrl}`,
+      appStore: "https://apps.apple.com/app/coinbase-wallet-nfts-crypto/id1278383455",
+      playStore: "https://play.google.com/store/apps/details?id=org.toshi",
+    },
+    rabby: {
+      // Rabby is browser extension only, no mobile app
+      native: "",
+      universal: "",
+      appStore: "",
+      playStore: "",
+    },
+    ledger: {
+      native: `ledgerlive://`,
+      universal: `https://www.ledger.com/ledger-live`,
+      appStore: "https://apps.apple.com/app/ledger-live-crypto-nft-app/id1361671700",
+      playStore: "https://play.google.com/store/apps/details?id=com.ledger.live",
+    },
+  };
+
+  return deepLinks[walletType] || null;
+}
+
+// Open wallet app via deep link
+export function openWalletApp(walletType: WalletType): boolean {
+  if (!walletType) return false;
+  
+  const deepLinks = getWalletDeepLinks(walletType);
+  if (!deepLinks || !deepLinks.universal) return false;
+  
+  // Try native scheme first, then universal link
+  if (deepLinks.native) {
+    // Use a hidden iframe to try native scheme without navigating away
+    const iframe = document.createElement("iframe");
+    iframe.style.display = "none";
+    iframe.src = deepLinks.native;
+    document.body.appendChild(iframe);
+    
+    // After a short delay, try universal link as fallback
+    setTimeout(() => {
+      document.body.removeChild(iframe);
+      window.location.href = deepLinks.universal;
+    }, 500);
+    
+    return true;
+  }
+  
+  // Fallback to universal link
+  window.location.href = deepLinks.universal;
+  return true;
+}
+
+// Check if wallet has mobile app support
+export function hasMobileApp(walletType: WalletType): boolean {
+  if (!walletType) return false;
+  // Rabby is browser-only
+  return walletType !== "rabby";
+}
+
 export interface MemberInfo {
   id: string;
   accountAddress: string;

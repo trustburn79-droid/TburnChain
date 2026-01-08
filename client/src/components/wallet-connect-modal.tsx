@@ -1,6 +1,14 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { useWeb3, type WalletType } from "@/lib/web3-context";
+import { 
+  useWeb3, 
+  type WalletType, 
+  isMobileDevice, 
+  isInMobileWalletBrowser,
+  getWalletDeepLinks,
+  openWalletApp,
+  hasMobileApp,
+} from "@/lib/web3-context";
 import {
   Dialog,
   DialogContent,
@@ -11,7 +19,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { Loader2, ExternalLink, AlertCircle, CheckCircle, Wallet, Shield, Usb, Hexagon } from "lucide-react";
+import { Loader2, ExternalLink, AlertCircle, CheckCircle, Wallet, Shield, Usb, Hexagon, Smartphone, Download } from "lucide-react";
 
 interface WalletOption {
   id: WalletType;
@@ -94,12 +102,28 @@ export function WalletConnectModal({ open, onOpenChange }: WalletConnectModalPro
   const { t } = useTranslation();
   const { connect, isConnecting, error, isWalletAvailable } = useWeb3();
   const [connectingWallet, setConnectingWallet] = useState<WalletType>(null);
+  const [isMobile, setIsMobile] = useState(false);
+  const [isInsideWalletApp, setIsInsideWalletApp] = useState(false);
+
+  useEffect(() => {
+    setIsMobile(isMobileDevice());
+    setIsInsideWalletApp(isInMobileWalletBrowser());
+  }, []);
 
   // Check if any ethereum provider exists
   const hasAnyProvider = typeof window !== "undefined" && !!window.ethereum;
 
   const handleConnect = async (walletType: WalletType) => {
     if (!walletType) return;
+    
+    // On mobile, if we're not inside a wallet's browser, open the wallet app
+    if (isMobile && !isInsideWalletApp && !hasAnyProvider && hasMobileApp(walletType)) {
+      setConnectingWallet(walletType);
+      openWalletApp(walletType);
+      // Don't close modal - user will be redirected to wallet app
+      setTimeout(() => setConnectingWallet(null), 3000);
+      return;
+    }
     
     setConnectingWallet(walletType);
     const success = await connect(walletType);
@@ -108,6 +132,22 @@ export function WalletConnectModal({ open, onOpenChange }: WalletConnectModalPro
     if (success) {
       onOpenChange(false);
     }
+  };
+
+  // Handle opening wallet app directly (for mobile "Open in App" button)
+  const handleOpenInApp = (walletType: WalletType) => {
+    if (!walletType) return;
+    openWalletApp(walletType);
+  };
+
+  // Get app store link based on platform
+  const getAppStoreLink = (walletType: WalletType): string => {
+    const deepLinks = getWalletDeepLinks(walletType);
+    if (!deepLinks) return "";
+    
+    // Detect iOS vs Android
+    const isIOS = typeof navigator !== "undefined" && /iPad|iPhone|iPod/.test(navigator.userAgent);
+    return isIOS ? deepLinks.appStore : deepLinks.playStore;
   };
 
   const browserWallets = WALLET_OPTIONS.filter((w) => w.category === "browser");
@@ -133,11 +173,32 @@ export function WalletConnectModal({ open, onOpenChange }: WalletConnectModalPro
           </Alert>
         )}
 
-        {!hasAnyProvider && (
+        {/* Mobile-specific guidance */}
+        {isMobile && !isInsideWalletApp && !hasAnyProvider && (
+          <Alert className="border-primary/30 bg-primary/5" data-testid="alert-mobile-wallet">
+            <Smartphone className="h-4 w-4 text-primary" />
+            <AlertDescription>
+              {t("wallet.mobileWalletGuide", "Tap your preferred wallet below to open its app. If you don't have a wallet app installed, you can download one.")}
+            </AlertDescription>
+          </Alert>
+        )}
+
+        {/* Desktop no wallet warning */}
+        {!isMobile && !hasAnyProvider && (
           <Alert data-testid="alert-no-wallet">
             <AlertCircle className="h-4 w-4" />
             <AlertDescription>
               {t("wallet.noWalletDetected", "No Web3 wallet detected. Please install a wallet extension like MetaMask and refresh the page. If viewing in Replit, open in a new tab with your browser's wallet extension.")}
+            </AlertDescription>
+          </Alert>
+        )}
+
+        {/* Inside wallet app browser notification */}
+        {isInsideWalletApp && (
+          <Alert className="border-green-500/30 bg-green-500/5" data-testid="alert-wallet-browser">
+            <CheckCircle className="h-4 w-4 text-green-500" />
+            <AlertDescription>
+              {t("wallet.insideWalletBrowser", "You're browsing from a wallet app. Tap Connect to link your wallet.")}
             </AlertDescription>
           </Alert>
         )}
@@ -177,35 +238,73 @@ export function WalletConnectModal({ open, onOpenChange }: WalletConnectModalPro
                     </div>
                     
                     <div className="flex items-center gap-2">
-                      {/* Always show connect button - detection may fail but wallet might be installed */}
-                      <Button
-                        size="sm"
-                        variant={isAvailable ? "default" : "secondary"}
-                        onClick={() => handleConnect(wallet.id)}
-                        disabled={isConnecting}
-                        data-testid={`button-connect-${wallet.id}`}
-                      >
-                        {isLoading ? (
-                          <>
-                            <Loader2 className="h-4 w-4 mr-1 animate-spin" />
-                            {t("wallet.connecting")}
-                          </>
-                        ) : (
-                          t("wallet.connect")
-                        )}
-                      </Button>
-                      {/* Show install link when not detected */}
-                      {!isAvailable && (
-                        <Button
-                          size="sm"
-                          variant="ghost"
-                          asChild
-                          data-testid={`button-install-${wallet.id}`}
-                        >
-                          <a href={wallet.installUrl} target="_blank" rel="noopener noreferrer">
-                            <ExternalLink className="h-3 w-3" />
-                          </a>
-                        </Button>
+                      {/* Mobile: Show Open in App button for wallets with mobile apps */}
+                      {isMobile && !isInsideWalletApp && !isAvailable && hasMobileApp(wallet.id) ? (
+                        <>
+                          <Button
+                            size="sm"
+                            variant="default"
+                            onClick={() => handleOpenInApp(wallet.id)}
+                            disabled={isConnecting}
+                            data-testid={`button-open-app-${wallet.id}`}
+                          >
+                            {isLoading ? (
+                              <>
+                                <Loader2 className="h-4 w-4 mr-1 animate-spin" />
+                                {t("wallet.opening", "Opening...")}
+                              </>
+                            ) : (
+                              <>
+                                <Smartphone className="h-4 w-4 mr-1" />
+                                {t("wallet.openApp", "Open App")}
+                              </>
+                            )}
+                          </Button>
+                          {/* Download app link */}
+                          <Button
+                            size="sm"
+                            variant="ghost"
+                            asChild
+                            data-testid={`button-download-${wallet.id}`}
+                          >
+                            <a href={getAppStoreLink(wallet.id)} target="_blank" rel="noopener noreferrer">
+                              <Download className="h-3 w-3" />
+                            </a>
+                          </Button>
+                        </>
+                      ) : (
+                        <>
+                          {/* Desktop or inside wallet browser: Standard connect button */}
+                          <Button
+                            size="sm"
+                            variant={isAvailable ? "default" : "secondary"}
+                            onClick={() => handleConnect(wallet.id)}
+                            disabled={isConnecting}
+                            data-testid={`button-connect-${wallet.id}`}
+                          >
+                            {isLoading ? (
+                              <>
+                                <Loader2 className="h-4 w-4 mr-1 animate-spin" />
+                                {t("wallet.connecting")}
+                              </>
+                            ) : (
+                              t("wallet.connect")
+                            )}
+                          </Button>
+                          {/* Show install link when not detected on desktop */}
+                          {!isAvailable && !isMobile && (
+                            <Button
+                              size="sm"
+                              variant="ghost"
+                              asChild
+                              data-testid={`button-install-${wallet.id}`}
+                            >
+                              <a href={wallet.installUrl} target="_blank" rel="noopener noreferrer">
+                                <ExternalLink className="h-3 w-3" />
+                              </a>
+                            </Button>
+                          )}
+                        </>
                       )}
                     </div>
                   </div>
