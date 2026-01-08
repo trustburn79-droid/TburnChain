@@ -1,8 +1,15 @@
 import { useState } from "react";
 import { Link } from "wouter";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useMutation } from "@tanstack/react-query";
 import { TBurnLogo } from "@/components/tburn-logo";
 import { useWeb3 } from "@/lib/web3-context";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@/components/ui/label";
+import { useToast } from "@/hooks/use-toast";
+import { apiRequest } from "@/lib/queryClient";
 
 interface InvestmentRound {
   name: string;
@@ -30,7 +37,16 @@ interface InvestmentRoundsStatsResponse {
 export default function PublicRoundPage() {
   const [activeFaq, setActiveFaq] = useState<string | null>("faq-1");
   const [investAmount, setInvestAmount] = useState(1000);
+  const [inquiryDialogOpen, setInquiryDialogOpen] = useState(false);
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    company: "",
+    investmentAmount: "",
+    message: ""
+  });
   const { isConnected, address, connect, disconnect, formatAddress } = useWeb3();
+  const { toast } = useToast();
 
   const { data: response, isLoading } = useQuery<InvestmentRoundsStatsResponse>({
     queryKey: ['/api/token-programs/investment-rounds/stats'],
@@ -38,6 +54,43 @@ export default function PublicRoundPage() {
   const stats = response?.data;
 
   const publicRound = stats?.rounds?.find(r => r.name.toLowerCase().includes('public'));
+
+  const inquiryMutation = useMutation({
+    mutationFn: async (data: typeof formData) => {
+      return apiRequest("POST", "/api/investment-inquiry", {
+        ...data,
+        investmentRound: "public"
+      });
+    },
+    onSuccess: () => {
+      toast({
+        title: "문의가 접수되었습니다",
+        description: "담당자가 곧 연락드리겠습니다.",
+      });
+      setInquiryDialogOpen(false);
+      setFormData({ name: "", email: "", company: "", investmentAmount: "", message: "" });
+    },
+    onError: (error: Error) => {
+      toast({
+        title: "오류가 발생했습니다",
+        description: error.message,
+        variant: "destructive",
+      });
+    },
+  });
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!formData.name || !formData.email) {
+      toast({
+        title: "필수 항목을 입력해주세요",
+        description: "이름과 이메일은 필수입니다.",
+        variant: "destructive",
+      });
+      return;
+    }
+    inquiryMutation.mutate(formData);
+  };
 
   const handleWalletClick = async () => {
     if (isConnected) {
@@ -52,30 +105,30 @@ export default function PublicRoundPage() {
   };
 
   const investmentHighlights = [
-    { value: "$0.025", label: "토큰당 가격", compare: "" },
-    { value: "20%", label: "시장가 대비 할인", compare: "" },
-    { value: "15%", label: "TGE 즉시 해제", compare: "" },
+    { value: "$0.20", label: "토큰당 가격", compare: "" },
+    { value: "60%", label: "런칭가 대비 할인", compare: "" },
+    { value: "10%", label: "TGE 즉시 해제", compare: "" },
     { value: "$100", label: "최소 참여금액", compare: "" },
   ];
 
   const distributions = [
-    { id: "seed", name: "Seed Round", amount: "$0.008", discount: "70%", status: "completed" },
-    { id: "private", name: "Private Round", amount: "$0.015", discount: "50%", status: "completed" },
-    { id: "public", name: "Public Round", amount: "$0.025", discount: "20%", status: "current" },
+    { id: "seed", name: "Seed Round", amount: "$0.04", discount: "80%", status: "completed" },
+    { id: "private", name: "Private Round", amount: "$0.10", discount: "50%", status: "completed" },
+    { id: "public", name: "Public Round", amount: "$0.20", discount: "60%", status: "current" },
   ];
 
   const participationTiers = [
-    { id: "whale", icon: "🐋", name: "Whale", subtitle: "대형 참여자", amount: "$50K+", details: [{ label: "최소 참여", value: "$50,000" }, { label: "추가 보너스", value: "+5%" }, { label: "TGE 해제", value: "20%" }], benefits: ["VIP 커뮤니티 접근", "에어드랍 우선권", "전용 AMA 초대", "얼리 알파 정보", "전담 지원"] },
-    { id: "dolphin", icon: "🐬", name: "Dolphin", subtitle: "중형 참여자", amount: "$10K+", details: [{ label: "최소 참여", value: "$10,000" }, { label: "추가 보너스", value: "+3%" }, { label: "TGE 해제", value: "17%" }], benefits: ["프리미엄 커뮤니티", "에어드랍 참여", "분기 AMA", "뉴스레터", "우선 지원"] },
-    { id: "fish", icon: "🐟", name: "Fish", subtitle: "일반 참여자", amount: "$1K+", details: [{ label: "최소 참여", value: "$1,000" }, { label: "추가 보너스", value: "+1%" }, { label: "TGE 해제", value: "15%" }], benefits: ["일반 커뮤니티", "기본 에어드랍", "공개 AMA", "월간 업데이트", "일반 지원"] },
-    { id: "shrimp", icon: "🦐", name: "Shrimp", subtitle: "소액 참여자", amount: "$100+", details: [{ label: "최소 참여", value: "$100" }, { label: "추가 보너스", value: "-" }, { label: "TGE 해제", value: "15%" }], benefits: ["공개 채널 접근", "기본 참여", "공개 정보", "이메일 알림", "커뮤니티 지원"] },
+    { id: "whale", icon: "🐋", name: "Whale", subtitle: "대형 참여자", amount: "$50K+", details: [{ label: "최소 참여", value: "$50,000" }, { label: "추가 보너스", value: "+5%" }, { label: "TGE 해제", value: "15%" }], benefits: ["VIP 커뮤니티 접근", "에어드랍 우선권", "전용 AMA 초대", "얼리 알파 정보", "전담 지원"] },
+    { id: "dolphin", icon: "🐬", name: "Dolphin", subtitle: "중형 참여자", amount: "$10K+", details: [{ label: "최소 참여", value: "$10,000" }, { label: "추가 보너스", value: "+3%" }, { label: "TGE 해제", value: "12%" }], benefits: ["프리미엄 커뮤니티", "에어드랍 참여", "분기 AMA", "뉴스레터", "우선 지원"] },
+    { id: "fish", icon: "🐟", name: "Fish", subtitle: "일반 참여자", amount: "$1K+", details: [{ label: "최소 참여", value: "$1,000" }, { label: "추가 보너스", value: "+1%" }, { label: "TGE 해제", value: "10%" }], benefits: ["일반 커뮤니티", "기본 에어드랍", "공개 AMA", "월간 업데이트", "일반 지원"] },
+    { id: "shrimp", icon: "🦐", name: "Shrimp", subtitle: "소액 참여자", amount: "$100+", details: [{ label: "최소 참여", value: "$100" }, { label: "추가 보너스", value: "-" }, { label: "TGE 해제", value: "10%" }], benefits: ["공개 채널 접근", "기본 참여", "공개 정보", "이메일 알림", "커뮤니티 지원"] },
   ];
 
   const vestingPhases = [
-    { icon: "🎉", title: "TGE 해제", value: "15%", desc: "즉시 해제" },
-    { icon: "⏳", title: "클리프 없음", value: "0개월", desc: "바로 시작" },
-    { icon: "📈", title: "월간 베스팅", value: "14.2%", desc: "6개월간" },
-    { icon: "✅", title: "완전 언락", value: "100%", desc: "6개월 후" },
+    { icon: "🎉", title: "TGE 해제", value: "10%", desc: "즉시 해제" },
+    { icon: "⏳", title: "클리프", value: "3개월", desc: "락업 기간" },
+    { icon: "📈", title: "월간 베스팅", value: "15%", desc: "6개월간" },
+    { icon: "✅", title: "완전 언락", value: "100%", desc: "9개월 후" },
   ];
 
   const participateSteps = [
@@ -92,9 +145,9 @@ export default function PublicRoundPage() {
   ];
 
   const quickAmounts = [100, 500, 1000, 5000, 10000];
-  const tokenPrice = 0.025;
+  const tokenPrice = 0.20;
   const tokensReceived = investAmount / tokenPrice;
-  const listingPrice = 0.031;
+  const listingPrice = 0.50;
   const potentialValue = tokensReceived * listingPrice;
   const potentialProfit = potentialValue - investAmount;
 
@@ -1061,30 +1114,30 @@ export default function PublicRoundPage() {
           </div>
           <h1>
             퍼블릭 라운드로<br />
-            <span className="gradient-text">6억 TBURN</span> 기회를 잡으세요
+            <span className="gradient-text">10억 TBURN</span> 기회를 잡으세요
           </h1>
           <p className="hero-subtitle">
-            누구나 참여 가능한 공개 세일. 
-            최소 $100부터 시작, TGE 15% 즉시 해제, 클리프 없음!
+            누구나 참여 가능한 공개 세일. 런칭가($0.50) 대비 60% 할인된 $0.20!
+            최소 $100부터 시작, TGE 10% 즉시 해제, 3개월 클리프!
           </p>
 
           <div className="countdown-container" data-testid="countdown-timer">
             <div className="countdown-label">🔥 세일 종료까지</div>
             <div className="countdown-timer">
               <div className="countdown-item">
-                <div className="countdown-value">14</div>
+                <div className="countdown-value">21</div>
                 <div className="countdown-unit">DAYS</div>
               </div>
               <div className="countdown-item">
-                <div className="countdown-value">08</div>
+                <div className="countdown-value">14</div>
                 <div className="countdown-unit">HOURS</div>
               </div>
               <div className="countdown-item">
-                <div className="countdown-value">32</div>
+                <div className="countdown-value">45</div>
                 <div className="countdown-unit">MINS</div>
               </div>
               <div className="countdown-item">
-                <div className="countdown-value">15</div>
+                <div className="countdown-value">30</div>
                 <div className="countdown-unit">SECS</div>
               </div>
             </div>
@@ -1092,15 +1145,15 @@ export default function PublicRoundPage() {
 
           <div className="fundraise-progress" data-testid="fundraise-progress">
             <div className="progress-header">
-              <span className="raised">$6,750,000</span>
-              <span className="goal">목표 $15,000,000</span>
+              <span className="raised">$89,750,000</span>
+              <span className="goal">목표 $200,000,000</span>
             </div>
             <div className="progress-bar">
               <div className="progress-fill"></div>
             </div>
             <div className="progress-stats">
               <span className="percent">45% 달성</span>
-              <span className="remaining">$8,250,000 남음</span>
+              <span className="remaining">$110,250,000 남음</span>
             </div>
           </div>
 
@@ -1121,19 +1174,19 @@ export default function PublicRoundPage() {
             ) : (
               <>
                 <div className="stat-card" data-testid="stat-total-public">
-                  <div className="stat-value">{publicRound?.allocation || "6억"}</div>
-                  <div className="stat-label">퍼블릭 배정</div>
+                  <div className="stat-value">{publicRound?.allocation || "10억"}</div>
+                  <div className="stat-label">퍼블릭 배정 (10%)</div>
                 </div>
                 <div className="stat-card" data-testid="stat-price">
-                  <div className="stat-value">{publicRound?.price || "$0.025"}</div>
+                  <div className="stat-value">{publicRound?.price || "$0.20"}</div>
                   <div className="stat-label">토큰 가격</div>
                 </div>
                 <div className="stat-card" data-testid="stat-hardcap">
-                  <div className="stat-value">{publicRound?.raised || "$15M"}</div>
+                  <div className="stat-value">{publicRound?.raised || "$200M"}</div>
                   <div className="stat-label">하드캡</div>
                 </div>
                 <div className="stat-card" data-testid="stat-participants">
-                  <div className="stat-value">{publicRound?.investors || 5200}+</div>
+                  <div className="stat-value">{publicRound?.investors || 12500}+</div>
                   <div className="stat-label">참여자</div>
                 </div>
               </>
@@ -1141,10 +1194,10 @@ export default function PublicRoundPage() {
           </div>
 
           <div className="cta-group">
-            <button className="btn-primary" data-testid="button-apply-public">
+            <button className="btn-primary" data-testid="button-apply-public" onClick={() => setInquiryDialogOpen(true)}>
               🚀 지금 참여하기
             </button>
-            <button className="btn-secondary">
+            <button className="btn-secondary" onClick={() => window.open('/learn/whitepaper', '_blank')}>
               📖 세일 가이드 보기
             </button>
           </div>
@@ -1230,7 +1283,7 @@ export default function PublicRoundPage() {
                     <li key={idx}>{benefit}</li>
                   ))}
                 </ul>
-                <button className="tier-btn">참여하기</button>
+                <button className="tier-btn" onClick={() => setInquiryDialogOpen(true)}>참여하기</button>
               </div>
             </div>
           ))}
@@ -1242,7 +1295,7 @@ export default function PublicRoundPage() {
         <div className="section-header">
           <span className="section-badge">VESTING</span>
           <h2 className="section-title">베스팅 스케줄</h2>
-          <p className="section-subtitle">TGE 15% 즉시 해제, 클리프 없음!</p>
+          <p className="section-subtitle">TGE 10% 즉시 해제, 3개월 클리프 후 6개월 월간 베스팅</p>
         </div>
 
         <div className="vesting-container">
@@ -1299,7 +1352,7 @@ export default function PublicRoundPage() {
                   <li key={fidx}>{feature}</li>
                 ))}
               </ul>
-              <button className="platform-btn">참여하기</button>
+              <button className="platform-btn" onClick={() => setInquiryDialogOpen(true)}>참여하기</button>
             </div>
           ))}
         </div>
@@ -1346,11 +1399,11 @@ export default function PublicRoundPage() {
                 <span className="value highlight">{tokensReceived.toLocaleString()} TBURN</span>
               </div>
               <div className="result-item">
-                <span className="label">TGE 해제 (15%)</span>
-                <span className="value">{(tokensReceived * 0.15).toLocaleString()} TBURN</span>
+                <span className="label">TGE 해제 (10%)</span>
+                <span className="value">{(tokensReceived * 0.10).toLocaleString()} TBURN</span>
               </div>
               <div className="result-item">
-                <span className="label">예상 상장가 ($0.031)</span>
+                <span className="label">예상 런칭가 ($0.50)</span>
                 <span className="value">${potentialValue.toLocaleString()}</span>
               </div>
               <div className="result-item">
@@ -1373,31 +1426,31 @@ export default function PublicRoundPage() {
         <div className="faq-container">
           <div className={`faq-item ${activeFaq === 'faq-1' ? 'active' : ''}`}>
             <div className="faq-question" onClick={() => toggleFaq('faq-1')}>
-              <h4>퍼블릭 라운드 누구나 참여 가능한가요?</h4>
+              <h4>퍼블릭 라운드 참여 자격과 조건은 무엇인가요?</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>네, 퍼블릭 라운드는 KYC 인증을 완료한 모든 사용자가 참여할 수 있습니다. 최소 참여 금액은 $100이며, 지갑 연결 후 간단한 본인 인증만 완료하면 됩니다.</p>
+              <p>퍼블릭 라운드는 KYC 인증을 완료한 전 세계 모든 개인 투자자가 참여할 수 있습니다. 최소 참여 금액은 $100이며, 상한 제한은 없습니다(Whale 티어 $50,000 이상 시 추가 혜택). 참여 방법: (1) 지갑 연결(MetaMask, Trust Wallet, Coinbase Wallet 등) → (2) 간편 KYC 인증(여권/신분증, 약 5분 소요) → (3) 결제 및 토큰 배정. 미국, 중국, 북한 등 규제 지역 거주자는 참여가 제한됩니다.</p>
             </div>
           </div>
 
           <div className={`faq-item ${activeFaq === 'faq-2' ? 'active' : ''}`}>
             <div className="faq-question" onClick={() => toggleFaq('faq-2')}>
-              <h4>TGE 즉시 해제가 뭔가요?</h4>
+              <h4>시드/프라이빗 라운드와 어떤 차이가 있나요?</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>Token Generation Event(TGE)는 토큰이 처음 생성되어 거래소에 상장되는 시점입니다. 퍼블릭 라운드 참여자는 TGE 시점에 투자 토큰의 15%를 즉시 받을 수 있습니다.</p>
+              <p>시드 라운드($0.04, 80% 할인)와 프라이빗 라운드($0.10, 50% 할인)는 이미 완료되었으며, 높은 할인율 대신 긴 베스팅 기간(시드: 12개월 클리프 + 24개월 베스팅, 프라이빗: 6개월 클리프 + 12개월 베스팅)과 높은 최소 투자금($100K+)이 필요했습니다. 퍼블릭 라운드($0.20, 60% 할인)는 할인율은 낮지만 $100부터 누구나 참여 가능하고, 3개월 클리프 + 6개월 베스팅으로 더 빠른 유동화가 장점입니다.</p>
             </div>
           </div>
 
           <div className={`faq-item ${activeFaq === 'faq-3' ? 'active' : ''}`}>
             <div className="faq-question" onClick={() => toggleFaq('faq-3')}>
-              <h4>시드/프라이빗과 뭐가 다른가요?</h4>
+              <h4>TGE와 베스팅 스케줄은 어떻게 되나요?</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>시드($0.008)와 프라이빗($0.015)은 할인율이 높지만 높은 최소 참여금과 긴 베스팅 기간이 있습니다. 퍼블릭($0.025)은 할인율은 낮지만 $100부터 참여 가능하고 클리프 없이 TGE 15% 즉시 해제됩니다.</p>
+              <p>TGE(Token Generation Event)는 TBURN 토큰이 메인넷에서 생성되어 거래소에 상장되는 시점입니다. 퍼블릭 라운드 참여자는 TGE 시점에 투자 토큰의 10%를 즉시 받습니다. 이후 3개월 클리프(락업) 기간이 있으며, 클리프 종료 후 6개월에 걸쳐 매월 15%씩 선형 베스팅됩니다. 전체 언락까지 총 9개월이 소요됩니다. Whale 티어($50K+)는 TGE 15% 즉시 해제 혜택이 적용됩니다.</p>
             </div>
           </div>
 
@@ -1407,7 +1460,47 @@ export default function PublicRoundPage() {
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>USDT, USDC, ETH, BTC 등 주요 암호화폐로 결제할 수 있습니다. 파트너 거래소를 통해 법정화폐(USD, KRW 등)로도 참여 가능합니다.</p>
+              <p>공식 런치패드에서는 USDT(ERC-20, TRC-20), USDC(ERC-20), ETH, BTC, BNB로 결제할 수 있습니다. 파트너 거래소(CEX)를 통해 법정화폐(USD, EUR, KRW 등)로도 참여 가능합니다. 결제 후 토큰은 연결된 지갑 주소로 TGE 시점에 자동 배정되며, 별도의 클레임 과정 없이 지갑에서 확인할 수 있습니다. 결제 확인은 보통 5-30분 내에 완료됩니다.</p>
+            </div>
+          </div>
+
+          <div className={`faq-item ${activeFaq === 'faq-5' ? 'active' : ''}`}>
+            <div className="faq-question" onClick={() => toggleFaq('faq-5')}>
+              <h4>참여자 보호와 안전장치는 어떻게 되나요?</h4>
+              <span className="faq-chevron">▼</span>
+            </div>
+            <div className="faq-answer">
+              <p>모든 퍼블릭 세일 참여자는 표준 토큰 판매 계약에 따라 법적 보호를 받습니다. 스마트 컨트랙트는 CertiK, Hacken 등 3개 이상의 보안 감사를 완료했으며, 결과 보고서는 공개되어 있습니다. 결제된 자금은 멀티시그 지갑(3/5 서명)에 보관되며, 토큰 배정 및 베스팅은 온체인에서 투명하게 관리됩니다. 세일 미달성 시 전액 환불 정책이 적용됩니다.</p>
+            </div>
+          </div>
+
+          <div className={`faq-item ${activeFaq === 'faq-6' ? 'active' : ''}`}>
+            <div className="faq-question" onClick={() => toggleFaq('faq-6')}>
+              <h4>토큰 상장 계획과 런칭 가격은 어떻게 되나요?</h4>
+              <span className="faq-chevron">▼</span>
+            </div>
+            <div className="faq-answer">
+              <p>TBURN 토큰의 런칭 예정 가격은 $0.50입니다(퍼블릭 세일 가격 $0.20 대비 150% 상승). TGE 및 상장 일정은 퍼블릭 세일 종료 후 2-4주 내에 진행됩니다. 초기 상장: Uniswap V3, PancakeSwap, SushiSwap 등 주요 DEX에 유동성 공급. CEX 상장: Tier-1 거래소(Binance, OKX, Bybit, Coinbase 등)와 상장 협의 진행 중이며, 런칭 후 3개월 내 주요 거래소 상장을 목표로 합니다.</p>
+            </div>
+          </div>
+
+          <div className={`faq-item ${activeFaq === 'faq-7' ? 'active' : ''}`}>
+            <div className="faq-question" onClick={() => toggleFaq('faq-7')}>
+              <h4>티어별 혜택과 보너스는 무엇인가요?</h4>
+              <span className="faq-chevron">▼</span>
+            </div>
+            <div className="faq-answer">
+              <p>참여 금액에 따라 4개 티어로 구분됩니다: (1) Whale($50K+): +5% 보너스 토큰, TGE 15% 해제, VIP 커뮤니티, 전담 지원 (2) Dolphin($10K+): +3% 보너스, TGE 12% 해제, 프리미엄 커뮤니티 (3) Fish($1K+): +1% 보너스, TGE 10% 해제, 일반 커뮤니티 (4) Shrimp($100+): 기본 조건, TGE 10% 해제. 모든 티어는 동일한 $0.20 가격이 적용되며, 보너스 토큰은 TGE 시 함께 배정됩니다.</p>
+            </div>
+          </div>
+
+          <div className={`faq-item ${activeFaq === 'faq-8' ? 'active' : ''}`}>
+            <div className="faq-question" onClick={() => toggleFaq('faq-8')}>
+              <h4>환불 정책과 취소는 어떻게 되나요?</h4>
+              <span className="faq-chevron">▼</span>
+            </div>
+            <div className="faq-answer">
+              <p>퍼블릭 세일은 원칙적으로 결제 확정 후 취소/환불이 불가합니다. 단, 다음 경우에는 환불이 가능합니다: (1) 세일 미달성(소프트캡 미충족) 시 전액 환불 (2) 프로젝트 중단 또는 메인넷 런칭 불발 시 환불 (3) 결제 오류로 인한 중복 결제 시 초과분 환불. 환불 신청은 공식 지원 채널(support@tburn.io)을 통해 접수하며, 처리 기간은 영업일 기준 7-14일이 소요됩니다. 환불은 원래 결제 수단으로 지급됩니다.</p>
             </div>
           </div>
         </div>
@@ -1419,13 +1512,95 @@ export default function PublicRoundPage() {
           <h2 style={{ fontSize: '2.5rem', fontWeight: 800, marginBottom: '1rem' }}>지금 참여하세요!</h2>
           <p style={{ color: 'rgba(255,255,255,0.8)', fontSize: '1.125rem', marginBottom: '2rem' }}>
             TBURN Chain의 퍼블릭 세일에 참여하고<br />
-            최소 $100부터 시작하는 블록체인 혁신에 동참하세요!
+            런칭가 대비 60% 할인된 $0.20에 TBURN을 확보하세요!
           </p>
-          <button className="btn-primary" style={{ background: 'var(--dark)', fontSize: '1.25rem', padding: '20px 50px' }}>
+          <button 
+            className="btn-primary" 
+            style={{ background: 'var(--dark)', fontSize: '1.25rem', padding: '20px 50px' }}
+            onClick={() => setInquiryDialogOpen(true)}
+            data-testid="button-invest-now"
+          >
             🚀 지금 참여하기
           </button>
         </div>
       </section>
+
+      {/* Investment Inquiry Dialog */}
+      <Dialog open={inquiryDialogOpen} onOpenChange={setInquiryDialogOpen}>
+        <DialogContent className="sm:max-w-[500px] bg-slate-900 border-blue-500/30 text-white">
+          <DialogHeader>
+            <DialogTitle className="text-xl font-bold text-blue-400">퍼블릭 라운드 참여 문의</DialogTitle>
+            <DialogDescription className="text-slate-400">
+              담당자가 곧 연락드리겠습니다. 누구나 참여 가능합니다.
+            </DialogDescription>
+          </DialogHeader>
+          <form onSubmit={handleSubmit} className="space-y-4 mt-4">
+            <div className="space-y-2">
+              <Label htmlFor="name" className="text-slate-300">이름 *</Label>
+              <Input
+                id="name"
+                placeholder="홍길동"
+                value={formData.name}
+                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                className="bg-slate-800 border-slate-700 text-white placeholder:text-slate-500"
+                data-testid="input-name"
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="email" className="text-slate-300">이메일 *</Label>
+              <Input
+                id="email"
+                type="email"
+                placeholder="example@email.com"
+                value={formData.email}
+                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                className="bg-slate-800 border-slate-700 text-white placeholder:text-slate-500"
+                data-testid="input-email"
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="investmentAmount" className="text-slate-300">참여 예정 금액</Label>
+              <Input
+                id="investmentAmount"
+                placeholder="$1,000"
+                value={formData.investmentAmount}
+                onChange={(e) => setFormData({ ...formData, investmentAmount: e.target.value })}
+                className="bg-slate-800 border-slate-700 text-white placeholder:text-slate-500"
+                data-testid="input-amount"
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="message" className="text-slate-300">추가 메시지</Label>
+              <Textarea
+                id="message"
+                placeholder="참여 관련 추가 문의사항을 입력해주세요"
+                value={formData.message}
+                onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                className="bg-slate-800 border-slate-700 text-white placeholder:text-slate-500 min-h-[80px]"
+                data-testid="input-message"
+              />
+            </div>
+            <div className="flex gap-3 pt-4">
+              <Button
+                type="button"
+                variant="outline"
+                onClick={() => setInquiryDialogOpen(false)}
+                className="flex-1 border-slate-600 text-slate-300 hover:bg-slate-800"
+              >
+                취소
+              </Button>
+              <Button
+                type="submit"
+                disabled={inquiryMutation.isPending}
+                className="flex-1 bg-blue-600 hover:bg-blue-700 text-white"
+                data-testid="button-submit-inquiry"
+              >
+                {inquiryMutation.isPending ? "제출 중..." : "참여 문의 제출"}
+              </Button>
+            </div>
+          </form>
+        </DialogContent>
+      </Dialog>
 
       {/* Footer */}
       <footer className="footer">
