@@ -361,9 +361,9 @@ export default function RpcApiDocs() {
         result: testMethod === 'eth_blockNumber' 
           ? `0x${(data.data?.blockHeight || 42000000).toString(16)}`
           : testMethod === 'eth_chainId'
-          ? "0x1770"
+          ? "0x16a8"
           : testMethod === 'net_version'
-          ? "6000"
+          ? "5800"
           : { message: "Method executed", blockHeight: data.data?.blockHeight }
       };
 

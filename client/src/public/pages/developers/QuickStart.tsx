@@ -384,7 +384,7 @@ export default function QuickStart() {
               <div className="space-y-3 text-sm font-mono">
                 <div className="flex justify-between flex-wrap gap-2">
                   <span className="text-gray-500">{t('publicPages.developers.quickstart.networkConfig.chainId')}</span>
-                  <span className="text-gray-900 dark:text-white bg-gray-100 dark:bg-white/10 px-2 rounded">6000</span>
+                  <span className="text-gray-900 dark:text-white bg-gray-100 dark:bg-white/10 px-2 rounded">5800</span>
                 </div>
                 <div className="flex justify-between flex-wrap gap-2">
                   <span className="text-gray-500">{t('publicPages.developers.quickstart.networkConfig.rpcUrl')}</span>
