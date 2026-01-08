@@ -316,13 +316,14 @@ export function PublicRouter() {
   // /vc route - VC investor page (public, no auth required)
   if (location === "/vc" || location.startsWith("/vc-test")) {
     const VCTestMode = lazyWithRetry(() => import("@/pages/vc-test-mode"));
+    const VCLayout = lazyWithRetry(() => import("./components/VCLayout"));
     return (
       <ErrorBoundary>
-        <PublicLayout>
-          <Suspense fallback={<PageLoading />}>
+        <Suspense fallback={<PageLoading />}>
+          <VCLayout>
             <VCTestMode />
-          </Suspense>
-        </PublicLayout>
+          </VCLayout>
+        </Suspense>
       </ErrorBoundary>
     );
   }
