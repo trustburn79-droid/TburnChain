@@ -198,7 +198,7 @@ interface DataSourceStatus {
 
 function AuthenticatedApp() {
   const { t } = useTranslation();
-  const [, setLocation] = useLocation();
+  const [location, setLocation] = useLocation();
   const { data: authData, isLoading: authLoading, isFetching: authFetching } = useQuery<{ authenticated: boolean }>({
     queryKey: ["/api/auth/check"],
     staleTime: 30000,
@@ -226,18 +226,18 @@ function AuthenticatedApp() {
   const isAuthenticated = authData?.authenticated ?? false;
   const isLiveMode = dataSourceStatus?.connectionStatus === 'connected';
 
-  // Show loading state during initial auth check to prevent black screen
-  if (authLoading && !authData) {
-    return <PageLoading />;
-  }
-
-  // Redirect to login if not authenticated (after auth check completes)
-  if (!authLoading && !isAuthenticated) {
-    // Store intended destination for redirect after login
-    if (typeof window !== 'undefined') {
-      sessionStorage.setItem("redirectAfterLogin", window.location.pathname);
+  // Redirect to login if not authenticated (must be in useEffect to avoid render-time setState)
+  useEffect(() => {
+    if (!authLoading && !isAuthenticated) {
+      if (typeof window !== 'undefined') {
+        sessionStorage.setItem("redirectAfterLogin", window.location.pathname);
+      }
+      setLocation("/login");
     }
-    setLocation("/login");
+  }, [authLoading, isAuthenticated, setLocation]);
+
+  // Show loading state during initial auth check or while redirecting
+  if (authLoading || !isAuthenticated) {
     return <PageLoading />;
   }
 
