@@ -24,7 +24,7 @@ const ecosystemLinks = [
   { titleKey: "explorer", href: "/scan" },
   { titleKey: "staking", href: "/app/staking" },
   { titleKey: "dex", href: "/app/dex" },
-  { titleKey: "nftMarketplace", href: "/app/nft-marketplace" },
+  { titleKey: "nftMarketplace", href: "/nft-marketplace" },
   { titleKey: "lending", href: "/app/lending" },
   { titleKey: "yieldFarming", href: "/app/yield-farming" },
 ];
