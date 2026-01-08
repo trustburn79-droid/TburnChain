@@ -1626,7 +1626,8 @@
             }
         };
 
-        let currentLang = localStorage.getItem('vision-language') || 'en';
+        // Use tburn-language from main app, fallback to vision-language, then default to 'en'
+        let currentLang = localStorage.getItem('tburn-language') || localStorage.getItem('vision-language') || 'en';
 
         function toggleLangDropdown() {
             const dropdown = document.getElementById('langDropdown');
@@ -1636,6 +1637,8 @@
         function setLanguage(lang) {
             document.getElementById('langDropdown').classList.add('hidden');
             currentLang = lang;
+            // Sync with main app's language key
+            localStorage.setItem('tburn-language', lang);
             localStorage.setItem('vision-language', lang);
             applyTranslations(lang);
             // Handle RTL for Arabic and Urdu
