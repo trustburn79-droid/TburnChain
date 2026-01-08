@@ -51,15 +51,15 @@ export default function SeedRoundPage() {
   };
 
   const investmentHighlights = [
-    { value: "$0.008", label: "토큰당 가격" },
-    { value: "70%", label: "시장가 대비 할인" },
+    { value: "$0.04", label: "토큰당 가격" },
+    { value: "80%", label: "시장가 대비 할인" },
     { value: "12개월", label: "베스팅 기간" },
   ];
 
   const distributions = [
-    { id: "seed", name: "Seed Round", amount: "$0.008", discount: "70%", status: "current" },
-    { id: "private", name: "Private Round", amount: "$0.015", discount: "50%", status: "" },
-    { id: "public", name: "Public Round", amount: "$0.025", discount: "20%", status: "" },
+    { id: "seed", name: "Seed Round", amount: "$0.04", discount: "80%", status: "current" },
+    { id: "private", name: "Private Round", amount: "$0.10", discount: "50%", status: "" },
+    { id: "public", name: "Public Round", amount: "$0.20", discount: "0%", status: "" },
   ];
 
   const investorTiers = [
@@ -967,7 +967,7 @@ export default function SeedRoundPage() {
                   <div className="stat-label">시드 배정</div>
                 </div>
                 <div className="stat-card" data-testid="stat-price">
-                  <div className="stat-value">{seedRound?.price || "$0.008"}</div>
+                  <div className="stat-value">{seedRound?.price || "$0.04"}</div>
                   <div className="stat-label">토큰 가격</div>
                 </div>
                 <div className="stat-card" data-testid="stat-hardcap">
