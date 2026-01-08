@@ -1256,41 +1256,81 @@ export default function SeedRoundPage() {
         <div className="faq-container">
           <div className={`faq-item ${activeFaq === 'faq-1' ? 'active' : ''}`}>
             <div className="faq-question" onClick={() => toggleFaq('faq-1')}>
-              <h4>최소 투자 금액은 얼마인가요?</h4>
+              <h4>TBURN Chain은 무엇이고 왜 투자해야 하나요?</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>엔젤 투자자 티어의 경우 최소 $25,000부터 참여 가능합니다. 리드 투자자는 $1,000,000 이상의 투자가 필요하며, 투자 규모에 따라 추가 혜택이 제공됩니다.</p>
+              <p>TBURN Chain은 AI 기반 동적 샤딩 기술을 적용한 차세대 Layer-1 블록체인입니다. 64개 샤드, 125개 제네시스 검증자를 통해 초당 21만 TPS와 100ms 블록 타임을 목표로 합니다. 디플레이션 토큰 이코노믹스와 AI 거버넌스를 결합하여 장기적인 가치 성장을 추구합니다. 시드 투자자는 퍼블릭 세일 대비 80% 할인된 $0.04에 참여할 수 있으며, 네트워크 성장에 따른 초기 투자자 혜택을 누릴 수 있습니다.</p>
             </div>
           </div>
 
           <div className={`faq-item ${activeFaq === 'faq-2' ? 'active' : ''}`}>
             <div className="faq-question" onClick={() => toggleFaq('faq-2')}>
-              <h4>토큰은 언제 받을 수 있나요?</h4>
+              <h4>시드 라운드 투자 조건과 베스팅 일정은 어떻게 되나요?</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>TGE(Token Generation Event) 이후 6개월의 클리프 기간이 있으며, 이후 10%가 초기 언락되고 나머지는 12개월에 걸쳐 월 7.5%씩 베스팅됩니다. 전체 언락까지 약 18개월이 소요됩니다.</p>
+              <p>시드 라운드는 토큰당 $0.04, 총 5억 TBURN(전체 공급량의 5%)이 배정됩니다. 하드캡은 $2,000만입니다. 베스팅 조건: TGE 후 12개월 클리프(락업) 기간이 있으며, 클리프 종료 후 24개월에 걸쳐 선형 언락됩니다. 첫 언락 시 5%가 지급되고, 이후 매월 약 3.96%씩 자동 분배됩니다. 장기 보유를 통한 네트워크 안정성 확보를 위한 설계입니다.</p>
             </div>
           </div>
 
           <div className={`faq-item ${activeFaq === 'faq-3' ? 'active' : ''}`}>
             <div className="faq-question" onClick={() => toggleFaq('faq-3')}>
-              <h4>KYC/AML 절차는 어떻게 되나요?</h4>
+              <h4>최소/최대 투자 금액과 투자자 티어는 어떻게 구분되나요?</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>투자자 보호 및 규제 준수를 위해 KYC/AML 인증이 필요합니다. 신원 확인, 자금 출처 확인, 투자 적격성 검토 등이 포함되며 일반적으로 3-5일 정도 소요됩니다.</p>
+              <p>시드 라운드는 3개 티어로 구성됩니다: (1) 엔젤 티어: $25,000 ~ $99,999, 기본 할당 및 월간 투자자 뉴스레터 제공 (2) 스트래티직 티어: $100,000 ~ $499,999, 10% 추가 보너스 토큰 및 분기별 팀 미팅 참여권 (3) 리드 티어: $500,000 이상, 20% 추가 보너스 토큰, 어드바이저 보드 참여 기회, 월간 프로젝트 업데이트 콜 제공. 모든 티어에서 KYC 인증이 필수입니다.</p>
             </div>
           </div>
 
           <div className={`faq-item ${activeFaq === 'faq-4' ? 'active' : ''}`}>
             <div className="faq-question" onClick={() => toggleFaq('faq-4')}>
-              <h4>SAFT 계약은 무엇인가요?</h4>
+              <h4>투자 절차와 필요 서류는 무엇인가요?</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>SAFT(Simple Agreement for Future Tokens)는 미래 토큰에 대한 투자 계약서입니다. 투자금 전송 전 법적 구속력이 있는 SAFT 계약을 체결하며, 투자자의 권리와 의무가 명시되어 있습니다.</p>
+              <p>투자 절차: (1) 투자 문의 접수 → (2) NDA 및 투자 의향서 체결 → (3) KYC/AML 인증(여권/신분증, 주소 증빙, 자금 출처 증명) → (4) SAFT 계약 체결 → (5) 투자금 송금(USDT, USDC, 또는 은행 송금) → (6) 토큰 할당 확인서 발급. 전체 과정은 보통 7-14 영업일 소요되며, 담당 매니저가 배정되어 1:1로 안내해 드립니다. 기관 투자자의 경우 별도 협의가 가능합니다.</p>
+            </div>
+          </div>
+
+          <div className={`faq-item ${activeFaq === 'faq-5' ? 'active' : ''}`}>
+            <div className="faq-question" onClick={() => toggleFaq('faq-5')}>
+              <h4>SAFT 계약이란 무엇이며, 투자자 보호는 어떻게 되나요?</h4>
+              <span className="faq-chevron">▼</span>
+            </div>
+            <div className="faq-answer">
+              <p>SAFT(Simple Agreement for Future Tokens)는 미국 SEC 가이드라인을 준수하는 표준 투자 계약입니다. 계약에는 토큰 할당량, 베스팅 일정, 투자자 권리, 환불 조건, 분쟁 해결 절차가 명시됩니다. 투자금은 제3자 에스크로 계정에 보관되며, 마일스톤 달성에 따라 프로젝트에 지급됩니다. 법률 자문은 글로벌 로펌 Dentons와 협력하며, 분기별 재무 보고서를 투자자에게 제공합니다.</p>
+            </div>
+          </div>
+
+          <div className={`faq-item ${activeFaq === 'faq-6' ? 'active' : ''}`}>
+            <div className="faq-question" onClick={() => toggleFaq('faq-6')}>
+              <h4>토큰 상장 계획과 예상 일정은 어떻게 되나요?</h4>
+              <span className="faq-chevron">▼</span>
+            </div>
+            <div className="faq-answer">
+              <p>TGE(Token Generation Event)는 메인넷 런칭과 동시에 진행될 예정입니다. 상장 전략: 먼저 주요 DEX(Uniswap, PancakeSwap)에 유동성을 공급하고, 이후 Tier-1 CEX(Binance, OKX, Bybit 등)와의 상장 협의를 진행합니다. 마케팅 부스팅과 함께 단계적 거래소 확장을 계획하고 있습니다. 런칭 가격은 $0.50(시드 대비 12.5배)으로 예정되어 있으며, 시장 상황에 따라 조정될 수 있습니다.</p>
+            </div>
+          </div>
+
+          <div className={`faq-item ${activeFaq === 'faq-7' ? 'active' : ''}`}>
+            <div className="faq-question" onClick={() => toggleFaq('faq-7')}>
+              <h4>투자금 용도와 자금 집행 계획은 어떻게 되나요?</h4>
+              <span className="faq-chevron">▼</span>
+            </div>
+            <div className="faq-answer">
+              <p>시드 라운드 모집 자금 사용 계획: 기술 개발 45%(코어 프로토콜, AI 엔진, 보안 인프라), 마케팅 및 파트너십 25%(글로벌 마케팅, 전략적 파트너십, 커뮤니티 빌딩), 운영 및 법률 15%(팀 운영, 법률/컴플라이언스, 오피스), 유동성 공급 10%(DEX/CEX 초기 유동성), 예비비 5%(비상 자금, 시장 기회 대응). 분기별 자금 사용 보고서를 투자자에게 제공합니다.</p>
+            </div>
+          </div>
+
+          <div className={`faq-item ${activeFaq === 'faq-8' ? 'active' : ''}`}>
+            <div className="faq-question" onClick={() => toggleFaq('faq-8')}>
+              <h4>환불 정책과 투자 취소는 가능한가요?</h4>
+              <span className="faq-chevron">▼</span>
+            </div>
+            <div className="faq-answer">
+              <p>SAFT 계약 체결 전까지는 전액 환불이 가능합니다. 계약 체결 후에는 프로젝트 중단, 메인넷 런칭 실패, 법적 문제 발생 시에만 환불 청구가 가능합니다. 환불 시에는 원금의 100%가 지급되며, 처리 기간은 약 30 영업일입니다. 투자자 개인 사정에 의한 중도 해지는 불가하오니, 신중한 투자 결정을 부탁드립니다. 세부 환불 조건은 SAFT 계약서에 명시되어 있습니다.</p>
             </div>
           </div>
         </div>
