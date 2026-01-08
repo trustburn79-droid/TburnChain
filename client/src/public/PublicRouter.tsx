@@ -528,16 +528,15 @@ export function PublicRouter() {
 
 
   if (location.startsWith("/token-schedule") || location.startsWith("/token-details")) {
+    // Token schedule and details are standalone pages without PublicLayout header/footer
     return (
       <ErrorBoundary>
-        <PublicLayout>
-          <Suspense fallback={<PageLoading />}>
-            <Switch>
-              <Route path="/token-schedule" component={TokenSchedule} />
-              <Route path="/token-details" component={TokenDetails} />
-            </Switch>
-          </Suspense>
-        </PublicLayout>
+        <Suspense fallback={<PageLoading />}>
+          <Switch>
+            <Route path="/token-schedule" component={TokenSchedule} />
+            <Route path="/token-details" component={TokenDetails} />
+          </Switch>
+        </Suspense>
       </ErrorBoundary>
     );
   }
