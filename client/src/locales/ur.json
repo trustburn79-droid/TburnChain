@@ -13305,7 +13305,8 @@
       "connectMetamask": "Connect MetaMask",
       "simulationMode": "Simulation Mode",
       "simulationDesc": "Token will be deployed in simulation mode. No real blockchain transaction will be executed.",
-      "connectFirst": "Connect Wallet First",
+      "connectFirst": "درخواست کے لیے والٹ کنیکٹ کریں",
+      "featuredBadge": "⭐ مقبول",
       "deployToMainnet": "Deploy to TBURN Mainnet",
       "deploySimulation": "Deploy (Simulation)",
       "wrongNetwork": "Connected to Wrong Network",
@@ -16054,7 +16055,7 @@
           "seconds": "سیکنڈ"
         },
         "participate": "شرکت کریں",
-        "connectFirst": "والیٹ جوڑیں"
+        "connectFirst": "درخواست کے لیے والٹ کنیکٹ کریں"
       },
       "stats": {
         "totalEvents": "کل ایونٹس",
@@ -16295,7 +16296,8 @@
       "reward": "انعام",
       "requirements": "ضروریات",
       "applyBtn": "درخواست دیں",
-      "connectFirst": "درخواست کے لیے والیٹ کنیکٹ کریں",
+      "connectFirst": "درخواست کے لیے والٹ کنیکٹ کریں",
+      "featuredBadge": "⭐ مقبول",
       "ambassador": {
         "title": "ایمبیسڈر پروگرام",
         "subtitle": "TBURN Chain کا سرکاری نمائندہ",

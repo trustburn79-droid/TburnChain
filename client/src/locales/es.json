@@ -16945,7 +16945,8 @@
       "connectMetamask": "Conectar MetaMask",
       "simulationMode": "Modo Simulación",
       "simulationDesc": "El token se desplegará en modo simulación. No se ejecutará ninguna transacción real de blockchain.",
-      "connectFirst": "Primero Conecte Billetera",
+      "connectFirst": "Conectar Cartera para Aplicar",
+      "featuredBadge": "⭐ Popular",
       "deployToMainnet": "Desplegar en TBURN Mainnet",
       "deploySimulation": "Desplegar (Simulación)",
       "wrongNetwork": "Conectado a Red Incorrecta",
@@ -18980,7 +18981,8 @@
         "reward": "Recompensa",
         "requirements": "Requisitos",
         "applyBtn": "Aplicar",
-        "connectFirst": "Conecte su Billetera para Aplicar",
+        "connectFirst": "Conectar Cartera para Aplicar",
+      "featuredBadge": "⭐ Popular",
         "ambassador": {
           "title": "Programa de Embajadores",
           "subtitle": "Representante Oficial de TBURN Chain",
@@ -19946,7 +19948,7 @@
           "seconds": "Seg"
         },
         "participate": "Participar",
-        "connectFirst": "Conectar Billetera"
+        "connectFirst": "Conectar Cartera para Aplicar"
       },
       "stats": {
         "totalEvents": "Total de Eventos",
@@ -20186,7 +20188,8 @@
       "reward": "Recompensa",
       "requirements": "Requisitos",
       "applyBtn": "Aplicar",
-      "connectFirst": "Conectar Wallet para Aplicar",
+      "connectFirst": "Conectar Cartera para Aplicar",
+      "featuredBadge": "⭐ Popular",
       "ambassador": {
         "title": "Programa de Embajadores",
         "subtitle": "Representante Oficial de TBURN Chain",

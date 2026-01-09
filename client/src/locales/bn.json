@@ -13061,7 +13061,8 @@
       "connectMetamask": "Connect MetaMask",
       "simulationMode": "Simulation Mode",
       "simulationDesc": "Token will be deployed in simulation mode. No real blockchain transaction will be executed.",
-      "connectFirst": "Connect Wallet First",
+      "connectFirst": "আবেদন করতে ওয়ালেট সংযুক্ত করুন",
+      "featuredBadge": "⭐ জনপ্রিয়",
       "deployToMainnet": "Deploy to TBURN Mainnet",
       "deploySimulation": "Deploy (Simulation)",
       "wrongNetwork": "Connected to Wrong Network",
@@ -15810,7 +15811,7 @@
           "seconds": "সেকেন্ড"
         },
         "participate": "অংশগ্রহণ",
-        "connectFirst": "ওয়ালেট সংযুক্ত করুন"
+        "connectFirst": "আবেদন করতে ওয়ালেট সংযুক্ত করুন"
       },
       "stats": {
         "totalEvents": "মোট ইভেন্টস",
@@ -16051,7 +16052,8 @@
       "reward": "পুরস্কার",
       "requirements": "প্রয়োজনীয়তা",
       "applyBtn": "আবেদন করুন",
-      "connectFirst": "আবেদনের জন্য ওয়ালেট সংযুক্ত করুন",
+      "connectFirst": "আবেদন করতে ওয়ালেট সংযুক্ত করুন",
+      "featuredBadge": "⭐ জনপ্রিয়",
       "ambassador": {
         "title": "অ্যাম্বাসেডর প্রোগ্রাম",
         "subtitle": "TBURN Chain এর অফিসিয়াল প্রতিনিধি",

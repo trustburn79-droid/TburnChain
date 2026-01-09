@@ -17882,7 +17882,8 @@
       "connectMetamask": "MetaMaskを接続",
       "simulationMode": "シミュレーションモード",
       "simulationDesc": "トークンはシミュレーションモードでデプロイされます。実際のブロックチェーントランザクションは実行されません。",
-      "connectFirst": "まずウォレットを接続",
+      "connectFirst": "ウォレット接続後に申請",
+      "featuredBadge": "⭐ 人気",
       "deployToMainnet": "TBURNメインネットにデプロイ",
       "deploySimulation": "デプロイ（シミュレーション）",
       "wrongNetwork": "間違ったネットワークに接続中",
@@ -20631,7 +20632,7 @@
           "seconds": "秒"
         },
         "participate": "参加する",
-        "connectFirst": "ウォレット接続"
+        "connectFirst": "ウォレット接続後に申請"
       },
       "stats": {
         "totalEvents": "総イベント数",
@@ -20872,7 +20873,8 @@
       "reward": "報酬",
       "requirements": "参加条件",
       "applyBtn": "申し込む",
-      "connectFirst": "ウォレット接続後に申し込み",
+      "connectFirst": "ウォレット接続後に申請",
+      "featuredBadge": "⭐ 人気",
       "ambassador": {
         "title": "アンバサダープログラム",
         "subtitle": "TBURN Chain公式代表",

@@ -14663,7 +14663,8 @@
       "connectMetamask": "Conectar MetaMask",
       "simulationMode": "Modo Simulação",
       "simulationDesc": "O token será implantado em modo simulação. Nenhuma transação real será executada.",
-      "connectFirst": "Primeiro Conecte a Carteira",
+      "connectFirst": "Conecte a Carteira para Aplicar",
+      "featuredBadge": "⭐ Popular",
       "deployToMainnet": "Implantar na TBURN Mainnet",
       "deploySimulation": "Implantar (Simulação)",
       "wrongNetwork": "Conectado à Rede Errada",
@@ -17412,7 +17413,7 @@
           "seconds": "Seg"
         },
         "participate": "Participar",
-        "connectFirst": "Conectar Carteira"
+        "connectFirst": "Conecte a Carteira para Aplicar"
       },
       "stats": {
         "totalEvents": "Total de Eventos",
@@ -17673,7 +17674,8 @@
       "reward": "Recompensa",
       "requirements": "Requisitos",
       "applyBtn": "Aplicar",
-      "connectFirst": "Conectar Carteira para Aplicar",
+      "connectFirst": "Conecte a Carteira para Aplicar",
+      "featuredBadge": "⭐ Popular",
       "ambassador": {
         "title": "Programa de Embaixadores",
         "subtitle": "Representante Oficial da TBURN Chain",

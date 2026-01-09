@@ -17006,7 +17006,8 @@
       "connectMetamask": "连接MetaMask",
       "simulationMode": "模拟模式",
       "simulationDesc": "代币将以模拟模式部署。不会执行实际的区块链交易。",
-      "connectFirst": "请先连接钱包",
+      "connectFirst": "连接钱包后申请",
+      "featuredBadge": "⭐ 热门",
       "deployToMainnet": "部署到TBURN主网",
       "deploySimulation": "部署（模拟）",
       "wrongNetwork": "连接到错误的网络",
@@ -19755,7 +19756,7 @@
           "seconds": "秒"
         },
         "participate": "参与",
-        "connectFirst": "连接钱包"
+        "connectFirst": "连接钱包后申请"
       },
       "stats": {
         "totalEvents": "总活动数",
@@ -19996,6 +19997,7 @@
       "requirements": "要求",
       "applyBtn": "申请",
       "connectFirst": "连接钱包后申请",
+      "featuredBadge": "⭐ 热门",
       "ambassador": {
         "title": "大使计划",
         "subtitle": "TBURN Chain官方代表",

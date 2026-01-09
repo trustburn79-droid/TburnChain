@@ -14914,7 +14914,8 @@
       "connectMetamask": "Connecter MetaMask",
       "simulationMode": "Mode Simulation",
       "simulationDesc": "Le token sera déployé en mode simulation. Aucune transaction blockchain réelle ne sera exécutée.",
-      "connectFirst": "Connectez Portefeuille D'abord",
+      "connectFirst": "Connectez votre portefeuille pour postuler",
+      "featuredBadge": "⭐ Populaire",
       "deployToMainnet": "Déployer sur TBURN Mainnet",
       "deploySimulation": "Déployer (Simulation)",
       "wrongNetwork": "Connecté au Mauvais Réseau",
@@ -17663,7 +17664,7 @@
           "seconds": "Sec"
         },
         "participate": "Participer",
-        "connectFirst": "Connecter Portefeuille"
+        "connectFirst": "Connectez votre portefeuille pour postuler"
       },
       "stats": {
         "totalEvents": "Total Événements",
@@ -17903,7 +17904,8 @@
       "reward": "Récompense",
       "requirements": "Conditions",
       "applyBtn": "Postuler",
-      "connectFirst": "Connecter Wallet pour Postuler",
+      "connectFirst": "Connectez votre portefeuille pour postuler",
+      "featuredBadge": "⭐ Populaire",
       "ambassador": {
         "title": "Programme Ambassadeur",
         "subtitle": "Représentant Officiel TBURN Chain",

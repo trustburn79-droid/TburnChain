@@ -14508,7 +14508,8 @@
       "connectMetamask": "Подключить MetaMask",
       "simulationMode": "Режим Симуляции",
       "simulationDesc": "Токен будет развернут в режиме симуляции. Реальная транзакция не будет выполнена.",
-      "connectFirst": "Сначала Подключите Кошелек",
+      "connectFirst": "Подключите кошелек для подачи заявки",
+      "featuredBadge": "⭐ Популярно",
       "deployToMainnet": "Развернуть в TBURN Mainnet",
       "deploySimulation": "Развернуть (Симуляция)",
       "wrongNetwork": "Подключено к Неверной Сети",
@@ -16704,7 +16705,7 @@
           "seconds": "Сек"
         },
         "participate": "Участвовать",
-        "connectFirst": "Подключить Кошелек"
+        "connectFirst": "Подключите кошелек для подачи заявки"
       },
       "stats": {
         "totalEvents": "Всего Событий",
@@ -16945,7 +16946,8 @@
       "reward": "Награда",
       "requirements": "Требования",
       "applyBtn": "Подать заявку",
-      "connectFirst": "Подключите кошелёк для заявки",
+      "connectFirst": "Подключите кошелек для подачи заявки",
+      "featuredBadge": "⭐ Популярно",
       "ambassador": {
         "title": "Программа амбассадоров",
         "subtitle": "Официальный представитель TBURN Chain",

@@ -2761,6 +2761,7 @@
     "overview": "Overview",
     "forum": "Forum",
     "leaderboard": "Leaderboard",
+      "faq": "FAQ",
     "badges": {
       "earlyAdopter": {
         "name": "Early Adopter",
@@ -3000,6 +3001,7 @@
     "tournaments": "Tournaments",
     "assets": "Assets",
     "leaderboard": "Leaderboard",
+      "faq": "FAQ",
     "gameName": "Game Name",
     "genre": "Genre",
     "players": "Players",
@@ -23452,6 +23454,7 @@
     "communityLeaderboard": "Community Leaderboard",
     "communityLeaderboardDesc": "Top community contributors",
     "leaderboard": "Leaderboard",
+      "faq": "FAQ",
     "excellentHealth": "Excellent Health",
     "thisWeek": "This Week",
     "searchPlaceholder": "Search members...",
@@ -28575,6 +28578,7 @@
       "uiux": "Frontend UI/UX",
       "inScope": "In Scope",
       "leaderboard": "Leaderboard",
+      "faq": "FAQ",
       "rank": "Rank",
       "hunter": "Hunter",
       "points": "Points",
@@ -28990,7 +28994,8 @@
       "overview": "Overview",
       "rewards": "Rewards",
       "tasks": "Tasks",
-      "leaderboard": "Leaderboard"
+      "leaderboard": "Leaderboard",
+      "faq": "FAQ"
     },
     "stats": {
       "tps": "TPS",
@@ -30711,7 +30716,8 @@
         "programs": "Programs",
         "tiers": "Tiers",
         "activities": "Activities",
-        "leaderboard": "Leaderboard"
+        "leaderboard": "Leaderboard",
+      "faq": "FAQ"
       },
       "activities": {
         "badge": "ACTIVITIES",
@@ -31351,6 +31357,7 @@
         "dashboard": "Dashboard",
         "calculator": "Calculator",
         "leaderboard": "Leaderboard",
+      "faq": "FAQ",
         "faq": "FAQ"
       },
       "header": {
@@ -31629,6 +31636,7 @@
         "liveEvents": "Live Events",
         "allEvents": "All Events",
         "leaderboard": "Leaderboard",
+      "faq": "FAQ",
         "faq": "FAQ",
         "connectWallet": "Connect Wallet",
         "connected": "Connected"
@@ -31889,7 +31897,8 @@
       "programs": "Programs",
       "tiers": "Tiers",
       "activities": "Activities",
-      "leaderboard": "Leaderboard"
+      "leaderboard": "Leaderboard",
+      "faq": "FAQ"
     },
     "hero": {
       "badge": "COMMUNITY PROGRAM - Growing Together with TBURN",
@@ -31951,6 +31960,7 @@
       "requirements": "Requirements",
       "applyBtn": "Apply",
       "connectFirst": "Connect Wallet to Apply",
+      "featuredBadge": "⭐ Popular",
       "ambassador": {
         "title": "Ambassador Program",
         "subtitle": "Official TBURN Chain Representative",

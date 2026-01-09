@@ -14837,7 +14837,8 @@
       "connectMetamask": "Connect MetaMask",
       "simulationMode": "Simulation Mode",
       "simulationDesc": "Token will be deployed in simulation mode. No real blockchain transaction will be executed.",
-      "connectFirst": "Connect Wallet First",
+      "connectFirst": "قم بتوصيل المحفظة للتقديم",
+      "featuredBadge": "⭐ مشهور",
       "deployToMainnet": "Deploy to TBURN Mainnet",
       "deploySimulation": "Deploy (Simulation)",
       "wrongNetwork": "Connected to Wrong Network",
@@ -17586,7 +17587,7 @@
           "seconds": "ثواني"
         },
         "participate": "المشاركة",
-        "connectFirst": "ربط المحفظة"
+        "connectFirst": "قم بتوصيل المحفظة للتقديم"
       },
       "stats": {
         "totalEvents": "إجمالي الأحداث",
@@ -17847,7 +17848,8 @@
       "reward": "المكافأة",
       "requirements": "المتطلبات",
       "applyBtn": "تقديم",
-      "connectFirst": "اربط المحفظة للتقديم",
+      "connectFirst": "قم بتوصيل المحفظة للتقديم",
+      "featuredBadge": "⭐ مشهور",
       "ambassador": {
         "title": "برنامج السفراء",
         "subtitle": "الممثل الرسمي لسلسلة TBURN",

@@ -538,8 +538,7 @@ export default function CommunityProgramPage() {
           box-shadow: 0 0 30px rgba(6, 182, 212, 0.2);
         }
 
-        .program-card.featured::after {
-          content: '⭐ 인기';
+        .featured-badge {
           position: absolute;
           top: 20px;
           right: 20px;
@@ -1231,6 +1230,7 @@ export default function CommunityProgramPage() {
         <div className="programs-grid">
           {programs.map(program => (
             <div key={program.id} className={`program-card ${program.featured ? 'featured' : ''}`} data-testid={`program-${program.id}`}>
+              {program.featured && <span className="featured-badge">{t('communityProgram.programs.featuredBadge')}</span>}
               <div className={`program-header ${program.id}`}>
                 <div className="program-icon">{program.icon}</div>
                 <h3 className="program-title">{t(program.titleKey)}</h3>
