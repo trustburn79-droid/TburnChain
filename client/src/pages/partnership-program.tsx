@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { Link } from "wouter";
 import { TBurnLogo } from "@/components/tburn-logo";
 import { useQuery } from "@tanstack/react-query";
 import { useWeb3 } from "@/lib/web3-context";
+import { useToast } from "@/hooks/use-toast";
 
 interface PartnershipStatsData {
   partnerships: {
@@ -38,6 +38,7 @@ interface PartnershipStatsResponse {
 export default function PartnershipProgramPage() {
   const { isConnected, address, connect, disconnect, formatAddress } = useWeb3();
   const [activeFaq, setActiveFaq] = useState<string | null>("faq-1");
+  const { toast } = useToast();
 
   const { data: response, isLoading: isLoadingStats } = useQuery<PartnershipStatsResponse>({
     queryKey: ['/api/token-programs/partnerships/stats'],
@@ -46,6 +47,68 @@ export default function PartnershipProgramPage() {
 
   const toggleFaq = (id: string) => {
     setActiveFaq(activeFaq === id ? null : id);
+  };
+
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
+  const handleWalletClick = async () => {
+    if (isConnected) {
+      disconnect();
+      toast({ title: "지갑 연결 해제", description: "지갑이 연결 해제되었습니다." });
+    } else {
+      await connect();
+      toast({ title: "지갑 연결", description: "지갑이 연결되었습니다." });
+    }
+  };
+
+  const handleApplyPartner = () => {
+    scrollToSection('tiers');
+    toast({ title: "파트너 신청", description: "파트너 티어를 선택하여 신청을 진행하세요!" });
+  };
+
+  const handleViewGuide = () => {
+    scrollToSection('types');
+    toast({ title: "파트너 가이드", description: "파트너 유형별 안내를 확인하세요." });
+  };
+
+  const handleApplyTier = (tierName: string, tierColor: string) => {
+    if (!isConnected) {
+      toast({ 
+        title: "지갑 연결 필요", 
+        description: "파트너 신청을 위해 먼저 지갑을 연결해주세요.",
+        variant: "destructive"
+      });
+      return;
+    }
+    toast({ 
+      title: `${tierName} 티어 신청`, 
+      description: `${tierName} 파트너 신청이 접수되었습니다. 1-2주 내 심사 결과를 안내드립니다.`
+    });
+  };
+
+  const handleApplyPartnerType = (typeName: string) => {
+    if (!isConnected) {
+      toast({ 
+        title: "지갑 연결 필요", 
+        description: "파트너 신청을 위해 먼저 지갑을 연결해주세요.",
+        variant: "destructive"
+      });
+      return;
+    }
+    toast({ 
+      title: `${typeName} 파트너 신청`, 
+      description: `${typeName} 파트너십 신청이 접수되었습니다. 담당자가 연락드릴 예정입니다.`
+    });
+  };
+
+  const handleShareSocial = (platform: string, url: string) => {
+    window.open(url, '_blank');
+    toast({ title: `${platform}`, description: `${platform} 페이지로 이동합니다.` });
   };
 
   const partnerLogos = ["🏛️", "💱", "🔗", "⚡", "🌐", "🔐"];
@@ -871,25 +934,45 @@ export default function PartnershipProgramPage() {
       {/* Header */}
       <header className="partner-header">
         <div className="header-container">
-          <Link href="/" className="logo">
+          <a href="/" className="logo">
             <div className="logo-icon">
               <TBurnLogo className="w-8 h-8" />
             </div>
             <div className="logo-text">TBURN<span>CHAIN</span></div>
-          </Link>
+          </a>
           <nav className="nav-links">
-            <a href="#tiers">파트너 티어</a>
-            <a href="#types">파트너 유형</a>
-            <a href="#process">프로세스</a>
-            <a href="#success">성공사례</a>
-            <a href="#faq">FAQ</a>
+            <a 
+              href="#tiers" 
+              onClick={(e) => { e.preventDefault(); scrollToSection('tiers'); }}
+              data-testid="nav-tiers"
+            >파트너 티어</a>
+            <a 
+              href="#types" 
+              onClick={(e) => { e.preventDefault(); scrollToSection('types'); }}
+              data-testid="nav-types"
+            >파트너 유형</a>
+            <a 
+              href="#process" 
+              onClick={(e) => { e.preventDefault(); scrollToSection('process'); }}
+              data-testid="nav-process"
+            >프로세스</a>
+            <a 
+              href="#success" 
+              onClick={(e) => { e.preventDefault(); scrollToSection('success'); }}
+              data-testid="nav-success"
+            >성공사례</a>
+            <a 
+              href="#faq" 
+              onClick={(e) => { e.preventDefault(); scrollToSection('faq'); }}
+              data-testid="nav-faq"
+            >FAQ</a>
           </nav>
           <button 
             className="connect-btn" 
             data-testid="button-connect-wallet"
-            onClick={() => isConnected ? disconnect() : connect("metamask")}
+            onClick={handleWalletClick}
           >
-            {isConnected ? `🔗 ${formatAddress(address || '')}` : '🔗 지갑 연결'}
+            {isConnected ? `${formatAddress(address || '')}` : '지갑 연결'}
           </button>
         </div>
       </header>
@@ -943,11 +1026,19 @@ export default function PartnershipProgramPage() {
           </div>
 
           <div className="cta-group">
-            <button className="btn-primary" data-testid="button-apply-partner">
-              🤝 파트너 신청하기
+            <button 
+              className="btn-primary" 
+              data-testid="button-apply-partner"
+              onClick={handleApplyPartner}
+            >
+              파트너 신청하기
             </button>
-            <button className="btn-secondary">
-              📖 파트너 가이드
+            <button 
+              className="btn-secondary"
+              data-testid="button-view-guide"
+              onClick={handleViewGuide}
+            >
+              파트너 가이드
             </button>
           </div>
         </div>
@@ -999,7 +1090,13 @@ export default function PartnershipProgramPage() {
                     <li key={idx}>{benefit}</li>
                   ))}
                 </ul>
-                <button className="tier-btn">신청하기</button>
+                <button 
+                  className="tier-btn"
+                  data-testid={`button-apply-${tier.id}`}
+                  onClick={() => handleApplyTier(tier.name, tier.color)}
+                >
+                  신청하기
+                </button>
               </div>
             </div>
           ))}
@@ -1038,6 +1135,14 @@ export default function PartnershipProgramPage() {
                     <li key={idx}>{feature}</li>
                   ))}
                 </ul>
+                <button 
+                  className="btn-primary" 
+                  style={{ width: '100%', marginTop: '1rem' }}
+                  data-testid={`button-apply-type-${type.id}`}
+                  onClick={() => handleApplyPartnerType(type.title)}
+                >
+                  {type.title} 신청하기
+                </button>
               </div>
             </div>
           ))}
@@ -1107,58 +1212,106 @@ export default function PartnershipProgramPage() {
         </div>
 
         <div className="faq-container">
-          <div className={`faq-item ${activeFaq === 'faq-1' ? 'active' : ''}`}>
+          <div className={`faq-item ${activeFaq === 'faq-1' ? 'active' : ''}`} data-testid="faq-item-1">
             <div className="faq-question" onClick={() => toggleFaq('faq-1')}>
+              <h4>파트너십 프로그램 총 인센티브 규모는 얼마인가요?</h4>
+              <span className="faq-chevron">▼</span>
+            </div>
+            <div className="faq-answer">
+              <p>파트너십 프로그램에는 총 4억 TBURN이 배정되어 있습니다. 전략적 파트너 30%(1.2억), 거래소 파트너 25%(1억), 기술 파트너 20%(0.8억), 마케팅 파트너 15%(0.6억), 생태계 파트너 10%(0.4억)로 배분됩니다.</p>
+            </div>
+          </div>
+
+          <div className={`faq-item ${activeFaq === 'faq-2' ? 'active' : ''}`} data-testid="faq-item-2">
+            <div className="faq-question" onClick={() => toggleFaq('faq-2')}>
               <h4>파트너 신청 자격은 어떻게 되나요?</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>블록체인 관련 사업을 영위하는 기업, 프로젝트, 서비스 제공업체 모두 신청 가능합니다. 규모에 상관없이 TBURN 생태계에 가치를 제공할 수 있는 모든 파트너를 환영합니다.</p>
+              <p>블록체인 관련 사업을 영위하는 기업, 프로젝트, 서비스 제공업체 모두 신청 가능합니다. 규모에 상관없이 TBURN 생태계에 가치를 제공할 수 있는 모든 파트너를 환영합니다. 신청 시 사업자등록증, 프로젝트 소개서, 협력 제안서 등을 제출해야 합니다.</p>
             </div>
           </div>
 
-          <div className={`faq-item ${activeFaq === 'faq-2' ? 'active' : ''}`}>
-            <div className="faq-question" onClick={() => toggleFaq('faq-2')}>
+          <div className={`faq-item ${activeFaq === 'faq-3' ? 'active' : ''}`} data-testid="faq-item-3">
+            <div className="faq-question" onClick={() => toggleFaq('faq-3')}>
               <h4>파트너 티어는 어떻게 결정되나요?</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>파트너의 기여도, 통합 범위, 마케팅 협력 수준, 기술적 역량 등을 종합적으로 평가하여 티어가 결정됩니다. 시작 티어에서 활동에 따라 상위 티어로 승급할 수 있습니다.</p>
+              <p>파트너의 기여도, 통합 범위, 마케팅 협력 수준, 기술적 역량 등을 종합적으로 평가하여 티어가 결정됩니다. Platinum(최대 500만), Gold(최대 200만), Silver(최대 50만), Bronze(최대 10만) 4개 티어가 있으며, 활동 성과에 따라 상위 티어로 승급할 수 있습니다.</p>
             </div>
           </div>
 
-          <div className={`faq-item ${activeFaq === 'faq-3' ? 'active' : ''}`}>
-            <div className="faq-question" onClick={() => toggleFaq('faq-3')}>
+          <div className={`faq-item ${activeFaq === 'faq-4' ? 'active' : ''}`} data-testid="faq-item-4">
+            <div className="faq-question" onClick={() => toggleFaq('faq-4')}>
               <h4>파트너 인센티브는 어떻게 지급되나요?</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>파트너십 계약 체결 시 초기 인센티브가 지급되며, 이후 마일스톤 달성 및 KPI 성과에 따라 추가 인센티브가 지급됩니다. 인센티브는 TBURN 토큰으로 지급됩니다.</p>
+              <p>파트너십 계약 체결 시 초기 인센티브 30%가 지급되며, 마일스톤 달성 시 40%, 최종 KPI 달성 시 30%가 추가 지급됩니다. 모든 인센티브는 TBURN 토큰으로 지급되며, 6개월 베스팅 일정이 적용됩니다.</p>
             </div>
           </div>
 
-          <div className={`faq-item ${activeFaq === 'faq-4' ? 'active' : ''}`}>
-            <div className="faq-question" onClick={() => toggleFaq('faq-4')}>
+          <div className={`faq-item ${activeFaq === 'faq-5' ? 'active' : ''}`} data-testid="faq-item-5">
+            <div className="faq-question" onClick={() => toggleFaq('faq-5')}>
               <h4>여러 유형의 파트너십을 동시에 진행할 수 있나요?</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>네, 가능합니다. 예를 들어 기술 파트너이면서 동시에 마케팅 파트너로 협력할 수 있습니다. 각 유형별 인센티브가 별도로 적용됩니다.</p>
+              <p>네, 가능합니다. 예를 들어 기술 파트너이면서 동시에 마케팅 파트너로 협력할 수 있습니다. 각 유형별 인센티브가 별도로 적용되어 복합 파트너십 시 최대 인센티브를 받을 수 있습니다.</p>
+            </div>
+          </div>
+
+          <div className={`faq-item ${activeFaq === 'faq-6' ? 'active' : ''}`} data-testid="faq-item-6">
+            <div className="faq-question" onClick={() => toggleFaq('faq-6')}>
+              <h4>파트너십 체결까지 얼마나 걸리나요?</h4>
+              <span className="faq-chevron">▼</span>
+            </div>
+            <div className="faq-answer">
+              <p>일반적으로 4~6주가 소요됩니다. 신청서 제출(1일) → 심사 및 평가(1주) → 미팅 및 협의(1-2주) → 계약 체결(1주) → 통합 및 런칭(2-4주) 단계를 거칩니다. 긴급 파트너십의 경우 패스트트랙 심사가 가능합니다.</p>
+            </div>
+          </div>
+
+          <div className={`faq-item ${activeFaq === 'faq-7' ? 'active' : ''}`} data-testid="faq-item-7">
+            <div className="faq-question" onClick={() => toggleFaq('faq-7')}>
+              <h4>거래소 상장 지원은 어떻게 받나요?</h4>
+              <span className="faq-chevron">▼</span>
+            </div>
+            <div className="faq-answer">
+              <p>거래소 파트너에게는 최대 200만 TBURN의 리스팅 보너스, 50% 수수료 할인, 유동성 공급 지원, 트레이딩 대회 공동 개최 등의 혜택이 제공됩니다. Tier 1 거래소 상장 시 추가 인센티브가 지급됩니다.</p>
+            </div>
+          </div>
+
+          <div className={`faq-item ${activeFaq === 'faq-8' ? 'active' : ''}`} data-testid="faq-item-8">
+            <div className="faq-question" onClick={() => toggleFaq('faq-8')}>
+              <h4>기술 통합 지원은 어떻게 제공되나요?</h4>
+              <span className="faq-chevron">▼</span>
+            </div>
+            <div className="faq-answer">
+              <p>기술 파트너에게는 전담 개발팀 지원, API/SDK 통합 문서, 샌드박스 환경, 기술 자문 등이 제공됩니다. Platinum 티어 파트너에게는 24/7 전담 지원이 제공되며, 공동 제품 개발 프로젝트도 진행할 수 있습니다.</p>
             </div>
           </div>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="cta-section">
+      <section className="cta-section" id="cta">
         <div style={{ maxWidth: '800px', margin: '0 auto' }}>
           <h2 style={{ fontSize: '2.5rem', fontWeight: 800, marginBottom: '1rem' }}>함께 성장해요!</h2>
           <p style={{ color: 'rgba(255,255,255,0.8)', fontSize: '1.125rem', marginBottom: '2rem' }}>
             TBURN 생태계의 파트너가 되어<br />
             4억 TBURN 인센티브를 받으세요!
           </p>
-          <button className="connect-btn" style={{ background: 'var(--white)', color: 'var(--violet)', fontSize: '1.25rem', padding: '20px 50px' }}>
-            🤝 파트너 신청하기
+          <button 
+            className="connect-btn" 
+            style={{ background: 'var(--white)', color: 'var(--violet)', fontSize: '1.25rem', padding: '20px 50px' }}
+            data-testid="button-cta-apply"
+            onClick={() => { 
+              scrollToSection('tiers'); 
+              toast({ title: "파트너 신청", description: "자신에게 맞는 파트너 티어를 선택하세요!" }); 
+            }}
+          >
+            파트너 신청하기
           </button>
         </div>
       </section>
@@ -1170,45 +1323,65 @@ export default function PartnershipProgramPage() {
             <h3>TBURN<span>CHAIN</span></h3>
             <p>AI의 지능, 블록체인의 투명성<br />THE FUTURE IS NOW</p>
             <div className="social-links">
-              <a href="#">𝕏</a>
-              <a href="#">✈</a>
-              <a href="#">💬</a>
-              <a href="#">⌘</a>
+              <a 
+                href="https://x.com/tburnchain" 
+                onClick={(e) => { e.preventDefault(); handleShareSocial('Twitter', 'https://x.com/tburnchain'); }}
+                data-testid="footer-link-twitter"
+              >𝕏</a>
+              <a 
+                href="https://t.me/tburnchain" 
+                onClick={(e) => { e.preventDefault(); handleShareSocial('Telegram', 'https://t.me/tburnchain'); }}
+                data-testid="footer-link-telegram"
+              >✈</a>
+              <a 
+                href="https://discord.gg/tburnchain" 
+                onClick={(e) => { e.preventDefault(); handleShareSocial('Discord', 'https://discord.gg/tburnchain'); }}
+                data-testid="footer-link-discord"
+              >💬</a>
+              <a 
+                href="https://github.com/tburnchain" 
+                onClick={(e) => { e.preventDefault(); handleShareSocial('GitHub', 'https://github.com/tburnchain'); }}
+                data-testid="footer-link-github"
+              >⌘</a>
             </div>
           </div>
           <div className="footer-links">
             <h4>Product</h4>
             <ul>
-              <li><Link href="/">메인넷</Link></li>
-              <li><Link href="/scan">익스플로러</Link></li>
-              <li><Link href="/app/bridge">브릿지</Link></li>
-              <li><Link href="/app/staking">스테이킹</Link></li>
+              <li><a href="/" data-testid="footer-link-mainnet">메인넷</a></li>
+              <li><a href="/scan" data-testid="footer-link-explorer">익스플로러</a></li>
+              <li><a href="/app/bridge" data-testid="footer-link-bridge">브릿지</a></li>
+              <li><a href="/app/staking" data-testid="footer-link-staking">스테이킹</a></li>
             </ul>
           </div>
           <div className="footer-links">
             <h4>Resources</h4>
             <ul>
-              <li><Link href="/learn/whitepaper">백서</Link></li>
-              <li><Link href="/developers/docs">문서</Link></li>
-              <li><a href="#">GitHub</a></li>
-              <li><Link href="/security-audit">감사 보고서</Link></li>
+              <li><a href="/learn/whitepaper" data-testid="footer-link-whitepaper">백서</a></li>
+              <li><a href="/developers/docs" data-testid="footer-link-docs">문서</a></li>
+              <li><a 
+                href="https://github.com/tburnchain" 
+                onClick={(e) => { e.preventDefault(); handleShareSocial('GitHub', 'https://github.com/tburnchain'); }}
+                data-testid="footer-link-github-resources"
+              >GitHub</a></li>
+              <li><a href="/security-audit" data-testid="footer-link-audit">감사 보고서</a></li>
             </ul>
           </div>
           <div className="footer-links">
             <h4>Community</h4>
             <ul>
-              <li><Link href="/community/news">블로그</Link></li>
-              <li><a href="#">앰배서더</a></li>
-              <li><a href="#">그랜트</a></li>
-              <li><Link href="/qna">고객지원</Link></li>
+              <li><a href="/community/news" data-testid="footer-link-blog">블로그</a></li>
+              <li><a href="/community-program" data-testid="footer-link-ambassador">앰배서더</a></li>
+              <li><a href="/ecosystem-fund" data-testid="footer-link-grants">그랜트</a></li>
+              <li><a href="/qna" data-testid="footer-link-support">고객지원</a></li>
             </ul>
           </div>
         </div>
         <div className="footer-bottom">
           <p>© 2025-2045 TBURN Foundation. All Rights Reserved.</p>
           <div style={{ display: 'flex', gap: '2rem' }}>
-            <Link href="/legal/terms-of-service" style={{ color: 'var(--gray)', textDecoration: 'none' }}>이용약관</Link>
-            <Link href="/legal/privacy-policy" style={{ color: 'var(--gray)', textDecoration: 'none' }}>개인정보처리방침</Link>
+            <a href="/legal/terms-of-service" style={{ color: 'var(--gray)', textDecoration: 'none' }} data-testid="footer-link-terms">이용약관</a>
+            <a href="/legal/privacy-policy" style={{ color: 'var(--gray)', textDecoration: 'none' }} data-testid="footer-link-privacy">개인정보처리방침</a>
           </div>
         </div>
       </footer>
