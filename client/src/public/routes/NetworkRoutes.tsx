@@ -36,10 +36,10 @@ export default function NetworkRoutes() {
         <Route path="/rpc" component={RpcProviders} />
         <Route path="/network/testnet-rpc" component={TestnetRpcProviders} />
         <Route path="/testnet-rpc" component={TestnetRpcProviders} />
-        <Route path="/ws" component={WebSocketMainnet} />
-        <Route path="/network/ws" component={WebSocketMainnet} />
-        <Route path="/testnet-ws" component={WebSocketTestnet} />
-        <Route path="/network/testnet-ws" component={WebSocketTestnet} />
+        <Route path="/websocket" component={WebSocketMainnet} />
+        <Route path="/network/websocket" component={WebSocketMainnet} />
+        <Route path="/testnet-websocket" component={WebSocketTestnet} />
+        <Route path="/network/testnet-websocket" component={WebSocketTestnet} />
         <Route path="/network/status" component={NetworkStatus} />
         <Route path="/network/ramp" component={Ramp} />
         <Route component={NotFound} />

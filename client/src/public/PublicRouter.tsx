@@ -407,7 +407,7 @@ export function PublicRouter() {
     );
   }
 
-  if (location === "/ws" || location === "/network/ws") {
+  if (location === "/websocket" || location === "/network/websocket") {
     return (
       <ErrorBoundary>
         <PublicLayout>
@@ -419,7 +419,7 @@ export function PublicRouter() {
     );
   }
 
-  if (location === "/testnet-ws" || location === "/network/testnet-ws") {
+  if (location === "/testnet-websocket" || location === "/network/testnet-websocket") {
     return (
       <ErrorBoundary>
         <PublicLayout>

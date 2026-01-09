@@ -629,7 +629,7 @@ ws.onclose = () => {
                 </CardContent>
               </Card>
             </a>
-            <a href="/ws" className="block" data-testid="link-mainnet-ws">
+            <a href="/websocket" className="block" data-testid="link-mainnet-websocket">
               <Card className="bg-white dark:bg-gray-900/50 border-gray-200 dark:border-white/10 hover:border-[#00f0ff]/50 transition-colors h-full">
                 <CardContent className="p-6 text-center">
                   <Radio className="w-8 h-8 mx-auto mb-3 text-[#00f0ff]" />
