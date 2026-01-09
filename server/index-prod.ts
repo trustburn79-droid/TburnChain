@@ -143,6 +143,7 @@ app.use('/api', (req, res, next) => {
 
 // Early handlers for static HTML pages that must work during initialization
 // These are legal/compliance documents that must always be accessible
+// ★ [2026-01-09] Static pages with 503 fallback (NEVER 500)
 app.get('/whitepaper', async (_req, res) => {
   try {
     const whitepaperPath = path.resolve(process.cwd(), 'public', 'whitepaper.html');
@@ -154,7 +155,7 @@ app.get('/whitepaper', async (_req, res) => {
     }
   } catch (error) {
     console.error('[Whitepaper] Error:', error);
-    res.status(500).send('Error loading whitepaper');
+    res.status(503).send('Service temporarily unavailable. Please try again.');
   }
 });
 
@@ -169,7 +170,7 @@ app.get('/technical-whitepaper', async (_req, res) => {
     }
   } catch (error) {
     console.error('[Technical Whitepaper] Error:', error);
-    res.status(500).send('Error loading technical whitepaper');
+    res.status(503).send('Service temporarily unavailable. Please try again.');
   }
 });
 
@@ -184,7 +185,7 @@ app.get('/vision', async (_req, res) => {
     }
   } catch (error) {
     console.error('[Vision] Error:', error);
-    res.status(500).send('Error loading vision page');
+    res.status(503).send('Service temporarily unavailable. Please try again.');
   }
 });
 

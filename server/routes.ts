@@ -557,7 +557,7 @@ function requireAdmin(req: Request, res: Response, next: NextFunction) {
     
     if (!ADMIN_PASSWORD) {
       console.error('[Admin] CRITICAL: ADMIN_PASSWORD environment variable not set!');
-      return res.status(500).json({ 
+      return res.status(503).json({ 
         error: "Server Configuration Error",
         message: "Admin password not configured on server"
       });
@@ -1872,7 +1872,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.send(htmlContent);
     } catch (error) {
       console.error("[Whitepaper] Error serving whitepaper:", error);
-      res.status(500).send("Error loading whitepaper");
+      res.status(503).send("Error loading whitepaper");
     }
   });
 
@@ -1889,7 +1889,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.send(htmlContent);
     } catch (error) {
       console.error("[Technical Whitepaper] Error serving technical whitepaper:", error);
-      res.status(500).send("Error loading technical whitepaper");
+      res.status(503).send("Error loading technical whitepaper");
     }
   });
 
@@ -1906,7 +1906,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.send(htmlContent);
     } catch (error) {
       console.error("[Vision] Error serving vision page:", error);
-      res.status(500).send("Error loading vision page");
+      res.status(503).send("Error loading vision page");
     }
   });
 
@@ -1943,7 +1943,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
         timestamp: new Date().toISOString(),
       });
     } catch (error) {
-      res.status(500).json({ 
+      res.status(503).json({ 
         healthy: false, 
         error: 'Failed to get session health data',
         message: error instanceof Error ? error.message : 'Unknown error'
@@ -1974,7 +1974,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
         }
       });
     } catch (error) {
-      res.status(500).json({ status: 'error', error: 'Health check failed' });
+      res.status(503).json({ status: 'error', error: 'Health check failed' });
     }
   });
 
@@ -1995,7 +1995,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
         message: wasCold ? 'Server was cold, now warming up' : 'Server is warm',
       });
     } catch (error) {
-      res.status(500).json({ 
+      res.status(503).json({ 
         status: 'error', 
         error: 'Warmup check failed',
         message: error instanceof Error ? error.message : 'Unknown error'
@@ -2314,7 +2314,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.set('Content-Type', 'text/plain');
       res.send(`${guardianMetrics}\n\n${poolMetrics}`);
     } catch (error) {
-      res.status(500).send('# Error fetching metrics');
+      res.status(503).send('# Error fetching metrics');
     }
   });
 
@@ -2400,7 +2400,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
         timestamp: new Date().toISOString(),
       });
     } catch (error) {
-      res.status(500).json({ status: 'error', error: 'Failed to get /tmp status' });
+      res.status(503).json({ status: 'error', error: 'Failed to get /tmp status' });
     }
   });
 
@@ -5104,7 +5104,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       });
     } catch (error) {
       console.error("Error recording vote:", error);
-      res.status(500).json({ success: false, error: "Failed to record vote" });
+      res.status(503).json({ success: false, error: "Failed to record vote" });
     }
   });
 
@@ -9866,7 +9866,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       
       // Only send error if response hasn't been sent
       if (!res.headersSent) {
-        res.status(500).json({
+        res.status(503).json({
           success: false,
           message: error.message || "Failed to restart mainnet",
           error: error.toString(),
@@ -9934,7 +9934,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(healthStatus);
     } catch (error: any) {
       console.error('[Admin] ❌ Health check failed:', error);
-      res.status(500).json({
+      res.status(503).json({
         healthy: false,
         details: { error: error.message }
       });
@@ -9957,7 +9957,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       });
     } catch (error: any) {
       console.error('[Admin] ❌ Failed to get AI usage:', error);
-      res.status(500).json({
+      res.status(503).json({
         error: "Failed to retrieve AI usage statistics"
       });
     }
@@ -9974,7 +9974,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       });
     } catch (error: any) {
       console.error('[Admin] ❌ AI health check failed:', error);
-      res.status(500).json({
+      res.status(503).json({
         error: "AI service health check failed"
       });
     }
@@ -10000,7 +10000,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       });
     } catch (error: any) {
       console.error('[Admin] ❌ Failed to reset AI provider:', error);
-      res.status(500).json({
+      res.status(503).json({
         error: "Failed to reset AI provider"
       });
     }
@@ -10023,7 +10023,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       });
     } catch (error: any) {
       console.error('[Admin] ❌ AI test failed:', error);
-      res.status(500).json({
+      res.status(503).json({
         error: "AI test failed",
         message: error.message
       });
@@ -10037,7 +10037,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(stats);
     } catch (error: any) {
       console.error('[Admin] ❌ Failed to get AI usage stats:', error);
-      res.status(500).json({
+      res.status(503).json({
         error: "Failed to get AI usage statistics"
       });
     }
@@ -10065,7 +10065,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       });
     } catch (error: any) {
       console.error('[Admin] ❌ Failed to check AI health:', error);
-      res.status(500).json({
+      res.status(503).json({
         error: "Failed to check AI provider health"
       });
     }
@@ -10091,7 +10091,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       });
     } catch (error: any) {
       console.error('[Admin] ❌ Failed to switch AI provider:', error);
-      res.status(500).json({
+      res.status(503).json({
         error: "Failed to switch AI provider",
         message: error.message
       });
@@ -10129,7 +10129,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       });
     } catch (error: any) {
       console.error('[Admin] ❌ Failed to reset AI limits:', error);
-      res.status(500).json({
+      res.status(503).json({
         error: "Failed to reset AI provider limits",
         message: error.message
       });
@@ -25595,7 +25595,7 @@ Provide JSON portfolio analysis:
       res.json({ success: true, message: "뉴스레터 구독이 완료되었습니다", subscriber: { email: subscriber.email } });
     } catch (error: any) {
       console.error("[Newsletter] Subscribe error:", error);
-      res.status(500).json({ success: false, error: "구독 처리 중 오류가 발생했습니다" });
+      res.status(503).json({ success: false, error: "구독 처리 중 오류가 발생했습니다" });
     }
   });
   
@@ -25637,7 +25637,7 @@ Provide JSON portfolio analysis:
       res.json(result);
     } catch (error: any) {
       console.error("[Newsletter] Get subscribers error:", error);
-      res.status(500).json({ success: false, error: "구독자 조회 중 오류가 발생했습니다" });
+      res.status(503).json({ success: false, error: "구독자 조회 중 오류가 발생했습니다" });
     }
   });
   
@@ -25670,7 +25670,7 @@ Provide JSON portfolio analysis:
       res.json({ success: true, subscriber: updated });
     } catch (error: any) {
       console.error("[Newsletter] Update subscriber error:", error);
-      res.status(500).json({ success: false, error: "구독자 업데이트 중 오류가 발생했습니다" });
+      res.status(503).json({ success: false, error: "구독자 업데이트 중 오류가 발생했습니다" });
     }
   });
   
@@ -25693,7 +25693,7 @@ Provide JSON portfolio analysis:
       res.json({ success: true, message: "구독자가 삭제되었습니다" });
     } catch (error: any) {
       console.error("[Newsletter] Delete subscriber error:", error);
-      res.status(500).json({ success: false, error: "구독자 삭제 중 오류가 발생했습니다" });
+      res.status(503).json({ success: false, error: "구독자 삭제 중 오류가 발생했습니다" });
     }
   });
   
@@ -25712,7 +25712,7 @@ Provide JSON portfolio analysis:
       res.send(csvHeader + csvRows);
     } catch (error: any) {
       console.error("[Newsletter] Export error:", error);
-      res.status(500).json({ success: false, error: "내보내기 중 오류가 발생했습니다" });
+      res.status(503).json({ success: false, error: "내보내기 중 오류가 발생했습니다" });
     }
   });
   
@@ -26047,7 +26047,7 @@ Provide JSON portfolio analysis:
       
       res.type('text/plain').send(metrics);
     } catch (error) {
-      res.status(500).send('# Error generating metrics');
+      res.status(503).send('# Error generating metrics');
     }
   });
   
@@ -26065,7 +26065,7 @@ Provide JSON portfolio analysis:
         }
       });
     } catch (error) {
-      res.status(500).json({ success: false, error: 'Failed to get WebSocket stats' });
+      res.status(503).json({ success: false, error: 'Failed to get WebSocket stats' });
     }
   });
   
@@ -26084,7 +26084,7 @@ Provide JSON portfolio analysis:
         count: results.length
       });
     } catch (error) {
-      res.status(500).json({ success: false, error: 'Failed to get WebSocket sessions' });
+      res.status(503).json({ success: false, error: 'Failed to get WebSocket sessions' });
     }
   });
   
@@ -26103,7 +26103,7 @@ Provide JSON portfolio analysis:
         count: results.length
       });
     } catch (error) {
-      res.status(500).json({ success: false, error: 'Failed to get subscriptions' });
+      res.status(503).json({ success: false, error: 'Failed to get subscriptions' });
     }
   });
   
@@ -26151,7 +26151,7 @@ Provide JSON portfolio analysis:
         period: `${hours} hours`
       });
     } catch (error) {
-      res.status(500).json({ success: false, error: 'Failed to get metrics' });
+      res.status(503).json({ success: false, error: 'Failed to get metrics' });
     }
   });
   
@@ -26199,7 +26199,7 @@ Provide JSON portfolio analysis:
         period: `${hours} hours`
       });
     } catch (error) {
-      res.status(500).json({ success: false, error: 'Failed to get session history' });
+      res.status(503).json({ success: false, error: 'Failed to get session history' });
     }
   });
   

@@ -723,9 +723,12 @@ export default async function runApp(
   const server = await registerRoutes(app);
 
   // ★ [2026-01-05] 글로벌 에러 핸들러 - 상세 진단 로깅
+  // ★ [2026-01-09] NEVER return 500 - use 503 for unexpected errors
   app.use((err: any, req: Request, res: Response, _next: NextFunction) => {
-    const status = err.status || err.statusCode || 500;
-    const message = err.message || "Internal Server Error";
+    // ★ [2026-01-09] Map 500 → 503 to prevent "Internal Server Error"
+    let status = err.status || err.statusCode || 503;
+    if (status === 500) status = 503; // NEVER return 500
+    const message = err.message || "Service temporarily unavailable";
     const errorId = `ERR-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
     
     // 메모리 상태 캡처
