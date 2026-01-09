@@ -97,6 +97,7 @@ process.on('unhandledRejection', (reason: any) => {
     'ECONNREFUSED',
     'ETIMEDOUT',
     'ENOTFOUND',
+    'ECONNABORTED',
     'socket hang up',
     'Client network socket disconnected',
     'getaddrinfo',
@@ -107,6 +108,11 @@ process.on('unhandledRejection', (reason: any) => {
     'EHOSTUNREACH',
     'fetch failed',
     'Request timeout',
+    'SSL SYSCALL error',
+    'SSL_ERROR_SYSCALL',
+    'network error',
+    'network request failed',
+    'AbortError',
   ];
   
   const isTransient = transientErrors.some(err => 
@@ -137,9 +143,27 @@ process.on('unhandledRejection', (reason: any) => {
     return; // Don't crash - connection pool will recover
   }
   
-  // Log other unhandled rejections but don't crash
-  console.error('[Unhandled Rejection]:', message);
+  // Check for known critical errors that should be logged but not crash
+  const knownNonCriticalPatterns = [
+    'fetch', 'request', 'api', 'websocket', 'http', 'redis',
+    'timeout', 'network', 'socket', 'connection', 'refused'
+  ];
+  
+  const isLikelyNonCritical = knownNonCriticalPatterns.some(pattern =>
+    message.toLowerCase().includes(pattern)
+  );
+  
+  if (isLikelyNonCritical) {
+    console.warn('[Unhandled Rejection] Non-critical:', message.substring(0, 150));
+    return; // Likely transient, don't crash
+  }
+  
+  // Unknown errors - log with full details for debugging
+  // These are potentially critical but we don't crash to maintain stability
+  console.error('[Unhandled Rejection] ⚠️ Unknown error type:', message);
   if (reason?.stack) {
     console.error('[Unhandled Rejection Stack]:', reason.stack.split('\n').slice(0, 5).join('\n'));
   }
+  // Note: We log but don't crash to maintain 24/7 stability
+  // Critical ORM/data integrity issues should be caught by application-level try/catch
 });

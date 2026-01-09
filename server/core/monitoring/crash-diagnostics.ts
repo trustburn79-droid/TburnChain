@@ -450,6 +450,7 @@ class EnterpriseCrashDiagnosticsService {
       'ECONNREFUSED',
       'ETIMEDOUT',
       'ENOTFOUND',
+      'ECONNABORTED',
       'socket hang up',
       'fetch failed',
       'Request timeout',
@@ -459,9 +460,17 @@ class EnterpriseCrashDiagnosticsService {
       'EHOSTUNREACH',
       'getaddrinfo',
       'SSL connection has been closed',
+      'SSL SYSCALL error',
+      'SSL_ERROR_SYSCALL',
       'server closed the connection',
       'read ECONNRESET',
       'write EPIPE',
+      'network error',
+      'network request failed',
+      'AbortError',
+      'websocket',
+      'redis',
+      'timeout',
     ];
     
     const isRecoverable = recoverablePatterns.some(pattern => 
