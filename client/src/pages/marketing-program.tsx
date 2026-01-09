@@ -65,7 +65,7 @@ export default function MarketingProgramPage() {
       disconnect();
       toast({ title: "지갑 연결 해제", description: "지갑이 연결 해제되었습니다." });
     } else {
-      await connect();
+      await connect("metamask");
       toast({ title: "지갑 연결", description: "지갑이 연결되었습니다." });
     }
   };
