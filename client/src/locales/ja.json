@@ -20822,5 +20822,269 @@
         "privacyPolicy": "プライバシーポリシー"
       }
     }
+  },
+  "communityProgram": {
+    "title": "コミュニティプログラム",
+    "subtitle": "TBURNエコシステムに貢献し、コミュニティメンバーとして報酬を獲得",
+    "nav": {
+      "programs": "プログラム",
+      "tiers": "ティアシステム",
+      "activities": "活動報酬",
+      "leaderboard": "リーダーボード",
+      "faq": "FAQ"
+    },
+    "hero": {
+      "badge": "コミュニティプログラム - TBURNと共に成長",
+      "title": "コミュニティと共に創る",
+      "titleHighlight": "3億 TBURN",
+      "titleSuffix": "報酬プログラム",
+      "subtitle": "アンバサダー、コンテンツクリエイター、モデレーター、翻訳者として活動し、TBURNエコシステムの成長に貢献しながら豊富な報酬を獲得しましょう!",
+      "applyNow": "今すぐ申し込む",
+      "viewGuide": "ガイドを見る"
+    },
+    "stats": {
+      "totalContributors": "総参加者数",
+      "totalContributions": "総貢献回数",
+      "rewardsDistributed": "配布済み報酬 (TBURN)",
+      "activeTasks": "アクティブタスク"
+    },
+    "distribution": {
+      "badge": "配分",
+      "title": "プログラム別報酬配分",
+      "subtitle": "3億TBURNが6つのプログラムに配分",
+      "ambassador": "アンバサダー",
+      "creator": "クリエイター",
+      "moderator": "モデレーター",
+      "educator": "教育専門家",
+      "translator": "翻訳者",
+      "bounty": "バグバウンティ",
+      "amount90m": "9,000万",
+      "amount60m": "6,000万",
+      "amount45m": "4,500万",
+      "amount30m": "3,000万"
+    },
+    "programs": {
+      "badge": "プログラム",
+      "title": "コミュニティプログラム",
+      "subtitle": "自分に合ったプログラムを見つけよう",
+      "featured": "人気",
+      "reward": "報酬",
+      "requirements": "参加条件",
+      "applyBtn": "申し込む",
+      "connectFirst": "ウォレット接続後に申し込み",
+      "ambassador": {
+        "title": "アンバサダープログラム",
+        "subtitle": "TBURN Chain公式代表",
+        "reward": "最大5,000 TBURN/月",
+        "benefit1": "公式アンバサダーバッジ＆NFT",
+        "benefit2": "月間報酬＋パフォーマンスボーナス",
+        "benefit3": "専用Discordチャンネルアクセス",
+        "benefit4": "オフラインイベント招待",
+        "requirements": "SNSフォロワー1,000人以上、暗号資産関連活動経験"
+      },
+      "creator": {
+        "title": "コンテンツクリエイター",
+        "subtitle": "教育＆プロモーションコンテンツ制作",
+        "reward": "コンテンツごと100~1,000 TBURN",
+        "benefit1": "動画/ブログ/インフォグラフィック報酬",
+        "benefit2": "コンテンツ制作ツールサポート",
+        "benefit3": "公式チャンネル宣伝機会",
+        "benefit4": "クリエイター限定イベント",
+        "requirements": "ポートフォリオ提出必須"
+      },
+      "moderator": {
+        "title": "コミュニティモデレーター",
+        "subtitle": "コミュニティ管理＆サポート",
+        "reward": "最大2,000 TBURN/月",
+        "benefit1": "Discord/Telegramモデレーター権限",
+        "benefit2": "月間固定報酬",
+        "benefit3": "コミュニティ成長ボーナス",
+        "benefit4": "内部情報事前共有",
+        "requirements": "週20時間以上活動可能"
+      },
+      "educator": {
+        "title": "教育専門家",
+        "subtitle": "ブロックチェーン教育＆チュートリアル",
+        "reward": "講義ごと500~2,000 TBURN",
+        "benefit1": "オンライン講義制作報酬",
+        "benefit2": "教育資料制作サポート",
+        "benefit3": "TBURN Academy講師認定",
+        "benefit4": "教育プラットフォームパートナーシップ",
+        "requirements": "ブロックチェーン/開発関連専門知識"
+      },
+      "translator": {
+        "title": "翻訳者プログラム",
+        "subtitle": "多言語サポート＆ローカライゼーション",
+        "reward": "文書ごと200~800 TBURN",
+        "benefit1": "公式文書翻訳報酬",
+        "benefit2": "コミュニティローカライゼーションサポート",
+        "benefit3": "翻訳者認定バッジ",
+        "benefit4": "言語別コミュニティリード機会",
+        "requirements": "英語＋1言語以上堪能"
+      },
+      "bounty": {
+        "title": "バグバウンティハンター",
+        "subtitle": "セキュリティ脆弱性発見＆報告",
+        "reward": "1件最大50,000 TBURN",
+        "benefit1": "深刻度別報酬",
+        "benefit2": "殿堂入り",
+        "benefit3": "セキュリティ専門家ネットワーク参加",
+        "benefit4": "ホワイトハット認定",
+        "requirements": "セキュリティ関連技術知識必須"
+      }
+    },
+    "tiers": {
+      "badge": "ティアシステム",
+      "title": "コミュニティティアシステム",
+      "subtitle": "活動量に応じてティアが上昇し報酬倍率が増加",
+      "header": "ティア別特典",
+      "headerSubtitle": "ポイントを貯めて上位ティアに昇格しよう",
+      "newcomer": {
+        "name": "ニューカマー",
+        "points": "0~499ポイント",
+        "multiplier": "1x報酬"
+      },
+      "contributor": {
+        "name": "コントリビューター",
+        "points": "500~1,999ポイント",
+        "multiplier": "1.2x報酬"
+      },
+      "advocate": {
+        "name": "アドボケイト",
+        "points": "2,000~4,999ポイント",
+        "multiplier": "1.5x報酬"
+      },
+      "champion": {
+        "name": "チャンピオン",
+        "points": "5,000~9,999ポイント",
+        "multiplier": "2x報酬"
+      },
+      "legend": {
+        "name": "レジェンド",
+        "points": "10,000+ポイント",
+        "multiplier": "3x報酬"
+      }
+    },
+    "activities": {
+      "badge": "活動",
+      "title": "活動別ポイント＆報酬",
+      "subtitle": "様々な活動でポイントとTBURNを獲得",
+      "header": "ポイント獲得活動",
+      "columns": {
+        "activity": "活動",
+        "category": "カテゴリ",
+        "points": "ポイント",
+        "reward": "TBURN報酬",
+        "frequency": "頻度"
+      },
+      "frequencies": {
+        "daily": "毎日",
+        "weekly": "毎週",
+        "monthly": "毎月",
+        "once": "1回"
+      },
+      "categories": {
+        "content": "コンテンツ",
+        "social": "ソーシャル",
+        "support": "サポート",
+        "education": "教育"
+      },
+      "blog": "ブログ投稿",
+      "youtube": "YouTube動画制作",
+      "tweet": "ツイート/リツイート",
+      "qa": "コミュニティQ&A",
+      "tutorial": "チュートリアル制作"
+    },
+    "leaderboard": {
+      "badge": "リーダーボード",
+      "title": "コミュニティリーダーボード",
+      "subtitle": "最も活発なコミュニティメンバー",
+      "header": "トップコントリビューター"
+    },
+    "faq": {
+      "badge": "FAQ",
+      "title": "よくある質問",
+      "subtitle": "コミュニティプログラムについての質問",
+      "q1": {
+        "question": "コミュニティプログラムの総報酬プールはいくらですか?",
+        "answer": "コミュニティプログラムの総報酬プールは3億TBURNです。これは総供給量100億TBURNの3%に相当します。6つのプログラムに配分:アンバサダー(30%)、コンテンツクリエイター(20%)、モデレーター(15%)、教育専門家(15%)、翻訳者(10%)、バグバウンティ(10%)。"
+      },
+      "q2": {
+        "question": "コミュニティプログラムにどうやって参加しますか?",
+        "answer": "各プログラムカードの「申し込む」ボタンをクリックして申請してください。審査承認後、公式コミュニティメンバーとして活動を開始できます。アンバサダーは追加の面接プロセスがあります。"
+      },
+      "q3": {
+        "question": "ポイントはどのようにTBURNに変換されますか?",
+        "answer": "ポイントは毎月末に自動的にTBURNに変換されます。変換率はティアによって異なり、レジェンドティアは最大3倍の報酬倍率を受けます。変換されたTBURNは翌月第1週に配布されます。"
+      },
+      "q4": {
+        "question": "複数のプログラムに同時参加できますか?",
+        "answer": "はい、複数のプログラムに同時参加できます。例えば、アンバサダーとして活動しながらコンテンツクリエイターとしても報酬を受け取れます。ただし、各プログラムのすべての要件を満たす必要があります。"
+      },
+      "q5": {
+        "question": "ティアシステムはどのように機能しますか?",
+        "answer": "5段階のティアがあります:ニューカマー(1x)→コントリビューター(1.2x)→アドボケイト(1.5x)→チャンピオン(2x)→レジェンド(3x)。活動でポイントを貯めて上位ティアに昇格し、報酬倍率が増加します。レジェンドティアには10,000+ポイントが必要です。"
+      },
+      "q6": {
+        "question": "降格条件は何ですか?",
+        "answer": "3ヶ月連続で最低活動要件(月100+ポイント)を満たさない場合、降格する可能性があります。降格は1ティアずつ行われ、該当ティアの報酬倍率が適用されます。"
+      },
+      "q7": {
+        "question": "バグバウンティ報酬はどのように決定されますか?",
+        "answer": "バグバウンティ報酬は深刻度によって決定:Critical(最大50,000 TBURN)、High(10,000~25,000 TBURN)、Medium(2,000~10,000 TBURN)、Low(500~2,000 TBURN)。セキュリティ専門家の検証後7日以内に支払われます。"
+      },
+      "q8": {
+        "question": "コンテンツ品質基準は何ですか?",
+        "answer": "コンテンツは4つの基準で評価:正確性、独自性、品質、エンゲージメント。盗用、虚偽情報、低品質コンテンツは拒否され、繰り返しの違反はプログラム停止につながる可能性があります。優秀なコンテンツは公式チャンネルで宣伝され、追加ボーナスが支給されます。"
+      }
+    },
+    "cta": {
+      "title": "TBURNコミュニティに参加しよう!",
+      "subtitle": "TBURNエコシステムで共に成長し、共に報酬を得よう",
+      "subtitleLine2": "今すぐコミュニティプログラムに参加!",
+      "button": "始める"
+    },
+    "footer": {
+      "brand": {
+        "tagline": "AIの知性、ブロックチェーンの透明性",
+        "slogan": "THE FUTURE IS NOW"
+      },
+      "product": {
+        "title": "プロダクト",
+        "mainnet": "メインネット",
+        "explorer": "エクスプローラー",
+        "bridge": "ブリッジ",
+        "staking": "ステーキング"
+      },
+      "resources": {
+        "title": "リソース",
+        "docs": "ドキュメント",
+        "whitepaper": "ホワイトペーパー",
+        "github": "GitHub",
+        "blog": "ブログ"
+      },
+      "legal": {
+        "title": "法的情報",
+        "terms": "利用規約",
+        "privacy": "プライバシーポリシー",
+        "cookies": "Cookieポリシー"
+      },
+      "copyright": "2024-2025 TBURN Chain. All rights reserved."
+    },
+    "toast": {
+      "walletConnected": "ウォレット接続",
+      "walletConnectedDesc": "MetaMaskウォレットが接続されました。",
+      "walletDisconnected": "ウォレット切断",
+      "walletDisconnectedDesc": "ウォレット接続が解除されました。",
+      "walletRequired": "ウォレット必須",
+      "walletRequiredDesc": "プログラムに申し込むには先にウォレットを接続してください。",
+      "applicationSubmitted": "申請完了",
+      "applicationSubmittedDesc": "申請が提出されました。審査後、結果をお知らせします。",
+      "selectProgram": "プログラム選択",
+      "selectProgramDesc": "下から参加するプログラムを選択してください。",
+      "viewGuide": "ガイド",
+      "viewGuideDesc": "各活動のポイントと報酬情報を確認。"
+    },
+    "connectWallet": "ウォレット接続"
   }
 }

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "wouter";
 import { useQuery } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
 import { TBurnLogo } from "@/components/tburn-logo";
 import { useWeb3 } from "@/lib/web3-context";
 import { useToast } from "@/hooks/use-toast";
@@ -20,6 +21,7 @@ interface CommunityStatsResponse {
 }
 
 export default function CommunityProgramPage() {
+  const { t } = useTranslation();
   const [activeFaq, setActiveFaq] = useState<string | null>("faq-1");
   const { isConnected, address, connect, disconnect, formatAddress } = useWeb3();
   const { toast } = useToast();
@@ -36,10 +38,10 @@ export default function CommunityProgramPage() {
   const handleWalletClick = async () => {
     if (isConnected) {
       disconnect();
-      toast({ title: "지갑 연결 해제", description: "지갑 연결이 해제되었습니다." });
+      toast({ title: t('communityProgram.toast.walletDisconnected'), description: t('communityProgram.toast.walletDisconnectedDesc') });
     } else {
       await connect("metamask");
-      toast({ title: "지갑 연결", description: "MetaMask 지갑이 연결되었습니다." });
+      toast({ title: t('communityProgram.toast.walletConnected'), description: t('communityProgram.toast.walletConnectedDesc') });
     }
   };
 
@@ -53,43 +55,37 @@ export default function CommunityProgramPage() {
   const handleApplyProgram = (programId: string, programTitle: string) => {
     if (!isConnected) {
       connect("metamask");
-      toast({ title: "지갑 연결 필요", description: "프로그램에 신청하려면 먼저 지갑을 연결해주세요." });
+      toast({ title: t('communityProgram.toast.walletRequired'), description: t('communityProgram.toast.walletRequiredDesc') });
       return;
     }
     toast({ 
-      title: "신청 접수 완료", 
-      description: `${programTitle} 프로그램에 신청되었습니다. 검토 후 결과를 안내드리겠습니다.` 
+      title: t('communityProgram.toast.applicationSubmitted'), 
+      description: t('communityProgram.toast.applicationSubmittedDesc')
     });
   };
 
   const handleShareSocial = (platform: string, url: string) => {
     window.open(url, '_blank', 'width=600,height=400');
-    toast({ title: platform, description: `${platform} 페이지로 이동합니다.` });
   };
 
   const programs = [
-    { id: "ambassador", icon: "🌟", title: "앰배서더 프로그램", subtitle: "TBURN Chain의 공식 대표", reward: "최대 5,000 TBURN/월", featured: true, benefits: ["공식 앰배서더 뱃지 및 NFT", "월간 보상 + 성과 보너스", "전용 Discord 채널 접근", "오프라인 이벤트 초대"], requirements: "SNS 팔로워 1,000명 이상, 암호화폐 관련 활동 경험" },
-    { id: "creator", icon: "🎨", title: "콘텐츠 크리에이터", subtitle: "교육 & 홍보 콘텐츠 제작", reward: "콘텐츠당 100~1,000 TBURN", featured: true, benefits: ["동영상/블로그/인포그래픽 보상", "콘텐츠 제작 도구 지원", "공식 채널 홍보 기회", "창작자 전용 이벤트"], requirements: "포트폴리오 제출 필수" },
-    { id: "moderator", icon: "🛡️", title: "커뮤니티 모더레이터", subtitle: "커뮤니티 관리 및 지원", reward: "최대 2,000 TBURN/월", featured: false, benefits: ["Discord/Telegram 모더레이터 권한", "월간 고정 보상", "커뮤니티 성장 보너스", "내부 정보 사전 공유"], requirements: "주 20시간 이상 활동 가능" },
-    { id: "educator", icon: "📚", title: "교육 전문가", subtitle: "블록체인 교육 & 튜토리얼", reward: "강의당 500~2,000 TBURN", featured: false, benefits: ["온라인 강의 제작 보상", "교육 자료 제작 지원", "TBURN Academy 강사 인증", "교육 플랫폼 파트너십"], requirements: "블록체인/개발 관련 전문 지식" },
-    { id: "translator", icon: "🌍", title: "번역가 프로그램", subtitle: "다국어 지원 및 현지화", reward: "문서당 200~800 TBURN", featured: false, benefits: ["공식 문서 번역 보상", "커뮤니티 현지화 지원", "번역가 인증 배지", "언어별 커뮤니티 리드 기회"], requirements: "영어 + 1개 이상 언어 능통" },
-    { id: "bounty", icon: "🏆", title: "버그 바운티 헌터", subtitle: "보안 취약점 발견 & 보고", reward: "건당 최대 50,000 TBURN", featured: false, benefits: ["취약점 심각도별 보상", "명예의 전당 등재", "보안 전문가 네트워크 참여", "화이트햇 인증서"], requirements: "보안 관련 기술 지식 필수" },
+    { id: "ambassador", icon: "🌟", featured: true },
+    { id: "creator", icon: "🎨", featured: true },
+    { id: "moderator", icon: "🛡️", featured: false },
+    { id: "educator", icon: "📚", featured: false },
+    { id: "translator", icon: "🌍", featured: false },
+    { id: "bounty", icon: "🏆", featured: false },
   ];
 
-  const tiers = [
-    { id: "newcomer", icon: "🌱", name: "뉴커머", points: "0~499 포인트", multiplier: "1x 보상", tierClass: "newcomer" },
-    { id: "contributor", icon: "🌿", name: "컨트리뷰터", points: "500~1,999 포인트", multiplier: "1.2x 보상", tierClass: "contributor" },
-    { id: "advocate", icon: "💠", name: "애드보킷", points: "2,000~4,999 포인트", multiplier: "1.5x 보상", tierClass: "advocate" },
-    { id: "champion", icon: "👑", name: "챔피언", points: "5,000~9,999 포인트", multiplier: "2x 보상", tierClass: "champion" },
-    { id: "legend", icon: "⭐", name: "레전드", points: "10,000+ 포인트", multiplier: "3x 보상", tierClass: "legend" },
-  ];
+  const tierIds = ["newcomer", "contributor", "advocate", "champion", "legend"];
+  const tierIcons = { newcomer: "🌱", contributor: "🌿", advocate: "💠", champion: "👑", legend: "⭐" };
 
   const activities = [
-    { icon: "📝", type: "content", name: "블로그 포스팅", category: "콘텐츠", points: "+50~200", reward: "50~200 TBURN", frequency: "weekly" },
-    { icon: "🎬", type: "content", name: "유튜브 영상 제작", category: "콘텐츠", points: "+100~500", reward: "100~500 TBURN", frequency: "monthly" },
-    { icon: "🐦", type: "social", name: "트윗/리트윗", category: "소셜", points: "+10~50", reward: "10~50 TBURN", frequency: "daily" },
-    { icon: "💬", type: "support", name: "커뮤니티 질문 답변", category: "서포트", points: "+20~100", reward: "20~100 TBURN", frequency: "daily" },
-    { icon: "📖", type: "education", name: "튜토리얼 제작", category: "교육", points: "+200~500", reward: "200~500 TBURN", frequency: "once" },
+    { icon: "📝", type: "content", nameKey: "blog", categoryKey: "content", points: "+50~200", reward: "50~200 TBURN", frequency: "weekly" },
+    { icon: "🎬", type: "content", nameKey: "youtube", categoryKey: "content", points: "+100~500", reward: "100~500 TBURN", frequency: "monthly" },
+    { icon: "🐦", type: "social", nameKey: "tweet", categoryKey: "social", points: "+10~50", reward: "10~50 TBURN", frequency: "daily" },
+    { icon: "💬", type: "support", nameKey: "qa", categoryKey: "support", points: "+20~100", reward: "20~100 TBURN", frequency: "daily" },
+    { icon: "📖", type: "education", nameKey: "tutorial", categoryKey: "education", points: "+200~500", reward: "200~500 TBURN", frequency: "once" },
   ];
 
   const leaderboard = [

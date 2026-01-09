@@ -19946,5 +19946,269 @@
         "privacyPolicy": "隐私政策"
       }
     }
+  },
+  "communityProgram": {
+    "title": "社区计划",
+    "subtitle": "为TBURN生态系统做出贡献,作为社区成员获得奖励",
+    "nav": {
+      "programs": "计划",
+      "tiers": "等级系统",
+      "activities": "活动奖励",
+      "leaderboard": "排行榜",
+      "faq": "常见问题"
+    },
+    "hero": {
+      "badge": "社区计划 - 与TBURN共同成长",
+      "title": "社区共建",
+      "titleHighlight": "3亿 TBURN",
+      "titleSuffix": "奖励计划",
+      "subtitle": "成为大使、内容创作者、版主或翻译者,在为TBURN生态系统做出贡献的同时获得丰厚奖励!",
+      "applyNow": "立即申请",
+      "viewGuide": "查看指南"
+    },
+    "stats": {
+      "totalContributors": "总参与者",
+      "totalContributions": "总贡献次数",
+      "rewardsDistributed": "已分发奖励 (TBURN)",
+      "activeTasks": "活跃任务"
+    },
+    "distribution": {
+      "badge": "分配",
+      "title": "按计划分配奖励",
+      "subtitle": "3亿TBURN分配到6个计划",
+      "ambassador": "大使",
+      "creator": "创作者",
+      "moderator": "版主",
+      "educator": "教育专家",
+      "translator": "翻译者",
+      "bounty": "漏洞赏金",
+      "amount90m": "9000万",
+      "amount60m": "6000万",
+      "amount45m": "4500万",
+      "amount30m": "3000万"
+    },
+    "programs": {
+      "badge": "计划",
+      "title": "社区计划",
+      "subtitle": "找到适合您的计划",
+      "featured": "热门",
+      "reward": "奖励",
+      "requirements": "要求",
+      "applyBtn": "申请",
+      "connectFirst": "连接钱包后申请",
+      "ambassador": {
+        "title": "大使计划",
+        "subtitle": "TBURN Chain官方代表",
+        "reward": "每月最高5,000 TBURN",
+        "benefit1": "官方大使徽章和NFT",
+        "benefit2": "月度奖励+绩效奖金",
+        "benefit3": "专属Discord频道访问",
+        "benefit4": "线下活动邀请",
+        "requirements": "社交媒体粉丝1,000+,加密货币相关活动经验"
+      },
+      "creator": {
+        "title": "内容创作者",
+        "subtitle": "教育和推广内容",
+        "reward": "每篇100-1,000 TBURN",
+        "benefit1": "视频/博客/信息图奖励",
+        "benefit2": "内容创作工具支持",
+        "benefit3": "官方频道推广",
+        "benefit4": "创作者专属活动",
+        "requirements": "需提交作品集"
+      },
+      "moderator": {
+        "title": "社区版主",
+        "subtitle": "社区管理和支持",
+        "reward": "每月最高2,000 TBURN",
+        "benefit1": "Discord/Telegram版主权限",
+        "benefit2": "月度固定奖励",
+        "benefit3": "社区增长奖金",
+        "benefit4": "内部信息提前获取",
+        "requirements": "每周可活动20小时以上"
+      },
+      "educator": {
+        "title": "教育专家",
+        "subtitle": "区块链教育和教程",
+        "reward": "每次讲座500-2,000 TBURN",
+        "benefit1": "在线课程制作奖励",
+        "benefit2": "教育资料制作支持",
+        "benefit3": "TBURN学院讲师认证",
+        "benefit4": "教育平台合作",
+        "requirements": "需具备区块链/开发专业知识"
+      },
+      "translator": {
+        "title": "翻译者计划",
+        "subtitle": "多语言支持和本地化",
+        "reward": "每份文档200-800 TBURN",
+        "benefit1": "官方文档翻译奖励",
+        "benefit2": "社区本地化支持",
+        "benefit3": "翻译者认证徽章",
+        "benefit4": "语言社区负责人机会",
+        "requirements": "精通英语+1种以上语言"
+      },
+      "bounty": {
+        "title": "漏洞赏金猎人",
+        "subtitle": "安全漏洞发现和报告",
+        "reward": "每个漏洞最高50,000 TBURN",
+        "benefit1": "按严重程度奖励",
+        "benefit2": "名人堂入选",
+        "benefit3": "安全专家网络参与",
+        "benefit4": "白帽认证",
+        "requirements": "需具备安全相关技术知识"
+      }
+    },
+    "tiers": {
+      "badge": "等级系统",
+      "title": "社区等级系统",
+      "subtitle": "通过活动提升等级,增加奖励倍数",
+      "header": "等级福利",
+      "headerSubtitle": "积累积分升级到更高等级",
+      "newcomer": {
+        "name": "新手",
+        "points": "0-499积分",
+        "multiplier": "1x奖励"
+      },
+      "contributor": {
+        "name": "贡献者",
+        "points": "500-1,999积分",
+        "multiplier": "1.2x奖励"
+      },
+      "advocate": {
+        "name": "倡导者",
+        "points": "2,000-4,999积分",
+        "multiplier": "1.5x奖励"
+      },
+      "champion": {
+        "name": "冠军",
+        "points": "5,000-9,999积分",
+        "multiplier": "2x奖励"
+      },
+      "legend": {
+        "name": "传奇",
+        "points": "10,000+积分",
+        "multiplier": "3x奖励"
+      }
+    },
+    "activities": {
+      "badge": "活动",
+      "title": "活动积分和奖励",
+      "subtitle": "通过各种活动获得积分和TBURN",
+      "header": "积分获取活动",
+      "columns": {
+        "activity": "活动",
+        "category": "类别",
+        "points": "积分",
+        "reward": "TBURN奖励",
+        "frequency": "频率"
+      },
+      "frequencies": {
+        "daily": "每日",
+        "weekly": "每周",
+        "monthly": "每月",
+        "once": "一次"
+      },
+      "categories": {
+        "content": "内容",
+        "social": "社交",
+        "support": "支持",
+        "education": "教育"
+      },
+      "blog": "博客发布",
+      "youtube": "YouTube视频",
+      "tweet": "推文/转推",
+      "qa": "社区问答",
+      "tutorial": "教程制作"
+    },
+    "leaderboard": {
+      "badge": "排行榜",
+      "title": "社区排行榜",
+      "subtitle": "最活跃的社区成员",
+      "header": "顶级贡献者"
+    },
+    "faq": {
+      "badge": "常见问题",
+      "title": "常见问题",
+      "subtitle": "关于社区计划的常见问题",
+      "q1": {
+        "question": "社区计划的总奖励池是多少?",
+        "answer": "社区计划总奖励池为3亿TBURN。这占总供应量100亿TBURN的3%。分配到6个计划:大使(30%)、内容创作者(20%)、版主(15%)、教育专家(15%)、翻译者(10%)、漏洞赏金(10%)。"
+      },
+      "q2": {
+        "question": "如何参与社区计划?",
+        "answer": "点击每个计划卡片上的'申请'按钮提交申请。审核批准后,即可作为官方社区成员开始活动。大使需要额外的面试流程。"
+      },
+      "q3": {
+        "question": "积分如何转换为TBURN?",
+        "answer": "积分在每月底自动转换为TBURN。转换率因等级而异,传奇等级最高可获得3倍奖励倍数。转换后的TBURN在下个月第一周发放。"
+      },
+      "q4": {
+        "question": "可以同时参与多个计划吗?",
+        "answer": "是的,可以同时参与多个计划。例如,可以同时作为大使和内容创作者获得奖励。但必须满足每个计划的所有要求。"
+      },
+      "q5": {
+        "question": "等级系统如何运作?",
+        "answer": "有5个等级:新手(1x)→贡献者(1.2x)→倡导者(1.5x)→冠军(2x)→传奇(3x)。通过活动积累积分升级,奖励倍数随等级增加。传奇等级需要10,000+积分。"
+      },
+      "q6": {
+        "question": "降级条件是什么?",
+        "answer": "如果连续3个月未达到最低活动要求(每月100+积分),可能会被降级。降级每次降一级,应用相应等级的奖励倍数。"
+      },
+      "q7": {
+        "question": "漏洞赏金奖励如何确定?",
+        "answer": "漏洞赏金奖励按严重程度确定:严重(最高50,000 TBURN)、高(10,000-25,000 TBURN)、中(2,000-10,000 TBURN)、低(500-2,000 TBURN)。安全专家验证后7天内发放。"
+      },
+      "q8": {
+        "question": "内容质量标准是什么?",
+        "answer": "内容按4个标准评估:准确性、原创性、质量和参与度。抄袭、虚假信息或低质量内容将被拒绝,重复违规可能导致计划暂停。优秀内容将在官方频道推广并获得额外奖金。"
+      }
+    },
+    "cta": {
+      "title": "加入TBURN社区!",
+      "subtitle": "在TBURN生态系统中共同成长,共同获益",
+      "subtitleLine2": "立即加入社区计划!",
+      "button": "开始"
+    },
+    "footer": {
+      "brand": {
+        "tagline": "AI智能,区块链透明",
+        "slogan": "未来已来"
+      },
+      "product": {
+        "title": "产品",
+        "mainnet": "主网",
+        "explorer": "浏览器",
+        "bridge": "桥接",
+        "staking": "质押"
+      },
+      "resources": {
+        "title": "资源",
+        "docs": "文档",
+        "whitepaper": "白皮书",
+        "github": "GitHub",
+        "blog": "博客"
+      },
+      "legal": {
+        "title": "法律",
+        "terms": "服务条款",
+        "privacy": "隐私政策",
+        "cookies": "Cookie政策"
+      },
+      "copyright": "2024-2025 TBURN Chain. 保留所有权利。"
+    },
+    "toast": {
+      "walletConnected": "钱包已连接",
+      "walletConnectedDesc": "MetaMask钱包已连接。",
+      "walletDisconnected": "钱包已断开",
+      "walletDisconnectedDesc": "钱包连接已断开。",
+      "walletRequired": "需要钱包",
+      "walletRequiredDesc": "请先连接钱包再申请计划。",
+      "applicationSubmitted": "申请已提交",
+      "applicationSubmittedDesc": "您的申请已提交。审核后我们会通知您结果。",
+      "selectProgram": "选择计划",
+      "selectProgramDesc": "请在下方选择要参与的计划。",
+      "viewGuide": "指南",
+      "viewGuideDesc": "查看各活动的积分和奖励信息。"
+    },
+    "connectWallet": "连接钱包"
   }
 }

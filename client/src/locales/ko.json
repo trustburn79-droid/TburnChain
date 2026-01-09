@@ -32860,5 +32860,269 @@
         "privacyPolicy": "개인정보처리방침"
       }
     }
+  },
+  "communityProgram": {
+    "title": "커뮤니티 프로그램",
+    "subtitle": "TBURN 생태계에 기여하고 커뮤니티 멤버로서 보상을 받으세요",
+    "nav": {
+      "programs": "프로그램",
+      "tiers": "등급 시스템",
+      "activities": "활동 보상",
+      "leaderboard": "리더보드",
+      "faq": "FAQ"
+    },
+    "hero": {
+      "badge": "COMMUNITY PROGRAM - 함께 성장하는 TBURN",
+      "title": "커뮤니티와 함께 만드는",
+      "titleHighlight": "3억 TBURN",
+      "titleSuffix": "보상 프로그램",
+      "subtitle": "앰배서더, 콘텐츠 크리에이터, 모더레이터, 번역가로 활동하고 TBURN 생태계 성장에 기여하며 푸짐한 보상을 받아가세요!",
+      "applyNow": "지금 신청하기",
+      "viewGuide": "가이드 보기"
+    },
+    "stats": {
+      "totalContributors": "총 참여자 수",
+      "totalContributions": "총 기여 횟수",
+      "rewardsDistributed": "배포된 보상 (TBURN)",
+      "activeTasks": "활성 태스크"
+    },
+    "distribution": {
+      "badge": "DISTRIBUTION",
+      "title": "프로그램별 보상 배분",
+      "subtitle": "3억 TBURN이 6가지 프로그램으로 배분됩니다",
+      "ambassador": "앰배서더",
+      "creator": "크리에이터",
+      "moderator": "모더레이터",
+      "educator": "교육 전문가",
+      "translator": "번역가",
+      "bounty": "버그 바운티",
+      "amount90m": "9,000만",
+      "amount60m": "6,000만",
+      "amount45m": "4,500만",
+      "amount30m": "3,000만"
+    },
+    "programs": {
+      "badge": "PROGRAMS",
+      "title": "커뮤니티 프로그램",
+      "subtitle": "나에게 맞는 프로그램을 찾아 참여하세요",
+      "featured": "인기",
+      "reward": "보상",
+      "requirements": "참여 조건",
+      "applyBtn": "신청하기",
+      "connectFirst": "지갑 연결 후 신청",
+      "ambassador": {
+        "title": "앰배서더 프로그램",
+        "subtitle": "TBURN Chain의 공식 대표",
+        "reward": "최대 5,000 TBURN/월",
+        "benefit1": "공식 앰배서더 뱃지 및 NFT",
+        "benefit2": "월간 보상 + 성과 보너스",
+        "benefit3": "전용 Discord 채널 접근",
+        "benefit4": "오프라인 이벤트 초대",
+        "requirements": "SNS 팔로워 1,000명 이상, 암호화폐 관련 활동 경험"
+      },
+      "creator": {
+        "title": "콘텐츠 크리에이터",
+        "subtitle": "교육 & 홍보 콘텐츠 제작",
+        "reward": "콘텐츠당 100~1,000 TBURN",
+        "benefit1": "동영상/블로그/인포그래픽 보상",
+        "benefit2": "콘텐츠 제작 도구 지원",
+        "benefit3": "공식 채널 홍보 기회",
+        "benefit4": "창작자 전용 이벤트",
+        "requirements": "포트폴리오 제출 필수"
+      },
+      "moderator": {
+        "title": "커뮤니티 모더레이터",
+        "subtitle": "커뮤니티 관리 및 지원",
+        "reward": "최대 2,000 TBURN/월",
+        "benefit1": "Discord/Telegram 모더레이터 권한",
+        "benefit2": "월간 고정 보상",
+        "benefit3": "커뮤니티 성장 보너스",
+        "benefit4": "내부 정보 사전 공유",
+        "requirements": "주 20시간 이상 활동 가능"
+      },
+      "educator": {
+        "title": "교육 전문가",
+        "subtitle": "블록체인 교육 & 튜토리얼",
+        "reward": "강의당 500~2,000 TBURN",
+        "benefit1": "온라인 강의 제작 보상",
+        "benefit2": "교육 자료 제작 지원",
+        "benefit3": "TBURN Academy 강사 인증",
+        "benefit4": "교육 플랫폼 파트너십",
+        "requirements": "블록체인/개발 관련 전문 지식"
+      },
+      "translator": {
+        "title": "번역가 프로그램",
+        "subtitle": "다국어 지원 및 현지화",
+        "reward": "문서당 200~800 TBURN",
+        "benefit1": "공식 문서 번역 보상",
+        "benefit2": "커뮤니티 현지화 지원",
+        "benefit3": "번역가 인증 배지",
+        "benefit4": "언어별 커뮤니티 리드 기회",
+        "requirements": "영어 + 1개 이상 언어 능통"
+      },
+      "bounty": {
+        "title": "버그 바운티 헌터",
+        "subtitle": "보안 취약점 발견 & 보고",
+        "reward": "건당 최대 50,000 TBURN",
+        "benefit1": "취약점 심각도별 보상",
+        "benefit2": "명예의 전당 등재",
+        "benefit3": "보안 전문가 네트워크 참여",
+        "benefit4": "화이트햇 인증서",
+        "requirements": "보안 관련 기술 지식 필수"
+      }
+    },
+    "tiers": {
+      "badge": "TIER SYSTEM",
+      "title": "커뮤니티 등급 시스템",
+      "subtitle": "활동량에 따라 등급이 상승하고 보상 배율이 증가합니다",
+      "header": "등급별 혜택",
+      "headerSubtitle": "포인트를 모아 더 높은 등급으로 승급하세요",
+      "newcomer": {
+        "name": "뉴커머",
+        "points": "0~499 포인트",
+        "multiplier": "1x 보상"
+      },
+      "contributor": {
+        "name": "컨트리뷰터",
+        "points": "500~1,999 포인트",
+        "multiplier": "1.2x 보상"
+      },
+      "advocate": {
+        "name": "애드보킷",
+        "points": "2,000~4,999 포인트",
+        "multiplier": "1.5x 보상"
+      },
+      "champion": {
+        "name": "챔피언",
+        "points": "5,000~9,999 포인트",
+        "multiplier": "2x 보상"
+      },
+      "legend": {
+        "name": "레전드",
+        "points": "10,000+ 포인트",
+        "multiplier": "3x 보상"
+      }
+    },
+    "activities": {
+      "badge": "ACTIVITIES",
+      "title": "활동별 포인트 & 보상",
+      "subtitle": "다양한 활동으로 포인트와 TBURN을 획득하세요",
+      "header": "포인트 획득 활동",
+      "columns": {
+        "activity": "활동",
+        "category": "카테고리",
+        "points": "포인트",
+        "reward": "TBURN 보상",
+        "frequency": "빈도"
+      },
+      "frequencies": {
+        "daily": "매일",
+        "weekly": "매주",
+        "monthly": "매월",
+        "once": "1회"
+      },
+      "categories": {
+        "content": "콘텐츠",
+        "social": "소셜",
+        "support": "서포트",
+        "education": "교육"
+      },
+      "blog": "블로그 포스팅",
+      "youtube": "유튜브 영상 제작",
+      "tweet": "트윗/리트윗",
+      "qa": "커뮤니티 질문 답변",
+      "tutorial": "튜토리얼 제작"
+    },
+    "leaderboard": {
+      "badge": "LEADERBOARD",
+      "title": "커뮤니티 리더보드",
+      "subtitle": "가장 활발한 커뮤니티 멤버들",
+      "header": "Top Contributors"
+    },
+    "faq": {
+      "badge": "FAQ",
+      "title": "자주 묻는 질문",
+      "subtitle": "커뮤니티 프로그램에 대해 궁금한 점",
+      "q1": {
+        "question": "커뮤니티 프로그램 보상 총 물량은 얼마인가요?",
+        "answer": "커뮤니티 프로그램 보상 총 풀은 3억 TBURN입니다. 이는 전체 공급량 100억 TBURN의 3%에 해당합니다. 6개 프로그램으로 배분됩니다: 앰배서더(30%), 콘텐츠 크리에이터(20%), 모더레이터(15%), 교육 전문가(15%), 번역가(10%), 버그 바운티(10%)."
+      },
+      "q2": {
+        "question": "커뮤니티 프로그램에 어떻게 참여하나요?",
+        "answer": "각 프로그램 카드의 '신청하기' 버튼을 클릭하여 지원서를 제출하세요. 지원서 검토 후 승인되면 공식 커뮤니티 멤버로 활동을 시작할 수 있습니다. 앰배서더는 별도의 인터뷰 과정이 있습니다."
+      },
+      "q3": {
+        "question": "포인트는 어떻게 TBURN으로 전환되나요?",
+        "answer": "포인트는 매월 말 자동으로 TBURN으로 전환됩니다. 전환 비율은 등급에 따라 달라지며, Legend 등급은 최대 3배의 보상 배율을 받습니다. 전환된 TBURN은 다음 달 첫째 주에 지급됩니다."
+      },
+      "q4": {
+        "question": "여러 프로그램에 동시 참여가 가능한가요?",
+        "answer": "네, 여러 프로그램에 동시 참여가 가능합니다. 예를 들어, 앰배서더로 활동하면서 콘텐츠 크리에이터로도 보상을 받을 수 있습니다. 단, 각 프로그램별 참여 조건을 모두 충족해야 합니다."
+      },
+      "q5": {
+        "question": "등급 시스템은 어떻게 작동하나요?",
+        "answer": "5단계 등급 시스템이 있습니다: 뉴커머(1x) → 컨트리뷰터(1.2x) → 애드보킷(1.5x) → 챔피언(2x) → 레전드(3x). 활동으로 포인트를 쌓아 상위 등급으로 승급하며, 각 등급마다 보상 배율이 증가합니다. 레전드 등급은 10,000포인트 이상 필요합니다."
+      },
+      "q6": {
+        "question": "등급 강등 조건은 무엇인가요?",
+        "answer": "3개월 연속 최소 활동량(월 100포인트 이상)을 달성하지 못하면 등급이 강등될 수 있습니다. 강등 시 1단계씩 내려가며, 해당 등급의 보상 배율이 적용됩니다."
+      },
+      "q7": {
+        "question": "버그 바운티 보상은 어떻게 결정되나요?",
+        "answer": "버그 바운티 보상은 취약점의 심각도에 따라 결정됩니다: Critical(최대 50,000 TBURN), High(10,000~25,000 TBURN), Medium(2,000~10,000 TBURN), Low(500~2,000 TBURN). 보안 전문가 검증 후 7일 이내 지급됩니다."
+      },
+      "q8": {
+        "question": "콘텐츠 품질 기준은 무엇인가요?",
+        "answer": "콘텐츠는 정확성, 원본성, 품질, 참여도 4가지 기준으로 평가됩니다. 표절, 허위 정보, 저품질 콘텐츠는 보상이 거부되며, 반복 시 프로그램 참여가 제한될 수 있습니다. 우수 콘텐츠는 공식 채널에 홍보되며 추가 보너스가 지급됩니다."
+      }
+    },
+    "cta": {
+      "title": "TBURN 커뮤니티에 합류하세요!",
+      "subtitle": "함께 성장하고, 함께 보상받는 TBURN 생태계",
+      "subtitleLine2": "지금 바로 커뮤니티 프로그램에 참여하세요!",
+      "button": "지금 시작하기"
+    },
+    "footer": {
+      "brand": {
+        "tagline": "AI의 지능, 블록체인의 투명성",
+        "slogan": "THE FUTURE IS NOW"
+      },
+      "product": {
+        "title": "Product",
+        "mainnet": "메인넷",
+        "explorer": "익스플로러",
+        "bridge": "브릿지",
+        "staking": "스테이킹"
+      },
+      "resources": {
+        "title": "Resources",
+        "docs": "문서",
+        "whitepaper": "백서",
+        "github": "GitHub",
+        "blog": "블로그"
+      },
+      "legal": {
+        "title": "Legal",
+        "terms": "이용약관",
+        "privacy": "개인정보 처리방침",
+        "cookies": "쿠키 정책"
+      },
+      "copyright": "2024-2025 TBURN Chain. All rights reserved."
+    },
+    "toast": {
+      "walletConnected": "지갑 연결",
+      "walletConnectedDesc": "MetaMask 지갑이 연결되었습니다.",
+      "walletDisconnected": "지갑 연결 해제",
+      "walletDisconnectedDesc": "지갑 연결이 해제되었습니다.",
+      "walletRequired": "지갑 연결 필요",
+      "walletRequiredDesc": "프로그램에 신청하려면 먼저 지갑을 연결해주세요.",
+      "applicationSubmitted": "신청 접수 완료",
+      "applicationSubmittedDesc": "프로그램에 신청되었습니다. 검토 후 결과를 안내드리겠습니다.",
+      "selectProgram": "프로그램 선택",
+      "selectProgramDesc": "아래에서 참여할 프로그램을 선택하세요.",
+      "viewGuide": "가이드",
+      "viewGuideDesc": "활동별 포인트와 보상 정보를 확인하세요."
+    },
+    "connectWallet": "지갑 연결"
   }
 }
