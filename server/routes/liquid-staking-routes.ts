@@ -1,4 +1,5 @@
 import { Router, Request, Response } from "express";
+import { safeErrorResponse, safe503 } from "../core/safe-error-response";
 import { z } from "zod";
 import { liquidStakingService } from "../services/LiquidStakingService";
 import { storage } from "../storage";
@@ -16,7 +17,7 @@ router.get("/pools", async (_req: Request, res: Response) => {
     res.json(pools);
   } catch (error) {
     console.error("[LST] Error getting pools:", error);
-    res.status(500).json({ error: "Failed to fetch pools" });
+    safe503(res, "Failed to fetch pools");
   }
 });
 
@@ -26,7 +27,7 @@ router.get("/pools/active", async (_req: Request, res: Response) => {
     res.json(pools);
   } catch (error) {
     console.error("[LST] Error getting active pools:", error);
-    res.status(500).json({ error: "Failed to fetch active pools" });
+    safe503(res, "Failed to fetch active pools");
   }
 });
 
@@ -39,7 +40,7 @@ router.get("/pools/:id", async (req: Request, res: Response) => {
     res.json(pool);
   } catch (error) {
     console.error("[LST] Error getting pool:", error);
-    res.status(500).json({ error: "Failed to fetch pool" });
+    safe503(res, "Failed to fetch pool");
   }
 });
 
@@ -49,7 +50,7 @@ router.get("/pools/:id/stats", async (req: Request, res: Response) => {
     res.json(stats);
   } catch (error) {
     console.error("[LST] Error getting pool stats:", error);
-    res.status(500).json({ error: "Failed to fetch pool stats" });
+    safe503(res, "Failed to fetch pool stats");
   }
 });
 
@@ -59,7 +60,7 @@ router.get("/pools/:id/baskets", async (req: Request, res: Response) => {
     res.json(baskets);
   } catch (error) {
     console.error("[LST] Error getting baskets:", error);
-    res.status(500).json({ error: "Failed to fetch baskets" });
+    safe503(res, "Failed to fetch baskets");
   }
 });
 
@@ -69,7 +70,7 @@ router.get("/pools/:id/positions", async (req: Request, res: Response) => {
     res.json(positions);
   } catch (error) {
     console.error("[LST] Error getting pool positions:", error);
-    res.status(500).json({ error: "Failed to fetch positions" });
+    safe503(res, "Failed to fetch positions");
   }
 });
 
@@ -80,7 +81,7 @@ router.get("/pools/:id/rebase-history", async (req: Request, res: Response) => {
     res.json(history);
   } catch (error) {
     console.error("[LST] Error getting rebase history:", error);
-    res.status(500).json({ error: "Failed to fetch rebase history" });
+    safe503(res, "Failed to fetch rebase history");
   }
 });
 
@@ -91,7 +92,7 @@ router.get("/pools/:id/transactions", async (req: Request, res: Response) => {
     res.json(transactions);
   } catch (error) {
     console.error("[LST] Error getting pool transactions:", error);
-    res.status(500).json({ error: "Failed to fetch transactions" });
+    safe503(res, "Failed to fetch transactions");
   }
 });
 
@@ -105,7 +106,7 @@ router.get("/positions/:userAddress", async (req: Request, res: Response) => {
     res.json(positions);
   } catch (error) {
     console.error("[LST] Error getting user positions:", error);
-    res.status(500).json({ error: "Failed to fetch positions" });
+    safe503(res, "Failed to fetch positions");
   }
 });
 
@@ -118,7 +119,7 @@ router.get("/positions/:userAddress/:poolId", async (req: Request, res: Response
     res.json(position);
   } catch (error) {
     console.error("[LST] Error getting position:", error);
-    res.status(500).json({ error: "Failed to fetch position" });
+    safe503(res, "Failed to fetch position");
   }
 });
 
@@ -128,7 +129,7 @@ router.get("/user/:userAddress/stats", async (req: Request, res: Response) => {
     res.json(stats);
   } catch (error) {
     console.error("[LST] Error getting user stats:", error);
-    res.status(500).json({ error: "Failed to fetch user stats" });
+    safe503(res, "Failed to fetch user stats");
   }
 });
 
@@ -139,7 +140,7 @@ router.get("/user/:userAddress/transactions", async (req: Request, res: Response
     res.json(transactions);
   } catch (error) {
     console.error("[LST] Error getting user transactions:", error);
-    res.status(500).json({ error: "Failed to fetch transactions" });
+    safe503(res, "Failed to fetch transactions");
   }
 });
 
@@ -167,7 +168,7 @@ router.post("/mint", async (req: Request, res: Response) => {
     if (error instanceof z.ZodError) {
       return res.status(400).json({ error: "Invalid request", details: error.errors });
     }
-    res.status(500).json({ error: error instanceof Error ? error.message : "Mint failed" });
+    safe503(res, error instanceof Error ? error.message : "Mint failed" });
   }
 });
 
@@ -191,7 +192,7 @@ router.post("/redeem", async (req: Request, res: Response) => {
     if (error instanceof z.ZodError) {
       return res.status(400).json({ error: "Invalid request", details: error.errors });
     }
-    res.status(500).json({ error: error instanceof Error ? error.message : "Redeem failed" });
+    safe503(res, error instanceof Error ? error.message : "Redeem failed" });
   }
 });
 
@@ -210,7 +211,7 @@ router.post("/claim-rewards", async (req: Request, res: Response) => {
     if (error instanceof z.ZodError) {
       return res.status(400).json({ error: "Invalid request", details: error.errors });
     }
-    res.status(500).json({ error: error instanceof Error ? error.message : "Claim failed" });
+    safe503(res, error instanceof Error ? error.message : "Claim failed" });
   }
 });
 
@@ -228,7 +229,7 @@ router.get("/calculate/lst-from-underlying/:poolId/:amount", async (req: Request
     res.json({ underlyingAmount: req.params.amount, lstAmount, exchangeRate: pool.exchangeRate });
   } catch (error) {
     console.error("[LST] Error calculating:", error);
-    res.status(500).json({ error: "Calculation failed" });
+    safe503(res, "Calculation failed");
   }
 });
 
@@ -242,7 +243,7 @@ router.get("/calculate/underlying-from-lst/:poolId/:amount", async (req: Request
     res.json({ lstAmount: req.params.amount, underlyingAmount, exchangeRate: pool.exchangeRate });
   } catch (error) {
     console.error("[LST] Error calculating:", error);
-    res.status(500).json({ error: "Calculation failed" });
+    safe503(res, "Calculation failed");
   }
 });
 
@@ -294,7 +295,7 @@ router.get("/stats", async (_req: Request, res: Response) => {
     res.json(enhancedStats);
   } catch (error) {
     console.error("[LST] Error getting protocol stats:", error);
-    res.status(500).json({ error: "Failed to fetch stats" });
+    safe503(res, "Failed to fetch stats");
   }
 });
 
@@ -305,7 +306,7 @@ router.get("/transactions/recent", async (req: Request, res: Response) => {
     res.json(transactions);
   } catch (error) {
     console.error("[LST] Error getting recent transactions:", error);
-    res.status(500).json({ error: "Failed to fetch transactions" });
+    safe503(res, "Failed to fetch transactions");
   }
 });
 
@@ -316,7 +317,7 @@ router.get("/rebases/recent", async (req: Request, res: Response) => {
     res.json(rebases);
   } catch (error) {
     console.error("[LST] Error getting recent rebases:", error);
-    res.status(500).json({ error: "Failed to fetch rebases" });
+    safe503(res, "Failed to fetch rebases");
   }
 });
 

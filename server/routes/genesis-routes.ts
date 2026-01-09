@@ -1,4 +1,5 @@
 import { Router, Request, Response } from "express";
+import { safeErrorResponse, safe503 } from "../core/safe-error-response";
 import { storage } from "../storage";
 import crypto from "crypto";
 import { getEnterpriseNode } from "../services/TBurnEnterpriseNode";
@@ -555,7 +556,7 @@ router.get('/config', async (req: Request, res: Response) => {
     });
   } catch (error) {
     console.error('Error getting genesis config:', error);
-    res.status(500).json({ error: 'Failed to get genesis configuration' });
+    safe503(res, 'Failed to get genesis configuration');
   }
 });
 
@@ -588,7 +589,7 @@ router.put('/config', async (req: Request, res: Response) => {
     res.json({ success: true, config: genesisConfig });
   } catch (error) {
     console.error('Error updating genesis config:', error);
-    res.status(500).json({ error: 'Failed to update genesis configuration' });
+    safe503(res, 'Failed to update genesis configuration');
   }
 });
 
@@ -598,7 +599,7 @@ router.get('/validators', async (req: Request, res: Response) => {
     res.json({ validators: genesisValidators });
   } catch (error) {
     console.error('Error getting validators:', error);
-    res.status(500).json({ error: 'Failed to get validators' });
+    safe503(res, 'Failed to get validators');
   }
 });
 
@@ -631,7 +632,7 @@ router.post('/validators', async (req: Request, res: Response) => {
     res.json({ success: true, validator });
   } catch (error) {
     console.error('Error adding validator:', error);
-    res.status(500).json({ error: 'Failed to add validator' });
+    safe503(res, 'Failed to add validator');
   }
 });
 
@@ -652,7 +653,7 @@ router.get('/distribution', async (req: Request, res: Response) => {
     });
   } catch (error) {
     console.error('Error getting distribution:', error);
-    res.status(500).json({ error: 'Failed to get distribution' });
+    safe503(res, 'Failed to get distribution');
   }
 });
 
@@ -684,7 +685,7 @@ router.post('/distribution', async (req: Request, res: Response) => {
     res.json({ success: true, distribution });
   } catch (error) {
     console.error('Error adding distribution:', error);
-    res.status(500).json({ error: 'Failed to add distribution' });
+    safe503(res, 'Failed to add distribution');
   }
 });
 
@@ -707,7 +708,7 @@ router.get('/approvals', async (req: Request, res: Response) => {
     });
   } catch (error) {
     console.error('Error getting approvals:', error);
-    res.status(500).json({ error: 'Failed to get approvals' });
+    safe503(res, 'Failed to get approvals');
   }
 });
 
@@ -761,7 +762,7 @@ router.post('/approvals/:id/approve', async (req: Request, res: Response) => {
     res.json({ success: true, approval });
   } catch (error) {
     console.error('Error approving:', error);
-    res.status(500).json({ error: 'Failed to submit approval' });
+    safe503(res, 'Failed to submit approval');
   }
 });
 
@@ -792,7 +793,7 @@ router.post('/approvals/:id/reject', async (req: Request, res: Response) => {
     res.json({ success: true, approval });
   } catch (error) {
     console.error('Error rejecting:', error);
-    res.status(500).json({ error: 'Failed to reject' });
+    safe503(res, 'Failed to reject');
   }
 });
 
@@ -816,7 +817,7 @@ router.get('/preflight', async (req: Request, res: Response) => {
     });
   } catch (error) {
     console.error('Error getting preflight:', error);
-    res.status(500).json({ error: 'Failed to get preflight checks' });
+    safe503(res, 'Failed to get preflight checks');
   }
 });
 
@@ -932,7 +933,7 @@ router.post('/preflight/run', async (req: Request, res: Response) => {
     });
   } catch (error) {
     console.error('Error running preflight:', error);
-    res.status(500).json({ error: 'Failed to run preflight checks' });
+    safe503(res, 'Failed to run preflight checks');
   }
 });
 
@@ -1079,7 +1080,7 @@ router.post('/execute', async (req: Request, res: Response) => {
       );
     }
     
-    res.status(500).json({ error: 'Failed to execute genesis' });
+    safe503(res, 'Failed to execute genesis');
   }
 });
 
@@ -1101,7 +1102,7 @@ router.get('/logs', async (req: Request, res: Response) => {
     });
   } catch (error) {
     console.error('Error getting logs:', error);
-    res.status(500).json({ error: 'Failed to get logs' });
+    safe503(res, 'Failed to get logs');
   }
 });
 
@@ -1145,7 +1146,7 @@ router.get('/status', async (req: Request, res: Response) => {
     });
   } catch (error) {
     console.error('Error getting status:', error);
-    res.status(500).json({ error: 'Failed to get status' });
+    safe503(res, 'Failed to get status');
   }
 });
 
@@ -1177,7 +1178,7 @@ router.post('/reset', async (req: Request, res: Response) => {
     res.json({ success: true, message: 'Genesis configuration reset to defaults' });
   } catch (error) {
     console.error('Error resetting genesis:', error);
-    res.status(500).json({ error: 'Failed to reset genesis' });
+    safe503(res, 'Failed to reset genesis');
   }
 });
 

@@ -1,4 +1,5 @@
 import { Router, Request, Response } from "express";
+import { safeErrorResponse, safe503 } from "../core/safe-error-response";
 import { storage } from "../storage";
 import { nftMarketplaceService } from "../services/NftMarketplaceService";
 import { getDataCache } from "../services/DataCacheService";
@@ -49,7 +50,7 @@ router.get("/stats", async (req: Request, res: Response) => {
     res.json(enhancedOverview);
   } catch (error) {
     console.error("[NFT API] Error fetching stats:", error);
-    res.status(500).json({ error: "Failed to fetch marketplace stats" });
+    safe503(res, "Failed to fetch marketplace stats");
   }
 });
 
@@ -59,7 +60,7 @@ router.get("/collections", async (req: Request, res: Response) => {
     res.json(collections);
   } catch (error) {
     console.error("[NFT API] Error fetching collections:", error);
-    res.status(500).json({ error: "Failed to fetch collections" });
+    safe503(res, "Failed to fetch collections");
   }
 });
 
@@ -70,7 +71,7 @@ router.get("/collections/featured", async (req: Request, res: Response) => {
     res.json(collections);
   } catch (error) {
     console.error("[NFT API] Error fetching featured collections:", error);
-    res.status(500).json({ error: "Failed to fetch featured collections" });
+    safe503(res, "Failed to fetch featured collections");
   }
 });
 
@@ -81,7 +82,7 @@ router.get("/collections/trending", async (req: Request, res: Response) => {
     res.json(collections);
   } catch (error) {
     console.error("[NFT API] Error fetching trending collections:", error);
-    res.status(500).json({ error: "Failed to fetch trending collections" });
+    safe503(res, "Failed to fetch trending collections");
   }
 });
 
@@ -95,7 +96,7 @@ router.get("/collections/:id", async (req: Request, res: Response) => {
     res.json(details);
   } catch (error) {
     console.error("[NFT API] Error fetching collection details:", error);
-    res.status(500).json({ error: "Failed to fetch collection details" });
+    safe503(res, "Failed to fetch collection details");
   }
 });
 
@@ -106,7 +107,7 @@ router.get("/items", async (req: Request, res: Response) => {
     res.json(items);
   } catch (error) {
     console.error("[NFT API] Error fetching items:", error);
-    res.status(500).json({ error: "Failed to fetch items" });
+    safe503(res, "Failed to fetch items");
   }
 });
 
@@ -120,7 +121,7 @@ router.get("/items/:id", async (req: Request, res: Response) => {
     res.json(details);
   } catch (error) {
     console.error("[NFT API] Error fetching item details:", error);
-    res.status(500).json({ error: "Failed to fetch item details" });
+    safe503(res, "Failed to fetch item details");
   }
 });
 
@@ -132,7 +133,7 @@ router.get("/items/owner/:address", async (req: Request, res: Response) => {
     res.json(items);
   } catch (error) {
     console.error("[NFT API] Error fetching owner items:", error);
-    res.status(500).json({ error: "Failed to fetch owner items" });
+    safe503(res, "Failed to fetch owner items");
   }
 });
 
@@ -143,7 +144,7 @@ router.get("/listings", async (req: Request, res: Response) => {
     res.json(listings);
   } catch (error) {
     console.error("[NFT API] Error fetching listings:", error);
-    res.status(500).json({ error: "Failed to fetch listings" });
+    safe503(res, "Failed to fetch listings");
   }
 });
 
@@ -154,7 +155,7 @@ router.get("/listings/auctions", async (req: Request, res: Response) => {
     res.json(listings);
   } catch (error) {
     console.error("[NFT API] Error fetching auctions:", error);
-    res.status(500).json({ error: "Failed to fetch auctions" });
+    safe503(res, "Failed to fetch auctions");
   }
 });
 
@@ -168,7 +169,7 @@ router.get("/listings/:id", async (req: Request, res: Response) => {
     res.json(listing);
   } catch (error) {
     console.error("[NFT API] Error fetching listing:", error);
-    res.status(500).json({ error: "Failed to fetch listing" });
+    safe503(res, "Failed to fetch listing");
   }
 });
 
@@ -191,7 +192,7 @@ router.post("/listings", async (req: Request, res: Response) => {
     res.status(201).json(listing);
   } catch (error: any) {
     console.error("[NFT API] Error creating listing:", error);
-    res.status(400).json({ error: error.message || "Failed to create listing" });
+    res.status(400).json({ error: error.message || "Failed to create listing");
   }
 });
 
@@ -208,7 +209,7 @@ router.post("/listings/:id/cancel", async (req: Request, res: Response) => {
     res.json({ success: true });
   } catch (error: any) {
     console.error("[NFT API] Error cancelling listing:", error);
-    res.status(400).json({ error: error.message || "Failed to cancel listing" });
+    res.status(400).json({ error: error.message || "Failed to cancel listing");
   }
 });
 
@@ -225,7 +226,7 @@ router.post("/listings/:id/buy", async (req: Request, res: Response) => {
     res.status(201).json(sale);
   } catch (error: any) {
     console.error("[NFT API] Error executing sale:", error);
-    res.status(400).json({ error: error.message || "Failed to execute sale" });
+    res.status(400).json({ error: error.message || "Failed to execute sale");
   }
 });
 
@@ -236,7 +237,7 @@ router.get("/bids/listing/:listingId", async (req: Request, res: Response) => {
     res.json(bids);
   } catch (error) {
     console.error("[NFT API] Error fetching bids:", error);
-    res.status(500).json({ error: "Failed to fetch bids" });
+    safe503(res, "Failed to fetch bids");
   }
 });
 
@@ -248,7 +249,7 @@ router.get("/bids/bidder/:address", async (req: Request, res: Response) => {
     res.json(bids);
   } catch (error) {
     console.error("[NFT API] Error fetching bidder bids:", error);
-    res.status(500).json({ error: "Failed to fetch bidder bids" });
+    safe503(res, "Failed to fetch bidder bids");
   }
 });
 
@@ -270,7 +271,7 @@ router.get("/sales", async (req: Request, res: Response) => {
     res.json(sales);
   } catch (error) {
     console.error("[NFT API] Error fetching sales:", error);
-    res.status(500).json({ error: "Failed to fetch sales" });
+    safe503(res, "Failed to fetch sales");
   }
 });
 
@@ -282,7 +283,7 @@ router.get("/sales/collection/:collectionId", async (req: Request, res: Response
     res.json(sales);
   } catch (error) {
     console.error("[NFT API] Error fetching collection sales:", error);
-    res.status(500).json({ error: "Failed to fetch collection sales" });
+    safe503(res, "Failed to fetch collection sales");
   }
 });
 
@@ -293,7 +294,7 @@ router.get("/offers/item/:itemId", async (req: Request, res: Response) => {
     res.json(offers);
   } catch (error) {
     console.error("[NFT API] Error fetching item offers:", error);
-    res.status(500).json({ error: "Failed to fetch item offers" });
+    safe503(res, "Failed to fetch item offers");
   }
 });
 
@@ -305,7 +306,7 @@ router.get("/offers/offerer/:address", async (req: Request, res: Response) => {
     res.json(offers);
   } catch (error) {
     console.error("[NFT API] Error fetching offerer offers:", error);
-    res.status(500).json({ error: "Failed to fetch offerer offers" });
+    safe503(res, "Failed to fetch offerer offers");
   }
 });
 
@@ -327,7 +328,7 @@ router.get("/activity", async (req: Request, res: Response) => {
     res.json(activity);
   } catch (error) {
     console.error("[NFT API] Error fetching activity:", error);
-    res.status(500).json({ error: "Failed to fetch activity" });
+    safe503(res, "Failed to fetch activity");
   }
 });
 
@@ -339,7 +340,7 @@ router.get("/activity/collection/:collectionId", async (req: Request, res: Respo
     res.json(activity);
   } catch (error) {
     console.error("[NFT API] Error fetching collection activity:", error);
-    res.status(500).json({ error: "Failed to fetch collection activity" });
+    safe503(res, "Failed to fetch collection activity");
   }
 });
 

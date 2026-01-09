@@ -1,4 +1,5 @@
 import type { Express, Request, Response } from "express";
+import { safeErrorResponse, safe503 } from "../core/safe-error-response";
 import { z } from "zod";
 import { lendingService } from "../services/LendingService";
 import { storage } from "../storage";
@@ -139,7 +140,7 @@ export function registerLendingRoutes(app: Express, requireAuth: (req: Request, 
       res.json(enhancedStats);
     } catch (error: any) {
       console.error('[Lending] Stats error:', error);
-      res.status(500).json({ error: "Failed to fetch lending statistics" });
+      safe503(res, "Failed to fetch lending statistics");
     }
   });
 
@@ -158,7 +159,7 @@ export function registerLendingRoutes(app: Express, requireAuth: (req: Request, 
       res.json(markets);
     } catch (error: any) {
       console.error('[Lending] Markets list error:', error);
-      res.status(500).json({ error: "Failed to fetch markets" });
+      safe503(res, "Failed to fetch markets");
     }
   });
 
@@ -174,7 +175,7 @@ export function registerLendingRoutes(app: Express, requireAuth: (req: Request, 
       res.json(market);
     } catch (error: any) {
       console.error('[Lending] Market details error:', error);
-      res.status(500).json({ error: "Failed to fetch market details" });
+      safe503(res, "Failed to fetch market details");
     }
   });
 
@@ -190,7 +191,7 @@ export function registerLendingRoutes(app: Express, requireAuth: (req: Request, 
       res.json(metrics);
     } catch (error: any) {
       console.error('[Lending] Market metrics error:', error);
-      res.status(500).json({ error: "Failed to fetch market metrics" });
+      safe503(res, "Failed to fetch market metrics");
     }
   });
 
@@ -203,7 +204,7 @@ export function registerLendingRoutes(app: Express, requireAuth: (req: Request, 
       res.json(history);
     } catch (error: any) {
       console.error('[Lending] Rate history error:', error);
-      res.status(500).json({ error: "Failed to fetch rate history" });
+      safe503(res, "Failed to fetch rate history");
     }
   });
 
@@ -221,7 +222,7 @@ export function registerLendingRoutes(app: Express, requireAuth: (req: Request, 
       res.status(201).json(market);
     } catch (error: any) {
       console.error('[Lending] Create market error:', error);
-      res.status(500).json({ error: error.message || "Failed to create market" });
+      safe503(res, error.message || "Failed to create market");
     }
   });
 
@@ -242,7 +243,7 @@ export function registerLendingRoutes(app: Express, requireAuth: (req: Request, 
       res.json(position);
     } catch (error: any) {
       console.error('[Lending] Position details error:', error);
-      res.status(500).json({ error: "Failed to fetch position" });
+      safe503(res, "Failed to fetch position");
     }
   });
 
@@ -266,7 +267,7 @@ export function registerLendingRoutes(app: Express, requireAuth: (req: Request, 
       });
     } catch (error: any) {
       console.error('[Lending] Health check error:', error);
-      res.status(500).json({ error: "Failed to fetch health data" });
+      safe503(res, "Failed to fetch health data");
     }
   });
 
@@ -285,7 +286,7 @@ export function registerLendingRoutes(app: Express, requireAuth: (req: Request, 
       res.json(quote);
     } catch (error: any) {
       console.error('[Lending] Supply quote error:', error);
-      res.status(400).json({ error: error.message || "Failed to get supply quote" });
+      res.status(400).json({ error: error.message || "Failed to get supply quote");
     }
   });
 
@@ -304,7 +305,7 @@ export function registerLendingRoutes(app: Express, requireAuth: (req: Request, 
       res.json(quote);
     } catch (error: any) {
       console.error('[Lending] Borrow quote error:', error);
-      res.status(400).json({ error: error.message || "Failed to get borrow quote" });
+      res.status(400).json({ error: error.message || "Failed to get borrow quote");
     }
   });
 
@@ -323,7 +324,7 @@ export function registerLendingRoutes(app: Express, requireAuth: (req: Request, 
       res.json(quote);
     } catch (error: any) {
       console.error('[Lending] Withdraw quote error:', error);
-      res.status(400).json({ error: error.message || "Failed to get withdraw quote" });
+      res.status(400).json({ error: error.message || "Failed to get withdraw quote");
     }
   });
 
@@ -342,7 +343,7 @@ export function registerLendingRoutes(app: Express, requireAuth: (req: Request, 
       res.json(quote);
     } catch (error: any) {
       console.error('[Lending] Repay quote error:', error);
-      res.status(400).json({ error: error.message || "Failed to get repay quote" });
+      res.status(400).json({ error: error.message || "Failed to get repay quote");
     }
   });
 
@@ -366,7 +367,7 @@ export function registerLendingRoutes(app: Express, requireAuth: (req: Request, 
       res.json(quote);
     } catch (error: any) {
       console.error('[Lending] Liquidation quote error:', error);
-      res.status(400).json({ error: error.message || "Failed to get liquidation quote" });
+      res.status(400).json({ error: error.message || "Failed to get liquidation quote");
     }
   });
 
@@ -385,7 +386,7 @@ export function registerLendingRoutes(app: Express, requireAuth: (req: Request, 
       res.status(201).json(result);
     } catch (error: any) {
       console.error('[Lending] Supply error:', error);
-      res.status(400).json({ error: error.message || "Failed to supply" });
+      res.status(400).json({ error: error.message || "Failed to supply");
     }
   });
 
@@ -404,7 +405,7 @@ export function registerLendingRoutes(app: Express, requireAuth: (req: Request, 
       res.status(200).json(result);
     } catch (error: any) {
       console.error('[Lending] Withdraw error:', error);
-      res.status(400).json({ error: error.message || "Failed to withdraw" });
+      res.status(400).json({ error: error.message || "Failed to withdraw");
     }
   });
 
@@ -423,7 +424,7 @@ export function registerLendingRoutes(app: Express, requireAuth: (req: Request, 
       res.status(201).json(result);
     } catch (error: any) {
       console.error('[Lending] Borrow error:', error);
-      res.status(400).json({ error: error.message || "Failed to borrow" });
+      res.status(400).json({ error: error.message || "Failed to borrow");
     }
   });
 
@@ -442,7 +443,7 @@ export function registerLendingRoutes(app: Express, requireAuth: (req: Request, 
       res.status(200).json(result);
     } catch (error: any) {
       console.error('[Lending] Repay error:', error);
-      res.status(400).json({ error: error.message || "Failed to repay" });
+      res.status(400).json({ error: error.message || "Failed to repay");
     }
   });
 
@@ -467,7 +468,7 @@ export function registerLendingRoutes(app: Express, requireAuth: (req: Request, 
       res.status(200).json(result);
     } catch (error: any) {
       console.error('[Lending] Liquidation error:', error);
-      res.status(400).json({ error: error.message || "Failed to liquidate" });
+      res.status(400).json({ error: error.message || "Failed to liquidate");
     }
   });
 
@@ -478,7 +479,7 @@ export function registerLendingRoutes(app: Express, requireAuth: (req: Request, 
       res.json(liquidations);
     } catch (error: any) {
       console.error('[Lending] Liquidations list error:', error);
-      res.status(500).json({ error: "Failed to fetch liquidations" });
+      safe503(res, "Failed to fetch liquidations");
     }
   });
 
@@ -488,7 +489,7 @@ export function registerLendingRoutes(app: Express, requireAuth: (req: Request, 
       res.json(positions);
     } catch (error: any) {
       console.error('[Lending] At-risk positions error:', error);
-      res.status(500).json({ error: "Failed to fetch at-risk positions" });
+      safe503(res, "Failed to fetch at-risk positions");
     }
   });
 
@@ -498,7 +499,7 @@ export function registerLendingRoutes(app: Express, requireAuth: (req: Request, 
       res.json(positions);
     } catch (error: any) {
       console.error('[Lending] Liquidatable positions error:', error);
-      res.status(500).json({ error: "Failed to fetch liquidatable positions" });
+      safe503(res, "Failed to fetch liquidatable positions");
     }
   });
 
@@ -509,7 +510,7 @@ export function registerLendingRoutes(app: Express, requireAuth: (req: Request, 
       res.json(transactions);
     } catch (error: any) {
       console.error('[Lending] Transactions list error:', error);
-      res.status(500).json({ error: "Failed to fetch transactions" });
+      safe503(res, "Failed to fetch transactions");
     }
   });
 
@@ -526,7 +527,7 @@ export function registerLendingRoutes(app: Express, requireAuth: (req: Request, 
       res.json(transactions);
     } catch (error: any) {
       console.error('[Lending] User transactions error:', error);
-      res.status(500).json({ error: "Failed to fetch user transactions" });
+      safe503(res, "Failed to fetch user transactions");
     }
   });
 

@@ -1,4 +1,5 @@
 import type { Express, Request, Response } from "express";
+import { safeErrorResponse, safe503 } from "../core/safe-error-response";
 import { getBlockchainOrchestrator } from "../services/blockchain-orchestrator";
 import { getPersistenceBatcher } from "../services/persistence-batcher";
 import { getAdaptiveFeeEngine } from "../core/fees/adaptive-fee-engine";

@@ -14,6 +14,7 @@ import {
   checkMemoryStoreCapacity,
   IS_PRODUCTION
 } from "./core/sessions/session-bypass";
+import { never500ErrorHandler, getErrorHealthStats } from "./core/never-500-handler";
 
 declare module "express-session" {
   interface SessionData {
@@ -251,64 +252,18 @@ export default async function runAppServices(
   // Pass existing server for WebSocket support
   await registerRoutes(app, server);
 
-  // ★ [2026-01-09 CRITICAL FIX] Enhanced global error handler
-  // Differentiates RPC connectivity errors (503) from application errors (500)
-  // Provides detailed logging for debugging while returning safe messages to clients
-  app.use((err: any, req: Request, res: Response, _next: NextFunction) => {
-    const errorMessage = err.message || "Unknown error";
-    const requestId = `err_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
-    
-    // RPC/Network connectivity errors - return 503 Service Unavailable
-    const RPC_ERROR_PATTERNS = [
-      'ECONNREFUSED', 'ETIMEDOUT', 'ENOTFOUND', 'ENETUNREACH',
-      'EHOSTUNREACH', 'ECONNRESET', 'socket hang up', 'network timeout'
-    ];
-    const isRpcError = RPC_ERROR_PATTERNS.some(pattern => errorMessage.includes(pattern));
-    
-    // Rate limit errors - return 429
-    const isRateLimitError = err.isRateLimited || err.statusCode === 429 || 
-      errorMessage.includes('Rate Limited') || errorMessage.includes('429');
-    
-    if (isRpcError) {
-      console.log(`[Error:503] RPC connectivity error on ${req.method} ${req.path}: ${errorMessage} [${requestId}]`);
-      return res.status(503).json({
-        error: 'Service temporarily unavailable',
-        message: 'The blockchain node is currently unreachable. Please try again later.',
-        degraded: true,
-        retryAfter: 30,
-        requestId
-      });
-    }
-    
-    if (isRateLimitError) {
-      const retryAfter = err.retryAfter || 30;
-      console.log(`[Error:429] Rate limited on ${req.method} ${req.path}: ${errorMessage} [${requestId}]`);
-      return res.status(429).json({
-        error: 'Too many requests',
-        message: 'Please wait before making more requests.',
-        retryAfter,
-        requestId
-      });
-    }
-    
-    // Application errors - return appropriate status
-    const status = err.status || err.statusCode || 500;
-    
-    // Log detailed error for debugging (server-side only)
-    console.error(`[Error:${status}] ${req.method} ${req.path}: ${errorMessage} [${requestId}]`);
-    if (err.stack && process.env.NODE_ENV === 'development') {
-      console.error(`Stack trace [${requestId}]:`, err.stack);
-    }
-    
-    // Return safe message to client (no internal details exposed)
-    const safeMessage = status === 500 
-      ? 'An unexpected error occurred. Please try again later.'
-      : errorMessage;
-    
-    return res.status(status).json({ 
-      error: safeMessage,
-      requestId 
-    });
+  // ★ [2026-01-09 프로덕션 안정성 v4.0] Enterprise Never500 Error Handler
+  // CRITICAL: Absolute prevention of "Internal Server Error" (500)
+  // All errors are classified and returned with appropriate status codes:
+  // - RPC errors → 503 Service Unavailable (with retry)
+  // - Rate limits → 429 Too Many Requests
+  // - Validation → 400 Bad Request
+  // - All other errors → 503 (NOT 500) with degraded mode flag
+  app.use(never500ErrorHandler);
+  
+  // ★ Error health monitoring endpoint
+  app.get('/api/internal/error-health', (_req, res) => {
+    res.json(getErrorHealthStats());
   });
 
   log(`✅ All API routes registered`, "services");

@@ -97,6 +97,7 @@ import {
 import { disasterRecovery, disasterRecoveryMiddleware } from "./core/monitoring/disaster-recovery";
 import { tokenomicsDataService, type TokenProgram } from "./services/tokenomics-data-service";
 import { GENESIS_ALLOCATION, TOKEN_CONSTANTS, TOKEN_PRICING } from "@shared/tokenomics-config";
+import { safeErrorResponse, safe503 } from "./core/safe-error-response";
 
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "admin7979";
 const ADMIN_EMAIL = process.env.ADMIN_EMAIL || "trustburn79@gmail.com";
@@ -1198,7 +1199,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       });
     } catch (error) {
       console.error("Signup error:", error);
-      res.status(500).json({ error: "Failed to create account" });
+      safe503(res, "Failed to create account");
     }
   });
 
@@ -1290,7 +1291,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
                 expiresAt: expiresAt.toISOString()
               });
             }
-            return res.status(500).json({ error: "Failed to send verification email" });
+            return safe503(res, "Failed to send verification email");
           }
           
           console.log(`[Email Verification] Email sent to ${email}`);
@@ -1312,16 +1313,16 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
               expiresAt: expiresAt.toISOString()
             });
           }
-          return res.status(500).json({ error: "Failed to send verification email" });
+          return safe503(res, "Failed to send verification email");
         }
       } else {
         // No email service configured - log warning
         console.warn("[Email Verification] No email service configured! Code:", verificationCode);
-        res.status(500).json({ error: "Email service not configured" });
+        safe503(res, "Email service not configured");
       }
     } catch (error) {
       console.error("Send verification error:", error);
-      res.status(500).json({ error: "Failed to send verification code" });
+      safe503(res, "Failed to send verification code");
     }
   });
 
@@ -1378,7 +1379,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       });
     } catch (error) {
       console.error("Verify code error:", error);
-      res.status(500).json({ error: "Failed to verify code" });
+      safe503(res, "Failed to verify code");
     }
   });
 
@@ -1418,7 +1419,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       });
     } catch (error) {
       console.error("Resend code error:", error);
-      res.status(500).json({ error: "Failed to resend verification code" });
+      safe503(res, "Failed to resend verification code");
     }
   });
 
@@ -1624,7 +1625,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, message: "Account created successfully" });
     } catch (error) {
       console.error("Google signup completion error:", error);
-      res.status(500).json({ error: "Failed to complete signup" });
+      safe503(res, "Failed to complete signup");
     }
   });
   
@@ -1688,7 +1689,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, message: "New verification code sent" });
     } catch (error) {
       console.error("Resend Google verification error:", error);
-      res.status(500).json({ error: "Failed to resend verification code" });
+      safe503(res, "Failed to resend verification code");
     }
   });
 
@@ -1719,14 +1720,14 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       });
     } catch (error) {
       console.error("Auth check error:", error);
-      res.status(500).json({ error: "Failed to check authentication" });
+      safe503(res, "Failed to check authentication");
     }
   });
 
   app.post("/api/auth/logout", (req, res) => {
     req.session.destroy((err) => {
       if (err) {
-        return res.status(500).json({ error: "Failed to logout" });
+        return safe503(res, "Failed to logout");
       }
       res.json({ success: true });
     });
@@ -1770,7 +1771,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       });
     } catch (error) {
       console.error("Error fetching member info:", error);
-      res.status(500).json({ error: "Failed to fetch member info" });
+      safe503(res, "Failed to fetch member info");
     }
   });
 
@@ -1782,7 +1783,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     
     if (!ADMIN_PASSWORD || !ADMIN_EMAIL) {
       console.error('[Admin Auth] ADMIN_PASSWORD or ADMIN_EMAIL not configured');
-      return res.status(500).json({ error: "Admin authentication not configured" });
+      return safe503(res, "Admin authentication not configured");
     }
     
     if (email === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
@@ -1792,7 +1793,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       req.session.save((err) => {
         if (err) {
           console.error('[Admin Auth] Session save error:', err);
-          return res.status(500).json({ error: "Failed to save session" });
+          return safe503(res, "Failed to save session");
         }
         console.log('[Admin Auth] Admin login successful, session saved:', req.sessionID);
         res.json({ success: true });
@@ -2100,7 +2101,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
         timestamp: new Date().toISOString(),
       });
     } catch (error) {
-      res.status(500).json({ error: 'Failed to get detailed metrics' });
+      safe503(res, 'Failed to get detailed metrics');
     }
   });
   
@@ -2209,7 +2210,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
         timestamp: new Date().toISOString(),
       });
     } catch (error) {
-      res.status(500).json({ error: 'Failed to get block cache stats' });
+      safe503(res, 'Failed to get block cache stats');
     }
   });
   
@@ -2224,7 +2225,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
         timestamp: new Date().toISOString(),
       });
     } catch (error) {
-      res.status(500).json({ error: 'Failed to get guardian status' });
+      safe503(res, 'Failed to get guardian status');
     }
   });
 
@@ -2249,7 +2250,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
         });
       }, 2000);
     } catch (error) {
-      res.status(500).json({ error: 'Failed to trigger cleanup' });
+      safe503(res, 'Failed to trigger cleanup');
     }
   });
 
@@ -2265,7 +2266,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
         timestamp: new Date().toISOString(),
       });
     } catch (error) {
-      res.status(500).json({ error: 'Failed to get event history' });
+      safe503(res, 'Failed to get event history');
     }
   });
 
@@ -2282,7 +2283,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
         timestamp: new Date().toISOString(),
       });
     } catch (error) {
-      res.status(500).json({ error: 'Failed to get trend analysis' });
+      safe503(res, 'Failed to get trend analysis');
     }
   });
 
@@ -2297,7 +2298,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
         timestamp: new Date().toISOString(),
       });
     } catch (error) {
-      res.status(500).json({ error: 'Failed to get SLA report' });
+      safe503(res, 'Failed to get SLA report');
     }
   });
 
@@ -2332,7 +2333,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
         timestamp: new Date().toISOString(),
       });
     } catch (error) {
-      res.status(500).json({ error: 'Failed to get pool stats' });
+      safe503(res, 'Failed to get pool stats');
     }
   });
 
@@ -2356,7 +2357,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
         timestamp: new Date().toISOString(),
       });
     } catch (error) {
-      res.status(500).json({ error: 'Failed to prewarm pools' });
+      safe503(res, 'Failed to prewarm pools');
     }
   });
 
@@ -3261,7 +3262,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       }
     } catch (error) {
       console.error("Error fetching network stats:", error);
-      res.status(500).json({ error: "Failed to fetch network stats" });
+      safe503(res, "Failed to fetch network stats");
     }
   });
 
@@ -3271,7 +3272,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(distribution);
     } catch (error) {
       console.error("Error fetching latency distribution:", error);
-      res.status(500).json({ error: "Failed to fetch latency distribution" });
+      safe503(res, "Failed to fetch latency distribution");
     }
   });
 
@@ -3282,7 +3283,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(history);
     } catch (error) {
       console.error("Error fetching TPS history:", error);
-      res.status(500).json({ error: "Failed to fetch TPS history" });
+      safe503(res, "Failed to fetch TPS history");
     }
   });
 
@@ -3480,7 +3481,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       });
     } catch (error) {
       console.error("Error in universal search:", error);
-      res.status(500).json({ error: "Search failed" });
+      safe503(res, "Search failed");
     }
   });
 
@@ -3540,7 +3541,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ suggestions: suggestions.slice(0, limit) });
     } catch (error) {
       console.error("Error fetching search suggestions:", error);
-      res.status(500).json({ error: "Failed to fetch suggestions" });
+      safe503(res, "Failed to fetch suggestions");
     }
   });
 
@@ -3556,7 +3557,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(economics);
     } catch (error) {
       console.error("Error fetching token economics:", error);
-      res.status(500).json({ error: "Failed to fetch token economics" });
+      safe503(res, "Failed to fetch token economics");
     }
   });
 
@@ -3582,7 +3583,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       });
     } catch (error) {
       console.error("Error fetching tokenomics tiers:", error);
-      res.status(500).json({ error: "Failed to fetch tokenomics tier data" });
+      safe503(res, "Failed to fetch tokenomics tier data");
     }
   });
 
@@ -3611,7 +3612,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       });
     } catch (error) {
       console.error("Error determining validator tier:", error);
-      res.status(500).json({ error: "Failed to determine validator tier" });
+      safe503(res, "Failed to determine validator tier");
     }
   });
 
@@ -3659,7 +3660,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       });
     } catch (error) {
       console.error("Error estimating rewards:", error);
-      res.status(500).json({ error: "Failed to estimate rewards" });
+      safe503(res, "Failed to estimate rewards");
     }
   });
 
@@ -4057,7 +4058,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       });
     } catch (error) {
       console.error("Error searching tokens:", error);
-      res.status(500).json({ error: "Failed to search tokens" });
+      safe503(res, "Failed to search tokens");
     }
   });
 
@@ -4160,7 +4161,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(tokenDetails);
     } catch (error) {
       console.error("Error fetching token details:", error);
-      res.status(500).json({ error: "Failed to fetch token details" });
+      safe503(res, "Failed to fetch token details");
     }
   });
 
@@ -4191,7 +4192,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       });
     } catch (error) {
       console.error("Error fetching token transactions:", error);
-      res.status(500).json({ error: "Failed to fetch token transactions" });
+      safe503(res, "Failed to fetch token transactions");
     }
   });
 
@@ -4227,7 +4228,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       });
     } catch (error) {
       console.error("Error fetching token holders:", error);
-      res.status(500).json({ error: "Failed to fetch token holders" });
+      safe503(res, "Failed to fetch token holders");
     }
   });
 
@@ -4264,7 +4265,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       });
     } catch (error) {
       console.error("Error fetching price history:", error);
-      res.status(500).json({ error: "Failed to fetch price history" });
+      safe503(res, "Failed to fetch price history");
     }
   });
 
@@ -4276,7 +4277,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(stats);
     } catch (error) {
       console.error("Error fetching token system stats:", error);
-      res.status(500).json({ error: "Failed to fetch token system stats" });
+      safe503(res, "Failed to fetch token system stats");
     }
   });
 
@@ -4288,7 +4289,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(tokens);
     } catch (error) {
       console.error("Error fetching tokens:", error);
-      res.status(500).json({ error: "Failed to fetch tokens" });
+      safe503(res, "Failed to fetch tokens");
     }
   });
 
@@ -4456,7 +4457,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       });
     } catch (error) {
       console.error("Error deploying token:", error);
-      res.status(500).json({ error: "Failed to deploy token" });
+      safe503(res, "Failed to deploy token");
     }
   });
 
@@ -4473,7 +4474,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
         ...status,
       });
     } catch (error: any) {
-      res.status(500).json({ error: error.message });
+      safe503(res, error.message);
     }
   });
 
@@ -4485,7 +4486,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(gasEstimation);
     } catch (error: any) {
       console.error("Gas estimation error:", error);
-      res.status(500).json({ error: error.message });
+      safe503(res, error.message);
     }
   });
 
@@ -4503,7 +4504,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       });
     } catch (error: any) {
       console.error("Build transaction error:", error);
-      res.status(500).json({ error: error.message });
+      safe503(res, error.message);
     }
   });
 
@@ -4521,7 +4522,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(result);
     } catch (error: any) {
       console.error("Confirm deployment error:", error);
-      res.status(500).json({ error: error.message });
+      safe503(res, error.message);
     }
   });
 
@@ -4533,7 +4534,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       const tokens = tokenFactoryService.getDeployedTokens(deployerAddress);
       res.json(tokens);
     } catch (error: any) {
-      res.status(500).json({ error: error.message });
+      safe503(res, error.message);
     }
   });
 
@@ -4544,7 +4545,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       const result = await tokenFactoryService.validateTokenContract(req.params.address);
       res.json(result);
     } catch (error: any) {
-      res.status(500).json({ error: error.message });
+      safe503(res, error.message);
     }
   });
 
@@ -4560,7 +4561,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       });
     } catch (error: any) {
       console.error("Simulation deploy error:", error);
-      res.status(500).json({ error: error.message });
+      safe503(res, error.message);
     }
   });
 
@@ -4578,7 +4579,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(result);
     } catch (error: any) {
       console.error("Wait receipt error:", error);
-      res.status(500).json({ error: error.message });
+      safe503(res, error.message);
     }
   });
 
@@ -4709,7 +4710,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(allTokens);
     } catch (error) {
       console.error("Error fetching deployed tokens:", error);
-      res.status(500).json({ error: "Failed to fetch deployed tokens" });
+      safe503(res, "Failed to fetch deployed tokens");
     }
   });
 
@@ -4726,7 +4727,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(stats);
     } catch (error) {
       console.error("Error fetching bridge stats:", error);
-      res.status(500).json({ error: "Failed to fetch bridge stats" });
+      safe503(res, "Failed to fetch bridge stats");
     }
   });
 
@@ -4738,7 +4739,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(chains);
     } catch (error) {
       console.error("Error fetching chains:", error);
-      res.status(500).json({ error: "Failed to fetch chains" });
+      safe503(res, "Failed to fetch chains");
     }
   });
 
@@ -4750,7 +4751,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(routes);
     } catch (error) {
       console.error("Error fetching bridge routes:", error);
-      res.status(500).json({ error: "Failed to fetch bridge routes" });
+      safe503(res, "Failed to fetch bridge routes");
     }
   });
 
@@ -4762,7 +4763,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(validators);
     } catch (error) {
       console.error("Error fetching bridge validators:", error);
-      res.status(500).json({ error: "Failed to fetch bridge validators" });
+      safe503(res, "Failed to fetch bridge validators");
     }
   });
 
@@ -4774,7 +4775,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(pools);
     } catch (error) {
       console.error("Error fetching bridge liquidity:", error);
-      res.status(500).json({ error: "Failed to fetch bridge liquidity" });
+      safe503(res, "Failed to fetch bridge liquidity");
     }
   });
 
@@ -4786,7 +4787,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(activities);
     } catch (error) {
       console.error("Error fetching bridge activity:", error);
-      res.status(500).json({ error: "Failed to fetch bridge activity" });
+      safe503(res, "Failed to fetch bridge activity");
     }
   });
 
@@ -4798,7 +4799,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(transfers);
     } catch (error) {
       console.error("Error fetching transfers:", error);
-      res.status(500).json({ error: "Failed to fetch transfers" });
+      safe503(res, "Failed to fetch transfers");
     }
   });
 
@@ -4852,7 +4853,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(transfer);
     } catch (error) {
       console.error("Error initiating transfer:", error);
-      res.status(500).json({ error: "Failed to initiate transfer" });
+      safe503(res, "Failed to initiate transfer");
     }
   });
 
@@ -4894,7 +4895,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(claimedTransfer);
     } catch (error) {
       console.error("Error claiming transfer:", error);
-      res.status(500).json({ error: "Failed to claim transfer" });
+      safe503(res, "Failed to claim transfer");
     }
   });
 
@@ -4918,7 +4919,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(stats);
     } catch (error) {
       console.error("Error fetching governance stats:", error);
-      res.status(500).json({ error: "Failed to fetch governance stats" });
+      safe503(res, "Failed to fetch governance stats");
     }
   });
 
@@ -5053,7 +5054,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(proposals);
     } catch (error) {
       console.error("Error fetching proposals:", error);
-      res.status(500).json({ error: "Failed to fetch proposals" });
+      safe503(res, "Failed to fetch proposals");
     }
   });
 
@@ -5139,7 +5140,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(stats);
     } catch (error) {
       console.error("Error fetching burn stats:", error);
-      res.status(500).json({ error: "Failed to fetch burn stats" });
+      safe503(res, "Failed to fetch burn stats");
     }
   });
 
@@ -5159,7 +5160,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(events);
     } catch (error) {
       console.error("Error fetching burn events:", error);
-      res.status(500).json({ error: "Failed to fetch burn events" });
+      safe503(res, "Failed to fetch burn events");
     }
   });
 
@@ -5182,7 +5183,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(config);
     } catch (error) {
       console.error("Error fetching burn config:", error);
-      res.status(500).json({ error: "Failed to fetch burn config" });
+      safe503(res, "Failed to fetch burn config");
     }
   });
 
@@ -5202,7 +5203,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(history);
     } catch (error) {
       console.error("Error fetching burn history:", error);
-      res.status(500).json({ error: "Failed to fetch burn history" });
+      safe503(res, "Failed to fetch burn history");
     }
   });
 
@@ -5403,7 +5404,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       }
     } catch (error) {
       console.error("Error fetching blocks:", error);
-      res.status(500).json({ error: "Failed to fetch blocks" });
+      safe503(res, "Failed to fetch blocks");
     }
   });
 
@@ -5449,7 +5450,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       }
     } catch (error) {
       console.error("Error fetching recent blocks:", error);
-      res.status(500).json({ error: "Failed to fetch recent blocks" });
+      safe503(res, "Failed to fetch recent blocks");
     }
   });
 
@@ -5488,7 +5489,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       }
     } catch (error) {
       console.error("Error fetching block:", error);
-      res.status(500).json({ error: "Failed to fetch block" });
+      safe503(res, "Failed to fetch block");
     }
   });
 
@@ -5504,7 +5505,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       const blockTransactions = allTransactions.filter(tx => tx.blockNumber === blockNumber);
       res.json(blockTransactions);
     } catch (error) {
-      res.status(500).json({ error: "Failed to fetch block transactions" });
+      safe503(res, "Failed to fetch block transactions");
     }
   });
 
@@ -5540,7 +5541,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(enrichedResults);
     } catch (error) {
       console.error("Error searching blocks:", error);
-      res.status(500).json({ error: "Failed to search blocks" });
+      safe503(res, "Failed to search blocks");
     }
   });
 
@@ -5753,7 +5754,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       }
     } catch (error) {
       console.error("Error fetching transactions:", error);
-      res.status(500).json({ error: "Failed to fetch transactions" });
+      safe503(res, "Failed to fetch transactions");
     }
   });
 
@@ -5837,7 +5838,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
         res.json(transactions);
       }
     } catch (error) {
-      res.status(500).json({ error: "Failed to fetch recent transactions" });
+      safe503(res, "Failed to fetch recent transactions");
     }
   });
 
@@ -5888,7 +5889,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
         return res.status(404).json({ error: "Transaction not found" });
       }
     } catch (error) {
-      res.status(500).json({ error: "Failed to fetch transaction" });
+      safe503(res, "Failed to fetch transaction");
     }
   });
   
@@ -5966,7 +5967,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.status(201).json(transaction);
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : "Unknown error";
-      res.status(500).json({ error: "Failed to create transaction", details: errorMessage });
+      safe503(res, "Failed to create transaction", details: errorMessage });
     }
   });
 
@@ -6022,7 +6023,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(stats);
     } catch (error) {
       console.error('[TX Simulator] Stats error:', error);
-      res.status(500).json({ error: "Failed to fetch simulator statistics" });
+      safe503(res, "Failed to fetch simulator statistics");
     }
   });
 
@@ -6048,7 +6049,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       // AI security check simulation
       const securityScore = 85 + Math.floor(Math.random() * 15); // 85-100
       const isContractCreation = !to;
-      const txType = isContractCreation ? 'contract_creation' : (data ? 'contract_call' : 'transfer');
+      const txType = isContractCreation ? 'contract_creation' : (data ? 'contract_call' : 'transfer' });
       
       // Determine simulation status (99% success rate for production)
       const statusRoll = Math.random();
@@ -6102,7 +6103,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(simulationResult);
     } catch (error) {
       console.error('[TX Simulator] Simulate error:', error);
-      res.status(500).json({ error: "Simulation failed" });
+      safe503(res, "Simulation failed");
     }
   });
 
@@ -6134,7 +6135,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(simulations);
     } catch (error) {
       console.error('[TX Simulator] Recent error:', error);
-      res.status(500).json({ error: "Failed to fetch recent simulations" });
+      safe503(res, "Failed to fetch recent simulations");
     }
   });
 
@@ -6150,7 +6151,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       }
       res.json(account);
     } catch (error) {
-      res.status(500).json({ error: "Failed to fetch account" });
+      safe503(res, "Failed to fetch account");
     }
   });
 
@@ -6173,7 +6174,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       });
     } catch (error) {
       console.error("Error fetching validator stats:", error);
-      res.status(500).json({ error: "Failed to fetch validator stats" });
+      safe503(res, "Failed to fetch validator stats");
     }
   });
 
@@ -6207,7 +6208,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(result);
     } catch (error) {
       console.error("Error fetching validators:", error);
-      res.status(500).json({ error: "Failed to fetch validators" });
+      safe503(res, "Failed to fetch validators");
     }
   });
 
@@ -6243,7 +6244,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, message: "Validator activated" });
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : "Unknown error";
-      res.status(500).json({ error: "Failed to activate validator", details: errorMessage });
+      safe503(res, "Failed to activate validator", details: errorMessage });
     }
   });
 
@@ -6254,7 +6255,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, message: "Validator deactivated" });
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : "Unknown error";
-      res.status(500).json({ error: "Failed to deactivate validator", details: errorMessage });
+      safe503(res, "Failed to deactivate validator", details: errorMessage });
     }
   });
 
@@ -6275,7 +6276,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, message: `Delegated ${amount} TBURN to validator` });
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : "Unknown error";
-      res.status(500).json({ error: "Failed to delegate", details: errorMessage });
+      safe503(res, "Failed to delegate", details: errorMessage });
     }
   });
 
@@ -6295,7 +6296,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, message: `Undelegated ${amount} TBURN from validator` });
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : "Unknown error";
-      res.status(500).json({ error: "Failed to undelegate", details: errorMessage });
+      safe503(res, "Failed to undelegate", details: errorMessage });
     }
   });
 
@@ -6307,7 +6308,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, amount: reward.amount, message: "Rewards claimed successfully" });
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : "Unknown error";
-      res.status(500).json({ error: "Failed to claim rewards", details: errorMessage });
+      safe503(res, "Failed to claim rewards", details: errorMessage });
     }
   });
 
@@ -6325,7 +6326,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, message: "Commission updated" });
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : "Unknown error";
-      res.status(500).json({ error: "Failed to update commission", details: errorMessage });
+      safe503(res, "Failed to update commission", details: errorMessage });
     }
   });
 
@@ -6366,7 +6367,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(membersWithProfiles);
     } catch (error) {
       console.error("Error fetching members:", error);
-      res.status(500).json({ error: "Failed to fetch members" });
+      safe503(res, "Failed to fetch members");
     }
   });
   
@@ -6401,7 +6402,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       });
     } catch (error) {
       console.error("Error fetching member:", error);
-      res.status(500).json({ error: "Failed to fetch member" });
+      safe503(res, "Failed to fetch member");
     }
   });
   
@@ -6437,7 +6438,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       });
     } catch (error) {
       console.error("Error fetching member by address:", error);
-      res.status(500).json({ error: "Failed to fetch member" });
+      safe503(res, "Failed to fetch member");
     }
   });
   
@@ -6457,7 +6458,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.status(201).json(member);
     } catch (error) {
       console.error("Error creating member:", error);
-      res.status(500).json({ error: "Failed to create member" });
+      safe503(res, "Failed to create member");
     }
   });
 
@@ -6543,7 +6544,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       });
     } catch (error) {
       console.error("Error registering wallet member:", error);
-      res.status(500).json({ error: "Failed to register member" });
+      safe503(res, "Failed to register member");
     }
   });
   
@@ -6554,7 +6555,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true });
     } catch (error) {
       console.error("Error updating member:", error);
-      res.status(500).json({ error: "Failed to update member" });
+      safe503(res, "Failed to update member");
     }
   });
   
@@ -6593,7 +6594,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       });
     } catch (error) {
       console.error("Error migrating member profiles:", error);
-      res.status(500).json({ error: "Failed to migrate member profiles" });
+      safe503(res, "Failed to migrate member profiles");
     }
   });
   
@@ -6764,7 +6765,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
         }
       }
       console.error("[Enterprise] Member tier update error:", error);
-      res.status(500).json({ error: "Failed to update member tier" });
+      safe503(res, "Failed to update member tier");
     } finally {
       // Always release client and end pool in finally block
       if (client) {
@@ -6790,7 +6791,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true });
     } catch (error) {
       console.error("Error updating member status:", error);
-      res.status(500).json({ error: "Failed to update member status" });
+      safe503(res, "Failed to update member status");
     }
   });
 
@@ -6805,7 +6806,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true });
     } catch (error) {
       console.error("Error updating member KYC level:", error);
-      res.status(500).json({ error: "Failed to update member KYC level" });
+      safe503(res, "Failed to update member KYC level");
     }
   });
 
@@ -6816,7 +6817,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true });
     } catch (error) {
       console.error("Error deleting member:", error);
-      res.status(500).json({ error: "Failed to delete member" });
+      safe503(res, "Failed to delete member");
     }
   });
   
@@ -6827,7 +6828,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(positions);
     } catch (error) {
       console.error("Error fetching staking positions:", error);
-      res.status(500).json({ error: "Failed to fetch staking positions" });
+      safe503(res, "Failed to fetch staking positions");
     }
   });
   
@@ -6841,7 +6842,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.status(201).json(position);
     } catch (error) {
       console.error("Error creating staking position:", error);
-      res.status(500).json({ error: "Failed to create staking position" });
+      safe503(res, "Failed to create staking position");
     }
   });
   
@@ -6853,7 +6854,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(logs);
     } catch (error) {
       console.error("Error fetching audit logs:", error);
-      res.status(500).json({ error: "Failed to fetch audit logs" });
+      safe503(res, "Failed to fetch audit logs");
     }
   });
   
@@ -6867,7 +6868,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.status(201).json(log);
     } catch (error) {
       console.error("Error creating audit log:", error);
-      res.status(500).json({ error: "Failed to create audit log" });
+      safe503(res, "Failed to create audit log");
     }
   });
   
@@ -6888,7 +6889,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(stats);
     } catch (error) {
       console.error("Error fetching member statistics:", error);
-      res.status(500).json({ error: "Failed to fetch member statistics" });
+      safe503(res, "Failed to fetch member statistics");
     }
   });
 
@@ -6964,7 +6965,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       });
     } catch (error) {
       console.error("Error syncing validators to members:", error);
-      res.status(500).json({ error: "Failed to sync validators to members" });
+      safe503(res, "Failed to sync validators to members");
     }
   });
 
@@ -7076,7 +7077,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       });
     } catch (error) {
       console.error('[Operator] Dashboard error:', error);
-      res.status(500).json({ error: "Failed to fetch operator dashboard" });
+      safe503(res, "Failed to fetch operator dashboard");
     }
   });
 
@@ -7161,7 +7162,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(result);
     } catch (error) {
       console.error('[Operator] Members list error:', error);
-      res.status(500).json({ error: "Failed to fetch members" });
+      safe503(res, "Failed to fetch members");
     }
   });
 
@@ -7211,7 +7212,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(result);
     } catch (error) {
       console.error('[Operator] Member detail error:', error);
-      res.status(500).json({ error: "Failed to fetch member details" });
+      safe503(res, "Failed to fetch member details");
     }
   });
 
@@ -7260,7 +7261,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, previousStatus, newStatus: status });
     } catch (error) {
       console.error('[Operator] Member status update error:', error);
-      res.status(500).json({ error: "Failed to update member status" });
+      safe503(res, "Failed to update member status");
     }
   });
 
@@ -7314,7 +7315,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, previousTier, newTier: tier });
     } catch (error) {
       console.error('[Operator] Member tier update error:', error);
-      res.status(500).json({ error: "Failed to update member tier" });
+      safe503(res, "Failed to update member tier");
     }
   });
 
@@ -7387,7 +7388,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true });
     } catch (error) {
       console.error('[Operator] KYC update error:', error);
-      res.status(500).json({ error: "Failed to update KYC" });
+      safe503(res, "Failed to update KYC");
     }
   });
 
@@ -7530,7 +7531,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.status(201).json(result.rows[0]);
     } catch (error) {
       console.error('[ValidatorApplication] Submit error:', error);
-      res.status(500).json({ error: "Failed to submit validator application" });
+      safe503(res, "Failed to submit validator application");
     }
   });
 
@@ -7553,7 +7554,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(result.rows);
     } catch (error) {
       console.error('[ValidatorApplication] Fetch my applications error:', error);
-      res.status(500).json({ error: "Failed to fetch applications" });
+      safe503(res, "Failed to fetch applications");
     }
   });
 
@@ -7600,7 +7601,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       });
     } catch (error) {
       console.error('[Operator] Validator applications error:', error);
-      res.status(500).json({ error: "Failed to fetch validator applications" });
+      safe503(res, "Failed to fetch validator applications");
     }
   });
 
@@ -7803,7 +7804,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
         console.error('[Operator] Pool end error:', poolError);
       }
       
-      res.status(500).json({ error: "Failed to update application" });
+      safe503(res, "Failed to update application");
     }
   });
 
@@ -7864,7 +7865,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, memberId });
     } catch (error) {
       console.error('[Operator] Validator slash error:', error);
-      res.status(500).json({ error: "Failed to slash validator" });
+      safe503(res, "Failed to slash validator");
     }
   });
 
@@ -7932,7 +7933,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(result.rows);
     } catch (error) {
       console.error('[Operator] Validator performance error:', error);
-      res.status(500).json({ error: "Failed to fetch validator performance" });
+      safe503(res, "Failed to fetch validator performance");
     }
   });
 
@@ -7967,7 +7968,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       });
     } catch (error) {
       console.error('[BugBounty] Submission error:', error);
-      res.status(500).json({ error: "Failed to submit bug report" });
+      safe503(res, "Failed to submit bug report");
     }
   });
 
@@ -8004,7 +8005,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(safeReports);
     } catch (error) {
       console.error('[BugBounty] My reports error:', error);
-      res.status(500).json({ error: "Failed to fetch reports" });
+      safe503(res, "Failed to fetch reports");
     }
   });
 
@@ -8034,7 +8035,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(reports);
     } catch (error) {
       console.error('[BugBounty] Admin list error:', error);
-      res.status(500).json({ error: "Failed to fetch bug reports" });
+      safe503(res, "Failed to fetch bug reports");
     }
   });
 
@@ -8051,7 +8052,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(report);
     } catch (error) {
       console.error('[BugBounty] Admin detail error:', error);
-      res.status(500).json({ error: "Failed to fetch bug report" });
+      safe503(res, "Failed to fetch bug report");
     }
   });
 
@@ -8103,7 +8104,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true });
     } catch (error) {
       console.error('[BugBounty] Admin update error:', error);
-      res.status(500).json({ error: "Failed to update bug report" });
+      safe503(res, "Failed to update bug report");
     }
   });
 
@@ -8200,7 +8201,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       });
     } catch (error) {
       console.error('[Operator] Security events error:', error);
-      res.status(500).json({ error: "Failed to fetch security events" });
+      safe503(res, "Failed to fetch security events");
     }
   });
 
@@ -8237,7 +8238,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, id: result.rows[0].id });
     } catch (error) {
       console.error('[Operator] Create security event error:', error);
-      res.status(500).json({ error: "Failed to create security event" });
+      safe503(res, "Failed to create security event");
     }
   });
 
@@ -8273,7 +8274,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true });
     } catch (error) {
       console.error('[Operator] Resolve security event error:', error);
-      res.status(500).json({ error: "Failed to resolve security event" });
+      safe503(res, "Failed to resolve security event");
     }
   });
 
@@ -8325,7 +8326,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       });
     } catch (error) {
       console.error('[Operator] Audit logs error:', error);
-      res.status(500).json({ error: "Failed to fetch audit logs" });
+      safe503(res, "Failed to fetch audit logs");
     }
   });
 
@@ -8416,7 +8417,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, id: result.rows[0].id });
     } catch (error) {
       console.error('[Operator] IP block error:', error);
-      res.status(500).json({ error: "Failed to block IP" });
+      safe503(res, "Failed to block IP");
     }
   });
 
@@ -8447,7 +8448,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true });
     } catch (error) {
       console.error('[Operator] IP unblock error:', error);
-      res.status(500).json({ error: "Failed to unblock IP" });
+      safe503(res, "Failed to unblock IP");
     }
   });
 
@@ -8507,7 +8508,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       });
     } catch (error) {
       console.error('[Operator] Compliance reports error:', error);
-      res.status(500).json({ error: "Failed to fetch compliance reports" });
+      safe503(res, "Failed to fetch compliance reports");
     }
   });
 
@@ -8573,7 +8574,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, id: result.rows[0].id, summary });
     } catch (error) {
       console.error('[Operator] Generate report error:', error);
-      res.status(500).json({ error: "Failed to generate compliance report" });
+      safe503(res, "Failed to generate compliance report");
     }
   });
 
@@ -8621,7 +8622,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true });
     } catch (error) {
       console.error('[Operator] Update report error:', error);
-      res.status(500).json({ error: "Failed to update compliance report" });
+      safe503(res, "Failed to update compliance report");
     }
   });
 
@@ -8649,7 +8650,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ documents: documents.rows });
     } catch (error) {
       console.error('[Operator] Member documents error:', error);
-      res.status(500).json({ error: "Failed to fetch member documents" });
+      safe503(res, "Failed to fetch member documents");
     }
   });
 
@@ -8694,7 +8695,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true });
     } catch (error) {
       console.error('[Operator] Document verification error:', error);
-      res.status(500).json({ error: "Failed to verify document" });
+      safe503(res, "Failed to verify document");
     }
   });
 
@@ -8787,7 +8788,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(systemHealth);
     } catch (error) {
       console.error('[Operator] System health error:', error);
-      res.status(500).json({ error: "Failed to fetch system health" });
+      safe503(res, "Failed to fetch system health");
     }
   });
 
@@ -8818,7 +8819,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(history.rows);
     } catch (error) {
       console.error('[Operator] Health history error:', error);
-      res.status(500).json({ error: "Failed to fetch health history" });
+      safe503(res, "Failed to fetch health history");
     }
   });
 
@@ -8842,7 +8843,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(alerts.rows);
     } catch (error) {
       console.error('[Operator] Alerts error:', error);
-      res.status(500).json({ error: "Failed to fetch alerts" });
+      safe503(res, "Failed to fetch alerts");
     }
   });
 
@@ -8863,7 +8864,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(result.rows[0]);
     } catch (error) {
       console.error('[Operator] Create alert error:', error);
-      res.status(500).json({ error: "Failed to create alert" });
+      safe503(res, "Failed to create alert");
     }
   });
 
@@ -8901,7 +8902,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(result.rows[0]);
     } catch (error) {
       console.error('[Operator] Update alert error:', error);
-      res.status(500).json({ error: "Failed to update alert" });
+      safe503(res, "Failed to update alert");
     }
   });
 
@@ -8925,7 +8926,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(notes.rows);
     } catch (error) {
       console.error('[Operator] Member notes error:', error);
-      res.status(500).json({ error: "Failed to fetch member notes" });
+      safe503(res, "Failed to fetch member notes");
     }
   });
 
@@ -8971,7 +8972,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(result.rows[0]);
     } catch (error) {
       console.error('[Operator] Create note error:', error);
-      res.status(500).json({ error: "Failed to create note" });
+      safe503(res, "Failed to create note");
     }
   });
 
@@ -9000,7 +9001,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(result.rows[0]);
     } catch (error) {
       console.error('[Operator] Update note error:', error);
-      res.status(500).json({ error: "Failed to update note" });
+      safe503(res, "Failed to update note");
     }
   });
 
@@ -9020,7 +9021,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true });
     } catch (error) {
       console.error('[Operator] Delete note error:', error);
-      res.status(500).json({ error: "Failed to delete note" });
+      safe503(res, "Failed to delete note");
     }
   });
 
@@ -9046,7 +9047,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(blocklist.rows);
     } catch (error) {
       console.error('[Operator] IP blocklist error:', error);
-      res.status(500).json({ error: "Failed to fetch IP blocklist" });
+      safe503(res, "Failed to fetch IP blocklist");
     }
   });
 
@@ -9072,7 +9073,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(result.rows[0]);
     } catch (error) {
       console.error('[Operator] Add IP block error:', error);
-      res.status(500).json({ error: "Failed to add IP to blocklist" });
+      safe503(res, "Failed to add IP to blocklist");
     }
   });
 
@@ -9104,7 +9105,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(result.rows[0]);
     } catch (error) {
       console.error('[Operator] Unblock IP error:', error);
-      res.status(500).json({ error: "Failed to unblock IP" });
+      safe503(res, "Failed to unblock IP");
     }
   });
 
@@ -9333,7 +9334,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
         res.json(contract);
       }
     } catch (error) {
-      res.status(500).json({ error: "Failed to fetch contract" });
+      safe503(res, "Failed to fetch contract");
     }
   });
 
@@ -9355,7 +9356,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
         const models = await storage.getAllAiModels();
         res.json(models);
       } catch {
-        res.status(500).json({ error: "Failed to fetch AI models" });
+        safe503(res, "Failed to fetch AI models");
       }
     }
   });
@@ -9382,7 +9383,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
         }
         res.json(model);
       } catch {
-        res.status(500).json({ error: "Failed to fetch AI model" });
+        safe503(res, "Failed to fetch AI model");
       }
     }
   });
@@ -9407,7 +9408,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
         const decisions = await storage.getAllAiDecisions(limit);
         res.json(decisions);
       } catch {
-        res.status(500).json({ error: "Failed to fetch AI decisions" });
+        safe503(res, "Failed to fetch AI decisions");
       }
     }
   });
@@ -9429,7 +9430,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
         const decisions = await storage.getRecentAiDecisions(limit);
         res.json(decisions);
       } catch {
-        res.status(500).json({ error: "Failed to fetch recent AI decisions" });
+        safe503(res, "Failed to fetch recent AI decisions");
       }
     }
   });
@@ -9461,7 +9462,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
         }
         res.json(decision);
       } catch {
-        res.status(500).json({ error: "Failed to fetch AI decision" });
+        safe503(res, "Failed to fetch AI decision");
       }
     }
   });
@@ -9486,7 +9487,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(messages);
     } catch (error: unknown) {
       console.error('Error fetching cross-shard messages:', error);
-      res.status(500).json({ error: "Failed to fetch cross-shard messages" });
+      safe503(res, "Failed to fetch cross-shard messages");
     }
   });
 
@@ -9515,7 +9516,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       if (error instanceof z.ZodError) {
         return res.status(400).json({ error: "Invalid request data", details: error.errors });
       }
-      res.status(500).json({ error: "Failed to create AI decision" });
+      safe503(res, "Failed to create AI decision");
     }
   });
 
@@ -9541,7 +9542,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
         res.json(shard);
       }
     } catch (error) {
-      res.status(500).json({ error: "Failed to fetch shard" });
+      safe503(res, "Failed to fetch shard");
     }
   });
 
@@ -9572,7 +9573,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       if (error.statusCode === 404) {
         return res.status(404).json({ error: "Cross-shard message not found" });
       }
-      res.status(500).json({ error: "Failed to fetch cross-shard message" });
+      safe503(res, "Failed to fetch cross-shard message");
     }
   });
 
@@ -9599,7 +9600,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       if (error instanceof z.ZodError) {
         return res.status(400).json({ error: "Invalid request data", details: error.errors });
       }
-      res.status(500).json({ error: "Failed to create cross-shard message" });
+      safe503(res, "Failed to create cross-shard message");
     }
   });
 
@@ -9628,7 +9629,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       
       res.json(updated);
     } catch (error: unknown) {
-      res.status(500).json({ error: "Failed to update cross-shard message" });
+      safe503(res, "Failed to update cross-shard message");
     }
   });
 
@@ -9725,7 +9726,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       });
     } catch (error) {
       console.error("[API] Failed to get restart status:", error);
-      res.status(500).json({ error: "Failed to get restart status" });
+      safe503(res, "Failed to get restart status");
     }
   });
 
@@ -10151,7 +10152,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       });
     } catch (error: any) {
       console.error('[Enterprise] AI health check failed:', error);
-      res.status(500).json({ error: "AI health check failed", message: error.message });
+      safe503(res, "AI health check failed", message: error.message });
     }
   });
 
@@ -10166,7 +10167,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       });
     } catch (error: any) {
       console.error('[Enterprise] AI metrics failed:', error);
-      res.status(500).json({ error: "Failed to get AI metrics", message: error.message });
+      safe503(res, "Failed to get AI metrics", message: error.message });
     }
   });
 
@@ -10182,7 +10183,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       });
     } catch (error: any) {
       console.error('[Enterprise] Production readiness check failed:', error);
-      res.status(500).json({ error: "Production readiness check failed", message: error.message });
+      safe503(res, "Production readiness check failed", message: error.message });
     }
   });
 
@@ -10217,7 +10218,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       });
     } catch (error: any) {
       console.error('[Enterprise] Executor status failed:', error);
-      res.status(500).json({ error: "Failed to get executor status", message: error.message });
+      safe503(res, "Failed to get executor status", message: error.message });
     }
   });
 
@@ -10234,7 +10235,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       });
     } catch (error: any) {
       console.error('[Enterprise] Execution logs failed:', error);
-      res.status(500).json({ error: "Failed to get execution logs", message: error.message });
+      safe503(res, "Failed to get execution logs", message: error.message });
     }
   });
 
@@ -10268,7 +10269,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       });
     } catch (error: any) {
       console.error('[Enterprise] Governance stats failed:', error);
-      res.status(500).json({ error: "Failed to get governance stats", message: error.message });
+      safe503(res, "Failed to get governance stats", message: error.message });
     }
   });
 
@@ -10317,7 +10318,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       });
     } catch (error: any) {
       console.error('[Enterprise] Bands status failed:', error);
-      res.status(500).json({ error: "Failed to get band status", message: error.message });
+      safe503(res, "Failed to get band status", message: error.message });
     }
   });
 
@@ -10350,7 +10351,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(result);
     } catch (error) {
       console.error('[Admin Nodes] Failed to fetch nodes:', error);
-      res.status(500).json({ error: "Failed to fetch nodes" });
+      safe503(res, "Failed to fetch nodes");
     }
   });
 
@@ -10415,7 +10416,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(result);
     } catch (error) {
       console.error('Failed to fetch sharding data:', error);
-      res.status(500).json({ error: "Failed to fetch sharding data" });
+      safe503(res, "Failed to fetch sharding data");
     }
   });
 
@@ -10442,7 +10443,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(config);
     } catch (error) {
       console.error('Failed to fetch shard config:', error);
-      res.status(500).json({ error: "Failed to fetch shard configuration" });
+      safe503(res, "Failed to fetch shard configuration");
     }
   });
   
@@ -10538,7 +10539,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(result);
     } catch (error) {
       console.error('Failed to update shard config:', error);
-      res.status(500).json({ error: "Failed to update shard configuration" });
+      safe503(res, "Failed to update shard configuration");
     }
   });
   
@@ -10555,7 +10556,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(preview);
     } catch (error) {
       console.error('Failed to preview shard scaling:', error);
-      res.status(500).json({ error: "Failed to preview shard scaling" });
+      safe503(res, "Failed to preview shard scaling");
     }
   });
   
@@ -10567,7 +10568,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(scaling);
     } catch (error) {
       console.error('Failed to fetch scaling analysis:', error);
-      res.status(500).json({ error: "Failed to fetch network scaling analysis" });
+      safe503(res, "Failed to fetch network scaling analysis");
     }
   });
 
@@ -10587,7 +10588,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(result);
     } catch (error) {
       console.error('Failed to validate shard config:', error);
-      res.status(500).json({ error: "Failed to validate configuration" });
+      safe503(res, "Failed to validate configuration");
     }
   });
 
@@ -10629,7 +10630,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(result);
     } catch (error) {
       console.error('Failed to rollback shard config:', error);
-      res.status(500).json({ error: "Failed to rollback configuration" });
+      safe503(res, "Failed to rollback configuration");
     }
   });
 
@@ -10642,7 +10643,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(history);
     } catch (error) {
       console.error('Failed to fetch config history:', error);
-      res.status(500).json({ error: "Failed to fetch configuration history" });
+      safe503(res, "Failed to fetch configuration history");
     }
   });
 
@@ -10654,7 +10655,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(health);
     } catch (error) {
       console.error('Failed to fetch shard health:', error);
-      res.status(500).json({ error: "Failed to fetch shard health metrics" });
+      safe503(res, "Failed to fetch shard health metrics");
     }
   });
 
@@ -10667,7 +10668,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(events);
     } catch (error) {
       console.error('Failed to fetch scaling events:', error);
-      res.status(500).json({ error: "Failed to fetch scaling events" });
+      safe503(res, "Failed to fetch scaling events");
     }
   });
 
@@ -10685,7 +10686,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(logs);
     } catch (error) {
       console.error('Failed to fetch audit logs:', error);
-      res.status(500).json({ error: "Failed to fetch audit logs" });
+      safe503(res, "Failed to fetch audit logs");
     }
   });
 
@@ -10709,7 +10710,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(result);
     } catch (error) {
       console.error('[Admin Network Params] Failed to fetch:', error);
-      res.status(500).json({ error: "Failed to fetch network parameters" });
+      safe503(res, "Failed to fetch network parameters");
     }
   });
 
@@ -10753,7 +10754,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       });
     } catch (error) {
       console.error('[Admin Tokens] Failed to fetch:', error);
-      res.status(500).json({ error: "Failed to fetch tokens" });
+      safe503(res, "Failed to fetch tokens");
     }
   });
   
@@ -10766,7 +10767,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ tokens, stats });
     } catch (error) {
       console.error('[Admin User Tokens] Failed to fetch:', error);
-      res.status(500).json({ error: "Failed to fetch user-deployed tokens" });
+      safe503(res, "Failed to fetch user-deployed tokens");
     }
   });
   
@@ -10793,7 +10794,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, message: `Token ${action} completed` });
     } catch (error) {
       console.error('[Admin Token Registry Action] Failed:', error);
-      res.status(500).json({ error: "Action failed" });
+      safe503(res, "Action failed");
     }
   });
 
@@ -10825,7 +10826,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       });
     } catch (error) {
       console.error('[Admin Burn Stats] Failed to fetch:', error);
-      res.status(500).json({ error: "Failed to fetch burn stats" });
+      safe503(res, "Failed to fetch burn stats");
     }
   });
 
@@ -10850,7 +10851,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(bridgeStats);
     } catch (error) {
       console.error('[Bridge Stats] Error:', error);
-      res.status(500).json({ error: "Failed to fetch bridge stats" });
+      safe503(res, "Failed to fetch bridge stats");
     }
   });
 
@@ -10866,7 +10867,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(transfersData);
     } catch (error) {
       console.error('[Bridge Transfers] Error:', error);
-      res.status(500).json({ error: "Failed to fetch transfers" });
+      safe503(res, "Failed to fetch transfers");
     }
   });
 
@@ -10882,7 +10883,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(chainsData);
     } catch (error) {
       console.error('[Bridge Chains] Error:', error);
-      res.status(500).json({ error: "Failed to fetch chains" });
+      safe503(res, "Failed to fetch chains");
     }
   });
 
@@ -10898,7 +10899,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(chainsStats);
     } catch (error) {
       console.error('[Bridge Chains Stats] Error:', error);
-      res.status(500).json({ error: "Failed to fetch chain stats" });
+      safe503(res, "Failed to fetch chain stats");
     }
   });
 
@@ -10914,7 +10915,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(validatorsData);
     } catch (error) {
       console.error('[Bridge Validators] Error:', error);
-      res.status(500).json({ error: "Failed to fetch bridge validators" });
+      safe503(res, "Failed to fetch bridge validators");
     }
   });
 
@@ -10930,7 +10931,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(validatorStats);
     } catch (error) {
       console.error('[Bridge Validator Stats] Error:', error);
-      res.status(500).json({ error: "Failed to fetch validator stats" });
+      safe503(res, "Failed to fetch validator stats");
     }
   });
 
@@ -10946,7 +10947,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(signaturesData);
     } catch (error) {
       console.error('[Bridge Signatures] Error:', error);
-      res.status(500).json({ error: "Failed to fetch signatures" });
+      safe503(res, "Failed to fetch signatures");
     }
   });
 
@@ -10971,7 +10972,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(result);
     } catch (error) {
       console.error('[Bridge Liquidity] Error:', error);
-      res.status(500).json({ error: "Failed to fetch liquidity" });
+      safe503(res, "Failed to fetch liquidity");
     }
   });
 
@@ -10987,7 +10988,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(poolsData);
     } catch (error) {
       console.error('[Bridge Liquidity Pools] Error:', error);
-      res.status(500).json({ error: "Failed to fetch liquidity pools" });
+      safe503(res, "Failed to fetch liquidity pools");
     }
   });
 
@@ -11003,7 +11004,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(statsData);
     } catch (error) {
       console.error('[Bridge Liquidity Stats] Error:', error);
-      res.status(500).json({ error: "Failed to fetch liquidity stats" });
+      safe503(res, "Failed to fetch liquidity stats");
     }
   });
 
@@ -11019,7 +11020,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(historyData);
     } catch (error) {
       console.error('[Bridge Liquidity History] Error:', error);
-      res.status(500).json({ error: "Failed to fetch liquidity history" });
+      safe503(res, "Failed to fetch liquidity history");
     }
   });
 
@@ -11035,7 +11036,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(alertsData);
     } catch (error) {
       console.error('[Bridge Liquidity Alerts] Error:', error);
-      res.status(500).json({ error: "Failed to fetch liquidity alerts" });
+      safe503(res, "Failed to fetch liquidity alerts");
     }
   });
 
@@ -11051,7 +11052,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(volumeData);
     } catch (error) {
       console.error('[Bridge Volume] Error:', error);
-      res.status(500).json({ error: "Failed to fetch bridge volume" });
+      safe503(res, "Failed to fetch bridge volume");
     }
   });
 
@@ -11158,7 +11159,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(result);
     } catch (error) {
       console.error('[AI Status] Error:', error);
-      res.status(500).json({ error: "Failed to fetch AI status" });
+      safe503(res, "Failed to fetch AI status");
     }
   });
 
@@ -11175,7 +11176,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(analyticsData);
     } catch (error) {
       console.error('[AI Analytics] Error:', error);
-      res.status(500).json({ error: "Failed to fetch AI analytics" });
+      safe503(res, "Failed to fetch AI analytics");
     }
   });
 
@@ -11186,7 +11187,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(orchestrationData);
     } catch (error) {
       console.error('[AI Models] Error:', error);
-      res.status(500).json({ error: "Failed to fetch AI models" });
+      safe503(res, "Failed to fetch AI models");
     }
   });
 
@@ -11271,7 +11272,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(result);
     } catch (error) {
       console.error('[AI Params] Error fetching AI parameters:', error);
-      res.status(500).json({ error: 'Failed to fetch AI parameters' });
+      safe503(res, 'Failed to fetch AI parameters');
     }
   });
 
@@ -11334,7 +11335,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(result);
     } catch (error) {
       console.error('[AI Training] Error fetching training jobs:', error);
-      res.status(500).json({ error: 'Failed to fetch training jobs' });
+      safe503(res, 'Failed to fetch training jobs');
     }
   });
 
@@ -11344,7 +11345,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       const { jobId } = req.params;
       res.json({ success: true, jobId, message: `Training job ${jobId} paused` });
     } catch (error) {
-      res.status(500).json({ error: "Failed to pause training job" });
+      safe503(res, "Failed to pause training job");
     }
   });
 
@@ -11353,7 +11354,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       const { jobId } = req.params;
       res.json({ success: true, jobId, message: `Training job ${jobId} resumed` });
     } catch (error) {
-      res.status(500).json({ error: "Failed to resume training job" });
+      safe503(res, "Failed to resume training job");
     }
   });
 
@@ -11362,7 +11363,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       const { jobId } = req.params;
       res.json({ success: true, jobId, message: `Training job ${jobId} cancelled` });
     } catch (error) {
-      res.status(500).json({ error: "Failed to cancel training job" });
+      safe503(res, "Failed to cancel training job");
     }
   });
 
@@ -11396,7 +11397,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, data: newJob });
     } catch (error) {
       console.error('[AI Training] Error creating job:', error);
-      res.status(500).json({ error: "Failed to create training job" });
+      safe503(res, "Failed to create training job");
     }
   });
 
@@ -11412,7 +11413,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       
       res.json({ success: true, data: job });
     } catch (error) {
-      res.status(500).json({ error: "Failed to fetch training job" });
+      safe503(res, "Failed to fetch training job");
     }
   });
 
@@ -11452,7 +11453,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
         }
       });
     } catch (error) {
-      res.status(500).json({ error: "Failed to fetch training metrics" });
+      safe503(res, "Failed to fetch training metrics");
     }
   });
 
@@ -11480,7 +11481,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       
       res.json({ success: true, data: datasets });
     } catch (error) {
-      res.status(500).json({ error: "Failed to fetch datasets" });
+      safe503(res, "Failed to fetch datasets");
     }
   });
 
@@ -11543,7 +11544,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       
       res.json({ success: true, data: deployments });
     } catch (error) {
-      res.status(500).json({ error: "Failed to fetch deployments" });
+      safe503(res, "Failed to fetch deployments");
     }
   });
 
@@ -11574,7 +11575,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       console.log('[AI Training] Creating deployment:', deployment.id);
       res.json({ success: true, data: deployment });
     } catch (error) {
-      res.status(500).json({ error: "Failed to create deployment" });
+      safe503(res, "Failed to create deployment");
     }
   });
 
@@ -11585,7 +11586,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       console.log('[AI Training] Rolling back deployment:', deploymentId);
       res.json({ success: true, message: `Deployment ${deploymentId} rolled back` });
     } catch (error) {
-      res.status(500).json({ error: "Failed to rollback deployment" });
+      safe503(res, "Failed to rollback deployment");
     }
   });
 
@@ -11600,7 +11601,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       
       res.json({ success: true, data: logs });
     } catch (error) {
-      res.status(500).json({ error: "Failed to fetch training logs" });
+      safe503(res, "Failed to fetch training logs");
     }
   });
 
@@ -11629,7 +11630,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       
       res.json({ success: true, data: searchResult });
     } catch (error) {
-      res.status(500).json({ error: "Failed to start hyperparameter search" });
+      safe503(res, "Failed to start hyperparameter search");
     }
   });
 
@@ -11644,7 +11645,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
         savedAt: new Date().toISOString()
       });
     } catch (error) {
-      res.status(500).json({ error: "Failed to save AI parameters" });
+      safe503(res, "Failed to save AI parameters");
     }
   });
 
@@ -11663,7 +11664,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
         syncedAt: new Date().toISOString()
       });
     } catch (error) {
-      res.status(500).json({ error: "Failed to sync AI models" });
+      safe503(res, "Failed to sync AI models");
     }
   });
 
@@ -11673,7 +11674,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       // Production: Return empty alerts array
       res.json({ alerts: [] });
     } catch (error) {
-      res.status(500).json({ error: "Failed to fetch alerts" });
+      safe503(res, "Failed to fetch alerts");
     }
   });
 
@@ -11782,7 +11783,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       });
     } catch (error) {
       console.error('[Admin Economics] Failed to fetch:', error);
-      res.status(500).json({ error: "Failed to fetch economics data" });
+      safe503(res, "Failed to fetch economics data");
     }
   });
 
@@ -11805,7 +11806,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       });
     } catch (error) {
       console.error('[Admin Treasury] Failed to fetch:', error);
-      res.status(500).json({ error: "Failed to fetch treasury data" });
+      safe503(res, "Failed to fetch treasury data");
     }
   });
 
@@ -12086,7 +12087,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       });
     } catch (error) {
       console.error('[Admin Validators] Failed to fetch validators:', error);
-      res.status(500).json({ error: "Failed to fetch validators" });
+      safe503(res, "Failed to fetch validators");
     }
   });
 
@@ -12384,7 +12385,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(result);
     } catch (error) {
       console.error("[Admin Community] Error fetching content:", error);
-      res.status(500).json({ error: "Failed to fetch community content" });
+      safe503(res, "Failed to fetch community content");
     }
   });
 
@@ -12405,7 +12406,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(announcement);
     } catch (error) {
       console.error("[Admin Community] Error creating news:", error);
-      res.status(500).json({ error: "Failed to create news" });
+      safe503(res, "Failed to create news");
     }
   });
 
@@ -12422,7 +12423,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, id });
     } catch (error) {
       console.error("[Admin Community] Error updating news:", error);
-      res.status(500).json({ error: "Failed to update news" });
+      safe503(res, "Failed to update news");
     }
   });
 
@@ -12435,7 +12436,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, id });
     } catch (error) {
       console.error("[Admin Community] Error deleting news:", error);
-      res.status(500).json({ error: "Failed to delete news" });
+      safe503(res, "Failed to delete news");
     }
   });
 
@@ -12463,7 +12464,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(event);
     } catch (error) {
       console.error("[Admin Community] Error creating event:", error);
-      res.status(500).json({ error: "Failed to create event" });
+      safe503(res, "Failed to create event");
     }
   });
 
@@ -12480,7 +12481,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, id });
     } catch (error) {
       console.error("[Admin Community] Error updating event:", error);
-      res.status(500).json({ error: "Failed to update event" });
+      safe503(res, "Failed to update event");
     }
   });
 
@@ -12493,7 +12494,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, id });
     } catch (error) {
       console.error("[Admin Community] Error deleting event:", error);
-      res.status(500).json({ error: "Failed to delete event" });
+      safe503(res, "Failed to delete event");
     }
   });
 
@@ -12519,7 +12520,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(post);
     } catch (error) {
       console.error("[Admin Community] Error creating hub post:", error);
-      res.status(500).json({ error: "Failed to create hub post" });
+      safe503(res, "Failed to create hub post");
     }
   });
 
@@ -12536,7 +12537,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, id });
     } catch (error) {
       console.error("[Admin Community] Error updating hub post:", error);
-      res.status(500).json({ error: "Failed to update hub post" });
+      safe503(res, "Failed to update hub post");
     }
   });
 
@@ -12549,7 +12550,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, id });
     } catch (error) {
       console.error("[Admin Community] Error deleting hub post:", error);
-      res.status(500).json({ error: "Failed to delete hub post" });
+      safe503(res, "Failed to delete hub post");
     }
   });
 
@@ -12727,7 +12728,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       });
     } catch (error) {
       console.error('Error fetching security data:', error);
-      res.status(500).json({ error: 'Failed to fetch security data' });
+      safe503(res, 'Failed to fetch security data');
     }
   });
 
@@ -12790,7 +12791,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       });
     } catch (error) {
       console.error('Error fetching threat data:', error);
-      res.status(500).json({ error: 'Failed to fetch threat data' });
+      safe503(res, 'Failed to fetch threat data');
     }
   });
 
@@ -12861,7 +12862,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       });
     } catch (error) {
       console.error('Error fetching access policies:', error);
-      res.status(500).json({ error: 'Failed to fetch access policies' });
+      safe503(res, 'Failed to fetch access policies');
     }
   });
 
@@ -13055,7 +13056,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       });
     } catch (error) {
       console.error('[Compliance] Error fetching compliance data:', error);
-      res.status(500).json({ error: 'Failed to fetch compliance data' });
+      safe503(res, 'Failed to fetch compliance data');
     }
   });
 
@@ -13083,7 +13084,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, data: results });
     } catch (error) {
       console.error('[Compliance] Assessment error:', error);
-      res.status(500).json({ error: 'Failed to run compliance assessment' });
+      safe503(res, 'Failed to run compliance assessment');
     }
   });
 
@@ -13117,7 +13118,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
         }
       });
     } catch (error) {
-      res.status(500).json({ error: 'Failed to fetch KYC/AML data' });
+      safe503(res, 'Failed to fetch KYC/AML data');
     }
   });
 
@@ -13141,7 +13142,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
         }
       });
     } catch (error) {
-      res.status(500).json({ error: 'Failed to fetch compliance reports' });
+      safe503(res, 'Failed to fetch compliance reports');
     }
   });
 
@@ -13185,7 +13186,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       });
     } catch (error) {
       console.error('Error fetching audit logs:', error);
-      res.status(500).json({ error: 'Failed to fetch audit logs' });
+      safe503(res, 'Failed to fetch audit logs');
     }
   });
 
@@ -13201,7 +13202,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, data: { programs, stats } });
     } catch (error) {
       console.error('[TokenPrograms] Error fetching programs:', error);
-      res.status(500).json({ error: 'Failed to fetch token programs' });
+      safe503(res, 'Failed to fetch token programs');
     }
   });
 
@@ -13246,7 +13247,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       });
     } catch (error) {
       console.error('[TokenPrograms] Error fetching dashboard:', error);
-      res.status(500).json({ error: 'Failed to fetch token programs dashboard' });
+      safe503(res, 'Failed to fetch token programs dashboard');
     }
   });
 
@@ -13261,7 +13262,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, data: { program, snapshots } });
     } catch (error) {
       console.error('[TokenPrograms] Error fetching program:', error);
-      res.status(500).json({ error: 'Failed to fetch token program' });
+      safe503(res, 'Failed to fetch token program');
     }
   });
 
@@ -13272,7 +13273,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, data: program });
     } catch (error) {
       console.error('[TokenPrograms] Error creating program:', error);
-      res.status(500).json({ error: 'Failed to create token program' });
+      safe503(res, 'Failed to create token program');
     }
   });
 
@@ -13284,7 +13285,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, data: program });
     } catch (error) {
       console.error('[TokenPrograms] Error updating program:', error);
-      res.status(500).json({ error: 'Failed to update token program' });
+      safe503(res, 'Failed to update token program');
     }
   });
 
@@ -13297,7 +13298,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, data: { claims, stats } });
     } catch (error) {
       console.error('[Airdrop] Error fetching claims:', error);
-      res.status(500).json({ error: 'Failed to fetch airdrop claims' });
+      safe503(res, 'Failed to fetch airdrop claims');
     }
   });
 
@@ -13307,7 +13308,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, data: distributions });
     } catch (error) {
       console.error('[Airdrop] Error fetching distributions:', error);
-      res.status(500).json({ error: 'Failed to fetch distributions' });
+      safe503(res, 'Failed to fetch distributions');
     }
   });
 
@@ -13317,7 +13318,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, data: claim });
     } catch (error) {
       console.error('[Airdrop] Error creating claim:', error);
-      res.status(500).json({ error: 'Failed to create airdrop claim' });
+      safe503(res, 'Failed to create airdrop claim');
     }
   });
 
@@ -13328,7 +13329,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, data: claim });
     } catch (error) {
       console.error('[Airdrop] Error updating claim:', error);
-      res.status(500).json({ error: 'Failed to update airdrop claim' });
+      safe503(res, 'Failed to update airdrop claim');
     }
   });
 
@@ -13369,7 +13370,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, data: results });
     } catch (error) {
       console.error('[Airdrop] Error bulk importing claims:', error);
-      res.status(500).json({ error: 'Failed to bulk import airdrop claims' });
+      safe503(res, 'Failed to bulk import airdrop claims');
     }
   });
 
@@ -13449,7 +13450,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       });
     } catch (error) {
       console.error('[Airdrop] Error executing distribution:', error);
-      res.status(500).json({ error: 'Failed to execute distribution' });
+      safe503(res, 'Failed to execute distribution');
     }
   });
 
@@ -13478,7 +13479,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, data: updatedClaim });
     } catch (error) {
       console.error('[Airdrop] Error processing claim:', error);
-      res.status(500).json({ error: 'Failed to process claim' });
+      safe503(res, 'Failed to process claim');
     }
   });
 
@@ -13498,7 +13499,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, message: 'Claim deleted successfully' });
     } catch (error) {
       console.error('[Airdrop] Error deleting claim:', error);
-      res.status(500).json({ error: 'Failed to delete claim' });
+      safe503(res, 'Failed to delete claim');
     }
   });
 
@@ -13551,7 +13552,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       });
     } catch (error) {
       console.error('[Airdrop] Error checking eligibility:', error);
-      res.status(500).json({ error: 'Failed to check airdrop eligibility' });
+      safe503(res, 'Failed to check airdrop eligibility');
     }
   });
 
@@ -13614,7 +13615,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       });
     } catch (error) {
       console.error('[Airdrop] Error claiming airdrop:', error);
-      res.status(500).json({ error: 'Failed to claim airdrop' });
+      safe503(res, 'Failed to claim airdrop');
     }
   });
 
@@ -13652,7 +13653,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       });
     } catch (error) {
       console.error('[Airdrop] Error fetching airdrop info:', error);
-      res.status(500).json({ error: 'Failed to fetch airdrop info' });
+      safe503(res, 'Failed to fetch airdrop info');
     }
   });
 
@@ -13665,7 +13666,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, data: { accounts, stats } });
     } catch (error) {
       console.error('[Referral] Error fetching accounts:', error);
-      res.status(500).json({ error: 'Failed to fetch referral accounts' });
+      safe503(res, 'Failed to fetch referral accounts');
     }
   });
 
@@ -13675,7 +13676,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, data: rewards });
     } catch (error) {
       console.error('[Referral] Error fetching rewards:', error);
-      res.status(500).json({ error: 'Failed to fetch referral rewards' });
+      safe503(res, 'Failed to fetch referral rewards');
     }
   });
 
@@ -13700,7 +13701,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, data: account });
     } catch (error) {
       console.error('[Referral] Error creating account:', error);
-      res.status(500).json({ error: 'Failed to create referral account' });
+      safe503(res, 'Failed to create referral account');
     }
   });
 
@@ -13712,7 +13713,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, data: account });
     } catch (error) {
       console.error('[Referral] Error updating account:', error);
-      res.status(500).json({ error: 'Failed to update referral account' });
+      safe503(res, 'Failed to update referral account');
     }
   });
 
@@ -13748,7 +13749,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, data: results });
     } catch (error) {
       console.error('[Referral] Bulk import error:', error);
-      res.status(500).json({ error: 'Failed to bulk import referral accounts' });
+      safe503(res, 'Failed to bulk import referral accounts');
     }
   });
 
@@ -13790,7 +13791,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, data: { ...results, transactionHash: txHash } });
     } catch (error) {
       console.error('[Referral] Distribution error:', error);
-      res.status(500).json({ error: 'Failed to distribute referral rewards' });
+      safe503(res, 'Failed to distribute referral rewards');
     }
   });
 
@@ -13804,7 +13805,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, data: { events, stats } });
     } catch (error) {
       console.error('[Events] Error fetching events:', error);
-      res.status(500).json({ error: 'Failed to fetch events' });
+      safe503(res, 'Failed to fetch events');
     }
   });
 
@@ -13818,7 +13819,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, data: { event, registrations } });
     } catch (error) {
       console.error('[Events] Error fetching event:', error);
-      res.status(500).json({ error: 'Failed to fetch event' });
+      safe503(res, 'Failed to fetch event');
     }
   });
 
@@ -13834,7 +13835,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, data: event });
     } catch (error) {
       console.error('[Events] Error creating event:', error);
-      res.status(500).json({ error: 'Failed to create event' });
+      safe503(res, 'Failed to create event');
     }
   });
 
@@ -13845,7 +13846,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, data: event });
     } catch (error) {
       console.error('[Events] Error updating event:', error);
-      res.status(500).json({ error: 'Failed to update event' });
+      safe503(res, 'Failed to update event');
     }
   });
 
@@ -13856,7 +13857,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, message: 'Event cancelled' });
     } catch (error) {
       console.error('[Events] Error deleting event:', error);
-      res.status(500).json({ error: 'Failed to delete event' });
+      safe503(res, 'Failed to delete event');
     }
   });
 
@@ -13868,7 +13869,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, data: events });
     } catch (error) {
       console.error('[Events] Error fetching catalog:', error);
-      res.status(500).json({ error: 'Failed to fetch events catalog' });
+      safe503(res, 'Failed to fetch events catalog');
     }
   });
 
@@ -13906,7 +13907,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       });
     } catch (error) {
       console.error('[Events] Distribution error:', error);
-      res.status(500).json({ error: 'Failed to distribute rewards' });
+      safe503(res, 'Failed to distribute rewards');
     }
   });
 
@@ -13919,7 +13920,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, data: { tasks, stats } });
     } catch (error) {
       console.error('[Community] Error fetching tasks:', error);
-      res.status(500).json({ error: 'Failed to fetch community tasks' });
+      safe503(res, 'Failed to fetch community tasks');
     }
   });
 
@@ -13929,7 +13930,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, data: contributions });
     } catch (error) {
       console.error('[Community] Error fetching contributions:', error);
-      res.status(500).json({ error: 'Failed to fetch contributions' });
+      safe503(res, 'Failed to fetch contributions');
     }
   });
 
@@ -13939,7 +13940,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, data: task });
     } catch (error) {
       console.error('[Community] Error creating task:', error);
-      res.status(500).json({ error: 'Failed to create community task' });
+      safe503(res, 'Failed to create community task');
     }
   });
 
@@ -13950,7 +13951,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, data: task });
     } catch (error) {
       console.error('[Community] Error updating task:', error);
-      res.status(500).json({ error: 'Failed to update community task' });
+      safe503(res, 'Failed to update community task');
     }
   });
 
@@ -13961,7 +13962,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true });
     } catch (error) {
       console.error('[Community] Error deleting task:', error);
-      res.status(500).json({ error: 'Failed to delete community task' });
+      safe503(res, 'Failed to delete community task');
     }
   });
 
@@ -13980,7 +13981,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true });
     } catch (error) {
       console.error('[Community] Error updating contribution:', error);
-      res.status(500).json({ error: 'Failed to update contribution' });
+      safe503(res, 'Failed to update contribution');
     }
   });
 
@@ -13993,7 +13994,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, data: { proposals, stats } });
     } catch (error) {
       console.error('[DAO] Error fetching proposals:', error);
-      res.status(500).json({ error: 'Failed to fetch DAO proposals' });
+      safe503(res, 'Failed to fetch DAO proposals');
     }
   });
 
@@ -14007,7 +14008,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, data: { proposal, votes } });
     } catch (error) {
       console.error('[DAO] Error fetching proposal:', error);
-      res.status(500).json({ error: 'Failed to fetch proposal' });
+      safe503(res, 'Failed to fetch proposal');
     }
   });
 
@@ -14017,7 +14018,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, data: proposal });
     } catch (error) {
       console.error('[DAO] Error creating proposal:', error);
-      res.status(500).json({ error: 'Failed to create DAO proposal' });
+      safe503(res, 'Failed to create DAO proposal');
     }
   });
 
@@ -14028,7 +14029,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, data: proposal });
     } catch (error) {
       console.error('[DAO] Error updating proposal:', error);
-      res.status(500).json({ error: 'Failed to update proposal' });
+      safe503(res, 'Failed to update proposal');
     }
   });
 
@@ -14038,7 +14039,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, message: 'Proposal deleted successfully' });
     } catch (error) {
       console.error('[DAO] Error deleting proposal:', error);
-      res.status(500).json({ error: 'Failed to delete proposal' });
+      safe503(res, 'Failed to delete proposal');
     }
   });
 
@@ -14048,7 +14049,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, data: votes });
     } catch (error) {
       console.error('[DAO] Error fetching votes:', error);
-      res.status(500).json({ error: 'Failed to fetch votes' });
+      safe503(res, 'Failed to fetch votes');
     }
   });
 
@@ -14079,7 +14080,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, data: vote });
     } catch (error) {
       console.error('[DAO] Error creating vote:', error);
-      res.status(500).json({ error: 'Failed to create vote' });
+      safe503(res, 'Failed to create vote');
     }
   });
 
@@ -14089,7 +14090,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, message: 'Vote deleted successfully' });
     } catch (error) {
       console.error('[DAO] Error deleting vote:', error);
-      res.status(500).json({ error: 'Failed to delete vote' });
+      safe503(res, 'Failed to delete vote');
     }
   });
 
@@ -14102,7 +14103,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, data: { cycles, stats } });
     } catch (error) {
       console.error('[BlockRewards] Error fetching cycles:', error);
-      res.status(500).json({ error: 'Failed to fetch block reward cycles' });
+      safe503(res, 'Failed to fetch block reward cycles');
     }
   });
 
@@ -14112,7 +14113,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, data: payouts });
     } catch (error) {
       console.error('[BlockRewards] Error fetching payouts:', error);
-      res.status(500).json({ error: 'Failed to fetch payouts' });
+      safe503(res, 'Failed to fetch payouts');
     }
   });
 
@@ -14125,7 +14126,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, data: cycle });
     } catch (error) {
       console.error('[BlockRewards] Error fetching cycle:', error);
-      res.status(500).json({ error: 'Failed to fetch cycle' });
+      safe503(res, 'Failed to fetch cycle');
     }
   });
 
@@ -14135,7 +14136,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, data: cycle });
     } catch (error) {
       console.error('[BlockRewards] Error creating cycle:', error);
-      res.status(500).json({ error: 'Failed to create block reward cycle' });
+      safe503(res, 'Failed to create block reward cycle');
     }
   });
 
@@ -14146,7 +14147,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, data: cycle });
     } catch (error) {
       console.error('[BlockRewards] Error updating cycle:', error);
-      res.status(500).json({ error: 'Failed to update cycle' });
+      safe503(res, 'Failed to update cycle');
     }
   });
 
@@ -14159,7 +14160,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, data: payout });
     } catch (error) {
       console.error('[BlockRewards] Error creating payout:', error);
-      res.status(500).json({ error: 'Failed to create payout' });
+      safe503(res, 'Failed to create payout');
     }
   });
 
@@ -14169,7 +14170,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, message: 'Payout updated successfully' });
     } catch (error) {
       console.error('[BlockRewards] Error updating payout:', error);
-      res.status(500).json({ error: 'Failed to update payout' });
+      safe503(res, 'Failed to update payout');
     }
   });
 
@@ -14182,7 +14183,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, data: { payouts, stats } });
     } catch (error) {
       console.error('[ValidatorIncentives] Error fetching payouts:', error);
-      res.status(500).json({ error: 'Failed to fetch validator incentives' });
+      safe503(res, 'Failed to fetch validator incentives');
     }
   });
 
@@ -14192,7 +14193,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, data: performanceStats });
     } catch (error) {
       console.error('[ValidatorIncentives] Error fetching performance:', error);
-      res.status(500).json({ error: 'Failed to fetch validator performance' });
+      safe503(res, 'Failed to fetch validator performance');
     }
   });
 
@@ -14202,7 +14203,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, data: payout });
     } catch (error) {
       console.error('[ValidatorIncentives] Error creating payout:', error);
-      res.status(500).json({ error: 'Failed to create validator incentive payout' });
+      safe503(res, 'Failed to create validator incentive payout');
     }
   });
 
@@ -14212,7 +14213,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, message: 'Payout updated successfully' });
     } catch (error) {
       console.error('[ValidatorIncentives] Error updating payout:', error);
-      res.status(500).json({ error: 'Failed to update validator incentive payout' });
+      safe503(res, 'Failed to update validator incentive payout');
     }
   });
 
@@ -14225,7 +14226,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, data: { grants, stats } });
     } catch (error) {
       console.error('[EcosystemGrants] Error fetching grants:', error);
-      res.status(500).json({ error: 'Failed to fetch ecosystem grants' });
+      safe503(res, 'Failed to fetch ecosystem grants');
     }
   });
 
@@ -14239,7 +14240,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, data: { grant, milestones } });
     } catch (error) {
       console.error('[EcosystemGrants] Error fetching grant:', error);
-      res.status(500).json({ error: 'Failed to fetch grant' });
+      safe503(res, 'Failed to fetch grant');
     }
   });
 
@@ -14271,7 +14272,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, data: grant });
     } catch (error) {
       console.error('[EcosystemGrants] Error creating grant:', error);
-      res.status(500).json({ error: 'Failed to create ecosystem grant' });
+      safe503(res, 'Failed to create ecosystem grant');
     }
   });
 
@@ -14292,7 +14293,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, data: grant });
     } catch (error) {
       console.error('[EcosystemGrants] Error updating grant:', error);
-      res.status(500).json({ error: 'Failed to update grant' });
+      safe503(res, 'Failed to update grant');
     }
   });
 
@@ -14312,7 +14313,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, data: milestone });
     } catch (error) {
       console.error('[EcosystemGrants] Error creating milestone:', error);
-      res.status(500).json({ error: 'Failed to create milestone' });
+      safe503(res, 'Failed to create milestone');
     }
   });
 
@@ -14323,7 +14324,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, data: milestone });
     } catch (error) {
       console.error('[EcosystemGrants] Error updating milestone:', error);
-      res.status(500).json({ error: 'Failed to update milestone' });
+      safe503(res, 'Failed to update milestone');
     }
   });
 
@@ -14336,7 +14337,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, data: { partners, stats } });
     } catch (error) {
       console.error('[Partnerships] Error fetching partners:', error);
-      res.status(500).json({ error: 'Failed to fetch partnerships' });
+      safe503(res, 'Failed to fetch partnerships');
     }
   });
 
@@ -14350,7 +14351,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, data: { partner, payouts } });
     } catch (error) {
       console.error('[Partnerships] Error fetching partner:', error);
-      res.status(500).json({ error: 'Failed to fetch partnership' });
+      safe503(res, 'Failed to fetch partnership');
     }
   });
 
@@ -14370,7 +14371,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, data: partner });
     } catch (error) {
       console.error('[Partnerships] Error creating partner:', error);
-      res.status(500).json({ error: 'Failed to create partnership' });
+      safe503(res, 'Failed to create partnership');
     }
   });
 
@@ -14391,7 +14392,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, data: partner });
     } catch (error) {
       console.error('[Partnerships] Error updating partner:', error);
-      res.status(500).json({ error: 'Failed to update partnership' });
+      safe503(res, 'Failed to update partnership');
     }
   });
 
@@ -14407,7 +14408,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, data: payout });
     } catch (error) {
       console.error('[Partnerships] Error creating payout:', error);
-      res.status(500).json({ error: 'Failed to create partnership payout' });
+      safe503(res, 'Failed to create partnership payout');
     }
   });
 
@@ -14423,7 +14424,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, message: 'Payout updated successfully' });
     } catch (error) {
       console.error('[Partnerships] Error updating payout:', error);
-      res.status(500).json({ error: 'Failed to update partnership payout' });
+      safe503(res, 'Failed to update partnership payout');
     }
   });
 
@@ -14436,7 +14437,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, data: { projects, stats } });
     } catch (error) {
       console.error('[Launchpad] Error fetching projects:', error);
-      res.status(500).json({ error: 'Failed to fetch launchpad projects' });
+      safe503(res, 'Failed to fetch launchpad projects');
     }
   });
 
@@ -14450,7 +14451,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, data: { project, participants } });
     } catch (error) {
       console.error('[Launchpad] Error fetching project:', error);
-      res.status(500).json({ error: 'Failed to fetch project' });
+      safe503(res, 'Failed to fetch project');
     }
   });
 
@@ -14469,7 +14470,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, data: project });
     } catch (error) {
       console.error('[Launchpad] Error creating project:', error);
-      res.status(500).json({ error: 'Failed to create launchpad project' });
+      safe503(res, 'Failed to create launchpad project');
     }
   });
 
@@ -14489,7 +14490,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, data: project });
     } catch (error) {
       console.error('[Launchpad] Error updating project:', error);
-      res.status(500).json({ error: 'Failed to update launchpad project' });
+      safe503(res, 'Failed to update launchpad project');
     }
   });
 
@@ -14500,7 +14501,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, data: participant });
     } catch (error) {
       console.error('[Launchpad] Error creating participant:', error);
-      res.status(500).json({ error: 'Failed to create participant' });
+      safe503(res, 'Failed to create participant');
     }
   });
 
@@ -14512,7 +14513,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, data: participant });
     } catch (error) {
       console.error('[Launchpad] Error updating participant:', error);
-      res.status(500).json({ error: 'Failed to update participant' });
+      safe503(res, 'Failed to update participant');
     }
   });
 
@@ -14525,7 +14526,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, data: { sales, stats } });
     } catch (error) {
       console.error('[CoinList] Error fetching sales:', error);
-      res.status(500).json({ error: 'Failed to fetch coinlist sales' });
+      safe503(res, 'Failed to fetch coinlist sales');
     }
   });
 
@@ -14539,7 +14540,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, data: { sale, participants } });
     } catch (error) {
       console.error('[CoinList] Error fetching sale:', error);
-      res.status(500).json({ error: 'Failed to fetch sale' });
+      safe503(res, 'Failed to fetch sale');
     }
   });
 
@@ -14558,7 +14559,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, data: sale });
     } catch (error) {
       console.error('[CoinList] Error creating sale:', error);
-      res.status(500).json({ error: 'Failed to create coinlist sale' });
+      safe503(res, 'Failed to create coinlist sale');
     }
   });
 
@@ -14578,7 +14579,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, data: sale });
     } catch (error) {
       console.error('[CoinList] Error updating sale:', error);
-      res.status(500).json({ error: 'Failed to update coinlist sale' });
+      safe503(res, 'Failed to update coinlist sale');
     }
   });
 
@@ -14597,7 +14598,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, data: participant });
     } catch (error) {
       console.error('[CoinList] Error creating participant:', error);
-      res.status(500).json({ error: 'Failed to create participant' });
+      safe503(res, 'Failed to create participant');
     }
   });
 
@@ -14617,7 +14618,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, data: participant });
     } catch (error) {
       console.error('[CoinList] Error updating participant:', error);
-      res.status(500).json({ error: 'Failed to update participant' });
+      safe503(res, 'Failed to update participant');
     }
   });
 
@@ -14628,7 +14629,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, data: { winnersSelected } });
     } catch (error) {
       console.error('[CoinList] Error selecting winners:', error);
-      res.status(500).json({ error: 'Failed to select winners' });
+      safe503(res, 'Failed to select winners');
     }
   });
 
@@ -14641,7 +14642,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, data: { shos, stats } });
     } catch (error) {
       console.error('[DAOMaker] Error fetching SHOs:', error);
-      res.status(500).json({ error: 'Failed to fetch DAO Maker SHOs' });
+      safe503(res, 'Failed to fetch DAO Maker SHOs');
     }
   });
 
@@ -14655,7 +14656,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, data: { sho, participants } });
     } catch (error) {
       console.error('[DAOMaker] Error fetching SHO:', error);
-      res.status(500).json({ error: 'Failed to fetch SHO' });
+      safe503(res, 'Failed to fetch SHO');
     }
   });
 
@@ -14674,7 +14675,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, data: sho });
     } catch (error) {
       console.error('[DAOMaker] Error creating SHO:', error);
-      res.status(500).json({ error: 'Failed to create DAO Maker SHO' });
+      safe503(res, 'Failed to create DAO Maker SHO');
     }
   });
 
@@ -14694,7 +14695,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, data: sho });
     } catch (error) {
       console.error('[DAOMaker] Error updating SHO:', error);
-      res.status(500).json({ error: 'Failed to update DAO Maker SHO' });
+      safe503(res, 'Failed to update DAO Maker SHO');
     }
   });
 
@@ -14713,7 +14714,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, data: participant });
     } catch (error) {
       console.error('[DAOMaker] Error creating participant:', error);
-      res.status(500).json({ error: 'Failed to create participant' });
+      safe503(res, 'Failed to create participant');
     }
   });
 
@@ -14733,7 +14734,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, data: participant });
     } catch (error) {
       console.error('[DAOMaker] Error updating participant:', error);
-      res.status(500).json({ error: 'Failed to update participant' });
+      safe503(res, 'Failed to update participant');
     }
   });
 
@@ -14744,7 +14745,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, data: { winnersSelected } });
     } catch (error) {
       console.error('[DAOMaker] Error selecting winners:', error);
-      res.status(500).json({ error: 'Failed to select winners' });
+      safe503(res, 'Failed to select winners');
     }
   });
 
@@ -14757,7 +14758,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, data: { participants, stats } });
     } catch (error) {
       console.error('[Public Round] Error fetching participants:', error);
-      res.status(500).json({ error: 'Failed to fetch public participants' });
+      safe503(res, 'Failed to fetch public participants');
     }
   });
 
@@ -14771,7 +14772,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, data: { participant, payouts } });
     } catch (error) {
       console.error('[Public Round] Error fetching participant:', error);
-      res.status(500).json({ error: 'Failed to fetch participant' });
+      safe503(res, 'Failed to fetch participant');
     }
   });
 
@@ -14790,7 +14791,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, data: participant });
     } catch (error) {
       console.error('[Public Round] Error creating participant:', error);
-      res.status(500).json({ error: 'Failed to create public participant' });
+      safe503(res, 'Failed to create public participant');
     }
   });
 
@@ -14810,7 +14811,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, data: participant });
     } catch (error) {
       console.error('[Public Round] Error updating participant:', error);
-      res.status(500).json({ error: 'Failed to update public participant' });
+      safe503(res, 'Failed to update public participant');
     }
   });
 
@@ -14825,7 +14826,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, data: payout });
     } catch (error) {
       console.error('[Public Round] Error creating payout:', error);
-      res.status(500).json({ error: 'Failed to create payout' });
+      safe503(res, 'Failed to create payout');
     }
   });
 
@@ -14840,7 +14841,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, message: 'Payout updated' });
     } catch (error) {
       console.error('[Public Round] Error updating payout:', error);
-      res.status(500).json({ error: 'Failed to update payout' });
+      safe503(res, 'Failed to update payout');
     }
   });
 
@@ -14853,7 +14854,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, data: { investors, stats } });
     } catch (error) {
       console.error('[Private Round] Error fetching investors:', error);
-      res.status(500).json({ error: 'Failed to fetch private investors' });
+      safe503(res, 'Failed to fetch private investors');
     }
   });
 
@@ -14867,7 +14868,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, data: { investor, payouts } });
     } catch (error) {
       console.error('[Private Round] Error fetching investor:', error);
-      res.status(500).json({ error: 'Failed to fetch investor' });
+      safe503(res, 'Failed to fetch investor');
     }
   });
 
@@ -14886,7 +14887,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, data: investor });
     } catch (error) {
       console.error('[Private Round] Error creating investor:', error);
-      res.status(500).json({ error: 'Failed to create private investor' });
+      safe503(res, 'Failed to create private investor');
     }
   });
 
@@ -14906,7 +14907,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, data: investor });
     } catch (error) {
       console.error('[Private Round] Error updating investor:', error);
-      res.status(500).json({ error: 'Failed to update private investor' });
+      safe503(res, 'Failed to update private investor');
     }
   });
 
@@ -14921,7 +14922,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, data: payout });
     } catch (error) {
       console.error('[Private Round] Error creating payout:', error);
-      res.status(500).json({ error: 'Failed to create payout' });
+      safe503(res, 'Failed to create payout');
     }
   });
 
@@ -14936,7 +14937,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, message: 'Payout updated' });
     } catch (error) {
       console.error('[Private Round] Error updating payout:', error);
-      res.status(500).json({ error: 'Failed to update payout' });
+      safe503(res, 'Failed to update payout');
     }
   });
 
@@ -14949,7 +14950,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, data: { investors, stats } });
     } catch (error) {
       console.error('[Seed Round] Error fetching investors:', error);
-      res.status(500).json({ error: 'Failed to fetch seed investors' });
+      safe503(res, 'Failed to fetch seed investors');
     }
   });
 
@@ -14963,7 +14964,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, data: { investor, payouts } });
     } catch (error) {
       console.error('[Seed Round] Error fetching investor:', error);
-      res.status(500).json({ error: 'Failed to fetch investor' });
+      safe503(res, 'Failed to fetch investor');
     }
   });
 
@@ -14982,7 +14983,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, data: investor });
     } catch (error) {
       console.error('[Seed Round] Error creating investor:', error);
-      res.status(500).json({ error: 'Failed to create seed investor' });
+      safe503(res, 'Failed to create seed investor');
     }
   });
 
@@ -15002,7 +15003,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, data: investor });
     } catch (error) {
       console.error('[Seed Round] Error updating investor:', error);
-      res.status(500).json({ error: 'Failed to update seed investor' });
+      safe503(res, 'Failed to update seed investor');
     }
   });
 
@@ -15017,7 +15018,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, data: payout });
     } catch (error) {
       console.error('[Seed Round] Error creating payout:', error);
-      res.status(500).json({ error: 'Failed to create payout' });
+      safe503(res, 'Failed to create payout');
     }
   });
 
@@ -15032,7 +15033,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, message: 'Payout updated' });
     } catch (error) {
       console.error('[Seed Round] Error updating payout:', error);
-      res.status(500).json({ error: 'Failed to update payout' });
+      safe503(res, 'Failed to update payout');
     }
   });
 
@@ -15045,7 +15046,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, data: { advisors: advisorsList, stats } });
     } catch (error) {
       console.error('[Advisor Program] Error fetching advisors:', error);
-      res.status(500).json({ error: 'Failed to fetch advisors' });
+      safe503(res, 'Failed to fetch advisors');
     }
   });
 
@@ -15060,7 +15061,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, data: { advisor, payouts, contributions } });
     } catch (error) {
       console.error('[Advisor Program] Error fetching advisor:', error);
-      res.status(500).json({ error: 'Failed to fetch advisor' });
+      safe503(res, 'Failed to fetch advisor');
     }
   });
 
@@ -15079,7 +15080,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, data: advisor });
     } catch (error) {
       console.error('[Advisor Program] Error creating advisor:', error);
-      res.status(500).json({ error: 'Failed to create advisor' });
+      safe503(res, 'Failed to create advisor');
     }
   });
 
@@ -15099,7 +15100,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, data: advisor });
     } catch (error) {
       console.error('[Advisor Program] Error updating advisor:', error);
-      res.status(500).json({ error: 'Failed to update advisor' });
+      safe503(res, 'Failed to update advisor');
     }
   });
 
@@ -15114,7 +15115,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, data: payout });
     } catch (error) {
       console.error('[Advisor Program] Error creating payout:', error);
-      res.status(500).json({ error: 'Failed to create payout' });
+      safe503(res, 'Failed to create payout');
     }
   });
 
@@ -15129,7 +15130,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, message: 'Payout updated' });
     } catch (error) {
       console.error('[Advisor Program] Error updating payout:', error);
-      res.status(500).json({ error: 'Failed to update payout' });
+      safe503(res, 'Failed to update payout');
     }
   });
 
@@ -15142,7 +15143,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, data: contribution });
     } catch (error) {
       console.error('[Advisor Program] Error creating contribution:', error);
-      res.status(500).json({ error: 'Failed to create contribution' });
+      safe503(res, 'Failed to create contribution');
     }
   });
 
@@ -15155,7 +15156,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, message: 'Contribution updated' });
     } catch (error) {
       console.error('[Advisor Program] Error updating contribution:', error);
-      res.status(500).json({ error: 'Failed to update contribution' });
+      safe503(res, 'Failed to update contribution');
     }
   });
 
@@ -15168,7 +15169,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, data: { partners, stats } });
     } catch (error) {
       console.error('[Strategic Partner] Error fetching partners:', error);
-      res.status(500).json({ error: 'Failed to fetch strategic partners' });
+      safe503(res, 'Failed to fetch strategic partners');
     }
   });
 
@@ -15183,7 +15184,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, data: { partner, payouts, milestones } });
     } catch (error) {
       console.error('[Strategic Partner] Error fetching partner:', error);
-      res.status(500).json({ error: 'Failed to fetch partner' });
+      safe503(res, 'Failed to fetch partner');
     }
   });
 
@@ -15202,7 +15203,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, data: partner });
     } catch (error) {
       console.error('[Strategic Partner] Error creating partner:', error);
-      res.status(500).json({ error: 'Failed to create strategic partner' });
+      safe503(res, 'Failed to create strategic partner');
     }
   });
 
@@ -15222,7 +15223,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, data: partner });
     } catch (error) {
       console.error('[Strategic Partner] Error updating partner:', error);
-      res.status(500).json({ error: 'Failed to update strategic partner' });
+      safe503(res, 'Failed to update strategic partner');
     }
   });
 
@@ -15237,7 +15238,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, data: payout });
     } catch (error) {
       console.error('[Strategic Partner] Error creating payout:', error);
-      res.status(500).json({ error: 'Failed to create payout' });
+      safe503(res, 'Failed to create payout');
     }
   });
 
@@ -15252,7 +15253,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, message: 'Payout updated' });
     } catch (error) {
       console.error('[Strategic Partner] Error updating payout:', error);
-      res.status(500).json({ error: 'Failed to update payout' });
+      safe503(res, 'Failed to update payout');
     }
   });
 
@@ -15267,7 +15268,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, data: milestone });
     } catch (error) {
       console.error('[Strategic Partner] Error creating milestone:', error);
-      res.status(500).json({ error: 'Failed to create milestone' });
+      safe503(res, 'Failed to create milestone');
     }
   });
 
@@ -15282,7 +15283,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, message: 'Milestone updated' });
     } catch (error) {
       console.error('[Strategic Partner] Error updating milestone:', error);
-      res.status(500).json({ error: 'Failed to update milestone' });
+      safe503(res, 'Failed to update milestone');
     }
   });
 
@@ -15295,7 +15296,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, data: { campaigns, stats } });
     } catch (error) {
       console.error('[Marketing] Error fetching campaigns:', error);
-      res.status(500).json({ error: 'Failed to fetch marketing campaigns' });
+      safe503(res, 'Failed to fetch marketing campaigns');
     }
   });
 
@@ -15310,7 +15311,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, data: { campaign, participants, rewards } });
     } catch (error) {
       console.error('[Marketing] Error fetching campaign:', error);
-      res.status(500).json({ error: 'Failed to fetch campaign' });
+      safe503(res, 'Failed to fetch campaign');
     }
   });
 
@@ -15329,7 +15330,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, data: campaign });
     } catch (error) {
       console.error('[Marketing] Error creating campaign:', error);
-      res.status(500).json({ error: 'Failed to create marketing campaign' });
+      safe503(res, 'Failed to create marketing campaign');
     }
   });
 
@@ -15349,7 +15350,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, data: campaign });
     } catch (error) {
       console.error('[Marketing] Error updating campaign:', error);
-      res.status(500).json({ error: 'Failed to update marketing campaign' });
+      safe503(res, 'Failed to update marketing campaign');
     }
   });
 
@@ -15360,7 +15361,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, data: participant });
     } catch (error) {
       console.error('[Marketing] Error adding participant:', error);
-      res.status(500).json({ error: 'Failed to add participant' });
+      safe503(res, 'Failed to add participant');
     }
   });
 
@@ -15370,7 +15371,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, message: 'Participant updated' });
     } catch (error) {
       console.error('[Marketing] Error updating participant:', error);
-      res.status(500).json({ error: 'Failed to update participant' });
+      safe503(res, 'Failed to update participant');
     }
   });
 
@@ -15385,7 +15386,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, data: reward });
     } catch (error) {
       console.error('[Marketing] Error creating reward:', error);
-      res.status(500).json({ error: 'Failed to create reward' });
+      safe503(res, 'Failed to create reward');
     }
   });
 
@@ -15400,7 +15401,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, message: 'Reward updated' });
     } catch (error) {
       console.error('[Marketing] Error updating reward:', error);
-      res.status(500).json({ error: 'Failed to update reward' });
+      safe503(res, 'Failed to update reward');
     }
   });
 
@@ -15435,7 +15436,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, data: { id: inquiry.id }, message: 'Investment inquiry submitted successfully' });
     } catch (error) {
       console.error('[Investment] Error creating inquiry:', error);
-      res.status(500).json({ error: 'Failed to submit investment inquiry' });
+      safe503(res, 'Failed to submit investment inquiry');
     }
   });
 
@@ -15458,7 +15459,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, data: { inquiries, stats } });
     } catch (error) {
       console.error('[Investment] Error fetching inquiries:', error);
-      res.status(500).json({ error: 'Failed to fetch investment inquiries' });
+      safe503(res, 'Failed to fetch investment inquiries');
     }
   });
 
@@ -15468,7 +15469,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, data: stats });
     } catch (error) {
       console.error('[Investment] Error fetching stats:', error);
-      res.status(500).json({ error: 'Failed to fetch inquiry stats' });
+      safe503(res, 'Failed to fetch inquiry stats');
     }
   });
 
@@ -15481,7 +15482,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, data: inquiry });
     } catch (error) {
       console.error('[Investment] Error fetching inquiry:', error);
-      res.status(500).json({ error: 'Failed to fetch inquiry' });
+      safe503(res, 'Failed to fetch inquiry');
     }
   });
 
@@ -15503,7 +15504,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, data: updated });
     } catch (error) {
       console.error('[Investment] Error updating inquiry:', error);
-      res.status(500).json({ error: 'Failed to update inquiry' });
+      safe503(res, 'Failed to update inquiry');
     }
   });
 
@@ -15513,7 +15514,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, message: 'Inquiry deleted' });
     } catch (error) {
       console.error('[Investment] Error deleting inquiry:', error);
-      res.status(500).json({ error: 'Failed to delete inquiry' });
+      safe503(res, 'Failed to delete inquiry');
     }
   });
 
@@ -15543,7 +15544,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       });
     } catch (error) {
       console.error('[TokenPrograms] Overview error:', error);
-      res.status(500).json({ error: 'Failed to fetch token programs overview' });
+      safe503(res, 'Failed to fetch token programs overview');
     }
   });
 
@@ -15559,7 +15560,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       });
     } catch (error) {
       console.error('[TokenPrograms] Pricing error:', error);
-      res.status(500).json({ error: 'Failed to fetch token pricing' });
+      safe503(res, 'Failed to fetch token pricing');
     }
   });
 
@@ -15581,7 +15582,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       });
     } catch (error) {
       console.error('[TokenPrograms] Allocation error:', error);
-      res.status(500).json({ error: 'Failed to fetch program allocation' });
+      safe503(res, 'Failed to fetch program allocation');
     }
   });
 
@@ -15630,7 +15631,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       });
     } catch (error) {
       console.error('[PublicAirdrop] Error:', error);
-      res.status(500).json({ error: 'Failed to fetch airdrop stats' });
+      safe503(res, 'Failed to fetch airdrop stats');
     }
   });
 
@@ -15654,7 +15655,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       });
     } catch (error) {
       console.error('[PublicAirdrop] Check error:', error);
-      res.status(500).json({ error: 'Failed to check eligibility' });
+      safe503(res, 'Failed to check eligibility');
     }
   });
 
@@ -15705,7 +15706,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       });
     } catch (error) {
       console.error('[PublicReferral] Error:', error);
-      res.status(500).json({ error: 'Failed to fetch referral stats' });
+      safe503(res, 'Failed to fetch referral stats');
     }
   });
 
@@ -15744,7 +15745,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       });
     } catch (error) {
       console.error('[PublicReferral] Generate error:', error);
-      res.status(500).json({ error: 'Failed to generate referral code' });
+      safe503(res, 'Failed to generate referral code');
     }
   });
 
@@ -15793,7 +15794,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       });
     } catch (error) {
       console.error('[Referral] Check error:', error);
-      res.status(500).json({ error: 'Failed to check referral status' });
+      safe503(res, 'Failed to check referral status');
     }
   });
 
@@ -15840,7 +15841,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       });
     } catch (error) {
       console.error('[Referral] Info error:', error);
-      res.status(500).json({ error: 'Failed to fetch referral info' });
+      safe503(res, 'Failed to fetch referral info');
     }
   });
 
@@ -15914,7 +15915,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       });
     } catch (error) {
       console.error('[Referral] Apply error:', error);
-      res.status(500).json({ error: 'Failed to apply referral' });
+      safe503(res, 'Failed to apply referral');
     }
   });
 
@@ -15970,7 +15971,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       });
     } catch (error) {
       console.error('[Referral] Claim error:', error);
-      res.status(500).json({ error: 'Failed to claim rewards' });
+      safe503(res, 'Failed to claim rewards');
     }
   });
 
@@ -16018,7 +16019,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       });
     } catch (error) {
       console.error('[PublicEvents] Info error:', error);
-      res.status(500).json({ error: 'Failed to fetch events info' });
+      safe503(res, 'Failed to fetch events info');
     }
   });
 
@@ -16056,7 +16057,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       }
     } catch (error) {
       console.error('[PublicEvents] Check error:', error);
-      res.status(500).json({ error: 'Failed to check registration' });
+      safe503(res, 'Failed to check registration');
     }
   });
 
@@ -16111,7 +16112,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       });
     } catch (error) {
       console.error('[PublicEvents] Register error:', error);
-      res.status(500).json({ error: 'Failed to register for event' });
+      safe503(res, 'Failed to register for event');
     }
   });
 
@@ -16155,7 +16156,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       });
     } catch (error) {
       console.error('[PublicEvents] Claim error:', error);
-      res.status(500).json({ error: 'Failed to claim rewards' });
+      safe503(res, 'Failed to claim rewards');
     }
   });
 
@@ -16198,7 +16199,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       });
     } catch (error) {
       console.error('[PublicEvents] Error:', error);
-      res.status(500).json({ error: 'Failed to fetch events' });
+      safe503(res, 'Failed to fetch events');
     }
   });
 
@@ -16239,7 +16240,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       });
     } catch (error) {
       console.error('[PublicCommunity] Error:', error);
-      res.status(500).json({ error: 'Failed to fetch community stats' });
+      safe503(res, 'Failed to fetch community stats');
     }
   });
 
@@ -16274,7 +16275,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       });
     } catch (error) {
       console.error('[PublicDAO] Error:', error);
-      res.status(500).json({ error: 'Failed to fetch DAO stats' });
+      safe503(res, 'Failed to fetch DAO stats');
     }
   });
 
@@ -16322,7 +16323,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       });
     } catch (error) {
       console.error('[PublicBlockRewards] Error:', error);
-      res.status(500).json({ error: 'Failed to fetch block rewards stats' });
+      safe503(res, 'Failed to fetch block rewards stats');
     }
   });
 
@@ -16369,7 +16370,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       });
     } catch (error) {
       console.error('[PublicValidatorIncentives] Error:', error);
-      res.status(500).json({ error: 'Failed to fetch validator incentives stats' });
+      safe503(res, 'Failed to fetch validator incentives stats');
     }
   });
 
@@ -16417,7 +16418,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       });
     } catch (error) {
       console.error('[PublicEcosystemFund] Error:', error);
-      res.status(500).json({ error: 'Failed to fetch ecosystem fund stats' });
+      safe503(res, 'Failed to fetch ecosystem fund stats');
     }
   });
 
@@ -16497,7 +16498,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       });
     } catch (error) {
       console.error('[PublicInvestmentRounds] Error:', error);
-      res.status(500).json({ error: 'Failed to fetch investment rounds stats' });
+      safe503(res, 'Failed to fetch investment rounds stats');
     }
   });
 
@@ -16569,7 +16570,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       });
     } catch (error) {
       console.error('[PublicLaunchpad] Error:', error);
-      res.status(500).json({ error: 'Failed to fetch launchpad stats' });
+      safe503(res, 'Failed to fetch launchpad stats');
     }
   });
 
@@ -16629,7 +16630,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       });
     } catch (error) {
       console.error('[PublicPartnerships] Error:', error);
-      res.status(500).json({ error: 'Failed to fetch partnership stats' });
+      safe503(res, 'Failed to fetch partnership stats');
     }
   });
 
@@ -16688,7 +16689,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(result);
     } catch (error) {
       console.error('[Operations Emergency] Error:', error);
-      res.status(500).json({ error: "Failed to fetch emergency data" });
+      safe503(res, "Failed to fetch emergency data");
     }
   });
 
@@ -16731,7 +16732,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(result);
     } catch (error) {
       console.error('[Operations Maintenance] Error:', error);
-      res.status(500).json({ error: "Failed to fetch maintenance data" });
+      safe503(res, "Failed to fetch maintenance data");
     }
   });
 
@@ -16787,7 +16788,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(result);
     } catch (error) {
       console.error('[Operations Backups] Error:', error);
-      res.status(500).json({ error: "Failed to fetch backup data" });
+      safe503(res, "Failed to fetch backup data");
     }
   });
 
@@ -16851,7 +16852,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(result);
     } catch (error) {
       console.error('[Operations Updates] Error:', error);
-      res.status(500).json({ error: "Failed to fetch update data" });
+      safe503(res, "Failed to fetch update data");
     }
   });
 
@@ -16896,7 +16897,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(result);
     } catch (error) {
       console.error('[Operations Logs] Error:', error);
-      res.status(500).json({ error: "Failed to fetch logs" });
+      safe503(res, "Failed to fetch logs");
     }
   });
 
@@ -17070,7 +17071,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       });
     } catch (error) {
       console.error('Error fetching enterprise admin settings:', error);
-      res.status(500).json({ error: 'Failed to fetch admin settings' });
+      safe503(res, 'Failed to fetch admin settings');
     }
   });
 
@@ -17111,7 +17112,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       });
     } catch (error) {
       console.error('Error fetching enterprise admin integrations:', error);
-      res.status(500).json({ error: 'Failed to fetch integrations' });
+      safe503(res, 'Failed to fetch integrations');
     }
   });
 
@@ -17146,7 +17147,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       });
     } catch (error) {
       console.error('Error fetching enterprise admin API config:', error);
-      res.status(500).json({ error: 'Failed to fetch API config' });
+      safe503(res, 'Failed to fetch API config');
     }
   });
 
@@ -17626,7 +17627,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(result);
     } catch (error) {
       console.error('[Testnet] Error:', error);
-      res.status(500).json({ error: "Failed to fetch testnet data" });
+      safe503(res, "Failed to fetch testnet data");
     }
   });
 
@@ -17669,7 +17670,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(result);
     } catch (error) {
       console.error('[Debug] Error:', error);
-      res.status(500).json({ error: "Failed to fetch debug data" });
+      safe503(res, "Failed to fetch debug data");
     }
   });
 
@@ -17705,7 +17706,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(result);
     } catch (error) {
       console.error('[Realtime] Error:', error);
-      res.status(500).json({ error: "Failed to fetch realtime data" });
+      safe503(res, "Failed to fetch realtime data");
     }
   });
 
@@ -17735,7 +17736,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(result);
     } catch (error) {
       console.error('[Metrics] Error:', error);
-      res.status(500).json({ error: "Failed to fetch metrics data" });
+      safe503(res, "Failed to fetch metrics data");
     }
   });
 
@@ -17836,7 +17837,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(result);
     } catch (error) {
       console.error('[SLA] Error:', error);
-      res.status(500).json({ error: "Failed to fetch SLA data" });
+      safe503(res, "Failed to fetch SLA data");
     }
   });
 
@@ -17874,7 +17875,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(result);
     } catch (error) {
       console.error('[Finance] Error:', error);
-      res.status(500).json({ error: "Failed to fetch finance data" });
+      safe503(res, "Failed to fetch finance data");
     }
   });
 
@@ -17908,7 +17909,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(result);
     } catch (error) {
       console.error('[TxAccounting] Error:', error);
-      res.status(500).json({ error: "Failed to fetch tx accounting data" });
+      safe503(res, "Failed to fetch tx accounting data");
     }
   });
 
@@ -18335,7 +18336,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       });
     } catch (error) {
       console.error('Error fetching admin settings:', error);
-      res.status(500).json({ error: 'Failed to fetch admin settings' });
+      safe503(res, 'Failed to fetch admin settings');
     }
   });
 
@@ -18393,7 +18394,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       });
     } catch (error) {
       console.error('Error fetching API config:', error);
-      res.status(500).json({ error: 'Failed to fetch API config' });
+      safe503(res, 'Failed to fetch API config');
     }
   });
 
@@ -18446,7 +18447,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       });
     } catch (error) {
       console.error('Error fetching appearance settings:', error);
-      res.status(500).json({ error: 'Failed to fetch appearance settings' });
+      safe503(res, 'Failed to fetch appearance settings');
     }
   });
 
@@ -18521,7 +18522,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       });
     } catch (error) {
       console.error('Error fetching notification settings:', error);
-      res.status(500).json({ error: 'Failed to fetch notification settings' });
+      safe503(res, 'Failed to fetch notification settings');
     }
   });
 
@@ -18652,7 +18653,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       });
     } catch (error) {
       console.error('Error fetching integrations:', error);
-      res.status(500).json({ error: 'Failed to fetch integrations' });
+      safe503(res, 'Failed to fetch integrations');
     }
   });
 
@@ -18809,7 +18810,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ services });
     } catch (error) {
       console.error('Error fetching service health:', error);
-      res.status(500).json({ error: 'Failed to fetch service health', services: [] });
+      safe503(res, 'Failed to fetch service health', services: [] });
     }
   });
 
@@ -19241,7 +19242,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       });
     } catch (error) {
       console.error("Error fetching API key:", error);
-      res.status(500).json({ error: "Failed to fetch API key" });
+      safe503(res, "Failed to fetch API key");
     }
   });
 
@@ -19258,7 +19259,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(stats);
     } catch (error) {
       console.error("Error fetching API key stats:", error);
-      res.status(500).json({ error: "Failed to fetch API key statistics" });
+      safe503(res, "Failed to fetch API key statistics");
     }
   });
 
@@ -19277,7 +19278,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(logs);
     } catch (error) {
       console.error("Error fetching API key logs:", error);
-      res.status(500).json({ error: "Failed to fetch API key activity logs" });
+      safe503(res, "Failed to fetch API key activity logs");
     }
   });
 
@@ -19289,7 +19290,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(logs);
     } catch (error) {
       console.error("Error fetching recent API key logs:", error);
-      res.status(500).json({ error: "Failed to fetch recent API key logs" });
+      safe503(res, "Failed to fetch recent API key logs");
     }
   });
 
@@ -19393,7 +19394,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       });
     } catch (error) {
       console.error("Error creating API key:", error);
-      res.status(500).json({ error: "Failed to create API key" });
+      safe503(res, "Failed to create API key");
     }
   });
 
@@ -19467,7 +19468,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       const updated = await storage.updateApiKey(id, updates);
       
       if (!updated) {
-        return res.status(500).json({ error: "Failed to update API key" });
+        return safe503(res, "Failed to update API key");
       }
 
       // Log the update
@@ -19487,7 +19488,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       });
     } catch (error) {
       console.error("Error updating API key:", error);
-      res.status(500).json({ error: "Failed to update API key" });
+      safe503(res, "Failed to update API key");
     }
   });
 
@@ -19520,7 +19521,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true, message: "API key revoked successfully" });
     } catch (error) {
       console.error("Error revoking API key:", error);
-      res.status(500).json({ error: "Failed to revoke API key" });
+      safe503(res, "Failed to revoke API key");
     }
   });
 
@@ -19552,7 +19553,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       });
 
       if (!updated) {
-        return res.status(500).json({ error: "Failed to rotate API key" });
+        return safe503(res, "Failed to rotate API key");
       }
 
       // Log the rotation
@@ -19573,7 +19574,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       });
     } catch (error) {
       console.error("Error rotating API key:", error);
-      res.status(500).json({ error: "Failed to rotate API key" });
+      safe503(res, "Failed to rotate API key");
     }
   });
 
@@ -19712,7 +19713,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
         }
       });
     } catch (error: unknown) {
-      res.status(500).json({ error: "Failed to fetch wallet balances" });
+      safe503(res, "Failed to fetch wallet balances");
     }
   });
 
@@ -19746,7 +19747,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       if (error.statusCode === 404) {
         return res.status(404).json({ error: "Wallet not found" });
       }
-      res.status(500).json({ error: "Failed to fetch wallet balance" });
+      safe503(res, "Failed to fetch wallet balance");
     }
   });
 
@@ -19772,7 +19773,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       if (error instanceof z.ZodError) {
         return res.status(400).json({ error: "Invalid request data", details: error.errors });
       }
-      res.status(500).json({ error: "Failed to create wallet balance" });
+      safe503(res, "Failed to create wallet balance");
     }
   });
 
@@ -19801,7 +19802,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       
       res.json(updated);
     } catch (error: unknown) {
-      res.status(500).json({ error: "Failed to update wallet balance" });
+      safe503(res, "Failed to update wallet balance");
     }
   });
 
@@ -19825,7 +19826,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(wallets);
     } catch (error: unknown) {
       console.error('[Demo Wallets] Error fetching wallets:', error);
-      res.status(500).json({ error: "Failed to fetch demo wallets" });
+      safe503(res, "Failed to fetch demo wallets");
     }
   });
 
@@ -19836,7 +19837,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(stats);
     } catch (error: unknown) {
       console.error('[Demo Wallets] Error fetching stats:', error);
-      res.status(500).json({ error: "Failed to fetch demo wallet stats" });
+      safe503(res, "Failed to fetch demo wallet stats");
     }
   });
 
@@ -19850,7 +19851,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(wallet);
     } catch (error: unknown) {
       console.error('[Demo Wallets] Error fetching wallet:', error);
-      res.status(500).json({ error: "Failed to fetch demo wallet" });
+      safe503(res, "Failed to fetch demo wallet");
     }
   });
 
@@ -19896,7 +19897,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       });
     } catch (error: unknown) {
       console.error('[Demo Wallets] Error accessing wallet:', error);
-      res.status(500).json({ error: "Failed to access demo wallet" });
+      safe503(res, "Failed to access demo wallet");
     }
   });
 
@@ -19928,7 +19929,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.status(201).json(wallet);
     } catch (error: unknown) {
       console.error('[Demo Wallets] Error creating wallet:', error);
-      res.status(500).json({ error: "Failed to create demo wallet" });
+      safe503(res, "Failed to create demo wallet");
     }
   });
 
@@ -19949,7 +19950,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(updated);
     } catch (error: unknown) {
       console.error('[Demo Wallets] Error updating wallet:', error);
-      res.status(500).json({ error: "Failed to update demo wallet" });
+      safe503(res, "Failed to update demo wallet");
     }
   });
 
@@ -19968,7 +19969,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true });
     } catch (error: unknown) {
       console.error('[Demo Wallets] Error deleting wallet:', error);
-      res.status(500).json({ error: "Failed to delete demo wallet" });
+      safe503(res, "Failed to delete demo wallet");
     }
   });
 
@@ -20032,7 +20033,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.status(201).json(transaction);
     } catch (error: unknown) {
       console.error('[Demo Wallets] Error creating transaction:', error);
-      res.status(500).json({ error: "Failed to create demo transaction" });
+      safe503(res, "Failed to create demo transaction");
     }
   });
 
@@ -20051,7 +20052,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(transactions);
     } catch (error: unknown) {
       console.error('[Demo Wallets] Error fetching transactions:', error);
-      res.status(500).json({ error: "Failed to fetch demo wallet transactions" });
+      safe503(res, "Failed to fetch demo wallet transactions");
     }
   });
 
@@ -20063,7 +20064,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ success: true });
     } catch (error: unknown) {
       console.error('[Demo Wallets] Error resetting daily counts:', error);
-      res.status(500).json({ error: "Failed to reset daily transaction counts" });
+      safe503(res, "Failed to reset daily transaction counts");
     }
   });
 
@@ -20158,7 +20159,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(wallets);
     } catch (error: unknown) {
       console.error('[Custody] Error fetching multisig wallets:', error);
-      res.status(500).json({ error: "Failed to fetch multisig wallets" });
+      safe503(res, "Failed to fetch multisig wallets");
     }
   });
 
@@ -20188,7 +20189,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(wallet);
     } catch (error: unknown) {
       console.error('[Custody] Error fetching multisig wallet:', error);
-      res.status(500).json({ error: "Failed to fetch multisig wallet" });
+      safe503(res, "Failed to fetch multisig wallet");
     }
   });
 
@@ -20256,7 +20257,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(signers);
     } catch (error: unknown) {
       console.error('[Custody] Error fetching signers:', error);
-      res.status(500).json({ error: "Failed to fetch signers" });
+      safe503(res, "Failed to fetch signers");
     }
   });
 
@@ -20330,7 +20331,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(filtered.slice(0, Number(limit)));
     } catch (error: unknown) {
       console.error('[Custody] Error fetching transactions:', error);
-      res.status(500).json({ error: "Failed to fetch custody transactions" });
+      safe503(res, "Failed to fetch custody transactions");
     }
   });
 
@@ -20462,7 +20463,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(contracts);
     } catch (error: unknown) {
       console.error('[Custody] Error fetching vesting contracts:', error);
-      res.status(500).json({ error: "Failed to fetch vesting contracts" });
+      safe503(res, "Failed to fetch vesting contracts");
     }
   });
 
@@ -20495,7 +20496,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(schedule);
     } catch (error: unknown) {
       console.error('[Custody] Error fetching distribution schedule:', error);
-      res.status(500).json({ error: "Failed to fetch distribution schedule" });
+      safe503(res, "Failed to fetch distribution schedule");
     }
   });
 
@@ -20541,7 +20542,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(reports);
     } catch (error: unknown) {
       console.error('[Custody] Error fetching quarterly reports:', error);
-      res.status(500).json({ error: "Failed to fetch quarterly reports" });
+      safe503(res, "Failed to fetch quarterly reports");
     }
   });
 
@@ -20606,7 +20607,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(summary);
     } catch (error: unknown) {
       console.error('[Custody] Error fetching custody summary:', error);
-      res.status(500).json({ error: "Failed to fetch custody summary" });
+      safe503(res, "Failed to fetch custody summary");
     }
   });
 
@@ -20645,7 +20646,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       }
       res.json(rounds);
     } catch (error: unknown) {
-      res.status(500).json({ error: "Failed to fetch consensus rounds" });
+      safe503(res, "Failed to fetch consensus rounds");
     }
   });
 
@@ -20677,7 +20678,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       if (error.statusCode === 404) {
         return res.status(404).json({ error: "Consensus round not found" });
       }
-      res.status(500).json({ error: "Failed to fetch consensus round" });
+      safe503(res, "Failed to fetch consensus round");
     }
   });
 
@@ -20703,7 +20704,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       if (error instanceof z.ZodError) {
         return res.status(400).json({ error: "Invalid request data", details: error.errors });
       }
-      res.status(500).json({ error: "Failed to create consensus round" });
+      safe503(res, "Failed to create consensus round");
     }
   });
 
@@ -20745,7 +20746,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       if (error instanceof z.ZodError) {
         return res.status(400).json({ error: "Invalid request data", details: error.errors });
       }
-      res.status(500).json({ error: "Failed to update consensus round" });
+      safe503(res, "Failed to update consensus round");
     }
   });
 
@@ -20784,7 +20785,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
         return res.json(staleData);
       }
       
-      res.status(500).json({ error: "Failed to fetch shards" });
+      safe503(res, "Failed to fetch shards");
     }
   });
 
@@ -20872,7 +20873,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(consensusState);
     } catch (error: any) {
       console.error('[Consensus] Error fetching consensus state:', error);
-      res.status(500).json({ error: "Failed to fetch consensus state" });
+      safe503(res, "Failed to fetch consensus state");
     }
   });
 
@@ -20997,7 +20998,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(distribution);
     } catch (error: any) {
       console.error('Error generating latency distribution:', error);
-      res.status(500).json({ error: "Failed to fetch latency distribution" });
+      safe503(res, "Failed to fetch latency distribution");
     }
   });
 
@@ -21019,7 +21020,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(history);
     } catch (error: any) {
       console.error('Error generating TPS history:', error);
-      res.status(500).json({ error: "Failed to fetch TPS history" });
+      safe503(res, "Failed to fetch TPS history");
     }
   });
 
@@ -21067,7 +21068,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(enterpriseStats);
     } catch (error: any) {
       console.error('Error fetching staking stats:', error);
-      res.status(500).json({ error: "Failed to fetch staking statistics" });
+      safe503(res, "Failed to fetch staking statistics");
     }
   });
 
@@ -21133,7 +21134,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(transformedPools);
     } catch (error: any) {
       console.error('Error fetching staking pools:', error);
-      res.status(500).json({ error: "Failed to fetch staking pools" });
+      safe503(res, "Failed to fetch staking pools");
     }
   });
 
@@ -21146,7 +21147,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(transformPoolForFrontend(pool));
     } catch (error: any) {
       console.error('Error fetching staking pool:', error);
-      res.status(500).json({ error: "Failed to fetch staking pool" });
+      safe503(res, "Failed to fetch staking pool");
     }
   });
 
@@ -21168,7 +21169,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(positions);
     } catch (error: any) {
       console.error('Error fetching staking positions:', error);
-      res.status(500).json({ error: "Failed to fetch staking positions" });
+      safe503(res, "Failed to fetch staking positions");
     }
   });
 
@@ -21181,7 +21182,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(position);
     } catch (error: any) {
       console.error('Error fetching staking position:', error);
-      res.status(500).json({ error: "Failed to fetch staking position" });
+      safe503(res, "Failed to fetch staking position");
     }
   });
 
@@ -21203,7 +21204,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(delegations);
     } catch (error: any) {
       console.error('Error fetching staking delegations:', error);
-      res.status(500).json({ error: "Failed to fetch staking delegations" });
+      safe503(res, "Failed to fetch staking delegations");
     }
   });
 
@@ -21216,7 +21217,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(delegation);
     } catch (error: any) {
       console.error('Error fetching staking delegation:', error);
-      res.status(500).json({ error: "Failed to fetch staking delegation" });
+      safe503(res, "Failed to fetch staking delegation");
     }
   });
 
@@ -21235,7 +21236,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(requests);
     } catch (error: any) {
       console.error('Error fetching unbonding requests:', error);
-      res.status(500).json({ error: "Failed to fetch unbonding requests" });
+      safe503(res, "Failed to fetch unbonding requests");
     }
   });
 
@@ -21247,7 +21248,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(cycles);
     } catch (error: any) {
       console.error('Error fetching reward cycles:', error);
-      res.status(500).json({ error: "Failed to fetch reward cycles" });
+      safe503(res, "Failed to fetch reward cycles");
     }
   });
 
@@ -21297,7 +21298,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(enterpriseCycle);
     } catch (error: any) {
       console.error('Error fetching current reward cycle:', error);
-      res.status(500).json({ error: "Failed to fetch current reward cycle" });
+      safe503(res, "Failed to fetch current reward cycle");
     }
   });
 
@@ -21320,7 +21321,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(events);
     } catch (error: any) {
       console.error('Error fetching reward events:', error);
-      res.status(500).json({ error: "Failed to fetch reward events" });
+      safe503(res, "Failed to fetch reward events");
     }
   });
 
@@ -21340,7 +21341,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(events);
     } catch (error: any) {
       console.error('Error fetching slashing events:', error);
-      res.status(500).json({ error: "Failed to fetch slashing events" });
+      safe503(res, "Failed to fetch slashing events");
     }
   });
 
@@ -21389,7 +21390,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(transformedTiers);
     } catch (error: any) {
       console.error('Error fetching tier configuration:', error);
-      res.status(500).json({ error: "Failed to fetch tier configuration" });
+      safe503(res, "Failed to fetch tier configuration");
     }
   });
 
@@ -21446,7 +21447,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       });
     } catch (error: any) {
       console.error('Error fetching wallet SDK status:', error);
-      res.status(500).json({ error: "Failed to fetch wallet SDK status" });
+      safe503(res, "Failed to fetch wallet SDK status");
     }
   });
 
@@ -21465,7 +21466,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       ]);
     } catch (error: any) {
       console.error('Error fetching wallet SDK chains:', error);
-      res.status(500).json({ error: "Failed to fetch wallet SDK chains" });
+      safe503(res, "Failed to fetch wallet SDK chains");
     }
   });
 
@@ -21509,7 +21510,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       });
     } catch (error: any) {
       console.error('Error fetching wallet SDK analytics:', error);
-      res.status(500).json({ error: "Failed to fetch wallet SDK analytics" });
+      safe503(res, "Failed to fetch wallet SDK analytics");
     }
   });
 
@@ -21535,7 +21536,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(logs);
     } catch (error: any) {
       console.error('Error fetching audit logs:', error);
-      res.status(500).json({ error: "Failed to fetch audit logs" });
+      safe503(res, "Failed to fetch audit logs");
     }
   });
 
@@ -21549,7 +21550,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(snapshots);
     } catch (error: any) {
       console.error('Error fetching snapshots:', error);
-      res.status(500).json({ error: "Failed to fetch snapshots" });
+      safe503(res, "Failed to fetch snapshots");
     }
   });
 
@@ -21567,7 +21568,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(assessments);
     } catch (error: any) {
       console.error('Error fetching AI assessments:', error);
-      res.status(500).json({ error: "Failed to fetch AI assessments" });
+      safe503(res, "Failed to fetch AI assessments");
     }
   });
 
@@ -21593,7 +21594,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       })));
     } catch (error: any) {
       console.error('Error fetching top validators:', error);
-      res.status(500).json({ error: "Failed to fetch top validators" });
+      safe503(res, "Failed to fetch top validators");
     }
   });
 
@@ -21607,7 +21608,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(result);
     } catch (error: any) {
       console.error('Error fetching validator metrics:', error);
-      res.status(500).json({ error: "Failed to fetch validator metrics" });
+      safe503(res, "Failed to fetch validator metrics");
     }
   });
 
@@ -21618,7 +21619,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(assignments);
     } catch (error: any) {
       console.error('Error fetching pool validators:', error);
-      res.status(500).json({ error: "Failed to fetch pool validators" });
+      safe503(res, "Failed to fetch pool validators");
     }
   });
 
@@ -21674,7 +21675,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.status(201).json(position);
     } catch (error: any) {
       console.error('Error creating staking position:', error);
-      res.status(500).json({ error: "Failed to create staking position" });
+      safe503(res, "Failed to create staking position");
     }
   });
 
@@ -21750,7 +21751,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.status(201).json(delegation);
     } catch (error: any) {
       console.error('Error creating delegation:', error);
-      res.status(500).json({ error: "Failed to create delegation" });
+      safe503(res, "Failed to create delegation");
     }
   });
 
@@ -21802,7 +21803,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.status(201).json(request);
     } catch (error: any) {
       console.error('Error creating unbonding request:', error);
-      res.status(500).json({ error: "Failed to create unbonding request" });
+      safe503(res, "Failed to create unbonding request");
     }
   });
 
@@ -21851,7 +21852,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(updatedPosition);
     } catch (error: any) {
       console.error('Error compounding rewards:', error);
-      res.status(500).json({ error: "Failed to compound rewards" });
+      safe503(res, "Failed to compound rewards");
     }
   });
 
@@ -21903,7 +21904,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ claimed: pendingRewardsStr, totalClaimed });
     } catch (error: any) {
       console.error('Error claiming rewards:', error);
-      res.status(500).json({ error: "Failed to claim rewards" });
+      safe503(res, "Failed to claim rewards");
     }
   });
 
@@ -21942,7 +21943,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(validatorsWithStakingInfo);
     } catch (error: any) {
       console.error('Error fetching validators for staking:', error);
-      res.status(500).json({ error: "Failed to fetch validators" });
+      safe503(res, "Failed to fetch validators");
     }
   });
 
@@ -21953,7 +21954,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(delegations);
     } catch (error: any) {
       console.error('Error fetching delegations by address:', error);
-      res.status(500).json({ error: "Failed to fetch delegations" });
+      safe503(res, "Failed to fetch delegations");
     }
   });
 
@@ -21964,7 +21965,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json(delegations);
     } catch (error: any) {
       console.error('Error fetching validator delegations:', error);
-      res.status(500).json({ error: "Failed to fetch validator delegations" });
+      safe503(res, "Failed to fetch validator delegations");
     }
   });
 
@@ -22030,7 +22031,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       });
     } catch (error: any) {
       console.error('Error redelegating:', error);
-      res.status(500).json({ error: "Failed to redelegate" });
+      safe503(res, "Failed to redelegate");
     }
   });
 
@@ -22080,7 +22081,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       res.json({ message: "Unbonding request cancelled" });
     } catch (error: any) {
       console.error('Error cancelling unbonding:', error);
-      res.status(500).json({ error: "Failed to cancel unbonding request" });
+      safe503(res, "Failed to cancel unbonding request");
     }
   });
 
@@ -22127,7 +22128,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       });
     } catch (error: any) {
       console.error('Error fetching wallet summary:', error);
-      res.status(500).json({ error: "Failed to fetch wallet summary" });
+      safe503(res, "Failed to fetch wallet summary");
     }
   });
 
@@ -22182,7 +22183,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       });
     } catch (error: any) {
       console.error('Error verifying token balance:', error);
-      res.status(500).json({ error: "Failed to verify token balance" });
+      safe503(res, "Failed to verify token balance");
     }
   });
 
@@ -22275,7 +22276,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       });
     } catch (error: any) {
       console.error('Error minting receipt token:', error);
-      res.status(500).json({ error: "Failed to mint receipt token" });
+      safe503(res, "Failed to mint receipt token");
     }
   });
 
@@ -22380,7 +22381,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       });
     } catch (error: any) {
       console.error('Error calculating rewards:', error);
-      res.status(500).json({ error: "Failed to calculate rewards" });
+      safe503(res, "Failed to calculate rewards");
     }
   });
 
@@ -22470,7 +22471,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       });
     } catch (error: any) {
       console.error('Error fetching staking token info:', error);
-      res.status(500).json({ error: "Failed to fetch staking token info" });
+      safe503(res, "Failed to fetch staking token info");
     }
   });
 
@@ -22630,7 +22631,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       });
     } catch (error: any) {
       console.error('Error staking with verification:', error);
-      res.status(500).json({ error: "Failed to stake tokens" });
+      safe503(res, "Failed to stake tokens");
     }
   });
 
@@ -22712,7 +22713,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
       });
     } catch (error: any) {
       console.error('Error fetching token position:', error);
-      res.status(500).json({ error: "Failed to fetch position" });
+      safe503(res, "Failed to fetch position");
     }
   });
 
@@ -22825,7 +22826,7 @@ Provide a JSON response with:
       });
     } catch (error: any) {
       console.error('Error predicting APY:', error);
-      res.status(500).json({ error: "Failed to predict APY", message: error.message });
+      safe503(res, "Failed to predict APY", message: error.message });
     }
   });
 
@@ -22957,7 +22958,7 @@ Provide JSON risk analysis:
       });
     } catch (error: any) {
       console.error('Error analyzing risk:', error);
-      res.status(500).json({ error: "Failed to analyze risk", message: error.message });
+      safe503(res, "Failed to analyze risk", message: error.message });
     }
   });
 
@@ -23096,7 +23097,7 @@ Provide JSON recommendations:
       });
     } catch (error: any) {
       console.error('Error recommending pools:', error);
-      res.status(500).json({ error: "Failed to recommend pools", message: error.message });
+      safe503(res, "Failed to recommend pools", message: error.message });
     }
   });
 
@@ -23227,7 +23228,7 @@ Provide JSON insights:
       });
     } catch (error: any) {
       console.error('Error generating validator insights:', error);
-      res.status(500).json({ error: "Failed to generate insights", message: error.message });
+      safe503(res, "Failed to generate insights", message: error.message });
     }
   });
 
@@ -23366,7 +23367,7 @@ Provide JSON portfolio analysis:
       });
     } catch (error: any) {
       console.error('Error analyzing portfolio:', error);
-      res.status(500).json({ error: "Failed to analyze portfolio", message: error.message });
+      safe503(res, "Failed to analyze portfolio", message: error.message });
     }
   });
 

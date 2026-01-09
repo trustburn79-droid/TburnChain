@@ -1,4 +1,5 @@
 import type { Express, Request, Response } from "express";
+import { safeErrorResponse, safe503 } from "../core/safe-error-response";
 import { z } from "zod";
 import { storage } from "../storage";
 import { getEnterpriseNode } from "../services/TBurnEnterpriseNode";
@@ -91,7 +92,7 @@ export function registerWalletDashboardRoutes(
       });
     } catch (error) {
       console.error("[WalletDashboard] Balance error:", error);
-      res.status(500).json({ error: "Failed to fetch wallet balance" });
+      safe503(res, "Failed to fetch wallet balance");
     }
   });
 
@@ -130,7 +131,7 @@ export function registerWalletDashboardRoutes(
       })));
     } catch (error) {
       console.error("[WalletDashboard] My wallets error:", error);
-      res.status(500).json({ error: "Failed to fetch wallets" });
+      safe503(res, "Failed to fetch wallets");
     }
   });
 
@@ -170,7 +171,7 @@ export function registerWalletDashboardRoutes(
       res.json({ success: true, address, walletName });
     } catch (error) {
       console.error("[WalletDashboard] Update wallet name error:", error);
-      res.status(500).json({ error: "Failed to update wallet name" });
+      safe503(res, "Failed to update wallet name");
     }
   });
 
@@ -231,7 +232,7 @@ export function registerWalletDashboardRoutes(
       });
     } catch (error) {
       console.error("[WalletDashboard] Creation limit error:", error);
-      res.status(500).json({ error: "Failed to check wallet limit" });
+      safe503(res, "Failed to check wallet limit");
     }
   });
 
@@ -307,7 +308,7 @@ export function registerWalletDashboardRoutes(
       });
     } catch (error) {
       console.error("[WalletDashboard] Performance error:", error);
-      res.status(500).json({ error: "Failed to fetch performance data" });
+      safe503(res, "Failed to fetch performance data");
     }
   });
 
@@ -344,7 +345,7 @@ export function registerWalletDashboardRoutes(
       });
     } catch (error) {
       console.error("[WalletDashboard] Activities error:", error);
-      res.status(500).json({ error: "Failed to fetch activities" });
+      safe503(res, "Failed to fetch activities");
     }
   });
 
@@ -413,7 +414,7 @@ export function registerWalletDashboardRoutes(
       });
     } catch (error) {
       console.error("[WalletDashboard] Send error:", error);
-      res.status(500).json({ error: "Failed to send transaction" });
+      safe503(res, "Failed to send transaction");
     }
   });
 
@@ -441,7 +442,7 @@ export function registerWalletDashboardRoutes(
       });
     } catch (error) {
       console.error("[WalletDashboard] Receive error:", error);
-      res.status(500).json({ error: "Failed to generate receive address" });
+      safe503(res, "Failed to generate receive address");
     }
   });
 
@@ -506,7 +507,7 @@ export function registerWalletDashboardRoutes(
       });
     } catch (error) {
       console.error("[WalletDashboard] Swap error:", error);
-      res.status(500).json({ error: "Failed to execute swap" });
+      safe503(res, "Failed to execute swap");
     }
   });
 
@@ -539,7 +540,7 @@ export function registerWalletDashboardRoutes(
       });
     } catch (error) {
       console.error("[WalletDashboard] Action status error:", error);
-      res.status(500).json({ error: "Failed to fetch action status" });
+      safe503(res, "Failed to fetch action status");
     }
   });
 
@@ -573,7 +574,7 @@ export function registerWalletDashboardRoutes(
       });
     } catch (error) {
       console.error("[WalletDashboard] Gas estimate error:", error);
-      res.status(500).json({ error: "Failed to estimate gas" });
+      safe503(res, "Failed to estimate gas");
     }
   });
 
@@ -686,7 +687,7 @@ export function registerWalletDashboardRoutes(
       });
     } catch (error) {
       console.error("[WalletDashboard] Create wallet error:", error);
-      res.status(500).json({ error: "Failed to create wallet" });
+      safe503(res, "Failed to create wallet");
     }
   });
 

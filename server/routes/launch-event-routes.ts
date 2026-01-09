@@ -1,4 +1,5 @@
 import type { Express, Request, Response } from "express";
+import { safeErrorResponse, safe503 } from "../core/safe-error-response";
 import { createHash } from "crypto";
 
 interface LaunchStats {
@@ -100,7 +101,7 @@ export function registerLaunchEventRoutes(app: Express): void {
       res.json(stats);
     } catch (error: any) {
       console.error("[Launch Event] Stats error:", error.message);
-      res.status(500).json({ error: "Failed to fetch launch stats" });
+      safe503(res, "Failed to fetch launch stats");
     }
   });
 
@@ -145,7 +146,7 @@ export function registerLaunchEventRoutes(app: Express): void {
       res.json(userData);
     } catch (error: any) {
       console.error("[Launch Event] User data error:", error.message);
-      res.status(500).json({ error: "Failed to fetch user data" });
+      safe503(res, "Failed to fetch user data");
     }
   });
 
@@ -154,7 +155,7 @@ export function registerLaunchEventRoutes(app: Express): void {
       res.json(leaderboardCache);
     } catch (error: any) {
       console.error("[Launch Event] Leaderboard error:", error.message);
-      res.status(500).json({ error: "Failed to fetch leaderboard" });
+      safe503(res, "Failed to fetch leaderboard");
     }
   });
 
@@ -190,7 +191,7 @@ export function registerLaunchEventRoutes(app: Express): void {
       });
     } catch (error: any) {
       console.error("[Launch Event] Claim airdrop error:", error.message);
-      res.status(500).json({ error: "Failed to claim airdrop" });
+      safe503(res, "Failed to claim airdrop");
     }
   });
 
@@ -230,7 +231,7 @@ export function registerLaunchEventRoutes(app: Express): void {
       });
     } catch (error: any) {
       console.error("[Launch Event] Mint NFT error:", error.message);
-      res.status(500).json({ error: "Failed to mint NFT" });
+      safe503(res, "Failed to mint NFT");
     }
   });
 
@@ -251,7 +252,7 @@ export function registerLaunchEventRoutes(app: Express): void {
       });
     } catch (error: any) {
       console.error("[Launch Event] Complete task error:", error.message);
-      res.status(500).json({ error: "Failed to complete task" });
+      safe503(res, "Failed to complete task");
     }
   });
 

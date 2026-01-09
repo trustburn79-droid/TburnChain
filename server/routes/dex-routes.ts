@@ -1,4 +1,5 @@
 import type { Express, Request, Response } from "express";
+import { safeErrorResponse, safe503 } from "../core/safe-error-response";
 import { z } from "zod";
 import { dexService } from "../services/DexService";
 import { storage } from "../storage";
@@ -117,7 +118,7 @@ export function registerDexRoutes(app: Express, requireAuth: (req: Request, res:
       res.json(enhancedStats);
     } catch (error: any) {
       console.error('[DEX] Stats error:', error);
-      res.status(500).json({ error: "Failed to fetch DEX statistics" });
+      safe503(res, "Failed to fetch DEX statistics");
     }
   });
 
@@ -138,7 +139,7 @@ export function registerDexRoutes(app: Express, requireAuth: (req: Request, res:
       res.json(pools);
     } catch (error: any) {
       console.error('[DEX] Pools list error:', error);
-      res.status(500).json({ error: "Failed to fetch pools" });
+      safe503(res, "Failed to fetch pools");
     }
   });
 
@@ -151,7 +152,7 @@ export function registerDexRoutes(app: Express, requireAuth: (req: Request, res:
       res.json(poolData);
     } catch (error: any) {
       console.error('[DEX] Pool detail error:', error);
-      res.status(500).json({ error: "Failed to fetch pool" });
+      safe503(res, "Failed to fetch pool");
     }
   });
 
@@ -164,7 +165,7 @@ export function registerDexRoutes(app: Express, requireAuth: (req: Request, res:
       res.json(metrics);
     } catch (error: any) {
       console.error('[DEX] Pool metrics error:', error);
-      res.status(500).json({ error: "Failed to fetch pool metrics" });
+      safe503(res, "Failed to fetch pool metrics");
     }
   });
 
@@ -224,7 +225,7 @@ export function registerDexRoutes(app: Express, requireAuth: (req: Request, res:
       res.status(201).json(pool);
     } catch (error: any) {
       console.error('[DEX] Create pool error:', error);
-      res.status(500).json({ error: "Failed to create pool" });
+      safe503(res, "Failed to create pool");
     }
   });
 
@@ -281,7 +282,7 @@ export function registerDexRoutes(app: Express, requireAuth: (req: Request, res:
       res.json(simulatedQuote);
     } catch (error: any) {
       console.error('[DEX] Quote error:', error);
-      res.status(500).json({ error: error.message || "Failed to get quote" });
+      safe503(res, error.message || "Failed to get quote");
     }
   });
 
@@ -304,7 +305,7 @@ export function registerDexRoutes(app: Express, requireAuth: (req: Request, res:
       if (error.message.includes("Circuit breaker")) {
         return res.status(503).json({ error: error.message });
       }
-      res.status(400).json({ error: error.message || "Failed to get quote" });
+      res.status(400).json({ error: error.message || "Failed to get quote");
     }
   });
 
@@ -342,7 +343,7 @@ export function registerDexRoutes(app: Express, requireAuth: (req: Request, res:
       if (error.message.includes("Circuit breaker")) {
         return res.status(503).json({ error: error.message });
       }
-      res.status(500).json({ error: error.message || "Swap execution failed" });
+      safe503(res, error.message || "Swap execution failed");
     }
   });
 
@@ -364,7 +365,7 @@ export function registerDexRoutes(app: Express, requireAuth: (req: Request, res:
       res.json(swaps);
     } catch (error: any) {
       console.error('[DEX] Swaps list error:', error);
-      res.status(500).json({ error: "Failed to fetch swaps" });
+      safe503(res, "Failed to fetch swaps");
     }
   });
 
@@ -377,7 +378,7 @@ export function registerDexRoutes(app: Express, requireAuth: (req: Request, res:
       res.json(swap);
     } catch (error: any) {
       console.error('[DEX] Swap detail error:', error);
-      res.status(500).json({ error: "Failed to fetch swap" });
+      safe503(res, "Failed to fetch swap");
     }
   });
 
@@ -403,7 +404,7 @@ export function registerDexRoutes(app: Express, requireAuth: (req: Request, res:
       if (error.message.includes("Circuit breaker")) {
         return res.status(503).json({ error: error.message });
       }
-      res.status(500).json({ error: error.message || "Failed to add liquidity" });
+      safe503(res, error.message || "Failed to add liquidity");
     }
   });
 
@@ -419,7 +420,7 @@ export function registerDexRoutes(app: Express, requireAuth: (req: Request, res:
       res.json(quote);
     } catch (error: any) {
       console.error('[DEX] Liquidity quote error:', error);
-      res.status(400).json({ error: error.message || "Failed to get liquidity quote" });
+      res.status(400).json({ error: error.message || "Failed to get liquidity quote");
     }
   });
 
@@ -445,7 +446,7 @@ export function registerDexRoutes(app: Express, requireAuth: (req: Request, res:
       if (error.message.includes("Circuit breaker")) {
         return res.status(503).json({ error: error.message });
       }
-      res.status(500).json({ error: error.message || "Failed to remove liquidity" });
+      safe503(res, error.message || "Failed to remove liquidity");
     }
   });
 
@@ -464,7 +465,7 @@ export function registerDexRoutes(app: Express, requireAuth: (req: Request, res:
       res.json(positions);
     } catch (error: any) {
       console.error('[DEX] Positions list error:', error);
-      res.status(500).json({ error: "Failed to fetch positions" });
+      safe503(res, "Failed to fetch positions");
     }
   });
 
@@ -477,7 +478,7 @@ export function registerDexRoutes(app: Express, requireAuth: (req: Request, res:
       res.json(position);
     } catch (error: any) {
       console.error('[DEX] Position detail error:', error);
-      res.status(500).json({ error: "Failed to fetch position" });
+      safe503(res, "Failed to fetch position");
     }
   });
 
@@ -505,7 +506,7 @@ export function registerDexRoutes(app: Express, requireAuth: (req: Request, res:
       if (error.message.includes("No valid swap route")) {
         return res.status(404).json({ error: error.message });
       }
-      res.status(500).json({ error: error.message || "Failed to find optimal route" });
+      safe503(res, error.message || "Failed to find optimal route");
     }
   });
 
@@ -515,7 +516,7 @@ export function registerDexRoutes(app: Express, requireAuth: (req: Request, res:
       res.json(prediction);
     } catch (error: any) {
       console.error('[DEX] AI prediction error:', error);
-      res.status(500).json({ error: "Failed to get AI price prediction" });
+      safe503(res, "Failed to get AI price prediction");
     }
   });
 
@@ -528,7 +529,7 @@ export function registerDexRoutes(app: Express, requireAuth: (req: Request, res:
       res.json(history);
     } catch (error: any) {
       console.error('[DEX] Price history error:', error);
-      res.status(500).json({ error: "Failed to fetch price history" });
+      safe503(res, "Failed to fetch price history");
     }
   });
 
@@ -539,7 +540,7 @@ export function registerDexRoutes(app: Express, requireAuth: (req: Request, res:
       res.json(observations);
     } catch (error: any) {
       console.error('[DEX] TWAP error:', error);
-      res.status(500).json({ error: "Failed to fetch TWAP observations" });
+      safe503(res, "Failed to fetch TWAP observations");
     }
   });
 
@@ -552,7 +553,7 @@ export function registerDexRoutes(app: Express, requireAuth: (req: Request, res:
       res.json(breaker);
     } catch (error: any) {
       console.error('[DEX] Circuit breaker status error:', error);
-      res.status(500).json({ error: "Failed to fetch circuit breaker status" });
+      safe503(res, "Failed to fetch circuit breaker status");
     }
   });
 
@@ -571,7 +572,7 @@ export function registerDexRoutes(app: Express, requireAuth: (req: Request, res:
       res.json(events);
     } catch (error: any) {
       console.error('[DEX] MEV events error:', error);
-      res.status(500).json({ error: "Failed to fetch MEV events" });
+      safe503(res, "Failed to fetch MEV events");
     }
   });
 
@@ -595,7 +596,7 @@ export function registerDexRoutes(app: Express, requireAuth: (req: Request, res:
       res.json(analytics);
     } catch (error: any) {
       console.error('[DEX] User analytics error:', error);
-      res.status(500).json({ error: "Failed to fetch user analytics" });
+      safe503(res, "Failed to fetch user analytics");
     }
   });
 
@@ -624,7 +625,7 @@ export function registerDexRoutes(app: Express, requireAuth: (req: Request, res:
       res.json(leaderboard);
     } catch (error: any) {
       console.error('[DEX] Leaderboard error:', error);
-      res.status(500).json({ error: "Failed to fetch leaderboard" });
+      safe503(res, "Failed to fetch leaderboard");
     }
   });
 
