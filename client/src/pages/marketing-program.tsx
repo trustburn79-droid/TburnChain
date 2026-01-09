@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { Link } from "wouter";
 import { TBurnLogo } from "@/components/tburn-logo";
 import { useQuery } from "@tanstack/react-query";
 import { useWeb3 } from "@/lib/web3-context";
+import { useToast } from "@/hooks/use-toast";
 
 interface PartnershipStatsData {
   partnerships: {
@@ -42,6 +42,7 @@ interface PartnershipStatsResponse {
 export default function MarketingProgramPage() {
   const { isConnected, address, connect, disconnect, formatAddress } = useWeb3();
   const [activeFaq, setActiveFaq] = useState<string | null>("faq-1");
+  const { toast } = useToast();
 
   const { data: statsResponse, isLoading: isLoadingStats } = useQuery<PartnershipStatsResponse>({
     queryKey: ['/api/token-programs/partnerships/stats'],
@@ -50,6 +51,75 @@ export default function MarketingProgramPage() {
 
   const toggleFaq = (id: string) => {
     setActiveFaq(activeFaq === id ? null : id);
+  };
+
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
+  const handleWalletClick = async () => {
+    if (isConnected) {
+      disconnect();
+      toast({ title: "지갑 연결 해제", description: "지갑이 연결 해제되었습니다." });
+    } else {
+      await connect();
+      toast({ title: "지갑 연결", description: "지갑이 연결되었습니다." });
+    }
+  };
+
+  const handleJoinAmbassador = () => {
+    scrollToSection('ambassador');
+    toast({ title: "앰배서더 프로그램", description: "앰배서더 티어를 확인하고 참여하세요!" });
+  };
+
+  const handleViewGuide = () => {
+    scrollToSection('programs');
+    toast({ title: "마케팅 가이드", description: "마케팅 프로그램 안내를 확인하세요." });
+  };
+
+  const handleApplyProgram = (programName: string) => {
+    if (!isConnected) {
+      toast({ 
+        title: "지갑 연결 필요", 
+        description: "프로그램 참여를 위해 먼저 지갑을 연결해주세요.",
+        variant: "destructive"
+      });
+      return;
+    }
+    toast({ 
+      title: `${programName} 참여`, 
+      description: `${programName} 참여 신청이 접수되었습니다. 심사 후 안내드립니다.`
+    });
+  };
+
+  const handleJoinCampaign = (campaignTitle: string, status: string) => {
+    if (!isConnected) {
+      toast({ 
+        title: "지갑 연결 필요", 
+        description: "캠페인 참여를 위해 먼저 지갑을 연결해주세요.",
+        variant: "destructive"
+      });
+      return;
+    }
+    if (status === 'upcoming') {
+      toast({ 
+        title: "캠페인 예정", 
+        description: "이 캠페인은 곧 시작됩니다. 알림을 설정하세요!"
+      });
+      return;
+    }
+    toast({ 
+      title: "캠페인 참여", 
+      description: `"${campaignTitle}" 캠페인에 참여했습니다!`
+    });
+  };
+
+  const handleShareSocial = (platform: string, url: string) => {
+    window.open(url, '_blank');
+    toast({ title: `${platform}`, description: `${platform} 페이지로 이동합니다.` });
   };
 
   const socialStats = [
@@ -922,25 +992,45 @@ export default function MarketingProgramPage() {
       {/* Header */}
       <header className="marketing-header">
         <div className="header-container">
-          <Link href="/" className="logo">
+          <a href="/" className="logo">
             <div className="logo-icon">
               <TBurnLogo className="w-8 h-8" />
             </div>
             <div className="logo-text">TBURN<span>CHAIN</span></div>
-          </Link>
+          </a>
           <nav className="nav-links">
-            <a href="#programs">프로그램</a>
-            <a href="#ambassador">앰배서더</a>
-            <a href="#campaigns">캠페인</a>
-            <a href="#leaderboard">리더보드</a>
-            <a href="#faq">FAQ</a>
+            <a 
+              href="#programs" 
+              onClick={(e) => { e.preventDefault(); scrollToSection('programs'); }}
+              data-testid="nav-programs"
+            >프로그램</a>
+            <a 
+              href="#ambassador" 
+              onClick={(e) => { e.preventDefault(); scrollToSection('ambassador'); }}
+              data-testid="nav-ambassador"
+            >앰배서더</a>
+            <a 
+              href="#campaigns" 
+              onClick={(e) => { e.preventDefault(); scrollToSection('campaigns'); }}
+              data-testid="nav-campaigns"
+            >캠페인</a>
+            <a 
+              href="#leaderboard" 
+              onClick={(e) => { e.preventDefault(); scrollToSection('leaderboard'); }}
+              data-testid="nav-leaderboard"
+            >리더보드</a>
+            <a 
+              href="#faq" 
+              onClick={(e) => { e.preventDefault(); scrollToSection('faq'); }}
+              data-testid="nav-faq"
+            >FAQ</a>
           </nav>
           <button 
             className="connect-btn" 
             data-testid="button-connect-wallet"
-            onClick={() => isConnected ? disconnect() : connect("metamask")}
+            onClick={handleWalletClick}
           >
-            {isConnected ? `🔗 ${formatAddress(address || '')}` : '🔗 지갑 연결'}
+            {isConnected ? `${formatAddress(address || '')}` : '지갑 연결'}
           </button>
         </div>
       </header>
@@ -999,11 +1089,19 @@ export default function MarketingProgramPage() {
           </div>
 
           <div className="cta-group">
-            <button className="btn-primary" data-testid="button-join-ambassador">
-              👑 앰배서더 신청하기
+            <button 
+              className="btn-primary" 
+              data-testid="button-join-ambassador"
+              onClick={handleJoinAmbassador}
+            >
+              앰배서더 신청하기
             </button>
-            <button className="btn-secondary">
-              📖 마케팅 가이드
+            <button 
+              className="btn-secondary"
+              data-testid="button-view-guide"
+              onClick={handleViewGuide}
+            >
+              마케팅 가이드
             </button>
           </div>
         </div>
@@ -1062,7 +1160,13 @@ export default function MarketingProgramPage() {
                     <li key={idx}>{feature}</li>
                   ))}
                 </ul>
-                <button className="program-btn">참여하기</button>
+                <button 
+                  className="program-btn"
+                  data-testid={`button-apply-${program.id}`}
+                  onClick={() => handleApplyProgram(program.title)}
+                >
+                  참여하기
+                </button>
               </div>
             </div>
           ))}
@@ -1151,7 +1255,13 @@ export default function MarketingProgramPage() {
                 </div>
                 <div className="campaign-right">
                   <span className={`campaign-status ${campaign.status}`}>{campaign.statusLabel}</span>
-                  <button className="campaign-join-btn">참여하기</button>
+                  <button 
+                    className="campaign-join-btn"
+                    data-testid={`button-join-campaign-${campaign.type}`}
+                    onClick={() => handleJoinCampaign(campaign.title, campaign.status)}
+                  >
+                    참여하기
+                  </button>
                 </div>
               </div>
             ))}
@@ -1217,58 +1327,106 @@ export default function MarketingProgramPage() {
         </div>
 
         <div className="faq-container">
-          <div className={`faq-item ${activeFaq === 'faq-1' ? 'active' : ''}`}>
+          <div className={`faq-item ${activeFaq === 'faq-1' ? 'active' : ''}`} data-testid="faq-item-1">
             <div className="faq-question" onClick={() => toggleFaq('faq-1')}>
+              <h4>마케팅 프로그램 총 예산 규모는 얼마인가요?</h4>
+              <span className="faq-chevron">▼</span>
+            </div>
+            <div className="faq-answer">
+              <p>마케팅 프로그램에는 총 3억 TBURN이 배정되어 있습니다. 브랜드 마케팅 30%(0.9억), 인플루언서 25%(0.75억), 컨텐츠 크리에이터 20%(0.6억), 이벤트 마케팅 15%(0.45억), PR 및 미디어 10%(0.3억)로 배분됩니다.</p>
+            </div>
+          </div>
+
+          <div className={`faq-item ${activeFaq === 'faq-2' ? 'active' : ''}`} data-testid="faq-item-2">
+            <div className="faq-question" onClick={() => toggleFaq('faq-2')}>
               <h4>앰배서더가 되려면 어떻게 해야 하나요?</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>앰배서더 신청 페이지에서 지원서를 제출하시면 됩니다. 소셜 미디어 활동 이력과 크립토 관심도를 기반으로 심사 후 선발됩니다. 처음에는 Starter 등급으로 시작하여 활동량에 따라 등급이 올라갑니다.</p>
+              <p>앰배서더 신청 페이지에서 지원서를 제출하시면 됩니다. 소셜 미디어 활동 이력과 크립토 관심도를 기반으로 심사 후 선발됩니다. 처음에는 Starter 등급(월 1만 TBURN)으로 시작하여 레퍼럴 실적에 따라 Rising(월 5만), Elite(월 20만), Legend(월 50만)로 승급합니다.</p>
             </div>
           </div>
 
-          <div className={`faq-item ${activeFaq === 'faq-2' ? 'active' : ''}`}>
-            <div className="faq-question" onClick={() => toggleFaq('faq-2')}>
+          <div className={`faq-item ${activeFaq === 'faq-3' ? 'active' : ''}`} data-testid="faq-item-3">
+            <div className="faq-question" onClick={() => toggleFaq('faq-3')}>
               <h4>컨텐츠 보상은 어떻게 지급되나요?</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>컨텐츠 제출 후 품질 심사를 거쳐 승인되면 TBURN 토큰으로 지급됩니다. 기본 보상 외에 조회수와 참여도에 따른 보너스가 추가될 수 있습니다. 보상은 매주 월요일에 일괄 지급됩니다.</p>
+              <p>컨텐츠 제출 후 품질 심사를 거쳐 승인되면 TBURN 토큰으로 지급됩니다. 비디오($100~500), 아티클($50~200), 그래픽($30~100), 튜토리얼($150~400) 등 유형별 기본 보상이 있으며, 조회수와 참여도에 따른 보너스가 추가됩니다. 보상은 매주 월요일에 일괄 지급됩니다.</p>
             </div>
           </div>
 
-          <div className={`faq-item ${activeFaq === 'faq-3' ? 'active' : ''}`}>
-            <div className="faq-question" onClick={() => toggleFaq('faq-3')}>
+          <div className={`faq-item ${activeFaq === 'faq-4' ? 'active' : ''}`} data-testid="faq-item-4">
+            <div className="faq-question" onClick={() => toggleFaq('faq-4')}>
               <h4>캠페인 참여 자격은 무엇인가요?</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>대부분의 캠페인은 누구나 참여할 수 있습니다. 다만 일부 캠페인은 앰배서더 등급이나 팔로워 수 등의 조건이 있을 수 있습니다. 각 캠페인 상세 페이지에서 참여 자격을 확인해주세요.</p>
+              <p>대부분의 캠페인은 TBURN 지갑을 연결한 누구나 참여할 수 있습니다. 일부 캠페인은 앰배서더 등급이나 팔로워 수(Twitter 1K+, YouTube 5K+ 등) 조건이 있을 수 있습니다. 각 캠페인 상세 페이지에서 참여 자격을 확인해주세요.</p>
             </div>
           </div>
 
-          <div className={`faq-item ${activeFaq === 'faq-4' ? 'active' : ''}`}>
-            <div className="faq-question" onClick={() => toggleFaq('faq-4')}>
+          <div className={`faq-item ${activeFaq === 'faq-5' ? 'active' : ''}`} data-testid="faq-item-5">
+            <div className="faq-question" onClick={() => toggleFaq('faq-5')}>
               <h4>인플루언서 협업은 어떻게 진행되나요?</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>10K+ 팔로워를 보유한 인플루언서는 별도의 협업 프로그램에 참여할 수 있습니다. 맞춤형 캠페인 설계와 더 높은 보상을 제공합니다. partnerships@tburn.io로 문의해주세요.</p>
+              <p>10K+ 팔로워를 보유한 인플루언서는 별도의 협업 프로그램에 참여할 수 있습니다. 캠페인당 $500+ 보상과 매출 10% 수수료를 제공합니다. 맞춤형 캠페인 설계, 마케팅 자료 제공, 성과 기반 보너스, 장기 파트너십 옵션이 포함됩니다. partnerships@tburn.io로 문의해주세요.</p>
+            </div>
+          </div>
+
+          <div className={`faq-item ${activeFaq === 'faq-6' ? 'active' : ''}`} data-testid="faq-item-6">
+            <div className="faq-question" onClick={() => toggleFaq('faq-6')}>
+              <h4>이벤트 마케팅 참여 방법은 무엇인가요?</h4>
+              <span className="faq-chevron">▼</span>
+            </div>
+            <div className="faq-answer">
+              <p>이벤트 마케팅 프로그램에서는 온/오프라인 이벤트에 참여하거나 주최할 수 있습니다. 이벤트당 $200+ 참여 보상과 특별 NFT가 제공됩니다. 밋업 주최 지원, 컨퍼런스 참가 지원, 온라인 AMA 진행, 커뮤니티 이벤트 등이 포함됩니다.</p>
+            </div>
+          </div>
+
+          <div className={`faq-item ${activeFaq === 'faq-7' ? 'active' : ''}`} data-testid="faq-item-7">
+            <div className="faq-question" onClick={() => toggleFaq('faq-7')}>
+              <h4>리더보드 순위는 어떻게 결정되나요?</h4>
+              <span className="faq-chevron">▼</span>
+            </div>
+            <div className="faq-answer">
+              <p>리더보드 순위는 레퍼럴 수, 컨텐츠 성과, 캠페인 참여도, 커뮤니티 기여도 등을 종합한 포인트로 결정됩니다. 매월 상위 앰배서더에게는 추가 보너스가 지급되며, Legend 티어 앰배서더는 월 최대 50만 TBURN을 받을 수 있습니다.</p>
+            </div>
+          </div>
+
+          <div className={`faq-item ${activeFaq === 'faq-8' ? 'active' : ''}`} data-testid="faq-item-8">
+            <div className="faq-question" onClick={() => toggleFaq('faq-8')}>
+              <h4>마케팅 보상 지급 일정은 어떻게 되나요?</h4>
+              <span className="faq-chevron">▼</span>
+            </div>
+            <div className="faq-answer">
+              <p>컨텐츠 보상은 매주 월요일에 일괄 지급됩니다. 캠페인 보상은 캠페인 종료 후 7일 이내에 지급됩니다. 앰배서더 월간 보상은 매월 1일에 지급됩니다. 모든 보상은 연결된 TBURN 지갑으로 자동 입금됩니다.</p>
             </div>
           </div>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="cta-section">
+      <section className="cta-section" id="cta">
         <div style={{ maxWidth: '800px', margin: '0 auto' }}>
           <h2 style={{ fontSize: '2.5rem', fontWeight: 800, marginBottom: '1rem' }}>지금 시작하세요!</h2>
           <p style={{ color: 'rgba(255,255,255,0.8)', fontSize: '1.125rem', marginBottom: '2rem' }}>
             TBURN 마케팅 프로그램에 참여하여<br />
             3억 TBURN 보상을 받아가세요!
           </p>
-          <button className="connect-btn" style={{ background: 'var(--white)', color: 'var(--pink)', fontSize: '1.25rem', padding: '20px 50px' }}>
-            👑 앰배서더 신청하기
+          <button 
+            className="connect-btn" 
+            style={{ background: 'var(--white)', color: 'var(--pink)', fontSize: '1.25rem', padding: '20px 50px' }}
+            data-testid="button-cta-apply"
+            onClick={() => { 
+              scrollToSection('ambassador'); 
+              toast({ title: "앰배서더 신청", description: "앰배서더 티어를 확인하고 지금 시작하세요!" }); 
+            }}
+          >
+            앰배서더 신청하기
           </button>
         </div>
       </section>
@@ -1280,45 +1438,65 @@ export default function MarketingProgramPage() {
             <h3>TBURN<span>CHAIN</span></h3>
             <p>AI의 지능, 블록체인의 투명성<br />THE FUTURE IS NOW</p>
             <div className="social-links">
-              <a href="#">𝕏</a>
-              <a href="#">✈</a>
-              <a href="#">💬</a>
-              <a href="#">⌘</a>
+              <a 
+                href="https://x.com/tburnchain" 
+                onClick={(e) => { e.preventDefault(); handleShareSocial('Twitter', 'https://x.com/tburnchain'); }}
+                data-testid="footer-link-twitter"
+              >𝕏</a>
+              <a 
+                href="https://t.me/tburnchain" 
+                onClick={(e) => { e.preventDefault(); handleShareSocial('Telegram', 'https://t.me/tburnchain'); }}
+                data-testid="footer-link-telegram"
+              >✈</a>
+              <a 
+                href="https://discord.gg/tburnchain" 
+                onClick={(e) => { e.preventDefault(); handleShareSocial('Discord', 'https://discord.gg/tburnchain'); }}
+                data-testid="footer-link-discord"
+              >💬</a>
+              <a 
+                href="https://github.com/tburnchain" 
+                onClick={(e) => { e.preventDefault(); handleShareSocial('GitHub', 'https://github.com/tburnchain'); }}
+                data-testid="footer-link-github"
+              >⌘</a>
             </div>
           </div>
           <div className="footer-links">
             <h4>Product</h4>
             <ul>
-              <li><Link href="/">메인넷</Link></li>
-              <li><Link href="/scan">익스플로러</Link></li>
-              <li><Link href="/app/bridge">브릿지</Link></li>
-              <li><Link href="/app/staking">스테이킹</Link></li>
+              <li><a href="/" data-testid="footer-link-mainnet">메인넷</a></li>
+              <li><a href="/scan" data-testid="footer-link-explorer">익스플로러</a></li>
+              <li><a href="/app/bridge" data-testid="footer-link-bridge">브릿지</a></li>
+              <li><a href="/app/staking" data-testid="footer-link-staking">스테이킹</a></li>
             </ul>
           </div>
           <div className="footer-links">
             <h4>Resources</h4>
             <ul>
-              <li><Link href="/learn/whitepaper">백서</Link></li>
-              <li><Link href="/developers/docs">문서</Link></li>
-              <li><a href="#">GitHub</a></li>
-              <li><Link href="/security-audit">감사 보고서</Link></li>
+              <li><a href="/learn/whitepaper" data-testid="footer-link-whitepaper">백서</a></li>
+              <li><a href="/developers/docs" data-testid="footer-link-docs">문서</a></li>
+              <li><a 
+                href="https://github.com/tburnchain" 
+                onClick={(e) => { e.preventDefault(); handleShareSocial('GitHub', 'https://github.com/tburnchain'); }}
+                data-testid="footer-link-github-resources"
+              >GitHub</a></li>
+              <li><a href="/security-audit" data-testid="footer-link-audit">감사 보고서</a></li>
             </ul>
           </div>
           <div className="footer-links">
             <h4>Community</h4>
             <ul>
-              <li><Link href="/community/news">블로그</Link></li>
-              <li><a href="#">앰배서더</a></li>
-              <li><a href="#">그랜트</a></li>
-              <li><Link href="/qna">고객지원</Link></li>
+              <li><a href="/community/news" data-testid="footer-link-blog">블로그</a></li>
+              <li><a href="/marketing-program" data-testid="footer-link-ambassador">앰배서더</a></li>
+              <li><a href="/ecosystem-fund" data-testid="footer-link-grants">그랜트</a></li>
+              <li><a href="/qna" data-testid="footer-link-support">고객지원</a></li>
             </ul>
           </div>
         </div>
         <div className="footer-bottom">
           <p>© 2025-2045 TBURN Foundation. All Rights Reserved.</p>
           <div style={{ display: 'flex', gap: '2rem' }}>
-            <Link href="/legal/terms-of-service" style={{ color: 'var(--gray)', textDecoration: 'none' }}>이용약관</Link>
-            <Link href="/legal/privacy-policy" style={{ color: 'var(--gray)', textDecoration: 'none' }}>개인정보처리방침</Link>
+            <a href="/legal/terms-of-service" style={{ color: 'var(--gray)', textDecoration: 'none' }} data-testid="footer-link-terms">이용약관</a>
+            <a href="/legal/privacy-policy" style={{ color: 'var(--gray)', textDecoration: 'none' }} data-testid="footer-link-privacy">개인정보처리방침</a>
           </div>
         </div>
       </footer>
