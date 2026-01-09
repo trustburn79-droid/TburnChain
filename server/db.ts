@@ -85,12 +85,61 @@ export async function executeWithRetry<T>(
 }
 
 // Global unhandled rejection handler to prevent crashes
+// ★ [2026-01-09] Enhanced to handle more transient error types gracefully
 process.on('unhandledRejection', (reason: any) => {
-  if (reason?.message?.includes('Connection terminated') ||
-      reason?.message?.includes('ECONNRESET') ||
-      reason?.code === 'ECONNRESET') {
-    console.error('[DB] Unhandled connection error (suppressed):', reason.message);
-    return; // Don't crash
+  const message = reason?.message || String(reason);
+  const code = reason?.code;
+  
+  // Transient network/connection errors - suppress without crashing
+  const transientErrors = [
+    'Connection terminated',
+    'ECONNRESET',
+    'ECONNREFUSED',
+    'ETIMEDOUT',
+    'ENOTFOUND',
+    'socket hang up',
+    'Client network socket disconnected',
+    'getaddrinfo',
+    'connect ECONNREFUSED',
+    'read ECONNRESET',
+    'write EPIPE',
+    'EPIPE',
+    'EHOSTUNREACH',
+    'fetch failed',
+    'Request timeout',
+  ];
+  
+  const isTransient = transientErrors.some(err => 
+    message.includes(err) || code === err
+  );
+  
+  if (isTransient) {
+    console.warn('[DB] Transient network error (recovered):', message.substring(0, 100));
+    return; // Don't crash - these are recoverable
   }
-  console.error('[Unhandled Rejection]:', reason);
+  
+  // Database-specific errors that are recoverable
+  const dbRecoverableErrors = [
+    'too many clients',
+    'connection pool timeout',
+    'remaining connection slots',
+    'terminating connection due to administrator',
+    'server closed the connection unexpectedly',
+    'SSL connection has been closed unexpectedly',
+  ];
+  
+  const isDbRecoverable = dbRecoverableErrors.some(err => 
+    message.toLowerCase().includes(err.toLowerCase())
+  );
+  
+  if (isDbRecoverable) {
+    console.warn('[DB] Database connection error (will retry):', message.substring(0, 100));
+    return; // Don't crash - connection pool will recover
+  }
+  
+  // Log other unhandled rejections but don't crash
+  console.error('[Unhandled Rejection]:', message);
+  if (reason?.stack) {
+    console.error('[Unhandled Rejection Stack]:', reason.stack.split('\n').slice(0, 5).join('\n'));
+  }
 });

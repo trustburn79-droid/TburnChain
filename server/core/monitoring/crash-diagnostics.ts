@@ -437,9 +437,45 @@ class EnterpriseCrashDiagnosticsService {
 
   /**
    * unhandledRejection handler
+   * ★ [2026-01-09] Enhanced to differentiate recoverable vs critical errors
    */
   handleUnhandledRejection(reason: unknown, _promise: Promise<unknown>) {
     const error = reason instanceof Error ? reason : new Error(String(reason));
+    const message = error.message || '';
+    
+    // Recoverable errors - don't count as crashes, just log warning
+    const recoverablePatterns = [
+      'Connection terminated',
+      'ECONNRESET',
+      'ECONNREFUSED',
+      'ETIMEDOUT',
+      'ENOTFOUND',
+      'socket hang up',
+      'fetch failed',
+      'Request timeout',
+      'too many clients',
+      'connection pool',
+      'EPIPE',
+      'EHOSTUNREACH',
+      'getaddrinfo',
+      'SSL connection has been closed',
+      'server closed the connection',
+      'read ECONNRESET',
+      'write EPIPE',
+    ];
+    
+    const isRecoverable = recoverablePatterns.some(pattern => 
+      message.includes(pattern) || (error as any).code === pattern
+    );
+    
+    if (isRecoverable) {
+      // Log as warning, not error - system will recover
+      console.warn(`[CrashDiagnostics] ⚠️ Recoverable rejection: ${message.substring(0, 100)}`);
+      this.log(`Recoverable rejection: ${message.substring(0, 100)}`, 'warn');
+      return; // Don't count as crash
+    }
+    
+    // Critical error - log full details
     this.stats.totalCrashes++;
     this.stats.lastCrashTime = new Date().toISOString();
     
