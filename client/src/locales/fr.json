@@ -17441,6 +17441,202 @@
         "bonusTitle": "Bonus de parrainage",
         "bonusDesc": "500 points pour chaque ami parrainé avec succès, jusqu'à 10 amis."
       }
+    },
+    "referralPage": {
+      "nav": {
+        "home": "Accueil",
+        "howItWorks": "Comment ça marche",
+        "tiers": "Niveaux",
+        "dashboard": "Tableau de bord",
+        "calculator": "Calculateur",
+        "leaderboard": "Classement",
+        "faq": "FAQ"
+      },
+      "header": {
+        "connectWallet": "Connecter Portefeuille",
+        "connecting": "Connexion..."
+      },
+      "hero": {
+        "badge": "PROGRAMME DE PARRAINAGE",
+        "title": "300M TBURN",
+        "subtitle": "Récompenses de Parrainage",
+        "description": "Invitez des amis sur TBURN Chain et gagnez des commissions sur leurs activités. Des niveaux plus élevés débloquent des taux de commission jusqu'à 50%!",
+        "stats": {
+          "totalParticipants": "Participants Totaux",
+          "totalReferrals": "Parrainages Totaux",
+          "totalRewards": "Récompenses Totales (TBURN)",
+          "activeReferrers": "Parrains Actifs"
+        },
+        "buttons": {
+          "getReferralLink": "Obtenir Lien de Parrainage",
+          "viewDashboard": "Voir Tableau de bord"
+        }
+      },
+      "howItWorks": {
+        "badge": "COMMENT ÇA MARCHE",
+        "title": "Comment fonctionne le programme de parrainage",
+        "subtitle": "Gagnez des récompenses en 4 étapes simples",
+        "steps": {
+          "connect": {
+            "title": "Connecter Portefeuille",
+            "desc": "Connectez MetaMask ou un portefeuille compatible pour générer votre lien de parrainage unique."
+          },
+          "share": {
+            "title": "Partager Lien",
+            "desc": "Partagez votre lien de parrainage sur les réseaux sociaux, communautés et avec des amis."
+          },
+          "activity": {
+            "title": "Activité des Amis",
+            "desc": "Vos amis parrainés tradent, stakent et participent sur TBURN Chain."
+          },
+          "earn": {
+            "title": "Gagner Récompenses",
+            "desc": "Recevez une commission sur les frais d'activité de vos amis en temps réel."
+          }
+        }
+      },
+      "tiers": {
+        "badge": "COMMISSION PAR NIVEAU",
+        "title": "Commission par Niveau",
+        "subtitle": "Votre niveau augmente avec plus de parrainages, débloquant des taux de commission plus élevés",
+        "commission": "Commission",
+        "referrals": "Parrainages",
+        "benefits": "Avantages"
+      },
+      "dashboard": {
+        "badge": "MON TABLEAU DE BORD",
+        "title": "Tableau de bord de Parrainage",
+        "subtitle": "Suivez votre activité de parrainage et vos gains en temps réel",
+        "currentTier": "Niveau Actuel",
+        "myReferralLink": "Mon Lien de Parrainage",
+        "copy": "Copier",
+        "copied": "Copié!",
+        "share": {
+          "twitter": "Twitter",
+          "telegram": "Telegram",
+          "discord": "Discord",
+          "kakao": "KakaoTalk"
+        },
+        "stats": {
+          "totalInvites": "Invitations Totales",
+          "activeUsers": "Utilisateurs Actifs",
+          "totalEarned": "Total Gagné TBURN",
+          "totalDistributed": "Total Distribué TBURN"
+        },
+        "emptyState": "Connectez votre portefeuille pour commencer les activités de parrainage",
+        "connectButton": "Connecter Portefeuille",
+        "toasts": {
+          "copied": "Copié",
+          "copiedDesc": "Lien de parrainage copié dans le presse-papiers."
+        }
+      },
+      "calculator": {
+        "badge": "CALCULATEUR",
+        "title": "Calculateur de Récompenses",
+        "subtitle": "Calculez vos gains estimés à l'avance",
+        "input": {
+          "title": "Paramètres d'Entrée",
+          "tier": "Mon Niveau",
+          "referrals": "Parrainages Attendus (Mensuel)",
+          "volume": "Volume Mensuel Moyen du Filleul ($)",
+          "price": "Prix TBURN ($)"
+        },
+        "result": {
+          "title": "Gains Estimés",
+          "totalVolume": "Volume Total (Mensuel)",
+          "tradingFee": "Frais de Trading (0.1%)",
+          "myCommission": "Ma Commission",
+          "monthlyEarnings": "Gains Mensuels (TBURN)",
+          "yearlyEarnings": "Gains Annuels (TBURN)",
+          "yearlyUsd": "Gains Annuels Estimés (USD)"
+        },
+        "disclaimer": "* Les gains réels peuvent varier selon les conditions du marché"
+      },
+      "leaderboard": {
+        "badge": "CLASSEMENT",
+        "title": "Classement des Parrainages",
+        "subtitle": "Consultez les performances des meilleurs parrains",
+        "topReferrers": "Top Referrers",
+        "filters": {
+          "all": "Tout le Temps",
+          "week": "Cette Semaine",
+          "month": "Ce Mois"
+        },
+        "invites": "Invitations",
+        "earnings": "Gains",
+        "viewAll": "Voir Tous les Classements",
+        "toasts": {
+          "allRank": "Tous les Classements",
+          "allRankDesc": "Affichage des classements de parrainage de tous les temps.",
+          "weekRank": "Classement Hebdomadaire",
+          "weekRankDesc": "Classements de parrainage hebdomadaires. (Bientôt disponible)",
+          "monthRank": "Classement Mensuel",
+          "monthRankDesc": "Classements de parrainage mensuels. (Bientôt disponible)",
+          "walletRequired": "Portefeuille Requis",
+          "walletRequiredDesc": "Veuillez connecter votre portefeuille pour voir les classements complets.",
+          "fullRankings": "Classements Complets",
+          "fullRankingsDesc": "Page des classements complets bientôt disponible."
+        }
+      },
+      "faq": {
+        "badge": "FAQ",
+        "title": "Questions Fréquemment Posées",
+        "subtitle": "Trouvez des réponses aux questions courantes sur le programme de parrainage",
+        "q1": {
+          "question": "Quel est le pool total de récompenses de parrainage?",
+          "answer": "Le pool total de récompenses du programme de parrainage est de 300M TBURN. Cela représente 3% de l'offre totale de 10 milliards de TBURN. 5% (15M TBURN) est débloqué au TGE, et les 95% restants sont libérés linéairement sur 36 mois à environ 2.64% par mois. Environ 42M TBURN ont été distribués aux parrains jusqu'à présent."
+        },
+        "q2": {
+          "question": "Comment la commission est-elle calculée?",
+          "answer": "Vous recevez une commission sur les frais générés lorsque vos filleuls tradent, stakent, font un bridge, etc. sur TBURN Chain. Les frais de trading de base sont de 0.1%, et vous recevez 20-50% de ces frais en commission selon votre niveau. Exemple: Si un filleul trade $1,000 → frais de $1 générés → niveau Gold (40%) gagne $0.40"
+        },
+        "q3": {
+          "question": "Comment augmenter mon niveau?",
+          "answer": "Votre niveau augmente automatiquement en fonction du nombre d'amis que vous invitez. Bronze (0-9, 20%), Silver (10-49, 30%), Gold (50-199, 40%), Diamond (200+, 50%). Des niveaux plus élevés débloquent non seulement des taux de commission plus élevés mais aussi des avantages de parrainage multi-niveaux (2ème niveau, 3ème niveau)."
+        },
+        "q4": {
+          "question": "Quand puis-je recevoir des récompenses?",
+          "answer": "Les récompenses de parrainage sont créditées en temps réel, et les récompenses accumulées peuvent être retirées à tout moment. Le retrait minimum est de 100 TBURN, avec de petits frais de gas (~0.001 TBURN) déduits. Les retraits sont envoyés instantanément à votre portefeuille connecté."
+        },
+        "q5": {
+          "question": "Qu'est-ce que le parrainage multi-niveaux?",
+          "answer": "Le parrainage multi-niveaux vous permet de gagner une commission non seulement des personnes que vous invitez directement (1er niveau) mais aussi de leurs filleuls (2ème niveau) et au-delà (3ème niveau). Silver+ débloque le 2ème niveau (5-10%), Diamond débloque le 3ème niveau (15%)."
+        },
+        "q6": {
+          "question": "Où obtenir mon lien de parrainage?",
+          "answer": "Connectez votre portefeuille pour générer automatiquement un lien et code de parrainage unique. Consultez votre tableau de bord pour voir et partager facilement sur Twitter, Telegram, Discord, KakaoTalk, etc. Portefeuilles compatibles: MetaMask, Rabby, Trust Wallet, Coinbase Wallet, Ledger"
+        },
+        "q7": {
+          "question": "Puis-je parrainer n'importe qui n'importe où?",
+          "answer": "Les parrainages sont disponibles dans le monde entier, mais certaines régions restreintes (pays sanctionnés par l'OFAC) sont exclues. Consultez la section d'éligibilité pour les détails."
+        },
+        "q8": {
+          "question": "Comment la fraude est-elle protégée?",
+          "answer": "Le système surveille les fraudes telles que l'auto-parrainage, les attaques Sybil et les faux comptes. Les activités frauduleuses détectées entraîneront la résiliation immédiate du compte et la confiscation de toutes les récompenses."
+        }
+      },
+      "footer": {
+        "brand": "La blockchain la plus rapide et la plus sécurisée pour l'avenir de DeFi",
+        "products": "Produits",
+        "scan": "Explorateur",
+        "dapp": "DApp",
+        "staking": "Staking",
+        "bridge": "Pont",
+        "developers": "Développeurs",
+        "docs": "Documentation",
+        "api": "API",
+        "sdk": "SDK",
+        "github": "GitHub",
+        "resources": "Ressources",
+        "whitepaper": "Livre Blanc",
+        "tokenomics": "Tokenomics",
+        "roadmap": "Feuille de Route",
+        "faq": "FAQ",
+        "copyright": "© 2025-2045 TBURN Foundation. Tous Droits Réservés.",
+        "privacyPolicy": "Politique de Confidentialité",
+        "termsOfService": "Conditions d'Utilisation",
+        "contact": "Contact"
+      }
     }
   }
 }

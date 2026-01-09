@@ -32447,6 +32447,202 @@
         "bonusTitle": "추천 보너스",
         "bonusDesc": "성공적으로 추천한 친구당 500 포인트, 최대 10명까지."
       }
+    },
+    "referralPage": {
+      "nav": {
+        "home": "홈",
+        "howItWorks": "작동 방식",
+        "tiers": "등급",
+        "dashboard": "대시보드",
+        "calculator": "계산기",
+        "leaderboard": "리더보드",
+        "faq": "FAQ"
+      },
+      "header": {
+        "connectWallet": "지갑 연결",
+        "connecting": "연결 중..."
+      },
+      "hero": {
+        "badge": "레퍼럴 프로그램",
+        "title": "3억 TBURN",
+        "subtitle": "레퍼럴 보상",
+        "description": "친구를 TBURN Chain에 초대하고 활동 수수료에서 커미션을 받으세요. 높은 등급일수록 최대 50%까지 커미션율이 증가합니다!",
+        "stats": {
+          "totalParticipants": "총 참여자",
+          "totalReferrals": "총 레퍼럴",
+          "totalRewards": "총 보상 분배 (TBURN)",
+          "activeReferrers": "활성 레퍼러"
+        },
+        "buttons": {
+          "getReferralLink": "레퍼럴 링크 받기",
+          "viewDashboard": "대시보드 보기"
+        }
+      },
+      "howItWorks": {
+        "badge": "작동 방식",
+        "title": "레퍼럴 프로그램 작동 방식",
+        "subtitle": "4단계로 간단하게 보상을 받으세요",
+        "steps": {
+          "connect": {
+            "title": "지갑 연결",
+            "desc": "MetaMask 또는 지원 지갑을 연결하여 고유한 초대 링크를 생성하세요."
+          },
+          "share": {
+            "title": "링크 공유",
+            "desc": "SNS, 커뮤니티, 친구에게 초대 링크를 공유하세요."
+          },
+          "activity": {
+            "title": "친구 활동",
+            "desc": "초대받은 친구가 TBURN Chain에서 거래, 스테이킹 등 활동을 합니다."
+          },
+          "earn": {
+            "title": "보상 수령",
+            "desc": "친구 활동의 수수료에서 커미션을 실시간으로 받습니다."
+          }
+        }
+      },
+      "tiers": {
+        "badge": "등급별 커미션",
+        "title": "등급별 커미션",
+        "subtitle": "초대 실적에 따라 등급이 올라가고 커미션율이 증가합니다",
+        "commission": "커미션",
+        "referrals": "초대 수",
+        "benefits": "혜택"
+      },
+      "dashboard": {
+        "badge": "내 대시보드",
+        "title": "레퍼럴 대시보드",
+        "subtitle": "내 초대 현황과 수익을 실시간으로 확인하세요",
+        "currentTier": "현재 등급",
+        "myReferralLink": "내 초대 링크",
+        "copy": "복사",
+        "copied": "복사됨!",
+        "share": {
+          "twitter": "Twitter",
+          "telegram": "Telegram",
+          "discord": "Discord",
+          "kakao": "KakaoTalk"
+        },
+        "stats": {
+          "totalInvites": "총 초대 수",
+          "activeUsers": "활성 유저",
+          "totalEarned": "총 적립 TBURN",
+          "totalDistributed": "총 분배 TBURN"
+        },
+        "emptyState": "지갑을 연결하여 레퍼럴 활동을 시작하세요",
+        "connectButton": "지갑 연결하기",
+        "toasts": {
+          "copied": "복사 완료",
+          "copiedDesc": "레퍼럴 링크가 클립보드에 복사되었습니다."
+        }
+      },
+      "calculator": {
+        "badge": "계산기",
+        "title": "보상 계산기",
+        "subtitle": "예상 수익을 미리 계산해보세요",
+        "input": {
+          "title": "조건 입력",
+          "tier": "내 등급",
+          "referrals": "예상 초대 수 (월)",
+          "volume": "피추천인 평균 월 거래량 ($)",
+          "price": "TBURN 예상 가격 ($)"
+        },
+        "result": {
+          "title": "예상 수익",
+          "totalVolume": "총 거래량 (월)",
+          "tradingFee": "거래 수수료 (0.1%)",
+          "myCommission": "내 커미션",
+          "monthlyEarnings": "월 수익 (TBURN)",
+          "yearlyEarnings": "연 수익 (TBURN)",
+          "yearlyUsd": "연간 예상 수익 (USD)"
+        },
+        "disclaimer": "* 실제 수익은 시장 상황에 따라 달라질 수 있습니다"
+      },
+      "leaderboard": {
+        "badge": "리더보드",
+        "title": "레퍼럴 리더보드",
+        "subtitle": "상위 레퍼러들의 실적을 확인하세요",
+        "topReferrers": "Top Referrers",
+        "filters": {
+          "all": "전체",
+          "week": "이번 주",
+          "month": "이번 달"
+        },
+        "invites": "초대 수",
+        "earnings": "총 수익",
+        "viewAll": "전체 순위 보기",
+        "toasts": {
+          "allRank": "전체 순위",
+          "allRankDesc": "전체 기간 레퍼럴 순위를 표시합니다.",
+          "weekRank": "이번 주 순위",
+          "weekRankDesc": "이번 주 레퍼럴 순위를 표시합니다. (Coming Soon)",
+          "monthRank": "이번 달 순위",
+          "monthRankDesc": "이번 달 레퍼럴 순위를 표시합니다. (Coming Soon)",
+          "walletRequired": "지갑 연결 필요",
+          "walletRequiredDesc": "전체 순위를 보려면 지갑을 먼저 연결하세요.",
+          "fullRankings": "전체 순위",
+          "fullRankingsDesc": "전체 순위 페이지는 곧 공개됩니다. (Coming Soon)"
+        }
+      },
+      "faq": {
+        "badge": "FAQ",
+        "title": "자주 묻는 질문",
+        "subtitle": "레퍼럴 프로그램 관련 궁금한 점을 확인하세요",
+        "q1": {
+          "question": "레퍼럴 보상 풀 총 물량은 얼마인가요?",
+          "answer": "레퍼럴 프로그램 총 보상 풀은 3억 TBURN입니다. 이는 전체 공급량 100억 TBURN의 3%에 해당합니다. TGE 시점에 5%(1,500만 TBURN)가 해제되고, 나머지 95%는 36개월에 걸쳐 매월 약 2.64%씩 선형 베스팅됩니다. 현재까지 약 4,200만 TBURN이 레퍼러들에게 배분되었습니다."
+        },
+        "q2": {
+          "question": "커미션은 어떻게 계산되나요?",
+          "answer": "피추천인이 TBURN Chain에서 거래, 스테이킹, 브릿지 등의 활동을 할 때 발생하는 수수료의 일정 비율을 커미션으로 받습니다. 기본 거래 수수료율은 0.1%이며, 내 등급에 따라 해당 수수료의 20~50%를 커미션으로 받습니다. 예: 피추천인이 $1,000 거래 시 → 수수료 $1 발생 → Gold 등급(40%)이면 $0.40 적립"
+        },
+        "q3": {
+          "question": "등급은 어떻게 올릴 수 있나요?",
+          "answer": "초대한 친구 수에 따라 등급이 자동으로 올라갑니다. Bronze(0-9명, 20%), Silver(10-49명, 30%), Gold(50-199명, 40%), Diamond(200명+, 50%)로 구분됩니다. 등급이 올라갈수록 커미션율뿐만 아니라 다단계 레퍼럴(2단계, 3단계) 혜택도 증가합니다."
+        },
+        "q4": {
+          "question": "보상은 언제 받을 수 있나요?",
+          "answer": "레퍼럴 보상은 실시간으로 적립되며, 누적된 보상은 언제든지 출금할 수 있습니다. 최소 출금 수량은 100 TBURN이며, 출금 시 가스비(약 0.001 TBURN)가 차감됩니다. 출금은 연결된 지갑 주소로 즉시 전송됩니다."
+        },
+        "q5": {
+          "question": "다단계(Multi-tier) 레퍼럴이란 무엇인가요?",
+          "answer": "다단계 레퍼럴은 내가 초대한 사람(1단계)뿐만 아니라, 그 사람이 초대한 사람(2단계), 그리고 그 다음 단계(3단계)의 활동에서도 커미션을 받는 시스템입니다. Silver 이상 등급부터 2단계 레퍼럴(5~10%), Diamond 등급에서는 3단계 레퍼럴(15%)까지 혜택을 받을 수 있습니다."
+        },
+        "q6": {
+          "question": "레퍼럴 링크는 어디서 받나요?",
+          "answer": "지갑을 연결하면 고유한 레퍼럴 링크와 코드가 자동으로 생성됩니다. 대시보드에서 확인할 수 있으며, Twitter, Telegram, Discord, KakaoTalk 등으로 쉽게 공유할 수 있습니다. 지원 지갑: MetaMask, Rabby, Trust Wallet, Coinbase Wallet, Ledger"
+        },
+        "q7": {
+          "question": "누구나 어디서든 추천할 수 있나요?",
+          "answer": "레퍼럴은 전 세계적으로 가능하지만, 일부 제한 지역(OFAC 제재 국가)은 제외됩니다. 자세한 내용은 자격 요건 섹션을 확인하세요."
+        },
+        "q8": {
+          "question": "사기 방지는 어떻게 되나요?",
+          "answer": "시스템은 셀프 레퍼럴, 시빌 공격, 가짜 계정 등의 사기를 모니터링합니다. 감지된 사기 행위는 즉시 계정 종료 및 모든 보상 몰수로 이어집니다."
+        }
+      },
+      "footer": {
+        "brand": "DeFi의 미래를 위한 가장 빠르고 안전한 블록체인",
+        "products": "제품",
+        "scan": "익스플로러",
+        "dapp": "DApp",
+        "staking": "스테이킹",
+        "bridge": "브릿지",
+        "developers": "개발자",
+        "docs": "문서",
+        "api": "API",
+        "sdk": "SDK",
+        "github": "GitHub",
+        "resources": "리소스",
+        "whitepaper": "백서",
+        "tokenomics": "토크노믹스",
+        "roadmap": "로드맵",
+        "faq": "FAQ",
+        "copyright": "© 2025-2045 TBURN Foundation. All Rights Reserved.",
+        "privacyPolicy": "개인정보 처리방침",
+        "termsOfService": "이용약관",
+        "contact": "문의하기"
+      }
     }
   }
 }

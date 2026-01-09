@@ -19533,6 +19533,202 @@
         "bonusTitle": "推荐奖励",
         "bonusDesc": "每位成功推荐的好友可获得500积分，最多10位好友。"
       }
+    },
+    "referralPage": {
+      "nav": {
+        "home": "首页",
+        "howItWorks": "运作方式",
+        "tiers": "等级",
+        "dashboard": "仪表板",
+        "calculator": "计算器",
+        "leaderboard": "排行榜",
+        "faq": "FAQ"
+      },
+      "header": {
+        "connectWallet": "连接钱包",
+        "connecting": "连接中..."
+      },
+      "hero": {
+        "badge": "推荐计划",
+        "title": "3亿 TBURN",
+        "subtitle": "推荐奖励",
+        "description": "邀请朋友加入TBURN Chain，从他们的活动中赚取佣金。更高等级可解锁高达50%的佣金率！",
+        "stats": {
+          "totalParticipants": "总参与者",
+          "totalReferrals": "总推荐数",
+          "totalRewards": "总奖励分配 (TBURN)",
+          "activeReferrers": "活跃推荐人"
+        },
+        "buttons": {
+          "getReferralLink": "获取推荐链接",
+          "viewDashboard": "查看仪表板"
+        }
+      },
+      "howItWorks": {
+        "badge": "运作方式",
+        "title": "推荐计划运作方式",
+        "subtitle": "简单4步获取奖励",
+        "steps": {
+          "connect": {
+            "title": "连接钱包",
+            "desc": "连接MetaMask或支持的钱包生成您的专属推荐链接。"
+          },
+          "share": {
+            "title": "分享链接",
+            "desc": "在社交媒体、社区和朋友间分享您的推荐链接。"
+          },
+          "activity": {
+            "title": "朋友活动",
+            "desc": "您推荐的朋友在TBURN Chain上交易、质押等。"
+          },
+          "earn": {
+            "title": "获取奖励",
+            "desc": "实时从朋友活动产生的费用中获得佣金。"
+          }
+        }
+      },
+      "tiers": {
+        "badge": "等级佣金",
+        "title": "等级佣金",
+        "subtitle": "推荐越多等级越高，佣金率也越高",
+        "commission": "佣金",
+        "referrals": "推荐数",
+        "benefits": "福利"
+      },
+      "dashboard": {
+        "badge": "我的仪表板",
+        "title": "推荐仪表板",
+        "subtitle": "实时跟踪您的推荐活动和收益",
+        "currentTier": "当前等级",
+        "myReferralLink": "我的推荐链接",
+        "copy": "复制",
+        "copied": "已复制!",
+        "share": {
+          "twitter": "Twitter",
+          "telegram": "Telegram",
+          "discord": "Discord",
+          "kakao": "KakaoTalk"
+        },
+        "stats": {
+          "totalInvites": "总邀请数",
+          "activeUsers": "活跃用户",
+          "totalEarned": "累计获得 TBURN",
+          "totalDistributed": "总分配 TBURN"
+        },
+        "emptyState": "连接钱包开始推荐活动",
+        "connectButton": "连接钱包",
+        "toasts": {
+          "copied": "复制成功",
+          "copiedDesc": "推荐链接已复制到剪贴板。"
+        }
+      },
+      "calculator": {
+        "badge": "计算器",
+        "title": "奖励计算器",
+        "subtitle": "提前计算您的预估收益",
+        "input": {
+          "title": "输入条件",
+          "tier": "我的等级",
+          "referrals": "预计推荐数（月）",
+          "volume": "被推荐人平均月交易量 ($)",
+          "price": "TBURN预估价格 ($)"
+        },
+        "result": {
+          "title": "预估收益",
+          "totalVolume": "总交易量（月）",
+          "tradingFee": "交易手续费 (0.1%)",
+          "myCommission": "我的佣金",
+          "monthlyEarnings": "月收益 (TBURN)",
+          "yearlyEarnings": "年收益 (TBURN)",
+          "yearlyUsd": "预估年收益 (USD)"
+        },
+        "disclaimer": "* 实际收益可能因市场情况而异"
+      },
+      "leaderboard": {
+        "badge": "排行榜",
+        "title": "推荐排行榜",
+        "subtitle": "查看顶级推荐人的表现",
+        "topReferrers": "Top Referrers",
+        "filters": {
+          "all": "全部",
+          "week": "本周",
+          "month": "本月"
+        },
+        "invites": "邀请数",
+        "earnings": "总收益",
+        "viewAll": "查看全部排名",
+        "toasts": {
+          "allRank": "全部排名",
+          "allRankDesc": "显示所有时间推荐排名。",
+          "weekRank": "本周排名",
+          "weekRankDesc": "本周推荐排名。(即将推出)",
+          "monthRank": "本月排名",
+          "monthRankDesc": "本月推荐排名。(即将推出)",
+          "walletRequired": "需要连接钱包",
+          "walletRequiredDesc": "请先连接钱包查看完整排名。",
+          "fullRankings": "完整排名",
+          "fullRankingsDesc": "完整排名页面即将推出。"
+        }
+      },
+      "faq": {
+        "badge": "FAQ",
+        "title": "常见问题",
+        "subtitle": "查找推荐计划相关常见问题的答案",
+        "q1": {
+          "question": "推荐奖励池总量是多少？",
+          "answer": "推荐计划总奖励池为3亿TBURN。这占总供应量100亿TBURN的3%。TGE时解锁5%（1500万TBURN），剩余95%在36个月内每月约2.64%线性释放。目前约4200万TBURN已分配给推荐人。"
+        },
+        "q2": {
+          "question": "佣金如何计算？",
+          "answer": "当您的推荐人在TBURN Chain上交易、质押、跨链等活动产生的费用中获得一定比例的佣金。基础交易费率为0.1%，根据您的等级获得该费用的20-50%作为佣金。例：推荐人交易$1,000 → 产生$1费用 → Gold等级(40%)获得$0.40"
+        },
+        "q3": {
+          "question": "如何提升等级？",
+          "answer": "根据您邀请的朋友数量自动提升等级。Bronze（0-9人，20%）、Silver（10-49人，30%）、Gold（50-199人，40%）、Diamond（200人+，50%）。更高等级不仅解锁更高佣金率，还有多层推荐（2级、3级）福利。"
+        },
+        "q4": {
+          "question": "何时可以领取奖励？",
+          "answer": "推荐奖励实时记入，累积奖励可随时提取。最低提取100 TBURN，会扣除少量Gas费（约0.001 TBURN）。提取立即发送到您连接的钱包。"
+        },
+        "q5": {
+          "question": "什么是多层推荐？",
+          "answer": "多层推荐让您不仅从直接邀请的人（1级）获得佣金，还从他们邀请的人（2级）及更深层次（3级）获得佣金。Silver+解锁2级（5-10%），Diamond解锁3级（15%）。"
+        },
+        "q6": {
+          "question": "在哪里获取推荐链接？",
+          "answer": "连接钱包后自动生成唯一的推荐链接和代码。在仪表板查看并轻松分享到Twitter、Telegram、Discord、KakaoTalk等。支持钱包：MetaMask、Rabby、Trust Wallet、Coinbase Wallet、Ledger"
+        },
+        "q7": {
+          "question": "可以推荐任何地方的任何人吗？",
+          "answer": "推荐全球可用，但部分受限地区（OFAC制裁国家）除外。详情请查看资格部分。"
+        },
+        "q8": {
+          "question": "如何防止欺诈？",
+          "answer": "系统监控自我推荐、女巫攻击、虚假账户等欺诈行为。检测到欺诈活动将立即终止账户并没收所有奖励。"
+        }
+      },
+      "footer": {
+        "brand": "为DeFi未来打造的最快最安全的区块链",
+        "products": "产品",
+        "scan": "浏览器",
+        "dapp": "DApp",
+        "staking": "质押",
+        "bridge": "跨链桥",
+        "developers": "开发者",
+        "docs": "文档",
+        "api": "API",
+        "sdk": "SDK",
+        "github": "GitHub",
+        "resources": "资源",
+        "whitepaper": "白皮书",
+        "tokenomics": "代币经济",
+        "roadmap": "路线图",
+        "faq": "FAQ",
+        "copyright": "© 2025-2045 TBURN Foundation. 保留所有权利。",
+        "privacyPolicy": "隐私政策",
+        "termsOfService": "服务条款",
+        "contact": "联系我们"
+      }
     }
   }
 }

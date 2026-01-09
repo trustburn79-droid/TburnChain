@@ -20409,6 +20409,202 @@
         "bonusTitle": "紹介ボーナス",
         "bonusDesc": "紹介に成功した友達1人につき500ポイント、最大10人まで。"
       }
+    },
+    "referralPage": {
+      "nav": {
+        "home": "ホーム",
+        "howItWorks": "仕組み",
+        "tiers": "ティア",
+        "dashboard": "ダッシュボード",
+        "calculator": "計算機",
+        "leaderboard": "リーダーボード",
+        "faq": "FAQ"
+      },
+      "header": {
+        "connectWallet": "ウォレット接続",
+        "connecting": "接続中..."
+      },
+      "hero": {
+        "badge": "リファラルプログラム",
+        "title": "3億 TBURN",
+        "subtitle": "リファラル報酬",
+        "description": "友達をTBURN Chainに招待し、アクティビティからコミッションを獲得しましょう。高いティアで最大50%のコミッション率をアンロック！",
+        "stats": {
+          "totalParticipants": "総参加者",
+          "totalReferrals": "総リファラル",
+          "totalRewards": "総報酬配布 (TBURN)",
+          "activeReferrers": "アクティブリファラー"
+        },
+        "buttons": {
+          "getReferralLink": "リファラルリンク取得",
+          "viewDashboard": "ダッシュボード表示"
+        }
+      },
+      "howItWorks": {
+        "badge": "仕組み",
+        "title": "リファラルプログラムの仕組み",
+        "subtitle": "4つのステップで簡単に報酬を獲得",
+        "steps": {
+          "connect": {
+            "title": "ウォレット接続",
+            "desc": "MetaMaskまたは対応ウォレットを接続して、あなた専用の招待リンクを生成します。"
+          },
+          "share": {
+            "title": "リンク共有",
+            "desc": "SNS、コミュニティ、友達に招待リンクを共有しましょう。"
+          },
+          "activity": {
+            "title": "友達の活動",
+            "desc": "招待した友達がTBURN Chainで取引、ステーキングなどの活動をします。"
+          },
+          "earn": {
+            "title": "報酬受取",
+            "desc": "友達のアクティビティ手数料からリアルタイムでコミッションを受け取ります。"
+          }
+        }
+      },
+      "tiers": {
+        "badge": "ティアコミッション",
+        "title": "ティア別コミッション",
+        "subtitle": "招待実績に応じてティアが上がり、コミッション率が増加します",
+        "commission": "コミッション",
+        "referrals": "招待数",
+        "benefits": "特典"
+      },
+      "dashboard": {
+        "badge": "マイダッシュボード",
+        "title": "リファラルダッシュボード",
+        "subtitle": "招待状況と収益をリアルタイムで確認",
+        "currentTier": "現在のティア",
+        "myReferralLink": "マイ招待リンク",
+        "copy": "コピー",
+        "copied": "コピー済み!",
+        "share": {
+          "twitter": "Twitter",
+          "telegram": "Telegram",
+          "discord": "Discord",
+          "kakao": "KakaoTalk"
+        },
+        "stats": {
+          "totalInvites": "総招待数",
+          "activeUsers": "アクティブユーザー",
+          "totalEarned": "累計獲得 TBURN",
+          "totalDistributed": "総配布 TBURN"
+        },
+        "emptyState": "ウォレットを接続してリファラル活動を開始",
+        "connectButton": "ウォレット接続",
+        "toasts": {
+          "copied": "コピー完了",
+          "copiedDesc": "リファラルリンクがクリップボードにコピーされました。"
+        }
+      },
+      "calculator": {
+        "badge": "計算機",
+        "title": "報酬計算機",
+        "subtitle": "予想収益を事前に計算",
+        "input": {
+          "title": "条件入力",
+          "tier": "マイティア",
+          "referrals": "予想招待数（月）",
+          "volume": "被招待者平均月間取引量 ($)",
+          "price": "TBURN予想価格 ($)"
+        },
+        "result": {
+          "title": "予想収益",
+          "totalVolume": "総取引量（月）",
+          "tradingFee": "取引手数料 (0.1%)",
+          "myCommission": "マイコミッション",
+          "monthlyEarnings": "月間収益 (TBURN)",
+          "yearlyEarnings": "年間収益 (TBURN)",
+          "yearlyUsd": "予想年間収益 (USD)"
+        },
+        "disclaimer": "* 実際の収益は市場状況により異なる場合があります"
+      },
+      "leaderboard": {
+        "badge": "リーダーボード",
+        "title": "リファラルリーダーボード",
+        "subtitle": "トップリファラーのパフォーマンスを確認",
+        "topReferrers": "Top Referrers",
+        "filters": {
+          "all": "全期間",
+          "week": "今週",
+          "month": "今月"
+        },
+        "invites": "招待数",
+        "earnings": "総収益",
+        "viewAll": "全ランキングを見る",
+        "toasts": {
+          "allRank": "全ランキング",
+          "allRankDesc": "全期間のリファラルランキングを表示。",
+          "weekRank": "今週のランキング",
+          "weekRankDesc": "今週のリファラルランキング。(近日公開)",
+          "monthRank": "今月のランキング",
+          "monthRankDesc": "今月のリファラルランキング。(近日公開)",
+          "walletRequired": "ウォレット接続が必要",
+          "walletRequiredDesc": "全ランキングを見るにはウォレットを接続してください。",
+          "fullRankings": "全ランキング",
+          "fullRankingsDesc": "全ランキングページは近日公開。"
+        }
+      },
+      "faq": {
+        "badge": "FAQ",
+        "title": "よくある質問",
+        "subtitle": "リファラルプログラムに関するよくある質問への回答",
+        "q1": {
+          "question": "リファラル報酬プールの総額は？",
+          "answer": "リファラルプログラムの総報酬プールは3億TBURNです。これは総供給量100億TBURNの3%に相当します。TGE時に5%（1500万TBURN）がアンロックされ、残り95%は36ヶ月にわたり毎月約2.64%ずつ線形ベスティングされます。現在約4200万TBURNがリファラーに配布されています。"
+        },
+        "q2": {
+          "question": "コミッションはどう計算されますか？",
+          "answer": "あなたの紹介者がTBURN Chainで取引、ステーキング、ブリッジなどの活動で発生する手数料の一定割合をコミッションとして受け取ります。基本取引手数料は0.1%で、ティアに応じてその20-50%をコミッションとして受け取ります。例：紹介者が$1,000取引 → $1の手数料発生 → Goldティア(40%)で$0.40獲得"
+        },
+        "q3": {
+          "question": "ティアはどう上げられますか？",
+          "answer": "招待した友達の数に応じてティアが自動的に上がります。Bronze（0-9人、20%）、Silver（10-49人、30%）、Gold（50-199人、40%）、Diamond（200人+、50%）。ティアが上がるとコミッション率だけでなく、多層リファラル（2層、3層）特典も増加します。"
+        },
+        "q4": {
+          "question": "報酬はいつ受け取れますか？",
+          "answer": "リファラル報酬はリアルタイムで積み立てられ、累積報酬はいつでも引き出せます。最低引き出し額は100 TBURNで、少額のガス代（約0.001 TBURN）が差し引かれます。引き出しは接続されたウォレットに即座に送信されます。"
+        },
+        "q5": {
+          "question": "多層リファラルとは何ですか？",
+          "answer": "多層リファラルは、直接招待した人（1層）だけでなく、その人が招待した人（2層）やさらに先（3層）からもコミッションを獲得できるシステムです。Silver+で2層（5-10%）、Diamondで3層（15%）がアンロックされます。"
+        },
+        "q6": {
+          "question": "リファラルリンクはどこで取得できますか？",
+          "answer": "ウォレットを接続すると、固有のリファラルリンクとコードが自動生成されます。ダッシュボードで確認し、Twitter、Telegram、Discord、KakaoTalkなどで簡単に共有できます。対応ウォレット：MetaMask、Rabby、Trust Wallet、Coinbase Wallet、Ledger"
+        },
+        "q7": {
+          "question": "誰でもどこでも紹介できますか？",
+          "answer": "リファラルはグローバルに利用可能ですが、一部の制限地域（OFAC制裁国）は除外されます。詳細は資格セクションをご確認ください。"
+        },
+        "q8": {
+          "question": "不正対策はどうなっていますか？",
+          "answer": "システムはセルフリファラル、シビル攻撃、偽アカウントなどの不正を監視しています。検出された不正行為は即座にアカウント停止とすべての報酬没収につながります。"
+        }
+      },
+      "footer": {
+        "brand": "DeFiの未来のための最速で最も安全なブロックチェーン",
+        "products": "製品",
+        "scan": "エクスプローラー",
+        "dapp": "DApp",
+        "staking": "ステーキング",
+        "bridge": "ブリッジ",
+        "developers": "開発者",
+        "docs": "ドキュメント",
+        "api": "API",
+        "sdk": "SDK",
+        "github": "GitHub",
+        "resources": "リソース",
+        "whitepaper": "ホワイトペーパー",
+        "tokenomics": "トケノミクス",
+        "roadmap": "ロードマップ",
+        "faq": "FAQ",
+        "copyright": "© 2025-2045 TBURN Foundation. All Rights Reserved.",
+        "privacyPolicy": "プライバシーポリシー",
+        "termsOfService": "利用規約",
+        "contact": "お問い合わせ"
+      }
     }
   }
 }

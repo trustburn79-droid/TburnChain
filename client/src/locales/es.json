@@ -19472,6 +19472,202 @@
         "bonusTitle": "Bonus de referido",
         "bonusDesc": "500 puntos por cada amigo referido exitosamente, hasta 10 amigos."
       }
+    },
+    "referralPage": {
+      "nav": {
+        "home": "Inicio",
+        "howItWorks": "Cómo Funciona",
+        "tiers": "Niveles",
+        "dashboard": "Panel",
+        "calculator": "Calculadora",
+        "leaderboard": "Clasificación",
+        "faq": "FAQ"
+      },
+      "header": {
+        "connectWallet": "Conectar Billetera",
+        "connecting": "Conectando..."
+      },
+      "hero": {
+        "badge": "PROGRAMA DE REFERIDOS",
+        "title": "300M TBURN",
+        "subtitle": "Recompensas de Referidos",
+        "description": "Invita amigos a TBURN Chain y gana comisiones de sus actividades. ¡Niveles más altos desbloquean tasas de comisión de hasta 50%!",
+        "stats": {
+          "totalParticipants": "Participantes Totales",
+          "totalReferrals": "Referidos Totales",
+          "totalRewards": "Recompensas Totales (TBURN)",
+          "activeReferrers": "Referidores Activos"
+        },
+        "buttons": {
+          "getReferralLink": "Obtener Enlace de Referido",
+          "viewDashboard": "Ver Panel"
+        }
+      },
+      "howItWorks": {
+        "badge": "CÓMO FUNCIONA",
+        "title": "Cómo Funciona el Programa de Referidos",
+        "subtitle": "Gana recompensas en 4 simples pasos",
+        "steps": {
+          "connect": {
+            "title": "Conectar Billetera",
+            "desc": "Conecta MetaMask o billetera compatible para generar tu enlace de referido único."
+          },
+          "share": {
+            "title": "Compartir Enlace",
+            "desc": "Comparte tu enlace de referido en redes sociales, comunidades y con amigos."
+          },
+          "activity": {
+            "title": "Actividad de Amigos",
+            "desc": "Tus amigos referidos comercian, stakean y participan en TBURN Chain."
+          },
+          "earn": {
+            "title": "Ganar Recompensas",
+            "desc": "Recibe comisión de las tarifas de actividad de tus amigos en tiempo real."
+          }
+        }
+      },
+      "tiers": {
+        "badge": "COMISIÓN POR NIVEL",
+        "title": "Comisión por Nivel",
+        "subtitle": "Tu nivel aumenta con más referidos, desbloqueando tasas de comisión más altas",
+        "commission": "Comisión",
+        "referrals": "Referidos",
+        "benefits": "Beneficios"
+      },
+      "dashboard": {
+        "badge": "MI PANEL",
+        "title": "Panel de Referidos",
+        "subtitle": "Rastrea tu actividad de referidos y ganancias en tiempo real",
+        "currentTier": "Nivel Actual",
+        "myReferralLink": "Mi Enlace de Referido",
+        "copy": "Copiar",
+        "copied": "¡Copiado!",
+        "share": {
+          "twitter": "Twitter",
+          "telegram": "Telegram",
+          "discord": "Discord",
+          "kakao": "KakaoTalk"
+        },
+        "stats": {
+          "totalInvites": "Invitaciones Totales",
+          "activeUsers": "Usuarios Activos",
+          "totalEarned": "Total Ganado TBURN",
+          "totalDistributed": "Total Distribuido TBURN"
+        },
+        "emptyState": "Conecta tu billetera para comenzar actividades de referidos",
+        "connectButton": "Conectar Billetera",
+        "toasts": {
+          "copied": "Copiado",
+          "copiedDesc": "Enlace de referido copiado al portapapeles."
+        }
+      },
+      "calculator": {
+        "badge": "CALCULADORA",
+        "title": "Calculadora de Recompensas",
+        "subtitle": "Calcula tus ganancias estimadas por adelantado",
+        "input": {
+          "title": "Parámetros de Entrada",
+          "tier": "Mi Nivel",
+          "referrals": "Referidos Esperados (Mensual)",
+          "volume": "Volumen Mensual Promedio del Referido ($)",
+          "price": "Precio TBURN ($)"
+        },
+        "result": {
+          "title": "Ganancias Estimadas",
+          "totalVolume": "Volumen Total (Mensual)",
+          "tradingFee": "Tarifa de Trading (0.1%)",
+          "myCommission": "Mi Comisión",
+          "monthlyEarnings": "Ganancias Mensuales (TBURN)",
+          "yearlyEarnings": "Ganancias Anuales (TBURN)",
+          "yearlyUsd": "Ganancias Anuales Estimadas (USD)"
+        },
+        "disclaimer": "* Las ganancias reales pueden variar según las condiciones del mercado"
+      },
+      "leaderboard": {
+        "badge": "CLASIFICACIÓN",
+        "title": "Clasificación de Referidos",
+        "subtitle": "Consulta el rendimiento de los mejores referidores",
+        "topReferrers": "Top Referrers",
+        "filters": {
+          "all": "Todo el Tiempo",
+          "week": "Esta Semana",
+          "month": "Este Mes"
+        },
+        "invites": "Invitaciones",
+        "earnings": "Ganancias",
+        "viewAll": "Ver Todas las Clasificaciones",
+        "toasts": {
+          "allRank": "Todas las Clasificaciones",
+          "allRankDesc": "Mostrando clasificaciones de referidos de todos los tiempos.",
+          "weekRank": "Clasificación Semanal",
+          "weekRankDesc": "Clasificaciones de referidos semanales. (Próximamente)",
+          "monthRank": "Clasificación Mensual",
+          "monthRankDesc": "Clasificaciones de referidos mensuales. (Próximamente)",
+          "walletRequired": "Se Requiere Billetera",
+          "walletRequiredDesc": "Por favor conecta tu billetera para ver clasificaciones completas.",
+          "fullRankings": "Clasificaciones Completas",
+          "fullRankingsDesc": "Página de clasificaciones completas próximamente."
+        }
+      },
+      "faq": {
+        "badge": "FAQ",
+        "title": "Preguntas Frecuentes",
+        "subtitle": "Encuentra respuestas a preguntas comunes sobre el programa de referidos",
+        "q1": {
+          "question": "¿Cuál es el pool total de recompensas de referidos?",
+          "answer": "El pool total de recompensas del programa de referidos es 300M TBURN. Esto representa el 3% del suministro total de 10 mil millones de TBURN. El 5% (15M TBURN) se desbloquea en TGE, y el 95% restante se libera linealmente durante 36 meses a aproximadamente 2.64% por mes. Hasta ahora se han distribuido aproximadamente 42M TBURN a referidores."
+        },
+        "q2": {
+          "question": "¿Cómo se calcula la comisión?",
+          "answer": "Recibes comisión de las tarifas generadas cuando tus referidos comercian, stakean, puentean, etc. en TBURN Chain. La tarifa base de trading es 0.1%, y recibes 20-50% de esa tarifa como comisión según tu nivel. Ejemplo: Si un referido comercia $1,000 → tarifa de $1 generada → nivel Gold (40%) gana $0.40"
+        },
+        "q3": {
+          "question": "¿Cómo aumento mi nivel?",
+          "answer": "Tu nivel aumenta automáticamente según el número de amigos que invites. Bronze (0-9, 20%), Silver (10-49, 30%), Gold (50-199, 40%), Diamond (200+, 50%). Niveles más altos desbloquean no solo tasas de comisión más altas sino también beneficios de referidos multi-nivel (2do nivel, 3er nivel)."
+        },
+        "q4": {
+          "question": "¿Cuándo puedo recibir recompensas?",
+          "answer": "Las recompensas de referidos se acreditan en tiempo real, y las recompensas acumuladas se pueden retirar en cualquier momento. El retiro mínimo es 100 TBURN, con una pequeña tarifa de gas (~0.001 TBURN) deducida. Los retiros se envían instantáneamente a tu billetera conectada."
+        },
+        "q5": {
+          "question": "¿Qué es el referido multi-nivel?",
+          "answer": "El referido multi-nivel te permite ganar comisión no solo de personas que invitas directamente (1er nivel) sino también de sus referidos (2do nivel) y más allá (3er nivel). Silver+ desbloquea 2do nivel (5-10%), Diamond desbloquea 3er nivel (15%)."
+        },
+        "q6": {
+          "question": "¿Dónde obtengo mi enlace de referido?",
+          "answer": "Conecta tu billetera para generar automáticamente un enlace y código de referido único. Revisa tu panel para ver y compartir fácilmente en Twitter, Telegram, Discord, KakaoTalk, etc. Billeteras compatibles: MetaMask, Rabby, Trust Wallet, Coinbase Wallet, Ledger"
+        },
+        "q7": {
+          "question": "¿Puedo referir a cualquiera en cualquier lugar?",
+          "answer": "Los referidos están disponibles globalmente, pero algunas regiones restringidas (países sancionados por OFAC) están excluidas. Consulta la sección de elegibilidad para detalles."
+        },
+        "q8": {
+          "question": "¿Cómo se protege contra el fraude?",
+          "answer": "El sistema monitorea fraudes como auto-referidos, ataques Sybil y cuentas falsas. Las actividades fraudulentas detectadas resultarán en terminación inmediata de la cuenta y confiscación de todas las recompensas."
+        }
+      },
+      "footer": {
+        "brand": "La blockchain más rápida y segura para el futuro de DeFi",
+        "products": "Productos",
+        "scan": "Explorador",
+        "dapp": "DApp",
+        "staking": "Staking",
+        "bridge": "Puente",
+        "developers": "Desarrolladores",
+        "docs": "Documentación",
+        "api": "API",
+        "sdk": "SDK",
+        "github": "GitHub",
+        "resources": "Recursos",
+        "whitepaper": "Whitepaper",
+        "tokenomics": "Tokenomics",
+        "roadmap": "Hoja de Ruta",
+        "faq": "FAQ",
+        "copyright": "© 2025-2045 TBURN Foundation. Todos los Derechos Reservados.",
+        "privacyPolicy": "Política de Privacidad",
+        "termsOfService": "Términos de Servicio",
+        "contact": "Contacto"
+      }
     }
   }
 }

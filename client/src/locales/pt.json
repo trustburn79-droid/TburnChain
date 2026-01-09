@@ -17190,6 +17190,202 @@
         "bonusTitle": "Bônus de indicação",
         "bonusDesc": "500 pontos por cada amigo indicado com sucesso, até 10 amigos."
       }
+    },
+    "referralPage": {
+      "nav": {
+        "home": "Início",
+        "howItWorks": "Como Funciona",
+        "tiers": "Níveis",
+        "dashboard": "Painel",
+        "calculator": "Calculadora",
+        "leaderboard": "Classificação",
+        "faq": "FAQ"
+      },
+      "header": {
+        "connectWallet": "Conectar Carteira",
+        "connecting": "Conectando..."
+      },
+      "hero": {
+        "badge": "PROGRAMA DE INDICAÇÃO",
+        "title": "300M TBURN",
+        "subtitle": "Recompensas de Indicação",
+        "description": "Convide amigos para o TBURN Chain e ganhe comissões de suas atividades. Níveis mais altos desbloqueiam taxas de comissão de até 50%!",
+        "stats": {
+          "totalParticipants": "Total de Participantes",
+          "totalReferrals": "Total de Indicações",
+          "totalRewards": "Recompensas Totais (TBURN)",
+          "activeReferrers": "Indicadores Ativos"
+        },
+        "buttons": {
+          "getReferralLink": "Obter Link de Indicação",
+          "viewDashboard": "Ver Painel"
+        }
+      },
+      "howItWorks": {
+        "badge": "COMO FUNCIONA",
+        "title": "Como Funciona o Programa de Indicação",
+        "subtitle": "Ganhe recompensas em 4 passos simples",
+        "steps": {
+          "connect": {
+            "title": "Conectar Carteira",
+            "desc": "Conecte MetaMask ou carteira compatível para gerar seu link de indicação único."
+          },
+          "share": {
+            "title": "Compartilhar Link",
+            "desc": "Compartilhe seu link de indicação nas redes sociais, comunidades e com amigos."
+          },
+          "activity": {
+            "title": "Atividade de Amigos",
+            "desc": "Seus amigos indicados negociam, fazem stake e participam no TBURN Chain."
+          },
+          "earn": {
+            "title": "Ganhar Recompensas",
+            "desc": "Receba comissão das taxas de atividade de seus amigos em tempo real."
+          }
+        }
+      },
+      "tiers": {
+        "badge": "COMISSÃO POR NÍVEL",
+        "title": "Comissão por Nível",
+        "subtitle": "Seu nível aumenta com mais indicações, desbloqueando taxas de comissão mais altas",
+        "commission": "Comissão",
+        "referrals": "Indicações",
+        "benefits": "Benefícios"
+      },
+      "dashboard": {
+        "badge": "MEU PAINEL",
+        "title": "Painel de Indicação",
+        "subtitle": "Acompanhe sua atividade de indicação e ganhos em tempo real",
+        "currentTier": "Nível Atual",
+        "myReferralLink": "Meu Link de Indicação",
+        "copy": "Copiar",
+        "copied": "Copiado!",
+        "share": {
+          "twitter": "Twitter",
+          "telegram": "Telegram",
+          "discord": "Discord",
+          "kakao": "KakaoTalk"
+        },
+        "stats": {
+          "totalInvites": "Total de Convites",
+          "activeUsers": "Usuários Ativos",
+          "totalEarned": "Total Ganho TBURN",
+          "totalDistributed": "Total Distribuído TBURN"
+        },
+        "emptyState": "Conecte sua carteira para iniciar atividades de indicação",
+        "connectButton": "Conectar Carteira",
+        "toasts": {
+          "copied": "Copiado",
+          "copiedDesc": "Link de indicação copiado para a área de transferência."
+        }
+      },
+      "calculator": {
+        "badge": "CALCULADORA",
+        "title": "Calculadora de Recompensas",
+        "subtitle": "Calcule seus ganhos estimados antecipadamente",
+        "input": {
+          "title": "Parâmetros de Entrada",
+          "tier": "Meu Nível",
+          "referrals": "Indicações Esperadas (Mensal)",
+          "volume": "Volume Médio Mensal do Indicado ($)",
+          "price": "Preço TBURN ($)"
+        },
+        "result": {
+          "title": "Ganhos Estimados",
+          "totalVolume": "Volume Total (Mensal)",
+          "tradingFee": "Taxa de Negociação (0.1%)",
+          "myCommission": "Minha Comissão",
+          "monthlyEarnings": "Ganhos Mensais (TBURN)",
+          "yearlyEarnings": "Ganhos Anuais (TBURN)",
+          "yearlyUsd": "Ganhos Anuais Estimados (USD)"
+        },
+        "disclaimer": "* Os ganhos reais podem variar com base nas condições do mercado"
+      },
+      "leaderboard": {
+        "badge": "CLASSIFICAÇÃO",
+        "title": "Classificação de Indicação",
+        "subtitle": "Confira o desempenho dos melhores indicadores",
+        "topReferrers": "Top Referrers",
+        "filters": {
+          "all": "Todo o Tempo",
+          "week": "Esta Semana",
+          "month": "Este Mês"
+        },
+        "invites": "Convites",
+        "earnings": "Ganhos",
+        "viewAll": "Ver Todas as Classificações",
+        "toasts": {
+          "allRank": "Todas as Classificações",
+          "allRankDesc": "Mostrando classificações de indicação de todos os tempos.",
+          "weekRank": "Classificação Semanal",
+          "weekRankDesc": "Classificações de indicação semanais. (Em breve)",
+          "monthRank": "Classificação Mensal",
+          "monthRankDesc": "Classificações de indicação mensais. (Em breve)",
+          "walletRequired": "Carteira Necessária",
+          "walletRequiredDesc": "Por favor, conecte sua carteira para ver as classificações completas.",
+          "fullRankings": "Classificações Completas",
+          "fullRankingsDesc": "Página de classificações completas em breve."
+        }
+      },
+      "faq": {
+        "badge": "FAQ",
+        "title": "Perguntas Frequentes",
+        "subtitle": "Encontre respostas para perguntas comuns sobre o programa de indicação",
+        "q1": {
+          "question": "Qual é o pool total de recompensas de indicação?",
+          "answer": "O pool total de recompensas do programa de indicação é 300M TBURN. Isso representa 3% do fornecimento total de 10 bilhões de TBURN. 5% (15M TBURN) é desbloqueado no TGE, e os 95% restantes são liberados linearmente ao longo de 36 meses a aproximadamente 2.64% por mês. Cerca de 42M TBURN foram distribuídos para indicadores até agora."
+        },
+        "q2": {
+          "question": "Como a comissão é calculada?",
+          "answer": "Você recebe comissão das taxas geradas quando seus indicados negociam, fazem stake, bridge, etc. no TBURN Chain. A taxa base de negociação é 0.1%, e você recebe 20-50% dessa taxa como comissão com base no seu nível. Exemplo: Se um indicado negocia $1,000 → taxa de $1 gerada → nível Gold (40%) ganha $0.40"
+        },
+        "q3": {
+          "question": "Como aumento meu nível?",
+          "answer": "Seu nível aumenta automaticamente com base no número de amigos que você convida. Bronze (0-9, 20%), Silver (10-49, 30%), Gold (50-199, 40%), Diamond (200+, 50%). Níveis mais altos desbloqueiam não apenas taxas de comissão mais altas, mas também benefícios de indicação multi-nível (2º nível, 3º nível)."
+        },
+        "q4": {
+          "question": "Quando posso receber recompensas?",
+          "answer": "As recompensas de indicação são creditadas em tempo real, e as recompensas acumuladas podem ser sacadas a qualquer momento. O saque mínimo é 100 TBURN, com uma pequena taxa de gas (~0.001 TBURN) deduzida. Os saques são enviados instantaneamente para sua carteira conectada."
+        },
+        "q5": {
+          "question": "O que é indicação multi-nível?",
+          "answer": "A indicação multi-nível permite que você ganhe comissão não apenas de pessoas que você convida diretamente (1º nível), mas também de suas indicações (2º nível) e além (3º nível). Silver+ desbloqueia 2º nível (5-10%), Diamond desbloqueia 3º nível (15%)."
+        },
+        "q6": {
+          "question": "Onde obtenho meu link de indicação?",
+          "answer": "Conecte sua carteira para gerar automaticamente um link e código de indicação único. Verifique seu painel para ver e compartilhar facilmente no Twitter, Telegram, Discord, KakaoTalk, etc. Carteiras compatíveis: MetaMask, Rabby, Trust Wallet, Coinbase Wallet, Ledger"
+        },
+        "q7": {
+          "question": "Posso indicar qualquer pessoa em qualquer lugar?",
+          "answer": "As indicações estão disponíveis globalmente, mas algumas regiões restritas (países sancionados pela OFAC) estão excluídas. Consulte a seção de elegibilidade para detalhes."
+        },
+        "q8": {
+          "question": "Como a fraude é protegida?",
+          "answer": "O sistema monitora fraudes como auto-indicação, ataques Sybil e contas falsas. Atividades fraudulentas detectadas resultarão em encerramento imediato da conta e confisco de todas as recompensas."
+        }
+      },
+      "footer": {
+        "brand": "O blockchain mais rápido e seguro para o futuro do DeFi",
+        "products": "Produtos",
+        "scan": "Explorador",
+        "dapp": "DApp",
+        "staking": "Staking",
+        "bridge": "Ponte",
+        "developers": "Desenvolvedores",
+        "docs": "Documentação",
+        "api": "API",
+        "sdk": "SDK",
+        "github": "GitHub",
+        "resources": "Recursos",
+        "whitepaper": "Whitepaper",
+        "tokenomics": "Tokenomics",
+        "roadmap": "Roteiro",
+        "faq": "FAQ",
+        "copyright": "© 2025-2045 TBURN Foundation. Todos os Direitos Reservados.",
+        "privacyPolicy": "Política de Privacidade",
+        "termsOfService": "Termos de Serviço",
+        "contact": "Contato"
+      }
     }
   }
 }

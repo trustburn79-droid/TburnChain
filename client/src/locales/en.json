@@ -31234,6 +31234,202 @@
         "copied": "Copied!",
         "linkCopied": "Referral link copied to clipboard."
       }
+    },
+    "referralPage": {
+      "nav": {
+        "home": "Home",
+        "howItWorks": "How It Works",
+        "tiers": "Tiers",
+        "dashboard": "Dashboard",
+        "calculator": "Calculator",
+        "leaderboard": "Leaderboard",
+        "faq": "FAQ"
+      },
+      "header": {
+        "connectWallet": "Connect Wallet",
+        "connecting": "Connecting..."
+      },
+      "hero": {
+        "badge": "REFERRAL PROGRAM",
+        "title": "300M TBURN",
+        "subtitle": "Referral Rewards",
+        "description": "Invite friends to TBURN Chain and earn commissions from their activities. Higher tiers unlock higher commission rates up to 50%!",
+        "stats": {
+          "totalParticipants": "Total Participants",
+          "totalReferrals": "Total Referrals",
+          "totalRewards": "Total Rewards (TBURN)",
+          "activeReferrers": "Active Referrers"
+        },
+        "buttons": {
+          "getReferralLink": "Get Referral Link",
+          "viewDashboard": "View Dashboard"
+        }
+      },
+      "howItWorks": {
+        "badge": "HOW IT WORKS",
+        "title": "How the Referral Program Works",
+        "subtitle": "Earn rewards in 4 simple steps",
+        "steps": {
+          "connect": {
+            "title": "Connect Wallet",
+            "desc": "Connect MetaMask or supported wallet to generate your unique referral link."
+          },
+          "share": {
+            "title": "Share Link",
+            "desc": "Share your referral link on social media, communities, and with friends."
+          },
+          "activity": {
+            "title": "Friend Activity",
+            "desc": "Your referred friends trade, stake, and participate on TBURN Chain."
+          },
+          "earn": {
+            "title": "Earn Rewards",
+            "desc": "Receive commission from your friends' activity fees in real-time."
+          }
+        }
+      },
+      "tiers": {
+        "badge": "TIER COMMISSION",
+        "title": "Commission by Tier",
+        "subtitle": "Your tier increases with more referrals, unlocking higher commission rates",
+        "commission": "Commission",
+        "referrals": "Referrals",
+        "benefits": "Benefits"
+      },
+      "dashboard": {
+        "badge": "MY DASHBOARD",
+        "title": "Referral Dashboard",
+        "subtitle": "Track your referral activity and earnings in real-time",
+        "currentTier": "Current Tier",
+        "myReferralLink": "My Referral Link",
+        "copy": "Copy",
+        "copied": "Copied!",
+        "share": {
+          "twitter": "Twitter",
+          "telegram": "Telegram",
+          "discord": "Discord",
+          "kakao": "KakaoTalk"
+        },
+        "stats": {
+          "totalInvites": "Total Invites",
+          "activeUsers": "Active Users",
+          "totalEarned": "Total Earned TBURN",
+          "totalDistributed": "Total Distributed TBURN"
+        },
+        "emptyState": "Connect your wallet to start referral activities",
+        "connectButton": "Connect Wallet",
+        "toasts": {
+          "copied": "Copied",
+          "copiedDesc": "Referral link copied to clipboard."
+        }
+      },
+      "calculator": {
+        "badge": "CALCULATOR",
+        "title": "Rewards Calculator",
+        "subtitle": "Calculate your estimated earnings in advance",
+        "input": {
+          "title": "Input Parameters",
+          "tier": "My Tier",
+          "referrals": "Expected Referrals (Monthly)",
+          "volume": "Referee Avg Monthly Volume ($)",
+          "price": "TBURN Price ($)"
+        },
+        "result": {
+          "title": "Estimated Earnings",
+          "totalVolume": "Total Volume (Monthly)",
+          "tradingFee": "Trading Fee (0.1%)",
+          "myCommission": "My Commission",
+          "monthlyEarnings": "Monthly Earnings (TBURN)",
+          "yearlyEarnings": "Yearly Earnings (TBURN)",
+          "yearlyUsd": "Estimated Yearly Earnings (USD)"
+        },
+        "disclaimer": "* Actual earnings may vary based on market conditions"
+      },
+      "leaderboard": {
+        "badge": "LEADERBOARD",
+        "title": "Referral Leaderboard",
+        "subtitle": "Check top referrers' performance",
+        "topReferrers": "Top Referrers",
+        "filters": {
+          "all": "All Time",
+          "week": "This Week",
+          "month": "This Month"
+        },
+        "invites": "Invites",
+        "earnings": "Earnings",
+        "viewAll": "View All Rankings",
+        "toasts": {
+          "allRank": "All Rankings",
+          "allRankDesc": "Showing all-time referral rankings.",
+          "weekRank": "Weekly Rankings",
+          "weekRankDesc": "Weekly referral rankings. (Coming Soon)",
+          "monthRank": "Monthly Rankings",
+          "monthRankDesc": "Monthly referral rankings. (Coming Soon)",
+          "walletRequired": "Wallet Required",
+          "walletRequiredDesc": "Please connect your wallet to view full rankings.",
+          "fullRankings": "Full Rankings",
+          "fullRankingsDesc": "Full rankings page coming soon."
+        }
+      },
+      "faq": {
+        "badge": "FAQ",
+        "title": "Frequently Asked Questions",
+        "subtitle": "Find answers to common questions about the referral program",
+        "q1": {
+          "question": "What is the total referral rewards pool?",
+          "answer": "The referral program total rewards pool is 300M TBURN. This represents 3% of the total 10 billion TBURN supply. 5% (15M TBURN) is unlocked at TGE, and the remaining 95% vests linearly over 36 months at approximately 2.64% per month. About 42M TBURN has been distributed to referrers so far."
+        },
+        "q2": {
+          "question": "How is commission calculated?",
+          "answer": "You receive commission from fees generated when your referrals trade, stake, bridge, etc. on TBURN Chain. The base trading fee is 0.1%, and you receive 20-50% of that fee as commission based on your tier. Example: If a referral trades $1,000 → $1 fee generated → Gold tier (40%) earns $0.40"
+        },
+        "q3": {
+          "question": "How do I increase my tier?",
+          "answer": "Your tier automatically increases based on the number of friends you invite. Bronze (0-9, 20%), Silver (10-49, 30%), Gold (50-199, 40%), Diamond (200+, 50%). Higher tiers unlock not only higher commission rates but also multi-tier referral benefits (2nd level, 3rd level)."
+        },
+        "q4": {
+          "question": "When can I receive rewards?",
+          "answer": "Referral rewards are credited in real-time, and accumulated rewards can be withdrawn anytime. Minimum withdrawal is 100 TBURN, with a small gas fee (~0.001 TBURN) deducted. Withdrawals are sent instantly to your connected wallet."
+        },
+        "q5": {
+          "question": "What is multi-tier referral?",
+          "answer": "Multi-tier referral allows you to earn commission not only from people you directly invite (1st level) but also from their referrals (2nd level) and beyond (3rd level). Silver+ unlocks 2nd level (5-10%), Diamond unlocks 3rd level (15%)."
+        },
+        "q6": {
+          "question": "Where do I get my referral link?",
+          "answer": "Connect your wallet to automatically generate a unique referral link and code. Check your dashboard to view and easily share on Twitter, Telegram, Discord, KakaoTalk, etc. Supported wallets: MetaMask, Rabby, Trust Wallet, Coinbase Wallet, Ledger"
+        },
+        "q7": {
+          "question": "Can I refer to anyone anywhere?",
+          "answer": "Referrals are available globally, but some restricted regions (OFAC sanctioned countries) are excluded. Check the eligibility section for details."
+        },
+        "q8": {
+          "question": "How is anti-fraud protected?",
+          "answer": "The system monitors for fraud such as self-referral, Sybil attacks, and fake accounts. Detected fraudulent activities will result in immediate account termination and forfeiture of all rewards."
+        }
+      },
+      "footer": {
+        "brand": "The fastest and most secure blockchain for the future of DeFi",
+        "products": "Products",
+        "scan": "Explorer",
+        "dapp": "DApp",
+        "staking": "Staking",
+        "bridge": "Bridge",
+        "developers": "Developers",
+        "docs": "Documentation",
+        "api": "API",
+        "sdk": "SDK",
+        "github": "GitHub",
+        "resources": "Resources",
+        "whitepaper": "Whitepaper",
+        "tokenomics": "Tokenomics",
+        "roadmap": "Roadmap",
+        "faq": "FAQ",
+        "copyright": "© 2025-2045 TBURN Foundation. All Rights Reserved.",
+        "privacyPolicy": "Privacy Policy",
+        "termsOfService": "Terms of Service",
+        "contact": "Contact"
+      }
     }
   }
 }
