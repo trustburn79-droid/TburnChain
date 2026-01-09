@@ -13,6 +13,8 @@ function Loading() {
 const Validators = lazy(() => import("../pages/network/Validators"));
 const RpcProviders = lazy(() => import("../pages/network/RpcProviders"));
 const TestnetRpcProviders = lazy(() => import("../pages/network/TestnetRpcProviders"));
+const WebSocketMainnet = lazy(() => import("../pages/network/WebSocketMainnet"));
+const WebSocketTestnet = lazy(() => import("../pages/network/WebSocketTestnet"));
 const NetworkStatus = lazy(() => import("../pages/network/NetworkStatus"));
 const Ramp = lazy(() => import("../pages/network/Ramp"));
 const ValidatorCommandCenter = lazy(() => import("@/pages/validator"));
@@ -34,6 +36,10 @@ export default function NetworkRoutes() {
         <Route path="/rpc" component={RpcProviders} />
         <Route path="/network/testnet-rpc" component={TestnetRpcProviders} />
         <Route path="/testnet-rpc" component={TestnetRpcProviders} />
+        <Route path="/ws" component={WebSocketMainnet} />
+        <Route path="/network/ws" component={WebSocketMainnet} />
+        <Route path="/testnet-ws" component={WebSocketTestnet} />
+        <Route path="/network/testnet-ws" component={WebSocketTestnet} />
         <Route path="/network/status" component={NetworkStatus} />
         <Route path="/network/ramp" component={Ramp} />
         <Route component={NotFound} />

@@ -262,6 +262,8 @@ async function safeInitApp() {
                           path.startsWith("/legal") ||
                           path.startsWith("/rpc") ||
                           path.startsWith("/testnet-rpc") ||
+                          path === "/ws" ||
+                          path === "/testnet-ws" ||
                           path.startsWith("/testnet-scan") ||
                           path === "/brand" ||
                           path === "/token-generator" ||

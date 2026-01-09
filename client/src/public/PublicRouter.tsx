@@ -407,6 +407,30 @@ export function PublicRouter() {
     );
   }
 
+  if (location === "/ws" || location === "/network/ws") {
+    return (
+      <ErrorBoundary>
+        <PublicLayout>
+          <Suspense fallback={<PageLoading />}>
+            <NetworkRoutes />
+          </Suspense>
+        </PublicLayout>
+      </ErrorBoundary>
+    );
+  }
+
+  if (location === "/testnet-ws" || location === "/network/testnet-ws") {
+    return (
+      <ErrorBoundary>
+        <PublicLayout>
+          <Suspense fallback={<PageLoading />}>
+            <NetworkRoutes />
+          </Suspense>
+        </PublicLayout>
+      </ErrorBoundary>
+    );
+  }
+
   if (location === "/validator") {
     return (
       <ErrorBoundary>
