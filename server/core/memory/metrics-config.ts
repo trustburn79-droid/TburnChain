@@ -55,9 +55,10 @@ export const METRICS_CONFIG = {
     AGGREGATED_1D: isLargeEnv ? 365 * 24 * 60 * 60 * 1000 : 7 * 24 * 60 * 60 * 1000,
   },
   
-  // 메모리 한도 (자동 스케일링) - 프로덕션 안정성을 위해 더 작은 한도
-  MAX_MEMORY_MB: isLargeEnv ? 2048 : 30,
-  MAX_DATAPOINTS: isLargeEnv ? 50000 : 100,
+  // 메모리 한도 (자동 스케일링) - V8 힙 기준으로 합리적인 한도 설정
+  // DEV_SAFE_MODE에서도 V8 힙의 50%를 메트릭 한도로 사용 (최소 512MB)
+  MAX_MEMORY_MB: isLargeEnv ? 2048 : Math.max(Math.floor(v8HeapLimitMB * 0.5), 512),
+  MAX_DATAPOINTS: isLargeEnv ? 50000 : 500,
   
   // 블록 캐시 설정 (자동 스케일링) - 프로덕션 안정성을 위해 대폭 축소
   BLOCK_CACHE: {
