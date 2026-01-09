@@ -31,6 +31,7 @@ const AirdropPage = lazyWithRetry(() => import("@/pages/airdrop"));
 const AirdropClaimPage = lazyWithRetry(() => import("@/pages/airdrop-claim"));
 const ReferralPage = lazyWithRetry(() => import("@/pages/referral"));
 const EventsPage = lazyWithRetry(() => import("@/pages/events"));
+const FoundersPage = lazyWithRetry(() => import("@/pages/founders"));
 const CommunityProgramPage = lazyWithRetry(() => import("@/pages/community-program"));
 const DAOGovernancePage = lazyWithRetry(() => import("@/pages/dao-governance"));
 const BlockRewardsPage = lazyWithRetry(() => import("@/pages/block-rewards"));
@@ -164,6 +165,16 @@ export function PublicRouter() {
       <ErrorBoundary>
         <Suspense fallback={<PageLoading />}>
           <EventsPage />
+        </Suspense>
+      </ErrorBoundary>
+    );
+  }
+  
+  if (location === "/founders") {
+    return (
+      <ErrorBoundary>
+        <Suspense fallback={<PageLoading />}>
+          <FoundersPage />
         </Suspense>
       </ErrorBoundary>
     );
