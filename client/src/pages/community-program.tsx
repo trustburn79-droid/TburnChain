@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { TBurnLogo } from "@/components/tburn-logo";
 import { useWeb3 } from "@/lib/web3-context";
 import { useToast } from "@/hooks/use-toast";
+import { LanguageSelector } from "@/components/LanguageSelector";
 
 interface CommunityStatsData {
   totalContributors: number;
@@ -192,6 +193,12 @@ export default function CommunityProgramPage() {
         }
 
         .nav-links a:hover { color: var(--cyan); }
+
+        .header-actions {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+        }
 
         .connect-btn {
           background: var(--gradient-community);
@@ -1046,13 +1053,16 @@ export default function CommunityProgramPage() {
               data-testid="nav-faq"
             >FAQ</a>
           </nav>
-          <button 
-            className="connect-btn" 
-            data-testid="button-connect-wallet"
-            onClick={handleWalletClick}
-          >
-            {isConnected && address ? `🔗 ${formatAddress(address)}` : '🔗 지갑 연결'}
-          </button>
+          <div className="header-actions">
+            <LanguageSelector isDark={true} />
+            <button 
+              className="connect-btn" 
+              data-testid="button-connect-wallet"
+              onClick={handleWalletClick}
+            >
+              {isConnected && address ? `🔗 ${formatAddress(address)}` : '🔗 지갑 연결'}
+            </button>
+          </div>
         </div>
       </header>
 

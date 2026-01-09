@@ -1,8 +1,10 @@
 import { useState } from "react";
+import { Link } from "wouter";
 import { TBurnLogo } from "@/components/tburn-logo";
 import { useQuery } from "@tanstack/react-query";
 import { useWeb3 } from "@/lib/web3-context";
 import { useToast } from "@/hooks/use-toast";
+import { LanguageSelector } from "@/components/LanguageSelector";
 
 interface PartnershipStatsData {
   partnerships: {
@@ -254,6 +256,12 @@ export default function MarketingProgramPage() {
         .nav-links { display: flex; gap: 2rem; align-items: center; }
         .nav-links a { color: var(--light-gray); text-decoration: none; font-weight: 500; transition: color 0.3s; }
         .nav-links a:hover { color: var(--pink); }
+
+        .header-actions {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+        }
 
         .connect-btn {
           background: var(--gradient-marketing);
@@ -1025,13 +1033,16 @@ export default function MarketingProgramPage() {
               data-testid="nav-faq"
             >FAQ</a>
           </nav>
-          <button 
-            className="connect-btn" 
-            data-testid="button-connect-wallet"
-            onClick={handleWalletClick}
-          >
-            {isConnected ? `${formatAddress(address || '')}` : '지갑 연결'}
-          </button>
+          <div className="header-actions">
+            <LanguageSelector isDark={true} />
+            <button 
+              className="connect-btn" 
+              data-testid="button-connect-wallet"
+              onClick={handleWalletClick}
+            >
+              {isConnected ? `${formatAddress(address || '')}` : '지갑 연결'}
+            </button>
+          </div>
         </div>
       </header>
 

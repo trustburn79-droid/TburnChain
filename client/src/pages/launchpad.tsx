@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
+import { Link } from "wouter";
 import { TBurnLogo } from "@/components/tburn-logo";
 import { useQuery } from "@tanstack/react-query";
 import { useWeb3 } from "@/lib/web3-context";
 import { useToast } from "@/hooks/use-toast";
+import { LanguageSelector } from "@/components/LanguageSelector";
 
 interface LaunchpadPlatform {
   name: string;
@@ -291,6 +293,12 @@ export default function LaunchpadPage() {
         .header-stat .label { font-size: 0.7rem; color: var(--gray); text-transform: uppercase; }
         .header-stat .value { font-size: 0.9rem; font-weight: 700; color: var(--white); }
         .header-stat .value.live { color: var(--success); }
+
+        .header-actions {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+        }
 
         .wallet-btn {
           display: flex;
@@ -1044,13 +1052,16 @@ export default function LaunchpadPage() {
               </div>
             </div>
 
-            <button 
-              className={`wallet-btn ${isConnected ? 'connected' : ''}`}
-              onClick={handleWalletClick}
-              data-testid="button-wallet-connect"
-            >
-              {isConnected ? formatAddress(address || '') : '지갑 연결'}
-            </button>
+            <div className="header-actions">
+              <LanguageSelector isDark={true} />
+              <button 
+                className={`wallet-btn ${isConnected ? 'connected' : ''}`}
+                onClick={handleWalletClick}
+                data-testid="button-wallet-connect"
+              >
+                {isConnected ? formatAddress(address || '') : '지갑 연결'}
+              </button>
+            </div>
           </div>
         </div>
       </header>

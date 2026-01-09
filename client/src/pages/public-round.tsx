@@ -10,6 +10,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
+import { LanguageSelector } from "@/components/LanguageSelector";
 
 interface InvestmentRound {
   name: string;
@@ -236,6 +237,12 @@ export default function PublicRoundPage() {
         .nav-links { display: flex; gap: 2rem; align-items: center; }
         .nav-links a { color: var(--light-gray); text-decoration: none; font-weight: 500; transition: color 0.3s; }
         .nav-links a:hover { color: var(--public-primary); }
+
+        .header-actions {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+        }
 
         .connect-btn {
           background: var(--gradient-public);
@@ -1094,13 +1101,16 @@ export default function PublicRoundPage() {
             <a href="#calculator">계산기</a>
             <a href="#faq">FAQ</a>
           </nav>
-          <button 
-            className="connect-btn" 
-            onClick={handleWalletClick}
-            data-testid="button-connect-wallet"
-          >
-            {isConnected ? formatAddress(address!) : "🚀 지금 참여하기"}
-          </button>
+          <div className="header-actions">
+            <LanguageSelector isDark={true} />
+            <button 
+              className="connect-btn" 
+              onClick={handleWalletClick}
+              data-testid="button-connect-wallet"
+            >
+              {isConnected ? formatAddress(address!) : "🚀 지금 참여하기"}
+            </button>
+          </div>
         </div>
       </header>
 

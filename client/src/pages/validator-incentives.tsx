@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { TBurnLogo } from "@/components/tburn-logo";
 import { useWeb3 } from "@/lib/web3-context";
 import { useToast } from "@/hooks/use-toast";
+import { LanguageSelector } from "@/components/LanguageSelector";
 
 interface ValidatorStatsData {
   totalValidators: number;
@@ -262,6 +263,12 @@ export default function ValidatorIncentivesPage() {
         }
 
         .nav-links a:hover { color: var(--orange); }
+
+        .header-actions {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+        }
 
         .connect-btn {
           background: var(--gradient-validator);
@@ -1120,13 +1127,16 @@ export default function ValidatorIncentivesPage() {
             <a href="#leaderboard" onClick={(e) => { e.preventDefault(); scrollToSection('leaderboard'); }} data-testid="nav-leaderboard">리더보드</a>
             <a href="#faq" onClick={(e) => { e.preventDefault(); scrollToSection('faq'); }} data-testid="nav-faq">FAQ</a>
           </nav>
-          <button 
-            className="connect-btn" 
-            data-testid="button-connect-wallet"
-            onClick={handleWalletClick}
-          >
-            {isConnected && address ? `🔗 ${formatAddress(address)}` : '🔗 지갑 연결'}
-          </button>
+          <div className="header-actions">
+            <LanguageSelector isDark={true} />
+            <button 
+              className="connect-btn" 
+              data-testid="button-connect-wallet"
+              onClick={handleWalletClick}
+            >
+              {isConnected && address ? `🔗 ${formatAddress(address)}` : '🔗 지갑 연결'}
+            </button>
+          </div>
         </div>
       </header>
 

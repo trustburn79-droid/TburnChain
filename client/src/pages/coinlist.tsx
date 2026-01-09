@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
+import { Link } from "wouter";
 import { useQuery } from "@tanstack/react-query";
 import { useWeb3 } from "@/lib/web3-context";
 import { useToast } from "@/hooks/use-toast";
+import { LanguageSelector } from "@/components/LanguageSelector";
 
 interface LaunchpadPlatform {
   name: string;
@@ -338,6 +340,12 @@ export default function CoinListPage() {
 
         .cl-balance .icon { color: var(--coinlist-primary); }
         .cl-balance .amount { font-weight: 700; }
+
+        .header-actions {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+        }
 
         .cl-user-menu {
           display: flex;
@@ -1151,17 +1159,20 @@ export default function CoinListPage() {
               <span className="icon">💰</span>
               <span className="amount">$5,000.00</span>
             </div>
-            <button 
-              className="cl-user-menu"
-              onClick={handleWalletClick}
-              data-testid="button-wallet-connect"
-            >
-              <div className="cl-user-avatar">{isConnected ? formatAddress(address || '').slice(0, 2).toUpperCase() : 'CL'}</div>
-              <div className="cl-user-info">
-                <div className="name">{isConnected ? formatAddress(address || '') : '지갑 연결'}</div>
-                <div className="level">{isConnected ? 'Connected' : 'Click to connect'}</div>
-              </div>
-            </button>
+            <div className="header-actions">
+              <LanguageSelector isDark={true} />
+              <button 
+                className="cl-user-menu"
+                onClick={handleWalletClick}
+                data-testid="button-wallet-connect"
+              >
+                <div className="cl-user-avatar">{isConnected ? formatAddress(address || '').slice(0, 2).toUpperCase() : 'CL'}</div>
+                <div className="cl-user-info">
+                  <div className="name">{isConnected ? formatAddress(address || '') : '지갑 연결'}</div>
+                  <div className="level">{isConnected ? 'Connected' : 'Click to connect'}</div>
+                </div>
+              </button>
+            </div>
           </div>
         </div>
       </header>

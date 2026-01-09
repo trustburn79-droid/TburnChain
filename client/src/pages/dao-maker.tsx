@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
+import { Link } from "wouter";
 import { useQuery } from "@tanstack/react-query";
 import { useWeb3 } from "@/lib/web3-context";
 import { useToast } from "@/hooks/use-toast";
+import { LanguageSelector } from "@/components/LanguageSelector";
 
 interface LaunchpadPlatform {
   name: string;
@@ -352,6 +354,12 @@ export default function DAOMakerPage() {
         .dm-power-badge .icon { font-size: 1rem; color: var(--dao-secondary); }
         .dm-power-badge .label { font-size: 0.75rem; color: var(--dao-text-muted); }
         .dm-power-badge .value { font-size: 0.9rem; font-weight: 700; color: var(--dao-secondary); }
+
+        .header-actions {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+        }
 
         .dm-connect-btn {
           display: flex;
@@ -1152,13 +1160,16 @@ export default function DAOMakerPage() {
                 <div className="value">12,500</div>
               </div>
             </div>
-            <button 
-              className="dm-connect-btn"
-              onClick={handleWalletClick}
-              data-testid="button-wallet-connect"
-            >
-              💳 {isConnected ? formatAddress(address || '') : '지갑 연결'}
-            </button>
+            <div className="header-actions">
+              <LanguageSelector isDark={true} />
+              <button 
+                className="dm-connect-btn"
+                onClick={handleWalletClick}
+                data-testid="button-wallet-connect"
+              >
+                💳 {isConnected ? formatAddress(address || '') : '지갑 연결'}
+              </button>
+            </div>
           </div>
         </div>
       </header>

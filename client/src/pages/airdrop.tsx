@@ -9,6 +9,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
+import { LanguageSelector } from "@/components/LanguageSelector";
 
 interface AirdropPhase {
   id: string;
@@ -248,6 +249,12 @@ export default function AirdropPage() {
 
         .nav-links a:hover {
           color: var(--gold);
+        }
+
+        .header-actions {
+          display: flex;
+          align-items: center;
+          gap: 12px;
         }
 
         .connect-btn {
@@ -1020,14 +1027,17 @@ export default function AirdropPage() {
             <a href="#timeline">일정</a>
             <a href="#faq">FAQ</a>
           </nav>
-          <button 
-            className="connect-btn" 
-            data-testid="button-connect-wallet"
-            onClick={handleConnectWallet}
-          >
-            <i className="fas fa-wallet"></i> 
-            {isConnected && address ? formatAddress(address) : '지갑 연결'}
-          </button>
+          <div className="header-actions">
+            <LanguageSelector isDark={true} />
+            <button 
+              className="connect-btn" 
+              data-testid="button-connect-wallet"
+              onClick={handleConnectWallet}
+            >
+              <i className="fas fa-wallet"></i> 
+              {isConnected && address ? formatAddress(address) : '지갑 연결'}
+            </button>
+          </div>
         </div>
       </header>
 

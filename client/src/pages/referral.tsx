@@ -5,6 +5,7 @@ import { TBurnLogo } from "@/components/tburn-logo";
 import { useWeb3 } from "@/lib/web3-context";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
+import { LanguageSelector } from "@/components/LanguageSelector";
 
 interface ReferralStats {
   success: boolean;
@@ -252,6 +253,12 @@ export default function ReferralPage() {
         }
 
         .nav-links a:hover { color: var(--gold); }
+
+        .header-actions {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+        }
 
         .connect-btn {
           background: var(--gradient-gold);
@@ -1228,14 +1235,17 @@ export default function ReferralPage() {
               data-testid="nav-leaderboard"
             >리더보드</a>
           </nav>
-          <button 
-            className={`connect-btn ${isConnected ? 'connected' : ''}`} 
-            onClick={handleConnectWallet}
-            disabled={isConnecting}
-            data-testid="button-connect-wallet"
-          >
-            {isConnecting ? '연결 중...' : isConnected ? `${formatAddress(address || '')}` : '🔗 지갑 연결'}
-          </button>
+          <div className="header-actions">
+            <LanguageSelector isDark={true} />
+            <button 
+              className={`connect-btn ${isConnected ? 'connected' : ''}`} 
+              onClick={handleConnectWallet}
+              disabled={isConnecting}
+              data-testid="button-connect-wallet"
+            >
+              {isConnecting ? '연결 중...' : isConnected ? `${formatAddress(address || '')}` : '🔗 지갑 연결'}
+            </button>
+          </div>
         </div>
       </header>
 
