@@ -251,11 +251,64 @@ export default async function runAppServices(
   // Pass existing server for WebSocket support
   await registerRoutes(app, server);
 
-  // Error handler
-  app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
+  // ★ [2026-01-09 CRITICAL FIX] Enhanced global error handler
+  // Differentiates RPC connectivity errors (503) from application errors (500)
+  // Provides detailed logging for debugging while returning safe messages to clients
+  app.use((err: any, req: Request, res: Response, _next: NextFunction) => {
+    const errorMessage = err.message || "Unknown error";
+    const requestId = `err_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+    
+    // RPC/Network connectivity errors - return 503 Service Unavailable
+    const RPC_ERROR_PATTERNS = [
+      'ECONNREFUSED', 'ETIMEDOUT', 'ENOTFOUND', 'ENETUNREACH',
+      'EHOSTUNREACH', 'ECONNRESET', 'socket hang up', 'network timeout'
+    ];
+    const isRpcError = RPC_ERROR_PATTERNS.some(pattern => errorMessage.includes(pattern));
+    
+    // Rate limit errors - return 429
+    const isRateLimitError = err.isRateLimited || err.statusCode === 429 || 
+      errorMessage.includes('Rate Limited') || errorMessage.includes('429');
+    
+    if (isRpcError) {
+      console.log(`[Error:503] RPC connectivity error on ${req.method} ${req.path}: ${errorMessage} [${requestId}]`);
+      return res.status(503).json({
+        error: 'Service temporarily unavailable',
+        message: 'The blockchain node is currently unreachable. Please try again later.',
+        degraded: true,
+        retryAfter: 30,
+        requestId
+      });
+    }
+    
+    if (isRateLimitError) {
+      const retryAfter = err.retryAfter || 30;
+      console.log(`[Error:429] Rate limited on ${req.method} ${req.path}: ${errorMessage} [${requestId}]`);
+      return res.status(429).json({
+        error: 'Too many requests',
+        message: 'Please wait before making more requests.',
+        retryAfter,
+        requestId
+      });
+    }
+    
+    // Application errors - return appropriate status
     const status = err.status || err.statusCode || 500;
-    const message = err.message || "Internal Server Error";
-    res.status(status).json({ message });
+    
+    // Log detailed error for debugging (server-side only)
+    console.error(`[Error:${status}] ${req.method} ${req.path}: ${errorMessage} [${requestId}]`);
+    if (err.stack && process.env.NODE_ENV === 'development') {
+      console.error(`Stack trace [${requestId}]:`, err.stack);
+    }
+    
+    // Return safe message to client (no internal details exposed)
+    const safeMessage = status === 500 
+      ? 'An unexpected error occurred. Please try again later.'
+      : errorMessage;
+    
+    return res.status(status).json({ 
+      error: safeMessage,
+      requestId 
+    });
   });
 
   log(`✅ All API routes registered`, "services");
