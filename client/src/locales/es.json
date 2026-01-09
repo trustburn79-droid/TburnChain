@@ -19413,7 +19413,19 @@
           "answer": "Los usuarios que poseen TBURN Genesis NFT reciben un bonus de puntos 2x."
         },
         "badge": "FAQ",
-        "subtitle": "Consulta las respuestas a preguntas comunes sobre el airdrop"
+        "subtitle": "Consulta las respuestas a preguntas comunes sobre el airdrop",
+        "q6": {
+          "question": "¿Cuántos puntos obtengo por completar tareas?",
+          "answer": "Puntos por tarea: Requeridas - Conexión de billetera(500P), Verificación de email(300P), Unirse a Telegram(400P). Sociales - Seguir X(200P), Retuitear(300P), Unirse a Discord(400P). Bonus - Genesis NFT(2,000P), Invitar amigos(máx 5,000P), Testnet(3,000P)."
+        },
+        "q7": {
+          "question": "¿Cómo funciona el bonus de NFT?",
+          "answer": "Los poseedores de TBURN Genesis NFT reciben un bonus 2x en su asignación de airdrop. La verificación de NFT es automática al conectar la billetera."
+        },
+        "q8": {
+          "question": "¿Hay regiones o condiciones restringidas?",
+          "answer": "Algunas regiones están restringidas por cumplimiento regulatorio. Restringidas: EE.UU., China, Corea del Norte, Irán, Siria, Cuba y otros países sancionados por OFAC."
+        }
       },
       "footer": {
         "products": "Productos",
