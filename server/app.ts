@@ -769,6 +769,25 @@ export default async function runApp(
     
     // crashDiagnostics에 로그 기록
     crashDiagnostics.log(`Express Error ${status}: ${message} at ${req.method} ${req.path}`, 'error');
+
+    // ★ [2026-01-09] Self-healing: Trigger memory cleanup on repeated errors
+    try {
+      const mem = process.memoryUsage();
+      let heapLimitBytes = 8240 * 1024 * 1024;
+      try {
+        const v8Mod = require('v8');
+        heapLimitBytes = v8Mod.getHeapStatistics().heap_size_limit;
+      } catch {}
+      const heapRatio = mem.heapUsed / heapLimitBytes;
+      
+      // If heap is over 75%, request GC to prevent OOM crashes
+      if (heapRatio > 0.75 && global.gc) {
+        console.warn('[SelfHealing] High heap usage during error, requesting GC...');
+        global.gc();
+      }
+    } catch (selfHealErr) {
+      // Silent - don't fail error handler due to self-healing
+    }
     
     // 응답이 이미 전송된 경우 무시
     if (res.headersSent) {

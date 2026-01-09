@@ -21,9 +21,7 @@ router.get('/status', (_req: Request, res: Response) => {
     const alertStats = alertingService.getAlertStats();
     
     const statusCode = 
-      healthCheck.status === 'critical' ? 503 :
-      healthCheck.status === 'unhealthy' ? 500 :
-      healthCheck.status === 'degraded' ? 200 : 200;
+      healthCheck.status === 'critical' ? 503 : 200; // ★ [2026-01-09] Always return 200 for health data //
     
     res.status(statusCode).json({
       success: true,

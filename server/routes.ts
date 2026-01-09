@@ -131,6 +131,8 @@ const jobQueue: Array<{ name: string; callback: () => Promise<void>; addedAt: nu
 let isProcessingQueue = false;
 
 // ★ 메모리 보호 상수
+
+
 const MAX_JOB_QUEUE_SIZE = 50; // 최대 50개 작업까지만 유지
 const JOB_TTL_MS = 60000; // 60초 이상 된 작업은 삭제
 const MEMORY_PRESSURE_THRESHOLD = 0.85; // 85% 힙 사용 시 비필수 작업 삭제
@@ -181,6 +183,20 @@ function cleanupJobQueue(): void {
   }
 }
 
+// ★ [2026-01-09] Reset isRunning state for jobs that won't be executed
+function resetStuckJobStates(): void {
+  const now = Date.now();
+  const staleThresholdMs = 120000; // 2 minutes - job should not be stuck longer
+  
+  for (const [name, state] of intervalExecutionState.entries()) {
+    if (state.isRunning && (now - state.lastRun) > staleThresholdMs) {
+      console.warn(`[JobQueue] Resetting stuck job state: ${name} (stuck for ${Math.round((now - state.lastRun) / 1000)}s)`);
+      state.isRunning = false;
+      state.skipCount = 0;
+    }
+  }
+}
+
 async function processJobQueue() {
   if (isProcessingQueue || jobQueue.length === 0) return;
   
@@ -189,10 +205,24 @@ async function processJobQueue() {
   // ★ 처리 전 큐 정리
   cleanupJobQueue();
   
+  // ★ [2026-01-09] Reset stuck job states before processing
+  resetStuckJobStates();
+  
   while (jobQueue.length > 0) {
     // ★ 메모리 압박 시 처리 중단
     if (isUnderMemoryPressure()) {
       console.warn('[JobQueue] Memory pressure detected, pausing queue processing');
+      // ★ [2026-01-09] CRITICAL FIX: Reset isRunning for jobs left in queue
+      // This prevents jobs from being permanently stuck
+      for (const job of jobQueue) {
+        const state = intervalExecutionState.get(job.name);
+        if (state) {
+          state.isRunning = false;
+          state.skipCount = 0;
+        }
+      }
+      // Clear queue to prevent stale job buildup
+      jobQueue.length = 0;
       break;
     }
     
@@ -204,7 +234,12 @@ async function processJobQueue() {
       await new Promise<void>(resolve => setImmediate(resolve));
       await job.callback();
     } catch (error) {
-      // Silent error handling - jobs should not crash the server
+      // ★ [2026-01-09] Log errors and reset state to prevent stuck jobs
+      console.error(`[JobQueue] Error executing job ${job.name}:`, error);
+      const state = intervalExecutionState.get(job.name);
+      if (state) {
+        state.isRunning = false;
+      }
     }
     
     // Yield after each job to allow HTTP requests through
@@ -213,6 +248,22 @@ async function processJobQueue() {
   
   isProcessingQueue = false;
 }
+
+// ★ [2026-01-09] Periodic recovery: Reset stuck job states every 60 seconds
+// This ensures the system never gets stuck in a bad state permanently
+setInterval(() => {
+  try {
+    resetStuckJobStates();
+    
+    // Also trigger queue processing if there are pending jobs
+    if (jobQueue.length > 0 && !isProcessingQueue) {
+      processJobQueue();
+    }
+  } catch (err) {
+    // Silent - recovery should never crash
+  }
+}, 60000);
+
 
 // Essential intervals that must run for basic explorer functionality
 const ESSENTIAL_INTERVALS = new Set([
