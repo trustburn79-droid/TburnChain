@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import { Link } from "wouter";
 import { useQuery } from "@tanstack/react-query";
 import { useWeb3 } from "@/lib/web3-context";
+import { useToast } from "@/hooks/use-toast";
 
 interface LaunchpadPlatform {
   name: string;
@@ -26,6 +26,7 @@ interface LaunchpadStatsResponse {
 
 export default function CoinListPage() {
   const { isConnected, address, connect, disconnect, formatAddress } = useWeb3();
+  const { toast } = useToast();
   const [activeTab, setActiveTab] = useState("overview");
   const [selectedPayment, setSelectedPayment] = useState("usd");
   const [allocationAmount, setAllocationAmount] = useState(1000);
@@ -56,6 +57,51 @@ export default function CoinListPage() {
     return () => clearInterval(timer);
   }, []);
 
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
+  const handleWalletClick = () => {
+    if (isConnected) {
+      disconnect();
+      toast({
+        title: "지갑 연결 해제",
+        description: "지갑이 성공적으로 연결 해제되었습니다.",
+      });
+    } else {
+      connect("metamask");
+      toast({
+        title: "지갑 연결 중",
+        description: "MetaMask 지갑 연결을 시도하고 있습니다.",
+      });
+    }
+  };
+
+  const handleShareSocial = (platform: string, url: string) => {
+    window.open(url, '_blank');
+    toast({
+      title: `${platform} 열기`,
+      description: `${platform} 페이지로 이동합니다.`,
+    });
+  };
+
+  const handleNavTab = (tabName: string) => {
+    toast({
+      title: `${tabName} 탭`,
+      description: `${tabName} 기능은 곧 출시됩니다.`,
+    });
+  };
+
+  const handleDocumentDownload = (docName: string) => {
+    toast({
+      title: "문서 다운로드",
+      description: `${docName} 다운로드를 시작합니다.`,
+    });
+  };
+
   const tokenPrice = 0.02;
   const bonusPercent = allocationAmount >= 10000 ? 3 : allocationAmount >= 1000 ? 1 : 0;
   const baseTokens = allocationAmount / tokenPrice;
@@ -64,9 +110,39 @@ export default function CoinListPage() {
   const tgeTokens = totalTokens * 0.15;
 
   const handlePurchase = () => {
+    if (!isConnected) {
+      toast({
+        variant: "destructive",
+        title: "지갑 연결 필요",
+        description: "토큰 구매를 위해 먼저 지갑을 연결해주세요.",
+      });
+      return;
+    }
+    if (allocationAmount < 100) {
+      toast({
+        variant: "destructive",
+        title: "최소 금액 미달",
+        description: "최소 $100 이상 참여해야 합니다.",
+      });
+      return;
+    }
+    if (allocationAmount > 50000) {
+      toast({
+        variant: "destructive",
+        title: "최대 금액 초과",
+        description: "최대 $50,000까지 참여 가능합니다.",
+      });
+      return;
+    }
     setShowModal(true);
     setModalStatus("pending");
-    setTimeout(() => setModalStatus("success"), 2500);
+    setTimeout(() => {
+      setModalStatus("success");
+      toast({
+        title: "참여 완료!",
+        description: `${totalTokens.toLocaleString()} TBURN 토큰 구매가 완료되었습니다.`,
+      });
+    }, 2500);
   };
 
   const paymentMethods = [
@@ -100,10 +176,38 @@ export default function CoinListPage() {
   ];
 
   const faqItems = [
-    { q: "CoinList에서 어떻게 참여하나요?", a: "CoinList 계정 생성 후 KYC 인증을 완료하고, USD, 신용카드, 또는 암호화폐로 참여할 수 있습니다." },
-    { q: "최소/최대 참여 금액은 얼마인가요?", a: "최소 $100, 최대 $50,000까지 참여 가능합니다. CoinList 레벨에 따라 할당량이 다를 수 있습니다." },
-    { q: "토큰은 언제 받을 수 있나요?", a: "TGE 시점에 15%가 즉시 해제되며, 나머지는 12개월 선형 베스팅 스케줄에 따라 지급됩니다." },
-    { q: "법정화폐로 참여할 수 있나요?", a: "네, CoinList는 신용카드와 계좌이체를 통한 USD 결제를 지원합니다." },
+    { 
+      q: "CoinList 세일 총 규모는 얼마인가요?", 
+      a: "CoinList를 통한 TBURN 토큰 세일 총 규모는 6억 TBURN (전체 공급량의 6%)이며, 목표 모집 금액은 $12,000,000입니다. 토큰 가격은 $0.02로 책정되어 있습니다." 
+    },
+    { 
+      q: "CoinList에서 어떻게 참여하나요?", 
+      a: "CoinList 계정 생성 후 KYC 인증을 완료하고, USD, 신용카드, 또는 암호화폐(USDT, USDC, BTC)로 참여할 수 있습니다. 지갑 연결 후 원하는 금액을 입력하여 참여하세요." 
+    },
+    { 
+      q: "최소/최대 참여 금액은 얼마인가요?", 
+      a: "최소 $100, 최대 $50,000까지 참여 가능합니다. CoinList 레벨에 따라 할당량이 다를 수 있으며, $10,000 이상 참여 시 3% 보너스, $1,000 이상 참여 시 1% 보너스가 제공됩니다." 
+    },
+    { 
+      q: "토큰은 언제 받을 수 있나요?", 
+      a: "TGE(Token Generation Event) 시점에 15%가 즉시 해제되며, 3개월 클리프 기간 후 나머지 85%가 12개월 동안 선형 베스팅 스케줄에 따라 지급됩니다." 
+    },
+    { 
+      q: "어떤 결제 방법을 지원하나요?", 
+      a: "CoinList는 다양한 결제 방법을 지원합니다: USD(신용카드, 계좌이체), USDT, USDC, BTC로 결제 가능합니다. 법정화폐와 암호화폐 모두 사용 가능합니다." 
+    },
+    { 
+      q: "CoinList 대기열 시스템은 어떻게 작동하나요?", 
+      a: "CoinList는 공정한 참여를 위해 대기열 시스템을 운영합니다. 참여 시작 시 무작위로 대기 순번이 배정되며, 순번에 따라 구매 기회가 주어집니다. 예상 대기 시간은 실시간으로 표시됩니다." 
+    },
+    { 
+      q: "CoinList 참여의 특별한 혜택은 무엇인가요?", 
+      a: "CoinList 검증 프로젝트로서 높은 신뢰도, 프리미엄 런치 지원, 법정화폐 결제 지원, CoinList 거래소 우선 상장, 전용 고객 지원 등의 혜택이 제공됩니다." 
+    },
+    { 
+      q: "문의나 지원이 필요하면 어떻게 하나요?", 
+      a: "CoinList 고객 지원팀에 문의하거나, TBURN 공식 커뮤니티(Telegram, Discord)를 통해 지원받으실 수 있습니다. support@coinlist.co 또는 support@tburnchain.io로 이메일 문의도 가능합니다." 
+    },
   ];
 
   const documents = [
@@ -114,6 +218,15 @@ export default function CoinListPage() {
   ];
 
   const quickAmounts = [100, 500, 1000, 5000];
+
+  const socialLinks = [
+    { icon: "🐦", name: "Twitter", url: "https://x.com/tburnchain" },
+    { icon: "📱", name: "Telegram", url: "https://t.me/tburnchain" },
+    { icon: "💬", name: "Discord", url: "https://discord.gg/tburnchain" },
+    { icon: "📝", name: "Medium", url: "https://medium.com/@tburnchain" },
+    { icon: "💻", name: "GitHub", url: "https://github.com/tburnchain" },
+    { icon: "🌐", name: "Website", url: "https://tburnchain.io" },
+  ];
 
   return (
     <div className="coinlist-page">
@@ -177,6 +290,7 @@ export default function CoinListPage() {
           align-items: center;
           gap: 10px;
           text-decoration: none;
+          cursor: pointer;
         }
 
         .cl-logo-icon {
@@ -352,6 +466,7 @@ export default function CoinListPage() {
           text-decoration: none;
           transition: all 0.3s;
           font-size: 1.25rem;
+          cursor: pointer;
         }
 
         .cl-social-link:hover { border-color: var(--coinlist-primary); color: var(--coinlist-primary); transform: translateY(-3px); }
@@ -606,16 +721,15 @@ export default function CoinListPage() {
           margin-bottom: 2rem;
           border-bottom: 1px solid var(--coinlist-border);
           padding-bottom: 1rem;
-          flex-wrap: wrap;
         }
 
         .cl-details-tab {
           padding: 10px 20px;
           background: transparent;
           border: none;
-          border-radius: 10px;
+          border-radius: 8px;
           color: var(--gray);
-          font-size: 0.95rem;
+          font-size: 1rem;
           font-weight: 600;
           cursor: pointer;
           transition: all 0.3s;
@@ -624,16 +738,13 @@ export default function CoinListPage() {
         .cl-details-tab:hover { color: var(--white); }
         .cl-details-tab.active { background: var(--coinlist-card); color: var(--coinlist-primary); }
 
-        .cl-details-content { display: none; animation: slideUp 0.3s ease; }
+        .cl-details-content { display: none; animation: slideUp 0.3s ease-out; }
         .cl-details-content.active { display: block; }
 
-        .cl-overview-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 2rem; }
-
-        .cl-about-section {
-          background: var(--coinlist-card);
-          border: 1px solid var(--coinlist-border);
-          border-radius: 20px;
-          padding: 2rem;
+        .cl-overview-grid {
+          display: grid;
+          grid-template-columns: 1fr 350px;
+          gap: 2rem;
         }
 
         .cl-about-section h3 {
@@ -645,41 +756,34 @@ export default function CoinListPage() {
           gap: 10px;
         }
 
-        .cl-about-section h3 span { color: var(--coinlist-primary); }
-        .cl-about-section p { color: var(--light-gray); line-height: 1.8; margin-bottom: 1.5rem; }
+        .cl-about-section p { color: var(--light-gray); margin-bottom: 1rem; line-height: 1.8; }
 
-        .cl-features-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+        .cl-features-grid {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          gap: 1rem;
+          margin-top: 1rem;
+        }
 
         .cl-feature-item {
           display: flex;
-          align-items: flex-start;
-          gap: 12px;
-          padding: 1rem;
-          background: var(--coinlist-dark);
-          border-radius: 12px;
+          gap: 1rem;
+          padding: 1.25rem;
+          background: var(--coinlist-card);
+          border: 1px solid var(--coinlist-border);
+          border-radius: 16px;
         }
 
-        .cl-feature-item .icon {
-          width: 40px;
-          height: 40px;
-          background: rgba(255, 215, 0, 0.1);
-          border-radius: 10px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          font-size: 1.25rem;
-          flex-shrink: 0;
-        }
-
-        .cl-feature-item h4 { font-size: 0.95rem; font-weight: 600; margin-bottom: 0.25rem; }
-        .cl-feature-item p { font-size: 0.8rem; color: var(--gray); }
+        .cl-feature-item .icon { font-size: 2rem; }
+        .cl-feature-item h4 { font-size: 1rem; font-weight: 700; margin-bottom: 0.25rem; }
+        .cl-feature-item p { font-size: 0.85rem; color: var(--gray); }
 
         .cl-sidebar-cards { display: flex; flex-direction: column; gap: 1.5rem; }
 
         .cl-sidebar-card {
           background: var(--coinlist-card);
           border: 1px solid var(--coinlist-border);
-          border-radius: 16px;
+          border-radius: 20px;
           padding: 1.5rem;
         }
 
@@ -692,147 +796,131 @@ export default function CoinListPage() {
           gap: 8px;
         }
 
-        .cl-sidebar-card h4 span { color: var(--coinlist-primary); }
-
-        .cl-vesting-timeline { position: relative; }
+        .cl-vesting-timeline { display: flex; flex-direction: column; gap: 0.75rem; }
 
         .cl-vesting-item {
           display: flex;
-          align-items: flex-start;
+          align-items: center;
           gap: 1rem;
-          padding-bottom: 1.25rem;
-          position: relative;
+          padding: 0.75rem;
+          background: var(--coinlist-dark);
+          border-radius: 12px;
         }
 
-        .cl-vesting-item::before {
-          content: '';
-          position: absolute;
-          left: 11px;
-          top: 24px;
-          bottom: 0;
-          width: 2px;
-          background: var(--coinlist-border);
-        }
-
-        .cl-vesting-item:last-child::before { display: none; }
+        .cl-vesting-item.tge { border: 1px solid var(--coinlist-primary); }
 
         .cl-vesting-dot {
           width: 24px;
           height: 24px;
+          background: var(--coinlist-border);
           border-radius: 50%;
-          background: var(--coinlist-dark);
-          border: 2px solid var(--coinlist-border);
           display: flex;
           align-items: center;
           justify-content: center;
           font-size: 0.7rem;
-          flex-shrink: 0;
-          z-index: 1;
+          color: transparent;
         }
 
-        .cl-vesting-item.tge .cl-vesting-dot { background: var(--coinlist-primary); border-color: var(--coinlist-primary); color: var(--coinlist-dark); }
+        .cl-vesting-item.tge .cl-vesting-dot { background: var(--coinlist-primary); color: var(--coinlist-dark); }
 
         .cl-vesting-content { flex: 1; }
-        .cl-vesting-content .title { font-weight: 600; font-size: 0.9rem; }
-        .cl-vesting-content .desc { font-size: 0.8rem; color: var(--gray); }
-        .cl-vesting-amount { font-weight: 700; color: var(--coinlist-primary); }
+        .cl-vesting-content .title { font-size: 0.85rem; font-weight: 600; }
+        .cl-vesting-content .desc { font-size: 0.75rem; color: var(--gray); }
+        .cl-vesting-amount { font-size: 0.9rem; font-weight: 700; color: var(--coinlist-primary); }
 
         .cl-documents-list { display: flex; flex-direction: column; gap: 0.75rem; }
 
         .cl-document-item {
           display: flex;
           align-items: center;
-          gap: 12px;
-          padding: 12px;
+          gap: 1rem;
+          padding: 0.75rem;
           background: var(--coinlist-dark);
-          border-radius: 10px;
+          border-radius: 12px;
           text-decoration: none;
           color: var(--white);
           transition: all 0.3s;
+          cursor: pointer;
         }
 
         .cl-document-item:hover { background: rgba(255, 215, 0, 0.1); }
-
-        .cl-document-item .icon {
-          width: 36px;
-          height: 36px;
-          background: rgba(255, 215, 0, 0.1);
-          border-radius: 8px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          font-size: 1.125rem;
-        }
-
+        .cl-document-item .icon { font-size: 1.5rem; }
         .cl-document-item .info { flex: 1; }
-        .cl-document-item .info .name { font-weight: 600; font-size: 0.9rem; }
+        .cl-document-item .info .name { font-size: 0.9rem; font-weight: 600; }
         .cl-document-item .info .size { font-size: 0.75rem; color: var(--gray); }
-        .cl-document-item .arrow { color: var(--gray); }
+        .cl-document-item .arrow { color: var(--coinlist-primary); }
 
-        .cl-tokenomics-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+        .cl-tokenomics-grid {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 1.5rem;
+        }
 
         .cl-tokenomics-card {
           background: var(--coinlist-card);
           border: 1px solid var(--coinlist-border);
-          border-radius: 16px;
+          border-radius: 20px;
           padding: 1.5rem;
           text-align: center;
         }
 
-        .cl-tokenomics-card .icon {
-          width: 60px;
-          height: 60px;
-          background: rgba(255, 215, 0, 0.1);
-          border-radius: 16px;
-          margin: 0 auto 1rem;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          font-size: 1.75rem;
-        }
-
-        .cl-tokenomics-card h4 { font-size: 1rem; font-weight: 600; margin-bottom: 0.25rem; color: var(--gray); }
+        .cl-tokenomics-card .icon { font-size: 2.5rem; margin-bottom: 1rem; }
+        .cl-tokenomics-card h4 { font-size: 0.9rem; color: var(--gray); margin-bottom: 0.5rem; }
         .cl-tokenomics-card .value { font-size: 1.5rem; font-weight: 800; color: var(--coinlist-primary); }
 
-        .cl-team-list { display: flex; flex-direction: column; gap: 1rem; margin-top: 1.5rem; }
+        .cl-team-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
 
-        .cl-team-member { display: flex; align-items: center; gap: 12px; }
+        .cl-team-member {
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+          padding: 1rem;
+          background: var(--coinlist-card);
+          border: 1px solid var(--coinlist-border);
+          border-radius: 16px;
+        }
 
         .cl-team-member .avatar {
-          width: 44px;
-          height: 44px;
+          width: 50px;
+          height: 50px;
           background: var(--gradient-coinlist);
           border-radius: 12px;
           display: flex;
           align-items: center;
           justify-content: center;
-          font-size: 1rem;
+          font-size: 1.25rem;
           font-weight: 700;
           color: var(--coinlist-dark);
         }
 
-        .cl-team-member .info { flex: 1; }
-        .cl-team-member .info .name { font-weight: 600; font-size: 0.9rem; }
+        .cl-team-member .info .name { font-size: 1rem; font-weight: 700; }
         .cl-team-member .info .role { font-size: 0.8rem; color: var(--gray); }
 
         .cl-partners-grid { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1rem; }
-        .cl-partner-badge { padding: 12px 20px; background: var(--coinlist-dark); border-radius: 10px; font-weight: 600; font-size: 0.9rem; }
 
-        .cl-faq-list { max-width: 900px; }
+        .cl-partner-badge {
+          padding: 8px 16px;
+          background: var(--coinlist-dark);
+          border: 1px solid var(--coinlist-border);
+          border-radius: 100px;
+          font-size: 0.85rem;
+          font-weight: 600;
+        }
+
+        .cl-faq-list { display: flex; flex-direction: column; gap: 1rem; max-width: 800px; }
 
         .cl-faq-item {
           background: var(--coinlist-card);
           border: 1px solid var(--coinlist-border);
           border-radius: 16px;
-          margin-bottom: 1rem;
           overflow: hidden;
         }
 
         .cl-faq-question {
-          padding: 1.25rem;
           display: flex;
           justify-content: space-between;
           align-items: center;
+          padding: 1.25rem;
           cursor: pointer;
           transition: background 0.3s;
         }
@@ -843,135 +931,164 @@ export default function CoinListPage() {
         .cl-faq-item.active .cl-faq-question .arrow { transform: rotate(180deg); }
 
         .cl-faq-answer {
-          padding: 0 1.25rem;
           max-height: 0;
           overflow: hidden;
-          transition: all 0.3s;
+          transition: max-height 0.3s, padding 0.3s;
         }
 
-        .cl-faq-item.active .cl-faq-answer { padding: 0 1.25rem 1.25rem; max-height: 500px; }
-        .cl-faq-answer p { color: var(--gray); line-height: 1.8; }
-
-        .cl-modal-overlay {
-          position: fixed;
-          inset: 0;
-          background: rgba(0, 0, 0, 0.8);
-          backdrop-filter: blur(10px);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          z-index: 2000;
+        .cl-faq-item.active .cl-faq-answer {
+          max-height: 300px;
+          padding: 0 1.25rem 1.25rem;
         }
 
-        .cl-modal {
-          background: var(--coinlist-card);
-          border: 1px solid var(--coinlist-border);
-          border-radius: 24px;
-          width: 100%;
-          max-width: 450px;
-          overflow: hidden;
-          animation: slideUp 0.3s ease;
+        .cl-faq-answer p { color: var(--light-gray); font-size: 0.95rem; line-height: 1.7; }
+
+        .cl-footer {
+          background: var(--coinlist-dark);
+          border-top: 1px solid var(--coinlist-border);
+          padding: 2rem;
         }
 
-        .cl-modal-header {
-          padding: 1.5rem;
-          background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), transparent);
-          border-bottom: 1px solid var(--coinlist-border);
+        .cl-footer-content {
+          max-width: 1400px;
+          margin: 0 auto;
           display: flex;
           justify-content: space-between;
           align-items: center;
         }
 
-        .cl-modal-header h3 { font-size: 1.25rem; font-weight: 700; }
+        .cl-footer-links { display: flex; gap: 2rem; }
+        .cl-footer-links a { color: var(--gray); text-decoration: none; font-size: 0.9rem; transition: color 0.3s; cursor: pointer; }
+        .cl-footer-links a:hover { color: var(--coinlist-primary); }
 
-        .cl-modal-close {
+        .cl-footer-social { display: flex; gap: 1rem; }
+
+        .cl-footer-social-link {
           width: 36px;
           height: 36px;
-          border-radius: 10px;
-          background: var(--coinlist-dark);
-          border: none;
+          background: var(--coinlist-card);
+          border: 1px solid var(--coinlist-border);
+          border-radius: 8px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
           color: var(--gray);
           cursor: pointer;
           transition: all 0.3s;
         }
 
-        .cl-modal-close:hover { background: var(--coinlist-border); color: var(--white); }
+        .cl-footer-social-link:hover { border-color: var(--coinlist-primary); color: var(--coinlist-primary); }
+
+        .cl-footer-copyright { color: var(--gray); font-size: 0.85rem; }
+
+        .cl-modal-overlay {
+          position: fixed;
+          inset: 0;
+          background: rgba(0, 0, 0, 0.8);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          z-index: 2000;
+          animation: fadeIn 0.3s;
+        }
+
+        @keyframes fadeIn { 0% { opacity: 0; } 100% { opacity: 1; } }
+
+        .cl-modal {
+          background: var(--coinlist-card);
+          border: 1px solid var(--coinlist-border);
+          border-radius: 24px;
+          width: 90%;
+          max-width: 400px;
+          overflow: hidden;
+          animation: slideUp 0.3s;
+        }
+
+        .cl-modal-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 1.25rem;
+          border-bottom: 1px solid var(--coinlist-border);
+        }
+
+        .cl-modal-header h3 { font-size: 1.125rem; font-weight: 700; }
+
+        .cl-modal-close {
+          background: none;
+          border: none;
+          color: var(--gray);
+          font-size: 1.25rem;
+          cursor: pointer;
+          transition: color 0.3s;
+        }
+
+        .cl-modal-close:hover { color: var(--white); }
 
         .cl-modal-body { padding: 2rem; text-align: center; }
 
         .cl-modal-icon {
           width: 80px;
           height: 80px;
+          background: var(--coinlist-dark);
           border-radius: 50%;
-          margin: 0 auto 1.5rem;
           display: flex;
           align-items: center;
           justify-content: center;
-          font-size: 2.5rem;
+          margin: 0 auto 1.5rem;
+          font-size: 2rem;
         }
 
-        .cl-modal-icon.pending { background: rgba(255, 215, 0, 0.2); }
         .cl-modal-icon.success { background: rgba(16, 185, 129, 0.2); color: var(--success); }
+        .cl-modal-icon.pending { background: rgba(255, 215, 0, 0.2); }
 
         .cl-spinner {
           width: 40px;
           height: 40px;
-          border: 3px solid rgba(255, 215, 0, 0.3);
+          border: 4px solid var(--coinlist-border);
           border-top-color: var(--coinlist-primary);
           border-radius: 50%;
           animation: spin 1s linear infinite;
         }
 
         .cl-modal-body h4 { font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem; }
-        .cl-modal-body p { color: var(--gray); margin-bottom: 1.5rem; }
+        .cl-modal-body p { color: var(--gray); font-size: 0.95rem; }
 
         .cl-modal-details {
           background: var(--coinlist-dark);
           border-radius: 12px;
           padding: 1rem;
-          margin-bottom: 1.5rem;
-          text-align: left;
+          margin: 1.5rem 0;
         }
 
-        .cl-modal-detail-row { display: flex; justify-content: space-between; padding: 0.5rem 0; font-size: 0.9rem; }
-        .cl-modal-detail-row .label { color: var(--gray); }
-        .cl-modal-detail-row .value { font-weight: 600; }
+        .cl-modal-detail-row {
+          display: flex;
+          justify-content: space-between;
+          padding: 0.5rem 0;
+        }
+
+        .cl-modal-detail-row .label { color: var(--gray); font-size: 0.9rem; }
+        .cl-modal-detail-row .value { font-weight: 600; font-size: 0.9rem; }
 
         .cl-modal-btn {
-          display: block;
           width: 100%;
           padding: 14px;
           background: var(--gradient-coinlist);
           border: none;
           border-radius: 12px;
           color: var(--coinlist-dark);
+          font-size: 1rem;
           font-weight: 700;
           cursor: pointer;
-          transition: all 0.3s;
+          transition: transform 0.3s;
         }
 
         .cl-modal-btn:hover { transform: scale(1.02); }
 
-        .cl-footer {
-          max-width: 1400px;
-          margin: 0 auto;
-          padding: 2rem;
-          border-top: 1px solid var(--coinlist-border);
-        }
-
-        .cl-footer-content { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
-        .cl-footer-links { display: flex; gap: 2rem; flex-wrap: wrap; }
-        .cl-footer-links a { color: var(--gray); text-decoration: none; font-size: 0.85rem; transition: color 0.3s; }
-        .cl-footer-links a:hover { color: var(--coinlist-primary); }
-        .cl-footer-copyright { color: var(--gray); font-size: 0.85rem; }
-
-        @media (max-width: 1200px) {
+        @media (max-width: 1024px) {
           .cl-hero-grid { grid-template-columns: 1fr; }
           .cl-sale-card { position: static; margin-top: 2rem; }
           .cl-overview-grid { grid-template-columns: 1fr; }
-        }
-
-        @media (max-width: 1024px) {
           .cl-key-metrics { grid-template-columns: repeat(2, 1fr); }
           .cl-tokenomics-grid { grid-template-columns: repeat(2, 1fr); }
         }
@@ -985,7 +1102,8 @@ export default function CoinListPage() {
           .cl-tokenomics-grid { grid-template-columns: 1fr; }
           .cl-payment-options { grid-template-columns: 1fr; }
           .cl-quick-amounts { grid-template-columns: repeat(2, 1fr); }
-          .cl-footer-content { flex-direction: column; text-align: center; }
+          .cl-footer-content { flex-direction: column; text-align: center; gap: 1rem; }
+          .cl-team-list { grid-template-columns: 1fr; }
         }
       `}</style>
 
@@ -993,15 +1111,39 @@ export default function CoinListPage() {
       <header className="cl-header">
         <div className="cl-header-container">
           <div className="cl-header-left">
-            <Link href="/" className="cl-logo">
+            <a href="/" className="cl-logo" data-testid="link-logo">
               <div className="cl-logo-icon">🚀</div>
               <div className="cl-logo-text">CoinList</div>
-            </Link>
+            </a>
             <div className="cl-nav-tabs">
-              <button className="cl-nav-tab active">토큰 세일</button>
-              <button className="cl-nav-tab">트레이딩</button>
-              <button className="cl-nav-tab">스테이킹</button>
-              <button className="cl-nav-tab">포트폴리오</button>
+              <button 
+                className="cl-nav-tab active" 
+                onClick={() => scrollToSection('hero')}
+                data-testid="nav-token-sale"
+              >
+                토큰 세일
+              </button>
+              <button 
+                className="cl-nav-tab" 
+                onClick={() => handleNavTab('트레이딩')}
+                data-testid="nav-trading"
+              >
+                트레이딩
+              </button>
+              <button 
+                className="cl-nav-tab" 
+                onClick={() => handleNavTab('스테이킹')}
+                data-testid="nav-staking"
+              >
+                스테이킹
+              </button>
+              <button 
+                className="cl-nav-tab" 
+                onClick={() => handleNavTab('포트폴리오')}
+                data-testid="nav-portfolio"
+              >
+                포트폴리오
+              </button>
             </div>
           </div>
           <div className="cl-header-right">
@@ -1011,9 +1153,8 @@ export default function CoinListPage() {
             </div>
             <button 
               className="cl-user-menu"
-              onClick={() => isConnected ? disconnect() : connect("metamask")}
+              onClick={handleWalletClick}
               data-testid="button-wallet-connect"
-              style={{ cursor: 'pointer', border: 'none', background: 'transparent' }}
             >
               <div className="cl-user-avatar">{isConnected ? formatAddress(address || '').slice(0, 2).toUpperCase() : 'CL'}</div>
               <div className="cl-user-info">
@@ -1028,7 +1169,7 @@ export default function CoinListPage() {
       {/* Main Content */}
       <main className="cl-main">
         {/* Hero Section */}
-        <section className="cl-hero">
+        <section className="cl-hero" id="hero">
           <div className="cl-hero-container">
             <div className="cl-hero-grid">
               {/* Project Info */}
@@ -1036,7 +1177,7 @@ export default function CoinListPage() {
                 <div className="cl-project-header">
                   <div className="cl-project-logo">🔥</div>
                   <div className="cl-project-title">
-                    <h1>TBURN Chain</h1>
+                    <h1 data-testid="text-title">TBURN Chain</h1>
                     <div className="tagline">AI-Enhanced Blockchain Platform</div>
                   </div>
                 </div>
@@ -1075,8 +1216,15 @@ export default function CoinListPage() {
                 </div>
 
                 <div className="cl-social-links">
-                  {['🐦', '📱', '💬', '📝', '💻', '🌐'].map((icon, i) => (
-                    <a key={i} href="#" className="cl-social-link">{icon}</a>
+                  {socialLinks.map((link, i) => (
+                    <button 
+                      key={i} 
+                      className="cl-social-link"
+                      onClick={() => handleShareSocial(link.name, link.url)}
+                      data-testid={`social-link-${link.name.toLowerCase()}`}
+                    >
+                      {link.icon}
+                    </button>
                   ))}
                 </div>
               </div>
@@ -1088,7 +1236,7 @@ export default function CoinListPage() {
                     <div className="cl-live-badge"><span className="dot"></span>LIVE</div>
                     <div className="cl-queue-info">12,450명 대기 중</div>
                   </div>
-                  <div className="cl-countdown">
+                  <div className="cl-countdown" data-testid="countdown">
                     <div className="cl-countdown-item">
                       <div className="cl-countdown-value">{countdown.days.toString().padStart(2, '0')}</div>
                       <div className="cl-countdown-label">Days</div>
@@ -1179,19 +1327,20 @@ export default function CoinListPage() {
                     </div>
                     <div className="cl-quick-amounts">
                       {quickAmounts.map(amount => (
-                        <div 
+                        <button 
                           key={amount}
                           className={`cl-quick-amount ${allocationAmount === amount ? 'active' : ''}`}
                           onClick={() => setAllocationAmount(amount)}
+                          data-testid={`button-amount-${amount}`}
                         >
                           ${amount.toLocaleString()}
-                        </div>
+                        </button>
                       ))}
                     </div>
                   </div>
 
                   {/* Token Calculation */}
-                  <div className="cl-token-calc">
+                  <div className="cl-token-calc" data-testid="token-calculation">
                     <div className="cl-calc-row">
                       <span className="label">받을 토큰</span>
                       <span className="value large">{totalTokens.toLocaleString()} TBURN</span>
@@ -1211,10 +1360,11 @@ export default function CoinListPage() {
                     <div className="cl-payment-header">결제 수단 선택</div>
                     <div className="cl-payment-options">
                       {paymentMethods.map(method => (
-                        <div 
+                        <button 
                           key={method.id}
                           className={`cl-payment-option ${selectedPayment === method.id ? 'active' : ''}`}
                           onClick={() => setSelectedPayment(method.id)}
+                          data-testid={`button-payment-${method.id}`}
                         >
                           <span className="icon">{method.icon}</span>
                           <div className="info">
@@ -1222,12 +1372,16 @@ export default function CoinListPage() {
                             <div className="type">{method.type}</div>
                           </div>
                           <div className="check">✓</div>
-                        </div>
+                        </button>
                       ))}
                     </div>
                   </div>
 
-                  <button className="cl-purchase-btn" onClick={handlePurchase} data-testid="button-purchase">
+                  <button 
+                    className="cl-purchase-btn" 
+                    onClick={handlePurchase} 
+                    data-testid="button-purchase"
+                  >
                     🚀 지금 참여하기
                   </button>
 
@@ -1241,13 +1395,14 @@ export default function CoinListPage() {
         </section>
 
         {/* Details Section */}
-        <section className="cl-details-section">
+        <section className="cl-details-section" id="details">
           <div className="cl-details-tabs">
             {['overview', 'tokenomics', 'team', 'faq'].map(tab => (
               <button 
                 key={tab}
                 className={`cl-details-tab ${activeTab === tab ? 'active' : ''}`}
                 onClick={() => setActiveTab(tab)}
+                data-testid={`tab-${tab}`}
               >
                 {tab === 'overview' ? '개요' : tab === 'tokenomics' ? '토크노믹스' : tab === 'team' ? '팀' : 'FAQ'}
               </button>
@@ -1320,14 +1475,19 @@ export default function CoinListPage() {
                   <h4><span>📄</span> 문서</h4>
                   <div className="cl-documents-list">
                     {documents.map((doc, i) => (
-                      <a key={i} href="#" className="cl-document-item">
+                      <button 
+                        key={i} 
+                        className="cl-document-item"
+                        onClick={() => handleDocumentDownload(doc.name)}
+                        data-testid={`button-document-${i}`}
+                      >
                         <div className="icon">{doc.icon}</div>
                         <div className="info">
                           <div className="name">{doc.name}</div>
                           <div className="size">{doc.size}</div>
                         </div>
                         <span className="arrow">→</span>
-                      </a>
+                      </button>
                     ))}
                   </div>
                 </div>
@@ -1339,7 +1499,7 @@ export default function CoinListPage() {
           <div className={`cl-details-content ${activeTab === 'tokenomics' ? 'active' : ''}`}>
             <div className="cl-tokenomics-grid">
               {tokenomicsData.map((t, i) => (
-                <div key={i} className="cl-tokenomics-card">
+                <div key={i} className="cl-tokenomics-card" data-testid={`tokenomics-card-${i}`}>
                   <div className="icon">{t.icon}</div>
                   <h4>{t.label}</h4>
                   <div className="value">{t.value}</div>
@@ -1355,7 +1515,7 @@ export default function CoinListPage() {
                 <h3><span>👥</span> 핵심 팀</h3>
                 <div className="cl-team-list">
                   {teamMembers.map((m, i) => (
-                    <div key={i} className="cl-team-member">
+                    <div key={i} className="cl-team-member" data-testid={`team-member-${i}`}>
                       <div className="avatar">{m.initials}</div>
                       <div className="info">
                         <div className="name">{m.name}</div>
@@ -1387,11 +1547,18 @@ export default function CoinListPage() {
           </div>
 
           {/* FAQ Tab */}
-          <div className={`cl-details-content ${activeTab === 'faq' ? 'active' : ''}`}>
+          <div className={`cl-details-content ${activeTab === 'faq' ? 'active' : ''}`} id="faq">
             <div className="cl-faq-list">
               {faqItems.map((faq, i) => (
-                <div key={i} className={`cl-faq-item ${expandedFaq === i ? 'active' : ''}`}>
-                  <div className="cl-faq-question" onClick={() => setExpandedFaq(expandedFaq === i ? -1 : i)}>
+                <div 
+                  key={i} 
+                  className={`cl-faq-item ${expandedFaq === i ? 'active' : ''}`}
+                  data-testid={`faq-item-${i + 1}`}
+                >
+                  <div 
+                    className="cl-faq-question" 
+                    onClick={() => setExpandedFaq(expandedFaq === i ? -1 : i)}
+                  >
                     <h4>{faq.q}</h4>
                     <span className="arrow">▼</span>
                   </div>
@@ -1408,10 +1575,50 @@ export default function CoinListPage() {
         <footer className="cl-footer">
           <div className="cl-footer-content">
             <div className="cl-footer-links">
-              <Link href="/legal/terms-of-service">이용약관</Link>
-              <Link href="/legal/privacy-policy">개인정보처리방침</Link>
-              <a href="#">리스크 고지</a>
-              <a href="#">고객 지원</a>
+              <a href="/legal/terms-of-service" data-testid="footer-link-terms">이용약관</a>
+              <a href="/legal/privacy-policy" data-testid="footer-link-privacy">개인정보처리방침</a>
+              <a 
+                onClick={() => toast({ title: "리스크 고지", description: "리스크 고지 페이지로 이동합니다." })}
+                data-testid="footer-link-risk"
+              >
+                리스크 고지
+              </a>
+              <a 
+                onClick={() => toast({ title: "고객 지원", description: "support@coinlist.co로 문의해 주세요." })}
+                data-testid="footer-link-support"
+              >
+                고객 지원
+              </a>
+            </div>
+            <div className="cl-footer-social">
+              <button 
+                className="cl-footer-social-link"
+                onClick={() => handleShareSocial('Twitter', 'https://x.com/tburnchain')}
+                data-testid="footer-link-twitter"
+              >
+                🐦
+              </button>
+              <button 
+                className="cl-footer-social-link"
+                onClick={() => handleShareSocial('Telegram', 'https://t.me/tburnchain')}
+                data-testid="footer-link-telegram"
+              >
+                📱
+              </button>
+              <button 
+                className="cl-footer-social-link"
+                onClick={() => handleShareSocial('Discord', 'https://discord.gg/tburnchain')}
+                data-testid="footer-link-discord"
+              >
+                💬
+              </button>
+              <button 
+                className="cl-footer-social-link"
+                onClick={() => handleShareSocial('GitHub', 'https://github.com/tburnchain')}
+                data-testid="footer-link-github"
+              >
+                💻
+              </button>
             </div>
             <div className="cl-footer-copyright">© 2025 CoinList. All Rights Reserved.</div>
           </div>
@@ -1420,11 +1627,17 @@ export default function CoinListPage() {
 
       {/* Modal */}
       {showModal && (
-        <div className="cl-modal-overlay">
+        <div className="cl-modal-overlay" data-testid="modal-purchase">
           <div className="cl-modal">
             <div className="cl-modal-header">
               <h3>{modalStatus === 'success' ? '참여 완료!' : '처리 중...'}</h3>
-              <button className="cl-modal-close" onClick={() => setShowModal(false)}>✕</button>
+              <button 
+                className="cl-modal-close" 
+                onClick={() => setShowModal(false)}
+                data-testid="button-modal-close"
+              >
+                ✕
+              </button>
             </div>
             <div className="cl-modal-body">
               <div className={`cl-modal-icon ${modalStatus}`}>
@@ -1449,7 +1662,13 @@ export default function CoinListPage() {
               </div>
 
               {modalStatus === 'success' && (
-                <button className="cl-modal-btn" onClick={() => setShowModal(false)}>확인</button>
+                <button 
+                  className="cl-modal-btn" 
+                  onClick={() => setShowModal(false)}
+                  data-testid="button-modal-confirm"
+                >
+                  확인
+                </button>
               )}
             </div>
           </div>
