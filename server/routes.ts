@@ -765,6 +765,28 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   // WebSocket clients - initialized early for use in broadcast functions
   const clients = new Set<WebSocket>();
 
+  // JSON-RPC 2.0 notification helper for eth_subscribe/tburn_subscribe clients
+  function sendJsonRpcNotification(subscriptionType: string, result: any) {
+    clients.forEach(client => {
+      if (client.readyState !== WebSocket.OPEN) return;
+      const subs = (client as any).subscriptions;
+      if (!subs) return;
+      
+      subs.forEach((sub: any, subId: string) => {
+        if (sub.type === subscriptionType) {
+          client.send(JSON.stringify({
+            jsonrpc: '2.0',
+            method: 'eth_subscription',
+            params: {
+              subscription: subId,
+              result: result
+            }
+          }));
+        }
+      });
+    });
+  }
+
   // Track last broadcast state per channel for differential broadcasting
   const lastBroadcastState = new Map<string, string>();
 
@@ -23370,6 +23392,90 @@ Provide JSON portfolio analysis:
         const data = JSON.parse(message.toString());
         console.log('Received message:', data);
 
+        // ============================================
+        // JSON-RPC 2.0 Subscription Support
+        // Ethereum-compatible eth_subscribe and TBURN-specific tburn_subscribe
+        // ============================================
+        if (data.jsonrpc === '2.0' && data.method) {
+          const subscriptionId = `0x${Math.random().toString(16).slice(2, 18)}`;
+          
+          // eth_subscribe - Standard Ethereum subscriptions
+          if (data.method === 'eth_subscribe') {
+            const [subscriptionType, options] = data.params || [];
+            const supportedTypes = ['newHeads', 'logs', 'newPendingTransactions', 'syncing'];
+            
+            if (supportedTypes.includes(subscriptionType)) {
+              // Store subscription for this client
+              (ws as any).subscriptions = (ws as any).subscriptions || new Map();
+              (ws as any).subscriptions.set(subscriptionId, { type: subscriptionType, options });
+              
+              // Send subscription confirmation
+              ws.send(JSON.stringify({
+                jsonrpc: '2.0',
+                id: data.id,
+                result: subscriptionId
+              }));
+              console.log(`[WebSocket] eth_subscribe: ${subscriptionType} -> ${subscriptionId}`);
+              return;
+            } else {
+              ws.send(JSON.stringify({
+                jsonrpc: '2.0',
+                id: data.id,
+                error: { code: -32602, message: `Unsupported subscription type: ${subscriptionType}` }
+              }));
+              return;
+            }
+          }
+          
+          // tburn_subscribe - TBURN custom subscriptions
+          if (data.method === 'tburn_subscribe') {
+            const [subscriptionType, options] = data.params || [];
+            const supportedTypes = ['consensus', 'validators', 'shards', 'burn-events'];
+            
+            if (supportedTypes.includes(subscriptionType)) {
+              (ws as any).subscriptions = (ws as any).subscriptions || new Map();
+              (ws as any).subscriptions.set(subscriptionId, { type: `tburn_${subscriptionType}`, options });
+              
+              ws.send(JSON.stringify({
+                jsonrpc: '2.0',
+                id: data.id,
+                result: subscriptionId
+              }));
+              console.log(`[WebSocket] tburn_subscribe: ${subscriptionType} -> ${subscriptionId}`);
+              return;
+            } else {
+              ws.send(JSON.stringify({
+                jsonrpc: '2.0',
+                id: data.id,
+                error: { code: -32602, message: `Unsupported TBURN subscription: ${subscriptionType}` }
+              }));
+              return;
+            }
+          }
+          
+          // eth_unsubscribe - Remove subscription
+          if (data.method === 'eth_unsubscribe' || data.method === 'tburn_unsubscribe') {
+            const [subId] = data.params || [];
+            const subs = (ws as any).subscriptions;
+            if (subs && subs.has(subId)) {
+              subs.delete(subId);
+              ws.send(JSON.stringify({ jsonrpc: '2.0', id: data.id, result: true }));
+              console.log(`[WebSocket] Unsubscribed: ${subId}`);
+            } else {
+              ws.send(JSON.stringify({ jsonrpc: '2.0', id: data.id, result: false }));
+            }
+            return;
+          }
+          
+          // Unsupported JSON-RPC method
+          ws.send(JSON.stringify({
+            jsonrpc: '2.0',
+            id: data.id,
+            error: { code: -32601, message: `Method not found: ${data.method}` }
+          }));
+          return;
+        }
+
         // Handle different message types
         if (data.type === 'subscribe') {
           // Subscribe to specific updates
@@ -23791,6 +23897,21 @@ Provide JSON portfolio analysis:
           client.send(message);
         }
       });
+      
+      // JSON-RPC notification for tburn_subscribe shards clients
+      sendJsonRpcNotification('tburn_shards', {
+        shardCount: shards.length,
+        totalTps,
+        avgLoad: Math.round(shards.reduce((sum: number, s: any) => sum + s.load, 0) / shards.length),
+        activeShards: shards.filter((s: any) => s.status === 'active').length,
+        shards: shards.slice(0, 10).map((s: any) => ({
+          id: s.id,
+          tps: s.tps,
+          load: s.load,
+          status: s.status,
+          validators: s.validatorCount
+        }))
+      });
     } catch (error) {
       console.error('Error broadcasting shards updates:', error);
     }
@@ -23803,9 +23924,12 @@ Provide JSON portfolio analysis:
     try {
       const blocks = await storage.getRecentBlocks(1);
       if (blocks.length > 0) {
+        const block = blocks[0];
+        
+        // Standard broadcast for internal clients
         const message = JSON.stringify({
           type: 'block_created',
-          data: blocks[0],
+          data: block,
           timestamp: Date.now(),
         });
 
@@ -23813,6 +23937,28 @@ Provide JSON portfolio analysis:
           if (client.readyState === WebSocket.OPEN) {
             client.send(message);
           }
+        });
+        
+        // JSON-RPC notification for eth_subscribe newHeads clients
+        sendJsonRpcNotification('newHeads', {
+          difficulty: '0x0',
+          extraData: '0x',
+          gasLimit: `0x${(30000000).toString(16)}`,
+          gasUsed: `0x${(block.gasUsed || 0).toString(16)}`,
+          hash: block.hash,
+          logsBloom: '0x' + '0'.repeat(512),
+          miner: block.miner || block.validator,
+          mixHash: '0x' + '0'.repeat(64),
+          nonce: '0x0000000000000000',
+          number: `0x${(block.number).toString(16)}`,
+          parentHash: block.parentHash || '0x' + '0'.repeat(64),
+          receiptsRoot: '0x' + '0'.repeat(64),
+          sha3Uncles: '0x' + '0'.repeat(64),
+          size: `0x${(block.size || 0).toString(16)}`,
+          stateRoot: '0x' + '0'.repeat(64),
+          timestamp: `0x${Math.floor(new Date(block.timestamp).getTime() / 1000).toString(16)}`,
+          transactionsRoot: '0x' + '0'.repeat(64),
+          baseFeePerGas: `0x${(1000000000).toString(16)}`,
         });
       }
     } catch (error) {
