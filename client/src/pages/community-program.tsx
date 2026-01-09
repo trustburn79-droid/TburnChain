@@ -3,6 +3,7 @@ import { Link } from "wouter";
 import { useQuery } from "@tanstack/react-query";
 import { TBurnLogo } from "@/components/tburn-logo";
 import { useWeb3 } from "@/lib/web3-context";
+import { useToast } from "@/hooks/use-toast";
 
 interface CommunityStatsData {
   totalContributors: number;
@@ -20,6 +21,7 @@ interface CommunityStatsResponse {
 export default function CommunityProgramPage() {
   const [activeFaq, setActiveFaq] = useState<string | null>("faq-1");
   const { isConnected, address, connect, disconnect, formatAddress } = useWeb3();
+  const { toast } = useToast();
 
   const { data: response, isLoading } = useQuery<CommunityStatsResponse>({
     queryKey: ['/api/token-programs/community/stats'],
@@ -33,9 +35,35 @@ export default function CommunityProgramPage() {
   const handleWalletClick = async () => {
     if (isConnected) {
       disconnect();
+      toast({ title: "지갑 연결 해제", description: "지갑 연결이 해제되었습니다." });
     } else {
       await connect("metamask");
+      toast({ title: "지갑 연결", description: "MetaMask 지갑이 연결되었습니다." });
     }
+  };
+
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const handleApplyProgram = (programId: string, programTitle: string) => {
+    if (!isConnected) {
+      connect("metamask");
+      toast({ title: "지갑 연결 필요", description: "프로그램에 신청하려면 먼저 지갑을 연결해주세요." });
+      return;
+    }
+    toast({ 
+      title: "신청 접수 완료", 
+      description: `${programTitle} 프로그램에 신청되었습니다. 검토 후 결과를 안내드리겠습니다.` 
+    });
+  };
+
+  const handleShareSocial = (platform: string, url: string) => {
+    window.open(url, '_blank', 'width=600,height=400');
+    toast({ title: platform, description: `${platform} 페이지로 이동합니다.` });
   };
 
   const programs = [
@@ -992,11 +1020,31 @@ export default function CommunityProgramPage() {
             <div className="logo-text">TBURN<span>CHAIN</span></div>
           </Link>
           <nav className="nav-links">
-            <a href="#programs">프로그램</a>
-            <a href="#tiers">등급 시스템</a>
-            <a href="#activities">활동 보상</a>
-            <a href="#leaderboard">리더보드</a>
-            <a href="#faq">FAQ</a>
+            <a 
+              href="#programs"
+              onClick={(e) => { e.preventDefault(); scrollToSection('programs'); }}
+              data-testid="nav-programs"
+            >프로그램</a>
+            <a 
+              href="#tiers"
+              onClick={(e) => { e.preventDefault(); scrollToSection('tiers'); }}
+              data-testid="nav-tiers"
+            >등급 시스템</a>
+            <a 
+              href="#activities"
+              onClick={(e) => { e.preventDefault(); scrollToSection('activities'); }}
+              data-testid="nav-activities"
+            >활동 보상</a>
+            <a 
+              href="#leaderboard"
+              onClick={(e) => { e.preventDefault(); scrollToSection('leaderboard'); }}
+              data-testid="nav-leaderboard"
+            >리더보드</a>
+            <a 
+              href="#faq"
+              onClick={(e) => { e.preventDefault(); scrollToSection('faq'); }}
+              data-testid="nav-faq"
+            >FAQ</a>
           </nav>
           <button 
             className="connect-btn" 
@@ -1044,11 +1092,19 @@ export default function CommunityProgramPage() {
           </div>
 
           <div className="cta-group">
-            <button className="btn-primary" data-testid="button-apply">
-              🚀 지금 신청하기
+            <button 
+              className="btn-primary" 
+              data-testid="button-apply"
+              onClick={() => { scrollToSection('programs'); toast({ title: "프로그램 선택", description: "아래에서 참여할 프로그램을 선택하세요." }); }}
+            >
+              지금 신청하기
             </button>
-            <button className="btn-secondary">
-              📖 가이드 보기
+            <button 
+              className="btn-secondary"
+              data-testid="button-guide"
+              onClick={() => { scrollToSection('activities'); toast({ title: "가이드", description: "활동별 포인트와 보상 정보를 확인하세요." }); }}
+            >
+              가이드 보기
             </button>
           </div>
         </div>
@@ -1132,7 +1188,13 @@ export default function CommunityProgramPage() {
                   <h5>참여 조건</h5>
                   <p>{program.requirements}</p>
                 </div>
-                <button className="program-btn primary">신청하기</button>
+                <button 
+                  className="program-btn primary"
+                  onClick={() => handleApplyProgram(program.id, program.title)}
+                  data-testid={`button-apply-${program.id}`}
+                >
+                  {isConnected ? '신청하기' : '지갑 연결 후 신청'}
+                </button>
               </div>
             </div>
           ))}
@@ -1252,58 +1314,103 @@ export default function CommunityProgramPage() {
         </div>
 
         <div className="faq-container">
-          <div className={`faq-item ${activeFaq === 'faq-1' ? 'active' : ''}`}>
+          <div className={`faq-item ${activeFaq === 'faq-1' ? 'active' : ''}`} data-testid="faq-1">
             <div className="faq-question" onClick={() => toggleFaq('faq-1')}>
+              <h4>커뮤니티 프로그램 보상 총 물량은 얼마인가요?</h4>
+              <span className="faq-chevron">▼</span>
+            </div>
+            <div className="faq-answer">
+              <p>커뮤니티 프로그램 보상 총 풀은 <strong>3억 TBURN</strong>입니다. 이는 전체 공급량 100억 TBURN의 3%에 해당합니다. 6개 프로그램으로 배분됩니다: 앰배서더(30%), 콘텐츠 크리에이터(20%), 모더레이터(15%), 교육 전문가(15%), 번역가(10%), 버그 바운티(10%).</p>
+            </div>
+          </div>
+
+          <div className={`faq-item ${activeFaq === 'faq-2' ? 'active' : ''}`} data-testid="faq-2">
+            <div className="faq-question" onClick={() => toggleFaq('faq-2')}>
               <h4>커뮤니티 프로그램에 어떻게 참여하나요?</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>각 프로그램 카드의 "신청하기" 버튼을 클릭하여 지원서를 제출하세요. 지원서 검토 후 승인되면 공식 커뮤니티 멤버로 활동을 시작할 수 있습니다. 앰배서더는 별도의 인터뷰 과정이 있습니다.</p>
+              <p>각 프로그램 카드의 <strong>"신청하기" 버튼</strong>을 클릭하여 지원서를 제출하세요. 지원서 검토 후 승인되면 공식 커뮤니티 멤버로 활동을 시작할 수 있습니다. 앰배서더는 별도의 인터뷰 과정이 있습니다.</p>
             </div>
           </div>
 
-          <div className={`faq-item ${activeFaq === 'faq-2' ? 'active' : ''}`}>
-            <div className="faq-question" onClick={() => toggleFaq('faq-2')}>
+          <div className={`faq-item ${activeFaq === 'faq-3' ? 'active' : ''}`} data-testid="faq-3">
+            <div className="faq-question" onClick={() => toggleFaq('faq-3')}>
               <h4>포인트는 어떻게 TBURN으로 전환되나요?</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>포인트는 매월 말 자동으로 TBURN으로 전환됩니다. 전환 비율은 등급에 따라 달라지며, Legend 등급은 최대 3배의 보상 배율을 받습니다. 전환된 TBURN은 다음 달 첫째 주에 지급됩니다.</p>
+              <p>포인트는 <strong>매월 말 자동으로 TBURN으로 전환</strong>됩니다. 전환 비율은 등급에 따라 달라지며, Legend 등급은 최대 3배의 보상 배율을 받습니다. 전환된 TBURN은 다음 달 첫째 주에 지급됩니다.</p>
             </div>
           </div>
 
-          <div className={`faq-item ${activeFaq === 'faq-3' ? 'active' : ''}`}>
-            <div className="faq-question" onClick={() => toggleFaq('faq-3')}>
+          <div className={`faq-item ${activeFaq === 'faq-4' ? 'active' : ''}`} data-testid="faq-4">
+            <div className="faq-question" onClick={() => toggleFaq('faq-4')}>
               <h4>여러 프로그램에 동시 참여가 가능한가요?</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>네, 여러 프로그램에 동시 참여가 가능합니다. 예를 들어, 앰배서더로 활동하면서 콘텐츠 크리에이터로도 보상을 받을 수 있습니다. 단, 각 프로그램별 참여 조건을 모두 충족해야 합니다.</p>
+              <p>네, <strong>여러 프로그램에 동시 참여</strong>가 가능합니다. 예를 들어, 앰배서더로 활동하면서 콘텐츠 크리에이터로도 보상을 받을 수 있습니다. 단, 각 프로그램별 참여 조건을 모두 충족해야 합니다.</p>
             </div>
           </div>
 
-          <div className={`faq-item ${activeFaq === 'faq-4' ? 'active' : ''}`}>
-            <div className="faq-question" onClick={() => toggleFaq('faq-4')}>
+          <div className={`faq-item ${activeFaq === 'faq-5' ? 'active' : ''}`} data-testid="faq-5">
+            <div className="faq-question" onClick={() => toggleFaq('faq-5')}>
+              <h4>등급 시스템은 어떻게 작동하나요?</h4>
+              <span className="faq-chevron">▼</span>
+            </div>
+            <div className="faq-answer">
+              <p>5단계 등급 시스템이 있습니다: <strong>뉴커머(1x) → 컨트리뷰터(1.2x) → 애드보킷(1.5x) → 챔피언(2x) → 레전드(3x)</strong>. 활동으로 포인트를 쌓아 상위 등급으로 승급하며, 각 등급마다 보상 배율이 증가합니다. 레전드 등급은 10,000포인트 이상 필요합니다.</p>
+            </div>
+          </div>
+
+          <div className={`faq-item ${activeFaq === 'faq-6' ? 'active' : ''}`} data-testid="faq-6">
+            <div className="faq-question" onClick={() => toggleFaq('faq-6')}>
               <h4>등급 강등 조건은 무엇인가요?</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>3개월 연속 최소 활동량(월 100포인트 이상)을 달성하지 못하면 등급이 강등될 수 있습니다. 강등 시 1단계씩 내려가며, 해당 등급의 보상 배율이 적용됩니다.</p>
+              <p><strong>3개월 연속 최소 활동량</strong>(월 100포인트 이상)을 달성하지 못하면 등급이 강등될 수 있습니다. 강등 시 1단계씩 내려가며, 해당 등급의 보상 배율이 적용됩니다.</p>
+            </div>
+          </div>
+
+          <div className={`faq-item ${activeFaq === 'faq-7' ? 'active' : ''}`} data-testid="faq-7">
+            <div className="faq-question" onClick={() => toggleFaq('faq-7')}>
+              <h4>버그 바운티 보상은 어떻게 결정되나요?</h4>
+              <span className="faq-chevron">▼</span>
+            </div>
+            <div className="faq-answer">
+              <p>버그 바운티 보상은 취약점의 <strong>심각도에 따라</strong> 결정됩니다: Critical(최대 50,000 TBURN), High(10,000~25,000 TBURN), Medium(2,000~10,000 TBURN), Low(500~2,000 TBURN). 보안 전문가 검증 후 7일 이내 지급됩니다.</p>
+            </div>
+          </div>
+
+          <div className={`faq-item ${activeFaq === 'faq-8' ? 'active' : ''}`} data-testid="faq-8">
+            <div className="faq-question" onClick={() => toggleFaq('faq-8')}>
+              <h4>콘텐츠 품질 기준은 무엇인가요?</h4>
+              <span className="faq-chevron">▼</span>
+            </div>
+            <div className="faq-answer">
+              <p>콘텐츠는 <strong>정확성, 원본성, 품질, 참여도</strong> 4가지 기준으로 평가됩니다. 표절, 허위 정보, 저품질 콘텐츠는 보상이 거부되며, 반복 시 프로그램 참여가 제한될 수 있습니다. 우수 콘텐츠는 공식 채널에 홍보되며 추가 보너스가 지급됩니다.</p>
             </div>
           </div>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="cta-section">
+      <section className="cta-section" data-testid="cta-section">
         <div style={{ maxWidth: '800px', margin: '0 auto' }}>
           <h2 style={{ fontSize: '2.5rem', fontWeight: 800, marginBottom: '1rem' }}>TBURN 커뮤니티에 합류하세요!</h2>
           <p style={{ color: 'rgba(255,255,255,0.8)', fontSize: '1.125rem', marginBottom: '2rem' }}>
             함께 성장하고, 함께 보상받는 TBURN 생태계<br />
             지금 바로 커뮤니티 프로그램에 참여하세요!
           </p>
-          <button className="connect-btn" style={{ background: 'var(--white)', color: 'var(--cyan)', fontSize: '1.25rem', padding: '20px 50px' }}>
-            🚀 지금 시작하기
+          <button 
+            className="connect-btn" 
+            style={{ background: 'var(--white)', color: 'var(--cyan)', fontSize: '1.25rem', padding: '20px 50px' }}
+            onClick={() => { scrollToSection('programs'); toast({ title: "커뮤니티 프로그램", description: "참여할 프로그램을 선택하세요!" }); }}
+            data-testid="button-cta-start"
+          >
+            지금 시작하기
           </button>
         </div>
       </section>
@@ -1315,45 +1422,79 @@ export default function CommunityProgramPage() {
             <h3>TBURN<span>CHAIN</span></h3>
             <p>AI의 지능, 블록체인의 투명성<br />THE FUTURE IS NOW</p>
             <div className="social-links">
-              <a href="#">𝕏</a>
-              <a href="#">✈</a>
-              <a href="#">💬</a>
-              <a href="#">⌘</a>
+              <a 
+                href="https://twitter.com/tburnchain" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                onClick={() => handleShareSocial('Twitter', 'https://twitter.com/tburnchain')}
+                aria-label="Twitter"
+                data-testid="link-twitter"
+              >𝕏</a>
+              <a 
+                href="https://t.me/tburnchain" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                onClick={() => handleShareSocial('Telegram', 'https://t.me/tburnchain')}
+                aria-label="Telegram"
+                data-testid="link-telegram"
+              >✈</a>
+              <a 
+                href="https://discord.gg/tburn" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                onClick={() => handleShareSocial('Discord', 'https://discord.gg/tburn')}
+                aria-label="Discord"
+                data-testid="link-discord"
+              >💬</a>
+              <a 
+                href="https://github.com/tburn-chain" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                onClick={() => handleShareSocial('GitHub', 'https://github.com/tburn-chain')}
+                aria-label="GitHub"
+                data-testid="link-github"
+              >⌘</a>
             </div>
           </div>
           <div className="footer-links">
             <h4>Product</h4>
             <ul>
-              <li><Link href="/">메인넷</Link></li>
-              <li><Link href="/scan">익스플로러</Link></li>
-              <li><Link href="/app/bridge">브릿지</Link></li>
-              <li><Link href="/app/staking">스테이킹</Link></li>
+              <li><Link href="/" data-testid="footer-link-mainnet">메인넷</Link></li>
+              <li><Link href="/scan" data-testid="footer-link-explorer">익스플로러</Link></li>
+              <li><Link href="/app/bridge" data-testid="footer-link-bridge">브릿지</Link></li>
+              <li><Link href="/app/staking" data-testid="footer-link-staking">스테이킹</Link></li>
             </ul>
           </div>
           <div className="footer-links">
             <h4>Resources</h4>
             <ul>
-              <li><Link href="/learn/whitepaper">백서</Link></li>
-              <li><Link href="/developers/docs">문서</Link></li>
-              <li><a href="#">GitHub</a></li>
-              <li><Link href="/security-audit">감사 보고서</Link></li>
+              <li><Link href="/learn/whitepaper" data-testid="footer-link-whitepaper">백서</Link></li>
+              <li><Link href="/developers/docs" data-testid="footer-link-docs">문서</Link></li>
+              <li><a 
+                href="https://github.com/tburn-chain" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                onClick={() => toast({ title: "GitHub", description: "TBURN Chain GitHub으로 이동합니다." })}
+                data-testid="footer-link-github"
+              >GitHub</a></li>
+              <li><Link href="/security-audit" data-testid="footer-link-audit">감사 보고서</Link></li>
             </ul>
           </div>
           <div className="footer-links">
             <h4>Community</h4>
             <ul>
-              <li><Link href="/community/news">블로그</Link></li>
-              <li><a href="#">앰배서더</a></li>
-              <li><a href="#">그랜트</a></li>
-              <li><Link href="/qna">고객지원</Link></li>
+              <li><Link href="/community/news" data-testid="footer-link-blog">블로그</Link></li>
+              <li><Link href="/ambassador" data-testid="footer-link-ambassador">앰배서더</Link></li>
+              <li><Link href="/grants" data-testid="footer-link-grants">그랜트</Link></li>
+              <li><Link href="/qna" data-testid="footer-link-support">고객지원</Link></li>
             </ul>
           </div>
         </div>
         <div className="footer-bottom">
           <p>© 2025-2045 TBURN Foundation. All Rights Reserved.</p>
           <div style={{ display: 'flex', gap: '2rem' }}>
-            <Link href="/legal/terms-of-service" style={{ color: 'var(--gray)', textDecoration: 'none' }}>이용약관</Link>
-            <Link href="/legal/privacy-policy" style={{ color: 'var(--gray)', textDecoration: 'none' }}>개인정보처리방침</Link>
+            <Link href="/legal/terms-of-service" style={{ color: 'var(--gray)', textDecoration: 'none' }} data-testid="footer-link-terms">이용약관</Link>
+            <Link href="/legal/privacy-policy" style={{ color: 'var(--gray)', textDecoration: 'none' }} data-testid="footer-link-privacy">개인정보처리방침</Link>
           </div>
         </div>
       </footer>
