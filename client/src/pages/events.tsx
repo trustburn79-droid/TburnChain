@@ -1222,9 +1222,21 @@ export default function EventsPage() {
           <div className="leaderboard-header">
             <h3>🏆 런칭 이벤트 TOP 10</h3>
             <div className="leaderboard-tabs">
-              <button className="lb-tab active">전체</button>
-              <button className="lb-tab">오늘</button>
-              <button className="lb-tab">이번 주</button>
+              <button 
+                className="lb-tab active" 
+                data-testid="lb-tab-all"
+                onClick={() => toast({ title: "전체 기간", description: "전체 기간 순위를 표시합니다." })}
+              >전체</button>
+              <button 
+                className="lb-tab" 
+                data-testid="lb-tab-today"
+                onClick={() => toast({ title: "오늘", description: "오늘 순위를 표시합니다. (Coming Soon)" })}
+              >오늘</button>
+              <button 
+                className="lb-tab" 
+                data-testid="lb-tab-week"
+                onClick={() => toast({ title: "이번 주", description: "이번 주 순위를 표시합니다. (Coming Soon)" })}
+              >이번 주</button>
             </div>
           </div>
 
@@ -1273,43 +1285,83 @@ export default function EventsPage() {
         </div>
 
         <div className="faq-container">
-          <div className={`faq-item ${activeFaq === 'faq-1' ? 'active' : ''}`}>
+          <div className={`faq-item ${activeFaq === 'faq-1' ? 'active' : ''}`} data-testid="faq-1">
             <div className="faq-question" onClick={() => toggleFaq('faq-1')}>
               <h4>이벤트 보상 총 물량은 얼마인가요?</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>이벤트 보상 총 풀은 4억 TBURN입니다. 이는 전체 공급량 100억 TBURN의 4%에 해당합니다. TGE 시점에 15%(6,000만 TBURN)가 해제되고, 나머지는 24개월에 걸쳐 베스팅됩니다.</p>
+              <p>이벤트 보상 총 풀은 <strong>4억 TBURN</strong>입니다. 이는 전체 공급량 100억 TBURN의 4%에 해당합니다. 5개 카테고리로 배분됩니다: 런칭 이벤트(1억, 25%), 트레이딩 대회(1억, 25%), 스테이킹 부스트(8,000만, 20%), 커뮤니티 챌린지(6,000만, 15%), 파트너십(6,000만, 15%).</p>
             </div>
           </div>
 
-          <div className={`faq-item ${activeFaq === 'faq-2' ? 'active' : ''}`}>
+          <div className={`faq-item ${activeFaq === 'faq-2' ? 'active' : ''}`} data-testid="faq-2">
             <div className="faq-question" onClick={() => toggleFaq('faq-2')}>
               <h4>이벤트 참여 자격이 있나요?</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>지갑을 연결한 모든 사용자가 참여할 수 있습니다. 다만, 일부 이벤트는 KYC 인증 또는 특정 조건(예: 최소 스테이킹 수량)이 필요할 수 있습니다. 각 이벤트의 상세 페이지에서 참여 조건을 확인하세요.</p>
+              <p>지갑을 연결한 모든 사용자가 참여할 수 있습니다. 지원 지갑: MetaMask, Rabby, Trust Wallet, Coinbase Wallet, Ledger. 일부 이벤트는 KYC 인증 또는 특정 조건(예: 최소 스테이킹 수량, TBURN 보유량)이 필요할 수 있습니다. 각 이벤트 카드에서 참여 조건을 확인하세요.</p>
             </div>
           </div>
 
-          <div className={`faq-item ${activeFaq === 'faq-3' ? 'active' : ''}`}>
+          <div className={`faq-item ${activeFaq === 'faq-3' ? 'active' : ''}`} data-testid="faq-3">
             <div className="faq-question" onClick={() => toggleFaq('faq-3')}>
               <h4>보상은 언제 지급되나요?</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>대부분의 이벤트 보상은 이벤트 종료 후 7일 이내에 지급됩니다. 일부 상시 진행 이벤트는 매주 월요일에 지급됩니다. 보상 지급 일정은 각 이벤트 상세 페이지에서 확인할 수 있습니다.</p>
+              <p>대부분의 이벤트 보상은 <strong>이벤트 종료 후 7일 이내</strong>에 지급됩니다. 상시 진행 이벤트(퀴즈 챌린지 등)는 매주 월요일 UTC 00:00에 지급됩니다. 트레이딩 대회 보상은 최종 순위 확정 후 3일 이내에 지급됩니다.</p>
             </div>
           </div>
 
-          <div className={`faq-item ${activeFaq === 'faq-4' ? 'active' : ''}`}>
+          <div className={`faq-item ${activeFaq === 'faq-4' ? 'active' : ''}`} data-testid="faq-4">
             <div className="faq-question" onClick={() => toggleFaq('faq-4')}>
               <h4>여러 이벤트에 동시 참여가 가능한가요?</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>네, 동시에 진행 중인 모든 이벤트에 참여할 수 있습니다. 예를 들어, 런칭 이벤트와 스테이킹 부스트 이벤트에 동시에 참여하여 더 많은 보상을 받을 수 있습니다.</p>
+              <p>네, 동시에 진행 중인 <strong>모든 이벤트에 참여 가능</strong>합니다. 예를 들어, 런칭 이벤트 미션을 완료하면서 동시에 스테이킹 부스트 이벤트에 참여하고, 퀴즈 챌린지도 풀 수 있습니다. 더 많은 이벤트에 참여할수록 더 많은 보상을 받을 수 있습니다!</p>
+            </div>
+          </div>
+
+          <div className={`faq-item ${activeFaq === 'faq-5' ? 'active' : ''}`} data-testid="faq-5">
+            <div className="faq-question" onClick={() => toggleFaq('faq-5')}>
+              <h4>트레이딩 대회 순위는 어떻게 결정되나요?</h4>
+              <span className="faq-chevron">▼</span>
+            </div>
+            <div className="faq-answer">
+              <p>트레이딩 대회는 두 가지 기준으로 순위가 결정됩니다: <strong>1) 거래량 순위</strong> - 대회 기간 동안의 총 거래량(USD) 기준, <strong>2) 수익률 순위</strong> - 기간 동안의 포트폴리오 수익률(%) 기준. 각 순위별로 별도의 보상 풀이 할당되어 있습니다.</p>
+            </div>
+          </div>
+
+          <div className={`faq-item ${activeFaq === 'faq-6' ? 'active' : ''}`} data-testid="faq-6">
+            <div className="faq-question" onClick={() => toggleFaq('faq-6')}>
+              <h4>스테이킹 부스트 이벤트의 APY는 어떻게 계산되나요?</h4>
+              <span className="faq-chevron">▼</span>
+            </div>
+            <div className="faq-answer">
+              <p>스테이킹 부스트 이벤트 기간(첫 30일) 동안 <strong>기본 APY의 2배</strong>가 적용됩니다. 예: 기본 APY 15% → 부스트 기간 30%. 추가로 1,000 TBURN 이상 스테이킹 시 +5% 보너스, 10,000 TBURN 이상 시 +10% 보너스가 적용됩니다.</p>
+            </div>
+          </div>
+
+          <div className={`faq-item ${activeFaq === 'faq-7' ? 'active' : ''}`} data-testid="faq-7">
+            <div className="faq-question" onClick={() => toggleFaq('faq-7')}>
+              <h4>밈 콘테스트 수상작은 어떻게 선정되나요?</h4>
+              <span className="faq-chevron">▼</span>
+            </div>
+            <div className="faq-answer">
+              <p>밈 콘테스트는 2단계로 진행됩니다: <strong>1) 커뮤니티 투표</strong> - Discord/Telegram에서 좋아요 및 반응으로 상위 20개 작품 선정, <strong>2) 심사위원 평가</strong> - 창의성, 관련성, 바이럴 잠재력을 기준으로 최종 수상작 선정. 대상 1명, 금상 3명, 은상 5명, 동상 11명 시상.</p>
+            </div>
+          </div>
+
+          <div className={`faq-item ${activeFaq === 'faq-8' ? 'active' : ''}`} data-testid="faq-8">
+            <div className="faq-question" onClick={() => toggleFaq('faq-8')}>
+              <h4>이벤트 참여 시 부정행위가 있으면 어떻게 되나요?</h4>
+              <span className="faq-chevron">▼</span>
+            </div>
+            <div className="faq-answer">
+              <p>봇 사용, 다중 계정, 워시 트레이딩 등 부정행위가 감지되면 해당 계정의 <strong>모든 이벤트 보상이 몰수</strong>되고 향후 모든 이벤트에서 영구 제외됩니다. AI 기반 사기 탐지 시스템이 24시간 모니터링하며, 의심 활동 시 보상 지급이 보류될 수 있습니다.</p>
             </div>
           </div>
         </div>
@@ -1341,10 +1393,38 @@ export default function EventsPage() {
             <h3>TBURN<span>CHAIN</span></h3>
             <p>AI의 지능, 블록체인의 투명성<br />THE FUTURE IS NOW</p>
             <div className="social-links">
-              <a href="#">𝕏</a>
-              <a href="#">✈</a>
-              <a href="#">💬</a>
-              <a href="#">⌘</a>
+              <a 
+                href="https://twitter.com/tburnchain" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                aria-label="Twitter"
+                onClick={() => toast({ title: "Twitter", description: "TBURN Chain Twitter 페이지로 이동합니다." })}
+                data-testid="link-twitter"
+              >𝕏</a>
+              <a 
+                href="https://t.me/tburnchain" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                aria-label="Telegram"
+                onClick={() => toast({ title: "Telegram", description: "TBURN Chain Telegram 채널로 이동합니다." })}
+                data-testid="link-telegram"
+              >✈</a>
+              <a 
+                href="https://discord.gg/tburn" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                aria-label="Discord"
+                onClick={() => toast({ title: "Discord", description: "TBURN Chain Discord 서버로 이동합니다." })}
+                data-testid="link-discord"
+              >💬</a>
+              <a 
+                href="https://github.com/tburn-chain" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                aria-label="GitHub"
+                onClick={() => toast({ title: "GitHub", description: "TBURN Chain GitHub으로 이동합니다." })}
+                data-testid="link-github"
+              >⌘</a>
             </div>
           </div>
           <div className="footer-links">
