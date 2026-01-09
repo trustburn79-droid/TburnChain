@@ -22,12 +22,17 @@ import {
   insertMemberSchema,
   airdropClaims,
   consensusRounds,
+  websocketSessions,
+  websocketSubscriptions,
+  websocketMessageMetrics,
+  websocketReconnectTokens,
   type InsertMember,
   type NetworkStats
 } from "@shared/schema";
 import { z } from "zod";
 import { eq, desc, sql } from "drizzle-orm";
 import { db, pool as sharedPool } from "./db";
+import { wsOrchestrator } from "./websocket-orchestrator";
 import { getTBurnClient, isProductionMode } from "./tburn-client";
 import { ValidatorSimulationService } from "./validator-simulation";
 import { aiService, broadcastAIUsageStats } from "./ai-service-manager";
@@ -25947,6 +25952,201 @@ Provide JSON portfolio analysis:
       process.exit(0);
     });
   });
+
+
+  // ============================================================================
+  // WebSocket Admin API - Enterprise Session & Metrics Management
+  // ============================================================================
+  
+  // Start WebSocket Orchestrator
+  wsOrchestrator.start().catch(err => {
+    console.error('[WebSocket] Failed to start orchestrator:', err);
+  });
+  
+  // Get WebSocket service stats (admin only)
+  app.get("/api/websocket/stats", requireAdmin, async (req: Request, res: Response) => {
+    try {
+      const stats = wsOrchestrator.getStats();
+      res.json({
+        success: true,
+        data: {
+          ...stats,
+          uptime: process.uptime(),
+          memoryUsage: process.memoryUsage(),
+        }
+      });
+    } catch (error) {
+      res.status(500).json({ success: false, error: 'Failed to get WebSocket stats' });
+    }
+  });
+  
+  // Get active sessions (admin only)
+  app.get("/api/websocket/sessions", requireAdmin, async (req: Request, res: Response) => {
+    try {
+      const results = await db.select()
+        .from(websocketSessions)
+        .where(eq(websocketSessions.status, 'active'))
+        .orderBy(desc(websocketSessions.connectedAt))
+        .limit(100);
+      
+      res.json({
+        success: true,
+        data: results,
+        count: results.length
+      });
+    } catch (error) {
+      res.status(500).json({ success: false, error: 'Failed to get WebSocket sessions' });
+    }
+  });
+  
+  // Get subscriptions for a session (admin only)
+  app.get("/api/websocket/sessions/:sessionId/subscriptions", requireAdmin, async (req: Request, res: Response) => {
+    try {
+      const { sessionId } = req.params;
+      const results = await db.select()
+        .from(websocketSubscriptions)
+        .where(eq(websocketSubscriptions.sessionId, sessionId))
+        .orderBy(desc(websocketSubscriptions.createdAt));
+      
+      res.json({
+        success: true,
+        data: results,
+        count: results.length
+      });
+    } catch (error) {
+      res.status(500).json({ success: false, error: 'Failed to get subscriptions' });
+    }
+  });
+  
+  // Get message metrics (admin only)
+  app.get("/api/websocket/metrics", requireAdmin, async (req: Request, res: Response) => {
+    try {
+      const { channel, hours = '24' } = req.query;
+      const hoursAgo = new Date(Date.now() - parseInt(hours as string) * 3600000);
+      
+      let query = db.select()
+        .from(websocketMessageMetrics)
+        .where(sql`${websocketMessageMetrics.intervalStart} >= ${hoursAgo}`)
+        .orderBy(desc(websocketMessageMetrics.intervalStart))
+        .limit(1000);
+      
+      const results = await query;
+      
+      // Aggregate by channel
+      const aggregated: Record<string, any> = {};
+      for (const row of results) {
+        if (!aggregated[row.channel]) {
+          aggregated[row.channel] = {
+            channel: row.channel,
+            totalMessages: 0,
+            totalBytes: 0,
+            avgLatencyMs: 0,
+            maxLatencyMs: 0,
+            droppedCount: 0,
+            dataPoints: 0,
+          };
+        }
+        const agg = aggregated[row.channel];
+        agg.totalMessages += row.messageCount;
+        agg.totalBytes += row.bytesTotal;
+        agg.droppedCount += row.droppedCount;
+        agg.maxLatencyMs = Math.max(agg.maxLatencyMs, row.p99LatencyMs || 0);
+        agg.avgLatencyMs = ((agg.avgLatencyMs * agg.dataPoints) + (row.avgLatencyMs || 0)) / (agg.dataPoints + 1);
+        agg.dataPoints++;
+      }
+      
+      res.json({
+        success: true,
+        data: Object.values(aggregated),
+        rawCount: results.length,
+        period: `${hours} hours`
+      });
+    } catch (error) {
+      res.status(500).json({ success: false, error: 'Failed to get metrics' });
+    }
+  });
+  
+  // Get Prometheus-format metrics for WebSocket service
+  app.get("/api/websocket/prometheus", async (req: Request, res: Response) => {
+    try {
+      const stats = wsOrchestrator.getStats();
+      
+      let metrics = '';
+      metrics += '# HELP tburn_websocket_active_sessions Number of active WebSocket sessions\n';
+      metrics += '# TYPE tburn_websocket_active_sessions gauge\n';
+      metrics += `tburn_websocket_active_sessions ${stats.activeSessions}\n`;
+      
+      metrics += '# HELP tburn_websocket_total_subscriptions Total number of active subscriptions\n';
+      metrics += '# TYPE tburn_websocket_total_subscriptions gauge\n';
+      metrics += `tburn_websocket_total_subscriptions ${stats.totalSubscriptions}\n`;
+      
+      metrics += '# HELP tburn_websocket_channel_subscribers Number of subscribers per channel\n';
+      metrics += '# TYPE tburn_websocket_channel_subscribers gauge\n';
+      for (const [channel, count] of Object.entries(stats.channelStats)) {
+        metrics += `tburn_websocket_channel_subscribers{channel="${channel}"} ${count}\n`;
+      }
+      
+      metrics += '# HELP tburn_websocket_qos_tier_sessions Sessions by QoS tier\n';
+      metrics += '# TYPE tburn_websocket_qos_tier_sessions gauge\n';
+      for (const [tier, count] of Object.entries(stats.qosTierBreakdown)) {
+        metrics += `tburn_websocket_qos_tier_sessions{tier="${tier}"} ${count}\n`;
+      }
+      
+      res.type('text/plain').send(metrics);
+    } catch (error) {
+      res.status(500).send('# Error generating metrics');
+    }
+  });
+  
+  // Get session history (admin only)
+  app.get("/api/websocket/history", requireAdmin, async (req: Request, res: Response) => {
+    try {
+      const { hours = '24', limit = '100' } = req.query;
+      const hoursAgo = new Date(Date.now() - parseInt(hours as string) * 3600000);
+      
+      const results = await db.select()
+        .from(websocketSessions)
+        .where(sql`${websocketSessions.connectedAt} >= ${hoursAgo}`)
+        .orderBy(desc(websocketSessions.connectedAt))
+        .limit(parseInt(limit as string));
+      
+      const stats = {
+        totalSessions: results.length,
+        activeSessions: results.filter(s => s.status === 'active').length,
+        avgDurationMs: 0,
+        totalMessagesSent: 0,
+        totalMessagesReceived: 0,
+        byConnectionType: {} as Record<string, number>,
+        byQosTier: {} as Record<string, number>,
+      };
+      
+      for (const session of results) {
+        stats.totalMessagesSent += session.messagesSent || 0;
+        stats.totalMessagesReceived += session.messagesReceived || 0;
+        stats.byConnectionType[session.connectionType] = (stats.byConnectionType[session.connectionType] || 0) + 1;
+        stats.byQosTier[session.qosTier] = (stats.byQosTier[session.qosTier] || 0) + 1;
+        
+        if (session.disconnectedAt && session.connectedAt) {
+          stats.avgDurationMs += new Date(session.disconnectedAt).getTime() - new Date(session.connectedAt).getTime();
+        }
+      }
+      
+      if (results.filter(s => s.disconnectedAt).length > 0) {
+        stats.avgDurationMs /= results.filter(s => s.disconnectedAt).length;
+      }
+      
+      res.json({
+        success: true,
+        stats,
+        sessions: results.slice(0, 50),
+        period: `${hours} hours`
+      });
+    } catch (error) {
+      res.status(500).json({ success: false, error: 'Failed to get session history' });
+    }
+  });
+  
+  console.log('[WebSocket] ✅ Enterprise WebSocket admin routes registered');
 
   console.log(`[Enterprise] ✅ Registered ${activeIntervals.length} tracked intervals for graceful shutdown`);
 
