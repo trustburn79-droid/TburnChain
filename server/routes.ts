@@ -2610,6 +2610,10 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     if (req.method === "GET" && req.path.startsWith("/user/")) {
       return next();
     }
+    // Skip auth for WebSocket prometheus metrics (public monitoring endpoint for Prometheus)
+    if (req.path === "/websocket/prometheus") {
+      return next();
+    }
     // Skip auth for Bug Bounty public endpoints (submission and read-only stats)
     if (req.path.startsWith("/bug-bounty")) {
       return next();
@@ -25962,6 +25966,39 @@ Provide JSON portfolio analysis:
   wsOrchestrator.start().catch(err => {
     console.error('[WebSocket] Failed to start orchestrator:', err);
   });
+
+  // Get Prometheus-format metrics for WebSocket service
+  app.get("/api/websocket/prometheus", async (req: Request, res: Response) => {
+    try {
+      const stats = wsOrchestrator.getStats();
+      
+      let metrics = '';
+      metrics += '# HELP tburn_websocket_active_sessions Number of active WebSocket sessions\n';
+      metrics += '# TYPE tburn_websocket_active_sessions gauge\n';
+      metrics += `tburn_websocket_active_sessions ${stats.activeSessions}\n`;
+      
+      metrics += '# HELP tburn_websocket_total_subscriptions Total number of active subscriptions\n';
+      metrics += '# TYPE tburn_websocket_total_subscriptions gauge\n';
+      metrics += `tburn_websocket_total_subscriptions ${stats.totalSubscriptions}\n`;
+      
+      metrics += '# HELP tburn_websocket_channel_subscribers Number of subscribers per channel\n';
+      metrics += '# TYPE tburn_websocket_channel_subscribers gauge\n';
+      for (const [channel, count] of Object.entries(stats.channelStats)) {
+        metrics += `tburn_websocket_channel_subscribers{channel="${channel}"} ${count}\n`;
+      }
+      
+      metrics += '# HELP tburn_websocket_qos_tier_sessions Sessions by QoS tier\n';
+      metrics += '# TYPE tburn_websocket_qos_tier_sessions gauge\n';
+      for (const [tier, count] of Object.entries(stats.qosTierBreakdown)) {
+        metrics += `tburn_websocket_qos_tier_sessions{tier="${tier}"} ${count}\n`;
+      }
+      
+      res.type('text/plain').send(metrics);
+    } catch (error) {
+      res.status(500).send('# Error generating metrics');
+    }
+  });
+  
   
   // Get WebSocket service stats (admin only)
   app.get("/api/websocket/stats", requireAdmin, async (req: Request, res: Response) => {
@@ -26063,38 +26100,6 @@ Provide JSON portfolio analysis:
       });
     } catch (error) {
       res.status(500).json({ success: false, error: 'Failed to get metrics' });
-    }
-  });
-  
-  // Get Prometheus-format metrics for WebSocket service
-  app.get("/api/websocket/prometheus", async (req: Request, res: Response) => {
-    try {
-      const stats = wsOrchestrator.getStats();
-      
-      let metrics = '';
-      metrics += '# HELP tburn_websocket_active_sessions Number of active WebSocket sessions\n';
-      metrics += '# TYPE tburn_websocket_active_sessions gauge\n';
-      metrics += `tburn_websocket_active_sessions ${stats.activeSessions}\n`;
-      
-      metrics += '# HELP tburn_websocket_total_subscriptions Total number of active subscriptions\n';
-      metrics += '# TYPE tburn_websocket_total_subscriptions gauge\n';
-      metrics += `tburn_websocket_total_subscriptions ${stats.totalSubscriptions}\n`;
-      
-      metrics += '# HELP tburn_websocket_channel_subscribers Number of subscribers per channel\n';
-      metrics += '# TYPE tburn_websocket_channel_subscribers gauge\n';
-      for (const [channel, count] of Object.entries(stats.channelStats)) {
-        metrics += `tburn_websocket_channel_subscribers{channel="${channel}"} ${count}\n`;
-      }
-      
-      metrics += '# HELP tburn_websocket_qos_tier_sessions Sessions by QoS tier\n';
-      metrics += '# TYPE tburn_websocket_qos_tier_sessions gauge\n';
-      for (const [tier, count] of Object.entries(stats.qosTierBreakdown)) {
-        metrics += `tburn_websocket_qos_tier_sessions{tier="${tier}"} ${count}\n`;
-      }
-      
-      res.type('text/plain').send(metrics);
-    } catch (error) {
-      res.status(500).send('# Error generating metrics');
     }
   });
   

@@ -193,6 +193,7 @@ const SESSION_FREE_EXACT_PATHS = new Set([
   '/json-rpc',
   '/ws',
   '/wss',
+  '/api/websocket/prometheus',
 ]);
 
 const SESSION_FREE_PREFIX_LIST = [
