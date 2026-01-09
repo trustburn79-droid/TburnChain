@@ -16194,13 +16194,13 @@
         "claimRate": "Процент получения"
       },
       "eligibility": {
-        "title": "My Airdrop Status",
-        "checking": "Checking eligibility...",
-        "allocated": "Allocated",
-        "claimed": "Claimed",
-        "pending": "Pending",
-        "tier": "Tier",
-        "noAllocation": "No airdrop allocation found. Complete tasks to participate."
+        "title": "Мой статус аирдропа",
+        "checking": "Проверка права участия...",
+        "allocated": "Выделено",
+        "claimed": "Получено",
+        "pending": "Ожидание",
+        "tier": "Уровень",
+        "noAllocation": "Выделение аирдропа не найдено. Выполните задания для участия."
       },
       "buttons": {
         "participateNow": "Участвовать сейчас",
@@ -16208,284 +16208,253 @@
         "viewDetails": "Подробнее"
       },
       "toasts": {
-        "participating": "Participating in Airdrop!",
-        "completeTasksForPoints": "Complete tasks to earn more points.",
-        "airdropTypes": "Airdrop Types",
-        "checkAirdropTypes": "Check out 3 types of airdrop programs.",
-        "connectWalletFirst": "Please connect your wallet first",
-        "checkingNft": "Checking NFT holdings...",
-        "pleaseWait": "Please wait",
-        "checkingTestnet": "Checking testnet activity..."
+        "participating": "Участие в аирдропе!",
+        "completeTasksForPoints": "Выполняйте задания для получения большего количества баллов.",
+        "airdropTypes": "Типы аирдропа",
+        "checkAirdropTypes": "Ознакомьтесь с 3 типами программ аирдропа.",
+        "connectWalletFirst": "Сначала подключите кошелек",
+        "checkingNft": "Проверка наличия NFT...",
+        "pleaseWait": "Пожалуйста, подождите",
+        "checkingTestnet": "Проверка активности в тестнете..."
       },
       "types": {
-        "badge": "AIRDROP TYPES",
-        "title": "Airdrop Types",
-        "subtitle": "300 million TBURN distributed through 3 types of programs",
-        "progress": "Distribution Progress",
-        "waiting": "Waiting (Starts 90 days after TGE)",
+        "badge": "ТИПЫ АИРДРОПА",
+        "title": "Типы аирдропа",
+        "subtitle": "300 миллионов TBURN (3% от общего предложения) распределяются через 3 типа программ аирдропа",
+        "progress": "Прогресс распределения",
+        "waiting": "Ожидание (начало через 90 дней после TGE)",
         "genesis": {
-          "title": "Genesis Airdrop",
+          "title": "Генезис-аирдроп",
           "amount": "150M TBURN",
-          "desc": "Special allocation for early participants",
-          "feature1": "Testnet participants prioritized",
-          "feature2": "Genesis NFT holder bonus (2x)",
-          "feature3": "Early bird extra reward (+20%)",
-          "feature4": "15% unlocked at TGE"
+          "desc": "Специальное распределение для ранних участников в честь запуска основной сети",
+          "feature1": "Приоритет участникам тестнета",
+          "feature2": "Бонус держателям Genesis NFT (2x)",
+          "feature3": "Дополнительная награда early bird (+20%)",
+          "feature4": "15% разблокировано при TGE"
         },
         "community": {
-          "title": "Community Airdrop",
+          "title": "Комьюнити-аирдроп",
           "amount": "100M TBURN",
-          "desc": "Rewards for social tasks and community participation",
-          "feature1": "X/Telegram/Discord follow",
-          "feature2": "Content creation rewards",
-          "feature3": "Referral bonus (500P per friend)",
-          "feature4": "Point-based distribution"
+          "desc": "Награды за выполнение социальных заданий и участие в сообществе",
+          "feature1": "Подписка на X(Twitter)/Telegram/Discord",
+          "feature2": "Награды за создание и публикацию контента",
+          "feature3": "Реферальный бонус (500P за друга)",
+          "feature4": "Пропорциональное распределение на основе баллов"
         },
         "loyalty": {
-          "title": "Loyalty Airdrop",
+          "title": "Аирдроп лояльности",
           "amount": "50M TBURN",
-          "desc": "Rewards for long-term holders and stakers",
-          "feature1": "90+ day holding bonus (+50%)",
-          "feature2": "Staking rewards",
-          "feature3": "Governance voting bonus",
-          "feature4": "Quarterly snapshot bonus"
+          "desc": "Награды для долгосрочных держателей и участников стейкинга",
+          "feature1": "Бонус за удержание 90+ дней (+50%)",
+          "feature2": "Награды за участие в стейкинге",
+          "feature3": "Бонус за голосование в управлении",
+          "feature4": "Квартальное бонусное распределение по снимкам"
         }
       },
       "tasks": {
-        "badge": "EARN POINTS",
-        "title": "Complete Tasks",
-        "subtitle": "Complete tasks and earn points to increase your allocation",
-        "myStatus": "My Task Status",
-        "walletConnected": "Connected with wallet",
-        "connectToTrack": "Connect wallet to track progress",
-        "earnedPoints": "Earned Points",
+        "badge": "ЗАРАБОТАТЬ БАЛЛЫ",
+        "title": "Выполнить задания",
+        "subtitle": "Выполняйте задания и зарабатывайте баллы для увеличения вашей доли аирдропа",
+        "myStatus": "Мой статус заданий",
+        "walletConnected": "Кошелек подключен",
+        "connectToTrack": "Подключите кошелек для отслеживания прогресса заданий",
+        "earnedPoints": "Заработанные баллы",
         "required": {
-          "title": "Required Tasks",
+          "title": "Обязательные задания",
           "wallet": {
-            "title": "Connect Wallet",
-            "desc": "Connect MetaMask or supported wallet",
+            "title": "Подключить кошелек",
+            "desc": "Подключите MetaMask или поддерживаемый кошелек",
             "points": "+500 P",
-            "buttonConnect": "Connect",
-            "buttonComplete": "Complete"
+            "buttonConnect": "Подключить",
+            "buttonComplete": "Готово"
           },
           "email": {
-            "title": "Email Verification",
-            "desc": "Register and verify email",
+            "title": "Подтвердить email",
+            "desc": "Зарегистрируйте и подтвердите email",
             "points": "+300 P",
-            "button": "Verify"
+            "button": "Подтвердить"
           },
           "telegram": {
-            "title": "Join Telegram",
-            "desc": "Join official Telegram group",
+            "title": "Присоединиться к Telegram",
+            "desc": "Вступите в официальную группу Telegram",
             "points": "+400 P",
-            "button": "Join"
+            "button": "Вступить"
           }
         },
         "social": {
-          "title": "Social Tasks",
+          "title": "Социальные задания",
           "twitter": {
-            "title": "Follow X (Twitter)",
-            "desc": "Follow @TBURNChain",
+            "title": "Подписаться на X(Twitter)",
+            "desc": "Подпишитесь на официальный аккаунт @TBURNChain",
             "points": "+200 P",
-            "button": "Follow"
+            "button": "Подписаться"
           },
           "retweet": {
-            "title": "Retweet Launch Tweet",
-            "desc": "Retweet mainnet launch",
+            "title": "Ретвит запуска",
+            "desc": "Сделайте ретвит объявления о запуске mainnet",
             "points": "+300 P",
-            "button": "Retweet"
+            "button": "Ретвит"
           },
           "discord": {
-            "title": "Join Discord",
-            "desc": "Join official Discord",
+            "title": "Присоединиться к Discord",
+            "desc": "Вступите на официальный сервер Discord",
             "points": "+400 P",
-            "button": "Join"
+            "button": "Вступить"
           }
         },
         "bonus": {
-          "title": "Bonus Tasks",
+          "title": "Бонусные задания",
           "nft": {
-            "title": "Genesis NFT Holder",
-            "desc": "2x bonus for Genesis NFT",
+            "title": "Держатель Genesis NFT",
+            "desc": "Бонус 2x за владение TBURN Genesis NFT",
             "points": "+2,000 P",
-            "button": "Verify"
+            "button": "Проверить"
           },
           "referral": {
-            "title": "Invite Friends",
-            "desc": "500P per friend, max 10",
-            "points": "Max +5,000 P",
-            "button": "Invite"
+            "title": "Пригласить друзей (Реферал)",
+            "desc": "500P за друга, максимум 10 друзей",
+            "points": "Макс +5,000 P",
+            "button": "Пригласить"
           },
           "testnet": {
-            "title": "Testnet Participant",
-            "desc": "Auto-applied if recorded",
+            "title": "Участник тестнета",
+            "desc": "Автоматически применяется при наличии активности в тестнете",
             "points": "+3,000 P",
-            "button": "Verify"
+            "button": "Проверить"
           }
         }
       },
       "timeline": {
-        "badge": "SCHEDULE",
-        "title": "Distribution Schedule",
-        "subtitle": "Airdrop spans 9 months after TGE",
-        "nov2025": "November 2025",
-        "registrationStart": "Registration Start",
-        "registrationDesc": "Wallet connection begins",
-        "jan2026": "January 2026 (Current)",
-        "snapshotProgress": "Snapshot In Progress",
-        "snapshotDesc": "Points accumulating",
-        "feb2026": "February 2026",
-        "tge": "TGE",
-        "tgeDesc": "15% immediately claimable",
-        "mar2026": "March ~ November 2026",
-        "monthlyVesting": "Monthly Vesting",
-        "vestingDesc": "~9.4% monthly unlock",
+        "badge": "РАСПИСАНИЕ",
+        "title": "Расписание распределения",
+        "subtitle": "Распределение аирдропа длится 9 месяцев после TGE",
+        "nov2025": "Ноябрь 2025",
+        "registrationStart": "Начало регистрации на аирдроп",
+        "registrationDesc": "Начало подключения кошельков и выполнения заданий",
+        "jan2026": "Январь 2026 (Текущий)",
+        "snapshotProgress": "Снимок в процессе",
+        "snapshotDesc": "Накопление баллов участников (28 750 пользователей)",
+        "feb2026": "Февраль 2026",
+        "tge": "TGE (Событие генерации токенов)",
+        "tgeDesc": "15% (45M TBURN) доступно к получению сразу",
+        "mar2026": "Март - Ноябрь 2026",
+        "monthlyVesting": "Ежемесячное высвобождение вестинга",
+        "vestingDesc": "~9.4% линейное высвобождение в течение 9 месяцев",
         "calculator": {
-          "title": "Distribution Example",
-          "myPoints": "My Points",
-          "totalPool": "Total Pool",
-          "distribution": "Distribution",
-          "estimated": "Estimated Amount",
-          "estimatedValue": "Estimated Value",
-          "disclaimer": "* Actual depends on final snapshot."
+          "title": "Пример расчета распределения",
+          "myPoints": "Мои баллы",
+          "totalPool": "Общий пул баллов",
+          "distribution": "Объем распределения",
+          "estimated": "Ожидаемый объем",
+          "estimatedValue": "Ожидаемая стоимость (@$0.50)",
+          "disclaimer": "* Фактическое распределение может варьироваться в зависимости от итогового количества баллов по снимку."
         },
         "vesting": {
-          "title": "Vesting Schedule",
-          "tgeDay": "TGE (Day 0)",
-          "monthly": "M1 ~ M9",
-          "monthlyPercent": "~9.4% monthly",
-          "complete": "Complete after 9 months"
+          "title": "Расписание вестинга",
+          "tgeDay": "TGE (День 0)",
+          "monthly": "М1 ~ М9",
+          "monthlyPercent": "~9.4%/месяц",
+          "complete": "Через 9 месяцев"
         }
       },
       "eligibilitySection": {
-        "badge": "ELIGIBILITY",
-        "title": "Eligibility Requirements",
-        "subtitle": "Check requirements",
+        "badge": "ПРАВО УЧАСТИЯ",
+        "title": "Требования для участия",
+        "subtitle": "Проверьте требования для участия в аирдропе",
         "eligible": {
-          "title": "Eligible Conditions",
+          "title": "Условия участия",
           "wallet": {
-            "title": "Wallet Required",
-            "desc": "MetaMask, Trust Wallet supported"
+            "title": "Требуется подключение кошелька",
+            "desc": "Поддерживаются MetaMask, Trust Wallet, Coinbase Wallet"
           },
           "tasks": {
-            "title": "Complete Required Tasks",
-            "desc": "Wallet + Email + Telegram"
+            "title": "Выполнить обязательные задания",
+            "desc": "Подключение кошелька + Верификация email + Вступить в Telegram"
           },
-          "minPoints": {
-            "title": "Minimum 1,000 Points",
-            "desc": "Excluded if insufficient"
-          },
-          "snapshot": {
-            "title": "Maintain Eligibility",
-            "desc": "Until January 2026 snapshot"
+          "kyc": {
+            "title": "KYC верификация",
+            "desc": "Требуется базовая верификация личности"
           }
         },
-        "excluded": {
-          "title": "Excluded",
-          "restricted": {
-            "title": "Restricted Countries",
-            "desc": "USA, China, North Korea excluded"
-          },
-          "sybil": {
-            "title": "Sybil Attack",
-            "desc": "Multiple accounts excluded"
+        "ineligible": {
+          "title": "Условия неучастия",
+          "sanctioned": {
+            "title": "Страны под санкциями",
+            "desc": "Регионы под санкциями, такие как Северная Корея, Иран, не могут участвовать"
           },
           "bot": {
-            "title": "Bot Activity",
-            "desc": "Automation excluded"
+            "title": "Боты/Фейковые аккаунты",
+            "desc": "Обнаруженные бот-аккаунты будут исключены"
           },
-          "fraud": {
-            "title": "Fraud",
-            "desc": "Permanently excluded"
+          "multiple": {
+            "title": "Множественные аккаунты",
+            "desc": "Только один аккаунт участника на человека"
           }
         }
       },
       "faq": {
-        "badge": "FAQ",
-        "title": "FAQ",
-        "subtitle": "Common questions",
+        "title": "Часто задаваемые вопросы",
         "q1": {
-          "question": "Total airdrop amount?",
-          "answer": "300M TBURN (3% of 10B supply)"
+          "question": "Как участвовать в аирдропе?",
+          "answer": "Подключите кошелек, выполните обязательные задания (верификация email, вступление в Telegram) и накапливайте баллы."
         },
         "q2": {
-          "question": "TGE amount?",
-          "answer": "15% immediately, 85% over 9 months"
+          "question": "Когда я смогу получить токены?",
+          "answer": "15% доступно при TGE, остальное высвобождается линейно в течение 9 месяцев."
         },
         "q3": {
-          "question": "Point conversion?",
-          "answer": "Based on point ratio"
+          "question": "Как баллы конвертируются в токены?",
+          "answer": "Ваша доля баллов в общем пуле определяет вашу долю токенов."
         },
         "q4": {
-          "question": "Supported wallets?",
-          "answer": "MetaMask, Trust, Coinbase, etc."
+          "question": "Могу ли я участвовать с несколькими кошельками?",
+          "answer": "Нет. Один кошелек на человека, обнаруженные множественные аккаунты будут дисквалифицированы."
         },
         "q5": {
-          "question": "How to claim?",
-          "answer": "Click Claim after TGE"
-        },
-        "q6": {
-          "question": "Task points?",
-          "answer": "500P wallet, 300P email, etc."
-        },
-        "q7": {
-          "question": "NFT bonus?",
-          "answer": "2x multiplier"
-        },
-        "q8": {
-          "question": "Restrictions?",
-          "answer": "OFAC sanctioned countries"
+          "question": "Что такое бонус Genesis NFT?",
+          "answer": "Пользователи, владеющие TBURN Genesis NFT, получают бонус баллов 2x."
         }
       },
       "footer": {
-        "brand": "Next-gen Layer 1 blockchain",
-        "products": "Products",
-        "scan": "TBURNScan",
-        "dapp": "dApp",
-        "staking": "Staking",
-        "bridge": "Bridge",
-        "developers": "Developers",
-        "docs": "Docs",
+        "products": "Продукты",
+        "scan": "Обозреватель",
+        "dapp": "DApp",
+        "staking": "Стейкинг",
+        "bridge": "Мост",
+        "developers": "Разработчики",
+        "docs": "Документация",
         "api": "API",
         "sdk": "SDK",
-        "resources": "Resources",
+        "resources": "Ресурсы",
         "whitepaper": "Whitepaper",
-        "tokenomics": "Tokenomics",
-        "roadmap": "Roadmap",
-        "privacyPolicy": "Privacy",
-        "termsOfService": "Terms",
-        "contact": "Contact"
+        "tokenomics": "Токеномика",
+        "roadmap": "Дорожная карта",
+        "privacyPolicy": "Политика конфиденциальности",
+        "termsOfService": "Условия использования",
+        "contact": "Контакты"
       },
       "emailDialog": {
-        "title": "Email Verification",
-        "description": "Register email for +300P!",
-        "label": "Email *",
-        "placeholder": "example@email.com",
-        "info": "Receive airdrop announcements.",
-        "cancel": "Cancel",
-        "submit": "Verify (+300P)",
-        "processing": "Processing..."
+        "title": "Верификация email",
+        "description": "Введите email для верификации и получите +300 баллов",
+        "label": "Email адрес",
+        "info": "Мы отправим ссылку для верификации на ваш email.",
+        "cancel": "Отмена",
+        "submit": "Отправить",
+        "processing": "Обработка..."
       },
       "referralDialog": {
-        "title": "Invite Friends",
-        "description": "500P per friend, max 10",
-        "linkLabel": "My Referral Link",
-        "copy": "Copy",
-        "shareTitle": "Share on Social",
-        "shareTwitter": "Twitter",
-        "shareTelegram": "Telegram",
-        "shareKakao": "KakaoTalk",
-        "benefits": "Benefits",
-        "benefit1": "+500P for you, +100P for friend",
-        "benefit2": "Max 10 invites",
-        "benefit3": "+50P for friend's friend",
-        "statusTitle": "My Status",
-        "invitedFriends": "Invited",
-        "earnedPoints": "Earned Points",
-        "walletRequired": "Wallet Required",
-        "close": "Close",
-        "copied": "Copied!",
-        "linkCopied": "Link copied."
+        "title": "Пригласить друзей",
+        "description": "Поделитесь реферальной ссылкой и получите 500 баллов за каждого друга!",
+        "linkLabel": "Ваша реферальная ссылка",
+        "copy": "Копировать",
+        "copied": "Скопировано!",
+        "linkCopied": "Реферальная ссылка скопирована в буфер обмена",
+        "shareTitle": "Поделиться в",
+        "shareTwitter": "Поделиться в Twitter",
+        "shareTelegram": "Поделиться в Telegram",
+        "shareKakao": "Поделиться в KakaoTalk",
+        "bonusTitle": "Реферальный бонус",
+        "bonusDesc": "500 баллов за каждого успешно приглашенного друга, до 10 друзей."
       }
     }
   }

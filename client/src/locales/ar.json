@@ -17076,13 +17076,13 @@
         "claimRate": "معدل المطالبة"
       },
       "eligibility": {
-        "title": "My Airdrop Status",
-        "checking": "Checking eligibility...",
-        "allocated": "Allocated",
-        "claimed": "Claimed",
-        "pending": "Pending",
-        "tier": "Tier",
-        "noAllocation": "No airdrop allocation found. Complete tasks to participate."
+        "title": "حالة الإيردروب الخاص بي",
+        "checking": "جاري التحقق من الأهلية...",
+        "allocated": "مخصص",
+        "claimed": "مطالب به",
+        "pending": "معلق",
+        "tier": "المستوى",
+        "noAllocation": "لم يتم العثور على تخصيص إيردروب. أكمل المهام للمشاركة."
       },
       "buttons": {
         "participateNow": "شارك الآن",
@@ -17090,284 +17090,253 @@
         "viewDetails": "عرض التفاصيل"
       },
       "toasts": {
-        "participating": "Participating in Airdrop!",
-        "completeTasksForPoints": "Complete tasks to earn more points.",
-        "airdropTypes": "Airdrop Types",
-        "checkAirdropTypes": "Check out 3 types of airdrop programs.",
-        "connectWalletFirst": "Please connect your wallet first",
-        "checkingNft": "Checking NFT holdings...",
-        "pleaseWait": "Please wait",
-        "checkingTestnet": "Checking testnet activity..."
+        "participating": "المشاركة في الإيردروب!",
+        "completeTasksForPoints": "أكمل المهام لكسب المزيد من النقاط.",
+        "airdropTypes": "أنواع الإيردروب",
+        "checkAirdropTypes": "تحقق من 3 أنواع من برامج الإيردروب.",
+        "connectWalletFirst": "يرجى ربط محفظتك أولاً",
+        "checkingNft": "جاري التحقق من ملكية NFT...",
+        "pleaseWait": "يرجى الانتظار",
+        "checkingTestnet": "جاري التحقق من نشاط الشبكة التجريبية..."
       },
       "types": {
-        "badge": "AIRDROP TYPES",
-        "title": "Airdrop Types",
-        "subtitle": "300 million TBURN distributed through 3 types of programs",
-        "progress": "Distribution Progress",
-        "waiting": "Waiting (Starts 90 days after TGE)",
+        "badge": "أنواع الإيردروب",
+        "title": "أنواع الإيردروب",
+        "subtitle": "توزيع 300 مليون TBURN (3% من إجمالي العرض) من خلال 3 أنواع من برامج الإيردروب",
+        "progress": "تقدم التوزيع",
+        "waiting": "في الانتظار (يبدأ بعد 90 يومًا من TGE)",
         "genesis": {
-          "title": "Genesis Airdrop",
+          "title": "إيردروب الجينيسيس",
           "amount": "150M TBURN",
-          "desc": "Special allocation for early participants",
-          "feature1": "Testnet participants prioritized",
-          "feature2": "Genesis NFT holder bonus (2x)",
-          "feature3": "Early bird extra reward (+20%)",
-          "feature4": "15% unlocked at TGE"
+          "desc": "تخصيص خاص للمشاركين الأوائل احتفالاً بإطلاق الشبكة الرئيسية",
+          "feature1": "أولوية لمشاركي الشبكة التجريبية",
+          "feature2": "مكافأة لحاملي NFT الجينيسيس (2x)",
+          "feature3": "مكافأة إضافية للمبكرين (+20%)",
+          "feature4": "فتح 15% عند TGE"
         },
         "community": {
-          "title": "Community Airdrop",
+          "title": "إيردروب المجتمع",
           "amount": "100M TBURN",
-          "desc": "Rewards for social tasks and community participation",
-          "feature1": "X/Telegram/Discord follow",
-          "feature2": "Content creation rewards",
-          "feature3": "Referral bonus (500P per friend)",
-          "feature4": "Point-based distribution"
+          "desc": "مكافآت لإكمال المهام الاجتماعية والمشاركة المجتمعية",
+          "feature1": "متابعة X(Twitter)/Telegram/Discord",
+          "feature2": "مكافآت إنشاء ومشاركة المحتوى",
+          "feature3": "مكافأة الإحالة (500P لكل صديق)",
+          "feature4": "توزيع نسبي بناءً على النقاط"
         },
         "loyalty": {
-          "title": "Loyalty Airdrop",
+          "title": "إيردروب الولاء",
           "amount": "50M TBURN",
-          "desc": "Rewards for long-term holders and stakers",
-          "feature1": "90+ day holding bonus (+50%)",
-          "feature2": "Staking rewards",
-          "feature3": "Governance voting bonus",
-          "feature4": "Quarterly snapshot bonus"
+          "desc": "مكافآت للحاملين على المدى الطويل والمشاركين في الستيكينغ",
+          "feature1": "مكافأة الاحتفاظ لأكثر من 90 يومًا (+50%)",
+          "feature2": "مكافآت المشاركة في الستيكينغ",
+          "feature3": "مكافأة التصويت في الحوكمة",
+          "feature4": "توزيع مكافآت اللقطة الربع سنوية"
         }
       },
       "tasks": {
-        "badge": "EARN POINTS",
-        "title": "Complete Tasks",
-        "subtitle": "Complete tasks and earn points to increase your allocation",
-        "myStatus": "My Task Status",
-        "walletConnected": "Connected with wallet",
-        "connectToTrack": "Connect wallet to track progress",
-        "earnedPoints": "Earned Points",
+        "badge": "اكسب النقاط",
+        "title": "أكمل المهام",
+        "subtitle": "أكمل المهام واكسب النقاط لزيادة حصتك من الإيردروب",
+        "myStatus": "حالة مهامي",
+        "walletConnected": "متصل بالمحفظة",
+        "connectToTrack": "اربط محفظتك لتتبع تقدم المهام",
+        "earnedPoints": "النقاط المكتسبة",
         "required": {
-          "title": "Required Tasks",
+          "title": "المهام المطلوبة",
           "wallet": {
-            "title": "Connect Wallet",
-            "desc": "Connect MetaMask or supported wallet",
+            "title": "ربط المحفظة",
+            "desc": "اربط MetaMask أو محفظة مدعومة",
             "points": "+500 P",
-            "buttonConnect": "Connect",
-            "buttonComplete": "Complete"
+            "buttonConnect": "ربط",
+            "buttonComplete": "مكتمل"
           },
           "email": {
-            "title": "Email Verification",
-            "desc": "Register and verify email",
+            "title": "التحقق من البريد",
+            "desc": "سجل وتحقق من بريدك الإلكتروني",
             "points": "+300 P",
-            "button": "Verify"
+            "button": "تحقق"
           },
           "telegram": {
-            "title": "Join Telegram",
-            "desc": "Join official Telegram group",
+            "title": "انضم إلى Telegram",
+            "desc": "انضم إلى مجموعة Telegram الرسمية",
             "points": "+400 P",
-            "button": "Join"
+            "button": "انضم"
           }
         },
         "social": {
-          "title": "Social Tasks",
+          "title": "المهام الاجتماعية",
           "twitter": {
-            "title": "Follow X (Twitter)",
-            "desc": "Follow @TBURNChain",
+            "title": "تابع X(Twitter)",
+            "desc": "تابع الحساب الرسمي @TBURNChain",
             "points": "+200 P",
-            "button": "Follow"
+            "button": "تابع"
           },
           "retweet": {
-            "title": "Retweet Launch Tweet",
-            "desc": "Retweet mainnet launch",
+            "title": "أعد تغريد الإطلاق",
+            "desc": "أعد تغريد إعلان إطلاق الشبكة الرئيسية",
             "points": "+300 P",
-            "button": "Retweet"
+            "button": "إعادة تغريد"
           },
           "discord": {
-            "title": "Join Discord",
-            "desc": "Join official Discord",
+            "title": "انضم إلى Discord",
+            "desc": "انضم إلى خادم Discord الرسمي",
             "points": "+400 P",
-            "button": "Join"
+            "button": "انضم"
           }
         },
         "bonus": {
-          "title": "Bonus Tasks",
+          "title": "مهام المكافآت",
           "nft": {
-            "title": "Genesis NFT Holder",
-            "desc": "2x bonus for Genesis NFT",
+            "title": "حامل NFT الجينيسيس",
+            "desc": "مكافأة 2x لامتلاك TBURN Genesis NFT",
             "points": "+2,000 P",
-            "button": "Verify"
+            "button": "تحقق"
           },
           "referral": {
-            "title": "Invite Friends",
-            "desc": "500P per friend, max 10",
-            "points": "Max +5,000 P",
-            "button": "Invite"
+            "title": "دعوة الأصدقاء (إحالة)",
+            "desc": "500P لكل صديق، بحد أقصى 10 أصدقاء",
+            "points": "حد أقصى +5,000 P",
+            "button": "دعوة"
           },
           "testnet": {
-            "title": "Testnet Participant",
-            "desc": "Auto-applied if recorded",
+            "title": "مشارك في الشبكة التجريبية",
+            "desc": "يُطبق تلقائيًا إذا تم تسجيل نشاط تجريبي",
             "points": "+3,000 P",
-            "button": "Verify"
+            "button": "تحقق"
           }
         }
       },
       "timeline": {
-        "badge": "SCHEDULE",
-        "title": "Distribution Schedule",
-        "subtitle": "Airdrop spans 9 months after TGE",
-        "nov2025": "November 2025",
-        "registrationStart": "Registration Start",
-        "registrationDesc": "Wallet connection begins",
-        "jan2026": "January 2026 (Current)",
-        "snapshotProgress": "Snapshot In Progress",
-        "snapshotDesc": "Points accumulating",
-        "feb2026": "February 2026",
-        "tge": "TGE",
-        "tgeDesc": "15% immediately claimable",
-        "mar2026": "March ~ November 2026",
-        "monthlyVesting": "Monthly Vesting",
-        "vestingDesc": "~9.4% monthly unlock",
+        "badge": "الجدول الزمني",
+        "title": "جدول التوزيع",
+        "subtitle": "يمتد توزيع الإيردروب لمدة 9 أشهر بعد TGE",
+        "nov2025": "نوفمبر 2025",
+        "registrationStart": "بدء تسجيل الإيردروب",
+        "registrationDesc": "بدء ربط المحافظ وإكمال المهام",
+        "jan2026": "يناير 2026 (الحالي)",
+        "snapshotProgress": "اللقطة قيد التنفيذ",
+        "snapshotDesc": "تجميع نقاط المشاركين (28,750 مستخدم)",
+        "feb2026": "فبراير 2026",
+        "tge": "TGE (حدث إنشاء الرمز)",
+        "tgeDesc": "15% (45M TBURN) قابل للمطالبة فوراً",
+        "mar2026": "مارس - نوفمبر 2026",
+        "monthlyVesting": "الإطلاق الشهري للفيستينغ",
+        "vestingDesc": "~9.4% إطلاق خطي على مدى 9 أشهر",
         "calculator": {
-          "title": "Distribution Example",
-          "myPoints": "My Points",
-          "totalPool": "Total Pool",
-          "distribution": "Distribution",
-          "estimated": "Estimated Amount",
-          "estimatedValue": "Estimated Value",
-          "disclaimer": "* Actual depends on final snapshot."
+          "title": "مثال حساب التوزيع",
+          "myPoints": "نقاطي",
+          "totalPool": "مجموع النقاط",
+          "distribution": "كمية التوزيع",
+          "estimated": "الكمية المقدرة",
+          "estimatedValue": "القيمة المقدرة (@$0.50)",
+          "disclaimer": "* قد يختلف التوزيع الفعلي بناءً على إجمالي نقاط اللقطة النهائية."
         },
         "vesting": {
-          "title": "Vesting Schedule",
-          "tgeDay": "TGE (Day 0)",
-          "monthly": "M1 ~ M9",
-          "monthlyPercent": "~9.4% monthly",
-          "complete": "Complete after 9 months"
+          "title": "جدول الفيستينغ",
+          "tgeDay": "TGE (اليوم 0)",
+          "monthly": "ش1 ~ ش9",
+          "monthlyPercent": "~9.4%/شهر",
+          "complete": "بعد 9 أشهر"
         }
       },
       "eligibilitySection": {
-        "badge": "ELIGIBILITY",
-        "title": "Eligibility Requirements",
-        "subtitle": "Check requirements",
+        "badge": "الأهلية",
+        "title": "متطلبات الأهلية",
+        "subtitle": "تحقق من متطلبات المشاركة في الإيردروب",
         "eligible": {
-          "title": "Eligible Conditions",
+          "title": "الشروط المؤهلة",
           "wallet": {
-            "title": "Wallet Required",
-            "desc": "MetaMask, Trust Wallet supported"
+            "title": "ربط المحفظة مطلوب",
+            "desc": "MetaMask, Trust Wallet, Coinbase Wallet مدعومة"
           },
           "tasks": {
-            "title": "Complete Required Tasks",
-            "desc": "Wallet + Email + Telegram"
+            "title": "إكمال المهام المطلوبة",
+            "desc": "ربط المحفظة + التحقق من البريد + الانضمام لـ Telegram"
           },
-          "minPoints": {
-            "title": "Minimum 1,000 Points",
-            "desc": "Excluded if insufficient"
-          },
-          "snapshot": {
-            "title": "Maintain Eligibility",
-            "desc": "Until January 2026 snapshot"
+          "kyc": {
+            "title": "التحقق من الهوية",
+            "desc": "التحقق الأساسي من الهوية مطلوب"
           }
         },
-        "excluded": {
-          "title": "Excluded",
-          "restricted": {
-            "title": "Restricted Countries",
-            "desc": "USA, China, North Korea excluded"
-          },
-          "sybil": {
-            "title": "Sybil Attack",
-            "desc": "Multiple accounts excluded"
+        "ineligible": {
+          "title": "الشروط غير المؤهلة",
+          "sanctioned": {
+            "title": "الدول الخاضعة للعقوبات",
+            "desc": "المناطق الخاضعة للعقوبات مثل كوريا الشمالية وإيران لا يمكنها المشاركة"
           },
           "bot": {
-            "title": "Bot Activity",
-            "desc": "Automation excluded"
+            "title": "الروبوتات/الحسابات الوهمية",
+            "desc": "سيتم استبعاد حسابات الروبوتات المكتشفة"
           },
-          "fraud": {
-            "title": "Fraud",
-            "desc": "Permanently excluded"
+          "multiple": {
+            "title": "الحسابات المتعددة",
+            "desc": "حساب مشاركة واحد فقط لكل شخص"
           }
         }
       },
       "faq": {
-        "badge": "FAQ",
-        "title": "FAQ",
-        "subtitle": "Common questions",
+        "title": "الأسئلة الشائعة",
         "q1": {
-          "question": "Total airdrop amount?",
-          "answer": "300M TBURN (3% of 10B supply)"
+          "question": "كيف أشارك في الإيردروب؟",
+          "answer": "اربط محفظتك، أكمل المهام المطلوبة (التحقق من البريد، الانضمام لـ Telegram) واجمع النقاط."
         },
         "q2": {
-          "question": "TGE amount?",
-          "answer": "15% immediately, 85% over 9 months"
+          "question": "متى يمكنني المطالبة برموزي؟",
+          "answer": "15% قابل للمطالبة في TGE، الباقي يُطلق خطياً على مدى 9 أشهر."
         },
         "q3": {
-          "question": "Point conversion?",
-          "answer": "Based on point ratio"
+          "question": "كيف تُحوَّل النقاط إلى رموز؟",
+          "answer": "نسبة نقاطك من إجمالي النقاط تحدد تخصيص رموزك."
         },
         "q4": {
-          "question": "Supported wallets?",
-          "answer": "MetaMask, Trust, Coinbase, etc."
+          "question": "هل يمكنني المشاركة بمحافظ متعددة؟",
+          "answer": "لا. محفظة واحدة فقط لكل شخص، الحسابات المتعددة المكتشفة ستُستبعد."
         },
         "q5": {
-          "question": "How to claim?",
-          "answer": "Click Claim after TGE"
-        },
-        "q6": {
-          "question": "Task points?",
-          "answer": "500P wallet, 300P email, etc."
-        },
-        "q7": {
-          "question": "NFT bonus?",
-          "answer": "2x multiplier"
-        },
-        "q8": {
-          "question": "Restrictions?",
-          "answer": "OFAC sanctioned countries"
+          "question": "ما هي مكافأة Genesis NFT؟",
+          "answer": "المستخدمون الذين يمتلكون TBURN Genesis NFT يحصلون على مكافأة نقاط 2x."
         }
       },
       "footer": {
-        "brand": "Next-gen Layer 1 blockchain",
-        "products": "Products",
-        "scan": "TBURNScan",
-        "dapp": "dApp",
-        "staking": "Staking",
-        "bridge": "Bridge",
-        "developers": "Developers",
-        "docs": "Docs",
+        "products": "المنتجات",
+        "scan": "المستكشف",
+        "dapp": "DApp",
+        "staking": "الستيكينغ",
+        "bridge": "الجسر",
+        "developers": "المطورون",
+        "docs": "التوثيق",
         "api": "API",
         "sdk": "SDK",
-        "resources": "Resources",
-        "whitepaper": "Whitepaper",
-        "tokenomics": "Tokenomics",
-        "roadmap": "Roadmap",
-        "privacyPolicy": "Privacy",
-        "termsOfService": "Terms",
-        "contact": "Contact"
+        "resources": "الموارد",
+        "whitepaper": "الورقة البيضاء",
+        "tokenomics": "اقتصاديات الرمز",
+        "roadmap": "خارطة الطريق",
+        "privacyPolicy": "سياسة الخصوصية",
+        "termsOfService": "شروط الخدمة",
+        "contact": "اتصل بنا"
       },
       "emailDialog": {
-        "title": "Email Verification",
-        "description": "Register email for +300P!",
-        "label": "Email *",
-        "placeholder": "example@email.com",
-        "info": "Receive airdrop announcements.",
-        "cancel": "Cancel",
-        "submit": "Verify (+300P)",
-        "processing": "Processing..."
+        "title": "التحقق من البريد",
+        "description": "أدخل بريدك للتحقق واحصل على +300 نقطة",
+        "label": "عنوان البريد",
+        "info": "سنرسل رابط التحقق إلى بريدك.",
+        "cancel": "إلغاء",
+        "submit": "إرسال",
+        "processing": "جاري المعالجة..."
       },
       "referralDialog": {
-        "title": "Invite Friends",
-        "description": "500P per friend, max 10",
-        "linkLabel": "My Referral Link",
-        "copy": "Copy",
-        "shareTitle": "Share on Social",
-        "shareTwitter": "Twitter",
-        "shareTelegram": "Telegram",
-        "shareKakao": "KakaoTalk",
-        "benefits": "Benefits",
-        "benefit1": "+500P for you, +100P for friend",
-        "benefit2": "Max 10 invites",
-        "benefit3": "+50P for friend's friend",
-        "statusTitle": "My Status",
-        "invitedFriends": "Invited",
-        "earnedPoints": "Earned Points",
-        "walletRequired": "Wallet Required",
-        "close": "Close",
-        "copied": "Copied!",
-        "linkCopied": "Link copied."
+        "title": "دعوة الأصدقاء",
+        "description": "شارك رابط الإحالة واحصل على 500 نقطة لكل صديق!",
+        "linkLabel": "رابط الإحالة الخاص بك",
+        "copy": "نسخ",
+        "copied": "تم النسخ!",
+        "linkCopied": "تم نسخ رابط الإحالة إلى الحافظة",
+        "shareTitle": "مشاركة على",
+        "shareTwitter": "مشاركة على Twitter",
+        "shareTelegram": "مشاركة على Telegram",
+        "shareKakao": "مشاركة على KakaoTalk",
+        "bonusTitle": "مكافأة الإحالة",
+        "bonusDesc": "500 نقطة لكل صديق محال بنجاح، حد أقصى 10 أصدقاء."
       }
     }
   }

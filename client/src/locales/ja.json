@@ -20121,13 +20121,13 @@
         "claimRate": "請求率"
       },
       "eligibility": {
-        "title": "My Airdrop Status",
-        "checking": "Checking eligibility...",
-        "allocated": "Allocated",
-        "claimed": "Claimed",
-        "pending": "Pending",
-        "tier": "Tier",
-        "noAllocation": "No airdrop allocation found. Complete tasks to participate."
+        "title": "マイエアドロップ状況",
+        "checking": "資格確認中...",
+        "allocated": "割り当て済み",
+        "claimed": "請求済み",
+        "pending": "保留中",
+        "tier": "ティア",
+        "noAllocation": "エアドロップ割り当てが見つかりません。タスクを完了して参加してください。"
       },
       "buttons": {
         "participateNow": "今すぐ参加",
@@ -20135,284 +20135,253 @@
         "viewDetails": "詳細を見る"
       },
       "toasts": {
-        "participating": "Participating in Airdrop!",
-        "completeTasksForPoints": "Complete tasks to earn more points.",
-        "airdropTypes": "Airdrop Types",
-        "checkAirdropTypes": "Check out 3 types of airdrop programs.",
-        "connectWalletFirst": "Please connect your wallet first",
-        "checkingNft": "Checking NFT holdings...",
-        "pleaseWait": "Please wait",
-        "checkingTestnet": "Checking testnet activity..."
+        "participating": "エアドロップに参加中！",
+        "completeTasksForPoints": "タスクを完了してより多くのポイントを獲得してください。",
+        "airdropTypes": "エアドロップタイプ",
+        "checkAirdropTypes": "3種類のエアドロッププログラムをチェック。",
+        "connectWalletFirst": "まずウォレットを接続してください",
+        "checkingNft": "NFT保有を確認中...",
+        "pleaseWait": "お待ちください",
+        "checkingTestnet": "テストネット活動を確認中..."
       },
       "types": {
-        "badge": "AIRDROP TYPES",
-        "title": "Airdrop Types",
-        "subtitle": "300 million TBURN distributed through 3 types of programs",
-        "progress": "Distribution Progress",
-        "waiting": "Waiting (Starts 90 days after TGE)",
+        "badge": "エアドロップタイプ",
+        "title": "エアドロップタイプ",
+        "subtitle": "3種類のエアドロッププログラムで3億TBURN（総供給量の3%）を配布",
+        "progress": "配布進捗",
+        "waiting": "待機中（TGE後90日開始）",
         "genesis": {
-          "title": "Genesis Airdrop",
-          "amount": "150M TBURN",
-          "desc": "Special allocation for early participants",
-          "feature1": "Testnet participants prioritized",
-          "feature2": "Genesis NFT holder bonus (2x)",
-          "feature3": "Early bird extra reward (+20%)",
-          "feature4": "15% unlocked at TGE"
+          "title": "ジェネシスエアドロップ",
+          "amount": "1.5億 TBURN",
+          "desc": "メインネット開始を記念した初期参加者への特別配布",
+          "feature1": "テストネット参加者優先",
+          "feature2": "ジェネシスNFTホルダーボーナス（2倍）",
+          "feature3": "早期参加者追加報酬（+20%）",
+          "feature4": "TGE時15%解除"
         },
         "community": {
-          "title": "Community Airdrop",
-          "amount": "100M TBURN",
-          "desc": "Rewards for social tasks and community participation",
-          "feature1": "X/Telegram/Discord follow",
-          "feature2": "Content creation rewards",
-          "feature3": "Referral bonus (500P per friend)",
-          "feature4": "Point-based distribution"
+          "title": "コミュニティエアドロップ",
+          "amount": "1億 TBURN",
+          "desc": "ソーシャルタスクとコミュニティ参加への報酬",
+          "feature1": "X(Twitter)/Telegram/Discordフォロー",
+          "feature2": "コンテンツ作成・共有報酬",
+          "feature3": "紹介ボーナス（友達1人につき500P）",
+          "feature4": "ポイントベースの比例配分"
         },
         "loyalty": {
-          "title": "Loyalty Airdrop",
-          "amount": "50M TBURN",
-          "desc": "Rewards for long-term holders and stakers",
-          "feature1": "90+ day holding bonus (+50%)",
-          "feature2": "Staking rewards",
-          "feature3": "Governance voting bonus",
-          "feature4": "Quarterly snapshot bonus"
+          "title": "ロイヤルティエアドロップ",
+          "amount": "5000万 TBURN",
+          "desc": "長期保有者とステーキング参加者への報酬",
+          "feature1": "90日以上保有ボーナス（+50%）",
+          "feature2": "ステーキング参加報酬",
+          "feature3": "ガバナンス投票ボーナス",
+          "feature4": "四半期スナップショット報酬配布"
         }
       },
       "tasks": {
-        "badge": "EARN POINTS",
-        "title": "Complete Tasks",
-        "subtitle": "Complete tasks and earn points to increase your allocation",
-        "myStatus": "My Task Status",
-        "walletConnected": "Connected with wallet",
-        "connectToTrack": "Connect wallet to track progress",
-        "earnedPoints": "Earned Points",
+        "badge": "ポイントを稼ぐ",
+        "title": "タスクを完了",
+        "subtitle": "タスクを完了してポイントを獲得し、エアドロップの割り当てを増やしましょう",
+        "myStatus": "マイタスク状況",
+        "walletConnected": "ウォレット接続済み",
+        "connectToTrack": "ウォレットを接続してタスク進捗を追跡",
+        "earnedPoints": "獲得ポイント",
         "required": {
-          "title": "Required Tasks",
+          "title": "必須タスク",
           "wallet": {
-            "title": "Connect Wallet",
-            "desc": "Connect MetaMask or supported wallet",
+            "title": "ウォレット接続",
+            "desc": "MetaMaskまたは対応ウォレットを接続",
             "points": "+500 P",
-            "buttonConnect": "Connect",
-            "buttonComplete": "Complete"
+            "buttonConnect": "接続",
+            "buttonComplete": "完了"
           },
           "email": {
-            "title": "Email Verification",
-            "desc": "Register and verify email",
+            "title": "メール認証",
+            "desc": "メールアドレスを登録して認証",
             "points": "+300 P",
-            "button": "Verify"
+            "button": "認証"
           },
           "telegram": {
-            "title": "Join Telegram",
-            "desc": "Join official Telegram group",
+            "title": "Telegram参加",
+            "desc": "公式Telegramグループに参加",
             "points": "+400 P",
-            "button": "Join"
+            "button": "参加"
           }
         },
         "social": {
-          "title": "Social Tasks",
+          "title": "ソーシャルタスク",
           "twitter": {
-            "title": "Follow X (Twitter)",
-            "desc": "Follow @TBURNChain",
+            "title": "X(Twitter)フォロー",
+            "desc": "@TBURNChain公式アカウントをフォロー",
             "points": "+200 P",
-            "button": "Follow"
+            "button": "フォロー"
           },
           "retweet": {
-            "title": "Retweet Launch Tweet",
-            "desc": "Retweet mainnet launch",
+            "title": "ローンチツイートをリツイート",
+            "desc": "メインネット開始のお知らせをリツイート",
             "points": "+300 P",
-            "button": "Retweet"
+            "button": "リツイート"
           },
           "discord": {
-            "title": "Join Discord",
-            "desc": "Join official Discord",
+            "title": "Discord参加",
+            "desc": "公式Discordサーバーに参加",
             "points": "+400 P",
-            "button": "Join"
+            "button": "参加"
           }
         },
         "bonus": {
-          "title": "Bonus Tasks",
+          "title": "ボーナスタスク",
           "nft": {
-            "title": "Genesis NFT Holder",
-            "desc": "2x bonus for Genesis NFT",
+            "title": "Genesis NFTホルダー",
+            "desc": "TBURN Genesis NFT保有で2倍ボーナス",
             "points": "+2,000 P",
-            "button": "Verify"
+            "button": "確認"
           },
           "referral": {
-            "title": "Invite Friends",
-            "desc": "500P per friend, max 10",
-            "points": "Max +5,000 P",
-            "button": "Invite"
+            "title": "友達を招待（紹介）",
+            "desc": "友達1人につき500P、最大10人",
+            "points": "最大 +5,000 P",
+            "button": "招待"
           },
           "testnet": {
-            "title": "Testnet Participant",
-            "desc": "Auto-applied if recorded",
+            "title": "テストネット参加者",
+            "desc": "テストネット活動記録があれば自動適用",
             "points": "+3,000 P",
-            "button": "Verify"
+            "button": "確認"
           }
         }
       },
       "timeline": {
-        "badge": "SCHEDULE",
-        "title": "Distribution Schedule",
-        "subtitle": "Airdrop spans 9 months after TGE",
-        "nov2025": "November 2025",
-        "registrationStart": "Registration Start",
-        "registrationDesc": "Wallet connection begins",
-        "jan2026": "January 2026 (Current)",
-        "snapshotProgress": "Snapshot In Progress",
-        "snapshotDesc": "Points accumulating",
-        "feb2026": "February 2026",
-        "tge": "TGE",
-        "tgeDesc": "15% immediately claimable",
-        "mar2026": "March ~ November 2026",
-        "monthlyVesting": "Monthly Vesting",
-        "vestingDesc": "~9.4% monthly unlock",
+        "badge": "スケジュール",
+        "title": "配布スケジュール",
+        "subtitle": "エアドロップ配布はTGE後9ヶ月にわたります",
+        "nov2025": "2025年11月",
+        "registrationStart": "エアドロップ登録開始",
+        "registrationDesc": "ウォレット接続とタスク完了が開始",
+        "jan2026": "2026年1月（現在）",
+        "snapshotProgress": "スナップショット進行中",
+        "snapshotDesc": "参加者ポイント累積中（28,750ユーザー）",
+        "feb2026": "2026年2月",
+        "tge": "TGE（トークン生成イベント）",
+        "tgeDesc": "15%（4,500万TBURN）即時請求可能",
+        "mar2026": "2026年3月〜11月",
+        "monthlyVesting": "月次ベスティング解除",
+        "vestingDesc": "9ヶ月間で約9.4%リニアリリース",
         "calculator": {
-          "title": "Distribution Example",
-          "myPoints": "My Points",
-          "totalPool": "Total Pool",
-          "distribution": "Distribution",
-          "estimated": "Estimated Amount",
-          "estimatedValue": "Estimated Value",
-          "disclaimer": "* Actual depends on final snapshot."
+          "title": "配布計算例",
+          "myPoints": "マイポイント",
+          "totalPool": "総ポイントプール",
+          "distribution": "配布量",
+          "estimated": "推定量",
+          "estimatedValue": "推定価値（@$0.50）",
+          "disclaimer": "* 実際の配布は最終スナップショットの総ポイントにより変動する場合があります。"
         },
         "vesting": {
-          "title": "Vesting Schedule",
-          "tgeDay": "TGE (Day 0)",
-          "monthly": "M1 ~ M9",
-          "monthlyPercent": "~9.4% monthly",
-          "complete": "Complete after 9 months"
+          "title": "ベスティングスケジュール",
+          "tgeDay": "TGE（0日目）",
+          "monthly": "M1〜M9",
+          "monthlyPercent": "約9.4%/月",
+          "complete": "9ヶ月後"
         }
       },
       "eligibilitySection": {
-        "badge": "ELIGIBILITY",
-        "title": "Eligibility Requirements",
-        "subtitle": "Check requirements",
+        "badge": "参加資格",
+        "title": "参加資格要件",
+        "subtitle": "エアドロップ参加要件を確認",
         "eligible": {
-          "title": "Eligible Conditions",
+          "title": "対象条件",
           "wallet": {
-            "title": "Wallet Required",
-            "desc": "MetaMask, Trust Wallet supported"
+            "title": "ウォレット接続必須",
+            "desc": "MetaMask、Trust Wallet、Coinbase Wallet対応"
           },
           "tasks": {
-            "title": "Complete Required Tasks",
-            "desc": "Wallet + Email + Telegram"
+            "title": "必須タスク完了",
+            "desc": "ウォレット接続 + メール認証 + Telegram参加"
           },
-          "minPoints": {
-            "title": "Minimum 1,000 Points",
-            "desc": "Excluded if insufficient"
-          },
-          "snapshot": {
-            "title": "Maintain Eligibility",
-            "desc": "Until January 2026 snapshot"
+          "kyc": {
+            "title": "KYC認証",
+            "desc": "基本的な本人確認が必要"
           }
         },
-        "excluded": {
-          "title": "Excluded",
-          "restricted": {
-            "title": "Restricted Countries",
-            "desc": "USA, China, North Korea excluded"
-          },
-          "sybil": {
-            "title": "Sybil Attack",
-            "desc": "Multiple accounts excluded"
+        "ineligible": {
+          "title": "対象外条件",
+          "sanctioned": {
+            "title": "制裁対象国",
+            "desc": "北朝鮮、イランなど制裁対象地域は参加不可"
           },
           "bot": {
-            "title": "Bot Activity",
-            "desc": "Automation excluded"
+            "title": "ボット/偽アカウント",
+            "desc": "検出されたボットアカウントは除外"
           },
-          "fraud": {
-            "title": "Fraud",
-            "desc": "Permanently excluded"
+          "multiple": {
+            "title": "複数アカウント",
+            "desc": "1人につき1つの参加アカウントのみ"
           }
         }
       },
       "faq": {
-        "badge": "FAQ",
-        "title": "FAQ",
-        "subtitle": "Common questions",
+        "title": "よくある質問",
         "q1": {
-          "question": "Total airdrop amount?",
-          "answer": "300M TBURN (3% of 10B supply)"
+          "question": "エアドロップに参加するには？",
+          "answer": "ウォレットを接続し、必須タスク（メール認証、Telegram参加）を完了してポイントを貯めてください。"
         },
         "q2": {
-          "question": "TGE amount?",
-          "answer": "15% immediately, 85% over 9 months"
+          "question": "いつトークンを請求できますか？",
+          "answer": "TGE時に15%を請求でき、残りは9ヶ月間でリニアリリースされます。"
         },
         "q3": {
-          "question": "Point conversion?",
-          "answer": "Based on point ratio"
+          "question": "ポイントはどのようにトークンに変換されますか？",
+          "answer": "総ポイントプールに対するあなたのポイントの割合でトークン配分が決まります。"
         },
         "q4": {
-          "question": "Supported wallets?",
-          "answer": "MetaMask, Trust, Coinbase, etc."
+          "question": "複数のウォレットで参加できますか？",
+          "answer": "いいえ。1人につき1つのウォレットのみで、複数アカウントが検出された場合は失格となります。"
         },
         "q5": {
-          "question": "How to claim?",
-          "answer": "Click Claim after TGE"
-        },
-        "q6": {
-          "question": "Task points?",
-          "answer": "500P wallet, 300P email, etc."
-        },
-        "q7": {
-          "question": "NFT bonus?",
-          "answer": "2x multiplier"
-        },
-        "q8": {
-          "question": "Restrictions?",
-          "answer": "OFAC sanctioned countries"
+          "question": "Genesis NFTボーナスとは？",
+          "answer": "TBURN Genesis NFTを保有しているユーザーは2倍のポイントボーナスを受け取れます。"
         }
       },
       "footer": {
-        "brand": "Next-gen Layer 1 blockchain",
-        "products": "Products",
-        "scan": "TBURNScan",
-        "dapp": "dApp",
-        "staking": "Staking",
-        "bridge": "Bridge",
-        "developers": "Developers",
-        "docs": "Docs",
+        "products": "製品",
+        "scan": "エクスプローラー",
+        "dapp": "DApp",
+        "staking": "ステーキング",
+        "bridge": "ブリッジ",
+        "developers": "開発者",
+        "docs": "ドキュメント",
         "api": "API",
         "sdk": "SDK",
-        "resources": "Resources",
-        "whitepaper": "Whitepaper",
-        "tokenomics": "Tokenomics",
-        "roadmap": "Roadmap",
-        "privacyPolicy": "Privacy",
-        "termsOfService": "Terms",
-        "contact": "Contact"
+        "resources": "リソース",
+        "whitepaper": "ホワイトペーパー",
+        "tokenomics": "トークノミクス",
+        "roadmap": "ロードマップ",
+        "privacyPolicy": "プライバシーポリシー",
+        "termsOfService": "利用規約",
+        "contact": "お問い合わせ"
       },
       "emailDialog": {
-        "title": "Email Verification",
-        "description": "Register email for +300P!",
-        "label": "Email *",
-        "placeholder": "example@email.com",
-        "info": "Receive airdrop announcements.",
-        "cancel": "Cancel",
-        "submit": "Verify (+300P)",
-        "processing": "Processing..."
+        "title": "メール認証",
+        "description": "メールアドレスを入力して認証し、+300ポイントを獲得",
+        "label": "メールアドレス",
+        "info": "確認リンクをメールに送信します。",
+        "cancel": "キャンセル",
+        "submit": "送信",
+        "processing": "処理中..."
       },
       "referralDialog": {
-        "title": "Invite Friends",
-        "description": "500P per friend, max 10",
-        "linkLabel": "My Referral Link",
-        "copy": "Copy",
-        "shareTitle": "Share on Social",
-        "shareTwitter": "Twitter",
-        "shareTelegram": "Telegram",
-        "shareKakao": "KakaoTalk",
-        "benefits": "Benefits",
-        "benefit1": "+500P for you, +100P for friend",
-        "benefit2": "Max 10 invites",
-        "benefit3": "+50P for friend's friend",
-        "statusTitle": "My Status",
-        "invitedFriends": "Invited",
-        "earnedPoints": "Earned Points",
-        "walletRequired": "Wallet Required",
-        "close": "Close",
-        "copied": "Copied!",
-        "linkCopied": "Link copied."
+        "title": "友達を招待",
+        "description": "紹介リンクを共有して、友達1人につき500ポイント獲得！",
+        "linkLabel": "あなたの紹介リンク",
+        "copy": "コピー",
+        "copied": "コピー完了！",
+        "linkCopied": "紹介リンクがクリップボードにコピーされました",
+        "shareTitle": "共有先",
+        "shareTwitter": "Twitterでシェア",
+        "shareTelegram": "Telegramでシェア",
+        "shareKakao": "KakaoTalkでシェア",
+        "bonusTitle": "紹介ボーナス",
+        "bonusDesc": "紹介に成功した友達1人につき500ポイント、最大10人まで。"
       }
     }
   }

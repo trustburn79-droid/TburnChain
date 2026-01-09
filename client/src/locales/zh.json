@@ -19245,13 +19245,13 @@
         "claimRate": "领取率"
       },
       "eligibility": {
-        "title": "My Airdrop Status",
-        "checking": "Checking eligibility...",
-        "allocated": "Allocated",
-        "claimed": "Claimed",
-        "pending": "Pending",
-        "tier": "Tier",
-        "noAllocation": "No airdrop allocation found. Complete tasks to participate."
+        "title": "我的空投状态",
+        "checking": "检查资格中...",
+        "allocated": "已分配",
+        "claimed": "已领取",
+        "pending": "待领取",
+        "tier": "等级",
+        "noAllocation": "未找到空投分配。完成任务以参与。"
       },
       "buttons": {
         "participateNow": "立即参与",
@@ -19259,284 +19259,253 @@
         "viewDetails": "查看详情"
       },
       "toasts": {
-        "participating": "Participating in Airdrop!",
-        "completeTasksForPoints": "Complete tasks to earn more points.",
-        "airdropTypes": "Airdrop Types",
-        "checkAirdropTypes": "Check out 3 types of airdrop programs.",
-        "connectWalletFirst": "Please connect your wallet first",
-        "checkingNft": "Checking NFT holdings...",
-        "pleaseWait": "Please wait",
-        "checkingTestnet": "Checking testnet activity..."
+        "participating": "正在参与空投！",
+        "completeTasksForPoints": "完成任务以获得更多积分。",
+        "airdropTypes": "空投类型",
+        "checkAirdropTypes": "查看3种空投计划。",
+        "connectWalletFirst": "请先连接钱包",
+        "checkingNft": "正在检查NFT持有情况...",
+        "pleaseWait": "请稍候",
+        "checkingTestnet": "正在检查测试网活动..."
       },
       "types": {
-        "badge": "AIRDROP TYPES",
-        "title": "Airdrop Types",
-        "subtitle": "300 million TBURN distributed through 3 types of programs",
-        "progress": "Distribution Progress",
-        "waiting": "Waiting (Starts 90 days after TGE)",
+        "badge": "空投类型",
+        "title": "空投类型",
+        "subtitle": "通过3种空投计划分发3亿TBURN（占总供应量的3%）",
+        "progress": "分发进度",
+        "waiting": "等待中（TGE后90天开始）",
         "genesis": {
-          "title": "Genesis Airdrop",
-          "amount": "150M TBURN",
-          "desc": "Special allocation for early participants",
-          "feature1": "Testnet participants prioritized",
-          "feature2": "Genesis NFT holder bonus (2x)",
-          "feature3": "Early bird extra reward (+20%)",
-          "feature4": "15% unlocked at TGE"
+          "title": "创世空投",
+          "amount": "1.5亿 TBURN",
+          "desc": "为庆祝主网启动，特别分配给早期参与者",
+          "feature1": "测试网参与者优先",
+          "feature2": "创世NFT持有者奖励（2倍）",
+          "feature3": "早鸟额外奖励（+20%）",
+          "feature4": "TGE时解锁15%"
         },
         "community": {
-          "title": "Community Airdrop",
-          "amount": "100M TBURN",
-          "desc": "Rewards for social tasks and community participation",
-          "feature1": "X/Telegram/Discord follow",
-          "feature2": "Content creation rewards",
-          "feature3": "Referral bonus (500P per friend)",
-          "feature4": "Point-based distribution"
+          "title": "社区空投",
+          "amount": "1亿 TBURN",
+          "desc": "完成社交任务和社区参与的奖励",
+          "feature1": "X(Twitter)/Telegram/Discord关注",
+          "feature2": "内容创作和分享奖励",
+          "feature3": "推荐奖励（每位好友500P）",
+          "feature4": "基于积分的比例分配"
         },
         "loyalty": {
-          "title": "Loyalty Airdrop",
-          "amount": "50M TBURN",
-          "desc": "Rewards for long-term holders and stakers",
-          "feature1": "90+ day holding bonus (+50%)",
-          "feature2": "Staking rewards",
-          "feature3": "Governance voting bonus",
-          "feature4": "Quarterly snapshot bonus"
+          "title": "忠诚空投",
+          "amount": "5000万 TBURN",
+          "desc": "长期持有者和质押参与者的奖励",
+          "feature1": "90天以上持有奖励（+50%）",
+          "feature2": "质押参与奖励",
+          "feature3": "治理投票奖励",
+          "feature4": "季度快照奖励分配"
         }
       },
       "tasks": {
-        "badge": "EARN POINTS",
-        "title": "Complete Tasks",
-        "subtitle": "Complete tasks and earn points to increase your allocation",
-        "myStatus": "My Task Status",
-        "walletConnected": "Connected with wallet",
-        "connectToTrack": "Connect wallet to track progress",
-        "earnedPoints": "Earned Points",
+        "badge": "赚取积分",
+        "title": "完成任务",
+        "subtitle": "完成任务赚取积分，增加您的空投分配",
+        "myStatus": "我的任务状态",
+        "walletConnected": "已连接钱包",
+        "connectToTrack": "连接钱包追踪任务进度",
+        "earnedPoints": "已赚取积分",
         "required": {
-          "title": "Required Tasks",
+          "title": "必做任务",
           "wallet": {
-            "title": "Connect Wallet",
-            "desc": "Connect MetaMask or supported wallet",
+            "title": "连接钱包",
+            "desc": "连接MetaMask或支持的钱包",
             "points": "+500 P",
-            "buttonConnect": "Connect",
-            "buttonComplete": "Complete"
+            "buttonConnect": "连接",
+            "buttonComplete": "已完成"
           },
           "email": {
-            "title": "Email Verification",
-            "desc": "Register and verify email",
+            "title": "邮箱验证",
+            "desc": "注册并验证邮箱地址",
             "points": "+300 P",
-            "button": "Verify"
+            "button": "验证"
           },
           "telegram": {
-            "title": "Join Telegram",
-            "desc": "Join official Telegram group",
+            "title": "加入Telegram",
+            "desc": "加入官方Telegram群组",
             "points": "+400 P",
-            "button": "Join"
+            "button": "加入"
           }
         },
         "social": {
-          "title": "Social Tasks",
+          "title": "社交任务",
           "twitter": {
-            "title": "Follow X (Twitter)",
-            "desc": "Follow @TBURNChain",
+            "title": "关注X(Twitter)",
+            "desc": "关注@TBURNChain官方账号",
             "points": "+200 P",
-            "button": "Follow"
+            "button": "关注"
           },
           "retweet": {
-            "title": "Retweet Launch Tweet",
-            "desc": "Retweet mainnet launch",
+            "title": "转发启动推文",
+            "desc": "转发主网启动公告",
             "points": "+300 P",
-            "button": "Retweet"
+            "button": "转发"
           },
           "discord": {
-            "title": "Join Discord",
-            "desc": "Join official Discord",
+            "title": "加入Discord",
+            "desc": "加入官方Discord服务器",
             "points": "+400 P",
-            "button": "Join"
+            "button": "加入"
           }
         },
         "bonus": {
-          "title": "Bonus Tasks",
+          "title": "额外任务",
           "nft": {
-            "title": "Genesis NFT Holder",
-            "desc": "2x bonus for Genesis NFT",
+            "title": "创世NFT持有者",
+            "desc": "持有TBURN创世NFT获得2倍奖励",
             "points": "+2,000 P",
-            "button": "Verify"
+            "button": "验证"
           },
           "referral": {
-            "title": "Invite Friends",
-            "desc": "500P per friend, max 10",
-            "points": "Max +5,000 P",
-            "button": "Invite"
+            "title": "邀请好友（推荐）",
+            "desc": "每位好友500P，最多10位好友",
+            "points": "最高 +5,000 P",
+            "button": "邀请"
           },
           "testnet": {
-            "title": "Testnet Participant",
-            "desc": "Auto-applied if recorded",
+            "title": "测试网参与者",
+            "desc": "如有测试网活动记录自动适用",
             "points": "+3,000 P",
-            "button": "Verify"
+            "button": "验证"
           }
         }
       },
       "timeline": {
-        "badge": "SCHEDULE",
-        "title": "Distribution Schedule",
-        "subtitle": "Airdrop spans 9 months after TGE",
-        "nov2025": "November 2025",
-        "registrationStart": "Registration Start",
-        "registrationDesc": "Wallet connection begins",
-        "jan2026": "January 2026 (Current)",
-        "snapshotProgress": "Snapshot In Progress",
-        "snapshotDesc": "Points accumulating",
-        "feb2026": "February 2026",
-        "tge": "TGE",
-        "tgeDesc": "15% immediately claimable",
-        "mar2026": "March ~ November 2026",
-        "monthlyVesting": "Monthly Vesting",
-        "vestingDesc": "~9.4% monthly unlock",
+        "badge": "时间表",
+        "title": "分发时间表",
+        "subtitle": "空投分发在TGE后持续9个月",
+        "nov2025": "2025年11月",
+        "registrationStart": "空投注册开始",
+        "registrationDesc": "开始连接钱包和完成任务",
+        "jan2026": "2026年1月（当前）",
+        "snapshotProgress": "快照进行中",
+        "snapshotDesc": "累积参与者积分（28,750用户）",
+        "feb2026": "2026年2月",
+        "tge": "TGE（代币生成事件）",
+        "tgeDesc": "15%（4500万TBURN）可立即领取",
+        "mar2026": "2026年3月-11月",
+        "monthlyVesting": "每月解锁释放",
+        "vestingDesc": "9个月内线性释放约9.4%",
         "calculator": {
-          "title": "Distribution Example",
-          "myPoints": "My Points",
-          "totalPool": "Total Pool",
-          "distribution": "Distribution",
-          "estimated": "Estimated Amount",
-          "estimatedValue": "Estimated Value",
-          "disclaimer": "* Actual depends on final snapshot."
+          "title": "分发计算示例",
+          "myPoints": "我的积分",
+          "totalPool": "总积分池",
+          "distribution": "分发金额",
+          "estimated": "预估金额",
+          "estimatedValue": "预估价值（@$0.50）",
+          "disclaimer": "* 实际分发可能因最终快照总积分而异。"
         },
         "vesting": {
-          "title": "Vesting Schedule",
-          "tgeDay": "TGE (Day 0)",
-          "monthly": "M1 ~ M9",
-          "monthlyPercent": "~9.4% monthly",
-          "complete": "Complete after 9 months"
+          "title": "解锁时间表",
+          "tgeDay": "TGE（第0天）",
+          "monthly": "第1-9月",
+          "monthlyPercent": "约9.4%/月",
+          "complete": "9个月后"
         }
       },
       "eligibilitySection": {
-        "badge": "ELIGIBILITY",
-        "title": "Eligibility Requirements",
-        "subtitle": "Check requirements",
+        "badge": "资格要求",
+        "title": "参与资格",
+        "subtitle": "查看空投参与要求",
         "eligible": {
-          "title": "Eligible Conditions",
+          "title": "符合条件",
           "wallet": {
-            "title": "Wallet Required",
-            "desc": "MetaMask, Trust Wallet supported"
+            "title": "需要连接钱包",
+            "desc": "支持MetaMask、Trust Wallet、Coinbase Wallet"
           },
           "tasks": {
-            "title": "Complete Required Tasks",
-            "desc": "Wallet + Email + Telegram"
+            "title": "完成必要任务",
+            "desc": "钱包连接 + 邮箱验证 + Telegram加入"
           },
-          "minPoints": {
-            "title": "Minimum 1,000 Points",
-            "desc": "Excluded if insufficient"
-          },
-          "snapshot": {
-            "title": "Maintain Eligibility",
-            "desc": "Until January 2026 snapshot"
+          "kyc": {
+            "title": "KYC验证",
+            "desc": "需进行基本身份验证"
           }
         },
-        "excluded": {
-          "title": "Excluded",
-          "restricted": {
-            "title": "Restricted Countries",
-            "desc": "USA, China, North Korea excluded"
-          },
-          "sybil": {
-            "title": "Sybil Attack",
-            "desc": "Multiple accounts excluded"
+        "ineligible": {
+          "title": "不符合条件",
+          "sanctioned": {
+            "title": "受制裁国家",
+            "desc": "朝鲜、伊朗等受制裁地区不可参与"
           },
           "bot": {
-            "title": "Bot Activity",
-            "desc": "Automation excluded"
+            "title": "机器人/虚假账户",
+            "desc": "检测到的机器人账户将被排除"
           },
-          "fraud": {
-            "title": "Fraud",
-            "desc": "Permanently excluded"
+          "multiple": {
+            "title": "多账户",
+            "desc": "每人仅限一个参与账户"
           }
         }
       },
       "faq": {
-        "badge": "FAQ",
-        "title": "FAQ",
-        "subtitle": "Common questions",
+        "title": "常见问题",
         "q1": {
-          "question": "Total airdrop amount?",
-          "answer": "300M TBURN (3% of 10B supply)"
+          "question": "如何参与空投？",
+          "answer": "连接您的钱包，完成所需任务（邮箱验证、Telegram加入），并积累积分。"
         },
         "q2": {
-          "question": "TGE amount?",
-          "answer": "15% immediately, 85% over 9 months"
+          "question": "何时可以领取代币？",
+          "answer": "TGE时可领取15%，剩余部分在9个月内线性释放。"
         },
         "q3": {
-          "question": "Point conversion?",
-          "answer": "Based on point ratio"
+          "question": "积分如何转换为代币？",
+          "answer": "您的积分占总积分池的比例决定您的代币分配。"
         },
         "q4": {
-          "question": "Supported wallets?",
-          "answer": "MetaMask, Trust, Coinbase, etc."
+          "question": "我可以用多个钱包参与吗？",
+          "answer": "不可以。每人仅限一个钱包，检测到的多账户将被取消资格。"
         },
         "q5": {
-          "question": "How to claim?",
-          "answer": "Click Claim after TGE"
-        },
-        "q6": {
-          "question": "Task points?",
-          "answer": "500P wallet, 300P email, etc."
-        },
-        "q7": {
-          "question": "NFT bonus?",
-          "answer": "2x multiplier"
-        },
-        "q8": {
-          "question": "Restrictions?",
-          "answer": "OFAC sanctioned countries"
+          "question": "创世NFT奖励是什么？",
+          "answer": "持有TBURN创世NFT的用户可获得2倍积分加成。"
         }
       },
       "footer": {
-        "brand": "Next-gen Layer 1 blockchain",
-        "products": "Products",
-        "scan": "TBURNScan",
-        "dapp": "dApp",
-        "staking": "Staking",
-        "bridge": "Bridge",
-        "developers": "Developers",
-        "docs": "Docs",
+        "products": "产品",
+        "scan": "区块浏览器",
+        "dapp": "DApp",
+        "staking": "质押",
+        "bridge": "跨链桥",
+        "developers": "开发者",
+        "docs": "文档",
         "api": "API",
         "sdk": "SDK",
-        "resources": "Resources",
-        "whitepaper": "Whitepaper",
-        "tokenomics": "Tokenomics",
-        "roadmap": "Roadmap",
-        "privacyPolicy": "Privacy",
-        "termsOfService": "Terms",
-        "contact": "Contact"
+        "resources": "资源",
+        "whitepaper": "白皮书",
+        "tokenomics": "代币经济",
+        "roadmap": "路线图",
+        "privacyPolicy": "隐私政策",
+        "termsOfService": "服务条款",
+        "contact": "联系我们"
       },
       "emailDialog": {
-        "title": "Email Verification",
-        "description": "Register email for +300P!",
-        "label": "Email *",
-        "placeholder": "example@email.com",
-        "info": "Receive airdrop announcements.",
-        "cancel": "Cancel",
-        "submit": "Verify (+300P)",
-        "processing": "Processing..."
+        "title": "邮箱验证",
+        "description": "输入您的邮箱以验证并获得+300积分",
+        "label": "邮箱地址",
+        "info": "我们将发送验证链接到您的邮箱。",
+        "cancel": "取消",
+        "submit": "提交",
+        "processing": "处理中..."
       },
       "referralDialog": {
-        "title": "Invite Friends",
-        "description": "500P per friend, max 10",
-        "linkLabel": "My Referral Link",
-        "copy": "Copy",
-        "shareTitle": "Share on Social",
-        "shareTwitter": "Twitter",
-        "shareTelegram": "Telegram",
-        "shareKakao": "KakaoTalk",
-        "benefits": "Benefits",
-        "benefit1": "+500P for you, +100P for friend",
-        "benefit2": "Max 10 invites",
-        "benefit3": "+50P for friend's friend",
-        "statusTitle": "My Status",
-        "invitedFriends": "Invited",
-        "earnedPoints": "Earned Points",
-        "walletRequired": "Wallet Required",
-        "close": "Close",
-        "copied": "Copied!",
-        "linkCopied": "Link copied."
+        "title": "邀请好友",
+        "description": "分享您的推荐链接，每位好友可获得500积分！",
+        "linkLabel": "您的推荐链接",
+        "copy": "复制",
+        "copied": "已复制！",
+        "linkCopied": "推荐链接已复制到剪贴板",
+        "shareTitle": "分享到",
+        "shareTwitter": "分享到Twitter",
+        "shareTelegram": "分享到Telegram",
+        "shareKakao": "分享到KakaoTalk",
+        "bonusTitle": "推荐奖励",
+        "bonusDesc": "每位成功推荐的好友可获得500积分，最多10位好友。"
       }
     }
   }

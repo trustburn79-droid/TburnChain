@@ -15300,13 +15300,13 @@
         "claimRate": "ক্লেম রেট"
       },
       "eligibility": {
-        "title": "My Airdrop Status",
-        "checking": "Checking eligibility...",
-        "allocated": "Allocated",
-        "claimed": "Claimed",
-        "pending": "Pending",
-        "tier": "Tier",
-        "noAllocation": "No airdrop allocation found. Complete tasks to participate."
+        "title": "আমার এয়ারড্রপ স্থিতি",
+        "checking": "যোগ্যতা পরীক্ষা করা হচ্ছে...",
+        "allocated": "বরাদ্দ",
+        "claimed": "দাবি করা হয়েছে",
+        "pending": "মুলতুবি",
+        "tier": "স্তর",
+        "noAllocation": "কোন এয়ারড্রপ বরাদ্দ পাওয়া যায়নি। অংশগ্রহণ করতে কাজ সম্পূর্ণ করুন।"
       },
       "buttons": {
         "participateNow": "এখনই অংশগ্রহণ করুন",
@@ -15314,284 +15314,253 @@
         "viewDetails": "বিস্তারিত দেখুন"
       },
       "toasts": {
-        "participating": "Participating in Airdrop!",
-        "completeTasksForPoints": "Complete tasks to earn more points.",
-        "airdropTypes": "Airdrop Types",
-        "checkAirdropTypes": "Check out 3 types of airdrop programs.",
-        "connectWalletFirst": "Please connect your wallet first",
-        "checkingNft": "Checking NFT holdings...",
-        "pleaseWait": "Please wait",
-        "checkingTestnet": "Checking testnet activity..."
+        "participating": "এয়ারড্রপে অংশগ্রহণ করছেন!",
+        "completeTasksForPoints": "আরও পয়েন্ট অর্জন করতে কাজ সম্পূর্ণ করুন।",
+        "airdropTypes": "এয়ারড্রপ প্রকার",
+        "checkAirdropTypes": "3 ধরনের এয়ারড্রপ প্রোগ্রাম দেখুন।",
+        "connectWalletFirst": "প্রথমে আপনার ওয়ালেট সংযুক্ত করুন",
+        "checkingNft": "NFT হোল্ডিং পরীক্ষা করা হচ্ছে...",
+        "pleaseWait": "অনুগ্রহ করে অপেক্ষা করুন",
+        "checkingTestnet": "টেস্টনেট কার্যকলাপ পরীক্ষা করা হচ্ছে..."
       },
       "types": {
-        "badge": "AIRDROP TYPES",
-        "title": "Airdrop Types",
-        "subtitle": "300 million TBURN distributed through 3 types of programs",
-        "progress": "Distribution Progress",
-        "waiting": "Waiting (Starts 90 days after TGE)",
+        "badge": "এয়ারড্রপ প্রকার",
+        "title": "এয়ারড্রপ প্রকার",
+        "subtitle": "3 ধরনের এয়ারড্রপ প্রোগ্রামের মাধ্যমে 300 মিলিয়ন TBURN (মোট সাপ্লাইয়ের 3%) বিতরণ",
+        "progress": "বিতরণ অগ্রগতি",
+        "waiting": "অপেক্ষমান (TGE এর 90 দিন পরে শুরু)",
         "genesis": {
-          "title": "Genesis Airdrop",
+          "title": "জেনেসিস এয়ারড্রপ",
           "amount": "150M TBURN",
-          "desc": "Special allocation for early participants",
-          "feature1": "Testnet participants prioritized",
-          "feature2": "Genesis NFT holder bonus (2x)",
-          "feature3": "Early bird extra reward (+20%)",
-          "feature4": "15% unlocked at TGE"
+          "desc": "মেইননেট লঞ্চ উদযাপনে প্রাথমিক অংশগ্রহণকারীদের জন্য বিশেষ বরাদ্দ",
+          "feature1": "টেস্টনেট অংশগ্রহণকারীদের অগ্রাধিকার",
+          "feature2": "জেনেসিস NFT হোল্ডার বোনাস (2x)",
+          "feature3": "আর্লি বার্ড অতিরিক্ত পুরস্কার (+20%)",
+          "feature4": "TGE তে 15% আনলক"
         },
         "community": {
-          "title": "Community Airdrop",
+          "title": "কমিউনিটি এয়ারড্রপ",
           "amount": "100M TBURN",
-          "desc": "Rewards for social tasks and community participation",
-          "feature1": "X/Telegram/Discord follow",
-          "feature2": "Content creation rewards",
-          "feature3": "Referral bonus (500P per friend)",
-          "feature4": "Point-based distribution"
+          "desc": "সামাজিক কাজ সম্পন্ন করা এবং কমিউনিটি অংশগ্রহণের জন্য পুরস্কার",
+          "feature1": "X(Twitter)/Telegram/Discord ফলো",
+          "feature2": "কন্টেন্ট তৈরি এবং শেয়ারিং পুরস্কার",
+          "feature3": "রেফারেল বোনাস (প্রতি বন্ধু 500P)",
+          "feature4": "পয়েন্ট-ভিত্তিক আনুপাতিক বিতরণ"
         },
         "loyalty": {
-          "title": "Loyalty Airdrop",
+          "title": "লয়্যালটি এয়ারড্রপ",
           "amount": "50M TBURN",
-          "desc": "Rewards for long-term holders and stakers",
-          "feature1": "90+ day holding bonus (+50%)",
-          "feature2": "Staking rewards",
-          "feature3": "Governance voting bonus",
-          "feature4": "Quarterly snapshot bonus"
+          "desc": "দীর্ঘমেয়াদী হোল্ডার এবং স্টেকিং অংশগ্রহণকারীদের জন্য পুরস্কার",
+          "feature1": "90+ দিন হোল্ডিং বোনাস (+50%)",
+          "feature2": "স্টেকিং অংশগ্রহণ পুরস্কার",
+          "feature3": "গভর্ন্যান্স ভোটিং বোনাস",
+          "feature4": "ত্রৈমাসিক স্ন্যাপশট বোনাস বিতরণ"
         }
       },
       "tasks": {
-        "badge": "EARN POINTS",
-        "title": "Complete Tasks",
-        "subtitle": "Complete tasks and earn points to increase your allocation",
-        "myStatus": "My Task Status",
-        "walletConnected": "Connected with wallet",
-        "connectToTrack": "Connect wallet to track progress",
-        "earnedPoints": "Earned Points",
+        "badge": "পয়েন্ট অর্জন করুন",
+        "title": "কাজ সম্পূর্ণ করুন",
+        "subtitle": "কাজ সম্পূর্ণ করুন এবং আপনার এয়ারড্রপ বরাদ্দ বাড়াতে পয়েন্ট অর্জন করুন",
+        "myStatus": "আমার কাজের অবস্থা",
+        "walletConnected": "ওয়ালেট সংযুক্ত",
+        "connectToTrack": "কাজের অগ্রগতি ট্র্যাক করতে ওয়ালেট সংযুক্ত করুন",
+        "earnedPoints": "অর্জিত পয়েন্ট",
         "required": {
-          "title": "Required Tasks",
+          "title": "প্রয়োজনীয় কাজ",
           "wallet": {
-            "title": "Connect Wallet",
-            "desc": "Connect MetaMask or supported wallet",
+            "title": "ওয়ালেট সংযুক্ত করুন",
+            "desc": "MetaMask বা সমর্থিত ওয়ালেট সংযুক্ত করুন",
             "points": "+500 P",
-            "buttonConnect": "Connect",
-            "buttonComplete": "Complete"
+            "buttonConnect": "সংযুক্ত",
+            "buttonComplete": "সম্পূর্ণ"
           },
           "email": {
-            "title": "Email Verification",
-            "desc": "Register and verify email",
+            "title": "ইমেইল যাচাই",
+            "desc": "ইমেইল ঠিকানা নিবন্ধন ও যাচাই করুন",
             "points": "+300 P",
-            "button": "Verify"
+            "button": "যাচাই"
           },
           "telegram": {
-            "title": "Join Telegram",
-            "desc": "Join official Telegram group",
+            "title": "Telegram-এ যোগ দিন",
+            "desc": "অফিসিয়াল Telegram গ্রুপে যোগ দিন",
             "points": "+400 P",
-            "button": "Join"
+            "button": "যোগ দিন"
           }
         },
         "social": {
-          "title": "Social Tasks",
+          "title": "সামাজিক কাজ",
           "twitter": {
-            "title": "Follow X (Twitter)",
-            "desc": "Follow @TBURNChain",
+            "title": "X(Twitter) ফলো করুন",
+            "desc": "@TBURNChain অফিসিয়াল অ্যাকাউন্ট ফলো করুন",
             "points": "+200 P",
-            "button": "Follow"
+            "button": "ফলো করুন"
           },
           "retweet": {
-            "title": "Retweet Launch Tweet",
-            "desc": "Retweet mainnet launch",
+            "title": "লঞ্চ টুইট রিটুইট করুন",
+            "desc": "মেইননেট লঞ্চ ঘোষণা রিটুইট করুন",
             "points": "+300 P",
-            "button": "Retweet"
+            "button": "রিটুইট"
           },
           "discord": {
-            "title": "Join Discord",
-            "desc": "Join official Discord",
+            "title": "Discord-এ যোগ দিন",
+            "desc": "অফিসিয়াল Discord সার্ভারে যোগ দিন",
             "points": "+400 P",
-            "button": "Join"
+            "button": "যোগ দিন"
           }
         },
         "bonus": {
-          "title": "Bonus Tasks",
+          "title": "বোনাস কাজ",
           "nft": {
-            "title": "Genesis NFT Holder",
-            "desc": "2x bonus for Genesis NFT",
+            "title": "জেনেসিস NFT হোল্ডার",
+            "desc": "TBURN জেনেসিস NFT ধারণ করলে 2x বোনাস",
             "points": "+2,000 P",
-            "button": "Verify"
+            "button": "যাচাই করুন"
           },
           "referral": {
-            "title": "Invite Friends",
-            "desc": "500P per friend, max 10",
-            "points": "Max +5,000 P",
-            "button": "Invite"
+            "title": "বন্ধুদের আমন্ত্রণ করুন (রেফারেল)",
+            "desc": "প্রতি বন্ধু 500P, সর্বোচ্চ 10 জন বন্ধু",
+            "points": "সর্বোচ্চ +5,000 P",
+            "button": "আমন্ত্রণ"
           },
           "testnet": {
-            "title": "Testnet Participant",
-            "desc": "Auto-applied if recorded",
+            "title": "টেস্টনেট অংশগ্রহণকারী",
+            "desc": "টেস্টনেট কার্যকলাপ রেকর্ড থাকলে স্বয়ংক্রিয়ভাবে প্রযোজ্য",
             "points": "+3,000 P",
-            "button": "Verify"
+            "button": "যাচাই করুন"
           }
         }
       },
       "timeline": {
-        "badge": "SCHEDULE",
-        "title": "Distribution Schedule",
-        "subtitle": "Airdrop spans 9 months after TGE",
-        "nov2025": "November 2025",
-        "registrationStart": "Registration Start",
-        "registrationDesc": "Wallet connection begins",
-        "jan2026": "January 2026 (Current)",
-        "snapshotProgress": "Snapshot In Progress",
-        "snapshotDesc": "Points accumulating",
-        "feb2026": "February 2026",
-        "tge": "TGE",
-        "tgeDesc": "15% immediately claimable",
-        "mar2026": "March ~ November 2026",
-        "monthlyVesting": "Monthly Vesting",
-        "vestingDesc": "~9.4% monthly unlock",
+        "badge": "সময়সূচি",
+        "title": "বিতরণ সময়সূচি",
+        "subtitle": "এয়ারড্রপ বিতরণ TGE-এর পরে 9 মাস ধরে চলে",
+        "nov2025": "নভেম্বর 2025",
+        "registrationStart": "এয়ারড্রপ নিবন্ধন শুরু",
+        "registrationDesc": "ওয়ালেট সংযোগ এবং কাজ সম্পূর্ণ করা শুরু",
+        "jan2026": "জানুয়ারি 2026 (বর্তমান)",
+        "snapshotProgress": "স্ন্যাপশট চলছে",
+        "snapshotDesc": "অংশগ্রহণকারী পয়েন্ট জমা হচ্ছে (28,750 ব্যবহারকারী)",
+        "feb2026": "ফেব্রুয়ারি 2026",
+        "tge": "TGE (টোকেন জেনারেশন ইভেন্ট)",
+        "tgeDesc": "15% (45M TBURN) তাৎক্ষণিক দাবিযোগ্য",
+        "mar2026": "মার্চ - নভেম্বর 2026",
+        "monthlyVesting": "মাসিক ভেস্টিং রিলিজ",
+        "vestingDesc": "9 মাসে ~9.4% রৈখিক রিলিজ",
         "calculator": {
-          "title": "Distribution Example",
-          "myPoints": "My Points",
-          "totalPool": "Total Pool",
-          "distribution": "Distribution",
-          "estimated": "Estimated Amount",
-          "estimatedValue": "Estimated Value",
-          "disclaimer": "* Actual depends on final snapshot."
+          "title": "বিতরণ গণনা উদাহরণ",
+          "myPoints": "আমার পয়েন্ট",
+          "totalPool": "মোট পয়েন্ট পুল",
+          "distribution": "বিতরণ পরিমাণ",
+          "estimated": "আনুমানিক পরিমাণ",
+          "estimatedValue": "আনুমানিক মূল্য (@$0.50)",
+          "disclaimer": "* প্রকৃত বিতরণ চূড়ান্ত স্ন্যাপশট মোট পয়েন্টের উপর নির্ভর করে পরিবর্তিত হতে পারে।"
         },
         "vesting": {
-          "title": "Vesting Schedule",
-          "tgeDay": "TGE (Day 0)",
+          "title": "ভেস্টিং সময়সূচি",
+          "tgeDay": "TGE (দিন 0)",
           "monthly": "M1 ~ M9",
-          "monthlyPercent": "~9.4% monthly",
-          "complete": "Complete after 9 months"
+          "monthlyPercent": "~9.4%/মাস",
+          "complete": "9 মাস পরে"
         }
       },
       "eligibilitySection": {
-        "badge": "ELIGIBILITY",
-        "title": "Eligibility Requirements",
-        "subtitle": "Check requirements",
+        "badge": "যোগ্যতা",
+        "title": "যোগ্যতার প্রয়োজনীয়তা",
+        "subtitle": "এয়ারড্রপ অংশগ্রহণের প্রয়োজনীয়তা পরীক্ষা করুন",
         "eligible": {
-          "title": "Eligible Conditions",
+          "title": "যোগ্য শর্ত",
           "wallet": {
-            "title": "Wallet Required",
-            "desc": "MetaMask, Trust Wallet supported"
+            "title": "ওয়ালেট সংযোগ প্রয়োজন",
+            "desc": "MetaMask, Trust Wallet, Coinbase Wallet সমর্থিত"
           },
           "tasks": {
-            "title": "Complete Required Tasks",
-            "desc": "Wallet + Email + Telegram"
+            "title": "প্রয়োজনীয় কাজ সম্পূর্ণ করুন",
+            "desc": "ওয়ালেট সংযুক্ত + ইমেইল যাচাই + Telegram যোগদান"
           },
-          "minPoints": {
-            "title": "Minimum 1,000 Points",
-            "desc": "Excluded if insufficient"
-          },
-          "snapshot": {
-            "title": "Maintain Eligibility",
-            "desc": "Until January 2026 snapshot"
+          "kyc": {
+            "title": "KYC যাচাই",
+            "desc": "মৌলিক পরিচয় যাচাই প্রয়োজন"
           }
         },
-        "excluded": {
-          "title": "Excluded",
-          "restricted": {
-            "title": "Restricted Countries",
-            "desc": "USA, China, North Korea excluded"
-          },
-          "sybil": {
-            "title": "Sybil Attack",
-            "desc": "Multiple accounts excluded"
+        "ineligible": {
+          "title": "অযোগ্য শর্ত",
+          "sanctioned": {
+            "title": "নিষেধাজ্ঞাপ্রাপ্ত দেশ",
+            "desc": "উত্তর কোরিয়া, ইরানের মতো নিষেধাজ্ঞাপ্রাপ্ত অঞ্চল অংশগ্রহণ করতে পারবে না"
           },
           "bot": {
-            "title": "Bot Activity",
-            "desc": "Automation excluded"
+            "title": "বট/ভুয়া অ্যাকাউন্ট",
+            "desc": "সনাক্ত করা বট অ্যাকাউন্ট বাদ দেওয়া হবে"
           },
-          "fraud": {
-            "title": "Fraud",
-            "desc": "Permanently excluded"
+          "multiple": {
+            "title": "একাধিক অ্যাকাউন্ট",
+            "desc": "প্রতি ব্যক্তি শুধুমাত্র একটি অংশগ্রহণ অ্যাকাউন্ট"
           }
         }
       },
       "faq": {
-        "badge": "FAQ",
-        "title": "FAQ",
-        "subtitle": "Common questions",
+        "title": "সাধারণ প্রশ্নাবলী",
         "q1": {
-          "question": "Total airdrop amount?",
-          "answer": "300M TBURN (3% of 10B supply)"
+          "question": "এয়ারড্রপে কীভাবে অংশগ্রহণ করব?",
+          "answer": "আপনার ওয়ালেট সংযুক্ত করুন, প্রয়োজনীয় কাজ (ইমেইল যাচাই, Telegram যোগদান) সম্পূর্ণ করুন এবং পয়েন্ট জমা করুন।"
         },
         "q2": {
-          "question": "TGE amount?",
-          "answer": "15% immediately, 85% over 9 months"
+          "question": "আমি কখন আমার টোকেন দাবি করতে পারব?",
+          "answer": "TGE-তে 15% দাবিযোগ্য, বাকি 9 মাসে রৈখিকভাবে রিলিজ হয়।"
         },
         "q3": {
-          "question": "Point conversion?",
-          "answer": "Based on point ratio"
+          "question": "পয়েন্ট কীভাবে টোকেনে রূপান্তরিত হয়?",
+          "answer": "মোট পুলে আপনার পয়েন্টের অনুপাত আপনার টোকেন বরাদ্দ নির্ধারণ করে।"
         },
         "q4": {
-          "question": "Supported wallets?",
-          "answer": "MetaMask, Trust, Coinbase, etc."
+          "question": "আমি কি একাধিক ওয়ালেট দিয়ে অংশগ্রহণ করতে পারি?",
+          "answer": "না। প্রতি ব্যক্তি একটি ওয়ালেট, সনাক্ত করা একাধিক অ্যাকাউন্ট অযোগ্য হবে।"
         },
         "q5": {
-          "question": "How to claim?",
-          "answer": "Click Claim after TGE"
-        },
-        "q6": {
-          "question": "Task points?",
-          "answer": "500P wallet, 300P email, etc."
-        },
-        "q7": {
-          "question": "NFT bonus?",
-          "answer": "2x multiplier"
-        },
-        "q8": {
-          "question": "Restrictions?",
-          "answer": "OFAC sanctioned countries"
+          "question": "জেনেসিস NFT বোনাস কী?",
+          "answer": "TBURN জেনেসিস NFT ধারণকারী ব্যবহারকারীরা 2x পয়েন্ট বোনাস পান।"
         }
       },
       "footer": {
-        "brand": "Next-gen Layer 1 blockchain",
-        "products": "Products",
-        "scan": "TBURNScan",
-        "dapp": "dApp",
-        "staking": "Staking",
-        "bridge": "Bridge",
-        "developers": "Developers",
-        "docs": "Docs",
+        "products": "পণ্য",
+        "scan": "এক্সপ্লোরার",
+        "dapp": "DApp",
+        "staking": "স্টেকিং",
+        "bridge": "ব্রিজ",
+        "developers": "ডেভেলপার",
+        "docs": "ডকুমেন্টেশন",
         "api": "API",
         "sdk": "SDK",
-        "resources": "Resources",
-        "whitepaper": "Whitepaper",
-        "tokenomics": "Tokenomics",
-        "roadmap": "Roadmap",
-        "privacyPolicy": "Privacy",
-        "termsOfService": "Terms",
-        "contact": "Contact"
+        "resources": "রিসোর্স",
+        "whitepaper": "হোয়াইটপেপার",
+        "tokenomics": "টোকেনমিক্স",
+        "roadmap": "রোডম্যাপ",
+        "privacyPolicy": "গোপনীয়তা নীতি",
+        "termsOfService": "সেবার শর্তাবলী",
+        "contact": "যোগাযোগ"
       },
       "emailDialog": {
-        "title": "Email Verification",
-        "description": "Register email for +300P!",
-        "label": "Email *",
-        "placeholder": "example@email.com",
-        "info": "Receive airdrop announcements.",
-        "cancel": "Cancel",
-        "submit": "Verify (+300P)",
-        "processing": "Processing..."
+        "title": "ইমেইল যাচাই",
+        "description": "যাচাই করতে এবং +300 পয়েন্ট পেতে আপনার ইমেইল লিখুন",
+        "label": "ইমেইল ঠিকানা",
+        "info": "আমরা আপনার ইমেইলে একটি যাচাই লিঙ্ক পাঠাব।",
+        "cancel": "বাতিল",
+        "submit": "জমা দিন",
+        "processing": "প্রক্রিয়াকরণ..."
       },
       "referralDialog": {
-        "title": "Invite Friends",
-        "description": "500P per friend, max 10",
-        "linkLabel": "My Referral Link",
-        "copy": "Copy",
-        "shareTitle": "Share on Social",
-        "shareTwitter": "Twitter",
-        "shareTelegram": "Telegram",
-        "shareKakao": "KakaoTalk",
-        "benefits": "Benefits",
-        "benefit1": "+500P for you, +100P for friend",
-        "benefit2": "Max 10 invites",
-        "benefit3": "+50P for friend's friend",
-        "statusTitle": "My Status",
-        "invitedFriends": "Invited",
-        "earnedPoints": "Earned Points",
-        "walletRequired": "Wallet Required",
-        "close": "Close",
-        "copied": "Copied!",
-        "linkCopied": "Link copied."
+        "title": "বন্ধুদের আমন্ত্রণ করুন",
+        "description": "আপনার রেফারেল লিঙ্ক শেয়ার করুন এবং প্রতি বন্ধু 500 পয়েন্ট পান!",
+        "linkLabel": "আপনার রেফারেল লিঙ্ক",
+        "copy": "কপি করুন",
+        "copied": "কপি হয়েছে!",
+        "linkCopied": "রেফারেল লিঙ্ক ক্লিপবোর্ডে কপি হয়েছে",
+        "shareTitle": "শেয়ার করুন",
+        "shareTwitter": "Twitter-এ শেয়ার করুন",
+        "shareTelegram": "Telegram-এ শেয়ার করুন",
+        "shareKakao": "KakaoTalk-এ শেয়ার করুন",
+        "bonusTitle": "রেফারেল বোনাস",
+        "bonusDesc": "সফলভাবে রেফার করা প্রতি বন্ধুর জন্য 500 পয়েন্ট, সর্বোচ্চ 10 জন বন্ধু।"
       }
     }
   }

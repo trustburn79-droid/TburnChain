@@ -15544,13 +15544,13 @@
         "claimRate": "کلیم ریٹ"
       },
       "eligibility": {
-        "title": "My Airdrop Status",
-        "checking": "Checking eligibility...",
-        "allocated": "Allocated",
-        "claimed": "Claimed",
-        "pending": "Pending",
-        "tier": "Tier",
-        "noAllocation": "No airdrop allocation found. Complete tasks to participate."
+        "title": "میری ایئر ڈراپ حیثیت",
+        "checking": "اہلیت چیک ہو رہی ہے...",
+        "allocated": "مختص",
+        "claimed": "کلیم کیا گیا",
+        "pending": "زیر التواء",
+        "tier": "درجہ",
+        "noAllocation": "کوئی ایئر ڈراپ مختص نہیں ملی۔ شرکت کے لیے کام مکمل کریں۔"
       },
       "buttons": {
         "participateNow": "ابھی شرکت کریں",
@@ -15558,284 +15558,253 @@
         "viewDetails": "تفصیلات دیکھیں"
       },
       "toasts": {
-        "participating": "Participating in Airdrop!",
-        "completeTasksForPoints": "Complete tasks to earn more points.",
-        "airdropTypes": "Airdrop Types",
-        "checkAirdropTypes": "Check out 3 types of airdrop programs.",
-        "connectWalletFirst": "Please connect your wallet first",
-        "checkingNft": "Checking NFT holdings...",
-        "pleaseWait": "Please wait",
-        "checkingTestnet": "Checking testnet activity..."
+        "participating": "ایئر ڈراپ میں شرکت کر رہے ہیں!",
+        "completeTasksForPoints": "مزید پوائنٹس کمانے کے لیے کام مکمل کریں۔",
+        "airdropTypes": "ایئر ڈراپ اقسام",
+        "checkAirdropTypes": "3 قسم کے ایئر ڈراپ پروگرامز دیکھیں۔",
+        "connectWalletFirst": "پہلے اپنا والٹ جوڑیں",
+        "checkingNft": "NFT ہولڈنگ چیک ہو رہی ہے...",
+        "pleaseWait": "براہ کرم انتظار کریں",
+        "checkingTestnet": "ٹیسٹ نیٹ سرگرمی چیک ہو رہی ہے..."
       },
       "types": {
-        "badge": "AIRDROP TYPES",
-        "title": "Airdrop Types",
-        "subtitle": "300 million TBURN distributed through 3 types of programs",
-        "progress": "Distribution Progress",
-        "waiting": "Waiting (Starts 90 days after TGE)",
+        "badge": "ایئر ڈراپ اقسام",
+        "title": "ایئر ڈراپ اقسام",
+        "subtitle": "3 قسم کے ایئر ڈراپ پروگراموں کے ذریعے 300 ملین TBURN (کل سپلائی کا 3%) تقسیم",
+        "progress": "تقسیم کی پیشرفت",
+        "waiting": "انتظار میں (TGE کے 90 دن بعد شروع)",
         "genesis": {
-          "title": "Genesis Airdrop",
+          "title": "جینیسس ایئر ڈراپ",
           "amount": "150M TBURN",
-          "desc": "Special allocation for early participants",
-          "feature1": "Testnet participants prioritized",
-          "feature2": "Genesis NFT holder bonus (2x)",
-          "feature3": "Early bird extra reward (+20%)",
-          "feature4": "15% unlocked at TGE"
+          "desc": "مین نیٹ لانچ کی خوشی میں ابتدائی شرکاء کے لیے خصوصی مختص",
+          "feature1": "ٹیسٹ نیٹ شرکاء کو ترجیح",
+          "feature2": "جینیسس NFT ہولڈر بونس (2x)",
+          "feature3": "ارلی برڈ اضافی انعام (+20%)",
+          "feature4": "TGE پر 15% انلاک"
         },
         "community": {
-          "title": "Community Airdrop",
+          "title": "کمیونٹی ایئر ڈراپ",
           "amount": "100M TBURN",
-          "desc": "Rewards for social tasks and community participation",
-          "feature1": "X/Telegram/Discord follow",
-          "feature2": "Content creation rewards",
-          "feature3": "Referral bonus (500P per friend)",
-          "feature4": "Point-based distribution"
+          "desc": "سماجی کام مکمل کرنے اور کمیونٹی شرکت کے لیے انعامات",
+          "feature1": "X(Twitter)/Telegram/Discord فالو",
+          "feature2": "مواد تخلیق اور شیئرنگ انعامات",
+          "feature3": "ریفرل بونس (فی دوست 500P)",
+          "feature4": "پوائنٹ پر مبنی متناسب تقسیم"
         },
         "loyalty": {
-          "title": "Loyalty Airdrop",
+          "title": "لائلٹی ایئر ڈراپ",
           "amount": "50M TBURN",
-          "desc": "Rewards for long-term holders and stakers",
-          "feature1": "90+ day holding bonus (+50%)",
-          "feature2": "Staking rewards",
-          "feature3": "Governance voting bonus",
-          "feature4": "Quarterly snapshot bonus"
+          "desc": "طویل مدتی ہولڈرز اور سٹیکنگ شرکاء کے لیے انعامات",
+          "feature1": "90+ دن ہولڈنگ بونس (+50%)",
+          "feature2": "سٹیکنگ شرکت انعامات",
+          "feature3": "گورننس ووٹنگ بونس",
+          "feature4": "سہ ماہی سنیپ شاٹ بونس تقسیم"
         }
       },
       "tasks": {
-        "badge": "EARN POINTS",
-        "title": "Complete Tasks",
-        "subtitle": "Complete tasks and earn points to increase your allocation",
-        "myStatus": "My Task Status",
-        "walletConnected": "Connected with wallet",
-        "connectToTrack": "Connect wallet to track progress",
-        "earnedPoints": "Earned Points",
+        "badge": "پوائنٹس کمائیں",
+        "title": "کام مکمل کریں",
+        "subtitle": "کام مکمل کریں اور اپنی ایئر ڈراپ مختص بڑھانے کے لیے پوائنٹس کمائیں",
+        "myStatus": "میری کام کی حیثیت",
+        "walletConnected": "والٹ سے منسلک",
+        "connectToTrack": "کام کی پیشرفت ٹریک کرنے کے لیے والٹ جوڑیں",
+        "earnedPoints": "حاصل شدہ پوائنٹس",
         "required": {
-          "title": "Required Tasks",
+          "title": "ضروری کام",
           "wallet": {
-            "title": "Connect Wallet",
-            "desc": "Connect MetaMask or supported wallet",
+            "title": "والٹ جوڑیں",
+            "desc": "MetaMask یا معاون والٹ جوڑیں",
             "points": "+500 P",
-            "buttonConnect": "Connect",
-            "buttonComplete": "Complete"
+            "buttonConnect": "جوڑیں",
+            "buttonComplete": "مکمل"
           },
           "email": {
-            "title": "Email Verification",
-            "desc": "Register and verify email",
+            "title": "ای میل توثیق",
+            "desc": "ای میل ایڈریس رجسٹر اور تصدیق کریں",
             "points": "+300 P",
-            "button": "Verify"
+            "button": "تصدیق"
           },
           "telegram": {
-            "title": "Join Telegram",
-            "desc": "Join official Telegram group",
+            "title": "Telegram میں شامل ہوں",
+            "desc": "آفیشل Telegram گروپ میں شامل ہوں",
             "points": "+400 P",
-            "button": "Join"
+            "button": "شامل ہوں"
           }
         },
         "social": {
-          "title": "Social Tasks",
+          "title": "سماجی کام",
           "twitter": {
-            "title": "Follow X (Twitter)",
-            "desc": "Follow @TBURNChain",
+            "title": "X(Twitter) فالو کریں",
+            "desc": "@TBURNChain آفیشل اکاؤنٹ فالو کریں",
             "points": "+200 P",
-            "button": "Follow"
+            "button": "فالو کریں"
           },
           "retweet": {
-            "title": "Retweet Launch Tweet",
-            "desc": "Retweet mainnet launch",
+            "title": "لانچ ٹویٹ ریٹویٹ کریں",
+            "desc": "مین نیٹ لانچ اعلان ریٹویٹ کریں",
             "points": "+300 P",
-            "button": "Retweet"
+            "button": "ریٹویٹ"
           },
           "discord": {
-            "title": "Join Discord",
-            "desc": "Join official Discord",
+            "title": "Discord میں شامل ہوں",
+            "desc": "آفیشل Discord سرور میں شامل ہوں",
             "points": "+400 P",
-            "button": "Join"
+            "button": "شامل ہوں"
           }
         },
         "bonus": {
-          "title": "Bonus Tasks",
+          "title": "بونس کام",
           "nft": {
-            "title": "Genesis NFT Holder",
-            "desc": "2x bonus for Genesis NFT",
+            "title": "جینیسس NFT ہولڈر",
+            "desc": "TBURN جینیسس NFT رکھنے پر 2x بونس",
             "points": "+2,000 P",
-            "button": "Verify"
+            "button": "تصدیق کریں"
           },
           "referral": {
-            "title": "Invite Friends",
-            "desc": "500P per friend, max 10",
-            "points": "Max +5,000 P",
-            "button": "Invite"
+            "title": "دوستوں کو مدعو کریں (ریفرل)",
+            "desc": "فی دوست 500P، زیادہ سے زیادہ 10 دوست",
+            "points": "زیادہ سے زیادہ +5,000 P",
+            "button": "مدعو کریں"
           },
           "testnet": {
-            "title": "Testnet Participant",
-            "desc": "Auto-applied if recorded",
+            "title": "ٹیسٹ نیٹ شرکت کنندہ",
+            "desc": "ٹیسٹ نیٹ سرگرمی ریکارڈ ہونے پر خودکار لاگو",
             "points": "+3,000 P",
-            "button": "Verify"
+            "button": "تصدیق کریں"
           }
         }
       },
       "timeline": {
-        "badge": "SCHEDULE",
-        "title": "Distribution Schedule",
-        "subtitle": "Airdrop spans 9 months after TGE",
-        "nov2025": "November 2025",
-        "registrationStart": "Registration Start",
-        "registrationDesc": "Wallet connection begins",
-        "jan2026": "January 2026 (Current)",
-        "snapshotProgress": "Snapshot In Progress",
-        "snapshotDesc": "Points accumulating",
-        "feb2026": "February 2026",
-        "tge": "TGE",
-        "tgeDesc": "15% immediately claimable",
-        "mar2026": "March ~ November 2026",
-        "monthlyVesting": "Monthly Vesting",
-        "vestingDesc": "~9.4% monthly unlock",
+        "badge": "ٹائم لائن",
+        "title": "تقسیم کا شیڈول",
+        "subtitle": "ایئر ڈراپ تقسیم TGE کے بعد 9 ماہ تک جاری رہتی ہے",
+        "nov2025": "نومبر 2025",
+        "registrationStart": "ایئر ڈراپ رجسٹریشن شروع",
+        "registrationDesc": "والٹ کنکشن اور کام مکمل کرنا شروع",
+        "jan2026": "جنوری 2026 (موجودہ)",
+        "snapshotProgress": "سنیپ شاٹ جاری ہے",
+        "snapshotDesc": "شرکاء کے پوائنٹس جمع ہو رہے ہیں (28,750 صارفین)",
+        "feb2026": "فروری 2026",
+        "tge": "TGE (ٹوکن جنریشن ایونٹ)",
+        "tgeDesc": "15% (45M TBURN) فوری طور پر کلیم کے قابل",
+        "mar2026": "مارچ - نومبر 2026",
+        "monthlyVesting": "ماہانہ ویسٹنگ ریلیز",
+        "vestingDesc": "9 مہینوں میں ~9.4% لکیری ریلیز",
         "calculator": {
-          "title": "Distribution Example",
-          "myPoints": "My Points",
-          "totalPool": "Total Pool",
-          "distribution": "Distribution",
-          "estimated": "Estimated Amount",
-          "estimatedValue": "Estimated Value",
-          "disclaimer": "* Actual depends on final snapshot."
+          "title": "تقسیم کی حساب کی مثال",
+          "myPoints": "میرے پوائنٹس",
+          "totalPool": "کل پوائنٹ پول",
+          "distribution": "تقسیم کی مقدار",
+          "estimated": "تخمینی مقدار",
+          "estimatedValue": "تخمینی قیمت (@$0.50)",
+          "disclaimer": "* اصل تقسیم حتمی سنیپ شاٹ کل پوائنٹس کی بنیاد پر مختلف ہو سکتی ہے۔"
         },
         "vesting": {
-          "title": "Vesting Schedule",
-          "tgeDay": "TGE (Day 0)",
+          "title": "ویسٹنگ شیڈول",
+          "tgeDay": "TGE (دن 0)",
           "monthly": "M1 ~ M9",
-          "monthlyPercent": "~9.4% monthly",
-          "complete": "Complete after 9 months"
+          "monthlyPercent": "~9.4%/ماہ",
+          "complete": "9 ماہ بعد"
         }
       },
       "eligibilitySection": {
-        "badge": "ELIGIBILITY",
-        "title": "Eligibility Requirements",
-        "subtitle": "Check requirements",
+        "badge": "اہلیت",
+        "title": "اہلیت کی ضروریات",
+        "subtitle": "ایئر ڈراپ شرکت کی ضروریات چیک کریں",
         "eligible": {
-          "title": "Eligible Conditions",
+          "title": "اہل شرائط",
           "wallet": {
-            "title": "Wallet Required",
-            "desc": "MetaMask, Trust Wallet supported"
+            "title": "والٹ کنکشن ضروری",
+            "desc": "MetaMask, Trust Wallet, Coinbase Wallet سپورٹ کرتے ہیں"
           },
           "tasks": {
-            "title": "Complete Required Tasks",
-            "desc": "Wallet + Email + Telegram"
+            "title": "ضروری کام مکمل کریں",
+            "desc": "والٹ کنیکٹ + ای میل تصدیق + Telegram شامل ہوں"
           },
-          "minPoints": {
-            "title": "Minimum 1,000 Points",
-            "desc": "Excluded if insufficient"
-          },
-          "snapshot": {
-            "title": "Maintain Eligibility",
-            "desc": "Until January 2026 snapshot"
+          "kyc": {
+            "title": "KYC تصدیق",
+            "desc": "بنیادی شناخت کی تصدیق ضروری"
           }
         },
-        "excluded": {
-          "title": "Excluded",
-          "restricted": {
-            "title": "Restricted Countries",
-            "desc": "USA, China, North Korea excluded"
-          },
-          "sybil": {
-            "title": "Sybil Attack",
-            "desc": "Multiple accounts excluded"
+        "ineligible": {
+          "title": "نااہل شرائط",
+          "sanctioned": {
+            "title": "پابندیوں والے ممالک",
+            "desc": "شمالی کوریا، ایران جیسے پابندیوں والے علاقے شرکت نہیں کر سکتے"
           },
           "bot": {
-            "title": "Bot Activity",
-            "desc": "Automation excluded"
+            "title": "بوٹس/جعلی اکاؤنٹس",
+            "desc": "پتہ لگائے گئے بوٹ اکاؤنٹس کو خارج کر دیا جائے گا"
           },
-          "fraud": {
-            "title": "Fraud",
-            "desc": "Permanently excluded"
+          "multiple": {
+            "title": "متعدد اکاؤنٹس",
+            "desc": "فی شخص صرف ایک شرکت اکاؤنٹ"
           }
         }
       },
       "faq": {
-        "badge": "FAQ",
-        "title": "FAQ",
-        "subtitle": "Common questions",
+        "title": "عام سوالات",
         "q1": {
-          "question": "Total airdrop amount?",
-          "answer": "300M TBURN (3% of 10B supply)"
+          "question": "ایئر ڈراپ میں کیسے شرکت کروں؟",
+          "answer": "اپنا والٹ جوڑیں، ضروری کام (ای میل تصدیق، Telegram شامل ہوں) مکمل کریں اور پوائنٹس جمع کریں۔"
         },
         "q2": {
-          "question": "TGE amount?",
-          "answer": "15% immediately, 85% over 9 months"
+          "question": "میں اپنے ٹوکنز کب کلیم کر سکتا ہوں؟",
+          "answer": "TGE پر 15% کلیم کے قابل ہے، باقی 9 مہینوں میں لکیری طور پر ریلیز ہوتا ہے۔"
         },
         "q3": {
-          "question": "Point conversion?",
-          "answer": "Based on point ratio"
+          "question": "پوائنٹس ٹوکنز میں کیسے تبدیل ہوتے ہیں؟",
+          "answer": "کل پول میں آپ کے پوائنٹس کا تناسب آپ کی ٹوکن مختص کا تعین کرتا ہے۔"
         },
         "q4": {
-          "question": "Supported wallets?",
-          "answer": "MetaMask, Trust, Coinbase, etc."
+          "question": "کیا میں متعدد والٹس سے شرکت کر سکتا ہوں؟",
+          "answer": "نہیں۔ فی شخص ایک والٹ، پتہ لگائے گئے متعدد اکاؤنٹس نااہل ہوں گے۔"
         },
         "q5": {
-          "question": "How to claim?",
-          "answer": "Click Claim after TGE"
-        },
-        "q6": {
-          "question": "Task points?",
-          "answer": "500P wallet, 300P email, etc."
-        },
-        "q7": {
-          "question": "NFT bonus?",
-          "answer": "2x multiplier"
-        },
-        "q8": {
-          "question": "Restrictions?",
-          "answer": "OFAC sanctioned countries"
+          "question": "جینیسس NFT بونس کیا ہے؟",
+          "answer": "TBURN جینیسس NFT رکھنے والے صارفین کو 2x پوائنٹ بونس ملتا ہے۔"
         }
       },
       "footer": {
-        "brand": "Next-gen Layer 1 blockchain",
-        "products": "Products",
-        "scan": "TBURNScan",
-        "dapp": "dApp",
-        "staking": "Staking",
-        "bridge": "Bridge",
-        "developers": "Developers",
-        "docs": "Docs",
+        "products": "مصنوعات",
+        "scan": "ایکسپلورر",
+        "dapp": "DApp",
+        "staking": "سٹیکنگ",
+        "bridge": "برج",
+        "developers": "ڈیولپرز",
+        "docs": "دستاویزات",
         "api": "API",
         "sdk": "SDK",
-        "resources": "Resources",
-        "whitepaper": "Whitepaper",
-        "tokenomics": "Tokenomics",
-        "roadmap": "Roadmap",
-        "privacyPolicy": "Privacy",
-        "termsOfService": "Terms",
-        "contact": "Contact"
+        "resources": "وسائل",
+        "whitepaper": "وائٹ پیپر",
+        "tokenomics": "ٹوکنومکس",
+        "roadmap": "روڈ میپ",
+        "privacyPolicy": "پرائیویسی پالیسی",
+        "termsOfService": "سروس کی شرائط",
+        "contact": "رابطہ کریں"
       },
       "emailDialog": {
-        "title": "Email Verification",
-        "description": "Register email for +300P!",
-        "label": "Email *",
-        "placeholder": "example@email.com",
-        "info": "Receive airdrop announcements.",
-        "cancel": "Cancel",
-        "submit": "Verify (+300P)",
-        "processing": "Processing..."
+        "title": "ای میل تصدیق",
+        "description": "تصدیق کرنے اور +300 پوائنٹس حاصل کرنے کے لیے اپنا ای میل درج کریں",
+        "label": "ای میل ایڈریس",
+        "info": "ہم آپ کے ای میل پر تصدیقی لنک بھیجیں گے۔",
+        "cancel": "منسوخ",
+        "submit": "جمع کریں",
+        "processing": "پراسیسنگ..."
       },
       "referralDialog": {
-        "title": "Invite Friends",
-        "description": "500P per friend, max 10",
-        "linkLabel": "My Referral Link",
-        "copy": "Copy",
-        "shareTitle": "Share on Social",
-        "shareTwitter": "Twitter",
-        "shareTelegram": "Telegram",
-        "shareKakao": "KakaoTalk",
-        "benefits": "Benefits",
-        "benefit1": "+500P for you, +100P for friend",
-        "benefit2": "Max 10 invites",
-        "benefit3": "+50P for friend's friend",
-        "statusTitle": "My Status",
-        "invitedFriends": "Invited",
-        "earnedPoints": "Earned Points",
-        "walletRequired": "Wallet Required",
-        "close": "Close",
-        "copied": "Copied!",
-        "linkCopied": "Link copied."
+        "title": "دوستوں کو مدعو کریں",
+        "description": "اپنا ریفرل لنک شیئر کریں اور فی دوست 500 پوائنٹس حاصل کریں!",
+        "linkLabel": "آپ کا ریفرل لنک",
+        "copy": "کاپی کریں",
+        "copied": "کاپی ہو گیا!",
+        "linkCopied": "ریفرل لنک کلپ بورڈ پر کاپی ہو گیا",
+        "shareTitle": "شیئر کریں",
+        "shareTwitter": "Twitter پر شیئر کریں",
+        "shareTelegram": "Telegram پر شیئر کریں",
+        "shareKakao": "KakaoTalk پر شیئر کریں",
+        "bonusTitle": "ریفرل بونس",
+        "bonusDesc": "کامیابی سے ریفر کیے گئے ہر دوست کے لیے 500 پوائنٹس، زیادہ سے زیادہ 10 دوست۔"
       }
     }
   }

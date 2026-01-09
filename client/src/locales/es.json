@@ -19184,13 +19184,13 @@
         "claimRate": "Tasa de reclamo"
       },
       "eligibility": {
-        "title": "My Airdrop Status",
-        "checking": "Checking eligibility...",
-        "allocated": "Allocated",
-        "claimed": "Claimed",
-        "pending": "Pending",
-        "tier": "Tier",
-        "noAllocation": "No airdrop allocation found. Complete tasks to participate."
+        "title": "Mi estado de airdrop",
+        "checking": "Verificando elegibilidad...",
+        "allocated": "Asignado",
+        "claimed": "Reclamado",
+        "pending": "Pendiente",
+        "tier": "Nivel",
+        "noAllocation": "No se encontró asignación de airdrop. Completa tareas para participar."
       },
       "buttons": {
         "participateNow": "Participar ahora",
@@ -19198,284 +19198,253 @@
         "viewDetails": "Ver detalles"
       },
       "toasts": {
-        "participating": "Participating in Airdrop!",
-        "completeTasksForPoints": "Complete tasks to earn more points.",
-        "airdropTypes": "Airdrop Types",
-        "checkAirdropTypes": "Check out 3 types of airdrop programs.",
-        "connectWalletFirst": "Please connect your wallet first",
-        "checkingNft": "Checking NFT holdings...",
-        "pleaseWait": "Please wait",
-        "checkingTestnet": "Checking testnet activity..."
+        "participating": "¡Participando en el Airdrop!",
+        "completeTasksForPoints": "Completa tareas para ganar más puntos.",
+        "airdropTypes": "Tipos de Airdrop",
+        "checkAirdropTypes": "Revisa 3 tipos de programas de airdrop.",
+        "connectWalletFirst": "Por favor conecta tu billetera primero",
+        "checkingNft": "Verificando tenencia de NFT...",
+        "pleaseWait": "Por favor espera",
+        "checkingTestnet": "Verificando actividad en testnet..."
       },
       "types": {
-        "badge": "AIRDROP TYPES",
-        "title": "Airdrop Types",
-        "subtitle": "300 million TBURN distributed through 3 types of programs",
-        "progress": "Distribution Progress",
-        "waiting": "Waiting (Starts 90 days after TGE)",
+        "badge": "TIPOS DE AIRDROP",
+        "title": "Tipos de Airdrop",
+        "subtitle": "300 millones de TBURN (3% del suministro total) distribuidos a través de 3 tipos de programas de airdrop",
+        "progress": "Progreso de distribución",
+        "waiting": "Esperando (Comienza 90 días después del TGE)",
         "genesis": {
-          "title": "Genesis Airdrop",
+          "title": "Airdrop Génesis",
           "amount": "150M TBURN",
-          "desc": "Special allocation for early participants",
-          "feature1": "Testnet participants prioritized",
-          "feature2": "Genesis NFT holder bonus (2x)",
-          "feature3": "Early bird extra reward (+20%)",
-          "feature4": "15% unlocked at TGE"
+          "desc": "Asignación especial para participantes tempranos celebrando el lanzamiento del mainnet",
+          "feature1": "Prioridad para participantes del testnet",
+          "feature2": "Bonus para poseedores de NFT Génesis (2x)",
+          "feature3": "Recompensa extra para early birds (+20%)",
+          "feature4": "15% desbloqueado en TGE"
         },
         "community": {
-          "title": "Community Airdrop",
+          "title": "Airdrop Comunitario",
           "amount": "100M TBURN",
-          "desc": "Rewards for social tasks and community participation",
-          "feature1": "X/Telegram/Discord follow",
-          "feature2": "Content creation rewards",
-          "feature3": "Referral bonus (500P per friend)",
-          "feature4": "Point-based distribution"
+          "desc": "Recompensas por completar tareas sociales y participación comunitaria",
+          "feature1": "Seguir X(Twitter)/Telegram/Discord",
+          "feature2": "Recompensas por creación y compartir contenido",
+          "feature3": "Bonus por referidos (500P por amigo)",
+          "feature4": "Distribución proporcional basada en puntos"
         },
         "loyalty": {
-          "title": "Loyalty Airdrop",
+          "title": "Airdrop de Lealtad",
           "amount": "50M TBURN",
-          "desc": "Rewards for long-term holders and stakers",
-          "feature1": "90+ day holding bonus (+50%)",
-          "feature2": "Staking rewards",
-          "feature3": "Governance voting bonus",
-          "feature4": "Quarterly snapshot bonus"
+          "desc": "Recompensas para holders a largo plazo y participantes de staking",
+          "feature1": "Bonus por tenencia de 90+ días (+50%)",
+          "feature2": "Recompensas por participación en staking",
+          "feature3": "Bonus por votación de gobernanza",
+          "feature4": "Distribución de bonus por snapshot trimestral"
         }
       },
       "tasks": {
-        "badge": "EARN POINTS",
-        "title": "Complete Tasks",
-        "subtitle": "Complete tasks and earn points to increase your allocation",
-        "myStatus": "My Task Status",
-        "walletConnected": "Connected with wallet",
-        "connectToTrack": "Connect wallet to track progress",
-        "earnedPoints": "Earned Points",
+        "badge": "GANAR PUNTOS",
+        "title": "Completar tareas",
+        "subtitle": "Completa tareas y gana puntos para aumentar tu asignación de airdrop",
+        "myStatus": "Mi estado de tareas",
+        "walletConnected": "Conectado con billetera",
+        "connectToTrack": "Conecta tu billetera para rastrear el progreso de tareas",
+        "earnedPoints": "Puntos ganados",
         "required": {
-          "title": "Required Tasks",
+          "title": "Tareas requeridas",
           "wallet": {
-            "title": "Connect Wallet",
-            "desc": "Connect MetaMask or supported wallet",
+            "title": "Conectar billetera",
+            "desc": "Conecta MetaMask o billetera compatible",
             "points": "+500 P",
-            "buttonConnect": "Connect",
-            "buttonComplete": "Complete"
+            "buttonConnect": "Conectar",
+            "buttonComplete": "Completado"
           },
           "email": {
-            "title": "Email Verification",
-            "desc": "Register and verify email",
+            "title": "Verificar email",
+            "desc": "Registra y verifica tu email",
             "points": "+300 P",
-            "button": "Verify"
+            "button": "Verificar"
           },
           "telegram": {
-            "title": "Join Telegram",
-            "desc": "Join official Telegram group",
+            "title": "Unirse a Telegram",
+            "desc": "Únete al grupo oficial de Telegram",
             "points": "+400 P",
-            "button": "Join"
+            "button": "Unirse"
           }
         },
         "social": {
-          "title": "Social Tasks",
+          "title": "Tareas sociales",
           "twitter": {
-            "title": "Follow X (Twitter)",
-            "desc": "Follow @TBURNChain",
+            "title": "Seguir X(Twitter)",
+            "desc": "Sigue la cuenta oficial @TBURNChain",
             "points": "+200 P",
-            "button": "Follow"
+            "button": "Seguir"
           },
           "retweet": {
-            "title": "Retweet Launch Tweet",
-            "desc": "Retweet mainnet launch",
+            "title": "Retuitear lanzamiento",
+            "desc": "Retuitea el anuncio de lanzamiento de mainnet",
             "points": "+300 P",
-            "button": "Retweet"
+            "button": "Retuitear"
           },
           "discord": {
-            "title": "Join Discord",
-            "desc": "Join official Discord",
+            "title": "Unirse a Discord",
+            "desc": "Únete al servidor oficial de Discord",
             "points": "+400 P",
-            "button": "Join"
+            "button": "Unirse"
           }
         },
         "bonus": {
-          "title": "Bonus Tasks",
+          "title": "Tareas bonus",
           "nft": {
-            "title": "Genesis NFT Holder",
-            "desc": "2x bonus for Genesis NFT",
+            "title": "Titular de NFT Genesis",
+            "desc": "2x bonus por tener TBURN Genesis NFT",
             "points": "+2,000 P",
-            "button": "Verify"
+            "button": "Verificar"
           },
           "referral": {
-            "title": "Invite Friends",
-            "desc": "500P per friend, max 10",
-            "points": "Max +5,000 P",
-            "button": "Invite"
+            "title": "Invitar amigos (Referido)",
+            "desc": "500P por amigo, máximo 10 amigos",
+            "points": "Máx +5,000 P",
+            "button": "Invitar"
           },
           "testnet": {
-            "title": "Testnet Participant",
-            "desc": "Auto-applied if recorded",
+            "title": "Participante de testnet",
+            "desc": "Auto-aplicado si hay actividad registrada en testnet",
             "points": "+3,000 P",
-            "button": "Verify"
+            "button": "Verificar"
           }
         }
       },
       "timeline": {
-        "badge": "SCHEDULE",
-        "title": "Distribution Schedule",
-        "subtitle": "Airdrop spans 9 months after TGE",
-        "nov2025": "November 2025",
-        "registrationStart": "Registration Start",
-        "registrationDesc": "Wallet connection begins",
-        "jan2026": "January 2026 (Current)",
-        "snapshotProgress": "Snapshot In Progress",
-        "snapshotDesc": "Points accumulating",
-        "feb2026": "February 2026",
-        "tge": "TGE",
-        "tgeDesc": "15% immediately claimable",
-        "mar2026": "March ~ November 2026",
-        "monthlyVesting": "Monthly Vesting",
-        "vestingDesc": "~9.4% monthly unlock",
+        "badge": "CRONOGRAMA",
+        "title": "Cronograma de distribución",
+        "subtitle": "La distribución del airdrop dura 9 meses después del TGE",
+        "nov2025": "Noviembre 2025",
+        "registrationStart": "Inicio de registro del airdrop",
+        "registrationDesc": "Comienza la conexión de billeteras y completar tareas",
+        "jan2026": "Enero 2026 (Actual)",
+        "snapshotProgress": "Snapshot en progreso",
+        "snapshotDesc": "Acumulando puntos de participantes (28,750 usuarios)",
+        "feb2026": "Febrero 2026",
+        "tge": "TGE (Evento de Generación de Tokens)",
+        "tgeDesc": "15% (45M TBURN) reclamable inmediatamente",
+        "mar2026": "Marzo - Noviembre 2026",
+        "monthlyVesting": "Liberación mensual de vesting",
+        "vestingDesc": "~9.4% liberación lineal durante 9 meses",
         "calculator": {
-          "title": "Distribution Example",
-          "myPoints": "My Points",
-          "totalPool": "Total Pool",
-          "distribution": "Distribution",
-          "estimated": "Estimated Amount",
-          "estimatedValue": "Estimated Value",
-          "disclaimer": "* Actual depends on final snapshot."
+          "title": "Ejemplo de cálculo de distribución",
+          "myPoints": "Mis puntos",
+          "totalPool": "Pool total de puntos",
+          "distribution": "Cantidad de distribución",
+          "estimated": "Cantidad estimada",
+          "estimatedValue": "Valor estimado (@$0.50)",
+          "disclaimer": "* La distribución real puede variar según el total de puntos del snapshot final."
         },
         "vesting": {
-          "title": "Vesting Schedule",
-          "tgeDay": "TGE (Day 0)",
+          "title": "Cronograma de vesting",
+          "tgeDay": "TGE (Día 0)",
           "monthly": "M1 ~ M9",
-          "monthlyPercent": "~9.4% monthly",
-          "complete": "Complete after 9 months"
+          "monthlyPercent": "~9.4%/mes",
+          "complete": "Después de 9 meses"
         }
       },
       "eligibilitySection": {
-        "badge": "ELIGIBILITY",
-        "title": "Eligibility Requirements",
-        "subtitle": "Check requirements",
+        "badge": "ELEGIBILIDAD",
+        "title": "Requisitos de elegibilidad",
+        "subtitle": "Verifica los requisitos de participación en el airdrop",
         "eligible": {
-          "title": "Eligible Conditions",
+          "title": "Condiciones elegibles",
           "wallet": {
-            "title": "Wallet Required",
-            "desc": "MetaMask, Trust Wallet supported"
+            "title": "Conexión de billetera requerida",
+            "desc": "MetaMask, Trust Wallet, Coinbase Wallet soportados"
           },
           "tasks": {
-            "title": "Complete Required Tasks",
-            "desc": "Wallet + Email + Telegram"
+            "title": "Completar tareas requeridas",
+            "desc": "Conexión de billetera + Verificación de email + Unirse a Telegram"
           },
-          "minPoints": {
-            "title": "Minimum 1,000 Points",
-            "desc": "Excluded if insufficient"
-          },
-          "snapshot": {
-            "title": "Maintain Eligibility",
-            "desc": "Until January 2026 snapshot"
+          "kyc": {
+            "title": "Verificación KYC",
+            "desc": "Verificación de identidad básica requerida"
           }
         },
-        "excluded": {
-          "title": "Excluded",
-          "restricted": {
-            "title": "Restricted Countries",
-            "desc": "USA, China, North Korea excluded"
-          },
-          "sybil": {
-            "title": "Sybil Attack",
-            "desc": "Multiple accounts excluded"
+        "ineligible": {
+          "title": "Condiciones no elegibles",
+          "sanctioned": {
+            "title": "Países sancionados",
+            "desc": "Regiones sancionadas como Corea del Norte, Irán no pueden participar"
           },
           "bot": {
-            "title": "Bot Activity",
-            "desc": "Automation excluded"
+            "title": "Bots/Cuentas falsas",
+            "desc": "Cuentas bot detectadas serán excluidas"
           },
-          "fraud": {
-            "title": "Fraud",
-            "desc": "Permanently excluded"
+          "multiple": {
+            "title": "Múltiples cuentas",
+            "desc": "Solo una cuenta de participación por persona"
           }
         }
       },
       "faq": {
-        "badge": "FAQ",
-        "title": "FAQ",
-        "subtitle": "Common questions",
+        "title": "Preguntas frecuentes",
         "q1": {
-          "question": "Total airdrop amount?",
-          "answer": "300M TBURN (3% of 10B supply)"
+          "question": "¿Cómo participo en el airdrop?",
+          "answer": "Conecta tu billetera, completa las tareas requeridas (verificación de email, unirse a Telegram) y acumula puntos."
         },
         "q2": {
-          "question": "TGE amount?",
-          "answer": "15% immediately, 85% over 9 months"
+          "question": "¿Cuándo puedo reclamar mis tokens?",
+          "answer": "El 15% es reclamable en el TGE, el resto se libera linealmente durante 9 meses."
         },
         "q3": {
-          "question": "Point conversion?",
-          "answer": "Based on point ratio"
+          "question": "¿Cómo se convierten los puntos en tokens?",
+          "answer": "Tu proporción de puntos en el pool total determina tu asignación de tokens."
         },
         "q4": {
-          "question": "Supported wallets?",
-          "answer": "MetaMask, Trust, Coinbase, etc."
+          "question": "¿Puedo participar con múltiples billeteras?",
+          "answer": "No. Solo una billetera por persona, las cuentas múltiples detectadas serán descalificadas."
         },
         "q5": {
-          "question": "How to claim?",
-          "answer": "Click Claim after TGE"
-        },
-        "q6": {
-          "question": "Task points?",
-          "answer": "500P wallet, 300P email, etc."
-        },
-        "q7": {
-          "question": "NFT bonus?",
-          "answer": "2x multiplier"
-        },
-        "q8": {
-          "question": "Restrictions?",
-          "answer": "OFAC sanctioned countries"
+          "question": "¿Qué es el bonus de Genesis NFT?",
+          "answer": "Los usuarios que poseen TBURN Genesis NFT reciben un bonus de puntos 2x."
         }
       },
       "footer": {
-        "brand": "Next-gen Layer 1 blockchain",
-        "products": "Products",
-        "scan": "TBURNScan",
-        "dapp": "dApp",
+        "products": "Productos",
+        "scan": "Explorador",
+        "dapp": "DApp",
         "staking": "Staking",
-        "bridge": "Bridge",
-        "developers": "Developers",
-        "docs": "Docs",
+        "bridge": "Puente",
+        "developers": "Desarrolladores",
+        "docs": "Documentación",
         "api": "API",
         "sdk": "SDK",
-        "resources": "Resources",
+        "resources": "Recursos",
         "whitepaper": "Whitepaper",
         "tokenomics": "Tokenomics",
-        "roadmap": "Roadmap",
-        "privacyPolicy": "Privacy",
-        "termsOfService": "Terms",
-        "contact": "Contact"
+        "roadmap": "Hoja de ruta",
+        "privacyPolicy": "Política de privacidad",
+        "termsOfService": "Términos de servicio",
+        "contact": "Contacto"
       },
       "emailDialog": {
-        "title": "Email Verification",
-        "description": "Register email for +300P!",
-        "label": "Email *",
-        "placeholder": "example@email.com",
-        "info": "Receive airdrop announcements.",
-        "cancel": "Cancel",
-        "submit": "Verify (+300P)",
-        "processing": "Processing..."
+        "title": "Verificación de email",
+        "description": "Ingresa tu email para verificar y ganar +300 puntos",
+        "label": "Dirección de email",
+        "info": "Enviaremos un enlace de verificación a tu email.",
+        "cancel": "Cancelar",
+        "submit": "Enviar",
+        "processing": "Procesando..."
       },
       "referralDialog": {
-        "title": "Invite Friends",
-        "description": "500P per friend, max 10",
-        "linkLabel": "My Referral Link",
-        "copy": "Copy",
-        "shareTitle": "Share on Social",
-        "shareTwitter": "Twitter",
-        "shareTelegram": "Telegram",
-        "shareKakao": "KakaoTalk",
-        "benefits": "Benefits",
-        "benefit1": "+500P for you, +100P for friend",
-        "benefit2": "Max 10 invites",
-        "benefit3": "+50P for friend's friend",
-        "statusTitle": "My Status",
-        "invitedFriends": "Invited",
-        "earnedPoints": "Earned Points",
-        "walletRequired": "Wallet Required",
-        "close": "Close",
-        "copied": "Copied!",
-        "linkCopied": "Link copied."
+        "title": "Invitar amigos",
+        "description": "Comparte tu enlace de referido y gana 500 puntos por amigo!",
+        "linkLabel": "Tu enlace de referido",
+        "copy": "Copiar",
+        "copied": "¡Copiado!",
+        "linkCopied": "Enlace de referido copiado al portapapeles",
+        "shareTitle": "Compartir en",
+        "shareTwitter": "Compartir en Twitter",
+        "shareTelegram": "Compartir en Telegram",
+        "shareKakao": "Compartir en KakaoTalk",
+        "bonusTitle": "Bonus de referido",
+        "bonusDesc": "500 puntos por cada amigo referido exitosamente, hasta 10 amigos."
       }
     }
   }
