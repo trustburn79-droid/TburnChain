@@ -17386,6 +17386,222 @@
         "termsOfService": "Termos de Serviço",
         "contact": "Contato"
       }
+    },
+    "eventsPage": {
+      "nav": {
+        "liveEvents": "Eventos ao Vivo",
+        "allEvents": "Todos os Eventos",
+        "leaderboard": "Classificação",
+        "faq": "Perguntas Frequentes",
+        "connectWallet": "Conectar Carteira",
+        "connected": "Conectado"
+      },
+      "hero": {
+        "badge": "CENTRO DE EVENTOS - Vários eventos em andamento",
+        "title": "Participe e Ganhe!",
+        "titleHighlight": "400M TBURN",
+        "titleSuffix": "Recompensas de Eventos",
+        "subtitle": "Participe de eventos de lançamento, competições de trading, impulsos de staking, desafios da comunidade e ganhe recompensas incríveis!",
+        "liveBadge": "AO VIVO",
+        "liveTitle": "Grande Evento de Lançamento Mainnet",
+        "liveSubtitle": "Participe agora para ganhar até 10,000 TBURN!",
+        "countdown": {
+          "days": "Dias",
+          "hours": "Horas",
+          "minutes": "Min",
+          "seconds": "Seg"
+        },
+        "participate": "Participar",
+        "connectFirst": "Conectar Carteira"
+      },
+      "stats": {
+        "totalEvents": "Total de Eventos",
+        "activeEvents": "Eventos Ativos",
+        "totalParticipants": "Total de Participantes",
+        "totalRewards": "Pool de Recompensas"
+      },
+      "distribution": {
+        "badge": "DISTRIBUIÇÃO",
+        "title": "Distribuição de Recompensas",
+        "subtitle": "400M TBURN distribuídos em 5 categorias de eventos",
+        "launch": {
+          "name": "Evento de Lançamento",
+          "amount": "100M",
+          "percent": "25%"
+        },
+        "trading": {
+          "name": "Competição de Trading",
+          "amount": "100M",
+          "percent": "25%"
+        },
+        "staking": {
+          "name": "Impulso de Staking",
+          "amount": "80M",
+          "percent": "20%"
+        },
+        "community": {
+          "name": "Desafio Comunitário",
+          "amount": "60M",
+          "percent": "15%"
+        },
+        "partner": {
+          "name": "Parceria e Temporadas",
+          "amount": "60M",
+          "percent": "15%"
+        }
+      },
+      "events": {
+        "badge": "TODOS OS EVENTOS",
+        "title": "Lista de Eventos",
+        "subtitle": "Confira eventos atuais e futuros",
+        "categories": {
+          "all": "Todos",
+          "live": "Ao Vivo",
+          "launch": "Lançamento",
+          "trading": "Trading",
+          "staking": "Staking",
+          "community": "Comunidade"
+        },
+        "categoryToasts": {
+          "all": {
+            "title": "Todos os Eventos",
+            "desc": "Mostrando todos os eventos."
+          },
+          "live": {
+            "title": "Eventos ao Vivo",
+            "desc": "Mostrando eventos ativos."
+          },
+          "launch": {
+            "title": "Eventos de Lançamento",
+            "desc": "Mostrando eventos de lançamento."
+          },
+          "trading": {
+            "title": "Eventos de Trading",
+            "desc": "Mostrando eventos de trading."
+          },
+          "staking": {
+            "title": "Eventos de Staking",
+            "desc": "Mostrando eventos de staking."
+          },
+          "community": {
+            "title": "Eventos Comunitários",
+            "desc": "Mostrando eventos de participação comunitária."
+          }
+        },
+        "loading": "Carregando...",
+        "loadingDesc": "Carregando dados de eventos...",
+        "noEvents": "Sem Eventos",
+        "noEventsDesc": "Nenhum evento nesta categoria",
+        "status": {
+          "live": "Ao Vivo",
+          "upcoming": "Em Breve",
+          "ended": "Finalizado"
+        },
+        "buttons": {
+          "participate": "Participar",
+          "connectWallet": "Conectar Carteira",
+          "comingSoon": "Em Breve"
+        }
+      },
+      "leaderboard": {
+        "badge": "CLASSIFICAÇÃO",
+        "title": "Classificação de Eventos",
+        "subtitle": "Confira o desempenho dos melhores participantes",
+        "topTitle": "TOP 10 Evento de Lançamento",
+        "tabs": {
+          "all": "Tudo",
+          "today": "Hoje",
+          "week": "Esta Semana"
+        },
+        "tabToasts": {
+          "all": {
+            "title": "Todo o Tempo",
+            "desc": "Mostrando classificação de todo o tempo."
+          },
+          "today": {
+            "title": "Hoje",
+            "desc": "Mostrando classificação de hoje. (Em Breve)"
+          },
+          "week": {
+            "title": "Esta Semana",
+            "desc": "Mostrando classificação desta semana. (Em Breve)"
+          }
+        },
+        "table": {
+          "rank": "Posição",
+          "participant": "Participante",
+          "missions": "Missões",
+          "score": "Pontuação",
+          "reward": "Recompensa Est."
+        }
+      },
+      "faq": {
+        "badge": "FAQ",
+        "title": "Perguntas Frequentes",
+        "subtitle": "Encontre respostas para perguntas comuns sobre eventos",
+        "items": {
+          "q1": {
+            "question": "Qual é o pool total de recompensas?",
+            "answer": "O pool total é de 400M TBURN, 4% do fornecimento total de 10B TBURN."
+          },
+          "q2": {
+            "question": "Quem pode participar?",
+            "answer": "Qualquer pessoa que conecte sua carteira pode participar."
+          },
+          "q3": {
+            "question": "Quando as recompensas são distribuídas?",
+            "answer": "A maioria das recompensas é distribuída dentro de 7 dias após o evento."
+          },
+          "q4": {
+            "question": "Posso participar de múltiplos eventos?",
+            "answer": "Sim, você pode participar de todos os eventos simultâneos."
+          },
+          "q5": {
+            "question": "Como as classificações de trading são determinadas?",
+            "answer": "Por volume de trading e taxa de lucro."
+          },
+          "q6": {
+            "question": "Como o APY de impulso de staking é calculado?",
+            "answer": "2x o APY base é aplicado durante o evento."
+          },
+          "q7": {
+            "question": "Como os vencedores do concurso de memes são selecionados?",
+            "answer": "Por votação comunitária e avaliação dos juízes."
+          },
+          "q8": {
+            "question": "O que acontece se trapaça for detectada?",
+            "answer": "Todas as recompensas serão confiscadas e você será banido permanentemente."
+          }
+        }
+      },
+      "cta": {
+        "title": "Participe dos Eventos Agora!",
+        "subtitle": "Participe de vários eventos e ganhe até 400M TBURN.",
+        "subtitleHighlight": "Participação antecipada = Mais recompensas!",
+        "buttonParticipate": "Participar Agora",
+        "buttonConnect": "Conectar Carteira e Começar"
+      },
+      "footer": {
+        "description": "A inteligência da IA, a transparência da blockchain\nO FUTURO É AGORA",
+        "quickLinks": "Links Rápidos",
+        "explorer": "Explorador",
+        "wallet": "Carteira",
+        "bridge": "Ponte",
+        "staking": "Staking",
+        "developers": "Desenvolvedores",
+        "docs": "Documentação",
+        "api": "API",
+        "github": "GitHub",
+        "sdk": "SDK",
+        "resources": "Recursos",
+        "whitepaper": "Whitepaper",
+        "tokenomics": "Tokenomics",
+        "roadmap": "Roadmap",
+        "faqLink": "FAQ",
+        "copyright": "© 2025-2045 TBURN Foundation. Todos os Direitos Reservados.",
+        "termsOfService": "Termos de Serviço",
+        "privacyPolicy": "Política de Privacidade"
+      }
     }
   }
 }

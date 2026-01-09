@@ -20605,6 +20605,222 @@
         "termsOfService": "利用規約",
         "contact": "お問い合わせ"
       }
+    },
+    "eventsPage": {
+      "nav": {
+        "liveEvents": "開催中イベント",
+        "allEvents": "全イベント",
+        "leaderboard": "リーダーボード",
+        "faq": "FAQ",
+        "connectWallet": "ウォレット接続",
+        "connected": "接続済み"
+      },
+      "hero": {
+        "badge": "イベントセンター - 様々なイベント開催中",
+        "title": "参加して獲得！",
+        "titleHighlight": "4億 TBURN",
+        "titleSuffix": "イベント報酬",
+        "subtitle": "ローンチイベント、トレーディングコンペ、ステーキングブースト、コミュニティチャレンジに参加して報酬をゲット！",
+        "liveBadge": "開催中",
+        "liveTitle": "メインネットローンチグランドイベント",
+        "liveSubtitle": "今すぐ参加して最大10,000 TBURNを獲得！",
+        "countdown": {
+          "days": "日",
+          "hours": "時間",
+          "minutes": "分",
+          "seconds": "秒"
+        },
+        "participate": "参加する",
+        "connectFirst": "ウォレット接続"
+      },
+      "stats": {
+        "totalEvents": "総イベント数",
+        "activeEvents": "開催中イベント",
+        "totalParticipants": "総参加者",
+        "totalRewards": "総報酬プール"
+      },
+      "distribution": {
+        "badge": "配分",
+        "title": "イベント報酬配分",
+        "subtitle": "4億TBURNが5つのカテゴリに配分",
+        "launch": {
+          "name": "ローンチイベント",
+          "amount": "1億",
+          "percent": "25%"
+        },
+        "trading": {
+          "name": "トレーディングコンペ",
+          "amount": "1億",
+          "percent": "25%"
+        },
+        "staking": {
+          "name": "ステーキングブースト",
+          "amount": "8000万",
+          "percent": "20%"
+        },
+        "community": {
+          "name": "コミュニティチャレンジ",
+          "amount": "6000万",
+          "percent": "15%"
+        },
+        "partner": {
+          "name": "パートナーシップ＆シーズナル",
+          "amount": "6000万",
+          "percent": "15%"
+        }
+      },
+      "events": {
+        "badge": "全イベント",
+        "title": "イベント一覧",
+        "subtitle": "現在開催中または予定のイベントをチェック",
+        "categories": {
+          "all": "全て",
+          "live": "開催中",
+          "launch": "ローンチ",
+          "trading": "トレーディング",
+          "staking": "ステーキング",
+          "community": "コミュニティ"
+        },
+        "categoryToasts": {
+          "all": {
+            "title": "全イベント",
+            "desc": "全てのイベントを表示。"
+          },
+          "live": {
+            "title": "開催中イベント",
+            "desc": "現在開催中のイベントを表示。"
+          },
+          "launch": {
+            "title": "ローンチイベント",
+            "desc": "メインネットローンチ関連イベントを表示。"
+          },
+          "trading": {
+            "title": "トレーディングイベント",
+            "desc": "トレーディング関連イベントを表示。"
+          },
+          "staking": {
+            "title": "ステーキングイベント",
+            "desc": "ステーキング関連イベントを表示。"
+          },
+          "community": {
+            "title": "コミュニティイベント",
+            "desc": "コミュニティ参加イベントを表示。"
+          }
+        },
+        "loading": "読み込み中...",
+        "loadingDesc": "イベントデータを読み込み中...",
+        "noEvents": "イベントなし",
+        "noEventsDesc": "このカテゴリにイベントはありません",
+        "status": {
+          "live": "開催中",
+          "upcoming": "予定",
+          "ended": "終了"
+        },
+        "buttons": {
+          "participate": "参加する",
+          "connectWallet": "ウォレット接続",
+          "comingSoon": "まもなく開始"
+        }
+      },
+      "leaderboard": {
+        "badge": "リーダーボード",
+        "title": "イベントリーダーボード",
+        "subtitle": "トップ参加者の実績をチェック",
+        "topTitle": "ローンチイベント TOP 10",
+        "tabs": {
+          "all": "全期間",
+          "today": "今日",
+          "week": "今週"
+        },
+        "tabToasts": {
+          "all": {
+            "title": "全期間",
+            "desc": "全期間のランキングを表示。"
+          },
+          "today": {
+            "title": "今日",
+            "desc": "今日のランキングを表示。(近日公開)"
+          },
+          "week": {
+            "title": "今週",
+            "desc": "今週のランキングを表示。(近日公開)"
+          }
+        },
+        "table": {
+          "rank": "順位",
+          "participant": "参加者",
+          "missions": "ミッション",
+          "score": "スコア",
+          "reward": "予想報酬"
+        }
+      },
+      "faq": {
+        "badge": "FAQ",
+        "title": "よくある質問",
+        "subtitle": "イベント関連のよくある質問への回答",
+        "items": {
+          "q1": {
+            "question": "イベント報酬の総額は？",
+            "answer": "イベント報酬総プールは4億TBURNで、総供給量100億TBURNの4%です。"
+          },
+          "q2": {
+            "question": "誰がイベントに参加できますか？",
+            "answer": "ウォレットを接続した全てのユーザーが参加可能です。"
+          },
+          "q3": {
+            "question": "報酬はいつ配布されますか？",
+            "answer": "ほとんどのイベント報酬はイベント終了後7日以内に配布されます。"
+          },
+          "q4": {
+            "question": "複数のイベントに同時参加できますか？",
+            "answer": "はい、同時開催中の全イベントに参加可能です。"
+          },
+          "q5": {
+            "question": "トレーディングコンペの順位はどう決まりますか？",
+            "answer": "取引量と収益率で順位が決定されます。"
+          },
+          "q6": {
+            "question": "ステーキングブーストAPYはどう計算されますか？",
+            "answer": "イベント期間中は基本APYの2倍が適用されます。"
+          },
+          "q7": {
+            "question": "ミームコンテストの受賞者はどう選ばれますか？",
+            "answer": "コミュニティ投票と審査員評価で選出されます。"
+          },
+          "q8": {
+            "question": "不正行為が見つかったらどうなりますか？",
+            "answer": "全報酬が没収され、永久除外されます。"
+          }
+        }
+      },
+      "cta": {
+        "title": "今すぐイベントに参加！",
+        "subtitle": "様々なイベントに参加して最大4億TBURN報酬を獲得。",
+        "subtitleHighlight": "早期参加 = より多くの報酬！",
+        "buttonParticipate": "今すぐ参加",
+        "buttonConnect": "ウォレット接続して開始"
+      },
+      "footer": {
+        "description": "AIの知性、ブロックチェーンの透明性\n未来は今",
+        "quickLinks": "クイックリンク",
+        "explorer": "エクスプローラー",
+        "wallet": "ウォレット",
+        "bridge": "ブリッジ",
+        "staking": "ステーキング",
+        "developers": "開発者",
+        "docs": "ドキュメント",
+        "api": "API",
+        "github": "GitHub",
+        "sdk": "SDK",
+        "resources": "リソース",
+        "whitepaper": "ホワイトペーパー",
+        "tokenomics": "トークノミクス",
+        "roadmap": "ロードマップ",
+        "faqLink": "FAQ",
+        "copyright": "© 2025-2045 TBURN Foundation. All Rights Reserved.",
+        "termsOfService": "利用規約",
+        "privacyPolicy": "プライバシーポリシー"
+      }
     }
   }
 }

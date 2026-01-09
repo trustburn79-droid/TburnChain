@@ -32643,6 +32643,222 @@
         "termsOfService": "이용약관",
         "contact": "문의하기"
       }
+    },
+    "eventsPage": {
+      "nav": {
+        "liveEvents": "진행중 이벤트",
+        "allEvents": "전체 이벤트",
+        "leaderboard": "리더보드",
+        "faq": "FAQ",
+        "connectWallet": "지갑 연결",
+        "connected": "연결됨"
+      },
+      "hero": {
+        "badge": "이벤트 센터 - 다양한 이벤트 진행 중",
+        "title": "참여하고 받아가세요!",
+        "titleHighlight": "4억 TBURN",
+        "titleSuffix": "이벤트 보상",
+        "subtitle": "런칭 이벤트, 트레이딩 대회, 스테이킹 부스트, 커뮤니티 챌린지에 참여하고 다양한 보상을 받아가세요!",
+        "liveBadge": "진행중",
+        "liveTitle": "메인넷 런칭 그랜드 이벤트",
+        "liveSubtitle": "지금 참여하고 최대 10,000 TBURN을 받아가세요!",
+        "countdown": {
+          "days": "일",
+          "hours": "시간",
+          "minutes": "분",
+          "seconds": "초"
+        },
+        "participate": "참여하기",
+        "connectFirst": "지갑 연결"
+      },
+      "stats": {
+        "totalEvents": "총 이벤트 수",
+        "activeEvents": "진행중 이벤트",
+        "totalParticipants": "총 참여자",
+        "totalRewards": "총 보상 풀"
+      },
+      "distribution": {
+        "badge": "DISTRIBUTION",
+        "title": "이벤트 보상 배분",
+        "subtitle": "4억 TBURN이 5가지 이벤트 카테고리로 배분됩니다",
+        "launch": {
+          "name": "런칭 이벤트",
+          "amount": "1억",
+          "percent": "25%"
+        },
+        "trading": {
+          "name": "트레이딩 대회",
+          "amount": "1억",
+          "percent": "25%"
+        },
+        "staking": {
+          "name": "스테이킹 부스트",
+          "amount": "8,000만",
+          "percent": "20%"
+        },
+        "community": {
+          "name": "커뮤니티 챌린지",
+          "amount": "6,000만",
+          "percent": "15%"
+        },
+        "partner": {
+          "name": "파트너십 & 시즌",
+          "amount": "6,000만",
+          "percent": "15%"
+        }
+      },
+      "events": {
+        "badge": "ALL EVENTS",
+        "title": "이벤트 목록",
+        "subtitle": "현재 진행 중이거나 예정된 이벤트를 확인하세요",
+        "categories": {
+          "all": "전체",
+          "live": "진행중",
+          "launch": "런칭",
+          "trading": "트레이딩",
+          "staking": "스테이킹",
+          "community": "커뮤니티"
+        },
+        "categoryToasts": {
+          "all": {
+            "title": "전체 이벤트",
+            "desc": "모든 이벤트를 표시합니다."
+          },
+          "live": {
+            "title": "진행중 이벤트",
+            "desc": "현재 진행 중인 이벤트를 표시합니다."
+          },
+          "launch": {
+            "title": "런칭 이벤트",
+            "desc": "메인넷 런칭 관련 이벤트를 표시합니다."
+          },
+          "trading": {
+            "title": "트레이딩 대회",
+            "desc": "트레이딩 관련 이벤트를 표시합니다."
+          },
+          "staking": {
+            "title": "스테이킹 이벤트",
+            "desc": "스테이킹 관련 이벤트를 표시합니다."
+          },
+          "community": {
+            "title": "커뮤니티 이벤트",
+            "desc": "커뮤니티 참여 이벤트를 표시합니다."
+          }
+        },
+        "loading": "로딩 중...",
+        "loadingDesc": "이벤트 데이터를 불러오는 중...",
+        "noEvents": "이벤트 없음",
+        "noEventsDesc": "해당 카테고리에 이벤트가 없습니다",
+        "status": {
+          "live": "진행중",
+          "upcoming": "예정",
+          "ended": "종료"
+        },
+        "buttons": {
+          "participate": "참여하기",
+          "connectWallet": "지갑 연결",
+          "comingSoon": "곧 시작"
+        }
+      },
+      "leaderboard": {
+        "badge": "LEADERBOARD",
+        "title": "이벤트 리더보드",
+        "subtitle": "상위 참여자들의 실적을 확인하세요",
+        "topTitle": "런칭 이벤트 TOP 10",
+        "tabs": {
+          "all": "전체",
+          "today": "오늘",
+          "week": "이번 주"
+        },
+        "tabToasts": {
+          "all": {
+            "title": "전체 기간",
+            "desc": "전체 기간 순위를 표시합니다."
+          },
+          "today": {
+            "title": "오늘",
+            "desc": "오늘 순위를 표시합니다. (Coming Soon)"
+          },
+          "week": {
+            "title": "이번 주",
+            "desc": "이번 주 순위를 표시합니다. (Coming Soon)"
+          }
+        },
+        "table": {
+          "rank": "순위",
+          "participant": "참여자",
+          "missions": "완료 미션",
+          "score": "점수",
+          "reward": "예상 보상"
+        }
+      },
+      "faq": {
+        "badge": "FAQ",
+        "title": "자주 묻는 질문",
+        "subtitle": "이벤트 관련 궁금한 점을 확인하세요",
+        "items": {
+          "q1": {
+            "question": "이벤트 보상 총 물량은 얼마인가요?",
+            "answer": "이벤트 보상 총 풀은 4억 TBURN입니다. 이는 전체 공급량 100억 TBURN의 4%에 해당합니다."
+          },
+          "q2": {
+            "question": "이벤트 참여 자격이 있나요?",
+            "answer": "지갑을 연결한 모든 사용자가 참여할 수 있습니다."
+          },
+          "q3": {
+            "question": "보상은 언제 지급되나요?",
+            "answer": "대부분의 이벤트 보상은 이벤트 종료 후 7일 이내에 지급됩니다."
+          },
+          "q4": {
+            "question": "여러 이벤트에 동시 참여가 가능한가요?",
+            "answer": "네, 동시에 진행 중인 모든 이벤트에 참여 가능합니다."
+          },
+          "q5": {
+            "question": "트레이딩 대회 순위는 어떻게 결정되나요?",
+            "answer": "거래량 순위와 수익률 순위로 결정됩니다."
+          },
+          "q6": {
+            "question": "스테이킹 부스트 APY는 어떻게 계산되나요?",
+            "answer": "기본 APY의 2배가 적용됩니다."
+          },
+          "q7": {
+            "question": "밈 콘테스트 수상작은 어떻게 선정되나요?",
+            "answer": "커뮤니티 투표와 심사위원 평가로 선정됩니다."
+          },
+          "q8": {
+            "question": "부정행위가 있으면 어떻게 되나요?",
+            "answer": "모든 보상이 몰수되고 영구 제외됩니다."
+          }
+        }
+      },
+      "cta": {
+        "title": "지금 이벤트에 참여하세요!",
+        "subtitle": "다양한 이벤트에 참여하고 최대 4억 TBURN 보상을 받아가세요.",
+        "subtitleHighlight": "빠른 참여 = 더 많은 보상!",
+        "buttonParticipate": "지금 참여하기",
+        "buttonConnect": "지갑 연결하고 시작하기"
+      },
+      "footer": {
+        "description": "AI의 지능, 블록체인의 투명성\nTHE FUTURE IS NOW",
+        "quickLinks": "바로가기",
+        "explorer": "익스플로러",
+        "wallet": "지갑",
+        "bridge": "브릿지",
+        "staking": "스테이킹",
+        "developers": "개발자",
+        "docs": "문서",
+        "api": "API",
+        "github": "GitHub",
+        "sdk": "SDK",
+        "resources": "리소스",
+        "whitepaper": "백서",
+        "tokenomics": "토크노믹스",
+        "roadmap": "로드맵",
+        "faqLink": "FAQ",
+        "copyright": "© 2025-2045 TBURN Foundation. All Rights Reserved.",
+        "termsOfService": "이용약관",
+        "privacyPolicy": "개인정보처리방침"
+      }
     }
   }
 }

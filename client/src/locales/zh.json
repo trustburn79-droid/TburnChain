@@ -19729,6 +19729,222 @@
         "termsOfService": "服务条款",
         "contact": "联系我们"
       }
+    },
+    "eventsPage": {
+      "nav": {
+        "liveEvents": "进行中活动",
+        "allEvents": "全部活动",
+        "leaderboard": "排行榜",
+        "faq": "常见问题",
+        "connectWallet": "连接钱包",
+        "connected": "已连接"
+      },
+      "hero": {
+        "badge": "活动中心 - 多项活动进行中",
+        "title": "参与并赢取!",
+        "titleHighlight": "4亿 TBURN",
+        "titleSuffix": "活动奖励",
+        "subtitle": "参与上线活动、交易大赛、质押加速、社区挑战，赢取丰厚奖励！",
+        "liveBadge": "进行中",
+        "liveTitle": "主网上线盛大活动",
+        "liveSubtitle": "立即参与，赢取高达10,000 TBURN！",
+        "countdown": {
+          "days": "天",
+          "hours": "小时",
+          "minutes": "分钟",
+          "seconds": "秒"
+        },
+        "participate": "参与",
+        "connectFirst": "连接钱包"
+      },
+      "stats": {
+        "totalEvents": "总活动数",
+        "activeEvents": "进行中活动",
+        "totalParticipants": "总参与人数",
+        "totalRewards": "总奖池"
+      },
+      "distribution": {
+        "badge": "分配",
+        "title": "活动奖励分配",
+        "subtitle": "4亿TBURN分配到5个活动类别",
+        "launch": {
+          "name": "上线活动",
+          "amount": "1亿",
+          "percent": "25%"
+        },
+        "trading": {
+          "name": "交易大赛",
+          "amount": "1亿",
+          "percent": "25%"
+        },
+        "staking": {
+          "name": "质押加速",
+          "amount": "8000万",
+          "percent": "20%"
+        },
+        "community": {
+          "name": "社区挑战",
+          "amount": "6000万",
+          "percent": "15%"
+        },
+        "partner": {
+          "name": "合作与季节",
+          "amount": "6000万",
+          "percent": "15%"
+        }
+      },
+      "events": {
+        "badge": "全部活动",
+        "title": "活动列表",
+        "subtitle": "查看当前和即将进行的活动",
+        "categories": {
+          "all": "全部",
+          "live": "进行中",
+          "launch": "上线",
+          "trading": "交易",
+          "staking": "质押",
+          "community": "社区"
+        },
+        "categoryToasts": {
+          "all": {
+            "title": "全部活动",
+            "desc": "显示所有活动。"
+          },
+          "live": {
+            "title": "进行中活动",
+            "desc": "显示当前活动。"
+          },
+          "launch": {
+            "title": "上线活动",
+            "desc": "显示主网上线相关活动。"
+          },
+          "trading": {
+            "title": "交易活动",
+            "desc": "显示交易相关活动。"
+          },
+          "staking": {
+            "title": "质押活动",
+            "desc": "显示质押相关活动。"
+          },
+          "community": {
+            "title": "社区活动",
+            "desc": "显示社区参与活动。"
+          }
+        },
+        "loading": "加载中...",
+        "loadingDesc": "正在加载活动数据...",
+        "noEvents": "暂无活动",
+        "noEventsDesc": "此类别暂无活动",
+        "status": {
+          "live": "进行中",
+          "upcoming": "即将开始",
+          "ended": "已结束"
+        },
+        "buttons": {
+          "participate": "参与",
+          "connectWallet": "连接钱包",
+          "comingSoon": "即将开始"
+        }
+      },
+      "leaderboard": {
+        "badge": "排行榜",
+        "title": "活动排行榜",
+        "subtitle": "查看顶级参与者的表现",
+        "topTitle": "上线活动TOP 10",
+        "tabs": {
+          "all": "全部",
+          "today": "今日",
+          "week": "本周"
+        },
+        "tabToasts": {
+          "all": {
+            "title": "全部时间",
+            "desc": "显示全部时间排名。"
+          },
+          "today": {
+            "title": "今日",
+            "desc": "显示今日排名。(即将推出)"
+          },
+          "week": {
+            "title": "本周",
+            "desc": "显示本周排名。(即将推出)"
+          }
+        },
+        "table": {
+          "rank": "排名",
+          "participant": "参与者",
+          "missions": "任务",
+          "score": "分数",
+          "reward": "预计奖励"
+        }
+      },
+      "faq": {
+        "badge": "常见问题",
+        "title": "常见问题",
+        "subtitle": "查找活动相关常见问题的答案",
+        "items": {
+          "q1": {
+            "question": "活动奖励总池是多少?",
+            "answer": "活动奖励总池为4亿TBURN，占100亿TBURN总供应量的4%。"
+          },
+          "q2": {
+            "question": "谁可以参加活动?",
+            "answer": "任何连接钱包的用户都可以参加。"
+          },
+          "q3": {
+            "question": "奖励何时发放?",
+            "answer": "大多数活动奖励在活动结束后7天内发放。"
+          },
+          "q4": {
+            "question": "可以同时参加多个活动吗?",
+            "answer": "是的，您可以参加所有同时进行的活动。"
+          },
+          "q5": {
+            "question": "交易大赛排名如何确定?",
+            "answer": "排名由交易量和收益率确定。"
+          },
+          "q6": {
+            "question": "质押加速APY如何计算?",
+            "answer": "活动期间适用2倍基础APY。"
+          },
+          "q7": {
+            "question": "表情包大赛如何选出获奖者?",
+            "answer": "通过社区投票和评委评审选出。"
+          },
+          "q8": {
+            "question": "如果发现作弊行为会怎样?",
+            "answer": "所有奖励将被没收，账户将被永久禁止。"
+          }
+        }
+      },
+      "cta": {
+        "title": "立即参与活动！",
+        "subtitle": "参与各种活动，赢取高达4亿TBURN奖励。",
+        "subtitleHighlight": "早参与 = 更多奖励！",
+        "buttonParticipate": "立即参与",
+        "buttonConnect": "连接钱包并开始"
+      },
+      "footer": {
+        "description": "AI的智能，区块链的透明\n未来已来",
+        "quickLinks": "快速链接",
+        "explorer": "浏览器",
+        "wallet": "钱包",
+        "bridge": "跨链桥",
+        "staking": "质押",
+        "developers": "开发者",
+        "docs": "文档",
+        "api": "API",
+        "github": "GitHub",
+        "sdk": "SDK",
+        "resources": "资源",
+        "whitepaper": "白皮书",
+        "tokenomics": "代币经济学",
+        "roadmap": "路线图",
+        "faqLink": "常见问题",
+        "copyright": "© 2025-2045 TBURN Foundation. All Rights Reserved.",
+        "termsOfService": "服务条款",
+        "privacyPolicy": "隐私政策"
+      }
     }
   }
 }
