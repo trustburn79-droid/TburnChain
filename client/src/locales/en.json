@@ -31407,39 +31407,39 @@
         "viewAll": "View All Rankings",
         "labels": {
           "referrals": "Referrals",
-        "levels": {
-          "bronze": {
-            "requirement": "0-9 referrals",
-            "benefit1": "20% base commission",
-            "benefit2": "1st level referral",
-            "benefit3": "Real-time settlement",
-            "benefit4": "Basic dashboard"
+          "levels": {
+            "bronze": {
+              "requirement": "0-9 referrals",
+              "benefit1": "20% base commission",
+              "benefit2": "1st level referral",
+              "benefit3": "Real-time settlement",
+              "benefit4": "Basic dashboard"
+            },
+            "silver": {
+              "requirement": "10-49 referrals",
+              "benefit1": "30% commission",
+              "benefit2": "2nd level referral (5%)",
+              "benefit3": "Weekly bonus",
+              "benefit4": "Premium dashboard"
+            },
+            "gold": {
+              "requirement": "50-199 referrals",
+              "benefit1": "40% commission",
+              "benefit2": "2nd level referral (10%)",
+              "benefit3": "Monthly bonus",
+              "benefit4": "Dedicated manager",
+              "benefit5": "Early access"
+            },
+            "diamond": {
+              "requirement": "200+ referrals",
+              "benefit1": "Max 50% commission",
+              "benefit2": "3rd level referral (15%)",
+              "benefit3": "VIP bonus",
+              "benefit4": "1:1 dedicated manager",
+              "benefit5": "Exclusive event invites",
+              "benefit6": "Governance bonus"
+            }
           },
-          "silver": {
-            "requirement": "10-49 referrals",
-            "benefit1": "30% commission",
-            "benefit2": "2nd level referral (5%)",
-            "benefit3": "Weekly bonus",
-            "benefit4": "Premium dashboard"
-          },
-          "gold": {
-            "requirement": "50-199 referrals",
-            "benefit1": "40% commission",
-            "benefit2": "2nd level referral (10%)",
-            "benefit3": "Monthly bonus",
-            "benefit4": "Dedicated manager",
-            "benefit5": "Early access"
-          },
-          "diamond": {
-            "requirement": "200+ referrals",
-            "benefit1": "Max 50% commission",
-            "benefit2": "3rd level referral (15%)",
-            "benefit3": "VIP bonus",
-            "benefit4": "1:1 dedicated manager",
-            "benefit5": "Exclusive event invites",
-            "benefit6": "Governance bonus"
-          }
-        },
           "totalEarnings": "Total Earnings"
         },
         "toasts": {
@@ -31523,6 +31523,262 @@
         "privacyPolicy": "Privacy Policy",
         "termsOfService": "Terms of Service",
         "contact": "Contact"
+      }
+    },
+    "eventsPage": {
+      "nav": {
+        "liveEvents": "Live Events",
+        "allEvents": "All Events",
+        "leaderboard": "Leaderboard",
+        "faq": "FAQ",
+        "connectWallet": "Connect Wallet",
+        "connected": "Connected"
+      },
+      "hero": {
+        "badge": "EVENT CENTER - Various events ongoing",
+        "title": "Participate and Win!",
+        "titleHighlight": "400M TBURN",
+        "titleSuffix": "Event Rewards",
+        "subtitle": "Join launch events, trading competitions, staking boosts, community challenges and win amazing rewards!",
+        "liveBadge": "LIVE",
+        "liveTitle": "Mainnet Launch Grand Event",
+        "liveSubtitle": "Participate now to earn up to 10,000 TBURN!",
+        "countdown": {
+          "days": "Days",
+          "hours": "Hours",
+          "minutes": "Min",
+          "seconds": "Sec"
+        },
+        "participate": "Participate",
+        "connectFirst": "Connect Wallet"
+      },
+      "stats": {
+        "totalEvents": "Total Events",
+        "activeEvents": "Active Events",
+        "totalParticipants": "Total Participants",
+        "totalRewards": "Total Reward Pool"
+      },
+      "distribution": {
+        "badge": "DISTRIBUTION",
+        "title": "Event Reward Distribution",
+        "subtitle": "400M TBURN distributed across 5 event categories",
+        "launch": {
+          "name": "Launch Event",
+          "amount": "100M",
+          "percent": "25%"
+        },
+        "trading": {
+          "name": "Trading Competition",
+          "amount": "100M",
+          "percent": "25%"
+        },
+        "staking": {
+          "name": "Staking Boost",
+          "amount": "80M",
+          "percent": "20%"
+        },
+        "community": {
+          "name": "Community Challenge",
+          "amount": "60M",
+          "percent": "15%"
+        },
+        "partner": {
+          "name": "Partnership & Seasonal",
+          "amount": "60M",
+          "percent": "15%"
+        }
+      },
+      "events": {
+        "badge": "ALL EVENTS",
+        "title": "Event List",
+        "subtitle": "Check current and upcoming events",
+        "categories": {
+          "all": "All",
+          "live": "Live",
+          "launch": "Launch",
+          "trading": "Trading",
+          "staking": "Staking",
+          "community": "Community"
+        },
+        "categoryToasts": {
+          "all": {
+            "title": "All Events",
+            "desc": "Showing all events."
+          },
+          "live": {
+            "title": "Live Events",
+            "desc": "Showing currently active events."
+          },
+          "launch": {
+            "title": "Launch Events",
+            "desc": "Showing mainnet launch related events."
+          },
+          "trading": {
+            "title": "Trading Events",
+            "desc": "Showing trading related events."
+          },
+          "staking": {
+            "title": "Staking Events",
+            "desc": "Showing staking related events."
+          },
+          "community": {
+            "title": "Community Events",
+            "desc": "Showing community participation events."
+          }
+        },
+        "loading": "Loading...",
+        "loadingDesc": "Loading event data...",
+        "noEvents": "No Events",
+        "noEventsDesc": "No events in this category",
+        "status": {
+          "live": "Live",
+          "upcoming": "Upcoming"
+        },
+        "buttons": {
+          "comingSoon": "Coming Soon",
+          "participate": "Participate",
+          "connectWallet": "Connect Wallet"
+        },
+        "staticEvents": {
+          "launch": {
+            "title": "Mainnet Launch Grand Event",
+            "desc": "Celebrate TBURN Chain mainnet launch! Participate and earn rewards"
+          },
+          "trading": {
+            "title": "Trading Competition Season 1",
+            "desc": "Top 100 by volume share 20M TBURN! Profit ranking also available"
+          },
+          "staking": {
+            "title": "Staking Boost Event",
+            "desc": "2x APY for first 30 days! Early staker special bonus"
+          },
+          "meme": {
+            "title": "Meme Contest",
+            "desc": "Create the best TBURN memes! Community voting to select winners"
+          },
+          "quiz": {
+            "title": "TBURN Quiz Challenge",
+            "desc": "Solve quizzes about TBURN Chain and win rewards! New questions daily"
+          },
+          "dex": {
+            "title": "DEX Launch Celebration Event",
+            "desc": "Celebrate TBURN DEX launch! Special rewards for liquidity providers"
+          }
+        }
+      },
+      "leaderboard": {
+        "badge": "LEADERBOARD",
+        "title": "Event Leaderboard",
+        "subtitle": "Check top participants' performance",
+        "topTitle": "Launch Event TOP 10",
+        "tabs": {
+          "all": "All Time",
+          "today": "Today",
+          "week": "This Week"
+        },
+        "tabToasts": {
+          "all": {
+            "title": "All Time",
+            "desc": "Showing all-time rankings."
+          },
+          "today": {
+            "title": "Today",
+            "desc": "Showing today's rankings. (Coming Soon)"
+          },
+          "week": {
+            "title": "This Week",
+            "desc": "Showing this week's rankings. (Coming Soon)"
+          }
+        },
+        "table": {
+          "rank": "Rank",
+          "participant": "Participant",
+          "missions": "Missions",
+          "score": "Score",
+          "reward": "Est. Reward"
+        }
+      },
+      "faq": {
+        "badge": "FAQ",
+        "title": "Frequently Asked Questions",
+        "subtitle": "Find answers to common event-related questions",
+        "items": {
+          "q1": {
+            "question": "What is the total event reward pool?",
+            "answer": "The total event reward pool is 400M TBURN, which is 4% of the total supply of 10B TBURN. It is distributed across 5 categories: Launch Events (100M, 25%), Trading Competition (100M, 25%), Staking Boost (80M, 20%), Community Challenge (60M, 15%), Partnership (60M, 15%)."
+          },
+          "q2": {
+            "question": "Who can participate in events?",
+            "answer": "Anyone who connects their wallet can participate. Supported wallets: MetaMask, Rabby, Trust Wallet, Coinbase Wallet, Ledger. Some events may require KYC verification or specific conditions. Check participation requirements on each event card."
+          },
+          "q3": {
+            "question": "When are rewards distributed?",
+            "answer": "Most event rewards are distributed within 7 days after the event ends. Ongoing events are distributed every Monday at UTC 00:00. Trading competition rewards are distributed within 3 days after final rankings are confirmed."
+          },
+          "q4": {
+            "question": "Can I participate in multiple events simultaneously?",
+            "answer": "Yes, you can participate in all concurrent events. The more events you join, the more rewards you can earn!"
+          },
+          "q5": {
+            "question": "How are trading competition rankings determined?",
+            "answer": "Rankings are determined by: 1) Volume Ranking - Based on total trading volume (USD), 2) Profit Ranking - Based on portfolio profit rate (%). Each ranking has a separate reward pool."
+          },
+          "q6": {
+            "question": "How is the staking boost APY calculated?",
+            "answer": "During the Staking Boost Event (first 30 days), 2x the base APY is applied. Additional bonuses: +5% for 1,000+ TBURN, +10% for 10,000+ TBURN."
+          },
+          "q7": {
+            "question": "How are meme contest winners selected?",
+            "answer": "Meme Contest proceeds in 2 stages: 1) Community Voting - Top 20 selected, 2) Judge Evaluation - Final winners selected based on creativity, relevance, and viral potential."
+          },
+          "q8": {
+            "question": "What happens if fraud is detected?",
+            "answer": "If fraud is detected, all event rewards will be confiscated and the account permanently banned from all future events. AI-based fraud detection monitors 24/7."
+          }
+        }
+      },
+      "cta": {
+        "title": "Join Events Now!",
+        "subtitle": "Participate in various events and win up to 400M TBURN rewards.",
+        "subtitleHighlight": "Early participation = More rewards!",
+        "buttonParticipate": "Participate Now",
+        "buttonConnect": "Connect Wallet to Start"
+      },
+      "footer": {
+        "description": "Participate in various events and challenges on TBURN Chain and win rewards!",
+        "quickLinks": "Quick Links",
+        "explorer": "Explorer",
+        "wallet": "Wallet",
+        "staking": "Staking",
+        "bridge": "Bridge",
+        "developers": "Developers",
+        "docs": "Documentation",
+        "api": "API",
+        "sdk": "SDK",
+        "github": "GitHub",
+        "resources": "Resources",
+        "whitepaper": "Whitepaper",
+        "tokenomics": "Tokenomics",
+        "roadmap": "Roadmap",
+        "faqLink": "FAQ",
+        "copyright": "© 2025-2045 TBURN Foundation. All Rights Reserved.",
+        "privacyPolicy": "Privacy Policy",
+        "termsOfService": "Terms of Service",
+        "contact": "Contact"
+      },
+      "toasts": {
+        "registerSuccess": {
+          "title": "Registration Complete!",
+          "desc": "Successfully registered for the event."
+        },
+        "registerFailed": {
+          "title": "Registration Failed",
+          "desc": "Failed to register for the event."
+        },
+        "walletRequired": {
+          "title": "Wallet Required",
+          "desc": "Please connect your wallet to participate."
+        }
       }
     }
   }

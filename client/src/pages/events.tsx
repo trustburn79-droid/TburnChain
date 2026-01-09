@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "wouter";
 import { useQuery, useMutation } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
 import { TBurnLogo } from "@/components/tburn-logo";
 import { useWeb3 } from "@/lib/web3-context";
 import { apiRequest, queryClient } from "@/lib/queryClient";
@@ -33,6 +34,7 @@ interface EventsApiResponse {
 }
 
 export default function EventsPage() {
+  const { t, i18n } = useTranslation();
   const [activeCategory, setActiveCategory] = useState("all");
   const [activeFaq, setActiveFaq] = useState<string | null>("faq-1");
   const [countdown, setCountdown] = useState({ days: 14, hours: 23, minutes: 59, seconds: 59 });
@@ -40,6 +42,9 @@ export default function EventsPage() {
   const { isConnected, address, connect, disconnect, formatAddress } = useWeb3();
   const { toast } = useToast();
   const [registering, setRegistering] = useState<string | null>(null);
+  
+  // i18n helper for eventsPage namespace
+  const tp = (key: string) => t(`tokenPrograms.eventsPage.${key}`);
 
   const { data: eventsData, isLoading: isEventsLoading } = useQuery<EventsApiResponse>({
     queryKey: ['/api/token-programs/events/list'],
@@ -51,16 +56,16 @@ export default function EventsPage() {
     },
     onSuccess: (data: any) => {
       toast({
-        title: "등록 완료!",
-        description: data.data?.message || "이벤트에 성공적으로 등록되었습니다.",
+        title: tp('toasts.registerSuccess.title'),
+        description: data.data?.message || tp('toasts.registerSuccess.desc'),
       });
       queryClient.invalidateQueries({ queryKey: ['/api/token-programs/events/list'] });
       setRegistering(null);
     },
     onError: (error: any) => {
       toast({
-        title: "등록 실패",
-        description: error.message || "이벤트 등록에 실패했습니다.",
+        title: tp('toasts.registerFailed.title'),
+        description: error.message || tp('toasts.registerFailed.desc'),
         variant: "destructive",
       });
       setRegistering(null);
@@ -101,8 +106,8 @@ export default function EventsPage() {
     }
     if (!address) {
       toast({
-        title: "지갑 연결 필요",
-        description: "이벤트에 참여하려면 지갑을 연결해주세요.",
+        title: tp('toasts.walletRequired.title'),
+        description: tp('toasts.walletRequired.desc'),
         variant: "destructive",
       });
       return;
@@ -121,24 +126,24 @@ export default function EventsPage() {
   };
 
   const staticEvents = [
-    { id: "launch", category: "launch live", icon: "🚀", status: "진행중", statusClass: "live", title: "메인넷 런칭 그랜드 이벤트", desc: "TBURN Chain 메인넷 런칭을 기념하는 최대 규모 이벤트! 참여만 해도 보상 획득", reward: "5,000만", date: "~2026.01.31", featured: true },
-    { id: "trading", category: "trading live", icon: "📊", status: "진행중", statusClass: "live", title: "트레이딩 대회 시즌 1", desc: "거래량 TOP 100에게 총 2,000만 TBURN 배분! 수익률 경쟁도 진행", reward: "2,000만", date: "~2026.02.28", featured: false },
-    { id: "staking", category: "staking live", icon: "💎", status: "진행중", statusClass: "live", title: "스테이킹 부스트 이벤트", desc: "첫 30일 스테이킹 APY 2배! 얼리 스테이커 특별 보너스", reward: "3,000만", date: "~2026.02.15", featured: false },
-    { id: "meme", category: "community", icon: "👥", status: "예정", statusClass: "upcoming", title: "밈 콘테스트", desc: "TBURN 관련 최고의 밈을 만들어주세요! 커뮤니티 투표로 수상작 선정", reward: "500만", date: "2026.01.15~", featured: false },
-    { id: "quiz", category: "community live", icon: "🧠", status: "진행중", statusClass: "live", title: "TBURN 퀴즈 챌린지", desc: "TBURN Chain에 대한 퀴즈를 풀고 보상을 받으세요! 매일 새로운 문제", reward: "1,000만", date: "상시 진행", featured: false },
-    { id: "dex", category: "partner", icon: "🤝", status: "예정", statusClass: "upcoming", title: "DEX 런칭 기념 이벤트", desc: "TBURN DEX 런칭 기념! 유동성 공급자 특별 보상", reward: "2,000만", date: "2026.02.01~", featured: false },
+    { id: "launch", category: "launch live", icon: "🚀", status: tp('events.status.live'), statusClass: "live", title: tp('events.staticEvents.launch.title'), desc: tp('events.staticEvents.launch.desc'), reward: "50M", date: "~2026.01.31", featured: true },
+    { id: "trading", category: "trading live", icon: "📊", status: tp('events.status.live'), statusClass: "live", title: tp('events.staticEvents.trading.title'), desc: tp('events.staticEvents.trading.desc'), reward: "20M", date: "~2026.02.28", featured: false },
+    { id: "staking", category: "staking live", icon: "💎", status: tp('events.status.live'), statusClass: "live", title: tp('events.staticEvents.staking.title'), desc: tp('events.staticEvents.staking.desc'), reward: "30M", date: "~2026.02.15", featured: false },
+    { id: "meme", category: "community", icon: "👥", status: tp('events.status.upcoming'), statusClass: "upcoming", title: tp('events.staticEvents.meme.title'), desc: tp('events.staticEvents.meme.desc'), reward: "5M", date: "2026.01.15~", featured: false },
+    { id: "quiz", category: "community live", icon: "🧠", status: tp('events.status.live'), statusClass: "live", title: tp('events.staticEvents.quiz.title'), desc: tp('events.staticEvents.quiz.desc'), reward: "10M", date: "Always", featured: false },
+    { id: "dex", category: "partner", icon: "🤝", status: tp('events.status.upcoming'), statusClass: "upcoming", title: tp('events.staticEvents.dex.title'), desc: tp('events.staticEvents.dex.desc'), reward: "20M", date: "2026.02.01~", featured: false },
   ];
 
   const apiActiveEvents = (Array.isArray(apiData?.activeEvents) ? apiData.activeEvents : []).map((e: ApiEvent) => ({
     id: e.id,
     category: e.category || "live",
     icon: e.icon || "🎯",
-    status: "진행중",
+    status: tp('events.status.live'),
     statusClass: "live",
     title: e.name,
     desc: e.description,
     reward: Number(e.rewardPool).toLocaleString(),
-    date: `~${new Date(e.endDate).toLocaleDateString('ko-KR')}`,
+    date: `~${new Date(e.endDate).toLocaleDateString(i18n.language === 'ko' ? 'ko-KR' : 'en-US')}`,
     featured: false,
   })) || [];
 
@@ -146,12 +151,12 @@ export default function EventsPage() {
     id: e.id,
     category: e.category || "upcoming",
     icon: e.icon || "📅",
-    status: "예정",
+    status: tp('events.status.upcoming'),
     statusClass: "upcoming",
     title: e.name,
     desc: e.description,
     reward: Number(e.rewardPool).toLocaleString(),
-    date: `${new Date(e.startDate).toLocaleDateString('ko-KR')}~`,
+    date: `${new Date(e.startDate).toLocaleDateString(i18n.language === 'ko' ? 'ko-KR' : 'en-US')}~`,
     featured: false,
   })) || [];
 
@@ -1011,22 +1016,22 @@ export default function EventsPage() {
               href="#live-events"
               onClick={(e) => { e.preventDefault(); document.getElementById('live-events')?.scrollIntoView({ behavior: 'smooth' }); }}
               data-testid="nav-live-events"
-            >진행중 이벤트</a>
+            >{tp('nav.liveEvents')}</a>
             <a 
               href="#all-events"
               onClick={(e) => { e.preventDefault(); document.getElementById('all-events')?.scrollIntoView({ behavior: 'smooth' }); }}
               data-testid="nav-all-events"
-            >전체 이벤트</a>
+            >{tp('nav.allEvents')}</a>
             <a 
               href="#leaderboard"
               onClick={(e) => { e.preventDefault(); document.getElementById('leaderboard')?.scrollIntoView({ behavior: 'smooth' }); }}
               data-testid="nav-leaderboard"
-            >리더보드</a>
+            >{tp('nav.leaderboard')}</a>
             <a 
               href="#faq"
               onClick={(e) => { e.preventDefault(); document.getElementById('faq')?.scrollIntoView({ behavior: 'smooth' }); }}
               data-testid="nav-faq"
-            >FAQ</a>
+            >{tp('nav.faq')}</a>
           </nav>
           <div className="header-actions">
             <LanguageSelector isDark={true} />
@@ -1035,7 +1040,7 @@ export default function EventsPage() {
               data-testid="button-connect-wallet"
               onClick={handleWalletClick}
             >
-              {isConnected && address ? `🔗 ${formatAddress(address)}` : '🔗 지갑 연결'}
+              {isConnected && address ? `🔗 ${formatAddress(address)}` : `🔗 ${tp('nav.connectWallet')}`}
             </button>
           </div>
         </div>
@@ -1046,42 +1051,41 @@ export default function EventsPage() {
         <div className="hero-bg"></div>
         <div className="hero-content">
           <div className="badge">
-            🔥 EVENT CENTER - 다양한 이벤트 진행 중
+            🔥 {tp('hero.badge')}
           </div>
           <h1>
-            참여하고 받아가세요!<br />
-            <span className="gradient-text">4억 TBURN</span> 이벤트 보상
+            {tp('hero.title')}<br />
+            <span className="gradient-text">{tp('hero.titleHighlight')}</span> {tp('hero.titleSuffix')}
           </h1>
           <p className="hero-subtitle">
-            런칭 이벤트, 트레이딩 대회, 스테이킹 부스트, 커뮤니티 챌린지 등
-            다양한 이벤트에 참여하고 푸짐한 보상을 받아가세요!
+            {tp('hero.subtitle')}
           </p>
 
           {/* Live Event Banner */}
           <div className="live-banner" id="live-events">
             <div>
-              <div className="live-badge">LIVE</div>
+              <div className="live-badge">{tp('hero.liveBadge')}</div>
             </div>
             <div className="live-info">
-              <h3>🚀 메인넷 런칭 그랜드 이벤트</h3>
-              <p>지금 참여하면 최대 10,000 TBURN 획득!</p>
+              <h3>🚀 {tp('hero.liveTitle')}</h3>
+              <p>{tp('hero.liveSubtitle')}</p>
             </div>
             <div className="countdown-container">
               <div className="countdown-item">
                 <div className="countdown-value">{countdown.days}</div>
-                <div className="countdown-label">일</div>
+                <div className="countdown-label">{tp('hero.countdown.days')}</div>
               </div>
               <div className="countdown-item">
                 <div className="countdown-value">{countdown.hours}</div>
-                <div className="countdown-label">시간</div>
+                <div className="countdown-label">{tp('hero.countdown.hours')}</div>
               </div>
               <div className="countdown-item">
                 <div className="countdown-value">{countdown.minutes}</div>
-                <div className="countdown-label">분</div>
+                <div className="countdown-label">{tp('hero.countdown.minutes')}</div>
               </div>
               <div className="countdown-item">
                 <div className="countdown-value">{countdown.seconds}</div>
-                <div className="countdown-label">초</div>
+                <div className="countdown-label">{tp('hero.countdown.seconds')}</div>
               </div>
             </div>
             <button 
@@ -1089,7 +1093,7 @@ export default function EventsPage() {
               data-testid="button-participate"
               onClick={() => handleParticipate('launch')}
             >
-              {isConnected ? '➜ 참여하기' : '➜ 지갑 연결'}
+              {isConnected ? `➜ ${tp('hero.participate')}` : `➜ ${tp('hero.connectFirst')}`}
             </button>
           </div>
 
@@ -1098,25 +1102,25 @@ export default function EventsPage() {
               <div className="stat-value">
                 {isEventsLoading ? '...' : (apiStats.totalEvents > 0 ? apiStats.totalEvents.toLocaleString() : '12+')}
               </div>
-              <div className="stat-label">총 이벤트 수</div>
+              <div className="stat-label">{tp('stats.totalEvents')}</div>
             </div>
             <div className="stat-card" data-testid="stat-active-events">
               <div className="stat-value">
                 {isEventsLoading ? '...' : (apiStats.activeEvents > 0 ? apiStats.activeEvents.toLocaleString() : '6')}
               </div>
-              <div className="stat-label">진행중 이벤트</div>
+              <div className="stat-label">{tp('stats.activeEvents')}</div>
             </div>
             <div className="stat-card" data-testid="stat-total-participants">
               <div className="stat-value">
                 {isEventsLoading ? '...' : (apiStats.totalParticipants > 0 ? apiStats.totalParticipants.toLocaleString() : '0')}
               </div>
-              <div className="stat-label">총 참여자</div>
+              <div className="stat-label">{tp('stats.totalParticipants')}</div>
             </div>
             <div className="stat-card" data-testid="stat-rewards-distributed">
               <div className="stat-value">
-                {isEventsLoading ? '...' : (Number(apiStats.totalRewardsDistributed) > 0 ? Number(apiStats.totalRewardsDistributed).toLocaleString() : '4억')}
+                {isEventsLoading ? '...' : (Number(apiStats.totalRewardsDistributed) > 0 ? Number(apiStats.totalRewardsDistributed).toLocaleString() : '400M')}
               </div>
-              <div className="stat-label">총 보상 풀</div>
+              <div className="stat-label">{tp('stats.totalRewards')}</div>
             </div>
           </div>
         </div>
@@ -1125,41 +1129,41 @@ export default function EventsPage() {
       {/* Distribution Section */}
       <section className="section">
         <div className="section-header">
-          <span className="section-badge">DISTRIBUTION</span>
-          <h2 className="section-title">이벤트 보상 배분</h2>
-          <p className="section-subtitle">4억 TBURN이 5가지 이벤트 카테고리로 배분됩니다</p>
+          <span className="section-badge">{tp('distribution.badge')}</span>
+          <h2 className="section-title">{tp('distribution.title')}</h2>
+          <p className="section-subtitle">{tp('distribution.subtitle')}</p>
         </div>
 
         <div className="distribution-grid">
           <div className="dist-card launch" data-testid="dist-launch">
             <div className="dist-icon">🚀</div>
-            <div className="dist-name">런칭 이벤트</div>
-            <div className="dist-amount">1억</div>
-            <div className="dist-percent">25%</div>
+            <div className="dist-name">{tp('distribution.launch.name')}</div>
+            <div className="dist-amount">{tp('distribution.launch.amount')}</div>
+            <div className="dist-percent">{tp('distribution.launch.percent')}</div>
           </div>
           <div className="dist-card trading" data-testid="dist-trading">
             <div className="dist-icon">📊</div>
-            <div className="dist-name">트레이딩 대회</div>
-            <div className="dist-amount">1억</div>
-            <div className="dist-percent">25%</div>
+            <div className="dist-name">{tp('distribution.trading.name')}</div>
+            <div className="dist-amount">{tp('distribution.trading.amount')}</div>
+            <div className="dist-percent">{tp('distribution.trading.percent')}</div>
           </div>
           <div className="dist-card staking" data-testid="dist-staking">
             <div className="dist-icon">💎</div>
-            <div className="dist-name">스테이킹 부스트</div>
-            <div className="dist-amount">8,000만</div>
-            <div className="dist-percent">20%</div>
+            <div className="dist-name">{tp('distribution.staking.name')}</div>
+            <div className="dist-amount">{tp('distribution.staking.amount')}</div>
+            <div className="dist-percent">{tp('distribution.staking.percent')}</div>
           </div>
           <div className="dist-card community" data-testid="dist-community">
             <div className="dist-icon">👥</div>
-            <div className="dist-name">커뮤니티 챌린지</div>
-            <div className="dist-amount">6,000만</div>
-            <div className="dist-percent">15%</div>
+            <div className="dist-name">{tp('distribution.community.name')}</div>
+            <div className="dist-amount">{tp('distribution.community.amount')}</div>
+            <div className="dist-percent">{tp('distribution.community.percent')}</div>
           </div>
           <div className="dist-card partner" data-testid="dist-partner">
             <div className="dist-icon">🤝</div>
-            <div className="dist-name">파트너십 & 시즌</div>
-            <div className="dist-amount">6,000만</div>
-            <div className="dist-percent">15%</div>
+            <div className="dist-name">{tp('distribution.partner.name')}</div>
+            <div className="dist-amount">{tp('distribution.partner.amount')}</div>
+            <div className="dist-percent">{tp('distribution.partner.percent')}</div>
           </div>
         </div>
       </section>
@@ -1167,66 +1171,66 @@ export default function EventsPage() {
       {/* All Events Section */}
       <section className="section" id="all-events" style={{ background: 'rgba(255,255,255,0.02)' }}>
         <div className="section-header">
-          <span className="section-badge">ALL EVENTS</span>
-          <h2 className="section-title">이벤트 목록</h2>
-          <p className="section-subtitle">현재 진행 중이거나 예정된 이벤트를 확인하세요</p>
+          <span className="section-badge">{tp('events.badge')}</span>
+          <h2 className="section-title">{tp('events.title')}</h2>
+          <p className="section-subtitle">{tp('events.subtitle')}</p>
         </div>
 
         <div className="category-tabs">
           <button 
             className={`category-tab ${activeCategory === 'all' ? 'active' : ''}`} 
-            onClick={() => { setActiveCategory('all'); toast({ title: "전체 이벤트", description: "모든 이벤트를 표시합니다." }); }}
+            onClick={() => { setActiveCategory('all'); toast({ title: tp('events.categoryToasts.all.title'), description: tp('events.categoryToasts.all.desc') }); }}
             data-testid="category-all"
           >
-            전체
+            {tp('events.categories.all')}
           </button>
           <button 
             className={`category-tab ${activeCategory === 'live' ? 'active' : ''}`} 
-            onClick={() => { setActiveCategory('live'); toast({ title: "진행중 이벤트", description: "현재 진행 중인 이벤트를 표시합니다." }); }}
+            onClick={() => { setActiveCategory('live'); toast({ title: tp('events.categoryToasts.live.title'), description: tp('events.categoryToasts.live.desc') }); }}
             data-testid="category-live"
           >
-            진행중
+            {tp('events.categories.live')}
           </button>
           <button 
             className={`category-tab ${activeCategory === 'launch' ? 'active' : ''}`} 
-            onClick={() => { setActiveCategory('launch'); toast({ title: "런칭 이벤트", description: "메인넷 런칭 관련 이벤트를 표시합니다." }); }}
+            onClick={() => { setActiveCategory('launch'); toast({ title: tp('events.categoryToasts.launch.title'), description: tp('events.categoryToasts.launch.desc') }); }}
             data-testid="category-launch"
           >
-            런칭
+            {tp('events.categories.launch')}
           </button>
           <button 
             className={`category-tab ${activeCategory === 'trading' ? 'active' : ''}`} 
-            onClick={() => { setActiveCategory('trading'); toast({ title: "트레이딩 대회", description: "트레이딩 관련 이벤트를 표시합니다." }); }}
+            onClick={() => { setActiveCategory('trading'); toast({ title: tp('events.categoryToasts.trading.title'), description: tp('events.categoryToasts.trading.desc') }); }}
             data-testid="category-trading"
           >
-            트레이딩
+            {tp('events.categories.trading')}
           </button>
           <button 
             className={`category-tab ${activeCategory === 'staking' ? 'active' : ''}`} 
-            onClick={() => { setActiveCategory('staking'); toast({ title: "스테이킹 이벤트", description: "스테이킹 관련 이벤트를 표시합니다." }); }}
+            onClick={() => { setActiveCategory('staking'); toast({ title: tp('events.categoryToasts.staking.title'), description: tp('events.categoryToasts.staking.desc') }); }}
             data-testid="category-staking"
           >
-            스테이킹
+            {tp('events.categories.staking')}
           </button>
           <button 
             className={`category-tab ${activeCategory === 'community' ? 'active' : ''}`} 
-            onClick={() => { setActiveCategory('community'); toast({ title: "커뮤니티 이벤트", description: "커뮤니티 참여 이벤트를 표시합니다." }); }}
+            onClick={() => { setActiveCategory('community'); toast({ title: tp('events.categoryToasts.community.title'), description: tp('events.categoryToasts.community.desc') }); }}
             data-testid="category-community"
           >
-            커뮤니티
+            {tp('events.categories.community')}
           </button>
         </div>
 
         <div className="events-grid" data-testid="events-grid">
           {isEventsLoading ? (
             <div className="stat-card" style={{ gridColumn: '1 / -1', textAlign: 'center', padding: '3rem' }} data-testid="events-loading">
-              <div className="stat-value">Loading...</div>
-              <div className="stat-label">이벤트 데이터를 불러오는 중...</div>
+              <div className="stat-value">{tp('events.loading')}</div>
+              <div className="stat-label">{tp('events.loadingDesc')}</div>
             </div>
           ) : filteredEvents.length === 0 ? (
             <div className="stat-card" style={{ gridColumn: '1 / -1', textAlign: 'center', padding: '3rem' }} data-testid="events-empty">
-              <div className="stat-value">No Events</div>
-              <div className="stat-label">해당 카테고리에 이벤트가 없습니다</div>
+              <div className="stat-value">{tp('events.noEvents')}</div>
+              <div className="stat-label">{tp('events.noEventsDesc')}</div>
             </div>
           ) : (
             filteredEvents.map(event => (
@@ -1249,7 +1253,7 @@ export default function EventsPage() {
                     onClick={() => handleParticipate(event.id)}
                     data-testid={`button-event-participate-${event.id}`}
                   >
-                    {event.statusClass === 'upcoming' ? '곧 시작' : (isConnected ? '참여하기' : '지갑 연결')}
+                    {event.statusClass === 'upcoming' ? tp('events.buttons.comingSoon') : (isConnected ? tp('events.buttons.participate') : tp('events.buttons.connectWallet'))}
                   </button>
                 </div>
               </div>
@@ -1261,41 +1265,41 @@ export default function EventsPage() {
       {/* Leaderboard Section */}
       <section className="section" id="leaderboard">
         <div className="section-header">
-          <span className="section-badge">LEADERBOARD</span>
-          <h2 className="section-title">이벤트 리더보드</h2>
-          <p className="section-subtitle">상위 참여자들의 실적을 확인하세요</p>
+          <span className="section-badge">{tp('leaderboard.badge')}</span>
+          <h2 className="section-title">{tp('leaderboard.title')}</h2>
+          <p className="section-subtitle">{tp('leaderboard.subtitle')}</p>
         </div>
 
         <div className="leaderboard-section">
           <div className="leaderboard-header">
-            <h3>🏆 런칭 이벤트 TOP 10</h3>
+            <h3>🏆 {tp('leaderboard.topTitle')}</h3>
             <div className="leaderboard-tabs">
               <button 
                 className="lb-tab active" 
                 data-testid="lb-tab-all"
-                onClick={() => toast({ title: "전체 기간", description: "전체 기간 순위를 표시합니다." })}
-              >전체</button>
+                onClick={() => toast({ title: tp('leaderboard.tabToasts.all.title'), description: tp('leaderboard.tabToasts.all.desc') })}
+              >{tp('leaderboard.tabs.all')}</button>
               <button 
                 className="lb-tab" 
                 data-testid="lb-tab-today"
-                onClick={() => toast({ title: "오늘", description: "오늘 순위를 표시합니다. (Coming Soon)" })}
-              >오늘</button>
+                onClick={() => toast({ title: tp('leaderboard.tabToasts.today.title'), description: tp('leaderboard.tabToasts.today.desc') })}
+              >{tp('leaderboard.tabs.today')}</button>
               <button 
                 className="lb-tab" 
                 data-testid="lb-tab-week"
-                onClick={() => toast({ title: "이번 주", description: "이번 주 순위를 표시합니다. (Coming Soon)" })}
-              >이번 주</button>
+                onClick={() => toast({ title: tp('leaderboard.tabToasts.week.title'), description: tp('leaderboard.tabToasts.week.desc') })}
+              >{tp('leaderboard.tabs.week')}</button>
             </div>
           </div>
 
           <table className="leaderboard-table">
             <thead>
               <tr>
-                <th>순위</th>
-                <th>참여자</th>
-                <th>완료 미션</th>
-                <th>점수</th>
-                <th>예상 보상</th>
+                <th>{tp('leaderboard.table.rank')}</th>
+                <th>{tp('leaderboard.table.participant')}</th>
+                <th>{tp('leaderboard.table.missions')}</th>
+                <th>{tp('leaderboard.table.score')}</th>
+                <th>{tp('leaderboard.table.reward')}</th>
               </tr>
             </thead>
             <tbody>
@@ -1327,89 +1331,89 @@ export default function EventsPage() {
       {/* FAQ */}
       <section className="section" id="faq" style={{ background: 'rgba(255,255,255,0.02)' }}>
         <div className="section-header">
-          <span className="section-badge">FAQ</span>
-          <h2 className="section-title">자주 묻는 질문</h2>
-          <p className="section-subtitle">이벤트 관련 궁금한 점을 확인하세요</p>
+          <span className="section-badge">{tp('faq.badge')}</span>
+          <h2 className="section-title">{tp('faq.title')}</h2>
+          <p className="section-subtitle">{tp('faq.subtitle')}</p>
         </div>
 
         <div className="faq-container">
           <div className={`faq-item ${activeFaq === 'faq-1' ? 'active' : ''}`} data-testid="faq-1">
             <div className="faq-question" onClick={() => toggleFaq('faq-1')}>
-              <h4>이벤트 보상 총 물량은 얼마인가요?</h4>
+              <h4>{tp('faq.items.q1.question')}</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>이벤트 보상 총 풀은 <strong>4억 TBURN</strong>입니다. 이는 전체 공급량 100억 TBURN의 4%에 해당합니다. 5개 카테고리로 배분됩니다: 런칭 이벤트(1억, 25%), 트레이딩 대회(1억, 25%), 스테이킹 부스트(8,000만, 20%), 커뮤니티 챌린지(6,000만, 15%), 파트너십(6,000만, 15%).</p>
+              <p>{tp('faq.items.q1.answer')}</p>
             </div>
           </div>
 
           <div className={`faq-item ${activeFaq === 'faq-2' ? 'active' : ''}`} data-testid="faq-2">
             <div className="faq-question" onClick={() => toggleFaq('faq-2')}>
-              <h4>이벤트 참여 자격이 있나요?</h4>
+              <h4>{tp('faq.items.q2.question')}</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>지갑을 연결한 모든 사용자가 참여할 수 있습니다. 지원 지갑: MetaMask, Rabby, Trust Wallet, Coinbase Wallet, Ledger. 일부 이벤트는 KYC 인증 또는 특정 조건(예: 최소 스테이킹 수량, TBURN 보유량)이 필요할 수 있습니다. 각 이벤트 카드에서 참여 조건을 확인하세요.</p>
+              <p>{tp('faq.items.q2.answer')}</p>
             </div>
           </div>
 
           <div className={`faq-item ${activeFaq === 'faq-3' ? 'active' : ''}`} data-testid="faq-3">
             <div className="faq-question" onClick={() => toggleFaq('faq-3')}>
-              <h4>보상은 언제 지급되나요?</h4>
+              <h4>{tp('faq.items.q3.question')}</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>대부분의 이벤트 보상은 <strong>이벤트 종료 후 7일 이내</strong>에 지급됩니다. 상시 진행 이벤트(퀴즈 챌린지 등)는 매주 월요일 UTC 00:00에 지급됩니다. 트레이딩 대회 보상은 최종 순위 확정 후 3일 이내에 지급됩니다.</p>
+              <p>{tp('faq.items.q3.answer')}</p>
             </div>
           </div>
 
           <div className={`faq-item ${activeFaq === 'faq-4' ? 'active' : ''}`} data-testid="faq-4">
             <div className="faq-question" onClick={() => toggleFaq('faq-4')}>
-              <h4>여러 이벤트에 동시 참여가 가능한가요?</h4>
+              <h4>{tp('faq.items.q4.question')}</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>네, 동시에 진행 중인 <strong>모든 이벤트에 참여 가능</strong>합니다. 예를 들어, 런칭 이벤트 미션을 완료하면서 동시에 스테이킹 부스트 이벤트에 참여하고, 퀴즈 챌린지도 풀 수 있습니다. 더 많은 이벤트에 참여할수록 더 많은 보상을 받을 수 있습니다!</p>
+              <p>{tp('faq.items.q4.answer')}</p>
             </div>
           </div>
 
           <div className={`faq-item ${activeFaq === 'faq-5' ? 'active' : ''}`} data-testid="faq-5">
             <div className="faq-question" onClick={() => toggleFaq('faq-5')}>
-              <h4>트레이딩 대회 순위는 어떻게 결정되나요?</h4>
+              <h4>{tp('faq.items.q5.question')}</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>트레이딩 대회는 두 가지 기준으로 순위가 결정됩니다: <strong>1) 거래량 순위</strong> - 대회 기간 동안의 총 거래량(USD) 기준, <strong>2) 수익률 순위</strong> - 기간 동안의 포트폴리오 수익률(%) 기준. 각 순위별로 별도의 보상 풀이 할당되어 있습니다.</p>
+              <p>{tp('faq.items.q5.answer')}</p>
             </div>
           </div>
 
           <div className={`faq-item ${activeFaq === 'faq-6' ? 'active' : ''}`} data-testid="faq-6">
             <div className="faq-question" onClick={() => toggleFaq('faq-6')}>
-              <h4>스테이킹 부스트 이벤트의 APY는 어떻게 계산되나요?</h4>
+              <h4>{tp('faq.items.q6.question')}</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>스테이킹 부스트 이벤트 기간(첫 30일) 동안 <strong>기본 APY의 2배</strong>가 적용됩니다. 예: 기본 APY 15% → 부스트 기간 30%. 추가로 1,000 TBURN 이상 스테이킹 시 +5% 보너스, 10,000 TBURN 이상 시 +10% 보너스가 적용됩니다.</p>
+              <p>{tp('faq.items.q6.answer')}</p>
             </div>
           </div>
 
           <div className={`faq-item ${activeFaq === 'faq-7' ? 'active' : ''}`} data-testid="faq-7">
             <div className="faq-question" onClick={() => toggleFaq('faq-7')}>
-              <h4>밈 콘테스트 수상작은 어떻게 선정되나요?</h4>
+              <h4>{tp('faq.items.q7.question')}</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>밈 콘테스트는 2단계로 진행됩니다: <strong>1) 커뮤니티 투표</strong> - Discord/Telegram에서 좋아요 및 반응으로 상위 20개 작품 선정, <strong>2) 심사위원 평가</strong> - 창의성, 관련성, 바이럴 잠재력을 기준으로 최종 수상작 선정. 대상 1명, 금상 3명, 은상 5명, 동상 11명 시상.</p>
+              <p>{tp('faq.items.q7.answer')}</p>
             </div>
           </div>
 
           <div className={`faq-item ${activeFaq === 'faq-8' ? 'active' : ''}`} data-testid="faq-8">
             <div className="faq-question" onClick={() => toggleFaq('faq-8')}>
-              <h4>이벤트 참여 시 부정행위가 있으면 어떻게 되나요?</h4>
+              <h4>{tp('faq.items.q8.question')}</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>봇 사용, 다중 계정, 워시 트레이딩 등 부정행위가 감지되면 해당 계정의 <strong>모든 이벤트 보상이 몰수</strong>되고 향후 모든 이벤트에서 영구 제외됩니다. AI 기반 사기 탐지 시스템이 24시간 모니터링하며, 의심 활동 시 보상 지급이 보류될 수 있습니다.</p>
+              <p>{tp('faq.items.q8.answer')}</p>
             </div>
           </div>
         </div>
@@ -1418,10 +1422,10 @@ export default function EventsPage() {
       {/* CTA Section */}
       <section className="cta-section" data-testid="cta-section">
         <div style={{ maxWidth: '800px', margin: '0 auto' }}>
-          <h2 style={{ fontSize: '2.5rem', fontWeight: 800, marginBottom: '1rem' }}>지금 이벤트에 참여하세요!</h2>
+          <h2 style={{ fontSize: '2.5rem', fontWeight: 800, marginBottom: '1rem' }}>{tp('cta.title')}</h2>
           <p style={{ color: 'rgba(255,255,255,0.8)', fontSize: '1.125rem', marginBottom: '2rem' }}>
-            다양한 이벤트에 참여하고 최대 4억 TBURN 보상을 받아가세요.<br />
-            빠른 참여 = 더 많은 보상!
+            {tp('cta.subtitle')}<br />
+            {tp('cta.subtitleHighlight')}
           </p>
           <button 
             className="connect-btn" 
@@ -1429,7 +1433,7 @@ export default function EventsPage() {
             onClick={handleWalletClick}
             data-testid="button-cta-participate"
           >
-            {isConnected ? '🚀 지금 참여하기' : '🔗 지갑 연결하고 시작하기'}
+            {isConnected ? `🚀 ${tp('cta.buttonParticipate')}` : `🔗 ${tp('cta.buttonConnect')}`}
           </button>
         </div>
       </section>
@@ -1439,14 +1443,13 @@ export default function EventsPage() {
         <div className="footer-content">
           <div className="footer-brand">
             <h3>TBURN<span>CHAIN</span></h3>
-            <p>AI의 지능, 블록체인의 투명성<br />THE FUTURE IS NOW</p>
+            <p>{tp('footer.description')}</p>
             <div className="social-links">
               <a 
                 href="https://twitter.com/tburnchain" 
                 target="_blank" 
                 rel="noopener noreferrer" 
                 aria-label="Twitter"
-                onClick={() => toast({ title: "Twitter", description: "TBURN Chain Twitter 페이지로 이동합니다." })}
                 data-testid="link-twitter"
               >𝕏</a>
               <a 
@@ -1454,7 +1457,6 @@ export default function EventsPage() {
                 target="_blank" 
                 rel="noopener noreferrer" 
                 aria-label="Telegram"
-                onClick={() => toast({ title: "Telegram", description: "TBURN Chain Telegram 채널로 이동합니다." })}
                 data-testid="link-telegram"
               >✈</a>
               <a 
@@ -1462,7 +1464,6 @@ export default function EventsPage() {
                 target="_blank" 
                 rel="noopener noreferrer" 
                 aria-label="Discord"
-                onClick={() => toast({ title: "Discord", description: "TBURN Chain Discord 서버로 이동합니다." })}
                 data-testid="link-discord"
               >💬</a>
               <a 
@@ -1470,50 +1471,48 @@ export default function EventsPage() {
                 target="_blank" 
                 rel="noopener noreferrer" 
                 aria-label="GitHub"
-                onClick={() => toast({ title: "GitHub", description: "TBURN Chain GitHub으로 이동합니다." })}
                 data-testid="link-github"
               >⌘</a>
             </div>
           </div>
           <div className="footer-links">
-            <h4>Product</h4>
+            <h4>{tp('footer.quickLinks')}</h4>
             <ul>
-              <li><Link href="/">메인넷</Link></li>
-              <li><Link href="/scan">익스플로러</Link></li>
-              <li><Link href="/app/bridge">브릿지</Link></li>
-              <li><Link href="/app/staking">스테이킹</Link></li>
+              <li><Link href="/">{tp('footer.explorer')}</Link></li>
+              <li><Link href="/app/wallet">{tp('footer.wallet')}</Link></li>
+              <li><Link href="/app/bridge">{tp('footer.bridge')}</Link></li>
+              <li><Link href="/app/staking">{tp('footer.staking')}</Link></li>
             </ul>
           </div>
           <div className="footer-links">
-            <h4>Resources</h4>
+            <h4>{tp('footer.developers')}</h4>
             <ul>
-              <li><Link href="/learn/whitepaper" data-testid="footer-link-whitepaper">백서</Link></li>
-              <li><Link href="/developers/docs" data-testid="footer-link-docs">문서</Link></li>
+              <li><Link href="/developers/docs" data-testid="footer-link-docs">{tp('footer.docs')}</Link></li>
+              <li><Link href="/developers/api" data-testid="footer-link-api">{tp('footer.api')}</Link></li>
               <li><a 
                 href="https://github.com/tburn-chain" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                onClick={() => toast({ title: "GitHub", description: "TBURN Chain GitHub으로 이동합니다." })}
                 data-testid="footer-link-github"
-              >GitHub</a></li>
-              <li><Link href="/security-audit" data-testid="footer-link-audit">감사 보고서</Link></li>
+              >{tp('footer.github')}</a></li>
+              <li><Link href="/developers/sdk" data-testid="footer-link-sdk">{tp('footer.sdk')}</Link></li>
             </ul>
           </div>
           <div className="footer-links">
-            <h4>Community</h4>
+            <h4>{tp('footer.resources')}</h4>
             <ul>
-              <li><Link href="/community/news" data-testid="footer-link-blog">블로그</Link></li>
-              <li><Link href="/ambassador" data-testid="footer-link-ambassador">앰배서더</Link></li>
-              <li><Link href="/grants" data-testid="footer-link-grants">그랜트</Link></li>
-              <li><Link href="/qna" data-testid="footer-link-support">고객지원</Link></li>
+              <li><Link href="/learn/whitepaper" data-testid="footer-link-whitepaper">{tp('footer.whitepaper')}</Link></li>
+              <li><Link href="/tokenomics" data-testid="footer-link-tokenomics">{tp('footer.tokenomics')}</Link></li>
+              <li><Link href="/roadmap" data-testid="footer-link-roadmap">{tp('footer.roadmap')}</Link></li>
+              <li><Link href="/learn/faq" data-testid="footer-link-faq">{tp('footer.faqLink')}</Link></li>
             </ul>
           </div>
         </div>
         <div className="footer-bottom">
-          <p>© 2025-2045 TBURN Foundation. All Rights Reserved.</p>
+          <p>{tp('footer.copyright')}</p>
           <div style={{ display: 'flex', gap: '2rem' }}>
-            <Link href="/legal/terms-of-service" style={{ color: 'var(--gray)', textDecoration: 'none' }}>이용약관</Link>
-            <Link href="/legal/privacy-policy" style={{ color: 'var(--gray)', textDecoration: 'none' }}>개인정보처리방침</Link>
+            <Link href="/legal/terms-of-service" style={{ color: 'var(--gray)', textDecoration: 'none' }}>{tp('footer.termsOfService')}</Link>
+            <Link href="/legal/privacy-policy" style={{ color: 'var(--gray)', textDecoration: 'none' }}>{tp('footer.privacyPolicy')}</Link>
           </div>
         </div>
       </footer>
