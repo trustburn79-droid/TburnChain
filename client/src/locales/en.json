@@ -31200,6 +31200,82 @@
         "termsOfService": "Terms of Service",
         "contact": "Contact Us"
       },
+      "timeline": {
+        "badge": "SCHEDULE",
+        "title": "Distribution Schedule",
+        "subtitle": "Airdrop distribution spans 9 months after TGE",
+        "nov2025": "November 2025",
+        "registrationStart": "Airdrop Registration Starts",
+        "registrationDesc": "Wallet connection and task completion begins",
+        "jan2026": "January 2026 (Current)",
+        "snapshotProgress": "Snapshot In Progress",
+        "snapshotDesc": "Accumulating participant points (28,750 users)",
+        "feb2026": "February 2026",
+        "tge": "TGE (Token Generation Event)",
+        "tgeDesc": "15% (45M TBURN) immediately claimable",
+        "mar2026": "March - November 2026",
+        "monthlyVesting": "Monthly Vesting Release",
+        "vestingDesc": "~9.4% linear release over 9 months",
+        "calculator": {
+          "title": "Distribution Calculator Example",
+          "myPoints": "My Points",
+          "totalPool": "Total Point Pool",
+          "distribution": "Distribution Amount",
+          "estimated": "Estimated Amount",
+          "estimatedValue": "Estimated Value (@$0.50)",
+          "disclaimer": "* Actual distribution may vary based on final snapshot total points."
+        },
+        "vesting": {
+          "title": "Vesting Schedule",
+          "tgeDay": "TGE (Day 0)",
+          "monthly": "M1 ~ M9",
+          "monthlyPercent": "~9.4%/month",
+          "complete": "After 9 months"
+        }
+      },
+      "eligibilitySection": {
+        "badge": "ELIGIBILITY",
+        "title": "Eligibility Requirements",
+        "subtitle": "Check the airdrop participation requirements",
+        "eligible": {
+          "title": "Eligible Conditions",
+          "wallet": {
+            "title": "Wallet Connection Required",
+            "desc": "MetaMask, Trust Wallet, Coinbase Wallet supported"
+          },
+          "tasks": {
+            "title": "Complete Required Tasks",
+            "desc": "Wallet connect + Email verify + Telegram join"
+          },
+          "minPoints": {
+            "title": "Minimum 1,000 Points",
+            "desc": "Below minimum points will be excluded from distribution"
+          },
+          "snapshot": {
+            "title": "Maintain eligibility until snapshot",
+            "desc": "Snapshot scheduled for January 2026"
+          }
+        },
+        "excluded": {
+          "title": "Excluded",
+          "restricted": {
+            "title": "Restricted Country Residents",
+            "desc": "USA, China, North Korea and other regulated countries excluded"
+          },
+          "sybil": {
+            "title": "Sybil Attack",
+            "desc": "Multiple accounts will result in all accounts being excluded"
+          },
+          "bot": {
+            "title": "Bot Activity Detected",
+            "desc": "Automation tool usage will be excluded"
+          },
+          "fraud": {
+            "title": "Fraudulent Activity",
+            "desc": "Task manipulation or false info submission results in permanent exclusion"
+          }
+        }
+      },
       "emailDialog": {
         "title": "Email Verification",
         "description": "Register your email and earn +300P!",

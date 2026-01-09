@@ -79,7 +79,7 @@ export default function AirdropPage() {
     },
     onSuccess: () => {
       toast({
-        title: t('airdropPage.emailDialog.title'),
+        title: t('tokenPrograms.airdropPage.emailDialog.title'),
         description: "+300P",
       });
       setEmailDialogOpen(false);
@@ -110,7 +110,7 @@ export default function AirdropPage() {
     window.open(url, "_blank");
     toast({
       title: `${platform} task in progress`,
-      description: t('airdropPage.toasts.completeTasksForPoints'),
+      description: t('tokenPrograms.airdropPage.toasts.completeTasksForPoints'),
     });
   };
 
@@ -119,8 +119,8 @@ export default function AirdropPage() {
     const link = `https://tburn.io/airdrop?ref=${referralCode}`;
     navigator.clipboard.writeText(link);
     toast({
-      title: t('airdropPage.referralDialog.copied'),
-      description: t('airdropPage.referralDialog.linkCopied'),
+      title: t('tokenPrograms.airdropPage.referralDialog.copied'),
+      description: t('tokenPrograms.airdropPage.referralDialog.linkCopied'),
     });
   };
 
@@ -1020,11 +1020,11 @@ export default function AirdropPage() {
             <div className="logo-text">TBURN<span>CHAIN</span></div>
           </Link>
           <nav className="nav-links">
-            <a href="#overview">{t('airdropPage.nav.overview')}</a>
-            <a href="#airdrops">{t('airdropPage.nav.airdrops')}</a>
-            <a href="#tasks">{t('airdropPage.nav.tasks')}</a>
-            <a href="#timeline">{t('airdropPage.nav.timeline')}</a>
-            <a href="#faq">{t('airdropPage.nav.faq')}</a>
+            <a href="#overview">{t('tokenPrograms.airdropPage.nav.overview')}</a>
+            <a href="#airdrops">{t('tokenPrograms.airdropPage.nav.airdrops')}</a>
+            <a href="#tasks">{t('tokenPrograms.airdropPage.nav.tasks')}</a>
+            <a href="#timeline">{t('tokenPrograms.airdropPage.nav.timeline')}</a>
+            <a href="#faq">{t('tokenPrograms.airdropPage.nav.faq')}</a>
           </nav>
           <div className="header-actions">
             <LanguageSelector isDark={true} />
@@ -1034,7 +1034,7 @@ export default function AirdropPage() {
               onClick={handleConnectWallet}
             >
               <i className="fas fa-wallet"></i> 
-              {isConnected && address ? formatAddress(address) : t('airdropPage.header.connectWallet')}
+              {isConnected && address ? formatAddress(address) : t('tokenPrograms.airdropPage.header.connectWallet')}
             </button>
           </div>
         </div>
@@ -1046,19 +1046,19 @@ export default function AirdropPage() {
         <div className="hero-content">
           <div className="badge" data-testid="badge-live-status">
             <span className="badge-dot"></span>
-            {t('airdropPage.hero.badge')}
+            {t('tokenPrograms.airdropPage.hero.badge')}
             {stats?.networkTps && (
               <span style={{ marginLeft: '12px', color: 'var(--light-gray)' }} data-testid="text-network-tps">
-                | {t('airdropPage.hero.tps')}: {stats.networkTps.toLocaleString()}
+                | {t('tokenPrograms.airdropPage.hero.tps')}: {stats.networkTps.toLocaleString()}
               </span>
             )}
           </div>
           <h1>
-            <span className="gold">{t('airdropPage.hero.title')}</span><br />
-            {t('airdropPage.hero.subtitle')}
+            <span className="gold">{t('tokenPrograms.airdropPage.hero.title')}</span><br />
+            {t('tokenPrograms.airdropPage.hero.subtitle')}
           </h1>
           <p className="hero-subtitle">
-            {t('airdropPage.hero.description')}
+            {t('tokenPrograms.airdropPage.hero.description')}
           </p>
 
           <div className="stats-grid">
@@ -1066,25 +1066,25 @@ export default function AirdropPage() {
               <div className="stat-value">
                 {isLoadingStats ? '...' : formatNumber(stats?.totalAllocation || '300000000')}
               </div>
-              <div className="stat-label">{t('airdropPage.hero.totalAirdrop')}</div>
+              <div className="stat-label">{t('tokenPrograms.airdropPage.hero.totalAirdrop')}</div>
             </div>
             <div className="stat-card" data-testid="stat-distributed">
               <div className="stat-value">
                 {isLoadingStats ? '...' : formatNumber(stats?.totalDistributed || '45000000')}
               </div>
-              <div className="stat-label">{t('airdropPage.hero.distributed')}</div>
+              <div className="stat-label">{t('tokenPrograms.airdropPage.hero.distributed')}</div>
             </div>
             <div className="stat-card" data-testid="stat-eligible">
               <div className="stat-value">
                 {isLoadingStats ? '...' : formatLargeNumber(stats?.totalEligible || 28750)}
               </div>
-              <div className="stat-label">{t('airdropPage.hero.participants')}</div>
+              <div className="stat-label">{t('tokenPrograms.airdropPage.hero.participants')}</div>
             </div>
             <div className="stat-card" data-testid="stat-claim-rate">
               <div className="stat-value">
                 {isLoadingStats ? '...' : `${parseFloat(stats?.claimRate || '15').toFixed(1)}%`}
               </div>
-              <div className="stat-label">{t('airdropPage.hero.claimRate')}</div>
+              <div className="stat-label">{t('tokenPrograms.airdropPage.hero.claimRate')}</div>
             </div>
           </div>
 
@@ -1100,7 +1100,7 @@ export default function AirdropPage() {
             }} data-testid="eligibility-status">
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
                 <h3 style={{ fontSize: '1.25rem', fontWeight: 700, color: 'var(--gold)' }}>
-                  {t('airdropPage.eligibility.title')}
+                  {t('tokenPrograms.airdropPage.eligibility.title')}
                 </h3>
                 <span style={{ fontSize: '0.875rem', color: 'var(--light-gray)' }}>
                   {formatAddress(address)}
@@ -1108,30 +1108,30 @@ export default function AirdropPage() {
               </div>
               {isLoadingEligibility ? (
                 <div style={{ textAlign: 'center', padding: '2rem', color: 'var(--light-gray)' }}>
-                  {t('airdropPage.eligibility.checking')}
+                  {t('tokenPrograms.airdropPage.eligibility.checking')}
                 </div>
               ) : eligibility ? (
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '1rem' }}>
                   <div data-testid="eligibility-allocated">
-                    <div style={{ fontSize: '0.875rem', color: 'var(--light-gray)', marginBottom: '0.25rem' }}>{t('airdropPage.eligibility.allocated')}</div>
+                    <div style={{ fontSize: '0.875rem', color: 'var(--light-gray)', marginBottom: '0.25rem' }}>{t('tokenPrograms.airdropPage.eligibility.allocated')}</div>
                     <div style={{ fontSize: '1.5rem', fontWeight: 700, color: 'var(--gold)' }}>
                       {formatNumber(eligibility.allocatedAmount)}
                     </div>
                   </div>
                   <div data-testid="eligibility-claimed">
-                    <div style={{ fontSize: '0.875rem', color: 'var(--light-gray)', marginBottom: '0.25rem' }}>{t('airdropPage.eligibility.claimed')}</div>
+                    <div style={{ fontSize: '0.875rem', color: 'var(--light-gray)', marginBottom: '0.25rem' }}>{t('tokenPrograms.airdropPage.eligibility.claimed')}</div>
                     <div style={{ fontSize: '1.5rem', fontWeight: 700, color: 'var(--success)' }}>
                       {formatNumber(eligibility.claimedAmount)}
                     </div>
                   </div>
                   <div data-testid="eligibility-pending">
-                    <div style={{ fontSize: '0.875rem', color: 'var(--light-gray)', marginBottom: '0.25rem' }}>{t('airdropPage.eligibility.pending')}</div>
+                    <div style={{ fontSize: '0.875rem', color: 'var(--light-gray)', marginBottom: '0.25rem' }}>{t('tokenPrograms.airdropPage.eligibility.pending')}</div>
                     <div style={{ fontSize: '1.5rem', fontWeight: 700, color: 'var(--white)' }}>
                       {formatNumber(eligibility.pendingAmount)}
                     </div>
                   </div>
                   <div data-testid="eligibility-tier">
-                    <div style={{ fontSize: '0.875rem', color: 'var(--light-gray)', marginBottom: '0.25rem' }}>{t('airdropPage.eligibility.tier')}</div>
+                    <div style={{ fontSize: '0.875rem', color: 'var(--light-gray)', marginBottom: '0.25rem' }}>{t('tokenPrograms.airdropPage.eligibility.tier')}</div>
                     <div style={{ fontSize: '1.5rem', fontWeight: 700, color: 'var(--gold)' }}>
                       {eligibility.tier || 'Standard'} ({eligibility.multiplier || 1}x)
                     </div>
@@ -1139,7 +1139,7 @@ export default function AirdropPage() {
                 </div>
               ) : (
                 <div style={{ textAlign: 'center', padding: '1rem', color: 'var(--light-gray)' }} data-testid="eligibility-not-found">
-                  {t('airdropPage.eligibility.noAllocation')}
+                  {t('tokenPrograms.airdropPage.eligibility.noAllocation')}
                 </div>
               )}
             </div>
@@ -1154,14 +1154,14 @@ export default function AirdropPage() {
                   handleConnectWallet();
                 } else {
                   toast({
-                    title: t('airdropPage.toasts.participating'),
-                    description: t('airdropPage.toasts.completeTasksForPoints'),
+                    title: t('tokenPrograms.airdropPage.toasts.participating'),
+                    description: t('tokenPrograms.airdropPage.toasts.completeTasksForPoints'),
                   });
                   document.getElementById('tasks')?.scrollIntoView({ behavior: 'smooth' });
                 }
               }}
             >
-              {isConnected ? t('airdropPage.buttons.doTasks') : t('airdropPage.buttons.participateNow')}
+              {isConnected ? t('tokenPrograms.airdropPage.buttons.doTasks') : t('tokenPrograms.airdropPage.buttons.participateNow')}
             </button>
             <button 
               className="btn-secondary"
@@ -1169,12 +1169,12 @@ export default function AirdropPage() {
               onClick={() => {
                 document.getElementById('airdrops')?.scrollIntoView({ behavior: 'smooth' });
                 toast({
-                  title: t('airdropPage.toasts.airdropTypes'),
-                  description: t('airdropPage.toasts.checkAirdropTypes'),
+                  title: t('tokenPrograms.airdropPage.toasts.airdropTypes'),
+                  description: t('tokenPrograms.airdropPage.toasts.checkAirdropTypes'),
                 });
               }}
             >
-              {t('airdropPage.buttons.viewDetails')}
+              {t('tokenPrograms.airdropPage.buttons.viewDetails')}
             </button>
           </div>
         </div>
@@ -1183,29 +1183,29 @@ export default function AirdropPage() {
       {/* Airdrop Types Section */}
       <section className="section" id="airdrops">
         <div className="section-header">
-          <span className="section-badge">{t('airdropPage.types.badge')}</span>
-          <h2 className="section-title">{t('airdropPage.types.title')}</h2>
-          <p className="section-subtitle">{t('airdropPage.types.subtitle')}</p>
+          <span className="section-badge">{t('tokenPrograms.airdropPage.types.badge')}</span>
+          <h2 className="section-title">{t('tokenPrograms.airdropPage.types.title')}</h2>
+          <p className="section-subtitle">{t('tokenPrograms.airdropPage.types.subtitle')}</p>
         </div>
 
         <div className="airdrop-grid">
           {/* Genesis Airdrop */}
           <div className="airdrop-card featured" data-testid="card-genesis-airdrop">
             <div className="airdrop-icon">🌟</div>
-            <h3 className="airdrop-title">{t('airdropPage.types.genesis.title')}</h3>
-            <div className="airdrop-amount">{t('airdropPage.types.genesis.amount')}</div>
-            <p className="airdrop-desc">{t('airdropPage.types.genesis.desc')}</p>
+            <h3 className="airdrop-title">{t('tokenPrograms.airdropPage.types.genesis.title')}</h3>
+            <div className="airdrop-amount">{t('tokenPrograms.airdropPage.types.genesis.amount')}</div>
+            <p className="airdrop-desc">{t('tokenPrograms.airdropPage.types.genesis.desc')}</p>
             <ul className="airdrop-features">
-              <li><span className="check-icon">✓</span> {t('airdropPage.types.genesis.feature1')}</li>
-              <li><span className="check-icon">✓</span> {t('airdropPage.types.genesis.feature2')}</li>
-              <li><span className="check-icon">✓</span> {t('airdropPage.types.genesis.feature3')}</li>
-              <li><span className="check-icon">✓</span> {t('airdropPage.types.genesis.feature4')}</li>
+              <li><span className="check-icon">✓</span> {t('tokenPrograms.airdropPage.types.genesis.feature1')}</li>
+              <li><span className="check-icon">✓</span> {t('tokenPrograms.airdropPage.types.genesis.feature2')}</li>
+              <li><span className="check-icon">✓</span> {t('tokenPrograms.airdropPage.types.genesis.feature3')}</li>
+              <li><span className="check-icon">✓</span> {t('tokenPrograms.airdropPage.types.genesis.feature4')}</li>
             </ul>
             <div className="progress-bar">
               <div className="progress-fill" style={{ width: '42%' }}></div>
             </div>
             <div className="progress-text">
-              <span>{t('airdropPage.types.progress')}</span>
+              <span>{t('tokenPrograms.airdropPage.types.progress')}</span>
               <span>42%</span>
             </div>
           </div>
@@ -1213,20 +1213,20 @@ export default function AirdropPage() {
           {/* Community Airdrop */}
           <div className="airdrop-card" data-testid="card-community-airdrop">
             <div className="airdrop-icon">👥</div>
-            <h3 className="airdrop-title">{t('airdropPage.types.community.title')}</h3>
-            <div className="airdrop-amount">{t('airdropPage.types.community.amount')}</div>
-            <p className="airdrop-desc">{t('airdropPage.types.community.desc')}</p>
+            <h3 className="airdrop-title">{t('tokenPrograms.airdropPage.types.community.title')}</h3>
+            <div className="airdrop-amount">{t('tokenPrograms.airdropPage.types.community.amount')}</div>
+            <p className="airdrop-desc">{t('tokenPrograms.airdropPage.types.community.desc')}</p>
             <ul className="airdrop-features">
-              <li><span className="check-icon">✓</span> {t('airdropPage.types.community.feature1')}</li>
-              <li><span className="check-icon">✓</span> {t('airdropPage.types.community.feature2')}</li>
-              <li><span className="check-icon">✓</span> {t('airdropPage.types.community.feature3')}</li>
-              <li><span className="check-icon">✓</span> {t('airdropPage.types.community.feature4')}</li>
+              <li><span className="check-icon">✓</span> {t('tokenPrograms.airdropPage.types.community.feature1')}</li>
+              <li><span className="check-icon">✓</span> {t('tokenPrograms.airdropPage.types.community.feature2')}</li>
+              <li><span className="check-icon">✓</span> {t('tokenPrograms.airdropPage.types.community.feature3')}</li>
+              <li><span className="check-icon">✓</span> {t('tokenPrograms.airdropPage.types.community.feature4')}</li>
             </ul>
             <div className="progress-bar">
               <div className="progress-fill" style={{ width: '28%' }}></div>
             </div>
             <div className="progress-text">
-              <span>{t('airdropPage.types.progress')}</span>
+              <span>{t('tokenPrograms.airdropPage.types.progress')}</span>
               <span>28%</span>
             </div>
           </div>
@@ -1234,21 +1234,21 @@ export default function AirdropPage() {
           {/* Loyalty Airdrop */}
           <div className="airdrop-card" data-testid="card-loyalty-airdrop">
             <div className="airdrop-icon">💎</div>
-            <h3 className="airdrop-title">{t('airdropPage.types.loyalty.title')}</h3>
-            <div className="airdrop-amount">{t('airdropPage.types.loyalty.amount')}</div>
-            <p className="airdrop-desc">{t('airdropPage.types.loyalty.desc')}</p>
+            <h3 className="airdrop-title">{t('tokenPrograms.airdropPage.types.loyalty.title')}</h3>
+            <div className="airdrop-amount">{t('tokenPrograms.airdropPage.types.loyalty.amount')}</div>
+            <p className="airdrop-desc">{t('tokenPrograms.airdropPage.types.loyalty.desc')}</p>
             <ul className="airdrop-features">
-              <li><span className="check-icon">✓</span> {t('airdropPage.types.loyalty.feature1')}</li>
-              <li><span className="check-icon">✓</span> {t('airdropPage.types.loyalty.feature2')}</li>
-              <li><span className="check-icon">✓</span> {t('airdropPage.types.loyalty.feature3')}</li>
-              <li><span className="check-icon">✓</span> {t('airdropPage.types.loyalty.feature4')}</li>
+              <li><span className="check-icon">✓</span> {t('tokenPrograms.airdropPage.types.loyalty.feature1')}</li>
+              <li><span className="check-icon">✓</span> {t('tokenPrograms.airdropPage.types.loyalty.feature2')}</li>
+              <li><span className="check-icon">✓</span> {t('tokenPrograms.airdropPage.types.loyalty.feature3')}</li>
+              <li><span className="check-icon">✓</span> {t('tokenPrograms.airdropPage.types.loyalty.feature4')}</li>
             </ul>
             <div className="progress-bar">
               <div className="progress-fill" style={{ width: '0%' }}></div>
             </div>
             <div className="progress-text">
-              <span>{t('airdropPage.types.progress')}</span>
-              <span>{t('airdropPage.types.waiting')}</span>
+              <span>{t('tokenPrograms.airdropPage.types.progress')}</span>
+              <span>{t('tokenPrograms.airdropPage.types.waiting')}</span>
             </div>
           </div>
         </div>
@@ -1257,52 +1257,52 @@ export default function AirdropPage() {
       {/* Tasks Section */}
       <section className="section" id="tasks" style={{ background: 'rgba(255,255,255,0.02)' }}>
         <div className="section-header">
-          <span className="section-badge">{t('airdropPage.tasks.badge')}</span>
-          <h2 className="section-title">{t('airdropPage.tasks.title')}</h2>
-          <p className="section-subtitle">{t('airdropPage.tasks.subtitle')}</p>
+          <span className="section-badge">{t('tokenPrograms.airdropPage.tasks.badge')}</span>
+          <h2 className="section-title">{t('tokenPrograms.airdropPage.tasks.title')}</h2>
+          <p className="section-subtitle">{t('tokenPrograms.airdropPage.tasks.subtitle')}</p>
         </div>
 
         <div className="tasks-container">
           <div className="tasks-header">
             <div className="tasks-info">
-              <h3>{t('airdropPage.tasks.myStatus')}</h3>
+              <h3>{t('tokenPrograms.airdropPage.tasks.myStatus')}</h3>
               <p>
                 {isConnected 
-                  ? `${formatAddress(address || '')} ${t('airdropPage.tasks.walletConnected')}` 
-                  : t('airdropPage.tasks.connectToTrack')}
+                  ? `${formatAddress(address || '')} ${t('tokenPrograms.airdropPage.tasks.walletConnected')}` 
+                  : t('tokenPrograms.airdropPage.tasks.connectToTrack')}
               </p>
             </div>
             <div className="points-display">
               <div className="points-value" data-testid="text-total-points">
                 {isConnected ? '500 P' : '0 P'}
               </div>
-              <div className="points-label">{t('airdropPage.tasks.earnedPoints')}</div>
+              <div className="points-label">{t('tokenPrograms.airdropPage.tasks.earnedPoints')}</div>
             </div>
           </div>
 
           {/* Required Tasks */}
           <div className="task-category">
             <div className="task-category-title">
-              <span>⭐</span> {t('airdropPage.tasks.required.title')}
+              <span>⭐</span> {t('tokenPrograms.airdropPage.tasks.required.title')}
             </div>
             <div className="task-list">
               <div className="task-item" data-testid="task-wallet-connect">
                 <div className="task-left">
                   <div className="task-icon">👛</div>
                   <div className="task-info">
-                    <h4>{t('airdropPage.tasks.required.wallet.title')}</h4>
-                    <p>{t('airdropPage.tasks.required.wallet.desc')}</p>
+                    <h4>{t('tokenPrograms.airdropPage.tasks.required.wallet.title')}</h4>
+                    <p>{t('tokenPrograms.airdropPage.tasks.required.wallet.desc')}</p>
                   </div>
                 </div>
                 <div className="task-right">
-                  <span className="task-points">{t('airdropPage.tasks.required.wallet.points')}</span>
+                  <span className="task-points">{t('tokenPrograms.airdropPage.tasks.required.wallet.points')}</span>
                   <button 
                     className="task-btn" 
                     onClick={handleConnectWallet}
                     style={isConnected ? { background: 'var(--success)', color: 'white' } : undefined}
                     data-testid="button-task-wallet-connect"
                   >
-                    {isConnected ? t('airdropPage.tasks.required.wallet.buttonComplete') : t('airdropPage.tasks.required.wallet.buttonConnect')}
+                    {isConnected ? t('tokenPrograms.airdropPage.tasks.required.wallet.buttonComplete') : t('tokenPrograms.airdropPage.tasks.required.wallet.buttonConnect')}
                   </button>
                 </div>
               </div>
@@ -1311,18 +1311,18 @@ export default function AirdropPage() {
                 <div className="task-left">
                   <div className="task-icon">✅</div>
                   <div className="task-info">
-                    <h4>{t('airdropPage.tasks.required.email.title')}</h4>
-                    <p>{t('airdropPage.tasks.required.email.desc')}</p>
+                    <h4>{t('tokenPrograms.airdropPage.tasks.required.email.title')}</h4>
+                    <p>{t('tokenPrograms.airdropPage.tasks.required.email.desc')}</p>
                   </div>
                 </div>
                 <div className="task-right">
-                  <span className="task-points">{t('airdropPage.tasks.required.email.points')}</span>
+                  <span className="task-points">{t('tokenPrograms.airdropPage.tasks.required.email.points')}</span>
                   <button 
                     className="task-btn" 
                     onClick={() => setEmailDialogOpen(true)}
                     data-testid="button-task-email-verify"
                   >
-                    {t('airdropPage.tasks.required.email.button')}
+                    {t('tokenPrograms.airdropPage.tasks.required.email.button')}
                   </button>
                 </div>
               </div>
@@ -1331,18 +1331,18 @@ export default function AirdropPage() {
                 <div className="task-left">
                   <div className="task-icon">📱</div>
                   <div className="task-info">
-                    <h4>{t('airdropPage.tasks.required.telegram.title')}</h4>
-                    <p>{t('airdropPage.tasks.required.telegram.desc')}</p>
+                    <h4>{t('tokenPrograms.airdropPage.tasks.required.telegram.title')}</h4>
+                    <p>{t('tokenPrograms.airdropPage.tasks.required.telegram.desc')}</p>
                   </div>
                 </div>
                 <div className="task-right">
-                  <span className="task-points">{t('airdropPage.tasks.required.telegram.points')}</span>
+                  <span className="task-points">{t('tokenPrograms.airdropPage.tasks.required.telegram.points')}</span>
                   <button 
                     className="task-btn"
                     onClick={() => handleSocialLink("Telegram", "https://t.me/tburnchain")}
                     data-testid="button-task-telegram"
                   >
-                    {t('airdropPage.tasks.required.telegram.button')}
+                    {t('tokenPrograms.airdropPage.tasks.required.telegram.button')}
                   </button>
                 </div>
               </div>
@@ -1352,25 +1352,25 @@ export default function AirdropPage() {
           {/* Social Tasks */}
           <div className="task-category">
             <div className="task-category-title">
-              <span>🔗</span> {t('airdropPage.tasks.social.title')}
+              <span>🔗</span> {t('tokenPrograms.airdropPage.tasks.social.title')}
             </div>
             <div className="task-list">
               <div className="task-item" data-testid="task-twitter-follow">
                 <div className="task-left">
                   <div className="task-icon" style={{ color: '#1DA1F2' }}>𝕏</div>
                   <div className="task-info">
-                    <h4>{t('airdropPage.tasks.social.twitter.title')}</h4>
-                    <p>{t('airdropPage.tasks.social.twitter.desc')}</p>
+                    <h4>{t('tokenPrograms.airdropPage.tasks.social.twitter.title')}</h4>
+                    <p>{t('tokenPrograms.airdropPage.tasks.social.twitter.desc')}</p>
                   </div>
                 </div>
                 <div className="task-right">
-                  <span className="task-points">{t('airdropPage.tasks.social.twitter.points')}</span>
+                  <span className="task-points">{t('tokenPrograms.airdropPage.tasks.social.twitter.points')}</span>
                   <button 
                     className="task-btn"
                     onClick={() => handleSocialLink("X (Twitter)", "https://x.com/TBURNChain")}
                     data-testid="button-task-twitter"
                   >
-                    {t('airdropPage.tasks.social.twitter.button')}
+                    {t('tokenPrograms.airdropPage.tasks.social.twitter.button')}
                   </button>
                 </div>
               </div>
@@ -1379,18 +1379,18 @@ export default function AirdropPage() {
                 <div className="task-left">
                   <div className="task-icon" style={{ color: '#1DA1F2' }}>𝕏</div>
                   <div className="task-info">
-                    <h4>{t('airdropPage.tasks.social.retweet.title')}</h4>
-                    <p>{t('airdropPage.tasks.social.retweet.desc')}</p>
+                    <h4>{t('tokenPrograms.airdropPage.tasks.social.retweet.title')}</h4>
+                    <p>{t('tokenPrograms.airdropPage.tasks.social.retweet.desc')}</p>
                   </div>
                 </div>
                 <div className="task-right">
-                  <span className="task-points">{t('airdropPage.tasks.social.retweet.points')}</span>
+                  <span className="task-points">{t('tokenPrograms.airdropPage.tasks.social.retweet.points')}</span>
                   <button 
                     className="task-btn"
                     onClick={() => handleSocialLink("Retweet", "https://x.com/TBURNChain/status/mainnet-launch")}
                     data-testid="button-task-retweet"
                   >
-                    {t('airdropPage.tasks.social.retweet.button')}
+                    {t('tokenPrograms.airdropPage.tasks.social.retweet.button')}
                   </button>
                 </div>
               </div>
@@ -1399,18 +1399,18 @@ export default function AirdropPage() {
                 <div className="task-left">
                   <div className="task-icon" style={{ color: '#5865F2' }}>💬</div>
                   <div className="task-info">
-                    <h4>{t('airdropPage.tasks.social.discord.title')}</h4>
-                    <p>{t('airdropPage.tasks.social.discord.desc')}</p>
+                    <h4>{t('tokenPrograms.airdropPage.tasks.social.discord.title')}</h4>
+                    <p>{t('tokenPrograms.airdropPage.tasks.social.discord.desc')}</p>
                   </div>
                 </div>
                 <div className="task-right">
-                  <span className="task-points">{t('airdropPage.tasks.social.discord.points')}</span>
+                  <span className="task-points">{t('tokenPrograms.airdropPage.tasks.social.discord.points')}</span>
                   <button 
                     className="task-btn"
                     onClick={() => handleSocialLink("Discord", "https://discord.gg/tburnchain")}
                     data-testid="button-task-discord"
                   >
-                    {t('airdropPage.tasks.social.discord.button')}
+                    {t('tokenPrograms.airdropPage.tasks.social.discord.button')}
                   </button>
                 </div>
               </div>
@@ -1420,31 +1420,31 @@ export default function AirdropPage() {
           {/* Bonus Tasks */}
           <div className="task-category">
             <div className="task-category-title">
-              <span>🎁</span> {t('airdropPage.tasks.bonus.title')}
+              <span>🎁</span> {t('tokenPrograms.airdropPage.tasks.bonus.title')}
             </div>
             <div className="task-list">
               <div className="task-item" data-testid="task-nft-holder">
                 <div className="task-left">
                   <div className="task-icon">🎨</div>
                   <div className="task-info">
-                    <h4>{t('airdropPage.tasks.bonus.nft.title')}</h4>
-                    <p>{t('airdropPage.tasks.bonus.nft.desc')}</p>
+                    <h4>{t('tokenPrograms.airdropPage.tasks.bonus.nft.title')}</h4>
+                    <p>{t('tokenPrograms.airdropPage.tasks.bonus.nft.desc')}</p>
                   </div>
                 </div>
                 <div className="task-right">
-                  <span className="task-points">{t('airdropPage.tasks.bonus.nft.points')}</span>
+                  <span className="task-points">{t('tokenPrograms.airdropPage.tasks.bonus.nft.points')}</span>
                   <button 
                     className="task-btn"
                     onClick={() => {
                       if (!isConnected) {
-                        toast({ title: t('airdropPage.toasts.connectWalletFirst'), variant: "destructive" });
+                        toast({ title: t('tokenPrograms.airdropPage.toasts.connectWalletFirst'), variant: "destructive" });
                         return;
                       }
-                      toast({ title: t('airdropPage.toasts.checkingNft'), description: t('airdropPage.toasts.pleaseWait') });
+                      toast({ title: t('tokenPrograms.airdropPage.toasts.checkingNft'), description: t('tokenPrograms.airdropPage.toasts.pleaseWait') });
                     }}
                     data-testid="button-task-nft"
                   >
-                    {t('airdropPage.tasks.bonus.nft.button')}
+                    {t('tokenPrograms.airdropPage.tasks.bonus.nft.button')}
                   </button>
                 </div>
               </div>
@@ -1453,18 +1453,18 @@ export default function AirdropPage() {
                 <div className="task-left">
                   <div className="task-icon">👥</div>
                   <div className="task-info">
-                    <h4>{t('airdropPage.tasks.bonus.referral.title')}</h4>
-                    <p>{t('airdropPage.tasks.bonus.referral.desc')}</p>
+                    <h4>{t('tokenPrograms.airdropPage.tasks.bonus.referral.title')}</h4>
+                    <p>{t('tokenPrograms.airdropPage.tasks.bonus.referral.desc')}</p>
                   </div>
                 </div>
                 <div className="task-right">
-                  <span className="task-points">{t('airdropPage.tasks.bonus.referral.points')}</span>
+                  <span className="task-points">{t('tokenPrograms.airdropPage.tasks.bonus.referral.points')}</span>
                   <button 
                     className="task-btn"
                     onClick={() => setReferralDialogOpen(true)}
                     data-testid="button-task-referral"
                   >
-                    {t('airdropPage.tasks.bonus.referral.button')}
+                    {t('tokenPrograms.airdropPage.tasks.bonus.referral.button')}
                   </button>
                 </div>
               </div>
@@ -1473,24 +1473,24 @@ export default function AirdropPage() {
                 <div className="task-left">
                   <div className="task-icon">📊</div>
                   <div className="task-info">
-                    <h4>{t('airdropPage.tasks.bonus.testnet.title')}</h4>
-                    <p>{t('airdropPage.tasks.bonus.testnet.desc')}</p>
+                    <h4>{t('tokenPrograms.airdropPage.tasks.bonus.testnet.title')}</h4>
+                    <p>{t('tokenPrograms.airdropPage.tasks.bonus.testnet.desc')}</p>
                   </div>
                 </div>
                 <div className="task-right">
-                  <span className="task-points">{t('airdropPage.tasks.bonus.testnet.points')}</span>
+                  <span className="task-points">{t('tokenPrograms.airdropPage.tasks.bonus.testnet.points')}</span>
                   <button 
                     className="task-btn"
                     onClick={() => {
                       if (!isConnected) {
-                        toast({ title: t('airdropPage.toasts.connectWalletFirst'), variant: "destructive" });
+                        toast({ title: t('tokenPrograms.airdropPage.toasts.connectWalletFirst'), variant: "destructive" });
                         return;
                       }
-                      toast({ title: t('airdropPage.toasts.checkingTestnet'), description: t('airdropPage.toasts.pleaseWait') });
+                      toast({ title: t('tokenPrograms.airdropPage.toasts.checkingTestnet'), description: t('tokenPrograms.airdropPage.toasts.pleaseWait') });
                     }}
                     data-testid="button-task-testnet"
                   >
-                    {t('airdropPage.tasks.bonus.testnet.button')}
+                    {t('tokenPrograms.airdropPage.tasks.bonus.testnet.button')}
                   </button>
                 </div>
               </div>
@@ -1502,9 +1502,9 @@ export default function AirdropPage() {
       {/* Timeline Section */}
       <section className="section" id="timeline">
         <div className="section-header">
-          <span className="section-badge">{t('airdropPage.timeline.badge')}</span>
-          <h2 className="section-title">{t('airdropPage.timeline.title')}</h2>
-          <p className="section-subtitle">{t('airdropPage.timeline.subtitle')}</p>
+          <span className="section-badge">{t('tokenPrograms.airdropPage.timeline.badge')}</span>
+          <h2 className="section-title">{t('tokenPrograms.airdropPage.timeline.title')}</h2>
+          <p className="section-subtitle">{t('tokenPrograms.airdropPage.timeline.subtitle')}</p>
         </div>
 
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '4rem', maxWidth: '1000px', margin: '0 auto' }}>
@@ -1512,36 +1512,36 @@ export default function AirdropPage() {
             <div className="timeline-item">
               <div className="timeline-dot active"><span className="dot-icon">✓</span></div>
               <div className="timeline-content">
-                <div className="timeline-date">{t('airdropPage.timeline.nov2025')}</div>
-                <div className="timeline-title">{t('airdropPage.timeline.registrationStart')}</div>
-                <div className="timeline-desc">{t('airdropPage.timeline.registrationDesc')}</div>
+                <div className="timeline-date">{t('tokenPrograms.airdropPage.timeline.nov2025')}</div>
+                <div className="timeline-title">{t('tokenPrograms.airdropPage.timeline.registrationStart')}</div>
+                <div className="timeline-desc">{t('tokenPrograms.airdropPage.timeline.registrationDesc')}</div>
               </div>
             </div>
 
             <div className="timeline-item">
               <div className="timeline-dot active"><span className="dot-icon">✓</span></div>
               <div className="timeline-content">
-                <div className="timeline-date">{t('airdropPage.timeline.jan2026')}</div>
-                <div className="timeline-title">{t('airdropPage.timeline.snapshotProgress')}</div>
-                <div className="timeline-desc">{t('airdropPage.timeline.snapshotDesc')}</div>
+                <div className="timeline-date">{t('tokenPrograms.airdropPage.timeline.jan2026')}</div>
+                <div className="timeline-title">{t('tokenPrograms.airdropPage.timeline.snapshotProgress')}</div>
+                <div className="timeline-desc">{t('tokenPrograms.airdropPage.timeline.snapshotDesc')}</div>
               </div>
             </div>
 
             <div className="timeline-item">
               <div className="timeline-dot"><span className="dot-icon">⏳</span></div>
               <div className="timeline-content">
-                <div className="timeline-date">{t('airdropPage.timeline.feb2026')}</div>
-                <div className="timeline-title">{t('airdropPage.timeline.tge')}</div>
-                <div className="timeline-desc">{t('airdropPage.timeline.tgeDesc')}</div>
+                <div className="timeline-date">{t('tokenPrograms.airdropPage.timeline.feb2026')}</div>
+                <div className="timeline-title">{t('tokenPrograms.airdropPage.timeline.tge')}</div>
+                <div className="timeline-desc">{t('tokenPrograms.airdropPage.timeline.tgeDesc')}</div>
               </div>
             </div>
 
             <div className="timeline-item">
               <div className="timeline-dot"><span className="dot-icon">⏳</span></div>
               <div className="timeline-content">
-                <div className="timeline-date">{t('airdropPage.timeline.mar2026')}</div>
-                <div className="timeline-title">{t('airdropPage.timeline.monthlyVesting')}</div>
-                <div className="timeline-desc">{t('airdropPage.timeline.vestingDesc')}</div>
+                <div className="timeline-date">{t('tokenPrograms.airdropPage.timeline.mar2026')}</div>
+                <div className="timeline-title">{t('tokenPrograms.airdropPage.timeline.monthlyVesting')}</div>
+                <div className="timeline-desc">{t('tokenPrograms.airdropPage.timeline.vestingDesc')}</div>
               </div>
             </div>
           </div>
@@ -1550,38 +1550,38 @@ export default function AirdropPage() {
             <div style={{ background: 'var(--dark-card)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '20px', padding: '2rem' }}>
               <h3 style={{ fontSize: '1.25rem', fontWeight: 700, marginBottom: '1.5rem' }}>
                 <span style={{ color: 'var(--gold)', marginRight: '10px' }}>🧮</span>
-                {t('airdropPage.timeline.calculator.title')}
+                {t('tokenPrograms.airdropPage.timeline.calculator.title')}
               </h3>
               <div style={{ background: 'rgba(255,255,255,0.03)', borderRadius: '12px', padding: '1.5rem', marginBottom: '1.5rem' }}>
-                <p style={{ color: 'var(--light-gray)', marginBottom: '1rem' }}>{t('airdropPage.timeline.calculator.myPoints')}: <span style={{ color: 'var(--gold)', fontWeight: 700 }}>5,000 P</span></p>
-                <p style={{ color: 'var(--light-gray)', marginBottom: '1rem' }}>{t('airdropPage.timeline.calculator.totalPool')}: <span style={{ fontWeight: 600 }}>50,000,000 P</span></p>
-                <p style={{ color: 'var(--light-gray)', marginBottom: '1rem' }}>{t('airdropPage.timeline.calculator.distribution')}: <span style={{ fontWeight: 600 }}>300M TBURN</span></p>
+                <p style={{ color: 'var(--light-gray)', marginBottom: '1rem' }}>{t('tokenPrograms.airdropPage.timeline.calculator.myPoints')}: <span style={{ color: 'var(--gold)', fontWeight: 700 }}>5,000 P</span></p>
+                <p style={{ color: 'var(--light-gray)', marginBottom: '1rem' }}>{t('tokenPrograms.airdropPage.timeline.calculator.totalPool')}: <span style={{ fontWeight: 600 }}>50,000,000 P</span></p>
+                <p style={{ color: 'var(--light-gray)', marginBottom: '1rem' }}>{t('tokenPrograms.airdropPage.timeline.calculator.distribution')}: <span style={{ fontWeight: 600 }}>300M TBURN</span></p>
                 <hr style={{ border: 'none', borderTop: '1px solid rgba(255,255,255,0.1)', margin: '1rem 0' }} />
-                <p style={{ fontSize: '1.125rem' }}>{t('airdropPage.timeline.calculator.estimated')}: <span style={{ color: 'var(--gold)', fontWeight: 800, fontSize: '1.5rem' }}>30,000 TBURN</span></p>
-                <p style={{ color: 'var(--light-gray)', fontSize: '0.875rem', marginTop: '0.5rem' }}>{t('airdropPage.timeline.calculator.estimatedValue')}: <span style={{ color: 'var(--success)', fontWeight: 600 }}>$15,000</span></p>
+                <p style={{ fontSize: '1.125rem' }}>{t('tokenPrograms.airdropPage.timeline.calculator.estimated')}: <span style={{ color: 'var(--gold)', fontWeight: 800, fontSize: '1.5rem' }}>30,000 TBURN</span></p>
+                <p style={{ color: 'var(--light-gray)', fontSize: '0.875rem', marginTop: '0.5rem' }}>{t('tokenPrograms.airdropPage.timeline.calculator.estimatedValue')}: <span style={{ color: 'var(--success)', fontWeight: 600 }}>$15,000</span></p>
               </div>
               <p style={{ color: 'var(--gray)', fontSize: '0.875rem' }}>
-                {t('airdropPage.timeline.calculator.disclaimer')}
+                {t('tokenPrograms.airdropPage.timeline.calculator.disclaimer')}
               </p>
             </div>
 
             <div style={{ background: 'var(--dark-card)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '20px', padding: '2rem', marginTop: '1.5rem' }}>
               <h3 style={{ fontSize: '1.25rem', fontWeight: 700, marginBottom: '1.5rem' }}>
                 <span style={{ color: 'var(--gold)', marginRight: '10px' }}>🔓</span>
-                {t('airdropPage.timeline.vesting.title')}
+                {t('tokenPrograms.airdropPage.timeline.vesting.title')}
               </h3>
               <table style={{ width: '100%', borderCollapse: 'collapse' }}>
                 <tbody>
                   <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.1)' }}>
-                    <td style={{ padding: '10px 0', color: 'var(--light-gray)' }}>{t('airdropPage.timeline.vesting.tgeDay')}</td>
+                    <td style={{ padding: '10px 0', color: 'var(--light-gray)' }}>{t('tokenPrograms.airdropPage.timeline.vesting.tgeDay')}</td>
                     <td style={{ padding: '10px 0', textAlign: 'right', fontWeight: 600 }}>15%</td>
                   </tr>
                   <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.1)' }}>
-                    <td style={{ padding: '10px 0', color: 'var(--light-gray)' }}>{t('airdropPage.timeline.vesting.monthly')}</td>
-                    <td style={{ padding: '10px 0', textAlign: 'right', fontWeight: 600 }}>{t('airdropPage.timeline.vesting.monthlyPercent')}</td>
+                    <td style={{ padding: '10px 0', color: 'var(--light-gray)' }}>{t('tokenPrograms.airdropPage.timeline.vesting.monthly')}</td>
+                    <td style={{ padding: '10px 0', textAlign: 'right', fontWeight: 600 }}>{t('tokenPrograms.airdropPage.timeline.vesting.monthlyPercent')}</td>
                   </tr>
                   <tr>
-                    <td style={{ padding: '10px 0', color: 'var(--gold)', fontWeight: 600 }}>{t('airdropPage.timeline.vesting.complete')}</td>
+                    <td style={{ padding: '10px 0', color: 'var(--gold)', fontWeight: 600 }}>{t('tokenPrograms.airdropPage.timeline.vesting.complete')}</td>
                     <td style={{ padding: '10px 0', textAlign: 'right', fontWeight: 700, color: 'var(--gold)' }}>100%</td>
                   </tr>
                 </tbody>
@@ -1594,75 +1594,75 @@ export default function AirdropPage() {
       {/* Eligibility Section */}
       <section className="section" style={{ background: 'rgba(255,255,255,0.02)' }}>
         <div className="section-header">
-          <span className="section-badge">{t('airdropPage.eligibilitySection.badge')}</span>
-          <h2 className="section-title">{t('airdropPage.eligibilitySection.title')}</h2>
-          <p className="section-subtitle">{t('airdropPage.eligibilitySection.subtitle')}</p>
+          <span className="section-badge">{t('tokenPrograms.airdropPage.eligibilitySection.badge')}</span>
+          <h2 className="section-title">{t('tokenPrograms.airdropPage.eligibilitySection.title')}</h2>
+          <p className="section-subtitle">{t('tokenPrograms.airdropPage.eligibilitySection.subtitle')}</p>
         </div>
 
         <div className="eligibility-grid">
           <div className="eligibility-card" data-testid="card-eligible">
-            <h3><span style={{ color: 'var(--success)' }}>✓</span> {t('airdropPage.eligibilitySection.eligible.title')}</h3>
+            <h3><span style={{ color: 'var(--success)' }}>✓</span> {t('tokenPrograms.airdropPage.eligibilitySection.eligible.title')}</h3>
             <ul className="eligibility-list">
               <li>
                 <span style={{ color: 'var(--success)', marginTop: '4px' }}>✓</span>
                 <div>
-                  <strong>{t('airdropPage.eligibilitySection.eligible.wallet.title')}</strong>
-                  <p style={{ color: 'var(--gray)', fontSize: '0.9rem' }}>{t('airdropPage.eligibilitySection.eligible.wallet.desc')}</p>
+                  <strong>{t('tokenPrograms.airdropPage.eligibilitySection.eligible.wallet.title')}</strong>
+                  <p style={{ color: 'var(--gray)', fontSize: '0.9rem' }}>{t('tokenPrograms.airdropPage.eligibilitySection.eligible.wallet.desc')}</p>
                 </div>
               </li>
               <li>
                 <span style={{ color: 'var(--success)', marginTop: '4px' }}>✓</span>
                 <div>
-                  <strong>{t('airdropPage.eligibilitySection.eligible.tasks.title')}</strong>
-                  <p style={{ color: 'var(--gray)', fontSize: '0.9rem' }}>{t('airdropPage.eligibilitySection.eligible.tasks.desc')}</p>
+                  <strong>{t('tokenPrograms.airdropPage.eligibilitySection.eligible.tasks.title')}</strong>
+                  <p style={{ color: 'var(--gray)', fontSize: '0.9rem' }}>{t('tokenPrograms.airdropPage.eligibilitySection.eligible.tasks.desc')}</p>
                 </div>
               </li>
               <li>
                 <span style={{ color: 'var(--success)', marginTop: '4px' }}>✓</span>
                 <div>
-                  <strong>{t('airdropPage.eligibilitySection.eligible.minPoints.title')}</strong>
-                  <p style={{ color: 'var(--gray)', fontSize: '0.9rem' }}>{t('airdropPage.eligibilitySection.eligible.minPoints.desc')}</p>
+                  <strong>{t('tokenPrograms.airdropPage.eligibilitySection.eligible.minPoints.title')}</strong>
+                  <p style={{ color: 'var(--gray)', fontSize: '0.9rem' }}>{t('tokenPrograms.airdropPage.eligibilitySection.eligible.minPoints.desc')}</p>
                 </div>
               </li>
               <li>
                 <span style={{ color: 'var(--success)', marginTop: '4px' }}>✓</span>
                 <div>
-                  <strong>{t('airdropPage.eligibilitySection.eligible.snapshot.title')}</strong>
-                  <p style={{ color: 'var(--gray)', fontSize: '0.9rem' }}>{t('airdropPage.eligibilitySection.eligible.snapshot.desc')}</p>
+                  <strong>{t('tokenPrograms.airdropPage.eligibilitySection.eligible.snapshot.title')}</strong>
+                  <p style={{ color: 'var(--gray)', fontSize: '0.9rem' }}>{t('tokenPrograms.airdropPage.eligibilitySection.eligible.snapshot.desc')}</p>
                 </div>
               </li>
             </ul>
           </div>
 
           <div className="eligibility-card" data-testid="card-excluded">
-            <h3><span style={{ color: 'var(--warning)' }}>⚠</span> {t('airdropPage.eligibilitySection.excluded.title')}</h3>
+            <h3><span style={{ color: 'var(--warning)' }}>⚠</span> {t('tokenPrograms.airdropPage.eligibilitySection.excluded.title')}</h3>
             <ul className="eligibility-list">
               <li>
                 <span style={{ color: 'var(--warning)', marginTop: '4px' }}>✗</span>
                 <div>
-                  <strong>{t('airdropPage.eligibilitySection.excluded.restricted.title')}</strong>
-                  <p style={{ color: 'var(--gray)', fontSize: '0.9rem' }}>{t('airdropPage.eligibilitySection.excluded.restricted.desc')}</p>
+                  <strong>{t('tokenPrograms.airdropPage.eligibilitySection.excluded.restricted.title')}</strong>
+                  <p style={{ color: 'var(--gray)', fontSize: '0.9rem' }}>{t('tokenPrograms.airdropPage.eligibilitySection.excluded.restricted.desc')}</p>
                 </div>
               </li>
               <li>
                 <span style={{ color: 'var(--warning)', marginTop: '4px' }}>✗</span>
                 <div>
-                  <strong>{t('airdropPage.eligibilitySection.excluded.sybil.title')}</strong>
-                  <p style={{ color: 'var(--gray)', fontSize: '0.9rem' }}>{t('airdropPage.eligibilitySection.excluded.sybil.desc')}</p>
+                  <strong>{t('tokenPrograms.airdropPage.eligibilitySection.excluded.sybil.title')}</strong>
+                  <p style={{ color: 'var(--gray)', fontSize: '0.9rem' }}>{t('tokenPrograms.airdropPage.eligibilitySection.excluded.sybil.desc')}</p>
                 </div>
               </li>
               <li>
                 <span style={{ color: 'var(--warning)', marginTop: '4px' }}>✗</span>
                 <div>
-                  <strong>{t('airdropPage.eligibilitySection.excluded.bot.title')}</strong>
-                  <p style={{ color: 'var(--gray)', fontSize: '0.9rem' }}>{t('airdropPage.eligibilitySection.excluded.bot.desc')}</p>
+                  <strong>{t('tokenPrograms.airdropPage.eligibilitySection.excluded.bot.title')}</strong>
+                  <p style={{ color: 'var(--gray)', fontSize: '0.9rem' }}>{t('tokenPrograms.airdropPage.eligibilitySection.excluded.bot.desc')}</p>
                 </div>
               </li>
               <li>
                 <span style={{ color: 'var(--warning)', marginTop: '4px' }}>✗</span>
                 <div>
-                  <strong>{t('airdropPage.eligibilitySection.excluded.fraud.title')}</strong>
-                  <p style={{ color: 'var(--gray)', fontSize: '0.9rem' }}>{t('airdropPage.eligibilitySection.excluded.fraud.desc')}</p>
+                  <strong>{t('tokenPrograms.airdropPage.eligibilitySection.excluded.fraud.title')}</strong>
+                  <p style={{ color: 'var(--gray)', fontSize: '0.9rem' }}>{t('tokenPrograms.airdropPage.eligibilitySection.excluded.fraud.desc')}</p>
                 </div>
               </li>
             </ul>
@@ -1673,89 +1673,89 @@ export default function AirdropPage() {
       {/* FAQ Section */}
       <section className="section" id="faq">
         <div className="section-header">
-          <span className="section-badge">{t('airdropPage.faq.badge')}</span>
-          <h2 className="section-title">{t('airdropPage.faq.title')}</h2>
-          <p className="section-subtitle">{t('airdropPage.faq.subtitle')}</p>
+          <span className="section-badge">{t('tokenPrograms.airdropPage.faq.badge')}</span>
+          <h2 className="section-title">{t('tokenPrograms.airdropPage.faq.title')}</h2>
+          <p className="section-subtitle">{t('tokenPrograms.airdropPage.faq.subtitle')}</p>
         </div>
 
         <div className="faq-container">
           <div className={`faq-item ${activeTab === 'faq-1' ? 'active' : ''}`} data-testid="faq-total-amount">
             <div className="faq-question" onClick={() => toggleFaq('faq-1')}>
-              <h4>{t('airdropPage.faq.q1.question')}</h4>
+              <h4>{t('tokenPrograms.airdropPage.faq.q1.question')}</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>{t('airdropPage.faq.q1.answer')}</p>
+              <p>{t('tokenPrograms.airdropPage.faq.q1.answer')}</p>
             </div>
           </div>
 
           <div className={`faq-item ${activeTab === 'faq-2' ? 'active' : ''}`} data-testid="faq-tge-amount">
             <div className="faq-question" onClick={() => toggleFaq('faq-2')}>
-              <h4>{t('airdropPage.faq.q2.question')}</h4>
+              <h4>{t('tokenPrograms.airdropPage.faq.q2.question')}</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>{t('airdropPage.faq.q2.answer')}</p>
+              <p>{t('tokenPrograms.airdropPage.faq.q2.answer')}</p>
             </div>
           </div>
 
           <div className={`faq-item ${activeTab === 'faq-3' ? 'active' : ''}`} data-testid="faq-points-conversion">
             <div className="faq-question" onClick={() => toggleFaq('faq-3')}>
-              <h4>{t('airdropPage.faq.q3.question')}</h4>
+              <h4>{t('tokenPrograms.airdropPage.faq.q3.question')}</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>{t('airdropPage.faq.q3.answer')}</p>
+              <p>{t('tokenPrograms.airdropPage.faq.q3.answer')}</p>
             </div>
           </div>
 
           <div className={`faq-item ${activeTab === 'faq-4' ? 'active' : ''}`} data-testid="faq-wallet">
             <div className="faq-question" onClick={() => toggleFaq('faq-4')}>
-              <h4>{t('airdropPage.faq.q4.question')}</h4>
+              <h4>{t('tokenPrograms.airdropPage.faq.q4.question')}</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>{t('airdropPage.faq.q4.answer')}</p>
+              <p>{t('tokenPrograms.airdropPage.faq.q4.answer')}</p>
             </div>
           </div>
 
           <div className={`faq-item ${activeTab === 'faq-5' ? 'active' : ''}`} data-testid="faq-claim">
             <div className="faq-question" onClick={() => toggleFaq('faq-5')}>
-              <h4>{t('airdropPage.faq.q5.question')}</h4>
+              <h4>{t('tokenPrograms.airdropPage.faq.q5.question')}</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>{t('airdropPage.faq.q5.answer')}</p>
+              <p>{t('tokenPrograms.airdropPage.faq.q5.answer')}</p>
             </div>
           </div>
 
           <div className={`faq-item ${activeTab === 'faq-6' ? 'active' : ''}`} data-testid="faq-tasks">
             <div className="faq-question" onClick={() => toggleFaq('faq-6')}>
-              <h4>{t('airdropPage.faq.q6.question')}</h4>
+              <h4>{t('tokenPrograms.airdropPage.faq.q6.question')}</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>{t('airdropPage.faq.q6.answer')}</p>
+              <p>{t('tokenPrograms.airdropPage.faq.q6.answer')}</p>
             </div>
           </div>
 
           <div className={`faq-item ${activeTab === 'faq-7' ? 'active' : ''}`} data-testid="faq-nft-bonus">
             <div className="faq-question" onClick={() => toggleFaq('faq-7')}>
-              <h4>{t('airdropPage.faq.q7.question')}</h4>
+              <h4>{t('tokenPrograms.airdropPage.faq.q7.question')}</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>{t('airdropPage.faq.q7.answer')}</p>
+              <p>{t('tokenPrograms.airdropPage.faq.q7.answer')}</p>
             </div>
           </div>
 
           <div className={`faq-item ${activeTab === 'faq-8' ? 'active' : ''}`} data-testid="faq-restrictions">
             <div className="faq-question" onClick={() => toggleFaq('faq-8')}>
-              <h4>{t('airdropPage.faq.q8.question')}</h4>
+              <h4>{t('tokenPrograms.airdropPage.faq.q8.question')}</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>{t('airdropPage.faq.q8.answer')}</p>
+              <p>{t('tokenPrograms.airdropPage.faq.q8.answer')}</p>
             </div>
           </div>
         </div>
@@ -1766,7 +1766,7 @@ export default function AirdropPage() {
         <div className="footer-content">
           <div className="footer-brand">
             <h3>TBURN<span>CHAIN</span></h3>
-            <p>{t('airdropPage.footer.brand')}</p>
+            <p>{t('tokenPrograms.airdropPage.footer.brand')}</p>
             <div className="social-links">
               <a 
                 href="https://twitter.com/tburnchain" 
@@ -1800,31 +1800,31 @@ export default function AirdropPage() {
           </div>
 
           <div className="footer-links">
-            <h4>{t('airdropPage.footer.products')}</h4>
+            <h4>{t('tokenPrograms.airdropPage.footer.products')}</h4>
             <ul>
-              <li><Link href="/scan">{t('airdropPage.footer.scan')}</Link></li>
-              <li><Link href="/app">{t('airdropPage.footer.dapp')}</Link></li>
-              <li><Link href="/staking">{t('airdropPage.footer.staking')}</Link></li>
-              <li><Link href="/bridge">{t('airdropPage.footer.bridge')}</Link></li>
+              <li><Link href="/scan">{t('tokenPrograms.airdropPage.footer.scan')}</Link></li>
+              <li><Link href="/app">{t('tokenPrograms.airdropPage.footer.dapp')}</Link></li>
+              <li><Link href="/staking">{t('tokenPrograms.airdropPage.footer.staking')}</Link></li>
+              <li><Link href="/bridge">{t('tokenPrograms.airdropPage.footer.bridge')}</Link></li>
             </ul>
           </div>
 
           <div className="footer-links">
-            <h4>{t('airdropPage.footer.developers')}</h4>
+            <h4>{t('tokenPrograms.airdropPage.footer.developers')}</h4>
             <ul>
-              <li><Link href="/developers/docs">{t('airdropPage.footer.docs')}</Link></li>
-              <li><Link href="/developers/api">{t('airdropPage.footer.api')}</Link></li>
-              <li><Link href="/developers/sdk">{t('airdropPage.footer.sdk')}</Link></li>
+              <li><Link href="/developers/docs">{t('tokenPrograms.airdropPage.footer.docs')}</Link></li>
+              <li><Link href="/developers/api">{t('tokenPrograms.airdropPage.footer.api')}</Link></li>
+              <li><Link href="/developers/sdk">{t('tokenPrograms.airdropPage.footer.sdk')}</Link></li>
               <li><a href="https://github.com/tburn-chain" target="_blank" rel="noopener noreferrer">GitHub</a></li>
             </ul>
           </div>
 
           <div className="footer-links">
-            <h4>{t('airdropPage.footer.resources')}</h4>
+            <h4>{t('tokenPrograms.airdropPage.footer.resources')}</h4>
             <ul>
-              <li><Link href="/learn/whitepaper">{t('airdropPage.footer.whitepaper')}</Link></li>
-              <li><Link href="/learn/tokenomics">{t('airdropPage.footer.tokenomics')}</Link></li>
-              <li><Link href="/learn/roadmap">{t('airdropPage.footer.roadmap')}</Link></li>
+              <li><Link href="/learn/whitepaper">{t('tokenPrograms.airdropPage.footer.whitepaper')}</Link></li>
+              <li><Link href="/learn/tokenomics">{t('tokenPrograms.airdropPage.footer.tokenomics')}</Link></li>
+              <li><Link href="/learn/roadmap">{t('tokenPrograms.airdropPage.footer.roadmap')}</Link></li>
               <li><Link href="/faq">FAQ</Link></li>
             </ul>
           </div>
@@ -1837,17 +1837,17 @@ export default function AirdropPage() {
               href="/legal/privacy-policy" 
               style={{ color: 'var(--gray)', textDecoration: 'none' }}
               data-testid="footer-link-privacy"
-            >{t('airdropPage.footer.privacyPolicy')}</Link>
+            >{t('tokenPrograms.airdropPage.footer.privacyPolicy')}</Link>
             <Link 
               href="/legal/terms-of-service" 
               style={{ color: 'var(--gray)', textDecoration: 'none' }}
               data-testid="footer-link-terms"
-            >{t('airdropPage.footer.termsOfService')}</Link>
+            >{t('tokenPrograms.airdropPage.footer.termsOfService')}</Link>
             <Link 
               href="/qna" 
               style={{ color: 'var(--gray)', textDecoration: 'none' }}
               data-testid="footer-link-contact"
-            >{t('airdropPage.footer.contact')}</Link>
+            >{t('tokenPrograms.airdropPage.footer.contact')}</Link>
           </div>
         </div>
       </footer>
@@ -1856,14 +1856,14 @@ export default function AirdropPage() {
       <Dialog open={emailDialogOpen} onOpenChange={setEmailDialogOpen}>
         <DialogContent className="sm:max-w-[450px] bg-slate-900 border-amber-500/30 text-white">
           <DialogHeader>
-            <DialogTitle className="text-xl font-bold text-amber-400">{t('airdropPage.dialogs.email.title')}</DialogTitle>
+            <DialogTitle className="text-xl font-bold text-amber-400">{t('tokenPrograms.airdropPage.emailDialog.title')}</DialogTitle>
             <DialogDescription className="text-slate-400">
-              {t('airdropPage.dialogs.email.desc')}
+              {t('tokenPrograms.airdropPage.emailDialog.description')}
             </DialogDescription>
           </DialogHeader>
           <form onSubmit={handleEmailSubmit} className="space-y-4 mt-4">
             <div className="space-y-2">
-              <Label htmlFor="email" className="text-slate-300">{t('airdropPage.dialogs.email.label')}</Label>
+              <Label htmlFor="email" className="text-slate-300">{t('tokenPrograms.airdropPage.emailDialog.label')}</Label>
               <Input
                 id="email"
                 type="email"
@@ -1875,7 +1875,7 @@ export default function AirdropPage() {
               />
             </div>
             <p className="text-sm text-slate-400">
-              {t('airdropPage.dialogs.email.notice')}
+              {t('tokenPrograms.airdropPage.emailDialog.info')}
             </p>
             <div className="flex gap-3 pt-4">
               <Button
@@ -1884,7 +1884,7 @@ export default function AirdropPage() {
                 onClick={() => setEmailDialogOpen(false)}
                 className="flex-1 border-slate-600 text-slate-300 hover:bg-slate-800"
               >
-                {t('airdropPage.dialogs.email.cancel')}
+                {t('tokenPrograms.airdropPage.emailDialog.cancel')}
               </Button>
               <Button
                 type="submit"
@@ -1892,7 +1892,7 @@ export default function AirdropPage() {
                 className="flex-1 bg-amber-600 hover:bg-amber-700 text-white"
                 data-testid="button-submit-email"
               >
-                {emailMutation.isPending ? t('airdropPage.dialogs.email.processing') : t('airdropPage.dialogs.email.verify')}
+                {emailMutation.isPending ? t('tokenPrograms.airdropPage.emailDialog.processing') : t('tokenPrograms.airdropPage.emailDialog.submit')}
               </Button>
             </div>
           </form>
@@ -1903,14 +1903,14 @@ export default function AirdropPage() {
       <Dialog open={referralDialogOpen} onOpenChange={setReferralDialogOpen}>
         <DialogContent className="sm:max-w-[500px] bg-slate-900 border-amber-500/30 text-white">
           <DialogHeader>
-            <DialogTitle className="text-xl font-bold text-amber-400">{t('airdropPage.dialogs.referral.title')}</DialogTitle>
+            <DialogTitle className="text-xl font-bold text-amber-400">{t('tokenPrograms.airdropPage.referralDialog.title')}</DialogTitle>
             <DialogDescription className="text-slate-400">
-              {t('airdropPage.dialogs.referral.desc')}
+              {t('tokenPrograms.airdropPage.referralDialog.description')}
             </DialogDescription>
           </DialogHeader>
           <div className="space-y-4 mt-4">
             <div className="bg-slate-800 border border-slate-700 rounded-lg p-4">
-              <Label className="text-slate-300 text-sm">{t('airdropPage.dialogs.referral.linkLabel')}</Label>
+              <Label className="text-slate-300 text-sm">{t('tokenPrograms.airdropPage.referralDialog.linkLabel')}</Label>
               <div className="flex gap-2 mt-2">
                 <Input
                   readOnly
@@ -1924,37 +1924,37 @@ export default function AirdropPage() {
                   className="bg-amber-600 hover:bg-amber-700 text-white px-4"
                   data-testid="button-copy-referral"
                 >
-                  {t('airdropPage.dialogs.referral.copy')}
+                  {t('tokenPrograms.airdropPage.referralDialog.copy')}
                 </Button>
               </div>
             </div>
             {/* Social Share Buttons */}
             <div className="bg-slate-800/50 rounded-lg p-4">
-              <h4 className="font-semibold text-white mb-3">{t('airdropPage.dialogs.referral.shareTitle')}</h4>
+              <h4 className="font-semibold text-white mb-3">{t('tokenPrograms.airdropPage.referralDialog.shareTitle')}</h4>
               <div className="flex gap-2 flex-wrap">
                 <Button
                   type="button"
                   onClick={() => {
                     const refCode = address ? address.slice(-8) : "TBURN2026";
-                    const text = t('airdropPage.dialogs.referral.shareText');
+                    const text = "Join the TBURN Chain airdrop! 300M TBURN being distributed. Get bonus points with my referral link!";
                     window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(`https://tburn.io/airdrop?ref=${refCode}`)}`, "_blank");
                   }}
                   className="bg-[#1DA1F2] hover:bg-[#1a8cd8] text-white"
                   data-testid="button-share-twitter"
                 >
-                  𝕏 Twitter
+                  𝕏 {t('tokenPrograms.airdropPage.referralDialog.shareTwitter')}
                 </Button>
                 <Button
                   type="button"
                   onClick={() => {
                     const refCode = address ? address.slice(-8) : "TBURN2026";
-                    const text = t('airdropPage.dialogs.referral.shareText');
+                    const text = "Join the TBURN Chain airdrop! 300M TBURN being distributed.";
                     window.open(`https://t.me/share/url?url=${encodeURIComponent(`https://tburn.io/airdrop?ref=${refCode}`)}&text=${encodeURIComponent(text)}`, "_blank");
                   }}
                   className="bg-[#0088cc] hover:bg-[#0077b5] text-white"
                   data-testid="button-share-telegram"
                 >
-                  Telegram
+                  {t('tokenPrograms.airdropPage.referralDialog.shareTelegram')}
                 </Button>
                 <Button
                   type="button"
@@ -1966,26 +1966,26 @@ export default function AirdropPage() {
                   className="bg-[#FEE500] hover:bg-[#fdd835] text-black"
                   data-testid="button-share-kakao"
                 >
-                  KakaoTalk
+                  {t('tokenPrograms.airdropPage.referralDialog.shareKakao')}
                 </Button>
               </div>
             </div>
             <div className="bg-slate-800/50 rounded-lg p-4 space-y-2">
-              <h4 className="font-semibold text-white">{t('airdropPage.dialogs.referral.benefitsTitle')}</h4>
+              <h4 className="font-semibold text-white">{t('tokenPrograms.airdropPage.referralDialog.benefits')}</h4>
               <ul className="text-sm text-slate-400 space-y-1">
-                <li>{t('airdropPage.dialogs.referral.benefit1')}</li>
-                <li>{t('airdropPage.dialogs.referral.benefit2')}</li>
-                <li>{t('airdropPage.dialogs.referral.benefit3')}</li>
+                <li>• {t('tokenPrograms.airdropPage.referralDialog.benefit1')}</li>
+                <li>• {t('tokenPrograms.airdropPage.referralDialog.benefit2')}</li>
+                <li>• {t('tokenPrograms.airdropPage.referralDialog.benefit3')}</li>
               </ul>
             </div>
             <div className="bg-slate-800/50 rounded-lg p-4">
-              <h4 className="font-semibold text-white mb-2">{t('airdropPage.dialogs.referral.statusTitle')}</h4>
+              <h4 className="font-semibold text-white mb-2">{t('tokenPrograms.airdropPage.referralDialog.statusTitle')}</h4>
               <div className="flex justify-between text-sm">
-                <span className="text-slate-400">{t('airdropPage.dialogs.referral.invitedFriends')}</span>
-                <span className="text-amber-400 font-semibold">{isConnected ? t('airdropPage.dialogs.referral.zeroFriends') : t('airdropPage.dialogs.referral.walletRequired')}</span>
+                <span className="text-slate-400">{t('tokenPrograms.airdropPage.referralDialog.invitedFriends')}</span>
+                <span className="text-amber-400 font-semibold">{isConnected ? "0" : t('tokenPrograms.airdropPage.referralDialog.walletRequired')}</span>
               </div>
               <div className="flex justify-between text-sm mt-1">
-                <span className="text-slate-400">{t('airdropPage.dialogs.referral.earnedPoints')}</span>
+                <span className="text-slate-400">{t('tokenPrograms.airdropPage.referralDialog.earnedPoints')}</span>
                 <span className="text-amber-400 font-semibold">{isConnected ? "0P" : "-"}</span>
               </div>
             </div>
@@ -1994,7 +1994,7 @@ export default function AirdropPage() {
               onClick={() => setReferralDialogOpen(false)}
               className="w-full bg-slate-700 hover:bg-slate-600 text-white"
             >
-              {t('airdropPage.dialogs.referral.close')}
+              {t('tokenPrograms.airdropPage.referralDialog.close')}
             </Button>
           </div>
         </DialogContent>
