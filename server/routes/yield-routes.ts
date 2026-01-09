@@ -17,7 +17,7 @@ router.get("/vaults", async (_req: Request, res: Response) => {
     res.json(vaults);
   } catch (error) {
     console.error("[Yield] Error getting vaults:", error);
-    safe503(res, "Failed to fetch vaults");
+    res.status(503).json({ error: "Failed to fetch vaults" });
   }
 });
 
@@ -27,7 +27,7 @@ router.get("/vaults/active", async (_req: Request, res: Response) => {
     res.json(vaults);
   } catch (error) {
     console.error("[Yield] Error getting active vaults:", error);
-    safe503(res, "Failed to fetch active vaults");
+    res.status(503).json({ error: "Failed to fetch active vaults" });
   }
 });
 
@@ -37,7 +37,7 @@ router.get("/vaults/type/:type", async (req: Request, res: Response) => {
     res.json(vaults);
   } catch (error) {
     console.error("[Yield] Error getting vaults by type:", error);
-    safe503(res, "Failed to fetch vaults");
+    res.status(503).json({ error: "Failed to fetch vaults" });
   }
 });
 
@@ -50,7 +50,7 @@ router.get("/vaults/:id", async (req: Request, res: Response) => {
     res.json(vault);
   } catch (error) {
     console.error("[Yield] Error getting vault:", error);
-    safe503(res, "Failed to fetch vault");
+    res.status(503).json({ error: "Failed to fetch vault" });
   }
 });
 
@@ -60,7 +60,7 @@ router.get("/vaults/:id/stats", async (req: Request, res: Response) => {
     res.json(stats);
   } catch (error) {
     console.error("[Yield] Error getting vault stats:", error);
-    safe503(res, "Failed to fetch vault stats");
+    res.status(503).json({ error: "Failed to fetch vault stats" });
   }
 });
 
@@ -70,7 +70,7 @@ router.get("/vaults/:id/strategies", async (req: Request, res: Response) => {
     res.json(strategies);
   } catch (error) {
     console.error("[Yield] Error getting strategies:", error);
-    safe503(res, "Failed to fetch strategies");
+    res.status(503).json({ error: "Failed to fetch strategies" });
   }
 });
 
@@ -80,7 +80,7 @@ router.get("/vaults/:id/positions", async (req: Request, res: Response) => {
     res.json(positions);
   } catch (error) {
     console.error("[Yield] Error getting vault positions:", error);
-    safe503(res, "Failed to fetch positions");
+    res.status(503).json({ error: "Failed to fetch positions" });
   }
 });
 
@@ -91,7 +91,7 @@ router.get("/vaults/:id/harvests", async (req: Request, res: Response) => {
     res.json(harvests);
   } catch (error) {
     console.error("[Yield] Error getting harvests:", error);
-    safe503(res, "Failed to fetch harvests");
+    res.status(503).json({ error: "Failed to fetch harvests" });
   }
 });
 
@@ -102,7 +102,7 @@ router.get("/vaults/:id/transactions", async (req: Request, res: Response) => {
     res.json(transactions);
   } catch (error) {
     console.error("[Yield] Error getting vault transactions:", error);
-    safe503(res, "Failed to fetch transactions");
+    res.status(503).json({ error: "Failed to fetch transactions" });
   }
 });
 
@@ -116,7 +116,7 @@ router.get("/positions/:userAddress", async (req: Request, res: Response) => {
     res.json(positions);
   } catch (error) {
     console.error("[Yield] Error getting user positions:", error);
-    safe503(res, "Failed to fetch positions");
+    res.status(503).json({ error: "Failed to fetch positions" });
   }
 });
 
@@ -129,7 +129,7 @@ router.get("/positions/:userAddress/:vaultId", async (req: Request, res: Respons
     res.json(position);
   } catch (error) {
     console.error("[Yield] Error getting position:", error);
-    safe503(res, "Failed to fetch position");
+    res.status(503).json({ error: "Failed to fetch position" });
   }
 });
 
@@ -139,7 +139,7 @@ router.get("/user/:userAddress/stats", async (req: Request, res: Response) => {
     res.json(stats);
   } catch (error) {
     console.error("[Yield] Error getting user stats:", error);
-    safe503(res, "Failed to fetch user stats");
+    res.status(503).json({ error: "Failed to fetch user stats" });
   }
 });
 
@@ -150,7 +150,7 @@ router.get("/user/:userAddress/transactions", async (req: Request, res: Response
     res.json(transactions);
   } catch (error) {
     console.error("[Yield] Error getting user transactions:", error);
-    safe503(res, "Failed to fetch transactions");
+    res.status(503).json({ error: "Failed to fetch transactions" });
   }
 });
 
@@ -180,7 +180,7 @@ router.post("/deposit", async (req: Request, res: Response) => {
     if (error instanceof z.ZodError) {
       return res.status(400).json({ error: "Invalid request", details: error.errors });
     }
-    safe503(res, error instanceof Error ? error.message : "Deposit failed" });
+    res.status(503).json({ error: error instanceof Error ? error.message : "Deposit failed" });
   }
 });
 
@@ -204,7 +204,7 @@ router.post("/withdraw", async (req: Request, res: Response) => {
     if (error instanceof z.ZodError) {
       return res.status(400).json({ error: "Invalid request", details: error.errors });
     }
-    safe503(res, error instanceof Error ? error.message : "Withdrawal failed" });
+    res.status(503).json({ error: error instanceof Error ? error.message : "Withdrawal failed" });
   }
 });
 
@@ -223,7 +223,7 @@ router.post("/claim-rewards", async (req: Request, res: Response) => {
     if (error instanceof z.ZodError) {
       return res.status(400).json({ error: "Invalid request", details: error.errors });
     }
-    safe503(res, error instanceof Error ? error.message : "Claim failed" });
+    res.status(503).json({ error: error instanceof Error ? error.message : "Claim failed" });
   }
 });
 
@@ -242,7 +242,7 @@ router.post("/compound", async (req: Request, res: Response) => {
     if (error instanceof z.ZodError) {
       return res.status(400).json({ error: "Invalid request", details: error.errors });
     }
-    safe503(res, error instanceof Error ? error.message : "Compound failed" });
+    res.status(503).json({ error: error instanceof Error ? error.message : "Compound failed" });
   }
 });
 
@@ -265,7 +265,7 @@ router.post("/harvest", async (req: Request, res: Response) => {
     if (error instanceof z.ZodError) {
       return res.status(400).json({ error: "Invalid request", details: error.errors });
     }
-    safe503(res, error instanceof Error ? error.message : "Harvest failed" });
+    res.status(503).json({ error: error instanceof Error ? error.message : "Harvest failed" });
   }
 });
 
@@ -315,7 +315,7 @@ router.get("/stats", async (_req: Request, res: Response) => {
     res.json(enhancedStats);
   } catch (error) {
     console.error("[Yield] Error getting protocol stats:", error);
-    safe503(res, "Failed to fetch stats");
+    res.status(503).json({ error: "Failed to fetch stats" });
   }
 });
 
@@ -326,7 +326,7 @@ router.get("/transactions/recent", async (req: Request, res: Response) => {
     res.json(transactions);
   } catch (error) {
     console.error("[Yield] Error getting recent transactions:", error);
-    safe503(res, "Failed to fetch transactions");
+    res.status(503).json({ error: "Failed to fetch transactions" });
   }
 });
 
@@ -337,7 +337,7 @@ router.get("/harvests/recent", async (req: Request, res: Response) => {
     res.json(harvests);
   } catch (error) {
     console.error("[Yield] Error getting recent harvests:", error);
-    safe503(res, "Failed to fetch harvests");
+    res.status(503).json({ error: "Failed to fetch harvests" });
   }
 });
 
@@ -355,7 +355,7 @@ router.get("/boost-calculator/:days", async (req: Request, res: Response) => {
     res.json({ lockDays: days, multiplier, boostPercent: ((multiplier - 10000) / 100).toFixed(2) });
   } catch (error) {
     console.error("[Yield] Error calculating boost:", error);
-    safe503(res, "Failed to calculate boost");
+    res.status(503).json({ error: "Failed to calculate boost" });
   }
 });
 

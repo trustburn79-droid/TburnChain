@@ -13,7 +13,7 @@ router.get("/chains", async (_req: Request, res: Response) => {
     res.json(chains);
   } catch (error) {
     console.error("[Bridge] Error fetching chains:", error);
-    safe503(res, "Failed to fetch chains");
+    res.status(503).json({ error: "Failed to fetch chains" });
   }
 });
 
@@ -27,7 +27,7 @@ router.get("/chains/:chainId", async (req: Request, res: Response) => {
     res.json(chain);
   } catch (error) {
     console.error("[Bridge] Error fetching chain:", error);
-    safe503(res, "Failed to fetch chain");
+    res.status(503).json({ error: "Failed to fetch chain" });
   }
 });
 
@@ -39,7 +39,7 @@ router.get("/routes", async (req: Request, res: Response) => {
     res.json(routes);
   } catch (error) {
     console.error("[Bridge] Error fetching routes:", error);
-    safe503(res, "Failed to fetch routes");
+    res.status(503).json({ error: "Failed to fetch routes" });
   }
 });
 
@@ -49,7 +49,7 @@ router.get("/routes/active", async (_req: Request, res: Response) => {
     res.json(routes);
   } catch (error) {
     console.error("[Bridge] Error fetching active routes:", error);
-    safe503(res, "Failed to fetch active routes");
+    res.status(503).json({ error: "Failed to fetch active routes" });
   }
 });
 
@@ -62,7 +62,7 @@ router.get("/routes/:id", async (req: Request, res: Response) => {
     res.json(route);
   } catch (error) {
     console.error("[Bridge] Error fetching route:", error);
-    safe503(res, "Failed to fetch route");
+    res.status(503).json({ error: "Failed to fetch route" });
   }
 });
 
@@ -83,7 +83,7 @@ router.get("/routes/optimal", async (req: Request, res: Response) => {
     res.json(route);
   } catch (error) {
     console.error("[Bridge] Error finding optimal route:", error);
-    safe503(res, "Failed to find optimal route");
+    res.status(503).json({ error: "Failed to find optimal route" });
   }
 });
 
@@ -96,7 +96,7 @@ router.get("/transfers", async (req: Request, res: Response) => {
     res.json(transfers);
   } catch (error) {
     console.error("[Bridge] Error fetching transfers:", error);
-    safe503(res, "Failed to fetch transfers");
+    res.status(503).json({ error: "Failed to fetch transfers" });
   }
 });
 
@@ -109,7 +109,7 @@ router.get("/transfers/:id", async (req: Request, res: Response) => {
     res.json(transfer);
   } catch (error) {
     console.error("[Bridge] Error fetching transfer:", error);
-    safe503(res, "Failed to fetch transfer");
+    res.status(503).json({ error: "Failed to fetch transfer" });
   }
 });
 
@@ -122,7 +122,7 @@ router.get("/transfers/tx/:txHash", async (req: Request, res: Response) => {
     res.json(transfer);
   } catch (error) {
     console.error("[Bridge] Error fetching transfer by hash:", error);
-    safe503(res, "Failed to fetch transfer");
+    res.status(503).json({ error: "Failed to fetch transfer" });
   }
 });
 
@@ -136,7 +136,7 @@ router.post("/transfers", async (req: Request, res: Response) => {
       return res.status(400).json({ error: "Invalid transfer data", details: error.errors });
     }
     console.error("[Bridge] Error creating transfer:", error);
-    safe503(res, "Failed to create transfer");
+    res.status(503).json({ error: "Failed to create transfer" });
   }
 });
 
@@ -153,7 +153,7 @@ router.patch("/transfers/:id/status", async (req: Request, res: Response) => {
     res.json(transfer);
   } catch (error) {
     console.error("[Bridge] Error updating transfer status:", error);
-    safe503(res, "Failed to update transfer status");
+    res.status(503).json({ error: "Failed to update transfer status" });
   }
 });
 
@@ -165,7 +165,7 @@ router.get("/liquidity", async (req: Request, res: Response) => {
     res.json(pools);
   } catch (error) {
     console.error("[Bridge] Error fetching liquidity pools:", error);
-    safe503(res, "Failed to fetch liquidity pools");
+    res.status(503).json({ error: "Failed to fetch liquidity pools" });
   }
 });
 
@@ -178,7 +178,7 @@ router.get("/liquidity/:id", async (req: Request, res: Response) => {
     res.json(pool);
   } catch (error) {
     console.error("[Bridge] Error fetching liquidity pool:", error);
-    safe503(res, "Failed to fetch liquidity pool");
+    res.status(503).json({ error: "Failed to fetch liquidity pool" });
   }
 });
 
@@ -188,7 +188,7 @@ router.get("/liquidity/:id/providers", async (req: Request, res: Response) => {
     res.json(providers);
   } catch (error) {
     console.error("[Bridge] Error fetching liquidity providers:", error);
-    safe503(res, "Failed to fetch liquidity providers");
+    res.status(503).json({ error: "Failed to fetch liquidity providers" });
   }
 });
 
@@ -199,7 +199,7 @@ router.get("/validators", async (req: Request, res: Response) => {
     res.json(validators);
   } catch (error) {
     console.error("[Bridge] Error fetching validators:", error);
-    safe503(res, "Failed to fetch validators");
+    res.status(503).json({ error: "Failed to fetch validators" });
   }
 });
 
@@ -212,7 +212,7 @@ router.get("/validators/:id", async (req: Request, res: Response) => {
     res.json(validator);
   } catch (error) {
     console.error("[Bridge] Error fetching validator:", error);
-    safe503(res, "Failed to fetch validator");
+    res.status(503).json({ error: "Failed to fetch validator" });
   }
 });
 
@@ -225,7 +225,7 @@ router.get("/validators/address/:address", async (req: Request, res: Response) =
     res.json(validator);
   } catch (error) {
     console.error("[Bridge] Error fetching validator by address:", error);
-    safe503(res, "Failed to fetch validator");
+    res.status(503).json({ error: "Failed to fetch validator" });
   }
 });
 
@@ -236,7 +236,7 @@ router.get("/fees", async (req: Request, res: Response) => {
     res.json(configs);
   } catch (error) {
     console.error("[Bridge] Error fetching fee configs:", error);
-    safe503(res, "Failed to fetch fee configs");
+    res.status(503).json({ error: "Failed to fetch fee configs" });
   }
 });
 
@@ -250,7 +250,7 @@ router.post("/fees/calculate", async (req: Request, res: Response) => {
     res.json(fee);
   } catch (error) {
     console.error("[Bridge] Error calculating fee:", error);
-    safe503(res, "Failed to calculate fee");
+    res.status(503).json({ error: "Failed to calculate fee" });
   }
 });
 
@@ -263,7 +263,7 @@ router.get("/security/events", async (req: Request, res: Response) => {
     res.json(events);
   } catch (error) {
     console.error("[Bridge] Error fetching security events:", error);
-    safe503(res, "Failed to fetch security events");
+    res.status(503).json({ error: "Failed to fetch security events" });
   }
 });
 
@@ -277,7 +277,7 @@ router.post("/security/events", async (req: Request, res: Response) => {
       return res.status(400).json({ error: "Invalid event data", details: error.errors });
     }
     console.error("[Bridge] Error creating security event:", error);
-    safe503(res, "Failed to create security event");
+    res.status(503).json({ error: "Failed to create security event" });
   }
 });
 
@@ -288,7 +288,7 @@ router.get("/activity", async (req: Request, res: Response) => {
     res.json(activity);
   } catch (error) {
     console.error("[Bridge] Error fetching activity:", error);
-    safe503(res, "Failed to fetch activity");
+    res.status(503).json({ error: "Failed to fetch activity" });
   }
 });
 
@@ -300,7 +300,7 @@ router.get("/activity/chain/:chainId", async (req: Request, res: Response) => {
     res.json(activity);
   } catch (error) {
     console.error("[Bridge] Error fetching chain activity:", error);
-    safe503(res, "Failed to fetch chain activity");
+    res.status(503).json({ error: "Failed to fetch chain activity" });
   }
 });
 
@@ -310,7 +310,7 @@ router.get("/stats", async (_req: Request, res: Response) => {
     res.json(overview);
   } catch (error) {
     console.error("[Bridge] Error fetching overview:", error);
-    safe503(res, "Failed to fetch overview");
+    res.status(503).json({ error: "Failed to fetch overview" });
   }
 });
 
@@ -320,7 +320,7 @@ router.get("/analytics", async (_req: Request, res: Response) => {
     res.json(analytics);
   } catch (error) {
     console.error("[Bridge] Error fetching analytics:", error);
-    safe503(res, "Failed to fetch analytics");
+    res.status(503).json({ error: "Failed to fetch analytics" });
   }
 });
 
@@ -330,7 +330,7 @@ router.post("/analytics/snapshot", async (_req: Request, res: Response) => {
     res.status(201).json(snapshot);
   } catch (error) {
     console.error("[Bridge] Error creating analytics snapshot:", error);
-    safe503(res, "Failed to create analytics snapshot");
+    res.status(503).json({ error: "Failed to create analytics snapshot" });
   }
 });
 
@@ -352,7 +352,7 @@ router.post("/transfers/initiate", async (req: Request, res: Response) => {
       return res.status(400).json({ error: "Invalid transfer data", details: error.errors });
     }
     console.error("[Bridge] Error initiating transfer:", error);
-    safe503(res, "Failed to initiate transfer");
+    res.status(503).json({ error: "Failed to initiate transfer" });
   }
 });
 

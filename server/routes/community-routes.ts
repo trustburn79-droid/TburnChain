@@ -187,7 +187,7 @@ router.get("/stats", async (req: Request, res: Response) => {
     res.json(stats);
   } catch (error) {
     console.error("[Community] Error fetching stats:", error);
-    safe503(res, "Failed to fetch community stats");
+    res.status(503).json({ error: "Failed to fetch community stats" });
   }
 });
 
@@ -259,7 +259,7 @@ router.get("/leaderboard", async (req: Request, res: Response) => {
     res.json(leaderboard);
   } catch (error) {
     console.error("[Community] Error fetching leaderboard:", error);
-    safe503(res, "Failed to fetch leaderboard");
+    res.status(503).json({ error: "Failed to fetch leaderboard" });
   }
 });
 
@@ -342,7 +342,7 @@ router.get("/posts", async (req: Request, res: Response) => {
     res.json(allPosts);
   } catch (error) {
     console.error("[Community] Error fetching posts:", error);
-    safe503(res, "Failed to fetch posts");
+    res.status(503).json({ error: "Failed to fetch posts" });
   }
 });
 
@@ -421,7 +421,7 @@ router.get("/posts/:postId", async (req: Request, res: Response) => {
     }
   } catch (error) {
     console.error("[Community] Error fetching post:", error);
-    safe503(res, "Failed to fetch post");
+    res.status(503).json({ error: "Failed to fetch post" });
   }
 });
 
@@ -477,7 +477,7 @@ router.post("/posts", async (req: Request, res: Response) => {
     });
   } catch (error) {
     console.error("[Community] Error creating post:", error);
-    safe503(res, "Failed to create post");
+    res.status(503).json({ error: "Failed to create post" });
   }
 });
 
@@ -530,7 +530,7 @@ router.post("/posts/:postId/like", async (req: Request, res: Response) => {
     });
   } catch (error) {
     console.error("[Community] Error liking post:", error);
-    safe503(res, "Failed to like post");
+    res.status(503).json({ error: "Failed to like post" });
   }
 });
 
@@ -581,7 +581,7 @@ router.post("/posts/:postId/dislike", async (req: Request, res: Response) => {
     });
   } catch (error) {
     console.error("[Community] Error disliking post:", error);
-    safe503(res, "Failed to dislike post");
+    res.status(503).json({ error: "Failed to dislike post" });
   }
 });
 
@@ -619,7 +619,7 @@ router.get("/posts/:postId/comments", async (req: Request, res: Response) => {
     res.json(formattedComments);
   } catch (error) {
     console.error("[Community] Error fetching comments:", error);
-    safe503(res, "Failed to fetch comments");
+    res.status(503).json({ error: "Failed to fetch comments" });
   }
 });
 
@@ -669,7 +669,7 @@ router.post("/posts/:postId/comments", async (req: Request, res: Response) => {
     });
   } catch (error) {
     console.error("[Community] Error creating comment:", error);
-    safe503(res, "Failed to create comment");
+    res.status(503).json({ error: "Failed to create comment" });
   }
 });
 
@@ -706,7 +706,7 @@ router.post("/comments/:commentId/like", async (req: Request, res: Response) => 
     });
   } catch (error) {
     console.error("[Community] Error liking comment:", error);
-    safe503(res, "Failed to like comment");
+    res.status(503).json({ error: "Failed to like comment" });
   }
 });
 
@@ -751,7 +751,7 @@ router.get("/events", async (req: Request, res: Response) => {
     res.json(events);
   } catch (error) {
     console.error("[Community] Error fetching events:", error);
-    safe503(res, "Failed to fetch events");
+    res.status(503).json({ error: "Failed to fetch events" });
   }
 });
 
@@ -800,7 +800,7 @@ router.post("/events/:eventId/register", async (req: Request, res: Response) => 
     });
   } catch (error) {
     console.error("[Community] Error registering for event:", error);
-    safe503(res, "Failed to register for event");
+    res.status(503).json({ error: "Failed to register for event" });
   }
 });
 
@@ -840,7 +840,7 @@ router.post("/events/:eventId/unregister", async (req: Request, res: Response) =
     });
   } catch (error) {
     console.error("[Community] Error unregistering from event:", error);
-    safe503(res, "Failed to unregister from event");
+    res.status(503).json({ error: "Failed to unregister from event" });
   }
 });
 
@@ -859,7 +859,7 @@ router.get("/events/:eventId/status", async (req: Request, res: Response) => {
     });
   } catch (error) {
     console.error("[Community] Error fetching event status:", error);
-    safe503(res, "Failed to fetch event status");
+    res.status(503).json({ error: "Failed to fetch event status" });
   }
 });
 
@@ -893,7 +893,7 @@ router.get("/announcements", async (req: Request, res: Response) => {
     res.json(announcements);
   } catch (error) {
     console.error("[Community] Error fetching announcements:", error);
-    safe503(res, "Failed to fetch announcements");
+    res.status(503).json({ error: "Failed to fetch announcements" });
   }
 });
 
@@ -946,7 +946,7 @@ router.get("/activity", async (req: Request, res: Response) => {
     res.json(allActivities);
   } catch (error) {
     console.error("[Community] Error fetching activity:", error);
-    safe503(res, "Failed to fetch activity");
+    res.status(503).json({ error: "Failed to fetch activity" });
   }
 });
 
@@ -984,7 +984,7 @@ router.get("/badges", async (req: Request, res: Response) => {
     res.json(badges);
   } catch (error) {
     console.error("[Community] Error fetching badges:", error);
-    safe503(res, "Failed to fetch badges");
+    res.status(503).json({ error: "Failed to fetch badges" });
   }
 });
 
@@ -1058,7 +1058,7 @@ router.post("/badges/:badgeId/progress", async (req: Request, res: Response) => 
     }
   } catch (error) {
     console.error("[Community] Error updating badge progress:", error);
-    safe503(res, "Failed to update badge progress");
+    res.status(503).json({ error: "Failed to update badge progress" });
   }
 });
 
@@ -1101,7 +1101,7 @@ router.post("/badges/:badgeId/award", async (req: Request, res: Response) => {
     });
   } catch (error) {
     console.error("[Community] Error awarding badge:", error);
-    safe503(res, "Failed to award badge");
+    res.status(503).json({ error: "Failed to award badge" });
   }
 });
 
@@ -1145,7 +1145,7 @@ router.get("/user/:userId/badges", async (req: Request, res: Response) => {
     });
   } catch (error) {
     console.error("[Community] Error fetching user badges:", error);
-    safe503(res, "Failed to fetch user badges");
+    res.status(503).json({ error: "Failed to fetch user badges" });
   }
 });
 
@@ -1175,7 +1175,7 @@ router.get("/user-posts", async (req: Request, res: Response) => {
     }
   } catch (error) {
     console.error("[Community] Error fetching user posts:", error);
-    safe503(res, "Failed to fetch user posts");
+    res.status(503).json({ error: "Failed to fetch user posts" });
   }
 });
 
@@ -1195,7 +1195,7 @@ router.get("/activity-log", async (req: Request, res: Response) => {
     })));
   } catch (error) {
     console.error("[Community] Error fetching activity log:", error);
-    safe503(res, "Failed to fetch activity log");
+    res.status(503).json({ error: "Failed to fetch activity log" });
   }
 });
 
@@ -1240,7 +1240,7 @@ router.post("/ambassador-application", async (req: Request, res: Response) => {
     });
   } catch (error) {
     console.error("[Community] Error processing ambassador application:", error);
-    safe503(res, "Failed to submit application");
+    res.status(503).json({ error: "Failed to submit application" });
   }
 });
 

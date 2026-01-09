@@ -110,7 +110,7 @@ router.get('/status', (_req: Request, res: Response) => {
       pendingDecisions: stats.pendingDecisions,
     });
   } catch (error) {
-    sendError(res, error instanceof Error ? error.message : 'Unknown error' });
+    sendError(res, error instanceof Error ? error.message : 'Unknown error');
   }
 });
 
@@ -119,7 +119,7 @@ router.get('/stats', (_req: Request, res: Response) => {
     const rebalancer = getRebalancer();
     sendSuccess(res, rebalancer.getStats());
   } catch (error) {
-    sendError(res, error instanceof Error ? error.message : 'Unknown error' });
+    sendError(res, error instanceof Error ? error.message : 'Unknown error');
   }
 });
 
@@ -141,7 +141,7 @@ router.get('/health', (_req: Request, res: Response) => {
       lastRebalanceAt: stats.lastRebalanceAt || null,
     });
   } catch (error) {
-    sendError(res, error instanceof Error ? error.message : 'Unknown error' });
+    sendError(res, error instanceof Error ? error.message : 'Unknown error');
   }
 });
 
@@ -168,7 +168,7 @@ router.get('/snapshots', (_req: Request, res: Response) => {
     
     sendSuccess(res, { summary, snapshots });
   } catch (error) {
-    sendError(res, error instanceof Error ? error.message : 'Unknown error' });
+    sendError(res, error instanceof Error ? error.message : 'Unknown error');
   }
 });
 
@@ -181,7 +181,7 @@ router.get('/decisions', (_req: Request, res: Response) => {
       history: rebalancer.getDecisionHistory().slice(-50),
     });
   } catch (error) {
-    sendError(res, error instanceof Error ? error.message : 'Unknown error' });
+    sendError(res, error instanceof Error ? error.message : 'Unknown error');
   }
 });
 
@@ -193,7 +193,7 @@ router.get('/migrations', (_req: Request, res: Response) => {
       active: rebalancer.getActiveMigrations(),
     });
   } catch (error) {
-    sendError(res, error instanceof Error ? error.message : 'Unknown error' });
+    sendError(res, error instanceof Error ? error.message : 'Unknown error');
   }
 });
 
@@ -202,7 +202,7 @@ router.get('/thresholds', (_req: Request, res: Response) => {
     const rebalancer = getRebalancer();
     sendSuccess(res, rebalancer.getThresholds());
   } catch (error) {
-    sendError(res, error instanceof Error ? error.message : 'Unknown error' });
+    sendError(res, error instanceof Error ? error.message : 'Unknown error');
   }
 });
 
@@ -216,7 +216,7 @@ router.get('/config', (_req: Request, res: Response) => {
       weights: REBALANCER_CONFIG.WEIGHTS,
     });
   } catch (error) {
-    sendError(res, error instanceof Error ? error.message : 'Unknown error' });
+    sendError(res, error instanceof Error ? error.message : 'Unknown error');
   }
 });
 
@@ -238,7 +238,7 @@ router.post('/start', async (req: Request, res: Response) => {
       state: rebalancer.getState(),
     });
   } catch (error) {
-    sendError(res, error instanceof Error ? error.message : 'Unknown error' });
+    sendError(res, error instanceof Error ? error.message : 'Unknown error');
   }
 });
 
@@ -256,7 +256,7 @@ router.post('/stop', async (req: Request, res: Response) => {
       state: rebalancer.getState(),
     });
   } catch (error) {
-    sendError(res, error instanceof Error ? error.message : 'Unknown error' });
+    sendError(res, error instanceof Error ? error.message : 'Unknown error');
   }
 });
 
@@ -274,7 +274,7 @@ router.post('/pause', (req: Request, res: Response) => {
       state: rebalancer.getState(),
     });
   } catch (error) {
-    sendError(res, error instanceof Error ? error.message : 'Unknown error' });
+    sendError(res, error instanceof Error ? error.message : 'Unknown error');
   }
 });
 
@@ -292,7 +292,7 @@ router.post('/resume', (req: Request, res: Response) => {
       state: rebalancer.getState(),
     });
   } catch (error) {
-    sendError(res, error instanceof Error ? error.message : 'Unknown error' });
+    sendError(res, error instanceof Error ? error.message : 'Unknown error');
   }
 });
 
@@ -310,7 +310,7 @@ router.post('/force-rebalance', (req: Request, res: Response) => {
       state: rebalancer.getState(),
     });
   } catch (error) {
-    sendError(res, error instanceof Error ? error.message : 'Unknown error' });
+    sendError(res, error instanceof Error ? error.message : 'Unknown error');
   }
 });
 
@@ -326,7 +326,7 @@ router.post('/benchmark', async (req: Request, res: Response) => {
     
     sendSuccess(res, result);
   } catch (error) {
-    sendError(res, error instanceof Error ? error.message : 'Unknown error' });
+    sendError(res, error instanceof Error ? error.message : 'Unknown error');
   }
 });
 

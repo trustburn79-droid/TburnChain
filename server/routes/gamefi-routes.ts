@@ -52,7 +52,7 @@ router.get("/stats", async (req: Request, res: Response) => {
     res.json(enhancedOverview);
   } catch (error: any) {
     console.error("[GameFi API] Error fetching stats:", error);
-    safe503(res, "Failed to fetch GameFi stats");
+    res.status(503).json({ error: "Failed to fetch GameFi stats" });
   }
 });
 
@@ -71,7 +71,7 @@ router.get("/projects", async (req: Request, res: Response) => {
     res.json(projects);
   } catch (error: any) {
     console.error("[GameFi API] Error fetching projects:", error);
-    safe503(res, "Failed to fetch projects");
+    res.status(503).json({ error: "Failed to fetch projects" });
   }
 });
 
@@ -89,7 +89,7 @@ router.get("/projects/active", async (req: Request, res: Response) => {
     res.json(projects);
   } catch (error: any) {
     console.error("[GameFi API] Error fetching active projects:", error);
-    safe503(res, "Failed to fetch active projects");
+    res.status(503).json({ error: "Failed to fetch active projects" });
   }
 });
 
@@ -108,7 +108,7 @@ router.get("/projects/featured", async (req: Request, res: Response) => {
     res.json(projects);
   } catch (error: any) {
     console.error("[GameFi API] Error fetching featured projects:", error);
-    safe503(res, "Failed to fetch featured projects");
+    res.status(503).json({ error: "Failed to fetch featured projects" });
   }
 });
 
@@ -121,7 +121,7 @@ router.get("/projects/:id", async (req: Request, res: Response) => {
     res.json(project);
   } catch (error: any) {
     console.error("[GameFi API] Error fetching project:", error);
-    safe503(res, "Failed to fetch project");
+    res.status(503).json({ error: "Failed to fetch project" });
   }
 });
 
@@ -134,7 +134,7 @@ router.get("/projects/slug/:slug", async (req: Request, res: Response) => {
     res.json(project);
   } catch (error: any) {
     console.error("[GameFi API] Error fetching project by slug:", error);
-    safe503(res, "Failed to fetch project");
+    res.status(503).json({ error: "Failed to fetch project" });
   }
 });
 
@@ -144,7 +144,7 @@ router.get("/projects/:id/assets", async (req: Request, res: Response) => {
     res.json(assets);
   } catch (error: any) {
     console.error("[GameFi API] Error fetching project assets:", error);
-    safe503(res, "Failed to fetch assets");
+    res.status(503).json({ error: "Failed to fetch assets" });
   }
 });
 
@@ -156,7 +156,7 @@ router.get("/projects/:id/leaderboard", async (req: Request, res: Response) => {
     res.json(leaderboard);
   } catch (error: any) {
     console.error("[GameFi API] Error fetching leaderboard:", error);
-    safe503(res, "Failed to fetch leaderboard");
+    res.status(503).json({ error: "Failed to fetch leaderboard" });
   }
 });
 
@@ -167,7 +167,7 @@ router.get("/projects/:id/activity", async (req: Request, res: Response) => {
     res.json(activity);
   } catch (error: any) {
     console.error("[GameFi API] Error fetching project activity:", error);
-    safe503(res, "Failed to fetch activity");
+    res.status(503).json({ error: "Failed to fetch activity" });
   }
 });
 
@@ -177,7 +177,7 @@ router.get("/assets/owner/:walletAddress", async (req: Request, res: Response) =
     res.json(assets);
   } catch (error: any) {
     console.error("[GameFi API] Error fetching player assets:", error);
-    safe503(res, "Failed to fetch player assets");
+    res.status(503).json({ error: "Failed to fetch player assets" });
   }
 });
 
@@ -187,7 +187,7 @@ router.get("/tournaments", async (req: Request, res: Response) => {
     res.json(tournaments);
   } catch (error: any) {
     console.error("[GameFi API] Error fetching tournaments:", error);
-    safe503(res, "Failed to fetch tournaments");
+    res.status(503).json({ error: "Failed to fetch tournaments" });
   }
 });
 
@@ -197,7 +197,7 @@ router.get("/tournaments/active", async (req: Request, res: Response) => {
     res.json(tournaments);
   } catch (error: any) {
     console.error("[GameFi API] Error fetching active tournaments:", error);
-    safe503(res, "Failed to fetch active tournaments");
+    res.status(503).json({ error: "Failed to fetch active tournaments" });
   }
 });
 
@@ -207,7 +207,7 @@ router.get("/tournaments/upcoming", async (req: Request, res: Response) => {
     res.json(tournaments);
   } catch (error: any) {
     console.error("[GameFi API] Error fetching upcoming tournaments:", error);
-    safe503(res, "Failed to fetch upcoming tournaments");
+    res.status(503).json({ error: "Failed to fetch upcoming tournaments" });
   }
 });
 
@@ -220,7 +220,7 @@ router.get("/tournaments/:id", async (req: Request, res: Response) => {
     res.json(tournament);
   } catch (error: any) {
     console.error("[GameFi API] Error fetching tournament:", error);
-    safe503(res, "Failed to fetch tournament");
+    res.status(503).json({ error: "Failed to fetch tournament" });
   }
 });
 
@@ -230,7 +230,7 @@ router.get("/tournaments/:id/participants", async (req: Request, res: Response) 
     res.json(participants);
   } catch (error: any) {
     console.error("[GameFi API] Error fetching tournament participants:", error);
-    safe503(res, "Failed to fetch participants");
+    res.status(503).json({ error: "Failed to fetch participants" });
   }
 });
 
@@ -241,7 +241,7 @@ router.get("/badges", async (req: Request, res: Response) => {
     res.json(badges);
   } catch (error: any) {
     console.error("[GameFi API] Error fetching badges:", error);
-    safe503(res, "Failed to fetch badges");
+    res.status(503).json({ error: "Failed to fetch badges" });
   }
 });
 
@@ -251,7 +251,7 @@ router.get("/badges/global", async (req: Request, res: Response) => {
     res.json(badges);
   } catch (error: any) {
     console.error("[GameFi API] Error fetching global badges:", error);
-    safe503(res, "Failed to fetch global badges");
+    res.status(503).json({ error: "Failed to fetch global badges" });
   }
 });
 
@@ -261,7 +261,7 @@ router.get("/player/:walletAddress/achievements", async (req: Request, res: Resp
     res.json(achievements);
   } catch (error: any) {
     console.error("[GameFi API] Error fetching player achievements:", error);
-    safe503(res, "Failed to fetch achievements");
+    res.status(503).json({ error: "Failed to fetch achievements" });
   }
 });
 
@@ -271,7 +271,7 @@ router.get("/player/:walletAddress/rewards", async (req: Request, res: Response)
     res.json(rewards);
   } catch (error: any) {
     console.error("[GameFi API] Error fetching player rewards:", error);
-    safe503(res, "Failed to fetch rewards");
+    res.status(503).json({ error: "Failed to fetch rewards" });
   }
 });
 
@@ -281,7 +281,7 @@ router.get("/player/:walletAddress/pending-rewards", async (req: Request, res: R
     res.json(rewards);
   } catch (error: any) {
     console.error("[GameFi API] Error fetching pending rewards:", error);
-    safe503(res, "Failed to fetch pending rewards");
+    res.status(503).json({ error: "Failed to fetch pending rewards" });
   }
 });
 
@@ -292,7 +292,7 @@ router.get("/activity", async (req: Request, res: Response) => {
     res.json(activity);
   } catch (error: any) {
     console.error("[GameFi API] Error fetching activity:", error);
-    safe503(res, "Failed to fetch activity");
+    res.status(503).json({ error: "Failed to fetch activity" });
   }
 });
 
@@ -317,7 +317,7 @@ router.post("/tournaments/:id/join", async (req: Request, res: Response) => {
     });
   } catch (error: any) {
     console.error("[GameFi API] Error joining tournament:", error);
-    res.status(400).json({ error: error.message || "Failed to join tournament");
+    res.status(400).json({ error: error.message || "Failed to join tournament" });
   }
 });
 
@@ -338,7 +338,7 @@ router.post("/rewards/claim", async (req: Request, res: Response) => {
     });
   } catch (error: any) {
     console.error("[GameFi API] Error claiming rewards:", error);
-    res.status(400).json({ error: error.message || "Failed to claim rewards");
+    res.status(400).json({ error: error.message || "Failed to claim rewards" });
   }
 });
 
@@ -359,7 +359,7 @@ router.post("/assets/:id/equip", async (req: Request, res: Response) => {
     });
   } catch (error: any) {
     console.error("[GameFi API] Error equipping asset:", error);
-    res.status(400).json({ error: error.message || "Failed to equip asset");
+    res.status(400).json({ error: error.message || "Failed to equip asset" });
   }
 });
 
@@ -372,7 +372,7 @@ router.get("/assets/:id", async (req: Request, res: Response) => {
     res.json(asset);
   } catch (error: any) {
     console.error("[GameFi API] Error fetching asset:", error);
-    safe503(res, "Failed to fetch asset");
+    res.status(503).json({ error: "Failed to fetch asset" });
   }
 });
 

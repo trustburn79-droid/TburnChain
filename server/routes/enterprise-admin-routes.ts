@@ -885,7 +885,7 @@ router.get('/alerts/rules', async (_req: Request, res: Response) => {
     res.json({ rules: formattedRules, totalCount: rules.length });
   } catch (error) {
     console.error('[AlertRules] Error fetching rules:', error);
-    safe503(res, 'Failed to fetch alert rules');
+    res.status(503).json({ error: 'Failed to fetch alert rules' });
   }
 });
 
@@ -905,7 +905,7 @@ router.post('/alerts/rules', async (req: Request, res: Response) => {
     res.json({ success: true, rule });
   } catch (error) {
     console.error('[AlertRules] Error creating rule:', error);
-    safe503(res, 'Failed to create alert rule');
+    res.status(503).json({ error: 'Failed to create alert rule' });
   }
 });
 
@@ -916,7 +916,7 @@ router.patch('/alerts/rules/:id', async (req: Request, res: Response) => {
     res.json({ success: true, rule });
   } catch (error) {
     console.error('[AlertRules] Error updating rule:', error);
-    safe503(res, 'Failed to update alert rule');
+    res.status(503).json({ error: 'Failed to update alert rule' });
   }
 });
 
@@ -926,7 +926,7 @@ router.delete('/alerts/rules/:id', async (req: Request, res: Response) => {
     res.json({ success: true });
   } catch (error) {
     console.error('[AlertRules] Error deleting rule:', error);
-    safe503(res, 'Failed to delete alert rule');
+    res.status(503).json({ error: 'Failed to delete alert rule' });
   }
 });
 
@@ -1156,7 +1156,7 @@ router.get('/announcements', async (_req: Request, res: Response) => {
     res.json({ announcements: formattedAnnouncements });
   } catch (error) {
     console.error('[Announcements] Error fetching announcements:', error);
-    safe503(res, 'Failed to fetch announcements');
+    res.status(503).json({ error: 'Failed to fetch announcements' });
   }
 });
 
@@ -1177,7 +1177,7 @@ router.post('/announcements', async (req: Request, res: Response) => {
     res.json({ success: true, announcement });
   } catch (error) {
     console.error('[Announcements] Error creating announcement:', error);
-    safe503(res, 'Failed to create announcement');
+    res.status(503).json({ error: 'Failed to create announcement' });
   }
 });
 
@@ -1188,7 +1188,7 @@ router.patch('/announcements/:id', async (req: Request, res: Response) => {
     res.json({ success: true, announcement });
   } catch (error) {
     console.error('[Announcements] Error updating announcement:', error);
-    safe503(res, 'Failed to update announcement');
+    res.status(503).json({ error: 'Failed to update announcement' });
   }
 });
 
@@ -1199,7 +1199,7 @@ router.post('/announcements/:id/publish', async (req: Request, res: Response) =>
     res.json({ success: true, id: req.params.id, status: 'published', publishedAt: announcement?.publishedAt?.toISOString() });
   } catch (error) {
     console.error('[Announcements] Error publishing announcement:', error);
-    safe503(res, 'Failed to publish announcement');
+    res.status(503).json({ error: 'Failed to publish announcement' });
   }
 });
 
@@ -1209,7 +1209,7 @@ router.post('/announcements/:id/archive', async (req: Request, res: Response) =>
     res.json({ success: true, id: req.params.id, status: 'archived' });
   } catch (error) {
     console.error('[Announcements] Error archiving announcement:', error);
-    safe503(res, 'Failed to archive announcement');
+    res.status(503).json({ error: 'Failed to archive announcement' });
   }
 });
 

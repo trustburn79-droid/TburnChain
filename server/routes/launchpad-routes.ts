@@ -39,7 +39,7 @@ router.get("/stats", async (req: Request, res: Response) => {
     res.json(enhancedOverview);
   } catch (error) {
     console.error("[Launchpad API] Stats error:", error);
-    safe503(res, "Failed to fetch launchpad stats");
+    res.status(503).json({ error: "Failed to fetch launchpad stats" });
   }
 });
 
@@ -61,7 +61,7 @@ router.get("/projects", async (req: Request, res: Response) => {
     res.json(projects);
   } catch (error) {
     console.error("[Launchpad API] Projects error:", error);
-    safe503(res, "Failed to fetch projects");
+    res.status(503).json({ error: "Failed to fetch projects" });
   }
 });
 
@@ -72,7 +72,7 @@ router.get("/projects/featured", async (req: Request, res: Response) => {
     res.json(projects);
   } catch (error) {
     console.error("[Launchpad API] Featured projects error:", error);
-    safe503(res, "Failed to fetch featured projects");
+    res.status(503).json({ error: "Failed to fetch featured projects" });
   }
 });
 
@@ -89,7 +89,7 @@ router.get("/projects/:id", async (req: Request, res: Response) => {
     res.json({ project, rounds });
   } catch (error) {
     console.error("[Launchpad API] Project detail error:", error);
-    safe503(res, "Failed to fetch project details");
+    res.status(503).json({ error: "Failed to fetch project details" });
   }
 });
 
@@ -100,7 +100,7 @@ router.get("/projects/:id/rounds", async (req: Request, res: Response) => {
     res.json(rounds);
   } catch (error) {
     console.error("[Launchpad API] Rounds error:", error);
-    safe503(res, "Failed to fetch project rounds");
+    res.status(503).json({ error: "Failed to fetch project rounds" });
   }
 });
 
@@ -112,7 +112,7 @@ router.get("/projects/:id/activity", async (req: Request, res: Response) => {
     res.json(activity);
   } catch (error) {
     console.error("[Launchpad API] Project activity error:", error);
-    safe503(res, "Failed to fetch project activity");
+    res.status(503).json({ error: "Failed to fetch project activity" });
   }
 });
 
@@ -122,7 +122,7 @@ router.get("/rounds/active", async (req: Request, res: Response) => {
     res.json(rounds);
   } catch (error) {
     console.error("[Launchpad API] Active rounds error:", error);
-    safe503(res, "Failed to fetch active rounds");
+    res.status(503).json({ error: "Failed to fetch active rounds" });
   }
 });
 
@@ -133,7 +133,7 @@ router.get("/whitelist/:projectId/:walletAddress", async (req: Request, res: Res
     res.json(status);
   } catch (error) {
     console.error("[Launchpad API] Whitelist status error:", error);
-    safe503(res, "Failed to fetch whitelist status");
+    res.status(503).json({ error: "Failed to fetch whitelist status" });
   }
 });
 
@@ -144,7 +144,7 @@ router.get("/allocations/:walletAddress", async (req: Request, res: Response) =>
     res.json(allocations);
   } catch (error) {
     console.error("[Launchpad API] Allocations error:", error);
-    safe503(res, "Failed to fetch user allocations");
+    res.status(503).json({ error: "Failed to fetch user allocations" });
   }
 });
 
@@ -155,7 +155,7 @@ router.get("/vesting/:walletAddress", async (req: Request, res: Response) => {
     res.json(vesting);
   } catch (error) {
     console.error("[Launchpad API] Vesting error:", error);
-    safe503(res, "Failed to fetch user vesting");
+    res.status(503).json({ error: "Failed to fetch user vesting" });
   }
 });
 
@@ -166,7 +166,7 @@ router.get("/activity", async (req: Request, res: Response) => {
     res.json(activity);
   } catch (error) {
     console.error("[Launchpad API] Activity error:", error);
-    safe503(res, "Failed to fetch activity");
+    res.status(503).json({ error: "Failed to fetch activity" });
   }
 });
 
@@ -183,7 +183,7 @@ router.post("/mint", async (req: Request, res: Response) => {
     res.json(result);
   } catch (error: any) {
     console.error("[Launchpad API] Mint error:", error);
-    res.status(400).json({ error: error.message || "Failed to mint NFT");
+    res.status(400).json({ error: error.message || "Failed to mint NFT" });
   }
 });
 
@@ -199,7 +199,7 @@ router.post("/whitelist/join", async (req: Request, res: Response) => {
     res.json(result);
   } catch (error: any) {
     console.error("[Launchpad API] Whitelist join error:", error);
-    res.status(400).json({ error: error.message || "Failed to join whitelist");
+    res.status(400).json({ error: error.message || "Failed to join whitelist" });
   }
 });
 
@@ -215,7 +215,7 @@ router.post("/claim", async (req: Request, res: Response) => {
     res.json(result);
   } catch (error: any) {
     console.error("[Launchpad API] Claim error:", error);
-    res.status(400).json({ error: error.message || "Failed to claim NFT");
+    res.status(400).json({ error: error.message || "Failed to claim NFT" });
   }
 });
 
