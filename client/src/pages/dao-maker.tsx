@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import { Link } from "wouter";
 import { useQuery } from "@tanstack/react-query";
 import { useWeb3 } from "@/lib/web3-context";
+import { useToast } from "@/hooks/use-toast";
 
 interface LaunchpadPlatform {
   name: string;
@@ -26,6 +26,7 @@ interface LaunchpadStatsResponse {
 
 export default function DAOMakerPage() {
   const { isConnected, address, connect, disconnect, formatAddress } = useWeb3();
+  const { toast } = useToast();
   const [activeTab, setActiveTab] = useState("tiers");
   const [allocationAmount, setAllocationAmount] = useState(1000);
   const [showModal, setShowModal] = useState(false);
@@ -55,6 +56,44 @@ export default function DAOMakerPage() {
     return () => clearInterval(timer);
   }, []);
 
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
+  const handleWalletClick = () => {
+    if (isConnected) {
+      disconnect();
+      toast({
+        title: "지갑 연결 해제",
+        description: "지갑이 성공적으로 연결 해제되었습니다.",
+      });
+    } else {
+      connect("metamask");
+      toast({
+        title: "지갑 연결 중",
+        description: "MetaMask 지갑 연결을 시도하고 있습니다.",
+      });
+    }
+  };
+
+  const handleShareSocial = (platform: string, url: string) => {
+    window.open(url, '_blank');
+    toast({
+      title: `${platform} 열기`,
+      description: `${platform} 페이지로 이동합니다.`,
+    });
+  };
+
+  const handleNavItem = (itemName: string) => {
+    toast({
+      title: `${itemName} 메뉴`,
+      description: `${itemName} 기능은 곧 출시됩니다.`,
+    });
+  };
+
   const tokenPrice = 0.02;
   const daoTier = "Silver";
   const maxAllocation = 2500;
@@ -65,9 +104,54 @@ export default function DAOMakerPage() {
   const tgeTokens = totalTokens * 0.15;
 
   const handlePurchase = () => {
+    if (!isConnected) {
+      toast({
+        variant: "destructive",
+        title: "지갑 연결 필요",
+        description: "SHO 참여를 위해 먼저 지갑을 연결해주세요.",
+      });
+      return;
+    }
+    if (allocationAmount < 100) {
+      toast({
+        variant: "destructive",
+        title: "최소 금액 미달",
+        description: "최소 $100 이상 참여해야 합니다.",
+      });
+      return;
+    }
+    if (allocationAmount > maxAllocation) {
+      toast({
+        variant: "destructive",
+        title: "최대 금액 초과",
+        description: `${daoTier} 티어 최대 할당량 $${maxAllocation.toLocaleString()}을 초과했습니다.`,
+      });
+      return;
+    }
     setShowModal(true);
     setModalStatus("pending");
-    setTimeout(() => setModalStatus("success"), 2500);
+    setTimeout(() => {
+      setModalStatus("success");
+      toast({
+        title: "SHO 참여 완료!",
+        description: `${totalTokens.toLocaleString()} TBURN 토큰 구매가 완료되었습니다.`,
+      });
+    }, 2500);
+  };
+
+  const handleStakeDAO = () => {
+    if (!isConnected) {
+      toast({
+        variant: "destructive",
+        title: "지갑 연결 필요",
+        description: "DAO 토큰 스테이킹을 위해 먼저 지갑을 연결해주세요.",
+      });
+      return;
+    }
+    toast({
+      title: "스테이킹 페이지로 이동",
+      description: "DAO Power를 높이기 위한 스테이킹 페이지로 이동합니다.",
+    });
   };
 
   const quickAmounts = [100, 500, 1000, 2500];
@@ -104,10 +188,47 @@ export default function DAOMakerPage() {
   ];
 
   const faqItems = [
-    { q: "SHO(Strong Holder Offering)란 무엇인가요?", a: "SHO는 DAO Maker의 독점적인 토큰 세일 방식입니다. DAO Power를 보유한 사용자만 참여할 수 있으며, 보유량에 따라 티어가 결정되고 할당량이 달라집니다." },
-    { q: "DAO Power는 어떻게 얻나요?", a: "DAO Maker 플랫폼에서 DAO 토큰을 스테이킹하여 DAO Power를 획득할 수 있습니다. 스테이킹 기간과 수량에 따라 DAO Power가 결정됩니다." },
-    { q: "리펀드 정책은 어떻게 작동하나요?", a: "TGE 후 30일 내에 토큰 가격이 세일 가격 이하로 하락하면, 참여자는 구매한 토큰을 반환하고 100% 환불받을 수 있습니다." },
-    { q: "최소/최대 참여 금액은 얼마인가요?", a: "최소 $100부터 참여 가능하며, 최대 참여 금액은 DAO Power 티어에 따라 달라집니다 (Bronze: $500, Silver: $2,500, Gold: $10,000)." },
+    { 
+      q: "SHO(Strong Holder Offering)란 무엇인가요?", 
+      a: "SHO는 DAO Maker의 독점적인 토큰 세일 방식입니다. DAO Power를 보유한 사용자만 참여할 수 있으며, 보유량에 따라 티어가 결정되고 할당량이 달라집니다. Bronze(1,000+), Silver(5,000+), Gold(25,000+) 세 가지 티어가 있습니다." 
+    },
+    { 
+      q: "DAO Power는 어떻게 얻나요?", 
+      a: "DAO Maker 플랫폼에서 DAO 토큰을 스테이킹하여 DAO Power를 획득할 수 있습니다. 스테이킹 기간과 수량에 따라 DAO Power가 결정됩니다. 더 오래 스테이킹할수록 더 많은 DAO Power를 얻을 수 있습니다." 
+    },
+    { 
+      q: "리펀드 정책은 어떻게 작동하나요?", 
+      a: "TGE(Token Generation Event) 후 30일 내에 토큰 가격이 세일 가격($0.02) 이하로 하락하면, 참여자는 구매한 토큰을 반환하고 100% 환불받을 수 있습니다. 이는 DAO Maker의 투자자 보호 정책입니다." 
+    },
+    { 
+      q: "최소/최대 참여 금액은 얼마인가요?", 
+      a: "최소 $100부터 참여 가능하며, 최대 참여 금액은 DAO Power 티어에 따라 달라집니다. Bronze: $500, Silver: $2,500, Gold: $10,000까지 참여할 수 있습니다. 티어가 높을수록 더 많은 할당량을 받습니다." 
+    },
+    { 
+      q: "토큰은 언제 받을 수 있나요?", 
+      a: "TGE 시점에 15%가 즉시 해제되며, 3개월 클리프 기간 후 나머지 85%가 12개월 동안 선형 베스팅으로 지급됩니다. 총 베스팅 기간은 15개월입니다." 
+    },
+    { 
+      q: "티어별 보너스 혜택은 무엇인가요?", 
+      a: "Silver 티어($2,500 이상 할당)는 +1% 보너스 토큰을 받고, Gold 티어($10,000 이상 할당)는 +3% 보너스 토큰을 받습니다. 또한 Gold 티어는 보장 할당과 VIP 커뮤니티 접근 권한도 제공됩니다." 
+    },
+    { 
+      q: "SHO 참여 방법은 어떻게 되나요?", 
+      a: "1) DAO 토큰을 스테이킹하여 DAO Power 획득, 2) 지갑 연결 후 KYC 완료, 3) 원하는 금액 입력 및 USDT로 결제, 4) 스마트 컨트랙트를 통한 안전한 토큰 구매 완료. SHO 기간 내 참여해야 합니다." 
+    },
+    { 
+      q: "문의나 지원이 필요하면 어떻게 하나요?", 
+      a: "DAO Maker 공식 Discord, Telegram 커뮤니티를 통해 지원받으실 수 있습니다. 또는 support@daomaker.com으로 이메일 문의하거나, TBURN 공식 커뮤니티(support@tburnchain.io)에 문의해 주세요." 
+    },
+  ];
+
+  const socialLinks = [
+    { icon: "🐦", name: "Twitter", url: "https://x.com/tburnchain" },
+    { icon: "📱", name: "Telegram", url: "https://t.me/tburnchain" },
+    { icon: "💬", name: "Discord", url: "https://discord.gg/tburnchain" },
+    { icon: "📝", name: "Medium", url: "https://medium.com/@tburnchain" },
+    { icon: "💻", name: "GitHub", url: "https://github.com/tburnchain" },
+    { icon: "🌐", name: "Website", url: "https://tburnchain.io" },
   ];
 
   return (
@@ -176,6 +297,7 @@ export default function DAOMakerPage() {
           align-items: center;
           gap: 10px;
           text-decoration: none;
+          cursor: pointer;
         }
 
         .dm-logo-icon {
@@ -272,7 +394,7 @@ export default function DAOMakerPage() {
         .dm-hero-container { max-width: 1400px; margin: 0 auto; position: relative; z-index: 1; }
 
         .dm-breadcrumb { display: flex; align-items: center; gap: 8px; margin-bottom: 2rem; font-size: 0.85rem; }
-        .dm-breadcrumb a { color: var(--dao-text-muted); text-decoration: none; transition: color 0.3s; }
+        .dm-breadcrumb a { color: var(--dao-text-muted); text-decoration: none; transition: color 0.3s; cursor: pointer; }
         .dm-breadcrumb a:hover { color: var(--dao-primary); }
         .dm-breadcrumb span { color: var(--dao-text-muted); }
         .dm-breadcrumb .current { color: var(--white); }
@@ -356,6 +478,7 @@ export default function DAOMakerPage() {
           text-decoration: none;
           transition: all 0.3s;
           font-size: 1.25rem;
+          cursor: pointer;
         }
 
         .dm-social-btn:hover { border-color: var(--dao-primary); color: var(--dao-primary); transform: translateY(-3px); }
@@ -576,9 +699,9 @@ export default function DAOMakerPage() {
           justify-content: center;
           color: var(--dao-accent);
           font-size: 1.25rem;
-          flex-shrink: 0;
         }
 
+        .dm-refund-policy .content { flex: 1; }
         .dm-refund-policy .content h5 { font-size: 0.9rem; font-weight: 700; color: var(--dao-accent); margin-bottom: 0.25rem; }
         .dm-refund-policy .content p { font-size: 0.8rem; color: var(--dao-text-muted); }
 
@@ -589,10 +712,10 @@ export default function DAOMakerPage() {
           gap: 10px;
           width: 100%;
           padding: 16px;
-          background: var(--gradient-dao);
+          background: var(--gradient-sho);
           border: none;
           border-radius: 14px;
-          color: var(--dao-dark);
+          color: var(--white);
           font-size: 1.125rem;
           font-weight: 800;
           cursor: pointer;
@@ -600,7 +723,7 @@ export default function DAOMakerPage() {
           animation: glow 2s infinite;
         }
 
-        .dm-purchase-btn:hover { transform: translateY(-2px); box-shadow: 0 15px 40px rgba(0, 212, 170, 0.3); }
+        .dm-purchase-btn:hover { transform: translateY(-2px); box-shadow: 0 15px 40px rgba(123, 97, 255, 0.3); }
 
         .dm-security-note {
           display: flex;
@@ -612,7 +735,7 @@ export default function DAOMakerPage() {
           color: var(--dao-text-muted);
         }
 
-        .dm-security-note span { color: var(--success); }
+        .dm-security-note span { color: var(--dao-primary); }
 
         .dm-details-section { max-width: 1400px; margin: 0 auto; padding: 3rem 2rem; }
 
@@ -620,29 +743,26 @@ export default function DAOMakerPage() {
           display: flex;
           gap: 0.5rem;
           margin-bottom: 2rem;
-          padding-bottom: 1rem;
           border-bottom: 1px solid var(--dao-border);
-          overflow-x: auto;
-          flex-wrap: wrap;
+          padding-bottom: 1rem;
         }
 
         .dm-section-tab {
           padding: 10px 20px;
           background: transparent;
           border: none;
-          border-radius: 10px;
+          border-radius: 8px;
           color: var(--dao-text-muted);
-          font-size: 0.95rem;
+          font-size: 1rem;
           font-weight: 600;
           cursor: pointer;
           transition: all 0.3s;
-          white-space: nowrap;
         }
 
         .dm-section-tab:hover { color: var(--white); }
-        .dm-section-tab.active { background: var(--gradient-dao); color: var(--dao-dark); }
+        .dm-section-tab.active { background: var(--dao-card); color: var(--dao-primary); }
 
-        .dm-tab-content { display: none; animation: slideUp 0.3s ease; }
+        .dm-tab-content { display: none; animation: slideUp 0.3s ease-out; }
         .dm-tab-content.active { display: block; }
 
         .dm-tiers-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
@@ -653,12 +773,10 @@ export default function DAOMakerPage() {
           border-radius: 20px;
           overflow: hidden;
           transition: all 0.3s;
-          position: relative;
         }
 
         .dm-tier-card:hover { border-color: var(--dao-primary); transform: translateY(-5px); }
-        .dm-tier-card.recommended { border-color: var(--dao-secondary); }
-
+        .dm-tier-card.recommended { border-color: var(--dao-secondary); position: relative; }
         .dm-tier-card.recommended::before {
           content: '추천';
           position: absolute;
@@ -674,25 +792,24 @@ export default function DAOMakerPage() {
         .dm-tier-header { padding: 1.5rem; text-align: center; border-bottom: 1px solid var(--dao-border); }
         .dm-tier-icon { font-size: 3rem; margin-bottom: 0.75rem; }
         .dm-tier-name { font-size: 1.25rem; font-weight: 800; margin-bottom: 0.25rem; }
-        .dm-tier-power { font-size: 0.9rem; color: var(--dao-secondary); font-weight: 600; }
+        .dm-tier-power { font-size: 0.85rem; color: var(--dao-secondary); font-weight: 600; }
 
         .dm-tier-body { padding: 1.5rem; }
-
         .dm-tier-allocation { text-align: center; padding: 1rem; background: var(--dao-darker); border-radius: 12px; margin-bottom: 1rem; }
         .dm-tier-allocation .label { font-size: 0.8rem; color: var(--dao-text-muted); margin-bottom: 0.25rem; }
         .dm-tier-allocation .value { font-size: 1.5rem; font-weight: 800; color: var(--dao-primary); }
 
         .dm-tier-features { display: flex; flex-direction: column; gap: 0.75rem; }
-        .dm-tier-feature { display: flex; align-items: center; gap: 10px; font-size: 0.9rem; }
-        .dm-tier-feature span.check { color: var(--success); font-size: 0.85rem; }
+        .dm-tier-feature { display: flex; align-items: center; gap: 10px; font-size: 0.9rem; color: var(--dao-text); }
+        .dm-tier-feature .check { color: var(--dao-primary); font-weight: 700; }
 
-        .dm-vesting-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+        .dm-vesting-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; }
 
         .dm-vesting-card {
           background: var(--dao-card);
           border: 1px solid var(--dao-border);
           border-radius: 20px;
-          padding: 2rem;
+          padding: 1.5rem;
         }
 
         .dm-vesting-card h3 {
@@ -704,67 +821,59 @@ export default function DAOMakerPage() {
           gap: 10px;
         }
 
-        .dm-vesting-card h3 span { color: var(--dao-primary); }
-
-        .dm-vesting-timeline { position: relative; }
+        .dm-vesting-timeline { display: flex; flex-direction: column; gap: 1rem; }
 
         .dm-vesting-item {
           display: flex;
+          align-items: center;
           gap: 1rem;
-          padding-bottom: 1.5rem;
-          position: relative;
+          padding: 1rem;
+          background: var(--dao-darker);
+          border-radius: 12px;
+          border: 1px solid transparent;
         }
 
-        .dm-vesting-item::before {
-          content: '';
-          position: absolute;
-          left: 15px;
-          top: 30px;
-          bottom: 0;
-          width: 2px;
-          background: var(--dao-border);
-        }
-
-        .dm-vesting-item:last-child::before { display: none; }
+        .dm-vesting-item.active { border-color: var(--dao-primary); background: rgba(0, 212, 170, 0.1); }
 
         .dm-vesting-dot {
           width: 32px;
           height: 32px;
+          background: var(--dao-border);
           border-radius: 50%;
-          background: var(--dao-darker);
-          border: 2px solid var(--dao-border);
           display: flex;
           align-items: center;
           justify-content: center;
-          font-size: 0.75rem;
+          font-size: 0.8rem;
+          font-weight: 700;
+          color: var(--dao-text-muted);
           flex-shrink: 0;
-          z-index: 1;
         }
 
-        .dm-vesting-item.active .dm-vesting-dot { background: var(--dao-primary); border-color: var(--dao-primary); color: var(--dao-dark); }
+        .dm-vesting-item.active .dm-vesting-dot { background: var(--dao-primary); color: var(--dao-dark); }
 
         .dm-vesting-content { flex: 1; }
-        .dm-vesting-content .title { font-weight: 600; margin-bottom: 0.25rem; }
-        .dm-vesting-content .desc { font-size: 0.85rem; color: var(--dao-text-muted); }
-        .dm-vesting-percent { font-weight: 800; color: var(--dao-primary); }
+        .dm-vesting-content .title { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.25rem; }
+        .dm-vesting-content .desc { font-size: 0.8rem; color: var(--dao-text-muted); }
+        .dm-vesting-percent { font-size: 1.125rem; font-weight: 800; color: var(--dao-primary); }
 
         .dm-vesting-chart { display: flex; flex-direction: column; gap: 1rem; }
 
         .dm-chart-bar { display: flex; align-items: center; gap: 1rem; }
-        .dm-chart-label { width: 80px; font-size: 0.85rem; color: var(--dao-text-muted); }
-        .dm-chart-track { flex: 1; height: 24px; background: var(--dao-darker); border-radius: 100px; overflow: hidden; }
+        .dm-chart-label { width: 60px; font-size: 0.85rem; color: var(--dao-text-muted); text-align: right; }
+        .dm-chart-track { flex: 1; height: 32px; background: var(--dao-darker); border-radius: 8px; overflow: hidden; }
 
         .dm-chart-fill {
           height: 100%;
           background: var(--gradient-dao);
-          border-radius: 100px;
+          border-radius: 8px;
           display: flex;
           align-items: center;
           justify-content: flex-end;
           padding-right: 10px;
-          font-size: 0.75rem;
+          font-size: 0.8rem;
           font-weight: 700;
           color: var(--dao-dark);
+          min-width: 40px;
         }
 
         .dm-governance-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
@@ -773,43 +882,30 @@ export default function DAOMakerPage() {
           background: var(--dao-card);
           border: 1px solid var(--dao-border);
           border-radius: 20px;
-          padding: 2rem;
-          text-align: center;
+          padding: 1.5rem;
           transition: all 0.3s;
         }
 
-        .dm-governance-card:hover { border-color: var(--dao-primary); transform: translateY(-5px); }
+        .dm-governance-card:hover { border-color: var(--dao-primary); transform: translateY(-3px); }
 
-        .dm-governance-icon {
-          width: 70px;
-          height: 70px;
-          margin: 0 auto 1.25rem;
-          background: var(--gradient-dao);
-          border-radius: 20px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          font-size: 2rem;
-        }
+        .dm-governance-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+        .dm-governance-card h4 { font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem; }
+        .dm-governance-card p { font-size: 0.9rem; color: var(--dao-text-muted); line-height: 1.6; }
 
-        .dm-governance-card h4 { font-size: 1.125rem; font-weight: 700; margin-bottom: 0.5rem; }
-        .dm-governance-card p { font-size: 0.9rem; color: var(--dao-text-muted); }
-
-        .dm-faq-list { max-width: 900px; }
+        .dm-faq-list { display: flex; flex-direction: column; gap: 1rem; max-width: 800px; }
 
         .dm-faq-item {
           background: var(--dao-card);
           border: 1px solid var(--dao-border);
           border-radius: 16px;
-          margin-bottom: 1rem;
           overflow: hidden;
         }
 
         .dm-faq-question {
-          padding: 1.25rem;
           display: flex;
           justify-content: space-between;
           align-items: center;
+          padding: 1.25rem;
           cursor: pointer;
           transition: background 0.3s;
         }
@@ -820,150 +916,185 @@ export default function DAOMakerPage() {
         .dm-faq-item.active .dm-faq-question .arrow { transform: rotate(180deg); }
 
         .dm-faq-answer {
-          padding: 0 1.25rem;
           max-height: 0;
           overflow: hidden;
-          transition: all 0.3s;
+          transition: max-height 0.3s, padding 0.3s;
         }
 
-        .dm-faq-item.active .dm-faq-answer { padding: 0 1.25rem 1.25rem; max-height: 500px; }
-        .dm-faq-answer p { color: var(--dao-text-muted); line-height: 1.8; }
-
-        .dm-modal-overlay {
-          position: fixed;
-          inset: 0;
-          background: rgba(0, 0, 0, 0.85);
-          backdrop-filter: blur(10px);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          z-index: 2000;
+        .dm-faq-item.active .dm-faq-answer {
+          max-height: 300px;
+          padding: 0 1.25rem 1.25rem;
         }
 
-        .dm-modal {
-          background: var(--dao-card);
-          border: 1px solid var(--dao-border);
-          border-radius: 24px;
-          width: 100%;
-          max-width: 450px;
-          overflow: hidden;
-          animation: slideUp 0.3s ease;
+        .dm-faq-answer p { color: var(--dao-text); font-size: 0.95rem; line-height: 1.7; }
+
+        .dm-footer {
+          background: var(--dao-dark);
+          border-top: 1px solid var(--dao-border);
+          padding: 2rem;
         }
 
-        .dm-modal-header {
-          padding: 1.5rem;
-          background: var(--gradient-dao);
+        .dm-footer-content {
+          max-width: 1400px;
+          margin: 0 auto;
           display: flex;
           justify-content: space-between;
           align-items: center;
         }
 
-        .dm-modal-header h3 { font-size: 1.25rem; font-weight: 800; color: var(--dao-dark); }
+        .dm-footer-links { display: flex; gap: 2rem; }
+        .dm-footer-links a { color: var(--dao-text-muted); text-decoration: none; font-size: 0.9rem; transition: color 0.3s; cursor: pointer; }
+        .dm-footer-links a:hover { color: var(--dao-primary); }
 
-        .dm-modal-close {
+        .dm-footer-social { display: flex; gap: 1rem; }
+
+        .dm-footer-social-link {
           width: 36px;
           height: 36px;
-          border-radius: 10px;
-          background: rgba(0, 0, 0, 0.2);
-          border: none;
-          color: var(--dao-dark);
+          background: var(--dao-card);
+          border: 1px solid var(--dao-border);
+          border-radius: 8px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: var(--dao-text-muted);
           cursor: pointer;
           transition: all 0.3s;
         }
 
-        .dm-modal-close:hover { background: rgba(0, 0, 0, 0.3); }
+        .dm-footer-social-link:hover { border-color: var(--dao-primary); color: var(--dao-primary); }
+
+        .dm-footer-copyright { color: var(--dao-text-muted); font-size: 0.85rem; }
+
+        .dm-modal-overlay {
+          position: fixed;
+          inset: 0;
+          background: rgba(0, 0, 0, 0.85);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          z-index: 2000;
+          animation: fadeIn 0.3s;
+        }
+
+        @keyframes fadeIn { 0% { opacity: 0; } 100% { opacity: 1; } }
+
+        .dm-modal {
+          background: var(--dao-card);
+          border: 1px solid var(--dao-border);
+          border-radius: 24px;
+          width: 90%;
+          max-width: 420px;
+          overflow: hidden;
+          animation: slideUp 0.3s;
+        }
+
+        .dm-modal-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 1.25rem;
+          border-bottom: 1px solid var(--dao-border);
+          background: var(--gradient-sho);
+        }
+
+        .dm-modal-header h3 { font-size: 1.125rem; font-weight: 700; }
+
+        .dm-modal-close {
+          background: rgba(255,255,255,0.2);
+          border: none;
+          color: var(--white);
+          font-size: 1rem;
+          cursor: pointer;
+          transition: background 0.3s;
+          width: 32px;
+          height: 32px;
+          border-radius: 8px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .dm-modal-close:hover { background: rgba(255,255,255,0.3); }
 
         .dm-modal-body { padding: 2rem; text-align: center; }
 
         .dm-modal-icon {
           width: 80px;
           height: 80px;
+          background: var(--dao-darker);
           border-radius: 50%;
-          margin: 0 auto 1.5rem;
           display: flex;
           align-items: center;
           justify-content: center;
-          font-size: 2.5rem;
+          margin: 0 auto 1.5rem;
+          font-size: 2rem;
         }
 
-        .dm-modal-icon.pending { background: rgba(0, 212, 170, 0.2); }
         .dm-modal-icon.success { background: rgba(63, 185, 80, 0.2); color: var(--success); }
+        .dm-modal-icon.pending { background: rgba(123, 97, 255, 0.2); }
 
         .dm-spinner {
           width: 40px;
           height: 40px;
-          border: 3px solid rgba(0, 212, 170, 0.3);
-          border-top-color: var(--dao-primary);
+          border: 4px solid var(--dao-border);
+          border-top-color: var(--dao-secondary);
           border-radius: 50%;
           animation: rotate 1s linear infinite;
         }
 
         .dm-modal-body h4 { font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem; }
-        .dm-modal-body p { color: var(--dao-text-muted); margin-bottom: 1.5rem; }
+        .dm-modal-body p { color: var(--dao-text-muted); font-size: 0.95rem; }
 
         .dm-modal-details {
           background: var(--dao-darker);
           border-radius: 12px;
           padding: 1rem;
-          margin-bottom: 1.5rem;
-          text-align: left;
+          margin: 1.5rem 0;
         }
 
-        .dm-modal-detail-row { display: flex; justify-content: space-between; padding: 0.5rem 0; font-size: 0.9rem; }
-        .dm-modal-detail-row .label { color: var(--dao-text-muted); }
-        .dm-modal-detail-row .value { font-weight: 600; }
+        .dm-modal-detail-row {
+          display: flex;
+          justify-content: space-between;
+          padding: 0.5rem 0;
+        }
+
+        .dm-modal-detail-row .label { color: var(--dao-text-muted); font-size: 0.9rem; }
+        .dm-modal-detail-row .value { font-weight: 600; font-size: 0.9rem; }
 
         .dm-modal-btn {
-          display: block;
           width: 100%;
           padding: 14px;
           background: var(--gradient-dao);
           border: none;
           border-radius: 12px;
           color: var(--dao-dark);
+          font-size: 1rem;
           font-weight: 700;
           cursor: pointer;
-          transition: all 0.3s;
+          transition: transform 0.3s;
         }
 
         .dm-modal-btn:hover { transform: scale(1.02); }
 
-        .dm-footer {
-          max-width: 1400px;
-          margin: 0 auto;
-          padding: 2rem;
-          border-top: 1px solid var(--dao-border);
-        }
-
-        .dm-footer-content { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
-        .dm-footer-links { display: flex; gap: 2rem; flex-wrap: wrap; }
-        .dm-footer-links a { color: var(--dao-text-muted); text-decoration: none; font-size: 0.85rem; transition: color 0.3s; }
-        .dm-footer-links a:hover { color: var(--dao-primary); }
-        .dm-footer-copyright { color: var(--dao-text-muted); font-size: 0.85rem; }
-
-        @media (max-width: 1200px) {
+        @media (max-width: 1024px) {
           .dm-project-hero { grid-template-columns: 1fr; }
           .dm-sho-card { position: static; margin-top: 2rem; }
-          .dm-vesting-grid { grid-template-columns: 1fr; }
-        }
-
-        @media (max-width: 1024px) {
           .dm-stats-grid { grid-template-columns: repeat(2, 1fr); }
-          .dm-tiers-grid { grid-template-columns: repeat(2, 1fr); }
-          .dm-governance-grid { grid-template-columns: 1fr; }
+          .dm-tiers-grid { grid-template-columns: 1fr; }
+          .dm-vesting-grid { grid-template-columns: 1fr; }
+          .dm-governance-grid { grid-template-columns: repeat(2, 1fr); }
         }
 
         @media (max-width: 768px) {
           .dm-header-container { padding: 0.75rem 1rem; }
           .dm-nav, .dm-power-badge { display: none; }
           .dm-hero { padding: 2rem 1rem; }
-          .dm-project-header { flex-direction: column; text-align: center; }
-          .dm-badges { justify-content: center; }
-          .dm-social-row { justify-content: center; }
+          .dm-project-header { flex-direction: column; align-items: center; text-align: center; }
           .dm-stats-grid { grid-template-columns: 1fr 1fr; }
-          .dm-tiers-grid { grid-template-columns: 1fr; }
           .dm-quick-amounts { grid-template-columns: repeat(2, 1fr); }
-          .dm-footer-content { flex-direction: column; text-align: center; }
+          .dm-governance-grid { grid-template-columns: 1fr; }
+          .dm-footer-content { flex-direction: column; text-align: center; gap: 1rem; }
         }
       `}</style>
 
@@ -971,16 +1102,46 @@ export default function DAOMakerPage() {
       <header className="dm-header">
         <div className="dm-header-container">
           <div className="dm-header-left">
-            <Link href="/" className="dm-logo">
+            <a href="/" className="dm-logo" data-testid="link-logo">
               <div className="dm-logo-icon">💎</div>
               <div className="dm-logo-text">DAO Maker</div>
-            </Link>
+            </a>
             <nav className="dm-nav">
-              <button className="dm-nav-item active">SHO</button>
-              <button className="dm-nav-item">스테이킹</button>
-              <button className="dm-nav-item">거버넌스</button>
-              <button className="dm-nav-item">포트폴리오</button>
-              <button className="dm-nav-item">스왑</button>
+              <button 
+                className="dm-nav-item active" 
+                onClick={() => scrollToSection('hero')}
+                data-testid="nav-sho"
+              >
+                SHO
+              </button>
+              <button 
+                className="dm-nav-item" 
+                onClick={() => handleNavItem('스테이킹')}
+                data-testid="nav-staking"
+              >
+                스테이킹
+              </button>
+              <button 
+                className="dm-nav-item" 
+                onClick={() => handleNavItem('거버넌스')}
+                data-testid="nav-governance"
+              >
+                거버넌스
+              </button>
+              <button 
+                className="dm-nav-item" 
+                onClick={() => handleNavItem('포트폴리오')}
+                data-testid="nav-portfolio"
+              >
+                포트폴리오
+              </button>
+              <button 
+                className="dm-nav-item" 
+                onClick={() => handleNavItem('스왑')}
+                data-testid="nav-swap"
+              >
+                스왑
+              </button>
             </nav>
           </div>
           <div className="dm-header-right">
@@ -993,7 +1154,7 @@ export default function DAOMakerPage() {
             </div>
             <button 
               className="dm-connect-btn"
-              onClick={() => isConnected ? disconnect() : connect("metamask")}
+              onClick={handleWalletClick}
               data-testid="button-wallet-connect"
             >
               💳 {isConnected ? formatAddress(address || '') : '지갑 연결'}
@@ -1005,10 +1166,10 @@ export default function DAOMakerPage() {
       {/* Main Content */}
       <main className="dm-main">
         {/* Hero Section */}
-        <section className="dm-hero">
+        <section className="dm-hero" id="hero">
           <div className="dm-hero-container">
             <div className="dm-breadcrumb">
-              <a href="#">SHO</a>
+              <a onClick={() => scrollToSection('hero')} data-testid="breadcrumb-sho">SHO</a>
               <span>/</span>
               <span className="current">TBURN Chain</span>
             </div>
@@ -1019,7 +1180,7 @@ export default function DAOMakerPage() {
                 <div className="dm-project-header">
                   <div className="dm-project-logo">🔥</div>
                   <div className="dm-project-info">
-                    <h1>TBURN Chain</h1>
+                    <h1 data-testid="text-title">TBURN Chain</h1>
                     <p className="tagline">AI-Enhanced Blockchain Platform · Layer 1</p>
                     <div className="dm-badges">
                       <span className="dm-badge sho">💎 SHO Round</span>
@@ -1063,8 +1224,15 @@ export default function DAOMakerPage() {
                 </div>
 
                 <div className="dm-social-row">
-                  {['🐦', '📱', '💬', '📝', '💻', '🌐'].map((icon, i) => (
-                    <a key={i} href="#" className="dm-social-btn">{icon}</a>
+                  {socialLinks.map((link, i) => (
+                    <button 
+                      key={i} 
+                      className="dm-social-btn"
+                      onClick={() => handleShareSocial(link.name, link.url)}
+                      data-testid={`social-link-${link.name.toLowerCase()}`}
+                    >
+                      {link.icon}
+                    </button>
                   ))}
                 </div>
               </div>
@@ -1083,7 +1251,7 @@ export default function DAOMakerPage() {
 
                 <div className="dm-sho-body">
                   {/* Countdown */}
-                  <div className="dm-sho-countdown">
+                  <div className="dm-sho-countdown" data-testid="countdown">
                     <div className="dm-countdown-label">세일 종료까지</div>
                     <div className="dm-countdown-timer">
                       <div className="dm-countdown-item">
@@ -1108,7 +1276,7 @@ export default function DAOMakerPage() {
                   {/* Progress */}
                   <div className="dm-sho-progress" data-testid="sho-progress">
                     <div className="dm-progress-header">
-                      <div className="dm-progress-raised">$5,400,000</div>
+                      <div className="dm-progress-raised" data-testid="text-raised-amount">$5,400,000</div>
                       <div className="dm-progress-goal">/ $12,000,000</div>
                     </div>
                     <div className="dm-progress-bar">
@@ -1116,7 +1284,7 @@ export default function DAOMakerPage() {
                     </div>
                     <div className="dm-progress-stats">
                       <span className="dm-progress-percent">45% 완료</span>
-                      <span className="dm-progress-participants">5,847명 참여</span>
+                      <span className="dm-progress-participants" data-testid="text-participants">5,847명 참여</span>
                     </div>
                   </div>
 
@@ -1174,19 +1342,20 @@ export default function DAOMakerPage() {
                     </div>
                     <div className="dm-quick-amounts">
                       {quickAmounts.map(amount => (
-                        <div 
+                        <button 
                           key={amount}
                           className={`dm-quick-amount ${allocationAmount === amount ? 'active' : ''}`}
                           onClick={() => setAllocationAmount(amount)}
+                          data-testid={`button-amount-${amount}`}
                         >
                           {amount === maxAllocation ? 'MAX' : `$${amount.toLocaleString()}`}
-                        </div>
+                        </button>
                       ))}
                     </div>
                   </div>
 
                   {/* Token Output */}
-                  <div className="dm-token-output">
+                  <div className="dm-token-output" data-testid="token-calculation">
                     <div className="dm-token-row">
                       <span className="label">받을 토큰</span>
                       <span className="value large">{totalTokens.toLocaleString()} TBURN</span>
@@ -1210,7 +1379,11 @@ export default function DAOMakerPage() {
                     </div>
                   </div>
 
-                  <button className="dm-purchase-btn" onClick={handlePurchase} data-testid="button-purchase">
+                  <button 
+                    className="dm-purchase-btn" 
+                    onClick={handlePurchase} 
+                    data-testid="button-purchase"
+                  >
                     💎 SHO 참여하기
                   </button>
 
@@ -1224,7 +1397,7 @@ export default function DAOMakerPage() {
         </section>
 
         {/* Details Section */}
-        <section className="dm-details-section">
+        <section className="dm-details-section" id="details">
           <div className="dm-section-tabs">
             {[
               { id: 'tiers', label: 'SHO 티어' },
@@ -1236,6 +1409,7 @@ export default function DAOMakerPage() {
                 key={tab.id}
                 className={`dm-section-tab ${activeTab === tab.id ? 'active' : ''}`}
                 onClick={() => setActiveTab(tab.id)}
+                data-testid={`tab-${tab.id}`}
               >
                 {tab.label}
               </button>
@@ -1246,7 +1420,11 @@ export default function DAOMakerPage() {
           <div className={`dm-tab-content ${activeTab === 'tiers' ? 'active' : ''}`}>
             <div className="dm-tiers-grid">
               {tiers.map((tier, i) => (
-                <div key={i} className={`dm-tier-card ${tier.recommended ? 'recommended' : ''}`}>
+                <div 
+                  key={i} 
+                  className={`dm-tier-card ${tier.recommended ? 'recommended' : ''}`}
+                  data-testid={`tier-card-${tier.name.toLowerCase()}`}
+                >
                   <div className="dm-tier-header">
                     <div className="dm-tier-icon">{tier.icon}</div>
                     <div className="dm-tier-name">{tier.name}</div>
@@ -1310,7 +1488,7 @@ export default function DAOMakerPage() {
           <div className={`dm-tab-content ${activeTab === 'governance' ? 'active' : ''}`}>
             <div className="dm-governance-grid">
               {governanceCards.map((g, i) => (
-                <div key={i} className="dm-governance-card">
+                <div key={i} className="dm-governance-card" data-testid={`governance-card-${i}`}>
                   <div className="dm-governance-icon">{g.icon}</div>
                   <h4>{g.title}</h4>
                   <p>{g.desc}</p>
@@ -1320,11 +1498,18 @@ export default function DAOMakerPage() {
           </div>
 
           {/* FAQ Tab */}
-          <div className={`dm-tab-content ${activeTab === 'faq' ? 'active' : ''}`}>
+          <div className={`dm-tab-content ${activeTab === 'faq' ? 'active' : ''}`} id="faq">
             <div className="dm-faq-list">
               {faqItems.map((faq, i) => (
-                <div key={i} className={`dm-faq-item ${expandedFaq === i ? 'active' : ''}`}>
-                  <div className="dm-faq-question" onClick={() => setExpandedFaq(expandedFaq === i ? -1 : i)}>
+                <div 
+                  key={i} 
+                  className={`dm-faq-item ${expandedFaq === i ? 'active' : ''}`}
+                  data-testid={`faq-item-${i + 1}`}
+                >
+                  <div 
+                    className="dm-faq-question" 
+                    onClick={() => setExpandedFaq(expandedFaq === i ? -1 : i)}
+                  >
                     <h4>{faq.q}</h4>
                     <span className="arrow">▼</span>
                   </div>
@@ -1341,10 +1526,50 @@ export default function DAOMakerPage() {
         <footer className="dm-footer">
           <div className="dm-footer-content">
             <div className="dm-footer-links">
-              <Link href="/legal/terms-of-service">이용약관</Link>
-              <Link href="/legal/privacy-policy">개인정보처리방침</Link>
-              <a href="#">리스크 고지</a>
-              <a href="#">고객 지원</a>
+              <a href="/legal/terms-of-service" data-testid="footer-link-terms">이용약관</a>
+              <a href="/legal/privacy-policy" data-testid="footer-link-privacy">개인정보처리방침</a>
+              <a 
+                onClick={() => toast({ title: "리스크 고지", description: "리스크 고지 페이지로 이동합니다." })}
+                data-testid="footer-link-risk"
+              >
+                리스크 고지
+              </a>
+              <a 
+                onClick={() => toast({ title: "고객 지원", description: "support@daomaker.com으로 문의해 주세요." })}
+                data-testid="footer-link-support"
+              >
+                고객 지원
+              </a>
+            </div>
+            <div className="dm-footer-social">
+              <button 
+                className="dm-footer-social-link"
+                onClick={() => handleShareSocial('Twitter', 'https://x.com/tburnchain')}
+                data-testid="footer-link-twitter"
+              >
+                🐦
+              </button>
+              <button 
+                className="dm-footer-social-link"
+                onClick={() => handleShareSocial('Telegram', 'https://t.me/tburnchain')}
+                data-testid="footer-link-telegram"
+              >
+                📱
+              </button>
+              <button 
+                className="dm-footer-social-link"
+                onClick={() => handleShareSocial('Discord', 'https://discord.gg/tburnchain')}
+                data-testid="footer-link-discord"
+              >
+                💬
+              </button>
+              <button 
+                className="dm-footer-social-link"
+                onClick={() => handleShareSocial('GitHub', 'https://github.com/tburnchain')}
+                data-testid="footer-link-github"
+              >
+                💻
+              </button>
             </div>
             <div className="dm-footer-copyright">© 2025 DAO Maker. All Rights Reserved.</div>
           </div>
@@ -1353,11 +1578,17 @@ export default function DAOMakerPage() {
 
       {/* Modal */}
       {showModal && (
-        <div className="dm-modal-overlay">
+        <div className="dm-modal-overlay" data-testid="modal-purchase">
           <div className="dm-modal">
             <div className="dm-modal-header">
               <h3>{modalStatus === 'success' ? 'SHO 참여 완료!' : '처리 중...'}</h3>
-              <button className="dm-modal-close" onClick={() => setShowModal(false)}>✕</button>
+              <button 
+                className="dm-modal-close" 
+                onClick={() => setShowModal(false)}
+                data-testid="button-modal-close"
+              >
+                ✕
+              </button>
             </div>
             <div className="dm-modal-body">
               <div className={`dm-modal-icon ${modalStatus}`}>
@@ -1386,7 +1617,13 @@ export default function DAOMakerPage() {
               </div>
 
               {modalStatus === 'success' && (
-                <button className="dm-modal-btn" onClick={() => setShowModal(false)}>확인</button>
+                <button 
+                  className="dm-modal-btn" 
+                  onClick={() => setShowModal(false)}
+                  data-testid="button-modal-confirm"
+                >
+                  확인
+                </button>
               )}
             </div>
           </div>
