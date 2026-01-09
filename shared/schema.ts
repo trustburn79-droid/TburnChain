@@ -13583,3 +13583,129 @@ export type InsertObjectPoolMetric = z.infer<typeof insertObjectPoolMetricSchema
 export type ObjectPoolHourlyAggregateDB = typeof objectPoolHourlyAggregates.$inferSelect;
 export type InsertObjectPoolHourlyAggregate = z.infer<typeof insertObjectPoolHourlyAggregateSchema>;
 
+// ============================================================================
+// WebSocket Analytics & Session Management System
+// ============================================================================
+
+// WebSocket Sessions - Track WebSocket connections
+export const websocketSessions = pgTable("websocket_sessions", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  sessionId: text("session_id").notNull().unique(),
+  apiKeyId: varchar("api_key_id"),
+  clientIp: text("client_ip").notNull(),
+  userAgent: text("user_agent"),
+  connectionType: text("connection_type").notNull().default("anonymous"), // anonymous, authenticated, admin
+  qosTier: text("qos_tier").notNull().default("standard"), // standard, premium, enterprise
+  status: text("status").notNull().default("active"), // active, disconnected, suspended
+  connectedAt: timestamp("connected_at").notNull().defaultNow(),
+  lastPingAt: timestamp("last_ping_at"),
+  lastPongAt: timestamp("last_pong_at"),
+  disconnectedAt: timestamp("disconnected_at"),
+  disconnectReason: text("disconnect_reason"),
+  messagesSent: bigint("messages_sent", { mode: "number" }).notNull().default(0),
+  messagesReceived: bigint("messages_received", { mode: "number" }).notNull().default(0),
+  bytesIn: bigint("bytes_in", { mode: "number" }).notNull().default(0),
+  bytesOut: bigint("bytes_out", { mode: "number" }).notNull().default(0),
+  metadata: jsonb("metadata"),
+}, (table) => [
+  index("idx_websocket_sessions_status").on(table.status),
+  index("idx_websocket_sessions_api_key_id").on(table.apiKeyId),
+  index("idx_websocket_sessions_connected_at").on(table.connectedAt),
+]);
+
+// WebSocket Subscriptions - Track active subscriptions
+export const websocketSubscriptions = pgTable("websocket_subscriptions", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  sessionId: text("session_id").notNull(),
+  subscriptionId: text("subscription_id").notNull().unique(),
+  method: text("method").notNull(), // eth_subscribe, tburn_subscribe
+  channel: text("channel").notNull(), // newHeads, logs, shards, validators, etc.
+  filters: jsonb("filters"),
+  status: text("status").notNull().default("active"), // active, paused, cancelled
+  backpressureLevel: integer("backpressure_level").notNull().default(0), // 0-100
+  messageCount: bigint("message_count", { mode: "number" }).notNull().default(0),
+  lastMessageAt: timestamp("last_message_at"),
+  droppedCount: bigint("dropped_count", { mode: "number" }).notNull().default(0),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  cancelledAt: timestamp("cancelled_at"),
+}, (table) => [
+  index("idx_websocket_subscriptions_session_id").on(table.sessionId),
+  index("idx_websocket_subscriptions_channel").on(table.channel),
+  index("idx_websocket_subscriptions_status").on(table.status),
+]);
+
+// WebSocket Message Metrics - Per-interval message delivery metrics (partitioned by day)
+export const websocketMessageMetrics = pgTable("websocket_message_metrics", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  intervalStart: timestamp("interval_start").notNull(),
+  channel: text("channel").notNull(),
+  messageCount: bigint("message_count", { mode: "number" }).notNull().default(0),
+  bytesTotal: bigint("bytes_total", { mode: "number" }).notNull().default(0),
+  avgLatencyMs: integer("avg_latency_ms").notNull().default(0),
+  p95LatencyMs: integer("p95_latency_ms").notNull().default(0),
+  p99LatencyMs: integer("p99_latency_ms").notNull().default(0),
+  droppedCount: bigint("dropped_count", { mode: "number" }).notNull().default(0),
+  subscriberCount: integer("subscriber_count").notNull().default(0),
+  fanoutTimeMs: integer("fanout_time_ms").notNull().default(0),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+}, (table) => [
+  index("idx_websocket_message_metrics_interval_start").on(table.intervalStart),
+  index("idx_websocket_message_metrics_channel").on(table.channel),
+]);
+
+// WebSocket Reconnect Tokens - For session resumption
+export const websocketReconnectTokens = pgTable("websocket_reconnect_tokens", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  sessionId: text("session_id").notNull(),
+  token: text("token").notNull().unique(),
+  apiKeyId: varchar("api_key_id"),
+  subscriptionsJson: text("subscriptions_json").notNull(),
+  lastSequenceNumber: bigint("last_sequence_number", { mode: "number" }).notNull().default(0),
+  expiresAt: timestamp("expires_at").notNull(),
+  used: boolean("used").notNull().default(false),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  usedAt: timestamp("used_at"),
+}, (table) => [
+  index("idx_websocket_reconnect_tokens_token").on(table.token),
+  index("idx_websocket_reconnect_tokens_session_id").on(table.sessionId),
+  index("idx_websocket_reconnect_tokens_expires_at").on(table.expiresAt),
+]);
+
+// ============================================================================
+// Insert Schemas for WebSocket Analytics & Session Management
+// ============================================================================
+export const insertWebsocketSessionSchema = createInsertSchema(websocketSessions).omit({
+  id: true,
+  connectedAt: true,
+});
+
+export const insertWebsocketSubscriptionSchema = createInsertSchema(websocketSubscriptions).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertWebsocketMessageMetricSchema = createInsertSchema(websocketMessageMetrics).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertWebsocketReconnectTokenSchema = createInsertSchema(websocketReconnectTokens).omit({
+  id: true,
+  createdAt: true,
+});
+
+// ============================================================================
+// Types for WebSocket Analytics & Session Management
+// ============================================================================
+export type WebsocketSession = typeof websocketSessions.$inferSelect;
+export type InsertWebsocketSession = z.infer<typeof insertWebsocketSessionSchema>;
+
+export type WebsocketSubscription = typeof websocketSubscriptions.$inferSelect;
+export type InsertWebsocketSubscription = z.infer<typeof insertWebsocketSubscriptionSchema>;
+
+export type WebsocketMessageMetric = typeof websocketMessageMetrics.$inferSelect;
+export type InsertWebsocketMessageMetric = z.infer<typeof insertWebsocketMessageMetricSchema>;
+
+export type WebsocketReconnectToken = typeof websocketReconnectTokens.$inferSelect;
+export type InsertWebsocketReconnectToken = z.infer<typeof insertWebsocketReconnectTokenSchema>;
+
