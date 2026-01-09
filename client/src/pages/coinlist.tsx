@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useWeb3 } from "@/lib/web3-context";
 import { useToast } from "@/hooks/use-toast";
 import { LanguageSelector } from "@/components/LanguageSelector";
+import { TBurnLogo } from "@/components/tburn-logo";
 
 interface LaunchpadPlatform {
   name: string;
@@ -1120,7 +1121,9 @@ export default function CoinListPage() {
         <div className="cl-header-container">
           <div className="cl-header-left">
             <a href="/" className="cl-logo" data-testid="link-logo">
-              <div className="cl-logo-icon">🚀</div>
+              <div className="cl-logo-icon">
+                <TBurnLogo className="w-8 h-8" />
+              </div>
               <div className="cl-logo-text">CoinList</div>
             </a>
             <div className="cl-nav-tabs">

@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useWeb3 } from "@/lib/web3-context";
 import { useToast } from "@/hooks/use-toast";
 import { LanguageSelector } from "@/components/LanguageSelector";
+import { TBurnLogo } from "@/components/tburn-logo";
 
 interface LaunchpadPlatform {
   name: string;
@@ -1111,7 +1112,9 @@ export default function DAOMakerPage() {
         <div className="dm-header-container">
           <div className="dm-header-left">
             <a href="/" className="dm-logo" data-testid="link-logo">
-              <div className="dm-logo-icon">💎</div>
+              <div className="dm-logo-icon">
+                <TBurnLogo className="w-8 h-8" />
+              </div>
               <div className="dm-logo-text">DAO Maker</div>
             </a>
             <nav className="dm-nav">
