@@ -137,17 +137,9 @@ app.use('/api', (req, res, next) => {
   next();
 });
 
-// WebSocket placeholder - will be upgraded once services are ready
-app.use('/ws', (req, res, next) => {
-  if (!servicesReady) {
-    return res.status(503).json({
-      error: 'WebSocket not ready',
-      message: 'Backend services are starting up.',
-      retryAfter: 5,
-    });
-  }
-  next();
-});
+// WebSocket upgrade happens at HTTP server level (not Express middleware)
+// The WebSocketServer in routes.ts handles /ws connections directly
+// No Express middleware needed - WebSocket upgrades bypass Express entirely
 
 // Early handlers for static HTML pages that must work during initialization
 // These are legal/compliance documents that must always be accessible
