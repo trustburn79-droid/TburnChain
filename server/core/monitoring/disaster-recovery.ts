@@ -86,7 +86,7 @@ const DEFAULT_CONFIG: DisasterRecoveryConfig = {
   },
   healthCheckInterval: 60000,  // ★ [v3.1] 60초로 늘림 (오버헤드 감소)
   recovery: {
-    autoRestart: false,  // ★ [v3.0] DISABLED to prevent restart loops
+    autoRestart: true,  // ★ [v4.0] RE-ENABLED with loop prevention
     gracefulShutdownTimeout: 5000,
   },
   // ★ [v3.0] Enterprise session protection
@@ -153,6 +153,15 @@ type HealthStatus = 'healthy' | 'warning' | 'critical' | 'emergency';
 // Disaster Recovery Manager
 // ============================================================================
 
+// ★ [v4.0] Restart loop prevention - tracks restart attempts (global singleton)
+const RESTART_LOOP_PREVENTION = {
+  maxRestartsPerWindow: 3,    // Maximum restarts allowed
+  windowMs: 300000,           // 5 minute window
+  restartTimes: [] as number[],
+  lastRestartAttempt: 0,
+  handlersRegistered: false,  // ★ [v4.1] Prevent duplicate handler registration
+};
+
 class DisasterRecoveryManager extends EventEmitter {
   private config: DisasterRecoveryConfig;
   private metrics: Metrics;
@@ -176,6 +185,107 @@ class DisasterRecoveryManager extends EventEmitter {
       lastCheck: Date.now(),
     };
     this.startTime = Date.now();
+    
+    // ★ [v4.0] Setup uncaughtException and unhandledRejection handlers
+    this.setupCrashHandlers();
+  }
+  
+  /**
+   * ★ [v4.0] Check if restart is allowed (loop prevention)
+   */
+  private canRestart(): boolean {
+    const now = Date.now();
+    
+    // Clean up old restart times outside the window
+    RESTART_LOOP_PREVENTION.restartTimes = RESTART_LOOP_PREVENTION.restartTimes.filter(
+      time => now - time < RESTART_LOOP_PREVENTION.windowMs
+    );
+    
+    // Check if we've exceeded the restart limit
+    if (RESTART_LOOP_PREVENTION.restartTimes.length >= RESTART_LOOP_PREVENTION.maxRestartsPerWindow) {
+      console.error(`[DR] ⚠️ Restart loop detected: ${RESTART_LOOP_PREVENTION.restartTimes.length} restarts in ${RESTART_LOOP_PREVENTION.windowMs / 60000} minutes`);
+      console.error('[DR] ⚠️ Entering degraded mode instead of restart to prevent loop');
+      return false;
+    }
+    
+    return true;
+  }
+  
+  /**
+   * ★ [v4.0] Record a restart attempt
+   */
+  private recordRestartAttempt(): void {
+    RESTART_LOOP_PREVENTION.restartTimes.push(Date.now());
+    RESTART_LOOP_PREVENTION.lastRestartAttempt = Date.now();
+  }
+  
+  /**
+   * ★ [v4.0] Setup crash handlers for uncaughtException and unhandledRejection
+   * ★ [v4.1] Idempotent - only registers once globally
+   */
+  private setupCrashHandlers(): void {
+    // ★ [v4.1] Prevent duplicate handler registration across hot reloads
+    if (RESTART_LOOP_PREVENTION.handlersRegistered) {
+      console.log('[DR] Crash handlers already registered (skipping duplicate)');
+      return;
+    }
+    RESTART_LOOP_PREVENTION.handlersRegistered = true;
+    
+    // Store reference to current instance for handler callbacks
+    const manager = this;
+    
+    // Handle uncaught exceptions - prevent complete crash
+    process.on('uncaughtException', (error) => {
+      console.error('[DR] ⚠️ UNCAUGHT EXCEPTION - Attempting recovery');
+      console.error('[DR] Error:', error.message);
+      console.error('[DR] Stack:', error.stack);
+      
+      // Try emergency memory relief first
+      try {
+        manager.emergencyMemoryRelief();
+      } catch (e) {
+        console.error('[DR] Emergency relief failed:', e);
+      }
+      
+      // Check if we should restart or stay in degraded mode
+      // ★ [v4.1] gracefulRestart now handles all restart gating internally
+      if (manager.config.recovery.autoRestart) {
+        console.log('[DR] Initiating graceful restart after exception...');
+        manager.gracefulRestart();
+      } else {
+        console.log('[DR] Staying alive in degraded mode (auto-restart disabled)');
+        manager.emit('degradedMode', 'uncaughtException');
+      }
+    });
+    
+    // Handle unhandled promise rejections - prevent complete crash  
+    process.on('unhandledRejection', (reason: any) => {
+      const message = reason?.message || String(reason);
+      
+      // Some rejections are recoverable (network errors, timeouts, etc.)
+      const recoverablePatterns = ['ECONNREFUSED', 'ETIMEDOUT', 'ENOTFOUND', 'ECONNRESET', 'socket hang up'];
+      const isRecoverable = recoverablePatterns.some(pattern => message.includes(pattern));
+      
+      if (isRecoverable) {
+        console.warn(`[DR] ⚠️ Recoverable rejection: ${message.substring(0, 100)}`);
+        return; // Don't restart for recoverable errors
+      }
+      
+      console.error('[DR] ⚠️ UNHANDLED REJECTION - Attempting recovery');
+      console.error('[DR] Reason:', message);
+      
+      // Try emergency cleanup
+      try {
+        manager.emergencyMemoryRelief();
+      } catch (e) {
+        console.error('[DR] Emergency relief failed:', e);
+      }
+      
+      // Most unhandled rejections shouldn't require restart
+      manager.emit('degradedMode', 'unhandledRejection');
+    });
+    
+    console.log('[DR] ✅ Crash handlers registered (auto-recovery enabled)');
   }
   
   /**
@@ -497,10 +607,10 @@ class DisasterRecoveryManager extends EventEmitter {
     // Force garbage collection if available
     this.tryGarbageCollection();
     
-    // Auto-restart if enabled
+    // ★ [v4.1] Auto-restart with loop prevention handled inside gracefulRestart
     if (this.config.recovery.autoRestart && !this.isShuttingDown) {
       console.log('[DR] Initiating graceful restart...');
-      this.gracefulRestart();
+      this.gracefulRestart(); // Loop prevention handled internally
     }
   }
   
@@ -655,11 +765,25 @@ class DisasterRecoveryManager extends EventEmitter {
   
   /**
    * Perform graceful restart
+   * ★ [v4.1] All restart gating handled internally for consistency
    */
   private gracefulRestart(): void {
-    if (this.isShuttingDown) return;
-    this.isShuttingDown = true;
+    if (this.isShuttingDown) {
+      console.log('[DR] Already shutting down, ignoring restart request');
+      return;
+    }
     
+    // ★ [v4.1] Centralized restart gating - check and record here
+    if (!this.canRestart()) {
+      console.log('[DR] Restart blocked by loop prevention, entering degraded mode');
+      this.emit('degradedMode', 'restartBlocked');
+      return;
+    }
+    
+    // Record this restart attempt
+    this.recordRestartAttempt();
+    
+    this.isShuttingDown = true;
     this.emit('restart');
     
     console.log('[DR] Initiating restart...');
