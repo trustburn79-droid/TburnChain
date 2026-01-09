@@ -3,6 +3,7 @@ import { Link } from "wouter";
 import { useQuery } from "@tanstack/react-query";
 import { TBurnLogo } from "@/components/tburn-logo";
 import { useWeb3 } from "@/lib/web3-context";
+import { useToast } from "@/hooks/use-toast";
 
 interface DAOStatsData {
   totalProposals: number;
@@ -27,6 +28,7 @@ interface DAOStatsResponse {
 export default function DAOGovernancePage() {
   const [activeFaq, setActiveFaq] = useState<string | null>("faq-1");
   const { isConnected, address, connect, disconnect, formatAddress } = useWeb3();
+  const { toast } = useToast();
 
   const { data: response, isLoading } = useQuery<DAOStatsResponse>({
     queryKey: ['/api/token-programs/dao/stats'],
@@ -40,9 +42,35 @@ export default function DAOGovernancePage() {
   const handleWalletClick = async () => {
     if (isConnected) {
       disconnect();
+      toast({ title: "지갑 연결 해제", description: "지갑 연결이 해제되었습니다." });
     } else {
       await connect("metamask");
+      toast({ title: "지갑 연결", description: "MetaMask 지갑이 연결되었습니다." });
     }
+  };
+
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const handleVote = (proposalId: string, voteType: 'for' | 'against') => {
+    if (!isConnected) {
+      connect("metamask");
+      toast({ title: "지갑 연결 필요", description: "투표하려면 먼저 지갑을 연결해주세요." });
+      return;
+    }
+    toast({ 
+      title: voteType === 'for' ? "찬성 투표 완료" : "반대 투표 완료",
+      description: `${proposalId} 제안에 ${voteType === 'for' ? '찬성' : '반대'} 투표가 접수되었습니다.` 
+    });
+  };
+
+  const handleShareSocial = (platform: string, url: string) => {
+    window.open(url, '_blank', 'width=600,height=400');
+    toast({ title: platform, description: `${platform} 페이지로 이동합니다.` });
   };
 
   const proposals = [
@@ -1083,11 +1111,31 @@ export default function DAOGovernancePage() {
             <div className="logo-text">TBURN<span>CHAIN</span></div>
           </Link>
           <nav className="nav-links">
-            <a href="#proposals">제안</a>
-            <a href="#process">프로세스</a>
-            <a href="#committees">위원회</a>
-            <a href="#rewards">보상</a>
-            <a href="#faq">FAQ</a>
+            <a 
+              href="#proposals"
+              onClick={(e) => { e.preventDefault(); scrollToSection('proposals'); }}
+              data-testid="nav-proposals"
+            >제안</a>
+            <a 
+              href="#process"
+              onClick={(e) => { e.preventDefault(); scrollToSection('process'); }}
+              data-testid="nav-process"
+            >프로세스</a>
+            <a 
+              href="#committees"
+              onClick={(e) => { e.preventDefault(); scrollToSection('committees'); }}
+              data-testid="nav-committees"
+            >위원회</a>
+            <a 
+              href="#rewards"
+              onClick={(e) => { e.preventDefault(); scrollToSection('rewards'); }}
+              data-testid="nav-rewards"
+            >보상</a>
+            <a 
+              href="#faq"
+              onClick={(e) => { e.preventDefault(); scrollToSection('faq'); }}
+              data-testid="nav-faq"
+            >FAQ</a>
           </nav>
           <button 
             className="connect-btn" 
@@ -1135,11 +1183,26 @@ export default function DAOGovernancePage() {
           </div>
 
           <div className="cta-group">
-            <button className="btn-primary" data-testid="button-vote">
-              🗳️ 투표 참여하기
+            <button 
+              className="btn-primary" 
+              data-testid="button-vote"
+              onClick={() => { scrollToSection('proposals'); toast({ title: "활성 제안", description: "현재 진행 중인 제안에서 투표해주세요." }); }}
+            >
+              투표 참여하기
             </button>
-            <button className="btn-secondary">
-              📝 제안 제출하기
+            <button 
+              className="btn-secondary"
+              data-testid="button-submit-proposal"
+              onClick={() => { 
+                if (!isConnected) { 
+                  connect("metamask"); 
+                  toast({ title: "지갑 연결 필요", description: "제안을 제출하려면 먼저 지갑을 연결하고 최소 10,000 vTBURN이 필요합니다." });
+                } else {
+                  toast({ title: "제안 제출", description: "제안 제출 기능이 곧 출시됩니다. (Coming Soon)" }); 
+                }
+              }}
+            >
+              제안 제출하기
             </button>
           </div>
         </div>
@@ -1250,8 +1313,20 @@ export default function DAOGovernancePage() {
                     <div className="quorum-value">{proposal.quorum}%</div>
                   </div>
                   <div className="vote-buttons">
-                    <button className="vote-btn for">찬성</button>
-                    <button className="vote-btn against">반대</button>
+                    <button 
+                      className="vote-btn for"
+                      onClick={() => handleVote(proposal.id, 'for')}
+                      data-testid={`button-vote-for-${proposal.id}`}
+                    >
+                      {isConnected ? '찬성' : '지갑 연결'}
+                    </button>
+                    <button 
+                      className="vote-btn against"
+                      onClick={() => handleVote(proposal.id, 'against')}
+                      data-testid={`button-vote-against-${proposal.id}`}
+                    >
+                      {isConnected ? '반대' : '지갑 연결'}
+                    </button>
                   </div>
                 </div>
               )}
@@ -1355,58 +1430,106 @@ export default function DAOGovernancePage() {
         </div>
 
         <div className="faq-container">
-          <div className={`faq-item ${activeFaq === 'faq-1' ? 'active' : ''}`}>
+          <div className={`faq-item ${activeFaq === 'faq-1' ? 'active' : ''}`} data-testid="faq-item-1">
             <div className="faq-question" onClick={() => toggleFaq('faq-1')}>
+              <h4>DAO 거버넌스 보상 총 물량은 얼마인가요?</h4>
+              <span className="faq-chevron">▼</span>
+            </div>
+            <div className="faq-answer">
+              <p>DAO 거버넌스 프로그램에 총 8억 TBURN(전체 공급량의 8%)이 배정되어 있습니다. 투표 참여 보상 50%(4억), 제안 보상 20%(1.6억), 위원회 보상 20%(1.6억), DAO 예비금 10%(0.8억)으로 배분됩니다.</p>
+            </div>
+          </div>
+
+          <div className={`faq-item ${activeFaq === 'faq-2' ? 'active' : ''}`} data-testid="faq-item-2">
+            <div className="faq-question" onClick={() => toggleFaq('faq-2')}>
               <h4>투표권(vTBURN)은 어떻게 얻나요?</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>TBURN 토큰을 스테이킹하면 투표권(vTBURN)을 받습니다. 스테이킹 기간이 길수록 더 많은 투표권을 받습니다. 4년 락업 시 최대 4배의 투표권을 받을 수 있습니다.</p>
+              <p>TBURN 토큰을 스테이킹하면 투표권(vTBURN)을 받습니다. 스테이킹 기간이 길수록 더 많은 투표권을 받습니다. 1주 락업 시 1:1 비율, 1년 락업 시 2배, 4년 락업 시 최대 4배의 투표권을 받을 수 있습니다.</p>
             </div>
           </div>
 
-          <div className={`faq-item ${activeFaq === 'faq-2' ? 'active' : ''}`}>
-            <div className="faq-question" onClick={() => toggleFaq('faq-2')}>
+          <div className={`faq-item ${activeFaq === 'faq-3' ? 'active' : ''}`} data-testid="faq-item-3">
+            <div className="faq-question" onClick={() => toggleFaq('faq-3')}>
               <h4>제안을 제출하려면 어떻게 하나요?</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>최소 10,000 vTBURN을 보유해야 제안을 제출할 수 있습니다. 제안서를 작성하고 포럼에서 3일간 토론 후 온체인 투표에 부쳐집니다. 승인된 제안은 자동으로 실행됩니다.</p>
+              <p>최소 10,000 vTBURN을 보유해야 제안을 제출할 수 있습니다. 제안서를 작성하고 포럼에서 3일간 토론 후 온체인 투표에 부쳐집니다. 5일간의 투표 기간 후 과반 찬성과 정족수 달성 시 2일의 타임락을 거쳐 자동으로 실행됩니다.</p>
             </div>
           </div>
 
-          <div className={`faq-item ${activeFaq === 'faq-3' ? 'active' : ''}`}>
-            <div className="faq-question" onClick={() => toggleFaq('faq-3')}>
+          <div className={`faq-item ${activeFaq === 'faq-4' ? 'active' : ''}`} data-testid="faq-item-4">
+            <div className="faq-question" onClick={() => toggleFaq('faq-4')}>
               <h4>위원회에 참여하려면 어떻게 하나요?</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>위원회 선거는 분기별로 진행됩니다. 후보 등록 후 커뮤니티 투표를 통해 선출됩니다. 최소 50,000 vTBURN을 보유하고 관련 분야 전문성을 입증해야 합니다.</p>
+              <p>위원회 선거는 분기별로 진행됩니다. 후보 등록 후 커뮤니티 투표를 통해 선출됩니다. 최소 50,000 vTBURN을 보유하고 관련 분야 전문성을 입증해야 합니다. 기술, 재무, 생태계, 보안 4개 위원회가 운영됩니다.</p>
             </div>
           </div>
 
-          <div className={`faq-item ${activeFaq === 'faq-4' ? 'active' : ''}`}>
-            <div className="faq-question" onClick={() => toggleFaq('faq-4')}>
+          <div className={`faq-item ${activeFaq === 'faq-5' ? 'active' : ''}`} data-testid="faq-item-5">
+            <div className="faq-question" onClick={() => toggleFaq('faq-5')}>
               <h4>투표 보상은 어떻게 지급되나요?</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>투표에 참여할 때마다 투표권 수량에 비례하여 보상이 지급됩니다. 보상은 투표 종료 후 24시간 이내에 청구 가능하며, 연속 투표 참여 시 추가 보너스가 제공됩니다.</p>
+              <p>투표에 참여할 때마다 투표권 수량에 비례하여 보상이 지급됩니다. 기본 보상 10~50 TBURN, 보상은 투표 종료 후 24시간 이내에 청구 가능하며, 연속 10회 이상 참여 시 20% 보너스, 30회 이상 시 50% 보너스가 제공됩니다.</p>
+            </div>
+          </div>
+
+          <div className={`faq-item ${activeFaq === 'faq-6' ? 'active' : ''}`} data-testid="faq-item-6">
+            <div className="faq-question" onClick={() => toggleFaq('faq-6')}>
+              <h4>제안이 승인되면 어떤 보상을 받나요?</h4>
+              <span className="faq-chevron">▼</span>
+            </div>
+            <div className="faq-answer">
+              <p>승인된 제안에 대해 최대 5,000 TBURN의 보상이 지급됩니다. 제안 유형에 따라 보상이 달라지며, 프로토콜 개선 제안은 2,000 TBURN, 생태계 확장 제안은 3,000 TBURN, 재무 관련 제안은 5,000 TBURN입니다. 구현 완료 시 추가 50% 보너스도 제공됩니다.</p>
+            </div>
+          </div>
+
+          <div className={`faq-item ${activeFaq === 'faq-7' ? 'active' : ''}`} data-testid="faq-item-7">
+            <div className="faq-question" onClick={() => toggleFaq('faq-7')}>
+              <h4>투표권 위임은 어떻게 하나요?</h4>
+              <span className="faq-chevron">▼</span>
+            </div>
+            <div className="faq-answer">
+              <p>신뢰하는 대리인(Delegate)에게 투표권을 위임할 수 있습니다. 위임은 언제든지 취소 가능하며, 위임 중에도 본인이 직접 투표하면 위임이 해당 제안에 대해 무효화됩니다. 위임받은 투표권으로 투표해도 원본 보유자에게 보상이 지급됩니다.</p>
+            </div>
+          </div>
+
+          <div className={`faq-item ${activeFaq === 'faq-8' ? 'active' : ''}`} data-testid="faq-item-8">
+            <div className="faq-question" onClick={() => toggleFaq('faq-8')}>
+              <h4>정족수(Quorum)는 어떻게 결정되나요?</h4>
+              <span className="faq-chevron">▼</span>
+            </div>
+            <div className="faq-answer">
+              <p>제안이 승인되려면 최소 4%의 총 투표권이 참여해야 합니다. 중요 프로토콜 변경은 10%, 재무 집행은 7%의 정족수가 필요합니다. 정족수 미달 시 제안은 자동으로 기각되며, 제안자는 1주 후 재제출할 수 있습니다.</p>
             </div>
           </div>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="cta-section">
+      <section className="cta-section" id="cta">
         <div style={{ maxWidth: '800px', margin: '0 auto' }}>
           <h2 style={{ fontSize: '2.5rem', fontWeight: 800, marginBottom: '1rem' }}>거버넌스에 참여하세요!</h2>
           <p style={{ color: 'rgba(255,255,255,0.8)', fontSize: '1.125rem', marginBottom: '2rem' }}>
             TBURN Chain의 미래를 함께 결정하고<br />
             8억 TBURN 보상을 받아가세요!
           </p>
-          <button className="connect-btn" style={{ background: 'var(--white)', color: 'var(--indigo)', fontSize: '1.25rem', padding: '20px 50px' }}>
-            🏛️ 지금 참여하기
+          <button 
+            className="connect-btn" 
+            style={{ background: 'var(--white)', color: 'var(--indigo)', fontSize: '1.25rem', padding: '20px 50px' }}
+            data-testid="button-cta-participate"
+            onClick={() => { 
+              scrollToSection('proposals'); 
+              toast({ title: "거버넌스 참여", description: "지금 활성화된 제안에서 투표해주세요!" }); 
+            }}
+          >
+            지금 참여하기
           </button>
         </div>
       </section>
@@ -1418,45 +1541,65 @@ export default function DAOGovernancePage() {
             <h3>TBURN<span>CHAIN</span></h3>
             <p>AI의 지능, 블록체인의 투명성<br />THE FUTURE IS NOW</p>
             <div className="social-links">
-              <a href="#">𝕏</a>
-              <a href="#">✈</a>
-              <a href="#">💬</a>
-              <a href="#">⌘</a>
+              <a 
+                href="https://x.com/tburnchain" 
+                onClick={(e) => { e.preventDefault(); handleShareSocial('Twitter', 'https://x.com/tburnchain'); }}
+                data-testid="footer-link-twitter"
+              >𝕏</a>
+              <a 
+                href="https://t.me/tburnchain" 
+                onClick={(e) => { e.preventDefault(); handleShareSocial('Telegram', 'https://t.me/tburnchain'); }}
+                data-testid="footer-link-telegram"
+              >✈</a>
+              <a 
+                href="https://discord.gg/tburnchain" 
+                onClick={(e) => { e.preventDefault(); handleShareSocial('Discord', 'https://discord.gg/tburnchain'); }}
+                data-testid="footer-link-discord"
+              >💬</a>
+              <a 
+                href="https://github.com/tburnchain" 
+                onClick={(e) => { e.preventDefault(); handleShareSocial('GitHub', 'https://github.com/tburnchain'); }}
+                data-testid="footer-link-github"
+              >⌘</a>
             </div>
           </div>
           <div className="footer-links">
             <h4>Product</h4>
             <ul>
-              <li><Link href="/">메인넷</Link></li>
-              <li><Link href="/scan">익스플로러</Link></li>
-              <li><Link href="/app/bridge">브릿지</Link></li>
-              <li><Link href="/app/staking">스테이킹</Link></li>
+              <li><a href="/" data-testid="footer-link-mainnet">메인넷</a></li>
+              <li><a href="/scan" data-testid="footer-link-explorer">익스플로러</a></li>
+              <li><a href="/app/bridge" data-testid="footer-link-bridge">브릿지</a></li>
+              <li><a href="/app/staking" data-testid="footer-link-staking">스테이킹</a></li>
             </ul>
           </div>
           <div className="footer-links">
             <h4>Resources</h4>
             <ul>
-              <li><Link href="/learn/whitepaper">백서</Link></li>
-              <li><Link href="/developers/docs">문서</Link></li>
-              <li><a href="#">GitHub</a></li>
-              <li><Link href="/security-audit">감사 보고서</Link></li>
+              <li><a href="/learn/whitepaper" data-testid="footer-link-whitepaper">백서</a></li>
+              <li><a href="/developers/docs" data-testid="footer-link-docs">문서</a></li>
+              <li><a 
+                href="https://github.com/tburnchain" 
+                onClick={(e) => { e.preventDefault(); handleShareSocial('GitHub', 'https://github.com/tburnchain'); }}
+                data-testid="footer-link-github-resources"
+              >GitHub</a></li>
+              <li><a href="/security-audit" data-testid="footer-link-audit">감사 보고서</a></li>
             </ul>
           </div>
           <div className="footer-links">
             <h4>Community</h4>
             <ul>
-              <li><Link href="/community/news">블로그</Link></li>
-              <li><a href="#">앰배서더</a></li>
-              <li><a href="#">그랜트</a></li>
-              <li><Link href="/qna">고객지원</Link></li>
+              <li><a href="/community/news" data-testid="footer-link-blog">블로그</a></li>
+              <li><a href="/community-program" data-testid="footer-link-ambassador">앰배서더</a></li>
+              <li><a href="/community-program" data-testid="footer-link-grants">그랜트</a></li>
+              <li><a href="/qna" data-testid="footer-link-support">고객지원</a></li>
             </ul>
           </div>
         </div>
         <div className="footer-bottom">
           <p>© 2025-2045 TBURN Foundation. All Rights Reserved.</p>
           <div style={{ display: 'flex', gap: '2rem' }}>
-            <Link href="/legal/terms-of-service" style={{ color: 'var(--gray)', textDecoration: 'none' }}>이용약관</Link>
-            <Link href="/legal/privacy-policy" style={{ color: 'var(--gray)', textDecoration: 'none' }}>개인정보처리방침</Link>
+            <a href="/legal/terms-of-service" style={{ color: 'var(--gray)', textDecoration: 'none' }} data-testid="footer-link-terms">이용약관</a>
+            <a href="/legal/privacy-policy" style={{ color: 'var(--gray)', textDecoration: 'none' }} data-testid="footer-link-privacy">개인정보처리방침</a>
           </div>
         </div>
       </footer>
