@@ -1202,11 +1202,31 @@ export default function ReferralPage() {
             <div className="logo-text">TBURN<span>CHAIN</span></div>
           </Link>
           <nav className="nav-links">
-            <a href="#how-it-works">작동 방식</a>
-            <a href="#tiers">등급 시스템</a>
-            <a href="#dashboard">대시보드</a>
-            <a href="#calculator">보상 계산기</a>
-            <a href="#leaderboard">리더보드</a>
+            <a 
+              href="#how-it-works"
+              onClick={(e) => { e.preventDefault(); document.getElementById('how-it-works')?.scrollIntoView({ behavior: 'smooth' }); }}
+              data-testid="nav-how-it-works"
+            >작동 방식</a>
+            <a 
+              href="#tiers"
+              onClick={(e) => { e.preventDefault(); document.getElementById('tiers')?.scrollIntoView({ behavior: 'smooth' }); }}
+              data-testid="nav-tiers"
+            >등급 시스템</a>
+            <a 
+              href="#dashboard"
+              onClick={(e) => { e.preventDefault(); document.getElementById('dashboard')?.scrollIntoView({ behavior: 'smooth' }); }}
+              data-testid="nav-dashboard"
+            >대시보드</a>
+            <a 
+              href="#calculator"
+              onClick={(e) => { e.preventDefault(); document.getElementById('calculator')?.scrollIntoView({ behavior: 'smooth' }); }}
+              data-testid="nav-calculator"
+            >보상 계산기</a>
+            <a 
+              href="#leaderboard"
+              onClick={(e) => { e.preventDefault(); document.getElementById('leaderboard')?.scrollIntoView({ behavior: 'smooth' }); }}
+              data-testid="nav-leaderboard"
+            >리더보드</a>
           </nav>
           <button 
             className={`connect-btn ${isConnected ? 'connected' : ''}`} 
@@ -1287,9 +1307,16 @@ export default function ReferralPage() {
             >
               {generateReferralMutation.isPending ? '생성 중...' : '🔗 내 초대 링크 받기'}
             </button>
-            <a href="#how-it-works" className="btn-secondary">
+            <button 
+              className="btn-secondary"
+              data-testid="button-how-it-works"
+              onClick={() => {
+                document.getElementById('how-it-works')?.scrollIntoView({ behavior: 'smooth' });
+                toast({ title: "레퍼럴 프로그램", description: "4단계로 간단하게 보상을 받을 수 있습니다." });
+              }}
+            >
               작동 방식 보기
-            </a>
+            </button>
           </div>
         </div>
       </section>
@@ -1663,9 +1690,21 @@ export default function ReferralPage() {
           <div className="leaderboard-header">
             <h3>Top Referrers</h3>
             <div className="leaderboard-filter">
-              <button className="filter-btn active" data-testid="filter-all">전체</button>
-              <button className="filter-btn" data-testid="filter-week">이번 주</button>
-              <button className="filter-btn" data-testid="filter-month">이번 달</button>
+              <button 
+                className="filter-btn active" 
+                data-testid="filter-all"
+                onClick={() => toast({ title: "전체 순위", description: "전체 기간 레퍼럴 순위를 표시합니다." })}
+              >전체</button>
+              <button 
+                className="filter-btn" 
+                data-testid="filter-week"
+                onClick={() => toast({ title: "이번 주 순위", description: "이번 주 레퍼럴 순위를 표시합니다. (Coming Soon)" })}
+              >이번 주</button>
+              <button 
+                className="filter-btn" 
+                data-testid="filter-month"
+                onClick={() => toast({ title: "이번 달 순위", description: "이번 달 레퍼럴 순위를 표시합니다. (Coming Soon)" })}
+              >이번 달</button>
             </div>
           </div>
 
@@ -1907,41 +1946,69 @@ export default function ReferralPage() {
             </div>
             <p>차세대 블록체인 인프라</p>
             <div className="social-links">
-              <a href="#" aria-label="Twitter">𝕏</a>
-              <a href="#" aria-label="Telegram">T</a>
-              <a href="#" aria-label="Discord">D</a>
-              <a href="#" aria-label="GitHub">G</a>
+              <a 
+                href="https://twitter.com/tburnchain" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                aria-label="Twitter"
+                onClick={() => toast({ title: "Twitter", description: "TBURN Chain Twitter로 이동합니다." })}
+                data-testid="footer-link-twitter"
+              >𝕏</a>
+              <a 
+                href="https://t.me/tburnchain" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                aria-label="Telegram"
+                onClick={() => toast({ title: "Telegram", description: "TBURN Chain Telegram으로 이동합니다." })}
+                data-testid="footer-link-telegram"
+              >T</a>
+              <a 
+                href="https://discord.gg/tburnchain" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                aria-label="Discord"
+                onClick={() => toast({ title: "Discord", description: "TBURN Chain Discord로 이동합니다." })}
+                data-testid="footer-link-discord"
+              >D</a>
+              <a 
+                href="https://github.com/tburn-chain" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                aria-label="GitHub"
+                onClick={() => toast({ title: "GitHub", description: "TBURN Chain GitHub으로 이동합니다." })}
+                data-testid="footer-link-github"
+              >G</a>
             </div>
           </div>
           <div className="footer-links">
             <h4>프로그램</h4>
             <ul>
-              <li><a href="#how-it-works">작동 방식</a></li>
-              <li><a href="#tiers">등급 시스템</a></li>
-              <li><a href="#calculator">보상 계산기</a></li>
-              <li><a href="#leaderboard">리더보드</a></li>
+              <li><a href="#how-it-works" onClick={() => document.getElementById('how-it-works')?.scrollIntoView({ behavior: 'smooth' })}>작동 방식</a></li>
+              <li><a href="#tiers" onClick={() => document.getElementById('tiers')?.scrollIntoView({ behavior: 'smooth' })}>등급 시스템</a></li>
+              <li><a href="#calculator" onClick={() => document.getElementById('calculator')?.scrollIntoView({ behavior: 'smooth' })}>보상 계산기</a></li>
+              <li><a href="#leaderboard" onClick={() => document.getElementById('leaderboard')?.scrollIntoView({ behavior: 'smooth' })}>리더보드</a></li>
             </ul>
           </div>
           <div className="footer-links">
             <h4>리소스</h4>
             <ul>
-              <li><a href="/docs">문서</a></li>
-              <li><a href="/faq">FAQ</a></li>
-              <li><a href="/support">지원</a></li>
-              <li><a href="/blog">블로그</a></li>
+              <li><Link href="/developers/docs" data-testid="footer-link-docs">문서</Link></li>
+              <li><a href="#faq" onClick={() => document.getElementById('faq')?.scrollIntoView({ behavior: 'smooth' })} data-testid="footer-link-faq">FAQ</a></li>
+              <li><Link href="/qna" data-testid="footer-link-support">지원</Link></li>
+              <li><Link href="/blog" data-testid="footer-link-blog">블로그</Link></li>
             </ul>
           </div>
           <div className="footer-links">
             <h4>법적 고지</h4>
             <ul>
-              <li><a href="/terms">이용약관</a></li>
-              <li><a href="/privacy">개인정보처리방침</a></li>
-              <li><a href="/disclaimer">면책조항</a></li>
+              <li><Link href="/legal/terms-of-service" data-testid="footer-link-terms">이용약관</Link></li>
+              <li><Link href="/legal/privacy-policy" data-testid="footer-link-privacy">개인정보처리방침</Link></li>
+              <li><Link href="/legal/disclaimer" data-testid="footer-link-disclaimer">면책조항</Link></li>
             </ul>
           </div>
         </div>
         <div className="footer-bottom">
-          <p>© 2025 TBURN Chain. All rights reserved.</p>
+          <p>© 2025-2045 TBURN Foundation. All Rights Reserved.</p>
           <p>Powered by TBURN Technology</p>
         </div>
       </footer>
