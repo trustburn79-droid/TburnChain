@@ -273,6 +273,12 @@ async function safeInitApp() {
                           path.startsWith("/token-details") ||
                           path === "/nft-marketplace" ||
                           path.startsWith("/nft-marketplace/") ||
+                          path === "/launchpad" ||
+                          path === "/seed-round" ||
+                          path === "/private-round" ||
+                          path === "/public-round" ||
+                          path === "/coinlist" ||
+                          path === "/dao-maker" ||
                           path === "/login" ||
                           path === "/signup";
     
