@@ -1029,7 +1029,7 @@ export default function LaunchpadPage() {
         <div className="header-container">
           <a href="/" className="logo">
             <div className="logo-icon">
-              <TBurnLogo className="w-6 h-6" />
+              <TBurnLogo className="w-9 h-9" />
             </div>
             <div className="logo-text">TBURN<span>CHAIN</span></div>
           </a>

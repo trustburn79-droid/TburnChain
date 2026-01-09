@@ -1088,7 +1088,7 @@ export default function PublicRoundPage() {
         <div className="header-container">
           <Link href="/" className="logo">
             <div className="logo-icon">
-              <TBurnLogo className="w-8 h-8" />
+              <TBurnLogo className="w-12 h-12" />
             </div>
             <div className="logo-text">TBURN<span>CHAIN</span></div>
           </Link>

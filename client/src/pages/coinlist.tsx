@@ -1122,7 +1122,7 @@ export default function CoinListPage() {
           <div className="cl-header-left">
             <a href="/" className="cl-logo" data-testid="link-logo">
               <div className="cl-logo-icon">
-                <TBurnLogo className="w-8 h-8" />
+                <TBurnLogo className="w-12 h-12" />
               </div>
               <div className="cl-logo-text">CoinList</div>
             </a>

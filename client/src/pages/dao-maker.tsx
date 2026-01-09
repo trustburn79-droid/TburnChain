@@ -1113,7 +1113,7 @@ export default function DAOMakerPage() {
           <div className="dm-header-left">
             <a href="/" className="dm-logo" data-testid="link-logo">
               <div className="dm-logo-icon">
-                <TBurnLogo className="w-8 h-8" />
+                <TBurnLogo className="w-12 h-12" />
               </div>
               <div className="dm-logo-text">DAO Maker</div>
             </a>

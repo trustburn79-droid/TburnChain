@@ -1202,7 +1202,7 @@ export default function ReferralPage() {
         <div className="header-container">
           <Link href="/" className="logo">
             <div className="logo-icon">
-              <TBurnLogo className="w-8 h-8" />
+              <TBurnLogo className="w-12 h-12" />
             </div>
             <div className="logo-text">TBURN<span>CHAIN</span></div>
           </Link>
@@ -1948,7 +1948,7 @@ export default function ReferralPage() {
           <div className="footer-brand">
             <div className="logo">
               <div className="logo-icon">
-                <TBurnLogo className="w-6 h-6" />
+                <TBurnLogo className="w-9 h-9" />
               </div>
               <div className="logo-text">TBURN<span>CHAIN</span></div>
             </div>
