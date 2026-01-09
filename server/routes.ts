@@ -23940,25 +23940,33 @@ Provide JSON portfolio analysis:
         });
         
         // JSON-RPC notification for eth_subscribe newHeads clients
+        // Properly convert values to hex format per JSON-RPC spec
+        const blockNumber = typeof block.number === 'string' ? parseInt(block.number, 10) : (block.number || 0);
+        const blockGasUsed = typeof block.gasUsed === 'string' ? parseInt(block.gasUsed, 10) : (block.gasUsed || 0);
+        const blockSize = typeof block.size === 'string' ? parseInt(block.size, 10) : (block.size || 0);
+        const blockTimestamp = block.timestamp 
+          ? (typeof block.timestamp === 'number' ? block.timestamp : Math.floor(new Date(block.timestamp).getTime() / 1000))
+          : Math.floor(Date.now() / 1000);
+        
         sendJsonRpcNotification('newHeads', {
           difficulty: '0x0',
           extraData: '0x',
-          gasLimit: `0x${(30000000).toString(16)}`,
-          gasUsed: `0x${(block.gasUsed || 0).toString(16)}`,
-          hash: block.hash,
+          gasLimit: '0x1c9c380', // 30,000,000 in hex
+          gasUsed: `0x${blockGasUsed.toString(16)}`,
+          hash: block.hash?.startsWith('0x') ? block.hash : `0x${block.hash || '0'.repeat(64)}`,
           logsBloom: '0x' + '0'.repeat(512),
-          miner: block.miner || block.validator,
+          miner: block.miner || block.validator || '0x' + '0'.repeat(40),
           mixHash: '0x' + '0'.repeat(64),
           nonce: '0x0000000000000000',
-          number: `0x${(block.number).toString(16)}`,
-          parentHash: block.parentHash || '0x' + '0'.repeat(64),
+          number: `0x${blockNumber.toString(16)}`,
+          parentHash: block.parentHash?.startsWith('0x') ? block.parentHash : `0x${block.parentHash || '0'.repeat(64)}`,
           receiptsRoot: '0x' + '0'.repeat(64),
           sha3Uncles: '0x' + '0'.repeat(64),
-          size: `0x${(block.size || 0).toString(16)}`,
+          size: `0x${blockSize.toString(16)}`,
           stateRoot: '0x' + '0'.repeat(64),
-          timestamp: `0x${Math.floor(new Date(block.timestamp).getTime() / 1000).toString(16)}`,
+          timestamp: `0x${blockTimestamp.toString(16)}`,
           transactionsRoot: '0x' + '0'.repeat(64),
-          baseFeePerGas: `0x${(1000000000).toString(16)}`,
+          baseFeePerGas: '0x3b9aca00', // 1 gwei in hex
         });
       }
     } catch (error) {
