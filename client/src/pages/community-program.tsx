@@ -73,78 +73,78 @@ export default function CommunityProgramPage() {
       id: "ambassador", 
       icon: "🌟", 
       featured: true,
-      title: "브랜드 앰배서더",
-      subtitle: "TBURN의 얼굴이 되어주세요",
-      reward: "월 최대 5,000 TBURN",
-      benefits: ["공식 앰배서더 뱃지", "월간 보너스 지급", "이벤트 우선 초대", "독점 콘텐츠 액세스"],
-      requirements: "SNS 팔로워 1,000명 이상, 주 2회 이상 콘텐츠 게시"
+      titleKey: "communityProgram.programs.ambassador.title",
+      subtitleKey: "communityProgram.programs.ambassador.subtitle",
+      rewardKey: "communityProgram.programs.ambassador.reward",
+      benefitKeys: ["communityProgram.programs.ambassador.benefit1", "communityProgram.programs.ambassador.benefit2", "communityProgram.programs.ambassador.benefit3", "communityProgram.programs.ambassador.benefit4"],
+      requirementsKey: "communityProgram.programs.ambassador.requirements"
     },
     { 
       id: "creator", 
       icon: "🎨", 
       featured: true,
-      title: "콘텐츠 크리에이터",
-      subtitle: "창의적인 콘텐츠로 커뮤니티 성장",
-      reward: "콘텐츠당 100~500 TBURN",
-      benefits: ["크리에이터 전용 채널", "콘텐츠 제작 지원", "협업 기회 제공", "특별 보상 프로그램"],
-      requirements: "포트폴리오 제출, 월 1회 이상 콘텐츠 제작"
+      titleKey: "communityProgram.programs.creator.title",
+      subtitleKey: "communityProgram.programs.creator.subtitle",
+      rewardKey: "communityProgram.programs.creator.reward",
+      benefitKeys: ["communityProgram.programs.creator.benefit1", "communityProgram.programs.creator.benefit2", "communityProgram.programs.creator.benefit3", "communityProgram.programs.creator.benefit4"],
+      requirementsKey: "communityProgram.programs.creator.requirements"
     },
     { 
       id: "moderator", 
       icon: "🛡️", 
       featured: false,
-      title: "커뮤니티 모더레이터",
-      subtitle: "건강한 커뮤니티 문화 조성",
-      reward: "월 2,000 TBURN",
-      benefits: ["모더레이터 권한", "커뮤니티 운영 교육", "우선 지원 채널"],
-      requirements: "디스코드/텔레그램 활동 3개월 이상"
+      titleKey: "communityProgram.programs.moderator.title",
+      subtitleKey: "communityProgram.programs.moderator.subtitle",
+      rewardKey: "communityProgram.programs.moderator.reward",
+      benefitKeys: ["communityProgram.programs.moderator.benefit1", "communityProgram.programs.moderator.benefit2", "communityProgram.programs.moderator.benefit3", "communityProgram.programs.moderator.benefit4"],
+      requirementsKey: "communityProgram.programs.moderator.requirements"
     },
     { 
       id: "educator", 
       icon: "📚", 
       featured: false,
-      title: "교육 전문가",
-      subtitle: "블록체인 교육 콘텐츠 제작",
-      reward: "튜토리얼당 200~500 TBURN",
-      benefits: ["교육 자료 제공", "강연 기회", "전문가 네트워크 참여"],
-      requirements: "블록체인 관련 지식 보유, 콘텐츠 제작 능력"
+      titleKey: "communityProgram.programs.educator.title",
+      subtitleKey: "communityProgram.programs.educator.subtitle",
+      rewardKey: "communityProgram.programs.educator.reward",
+      benefitKeys: ["communityProgram.programs.educator.benefit1", "communityProgram.programs.educator.benefit2", "communityProgram.programs.educator.benefit3", "communityProgram.programs.educator.benefit4"],
+      requirementsKey: "communityProgram.programs.educator.requirements"
     },
     { 
       id: "translator", 
       icon: "🌍", 
       featured: false,
-      title: "번역가",
-      subtitle: "글로벌 커뮤니티 확장 지원",
-      reward: "문서당 50~200 TBURN",
-      benefits: ["번역 도구 제공", "언어별 커뮤니티 리더 기회"],
-      requirements: "영어 및 1개 이상의 외국어 능통"
+      titleKey: "communityProgram.programs.translator.title",
+      subtitleKey: "communityProgram.programs.translator.subtitle",
+      rewardKey: "communityProgram.programs.translator.reward",
+      benefitKeys: ["communityProgram.programs.translator.benefit1", "communityProgram.programs.translator.benefit2", "communityProgram.programs.translator.benefit3", "communityProgram.programs.translator.benefit4"],
+      requirementsKey: "communityProgram.programs.translator.requirements"
     },
     { 
       id: "bounty", 
       icon: "🏆", 
       featured: false,
-      title: "버그 바운티 헌터",
-      subtitle: "보안 취약점 발견 및 보고",
-      reward: "심각도에 따라 100~10,000 TBURN",
-      benefits: ["보안팀 직접 소통", "Hall of Fame 등재"],
-      requirements: "보안/개발 관련 경험"
+      titleKey: "communityProgram.programs.bounty.title",
+      subtitleKey: "communityProgram.programs.bounty.subtitle",
+      rewardKey: "communityProgram.programs.bounty.reward",
+      benefitKeys: ["communityProgram.programs.bounty.benefit1", "communityProgram.programs.bounty.benefit2"],
+      requirementsKey: "communityProgram.programs.bounty.requirements"
     },
   ];
 
   const tiers = [
-    { id: "newcomer", icon: "🌱", name: "신입", points: "0 ~ 99", multiplier: "x1.0", tierClass: "newcomer" },
-    { id: "contributor", icon: "🌿", name: "기여자", points: "100 ~ 499", multiplier: "x1.2", tierClass: "contributor" },
-    { id: "advocate", icon: "💠", name: "옹호자", points: "500 ~ 1,999", multiplier: "x1.5", tierClass: "advocate" },
-    { id: "champion", icon: "👑", name: "챔피언", points: "2,000 ~ 9,999", multiplier: "x2.0", tierClass: "champion" },
-    { id: "legend", icon: "⭐", name: "전설", points: "10,000+", multiplier: "x3.0", tierClass: "legend" },
+    { id: "newcomer", icon: "🌱", nameKey: "communityProgram.tiers.newcomer.name", pointsKey: "communityProgram.tiers.newcomer.points", multiplier: "x1.0", tierClass: "newcomer" },
+    { id: "contributor", icon: "🌿", nameKey: "communityProgram.tiers.contributor.name", pointsKey: "communityProgram.tiers.contributor.points", multiplier: "x1.2", tierClass: "contributor" },
+    { id: "advocate", icon: "💠", nameKey: "communityProgram.tiers.advocate.name", pointsKey: "communityProgram.tiers.advocate.points", multiplier: "x1.5", tierClass: "advocate" },
+    { id: "champion", icon: "👑", nameKey: "communityProgram.tiers.champion.name", pointsKey: "communityProgram.tiers.champion.points", multiplier: "x2.0", tierClass: "champion" },
+    { id: "legend", icon: "⭐", nameKey: "communityProgram.tiers.legend.name", pointsKey: "communityProgram.tiers.legend.points", multiplier: "x3.0", tierClass: "legend" },
   ];
 
   const activities = [
-    { icon: "📝", type: "content", name: "블로그 포스트", category: "콘텐츠", points: "+50~200", reward: "50~200 TBURN", frequency: "weekly" },
-    { icon: "🎬", type: "content", name: "유튜브 영상", category: "콘텐츠", points: "+100~500", reward: "100~500 TBURN", frequency: "monthly" },
-    { icon: "🐦", type: "social", name: "트윗/리트윗", category: "소셜", points: "+10~50", reward: "10~50 TBURN", frequency: "daily" },
-    { icon: "💬", type: "support", name: "Q&A 지원", category: "지원", points: "+20~100", reward: "20~100 TBURN", frequency: "daily" },
-    { icon: "📖", type: "education", name: "튜토리얼 작성", category: "교육", points: "+200~500", reward: "200~500 TBURN", frequency: "once" },
+    { icon: "📝", type: "content", nameKey: "communityProgram.activities.items.blog", categoryKey: "communityProgram.activities.categories.content", points: "+50~200", reward: "50~200 TBURN", frequency: "weekly" },
+    { icon: "🎬", type: "content", nameKey: "communityProgram.activities.items.youtube", categoryKey: "communityProgram.activities.categories.content", points: "+100~500", reward: "100~500 TBURN", frequency: "monthly" },
+    { icon: "🐦", type: "social", nameKey: "communityProgram.activities.items.tweet", categoryKey: "communityProgram.activities.categories.social", points: "+10~50", reward: "10~50 TBURN", frequency: "daily" },
+    { icon: "💬", type: "support", nameKey: "communityProgram.activities.items.qa", categoryKey: "communityProgram.activities.categories.support", points: "+20~100", reward: "20~100 TBURN", frequency: "daily" },
+    { icon: "📖", type: "education", nameKey: "communityProgram.activities.items.tutorial", categoryKey: "communityProgram.activities.categories.education", points: "+200~500", reward: "200~500 TBURN", frequency: "once" },
   ];
 
   const leaderboard = [
@@ -1084,27 +1084,27 @@ export default function CommunityProgramPage() {
               href="#programs"
               onClick={(e) => { e.preventDefault(); scrollToSection('programs'); }}
               data-testid="nav-programs"
-            >프로그램</a>
+            >{t('communityProgram.nav.programs')}</a>
             <a 
               href="#tiers"
               onClick={(e) => { e.preventDefault(); scrollToSection('tiers'); }}
               data-testid="nav-tiers"
-            >등급 시스템</a>
+            >{t('communityProgram.nav.tiers')}</a>
             <a 
               href="#activities"
               onClick={(e) => { e.preventDefault(); scrollToSection('activities'); }}
               data-testid="nav-activities"
-            >활동 보상</a>
+            >{t('communityProgram.nav.activities')}</a>
             <a 
               href="#leaderboard"
               onClick={(e) => { e.preventDefault(); scrollToSection('leaderboard'); }}
               data-testid="nav-leaderboard"
-            >리더보드</a>
+            >{t('communityProgram.nav.leaderboard')}</a>
             <a 
               href="#faq"
               onClick={(e) => { e.preventDefault(); scrollToSection('faq'); }}
               data-testid="nav-faq"
-            >FAQ</a>
+            >{t('communityProgram.nav.faq')}</a>
           </nav>
           <div className="header-actions">
             <LanguageSelector isDark={true} />
@@ -1113,7 +1113,7 @@ export default function CommunityProgramPage() {
               data-testid="button-connect-wallet"
               onClick={handleWalletClick}
             >
-              {isConnected && address ? `🔗 ${formatAddress(address)}` : '🔗 지갑 연결'}
+              {isConnected && address ? `🔗 ${formatAddress(address)}` : `🔗 ${t('common.connectWallet')}`}
             </button>
           </div>
         </div>
@@ -1124,33 +1124,32 @@ export default function CommunityProgramPage() {
         <div className="hero-bg"></div>
         <div className="hero-content">
           <div className="badge">
-            👋 COMMUNITY PROGRAM - 함께 성장하는 TBURN
+            👋 {t('communityProgram.hero.badge')}
           </div>
           <h1>
-            커뮤니티와 함께 만드는<br />
-            <span className="gradient-text">3억 TBURN</span> 보상 프로그램
+            {t('communityProgram.hero.title')}<br />
+            <span className="gradient-text">{t('communityProgram.hero.titleHighlight')}</span> {t('communityProgram.hero.titleSuffix')}
           </h1>
           <p className="hero-subtitle">
-            앰배서더, 콘텐츠 크리에이터, 모더레이터, 번역가로 활동하고
-            TBURN 생태계 성장에 기여하며 푸짐한 보상을 받아가세요!
+            {t('communityProgram.hero.subtitle')}
           </p>
 
           <div className="stats-grid">
             <div className="stat-card" data-testid="stat-total-contributors">
               <div className="stat-value">{isLoading ? '...' : stats?.totalContributors?.toLocaleString() || '0'}</div>
-              <div className="stat-label">총 참여자 수</div>
+              <div className="stat-label">{t('communityProgram.stats.totalContributors')}</div>
             </div>
             <div className="stat-card" data-testid="stat-total-contributions">
               <div className="stat-value">{isLoading ? '...' : stats?.totalContributions?.toLocaleString() || '0'}</div>
-              <div className="stat-label">총 기여 횟수</div>
+              <div className="stat-label">{t('communityProgram.stats.totalContributions')}</div>
             </div>
             <div className="stat-card" data-testid="stat-total-rewards">
               <div className="stat-value">{isLoading ? '...' : Number(stats?.totalRewardsDistributed || 0).toLocaleString()}</div>
-              <div className="stat-label">배포된 보상 (TBURN)</div>
+              <div className="stat-label">{t('communityProgram.stats.rewardsDistributed')}</div>
             </div>
             <div className="stat-card" data-testid="stat-active-tasks">
               <div className="stat-value">{isLoading ? '...' : stats?.activeTasks || '0'}</div>
-              <div className="stat-label">활성 태스크</div>
+              <div className="stat-label">{t('communityProgram.stats.activeTasks')}</div>
             </div>
           </div>
 
@@ -1158,16 +1157,16 @@ export default function CommunityProgramPage() {
             <button 
               className="btn-primary" 
               data-testid="button-apply"
-              onClick={() => { scrollToSection('programs'); toast({ title: "프로그램 선택", description: "아래에서 참여할 프로그램을 선택하세요." }); }}
+              onClick={() => { scrollToSection('programs'); toast({ title: t('communityProgram.toast.selectProgram'), description: t('communityProgram.toast.selectProgramDesc') }); }}
             >
-              지금 신청하기
+              {t('communityProgram.hero.applyNow')}
             </button>
             <button 
               className="btn-secondary"
               data-testid="button-guide"
-              onClick={() => { scrollToSection('activities'); toast({ title: "가이드", description: "활동별 포인트와 보상 정보를 확인하세요." }); }}
+              onClick={() => { scrollToSection('activities'); toast({ title: t('communityProgram.toast.guide'), description: t('communityProgram.toast.guideDesc') }); }}
             >
-              가이드 보기
+              {t('communityProgram.hero.viewGuide')}
             </button>
           </div>
         </div>
@@ -1176,46 +1175,46 @@ export default function CommunityProgramPage() {
       {/* Distribution Section */}
       <section className="section">
         <div className="section-header">
-          <span className="section-badge">DISTRIBUTION</span>
-          <h2 className="section-title">프로그램별 보상 배분</h2>
-          <p className="section-subtitle">3억 TBURN이 6가지 프로그램으로 배분됩니다</p>
+          <span className="section-badge">{t('communityProgram.distribution.badge')}</span>
+          <h2 className="section-title">{t('communityProgram.distribution.title')}</h2>
+          <p className="section-subtitle">{t('communityProgram.distribution.subtitle')}</p>
         </div>
 
         <div className="distribution-grid">
           <div className="dist-card ambassador" data-testid="dist-ambassador">
             <div className="dist-icon">🌟</div>
-            <div className="dist-name">앰배서더</div>
-            <div className="dist-amount">9,000만</div>
+            <div className="dist-name">{t('communityProgram.distribution.ambassador')}</div>
+            <div className="dist-amount">{t('communityProgram.distribution.amount90m')}</div>
             <div className="dist-percent">30%</div>
           </div>
           <div className="dist-card creator" data-testid="dist-creator">
             <div className="dist-icon">🎨</div>
-            <div className="dist-name">크리에이터</div>
-            <div className="dist-amount">6,000만</div>
+            <div className="dist-name">{t('communityProgram.distribution.creator')}</div>
+            <div className="dist-amount">{t('communityProgram.distribution.amount60m')}</div>
             <div className="dist-percent">20%</div>
           </div>
           <div className="dist-card moderator" data-testid="dist-moderator">
             <div className="dist-icon">🛡️</div>
-            <div className="dist-name">모더레이터</div>
-            <div className="dist-amount">4,500만</div>
+            <div className="dist-name">{t('communityProgram.distribution.moderator')}</div>
+            <div className="dist-amount">{t('communityProgram.distribution.amount45m')}</div>
             <div className="dist-percent">15%</div>
           </div>
           <div className="dist-card educator" data-testid="dist-educator">
             <div className="dist-icon">📚</div>
-            <div className="dist-name">교육 전문가</div>
-            <div className="dist-amount">4,500만</div>
+            <div className="dist-name">{t('communityProgram.distribution.educator')}</div>
+            <div className="dist-amount">{t('communityProgram.distribution.amount45m')}</div>
             <div className="dist-percent">15%</div>
           </div>
           <div className="dist-card translator" data-testid="dist-translator">
             <div className="dist-icon">🌍</div>
-            <div className="dist-name">번역가</div>
-            <div className="dist-amount">3,000만</div>
+            <div className="dist-name">{t('communityProgram.distribution.translator')}</div>
+            <div className="dist-amount">{t('communityProgram.distribution.amount30m')}</div>
             <div className="dist-percent">10%</div>
           </div>
           <div className="dist-card bounty" data-testid="dist-bounty">
             <div className="dist-icon">🏆</div>
-            <div className="dist-name">버그 바운티</div>
-            <div className="dist-amount">3,000만</div>
+            <div className="dist-name">{t('communityProgram.distribution.bounty')}</div>
+            <div className="dist-amount">{t('communityProgram.distribution.amount30m')}</div>
             <div className="dist-percent">10%</div>
           </div>
         </div>
@@ -1224,9 +1223,9 @@ export default function CommunityProgramPage() {
       {/* Programs Section */}
       <section className="section" id="programs" style={{ background: 'rgba(255,255,255,0.02)' }}>
         <div className="section-header">
-          <span className="section-badge">PROGRAMS</span>
-          <h2 className="section-title">커뮤니티 프로그램</h2>
-          <p className="section-subtitle">나에게 맞는 프로그램을 찾아 참여하세요</p>
+          <span className="section-badge">{t('communityProgram.programs.badge')}</span>
+          <h2 className="section-title">{t('communityProgram.programs.title')}</h2>
+          <p className="section-subtitle">{t('communityProgram.programs.subtitle')}</p>
         </div>
 
         <div className="programs-grid">
@@ -1234,29 +1233,29 @@ export default function CommunityProgramPage() {
             <div key={program.id} className={`program-card ${program.featured ? 'featured' : ''}`} data-testid={`program-${program.id}`}>
               <div className={`program-header ${program.id}`}>
                 <div className="program-icon">{program.icon}</div>
-                <h3 className="program-title">{program.title}</h3>
-                <p className="program-subtitle">{program.subtitle}</p>
+                <h3 className="program-title">{t(program.titleKey)}</h3>
+                <p className="program-subtitle">{t(program.subtitleKey)}</p>
               </div>
               <div className="program-content">
                 <div className="program-reward">
-                  <span className="program-reward-label">보상</span>
-                  <span className="program-reward-value">{program.reward}</span>
+                  <span className="program-reward-label">{t('communityProgram.programs.reward')}</span>
+                  <span className="program-reward-value">{t(program.rewardKey)}</span>
                 </div>
                 <ul className="program-benefits">
-                  {program.benefits.map((benefit, idx) => (
-                    <li key={idx}>{benefit}</li>
+                  {program.benefitKeys.map((benefitKey, idx) => (
+                    <li key={idx}>{t(benefitKey)}</li>
                   ))}
                 </ul>
                 <div className="program-requirements">
-                  <h5>참여 조건</h5>
-                  <p>{program.requirements}</p>
+                  <h5>{t('communityProgram.programs.requirements')}</h5>
+                  <p>{t(program.requirementsKey)}</p>
                 </div>
                 <button 
                   className="program-btn primary"
-                  onClick={() => handleApplyProgram(program.id, program.title)}
+                  onClick={() => handleApplyProgram(program.id, t(program.titleKey))}
                   data-testid={`button-apply-${program.id}`}
                 >
-                  {isConnected ? '신청하기' : '지갑 연결 후 신청'}
+                  {isConnected ? t('communityProgram.programs.applyBtn') : t('communityProgram.programs.connectFirst')}
                 </button>
               </div>
             </div>
@@ -1267,23 +1266,23 @@ export default function CommunityProgramPage() {
       {/* Tier System Section */}
       <section className="section" id="tiers">
         <div className="section-header">
-          <span className="section-badge">TIER SYSTEM</span>
-          <h2 className="section-title">커뮤니티 등급 시스템</h2>
-          <p className="section-subtitle">활동량에 따라 등급이 상승하고 보상 배율이 증가합니다</p>
+          <span className="section-badge">{t('communityProgram.tiers.badge')}</span>
+          <h2 className="section-title">{t('communityProgram.tiers.title')}</h2>
+          <p className="section-subtitle">{t('communityProgram.tiers.subtitle')}</p>
         </div>
 
         <div className="tier-section">
           <div className="tier-header">
-            <h3>🏅 등급별 혜택</h3>
-            <p>포인트를 모아 더 높은 등급으로 승급하세요</p>
+            <h3>🏅 {t('communityProgram.tiers.benefitsTitle')}</h3>
+            <p>{t('communityProgram.tiers.benefitsSubtitle')}</p>
           </div>
 
           <div className="tier-grid">
             {tiers.map(tier => (
               <div key={tier.id} className={`tier-card ${tier.tierClass}`} data-testid={`tier-${tier.id}`}>
                 <div className="tier-icon">{tier.icon}</div>
-                <div className="tier-name">{tier.name}</div>
-                <div className="tier-points">{tier.points}</div>
+                <div className="tier-name">{t(tier.nameKey)}</div>
+                <div className="tier-points">{t(tier.pointsKey)}</div>
                 <div className="tier-multiplier">{tier.multiplier}</div>
               </div>
             ))}
@@ -1294,24 +1293,24 @@ export default function CommunityProgramPage() {
       {/* Activities Section */}
       <section className="section" id="activities" style={{ background: 'rgba(255,255,255,0.02)' }}>
         <div className="section-header">
-          <span className="section-badge">ACTIVITIES</span>
-          <h2 className="section-title">활동별 포인트 & 보상</h2>
-          <p className="section-subtitle">다양한 활동으로 포인트와 TBURN을 획득하세요</p>
+          <span className="section-badge">{t('communityProgram.activities.badge')}</span>
+          <h2 className="section-title">{t('communityProgram.activities.title')}</h2>
+          <p className="section-subtitle">{t('communityProgram.activities.subtitle')}</p>
         </div>
 
         <div className="activity-section">
           <div className="activity-header">
-            <h3>📊 포인트 획득 활동</h3>
+            <h3>📊 {t('communityProgram.activities.tableTitle')}</h3>
           </div>
 
           <table className="activity-table">
             <thead>
               <tr>
-                <th>활동</th>
-                <th>카테고리</th>
-                <th>포인트</th>
-                <th>TBURN 보상</th>
-                <th>빈도</th>
+                <th>{t('communityProgram.activities.columnActivity')}</th>
+                <th>{t('communityProgram.activities.columnCategory')}</th>
+                <th>{t('communityProgram.activities.columnPoints')}</th>
+                <th>{t('communityProgram.activities.columnReward')}</th>
+                <th>{t('communityProgram.activities.columnFrequency')}</th>
               </tr>
             </thead>
             <tbody>
@@ -1320,17 +1319,15 @@ export default function CommunityProgramPage() {
                   <td>
                     <div className="activity-type">
                       <div className={`activity-type-icon ${activity.type}`}>{activity.icon}</div>
-                      <span>{activity.name}</span>
+                      <span>{t(activity.nameKey)}</span>
                     </div>
                   </td>
-                  <td>{activity.category}</td>
+                  <td>{t(activity.categoryKey)}</td>
                   <td className="activity-points">{activity.points}</td>
                   <td className="activity-reward">{activity.reward}</td>
                   <td>
                     <span className={`frequency-badge ${activity.frequency}`}>
-                      {activity.frequency === 'daily' ? '매일' : 
-                       activity.frequency === 'weekly' ? '매주' : 
-                       activity.frequency === 'monthly' ? '매월' : '1회'}
+                      {t(`communityProgram.activities.frequency.${activity.frequency}`)}
                     </span>
                   </td>
                 </tr>
@@ -1343,14 +1340,14 @@ export default function CommunityProgramPage() {
       {/* Leaderboard Section */}
       <section className="section" id="leaderboard">
         <div className="section-header">
-          <span className="section-badge">LEADERBOARD</span>
-          <h2 className="section-title">커뮤니티 리더보드</h2>
-          <p className="section-subtitle">가장 활발한 커뮤니티 멤버들</p>
+          <span className="section-badge">{t('communityProgram.leaderboard.badge')}</span>
+          <h2 className="section-title">{t('communityProgram.leaderboard.title')}</h2>
+          <p className="section-subtitle">{t('communityProgram.leaderboard.subtitle')}</p>
         </div>
 
         <div className="leaderboard-section">
           <div className="leaderboard-header">
-            <h3>🏆 Top Contributors</h3>
+            <h3>🏆 {t('communityProgram.leaderboard.topContributors')}</h3>
           </div>
 
           <div className="leaderboard-list">
@@ -1371,89 +1368,89 @@ export default function CommunityProgramPage() {
       {/* FAQ */}
       <section className="section" id="faq" style={{ background: 'rgba(255,255,255,0.02)' }}>
         <div className="section-header">
-          <span className="section-badge">FAQ</span>
-          <h2 className="section-title">자주 묻는 질문</h2>
-          <p className="section-subtitle">커뮤니티 프로그램에 대해 궁금한 점</p>
+          <span className="section-badge">{t('communityProgram.faq.badge')}</span>
+          <h2 className="section-title">{t('communityProgram.faq.title')}</h2>
+          <p className="section-subtitle">{t('communityProgram.faq.subtitle')}</p>
         </div>
 
         <div className="faq-container">
           <div className={`faq-item ${activeFaq === 'faq-1' ? 'active' : ''}`} data-testid="faq-1">
             <div className="faq-question" onClick={() => toggleFaq('faq-1')}>
-              <h4>커뮤니티 프로그램 보상 총 물량은 얼마인가요?</h4>
+              <h4>{t('communityProgram.faq.q1.question')}</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>커뮤니티 프로그램 보상 총 풀은 <strong>3억 TBURN</strong>입니다. 이는 전체 공급량 100억 TBURN의 3%에 해당합니다. 6개 프로그램으로 배분됩니다: 앰배서더(30%), 콘텐츠 크리에이터(20%), 모더레이터(15%), 교육 전문가(15%), 번역가(10%), 버그 바운티(10%).</p>
+              <p>{t('communityProgram.faq.q1.answer')}</p>
             </div>
           </div>
 
           <div className={`faq-item ${activeFaq === 'faq-2' ? 'active' : ''}`} data-testid="faq-2">
             <div className="faq-question" onClick={() => toggleFaq('faq-2')}>
-              <h4>커뮤니티 프로그램에 어떻게 참여하나요?</h4>
+              <h4>{t('communityProgram.faq.q2.question')}</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>각 프로그램 카드의 <strong>"신청하기" 버튼</strong>을 클릭하여 지원서를 제출하세요. 지원서 검토 후 승인되면 공식 커뮤니티 멤버로 활동을 시작할 수 있습니다. 앰배서더는 별도의 인터뷰 과정이 있습니다.</p>
+              <p>{t('communityProgram.faq.q2.answer')}</p>
             </div>
           </div>
 
           <div className={`faq-item ${activeFaq === 'faq-3' ? 'active' : ''}`} data-testid="faq-3">
             <div className="faq-question" onClick={() => toggleFaq('faq-3')}>
-              <h4>포인트는 어떻게 TBURN으로 전환되나요?</h4>
+              <h4>{t('communityProgram.faq.q3.question')}</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>포인트는 <strong>매월 말 자동으로 TBURN으로 전환</strong>됩니다. 전환 비율은 등급에 따라 달라지며, Legend 등급은 최대 3배의 보상 배율을 받습니다. 전환된 TBURN은 다음 달 첫째 주에 지급됩니다.</p>
+              <p>{t('communityProgram.faq.q3.answer')}</p>
             </div>
           </div>
 
           <div className={`faq-item ${activeFaq === 'faq-4' ? 'active' : ''}`} data-testid="faq-4">
             <div className="faq-question" onClick={() => toggleFaq('faq-4')}>
-              <h4>여러 프로그램에 동시 참여가 가능한가요?</h4>
+              <h4>{t('communityProgram.faq.q4.question')}</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>네, <strong>여러 프로그램에 동시 참여</strong>가 가능합니다. 예를 들어, 앰배서더로 활동하면서 콘텐츠 크리에이터로도 보상을 받을 수 있습니다. 단, 각 프로그램별 참여 조건을 모두 충족해야 합니다.</p>
+              <p>{t('communityProgram.faq.q4.answer')}</p>
             </div>
           </div>
 
           <div className={`faq-item ${activeFaq === 'faq-5' ? 'active' : ''}`} data-testid="faq-5">
             <div className="faq-question" onClick={() => toggleFaq('faq-5')}>
-              <h4>등급 시스템은 어떻게 작동하나요?</h4>
+              <h4>{t('communityProgram.faq.q5.question')}</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>5단계 등급 시스템이 있습니다: <strong>뉴커머(1x) → 컨트리뷰터(1.2x) → 애드보킷(1.5x) → 챔피언(2x) → 레전드(3x)</strong>. 활동으로 포인트를 쌓아 상위 등급으로 승급하며, 각 등급마다 보상 배율이 증가합니다. 레전드 등급은 10,000포인트 이상 필요합니다.</p>
+              <p>{t('communityProgram.faq.q5.answer')}</p>
             </div>
           </div>
 
           <div className={`faq-item ${activeFaq === 'faq-6' ? 'active' : ''}`} data-testid="faq-6">
             <div className="faq-question" onClick={() => toggleFaq('faq-6')}>
-              <h4>등급 강등 조건은 무엇인가요?</h4>
+              <h4>{t('communityProgram.faq.q6.question')}</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p><strong>3개월 연속 최소 활동량</strong>(월 100포인트 이상)을 달성하지 못하면 등급이 강등될 수 있습니다. 강등 시 1단계씩 내려가며, 해당 등급의 보상 배율이 적용됩니다.</p>
+              <p>{t('communityProgram.faq.q6.answer')}</p>
             </div>
           </div>
 
           <div className={`faq-item ${activeFaq === 'faq-7' ? 'active' : ''}`} data-testid="faq-7">
             <div className="faq-question" onClick={() => toggleFaq('faq-7')}>
-              <h4>버그 바운티 보상은 어떻게 결정되나요?</h4>
+              <h4>{t('communityProgram.faq.q7.question')}</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>버그 바운티 보상은 취약점의 <strong>심각도에 따라</strong> 결정됩니다: Critical(최대 50,000 TBURN), High(10,000~25,000 TBURN), Medium(2,000~10,000 TBURN), Low(500~2,000 TBURN). 보안 전문가 검증 후 7일 이내 지급됩니다.</p>
+              <p>{t('communityProgram.faq.q7.answer')}</p>
             </div>
           </div>
 
           <div className={`faq-item ${activeFaq === 'faq-8' ? 'active' : ''}`} data-testid="faq-8">
             <div className="faq-question" onClick={() => toggleFaq('faq-8')}>
-              <h4>콘텐츠 품질 기준은 무엇인가요?</h4>
+              <h4>{t('communityProgram.faq.q8.question')}</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>콘텐츠는 <strong>정확성, 원본성, 품질, 참여도</strong> 4가지 기준으로 평가됩니다. 표절, 허위 정보, 저품질 콘텐츠는 보상이 거부되며, 반복 시 프로그램 참여가 제한될 수 있습니다. 우수 콘텐츠는 공식 채널에 홍보되며 추가 보너스가 지급됩니다.</p>
+              <p>{t('communityProgram.faq.q8.answer')}</p>
             </div>
           </div>
         </div>
@@ -1462,18 +1459,18 @@ export default function CommunityProgramPage() {
       {/* CTA Section */}
       <section className="cta-section" data-testid="cta-section">
         <div style={{ maxWidth: '800px', margin: '0 auto' }}>
-          <h2 style={{ fontSize: '2.5rem', fontWeight: 800, marginBottom: '1rem' }}>TBURN 커뮤니티에 합류하세요!</h2>
+          <h2 style={{ fontSize: '2.5rem', fontWeight: 800, marginBottom: '1rem' }}>{t('communityProgram.cta.title')}</h2>
           <p style={{ color: 'rgba(255,255,255,0.8)', fontSize: '1.125rem', marginBottom: '2rem' }}>
-            함께 성장하고, 함께 보상받는 TBURN 생태계<br />
-            지금 바로 커뮤니티 프로그램에 참여하세요!
+            {t('communityProgram.cta.subtitle')}<br />
+            {t('communityProgram.cta.subtitleLine2')}
           </p>
           <button 
             className="connect-btn" 
             style={{ background: 'var(--white)', color: 'var(--cyan)', fontSize: '1.25rem', padding: '20px 50px' }}
-            onClick={() => { scrollToSection('programs'); toast({ title: "커뮤니티 프로그램", description: "참여할 프로그램을 선택하세요!" }); }}
+            onClick={() => { scrollToSection('programs'); toast({ title: t('communityProgram.toast.selectProgram'), description: t('communityProgram.toast.selectProgramDesc') }); }}
             data-testid="button-cta-start"
           >
-            지금 시작하기
+            {t('communityProgram.cta.button')}
           </button>
         </div>
       </section>
@@ -1483,7 +1480,7 @@ export default function CommunityProgramPage() {
         <div className="footer-content">
           <div className="footer-brand">
             <h3>TBURN<span>CHAIN</span></h3>
-            <p>AI의 지능, 블록체인의 투명성<br />THE FUTURE IS NOW</p>
+            <p>{t('communityProgram.footer.brand.tagline')}<br />{t('communityProgram.footer.brand.slogan')}</p>
             <div className="social-links">
               <a 
                 href="https://twitter.com/tburnchain" 
@@ -1520,44 +1517,44 @@ export default function CommunityProgramPage() {
             </div>
           </div>
           <div className="footer-links">
-            <h4>Product</h4>
+            <h4>{t('communityProgram.footer.product.title')}</h4>
             <ul>
-              <li><Link href="/" data-testid="footer-link-mainnet">메인넷</Link></li>
-              <li><Link href="/scan" data-testid="footer-link-explorer">익스플로러</Link></li>
-              <li><Link href="/app/bridge" data-testid="footer-link-bridge">브릿지</Link></li>
-              <li><Link href="/app/staking" data-testid="footer-link-staking">스테이킹</Link></li>
+              <li><Link href="/" data-testid="footer-link-mainnet">{t('communityProgram.footer.product.mainnet')}</Link></li>
+              <li><Link href="/scan" data-testid="footer-link-explorer">{t('communityProgram.footer.product.explorer')}</Link></li>
+              <li><Link href="/app/bridge" data-testid="footer-link-bridge">{t('communityProgram.footer.product.bridge')}</Link></li>
+              <li><Link href="/app/staking" data-testid="footer-link-staking">{t('communityProgram.footer.product.staking')}</Link></li>
             </ul>
           </div>
           <div className="footer-links">
-            <h4>Resources</h4>
+            <h4>{t('communityProgram.footer.resources.title')}</h4>
             <ul>
-              <li><Link href="/learn/whitepaper" data-testid="footer-link-whitepaper">백서</Link></li>
-              <li><Link href="/developers/docs" data-testid="footer-link-docs">문서</Link></li>
+              <li><Link href="/learn/whitepaper" data-testid="footer-link-whitepaper">{t('communityProgram.footer.resources.whitepaper')}</Link></li>
+              <li><Link href="/developers/docs" data-testid="footer-link-docs">{t('communityProgram.footer.resources.docs')}</Link></li>
               <li><a 
                 href="https://github.com/tburn-chain" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                onClick={() => toast({ title: "GitHub", description: "TBURN Chain GitHub으로 이동합니다." })}
+                onClick={() => toast({ title: "GitHub", description: t('communityProgram.toast.githubRedirect') })}
                 data-testid="footer-link-github"
-              >GitHub</a></li>
-              <li><Link href="/security-audit" data-testid="footer-link-audit">감사 보고서</Link></li>
+              >{t('communityProgram.footer.resources.github')}</a></li>
+              <li><Link href="/security-audit" data-testid="footer-link-audit">{t('communityProgram.footer.resources.blog')}</Link></li>
             </ul>
           </div>
           <div className="footer-links">
-            <h4>Community</h4>
+            <h4>{t('communityProgram.footer.community.title')}</h4>
             <ul>
-              <li><Link href="/community/news" data-testid="footer-link-blog">블로그</Link></li>
-              <li><Link href="/ambassador" data-testid="footer-link-ambassador">앰배서더</Link></li>
-              <li><Link href="/grants" data-testid="footer-link-grants">그랜트</Link></li>
-              <li><Link href="/qna" data-testid="footer-link-support">고객지원</Link></li>
+              <li><Link href="/community/news" data-testid="footer-link-blog">{t('communityProgram.footer.community.blog')}</Link></li>
+              <li><Link href="/ambassador" data-testid="footer-link-ambassador">{t('communityProgram.footer.community.ambassador')}</Link></li>
+              <li><Link href="/grants" data-testid="footer-link-grants">{t('communityProgram.footer.community.grants')}</Link></li>
+              <li><Link href="/qna" data-testid="footer-link-support">{t('communityProgram.footer.community.support')}</Link></li>
             </ul>
           </div>
         </div>
         <div className="footer-bottom">
-          <p>© 2025-2045 TBURN Foundation. All Rights Reserved.</p>
+          <p>{t('communityProgram.footer.copyright')}</p>
           <div style={{ display: 'flex', gap: '2rem' }}>
-            <Link href="/legal/terms-of-service" style={{ color: 'var(--gray)', textDecoration: 'none' }} data-testid="footer-link-terms">이용약관</Link>
-            <Link href="/legal/privacy-policy" style={{ color: 'var(--gray)', textDecoration: 'none' }} data-testid="footer-link-privacy">개인정보처리방침</Link>
+            <Link href="/legal/terms-of-service" style={{ color: 'var(--gray)', textDecoration: 'none' }} data-testid="footer-link-terms">{t('communityProgram.footer.legal.terms')}</Link>
+            <Link href="/legal/privacy-policy" style={{ color: 'var(--gray)', textDecoration: 'none' }} data-testid="footer-link-privacy">{t('communityProgram.footer.legal.privacy')}</Link>
           </div>
         </div>
       </footer>
