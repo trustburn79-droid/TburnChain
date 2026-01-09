@@ -3,6 +3,7 @@ import { Link } from "wouter";
 import { useQuery } from "@tanstack/react-query";
 import { TBurnLogo } from "@/components/tburn-logo";
 import { useWeb3 } from "@/lib/web3-context";
+import { useToast } from "@/hooks/use-toast";
 
 interface ValidatorStatsData {
   totalValidators: number;
@@ -57,12 +58,52 @@ export default function ValidatorIncentivesPage() {
     setActiveFaq(activeFaq === id ? null : id);
   };
 
+  const { toast } = useToast();
+
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   const handleWalletClick = async () => {
     if (isConnected) {
       disconnect();
+      toast({
+        title: "지갑 연결 해제",
+        description: "지갑 연결이 해제되었습니다.",
+      });
     } else {
       await connect("metamask");
+      toast({
+        title: "지갑 연결됨",
+        description: "MetaMask 지갑이 연결되었습니다.",
+      });
     }
+  };
+
+  const handleApplyTier = (tierId: string, tierName: string) => {
+    if (!isConnected) {
+      toast({
+        title: "지갑 연결 필요",
+        description: "밸리데이터 신청을 위해 먼저 지갑을 연결해주세요.",
+        variant: "destructive",
+      });
+      return;
+    }
+    toast({
+      title: `${tierName} 신청 완료`,
+      description: `${tierName} 밸리데이터 신청이 접수되었습니다. 검토 후 결과를 알려드립니다.`,
+    });
+  };
+
+  const handleShareSocial = (platform: string, url: string) => {
+    window.open(url, '_blank');
+    toast({
+      title: `${platform} 열기`,
+      description: `${platform} 페이지가 새 창에서 열렸습니다.`,
+    });
   };
 
   const distributions = [
@@ -1073,11 +1114,11 @@ export default function ValidatorIncentivesPage() {
             <div className="logo-text">TBURN<span>CHAIN</span></div>
           </Link>
           <nav className="nav-links">
-            <a href="#tiers">티어</a>
-            <a href="#loyalty">충성 보상</a>
-            <a href="#performance">성능 보상</a>
-            <a href="#leaderboard">리더보드</a>
-            <a href="#faq">FAQ</a>
+            <a href="#tiers" onClick={(e) => { e.preventDefault(); scrollToSection('tiers'); }} data-testid="nav-tiers">티어</a>
+            <a href="#loyalty" onClick={(e) => { e.preventDefault(); scrollToSection('loyalty'); }} data-testid="nav-loyalty">충성 보상</a>
+            <a href="#performance" onClick={(e) => { e.preventDefault(); scrollToSection('performance'); }} data-testid="nav-performance">성능 보상</a>
+            <a href="#leaderboard" onClick={(e) => { e.preventDefault(); scrollToSection('leaderboard'); }} data-testid="nav-leaderboard">리더보드</a>
+            <a href="#faq" onClick={(e) => { e.preventDefault(); scrollToSection('faq'); }} data-testid="nav-faq">FAQ</a>
           </nav>
           <button 
             className="connect-btn" 
@@ -1162,11 +1203,19 @@ export default function ValidatorIncentivesPage() {
           </div>
 
           <div className="cta-group">
-            <button className="btn-primary" data-testid="button-join-validator">
-              🏆 지금 참여하기
+            <button 
+              className="btn-primary" 
+              data-testid="button-join-validator"
+              onClick={() => { scrollToSection('tiers'); toast({ title: "티어 선택", description: "자신에게 맞는 밸리데이터 티어를 선택하세요." }); }}
+            >
+              지금 참여하기
             </button>
-            <button className="btn-secondary">
-              📖 자세히 알아보기
+            <button 
+              className="btn-secondary"
+              data-testid="button-learn-more"
+              onClick={() => { scrollToSection('loyalty'); toast({ title: "충성 보상 시스템", description: "장기 스테이킹 보상 시스템을 확인하세요." }); }}
+            >
+              자세히 알아보기
             </button>
           </div>
         </div>
@@ -1223,7 +1272,13 @@ export default function ValidatorIncentivesPage() {
                   <span className="tier-slots-label">잔여 슬롯</span>
                   <span className={`tier-slots-value ${tier.slotsClass}`}>{tier.slots}</span>
                 </div>
-                <button className="tier-btn">지금 신청하기</button>
+                <button 
+                  className="tier-btn"
+                  onClick={() => handleApplyTier(tier.id, tier.name)}
+                  data-testid={`button-apply-${tier.id}`}
+                >
+                  {isConnected ? '지금 신청하기' : '지갑 연결'}
+                </button>
               </div>
             </div>
           ))}
@@ -1352,58 +1407,106 @@ export default function ValidatorIncentivesPage() {
         </div>
 
         <div className="faq-container">
-          <div className={`faq-item ${activeFaq === 'faq-1' ? 'active' : ''}`}>
+          <div className={`faq-item ${activeFaq === 'faq-1' ? 'active' : ''}`} data-testid="faq-item-1">
             <div className="faq-question" onClick={() => toggleFaq('faq-1')}>
+              <h4>밸리데이터 인센티브 총 물량은 얼마인가요?</h4>
+              <span className="faq-chevron">▼</span>
+            </div>
+            <div className="faq-answer">
+              <p>밸리데이터 인센티브 프로그램에 총 7.5억 TBURN(전체 공급량의 7.5%)이 배정되어 있습니다. 얼리버드 보너스 30%(2.25억), 장기 충성 보상 25%(1.875억), 성능 인센티브 20%(1.5억), 네트워크 성장 15%(1.125억), 거버넌스 보너스 10%(0.75억)으로 배분됩니다.</p>
+            </div>
+          </div>
+
+          <div className={`faq-item ${activeFaq === 'faq-2' ? 'active' : ''}`} data-testid="faq-item-2">
+            <div className="faq-question" onClick={() => toggleFaq('faq-2')}>
               <h4>얼리버드 보너스는 어떻게 받나요?</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>Genesis(1~25번째), Pioneer(26~75번째), Early(76~125번째) 티어로 구분되며, 참여 순서에 따라 자동으로 티어가 결정됩니다. 보너스는 첫 스테이킹 시점에 즉시 지급됩니다.</p>
+              <p>Genesis(1~25번째, 100,000 TBURN), Pioneer(26~75번째, 50,000 TBURN), Early(76~125번째, 25,000 TBURN) 티어로 구분되며, 참여 순서에 따라 자동으로 티어가 결정됩니다. 보너스는 첫 스테이킹 시점에 즉시 지급됩니다.</p>
             </div>
           </div>
 
-          <div className={`faq-item ${activeFaq === 'faq-2' ? 'active' : ''}`}>
-            <div className="faq-question" onClick={() => toggleFaq('faq-2')}>
+          <div className={`faq-item ${activeFaq === 'faq-3' ? 'active' : ''}`} data-testid="faq-item-3">
+            <div className="faq-question" onClick={() => toggleFaq('faq-3')}>
               <h4>충성 보상 멀티플라이어는 어떻게 적용되나요?</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>스테이킹을 유지한 기간에 따라 자동으로 멀티플라이어가 적용됩니다. 1년 후 1.5x, 2년 후 2.0x, 3년 후 2.5x, 4년 이상 3.0x가 적용되어 기본 보상에 곱해집니다.</p>
+              <p>스테이킹을 유지한 기간에 따라 자동으로 멀티플라이어가 적용됩니다. 1년 후 1.5x(기본 충성), 2년 후 2.0x(실버), 3년 후 2.5x(골드), 4년 이상 3.0x(다이아몬드)가 적용되어 기본 보상에 곱해집니다.</p>
             </div>
           </div>
 
-          <div className={`faq-item ${activeFaq === 'faq-3' ? 'active' : ''}`}>
-            <div className="faq-question" onClick={() => toggleFaq('faq-3')}>
+          <div className={`faq-item ${activeFaq === 'faq-4' ? 'active' : ''}`} data-testid="faq-item-4">
+            <div className="faq-question" onClick={() => toggleFaq('faq-4')}>
               <h4>성능 보너스는 어떻게 계산되나요?</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>업타임, 블록 생산량, 무위반 기록을 기준으로 매월 정산됩니다. 각 항목별로 Gold/Silver/Bronze 등급이 부여되며, 해당 등급에 따른 보너스가 기본 보상에 추가됩니다.</p>
+              <p>업타임(99.9%+: +15%, 99.5%+: +10%, 99.0%+: +5%), 블록 생산(상위 10%: +20%, 30%: +12%, 50%: +5%), 무위반(1년: +25%, 6개월: +15%, 3개월: +8%)을 기준으로 매월 정산됩니다. Gold/Silver/Bronze 등급에 따른 보너스가 기본 보상에 추가됩니다.</p>
             </div>
           </div>
 
-          <div className={`faq-item ${activeFaq === 'faq-4' ? 'active' : ''}`}>
-            <div className="faq-question" onClick={() => toggleFaq('faq-4')}>
+          <div className={`faq-item ${activeFaq === 'faq-5' ? 'active' : ''}`} data-testid="faq-item-5">
+            <div className="faq-question" onClick={() => toggleFaq('faq-5')}>
               <h4>보너스를 최대로 받으려면 어떻게 해야 하나요?</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>Genesis 티어로 참여(+100%), 4년 이상 스테이킹(3.0x), 모든 성능 지표 Gold 등급(+60%) 달성 시 최대 300%의 추가 보상을 받을 수 있습니다.</p>
+              <p>Genesis 티어로 참여(+100,000 TBURN), 4년 이상 스테이킹(3.0x 멀티플라이어), 모든 성능 지표 Gold 등급(+60% 보너스) 달성 시 최대 300%의 추가 보상을 받을 수 있습니다. 거버넌스 참여도 추가 보너스 대상입니다.</p>
+            </div>
+          </div>
+
+          <div className={`faq-item ${activeFaq === 'faq-6' ? 'active' : ''}`} data-testid="faq-item-6">
+            <div className="faq-question" onClick={() => toggleFaq('faq-6')}>
+              <h4>Genesis 밸리데이터의 특별 혜택은 무엇인가요?</h4>
+              <span className="faq-chevron">▼</span>
+            </div>
+            <div className="faq-answer">
+              <p>Genesis 밸리데이터(1~25번째)는 100,000 TBURN 얼리버드 보너스, 독점 Genesis NFT 뱃지, 평생 0% 수수료 우대, 거버넌스 2x 투표권, VIP 전용 채널 접근 권한을 받습니다. 현재 2/25 슬롯이 남아있습니다.</p>
+            </div>
+          </div>
+
+          <div className={`faq-item ${activeFaq === 'faq-7' ? 'active' : ''}`} data-testid="faq-item-7">
+            <div className="faq-question" onClick={() => toggleFaq('faq-7')}>
+              <h4>인센티브 리더보드는 어떻게 운영되나요?</h4>
+              <span className="faq-chevron">▼</span>
+            </div>
+            <div className="faq-answer">
+              <p>리더보드는 포인트 시스템으로 운영됩니다. 업타임, 블록 생산, 스테이킹 금액, 거버넌스 참여에 따라 포인트가 누적됩니다. 상위 밸리데이터에게는 추가 TBURN 보상이 지급되며, 매월 순위가 갱신됩니다.</p>
+            </div>
+          </div>
+
+          <div className={`faq-item ${activeFaq === 'faq-8' ? 'active' : ''}`} data-testid="faq-item-8">
+            <div className="faq-question" onClick={() => toggleFaq('faq-8')}>
+              <h4>밸리데이터 인센티브는 언제 지급되나요?</h4>
+              <span className="faq-chevron">▼</span>
+            </div>
+            <div className="faq-answer">
+              <p>얼리버드 보너스는 첫 스테이킹 시 즉시 지급됩니다. 충성 보상 멀티플라이어는 각 기간 도달 시 자동 적용되며, 성능 보너스는 매월 정산됩니다. 모든 보상은 TBURN으로 지급되며 언제든 청구 가능합니다.</p>
             </div>
           </div>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="cta-section">
+      <section className="cta-section" id="cta">
         <div style={{ maxWidth: '800px', margin: '0 auto' }}>
           <h2 style={{ fontSize: '2.5rem', fontWeight: 800, marginBottom: '1rem' }}>지금 밸리데이터가 되세요!</h2>
           <p style={{ color: 'rgba(255,255,255,0.8)', fontSize: '1.125rem', marginBottom: '2rem' }}>
             얼리버드 슬롯이 빠르게 마감되고 있습니다!<br />
             지금 참여하고 최대 7.5억 TBURN 인센티브를 받으세요!
           </p>
-          <button className="connect-btn" style={{ background: 'var(--white)', color: 'var(--orange)', fontSize: '1.25rem', padding: '20px 50px' }}>
-            🏆 지금 신청하기
+          <button 
+            className="connect-btn" 
+            style={{ background: 'var(--white)', color: 'var(--orange)', fontSize: '1.25rem', padding: '20px 50px' }}
+            data-testid="button-cta-apply"
+            onClick={() => { 
+              scrollToSection('tiers'); 
+              toast({ title: "밸리데이터 신청", description: "자신에게 맞는 티어를 선택하세요!" }); 
+            }}
+          >
+            지금 신청하기
           </button>
         </div>
       </section>
@@ -1415,45 +1518,65 @@ export default function ValidatorIncentivesPage() {
             <h3>TBURN<span>CHAIN</span></h3>
             <p>AI의 지능, 블록체인의 투명성<br />THE FUTURE IS NOW</p>
             <div className="social-links">
-              <a href="#">𝕏</a>
-              <a href="#">✈</a>
-              <a href="#">💬</a>
-              <a href="#">⌘</a>
+              <a 
+                href="https://x.com/tburnchain" 
+                onClick={(e) => { e.preventDefault(); handleShareSocial('Twitter', 'https://x.com/tburnchain'); }}
+                data-testid="footer-link-twitter"
+              >𝕏</a>
+              <a 
+                href="https://t.me/tburnchain" 
+                onClick={(e) => { e.preventDefault(); handleShareSocial('Telegram', 'https://t.me/tburnchain'); }}
+                data-testid="footer-link-telegram"
+              >✈</a>
+              <a 
+                href="https://discord.gg/tburnchain" 
+                onClick={(e) => { e.preventDefault(); handleShareSocial('Discord', 'https://discord.gg/tburnchain'); }}
+                data-testid="footer-link-discord"
+              >💬</a>
+              <a 
+                href="https://github.com/tburnchain" 
+                onClick={(e) => { e.preventDefault(); handleShareSocial('GitHub', 'https://github.com/tburnchain'); }}
+                data-testid="footer-link-github"
+              >⌘</a>
             </div>
           </div>
           <div className="footer-links">
             <h4>Product</h4>
             <ul>
-              <li><Link href="/">메인넷</Link></li>
-              <li><Link href="/scan">익스플로러</Link></li>
-              <li><Link href="/app/bridge">브릿지</Link></li>
-              <li><Link href="/app/staking">스테이킹</Link></li>
+              <li><a href="/" data-testid="footer-link-mainnet">메인넷</a></li>
+              <li><a href="/scan" data-testid="footer-link-explorer">익스플로러</a></li>
+              <li><a href="/app/bridge" data-testid="footer-link-bridge">브릿지</a></li>
+              <li><a href="/app/staking" data-testid="footer-link-staking">스테이킹</a></li>
             </ul>
           </div>
           <div className="footer-links">
             <h4>Resources</h4>
             <ul>
-              <li><Link href="/learn/whitepaper">백서</Link></li>
-              <li><Link href="/developers/docs">문서</Link></li>
-              <li><a href="#">GitHub</a></li>
-              <li><Link href="/security-audit">감사 보고서</Link></li>
+              <li><a href="/learn/whitepaper" data-testid="footer-link-whitepaper">백서</a></li>
+              <li><a href="/developers/docs" data-testid="footer-link-docs">문서</a></li>
+              <li><a 
+                href="https://github.com/tburnchain" 
+                onClick={(e) => { e.preventDefault(); handleShareSocial('GitHub', 'https://github.com/tburnchain'); }}
+                data-testid="footer-link-github-resources"
+              >GitHub</a></li>
+              <li><a href="/security-audit" data-testid="footer-link-audit">감사 보고서</a></li>
             </ul>
           </div>
           <div className="footer-links">
             <h4>Community</h4>
             <ul>
-              <li><Link href="/community/news">블로그</Link></li>
-              <li><a href="#">앰배서더</a></li>
-              <li><a href="#">그랜트</a></li>
-              <li><Link href="/qna">고객지원</Link></li>
+              <li><a href="/community/news" data-testid="footer-link-blog">블로그</a></li>
+              <li><a href="/community-program" data-testid="footer-link-ambassador">앰배서더</a></li>
+              <li><a href="/community-program" data-testid="footer-link-grants">그랜트</a></li>
+              <li><a href="/qna" data-testid="footer-link-support">고객지원</a></li>
             </ul>
           </div>
         </div>
         <div className="footer-bottom">
           <p>© 2025-2045 TBURN Foundation. All Rights Reserved.</p>
           <div style={{ display: 'flex', gap: '2rem' }}>
-            <Link href="/legal/terms-of-service" style={{ color: 'var(--gray)', textDecoration: 'none' }}>이용약관</Link>
-            <Link href="/legal/privacy-policy" style={{ color: 'var(--gray)', textDecoration: 'none' }}>개인정보처리방침</Link>
+            <a href="/legal/terms-of-service" style={{ color: 'var(--gray)', textDecoration: 'none' }} data-testid="footer-link-terms">이용약관</a>
+            <a href="/legal/privacy-policy" style={{ color: 'var(--gray)', textDecoration: 'none' }} data-testid="footer-link-privacy">개인정보처리방침</a>
           </div>
         </div>
       </footer>
