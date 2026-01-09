@@ -119,6 +119,16 @@ export function PublicRouter() {
     );
   }
   
+  // Redirect legacy routes to scan routes
+  if (location === "/blocks" || location.startsWith("/blocks/")) {
+    return <ExternalRedirect to={location.replace("/blocks", "/scan/blocks")} />;
+  }
+  
+  if (location === "/transactions" || location.startsWith("/transactions/")) {
+    const newPath = location.replace("/transactions", "/scan/txs");
+    return <ExternalRedirect to={newPath} />;
+  }
+  
   if (location === "/airdrop") {
     return (
       <ErrorBoundary>
