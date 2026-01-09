@@ -17330,24 +17330,32 @@
             "title": "Accomplir les tâches requises",
             "desc": "Connexion portefeuille + Vérification email + Rejoindre Telegram"
           },
-          "kyc": {
-            "title": "Vérification KYC",
-            "desc": "Vérification d'identité de base requise"
+          "minPoints": {
+            "title": "Minimum 1 000 points",
+            "desc": "En dessous des points minimum sera exclu de la distribution"
+          },
+          "snapshot": {
+            "title": "Maintenir l'éligibilité jusqu'au snapshot",
+            "desc": "Snapshot prévu pour janvier 2026"
           }
         },
-        "ineligible": {
-          "title": "Conditions non éligibles",
-          "sanctioned": {
-            "title": "Pays sanctionnés",
-            "desc": "Les régions sanctionnées comme la Corée du Nord, l'Iran ne peuvent pas participer"
+        "excluded": {
+          "title": "Exclus",
+          "restricted": {
+            "title": "Résidents de pays restreints",
+            "desc": "États-Unis, Chine, Corée du Nord et autres pays réglementés exclus"
+          },
+          "sybil": {
+            "title": "Attaque Sybil",
+            "desc": "Plusieurs comptes entraîneront l'exclusion de tous les comptes"
           },
           "bot": {
-            "title": "Bots/Faux comptes",
-            "desc": "Les comptes bots détectés seront exclus"
+            "title": "Activité de bot détectée",
+            "desc": "L'utilisation d'outils d'automatisation sera exclue"
           },
-          "multiple": {
-            "title": "Comptes multiples",
-            "desc": "Un seul compte de participation par personne"
+          "fraud": {
+            "title": "Activité frauduleuse",
+            "desc": "La manipulation de tâches ou la soumission de fausses informations entraîne une exclusion permanente"
           }
         }
       },
@@ -17372,7 +17380,9 @@
         "q5": {
           "question": "Qu'est-ce que le bonus Genesis NFT ?",
           "answer": "Les utilisateurs détenant TBURN Genesis NFT reçoivent un bonus de points 2x."
-        }
+        },
+        "badge": "FAQ",
+        "subtitle": "Consultez les réponses aux questions courantes sur l'airdrop"
       },
       "footer": {
         "products": "Produits",

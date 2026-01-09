@@ -19422,24 +19422,32 @@
             "title": "完成必要任务",
             "desc": "钱包连接 + 邮箱验证 + Telegram加入"
           },
-          "kyc": {
-            "title": "KYC验证",
-            "desc": "需进行基本身份验证"
+          "minPoints": {
+            "title": "最低1,000积分",
+            "desc": "低于最低积分将被排除在分发之外"
+          },
+          "snapshot": {
+            "title": "保持资格直到快照",
+            "desc": "快照计划于2026年1月进行"
           }
         },
-        "ineligible": {
-          "title": "不符合条件",
-          "sanctioned": {
-            "title": "受制裁国家",
-            "desc": "朝鲜、伊朗等受制裁地区不可参与"
+        "excluded": {
+          "title": "排除条件",
+          "restricted": {
+            "title": "受限国家居民",
+            "desc": "美国、中国、朝鲜及其他受管制国家被排除"
+          },
+          "sybil": {
+            "title": "女巫攻击",
+            "desc": "多个账户将导致所有账户被排除"
           },
           "bot": {
-            "title": "机器人/虚假账户",
-            "desc": "检测到的机器人账户将被排除"
+            "title": "检测到机器人活动",
+            "desc": "自动化工具使用将被排除"
           },
-          "multiple": {
-            "title": "多账户",
-            "desc": "每人仅限一个参与账户"
+          "fraud": {
+            "title": "欺诈行为",
+            "desc": "任务操纵或虚假信息提交将导致永久排除"
           }
         }
       },
@@ -19464,7 +19472,9 @@
         "q5": {
           "question": "创世NFT奖励是什么？",
           "answer": "持有TBURN创世NFT的用户可获得2倍积分加成。"
-        }
+        },
+        "badge": "常见问题",
+        "subtitle": "查看有关空投的常见问题解答"
       },
       "footer": {
         "products": "产品",

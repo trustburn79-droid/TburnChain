@@ -17079,24 +17079,32 @@
             "title": "Completar tarefas obrigatórias",
             "desc": "Conexão de carteira + Verificação de email + Entrar no Telegram"
           },
-          "kyc": {
-            "title": "Verificação KYC",
-            "desc": "Verificação de identidade básica necessária"
+          "minPoints": {
+            "title": "Mínimo 1.000 pontos",
+            "desc": "Abaixo dos pontos mínimos será excluído da distribuição"
+          },
+          "snapshot": {
+            "title": "Manter elegibilidade até o snapshot",
+            "desc": "Snapshot programado para janeiro de 2026"
           }
         },
-        "ineligible": {
-          "title": "Condições não elegíveis",
-          "sanctioned": {
-            "title": "Países sancionados",
-            "desc": "Regiões sancionadas como Coreia do Norte, Irã não podem participar"
+        "excluded": {
+          "title": "Excluídos",
+          "restricted": {
+            "title": "Residentes de países restritos",
+            "desc": "EUA, China, Coreia do Norte e outros países regulados excluídos"
+          },
+          "sybil": {
+            "title": "Ataque Sybil",
+            "desc": "Múltiplas contas resultarão na exclusão de todas as contas"
           },
           "bot": {
-            "title": "Bots/Contas falsas",
-            "desc": "Contas bot detectadas serão excluídas"
+            "title": "Atividade de bot detectada",
+            "desc": "O uso de ferramentas de automação será excluído"
           },
-          "multiple": {
-            "title": "Múltiplas contas",
-            "desc": "Apenas uma conta de participação por pessoa"
+          "fraud": {
+            "title": "Atividade fraudulenta",
+            "desc": "Manipulação de tarefas ou envio de informações falsas resulta em exclusão permanente"
           }
         }
       },
@@ -17121,7 +17129,9 @@
         "q5": {
           "question": "O que é o bônus Gênesis NFT?",
           "answer": "Usuários que possuem TBURN Gênesis NFT recebem um bônus de pontos 2x."
-        }
+        },
+        "badge": "FAQ",
+        "subtitle": "Confira as respostas para perguntas comuns sobre o airdrop"
       },
       "footer": {
         "products": "Produtos",
