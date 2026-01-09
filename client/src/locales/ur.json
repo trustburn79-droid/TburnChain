@@ -15781,7 +15781,11 @@
         "roadmap": "روڈ میپ",
         "privacyPolicy": "پرائیویسی پالیسی",
         "termsOfService": "سروس کی شرائط",
-        "contact": "رابطہ کریں"
+        "contact": "رابطہ کریں",
+        "brand": "DeFi کے مستقبل کے لیے سب سے تیز اور سب سے محفوظ بلاکچین",
+        "copyright": "© 2025-2045 TBURN فاؤنڈیشن۔ جملہ حقوق محفوظ ہیں۔",
+        "github": "GitHub",
+        "faq": "عام سوالات"
       },
       "emailDialog": {
         "title": "ای میل تصدیق",

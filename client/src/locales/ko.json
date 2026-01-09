@@ -32396,7 +32396,11 @@
         "roadmap": "로드맵",
         "privacyPolicy": "개인정보 처리방침",
         "termsOfService": "이용약관",
-        "contact": "문의하기"
+        "contact": "문의하기",
+        "brand": "DeFi의 미래를 위한 가장 빠르고 안전한 블록체인",
+        "copyright": "© 2025-2045 TBURN 재단. 모든 권리 보유.",
+        "github": "GitHub",
+        "faq": "자주 묻는 질문"
       },
       "emailDialog": {
         "title": "이메일 인증",

@@ -20358,7 +20358,11 @@
         "roadmap": "ロードマップ",
         "privacyPolicy": "プライバシーポリシー",
         "termsOfService": "利用規約",
-        "contact": "お問い合わせ"
+        "contact": "お問い合わせ",
+        "brand": "DeFiの未来のための最速かつ最も安全なブロックチェーン",
+        "copyright": "© 2025-2045 TBURN財団。全著作権所有。",
+        "github": "GitHub",
+        "faq": "よくある質問"
       },
       "emailDialog": {
         "title": "メール認証",

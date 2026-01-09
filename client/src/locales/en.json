@@ -31073,138 +31073,6 @@
         "title": "Distribution Schedule",
         "subtitle": "Airdrop distribution spans 9 months after TGE",
         "nov2025": "November 2025",
-        "registrationStart": "Airdrop Registration Start",
-        "registrationDesc": "Wallet connection and task completion begins",
-        "jan2026": "January 2026 (Current)",
-        "snapshotProgress": "Snapshot In Progress",
-        "snapshotDesc": "Participant points accumulating",
-        "feb2026": "February 2026",
-        "tge": "TGE (Token Generation Event)",
-        "tgeDesc": "15% (45M TBURN) immediately claimable",
-        "mar2026": "March ~ November 2026",
-        "monthlyVesting": "Monthly Vesting Unlock",
-        "vestingDesc": "~9.4% linear unlock monthly for 9 months",
-        "calculator": {
-          "title": "Distribution Example",
-          "myPoints": "My Points",
-          "totalPool": "Total Points Pool",
-          "distribution": "Distribution Amount",
-          "estimated": "Estimated Receive Amount",
-          "estimatedValue": "Estimated Value (@$0.50)",
-          "disclaimer": "* Actual distribution depends on total points at final snapshot."
-        },
-        "vesting": {
-          "title": "Vesting Schedule",
-          "tgeDay": "TGE (Day 0)",
-          "monthly": "M1 ~ M9",
-          "monthlyPercent": "~9.4% monthly",
-          "complete": "Complete after 9 months"
-        }
-      },
-      "eligibilitySection": {
-        "badge": "ELIGIBILITY",
-        "title": "Eligibility Requirements",
-        "subtitle": "Check the eligibility requirements for airdrop participation",
-        "eligible": {
-          "title": "Eligible Conditions",
-          "wallet": {
-            "title": "Wallet Connection Required",
-            "desc": "MetaMask, Trust Wallet, Coinbase Wallet etc. supported"
-          },
-          "tasks": {
-            "title": "Complete Required Tasks",
-            "desc": "Wallet connection + Email verification + Telegram join"
-          },
-          "minPoints": {
-            "title": "Minimum 1,000 Points",
-            "desc": "Excluded from distribution if points insufficient"
-          },
-          "snapshot": {
-            "title": "Maintain Eligibility Until Snapshot",
-            "desc": "Snapshot scheduled for January 2026"
-          }
-        },
-        "excluded": {
-          "title": "Excluded",
-          "restricted": {
-            "title": "Restricted Country Residents",
-            "desc": "USA, China, North Korea and other regulated countries excluded"
-          },
-          "sybil": {
-            "title": "Sybil Attack",
-            "desc": "All accounts excluded if multiple accounts detected"
-          },
-          "bot": {
-            "title": "Bot Activity Detected",
-            "desc": "Excluded if automation tools used"
-          },
-          "fraud": {
-            "title": "Fraud",
-            "desc": "Permanently excluded for task manipulation or false information"
-          }
-        }
-      },
-      "faq": {
-        "badge": "FAQ",
-        "title": "Frequently Asked Questions",
-        "subtitle": "Check answers to common questions about the airdrop",
-        "q1": {
-          "question": "What is the total airdrop amount and distribution structure?",
-          "answer": "300 million TBURN is distributed as airdrop (3% of total 10 billion TBURN supply). Distribution: (1) Genesis Airdrop 150M TBURN - for testnet participants, NFT holders, early birds (2) Community Airdrop 100M TBURN - point-based distribution for social tasks, referrals (3) Loyalty Airdrop 50M TBURN - for long-term holders and staking participants (starts 90 days after TGE)."
-        },
-        "q2": {
-          "question": "How much can I receive at TGE?",
-          "answer": "15% of total allocation is immediately claimable at TGE (Token Generation Event). The remaining 85% vests linearly at ~9.4% monthly over 9 months. TGE is scheduled for February 2026."
-        },
-        "q3": {
-          "question": "How are points converted to tokens?",
-          "answer": "Tokens are distributed based on your point ratio compared to total participant points. Formula: My allocation = (My points / Total points pool) × Total airdrop amount."
-        },
-        "q4": {
-          "question": "Which wallets are supported?",
-          "answer": "TBURN Chain is EVM-compatible and supports various wallets. Supported: MetaMask (recommended), Trust Wallet, Coinbase Wallet, Rainbow Wallet, Rabby Wallet, Ledger/Trezor hardware wallets."
-        },
-        "q5": {
-          "question": "How do I claim the airdrop?",
-          "answer": "After TGE, the Claim button will activate on this page. Claim process: (1) Connect wallet (2) Click claim button (3) Sign transaction and pay gas fee (4) Tokens automatically sent to wallet."
-        },
-        "q6": {
-          "question": "How many points do I get for completing tasks?",
-          "answer": "Points per task: Required - Wallet connect (500P), Email verify (300P), Telegram join (400P). Social - X follow (200P), Retweet (300P), Discord join (400P). Bonus - Genesis NFT (2,000P), Friend invite (max 5,000P), Testnet (3,000P)."
-        },
-        "q7": {
-          "question": "How does the NFT holder bonus work?",
-          "answer": "TBURN Genesis NFT holders receive a 2x multiplier on their airdrop allocation. NFT verification is automatic upon wallet connection."
-        },
-        "q8": {
-          "question": "Are there restricted regions or conditions?",
-          "answer": "Some regions restricted for regulatory compliance. Restricted: USA, China, North Korea, Iran, Syria, Cuba and other OFAC sanctioned countries."
-        }
-      },
-      "footer": {
-        "brand": "Next-generation Layer 1 blockchain creating the future of fast, secure decentralized finance.",
-        "products": "Products",
-        "scan": "TBURNScan",
-        "dapp": "dApp",
-        "staking": "Staking",
-        "bridge": "Bridge",
-        "developers": "Developers",
-        "docs": "Documentation",
-        "api": "API",
-        "sdk": "SDK",
-        "resources": "Resources",
-        "whitepaper": "Whitepaper",
-        "tokenomics": "Tokenomics",
-        "roadmap": "Roadmap",
-        "privacyPolicy": "Privacy Policy",
-        "termsOfService": "Terms of Service",
-        "contact": "Contact Us"
-      },
-      "timeline": {
-        "badge": "SCHEDULE",
-        "title": "Distribution Schedule",
-        "subtitle": "Airdrop distribution spans 9 months after TGE",
-        "nov2025": "November 2025",
         "registrationStart": "Airdrop Registration Starts",
         "registrationDesc": "Wallet connection and task completion begins",
         "jan2026": "January 2026 (Current)",
@@ -31275,6 +31143,65 @@
             "desc": "Task manipulation or false info submission results in permanent exclusion"
           }
         }
+      },
+      "faq": {
+        "badge": "FAQ",
+        "title": "Frequently Asked Questions",
+        "subtitle": "Check answers to common questions about the airdrop",
+        "q1": {
+          "question": "What is the total airdrop amount and distribution structure?",
+          "answer": "300 million TBURN is distributed as airdrop (3% of total 10 billion TBURN supply). Distribution: (1) Genesis Airdrop 150M TBURN - for testnet participants, NFT holders, early birds (2) Community Airdrop 100M TBURN - point-based distribution for social tasks, referrals (3) Loyalty Airdrop 50M TBURN - for long-term holders and staking participants (starts 90 days after TGE)."
+        },
+        "q2": {
+          "question": "How much can I receive at TGE?",
+          "answer": "15% of total allocation is immediately claimable at TGE (Token Generation Event). The remaining 85% vests linearly at ~9.4% monthly over 9 months. TGE is scheduled for February 2026."
+        },
+        "q3": {
+          "question": "How are points converted to tokens?",
+          "answer": "Tokens are distributed based on your point ratio compared to total participant points. Formula: My allocation = (My points / Total points pool) × Total airdrop amount."
+        },
+        "q4": {
+          "question": "Which wallets are supported?",
+          "answer": "TBURN Chain is EVM-compatible and supports various wallets. Supported: MetaMask (recommended), Trust Wallet, Coinbase Wallet, Rainbow Wallet, Rabby Wallet, Ledger/Trezor hardware wallets."
+        },
+        "q5": {
+          "question": "How do I claim the airdrop?",
+          "answer": "After TGE, the Claim button will activate on this page. Claim process: (1) Connect wallet (2) Click claim button (3) Sign transaction and pay gas fee (4) Tokens automatically sent to wallet."
+        },
+        "q6": {
+          "question": "How many points do I get for completing tasks?",
+          "answer": "Points per task: Required - Wallet connect (500P), Email verify (300P), Telegram join (400P). Social - X follow (200P), Retweet (300P), Discord join (400P). Bonus - Genesis NFT (2,000P), Friend invite (max 5,000P), Testnet (3,000P)."
+        },
+        "q7": {
+          "question": "How does the NFT holder bonus work?",
+          "answer": "TBURN Genesis NFT holders receive a 2x multiplier on their airdrop allocation. NFT verification is automatic upon wallet connection."
+        },
+        "q8": {
+          "question": "Are there restricted regions or conditions?",
+          "answer": "Some regions restricted for regulatory compliance. Restricted: USA, China, North Korea, Iran, Syria, Cuba and other OFAC sanctioned countries."
+        }
+      },
+      "footer": {
+        "brand": "The fastest and most secure blockchain for the future of DeFi",
+        "products": "Products",
+        "scan": "TBURNScan",
+        "dapp": "dApp",
+        "staking": "Staking",
+        "bridge": "Bridge",
+        "developers": "Developers",
+        "docs": "Documentation",
+        "api": "API",
+        "sdk": "SDK",
+        "resources": "Resources",
+        "whitepaper": "Whitepaper",
+        "tokenomics": "Tokenomics",
+        "roadmap": "Roadmap",
+        "privacyPolicy": "Privacy Policy",
+        "termsOfService": "Terms of Service",
+        "contact": "Contact Us",
+        "copyright": "© 2025-2045 TBURN Foundation. All Rights Reserved.",
+        "github": "GitHub",
+        "faq": "FAQ"
       },
       "emailDialog": {
         "title": "Email Verification",

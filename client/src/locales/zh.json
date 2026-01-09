@@ -19482,7 +19482,11 @@
         "roadmap": "路线图",
         "privacyPolicy": "隐私政策",
         "termsOfService": "服务条款",
-        "contact": "联系我们"
+        "contact": "联系我们",
+        "brand": "未来DeFi最快、最安全的区块链",
+        "copyright": "© 2025-2045 TBURN基金会。保留所有权利。",
+        "github": "GitHub",
+        "faq": "常见问题"
       },
       "emailDialog": {
         "title": "邮箱验证",

@@ -17313,7 +17313,11 @@
         "roadmap": "خارطة الطريق",
         "privacyPolicy": "سياسة الخصوصية",
         "termsOfService": "شروط الخدمة",
-        "contact": "اتصل بنا"
+        "contact": "اتصل بنا",
+        "brand": "أسرع وأكثر بلوكتشين أماناً لمستقبل DeFi",
+        "copyright": "© 2025-2045 مؤسسة TBURN. جميع الحقوق محفوظة.",
+        "github": "GitHub",
+        "faq": "الأسئلة الشائعة"
       },
       "emailDialog": {
         "title": "التحقق من البريد",

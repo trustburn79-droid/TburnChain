@@ -19421,7 +19421,11 @@
         "roadmap": "Hoja de ruta",
         "privacyPolicy": "Política de privacidad",
         "termsOfService": "Términos de servicio",
-        "contact": "Contacto"
+        "contact": "Contacto",
+        "brand": "La blockchain más rápida y segura para el futuro de DeFi",
+        "copyright": "© 2025-2045 Fundación TBURN. Todos los derechos reservados.",
+        "github": "GitHub",
+        "faq": "Preguntas frecuentes"
       },
       "emailDialog": {
         "title": "Verificación de email",

@@ -17139,7 +17139,11 @@
         "roadmap": "Roadmap",
         "privacyPolicy": "Política de privacidade",
         "termsOfService": "Termos de serviço",
-        "contact": "Contato"
+        "contact": "Contato",
+        "brand": "A blockchain mais rápida e segura para o futuro do DeFi",
+        "copyright": "© 2025-2045 Fundação TBURN. Todos os direitos reservados.",
+        "github": "GitHub",
+        "faq": "Perguntas frequentes"
       },
       "emailDialog": {
         "title": "Verificação de email",

@@ -1815,7 +1815,7 @@ export default function AirdropPage() {
               <li><Link href="/developers/docs">{t('tokenPrograms.airdropPage.footer.docs')}</Link></li>
               <li><Link href="/developers/api">{t('tokenPrograms.airdropPage.footer.api')}</Link></li>
               <li><Link href="/developers/sdk">{t('tokenPrograms.airdropPage.footer.sdk')}</Link></li>
-              <li><a href="https://github.com/tburn-chain" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+              <li><a href="https://github.com/tburn-chain" target="_blank" rel="noopener noreferrer">{t('tokenPrograms.airdropPage.footer.github')}</a></li>
             </ul>
           </div>
 
@@ -1825,13 +1825,13 @@ export default function AirdropPage() {
               <li><Link href="/learn/whitepaper">{t('tokenPrograms.airdropPage.footer.whitepaper')}</Link></li>
               <li><Link href="/learn/tokenomics">{t('tokenPrograms.airdropPage.footer.tokenomics')}</Link></li>
               <li><Link href="/learn/roadmap">{t('tokenPrograms.airdropPage.footer.roadmap')}</Link></li>
-              <li><Link href="/faq">FAQ</Link></li>
+              <li><Link href="/faq">{t('tokenPrograms.airdropPage.footer.faq')}</Link></li>
             </ul>
           </div>
         </div>
 
         <div className="footer-bottom">
-          <p>© 2025-2045 TBURN Foundation. All Rights Reserved.</p>
+          <p>{t('tokenPrograms.airdropPage.footer.copyright')}</p>
           <div style={{ display: 'flex', gap: '2rem' }}>
             <Link 
               href="/legal/privacy-policy" 
