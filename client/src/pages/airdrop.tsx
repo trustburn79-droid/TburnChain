@@ -1141,14 +1141,33 @@ export default function AirdropPage() {
             <button 
               className="btn-primary" 
               data-testid="button-participate"
-              onClick={isConnected ? undefined : handleConnectWallet}
+              onClick={() => {
+                if (!isConnected) {
+                  handleConnectWallet();
+                } else {
+                  toast({
+                    title: "에어드랍 참여 중!",
+                    description: "미션을 완료하여 더 많은 포인트를 획득하세요.",
+                  });
+                  document.getElementById('tasks')?.scrollIntoView({ behavior: 'smooth' });
+                }
+              }}
             >
-              <i className="fas fa-rocket"></i> 
-              {isConnected ? '참여 중' : '지금 참여하기'}
+              {isConnected ? '미션 수행하기' : '지금 참여하기'}
             </button>
-            <a href="#airdrops" className="btn-secondary">
-              <i className="fas fa-info-circle"></i> 자세히 보기
-            </a>
+            <button 
+              className="btn-secondary"
+              data-testid="button-details"
+              onClick={() => {
+                document.getElementById('airdrops')?.scrollIntoView({ behavior: 'smooth' });
+                toast({
+                  title: "에어드랍 유형 안내",
+                  description: "3가지 유형의 에어드랍 프로그램을 확인하세요.",
+                });
+              }}
+            >
+              자세히 보기
+            </button>
           </div>
         </div>
       </section>
@@ -1741,10 +1760,38 @@ export default function AirdropPage() {
             <h3>TBURN<span>CHAIN</span></h3>
             <p>차세대 레이어1 블록체인으로 빠르고 안전한 탈중앙화 금융의 미래를 만들어갑니다.</p>
             <div className="social-links">
-              <a href="#" aria-label="Twitter"><span>𝕏</span></a>
-              <a href="#" aria-label="Telegram"><span>✈</span></a>
-              <a href="#" aria-label="Discord"><span>💬</span></a>
-              <a href="#" aria-label="GitHub"><span>⌘</span></a>
+              <a 
+                href="https://twitter.com/tburnchain" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                aria-label="Twitter"
+                onClick={() => toast({ title: "Twitter", description: "TBURN Chain Twitter 페이지로 이동합니다." })}
+                data-testid="footer-link-twitter"
+              ><span>𝕏</span></a>
+              <a 
+                href="https://t.me/tburnchain" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                aria-label="Telegram"
+                onClick={() => toast({ title: "Telegram", description: "TBURN Chain Telegram 채널로 이동합니다." })}
+                data-testid="footer-link-telegram"
+              ><span>✈</span></a>
+              <a 
+                href="https://discord.gg/tburnchain" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                aria-label="Discord"
+                onClick={() => toast({ title: "Discord", description: "TBURN Chain Discord 서버로 이동합니다." })}
+                data-testid="footer-link-discord"
+              ><span>💬</span></a>
+              <a 
+                href="https://github.com/tburn-chain" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                aria-label="GitHub"
+                onClick={() => toast({ title: "GitHub", description: "TBURN Chain GitHub으로 이동합니다." })}
+                data-testid="footer-link-github"
+              ><span>⌘</span></a>
             </div>
           </div>
 
@@ -1780,11 +1827,23 @@ export default function AirdropPage() {
         </div>
 
         <div className="footer-bottom">
-          <p>© 2025 TBURN Chain. All rights reserved.</p>
+          <p>© 2025-2045 TBURN Foundation. All Rights Reserved.</p>
           <div style={{ display: 'flex', gap: '2rem' }}>
-            <a href="#" style={{ color: 'var(--gray)', textDecoration: 'none' }}>개인정보처리방침</a>
-            <a href="#" style={{ color: 'var(--gray)', textDecoration: 'none' }}>이용약관</a>
-            <a href="#" style={{ color: 'var(--gray)', textDecoration: 'none' }}>문의하기</a>
+            <Link 
+              href="/legal/privacy-policy" 
+              style={{ color: 'var(--gray)', textDecoration: 'none' }}
+              data-testid="footer-link-privacy"
+            >개인정보처리방침</Link>
+            <Link 
+              href="/legal/terms-of-service" 
+              style={{ color: 'var(--gray)', textDecoration: 'none' }}
+              data-testid="footer-link-terms"
+            >이용약관</Link>
+            <Link 
+              href="/qna" 
+              style={{ color: 'var(--gray)', textDecoration: 'none' }}
+              data-testid="footer-link-contact"
+            >문의하기</Link>
           </div>
         </div>
       </footer>
@@ -1862,6 +1921,51 @@ export default function AirdropPage() {
                   data-testid="button-copy-referral"
                 >
                   복사
+                </Button>
+              </div>
+            </div>
+            {/* Social Share Buttons */}
+            <div className="bg-slate-800/50 rounded-lg p-4">
+              <h4 className="font-semibold text-white mb-3">소셜 미디어로 공유하기</h4>
+              <div className="flex gap-2 flex-wrap">
+                <Button
+                  type="button"
+                  onClick={() => {
+                    const refCode = address ? address.slice(-8) : "TBURN2026";
+                    const text = `TBURN Chain 에어드랍에 참여하세요! 3억 TBURN 배포 중 🚀 내 추천 링크로 가입하면 보너스 포인트!`;
+                    window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(`https://tburn.io/airdrop?ref=${refCode}`)}`, "_blank");
+                    toast({ title: "Twitter", description: "트위터 공유 창이 열렸습니다." });
+                  }}
+                  className="bg-[#1DA1F2] hover:bg-[#1a8cd8] text-white"
+                  data-testid="button-share-twitter"
+                >
+                  𝕏 트위터
+                </Button>
+                <Button
+                  type="button"
+                  onClick={() => {
+                    const refCode = address ? address.slice(-8) : "TBURN2026";
+                    const text = `TBURN Chain 에어드랍에 참여하세요! 3억 TBURN 배포 중 🚀 https://tburn.io/airdrop?ref=${refCode}`;
+                    window.open(`https://t.me/share/url?url=${encodeURIComponent(`https://tburn.io/airdrop?ref=${refCode}`)}&text=${encodeURIComponent(text)}`, "_blank");
+                    toast({ title: "Telegram", description: "텔레그램 공유 창이 열렸습니다." });
+                  }}
+                  className="bg-[#0088cc] hover:bg-[#0077b5] text-white"
+                  data-testid="button-share-telegram"
+                >
+                  텔레그램
+                </Button>
+                <Button
+                  type="button"
+                  onClick={() => {
+                    const refCode = address ? address.slice(-8) : "TBURN2026";
+                    const url = `https://tburn.io/airdrop?ref=${refCode}`;
+                    window.open(`https://open.kakao.com/o/s/share?url=${encodeURIComponent(url)}`, "_blank");
+                    toast({ title: "KakaoTalk", description: "카카오톡 공유 창이 열렸습니다." });
+                  }}
+                  className="bg-[#FEE500] hover:bg-[#fdd835] text-black"
+                  data-testid="button-share-kakao"
+                >
+                  카카오톡
                 </Button>
               </div>
             </div>
