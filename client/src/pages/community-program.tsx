@@ -69,23 +69,82 @@ export default function CommunityProgramPage() {
   };
 
   const programs = [
-    { id: "ambassador", icon: "🌟", featured: true },
-    { id: "creator", icon: "🎨", featured: true },
-    { id: "moderator", icon: "🛡️", featured: false },
-    { id: "educator", icon: "📚", featured: false },
-    { id: "translator", icon: "🌍", featured: false },
-    { id: "bounty", icon: "🏆", featured: false },
+    { 
+      id: "ambassador", 
+      icon: "🌟", 
+      featured: true,
+      title: "브랜드 앰배서더",
+      subtitle: "TBURN의 얼굴이 되어주세요",
+      reward: "월 최대 5,000 TBURN",
+      benefits: ["공식 앰배서더 뱃지", "월간 보너스 지급", "이벤트 우선 초대", "독점 콘텐츠 액세스"],
+      requirements: "SNS 팔로워 1,000명 이상, 주 2회 이상 콘텐츠 게시"
+    },
+    { 
+      id: "creator", 
+      icon: "🎨", 
+      featured: true,
+      title: "콘텐츠 크리에이터",
+      subtitle: "창의적인 콘텐츠로 커뮤니티 성장",
+      reward: "콘텐츠당 100~500 TBURN",
+      benefits: ["크리에이터 전용 채널", "콘텐츠 제작 지원", "협업 기회 제공", "특별 보상 프로그램"],
+      requirements: "포트폴리오 제출, 월 1회 이상 콘텐츠 제작"
+    },
+    { 
+      id: "moderator", 
+      icon: "🛡️", 
+      featured: false,
+      title: "커뮤니티 모더레이터",
+      subtitle: "건강한 커뮤니티 문화 조성",
+      reward: "월 2,000 TBURN",
+      benefits: ["모더레이터 권한", "커뮤니티 운영 교육", "우선 지원 채널"],
+      requirements: "디스코드/텔레그램 활동 3개월 이상"
+    },
+    { 
+      id: "educator", 
+      icon: "📚", 
+      featured: false,
+      title: "교육 전문가",
+      subtitle: "블록체인 교육 콘텐츠 제작",
+      reward: "튜토리얼당 200~500 TBURN",
+      benefits: ["교육 자료 제공", "강연 기회", "전문가 네트워크 참여"],
+      requirements: "블록체인 관련 지식 보유, 콘텐츠 제작 능력"
+    },
+    { 
+      id: "translator", 
+      icon: "🌍", 
+      featured: false,
+      title: "번역가",
+      subtitle: "글로벌 커뮤니티 확장 지원",
+      reward: "문서당 50~200 TBURN",
+      benefits: ["번역 도구 제공", "언어별 커뮤니티 리더 기회"],
+      requirements: "영어 및 1개 이상의 외국어 능통"
+    },
+    { 
+      id: "bounty", 
+      icon: "🏆", 
+      featured: false,
+      title: "버그 바운티 헌터",
+      subtitle: "보안 취약점 발견 및 보고",
+      reward: "심각도에 따라 100~10,000 TBURN",
+      benefits: ["보안팀 직접 소통", "Hall of Fame 등재"],
+      requirements: "보안/개발 관련 경험"
+    },
   ];
 
-  const tierIds = ["newcomer", "contributor", "advocate", "champion", "legend"];
-  const tierIcons = { newcomer: "🌱", contributor: "🌿", advocate: "💠", champion: "👑", legend: "⭐" };
+  const tiers = [
+    { id: "newcomer", icon: "🌱", name: "신입", points: "0 ~ 99", multiplier: "x1.0", tierClass: "newcomer" },
+    { id: "contributor", icon: "🌿", name: "기여자", points: "100 ~ 499", multiplier: "x1.2", tierClass: "contributor" },
+    { id: "advocate", icon: "💠", name: "옹호자", points: "500 ~ 1,999", multiplier: "x1.5", tierClass: "advocate" },
+    { id: "champion", icon: "👑", name: "챔피언", points: "2,000 ~ 9,999", multiplier: "x2.0", tierClass: "champion" },
+    { id: "legend", icon: "⭐", name: "전설", points: "10,000+", multiplier: "x3.0", tierClass: "legend" },
+  ];
 
   const activities = [
-    { icon: "📝", type: "content", nameKey: "blog", categoryKey: "content", points: "+50~200", reward: "50~200 TBURN", frequency: "weekly" },
-    { icon: "🎬", type: "content", nameKey: "youtube", categoryKey: "content", points: "+100~500", reward: "100~500 TBURN", frequency: "monthly" },
-    { icon: "🐦", type: "social", nameKey: "tweet", categoryKey: "social", points: "+10~50", reward: "10~50 TBURN", frequency: "daily" },
-    { icon: "💬", type: "support", nameKey: "qa", categoryKey: "support", points: "+20~100", reward: "20~100 TBURN", frequency: "daily" },
-    { icon: "📖", type: "education", nameKey: "tutorial", categoryKey: "education", points: "+200~500", reward: "200~500 TBURN", frequency: "once" },
+    { icon: "📝", type: "content", name: "블로그 포스트", category: "콘텐츠", points: "+50~200", reward: "50~200 TBURN", frequency: "weekly" },
+    { icon: "🎬", type: "content", name: "유튜브 영상", category: "콘텐츠", points: "+100~500", reward: "100~500 TBURN", frequency: "monthly" },
+    { icon: "🐦", type: "social", name: "트윗/리트윗", category: "소셜", points: "+10~50", reward: "10~50 TBURN", frequency: "daily" },
+    { icon: "💬", type: "support", name: "Q&A 지원", category: "지원", points: "+20~100", reward: "20~100 TBURN", frequency: "daily" },
+    { icon: "📖", type: "education", name: "튜토리얼 작성", category: "교육", points: "+200~500", reward: "200~500 TBURN", frequency: "once" },
   ];
 
   const leaderboard = [
