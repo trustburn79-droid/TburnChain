@@ -1002,10 +1002,26 @@ export default function EventsPage() {
             <div className="logo-text">TBURN<span>CHAIN</span></div>
           </Link>
           <nav className="nav-links">
-            <a href="#live-events">진행중 이벤트</a>
-            <a href="#all-events">전체 이벤트</a>
-            <a href="#leaderboard">리더보드</a>
-            <a href="#faq">FAQ</a>
+            <a 
+              href="#live-events"
+              onClick={(e) => { e.preventDefault(); document.getElementById('live-events')?.scrollIntoView({ behavior: 'smooth' }); }}
+              data-testid="nav-live-events"
+            >진행중 이벤트</a>
+            <a 
+              href="#all-events"
+              onClick={(e) => { e.preventDefault(); document.getElementById('all-events')?.scrollIntoView({ behavior: 'smooth' }); }}
+              data-testid="nav-all-events"
+            >전체 이벤트</a>
+            <a 
+              href="#leaderboard"
+              onClick={(e) => { e.preventDefault(); document.getElementById('leaderboard')?.scrollIntoView({ behavior: 'smooth' }); }}
+              data-testid="nav-leaderboard"
+            >리더보드</a>
+            <a 
+              href="#faq"
+              onClick={(e) => { e.preventDefault(); document.getElementById('faq')?.scrollIntoView({ behavior: 'smooth' }); }}
+              data-testid="nav-faq"
+            >FAQ</a>
           </nav>
           <button 
             className="connect-btn" 
@@ -1149,23 +1165,47 @@ export default function EventsPage() {
         </div>
 
         <div className="category-tabs">
-          <button className={`category-tab ${activeCategory === 'all' ? 'active' : ''}`} onClick={() => setActiveCategory('all')}>
-            📋 전체
+          <button 
+            className={`category-tab ${activeCategory === 'all' ? 'active' : ''}`} 
+            onClick={() => { setActiveCategory('all'); toast({ title: "전체 이벤트", description: "모든 이벤트를 표시합니다." }); }}
+            data-testid="category-all"
+          >
+            전체
           </button>
-          <button className={`category-tab ${activeCategory === 'live' ? 'active' : ''}`} onClick={() => setActiveCategory('live')}>
-            🔴 진행중
+          <button 
+            className={`category-tab ${activeCategory === 'live' ? 'active' : ''}`} 
+            onClick={() => { setActiveCategory('live'); toast({ title: "진행중 이벤트", description: "현재 진행 중인 이벤트를 표시합니다." }); }}
+            data-testid="category-live"
+          >
+            진행중
           </button>
-          <button className={`category-tab ${activeCategory === 'launch' ? 'active' : ''}`} onClick={() => setActiveCategory('launch')}>
-            🚀 런칭
+          <button 
+            className={`category-tab ${activeCategory === 'launch' ? 'active' : ''}`} 
+            onClick={() => { setActiveCategory('launch'); toast({ title: "런칭 이벤트", description: "메인넷 런칭 관련 이벤트를 표시합니다." }); }}
+            data-testid="category-launch"
+          >
+            런칭
           </button>
-          <button className={`category-tab ${activeCategory === 'trading' ? 'active' : ''}`} onClick={() => setActiveCategory('trading')}>
-            📊 트레이딩
+          <button 
+            className={`category-tab ${activeCategory === 'trading' ? 'active' : ''}`} 
+            onClick={() => { setActiveCategory('trading'); toast({ title: "트레이딩 대회", description: "트레이딩 관련 이벤트를 표시합니다." }); }}
+            data-testid="category-trading"
+          >
+            트레이딩
           </button>
-          <button className={`category-tab ${activeCategory === 'staking' ? 'active' : ''}`} onClick={() => setActiveCategory('staking')}>
-            💎 스테이킹
+          <button 
+            className={`category-tab ${activeCategory === 'staking' ? 'active' : ''}`} 
+            onClick={() => { setActiveCategory('staking'); toast({ title: "스테이킹 이벤트", description: "스테이킹 관련 이벤트를 표시합니다." }); }}
+            data-testid="category-staking"
+          >
+            스테이킹
           </button>
-          <button className={`category-tab ${activeCategory === 'community' ? 'active' : ''}`} onClick={() => setActiveCategory('community')}>
-            👥 커뮤니티
+          <button 
+            className={`category-tab ${activeCategory === 'community' ? 'active' : ''}`} 
+            onClick={() => { setActiveCategory('community'); toast({ title: "커뮤니티 이벤트", description: "커뮤니티 참여 이벤트를 표시합니다." }); }}
+            data-testid="category-community"
+          >
+            커뮤니티
           </button>
         </div>
 
@@ -1439,19 +1479,25 @@ export default function EventsPage() {
           <div className="footer-links">
             <h4>Resources</h4>
             <ul>
-              <li><Link href="/learn/whitepaper">백서</Link></li>
-              <li><Link href="/developers/docs">문서</Link></li>
-              <li><a href="#">GitHub</a></li>
-              <li><Link href="/security-audit">감사 보고서</Link></li>
+              <li><Link href="/learn/whitepaper" data-testid="footer-link-whitepaper">백서</Link></li>
+              <li><Link href="/developers/docs" data-testid="footer-link-docs">문서</Link></li>
+              <li><a 
+                href="https://github.com/tburn-chain" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                onClick={() => toast({ title: "GitHub", description: "TBURN Chain GitHub으로 이동합니다." })}
+                data-testid="footer-link-github"
+              >GitHub</a></li>
+              <li><Link href="/security-audit" data-testid="footer-link-audit">감사 보고서</Link></li>
             </ul>
           </div>
           <div className="footer-links">
             <h4>Community</h4>
             <ul>
-              <li><Link href="/community/news">블로그</Link></li>
-              <li><a href="#">앰배서더</a></li>
-              <li><a href="#">그랜트</a></li>
-              <li><Link href="/qna">고객지원</Link></li>
+              <li><Link href="/community/news" data-testid="footer-link-blog">블로그</Link></li>
+              <li><Link href="/ambassador" data-testid="footer-link-ambassador">앰배서더</Link></li>
+              <li><Link href="/grants" data-testid="footer-link-grants">그랜트</Link></li>
+              <li><Link href="/qna" data-testid="footer-link-support">고객지원</Link></li>
             </ul>
           </div>
         </div>
