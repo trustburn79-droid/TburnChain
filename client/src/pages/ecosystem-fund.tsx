@@ -3,6 +3,7 @@ import { Link } from "wouter";
 import { useQuery } from "@tanstack/react-query";
 import { TBurnLogo } from "@/components/tburn-logo";
 import { useWeb3 } from "@/lib/web3-context";
+import { useToast } from "@/hooks/use-toast";
 
 interface EcosystemFundStatsData {
   totalFundSize: string;
@@ -27,12 +28,52 @@ export default function EcosystemFundPage() {
   });
   const stats = response?.data;
 
+  const { toast } = useToast();
+
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   const handleWalletClick = async () => {
     if (isConnected) {
       disconnect();
+      toast({
+        title: "지갑 연결 해제",
+        description: "지갑 연결이 해제되었습니다.",
+      });
     } else {
       await connect("metamask");
+      toast({
+        title: "지갑 연결됨",
+        description: "MetaMask 지갑이 연결되었습니다.",
+      });
     }
+  };
+
+  const handleApplyGrant = (grantId: string, grantTitle: string) => {
+    if (!isConnected) {
+      toast({
+        title: "지갑 연결 필요",
+        description: "그랜트 신청을 위해 먼저 지갑을 연결해주세요.",
+        variant: "destructive",
+      });
+      return;
+    }
+    toast({
+      title: `${grantTitle} 신청 완료`,
+      description: `${grantTitle} 그랜트 신청이 접수되었습니다. 심사 결과를 이메일로 알려드립니다.`,
+    });
+  };
+
+  const handleShareSocial = (platform: string, url: string) => {
+    window.open(url, '_blank');
+    toast({
+      title: `${platform} 열기`,
+      description: `${platform} 페이지가 새 창에서 열렸습니다.`,
+    });
   };
 
   const toggleFaq = (id: string) => {
@@ -922,11 +963,11 @@ export default function EcosystemFundPage() {
             <div className="logo-text">TBURN<span>CHAIN</span></div>
           </Link>
           <nav className="nav-links">
-            <a href="#grants">그랜트</a>
-            <a href="#incubator">인큐베이터</a>
-            <a href="#hackathon">해커톤</a>
-            <a href="#portfolio">포트폴리오</a>
-            <a href="#faq">FAQ</a>
+            <a href="#grants" onClick={(e) => { e.preventDefault(); scrollToSection('grants'); }} data-testid="nav-grants">그랜트</a>
+            <a href="#incubator" onClick={(e) => { e.preventDefault(); scrollToSection('incubator'); }} data-testid="nav-incubator">인큐베이터</a>
+            <a href="#hackathon" onClick={(e) => { e.preventDefault(); scrollToSection('hackathon'); }} data-testid="nav-hackathon">해커톤</a>
+            <a href="#portfolio" onClick={(e) => { e.preventDefault(); scrollToSection('portfolio'); }} data-testid="nav-portfolio">포트폴리오</a>
+            <a href="#faq" onClick={(e) => { e.preventDefault(); scrollToSection('faq'); }} data-testid="nav-faq">FAQ</a>
           </nav>
           <button 
             className="connect-btn" 
@@ -1005,11 +1046,19 @@ export default function EcosystemFundPage() {
           </div>
 
           <div className="cta-group">
-            <button className="btn-primary" data-testid="button-apply-grant">
-              🚀 그랜트 신청하기
+            <button 
+              className="btn-primary" 
+              data-testid="button-apply-grant"
+              onClick={() => { scrollToSection('grants'); toast({ title: "그랜트 프로그램", description: "자신에게 맞는 그랜트 프로그램을 선택하세요." }); }}
+            >
+              그랜트 신청하기
             </button>
-            <button className="btn-secondary">
-              📖 프로그램 안내
+            <button 
+              className="btn-secondary"
+              data-testid="button-view-programs"
+              onClick={() => { scrollToSection('incubator'); toast({ title: "인큐베이터 프로그램", description: "4개월 집중 육성 프로그램을 확인하세요." }); }}
+            >
+              프로그램 안내
             </button>
           </div>
         </div>
@@ -1072,7 +1121,13 @@ export default function EcosystemFundPage() {
                     <div className="label">심사중</div>
                   </div>
                 </div>
-                <button className="grant-btn">신청하기</button>
+                <button 
+                  className="grant-btn"
+                  onClick={() => handleApplyGrant(grant.id, grant.title)}
+                  data-testid={`button-apply-${grant.id}`}
+                >
+                  {isConnected ? '신청하기' : '지갑 연결'}
+                </button>
               </div>
             </div>
           ))}
@@ -1223,58 +1278,106 @@ export default function EcosystemFundPage() {
         </div>
 
         <div className="faq-container">
-          <div className={`faq-item ${activeFaq === 'faq-1' ? 'active' : ''}`}>
+          <div className={`faq-item ${activeFaq === 'faq-1' ? 'active' : ''}`} data-testid="faq-item-1">
             <div className="faq-question" onClick={() => toggleFaq('faq-1')}>
+              <h4>에코시스템 펀드 총 규모는 얼마인가요?</h4>
+              <span className="faq-chevron">▼</span>
+            </div>
+            <div className="faq-answer">
+              <p>에코시스템 펀드에 총 7억 TBURN(전체 공급량의 7%)이 배정되어 있습니다. 개발자 그랜트 40%(2.8억), dApp 인큐베이터 20%(1.4억), 해커톤 & 대회 10%(0.7억), 파트너십 지원 20%(1.4억), 연구 & 개발 10%(0.7억)으로 배분됩니다.</p>
+            </div>
+          </div>
+
+          <div className={`faq-item ${activeFaq === 'faq-2' ? 'active' : ''}`} data-testid="faq-item-2">
+            <div className="faq-question" onClick={() => toggleFaq('faq-2')}>
               <h4>그랜트 신청 자격은 어떻게 되나요?</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>TBURN Chain 위에 구축되는 모든 프로젝트가 신청 가능합니다. 개인 개발자, 스타트업, 기존 프로젝트 모두 환영합니다. 단, 프로젝트 계획서와 팀 정보가 필요합니다.</p>
+              <p>TBURN Chain 위에 구축되는 모든 프로젝트가 신청 가능합니다. 개인 개발자, 스타트업, 기존 프로젝트 모두 환영합니다. Builder Grant(최대 5만 TBURN), Growth Grant(최대 20만 TBURN), Research Grant(최대 50만 TBURN) 중 선택 가능합니다.</p>
             </div>
           </div>
 
-          <div className={`faq-item ${activeFaq === 'faq-2' ? 'active' : ''}`}>
-            <div className="faq-question" onClick={() => toggleFaq('faq-2')}>
+          <div className={`faq-item ${activeFaq === 'faq-3' ? 'active' : ''}`} data-testid="faq-item-3">
+            <div className="faq-question" onClick={() => toggleFaq('faq-3')}>
               <h4>그랜트 자금은 어떻게 지급되나요?</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>마일스톤 기반으로 분할 지급됩니다. 일반적으로 승인 시 30%, 중간 검토 시 40%, 완료 시 30%가 지급됩니다. 진행 상황에 따라 조정될 수 있습니다.</p>
+              <p>마일스톤 기반으로 분할 지급됩니다. 일반적으로 승인 시 30%, 중간 검토 시 40%, 완료 시 30%가 지급됩니다. 심사 과정은 약 4~6주 소요되며, 신청서 제출 → 1차 심사 → 인터뷰 → 최종 심사 → 승인 & 지급 순서로 진행됩니다.</p>
             </div>
           </div>
 
-          <div className={`faq-item ${activeFaq === 'faq-3' ? 'active' : ''}`}>
-            <div className="faq-question" onClick={() => toggleFaq('faq-3')}>
+          <div className={`faq-item ${activeFaq === 'faq-4' ? 'active' : ''}`} data-testid="faq-item-4">
+            <div className="faq-question" onClick={() => toggleFaq('faq-4')}>
               <h4>인큐베이터 프로그램에 어떻게 참여하나요?</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>각 배치 모집 기간에 온라인으로 신청하시면 됩니다. 서류 심사, 인터뷰를 거쳐 매 배치당 10팀이 선발됩니다. 4개월간 집중 멘토링과 함께 최대 10만 TBURN의 시드 펀딩을 받을 수 있습니다.</p>
+              <p>각 배치 모집 기간에 온라인으로 신청하시면 됩니다. 서류 심사, 인터뷰를 거쳐 매 배치당 10팀이 선발됩니다. 4개월간 집중 멘토링과 함께 최대 10만 TBURN의 시드 펀딩, 전문 멘토링, 기술 지원, VC 네트워크 연결 등의 혜택을 받을 수 있습니다.</p>
             </div>
           </div>
 
-          <div className={`faq-item ${activeFaq === 'faq-4' ? 'active' : ''}`}>
-            <div className="faq-question" onClick={() => toggleFaq('faq-4')}>
+          <div className={`faq-item ${activeFaq === 'faq-5' ? 'active' : ''}`} data-testid="faq-item-5">
+            <div className="faq-question" onClick={() => toggleFaq('faq-5')}>
               <h4>해커톤 참가 방법은 무엇인가요?</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>해커톤 페이지에서 등록 후 개인 또는 팀(최대 5명)으로 참가할 수 있습니다. 트랙을 선택하고 프로젝트를 제출하면 심사를 통해 수상자가 결정됩니다.</p>
+              <p>해커톤 페이지에서 등록 후 개인 또는 팀(최대 5명)으로 참가할 수 있습니다. GameFi($25,000), DeFi($25,000), NFT($15,000), AI+Blockchain($35,000) 트랙 중 선택하고 프로젝트를 제출하면 심사를 통해 수상자가 결정됩니다.</p>
+            </div>
+          </div>
+
+          <div className={`faq-item ${activeFaq === 'faq-6' ? 'active' : ''}`} data-testid="faq-item-6">
+            <div className="faq-question" onClick={() => toggleFaq('faq-6')}>
+              <h4>포트폴리오 프로젝트의 성공률은 어떻게 되나요?</h4>
+              <span className="faq-chevron">▼</span>
+            </div>
+            <div className="faq-answer">
+              <p>에코시스템 펀드로 지원된 프로젝트의 성공률은 85%입니다. 현재 32개의 활성 dApp이 운영 중이며, TBurn Swap(DEX), TBurn Lend(Lending), ChainQuest(GameFi), CrossBridge(Bridge) 등 다양한 카테고리의 프로젝트가 성공적으로 운영되고 있습니다.</p>
+            </div>
+          </div>
+
+          <div className={`faq-item ${activeFaq === 'faq-7' ? 'active' : ''}`} data-testid="faq-item-7">
+            <div className="faq-question" onClick={() => toggleFaq('faq-7')}>
+              <h4>파트너십 지원은 어떻게 받을 수 있나요?</h4>
+              <span className="faq-chevron">▼</span>
+            </div>
+            <div className="faq-answer">
+              <p>파트너십 지원 프로그램(1.4억 TBURN, 20%)은 전략적 파트너와의 협력을 위한 펀드입니다. 거래소 상장 지원, 크로스체인 통합, 기업 파트너십 등에 활용됩니다. 별도의 파트너십 신청 양식을 통해 문의하시면 됩니다.</p>
+            </div>
+          </div>
+
+          <div className={`faq-item ${activeFaq === 'faq-8' ? 'active' : ''}`} data-testid="faq-item-8">
+            <div className="faq-question" onClick={() => toggleFaq('faq-8')}>
+              <h4>연구 그랜트는 어떤 프로젝트에 적합한가요?</h4>
+              <span className="faq-chevron">▼</span>
+            </div>
+            <div className="faq-answer">
+              <p>Research Grant(최대 50만 TBURN)는 장기 연구 프로젝트에 적합합니다. 블록체인 확장성 연구, 보안 프로토콜 개발, 학술 논문 출판, 특허 지원 등이 포함됩니다. 대학교, 연구소, 전문 연구 팀의 신청을 환영합니다.</p>
             </div>
           </div>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="cta-section">
+      <section className="cta-section" id="cta">
         <div style={{ maxWidth: '800px', margin: '0 auto' }}>
           <h2 style={{ fontSize: '2.5rem', fontWeight: 800, marginBottom: '1rem' }}>지금 시작하세요!</h2>
           <p style={{ color: 'rgba(255,255,255,0.8)', fontSize: '1.125rem', marginBottom: '2rem' }}>
             TBURN 생태계의 일원이 되어<br />
             7억 TBURN 펀드의 지원을 받으세요!
           </p>
-          <button className="connect-btn" style={{ background: 'var(--white)', color: 'var(--teal)', fontSize: '1.25rem', padding: '20px 50px' }}>
-            🚀 그랜트 신청하기
+          <button 
+            className="connect-btn" 
+            style={{ background: 'var(--white)', color: 'var(--teal)', fontSize: '1.25rem', padding: '20px 50px' }}
+            data-testid="button-cta-apply"
+            onClick={() => { 
+              scrollToSection('grants'); 
+              toast({ title: "그랜트 신청", description: "자신에게 맞는 그랜트 프로그램을 선택하세요!" }); 
+            }}
+          >
+            그랜트 신청하기
           </button>
         </div>
       </section>
@@ -1286,45 +1389,65 @@ export default function EcosystemFundPage() {
             <h3>TBURN<span>CHAIN</span></h3>
             <p>AI의 지능, 블록체인의 투명성<br />THE FUTURE IS NOW</p>
             <div className="social-links">
-              <a href="#">𝕏</a>
-              <a href="#">✈</a>
-              <a href="#">💬</a>
-              <a href="#">⌘</a>
+              <a 
+                href="https://x.com/tburnchain" 
+                onClick={(e) => { e.preventDefault(); handleShareSocial('Twitter', 'https://x.com/tburnchain'); }}
+                data-testid="footer-link-twitter"
+              >𝕏</a>
+              <a 
+                href="https://t.me/tburnchain" 
+                onClick={(e) => { e.preventDefault(); handleShareSocial('Telegram', 'https://t.me/tburnchain'); }}
+                data-testid="footer-link-telegram"
+              >✈</a>
+              <a 
+                href="https://discord.gg/tburnchain" 
+                onClick={(e) => { e.preventDefault(); handleShareSocial('Discord', 'https://discord.gg/tburnchain'); }}
+                data-testid="footer-link-discord"
+              >💬</a>
+              <a 
+                href="https://github.com/tburnchain" 
+                onClick={(e) => { e.preventDefault(); handleShareSocial('GitHub', 'https://github.com/tburnchain'); }}
+                data-testid="footer-link-github"
+              >⌘</a>
             </div>
           </div>
           <div className="footer-links">
             <h4>Product</h4>
             <ul>
-              <li><Link href="/">메인넷</Link></li>
-              <li><Link href="/scan">익스플로러</Link></li>
-              <li><Link href="/app/bridge">브릿지</Link></li>
-              <li><Link href="/app/staking">스테이킹</Link></li>
+              <li><a href="/" data-testid="footer-link-mainnet">메인넷</a></li>
+              <li><a href="/scan" data-testid="footer-link-explorer">익스플로러</a></li>
+              <li><a href="/app/bridge" data-testid="footer-link-bridge">브릿지</a></li>
+              <li><a href="/app/staking" data-testid="footer-link-staking">스테이킹</a></li>
             </ul>
           </div>
           <div className="footer-links">
             <h4>Resources</h4>
             <ul>
-              <li><Link href="/learn/whitepaper">백서</Link></li>
-              <li><Link href="/developers/docs">문서</Link></li>
-              <li><a href="#">GitHub</a></li>
-              <li><Link href="/security-audit">감사 보고서</Link></li>
+              <li><a href="/learn/whitepaper" data-testid="footer-link-whitepaper">백서</a></li>
+              <li><a href="/developers/docs" data-testid="footer-link-docs">문서</a></li>
+              <li><a 
+                href="https://github.com/tburnchain" 
+                onClick={(e) => { e.preventDefault(); handleShareSocial('GitHub', 'https://github.com/tburnchain'); }}
+                data-testid="footer-link-github-resources"
+              >GitHub</a></li>
+              <li><a href="/security-audit" data-testid="footer-link-audit">감사 보고서</a></li>
             </ul>
           </div>
           <div className="footer-links">
             <h4>Community</h4>
             <ul>
-              <li><Link href="/community/news">블로그</Link></li>
-              <li><a href="#">앰배서더</a></li>
-              <li><a href="#">그랜트</a></li>
-              <li><Link href="/qna">고객지원</Link></li>
+              <li><a href="/community/news" data-testid="footer-link-blog">블로그</a></li>
+              <li><a href="/community-program" data-testid="footer-link-ambassador">앰배서더</a></li>
+              <li><a href="/ecosystem-fund" data-testid="footer-link-grants">그랜트</a></li>
+              <li><a href="/qna" data-testid="footer-link-support">고객지원</a></li>
             </ul>
           </div>
         </div>
         <div className="footer-bottom">
           <p>© 2025-2045 TBURN Foundation. All Rights Reserved.</p>
           <div style={{ display: 'flex', gap: '2rem' }}>
-            <Link href="/legal/terms-of-service" style={{ color: 'var(--gray)', textDecoration: 'none' }}>이용약관</Link>
-            <Link href="/legal/privacy-policy" style={{ color: 'var(--gray)', textDecoration: 'none' }}>개인정보처리방침</Link>
+            <a href="/legal/terms-of-service" style={{ color: 'var(--gray)', textDecoration: 'none' }} data-testid="footer-link-terms">이용약관</a>
+            <a href="/legal/privacy-policy" style={{ color: 'var(--gray)', textDecoration: 'none' }} data-testid="footer-link-privacy">개인정보처리방침</a>
           </div>
         </div>
       </footer>
