@@ -275,8 +275,6 @@ export default function LaunchpadPage() {
         .logo-icon {
           width: 44px;
           height: 44px;
-          background: var(--gradient-gold);
-          border-radius: 12px;
           display: flex;
           align-items: center;
           justify-content: center;

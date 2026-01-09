@@ -236,8 +236,6 @@ export default function AdvisorProgramPage() {
         .logo-icon {
           width: 48px;
           height: 48px;
-          background: var(--gradient-gold);
-          border-radius: 12px;
           display: flex;
           align-items: center;
           justify-content: center;
