@@ -1,0 +1,11 @@
+Tiers to add:
+- tiers.referralRange: "referrals"
+- tiers.unlimited: "unlimited"
+- tiers.levels.bronze.requirement: "0-9 referrals"
+- tiers.levels.bronze.benefits: ["20% commission", "1st level referral", "Real-time settlement", "Basic dashboard"]
+- tiers.levels.silver.requirement: "10-49 referrals"
+- tiers.levels.silver.benefits: ["30% commission", "2nd level referral (5%)", "Weekly bonus", "Premium dashboard"]
+- tiers.levels.gold.requirement: "50-199 referrals"
+- tiers.levels.gold.benefits: ["40% commission", "2nd level referral (10%)", "Monthly bonus", "Dedicated manager", "Early access"]
+- tiers.levels.diamond.requirement: "200+ referrals"
+- tiers.levels.diamond.benefits: ["Max 50% commission", "3rd level referral (15%)", "VIP bonus", "1:1 dedicated manager", "Exclusive event invites", "Governance bonus"]

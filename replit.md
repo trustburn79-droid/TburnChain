@@ -20,7 +20,7 @@ The platform utilizes a modern web stack with React 18, TypeScript, Vite, Wouter
 Core architectural decisions include:
 - **Dynamic Shard Management**: Supports dynamic scaling of shards (5-64) and validators with transactional updates, targeting 210,000 TPS.
 - **Unified AI Model Configuration**: Integrates Gemini 3 Pro, Claude Sonnet 4.5, GPT-4o, and Grok 3 with automatic fallback.
-- **Internationalization**: Full Korean and English support with fallback for other languages.
+- **Internationalization**: Full 12-language support (en, ko, zh, ja, es, fr, pt, ru, ar, hi, bn, ur) with English as default. RTL support for Arabic and Urdu. The `/referral` page has complete i18n coverage across all 9 sections (nav, hero, howItWorks, tiers, dashboard, calculator, leaderboard, faq, footer).
 - **Web3 Wallet Integration**: Supports major wallets (MetaMask, Rabby, Trust, Coinbase, Ledger).
 - **Production Data Policy**: All public pages and admin dashboards display real mainnet production data from `TBurnEnterpriseNode`.
 - **Comprehensive Admin Portals**: Production-ready admin pages for Business Intelligence, Analytics, Reporting, Network Operations, AI Training, and Compliance Management.

@@ -31183,6 +31183,15 @@
       },
       "footer": {
         "brand": "The fastest and most secure blockchain for the future of DeFi",
+        "tagline": "Next-generation blockchain infrastructure",
+        "program": "Program",
+        "support": "Support",
+        "blog": "Blog",
+        "legal": "Legal",
+        "terms": "Terms of Service",
+        "privacy": "Privacy Policy",
+        "disclaimer": "Disclaimer",
+        "poweredBy": "Powered by TBURN Technology",
         "products": "Products",
         "scan": "TBURNScan",
         "dapp": "dApp",
@@ -31218,8 +31227,8 @@
         "description": "Invite friends and earn points! (500P per friend, max 10)",
         "linkLabel": "My Referral Link",
         "copy": "Copy",
-        "shareTitle": "Share on Social Media",
-        "shareTwitter": "Twitter",
+        "referralCode": "Referral Code",
+        "shareText": "Join TBURN Chain referral program! Earn up to 50% commission.",
         "shareTelegram": "Telegram",
         "shareKakao": "KakaoTalk",
         "benefits": "Referral Benefits",
@@ -31294,6 +31303,39 @@
         "subtitle": "Your tier increases with more referrals, unlocking higher commission rates",
         "commission": "Commission",
         "referrals": "Referrals",
+        "levels": {
+          "bronze": {
+            "requirement": "0-9 referrals",
+            "benefit1": "20% base commission",
+            "benefit2": "1st level referral",
+            "benefit3": "Real-time settlement",
+            "benefit4": "Basic dashboard"
+          },
+          "silver": {
+            "requirement": "10-49 referrals",
+            "benefit1": "30% commission",
+            "benefit2": "2nd level referral (5%)",
+            "benefit3": "Weekly bonus",
+            "benefit4": "Premium dashboard"
+          },
+          "gold": {
+            "requirement": "50-199 referrals",
+            "benefit1": "40% commission",
+            "benefit2": "2nd level referral (10%)",
+            "benefit3": "Monthly bonus",
+            "benefit4": "Dedicated manager",
+            "benefit5": "Early access"
+          },
+          "diamond": {
+            "requirement": "200+ referrals",
+            "benefit1": "Max 50% commission",
+            "benefit2": "3rd level referral (15%)",
+            "benefit3": "VIP bonus",
+            "benefit4": "1:1 dedicated manager",
+            "benefit5": "Exclusive event invites",
+            "benefit6": "Governance bonus"
+          }
+        },
         "benefits": "Benefits"
       },
       "dashboard": {
@@ -31303,6 +31345,8 @@
         "currentTier": "Current Tier",
         "myReferralLink": "My Referral Link",
         "copy": "Copy",
+        "referralCode": "Referral Code",
+        "shareText": "Join TBURN Chain referral program! Earn up to 50% commission.",
         "copied": "Copied!",
         "share": {
           "twitter": "Twitter",
@@ -31320,7 +31364,10 @@
         "connectButton": "Connect Wallet",
         "toasts": {
           "copied": "Copied",
-          "copiedDesc": "Referral link copied to clipboard."
+          "copiedDesc": "Referral link copied to clipboard.",
+          "copiedKakao": "Paste to KakaoTalk!",
+          "copyFailed": "Copy Failed",
+          "copyFailedDesc": "Please copy the link manually."
         }
       },
       "calculator": {
@@ -31358,6 +31405,43 @@
         "invites": "Invites",
         "earnings": "Earnings",
         "viewAll": "View All Rankings",
+        "labels": {
+          "referrals": "Referrals",
+        "levels": {
+          "bronze": {
+            "requirement": "0-9 referrals",
+            "benefit1": "20% base commission",
+            "benefit2": "1st level referral",
+            "benefit3": "Real-time settlement",
+            "benefit4": "Basic dashboard"
+          },
+          "silver": {
+            "requirement": "10-49 referrals",
+            "benefit1": "30% commission",
+            "benefit2": "2nd level referral (5%)",
+            "benefit3": "Weekly bonus",
+            "benefit4": "Premium dashboard"
+          },
+          "gold": {
+            "requirement": "50-199 referrals",
+            "benefit1": "40% commission",
+            "benefit2": "2nd level referral (10%)",
+            "benefit3": "Monthly bonus",
+            "benefit4": "Dedicated manager",
+            "benefit5": "Early access"
+          },
+          "diamond": {
+            "requirement": "200+ referrals",
+            "benefit1": "Max 50% commission",
+            "benefit2": "3rd level referral (15%)",
+            "benefit3": "VIP bonus",
+            "benefit4": "1:1 dedicated manager",
+            "benefit5": "Exclusive event invites",
+            "benefit6": "Governance bonus"
+          }
+        },
+          "totalEarnings": "Total Earnings"
+        },
         "toasts": {
           "allRank": "All Rankings",
           "allRankDesc": "Showing all-time referral rankings.",
@@ -31368,7 +31452,8 @@
           "walletRequired": "Wallet Required",
           "walletRequiredDesc": "Please connect your wallet to view full rankings.",
           "fullRankings": "Full Rankings",
-          "fullRankingsDesc": "Full rankings page coming soon."
+          "fullRankingsDesc": "Full rankings page coming soon.",
+          "comingSoon": "Coming soon."
         }
       },
       "faq": {
@@ -31410,6 +31495,15 @@
       },
       "footer": {
         "brand": "The fastest and most secure blockchain for the future of DeFi",
+        "tagline": "Next-generation blockchain infrastructure",
+        "program": "Program",
+        "support": "Support",
+        "blog": "Blog",
+        "legal": "Legal",
+        "terms": "Terms of Service",
+        "privacy": "Privacy Policy",
+        "disclaimer": "Disclaimer",
+        "poweredBy": "Powered by TBURN Technology",
         "products": "Products",
         "scan": "Explorer",
         "dapp": "DApp",

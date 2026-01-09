@@ -6,6 +6,7 @@ import { useWeb3 } from "@/lib/web3-context";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 import { LanguageSelector } from "@/components/LanguageSelector";
+import { useTranslation } from "react-i18next";
 
 interface ReferralStats {
   success: boolean;
@@ -44,6 +45,7 @@ interface UserReferralData {
 }
 
 export default function ReferralPage() {
+  const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState<string | null>("faq-1");
   const [calcTier, setCalcTier] = useState(40);
   const [calcReferrals, setCalcReferrals] = useState(10);
@@ -122,8 +124,8 @@ export default function ReferralPage() {
       await navigator.clipboard.writeText(link);
       setCopied(true);
       toast({
-        title: "복사 완료",
-        description: "레퍼럴 링크가 클립보드에 복사되었습니다.",
+        title: t('tokenPrograms.referralPage.dashboard.toasts.copied'),
+        description: t('tokenPrograms.referralPage.dashboard.toasts.copiedDesc'),
       });
       setTimeout(() => setCopied(false), 2000);
     } catch {
@@ -1211,27 +1213,27 @@ export default function ReferralPage() {
               href="#how-it-works"
               onClick={(e) => { e.preventDefault(); document.getElementById('how-it-works')?.scrollIntoView({ behavior: 'smooth' }); }}
               data-testid="nav-how-it-works"
-            >작동 방식</a>
+            >{t('tokenPrograms.referralPage.nav.howItWorks')}</a>
             <a 
               href="#tiers"
               onClick={(e) => { e.preventDefault(); document.getElementById('tiers')?.scrollIntoView({ behavior: 'smooth' }); }}
               data-testid="nav-tiers"
-            >등급 시스템</a>
+            >{t('tokenPrograms.referralPage.nav.tiers')}</a>
             <a 
               href="#dashboard"
               onClick={(e) => { e.preventDefault(); document.getElementById('dashboard')?.scrollIntoView({ behavior: 'smooth' }); }}
               data-testid="nav-dashboard"
-            >대시보드</a>
+            >{t('tokenPrograms.referralPage.nav.dashboard')}</a>
             <a 
               href="#calculator"
               onClick={(e) => { e.preventDefault(); document.getElementById('calculator')?.scrollIntoView({ behavior: 'smooth' }); }}
               data-testid="nav-calculator"
-            >보상 계산기</a>
+            >{t('tokenPrograms.referralPage.nav.calculator')}</a>
             <a 
               href="#leaderboard"
               onClick={(e) => { e.preventDefault(); document.getElementById('leaderboard')?.scrollIntoView({ behavior: 'smooth' }); }}
               data-testid="nav-leaderboard"
-            >리더보드</a>
+            >{t('tokenPrograms.referralPage.nav.leaderboard')}</a>
           </nav>
           <div className="header-actions">
             <LanguageSelector isDark={true} />
@@ -1241,7 +1243,7 @@ export default function ReferralPage() {
               disabled={isConnecting}
               data-testid="button-connect-wallet"
             >
-              {isConnecting ? '연결 중...' : isConnected ? `${formatAddress(address || '')}` : '🔗 지갑 연결'}
+              {isConnecting ? t('tokenPrograms.referralPage.header.connecting') : isConnected ? `${formatAddress(address || '')}` : `🔗 ${t('tokenPrograms.referralPage.header.connectWallet')}`}
             </button>
           </div>
         </div>
@@ -1252,15 +1254,14 @@ export default function ReferralPage() {
         <div className="hero-bg"></div>
         <div className="hero-content">
           <div className="badge">
-            REFERRAL PROGRAM - 실시간 정산
+            {t('tokenPrograms.referralPage.hero.badge')}
           </div>
           <h1>
-            친구를 초대하고<br />
-            <span className="purple">3억 TBURN</span> 보상을 받으세요
+            <span className="purple">{t('tokenPrograms.referralPage.hero.title')}</span><br />
+            {t('tokenPrograms.referralPage.hero.subtitle')}
           </h1>
           <p className="hero-subtitle">
-            TBURN Chain 레퍼럴 프로그램에 참여하여 최대 50% 커미션을 받으세요.
-            초대한 친구가 거래할 때마다 실시간으로 보상이 적립됩니다.
+            {t('tokenPrograms.referralPage.hero.description')}
           </p>
 
           <div className="stats-grid">
@@ -1272,7 +1273,7 @@ export default function ReferralPage() {
                   {stats?.totalParticipants?.toLocaleString() || '0'}
                 </div>
               )}
-              <div className="stat-label">총 참여자</div>
+              <div className="stat-label">{t('tokenPrograms.referralPage.hero.stats.totalParticipants')}</div>
             </div>
             <div className="stat-card" data-testid="stat-total-referrals">
               {isLoadingStats ? (
@@ -1282,7 +1283,7 @@ export default function ReferralPage() {
                   {stats?.totalReferrals?.toLocaleString() || '0'}
                 </div>
               )}
-              <div className="stat-label">총 레퍼럴</div>
+              <div className="stat-label">{t('tokenPrograms.referralPage.hero.stats.totalReferrals')}</div>
             </div>
             <div className="stat-card" data-testid="stat-total-rewards">
               {isLoadingStats ? (
@@ -1292,7 +1293,7 @@ export default function ReferralPage() {
                   {Number(stats?.totalRewardsDistributed || 0).toLocaleString()}
                 </div>
               )}
-              <div className="stat-label">총 보상 분배 (TBURN)</div>
+              <div className="stat-label">{t('tokenPrograms.referralPage.hero.stats.totalRewards')}</div>
             </div>
             <div className="stat-card" data-testid="stat-active-referrers">
               {isLoadingStats ? (
@@ -1302,7 +1303,7 @@ export default function ReferralPage() {
                   {stats?.activeReferrers?.toLocaleString() || '0'}
                 </div>
               )}
-              <div className="stat-label">활성 레퍼러</div>
+              <div className="stat-label">{t('tokenPrograms.referralPage.hero.stats.activeReferrers')}</div>
             </div>
           </div>
 
@@ -1313,17 +1314,16 @@ export default function ReferralPage() {
               disabled={generateReferralMutation.isPending}
               data-testid="button-get-link"
             >
-              {generateReferralMutation.isPending ? '생성 중...' : '🔗 내 초대 링크 받기'}
+              {generateReferralMutation.isPending ? t('tokenPrograms.referralPage.header.connecting') : `🔗 ${t('tokenPrograms.referralPage.hero.buttons.getReferralLink')}`}
             </button>
             <button 
               className="btn-secondary"
               data-testid="button-how-it-works"
               onClick={() => {
                 document.getElementById('how-it-works')?.scrollIntoView({ behavior: 'smooth' });
-                toast({ title: "레퍼럴 프로그램", description: "4단계로 간단하게 보상을 받을 수 있습니다." });
               }}
             >
-              작동 방식 보기
+              {t('tokenPrograms.referralPage.hero.buttons.viewDashboard')}
             </button>
           </div>
         </div>
@@ -1332,31 +1332,31 @@ export default function ReferralPage() {
       {/* How It Works */}
       <section className="section" id="how-it-works">
         <div className="section-header">
-          <span className="section-badge">HOW IT WORKS</span>
-          <h2 className="section-title">레퍼럴 프로그램 작동 방식</h2>
-          <p className="section-subtitle">4단계로 간단하게 보상을 받으세요</p>
+          <span className="section-badge">{t('tokenPrograms.referralPage.howItWorks.badge')}</span>
+          <h2 className="section-title">{t('tokenPrograms.referralPage.howItWorks.title')}</h2>
+          <p className="section-subtitle">{t('tokenPrograms.referralPage.howItWorks.subtitle')}</p>
         </div>
 
         <div className="steps-grid">
           <div className="step-card" data-testid="step-1">
             <div className="step-number">1</div>
-            <h3 className="step-title">지갑 연결</h3>
-            <p className="step-desc">MetaMask 또는 지원 지갑을 연결하여 고유한 초대 링크를 생성하세요.</p>
+            <h3 className="step-title">{t('tokenPrograms.referralPage.howItWorks.steps.connect.title')}</h3>
+            <p className="step-desc">{t('tokenPrograms.referralPage.howItWorks.steps.connect.desc')}</p>
           </div>
           <div className="step-card" data-testid="step-2">
             <div className="step-number">2</div>
-            <h3 className="step-title">링크 공유</h3>
-            <p className="step-desc">SNS, 커뮤니티, 친구에게 초대 링크를 공유하세요.</p>
+            <h3 className="step-title">{t('tokenPrograms.referralPage.howItWorks.steps.share.title')}</h3>
+            <p className="step-desc">{t('tokenPrograms.referralPage.howItWorks.steps.share.desc')}</p>
           </div>
           <div className="step-card" data-testid="step-3">
             <div className="step-number">3</div>
-            <h3 className="step-title">친구 활동</h3>
-            <p className="step-desc">초대받은 친구가 TBURN Chain에서 거래, 스테이킹 등 활동을 합니다.</p>
+            <h3 className="step-title">{t('tokenPrograms.referralPage.howItWorks.steps.activity.title')}</h3>
+            <p className="step-desc">{t('tokenPrograms.referralPage.howItWorks.steps.activity.desc')}</p>
           </div>
           <div className="step-card" data-testid="step-4">
             <div className="step-number">4</div>
-            <h3 className="step-title">보상 수령</h3>
-            <p className="step-desc">친구 활동의 수수료에서 커미션을 실시간으로 받습니다.</p>
+            <h3 className="step-title">{t('tokenPrograms.referralPage.howItWorks.steps.earn.title')}</h3>
+            <p className="step-desc">{t('tokenPrograms.referralPage.howItWorks.steps.earn.desc')}</p>
           </div>
         </div>
       </section>
@@ -1364,9 +1364,9 @@ export default function ReferralPage() {
       {/* Tier System */}
       <section className="section" id="tiers" style={{ background: 'rgba(255,255,255,0.02)' }}>
         <div className="section-header">
-          <span className="section-badge">TIER SYSTEM</span>
-          <h2 className="section-title">등급별 커미션</h2>
-          <p className="section-subtitle">초대 실적에 따라 등급이 올라가고 커미션율이 증가합니다</p>
+          <span className="section-badge">{t('tokenPrograms.referralPage.tiers.badge')}</span>
+          <h2 className="section-title">{t('tokenPrograms.referralPage.tiers.title')}</h2>
+          <p className="section-subtitle">{t('tokenPrograms.referralPage.tiers.subtitle')}</p>
         </div>
 
         <div className="tier-grid">
@@ -1384,10 +1384,10 @@ export default function ReferralPage() {
                 <h3 className="tier-name">{tier.name}</h3>
                 <div className="tier-commission">{tier.commission}%</div>
                 <p className="tier-requirement">
-                  {tier.minReferrals} ~ {tier.maxReferrals ? `${tier.maxReferrals}명` : '무제한'} 초대
+                  {tier.minReferrals} ~ {tier.maxReferrals || '∞'} {t('tokenPrograms.referralPage.tiers.referrals')}
                 </p>
                 <ul className="tier-benefits">
-                  {(tier.benefits || [`${tier.commission}% 커미션`, `${tier.bonus || 0} TBURN 보너스`]).map((benefit, i) => (
+                  {(tier.benefits || [`${tier.commission}% ${t('tokenPrograms.referralPage.tiers.commission')}`, `${tier.bonus || 0} TBURN`]).map((benefit, i) => (
                     <li key={i}><span className="check">✓</span> {benefit}</li>
                   ))}
                 </ul>
@@ -1400,12 +1400,12 @@ export default function ReferralPage() {
                 <div className="tier-icon">🥉</div>
                 <h3 className="tier-name">Bronze</h3>
                 <div className="tier-commission">20%</div>
-                <p className="tier-requirement">0 ~ 9명 초대</p>
+                <p className="tier-requirement">{t('tokenPrograms.referralPage.tiers.levels.bronze.requirement')}</p>
                 <ul className="tier-benefits">
-                  <li><span className="check">✓</span> 기본 커미션 20%</li>
-                  <li><span className="check">✓</span> 1단계 레퍼럴</li>
-                  <li><span className="check">✓</span> 실시간 정산</li>
-                  <li><span className="check">✓</span> 기본 대시보드</li>
+                  <li><span className="check">✓</span> {t('tokenPrograms.referralPage.tiers.levels.bronze.benefit1')}</li>
+                  <li><span className="check">✓</span> {t('tokenPrograms.referralPage.tiers.levels.bronze.benefit2')}</li>
+                  <li><span className="check">✓</span> {t('tokenPrograms.referralPage.tiers.levels.bronze.benefit3')}</li>
+                  <li><span className="check">✓</span> {t('tokenPrograms.referralPage.tiers.levels.bronze.benefit4')}</li>
                 </ul>
               </div>
 
@@ -1414,12 +1414,12 @@ export default function ReferralPage() {
                 <div className="tier-icon">🥈</div>
                 <h3 className="tier-name">Silver</h3>
                 <div className="tier-commission">30%</div>
-                <p className="tier-requirement">10 ~ 49명 초대</p>
+                <p className="tier-requirement">{t('tokenPrograms.referralPage.tiers.levels.silver.requirement')}</p>
                 <ul className="tier-benefits">
-                  <li><span className="check">✓</span> 커미션 30%</li>
-                  <li><span className="check">✓</span> 2단계 레퍼럴 (5%)</li>
-                  <li><span className="check">✓</span> 주간 보너스</li>
-                  <li><span className="check">✓</span> 프리미엄 대시보드</li>
+                  <li><span className="check">✓</span> {t('tokenPrograms.referralPage.tiers.levels.silver.benefit1')}</li>
+                  <li><span className="check">✓</span> {t('tokenPrograms.referralPage.tiers.levels.silver.benefit2')}</li>
+                  <li><span className="check">✓</span> {t('tokenPrograms.referralPage.tiers.levels.silver.benefit3')}</li>
+                  <li><span className="check">✓</span> {t('tokenPrograms.referralPage.tiers.levels.silver.benefit4')}</li>
                 </ul>
               </div>
 
@@ -1428,13 +1428,13 @@ export default function ReferralPage() {
                 <div className="tier-icon">🥇</div>
                 <h3 className="tier-name">Gold</h3>
                 <div className="tier-commission">40%</div>
-                <p className="tier-requirement">50 ~ 199명 초대</p>
+                <p className="tier-requirement">{t('tokenPrograms.referralPage.tiers.levels.gold.requirement')}</p>
                 <ul className="tier-benefits">
-                  <li><span className="check">✓</span> 커미션 40%</li>
-                  <li><span className="check">✓</span> 2단계 레퍼럴 (10%)</li>
-                  <li><span className="check">✓</span> 월간 보너스</li>
-                  <li><span className="check">✓</span> 전용 매니저</li>
-                  <li><span className="check">✓</span> 얼리 액세스</li>
+                  <li><span className="check">✓</span> {t('tokenPrograms.referralPage.tiers.levels.gold.benefit1')}</li>
+                  <li><span className="check">✓</span> {t('tokenPrograms.referralPage.tiers.levels.gold.benefit2')}</li>
+                  <li><span className="check">✓</span> {t('tokenPrograms.referralPage.tiers.levels.gold.benefit3')}</li>
+                  <li><span className="check">✓</span> {t('tokenPrograms.referralPage.tiers.levels.gold.benefit4')}</li>
+                  <li><span className="check">✓</span> {t('tokenPrograms.referralPage.tiers.levels.gold.benefit5')}</li>
                 </ul>
               </div>
 
@@ -1443,14 +1443,14 @@ export default function ReferralPage() {
                 <div className="tier-icon">💎</div>
                 <h3 className="tier-name">Diamond</h3>
                 <div className="tier-commission">50%</div>
-                <p className="tier-requirement">200명+ 초대</p>
+                <p className="tier-requirement">{t('tokenPrograms.referralPage.tiers.levels.diamond.requirement')}</p>
                 <ul className="tier-benefits">
-                  <li><span className="check">✓</span> 최대 커미션 50%</li>
-                  <li><span className="check">✓</span> 3단계 레퍼럴 (15%)</li>
-                  <li><span className="check">✓</span> VIP 보너스</li>
-                  <li><span className="check">✓</span> 1:1 전담 매니저</li>
-                  <li><span className="check">✓</span> 독점 이벤트 초대</li>
-                  <li><span className="check">✓</span> 거버넌스 보너스</li>
+                  <li><span className="check">✓</span> {t('tokenPrograms.referralPage.tiers.levels.diamond.benefit1')}</li>
+                  <li><span className="check">✓</span> {t('tokenPrograms.referralPage.tiers.levels.diamond.benefit2')}</li>
+                  <li><span className="check">✓</span> {t('tokenPrograms.referralPage.tiers.levels.diamond.benefit3')}</li>
+                  <li><span className="check">✓</span> {t('tokenPrograms.referralPage.tiers.levels.diamond.benefit4')}</li>
+                  <li><span className="check">✓</span> {t('tokenPrograms.referralPage.tiers.levels.diamond.benefit5')}</li>
+                  <li><span className="check">✓</span> {t('tokenPrograms.referralPage.tiers.levels.diamond.benefit6')}</li>
                 </ul>
               </div>
             </>
@@ -1461,16 +1461,16 @@ export default function ReferralPage() {
       {/* Dashboard */}
       <section className="section" id="dashboard">
         <div className="section-header">
-          <span className="section-badge">MY DASHBOARD</span>
-          <h2 className="section-title">레퍼럴 대시보드</h2>
-          <p className="section-subtitle">내 초대 현황과 수익을 실시간으로 확인하세요</p>
+          <span className="section-badge">{t('tokenPrograms.referralPage.dashboard.badge')}</span>
+          <h2 className="section-title">{t('tokenPrograms.referralPage.dashboard.title')}</h2>
+          <p className="section-subtitle">{t('tokenPrograms.referralPage.dashboard.subtitle')}</p>
         </div>
 
         <div className="dashboard-container">
           <div className="dashboard-header">
             <div className="dashboard-title">
-              <h3>내 레퍼럴 현황</h3>
-              <p>{isConnected ? `지갑 주소: ${formatAddress(address || '')}` : '지갑을 연결하면 상세 정보를 확인할 수 있습니다'}</p>
+              <h3>{t('tokenPrograms.referralPage.dashboard.currentTier')}</h3>
+              <p>{isConnected ? `${formatAddress(address || '')}` : t('tokenPrograms.referralPage.dashboard.emptyState')}</p>
             </div>
             {userReferralData && (
               <div className="current-tier" data-testid="user-tier">
@@ -1481,11 +1481,11 @@ export default function ReferralPage() {
           </div>
 
           <div className="referral-link-box">
-            <div className="referral-link-label">내 초대 링크</div>
+            <div className="referral-link-label">{t('tokenPrograms.referralPage.dashboard.myReferralLink')}</div>
             <div className="referral-link-input">
               <input 
                 type="text" 
-                value={userReferralData?.referralLink || (isConnected ? `https://tburn.io/ref/${address?.slice(0, 8)}` : '지갑을 연결하면 링크가 생성됩니다')} 
+                value={userReferralData?.referralLink || (isConnected ? `https://tburn.io/ref/${address?.slice(0, 8)}` : t('tokenPrograms.referralPage.dashboard.emptyState'))} 
                 readOnly 
                 id="refLink"
                 data-testid="input-referral-link"
@@ -1496,12 +1496,12 @@ export default function ReferralPage() {
                 disabled={!isConnected}
                 data-testid="button-copy-link"
               >
-                {copied ? '✓ 복사됨' : '📋 복사'}
+                {copied ? `✓ ${t('tokenPrograms.referralPage.dashboard.copied')}` : t('tokenPrograms.referralPage.dashboard.copy')}
               </button>
             </div>
             {userReferralData?.referralCode && (
               <div style={{ marginTop: '0.75rem', fontSize: '0.875rem', color: 'var(--light-gray)' }}>
-                레퍼럴 코드: <span style={{ fontFamily: 'monospace', color: 'var(--gold)' }} data-testid="text-referral-code">{userReferralData.referralCode}</span>
+                {t('tokenPrograms.referralPage.dashboard.referralCode')}: <span style={{ fontFamily: 'monospace', color: 'var(--gold)' }} data-testid="text-referral-code">{userReferralData.referralCode}</span>
               </div>
             )}
             <div className="share-buttons">
@@ -1510,49 +1510,49 @@ export default function ReferralPage() {
                 data-testid="button-share-twitter"
                 onClick={() => {
                   const refLink = userReferralData?.referralLink || `https://tburn.io/ref/${address?.slice(0, 8) || 'TBURN'}`;
-                  const text = encodeURIComponent(`TBURN Chain 레퍼럴 프로그램에 참여하세요! 최대 50% 커미션을 받을 수 있습니다. 🚀 ${refLink}`);
+                  const shareText = t('tokenPrograms.referralPage.dashboard.shareText');
+                  const text = encodeURIComponent(`${shareText} ${refLink}`);
                   window.open(`https://twitter.com/intent/tweet?text=${text}`, '_blank');
-                  toast({ title: "Twitter 공유", description: "새 창에서 Twitter가 열렸습니다." });
                 }}
               >
-                𝕏 Twitter
+                𝕏 {t('tokenPrograms.referralPage.dashboard.share.twitter')}
               </button>
               <button 
                 className="share-btn" 
                 data-testid="button-share-telegram"
                 onClick={() => {
                   const refLink = userReferralData?.referralLink || `https://tburn.io/ref/${address?.slice(0, 8) || 'TBURN'}`;
-                  const text = encodeURIComponent(`TBURN Chain 레퍼럴 프로그램에 참여하세요! 최대 50% 커미션을 받을 수 있습니다. 🚀`);
+                  const shareText = t('tokenPrograms.referralPage.dashboard.shareText');
+                  const text = encodeURIComponent(shareText);
                   window.open(`https://t.me/share/url?url=${encodeURIComponent(refLink)}&text=${text}`, '_blank');
-                  toast({ title: "Telegram 공유", description: "새 창에서 Telegram이 열렸습니다." });
                 }}
               >
-                Telegram
+                {t('tokenPrograms.referralPage.dashboard.share.telegram')}
               </button>
               <button 
                 className="share-btn" 
                 data-testid="button-share-discord"
                 onClick={() => {
                   window.open('https://discord.gg/tburn', '_blank');
-                  toast({ title: "Discord", description: "TBURN Discord 서버에서 레퍼럴 링크를 공유하세요!" });
                 }}
               >
-                Discord
+                {t('tokenPrograms.referralPage.dashboard.share.discord')}
               </button>
               <button 
                 className="share-btn" 
                 data-testid="button-share-kakaotalk"
                 onClick={async () => {
                   const refLink = userReferralData?.referralLink || `https://tburn.io/ref/${address?.slice(0, 8) || 'TBURN'}`;
+                  const shareText = t('tokenPrograms.referralPage.dashboard.shareText');
                   try {
-                    await navigator.clipboard.writeText(`TBURN Chain 레퍼럴 프로그램에 참여하세요! 최대 50% 커미션을 받을 수 있습니다. 🚀 ${refLink}`);
-                    toast({ title: "복사 완료", description: "카카오톡에 붙여넣기 하세요!" });
+                    await navigator.clipboard.writeText(`${shareText} ${refLink}`);
+                    toast({ title: t('tokenPrograms.referralPage.dashboard.toasts.copied'), description: t('tokenPrograms.referralPage.dashboard.toasts.copiedKakao') });
                   } catch {
-                    toast({ title: "복사 실패", description: "링크를 수동으로 복사해주세요.", variant: "destructive" });
+                    toast({ title: t('tokenPrograms.referralPage.dashboard.toasts.copyFailed'), description: t('tokenPrograms.referralPage.dashboard.toasts.copyFailedDesc'), variant: "destructive" });
                   }
                 }}
               >
-                KakaoTalk
+                {t('tokenPrograms.referralPage.dashboard.share.kakao')}
               </button>
             </div>
           </div>
@@ -1562,38 +1562,38 @@ export default function ReferralPage() {
               <div className="dash-stat-value purple" data-testid="text-user-referral-count">
                 {userReferralData?.referralCount?.toLocaleString() || '0'}
               </div>
-              <div className="dash-stat-label">총 초대 수</div>
+              <div className="dash-stat-label">{t('tokenPrograms.referralPage.dashboard.stats.totalInvites')}</div>
             </div>
             <div className="dash-stat">
               <div className="dash-stat-value success">
                 {stats?.activeReferrers?.toLocaleString() || '0'}
               </div>
-              <div className="dash-stat-label">활성 유저</div>
+              <div className="dash-stat-label">{t('tokenPrograms.referralPage.dashboard.stats.activeUsers')}</div>
             </div>
             <div className="dash-stat">
               <div className="dash-stat-value gold" data-testid="text-user-total-earnings">
                 {Number(userReferralData?.totalEarnings || 0).toLocaleString()}
               </div>
-              <div className="dash-stat-label">총 적립 TBURN</div>
+              <div className="dash-stat-label">{t('tokenPrograms.referralPage.dashboard.stats.totalEarned')}</div>
             </div>
             <div className="dash-stat">
               <div className="dash-stat-value blue">
                 {Number(stats?.totalRewardsDistributed || 0).toLocaleString()}
               </div>
-              <div className="dash-stat-label">총 분배 TBURN</div>
+              <div className="dash-stat-label">{t('tokenPrograms.referralPage.dashboard.stats.totalDistributed')}</div>
             </div>
           </div>
 
           {!isConnected && (
             <div className="empty-state" data-testid="empty-dashboard">
-              <p>지갑을 연결하여 레퍼럴 활동을 시작하세요</p>
+              <p>{t('tokenPrograms.referralPage.dashboard.emptyState')}</p>
               <button 
                 className="btn-primary" 
                 onClick={handleConnectWallet}
                 disabled={isConnecting}
                 data-testid="button-dashboard-connect"
               >
-                {isConnecting ? '연결 중...' : '지갑 연결하기'}
+                {isConnecting ? t('tokenPrograms.referralPage.header.connecting') : t('tokenPrograms.referralPage.dashboard.connectButton')}
               </button>
             </div>
           )}
@@ -1603,16 +1603,16 @@ export default function ReferralPage() {
       {/* Calculator */}
       <section className="section" id="calculator" style={{ background: 'rgba(255,255,255,0.02)' }}>
         <div className="section-header">
-          <span className="section-badge">CALCULATOR</span>
-          <h2 className="section-title">보상 계산기</h2>
-          <p className="section-subtitle">예상 수익을 미리 계산해보세요</p>
+          <span className="section-badge">{t('tokenPrograms.referralPage.calculator.badge')}</span>
+          <h2 className="section-title">{t('tokenPrograms.referralPage.calculator.title')}</h2>
+          <p className="section-subtitle">{t('tokenPrograms.referralPage.calculator.subtitle')}</p>
         </div>
 
         <div className="calculator-container">
           <div className="calc-section">
-            <h3>조건 입력</h3>
+            <h3>{t('tokenPrograms.referralPage.calculator.input.title')}</h3>
             <div className="calc-field">
-              <label>내 등급</label>
+              <label>{t('tokenPrograms.referralPage.calculator.input.tier')}</label>
               <select value={calcTier} onChange={(e) => setCalcTier(Number(e.target.value))} data-testid="select-calc-tier">
                 <option value={20}>Bronze (20%)</option>
                 <option value={30}>Silver (30%)</option>
@@ -1621,7 +1621,7 @@ export default function ReferralPage() {
               </select>
             </div>
             <div className="calc-field">
-              <label>예상 초대 수 (월)</label>
+              <label>{t('tokenPrograms.referralPage.calculator.input.referrals')}</label>
               <input 
                 type="number" 
                 value={calcReferrals} 
@@ -1632,7 +1632,7 @@ export default function ReferralPage() {
               />
             </div>
             <div className="calc-field">
-              <label>피추천인 평균 월 거래량 ($)</label>
+              <label>{t('tokenPrograms.referralPage.calculator.input.volume')}</label>
               <input 
                 type="number" 
                 value={calcVolume} 
@@ -1643,7 +1643,7 @@ export default function ReferralPage() {
               />
             </div>
             <div className="calc-field">
-              <label>TBURN 예상 가격 ($)</label>
+              <label>{t('tokenPrograms.referralPage.calculator.input.price')}</label>
               <select value={calcPrice} onChange={(e) => setCalcPrice(Number(e.target.value))} data-testid="select-calc-price">
                 <option value={0.5}>$0.50 (TGE)</option>
                 <option value={1}>$1.00</option>
@@ -1654,33 +1654,33 @@ export default function ReferralPage() {
           </div>
 
           <div className="calc-section result">
-            <h3>예상 수익</h3>
+            <h3>{t('tokenPrograms.referralPage.calculator.result.title')}</h3>
             <div className="result-item">
-              <span className="result-label">총 거래량 (월)</span>
+              <span className="result-label">{t('tokenPrograms.referralPage.calculator.result.totalVolume')}</span>
               <span className="result-value" data-testid="text-calc-total-volume">${totalVolume.toLocaleString()}</span>
             </div>
             <div className="result-item">
-              <span className="result-label">거래 수수료 (0.1%)</span>
+              <span className="result-label">{t('tokenPrograms.referralPage.calculator.result.tradingFee')}</span>
               <span className="result-value">${fee.toFixed(2)}</span>
             </div>
             <div className="result-item">
-              <span className="result-label">내 커미션 ({calcTier}%)</span>
+              <span className="result-label">{t('tokenPrograms.referralPage.calculator.result.myCommission')} ({calcTier}%)</span>
               <span className="result-value">${commission.toFixed(2)}</span>
             </div>
             <div className="result-item">
-              <span className="result-label">월 수익 (TBURN)</span>
+              <span className="result-label">{t('tokenPrograms.referralPage.calculator.result.monthlyEarnings')}</span>
               <span className="result-value highlight" data-testid="text-calc-monthly">{monthlyTburn.toFixed(0)} TBURN</span>
             </div>
             <div className="result-item">
-              <span className="result-label">연 수익 (TBURN)</span>
+              <span className="result-label">{t('tokenPrograms.referralPage.calculator.result.yearlyEarnings')}</span>
               <span className="result-value highlight">{yearlyTburn.toFixed(0)} TBURN</span>
             </div>
             <div className="result-total">
-              <div className="result-total-label">연간 예상 수익 (USD)</div>
+              <div className="result-total-label">{t('tokenPrograms.referralPage.calculator.result.yearlyUsd')}</div>
               <div className="result-total-value" data-testid="text-calc-yearly-usd">${yearlyUsd.toFixed(2)}</div>
             </div>
             <p style={{ color: 'var(--gray)', fontSize: '0.8rem', marginTop: '1rem', textAlign: 'center' }}>
-              * 실제 수익은 시장 상황에 따라 달라질 수 있습니다
+              {t('tokenPrograms.referralPage.calculator.disclaimer')}
             </p>
           </div>
         </div>
@@ -1689,30 +1689,30 @@ export default function ReferralPage() {
       {/* Leaderboard */}
       <section className="section" id="leaderboard">
         <div className="section-header">
-          <span className="section-badge">LEADERBOARD</span>
-          <h2 className="section-title">레퍼럴 리더보드</h2>
-          <p className="section-subtitle">상위 레퍼러들의 실적을 확인하세요</p>
+          <span className="section-badge">{t('tokenPrograms.referralPage.leaderboard.badge')}</span>
+          <h2 className="section-title">{t('tokenPrograms.referralPage.leaderboard.title')}</h2>
+          <p className="section-subtitle">{t('tokenPrograms.referralPage.leaderboard.subtitle')}</p>
         </div>
 
         <div className="leaderboard-container">
           <div className="leaderboard-header">
-            <h3>Top Referrers</h3>
+            <h3>{t('tokenPrograms.referralPage.leaderboard.topReferrers')}</h3>
             <div className="leaderboard-filter">
               <button 
                 className="filter-btn active" 
                 data-testid="filter-all"
-                onClick={() => toast({ title: "전체 순위", description: "전체 기간 레퍼럴 순위를 표시합니다." })}
-              >전체</button>
+                onClick={() => toast({ title: t('tokenPrograms.referralPage.leaderboard.toasts.allRank'), description: t('tokenPrograms.referralPage.leaderboard.toasts.allRankDesc') })}
+              >{t('tokenPrograms.referralPage.leaderboard.filters.all')}</button>
               <button 
                 className="filter-btn" 
                 data-testid="filter-week"
-                onClick={() => toast({ title: "이번 주 순위", description: "이번 주 레퍼럴 순위를 표시합니다. (Coming Soon)" })}
-              >이번 주</button>
+                onClick={() => toast({ title: t('tokenPrograms.referralPage.leaderboard.toasts.weekRank'), description: t('tokenPrograms.referralPage.leaderboard.toasts.weekRankDesc') })}
+              >{t('tokenPrograms.referralPage.leaderboard.filters.week')}</button>
               <button 
                 className="filter-btn" 
                 data-testid="filter-month"
-                onClick={() => toast({ title: "이번 달 순위", description: "이번 달 레퍼럴 순위를 표시합니다. (Coming Soon)" })}
-              >이번 달</button>
+                onClick={() => toast({ title: t('tokenPrograms.referralPage.leaderboard.toasts.monthRank'), description: t('tokenPrograms.referralPage.leaderboard.toasts.monthRankDesc') })}
+              >{t('tokenPrograms.referralPage.leaderboard.filters.month')}</button>
             </div>
           </div>
 
@@ -1737,13 +1737,13 @@ export default function ReferralPage() {
                     <div className="value" data-testid={`leaderboard-count-${index}`}>
                       {(entry.referralCount || entry.referrals || 0).toLocaleString()}
                     </div>
-                    <div className="label">초대 수</div>
+                    <div className="label">{t('tokenPrograms.referralPage.leaderboard.labels.referrals')}</div>
                   </div>
                   <div className="earnings">
                     <div className="value" data-testid={`leaderboard-earnings-${index}`}>
                       {Number(entry.totalEarnings || entry.earnings || 0).toLocaleString()} TBURN
                     </div>
-                    <div className="label">총 수익</div>
+                    <div className="label">{t('tokenPrograms.referralPage.leaderboard.labels.totalEarnings')}</div>
                   </div>
                 </div>
               ))
@@ -1757,11 +1757,11 @@ export default function ReferralPage() {
                   </div>
                   <div className="referral-count">
                     <div className="value">1,247</div>
-                    <div className="label">초대 수</div>
+                    <div className="label">{t('tokenPrograms.referralPage.leaderboard.labels.referrals')}</div>
                   </div>
                   <div className="earnings">
                     <div className="value">125,000 TBURN</div>
-                    <div className="label">총 수익</div>
+                    <div className="label">{t('tokenPrograms.referralPage.leaderboard.labels.totalEarnings')}</div>
                   </div>
                 </div>
 
@@ -1773,11 +1773,11 @@ export default function ReferralPage() {
                   </div>
                   <div className="referral-count">
                     <div className="value">892</div>
-                    <div className="label">초대 수</div>
+                    <div className="label">{t('tokenPrograms.referralPage.leaderboard.labels.referrals')}</div>
                   </div>
                   <div className="earnings">
                     <div className="value">89,200 TBURN</div>
-                    <div className="label">총 수익</div>
+                    <div className="label">{t('tokenPrograms.referralPage.leaderboard.labels.totalEarnings')}</div>
                   </div>
                 </div>
 
@@ -1789,11 +1789,11 @@ export default function ReferralPage() {
                   </div>
                   <div className="referral-count">
                     <div className="value">654</div>
-                    <div className="label">초대 수</div>
+                    <div className="label">{t('tokenPrograms.referralPage.leaderboard.labels.referrals')}</div>
                   </div>
                   <div className="earnings">
                     <div className="value">65,400 TBURN</div>
-                    <div className="label">총 수익</div>
+                    <div className="label">{t('tokenPrograms.referralPage.leaderboard.labels.totalEarnings')}</div>
                   </div>
                 </div>
 
@@ -1805,11 +1805,11 @@ export default function ReferralPage() {
                   </div>
                   <div className="referral-count">
                     <div className="value">423</div>
-                    <div className="label">초대 수</div>
+                    <div className="label">{t('tokenPrograms.referralPage.leaderboard.labels.referrals')}</div>
                   </div>
                   <div className="earnings">
                     <div className="value">42,300 TBURN</div>
-                    <div className="label">총 수익</div>
+                    <div className="label">{t('tokenPrograms.referralPage.leaderboard.labels.totalEarnings')}</div>
                   </div>
                 </div>
 
@@ -1821,11 +1821,11 @@ export default function ReferralPage() {
                   </div>
                   <div className="referral-count">
                     <div className="value">318</div>
-                    <div className="label">초대 수</div>
+                    <div className="label">{t('tokenPrograms.referralPage.leaderboard.labels.referrals')}</div>
                   </div>
                   <div className="earnings">
                     <div className="value">31,800 TBURN</div>
-                    <div className="label">총 수익</div>
+                    <div className="label">{t('tokenPrograms.referralPage.leaderboard.labels.totalEarnings')}</div>
                   </div>
                 </div>
               </>
@@ -1839,13 +1839,13 @@ export default function ReferralPage() {
               data-testid="button-view-all-rankings"
               onClick={() => {
                 if (!isConnected) {
-                  toast({ title: "지갑 연결 필요", description: "전체 순위를 보려면 지갑을 먼저 연결하세요." });
+                  toast({ title: t('tokenPrograms.referralPage.leaderboard.toasts.walletRequired'), description: t('tokenPrograms.referralPage.leaderboard.toasts.walletRequiredDesc') });
                   return;
                 }
-                toast({ title: "전체 순위", description: "전체 순위 페이지는 곧 공개됩니다. (Coming Soon)" });
+                toast({ title: t('tokenPrograms.referralPage.leaderboard.toasts.allRank'), description: t('tokenPrograms.referralPage.leaderboard.toasts.comingSoon') });
               }}
             >
-              전체 순위 보기
+              {t('tokenPrograms.referralPage.leaderboard.viewAll')}
             </button>
           </div>
         </div>
@@ -1854,89 +1854,89 @@ export default function ReferralPage() {
       {/* FAQ */}
       <section className="section" id="faq" style={{ background: 'rgba(255,255,255,0.02)' }}>
         <div className="section-header">
-          <span className="section-badge">FAQ</span>
-          <h2 className="section-title">자주 묻는 질문</h2>
-          <p className="section-subtitle">레퍼럴 프로그램 관련 궁금한 점을 확인하세요</p>
+          <span className="section-badge">{t('tokenPrograms.referralPage.faq.badge')}</span>
+          <h2 className="section-title">{t('tokenPrograms.referralPage.faq.title')}</h2>
+          <p className="section-subtitle">{t('tokenPrograms.referralPage.faq.subtitle')}</p>
         </div>
 
         <div className="faq-container">
           <div className={`faq-item ${activeTab === 'faq-1' ? 'active' : ''}`} data-testid="faq-1">
             <div className="faq-question" onClick={() => toggleFaq('faq-1')}>
-              <h4>레퍼럴 보상 풀 총 물량은 얼마인가요?</h4>
+              <h4>{t('tokenPrograms.referralPage.faq.q1.question')}</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>레퍼럴 프로그램 총 보상 풀은 <strong>3억 TBURN</strong>입니다. 이는 전체 공급량 100억 TBURN의 3%에 해당합니다. TGE 시점에 5%(1,500만 TBURN)가 해제되고, 나머지 95%는 36개월에 걸쳐 매월 약 2.64%씩 선형 베스팅됩니다. 현재까지 약 4,200만 TBURN이 레퍼러들에게 배분되었습니다.</p>
+              <p>{t('tokenPrograms.referralPage.faq.q1.answer')}</p>
             </div>
           </div>
 
           <div className={`faq-item ${activeTab === 'faq-2' ? 'active' : ''}`} data-testid="faq-2">
             <div className="faq-question" onClick={() => toggleFaq('faq-2')}>
-              <h4>커미션은 어떻게 계산되나요?</h4>
+              <h4>{t('tokenPrograms.referralPage.faq.q2.question')}</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>피추천인이 TBURN Chain에서 거래, 스테이킹, 브릿지 등의 활동을 할 때 발생하는 수수료의 일정 비율을 커미션으로 받습니다. 기본 거래 수수료율은 0.1%이며, 내 등급에 따라 해당 수수료의 20~50%를 커미션으로 받습니다. 예: 피추천인이 $1,000 거래 시 → 수수료 $1 발생 → Gold 등급(40%)이면 $0.40 적립</p>
+              <p>{t('tokenPrograms.referralPage.faq.q2.answer')}</p>
             </div>
           </div>
 
           <div className={`faq-item ${activeTab === 'faq-3' ? 'active' : ''}`} data-testid="faq-3">
             <div className="faq-question" onClick={() => toggleFaq('faq-3')}>
-              <h4>등급은 어떻게 올릴 수 있나요?</h4>
+              <h4>{t('tokenPrograms.referralPage.faq.q3.question')}</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>초대한 친구 수에 따라 등급이 자동으로 올라갑니다. <strong>Bronze(0-9명, 20%)</strong>, <strong>Silver(10-49명, 30%)</strong>, <strong>Gold(50-199명, 40%)</strong>, <strong>Diamond(200명+, 50%)</strong>로 구분됩니다. 등급이 올라갈수록 커미션율뿐만 아니라 다단계 레퍼럴(2단계, 3단계) 혜택도 증가합니다.</p>
+              <p>{t('tokenPrograms.referralPage.faq.q3.answer')}</p>
             </div>
           </div>
 
           <div className={`faq-item ${activeTab === 'faq-4' ? 'active' : ''}`} data-testid="faq-4">
             <div className="faq-question" onClick={() => toggleFaq('faq-4')}>
-              <h4>보상은 언제 받을 수 있나요?</h4>
+              <h4>{t('tokenPrograms.referralPage.faq.q4.question')}</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>레퍼럴 보상은 <strong>실시간으로 적립</strong>되며, 누적된 보상은 언제든지 출금할 수 있습니다. 최소 출금 수량은 100 TBURN이며, 출금 시 가스비(약 0.001 TBURN)가 차감됩니다. 출금은 연결된 지갑 주소로 즉시 전송됩니다.</p>
+              <p>{t('tokenPrograms.referralPage.faq.q4.answer')}</p>
             </div>
           </div>
 
           <div className={`faq-item ${activeTab === 'faq-5' ? 'active' : ''}`} data-testid="faq-5">
             <div className="faq-question" onClick={() => toggleFaq('faq-5')}>
-              <h4>다단계(Multi-tier) 레퍼럴이란 무엇인가요?</h4>
+              <h4>{t('tokenPrograms.referralPage.faq.q5.question')}</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>다단계 레퍼럴은 내가 초대한 사람(1단계)뿐만 아니라, 그 사람이 초대한 사람(2단계), 그리고 그 다음 단계(3단계)의 활동에서도 커미션을 받는 시스템입니다. Silver 이상 등급부터 2단계 레퍼럴(5~10%), Diamond 등급에서는 3단계 레퍼럴(15%)까지 혜택을 받을 수 있습니다.</p>
+              <p>{t('tokenPrograms.referralPage.faq.q5.answer')}</p>
             </div>
           </div>
 
           <div className={`faq-item ${activeTab === 'faq-6' ? 'active' : ''}`} data-testid="faq-6">
             <div className="faq-question" onClick={() => toggleFaq('faq-6')}>
-              <h4>레퍼럴 링크는 어디서 받나요?</h4>
+              <h4>{t('tokenPrograms.referralPage.faq.q6.question')}</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>지갑을 연결하면 고유한 레퍼럴 링크와 코드가 자동으로 생성됩니다. 대시보드에서 확인할 수 있으며, Twitter, Telegram, Discord, KakaoTalk 등으로 쉽게 공유할 수 있습니다. 지원 지갑: MetaMask, Rabby, Trust Wallet, Coinbase Wallet, Ledger</p>
+              <p>{t('tokenPrograms.referralPage.faq.q6.answer')}</p>
             </div>
           </div>
 
           <div className={`faq-item ${activeTab === 'faq-7' ? 'active' : ''}`} data-testid="faq-7">
             <div className="faq-question" onClick={() => toggleFaq('faq-7')}>
-              <h4>레퍼럴 보상에 세금이 부과되나요?</h4>
+              <h4>{t('tokenPrograms.referralPage.faq.q7.question')}</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>암호화폐 수익에 대한 세금은 각 국가의 세법에 따라 다릅니다. TBURN Chain은 세금 관련 자문을 제공하지 않으며, 참여자는 본인 거주 국가의 세법을 준수할 책임이 있습니다. 대시보드에서 수익 내역을 CSV로 다운로드하여 세금 신고에 활용하실 수 있습니다.</p>
+              <p>{t('tokenPrograms.referralPage.faq.q7.answer')}</p>
             </div>
           </div>
 
           <div className={`faq-item ${activeTab === 'faq-8' ? 'active' : ''}`} data-testid="faq-8">
             <div className="faq-question" onClick={() => toggleFaq('faq-8')}>
-              <h4>부정 행위에 대한 제재가 있나요?</h4>
+              <h4>{t('tokenPrograms.referralPage.faq.q8.question')}</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>자기 추천(셀프 레퍼럴), 가짜 계정 생성, 봇 사용 등 부정 행위가 감지되면 해당 계정의 레퍼럴 보상이 전액 몰수되고 프로그램에서 영구 제외됩니다. AI 기반 사기 탐지 시스템이 24시간 모니터링하며, 의심 활동 시 지급이 보류될 수 있습니다. 정상적인 활동만 해주세요!</p>
+              <p>{t('tokenPrograms.referralPage.faq.q8.answer')}</p>
             </div>
           </div>
         </div>
@@ -1952,14 +1952,13 @@ export default function ReferralPage() {
               </div>
               <div className="logo-text">TBURN<span>CHAIN</span></div>
             </div>
-            <p>차세대 블록체인 인프라</p>
+            <p>{t('tokenPrograms.referralPage.footer.tagline')}</p>
             <div className="social-links">
               <a 
                 href="https://twitter.com/tburnchain" 
                 target="_blank" 
                 rel="noopener noreferrer" 
                 aria-label="Twitter"
-                onClick={() => toast({ title: "Twitter", description: "TBURN Chain Twitter로 이동합니다." })}
                 data-testid="footer-link-twitter"
               >𝕏</a>
               <a 
@@ -1967,7 +1966,6 @@ export default function ReferralPage() {
                 target="_blank" 
                 rel="noopener noreferrer" 
                 aria-label="Telegram"
-                onClick={() => toast({ title: "Telegram", description: "TBURN Chain Telegram으로 이동합니다." })}
                 data-testid="footer-link-telegram"
               >T</a>
               <a 
@@ -1975,7 +1973,6 @@ export default function ReferralPage() {
                 target="_blank" 
                 rel="noopener noreferrer" 
                 aria-label="Discord"
-                onClick={() => toast({ title: "Discord", description: "TBURN Chain Discord로 이동합니다." })}
                 data-testid="footer-link-discord"
               >D</a>
               <a 
@@ -1983,41 +1980,40 @@ export default function ReferralPage() {
                 target="_blank" 
                 rel="noopener noreferrer" 
                 aria-label="GitHub"
-                onClick={() => toast({ title: "GitHub", description: "TBURN Chain GitHub으로 이동합니다." })}
                 data-testid="footer-link-github"
               >G</a>
             </div>
           </div>
           <div className="footer-links">
-            <h4>프로그램</h4>
+            <h4>{t('tokenPrograms.referralPage.footer.program')}</h4>
             <ul>
-              <li><a href="#how-it-works" onClick={() => document.getElementById('how-it-works')?.scrollIntoView({ behavior: 'smooth' })}>작동 방식</a></li>
-              <li><a href="#tiers" onClick={() => document.getElementById('tiers')?.scrollIntoView({ behavior: 'smooth' })}>등급 시스템</a></li>
-              <li><a href="#calculator" onClick={() => document.getElementById('calculator')?.scrollIntoView({ behavior: 'smooth' })}>보상 계산기</a></li>
-              <li><a href="#leaderboard" onClick={() => document.getElementById('leaderboard')?.scrollIntoView({ behavior: 'smooth' })}>리더보드</a></li>
+              <li><a href="#how-it-works" onClick={() => document.getElementById('how-it-works')?.scrollIntoView({ behavior: 'smooth' })}>{t('tokenPrograms.referralPage.nav.howItWorks')}</a></li>
+              <li><a href="#tiers" onClick={() => document.getElementById('tiers')?.scrollIntoView({ behavior: 'smooth' })}>{t('tokenPrograms.referralPage.nav.tiers')}</a></li>
+              <li><a href="#calculator" onClick={() => document.getElementById('calculator')?.scrollIntoView({ behavior: 'smooth' })}>{t('tokenPrograms.referralPage.nav.calculator')}</a></li>
+              <li><a href="#leaderboard" onClick={() => document.getElementById('leaderboard')?.scrollIntoView({ behavior: 'smooth' })}>{t('tokenPrograms.referralPage.nav.leaderboard')}</a></li>
             </ul>
           </div>
           <div className="footer-links">
-            <h4>리소스</h4>
+            <h4>{t('tokenPrograms.referralPage.footer.resources')}</h4>
             <ul>
-              <li><Link href="/developers/docs" data-testid="footer-link-docs">문서</Link></li>
+              <li><Link href="/developers/docs" data-testid="footer-link-docs">{t('tokenPrograms.referralPage.footer.docs')}</Link></li>
               <li><a href="#faq" onClick={() => document.getElementById('faq')?.scrollIntoView({ behavior: 'smooth' })} data-testid="footer-link-faq">FAQ</a></li>
-              <li><Link href="/qna" data-testid="footer-link-support">지원</Link></li>
-              <li><Link href="/blog" data-testid="footer-link-blog">블로그</Link></li>
+              <li><Link href="/qna" data-testid="footer-link-support">{t('tokenPrograms.referralPage.footer.support')}</Link></li>
+              <li><Link href="/blog" data-testid="footer-link-blog">{t('tokenPrograms.referralPage.footer.blog')}</Link></li>
             </ul>
           </div>
           <div className="footer-links">
-            <h4>법적 고지</h4>
+            <h4>{t('tokenPrograms.referralPage.footer.legal')}</h4>
             <ul>
-              <li><Link href="/legal/terms-of-service" data-testid="footer-link-terms">이용약관</Link></li>
-              <li><Link href="/legal/privacy-policy" data-testid="footer-link-privacy">개인정보처리방침</Link></li>
-              <li><Link href="/legal/disclaimer" data-testid="footer-link-disclaimer">면책조항</Link></li>
+              <li><Link href="/legal/terms-of-service" data-testid="footer-link-terms">{t('tokenPrograms.referralPage.footer.terms')}</Link></li>
+              <li><Link href="/legal/privacy-policy" data-testid="footer-link-privacy">{t('tokenPrograms.referralPage.footer.privacy')}</Link></li>
+              <li><Link href="/legal/disclaimer" data-testid="footer-link-disclaimer">{t('tokenPrograms.referralPage.footer.disclaimer')}</Link></li>
             </ul>
           </div>
         </div>
         <div className="footer-bottom">
-          <p>© 2025-2045 TBURN Foundation. All Rights Reserved.</p>
-          <p>Powered by TBURN Technology</p>
+          <p>{t('tokenPrograms.referralPage.footer.copyright')}</p>
+          <p>{t('tokenPrograms.referralPage.footer.poweredBy')}</p>
         </div>
       </footer>
     </div>
