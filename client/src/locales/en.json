@@ -30683,7 +30683,106 @@
       "moderator": "Moderator Program",
       "developer": "Developer Grants",
       "joinCommunity": "Join Community",
-      "applyNow": "Apply Now"
+      "applyNow": "Apply Now",
+      "toast": {
+        "selectProgram": "Select Program",
+        "selectProgramDesc": "Please select a program to participate in.",
+        "guide": "Program Guide",
+        "guideDesc": "Check the points and rewards for each activity.",
+        "applyComplete": "Application Complete",
+        "applyCompleteDesc": "Your application has been submitted successfully. We will notify you of the results after review.",
+        "connectWallet": "Please connect your wallet first",
+        "githubRedirect": "Redirecting to GitHub...",
+        "shareTwitter": "Shared on Twitter",
+        "shareTelegram": "Shared on Telegram",
+        "shareDiscord": "Shared on Discord",
+        "shareGithub": "Shared on GitHub",
+        "walletConnected": "Wallet Connected",
+        "walletConnectedDesc": "MetaMask wallet has been connected.",
+        "walletDisconnected": "Wallet Disconnected",
+        "walletDisconnectedDesc": "Wallet connection has been disconnected.",
+        "walletRequired": "Wallet Required",
+        "walletRequiredDesc": "Please connect your wallet first to apply for the program.",
+        "applicationSubmitted": "Application Submitted",
+        "applicationSubmittedDesc": "Your application has been submitted. We will notify you of the results after review."
+      },
+      "nav": {
+        "community": "Community",
+        "programs": "Programs",
+        "tiers": "Tiers",
+        "activities": "Activities",
+        "leaderboard": "Leaderboard"
+      },
+      "activities": {
+        "badge": "ACTIVITIES",
+        "title": "Activity Points & Rewards",
+        "subtitle": "Earn points and TBURN through various activities",
+        "tableTitle": "Point-Earning Activities",
+        "columnActivity": "Activity",
+        "columnCategory": "Category",
+        "columnPoints": "Points",
+        "columnReward": "TBURN Reward",
+        "columnFrequency": "Frequency",
+        "frequency": {
+          "daily": "Daily",
+          "weekly": "Weekly",
+          "monthly": "Monthly",
+          "once": "Once"
+        },
+        "socialShare": {
+          "name": "Social Media Sharing",
+          "category": "Social"
+        },
+        "content": {
+          "name": "Content Creation",
+          "category": "Content"
+        },
+        "community": {
+          "name": "Community Support",
+          "category": "Support"
+        },
+        "ambassador": {
+          "name": "Ambassador Activity",
+          "category": "Ambassador"
+        },
+        "translation": {
+          "name": "Translation Work",
+          "category": "Translation"
+        }
+      },
+      "tiers": {
+        "badge": "TIER SYSTEM",
+        "title": "Community Tier System",
+        "subtitle": "Earn higher tiers and increase your reward multiplier through activity",
+        "benefitsTitle": "Tier Benefits",
+        "benefitsSubtitle": "Collect points to advance to higher tiers",
+        "newcomer": {
+          "name": "Newcomer",
+          "points": "0-499 Points"
+        },
+        "contributor": {
+          "name": "Contributor",
+          "points": "500-1,999 Points"
+        },
+        "advocate": {
+          "name": "Advocate",
+          "points": "2,000-4,999 Points"
+        },
+        "champion": {
+          "name": "Champion",
+          "points": "5,000-9,999 Points"
+        },
+        "legend": {
+          "name": "Legend",
+          "points": "10,000+ Points"
+        }
+      },
+      "leaderboard": {
+        "badge": "LEADERBOARD",
+        "title": "Community Leaderboard",
+        "subtitle": "Most active community members",
+        "topContributors": "Top Contributors"
+      }
     },
     "daoGovernance": {
       "title": "DAO Governance",
@@ -31786,11 +31885,11 @@
     "title": "Community Program",
     "subtitle": "Contribute to the TBURN ecosystem and earn rewards as a community member",
     "nav": {
+      "community": "Community",
       "programs": "Programs",
-      "tiers": "Tier System",
-      "activities": "Activity Rewards",
-      "leaderboard": "Leaderboard",
-      "faq": "FAQ"
+      "tiers": "Tiers",
+      "activities": "Activities",
+      "leaderboard": "Leaderboard"
     },
     "hero": {
       "badge": "COMMUNITY PROGRAM - Growing Together with TBURN",
@@ -31804,8 +31903,30 @@
     "stats": {
       "totalContributors": "Total Contributors",
       "totalContributions": "Total Contributions",
-      "rewardsDistributed": "Rewards Distributed (TBURN)",
+      "rewardsDistributed": "Rewards Distributed",
       "activeTasks": "Active Tasks"
+    },
+    "toast": {
+      "selectProgram": "Select Program",
+      "selectProgramDesc": "Please select a program to participate in.",
+      "guide": "Program Guide",
+      "guideDesc": "Check the points and rewards for each activity.",
+      "applyComplete": "Application Complete",
+      "applyCompleteDesc": "Your application has been submitted successfully. We will notify you of the results after review.",
+      "connectWallet": "Please connect your wallet first",
+      "githubRedirect": "Redirecting to GitHub...",
+      "shareTwitter": "Shared on Twitter",
+      "shareTelegram": "Shared on Telegram",
+      "shareDiscord": "Shared on Discord",
+      "shareGithub": "Shared on GitHub",
+      "walletConnected": "Wallet Connected",
+      "walletConnectedDesc": "MetaMask wallet has been connected.",
+      "walletDisconnected": "Wallet Disconnected",
+      "walletDisconnectedDesc": "Wallet connection has been disconnected.",
+      "walletRequired": "Wallet Required",
+      "walletRequiredDesc": "Please connect your wallet first to apply for the program.",
+      "applicationSubmitted": "Application Submitted",
+      "applicationSubmittedDesc": "Your application has been submitted. We will notify you of the results after review."
     },
     "distribution": {
       "badge": "DISTRIBUTION",
@@ -31826,7 +31947,6 @@
       "badge": "PROGRAMS",
       "title": "Community Programs",
       "subtitle": "Find the right program for you",
-      "featured": "Popular",
       "reward": "Reward",
       "requirements": "Requirements",
       "applyBtn": "Apply",
@@ -31838,7 +31958,6 @@
         "benefit1": "Official Ambassador Badge & NFT",
         "benefit2": "Monthly Rewards + Performance Bonus",
         "benefit3": "Exclusive Discord Channel Access",
-        "benefit4": "Offline Event Invitations",
         "requirements": "1,000+ social media followers, crypto-related activity experience"
       },
       "creator": {
@@ -31848,7 +31967,6 @@
         "benefit1": "Video/Blog/Infographic Rewards",
         "benefit2": "Content Creation Tool Support",
         "benefit3": "Official Channel Promotion",
-        "benefit4": "Creator-Only Events",
         "requirements": "Portfolio submission required"
       },
       "moderator": {
@@ -31858,7 +31976,6 @@
         "benefit1": "Discord/Telegram Moderator Rights",
         "benefit2": "Monthly Fixed Rewards",
         "benefit3": "Community Growth Bonus",
-        "benefit4": "Early Access to Internal Info",
         "requirements": "20+ hours per week availability"
       },
       "educator": {
@@ -31868,7 +31985,6 @@
         "benefit1": "Online Lecture Creation Rewards",
         "benefit2": "Educational Material Support",
         "benefit3": "TBURN Academy Instructor Certification",
-        "benefit4": "Education Platform Partnership",
         "requirements": "Blockchain/development expertise required"
       },
       "translator": {
@@ -31878,7 +31994,6 @@
         "benefit1": "Official Document Translation Rewards",
         "benefit2": "Community Localization Support",
         "benefit3": "Translator Certification Badge",
-        "benefit4": "Language Community Lead Opportunity",
         "requirements": "Fluent in English + 1 or more languages"
       },
       "bounty": {
@@ -31888,7 +32003,6 @@
         "benefit1": "Severity-Based Rewards",
         "benefit2": "Hall of Fame Listing",
         "benefit3": "Security Expert Network Participation",
-        "benefit4": "Whitehat Certification",
         "requirements": "Security-related technical knowledge required"
       }
     },
@@ -31896,69 +32010,71 @@
       "badge": "TIER SYSTEM",
       "title": "Community Tier System",
       "subtitle": "Earn higher tiers and increase your reward multiplier through activity",
-      "header": "Tier Benefits",
-      "headerSubtitle": "Collect points to advance to higher tiers",
+      "benefitsTitle": "Tier Benefits",
+      "benefitsSubtitle": "Collect points to advance to higher tiers",
       "newcomer": {
         "name": "Newcomer",
-        "points": "0-499 Points",
-        "multiplier": "1x Rewards"
+        "points": "0-499 Points"
       },
       "contributor": {
         "name": "Contributor",
-        "points": "500-1,999 Points",
-        "multiplier": "1.2x Rewards"
+        "points": "500-1,999 Points"
       },
       "advocate": {
         "name": "Advocate",
-        "points": "2,000-4,999 Points",
-        "multiplier": "1.5x Rewards"
+        "points": "2,000-4,999 Points"
       },
       "champion": {
         "name": "Champion",
-        "points": "5,000-9,999 Points",
-        "multiplier": "2x Rewards"
+        "points": "5,000-9,999 Points"
       },
       "legend": {
         "name": "Legend",
-        "points": "10,000+ Points",
-        "multiplier": "3x Rewards"
+        "points": "10,000+ Points"
       }
     },
     "activities": {
       "badge": "ACTIVITIES",
       "title": "Activity Points & Rewards",
       "subtitle": "Earn points and TBURN through various activities",
-      "header": "Point-Earning Activities",
-      "columns": {
-        "activity": "Activity",
-        "category": "Category",
-        "points": "Points",
-        "reward": "TBURN Reward",
-        "frequency": "Frequency"
-      },
-      "frequencies": {
+      "tableTitle": "Point-Earning Activities",
+      "columnActivity": "Activity",
+      "columnCategory": "Category",
+      "columnPoints": "Points",
+      "columnReward": "TBURN Reward",
+      "columnFrequency": "Frequency",
+      "frequency": {
         "daily": "Daily",
         "weekly": "Weekly",
         "monthly": "Monthly",
         "once": "Once"
       },
-      "categories": {
-        "content": "Content",
-        "social": "Social",
-        "support": "Support",
-        "education": "Education"
+      "socialShare": {
+        "name": "Social Media Sharing",
+        "category": "Social"
       },
-      "blog": "Blog Posting",
-      "youtube": "YouTube Video",
-      "tweet": "Tweet/Retweet",
-      "qa": "Community Q&A",
-      "tutorial": "Tutorial Creation"
+      "content": {
+        "name": "Content Creation",
+        "category": "Content"
+      },
+      "community": {
+        "name": "Community Support",
+        "category": "Support"
+      },
+      "ambassador": {
+        "name": "Ambassador Activity",
+        "category": "Ambassador"
+      },
+      "translation": {
+        "name": "Translation Work",
+        "category": "Translation"
+      }
     },
     "leaderboard": {
       "badge": "LEADERBOARD",
       "title": "Community Leaderboard",
       "subtitle": "Most active community members",
-      "header": "Top Contributors"
+      "topContributors": "Top Contributors"
     },
     "faq": {
       "badge": "FAQ",
@@ -32017,32 +32133,23 @@
       },
       "resources": {
         "title": "Resources",
-        "docs": "Documentation",
         "whitepaper": "Whitepaper",
+        "docs": "Documentation",
         "github": "GitHub",
         "blog": "Blog"
       },
-      "legal": {
-        "title": "Legal",
-        "terms": "Terms of Service",
-        "privacy": "Privacy Policy",
-        "cookies": "Cookie Policy"
+      "community": {
+        "title": "Community",
+        "blog": "Blog",
+        "ambassador": "Ambassador Program",
+        "grants": "Grants",
+        "support": "Support"
       },
-      "copyright": "2024-2025 TBURN Chain. All rights reserved."
-    },
-    "toast": {
-      "walletConnected": "Wallet Connected",
-      "walletConnectedDesc": "MetaMask wallet has been connected.",
-      "walletDisconnected": "Wallet Disconnected",
-      "walletDisconnectedDesc": "Wallet connection has been disconnected.",
-      "walletRequired": "Wallet Required",
-      "walletRequiredDesc": "Please connect your wallet first to apply for the program.",
-      "applicationSubmitted": "Application Submitted",
-      "applicationSubmittedDesc": "Your application has been submitted. We will notify you of the results after review.",
-      "selectProgram": "Select Program",
-      "selectProgramDesc": "Please select a program to participate in below.",
-      "viewGuide": "Guide",
-      "viewGuideDesc": "Check the points and rewards for each activity."
+      "copyright": "2024-2025 TBURN Chain. All rights reserved.",
+      "legal": {
+        "terms": "Terms of Service",
+        "privacy": "Privacy Policy"
+      }
     },
     "connectWallet": "Connect Wallet"
   }

@@ -147,6 +147,7 @@
     "login": "로그인"
   },
   "nav": {
+      "community": "커뮤니티",
     "stakingDashboard": "스테이킹",
     "delegationValidator": "위임검증자",
     "brand": "TBURN 체인 메인넷",
@@ -6577,6 +6578,7 @@
       }
     },
     "nav": {
+      "community": "커뮤니티",
       "stakingDashboard": "스테이킹",
       "delegationValidator": "위임검증자",
       "developers": "개발자",
@@ -7494,6 +7496,7 @@
       "activeLink": "활성 →"
     },
     "nav": {
+      "community": "커뮤니티",
       "overview": "개요",
       "staking": "스테이킹",
       "governance": "거버넌스",
@@ -7841,6 +7844,7 @@
         }
       },
       "nav": {
+      "community": "커뮤니티",
         "stakingDashboard": "스테이킹",
         "delegationValidator": "위임검증자",
         "developers": "개발자",
@@ -7891,6 +7895,7 @@
       "loginInterface": "로그인 인터페이스",
       "selectLanguage": "언어 선택",
       "nav": {
+      "community": "커뮤니티",
         "stakingDashboard": "스테이킹",
         "delegationValidator": "위임검증자",
         "learn": {
@@ -14116,7 +14121,14 @@
             "title": "제조업",
             "desc": "공급망 추적, 품질 보증 및 리콜 관리."
           },
-          "legal": {
+          "community": {
+        "title": "커뮤니티",
+        "blog": "블로그",
+        "ambassador": "앰배서더 프로그램",
+        "grants": "그랜트",
+        "support": "지원"
+      },
+      "legal": {
             "title": "법률 서비스",
             "desc": "스마트 컨트랙트, 증거 보존 및 규제 준수 자동화."
           },
@@ -14176,7 +14188,14 @@
             "title": "제조업",
             "description": "공급망 및 품질 보증"
           },
-          "legal": {
+          "community": {
+        "title": "커뮤니티",
+        "blog": "블로그",
+        "ambassador": "앰배서더 프로그램",
+        "grants": "그랜트",
+        "support": "지원"
+      },
+      "legal": {
             "title": "법률",
             "description": "계약 관리 및 전자 서명"
           },
@@ -16129,7 +16148,14 @@
         "support": "지원"
       }
     },
-    "legal": {
+    "community": {
+        "title": "커뮤니티",
+        "blog": "블로그",
+        "ambassador": "앰배서더 프로그램",
+        "grants": "그랜트",
+        "support": "지원"
+      },
+      "legal": {
       "terms": {
         "title": "이용약관",
         "subtitle": "TBurn 체인 서비스 이용에 대한 약관.",
@@ -16314,7 +16340,14 @@
           "legalInquiries": "법적 문의",
           "generalSupport": "일반 지원",
           "note": "참고: 본 이용약관은 영어로 제공됩니다. 편의를 위해 번역본이 제공될 수 있으나, 충돌이 있는 경우 영어 버전이 우선합니다.",
-          "legal": {
+          "community": {
+        "title": "커뮤니티",
+        "blog": "블로그",
+        "ambassador": "앰배서더 프로그램",
+        "grants": "그랜트",
+        "support": "지원"
+      },
+      "legal": {
             "label": "법적 고지 Inquiries"
           },
           "support": {
@@ -16475,7 +16508,14 @@
               "label": "서비스 Providers",
               "value": "Infrastructure and support partners"
             },
-            "legal": {
+            "community": {
+        "title": "커뮤니티",
+        "blog": "블로그",
+        "ambassador": "앰배서더 프로그램",
+        "grants": "그랜트",
+        "support": "지원"
+      },
+      "legal": {
               "label": "법적 고지 Authorities",
               "value": "When required by law"
             },
@@ -27574,6 +27614,7 @@
       "daysAgo": "{{count}}일 전"
     },
     "nav": {
+      "community": "커뮤니티",
       "stakingDashboard": "스테이킹",
       "delegationValidator": "위임검증자",
       "dashboard": "대시보드",
@@ -29432,6 +29473,7 @@
   },
   "securityPages": {
     "nav": {
+      "community": "커뮤니티",
       "home": "홈",
       "help": "도움말",
       "swap": "스왑",
@@ -30664,6 +30706,7 @@
   },
   "tokenSchedule": {
     "nav": {
+      "community": "커뮤니티",
       "overview": "📋 기본 구조",
       "schedule": "📊 20년 스케줄",
       "phase1": "📈 1단계 - 성장기",
@@ -30939,6 +30982,7 @@
   },
   "tokenDetails": {
     "nav": {
+      "community": "커뮤니티",
       "overview": "개요",
       "community": "커뮤니티",
       "rewards": "보상",
@@ -31750,6 +31794,7 @@
   },
   "tokenPrograms": {
     "nav": {
+      "community": "커뮤니티",
       "home": "홈",
       "explorer": "탐색기",
       "invest": "투자",
@@ -32138,6 +32183,7 @@
     },
     "airdropPage": {
       "nav": {
+      "community": "커뮤니티",
         "overview": "개요",
         "airdrops": "에어드랍",
         "tasks": "미션",
@@ -32450,6 +32496,7 @@
     },
     "referralPage": {
       "nav": {
+      "community": "커뮤니티",
         "home": "홈",
         "howItWorks": "작동 방식",
         "tiers": "등급",
@@ -32646,6 +32693,7 @@
     },
     "eventsPage": {
       "nav": {
+      "community": "커뮤니티",
         "liveEvents": "진행중 이벤트",
         "allEvents": "전체 이벤트",
         "leaderboard": "리더보드",
@@ -32865,6 +32913,7 @@
     "title": "커뮤니티 프로그램",
     "subtitle": "TBURN 생태계에 기여하고 커뮤니티 멤버로서 보상을 받으세요",
     "nav": {
+      "community": "커뮤니티",
       "programs": "프로그램",
       "tiers": "등급 시스템",
       "activities": "활동 보상",
@@ -33008,6 +33057,12 @@
       "title": "활동별 포인트 & 보상",
       "subtitle": "다양한 활동으로 포인트와 TBURN을 획득하세요",
       "header": "포인트 획득 활동",
+      "tableTitle": "포인트 획득 활동",
+      "columnActivity": "활동",
+      "columnCategory": "카테고리",
+      "columnPoints": "포인트",
+      "columnReward": "TBURN 보상",
+      "columnFrequency": "빈도",
       "columns": {
         "activity": "활동",
         "category": "카테고리",
@@ -33031,13 +33086,40 @@
       "youtube": "유튜브 영상 제작",
       "tweet": "트윗/리트윗",
       "qa": "커뮤니티 질문 답변",
-      "tutorial": "튜토리얼 제작"
+      "tutorial": "튜토리얼 제작",
+      "frequency": {
+        "daily": "매일",
+        "weekly": "매주",
+        "monthly": "매월",
+        "once": "1회"
+      },
+      "socialShare": {
+        "name": "소셜 미디어 공유",
+        "category": "소셜"
+      },
+      "content": {
+        "name": "콘텐츠 제작",
+        "category": "콘텐츠"
+      },
+      "community": {
+        "name": "커뮤니티 지원",
+        "category": "서포트"
+      },
+      "ambassador": {
+        "name": "앰배서더 활동",
+        "category": "앰배서더"
+      },
+      "translation": {
+        "name": "번역 작업",
+        "category": "번역"
+      }
     },
     "leaderboard": {
       "badge": "LEADERBOARD",
       "title": "커뮤니티 리더보드",
       "subtitle": "가장 활발한 커뮤니티 멤버들",
-      "header": "Top Contributors"
+      "header": "Top Contributors",
+      "topContributors": "우수 기여자"
     },
     "faq": {
       "badge": "FAQ",
@@ -33101,6 +33183,13 @@
         "github": "GitHub",
         "blog": "블로그"
       },
+      "community": {
+        "title": "커뮤니티",
+        "blog": "블로그",
+        "ambassador": "앰배서더 프로그램",
+        "grants": "그랜트",
+        "support": "지원"
+      },
       "legal": {
         "title": "Legal",
         "terms": "이용약관",
@@ -33121,7 +33210,17 @@
       "selectProgram": "프로그램 선택",
       "selectProgramDesc": "아래에서 참여할 프로그램을 선택하세요.",
       "viewGuide": "가이드",
-      "viewGuideDesc": "활동별 포인트와 보상 정보를 확인하세요."
+      "viewGuideDesc": "활동별 포인트와 보상 정보를 확인하세요.",
+      "guide": "프로그램 가이드",
+      "guideDesc": "활동별 포인트와 보상을 확인하세요.",
+      "applyComplete": "신청 완료",
+      "applyCompleteDesc": "신청이 성공적으로 제출되었습니다. 검토 후 결과를 알려드리겠습니다.",
+      "connectWallet": "먼저 지갑을 연결해주세요",
+      "githubRedirect": "GitHub로 이동합니다...",
+      "shareTwitter": "트위터에 공유되었습니다",
+      "shareTelegram": "텔레그램에 공유되었습니다",
+      "shareDiscord": "디스코드에 공유되었습니다",
+      "shareGithub": "GitHub에 공유되었습니다"
     },
     "connectWallet": "지갑 연결"
   }

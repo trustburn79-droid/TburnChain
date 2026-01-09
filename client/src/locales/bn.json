@@ -16006,6 +16006,7 @@
     "title": "কমিউনিটি প্রোগ্রাম",
     "subtitle": "TBURN ইকোসিস্টেমে অবদান রাখুন এবং কমিউনিটি সদস্য হিসেবে পুরস্কার অর্জন করুন",
     "nav": {
+      "community": "কমিউনিটি",
       "programs": "প্রোগ্রাম",
       "tiers": "টায়ার সিস্টেম",
       "activities": "অ্যাক্টিভিটি রিওয়ার্ড",
@@ -16172,13 +16173,45 @@
       "youtube": "ইউটিউব ভিডিও",
       "tweet": "টুইট/রিটুইট",
       "qa": "কমিউনিটি Q&A",
-      "tutorial": "টিউটোরিয়াল তৈরি"
+      "tutorial": "টিউটোরিয়াল তৈরি",
+      "tableTitle": "পয়েন্ট অর্জনকারী অ্যাক্টিভিটি",
+      "columnActivity": "অ্যাক্টিভিটি",
+      "columnCategory": "ক্যাটাগরি",
+      "columnPoints": "পয়েন্ট",
+      "columnReward": "TBURN রিওয়ার্ড",
+      "columnFrequency": "ফ্রিকোয়েন্সি",
+      "frequency": {
+        "daily": "দৈনিক",
+        "weekly": "সাপ্তাহিক",
+        "monthly": "মাসিক",
+        "once": "একবার"
+      },
+      "socialShare": {
+        "name": "সোশ্যাল মিডিয়া শেয়ারিং",
+        "category": "সোশ্যাল"
+      },
+      "content": {
+        "name": "কন্টেন্ট তৈরি",
+        "category": "কন্টেন্ট"
+      },
+      "community": {
+        "name": "কমিউনিটি সাপোর্ট",
+        "category": "সাপোর্ট"
+      },
+      "ambassador": {
+        "name": "অ্যাম্বাসেডর অ্যাক্টিভিটি",
+        "category": "অ্যাম্বাসেডর"
+      },
+      "translation": {
+        "name": "অনুবাদ কাজ",
+        "category": "অনুবাদ"
+      }
     },
     "leaderboard": {
       "badge": "লিডারবোর্ড",
       "title": "কমিউনিটি লিডারবোর্ড",
       "subtitle": "সবচেয়ে সক্রিয় কমিউনিটি সদস্য",
-      "header": "শীর্ষ অবদানকারী"
+      "topContributors": "শীর্ষ অবদানকারী"
     },
     "faq": {
       "badge": "FAQ",
@@ -16248,6 +16281,13 @@
         "privacy": "গোপনীয়তা নীতি",
         "cookies": "কুকি নীতি"
       },
+      "community": {
+        "title": "কমিউনিটি",
+        "blog": "ব্লগ",
+        "ambassador": "অ্যাম্বাসেডর প্রোগ্রাম",
+        "grants": "গ্রান্ট",
+        "support": "সাপোর্ট"
+      },
       "copyright": "2024-2025 TBURN Chain. সর্বস্বত্ব সংরক্ষিত।"
     },
     "toast": {
@@ -16262,7 +16302,17 @@
       "selectProgram": "প্রোগ্রাম নির্বাচন করুন",
       "selectProgramDesc": "নিচে অংশগ্রহণের জন্য একটি প্রোগ্রাম নির্বাচন করুন।",
       "viewGuide": "গাইড",
-      "viewGuideDesc": "প্রতিটি অ্যাক্টিভিটির পয়েন্ট ও রিওয়ার্ড দেখুন।"
+      "viewGuideDesc": "প্রতিটি অ্যাক্টিভিটির পয়েন্ট ও রিওয়ার্ড দেখুন।",
+      "guide": "প্রোগ্রাম গাইড",
+      "guideDesc": "প্রতিটি অ্যাক্টিভিটির পয়েন্ট ও রিওয়ার্ড দেখুন।",
+      "applyComplete": "আবেদন সম্পন্ন",
+      "applyCompleteDesc": "আপনার আবেদন সফলভাবে জমা হয়েছে। পর্যালোচনার পর আমরা আপনাকে ফলাফল জানাব।",
+      "connectWallet": "প্রথমে আপনার ওয়ালেট সংযুক্ত করুন",
+      "githubRedirect": "GitHub এ রিডাইরেক্ট হচ্ছে...",
+      "shareTwitter": "Twitter এ শেয়ার হয়েছে",
+      "shareTelegram": "Telegram এ শেয়ার হয়েছে",
+      "shareDiscord": "Discord এ শেয়ার হয়েছে",
+      "shareGithub": "GitHub এ শেয়ার হয়েছে"
     },
     "connectWallet": "ওয়ালেট সংযুক্ত করুন"
   }

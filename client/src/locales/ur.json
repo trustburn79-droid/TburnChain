@@ -16250,6 +16250,7 @@
     "title": "کمیونٹی پروگرام",
     "subtitle": "TBURN ایکو سسٹم میں تعاون کریں اور کمیونٹی ممبر کے طور پر انعامات حاصل کریں",
     "nav": {
+      "community": "کمیونٹی",
       "programs": "پروگرامز",
       "tiers": "ٹیئر سسٹم",
       "activities": "سرگرمی انعامات",
@@ -16481,20 +16482,37 @@
       },
       "resources": {
         "title": "وسائل",
-        "docs": "دستاویزات",
         "whitepaper": "وائٹ پیپر",
+        "docs": "دستاویزات",
         "github": "GitHub",
         "blog": "بلاگ"
       },
-      "legal": {
-        "title": "قانونی",
-        "terms": "سروس کی شرائط",
-        "privacy": "پرائیویسی پالیسی",
-        "cookies": "کوکی پالیسی"
+      "community": {
+        "title": "کمیونٹی",
+        "blog": "بلاگ",
+        "ambassador": "ایمبیسڈر پروگرام",
+        "grants": "گرانٹس",
+        "support": "سپورٹ"
       },
-      "copyright": "2024-2025 TBURN Chain. تمام حقوق محفوظ ہیں۔"
+      "copyright": "2024-2025 TBURN Chain. تمام حقوق محفوظ ہیں۔",
+      "legal": {
+        "terms": "سروس کی شرائط",
+        "privacy": "پرائیویسی پالیسی"
+      }
     },
     "toast": {
+      "selectProgram": "پروگرام منتخب کریں",
+      "selectProgramDesc": "براہ کرم شرکت کے لیے ایک پروگرام منتخب کریں۔",
+      "guide": "پروگرام گائیڈ",
+      "guideDesc": "ہر سرگرمی کے پوائنٹس اور انعامات دیکھیں۔",
+      "applyComplete": "درخواست مکمل",
+      "applyCompleteDesc": "آپ کی درخواست کامیابی سے جمع ہو گئی ہے۔ جائزے کے بعد ہم آپ کو نتائج سے آگاہ کریں گے۔",
+      "connectWallet": "براہ کرم پہلے اپنا والیٹ کنیکٹ کریں",
+      "githubRedirect": "GitHub پر ری ڈائریکٹ ہو رہا ہے...",
+      "shareTwitter": "Twitter پر شیئر کیا گیا",
+      "shareTelegram": "Telegram پر شیئر کیا گیا",
+      "shareDiscord": "Discord پر شیئر کیا گیا",
+      "shareGithub": "GitHub پر شیئر کیا گیا",
       "walletConnected": "والیٹ کنیکٹ ہوگیا",
       "walletConnectedDesc": "MetaMask والیٹ کنیکٹ ہو گیا ہے۔",
       "walletDisconnected": "والیٹ ڈسکنیکٹ",
@@ -16502,11 +16520,7 @@
       "walletRequired": "والیٹ ضروری",
       "walletRequiredDesc": "پروگرام میں درخواست دینے کے لیے پہلے اپنا والیٹ کنیکٹ کریں۔",
       "applicationSubmitted": "درخواست جمع",
-      "applicationSubmittedDesc": "آپ کی درخواست جمع ہو گئی ہے۔ جائزے کے بعد ہم آپ کو نتائج بتائیں گے۔",
-      "selectProgram": "پروگرام منتخب کریں",
-      "selectProgramDesc": "نیچے سے شامل ہونے کے لیے پروگرام منتخب کریں۔",
-      "viewGuide": "گائیڈ",
-      "viewGuideDesc": "ہر سرگرمی کے پوائنٹس اور انعامات دیکھیں۔"
+      "applicationSubmittedDesc": "آپ کی درخواست جمع ہو گئی ہے۔ جائزے کے بعد ہم آپ کو نتائج بتائیں گے۔"
     },
     "connectWallet": "والیٹ کنیکٹ کریں"
   }

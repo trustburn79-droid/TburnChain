@@ -17859,11 +17859,11 @@
     "title": "Programme Communautaire",
     "subtitle": "Contribuez à l'écosystème TBURN et gagnez des récompenses en tant que membre de la communauté",
     "nav": {
+      "community": "Communauté",
       "programs": "Programmes",
-      "tiers": "Système de Niveaux",
-      "activities": "Récompenses d'Activité",
-      "leaderboard": "Classement",
-      "faq": "FAQ"
+      "tiers": "Niveaux",
+      "activities": "Activités",
+      "leaderboard": "Classement"
     },
     "hero": {
       "badge": "PROGRAMME COMMUNAUTAIRE - Grandir Ensemble avec TBURN",
@@ -17967,71 +17967,73 @@
     },
     "tiers": {
       "badge": "SYSTÈME DE NIVEAUX",
-      "title": "Système de Niveaux Communautaire",
-      "subtitle": "Montez en niveau et augmentez votre multiplicateur de récompenses par l'activité",
-      "header": "Avantages par Niveau",
-      "headerSubtitle": "Accumulez des points pour atteindre des niveaux supérieurs",
+      "title": "Système de Niveaux Communautaires",
+      "subtitle": "Atteignez des niveaux supérieurs et augmentez votre multiplicateur de récompenses grâce à votre activité",
+      "benefitsTitle": "Avantages par Niveau",
+      "benefitsSubtitle": "Accumulez des points pour progresser vers des niveaux supérieurs",
       "newcomer": {
-        "name": "Nouveau Venu",
-        "points": "0-499 Points",
-        "multiplier": "1x Récompenses"
+        "name": "Nouveau Membre",
+        "points": "0-499 Points"
       },
       "contributor": {
         "name": "Contributeur",
-        "points": "500-1,999 Points",
-        "multiplier": "1.2x Récompenses"
+        "points": "500-1 999 Points"
       },
       "advocate": {
-        "name": "Avocat",
-        "points": "2,000-4,999 Points",
-        "multiplier": "1.5x Récompenses"
+        "name": "Défenseur",
+        "points": "2 000-4 999 Points"
       },
       "champion": {
         "name": "Champion",
-        "points": "5,000-9,999 Points",
-        "multiplier": "2x Récompenses"
+        "points": "5 000-9 999 Points"
       },
       "legend": {
         "name": "Légende",
-        "points": "10,000+ Points",
-        "multiplier": "3x Récompenses"
+        "points": "10 000+ Points"
       }
     },
     "activities": {
       "badge": "ACTIVITÉS",
-      "title": "Points et Récompenses par Activité",
-      "subtitle": "Gagnez des points et du TBURN via diverses activités",
-      "header": "Activités Génératrices de Points",
-      "columns": {
-        "activity": "Activité",
-        "category": "Catégorie",
-        "points": "Points",
-        "reward": "Récompense TBURN",
-        "frequency": "Fréquence"
-      },
-      "frequencies": {
+      "title": "Points d'Activité et Récompenses",
+      "subtitle": "Gagnez des points et des TBURN grâce à diverses activités",
+      "tableTitle": "Activités Rémunératrices",
+      "columnActivity": "Activité",
+      "columnCategory": "Catégorie",
+      "columnPoints": "Points",
+      "columnReward": "Récompense TBURN",
+      "columnFrequency": "Fréquence",
+      "frequency": {
         "daily": "Quotidien",
         "weekly": "Hebdomadaire",
         "monthly": "Mensuel",
         "once": "Une fois"
       },
-      "categories": {
-        "content": "Contenu",
-        "social": "Social",
-        "support": "Support",
-        "education": "Éducation"
+      "socialShare": {
+        "name": "Partage sur les Réseaux Sociaux",
+        "category": "Social"
       },
-      "blog": "Publication Blog",
-      "youtube": "Vidéo YouTube",
-      "tweet": "Tweet/Retweet",
-      "qa": "Q&R Communautaire",
-      "tutorial": "Création Tutoriel"
+      "content": {
+        "name": "Création de Contenu",
+        "category": "Contenu"
+      },
+      "community": {
+        "name": "Support Communautaire",
+        "category": "Support"
+      },
+      "ambassador": {
+        "name": "Activité Ambassadeur",
+        "category": "Ambassadeur"
+      },
+      "translation": {
+        "name": "Travail de Traduction",
+        "category": "Traduction"
+      }
     },
     "leaderboard": {
       "badge": "CLASSEMENT",
       "title": "Classement Communautaire",
       "subtitle": "Les membres les plus actifs de la communauté",
-      "header": "Top Contributeurs"
+      "topContributors": "Meilleurs Contributeurs"
     },
     "faq": {
       "badge": "FAQ",
@@ -18090,33 +18092,46 @@
       },
       "resources": {
         "title": "Ressources",
+        "whitepaper": "Livre Blanc",
         "docs": "Documentation",
-        "whitepaper": "Whitepaper",
         "github": "GitHub",
         "blog": "Blog"
       },
-      "legal": {
-        "title": "Légal",
-        "terms": "Conditions d'Utilisation",
-        "privacy": "Politique de Confidentialité",
-        "cookies": "Politique de Cookies"
+      "community": {
+        "title": "Communauté",
+        "blog": "Blog",
+        "ambassador": "Programme Ambassadeur",
+        "grants": "Subventions",
+        "support": "Support"
       },
-      "copyright": "2024-2025 TBURN Chain. Tous droits réservés."
+      "copyright": "2024-2025 TBURN Chain. Tous droits réservés.",
+      "legal": {
+        "terms": "Conditions d'Utilisation",
+        "privacy": "Politique de Confidentialité"
+      }
     },
     "toast": {
-      "walletConnected": "Wallet Connecté",
-      "walletConnectedDesc": "Wallet MetaMask connecté.",
-      "walletDisconnected": "Wallet Déconnecté",
-      "walletDisconnectedDesc": "Connexion wallet déconnectée.",
-      "walletRequired": "Wallet Requis",
-      "walletRequiredDesc": "Veuillez d'abord connecter votre wallet pour postuler au programme.",
+      "selectProgram": "Sélectionner un Programme",
+      "selectProgramDesc": "Veuillez sélectionner un programme auquel participer.",
+      "guide": "Guide du Programme",
+      "guideDesc": "Consultez les points et récompenses pour chaque activité.",
+      "applyComplete": "Candidature Envoyée",
+      "applyCompleteDesc": "Votre candidature a été soumise avec succès. Nous vous informerons des résultats après examen.",
+      "connectWallet": "Veuillez d'abord connecter votre portefeuille",
+      "githubRedirect": "Redirection vers GitHub...",
+      "shareTwitter": "Partagé sur Twitter",
+      "shareTelegram": "Partagé sur Telegram",
+      "shareDiscord": "Partagé sur Discord",
+      "shareGithub": "Partagé sur GitHub",
+      "walletConnected": "Portefeuille Connecté",
+      "walletConnectedDesc": "Le portefeuille MetaMask a été connecté.",
+      "walletDisconnected": "Portefeuille Déconnecté",
+      "walletDisconnectedDesc": "La connexion au portefeuille a été interrompue.",
+      "walletRequired": "Portefeuille Requis",
+      "walletRequiredDesc": "Veuillez d'abord connecter votre portefeuille pour postuler au programme.",
       "applicationSubmitted": "Candidature Soumise",
-      "applicationSubmittedDesc": "Votre candidature a été soumise. Nous vous informerons des résultats après examen.",
-      "selectProgram": "Sélectionner Programme",
-      "selectProgramDesc": "Veuillez sélectionner un programme ci-dessous.",
-      "viewGuide": "Guide",
-      "viewGuideDesc": "Consultez les points et récompenses de chaque activité."
+      "applicationSubmittedDesc": "Votre candidature a été soumise. Nous vous informerons des résultats après examen."
     },
-    "connectWallet": "Connecter Wallet"
+    "connectWallet": "Connecter le Portefeuille"
   }
 }

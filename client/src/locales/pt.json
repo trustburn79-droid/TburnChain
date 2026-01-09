@@ -17608,11 +17608,11 @@
     "title": "Programa Comunitário",
     "subtitle": "Contribua para o ecossistema TBURN e ganhe recompensas como membro da comunidade",
     "nav": {
+      "community": "Comunidade",
       "programs": "Programas",
-      "tiers": "Sistema de Níveis",
-      "activities": "Recompensas de Atividade",
-      "leaderboard": "Classificação",
-      "faq": "FAQ"
+      "tiers": "Níveis",
+      "activities": "Atividades",
+      "leaderboard": "Classificação"
     },
     "hero": {
       "badge": "PROGRAMA COMUNITÁRIO - Crescendo Juntos com TBURN",
@@ -17626,8 +17626,30 @@
     "stats": {
       "totalContributors": "Total de Contribuidores",
       "totalContributions": "Total de Contribuições",
-      "rewardsDistributed": "Recompensas Distribuídas (TBURN)",
+      "rewardsDistributed": "Recompensas Distribuídas",
       "activeTasks": "Tarefas Ativas"
+    },
+    "toast": {
+      "selectProgram": "Selecionar Programa",
+      "selectProgramDesc": "Por favor, selecione um programa para participar.",
+      "guide": "Guia do Programa",
+      "guideDesc": "Confira os pontos e recompensas de cada atividade.",
+      "applyComplete": "Candidatura Concluída",
+      "applyCompleteDesc": "Sua candidatura foi enviada com sucesso. Notificaremos você dos resultados após a revisão.",
+      "connectWallet": "Por favor, conecte sua carteira primeiro",
+      "githubRedirect": "Redirecionando para o GitHub...",
+      "shareTwitter": "Compartilhado no Twitter",
+      "shareTelegram": "Compartilhado no Telegram",
+      "shareDiscord": "Compartilhado no Discord",
+      "shareGithub": "Compartilhado no GitHub",
+      "walletConnected": "Carteira Conectada",
+      "walletConnectedDesc": "Carteira MetaMask foi conectada.",
+      "walletDisconnected": "Carteira Desconectada",
+      "walletDisconnectedDesc": "Conexão da carteira foi desconectada.",
+      "walletRequired": "Carteira Necessária",
+      "walletRequiredDesc": "Por favor, conecte sua carteira primeiro para aplicar ao programa.",
+      "applicationSubmitted": "Candidatura Enviada",
+      "applicationSubmittedDesc": "Sua candidatura foi enviada. Notificaremos você dos resultados após a revisão."
     },
     "distribution": {
       "badge": "DISTRIBUIÇÃO",
@@ -17648,49 +17670,44 @@
       "badge": "PROGRAMAS",
       "title": "Programas Comunitários",
       "subtitle": "Encontre o programa certo para você",
-      "featured": "Popular",
       "reward": "Recompensa",
       "requirements": "Requisitos",
       "applyBtn": "Aplicar",
-      "connectFirst": "Conectar Wallet para Aplicar",
+      "connectFirst": "Conectar Carteira para Aplicar",
       "ambassador": {
         "title": "Programa de Embaixadores",
         "subtitle": "Representante Oficial da TBURN Chain",
-        "reward": "Até 5,000 TBURN/mês",
-        "benefit1": "Badge e NFT de Embaixador Oficial",
-        "benefit2": "Recompensas Mensais + Bônus de Performance",
-        "benefit3": "Acesso ao Canal Exclusivo Discord",
-        "benefit4": "Convites para Eventos Offline",
-        "requirements": "1,000+ seguidores em redes sociais, experiência em atividades crypto"
+        "reward": "Até 5.000 TBURN/mês",
+        "benefit1": "Badge e NFT Oficial de Embaixador",
+        "benefit2": "Recompensas Mensais + Bônus por Desempenho",
+        "benefit3": "Acesso ao Canal Exclusivo do Discord",
+        "requirements": "1.000+ seguidores em redes sociais, experiência em atividades relacionadas a criptomoedas"
       },
       "creator": {
         "title": "Criador de Conteúdo",
         "subtitle": "Conteúdo Educacional e Promocional",
-        "reward": "100-1,000 TBURN por conteúdo",
+        "reward": "100-1.000 TBURN por conteúdo",
         "benefit1": "Recompensas por Vídeo/Blog/Infográfico",
-        "benefit2": "Suporte de Ferramentas de Criação",
-        "benefit3": "Promoção no Canal Oficial",
-        "benefit4": "Eventos Exclusivos para Criadores",
+        "benefit2": "Suporte com Ferramentas de Criação de Conteúdo",
+        "benefit3": "Promoção nos Canais Oficiais",
         "requirements": "Envio de portfólio obrigatório"
       },
       "moderator": {
         "title": "Moderador da Comunidade",
         "subtitle": "Gestão e Suporte da Comunidade",
-        "reward": "Até 2,000 TBURN/mês",
-        "benefit1": "Direitos de Moderador Discord/Telegram",
+        "reward": "Até 2.000 TBURN/mês",
+        "benefit1": "Direitos de Moderador no Discord/Telegram",
         "benefit2": "Recompensas Mensais Fixas",
-        "benefit3": "Bônus de Crescimento da Comunidade",
-        "benefit4": "Acesso Antecipado a Informações Internas",
-        "requirements": "20+ horas semanais disponíveis"
+        "benefit3": "Bônus por Crescimento da Comunidade",
+        "requirements": "Disponibilidade de 20+ horas por semana"
       },
       "educator": {
         "title": "Especialista em Educação",
         "subtitle": "Educação Blockchain e Tutoriais",
-        "reward": "500-2,000 TBURN por aula",
-        "benefit1": "Recompensas por Criação de Cursos Online",
-        "benefit2": "Suporte de Material Educacional",
+        "reward": "500-2.000 TBURN por aula",
+        "benefit1": "Recompensas por Criação de Aulas Online",
+        "benefit2": "Suporte com Material Educacional",
         "benefit3": "Certificação de Instrutor TBURN Academy",
-        "benefit4": "Parceria com Plataforma Educacional",
         "requirements": "Experiência em blockchain/desenvolvimento necessária"
       },
       "translator": {
@@ -17698,89 +17715,89 @@
         "subtitle": "Suporte Multilíngue e Localização",
         "reward": "200-800 TBURN por documento",
         "benefit1": "Recompensas por Tradução de Documentos Oficiais",
-        "benefit2": "Suporte de Localização da Comunidade",
+        "benefit2": "Suporte à Localização da Comunidade",
         "benefit3": "Badge de Certificação de Tradutor",
-        "benefit4": "Oportunidade de Líder de Comunidade por Idioma",
-        "requirements": "Fluência em inglês + 1 ou mais idiomas"
+        "requirements": "Fluente em inglês + 1 ou mais idiomas"
       },
       "bounty": {
         "title": "Caçador de Bug Bounty",
-        "subtitle": "Descoberta e Relatório de Vulnerabilidades",
-        "reward": "Até 50,000 TBURN por bug",
+        "subtitle": "Descoberta e Reporte de Vulnerabilidades de Segurança",
+        "reward": "Até 50.000 TBURN por bug",
         "benefit1": "Recompensas Baseadas em Severidade",
         "benefit2": "Listagem no Hall da Fama",
         "benefit3": "Participação na Rede de Especialistas em Segurança",
-        "benefit4": "Certificação Whitehat",
         "requirements": "Conhecimento técnico em segurança necessário"
       }
     },
     "tiers": {
       "badge": "SISTEMA DE NÍVEIS",
       "title": "Sistema de Níveis da Comunidade",
-      "subtitle": "Suba de nível e aumente seu multiplicador de recompensas através da atividade",
-      "header": "Benefícios por Nível",
-      "headerSubtitle": "Acumule pontos para avançar para níveis mais altos",
+      "subtitle": "Suba de nível e aumente seu multiplicador de recompensas através de atividades",
+      "benefitsTitle": "Benefícios por Nível",
+      "benefitsSubtitle": "Acumule pontos para avançar para níveis mais altos",
       "newcomer": {
         "name": "Novato",
-        "points": "0-499 Pontos",
-        "multiplier": "1x Recompensas"
+        "points": "0-499 Pontos"
       },
       "contributor": {
         "name": "Contribuidor",
-        "points": "500-1,999 Pontos",
-        "multiplier": "1.2x Recompensas"
+        "points": "500-1.999 Pontos"
       },
       "advocate": {
         "name": "Defensor",
-        "points": "2,000-4,999 Pontos",
-        "multiplier": "1.5x Recompensas"
+        "points": "2.000-4.999 Pontos"
       },
       "champion": {
         "name": "Campeão",
-        "points": "5,000-9,999 Pontos",
-        "multiplier": "2x Recompensas"
+        "points": "5.000-9.999 Pontos"
       },
       "legend": {
         "name": "Lenda",
-        "points": "10,000+ Pontos",
-        "multiplier": "3x Recompensas"
+        "points": "10.000+ Pontos"
       }
     },
     "activities": {
       "badge": "ATIVIDADES",
       "title": "Pontos e Recompensas por Atividade",
       "subtitle": "Ganhe pontos e TBURN através de várias atividades",
-      "header": "Atividades que Geram Pontos",
-      "columns": {
-        "activity": "Atividade",
-        "category": "Categoria",
-        "points": "Pontos",
-        "reward": "Recompensa TBURN",
-        "frequency": "Frequência"
-      },
-      "frequencies": {
+      "tableTitle": "Atividades que Geram Pontos",
+      "columnActivity": "Atividade",
+      "columnCategory": "Categoria",
+      "columnPoints": "Pontos",
+      "columnReward": "Recompensa TBURN",
+      "columnFrequency": "Frequência",
+      "frequency": {
         "daily": "Diário",
         "weekly": "Semanal",
         "monthly": "Mensal",
         "once": "Uma vez"
       },
-      "categories": {
-        "content": "Conteúdo",
-        "social": "Social",
-        "support": "Suporte",
-        "education": "Educação"
+      "socialShare": {
+        "name": "Compartilhamento em Redes Sociais",
+        "category": "Social"
       },
-      "blog": "Publicação de Blog",
-      "youtube": "Vídeo do YouTube",
-      "tweet": "Tweet/Retweet",
-      "qa": "Q&A da Comunidade",
-      "tutorial": "Criação de Tutorial"
+      "content": {
+        "name": "Criação de Conteúdo",
+        "category": "Conteúdo"
+      },
+      "community": {
+        "name": "Suporte à Comunidade",
+        "category": "Suporte"
+      },
+      "ambassador": {
+        "name": "Atividade de Embaixador",
+        "category": "Embaixador"
+      },
+      "translation": {
+        "name": "Trabalho de Tradução",
+        "category": "Tradução"
+      }
     },
     "leaderboard": {
       "badge": "CLASSIFICAÇÃO",
       "title": "Classificação da Comunidade",
       "subtitle": "Os membros mais ativos da comunidade",
-      "header": "Principais Contribuidores"
+      "topContributors": "Principais Contribuidores"
     },
     "faq": {
       "badge": "FAQ",
@@ -17788,11 +17805,11 @@
       "subtitle": "Perguntas comuns sobre o programa comunitário",
       "q1": {
         "question": "Qual é o pool total de recompensas do Programa Comunitário?",
-        "answer": "O pool total de recompensas do Programa Comunitário é de 300 milhões de TBURN. Isso representa 3% do fornecimento total de 10 bilhões de TBURN. É distribuído em 6 programas: Embaixador (30%), Criador de Conteúdo (20%), Moderador (15%), Especialista em Educação (15%), Tradutor (10%), e Bug Bounty (10%)."
+        "answer": "O pool total de recompensas do Programa Comunitário é de 300 milhões de TBURN. Isso representa 3% do fornecimento total de 10 bilhões de TBURN. É distribuído em 6 programas: Embaixador (30%), Criador de Conteúdo (20%), Moderador (15%), Especialista em Educação (15%), Tradutor (10%) e Bug Bounty (10%)."
       },
       "q2": {
         "question": "Como participo do Programa Comunitário?",
-        "answer": "Clique no botão 'Aplicar' em cada cartão de programa para enviar sua candidatura. Após revisão e aprovação, você pode começar suas atividades como membro oficial da comunidade. Embaixadores passam por um processo de entrevista adicional."
+        "answer": "Clique no botão 'Aplicar' em cada cartão de programa para enviar sua candidatura. Após revisão e aprovação, você pode iniciar suas atividades como membro oficial da comunidade. Embaixadores passam por um processo de entrevista adicional."
       },
       "q3": {
         "question": "Como os pontos são convertidos em TBURN?",
@@ -17804,15 +17821,15 @@
       },
       "q5": {
         "question": "Como funciona o sistema de níveis?",
-        "answer": "Há 5 níveis: Novato (1x) → Contribuidor (1.2x) → Defensor (1.5x) → Campeão (2x) → Lenda (3x). Ganhe pontos através de atividades para avançar para níveis mais altos, com multiplicadores crescentes. O nível Lenda requer 10,000+ pontos."
+        "answer": "Existem 5 níveis: Novato (1x) → Contribuidor (1.2x) → Defensor (1.5x) → Campeão (2x) → Lenda (3x). Ganhe pontos através de atividades para avançar para níveis mais altos, com multiplicadores de recompensa crescentes. O nível Lenda requer 10.000+ pontos."
       },
       "q6": {
         "question": "Quais são as condições de rebaixamento?",
-        "answer": "Se você não atingir o requisito mínimo de atividade (100+ pontos por mês) por 3 meses consecutivos, pode ser rebaixado. O rebaixamento ocorre um nível de cada vez, e o multiplicador correspondente será aplicado."
+        "answer": "Se você não atingir o requisito mínimo de atividade (100+ pontos por mês) por 3 meses consecutivos, poderá ser rebaixado. O rebaixamento ocorre um nível de cada vez, e o multiplicador de recompensa correspondente será aplicado."
       },
       "q7": {
         "question": "Como as recompensas de bug bounty são determinadas?",
-        "answer": "As recompensas de bug bounty são determinadas por severidade: Crítico (até 50,000 TBURN), Alto (10,000-25,000 TBURN), Médio (2,000-10,000 TBURN), Baixo (500-2,000 TBURN). O pagamento é feito em até 7 dias após a verificação do especialista em segurança."
+        "answer": "As recompensas de bug bounty são determinadas por severidade: Crítico (até 50.000 TBURN), Alto (10.000-25.000 TBURN), Médio (2.000-10.000 TBURN), Baixo (500-2.000 TBURN). O pagamento é feito em até 7 dias após a verificação do especialista em segurança."
       },
       "q8": {
         "question": "Quais são os padrões de qualidade de conteúdo?",
@@ -17822,12 +17839,12 @@
     "cta": {
       "title": "Junte-se à Comunidade TBURN!",
       "subtitle": "Cresça junto, ganhe junto no ecossistema TBURN",
-      "subtitleLine2": "Junte-se ao Programa Comunitário agora!",
+      "subtitleLine2": "Participe do Programa Comunitário agora!",
       "button": "Começar"
     },
     "footer": {
       "brand": {
-        "tagline": "Inteligência AI, Transparência Blockchain",
+        "tagline": "Inteligência Artificial, Transparência Blockchain",
         "slogan": "O FUTURO É AGORA"
       },
       "product": {
@@ -17839,33 +17856,24 @@
       },
       "resources": {
         "title": "Recursos",
-        "docs": "Documentação",
         "whitepaper": "Whitepaper",
+        "docs": "Documentação",
         "github": "GitHub",
         "blog": "Blog"
       },
-      "legal": {
-        "title": "Legal",
-        "terms": "Termos de Serviço",
-        "privacy": "Política de Privacidade",
-        "cookies": "Política de Cookies"
+      "community": {
+        "title": "Comunidade",
+        "blog": "Blog",
+        "ambassador": "Programa de Embaixadores",
+        "grants": "Grants",
+        "support": "Suporte"
       },
-      "copyright": "2024-2025 TBURN Chain. Todos os direitos reservados."
+      "copyright": "2024-2025 TBURN Chain. Todos os direitos reservados.",
+      "legal": {
+        "terms": "Termos de Serviço",
+        "privacy": "Política de Privacidade"
+      }
     },
-    "toast": {
-      "walletConnected": "Wallet Conectada",
-      "walletConnectedDesc": "Wallet MetaMask conectada.",
-      "walletDisconnected": "Wallet Desconectada",
-      "walletDisconnectedDesc": "Conexão da wallet desconectada.",
-      "walletRequired": "Wallet Necessária",
-      "walletRequiredDesc": "Por favor, conecte sua wallet primeiro para aplicar ao programa.",
-      "applicationSubmitted": "Candidatura Enviada",
-      "applicationSubmittedDesc": "Sua candidatura foi enviada. Notificaremos você dos resultados após a revisão.",
-      "selectProgram": "Selecionar Programa",
-      "selectProgramDesc": "Por favor, selecione um programa abaixo para participar.",
-      "viewGuide": "Guia",
-      "viewGuideDesc": "Confira os pontos e recompensas de cada atividade."
-    },
-    "connectWallet": "Conectar Wallet"
+    "connectWallet": "Conectar Carteira"
   }
 }

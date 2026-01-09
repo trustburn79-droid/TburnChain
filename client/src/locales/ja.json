@@ -20827,6 +20827,7 @@
     "title": "コミュニティプログラム",
     "subtitle": "TBURNエコシステムに貢献し、コミュニティメンバーとして報酬を獲得",
     "nav": {
+      "community": "コミュニティ",
       "programs": "プログラム",
       "tiers": "ティアシステム",
       "activities": "活動報酬",
@@ -20937,8 +20938,8 @@
       "badge": "ティアシステム",
       "title": "コミュニティティアシステム",
       "subtitle": "活動量に応じてティアが上昇し報酬倍率が増加",
-      "header": "ティア別特典",
-      "headerSubtitle": "ポイントを貯めて上位ティアに昇格しよう",
+      "benefitsTitle": "ティア別特典",
+      "benefitsSubtitle": "ポイントを貯めて上位ティアに昇格しよう",
       "newcomer": {
         "name": "ニューカマー",
         "points": "0~499ポイント",
@@ -20969,37 +20970,44 @@
       "badge": "活動",
       "title": "活動別ポイント＆報酬",
       "subtitle": "様々な活動でポイントとTBURNを獲得",
-      "header": "ポイント獲得活動",
-      "columns": {
-        "activity": "活動",
-        "category": "カテゴリ",
-        "points": "ポイント",
-        "reward": "TBURN報酬",
-        "frequency": "頻度"
-      },
-      "frequencies": {
+      "tableTitle": "ポイント獲得活動",
+      "columnActivity": "活動",
+      "columnCategory": "カテゴリ",
+      "columnPoints": "ポイント",
+      "columnReward": "TBURN報酬",
+      "columnFrequency": "頻度",
+      "frequency": {
         "daily": "毎日",
         "weekly": "毎週",
         "monthly": "毎月",
         "once": "1回"
       },
-      "categories": {
-        "content": "コンテンツ",
-        "social": "ソーシャル",
-        "support": "サポート",
-        "education": "教育"
+      "socialShare": {
+        "name": "SNSシェア",
+        "category": "ソーシャル"
       },
-      "blog": "ブログ投稿",
-      "youtube": "YouTube動画制作",
-      "tweet": "ツイート/リツイート",
-      "qa": "コミュニティQ&A",
-      "tutorial": "チュートリアル制作"
+      "content": {
+        "name": "コンテンツ制作",
+        "category": "コンテンツ"
+      },
+      "community": {
+        "name": "コミュニティサポート",
+        "category": "サポート"
+      },
+      "ambassador": {
+        "name": "アンバサダー活動",
+        "category": "アンバサダー"
+      },
+      "translation": {
+        "name": "翻訳作業",
+        "category": "翻訳"
+      }
     },
     "leaderboard": {
       "badge": "リーダーボード",
       "title": "コミュニティリーダーボード",
       "subtitle": "最も活発なコミュニティメンバー",
-      "header": "トップコントリビューター"
+      "topContributors": "トップコントリビューター"
     },
     "faq": {
       "badge": "FAQ",
@@ -21058,32 +21066,45 @@
       },
       "resources": {
         "title": "リソース",
-        "docs": "ドキュメント",
         "whitepaper": "ホワイトペーパー",
+        "docs": "ドキュメント",
         "github": "GitHub",
         "blog": "ブログ"
       },
-      "legal": {
-        "title": "法的情報",
-        "terms": "利用規約",
-        "privacy": "プライバシーポリシー",
-        "cookies": "Cookieポリシー"
+      "community": {
+        "title": "コミュニティ",
+        "blog": "ブログ",
+        "ambassador": "アンバサダープログラム",
+        "grants": "助成金",
+        "support": "サポート"
       },
-      "copyright": "2024-2025 TBURN Chain. All rights reserved."
+      "copyright": "2024-2025 TBURN Chain. All rights reserved.",
+      "legal": {
+        "terms": "利用規約",
+        "privacy": "プライバシーポリシー"
+      }
     },
     "toast": {
-      "walletConnected": "ウォレット接続",
+      "selectProgram": "プログラム選択",
+      "selectProgramDesc": "参加するプログラムを選択してください。",
+      "guide": "プログラムガイド",
+      "guideDesc": "各活動のポイントと報酬を確認してください。",
+      "applyComplete": "申し込み完了",
+      "applyCompleteDesc": "申し込みが送信されました。審査後、結果をお知らせします。",
+      "connectWallet": "先にウォレットを接続してください",
+      "githubRedirect": "GitHubにリダイレクト中...",
+      "shareTwitter": "Twitterでシェアしました",
+      "shareTelegram": "Telegramでシェアしました",
+      "shareDiscord": "Discordでシェアしました",
+      "shareGithub": "GitHubでシェアしました",
+      "walletConnected": "ウォレット接続完了",
       "walletConnectedDesc": "MetaMaskウォレットが接続されました。",
       "walletDisconnected": "ウォレット切断",
       "walletDisconnectedDesc": "ウォレット接続が解除されました。",
-      "walletRequired": "ウォレット必須",
-      "walletRequiredDesc": "プログラムに申し込むには先にウォレットを接続してください。",
-      "applicationSubmitted": "申請完了",
-      "applicationSubmittedDesc": "申請が提出されました。審査後、結果をお知らせします。",
-      "selectProgram": "プログラム選択",
-      "selectProgramDesc": "下から参加するプログラムを選択してください。",
-      "viewGuide": "ガイド",
-      "viewGuideDesc": "各活動のポイントと報酬情報を確認。"
+      "walletRequired": "ウォレットが必要です",
+      "walletRequiredDesc": "プログラムに申し込むには、先にウォレットを接続してください。",
+      "applicationSubmitted": "申請が送信されました",
+      "applicationSubmittedDesc": "申請が送信されました。審査後、結果をお知らせします。"
     },
     "connectWallet": "ウォレット接続"
   }
