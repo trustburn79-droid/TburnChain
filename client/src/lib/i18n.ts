@@ -68,7 +68,7 @@ i18n
   });
 
 const I18N_VERSION_KEY = 'tburn-i18n-version';
-const CURRENT_I18N_VERSION = '2';
+const CURRENT_I18N_VERSION = '3';
 
 export const initializeI18n = async (): Promise<void> => {
   if (initialized) {
