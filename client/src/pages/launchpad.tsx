@@ -60,16 +60,16 @@ export default function LaunchpadPage() {
   const handleWalletClick = () => {
     if (isConnected) {
       disconnect();
-      toast({ title: "지갑 연결 해제", description: "지갑 연결이 해제되었습니다." });
+      toast({ title: t('launchpad.toast.walletDisconnected'), description: t('launchpad.toast.walletDisconnectedDesc') });
     } else {
       connect("metamask");
-      toast({ title: "지갑 연결", description: "MetaMask 연결을 시도합니다." });
+      toast({ title: t('launchpad.toast.walletConnect'), description: `MetaMask ${t('launchpad.toast.walletConnectDesc')}` });
     }
   };
 
   const handleShareSocial = (platform: string, url: string) => {
     window.open(url, '_blank');
-    toast({ title: `${platform} 열기`, description: `${platform} 페이지로 이동합니다.` });
+    toast({ title: `${platform} ${t('launchpad.toast.socialOpen')}`, description: `${platform} ${t('launchpad.toast.socialOpenDesc')}` });
   };
 
   useEffect(() => {
@@ -112,103 +112,103 @@ export default function LaunchpadPage() {
 
   const handleConnectWallet = async (walletType: string = "metamask") => {
     await connect("metamask");
-    toast({ title: "지갑 연결", description: `${walletType} 연결을 시도합니다.` });
+    toast({ title: t('launchpad.toast.walletConnect'), description: `${walletType} ${t('launchpad.toast.walletConnectDesc')}` });
   };
 
   const handleKYC = () => {
     if (!isConnected) {
       toast({ 
-        title: "지갑 연결 필요", 
-        description: "KYC 인증을 위해 먼저 지갑을 연결해주세요.", 
+        title: t('launchpad.toast.walletRequired'), 
+        description: t('launchpad.toast.walletRequiredDesc'), 
         variant: "destructive" 
       });
       return;
     }
-    toast({ title: "KYC 인증 시작", description: "본인 인증을 진행합니다..." });
+    toast({ title: t('launchpad.toast.kycStart'), description: t('launchpad.toast.kycStartDesc') });
     setTimeout(() => {
       setIsKYCVerified(true);
       setCurrentStep(3);
-      toast({ title: "KYC 인증 완료", description: "본인 인증이 성공적으로 완료되었습니다." });
+      toast({ title: t('launchpad.toast.kycComplete'), description: t('launchpad.toast.kycCompleteDesc') });
     }, 1500);
   };
 
   const handlePurchase = () => {
     if (!isConnected) {
       toast({ 
-        title: "지갑 연결 필요", 
-        description: "토큰 구매를 위해 먼저 지갑을 연결해주세요.", 
+        title: t('launchpad.toast.walletRequired'), 
+        description: t('launchpad.toast.walletRequiredDesc'), 
         variant: "destructive" 
       });
       return;
     }
     if (!isKYCVerified) {
       toast({ 
-        title: "KYC 인증 필요", 
-        description: "토큰 구매를 위해 KYC 인증을 완료해주세요.", 
+        title: t('launchpad.toast.kycRequired'), 
+        description: t('launchpad.toast.kycRequiredDesc'), 
         variant: "destructive" 
       });
       return;
     }
     if (investAmount < 100) {
       toast({ 
-        title: "최소 금액 미달", 
-        description: "최소 참여 금액은 $100입니다.", 
+        title: t('launchpad.toast.minAmount'), 
+        description: t('launchpad.toast.minAmountDesc'), 
         variant: "destructive" 
       });
       return;
     }
     setShowModal(true);
     setModalStatus("pending");
-    toast({ title: "구매 진행중", description: "트랜잭션을 처리합니다..." });
+    toast({ title: t('launchpad.toast.purchasing'), description: t('launchpad.toast.purchasingDesc') });
     
     setTimeout(() => {
       setModalStatus("success");
       setCurrentStep(4);
-      toast({ title: "구매 완료", description: `${totalTokens.toLocaleString()} TBURN 토큰을 성공적으로 구매했습니다.` });
+      toast({ title: t('launchpad.toast.purchaseComplete'), description: `${totalTokens.toLocaleString()} TBURN ${t('launchpad.toast.purchaseCompleteDesc')}` });
     }, 3000);
   };
 
   const handleViewDetails = () => {
     scrollToSection('sale-info');
-    toast({ title: "세일 상세 정보", description: "아래에서 세일 상세 정보를 확인하세요." });
+    toast({ title: t('launchpad.toast.viewDetails'), description: t('launchpad.toast.viewDetailsDesc') });
   };
 
   const handleSelectTier = (tierName: string, bonus: string) => {
     if (!isConnected) {
       toast({ 
-        title: "지갑 연결 필요", 
-        description: "티어 참여를 위해 먼저 지갑을 연결해주세요.", 
+        title: t('launchpad.toast.tierWalletRequired'), 
+        description: t('launchpad.toast.tierWalletRequiredDesc'), 
         variant: "destructive" 
       });
       return;
     }
-    toast({ title: `${tierName} 티어 선택`, description: `보너스: ${bonus}` });
+    toast({ title: `${tierName} ${t('launchpad.toast.tierSelect')}`, description: `${t('launchpad.toast.tierSelectDesc')} ${bonus}` });
     scrollToSection('purchase');
   };
 
   const tiers = [
-    { id: "whale", icon: "🐋", name: "Whale", bonus: "+5%", range: "$50,000 이상" },
-    { id: "dolphin", icon: "🐬", name: "Dolphin", bonus: "+3%", range: "$10,000 ~ $49,999" },
-    { id: "fish", icon: "🐟", name: "Fish", bonus: "+1%", range: "$1,000 ~ $9,999" },
-    { id: "shrimp", icon: "🦐", name: "Shrimp", bonus: "-", range: "$100 ~ $999" },
+    { id: "whale", icon: "🐋", name: t('launchpad.sidebar.tiers.whale'), bonus: "+5%", range: t('launchpad.sidebar.tiers.whaleRange') },
+    { id: "dolphin", icon: "🐬", name: t('launchpad.sidebar.tiers.dolphin'), bonus: "+3%", range: t('launchpad.sidebar.tiers.dolphinRange') },
+    { id: "fish", icon: "🐟", name: t('launchpad.sidebar.tiers.fish'), bonus: "+1%", range: t('launchpad.sidebar.tiers.fishRange') },
+    { id: "shrimp", icon: "🦐", name: t('launchpad.sidebar.tiers.shrimp'), bonus: "-", range: t('launchpad.sidebar.tiers.shrimpRange') },
   ];
 
   const saleInfo = [
-    { label: "토큰 가격", value: "$0.020", highlight: true },
-    { label: "총 세일 물량", value: "6억 TBURN" },
-    { label: "최소 참여", value: "$100" },
-    { label: "TGE 해제", value: "15%", success: true },
-    { label: "클리프", value: "3개월" },
-    { label: "베스팅", value: "12개월" },
-    { label: "네트워크", value: "Ethereum" },
+    { label: t('launchpad.sidebar.saleInfo.tokenPrice'), value: "$0.020", highlight: true },
+    { label: t('launchpad.sidebar.saleInfo.totalSale'), value: "600M TBURN" },
+    { label: t('launchpad.sidebar.saleInfo.minParticipation'), value: "$100" },
+    { label: t('launchpad.sidebar.saleInfo.tgeUnlock'), value: "15%", success: true },
+    { label: t('launchpad.sidebar.saleInfo.cliff'), value: "3 months" },
+    { label: t('launchpad.sidebar.saleInfo.vesting'), value: "12 months" },
+    { label: t('launchpad.sidebar.saleInfo.network'), value: "Ethereum" },
   ];
 
   const features = [
-    "TBURN Foundation 공식 보장",
-    "안전한 스마트 컨트랙트",
-    "모든 티어 보너스 적용",
-    "24/7 고객 지원",
-    "실시간 토큰 클레임",
+    t('launchpad.sidebar.features.foundation'),
+    t('launchpad.sidebar.features.contract'),
+    t('launchpad.sidebar.features.bonus'),
+    t('launchpad.sidebar.features.support'),
+    t('launchpad.sidebar.features.claim'),
   ];
 
   const quickAmounts = [100, 500, 1000, 5000, 10000];
@@ -1039,15 +1039,15 @@ export default function LaunchpadPage() {
           <div className="header-right">
             <div className="header-stats">
               <div className="header-stat">
-                <div className="label">상태</div>
+                <div className="label">{t('launchpad.header.status')}</div>
                 <div className="value live">● LIVE</div>
               </div>
               <div className="header-stat">
-                <div className="label">토큰 가격</div>
+                <div className="label">{t('launchpad.header.tokenPrice')}</div>
                 <div className="value">$0.020</div>
               </div>
               <div className="header-stat">
-                <div className="label">진행률</div>
+                <div className="label">{t('launchpad.header.progress')}</div>
                 <div className="value">45%</div>
               </div>
             </div>
@@ -1059,7 +1059,7 @@ export default function LaunchpadPage() {
                 onClick={handleWalletClick}
                 data-testid="button-wallet-connect"
               >
-                {isConnected ? formatAddress(address || '') : '지갑 연결'}
+                {isConnected ? formatAddress(address || '') : t('launchpad.header.connectWallet')}
               </button>
             </div>
           </div>
@@ -1071,10 +1071,10 @@ export default function LaunchpadPage() {
         {/* Sale Header */}
         <div className="sale-header">
           <div className="official-badge">
-            🛡️ TBURN Foundation 공식 런치패드
+            🛡️ {t('launchpad.hero.officialBadge')}
           </div>
-          <h1>TBURN <span className="highlight">Public Sale</span></h1>
-          <p>안전하고 투명한 공식 토큰 세일 플랫폼</p>
+          <h1>{t('launchpad.hero.title')} <span className="highlight">{t('launchpad.hero.titleHighlight')}</span></h1>
+          <p>{t('launchpad.hero.subtitle')}</p>
         </div>
 
         {/* Countdown Section */}
@@ -1082,29 +1082,29 @@ export default function LaunchpadPage() {
           <div className="countdown-header">
             <div className="countdown-title">
               <div className="live-dot"></div>
-              <h3>세일 종료까지</h3>
+              <h3>{t('launchpad.countdown.title')}</h3>
             </div>
             <div className="sale-phase">
-              🚀 Phase 2 진행 중
+              🚀 {t('launchpad.countdown.phase')}
             </div>
           </div>
 
           <div className="countdown-timer">
             <div className="countdown-item">
               <div className="countdown-value">{countdown.days.toString().padStart(2, '0')}</div>
-              <div className="countdown-unit">Days</div>
+              <div className="countdown-unit">{t('launchpad.countdown.days')}</div>
             </div>
             <div className="countdown-item">
               <div className="countdown-value">{countdown.hours.toString().padStart(2, '0')}</div>
-              <div className="countdown-unit">Hours</div>
+              <div className="countdown-unit">{t('launchpad.countdown.hours')}</div>
             </div>
             <div className="countdown-item">
               <div className="countdown-value">{countdown.minutes.toString().padStart(2, '0')}</div>
-              <div className="countdown-unit">Minutes</div>
+              <div className="countdown-unit">{t('launchpad.countdown.minutes')}</div>
             </div>
             <div className="countdown-item">
               <div className="countdown-value">{countdown.seconds.toString().padStart(2, '0')}</div>
-              <div className="countdown-unit">Seconds</div>
+              <div className="countdown-unit">{t('launchpad.countdown.seconds')}</div>
             </div>
           </div>
 
@@ -1113,14 +1113,14 @@ export default function LaunchpadPage() {
               <div className="raised">
                 {isLoadingStats ? '...' : launchpadStats?.totalLaunchpadRaised || '$5,400,000'}
               </div>
-              <div className="goal">목표: $12,000,000</div>
+              <div className="goal">{t('launchpad.progress.goal')}</div>
             </div>
             <div className="progress-bar-container">
               <div className="progress-bar-fill"></div>
             </div>
             <div className="progress-stats">
-              <span className="percent">45% 완료</span>
-              <span className="tokens">2.7억 TBURN 판매 · 잔여 3.3억 TBURN</span>
+              <span className="percent">45% {t('launchpad.progress.completed')}</span>
+              <span className="tokens">270M TBURN {t('launchpad.progress.sold')} · 330M TBURN {t('launchpad.progress.remaining')}</span>
             </div>
           </div>
         </div>
@@ -1130,7 +1130,7 @@ export default function LaunchpadPage() {
           {/* Purchase Card */}
           <div className="purchase-card">
             <div className="purchase-header">
-              <h3>🛒 토큰 구매</h3>
+              <h3>🛒 {t('launchpad.purchase.title')}</h3>
             </div>
 
             <div className="purchase-body">
@@ -1138,37 +1138,37 @@ export default function LaunchpadPage() {
               <div className="steps-indicator">
                 <div className={`step-item ${currentStep > 1 ? 'completed' : currentStep === 1 ? 'active' : ''}`}>
                   <div className="step-number">{currentStep > 1 ? '✓' : '1'}</div>
-                  <div className="step-label">지갑 연결</div>
+                  <div className="step-label">{t('launchpad.purchase.steps.wallet')}</div>
                 </div>
                 <div className={`step-item ${currentStep > 2 ? 'completed' : currentStep === 2 ? 'active' : ''}`}>
                   <div className="step-number">{currentStep > 2 ? '✓' : '2'}</div>
-                  <div className="step-label">KYC 인증</div>
+                  <div className="step-label">{t('launchpad.purchase.steps.kyc')}</div>
                 </div>
                 <div className={`step-item ${currentStep > 3 ? 'completed' : currentStep === 3 ? 'active' : ''}`}>
                   <div className="step-number">{currentStep > 3 ? '✓' : '3'}</div>
-                  <div className="step-label">금액 입력</div>
+                  <div className="step-label">{t('launchpad.purchase.steps.amount')}</div>
                 </div>
                 <div className={`step-item ${currentStep >= 4 ? 'completed' : ''}`}>
                   <div className="step-number">{currentStep >= 4 ? '✓' : '4'}</div>
-                  <div className="step-label">구매 완료</div>
+                  <div className="step-label">{t('launchpad.purchase.steps.complete')}</div>
                 </div>
               </div>
 
               {/* Wallet Section */}
               <div className="form-section">
-                <div className="form-section-title">지갑 연결</div>
+                <div className="form-section-title">{t('launchpad.purchase.walletSection.title')}</div>
                 <div className={`wallet-section ${isConnected ? 'connected' : ''}`}>
                   {isConnected ? (
                     <div className="connected-wallet">
                       <div className="avatar">🦊</div>
                       <div className="info">
-                        <h4>연결됨</h4>
+                        <h4>{t('launchpad.purchase.walletSection.connected')}</h4>
                         <p>{formatAddress(address || '')}</p>
                       </div>
                     </div>
                   ) : (
                     <>
-                      <p style={{ marginBottom: '1rem', color: 'var(--gray)' }}>지갑을 연결하세요</p>
+                      <p style={{ marginBottom: '1rem', color: 'var(--gray)' }}>{t('launchpad.purchase.walletSection.connectPrompt')}</p>
                       <div className="wallet-options">
                         <div className="wallet-option" onClick={() => handleConnectWallet("MetaMask")} data-testid="button-wallet-metamask">
                           <span className="icon">🦊</span>
@@ -1195,15 +1195,15 @@ export default function LaunchpadPage() {
               {/* KYC Section */}
               {isConnected && (
                 <div className="form-section">
-                  <div className="form-section-title">✅ KYC 인증</div>
+                  <div className="form-section-title">✅ {t('launchpad.purchase.kycSection.title')}</div>
                   <div className="kyc-section">
                     <div className="kyc-status">
                       <div className={`kyc-icon ${isKYCVerified ? 'verified' : 'pending'}`}>
                         {isKYCVerified ? '✓' : '⏳'}
                       </div>
                       <div className="kyc-info">
-                        <h4>{isKYCVerified ? 'KYC 인증 완료' : 'KYC 인증 필요'}</h4>
-                        <p>{isKYCVerified ? '모든 인증이 완료되었습니다' : '간단한 본인 인증을 진행해주세요'}</p>
+                        <h4>{isKYCVerified ? t('launchpad.purchase.kycSection.completed') : t('launchpad.purchase.kycSection.required')}</h4>
+                        <p>{isKYCVerified ? t('launchpad.purchase.kycSection.completedDesc') : t('launchpad.purchase.kycSection.requiredDesc')}</p>
                       </div>
                     </div>
                     <button 
@@ -1212,7 +1212,7 @@ export default function LaunchpadPage() {
                       disabled={isKYCVerified}
                       data-testid="button-kyc"
                     >
-                      {isKYCVerified ? '✓ 인증 완료' : 'KYC 인증하기'}
+                      {isKYCVerified ? `✓ ${t('launchpad.purchase.kycSection.verifiedButton')}` : t('launchpad.purchase.kycSection.verifyButton')}
                     </button>
                   </div>
                 </div>
@@ -1221,7 +1221,7 @@ export default function LaunchpadPage() {
               {/* Amount Section */}
               {isKYCVerified && (
                 <div className="form-section">
-                  <div className="form-section-title">💵 참여 금액</div>
+                  <div className="form-section-title">💵 {t('launchpad.purchase.amountSection.title')}</div>
                   <div className="amount-section">
                     <div className="amount-input-group">
                       <input 
@@ -1229,7 +1229,7 @@ export default function LaunchpadPage() {
                         className="amount-input"
                         value={investAmount}
                         onChange={(e) => setInvestAmount(Number(e.target.value) || 0)}
-                        placeholder="금액 입력"
+                        placeholder={t('launchpad.purchase.amountSection.placeholder')}
                         data-testid="input-amount"
                       />
                       <div className="amount-currency">
@@ -1252,28 +1252,28 @@ export default function LaunchpadPage() {
 
                     <div className="token-output">
                       <div className="token-row">
-                        <span className="label">토큰 수량</span>
+                        <span className="label">{t('launchpad.purchase.amountSection.tokenQuantity')}</span>
                         <span className="value highlight">{baseTokens.toLocaleString()} TBURN</span>
                       </div>
                       <div className="token-row">
-                        <span className="label">티어 보너스 ({bonusInfo.icon} {bonusInfo.tier})</span>
+                        <span className="label">{t('launchpad.purchase.amountSection.tierBonus')} ({bonusInfo.icon} {bonusInfo.tier})</span>
                         <span className="value bonus">{bonusInfo.percent > 0 ? `+${bonusTokens.toLocaleString()} TBURN` : '-'}</span>
                       </div>
                       <div className="token-row">
-                        <span className="label">총 토큰</span>
+                        <span className="label">{t('launchpad.purchase.amountSection.totalTokens')}</span>
                         <span className="value highlight">{totalTokens.toLocaleString()} TBURN</span>
                       </div>
                       <div className="token-row">
-                        <span className="label">TGE 해제 (15%)</span>
+                        <span className="label">{t('launchpad.purchase.amountSection.tgeUnlock')}</span>
                         <span className="value">{tgeTokens.toLocaleString()} TBURN</span>
                       </div>
                       <div className="token-row">
-                        <span className="label">예상 가치 (@$0.08)</span>
+                        <span className="label">{t('launchpad.purchase.amountSection.estimatedValue')}</span>
                         <span className="value gold">${estimatedValue.toLocaleString()}</span>
                       </div>
                     </div>
 
-                    <div className="form-section-title" style={{ marginTop: '1.5rem' }}>💳 결제 방법</div>
+                    <div className="form-section-title" style={{ marginTop: '1.5rem' }}>💳 {t('launchpad.purchase.amountSection.paymentMethod')}</div>
                     <div className="payment-methods">
                       {['usdt', 'usdc', 'eth'].map(method => (
                         <div 
@@ -1294,11 +1294,11 @@ export default function LaunchpadPage() {
                     disabled={investAmount < 100}
                     data-testid="button-purchase"
                   >
-                    🚀 토큰 구매하기
+                    🚀 {t('launchpad.purchase.amountSection.purchaseButton')}
                   </button>
 
                   <p style={{ textAlign: 'center', marginTop: '1rem', fontSize: '0.8rem', color: 'var(--gray)' }}>
-                    🔒 안전한 스마트 컨트랙트로 처리됩니다
+                    🔒 {t('launchpad.purchase.amountSection.secureNote')}
                   </p>
                 </div>
               )}
@@ -1310,7 +1310,7 @@ export default function LaunchpadPage() {
             {/* Token Info */}
             <div className="info-card">
               <div className="info-card-header">
-                <h4>ℹ️ 세일 정보</h4>
+                <h4>ℹ️ {t('launchpad.sidebar.saleInfo.title')}</h4>
               </div>
               <div className="info-card-body">
                 {saleInfo.map((item, idx) => (
@@ -1327,7 +1327,7 @@ export default function LaunchpadPage() {
             {/* Tier Info */}
             <div className="info-card">
               <div className="info-card-header">
-                <h4>🏅 참여 티어</h4>
+                <h4>🏅 {t('launchpad.sidebar.tiers.title')}</h4>
               </div>
               <div className="info-card-body">
                 {tiers.map(tier => (
@@ -1348,31 +1348,31 @@ export default function LaunchpadPage() {
             {/* Vesting Schedule */}
             <div className="info-card">
               <div className="info-card-header">
-                <h4>📅 베스팅 스케줄</h4>
+                <h4>📅 {t('launchpad.sidebar.vesting.title')}</h4>
               </div>
               <div className="info-card-body">
                 <div className="vesting-visual">
                   <div className="vesting-item tge">
                     <div className="vesting-dot"></div>
                     <div className="vesting-info">
-                      <div className="title">TGE</div>
-                      <div className="desc">토큰 생성 시점</div>
+                      <div className="title">{t('launchpad.sidebar.vesting.tge')}</div>
+                      <div className="desc">{t('launchpad.sidebar.vesting.tgeDesc')}</div>
                     </div>
                     <div className="vesting-amount">15%</div>
                   </div>
                   <div className="vesting-item cliff">
                     <div className="vesting-dot"></div>
                     <div className="vesting-info">
-                      <div className="title">클리프</div>
-                      <div className="desc">1~3개월</div>
+                      <div className="title">{t('launchpad.sidebar.vesting.cliff')}</div>
+                      <div className="desc">{t('launchpad.sidebar.vesting.cliffDesc')}</div>
                     </div>
                     <div className="vesting-amount">0%</div>
                   </div>
                   <div className="vesting-item">
                     <div className="vesting-dot"></div>
                     <div className="vesting-info">
-                      <div className="title">베스팅</div>
-                      <div className="desc">4~15개월</div>
+                      <div className="title">{t('launchpad.sidebar.vesting.vestingTitle')}</div>
+                      <div className="desc">{t('launchpad.sidebar.vesting.vestingDesc')}</div>
                     </div>
                     <div className="vesting-amount">85%</div>
                   </div>
@@ -1383,7 +1383,7 @@ export default function LaunchpadPage() {
             {/* Features */}
             <div className="info-card">
               <div className="info-card-header">
-                <h4>🛡️ 공식 런치패드 특징</h4>
+                <h4>🛡️ {t('launchpad.sidebar.features.title')}</h4>
               </div>
               <div className="info-card-body">
                 <div className="features-list">
@@ -1402,8 +1402,8 @@ export default function LaunchpadPage() {
         {/* FAQ Section */}
         <section className="faq-section" id="faq" style={{ marginTop: '4rem' }}>
           <div className="section-header" style={{ textAlign: 'center', marginBottom: '2rem' }}>
-            <h2 style={{ fontSize: '2rem', fontWeight: 800, color: 'var(--white)', marginBottom: '0.5rem' }}>자주 묻는 질문</h2>
-            <p style={{ color: 'var(--gray)' }}>TBURN 런치패드에 대해 궁금한 점</p>
+            <h2 style={{ fontSize: '2rem', fontWeight: 800, color: 'var(--white)', marginBottom: '0.5rem' }}>{t('launchpad.faq.title')}</h2>
+            <p style={{ color: 'var(--gray)' }}>{t('launchpad.faq.subtitle')}</p>
           </div>
 
           <div className="faq-container" style={{ maxWidth: '800px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
@@ -1417,12 +1417,12 @@ export default function LaunchpadPage() {
                 onClick={() => toggleFaq('faq-1')}
                 style={{ padding: '1.25rem', cursor: 'pointer', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
               >
-                <h4 style={{ fontSize: '1rem', fontWeight: 600, color: 'var(--white)' }}>런치패드 총 판매 규모는 얼마인가요?</h4>
+                <h4 style={{ fontSize: '1rem', fontWeight: 600, color: 'var(--white)' }}>{t('launchpad.faq.q1.question')}</h4>
                 <span style={{ color: 'var(--gray)', transform: activeFaq === 'faq-1' ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform 0.3s' }}>▼</span>
               </div>
               {activeFaq === 'faq-1' && (
                 <div className="faq-answer" style={{ padding: '0 1.25rem 1.25rem', color: 'var(--light-gray)' }}>
-                  <p>TBURN 공식 런치패드에서는 총 6억 TBURN (전체 공급량의 6%)이 판매됩니다. 토큰 가격은 $0.02이며, 목표 모금액은 $12,000,000입니다.</p>
+                  <p>{t('launchpad.faq.q1.answer')}</p>
                 </div>
               )}
             </div>
@@ -1437,12 +1437,12 @@ export default function LaunchpadPage() {
                 onClick={() => toggleFaq('faq-2')}
                 style={{ padding: '1.25rem', cursor: 'pointer', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
               >
-                <h4 style={{ fontSize: '1rem', fontWeight: 600, color: 'var(--white)' }}>참여 자격은 어떻게 되나요?</h4>
+                <h4 style={{ fontSize: '1rem', fontWeight: 600, color: 'var(--white)' }}>{t('launchpad.faq.q2.question')}</h4>
                 <span style={{ color: 'var(--gray)', transform: activeFaq === 'faq-2' ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform 0.3s' }}>▼</span>
               </div>
               {activeFaq === 'faq-2' && (
                 <div className="faq-answer" style={{ padding: '0 1.25rem 1.25rem', color: 'var(--light-gray)' }}>
-                  <p>지갑 연결과 KYC 인증을 완료한 모든 사용자가 참여할 수 있습니다. 최소 참여 금액은 $100이며, 최대 한도는 없습니다.</p>
+                  <p>{t('launchpad.faq.q2.answer')}</p>
                 </div>
               )}
             </div>
@@ -1457,12 +1457,12 @@ export default function LaunchpadPage() {
                 onClick={() => toggleFaq('faq-3')}
                 style={{ padding: '1.25rem', cursor: 'pointer', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
               >
-                <h4 style={{ fontSize: '1rem', fontWeight: 600, color: 'var(--white)' }}>티어별 보너스는 어떻게 적용되나요?</h4>
+                <h4 style={{ fontSize: '1rem', fontWeight: 600, color: 'var(--white)' }}>{t('launchpad.faq.q3.question')}</h4>
                 <span style={{ color: 'var(--gray)', transform: activeFaq === 'faq-3' ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform 0.3s' }}>▼</span>
               </div>
               {activeFaq === 'faq-3' && (
                 <div className="faq-answer" style={{ padding: '0 1.25rem 1.25rem', color: 'var(--light-gray)' }}>
-                  <p>참여 금액에 따라 보너스가 자동 적용됩니다. Whale($50,000+): +5%, Dolphin($10,000~$49,999): +3%, Fish($1,000~$9,999): +1%, Shrimp($100~$999): 보너스 없음.</p>
+                  <p>{t('launchpad.faq.q3.answer')}</p>
                 </div>
               )}
             </div>
@@ -1477,12 +1477,12 @@ export default function LaunchpadPage() {
                 onClick={() => toggleFaq('faq-4')}
                 style={{ padding: '1.25rem', cursor: 'pointer', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
               >
-                <h4 style={{ fontSize: '1rem', fontWeight: 600, color: 'var(--white)' }}>토큰은 언제 받을 수 있나요?</h4>
+                <h4 style={{ fontSize: '1rem', fontWeight: 600, color: 'var(--white)' }}>{t('launchpad.faq.q4.question')}</h4>
                 <span style={{ color: 'var(--gray)', transform: activeFaq === 'faq-4' ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform 0.3s' }}>▼</span>
               </div>
               {activeFaq === 'faq-4' && (
                 <div className="faq-answer" style={{ padding: '0 1.25rem 1.25rem', color: 'var(--light-gray)' }}>
-                  <p>TGE(토큰 생성 이벤트) 시점에 15%가 즉시 해제됩니다. 이후 3개월 클리프 기간 후 12개월에 걸쳐 나머지 85%가 월별로 배분됩니다.</p>
+                  <p>{t('launchpad.faq.q4.answer')}</p>
                 </div>
               )}
             </div>
@@ -1497,12 +1497,12 @@ export default function LaunchpadPage() {
                 onClick={() => toggleFaq('faq-5')}
                 style={{ padding: '1.25rem', cursor: 'pointer', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
               >
-                <h4 style={{ fontSize: '1rem', fontWeight: 600, color: 'var(--white)' }}>어떤 결제 방법을 지원하나요?</h4>
+                <h4 style={{ fontSize: '1rem', fontWeight: 600, color: 'var(--white)' }}>{t('launchpad.faq.q5.question')}</h4>
                 <span style={{ color: 'var(--gray)', transform: activeFaq === 'faq-5' ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform 0.3s' }}>▼</span>
               </div>
               {activeFaq === 'faq-5' && (
                 <div className="faq-answer" style={{ padding: '0 1.25rem 1.25rem', color: 'var(--light-gray)' }}>
-                  <p>USDT, USDC, ETH 세 가지 결제 방법을 지원합니다. 모든 결제는 Ethereum 네트워크에서 안전한 스마트 컨트랙트를 통해 처리됩니다.</p>
+                  <p>{t('launchpad.faq.q5.answer')}</p>
                 </div>
               )}
             </div>
@@ -1517,12 +1517,12 @@ export default function LaunchpadPage() {
                 onClick={() => toggleFaq('faq-6')}
                 style={{ padding: '1.25rem', cursor: 'pointer', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
               >
-                <h4 style={{ fontSize: '1rem', fontWeight: 600, color: 'var(--white)' }}>참여 절차는 어떻게 되나요?</h4>
+                <h4 style={{ fontSize: '1rem', fontWeight: 600, color: 'var(--white)' }}>{t('launchpad.faq.q6.question')}</h4>
                 <span style={{ color: 'var(--gray)', transform: activeFaq === 'faq-6' ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform 0.3s' }}>▼</span>
               </div>
               {activeFaq === 'faq-6' && (
                 <div className="faq-answer" style={{ padding: '0 1.25rem 1.25rem', color: 'var(--light-gray)' }}>
-                  <p>1) 지갑 연결 → 2) KYC 인증 → 3) 참여 금액 입력 → 4) 결제 방법 선택 → 5) 토큰 구매 완료. 전체 과정은 약 5분 소요됩니다.</p>
+                  <p>{t('launchpad.faq.q6.answer')}</p>
                 </div>
               )}
             </div>
@@ -1537,12 +1537,12 @@ export default function LaunchpadPage() {
                 onClick={() => toggleFaq('faq-7')}
                 style={{ padding: '1.25rem', cursor: 'pointer', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
               >
-                <h4 style={{ fontSize: '1rem', fontWeight: 600, color: 'var(--white)' }}>공식 런치패드의 특별한 혜택은 무엇인가요?</h4>
+                <h4 style={{ fontSize: '1rem', fontWeight: 600, color: 'var(--white)' }}>{t('launchpad.faq.q7.question')}</h4>
                 <span style={{ color: 'var(--gray)', transform: activeFaq === 'faq-7' ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform 0.3s' }}>▼</span>
               </div>
               {activeFaq === 'faq-7' && (
                 <div className="faq-answer" style={{ padding: '0 1.25rem 1.25rem', color: 'var(--light-gray)' }}>
-                  <p>TBURN Foundation 공식 보장, 안전한 스마트 컨트랙트 처리, 모든 티어 보너스 적용, 24/7 고객 지원, 실시간 토큰 클레임 기능을 제공합니다.</p>
+                  <p>{t('launchpad.faq.q7.answer')}</p>
                 </div>
               )}
             </div>
@@ -1557,12 +1557,12 @@ export default function LaunchpadPage() {
                 onClick={() => toggleFaq('faq-8')}
                 style={{ padding: '1.25rem', cursor: 'pointer', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
               >
-                <h4 style={{ fontSize: '1rem', fontWeight: 600, color: 'var(--white)' }}>문의사항이 있으면 어디로 연락하나요?</h4>
+                <h4 style={{ fontSize: '1rem', fontWeight: 600, color: 'var(--white)' }}>{t('launchpad.faq.q8.question')}</h4>
                 <span style={{ color: 'var(--gray)', transform: activeFaq === 'faq-8' ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform 0.3s' }}>▼</span>
               </div>
               {activeFaq === 'faq-8' && (
                 <div className="faq-answer" style={{ padding: '0 1.25rem 1.25rem', color: 'var(--light-gray)' }}>
-                  <p>공식 Telegram(@tburnchain), Discord(discord.gg/tburnchain) 또는 이메일(support@tburn.io)로 24시간 문의 가능합니다. 24/7 실시간 고객 지원팀이 대기중입니다.</p>
+                  <p>{t('launchpad.faq.q8.answer')}</p>
                 </div>
               )}
             </div>
@@ -1572,10 +1572,10 @@ export default function LaunchpadPage() {
         {/* Footer */}
         <footer className="footer">
           <div className="footer-links">
-            <a href="/legal/terms-of-service" data-testid="footer-link-terms">이용약관</a>
-            <a href="/legal/privacy-policy" data-testid="footer-link-privacy">개인정보처리방침</a>
-            <a href="/risk-disclosure" data-testid="footer-link-risk">리스크 고지</a>
-            <a href="/qna" data-testid="footer-link-support">고객 지원</a>
+            <a href="/legal/terms-of-service" data-testid="footer-link-terms">{t('launchpad.footer.terms')}</a>
+            <a href="/legal/privacy-policy" data-testid="footer-link-privacy">{t('launchpad.footer.privacy')}</a>
+            <a href="/risk-disclosure" data-testid="footer-link-risk">{t('launchpad.footer.riskDisclosure')}</a>
+            <a href="/qna" data-testid="footer-link-support">{t('launchpad.footer.support')}</a>
             <a 
               href="#faq" 
               onClick={(e) => { e.preventDefault(); scrollToSection('faq'); }}
@@ -1599,7 +1599,7 @@ export default function LaunchpadPage() {
               data-testid="footer-link-discord"
             >Discord</a>
           </div>
-          <p>© 2025-2045 TBURN Foundation. All Rights Reserved.</p>
+          <p>{t('launchpad.footer.copyright')}</p>
         </footer>
       </main>
 
@@ -1608,34 +1608,34 @@ export default function LaunchpadPage() {
         <div className="modal-overlay">
           <div className="modal">
             <div className="modal-header">
-              <h3>{modalStatus === 'success' ? '구매 완료!' : '트랜잭션 처리 중'}</h3>
+              <h3>{modalStatus === 'success' ? t('launchpad.modal.purchaseComplete') : t('launchpad.modal.processing')}</h3>
               <button className="modal-close" onClick={() => setShowModal(false)}>✕</button>
             </div>
             <div className="modal-body">
               <div className={`tx-status-icon ${modalStatus}`}>
                 {modalStatus === 'pending' ? <div className="spinner"></div> : '✓'}
               </div>
-              <h4>{modalStatus === 'success' ? '토큰 구매 완료!' : '트랜잭션 확인 중...'}</h4>
-              <p>{modalStatus === 'success' ? '토큰이 성공적으로 구매되었습니다' : '지갑에서 트랜잭션을 확인해주세요'}</p>
+              <h4>{modalStatus === 'success' ? t('launchpad.modal.tokenPurchaseComplete') : t('launchpad.modal.confirmingTx')}</h4>
+              <p>{modalStatus === 'success' ? t('launchpad.modal.successMessage') : t('launchpad.modal.confirmWallet')}</p>
 
               <div className="tx-details">
                 <div className="tx-detail-row">
-                  <span className="label">구매 금액</span>
+                  <span className="label">{t('launchpad.modal.purchaseAmount')}</span>
                   <span className="value">${investAmount.toLocaleString()} {selectedPayment.toUpperCase()}</span>
                 </div>
                 <div className="tx-detail-row">
-                  <span className="label">받을 토큰</span>
+                  <span className="label">{t('launchpad.modal.receivingTokens')}</span>
                   <span className="value">{totalTokens.toLocaleString()} TBURN</span>
                 </div>
                 <div className="tx-detail-row">
-                  <span className="label">예상 가스비</span>
+                  <span className="label">{t('launchpad.modal.estimatedGas')}</span>
                   <span className="value">~$5.00</span>
                 </div>
               </div>
 
               {modalStatus === 'success' && (
                 <button className="modal-btn" onClick={() => setShowModal(false)}>
-                  확인
+                  {t('launchpad.modal.confirm')}
                 </button>
               )}
             </div>
