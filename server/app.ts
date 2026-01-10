@@ -15,6 +15,7 @@ import passport from "passport";
 import { Strategy as GoogleStrategy } from "passport-google-oauth20";
 import { initializeBlockchainOrchestrator, shutdownBlockchainOrchestrator } from "./services/blockchain-orchestrator";
 import { memoryGuardian } from "./services/memory-guardian";
+import { never500ErrorHandler, getErrorHealthStats } from "./core/never-500-handler";
 
 // ★ [수정 1] connect-redis 불러오는 방식 변경 (ESM 호환)
 import { RedisStore } from "connect-redis";
@@ -722,88 +723,23 @@ export default async function runApp(
 ) {
   const server = await registerRoutes(app);
 
-  // ★ [2026-01-05] 글로벌 에러 핸들러 - 상세 진단 로깅
-  // ★ [2026-01-09] NEVER return 500 - use 503 for unexpected errors
-  app.use((err: any, req: Request, res: Response, _next: NextFunction) => {
-    // ★ [2026-01-09] Map 500 → 503 to prevent "Internal Server Error"
-    let status = err.status || err.statusCode || 503;
-    if (status === 500) status = 503; // NEVER return 500
-    const message = err.message || "Service temporarily unavailable";
-    const errorId = `ERR-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
-    
-    // 메모리 상태 캡처
-    const mem = process.memoryUsage();
-    // ★ [2026-01-08] V8 힙 제한 사용
-    let heapLimitMB = 8240;
-    try {
-      const v8 = require('v8');
-      heapLimitMB = v8.getHeapStatistics().heap_size_limit / (1024 * 1024);
-    } catch {}
-    const memInfo = {
-      heapUsed: Math.round(mem.heapUsed / 1024 / 1024),
-      heapTotal: Math.round(heapLimitMB),
-      heapPercent: Math.round((mem.heapUsed / 1024 / 1024 / heapLimitMB) * 100),
-    };
-    
-    // ★ 상세 에러 로그 출력
-    console.error('');
-    console.error('═══════════════════════════════════════════════════════════════');
-    console.error(`[Express Error] ID: ${errorId}`);
-    console.error('═══════════════════════════════════════════════════════════════');
-    console.error(`Status: ${status}`);
-    console.error(`Message: ${message}`);
-    console.error(`Method: ${req.method}`);
-    console.error(`Path: ${req.path}`);
-    console.error(`Query: ${JSON.stringify(req.query)}`);
-    console.error(`Timestamp: ${new Date().toISOString()}`);
-    console.error(`Memory: ${memInfo.heapUsed}MB / ${memInfo.heapTotal}MB (${memInfo.heapPercent}%)`);
-    console.error(`Uptime: ${Math.round(process.uptime())}s`);
-    if (err.stack) {
-      console.error('');
-      console.error('Stack Trace:');
-      console.error(err.stack);
-    }
-    if (err.cause) {
-      console.error('');
-      console.error('Cause:', err.cause);
-    }
-    console.error('═══════════════════════════════════════════════════════════════');
-    console.error('');
-    
-    // crashDiagnostics에 로그 기록
-    crashDiagnostics.log(`Express Error ${status}: ${message} at ${req.method} ${req.path}`, 'error');
-
-    // ★ [2026-01-09] Self-healing: Trigger memory cleanup on repeated errors
-    try {
-      const mem = process.memoryUsage();
-      let heapLimitBytes = 8240 * 1024 * 1024;
-      try {
-        const v8Mod = require('v8');
-        heapLimitBytes = v8Mod.getHeapStatistics().heap_size_limit;
-      } catch {}
-      const heapRatio = mem.heapUsed / heapLimitBytes;
-      
-      // If heap is over 75%, request GC to prevent OOM crashes
-      if (heapRatio > 0.75 && global.gc) {
-        console.warn('[SelfHealing] High heap usage during error, requesting GC...');
-        global.gc();
-      }
-    } catch (selfHealErr) {
-      // Silent - don't fail error handler due to self-healing
-    }
-    
-    // 응답이 이미 전송된 경우 무시
-    if (res.headersSent) {
-      return;
-    }
-    
-    // 프로덕션에서는 상세 에러 정보 제공 (디버깅용)
-    res.status(status).json({ 
-      message,
-      errorId,
-      path: req.path,
-      timestamp: new Date().toISOString(),
-      ...(IS_PRODUCTION ? {} : { stack: err.stack }),
+  // ★ [2026-01-10] Enterprise Never500 Error Handler v5.0
+  // CRITICAL: Absolute prevention of "Internal Server Error" (500)
+  // All unhandled errors are classified and returned with proper status codes:
+  // - RPC/Network errors → 503 with cache fallback
+  // - Rate limits → 429 with retry-after
+  // - Validation errors → 400 with details
+  // - All other errors → 503 (NEVER 500) with auto-recovery
+  app.use(never500ErrorHandler);
+  
+  // ★ Error health monitoring endpoint for diagnostics
+  app.get('/api/internal/error-health', (_req, res) => {
+    res.json({
+      ...getErrorHealthStats(),
+      memoryUsage: {
+        heapUsed: Math.round(process.memoryUsage().heapUsed / 1024 / 1024),
+        uptime: Math.round(process.uptime()),
+      },
     });
   });
 

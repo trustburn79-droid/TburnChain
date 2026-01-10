@@ -341,9 +341,52 @@ export function wrapSafeRoute(
   };
 }
 
+// ★ [v5.0] Self-healing threshold - trigger cleanup after consecutive errors
+const SELF_HEALING_THRESHOLD = 5;
+let lastSelfHealingTime = 0;
+const SELF_HEALING_COOLDOWN_MS = 30000; // Minimum 30s between self-healing attempts
+
+/**
+ * ★ [v5.0] Self-healing mechanism to prevent extended degraded state
+ */
+function triggerSelfHealing(reason: string): void {
+  const now = Date.now();
+  if (now - lastSelfHealingTime < SELF_HEALING_COOLDOWN_MS) {
+    return; // Cooldown active
+  }
+  
+  lastSelfHealingTime = now;
+  console.warn(`[SelfHealing] Triggered: ${reason}`);
+  
+  try {
+    // 1. Try garbage collection if available
+    if ((global as any).gc) {
+      console.warn('[SelfHealing] Requesting garbage collection...');
+      (global as any).gc();
+    }
+    
+    // 2. Reset circuit breaker if it's been open too long
+    if (circuitBreakerOpen && now - circuitBreakerOpenedAt > CIRCUIT_BREAKER_RESET_MS * 2) {
+      console.warn('[SelfHealing] Force-resetting circuit breaker');
+      circuitBreakerOpen = false;
+      errorStats.consecutiveErrors = 0;
+    }
+    
+    // 3. Log memory status for diagnostics
+    const mem = process.memoryUsage();
+    console.warn(`[SelfHealing] Memory: ${Math.round(mem.heapUsed / 1024 / 1024)}MB heap used`);
+    
+    console.warn('[SelfHealing] ✅ Self-healing complete');
+  } catch (e) {
+    console.error('[SelfHealing] Error during self-healing:', e);
+  }
+}
+
 /**
  * Global error handler that NEVER returns 500
  * Install as the last middleware in Express
+ * 
+ * ★ [v5.0] Enhanced with self-healing and automatic recovery
  */
 export function never500ErrorHandler(
   err: any,
@@ -358,9 +401,14 @@ export function never500ErrorHandler(
   const requestId = getRequestId();
   const errorMessage = err.message || 'Unknown error';
   
+  // ★ [v5.0] Check if self-healing is needed
+  if (errorStats.consecutiveErrors >= SELF_HEALING_THRESHOLD) {
+    triggerSelfHealing(`${errorStats.consecutiveErrors} consecutive errors detected`);
+  }
+  
   if (isRpcError(err)) {
     updateErrorStats('rpc', false);
-    console.log(`[GlobalError:503] RPC: ${req.method} ${req.path} - ${errorMessage} [${requestId}]`);
+    console.log(`[GlobalError:503] RPC: ${req.method} ${req.path} - ${errorMessage.substring(0, 100)} [${requestId}]`);
     return res.status(503).json({
       error: 'Service temporarily unavailable',
       message: 'Please try again shortly.',
@@ -391,7 +439,7 @@ export function never500ErrorHandler(
   }
   
   updateErrorStats('app', false);
-  console.error(`[GlobalError:503] ${req.method} ${req.path} - ${errorMessage} [${requestId}]`);
+  console.error(`[GlobalError:503] ${req.method} ${req.path} - ${errorMessage.substring(0, 200)} [${requestId}]`);
   
   return res.status(503).json({
     error: 'Service temporarily unavailable',
