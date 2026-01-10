@@ -20353,7 +20353,8 @@
         "error": "エラーが発生しました",
         "errorDesc": "問合せの送信に失敗しました。再度お試しください。",
         "required": "必須情報が不足しています",
-        "requiredDesc": "お名前、メールアドレス、会社名は必須項目です。"
+        "requiredDesc": "お名前、メールアドレス、会社名は必須項目です。",
+        "cancelBtn": "キャンセル"
       },
       "footer": {
         "description": "TBURN Chainは高度なDeFi、DAO、エンタープライズ統合機能を備えた次世代Layer-1ブロックチェーンです。",
@@ -20373,7 +20374,19 @@
         "disclaimer": "免責事項",
         "cookiePolicy": "Cookieポリシー",
         "copyright": "© 2025 TBURN Chain. All rights reserved.",
-        "socialLinks": "フォロー"
+        "socialLinks": "フォロー",
+        "mainnet": "メインネット",
+        "explorer": "エクスプローラー",
+        "bridge": "ブリッジ",
+        "staking": "ステーキング",
+        "docs": "開発ドキュメント",
+        "audit": "セキュリティ監査",
+        "blog": "ブログ",
+        "ambassador": "アンバサダープログラム",
+        "grants": "助成金",
+        "support": "サポート",
+        "terms": "利用規約",
+        "privacy": "プライバシーポリシー"
       }
     },
     "publicRound": {

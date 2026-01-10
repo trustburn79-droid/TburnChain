@@ -17056,7 +17056,8 @@
         "error": "Erro Ocorrido",
         "errorDesc": "Falha ao enviar consulta. Por favor, tente novamente.",
         "required": "Campos Obrigatórios Faltando",
-        "requiredDesc": "Nome, email e empresa são campos obrigatórios."
+        "requiredDesc": "Nome, email e empresa são campos obrigatórios.",
+        "cancelBtn": "Cancelar"
       },
       "footer": {
         "description": "TBURN Chain é uma blockchain Layer-1 de próxima geração com capacidades avançadas de DeFi, DAO e integração empresarial.",
@@ -17076,7 +17077,19 @@
         "disclaimer": "Aviso Legal",
         "cookiePolicy": "Política de Cookies",
         "copyright": "© 2025 TBURN Chain. Todos os direitos reservados.",
-        "socialLinks": "Siga-nos"
+        "socialLinks": "Siga-nos",
+        "mainnet": "Rede Principal",
+        "explorer": "Explorador",
+        "bridge": "Ponte",
+        "staking": "Staking",
+        "docs": "Documentação",
+        "audit": "Auditoria de Segurança",
+        "blog": "Blog",
+        "ambassador": "Programa de Embaixadores",
+        "grants": "Subsídios",
+        "support": "Suporte",
+        "terms": "Termos de Serviço",
+        "privacy": "Política de Privacidade"
       }
     },
     "publicRound": {

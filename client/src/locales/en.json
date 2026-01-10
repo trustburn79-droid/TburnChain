@@ -31258,22 +31258,46 @@
         "institutional": {
           "name": "Institutional",
           "subtitle": "Institutional Investors",
-          "benefits": ["Board Observer Seat", "Monthly Executive Briefing", "Exclusive Co-Investment Rights", "Custom Vesting Negotiation", "Dedicated IR Manager"]
+          "benefits": [
+            "Board Observer Seat",
+            "Monthly Executive Briefing",
+            "Exclusive Co-Investment Rights",
+            "Custom Vesting Negotiation",
+            "Dedicated IR Manager"
+          ]
         },
         "strategic": {
           "name": "Strategic",
           "subtitle": "Strategic Partners",
-          "benefits": ["Quarterly Strategy Sessions", "Partnership Priority", "Technical Collaboration", "Co-Marketing", "Network Access"]
+          "benefits": [
+            "Quarterly Strategy Sessions",
+            "Partnership Priority",
+            "Technical Collaboration",
+            "Co-Marketing",
+            "Network Access"
+          ]
         },
         "growth": {
           "name": "Growth",
           "subtitle": "Growth Investors",
-          "benefits": ["Quarterly Update Calls", "Private Community", "Governance Participation", "Early Feature Access", "Dedicated Support Channel"]
+          "benefits": [
+            "Quarterly Update Calls",
+            "Private Community",
+            "Governance Participation",
+            "Early Feature Access",
+            "Dedicated Support Channel"
+          ]
         },
         "standard": {
           "name": "Standard",
           "subtitle": "General Investors",
-          "benefits": ["Monthly Investor Newsletter", "Basic Governance Voting", "Investor-Only Channel", "General Allocation", "Email Support"]
+          "benefits": [
+            "Monthly Investor Newsletter",
+            "Basic Governance Voting",
+            "Investor-Only Channel",
+            "General Allocation",
+            "Email Support"
+          ]
         }
       },
       "vesting": {
@@ -31399,7 +31423,8 @@
         "error": "Error Occurred",
         "errorDesc": "Failed to submit inquiry. Please try again.",
         "required": "Required Fields Missing",
-        "requiredDesc": "Name, email, and company are required fields."
+        "requiredDesc": "Name, email, and company are required fields.",
+        "cancelBtn": "Cancel"
       },
       "footer": {
         "description": "TBURN Chain is a next-generation Layer-1 blockchain with advanced DeFi, DAO, and enterprise integration capabilities.",
@@ -31419,7 +31444,19 @@
         "disclaimer": "Disclaimer",
         "cookiePolicy": "Cookie Policy",
         "copyright": "© 2025 TBURN Chain. All rights reserved.",
-        "socialLinks": "Follow Us"
+        "socialLinks": "Follow Us",
+        "mainnet": "Mainnet",
+        "explorer": "Explorer",
+        "bridge": "Bridge",
+        "staking": "Staking",
+        "docs": "Documentation",
+        "audit": "Security Audit",
+        "blog": "Blog",
+        "ambassador": "Ambassador Program",
+        "grants": "Grants",
+        "support": "Support",
+        "terms": "Terms of Service",
+        "privacy": "Privacy Policy"
       }
     },
     "publicRound": {

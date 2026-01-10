@@ -31375,22 +31375,46 @@
         "institutional": {
           "name": "Institutional",
           "subtitle": "기관 투자자",
-          "benefits": ["이사회 옵저버 석", "월간 경영진 브리핑", "독점 공동 투자권", "맞춤 베스팅 협의", "전담 IR 매니저"]
+          "benefits": [
+            "이사회 옵저버 석",
+            "월간 경영진 브리핑",
+            "독점 공동 투자권",
+            "맞춤 베스팅 협의",
+            "전담 IR 매니저"
+          ]
         },
         "strategic": {
           "name": "Strategic",
           "subtitle": "전략적 투자자",
-          "benefits": ["분기별 전략 세션", "파트너십 우선권", "기술 협력 기회", "공동 마케팅", "네트워크 접근"]
+          "benefits": [
+            "분기별 전략 세션",
+            "파트너십 우선권",
+            "기술 협력 기회",
+            "공동 마케팅",
+            "네트워크 접근"
+          ]
         },
         "growth": {
           "name": "Growth",
           "subtitle": "성장 투자자",
-          "benefits": ["분기별 업데이트 콜", "프라이빗 커뮤니티", "거버넌스 참여권", "신규 기능 얼리 액세스", "전용 지원 채널"]
+          "benefits": [
+            "분기별 업데이트 콜",
+            "프라이빗 커뮤니티",
+            "거버넌스 참여권",
+            "신규 기능 얼리 액세스",
+            "전용 지원 채널"
+          ]
         },
         "standard": {
           "name": "Standard",
           "subtitle": "일반 투자자",
-          "benefits": ["월간 투자자 뉴스레터", "기본 거버넌스 투표권", "투자자 전용 채널", "일반 배정", "이메일 지원"]
+          "benefits": [
+            "월간 투자자 뉴스레터",
+            "기본 거버넌스 투표권",
+            "투자자 전용 채널",
+            "일반 배정",
+            "이메일 지원"
+          ]
         }
       },
       "vesting": {
@@ -31516,7 +31540,8 @@
         "error": "오류 발생",
         "errorDesc": "문의 접수에 실패했습니다. 다시 시도해주세요.",
         "required": "필수 정보 누락",
-        "requiredDesc": "이름, 이메일, 회사명은 필수 입력 항목입니다."
+        "requiredDesc": "이름, 이메일, 회사명은 필수 입력 항목입니다.",
+        "cancelBtn": "취소"
       },
       "footer": {
         "description": "TBURN Chain은 고급 DeFi, DAO 및 엔터프라이즈 통합 기능을 갖춘 차세대 레이어-1 블록체인입니다.",
@@ -31536,7 +31561,19 @@
         "disclaimer": "면책조항",
         "cookiePolicy": "쿠키 정책",
         "copyright": "© 2025 TBURN Chain. All rights reserved.",
-        "socialLinks": "팔로우하기"
+        "socialLinks": "팔로우하기",
+        "mainnet": "메인넷",
+        "explorer": "익스플로러",
+        "bridge": "브릿지",
+        "staking": "스테이킹",
+        "docs": "개발문서",
+        "audit": "보안감사",
+        "blog": "블로그",
+        "ambassador": "앰배서더 프로그램",
+        "grants": "그랜트",
+        "support": "지원",
+        "terms": "이용약관",
+        "privacy": "개인정보처리방침"
       }
     },
     "publicRound": {

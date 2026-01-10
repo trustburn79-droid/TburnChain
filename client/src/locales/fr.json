@@ -17307,7 +17307,8 @@
         "error": "Erreur Survenue",
         "errorDesc": "Échec de soumission. Veuillez réessayer.",
         "required": "Champs Requis Manquants",
-        "requiredDesc": "Nom, email et entreprise sont requis."
+        "requiredDesc": "Nom, email et entreprise sont requis.",
+        "cancelBtn": "Annuler"
       },
       "footer": {
         "description": "TBURN Chain est une blockchain Layer-1 de nouvelle génération avec des capacités avancées DeFi, DAO et intégration entreprise.",
@@ -17327,7 +17328,19 @@
         "disclaimer": "Avertissement",
         "cookiePolicy": "Politique des Cookies",
         "copyright": "© 2025 TBURN Chain. Tous droits réservés.",
-        "socialLinks": "Suivez-nous"
+        "socialLinks": "Suivez-nous",
+        "mainnet": "Réseau Principal",
+        "explorer": "Explorateur",
+        "bridge": "Pont",
+        "staking": "Staking",
+        "docs": "Documentation",
+        "audit": "Audit de Sécurité",
+        "blog": "Blog",
+        "ambassador": "Programme d'Ambassadeurs",
+        "grants": "Subventions",
+        "support": "Support",
+        "terms": "Conditions d'Utilisation",
+        "privacy": "Politique de Confidentialité"
       }
     },
     "publicRound": {

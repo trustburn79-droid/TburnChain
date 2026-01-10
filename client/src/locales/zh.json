@@ -19573,7 +19573,8 @@
         "error": "发生错误",
         "errorDesc": "咨询提交失败，请重试。",
         "required": "缺少必填信息",
-        "requiredDesc": "姓名、邮箱和公司是必填项。"
+        "requiredDesc": "姓名、邮箱和公司是必填项。",
+        "cancelBtn": "取消"
       },
       "footer": {
         "description": "TBURN Chain是具有先进DeFi、DAO和企业集成功能的下一代Layer-1区块链。",
@@ -19593,7 +19594,19 @@
         "disclaimer": "免责声明",
         "cookiePolicy": "Cookie政策",
         "copyright": "© 2025 TBURN Chain. All rights reserved.",
-        "socialLinks": "关注我们"
+        "socialLinks": "关注我们",
+        "mainnet": "主网",
+        "explorer": "浏览器",
+        "bridge": "跨链桥",
+        "staking": "质押",
+        "docs": "开发文档",
+        "audit": "安全审计",
+        "blog": "博客",
+        "ambassador": "大使计划",
+        "grants": "资助",
+        "support": "支持",
+        "terms": "服务条款",
+        "privacy": "隐私政策"
       }
     },
     "publicRound": {
