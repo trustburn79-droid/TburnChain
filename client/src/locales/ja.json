@@ -109,13 +109,13 @@
     "days": "日",
     "clickForDetails": "クリックして詳細を見る",
     "login": "ログイン",
-    "termsOfService": "Terms of Service",
-    "privacyPolicy": "Privacy Policy",
-    "riskDisclosure": "Risk Disclosure",
-    "riskDisclosureDesc": "Navigating to Risk Disclosure page.",
-    "customerSupport": "Customer Support",
-    "customerSupportDesc": "Please contact support@daomaker.com.",
-    "tokenDeliveryNote": "Tokens will be delivered at TGE"
+    "termsOfService": "利用規約",
+    "privacyPolicy": "プライバシーポリシー",
+    "riskDisclosure": "リスク開示",
+    "riskDisclosureDesc": "リスク開示ページに移動します。",
+    "customerSupport": "カスタマーサポート",
+    "customerSupportDesc": "support@daomaker.comにお問い合わせください。",
+    "tokenDeliveryNote": "トークンはTGE時に配布されます"
   },
   "nav": {
     "brand": "TBURN チェーン メインネット",
@@ -23852,14 +23852,14 @@
   "daomaker": {
     "header": {
       "sho": "SHO",
-      "staking": "Staking",
-      "governance": "Governance",
-      "portfolio": "Portfolio",
-      "swap": "Swap",
-      "connectWallet": "Connect Wallet",
-      "walletConnected": "Connected",
-      "walletPrompt": "Click to connect",
-      "daoPower": "DAO Power"
+      "staking": "ステーキング",
+      "governance": "ガバナンス",
+      "portfolio": "ポートフォリオ",
+      "swap": "スワップ",
+      "connectWallet": "ウォレット接続",
+      "walletConnected": "接続済み",
+      "walletPrompt": "クリックして接続",
+      "daoPower": "DAOパワー"
     },
     "hero": {
       "breadcrumb": {
@@ -23867,185 +23867,185 @@
         "current": "TBURN Chain"
       },
       "badges": {
-        "shoRound": "SHO Round",
-        "live": "In Progress",
-        "refund": "Refund Guaranteed",
-        "verified": "Verified"
+        "shoRound": "SHOラウンド",
+        "live": "進行中",
+        "refund": "返金保証",
+        "verified": "検証済み"
       },
-      "description": "TBURN Chain is a next-generation Layer-1 platform that combines AI and blockchain technology. With 200,000+ TPS ultra-fast processing, Triple-Band AI Orchestration, and self-optimizing network, it achieves enterprise-grade performance and decentralization simultaneously.",
+      "description": "TBURN ChainはAIとブロックチェーン技術を融合した次世代Layer-1プラットフォームです。200,000+ TPSの超高速処理、Triple-Band AI Orchestration、自己最適化ネットワークにより、エンタープライズ級のパフォーマンスと分散化を同時に実現します。",
       "stats": {
-        "tokenPrice": "Token Price",
-        "targetRaise": "Target Raise",
-        "tgeUnlock": "TGE Unlock",
-        "totalVesting": "Total Vesting",
-        "months": "months"
+        "tokenPrice": "トークン価格",
+        "targetRaise": "目標調達額",
+        "tgeUnlock": "TGEアンロック",
+        "totalVesting": "総ベスティング",
+        "months": "ヶ月"
       }
     },
     "shoCard": {
       "title": "Strong Holder Offering",
-      "subtitle": "Exclusive token sale for DAO Power holders",
+      "subtitle": "DAOパワー保有者限定トークンセール",
       "countdown": {
-        "label": "Sale ends in",
-        "days": "Days",
-        "hours": "Hours",
-        "mins": "Mins",
-        "secs": "Secs"
+        "label": "セール終了まで",
+        "days": "日",
+        "hours": "時間",
+        "mins": "分",
+        "secs": "秒"
       },
       "progress": {
-        "completed": "completed",
-        "participants": "participants"
+        "completed": "完了",
+        "participants": "名参加"
       },
       "saleDetails": {
-        "tokenPrice": "Token Price",
-        "minParticipation": "Min Participation",
-        "tgeUnlock": "TGE Unlock",
-        "vesting": "Vesting",
-        "vestingValue": "3-month cliff + 12 months"
+        "tokenPrice": "トークン価格",
+        "minParticipation": "最低参加",
+        "tgeUnlock": "TGEアンロック",
+        "vesting": "ベスティング",
+        "vestingValue": "3ヶ月クリフ + 12ヶ月"
       },
       "daoPower": {
-        "title": "My DAO Power",
-        "tier": "Tier",
-        "maxAllocation": "Max Allocation"
+        "title": "マイDAOパワー",
+        "tier": "ティア",
+        "maxAllocation": "最大割当"
       },
       "allocation": {
-        "title": "Participation Amount",
-        "max": "Max"
+        "title": "参加金額",
+        "max": "最大"
       },
       "tokenOutput": {
-        "tokensToReceive": "Tokens to Receive",
-        "bonus": "Bonus",
-        "tgeUnlock": "TGE Unlock (15%)"
+        "tokensToReceive": "獲得トークン",
+        "bonus": "ボーナス",
+        "tgeUnlock": "TGEアンロック (15%)"
       },
       "refundPolicy": {
-        "title": "Refund Policy Applied",
-        "description": "100% refund if token price falls below sale price within 30 days after TGE"
+        "title": "返金ポリシー適用",
+        "description": "TGE後30日以内にトークン価格がセール価格を下回った場合、100%返金"
       },
-      "purchaseButton": "Join SHO",
-      "securityNote": "Secured by DAO Maker smart contract"
+      "purchaseButton": "SHOに参加",
+      "securityNote": "DAO Makerスマートコントラクトで安全に処理"
     },
     "tabs": {
-      "tiers": "SHO Tiers",
-      "vesting": "Vesting",
-      "governance": "Governance",
+      "tiers": "SHOティア",
+      "vesting": "ベスティング",
+      "governance": "ガバナンス",
       "faq": "FAQ"
     },
     "tiers": {
       "bronze": {
-        "name": "Bronze",
+        "name": "ブロンズ",
         "features": [
-          "SHO participation eligibility",
-          "Basic allocation",
-          "Refund policy applied"
+          "SHO参加資格",
+          "基本割当",
+          "返金ポリシー適用"
         ]
       },
       "silver": {
-        "name": "Silver",
+        "name": "シルバー",
         "features": [
-          "Priority allocation",
-          "+1% bonus tokens",
-          "Governance voting rights",
-          "Refund policy applied"
+          "優先割当",
+          "+1%ボーナストークン",
+          "ガバナンス投票権",
+          "返金ポリシー適用"
         ]
       },
       "gold": {
-        "name": "Gold",
+        "name": "ゴールド",
         "features": [
-          "Guaranteed allocation",
-          "+3% bonus tokens",
-          "Priority governance voting",
-          "VIP community access",
-          "Refund policy applied"
+          "保証割当",
+          "+3%ボーナストークン",
+          "優先ガバナンス投票",
+          "VIPコミュニティアクセス",
+          "返金ポリシー適用"
         ]
       },
-      "maxAllocation": "Max Allocation",
-      "daoPower": "DAO Power"
+      "maxAllocation": "最大割当",
+      "daoPower": "DAOパワー"
     },
     "vesting": {
-      "scheduleTitle": "Vesting Schedule",
-      "unlockStatusTitle": "Unlock Status",
+      "scheduleTitle": "ベスティングスケジュール",
+      "unlockStatusTitle": "アンロック状況",
       "tge": {
-        "title": "TGE (Token Generation)",
-        "desc": "Immediate unlock at token generation"
+        "title": "TGE（トークン生成）",
+        "desc": "トークン生成時に即時アンロック"
       },
       "cliff": {
-        "title": "Cliff Period",
-        "desc": "Month 1-3, no additional unlock"
+        "title": "クリフ期間",
+        "desc": "1〜3ヶ月、追加アンロックなし"
       },
       "linear": {
-        "title": "Linear Vesting",
-        "desc": "Month 4-15, 7.08% unlock per month"
+        "title": "リニアベスティング",
+        "desc": "4〜15ヶ月、月7.08%アンロック"
       },
       "full": {
-        "title": "Full Unlock",
-        "desc": "15 months after TGE"
+        "title": "完全アンロック",
+        "desc": "TGE後15ヶ月"
       },
       "chart": {
         "tge": "TGE",
-        "month3": "3 months",
-        "month6": "6 months",
-        "month9": "9 months",
-        "month12": "12 months",
-        "month15": "15 months"
+        "month3": "3ヶ月",
+        "month6": "6ヶ月",
+        "month9": "9ヶ月",
+        "month12": "12ヶ月",
+        "month15": "15ヶ月"
       }
     },
     "governance": {
       "communityVoting": {
-        "title": "Community Voting",
-        "desc": "DAO Power holders can vote on project selection and major decisions."
+        "title": "コミュニティ投票",
+        "desc": "DAOパワー保有者はプロジェクト選定や重要な決定に投票できます。"
       },
       "transparentOperation": {
-        "title": "Transparent Operation",
-        "desc": "All SHO processes and fund usage are transparently disclosed on-chain."
+        "title": "透明な運営",
+        "desc": "すべてのSHOプロセスと資金使用はオンチェーンで透明に公開されます。"
       },
       "refundPolicy": {
-        "title": "Refund Policy",
-        "desc": "100% refund guaranteed if token price falls below sale price within 30 days after TGE."
+        "title": "返金ポリシー",
+        "desc": "TGE後30日以内にトークン価格がセール価格を下回った場合、100%返金保証。"
       },
       "daoPowerStaking": {
-        "title": "DAO Power Staking",
-        "desc": "Stake DAO tokens to earn DAO Power and upgrade to higher tiers."
+        "title": "DAOパワーステーキング",
+        "desc": "DAOトークンをステーキングしてDAOパワーを獲得し、より高いティアにアップグレード。"
       },
       "rewardsProgram": {
-        "title": "Rewards Program",
-        "desc": "Active governance participants receive additional rewards and airdrop opportunities."
+        "title": "リワードプログラム",
+        "desc": "活発なガバナンス参加者には追加報酬とエアドロップの機会を提供。"
       },
       "communityFund": {
-        "title": "Community Fund",
-        "desc": "Support ecosystem development through a fund managed by the DAO community."
+        "title": "コミュニティファンド",
+        "desc": "DAOコミュニティが管理するファンドを通じてエコシステムの発展を支援。"
       }
     },
     "faq": {
       "q1": {
-        "question": "What is SHO (Strong Holder Offering)?",
-        "answer": "SHO is DAO Makers exclusive token sale method. Only users with DAO Power can participate, and tiers and allocations are determined based on holdings."
+        "question": "SHO（Strong Holder Offering）とは何ですか？",
+        "answer": "SHOはDAO Maker独自のトークンセール方式です。DAOパワーを持つユーザーのみ参加でき、保有量に応じてティアと割当が決まります。"
       },
       "q2": {
-        "question": "How do I get DAO Power?",
-        "answer": "You can earn DAO Power by staking DAO tokens on the DAO Maker platform. DAO Power is determined by staking duration and amount."
+        "question": "DAOパワーはどうやって獲得しますか？",
+        "answer": "DAO MakerプラットフォームでDAOトークンをステーキングしてDAOパワーを獲得できます。DAOパワーはステーキング期間と量で決まります。"
       },
       "q3": {
-        "question": "How does the refund policy work?",
-        "answer": "If the token price falls below the sale price ($0.02) within 30 days after TGE, participants can return their tokens and receive a 100% refund."
+        "question": "返金ポリシーはどのように機能しますか？",
+        "answer": "TGE後30日以内にトークン価格がセール価格（$0.02）を下回った場合、参加者はトークンを返却して100%返金を受けられます。"
       },
       "q4": {
-        "question": "What are the min/max participation amounts?",
-        "answer": "Minimum $100 participation. Maximum depends on DAO Power tier: Bronze: $500, Silver: $2,500, Gold: $10,000."
+        "question": "最低/最高参加金額はいくらですか？",
+        "answer": "最低$100から参加可能。最高金額はDAOパワーティアによって異なります：ブロンズ：$500、シルバー：$2,500、ゴールド：$10,000。"
       },
       "q5": {
-        "question": "When will I receive my tokens?",
-        "answer": "15% unlocks immediately at TGE. After a 3-month cliff period, the remaining 85% is distributed linearly over 12 months."
+        "question": "トークンはいつ受け取れますか？",
+        "answer": "TGE時に15%が即時アンロック。3ヶ月のクリフ期間後、残り85%が12ヶ月かけてリニアに配布されます。"
       },
       "q6": {
-        "question": "What are the tier bonus benefits?",
-        "answer": "Silver tier ($2,500+ allocation) receives +1% bonus tokens, Gold tier ($10,000+ allocation) receives +3% bonus tokens."
+        "question": "ティア別のボーナス特典は何ですか？",
+        "answer": "シルバーティア（$2,500+割当）は+1%ボーナストークン、ゴールドティア（$10,000+割当）は+3%ボーナストークンを獲得。"
       },
       "q7": {
-        "question": "How do I participate in SHO?",
-        "answer": "1) Stake DAO tokens to earn DAO Power, 2) Connect wallet and complete KYC, 3) Enter desired amount and pay with USDT, 4) Complete secure token purchase via smart contract."
+        "question": "SHOへの参加方法は？",
+        "answer": "1）DAOトークンをステーキングしてDAOパワー獲得、2）ウォレット接続とKYC完了、3）希望金額を入力しUSDTで支払い、4）スマートコントラクトで安全にトークン購入完了。"
       },
       "q8": {
-        "question": "How can I get help or support?",
-        "answer": "Get support through DAO Makers official Discord and Telegram communities. You can also email support@daomaker.com."
+        "question": "サポートが必要な場合は？",
+        "answer": "DAO Maker公式DiscordとTelegramコミュニティでサポートを受けられます。support@daomaker.comにメールも可能です。"
       }
     },
     "footer": {
@@ -24053,37 +24053,37 @@
       "poweredBy": "Powered by TBURN Chain"
     },
     "modal": {
-      "title": "SHO Participation",
-      "processing": "Processing...",
-      "pleaseWait": "Please wait",
-      "success": "Participation Complete!",
-      "successDesc": "Your SHO participation has been completed successfully",
-      "amount": "Participation Amount",
-      "tokens": "Tokens to Receive",
-      "tgeUnlock": "TGE Unlock",
-      "confirm": "Confirm"
+      "title": "SHO参加",
+      "processing": "処理中...",
+      "pleaseWait": "しばらくお待ちください",
+      "success": "参加完了！",
+      "successDesc": "SHO参加が正常に完了しました",
+      "amount": "参加金額",
+      "tokens": "獲得トークン",
+      "tgeUnlock": "TGEアンロック",
+      "confirm": "確認"
     },
     "toast": {
-      "walletDisconnected": "Wallet Disconnected",
-      "walletDisconnectedDesc": "Wallet successfully disconnected.",
-      "walletConnecting": "Connecting Wallet",
-      "walletConnectingDesc": "Attempting to connect MetaMask wallet.",
-      "walletRequired": "Wallet Required",
-      "walletRequiredDesc": "Please connect your wallet first to participate in SHO.",
-      "minAmount": "Below Minimum Amount",
-      "minAmountDesc": "You must participate with at least $100.",
-      "maxAmount": "Exceeds Maximum Amount",
-      "maxAmountDescTemplate": "Exceeds {tier} tier maximum allocation of ${max}.",
-      "shoComplete": "SHO Participation Complete!",
-      "shoCompleteDescTemplate": "{tokens} TBURN tokens purchased successfully.",
-      "stakingRequired": "Wallet Required",
-      "stakingRequiredDesc": "Please connect your wallet first to stake DAO tokens.",
-      "stakingPage": "Going to Staking Page",
-      "stakingPageDesc": "Navigating to staking page to increase DAO Power.",
-      "socialOpen": "Opening",
-      "socialOpenDesc": "Navigating to page.",
-      "menuComingSoon": "Menu",
-      "menuComingSoonDesc": "feature coming soon."
+      "walletDisconnected": "ウォレット切断",
+      "walletDisconnectedDesc": "ウォレットが正常に切断されました。",
+      "walletConnecting": "ウォレット接続中",
+      "walletConnectingDesc": "MetaMaskウォレットへの接続を試みています。",
+      "walletRequired": "ウォレット接続が必要",
+      "walletRequiredDesc": "SHO参加にはまずウォレットを接続してください。",
+      "minAmount": "最低金額未満",
+      "minAmountDesc": "最低$100以上の参加が必要です。",
+      "maxAmount": "最高金額超過",
+      "maxAmountDescTemplate": "{tier}ティアの最大割当${max}を超えています。",
+      "shoComplete": "SHO参加完了！",
+      "shoCompleteDescTemplate": "{tokens} TBURNトークンの購入が完了しました。",
+      "stakingRequired": "ウォレット接続が必要",
+      "stakingRequiredDesc": "DAOトークンをステーキングするにはまずウォレットを接続してください。",
+      "stakingPage": "ステーキングページへ",
+      "stakingPageDesc": "DAOパワーを増やすためステーキングページに移動します。",
+      "socialOpen": "開く",
+      "socialOpenDesc": "ページに移動します。",
+      "menuComingSoon": "メニュー",
+      "menuComingSoonDesc": "機能は近日公開予定です。"
     }
   }
 }

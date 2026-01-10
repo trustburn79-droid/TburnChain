@@ -108,13 +108,13 @@
     "days": "天",
     "clickForDetails": "点击查看详情",
     "login": "登录",
-    "termsOfService": "Terms of Service",
-    "privacyPolicy": "Privacy Policy",
-    "riskDisclosure": "Risk Disclosure",
-    "riskDisclosureDesc": "Navigating to Risk Disclosure page.",
-    "customerSupport": "Customer Support",
-    "customerSupportDesc": "Please contact support@daomaker.com.",
-    "tokenDeliveryNote": "Tokens will be delivered at TGE"
+    "termsOfService": "服务条款",
+    "privacyPolicy": "隐私政策",
+    "riskDisclosure": "风险披露",
+    "riskDisclosureDesc": "导航到风险披露页面。",
+    "customerSupport": "客户支持",
+    "customerSupportDesc": "请联系 support@daomaker.com。",
+    "tokenDeliveryNote": "代币将在 TGE 时交付"
   },
   "nav": {
     "brand": "TBURN 链主网",
@@ -23072,14 +23072,14 @@
   "daomaker": {
     "header": {
       "sho": "SHO",
-      "staking": "Staking",
-      "governance": "Governance",
-      "portfolio": "Portfolio",
-      "swap": "Swap",
-      "connectWallet": "Connect Wallet",
-      "walletConnected": "Connected",
-      "walletPrompt": "Click to connect",
-      "daoPower": "DAO Power"
+      "staking": "质押",
+      "governance": "治理",
+      "portfolio": "投资组合",
+      "swap": "兑换",
+      "connectWallet": "连接钱包",
+      "walletConnected": "已连接",
+      "walletPrompt": "点击连接",
+      "daoPower": "DAO 算力"
     },
     "hero": {
       "breadcrumb": {
@@ -23087,223 +23087,223 @@
         "current": "TBURN Chain"
       },
       "badges": {
-        "shoRound": "SHO Round",
-        "live": "In Progress",
-        "refund": "Refund Guaranteed",
-        "verified": "Verified"
+        "shoRound": "SHO 轮次",
+        "live": "进行中",
+        "refund": "退款保障",
+        "verified": "已验证"
       },
-      "description": "TBURN Chain is a next-generation Layer-1 platform that combines AI and blockchain technology. With 200,000+ TPS ultra-fast processing, Triple-Band AI Orchestration, and self-optimizing network, it achieves enterprise-grade performance and decentralization simultaneously.",
+      "description": "TBURN Chain 是一个融合人工智能与区块链技术的下一代 Layer-1 平台。通过 200,000+ TPS 超高速处理、Triple-Band AI Orchestration 和自优化网络，同时实现企业级性能和去中心化。",
       "stats": {
-        "tokenPrice": "Token Price",
-        "targetRaise": "Target Raise",
-        "tgeUnlock": "TGE Unlock",
-        "totalVesting": "Total Vesting",
-        "months": "months"
+        "tokenPrice": "代币价格",
+        "targetRaise": "目标募集",
+        "tgeUnlock": "TGE 解锁",
+        "totalVesting": "总锁仓期",
+        "months": "个月"
       }
     },
     "shoCard": {
       "title": "Strong Holder Offering",
-      "subtitle": "Exclusive token sale for DAO Power holders",
+      "subtitle": "DAO 算力持有者专属代币销售",
       "countdown": {
-        "label": "Sale ends in",
-        "days": "Days",
-        "hours": "Hours",
-        "mins": "Mins",
-        "secs": "Secs"
+        "label": "销售结束倒计时",
+        "days": "天",
+        "hours": "时",
+        "mins": "分",
+        "secs": "秒"
       },
       "progress": {
-        "completed": "completed",
-        "participants": "participants"
+        "completed": "已完成",
+        "participants": "名参与者"
       },
       "saleDetails": {
-        "tokenPrice": "Token Price",
-        "minParticipation": "Min Participation",
-        "tgeUnlock": "TGE Unlock",
-        "vesting": "Vesting",
-        "vestingValue": "3-month cliff + 12 months"
+        "tokenPrice": "代币价格",
+        "minParticipation": "最低参与",
+        "tgeUnlock": "TGE 解锁",
+        "vesting": "锁仓期",
+        "vestingValue": "3个月锁定期 + 12个月"
       },
       "daoPower": {
-        "title": "My DAO Power",
-        "tier": "Tier",
-        "maxAllocation": "Max Allocation"
+        "title": "我的 DAO 算力",
+        "tier": "等级",
+        "maxAllocation": "最大额度"
       },
       "allocation": {
-        "title": "Participation Amount",
-        "max": "Max"
+        "title": "参与金额",
+        "max": "最大"
       },
       "tokenOutput": {
-        "tokensToReceive": "Tokens to Receive",
-        "bonus": "Bonus",
-        "tgeUnlock": "TGE Unlock (15%)"
+        "tokensToReceive": "获得代币",
+        "bonus": "奖励",
+        "tgeUnlock": "TGE 解锁 (15%)"
       },
       "refundPolicy": {
-        "title": "Refund Policy Applied",
-        "description": "100% refund if token price falls below sale price within 30 days after TGE"
+        "title": "退款政策适用",
+        "description": "TGE 后30天内代币价格低于销售价格可获得100%退款"
       },
-      "purchaseButton": "Join SHO",
-      "securityNote": "Secured by DAO Maker smart contract"
+      "purchaseButton": "参与 SHO",
+      "securityNote": "由 DAO Maker 智能合约安全保障"
     },
     "tabs": {
-      "tiers": "SHO Tiers",
-      "vesting": "Vesting",
-      "governance": "Governance",
-      "faq": "FAQ"
+      "tiers": "SHO 等级",
+      "vesting": "锁仓期",
+      "governance": "治理",
+      "faq": "常见问题"
     },
     "tiers": {
       "bronze": {
-        "name": "Bronze",
+        "name": "青铜",
         "features": [
-          "SHO participation eligibility",
-          "Basic allocation",
-          "Refund policy applied"
+          "SHO 参与资格",
+          "基础额度",
+          "退款政策适用"
         ]
       },
       "silver": {
-        "name": "Silver",
+        "name": "白银",
         "features": [
-          "Priority allocation",
-          "+1% bonus tokens",
-          "Governance voting rights",
-          "Refund policy applied"
+          "优先分配",
+          "+1% 奖励代币",
+          "治理投票权",
+          "退款政策适用"
         ]
       },
       "gold": {
-        "name": "Gold",
+        "name": "黄金",
         "features": [
-          "Guaranteed allocation",
-          "+3% bonus tokens",
-          "Priority governance voting",
-          "VIP community access",
-          "Refund policy applied"
+          "保证分配",
+          "+3% 奖励代币",
+          "优先治理投票",
+          "VIP 社区访问",
+          "退款政策适用"
         ]
       },
-      "maxAllocation": "Max Allocation",
-      "daoPower": "DAO Power"
+      "maxAllocation": "最大额度",
+      "daoPower": "DAO 算力"
     },
     "vesting": {
-      "scheduleTitle": "Vesting Schedule",
-      "unlockStatusTitle": "Unlock Status",
+      "scheduleTitle": "锁仓时间表",
+      "unlockStatusTitle": "解锁状态",
       "tge": {
-        "title": "TGE (Token Generation)",
-        "desc": "Immediate unlock at token generation"
+        "title": "TGE（代币生成）",
+        "desc": "代币生成时立即解锁"
       },
       "cliff": {
-        "title": "Cliff Period",
-        "desc": "Month 1-3, no additional unlock"
+        "title": "锁定期",
+        "desc": "第1-3个月，无额外解锁"
       },
       "linear": {
-        "title": "Linear Vesting",
-        "desc": "Month 4-15, 7.08% unlock per month"
+        "title": "线性解锁",
+        "desc": "第4-15个月，每月7.08%解锁"
       },
       "full": {
-        "title": "Full Unlock",
-        "desc": "15 months after TGE"
+        "title": "完全解锁",
+        "desc": "TGE后15个月"
       },
       "chart": {
         "tge": "TGE",
-        "month3": "3 months",
-        "month6": "6 months",
-        "month9": "9 months",
-        "month12": "12 months",
-        "month15": "15 months"
+        "month3": "3个月",
+        "month6": "6个月",
+        "month9": "9个月",
+        "month12": "12个月",
+        "month15": "15个月"
       }
     },
     "governance": {
       "communityVoting": {
-        "title": "Community Voting",
-        "desc": "DAO Power holders can vote on project selection and major decisions."
+        "title": "社区投票",
+        "desc": "DAO 算力持有者可以对项目选择和重大决策进行投票。"
       },
       "transparentOperation": {
-        "title": "Transparent Operation",
-        "desc": "All SHO processes and fund usage are transparently disclosed on-chain."
+        "title": "透明运营",
+        "desc": "所有 SHO 流程和资金使用情况都在链上透明公开。"
       },
       "refundPolicy": {
-        "title": "Refund Policy",
-        "desc": "100% refund guaranteed if token price falls below sale price within 30 days after TGE."
+        "title": "退款政策",
+        "desc": "TGE后30天内代币价格低于销售价格可获得100%退款。"
       },
       "daoPowerStaking": {
-        "title": "DAO Power Staking",
-        "desc": "Stake DAO tokens to earn DAO Power and upgrade to higher tiers."
+        "title": "DAO 算力质押",
+        "desc": "质押 DAO 代币获得 DAO 算力，升级到更高等级。"
       },
       "rewardsProgram": {
-        "title": "Rewards Program",
-        "desc": "Active governance participants receive additional rewards and airdrop opportunities."
+        "title": "奖励计划",
+        "desc": "活跃的治理参与者可获得额外奖励和空投机会。"
       },
       "communityFund": {
-        "title": "Community Fund",
-        "desc": "Support ecosystem development through a fund managed by the DAO community."
+        "title": "社区基金",
+        "desc": "通过 DAO 社区管理的基金支持生态系统发展。"
       }
     },
     "faq": {
       "q1": {
-        "question": "What is SHO (Strong Holder Offering)?",
-        "answer": "SHO is DAO Makers exclusive token sale method. Only users with DAO Power can participate, and tiers and allocations are determined based on holdings."
+        "question": "什么是 SHO（Strong Holder Offering）？",
+        "answer": "SHO 是 DAO Maker 独家的代币销售方式。只有持有 DAO 算力的用户才能参与，等级和额度根据持有量确定。"
       },
       "q2": {
-        "question": "How do I get DAO Power?",
-        "answer": "You can earn DAO Power by staking DAO tokens on the DAO Maker platform. DAO Power is determined by staking duration and amount."
+        "question": "如何获得 DAO 算力？",
+        "answer": "您可以通过在 DAO Maker 平台上质押 DAO 代币来获得 DAO 算力。DAO 算力由质押时长和数量决定。"
       },
       "q3": {
-        "question": "How does the refund policy work?",
-        "answer": "If the token price falls below the sale price ($0.02) within 30 days after TGE, participants can return their tokens and receive a 100% refund."
+        "question": "退款政策如何运作？",
+        "answer": "如果 TGE 后30天内代币价格低于销售价格（$0.02），参与者可以退还代币并获得100%退款。"
       },
       "q4": {
-        "question": "What are the min/max participation amounts?",
-        "answer": "Minimum $100 participation. Maximum depends on DAO Power tier: Bronze: $500, Silver: $2,500, Gold: $10,000."
+        "question": "最低/最高参与金额是多少？",
+        "answer": "最低参与 $100。最高金额取决于 DAO 算力等级：青铜：$500，白银：$2,500，黄金：$10,000。"
       },
       "q5": {
-        "question": "When will I receive my tokens?",
-        "answer": "15% unlocks immediately at TGE. After a 3-month cliff period, the remaining 85% is distributed linearly over 12 months."
+        "question": "我什么时候能收到代币？",
+        "answer": "TGE 时立即解锁15%。经过3个月锁定期后，剩余85%在12个月内线性分配。"
       },
       "q6": {
-        "question": "What are the tier bonus benefits?",
-        "answer": "Silver tier ($2,500+ allocation) receives +1% bonus tokens, Gold tier ($10,000+ allocation) receives +3% bonus tokens."
+        "question": "各等级的奖励福利是什么？",
+        "answer": "白银等级（$2,500+额度）获得+1%奖励代币，黄金等级（$10,000+额度）获得+3%奖励代币。"
       },
       "q7": {
-        "question": "How do I participate in SHO?",
-        "answer": "1) Stake DAO tokens to earn DAO Power, 2) Connect wallet and complete KYC, 3) Enter desired amount and pay with USDT, 4) Complete secure token purchase via smart contract."
+        "question": "如何参与 SHO？",
+        "answer": "1）质押 DAO 代币获得 DAO 算力，2）连接钱包并完成 KYC，3）输入所需金额并用 USDT 支付，4）通过智能合约完成安全代币购买。"
       },
       "q8": {
-        "question": "How can I get help or support?",
-        "answer": "Get support through DAO Makers official Discord and Telegram communities. You can also email support@daomaker.com."
+        "question": "如何获得帮助或支持？",
+        "answer": "通过 DAO Maker 官方 Discord 和 Telegram 社区获得支持。您也可以发邮件至 support@daomaker.com。"
       }
     },
     "footer": {
-      "copyright": "© 2025 DAO Maker. All Rights Reserved.",
-      "poweredBy": "Powered by TBURN Chain"
+      "copyright": "© 2025 DAO Maker. 保留所有权利。",
+      "poweredBy": "由 TBURN Chain 提供支持"
     },
     "modal": {
-      "title": "SHO Participation",
-      "processing": "Processing...",
-      "pleaseWait": "Please wait",
-      "success": "Participation Complete!",
-      "successDesc": "Your SHO participation has been completed successfully",
-      "amount": "Participation Amount",
-      "tokens": "Tokens to Receive",
-      "tgeUnlock": "TGE Unlock",
-      "confirm": "Confirm"
+      "title": "SHO 参与",
+      "processing": "处理中...",
+      "pleaseWait": "请稍候",
+      "success": "参与完成！",
+      "successDesc": "您的 SHO 参与已成功完成",
+      "amount": "参与金额",
+      "tokens": "获得代币",
+      "tgeUnlock": "TGE 解锁",
+      "confirm": "确认"
     },
     "toast": {
-      "walletDisconnected": "Wallet Disconnected",
-      "walletDisconnectedDesc": "Wallet successfully disconnected.",
-      "walletConnecting": "Connecting Wallet",
-      "walletConnectingDesc": "Attempting to connect MetaMask wallet.",
-      "walletRequired": "Wallet Required",
-      "walletRequiredDesc": "Please connect your wallet first to participate in SHO.",
-      "minAmount": "Below Minimum Amount",
-      "minAmountDesc": "You must participate with at least $100.",
-      "maxAmount": "Exceeds Maximum Amount",
-      "maxAmountDescTemplate": "Exceeds {tier} tier maximum allocation of ${max}.",
-      "shoComplete": "SHO Participation Complete!",
-      "shoCompleteDescTemplate": "{tokens} TBURN tokens purchased successfully.",
-      "stakingRequired": "Wallet Required",
-      "stakingRequiredDesc": "Please connect your wallet first to stake DAO tokens.",
-      "stakingPage": "Going to Staking Page",
-      "stakingPageDesc": "Navigating to staking page to increase DAO Power.",
-      "socialOpen": "Opening",
-      "socialOpenDesc": "Navigating to page.",
-      "menuComingSoon": "Menu",
-      "menuComingSoonDesc": "feature coming soon."
+      "walletDisconnected": "钱包已断开",
+      "walletDisconnectedDesc": "钱包已成功断开连接。",
+      "walletConnecting": "连接钱包中",
+      "walletConnectingDesc": "正在尝试连接 MetaMask 钱包。",
+      "walletRequired": "需要连接钱包",
+      "walletRequiredDesc": "请先连接钱包以参与 SHO。",
+      "minAmount": "低于最低金额",
+      "minAmountDesc": "您必须至少参与 $100。",
+      "maxAmount": "超过最高金额",
+      "maxAmountDescTemplate": "超过{tier}等级最大额度 ${max}。",
+      "shoComplete": "SHO 参与完成！",
+      "shoCompleteDescTemplate": "{tokens} TBURN 代币购买成功。",
+      "stakingRequired": "需要连接钱包",
+      "stakingRequiredDesc": "请先连接钱包以质押 DAO 代币。",
+      "stakingPage": "前往质押页面",
+      "stakingPageDesc": "导航到质押页面以增加 DAO 算力。",
+      "socialOpen": "打开",
+      "socialOpenDesc": "导航到页面。",
+      "menuComingSoon": "菜单",
+      "menuComingSoonDesc": "功能即将推出。"
     }
   }
 }
