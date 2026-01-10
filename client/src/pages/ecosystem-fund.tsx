@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "wouter";
 import { useQuery } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
 import { TBurnLogo } from "@/components/tburn-logo";
 import { useWeb3 } from "@/lib/web3-context";
 import { useToast } from "@/hooks/use-toast";
@@ -21,6 +22,7 @@ interface EcosystemFundStatsResponse {
 }
 
 export default function EcosystemFundPage() {
+  const { t } = useTranslation();
   const [activeFaq, setActiveFaq] = useState<string | null>("faq-1");
   const { isConnected, address, connect, disconnect, formatAddress } = useWeb3();
 
@@ -42,14 +44,14 @@ export default function EcosystemFundPage() {
     if (isConnected) {
       disconnect();
       toast({
-        title: "지갑 연결 해제",
-        description: "지갑 연결이 해제되었습니다.",
+        title: t('tokenPrograms.ecosystemFund.wallet.disconnected'),
+        description: t('tokenPrograms.ecosystemFund.wallet.disconnectedDesc'),
       });
     } else {
       await connect("metamask");
       toast({
-        title: "지갑 연결됨",
-        description: "MetaMask 지갑이 연결되었습니다.",
+        title: t('tokenPrograms.ecosystemFund.wallet.connected'),
+        description: t('tokenPrograms.ecosystemFund.wallet.connectedDesc'),
       });
     }
   };
@@ -57,23 +59,23 @@ export default function EcosystemFundPage() {
   const handleApplyGrant = (grantId: string, grantTitle: string) => {
     if (!isConnected) {
       toast({
-        title: "지갑 연결 필요",
-        description: "그랜트 신청을 위해 먼저 지갑을 연결해주세요.",
+        title: t('tokenPrograms.ecosystemFund.wallet.required'),
+        description: t('tokenPrograms.ecosystemFund.wallet.requiredDesc'),
         variant: "destructive",
       });
       return;
     }
     toast({
-      title: `${grantTitle} 신청 완료`,
-      description: `${grantTitle} 그랜트 신청이 접수되었습니다. 심사 결과를 이메일로 알려드립니다.`,
+      title: t('tokenPrograms.ecosystemFund.grants.applicationComplete', { title: grantTitle }),
+      description: t('tokenPrograms.ecosystemFund.grants.applicationSubmitted', { title: grantTitle }),
     });
   };
 
   const handleShareSocial = (platform: string, url: string) => {
     window.open(url, '_blank');
     toast({
-      title: `${platform} 열기`,
-      description: `${platform} 페이지가 새 창에서 열렸습니다.`,
+      title: t('tokenPrograms.ecosystemFund.social.opening', { platform }),
+      description: t('tokenPrograms.ecosystemFund.social.openedInNewTab', { platform }),
     });
   };
 
@@ -82,39 +84,39 @@ export default function EcosystemFundPage() {
   };
 
   const distributions = [
-    { id: "grant", icon: "💻", name: "개발자 그랜트", amount: "2.8억", percent: "40%" },
-    { id: "incubator", icon: "🚀", name: "dApp 인큐베이터", amount: "1.4억", percent: "20%" },
-    { id: "hackathon", icon: "🏆", name: "해커톤 & 대회", amount: "0.7억", percent: "10%" },
-    { id: "partnership", icon: "🤝", name: "파트너십 지원", amount: "1.4억", percent: "20%" },
-    { id: "research", icon: "🔬", name: "연구 & 개발", amount: "0.7억", percent: "10%" },
+    { id: "grant", icon: "💻", nameKey: "distributions.grant", amount: "280M", percent: "40%" },
+    { id: "incubator", icon: "🚀", nameKey: "distributions.incubator", amount: "140M", percent: "20%" },
+    { id: "hackathon", icon: "🏆", nameKey: "distributions.hackathon", amount: "70M", percent: "10%" },
+    { id: "partnership", icon: "🤝", nameKey: "distributions.partnership", amount: "140M", percent: "20%" },
+    { id: "research", icon: "🔬", nameKey: "distributions.research", amount: "70M", percent: "10%" },
   ];
 
   const grantPrograms = [
-    { id: "builder", icon: "🛠️", title: "Builder Grant", subtitle: "초기 개발자를 위한 지원금", amount: "최대 5만", range: "1,000~50,000 TBURN", featured: false, features: ["MVP 개발 지원", "기술 멘토링", "테스트넷 접근", "커뮤니티 노출"], stats: { approved: "156", pending: "24" } },
-    { id: "growth", icon: "📈", title: "Growth Grant", subtitle: "성장 단계 프로젝트 지원", amount: "최대 20만", range: "50,000~200,000 TBURN", featured: true, features: ["확장 자금 지원", "마케팅 협업", "VC 소개 연계", "전략적 파트너십"], stats: { approved: "42", pending: "18" } },
-    { id: "research", icon: "🔬", title: "Research Grant", subtitle: "연구 및 혁신 프로젝트", amount: "최대 50만", range: "100,000~500,000 TBURN", featured: false, features: ["장기 연구 지원", "논문 출판 지원", "학술 협력", "특허 지원"], stats: { approved: "12", pending: "8" } },
+    { id: "builder", icon: "🛠️", title: "Builder Grant", subtitleKey: "grants.builder.subtitle", amountKey: "grants.builder.amount", range: "1,000~50,000 TBURN", featured: false, featuresKeys: ["grants.builder.feature1", "grants.builder.feature2", "grants.builder.feature3", "grants.builder.feature4"], stats: { approved: "156", pending: "24" } },
+    { id: "growth", icon: "📈", title: "Growth Grant", subtitleKey: "grants.growth.subtitle", amountKey: "grants.growth.amount", range: "50,000~200,000 TBURN", featured: true, featuresKeys: ["grants.growth.feature1", "grants.growth.feature2", "grants.growth.feature3", "grants.growth.feature4"], stats: { approved: "42", pending: "18" } },
+    { id: "research", icon: "🔬", title: "Research Grant", subtitleKey: "grants.research.subtitle", amountKey: "grants.research.amount", range: "100,000~500,000 TBURN", featured: false, featuresKeys: ["grants.research.feature1", "grants.research.feature2", "grants.research.feature3", "grants.research.feature4"], stats: { approved: "12", pending: "8" } },
   ];
 
   const processSteps = [
-    { icon: "📝", title: "신청서 제출", desc: "온라인 신청서 작성", duration: "1-2일" },
-    { icon: "🔍", title: "1차 심사", desc: "팀/기술 검토", duration: "1-2주" },
-    { icon: "💬", title: "인터뷰", desc: "팀 미팅 & Q&A", duration: "1주" },
-    { icon: "📊", title: "최종 심사", desc: "위원회 평가", duration: "1-2주" },
-    { icon: "✅", title: "승인 & 지급", desc: "계약 및 펀딩", duration: "1주" },
+    { icon: "📝", titleKey: "process.step1.title", descKey: "process.step1.desc", durationKey: "process.step1.duration" },
+    { icon: "🔍", titleKey: "process.step2.title", descKey: "process.step2.desc", durationKey: "process.step2.duration" },
+    { icon: "💬", titleKey: "process.step3.title", descKey: "process.step3.desc", durationKey: "process.step3.duration" },
+    { icon: "📊", titleKey: "process.step4.title", descKey: "process.step4.desc", durationKey: "process.step4.duration" },
+    { icon: "✅", titleKey: "process.step5.title", descKey: "process.step5.desc", durationKey: "process.step5.duration" },
   ];
 
   const incubatorBenefits = [
-    { icon: "💰", type: "funding", title: "시드 펀딩", desc: "최대 100,000 TBURN 초기 자금" },
-    { icon: "👨‍🏫", type: "mentoring", title: "전문 멘토링", desc: "업계 전문가 1:1 코칭" },
-    { icon: "🛠️", type: "tech", title: "기술 지원", desc: "개발 도구 및 인프라 제공" },
-    { icon: "🌐", type: "network", title: "네트워크 액세스", desc: "VC/파트너 네트워크 연결" },
-    { icon: "📢", type: "marketing", title: "마케팅 지원", desc: "공동 마케팅 및 PR" },
+    { icon: "💰", type: "funding", titleKey: "incubator.benefits.funding.title", descKey: "incubator.benefits.funding.desc" },
+    { icon: "👨‍🏫", type: "mentoring", titleKey: "incubator.benefits.mentoring.title", descKey: "incubator.benefits.mentoring.desc" },
+    { icon: "🛠️", type: "tech", titleKey: "incubator.benefits.tech.title", descKey: "incubator.benefits.tech.desc" },
+    { icon: "🌐", type: "network", titleKey: "incubator.benefits.network.title", descKey: "incubator.benefits.network.desc" },
+    { icon: "📢", type: "marketing", titleKey: "incubator.benefits.marketing.title", descKey: "incubator.benefits.marketing.desc" },
   ];
 
   const incubatorBatches = [
-    { name: "배치 #4", status: "recruiting", statusLabel: "모집중", info: "2025.02.01 ~ 2025.05.31 | 10팀 선발" },
-    { name: "배치 #5", status: "upcoming", statusLabel: "예정", info: "2025.06.01 ~ 2025.09.30 | 10팀 선발" },
-    { name: "배치 #3", status: "completed", statusLabel: "완료", info: "2024.10.01 ~ 2025.01.31 | 8팀 졸업" },
+    { name: "Batch #4", status: "recruiting", statusLabelKey: "incubator.status.recruiting", infoKey: "incubator.batch4.info" },
+    { name: "Batch #5", status: "upcoming", statusLabelKey: "incubator.status.upcoming", infoKey: "incubator.batch5.info" },
+    { name: "Batch #3", status: "completed", statusLabelKey: "incubator.status.completed", infoKey: "incubator.batch3.info" },
   ];
 
   const hackathonTracks = [
@@ -968,10 +970,10 @@ export default function EcosystemFundPage() {
             <div className="logo-text">TBURN<span>CHAIN</span></div>
           </Link>
           <nav className="nav-links">
-            <a href="#grants" onClick={(e) => { e.preventDefault(); scrollToSection('grants'); }} data-testid="nav-grants">그랜트</a>
-            <a href="#incubator" onClick={(e) => { e.preventDefault(); scrollToSection('incubator'); }} data-testid="nav-incubator">인큐베이터</a>
-            <a href="#hackathon" onClick={(e) => { e.preventDefault(); scrollToSection('hackathon'); }} data-testid="nav-hackathon">해커톤</a>
-            <a href="#portfolio" onClick={(e) => { e.preventDefault(); scrollToSection('portfolio'); }} data-testid="nav-portfolio">포트폴리오</a>
+            <a href="#grants" onClick={(e) => { e.preventDefault(); scrollToSection('grants'); }} data-testid="nav-grants">{t('tokenPrograms.ecosystemFund.nav.grants')}</a>
+            <a href="#incubator" onClick={(e) => { e.preventDefault(); scrollToSection('incubator'); }} data-testid="nav-incubator">{t('tokenPrograms.ecosystemFund.nav.incubator')}</a>
+            <a href="#hackathon" onClick={(e) => { e.preventDefault(); scrollToSection('hackathon'); }} data-testid="nav-hackathon">{t('tokenPrograms.ecosystemFund.nav.hackathon')}</a>
+            <a href="#portfolio" onClick={(e) => { e.preventDefault(); scrollToSection('portfolio'); }} data-testid="nav-portfolio">{t('tokenPrograms.ecosystemFund.nav.portfolio')}</a>
             <a href="#faq" onClick={(e) => { e.preventDefault(); scrollToSection('faq'); }} data-testid="nav-faq">FAQ</a>
           </nav>
           <div className="header-actions">
@@ -981,7 +983,7 @@ export default function EcosystemFundPage() {
               onClick={handleWalletClick}
               data-testid="button-connect-wallet"
             >
-              {isConnected ? formatAddress(address!) : "🔗 지갑 연결"}
+              {isConnected ? formatAddress(address!) : t('tokenPrograms.ecosystemFund.wallet.connect')}
             </button>
           </div>
         </div>
@@ -992,43 +994,42 @@ export default function EcosystemFundPage() {
         <div className="hero-bg"></div>
         <div className="hero-content">
           <div className="badge">
-            <span>🌱</span> ECOSYSTEM FUND - 생태계 성장을 위한 투자
+            <span>🌱</span> {t('tokenPrograms.ecosystemFund.hero.badge')}
           </div>
           <h1>
-            TBURN 생태계<br />
-            <span className="gradient-text">7억 TBURN</span> 펀드
+            {t('tokenPrograms.ecosystemFund.hero.title')}<br />
+            <span className="gradient-text">{t('tokenPrograms.ecosystemFund.hero.fundAmount')}</span> {t('tokenPrograms.ecosystemFund.hero.fund')}
           </h1>
           <p className="hero-subtitle">
-            개발자 그랜트, dApp 인큐베이션, 해커톤, 파트너십 지원으로
-            TBURN 생태계의 혁신적인 프로젝트를 지원합니다.
+            {t('tokenPrograms.ecosystemFund.hero.subtitle')}
           </p>
 
           <div className="fund-stats-banner" data-testid="fund-stats">
             {isLoading ? (
               <div className="fund-stat" data-testid="loading-indicator">
-                <div className="value" style={{ opacity: 0.5 }}>로딩중...</div>
+                <div className="value" style={{ opacity: 0.5 }}>{t('tokenPrograms.ecosystemFund.loading')}</div>
               </div>
             ) : (
               <>
                 <div className="fund-stat">
-                  <div className="value" data-testid="stat-fund-size">{stats?.totalFundSize || "7억"}</div>
-                  <div className="label">총 펀드 규모</div>
+                  <div className="value" data-testid="stat-fund-size">{stats?.totalFundSize || "700M"}</div>
+                  <div className="label">{t('tokenPrograms.ecosystemFund.stats.totalFundSize')}</div>
                 </div>
                 <div className="fund-stat">
                   <div className="value" data-testid="stat-total-projects">{stats?.totalProjects || 124}</div>
-                  <div className="label">지원 프로젝트</div>
+                  <div className="label">{t('tokenPrograms.ecosystemFund.stats.supportedProjects')}</div>
                 </div>
                 <div className="fund-stat">
                   <div className="value" data-testid="stat-allocated">{stats?.totalAllocated || "$175M+"}</div>
-                  <div className="label">총 투자 유치</div>
+                  <div className="label">{t('tokenPrograms.ecosystemFund.stats.totalInvestment')}</div>
                 </div>
                 <div className="fund-stat">
                   <div className="value" data-testid="stat-active-projects">{stats?.activeProjects || 32}</div>
-                  <div className="label">활성 dApp</div>
+                  <div className="label">{t('tokenPrograms.ecosystemFund.stats.activeDApps')}</div>
                 </div>
                 <div className="fund-stat">
                   <div className="value">85%</div>
-                  <div className="label">성공률</div>
+                  <div className="label">{t('tokenPrograms.ecosystemFund.stats.successRate')}</div>
                 </div>
               </>
             )}
@@ -1036,20 +1037,20 @@ export default function EcosystemFundPage() {
 
           <div className="stats-grid">
             <div className="stat-card" data-testid="stat-total-fund">
-              <div className="stat-value">7억</div>
-              <div className="stat-label">총 에코시스템 펀드</div>
+              <div className="stat-value">700M</div>
+              <div className="stat-label">{t('tokenPrograms.ecosystemFund.stats.totalEcosystemFund')}</div>
             </div>
             <div className="stat-card" data-testid="stat-grant">
-              <div className="stat-value">2.8억</div>
-              <div className="stat-label">개발자 그랜트</div>
+              <div className="stat-value">280M</div>
+              <div className="stat-label">{t('tokenPrograms.ecosystemFund.stats.developerGrant')}</div>
             </div>
             <div className="stat-card" data-testid="stat-incubator">
-              <div className="stat-value">1.4억</div>
-              <div className="stat-label">인큐베이터 펀드</div>
+              <div className="stat-value">140M</div>
+              <div className="stat-label">{t('tokenPrograms.ecosystemFund.stats.incubatorFund')}</div>
             </div>
             <div className="stat-card" data-testid="stat-hackathon">
               <div className="stat-value">$100K</div>
-              <div className="stat-label">해커톤 상금</div>
+              <div className="stat-label">{t('tokenPrograms.ecosystemFund.stats.hackathonPrize')}</div>
             </div>
           </div>
 
@@ -1057,16 +1058,16 @@ export default function EcosystemFundPage() {
             <button 
               className="btn-primary" 
               data-testid="button-apply-grant"
-              onClick={() => { scrollToSection('grants'); toast({ title: "그랜트 프로그램", description: "자신에게 맞는 그랜트 프로그램을 선택하세요." }); }}
+              onClick={() => { scrollToSection('grants'); toast({ title: t('tokenPrograms.ecosystemFund.cta.grantProgram'), description: t('tokenPrograms.ecosystemFund.cta.selectProgram') }); }}
             >
-              그랜트 신청하기
+              {t('tokenPrograms.ecosystemFund.cta.applyForGrant')}
             </button>
             <button 
               className="btn-secondary"
               data-testid="button-view-programs"
-              onClick={() => { scrollToSection('incubator'); toast({ title: "인큐베이터 프로그램", description: "4개월 집중 육성 프로그램을 확인하세요." }); }}
+              onClick={() => { scrollToSection('incubator'); toast({ title: t('tokenPrograms.ecosystemFund.cta.incubatorProgram'), description: t('tokenPrograms.ecosystemFund.cta.checkProgram') }); }}
             >
-              프로그램 안내
+              {t('tokenPrograms.ecosystemFund.cta.viewPrograms')}
             </button>
           </div>
         </div>
@@ -1076,15 +1077,15 @@ export default function EcosystemFundPage() {
       <section className="section">
         <div className="section-header">
           <span className="section-badge">DISTRIBUTION</span>
-          <h2 className="section-title">펀드 배분</h2>
-          <p className="section-subtitle">7억 TBURN이 5가지 프로그램으로 배분됩니다</p>
+          <h2 className="section-title">{t('tokenPrograms.ecosystemFund.sections.distribution.title')}</h2>
+          <p className="section-subtitle">{t('tokenPrograms.ecosystemFund.sections.distribution.subtitle')}</p>
         </div>
 
         <div className="distribution-grid">
           {distributions.map(dist => (
             <div key={dist.id} className={`dist-card ${dist.id}`} data-testid={`dist-${dist.id}`}>
               <div className="dist-icon">{dist.icon}</div>
-              <div className="dist-name">{dist.name}</div>
+              <div className="dist-name">{t(`tokenPrograms.ecosystemFund.${dist.nameKey}`)}</div>
               <div className="dist-amount">{dist.amount}</div>
               <div className="dist-percent">{dist.percent}</div>
             </div>
@@ -1096,8 +1097,8 @@ export default function EcosystemFundPage() {
       <section className="section" id="grants" style={{ background: 'rgba(255,255,255,0.02)' }}>
         <div className="section-header">
           <span className="section-badge">GRANTS</span>
-          <h2 className="section-title">개발자 그랜트 프로그램</h2>
-          <p className="section-subtitle">단계별 맞춤형 지원 프로그램</p>
+          <h2 className="section-title">{t('tokenPrograms.ecosystemFund.sections.grants.title')}</h2>
+          <p className="section-subtitle">{t('tokenPrograms.ecosystemFund.sections.grants.subtitle')}</p>
         </div>
 
         <div className="grant-programs-grid">
@@ -1106,27 +1107,27 @@ export default function EcosystemFundPage() {
               <div className={`grant-header ${grant.id}`}>
                 <div className="grant-icon">{grant.icon}</div>
                 <h3 className="grant-title">{grant.title}</h3>
-                <p className="grant-subtitle">{grant.subtitle}</p>
+                <p className="grant-subtitle">{t(`tokenPrograms.ecosystemFund.${grant.subtitleKey}`)}</p>
               </div>
               <div className="grant-content">
                 <div className="grant-amount">
-                  <div className="grant-amount-label">지원 금액</div>
-                  <div className="grant-amount-value">{grant.amount} TBURN</div>
+                  <div className="grant-amount-label">{t('tokenPrograms.ecosystemFund.grants.fundingAmount')}</div>
+                  <div className="grant-amount-value">{t(`tokenPrograms.ecosystemFund.${grant.amountKey}`)} TBURN</div>
                   <div className="grant-amount-range">{grant.range}</div>
                 </div>
                 <ul className="grant-features">
-                  {grant.features.map((feature, idx) => (
-                    <li key={idx}>{feature}</li>
+                  {grant.featuresKeys.map((featureKey, idx) => (
+                    <li key={idx}>{t(`tokenPrograms.ecosystemFund.${featureKey}`)}</li>
                   ))}
                 </ul>
                 <div className="grant-stats">
                   <div className="grant-stat-item">
                     <div className="value">{grant.stats.approved}</div>
-                    <div className="label">승인됨</div>
+                    <div className="label">{t('tokenPrograms.ecosystemFund.grants.approved')}</div>
                   </div>
                   <div className="grant-stat-item">
                     <div className="value">{grant.stats.pending}</div>
-                    <div className="label">심사중</div>
+                    <div className="label">{t('tokenPrograms.ecosystemFund.grants.pending')}</div>
                   </div>
                 </div>
                 <button 
@@ -1134,7 +1135,7 @@ export default function EcosystemFundPage() {
                   onClick={() => handleApplyGrant(grant.id, grant.title)}
                   data-testid={`button-apply-${grant.id}`}
                 >
-                  {isConnected ? '신청하기' : '지갑 연결'}
+                  {isConnected ? t('tokenPrograms.ecosystemFund.grants.apply') : t('tokenPrograms.ecosystemFund.wallet.connectWallet')}
                 </button>
               </div>
             </div>
@@ -1146,8 +1147,8 @@ export default function EcosystemFundPage() {
       <section className="section">
         <div className="section-header">
           <span className="section-badge">PROCESS</span>
-          <h2 className="section-title">그랜트 신청 프로세스</h2>
-          <p className="section-subtitle">약 4~6주 소요되는 심사 과정</p>
+          <h2 className="section-title">{t('tokenPrograms.ecosystemFund.sections.process.title')}</h2>
+          <p className="section-subtitle">{t('tokenPrograms.ecosystemFund.sections.process.subtitle')}</p>
         </div>
 
         <div className="process-container">
@@ -1155,9 +1156,9 @@ export default function EcosystemFundPage() {
             {processSteps.map((step, idx) => (
               <div key={idx} className="process-item">
                 <div className="process-dot">{step.icon}</div>
-                <div className="process-title">{step.title}</div>
-                <div className="process-desc">{step.desc}</div>
-                <div className="process-duration">{step.duration}</div>
+                <div className="process-title">{t(`tokenPrograms.ecosystemFund.${step.titleKey}`)}</div>
+                <div className="process-desc">{t(`tokenPrograms.ecosystemFund.${step.descKey}`)}</div>
+                <div className="process-duration">{t(`tokenPrograms.ecosystemFund.${step.durationKey}`)}</div>
               </div>
             ))}
           </div>
@@ -1168,20 +1169,20 @@ export default function EcosystemFundPage() {
       <section className="section" id="incubator" style={{ background: 'rgba(255,255,255,0.02)' }}>
         <div className="section-header">
           <span className="section-badge">INCUBATOR</span>
-          <h2 className="section-title">dApp 인큐베이터</h2>
-          <p className="section-subtitle">4개월 집중 육성 프로그램</p>
+          <h2 className="section-title">{t('tokenPrograms.ecosystemFund.sections.incubator.title')}</h2>
+          <p className="section-subtitle">{t('tokenPrograms.ecosystemFund.sections.incubator.subtitle')}</p>
         </div>
 
         <div className="incubator-container">
           <div className="incubator-card">
-            <h3>🎯 인큐베이터 혜택</h3>
+            <h3>{t('tokenPrograms.ecosystemFund.incubator.benefitsTitle')}</h3>
             <div className="incubator-benefits">
               {incubatorBenefits.map((benefit, idx) => (
                 <div key={idx} className="benefit-item">
                   <div className={`benefit-icon ${benefit.type}`}>{benefit.icon}</div>
                   <div className="benefit-content">
-                    <h4>{benefit.title}</h4>
-                    <p>{benefit.desc}</p>
+                    <h4>{t(`tokenPrograms.ecosystemFund.${benefit.titleKey}`)}</h4>
+                    <p>{t(`tokenPrograms.ecosystemFund.${benefit.descKey}`)}</p>
                   </div>
                 </div>
               ))}
@@ -1189,15 +1190,15 @@ export default function EcosystemFundPage() {
           </div>
 
           <div className="incubator-card">
-            <h3>📅 배치 일정</h3>
+            <h3>{t('tokenPrograms.ecosystemFund.incubator.batchSchedule')}</h3>
             <div className="incubator-batch">
               {incubatorBatches.map((batch, idx) => (
                 <div key={idx} className={`batch-item ${batch.status === 'recruiting' ? 'active' : batch.status}`}>
                   <div className="batch-header">
                     <span className="batch-name">{batch.name}</span>
-                    <span className={`batch-status ${batch.status}`}>{batch.statusLabel}</span>
+                    <span className={`batch-status ${batch.status}`}>{t(`tokenPrograms.ecosystemFund.${batch.statusLabelKey}`)}</span>
                   </div>
-                  <div className="batch-info">{batch.info}</div>
+                  <div className="batch-info">{t(`tokenPrograms.ecosystemFund.${batch.infoKey}`)}</div>
                 </div>
               ))}
             </div>
@@ -1209,36 +1210,36 @@ export default function EcosystemFundPage() {
       <section className="section" id="hackathon">
         <div className="section-header">
           <span className="section-badge">HACKATHON</span>
-          <h2 className="section-title">해커톤 & 대회</h2>
-          <p className="section-subtitle">혁신적인 아이디어에 상금을 수여합니다</p>
+          <h2 className="section-title">{t('tokenPrograms.ecosystemFund.sections.hackathon.title')}</h2>
+          <p className="section-subtitle">{t('tokenPrograms.ecosystemFund.sections.hackathon.subtitle')}</p>
         </div>
 
         <div className="hackathon-card">
           <div className="hackathon-banner">
-            <h2 className="hackathon-title">🏆 TBURN Global Hackathon 2025</h2>
-            <p className="hackathon-subtitle">총 상금 $100,000 | 2025.03.01 ~ 2025.04.30</p>
+            <h2 className="hackathon-title">{t('tokenPrograms.ecosystemFund.hackathon.eventTitle')}</h2>
+            <p className="hackathon-subtitle">{t('tokenPrograms.ecosystemFund.hackathon.eventSubtitle')}</p>
           </div>
           <div className="hackathon-content">
             <div className="hackathon-stats">
               <div className="hackathon-stat">
                 <div className="icon">💰</div>
                 <div className="value">$100K</div>
-                <div className="label">총 상금</div>
+                <div className="label">{t('tokenPrograms.ecosystemFund.hackathon.totalPrize')}</div>
               </div>
               <div className="hackathon-stat">
                 <div className="icon">👥</div>
                 <div className="value">500+</div>
-                <div className="label">참가자</div>
+                <div className="label">{t('tokenPrograms.ecosystemFund.hackathon.participants')}</div>
               </div>
               <div className="hackathon-stat">
                 <div className="icon">🌍</div>
                 <div className="value">30+</div>
-                <div className="label">국가</div>
+                <div className="label">{t('tokenPrograms.ecosystemFund.hackathon.countries')}</div>
               </div>
               <div className="hackathon-stat">
                 <div className="icon">🏢</div>
                 <div className="value">15</div>
-                <div className="label">스폰서</div>
+                <div className="label">{t('tokenPrograms.ecosystemFund.hackathon.sponsors')}</div>
               </div>
             </div>
             <div className="hackathon-tracks">
@@ -1258,8 +1259,8 @@ export default function EcosystemFundPage() {
       <section className="section" id="portfolio" style={{ background: 'rgba(255,255,255,0.02)' }}>
         <div className="section-header">
           <span className="section-badge">PORTFOLIO</span>
-          <h2 className="section-title">투자 포트폴리오</h2>
-          <p className="section-subtitle">에코시스템 펀드로 지원된 프로젝트</p>
+          <h2 className="section-title">{t('tokenPrograms.ecosystemFund.sections.portfolio.title')}</h2>
+          <p className="section-subtitle">{t('tokenPrograms.ecosystemFund.sections.portfolio.subtitle')}</p>
         </div>
 
         <div className="portfolio-grid">
@@ -1269,7 +1270,7 @@ export default function EcosystemFundPage() {
               <div className="portfolio-name">{project.name}</div>
               <div className="portfolio-category">{project.category}</div>
               <div className="portfolio-funding">
-                <span className="label">펀딩</span>
+                <span className="label">{t('tokenPrograms.ecosystemFund.portfolio.funding')}</span>
                 <span className="value">{project.funding}</span>
               </div>
             </div>
@@ -1281,88 +1282,88 @@ export default function EcosystemFundPage() {
       <section className="section" id="faq">
         <div className="section-header">
           <span className="section-badge">FAQ</span>
-          <h2 className="section-title">자주 묻는 질문</h2>
-          <p className="section-subtitle">에코시스템 펀드에 대해 궁금한 점</p>
+          <h2 className="section-title">{t('tokenPrograms.ecosystemFund.sections.faq.title')}</h2>
+          <p className="section-subtitle">{t('tokenPrograms.ecosystemFund.sections.faq.subtitle')}</p>
         </div>
 
         <div className="faq-container">
           <div className={`faq-item ${activeFaq === 'faq-1' ? 'active' : ''}`} data-testid="faq-item-1">
             <div className="faq-question" onClick={() => toggleFaq('faq-1')}>
-              <h4>에코시스템 펀드 총 규모는 얼마인가요?</h4>
+              <h4>{t('tokenPrograms.ecosystemFund.faq.q1')}</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>에코시스템 펀드에 총 7억 TBURN(전체 공급량의 7%)이 배정되어 있습니다. 개발자 그랜트 40%(2.8억), dApp 인큐베이터 20%(1.4억), 해커톤 & 대회 10%(0.7억), 파트너십 지원 20%(1.4억), 연구 & 개발 10%(0.7억)으로 배분됩니다.</p>
+              <p>{t('tokenPrograms.ecosystemFund.faq.a1')}</p>
             </div>
           </div>
 
           <div className={`faq-item ${activeFaq === 'faq-2' ? 'active' : ''}`} data-testid="faq-item-2">
             <div className="faq-question" onClick={() => toggleFaq('faq-2')}>
-              <h4>그랜트 신청 자격은 어떻게 되나요?</h4>
+              <h4>{t('tokenPrograms.ecosystemFund.faq.q2')}</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>TBURN Chain 위에 구축되는 모든 프로젝트가 신청 가능합니다. 개인 개발자, 스타트업, 기존 프로젝트 모두 환영합니다. Builder Grant(최대 5만 TBURN), Growth Grant(최대 20만 TBURN), Research Grant(최대 50만 TBURN) 중 선택 가능합니다.</p>
+              <p>{t('tokenPrograms.ecosystemFund.faq.a2')}</p>
             </div>
           </div>
 
           <div className={`faq-item ${activeFaq === 'faq-3' ? 'active' : ''}`} data-testid="faq-item-3">
             <div className="faq-question" onClick={() => toggleFaq('faq-3')}>
-              <h4>그랜트 자금은 어떻게 지급되나요?</h4>
+              <h4>{t('tokenPrograms.ecosystemFund.faq.q3')}</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>마일스톤 기반으로 분할 지급됩니다. 일반적으로 승인 시 30%, 중간 검토 시 40%, 완료 시 30%가 지급됩니다. 심사 과정은 약 4~6주 소요되며, 신청서 제출 → 1차 심사 → 인터뷰 → 최종 심사 → 승인 & 지급 순서로 진행됩니다.</p>
+              <p>{t('tokenPrograms.ecosystemFund.faq.a3')}</p>
             </div>
           </div>
 
           <div className={`faq-item ${activeFaq === 'faq-4' ? 'active' : ''}`} data-testid="faq-item-4">
             <div className="faq-question" onClick={() => toggleFaq('faq-4')}>
-              <h4>인큐베이터 프로그램에 어떻게 참여하나요?</h4>
+              <h4>{t('tokenPrograms.ecosystemFund.faq.q4')}</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>각 배치 모집 기간에 온라인으로 신청하시면 됩니다. 서류 심사, 인터뷰를 거쳐 매 배치당 10팀이 선발됩니다. 4개월간 집중 멘토링과 함께 최대 10만 TBURN의 시드 펀딩, 전문 멘토링, 기술 지원, VC 네트워크 연결 등의 혜택을 받을 수 있습니다.</p>
+              <p>{t('tokenPrograms.ecosystemFund.faq.a4')}</p>
             </div>
           </div>
 
           <div className={`faq-item ${activeFaq === 'faq-5' ? 'active' : ''}`} data-testid="faq-item-5">
             <div className="faq-question" onClick={() => toggleFaq('faq-5')}>
-              <h4>해커톤 참가 방법은 무엇인가요?</h4>
+              <h4>{t('tokenPrograms.ecosystemFund.faq.q5')}</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>해커톤 페이지에서 등록 후 개인 또는 팀(최대 5명)으로 참가할 수 있습니다. GameFi($25,000), DeFi($25,000), NFT($15,000), AI+Blockchain($35,000) 트랙 중 선택하고 프로젝트를 제출하면 심사를 통해 수상자가 결정됩니다.</p>
+              <p>{t('tokenPrograms.ecosystemFund.faq.a5')}</p>
             </div>
           </div>
 
           <div className={`faq-item ${activeFaq === 'faq-6' ? 'active' : ''}`} data-testid="faq-item-6">
             <div className="faq-question" onClick={() => toggleFaq('faq-6')}>
-              <h4>포트폴리오 프로젝트의 성공률은 어떻게 되나요?</h4>
+              <h4>{t('tokenPrograms.ecosystemFund.faq.q6')}</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>에코시스템 펀드로 지원된 프로젝트의 성공률은 85%입니다. 현재 32개의 활성 dApp이 운영 중이며, TBurn Swap(DEX), TBurn Lend(Lending), ChainQuest(GameFi), CrossBridge(Bridge) 등 다양한 카테고리의 프로젝트가 성공적으로 운영되고 있습니다.</p>
+              <p>{t('tokenPrograms.ecosystemFund.faq.a6')}</p>
             </div>
           </div>
 
           <div className={`faq-item ${activeFaq === 'faq-7' ? 'active' : ''}`} data-testid="faq-item-7">
             <div className="faq-question" onClick={() => toggleFaq('faq-7')}>
-              <h4>파트너십 지원은 어떻게 받을 수 있나요?</h4>
+              <h4>{t('tokenPrograms.ecosystemFund.faq.q7')}</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>파트너십 지원 프로그램(1.4억 TBURN, 20%)은 전략적 파트너와의 협력을 위한 펀드입니다. 거래소 상장 지원, 크로스체인 통합, 기업 파트너십 등에 활용됩니다. 별도의 파트너십 신청 양식을 통해 문의하시면 됩니다.</p>
+              <p>{t('tokenPrograms.ecosystemFund.faq.a7')}</p>
             </div>
           </div>
 
           <div className={`faq-item ${activeFaq === 'faq-8' ? 'active' : ''}`} data-testid="faq-item-8">
             <div className="faq-question" onClick={() => toggleFaq('faq-8')}>
-              <h4>연구 그랜트는 어떤 프로젝트에 적합한가요?</h4>
+              <h4>{t('tokenPrograms.ecosystemFund.faq.q8')}</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>Research Grant(최대 50만 TBURN)는 장기 연구 프로젝트에 적합합니다. 블록체인 확장성 연구, 보안 프로토콜 개발, 학술 논문 출판, 특허 지원 등이 포함됩니다. 대학교, 연구소, 전문 연구 팀의 신청을 환영합니다.</p>
+              <p>{t('tokenPrograms.ecosystemFund.faq.a8')}</p>
             </div>
           </div>
         </div>
@@ -1371,10 +1372,9 @@ export default function EcosystemFundPage() {
       {/* CTA Section */}
       <section className="cta-section" id="cta">
         <div style={{ maxWidth: '800px', margin: '0 auto' }}>
-          <h2 style={{ fontSize: '2.5rem', fontWeight: 800, marginBottom: '1rem' }}>지금 시작하세요!</h2>
+          <h2 style={{ fontSize: '2.5rem', fontWeight: 800, marginBottom: '1rem' }}>{t('tokenPrograms.ecosystemFund.ctaSection.title')}</h2>
           <p style={{ color: 'rgba(255,255,255,0.8)', fontSize: '1.125rem', marginBottom: '2rem' }}>
-            TBURN 생태계의 일원이 되어<br />
-            7억 TBURN 펀드의 지원을 받으세요!
+            {t('tokenPrograms.ecosystemFund.ctaSection.subtitle')}
           </p>
           <button 
             className="connect-btn" 
@@ -1382,10 +1382,10 @@ export default function EcosystemFundPage() {
             data-testid="button-cta-apply"
             onClick={() => { 
               scrollToSection('grants'); 
-              toast({ title: "그랜트 신청", description: "자신에게 맞는 그랜트 프로그램을 선택하세요!" }); 
+              toast({ title: t('tokenPrograms.ecosystemFund.cta.grantProgram'), description: t('tokenPrograms.ecosystemFund.cta.selectProgram') }); 
             }}
           >
-            그랜트 신청하기
+            {t('tokenPrograms.ecosystemFund.cta.applyForGrant')}
           </button>
         </div>
       </section>
@@ -1395,7 +1395,7 @@ export default function EcosystemFundPage() {
         <div className="footer-content">
           <div className="footer-brand">
             <h3>TBURN<span>CHAIN</span></h3>
-            <p>AI의 지능, 블록체인의 투명성<br />THE FUTURE IS NOW</p>
+            <p>{t('tokenPrograms.ecosystemFund.footer.tagline')}</p>
             <div className="social-links">
               <a 
                 href="https://x.com/tburnchain" 
@@ -1422,40 +1422,40 @@ export default function EcosystemFundPage() {
           <div className="footer-links">
             <h4>Product</h4>
             <ul>
-              <li><a href="/" data-testid="footer-link-mainnet">메인넷</a></li>
-              <li><a href="/scan" data-testid="footer-link-explorer">익스플로러</a></li>
-              <li><a href="/app/bridge" data-testid="footer-link-bridge">브릿지</a></li>
-              <li><a href="/app/staking" data-testid="footer-link-staking">스테이킹</a></li>
+              <li><a href="/" data-testid="footer-link-mainnet">{t('tokenPrograms.ecosystemFund.footer.mainnet')}</a></li>
+              <li><a href="/scan" data-testid="footer-link-explorer">{t('tokenPrograms.ecosystemFund.footer.explorer')}</a></li>
+              <li><a href="/app/bridge" data-testid="footer-link-bridge">{t('tokenPrograms.ecosystemFund.footer.bridge')}</a></li>
+              <li><a href="/app/staking" data-testid="footer-link-staking">{t('tokenPrograms.ecosystemFund.footer.staking')}</a></li>
             </ul>
           </div>
           <div className="footer-links">
             <h4>Resources</h4>
             <ul>
-              <li><a href="/learn/whitepaper" data-testid="footer-link-whitepaper">백서</a></li>
-              <li><a href="/developers/docs" data-testid="footer-link-docs">문서</a></li>
+              <li><a href="/learn/whitepaper" data-testid="footer-link-whitepaper">{t('tokenPrograms.ecosystemFund.footer.whitepaper')}</a></li>
+              <li><a href="/developers/docs" data-testid="footer-link-docs">{t('tokenPrograms.ecosystemFund.footer.docs')}</a></li>
               <li><a 
                 href="https://github.com/tburnchain" 
                 onClick={(e) => { e.preventDefault(); handleShareSocial('GitHub', 'https://github.com/tburnchain'); }}
                 data-testid="footer-link-github-resources"
               >GitHub</a></li>
-              <li><a href="/security-audit" data-testid="footer-link-audit">감사 보고서</a></li>
+              <li><a href="/security-audit" data-testid="footer-link-audit">{t('tokenPrograms.ecosystemFund.footer.auditReport')}</a></li>
             </ul>
           </div>
           <div className="footer-links">
             <h4>Community</h4>
             <ul>
-              <li><a href="/community/news" data-testid="footer-link-blog">블로그</a></li>
-              <li><a href="/community-program" data-testid="footer-link-ambassador">앰배서더</a></li>
-              <li><a href="/ecosystem-fund" data-testid="footer-link-grants">그랜트</a></li>
-              <li><a href="/qna" data-testid="footer-link-support">고객지원</a></li>
+              <li><a href="/community/news" data-testid="footer-link-blog">{t('tokenPrograms.ecosystemFund.footer.blog')}</a></li>
+              <li><a href="/community-program" data-testid="footer-link-ambassador">{t('tokenPrograms.ecosystemFund.footer.ambassador')}</a></li>
+              <li><a href="/ecosystem-fund" data-testid="footer-link-grants">{t('tokenPrograms.ecosystemFund.footer.grants')}</a></li>
+              <li><a href="/qna" data-testid="footer-link-support">{t('tokenPrograms.ecosystemFund.footer.support')}</a></li>
             </ul>
           </div>
         </div>
         <div className="footer-bottom">
           <p>© 2025-2045 TBURN Foundation. All Rights Reserved.</p>
           <div style={{ display: 'flex', gap: '2rem' }}>
-            <a href="/legal/terms-of-service" style={{ color: 'var(--gray)', textDecoration: 'none' }} data-testid="footer-link-terms">이용약관</a>
-            <a href="/legal/privacy-policy" style={{ color: 'var(--gray)', textDecoration: 'none' }} data-testid="footer-link-privacy">개인정보처리방침</a>
+            <a href="/legal/terms-of-service" style={{ color: 'var(--gray)', textDecoration: 'none' }} data-testid="footer-link-terms">{t('tokenPrograms.ecosystemFund.footer.terms')}</a>
+            <a href="/legal/privacy-policy" style={{ color: 'var(--gray)', textDecoration: 'none' }} data-testid="footer-link-privacy">{t('tokenPrograms.ecosystemFund.footer.privacy')}</a>
           </div>
         </div>
       </footer>
