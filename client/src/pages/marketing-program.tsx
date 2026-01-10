@@ -5,6 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useWeb3 } from "@/lib/web3-context";
 import { useToast } from "@/hooks/use-toast";
 import { LanguageSelector } from "@/components/LanguageSelector";
+import { useTranslation } from "react-i18next";
 
 interface PartnershipStatsData {
   partnerships: {
@@ -42,6 +43,7 @@ interface PartnershipStatsResponse {
 }
 
 export default function MarketingProgramPage() {
+  const { t } = useTranslation();
   const { isConnected, address, connect, disconnect, formatAddress } = useWeb3();
   const [activeFaq, setActiveFaq] = useState<string | null>("faq-1");
   const { toast } = useToast();
@@ -65,107 +67,107 @@ export default function MarketingProgramPage() {
   const handleWalletClick = async () => {
     if (isConnected) {
       disconnect();
-      toast({ title: "지갑 연결 해제", description: "지갑이 연결 해제되었습니다." });
+      toast({ title: t('tokenPrograms.marketingProgram.wallet.disconnected'), description: t('tokenPrograms.marketingProgram.wallet.disconnectedDesc') });
     } else {
       await connect("metamask");
-      toast({ title: "지갑 연결", description: "지갑이 연결되었습니다." });
+      toast({ title: t('tokenPrograms.marketingProgram.wallet.connected'), description: t('tokenPrograms.marketingProgram.wallet.connectedDesc') });
     }
   };
 
   const handleJoinAmbassador = () => {
     scrollToSection('ambassador');
-    toast({ title: "앰배서더 프로그램", description: "앰배서더 티어를 확인하고 참여하세요!" });
+    toast({ title: t('tokenPrograms.marketingProgram.cta.ambassadorProgram'), description: t('tokenPrograms.marketingProgram.cta.ambassadorDesc') });
   };
 
   const handleViewGuide = () => {
     scrollToSection('programs');
-    toast({ title: "마케팅 가이드", description: "마케팅 프로그램 안내를 확인하세요." });
+    toast({ title: t('tokenPrograms.marketingProgram.cta.marketingGuide'), description: t('tokenPrograms.marketingProgram.cta.guideDesc') });
   };
 
   const handleApplyProgram = (programName: string) => {
     if (!isConnected) {
       toast({ 
-        title: "지갑 연결 필요", 
-        description: "프로그램 참여를 위해 먼저 지갑을 연결해주세요.",
+        title: t('tokenPrograms.marketingProgram.wallet.required'), 
+        description: t('tokenPrograms.marketingProgram.wallet.requiredDesc'),
         variant: "destructive"
       });
       return;
     }
     toast({ 
-      title: `${programName} 참여`, 
-      description: `${programName} 참여 신청이 접수되었습니다. 심사 후 안내드립니다.`
+      title: t('tokenPrograms.marketingProgram.cta.programApply', { programName }), 
+      description: t('tokenPrograms.marketingProgram.cta.programApplyDesc', { programName })
     });
   };
 
   const handleJoinCampaign = (campaignTitle: string, status: string) => {
     if (!isConnected) {
       toast({ 
-        title: "지갑 연결 필요", 
-        description: "캠페인 참여를 위해 먼저 지갑을 연결해주세요.",
+        title: t('tokenPrograms.marketingProgram.wallet.required'), 
+        description: t('tokenPrograms.marketingProgram.wallet.campaignRequiredDesc'),
         variant: "destructive"
       });
       return;
     }
     if (status === 'upcoming') {
       toast({ 
-        title: "캠페인 예정", 
-        description: "이 캠페인은 곧 시작됩니다. 알림을 설정하세요!"
+        title: t('tokenPrograms.marketingProgram.campaigns.upcoming'), 
+        description: t('tokenPrograms.marketingProgram.campaigns.upcomingDesc')
       });
       return;
     }
     toast({ 
-      title: "캠페인 참여", 
-      description: `"${campaignTitle}" 캠페인에 참여했습니다!`
+      title: t('tokenPrograms.marketingProgram.campaigns.joined'), 
+      description: t('tokenPrograms.marketingProgram.campaigns.joinedDesc', { campaignTitle })
     });
   };
 
   const handleShareSocial = (platform: string, url: string) => {
     window.open(url, '_blank');
-    toast({ title: `${platform}`, description: `${platform} 페이지로 이동합니다.` });
+    toast({ title: platform, description: t('tokenPrograms.marketingProgram.social.navigating', { platform }) });
   };
 
   const socialStats = [
-    { icon: "𝕏", value: "250K+", label: "Twitter 팔로워" },
-    { icon: "✈", value: "180K+", label: "Telegram 멤버" },
-    { icon: "💬", value: "120K+", label: "Discord 멤버" },
-    { icon: "📺", value: "85K+", label: "YouTube 구독자" },
-    { icon: "📱", value: "200K+", label: "TikTok 팔로워" },
+    { icon: "𝕏", value: "250K+", label: t('tokenPrograms.marketingProgram.socialStats.twitter') },
+    { icon: "✈", value: "180K+", label: t('tokenPrograms.marketingProgram.socialStats.telegram') },
+    { icon: "💬", value: "120K+", label: t('tokenPrograms.marketingProgram.socialStats.discord') },
+    { icon: "📺", value: "85K+", label: t('tokenPrograms.marketingProgram.socialStats.youtube') },
+    { icon: "📱", value: "200K+", label: t('tokenPrograms.marketingProgram.socialStats.tiktok') },
   ];
 
   const distributions = [
-    { id: "brand", icon: "🎨", name: "브랜드 마케팅", amount: "0.9억", percent: "30%" },
-    { id: "influencer", icon: "⭐", name: "인플루언서", amount: "0.75억", percent: "25%" },
-    { id: "creator", icon: "🎬", name: "컨텐츠 크리에이터", amount: "0.6억", percent: "20%" },
-    { id: "event", icon: "🎉", name: "이벤트 마케팅", amount: "0.45억", percent: "15%" },
-    { id: "pr", icon: "📰", name: "PR & 미디어", amount: "0.3억", percent: "10%" },
+    { id: "brand", icon: "🎨", name: t('tokenPrograms.marketingProgram.distributions.brand'), amount: "90M", percent: "30%" },
+    { id: "influencer", icon: "⭐", name: t('tokenPrograms.marketingProgram.distributions.influencer'), amount: "75M", percent: "25%" },
+    { id: "creator", icon: "🎬", name: t('tokenPrograms.marketingProgram.distributions.creator'), amount: "60M", percent: "20%" },
+    { id: "event", icon: "🎉", name: t('tokenPrograms.marketingProgram.distributions.event'), amount: "45M", percent: "15%" },
+    { id: "pr", icon: "📰", name: t('tokenPrograms.marketingProgram.distributions.pr'), amount: "30M", percent: "10%" },
   ];
 
   const programs = [
-    { id: "ambassador", icon: "👑", title: "앰배서더 프로그램", subtitle: "TBURN의 공식 대사가 되세요", rewards: [{ value: "최대 50만", label: "월간 보상" }, { value: "무제한", label: "레퍼럴 보상" }], features: ["공식 앰배서더 인증", "독점 이벤트 초대", "얼리 액세스 권한", "전용 마케팅 자료"], featured: true, badge: "HOT" },
-    { id: "influencer", icon: "🎯", title: "인플루언서 협업", subtitle: "크리에이터와 함께하는 성장", rewards: [{ value: "협업당 $500+", label: "캠페인 보상" }, { value: "10%", label: "매출 수수료" }], features: ["맞춤형 캠페인 설계", "마케팅 자료 제공", "성과 기반 보너스", "장기 파트너십 옵션"], featured: false, badge: "NEW" },
-    { id: "creator", icon: "🎬", title: "컨텐츠 크리에이터", subtitle: "영상, 아티클, 교육 컨텐츠", rewards: [{ value: "컨텐츠당 $100+", label: "기본 보상" }, { value: "품질 보너스", label: "추가 보상" }], features: ["다양한 컨텐츠 유형", "크리에이터 펀드 지원", "조회수 보너스", "월간 콘테스트"], featured: false, badge: null },
-    { id: "event", icon: "🎉", title: "이벤트 마케팅", subtitle: "온/오프라인 이벤트 참여", rewards: [{ value: "이벤트당 $200+", label: "참여 보상" }, { value: "특별 NFT", label: "이벤트 보상" }], features: ["밋업 주최 지원", "컨퍼런스 참가", "온라인 AMA", "커뮤니티 이벤트"], featured: false, badge: null },
+    { id: "ambassador", icon: "👑", title: t('tokenPrograms.marketingProgram.programs.ambassador.title'), subtitle: t('tokenPrograms.marketingProgram.programs.ambassador.subtitle'), rewards: [{ value: t('tokenPrograms.marketingProgram.programs.ambassador.rewardValue1'), label: t('tokenPrograms.marketingProgram.programs.ambassador.rewardLabel1') }, { value: t('tokenPrograms.marketingProgram.programs.ambassador.rewardValue2'), label: t('tokenPrograms.marketingProgram.programs.ambassador.rewardLabel2') }], features: [t('tokenPrograms.marketingProgram.programs.ambassador.feature1'), t('tokenPrograms.marketingProgram.programs.ambassador.feature2'), t('tokenPrograms.marketingProgram.programs.ambassador.feature3'), t('tokenPrograms.marketingProgram.programs.ambassador.feature4')], featured: true, badge: "HOT" },
+    { id: "influencer", icon: "🎯", title: t('tokenPrograms.marketingProgram.programs.influencer.title'), subtitle: t('tokenPrograms.marketingProgram.programs.influencer.subtitle'), rewards: [{ value: t('tokenPrograms.marketingProgram.programs.influencer.rewardValue1'), label: t('tokenPrograms.marketingProgram.programs.influencer.rewardLabel1') }, { value: t('tokenPrograms.marketingProgram.programs.influencer.rewardValue2'), label: t('tokenPrograms.marketingProgram.programs.influencer.rewardLabel2') }], features: [t('tokenPrograms.marketingProgram.programs.influencer.feature1'), t('tokenPrograms.marketingProgram.programs.influencer.feature2'), t('tokenPrograms.marketingProgram.programs.influencer.feature3'), t('tokenPrograms.marketingProgram.programs.influencer.feature4')], featured: false, badge: "NEW" },
+    { id: "creator", icon: "🎬", title: t('tokenPrograms.marketingProgram.programs.creator.title'), subtitle: t('tokenPrograms.marketingProgram.programs.creator.subtitle'), rewards: [{ value: t('tokenPrograms.marketingProgram.programs.creator.rewardValue1'), label: t('tokenPrograms.marketingProgram.programs.creator.rewardLabel1') }, { value: t('tokenPrograms.marketingProgram.programs.creator.rewardValue2'), label: t('tokenPrograms.marketingProgram.programs.creator.rewardLabel2') }], features: [t('tokenPrograms.marketingProgram.programs.creator.feature1'), t('tokenPrograms.marketingProgram.programs.creator.feature2'), t('tokenPrograms.marketingProgram.programs.creator.feature3'), t('tokenPrograms.marketingProgram.programs.creator.feature4')], featured: false, badge: null },
+    { id: "event", icon: "🎉", title: t('tokenPrograms.marketingProgram.programs.event.title'), subtitle: t('tokenPrograms.marketingProgram.programs.event.subtitle'), rewards: [{ value: t('tokenPrograms.marketingProgram.programs.event.rewardValue1'), label: t('tokenPrograms.marketingProgram.programs.event.rewardLabel1') }, { value: t('tokenPrograms.marketingProgram.programs.event.rewardValue2'), label: t('tokenPrograms.marketingProgram.programs.event.rewardLabel2') }], features: [t('tokenPrograms.marketingProgram.programs.event.feature1'), t('tokenPrograms.marketingProgram.programs.event.feature2'), t('tokenPrograms.marketingProgram.programs.event.feature3'), t('tokenPrograms.marketingProgram.programs.event.feature4')], featured: false, badge: null },
   ];
 
   const ambassadorTiers = [
-    { id: "legend", icon: "🏆", tier: "Legend", requirement: "500+ 레퍼럴", reward: "월 50만", perks: ["전용 멘토 배정", "오프라인 밋업 초대", "NFT 에어드랍", "거버넌스 투표권"] },
-    { id: "elite", icon: "💎", tier: "Elite", requirement: "200+ 레퍼럴", reward: "월 20만", perks: ["프리미엄 뱃지", "우선 지원", "베타 테스트 권한", "월간 콜 참여"] },
-    { id: "rising", icon: "🚀", tier: "Rising", requirement: "50+ 레퍼럴", reward: "월 5만", perks: ["공식 인증", "Discord 역할", "마케팅 자료", "레퍼럴 링크"] },
-    { id: "starter", icon: "⭐", tier: "Starter", requirement: "10+ 레퍼럴", reward: "월 1만", perks: ["스타터 뱃지", "기본 자료", "커뮤니티 접근", "튜토리얼"] },
+    { id: "legend", icon: "🏆", tier: "Legend", requirement: t('tokenPrograms.marketingProgram.ambassadorTiers.legend.requirement'), reward: t('tokenPrograms.marketingProgram.ambassadorTiers.legend.reward'), perks: [t('tokenPrograms.marketingProgram.ambassadorTiers.legend.perk1'), t('tokenPrograms.marketingProgram.ambassadorTiers.legend.perk2'), t('tokenPrograms.marketingProgram.ambassadorTiers.legend.perk3'), t('tokenPrograms.marketingProgram.ambassadorTiers.legend.perk4')] },
+    { id: "elite", icon: "💎", tier: "Elite", requirement: t('tokenPrograms.marketingProgram.ambassadorTiers.elite.requirement'), reward: t('tokenPrograms.marketingProgram.ambassadorTiers.elite.reward'), perks: [t('tokenPrograms.marketingProgram.ambassadorTiers.elite.perk1'), t('tokenPrograms.marketingProgram.ambassadorTiers.elite.perk2'), t('tokenPrograms.marketingProgram.ambassadorTiers.elite.perk3'), t('tokenPrograms.marketingProgram.ambassadorTiers.elite.perk4')] },
+    { id: "rising", icon: "🚀", tier: "Rising", requirement: t('tokenPrograms.marketingProgram.ambassadorTiers.rising.requirement'), reward: t('tokenPrograms.marketingProgram.ambassadorTiers.rising.reward'), perks: [t('tokenPrograms.marketingProgram.ambassadorTiers.rising.perk1'), t('tokenPrograms.marketingProgram.ambassadorTiers.rising.perk2'), t('tokenPrograms.marketingProgram.ambassadorTiers.rising.perk3'), t('tokenPrograms.marketingProgram.ambassadorTiers.rising.perk4')] },
+    { id: "starter", icon: "⭐", tier: "Starter", requirement: t('tokenPrograms.marketingProgram.ambassadorTiers.starter.requirement'), reward: t('tokenPrograms.marketingProgram.ambassadorTiers.starter.reward'), perks: [t('tokenPrograms.marketingProgram.ambassadorTiers.starter.perk1'), t('tokenPrograms.marketingProgram.ambassadorTiers.starter.perk2'), t('tokenPrograms.marketingProgram.ambassadorTiers.starter.perk3'), t('tokenPrograms.marketingProgram.ambassadorTiers.starter.perk4')] },
   ];
 
   const contentTypes = [
-    { icon: "📹", title: "비디오", desc: "유튜브/틱톡 영상", reward: "$100~500" },
-    { icon: "📝", title: "아티클", desc: "블로그/미디엄 글", reward: "$50~200" },
-    { icon: "🎨", title: "그래픽", desc: "인포그래픽/밈", reward: "$30~100" },
-    { icon: "🎓", title: "튜토리얼", desc: "교육 컨텐츠", reward: "$150~400" },
+    { icon: "📹", title: t('tokenPrograms.marketingProgram.contentTypes.video.title'), desc: t('tokenPrograms.marketingProgram.contentTypes.video.desc'), reward: "$100~500" },
+    { icon: "📝", title: t('tokenPrograms.marketingProgram.contentTypes.article.title'), desc: t('tokenPrograms.marketingProgram.contentTypes.article.desc'), reward: "$50~200" },
+    { icon: "🎨", title: t('tokenPrograms.marketingProgram.contentTypes.graphic.title'), desc: t('tokenPrograms.marketingProgram.contentTypes.graphic.desc'), reward: "$30~100" },
+    { icon: "🎓", title: t('tokenPrograms.marketingProgram.contentTypes.tutorial.title'), desc: t('tokenPrograms.marketingProgram.contentTypes.tutorial.desc'), reward: "$150~400" },
   ];
 
   const campaigns = [
-    { icon: "𝕏", type: "twitter", title: "#TBURNChain 트윗 챌린지", desc: "TBURN을 소개하는 트윗 작성", reward: "5,000", participants: "1,234", status: "active", statusLabel: "진행중" },
-    { icon: "📺", type: "youtube", title: "TBURN 리뷰 영상", desc: "TBURN Chain 분석 영상 제작", reward: "50,000", participants: "89", status: "active", statusLabel: "진행중" },
-    { icon: "📱", type: "tiktok", title: "TikTok 쇼트폼 챌린지", desc: "15~60초 TBURN 소개 영상", reward: "10,000", participants: "567", status: "ending", statusLabel: "마감임박" },
-    { icon: "📰", type: "article", title: "TBURN 딥다이브 아티클", desc: "기술/토크노믹스 분석글 작성", reward: "20,000", participants: "156", status: "upcoming", statusLabel: "예정" },
+    { icon: "𝕏", type: "twitter", title: t('tokenPrograms.marketingProgram.campaignList.twitter.title'), desc: t('tokenPrograms.marketingProgram.campaignList.twitter.desc'), reward: "5,000", participants: "1,234", status: "active", statusLabel: t('tokenPrograms.marketingProgram.campaigns.statusActive') },
+    { icon: "📺", type: "youtube", title: t('tokenPrograms.marketingProgram.campaignList.youtube.title'), desc: t('tokenPrograms.marketingProgram.campaignList.youtube.desc'), reward: "50,000", participants: "89", status: "active", statusLabel: t('tokenPrograms.marketingProgram.campaigns.statusActive') },
+    { icon: "📱", type: "tiktok", title: t('tokenPrograms.marketingProgram.campaignList.tiktok.title'), desc: t('tokenPrograms.marketingProgram.campaignList.tiktok.desc'), reward: "10,000", participants: "567", status: "ending", statusLabel: t('tokenPrograms.marketingProgram.campaigns.statusEnding') },
+    { icon: "📰", type: "article", title: t('tokenPrograms.marketingProgram.campaignList.article.title'), desc: t('tokenPrograms.marketingProgram.campaignList.article.desc'), reward: "20,000", participants: "156", status: "upcoming", statusLabel: t('tokenPrograms.marketingProgram.campaigns.statusUpcoming') },
   ];
 
   const leaderboard = [
@@ -1009,22 +1011,22 @@ export default function MarketingProgramPage() {
               href="#programs" 
               onClick={(e) => { e.preventDefault(); scrollToSection('programs'); }}
               data-testid="nav-programs"
-            >프로그램</a>
+            >{t('tokenPrograms.marketingProgram.nav.programs')}</a>
             <a 
               href="#ambassador" 
               onClick={(e) => { e.preventDefault(); scrollToSection('ambassador'); }}
               data-testid="nav-ambassador"
-            >앰배서더</a>
+            >{t('tokenPrograms.marketingProgram.nav.ambassador')}</a>
             <a 
               href="#campaigns" 
               onClick={(e) => { e.preventDefault(); scrollToSection('campaigns'); }}
               data-testid="nav-campaigns"
-            >캠페인</a>
+            >{t('tokenPrograms.marketingProgram.nav.campaigns')}</a>
             <a 
               href="#leaderboard" 
               onClick={(e) => { e.preventDefault(); scrollToSection('leaderboard'); }}
               data-testid="nav-leaderboard"
-            >리더보드</a>
+            >{t('tokenPrograms.marketingProgram.nav.leaderboard')}</a>
             <a 
               href="#faq" 
               onClick={(e) => { e.preventDefault(); scrollToSection('faq'); }}
@@ -1038,7 +1040,7 @@ export default function MarketingProgramPage() {
               data-testid="button-connect-wallet"
               onClick={handleWalletClick}
             >
-              {isConnected ? `${formatAddress(address || '')}` : '지갑 연결'}
+              {isConnected ? `${formatAddress(address || '')}` : t('tokenPrograms.marketingProgram.wallet.connect')}
             </button>
           </div>
         </div>
@@ -1049,15 +1051,14 @@ export default function MarketingProgramPage() {
         <div className="hero-bg"></div>
         <div className="hero-content">
           <div className="badge">
-            <span className="megaphone-icon">📢</span> MARKETING PROGRAM - 함께 알리는 TBURN
+            <span className="megaphone-icon">📢</span> {t('tokenPrograms.marketingProgram.hero.badge')}
           </div>
           <h1>
-            TBURN 마케팅 참여로<br />
-            <span className="gradient-text">3억 TBURN</span> 보상을 받으세요
+            {t('tokenPrograms.marketingProgram.hero.title')}<br />
+            <span className="gradient-text">{t('tokenPrograms.marketingProgram.hero.fundAmount')}</span> {t('tokenPrograms.marketingProgram.hero.incentive')}
           </h1>
           <p className="hero-subtitle">
-            앰배서더, 인플루언서, 컨텐츠 크리에이터, 이벤트 참여로
-            TBURN 생태계를 알리고 보상받으세요.
+            {t('tokenPrograms.marketingProgram.hero.subtitle')}
           </p>
 
           <div className="social-stats-banner" data-testid="social-stats">
@@ -1073,27 +1074,27 @@ export default function MarketingProgramPage() {
           <div className="stats-grid" data-testid="marketing-stats-grid">
             <div className="stat-card" data-testid="stat-total-marketing">
               <div className="stat-value">
-                {isLoadingStats ? '...' : marketingStats?.totalBudget ? `${(parseInt(marketingStats.totalBudget) / 1000000).toFixed(0)}M` : '3억'}
+                {isLoadingStats ? '...' : marketingStats?.totalBudget ? `${(parseInt(marketingStats.totalBudget) / 1000000).toFixed(0)}M` : '300M'}
               </div>
-              <div className="stat-label">총 마케팅 예산</div>
+              <div className="stat-label">{t('tokenPrograms.marketingProgram.stats.totalBudget')}</div>
             </div>
             <div className="stat-card" data-testid="stat-ambassadors">
               <div className="stat-value">
                 {isLoadingStats ? '...' : marketingStats?.conversions ? `${(marketingStats.conversions / 1000).toFixed(0)}K+` : '2,500+'}
               </div>
-              <div className="stat-label">활성 앰배서더</div>
+              <div className="stat-label">{t('tokenPrograms.marketingProgram.stats.activeAmbassadors')}</div>
             </div>
             <div className="stat-card" data-testid="stat-campaigns">
               <div className="stat-value">
                 {isLoadingStats ? '...' : `${marketingStats?.campaigns || 50}+`}
               </div>
-              <div className="stat-label">진행중 캠페인</div>
+              <div className="stat-label">{t('tokenPrograms.marketingProgram.stats.ongoingCampaigns')}</div>
             </div>
             <div className="stat-card" data-testid="stat-monthly-reward">
               <div className="stat-value">
-                {isLoadingStats ? '...' : `${marketingStats?.activeCampaigns || 5}개`}
+                {isLoadingStats ? '...' : `${marketingStats?.activeCampaigns || 5}`}
               </div>
-              <div className="stat-label">활성 캠페인</div>
+              <div className="stat-label">{t('tokenPrograms.marketingProgram.stats.activeCampaigns')}</div>
             </div>
           </div>
 
@@ -1103,14 +1104,14 @@ export default function MarketingProgramPage() {
               data-testid="button-join-ambassador"
               onClick={handleJoinAmbassador}
             >
-              앰배서더 신청하기
+              {t('tokenPrograms.marketingProgram.cta.joinAmbassador')}
             </button>
             <button 
               className="btn-secondary"
               data-testid="button-view-guide"
               onClick={handleViewGuide}
             >
-              마케팅 가이드
+              {t('tokenPrograms.marketingProgram.cta.viewGuide')}
             </button>
           </div>
         </div>
@@ -1120,8 +1121,8 @@ export default function MarketingProgramPage() {
       <section className="section">
         <div className="section-header">
           <span className="section-badge">DISTRIBUTION</span>
-          <h2 className="section-title">마케팅 예산 배분</h2>
-          <p className="section-subtitle">3억 TBURN이 5가지 마케팅 프로그램으로 배분됩니다</p>
+          <h2 className="section-title">{t('tokenPrograms.marketingProgram.sections.distribution.title')}</h2>
+          <p className="section-subtitle">{t('tokenPrograms.marketingProgram.sections.distribution.subtitle')}</p>
         </div>
 
         <div className="distribution-grid">
@@ -1140,8 +1141,8 @@ export default function MarketingProgramPage() {
       <section className="section" id="programs" style={{ background: 'rgba(255,255,255,0.02)' }}>
         <div className="section-header">
           <span className="section-badge">PROGRAMS</span>
-          <h2 className="section-title">마케팅 프로그램</h2>
-          <p className="section-subtitle">다양한 방식으로 TBURN을 알리세요</p>
+          <h2 className="section-title">{t('tokenPrograms.marketingProgram.sections.programs.title')}</h2>
+          <p className="section-subtitle">{t('tokenPrograms.marketingProgram.sections.programs.subtitle')}</p>
         </div>
 
         <div className="programs-grid">
@@ -1174,7 +1175,7 @@ export default function MarketingProgramPage() {
                   data-testid={`button-apply-${program.id}`}
                   onClick={() => handleApplyProgram(program.title)}
                 >
-                  참여하기
+                  {t('tokenPrograms.marketingProgram.cta.participate')}
                 </button>
               </div>
             </div>
@@ -1186,8 +1187,8 @@ export default function MarketingProgramPage() {
       <section className="section" id="ambassador">
         <div className="section-header">
           <span className="section-badge">AMBASSADOR</span>
-          <h2 className="section-title">앰배서더 티어</h2>
-          <p className="section-subtitle">활동량에 따른 등급별 혜택</p>
+          <h2 className="section-title">{t('tokenPrograms.marketingProgram.sections.ambassador.title')}</h2>
+          <p className="section-subtitle">{t('tokenPrograms.marketingProgram.sections.ambassador.subtitle')}</p>
         </div>
 
         <div className="ambassador-tiers">
@@ -1214,8 +1215,8 @@ export default function MarketingProgramPage() {
       <section className="section" style={{ background: 'rgba(255,255,255,0.02)' }}>
         <div className="section-header">
           <span className="section-badge">CONTENT</span>
-          <h2 className="section-title">컨텐츠 보상</h2>
-          <p className="section-subtitle">다양한 컨텐츠 유형별 보상</p>
+          <h2 className="section-title">{t('tokenPrograms.marketingProgram.sections.content.title')}</h2>
+          <p className="section-subtitle">{t('tokenPrograms.marketingProgram.sections.content.subtitle')}</p>
         </div>
 
         <div className="content-types-grid">
@@ -1234,13 +1235,13 @@ export default function MarketingProgramPage() {
       <section className="section" id="campaigns">
         <div className="section-header">
           <span className="section-badge">CAMPAIGNS</span>
-          <h2 className="section-title">진행중 캠페인</h2>
-          <p className="section-subtitle">참여하고 보상받으세요</p>
+          <h2 className="section-title">{t('tokenPrograms.marketingProgram.sections.campaigns.title')}</h2>
+          <p className="section-subtitle">{t('tokenPrograms.marketingProgram.sections.campaigns.subtitle')}</p>
         </div>
 
         <div className="campaigns-container">
           <div className="campaigns-header">
-            <h3>🎯 활성 캠페인</h3>
+            <h3>🎯 {t('tokenPrograms.marketingProgram.campaigns.activeCampaigns')}</h3>
           </div>
           <div className="campaigns-list">
             {campaigns.map((campaign, idx) => (
@@ -1259,7 +1260,7 @@ export default function MarketingProgramPage() {
                   </div>
                   <div className="campaign-stat">
                     <div className="value">{campaign.participants}</div>
-                    <div className="label">참여자</div>
+                    <div className="label">{t('tokenPrograms.marketingProgram.campaigns.participants')}</div>
                   </div>
                 </div>
                 <div className="campaign-right">
@@ -1269,7 +1270,7 @@ export default function MarketingProgramPage() {
                     data-testid={`button-join-campaign-${campaign.type}`}
                     onClick={() => handleJoinCampaign(campaign.title, campaign.status)}
                   >
-                    참여하기
+                    {t('tokenPrograms.marketingProgram.cta.participate')}
                   </button>
                 </div>
               </div>
@@ -1282,21 +1283,21 @@ export default function MarketingProgramPage() {
       <section className="section" id="leaderboard" style={{ background: 'rgba(255,255,255,0.02)' }}>
         <div className="section-header">
           <span className="section-badge">LEADERBOARD</span>
-          <h2 className="section-title">앰배서더 리더보드</h2>
-          <p className="section-subtitle">이번 달 TOP 앰배서더</p>
+          <h2 className="section-title">{t('tokenPrograms.marketingProgram.sections.leaderboard.title')}</h2>
+          <p className="section-subtitle">{t('tokenPrograms.marketingProgram.sections.leaderboard.subtitle')}</p>
         </div>
 
         <div className="leaderboard-section">
           <div className="leaderboard-header">
-            <h3>🏆 TOP 5 앰배서더</h3>
+            <h3>🏆 {t('tokenPrograms.marketingProgram.leaderboard.top5')}</h3>
           </div>
           <table className="leaderboard-table">
             <thead>
               <tr>
-                <th>순위</th>
-                <th>앰배서더</th>
-                <th>포인트</th>
-                <th>누적 보상</th>
+                <th>{t('tokenPrograms.marketingProgram.leaderboard.rank')}</th>
+                <th>{t('tokenPrograms.marketingProgram.leaderboard.ambassador')}</th>
+                <th>{t('tokenPrograms.marketingProgram.leaderboard.points')}</th>
+                <th>{t('tokenPrograms.marketingProgram.leaderboard.rewards')}</th>
               </tr>
             </thead>
             <tbody>
@@ -1331,88 +1332,88 @@ export default function MarketingProgramPage() {
       <section className="section" id="faq">
         <div className="section-header">
           <span className="section-badge">FAQ</span>
-          <h2 className="section-title">자주 묻는 질문</h2>
-          <p className="section-subtitle">마케팅 프로그램에 대해 궁금한 점</p>
+          <h2 className="section-title">{t('tokenPrograms.marketingProgram.sections.faq.title')}</h2>
+          <p className="section-subtitle">{t('tokenPrograms.marketingProgram.sections.faq.subtitle')}</p>
         </div>
 
         <div className="faq-container">
           <div className={`faq-item ${activeFaq === 'faq-1' ? 'active' : ''}`} data-testid="faq-item-1">
             <div className="faq-question" onClick={() => toggleFaq('faq-1')}>
-              <h4>마케팅 프로그램 총 예산 규모는 얼마인가요?</h4>
+              <h4>{t('tokenPrograms.marketingProgram.faq.q1')}</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>마케팅 프로그램에는 총 3억 TBURN이 배정되어 있습니다. 브랜드 마케팅 30%(0.9억), 인플루언서 25%(0.75억), 컨텐츠 크리에이터 20%(0.6억), 이벤트 마케팅 15%(0.45억), PR 및 미디어 10%(0.3억)로 배분됩니다.</p>
+              <p>{t('tokenPrograms.marketingProgram.faq.a1')}</p>
             </div>
           </div>
 
           <div className={`faq-item ${activeFaq === 'faq-2' ? 'active' : ''}`} data-testid="faq-item-2">
             <div className="faq-question" onClick={() => toggleFaq('faq-2')}>
-              <h4>앰배서더가 되려면 어떻게 해야 하나요?</h4>
+              <h4>{t('tokenPrograms.marketingProgram.faq.q2')}</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>앰배서더 신청 페이지에서 지원서를 제출하시면 됩니다. 소셜 미디어 활동 이력과 크립토 관심도를 기반으로 심사 후 선발됩니다. 처음에는 Starter 등급(월 1만 TBURN)으로 시작하여 레퍼럴 실적에 따라 Rising(월 5만), Elite(월 20만), Legend(월 50만)로 승급합니다.</p>
+              <p>{t('tokenPrograms.marketingProgram.faq.a2')}</p>
             </div>
           </div>
 
           <div className={`faq-item ${activeFaq === 'faq-3' ? 'active' : ''}`} data-testid="faq-item-3">
             <div className="faq-question" onClick={() => toggleFaq('faq-3')}>
-              <h4>컨텐츠 보상은 어떻게 지급되나요?</h4>
+              <h4>{t('tokenPrograms.marketingProgram.faq.q3')}</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>컨텐츠 제출 후 품질 심사를 거쳐 승인되면 TBURN 토큰으로 지급됩니다. 비디오($100~500), 아티클($50~200), 그래픽($30~100), 튜토리얼($150~400) 등 유형별 기본 보상이 있으며, 조회수와 참여도에 따른 보너스가 추가됩니다. 보상은 매주 월요일에 일괄 지급됩니다.</p>
+              <p>{t('tokenPrograms.marketingProgram.faq.a3')}</p>
             </div>
           </div>
 
           <div className={`faq-item ${activeFaq === 'faq-4' ? 'active' : ''}`} data-testid="faq-item-4">
             <div className="faq-question" onClick={() => toggleFaq('faq-4')}>
-              <h4>캠페인 참여 자격은 무엇인가요?</h4>
+              <h4>{t('tokenPrograms.marketingProgram.faq.q4')}</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>대부분의 캠페인은 TBURN 지갑을 연결한 누구나 참여할 수 있습니다. 일부 캠페인은 앰배서더 등급이나 팔로워 수(Twitter 1K+, YouTube 5K+ 등) 조건이 있을 수 있습니다. 각 캠페인 상세 페이지에서 참여 자격을 확인해주세요.</p>
+              <p>{t('tokenPrograms.marketingProgram.faq.a4')}</p>
             </div>
           </div>
 
           <div className={`faq-item ${activeFaq === 'faq-5' ? 'active' : ''}`} data-testid="faq-item-5">
             <div className="faq-question" onClick={() => toggleFaq('faq-5')}>
-              <h4>인플루언서 협업은 어떻게 진행되나요?</h4>
+              <h4>{t('tokenPrograms.marketingProgram.faq.q5')}</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>10K+ 팔로워를 보유한 인플루언서는 별도의 협업 프로그램에 참여할 수 있습니다. 캠페인당 $500+ 보상과 매출 10% 수수료를 제공합니다. 맞춤형 캠페인 설계, 마케팅 자료 제공, 성과 기반 보너스, 장기 파트너십 옵션이 포함됩니다. partnerships@tburn.io로 문의해주세요.</p>
+              <p>{t('tokenPrograms.marketingProgram.faq.a5')}</p>
             </div>
           </div>
 
           <div className={`faq-item ${activeFaq === 'faq-6' ? 'active' : ''}`} data-testid="faq-item-6">
             <div className="faq-question" onClick={() => toggleFaq('faq-6')}>
-              <h4>이벤트 마케팅 참여 방법은 무엇인가요?</h4>
+              <h4>{t('tokenPrograms.marketingProgram.faq.q6')}</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>이벤트 마케팅 프로그램에서는 온/오프라인 이벤트에 참여하거나 주최할 수 있습니다. 이벤트당 $200+ 참여 보상과 특별 NFT가 제공됩니다. 밋업 주최 지원, 컨퍼런스 참가 지원, 온라인 AMA 진행, 커뮤니티 이벤트 등이 포함됩니다.</p>
+              <p>{t('tokenPrograms.marketingProgram.faq.a6')}</p>
             </div>
           </div>
 
           <div className={`faq-item ${activeFaq === 'faq-7' ? 'active' : ''}`} data-testid="faq-item-7">
             <div className="faq-question" onClick={() => toggleFaq('faq-7')}>
-              <h4>리더보드 순위는 어떻게 결정되나요?</h4>
+              <h4>{t('tokenPrograms.marketingProgram.faq.q7')}</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>리더보드 순위는 레퍼럴 수, 컨텐츠 성과, 캠페인 참여도, 커뮤니티 기여도 등을 종합한 포인트로 결정됩니다. 매월 상위 앰배서더에게는 추가 보너스가 지급되며, Legend 티어 앰배서더는 월 최대 50만 TBURN을 받을 수 있습니다.</p>
+              <p>{t('tokenPrograms.marketingProgram.faq.a7')}</p>
             </div>
           </div>
 
           <div className={`faq-item ${activeFaq === 'faq-8' ? 'active' : ''}`} data-testid="faq-item-8">
             <div className="faq-question" onClick={() => toggleFaq('faq-8')}>
-              <h4>마케팅 보상 지급 일정은 어떻게 되나요?</h4>
+              <h4>{t('tokenPrograms.marketingProgram.faq.q8')}</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>컨텐츠 보상은 매주 월요일에 일괄 지급됩니다. 캠페인 보상은 캠페인 종료 후 7일 이내에 지급됩니다. 앰배서더 월간 보상은 매월 1일에 지급됩니다. 모든 보상은 연결된 TBURN 지갑으로 자동 입금됩니다.</p>
+              <p>{t('tokenPrograms.marketingProgram.faq.a8')}</p>
             </div>
           </div>
         </div>
@@ -1421,10 +1422,9 @@ export default function MarketingProgramPage() {
       {/* CTA Section */}
       <section className="cta-section" id="cta">
         <div style={{ maxWidth: '800px', margin: '0 auto' }}>
-          <h2 style={{ fontSize: '2.5rem', fontWeight: 800, marginBottom: '1rem' }}>지금 시작하세요!</h2>
+          <h2 style={{ fontSize: '2.5rem', fontWeight: 800, marginBottom: '1rem' }}>{t('tokenPrograms.marketingProgram.ctaSection.title')}</h2>
           <p style={{ color: 'rgba(255,255,255,0.8)', fontSize: '1.125rem', marginBottom: '2rem' }}>
-            TBURN 마케팅 프로그램에 참여하여<br />
-            3억 TBURN 보상을 받아가세요!
+            {t('tokenPrograms.marketingProgram.ctaSection.description')}
           </p>
           <button 
             className="connect-btn" 
@@ -1432,10 +1432,10 @@ export default function MarketingProgramPage() {
             data-testid="button-cta-apply"
             onClick={() => { 
               scrollToSection('ambassador'); 
-              toast({ title: "앰배서더 신청", description: "앰배서더 티어를 확인하고 지금 시작하세요!" }); 
+              toast({ title: t('tokenPrograms.marketingProgram.ctaSection.toastTitle'), description: t('tokenPrograms.marketingProgram.ctaSection.toastDesc') }); 
             }}
           >
-            앰배서더 신청하기
+            {t('tokenPrograms.marketingProgram.cta.joinAmbassador')}
           </button>
         </div>
       </section>
@@ -1445,7 +1445,7 @@ export default function MarketingProgramPage() {
         <div className="footer-content">
           <div className="footer-brand">
             <h3>TBURN<span>CHAIN</span></h3>
-            <p>AI의 지능, 블록체인의 투명성<br />THE FUTURE IS NOW</p>
+            <p>{t('tokenPrograms.marketingProgram.footer.tagline')}<br />THE FUTURE IS NOW</p>
             <div className="social-links">
               <a 
                 href="https://x.com/tburnchain" 
@@ -1472,40 +1472,40 @@ export default function MarketingProgramPage() {
           <div className="footer-links">
             <h4>Product</h4>
             <ul>
-              <li><a href="/" data-testid="footer-link-mainnet">메인넷</a></li>
-              <li><a href="/scan" data-testid="footer-link-explorer">익스플로러</a></li>
-              <li><a href="/app/bridge" data-testid="footer-link-bridge">브릿지</a></li>
-              <li><a href="/app/staking" data-testid="footer-link-staking">스테이킹</a></li>
+              <li><a href="/" data-testid="footer-link-mainnet">{t('tokenPrograms.marketingProgram.footer.mainnet')}</a></li>
+              <li><a href="/scan" data-testid="footer-link-explorer">{t('tokenPrograms.marketingProgram.footer.explorer')}</a></li>
+              <li><a href="/app/bridge" data-testid="footer-link-bridge">{t('tokenPrograms.marketingProgram.footer.bridge')}</a></li>
+              <li><a href="/app/staking" data-testid="footer-link-staking">{t('tokenPrograms.marketingProgram.footer.staking')}</a></li>
             </ul>
           </div>
           <div className="footer-links">
             <h4>Resources</h4>
             <ul>
-              <li><a href="/learn/whitepaper" data-testid="footer-link-whitepaper">백서</a></li>
-              <li><a href="/developers/docs" data-testid="footer-link-docs">문서</a></li>
+              <li><a href="/learn/whitepaper" data-testid="footer-link-whitepaper">{t('tokenPrograms.marketingProgram.footer.whitepaper')}</a></li>
+              <li><a href="/developers/docs" data-testid="footer-link-docs">{t('tokenPrograms.marketingProgram.footer.docs')}</a></li>
               <li><a 
                 href="https://github.com/tburnchain" 
                 onClick={(e) => { e.preventDefault(); handleShareSocial('GitHub', 'https://github.com/tburnchain'); }}
                 data-testid="footer-link-github-resources"
               >GitHub</a></li>
-              <li><a href="/security-audit" data-testid="footer-link-audit">감사 보고서</a></li>
+              <li><a href="/security-audit" data-testid="footer-link-audit">{t('tokenPrograms.marketingProgram.footer.audit')}</a></li>
             </ul>
           </div>
           <div className="footer-links">
             <h4>Community</h4>
             <ul>
-              <li><a href="/community/news" data-testid="footer-link-blog">블로그</a></li>
-              <li><a href="/marketing-program" data-testid="footer-link-ambassador">앰배서더</a></li>
-              <li><a href="/ecosystem-fund" data-testid="footer-link-grants">그랜트</a></li>
-              <li><a href="/qna" data-testid="footer-link-support">고객지원</a></li>
+              <li><a href="/community/news" data-testid="footer-link-blog">{t('tokenPrograms.marketingProgram.footer.blog')}</a></li>
+              <li><a href="/marketing-program" data-testid="footer-link-ambassador">{t('tokenPrograms.marketingProgram.footer.ambassador')}</a></li>
+              <li><a href="/ecosystem-fund" data-testid="footer-link-grants">{t('tokenPrograms.marketingProgram.footer.grants')}</a></li>
+              <li><a href="/qna" data-testid="footer-link-support">{t('tokenPrograms.marketingProgram.footer.support')}</a></li>
             </ul>
           </div>
         </div>
         <div className="footer-bottom">
           <p>© 2025-2045 TBURN Foundation. All Rights Reserved.</p>
           <div style={{ display: 'flex', gap: '2rem' }}>
-            <a href="/legal/terms-of-service" style={{ color: 'var(--gray)', textDecoration: 'none' }} data-testid="footer-link-terms">이용약관</a>
-            <a href="/legal/privacy-policy" style={{ color: 'var(--gray)', textDecoration: 'none' }} data-testid="footer-link-privacy">개인정보처리방침</a>
+            <a href="/legal/terms-of-service" style={{ color: 'var(--gray)', textDecoration: 'none' }} data-testid="footer-link-terms">{t('tokenPrograms.marketingProgram.footer.terms')}</a>
+            <a href="/legal/privacy-policy" style={{ color: 'var(--gray)', textDecoration: 'none' }} data-testid="footer-link-privacy">{t('tokenPrograms.marketingProgram.footer.privacy')}</a>
           </div>
         </div>
       </footer>

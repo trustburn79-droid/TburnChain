@@ -31499,21 +31499,271 @@
       }
     },
     "marketingProgram": {
-      "title": "Marketing Program",
-      "subtitle": "Marketing initiatives to grow the TBURN community",
-      "heroTitle": "TBURN Marketing Program",
-      "heroSubtitle": "Help spread the word about TBURN and earn rewards",
-      "badge": "Grow Together",
-      "totalBudget": "Total Budget",
-      "campaigns": "Campaigns",
-      "reach": "Total Reach",
-      "programs": "Programs",
-      "influencer": "Influencer Program",
-      "affiliate": "Affiliate Program",
-      "content": "Content Creator",
-      "community": "Community Marketing",
-      "applyMarketing": "Apply for Marketing",
-      "campaignDetails": "Campaign Details"
+      "nav": {
+        "programs": "Programs",
+        "ambassador": "Ambassador",
+        "campaigns": "Campaigns",
+        "leaderboard": "Leaderboard"
+      },
+      "wallet": {
+        "connect": "Connect Wallet",
+        "connected": "Wallet Connected",
+        "connectedDesc": "Your wallet has been connected.",
+        "disconnected": "Wallet Disconnected",
+        "disconnectedDesc": "Your wallet has been disconnected.",
+        "required": "Wallet Required",
+        "requiredDesc": "Please connect your wallet to participate in the program.",
+        "campaignRequiredDesc": "Please connect your wallet to join the campaign."
+      },
+      "hero": {
+        "badge": "MARKETING PROGRAM - Spread TBURN Together",
+        "title": "Participate in TBURN Marketing",
+        "fundAmount": "300M TBURN",
+        "incentive": "Earn Rewards",
+        "subtitle": "Become an ambassador, influencer, content creator, or event participant to spread the TBURN ecosystem and earn rewards."
+      },
+      "socialStats": {
+        "twitter": "Twitter Followers",
+        "telegram": "Telegram Members",
+        "discord": "Discord Members",
+        "youtube": "YouTube Subscribers",
+        "tiktok": "TikTok Followers"
+      },
+      "stats": {
+        "totalBudget": "Total Marketing Budget",
+        "activeAmbassadors": "Active Ambassadors",
+        "ongoingCampaigns": "Ongoing Campaigns",
+        "activeCampaigns": "Active Campaigns"
+      },
+      "cta": {
+        "joinAmbassador": "Apply as Ambassador",
+        "viewGuide": "Marketing Guide",
+        "ambassadorProgram": "Ambassador Program",
+        "ambassadorDesc": "Check ambassador tiers and start participating!",
+        "marketingGuide": "Marketing Guide",
+        "guideDesc": "Check out our marketing program guide.",
+        "programApply": "{{programName}} Application",
+        "programApplyDesc": "Your {{programName}} application has been submitted. We'll review and contact you.",
+        "participate": "Participate"
+      },
+      "sections": {
+        "distribution": {
+          "title": "Marketing Budget Distribution",
+          "subtitle": "300M TBURN distributed across 5 marketing programs"
+        },
+        "programs": {
+          "title": "Marketing Programs",
+          "subtitle": "Promote TBURN in various ways"
+        },
+        "ambassador": {
+          "title": "Ambassador Tiers",
+          "subtitle": "Tier benefits based on activity"
+        },
+        "content": {
+          "title": "Content Rewards",
+          "subtitle": "Rewards by content type"
+        },
+        "campaigns": {
+          "title": "Ongoing Campaigns",
+          "subtitle": "Participate and earn rewards"
+        },
+        "leaderboard": {
+          "title": "Ambassador Leaderboard",
+          "subtitle": "Top Ambassadors This Month"
+        },
+        "faq": {
+          "title": "Frequently Asked Questions",
+          "subtitle": "Questions about the Marketing Program"
+        }
+      },
+      "distributions": {
+        "brand": "Brand Marketing",
+        "influencer": "Influencer",
+        "creator": "Content Creator",
+        "event": "Event Marketing",
+        "pr": "PR & Media"
+      },
+      "programs": {
+        "ambassador": {
+          "title": "Ambassador Program",
+          "subtitle": "Become an official TBURN ambassador",
+          "rewardValue1": "Up to 500K",
+          "rewardLabel1": "Monthly Reward",
+          "rewardValue2": "Unlimited",
+          "rewardLabel2": "Referral Reward",
+          "feature1": "Official Ambassador Certification",
+          "feature2": "Exclusive Event Invitations",
+          "feature3": "Early Access Privileges",
+          "feature4": "Dedicated Marketing Materials"
+        },
+        "influencer": {
+          "title": "Influencer Collaboration",
+          "subtitle": "Growing together with creators",
+          "rewardValue1": "$500+ per campaign",
+          "rewardLabel1": "Campaign Reward",
+          "rewardValue2": "10%",
+          "rewardLabel2": "Sales Commission",
+          "feature1": "Custom Campaign Design",
+          "feature2": "Marketing Materials Provided",
+          "feature3": "Performance-based Bonus",
+          "feature4": "Long-term Partnership Options"
+        },
+        "creator": {
+          "title": "Content Creator",
+          "subtitle": "Videos, articles, educational content",
+          "rewardValue1": "$100+ per content",
+          "rewardLabel1": "Base Reward",
+          "rewardValue2": "Quality Bonus",
+          "rewardLabel2": "Additional Reward",
+          "feature1": "Various Content Types",
+          "feature2": "Creator Fund Support",
+          "feature3": "View Count Bonus",
+          "feature4": "Monthly Contests"
+        },
+        "event": {
+          "title": "Event Marketing",
+          "subtitle": "Online/offline event participation",
+          "rewardValue1": "$200+ per event",
+          "rewardLabel1": "Participation Reward",
+          "rewardValue2": "Special NFT",
+          "rewardLabel2": "Event Reward",
+          "feature1": "Meetup Hosting Support",
+          "feature2": "Conference Participation",
+          "feature3": "Online AMA",
+          "feature4": "Community Events"
+        }
+      },
+      "ambassadorTiers": {
+        "legend": {
+          "requirement": "500+ Referrals",
+          "reward": "500K/month",
+          "perk1": "Dedicated Mentor",
+          "perk2": "Offline Meetup Invites",
+          "perk3": "NFT Airdrops",
+          "perk4": "Governance Voting Rights"
+        },
+        "elite": {
+          "requirement": "200+ Referrals",
+          "reward": "200K/month",
+          "perk1": "Premium Badge",
+          "perk2": "Priority Support",
+          "perk3": "Beta Test Access",
+          "perk4": "Monthly Calls"
+        },
+        "rising": {
+          "requirement": "50+ Referrals",
+          "reward": "50K/month",
+          "perk1": "Official Certification",
+          "perk2": "Discord Role",
+          "perk3": "Marketing Materials",
+          "perk4": "Referral Link"
+        },
+        "starter": {
+          "requirement": "10+ Referrals",
+          "reward": "10K/month",
+          "perk1": "Starter Badge",
+          "perk2": "Basic Materials",
+          "perk3": "Community Access",
+          "perk4": "Tutorials"
+        }
+      },
+      "contentTypes": {
+        "video": {
+          "title": "Video",
+          "desc": "YouTube/TikTok videos"
+        },
+        "article": {
+          "title": "Article",
+          "desc": "Blog/Medium posts"
+        },
+        "graphic": {
+          "title": "Graphics",
+          "desc": "Infographics/memes"
+        },
+        "tutorial": {
+          "title": "Tutorial",
+          "desc": "Educational content"
+        }
+      },
+      "campaignList": {
+        "twitter": {
+          "title": "#TBURNChain Tweet Challenge",
+          "desc": "Create a tweet introducing TBURN"
+        },
+        "youtube": {
+          "title": "TBURN Review Video",
+          "desc": "Create a TBURN Chain analysis video"
+        },
+        "tiktok": {
+          "title": "TikTok Short-form Challenge",
+          "desc": "15-60 second TBURN introduction video"
+        },
+        "article": {
+          "title": "TBURN Deep Dive Article",
+          "desc": "Write a technical/tokenomics analysis"
+        }
+      },
+      "campaigns": {
+        "activeCampaigns": "Active Campaigns",
+        "participants": "Participants",
+        "statusActive": "Active",
+        "statusEnding": "Ending Soon",
+        "statusUpcoming": "Upcoming",
+        "upcoming": "Upcoming Campaign",
+        "upcomingDesc": "This campaign is starting soon. Set up notifications!",
+        "joined": "Campaign Joined",
+        "joinedDesc": "You've joined the \"{{campaignTitle}}\" campaign!"
+      },
+      "leaderboard": {
+        "top5": "TOP 5 Ambassadors",
+        "rank": "Rank",
+        "ambassador": "Ambassador",
+        "points": "Points",
+        "rewards": "Total Rewards"
+      },
+      "faq": {
+        "q1": "What is the total marketing program budget?",
+        "a1": "The marketing program has a total allocation of 300M TBURN. Distribution: Brand Marketing 30% (90M), Influencer 25% (75M), Content Creator 20% (60M), Event Marketing 15% (45M), PR & Media 10% (30M).",
+        "q2": "How do I become an ambassador?",
+        "a2": "Submit your application on the ambassador application page. Selection is based on social media activity and crypto interest. Start at Starter tier (10K TBURN/month) and advance to Rising (50K), Elite (200K), or Legend (500K) based on referral performance.",
+        "q3": "How are content rewards paid?",
+        "a3": "After content submission and quality review, approved content is rewarded in TBURN tokens. Base rewards by type: Video ($100-500), Article ($50-200), Graphics ($30-100), Tutorial ($150-400). View count and engagement bonuses are added. Payments are made weekly on Mondays.",
+        "q4": "What are the campaign eligibility requirements?",
+        "a4": "Most campaigns are open to anyone with a connected TBURN wallet. Some campaigns may require ambassador tier or follower count (Twitter 1K+, YouTube 5K+). Check each campaign's detail page for specific requirements.",
+        "q5": "How does influencer collaboration work?",
+        "a5": "Influencers with 10K+ followers can join our collaboration program. We offer $500+ per campaign and 10% sales commission. Includes custom campaign design, marketing materials, performance bonuses, and long-term partnership options. Contact partnerships@tburn.io.",
+        "q6": "How can I participate in event marketing?",
+        "a6": "The event marketing program allows you to participate in or host online/offline events. Rewards include $200+ per event and special NFTs. Options include meetup hosting support, conference participation, online AMAs, and community events.",
+        "q7": "How is leaderboard ranking determined?",
+        "a7": "Rankings are based on points from referrals, content performance, campaign participation, and community contributions. Top ambassadors receive monthly bonuses, with Legend tier ambassadors earning up to 500K TBURN monthly.",
+        "q8": "When are marketing rewards paid?",
+        "a8": "Content rewards are paid every Monday. Campaign rewards are paid within 7 days of campaign end. Ambassador monthly rewards are paid on the 1st of each month. All rewards are automatically deposited to your connected TBURN wallet."
+      },
+      "ctaSection": {
+        "title": "Start Now!",
+        "description": "Join the TBURN Marketing Program and earn 300M TBURN rewards!",
+        "toastTitle": "Ambassador Application",
+        "toastDesc": "Check ambassador tiers and start now!"
+      },
+      "social": {
+        "navigating": "Navigating to {{platform}}."
+      },
+      "footer": {
+        "tagline": "AI Intelligence, Blockchain Transparency",
+        "mainnet": "Mainnet",
+        "explorer": "Explorer",
+        "bridge": "Bridge",
+        "staking": "Staking",
+        "whitepaper": "Whitepaper",
+        "docs": "Documentation",
+        "audit": "Audit Report",
+        "blog": "Blog",
+        "ambassador": "Ambassador",
+        "grants": "Grants",
+        "support": "Support",
+        "terms": "Terms of Service",
+        "privacy": "Privacy Policy"
+      }
     },
     "strategicPartner": {
       "title": "Strategic Partners",

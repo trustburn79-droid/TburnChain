@@ -32078,21 +32078,271 @@
       }
     },
     "marketingProgram": {
-      "title": "마케팅 프로그램",
-      "subtitle": "TBURN 커뮤니티 성장을 위한 마케팅 이니셔티브",
-      "heroTitle": "TBURN 마케팅 프로그램",
-      "heroSubtitle": "TBURN에 대해 알리고 보상을 받으세요",
-      "badge": "함께 성장",
-      "totalBudget": "총 예산",
-      "campaigns": "캠페인",
-      "reach": "총 도달",
-      "programs": "프로그램",
-      "influencer": "인플루언서 프로그램",
-      "affiliate": "제휴 프로그램",
-      "content": "콘텐츠 크리에이터",
-      "community": "커뮤니티 마케팅",
-      "applyMarketing": "마케팅 신청",
-      "campaignDetails": "캠페인 상세"
+      "nav": {
+        "programs": "프로그램",
+        "ambassador": "앰배서더",
+        "campaigns": "캠페인",
+        "leaderboard": "리더보드"
+      },
+      "wallet": {
+        "connect": "지갑 연결",
+        "connected": "지갑 연결됨",
+        "connectedDesc": "지갑이 연결되었습니다.",
+        "disconnected": "지갑 연결 해제",
+        "disconnectedDesc": "지갑이 연결 해제되었습니다.",
+        "required": "지갑 연결 필요",
+        "requiredDesc": "프로그램 참여를 위해 먼저 지갑을 연결해주세요.",
+        "campaignRequiredDesc": "캠페인 참여를 위해 먼저 지갑을 연결해주세요."
+      },
+      "hero": {
+        "badge": "MARKETING PROGRAM - 함께 알리는 TBURN",
+        "title": "TBURN 마케팅 참여로",
+        "fundAmount": "3억 TBURN",
+        "incentive": "보상을 받으세요",
+        "subtitle": "앰배서더, 인플루언서, 컨텐츠 크리에이터, 이벤트 참여로 TBURN 생태계를 알리고 보상받으세요."
+      },
+      "socialStats": {
+        "twitter": "Twitter 팔로워",
+        "telegram": "Telegram 멤버",
+        "discord": "Discord 멤버",
+        "youtube": "YouTube 구독자",
+        "tiktok": "TikTok 팔로워"
+      },
+      "stats": {
+        "totalBudget": "총 마케팅 예산",
+        "activeAmbassadors": "활성 앰배서더",
+        "ongoingCampaigns": "진행중 캠페인",
+        "activeCampaigns": "활성 캠페인"
+      },
+      "cta": {
+        "joinAmbassador": "앰배서더 신청하기",
+        "viewGuide": "마케팅 가이드",
+        "ambassadorProgram": "앰배서더 프로그램",
+        "ambassadorDesc": "앰배서더 티어를 확인하고 참여하세요!",
+        "marketingGuide": "마케팅 가이드",
+        "guideDesc": "마케팅 프로그램 안내를 확인하세요.",
+        "programApply": "{{programName}} 참여",
+        "programApplyDesc": "{{programName}} 참여 신청이 접수되었습니다. 심사 후 안내드립니다.",
+        "participate": "참여하기"
+      },
+      "sections": {
+        "distribution": {
+          "title": "마케팅 예산 배분",
+          "subtitle": "3억 TBURN이 5가지 마케팅 프로그램으로 배분됩니다"
+        },
+        "programs": {
+          "title": "마케팅 프로그램",
+          "subtitle": "다양한 방식으로 TBURN을 알리세요"
+        },
+        "ambassador": {
+          "title": "앰배서더 티어",
+          "subtitle": "활동량에 따른 등급별 혜택"
+        },
+        "content": {
+          "title": "컨텐츠 보상",
+          "subtitle": "다양한 컨텐츠 유형별 보상"
+        },
+        "campaigns": {
+          "title": "진행중 캠페인",
+          "subtitle": "참여하고 보상받으세요"
+        },
+        "leaderboard": {
+          "title": "앰배서더 리더보드",
+          "subtitle": "이번 달 TOP 앰배서더"
+        },
+        "faq": {
+          "title": "자주 묻는 질문",
+          "subtitle": "마케팅 프로그램에 대해 궁금한 점"
+        }
+      },
+      "distributions": {
+        "brand": "브랜드 마케팅",
+        "influencer": "인플루언서",
+        "creator": "컨텐츠 크리에이터",
+        "event": "이벤트 마케팅",
+        "pr": "PR & 미디어"
+      },
+      "programs": {
+        "ambassador": {
+          "title": "앰배서더 프로그램",
+          "subtitle": "TBURN의 공식 대사가 되세요",
+          "rewardValue1": "최대 50만",
+          "rewardLabel1": "월간 보상",
+          "rewardValue2": "무제한",
+          "rewardLabel2": "레퍼럴 보상",
+          "feature1": "공식 앰배서더 인증",
+          "feature2": "독점 이벤트 초대",
+          "feature3": "얼리 액세스 권한",
+          "feature4": "전용 마케팅 자료"
+        },
+        "influencer": {
+          "title": "인플루언서 협업",
+          "subtitle": "크리에이터와 함께하는 성장",
+          "rewardValue1": "협업당 $500+",
+          "rewardLabel1": "캠페인 보상",
+          "rewardValue2": "10%",
+          "rewardLabel2": "매출 수수료",
+          "feature1": "맞춤형 캠페인 설계",
+          "feature2": "마케팅 자료 제공",
+          "feature3": "성과 기반 보너스",
+          "feature4": "장기 파트너십 옵션"
+        },
+        "creator": {
+          "title": "컨텐츠 크리에이터",
+          "subtitle": "영상, 아티클, 교육 컨텐츠",
+          "rewardValue1": "컨텐츠당 $100+",
+          "rewardLabel1": "기본 보상",
+          "rewardValue2": "품질 보너스",
+          "rewardLabel2": "추가 보상",
+          "feature1": "다양한 컨텐츠 유형",
+          "feature2": "크리에이터 펀드 지원",
+          "feature3": "조회수 보너스",
+          "feature4": "월간 콘테스트"
+        },
+        "event": {
+          "title": "이벤트 마케팅",
+          "subtitle": "온/오프라인 이벤트 참여",
+          "rewardValue1": "이벤트당 $200+",
+          "rewardLabel1": "참여 보상",
+          "rewardValue2": "특별 NFT",
+          "rewardLabel2": "이벤트 보상",
+          "feature1": "밋업 주최 지원",
+          "feature2": "컨퍼런스 참가",
+          "feature3": "온라인 AMA",
+          "feature4": "커뮤니티 이벤트"
+        }
+      },
+      "ambassadorTiers": {
+        "legend": {
+          "requirement": "500+ 레퍼럴",
+          "reward": "월 50만",
+          "perk1": "전용 멘토 배정",
+          "perk2": "오프라인 밋업 초대",
+          "perk3": "NFT 에어드랍",
+          "perk4": "거버넌스 투표권"
+        },
+        "elite": {
+          "requirement": "200+ 레퍼럴",
+          "reward": "월 20만",
+          "perk1": "프리미엄 뱃지",
+          "perk2": "우선 지원",
+          "perk3": "베타 테스트 권한",
+          "perk4": "월간 콜 참여"
+        },
+        "rising": {
+          "requirement": "50+ 레퍼럴",
+          "reward": "월 5만",
+          "perk1": "공식 인증",
+          "perk2": "Discord 역할",
+          "perk3": "마케팅 자료",
+          "perk4": "레퍼럴 링크"
+        },
+        "starter": {
+          "requirement": "10+ 레퍼럴",
+          "reward": "월 1만",
+          "perk1": "스타터 뱃지",
+          "perk2": "기본 자료",
+          "perk3": "커뮤니티 접근",
+          "perk4": "튜토리얼"
+        }
+      },
+      "contentTypes": {
+        "video": {
+          "title": "비디오",
+          "desc": "유튜브/틱톡 영상"
+        },
+        "article": {
+          "title": "아티클",
+          "desc": "블로그/미디엄 글"
+        },
+        "graphic": {
+          "title": "그래픽",
+          "desc": "인포그래픽/밈"
+        },
+        "tutorial": {
+          "title": "튜토리얼",
+          "desc": "교육 컨텐츠"
+        }
+      },
+      "campaignList": {
+        "twitter": {
+          "title": "#TBURNChain 트윗 챌린지",
+          "desc": "TBURN을 소개하는 트윗 작성"
+        },
+        "youtube": {
+          "title": "TBURN 리뷰 영상",
+          "desc": "TBURN Chain 분석 영상 제작"
+        },
+        "tiktok": {
+          "title": "TikTok 쇼트폼 챌린지",
+          "desc": "15~60초 TBURN 소개 영상"
+        },
+        "article": {
+          "title": "TBURN 딥다이브 아티클",
+          "desc": "기술/토크노믹스 분석글 작성"
+        }
+      },
+      "campaigns": {
+        "activeCampaigns": "활성 캠페인",
+        "participants": "참여자",
+        "statusActive": "진행중",
+        "statusEnding": "마감임박",
+        "statusUpcoming": "예정",
+        "upcoming": "캠페인 예정",
+        "upcomingDesc": "이 캠페인은 곧 시작됩니다. 알림을 설정하세요!",
+        "joined": "캠페인 참여",
+        "joinedDesc": "\"{{campaignTitle}}\" 캠페인에 참여했습니다!"
+      },
+      "leaderboard": {
+        "top5": "TOP 5 앰배서더",
+        "rank": "순위",
+        "ambassador": "앰배서더",
+        "points": "포인트",
+        "rewards": "누적 보상"
+      },
+      "faq": {
+        "q1": "마케팅 프로그램 총 예산 규모는 얼마인가요?",
+        "a1": "마케팅 프로그램에는 총 3억 TBURN이 배정되어 있습니다. 브랜드 마케팅 30%(0.9억), 인플루언서 25%(0.75억), 컨텐츠 크리에이터 20%(0.6억), 이벤트 마케팅 15%(0.45억), PR 및 미디어 10%(0.3억)로 배분됩니다.",
+        "q2": "앰배서더가 되려면 어떻게 해야 하나요?",
+        "a2": "앰배서더 신청 페이지에서 지원서를 제출하시면 됩니다. 소셜 미디어 활동 이력과 크립토 관심도를 기반으로 심사 후 선발됩니다. 처음에는 Starter 등급(월 1만 TBURN)으로 시작하여 레퍼럴 실적에 따라 Rising(월 5만), Elite(월 20만), Legend(월 50만)로 승급합니다.",
+        "q3": "컨텐츠 보상은 어떻게 지급되나요?",
+        "a3": "컨텐츠 제출 후 품질 심사를 거쳐 승인되면 TBURN 토큰으로 지급됩니다. 비디오($100~500), 아티클($50~200), 그래픽($30~100), 튜토리얼($150~400) 등 유형별 기본 보상이 있으며, 조회수와 참여도에 따른 보너스가 추가됩니다. 보상은 매주 월요일에 일괄 지급됩니다.",
+        "q4": "캠페인 참여 자격은 무엇인가요?",
+        "a4": "대부분의 캠페인은 TBURN 지갑을 연결한 누구나 참여할 수 있습니다. 일부 캠페인은 앰배서더 등급이나 팔로워 수(Twitter 1K+, YouTube 5K+ 등) 조건이 있을 수 있습니다. 각 캠페인 상세 페이지에서 참여 자격을 확인해주세요.",
+        "q5": "인플루언서 협업은 어떻게 진행되나요?",
+        "a5": "10K+ 팔로워를 보유한 인플루언서는 별도의 협업 프로그램에 참여할 수 있습니다. 캠페인당 $500+ 보상과 매출 10% 수수료를 제공합니다. 맞춤형 캠페인 설계, 마케팅 자료 제공, 성과 기반 보너스, 장기 파트너십 옵션이 포함됩니다. partnerships@tburn.io로 문의해주세요.",
+        "q6": "이벤트 마케팅 참여 방법은 무엇인가요?",
+        "a6": "이벤트 마케팅 프로그램에서는 온/오프라인 이벤트에 참여하거나 주최할 수 있습니다. 이벤트당 $200+ 참여 보상과 특별 NFT가 제공됩니다. 밋업 주최 지원, 컨퍼런스 참가 지원, 온라인 AMA 진행, 커뮤니티 이벤트 등이 포함됩니다.",
+        "q7": "리더보드 순위는 어떻게 결정되나요?",
+        "a7": "리더보드 순위는 레퍼럴 수, 컨텐츠 성과, 캠페인 참여도, 커뮤니티 기여도 등을 종합한 포인트로 결정됩니다. 매월 상위 앰배서더에게는 추가 보너스가 지급되며, Legend 티어 앰배서더는 월 최대 50만 TBURN을 받을 수 있습니다.",
+        "q8": "마케팅 보상 지급 일정은 어떻게 되나요?",
+        "a8": "컨텐츠 보상은 매주 월요일에 일괄 지급됩니다. 캠페인 보상은 캠페인 종료 후 7일 이내에 지급됩니다. 앰배서더 월간 보상은 매월 1일에 지급됩니다. 모든 보상은 연결된 TBURN 지갑으로 자동 입금됩니다."
+      },
+      "ctaSection": {
+        "title": "지금 시작하세요!",
+        "description": "TBURN 마케팅 프로그램에 참여하여 3억 TBURN 보상을 받아가세요!",
+        "toastTitle": "앰배서더 신청",
+        "toastDesc": "앰배서더 티어를 확인하고 지금 시작하세요!"
+      },
+      "social": {
+        "navigating": "{{platform}} 페이지로 이동합니다."
+      },
+      "footer": {
+        "tagline": "AI의 지능, 블록체인의 투명성",
+        "mainnet": "메인넷",
+        "explorer": "익스플로러",
+        "bridge": "브릿지",
+        "staking": "스테이킹",
+        "whitepaper": "백서",
+        "docs": "문서",
+        "audit": "감사 보고서",
+        "blog": "블로그",
+        "ambassador": "앰배서더",
+        "grants": "그랜트",
+        "support": "고객지원",
+        "terms": "이용약관",
+        "privacy": "개인정보처리방침"
+      }
     },
     "strategicPartner": {
       "title": "전략적 파트너",
