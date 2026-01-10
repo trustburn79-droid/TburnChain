@@ -17568,19 +17568,257 @@
     "partnershipProgram": {
       "title": "Programa de Parceria",
       "subtitle": "Parcerias estratégicas impulsionando o crescimento do ecossistema TBURN",
-      "heroTitle": "Programa de Parceria TBURN",
-      "heroSubtitle": "Junte-se ao TBURN para construir o futuro das finanças descentralizadas",
-      "badge": "Parceiros Estratégicos",
-      "totalAllocated": "Total Alocado",
-      "activePartners": "Parceiros Ativos",
-      "integrations": "Integrações",
-      "partnerTypes": "Tipos de Parceiros",
-      "exchange": "Parceiros de Exchange",
-      "defi": "Parceiros DeFi",
-      "infrastructure": "Parceiros de Infraestrutura",
-      "enterprise": "Parceiros Empresariais",
-      "becomePartner": "Tornar-se Parceiro",
-      "partnerBenefits": "Benefícios para Parceiros"
+      "nav": {
+        "tiers": "Níveis de Parceiros",
+        "types": "Tipos de Parceiros",
+        "process": "Processo",
+        "success": "Casos de Sucesso"
+      },
+      "wallet": {
+        "connect": "Conectar Carteira",
+        "connected": "Carteira Conectada",
+        "connectedDesc": "Sua carteira foi conectada.",
+        "disconnected": "Carteira Desconectada",
+        "disconnectedDesc": "Sua carteira foi desconectada.",
+        "required": "Carteira Necessária",
+        "requiredDesc": "Por favor conecte sua carteira para aplicar como parceiro."
+      },
+      "hero": {
+        "badge": "PROGRAMA DE PARCERIA - Crescendo Juntos",
+        "title": "Torne-se um Parceiro TBURN",
+        "fundAmount": "400M TBURN",
+        "incentive": "Incentivos Disponíveis",
+        "subtitle": "Junte-se como parceiro estratégico, exchange, tecnológico ou de marketing e cresça com o ecossistema TBURN.",
+        "ourPartners": "Nossos Parceiros"
+      },
+      "stats": {
+        "totalIncentive": "Incentivo Total para Parceiros",
+        "activePartners": "Parceiros Ativos",
+        "categories": "Categorias de Parceiros",
+        "maxIncentive": "Incentivo Máximo"
+      },
+      "cta": {
+        "applyPartner": "Aplicar para Parceria",
+        "partnerGuide": "Guia do Parceiro",
+        "selectTier": "Selecione um nível de parceiro para continuar sua aplicação!",
+        "checkTypes": "Confira o guia de cada tipo de parceiro.",
+        "apply": "Aplicar",
+        "applyType": "Aplicar",
+        "tierApply": "Aplicação Nível {{tierName}}",
+        "tierApplyDesc": "Sua aplicação de parceiro {{tierName}} foi enviada. Você receberá resultados em 1-2 semanas.",
+        "typeApply": "Aplicação Parceiro {{typeName}}",
+        "typeApplyDesc": "Sua aplicação de parceria {{typeName}} foi enviada. Um representante entrará em contato em breve."
+      },
+      "sections": {
+        "distribution": {
+          "title": "Distribuição de Incentivos",
+          "subtitle": "400M TBURN alocados para 5 tipos de parceiros"
+        },
+        "tiers": {
+          "title": "Níveis de Parceiros",
+          "subtitle": "Benefícios escalonados por nível de contribuição"
+        },
+        "types": {
+          "title": "Tipos de Parceiros",
+          "subtitle": "Várias formas de colaborar conosco"
+        },
+        "process": {
+          "title": "Processo de Parceria",
+          "subtitle": "A parceria leva aproximadamente 4-6 semanas"
+        },
+        "success": {
+          "title": "Histórias de Sucesso de Parceiros",
+          "subtitle": "Histórias de parceiros que cresceram conosco"
+        },
+        "faq": {
+          "title": "Perguntas Frequentes",
+          "subtitle": "Perguntas sobre parceria"
+        }
+      },
+      "distributions": {
+        "strategic": "Parceiros Estratégicos",
+        "exchange": "Parceiros Exchange",
+        "tech": "Parceiros Tecnológicos",
+        "marketing": "Parceiros de Marketing",
+        "ecosystem": "Parceiros do Ecossistema"
+      },
+      "tiers": {
+        "incentiveLabel": "Incentivo do Parceiro",
+        "platinum": {
+          "subtitle": "Parceiro de Nível Superior",
+          "incentive": "Até 5M",
+          "benefit1": "Suporte Técnico Dedicado",
+          "benefit2": "Co-marketing",
+          "benefit3": "Suporte de Integração Prioritário",
+          "benefit4": "Privilégios de Governança",
+          "benefit5": "Eventos Exclusivos"
+        },
+        "gold": {
+          "subtitle": "Parceiro Premium",
+          "incentive": "Até 2M",
+          "benefit1": "Suporte Técnico Prioritário",
+          "benefit2": "Colaboração de Marketing",
+          "benefit3": "Suporte de Integração",
+          "benefit4": "Direitos de Voto DAO",
+          "benefit5": "Eventos para Parceiros"
+        },
+        "silver": {
+          "subtitle": "Parceiro em Crescimento",
+          "incentive": "Até 500K",
+          "benefit1": "Acesso à Documentação Técnica",
+          "benefit2": "Promoção Conjunta",
+          "benefit3": "Acesso API",
+          "benefit4": "Direitos de Voto Básicos",
+          "benefit5": "Networking"
+        },
+        "bronze": {
+          "subtitle": "Novo Parceiro",
+          "incentive": "Até 100K",
+          "benefit1": "Acesso à Documentação",
+          "benefit2": "Direitos de Uso do Logo",
+          "benefit3": "API Básica",
+          "benefit4": "Participação Comunitária",
+          "benefit5": "Newsletter"
+        }
+      },
+      "types": {
+        "strategic": {
+          "title": "Parceiro Estratégico",
+          "desc": "Parceiros principais compartilhando visão de longo prazo",
+          "benefitValue1": "5M+",
+          "benefitLabel1": "Incentivo Máximo",
+          "benefitValue2": "24/7",
+          "benefitLabel2": "Suporte Dedicado",
+          "feature1": "Desenvolvimento Conjunto de Produtos",
+          "feature2": "Colaboração de Marca",
+          "feature3": "Investimento Estratégico",
+          "feature4": "Integração Tecnológica"
+        },
+        "exchange": {
+          "title": "Parceiro Exchange",
+          "desc": "Listagem de tokens TBURN e suporte de trading",
+          "benefitValue1": "2M+",
+          "benefitLabel1": "Bônus de Listagem",
+          "benefitValue2": "50%",
+          "benefitLabel2": "Desconto em Taxas",
+          "feature1": "Suporte de Listagem de Tokens",
+          "feature2": "Provisão de Liquidez",
+          "feature3": "Suporte de Marketing",
+          "feature4": "Competições de Trading"
+        },
+        "tech": {
+          "title": "Parceiro Tecnológico",
+          "desc": "Colaboração em infraestrutura e ferramentas de desenvolvimento",
+          "benefitValue1": "1M+",
+          "benefitLabel1": "Bônus de Integração",
+          "benefitValue2": "Ilimitadas",
+          "benefitLabel2": "Chamadas API",
+          "feature1": "Integração API/SDK",
+          "feature2": "Provisão de Infraestrutura",
+          "feature3": "Auditoria de Segurança",
+          "feature4": "Consultoria Técnica"
+        },
+        "marketing": {
+          "title": "Parceiro de Marketing",
+          "desc": "Promoção de marca e expansão comunitária",
+          "benefitValue1": "500K+",
+          "benefitLabel1": "Orçamento de Campanha",
+          "benefitValue2": "100K+",
+          "benefitLabel2": "Alcance",
+          "feature1": "Campanhas Conjuntas",
+          "feature2": "Colaboração com Influencers",
+          "feature3": "Eventos Co-organizados",
+          "feature4": "Criação de Conteúdo"
+        }
+      },
+      "process": {
+        "step1": {
+          "title": "Enviar Aplicação",
+          "desc": "Completar aplicação de parceria",
+          "duration": "1 dia"
+        },
+        "step2": {
+          "title": "Revisão e Avaliação",
+          "desc": "Revisão de equipe/negócio",
+          "duration": "1 semana"
+        },
+        "step3": {
+          "title": "Reunião e Discussão",
+          "desc": "Negociação de termos e acordo",
+          "duration": "1-2 semanas"
+        },
+        "step4": {
+          "title": "Assinatura do Contrato",
+          "desc": "Execução do contrato de parceria",
+          "duration": "1 semana"
+        },
+        "step5": {
+          "title": "Integração e Lançamento",
+          "desc": "Integração técnica e anúncio oficial",
+          "duration": "2-4 semanas"
+        }
+      },
+      "success": {
+        "story1": {
+          "type": "Parceiro Tecnológico",
+          "quote": "A integração com TBURN Chain melhorou o throughput do nosso serviço de oráculo em 300%.",
+          "statLabel1": "Melhoria de Performance",
+          "statLabel2": "Transações Processadas"
+        },
+        "story2": {
+          "type": "Parceiro Exchange",
+          "quote": "O volume de trading aumentou após a listagem TBURN, e a satisfação do usuário é muito alta.",
+          "statLabel1": "Volume de Trading",
+          "statLabel2": "Novos Usuários"
+        },
+        "story3": {
+          "type": "Parceiro Estratégico",
+          "quote": "Através da parceria, conseguimos lançar rapidamente novos produtos DeFi.",
+          "statLabel1": "TVL",
+          "statLabel2": "Usuários Diários"
+        }
+      },
+      "faq": {
+        "q1": "Qual é o fundo total de incentivos do programa de parceria?",
+        "a1": "O programa de parceria tem alocação total de 400M TBURN. Distribuição: Parceiros Estratégicos 30% (120M), Parceiros Exchange 25% (100M), Parceiros Tecnológicos 20% (80M), Parceiros de Marketing 15% (60M), Parceiros do Ecossistema 10% (40M).",
+        "q2": "Quais são os requisitos de elegibilidade para parceria?",
+        "a2": "Qualquer empresa, projeto ou provedor de serviços operando no espaço blockchain pode aplicar. Damos boas-vindas a todos os parceiros que podem adicionar valor ao ecossistema TBURN independente do tamanho.",
+        "q3": "Como os níveis de parceiros são determinados?",
+        "a3": "Níveis são determinados por avaliação abrangente de contribuição, escopo de integração, nível de colaboração de marketing e capacidades técnicas. 4 níveis: Platina (até 5M), Ouro (até 2M), Prata (até 500K), Bronze (até 100K).",
+        "q4": "Como os incentivos de parceiros são distribuídos?",
+        "a4": "Na assinatura do contrato, 30% de incentivo inicial é distribuído, 40% no alcance de marcos, 30% no alcance final de KPI. Todos os incentivos são pagos em tokens TBURN com cronograma de vesting de 6 meses.",
+        "q5": "Posso participar de múltiplos tipos de parceria simultaneamente?",
+        "a5": "Sim. Por exemplo, você pode ser parceiro tecnológico e de marketing. Incentivos de cada tipo são aplicados separadamente, então parcerias combinadas podem receber incentivos máximos.",
+        "q6": "Quanto tempo leva para completar a parceria?",
+        "a6": "Geralmente 4-6 semanas. Processo: Aplicação (1 dia) - Revisão (1 semana) - Reunião (1-2 semanas) - Contrato (1 semana) - Integração (2-4 semanas). Revisão fast-track disponível para parcerias urgentes.",
+        "q7": "Como receber suporte de listagem em exchange?",
+        "a7": "Parceiros exchange recebem até 2M TBURN de bônus de listagem, 50% de desconto em taxas, suporte de provisão de liquidez e competições de trading co-organizadas.",
+        "q8": "Como o suporte de integração técnica é fornecido?",
+        "a8": "Parceiros tecnológicos recebem suporte de equipe de desenvolvimento dedicada, documentação de integração API/SDK, ambiente sandbox e consultoria técnica. Parceiros Platina recebem suporte dedicado 24/7."
+      },
+      "ctaSection": {
+        "title": "Vamos Crescer Juntos!",
+        "subtitle": "Torne-se parceiro do ecossistema TBURN e receba 400M TBURN em incentivos!"
+      },
+      "footer": {
+        "tagline": "Inteligência AI, Transparência Blockchain - O FUTURO É AGORA",
+        "mainnet": "Mainnet",
+        "explorer": "Explorador",
+        "bridge": "Bridge",
+        "staking": "Staking",
+        "whitepaper": "Whitepaper",
+        "docs": "Documentação",
+        "audit": "Relatório de Auditoria",
+        "blog": "Blog",
+        "ambassador": "Embaixador",
+        "grants": "Grants",
+        "support": "Suporte",
+        "terms": "Termos de Serviço",
+        "privacy": "Política de Privacidade"
+      },
+      "social": {
+        "navigating": "Navegando para {{platform}}."
+      }
     },
     "marketingProgram": {
       "title": "Programa de Marketing",

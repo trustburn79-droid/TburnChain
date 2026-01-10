@@ -17818,20 +17818,258 @@
     },
     "partnershipProgram": {
       "title": "Programme de Partenariat",
-      "subtitle": "Partenariats stratégiques propulsant la croissance de l'écosystème TBURN",
-      "heroTitle": "Programme de Partenariat TBURN",
-      "heroSubtitle": "Rejoignez TBURN pour construire l'avenir de la finance décentralisée",
-      "badge": "Partenaires Stratégiques",
-      "totalAllocated": "Total Alloué",
-      "activePartners": "Partenaires Actifs",
-      "integrations": "Intégrations",
-      "partnerTypes": "Types de Partenaires",
-      "exchange": "Partenaires d'Échange",
-      "defi": "Partenaires DeFi",
-      "infrastructure": "Partenaires d'Infrastructure",
-      "enterprise": "Partenaires Entreprise",
-      "becomePartner": "Devenir Partenaire",
-      "partnerBenefits": "Avantages Partenaires"
+      "subtitle": "Partenariats stratégiques stimulant la croissance de l'écosystème TBURN",
+      "nav": {
+        "tiers": "Niveaux de Partenaires",
+        "types": "Types de Partenaires",
+        "process": "Processus",
+        "success": "Histoires de Succès"
+      },
+      "wallet": {
+        "connect": "Connecter le Portefeuille",
+        "connected": "Portefeuille Connecté",
+        "connectedDesc": "Votre portefeuille a été connecté.",
+        "disconnected": "Portefeuille Déconnecté",
+        "disconnectedDesc": "Votre portefeuille a été déconnecté.",
+        "required": "Portefeuille Requis",
+        "requiredDesc": "Veuillez connecter votre portefeuille pour postuler comme partenaire."
+      },
+      "hero": {
+        "badge": "PROGRAMME DE PARTENARIAT - Croissance Ensemble",
+        "title": "Devenez Partenaire TBURN",
+        "fundAmount": "400M TBURN",
+        "incentive": "Incitatifs Disponibles",
+        "subtitle": "Rejoignez en tant que partenaire stratégique, exchange, technologique ou marketing et grandissez avec l'écosystème TBURN.",
+        "ourPartners": "Nos Partenaires"
+      },
+      "stats": {
+        "totalIncentive": "Incitatif Total Partenaires",
+        "activePartners": "Partenaires Actifs",
+        "categories": "Catégories de Partenaires",
+        "maxIncentive": "Incitatif Maximum"
+      },
+      "cta": {
+        "applyPartner": "Postuler comme Partenaire",
+        "partnerGuide": "Guide Partenaire",
+        "selectTier": "Sélectionnez un niveau de partenaire pour continuer votre candidature!",
+        "checkTypes": "Consultez le guide de chaque type de partenaire.",
+        "apply": "Postuler",
+        "applyType": "Postuler",
+        "tierApply": "Candidature Niveau {{tierName}}",
+        "tierApplyDesc": "Votre candidature partenaire {{tierName}} a été soumise. Vous recevrez les résultats sous 1-2 semaines.",
+        "typeApply": "Candidature Partenaire {{typeName}}",
+        "typeApplyDesc": "Votre candidature {{typeName}} a été soumise. Un représentant vous contactera bientôt."
+      },
+      "sections": {
+        "distribution": {
+          "title": "Distribution des Incitatifs",
+          "subtitle": "400M TBURN répartis entre 5 types de partenaires"
+        },
+        "tiers": {
+          "title": "Niveaux de Partenaires",
+          "subtitle": "Avantages échelonnés selon le niveau de contribution"
+        },
+        "types": {
+          "title": "Types de Partenaires",
+          "subtitle": "Diverses façons de collaborer avec nous"
+        },
+        "process": {
+          "title": "Processus de Partenariat",
+          "subtitle": "Le partenariat prend environ 4-6 semaines"
+        },
+        "success": {
+          "title": "Histoires de Succès Partenaires",
+          "subtitle": "Histoires de partenaires qui ont grandi avec nous"
+        },
+        "faq": {
+          "title": "Questions Fréquentes",
+          "subtitle": "Questions sur le partenariat"
+        }
+      },
+      "distributions": {
+        "strategic": "Partenaires Stratégiques",
+        "exchange": "Partenaires Exchange",
+        "tech": "Partenaires Technologiques",
+        "marketing": "Partenaires Marketing",
+        "ecosystem": "Partenaires Écosystème"
+      },
+      "tiers": {
+        "incentiveLabel": "Incitatif Partenaire",
+        "platinum": {
+          "subtitle": "Partenaire de Premier Rang",
+          "incentive": "Jusqu'à 5M",
+          "benefit1": "Support Technique Dédié",
+          "benefit2": "Co-marketing",
+          "benefit3": "Support d'Intégration Prioritaire",
+          "benefit4": "Privilèges de Gouvernance",
+          "benefit5": "Événements Exclusifs"
+        },
+        "gold": {
+          "subtitle": "Partenaire Premium",
+          "incentive": "Jusqu'à 2M",
+          "benefit1": "Support Technique Prioritaire",
+          "benefit2": "Collaboration Marketing",
+          "benefit3": "Support d'Intégration",
+          "benefit4": "Droits de Vote DAO",
+          "benefit5": "Événements Partenaires"
+        },
+        "silver": {
+          "subtitle": "Partenaire en Croissance",
+          "incentive": "Jusqu'à 500K",
+          "benefit1": "Accès Documentation Technique",
+          "benefit2": "Promotion Conjointe",
+          "benefit3": "Accès API",
+          "benefit4": "Droits de Vote de Base",
+          "benefit5": "Réseautage"
+        },
+        "bronze": {
+          "subtitle": "Nouveau Partenaire",
+          "incentive": "Jusqu'à 100K",
+          "benefit1": "Accès Documentation",
+          "benefit2": "Droits d'Utilisation du Logo",
+          "benefit3": "API de Base",
+          "benefit4": "Participation Communautaire",
+          "benefit5": "Newsletter"
+        }
+      },
+      "types": {
+        "strategic": {
+          "title": "Partenaire Stratégique",
+          "desc": "Partenaires principaux partageant une vision à long terme",
+          "benefitValue1": "5M+",
+          "benefitLabel1": "Incitatif Maximum",
+          "benefitValue2": "24/7",
+          "benefitLabel2": "Support Dédié",
+          "feature1": "Développement de Produits Conjoint",
+          "feature2": "Collaboration de Marque",
+          "feature3": "Investissement Stratégique",
+          "feature4": "Intégration Technologique"
+        },
+        "exchange": {
+          "title": "Partenaire Exchange",
+          "desc": "Listing de tokens TBURN et support de trading",
+          "benefitValue1": "2M+",
+          "benefitLabel1": "Bonus de Listing",
+          "benefitValue2": "50%",
+          "benefitLabel2": "Réduction de Frais",
+          "feature1": "Support de Listing de Tokens",
+          "feature2": "Fourniture de Liquidité",
+          "feature3": "Support Marketing",
+          "feature4": "Compétitions de Trading"
+        },
+        "tech": {
+          "title": "Partenaire Technologique",
+          "desc": "Collaboration infrastructure et outils de développement",
+          "benefitValue1": "1M+",
+          "benefitLabel1": "Bonus d'Intégration",
+          "benefitValue2": "Illimités",
+          "benefitLabel2": "Appels API",
+          "feature1": "Intégration API/SDK",
+          "feature2": "Fourniture d'Infrastructure",
+          "feature3": "Audit de Sécurité",
+          "feature4": "Conseil Technique"
+        },
+        "marketing": {
+          "title": "Partenaire Marketing",
+          "desc": "Promotion de marque et expansion communautaire",
+          "benefitValue1": "500K+",
+          "benefitLabel1": "Budget Campagne",
+          "benefitValue2": "100K+",
+          "benefitLabel2": "Portée",
+          "feature1": "Campagnes Conjointes",
+          "feature2": "Collaboration Influenceurs",
+          "feature3": "Événements Co-organisés",
+          "feature4": "Création de Contenu"
+        }
+      },
+      "process": {
+        "step1": {
+          "title": "Soumettre la Candidature",
+          "desc": "Compléter la candidature partenariat",
+          "duration": "1 jour"
+        },
+        "step2": {
+          "title": "Révision et Évaluation",
+          "desc": "Révision équipe/business",
+          "duration": "1 semaine"
+        },
+        "step3": {
+          "title": "Réunion et Discussion",
+          "desc": "Négociation des termes et accord",
+          "duration": "1-2 semaines"
+        },
+        "step4": {
+          "title": "Signature du Contrat",
+          "desc": "Exécution du contrat de partenariat",
+          "duration": "1 semaine"
+        },
+        "step5": {
+          "title": "Intégration et Lancement",
+          "desc": "Intégration technique et annonce officielle",
+          "duration": "2-4 semaines"
+        }
+      },
+      "success": {
+        "story1": {
+          "type": "Partenaire Technologique",
+          "quote": "L'intégration avec TBURN Chain a amélioré le débit de notre service oracle de 300%.",
+          "statLabel1": "Amélioration Performance",
+          "statLabel2": "Transactions Traitées"
+        },
+        "story2": {
+          "type": "Partenaire Exchange",
+          "quote": "Le volume de trading a augmenté après le listing TBURN, et la satisfaction utilisateur est très élevée.",
+          "statLabel1": "Volume de Trading",
+          "statLabel2": "Nouveaux Utilisateurs"
+        },
+        "story3": {
+          "type": "Partenaire Stratégique",
+          "quote": "Grâce au partenariat, nous avons pu lancer rapidement de nouveaux produits DeFi.",
+          "statLabel1": "TVL",
+          "statLabel2": "Utilisateurs Quotidiens"
+        }
+      },
+      "faq": {
+        "q1": "Quel est le fonds total d'incitatifs du programme partenaire?",
+        "a1": "Le programme partenaire a une allocation totale de 400M TBURN. Distribution: Partenaires Stratégiques 30% (120M), Partenaires Exchange 25% (100M), Partenaires Technologiques 20% (80M), Partenaires Marketing 15% (60M), Partenaires Écosystème 10% (40M).",
+        "q2": "Quelles sont les conditions d'éligibilité au partenariat?",
+        "a2": "Toute entreprise, projet ou fournisseur de services opérant dans l'espace blockchain peut postuler. Nous accueillons tous les partenaires qui peuvent ajouter de la valeur à l'écosystème TBURN quelle que soit leur taille.",
+        "q3": "Comment les niveaux de partenaires sont-ils déterminés?",
+        "a3": "Les niveaux sont déterminés par une évaluation complète de la contribution, du périmètre d'intégration, du niveau de collaboration marketing et des capacités techniques. 4 niveaux: Platine (jusqu'à 5M), Or (jusqu'à 2M), Argent (jusqu'à 500K), Bronze (jusqu'à 100K).",
+        "q4": "Comment les incitatifs partenaires sont-ils distribués?",
+        "a4": "À la signature du contrat, 30% d'incitatif initial est distribué, 40% à l'atteinte des jalons, 30% à l'atteinte du KPI final. Tous les incitatifs sont payés en tokens TBURN avec un calendrier de vesting de 6 mois.",
+        "q5": "Puis-je participer à plusieurs types de partenariat simultanément?",
+        "a5": "Oui. Par exemple, vous pouvez être partenaire technologique et marketing. Les incitatifs de chaque type s'appliquent séparément, donc les partenariats combinés peuvent recevoir des incitatifs maximaux.",
+        "q6": "Combien de temps prend le partenariat?",
+        "a6": "Généralement 4-6 semaines. Processus: Candidature (1 jour) - Révision (1 semaine) - Réunion (1-2 semaines) - Contrat (1 semaine) - Intégration (2-4 semaines). Révision accélérée disponible pour les partenariats urgents.",
+        "q7": "Comment recevoir le support de listing exchange?",
+        "a7": "Les partenaires exchange reçoivent jusqu'à 2M TBURN de bonus de listing, 50% de réduction de frais, support de liquidité et compétitions de trading co-organisées.",
+        "q8": "Comment le support d'intégration technique est-il fourni?",
+        "a8": "Les partenaires technologiques reçoivent un support d'équipe de développement dédié, documentation API/SDK, environnement sandbox et conseil technique. Les partenaires Platine reçoivent un support dédié 24/7."
+      },
+      "ctaSection": {
+        "title": "Grandissons Ensemble!",
+        "subtitle": "Devenez partenaire de l'écosystème TBURN et recevez 400M TBURN d'incitatifs!"
+      },
+      "footer": {
+        "tagline": "Intelligence IA, Transparence Blockchain - L'AVENIR C'EST MAINTENANT",
+        "mainnet": "Mainnet",
+        "explorer": "Explorateur",
+        "bridge": "Bridge",
+        "staking": "Staking",
+        "whitepaper": "Whitepaper",
+        "docs": "Documentation",
+        "audit": "Rapport d'Audit",
+        "blog": "Blog",
+        "ambassador": "Ambassadeur",
+        "grants": "Subventions",
+        "support": "Support",
+        "terms": "Conditions d'Utilisation",
+        "privacy": "Politique de Confidentialité"
+      },
+      "social": {
+        "navigating": "Navigation vers {{platform}}."
+      }
     },
     "marketingProgram": {
       "title": "Programme Marketing",

@@ -19911,19 +19911,257 @@
     "partnershipProgram": {
       "title": "合作伙伴计划",
       "subtitle": "推动TBURN生态系统增长的战略合作伙伴关系",
-      "heroTitle": "TBURN 合作伙伴计划",
-      "heroSubtitle": "与TBURN携手构建去中心化金融的未来",
-      "badge": "战略合作伙伴",
-      "totalAllocated": "总分配",
-      "activePartners": "活跃合作伙伴",
-      "integrations": "集成",
-      "partnerTypes": "合作伙伴类型",
-      "exchange": "交易所合作伙伴",
-      "defi": "DeFi合作伙伴",
-      "infrastructure": "基础设施合作伙伴",
-      "enterprise": "企业合作伙伴",
-      "becomePartner": "成为合作伙伴",
-      "partnerBenefits": "合作伙伴福利"
+      "nav": {
+        "tiers": "合作伙伴等级",
+        "types": "合作伙伴类型",
+        "process": "流程",
+        "success": "成功案例"
+      },
+      "wallet": {
+        "connect": "连接钱包",
+        "connected": "钱包已连接",
+        "connectedDesc": "您的钱包已成功连接。",
+        "disconnected": "钱包已断开",
+        "disconnectedDesc": "您的钱包已断开连接。",
+        "required": "需要连接钱包",
+        "requiredDesc": "请先连接钱包以申请合作伙伴。"
+      },
+      "hero": {
+        "badge": "PARTNERSHIP PROGRAM - 共同成长",
+        "title": "成为TBURN合作伙伴",
+        "fundAmount": "4亿 TBURN",
+        "incentive": "激励金等你领取",
+        "subtitle": "作为战略合作伙伴、交易所、技术合作伙伴或营销合作伙伴加入，与TBURN生态系统共同成长。",
+        "ourPartners": "我们的合作伙伴"
+      },
+      "stats": {
+        "totalIncentive": "合作伙伴激励总额",
+        "activePartners": "活跃合作伙伴",
+        "categories": "合作伙伴类别",
+        "maxIncentive": "最高激励"
+      },
+      "cta": {
+        "applyPartner": "申请成为合作伙伴",
+        "partnerGuide": "合作伙伴指南",
+        "selectTier": "请选择合作伙伴等级以继续申请！",
+        "checkTypes": "请查看各合作伙伴类型的指南。",
+        "apply": "申请",
+        "applyType": "申请",
+        "tierApply": "{{tierName}}等级申请",
+        "tierApplyDesc": "您的{{tierName}}合作伙伴申请已提交。审核结果将在1-2周内通知。",
+        "typeApply": "{{typeName}}合作伙伴申请",
+        "typeApplyDesc": "您的{{typeName}}合作伙伴申请已提交。代表将很快与您联系。"
+      },
+      "sections": {
+        "distribution": {
+          "title": "激励分配",
+          "subtitle": "4亿TBURN分配给5种合作伙伴类型"
+        },
+        "tiers": {
+          "title": "合作伙伴等级",
+          "subtitle": "基于贡献级别的分级福利"
+        },
+        "types": {
+          "title": "合作伙伴类型",
+          "subtitle": "多种合作方式"
+        },
+        "process": {
+          "title": "合作伙伴流程",
+          "subtitle": "合作伙伴关系完成大约需要4-6周"
+        },
+        "success": {
+          "title": "合作伙伴成功案例",
+          "subtitle": "与我们共同成长的合作伙伴故事"
+        },
+        "faq": {
+          "title": "常见问题",
+          "subtitle": "关于合作伙伴关系的问题"
+        }
+      },
+      "distributions": {
+        "strategic": "战略合作伙伴",
+        "exchange": "交易所合作伙伴",
+        "tech": "技术合作伙伴",
+        "marketing": "营销合作伙伴",
+        "ecosystem": "生态系统合作伙伴"
+      },
+      "tiers": {
+        "incentiveLabel": "合作伙伴激励",
+        "platinum": {
+          "subtitle": "顶级合作伙伴",
+          "incentive": "最高500万",
+          "benefit1": "专属技术支持",
+          "benefit2": "联合营销",
+          "benefit3": "优先集成支持",
+          "benefit4": "治理特权",
+          "benefit5": "独家活动"
+        },
+        "gold": {
+          "subtitle": "高级合作伙伴",
+          "incentive": "最高200万",
+          "benefit1": "优先技术支持",
+          "benefit2": "营销合作",
+          "benefit3": "集成支持",
+          "benefit4": "DAO投票权",
+          "benefit5": "合作伙伴活动"
+        },
+        "silver": {
+          "subtitle": "成长合作伙伴",
+          "incentive": "最高50万",
+          "benefit1": "技术文档访问",
+          "benefit2": "联合推广",
+          "benefit3": "API访问",
+          "benefit4": "基本投票权",
+          "benefit5": "网络交流"
+        },
+        "bronze": {
+          "subtitle": "新合作伙伴",
+          "incentive": "最高10万",
+          "benefit1": "文档访问",
+          "benefit2": "标志使用权",
+          "benefit3": "基础API",
+          "benefit4": "社区参与",
+          "benefit5": "新闻通讯"
+        }
+      },
+      "types": {
+        "strategic": {
+          "title": "战略合作伙伴",
+          "desc": "共享长期愿景的核心合作伙伴",
+          "benefitValue1": "500万+",
+          "benefitLabel1": "最高激励",
+          "benefitValue2": "24/7",
+          "benefitLabel2": "专属支持",
+          "feature1": "联合产品开发",
+          "feature2": "品牌合作",
+          "feature3": "战略投资",
+          "feature4": "技术集成"
+        },
+        "exchange": {
+          "title": "交易所合作伙伴",
+          "desc": "TBURN代币上市和交易支持",
+          "benefitValue1": "200万+",
+          "benefitLabel1": "上市奖金",
+          "benefitValue2": "50%",
+          "benefitLabel2": "手续费折扣",
+          "feature1": "代币上市支持",
+          "feature2": "流动性提供",
+          "feature3": "营销支持",
+          "feature4": "交易大赛"
+        },
+        "tech": {
+          "title": "技术合作伙伴",
+          "desc": "基础设施和开发工具合作",
+          "benefitValue1": "100万+",
+          "benefitLabel1": "集成奖金",
+          "benefitValue2": "无限制",
+          "benefitLabel2": "API调用",
+          "feature1": "API/SDK集成",
+          "feature2": "基础设施提供",
+          "feature3": "安全审计",
+          "feature4": "技术咨询"
+        },
+        "marketing": {
+          "title": "营销合作伙伴",
+          "desc": "品牌推广和社区扩展",
+          "benefitValue1": "50万+",
+          "benefitLabel1": "活动预算",
+          "benefitValue2": "10万+",
+          "benefitLabel2": "覆盖范围",
+          "feature1": "联合活动",
+          "feature2": "KOL合作",
+          "feature3": "联合主办活动",
+          "feature4": "内容创作"
+        }
+      },
+      "process": {
+        "step1": {
+          "title": "提交申请",
+          "desc": "完成合作伙伴申请",
+          "duration": "1天"
+        },
+        "step2": {
+          "title": "审核与评估",
+          "desc": "团队/业务审核",
+          "duration": "1周"
+        },
+        "step3": {
+          "title": "会议与讨论",
+          "desc": "条款谈判和协议",
+          "duration": "1-2周"
+        },
+        "step4": {
+          "title": "签署合同",
+          "desc": "执行合作伙伴合同",
+          "duration": "1周"
+        },
+        "step5": {
+          "title": "集成与发布",
+          "desc": "技术集成和官方公告",
+          "duration": "2-4周"
+        }
+      },
+      "success": {
+        "story1": {
+          "type": "技术合作伙伴",
+          "quote": "与TBURN Chain的集成使我们的预言机服务吞吐量提高了300%。",
+          "statLabel1": "性能提升",
+          "statLabel2": "交易处理"
+        },
+        "story2": {
+          "type": "交易所合作伙伴",
+          "quote": "TBURN上市后交易量激增，用户满意度极高。",
+          "statLabel1": "交易量",
+          "statLabel2": "新用户"
+        },
+        "story3": {
+          "type": "战略合作伙伴",
+          "quote": "通过合作伙伴关系，我们能够快速推出新的DeFi产品。",
+          "statLabel1": "TVL",
+          "statLabel2": "日活用户"
+        }
+      },
+      "faq": {
+        "q1": "合作伙伴计划的总激励池是多少？",
+        "a1": "合作伙伴计划共分配4亿TBURN。分配比例为：战略合作伙伴30%（1.2亿），交易所合作伙伴25%（1亿），技术合作伙伴20%（0.8亿），营销合作伙伴15%（0.6亿），生态系统合作伙伴10%（0.4亿）。",
+        "q2": "申请合作伙伴有什么资格要求？",
+        "a2": "任何在区块链领域运营的公司、项目或服务提供商都可以申请。无论规模大小，我们欢迎所有能为TBURN生态系统增加价值的合作伙伴。申请需要提供企业注册证明、项目介绍和合作提案文件。",
+        "q3": "合作伙伴等级如何确定？",
+        "a3": "等级根据合作伙伴贡献、集成范围、营销合作水平和技术能力进行综合评估确定。共4个等级：铂金（最高500万）、黄金（最高200万）、白银（最高50万）和青铜（最高10万）。合作伙伴可根据表现晋升到更高等级。",
+        "q4": "合作伙伴激励如何分配？",
+        "a4": "签署合作伙伴合同时，分配30%初始激励，达成里程碑时分配40%，最终KPI达成时分配30%。所有激励以TBURN代币支付，采用6个月归属期。",
+        "q5": "可以同时参与多种合作伙伴类型吗？",
+        "a5": "可以。例如，您可以同时是技术合作伙伴和营销合作伙伴。每种类型的激励分别适用，因此联合合作伙伴可以获得最大激励。",
+        "q6": "完成合作伙伴关系需要多长时间？",
+        "a6": "通常需要4-6周。流程包括：提交申请（1天）-审核评估（1周）-会议讨论（1-2周）-签署合同（1周）-集成发布（2-4周）。紧急合作伙伴可申请快速审核。",
+        "q7": "如何获得交易所上市支持？",
+        "a7": "交易所合作伙伴可获得最高200万TBURN上市奖金、50%手续费折扣、流动性提供支持和联合交易大赛。一级交易所上市可获得额外激励。",
+        "q8": "技术集成支持如何提供？",
+        "a8": "技术合作伙伴可获得专属开发团队支持、API/SDK集成文档、沙盒环境和技术咨询。铂金等级合作伙伴可获得24/7专属支持，并可参与联合产品开发项目。"
+      },
+      "ctaSection": {
+        "title": "让我们共同成长！",
+        "subtitle": "成为TBURN生态系统的合作伙伴，获得4亿TBURN激励！"
+      },
+      "footer": {
+        "tagline": "AI智能，区块链透明 - 未来已来",
+        "mainnet": "主网",
+        "explorer": "浏览器",
+        "bridge": "跨链桥",
+        "staking": "质押",
+        "whitepaper": "白皮书",
+        "docs": "文档",
+        "audit": "审计报告",
+        "blog": "博客",
+        "ambassador": "大使",
+        "grants": "资助",
+        "support": "支持",
+        "terms": "服务条款",
+        "privacy": "隐私政策"
+      },
+      "social": {
+        "navigating": "正在跳转到{{platform}}。"
+      }
     },
     "marketingProgram": {
       "title": "营销计划",

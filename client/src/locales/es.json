@@ -20099,21 +20099,259 @@
       }
     },
     "partnershipProgram": {
-      "title": "Programa de Alianzas",
-      "subtitle": "Alianzas estratégicas impulsando el crecimiento del ecosistema TBURN",
-      "heroTitle": "Programa de Alianzas TBURN",
-      "heroSubtitle": "Únete a TBURN para construir el futuro de las finanzas descentralizadas",
-      "badge": "Socios Estratégicos",
-      "totalAllocated": "Total Asignado",
-      "activePartners": "Socios Activos",
-      "integrations": "Integraciones",
-      "partnerTypes": "Tipos de Socios",
-      "exchange": "Socios de Intercambio",
-      "defi": "Socios DeFi",
-      "infrastructure": "Socios de Infraestructura",
-      "enterprise": "Socios Empresariales",
-      "becomePartner": "Convertirse en Socio",
-      "partnerBenefits": "Beneficios para Socios"
+      "title": "Programa de Socios",
+      "subtitle": "Asociaciones estratégicas que impulsan el crecimiento del ecosistema TBURN",
+      "nav": {
+        "tiers": "Niveles de Socios",
+        "types": "Tipos de Socios",
+        "process": "Proceso",
+        "success": "Casos de Éxito"
+      },
+      "wallet": {
+        "connect": "Conectar Cartera",
+        "connected": "Cartera Conectada",
+        "connectedDesc": "Su cartera ha sido conectada.",
+        "disconnected": "Cartera Desconectada",
+        "disconnectedDesc": "Su cartera ha sido desconectada.",
+        "required": "Cartera Requerida",
+        "requiredDesc": "Por favor conecte su cartera para aplicar a socio."
+      },
+      "hero": {
+        "badge": "PROGRAMA DE SOCIOS - Creciendo Juntos",
+        "title": "Conviértase en Socio TBURN",
+        "fundAmount": "400M TBURN",
+        "incentive": "Incentivos Disponibles",
+        "subtitle": "Únase como socio estratégico, exchange, tecnológico o de marketing y crezca con el ecosistema TBURN.",
+        "ourPartners": "Nuestros Socios"
+      },
+      "stats": {
+        "totalIncentive": "Incentivo Total para Socios",
+        "activePartners": "Socios Activos",
+        "categories": "Categorías de Socios",
+        "maxIncentive": "Incentivo Máximo"
+      },
+      "cta": {
+        "applyPartner": "Solicitar Asociación",
+        "partnerGuide": "Guía de Socios",
+        "selectTier": "¡Seleccione un nivel de socio para continuar con su solicitud!",
+        "checkTypes": "Consulte la guía de cada tipo de socio.",
+        "apply": "Aplicar",
+        "applyType": "Aplicar",
+        "tierApply": "Solicitud de Nivel {{tierName}}",
+        "tierApplyDesc": "Su solicitud de socio {{tierName}} ha sido enviada. Recibirá resultados de revisión en 1-2 semanas.",
+        "typeApply": "Solicitud de Socio {{typeName}}",
+        "typeApplyDesc": "Su solicitud de asociación {{typeName}} ha sido enviada. Un representante lo contactará pronto."
+      },
+      "sections": {
+        "distribution": {
+          "title": "Distribución de Incentivos",
+          "subtitle": "400M TBURN asignados a 5 tipos de socios"
+        },
+        "tiers": {
+          "title": "Niveles de Socios",
+          "subtitle": "Beneficios escalonados según nivel de contribución"
+        },
+        "types": {
+          "title": "Tipos de Socios",
+          "subtitle": "Diversas formas de colaborar con nosotros"
+        },
+        "process": {
+          "title": "Proceso de Asociación",
+          "subtitle": "La asociación toma aproximadamente 4-6 semanas"
+        },
+        "success": {
+          "title": "Historias de Éxito de Socios",
+          "subtitle": "Historias de socios que crecieron con nosotros"
+        },
+        "faq": {
+          "title": "Preguntas Frecuentes",
+          "subtitle": "Preguntas sobre la asociación"
+        }
+      },
+      "distributions": {
+        "strategic": "Socios Estratégicos",
+        "exchange": "Socios de Exchange",
+        "tech": "Socios Tecnológicos",
+        "marketing": "Socios de Marketing",
+        "ecosystem": "Socios del Ecosistema"
+      },
+      "tiers": {
+        "incentiveLabel": "Incentivo de Socio",
+        "platinum": {
+          "subtitle": "Socio de Nivel Superior",
+          "incentive": "Hasta 5M",
+          "benefit1": "Soporte Técnico Dedicado",
+          "benefit2": "Co-marketing",
+          "benefit3": "Soporte de Integración Prioritario",
+          "benefit4": "Privilegios de Gobernanza",
+          "benefit5": "Eventos Exclusivos"
+        },
+        "gold": {
+          "subtitle": "Socio Premium",
+          "incentive": "Hasta 2M",
+          "benefit1": "Soporte Técnico Prioritario",
+          "benefit2": "Colaboración de Marketing",
+          "benefit3": "Soporte de Integración",
+          "benefit4": "Derechos de Voto DAO",
+          "benefit5": "Eventos para Socios"
+        },
+        "silver": {
+          "subtitle": "Socio en Crecimiento",
+          "incentive": "Hasta 500K",
+          "benefit1": "Acceso a Documentación Técnica",
+          "benefit2": "Promoción Conjunta",
+          "benefit3": "Acceso API",
+          "benefit4": "Derechos de Voto Básicos",
+          "benefit5": "Networking"
+        },
+        "bronze": {
+          "subtitle": "Nuevo Socio",
+          "incentive": "Hasta 100K",
+          "benefit1": "Acceso a Documentación",
+          "benefit2": "Derechos de Uso del Logo",
+          "benefit3": "API Básica",
+          "benefit4": "Participación Comunitaria",
+          "benefit5": "Newsletter"
+        }
+      },
+      "types": {
+        "strategic": {
+          "title": "Socio Estratégico",
+          "desc": "Socios principales compartiendo visión a largo plazo",
+          "benefitValue1": "5M+",
+          "benefitLabel1": "Incentivo Máximo",
+          "benefitValue2": "24/7",
+          "benefitLabel2": "Soporte Dedicado",
+          "feature1": "Desarrollo Conjunto de Productos",
+          "feature2": "Colaboración de Marca",
+          "feature3": "Inversión Estratégica",
+          "feature4": "Integración Tecnológica"
+        },
+        "exchange": {
+          "title": "Socio de Exchange",
+          "desc": "Listado de tokens TBURN y soporte de trading",
+          "benefitValue1": "2M+",
+          "benefitLabel1": "Bono de Listado",
+          "benefitValue2": "50%",
+          "benefitLabel2": "Descuento en Tarifas",
+          "feature1": "Soporte de Listado de Tokens",
+          "feature2": "Provisión de Liquidez",
+          "feature3": "Soporte de Marketing",
+          "feature4": "Competencias de Trading"
+        },
+        "tech": {
+          "title": "Socio Tecnológico",
+          "desc": "Colaboración en infraestructura y herramientas de desarrollo",
+          "benefitValue1": "1M+",
+          "benefitLabel1": "Bono de Integración",
+          "benefitValue2": "Ilimitadas",
+          "benefitLabel2": "Llamadas API",
+          "feature1": "Integración API/SDK",
+          "feature2": "Provisión de Infraestructura",
+          "feature3": "Auditoría de Seguridad",
+          "feature4": "Asesoría Técnica"
+        },
+        "marketing": {
+          "title": "Socio de Marketing",
+          "desc": "Promoción de marca y expansión comunitaria",
+          "benefitValue1": "500K+",
+          "benefitLabel1": "Presupuesto de Campaña",
+          "benefitValue2": "100K+",
+          "benefitLabel2": "Alcance",
+          "feature1": "Campañas Conjuntas",
+          "feature2": "Colaboración con Influencers",
+          "feature3": "Eventos Co-organizados",
+          "feature4": "Creación de Contenido"
+        }
+      },
+      "process": {
+        "step1": {
+          "title": "Enviar Solicitud",
+          "desc": "Completar solicitud de asociación",
+          "duration": "1 día"
+        },
+        "step2": {
+          "title": "Revisión y Evaluación",
+          "desc": "Revisión de equipo/negocio",
+          "duration": "1 semana"
+        },
+        "step3": {
+          "title": "Reunión y Discusión",
+          "desc": "Negociación de términos y acuerdo",
+          "duration": "1-2 semanas"
+        },
+        "step4": {
+          "title": "Firma del Contrato",
+          "desc": "Ejecución del contrato de asociación",
+          "duration": "1 semana"
+        },
+        "step5": {
+          "title": "Integración y Lanzamiento",
+          "desc": "Integración técnica y anuncio oficial",
+          "duration": "2-4 semanas"
+        }
+      },
+      "success": {
+        "story1": {
+          "type": "Socio Tecnológico",
+          "quote": "La integración con TBURN Chain mejoró el rendimiento de nuestro servicio de oráculo en un 300%.",
+          "statLabel1": "Mejora de Rendimiento",
+          "statLabel2": "Transacciones Procesadas"
+        },
+        "story2": {
+          "type": "Socio de Exchange",
+          "quote": "El volumen de trading aumentó tras el listado de TBURN, y la satisfacción del usuario es muy alta.",
+          "statLabel1": "Volumen de Trading",
+          "statLabel2": "Nuevos Usuarios"
+        },
+        "story3": {
+          "type": "Socio Estratégico",
+          "quote": "A través de la asociación, pudimos lanzar rápidamente nuevos productos DeFi.",
+          "statLabel1": "TVL",
+          "statLabel2": "Usuarios Diarios"
+        }
+      },
+      "faq": {
+        "q1": "¿Cuál es el fondo total de incentivos del programa de socios?",
+        "a1": "El programa de socios tiene una asignación total de 400M TBURN. Se distribuye como: Socios Estratégicos 30% (120M), Socios de Exchange 25% (100M), Socios Tecnológicos 20% (80M), Socios de Marketing 15% (60M) y Socios del Ecosistema 10% (40M).",
+        "q2": "¿Cuáles son los requisitos de elegibilidad para la asociación?",
+        "a2": "Cualquier empresa, proyecto o proveedor de servicios que opere en el espacio blockchain puede aplicar. Damos la bienvenida a todos los socios que puedan agregar valor al ecosistema TBURN independientemente de su tamaño. Las solicitudes requieren registro de empresa, introducción del proyecto y documentos de propuesta de asociación.",
+        "q3": "¿Cómo se determinan los niveles de socios?",
+        "a3": "Los niveles se determinan mediante una evaluación integral de la contribución del socio, alcance de integración, nivel de colaboración de marketing y capacidades técnicas. Hay 4 niveles: Platino (hasta 5M), Oro (hasta 2M), Plata (hasta 500K) y Bronce (hasta 100K). Los socios pueden ser promovidos a niveles superiores según su rendimiento.",
+        "q4": "¿Cómo se distribuyen los incentivos de socios?",
+        "a4": "Al firmar el contrato de asociación, se distribuye el 30% del incentivo inicial, el 40% al alcanzar hitos y el 30% al lograr el KPI final. Todos los incentivos se pagan en tokens TBURN con un cronograma de vesting de 6 meses.",
+        "q5": "¿Puedo participar en múltiples tipos de asociación simultáneamente?",
+        "a5": "Sí, puede. Por ejemplo, puede ser socio tecnológico y de marketing. Los incentivos de cada tipo se aplican por separado, por lo que las asociaciones combinadas pueden recibir incentivos máximos.",
+        "q6": "¿Cuánto tiempo toma completar la asociación?",
+        "a6": "Generalmente 4-6 semanas. El proceso incluye: Envío de solicitud (1 día) - Revisión y Evaluación (1 semana) - Reunión y Discusión (1-2 semanas) - Firma del Contrato (1 semana) - Integración y Lanzamiento (2-4 semanas). La revisión fast-track está disponible para asociaciones urgentes.",
+        "q7": "¿Cómo recibo soporte de listado en exchange?",
+        "a7": "Los socios de exchange reciben hasta 2M TBURN de bono de listado, 50% de descuento en tarifas, soporte de provisión de liquidez y competencias de trading co-organizadas. Se proporcionan incentivos adicionales para listados en exchanges Tier 1.",
+        "q8": "¿Cómo se proporciona el soporte de integración técnica?",
+        "a8": "Los socios tecnológicos reciben soporte de equipo de desarrollo dedicado, documentación de integración API/SDK, entorno sandbox y asesoría técnica. Los socios de nivel Platino reciben soporte dedicado 24/7 y pueden participar en proyectos de desarrollo de productos conjuntos."
+      },
+      "ctaSection": {
+        "title": "¡Crezcamos Juntos!",
+        "subtitle": "¡Conviértase en socio del ecosistema TBURN y reciba 400M TBURN en incentivos!"
+      },
+      "footer": {
+        "tagline": "Inteligencia AI, Transparencia Blockchain - EL FUTURO ES AHORA",
+        "mainnet": "Mainnet",
+        "explorer": "Explorador",
+        "bridge": "Bridge",
+        "staking": "Staking",
+        "whitepaper": "Whitepaper",
+        "docs": "Documentación",
+        "audit": "Informe de Auditoría",
+        "blog": "Blog",
+        "ambassador": "Embajador",
+        "grants": "Grants",
+        "support": "Soporte",
+        "terms": "Términos de Servicio",
+        "privacy": "Política de Privacidad"
+      },
+      "social": {
+        "navigating": "Navegando a {{platform}}."
+      }
     },
     "marketingProgram": {
       "title": "Programa de Marketing",
