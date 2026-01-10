@@ -30759,6 +30759,240 @@
     "withinTolerance": "허용범위"
   },
   "tokenPrograms": {
+    "ecosystemFund": {
+      "loading": "로딩 중...",
+      "wallet": {
+        "connect": "지갑 연결",
+        "connectWallet": "지갑 연결하기",
+        "connected": "지갑 연결됨",
+        "connectedDesc": "이제 그랜트에 신청할 수 있습니다",
+        "disconnected": "지갑 연결 해제됨",
+        "disconnectedDesc": "참여하려면 지갑을 연결하세요",
+        "required": "지갑 필요",
+        "requiredDesc": "먼저 지갑을 연결해주세요"
+      },
+      "nav": {
+        "grants": "그랜트",
+        "incubator": "인큐베이터",
+        "hackathon": "해카톤",
+        "portfolio": "포트폴리오"
+      },
+      "hero": {
+        "badge": "에코시스템 펀드",
+        "title": "TBURN 에코시스템 펀드",
+        "fund": "7억 TBURN",
+        "fundAmount": "700,000,000",
+        "subtitle": "TBURN Chain에서 구축하는 개발자, 스타트업, 연구자를 지원하는 펀드"
+      },
+      "stats": {
+        "totalFundSize": "총 펀드 규모",
+        "supportedProjects": "지원 프로젝트",
+        "totalInvestment": "총 투자",
+        "activeDApps": "활성 dApp",
+        "successRate": "성공률",
+        "totalEcosystemFund": "총 에코시스템 펀드",
+        "developerGrant": "개발자 그랜트",
+        "incubatorFund": "인큐베이터 펀드",
+        "hackathonPrize": "해카톤 상금"
+      },
+      "sections": {
+        "distribution": {
+          "title": "펀드 배분",
+          "subtitle": "에코시스템 성장을 위한 전략적 배분"
+        },
+        "grants": {
+          "title": "개발자 그랜트 프로그램",
+          "subtitle": "각 개발 단계에 맞춤화된 지원 프로그램"
+        },
+        "process": {
+          "title": "그랜트 신청 절차",
+          "subtitle": "검토 과정은 약 4-6주 소요됩니다"
+        },
+        "incubator": {
+          "title": "dApp 인큐베이터",
+          "subtitle": "4개월 집중 액셀러레이션 프로그램"
+        },
+        "hackathon": {
+          "title": "해카톤 & 경진대회",
+          "subtitle": "혁신적인 아이디어로 상금을 획득하세요"
+        },
+        "portfolio": {
+          "title": "투자 포트폴리오",
+          "subtitle": "에코시스템 펀드가 지원한 프로젝트"
+        },
+        "faq": {
+          "title": "자주 묻는 질문",
+          "subtitle": "에코시스템 펀드에 대한 질문"
+        }
+      },
+      "distributions": {
+        "grant": "개발자 그랜트",
+        "incubator": "dApp 인큐베이터",
+        "hackathon": "해카톤",
+        "partnership": "파트너십 지원",
+        "research": "연구 개발"
+      },
+      "grants": {
+        "fundingAmount": "펀딩 금액",
+        "approved": "승인됨",
+        "pending": "검토 중",
+        "apply": "신청하기",
+        "applicationComplete": "신청 완료",
+        "applicationSubmitted": "{{title}} 신청이 제출되었습니다.",
+        "builder": {
+          "subtitle": "초기 단계 프로젝트 지원",
+          "amount": "50,000",
+          "feature1": "초기 단계 프로젝트 지원",
+          "feature2": "개발 도구 접근 권한",
+          "feature3": "커뮤니티 채널 접근",
+          "feature4": "기술 문서 지원"
+        },
+        "growth": {
+          "subtitle": "스케일링 단계 지원",
+          "amount": "200,000",
+          "feature1": "스케일링 단계 지원",
+          "feature2": "마케팅 지원",
+          "feature3": "파트너 네트워크 접근",
+          "feature4": "전담 멘토 매칭"
+        },
+        "research": {
+          "subtitle": "장기 연구 프로젝트",
+          "amount": "500,000",
+          "feature1": "장기 연구 프로젝트",
+          "feature2": "학술 출판 지원",
+          "feature3": "특허 지원",
+          "feature4": "연구팀 운영 지원"
+        }
+      },
+      "process": {
+        "step1": {
+          "title": "신청서 제출",
+          "desc": "온라인 신청서 작성",
+          "duration": "1일"
+        },
+        "step2": {
+          "title": "초기 검토",
+          "desc": "서류 검토 및 평가",
+          "duration": "1-2주"
+        },
+        "step3": {
+          "title": "인터뷰",
+          "desc": "팀 인터뷰 및 Q&A",
+          "duration": "1주"
+        },
+        "step4": {
+          "title": "최종 검토",
+          "desc": "위원회 평가 및 결정",
+          "duration": "1-2주"
+        },
+        "step5": {
+          "title": "승인 및 펀딩",
+          "desc": "계약 및 자금 배분",
+          "duration": "1주"
+        }
+      },
+      "incubator": {
+        "benefitsTitle": "인큐베이터 혜택",
+        "batchSchedule": "배치 스케줄",
+        "benefits": {
+          "funding": {
+            "title": "시드 펀딩",
+            "desc": "최대 100,000 TBURN 초기 투자"
+          },
+          "mentoring": {
+            "title": "전문가 멘토링",
+            "desc": "업계 전문가와 1:1 멘토링"
+          },
+          "tech": {
+            "title": "기술 지원",
+            "desc": "전담 개발팀 지원"
+          },
+          "network": {
+            "title": "VC 네트워크",
+            "desc": "데모 데이 및 투자자 프레젠테이션"
+          },
+          "marketing": {
+            "title": "마케팅 지원",
+            "desc": "브랜드 구축 및 홍보 지원"
+          }
+        },
+        "status": {
+          "recruiting": "모집 중",
+          "upcoming": "예정",
+          "completed": "완료"
+        },
+        "batch3": {
+          "info": "2024년 9월~12월 | 신청 접수 중"
+        },
+        "batch4": {
+          "info": "2025년 1월~4월 | 10개 팀"
+        },
+        "batch5": {
+          "info": "2025년 5월~8월 | 예정"
+        }
+      },
+      "hackathon": {
+        "eventTitle": "TBURN 글로벌 해카톤 2025",
+        "eventSubtitle": "총 상금: $100,000 | 2025년 3월 1일 - 4월 30일",
+        "totalPrize": "총 상금",
+        "participants": "참가자",
+        "countries": "국가",
+        "sponsors": "스폰서"
+      },
+      "portfolio": {
+        "funding": "펀딩"
+      },
+      "faq": {
+        "q1": "에코시스템 펀드의 총 규모는 얼마인가요?",
+        "a1": "에코시스템 펀드는 총 7억 TBURN(총 공급량의 7%)의 배분을 가지고 있습니다.",
+        "q2": "그랜트 자격 요건은 무엇인가요?",
+        "a2": "TBURN Chain에서 구축하는 모든 프로젝트가 신청할 수 있습니다.",
+        "q3": "그랜트 자금은 어떻게 배분되나요?",
+        "a3": "자금은 마일스톤에 따라 배분됩니다. 일반적으로 승인 시 30%, 중간 검토 시 40%, 완료 시 30%입니다.",
+        "q4": "인큐베이터 프로그램에 어떻게 참여하나요?",
+        "a4": "각 배치의 모집 기간 동안 온라인으로 신청하세요. 배치당 10개 팀이 선발됩니다.",
+        "q5": "해카톤에 어떻게 참여하나요?",
+        "a5": "해카톤 페이지에서 등록하고 개인 또는 팀(최대 5명)으로 참여하세요.",
+        "q6": "포트폴리오 프로젝트의 성공률은 어떻게 되나요?",
+        "a6": "에코시스템 펀드가 지원한 프로젝트는 85%의 성공률을 가지고 있습니다.",
+        "q7": "파트너십 지원은 어떻게 받나요?",
+        "a7": "파트너십 지원 프로그램(1.4억 TBURN, 20%)은 전략적 파트너와의 협력에 전념합니다.",
+        "q8": "어떤 프로젝트가 Research Grant에 적합한가요?",
+        "a8": "Research Grant(최대 500,000 TBURN)는 장기 연구 프로젝트에 적합합니다."
+      },
+      "ctaSection": {
+        "title": "지금 시작하세요!",
+        "subtitle": "TBURN 에코시스템의 일원이 되어 지원을 받으세요!"
+      },
+      "cta": {
+        "applyForGrant": "그랜트 신청",
+        "viewPrograms": "프로그램 보기",
+        "grantProgram": "그랜트 신청",
+        "selectProgram": "필요에 맞는 그랜트 프로그램을 선택하세요!",
+        "incubatorProgram": "인큐베이터 프로그램",
+        "checkProgram": "액셀러레이션 프로그램 상세 내용을 확인하세요!"
+      },
+      "footer": {
+        "tagline": "AI 인텔리전스, 블록체인 투명성. THE FUTURE IS NOW",
+        "mainnet": "메인넷",
+        "explorer": "익스플로러",
+        "bridge": "브릿지",
+        "staking": "스테이킹",
+        "whitepaper": "백서",
+        "docs": "문서",
+        "auditReport": "감사 보고서",
+        "blog": "블로그",
+        "ambassador": "앰버서더",
+        "grants": "그랜트",
+        "support": "지원",
+        "terms": "서비스 약관",
+        "privacy": "개인정보 보호정책"
+      },
+      "social": {
+        "opening": "{{platform}} 열기...",
+        "openedInNewTab": "{{platform}}이 새 탭에서 열렸습니다"
+      }
+    },
     "nav": {
       "community": "커뮤니티",
       "home": "홈",
@@ -31586,254 +31820,6 @@
           "mins": "분",
           "secs": "초"
         }
-      }
-    },
-    "ecosystemFund": {
-      "title": "생태계 펀드",
-      "subtitle": "TBURN 생태계 위에서 구축하는 프로젝트를 위한 펀딩",
-      "heroTitle": "TBURN 생태계 펀드",
-      "heroSubtitle": "혁신적인 프로젝트에 펀딩을 받고 DeFi의 미래를 구축하세요",
-      "badge": "빌더 그랜트",
-      "totalFund": "총 펀드",
-      "projectsFunded": "펀딩된 프로젝트",
-      "grantsAwarded": "지급된 그랜트",
-      "categories": "그랜트 카테고리",
-      "defi": "DeFi 애플리케이션",
-      "infrastructure": "인프라",
-      "tooling": "개발자 도구",
-      "research": "연구",
-      "applyGrant": "그랜트 신청",
-      "viewProjects": "펀딩된 프로젝트 보기",
-      "nav": {
-        "grants": "그랜트",
-        "incubator": "인큐베이터",
-        "hackathon": "해커톤",
-        "portfolio": "포트폴리오"
-      },
-      "hero": {
-        "badge": "에코시스템 펀드",
-        "title": "TBURN 생태계 펀드",
-        "fund": "7억",
-        "fundAmount": "700,000,000 TBURN",
-        "subtitle": "TBURN Chain 위에서 구축하는 개발자, 스타트업, 연구자를 지원하는 펀드"
-      },
-      "wallet": {
-        "connectWallet": "지갑 연결",
-        "connected": "연결됨",
-        "disconnected": "연결 해제됨",
-        "walletRequired": "지갑 연결이 필요합니다",
-        "walletConnected": "지갑이 성공적으로 연결되었습니다",
-        "walletDisconnected": "지갑 연결이 해제되었습니다"
-      },
-      "stats": {
-        "totalFundSize": "총 펀드 규모",
-        "supportedProjects": "지원된 프로젝트",
-        "successRate": "성공률",
-        "activeDapps": "활성 dApp"
-      },
-      "sections": {
-        "distribution": {
-          "title": "펀드 배분",
-          "subtitle": "전략적 생태계 성장을 위한 배분"
-        },
-        "grants": {
-          "title": "개발자 그랜트 프로그램",
-          "subtitle": "단계별 맞춤형 지원 프로그램"
-        },
-        "process": {
-          "title": "그랜트 신청 프로세스",
-          "subtitle": "약 4~6주 소요되는 심사 과정"
-        },
-        "incubator": {
-          "title": "dApp 인큐베이터",
-          "subtitle": "4개월 집중 육성 프로그램"
-        },
-        "hackathon": {
-          "title": "해커톤 & 대회",
-          "subtitle": "혁신적인 아이디어에 상금을 수여합니다"
-        },
-        "portfolio": {
-          "title": "투자 포트폴리오",
-          "subtitle": "에코시스템 펀드로 지원된 프로젝트"
-        },
-        "faq": {
-          "title": "자주 묻는 질문",
-          "subtitle": "에코시스템 펀드에 대해 궁금한 점"
-        }
-      },
-      "distributions": {
-        "grant": {
-          "name": "개발자 그랜트",
-          "desc": "Builder, Growth, Research 그랜트"
-        },
-        "incubator": {
-          "name": "dApp 인큐베이터",
-          "desc": "4개월 집중 육성"
-        },
-        "hackathon": {
-          "name": "해커톤 & 대회",
-          "desc": "상금 및 이벤트 운영"
-        },
-        "partnership": {
-          "name": "파트너십 지원",
-          "desc": "전략적 파트너 협력"
-        },
-        "research": {
-          "name": "연구 & 개발",
-          "desc": "학술 연구 및 혁신"
-        }
-      },
-      "grants": {
-        "fundingAmount": "지원 금액",
-        "approved": "승인됨",
-        "pending": "심사중",
-        "apply": "신청하기",
-        "builder": {
-          "title": "Builder Grant",
-          "subtitle": "초기 단계 프로젝트 지원",
-          "amount": "50,000",
-          "feature1": "초기 단계 프로젝트 지원",
-          "feature2": "개발자 도구 액세스",
-          "feature3": "커뮤니티 채널 액세스",
-          "feature4": "기술 문서 지원"
-        },
-        "growth": {
-          "title": "Growth Grant",
-          "subtitle": "성장 단계 프로젝트 지원",
-          "amount": "200,000",
-          "feature1": "성장 단계 프로젝트 지원",
-          "feature2": "마케팅 지원",
-          "feature3": "파트너 네트워크 액세스",
-          "feature4": "전담 멘토 매칭"
-        },
-        "research": {
-          "title": "Research Grant",
-          "subtitle": "장기 연구 프로젝트 지원",
-          "amount": "500,000",
-          "feature1": "장기 연구 프로젝트 지원",
-          "feature2": "학술 논문 출판 지원",
-          "feature3": "특허 지원",
-          "feature4": "연구팀 운영 지원"
-        }
-      },
-      "process": {
-        "step1": {
-          "title": "신청서 제출",
-          "desc": "온라인 신청 양식 작성",
-          "duration": "1일"
-        },
-        "step2": {
-          "title": "1차 심사",
-          "desc": "서류 검토 및 평가",
-          "duration": "1-2주"
-        },
-        "step3": {
-          "title": "인터뷰",
-          "desc": "팀 인터뷰 및 Q&A",
-          "duration": "1주"
-        },
-        "step4": {
-          "title": "최종 심사",
-          "desc": "위원회 평가 및 결정",
-          "duration": "1-2주"
-        },
-        "step5": {
-          "title": "승인 & 지급",
-          "desc": "계약 및 자금 배분",
-          "duration": "1주"
-        }
-      },
-      "incubator": {
-        "benefitsTitle": "인큐베이터 혜택",
-        "batchSchedule": "배치 일정",
-        "seedFunding": {
-          "title": "시드 펀딩",
-          "desc": "최대 10만 TBURN 초기 투자"
-        },
-        "mentoring": {
-          "title": "전문 멘토링",
-          "desc": "업계 전문가 1:1 멘토링"
-        },
-        "techSupport": {
-          "title": "기술 지원",
-          "desc": "전담 개발팀 지원"
-        },
-        "vcNetwork": {
-          "title": "VC 네트워크",
-          "desc": "데모데이 및 투자자 소개"
-        },
-        "batch1": {
-          "statusLabel": "완료",
-          "info": "2024.01 ~ 04 | 10팀"
-        },
-        "batch2": {
-          "statusLabel": "진행중",
-          "info": "2024.05 ~ 08 | 10팀"
-        },
-        "batch3": {
-          "statusLabel": "모집중",
-          "info": "2024.09 ~ 12 | 신청 접수중"
-        }
-      },
-      "hackathon": {
-        "eventTitle": "TBURN Global Hackathon 2025",
-        "eventSubtitle": "총 상금 $100,000 | 2025.03.01 ~ 2025.04.30",
-        "totalPrize": "총 상금",
-        "participants": "참가자",
-        "countries": "국가",
-        "sponsors": "스폰서"
-      },
-      "portfolio": {
-        "funding": "펀딩"
-      },
-      "faq": {
-        "q1": "에코시스템 펀드 총 규모는 얼마인가요?",
-        "a1": "에코시스템 펀드에 총 7억 TBURN(전체 공급량의 7%)이 배정되어 있습니다. 개발자 그랜트 40%(2.8억), dApp 인큐베이터 20%(1.4억), 해커톤 & 대회 10%(0.7억), 파트너십 지원 20%(1.4억), 연구 & 개발 10%(0.7억)으로 배분됩니다.",
-        "q2": "그랜트 신청 자격은 어떻게 되나요?",
-        "a2": "TBURN Chain 위에 구축되는 모든 프로젝트가 신청 가능합니다. 개인 개발자, 스타트업, 기존 프로젝트 모두 환영합니다. Builder Grant(최대 5만 TBURN), Growth Grant(최대 20만 TBURN), Research Grant(최대 50만 TBURN) 중 선택 가능합니다.",
-        "q3": "그랜트 자금은 어떻게 지급되나요?",
-        "a3": "마일스톤 기반으로 분할 지급됩니다. 일반적으로 승인 시 30%, 중간 검토 시 40%, 완료 시 30%가 지급됩니다. 심사 과정은 약 4~6주 소요되며, 신청서 제출 → 1차 심사 → 인터뷰 → 최종 심사 → 승인 & 지급 순서로 진행됩니다.",
-        "q4": "인큐베이터 프로그램에 어떻게 참여하나요?",
-        "a4": "각 배치 모집 기간에 온라인으로 신청하시면 됩니다. 서류 심사, 인터뷰를 거쳐 매 배치당 10팀이 선발됩니다. 4개월간 집중 멘토링과 함께 최대 10만 TBURN의 시드 펀딩, 전문 멘토링, 기술 지원, VC 네트워크 연결 등의 혜택을 받을 수 있습니다.",
-        "q5": "해커톤 참가 방법은 무엇인가요?",
-        "a5": "해커톤 페이지에서 등록 후 개인 또는 팀(최대 5명)으로 참가할 수 있습니다. GameFi($25,000), DeFi($25,000), NFT($15,000), AI+Blockchain($35,000) 트랙 중 선택하고 프로젝트를 제출하면 심사를 통해 수상자가 결정됩니다.",
-        "q6": "포트폴리오 프로젝트의 성공률은 어떻게 되나요?",
-        "a6": "에코시스템 펀드로 지원된 프로젝트의 성공률은 85%입니다. 현재 32개의 활성 dApp이 운영 중이며, TBurn Swap(DEX), TBurn Lend(Lending), ChainQuest(GameFi), CrossBridge(Bridge) 등 다양한 카테고리의 프로젝트가 성공적으로 운영되고 있습니다.",
-        "q7": "파트너십 지원은 어떻게 받을 수 있나요?",
-        "a7": "파트너십 지원 프로그램(1.4억 TBURN, 20%)은 전략적 파트너와의 협력을 위한 펀드입니다. 거래소 상장 지원, 크로스체인 통합, 기업 파트너십 등에 활용됩니다. 별도의 파트너십 신청 양식을 통해 문의하시면 됩니다.",
-        "q8": "연구 그랜트는 어떤 프로젝트에 적합한가요?",
-        "a8": "Research Grant(최대 50만 TBURN)는 장기 연구 프로젝트에 적합합니다. 블록체인 확장성 연구, 보안 프로토콜 개발, 학술 논문 출판, 특허 지원 등이 포함됩니다. 대학교, 연구소, 전문 연구 팀의 신청을 환영합니다."
-      },
-      "ctaSection": {
-        "title": "지금 시작하세요!",
-        "subtitle": "TBURN 생태계의 일원이 되어 7억 TBURN 펀드의 지원을 받으세요!"
-      },
-      "cta": {
-        "applyForGrant": "그랜트 신청하기",
-        "grantProgram": "그랜트 신청",
-        "selectProgram": "자신에게 맞는 그랜트 프로그램을 선택하세요!",
-        "applicationSubmitted": "신청 완료",
-        "applicationSubmittedDesc": "{{grantType}} 신청이 완료되었습니다. 이메일로 연락드리겠습니다.",
-        "applicationFailed": "신청 실패"
-      },
-      "footer": {
-        "tagline": "AI의 지능, 블록체인의 투명성. THE FUTURE IS NOW",
-        "mainnet": "메인넷",
-        "explorer": "익스플로러",
-        "bridge": "브릿지",
-        "staking": "스테이킹",
-        "whitepaper": "백서",
-        "docs": "문서",
-        "auditReport": "감사 보고서",
-        "blog": "블로그",
-        "ambassador": "앰배서더",
-        "grants": "그랜트",
-        "support": "고객지원",
-        "terms": "이용약관",
-        "privacy": "개인정보처리방침"
-      },
-      "social": {
-        "connecting": "{{platform}}에 연결 중..."
       }
     },
     "partnershipProgram": {
