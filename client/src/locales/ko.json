@@ -31573,7 +31573,10 @@
         "grants": "그랜트",
         "support": "지원",
         "terms": "이용약관",
-        "privacy": "개인정보처리방침"
+        "privacy": "개인정보처리방침",
+        "product": "제품",
+        "resources": "리소스",
+        "community": "커뮤니티"
       }
     },
     "publicRound": {

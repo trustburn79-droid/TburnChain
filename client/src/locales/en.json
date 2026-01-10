@@ -31456,7 +31456,10 @@
         "grants": "Grants",
         "support": "Support",
         "terms": "Terms of Service",
-        "privacy": "Privacy Policy"
+        "privacy": "Privacy Policy",
+        "product": "Product",
+        "resources": "Resources",
+        "community": "Community"
       }
     },
     "publicRound": {

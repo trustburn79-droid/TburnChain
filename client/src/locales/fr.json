@@ -17340,7 +17340,10 @@
         "grants": "Subventions",
         "support": "Support",
         "terms": "Conditions d'Utilisation",
-        "privacy": "Politique de Confidentialité"
+        "privacy": "Politique de Confidentialité",
+        "product": "Produit",
+        "resources": "Ressources",
+        "community": "Communauté"
       }
     },
     "publicRound": {

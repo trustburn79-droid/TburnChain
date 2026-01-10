@@ -19624,7 +19624,10 @@
         "grants": "Subvenciones",
         "support": "Soporte",
         "terms": "Términos de Servicio",
-        "privacy": "Política de Privacidad"
+        "privacy": "Política de Privacidad",
+        "product": "Producto",
+        "resources": "Recursos",
+        "community": "Comunidad"
       }
     },
     "publicRound": {

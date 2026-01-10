@@ -17089,7 +17089,10 @@
         "grants": "Subsídios",
         "support": "Suporte",
         "terms": "Termos de Serviço",
-        "privacy": "Política de Privacidade"
+        "privacy": "Política de Privacidade",
+        "product": "Produto",
+        "resources": "Recursos",
+        "community": "Comunidade"
       }
     },
     "publicRound": {

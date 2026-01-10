@@ -20386,7 +20386,10 @@
         "grants": "助成金",
         "support": "サポート",
         "terms": "利用規約",
-        "privacy": "プライバシーポリシー"
+        "privacy": "プライバシーポリシー",
+        "product": "製品",
+        "resources": "リソース",
+        "community": "コミュニティ"
       }
     },
     "publicRound": {

@@ -1225,7 +1225,7 @@ export default function PrivateRoundPage() {
       {/* Vesting Section */}
       <section className="section" id="vesting">
         <div className="section-header">
-          <span className="section-badge">VESTING</span>
+          <span className="section-badge">{t('tokenPrograms.privateRound.vesting.badge')}</span>
           <h2 className="section-title">{t('tokenPrograms.privateRound.vesting.title')}</h2>
           <p className="section-subtitle">{t('tokenPrograms.privateRound.vesting.subtitle')}</p>
         </div>
@@ -1247,7 +1247,7 @@ export default function PrivateRoundPage() {
       {/* Allocation Breakdown Section */}
       <section className="section" id="allocation" style={{ background: 'rgba(255,255,255,0.02)' }}>
         <div className="section-header">
-          <span className="section-badge">ALLOCATION</span>
+          <span className="section-badge">{t('tokenPrograms.privateRound.allocation.badge')}</span>
           <h2 className="section-title">{t('tokenPrograms.privateRound.allocation.title')}</h2>
           <p className="section-subtitle">{t('tokenPrograms.privateRound.allocation.subtitle')}</p>
         </div>
@@ -1269,7 +1269,7 @@ export default function PrivateRoundPage() {
       {/* Current Investors Section */}
       <section className="section" id="investors">
         <div className="section-header">
-          <span className="section-badge">INVESTORS</span>
+          <span className="section-badge">{t('tokenPrograms.privateRound.investors.badge')}</span>
           <h2 className="section-title">{t('tokenPrograms.privateRound.investors.title')}</h2>
           <p className="section-subtitle">{t('tokenPrograms.privateRound.investors.subtitle')}</p>
         </div>
@@ -1293,7 +1293,7 @@ export default function PrivateRoundPage() {
       {/* Investment Process Section */}
       <section className="section" style={{ background: 'rgba(255,255,255,0.02)' }}>
         <div className="section-header">
-          <span className="section-badge">PROCESS</span>
+          <span className="section-badge">{t('tokenPrograms.privateRound.process.badge')}</span>
           <h2 className="section-title">{t('tokenPrograms.privateRound.process.title')}</h2>
           <p className="section-subtitle">{t('tokenPrograms.privateRound.process.subtitle')}</p>
         </div>
@@ -1315,7 +1315,7 @@ export default function PrivateRoundPage() {
       {/* Why Private Section */}
       <section className="section">
         <div className="section-header">
-          <span className="section-badge">BENEFITS</span>
+          <span className="section-badge">{t('tokenPrograms.privateRound.benefits.badge')}</span>
           <h2 className="section-title">{t('tokenPrograms.privateRound.benefits.title')}</h2>
           <p className="section-subtitle">{t('tokenPrograms.privateRound.benefits.subtitle')}</p>
         </div>
@@ -1543,7 +1543,7 @@ export default function PrivateRoundPage() {
             </div>
           </div>
           <div className="footer-links">
-            <h4>Product</h4>
+            <h4>{t('tokenPrograms.privateRound.footer.product')}</h4>
             <ul>
               <li><Link href="/">{t('tokenPrograms.privateRound.footer.mainnet')}</Link></li>
               <li><Link href="/scan">{t('tokenPrograms.privateRound.footer.explorer')}</Link></li>
@@ -1552,16 +1552,16 @@ export default function PrivateRoundPage() {
             </ul>
           </div>
           <div className="footer-links">
-            <h4>Resources</h4>
+            <h4>{t('tokenPrograms.privateRound.footer.resources')}</h4>
             <ul>
               <li><Link href="/learn/whitepaper">{t('tokenPrograms.privateRound.footer.whitepaper')}</Link></li>
               <li><Link href="/developers/docs">{t('tokenPrograms.privateRound.footer.docs')}</Link></li>
-              <li><a href="#">GitHub</a></li>
+              <li><a href="#">{t('tokenPrograms.privateRound.footer.github')}</a></li>
               <li><Link href="/security-audit">{t('tokenPrograms.privateRound.footer.audit')}</Link></li>
             </ul>
           </div>
           <div className="footer-links">
-            <h4>Community</h4>
+            <h4>{t('tokenPrograms.privateRound.footer.community')}</h4>
             <ul>
               <li><Link href="/community/news">{t('tokenPrograms.privateRound.footer.blog')}</Link></li>
               <li><a href="#">{t('tokenPrograms.privateRound.footer.ambassador')}</a></li>
