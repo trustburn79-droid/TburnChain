@@ -19345,20 +19345,256 @@
       "connectWallet": "投资咨询"
     },
     "privateRound": {
-      "title": "私募轮",
-      "subtitle": "面向合格投资者的私募",
-      "heroTitle": "TBURN 私募轮",
-      "heroSubtitle": "面向机构和合格投资者的独家投资机会",
-      "badge": "私募",
-      "tokenPrice": "代币价格",
-      "discount": "发行价折扣",
-      "allocation": "总分配",
-      "minInvestment": "最低投资",
-      "investorRequirements": "投资者要求",
-      "kyc": "KYC/AML验证",
-      "accredited": "合格投资者",
-      "institutional": "机构",
-      "applyPrivate": "申请私募轮"
+      "nav": {
+        "tiers": "投资等级",
+        "vesting": "锁仓",
+        "allocation": "分配",
+        "investors": "投资者",
+        "faq": "常见问题",
+        "connectWallet": "机构投资咨询"
+      },
+      "hero": {
+        "badge": "PRIVATE ROUND - 机构投资",
+        "status": "进行中",
+        "title": "通过私募轮投资抓住",
+        "titleHighlight": "10亿TBURN",
+        "titleSuffix": "机会",
+        "subtitle": "面向机构投资者、VC、家族办公室 - 相比上市价($0.50)50%折扣，$0.10投资机会。TGE 5%立即解锁。",
+        "progressRaised": "$72,000,000",
+        "progressGoal": "目标 $100,000,000",
+        "progressPercent": "72% 已达成",
+        "progressRemaining": "剩余 $28,000,000"
+      },
+      "highlights": {
+        "pricePerToken": "代币单价",
+        "priceCompare": "相比种子轮+150%",
+        "discountLaunch": "相比上市价折扣",
+        "tgeUnlock": "TGE立即解锁",
+        "vestingPeriod": "锁仓期限"
+      },
+      "stats": {
+        "loading": "加载中...",
+        "privateAllocation": "私募分配 (10%)",
+        "tokenPrice": "代币价格",
+        "hardcap": "硬顶",
+        "institutionalInvestors": "机构投资者"
+      },
+      "cta": {
+        "applyPrivate": "申请私募投资",
+        "viewDeck": "查看投资资料"
+      },
+      "comparison": {
+        "badge": "COMPARISON",
+        "title": "轮次对比",
+        "subtitle": "私募轮介于种子轮和公募之间",
+        "tableTitle": "投资轮次对比",
+        "round": "轮次",
+        "tokenPrice": "代币价格",
+        "discount": "折扣",
+        "status": "状态",
+        "inProgress": "进行中",
+        "completed": "已完成",
+        "upcoming": "即将开始"
+      },
+      "tiers": {
+        "badge": "TIERS",
+        "title": "投资等级",
+        "subtitle": "按机构投资规模分级权益",
+        "minInvestment": "最低投资",
+        "minInvestmentLabel": "最低投资",
+        "tokenPriceLabel": "代币价格",
+        "tgeUnlockLabel": "TGE解锁",
+        "inquireBtn": "投资咨询",
+        "institutional": {
+          "name": "Institutional",
+          "subtitle": "机构投资者",
+          "benefits": [
+            "董事会观察席",
+            "月度管理层简报",
+            "独家共投权",
+            "定制锁仓协商",
+            "专属IR经理"
+          ]
+        },
+        "strategic": {
+          "name": "Strategic",
+          "subtitle": "战略投资者",
+          "benefits": [
+            "季度战略会议",
+            "合作优先权",
+            "技术协作机会",
+            "联合营销",
+            "网络接入"
+          ]
+        },
+        "growth": {
+          "name": "Growth",
+          "subtitle": "成长投资者",
+          "benefits": [
+            "季度更新电话会",
+            "私密社区",
+            "治理参与权",
+            "新功能早期访问",
+            "专属支持渠道"
+          ]
+        },
+        "standard": {
+          "name": "Standard",
+          "subtitle": "普通投资者",
+          "benefits": [
+            "月度投资者通讯",
+            "基础治理投票权",
+            "投资者专属频道",
+            "一般配额",
+            "邮件支持"
+          ]
+        }
+      },
+      "vesting": {
+        "badge": "VESTING",
+        "title": "锁仓计划",
+        "subtitle": "TGE 5%立即解锁，6个月悬崖期后12个月月度释放",
+        "tgeUnlock": "TGE解锁",
+        "tgeDesc": "上市即时",
+        "cliffPeriod": "悬崖期",
+        "cliffDesc": "初始锁定",
+        "monthlyVesting": "月度释放",
+        "monthlyDesc": "12个月",
+        "fullUnlock": "完全解锁",
+        "fullUnlockDesc": "18个月后"
+      },
+      "allocation": {
+        "badge": "ALLOCATION",
+        "title": "投资者类型分配",
+        "subtitle": "10亿TBURN分配状况",
+        "vcFunds": "VC & 基金",
+        "familyOffice": "家族办公室",
+        "strategicInvestors": "战略投资者",
+        "corporateInvestors": "企业投资者"
+      },
+      "investors": {
+        "badge": "INVESTORS",
+        "title": "当前投资者",
+        "subtitle": "我们的机构合作伙伴"
+      },
+      "process": {
+        "badge": "PROCESS",
+        "title": "投资流程",
+        "subtitle": "机构投资程序",
+        "inquiry": "投资咨询",
+        "inquiryDesc": "提交意向书",
+        "inquiryDuration": "1-3天",
+        "dueDiligence": "尽职调查",
+        "dueDiligenceDesc": "公司及投资者DD",
+        "dueDiligenceDuration": "1-2周",
+        "negotiation": "合同谈判",
+        "negotiationDesc": "投资条款协商",
+        "negotiationDuration": "1-2周",
+        "funding": "资金转账",
+        "fundingDesc": "投资转账",
+        "fundingDuration": "3-5天",
+        "tokenAllocation": "代币分配",
+        "tokenAllocationDesc": "投资确认",
+        "tokenAllocationDuration": "即时"
+      },
+      "benefits": {
+        "badge": "BENEFITS",
+        "title": "私募轮优势",
+        "subtitle": "机构投资者专属权益",
+        "excellentPrice": "优惠价格",
+        "excellentPriceValue": "50%+折扣",
+        "excellentPriceDesc": "以公募一半价格投资",
+        "tgeLiquidity": "TGE流动性",
+        "tgeLiquidityValue": "5%解锁",
+        "tgeLiquidityDesc": "上市即可获得流动性",
+        "strategicPartnership": "战略合作",
+        "strategicPartnershipValue": "独家权益",
+        "strategicPartnershipDesc": "与项目密切合作"
+      },
+      "faq": {
+        "badge": "FAQ",
+        "title": "常见问题",
+        "subtitle": "关于私募投资的问题",
+        "q1": {
+          "question": "私募轮的参与资格和投资条件是什么？",
+          "answer": "私募轮面向合格机构投资者（VC、基金、家族办公室）、企业投资者和战略合作伙伴。最低投资额为$100,000（标准级），$500,000+（成长级），$2,000,000+（战略级），$5,000,000+（机构级），按投资规模享受代币价格折扣和TGE解锁比例。所有投资者须通过KYC/AML认证和投资者资格审核。"
+        },
+        "q2": {
+          "question": "种子轮和私募轮有什么区别？",
+          "answer": "种子轮（$0.04/代币，80%折扣）已完成，12个月悬崖期+24个月释放。私募轮（$0.10/代币，50%折扣）提供更短锁定期：6个月悬崖期+12个月释放。私募投资者在TGE时可获得5-7%立即解锁。价格较高但流动性更快，享有机构级投资者权益。"
+        },
+        "q3": {
+          "question": "锁仓计划和TGE解锁是如何运作的？",
+          "answer": "TGE（代币生成事件）时，投资代币的5%立即解锁。机构级最高7%，战略级6%。之后是6个月悬崖期（锁定），然后12个月线性释放，每月约7.9%。完全解锁共需18个月。机构级投资者可协商定制锁仓计划。"
+        },
+        "q4": {
+          "question": "投资流程和尽职调查过程是怎样的？",
+          "answer": "流程：(1)投资咨询及NDA签署→(2)提交意向书(LOI)→(3)双向尽调(项目技术/财务/法律DD+投资者资金来源/资格确认)→(4)投资条款谈判及Term Sheet达成→(5)SAFT合同签署→(6)资金转账(USDT、USDC、银行转账)→(7)代币分配确认。尽调通常需1-2周，大型机构可延长至3-4周。专属IR经理全程指导。"
+        },
+        "q5": {
+          "question": "投资者保护和法律结构是怎样的？",
+          "answer": "所有私募投资通过SAFT（简单未来代币协议）合同获得法律保护。合同明确代币配额、价格、锁仓条款、投资者权利和争议解决。资金通过开曼群岛SPV（特殊目的载体）管理，存放于第三方托管账户。法律顾问来自Morrison & Foerster，符合新加坡MAS规定。"
+        },
+        "q6": {
+          "question": "上市计划和发行价格是什么？",
+          "answer": "TBURN代币目标发行价为$0.50（私募的5倍）。上市策略：主网上线同时进行TGE，在Uniswap、PancakeSwap等主要DEX提供初始流动性。正在与Tier-1 CEX（Binance、OKX、Bybit、Coinbase等）洽谈上市，目标在发行后3-6个月内登陆主要交易所。市场做市与专业MM合作伙伴合作。"
+        },
+        "q7": {
+          "question": "各级权益和治理权限是什么？",
+          "answer": "分级权益：(1)机构级($5M+):董事会观察席、月度管理层简报、独家共投权、定制锁仓、专属IR经理 (2)战略级($2M+):季度战略会议、合作优先权、技术协作、联合营销 (3)成长级($500K+):季度更新电话会、私密社区、治理参与权、新功能早期访问 (4)标准级($100K+):月度通讯、基础治理投票权、投资者频道。所有私募投资者拥有DAO治理投票权。"
+        },
+        "q8": {
+          "question": "付款方式和退款政策是什么？",
+          "answer": "付款方式：USDT（ERC-20/TRC-20）、USDC（ERC-20）或银行转账（USD/EUR）。$1M以上投资可分期付款，付款计划可协商。退款政策：SAFT合同签署前可全额退款。签约后仅在项目终止、主网发行失败或重大路线图变更时可申请退款。投资者原因导致的提前终止不可退款，详细条款见SAFT合同。"
+        }
+      },
+      "ctaSection": {
+        "title": "成为机构投资者",
+        "subtitle": "作为TBURN Chain私募投资者，获得相比上市价50%折扣和TGE即时流动性！",
+        "button": "立即投资"
+      },
+      "dialog": {
+        "title": "私募轮投资咨询",
+        "description": "我们的团队将在1-2个工作日内与您联系。仅限机构投资者。",
+        "name": "姓名",
+        "namePlaceholder": "请输入您的姓名",
+        "email": "邮箱",
+        "emailPlaceholder": "请输入您的邮箱",
+        "company": "公司/机构",
+        "companyPlaceholder": "请输入公司名称",
+        "investmentAmount": "投资金额 (USD)",
+        "investmentAmountPlaceholder": "最低 $100,000",
+        "message": "附加信息",
+        "messagePlaceholder": "投资意向、问题等",
+        "submit": "提交咨询",
+        "submitting": "提交中...",
+        "success": "咨询已提交",
+        "successDesc": "我们的团队将在1-2个工作日内与您联系。",
+        "error": "发生错误",
+        "errorDesc": "咨询提交失败，请重试。",
+        "required": "缺少必填信息",
+        "requiredDesc": "姓名、邮箱和公司是必填项。"
+      },
+      "footer": {
+        "description": "TBURN Chain是具有先进DeFi、DAO和企业集成功能的下一代Layer-1区块链。",
+        "quickLinks": "快速链接",
+        "developers": "开发者",
+        "legal": "法律声明",
+        "whitepaper": "白皮书",
+        "tokenomics": "代币经济",
+        "roadmap": "路线图",
+        "team": "团队",
+        "documentation": "文档",
+        "github": "GitHub",
+        "apiReference": "API参考",
+        "bugBounty": "漏洞赏金",
+        "termsOfService": "服务条款",
+        "privacyPolicy": "隐私政策",
+        "disclaimer": "免责声明",
+        "cookiePolicy": "Cookie政策",
+        "copyright": "© 2025 TBURN Chain. All rights reserved.",
+        "socialLinks": "关注我们"
+      }
     },
     "publicRound": {
       "title": "公募轮",

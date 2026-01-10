@@ -19363,20 +19363,256 @@
       "connectWallet": "Consulta de Inversión"
     },
     "privateRound": {
-      "title": "Ronda Privada",
-      "subtitle": "Venta privada para inversores calificados",
-      "heroTitle": "Ronda Privada TBURN",
-      "heroSubtitle": "Oportunidad de inversión exclusiva para inversores institucionales y calificados",
-      "badge": "Venta Privada",
-      "tokenPrice": "Precio del Token",
-      "discount": "Descuento del Lanzamiento",
-      "allocation": "Asignación Total",
-      "minInvestment": "Inversión Mínima",
-      "investorRequirements": "Requisitos del Inversor",
-      "kyc": "Verificación KYC/AML",
-      "accredited": "Inversor Acreditado",
-      "institutional": "Institucional",
-      "applyPrivate": "Aplicar para Ronda Privada"
+      "nav": {
+        "tiers": "Niveles de Inversión",
+        "vesting": "Vesting",
+        "allocation": "Asignación",
+        "investors": "Inversores",
+        "faq": "FAQ",
+        "connectWallet": "Consulta Institucional"
+      },
+      "hero": {
+        "badge": "PRIVATE ROUND - Inversión Institucional",
+        "status": "En Progreso",
+        "title": "Aproveche la oportunidad con",
+        "titleHighlight": "1 Mil Millones TBURN",
+        "titleSuffix": "Inversión en Ronda Privada",
+        "subtitle": "Para inversores institucionales, VCs y family offices - 50% de descuento sobre el precio de lanzamiento ($0.50) a $0.10. 5% de desbloqueo inmediato en TGE.",
+        "progressRaised": "$72,000,000",
+        "progressGoal": "Meta $100,000,000",
+        "progressPercent": "72% Alcanzado",
+        "progressRemaining": "$28,000,000 restantes"
+      },
+      "highlights": {
+        "pricePerToken": "Precio por Token",
+        "priceCompare": "+150% vs Seed",
+        "discountLaunch": "Descuento vs Lanzamiento",
+        "tgeUnlock": "Desbloqueo TGE",
+        "vestingPeriod": "Período de Vesting"
+      },
+      "stats": {
+        "loading": "Cargando...",
+        "privateAllocation": "Asignación Privada (10%)",
+        "tokenPrice": "Precio del Token",
+        "hardcap": "Hardcap",
+        "institutionalInvestors": "Inversores Institucionales"
+      },
+      "cta": {
+        "applyPrivate": "Solicitar Inversión Privada",
+        "viewDeck": "Ver Deck de Inversión"
+      },
+      "comparison": {
+        "badge": "COMPARISON",
+        "title": "Comparación de Rondas",
+        "subtitle": "La ronda privada ofrece condiciones intermedias entre seed y pública",
+        "tableTitle": "Comparación de Rondas de Inversión",
+        "round": "Ronda",
+        "tokenPrice": "Precio del Token",
+        "discount": "Descuento",
+        "status": "Estado",
+        "inProgress": "En Progreso",
+        "completed": "Completada",
+        "upcoming": "Próximamente"
+      },
+      "tiers": {
+        "badge": "TIERS",
+        "title": "Niveles de Inversión",
+        "subtitle": "Beneficios escalonados según el tamaño de inversión institucional",
+        "minInvestment": "Inversión Mínima",
+        "minInvestmentLabel": "Inversión Mínima",
+        "tokenPriceLabel": "Precio del Token",
+        "tgeUnlockLabel": "Desbloqueo TGE",
+        "inquireBtn": "Consultar Inversión",
+        "institutional": {
+          "name": "Institutional",
+          "subtitle": "Inversores Institucionales",
+          "benefits": [
+            "Asiento de Observador en Junta",
+            "Briefing Ejecutivo Mensual",
+            "Derechos de Co-inversión Exclusivos",
+            "Negociación de Vesting Personalizado",
+            "Gerente IR Dedicado"
+          ]
+        },
+        "strategic": {
+          "name": "Strategic",
+          "subtitle": "Socios Estratégicos",
+          "benefits": [
+            "Sesiones de Estrategia Trimestrales",
+            "Prioridad de Partnership",
+            "Colaboración Técnica",
+            "Co-Marketing",
+            "Acceso a Red"
+          ]
+        },
+        "growth": {
+          "name": "Growth",
+          "subtitle": "Inversores de Crecimiento",
+          "benefits": [
+            "Llamadas de Actualización Trimestrales",
+            "Comunidad Privada",
+            "Participación en Gobernanza",
+            "Acceso Temprano a Funciones",
+            "Canal de Soporte Dedicado"
+          ]
+        },
+        "standard": {
+          "name": "Standard",
+          "subtitle": "Inversores Generales",
+          "benefits": [
+            "Newsletter Mensual para Inversores",
+            "Voto de Gobernanza Básico",
+            "Canal Solo Inversores",
+            "Asignación General",
+            "Soporte por Email"
+          ]
+        }
+      },
+      "vesting": {
+        "badge": "VESTING",
+        "title": "Calendario de Vesting",
+        "subtitle": "5% desbloqueo TGE inmediato, 6 meses cliff, 12 meses vesting lineal",
+        "tgeUnlock": "Desbloqueo TGE",
+        "tgeDesc": "En Listado",
+        "cliffPeriod": "Período Cliff",
+        "cliffDesc": "Bloqueo Inicial",
+        "monthlyVesting": "Vesting Mensual",
+        "monthlyDesc": "Durante 12 Meses",
+        "fullUnlock": "Desbloqueo Total",
+        "fullUnlockDesc": "Después de 18 Meses"
+      },
+      "allocation": {
+        "badge": "ALLOCATION",
+        "title": "Asignación por Tipo de Inversor",
+        "subtitle": "Estado de Asignación de 1 Mil Millones TBURN",
+        "vcFunds": "VC y Fondos",
+        "familyOffice": "Family Offices",
+        "strategicInvestors": "Inversores Estratégicos",
+        "corporateInvestors": "Inversores Corporativos"
+      },
+      "investors": {
+        "badge": "INVESTORS",
+        "title": "Inversores Actuales",
+        "subtitle": "Nuestros Socios Institucionales"
+      },
+      "process": {
+        "badge": "PROCESS",
+        "title": "Proceso de Inversión",
+        "subtitle": "Procedimiento de Inversión Institucional",
+        "inquiry": "Consulta de Inversión",
+        "inquiryDesc": "Enviar Carta de Intención",
+        "inquiryDuration": "1-3 días",
+        "dueDiligence": "Due Diligence",
+        "dueDiligenceDesc": "DD de Empresa e Inversor",
+        "dueDiligenceDuration": "1-2 semanas",
+        "negotiation": "Negociación de Contrato",
+        "negotiationDesc": "Discusión de Términos",
+        "negotiationDuration": "1-2 semanas",
+        "funding": "Transferencia de Fondos",
+        "fundingDesc": "Transferencia de Inversión",
+        "fundingDuration": "3-5 días",
+        "tokenAllocation": "Asignación de Tokens",
+        "tokenAllocationDesc": "Confirmación de Inversión",
+        "tokenAllocationDuration": "Inmediato"
+      },
+      "benefits": {
+        "badge": "BENEFITS",
+        "title": "Ventajas de la Ronda Privada",
+        "subtitle": "Beneficios Exclusivos para Inversores Institucionales",
+        "excellentPrice": "Precio Excelente",
+        "excellentPriceValue": "50%+ Descuento",
+        "excellentPriceDesc": "Invierta a la mitad del precio público",
+        "tgeLiquidity": "Liquidez TGE",
+        "tgeLiquidityValue": "5% Desbloqueo",
+        "tgeLiquidityDesc": "Liquidez inmediata en listado",
+        "strategicPartnership": "Partnership Estratégico",
+        "strategicPartnershipValue": "Beneficios Exclusivos",
+        "strategicPartnershipDesc": "Colaboración cercana con el proyecto"
+      },
+      "faq": {
+        "badge": "FAQ",
+        "title": "Preguntas Frecuentes",
+        "subtitle": "Preguntas sobre inversión privada",
+        "q1": {
+          "question": "¿Cuáles son los requisitos de elegibilidad y términos de inversión para la Ronda Privada?",
+          "answer": "La Ronda Privada es para inversores institucionales cualificados (VCs, fondos, family offices), inversores corporativos y socios estratégicos. La inversión mínima es $100,000 (nivel Standard), con precios escalonados: $500,000+ (Growth), $2,000,000+ (Strategic), $5,000,000+ (Institutional). Los niveles superiores reciben mejores precios y tasas de desbloqueo TGE. Todos los inversores deben pasar verificación KYC/AML y revisión de acreditación."
+        },
+        "q2": {
+          "question": "¿Cuál es la diferencia entre la Ronda Seed y la Ronda Privada?",
+          "answer": "La Ronda Seed ($0.04/token, 80% descuento) está completa con 12 meses cliff + 24 meses vesting. La Ronda Privada ($0.10/token, 50% descuento) ofrece bloqueo más corto con 6 meses cliff + 12 meses vesting. Los inversores privados también reciben 5-7% desbloqueo TGE para liquidez inmediata. Mayor precio pero liquidez más rápida y beneficios de nivel institucional."
+        },
+        "q3": {
+          "question": "¿Cómo funciona el calendario de vesting y el desbloqueo TGE?",
+          "answer": "En TGE, el 5% de los tokens de inversión se desbloquea inmediatamente. El nivel Institutional obtiene hasta 7%, Strategic 6%. Sigue un cliff de 6 meses, luego 12 meses de vesting lineal a ~7.9% mensual. El desbloqueo total toma 18 meses. Los inversores Institutional pueden negociar calendarios de vesting personalizados."
+        },
+        "q4": {
+          "question": "¿Cuál es el proceso de inversión y procedimiento de due diligence?",
+          "answer": "Proceso: (1) Consulta de inversión y firma de NDA → (2) Envío de Carta de Intención → (3) DD bilateral → (4) Negociación de Term Sheet → (5) Firma de contrato SAFT → (6) Transferencia de fondos → (7) Confirmación de asignación de tokens. DD típicamente toma 1-2 semanas, hasta 3-4 para instituciones grandes."
+        },
+        "q5": {
+          "question": "¿Qué protecciones para inversores y estructura legal existen?",
+          "answer": "Todas las inversiones privadas están protegidas legalmente mediante contratos SAFT. Los fondos se gestionan a través de un SPV en Islas Caimán y se mantienen en cuentas de custodia de terceros. Asesoría legal de Morrison & Foerster, cumpliendo con regulaciones de Singapore MAS."
+        },
+        "q6": {
+          "question": "¿Cuáles son los planes de listado y precio de lanzamiento?",
+          "answer": "El precio objetivo de lanzamiento de TBURN es $0.50 (5x desde Privada). Estrategia de listado: TGE concurrente con lanzamiento de mainnet, liquidez inicial en Uniswap, PancakeSwap. Negociaciones con CEX Tier-1 en curso, objetivo de listados en exchanges principales dentro de 3-6 meses post-lanzamiento."
+        },
+        "q7": {
+          "question": "¿Cuáles son los beneficios por nivel y derechos de gobernanza?",
+          "answer": "Beneficios por nivel: (1) Institutional ($5M+): Asiento observador junta, briefings ejecutivos mensuales, derechos co-inversión, vesting personalizado, gerente IR dedicado (2) Strategic ($2M+): Sesiones estrategia trimestrales, prioridad partnership, colaboración técnica (3) Growth ($500K+): Llamadas actualización, comunidad privada, participación gobernanza (4) Standard ($100K+): Newsletter mensual, voto gobernanza básico. Todos los inversores privados tienen derechos de voto DAO."
+        },
+        "q8": {
+          "question": "¿Cuáles son los métodos de pago y política de reembolso?",
+          "answer": "Métodos de pago: USDT, USDC o transferencia bancaria. Pagos a plazos disponibles para inversiones $1M+. Política de reembolso: Reembolso completo disponible hasta firma de contrato SAFT. Post-contrato solo para discontinuación del proyecto, fallo de mainnet o cambios materiales en roadmap."
+        }
+      },
+      "ctaSection": {
+        "title": "Conviértase en Inversor Institucional",
+        "subtitle": "Como inversor privado de TBURN Chain, asegure 50% de descuento y liquidez TGE inmediata!",
+        "button": "Invertir Ahora"
+      },
+      "dialog": {
+        "title": "Consulta de Inversión Ronda Privada",
+        "description": "Nuestro equipo le contactará en 1-2 días hábiles. Solo inversores institucionales.",
+        "name": "Nombre",
+        "namePlaceholder": "Ingrese su nombre completo",
+        "email": "Email",
+        "emailPlaceholder": "Ingrese su email",
+        "company": "Empresa/Organización",
+        "companyPlaceholder": "Ingrese nombre de empresa",
+        "investmentAmount": "Monto de Inversión (USD)",
+        "investmentAmountPlaceholder": "Mínimo $100,000",
+        "message": "Mensaje Adicional",
+        "messagePlaceholder": "Intención de inversión, preguntas, etc.",
+        "submit": "Enviar Consulta",
+        "submitting": "Enviando...",
+        "success": "Consulta Enviada",
+        "successDesc": "Nuestro equipo le contactará en 1-2 días hábiles.",
+        "error": "Error Ocurrido",
+        "errorDesc": "Error al enviar consulta. Por favor reintente.",
+        "required": "Campos Requeridos Faltantes",
+        "requiredDesc": "Nombre, email y empresa son campos requeridos."
+      },
+      "footer": {
+        "description": "TBURN Chain es un blockchain Layer-1 de próxima generación con capacidades avanzadas de DeFi, DAO e integración empresarial.",
+        "quickLinks": "Enlaces Rápidos",
+        "developers": "Desarrolladores",
+        "legal": "Legal",
+        "whitepaper": "Whitepaper",
+        "tokenomics": "Tokenomics",
+        "roadmap": "Roadmap",
+        "team": "Equipo",
+        "documentation": "Documentación",
+        "github": "GitHub",
+        "apiReference": "Referencia API",
+        "bugBounty": "Bug Bounty",
+        "termsOfService": "Términos de Servicio",
+        "privacyPolicy": "Política de Privacidad",
+        "disclaimer": "Descargo",
+        "cookiePolicy": "Política de Cookies",
+        "copyright": "© 2025 TBURN Chain. Todos los derechos reservados.",
+        "socialLinks": "Síguenos"
+      }
     },
     "publicRound": {
       "title": "Ronda Pública",

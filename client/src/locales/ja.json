@@ -20125,20 +20125,256 @@
       "connectWallet": "投資お問い合わせ"
     },
     "privateRound": {
-      "title": "プライベートラウンド",
-      "subtitle": "適格投資家向けプライベートセール",
-      "heroTitle": "TBURN プライベートラウンド",
-      "heroSubtitle": "機関投資家および適格投資家向けの限定投資機会",
-      "badge": "プライベートセール",
-      "tokenPrice": "トークン価格",
-      "discount": "ローンチ価格からの割引",
-      "allocation": "総割当",
-      "minInvestment": "最小投資額",
-      "investorRequirements": "投資家要件",
-      "kyc": "KYC/AML認証",
-      "accredited": "適格投資家",
-      "institutional": "機関",
-      "applyPrivate": "プライベートラウンド申請"
+      "nav": {
+        "tiers": "投資ティア",
+        "vesting": "ベスティング",
+        "allocation": "配分",
+        "investors": "投資家",
+        "faq": "FAQ",
+        "connectWallet": "機関投資問合せ"
+      },
+      "hero": {
+        "badge": "PRIVATE ROUND - 機関投資",
+        "status": "進行中",
+        "title": "プライベートラウンド投資で",
+        "titleHighlight": "10億TBURN",
+        "titleSuffix": "のチャンスを掴もう",
+        "subtitle": "機関投資家、VC、ファミリーオフィス向け - ローンチ価格($0.50)から50%割引の$0.10投資機会。TGE 5%即時解除。",
+        "progressRaised": "$72,000,000",
+        "progressGoal": "目標 $100,000,000",
+        "progressPercent": "72% 達成",
+        "progressRemaining": "残り $28,000,000"
+      },
+      "highlights": {
+        "pricePerToken": "トークン単価",
+        "priceCompare": "シード比+150%",
+        "discountLaunch": "ローンチ価格比割引",
+        "tgeUnlock": "TGE即時解除",
+        "vestingPeriod": "ベスティング期間"
+      },
+      "stats": {
+        "loading": "読み込み中...",
+        "privateAllocation": "プライベート配分 (10%)",
+        "tokenPrice": "トークン価格",
+        "hardcap": "ハードキャップ",
+        "institutionalInvestors": "機関投資家"
+      },
+      "cta": {
+        "applyPrivate": "プライベート投資申請",
+        "viewDeck": "投資資料を見る"
+      },
+      "comparison": {
+        "badge": "COMPARISON",
+        "title": "ラウンド比較",
+        "subtitle": "プライベートラウンドはシードとパブリックの中間条件",
+        "tableTitle": "投資ラウンド比較",
+        "round": "ラウンド",
+        "tokenPrice": "トークン価格",
+        "discount": "割引率",
+        "status": "状態",
+        "inProgress": "進行中",
+        "completed": "完了",
+        "upcoming": "予定"
+      },
+      "tiers": {
+        "badge": "TIERS",
+        "title": "投資ティア",
+        "subtitle": "機関投資規模別の差等特典",
+        "minInvestment": "最低投資額",
+        "minInvestmentLabel": "最低投資",
+        "tokenPriceLabel": "トークン価格",
+        "tgeUnlockLabel": "TGE解除",
+        "inquireBtn": "投資問合せ",
+        "institutional": {
+          "name": "Institutional",
+          "subtitle": "機関投資家",
+          "benefits": [
+            "取締役会オブザーバー席",
+            "月次経営陣ブリーフィング",
+            "独占共同投資権",
+            "カスタムベスティング協議",
+            "専任IRマネージャー"
+          ]
+        },
+        "strategic": {
+          "name": "Strategic",
+          "subtitle": "戦略的投資家",
+          "benefits": [
+            "四半期戦略セッション",
+            "パートナーシップ優先権",
+            "技術協力機会",
+            "共同マーケティング",
+            "ネットワークアクセス"
+          ]
+        },
+        "growth": {
+          "name": "Growth",
+          "subtitle": "成長投資家",
+          "benefits": [
+            "四半期アップデートコール",
+            "プライベートコミュニティ",
+            "ガバナンス参加権",
+            "新機能早期アクセス",
+            "専用サポートチャネル"
+          ]
+        },
+        "standard": {
+          "name": "Standard",
+          "subtitle": "一般投資家",
+          "benefits": [
+            "月次投資家ニュースレター",
+            "基本ガバナンス投票権",
+            "投資家専用チャネル",
+            "一般配分",
+            "メールサポート"
+          ]
+        }
+      },
+      "vesting": {
+        "badge": "VESTING",
+        "title": "ベスティングスケジュール",
+        "subtitle": "TGE 5%即時解除、6ヶ月クリフ後12ヶ月月次ベスティング",
+        "tgeUnlock": "TGE解除",
+        "tgeDesc": "上場即時",
+        "cliffPeriod": "クリフ期間",
+        "cliffDesc": "初期ロック",
+        "monthlyVesting": "月次ベスティング",
+        "monthlyDesc": "12ヶ月間",
+        "fullUnlock": "完全アンロック",
+        "fullUnlockDesc": "18ヶ月後"
+      },
+      "allocation": {
+        "badge": "ALLOCATION",
+        "title": "投資家タイプ別配分",
+        "subtitle": "10億TBURN配分状況",
+        "vcFunds": "VC & ファンド",
+        "familyOffice": "ファミリーオフィス",
+        "strategicInvestors": "戦略投資家",
+        "corporateInvestors": "企業投資家"
+      },
+      "investors": {
+        "badge": "INVESTORS",
+        "title": "現在の投資家",
+        "subtitle": "機関パートナー"
+      },
+      "process": {
+        "badge": "PROCESS",
+        "title": "投資プロセス",
+        "subtitle": "機関投資手順",
+        "inquiry": "投資問合せ",
+        "inquiryDesc": "意向書提出",
+        "inquiryDuration": "1-3日",
+        "dueDiligence": "デューデリジェンス",
+        "dueDiligenceDesc": "企業・投資家DD",
+        "dueDiligenceDuration": "1-2週",
+        "negotiation": "契約交渉",
+        "negotiationDesc": "投資条件協議",
+        "negotiationDuration": "1-2週",
+        "funding": "資金送金",
+        "fundingDesc": "投資金送金",
+        "fundingDuration": "3-5日",
+        "tokenAllocation": "トークン配分",
+        "tokenAllocationDesc": "投資確定",
+        "tokenAllocationDuration": "即時"
+      },
+      "benefits": {
+        "badge": "BENEFITS",
+        "title": "プライベートラウンドのメリット",
+        "subtitle": "機関投資家専用特典",
+        "excellentPrice": "優れた価格",
+        "excellentPriceValue": "50%+割引",
+        "excellentPriceDesc": "パブリックの半額で投資",
+        "tgeLiquidity": "TGE流動性",
+        "tgeLiquidityValue": "5%解除",
+        "tgeLiquidityDesc": "上場時即座に流動化可能",
+        "strategicPartnership": "戦略的パートナーシップ",
+        "strategicPartnershipValue": "独占特典",
+        "strategicPartnershipDesc": "プロジェクトとの緊密な協力"
+      },
+      "faq": {
+        "badge": "FAQ",
+        "title": "よくある質問",
+        "subtitle": "プライベート投資に関する質問",
+        "q1": {
+          "question": "プライベートラウンドの参加資格と投資条件は？",
+          "answer": "プライベートラウンドは適格機関投資家（VC、ファンド、ファミリーオフィス）、企業投資家、戦略的パートナーが対象です。最低投資額は$100,000（スタンダード）、$500,000+（グロース）、$2,000,000+（ストラテジック）、$5,000,000+（インスティテューショナル）で、投資規模に応じてトークン価格割引とTGE解除率が差等適用されます。全投資家はKYC/AML認証と適格性審査を通過する必要があります。"
+        },
+        "q2": {
+          "question": "シードラウンドとプライベートラウンドの違いは？",
+          "answer": "シードラウンド（$0.04/トークン、80%割引）は完了済みで、12ヶ月クリフ+24ヶ月ベスティング。プライベートラウンド（$0.10/トークン、50%割引）は6ヶ月クリフ+12ヶ月ベスティングでより短いロック期間が特長。プライベート投資家はTGE時に5~7%が即時解除され上場時に一部流動性確保可能。高い価格ですが、より早い流動化と機関級投資家特典が提供されます。"
+        },
+        "q3": {
+          "question": "ベスティングスケジュールとTGE解除の仕組みは？",
+          "answer": "TGE（Token Generation Event）時に投資トークンの5%が即時解除。インスティテューショナルティアは最大7%、ストラテジックティアは6%。その後6ヶ月クリフ（ロック）期間があり、クリフ終了後12ヶ月にわたり毎月約7.9%ずつ線形ベスティング。完全アンロックまで計18ヶ月。インスティテューショナルティア投資家はカスタムベスティング日程の協議が可能です。"
+        },
+        "q4": {
+          "question": "投資プロセスとデューデリジェンス手順は？",
+          "answer": "プロセス：(1)投資問合せ＆NDA締結→(2)意向書(LOI)提出→(3)双方向DD(プロジェクト技術/財務/法務DD＋投資家資金出所/適格性確認)→(4)投資条件交渉＆Term Sheet合意→(5)SAFT契約締結→(6)資金送金(USDT、USDC、銀行送金)→(7)トークン配分確認。DD期間は通常1-2週、機関規模により3-4週まで延長可能。専任IRマネージャーが全プロセスをご案内します。"
+        },
+        "q5": {
+          "question": "投資家保護と法的構造は？",
+          "answer": "すべてのプライベート投資はSAFT（Simple Agreement for Future Tokens）契約により法的に保護されます。契約書にはトークン割当量、価格、ベスティング条件、投資家権利、紛争解決条項が明記されます。投資金はケイマン諸島所在のSPV（Special Purpose Vehicle）を通じて管理され、第三者エスクロー口座に預託されます。法律顧問はMorrison & Foersterと協力し、シンガポールMAS規制に準拠しています。"
+        },
+        "q6": {
+          "question": "上場計画とローンチ価格は？",
+          "answer": "TBURNトークンのローンチ予定価格は$0.50（プライベートの5倍）。上場戦略：メインネットローンチと同時にTGEを実施し、Uniswap、PancakeSwap等の主要DEXに初期流動性を供給。Tier-1 CEX（Binance、OKX、Bybit、Coinbase等）との上場協議が進行中で、ローンチ後3-6ヶ月以内に主要取引所上場を目標としています。マーケットメイキングは専門MMパートナーと協力。"
+        },
+        "q7": {
+          "question": "ティア別特典とガバナンス権限は？",
+          "answer": "ティア別特典：(1)インスティテューショナル($5M+):取締役会オブザーバー席、月次経営陣ブリーフィング、独占共同投資権、カスタムベスティング、専任IRマネージャー (2)ストラテジック($2M+):四半期戦略セッション、パートナーシップ優先権、技術協力、共同マーケティング (3)グロース($500K+):四半期アップデートコール、プライベートコミュニティ、ガバナンス参加権、新機能早期アクセス (4)スタンダード($100K+):月次ニュースレター、基本ガバナンス投票権、投資家専用チャネル。すべてのプライベート投資家はDAOガバナンス投票権を保有します。"
+        },
+        "q8": {
+          "question": "支払い方法と返金ポリシーは？",
+          "answer": "支払い方法：USDT（ERC-20/TRC-20）、USDC（ERC-20）、または銀行送金（USD/EUR）。$1M以上の投資は分割払い可能で、支払いスケジュールは協議可能です。返金ポリシー：SAFT契約締結前は全額返金可能。契約後はプロジェクト中断、メインネットローンチ失敗、重大なロードマップ変更時のみ返金請求可能。投資家都合による中途解約は不可で、詳細条件はSAFT契約書に明記されます。"
+        }
+      },
+      "ctaSection": {
+        "title": "機関投資家になりましょう",
+        "subtitle": "TBURN Chainのプライベート投資家として、ローンチ価格比50%割引とTGE即時流動性を確保！",
+        "button": "今すぐ投資"
+      },
+      "dialog": {
+        "title": "プライベートラウンド投資問合せ",
+        "description": "担当者より1-2営業日以内にご連絡いたします。機関投資家専用です。",
+        "name": "お名前",
+        "namePlaceholder": "お名前を入力",
+        "email": "メールアドレス",
+        "emailPlaceholder": "メールアドレスを入力",
+        "company": "会社/機関名",
+        "companyPlaceholder": "会社名を入力",
+        "investmentAmount": "投資予定額 (USD)",
+        "investmentAmountPlaceholder": "最低 $100,000",
+        "message": "追加メッセージ",
+        "messagePlaceholder": "投資意向、ご質問等",
+        "submit": "問い合わせる",
+        "submitting": "送信中...",
+        "success": "問合せを受け付けました",
+        "successDesc": "担当者より1-2営業日以内にご連絡いたします。",
+        "error": "エラーが発生しました",
+        "errorDesc": "問合せの送信に失敗しました。再度お試しください。",
+        "required": "必須情報が不足しています",
+        "requiredDesc": "お名前、メールアドレス、会社名は必須項目です。"
+      },
+      "footer": {
+        "description": "TBURN Chainは高度なDeFi、DAO、エンタープライズ統合機能を備えた次世代Layer-1ブロックチェーンです。",
+        "quickLinks": "クイックリンク",
+        "developers": "開発者",
+        "legal": "法的事項",
+        "whitepaper": "ホワイトペーパー",
+        "tokenomics": "トケノミクス",
+        "roadmap": "ロードマップ",
+        "team": "チーム",
+        "documentation": "ドキュメント",
+        "github": "GitHub",
+        "apiReference": "APIリファレンス",
+        "bugBounty": "バグバウンティ",
+        "termsOfService": "利用規約",
+        "privacyPolicy": "プライバシーポリシー",
+        "disclaimer": "免責事項",
+        "cookiePolicy": "Cookieポリシー",
+        "copyright": "© 2025 TBURN Chain. All rights reserved.",
+        "socialLinks": "フォロー"
+      }
     },
     "publicRound": {
       "title": "パブリックラウンド",

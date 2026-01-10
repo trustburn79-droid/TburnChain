@@ -17646,20 +17646,256 @@
       "connectWallet": "निवेश पूछताछ"
     },
     "privateRound": {
-      "title": "प्राइवेट राउंड",
-      "subtitle": "योग्य निवेशकों के लिए निजी बिक्री",
-      "heroTitle": "TBURN प्राइवेट राउंड",
-      "heroSubtitle": "संस्थागत और योग्य निवेशकों के लिए विशेष निवेश अवसर",
-      "badge": "प्राइवेट सेल",
-      "tokenPrice": "टोकन मूल्य",
-      "discount": "लॉन्च से छूट",
-      "allocation": "कुल आवंटन",
-      "minInvestment": "न्यूनतम निवेश",
-      "investorRequirements": "निवेशक आवश्यकताएं",
-      "kyc": "KYC/AML सत्यापन",
-      "accredited": "मान्यता प्राप्त निवेशक",
-      "institutional": "संस्थागत",
-      "applyPrivate": "प्राइवेट राउंड के लिए आवेदन करें"
+      "nav": {
+        "tiers": "निवेश स्तर",
+        "vesting": "वेस्टिंग",
+        "allocation": "आवंटन",
+        "investors": "निवेशक",
+        "faq": "FAQ",
+        "connectWallet": "संस्थागत पूछताछ"
+      },
+      "hero": {
+        "badge": "PRIVATE ROUND - संस्थागत निवेश",
+        "status": "प्रगति पर",
+        "title": "निजी राउंड निवेश से",
+        "titleHighlight": "1 अरब TBURN",
+        "titleSuffix": "का अवसर पाएं",
+        "subtitle": "संस्थागत निवेशकों, VCs और फैमिली ऑफिस के लिए - लॉन्च मूल्य ($0.50) से 50% छूट पर $0.10। TGE पर 5% तत्काल अनलॉक।",
+        "progressRaised": "$72,000,000",
+        "progressGoal": "लक्ष्य $100,000,000",
+        "progressPercent": "72% प्राप्त",
+        "progressRemaining": "$28,000,000 शेष"
+      },
+      "highlights": {
+        "pricePerToken": "प्रति टोकन मूल्य",
+        "priceCompare": "सीड की तुलना में +150%",
+        "discountLaunch": "लॉन्च से छूट",
+        "tgeUnlock": "TGE तत्काल अनलॉक",
+        "vestingPeriod": "वेस्टिंग अवधि"
+      },
+      "stats": {
+        "loading": "लोड हो रहा है...",
+        "privateAllocation": "निजी आवंटन (10%)",
+        "tokenPrice": "टोकन मूल्य",
+        "hardcap": "हार्डकैप",
+        "institutionalInvestors": "संस्थागत निवेशक"
+      },
+      "cta": {
+        "applyPrivate": "निजी निवेश के लिए आवेदन करें",
+        "viewDeck": "निवेश डेक देखें"
+      },
+      "comparison": {
+        "badge": "COMPARISON",
+        "title": "राउंड तुलना",
+        "subtitle": "निजी राउंड सीड और पब्लिक के बीच की शर्तें प्रदान करता है",
+        "tableTitle": "निवेश राउंड तुलना",
+        "round": "राउंड",
+        "tokenPrice": "टोकन मूल्य",
+        "discount": "छूट",
+        "status": "स्थिति",
+        "inProgress": "प्रगति पर",
+        "completed": "पूर्ण",
+        "upcoming": "आने वाला"
+      },
+      "tiers": {
+        "badge": "TIERS",
+        "title": "निवेश स्तर",
+        "subtitle": "संस्थागत निवेश आकार के अनुसार श्रेणीबद्ध लाभ",
+        "minInvestment": "न्यूनतम निवेश",
+        "minInvestmentLabel": "न्यूनतम निवेश",
+        "tokenPriceLabel": "टोकन मूल्य",
+        "tgeUnlockLabel": "TGE अनलॉक",
+        "inquireBtn": "निवेश पूछताछ",
+        "institutional": {
+          "name": "Institutional",
+          "subtitle": "संस्थागत निवेशक",
+          "benefits": [
+            "बोर्ड ऑब्जर्वर सीट",
+            "मासिक कार्यकारी ब्रीफिंग",
+            "विशेष सह-निवेश अधिकार",
+            "कस्टम वेस्टिंग वार्ता",
+            "समर्पित IR प्रबंधक"
+          ]
+        },
+        "strategic": {
+          "name": "Strategic",
+          "subtitle": "रणनीतिक भागीदार",
+          "benefits": [
+            "त्रैमासिक रणनीति सत्र",
+            "साझेदारी प्राथमिकता",
+            "तकनीकी सहयोग",
+            "सह-मार्केटिंग",
+            "नेटवर्क एक्सेस"
+          ]
+        },
+        "growth": {
+          "name": "Growth",
+          "subtitle": "विकास निवेशक",
+          "benefits": [
+            "त्रैमासिक अपडेट कॉल",
+            "निजी समुदाय",
+            "शासन भागीदारी",
+            "सुविधाओं तक शीघ्र पहुंच",
+            "समर्पित सहायता चैनल"
+          ]
+        },
+        "standard": {
+          "name": "Standard",
+          "subtitle": "सामान्य निवेशक",
+          "benefits": [
+            "मासिक निवेशक न्यूज़लेटर",
+            "मूल शासन मतदान",
+            "केवल निवेशक चैनल",
+            "सामान्य आवंटन",
+            "ईमेल सहायता"
+          ]
+        }
+      },
+      "vesting": {
+        "badge": "VESTING",
+        "title": "वेस्टिंग शेड्यूल",
+        "subtitle": "TGE पर 5% तत्काल अनलॉक, 6 महीने क्लिफ, 12 महीने लीनियर वेस्टिंग",
+        "tgeUnlock": "TGE अनलॉक",
+        "tgeDesc": "लिस्टिंग पर",
+        "cliffPeriod": "क्लिफ अवधि",
+        "cliffDesc": "प्रारंभिक लॉक",
+        "monthlyVesting": "मासिक वेस्टिंग",
+        "monthlyDesc": "12 महीनों में",
+        "fullUnlock": "पूर्ण अनलॉक",
+        "fullUnlockDesc": "18 महीने बाद"
+      },
+      "allocation": {
+        "badge": "ALLOCATION",
+        "title": "निवेशक प्रकार द्वारा आवंटन",
+        "subtitle": "1 अरब TBURN आवंटन स्थिति",
+        "vcFunds": "VC और फंड",
+        "familyOffice": "फैमिली ऑफिस",
+        "strategicInvestors": "रणनीतिक निवेशक",
+        "corporateInvestors": "कॉर्पोरेट निवेशक"
+      },
+      "investors": {
+        "badge": "INVESTORS",
+        "title": "वर्तमान निवेशक",
+        "subtitle": "हमारे संस्थागत भागीदार"
+      },
+      "process": {
+        "badge": "PROCESS",
+        "title": "निवेश प्रक्रिया",
+        "subtitle": "संस्थागत निवेश प्रक्रिया",
+        "inquiry": "निवेश पूछताछ",
+        "inquiryDesc": "आशय पत्र जमा करें",
+        "inquiryDuration": "1-3 दिन",
+        "dueDiligence": "ड्यू डिलिजेंस",
+        "dueDiligenceDesc": "कंपनी और निवेशक DD",
+        "dueDiligenceDuration": "1-2 सप्ताह",
+        "negotiation": "अनुबंध वार्ता",
+        "negotiationDesc": "शर्तों की चर्चा",
+        "negotiationDuration": "1-2 सप्ताह",
+        "funding": "फंड ट्रांसफर",
+        "fundingDesc": "निवेश ट्रांसफर",
+        "fundingDuration": "3-5 दिन",
+        "tokenAllocation": "टोकन आवंटन",
+        "tokenAllocationDesc": "निवेश पुष्टि",
+        "tokenAllocationDuration": "तत्काल"
+      },
+      "benefits": {
+        "badge": "BENEFITS",
+        "title": "निजी राउंड के लाभ",
+        "subtitle": "संस्थागत निवेशकों के लिए विशेष लाभ",
+        "excellentPrice": "उत्कृष्ट मूल्य",
+        "excellentPriceValue": "50%+ छूट",
+        "excellentPriceDesc": "पब्लिक से आधे मूल्य पर निवेश करें",
+        "tgeLiquidity": "TGE तरलता",
+        "tgeLiquidityValue": "5% अनलॉक",
+        "tgeLiquidityDesc": "लिस्टिंग पर तत्काल तरलता",
+        "strategicPartnership": "रणनीतिक साझेदारी",
+        "strategicPartnershipValue": "विशेष लाभ",
+        "strategicPartnershipDesc": "परियोजना के साथ निकट सहयोग"
+      },
+      "faq": {
+        "badge": "FAQ",
+        "title": "अक्सर पूछे जाने वाले प्रश्न",
+        "subtitle": "निजी निवेश के बारे में प्रश्न",
+        "q1": {
+          "question": "निजी राउंड के लिए पात्रता आवश्यकताएं और निवेश शर्तें क्या हैं?",
+          "answer": "निजी राउंड योग्य संस्थागत निवेशकों, कॉर्पोरेट निवेशकों और रणनीतिक भागीदारों के लिए है। न्यूनतम निवेश $100,000 है। सभी निवेशकों को KYC/AML सत्यापन पास करना होगा।"
+        },
+        "q2": {
+          "question": "सीड राउंड और निजी राउंड में क्या अंतर है?",
+          "answer": "सीड राउंड ($0.04/टोकन, 80% छूट) 12 महीने क्लिफ + 24 महीने वेस्टिंग के साथ पूर्ण है। निजी राउंड ($0.10/टोकन, 50% छूट) 6 महीने क्लिफ + 12 महीने वेस्टिंग के साथ छोटा लॉकअप प्रदान करता है।"
+        },
+        "q3": {
+          "question": "वेस्टिंग शेड्यूल और TGE अनलॉक कैसे काम करता है?",
+          "answer": "TGE पर निवेश टोकन का 5% तुरंत अनलॉक होता है। Institutional स्तर को 7% तक, Strategic को 6% मिलता है। इसके बाद 6 महीने क्लिफ, फिर ~7.9% मासिक पर 12 महीने लीनियर वेस्टिंग।"
+        },
+        "q4": {
+          "question": "निवेश प्रक्रिया और ड्यू डिलिजेंस प्रक्रिया क्या है?",
+          "answer": "प्रक्रिया: (1) निवेश पूछताछ और NDA हस्ताक्षर → (2) आशय पत्र जमा करना → (3) द्विपक्षीय DD → (4) Term Sheet वार्ता → (5) SAFT अनुबंध हस्ताक्षर → (6) फंड ट्रांसफर → (7) टोकन आवंटन पुष्टि।"
+        },
+        "q5": {
+          "question": "निवेशक सुरक्षा और कानूनी संरचना क्या है?",
+          "answer": "सभी निजी निवेश SAFT अनुबंधों द्वारा कानूनी रूप से संरक्षित हैं। फंड केमैन द्वीप SPV के माध्यम से प्रबंधित होते हैं और तृतीय-पक्ष एस्क्रो खातों में रखे जाते हैं।"
+        },
+        "q6": {
+          "question": "लिस्टिंग योजनाएं और लॉन्च मूल्य क्या हैं?",
+          "answer": "TBURN टोकन लॉन्च लक्ष्य मूल्य $0.50 है (निजी से 5x)। लिस्टिंग रणनीति: मेननेट लॉन्च के साथ TGE, Uniswap, PancakeSwap पर प्रारंभिक तरलता।"
+        },
+        "q7": {
+          "question": "स्तर-विशिष्ट लाभ और शासन अधिकार क्या हैं?",
+          "answer": "स्तर लाभ: (1) Institutional: बोर्ड ऑब्जर्वर सीट, मासिक ब्रीफिंग, सह-निवेश अधिकार, कस्टम वेस्टिंग, समर्पित IR प्रबंधक (2) Strategic: रणनीति सत्र, साझेदारी प्राथमिकता (3) Growth: अपडेट कॉल, निजी समुदाय, शासन भागीदारी (4) Standard: मासिक न्यूज़लेटर, मूल शासन मतदान।"
+        },
+        "q8": {
+          "question": "भुगतान विधियां और रिफंड नीति क्या हैं?",
+          "answer": "भुगतान विधियां: USDT, USDC या बैंक ट्रांसफर। $1M+ निवेश के लिए किस्त भुगतान उपलब्ध। रिफंड: SAFT हस्ताक्षर तक पूर्ण रिफंड उपलब्ध।"
+        }
+      },
+      "ctaSection": {
+        "title": "संस्थागत निवेशक बनें",
+        "subtitle": "TBURN Chain निजी निवेशक के रूप में, 50% छूट और तत्काल TGE तरलता प्राप्त करें!",
+        "button": "अभी निवेश करें"
+      },
+      "dialog": {
+        "title": "निजी राउंड निवेश पूछताछ",
+        "description": "हमारी टीम 1-2 व्यावसायिक दिनों में संपर्क करेगी। केवल संस्थागत निवेशकों के लिए।",
+        "name": "नाम",
+        "namePlaceholder": "अपना पूरा नाम दर्ज करें",
+        "email": "ईमेल",
+        "emailPlaceholder": "अपना ईमेल दर्ज करें",
+        "company": "कंपनी/संगठन",
+        "companyPlaceholder": "कंपनी का नाम दर्ज करें",
+        "investmentAmount": "निवेश राशि (USD)",
+        "investmentAmountPlaceholder": "न्यूनतम $100,000",
+        "message": "अतिरिक्त संदेश",
+        "messagePlaceholder": "निवेश इरादा, प्रश्न, आदि।",
+        "submit": "पूछताछ जमा करें",
+        "submitting": "जमा हो रहा है...",
+        "success": "पूछताछ जमा हुई",
+        "successDesc": "हमारी टीम 1-2 व्यावसायिक दिनों में संपर्क करेगी।",
+        "error": "त्रुटि हुई",
+        "errorDesc": "पूछताछ जमा करने में विफल। कृपया पुनः प्रयास करें।",
+        "required": "आवश्यक फ़ील्ड गायब हैं",
+        "requiredDesc": "नाम, ईमेल और कंपनी आवश्यक फ़ील्ड हैं।"
+      },
+      "footer": {
+        "description": "TBURN Chain उन्नत DeFi, DAO और एंटरप्राइज एकीकरण क्षमताओं वाला अगली पीढ़ी का Layer-1 ब्लॉकचेन है।",
+        "quickLinks": "त्वरित लिंक",
+        "developers": "डेवलपर्स",
+        "legal": "कानूनी",
+        "whitepaper": "व्हाइटपेपर",
+        "tokenomics": "टोकनोमिक्स",
+        "roadmap": "रोडमैप",
+        "team": "टीम",
+        "documentation": "दस्तावेज़ीकरण",
+        "github": "GitHub",
+        "apiReference": "API संदर्भ",
+        "bugBounty": "बग बाउंटी",
+        "termsOfService": "सेवा की शर्तें",
+        "privacyPolicy": "गोपनीयता नीति",
+        "disclaimer": "अस्वीकरण",
+        "cookiePolicy": "कुकी नीति",
+        "copyright": "© 2025 TBURN Chain. सर्वाधिकार सुरक्षित।",
+        "socialLinks": "हमें फॉलो करें"
+      }
     },
     "publicRound": {
       "title": "पब्लिक राउंड",
