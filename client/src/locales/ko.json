@@ -31407,180 +31407,117 @@
       "delegateStake": "스테이크 위임"
     },
     "validatorIncentives": {
-      "title": "밸리데이터 인센티브",
-      "subtitle": "TBURN 네트워크를 유지하는 밸리데이터를 위한 특별 인센티브",
-      "heroTitle": "TBURN 밸리데이터 인센티브",
-      "heroSubtitle": "고성능과 네트워크 기여에 대한 추가 보상을 받으세요",
-      "badge": "밸리데이터 프로그램",
-      "incentivePool": "인센티브 풀",
-      "activeValidators": "활성 밸리데이터",
-      "performanceBonus": "성능 보너스",
-      "uptimeRequirement": "가동 시간 요건",
-      "slashingPenalty": "슬래싱 페널티",
-      "applyValidator": "밸리데이터 신청",
-      "nav": {
-        "tiers": "티어",
-        "loyalty": "충성 보상",
-        "performance": "성능 보상",
-        "leaderboard": "리더보드"
+      "loading": "로딩 중...",
+      "hero": {
+        "badge": "검증자 인센티브",
+        "title": "검증자 인센티브",
+        "titlePrefix": "TBURN",
+        "subtitle": "TBURN 검증자 네트워크에 참여하고 블록체인 보안에 대한 보상을 받으세요",
+        "countdownLabel": "제네시스 출시 카운트다운",
+        "earlyBirdTitle": "얼리버드 보너스",
+        "earlyBirdSubtitle": "지금 등록하고 독점 보상을 받으세요"
       },
       "wallet": {
+        "title": "지갑 상태",
+        "subtitle": "지갑을 연결하여 검증자 자격을 확인하세요",
         "connect": "지갑 연결",
-        "disconnect": "연결 해제",
-        "disconnected": "지갑 연결이 해제되었습니다.",
-        "disconnectTitle": "지갑 연결 해제",
         "connected": "연결됨",
-        "connectedTitle": "지갑 연결됨",
-        "connectedDesc": "MetaMask 지갑이 연결되었습니다.",
-        "required": "지갑 연결 필요",
-        "requiredDesc": "밸리데이터 신청을 위해 먼저 지갑을 연결해주세요.",
-        "selectTier": "티어 선택",
-        "selectTierDesc": "자신에게 맞는 밸리데이터 티어를 선택하세요."
-      },
-      "apply": {
-        "complete": "신청 완료",
-        "completeDesc": "{{tierName}} 밸리데이터 신청이 접수되었습니다. 검토 후 결과를 알려드립니다.",
-        "applyNow": "지금 신청하기",
-        "checkLoyalty": "충성 보상 확인",
-        "learnMore": "자세히 보기",
-        "joinNow": "지금 참여하기",
-        "loyaltyRewards": "충성 보상 시스템",
-        "loyaltyRewardsDesc": "장기 스테이킹 보상 시스템을 확인하세요."
-      },
-      "distributions": {
-        "earlybird": "얼리버드 보너스",
-        "loyalty": "장기 충성 보상",
-        "performance": "성능 인센티브",
-        "growth": "네트워크 성장",
-        "governance": "거버넌스 보너스"
-      },
-      "amounts": {
-        "225m": "2.25억",
-        "187m": "1.875억",
-        "150m": "1.5억",
-        "112m": "1.125억",
-        "75m": "0.75억"
+        "eligible": "검증자 자격 있음",
+        "notEligible": "자격 없음",
+        "balance": "잔액",
+        "stakedAmount": "스테이킹 금액",
+        "stakingRequired": "최소 100,000 TBURN 필요"
       },
       "tiers": {
-        "genesis": {
-          "name": "Genesis Validator",
-          "range": "1~25번째",
-          "benefit1": "100% 얼리버드 보너스",
-          "benefit2": "독점 Genesis NFT 뱃지",
-          "benefit3": "평생 0% 수수료 우대",
-          "benefit4": "거버넌스 2x 투표권",
-          "benefit5": "VIP 전용 채널 접근",
-          "badge": "프리미엄"
-        },
-        "pioneer": {
-          "name": "Pioneer Validator",
-          "range": "26~75번째",
-          "benefit1": "75% 얼리버드 보너스",
-          "benefit2": "Pioneer NFT 뱃지",
-          "benefit3": "0.5% 수수료 우대",
-          "benefit4": "거버넌스 1.5x 투표권",
-          "benefit5": "얼리 액세스 권한",
-          "badge": "추천"
-        },
-        "early": {
-          "name": "Early Validator",
-          "range": "76~125번째",
-          "benefit1": "50% 얼리버드 보너스",
-          "benefit2": "Early NFT 뱃지",
-          "benefit3": "1% 수수료 우대",
-          "benefit4": "거버넌스 1.25x 투표권",
-          "benefit5": "커뮤니티 리더 인정",
-          "badge": "오픈"
-        },
-        "participant": "참여자",
-        "earlybirdBonus": "얼리버드 보너스"
+        "title": "검증자 티어",
+        "subtitle": "귀하의 참여 수준에 맞는 티어를 선택하세요",
+        "genesis": "제네시스 검증자",
+        "genesisDesc": "최고 보상을 받는 첫 125명의 검증자",
+        "premium": "프리미엄 검증자",
+        "premiumDesc": "보너스 보상이 있는 고성능 검증자",
+        "standard": "스탠다드 검증자",
+        "standardDesc": "핵심 네트워크 검증자",
+        "minStake": "최소 스테이킹",
+        "maxReward": "최대 연간 보상",
+        "slots": "사용 가능 슬롯"
       },
       "loyalty": {
-        "year1": "1년",
-        "year2": "2년",
-        "year3": "3년",
-        "year4plus": "4년+",
-        "basic": "기본 충성 보너스",
-        "silver": "실버 멤버십",
-        "gold": "골드 멤버십",
-        "diamond": "다이아몬드 멤버십",
-        "title": "충성도 멀티플라이어",
-        "subtitle": "스테이킹 기간에 따라 보상이 증가합니다"
+        "title": "충성도 보상",
+        "subtitle": "장기 검증자는 증가하는 보상을 받습니다",
+        "basic": "기본",
+        "silver": "실버",
+        "gold": "골드",
+        "diamond": "다이아몬드",
+        "year1": "1년차",
+        "year2": "2년차",
+        "year3": "3년차",
+        "year4": "4년차+",
+        "bonus": "보너스"
       },
       "performance": {
-        "uptime": {
-          "title": "업타임 보너스",
-          "subtitle": "안정적인 네트워크 운영"
-        },
-        "blocks": {
-          "title": "블록 생산 보너스",
-          "subtitle": "효율적인 블록 생성",
-          "top10": "상위 10%",
-          "top30": "상위 30%",
-          "top50": "상위 50%"
-        },
-        "clean": {
-          "title": "무위반 보너스",
-          "subtitle": "슬래싱 0회 유지",
-          "year1": "1년 무위반",
-          "months6": "6개월 무위반",
-          "months3": "3개월 무위반"
-        }
+        "title": "성능 지표",
+        "subtitle": "최고 성과자는 추가 보상을 받습니다",
+        "uptime": "가동 시간",
+        "blocks": "생성된 블록",
+        "attestations": "증명",
+        "slashing": "슬래싱 이벤트",
+        "score": "성능 점수",
+        "rank": "네트워크 순위"
       },
       "leaderboard": {
+        "title": "검증자 리더보드",
+        "subtitle": "최고 성과 검증자",
         "rank": "순위",
-        "validator": "밸리데이터",
-        "tier": "티어",
+        "validator": "검증자",
         "points": "포인트",
-        "cumulativeRewards": "누적 보상",
-        "badge": "VALIDATOR INCENTIVES - 검증자 인센티브",
-        "title": "7.5억 TBURN 인센티브",
-        "titlePrefix": "밸리데이터를 위한",
-        "subtitle": "얼리버드 보너스, 장기 충성 보상, 성능 인센티브까지! TBURN Chain 밸리데이터가 되어 최대 300% 추가 보상을 받으세요!",
-        "earlyBirdTitle": "얼리버드 프로그램 진행중!",
-        "earlyBirdSubtitle": "지금 참여하면 최대 100,000 TBURN 보너스"
-      },
-      "stats": {
-        "totalValidators": "총 밸리데이터",
-        "activeValidators": "활성 밸리데이터",
-        "totalStaked": "총 스테이킹 (TBURN)",
-        "countdown": {
-          "days": "일",
-          "hours": "시간",
-          "mins": "분",
-          "secs": "초"
-        }
-      },
-      "sections": {
-        "distribution": "인센티브 배분",
-        "tiers": "얼리 밸리데이터 티어",
-        "tiersSubtitle": "참여 순서에 따른 차등 보상 시스템",
-        "loyalty": "장기 충성 보상",
-        "loyaltySubtitle": "오래 함께할수록 더 많은 보상",
-        "performance": "성능 인센티브",
-        "performanceSubtitle": "우수한 성능에 대한 추가 보상",
-        "leaderboard": "인센티브 리더보드",
-        "leaderboardSubtitle": "가장 많은 보상을 받은 밸리데이터"
+        "cumulativeRewards": "누적 보상"
       },
       "faq": {
         "title": "자주 묻는 질문",
-        "subtitle": "인센티브 프로그램에 대해 궁금한 점",
-        "q1": "밸리데이터 인센티브 총 물량은 얼마인가요?",
-        "a1": "밸리데이터 인센티브 프로그램에 총 7.5억 TBURN(전체 공급량의 7.5%)이 배정되어 있습니다. 얼리버드 보너스 30%(2.25억), 장기 충성 보상 25%(1.875억), 성능 인센티브 20%(1.5억), 네트워크 성장 15%(1.125억), 거버넌스 보너스 10%(0.75억)으로 배분됩니다.",
-        "q2": "얼리버드 보너스는 어떻게 받나요?",
-        "a2": "얼리버드 보너스는 참여 시기에 따라 지급됩니다. Genesis Validator(1~25번째)는 100% 보너스, Pioneer Validator(26~75번째)는 75% 보너스, Early Validator(76~125번째)는 50% 보너스를 받습니다.",
-        "q3": "성능 인센티브는 어떻게 계산되나요?",
-        "a3": "성능 인센티브는 업타임(골드 등급 99.9% 이상), 블록 생산 효율성(골드 등급 상위 10%), 슬래싱 위반 없는 깨끗한 기록을 기준으로 합니다.",
-        "q4": "충성도 멀티플라이어는 무엇인가요?",
-        "a4": "충성도 멀티플라이어는 스테이킹 기간에 따라 보상이 증가합니다: 1년 1.5배, 2년 2.0배, 3년 2.5배, 4년 이상 연속 스테이킹 시 3.0배입니다."
+        "subtitle": "검증자 인센티브에 대해 알아야 할 모든 것",
+        "q1": "검증자가 되려면 어떻게 해야 하나요?",
+        "a1": "최소 100,000 TBURN 토큰을 스테이킹하고 하드웨어 요구사항을 충족하면 검증자가 될 수 있습니다.",
+        "q2": "하드웨어 요구사항은 무엇인가요?",
+        "a2": "검증자는 최소 16GB RAM, 4 CPU 코어, 500GB SSD 스토리지가 있는 서버가 필요합니다.",
+        "q3": "보상은 어떻게 계산되나요?",
+        "a3": "보상은 티어, 성능 점수, 가동 시간 및 충성도 보너스 승수를 기반으로 합니다.",
+        "q4": "슬래싱이란 무엇인가요?",
+        "a4": "슬래싱은 악의적인 행동이나 장기 다운타임에 대한 페널티로, 스테이크 감소를 초래합니다."
       },
-      "footer": {
-        "rights": "All Rights Reserved",
-        "privacy": "개인정보처리방침",
-        "terms": "이용약관",
-        "contact": "문의하기"
+      "cta": {
+        "title": "검증자가 될 준비가 되셨나요?",
+        "subtitle": "TBURN 네트워크에 참여하고 오늘부터 보상을 받으세요",
+        "applyNow": "지금 신청"
       },
-      "loading": "밸리데이터 인센티브 로딩 중..."
+      "apply": {
+        "applyNow": "지금 신청",
+        "learnMore": "더 알아보기",
+        "joinNow": "지금 참여",
+        "complete": "등록 완료",
+        "completeDesc": "검증자 신청을 완료하세요",
+        "loyaltyRewards": "충성도 보상",
+        "loyaltyRewardsDesc": "장기 참여에 대한 보너스 보상을 받으세요"
+      },
+      "amounts": {
+        "75m": "7,500만 TBURN",
+        "112m": "1억 1,250만 TBURN",
+        "150m": "1억 5,000만 TBURN",
+        "187m": "1억 8,750만 TBURN",
+        "225m": "2억 2,500만 TBURN"
+      },
+      "distributions": {
+        "performance": "성능 보상",
+        "loyalty": "충성도 보너스",
+        "governance": "거버넌스 참여",
+        "earlybird": "얼리버드 보너스",
+        "growth": "네트워크 성장"
+      },
+      "stats": {
+        "totalPool": "총 인센티브 풀",
+        "activeValidators": "활성 검증자",
+        "avgReward": "평균 보상",
+        "networkUptime": "네트워크 가동 시간"
+      }
     },
     "ecosystemFund": {
       "title": "생태계 펀드",

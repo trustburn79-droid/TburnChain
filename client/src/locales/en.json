@@ -30828,21 +30828,117 @@
       "delegateStake": "Delegate Stake"
     },
     "validatorIncentives": {
-      "title": "Validator Incentives",
-      "subtitle": "Special incentives for validators maintaining the TBURN network",
-      "heroTitle": "TBURN Validator Incentives",
-      "heroSubtitle": "Earn additional rewards for high performance and network contribution",
-      "badge": "Validator Program",
-      "incentivePool": "Incentive Pool",
-      "activeValidators": "Active Validators",
-      "performanceBonus": "Performance Bonus",
-      "uptimeRequirement": "Uptime Requirement",
-      "slashingPenalty": "Slashing Penalty",
-      "tiers": "Validator Tiers",
-      "genesis": "Genesis Validator",
-      "premium": "Premium Validator",
-      "standard": "Standard Validator",
-      "applyValidator": "Apply as Validator"
+      "loading": "Loading...",
+      "hero": {
+        "badge": "Validator Incentives",
+        "title": "Validator Incentives",
+        "titlePrefix": "TBURN",
+        "subtitle": "Join the TBURN validator network and earn rewards for securing the blockchain",
+        "countdownLabel": "Genesis Launch Countdown",
+        "earlyBirdTitle": "Early Bird Bonus",
+        "earlyBirdSubtitle": "Register now for exclusive rewards"
+      },
+      "wallet": {
+        "title": "Wallet Status",
+        "subtitle": "Connect your wallet to check validator eligibility",
+        "connect": "Connect Wallet",
+        "connected": "Connected",
+        "eligible": "Eligible for Validator",
+        "notEligible": "Not Eligible",
+        "balance": "Balance",
+        "stakedAmount": "Staked Amount",
+        "stakingRequired": "Minimum 100,000 TBURN required"
+      },
+      "tiers": {
+        "title": "Validator Tiers",
+        "subtitle": "Choose the tier that matches your commitment level",
+        "genesis": "Genesis Validator",
+        "genesisDesc": "First 125 validators with highest rewards",
+        "premium": "Premium Validator",
+        "premiumDesc": "High-performance validators with bonus rewards",
+        "standard": "Standard Validator",
+        "standardDesc": "Core network validators",
+        "minStake": "Minimum Stake",
+        "maxReward": "Max Annual Reward",
+        "slots": "Available Slots"
+      },
+      "loyalty": {
+        "title": "Loyalty Rewards",
+        "subtitle": "Long-term validators earn increasing rewards",
+        "basic": "Basic",
+        "silver": "Silver",
+        "gold": "Gold",
+        "diamond": "Diamond",
+        "year1": "Year 1",
+        "year2": "Year 2",
+        "year3": "Year 3",
+        "year4": "Year 4+",
+        "bonus": "Bonus"
+      },
+      "performance": {
+        "title": "Performance Metrics",
+        "subtitle": "Top performers earn additional rewards",
+        "uptime": "Uptime",
+        "blocks": "Blocks Produced",
+        "attestations": "Attestations",
+        "slashing": "Slashing Events",
+        "score": "Performance Score",
+        "rank": "Network Rank"
+      },
+      "leaderboard": {
+        "title": "Validator Leaderboard",
+        "subtitle": "Top performing validators",
+        "rank": "Rank",
+        "validator": "Validator",
+        "points": "Points",
+        "cumulativeRewards": "Cumulative Rewards"
+      },
+      "faq": {
+        "title": "Frequently Asked Questions",
+        "subtitle": "Everything you need to know about validator incentives",
+        "q1": "How do I become a validator?",
+        "a1": "Stake a minimum of 100,000 TBURN tokens and meet the hardware requirements to become a validator.",
+        "q2": "What are the hardware requirements?",
+        "a2": "Validators need a server with at least 16GB RAM, 4 CPU cores, and 500GB SSD storage.",
+        "q3": "How are rewards calculated?",
+        "a3": "Rewards are based on your tier, performance score, uptime, and loyalty bonus multiplier.",
+        "q4": "What is slashing?",
+        "a4": "Slashing is a penalty for malicious behavior or extended downtime, resulting in stake reduction."
+      },
+      "cta": {
+        "title": "Ready to Become a Validator?",
+        "subtitle": "Join the TBURN network and start earning rewards today",
+        "applyNow": "Apply Now"
+      },
+      "apply": {
+        "applyNow": "Apply Now",
+        "learnMore": "Learn More",
+        "joinNow": "Join Now",
+        "complete": "Complete Registration",
+        "completeDesc": "Finish your validator application",
+        "loyaltyRewards": "Loyalty Rewards",
+        "loyaltyRewardsDesc": "Earn bonus rewards for long-term participation"
+      },
+      "amounts": {
+        "75m": "75M TBURN",
+        "112m": "112.5M TBURN",
+        "150m": "150M TBURN",
+        "187m": "187.5M TBURN",
+        "225m": "225M TBURN"
+      },
+      "distributions": {
+        "performance": "Performance Rewards",
+        "loyalty": "Loyalty Bonus",
+        "governance": "Governance Participation",
+        "earlybird": "Early Bird Bonus",
+        "growth": "Network Growth"
+      },
+      "stats": {
+        "totalPool": "Total Incentive Pool",
+        "activeValidators": "Active Validators",
+        "avgReward": "Average Reward",
+        "networkUptime": "Network Uptime"
+      }
     },
     "ecosystemFund": {
       "title": "Ecosystem Fund",

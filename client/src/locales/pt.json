@@ -17150,180 +17150,117 @@
       "delegateStake": "Delegar Stake"
     },
     "validatorIncentives": {
-      "title": "Incentivos para Validadores",
-      "subtitle": "Incentivos especiais para validadores que mantêm a rede TBURN",
-      "heroTitle": "Incentivos para Validadores TBURN",
-      "heroSubtitle": "Ganhe recompensas adicionais por alto desempenho e contribuição à rede",
-      "badge": "Programa de Validadores",
-      "incentivePool": "Pool de Incentivos",
-      "activeValidators": "Validadores Ativos",
-      "performanceBonus": "Bônus de Desempenho",
-      "uptimeRequirement": "Requisito de Tempo de Atividade",
-      "slashingPenalty": "Penalidade de Slashing",
-      "applyValidator": "Candidatar-se como Validador",
-      "nav": {
-        "tiers": "Níveis",
-        "loyalty": "Recompensas de Fidelidade",
-        "performance": "Recompensas de Desempenho",
-        "leaderboard": "Classificação"
+      "loading": "Carregando...",
+      "hero": {
+        "badge": "Incentivos de Validadores",
+        "title": "Incentivos de Validadores",
+        "titlePrefix": "TBURN",
+        "subtitle": "Junte-se à rede de validadores TBURN e ganhe recompensas por proteger a blockchain",
+        "countdownLabel": "Contagem regressiva do lançamento Genesis",
+        "earlyBirdTitle": "Bônus Early Bird",
+        "earlyBirdSubtitle": "Registre-se agora para recompensas exclusivas"
       },
       "wallet": {
+        "title": "Status da Carteira",
+        "subtitle": "Conecte sua carteira para verificar elegibilidade de validador",
         "connect": "Conectar Carteira",
-        "disconnect": "Desconectar",
-        "disconnected": "Carteira desconectada.",
-        "disconnectTitle": "Carteira Desconectada",
         "connected": "Conectada",
-        "connectedTitle": "Carteira Conectada",
-        "connectedDesc": "A carteira MetaMask foi conectada.",
-        "required": "Carteira Necessária",
-        "requiredDesc": "Por favor conecte sua carteira primeiro para candidatar-se como validador.",
-        "selectTier": "Seleção de Nível",
-        "selectTierDesc": "Escolha o nível de validador que melhor se adequa a você."
-      },
-      "apply": {
-        "complete": "Candidatura Completa",
-        "completeDesc": "Sua candidatura de validador {{tierName}} foi enviada. Notificaremos você após a análise.",
-        "applyNow": "Candidatar Agora",
-        "checkLoyalty": "Ver Recompensas de Fidelidade",
-        "learnMore": "Saiba Mais",
-        "joinNow": "Participe Agora",
-        "loyaltyRewards": "Sistema de Recompensas de Fidelidade",
-        "loyaltyRewardsDesc": "Confira o sistema de recompensas de staking de longo prazo."
-      },
-      "distributions": {
-        "earlybird": "Bônus Early Bird",
-        "loyalty": "Recompensas de Fidelidade de Longo Prazo",
-        "performance": "Incentivos de Desempenho",
-        "growth": "Crescimento da Rede",
-        "governance": "Bônus de Governança"
-      },
-      "amounts": {
-        "225m": "225M",
-        "187m": "187.5M",
-        "150m": "150M",
-        "112m": "112.5M",
-        "75m": "75M"
+        "eligible": "Elegível para Validador",
+        "notEligible": "Não Elegível",
+        "balance": "Saldo",
+        "stakedAmount": "Valor em Stake",
+        "stakingRequired": "Mínimo de 100.000 TBURN necessário"
       },
       "tiers": {
-        "genesis": {
-          "name": "Validador Gênesis",
-          "range": "1º~25º",
-          "benefit1": "100% Bônus Early Bird",
-          "benefit2": "Badge NFT Gênesis Exclusivo",
-          "benefit3": "0% Taxa Vitalícia",
-          "benefit4": "2x Poder de Voto Governança",
-          "benefit5": "Acesso Canal VIP",
-          "badge": "Premium"
-        },
-        "pioneer": {
-          "name": "Validador Pioneiro",
-          "range": "26º~75º",
-          "benefit1": "75% Bônus Early Bird",
-          "benefit2": "Badge NFT Pioneiro",
-          "benefit3": "0.5% Desconto na Taxa",
-          "benefit4": "1.5x Poder de Voto Governança",
-          "benefit5": "Acesso Antecipado",
-          "badge": "Recomendado"
-        },
-        "early": {
-          "name": "Validador Antecipado",
-          "range": "76º~125º",
-          "benefit1": "50% Bônus Early Bird",
-          "benefit2": "Badge NFT Antecipado",
-          "benefit3": "1% Desconto na Taxa",
-          "benefit4": "1.25x Poder de Voto Governança",
-          "benefit5": "Reconhecimento de Líder Comunitário",
-          "badge": "Aberto"
-        },
-        "participant": "Participante",
-        "earlybirdBonus": "Bônus Early Bird"
+        "title": "Níveis de Validador",
+        "subtitle": "Escolha o nível que corresponde ao seu compromisso",
+        "genesis": "Validador Genesis",
+        "genesisDesc": "Os primeiros 125 validadores com as maiores recompensas",
+        "premium": "Validador Premium",
+        "premiumDesc": "Validadores de alto desempenho com bônus",
+        "standard": "Validador Padrão",
+        "standardDesc": "Validadores da rede principal",
+        "minStake": "Stake Mínimo",
+        "maxReward": "Recompensa Anual Máxima",
+        "slots": "Vagas Disponíveis"
       },
       "loyalty": {
-        "year1": "1 Ano",
-        "year2": "2 Anos",
-        "year3": "3 Anos",
-        "year4plus": "4+ Anos",
-        "basic": "Bônus de Fidelidade Básico",
-        "silver": "Associação Prata",
-        "gold": "Associação Ouro",
-        "diamond": "Associação Diamante",
-        "title": "Multiplicador de Fidelidade",
-        "subtitle": "Recompensas aumentam com a duração do staking"
+        "title": "Recompensas de Fidelidade",
+        "subtitle": "Validadores de longo prazo ganham recompensas crescentes",
+        "basic": "Básico",
+        "silver": "Prata",
+        "gold": "Ouro",
+        "diamond": "Diamante",
+        "year1": "Ano 1",
+        "year2": "Ano 2",
+        "year3": "Ano 3",
+        "year4": "Ano 4+",
+        "bonus": "Bônus"
       },
       "performance": {
-        "uptime": {
-          "title": "Bônus de Tempo de Atividade",
-          "subtitle": "Operação de rede estável"
-        },
-        "blocks": {
-          "title": "Bônus de Produção de Blocos",
-          "subtitle": "Geração eficiente de blocos",
-          "top10": "Top 10%",
-          "top30": "Top 30%",
-          "top50": "Top 50%"
-        },
-        "clean": {
-          "title": "Bônus Sem Violações",
-          "subtitle": "Zero registro de slashing",
-          "year1": "1 Ano Sem Violações",
-          "months6": "6 Meses Sem Violações",
-          "months3": "3 Meses Sem Violações"
-        }
+        "title": "Métricas de Desempenho",
+        "subtitle": "Os melhores ganham recompensas adicionais",
+        "uptime": "Tempo Ativo",
+        "blocks": "Blocos Produzidos",
+        "attestations": "Atestações",
+        "slashing": "Eventos de Slashing",
+        "score": "Pontuação de Desempenho",
+        "rank": "Ranking na Rede"
       },
       "leaderboard": {
+        "title": "Ranking de Validadores",
+        "subtitle": "Validadores com melhor desempenho",
         "rank": "Posição",
         "validator": "Validador",
-        "tier": "Nível",
         "points": "Pontos",
-        "cumulativeRewards": "Recompensas Acumuladas",
-        "badge": "INCENTIVOS PARA VALIDADORES",
-        "title": "750M TBURN em Incentivos",
-        "titlePrefix": "Para Validadores",
-        "subtitle": "Bônus Early Bird, Recompensas de Fidelidade de Longo Prazo, Incentivos de Desempenho e mais! Torne-se um validador TBURN Chain e ganhe até 300% de recompensas adicionais!",
-        "earlyBirdTitle": "Programa Early Bird Ativo!",
-        "earlyBirdSubtitle": "Participe agora para até 100,000 TBURN de bônus"
-      },
-      "stats": {
-        "totalValidators": "Total de Validadores",
-        "activeValidators": "Validadores Ativos",
-        "totalStaked": "Total em Staking (TBURN)",
-        "countdown": {
-          "days": "Dias",
-          "hours": "Horas",
-          "mins": "Minutos",
-          "secs": "Segundos"
-        }
-      },
-      "sections": {
-        "distribution": "Distribuição de Incentivos",
-        "tiers": "Níveis de Validador Antecipado",
-        "tiersSubtitle": "Recompensas diferenciadas baseadas na ordem de participação",
-        "loyalty": "Recompensas de Fidelidade de Longo Prazo",
-        "loyaltySubtitle": "Mais recompensas por maior participação",
-        "performance": "Incentivos de Desempenho",
-        "performanceSubtitle": "Recompensas adicionais por excelente desempenho",
-        "leaderboard": "Classificação de Incentivos",
-        "leaderboardSubtitle": "Validadores com mais recompensas"
+        "cumulativeRewards": "Recompensas Acumuladas"
       },
       "faq": {
         "title": "Perguntas Frequentes",
-        "subtitle": "Perguntas sobre o programa de incentivos",
-        "q1": "Qual é a alocação total de incentivos para validadores?",
-        "a1": "O programa de incentivos para validadores possui 750M TBURN (7.5% do fornecimento total). Distribuição: Bônus Early Bird 30% (225M), Fidelidade Longo Prazo 25% (187.5M), Incentivos de Desempenho 20% (150M), Crescimento da Rede 15% (112.5M), Bônus de Governança 10% (75M).",
-        "q2": "Como me qualifico para o Bônus Early Bird?",
-        "a2": "O Bônus Early Bird é concedido com base em quando você ingressa. Validadores Gênesis (1º-25º) recebem 100%, Validadores Pioneiros (26º-75º) recebem 75%, Validadores Antecipados (76º-125º) recebem 50%.",
-        "q3": "Como os Incentivos de Desempenho são calculados?",
-        "a3": "Os Incentivos de Desempenho são baseados em tempo de atividade (99.9%+ para nível Ouro), eficiência de produção de blocos (Top 10% para nível Ouro), e registro limpo sem violações de slashing.",
-        "q4": "O que é o Multiplicador de Fidelidade?",
-        "a4": "O Multiplicador de Fidelidade aumenta suas recompensas com base na duração do staking: 1.5x por 1 ano, 2.0x por 2 anos, 2.5x por 3 anos, e 3.0x por 4+ anos de staking contínuo."
+        "subtitle": "Tudo sobre incentivos de validadores",
+        "q1": "Como me torno validador?",
+        "a1": "Faça stake de no mínimo 100.000 tokens TBURN e atenda aos requisitos de hardware para se tornar validador.",
+        "q2": "Quais são os requisitos de hardware?",
+        "a2": "Validadores precisam de servidor com pelo menos 16GB RAM, 4 núcleos CPU e 500GB armazenamento SSD.",
+        "q3": "Como as recompensas são calculadas?",
+        "a3": "Recompensas são baseadas em nível, pontuação de desempenho, tempo ativo e multiplicador de bônus de fidelidade.",
+        "q4": "O que é slashing?",
+        "a4": "Slashing é penalidade por comportamento malicioso ou tempo de inatividade prolongado, resultando em redução do stake."
       },
-      "footer": {
-        "rights": "Todos os Direitos Reservados",
-        "privacy": "Política de Privacidade",
-        "terms": "Termos de Serviço",
-        "contact": "Contate-nos"
+      "cta": {
+        "title": "Pronto para se Tornar Validador?",
+        "subtitle": "Junte-se à rede TBURN e comece a ganhar recompensas hoje",
+        "applyNow": "Candidatar-se Agora"
       },
-      "loading": "Carregando incentivos para validadores..."
+      "apply": {
+        "applyNow": "Candidatar-se Agora",
+        "learnMore": "Saiba Mais",
+        "joinNow": "Participar Agora",
+        "complete": "Completar Registro",
+        "completeDesc": "Finalize sua candidatura de validador",
+        "loyaltyRewards": "Recompensas de Fidelidade",
+        "loyaltyRewardsDesc": "Ganhe bônus por participação de longo prazo"
+      },
+      "amounts": {
+        "75m": "75M TBURN",
+        "112m": "112,5M TBURN",
+        "150m": "150M TBURN",
+        "187m": "187,5M TBURN",
+        "225m": "225M TBURN"
+      },
+      "distributions": {
+        "performance": "Recompensas de Desempenho",
+        "loyalty": "Bônus de Fidelidade",
+        "governance": "Participação em Governança",
+        "earlybird": "Bônus Early Bird",
+        "growth": "Crescimento da Rede"
+      },
+      "stats": {
+        "totalPool": "Pool Total de Incentivos",
+        "activeValidators": "Validadores Ativos",
+        "avgReward": "Recompensa Média",
+        "networkUptime": "Tempo Ativo da Rede"
+      }
     },
     "ecosystemFund": {
       "title": "Fundo do Ecossistema",
