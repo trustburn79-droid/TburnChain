@@ -70,7 +70,7 @@ export default function SeedRoundPage() {
     },
     onSuccess: () => {
       toast({
-        t("tokenPrograms.seedRound.toast.inquirySuccess"),
+        title: t("tokenPrograms.seedRound.toast.inquirySuccess"),
         description: t("tokenPrograms.seedRound.toast.inquirySuccessDesc"),
       });
       setInquiryDialogOpen(false);
@@ -981,7 +981,7 @@ export default function SeedRoundPage() {
             <a href="#tiers">{t("tokenPrograms.seedRound.tiers.title")}</a>
             <a href="#vesting">{t("tokenPrograms.seedRound.nav.vesting")}</a>
             <a href="#investors">{t("tokenPrograms.seedRound.investorsSection.title")}</a>
-            <a href="#process">절차</a>
+            <a href="#process">{t("tokenPrograms.seedRound.nav.process")}</a>
             <a href="#faq">FAQ</a>
           </nav>
           <div className="header-actions">
@@ -1003,11 +1003,11 @@ export default function SeedRoundPage() {
         <div className="hero-content">
           <div className="badge">
             <span className="seed-icon">🌱</span> {t("tokenPrograms.seedRound.hero.badge")}
-            <span className="round-status"><span className="dot"></span> 진행중</span>
+            <span className="round-status"><span className="dot"></span> {t("tokenPrograms.seedRound.comparison.active")}</span>
           </div>
           <h1>
             {t("tokenPrograms.seedRound.hero.title")}<br />
-            <span className="gradient-text">{t("tokenPrograms.seedRound.hero.titleHighlight")}</span> 기회를 잡으세요
+            <span className="gradient-text">{t("tokenPrograms.seedRound.hero.titleHighlight")}</span> {t("tokenPrograms.seedRound.hero.titleEnd")}
           </h1>
           <p className="hero-subtitle">
             {t("tokenPrograms.seedRound.hero.subtitle")}
@@ -1102,7 +1102,7 @@ export default function SeedRoundPage() {
                     {round.discount}
                     {round.status === 'current' && <span className="discount-badge">{t("tokenPrograms.seedRound.comparison.maxDiscount")}</span>}
                   </td>
-                  <td>{round.status === 'current' ? '✅ 진행중' : '⏳ 예정'}</td>
+                  <td>{round.status === 'current' ? '✅ ' + t('tokenPrograms.seedRound.comparison.active') : '⏳ ' + t('tokenPrograms.seedRound.comparison.upcoming')}</td>
                 </tr>
               ))}
             </tbody>
@@ -1538,7 +1538,7 @@ export default function SeedRoundPage() {
               <h4 style={{ color: 'white', marginBottom: '0.5rem', fontWeight: 600 }}>{t("tokenPrograms.seedRound.processSection.title")}</h4>
               <ol style={{ color: 'rgba(255,255,255,0.8)', paddingLeft: '1.25rem' }}>
                 <li>Submit Inquiry (1-3 days)</li>
-                <li>KYC/AML 인증 절차 (3-5일)</li>
+                <li>KYC/AML Verification (3-5 days)</li>
                 <li>SAFT 계약 체결 (1-2일)</li>
                 <li>Fund Transfer (1-2 days)</li>
               </ol>
