@@ -35157,5 +35157,236 @@
         "desc": "Please connect your wallet to participate in events."
       }
     }
+  },
+  "daoGovernance": {
+    "nav": {
+      "process": "Process",
+      "proposals": "Proposals",
+      "committees": "Committees",
+      "rewards": "Rewards",
+      "faq": "FAQ",
+      "connectWallet": "Connect Wallet"
+    },
+    "hero": {
+      "badge": "DAO GOVERNANCE",
+      "title1": "300M TBURN",
+      "title2": "DAO",
+      "title3": "Governance",
+      "subtitle": "Participate in TBURN Chain governance and shape the future of decentralized finance. Vote on proposals, delegate voting power, and earn rewards for active participation."
+    },
+    "stats": {
+      "totalProposals": "Total Proposals",
+      "activeProposals": "Active Proposals",
+      "totalVotes": "Total Votes",
+      "totalVotingPower": "Total Voting Power"
+    },
+    "distribution": {
+      "badge": "DISTRIBUTION",
+      "title": "Governance Token Distribution",
+      "subtitle": "300M TBURN allocated for governance rewards and incentives",
+      "treasury": "Treasury",
+      "treasuryAmount": "100M TBURN",
+      "proposal": "Proposal Rewards",
+      "proposalAmount": "50M TBURN",
+      "voting": "Voting Rewards",
+      "votingAmount": "100M TBURN",
+      "committee": "Committee",
+      "committeeAmount": "50M TBURN"
+    },
+    "process": {
+      "badge": "GOVERNANCE PROCESS",
+      "title": "How Governance Works",
+      "subtitle": "Follow the democratic process to shape TBURN Chain's future"
+    },
+    "processSteps": [
+      {
+        "title": "Submit Proposal",
+        "description": "Create and submit your governance proposal with detailed specifications"
+      },
+      {
+        "title": "Community Discussion",
+        "description": "Engage with the community to refine and improve the proposal"
+      },
+      {
+        "title": "Voting Period",
+        "description": "Token holders vote on the proposal during the voting window"
+      },
+      {
+        "title": "Implementation",
+        "description": "Approved proposals are implemented by the core team"
+      }
+    ],
+    "proposals": {
+      "badge": "PROPOSALS",
+      "title": "Active Proposals",
+      "subtitle": "Review and vote on current governance proposals",
+      "deadline": "Deadline",
+      "proposer": "Proposer",
+      "voting": "Voting",
+      "pending": "Pending",
+      "categories": {
+        "protocol": "Protocol",
+        "treasury": "Treasury",
+        "ecosystem": "Ecosystem"
+      }
+    },
+    "proposalsData": [
+      {
+        "title": "Protocol Upgrade v2.0",
+        "category": "Protocol",
+        "votes": "125K",
+        "deadline": "3 days"
+      },
+      {
+        "title": "Treasury Allocation Q1",
+        "category": "Treasury",
+        "votes": "98K",
+        "deadline": "5 days"
+      },
+      {
+        "title": "Ecosystem Fund Distribution",
+        "category": "Ecosystem",
+        "votes": "75K",
+        "deadline": "7 days"
+      }
+    ],
+    "voting": {
+      "for": "For",
+      "against": "Against",
+      "quorumRate": "Quorum Rate"
+    },
+    "committees": {
+      "badge": "COMMITTEES",
+      "title": "Governance Committees",
+      "subtitle": "Specialized groups driving TBURN Chain governance",
+      "members": "Members",
+      "processedProposals": "Proposals Processed"
+    },
+    "committeesData": [
+      {
+        "name": "Technical Committee",
+        "members": 7,
+        "processed": 45
+      },
+      {
+        "name": "Treasury Committee",
+        "members": 5,
+        "processed": 32
+      },
+      {
+        "name": "Community Committee",
+        "members": 9,
+        "processed": 28
+      }
+    ],
+    "rewards": {
+      "badge": "REWARDS",
+      "title": "Governance Rewards",
+      "subtitle": "Earn TBURN by actively participating in governance"
+    },
+    "rewardsData": [
+      {
+        "action": "Vote on Proposal",
+        "reward": "100 TBURN"
+      },
+      {
+        "action": "Submit Proposal",
+        "reward": "500 TBURN"
+      },
+      {
+        "action": "Committee Participation",
+        "reward": "1000 TBURN"
+      }
+    ],
+    "delegation": {
+      "badge": "DELEGATION",
+      "title": "Vote Delegation",
+      "subtitle": "Delegate your voting power to trusted representatives",
+      "topDelegates": "Top Delegates",
+      "votingPower": "Voting Power"
+    },
+    "delegatesData": [
+      {
+        "name": "ValidatorOne",
+        "power": "2.5M TBURN"
+      },
+      {
+        "name": "CommunityLead",
+        "power": "1.8M TBURN"
+      },
+      {
+        "name": "DeFiExpert",
+        "power": "1.2M TBURN"
+      }
+    ],
+    "faq": {
+      "badge": "FAQ",
+      "title": "Frequently Asked Questions",
+      "subtitle": "Learn more about TBURN DAO governance",
+      "q1": "What is TBURN DAO governance?",
+      "a1": "TBURN DAO governance is a decentralized decision-making system where token holders vote on protocol upgrades, treasury allocations, and ecosystem initiatives.",
+      "q2": "How can I participate in governance?",
+      "a2": "Connect your wallet, hold TBURN tokens, and vote on active proposals. You can also delegate your voting power to trusted representatives.",
+      "q3": "What is the minimum voting requirement?",
+      "a3": "You need at least 100 TBURN tokens to participate in governance voting.",
+      "q4": "How are governance rewards distributed?",
+      "a4": "Rewards are distributed proportionally based on your voting participation and the amount of TBURN tokens you hold.",
+      "q5": "What is vote delegation?",
+      "a5": "Vote delegation allows you to assign your voting power to another address while retaining ownership of your tokens.",
+      "q6": "How long is the voting period?",
+      "a6": "Standard proposals have a 7-day voting period, while emergency proposals may have shorter timeframes.",
+      "q7": "What is quorum?",
+      "a7": "Quorum is the minimum percentage of total voting power required for a proposal to pass. Currently set at 10%.",
+      "q8": "How do I submit a proposal?",
+      "a8": "Submit proposals through the governance portal. You need a minimum of 10,000 TBURN tokens to create a proposal."
+    },
+    "ctaSection": {
+      "title": "Shape the Future of TBURN",
+      "subtitle1": "Join the governance and make your voice heard.",
+      "subtitle2": "Vote on proposals and earn rewards.",
+      "button": "Start Participating"
+    },
+    "cta": {
+      "vote": "Vote",
+      "submitProposal": "Submit Proposal",
+      "activeProposals": "Active Proposals",
+      "activeProposalsDesc": "View and vote on current proposals",
+      "comingSoon": "Coming Soon"
+    },
+    "toast": {
+      "connected": "Wallet Connected",
+      "connectedDesc": "You can now participate in governance",
+      "disconnected": "Wallet Disconnected",
+      "disconnectedDesc": "Connect your wallet to participate",
+      "navigating": "Navigating...",
+      "participateTitle": "Participate in Governance",
+      "participateDesc": "Connect your wallet to vote on proposals",
+      "walletRequired": "Wallet Required",
+      "walletRequiredDesc": "Please connect your wallet to continue",
+      "proposalWalletRequired": "Wallet required to view proposal details",
+      "voteFor": "Voted For",
+      "voteAgainst": "Voted Against",
+      "voteSubmitted": "Vote submitted successfully"
+    },
+    "footer": {
+      "tagline1": "Decentralized Governance",
+      "tagline2": "Community-Driven Future",
+      "product": "Product",
+      "mainnet": "Mainnet",
+      "staking": "Staking",
+      "bridge": "Bridge",
+      "explorer": "Explorer",
+      "resources": "Resources",
+      "docs": "Documentation",
+      "whitepaper": "Whitepaper",
+      "blog": "Blog",
+      "audit": "Audit Reports",
+      "community": "Community",
+      "support": "Support",
+      "ambassador": "Ambassador",
+      "grants": "Grants",
+      "terms": "Terms of Service",
+      "privacy": "Privacy Policy"
+    }
   }
 }
