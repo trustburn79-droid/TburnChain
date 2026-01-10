@@ -22097,7 +22097,10 @@
         "allocation": "配分",
         "investors": "投資家",
         "faq": "FAQ",
-        "connectWallet": "機関投資問合せ"
+        "connectWallet": "機関投資問合せ",
+        "highlights": "Highlights",
+        "comparison": "Comparison",
+        "process": "Process"
       },
       "hero": {
         "badge": "PRIVATE ROUND - 機関投資",
@@ -22116,7 +22119,11 @@
         "priceCompare": "シード比+150%",
         "discountLaunch": "ローンチ価格比割引",
         "tgeUnlock": "TGE即時解除",
-        "vestingPeriod": "ベスティング期間"
+        "vestingPeriod": "ベスティング期間",
+        "tokenPrice": "Token Price",
+        "allocation": "Total Allocation",
+        "minInvestment": "Min Investment",
+        "discount": "Discount from IDO"
       },
       "stats": {
         "loading": "読み込み中...",
@@ -22127,7 +22134,10 @@
       },
       "cta": {
         "applyPrivate": "プライベート投資申請",
-        "viewDeck": "投資資料を見る"
+        "viewDeck": "投資資料を見る",
+        "inquire": "Submit Inquiry",
+        "learnMore": "Learn More",
+        "viewVesting": "View Vesting"
       },
       "comparison": {
         "badge": "COMPARISON",
@@ -22140,7 +22150,14 @@
         "status": "状態",
         "inProgress": "進行中",
         "completed": "完了",
-        "upcoming": "予定"
+        "upcoming": "予定",
+        "price": "Price",
+        "minInvest": "Min Investment",
+        "vesting": "Vesting",
+        "seedRound": "Seed Round",
+        "privateRound": "Private Round",
+        "publicRound": "Public Round",
+        "active": "Active"
       },
       "tiers": {
         "badge": "TIERS",
@@ -22207,9 +22224,21 @@
         "monthlyVesting": "月次ベスティング",
         "monthlyDesc": "12ヶ月間",
         "fullUnlock": "完全アンロック",
-        "fullUnlockDesc": "18ヶ月後"
+        "fullUnlockDesc": "18ヶ月後",
+        "tge": "TGE",
+        "cliff": "Cliff Period",
+        "linear": "Linear Vesting",
+        "months": "months"
       },
-      "allocation": "総割当量",
+      "allocation": {
+        "badge": "Allocation",
+        "title": "Allocation Distribution",
+        "subtitle": "How the private round allocation is distributed",
+        "vcFunds": "VC Funds",
+        "strategicInvestors": "Strategic Investors",
+        "familyOffice": "Family Offices",
+        "corporateInvestors": "Corporate Investors"
+      },
       "investors": {
         "badge": "INVESTORS",
         "title": "現在の投資家",
@@ -22233,7 +22262,13 @@
         "fundingDuration": "3-5日",
         "tokenAllocation": "トークン配分",
         "tokenAllocationDesc": "投資確定",
-        "tokenAllocationDuration": "即時"
+        "tokenAllocationDuration": "即時",
+        "kyc": "Complete KYC",
+        "kycDesc": "Verify your identity and accreditation",
+        "agreement": "Sign Agreement",
+        "agreementDesc": "Review and sign investment documents",
+        "investment": "Make Investment",
+        "investmentDesc": "Transfer funds and receive tokens"
       },
       "benefits": {
         "badge": "BENEFITS",
@@ -22312,7 +22347,9 @@
         "errorDesc": "問合せの送信に失敗しました。再度お試しください。",
         "required": "必須情報が不足しています",
         "requiredDesc": "お名前、メールアドレス、会社名は必須項目です。",
-        "cancelBtn": "キャンセル"
+        "cancelBtn": "キャンセル",
+        "amount": "Investment Amount",
+        "cancel": "Cancel"
       },
       "footer": {
         "description": "TBURN Chainは高度なDeFi、DAO、エンタープライズ統合機能を備えた次世代Layer-1ブロックチェーンです。",
@@ -22347,7 +22384,8 @@
         "privacy": "プライバシーポリシー",
         "product": "製品",
         "resources": "リソース",
-        "community": "コミュニティ"
+        "community": "コミュニティ",
+        "tagline": "Building the future of decentralized finance"
       },
       "title": "プライベートラウンド",
       "subtitle": "適格投資家向けプライベートセール",
@@ -22361,7 +22399,13 @@
       "kyc": "KYC/AML認証",
       "accredited": "適格投資家",
       "institutional": "機関投資家",
-      "applyPrivate": "プライベートラウンドに申請"
+      "applyPrivate": "プライベートラウンドに申請",
+      "toast": {
+        "walletConnected": "Wallet Connected",
+        "walletConnectedDesc": "Your wallet is now connected",
+        "walletDisconnected": "Wallet Disconnected",
+        "walletDisconnectedDesc": "Your wallet has been disconnected"
+      }
     },
     "publicRound": {
       "nav": {
@@ -22370,7 +22414,9 @@
         "howTo": "参加方法",
         "calculator": "計算機",
         "faq": "FAQ",
-        "connectWallet": "今すぐ参加"
+        "connectWallet": "今すぐ参加",
+        "highlights": "Highlights",
+        "comparison": "Comparison"
       },
       "hero": {
         "badge": "PUBLIC ROUND - 公開販売",
@@ -22386,13 +22432,17 @@
         "secs": "秒",
         "progressGoal": "目標 $200,000,000",
         "progressPercent": "45% 達成",
-        "progressRemaining": "残り $110,250,000"
+        "progressRemaining": "残り $110,250,000",
+        "title": "TBURN Public Round"
       },
       "highlights": {
         "tokenPrice": "トークン価格",
         "discount": "ローンチ価格との割引",
         "tgeUnlock": "TGE即時解除",
-        "minAmount": "最低参加金額"
+        "minAmount": "最低参加金額",
+        "allocation": "Total Allocation",
+        "minInvestment": "Min Investment",
+        "vestingPeriod": "Vesting Period"
       },
       "stats": {
         "loading": "読み込み中...",
@@ -22403,7 +22453,10 @@
       },
       "cta": {
         "joinNow": "今すぐ参加",
-        "viewGuide": "セールガイドを見る"
+        "viewGuide": "セールガイドを見る",
+        "register": "Register Now",
+        "learnMore": "Learn More",
+        "viewVesting": "View Vesting"
       },
       "comparison": {
         "badge": "COMPARISON",
@@ -22422,7 +22475,13 @@
         "publicRound": "パブリックラウンド",
         "completed": "完了",
         "live": "進行中",
-        "upcoming": "予定"
+        "upcoming": "予定",
+        "round": "Round",
+        "price": "Price",
+        "minInvest": "Min Investment",
+        "vesting": "Vesting",
+        "status": "Status",
+        "active": "Active"
       },
       "tiers": {
         "badge": "ティア",
@@ -22516,7 +22575,13 @@
             "value": "100%",
             "desc": "9ヶ月後"
           }
-        ]
+        ],
+        "tge": "TGE",
+        "tgeUnlock": "TGE Unlock",
+        "cliff": "Cliff Period",
+        "linear": "Linear Vesting",
+        "fullUnlock": "Full Unlock",
+        "months": "months"
       },
       "howTo": {
         "badge": "HOW TO",
@@ -22593,7 +22658,10 @@
         "tokenAmount": "トークン数量",
         "tgeUnlock": "TGE解除 (10%)",
         "launchPrice": "予想ローンチ価格 ($0.50)",
-        "profit": "予想利益"
+        "profit": "予想利益",
+        "investment": "Investment Amount",
+        "tokens": "Tokens Received",
+        "roi": "ROI at Launch"
       },
       "faq": {
         "badge": "FAQ",
@@ -22653,7 +22721,11 @@
         "successDesc": "担当者からすぐにご連絡いたします。",
         "errorTitle": "エラーが発生しました",
         "requiredTitle": "必須項目が未入力です",
-        "requiredDesc": "お名前とメールは必須です。"
+        "requiredDesc": "お名前とメールは必須です。",
+        "amount": "Investment Amount",
+        "cancel": "Cancel",
+        "errorDesc": "Please try again later",
+        "required": "This field is required"
       },
       "footer": {
         "description": "AIの知能、ブロックチェーンの透明性。THE FUTURE IS NOW",
@@ -22673,7 +22745,8 @@
         "grants": "グラント",
         "support": "サポート",
         "terms": "利用規約",
-        "privacy": "プライバシーポリシー"
+        "privacy": "プライバシーポリシー",
+        "tagline": "Building the future of decentralized finance"
       },
       "title": "パブリックラウンド",
       "subtitle": "誰でも参加できる公開トークンセール",
@@ -22687,7 +22760,13 @@
       "maxPurchase": "最大購入額",
       "whitelistRequired": "ホワイトリスト登録が必要",
       "joinWhitelist": "ホワイトリストに参加",
-      "purchaseTokens": "トークンを購入"
+      "purchaseTokens": "トークンを購入",
+      "toast": {
+        "walletConnected": "Wallet Connected",
+        "walletConnectedDesc": "Your wallet is now connected",
+        "walletDisconnected": "Wallet Disconnected",
+        "walletDisconnectedDesc": "Your wallet has been disconnected"
+      }
     },
     "launchpad": {
       "title": "ローンチパッド",
@@ -23175,8 +23254,8 @@
         "copy": "コピー",
         "copied": "コピー完了！",
         "linkCopied": "紹介リンクがクリップボードにコピーされました",
-        "shareTitle": "共有先",
-        "shareTwitter": "Twitterでシェア",
+        "shareTitle": "Share Your Referral",
+        "shareTwitter": "Share on Twitter",
         "shareTelegram": "Telegramでシェア",
         "shareKakao": "KakaoTalkでシェア",
         "bonusTitle": "紹介ボーナス",

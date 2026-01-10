@@ -17996,14 +17996,21 @@
         "progressRaised": "$72,000,000",
         "progressGoal": "Цель $100,000,000",
         "progressPercent": "72% Достигнуто",
-        "progressRemaining": "Осталось $28,000,000"
+        "progressRemaining": "Осталось $28,000,000",
+        "highlights": "Highlights",
+        "comparison": "Comparison",
+        "process": "Process"
       },
       "highlights": {
         "pricePerToken": "Цена за Токен",
         "priceCompare": "+150% vs Seed",
         "discountLaunch": "Скидка vs Запуск",
         "tgeUnlock": "Разблокировка TGE",
-        "vestingPeriod": "Период Вестинга"
+        "vestingPeriod": "Период Вестинга",
+        "tokenPrice": "Token Price",
+        "allocation": "Total Allocation",
+        "minInvestment": "Min Investment",
+        "discount": "Discount from IDO"
       },
       "stats": {
         "loading": "Загрузка...",
@@ -18014,7 +18021,10 @@
       },
       "cta": {
         "applyPrivate": "Подать Заявку на Приватные Инвестиции",
-        "viewDeck": "Просмотреть Инвестиционную Презентацию"
+        "viewDeck": "Просмотреть Инвестиционную Презентацию",
+        "inquire": "Submit Inquiry",
+        "learnMore": "Learn More",
+        "viewVesting": "View Vesting"
       },
       "comparison": {
         "badge": "COMPARISON",
@@ -18027,7 +18037,14 @@
         "status": "Статус",
         "inProgress": "В Процессе",
         "completed": "Завершен",
-        "upcoming": "Скоро"
+        "upcoming": "Скоро",
+        "price": "Price",
+        "minInvest": "Min Investment",
+        "vesting": "Vesting",
+        "seedRound": "Seed Round",
+        "privateRound": "Private Round",
+        "publicRound": "Public Round",
+        "active": "Active"
       },
       "tiers": {
         "badge": "TIERS",
@@ -18094,9 +18111,21 @@
         "monthlyVesting": "Месячный Вестинг",
         "monthlyDesc": "За 12 Месяцев",
         "fullUnlock": "Полная Разблокировка",
-        "fullUnlockDesc": "Через 18 Месяцев"
+        "fullUnlockDesc": "Через 18 Месяцев",
+        "tge": "TGE",
+        "cliff": "Cliff Period",
+        "linear": "Linear Vesting",
+        "months": "months"
       },
-      "allocation": "Total Allocation",
+      "allocation": {
+        "badge": "Allocation",
+        "title": "Allocation Distribution",
+        "subtitle": "How the private round allocation is distributed",
+        "vcFunds": "VC Funds",
+        "strategicInvestors": "Strategic Investors",
+        "familyOffice": "Family Offices",
+        "corporateInvestors": "Corporate Investors"
+      },
       "investors": {
         "badge": "INVESTORS",
         "title": "Текущие Инвесторы",
@@ -18120,7 +18149,13 @@
         "fundingDuration": "3-5 дней",
         "tokenAllocation": "Распределение Токенов",
         "tokenAllocationDesc": "Подтверждение Инвестиций",
-        "tokenAllocationDuration": "Мгновенно"
+        "tokenAllocationDuration": "Мгновенно",
+        "kyc": "Complete KYC",
+        "kycDesc": "Verify your identity and accreditation",
+        "agreement": "Sign Agreement",
+        "agreementDesc": "Review and sign investment documents",
+        "investment": "Make Investment",
+        "investmentDesc": "Transfer funds and receive tokens"
       },
       "benefits": {
         "badge": "BENEFITS",
@@ -18199,7 +18234,9 @@
         "errorDesc": "Не удалось отправить запрос. Попробуйте снова.",
         "required": "Отсутствуют Обязательные Поля",
         "requiredDesc": "Имя, email и компания являются обязательными полями.",
-        "cancelBtn": "Отмена"
+        "cancelBtn": "Отмена",
+        "amount": "Investment Amount",
+        "cancel": "Cancel"
       },
       "footer": {
         "description": "TBURN Chain - блокчейн Layer-1 нового поколения с продвинутыми возможностями DeFi, DAO и корпоративной интеграции.",
@@ -18234,7 +18271,8 @@
         "privacy": "Политика конфиденциальности",
         "product": "Продукт",
         "resources": "Ресурсы",
-        "community": "Сообщество"
+        "community": "Сообщество",
+        "tagline": "Building the future of decentralized finance"
       },
       "title": "Приватный Раунд",
       "subtitle": "Приватная продажа для квалифицированных инвесторов",
@@ -18248,7 +18286,23 @@
       "kyc": "KYC/AML Verification",
       "accredited": "Accredited Investor",
       "institutional": "Institutional",
-      "applyPrivate": "Apply for Private Round"
+      "applyPrivate": "Apply for Private Round",
+      "hero": {
+        "badge": "Private Investment Round",
+        "title": "TBURN Private Round",
+        "subtitle": "Exclusive investment opportunity for qualified investors",
+        "progressGoal": "Goal",
+        "progressPercent": "Progress",
+        "progressRemaining": "Remaining",
+        "status": "In Progress",
+        "titleHighlight": "Private"
+      },
+      "toast": {
+        "walletConnected": "Wallet Connected",
+        "walletConnectedDesc": "Your wallet is now connected",
+        "walletDisconnected": "Wallet Disconnected",
+        "walletDisconnectedDesc": "Your wallet has been disconnected"
+      }
     },
     "publicRound": {
       "nav": {
@@ -18257,7 +18311,9 @@
         "howTo": "How to Join",
         "calculator": "Calculator",
         "faq": "FAQ",
-        "connectWallet": "Join Now"
+        "connectWallet": "Join Now",
+        "highlights": "Highlights",
+        "comparison": "Comparison"
       },
       "hero": {
         "badge": "PUBLIC ROUND - Public Sale",
@@ -18273,13 +18329,17 @@
         "secs": "SECS",
         "progressGoal": "Goal $200,000,000",
         "progressPercent": "45% Achieved",
-        "progressRemaining": "$110,250,000 remaining"
+        "progressRemaining": "$110,250,000 remaining",
+        "title": "TBURN Public Round"
       },
       "highlights": {
         "tokenPrice": "Per Token",
         "discount": "Discount vs Launch",
         "tgeUnlock": "TGE Unlock",
-        "minAmount": "Min Participation"
+        "minAmount": "Min Participation",
+        "allocation": "Total Allocation",
+        "minInvestment": "Min Investment",
+        "vestingPeriod": "Vesting Period"
       },
       "stats": {
         "loading": "Loading...",
@@ -18290,7 +18350,10 @@
       },
       "cta": {
         "joinNow": "Join Now",
-        "viewGuide": "View Sale Guide"
+        "viewGuide": "View Sale Guide",
+        "register": "Register Now",
+        "learnMore": "Learn More",
+        "viewVesting": "View Vesting"
       },
       "comparison": {
         "badge": "COMPARISON",
@@ -18309,7 +18372,13 @@
         "publicRound": "Public Round",
         "completed": "Completed",
         "live": "Live",
-        "upcoming": "Upcoming"
+        "upcoming": "Upcoming",
+        "round": "Round",
+        "price": "Price",
+        "minInvest": "Min Investment",
+        "vesting": "Vesting",
+        "status": "Status",
+        "active": "Active"
       },
       "tiers": {
         "badge": "TIERS",
@@ -18408,7 +18477,13 @@
             "value": "100%",
             "desc": "After 9 Months"
           }
-        ]
+        ],
+        "tge": "TGE",
+        "tgeUnlock": "TGE Unlock",
+        "cliff": "Cliff Period",
+        "linear": "Linear Vesting",
+        "fullUnlock": "Full Unlock",
+        "months": "months"
       },
       "howTo": {
         "badge": "HOW TO",
@@ -18485,7 +18560,10 @@
         "tokenAmount": "Token Amount",
         "tgeUnlock": "TGE Unlock (10%)",
         "launchPrice": "Est. Launch Price ($0.50)",
-        "profit": "Est. Profit"
+        "profit": "Est. Profit",
+        "investment": "Investment Amount",
+        "tokens": "Tokens Received",
+        "roi": "ROI at Launch"
       },
       "faq": {
         "badge": "FAQ",
@@ -18545,7 +18623,11 @@
         "successDesc": "Our team will contact you soon.",
         "errorTitle": "An error occurred",
         "requiredTitle": "Required fields missing",
-        "requiredDesc": "Name and email are required."
+        "requiredDesc": "Name and email are required.",
+        "amount": "Investment Amount",
+        "cancel": "Cancel",
+        "errorDesc": "Please try again later",
+        "required": "This field is required"
       },
       "footer": {
         "description": "Intelligence of AI, Transparency of Blockchain. THE FUTURE IS NOW",
@@ -18565,7 +18647,8 @@
         "grants": "Grants",
         "support": "Support",
         "terms": "Terms of Service",
-        "privacy": "Privacy Policy"
+        "privacy": "Privacy Policy",
+        "tagline": "Building the future of decentralized finance"
       },
       "title": "Публичный Раунд",
       "subtitle": "Публичная продажа открыта для всех",
@@ -18579,7 +18662,13 @@
       "maxPurchase": "Maximum Purchase",
       "whitelistRequired": "Whitelist Required",
       "joinWhitelist": "Join Whitelist",
-      "purchaseTokens": "Purchase Tokens"
+      "purchaseTokens": "Purchase Tokens",
+      "toast": {
+        "walletConnected": "Wallet Connected",
+        "walletConnectedDesc": "Your wallet is now connected",
+        "walletDisconnected": "Wallet Disconnected",
+        "walletDisconnectedDesc": "Your wallet has been disconnected"
+      }
     },
     "launchpad": {
       "title": "Лаунчпад",
@@ -18954,8 +19043,8 @@
         "copy": "Копировать",
         "copied": "Скопировано!",
         "linkCopied": "Реферальная ссылка скопирована в буфер обмена",
-        "shareTitle": "Поделиться в",
-        "shareTwitter": "Поделиться в Twitter",
+        "shareTitle": "Share Your Referral",
+        "shareTwitter": "Share on Twitter",
         "shareTelegram": "Поделиться в Telegram",
         "shareKakao": "Поделиться в KakaoTalk",
         "bonusTitle": "Реферальный бонус",

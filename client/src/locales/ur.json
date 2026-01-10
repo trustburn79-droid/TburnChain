@@ -17346,14 +17346,21 @@
         "progressRaised": "$72,000,000",
         "progressGoal": "ہدف $100,000,000",
         "progressPercent": "72% حاصل",
-        "progressRemaining": "$28,000,000 باقی"
+        "progressRemaining": "$28,000,000 باقی",
+        "highlights": "Highlights",
+        "comparison": "Comparison",
+        "process": "Process"
       },
       "highlights": {
         "pricePerToken": "فی ٹوکن قیمت",
         "priceCompare": "سیڈ کے مقابلے +150%",
         "discountLaunch": "لانچ سے رعایت",
         "tgeUnlock": "TGE فوری ان لاک",
-        "vestingPeriod": "ویسٹنگ مدت"
+        "vestingPeriod": "ویسٹنگ مدت",
+        "tokenPrice": "Token Price",
+        "allocation": "Total Allocation",
+        "minInvestment": "Min Investment",
+        "discount": "Discount from IDO"
       },
       "stats": {
         "loading": "لوڈ ہو رہا ہے...",
@@ -17364,7 +17371,10 @@
       },
       "cta": {
         "applyPrivate": "پرائیویٹ سرمایہ کاری کے لیے درخواست دیں",
-        "viewDeck": "سرمایہ کاری ڈیک دیکھیں"
+        "viewDeck": "سرمایہ کاری ڈیک دیکھیں",
+        "inquire": "Submit Inquiry",
+        "learnMore": "Learn More",
+        "viewVesting": "View Vesting"
       },
       "comparison": {
         "badge": "COMPARISON",
@@ -17377,7 +17387,14 @@
         "status": "حیثیت",
         "inProgress": "جاری",
         "completed": "مکمل",
-        "upcoming": "آنے والا"
+        "upcoming": "آنے والا",
+        "price": "Price",
+        "minInvest": "Min Investment",
+        "vesting": "Vesting",
+        "seedRound": "Seed Round",
+        "privateRound": "Private Round",
+        "publicRound": "Public Round",
+        "active": "Active"
       },
       "tiers": {
         "badge": "TIERS",
@@ -17444,9 +17461,21 @@
         "monthlyVesting": "ماہانہ ویسٹنگ",
         "monthlyDesc": "12 ماہ میں",
         "fullUnlock": "مکمل ان لاک",
-        "fullUnlockDesc": "18 ماہ بعد"
+        "fullUnlockDesc": "18 ماہ بعد",
+        "tge": "TGE",
+        "cliff": "Cliff Period",
+        "linear": "Linear Vesting",
+        "months": "months"
       },
-      "allocation": "Total Allocation",
+      "allocation": {
+        "badge": "Allocation",
+        "title": "Allocation Distribution",
+        "subtitle": "How the private round allocation is distributed",
+        "vcFunds": "VC Funds",
+        "strategicInvestors": "Strategic Investors",
+        "familyOffice": "Family Offices",
+        "corporateInvestors": "Corporate Investors"
+      },
       "investors": {
         "badge": "INVESTORS",
         "title": "موجودہ سرمایہ کار",
@@ -17470,7 +17499,13 @@
         "fundingDuration": "3-5 دن",
         "tokenAllocation": "ٹوکن تخصیص",
         "tokenAllocationDesc": "سرمایہ کاری تصدیق",
-        "tokenAllocationDuration": "فوری"
+        "tokenAllocationDuration": "فوری",
+        "kyc": "Complete KYC",
+        "kycDesc": "Verify your identity and accreditation",
+        "agreement": "Sign Agreement",
+        "agreementDesc": "Review and sign investment documents",
+        "investment": "Make Investment",
+        "investmentDesc": "Transfer funds and receive tokens"
       },
       "benefits": {
         "badge": "BENEFITS",
@@ -17549,7 +17584,9 @@
         "errorDesc": "انکوائری جمع کرنے میں ناکام۔ براہ کرم دوبارہ کوشش کریں۔",
         "required": "ضروری فیلڈز غائب ہیں",
         "requiredDesc": "نام، ای میل اور کمپنی ضروری فیلڈز ہیں۔",
-        "cancelBtn": "منسوخ کریں"
+        "cancelBtn": "منسوخ کریں",
+        "amount": "Investment Amount",
+        "cancel": "Cancel"
       },
       "footer": {
         "description": "TBURN Chain اعلی درجے کی DeFi، DAO اور انٹرپرائز انضمام صلاحیتوں کے ساتھ اگلی نسل کا Layer-1 بلاک چین ہے۔",
@@ -17584,7 +17621,8 @@
         "privacy": "پرائیویسی پالیسی",
         "product": "پروڈکٹ",
         "resources": "وسائل",
-        "community": "کمیونٹی"
+        "community": "کمیونٹی",
+        "tagline": "Building the future of decentralized finance"
       },
       "title": "پرائیویٹ راؤنڈ",
       "subtitle": "اہل سرمایہ کاروں کے لیے نجی فروخت",
@@ -17598,7 +17636,23 @@
       "kyc": "KYC/AML Verification",
       "accredited": "Accredited Investor",
       "institutional": "Institutional",
-      "applyPrivate": "Apply for Private Round"
+      "applyPrivate": "Apply for Private Round",
+      "hero": {
+        "badge": "Private Investment Round",
+        "title": "TBURN Private Round",
+        "subtitle": "Exclusive investment opportunity for qualified investors",
+        "progressGoal": "Goal",
+        "progressPercent": "Progress",
+        "progressRemaining": "Remaining",
+        "status": "In Progress",
+        "titleHighlight": "Private"
+      },
+      "toast": {
+        "walletConnected": "Wallet Connected",
+        "walletConnectedDesc": "Your wallet is now connected",
+        "walletDisconnected": "Wallet Disconnected",
+        "walletDisconnectedDesc": "Your wallet has been disconnected"
+      }
     },
     "publicRound": {
       "nav": {
@@ -17607,7 +17661,9 @@
         "howTo": "How to Join",
         "calculator": "Calculator",
         "faq": "FAQ",
-        "connectWallet": "Join Now"
+        "connectWallet": "Join Now",
+        "highlights": "Highlights",
+        "comparison": "Comparison"
       },
       "hero": {
         "badge": "PUBLIC ROUND - Public Sale",
@@ -17623,13 +17679,17 @@
         "secs": "SECS",
         "progressGoal": "Goal $200,000,000",
         "progressPercent": "45% Achieved",
-        "progressRemaining": "$110,250,000 remaining"
+        "progressRemaining": "$110,250,000 remaining",
+        "title": "TBURN Public Round"
       },
       "highlights": {
         "tokenPrice": "Per Token",
         "discount": "Discount vs Launch",
         "tgeUnlock": "TGE Unlock",
-        "minAmount": "Min Participation"
+        "minAmount": "Min Participation",
+        "allocation": "Total Allocation",
+        "minInvestment": "Min Investment",
+        "vestingPeriod": "Vesting Period"
       },
       "stats": {
         "loading": "Loading...",
@@ -17640,7 +17700,10 @@
       },
       "cta": {
         "joinNow": "Join Now",
-        "viewGuide": "View Sale Guide"
+        "viewGuide": "View Sale Guide",
+        "register": "Register Now",
+        "learnMore": "Learn More",
+        "viewVesting": "View Vesting"
       },
       "comparison": {
         "badge": "COMPARISON",
@@ -17659,7 +17722,13 @@
         "publicRound": "Public Round",
         "completed": "Completed",
         "live": "Live",
-        "upcoming": "Upcoming"
+        "upcoming": "Upcoming",
+        "round": "Round",
+        "price": "Price",
+        "minInvest": "Min Investment",
+        "vesting": "Vesting",
+        "status": "Status",
+        "active": "Active"
       },
       "tiers": {
         "badge": "TIERS",
@@ -17758,7 +17827,13 @@
             "value": "100%",
             "desc": "After 9 Months"
           }
-        ]
+        ],
+        "tge": "TGE",
+        "tgeUnlock": "TGE Unlock",
+        "cliff": "Cliff Period",
+        "linear": "Linear Vesting",
+        "fullUnlock": "Full Unlock",
+        "months": "months"
       },
       "howTo": {
         "badge": "HOW TO",
@@ -17835,7 +17910,10 @@
         "tokenAmount": "Token Amount",
         "tgeUnlock": "TGE Unlock (10%)",
         "launchPrice": "Est. Launch Price ($0.50)",
-        "profit": "Est. Profit"
+        "profit": "Est. Profit",
+        "investment": "Investment Amount",
+        "tokens": "Tokens Received",
+        "roi": "ROI at Launch"
       },
       "faq": {
         "badge": "FAQ",
@@ -17895,7 +17973,11 @@
         "successDesc": "Our team will contact you soon.",
         "errorTitle": "An error occurred",
         "requiredTitle": "Required fields missing",
-        "requiredDesc": "Name and email are required."
+        "requiredDesc": "Name and email are required.",
+        "amount": "Investment Amount",
+        "cancel": "Cancel",
+        "errorDesc": "Please try again later",
+        "required": "This field is required"
       },
       "footer": {
         "description": "Intelligence of AI, Transparency of Blockchain. THE FUTURE IS NOW",
@@ -17915,7 +17997,8 @@
         "grants": "Grants",
         "support": "Support",
         "terms": "Terms of Service",
-        "privacy": "Privacy Policy"
+        "privacy": "Privacy Policy",
+        "tagline": "Building the future of decentralized finance"
       },
       "title": "پبلک راؤنڈ",
       "subtitle": "سب کے لیے کھلی عوامی فروخت",
@@ -17929,7 +18012,13 @@
       "maxPurchase": "Maximum Purchase",
       "whitelistRequired": "Whitelist Required",
       "joinWhitelist": "Join Whitelist",
-      "purchaseTokens": "Purchase Tokens"
+      "purchaseTokens": "Purchase Tokens",
+      "toast": {
+        "walletConnected": "Wallet Connected",
+        "walletConnectedDesc": "Your wallet is now connected",
+        "walletDisconnected": "Wallet Disconnected",
+        "walletDisconnectedDesc": "Your wallet has been disconnected"
+      }
     },
     "launchpad": {
       "title": "لانچ پیڈ",
@@ -18290,8 +18379,8 @@
         "copy": "کاپی کریں",
         "copied": "کاپی ہو گیا!",
         "linkCopied": "ریفرل لنک کلپ بورڈ پر کاپی ہو گیا",
-        "shareTitle": "شیئر کریں",
-        "shareTwitter": "Twitter پر شیئر کریں",
+        "shareTitle": "Share Your Referral",
+        "shareTwitter": "Share on Twitter",
         "shareTelegram": "Telegram پر شیئر کریں",
         "shareKakao": "KakaoTalk پر شیئر کریں",
         "bonusTitle": "ریفرل بونس",

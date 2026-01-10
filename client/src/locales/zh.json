@@ -21043,7 +21043,10 @@
         "allocation": "分配",
         "investors": "投资者",
         "faq": "常见问题",
-        "connectWallet": "机构投资咨询"
+        "connectWallet": "机构投资咨询",
+        "highlights": "Highlights",
+        "comparison": "Comparison",
+        "process": "Process"
       },
       "hero": {
         "badge": "PRIVATE ROUND - 机构投资",
@@ -21062,7 +21065,11 @@
         "priceCompare": "相比种子轮+150%",
         "discountLaunch": "相比上市价折扣",
         "tgeUnlock": "TGE立即解锁",
-        "vestingPeriod": "锁仓期限"
+        "vestingPeriod": "锁仓期限",
+        "tokenPrice": "Token Price",
+        "allocation": "Total Allocation",
+        "minInvestment": "Min Investment",
+        "discount": "Discount from IDO"
       },
       "stats": {
         "loading": "加载中...",
@@ -21073,7 +21080,10 @@
       },
       "cta": {
         "applyPrivate": "申请私募投资",
-        "viewDeck": "查看投资资料"
+        "viewDeck": "查看投资资料",
+        "inquire": "Submit Inquiry",
+        "learnMore": "Learn More",
+        "viewVesting": "View Vesting"
       },
       "comparison": {
         "badge": "COMPARISON",
@@ -21086,7 +21096,14 @@
         "status": "状态",
         "inProgress": "进行中",
         "completed": "已完成",
-        "upcoming": "即将开始"
+        "upcoming": "即将开始",
+        "price": "Price",
+        "minInvest": "Min Investment",
+        "vesting": "Vesting",
+        "seedRound": "Seed Round",
+        "privateRound": "Private Round",
+        "publicRound": "Public Round",
+        "active": "Active"
       },
       "tiers": {
         "badge": "TIERS",
@@ -21153,9 +21170,21 @@
         "monthlyVesting": "月度释放",
         "monthlyDesc": "12个月",
         "fullUnlock": "完全解锁",
-        "fullUnlockDesc": "18个月后"
+        "fullUnlockDesc": "18个月后",
+        "tge": "TGE",
+        "cliff": "Cliff Period",
+        "linear": "Linear Vesting",
+        "months": "months"
       },
-      "allocation": "Total Allocation",
+      "allocation": {
+        "badge": "Allocation",
+        "title": "Allocation Distribution",
+        "subtitle": "How the private round allocation is distributed",
+        "vcFunds": "VC Funds",
+        "strategicInvestors": "Strategic Investors",
+        "familyOffice": "Family Offices",
+        "corporateInvestors": "Corporate Investors"
+      },
       "investors": {
         "badge": "INVESTORS",
         "title": "当前投资者",
@@ -21179,7 +21208,13 @@
         "fundingDuration": "3-5天",
         "tokenAllocation": "代币分配",
         "tokenAllocationDesc": "投资确认",
-        "tokenAllocationDuration": "即时"
+        "tokenAllocationDuration": "即时",
+        "kyc": "Complete KYC",
+        "kycDesc": "Verify your identity and accreditation",
+        "agreement": "Sign Agreement",
+        "agreementDesc": "Review and sign investment documents",
+        "investment": "Make Investment",
+        "investmentDesc": "Transfer funds and receive tokens"
       },
       "benefits": {
         "badge": "BENEFITS",
@@ -21258,7 +21293,9 @@
         "errorDesc": "咨询提交失败，请重试。",
         "required": "缺少必填信息",
         "requiredDesc": "姓名、邮箱和公司是必填项。",
-        "cancelBtn": "取消"
+        "cancelBtn": "取消",
+        "amount": "Investment Amount",
+        "cancel": "Cancel"
       },
       "footer": {
         "description": "TBURN Chain是具有先进DeFi、DAO和企业集成功能的下一代Layer-1区块链。",
@@ -21293,7 +21330,8 @@
         "privacy": "隐私政策",
         "product": "产品",
         "resources": "资源",
-        "community": "社区"
+        "community": "社区",
+        "tagline": "Building the future of decentralized finance"
       },
       "title": "Private Round",
       "subtitle": "Private sale for qualified investors",
@@ -21307,7 +21345,13 @@
       "kyc": "KYC/AML Verification",
       "accredited": "Accredited Investor",
       "institutional": "Institutional",
-      "applyPrivate": "Apply for Private Round"
+      "applyPrivate": "Apply for Private Round",
+      "toast": {
+        "walletConnected": "Wallet Connected",
+        "walletConnectedDesc": "Your wallet is now connected",
+        "walletDisconnected": "Wallet Disconnected",
+        "walletDisconnectedDesc": "Your wallet has been disconnected"
+      }
     },
     "publicRound": {
       "nav": {
@@ -21316,7 +21360,9 @@
         "howTo": "如何参与",
         "calculator": "计算器",
         "faq": "常见问题",
-        "connectWallet": "立即参与"
+        "connectWallet": "立即参与",
+        "highlights": "Highlights",
+        "comparison": "Comparison"
       },
       "hero": {
         "badge": "PUBLIC ROUND - 公开销售",
@@ -21332,13 +21378,17 @@
         "secs": "秒",
         "progressGoal": "目标 $200,000,000",
         "progressPercent": "已完成 45%",
-        "progressRemaining": "剩余 $110,250,000"
+        "progressRemaining": "剩余 $110,250,000",
+        "title": "TBURN Public Round"
       },
       "highlights": {
         "tokenPrice": "单价",
         "discount": "相比上市价优惠",
         "tgeUnlock": "TGE即时解锁",
-        "minAmount": "最低参与金额"
+        "minAmount": "最低参与金额",
+        "allocation": "Total Allocation",
+        "minInvestment": "Min Investment",
+        "vestingPeriod": "Vesting Period"
       },
       "stats": {
         "loading": "加载中...",
@@ -21349,7 +21399,10 @@
       },
       "cta": {
         "joinNow": "立即参与",
-        "viewGuide": "查看销售指南"
+        "viewGuide": "查看销售指南",
+        "register": "Register Now",
+        "learnMore": "Learn More",
+        "viewVesting": "View Vesting"
       },
       "comparison": {
         "badge": "COMPARISON",
@@ -21368,7 +21421,13 @@
         "publicRound": "公开轮",
         "completed": "已完成",
         "live": "进行中",
-        "upcoming": "即将开始"
+        "upcoming": "即将开始",
+        "round": "Round",
+        "price": "Price",
+        "minInvest": "Min Investment",
+        "vesting": "Vesting",
+        "status": "Status",
+        "active": "Active"
       },
       "tiers": {
         "badge": "TIERS",
@@ -21467,7 +21526,13 @@
             "value": "100%",
             "desc": "9个月后"
           }
-        ]
+        ],
+        "tge": "TGE",
+        "tgeUnlock": "TGE Unlock",
+        "cliff": "Cliff Period",
+        "linear": "Linear Vesting",
+        "fullUnlock": "Full Unlock",
+        "months": "months"
       },
       "howTo": {
         "badge": "HOW TO",
@@ -21544,7 +21609,10 @@
         "tokenAmount": "代币数量",
         "tgeUnlock": "TGE解锁 (10%)",
         "launchPrice": "预期上市价 ($0.50)",
-        "profit": "预期收益"
+        "profit": "预期收益",
+        "investment": "Investment Amount",
+        "tokens": "Tokens Received",
+        "roi": "ROI at Launch"
       },
       "faq": {
         "badge": "FAQ",
@@ -21604,7 +21672,11 @@
         "successDesc": "我们的团队将尽快联系您。",
         "errorTitle": "发生错误",
         "requiredTitle": "缺少必填字段",
-        "requiredDesc": "姓名和邮箱是必填项。"
+        "requiredDesc": "姓名和邮箱是必填项。",
+        "amount": "Investment Amount",
+        "cancel": "Cancel",
+        "errorDesc": "Please try again later",
+        "required": "This field is required"
       },
       "footer": {
         "description": "AI的智能，区块链的透明。THE FUTURE IS NOW",
@@ -21624,7 +21696,8 @@
         "grants": "资助",
         "support": "支持",
         "terms": "服务条款",
-        "privacy": "隐私政策"
+        "privacy": "隐私政策",
+        "tagline": "Building the future of decentralized finance"
       },
       "title": "Public Round",
       "subtitle": "Public token sale open to everyone",
@@ -21638,7 +21711,13 @@
       "maxPurchase": "Maximum Purchase",
       "whitelistRequired": "Whitelist Required",
       "joinWhitelist": "Join Whitelist",
-      "purchaseTokens": "Purchase Tokens"
+      "purchaseTokens": "Purchase Tokens",
+      "toast": {
+        "walletConnected": "Wallet Connected",
+        "walletConnectedDesc": "Your wallet is now connected",
+        "walletDisconnected": "Wallet Disconnected",
+        "walletDisconnectedDesc": "Your wallet has been disconnected"
+      }
     },
     "launchpad": {
       "title": "发射台",
@@ -21999,8 +22078,8 @@
         "copy": "复制",
         "copied": "已复制！",
         "linkCopied": "推荐链接已复制到剪贴板",
-        "shareTitle": "分享到",
-        "shareTwitter": "分享到Twitter",
+        "shareTitle": "Share Your Referral",
+        "shareTwitter": "Share on Twitter",
         "shareTelegram": "分享到Telegram",
         "shareKakao": "分享到KakaoTalk",
         "bonusTitle": "推荐奖励",

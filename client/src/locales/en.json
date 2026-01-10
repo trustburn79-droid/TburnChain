@@ -32461,7 +32461,15 @@
       "badge": "Private Sale",
       "tokenPrice": "Token Price",
       "discount": "Discount from Launch",
-      "allocation": "Total Allocation",
+      "allocation": {
+        "badge": "Allocation",
+        "title": "Allocation Distribution",
+        "subtitle": "How the private round allocation is distributed",
+        "vcFunds": "VC Funds",
+        "strategicInvestors": "Strategic Investors",
+        "familyOffice": "Family Offices",
+        "corporateInvestors": "Corporate Investors"
+      },
       "minInvestment": "Minimum Investment",
       "investorRequirements": "Investor Requirements",
       "kyc": "KYC/AML Verification",
@@ -32521,6 +32529,223 @@
             "Email support"
           ]
         }
+      },
+      "nav": {
+        "highlights": "Highlights",
+        "tiers": "Investment Tiers",
+        "comparison": "Comparison",
+        "vesting": "Vesting",
+        "process": "Process",
+        "faq": "FAQ",
+        "connectWallet": "Connect Wallet",
+        "allocation": "Allocation",
+        "investors": "Investors"
+      },
+      "hero": {
+        "badge": "Private Investment Round",
+        "title": "TBURN Private Round",
+        "subtitle": "Exclusive investment opportunity for qualified investors",
+        "progressGoal": "Goal",
+        "progressPercent": "Progress",
+        "progressRemaining": "Remaining",
+        "status": "In Progress",
+        "titleHighlight": "Private"
+      },
+      "highlights": {
+        "tokenPrice": "Token Price",
+        "allocation": "Total Allocation",
+        "minInvestment": "Min Investment",
+        "vestingPeriod": "Vesting Period",
+        "discount": "Discount from IDO",
+        "tgeUnlock": "TGE Unlock",
+        "discountLaunch": "Discount from Launch",
+        "priceCompare": "vs $0.20 public",
+        "pricePerToken": "per token"
+      },
+      "comparison": {
+        "title": "Round Comparison",
+        "subtitle": "Compare investment opportunities across different rounds",
+        "round": "Round",
+        "price": "Price",
+        "minInvest": "Min Investment",
+        "vesting": "Vesting",
+        "status": "Status",
+        "seedRound": "Seed Round",
+        "privateRound": "Private Round",
+        "publicRound": "Public Round",
+        "completed": "Completed",
+        "active": "Active",
+        "upcoming": "Upcoming",
+        "discount": "Discount",
+        "inProgress": "In Progress",
+        "tableTitle": "Investment Round Comparison",
+        "tokenPrice": "Token Price"
+      },
+      "vesting": {
+        "title": "Vesting Schedule",
+        "subtitle": "Token release schedule for private round investors",
+        "tge": "TGE",
+        "tgeUnlock": "TGE Unlock",
+        "cliff": "Cliff Period",
+        "linear": "Linear Vesting",
+        "fullUnlock": "Full Unlock",
+        "months": "months",
+        "badge": "Vesting",
+        "cliffDesc": "3 months after TGE",
+        "cliffPeriod": "Cliff Period",
+        "fullUnlockDesc": "15 months from TGE",
+        "monthlyDesc": "5% monthly after cliff",
+        "monthlyVesting": "Monthly Vesting",
+        "tgeDesc": "10% unlocked at Token Generation Event"
+      },
+      "process": {
+        "title": "Investment Process",
+        "subtitle": "How to participate in the private round",
+        "inquiry": "Submit Inquiry",
+        "inquiryDesc": "Fill out the investment inquiry form",
+        "kyc": "Complete KYC",
+        "kycDesc": "Verify your identity and accreditation",
+        "agreement": "Sign Agreement",
+        "agreementDesc": "Review and sign investment documents",
+        "investment": "Make Investment",
+        "investmentDesc": "Transfer funds and receive tokens",
+        "badge": "Process",
+        "dueDiligence": "Due Diligence",
+        "dueDiligenceDesc": "Complete verification and documentation",
+        "dueDiligenceDuration": "3-5 days",
+        "funding": "Funding",
+        "fundingDesc": "Transfer investment funds",
+        "fundingDuration": "1-2 days",
+        "inquiryDuration": "24-48 hours",
+        "negotiation": "Negotiation",
+        "negotiationDesc": "Discuss terms and allocation",
+        "negotiationDuration": "2-3 days",
+        "tokenAllocation": "Token Allocation",
+        "tokenAllocationDesc": "Receive your token allocation",
+        "tokenAllocationDuration": "At TGE"
+      },
+      "dialog": {
+        "title": "Investment Inquiry",
+        "description": "Submit your interest in the private round",
+        "name": "Full Name",
+        "email": "Email Address",
+        "amount": "Investment Amount",
+        "message": "Additional Message",
+        "submit": "Submit Inquiry",
+        "cancel": "Cancel",
+        "success": "Inquiry Submitted",
+        "successDesc": "We will contact you within 24-48 hours",
+        "error": "Submission Failed",
+        "errorDesc": "Please try again later",
+        "required": "This field is required",
+        "cancelBtn": "Cancel",
+        "company": "Company/Organization",
+        "investmentAmount": "Investment Amount (USD)",
+        "messagePlaceholder": "Tell us about your investment interests...",
+        "namePlaceholder": "Enter your full name",
+        "requiredDesc": "Please fill in all required fields",
+        "submitting": "Submitting..."
+      },
+      "faq": {
+        "title": "Frequently Asked Questions",
+        "subtitle": "Common questions about the private round",
+        "q1": {
+          "question": "What is the minimum investment?",
+          "answer": "The minimum investment for the private round is $10,000 USD equivalent."
+        },
+        "q2": {
+          "question": "Who can participate?",
+          "answer": "The private round is open to accredited investors and institutional participants."
+        },
+        "q3": {
+          "question": "What is the token price?",
+          "answer": "Private round tokens are priced at $0.10 per TBURN, a 50% discount from the public IDO price."
+        },
+        "q4": {
+          "question": "What is the vesting schedule?",
+          "answer": "10% unlocked at TGE, followed by 12-month linear vesting after a 3-month cliff."
+        },
+        "q5": {
+          "question": "How do I participate?",
+          "answer": "Submit an inquiry form, complete KYC verification, and sign the investment agreement."
+        },
+        "q6": {
+          "question": "When will I receive my tokens?",
+          "answer": "Initial tokens are distributed at TGE, with remaining tokens vesting monthly."
+        },
+        "q7": {
+          "question": "Is there a maximum investment?",
+          "answer": "Yes, individual investments are capped at $500,000 to ensure fair distribution."
+        },
+        "q8": {
+          "question": "What payment methods are accepted?",
+          "answer": "We accept USDT, USDC, ETH, and bank wire transfers."
+        }
+      },
+      "footer": {
+        "tagline": "Building the future of decentralized finance",
+        "explorer": "Explorer",
+        "staking": "Staking",
+        "bridge": "Bridge",
+        "docs": "Documentation",
+        "whitepaper": "Whitepaper",
+        "audit": "Audit Report",
+        "grants": "Grants",
+        "ambassador": "Ambassador",
+        "blog": "Blog",
+        "mainnet": "Mainnet",
+        "support": "Support",
+        "terms": "Terms of Service",
+        "privacy": "Privacy Policy",
+        "community": "Community",
+        "description": "The next generation blockchain for decentralized finance",
+        "github": "GitHub",
+        "product": "Product",
+        "resources": "Resources"
+      },
+      "cta": {
+        "inquire": "Submit Inquiry",
+        "learnMore": "Learn More",
+        "viewVesting": "View Vesting",
+        "applyPrivate": "Apply for Private Round",
+        "viewDeck": "View Investor Deck"
+      },
+      "toast": {
+        "walletConnected": "Wallet Connected",
+        "walletConnectedDesc": "Your wallet is now connected",
+        "walletDisconnected": "Wallet Disconnected",
+        "walletDisconnectedDesc": "Your wallet has been disconnected"
+      },
+      "benefits": {
+        "badge": "Benefits",
+        "title": "Private Round Benefits",
+        "subtitle": "Exclusive advantages for private round investors",
+        "excellentPrice": "Excellent Price",
+        "excellentPriceDesc": "50% discount from public sale price",
+        "excellentPriceValue": "$0.10 per token",
+        "strategicPartnership": "Strategic Partnership",
+        "strategicPartnershipDesc": "Direct access to the team and governance",
+        "strategicPartnershipValue": "Priority support",
+        "tgeLiquidity": "TGE Liquidity",
+        "tgeLiquidityDesc": "Immediate access to portion of tokens",
+        "tgeLiquidityValue": "10% at TGE"
+      },
+      "ctaSection": {
+        "title": "Ready to Invest in TBURN?",
+        "subtitle": "Join leading investors in the private round",
+        "button": "Apply Now"
+      },
+      "investors": {
+        "badge": "Investors",
+        "title": "Backed by Leading Investors",
+        "subtitle": "Trusted by top-tier venture capital firms"
+      },
+      "stats": {
+        "hardcap": "Hard Cap",
+        "institutionalInvestors": "Institutional Investors",
+        "loading": "Loading...",
+        "privateAllocation": "Private Allocation",
+        "tokenPrice": "Token Price"
       }
     },
     "publicRound": {
@@ -32603,6 +32828,254 @@
             "FAQ support"
           ]
         }
+      },
+      "nav": {
+        "highlights": "Highlights",
+        "tiers": "Investment Tiers",
+        "comparison": "Comparison",
+        "vesting": "Vesting",
+        "calculator": "Calculator",
+        "faq": "FAQ",
+        "connectWallet": "Connect Wallet",
+        "howTo": "How To"
+      },
+      "hero": {
+        "badge": "Public Investment Round",
+        "title": "TBURN Public Round",
+        "subtitle": "Open investment opportunity for everyone",
+        "countdownLabel": "Sale Starts In",
+        "days": "Days",
+        "hours": "Hours",
+        "mins": "Mins",
+        "secs": "Secs",
+        "progressGoal": "Goal",
+        "progressPercent": "Progress",
+        "progressRemaining": "Remaining",
+        "status": "Coming Soon",
+        "title1": "TBURN",
+        "title2": "Public",
+        "title3": "Round"
+      },
+      "highlights": {
+        "tokenPrice": "Token Price",
+        "allocation": "Total Allocation",
+        "minInvestment": "Min Investment",
+        "vestingPeriod": "Vesting Period",
+        "discount": "Launch Price",
+        "tgeUnlock": "TGE Unlock",
+        "minAmount": "Min Investment"
+      },
+      "comparison": {
+        "title": "Round Comparison",
+        "subtitle": "Compare investment opportunities across different rounds",
+        "round": "Round",
+        "price": "Price",
+        "minInvest": "Min Investment",
+        "vesting": "Vesting",
+        "status": "Status",
+        "seedRound": "Seed Round",
+        "privateRound": "Private Round",
+        "publicRound": "Public Round",
+        "completed": "Completed",
+        "active": "Active",
+        "upcoming": "Upcoming",
+        "badge": "Comparison",
+        "bestBadge": "Best Value",
+        "headers": {
+          "discount": "Discount",
+          "round": "Round",
+          "status": "Status",
+          "tokenPrice": "Token Price"
+        },
+        "live": "Live",
+        "tableTitle": "Investment Round Comparison"
+      },
+      "vesting": {
+        "title": "Vesting Schedule",
+        "subtitle": "Token release schedule for public round investors",
+        "tge": "TGE",
+        "tgeUnlock": "TGE Unlock",
+        "cliff": "Cliff Period",
+        "linear": "Linear Vesting",
+        "fullUnlock": "Full Unlock",
+        "months": "months",
+        "badge": "Vesting",
+        "phases": [
+          {
+            "title": "TGE",
+            "percent": "25%",
+            "desc": "At Token Generation Event"
+          },
+          {
+            "title": "Month 1-6",
+            "percent": "12.5%/mo",
+            "desc": "Linear monthly vesting"
+          }
+        ]
+      },
+      "calculator": {
+        "title": "Investment Calculator",
+        "subtitle": "Calculate your potential returns",
+        "investment": "Investment Amount",
+        "tokens": "Tokens Received",
+        "profit": "Potential Profit",
+        "roi": "ROI at Launch",
+        "badge": "Calculator",
+        "inputLabel": "Enter investment amount",
+        "inputPlaceholder": "Enter amount in USD",
+        "inputTitle": "Investment Amount",
+        "launchPrice": "Launch Price",
+        "resultTitle": "Your Allocation",
+        "tgeUnlock": "TGE Unlock",
+        "tokenAmount": "Token Amount"
+      },
+      "dialog": {
+        "title": "Join Public Round",
+        "description": "Register for the public token sale",
+        "name": "Full Name",
+        "email": "Email Address",
+        "amount": "Investment Amount",
+        "submit": "Register Interest",
+        "cancel": "Cancel",
+        "successTitle": "Registration Complete",
+        "successDesc": "You will be notified when the public round opens",
+        "errorTitle": "Registration Failed",
+        "errorDesc": "Please try again later",
+        "required": "This field is required",
+        "cancelBtn": "Cancel",
+        "investmentAmount": "Investment Amount (USD)",
+        "message": "Message (Optional)",
+        "messagePlaceholder": "Any additional information...",
+        "namePlaceholder": "Enter your full name",
+        "requiredDesc": "Please fill in all required fields",
+        "requiredTitle": "Required Fields",
+        "submitting": "Submitting..."
+      },
+      "faq": {
+        "title": "Frequently Asked Questions",
+        "subtitle": "Common questions about the public round",
+        "q1": {
+          "question": "What is the minimum investment?",
+          "answer": "The minimum investment for the public round is $100 USD equivalent."
+        },
+        "q2": {
+          "question": "Who can participate?",
+          "answer": "The public round is open to everyone. No accreditation required."
+        },
+        "q3": {
+          "question": "What is the token price?",
+          "answer": "Public round tokens are priced at $0.20 per TBURN."
+        },
+        "q4": {
+          "question": "What is the vesting schedule?",
+          "answer": "25% unlocked at TGE, followed by 6-month linear vesting."
+        },
+        "q5": {
+          "question": "How do I participate?",
+          "answer": "Connect your wallet and complete the registration when the round opens."
+        },
+        "q6": {
+          "question": "When will I receive my tokens?",
+          "answer": "Initial tokens are distributed at TGE, with remaining tokens vesting monthly."
+        },
+        "q7": {
+          "question": "Is there a maximum investment?",
+          "answer": "Yes, individual investments are capped at $50,000 to ensure fair distribution."
+        },
+        "q8": {
+          "question": "What payment methods are accepted?",
+          "answer": "We accept USDT, USDC, ETH, and other major cryptocurrencies."
+        },
+        "badge": "FAQ"
+      },
+      "footer": {
+        "tagline": "Building the future of decentralized finance",
+        "explorer": "Explorer",
+        "staking": "Staking",
+        "bridge": "Bridge",
+        "docs": "Documentation",
+        "whitepaper": "Whitepaper",
+        "audit": "Audit Report",
+        "grants": "Grants",
+        "ambassador": "Ambassador",
+        "blog": "Blog",
+        "mainnet": "Mainnet",
+        "support": "Support",
+        "terms": "Terms of Service",
+        "privacy": "Privacy Policy",
+        "community": "Community",
+        "description": "The next generation blockchain for decentralized finance",
+        "github": "GitHub",
+        "product": "Product",
+        "resources": "Resources"
+      },
+      "cta": {
+        "register": "Register Now",
+        "learnMore": "Learn More",
+        "viewVesting": "View Vesting",
+        "joinNow": "Join Now",
+        "viewGuide": "View Guide"
+      },
+      "toast": {
+        "walletConnected": "Wallet Connected",
+        "walletConnectedDesc": "Your wallet is now connected",
+        "walletDisconnected": "Wallet Disconnected",
+        "walletDisconnectedDesc": "Your wallet has been disconnected"
+      },
+      "ctaSection": {
+        "title": "Ready to Join the Public Round?",
+        "subtitle": "Don't miss your chance to be part of TBURN",
+        "button": "Join Public Round"
+      },
+      "howTo": {
+        "badge": "How To",
+        "title": "How to Participate",
+        "subtitle": "Simple steps to join the public round",
+        "steps": [
+          {
+            "title": "Connect Wallet",
+            "desc": "Connect your Web3 wallet"
+          },
+          {
+            "title": "Register",
+            "desc": "Complete the registration form"
+          },
+          {
+            "title": "Invest",
+            "desc": "Transfer your investment"
+          },
+          {
+            "title": "Receive Tokens",
+            "desc": "Get tokens at TGE"
+          }
+        ]
+      },
+      "platforms": {
+        "badge": "Platforms",
+        "title": "Available on Multiple Platforms",
+        "subtitle": "Join through your preferred launchpad",
+        "joinBtn": "Join Now",
+        "items": [
+          {
+            "name": "TBURN Launchpad",
+            "desc": "Official token sale platform"
+          },
+          {
+            "name": "CoinList",
+            "desc": "Premier token launch platform"
+          },
+          {
+            "name": "DAO Maker",
+            "desc": "Community-driven launchpad"
+          }
+        ]
+      },
+      "stats": {
+        "hardcap": "Hard Cap",
+        "loading": "Loading...",
+        "participants": "Participants",
+        "publicAllocation": "Public Allocation",
+        "tokenPrice": "Token Price"
       }
     },
     "launchpad": {
@@ -32976,7 +33449,9 @@
         "walletRequired": "Wallet Required",
         "close": "Close",
         "copied": "Copied!",
-        "linkCopied": "Referral link copied to clipboard."
+        "linkCopied": "Referral link copied to clipboard.",
+        "shareTwitter": "Share on Twitter",
+        "shareTitle": "Share Your Referral"
       }
     },
     "referralPage": {

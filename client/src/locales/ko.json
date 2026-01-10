@@ -32944,7 +32944,10 @@
         "allocation": "배분",
         "investors": "투자자",
         "faq": "FAQ",
-        "connectWallet": "기관 투자 문의"
+        "connectWallet": "기관 투자 문의",
+        "highlights": "Highlights",
+        "comparison": "Comparison",
+        "process": "Process"
       },
       "hero": {
         "badge": "PRIVATE ROUND - 기관 투자",
@@ -32963,7 +32966,11 @@
         "priceCompare": "시드 대비 +150%",
         "discountLaunch": "런칭가 대비 할인",
         "tgeUnlock": "TGE 즉시 해제",
-        "vestingPeriod": "베스팅 기간"
+        "vestingPeriod": "베스팅 기간",
+        "tokenPrice": "Token Price",
+        "allocation": "Total Allocation",
+        "minInvestment": "Min Investment",
+        "discount": "Discount from IDO"
       },
       "stats": {
         "loading": "로딩중...",
@@ -32974,7 +32981,10 @@
       },
       "cta": {
         "applyPrivate": "프라이빗 투자 신청",
-        "viewDeck": "투자 덱 보기"
+        "viewDeck": "투자 덱 보기",
+        "inquire": "Submit Inquiry",
+        "learnMore": "Learn More",
+        "viewVesting": "View Vesting"
       },
       "comparison": {
         "badge": "COMPARISON",
@@ -32987,7 +32997,14 @@
         "status": "상태",
         "inProgress": "진행중",
         "completed": "완료",
-        "upcoming": "예정"
+        "upcoming": "예정",
+        "price": "Price",
+        "minInvest": "Min Investment",
+        "vesting": "Vesting",
+        "seedRound": "Seed Round",
+        "privateRound": "Private Round",
+        "publicRound": "Public Round",
+        "active": "Active"
       },
       "tiers": {
         "badge": "티어",
@@ -33054,9 +33071,21 @@
         "monthlyVesting": "월간 베스팅",
         "monthlyDesc": "12개월간",
         "fullUnlock": "완전 언락",
-        "fullUnlockDesc": "18개월 후"
+        "fullUnlockDesc": "18개월 후",
+        "tge": "TGE",
+        "cliff": "Cliff Period",
+        "linear": "Linear Vesting",
+        "months": "months"
       },
-      "allocation": "Total Allocation",
+      "allocation": {
+        "badge": "Allocation",
+        "title": "Allocation Distribution",
+        "subtitle": "How the private round allocation is distributed",
+        "vcFunds": "VC Funds",
+        "strategicInvestors": "Strategic Investors",
+        "familyOffice": "Family Offices",
+        "corporateInvestors": "Corporate Investors"
+      },
       "investors": {
         "badge": "INVESTORS",
         "title": "현재 투자자",
@@ -33080,7 +33109,13 @@
         "fundingDuration": "3-5일",
         "tokenAllocation": "토큰 배정",
         "tokenAllocationDesc": "투자 확정 및 배정",
-        "tokenAllocationDuration": "즉시"
+        "tokenAllocationDuration": "즉시",
+        "kyc": "Complete KYC",
+        "kycDesc": "Verify your identity and accreditation",
+        "agreement": "Sign Agreement",
+        "agreementDesc": "Review and sign investment documents",
+        "investment": "Make Investment",
+        "investmentDesc": "Transfer funds and receive tokens"
       },
       "benefits": {
         "badge": "BENEFITS",
@@ -33159,7 +33194,9 @@
         "errorDesc": "문의 접수에 실패했습니다. 다시 시도해주세요.",
         "required": "필수 정보 누락",
         "requiredDesc": "이름, 이메일, 회사명은 필수 입력 항목입니다.",
-        "cancelBtn": "취소"
+        "cancelBtn": "취소",
+        "amount": "Investment Amount",
+        "cancel": "Cancel"
       },
       "footer": {
         "description": "TBURN Chain은 고급 DeFi, DAO 및 엔터프라이즈 통합 기능을 갖춘 차세대 레이어-1 블록체인입니다.",
@@ -33194,7 +33231,8 @@
         "privacy": "개인정보처리방침",
         "product": "제품",
         "resources": "리소스",
-        "community": "커뮤니티"
+        "community": "커뮤니티",
+        "tagline": "Building the future of decentralized finance"
       },
       "title": "Private Round",
       "subtitle": "Private sale for qualified investors",
@@ -33208,7 +33246,13 @@
       "kyc": "KYC/AML Verification",
       "accredited": "Accredited Investor",
       "institutional": "Institutional",
-      "applyPrivate": "Apply for Private Round"
+      "applyPrivate": "Apply for Private Round",
+      "toast": {
+        "walletConnected": "Wallet Connected",
+        "walletConnectedDesc": "Your wallet is now connected",
+        "walletDisconnected": "Wallet Disconnected",
+        "walletDisconnectedDesc": "Your wallet has been disconnected"
+      }
     },
     "publicRound": {
       "nav": {
@@ -33217,7 +33261,9 @@
         "howTo": "참여 방법",
         "calculator": "계산기",
         "faq": "FAQ",
-        "connectWallet": "지금 참여하기"
+        "connectWallet": "지금 참여하기",
+        "highlights": "Highlights",
+        "comparison": "Comparison"
       },
       "hero": {
         "badge": "PUBLIC ROUND - 공개 세일",
@@ -33233,13 +33279,17 @@
         "secs": "초",
         "progressGoal": "목표 $200,000,000",
         "progressPercent": "45% 달성",
-        "progressRemaining": "$110,250,000 남음"
+        "progressRemaining": "$110,250,000 남음",
+        "title": "TBURN Public Round"
       },
       "highlights": {
         "tokenPrice": "토큰당 가격",
         "discount": "런칭가 대비 할인",
         "tgeUnlock": "TGE 즉시 해제",
-        "minAmount": "최소 참여금액"
+        "minAmount": "최소 참여금액",
+        "allocation": "Total Allocation",
+        "minInvestment": "Min Investment",
+        "vestingPeriod": "Vesting Period"
       },
       "stats": {
         "loading": "로딩중...",
@@ -33250,7 +33300,10 @@
       },
       "cta": {
         "joinNow": "지금 참여하기",
-        "viewGuide": "세일 가이드 보기"
+        "viewGuide": "세일 가이드 보기",
+        "register": "Register Now",
+        "learnMore": "Learn More",
+        "viewVesting": "View Vesting"
       },
       "comparison": {
         "badge": "COMPARISON",
@@ -33269,7 +33322,13 @@
         "publicRound": "Public Round",
         "completed": "완료",
         "live": "진행중",
-        "upcoming": "예정"
+        "upcoming": "예정",
+        "round": "Round",
+        "price": "Price",
+        "minInvest": "Min Investment",
+        "vesting": "Vesting",
+        "status": "Status",
+        "active": "Active"
       },
       "tiers": {
         "badge": "티어",
@@ -33363,7 +33422,13 @@
             "value": "100%",
             "desc": "9개월 후"
           }
-        ]
+        ],
+        "tge": "TGE",
+        "tgeUnlock": "TGE Unlock",
+        "cliff": "Cliff Period",
+        "linear": "Linear Vesting",
+        "fullUnlock": "Full Unlock",
+        "months": "months"
       },
       "howTo": {
         "badge": "HOW TO",
@@ -33440,7 +33505,10 @@
         "tokenAmount": "토큰 수량",
         "tgeUnlock": "TGE 해제 (10%)",
         "launchPrice": "예상 런칭가 ($0.50)",
-        "profit": "예상 수익"
+        "profit": "예상 수익",
+        "investment": "Investment Amount",
+        "tokens": "Tokens Received",
+        "roi": "ROI at Launch"
       },
       "faq": {
         "badge": "FAQ",
@@ -33500,7 +33568,11 @@
         "successDesc": "담당자가 곧 연락드리겠습니다.",
         "errorTitle": "오류가 발생했습니다",
         "requiredTitle": "필수 항목을 입력해주세요",
-        "requiredDesc": "이름과 이메일은 필수입니다."
+        "requiredDesc": "이름과 이메일은 필수입니다.",
+        "amount": "Investment Amount",
+        "cancel": "Cancel",
+        "errorDesc": "Please try again later",
+        "required": "This field is required"
       },
       "footer": {
         "description": "AI의 지능, 블록체인의 투명성. THE FUTURE IS NOW",
@@ -33520,7 +33592,8 @@
         "grants": "그랜트",
         "support": "고객지원",
         "terms": "이용약관",
-        "privacy": "개인정보처리방침"
+        "privacy": "개인정보처리방침",
+        "tagline": "Building the future of decentralized finance"
       },
       "title": "Public Round",
       "subtitle": "Public token sale open to everyone",
@@ -33534,7 +33607,13 @@
       "maxPurchase": "Maximum Purchase",
       "whitelistRequired": "Whitelist Required",
       "joinWhitelist": "Join Whitelist",
-      "purchaseTokens": "Purchase Tokens"
+      "purchaseTokens": "Purchase Tokens",
+      "toast": {
+        "walletConnected": "Wallet Connected",
+        "walletConnectedDesc": "Your wallet is now connected",
+        "walletDisconnected": "Wallet Disconnected",
+        "walletDisconnectedDesc": "Your wallet has been disconnected"
+      }
     },
     "launchpad": {
       "title": "런치패드",
@@ -33896,8 +33975,8 @@
         "copy": "복사",
         "copied": "복사됨!",
         "linkCopied": "추천 링크가 클립보드에 복사되었습니다",
-        "shareTitle": "공유하기",
-        "shareTwitter": "트위터에 공유",
+        "shareTitle": "Share Your Referral",
+        "shareTwitter": "Share on Twitter",
         "shareTelegram": "텔레그램에 공유",
         "shareKakao": "카카오톡에 공유",
         "bonusTitle": "추천 보너스",

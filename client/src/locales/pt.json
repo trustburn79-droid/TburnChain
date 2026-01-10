@@ -18704,14 +18704,21 @@
         "progressRaised": "$72,000,000",
         "progressGoal": "Meta $100,000,000",
         "progressPercent": "72% Alcançado",
-        "progressRemaining": "$28,000,000 restantes"
+        "progressRemaining": "$28,000,000 restantes",
+        "highlights": "Highlights",
+        "comparison": "Comparison",
+        "process": "Process"
       },
       "highlights": {
         "pricePerToken": "Preço por Token",
         "priceCompare": "+150% vs Seed",
         "discountLaunch": "Desconto vs Lançamento",
         "tgeUnlock": "Desbloqueio TGE",
-        "vestingPeriod": "Período de Vesting"
+        "vestingPeriod": "Período de Vesting",
+        "tokenPrice": "Token Price",
+        "allocation": "Total Allocation",
+        "minInvestment": "Min Investment",
+        "discount": "Discount from IDO"
       },
       "stats": {
         "loading": "Carregando...",
@@ -18722,7 +18729,10 @@
       },
       "cta": {
         "applyPrivate": "Solicitar Investimento Privado",
-        "viewDeck": "Ver Deck de Investimento"
+        "viewDeck": "Ver Deck de Investimento",
+        "inquire": "Submit Inquiry",
+        "learnMore": "Learn More",
+        "viewVesting": "View Vesting"
       },
       "comparison": {
         "badge": "COMPARISON",
@@ -18735,7 +18745,14 @@
         "status": "Status",
         "inProgress": "Em Andamento",
         "completed": "Concluído",
-        "upcoming": "Em Breve"
+        "upcoming": "Em Breve",
+        "price": "Price",
+        "minInvest": "Min Investment",
+        "vesting": "Vesting",
+        "seedRound": "Seed Round",
+        "privateRound": "Private Round",
+        "publicRound": "Public Round",
+        "active": "Active"
       },
       "tiers": {
         "badge": "TIERS",
@@ -18802,9 +18819,21 @@
         "monthlyVesting": "Vesting Mensal",
         "monthlyDesc": "Durante 12 Meses",
         "fullUnlock": "Desbloqueio Total",
-        "fullUnlockDesc": "Após 18 Meses"
+        "fullUnlockDesc": "Após 18 Meses",
+        "tge": "TGE",
+        "cliff": "Cliff Period",
+        "linear": "Linear Vesting",
+        "months": "months"
       },
-      "allocation": "Total Allocation",
+      "allocation": {
+        "badge": "Allocation",
+        "title": "Allocation Distribution",
+        "subtitle": "How the private round allocation is distributed",
+        "vcFunds": "VC Funds",
+        "strategicInvestors": "Strategic Investors",
+        "familyOffice": "Family Offices",
+        "corporateInvestors": "Corporate Investors"
+      },
       "investors": {
         "badge": "INVESTORS",
         "title": "Investidores Atuais",
@@ -18828,7 +18857,13 @@
         "fundingDuration": "3-5 dias",
         "tokenAllocation": "Alocação de Tokens",
         "tokenAllocationDesc": "Confirmação de Investimento",
-        "tokenAllocationDuration": "Imediato"
+        "tokenAllocationDuration": "Imediato",
+        "kyc": "Complete KYC",
+        "kycDesc": "Verify your identity and accreditation",
+        "agreement": "Sign Agreement",
+        "agreementDesc": "Review and sign investment documents",
+        "investment": "Make Investment",
+        "investmentDesc": "Transfer funds and receive tokens"
       },
       "benefits": {
         "badge": "BENEFITS",
@@ -18907,7 +18942,9 @@
         "errorDesc": "Falha ao enviar consulta. Por favor, tente novamente.",
         "required": "Campos Obrigatórios Faltando",
         "requiredDesc": "Nome, email e empresa são campos obrigatórios.",
-        "cancelBtn": "Cancelar"
+        "cancelBtn": "Cancelar",
+        "amount": "Investment Amount",
+        "cancel": "Cancel"
       },
       "footer": {
         "description": "TBURN Chain é uma blockchain Layer-1 de próxima geração com capacidades avançadas de DeFi, DAO e integração empresarial.",
@@ -18942,7 +18979,8 @@
         "privacy": "Política de Privacidade",
         "product": "Produto",
         "resources": "Recursos",
-        "community": "Comunidade"
+        "community": "Comunidade",
+        "tagline": "Building the future of decentralized finance"
       },
       "title": "Rodada Privada",
       "subtitle": "Venda privada para investidores qualificados",
@@ -18956,7 +18994,23 @@
       "kyc": "KYC/AML Verification",
       "accredited": "Accredited Investor",
       "institutional": "Institutional",
-      "applyPrivate": "Apply for Private Round"
+      "applyPrivate": "Apply for Private Round",
+      "hero": {
+        "badge": "Private Investment Round",
+        "title": "TBURN Private Round",
+        "subtitle": "Exclusive investment opportunity for qualified investors",
+        "progressGoal": "Goal",
+        "progressPercent": "Progress",
+        "progressRemaining": "Remaining",
+        "status": "In Progress",
+        "titleHighlight": "Private"
+      },
+      "toast": {
+        "walletConnected": "Wallet Connected",
+        "walletConnectedDesc": "Your wallet is now connected",
+        "walletDisconnected": "Wallet Disconnected",
+        "walletDisconnectedDesc": "Your wallet has been disconnected"
+      }
     },
     "publicRound": {
       "nav": {
@@ -18965,7 +19019,9 @@
         "howTo": "How to Join",
         "calculator": "Calculator",
         "faq": "FAQ",
-        "connectWallet": "Join Now"
+        "connectWallet": "Join Now",
+        "highlights": "Highlights",
+        "comparison": "Comparison"
       },
       "hero": {
         "badge": "PUBLIC ROUND - Public Sale",
@@ -18981,13 +19037,17 @@
         "secs": "SECS",
         "progressGoal": "Goal $200,000,000",
         "progressPercent": "45% Achieved",
-        "progressRemaining": "$110,250,000 remaining"
+        "progressRemaining": "$110,250,000 remaining",
+        "title": "TBURN Public Round"
       },
       "highlights": {
         "tokenPrice": "Per Token",
         "discount": "Discount vs Launch",
         "tgeUnlock": "TGE Unlock",
-        "minAmount": "Min Participation"
+        "minAmount": "Min Participation",
+        "allocation": "Total Allocation",
+        "minInvestment": "Min Investment",
+        "vestingPeriod": "Vesting Period"
       },
       "stats": {
         "loading": "Loading...",
@@ -18998,7 +19058,10 @@
       },
       "cta": {
         "joinNow": "Join Now",
-        "viewGuide": "View Sale Guide"
+        "viewGuide": "View Sale Guide",
+        "register": "Register Now",
+        "learnMore": "Learn More",
+        "viewVesting": "View Vesting"
       },
       "comparison": {
         "badge": "COMPARISON",
@@ -19017,7 +19080,13 @@
         "publicRound": "Public Round",
         "completed": "Completed",
         "live": "Live",
-        "upcoming": "Upcoming"
+        "upcoming": "Upcoming",
+        "round": "Round",
+        "price": "Price",
+        "minInvest": "Min Investment",
+        "vesting": "Vesting",
+        "status": "Status",
+        "active": "Active"
       },
       "tiers": {
         "badge": "TIERS",
@@ -19116,7 +19185,13 @@
             "value": "100%",
             "desc": "After 9 Months"
           }
-        ]
+        ],
+        "tge": "TGE",
+        "tgeUnlock": "TGE Unlock",
+        "cliff": "Cliff Period",
+        "linear": "Linear Vesting",
+        "fullUnlock": "Full Unlock",
+        "months": "months"
       },
       "howTo": {
         "badge": "HOW TO",
@@ -19193,7 +19268,10 @@
         "tokenAmount": "Token Amount",
         "tgeUnlock": "TGE Unlock (10%)",
         "launchPrice": "Est. Launch Price ($0.50)",
-        "profit": "Est. Profit"
+        "profit": "Est. Profit",
+        "investment": "Investment Amount",
+        "tokens": "Tokens Received",
+        "roi": "ROI at Launch"
       },
       "faq": {
         "badge": "FAQ",
@@ -19253,7 +19331,11 @@
         "successDesc": "Our team will contact you soon.",
         "errorTitle": "An error occurred",
         "requiredTitle": "Required fields missing",
-        "requiredDesc": "Name and email are required."
+        "requiredDesc": "Name and email are required.",
+        "amount": "Investment Amount",
+        "cancel": "Cancel",
+        "errorDesc": "Please try again later",
+        "required": "This field is required"
       },
       "footer": {
         "description": "Intelligence of AI, Transparency of Blockchain. THE FUTURE IS NOW",
@@ -19273,7 +19355,8 @@
         "grants": "Grants",
         "support": "Support",
         "terms": "Terms of Service",
-        "privacy": "Privacy Policy"
+        "privacy": "Privacy Policy",
+        "tagline": "Building the future of decentralized finance"
       },
       "title": "Rodada Pública",
       "subtitle": "Venda pública aberta a todos",
@@ -19287,7 +19370,13 @@
       "maxPurchase": "Maximum Purchase",
       "whitelistRequired": "Whitelist Required",
       "joinWhitelist": "Join Whitelist",
-      "purchaseTokens": "Purchase Tokens"
+      "purchaseTokens": "Purchase Tokens",
+      "toast": {
+        "walletConnected": "Wallet Connected",
+        "walletConnectedDesc": "Your wallet is now connected",
+        "walletDisconnected": "Wallet Disconnected",
+        "walletDisconnectedDesc": "Your wallet has been disconnected"
+      }
     },
     "launchpad": {
       "title": "Launchpad",
@@ -19662,8 +19751,8 @@
         "copy": "Copiar",
         "copied": "Copiado!",
         "linkCopied": "Link de indicação copiado para a área de transferência",
-        "shareTitle": "Compartilhar em",
-        "shareTwitter": "Compartilhar no Twitter",
+        "shareTitle": "Share Your Referral",
+        "shareTwitter": "Share on Twitter",
         "shareTelegram": "Compartilhar no Telegram",
         "shareKakao": "Compartilhar no KakaoTalk",
         "bonusTitle": "Bônus de indicação",
