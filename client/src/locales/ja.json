@@ -19870,26 +19870,470 @@
       "applyNow": "今すぐ申請"
     },
     "daoGovernance": {
-      "title": "DAOガバナンス",
-      "subtitle": "分散型ガバナンスに参加してTBURNの未来を形作る",
-      "heroTitle": "TBURN DAOガバナンス",
-      "heroSubtitle": "あなたの声が重要です。提案に投票してプロトコル開発を導く",
-      "badge": "分散型ガバナンス",
-      "governanceToken": "ガバナンストークン",
-      "totalVotingPower": "総投票力",
-      "activeProposals": "アクティブな提案",
-      "passedProposals": "可決された提案",
-      "treasury": "トレジャリー",
-      "votingPower": "投票力",
-      "delegate": "委任",
-      "createProposal": "提案を作成",
-      "vote": "投票",
-      "proposals": "提案",
-      "delegation": "委任",
-      "quorum": "定足数",
-      "votingPeriod": "投票期間"
+      "nav": {
+        "proposals": "提案",
+        "process": "プロセス",
+        "committees": "委員会",
+        "rewards": "報酬",
+        "faq": "FAQ",
+        "connectWallet": "ウォレット接続"
+      },
+      "hero": {
+        "badge": "DAOガバナンス - 分散型ガバナンス",
+        "title1": "プロトコルの未来を決定する",
+        "title2": "800M TBURN",
+        "title3": "ガバナンス報酬",
+        "subtitle": "投票に参加し、提案を提出し、委員会活動に参加してTBURN Chainの方向性を決定し、報酬を獲得しましょう！"
+      },
+      "stats": {
+        "totalProposals": "総提案数",
+        "activeProposals": "アクティブな提案",
+        "totalVotes": "総投票数",
+        "totalVotingPower": "総投票権 (TBURN)"
+      },
+      "cta": {
+        "vote": "投票に参加",
+        "submitProposal": "提案を提出",
+        "activeProposals": "アクティブな提案",
+        "activeProposalsDesc": "現在進行中の提案に投票してください。",
+        "comingSoon": "提案提出機能は近日公開予定です。"
+      },
+      "distribution": {
+        "badge": "配布",
+        "title": "ガバナンス報酬配布",
+        "subtitle": "4つのカテゴリーに配布される800M TBURN",
+        "voting": "投票参加報酬",
+        "votingAmount": "400M",
+        "proposal": "提案報酬",
+        "proposalAmount": "160M",
+        "committee": "委員会報酬",
+        "committeeAmount": "160M",
+        "treasury": "DAOリザーブ",
+        "treasuryAmount": "80M"
+      },
+      "process": {
+        "badge": "プロセス",
+        "title": "ガバナンスプロセス",
+        "subtitle": "提案から実行までの5ステッププロセス"
+      },
+      "processSteps": [
+        {
+          "title": "提案提出",
+          "desc": "誰でも提案可能",
+          "duration": "最低 10,000 vTBURN"
+        },
+        {
+          "title": "議論期間",
+          "desc": "コミュニティフィードバック収集",
+          "duration": "3日"
+        },
+        {
+          "title": "投票期間",
+          "desc": "トークン保有者投票",
+          "duration": "5日"
+        },
+        {
+          "title": "タイムロック",
+          "desc": "実行待機期間",
+          "duration": "2日"
+        },
+        {
+          "title": "実行",
+          "desc": "自動オンチェーン実行",
+          "duration": "即時"
+        }
+      ],
+      "proposals": {
+        "badge": "提案",
+        "title": "アクティブな提案",
+        "subtitle": "現在進行中の投票に参加",
+        "deadline": "締め切り",
+        "proposer": "提案者",
+        "voting": "投票中",
+        "pending": "保留中",
+        "categories": {
+          "protocol": "プロトコル",
+          "treasury": "財務",
+          "ecosystem": "エコシステム"
+        }
+      },
+      "proposalsData": [
+        {
+          "title": "ステーキング報酬調整",
+          "desc": "年間ステーキング報酬率を12%から15%に引き上げ"
+        },
+        {
+          "title": "エコシステムファンド配分",
+          "desc": "DeFiプロトコルパートナーシップに50M TBURNを割り当て"
+        },
+        {
+          "title": "クロスチェーンブリッジ拡張",
+          "desc": "Polygon、Arbitrumネットワークブリッジサポートを追加"
+        }
+      ],
+      "voting": {
+        "for": "賛成",
+        "against": "反対",
+        "quorumRate": "定足数達成率"
+      },
+      "committees": {
+        "badge": "委員会",
+        "title": "ガバナンス委員会",
+        "subtitle": "専門分野別委員会による深い議論",
+        "members": "メンバー",
+        "processedProposals": "レビュー"
+      },
+      "committeesData": [
+        {
+          "name": "技術委員会",
+          "desc": "プロトコルアップグレード審査"
+        },
+        {
+          "name": "財務委員会",
+          "desc": "資金支出承認"
+        },
+        {
+          "name": "エコシステム委員会",
+          "desc": "パートナーシップ＆グラント"
+        },
+        {
+          "name": "セキュリティ委員会",
+          "desc": "セキュリティ監査と対応"
+        }
+      ],
+      "rewards": {
+        "badge": "報酬",
+        "title": "ガバナンス参加報酬",
+        "subtitle": "さまざまな方法でガバナンスに参加して報酬を受け取る"
+      },
+      "rewardsData": [
+        {
+          "title": "投票参加報酬",
+          "amount": "投票ごとに10~50 TBURN",
+          "benefits": [
+            "すべての提案投票に報酬",
+            "参加率に応じたボーナス",
+            "連続投票ストリークボーナス",
+            "ガバナンスNFT獲得機会"
+          ]
+        },
+        {
+          "title": "提案報酬",
+          "amount": "提案ごとに最大 5,000 TBURN",
+          "benefits": [
+            "承認された提案への報酬",
+            "実装完了時の追加ボーナス",
+            "コミュニティ貢献認定",
+            "提案者の殿堂入り"
+          ]
+        },
+        {
+          "title": "委員会報酬",
+          "amount": "月最大 10,000 TBURN",
+          "benefits": [
+            "委員会活動への定期報酬",
+            "レビューごとの追加報酬",
+            "任期完了ボーナス",
+            "ガバナンスリーダーシップ認定"
+          ]
+        }
+      ],
+      "delegation": {
+        "badge": "委任",
+        "title": "投票権委任",
+        "subtitle": "信頼できる代表者に投票権を委任",
+        "topDelegates": "トップデリゲート",
+        "votingPower": "投票権"
+      },
+      "delegatesData": [
+        {
+          "role": "バリデーター"
+        },
+        {
+          "role": "DeFi専門家"
+        },
+        {
+          "role": "コミュニティ"
+        }
+      ],
+      "faq": {
+        "badge": "FAQ",
+        "title": "よくある質問",
+        "subtitle": "ガバナンスに関する質問",
+        "q1": "DAOガバナンス報酬の総配分量はどれくらいですか？",
+        "a1": "800M TBURN（総供給量の8%）がDAOガバナンスプログラムに割り当てられます。配分：投票参加報酬50%（400M）、提案報酬20%（160M）、委員会報酬20%（160M）、DAOリザーブ10%（80M）。",
+        "q2": "投票権（vTBURN）はどのように取得しますか？",
+        "a2": "TBURNトークンをステーキングすると投票権（vTBURN）を受け取れます。ステーキング期間が長いほど、より多くの投票権が付与されます。1週間ロック：1:1比率、1年ロック：2倍、4年ロック：最大4倍の投票権。",
+        "q3": "提案はどのように提出しますか？",
+        "a3": "提案を提出するには最低10,000 vTBURNが必要です。提案書作成後、3日間のフォーラム議論を経てオンチェーン投票に進みます。5日間の投票後、過半数の承認と定足数を満たせば、2日間のタイムロック後に自動実行されます。",
+        "q4": "委員会にはどのように参加しますか？",
+        "a4": "委員会選挙は四半期ごとに行われます。候補者登録後、コミュニティ投票で選出されます。最低50,000 vTBURNが必要で、該当分野の専門知識を証明する必要があります。技術、財務、エコシステム、セキュリティの4つの委員会が運営されています。",
+        "q5": "投票報酬はどのように配布されますか？",
+        "a5": "報酬は投票ごとに保有投票権に比例して配布されます。基本報酬：10-50 TBURN。投票終了後24時間以内に請求可能です。連続10回以上の投票で20%ボーナス、30回以上で50%ボーナスが付与されます。",
+        "q6": "承認された提案でどのような報酬がもらえますか？",
+        "a6": "承認された提案に対して最大5,000 TBURNの報酬が付与されます。報酬は提案タイプによって異なります：プロトコル改善2,000 TBURN、エコシステム拡張3,000 TBURN、財務関連5,000 TBURN。実装完了時に追加50%ボーナスが付与されます。",
+        "q7": "投票権はどのように委任しますか？",
+        "a7": "信頼できるデリゲートに投票権を委任できます。委任はいつでも取り消し可能です。委任中に直接投票すると、その提案に対する委任は無効になります。委任された投票権で投票しても、報酬は元の保有者に帰属します。",
+        "q8": "定足数はどのように決定されますか？",
+        "a8": "提案可決には少なくとも総投票権の4%の参加が必要です。重要なプロトコル変更には10%、財務執行には7%が必要です。定足数未達の場合、提案は自動的に否決され、提案者は1週間後に再提出できます。"
+      },
+      "ctaSection": {
+        "title": "ガバナンスに参加しよう！",
+        "subtitle1": "TBURN Chainの未来を決定するのに参加して",
+        "subtitle2": "800M TBURNの報酬を獲得しよう！",
+        "button": "今すぐ参加"
+      },
+      "footer": {
+        "tagline1": "AIの知性、ブロックチェーンの透明性",
+        "tagline2": "未来は今",
+        "product": "製品",
+        "mainnet": "メインネット",
+        "explorer": "エクスプローラー",
+        "bridge": "ブリッジ",
+        "staking": "ステーキング",
+        "resources": "リソース",
+        "whitepaper": "ホワイトペーパー",
+        "docs": "ドキュメント",
+        "audit": "監査レポート",
+        "community": "コミュニティ",
+        "blog": "ブログ",
+        "ambassador": "アンバサダー",
+        "grants": "グラント",
+        "support": "サポート",
+        "terms": "利用規約",
+        "privacy": "プライバシーポリシー"
+      },
+      "toast": {
+        "disconnected": "ウォレット切断",
+        "disconnectedDesc": "ウォレットが切断されました。",
+        "connected": "ウォレット接続",
+        "connectedDesc": "MetaMaskウォレットが接続されました。",
+        "walletRequired": "ウォレット接続が必要",
+        "walletRequiredDesc": "投票するにはまずウォレットを接続してください。",
+        "proposalWalletRequired": "提案を提出するにはウォレットを接続し、最低10,000 vTBURNが必要です。",
+        "voteFor": "賛成票提出",
+        "voteAgainst": "反対票提出",
+        "voteSubmitted": "{{proposalId}}への{{voteType}}投票が提出されました。",
+        "navigating": "{{platform}}に移動中。",
+        "participateTitle": "ガバナンス参加",
+        "participateDesc": "現在進行中の提案に投票してください！"
+      }
     },
     "blockRewards": {
+      "nav": {
+        "validators": "バリデーター",
+        "halving": "半減期",
+        "calculator": "計算機",
+        "slashing": "スラッシング",
+        "faq": "FAQ",
+        "connectWallet": "ウォレット接続"
+      },
+      "hero": {
+        "badge": "ブロック報酬",
+        "title1": "TBURN",
+        "title2": "ブロック報酬",
+        "title3": "プログラム",
+        "subtitle": "ネットワーク検証に参加してTBURNを獲得しましょう。分散型セキュリティシステムに参加して報酬を受け取りましょう。"
+      },
+      "stats": {
+        "activeValidators": "アクティブなバリデーター",
+        "tps": "TPS",
+        "blockTime": "ブロック時間",
+        "shards": "シャード",
+        "networkUptime": "ネットワーク稼働率",
+        "distributedRewards": "分配された報酬",
+        "currentBlockReward": "現在のブロック報酬",
+        "nextHalvingBlock": "次の半減期ブロック",
+        "validatorDistribution": "バリデーター分布"
+      },
+      "cta": {
+        "becomeValidator": "バリデーターになる",
+        "viewHalving": "半減期スケジュールを見る"
+      },
+      "distribution": {
+        "badge": "分配",
+        "title": "ブロック報酬の分配",
+        "subtitle": "ブロック報酬が参加者にどのように分配されるか",
+        "blockReward": "ブロック報酬",
+        "blockRewardAmount": "14.5億 TBURN",
+        "blockRewardPercent": "70%",
+        "delegatorReward": "デリゲーター報酬",
+        "delegatorRewardAmount": "4.65億 TBURN",
+        "delegatorRewardPercent": "22.5%",
+        "performanceBonus": "パフォーマンスボーナス",
+        "performanceBonusAmount": "1.015億 TBURN",
+        "performanceBonusPercent": "7%",
+        "reserveFund": "リザーブファンド",
+        "reserveFundAmount": "0.1億 TBURN",
+        "reserveFundPercent": "0.5%"
+      },
+      "halving": {
+        "badge": "半減期スケジュール",
+        "title": "20年半減期ロードマップ",
+        "subtitle": "ブロック報酬は4年ごとに50%減少します",
+        "roadmapTitle": "半減期ロードマップ",
+        "roadmapDesc": "TBURNブロック報酬は20年の半減期スケジュールに従います",
+        "year1": "1-4年目：100 TBURN/ブロック",
+        "year2": "5-8年目：50 TBURN/ブロック",
+        "year3": "9-12年目：25 TBURN/ブロック",
+        "year4": "13-16年目：12.5 TBURN/ブロック",
+        "year5": "17-20年目：6.25 TBURN/ブロック"
+      },
+      "validators": {
+        "badge": "バリデーター",
+        "title": "バリデーターになる",
+        "subtitle": "あなたに合ったバリデータータイプを選択してください",
+        "expectedApy": "予想APY",
+        "getStarted": "始める",
+        "connectWallet": "ウォレット接続",
+        "recommended": "おすすめ"
+      },
+      "validatorTypes": {
+        "fullNode": {
+          "title": "フルノード",
+          "subtitle": "完全な検証ノードを運営",
+          "req1": "16コアCPU",
+          "req2": "64GB RAM",
+          "req3": "2TB NVMe SSD",
+          "req4": "1Gbpsネットワーク"
+        },
+        "lightNode": {
+          "title": "ライトノード",
+          "subtitle": "軽量検証ノードを運営",
+          "req1": "4コアCPU",
+          "req2": "16GB RAM",
+          "req3": "500GB SSD",
+          "req4": "100Mbpsネットワーク"
+        },
+        "delegate": {
+          "title": "デリゲート",
+          "subtitle": "バリデーターにステークを委任",
+          "req1": "ハードウェア不要",
+          "req2": "最低100 TBURN",
+          "req3": "ウォレット接続",
+          "req4": "信頼できるバリデーターを選択"
+        }
+      },
+      "calculator": {
+        "badge": "計算機",
+        "title": "報酬計算機",
+        "subtitle": "予想報酬を計算してみましょう",
+        "stakingInput": "ステーキング金額",
+        "stakingAmount": "TBURN金額を入力",
+        "estimatedRewards": "予想報酬",
+        "dailyReward": "日次報酬",
+        "monthlyReward": "月次報酬",
+        "yearlyReward": "年次報酬"
+      },
+      "slashing": {
+        "badge": "スラッシング",
+        "title": "スラッシング条件",
+        "subtitle": "バリデーターの不正行為に対するペナルティ",
+        "minor": {
+          "title": "軽微な違反",
+          "penalty": "0.1%スラッシュ",
+          "desc": "最小限のペナルティが適用される軽微な違反",
+          "ex1": "ブロックミス（10個未満）",
+          "ex2": "短時間のオフライン",
+          "ex3": "軽微な同期遅延"
+        },
+        "major": {
+          "title": "重大な違反",
+          "penalty": "1%スラッシュ",
+          "desc": "中程度のペナルティが適用される重大な違反",
+          "ex1": "長時間のダウンタイム（24時間超）",
+          "ex2": "繰り返しの軽微な違反",
+          "ex3": "ノード設定ミス"
+        },
+        "critical": {
+          "title": "致命的な違反",
+          "penalty": "10%スラッシュ+投獄",
+          "desc": "最大のペナルティが適用される致命的な違反",
+          "ex1": "二重署名",
+          "ex2": "悪意のある行為",
+          "ex3": "コンセンサス攻撃"
+        }
+      },
+      "activeValidators": {
+        "badge": "アクティブなバリデーター",
+        "title": "トップバリデーター",
+        "subtitle": "ネットワーク上のリーディングバリデーター",
+        "topValidators": "トップバリデーター",
+        "validator": "バリデーター",
+        "staking": "ステーキング",
+        "commission": "手数料",
+        "uptime": "稼働率",
+        "status": "ステータス",
+        "delegate": "デリゲート",
+        "delegateBtn": "デリゲート",
+        "active": "アクティブ"
+      },
+      "faq": {
+        "badge": "FAQ",
+        "title": "よくある質問",
+        "subtitle": "ブロック報酬に関する一般的な質問",
+        "q1": "ブロック報酬とは何ですか？",
+        "a1": "ブロック報酬は、ネットワークセキュリティのためにバリデーターとデリゲーターに分配されるTBURNトークンです。ブロックを生成するバリデーターは報酬を受け取り、デリゲーターはステーキング額に比例した分配を受けます。",
+        "q2": "バリデーターとしてどれくらい稼げますか？",
+        "a2": "バリデーターの収入は、ステーキング額、ネットワーク参加度、稼働率によって異なります。現在の報酬率では、バリデーターはステーキングしたTBURNに対して15-25%のAPYを期待できます。",
+        "q3": "半減期スケジュールとは何ですか？",
+        "a3": "TBURNは、4年ごとにブロック報酬が50%減少する20年の半減期スケジュールに従います。これにより、制御された供給と長期的な価値上昇が保証されます。",
+        "q4": "バリデーターになるにはどうすればいいですか？",
+        "a4": "バリデーターになるには、ハードウェア要件を満たし、最低必要なTBURNをステーキングし、ネットワークにノードを登録する必要があります。詳細な手順については、バリデーター設定ガイドを参照してください。",
+        "q5": "デリゲーションとは何ですか？",
+        "a5": "デリゲーションを使用すると、自分のノードを実行せずに既存のバリデーターにTBURNをステーキングできます。バリデーターの手数料を差し引いたステーキング比率に比例した報酬を受け取ります。",
+        "q6": "デリゲーション手数料はどれくらいですか？",
+        "a6": "各バリデーターは独自の手数料率を設定しており、通常は5-10%の範囲です。手数料が低いほどデリゲーターへのリターンは高くなりますが、バリデーターの稼働率と信頼性も考慮してください。",
+        "q7": "パフォーマンスボーナスを受け取るにはどうすればいいですか？",
+        "a7": "パフォーマンスボーナス（7%、1.015億TBURN）は、パフォーマンス指標に基づいてバリデーターに授与されます。99.9%以上の稼働率維持、ブロック遅延ゼロ、高いネットワーク貢献度が追加報酬の対象となります。",
+        "q8": "ハードウェア要件は何ですか？",
+        "a8": "フルノードには16コアCPU、64GB RAM、2TB NVMe SSD、1Gbpsネットワークが必要です。ライトノードには4コアCPU、16GB RAM、500GB SSDが必要です。クラウドサービス（AWS、GCP、Azure）または専用サーバーの両方がサポートされています。"
+      },
+      "ctaSection": {
+        "title": "バリデーターになりましょう！",
+        "desc1": "TBURN Chainのネットワークセキュリティに貢献し",
+        "desc2": "14.5億TBURNのブロック報酬を獲得しましょう！",
+        "startNow": "今すぐ始める"
+      },
+      "footer": {
+        "tagline1": "AIの知性、ブロックチェーンの透明性",
+        "tagline2": "THE FUTURE IS NOW",
+        "product": "製品",
+        "mainnet": "メインネット",
+        "explorer": "エクスプローラー",
+        "bridge": "ブリッジ",
+        "staking": "ステーキング",
+        "resources": "リソース",
+        "whitepaper": "ホワイトペーパー",
+        "docs": "ドキュメント",
+        "audit": "監査レポート",
+        "community": "コミュニティ",
+        "blog": "ブログ",
+        "ambassador": "アンバサダー",
+        "grants": "グラント",
+        "support": "サポート",
+        "terms": "利用規約",
+        "privacy": "プライバシーポリシー"
+      },
+      "toast": {
+        "walletConnected": "ウォレット接続完了",
+        "walletConnectedDesc": "MetaMaskウォレットが正常に接続されました。",
+        "walletDisconnected": "ウォレット切断",
+        "walletDisconnectedDesc": "ウォレットが切断されました。",
+        "walletRequired": "ウォレット接続が必要",
+        "walletRequiredDesc": "この操作を実行するには、まずウォレットを接続してください。",
+        "validatorTypes": "バリデータータイプ",
+        "validatorTypesDesc": "ニーズに合ったバリデータータイプを選択してください。",
+        "halvingSchedule": "半減期スケジュール",
+        "halvingScheduleDesc": "ブロック報酬の20年半減期スケジュールを確認してください。",
+        "validatorStart": "検証開始",
+        "validatorStartDesc": "TBURNバリデーターとしての旅を始めましょう。",
+        "navigatingTo": "移動中",
+        "applicationSubmitted": "申請完了",
+        "applicationSubmittedDesc": "バリデーター申請が正常に送信されました。",
+        "delegationSubmitted": "デリゲーション完了",
+        "delegationSubmittedDesc": "デリゲーションが正常に送信されました。"
+      },
       "title": "ブロック報酬",
       "subtitle": "ブロック生成とネットワークセキュリティへの参加で報酬を獲得",
       "heroTitle": "TBURN ブロック報酬",
@@ -20707,182 +21151,6 @@
         "support": "サポート",
         "terms": "利用規約",
         "privacy": "プライバシーポリシー"
-      }
-    },
-    "daoGovernance": {
-      "nav": {
-        "proposals": "提案",
-        "process": "プロセス",
-        "committees": "委員会",
-        "rewards": "報酬",
-        "faq": "FAQ",
-        "connectWallet": "ウォレット接続"
-      },
-      "hero": {
-        "badge": "DAOガバナンス - 分散型ガバナンス",
-        "title1": "プロトコルの未来を決定する",
-        "title2": "800M TBURN",
-        "title3": "ガバナンス報酬",
-        "subtitle": "投票に参加し、提案を提出し、委員会活動に参加してTBURN Chainの方向性を決定し、報酬を獲得しましょう！"
-      },
-      "stats": {
-        "totalProposals": "総提案数",
-        "activeProposals": "アクティブな提案",
-        "totalVotes": "総投票数",
-        "totalVotingPower": "総投票権 (TBURN)"
-      },
-      "cta": {
-        "vote": "投票に参加",
-        "submitProposal": "提案を提出",
-        "activeProposals": "アクティブな提案",
-        "activeProposalsDesc": "現在進行中の提案に投票してください。",
-        "comingSoon": "提案提出機能は近日公開予定です。"
-      },
-      "distribution": {
-        "badge": "配布",
-        "title": "ガバナンス報酬配布",
-        "subtitle": "4つのカテゴリーに配布される800M TBURN",
-        "voting": "投票参加報酬",
-        "votingAmount": "400M",
-        "proposal": "提案報酬",
-        "proposalAmount": "160M",
-        "committee": "委員会報酬",
-        "committeeAmount": "160M",
-        "treasury": "DAOリザーブ",
-        "treasuryAmount": "80M"
-      },
-      "process": {
-        "badge": "プロセス",
-        "title": "ガバナンスプロセス",
-        "subtitle": "提案から実行までの5ステッププロセス"
-      },
-      "processSteps": [
-        { "title": "提案提出", "desc": "誰でも提案可能", "duration": "最低 10,000 vTBURN" },
-        { "title": "議論期間", "desc": "コミュニティフィードバック収集", "duration": "3日" },
-        { "title": "投票期間", "desc": "トークン保有者投票", "duration": "5日" },
-        { "title": "タイムロック", "desc": "実行待機期間", "duration": "2日" },
-        { "title": "実行", "desc": "自動オンチェーン実行", "duration": "即時" }
-      ],
-      "proposals": {
-        "badge": "提案",
-        "title": "アクティブな提案",
-        "subtitle": "現在進行中の投票に参加",
-        "deadline": "締め切り",
-        "proposer": "提案者",
-        "voting": "投票中",
-        "pending": "保留中",
-        "categories": {
-          "protocol": "プロトコル",
-          "treasury": "財務",
-          "ecosystem": "エコシステム"
-        }
-      },
-      "proposalsData": [
-        { "title": "ステーキング報酬調整", "desc": "年間ステーキング報酬率を12%から15%に引き上げ" },
-        { "title": "エコシステムファンド配分", "desc": "DeFiプロトコルパートナーシップに50M TBURNを割り当て" },
-        { "title": "クロスチェーンブリッジ拡張", "desc": "Polygon、Arbitrumネットワークブリッジサポートを追加" }
-      ],
-      "voting": {
-        "for": "賛成",
-        "against": "反対",
-        "quorumRate": "定足数達成率"
-      },
-      "committees": {
-        "badge": "委員会",
-        "title": "ガバナンス委員会",
-        "subtitle": "専門分野別委員会による深い議論",
-        "members": "メンバー",
-        "processedProposals": "レビュー"
-      },
-      "committeesData": [
-        { "name": "技術委員会", "desc": "プロトコルアップグレード審査" },
-        { "name": "財務委員会", "desc": "資金支出承認" },
-        { "name": "エコシステム委員会", "desc": "パートナーシップ＆グラント" },
-        { "name": "セキュリティ委員会", "desc": "セキュリティ監査と対応" }
-      ],
-      "rewards": {
-        "badge": "報酬",
-        "title": "ガバナンス参加報酬",
-        "subtitle": "さまざまな方法でガバナンスに参加して報酬を受け取る"
-      },
-      "rewardsData": [
-        { "title": "投票参加報酬", "amount": "投票ごとに10~50 TBURN", "benefits": ["すべての提案投票に報酬", "参加率に応じたボーナス", "連続投票ストリークボーナス", "ガバナンスNFT獲得機会"] },
-        { "title": "提案報酬", "amount": "提案ごとに最大 5,000 TBURN", "benefits": ["承認された提案への報酬", "実装完了時の追加ボーナス", "コミュニティ貢献認定", "提案者の殿堂入り"] },
-        { "title": "委員会報酬", "amount": "月最大 10,000 TBURN", "benefits": ["委員会活動への定期報酬", "レビューごとの追加報酬", "任期完了ボーナス", "ガバナンスリーダーシップ認定"] }
-      ],
-      "delegation": {
-        "badge": "委任",
-        "title": "投票権委任",
-        "subtitle": "信頼できる代表者に投票権を委任",
-        "topDelegates": "トップデリゲート",
-        "votingPower": "投票権"
-      },
-      "delegatesData": [
-        { "role": "バリデーター" },
-        { "role": "DeFi専門家" },
-        { "role": "コミュニティ" }
-      ],
-      "faq": {
-        "badge": "FAQ",
-        "title": "よくある質問",
-        "subtitle": "ガバナンスに関する質問",
-        "q1": "DAOガバナンス報酬の総配分量はどれくらいですか？",
-        "a1": "800M TBURN（総供給量の8%）がDAOガバナンスプログラムに割り当てられます。配分：投票参加報酬50%（400M）、提案報酬20%（160M）、委員会報酬20%（160M）、DAOリザーブ10%（80M）。",
-        "q2": "投票権（vTBURN）はどのように取得しますか？",
-        "a2": "TBURNトークンをステーキングすると投票権（vTBURN）を受け取れます。ステーキング期間が長いほど、より多くの投票権が付与されます。1週間ロック：1:1比率、1年ロック：2倍、4年ロック：最大4倍の投票権。",
-        "q3": "提案はどのように提出しますか？",
-        "a3": "提案を提出するには最低10,000 vTBURNが必要です。提案書作成後、3日間のフォーラム議論を経てオンチェーン投票に進みます。5日間の投票後、過半数の承認と定足数を満たせば、2日間のタイムロック後に自動実行されます。",
-        "q4": "委員会にはどのように参加しますか？",
-        "a4": "委員会選挙は四半期ごとに行われます。候補者登録後、コミュニティ投票で選出されます。最低50,000 vTBURNが必要で、該当分野の専門知識を証明する必要があります。技術、財務、エコシステム、セキュリティの4つの委員会が運営されています。",
-        "q5": "投票報酬はどのように配布されますか？",
-        "a5": "報酬は投票ごとに保有投票権に比例して配布されます。基本報酬：10-50 TBURN。投票終了後24時間以内に請求可能です。連続10回以上の投票で20%ボーナス、30回以上で50%ボーナスが付与されます。",
-        "q6": "承認された提案でどのような報酬がもらえますか？",
-        "a6": "承認された提案に対して最大5,000 TBURNの報酬が付与されます。報酬は提案タイプによって異なります：プロトコル改善2,000 TBURN、エコシステム拡張3,000 TBURN、財務関連5,000 TBURN。実装完了時に追加50%ボーナスが付与されます。",
-        "q7": "投票権はどのように委任しますか？",
-        "a7": "信頼できるデリゲートに投票権を委任できます。委任はいつでも取り消し可能です。委任中に直接投票すると、その提案に対する委任は無効になります。委任された投票権で投票しても、報酬は元の保有者に帰属します。",
-        "q8": "定足数はどのように決定されますか？",
-        "a8": "提案可決には少なくとも総投票権の4%の参加が必要です。重要なプロトコル変更には10%、財務執行には7%が必要です。定足数未達の場合、提案は自動的に否決され、提案者は1週間後に再提出できます。"
-      },
-      "ctaSection": {
-        "title": "ガバナンスに参加しよう！",
-        "subtitle1": "TBURN Chainの未来を決定するのに参加して",
-        "subtitle2": "800M TBURNの報酬を獲得しよう！",
-        "button": "今すぐ参加"
-      },
-      "footer": {
-        "tagline1": "AIの知性、ブロックチェーンの透明性",
-        "tagline2": "未来は今",
-        "product": "製品",
-        "mainnet": "メインネット",
-        "explorer": "エクスプローラー",
-        "bridge": "ブリッジ",
-        "staking": "ステーキング",
-        "resources": "リソース",
-        "whitepaper": "ホワイトペーパー",
-        "docs": "ドキュメント",
-        "audit": "監査レポート",
-        "community": "コミュニティ",
-        "blog": "ブログ",
-        "ambassador": "アンバサダー",
-        "grants": "グラント",
-        "support": "サポート",
-        "terms": "利用規約",
-        "privacy": "プライバシーポリシー"
-      },
-      "toast": {
-        "disconnected": "ウォレット切断",
-        "disconnectedDesc": "ウォレットが切断されました。",
-        "connected": "ウォレット接続",
-        "connectedDesc": "MetaMaskウォレットが接続されました。",
-        "walletRequired": "ウォレット接続が必要",
-        "walletRequiredDesc": "投票するにはまずウォレットを接続してください。",
-        "proposalWalletRequired": "提案を提出するにはウォレットを接続し、最低10,000 vTBURNが必要です。",
-        "voteFor": "賛成票提出",
-        "voteAgainst": "反対票提出",
-        "voteSubmitted": "{{proposalId}}への{{voteType}}投票が提出されました。",
-        "navigating": "{{platform}}に移動中。",
-        "participateTitle": "ガバナンス参加",
-        "participateDesc": "現在進行中の提案に投票してください！"
       }
     },
     "launchpad": {

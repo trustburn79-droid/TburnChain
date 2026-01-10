@@ -19186,26 +19186,470 @@
       "connectWallet": "Conectar Billetera"
     },
     "daoGovernance": {
-      "title": "Gobernanza DAO",
-      "subtitle": "Participa en la gobernanza descentralizada y moldea el futuro de TBURN",
-      "heroTitle": "Gobernanza DAO TBURN",
-      "heroSubtitle": "Tu voz importa. Vota en propuestas y guía el desarrollo del protocolo",
-      "badge": "Gobernanza Descentralizada",
-      "governanceToken": "Token de Gobernanza",
-      "totalVotingPower": "Poder de Voto Total",
-      "activeProposals": "Propuestas Activas",
-      "passedProposals": "Propuestas Aprobadas",
-      "treasury": "Tesorería",
-      "votingPower": "Poder de Voto",
-      "delegate": "Delegar",
-      "createProposal": "Crear Propuesta",
-      "vote": "Votar",
-      "proposals": "Propuestas",
-      "delegation": "Delegación",
-      "quorum": "Quórum",
-      "votingPeriod": "Período de Votación"
+      "nav": {
+        "proposals": "Propuestas",
+        "process": "Proceso",
+        "committees": "Comités",
+        "rewards": "Recompensas",
+        "faq": "FAQ",
+        "connectWallet": "Conectar Billetera"
+      },
+      "hero": {
+        "badge": "GOBERNANZA DAO - Gobernanza Descentralizada",
+        "title1": "Decide el Futuro del Protocolo",
+        "title2": "800M TBURN",
+        "title3": "Recompensas de Gobernanza",
+        "subtitle": "¡Participa en votaciones, presenta propuestas y participa en actividades del comité para dar forma a la dirección de TBURN Chain y ganar recompensas!"
+      },
+      "stats": {
+        "totalProposals": "Propuestas Totales",
+        "activeProposals": "Propuestas Activas",
+        "totalVotes": "Votos Totales",
+        "totalVotingPower": "Poder de Voto Total (TBURN)"
+      },
+      "cta": {
+        "vote": "Participar en Votación",
+        "submitProposal": "Enviar Propuesta",
+        "activeProposals": "Propuestas Activas",
+        "activeProposalsDesc": "Por favor vote en las propuestas actualmente activas.",
+        "comingSoon": "Función de envío de propuestas próximamente."
+      },
+      "distribution": {
+        "badge": "DISTRIBUCIÓN",
+        "title": "Distribución de Recompensas de Gobernanza",
+        "subtitle": "800M TBURN distribuidos en 4 categorías",
+        "voting": "Recompensas por Participación en Votación",
+        "votingAmount": "400M",
+        "proposal": "Recompensas por Propuestas",
+        "proposalAmount": "160M",
+        "committee": "Recompensas del Comité",
+        "committeeAmount": "160M",
+        "treasury": "Reserva DAO",
+        "treasuryAmount": "80M"
+      },
+      "process": {
+        "badge": "PROCESO",
+        "title": "Proceso de Gobernanza",
+        "subtitle": "Proceso de 5 pasos desde la propuesta hasta la ejecución"
+      },
+      "processSteps": [
+        {
+          "title": "Enviar Propuesta",
+          "desc": "Cualquiera puede enviar propuestas",
+          "duration": "Mín 10,000 vTBURN"
+        },
+        {
+          "title": "Período de Discusión",
+          "desc": "Recopilar comentarios de la comunidad",
+          "duration": "3 Días"
+        },
+        {
+          "title": "Período de Votación",
+          "desc": "Votación de titulares de tokens",
+          "duration": "5 Días"
+        },
+        {
+          "title": "Timelock",
+          "desc": "Período de espera de ejecución",
+          "duration": "2 Días"
+        },
+        {
+          "title": "Ejecución",
+          "desc": "Ejecución automática on-chain",
+          "duration": "Inmediato"
+        }
+      ],
+      "proposals": {
+        "badge": "PROPUESTAS",
+        "title": "Propuestas Activas",
+        "subtitle": "Participa en votaciones actualmente activas",
+        "deadline": "Fecha límite",
+        "proposer": "Proponente",
+        "voting": "Votando",
+        "pending": "Pendiente",
+        "categories": {
+          "protocol": "Protocolo",
+          "treasury": "Tesorería",
+          "ecosystem": "Ecosistema"
+        }
+      },
+      "proposalsData": [
+        {
+          "title": "Ajuste de Recompensa de Staking",
+          "desc": "Aumentar la tasa de recompensa anual de staking del 12% al 15%"
+        },
+        {
+          "title": "Asignación del Fondo del Ecosistema",
+          "desc": "Asignar 50M TBURN para asociaciones de protocolos DeFi"
+        },
+        {
+          "title": "Expansión del Puente Cross-Chain",
+          "desc": "Agregar soporte de puente para redes Polygon y Arbitrum"
+        }
+      ],
+      "voting": {
+        "for": "A Favor",
+        "against": "En Contra",
+        "quorumRate": "Tasa de Logro de Quórum"
+      },
+      "committees": {
+        "badge": "COMITÉS",
+        "title": "Comités de Gobernanza",
+        "subtitle": "Discusiones en profundidad por comités de campo especializado",
+        "members": "Miembros",
+        "processedProposals": "Revisiones"
+      },
+      "committeesData": [
+        {
+          "name": "Comité Técnico",
+          "desc": "Revisión de actualización del protocolo"
+        },
+        {
+          "name": "Comité Financiero",
+          "desc": "Aprobación de desembolso de fondos"
+        },
+        {
+          "name": "Comité del Ecosistema",
+          "desc": "Asociaciones y Subvenciones"
+        },
+        {
+          "name": "Comité de Seguridad",
+          "desc": "Auditorías de seguridad y respuesta"
+        }
+      ],
+      "rewards": {
+        "badge": "RECOMPENSAS",
+        "title": "Recompensas por Participación en Gobernanza",
+        "subtitle": "Participa en la gobernanza de varias maneras y recibe recompensas"
+      },
+      "rewardsData": [
+        {
+          "title": "Recompensa por Participación en Votación",
+          "amount": "10~50 TBURN por voto",
+          "benefits": [
+            "Recompensa por todos los votos de propuestas",
+            "Bonificación basada en tasa de participación",
+            "Bonificación por racha de votación consecutiva",
+            "Oportunidad de NFT de Gobernanza"
+          ]
+        },
+        {
+          "title": "Recompensa por Propuesta",
+          "amount": "Hasta 5,000 TBURN por propuesta",
+          "benefits": [
+            "Recompensa por propuestas aprobadas",
+            "Bonificación adicional tras implementación",
+            "Reconocimiento de contribución comunitaria",
+            "Inclusión en el Salón de la Fama de Proponentes"
+          ]
+        },
+        {
+          "title": "Recompensa del Comité",
+          "amount": "Hasta 10,000 TBURN por mes",
+          "benefits": [
+            "Recompensas regulares por actividades del comité",
+            "Recompensa adicional por revisión",
+            "Bonificación por completar mandato",
+            "Certificación de liderazgo de gobernanza"
+          ]
+        }
+      ],
+      "delegation": {
+        "badge": "DELEGACIÓN",
+        "title": "Delegación de Poder de Voto",
+        "subtitle": "Delega tu poder de voto a un representante de confianza",
+        "topDelegates": "Top Delegados",
+        "votingPower": "Poder de Voto"
+      },
+      "delegatesData": [
+        {
+          "role": "Validador"
+        },
+        {
+          "role": "Experto DeFi"
+        },
+        {
+          "role": "Comunidad"
+        }
+      ],
+      "faq": {
+        "badge": "FAQ",
+        "title": "Preguntas Frecuentes",
+        "subtitle": "Preguntas sobre gobernanza",
+        "q1": "¿Cuál es la asignación total para las recompensas de gobernanza DAO?",
+        "a1": "800M TBURN (8% del suministro total) se asigna al programa de gobernanza DAO. Distribución: Recompensas por participación en votación 50% (400M), Recompensas por propuestas 20% (160M), Recompensas del comité 20% (160M), Reserva DAO 10% (80M).",
+        "q2": "¿Cómo obtengo poder de voto (vTBURN)?",
+        "a2": "Haz staking de tokens TBURN para recibir poder de voto (vTBURN). Los períodos de staking más largos otorgan más poder de voto. Bloqueo de 1 semana: proporción 1:1, bloqueo de 1 año: 2x, bloqueo de 4 años: hasta 4x poder de voto.",
+        "q3": "¿Cómo envío una propuesta?",
+        "a3": "Necesitas al menos 10,000 vTBURN para enviar una propuesta. Después de escribir la propuesta y 3 días de discusión en el foro, pasa a votación on-chain. Después de 5 días de votación, si se aprueba con mayoría y quórum, se ejecuta automáticamente después de un timelock de 2 días.",
+        "q4": "¿Cómo me uno a un comité?",
+        "a4": "Las elecciones del comité se celebran trimestralmente. Después del registro de candidatos, los miembros son elegidos mediante votación comunitaria. Necesitas al menos 50,000 vTBURN y debes demostrar experiencia en el campo relevante. Operan cuatro comités: Técnico, Financiero, Ecosistema y Seguridad.",
+        "q5": "¿Cómo se distribuyen las recompensas de votación?",
+        "a5": "Las recompensas se distribuyen proporcionalmente a tu poder de voto por cada voto. Recompensa base: 10-50 TBURN. Las recompensas son reclamables dentro de las 24 horas posteriores al final de la votación. 20% de bonificación por 10+ votos consecutivos, 50% de bonificación por 30+ votos consecutivos.",
+        "q6": "¿Qué recompensas obtengo por propuestas aprobadas?",
+        "a6": "Hasta 5,000 TBURN de recompensa por propuestas aprobadas. Las recompensas varían según el tipo de propuesta: Mejora del protocolo 2,000 TBURN, Expansión del ecosistema 3,000 TBURN, Relacionado con la tesorería 5,000 TBURN. 50% de bonificación adicional tras completar la implementación.",
+        "q7": "¿Cómo delego el poder de voto?",
+        "a7": "Puedes delegar el poder de voto a un Delegado de confianza. La delegación puede revocarse en cualquier momento. Si votas directamente mientras delegas, la delegación se invalida para esa propuesta. Las recompensas siguen yendo al titular original aunque se use el poder delegado.",
+        "q8": "¿Cómo se determina el quórum?",
+        "a8": "Al menos el 4% del poder de voto total debe participar para que una propuesta se apruebe. Los cambios importantes del protocolo requieren el 10%, la ejecución de la tesorería requiere el 7%. Si no se alcanza el quórum, la propuesta se rechaza automáticamente y el proponente puede volver a presentarla después de 1 semana."
+      },
+      "ctaSection": {
+        "title": "¡Participa en la Gobernanza!",
+        "subtitle1": "Ayuda a decidir el futuro de TBURN Chain",
+        "subtitle2": "¡y gana 800M TBURN en recompensas!",
+        "button": "Participar Ahora"
+      },
+      "footer": {
+        "tagline1": "La Inteligencia de la IA, La Transparencia del Blockchain",
+        "tagline2": "EL FUTURO ES AHORA",
+        "product": "Producto",
+        "mainnet": "Mainnet",
+        "explorer": "Explorador",
+        "bridge": "Puente",
+        "staking": "Staking",
+        "resources": "Recursos",
+        "whitepaper": "Whitepaper",
+        "docs": "Documentación",
+        "audit": "Informe de Auditoría",
+        "community": "Comunidad",
+        "blog": "Blog",
+        "ambassador": "Embajador",
+        "grants": "Subvenciones",
+        "support": "Soporte",
+        "terms": "Términos de Servicio",
+        "privacy": "Política de Privacidad"
+      },
+      "toast": {
+        "disconnected": "Billetera Desconectada",
+        "disconnectedDesc": "La billetera ha sido desconectada.",
+        "connected": "Billetera Conectada",
+        "connectedDesc": "La billetera MetaMask ha sido conectada.",
+        "walletRequired": "Conexión de Billetera Requerida",
+        "walletRequiredDesc": "Por favor conecta tu billetera primero para votar.",
+        "proposalWalletRequired": "Por favor conecta tu billetera y ten al menos 10,000 vTBURN para enviar una propuesta.",
+        "voteFor": "Voto a Favor Enviado",
+        "voteAgainst": "Voto en Contra Enviado",
+        "voteSubmitted": "Tu voto {{voteType}} para {{proposalId}} ha sido enviado.",
+        "navigating": "Navegando a {{platform}}.",
+        "participateTitle": "Participación en Gobernanza",
+        "participateDesc": "¡Por favor vota en las propuestas actualmente activas!"
+      }
     },
     "blockRewards": {
+      "nav": {
+        "validators": "Validadores",
+        "halving": "Halving",
+        "calculator": "Calculadora",
+        "slashing": "Penalizaciones",
+        "faq": "FAQ",
+        "connectWallet": "Conectar Billetera"
+      },
+      "hero": {
+        "badge": "Recompensas de Bloque",
+        "title1": "TBURN",
+        "title2": "Recompensas de",
+        "title3": "Bloque",
+        "subtitle": "Gana TBURN validando la red. Únete al sistema de seguridad descentralizado y recibe recompensas."
+      },
+      "stats": {
+        "activeValidators": "Validadores Activos",
+        "tps": "TPS",
+        "blockTime": "Tiempo de Bloque",
+        "shards": "Fragmentos",
+        "networkUptime": "Tiempo de Actividad",
+        "distributedRewards": "Recompensas Distribuidas",
+        "currentBlockReward": "Recompensa de Bloque Actual",
+        "nextHalvingBlock": "Próximo Bloque de Halving",
+        "validatorDistribution": "Distribución de Validadores"
+      },
+      "cta": {
+        "becomeValidator": "Convertirse en Validador",
+        "viewHalving": "Ver Calendario de Halving"
+      },
+      "distribution": {
+        "badge": "Distribución",
+        "title": "Distribución de Recompensas de Bloque",
+        "subtitle": "Cómo se distribuyen las recompensas entre los participantes",
+        "blockReward": "Recompensa de Bloque",
+        "blockRewardAmount": "1.45B TBURN",
+        "blockRewardPercent": "70%",
+        "delegatorReward": "Recompensa de Delegador",
+        "delegatorRewardAmount": "465M TBURN",
+        "delegatorRewardPercent": "22.5%",
+        "performanceBonus": "Bono de Rendimiento",
+        "performanceBonusAmount": "101.5M TBURN",
+        "performanceBonusPercent": "7%",
+        "reserveFund": "Fondo de Reserva",
+        "reserveFundAmount": "10M TBURN",
+        "reserveFundPercent": "0.5%"
+      },
+      "halving": {
+        "badge": "Calendario de Halving",
+        "title": "Hoja de Ruta de Halving de 20 Años",
+        "subtitle": "Las recompensas de bloque disminuyen un 50% cada 4 años",
+        "roadmapTitle": "Hoja de Ruta de Halving",
+        "roadmapDesc": "Las recompensas de bloque de TBURN siguen un calendario de halving de 20 años",
+        "year1": "Año 1-4: 100 TBURN/bloque",
+        "year2": "Año 5-8: 50 TBURN/bloque",
+        "year3": "Año 9-12: 25 TBURN/bloque",
+        "year4": "Año 13-16: 12.5 TBURN/bloque",
+        "year5": "Año 17-20: 6.25 TBURN/bloque"
+      },
+      "validators": {
+        "badge": "Validadores",
+        "title": "Conviértete en Validador",
+        "subtitle": "Elige el tipo de validador que te convenga",
+        "expectedApy": "APY Esperado",
+        "getStarted": "Comenzar",
+        "connectWallet": "Conectar Billetera",
+        "recommended": "Recomendado"
+      },
+      "validatorTypes": {
+        "fullNode": {
+          "title": "Nodo Completo",
+          "subtitle": "Ejecuta un nodo de validación completo",
+          "req1": "CPU de 16 Núcleos",
+          "req2": "64GB RAM",
+          "req3": "2TB NVMe SSD",
+          "req4": "Red de 1Gbps"
+        },
+        "lightNode": {
+          "title": "Nodo Ligero",
+          "subtitle": "Ejecuta un nodo de validación ligero",
+          "req1": "CPU de 4 Núcleos",
+          "req2": "16GB RAM",
+          "req3": "500GB SSD",
+          "req4": "Red de 100Mbps"
+        },
+        "delegate": {
+          "title": "Delegar",
+          "subtitle": "Delega tu stake a los validadores",
+          "req1": "Sin requisitos de hardware",
+          "req2": "Mínimo 100 TBURN",
+          "req3": "Conexión de billetera",
+          "req4": "Elegir validador confiable"
+        }
+      },
+      "calculator": {
+        "badge": "Calculadora",
+        "title": "Calculadora de Recompensas",
+        "subtitle": "Estima tus recompensas potenciales",
+        "stakingInput": "Cantidad de Staking",
+        "stakingAmount": "Ingresa la cantidad de TBURN",
+        "estimatedRewards": "Recompensas Estimadas",
+        "dailyReward": "Recompensa Diaria",
+        "monthlyReward": "Recompensa Mensual",
+        "yearlyReward": "Recompensa Anual"
+      },
+      "slashing": {
+        "badge": "Penalizaciones",
+        "title": "Condiciones de Penalización",
+        "subtitle": "Sanciones por mala conducta del validador",
+        "minor": {
+          "title": "Violación Menor",
+          "penalty": "0.1% de Penalización",
+          "desc": "Infracciones menores con penalizaciones mínimas",
+          "ex1": "Bloques perdidos (<10)",
+          "ex2": "Períodos breves sin conexión",
+          "ex3": "Retrasos menores de sincronización"
+        },
+        "major": {
+          "title": "Violación Mayor",
+          "penalty": "1% de Penalización",
+          "desc": "Violaciones significativas con penalizaciones moderadas",
+          "ex1": "Tiempo de inactividad prolongado (>24h)",
+          "ex2": "Violaciones menores repetidas",
+          "ex3": "Mala configuración del nodo"
+        },
+        "critical": {
+          "title": "Violación Crítica",
+          "penalty": "10% de Penalización + Suspensión",
+          "desc": "Violaciones graves con penalizaciones máximas",
+          "ex1": "Doble firma",
+          "ex2": "Comportamiento malicioso",
+          "ex3": "Ataques al consenso"
+        }
+      },
+      "activeValidators": {
+        "badge": "Validadores Activos",
+        "title": "Principales Validadores",
+        "subtitle": "Validadores líderes en la red",
+        "topValidators": "Principales Validadores",
+        "validator": "Validador",
+        "staking": "Staking",
+        "commission": "Comisión",
+        "uptime": "Tiempo de Actividad",
+        "status": "Estado",
+        "delegate": "Delegar",
+        "delegateBtn": "Delegar",
+        "active": "Activo"
+      },
+      "faq": {
+        "badge": "FAQ",
+        "title": "Preguntas Frecuentes",
+        "subtitle": "Preguntas comunes sobre recompensas de bloque",
+        "q1": "¿Qué son las recompensas de bloque?",
+        "a1": "Las recompensas de bloque son tokens TBURN distribuidos a validadores y delegadores por asegurar la red. Los validadores que producen bloques reciben recompensas, y los delegadores ganan una porción basada en su cantidad apostada.",
+        "q2": "¿Cuánto puedo ganar como validador?",
+        "a2": "Las ganancias del validador dependen de tu cantidad apostada, participación en la red y tiempo de actividad. Con la tasa de recompensa actual, los validadores pueden esperar un APY del 15-25% sobre su TBURN apostado.",
+        "q3": "¿Cuál es el calendario de halving?",
+        "a3": "TBURN sigue un calendario de halving de 20 años donde las recompensas de bloque se reducen un 50% cada 4 años. Esto asegura un suministro controlado y apreciación del valor a largo plazo.",
+        "q4": "¿Cómo me convierto en validador?",
+        "a4": "Para convertirte en validador, necesitas cumplir con los requisitos de hardware, apostar el TBURN mínimo requerido y registrar tu nodo en la red. Sigue nuestra guía de configuración de validador para instrucciones detalladas.",
+        "q5": "¿Qué es la delegación?",
+        "a5": "La delegación te permite apostar tu TBURN con un validador existente sin ejecutar tu propio nodo. Ganas recompensas proporcionales a tu stake, menos la comisión del validador.",
+        "q6": "¿Cuáles son las tarifas de delegación?",
+        "a6": "Cada validador establece su propia tasa de comisión, típicamente entre 5-10%. Tarifas más bajas significan mayores retornos para los delegadores, pero también considera el tiempo de actividad y confiabilidad del validador.",
+        "q7": "¿Cómo gano bonos de rendimiento?",
+        "a7": "Los bonos de rendimiento (7%, 101.5M TBURN) se otorgan a validadores según sus métricas de rendimiento. Mantener 99.9%+ de tiempo de actividad, cero retrasos de bloque y alta contribución a la red califica para recompensas adicionales.",
+        "q8": "¿Cuáles son los requisitos de hardware?",
+        "a8": "Los nodos completos requieren CPU de 16 núcleos, 64GB RAM, 2TB NVMe SSD y red de 1Gbps. Los nodos ligeros requieren CPU de 4 núcleos, 16GB RAM, 500GB SSD. Se admiten tanto servicios en la nube (AWS, GCP, Azure) como servidores dedicados."
+      },
+      "ctaSection": {
+        "title": "¡Conviértete en Validador!",
+        "desc1": "Contribuye a la seguridad de la red TBURN Chain",
+        "desc2": "¡y gana 1.45B TBURN en recompensas de bloque!",
+        "startNow": "Comenzar Ahora"
+      },
+      "footer": {
+        "tagline1": "Inteligencia AI, Transparencia Blockchain",
+        "tagline2": "THE FUTURE IS NOW",
+        "product": "Producto",
+        "mainnet": "Mainnet",
+        "explorer": "Explorador",
+        "bridge": "Puente",
+        "staking": "Staking",
+        "resources": "Recursos",
+        "whitepaper": "Whitepaper",
+        "docs": "Documentación",
+        "audit": "Informe de Auditoría",
+        "community": "Comunidad",
+        "blog": "Blog",
+        "ambassador": "Embajador",
+        "grants": "Subvenciones",
+        "support": "Soporte",
+        "terms": "Términos de Servicio",
+        "privacy": "Política de Privacidad"
+      },
+      "toast": {
+        "walletConnected": "Billetera Conectada",
+        "walletConnectedDesc": "Billetera MetaMask conectada exitosamente.",
+        "walletDisconnected": "Billetera Desconectada",
+        "walletDisconnectedDesc": "La billetera ha sido desconectada.",
+        "walletRequired": "Billetera Requerida",
+        "walletRequiredDesc": "Por favor conecta tu billetera primero para realizar esta acción.",
+        "validatorTypes": "Tipos de Validador",
+        "validatorTypesDesc": "Elige el tipo de validador que mejor se adapte a tus necesidades.",
+        "halvingSchedule": "Calendario de Halving",
+        "halvingScheduleDesc": "Ver el calendario de halving de 20 años para recompensas de bloque.",
+        "validatorStart": "Comenzar a Validar",
+        "validatorStartDesc": "Comienza tu viaje como validador de TBURN.",
+        "navigatingTo": "Navegando a",
+        "applicationSubmitted": "Solicitud Enviada",
+        "applicationSubmittedDesc": "Tu solicitud de validador ha sido enviada exitosamente.",
+        "delegationSubmitted": "Delegación Enviada",
+        "delegationSubmittedDesc": "Tu delegación ha sido enviada exitosamente."
+      },
       "title": "Recompensas de Bloque",
       "subtitle": "Gana recompensas participando en la producción de bloques y seguridad de la red",
       "heroTitle": "Recompensas de Bloque TBURN",
@@ -19945,182 +20389,6 @@
         "support": "Support",
         "terms": "Terms of Service",
         "privacy": "Privacy Policy"
-      }
-    },
-    "daoGovernance": {
-      "nav": {
-        "proposals": "Propuestas",
-        "process": "Proceso",
-        "committees": "Comités",
-        "rewards": "Recompensas",
-        "faq": "FAQ",
-        "connectWallet": "Conectar Billetera"
-      },
-      "hero": {
-        "badge": "GOBERNANZA DAO - Gobernanza Descentralizada",
-        "title1": "Decide el Futuro del Protocolo",
-        "title2": "800M TBURN",
-        "title3": "Recompensas de Gobernanza",
-        "subtitle": "¡Participa en votaciones, presenta propuestas y participa en actividades del comité para dar forma a la dirección de TBURN Chain y ganar recompensas!"
-      },
-      "stats": {
-        "totalProposals": "Propuestas Totales",
-        "activeProposals": "Propuestas Activas",
-        "totalVotes": "Votos Totales",
-        "totalVotingPower": "Poder de Voto Total (TBURN)"
-      },
-      "cta": {
-        "vote": "Participar en Votación",
-        "submitProposal": "Enviar Propuesta",
-        "activeProposals": "Propuestas Activas",
-        "activeProposalsDesc": "Por favor vote en las propuestas actualmente activas.",
-        "comingSoon": "Función de envío de propuestas próximamente."
-      },
-      "distribution": {
-        "badge": "DISTRIBUCIÓN",
-        "title": "Distribución de Recompensas de Gobernanza",
-        "subtitle": "800M TBURN distribuidos en 4 categorías",
-        "voting": "Recompensas por Participación en Votación",
-        "votingAmount": "400M",
-        "proposal": "Recompensas por Propuestas",
-        "proposalAmount": "160M",
-        "committee": "Recompensas del Comité",
-        "committeeAmount": "160M",
-        "treasury": "Reserva DAO",
-        "treasuryAmount": "80M"
-      },
-      "process": {
-        "badge": "PROCESO",
-        "title": "Proceso de Gobernanza",
-        "subtitle": "Proceso de 5 pasos desde la propuesta hasta la ejecución"
-      },
-      "processSteps": [
-        { "title": "Enviar Propuesta", "desc": "Cualquiera puede enviar propuestas", "duration": "Mín 10,000 vTBURN" },
-        { "title": "Período de Discusión", "desc": "Recopilar comentarios de la comunidad", "duration": "3 Días" },
-        { "title": "Período de Votación", "desc": "Votación de titulares de tokens", "duration": "5 Días" },
-        { "title": "Timelock", "desc": "Período de espera de ejecución", "duration": "2 Días" },
-        { "title": "Ejecución", "desc": "Ejecución automática on-chain", "duration": "Inmediato" }
-      ],
-      "proposals": {
-        "badge": "PROPUESTAS",
-        "title": "Propuestas Activas",
-        "subtitle": "Participa en votaciones actualmente activas",
-        "deadline": "Fecha límite",
-        "proposer": "Proponente",
-        "voting": "Votando",
-        "pending": "Pendiente",
-        "categories": {
-          "protocol": "Protocolo",
-          "treasury": "Tesorería",
-          "ecosystem": "Ecosistema"
-        }
-      },
-      "proposalsData": [
-        { "title": "Ajuste de Recompensa de Staking", "desc": "Aumentar la tasa de recompensa anual de staking del 12% al 15%" },
-        { "title": "Asignación del Fondo del Ecosistema", "desc": "Asignar 50M TBURN para asociaciones de protocolos DeFi" },
-        { "title": "Expansión del Puente Cross-Chain", "desc": "Agregar soporte de puente para redes Polygon y Arbitrum" }
-      ],
-      "voting": {
-        "for": "A Favor",
-        "against": "En Contra",
-        "quorumRate": "Tasa de Logro de Quórum"
-      },
-      "committees": {
-        "badge": "COMITÉS",
-        "title": "Comités de Gobernanza",
-        "subtitle": "Discusiones en profundidad por comités de campo especializado",
-        "members": "Miembros",
-        "processedProposals": "Revisiones"
-      },
-      "committeesData": [
-        { "name": "Comité Técnico", "desc": "Revisión de actualización del protocolo" },
-        { "name": "Comité Financiero", "desc": "Aprobación de desembolso de fondos" },
-        { "name": "Comité del Ecosistema", "desc": "Asociaciones y Subvenciones" },
-        { "name": "Comité de Seguridad", "desc": "Auditorías de seguridad y respuesta" }
-      ],
-      "rewards": {
-        "badge": "RECOMPENSAS",
-        "title": "Recompensas por Participación en Gobernanza",
-        "subtitle": "Participa en la gobernanza de varias maneras y recibe recompensas"
-      },
-      "rewardsData": [
-        { "title": "Recompensa por Participación en Votación", "amount": "10~50 TBURN por voto", "benefits": ["Recompensa por todos los votos de propuestas", "Bonificación basada en tasa de participación", "Bonificación por racha de votación consecutiva", "Oportunidad de NFT de Gobernanza"] },
-        { "title": "Recompensa por Propuesta", "amount": "Hasta 5,000 TBURN por propuesta", "benefits": ["Recompensa por propuestas aprobadas", "Bonificación adicional tras implementación", "Reconocimiento de contribución comunitaria", "Inclusión en el Salón de la Fama de Proponentes"] },
-        { "title": "Recompensa del Comité", "amount": "Hasta 10,000 TBURN por mes", "benefits": ["Recompensas regulares por actividades del comité", "Recompensa adicional por revisión", "Bonificación por completar mandato", "Certificación de liderazgo de gobernanza"] }
-      ],
-      "delegation": {
-        "badge": "DELEGACIÓN",
-        "title": "Delegación de Poder de Voto",
-        "subtitle": "Delega tu poder de voto a un representante de confianza",
-        "topDelegates": "Top Delegados",
-        "votingPower": "Poder de Voto"
-      },
-      "delegatesData": [
-        { "role": "Validador" },
-        { "role": "Experto DeFi" },
-        { "role": "Comunidad" }
-      ],
-      "faq": {
-        "badge": "FAQ",
-        "title": "Preguntas Frecuentes",
-        "subtitle": "Preguntas sobre gobernanza",
-        "q1": "¿Cuál es la asignación total para las recompensas de gobernanza DAO?",
-        "a1": "800M TBURN (8% del suministro total) se asigna al programa de gobernanza DAO. Distribución: Recompensas por participación en votación 50% (400M), Recompensas por propuestas 20% (160M), Recompensas del comité 20% (160M), Reserva DAO 10% (80M).",
-        "q2": "¿Cómo obtengo poder de voto (vTBURN)?",
-        "a2": "Haz staking de tokens TBURN para recibir poder de voto (vTBURN). Los períodos de staking más largos otorgan más poder de voto. Bloqueo de 1 semana: proporción 1:1, bloqueo de 1 año: 2x, bloqueo de 4 años: hasta 4x poder de voto.",
-        "q3": "¿Cómo envío una propuesta?",
-        "a3": "Necesitas al menos 10,000 vTBURN para enviar una propuesta. Después de escribir la propuesta y 3 días de discusión en el foro, pasa a votación on-chain. Después de 5 días de votación, si se aprueba con mayoría y quórum, se ejecuta automáticamente después de un timelock de 2 días.",
-        "q4": "¿Cómo me uno a un comité?",
-        "a4": "Las elecciones del comité se celebran trimestralmente. Después del registro de candidatos, los miembros son elegidos mediante votación comunitaria. Necesitas al menos 50,000 vTBURN y debes demostrar experiencia en el campo relevante. Operan cuatro comités: Técnico, Financiero, Ecosistema y Seguridad.",
-        "q5": "¿Cómo se distribuyen las recompensas de votación?",
-        "a5": "Las recompensas se distribuyen proporcionalmente a tu poder de voto por cada voto. Recompensa base: 10-50 TBURN. Las recompensas son reclamables dentro de las 24 horas posteriores al final de la votación. 20% de bonificación por 10+ votos consecutivos, 50% de bonificación por 30+ votos consecutivos.",
-        "q6": "¿Qué recompensas obtengo por propuestas aprobadas?",
-        "a6": "Hasta 5,000 TBURN de recompensa por propuestas aprobadas. Las recompensas varían según el tipo de propuesta: Mejora del protocolo 2,000 TBURN, Expansión del ecosistema 3,000 TBURN, Relacionado con la tesorería 5,000 TBURN. 50% de bonificación adicional tras completar la implementación.",
-        "q7": "¿Cómo delego el poder de voto?",
-        "a7": "Puedes delegar el poder de voto a un Delegado de confianza. La delegación puede revocarse en cualquier momento. Si votas directamente mientras delegas, la delegación se invalida para esa propuesta. Las recompensas siguen yendo al titular original aunque se use el poder delegado.",
-        "q8": "¿Cómo se determina el quórum?",
-        "a8": "Al menos el 4% del poder de voto total debe participar para que una propuesta se apruebe. Los cambios importantes del protocolo requieren el 10%, la ejecución de la tesorería requiere el 7%. Si no se alcanza el quórum, la propuesta se rechaza automáticamente y el proponente puede volver a presentarla después de 1 semana."
-      },
-      "ctaSection": {
-        "title": "¡Participa en la Gobernanza!",
-        "subtitle1": "Ayuda a decidir el futuro de TBURN Chain",
-        "subtitle2": "¡y gana 800M TBURN en recompensas!",
-        "button": "Participar Ahora"
-      },
-      "footer": {
-        "tagline1": "La Inteligencia de la IA, La Transparencia del Blockchain",
-        "tagline2": "EL FUTURO ES AHORA",
-        "product": "Producto",
-        "mainnet": "Mainnet",
-        "explorer": "Explorador",
-        "bridge": "Puente",
-        "staking": "Staking",
-        "resources": "Recursos",
-        "whitepaper": "Whitepaper",
-        "docs": "Documentación",
-        "audit": "Informe de Auditoría",
-        "community": "Comunidad",
-        "blog": "Blog",
-        "ambassador": "Embajador",
-        "grants": "Subvenciones",
-        "support": "Soporte",
-        "terms": "Términos de Servicio",
-        "privacy": "Política de Privacidad"
-      },
-      "toast": {
-        "disconnected": "Billetera Desconectada",
-        "disconnectedDesc": "La billetera ha sido desconectada.",
-        "connected": "Billetera Conectada",
-        "connectedDesc": "La billetera MetaMask ha sido conectada.",
-        "walletRequired": "Conexión de Billetera Requerida",
-        "walletRequiredDesc": "Por favor conecta tu billetera primero para votar.",
-        "proposalWalletRequired": "Por favor conecta tu billetera y ten al menos 10,000 vTBURN para enviar una propuesta.",
-        "voteFor": "Voto a Favor Enviado",
-        "voteAgainst": "Voto en Contra Enviado",
-        "voteSubmitted": "Tu voto {{voteType}} para {{proposalId}} ha sido enviado.",
-        "navigating": "Navegando a {{platform}}.",
-        "participateTitle": "Participación en Gobernanza",
-        "participateDesc": "¡Por favor vota en las propuestas actualmente activas!"
       }
     },
     "launchpad": {

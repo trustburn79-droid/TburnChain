@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "wouter";
 import { useQuery } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
 import { TBurnLogo } from "@/components/tburn-logo";
 import { useWeb3 } from "@/lib/web3-context";
 import { useToast } from "@/hooks/use-toast";
@@ -31,6 +32,7 @@ interface BlockRewardsStatsResponse {
 }
 
 export default function BlockRewardsPage() {
+  const { t } = useTranslation();
   const [activeFaq, setActiveFaq] = useState<string | null>("faq-1");
   const [stakeAmount, setStakeAmount] = useState(1000000);
   const { isConnected, address, connect, disconnect, formatAddress } = useWeb3();
@@ -48,10 +50,10 @@ export default function BlockRewardsPage() {
   const handleWalletClick = async () => {
     if (isConnected) {
       disconnect();
-      toast({ title: "지갑 연결 해제", description: "지갑 연결이 해제되었습니다." });
+      toast({ title: t('tokenPrograms.blockRewards.toast.walletDisconnected'), description: t('tokenPrograms.blockRewards.toast.walletDisconnectedDesc') });
     } else {
       await connect("metamask");
-      toast({ title: "지갑 연결", description: "MetaMask 지갑이 연결되었습니다." });
+      toast({ title: t('tokenPrograms.blockRewards.toast.walletConnected'), description: t('tokenPrograms.blockRewards.toast.walletConnectedDesc') });
     }
   };
 
@@ -65,55 +67,55 @@ export default function BlockRewardsPage() {
   const handleBecomeValidator = (validatorType: string) => {
     if (!isConnected) {
       connect("metamask");
-      toast({ title: "지갑 연결 필요", description: "밸리데이터가 되려면 먼저 지갑을 연결해주세요." });
+      toast({ title: t('tokenPrograms.blockRewards.toast.walletRequired'), description: t('tokenPrograms.blockRewards.toast.walletRequiredForValidator') });
       return;
     }
     const typeNames: Record<string, string> = {
-      full: "풀 노드 밸리데이터",
-      light: "라이트 밸리데이터",
-      delegate: "위임 스테이킹"
+      full: t('tokenPrograms.blockRewards.validatorTypes.full.title'),
+      light: t('tokenPrograms.blockRewards.validatorTypes.light.title'),
+      delegate: t('tokenPrograms.blockRewards.validatorTypes.delegate.title')
     };
     toast({ 
-      title: `${typeNames[validatorType] || validatorType} 신청`,
-      description: "밸리데이터 신청이 접수되었습니다. 검토 후 연락드리겠습니다." 
+      title: t('tokenPrograms.blockRewards.toast.applicationSubmitted', { type: typeNames[validatorType] || validatorType }),
+      description: t('tokenPrograms.blockRewards.toast.applicationSubmittedDesc')
     });
   };
 
   const handleDelegate = (validatorName: string) => {
     if (!isConnected) {
       connect("metamask");
-      toast({ title: "지갑 연결 필요", description: "위임하려면 먼저 지갑을 연결해주세요." });
+      toast({ title: t('tokenPrograms.blockRewards.toast.walletRequired'), description: t('tokenPrograms.blockRewards.toast.walletRequiredForDelegate') });
       return;
     }
     toast({ 
-      title: "위임 신청 완료",
-      description: `${validatorName}에게 위임 신청이 접수되었습니다.` 
+      title: t('tokenPrograms.blockRewards.toast.delegationComplete'),
+      description: t('tokenPrograms.blockRewards.toast.delegationCompleteDesc', { validator: validatorName })
     });
   };
 
   const handleShareSocial = (platform: string, url: string) => {
     window.open(url, '_blank', 'width=600,height=400');
-    toast({ title: platform, description: `${platform} 페이지로 이동합니다.` });
+    toast({ title: platform, description: t('tokenPrograms.blockRewards.toast.navigatingTo', { platform }) });
   };
 
   const halvingSchedule = [
-    { year: "2025", period: "Year 1-4", reward: "100%", amount: "5.8억" },
-    { year: "2029", period: "Year 5-8", reward: "50%", amount: "2.9억" },
-    { year: "2033", period: "Year 9-12", reward: "25%", amount: "1.45억" },
-    { year: "2037", period: "Year 13-16", reward: "12.5%", amount: "7,250만" },
-    { year: "2041", period: "Year 17-20", reward: "6.25%", amount: "3,625만" },
+    { year: "2025", period: "Year 1-4", reward: "100%", amount: t('tokenPrograms.blockRewards.halving.amounts.year1') },
+    { year: "2029", period: "Year 5-8", reward: "50%", amount: t('tokenPrograms.blockRewards.halving.amounts.year5') },
+    { year: "2033", period: "Year 9-12", reward: "25%", amount: t('tokenPrograms.blockRewards.halving.amounts.year9') },
+    { year: "2037", period: "Year 13-16", reward: "12.5%", amount: t('tokenPrograms.blockRewards.halving.amounts.year13') },
+    { year: "2041", period: "Year 17-20", reward: "6.25%", amount: t('tokenPrograms.blockRewards.halving.amounts.year17') },
   ];
 
   const validatorTypes = [
-    { id: "full", icon: "🖥️", title: "풀 노드 밸리데이터", subtitle: "직접 검증 노드 운영", apy: "15~25%", featured: true, requirements: ["최소 1,000,000 TBURN 스테이킹", "24/7 서버 운영 필수", "99.5% 이상 업타임 유지", "전용 서버 또는 클라우드 인스턴스"] },
-    { id: "light", icon: "⚡", title: "라이트 밸리데이터", subtitle: "경량화된 검증 참여", apy: "10~15%", featured: false, requirements: ["최소 100,000 TBURN 스테이킹", "일반 PC에서 운영 가능", "95% 이상 업타임 권장", "낮은 하드웨어 요구사항"] },
-    { id: "delegate", icon: "🤝", title: "위임 스테이킹", subtitle: "밸리데이터에 위임", apy: "8~12%", featured: false, requirements: ["최소 100 TBURN부터 가능", "직접 노드 운영 불필요", "언제든 위임 해제 가능", "수수료 공제 후 보상 수령"] },
+    { id: "full", icon: "🖥️", title: t('tokenPrograms.blockRewards.validatorTypes.full.title'), subtitle: t('tokenPrograms.blockRewards.validatorTypes.full.subtitle'), apy: "15~25%", featured: true, requirements: [t('tokenPrograms.blockRewards.validatorTypes.full.req1'), t('tokenPrograms.blockRewards.validatorTypes.full.req2'), t('tokenPrograms.blockRewards.validatorTypes.full.req3'), t('tokenPrograms.blockRewards.validatorTypes.full.req4')] },
+    { id: "light", icon: "⚡", title: t('tokenPrograms.blockRewards.validatorTypes.light.title'), subtitle: t('tokenPrograms.blockRewards.validatorTypes.light.subtitle'), apy: "10~15%", featured: false, requirements: [t('tokenPrograms.blockRewards.validatorTypes.light.req1'), t('tokenPrograms.blockRewards.validatorTypes.light.req2'), t('tokenPrograms.blockRewards.validatorTypes.light.req3'), t('tokenPrograms.blockRewards.validatorTypes.light.req4')] },
+    { id: "delegate", icon: "🤝", title: t('tokenPrograms.blockRewards.validatorTypes.delegate.title'), subtitle: t('tokenPrograms.blockRewards.validatorTypes.delegate.subtitle'), apy: "8~12%", featured: false, requirements: [t('tokenPrograms.blockRewards.validatorTypes.delegate.req1'), t('tokenPrograms.blockRewards.validatorTypes.delegate.req2'), t('tokenPrograms.blockRewards.validatorTypes.delegate.req3'), t('tokenPrograms.blockRewards.validatorTypes.delegate.req4')] },
   ];
 
   const slashingRules = [
-    { severity: "minor", icon: "⚠️", title: "경미한 위반", penalty: "-0.1% 슬래싱", desc: "일시적인 오프라인 또는 경미한 규칙 위반", examples: ["1시간 이상 오프라인", "블록 서명 지연", "네트워크 동기화 실패"] },
-    { severity: "major", icon: "🚨", title: "중대한 위반", penalty: "-1% 슬래싱", desc: "반복적인 위반 또는 네트워크 불안정 유발", examples: ["24시간 이상 오프라인", "잘못된 블록 제안", "노드 버전 미업데이트"] },
-    { severity: "critical", icon: "🛑", title: "치명적 위반", penalty: "-10% + 퇴출", desc: "의도적인 악의적 행위 또는 이중 서명", examples: ["이중 서명 (Double Signing)", "네트워크 공격 시도", "사기적 트랜잭션 제안"] },
+    { severity: "minor", icon: "⚠️", title: t('tokenPrograms.blockRewards.slashing.minor.title'), penalty: t('tokenPrograms.blockRewards.slashing.minor.penalty'), desc: t('tokenPrograms.blockRewards.slashing.minor.desc'), examples: [t('tokenPrograms.blockRewards.slashing.minor.ex1'), t('tokenPrograms.blockRewards.slashing.minor.ex2'), t('tokenPrograms.blockRewards.slashing.minor.ex3')] },
+    { severity: "major", icon: "🚨", title: t('tokenPrograms.blockRewards.slashing.major.title'), penalty: t('tokenPrograms.blockRewards.slashing.major.penalty'), desc: t('tokenPrograms.blockRewards.slashing.major.desc'), examples: [t('tokenPrograms.blockRewards.slashing.major.ex1'), t('tokenPrograms.blockRewards.slashing.major.ex2'), t('tokenPrograms.blockRewards.slashing.major.ex3')] },
+    { severity: "critical", icon: "🛑", title: t('tokenPrograms.blockRewards.slashing.critical.title'), penalty: t('tokenPrograms.blockRewards.slashing.critical.penalty'), desc: t('tokenPrograms.blockRewards.slashing.critical.desc'), examples: [t('tokenPrograms.blockRewards.slashing.critical.ex1'), t('tokenPrograms.blockRewards.slashing.critical.ex2'), t('tokenPrograms.blockRewards.slashing.critical.ex3')] },
   ];
 
   const activeValidators = [
@@ -651,8 +653,7 @@ export default function BlockRewardsPage() {
           box-shadow: 0 0 30px rgba(16, 185, 129, 0.2);
         }
 
-        .validator-card.featured::after {
-          content: '추천';
+        .featured-badge {
           position: absolute;
           top: 20px;
           right: 20px;
@@ -662,6 +663,7 @@ export default function BlockRewardsPage() {
           font-size: 0.75rem;
           font-weight: 700;
           z-index: 10;
+          color: var(--white);
         }
 
         .validator-header {
@@ -1249,27 +1251,27 @@ export default function BlockRewardsPage() {
               href="#validators"
               onClick={(e) => { e.preventDefault(); scrollToSection('validators'); }}
               data-testid="nav-validators"
-            >밸리데이터</a>
+            >{t('tokenPrograms.blockRewards.nav.validators')}</a>
             <a 
               href="#halving"
               onClick={(e) => { e.preventDefault(); scrollToSection('halving'); }}
               data-testid="nav-halving"
-            >반감기</a>
+            >{t('tokenPrograms.blockRewards.nav.halving')}</a>
             <a 
               href="#calculator"
               onClick={(e) => { e.preventDefault(); scrollToSection('calculator'); }}
               data-testid="nav-calculator"
-            >계산기</a>
+            >{t('tokenPrograms.blockRewards.nav.calculator')}</a>
             <a 
               href="#slashing"
               onClick={(e) => { e.preventDefault(); scrollToSection('slashing'); }}
               data-testid="nav-slashing"
-            >슬래싱</a>
+            >{t('tokenPrograms.blockRewards.nav.slashing')}</a>
             <a 
               href="#faq"
               onClick={(e) => { e.preventDefault(); scrollToSection('faq'); }}
               data-testid="nav-faq"
-            >FAQ</a>
+            >{t('tokenPrograms.blockRewards.nav.faq')}</a>
           </nav>
           <div className="header-actions">
             <LanguageSelector isDark={true} />
@@ -1278,7 +1280,7 @@ export default function BlockRewardsPage() {
               data-testid="button-connect-wallet"
               onClick={handleWalletClick}
             >
-              {isConnected && address ? `🔗 ${formatAddress(address)}` : '🔗 지갑 연결'}
+              {isConnected && address ? `🔗 ${formatAddress(address)}` : t('tokenPrograms.blockRewards.nav.connectWallet')}
             </button>
           </div>
         </div>
@@ -1289,56 +1291,55 @@ export default function BlockRewardsPage() {
         <div className="hero-bg"></div>
         <div className="hero-content">
           <div className="badge">
-            <span className="block-icon">⛏️</span> BLOCK REWARDS - 밸리데이터 보상
+            <span className="block-icon">⛏️</span> {t('tokenPrograms.blockRewards.hero.badge')}
           </div>
           <h1>
-            블록 생성으로 받는<br />
-            <span className="gradient-text">14.5억 TBURN</span> 보상
+            {t('tokenPrograms.blockRewards.hero.title1')}<br />
+            <span className="gradient-text">{t('tokenPrograms.blockRewards.hero.title2')}</span> {t('tokenPrograms.blockRewards.hero.title3')}
           </h1>
           <p className="hero-subtitle">
-            밸리데이터가 되어 네트워크를 보호하고 블록 보상을 받으세요.
-            20년간 지속되는 반감기 스케줄로 장기 수익을 확보하세요!
+            {t('tokenPrograms.blockRewards.hero.subtitle')}
           </p>
 
           <div className="network-stats-banner" data-testid="network-stats">
             <div className="network-stat" data-testid="stat-current-epoch">
               <div className="value live">{isLoading ? '...' : stats?.currentEpoch || 125}</div>
-              <div className="label">활성 밸리데이터</div>
+              <div className="label">{t('tokenPrograms.blockRewards.stats.activeValidators')}</div>
             </div>
             <div className="network-stat" data-testid="stat-blocks-to-halving">
               <div className="value">{isLoading ? '...' : stats?.blocksToHalving ? `~${(stats.blocksToHalving / 1000).toFixed(0)}K` : '~210K'}</div>
-              <div className="label">TPS</div>
+              <div className="label">{t('tokenPrograms.blockRewards.stats.tps')}</div>
             </div>
             <div className="network-stat">
               <div className="value">100ms</div>
-              <div className="label">블록 타임</div>
+              <div className="label">{t('tokenPrograms.blockRewards.stats.blockTime')}</div>
             </div>
             <div className="network-stat">
               <div className="value">64</div>
-              <div className="label">샤드</div>
+              <div className="label">{t('tokenPrograms.blockRewards.stats.shards')}</div>
             </div>
             <div className="network-stat">
               <div className="value">99.99%</div>
-              <div className="label">네트워크 업타임</div>
+              <div className="label">{t('tokenPrograms.blockRewards.stats.networkUptime')}</div>
             </div>
           </div>
 
           <div className="stats-grid">
             <div className="stat-card" data-testid="stat-total-rewards-distributed">
               <div className="stat-value">{isLoading ? '...' : Number(stats?.totalRewardsDistributed || 0).toLocaleString()}</div>
-              <div className="stat-label">배포된 보상 (TBURN)</div>
+              <div className="stat-label">{t('tokenPrograms.blockRewards.stats.distributedRewards')}</div>
             </div>
             <div className="stat-card" data-testid="stat-current-block-reward">
               <div className="stat-value">{isLoading ? '...' : stats?.currentBlockReward || '0'} TBURN</div>
-              <div className="stat-label">현재 블록 보상</div>
+              <div className="stat-label">{t('tokenPrograms.blockRewards.stats.currentBlockReward')}</div>
             </div>
             <div className="stat-card" data-testid="stat-next-halving">
               <div className="stat-value">{isLoading ? '...' : stats?.nextHalvingBlock?.toLocaleString() || 0}</div>
-              <div className="stat-label">다음 반감기 블록</div>
+              <div className="stat-label">{t('tokenPrograms.blockRewards.stats.nextHalvingBlock')}</div>
             </div>
             <div className="stat-card" data-testid="stat-distribution-validators">
               <div className="stat-value">{isLoading ? '...' : stats?.distribution?.validators ? `${stats.distribution.validators}%` : '0%'}</div>
-              <div className="stat-label">밸리데이터 분배율</div>
+              <div className="stat-label">{t('tokenPrograms.blockRewards.stats.validatorDistribution')}</div>
             </div>
           </div>
 
@@ -1346,16 +1347,16 @@ export default function BlockRewardsPage() {
             <button 
               className="btn-primary" 
               data-testid="button-become-validator"
-              onClick={() => { scrollToSection('validators'); toast({ title: "밸리데이터 유형", description: "자신에게 맞는 밸리데이터 유형을 선택하세요." }); }}
+              onClick={() => { scrollToSection('validators'); toast({ title: t('tokenPrograms.blockRewards.toast.validatorTypes'), description: t('tokenPrograms.blockRewards.toast.validatorTypesDesc') }); }}
             >
-              밸리데이터 되기
+              {t('tokenPrograms.blockRewards.cta.becomeValidator')}
             </button>
             <button 
               className="btn-secondary"
               data-testid="button-view-docs"
-              onClick={() => { scrollToSection('halving'); toast({ title: "반감기 스케줄", description: "20년간 지속되는 반감기 스케줄을 확인하세요." }); }}
+              onClick={() => { scrollToSection('halving'); toast({ title: t('tokenPrograms.blockRewards.toast.halvingSchedule'), description: t('tokenPrograms.blockRewards.toast.halvingScheduleDesc') }); }}
             >
-              반감기 보기
+              {t('tokenPrograms.blockRewards.cta.viewHalving')}
             </button>
           </div>
         </div>
@@ -1365,33 +1366,33 @@ export default function BlockRewardsPage() {
       <section className="section">
         <div className="section-header">
           <span className="section-badge">DISTRIBUTION</span>
-          <h2 className="section-title">블록 보상 배분</h2>
-          <p className="section-subtitle">14.5억 TBURN이 4가지 방식으로 배분됩니다</p>
+          <h2 className="section-title">{t('tokenPrograms.blockRewards.distribution.title')}</h2>
+          <p className="section-subtitle">{t('tokenPrograms.blockRewards.distribution.subtitle')}</p>
         </div>
 
         <div className="distribution-grid">
           <div className="dist-card block" data-testid="dist-block">
             <div className="dist-icon">⛏️</div>
-            <div className="dist-name">블록 생성 보상</div>
-            <div className="dist-amount">10.15억</div>
+            <div className="dist-name">{t('tokenPrograms.blockRewards.distribution.blockReward')}</div>
+            <div className="dist-amount">{t('tokenPrograms.blockRewards.distribution.blockRewardAmount')}</div>
             <div className="dist-percent">70%</div>
           </div>
           <div className="dist-card delegate" data-testid="dist-delegate">
             <div className="dist-icon">🤝</div>
-            <div className="dist-name">위임자 보상</div>
-            <div className="dist-amount">2.9억</div>
+            <div className="dist-name">{t('tokenPrograms.blockRewards.distribution.delegatorReward')}</div>
+            <div className="dist-amount">{t('tokenPrograms.blockRewards.distribution.delegatorRewardAmount')}</div>
             <div className="dist-percent">20%</div>
           </div>
           <div className="dist-card performance" data-testid="dist-performance">
             <div className="dist-icon">🏆</div>
-            <div className="dist-name">성과 보너스</div>
-            <div className="dist-amount">1.015억</div>
+            <div className="dist-name">{t('tokenPrograms.blockRewards.distribution.performanceBonus')}</div>
+            <div className="dist-amount">{t('tokenPrograms.blockRewards.distribution.performanceBonusAmount')}</div>
             <div className="dist-percent">7%</div>
           </div>
           <div className="dist-card halving" data-testid="dist-reserve">
             <div className="dist-icon">🔒</div>
-            <div className="dist-name">예비 기금</div>
-            <div className="dist-amount">0.435억</div>
+            <div className="dist-name">{t('tokenPrograms.blockRewards.distribution.reserveFund')}</div>
+            <div className="dist-amount">{t('tokenPrograms.blockRewards.distribution.reserveFundAmount')}</div>
             <div className="dist-percent">3%</div>
           </div>
         </div>
@@ -1401,14 +1402,14 @@ export default function BlockRewardsPage() {
       <section className="section" id="halving" style={{ background: 'rgba(255,255,255,0.02)' }}>
         <div className="section-header">
           <span className="section-badge">HALVING</span>
-          <h2 className="section-title">반감기 스케줄</h2>
-          <p className="section-subtitle">4년마다 보상이 절반으로 감소합니다</p>
+          <h2 className="section-title">{t('tokenPrograms.blockRewards.halving.title')}</h2>
+          <p className="section-subtitle">{t('tokenPrograms.blockRewards.halving.subtitle')}</p>
         </div>
 
         <div className="halving-container">
           <div className="halving-header">
-            <h3>🔄 20년 반감기 로드맵</h3>
-            <p>비트코인과 유사한 반감기 모델로 희소성을 확보합니다</p>
+            <h3>🔄 {t('tokenPrograms.blockRewards.halving.roadmapTitle')}</h3>
+            <p>{t('tokenPrograms.blockRewards.halving.roadmapDesc')}</p>
           </div>
 
           <div className="halving-timeline">
@@ -1428,13 +1429,14 @@ export default function BlockRewardsPage() {
       <section className="section" id="validators">
         <div className="section-header">
           <span className="section-badge">VALIDATORS</span>
-          <h2 className="section-title">밸리데이터 유형</h2>
-          <p className="section-subtitle">자신에게 맞는 참여 방식을 선택하세요</p>
+          <h2 className="section-title">{t('tokenPrograms.blockRewards.validators.title')}</h2>
+          <p className="section-subtitle">{t('tokenPrograms.blockRewards.validators.subtitle')}</p>
         </div>
 
         <div className="validator-types-grid">
           {validatorTypes.map(validator => (
             <div key={validator.id} className={`validator-card ${validator.featured ? 'featured' : ''}`} data-testid={`validator-${validator.id}`}>
+              {validator.featured && <span className="featured-badge">{t('tokenPrograms.blockRewards.validators.recommended')}</span>}
               <div className={`validator-header ${validator.id}`}>
                 <div className="validator-icon">{validator.icon}</div>
                 <h3 className="validator-title">{validator.title}</h3>
@@ -1442,7 +1444,7 @@ export default function BlockRewardsPage() {
               </div>
               <div className="validator-content">
                 <div className="validator-apy">
-                  <span className="validator-apy-label">예상 APY</span>
+                  <span className="validator-apy-label">{t('tokenPrograms.blockRewards.validators.expectedApy')}</span>
                   <span className="validator-apy-value">{validator.apy}</span>
                 </div>
                 <ul className="validator-requirements">
@@ -1455,7 +1457,7 @@ export default function BlockRewardsPage() {
                   onClick={() => handleBecomeValidator(validator.id)}
                   data-testid={`button-start-${validator.id}`}
                 >
-                  {isConnected ? '시작하기' : '지갑 연결'}
+                  {isConnected ? t('tokenPrograms.blockRewards.validators.getStarted') : t('tokenPrograms.blockRewards.validators.connectWallet')}
                 </button>
               </div>
             </div>
@@ -1467,15 +1469,15 @@ export default function BlockRewardsPage() {
       <section className="section" id="calculator" style={{ background: 'rgba(255,255,255,0.02)' }}>
         <div className="section-header">
           <span className="section-badge">CALCULATOR</span>
-          <h2 className="section-title">보상 계산기</h2>
-          <p className="section-subtitle">예상 수익을 미리 계산해보세요</p>
+          <h2 className="section-title">{t('tokenPrograms.blockRewards.calculator.title')}</h2>
+          <p className="section-subtitle">{t('tokenPrograms.blockRewards.calculator.subtitle')}</p>
         </div>
 
         <div className="calculator-container">
           <div className="calculator-card">
-            <h3>📊 스테이킹 입력</h3>
+            <h3>📊 {t('tokenPrograms.blockRewards.calculator.stakingInput')}</h3>
             <div className="calc-input-group">
-              <label>스테이킹 수량</label>
+              <label>{t('tokenPrograms.blockRewards.calculator.stakingAmount')}</label>
               <div className="calc-input-wrapper">
                 <input 
                   type="number" 
@@ -1498,18 +1500,18 @@ export default function BlockRewardsPage() {
           </div>
 
           <div className="calculator-card">
-            <h3>💰 예상 보상</h3>
+            <h3>💰 {t('tokenPrograms.blockRewards.calculator.estimatedRewards')}</h3>
             <div className="calc-result">
               <div className="calc-result-row">
-                <span className="calc-result-label">일일 보상</span>
+                <span className="calc-result-label">{t('tokenPrograms.blockRewards.calculator.dailyReward')}</span>
                 <span className="calc-result-value emerald">{dailyReward.toLocaleString()} TBURN</span>
               </div>
               <div className="calc-result-row">
-                <span className="calc-result-label">월간 보상</span>
+                <span className="calc-result-label">{t('tokenPrograms.blockRewards.calculator.monthlyReward')}</span>
                 <span className="calc-result-value emerald">{monthlyReward.toLocaleString()} TBURN</span>
               </div>
               <div className="calc-result-row">
-                <span className="calc-result-label">연간 보상</span>
+                <span className="calc-result-label">{t('tokenPrograms.blockRewards.calculator.yearlyReward')}</span>
                 <span className="calc-result-value large">{yearlyReward.toLocaleString()} TBURN</span>
               </div>
             </div>
@@ -1521,8 +1523,8 @@ export default function BlockRewardsPage() {
       <section className="section" id="slashing">
         <div className="section-header">
           <span className="section-badge">SLASHING</span>
-          <h2 className="section-title">슬래싱 규칙</h2>
-          <p className="section-subtitle">네트워크 안전을 위한 페널티 시스템</p>
+          <h2 className="section-title">{t('tokenPrograms.blockRewards.slashingSection.title')}</h2>
+          <p className="section-subtitle">{t('tokenPrograms.blockRewards.slashingSection.subtitle')}</p>
         </div>
 
         <div className="slashing-grid">
@@ -1550,8 +1552,8 @@ export default function BlockRewardsPage() {
       <section className="section" style={{ background: 'rgba(255,255,255,0.02)' }}>
         <div className="section-header">
           <span className="section-badge">VALIDATORS</span>
-          <h2 className="section-title">활성 밸리데이터</h2>
-          <p className="section-subtitle">현재 네트워크를 보호하는 밸리데이터들</p>
+          <h2 className="section-title">{t('tokenPrograms.blockRewards.activeValidators.title')}</h2>
+          <p className="section-subtitle">{t('tokenPrograms.blockRewards.activeValidators.subtitle')}</p>
         </div>
 
         <div className="validators-section">
@@ -1562,12 +1564,12 @@ export default function BlockRewardsPage() {
           <table className="validators-table">
             <thead>
               <tr>
-                <th>밸리데이터</th>
-                <th>스테이킹</th>
-                <th>수수료</th>
-                <th>업타임</th>
-                <th>상태</th>
-                <th>위임</th>
+                <th>{t('tokenPrograms.blockRewards.activeValidators.validator')}</th>
+                <th>{t('tokenPrograms.blockRewards.activeValidators.staking')}</th>
+                <th>{t('tokenPrograms.blockRewards.activeValidators.commission')}</th>
+                <th>{t('tokenPrograms.blockRewards.activeValidators.uptime')}</th>
+                <th>{t('tokenPrograms.blockRewards.activeValidators.status')}</th>
+                <th>{t('tokenPrograms.blockRewards.activeValidators.delegate')}</th>
               </tr>
             </thead>
             <tbody>
@@ -1592,7 +1594,7 @@ export default function BlockRewardsPage() {
                       onClick={() => handleDelegate(validator.name)}
                       data-testid={`button-delegate-${idx}`}
                     >
-                      {isConnected ? '위임하기' : '지갑 연결'}
+                      {isConnected ? t('tokenPrograms.blockRewards.activeValidators.delegateBtn') : t('tokenPrograms.blockRewards.validators.connectWallet')}
                     </button>
                   </td>
                 </tr>
@@ -1606,88 +1608,88 @@ export default function BlockRewardsPage() {
       <section className="section" id="faq">
         <div className="section-header">
           <span className="section-badge">FAQ</span>
-          <h2 className="section-title">자주 묻는 질문</h2>
-          <p className="section-subtitle">블록 보상에 대해 궁금한 점</p>
+          <h2 className="section-title">{t('tokenPrograms.blockRewards.faq.title')}</h2>
+          <p className="section-subtitle">{t('tokenPrograms.blockRewards.faq.subtitle')}</p>
         </div>
 
         <div className="faq-container">
           <div className={`faq-item ${activeFaq === 'faq-1' ? 'active' : ''}`} data-testid="faq-item-1">
             <div className="faq-question" onClick={() => toggleFaq('faq-1')}>
-              <h4>블록 보상 총 물량은 얼마인가요?</h4>
+              <h4>{t('tokenPrograms.blockRewards.faq.q1')}</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>블록 보상 프로그램에 총 14.5억 TBURN(전체 공급량의 14.5%)이 배정되어 있습니다. 블록 생성 보상 70%(10.15억), 위임자 보상 20%(2.9억), 성과 보너스 7%(1.015억), 예비 기금 3%(0.435억)으로 배분됩니다.</p>
+              <p>{t('tokenPrograms.blockRewards.faq.a1')}</p>
             </div>
           </div>
 
           <div className={`faq-item ${activeFaq === 'faq-2' ? 'active' : ''}`} data-testid="faq-item-2">
             <div className="faq-question" onClick={() => toggleFaq('faq-2')}>
-              <h4>밸리데이터가 되려면 얼마가 필요한가요?</h4>
+              <h4>{t('tokenPrograms.blockRewards.faq.q2')}</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>풀 노드 밸리데이터는 최소 1,000,000 TBURN과 24/7 서버 운영이 필요합니다. 라이트 밸리데이터는 100,000 TBURN으로 일반 PC에서 운영 가능합니다. 위임 스테이킹은 100 TBURN부터 가능하며 직접 노드 운영이 불필요합니다.</p>
+              <p>{t('tokenPrograms.blockRewards.faq.a2')}</p>
             </div>
           </div>
 
           <div className={`faq-item ${activeFaq === 'faq-3' ? 'active' : ''}`} data-testid="faq-item-3">
             <div className="faq-question" onClick={() => toggleFaq('faq-3')}>
-              <h4>반감기는 어떻게 작동하나요?</h4>
+              <h4>{t('tokenPrograms.blockRewards.faq.q3')}</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>4년마다 블록 보상이 50%씩 감소합니다. 2025년 5.8억(100%), 2029년 2.9억(50%), 2033년 1.45억(25%), 2037년 7,250만(12.5%), 2041년 3,625만(6.25%)으로 줄어듭니다. 비트코인과 유사한 모델로 희소성을 확보합니다.</p>
+              <p>{t('tokenPrograms.blockRewards.faq.a3')}</p>
             </div>
           </div>
 
           <div className={`faq-item ${activeFaq === 'faq-4' ? 'active' : ''}`} data-testid="faq-item-4">
             <div className="faq-question" onClick={() => toggleFaq('faq-4')}>
-              <h4>슬래싱을 피하려면 어떻게 해야 하나요?</h4>
+              <h4>{t('tokenPrograms.blockRewards.faq.q4')}</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>99.5% 이상의 업타임을 유지하고, 최신 노드 버전을 사용하세요. 경미한 위반(1시간 오프라인)은 0.1%, 중대한 위반(24시간 오프라인)은 1%, 치명적 위반(이중 서명)은 10% 슬래싱과 퇴출입니다. 정기적인 모니터링과 백업 시스템 구축을 권장합니다.</p>
+              <p>{t('tokenPrograms.blockRewards.faq.a4')}</p>
             </div>
           </div>
 
           <div className={`faq-item ${activeFaq === 'faq-5' ? 'active' : ''}`} data-testid="faq-item-5">
             <div className="faq-question" onClick={() => toggleFaq('faq-5')}>
-              <h4>보상은 언제 받을 수 있나요?</h4>
+              <h4>{t('tokenPrograms.blockRewards.faq.q5')}</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>블록 보상은 블록이 확정될 때마다 실시간으로 누적됩니다. 100ms 블록 타임으로 매우 빠르게 보상이 쌓입니다. 누적된 보상은 언제든 청구할 수 있으며, 청구 즉시 지갑으로 전송됩니다. 가스비는 TBURN으로 지불합니다.</p>
+              <p>{t('tokenPrograms.blockRewards.faq.a5')}</p>
             </div>
           </div>
 
           <div className={`faq-item ${activeFaq === 'faq-6' ? 'active' : ''}`} data-testid="faq-item-6">
             <div className="faq-question" onClick={() => toggleFaq('faq-6')}>
-              <h4>위임 스테이킹의 수수료는 어떻게 되나요?</h4>
+              <h4>{t('tokenPrograms.blockRewards.faq.q6')}</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>밸리데이터마다 수수료율(Commission)이 다릅니다. 일반적으로 5~10% 사이이며, 밸리데이터 목록에서 확인할 수 있습니다. 수수료가 낮을수록 위임자에게 돌아가는 보상이 높지만, 업타임과 신뢰도도 함께 고려하세요.</p>
+              <p>{t('tokenPrograms.blockRewards.faq.a6')}</p>
             </div>
           </div>
 
           <div className={`faq-item ${activeFaq === 'faq-7' ? 'active' : ''}`} data-testid="faq-item-7">
             <div className="faq-question" onClick={() => toggleFaq('faq-7')}>
-              <h4>성과 보너스는 어떻게 받나요?</h4>
+              <h4>{t('tokenPrograms.blockRewards.faq.q7')}</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>성과 보너스(7%, 1.015억 TBURN)는 밸리데이터의 성능에 따라 지급됩니다. 99.9% 이상 업타임, 블록 생성 지연 없음, 네트워크 기여도가 높은 밸리데이터에게 추가 보상이 제공됩니다. 분기별로 성과를 평가하여 지급합니다.</p>
+              <p>{t('tokenPrograms.blockRewards.faq.a7')}</p>
             </div>
           </div>
 
           <div className={`faq-item ${activeFaq === 'faq-8' ? 'active' : ''}`} data-testid="faq-item-8">
             <div className="faq-question" onClick={() => toggleFaq('faq-8')}>
-              <h4>밸리데이터 하드웨어 요구사항은 무엇인가요?</h4>
+              <h4>{t('tokenPrograms.blockRewards.faq.q8')}</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>풀 노드: 16코어 CPU, 64GB RAM, 2TB NVMe SSD, 1Gbps 네트워크가 권장됩니다. 라이트 노드: 4코어 CPU, 16GB RAM, 500GB SSD로 운영 가능합니다. 클라우드 서비스(AWS, GCP, Azure) 또는 전용 서버 모두 사용 가능합니다.</p>
+              <p>{t('tokenPrograms.blockRewards.faq.a8')}</p>
             </div>
           </div>
         </div>
@@ -1696,10 +1698,9 @@ export default function BlockRewardsPage() {
       {/* CTA Section */}
       <section className="cta-section" id="cta">
         <div style={{ maxWidth: '800px', margin: '0 auto' }}>
-          <h2 style={{ fontSize: '2.5rem', fontWeight: 800, marginBottom: '1rem' }}>밸리데이터가 되세요!</h2>
+          <h2 style={{ fontSize: '2.5rem', fontWeight: 800, marginBottom: '1rem' }}>{t('tokenPrograms.blockRewards.ctaSection.title')}</h2>
           <p style={{ color: 'rgba(255,255,255,0.8)', fontSize: '1.125rem', marginBottom: '2rem' }}>
-            TBURN Chain의 네트워크 보안에 기여하고<br />
-            14.5억 TBURN 블록 보상을 받아가세요!
+            {t('tokenPrograms.blockRewards.ctaSection.description')}
           </p>
           <button 
             className="connect-btn" 
@@ -1707,10 +1708,10 @@ export default function BlockRewardsPage() {
             data-testid="button-cta-start"
             onClick={() => { 
               scrollToSection('validators'); 
-              toast({ title: "밸리데이터 시작", description: "자신에게 맞는 밸리데이터 유형을 선택하세요!" }); 
+              toast({ title: t('tokenPrograms.blockRewards.toast.validatorStart'), description: t('tokenPrograms.blockRewards.toast.validatorStartDesc') }); 
             }}
           >
-            지금 시작하기
+            {t('tokenPrograms.blockRewards.ctaSection.startNow')}
           </button>
         </div>
       </section>
@@ -1720,7 +1721,7 @@ export default function BlockRewardsPage() {
         <div className="footer-content">
           <div className="footer-brand">
             <h3>TBURN<span>CHAIN</span></h3>
-            <p>AI의 지능, 블록체인의 투명성<br />THE FUTURE IS NOW</p>
+            <p>{t('tokenPrograms.blockRewards.footer.tagline')}</p>
             <div className="social-links">
               <a 
                 href="https://x.com/tburnchain" 
@@ -1747,40 +1748,40 @@ export default function BlockRewardsPage() {
           <div className="footer-links">
             <h4>Product</h4>
             <ul>
-              <li><a href="/" data-testid="footer-link-mainnet">메인넷</a></li>
-              <li><a href="/scan" data-testid="footer-link-explorer">익스플로러</a></li>
-              <li><a href="/app/bridge" data-testid="footer-link-bridge">브릿지</a></li>
-              <li><a href="/app/staking" data-testid="footer-link-staking">스테이킹</a></li>
+              <li><a href="/" data-testid="footer-link-mainnet">{t('tokenPrograms.blockRewards.footer.mainnet')}</a></li>
+              <li><a href="/scan" data-testid="footer-link-explorer">{t('tokenPrograms.blockRewards.footer.explorer')}</a></li>
+              <li><a href="/app/bridge" data-testid="footer-link-bridge">{t('tokenPrograms.blockRewards.footer.bridge')}</a></li>
+              <li><a href="/app/staking" data-testid="footer-link-staking">{t('tokenPrograms.blockRewards.footer.staking')}</a></li>
             </ul>
           </div>
           <div className="footer-links">
             <h4>Resources</h4>
             <ul>
-              <li><a href="/learn/whitepaper" data-testid="footer-link-whitepaper">백서</a></li>
-              <li><a href="/developers/docs" data-testid="footer-link-docs">문서</a></li>
+              <li><a href="/learn/whitepaper" data-testid="footer-link-whitepaper">{t('tokenPrograms.blockRewards.footer.whitepaper')}</a></li>
+              <li><a href="/developers/docs" data-testid="footer-link-docs">{t('tokenPrograms.blockRewards.footer.docs')}</a></li>
               <li><a 
                 href="https://github.com/tburnchain" 
                 onClick={(e) => { e.preventDefault(); handleShareSocial('GitHub', 'https://github.com/tburnchain'); }}
                 data-testid="footer-link-github-resources"
               >GitHub</a></li>
-              <li><a href="/security-audit" data-testid="footer-link-audit">감사 보고서</a></li>
+              <li><a href="/security-audit" data-testid="footer-link-audit">{t('tokenPrograms.blockRewards.footer.auditReport')}</a></li>
             </ul>
           </div>
           <div className="footer-links">
             <h4>Community</h4>
             <ul>
-              <li><a href="/community/news" data-testid="footer-link-blog">블로그</a></li>
-              <li><a href="/community-program" data-testid="footer-link-ambassador">앰배서더</a></li>
-              <li><a href="/community-program" data-testid="footer-link-grants">그랜트</a></li>
-              <li><a href="/qna" data-testid="footer-link-support">고객지원</a></li>
+              <li><a href="/community/news" data-testid="footer-link-blog">{t('tokenPrograms.blockRewards.footer.blog')}</a></li>
+              <li><a href="/community-program" data-testid="footer-link-ambassador">{t('tokenPrograms.blockRewards.footer.ambassador')}</a></li>
+              <li><a href="/community-program" data-testid="footer-link-grants">{t('tokenPrograms.blockRewards.footer.grants')}</a></li>
+              <li><a href="/qna" data-testid="footer-link-support">{t('tokenPrograms.blockRewards.footer.support')}</a></li>
             </ul>
           </div>
         </div>
         <div className="footer-bottom">
           <p>© 2025-2045 TBURN Foundation. All Rights Reserved.</p>
           <div style={{ display: 'flex', gap: '2rem' }}>
-            <a href="/legal/terms-of-service" style={{ color: 'var(--gray)', textDecoration: 'none' }} data-testid="footer-link-terms">이용약관</a>
-            <a href="/legal/privacy-policy" style={{ color: 'var(--gray)', textDecoration: 'none' }} data-testid="footer-link-privacy">개인정보처리방침</a>
+            <a href="/legal/terms-of-service" style={{ color: 'var(--gray)', textDecoration: 'none' }} data-testid="footer-link-terms">{t('tokenPrograms.blockRewards.footer.terms')}</a>
+            <a href="/legal/privacy-policy" style={{ color: 'var(--gray)', textDecoration: 'none' }} data-testid="footer-link-privacy">{t('tokenPrograms.blockRewards.footer.privacy')}</a>
           </div>
         </div>
       </footer>
