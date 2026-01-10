@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "wouter";
 import { useQuery } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
 import { useWeb3 } from "@/lib/web3-context";
 import { useToast } from "@/hooks/use-toast";
 import { LanguageSelector } from "@/components/LanguageSelector";
@@ -28,6 +29,7 @@ interface LaunchpadStatsResponse {
 }
 
 export default function CoinListPage() {
+  const { t } = useTranslation();
   const { isConnected, address, connect, disconnect, formatAddress } = useWeb3();
   const { toast } = useToast();
   const [activeTab, setActiveTab] = useState("overview");
@@ -71,14 +73,14 @@ export default function CoinListPage() {
     if (isConnected) {
       disconnect();
       toast({
-        title: "지갑 연결 해제",
-        description: "지갑이 성공적으로 연결 해제되었습니다.",
+        title: t('coinlist.toast.walletDisconnected'),
+        description: t('coinlist.toast.walletDisconnectedDesc'),
       });
     } else {
       connect("metamask");
       toast({
-        title: "지갑 연결 중",
-        description: "MetaMask 지갑 연결을 시도하고 있습니다.",
+        title: t('coinlist.toast.walletConnecting'),
+        description: t('coinlist.toast.walletConnectingDesc'),
       });
     }
   };
@@ -86,22 +88,22 @@ export default function CoinListPage() {
   const handleShareSocial = (platform: string, url: string) => {
     window.open(url, '_blank');
     toast({
-      title: `${platform} 열기`,
-      description: `${platform} 페이지로 이동합니다.`,
+      title: `${t('coinlist.toast.socialOpen')} ${platform}`,
+      description: t('coinlist.toast.socialOpenDesc'),
     });
   };
 
   const handleNavTab = (tabName: string) => {
     toast({
-      title: `${tabName} 탭`,
-      description: `${tabName} 기능은 곧 출시됩니다.`,
+      title: `${tabName} ${t('coinlist.toast.tabComingSoon')}`,
+      description: `${tabName} ${t('coinlist.toast.tabComingSoonDesc')}`,
     });
   };
 
   const handleDocumentDownload = (docName: string) => {
     toast({
-      title: "문서 다운로드",
-      description: `${docName} 다운로드를 시작합니다.`,
+      title: t('coinlist.toast.documentDownload'),
+      description: `${docName} ${t('coinlist.toast.documentDownloadDesc')}`,
     });
   };
 
@@ -116,24 +118,24 @@ export default function CoinListPage() {
     if (!isConnected) {
       toast({
         variant: "destructive",
-        title: "지갑 연결 필요",
-        description: "토큰 구매를 위해 먼저 지갑을 연결해주세요.",
+        title: t('coinlist.toast.walletRequired'),
+        description: t('coinlist.toast.walletRequiredDesc'),
       });
       return;
     }
     if (allocationAmount < 100) {
       toast({
         variant: "destructive",
-        title: "최소 금액 미달",
-        description: "최소 $100 이상 참여해야 합니다.",
+        title: t('coinlist.toast.minAmount'),
+        description: t('coinlist.toast.minAmountDesc'),
       });
       return;
     }
     if (allocationAmount > 50000) {
       toast({
         variant: "destructive",
-        title: "최대 금액 초과",
-        description: "최대 $50,000까지 참여 가능합니다.",
+        title: t('coinlist.toast.maxAmount'),
+        description: t('coinlist.toast.maxAmountDesc'),
       });
       return;
     }
@@ -142,33 +144,33 @@ export default function CoinListPage() {
     setTimeout(() => {
       setModalStatus("success");
       toast({
-        title: "참여 완료!",
-        description: `${totalTokens.toLocaleString()} TBURN 토큰 구매가 완료되었습니다.`,
+        title: t('coinlist.toast.participationComplete'),
+        description: `${totalTokens.toLocaleString()} TBURN ${t('coinlist.toast.participationCompleteDesc')}`,
       });
     }, 2500);
   };
 
   const paymentMethods = [
-    { id: "usd", icon: "💳", name: "USD", type: "신용카드 / 계좌이체" },
-    { id: "usdt", icon: "💵", name: "USDT", type: "스테이블코인" },
-    { id: "usdc", icon: "💲", name: "USDC", type: "스테이블코인" },
-    { id: "btc", icon: "₿", name: "BTC", type: "비트코인" },
+    { id: "usd", icon: "💳", name: "USD", typeKey: "coinlist.saleCard.payment.creditCard" },
+    { id: "usdt", icon: "💵", name: "USDT", typeKey: "coinlist.saleCard.payment.stablecoin" },
+    { id: "usdc", icon: "💲", name: "USDC", typeKey: "coinlist.saleCard.payment.stablecoin" },
+    { id: "btc", icon: "₿", name: "BTC", typeKey: "coinlist.saleCard.payment.bitcoin" },
   ];
 
   const features = [
-    { icon: "⚡", title: "초고속 처리", desc: "200,000+ TPS로 실시간 트랜잭션 처리" },
-    { icon: "🧠", title: "AI 통합", desc: "스마트 컨트랙트에 AI 기능 내장" },
-    { icon: "🛡️", title: "강력한 보안", desc: "AI 기반 위협 탐지 및 방어" },
-    { icon: "🌱", title: "친환경", desc: "에너지 효율적인 PoS 합의" },
+    { icon: "⚡", titleKey: "coinlist.features.ultraFast", descKey: "coinlist.features.ultraFastDesc" },
+    { icon: "🧠", titleKey: "coinlist.features.aiIntegration", descKey: "coinlist.features.aiIntegrationDesc" },
+    { icon: "🛡️", titleKey: "coinlist.features.strongSecurity", descKey: "coinlist.features.strongSecurityDesc" },
+    { icon: "🌱", titleKey: "coinlist.features.ecoFriendly", descKey: "coinlist.features.ecoFriendlyDesc" },
   ];
 
   const tokenomicsData = [
-    { icon: "📊", label: "총 공급량", value: "100억 TBURN" },
-    { icon: "💰", label: "초기 시가총액", value: "$80M" },
-    { icon: "🎯", label: "FDV", value: "$2B" },
-    { icon: "🔥", label: "퍼블릭 세일", value: "6%" },
-    { icon: "🌱", label: "생태계", value: "30%" },
-    { icon: "👥", label: "커뮤니티", value: "25%" },
+    { icon: "📊", labelKey: "coinlist.tokenomics.totalSupply", value: "10B TBURN" },
+    { icon: "💰", labelKey: "coinlist.tokenomics.initialMarketCap", value: "$80M" },
+    { icon: "🎯", labelKey: "coinlist.tokenomics.fdv", value: "$2B" },
+    { icon: "🔥", labelKey: "coinlist.tokenomics.publicSale", value: "6%" },
+    { icon: "🌱", labelKey: "coinlist.tokenomics.ecosystem", value: "30%" },
+    { icon: "👥", labelKey: "coinlist.tokenomics.community", value: "25%" },
   ];
 
   const teamMembers = [
@@ -179,45 +181,21 @@ export default function CoinListPage() {
   ];
 
   const faqItems = [
-    { 
-      q: "CoinList 세일 총 규모는 얼마인가요?", 
-      a: "CoinList를 통한 TBURN 토큰 세일 총 규모는 6억 TBURN (전체 공급량의 6%)이며, 목표 모집 금액은 $12,000,000입니다. 토큰 가격은 $0.02로 책정되어 있습니다." 
-    },
-    { 
-      q: "CoinList에서 어떻게 참여하나요?", 
-      a: "CoinList 계정 생성 후 KYC 인증을 완료하고, USD, 신용카드, 또는 암호화폐(USDT, USDC, BTC)로 참여할 수 있습니다. 지갑 연결 후 원하는 금액을 입력하여 참여하세요." 
-    },
-    { 
-      q: "최소/최대 참여 금액은 얼마인가요?", 
-      a: "최소 $100, 최대 $50,000까지 참여 가능합니다. CoinList 레벨에 따라 할당량이 다를 수 있으며, $10,000 이상 참여 시 3% 보너스, $1,000 이상 참여 시 1% 보너스가 제공됩니다." 
-    },
-    { 
-      q: "토큰은 언제 받을 수 있나요?", 
-      a: "TGE(Token Generation Event) 시점에 15%가 즉시 해제되며, 3개월 클리프 기간 후 나머지 85%가 12개월 동안 선형 베스팅 스케줄에 따라 지급됩니다." 
-    },
-    { 
-      q: "어떤 결제 방법을 지원하나요?", 
-      a: "CoinList는 다양한 결제 방법을 지원합니다: USD(신용카드, 계좌이체), USDT, USDC, BTC로 결제 가능합니다. 법정화폐와 암호화폐 모두 사용 가능합니다." 
-    },
-    { 
-      q: "CoinList 대기열 시스템은 어떻게 작동하나요?", 
-      a: "CoinList는 공정한 참여를 위해 대기열 시스템을 운영합니다. 참여 시작 시 무작위로 대기 순번이 배정되며, 순번에 따라 구매 기회가 주어집니다. 예상 대기 시간은 실시간으로 표시됩니다." 
-    },
-    { 
-      q: "CoinList 참여의 특별한 혜택은 무엇인가요?", 
-      a: "CoinList 검증 프로젝트로서 높은 신뢰도, 프리미엄 런치 지원, 법정화폐 결제 지원, CoinList 거래소 우선 상장, 전용 고객 지원 등의 혜택이 제공됩니다." 
-    },
-    { 
-      q: "문의나 지원이 필요하면 어떻게 하나요?", 
-      a: "CoinList 고객 지원팀에 문의하거나, TBURN 공식 커뮤니티(Telegram, Discord)를 통해 지원받으실 수 있습니다. support@coinlist.co 또는 support@tburnchain.io로 이메일 문의도 가능합니다." 
-    },
+    { qKey: "coinlist.faq.q1.question", aKey: "coinlist.faq.q1.answer" },
+    { qKey: "coinlist.faq.q2.question", aKey: "coinlist.faq.q2.answer" },
+    { qKey: "coinlist.faq.q3.question", aKey: "coinlist.faq.q3.answer" },
+    { qKey: "coinlist.faq.q4.question", aKey: "coinlist.faq.q4.answer" },
+    { qKey: "coinlist.faq.q5.question", aKey: "coinlist.faq.q5.answer" },
+    { qKey: "coinlist.faq.q6.question", aKey: "coinlist.faq.q6.answer" },
+    { qKey: "coinlist.faq.q7.question", aKey: "coinlist.faq.q7.answer" },
+    { qKey: "coinlist.faq.q8.question", aKey: "coinlist.faq.q8.answer" },
   ];
 
   const documents = [
-    { icon: "📄", name: "백서", size: "PDF · 2.4 MB" },
-    { icon: "📋", name: "기술 문서", size: "PDF · 5.1 MB" },
-    { icon: "📊", name: "토크노믹스", size: "PDF · 1.2 MB" },
-    { icon: "🛡️", name: "감사 보고서", size: "PDF · 890 KB" },
+    { icon: "📄", nameKey: "coinlist.overview.documents.whitepaper", size: "PDF · 2.4 MB" },
+    { icon: "📋", nameKey: "coinlist.overview.documents.technicalDocs", size: "PDF · 5.1 MB" },
+    { icon: "📊", nameKey: "coinlist.overview.documents.tokenomics", size: "PDF · 1.2 MB" },
+    { icon: "🛡️", nameKey: "coinlist.overview.documents.auditReport", size: "PDF · 890 KB" },
   ];
 
   const quickAmounts = [100, 500, 1000, 5000];
@@ -1132,28 +1110,28 @@ export default function CoinListPage() {
                 onClick={() => scrollToSection('hero')}
                 data-testid="nav-token-sale"
               >
-                토큰 세일
+                {t('coinlist.header.tokenSale')}
               </button>
               <button 
                 className="cl-nav-tab" 
-                onClick={() => handleNavTab('트레이딩')}
+                onClick={() => handleNavTab(t('coinlist.header.trading'))}
                 data-testid="nav-trading"
               >
-                트레이딩
+                {t('coinlist.header.trading')}
               </button>
               <button 
                 className="cl-nav-tab" 
-                onClick={() => handleNavTab('스테이킹')}
+                onClick={() => handleNavTab(t('coinlist.header.staking'))}
                 data-testid="nav-staking"
               >
-                스테이킹
+                {t('coinlist.header.staking')}
               </button>
               <button 
                 className="cl-nav-tab" 
-                onClick={() => handleNavTab('포트폴리오')}
+                onClick={() => handleNavTab(t('coinlist.header.portfolio'))}
                 data-testid="nav-portfolio"
               >
-                포트폴리오
+                {t('coinlist.header.portfolio')}
               </button>
             </div>
           </div>
@@ -1171,7 +1149,7 @@ export default function CoinListPage() {
               >
                 <div className="cl-user-avatar">{isConnected ? formatAddress(address || '').slice(0, 2).toUpperCase() : 'CL'}</div>
                 <div className="cl-user-info">
-                  <div className="name">{isConnected ? formatAddress(address || '') : '지갑 연결'}</div>
+                  <div className="name">{isConnected ? formatAddress(address || '') : t('coinlist.header.connectWallet')}</div>
                   <div className="level">{isConnected ? 'Connected' : 'Click to connect'}</div>
                 </div>
               </button>
@@ -1197,35 +1175,33 @@ export default function CoinListPage() {
                 </div>
 
                 <div className="cl-badges">
-                  <span className="cl-badge live"><span className="dot"></span>세일 진행 중</span>
-                  <span className="cl-badge verified">🛡️ CoinList 검증</span>
-                  <span className="cl-badge premium">💎 프리미엄 런치</span>
+                  <span className="cl-badge live"><span className="dot"></span>{t('coinlist.hero.badges.saleInProgress')}</span>
+                  <span className="cl-badge verified">🛡️ {t('coinlist.hero.badges.verified')}</span>
+                  <span className="cl-badge premium">💎 {t('coinlist.hero.badges.premium')}</span>
                 </div>
 
                 <p className="cl-description">
-                  TBURN Chain은 AI와 블록체인 기술을 결합한 차세대 레이어-1 플랫폼입니다. 
-                  200,000+ TPS의 고성능, AI 기반 스마트 컨트랙트, 자가 최적화 네트워크를 통해 
-                  Web3의 미래를 선도합니다. CoinList를 통해 전 세계 투자자들에게 공개됩니다.
+                  {t('coinlist.hero.description')}
                 </p>
 
                 <div className="cl-key-metrics" data-testid="coinlist-metrics">
                   <div className="cl-metric-card" data-testid="stat-token-price">
                     <div className="cl-metric-value gold">$0.020</div>
-                    <div className="cl-metric-label">토큰 가격</div>
+                    <div className="cl-metric-label">{t('coinlist.hero.metrics.tokenPrice')}</div>
                   </div>
                   <div className="cl-metric-card" data-testid="stat-tge">
                     <div className="cl-metric-value green">15%</div>
-                    <div className="cl-metric-label">TGE 해제</div>
+                    <div className="cl-metric-label">{t('coinlist.hero.metrics.tgeUnlock')}</div>
                   </div>
                   <div className="cl-metric-card" data-testid="stat-total-supply">
-                    <div className="cl-metric-value blue">6억</div>
-                    <div className="cl-metric-label">총 세일 물량</div>
+                    <div className="cl-metric-value blue">600M</div>
+                    <div className="cl-metric-label">{t('coinlist.hero.metrics.totalSale')}</div>
                   </div>
                   <div className="cl-metric-card" data-testid="stat-target">
                     <div className="cl-metric-value purple">
                       {isLoadingStats ? '...' : coinlistPlatform?.totalRaised || '$12M'}
                     </div>
-                    <div className="cl-metric-label">목표 모집</div>
+                    <div className="cl-metric-label">{t('coinlist.hero.metrics.targetRaise')}</div>
                   </div>
                 </div>
 
@@ -1248,24 +1224,24 @@ export default function CoinListPage() {
                 <div className="cl-sale-header">
                   <div className="cl-sale-status">
                     <div className="cl-live-badge"><span className="dot"></span>LIVE</div>
-                    <div className="cl-queue-info">12,450명 대기 중</div>
+                    <div className="cl-queue-info">12,450 {t('coinlist.saleCard.queueInfo')}</div>
                   </div>
                   <div className="cl-countdown" data-testid="countdown">
                     <div className="cl-countdown-item">
                       <div className="cl-countdown-value">{countdown.days.toString().padStart(2, '0')}</div>
-                      <div className="cl-countdown-label">Days</div>
+                      <div className="cl-countdown-label">{t('coinlist.saleCard.countdown.days')}</div>
                     </div>
                     <div className="cl-countdown-item">
                       <div className="cl-countdown-value">{countdown.hours.toString().padStart(2, '0')}</div>
-                      <div className="cl-countdown-label">Hours</div>
+                      <div className="cl-countdown-label">{t('coinlist.saleCard.countdown.hours')}</div>
                     </div>
                     <div className="cl-countdown-item">
                       <div className="cl-countdown-value">{countdown.minutes.toString().padStart(2, '0')}</div>
-                      <div className="cl-countdown-label">Mins</div>
+                      <div className="cl-countdown-label">{t('coinlist.saleCard.countdown.mins')}</div>
                     </div>
                     <div className="cl-countdown-item">
                       <div className="cl-countdown-value">{countdown.seconds.toString().padStart(2, '0')}</div>
-                      <div className="cl-countdown-label">Secs</div>
+                      <div className="cl-countdown-label">{t('coinlist.saleCard.countdown.secs')}</div>
                     </div>
                   </div>
                 </div>
@@ -1283,9 +1259,9 @@ export default function CoinListPage() {
                       <div className="cl-progress-fill"></div>
                     </div>
                     <div className="cl-progress-stats">
-                      <span className="percent">45% 완료</span>
+                      <span className="percent">45% {t('coinlist.saleCard.progress.completed')}</span>
                       <span className="participants" data-testid="text-participants">
-                        {isLoadingStats ? '...' : `${coinlistPlatform?.participants?.toLocaleString() || '8,234'}명 참여`}
+                        {isLoadingStats ? '...' : `${coinlistPlatform?.participants?.toLocaleString() || '8,234'} ${t('coinlist.saleCard.progress.participants')}`}
                       </span>
                     </div>
                   </div>
@@ -1293,13 +1269,13 @@ export default function CoinListPage() {
                   {/* Sale Info */}
                   <div className="cl-sale-info">
                     {[
-                      { label: "토큰 가격", value: "$0.020", highlight: true },
-                      { label: "최소 참여", value: "$100" },
-                      { label: "최대 참여", value: "$50,000" },
-                      { label: "TGE 해제", value: "15%", highlight: true },
+                      { labelKey: "coinlist.saleCard.saleInfo.tokenPrice", value: "$0.020", highlight: true },
+                      { labelKey: "coinlist.saleCard.saleInfo.minParticipation", value: "$100" },
+                      { labelKey: "coinlist.saleCard.saleInfo.maxParticipation", value: "$50,000" },
+                      { labelKey: "coinlist.saleCard.saleInfo.tgeUnlock", value: "15%", highlight: true },
                     ].map((item, i) => (
                       <div key={i} className="cl-sale-info-item">
-                        <span className="label">{item.label}</span>
+                        <span className="label">{t(item.labelKey)}</span>
                         <span className={`value ${item.highlight ? 'highlight' : ''}`}>{item.value}</span>
                       </div>
                     ))}
@@ -1308,7 +1284,7 @@ export default function CoinListPage() {
                   {/* Queue System */}
                   <div className="cl-queue-system">
                     <div className="cl-queue-header">
-                      <h4><span>👥</span> 대기열 현황</h4>
+                      <h4><span>👥</span> {t('coinlist.saleCard.queue.title')}</h4>
                       <span className="cl-queue-position">#1,247</span>
                     </div>
                     <div className="cl-queue-visual">
@@ -1317,14 +1293,14 @@ export default function CoinListPage() {
                       </div>
                       <span className="cl-queue-percent">15%</span>
                     </div>
-                    <div className="cl-queue-wait">예상 대기 시간: 약 5분</div>
+                    <div className="cl-queue-wait">{t('coinlist.saleCard.queue.estimatedWait')}</div>
                   </div>
 
                   {/* Allocation Input */}
                   <div className="cl-allocation">
                     <div className="cl-allocation-header">
-                      <span className="label">참여 금액</span>
-                      <span className="max-alloc">최대: $50,000</span>
+                      <span className="label">{t('coinlist.saleCard.allocation.title')}</span>
+                      <span className="max-alloc">{t('coinlist.saleCard.allocation.max')}: $50,000</span>
                     </div>
                     <div className="cl-allocation-input-group">
                       <input 
@@ -1356,22 +1332,22 @@ export default function CoinListPage() {
                   {/* Token Calculation */}
                   <div className="cl-token-calc" data-testid="token-calculation">
                     <div className="cl-calc-row">
-                      <span className="label">받을 토큰</span>
+                      <span className="label">{t('coinlist.saleCard.tokenCalc.receivingTokens')}</span>
                       <span className="value large">{totalTokens.toLocaleString()} TBURN</span>
                     </div>
                     <div className="cl-calc-row">
-                      <span className="label">보너스 (+{bonusPercent}%)</span>
+                      <span className="label">{t('coinlist.saleCard.tokenCalc.bonus')} (+{bonusPercent}%)</span>
                       <span className="value bonus">+{bonusTokens.toLocaleString()} TBURN</span>
                     </div>
                     <div className="cl-calc-row">
-                      <span className="label">TGE 해제 (15%)</span>
+                      <span className="label">{t('coinlist.saleCard.tokenCalc.tgeUnlock')}</span>
                       <span className="value">{tgeTokens.toLocaleString()} TBURN</span>
                     </div>
                   </div>
 
                   {/* Payment Methods */}
                   <div className="cl-payment-section">
-                    <div className="cl-payment-header">결제 수단 선택</div>
+                    <div className="cl-payment-header">{t('coinlist.saleCard.payment.title')}</div>
                     <div className="cl-payment-options">
                       {paymentMethods.map(method => (
                         <button 
@@ -1383,7 +1359,7 @@ export default function CoinListPage() {
                           <span className="icon">{method.icon}</span>
                           <div className="info">
                             <div className="name">{method.name}</div>
-                            <div className="type">{method.type}</div>
+                            <div className="type">{t(method.typeKey)}</div>
                           </div>
                           <div className="check">✓</div>
                         </button>
@@ -1396,11 +1372,11 @@ export default function CoinListPage() {
                     onClick={handlePurchase} 
                     data-testid="button-purchase"
                   >
-                    🚀 지금 참여하기
+                    🚀 {t('coinlist.saleCard.purchaseButton')}
                   </button>
 
                   <div className="cl-security-note">
-                    <span>🛡️</span> CoinList 보안 결제로 안전하게 처리됩니다
+                    <span>🛡️</span> {t('coinlist.saleCard.securityNote')}
                   </div>
                 </div>
               </div>
@@ -1418,7 +1394,7 @@ export default function CoinListPage() {
                 onClick={() => setActiveTab(tab)}
                 data-testid={`tab-${tab}`}
               >
-                {tab === 'overview' ? '개요' : tab === 'tokenomics' ? '토크노믹스' : tab === 'team' ? '팀' : 'FAQ'}
+                {t(`coinlist.tabs.${tab}`)}
               </button>
             ))}
           </div>
@@ -1427,25 +1403,22 @@ export default function CoinListPage() {
           <div className={`cl-details-content ${activeTab === 'overview' ? 'active' : ''}`}>
             <div className="cl-overview-grid">
               <div className="cl-about-section">
-                <h3><span>ℹ️</span> 프로젝트 소개</h3>
+                <h3><span>ℹ️</span> {t('coinlist.overview.aboutTitle')}</h3>
                 <p>
-                  TBURN Chain은 AI 기술과 블록체인의 결합을 통해 차세대 탈중앙화 인프라를 구축합니다. 
-                  Triple-Band AI Orchestration, AI-Enhanced Committee BFT, Dynamic Sharding 등의 
-                  혁신적인 기술을 통해 기존 블록체인의 한계를 뛰어넘습니다.
+                  {t('coinlist.overview.aboutP1')}
                 </p>
                 <p>
-                  메인넷 런칭 후 DeFi, NFT, GameFi, 엔터프라이즈 솔루션 등 다양한 생태계를 
-                  구축하여 Web3 대중화를 선도할 예정입니다.
+                  {t('coinlist.overview.aboutP2')}
                 </p>
 
-                <h3 style={{ marginTop: '2rem' }}><span>⭐</span> 주요 특징</h3>
+                <h3 style={{ marginTop: '2rem' }}><span>⭐</span> {t('coinlist.overview.featuresTitle')}</h3>
                 <div className="cl-features-grid">
                   {features.map((f, i) => (
                     <div key={i} className="cl-feature-item">
                       <div className="icon">{f.icon}</div>
                       <div>
-                        <h4>{f.title}</h4>
-                        <p>{f.desc}</p>
+                        <h4>{t(f.titleKey)}</h4>
+                        <p>{t(f.descKey)}</p>
                       </div>
                     </div>
                   ))}
@@ -1455,29 +1428,29 @@ export default function CoinListPage() {
               <div className="cl-sidebar-cards">
                 {/* Vesting Schedule */}
                 <div className="cl-sidebar-card">
-                  <h4><span>📅</span> 베스팅 스케줄</h4>
+                  <h4><span>📅</span> {t('coinlist.overview.vesting.title')}</h4>
                   <div className="cl-vesting-timeline">
                     <div className="cl-vesting-item tge">
                       <div className="cl-vesting-dot">✓</div>
                       <div className="cl-vesting-content">
-                        <div className="title">TGE</div>
-                        <div className="desc">토큰 생성 시점</div>
+                        <div className="title">{t('coinlist.overview.vesting.tge')}</div>
+                        <div className="desc">{t('coinlist.overview.vesting.tgeDesc')}</div>
                       </div>
                       <div className="cl-vesting-amount">15%</div>
                     </div>
                     <div className="cl-vesting-item">
                       <div className="cl-vesting-dot"></div>
                       <div className="cl-vesting-content">
-                        <div className="title">클리프</div>
-                        <div className="desc">1~3개월</div>
+                        <div className="title">{t('coinlist.overview.vesting.cliff')}</div>
+                        <div className="desc">{t('coinlist.overview.vesting.cliffDesc')}</div>
                       </div>
                       <div className="cl-vesting-amount">0%</div>
                     </div>
                     <div className="cl-vesting-item">
                       <div className="cl-vesting-dot"></div>
                       <div className="cl-vesting-content">
-                        <div className="title">선형 베스팅</div>
-                        <div className="desc">4~15개월</div>
+                        <div className="title">{t('coinlist.overview.vesting.linearVesting')}</div>
+                        <div className="desc">{t('coinlist.overview.vesting.linearVestingDesc')}</div>
                       </div>
                       <div className="cl-vesting-amount">85%</div>
                     </div>
@@ -1486,18 +1459,18 @@ export default function CoinListPage() {
 
                 {/* Documents */}
                 <div className="cl-sidebar-card">
-                  <h4><span>📄</span> 문서</h4>
+                  <h4><span>📄</span> {t('coinlist.overview.documents.title')}</h4>
                   <div className="cl-documents-list">
                     {documents.map((doc, i) => (
                       <button 
                         key={i} 
                         className="cl-document-item"
-                        onClick={() => handleDocumentDownload(doc.name)}
+                        onClick={() => handleDocumentDownload(t(doc.nameKey))}
                         data-testid={`button-document-${i}`}
                       >
                         <div className="icon">{doc.icon}</div>
                         <div className="info">
-                          <div className="name">{doc.name}</div>
+                          <div className="name">{t(doc.nameKey)}</div>
                           <div className="size">{doc.size}</div>
                         </div>
                         <span className="arrow">→</span>
@@ -1512,11 +1485,11 @@ export default function CoinListPage() {
           {/* Tokenomics Tab */}
           <div className={`cl-details-content ${activeTab === 'tokenomics' ? 'active' : ''}`}>
             <div className="cl-tokenomics-grid">
-              {tokenomicsData.map((t, i) => (
+              {tokenomicsData.map((item, i) => (
                 <div key={i} className="cl-tokenomics-card" data-testid={`tokenomics-card-${i}`}>
-                  <div className="icon">{t.icon}</div>
-                  <h4>{t.label}</h4>
-                  <div className="value">{t.value}</div>
+                  <div className="icon">{item.icon}</div>
+                  <h4>{t(item.labelKey)}</h4>
+                  <div className="value">{item.value}</div>
                 </div>
               ))}
             </div>
@@ -1526,7 +1499,7 @@ export default function CoinListPage() {
           <div className={`cl-details-content ${activeTab === 'team' ? 'active' : ''}`}>
             <div className="cl-overview-grid">
               <div className="cl-about-section">
-                <h3><span>👥</span> 핵심 팀</h3>
+                <h3><span>👥</span> {t('coinlist.team.coreTeam')}</h3>
                 <div className="cl-team-list">
                   {teamMembers.map((m, i) => (
                     <div key={i} className="cl-team-member" data-testid={`team-member-${i}`}>
@@ -1541,7 +1514,7 @@ export default function CoinListPage() {
               </div>
               <div className="cl-sidebar-cards">
                 <div className="cl-sidebar-card">
-                  <h4><span>🤝</span> 주요 파트너</h4>
+                  <h4><span>🤝</span> {t('coinlist.team.keyPartners')}</h4>
                   <div className="cl-partners-grid">
                     {['Chainlink', 'Circle', 'AWS', 'Samsung'].map(p => (
                       <div key={p} className="cl-partner-badge">{p}</div>
@@ -1549,7 +1522,7 @@ export default function CoinListPage() {
                   </div>
                 </div>
                 <div className="cl-sidebar-card">
-                  <h4><span>🏢</span> 투자자</h4>
+                  <h4><span>🏢</span> {t('coinlist.team.investors')}</h4>
                   <div className="cl-partners-grid">
                     {['Polychain', 'Framework', 'Electric'].map(p => (
                       <div key={p} className="cl-partner-badge">{p}</div>
@@ -1573,11 +1546,11 @@ export default function CoinListPage() {
                     className="cl-faq-question" 
                     onClick={() => setExpandedFaq(expandedFaq === i ? -1 : i)}
                   >
-                    <h4>{faq.q}</h4>
+                    <h4>{t(faq.qKey)}</h4>
                     <span className="arrow">▼</span>
                   </div>
                   <div className="cl-faq-answer">
-                    <p>{faq.a}</p>
+                    <p>{t(faq.aKey)}</p>
                   </div>
                 </div>
               ))}
@@ -1589,19 +1562,19 @@ export default function CoinListPage() {
         <footer className="cl-footer">
           <div className="cl-footer-content">
             <div className="cl-footer-links">
-              <a href="/legal/terms-of-service" data-testid="footer-link-terms">이용약관</a>
-              <a href="/legal/privacy-policy" data-testid="footer-link-privacy">개인정보처리방침</a>
+              <a href="/legal/terms-of-service" data-testid="footer-link-terms">{t('coinlist.footer.terms')}</a>
+              <a href="/legal/privacy-policy" data-testid="footer-link-privacy">{t('coinlist.footer.privacy')}</a>
               <a 
-                onClick={() => toast({ title: "리스크 고지", description: "리스크 고지 페이지로 이동합니다." })}
+                onClick={() => toast({ title: t('coinlist.toast.riskDisclosure'), description: t('coinlist.toast.riskDisclosureDesc') })}
                 data-testid="footer-link-risk"
               >
-                리스크 고지
+                {t('coinlist.footer.riskDisclosure')}
               </a>
               <a 
-                onClick={() => toast({ title: "고객 지원", description: "support@coinlist.co로 문의해 주세요." })}
+                onClick={() => toast({ title: t('coinlist.toast.customerSupport'), description: t('coinlist.toast.customerSupportDesc') })}
                 data-testid="footer-link-support"
               >
-                고객 지원
+                {t('coinlist.footer.support')}
               </a>
             </div>
             <div className="cl-footer-social">
@@ -1634,7 +1607,7 @@ export default function CoinListPage() {
                 💻
               </button>
             </div>
-            <div className="cl-footer-copyright">© 2025 CoinList. All Rights Reserved.</div>
+            <div className="cl-footer-copyright">{t('coinlist.footer.copyright')}</div>
           </div>
         </footer>
       </main>
@@ -1644,7 +1617,7 @@ export default function CoinListPage() {
         <div className="cl-modal-overlay" data-testid="modal-purchase">
           <div className="cl-modal">
             <div className="cl-modal-header">
-              <h3>{modalStatus === 'success' ? '참여 완료!' : '처리 중...'}</h3>
+              <h3>{modalStatus === 'success' ? t('coinlist.modal.participationComplete') : t('coinlist.modal.processing')}</h3>
               <button 
                 className="cl-modal-close" 
                 onClick={() => setShowModal(false)}
@@ -1657,20 +1630,20 @@ export default function CoinListPage() {
               <div className={`cl-modal-icon ${modalStatus}`}>
                 {modalStatus === 'pending' ? <div className="cl-spinner"></div> : '✓'}
               </div>
-              <h4>{modalStatus === 'success' ? '토큰 세일 참여 완료!' : '결제 처리 중...'}</h4>
-              <p>{modalStatus === 'success' ? 'TGE 시점에 토큰이 지급됩니다' : '잠시만 기다려주세요'}</p>
+              <h4>{modalStatus === 'success' ? t('coinlist.modal.tokenSaleComplete') : t('coinlist.modal.processing')}</h4>
+              <p>{modalStatus === 'success' ? t('coinlist.modal.tokenDeliveryNote') : t('coinlist.modal.pleaseWait')}</p>
 
               <div className="cl-modal-details">
                 <div className="cl-modal-detail-row">
-                  <span className="label">참여 금액</span>
+                  <span className="label">{t('coinlist.modal.participationAmount')}</span>
                   <span className="value">${allocationAmount.toLocaleString()} {selectedPayment.toUpperCase()}</span>
                 </div>
                 <div className="cl-modal-detail-row">
-                  <span className="label">받을 토큰</span>
+                  <span className="label">{t('coinlist.modal.tokensToReceive')}</span>
                   <span className="value">{totalTokens.toLocaleString()} TBURN</span>
                 </div>
                 <div className="cl-modal-detail-row">
-                  <span className="label">TGE 해제</span>
+                  <span className="label">{t('coinlist.modal.tgeUnlock')}</span>
                   <span className="value">{tgeTokens.toLocaleString()} TBURN</span>
                 </div>
               </div>
@@ -1681,7 +1654,7 @@ export default function CoinListPage() {
                   onClick={() => setShowModal(false)}
                   data-testid="button-modal-confirm"
                 >
-                  확인
+                  {t('coinlist.modal.confirm')}
                 </button>
               )}
             </div>
