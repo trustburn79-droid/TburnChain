@@ -2367,32 +2367,20 @@
     "auctionEnds": "拍卖结束"
   },
   "launchpad": {
-    "title": "NFT 发射台",
-    "subtitle": "发现和参与独家 NFT 发射",
-    "forumTitle": "社区论坛",
-    "viewAll": "查看全部",
-    "recentPosts": "最近帖子",
-    "upcomingLaunches": "即将发射",
-    "activeLaunches": "活跃发射",
-    "pastLaunches": "过去发射",
-    "projectName": "项目名称",
-    "mintPrice": "铸造价格",
+    "title": "发射台",
+    "subtitle": "TBURN代币发射平台",
+    "heroTitle": "TBURN 发射台",
+    "heroSubtitle": "TBURN代币分发的首选发射台",
+    "badge": "代币发射",
+    "launchDate": "发射日期",
     "totalSupply": "总供应量",
-    "minted": "已铸造",
-    "remaining": "剩余",
-    "startDate": "开始日期",
-    "endDate": "结束日期",
-    "whitelist": "白名单",
-    "public": "公开",
-    "joinWhitelist": "加入白名单",
-    "leaveWhitelist": "离开白名单",
-    "mint": "铸造",
-    "mintNow": "立即铸造",
-    "maxPerWallet": "每钱包最大数量",
-    "yourAllocation": "您的配额",
-    "contribute": "贡献",
-    "claim": "领取",
-    "refund": "退款"
+    "initialPrice": "初始价格",
+    "features": "发射台功能",
+    "fairLaunch": "公平发射",
+    "antiBot": "防机器人保护",
+    "vestingSchedule": "归属时间表",
+    "liquidityLock": "流动性锁定",
+    "participateNow": "立即参与"
   },
   "gamefi": {
     "title": "GameFi 中心",
@@ -20164,842 +20152,263 @@
       }
     },
     "marketingProgram": {
-      "title": "营销计划",
-      "subtitle": "促进TBURN社区增长的营销活动",
-      "heroTitle": "TBURN 营销计划",
-      "heroSubtitle": "帮助传播TBURN并获得奖励",
-      "badge": "共同成长",
-      "totalBudget": "总预算",
-      "campaigns": "活动",
-      "reach": "总覆盖",
-      "programs": "计划",
-      "influencer": "网红计划",
-      "affiliate": "联盟计划",
-      "content": "内容创作者",
-      "community": "社区营销",
-      "applyMarketing": "申请营销",
-      "campaignDetails": "活动详情"
-    },
-    "strategicPartner": {
-      "title": "战略合作伙伴",
-      "subtitle": "塑造TBURN生态系统的关键战略合作伙伴关系",
-      "heroTitle": "TBURN 战略合作伙伴",
-      "heroSubtitle": "支持TBURN愿景的世界级合作伙伴",
-      "badge": "精英合作伙伴",
-      "partnerCount": "合作伙伴数量",
-      "categories": "类别",
-      "tier1": "一级合作伙伴",
-      "tier2": "二级合作伙伴",
-      "tier3": "三级合作伙伴",
-      "vcPartners": "风投合作伙伴",
-      "techPartners": "技术合作伙伴",
-      "mediaPartners": "媒体合作伙伴"
-    },
-    "advisorProgram": {
-      "title": "顾问计划",
-      "subtitle": "指导TBURN发展的行业专家",
-      "heroTitle": "TBURN 顾问委员会",
-      "heroSubtitle": "为TBURN生态系统带来专业知识的世界级顾问",
-      "badge": "专家指导",
-      "advisorCount": "顾问数量",
-      "expertise": "专业领域",
-      "blockchain": "区块链",
-      "finance": "金融",
-      "legal": "法律与合规",
-      "marketing": "营销",
-      "technology": "技术",
-      "meetAdvisors": "认识我们的顾问"
-    },
-    "seedRound": {
-      "title": "种子轮",
-      "subtitle": "TBURN早期投资机会",
-      "heroTitle": "TBURN 种子轮",
-      "heroSubtitle": "成为TBURN生态系统的首批投资者",
-      "badge": "种子投资",
-      "tokenPrice": "代币价格",
-      "discount": "发行价折扣",
-      "allocation": "总分配",
-      "vestingInfo": "归属信息",
-      "cliff": "锁定期",
-      "vesting": "归属期",
-      "tgeUnlock": "TGE解锁",
-      "investorTiers": "投资者等级",
-      "lead": "领投",
-      "major": "主要投资者",
-      "standard": "标准投资者",
-      "angel": "天使投资者",
-      "investNow": "立即投资",
-      "riskWarning": "风险警告",
       "nav": {
-        "investorTiers": "投资等级",
-        "vesting": "锁仓",
-        "investors": "投资者",
-        "process": "流程",
-        "faq": "常见问题",
-        "badge": "SEED ROUND - 早期投资者",
-        "status": "进行中",
-        "title": "投资种子轮",
-        "titleHighlight": "5亿 TBURN",
-        "titleEnd": "机会",
-        "subtitle": "为区块链VC、加密基金和天使投资者提供高达70%折扣的早期投资机会。",
-        "loading": "加载中...",
-        "seedAllocation": "种子配额",
-        "tokenPriceLabel": "代币价格",
-        "hardcap": "硬顶",
-        "investorsLabel": "投资者",
-        "applySeed": "申请种子投资",
-        "investmentMemo": "投资备忘录"
+        "programs": "项目",
+        "ambassador": "大使",
+        "campaigns": "活动",
+        "leaderboard": "排行榜"
       },
-      "highlights": {
-        "tokenPrice": "每代币价格",
-        "discountRate": "市场折扣",
-        "vestingPeriod": "锁仓期"
+      "wallet": {
+        "connect": "连接钱包",
+        "connected": "钱包已连接",
+        "connectedDesc": "您的钱包已连接。",
+        "disconnected": "钱包已断开",
+        "disconnectedDesc": "您的钱包已断开连接。",
+        "required": "需要钱包",
+        "requiredDesc": "请先连接钱包以参与项目。",
+        "campaignRequiredDesc": "请先连接钱包以加入活动。"
       },
-      "comparison": {
-        "badge": "COMPARISON",
-        "title": "轮次对比",
-        "subtitle": "种子轮提供最优惠条件",
-        "header": "投资轮次对比",
-        "round": "轮次",
-        "tokenPriceCol": "代币价格",
-        "discountCol": "折扣",
-        "statusCol": "状态",
-        "maxDiscount": "最大折扣",
-        "active": "进行中",
-        "upcoming": "即将开始"
+      "hero": {
+        "badge": "营销计划 - 共同传播TBURN",
+        "title": "参与TBURN营销",
+        "fundAmount": "3亿 TBURN",
+        "incentive": "获得奖励",
+        "subtitle": "成为大使、网红、内容创作者或活动参与者，传播TBURN生态系统并获得奖励。"
       },
-      "tiers": {
-        "badge": "TIERS",
-        "title": "投资等级",
-        "subtitle": "基于投资规模的分级福利",
-        "minInvestment": "最低投资",
-        "inquireBtn": "咨询",
-        "benefits": {
-          "boardObserver": "董事会观察员权",
-          "monthlyMeeting": "月度高管会议",
-          "exclusiveDealFlow": "独家交易流程",
-          "priorityInvestment": "优先投资权",
-          "dedicatedIR": "专属IR经理",
-          "quarterlyStrategy": "季度战略会议",
-          "earlyAccess": "早期访问",
-          "governanceParticipation": "治理参与",
-          "priorityAllocation": "优先配额",
-          "dedicatedSupport": "专属支持",
-          "monthlyNewsletter": "月度简报",
-          "communityAccess": "社区访问",
-          "basicGovernance": "基本治理",
-          "generalAllocation": "一般配额",
-          "emailSupport": "邮件支持",
-          "quarterlyUpdates": "季度更新",
-          "communityChannel": "社区频道",
-          "nftBadge": "NFT徽章",
-          "angelNetwork": "天使网络",
-          "basicSupport": "基本支持"
-        }
+      "socialStats": {
+        "twitter": "Twitter关注者",
+        "telegram": "Telegram成员",
+        "discord": "Discord成员",
+        "youtube": "YouTube订阅者",
+        "tiktok": "TikTok关注者"
       },
-      "vestingSection": {
-        "badge": "VESTING",
-        "title": "锁仓计划",
-        "subtitle": "保护投资者的系统性代币释放",
-        "cliffPeriod": "锁定期",
-        "initialLockup": "初始锁定",
-        "initialUnlock": "初始解锁",
-        "afterTge": "TGE后12个月",
-        "monthlyVesting": "月度释放",
-        "over12Months": "12个月内",
-        "fullUnlock": "完全解锁",
-        "after24Months": "24个月后"
-      },
-      "investorsSection": {
-        "badge": "INVESTORS",
-        "title": "当前投资者",
-        "subtitle": "我们的合作伙伴"
-      },
-      "processSection": {
-        "badge": "PROCESS",
-        "title": "投资流程",
-        "subtitle": "种子投资程序",
-        "step1": {
-          "title": "投资咨询",
-          "desc": "提交意向书",
-          "duration": "1-3天"
-        },
-        "step2": {
-          "title": "KYC/AML",
-          "desc": "投资者验证",
-          "duration": "3-5天"
-        },
-        "step3": {
-          "title": "SAFT签署",
-          "desc": "投资合同",
-          "duration": "1-2天"
-        },
-        "step4": {
-          "title": "资金转账",
-          "desc": "投资转账",
-          "duration": "1-3天"
-        },
-        "step5": {
-          "title": "代币分配",
-          "desc": "投资确认",
-          "duration": "即时"
-        }
-      },
-      "metrics": {
-        "badge": "METRICS",
-        "title": "代币指标",
-        "subtitle": "种子轮关键指标",
-        "totalSupply": "总供应量",
-        "totalSupplyValue": "100亿 TBURN",
-        "totalSupplyDesc": "固定供应",
-        "seedAllocation": "种子配额",
-        "seedAllocationValue": "5亿 TBURN",
-        "seedAllocationDesc": "总供应量的5%",
-        "seedGoal": "种子目标",
-        "seedGoalValue": "$20,000,000",
-        "seedGoalDesc": "硬顶"
-      },
-      "risks": {
-        "title": "投资风险警告",
-        "item1": "加密货币投资具有高波动性和风险。",
-        "item2": "可能损失本金。请只投资您能承受损失的金额。",
-        "item3": "监管变化可能限制服务。",
-        "item4": "过去的回报不保证未来收益。"
-      },
-      "faqSection": {
-        "badge": "FAQ",
-        "title": "常见问题",
-        "subtitle": "关于种子投资的常见问题"
+      "stats": {
+        "totalBudget": "营销总预算",
+        "activeAmbassadors": "活跃大使",
+        "ongoingCampaigns": "进行中活动",
+        "activeCampaigns": "活跃活动"
       },
       "cta": {
-        "title": "成为种子投资者",
-        "subtitle": "作为早期投资者，以高达70%的折扣投资TBURN Chain！",
-        "button": "立即投资"
+        "joinAmbassador": "申请成为大使",
+        "viewGuide": "营销指南",
+        "ambassadorProgram": "大使计划",
+        "ambassadorDesc": "查看大使等级并开始参与！",
+        "marketingGuide": "营销指南",
+        "guideDesc": "查看我们的营销计划指南。",
+        "programApply": "{{programName}} 申请",
+        "programApplyDesc": "您的{{programName}}申请已提交。我们将审核并联系您。",
+        "participate": "参与"
+      },
+      "sections": {
+        "distribution": {
+          "title": "营销预算分配",
+          "subtitle": "3亿TBURN分配至5个营销项目"
+        },
+        "programs": {
+          "title": "营销项目",
+          "subtitle": "以多种方式推广TBURN"
+        },
+        "ambassador": {
+          "title": "大使等级",
+          "subtitle": "基于活动的等级福利"
+        },
+        "content": {
+          "title": "内容奖励",
+          "subtitle": "按内容类型奖励"
+        },
+        "campaigns": {
+          "title": "进行中活动",
+          "subtitle": "参与并获得奖励"
+        },
+        "leaderboard": {
+          "title": "大使排行榜",
+          "subtitle": "本月TOP大使"
+        },
+        "faq": {
+          "title": "常见问题",
+          "subtitle": "关于营销计划的问题"
+        }
+      },
+      "distributions": {
+        "brand": "品牌营销",
+        "influencer": "网红",
+        "creator": "内容创作者",
+        "event": "活动营销",
+        "pr": "公关与媒体"
+      },
+      "programs": {
+        "ambassador": {
+          "title": "大使计划",
+          "subtitle": "成为TBURN官方大使",
+          "rewardValue1": "最高50万",
+          "rewardLabel1": "月度奖励",
+          "rewardValue2": "无限",
+          "rewardLabel2": "推荐奖励",
+          "feature1": "官方大使认证",
+          "feature2": "专属活动邀请",
+          "feature3": "提前访问权限",
+          "feature4": "专用营销材料"
+        },
+        "influencer": {
+          "title": "网红合作",
+          "subtitle": "与创作者共同成长",
+          "rewardValue1": "每活动$500+",
+          "rewardLabel1": "活动奖励",
+          "rewardValue2": "10%",
+          "rewardLabel2": "销售佣金",
+          "feature1": "定制活动设计",
+          "feature2": "提供营销材料",
+          "feature3": "绩效奖金",
+          "feature4": "长期合作选项"
+        },
+        "creator": {
+          "title": "内容创作者",
+          "subtitle": "视频、文章、教育内容",
+          "rewardValue1": "每内容$100+",
+          "rewardLabel1": "基础奖励",
+          "rewardValue2": "质量奖金",
+          "rewardLabel2": "额外奖励",
+          "feature1": "多种内容类型",
+          "feature2": "创作者基金支持",
+          "feature3": "浏览量奖金",
+          "feature4": "月度竞赛"
+        },
+        "event": {
+          "title": "活动营销",
+          "subtitle": "线上/线下活动参与",
+          "rewardValue1": "每活动$200+",
+          "rewardLabel1": "参与奖励",
+          "rewardValue2": "特别NFT",
+          "rewardLabel2": "活动奖励",
+          "feature1": "聚会主办支持",
+          "feature2": "会议参与",
+          "feature3": "在线AMA",
+          "feature4": "社区活动"
+        }
+      },
+      "ambassadorTiers": {
+        "legend": {
+          "requirement": "500+推荐",
+          "reward": "50万/月",
+          "perk1": "专属导师",
+          "perk2": "线下聚会邀请",
+          "perk3": "NFT空投",
+          "perk4": "治理投票权"
+        },
+        "elite": {
+          "requirement": "200+推荐",
+          "reward": "20万/月",
+          "perk1": "高级徽章",
+          "perk2": "优先支持",
+          "perk3": "Beta测试权限",
+          "perk4": "月度电话"
+        },
+        "rising": {
+          "requirement": "50+推荐",
+          "reward": "5万/月",
+          "perk1": "官方认证",
+          "perk2": "Discord角色",
+          "perk3": "营销材料",
+          "perk4": "推荐链接"
+        },
+        "starter": {
+          "requirement": "10+推荐",
+          "reward": "1万/月",
+          "perk1": "入门徽章",
+          "perk2": "基础材料",
+          "perk3": "社区访问",
+          "perk4": "教程"
+        }
+      },
+      "contentTypes": {
+        "video": {
+          "title": "视频",
+          "desc": "YouTube/TikTok视频"
+        },
+        "article": {
+          "title": "文章",
+          "desc": "博客/Medium帖子"
+        },
+        "graphic": {
+          "title": "图形",
+          "desc": "信息图/表情包"
+        },
+        "tutorial": {
+          "title": "教程",
+          "desc": "教育内容"
+        }
+      },
+      "campaignList": {
+        "twitter": {
+          "title": "#TBURNChain推文挑战",
+          "desc": "创建介绍TBURN的推文"
+        },
+        "youtube": {
+          "title": "TBURN评测视频",
+          "desc": "创建TBURN链分析视频"
+        },
+        "tiktok": {
+          "title": "TikTok短视频挑战",
+          "desc": "15-60秒TBURN介绍视频"
+        },
+        "article": {
+          "title": "TBURN深度文章",
+          "desc": "撰写技术/代币经济分析"
+        }
+      },
+      "campaigns": {
+        "activeCampaigns": "活跃活动",
+        "participants": "参与者",
+        "statusActive": "进行中",
+        "statusEnding": "即将结束",
+        "statusUpcoming": "即将开始",
+        "upcoming": "即将开始的活动",
+        "upcomingDesc": "此活动即将开始。设置通知！",
+        "joined": "已加入活动",
+        "joinedDesc": "您已加入\"{{campaignTitle}}\"活动！"
+      },
+      "leaderboard": {
+        "top5": "TOP 5大使",
+        "rank": "排名",
+        "ambassador": "大使",
+        "points": "积分",
+        "rewards": "总奖励"
+      },
+      "faq": {
+        "q1": "营销计划的总预算是多少？",
+        "a1": "营销计划总共分配3亿TBURN。分配：品牌营销30%(9000万)，网红25%(7500万)，内容创作者20%(6000万)，活动营销15%(4500万)，公关与媒体10%(3000万)。",
+        "q2": "如何成为大使？",
+        "a2": "在大使申请页面提交申请。根据社交媒体活动和加密货币兴趣进行选拔。从入门级(每月1万TBURN)开始，根据推荐绩效晋升至Rising(5万)、Elite(20万)或Legend(50万)。",
+        "q3": "内容奖励如何支付？",
+        "a3": "内容提交并通过质量审核后，以TBURN代币支付。按类型基础奖励：视频($100-500)，文章($50-200)，图形($30-100)，教程($150-400)。添加浏览量和互动奖金。每周一支付。",
+        "q4": "活动参与资格是什么？",
+        "a4": "大多数活动对任何连接TBURN钱包的人开放。某些活动可能需要大使等级或粉丝数(Twitter 1K+, YouTube 5K+)。查看每个活动的详情页面了解具体要求。",
+        "q5": "网红合作如何运作？",
+        "a5": "拥有10K+粉丝的网红可以加入我们的合作计划。我们提供每活动$500+和10%销售佣金。包括定制活动设计、营销材料、绩效奖金和长期合作选项。联系partnerships@tburn.io。",
+        "q6": "如何参与活动营销？",
+        "a6": "活动营销计划允许您参与或主办线上/线下活动。奖励包括每活动$200+和特别NFT。选项包括聚会主办支持、会议参与、在线AMA和社区活动。",
+        "q7": "排行榜排名如何确定？",
+        "a7": "排名基于推荐、内容表现、活动参与和社区贡献的积分。顶级大使获得月度奖金，Legend级大使每月可获得最高50万TBURN。",
+        "q8": "营销奖励何时支付？",
+        "a8": "内容奖励每周一支付。活动奖励在活动结束后7天内支付。大使月度奖励在每月1日支付。所有奖励自动存入您连接的TBURN钱包。"
+      },
+      "ctaSection": {
+        "title": "立即开始！",
+        "description": "加入TBURN营销计划，获得3亿TBURN奖励！",
+        "toastTitle": "大使申请",
+        "toastDesc": "查看大使等级并立即开始！"
+      },
+      "social": {
+        "navigating": "正在导航至{{platform}}。"
       },
       "footer": {
         "tagline": "AI智能，区块链透明",
-        "slogan": "THE FUTURE IS NOW",
-        "product": "产品",
-        "mainnet": "主网",
-        "explorer": "浏览器",
-        "bridge": "跨链桥",
-        "staking": "质押",
-        "resources": "资源",
-        "whitepaper": "白皮书",
-        "docs": "文档",
-        "github": "GitHub",
-        "auditReport": "审计报告",
-        "community": "社区",
-        "blog": "博客",
-        "ambassador": "大使",
-        "grants": "资助",
-        "support": "支持",
-        "copyright": "© 2025-2045 TBURN Foundation. 保留所有权利。",
-        "terms": "服务条款",
-        "privacy": "隐私政策"
-      },
-      "dialog": {
-        "title": "种子轮投资咨询",
-        "description": "留下您的咨询，我们的团队将尽快与您联系。",
-        "nameLabel": "姓名",
-        "namePlaceholder": "您的姓名",
-        "emailLabel": "邮箱",
-        "emailPlaceholder": "your@email.com",
-        "companyLabel": "公司/机构（可选）",
-        "companyPlaceholder": "公司名称",
-        "amountLabel": "投资金额（可选）",
-        "amountPlaceholder": "例如：$100,000",
-        "messageLabel": "留言（可选）",
-        "messagePlaceholder": "其他问题或要求",
-        "submitBtn": "提交咨询",
-        "submitting": "提交中...",
-        "requiredFields": "必填信息",
-        "requiredFieldsDesc": "姓名和邮箱为必填项。"
-      },
-      "toast": {
-        "inquirySuccess": "投资咨询已收到",
-        "inquirySuccessDesc": "我们的团队将尽快与您联系。",
-        "inquiryError": "咨询失败",
-        "inquiryErrorDesc": "发生临时错误。请重试。"
-      },
-      "connectWallet": "投资咨询"
-    },
-    "privateRound": {
-      "nav": {
-        "tiers": "投资等级",
-        "vesting": "锁仓",
-        "allocation": "分配",
-        "investors": "投资者",
-        "faq": "常见问题",
-        "connectWallet": "机构投资咨询"
-      },
-      "hero": {
-        "badge": "PRIVATE ROUND - 机构投资",
-        "status": "进行中",
-        "title": "通过私募轮投资抓住",
-        "titleHighlight": "10亿TBURN",
-        "titleSuffix": "机会",
-        "subtitle": "面向机构投资者、VC、家族办公室 - 相比上市价($0.50)50%折扣，$0.10投资机会。TGE 5%立即解锁。",
-        "progressRaised": "$72,000,000",
-        "progressGoal": "目标 $100,000,000",
-        "progressPercent": "72% 已达成",
-        "progressRemaining": "剩余 $28,000,000"
-      },
-      "highlights": {
-        "pricePerToken": "代币单价",
-        "priceCompare": "相比种子轮+150%",
-        "discountLaunch": "相比上市价折扣",
-        "tgeUnlock": "TGE立即解锁",
-        "vestingPeriod": "锁仓期限"
-      },
-      "stats": {
-        "loading": "加载中...",
-        "privateAllocation": "私募分配 (10%)",
-        "tokenPrice": "代币价格",
-        "hardcap": "硬顶",
-        "institutionalInvestors": "机构投资者"
-      },
-      "cta": {
-        "applyPrivate": "申请私募投资",
-        "viewDeck": "查看投资资料"
-      },
-      "comparison": {
-        "badge": "COMPARISON",
-        "title": "轮次对比",
-        "subtitle": "私募轮介于种子轮和公募之间",
-        "tableTitle": "投资轮次对比",
-        "round": "轮次",
-        "tokenPrice": "代币价格",
-        "discount": "折扣",
-        "status": "状态",
-        "inProgress": "进行中",
-        "completed": "已完成",
-        "upcoming": "即将开始"
-      },
-      "tiers": {
-        "badge": "TIERS",
-        "title": "投资等级",
-        "subtitle": "按机构投资规模分级权益",
-        "minInvestment": "最低投资",
-        "minInvestmentLabel": "最低投资",
-        "tokenPriceLabel": "代币价格",
-        "tgeUnlockLabel": "TGE解锁",
-        "inquireBtn": "投资咨询",
-        "institutional": {
-          "name": "Institutional",
-          "subtitle": "机构投资者",
-          "benefits": [
-            "董事会观察席",
-            "月度管理层简报",
-            "独家共投权",
-            "定制锁仓协商",
-            "专属IR经理"
-          ]
-        },
-        "strategic": {
-          "name": "Strategic",
-          "subtitle": "战略投资者",
-          "benefits": [
-            "季度战略会议",
-            "合作优先权",
-            "技术协作机会",
-            "联合营销",
-            "网络接入"
-          ]
-        },
-        "growth": {
-          "name": "Growth",
-          "subtitle": "成长投资者",
-          "benefits": [
-            "季度更新电话会",
-            "私密社区",
-            "治理参与权",
-            "新功能早期访问",
-            "专属支持渠道"
-          ]
-        },
-        "standard": {
-          "name": "Standard",
-          "subtitle": "普通投资者",
-          "benefits": [
-            "月度投资者通讯",
-            "基础治理投票权",
-            "投资者专属频道",
-            "一般配额",
-            "邮件支持"
-          ]
-        }
-      },
-      "vesting": {
-        "badge": "VESTING",
-        "title": "锁仓计划",
-        "subtitle": "TGE 5%立即解锁，6个月悬崖期后12个月月度释放",
-        "tgeUnlock": "TGE解锁",
-        "tgeDesc": "上市即时",
-        "cliffPeriod": "悬崖期",
-        "cliffDesc": "初始锁定",
-        "monthlyVesting": "月度释放",
-        "monthlyDesc": "12个月",
-        "fullUnlock": "完全解锁",
-        "fullUnlockDesc": "18个月后"
-      },
-      "allocation": {
-        "badge": "ALLOCATION",
-        "title": "投资者类型分配",
-        "subtitle": "10亿TBURN分配状况",
-        "vcFunds": "VC & 基金",
-        "familyOffice": "家族办公室",
-        "strategicInvestors": "战略投资者",
-        "corporateInvestors": "企业投资者"
-      },
-      "investors": {
-        "badge": "INVESTORS",
-        "title": "当前投资者",
-        "subtitle": "我们的机构合作伙伴"
-      },
-      "process": {
-        "badge": "PROCESS",
-        "title": "投资流程",
-        "subtitle": "机构投资程序",
-        "inquiry": "投资咨询",
-        "inquiryDesc": "提交意向书",
-        "inquiryDuration": "1-3天",
-        "dueDiligence": "尽职调查",
-        "dueDiligenceDesc": "公司及投资者DD",
-        "dueDiligenceDuration": "1-2周",
-        "negotiation": "合同谈判",
-        "negotiationDesc": "投资条款协商",
-        "negotiationDuration": "1-2周",
-        "funding": "资金转账",
-        "fundingDesc": "投资转账",
-        "fundingDuration": "3-5天",
-        "tokenAllocation": "代币分配",
-        "tokenAllocationDesc": "投资确认",
-        "tokenAllocationDuration": "即时"
-      },
-      "benefits": {
-        "badge": "BENEFITS",
-        "title": "私募轮优势",
-        "subtitle": "机构投资者专属权益",
-        "excellentPrice": "优惠价格",
-        "excellentPriceValue": "50%+折扣",
-        "excellentPriceDesc": "以公募一半价格投资",
-        "tgeLiquidity": "TGE流动性",
-        "tgeLiquidityValue": "5%解锁",
-        "tgeLiquidityDesc": "上市即可获得流动性",
-        "strategicPartnership": "战略合作",
-        "strategicPartnershipValue": "独家权益",
-        "strategicPartnershipDesc": "与项目密切合作"
-      },
-      "faq": {
-        "badge": "FAQ",
-        "title": "常见问题",
-        "subtitle": "关于私募投资的问题",
-        "q1": {
-          "question": "私募轮的参与资格和投资条件是什么？",
-          "answer": "私募轮面向合格机构投资者（VC、基金、家族办公室）、企业投资者和战略合作伙伴。最低投资额为$100,000（标准级），$500,000+（成长级），$2,000,000+（战略级），$5,000,000+（机构级），按投资规模享受代币价格折扣和TGE解锁比例。所有投资者须通过KYC/AML认证和投资者资格审核。"
-        },
-        "q2": {
-          "question": "种子轮和私募轮有什么区别？",
-          "answer": "种子轮（$0.04/代币，80%折扣）已完成，12个月悬崖期+24个月释放。私募轮（$0.10/代币，50%折扣）提供更短锁定期：6个月悬崖期+12个月释放。私募投资者在TGE时可获得5-7%立即解锁。价格较高但流动性更快，享有机构级投资者权益。"
-        },
-        "q3": {
-          "question": "锁仓计划和TGE解锁是如何运作的？",
-          "answer": "TGE（代币生成事件）时，投资代币的5%立即解锁。机构级最高7%，战略级6%。之后是6个月悬崖期（锁定），然后12个月线性释放，每月约7.9%。完全解锁共需18个月。机构级投资者可协商定制锁仓计划。"
-        },
-        "q4": {
-          "question": "投资流程和尽职调查过程是怎样的？",
-          "answer": "流程：(1)投资咨询及NDA签署→(2)提交意向书(LOI)→(3)双向尽调(项目技术/财务/法律DD+投资者资金来源/资格确认)→(4)投资条款谈判及Term Sheet达成→(5)SAFT合同签署→(6)资金转账(USDT、USDC、银行转账)→(7)代币分配确认。尽调通常需1-2周，大型机构可延长至3-4周。专属IR经理全程指导。"
-        },
-        "q5": {
-          "question": "投资者保护和法律结构是怎样的？",
-          "answer": "所有私募投资通过SAFT（简单未来代币协议）合同获得法律保护。合同明确代币配额、价格、锁仓条款、投资者权利和争议解决。资金通过开曼群岛SPV（特殊目的载体）管理，存放于第三方托管账户。法律顾问来自Morrison & Foerster，符合新加坡MAS规定。"
-        },
-        "q6": {
-          "question": "上市计划和发行价格是什么？",
-          "answer": "TBURN代币目标发行价为$0.50（私募的5倍）。上市策略：主网上线同时进行TGE，在Uniswap、PancakeSwap等主要DEX提供初始流动性。正在与Tier-1 CEX（Binance、OKX、Bybit、Coinbase等）洽谈上市，目标在发行后3-6个月内登陆主要交易所。市场做市与专业MM合作伙伴合作。"
-        },
-        "q7": {
-          "question": "各级权益和治理权限是什么？",
-          "answer": "分级权益：(1)机构级($5M+):董事会观察席、月度管理层简报、独家共投权、定制锁仓、专属IR经理 (2)战略级($2M+):季度战略会议、合作优先权、技术协作、联合营销 (3)成长级($500K+):季度更新电话会、私密社区、治理参与权、新功能早期访问 (4)标准级($100K+):月度通讯、基础治理投票权、投资者频道。所有私募投资者拥有DAO治理投票权。"
-        },
-        "q8": {
-          "question": "付款方式和退款政策是什么？",
-          "answer": "付款方式：USDT（ERC-20/TRC-20）、USDC（ERC-20）或银行转账（USD/EUR）。$1M以上投资可分期付款，付款计划可协商。退款政策：SAFT合同签署前可全额退款。签约后仅在项目终止、主网发行失败或重大路线图变更时可申请退款。投资者原因导致的提前终止不可退款，详细条款见SAFT合同。"
-        }
-      },
-      "ctaSection": {
-        "title": "成为机构投资者",
-        "subtitle": "作为TBURN Chain私募投资者，获得相比上市价50%折扣和TGE即时流动性！",
-        "button": "立即投资"
-      },
-      "dialog": {
-        "title": "私募轮投资咨询",
-        "description": "我们的团队将在1-2个工作日内与您联系。仅限机构投资者。",
-        "name": "姓名",
-        "namePlaceholder": "请输入您的姓名",
-        "email": "邮箱",
-        "emailPlaceholder": "请输入您的邮箱",
-        "company": "公司/机构",
-        "companyPlaceholder": "请输入公司名称",
-        "investmentAmount": "投资金额 (USD)",
-        "investmentAmountPlaceholder": "最低 $100,000",
-        "message": "附加信息",
-        "messagePlaceholder": "投资意向、问题等",
-        "submit": "提交咨询",
-        "submitting": "提交中...",
-        "success": "咨询已提交",
-        "successDesc": "我们的团队将在1-2个工作日内与您联系。",
-        "error": "发生错误",
-        "errorDesc": "咨询提交失败，请重试。",
-        "required": "缺少必填信息",
-        "requiredDesc": "姓名、邮箱和公司是必填项。",
-        "cancelBtn": "取消"
-      },
-      "footer": {
-        "description": "TBURN Chain是具有先进DeFi、DAO和企业集成功能的下一代Layer-1区块链。",
-        "quickLinks": "快速链接",
-        "developers": "开发者",
-        "legal": "法律声明",
-        "whitepaper": "白皮书",
-        "tokenomics": "代币经济",
-        "roadmap": "路线图",
-        "team": "团队",
-        "documentation": "文档",
-        "github": "GitHub",
-        "apiReference": "API参考",
-        "bugBounty": "漏洞赏金",
-        "termsOfService": "服务条款",
-        "privacyPolicy": "隐私政策",
-        "disclaimer": "免责声明",
-        "cookiePolicy": "Cookie政策",
-        "copyright": "© 2025 TBURN Chain. All rights reserved.",
-        "socialLinks": "关注我们",
-        "mainnet": "主网",
-        "explorer": "浏览器",
-        "bridge": "跨链桥",
-        "staking": "质押",
-        "docs": "开发文档",
-        "audit": "安全审计",
-        "blog": "博客",
-        "ambassador": "大使计划",
-        "grants": "资助",
-        "support": "支持",
-        "terms": "服务条款",
-        "privacy": "隐私政策",
-        "product": "产品",
-        "resources": "资源",
-        "community": "社区"
-      }
-    },
-    "publicRound": {
-      "nav": {
-        "tiers": "参与等级",
-        "vesting": "归属计划",
-        "howTo": "如何参与",
-        "calculator": "计算器",
-        "faq": "常见问题",
-        "connectWallet": "立即参与"
-      },
-      "hero": {
-        "badge": "PUBLIC ROUND - 公开销售",
-        "status": "进行中",
-        "title1": "通过公开轮",
-        "title2": "10亿 TBURN",
-        "title3": "抓住机会",
-        "subtitle": "所有人均可参与的公开销售。比上市价($0.50)优惠60%，仅$0.20！最低$100起，TGE 10%即时解锁，3个月锁定期！",
-        "countdownLabel": "销售结束倒计时",
-        "days": "天",
-        "hours": "时",
-        "mins": "分",
-        "secs": "秒",
-        "progressGoal": "目标 $200,000,000",
-        "progressPercent": "已完成 45%",
-        "progressRemaining": "剩余 $110,250,000"
-      },
-      "highlights": {
-        "tokenPrice": "单价",
-        "discount": "相比上市价优惠",
-        "tgeUnlock": "TGE即时解锁",
-        "minAmount": "最低参与金额"
-      },
-      "stats": {
-        "loading": "加载中...",
-        "publicAllocation": "公开配额 (10%)",
-        "tokenPrice": "代币价格",
-        "hardcap": "硬顶",
-        "participants": "参与者"
-      },
-      "cta": {
-        "joinNow": "立即参与",
-        "viewGuide": "查看销售指南"
-      },
-      "comparison": {
-        "badge": "COMPARISON",
-        "title": "轮次对比",
-        "subtitle": "了解公开轮的优势",
-        "tableTitle": "投资轮次对比",
-        "headers": {
-          "round": "轮次",
-          "tokenPrice": "代币价格",
-          "discount": "折扣",
-          "status": "状态"
-        },
-        "bestBadge": "最佳可及性",
-        "seedRound": "种子轮",
-        "privateRound": "私募轮",
-        "publicRound": "公开轮",
-        "completed": "已完成",
-        "live": "进行中",
-        "upcoming": "即将开始"
-      },
-      "tiers": {
-        "badge": "TIERS",
-        "title": "参与等级",
-        "subtitle": "按参与金额享受不同优惠",
-        "minAmountLabel": "最低参与",
-        "joinBtn": "立即参与",
-        "whale": {
-          "name": "鲸鱼",
-          "subtitle": "大额参与者",
-          "details": [
-            "最低参与",
-            "额外奖励",
-            "TGE解锁"
-          ],
-          "benefits": [
-            "VIP社区访问",
-            "空投优先权",
-            "专属AMA邀请",
-            "早期信息",
-            "专属支持"
-          ]
-        },
-        "dolphin": {
-          "name": "海豚",
-          "subtitle": "中额参与者",
-          "details": [
-            "最低参与",
-            "额外奖励",
-            "TGE解锁"
-          ],
-          "benefits": [
-            "高级社区",
-            "空投参与",
-            "季度AMA",
-            "新闻通讯",
-            "优先支持"
-          ]
-        },
-        "fish": {
-          "name": "鱼",
-          "subtitle": "普通参与者",
-          "details": [
-            "最低参与",
-            "额外奖励",
-            "TGE解锁"
-          ],
-          "benefits": [
-            "普通社区",
-            "基础空投",
-            "公开AMA",
-            "月度更新",
-            "标准支持"
-          ]
-        },
-        "shrimp": {
-          "name": "虾",
-          "subtitle": "小额参与者",
-          "details": [
-            "最低参与",
-            "额外奖励",
-            "TGE解锁"
-          ],
-          "benefits": [
-            "公开频道",
-            "基础参与",
-            "公开信息",
-            "邮件提醒",
-            "社区支持"
-          ]
-        }
-      },
-      "vesting": {
-        "badge": "VESTING",
-        "title": "归属计划",
-        "subtitle": "TGE 10%即时解锁，3个月锁定期后6个月月度归属",
-        "phases": [
-          {
-            "title": "TGE解锁",
-            "value": "10%",
-            "desc": "即时"
-          },
-          {
-            "title": "锁定期",
-            "value": "3个月",
-            "desc": "锁定阶段"
-          },
-          {
-            "title": "月度归属",
-            "value": "15%",
-            "desc": "持续6个月"
-          },
-          {
-            "title": "完全解锁",
-            "value": "100%",
-            "desc": "9个月后"
-          }
-        ]
-      },
-      "howTo": {
-        "badge": "HOW TO",
-        "title": "如何参与",
-        "subtitle": "简单4步即可参与",
-        "steps": [
-          {
-            "title": "连接钱包",
-            "desc": "MetaMask, Trust等"
-          },
-          {
-            "title": "KYC验证",
-            "desc": "简单身份验证"
-          },
-          {
-            "title": "选择支付",
-            "desc": "USDT, USDC, ETH, BTC"
-          },
-          {
-            "title": "接收代币",
-            "desc": "TGE 15%即时"
-          }
-        ]
-      },
-      "platforms": {
-        "badge": "PLATFORMS",
-        "title": "参与平台",
-        "subtitle": "多种方式参与",
-        "joinBtn": "立即参与",
-        "items": [
-          {
-            "name": "TBURN Launchpad",
-            "type": "官方启动平台",
-            "desc": "TBURN官方销售平台",
-            "features": [
-              "最低手续费",
-              "直接参与",
-              "24/7支持",
-              "多支付方式"
-            ]
-          },
-          {
-            "name": "合作交易所",
-            "type": "CEX IEO",
-            "desc": "通过合作交易所参与",
-            "features": [
-              "简单KYC",
-              "法币支持",
-              "交易所保障",
-              "即时上市"
-            ]
-          },
-          {
-            "name": "DEX启动平台",
-            "type": "去中心化IDO",
-            "desc": "在去中心化平台参与",
-            "features": [
-              "直接钱包连接",
-              "智能合约",
-              "透明分配",
-              "社区驱动"
-            ]
-          }
-        ]
-      },
-      "calculator": {
-        "badge": "CALCULATOR",
-        "title": "代币计算器",
-        "subtitle": "根据投资金额计算预期收益",
-        "inputTitle": "输入投资金额",
-        "inputLabel": "投资金额 (USD)",
-        "inputPlaceholder": "输入金额",
-        "resultTitle": "预期结果",
-        "tokenAmount": "代币数量",
-        "tgeUnlock": "TGE解锁 (10%)",
-        "launchPrice": "预期上市价 ($0.50)",
-        "profit": "预期收益"
-      },
-      "faq": {
-        "badge": "FAQ",
-        "title": "常见问题",
-        "subtitle": "关于公开销售的常见疑问",
-        "q1": {
-          "question": "公开轮参与资格和条件是什么？",
-          "answer": "公开轮向完成KYC验证的全球所有个人投资者开放。最低参与金额为$100，无上限（鲸鱼等级$50,000以上有额外优惠）。"
-        },
-        "q2": {
-          "question": "与种子/私募轮有什么区别？",
-          "answer": "种子轮和私募轮已完成，优惠更高但锁定期更长。公开轮优惠较低但任何人都可从$100起参与，锁定期更短。"
-        },
-        "q3": {
-          "question": "TGE和归属计划是怎样的？",
-          "answer": "TGE时公开轮参与者可即时获得10%。3个月锁定期后，6个月内每月归属15%。"
-        },
-        "q4": {
-          "question": "支持哪些支付方式？",
-          "answer": "官方启动平台接受USDT、USDC、ETH、BTC、BNB。合作交易所也支持法币支付。"
-        },
-        "q5": {
-          "question": "参与者有哪些保护措施？",
-          "answer": "所有参与者受标准代币销售协议保护。智能合约已通过多方审计。"
-        },
-        "q6": {
-          "question": "上市计划和价格是怎样的？",
-          "answer": "TBURN代币计划上市价为$0.50。TGE预计在公开销售结束后2-4周进行。"
-        },
-        "q7": {
-          "question": "各等级的优惠是什么？",
-          "answer": "按参与金额分4个等级，各有不同的奖励代币和TGE解锁比例。"
-        },
-        "q8": {
-          "question": "退款政策是怎样的？",
-          "answer": "公开销售确认后原则上不可退款，但特殊情况除外。"
-        }
-      },
-      "ctaSection": {
-        "title": "立即参与！",
-        "subtitle": "加入TBURN Chain公开销售，以$0.20获取TBURN - 比上市价优惠60%！",
-        "button": "立即参与"
-      },
-      "dialog": {
-        "title": "公开轮参与咨询",
-        "description": "我们的团队将尽快联系您。所有人均可参与。",
-        "name": "姓名 *",
-        "namePlaceholder": "张三",
-        "email": "邮箱 *",
-        "investmentAmount": "计划金额",
-        "message": "附加信息",
-        "messagePlaceholder": "请输入任何其他问题",
-        "cancelBtn": "取消",
-        "submit": "提交咨询",
-        "submitting": "提交中...",
-        "successTitle": "咨询已提交",
-        "successDesc": "我们的团队将尽快联系您。",
-        "errorTitle": "发生错误",
-        "requiredTitle": "缺少必填字段",
-        "requiredDesc": "姓名和邮箱是必填项。"
-      },
-      "footer": {
-        "description": "AI的智能，区块链的透明。THE FUTURE IS NOW",
-        "product": "产品",
-        "resources": "资源",
-        "community": "社区",
         "mainnet": "主网",
         "explorer": "浏览器",
         "bridge": "跨链桥",
         "staking": "质押",
         "whitepaper": "白皮书",
         "docs": "文档",
-        "github": "GitHub",
         "audit": "审计报告",
         "blog": "博客",
         "ambassador": "大使",
@@ -21009,1052 +20418,1600 @@
         "privacy": "隐私政策"
       }
     },
-    "launchpad": {
-      "title": "发射台",
-      "subtitle": "TBURN代币发射平台",
-      "heroTitle": "TBURN 发射台",
-      "heroSubtitle": "TBURN代币分发的首选发射台",
-      "badge": "代币发射",
-      "launchDate": "发射日期",
-      "totalSupply": "总供应量",
-      "initialPrice": "初始价格",
-      "features": "发射台功能",
-      "fairLaunch": "公平发射",
-      "antiBot": "防机器人保护",
-      "vestingSchedule": "归属时间表",
-      "liquidityLock": "流动性锁定",
-      "participateNow": "立即参与"
-    },
-    "coinlist": {
-      "title": "CoinList销售",
-      "subtitle": "CoinList平台上的TBURN代币销售",
-      "heroTitle": "CoinList上的TBURN",
-      "heroSubtitle": "参与CoinList上的独家TBURN代币销售",
-      "badge": "CoinList独家",
-      "salePrice": "销售价格",
-      "allocation": "总分配",
-      "participants": "预期参与者",
-      "kycRequired": "需要KYC",
-      "eligibility": "资格要求",
-      "registerNow": "在CoinList注册"
-    },
-    "daoMaker": {
-      "title": "DAO Maker",
-      "subtitle": "DAO Maker上的TBURN强力持有者发售",
-      "heroTitle": "DAO Maker上的TBURN",
-      "heroSubtitle": "参与DAO Maker上的强力持有者发售(SHO)",
-      "badge": "DAO Maker SHO",
-      "shoPrice": "SHO价格",
-      "allocation": "SHO分配",
-      "daoRequired": "所需DAO Power",
-      "tiers": "SHO等级",
-      "guaranteed": "保证分配",
-      "lottery": "抽奖池",
-      "registerSHO": "注册SHO"
-    },
-    "airdropPage": {
-      "nav": {
-        "overview": "概览",
-        "airdrops": "空投",
-        "tasks": "任务",
-        "timeline": "时间表",
-        "faq": "常见问题"
-      },
-      "header": {
-        "connectWallet": "连接钱包"
-      },
-      "hero": {
-        "badge": "进行中 - 主网空投进行中",
-        "tps": "TPS",
-        "title": "3亿 TBURN",
-        "subtitle": "空投计划",
-        "description": "为庆祝TBURN Chain主网启动，我们向社区分发3亿TBURN（占总供应量的3%）。完成任务并获得积分以增加您的空投分配！",
-        "totalAirdrop": "空投总供应量",
-        "distributed": "已分发",
-        "participants": "参与者",
-        "claimRate": "领取率"
-      },
-      "eligibility": {
-        "title": "我的空投状态",
-        "checking": "检查资格中...",
-        "allocated": "已分配",
-        "claimed": "已领取",
-        "pending": "待领取",
-        "tier": "等级",
-        "noAllocation": "未找到空投分配。完成任务以参与。"
-      },
-      "buttons": {
-        "participateNow": "立即参与",
-        "doTasks": "做任务",
-        "viewDetails": "查看详情"
-      },
-      "toasts": {
-        "participating": "正在参与空投！",
-        "completeTasksForPoints": "完成任务以获得更多积分。",
-        "airdropTypes": "空投类型",
-        "checkAirdropTypes": "查看3种空投计划。",
-        "connectWalletFirst": "请先连接钱包",
-        "checkingNft": "正在检查NFT持有情况...",
-        "pleaseWait": "请稍候",
-        "checkingTestnet": "正在检查测试网活动..."
-      },
-      "types": {
-        "badge": "空投类型",
-        "title": "空投类型",
-        "subtitle": "通过3种空投计划分发3亿TBURN（占总供应量的3%）",
-        "progress": "分发进度",
-        "waiting": "等待中（TGE后90天开始）",
-        "genesis": {
-          "title": "创世空投",
-          "amount": "1.5亿 TBURN",
-          "desc": "为庆祝主网启动，特别分配给早期参与者",
-          "feature1": "测试网参与者优先",
-          "feature2": "创世NFT持有者奖励（2倍）",
-          "feature3": "早鸟额外奖励（+20%）",
-          "feature4": "TGE时解锁15%"
-        },
-        "community": {
-          "title": "社区空投",
-          "amount": "1亿 TBURN",
-          "desc": "完成社交任务和社区参与的奖励",
-          "feature1": "X(Twitter)/Telegram/Discord关注",
-          "feature2": "内容创作和分享奖励",
-          "feature3": "推荐奖励（每位好友500P）",
-          "feature4": "基于积分的比例分配"
-        },
-        "loyalty": {
-          "title": "忠诚空投",
-          "amount": "5000万 TBURN",
-          "desc": "长期持有者和质押参与者的奖励",
-          "feature1": "90天以上持有奖励（+50%）",
-          "feature2": "质押参与奖励",
-          "feature3": "治理投票奖励",
-          "feature4": "季度快照奖励分配"
-        }
-      },
-      "tasks": {
-        "badge": "赚取积分",
-        "title": "完成任务",
-        "subtitle": "完成任务赚取积分，增加您的空投分配",
-        "myStatus": "我的任务状态",
-        "walletConnected": "已连接钱包",
-        "connectToTrack": "连接钱包追踪任务进度",
-        "earnedPoints": "已赚取积分",
-        "required": {
-          "title": "必做任务",
-          "wallet": {
-            "title": "连接钱包",
-            "desc": "连接MetaMask或支持的钱包",
-            "points": "+500 P",
-            "buttonConnect": "连接",
-            "buttonComplete": "已完成"
-          },
-          "email": {
-            "title": "邮箱验证",
-            "desc": "注册并验证邮箱地址",
-            "points": "+300 P",
-            "button": "验证"
-          },
-          "telegram": {
-            "title": "加入Telegram",
-            "desc": "加入官方Telegram群组",
-            "points": "+400 P",
-            "button": "加入"
-          }
-        },
-        "social": {
-          "title": "社交任务",
-          "twitter": {
-            "title": "关注X(Twitter)",
-            "desc": "关注@TBURNChain官方账号",
-            "points": "+200 P",
-            "button": "关注"
-          },
-          "retweet": {
-            "title": "转发启动推文",
-            "desc": "转发主网启动公告",
-            "points": "+300 P",
-            "button": "转发"
-          },
-          "discord": {
-            "title": "加入Discord",
-            "desc": "加入官方Discord服务器",
-            "points": "+400 P",
-            "button": "加入"
-          }
-        },
-        "bonus": {
-          "title": "额外任务",
-          "nft": {
-            "title": "创世NFT持有者",
-            "desc": "持有TBURN创世NFT获得2倍奖励",
-            "points": "+2,000 P",
-            "button": "验证"
-          },
-          "referral": {
-            "title": "邀请好友（推荐）",
-            "desc": "每位好友500P，最多10位好友",
-            "points": "最高 +5,000 P",
-            "button": "邀请"
-          },
-          "testnet": {
-            "title": "测试网参与者",
-            "desc": "如有测试网活动记录自动适用",
-            "points": "+3,000 P",
-            "button": "验证"
-          }
-        }
-      },
-      "timeline": {
-        "badge": "时间表",
-        "title": "分发时间表",
-        "subtitle": "空投分发在TGE后持续9个月",
-        "nov2025": "2025年11月",
-        "registrationStart": "空投注册开始",
-        "registrationDesc": "开始连接钱包和完成任务",
-        "jan2026": "2026年1月（当前）",
-        "snapshotProgress": "快照进行中",
-        "snapshotDesc": "累积参与者积分（28,750用户）",
-        "feb2026": "2026年2月",
-        "tge": "TGE（代币生成事件）",
-        "tgeDesc": "15%（4500万TBURN）可立即领取",
-        "mar2026": "2026年3月-11月",
-        "monthlyVesting": "每月解锁释放",
-        "vestingDesc": "9个月内线性释放约9.4%",
-        "calculator": {
-          "title": "分发计算示例",
-          "myPoints": "我的积分",
-          "totalPool": "总积分池",
-          "distribution": "分发金额",
-          "estimated": "预估金额",
-          "estimatedValue": "预估价值（@$0.50）",
-          "disclaimer": "* 实际分发可能因最终快照总积分而异。"
-        },
-        "vesting": {
-          "title": "解锁时间表",
-          "tgeDay": "TGE（第0天）",
-          "monthly": "第1-9月",
-          "monthlyPercent": "约9.4%/月",
-          "complete": "9个月后"
-        }
-      },
-      "eligibilitySection": {
-        "badge": "资格要求",
-        "title": "参与资格",
-        "subtitle": "查看空投参与要求",
-        "eligible": {
-          "title": "符合条件",
-          "wallet": {
-            "title": "需要连接钱包",
-            "desc": "支持MetaMask、Trust Wallet、Coinbase Wallet"
-          },
-          "tasks": {
-            "title": "完成必要任务",
-            "desc": "钱包连接 + 邮箱验证 + Telegram加入"
-          },
-          "minPoints": {
-            "title": "最低1,000积分",
-            "desc": "低于最低积分将被排除在分发之外"
-          },
-          "snapshot": {
-            "title": "保持资格直到快照",
-            "desc": "快照计划于2026年1月进行"
-          }
-        },
-        "excluded": {
-          "title": "排除条件",
-          "restricted": {
-            "title": "受限国家居民",
-            "desc": "美国、中国、朝鲜及其他受管制国家被排除"
-          },
-          "sybil": {
-            "title": "女巫攻击",
-            "desc": "多个账户将导致所有账户被排除"
-          },
-          "bot": {
-            "title": "检测到机器人活动",
-            "desc": "自动化工具使用将被排除"
-          },
-          "fraud": {
-            "title": "欺诈行为",
-            "desc": "任务操纵或虚假信息提交将导致永久排除"
-          }
-        }
-      },
-      "faq": {
-        "title": "常见问题",
-        "q1": {
-          "question": "如何参与空投？",
-          "answer": "连接您的钱包，完成所需任务（邮箱验证、Telegram加入），并积累积分。"
-        },
-        "q2": {
-          "question": "何时可以领取代币？",
-          "answer": "TGE时可领取15%，剩余部分在9个月内线性释放。"
-        },
-        "q3": {
-          "question": "积分如何转换为代币？",
-          "answer": "您的积分占总积分池的比例决定您的代币分配。"
-        },
-        "q4": {
-          "question": "我可以用多个钱包参与吗？",
-          "answer": "不可以。每人仅限一个钱包，检测到的多账户将被取消资格。"
-        },
-        "q5": {
-          "question": "创世NFT奖励是什么？",
-          "answer": "持有TBURN创世NFT的用户可获得2倍积分加成。"
-        },
-        "badge": "常见问题",
-        "subtitle": "查看有关空投的常见问题解答",
-        "q6": {
-          "question": "完成任务能获得多少积分？",
-          "answer": "每项任务积分：必做任务 - 连接钱包(500P)、邮箱验证(300P)、Telegram加入(400P)。社交任务 - X关注(200P)、转发(300P)、Discord加入(400P)。额外任务 - 创世NFT(2,000P)、邀请好友(最高5,000P)、测试网(3,000P)。"
-        },
-        "q7": {
-          "question": "NFT持有者奖励如何运作？",
-          "answer": "TBURN创世NFT持有者可获得空投分配的2倍加成。连接钱包后自动进行NFT验证。"
-        },
-        "q8": {
-          "question": "是否有地区限制或条件？",
-          "answer": "出于监管合规要求，部分地区受限。受限地区：美国、中国、朝鲜、伊朗、叙利亚、古巴及其他OFAC制裁国家。"
-        }
-      },
-      "footer": {
-        "products": "产品",
-        "scan": "区块浏览器",
-        "dapp": "DApp",
-        "staking": "质押",
-        "bridge": "跨链桥",
-        "developers": "开发者",
-        "docs": "文档",
-        "api": "API",
-        "sdk": "SDK",
-        "resources": "资源",
-        "whitepaper": "白皮书",
-        "tokenomics": "代币经济",
-        "roadmap": "路线图",
-        "privacyPolicy": "隐私政策",
-        "termsOfService": "服务条款",
-        "contact": "联系我们",
-        "brand": "未来DeFi最快、最安全的区块链",
-        "copyright": "© 2025-2045 TBURN基金会。保留所有权利。",
-        "github": "GitHub",
-        "faq": "常见问题"
-      },
-      "emailDialog": {
-        "title": "邮箱验证",
-        "description": "输入您的邮箱以验证并获得+300积分",
-        "label": "邮箱地址",
-        "info": "我们将发送验证链接到您的邮箱。",
-        "cancel": "取消",
-        "submit": "提交",
-        "processing": "处理中..."
-      },
-      "referralDialog": {
-        "title": "邀请好友",
-        "description": "分享您的推荐链接，每位好友可获得500积分！",
-        "linkLabel": "您的推荐链接",
-        "copy": "复制",
-        "copied": "已复制！",
-        "linkCopied": "推荐链接已复制到剪贴板",
-        "shareTitle": "分享到",
-        "shareTwitter": "分享到Twitter",
-        "shareTelegram": "分享到Telegram",
-        "shareKakao": "分享到KakaoTalk",
-        "bonusTitle": "推荐奖励",
-        "bonusDesc": "每位成功推荐的好友可获得500积分，最多10位好友。"
-      }
-    },
-    "referralPage": {
-      "nav": {
-        "home": "首页",
-        "howItWorks": "运作方式",
-        "tiers": "等级",
-        "dashboard": "仪表板",
-        "calculator": "计算器",
-        "leaderboard": "排行榜",
-        "faq": "FAQ"
-      },
-      "header": {
-        "connectWallet": "连接钱包",
-        "connecting": "连接中..."
-      },
-      "hero": {
-        "badge": "推荐计划",
-        "title": "3亿 TBURN",
-        "subtitle": "推荐奖励",
-        "description": "邀请朋友加入TBURN Chain，从他们的活动中赚取佣金。更高等级可解锁高达50%的佣金率！",
-        "stats": {
-          "totalParticipants": "总参与者",
-          "totalReferrals": "总推荐数",
-          "totalRewards": "总奖励分配 (TBURN)",
-          "activeReferrers": "活跃推荐人"
-        },
-        "buttons": {
-          "getReferralLink": "获取推荐链接",
-          "viewDashboard": "查看仪表板"
-        }
-      },
-      "howItWorks": {
-        "badge": "运作方式",
-        "title": "推荐计划运作方式",
-        "subtitle": "简单4步获取奖励",
-        "steps": {
-          "connect": {
-            "title": "连接钱包",
-            "desc": "连接MetaMask或支持的钱包生成您的专属推荐链接。"
-          },
-          "share": {
-            "title": "分享链接",
-            "desc": "在社交媒体、社区和朋友间分享您的推荐链接。"
-          },
-          "activity": {
-            "title": "朋友活动",
-            "desc": "您推荐的朋友在TBURN Chain上交易、质押等。"
-          },
-          "earn": {
-            "title": "获取奖励",
-            "desc": "实时从朋友活动产生的费用中获得佣金。"
-          }
-        }
-      },
-      "tiers": {
-        "badge": "等级佣金",
-        "title": "等级佣金",
-        "subtitle": "推荐越多等级越高，佣金率也越高",
-        "commission": "佣金",
-        "referrals": "推荐数",
-        "benefits": "福利"
-      },
-      "dashboard": {
-        "badge": "我的仪表板",
-        "title": "推荐仪表板",
-        "subtitle": "实时跟踪您的推荐活动和收益",
-        "currentTier": "当前等级",
-        "myReferralLink": "我的推荐链接",
-        "copy": "复制",
-        "copied": "已复制!",
-        "share": {
-          "twitter": "Twitter",
-          "telegram": "Telegram",
-          "discord": "Discord",
-          "kakao": "KakaoTalk"
-        },
-        "stats": {
-          "totalInvites": "总邀请数",
-          "activeUsers": "活跃用户",
-          "totalEarned": "累计获得 TBURN",
-          "totalDistributed": "总分配 TBURN"
-        },
-        "emptyState": "连接钱包开始推荐活动",
-        "connectButton": "连接钱包",
-        "toasts": {
-          "copied": "复制成功",
-          "copiedDesc": "推荐链接已复制到剪贴板。"
-        }
-      },
-      "calculator": {
-        "badge": "计算器",
-        "title": "奖励计算器",
-        "subtitle": "提前计算您的预估收益",
-        "input": {
-          "title": "输入条件",
-          "tier": "我的等级",
-          "referrals": "预计推荐数（月）",
-          "volume": "被推荐人平均月交易量 ($)",
-          "price": "TBURN预估价格 ($)"
-        },
-        "result": {
-          "title": "预估收益",
-          "totalVolume": "总交易量（月）",
-          "tradingFee": "交易手续费 (0.1%)",
-          "myCommission": "我的佣金",
-          "monthlyEarnings": "月收益 (TBURN)",
-          "yearlyEarnings": "年收益 (TBURN)",
-          "yearlyUsd": "预估年收益 (USD)"
-        },
-        "disclaimer": "* 实际收益可能因市场情况而异"
-      },
-      "leaderboard": {
-        "badge": "排行榜",
-        "title": "推荐排行榜",
-        "subtitle": "查看顶级推荐人的表现",
-        "topReferrers": "Top Referrers",
-        "filters": {
-          "all": "全部",
-          "week": "本周",
-          "month": "本月"
-        },
-        "invites": "邀请数",
-        "earnings": "总收益",
-        "viewAll": "查看全部排名",
-        "toasts": {
-          "allRank": "全部排名",
-          "allRankDesc": "显示所有时间推荐排名。",
-          "weekRank": "本周排名",
-          "weekRankDesc": "本周推荐排名。(即将推出)",
-          "monthRank": "本月排名",
-          "monthRankDesc": "本月推荐排名。(即将推出)",
-          "walletRequired": "需要连接钱包",
-          "walletRequiredDesc": "请先连接钱包查看完整排名。",
-          "fullRankings": "完整排名",
-          "fullRankingsDesc": "完整排名页面即将推出。"
-        }
-      },
-      "faq": {
-        "badge": "FAQ",
-        "title": "常见问题",
-        "subtitle": "查找推荐计划相关常见问题的答案",
-        "q1": {
-          "question": "推荐奖励池总量是多少？",
-          "answer": "推荐计划总奖励池为3亿TBURN。这占总供应量100亿TBURN的3%。TGE时解锁5%（1500万TBURN），剩余95%在36个月内每月约2.64%线性释放。目前约4200万TBURN已分配给推荐人。"
-        },
-        "q2": {
-          "question": "佣金如何计算？",
-          "answer": "当您的推荐人在TBURN Chain上交易、质押、跨链等活动产生的费用中获得一定比例的佣金。基础交易费率为0.1%，根据您的等级获得该费用的20-50%作为佣金。例：推荐人交易$1,000 → 产生$1费用 → Gold等级(40%)获得$0.40"
-        },
-        "q3": {
-          "question": "如何提升等级？",
-          "answer": "根据您邀请的朋友数量自动提升等级。Bronze（0-9人，20%）、Silver（10-49人，30%）、Gold（50-199人，40%）、Diamond（200人+，50%）。更高等级不仅解锁更高佣金率，还有多层推荐（2级、3级）福利。"
-        },
-        "q4": {
-          "question": "何时可以领取奖励？",
-          "answer": "推荐奖励实时记入，累积奖励可随时提取。最低提取100 TBURN，会扣除少量Gas费（约0.001 TBURN）。提取立即发送到您连接的钱包。"
-        },
-        "q5": {
-          "question": "什么是多层推荐？",
-          "answer": "多层推荐让您不仅从直接邀请的人（1级）获得佣金，还从他们邀请的人（2级）及更深层次（3级）获得佣金。Silver+解锁2级（5-10%），Diamond解锁3级（15%）。"
-        },
-        "q6": {
-          "question": "在哪里获取推荐链接？",
-          "answer": "连接钱包后自动生成唯一的推荐链接和代码。在仪表板查看并轻松分享到Twitter、Telegram、Discord、KakaoTalk等。支持钱包：MetaMask、Rabby、Trust Wallet、Coinbase Wallet、Ledger"
-        },
-        "q7": {
-          "question": "可以推荐任何地方的任何人吗？",
-          "answer": "推荐全球可用，但部分受限地区（OFAC制裁国家）除外。详情请查看资格部分。"
-        },
-        "q8": {
-          "question": "如何防止欺诈？",
-          "answer": "系统监控自我推荐、女巫攻击、虚假账户等欺诈行为。检测到欺诈活动将立即终止账户并没收所有奖励。"
-        }
-      },
-      "footer": {
-        "brand": "为DeFi未来打造的最快最安全的区块链",
-        "products": "产品",
-        "scan": "浏览器",
-        "dapp": "DApp",
-        "staking": "质押",
-        "bridge": "跨链桥",
-        "developers": "开发者",
-        "docs": "文档",
-        "api": "API",
-        "sdk": "SDK",
-        "github": "GitHub",
-        "resources": "资源",
-        "whitepaper": "白皮书",
-        "tokenomics": "代币经济",
-        "roadmap": "路线图",
-        "faq": "FAQ",
-        "copyright": "© 2025-2045 TBURN Foundation. 保留所有权利。",
-        "privacyPolicy": "隐私政策",
-        "termsOfService": "服务条款",
-        "contact": "联系我们"
-      }
-    },
-    "eventsPage": {
-      "nav": {
-        "liveEvents": "进行中活动",
-        "allEvents": "全部活动",
-        "leaderboard": "排行榜",
-        "faq": "常见问题",
-        "connectWallet": "连接钱包",
-        "connected": "已连接"
-      },
-      "hero": {
-        "badge": "活动中心 - 多项活动进行中",
-        "title": "参与并赢取!",
-        "titleHighlight": "4亿 TBURN",
-        "titleSuffix": "活动奖励",
-        "subtitle": "参与上线活动、交易大赛、质押加速、社区挑战，赢取丰厚奖励！",
-        "liveBadge": "进行中",
-        "liveTitle": "主网上线盛大活动",
-        "liveSubtitle": "立即参与，赢取高达10,000 TBURN！",
-        "countdown": {
-          "days": "天",
-          "hours": "小时",
-          "minutes": "分钟",
-          "seconds": "秒"
-        },
-        "participate": "参与",
-        "connectFirst": "连接钱包后申请"
-      },
-      "stats": {
-        "totalEvents": "总活动数",
-        "activeEvents": "进行中活动",
-        "totalParticipants": "总参与人数",
-        "totalRewards": "总奖池"
-      },
-      "distribution": {
-        "badge": "分配",
-        "title": "活动奖励分配",
-        "subtitle": "4亿TBURN分配到5个活动类别",
-        "launch": {
-          "name": "上线活动",
-          "amount": "1亿",
-          "percent": "25%"
-        },
-        "trading": {
-          "name": "交易大赛",
-          "amount": "1亿",
-          "percent": "25%"
-        },
-        "staking": {
-          "name": "质押加速",
-          "amount": "8000万",
-          "percent": "20%"
-        },
-        "community": {
-          "name": "社区挑战",
-          "amount": "6000万",
-          "percent": "15%"
-        },
-        "partner": {
-          "name": "合作与季节",
-          "amount": "6000万",
-          "percent": "15%"
-        }
-      },
-      "events": {
-        "badge": "全部活动",
-        "title": "活动列表",
-        "subtitle": "查看当前和即将进行的活动",
-        "categories": {
-          "all": "全部",
-          "live": "进行中",
-          "launch": "上线",
-          "trading": "交易",
-          "staking": "质押",
-          "community": "社区"
-        },
-        "categoryToasts": {
-          "all": {
-            "title": "全部活动",
-            "desc": "显示所有活动。"
-          },
-          "live": {
-            "title": "进行中活动",
-            "desc": "显示当前活动。"
-          },
-          "launch": {
-            "title": "上线活动",
-            "desc": "显示主网上线相关活动。"
-          },
-          "trading": {
-            "title": "交易活动",
-            "desc": "显示交易相关活动。"
-          },
-          "staking": {
-            "title": "质押活动",
-            "desc": "显示质押相关活动。"
-          },
-          "community": {
-            "title": "社区活动",
-            "desc": "显示社区参与活动。"
-          }
-        },
-        "loading": "加载中...",
-        "loadingDesc": "正在加载活动数据...",
-        "noEvents": "暂无活动",
-        "noEventsDesc": "此类别暂无活动",
-        "status": {
-          "live": "进行中",
-          "upcoming": "即将开始",
-          "ended": "已结束"
-        },
-        "buttons": {
-          "participate": "参与",
-          "connectWallet": "连接钱包",
-          "comingSoon": "即将开始"
-        }
-      },
-      "leaderboard": {
-        "badge": "排行榜",
-        "title": "活动排行榜",
-        "subtitle": "查看顶级参与者的表现",
-        "topTitle": "上线活动TOP 10",
-        "tabs": {
-          "all": "全部",
-          "today": "今日",
-          "week": "本周"
-        },
-        "tabToasts": {
-          "all": {
-            "title": "全部时间",
-            "desc": "显示全部时间排名。"
-          },
-          "today": {
-            "title": "今日",
-            "desc": "显示今日排名。(即将推出)"
-          },
-          "week": {
-            "title": "本周",
-            "desc": "显示本周排名。(即将推出)"
-          }
-        },
-        "table": {
-          "rank": "排名",
-          "participant": "参与者",
-          "missions": "任务",
-          "score": "分数",
-          "reward": "预计奖励"
-        }
-      },
-      "faq": {
-        "badge": "常见问题",
-        "title": "常见问题",
-        "subtitle": "查找活动相关常见问题的答案",
-        "items": {
-          "q1": {
-            "question": "活动奖励总池是多少?",
-            "answer": "活动奖励总池为4亿TBURN，占100亿TBURN总供应量的4%。"
-          },
-          "q2": {
-            "question": "谁可以参加活动?",
-            "answer": "任何连接钱包的用户都可以参加。"
-          },
-          "q3": {
-            "question": "奖励何时发放?",
-            "answer": "大多数活动奖励在活动结束后7天内发放。"
-          },
-          "q4": {
-            "question": "可以同时参加多个活动吗?",
-            "answer": "是的，您可以参加所有同时进行的活动。"
-          },
-          "q5": {
-            "question": "交易大赛排名如何确定?",
-            "answer": "排名由交易量和收益率确定。"
-          },
-          "q6": {
-            "question": "质押加速APY如何计算?",
-            "answer": "活动期间适用2倍基础APY。"
-          },
-          "q7": {
-            "question": "表情包大赛如何选出获奖者?",
-            "answer": "通过社区投票和评委评审选出。"
-          },
-          "q8": {
-            "question": "如果发现作弊行为会怎样?",
-            "answer": "所有奖励将被没收，账户将被永久禁止。"
-          }
-        }
-      },
-      "cta": {
-        "title": "立即参与活动！",
-        "subtitle": "参与各种活动，赢取高达4亿TBURN奖励。",
-        "subtitleHighlight": "早参与 = 更多奖励！",
-        "buttonParticipate": "立即参与",
-        "buttonConnect": "连接钱包并开始"
-      },
-      "footer": {
-        "description": "AI的智能，区块链的透明\n未来已来",
-        "quickLinks": "快速链接",
-        "explorer": "浏览器",
-        "wallet": "钱包",
-        "bridge": "跨链桥",
-        "staking": "质押",
-        "developers": "开发者",
-        "docs": "文档",
-        "api": "API",
-        "github": "GitHub",
-        "sdk": "SDK",
-        "resources": "资源",
-        "whitepaper": "白皮书",
-        "tokenomics": "代币经济学",
-        "roadmap": "路线图",
-        "faqLink": "常见问题",
-        "copyright": "© 2025-2045 TBURN Foundation. All Rights Reserved.",
-        "termsOfService": "服务条款",
-        "privacyPolicy": "隐私政策"
-      }
-    }
+    "title": "营销计划",
+    "subtitle": "促进TBURN社区增长的营销活动",
+    "heroTitle": "TBURN 营销计划",
+    "heroSubtitle": "帮助传播TBURN并获得奖励",
+    "badge": "共同成长",
+    "totalBudget": "总预算",
+    "campaigns": "活动",
+    "reach": "总覆盖",
+    "programs": "计划",
+    "influencer": "网红计划",
+    "affiliate": "联盟计划",
+    "content": "内容创作者",
+    "community": "社区营销",
+    "applyMarketing": "申请营销",
+    "campaignDetails": "活动详情"
   },
-  "communityProgram": {
-    "title": "社区计划",
-    "subtitle": "为TBURN生态系统做出贡献,作为社区成员获得奖励",
+  "strategicPartner": {
+    "title": "战略合作伙伴",
+    "subtitle": "塑造TBURN生态系统的关键战略合作伙伴关系",
+    "heroTitle": "TBURN 战略合作伙伴",
+    "heroSubtitle": "支持TBURN愿景的世界级合作伙伴",
+    "badge": "精英合作伙伴",
+    "partnerCount": "合作伙伴数量",
+    "categories": "类别",
+    "tier1": "一级合作伙伴",
+    "tier2": "二级合作伙伴",
+    "tier3": "三级合作伙伴",
+    "vcPartners": "风投合作伙伴",
+    "techPartners": "技术合作伙伴",
+    "mediaPartners": "媒体合作伙伴"
+  },
+  "advisorProgram": {
+    "title": "顾问计划",
+    "subtitle": "指导TBURN发展的行业专家",
+    "heroTitle": "TBURN 顾问委员会",
+    "heroSubtitle": "为TBURN生态系统带来专业知识的世界级顾问",
+    "badge": "专家指导",
+    "advisorCount": "顾问数量",
+    "expertise": "专业领域",
+    "blockchain": "区块链",
+    "finance": "金融",
+    "legal": "法律与合规",
+    "marketing": "营销",
+    "technology": "技术",
+    "meetAdvisors": "认识我们的顾问"
+  },
+  "seedRound": {
+    "title": "种子轮",
+    "subtitle": "TBURN早期投资机会",
+    "heroTitle": "TBURN 种子轮",
+    "heroSubtitle": "成为TBURN生态系统的首批投资者",
+    "badge": "种子投资",
+    "tokenPrice": "代币价格",
+    "discount": "发行价折扣",
+    "allocation": "总分配",
+    "vestingInfo": "归属信息",
+    "cliff": "锁定期",
+    "vesting": "归属期",
+    "tgeUnlock": "TGE解锁",
+    "investorTiers": "投资者等级",
+    "lead": "领投",
+    "major": "主要投资者",
+    "standard": "标准投资者",
+    "angel": "天使投资者",
+    "investNow": "立即投资",
+    "riskWarning": "风险警告",
     "nav": {
+      "investorTiers": "投资等级",
+      "vesting": "锁仓",
+      "investors": "投资者",
+      "process": "流程",
+      "faq": "常见问题",
+      "badge": "SEED ROUND - 早期投资者",
+      "status": "进行中",
+      "title": "投资种子轮",
+      "titleHighlight": "5亿 TBURN",
+      "titleEnd": "机会",
+      "subtitle": "为区块链VC、加密基金和天使投资者提供高达70%折扣的早期投资机会。",
+      "loading": "加载中...",
+      "seedAllocation": "种子配额",
+      "tokenPriceLabel": "代币价格",
+      "hardcap": "硬顶",
+      "investorsLabel": "投资者",
+      "applySeed": "申请种子投资",
+      "investmentMemo": "投资备忘录"
+    },
+    "highlights": {
+      "tokenPrice": "每代币价格",
+      "discountRate": "市场折扣",
+      "vestingPeriod": "锁仓期"
+    },
+    "comparison": {
+      "badge": "COMPARISON",
+      "title": "轮次对比",
+      "subtitle": "种子轮提供最优惠条件",
+      "header": "投资轮次对比",
+      "round": "轮次",
+      "tokenPriceCol": "代币价格",
+      "discountCol": "折扣",
+      "statusCol": "状态",
+      "maxDiscount": "最大折扣",
+      "active": "进行中",
+      "upcoming": "即将开始"
+    },
+    "tiers": {
+      "badge": "TIERS",
+      "title": "投资等级",
+      "subtitle": "基于投资规模的分级福利",
+      "minInvestment": "最低投资",
+      "inquireBtn": "咨询",
+      "benefits": {
+        "boardObserver": "董事会观察员权",
+        "monthlyMeeting": "月度高管会议",
+        "exclusiveDealFlow": "独家交易流程",
+        "priorityInvestment": "优先投资权",
+        "dedicatedIR": "专属IR经理",
+        "quarterlyStrategy": "季度战略会议",
+        "earlyAccess": "早期访问",
+        "governanceParticipation": "治理参与",
+        "priorityAllocation": "优先配额",
+        "dedicatedSupport": "专属支持",
+        "monthlyNewsletter": "月度简报",
+        "communityAccess": "社区访问",
+        "basicGovernance": "基本治理",
+        "generalAllocation": "一般配额",
+        "emailSupport": "邮件支持",
+        "quarterlyUpdates": "季度更新",
+        "communityChannel": "社区频道",
+        "nftBadge": "NFT徽章",
+        "angelNetwork": "天使网络",
+        "basicSupport": "基本支持"
+      }
+    },
+    "vestingSection": {
+      "badge": "VESTING",
+      "title": "锁仓计划",
+      "subtitle": "保护投资者的系统性代币释放",
+      "cliffPeriod": "锁定期",
+      "initialLockup": "初始锁定",
+      "initialUnlock": "初始解锁",
+      "afterTge": "TGE后12个月",
+      "monthlyVesting": "月度释放",
+      "over12Months": "12个月内",
+      "fullUnlock": "完全解锁",
+      "after24Months": "24个月后"
+    },
+    "investorsSection": {
+      "badge": "INVESTORS",
+      "title": "当前投资者",
+      "subtitle": "我们的合作伙伴"
+    },
+    "processSection": {
+      "badge": "PROCESS",
+      "title": "投资流程",
+      "subtitle": "种子投资程序",
+      "step1": {
+        "title": "投资咨询",
+        "desc": "提交意向书",
+        "duration": "1-3天"
+      },
+      "step2": {
+        "title": "KYC/AML",
+        "desc": "投资者验证",
+        "duration": "3-5天"
+      },
+      "step3": {
+        "title": "SAFT签署",
+        "desc": "投资合同",
+        "duration": "1-2天"
+      },
+      "step4": {
+        "title": "资金转账",
+        "desc": "投资转账",
+        "duration": "1-3天"
+      },
+      "step5": {
+        "title": "代币分配",
+        "desc": "投资确认",
+        "duration": "即时"
+      }
+    },
+    "metrics": {
+      "badge": "METRICS",
+      "title": "代币指标",
+      "subtitle": "种子轮关键指标",
+      "totalSupply": "总供应量",
+      "totalSupplyValue": "100亿 TBURN",
+      "totalSupplyDesc": "固定供应",
+      "seedAllocation": "种子配额",
+      "seedAllocationValue": "5亿 TBURN",
+      "seedAllocationDesc": "总供应量的5%",
+      "seedGoal": "种子目标",
+      "seedGoalValue": "$20,000,000",
+      "seedGoalDesc": "硬顶"
+    },
+    "risks": {
+      "title": "投资风险警告",
+      "item1": "加密货币投资具有高波动性和风险。",
+      "item2": "可能损失本金。请只投资您能承受损失的金额。",
+      "item3": "监管变化可能限制服务。",
+      "item4": "过去的回报不保证未来收益。"
+    },
+    "faqSection": {
+      "badge": "FAQ",
+      "title": "常见问题",
+      "subtitle": "关于种子投资的常见问题"
+    },
+    "cta": {
+      "title": "成为种子投资者",
+      "subtitle": "作为早期投资者，以高达70%的折扣投资TBURN Chain！",
+      "button": "立即投资"
+    },
+    "footer": {
+      "tagline": "AI智能，区块链透明",
+      "slogan": "THE FUTURE IS NOW",
+      "product": "产品",
+      "mainnet": "主网",
+      "explorer": "浏览器",
+      "bridge": "跨链桥",
+      "staking": "质押",
+      "resources": "资源",
+      "whitepaper": "白皮书",
+      "docs": "文档",
+      "github": "GitHub",
+      "auditReport": "审计报告",
       "community": "社区",
-      "programs": "计划",
-      "tiers": "等级系统",
-      "activities": "活动奖励",
-      "leaderboard": "排行榜"
+      "blog": "博客",
+      "ambassador": "大使",
+      "grants": "资助",
+      "support": "支持",
+      "copyright": "© 2025-2045 TBURN Foundation. 保留所有权利。",
+      "terms": "服务条款",
+      "privacy": "隐私政策"
+    },
+    "dialog": {
+      "title": "种子轮投资咨询",
+      "description": "留下您的咨询，我们的团队将尽快与您联系。",
+      "nameLabel": "姓名",
+      "namePlaceholder": "您的姓名",
+      "emailLabel": "邮箱",
+      "emailPlaceholder": "your@email.com",
+      "companyLabel": "公司/机构（可选）",
+      "companyPlaceholder": "公司名称",
+      "amountLabel": "投资金额（可选）",
+      "amountPlaceholder": "例如：$100,000",
+      "messageLabel": "留言（可选）",
+      "messagePlaceholder": "其他问题或要求",
+      "submitBtn": "提交咨询",
+      "submitting": "提交中...",
+      "requiredFields": "必填信息",
+      "requiredFieldsDesc": "姓名和邮箱为必填项。"
+    },
+    "toast": {
+      "inquirySuccess": "投资咨询已收到",
+      "inquirySuccessDesc": "我们的团队将尽快与您联系。",
+      "inquiryError": "咨询失败",
+      "inquiryErrorDesc": "发生临时错误。请重试。"
+    },
+    "connectWallet": "投资咨询"
+  },
+  "privateRound": {
+    "nav": {
+      "tiers": "投资等级",
+      "vesting": "锁仓",
+      "allocation": "分配",
+      "investors": "投资者",
+      "faq": "常见问题",
+      "connectWallet": "机构投资咨询"
     },
     "hero": {
-      "badge": "社区计划 - 与TBURN共同成长",
-      "title": "社区共建",
-      "titleHighlight": "3亿 TBURN",
-      "titleSuffix": "奖励计划",
-      "subtitle": "成为大使、内容创作者、版主或翻译者,在为TBURN生态系统做出贡献的同时获得丰厚奖励!",
-      "applyNow": "立即申请",
-      "viewGuide": "查看指南"
+      "badge": "PRIVATE ROUND - 机构投资",
+      "status": "进行中",
+      "title": "通过私募轮投资抓住",
+      "titleHighlight": "10亿TBURN",
+      "titleSuffix": "机会",
+      "subtitle": "面向机构投资者、VC、家族办公室 - 相比上市价($0.50)50%折扣，$0.10投资机会。TGE 5%立即解锁。",
+      "progressRaised": "$72,000,000",
+      "progressGoal": "目标 $100,000,000",
+      "progressPercent": "72% 已达成",
+      "progressRemaining": "剩余 $28,000,000"
+    },
+    "highlights": {
+      "pricePerToken": "代币单价",
+      "priceCompare": "相比种子轮+150%",
+      "discountLaunch": "相比上市价折扣",
+      "tgeUnlock": "TGE立即解锁",
+      "vestingPeriod": "锁仓期限"
     },
     "stats": {
-      "totalContributors": "总参与者",
-      "totalContributions": "总贡献次数",
-      "rewardsDistributed": "已分发奖励 (TBURN)",
-      "activeTasks": "活跃任务"
+      "loading": "加载中...",
+      "privateAllocation": "私募分配 (10%)",
+      "tokenPrice": "代币价格",
+      "hardcap": "硬顶",
+      "institutionalInvestors": "机构投资者"
     },
-    "distribution": {
-      "badge": "分配",
-      "title": "按计划分配奖励",
-      "subtitle": "3亿TBURN分配到6个计划",
+    "cta": {
+      "applyPrivate": "申请私募投资",
+      "viewDeck": "查看投资资料"
+    },
+    "comparison": {
+      "badge": "COMPARISON",
+      "title": "轮次对比",
+      "subtitle": "私募轮介于种子轮和公募之间",
+      "tableTitle": "投资轮次对比",
+      "round": "轮次",
+      "tokenPrice": "代币价格",
+      "discount": "折扣",
+      "status": "状态",
+      "inProgress": "进行中",
+      "completed": "已完成",
+      "upcoming": "即将开始"
+    },
+    "tiers": {
+      "badge": "TIERS",
+      "title": "投资等级",
+      "subtitle": "按机构投资规模分级权益",
+      "minInvestment": "最低投资",
+      "minInvestmentLabel": "最低投资",
+      "tokenPriceLabel": "代币价格",
+      "tgeUnlockLabel": "TGE解锁",
+      "inquireBtn": "投资咨询",
+      "institutional": {
+        "name": "Institutional",
+        "subtitle": "机构投资者",
+        "benefits": [
+          "董事会观察席",
+          "月度管理层简报",
+          "独家共投权",
+          "定制锁仓协商",
+          "专属IR经理"
+        ]
+      },
+      "strategic": {
+        "name": "Strategic",
+        "subtitle": "战略投资者",
+        "benefits": [
+          "季度战略会议",
+          "合作优先权",
+          "技术协作机会",
+          "联合营销",
+          "网络接入"
+        ]
+      },
+      "growth": {
+        "name": "Growth",
+        "subtitle": "成长投资者",
+        "benefits": [
+          "季度更新电话会",
+          "私密社区",
+          "治理参与权",
+          "新功能早期访问",
+          "专属支持渠道"
+        ]
+      },
+      "standard": {
+        "name": "Standard",
+        "subtitle": "普通投资者",
+        "benefits": [
+          "月度投资者通讯",
+          "基础治理投票权",
+          "投资者专属频道",
+          "一般配额",
+          "邮件支持"
+        ]
+      }
+    },
+    "vesting": {
+      "badge": "VESTING",
+      "title": "锁仓计划",
+      "subtitle": "TGE 5%立即解锁，6个月悬崖期后12个月月度释放",
+      "tgeUnlock": "TGE解锁",
+      "tgeDesc": "上市即时",
+      "cliffPeriod": "悬崖期",
+      "cliffDesc": "初始锁定",
+      "monthlyVesting": "月度释放",
+      "monthlyDesc": "12个月",
+      "fullUnlock": "完全解锁",
+      "fullUnlockDesc": "18个月后"
+    },
+    "allocation": {
+      "badge": "ALLOCATION",
+      "title": "投资者类型分配",
+      "subtitle": "10亿TBURN分配状况",
+      "vcFunds": "VC & 基金",
+      "familyOffice": "家族办公室",
+      "strategicInvestors": "战略投资者",
+      "corporateInvestors": "企业投资者"
+    },
+    "investors": {
+      "badge": "INVESTORS",
+      "title": "当前投资者",
+      "subtitle": "我们的机构合作伙伴"
+    },
+    "process": {
+      "badge": "PROCESS",
+      "title": "投资流程",
+      "subtitle": "机构投资程序",
+      "inquiry": "投资咨询",
+      "inquiryDesc": "提交意向书",
+      "inquiryDuration": "1-3天",
+      "dueDiligence": "尽职调查",
+      "dueDiligenceDesc": "公司及投资者DD",
+      "dueDiligenceDuration": "1-2周",
+      "negotiation": "合同谈判",
+      "negotiationDesc": "投资条款协商",
+      "negotiationDuration": "1-2周",
+      "funding": "资金转账",
+      "fundingDesc": "投资转账",
+      "fundingDuration": "3-5天",
+      "tokenAllocation": "代币分配",
+      "tokenAllocationDesc": "投资确认",
+      "tokenAllocationDuration": "即时"
+    },
+    "benefits": {
+      "badge": "BENEFITS",
+      "title": "私募轮优势",
+      "subtitle": "机构投资者专属权益",
+      "excellentPrice": "优惠价格",
+      "excellentPriceValue": "50%+折扣",
+      "excellentPriceDesc": "以公募一半价格投资",
+      "tgeLiquidity": "TGE流动性",
+      "tgeLiquidityValue": "5%解锁",
+      "tgeLiquidityDesc": "上市即可获得流动性",
+      "strategicPartnership": "战略合作",
+      "strategicPartnershipValue": "独家权益",
+      "strategicPartnershipDesc": "与项目密切合作"
+    },
+    "faq": {
+      "badge": "FAQ",
+      "title": "常见问题",
+      "subtitle": "关于私募投资的问题",
+      "q1": {
+        "question": "私募轮的参与资格和投资条件是什么？",
+        "answer": "私募轮面向合格机构投资者（VC、基金、家族办公室）、企业投资者和战略合作伙伴。最低投资额为$100,000（标准级），$500,000+（成长级），$2,000,000+（战略级），$5,000,000+（机构级），按投资规模享受代币价格折扣和TGE解锁比例。所有投资者须通过KYC/AML认证和投资者资格审核。"
+      },
+      "q2": {
+        "question": "种子轮和私募轮有什么区别？",
+        "answer": "种子轮（$0.04/代币，80%折扣）已完成，12个月悬崖期+24个月释放。私募轮（$0.10/代币，50%折扣）提供更短锁定期：6个月悬崖期+12个月释放。私募投资者在TGE时可获得5-7%立即解锁。价格较高但流动性更快，享有机构级投资者权益。"
+      },
+      "q3": {
+        "question": "锁仓计划和TGE解锁是如何运作的？",
+        "answer": "TGE（代币生成事件）时，投资代币的5%立即解锁。机构级最高7%，战略级6%。之后是6个月悬崖期（锁定），然后12个月线性释放，每月约7.9%。完全解锁共需18个月。机构级投资者可协商定制锁仓计划。"
+      },
+      "q4": {
+        "question": "投资流程和尽职调查过程是怎样的？",
+        "answer": "流程：(1)投资咨询及NDA签署→(2)提交意向书(LOI)→(3)双向尽调(项目技术/财务/法律DD+投资者资金来源/资格确认)→(4)投资条款谈判及Term Sheet达成→(5)SAFT合同签署→(6)资金转账(USDT、USDC、银行转账)→(7)代币分配确认。尽调通常需1-2周，大型机构可延长至3-4周。专属IR经理全程指导。"
+      },
+      "q5": {
+        "question": "投资者保护和法律结构是怎样的？",
+        "answer": "所有私募投资通过SAFT（简单未来代币协议）合同获得法律保护。合同明确代币配额、价格、锁仓条款、投资者权利和争议解决。资金通过开曼群岛SPV（特殊目的载体）管理，存放于第三方托管账户。法律顾问来自Morrison & Foerster，符合新加坡MAS规定。"
+      },
+      "q6": {
+        "question": "上市计划和发行价格是什么？",
+        "answer": "TBURN代币目标发行价为$0.50（私募的5倍）。上市策略：主网上线同时进行TGE，在Uniswap、PancakeSwap等主要DEX提供初始流动性。正在与Tier-1 CEX（Binance、OKX、Bybit、Coinbase等）洽谈上市，目标在发行后3-6个月内登陆主要交易所。市场做市与专业MM合作伙伴合作。"
+      },
+      "q7": {
+        "question": "各级权益和治理权限是什么？",
+        "answer": "分级权益：(1)机构级($5M+):董事会观察席、月度管理层简报、独家共投权、定制锁仓、专属IR经理 (2)战略级($2M+):季度战略会议、合作优先权、技术协作、联合营销 (3)成长级($500K+):季度更新电话会、私密社区、治理参与权、新功能早期访问 (4)标准级($100K+):月度通讯、基础治理投票权、投资者频道。所有私募投资者拥有DAO治理投票权。"
+      },
+      "q8": {
+        "question": "付款方式和退款政策是什么？",
+        "answer": "付款方式：USDT（ERC-20/TRC-20）、USDC（ERC-20）或银行转账（USD/EUR）。$1M以上投资可分期付款，付款计划可协商。退款政策：SAFT合同签署前可全额退款。签约后仅在项目终止、主网发行失败或重大路线图变更时可申请退款。投资者原因导致的提前终止不可退款，详细条款见SAFT合同。"
+      }
+    },
+    "ctaSection": {
+      "title": "成为机构投资者",
+      "subtitle": "作为TBURN Chain私募投资者，获得相比上市价50%折扣和TGE即时流动性！",
+      "button": "立即投资"
+    },
+    "dialog": {
+      "title": "私募轮投资咨询",
+      "description": "我们的团队将在1-2个工作日内与您联系。仅限机构投资者。",
+      "name": "姓名",
+      "namePlaceholder": "请输入您的姓名",
+      "email": "邮箱",
+      "emailPlaceholder": "请输入您的邮箱",
+      "company": "公司/机构",
+      "companyPlaceholder": "请输入公司名称",
+      "investmentAmount": "投资金额 (USD)",
+      "investmentAmountPlaceholder": "最低 $100,000",
+      "message": "附加信息",
+      "messagePlaceholder": "投资意向、问题等",
+      "submit": "提交咨询",
+      "submitting": "提交中...",
+      "success": "咨询已提交",
+      "successDesc": "我们的团队将在1-2个工作日内与您联系。",
+      "error": "发生错误",
+      "errorDesc": "咨询提交失败，请重试。",
+      "required": "缺少必填信息",
+      "requiredDesc": "姓名、邮箱和公司是必填项。",
+      "cancelBtn": "取消"
+    },
+    "footer": {
+      "description": "TBURN Chain是具有先进DeFi、DAO和企业集成功能的下一代Layer-1区块链。",
+      "quickLinks": "快速链接",
+      "developers": "开发者",
+      "legal": "法律声明",
+      "whitepaper": "白皮书",
+      "tokenomics": "代币经济",
+      "roadmap": "路线图",
+      "team": "团队",
+      "documentation": "文档",
+      "github": "GitHub",
+      "apiReference": "API参考",
+      "bugBounty": "漏洞赏金",
+      "termsOfService": "服务条款",
+      "privacyPolicy": "隐私政策",
+      "disclaimer": "免责声明",
+      "cookiePolicy": "Cookie政策",
+      "copyright": "© 2025 TBURN Chain. All rights reserved.",
+      "socialLinks": "关注我们",
+      "mainnet": "主网",
+      "explorer": "浏览器",
+      "bridge": "跨链桥",
+      "staking": "质押",
+      "docs": "开发文档",
+      "audit": "安全审计",
+      "blog": "博客",
+      "ambassador": "大使计划",
+      "grants": "资助",
+      "support": "支持",
+      "terms": "服务条款",
+      "privacy": "隐私政策",
+      "product": "产品",
+      "resources": "资源",
+      "community": "社区"
+    }
+  },
+  "publicRound": {
+    "nav": {
+      "tiers": "参与等级",
+      "vesting": "归属计划",
+      "howTo": "如何参与",
+      "calculator": "计算器",
+      "faq": "常见问题",
+      "connectWallet": "立即参与"
+    },
+    "hero": {
+      "badge": "PUBLIC ROUND - 公开销售",
+      "status": "进行中",
+      "title1": "通过公开轮",
+      "title2": "10亿 TBURN",
+      "title3": "抓住机会",
+      "subtitle": "所有人均可参与的公开销售。比上市价($0.50)优惠60%，仅$0.20！最低$100起，TGE 10%即时解锁，3个月锁定期！",
+      "countdownLabel": "销售结束倒计时",
+      "days": "天",
+      "hours": "时",
+      "mins": "分",
+      "secs": "秒",
+      "progressGoal": "目标 $200,000,000",
+      "progressPercent": "已完成 45%",
+      "progressRemaining": "剩余 $110,250,000"
+    },
+    "highlights": {
+      "tokenPrice": "单价",
+      "discount": "相比上市价优惠",
+      "tgeUnlock": "TGE即时解锁",
+      "minAmount": "最低参与金额"
+    },
+    "stats": {
+      "loading": "加载中...",
+      "publicAllocation": "公开配额 (10%)",
+      "tokenPrice": "代币价格",
+      "hardcap": "硬顶",
+      "participants": "参与者"
+    },
+    "cta": {
+      "joinNow": "立即参与",
+      "viewGuide": "查看销售指南"
+    },
+    "comparison": {
+      "badge": "COMPARISON",
+      "title": "轮次对比",
+      "subtitle": "了解公开轮的优势",
+      "tableTitle": "投资轮次对比",
+      "headers": {
+        "round": "轮次",
+        "tokenPrice": "代币价格",
+        "discount": "折扣",
+        "status": "状态"
+      },
+      "bestBadge": "最佳可及性",
+      "seedRound": "种子轮",
+      "privateRound": "私募轮",
+      "publicRound": "公开轮",
+      "completed": "已完成",
+      "live": "进行中",
+      "upcoming": "即将开始"
+    },
+    "tiers": {
+      "badge": "TIERS",
+      "title": "参与等级",
+      "subtitle": "按参与金额享受不同优惠",
+      "minAmountLabel": "最低参与",
+      "joinBtn": "立即参与",
+      "whale": {
+        "name": "鲸鱼",
+        "subtitle": "大额参与者",
+        "details": [
+          "最低参与",
+          "额外奖励",
+          "TGE解锁"
+        ],
+        "benefits": [
+          "VIP社区访问",
+          "空投优先权",
+          "专属AMA邀请",
+          "早期信息",
+          "专属支持"
+        ]
+      },
+      "dolphin": {
+        "name": "海豚",
+        "subtitle": "中额参与者",
+        "details": [
+          "最低参与",
+          "额外奖励",
+          "TGE解锁"
+        ],
+        "benefits": [
+          "高级社区",
+          "空投参与",
+          "季度AMA",
+          "新闻通讯",
+          "优先支持"
+        ]
+      },
+      "fish": {
+        "name": "鱼",
+        "subtitle": "普通参与者",
+        "details": [
+          "最低参与",
+          "额外奖励",
+          "TGE解锁"
+        ],
+        "benefits": [
+          "普通社区",
+          "基础空投",
+          "公开AMA",
+          "月度更新",
+          "标准支持"
+        ]
+      },
+      "shrimp": {
+        "name": "虾",
+        "subtitle": "小额参与者",
+        "details": [
+          "最低参与",
+          "额外奖励",
+          "TGE解锁"
+        ],
+        "benefits": [
+          "公开频道",
+          "基础参与",
+          "公开信息",
+          "邮件提醒",
+          "社区支持"
+        ]
+      }
+    },
+    "vesting": {
+      "badge": "VESTING",
+      "title": "归属计划",
+      "subtitle": "TGE 10%即时解锁，3个月锁定期后6个月月度归属",
+      "phases": [
+        {
+          "title": "TGE解锁",
+          "value": "10%",
+          "desc": "即时"
+        },
+        {
+          "title": "锁定期",
+          "value": "3个月",
+          "desc": "锁定阶段"
+        },
+        {
+          "title": "月度归属",
+          "value": "15%",
+          "desc": "持续6个月"
+        },
+        {
+          "title": "完全解锁",
+          "value": "100%",
+          "desc": "9个月后"
+        }
+      ]
+    },
+    "howTo": {
+      "badge": "HOW TO",
+      "title": "如何参与",
+      "subtitle": "简单4步即可参与",
+      "steps": [
+        {
+          "title": "连接钱包",
+          "desc": "MetaMask, Trust等"
+        },
+        {
+          "title": "KYC验证",
+          "desc": "简单身份验证"
+        },
+        {
+          "title": "选择支付",
+          "desc": "USDT, USDC, ETH, BTC"
+        },
+        {
+          "title": "接收代币",
+          "desc": "TGE 15%即时"
+        }
+      ]
+    },
+    "platforms": {
+      "badge": "PLATFORMS",
+      "title": "参与平台",
+      "subtitle": "多种方式参与",
+      "joinBtn": "立即参与",
+      "items": [
+        {
+          "name": "TBURN Launchpad",
+          "type": "官方启动平台",
+          "desc": "TBURN官方销售平台",
+          "features": [
+            "最低手续费",
+            "直接参与",
+            "24/7支持",
+            "多支付方式"
+          ]
+        },
+        {
+          "name": "合作交易所",
+          "type": "CEX IEO",
+          "desc": "通过合作交易所参与",
+          "features": [
+            "简单KYC",
+            "法币支持",
+            "交易所保障",
+            "即时上市"
+          ]
+        },
+        {
+          "name": "DEX启动平台",
+          "type": "去中心化IDO",
+          "desc": "在去中心化平台参与",
+          "features": [
+            "直接钱包连接",
+            "智能合约",
+            "透明分配",
+            "社区驱动"
+          ]
+        }
+      ]
+    },
+    "calculator": {
+      "badge": "CALCULATOR",
+      "title": "代币计算器",
+      "subtitle": "根据投资金额计算预期收益",
+      "inputTitle": "输入投资金额",
+      "inputLabel": "投资金额 (USD)",
+      "inputPlaceholder": "输入金额",
+      "resultTitle": "预期结果",
+      "tokenAmount": "代币数量",
+      "tgeUnlock": "TGE解锁 (10%)",
+      "launchPrice": "预期上市价 ($0.50)",
+      "profit": "预期收益"
+    },
+    "faq": {
+      "badge": "FAQ",
+      "title": "常见问题",
+      "subtitle": "关于公开销售的常见疑问",
+      "q1": {
+        "question": "公开轮参与资格和条件是什么？",
+        "answer": "公开轮向完成KYC验证的全球所有个人投资者开放。最低参与金额为$100，无上限（鲸鱼等级$50,000以上有额外优惠）。"
+      },
+      "q2": {
+        "question": "与种子/私募轮有什么区别？",
+        "answer": "种子轮和私募轮已完成，优惠更高但锁定期更长。公开轮优惠较低但任何人都可从$100起参与，锁定期更短。"
+      },
+      "q3": {
+        "question": "TGE和归属计划是怎样的？",
+        "answer": "TGE时公开轮参与者可即时获得10%。3个月锁定期后，6个月内每月归属15%。"
+      },
+      "q4": {
+        "question": "支持哪些支付方式？",
+        "answer": "官方启动平台接受USDT、USDC、ETH、BTC、BNB。合作交易所也支持法币支付。"
+      },
+      "q5": {
+        "question": "参与者有哪些保护措施？",
+        "answer": "所有参与者受标准代币销售协议保护。智能合约已通过多方审计。"
+      },
+      "q6": {
+        "question": "上市计划和价格是怎样的？",
+        "answer": "TBURN代币计划上市价为$0.50。TGE预计在公开销售结束后2-4周进行。"
+      },
+      "q7": {
+        "question": "各等级的优惠是什么？",
+        "answer": "按参与金额分4个等级，各有不同的奖励代币和TGE解锁比例。"
+      },
+      "q8": {
+        "question": "退款政策是怎样的？",
+        "answer": "公开销售确认后原则上不可退款，但特殊情况除外。"
+      }
+    },
+    "ctaSection": {
+      "title": "立即参与！",
+      "subtitle": "加入TBURN Chain公开销售，以$0.20获取TBURN - 比上市价优惠60%！",
+      "button": "立即参与"
+    },
+    "dialog": {
+      "title": "公开轮参与咨询",
+      "description": "我们的团队将尽快联系您。所有人均可参与。",
+      "name": "姓名 *",
+      "namePlaceholder": "张三",
+      "email": "邮箱 *",
+      "investmentAmount": "计划金额",
+      "message": "附加信息",
+      "messagePlaceholder": "请输入任何其他问题",
+      "cancelBtn": "取消",
+      "submit": "提交咨询",
+      "submitting": "提交中...",
+      "successTitle": "咨询已提交",
+      "successDesc": "我们的团队将尽快联系您。",
+      "errorTitle": "发生错误",
+      "requiredTitle": "缺少必填字段",
+      "requiredDesc": "姓名和邮箱是必填项。"
+    },
+    "footer": {
+      "description": "AI的智能，区块链的透明。THE FUTURE IS NOW",
+      "product": "产品",
+      "resources": "资源",
+      "community": "社区",
+      "mainnet": "主网",
+      "explorer": "浏览器",
+      "bridge": "跨链桥",
+      "staking": "质押",
+      "whitepaper": "白皮书",
+      "docs": "文档",
+      "github": "GitHub",
+      "audit": "审计报告",
+      "blog": "博客",
       "ambassador": "大使",
-      "creator": "创作者",
-      "moderator": "版主",
-      "educator": "教育专家",
-      "translator": "翻译者",
-      "bounty": "漏洞赏金",
-      "amount90m": "9000万",
-      "amount60m": "6000万",
-      "amount45m": "4500万",
-      "amount30m": "3000万"
+      "grants": "资助",
+      "support": "支持",
+      "terms": "服务条款",
+      "privacy": "隐私政策"
+    }
+  },
+  "coinlist": {
+    "title": "CoinList销售",
+    "subtitle": "CoinList平台上的TBURN代币销售",
+    "heroTitle": "CoinList上的TBURN",
+    "heroSubtitle": "参与CoinList上的独家TBURN代币销售",
+    "badge": "CoinList独家",
+    "salePrice": "销售价格",
+    "allocation": "总分配",
+    "participants": "预期参与者",
+    "kycRequired": "需要KYC",
+    "eligibility": "资格要求",
+    "registerNow": "在CoinList注册"
+  },
+  "daoMaker": {
+    "title": "DAO Maker",
+    "subtitle": "DAO Maker上的TBURN强力持有者发售",
+    "heroTitle": "DAO Maker上的TBURN",
+    "heroSubtitle": "参与DAO Maker上的强力持有者发售(SHO)",
+    "badge": "DAO Maker SHO",
+    "shoPrice": "SHO价格",
+    "allocation": "SHO分配",
+    "daoRequired": "所需DAO Power",
+    "tiers": "SHO等级",
+    "guaranteed": "保证分配",
+    "lottery": "抽奖池",
+    "registerSHO": "注册SHO"
+  },
+  "airdropPage": {
+    "nav": {
+      "overview": "概览",
+      "airdrops": "空投",
+      "tasks": "任务",
+      "timeline": "时间表",
+      "faq": "常见问题"
     },
-    "programs": {
-      "badge": "计划",
-      "title": "社区计划",
-      "subtitle": "找到适合您的计划",
-      "featured": "热门",
-      "reward": "奖励",
-      "requirements": "要求",
-      "applyBtn": "申请",
-      "connectFirst": "连接钱包后申请",
-      "featuredBadge": "⭐ 热门",
-      "ambassador": {
-        "title": "大使计划",
-        "subtitle": "TBURN Chain官方代表",
-        "reward": "每月最高5,000 TBURN",
-        "benefit1": "官方大使徽章和NFT",
-        "benefit2": "月度奖励+绩效奖金",
-        "benefit3": "专属Discord频道访问",
-        "benefit4": "线下活动邀请",
-        "requirements": "社交媒体粉丝1,000+,加密货币相关活动经验"
+    "header": {
+      "connectWallet": "连接钱包"
+    },
+    "hero": {
+      "badge": "进行中 - 主网空投进行中",
+      "tps": "TPS",
+      "title": "3亿 TBURN",
+      "subtitle": "空投计划",
+      "description": "为庆祝TBURN Chain主网启动，我们向社区分发3亿TBURN（占总供应量的3%）。完成任务并获得积分以增加您的空投分配！",
+      "totalAirdrop": "空投总供应量",
+      "distributed": "已分发",
+      "participants": "参与者",
+      "claimRate": "领取率"
+    },
+    "eligibility": {
+      "title": "我的空投状态",
+      "checking": "检查资格中...",
+      "allocated": "已分配",
+      "claimed": "已领取",
+      "pending": "待领取",
+      "tier": "等级",
+      "noAllocation": "未找到空投分配。完成任务以参与。"
+    },
+    "buttons": {
+      "participateNow": "立即参与",
+      "doTasks": "做任务",
+      "viewDetails": "查看详情"
+    },
+    "toasts": {
+      "participating": "正在参与空投！",
+      "completeTasksForPoints": "完成任务以获得更多积分。",
+      "airdropTypes": "空投类型",
+      "checkAirdropTypes": "查看3种空投计划。",
+      "connectWalletFirst": "请先连接钱包",
+      "checkingNft": "正在检查NFT持有情况...",
+      "pleaseWait": "请稍候",
+      "checkingTestnet": "正在检查测试网活动..."
+    },
+    "types": {
+      "badge": "空投类型",
+      "title": "空投类型",
+      "subtitle": "通过3种空投计划分发3亿TBURN（占总供应量的3%）",
+      "progress": "分发进度",
+      "waiting": "等待中（TGE后90天开始）",
+      "genesis": {
+        "title": "创世空投",
+        "amount": "1.5亿 TBURN",
+        "desc": "为庆祝主网启动，特别分配给早期参与者",
+        "feature1": "测试网参与者优先",
+        "feature2": "创世NFT持有者奖励（2倍）",
+        "feature3": "早鸟额外奖励（+20%）",
+        "feature4": "TGE时解锁15%"
       },
-      "creator": {
-        "title": "内容创作者",
-        "subtitle": "教育和推广内容",
-        "reward": "每篇100-1,000 TBURN",
-        "benefit1": "视频/博客/信息图奖励",
-        "benefit2": "内容创作工具支持",
-        "benefit3": "官方频道推广",
-        "benefit4": "创作者专属活动",
-        "requirements": "需提交作品集"
+      "community": {
+        "title": "社区空投",
+        "amount": "1亿 TBURN",
+        "desc": "完成社交任务和社区参与的奖励",
+        "feature1": "X(Twitter)/Telegram/Discord关注",
+        "feature2": "内容创作和分享奖励",
+        "feature3": "推荐奖励（每位好友500P）",
+        "feature4": "基于积分的比例分配"
       },
-      "moderator": {
-        "title": "社区版主",
-        "subtitle": "社区管理和支持",
-        "reward": "每月最高2,000 TBURN",
-        "benefit1": "Discord/Telegram版主权限",
-        "benefit2": "月度固定奖励",
-        "benefit3": "社区增长奖金",
-        "benefit4": "内部信息提前获取",
-        "requirements": "每周可活动20小时以上"
+      "loyalty": {
+        "title": "忠诚空投",
+        "amount": "5000万 TBURN",
+        "desc": "长期持有者和质押参与者的奖励",
+        "feature1": "90天以上持有奖励（+50%）",
+        "feature2": "质押参与奖励",
+        "feature3": "治理投票奖励",
+        "feature4": "季度快照奖励分配"
+      }
+    },
+    "tasks": {
+      "badge": "赚取积分",
+      "title": "完成任务",
+      "subtitle": "完成任务赚取积分，增加您的空投分配",
+      "myStatus": "我的任务状态",
+      "walletConnected": "已连接钱包",
+      "connectToTrack": "连接钱包追踪任务进度",
+      "earnedPoints": "已赚取积分",
+      "required": {
+        "title": "必做任务",
+        "wallet": {
+          "title": "连接钱包",
+          "desc": "连接MetaMask或支持的钱包",
+          "points": "+500 P",
+          "buttonConnect": "连接",
+          "buttonComplete": "已完成"
+        },
+        "email": {
+          "title": "邮箱验证",
+          "desc": "注册并验证邮箱地址",
+          "points": "+300 P",
+          "button": "验证"
+        },
+        "telegram": {
+          "title": "加入Telegram",
+          "desc": "加入官方Telegram群组",
+          "points": "+400 P",
+          "button": "加入"
+        }
       },
-      "educator": {
-        "title": "教育专家",
-        "subtitle": "区块链教育和教程",
-        "reward": "每次讲座500-2,000 TBURN",
-        "benefit1": "在线课程制作奖励",
-        "benefit2": "教育资料制作支持",
-        "benefit3": "TBURN学院讲师认证",
-        "benefit4": "教育平台合作",
-        "requirements": "需具备区块链/开发专业知识"
+      "social": {
+        "title": "社交任务",
+        "twitter": {
+          "title": "关注X(Twitter)",
+          "desc": "关注@TBURNChain官方账号",
+          "points": "+200 P",
+          "button": "关注"
+        },
+        "retweet": {
+          "title": "转发启动推文",
+          "desc": "转发主网启动公告",
+          "points": "+300 P",
+          "button": "转发"
+        },
+        "discord": {
+          "title": "加入Discord",
+          "desc": "加入官方Discord服务器",
+          "points": "+400 P",
+          "button": "加入"
+        }
       },
-      "translator": {
-        "title": "翻译者计划",
-        "subtitle": "多语言支持和本地化",
-        "reward": "每份文档200-800 TBURN",
-        "benefit1": "官方文档翻译奖励",
-        "benefit2": "社区本地化支持",
-        "benefit3": "翻译者认证徽章",
-        "benefit4": "语言社区负责人机会",
-        "requirements": "精通英语+1种以上语言"
+      "bonus": {
+        "title": "额外任务",
+        "nft": {
+          "title": "创世NFT持有者",
+          "desc": "持有TBURN创世NFT获得2倍奖励",
+          "points": "+2,000 P",
+          "button": "验证"
+        },
+        "referral": {
+          "title": "邀请好友（推荐）",
+          "desc": "每位好友500P，最多10位好友",
+          "points": "最高 +5,000 P",
+          "button": "邀请"
+        },
+        "testnet": {
+          "title": "测试网参与者",
+          "desc": "如有测试网活动记录自动适用",
+          "points": "+3,000 P",
+          "button": "验证"
+        }
+      }
+    },
+    "timeline": {
+      "badge": "时间表",
+      "title": "分发时间表",
+      "subtitle": "空投分发在TGE后持续9个月",
+      "nov2025": "2025年11月",
+      "registrationStart": "空投注册开始",
+      "registrationDesc": "开始连接钱包和完成任务",
+      "jan2026": "2026年1月（当前）",
+      "snapshotProgress": "快照进行中",
+      "snapshotDesc": "累积参与者积分（28,750用户）",
+      "feb2026": "2026年2月",
+      "tge": "TGE（代币生成事件）",
+      "tgeDesc": "15%（4500万TBURN）可立即领取",
+      "mar2026": "2026年3月-11月",
+      "monthlyVesting": "每月解锁释放",
+      "vestingDesc": "9个月内线性释放约9.4%",
+      "calculator": {
+        "title": "分发计算示例",
+        "myPoints": "我的积分",
+        "totalPool": "总积分池",
+        "distribution": "分发金额",
+        "estimated": "预估金额",
+        "estimatedValue": "预估价值（@$0.50）",
+        "disclaimer": "* 实际分发可能因最终快照总积分而异。"
       },
-      "bounty": {
-        "title": "漏洞赏金猎人",
-        "subtitle": "安全漏洞发现和报告",
-        "reward": "每个漏洞最高50,000 TBURN",
-        "benefit1": "按严重程度奖励",
-        "benefit2": "名人堂入选",
-        "benefit3": "安全专家网络参与",
-        "benefit4": "白帽认证",
-        "requirements": "需具备安全相关技术知识"
+      "vesting": {
+        "title": "解锁时间表",
+        "tgeDay": "TGE（第0天）",
+        "monthly": "第1-9月",
+        "monthlyPercent": "约9.4%/月",
+        "complete": "9个月后"
+      }
+    },
+    "eligibilitySection": {
+      "badge": "资格要求",
+      "title": "参与资格",
+      "subtitle": "查看空投参与要求",
+      "eligible": {
+        "title": "符合条件",
+        "wallet": {
+          "title": "需要连接钱包",
+          "desc": "支持MetaMask、Trust Wallet、Coinbase Wallet"
+        },
+        "tasks": {
+          "title": "完成必要任务",
+          "desc": "钱包连接 + 邮箱验证 + Telegram加入"
+        },
+        "minPoints": {
+          "title": "最低1,000积分",
+          "desc": "低于最低积分将被排除在分发之外"
+        },
+        "snapshot": {
+          "title": "保持资格直到快照",
+          "desc": "快照计划于2026年1月进行"
+        }
+      },
+      "excluded": {
+        "title": "排除条件",
+        "restricted": {
+          "title": "受限国家居民",
+          "desc": "美国、中国、朝鲜及其他受管制国家被排除"
+        },
+        "sybil": {
+          "title": "女巫攻击",
+          "desc": "多个账户将导致所有账户被排除"
+        },
+        "bot": {
+          "title": "检测到机器人活动",
+          "desc": "自动化工具使用将被排除"
+        },
+        "fraud": {
+          "title": "欺诈行为",
+          "desc": "任务操纵或虚假信息提交将导致永久排除"
+        }
+      }
+    },
+    "faq": {
+      "title": "常见问题",
+      "q1": {
+        "question": "如何参与空投？",
+        "answer": "连接您的钱包，完成所需任务（邮箱验证、Telegram加入），并积累积分。"
+      },
+      "q2": {
+        "question": "何时可以领取代币？",
+        "answer": "TGE时可领取15%，剩余部分在9个月内线性释放。"
+      },
+      "q3": {
+        "question": "积分如何转换为代币？",
+        "answer": "您的积分占总积分池的比例决定您的代币分配。"
+      },
+      "q4": {
+        "question": "我可以用多个钱包参与吗？",
+        "answer": "不可以。每人仅限一个钱包，检测到的多账户将被取消资格。"
+      },
+      "q5": {
+        "question": "创世NFT奖励是什么？",
+        "answer": "持有TBURN创世NFT的用户可获得2倍积分加成。"
+      },
+      "badge": "常见问题",
+      "subtitle": "查看有关空投的常见问题解答",
+      "q6": {
+        "question": "完成任务能获得多少积分？",
+        "answer": "每项任务积分：必做任务 - 连接钱包(500P)、邮箱验证(300P)、Telegram加入(400P)。社交任务 - X关注(200P)、转发(300P)、Discord加入(400P)。额外任务 - 创世NFT(2,000P)、邀请好友(最高5,000P)、测试网(3,000P)。"
+      },
+      "q7": {
+        "question": "NFT持有者奖励如何运作？",
+        "answer": "TBURN创世NFT持有者可获得空投分配的2倍加成。连接钱包后自动进行NFT验证。"
+      },
+      "q8": {
+        "question": "是否有地区限制或条件？",
+        "answer": "出于监管合规要求，部分地区受限。受限地区：美国、中国、朝鲜、伊朗、叙利亚、古巴及其他OFAC制裁国家。"
+      }
+    },
+    "footer": {
+      "products": "产品",
+      "scan": "区块浏览器",
+      "dapp": "DApp",
+      "staking": "质押",
+      "bridge": "跨链桥",
+      "developers": "开发者",
+      "docs": "文档",
+      "api": "API",
+      "sdk": "SDK",
+      "resources": "资源",
+      "whitepaper": "白皮书",
+      "tokenomics": "代币经济",
+      "roadmap": "路线图",
+      "privacyPolicy": "隐私政策",
+      "termsOfService": "服务条款",
+      "contact": "联系我们",
+      "brand": "未来DeFi最快、最安全的区块链",
+      "copyright": "© 2025-2045 TBURN基金会。保留所有权利。",
+      "github": "GitHub",
+      "faq": "常见问题"
+    },
+    "emailDialog": {
+      "title": "邮箱验证",
+      "description": "输入您的邮箱以验证并获得+300积分",
+      "label": "邮箱地址",
+      "info": "我们将发送验证链接到您的邮箱。",
+      "cancel": "取消",
+      "submit": "提交",
+      "processing": "处理中..."
+    },
+    "referralDialog": {
+      "title": "邀请好友",
+      "description": "分享您的推荐链接，每位好友可获得500积分！",
+      "linkLabel": "您的推荐链接",
+      "copy": "复制",
+      "copied": "已复制！",
+      "linkCopied": "推荐链接已复制到剪贴板",
+      "shareTitle": "分享到",
+      "shareTwitter": "分享到Twitter",
+      "shareTelegram": "分享到Telegram",
+      "shareKakao": "分享到KakaoTalk",
+      "bonusTitle": "推荐奖励",
+      "bonusDesc": "每位成功推荐的好友可获得500积分，最多10位好友。"
+    }
+  },
+  "referralPage": {
+    "nav": {
+      "home": "首页",
+      "howItWorks": "运作方式",
+      "tiers": "等级",
+      "dashboard": "仪表板",
+      "calculator": "计算器",
+      "leaderboard": "排行榜",
+      "faq": "FAQ"
+    },
+    "header": {
+      "connectWallet": "连接钱包",
+      "connecting": "连接中..."
+    },
+    "hero": {
+      "badge": "推荐计划",
+      "title": "3亿 TBURN",
+      "subtitle": "推荐奖励",
+      "description": "邀请朋友加入TBURN Chain，从他们的活动中赚取佣金。更高等级可解锁高达50%的佣金率！",
+      "stats": {
+        "totalParticipants": "总参与者",
+        "totalReferrals": "总推荐数",
+        "totalRewards": "总奖励分配 (TBURN)",
+        "activeReferrers": "活跃推荐人"
+      },
+      "buttons": {
+        "getReferralLink": "获取推荐链接",
+        "viewDashboard": "查看仪表板"
+      }
+    },
+    "howItWorks": {
+      "badge": "运作方式",
+      "title": "推荐计划运作方式",
+      "subtitle": "简单4步获取奖励",
+      "steps": {
+        "connect": {
+          "title": "连接钱包",
+          "desc": "连接MetaMask或支持的钱包生成您的专属推荐链接。"
+        },
+        "share": {
+          "title": "分享链接",
+          "desc": "在社交媒体、社区和朋友间分享您的推荐链接。"
+        },
+        "activity": {
+          "title": "朋友活动",
+          "desc": "您推荐的朋友在TBURN Chain上交易、质押等。"
+        },
+        "earn": {
+          "title": "获取奖励",
+          "desc": "实时从朋友活动产生的费用中获得佣金。"
+        }
       }
     },
     "tiers": {
-      "badge": "等级系统",
-      "title": "社区等级系统",
-      "subtitle": "通过活动提升等级,增加奖励倍数",
-      "benefitsTitle": "等级福利",
-      "benefitsSubtitle": "积累积分升级到更高等级",
-      "newcomer": {
-        "name": "新手",
-        "points": "0-499积分"
+      "badge": "等级佣金",
+      "title": "等级佣金",
+      "subtitle": "推荐越多等级越高，佣金率也越高",
+      "commission": "佣金",
+      "referrals": "推荐数",
+      "benefits": "福利"
+    },
+    "dashboard": {
+      "badge": "我的仪表板",
+      "title": "推荐仪表板",
+      "subtitle": "实时跟踪您的推荐活动和收益",
+      "currentTier": "当前等级",
+      "myReferralLink": "我的推荐链接",
+      "copy": "复制",
+      "copied": "已复制!",
+      "share": {
+        "twitter": "Twitter",
+        "telegram": "Telegram",
+        "discord": "Discord",
+        "kakao": "KakaoTalk"
       },
-      "contributor": {
-        "name": "贡献者",
-        "points": "500-1,999积分"
+      "stats": {
+        "totalInvites": "总邀请数",
+        "activeUsers": "活跃用户",
+        "totalEarned": "累计获得 TBURN",
+        "totalDistributed": "总分配 TBURN"
       },
-      "advocate": {
-        "name": "倡导者",
-        "points": "2,000-4,999积分"
-      },
-      "champion": {
-        "name": "冠军",
-        "points": "5,000-9,999积分"
-      },
-      "legend": {
-        "name": "传奇",
-        "points": "10,000+积分"
+      "emptyState": "连接钱包开始推荐活动",
+      "connectButton": "连接钱包",
+      "toasts": {
+        "copied": "复制成功",
+        "copiedDesc": "推荐链接已复制到剪贴板。"
       }
     },
-    "activities": {
-      "badge": "活动",
-      "title": "活动积分和奖励",
-      "subtitle": "通过各种活动获得积分和TBURN",
-      "tableTitle": "积分获取活动",
-      "columnActivity": "活动",
-      "columnCategory": "类别",
-      "columnPoints": "积分",
-      "columnReward": "TBURN奖励",
-      "columnFrequency": "频率",
-      "frequency": {
-        "daily": "每日",
-        "weekly": "每周",
-        "monthly": "每月",
-        "once": "一次"
+    "calculator": {
+      "badge": "计算器",
+      "title": "奖励计算器",
+      "subtitle": "提前计算您的预估收益",
+      "input": {
+        "title": "输入条件",
+        "tier": "我的等级",
+        "referrals": "预计推荐数（月）",
+        "volume": "被推荐人平均月交易量 ($)",
+        "price": "TBURN预估价格 ($)"
       },
-      "socialShare": {
-        "name": "社交媒体分享",
-        "category": "社交"
+      "result": {
+        "title": "预估收益",
+        "totalVolume": "总交易量（月）",
+        "tradingFee": "交易手续费 (0.1%)",
+        "myCommission": "我的佣金",
+        "monthlyEarnings": "月收益 (TBURN)",
+        "yearlyEarnings": "年收益 (TBURN)",
+        "yearlyUsd": "预估年收益 (USD)"
       },
-      "content": {
-        "name": "内容创作",
-        "category": "内容"
+      "disclaimer": "* 实际收益可能因市场情况而异"
+    },
+    "leaderboard": {
+      "badge": "排行榜",
+      "title": "推荐排行榜",
+      "subtitle": "查看顶级推荐人的表现",
+      "topReferrers": "Top Referrers",
+      "filters": {
+        "all": "全部",
+        "week": "本周",
+        "month": "本月"
+      },
+      "invites": "邀请数",
+      "earnings": "总收益",
+      "viewAll": "查看全部排名",
+      "toasts": {
+        "allRank": "全部排名",
+        "allRankDesc": "显示所有时间推荐排名。",
+        "weekRank": "本周排名",
+        "weekRankDesc": "本周推荐排名。(即将推出)",
+        "monthRank": "本月排名",
+        "monthRankDesc": "本月推荐排名。(即将推出)",
+        "walletRequired": "需要连接钱包",
+        "walletRequiredDesc": "请先连接钱包查看完整排名。",
+        "fullRankings": "完整排名",
+        "fullRankingsDesc": "完整排名页面即将推出。"
+      }
+    },
+    "faq": {
+      "badge": "FAQ",
+      "title": "常见问题",
+      "subtitle": "查找推荐计划相关常见问题的答案",
+      "q1": {
+        "question": "推荐奖励池总量是多少？",
+        "answer": "推荐计划总奖励池为3亿TBURN。这占总供应量100亿TBURN的3%。TGE时解锁5%（1500万TBURN），剩余95%在36个月内每月约2.64%线性释放。目前约4200万TBURN已分配给推荐人。"
+      },
+      "q2": {
+        "question": "佣金如何计算？",
+        "answer": "当您的推荐人在TBURN Chain上交易、质押、跨链等活动产生的费用中获得一定比例的佣金。基础交易费率为0.1%，根据您的等级获得该费用的20-50%作为佣金。例：推荐人交易$1,000 → 产生$1费用 → Gold等级(40%)获得$0.40"
+      },
+      "q3": {
+        "question": "如何提升等级？",
+        "answer": "根据您邀请的朋友数量自动提升等级。Bronze（0-9人，20%）、Silver（10-49人，30%）、Gold（50-199人，40%）、Diamond（200人+，50%）。更高等级不仅解锁更高佣金率，还有多层推荐（2级、3级）福利。"
+      },
+      "q4": {
+        "question": "何时可以领取奖励？",
+        "answer": "推荐奖励实时记入，累积奖励可随时提取。最低提取100 TBURN，会扣除少量Gas费（约0.001 TBURN）。提取立即发送到您连接的钱包。"
+      },
+      "q5": {
+        "question": "什么是多层推荐？",
+        "answer": "多层推荐让您不仅从直接邀请的人（1级）获得佣金，还从他们邀请的人（2级）及更深层次（3级）获得佣金。Silver+解锁2级（5-10%），Diamond解锁3级（15%）。"
+      },
+      "q6": {
+        "question": "在哪里获取推荐链接？",
+        "answer": "连接钱包后自动生成唯一的推荐链接和代码。在仪表板查看并轻松分享到Twitter、Telegram、Discord、KakaoTalk等。支持钱包：MetaMask、Rabby、Trust Wallet、Coinbase Wallet、Ledger"
+      },
+      "q7": {
+        "question": "可以推荐任何地方的任何人吗？",
+        "answer": "推荐全球可用，但部分受限地区（OFAC制裁国家）除外。详情请查看资格部分。"
+      },
+      "q8": {
+        "question": "如何防止欺诈？",
+        "answer": "系统监控自我推荐、女巫攻击、虚假账户等欺诈行为。检测到欺诈活动将立即终止账户并没收所有奖励。"
+      }
+    },
+    "footer": {
+      "brand": "为DeFi未来打造的最快最安全的区块链",
+      "products": "产品",
+      "scan": "浏览器",
+      "dapp": "DApp",
+      "staking": "质押",
+      "bridge": "跨链桥",
+      "developers": "开发者",
+      "docs": "文档",
+      "api": "API",
+      "sdk": "SDK",
+      "github": "GitHub",
+      "resources": "资源",
+      "whitepaper": "白皮书",
+      "tokenomics": "代币经济",
+      "roadmap": "路线图",
+      "faq": "FAQ",
+      "copyright": "© 2025-2045 TBURN Foundation. 保留所有权利。",
+      "privacyPolicy": "隐私政策",
+      "termsOfService": "服务条款",
+      "contact": "联系我们"
+    }
+  },
+  "eventsPage": {
+    "nav": {
+      "liveEvents": "进行中活动",
+      "allEvents": "全部活动",
+      "leaderboard": "排行榜",
+      "faq": "常见问题",
+      "connectWallet": "连接钱包",
+      "connected": "已连接"
+    },
+    "hero": {
+      "badge": "活动中心 - 多项活动进行中",
+      "title": "参与并赢取!",
+      "titleHighlight": "4亿 TBURN",
+      "titleSuffix": "活动奖励",
+      "subtitle": "参与上线活动、交易大赛、质押加速、社区挑战，赢取丰厚奖励！",
+      "liveBadge": "进行中",
+      "liveTitle": "主网上线盛大活动",
+      "liveSubtitle": "立即参与，赢取高达10,000 TBURN！",
+      "countdown": {
+        "days": "天",
+        "hours": "小时",
+        "minutes": "分钟",
+        "seconds": "秒"
+      },
+      "participate": "参与",
+      "connectFirst": "连接钱包后申请"
+    },
+    "stats": {
+      "totalEvents": "总活动数",
+      "activeEvents": "进行中活动",
+      "totalParticipants": "总参与人数",
+      "totalRewards": "总奖池"
+    },
+    "distribution": {
+      "badge": "分配",
+      "title": "活动奖励分配",
+      "subtitle": "4亿TBURN分配到5个活动类别",
+      "launch": {
+        "name": "上线活动",
+        "amount": "1亿",
+        "percent": "25%"
+      },
+      "trading": {
+        "name": "交易大赛",
+        "amount": "1亿",
+        "percent": "25%"
+      },
+      "staking": {
+        "name": "质押加速",
+        "amount": "8000万",
+        "percent": "20%"
       },
       "community": {
-        "name": "社区支持",
-        "category": "支持"
+        "name": "社区挑战",
+        "amount": "6000万",
+        "percent": "15%"
       },
-      "ambassador": {
-        "name": "大使活动",
-        "category": "大使"
+      "partner": {
+        "name": "合作与季节",
+        "amount": "6000万",
+        "percent": "15%"
+      }
+    },
+    "events": {
+      "badge": "全部活动",
+      "title": "活动列表",
+      "subtitle": "查看当前和即将进行的活动",
+      "categories": {
+        "all": "全部",
+        "live": "进行中",
+        "launch": "上线",
+        "trading": "交易",
+        "staking": "质押",
+        "community": "社区"
       },
-      "translation": {
-        "name": "翻译工作",
-        "category": "翻译"
+      "categoryToasts": {
+        "all": {
+          "title": "全部活动",
+          "desc": "显示所有活动。"
+        },
+        "live": {
+          "title": "进行中活动",
+          "desc": "显示当前活动。"
+        },
+        "launch": {
+          "title": "上线活动",
+          "desc": "显示主网上线相关活动。"
+        },
+        "trading": {
+          "title": "交易活动",
+          "desc": "显示交易相关活动。"
+        },
+        "staking": {
+          "title": "质押活动",
+          "desc": "显示质押相关活动。"
+        },
+        "community": {
+          "title": "社区活动",
+          "desc": "显示社区参与活动。"
+        }
+      },
+      "loading": "加载中...",
+      "loadingDesc": "正在加载活动数据...",
+      "noEvents": "暂无活动",
+      "noEventsDesc": "此类别暂无活动",
+      "status": {
+        "live": "进行中",
+        "upcoming": "即将开始",
+        "ended": "已结束"
+      },
+      "buttons": {
+        "participate": "参与",
+        "connectWallet": "连接钱包",
+        "comingSoon": "即将开始"
       }
     },
     "leaderboard": {
       "badge": "排行榜",
-      "title": "社区排行榜",
-      "subtitle": "最活跃的社区成员",
-      "topContributors": "顶级贡献者"
+      "title": "活动排行榜",
+      "subtitle": "查看顶级参与者的表现",
+      "topTitle": "上线活动TOP 10",
+      "tabs": {
+        "all": "全部",
+        "today": "今日",
+        "week": "本周"
+      },
+      "tabToasts": {
+        "all": {
+          "title": "全部时间",
+          "desc": "显示全部时间排名。"
+        },
+        "today": {
+          "title": "今日",
+          "desc": "显示今日排名。(即将推出)"
+        },
+        "week": {
+          "title": "本周",
+          "desc": "显示本周排名。(即将推出)"
+        }
+      },
+      "table": {
+        "rank": "排名",
+        "participant": "参与者",
+        "missions": "任务",
+        "score": "分数",
+        "reward": "预计奖励"
+      }
     },
     "faq": {
       "badge": "常见问题",
       "title": "常见问题",
-      "subtitle": "关于社区计划的常见问题",
-      "q1": {
-        "question": "社区计划的总奖励池是多少?",
-        "answer": "社区计划总奖励池为3亿TBURN。这占总供应量100亿TBURN的3%。分配到6个计划:大使(30%)、内容创作者(20%)、版主(15%)、教育专家(15%)、翻译者(10%)、漏洞赏金(10%)。"
-      },
-      "q2": {
-        "question": "如何参与社区计划?",
-        "answer": "点击每个计划卡片上的'申请'按钮提交申请。审核批准后,即可作为官方社区成员开始活动。大使需要额外的面试流程。"
-      },
-      "q3": {
-        "question": "积分如何转换为TBURN?",
-        "answer": "积分在每月底自动转换为TBURN。转换率因等级而异,传奇等级最高可获得3倍奖励倍数。转换后的TBURN在下个月第一周发放。"
-      },
-      "q4": {
-        "question": "可以同时参与多个计划吗?",
-        "answer": "是的,可以同时参与多个计划。例如,可以同时作为大使和内容创作者获得奖励。但必须满足每个计划的所有要求。"
-      },
-      "q5": {
-        "question": "等级系统如何运作?",
-        "answer": "有5个等级:新手(1x)→贡献者(1.2x)→倡导者(1.5x)→冠军(2x)→传奇(3x)。通过活动积累积分升级,奖励倍数随等级增加。传奇等级需要10,000+积分。"
-      },
-      "q6": {
-        "question": "降级条件是什么?",
-        "answer": "如果连续3个月未达到最低活动要求(每月100+积分),可能会被降级。降级每次降一级,应用相应等级的奖励倍数。"
-      },
-      "q7": {
-        "question": "漏洞赏金奖励如何确定?",
-        "answer": "漏洞赏金奖励按严重程度确定:严重(最高50,000 TBURN)、高(10,000-25,000 TBURN)、中(2,000-10,000 TBURN)、低(500-2,000 TBURN)。安全专家验证后7天内发放。"
-      },
-      "q8": {
-        "question": "内容质量标准是什么?",
-        "answer": "内容按4个标准评估:准确性、原创性、质量和参与度。抄袭、虚假信息或低质量内容将被拒绝,重复违规可能导致计划暂停。优秀内容将在官方频道推广并获得额外奖金。"
+      "subtitle": "查找活动相关常见问题的答案",
+      "items": {
+        "q1": {
+          "question": "活动奖励总池是多少?",
+          "answer": "活动奖励总池为4亿TBURN，占100亿TBURN总供应量的4%。"
+        },
+        "q2": {
+          "question": "谁可以参加活动?",
+          "answer": "任何连接钱包的用户都可以参加。"
+        },
+        "q3": {
+          "question": "奖励何时发放?",
+          "answer": "大多数活动奖励在活动结束后7天内发放。"
+        },
+        "q4": {
+          "question": "可以同时参加多个活动吗?",
+          "answer": "是的，您可以参加所有同时进行的活动。"
+        },
+        "q5": {
+          "question": "交易大赛排名如何确定?",
+          "answer": "排名由交易量和收益率确定。"
+        },
+        "q6": {
+          "question": "质押加速APY如何计算?",
+          "answer": "活动期间适用2倍基础APY。"
+        },
+        "q7": {
+          "question": "表情包大赛如何选出获奖者?",
+          "answer": "通过社区投票和评委评审选出。"
+        },
+        "q8": {
+          "question": "如果发现作弊行为会怎样?",
+          "answer": "所有奖励将被没收，账户将被永久禁止。"
+        }
       }
     },
     "cta": {
-      "title": "加入TBURN社区!",
-      "subtitle": "在TBURN生态系统中共同成长,共同获益",
-      "subtitleLine2": "立即加入社区计划!",
-      "button": "开始"
+      "title": "立即参与活动！",
+      "subtitle": "参与各种活动，赢取高达4亿TBURN奖励。",
+      "subtitleHighlight": "早参与 = 更多奖励！",
+      "buttonParticipate": "立即参与",
+      "buttonConnect": "连接钱包并开始"
     },
     "footer": {
-      "brand": {
-        "tagline": "AI智能,区块链透明",
-        "slogan": "未来已来"
-      },
-      "product": {
-        "title": "产品",
-        "mainnet": "主网",
-        "explorer": "浏览器",
-        "bridge": "跨链桥",
-        "staking": "质押"
-      },
-      "resources": {
-        "title": "资源",
-        "whitepaper": "白皮书",
-        "docs": "文档",
-        "github": "GitHub",
-        "blog": "博客"
-      },
-      "community": {
-        "title": "社区",
-        "blog": "博客",
-        "ambassador": "大使计划",
-        "grants": "资助计划",
-        "support": "支持"
-      },
-      "copyright": "2024-2025 TBURN Chain. 保留所有权利。",
-      "legal": {
-        "terms": "服务条款",
-        "privacy": "隐私政策"
-      }
-    },
-    "toast": {
-      "selectProgram": "选择计划",
-      "selectProgramDesc": "请选择要参与的计划。",
-      "guide": "计划指南",
-      "guideDesc": "查看各活动的积分和奖励信息。",
-      "applyComplete": "申请完成",
-      "applyCompleteDesc": "您的申请已成功提交。审核后我们会通知您结果。",
-      "connectWallet": "请先连接钱包",
-      "githubRedirect": "正在跳转到GitHub...",
-      "shareTwitter": "已分享至Twitter",
-      "shareTelegram": "已分享至Telegram",
-      "shareDiscord": "已分享至Discord",
-      "shareGithub": "已分享至GitHub",
-      "walletConnected": "钱包已连接",
-      "walletConnectedDesc": "MetaMask钱包已成功连接。",
-      "walletDisconnected": "钱包已断开",
-      "walletDisconnectedDesc": "钱包连接已断开。",
-      "walletRequired": "需要钱包",
-      "walletRequiredDesc": "请先连接钱包再申请计划。",
-      "applicationSubmitted": "申请已提交",
-      "applicationSubmittedDesc": "您的申请已提交。审核后我们会通知您结果。"
-    },
-    "connectWallet": "连接钱包"
+      "description": "AI的智能，区块链的透明\n未来已来",
+      "quickLinks": "快速链接",
+      "explorer": "浏览器",
+      "wallet": "钱包",
+      "bridge": "跨链桥",
+      "staking": "质押",
+      "developers": "开发者",
+      "docs": "文档",
+      "api": "API",
+      "github": "GitHub",
+      "sdk": "SDK",
+      "resources": "资源",
+      "whitepaper": "白皮书",
+      "tokenomics": "代币经济学",
+      "roadmap": "路线图",
+      "faqLink": "常见问题",
+      "copyright": "© 2025-2045 TBURN Foundation. All Rights Reserved.",
+      "termsOfService": "服务条款",
+      "privacyPolicy": "隐私政策"
+    }
   }
 }

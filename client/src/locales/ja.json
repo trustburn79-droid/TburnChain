@@ -2911,32 +2911,20 @@
     "auctionEnds": "オークション終了"
   },
   "launchpad": {
-    "title": "NFTローンチパッド",
-    "subtitle": "限定NFTローンチを発見して参加",
-    "forumTitle": "コミュニティフォーラム",
-    "viewAll": "すべて表示",
-    "recentPosts": "最近の投稿",
-    "upcomingLaunches": "今後のローンチ",
-    "activeLaunches": "アクティブローンチ",
-    "pastLaunches": "過去のローンチ",
-    "projectName": "プロジェクト名",
-    "mintPrice": "ミント価格",
+    "title": "ローンチパッド",
+    "subtitle": "TBURNトークンローンチプラットフォーム",
+    "heroTitle": "TBURN ローンチパッド",
+    "heroSubtitle": "TBURNトークン配布のプレミアローンチパッド",
+    "badge": "トークンローンチ",
+    "launchDate": "ローンチ日",
     "totalSupply": "総供給量",
-    "minted": "ミント済み",
-    "remaining": "残り",
-    "startDate": "開始日",
-    "endDate": "終了日",
-    "whitelist": "ホワイトリスト",
-    "public": "パブリック",
-    "joinWhitelist": "ホワイトリストに参加",
-    "leaveWhitelist": "ホワイトリストから離脱",
-    "mint": "ミント",
-    "mintNow": "今すぐミント",
-    "maxPerWallet": "ウォレットあたり最大",
-    "yourAllocation": "あなたの割り当て",
-    "contribute": "貢献",
-    "claim": "請求",
-    "refund": "返金"
+    "initialPrice": "初期価格",
+    "features": "ローンチパッド機能",
+    "fairLaunch": "フェアローンチ",
+    "antiBot": "アンチボット保護",
+    "vestingSchedule": "ベスティングスケジュール",
+    "liquidityLock": "流動性ロック",
+    "participateNow": "今すぐ参加"
   },
   "gamefi": {
     "title": "GameFiハブ",
@@ -21040,747 +21028,264 @@
       }
     },
     "marketingProgram": {
-      "title": "マーケティングプログラム",
-      "subtitle": "TBURNコミュニティ成長のためのマーケティングイニシアチブ",
-      "heroTitle": "TBURN マーケティングプログラム",
-      "heroSubtitle": "TBURNについて広めて報酬を獲得",
-      "badge": "共に成長",
-      "totalBudget": "総予算",
-      "campaigns": "キャンペーン",
-      "reach": "総リーチ",
-      "programs": "プログラム",
-      "influencer": "インフルエンサープログラム",
-      "affiliate": "アフィリエイトプログラム",
-      "content": "コンテンツクリエイター",
-      "community": "コミュニティマーケティング",
-      "applyMarketing": "マーケティング申請",
-      "campaignDetails": "キャンペーン詳細"
-    },
-    "strategicPartner": {
-      "title": "戦略的パートナー",
-      "subtitle": "TBURNエコシステムを形作る主要な戦略的パートナーシップ",
-      "heroTitle": "TBURN 戦略的パートナー",
-      "heroSubtitle": "TBURNビジョンをサポートする世界クラスのパートナー",
-      "badge": "エリートパートナー",
-      "partnerCount": "パートナー数",
-      "categories": "カテゴリ",
-      "tier1": "Tier 1パートナー",
-      "tier2": "Tier 2パートナー",
-      "tier3": "Tier 3パートナー",
-      "vcPartners": "VCパートナー",
-      "techPartners": "テクノロジーパートナー",
-      "mediaPartners": "メディアパートナー"
-    },
-    "advisorProgram": {
-      "title": "アドバイザープログラム",
-      "subtitle": "TBURN開発を導く業界専門家",
-      "heroTitle": "TBURN アドバイザリーボード",
-      "heroSubtitle": "TBURNエコシステムに専門知識を提供する世界クラスのアドバイザー",
-      "badge": "専門ガイダンス",
-      "advisorCount": "アドバイザー数",
-      "expertise": "専門分野",
-      "blockchain": "ブロックチェーン",
-      "finance": "ファイナンス",
-      "legal": "法務＆コンプライアンス",
-      "marketing": "マーケティング",
-      "technology": "テクノロジー",
-      "meetAdvisors": "アドバイザー紹介"
-    },
-    "seedRound": {
-      "title": "シードラウンド",
-      "subtitle": "TBURNへの初期投資機会",
-      "heroTitle": "TBURN シードラウンド",
-      "heroSubtitle": "TBURNエコシステムの最初の投資家になる",
-      "badge": "シード投資",
-      "tokenPrice": "トークン価格",
-      "discount": "ローンチ価格からの割引",
-      "allocation": "総割当",
-      "vestingInfo": "ベスティング情報",
-      "cliff": "クリフ期間",
-      "vesting": "ベスティング期間",
-      "tgeUnlock": "TGEアンロック",
-      "investorTiers": "投資家ティア",
-      "lead": "リード投資家",
-      "major": "メジャー投資家",
-      "standard": "スタンダード投資家",
-      "angel": "エンジェル投資家",
-      "investNow": "今すぐ投資",
-      "riskWarning": "リスク警告",
       "nav": {
-        "investorTiers": "投資ティア",
-        "vesting": "ベスティング",
-        "investors": "投資家",
-        "process": "プロセス",
-        "faq": "FAQ",
-        "badge": "SEED ROUND - 初期投資家",
-        "status": "進行中",
-        "title": "シードラウンドに投資して",
-        "titleHighlight": "5億 TBURN",
-        "titleEnd": "のチャンスを掴む",
-        "subtitle": "ブロックチェーンVC、クリプトファンド、エンジェル投資家向けに最大70%割引の初期投資機会を提供します。",
-        "loading": "読み込み中...",
-        "seedAllocation": "シード配分",
-        "tokenPriceLabel": "トークン価格",
-        "hardcap": "ハードキャップ",
-        "investorsLabel": "投資家",
-        "applySeed": "シード投資申請",
-        "investmentMemo": "投資メモ"
+        "programs": "プログラム",
+        "ambassador": "アンバサダー",
+        "campaigns": "キャンペーン",
+        "leaderboard": "リーダーボード"
       },
-      "highlights": {
-        "tokenPrice": "トークン単価",
-        "discountRate": "市場割引率",
-        "vestingPeriod": "ベスティング期間"
-      },
-      "comparison": {
-        "badge": "COMPARISON",
-        "title": "ラウンド比較",
-        "subtitle": "シードラウンドが最も有利な条件です",
-        "header": "投資ラウンド比較",
-        "round": "ラウンド",
-        "tokenPriceCol": "トークン価格",
-        "discountCol": "割引率",
-        "statusCol": "ステータス",
-        "maxDiscount": "最大割引",
-        "active": "進行中",
-        "upcoming": "予定"
-      },
-      "tiers": {
-        "badge": "TIERS",
-        "title": "投資ティア",
-        "subtitle": "投資規模に応じた特典",
-        "minInvestment": "最小投資額",
-        "inquireBtn": "お問い合わせ"
-      },
-      "vestingSection": {
-        "badge": "VESTING",
-        "title": "ベスティングスケジュール",
-        "subtitle": "投資家保護のための体系的なトークン解除"
-      },
-      "investorsSection": {
-        "badge": "INVESTORS",
-        "title": "現在の投資家",
-        "subtitle": "パートナー"
-      },
-      "processSection": {
-        "badge": "PROCESS",
-        "title": "投資プロセス",
-        "subtitle": "シード投資手順"
-      },
-      "metrics": {
-        "badge": "METRICS",
-        "title": "トークン指標",
-        "subtitle": "シードラウンド主要指標"
-      },
-      "risks": {
-        "title": "投資リスク警告",
-        "item1": "暗号通貨投資は高い変動性とリスクを伴います。",
-        "item2": "元本を失う可能性があります。損失を許容できる範囲内で投資してください。",
-        "item3": "規制の変更によりサービスが制限される可能性があります。",
-        "item4": "過去のリターンは将来の利益を保証しません。"
-      },
-      "faqSection": {
-        "badge": "FAQ",
-        "title": "よくある質問",
-        "subtitle": "シード投資に関する一般的な質問"
-      },
-      "cta": {
-        "title": "シード投資家になる",
-        "subtitle": "初期投資家として最大70%割引でTBURN Chainに投資しましょう！",
-        "button": "今すぐ投資"
-      },
-      "footer": {
-        "tagline": "AIの知性、ブロックチェーンの透明性",
-        "slogan": "THE FUTURE IS NOW"
-      },
-      "dialog": {
-        "title": "シードラウンド投資お問い合わせ",
-        "description": "お問い合わせを残していただければ、チームからすぐにご連絡いたします。"
-      },
-      "toast": {
-        "inquirySuccess": "投資お問い合わせ受付完了",
-        "inquirySuccessDesc": "チームからすぐにご連絡いたします。",
-        "inquiryError": "お問い合わせ失敗",
-        "inquiryErrorDesc": "一時的なエラーが発生しました。もう一度お試しください。"
-      },
-      "connectWallet": "投資お問い合わせ"
-    },
-    "privateRound": {
-      "nav": {
-        "tiers": "投資ティア",
-        "vesting": "ベスティング",
-        "allocation": "配分",
-        "investors": "投資家",
-        "faq": "FAQ",
-        "connectWallet": "機関投資問合せ"
+      "wallet": {
+        "connect": "ウォレット接続",
+        "connected": "ウォレット接続済み",
+        "connectedDesc": "ウォレットが接続されました。",
+        "disconnected": "ウォレット切断",
+        "disconnectedDesc": "ウォレットが切断されました。",
+        "required": "ウォレットが必要",
+        "requiredDesc": "プログラムに参加するにはウォレットを接続してください。",
+        "campaignRequiredDesc": "キャンペーンに参加するにはウォレットを接続してください。"
       },
       "hero": {
-        "badge": "PRIVATE ROUND - 機関投資",
-        "status": "進行中",
-        "title": "プライベートラウンド投資で",
-        "titleHighlight": "10億TBURN",
-        "titleSuffix": "のチャンスを掴もう",
-        "subtitle": "機関投資家、VC、ファミリーオフィス向け - ローンチ価格($0.50)から50%割引の$0.10投資機会。TGE 5%即時解除。",
-        "progressRaised": "$72,000,000",
-        "progressGoal": "目標 $100,000,000",
-        "progressPercent": "72% 達成",
-        "progressRemaining": "残り $28,000,000"
+        "badge": "マーケティングプログラム - TBURNを一緒に広めよう",
+        "title": "TBURNマーケティングに参加",
+        "fundAmount": "3億 TBURN",
+        "incentive": "報酬を獲得",
+        "subtitle": "アンバサダー、インフルエンサー、コンテンツクリエイター、イベント参加者としてTBURNエコシステムを広め、報酬を獲得しましょう。"
       },
-      "highlights": {
-        "pricePerToken": "トークン単価",
-        "priceCompare": "シード比+150%",
-        "discountLaunch": "ローンチ価格比割引",
-        "tgeUnlock": "TGE即時解除",
-        "vestingPeriod": "ベスティング期間"
+      "socialStats": {
+        "twitter": "Twitterフォロワー",
+        "telegram": "Telegramメンバー",
+        "discord": "Discordメンバー",
+        "youtube": "YouTube登録者",
+        "tiktok": "TikTokフォロワー"
       },
       "stats": {
-        "loading": "読み込み中...",
-        "privateAllocation": "プライベート配分 (10%)",
-        "tokenPrice": "トークン価格",
-        "hardcap": "ハードキャップ",
-        "institutionalInvestors": "機関投資家"
+        "totalBudget": "総マーケティング予算",
+        "activeAmbassadors": "アクティブアンバサダー",
+        "ongoingCampaigns": "進行中のキャンペーン",
+        "activeCampaigns": "アクティブキャンペーン"
       },
       "cta": {
-        "applyPrivate": "プライベート投資申請",
-        "viewDeck": "投資資料を見る"
+        "joinAmbassador": "アンバサダー申請",
+        "viewGuide": "マーケティングガイド",
+        "ambassadorProgram": "アンバサダープログラム",
+        "ambassadorDesc": "アンバサダーティアを確認して参加しましょう！",
+        "marketingGuide": "マーケティングガイド",
+        "guideDesc": "マーケティングプログラムガイドをご覧ください。",
+        "programApply": "{{programName}} 申請",
+        "programApplyDesc": "{{programName}}の申請が送信されました。審査後にご連絡いたします。",
+        "participate": "参加する"
       },
-      "comparison": {
-        "badge": "COMPARISON",
-        "title": "ラウンド比較",
-        "subtitle": "プライベートラウンドはシードとパブリックの中間条件",
-        "tableTitle": "投資ラウンド比較",
-        "round": "ラウンド",
-        "tokenPrice": "トークン価格",
-        "discount": "割引率",
-        "status": "状態",
-        "inProgress": "進行中",
-        "completed": "完了",
-        "upcoming": "予定"
-      },
-      "tiers": {
-        "badge": "TIERS",
-        "title": "投資ティア",
-        "subtitle": "機関投資規模別の差等特典",
-        "minInvestment": "最低投資額",
-        "minInvestmentLabel": "最低投資",
-        "tokenPriceLabel": "トークン価格",
-        "tgeUnlockLabel": "TGE解除",
-        "inquireBtn": "投資問合せ",
-        "institutional": {
-          "name": "Institutional",
-          "subtitle": "機関投資家",
-          "benefits": [
-            "取締役会オブザーバー席",
-            "月次経営陣ブリーフィング",
-            "独占共同投資権",
-            "カスタムベスティング協議",
-            "専任IRマネージャー"
-          ]
+      "sections": {
+        "distribution": {
+          "title": "マーケティング予算配分",
+          "subtitle": "3億TBURNが5つのマーケティングプログラムに配分"
         },
-        "strategic": {
-          "name": "Strategic",
-          "subtitle": "戦略的投資家",
-          "benefits": [
-            "四半期戦略セッション",
-            "パートナーシップ優先権",
-            "技術協力機会",
-            "共同マーケティング",
-            "ネットワークアクセス"
-          ]
+        "programs": {
+          "title": "マーケティングプログラム",
+          "subtitle": "様々な方法でTBURNを広めましょう"
         },
-        "growth": {
-          "name": "Growth",
-          "subtitle": "成長投資家",
-          "benefits": [
-            "四半期アップデートコール",
-            "プライベートコミュニティ",
-            "ガバナンス参加権",
-            "新機能早期アクセス",
-            "専用サポートチャネル"
-          ]
+        "ambassador": {
+          "title": "アンバサダーティア",
+          "subtitle": "活動に基づくティア特典"
         },
-        "standard": {
-          "name": "Standard",
-          "subtitle": "一般投資家",
-          "benefits": [
-            "月次投資家ニュースレター",
-            "基本ガバナンス投票権",
-            "投資家専用チャネル",
-            "一般配分",
-            "メールサポート"
-          ]
+        "content": {
+          "title": "コンテンツ報酬",
+          "subtitle": "コンテンツタイプ別の報酬"
+        },
+        "campaigns": {
+          "title": "進行中のキャンペーン",
+          "subtitle": "参加して報酬を獲得"
+        },
+        "leaderboard": {
+          "title": "アンバサダーリーダーボード",
+          "subtitle": "今月のトップアンバサダー"
+        },
+        "faq": {
+          "title": "よくある質問",
+          "subtitle": "マーケティングプログラムについての質問"
         }
       },
-      "vesting": {
-        "badge": "VESTING",
-        "title": "ベスティングスケジュール",
-        "subtitle": "TGE 5%即時解除、6ヶ月クリフ後12ヶ月月次ベスティング",
-        "tgeUnlock": "TGE解除",
-        "tgeDesc": "上場即時",
-        "cliffPeriod": "クリフ期間",
-        "cliffDesc": "初期ロック",
-        "monthlyVesting": "月次ベスティング",
-        "monthlyDesc": "12ヶ月間",
-        "fullUnlock": "完全アンロック",
-        "fullUnlockDesc": "18ヶ月後"
+      "distributions": {
+        "brand": "ブランドマーケティング",
+        "influencer": "インフルエンサー",
+        "creator": "コンテンツクリエイター",
+        "event": "イベントマーケティング",
+        "pr": "PR＆メディア"
       },
-      "allocation": {
-        "badge": "ALLOCATION",
-        "title": "投資家タイプ別配分",
-        "subtitle": "10億TBURN配分状況",
-        "vcFunds": "VC & ファンド",
-        "familyOffice": "ファミリーオフィス",
-        "strategicInvestors": "戦略投資家",
-        "corporateInvestors": "企業投資家"
+      "programs": {
+        "ambassador": {
+          "title": "アンバサダープログラム",
+          "subtitle": "TBURN公式アンバサダーになろう",
+          "rewardValue1": "最大50万",
+          "rewardLabel1": "月間報酬",
+          "rewardValue2": "無制限",
+          "rewardLabel2": "紹介報酬",
+          "feature1": "公式アンバサダー認証",
+          "feature2": "限定イベント招待",
+          "feature3": "早期アクセス権限",
+          "feature4": "専用マーケティング資料"
+        },
+        "influencer": {
+          "title": "インフルエンサーコラボ",
+          "subtitle": "クリエイターと共に成長",
+          "rewardValue1": "キャンペーン毎$500+",
+          "rewardLabel1": "キャンペーン報酬",
+          "rewardValue2": "10%",
+          "rewardLabel2": "販売手数料",
+          "feature1": "カスタムキャンペーン設計",
+          "feature2": "マーケティング資料提供",
+          "feature3": "成果報酬ボーナス",
+          "feature4": "長期パートナーシップオプション"
+        },
+        "creator": {
+          "title": "コンテンツクリエイター",
+          "subtitle": "動画、記事、教育コンテンツ",
+          "rewardValue1": "コンテンツ毎$100+",
+          "rewardLabel1": "基本報酬",
+          "rewardValue2": "品質ボーナス",
+          "rewardLabel2": "追加報酬",
+          "feature1": "多様なコンテンツタイプ",
+          "feature2": "クリエイターファンドサポート",
+          "feature3": "視聴回数ボーナス",
+          "feature4": "月間コンテスト"
+        },
+        "event": {
+          "title": "イベントマーケティング",
+          "subtitle": "オンライン/オフラインイベント参加",
+          "rewardValue1": "イベント毎$200+",
+          "rewardLabel1": "参加報酬",
+          "rewardValue2": "特別NFT",
+          "rewardLabel2": "イベント報酬",
+          "feature1": "ミートアップ開催サポート",
+          "feature2": "カンファレンス参加",
+          "feature3": "オンラインAMA",
+          "feature4": "コミュニティイベント"
+        }
       },
-      "investors": {
-        "badge": "INVESTORS",
-        "title": "現在の投資家",
-        "subtitle": "機関パートナー"
+      "ambassadorTiers": {
+        "legend": {
+          "requirement": "500+紹介",
+          "reward": "50万/月",
+          "perk1": "専属メンター",
+          "perk2": "オフラインミートアップ招待",
+          "perk3": "NFTエアドロップ",
+          "perk4": "ガバナンス投票権"
+        },
+        "elite": {
+          "requirement": "200+紹介",
+          "reward": "20万/月",
+          "perk1": "プレミアムバッジ",
+          "perk2": "優先サポート",
+          "perk3": "ベータテストアクセス",
+          "perk4": "月間コール"
+        },
+        "rising": {
+          "requirement": "50+紹介",
+          "reward": "5万/月",
+          "perk1": "公式認証",
+          "perk2": "Discordロール",
+          "perk3": "マーケティング資料",
+          "perk4": "紹介リンク"
+        },
+        "starter": {
+          "requirement": "10+紹介",
+          "reward": "1万/月",
+          "perk1": "スターターバッジ",
+          "perk2": "基本資料",
+          "perk3": "コミュニティアクセス",
+          "perk4": "チュートリアル"
+        }
       },
-      "process": {
-        "badge": "PROCESS",
-        "title": "投資プロセス",
-        "subtitle": "機関投資手順",
-        "inquiry": "投資問合せ",
-        "inquiryDesc": "意向書提出",
-        "inquiryDuration": "1-3日",
-        "dueDiligence": "デューデリジェンス",
-        "dueDiligenceDesc": "企業・投資家DD",
-        "dueDiligenceDuration": "1-2週",
-        "negotiation": "契約交渉",
-        "negotiationDesc": "投資条件協議",
-        "negotiationDuration": "1-2週",
-        "funding": "資金送金",
-        "fundingDesc": "投資金送金",
-        "fundingDuration": "3-5日",
-        "tokenAllocation": "トークン配分",
-        "tokenAllocationDesc": "投資確定",
-        "tokenAllocationDuration": "即時"
+      "contentTypes": {
+        "video": {
+          "title": "ビデオ",
+          "desc": "YouTube/TikTok動画"
+        },
+        "article": {
+          "title": "記事",
+          "desc": "ブログ/Medium投稿"
+        },
+        "graphic": {
+          "title": "グラフィック",
+          "desc": "インフォグラフィック/ミーム"
+        },
+        "tutorial": {
+          "title": "チュートリアル",
+          "desc": "教育コンテンツ"
+        }
       },
-      "benefits": {
-        "badge": "BENEFITS",
-        "title": "プライベートラウンドのメリット",
-        "subtitle": "機関投資家専用特典",
-        "excellentPrice": "優れた価格",
-        "excellentPriceValue": "50%+割引",
-        "excellentPriceDesc": "パブリックの半額で投資",
-        "tgeLiquidity": "TGE流動性",
-        "tgeLiquidityValue": "5%解除",
-        "tgeLiquidityDesc": "上場時即座に流動化可能",
-        "strategicPartnership": "戦略的パートナーシップ",
-        "strategicPartnershipValue": "独占特典",
-        "strategicPartnershipDesc": "プロジェクトとの緊密な協力"
+      "campaignList": {
+        "twitter": {
+          "title": "#TBURNChainツイートチャレンジ",
+          "desc": "TBURNを紹介するツイートを作成"
+        },
+        "youtube": {
+          "title": "TBURNレビュー動画",
+          "desc": "TBURN Chain分析動画を作成"
+        },
+        "tiktok": {
+          "title": "TikTokショートフォームチャレンジ",
+          "desc": "15-60秒のTBURN紹介動画"
+        },
+        "article": {
+          "title": "TBURNディープダイブ記事",
+          "desc": "技術/トークノミクス分析を執筆"
+        }
+      },
+      "campaigns": {
+        "activeCampaigns": "アクティブキャンペーン",
+        "participants": "参加者",
+        "statusActive": "進行中",
+        "statusEnding": "まもなく終了",
+        "statusUpcoming": "開始予定",
+        "upcoming": "開始予定のキャンペーン",
+        "upcomingDesc": "このキャンペーンはまもなく開始します。通知を設定してください！",
+        "joined": "キャンペーン参加",
+        "joinedDesc": "「{{campaignTitle}}」キャンペーンに参加しました！"
+      },
+      "leaderboard": {
+        "top5": "TOP 5アンバサダー",
+        "rank": "順位",
+        "ambassador": "アンバサダー",
+        "points": "ポイント",
+        "rewards": "累計報酬"
       },
       "faq": {
-        "badge": "FAQ",
-        "title": "よくある質問",
-        "subtitle": "プライベート投資に関する質問",
-        "q1": {
-          "question": "プライベートラウンドの参加資格と投資条件は？",
-          "answer": "プライベートラウンドは適格機関投資家（VC、ファンド、ファミリーオフィス）、企業投資家、戦略的パートナーが対象です。最低投資額は$100,000（スタンダード）、$500,000+（グロース）、$2,000,000+（ストラテジック）、$5,000,000+（インスティテューショナル）で、投資規模に応じてトークン価格割引とTGE解除率が差等適用されます。全投資家はKYC/AML認証と適格性審査を通過する必要があります。"
-        },
-        "q2": {
-          "question": "シードラウンドとプライベートラウンドの違いは？",
-          "answer": "シードラウンド（$0.04/トークン、80%割引）は完了済みで、12ヶ月クリフ+24ヶ月ベスティング。プライベートラウンド（$0.10/トークン、50%割引）は6ヶ月クリフ+12ヶ月ベスティングでより短いロック期間が特長。プライベート投資家はTGE時に5~7%が即時解除され上場時に一部流動性確保可能。高い価格ですが、より早い流動化と機関級投資家特典が提供されます。"
-        },
-        "q3": {
-          "question": "ベスティングスケジュールとTGE解除の仕組みは？",
-          "answer": "TGE（Token Generation Event）時に投資トークンの5%が即時解除。インスティテューショナルティアは最大7%、ストラテジックティアは6%。その後6ヶ月クリフ（ロック）期間があり、クリフ終了後12ヶ月にわたり毎月約7.9%ずつ線形ベスティング。完全アンロックまで計18ヶ月。インスティテューショナルティア投資家はカスタムベスティング日程の協議が可能です。"
-        },
-        "q4": {
-          "question": "投資プロセスとデューデリジェンス手順は？",
-          "answer": "プロセス：(1)投資問合せ＆NDA締結→(2)意向書(LOI)提出→(3)双方向DD(プロジェクト技術/財務/法務DD＋投資家資金出所/適格性確認)→(4)投資条件交渉＆Term Sheet合意→(5)SAFT契約締結→(6)資金送金(USDT、USDC、銀行送金)→(7)トークン配分確認。DD期間は通常1-2週、機関規模により3-4週まで延長可能。専任IRマネージャーが全プロセスをご案内します。"
-        },
-        "q5": {
-          "question": "投資家保護と法的構造は？",
-          "answer": "すべてのプライベート投資はSAFT（Simple Agreement for Future Tokens）契約により法的に保護されます。契約書にはトークン割当量、価格、ベスティング条件、投資家権利、紛争解決条項が明記されます。投資金はケイマン諸島所在のSPV（Special Purpose Vehicle）を通じて管理され、第三者エスクロー口座に預託されます。法律顧問はMorrison & Foersterと協力し、シンガポールMAS規制に準拠しています。"
-        },
-        "q6": {
-          "question": "上場計画とローンチ価格は？",
-          "answer": "TBURNトークンのローンチ予定価格は$0.50（プライベートの5倍）。上場戦略：メインネットローンチと同時にTGEを実施し、Uniswap、PancakeSwap等の主要DEXに初期流動性を供給。Tier-1 CEX（Binance、OKX、Bybit、Coinbase等）との上場協議が進行中で、ローンチ後3-6ヶ月以内に主要取引所上場を目標としています。マーケットメイキングは専門MMパートナーと協力。"
-        },
-        "q7": {
-          "question": "ティア別特典とガバナンス権限は？",
-          "answer": "ティア別特典：(1)インスティテューショナル($5M+):取締役会オブザーバー席、月次経営陣ブリーフィング、独占共同投資権、カスタムベスティング、専任IRマネージャー (2)ストラテジック($2M+):四半期戦略セッション、パートナーシップ優先権、技術協力、共同マーケティング (3)グロース($500K+):四半期アップデートコール、プライベートコミュニティ、ガバナンス参加権、新機能早期アクセス (4)スタンダード($100K+):月次ニュースレター、基本ガバナンス投票権、投資家専用チャネル。すべてのプライベート投資家はDAOガバナンス投票権を保有します。"
-        },
-        "q8": {
-          "question": "支払い方法と返金ポリシーは？",
-          "answer": "支払い方法：USDT（ERC-20/TRC-20）、USDC（ERC-20）、または銀行送金（USD/EUR）。$1M以上の投資は分割払い可能で、支払いスケジュールは協議可能です。返金ポリシー：SAFT契約締結前は全額返金可能。契約後はプロジェクト中断、メインネットローンチ失敗、重大なロードマップ変更時のみ返金請求可能。投資家都合による中途解約は不可で、詳細条件はSAFT契約書に明記されます。"
-        }
+        "q1": "マーケティングプログラムの総予算は？",
+        "a1": "マーケティングプログラムには合計3億TBURNが割り当てられています。配分：ブランドマーケティング30%(9000万)、インフルエンサー25%(7500万)、コンテンツクリエイター20%(6000万)、イベントマーケティング15%(4500万)、PR＆メディア10%(3000万)。",
+        "q2": "アンバサダーになるには？",
+        "a2": "アンバサダー申請ページで申請を提出してください。ソーシャルメディア活動と暗号通貨への関心に基づいて選考されます。スターターティア(月1万TBURN)から始まり、紹介実績に応じてRising(5万)、Elite(20万)、Legend(50万)に昇格します。",
+        "q3": "コンテンツ報酬はどのように支払われますか？",
+        "a3": "コンテンツ提出後、品質審査を経て承認されるとTBURNトークンで支払われます。タイプ別基本報酬：ビデオ($100-500)、記事($50-200)、グラフィック($30-100)、チュートリアル($150-400)。視聴回数とエンゲージメントボーナスが追加されます。毎週月曜日に支払われます。",
+        "q4": "キャンペーン参加資格は？",
+        "a4": "ほとんどのキャンペーンはTBURNウォレットを接続した誰でも参加できます。一部のキャンペーンはアンバサダーティアやフォロワー数(Twitter 1K+、YouTube 5K+など)が必要な場合があります。各キャンペーンの詳細ページで参加資格を確認してください。",
+        "q5": "インフルエンサーコラボはどのように機能しますか？",
+        "a5": "10K+フォロワーを持つインフルエンサーは当社のコラボプログラムに参加できます。キャンペーン毎$500+と10%販売手数料を提供しています。カスタムキャンペーン設計、マーケティング資料、成果報酬ボーナス、長期パートナーシップオプションが含まれます。partnerships@tburn.ioにお問い合わせください。",
+        "q6": "イベントマーケティングへの参加方法は？",
+        "a6": "イベントマーケティングプログラムでは、オンライン/オフラインイベントに参加または主催できます。報酬にはイベント毎$200+と特別NFTが含まれます。ミートアップ開催サポート、カンファレンス参加、オンラインAMA、コミュニティイベントなどのオプションがあります。",
+        "q7": "リーダーボードのランキングはどのように決まりますか？",
+        "a7": "ランキングは紹介、コンテンツ成果、キャンペーン参加、コミュニティ貢献からのポイントに基づきます。トップアンバサダーは月間ボーナスを受け取り、Legendティアアンバサダーは月最大50万TBURNを獲得できます。",
+        "q8": "マーケティング報酬はいつ支払われますか？",
+        "a8": "コンテンツ報酬は毎週月曜日に支払われます。キャンペーン報酬はキャンペーン終了後7日以内に支払われます。アンバサダー月間報酬は毎月1日に支払われます。すべての報酬は接続されたTBURNウォレットに自動入金されます。"
       },
       "ctaSection": {
-        "title": "機関投資家になりましょう",
-        "subtitle": "TBURN Chainのプライベート投資家として、ローンチ価格比50%割引とTGE即時流動性を確保！",
-        "button": "今すぐ投資"
+        "title": "今すぐ始めましょう！",
+        "description": "TBURNマーケティングプログラムに参加して3億TBURN報酬を獲得しましょう！",
+        "toastTitle": "アンバサダー申請",
+        "toastDesc": "アンバサダーティアを確認して今すぐ始めましょう！"
       },
-      "dialog": {
-        "title": "プライベートラウンド投資問合せ",
-        "description": "担当者より1-2営業日以内にご連絡いたします。機関投資家専用です。",
-        "name": "お名前",
-        "namePlaceholder": "お名前を入力",
-        "email": "メールアドレス",
-        "emailPlaceholder": "メールアドレスを入力",
-        "company": "会社/機関名",
-        "companyPlaceholder": "会社名を入力",
-        "investmentAmount": "投資予定額 (USD)",
-        "investmentAmountPlaceholder": "最低 $100,000",
-        "message": "追加メッセージ",
-        "messagePlaceholder": "投資意向、ご質問等",
-        "submit": "問い合わせる",
-        "submitting": "送信中...",
-        "success": "問合せを受け付けました",
-        "successDesc": "担当者より1-2営業日以内にご連絡いたします。",
-        "error": "エラーが発生しました",
-        "errorDesc": "問合せの送信に失敗しました。再度お試しください。",
-        "required": "必須情報が不足しています",
-        "requiredDesc": "お名前、メールアドレス、会社名は必須項目です。",
-        "cancelBtn": "キャンセル"
+      "social": {
+        "navigating": "{{platform}}に移動します。"
       },
       "footer": {
-        "description": "TBURN Chainは高度なDeFi、DAO、エンタープライズ統合機能を備えた次世代Layer-1ブロックチェーンです。",
-        "quickLinks": "クイックリンク",
-        "developers": "開発者",
-        "legal": "法的事項",
-        "whitepaper": "ホワイトペーパー",
-        "tokenomics": "トケノミクス",
-        "roadmap": "ロードマップ",
-        "team": "チーム",
-        "documentation": "ドキュメント",
-        "github": "GitHub",
-        "apiReference": "APIリファレンス",
-        "bugBounty": "バグバウンティ",
-        "termsOfService": "利用規約",
-        "privacyPolicy": "プライバシーポリシー",
-        "disclaimer": "免責事項",
-        "cookiePolicy": "Cookieポリシー",
-        "copyright": "© 2025 TBURN Chain. All rights reserved.",
-        "socialLinks": "フォロー",
-        "mainnet": "メインネット",
-        "explorer": "エクスプローラー",
-        "bridge": "ブリッジ",
-        "staking": "ステーキング",
-        "docs": "開発ドキュメント",
-        "audit": "セキュリティ監査",
-        "blog": "ブログ",
-        "ambassador": "アンバサダープログラム",
-        "grants": "助成金",
-        "support": "サポート",
-        "terms": "利用規約",
-        "privacy": "プライバシーポリシー",
-        "product": "製品",
-        "resources": "リソース",
-        "community": "コミュニティ"
-      }
-    },
-    "publicRound": {
-      "nav": {
-        "tiers": "参加ティア",
-        "vesting": "ベスティング",
-        "howTo": "参加方法",
-        "calculator": "計算機",
-        "faq": "FAQ",
-        "connectWallet": "今すぐ参加"
-      },
-      "hero": {
-        "badge": "PUBLIC ROUND - 公開販売",
-        "status": "進行中",
-        "title1": "パブリックラウンドで",
-        "title2": "10億 TBURN",
-        "title3": "のチャンスを掴む",
-        "subtitle": "誰でも参加可能な公開セール。ローンチ価格($0.50)より60%割引の$0.20！最低$100から、TGE 10%即時解除、3ヶ月クリフ！",
-        "countdownLabel": "セール終了まで",
-        "days": "日",
-        "hours": "時間",
-        "mins": "分",
-        "secs": "秒",
-        "progressGoal": "目標 $200,000,000",
-        "progressPercent": "45% 達成",
-        "progressRemaining": "残り $110,250,000"
-      },
-      "highlights": {
-        "tokenPrice": "トークン価格",
-        "discount": "ローンチ価格との割引",
-        "tgeUnlock": "TGE即時解除",
-        "minAmount": "最低参加金額"
-      },
-      "stats": {
-        "loading": "読み込み中...",
-        "publicAllocation": "パブリック配分 (10%)",
-        "tokenPrice": "トークン価格",
-        "hardcap": "ハードキャップ",
-        "participants": "参加者"
-      },
-      "cta": {
-        "joinNow": "今すぐ参加",
-        "viewGuide": "セールガイドを見る"
-      },
-      "comparison": {
-        "badge": "COMPARISON",
-        "title": "ラウンド比較",
-        "subtitle": "パブリックラウンドの利点を確認",
-        "tableTitle": "投資ラウンド比較",
-        "headers": {
-          "round": "ラウンド",
-          "tokenPrice": "トークン価格",
-          "discount": "割引",
-          "status": "ステータス"
-        },
-        "bestBadge": "アクセス性最高",
-        "seedRound": "シードラウンド",
-        "privateRound": "プライベートラウンド",
-        "publicRound": "パブリックラウンド",
-        "completed": "完了",
-        "live": "進行中",
-        "upcoming": "予定"
-      },
-      "tiers": {
-        "badge": "TIERS",
-        "title": "参加ティア",
-        "subtitle": "参加金額別の特典とボーナス",
-        "minAmountLabel": "最低参加金額",
-        "joinBtn": "参加する",
-        "whale": {
-          "name": "ホエール",
-          "subtitle": "大口参加者",
-          "details": [
-            "最低参加",
-            "ボーナス",
-            "TGE解除"
-          ],
-          "benefits": [
-            "VIPコミュニティ",
-            "エアドロップ優先",
-            "専用AMA招待",
-            "アルファ情報",
-            "専任サポート"
-          ]
-        },
-        "dolphin": {
-          "name": "ドルフィン",
-          "subtitle": "中口参加者",
-          "details": [
-            "最低参加",
-            "ボーナス",
-            "TGE解除"
-          ],
-          "benefits": [
-            "プレミアムコミュニティ",
-            "エアドロップ参加",
-            "四半期AMA",
-            "ニュースレター",
-            "優先サポート"
-          ]
-        },
-        "fish": {
-          "name": "フィッシュ",
-          "subtitle": "一般参加者",
-          "details": [
-            "最低参加",
-            "ボーナス",
-            "TGE解除"
-          ],
-          "benefits": [
-            "一般コミュニティ",
-            "基本エアドロップ",
-            "公開AMA",
-            "月次更新",
-            "標準サポート"
-          ]
-        },
-        "shrimp": {
-          "name": "シュリンプ",
-          "subtitle": "少額参加者",
-          "details": [
-            "最低参加",
-            "ボーナス",
-            "TGE解除"
-          ],
-          "benefits": [
-            "公開チャンネル",
-            "基本参加",
-            "公開情報",
-            "メール通知",
-            "コミュニティサポート"
-          ]
-        }
-      },
-      "vesting": {
-        "badge": "VESTING",
-        "title": "ベスティングスケジュール",
-        "subtitle": "TGE 10%即時解除、3ヶ月クリフ後6ヶ月月次ベスティング",
-        "phases": [
-          {
-            "title": "TGE解除",
-            "value": "10%",
-            "desc": "即時"
-          },
-          {
-            "title": "クリフ",
-            "value": "3ヶ月",
-            "desc": "ロック期間"
-          },
-          {
-            "title": "月次ベスティング",
-            "value": "15%",
-            "desc": "6ヶ月間"
-          },
-          {
-            "title": "完全解除",
-            "value": "100%",
-            "desc": "9ヶ月後"
-          }
-        ]
-      },
-      "howTo": {
-        "badge": "HOW TO",
-        "title": "参加方法",
-        "subtitle": "簡単4ステップで参加",
-        "steps": [
-          {
-            "title": "ウォレット接続",
-            "desc": "MetaMask, Trustなど"
-          },
-          {
-            "title": "KYC認証",
-            "desc": "簡単な本人確認"
-          },
-          {
-            "title": "支払い選択",
-            "desc": "USDT, USDC, ETH, BTC"
-          },
-          {
-            "title": "トークン受取",
-            "desc": "TGE 15%即時"
-          }
-        ]
-      },
-      "platforms": {
-        "badge": "PLATFORMS",
-        "title": "参加プラットフォーム",
-        "subtitle": "様々な方法で参加可能",
-        "joinBtn": "参加する",
-        "items": [
-          {
-            "name": "TBURN Launchpad",
-            "type": "公式ローンチパッド",
-            "desc": "TBURN公式セールプラットフォーム",
-            "features": [
-              "最低手数料",
-              "直接参加",
-              "24/7サポート",
-              "マルチ決済対応"
-            ]
-          },
-          {
-            "name": "パートナー取引所",
-            "type": "CEX IEO",
-            "desc": "パートナー取引所経由で参加",
-            "features": [
-              "簡単KYC",
-              "法定通貨対応",
-              "取引所保証",
-              "即時上場"
-            ]
-          },
-          {
-            "name": "DEXローンチパッド",
-            "type": "分散型IDO",
-            "desc": "分散型プラットフォームで参加",
-            "features": [
-              "ウォレット直接接続",
-              "スマートコントラクト",
-              "透明な配分",
-              "コミュニティ主導"
-            ]
-          }
-        ]
-      },
-      "calculator": {
-        "badge": "CALCULATOR",
-        "title": "トークン計算機",
-        "subtitle": "投資金額に基づく予想リターンを計算",
-        "inputTitle": "投資金額入力",
-        "inputLabel": "投資金額 (USD)",
-        "inputPlaceholder": "金額を入力",
-        "resultTitle": "予想結果",
-        "tokenAmount": "トークン数量",
-        "tgeUnlock": "TGE解除 (10%)",
-        "launchPrice": "予想ローンチ価格 ($0.50)",
-        "profit": "予想利益"
-      },
-      "faq": {
-        "badge": "FAQ",
-        "title": "よくある質問",
-        "subtitle": "パブリックセールに関する疑問",
-        "q1": {
-          "question": "パブリックラウンドの参加資格と条件は？",
-          "answer": "KYC認証を完了した世界中の個人投資家が参加可能です。最低$100から、上限なし。"
-        },
-        "q2": {
-          "question": "シード/プライベートラウンドとの違いは？",
-          "answer": "シード・プライベートラウンドは完了済み。パブリックラウンドは割引は低いですが$100から参加可能で、ベスティング期間も短いです。"
-        },
-        "q3": {
-          "question": "TGEとベスティングスケジュールは？",
-          "answer": "TGE時に10%即時解除、3ヶ月クリフ後6ヶ月で月15%ずつベスティング。"
-        },
-        "q4": {
-          "question": "対応している決済方法は？",
-          "answer": "USDT、USDC、ETH、BTC、BNB対応。パートナー取引所では法定通貨も可能。"
-        },
-        "q5": {
-          "question": "参加者保護は？",
-          "answer": "標準トークン販売契約で保護。スマートコントラクトは複数監査済み。"
-        },
-        "q6": {
-          "question": "上場計画とローンチ価格は？",
-          "answer": "TBURNのローンチ価格は$0.50予定。TGEはセール終了後2-4週間で実施。"
-        },
-        "q7": {
-          "question": "ティア別特典は？",
-          "answer": "参加金額に応じて4ティアに分類、各ティアで異なるボーナスとTGE解除率。"
-        },
-        "q8": {
-          "question": "返金ポリシーは？",
-          "answer": "原則として確定後の返金不可。特殊な場合は例外あり。"
-        }
-      },
-      "ctaSection": {
-        "title": "今すぐ参加！",
-        "subtitle": "TBURN Chainのパブリックセールに参加して、ローンチ価格より60%割引の$0.20でTBURNを獲得！",
-        "button": "今すぐ参加"
-      },
-      "dialog": {
-        "title": "パブリックラウンドお問い合わせ",
-        "description": "担当者からすぐにご連絡いたします。どなたでも参加可能です。",
-        "name": "お名前 *",
-        "namePlaceholder": "山田太郎",
-        "email": "メール *",
-        "investmentAmount": "参加予定金額",
-        "message": "追加メッセージ",
-        "messagePlaceholder": "その他のご質問をご入力ください",
-        "cancelBtn": "キャンセル",
-        "submit": "お問い合わせ送信",
-        "submitting": "送信中...",
-        "successTitle": "お問い合わせ受付",
-        "successDesc": "担当者からすぐにご連絡いたします。",
-        "errorTitle": "エラーが発生しました",
-        "requiredTitle": "必須項目が未入力です",
-        "requiredDesc": "お名前とメールは必須です。"
-      },
-      "footer": {
-        "description": "AIの知能、ブロックチェーンの透明性。THE FUTURE IS NOW",
-        "product": "製品",
-        "resources": "リソース",
-        "community": "コミュニティ",
+        "tagline": "AI知能、ブロックチェーン透明性",
         "mainnet": "メインネット",
         "explorer": "エクスプローラー",
         "bridge": "ブリッジ",
         "staking": "ステーキング",
         "whitepaper": "ホワイトペーパー",
         "docs": "ドキュメント",
-        "github": "GitHub",
-        "audit": "監査報告書",
+        "audit": "監査レポート",
         "blog": "ブログ",
         "ambassador": "アンバサダー",
         "grants": "グラント",
@@ -21789,1058 +21294,1504 @@
         "privacy": "プライバシーポリシー"
       }
     },
-    "launchpad": {
-      "title": "ローンチパッド",
-      "subtitle": "TBURNトークンローンチプラットフォーム",
-      "heroTitle": "TBURN ローンチパッド",
-      "heroSubtitle": "TBURNトークン配布のプレミアローンチパッド",
-      "badge": "トークンローンチ",
-      "launchDate": "ローンチ日",
-      "totalSupply": "総供給量",
-      "initialPrice": "初期価格",
-      "features": "ローンチパッド機能",
-      "fairLaunch": "フェアローンチ",
-      "antiBot": "アンチボット保護",
-      "vestingSchedule": "ベスティングスケジュール",
-      "liquidityLock": "流動性ロック",
-      "participateNow": "今すぐ参加"
-    },
-    "coinlist": {
-      "title": "CoinListセール",
-      "subtitle": "CoinListプラットフォームでのTBURNトークンセール",
-      "heroTitle": "CoinListでのTBURN",
-      "heroSubtitle": "CoinListで限定TBURNトークンセールに参加",
-      "badge": "CoinList限定",
-      "salePrice": "セール価格",
-      "allocation": "総割当",
-      "participants": "予想参加者",
-      "kycRequired": "KYC必須",
-      "eligibility": "資格要件",
-      "registerNow": "CoinListで登録"
-    },
-    "daoMaker": {
-      "title": "DAO Maker",
-      "subtitle": "DAO MakerでのTBURNストロングホルダーオファリング",
-      "heroTitle": "DAO MakerでのTBURN",
-      "heroSubtitle": "DAO Makerでストロングホルダーオファリング(SHO)に参加",
-      "badge": "DAO Maker SHO",
-      "shoPrice": "SHO価格",
-      "allocation": "SHO割当",
-      "daoRequired": "必要DAOパワー",
-      "tiers": "SHOティア",
-      "guaranteed": "保証割当",
-      "lottery": "抽選プール",
-      "registerSHO": "SHO登録"
-    },
-    "airdropPage": {
-      "nav": {
-        "overview": "概要",
-        "airdrops": "エアドロップ",
-        "tasks": "タスク",
-        "timeline": "タイムライン",
-        "faq": "よくある質問"
-      },
-      "header": {
-        "connectWallet": "ウォレット接続"
-      },
-      "hero": {
-        "badge": "進行中 - メインネットエアドロップ実施中",
-        "tps": "TPS",
-        "title": "3億 TBURN",
-        "subtitle": "エアドロップ・プログラム",
-        "description": "TBURN Chainメインネットの開始を記念して、コミュニティに3億TBURN（総供給量の3%）を配布します。タスクを完了してポイントを獲得し、エアドロップの割り当てを増やしましょう！",
-        "totalAirdrop": "エアドロップ総供給量",
-        "distributed": "配布済み",
-        "participants": "参加者",
-        "claimRate": "請求率"
-      },
-      "eligibility": {
-        "title": "マイエアドロップ状況",
-        "checking": "資格確認中...",
-        "allocated": "割り当て済み",
-        "claimed": "請求済み",
-        "pending": "保留中",
-        "tier": "ティア",
-        "noAllocation": "エアドロップ割り当てが見つかりません。タスクを完了して参加してください。"
-      },
-      "buttons": {
-        "participateNow": "今すぐ参加",
-        "doTasks": "タスクを実行",
-        "viewDetails": "詳細を見る"
-      },
-      "toasts": {
-        "participating": "エアドロップに参加中！",
-        "completeTasksForPoints": "タスクを完了してより多くのポイントを獲得してください。",
-        "airdropTypes": "エアドロップタイプ",
-        "checkAirdropTypes": "3種類のエアドロッププログラムをチェック。",
-        "connectWalletFirst": "まずウォレットを接続してください",
-        "checkingNft": "NFT保有を確認中...",
-        "pleaseWait": "お待ちください",
-        "checkingTestnet": "テストネット活動を確認中..."
-      },
-      "types": {
-        "badge": "エアドロップタイプ",
-        "title": "エアドロップタイプ",
-        "subtitle": "3種類のエアドロッププログラムで3億TBURN（総供給量の3%）を配布",
-        "progress": "配布進捗",
-        "waiting": "待機中（TGE後90日開始）",
-        "genesis": {
-          "title": "ジェネシスエアドロップ",
-          "amount": "1.5億 TBURN",
-          "desc": "メインネット開始を記念した初期参加者への特別配布",
-          "feature1": "テストネット参加者優先",
-          "feature2": "ジェネシスNFTホルダーボーナス（2倍）",
-          "feature3": "早期参加者追加報酬（+20%）",
-          "feature4": "TGE時15%解除"
-        },
-        "community": {
-          "title": "コミュニティエアドロップ",
-          "amount": "1億 TBURN",
-          "desc": "ソーシャルタスクとコミュニティ参加への報酬",
-          "feature1": "X(Twitter)/Telegram/Discordフォロー",
-          "feature2": "コンテンツ作成・共有報酬",
-          "feature3": "紹介ボーナス（友達1人につき500P）",
-          "feature4": "ポイントベースの比例配分"
-        },
-        "loyalty": {
-          "title": "ロイヤルティエアドロップ",
-          "amount": "5000万 TBURN",
-          "desc": "長期保有者とステーキング参加者への報酬",
-          "feature1": "90日以上保有ボーナス（+50%）",
-          "feature2": "ステーキング参加報酬",
-          "feature3": "ガバナンス投票ボーナス",
-          "feature4": "四半期スナップショット報酬配布"
-        }
-      },
-      "tasks": {
-        "badge": "ポイントを稼ぐ",
-        "title": "タスクを完了",
-        "subtitle": "タスクを完了してポイントを獲得し、エアドロップの割り当てを増やしましょう",
-        "myStatus": "マイタスク状況",
-        "walletConnected": "ウォレット接続済み",
-        "connectToTrack": "ウォレットを接続してタスク進捗を追跡",
-        "earnedPoints": "獲得ポイント",
-        "required": {
-          "title": "必須タスク",
-          "wallet": {
-            "title": "ウォレット接続",
-            "desc": "MetaMaskまたは対応ウォレットを接続",
-            "points": "+500 P",
-            "buttonConnect": "接続",
-            "buttonComplete": "完了"
-          },
-          "email": {
-            "title": "メール認証",
-            "desc": "メールアドレスを登録して認証",
-            "points": "+300 P",
-            "button": "認証"
-          },
-          "telegram": {
-            "title": "Telegram参加",
-            "desc": "公式Telegramグループに参加",
-            "points": "+400 P",
-            "button": "参加"
-          }
-        },
-        "social": {
-          "title": "ソーシャルタスク",
-          "twitter": {
-            "title": "X(Twitter)フォロー",
-            "desc": "@TBURNChain公式アカウントをフォロー",
-            "points": "+200 P",
-            "button": "フォロー"
-          },
-          "retweet": {
-            "title": "ローンチツイートをリツイート",
-            "desc": "メインネット開始のお知らせをリツイート",
-            "points": "+300 P",
-            "button": "リツイート"
-          },
-          "discord": {
-            "title": "Discord参加",
-            "desc": "公式Discordサーバーに参加",
-            "points": "+400 P",
-            "button": "参加"
-          }
-        },
-        "bonus": {
-          "title": "ボーナスタスク",
-          "nft": {
-            "title": "Genesis NFTホルダー",
-            "desc": "TBURN Genesis NFT保有で2倍ボーナス",
-            "points": "+2,000 P",
-            "button": "確認"
-          },
-          "referral": {
-            "title": "友達を招待（紹介）",
-            "desc": "友達1人につき500P、最大10人",
-            "points": "最大 +5,000 P",
-            "button": "招待"
-          },
-          "testnet": {
-            "title": "テストネット参加者",
-            "desc": "テストネット活動記録があれば自動適用",
-            "points": "+3,000 P",
-            "button": "確認"
-          }
-        }
-      },
-      "timeline": {
-        "badge": "スケジュール",
-        "title": "配布スケジュール",
-        "subtitle": "エアドロップ配布はTGE後9ヶ月にわたります",
-        "nov2025": "2025年11月",
-        "registrationStart": "エアドロップ登録開始",
-        "registrationDesc": "ウォレット接続とタスク完了が開始",
-        "jan2026": "2026年1月（現在）",
-        "snapshotProgress": "スナップショット進行中",
-        "snapshotDesc": "参加者ポイント累積中（28,750ユーザー）",
-        "feb2026": "2026年2月",
-        "tge": "TGE（トークン生成イベント）",
-        "tgeDesc": "15%（4,500万TBURN）即時請求可能",
-        "mar2026": "2026年3月〜11月",
-        "monthlyVesting": "月次ベスティング解除",
-        "vestingDesc": "9ヶ月間で約9.4%リニアリリース",
-        "calculator": {
-          "title": "配布計算例",
-          "myPoints": "マイポイント",
-          "totalPool": "総ポイントプール",
-          "distribution": "配布量",
-          "estimated": "推定量",
-          "estimatedValue": "推定価値（@$0.50）",
-          "disclaimer": "* 実際の配布は最終スナップショットの総ポイントにより変動する場合があります。"
-        },
-        "vesting": {
-          "title": "ベスティングスケジュール",
-          "tgeDay": "TGE（0日目）",
-          "monthly": "M1〜M9",
-          "monthlyPercent": "約9.4%/月",
-          "complete": "9ヶ月後"
-        }
-      },
-      "eligibilitySection": {
-        "badge": "参加資格",
-        "title": "参加資格要件",
-        "subtitle": "エアドロップ参加要件を確認",
-        "eligible": {
-          "title": "対象条件",
-          "wallet": {
-            "title": "ウォレット接続必須",
-            "desc": "MetaMask、Trust Wallet、Coinbase Wallet対応"
-          },
-          "tasks": {
-            "title": "必須タスク完了",
-            "desc": "ウォレット接続 + メール認証 + Telegram参加"
-          },
-          "minPoints": {
-            "title": "最低1,000ポイント",
-            "desc": "最低ポイント未満は配布から除外されます"
-          },
-          "snapshot": {
-            "title": "スナップショットまで資格維持",
-            "desc": "スナップショットは2026年1月に予定"
-          }
-        },
-        "excluded": {
-          "title": "除外条件",
-          "restricted": {
-            "title": "規制対象国の居住者",
-            "desc": "米国、中国、北朝鮮およびその他の規制対象国は除外"
-          },
-          "sybil": {
-            "title": "シビル攻撃",
-            "desc": "複数アカウントはすべてのアカウントが除外されます"
-          },
-          "bot": {
-            "title": "ボット活動検出",
-            "desc": "自動化ツールの使用は除外されます"
-          },
-          "fraud": {
-            "title": "不正行為",
-            "desc": "タスク操作や虚偽情報の提出は永久除外となります"
-          }
-        }
-      },
-      "faq": {
-        "title": "よくある質問",
-        "q1": {
-          "question": "エアドロップに参加するには？",
-          "answer": "ウォレットを接続し、必須タスク（メール認証、Telegram参加）を完了してポイントを貯めてください。"
-        },
-        "q2": {
-          "question": "いつトークンを請求できますか？",
-          "answer": "TGE時に15%を請求でき、残りは9ヶ月間でリニアリリースされます。"
-        },
-        "q3": {
-          "question": "ポイントはどのようにトークンに変換されますか？",
-          "answer": "総ポイントプールに対するあなたのポイントの割合でトークン配分が決まります。"
-        },
-        "q4": {
-          "question": "複数のウォレットで参加できますか？",
-          "answer": "いいえ。1人につき1つのウォレットのみで、複数アカウントが検出された場合は失格となります。"
-        },
-        "q5": {
-          "question": "Genesis NFTボーナスとは？",
-          "answer": "TBURN Genesis NFTを保有しているユーザーは2倍のポイントボーナスを受け取れます。"
-        },
-        "badge": "よくある質問",
-        "subtitle": "エアドロップに関するよくある質問と回答を確認",
-        "q6": {
-          "question": "タスク完了でどれくらいのポイントがもらえますか？",
-          "answer": "各タスクのポイント：必須 - ウォレット接続(500P)、メール認証(300P)、Telegram参加(400P)。ソーシャル - Xフォロー(200P)、リツイート(300P)、Discord参加(400P)。ボーナス - Genesis NFT(2,000P)、友達招待(最大5,000P)、テストネット(3,000P)。"
-        },
-        "q7": {
-          "question": "NFTホルダーボーナスはどのように機能しますか？",
-          "answer": "TBURN Genesis NFTホルダーはエアドロップ配分に対して2倍のボーナスを受け取れます。ウォレット接続時にNFT認証が自動的に行われます。"
-        },
-        "q8": {
-          "question": "地域制限や条件はありますか？",
-          "answer": "規制遵守のため一部の地域が制限されています。制限地域：米国、中国、北朝鮮、イラン、シリア、キューバおよびその他のOFAC制裁対象国。"
-        }
-      },
-      "footer": {
-        "products": "製品",
-        "scan": "エクスプローラー",
-        "dapp": "DApp",
-        "staking": "ステーキング",
-        "bridge": "ブリッジ",
-        "developers": "開発者",
-        "docs": "ドキュメント",
-        "api": "API",
-        "sdk": "SDK",
-        "resources": "リソース",
-        "whitepaper": "ホワイトペーパー",
-        "tokenomics": "トークノミクス",
-        "roadmap": "ロードマップ",
-        "privacyPolicy": "プライバシーポリシー",
-        "termsOfService": "利用規約",
-        "contact": "お問い合わせ",
-        "brand": "DeFiの未来のための最速かつ最も安全なブロックチェーン",
-        "copyright": "© 2025-2045 TBURN財団。全著作権所有。",
-        "github": "GitHub",
-        "faq": "よくある質問"
-      },
-      "emailDialog": {
-        "title": "メール認証",
-        "description": "メールアドレスを入力して認証し、+300ポイントを獲得",
-        "label": "メールアドレス",
-        "info": "確認リンクをメールに送信します。",
-        "cancel": "キャンセル",
-        "submit": "送信",
-        "processing": "処理中..."
-      },
-      "referralDialog": {
-        "title": "友達を招待",
-        "description": "紹介リンクを共有して、友達1人につき500ポイント獲得！",
-        "linkLabel": "あなたの紹介リンク",
-        "copy": "コピー",
-        "copied": "コピー完了！",
-        "linkCopied": "紹介リンクがクリップボードにコピーされました",
-        "shareTitle": "共有先",
-        "shareTwitter": "Twitterでシェア",
-        "shareTelegram": "Telegramでシェア",
-        "shareKakao": "KakaoTalkでシェア",
-        "bonusTitle": "紹介ボーナス",
-        "bonusDesc": "紹介に成功した友達1人につき500ポイント、最大10人まで。"
-      }
-    },
-    "referralPage": {
-      "nav": {
-        "home": "ホーム",
-        "howItWorks": "仕組み",
-        "tiers": "ティア",
-        "dashboard": "ダッシュボード",
-        "calculator": "計算機",
-        "leaderboard": "リーダーボード",
-        "faq": "FAQ"
-      },
-      "header": {
-        "connectWallet": "ウォレット接続",
-        "connecting": "接続中..."
-      },
-      "hero": {
-        "badge": "リファラルプログラム",
-        "title": "3億 TBURN",
-        "subtitle": "リファラル報酬",
-        "description": "友達をTBURN Chainに招待し、アクティビティからコミッションを獲得しましょう。高いティアで最大50%のコミッション率をアンロック！",
-        "stats": {
-          "totalParticipants": "総参加者",
-          "totalReferrals": "総リファラル",
-          "totalRewards": "総報酬配布 (TBURN)",
-          "activeReferrers": "アクティブリファラー"
-        },
-        "buttons": {
-          "getReferralLink": "リファラルリンク取得",
-          "viewDashboard": "ダッシュボード表示"
-        }
-      },
-      "howItWorks": {
-        "badge": "仕組み",
-        "title": "リファラルプログラムの仕組み",
-        "subtitle": "4つのステップで簡単に報酬を獲得",
-        "steps": {
-          "connect": {
-            "title": "ウォレット接続",
-            "desc": "MetaMaskまたは対応ウォレットを接続して、あなた専用の招待リンクを生成します。"
-          },
-          "share": {
-            "title": "リンク共有",
-            "desc": "SNS、コミュニティ、友達に招待リンクを共有しましょう。"
-          },
-          "activity": {
-            "title": "友達の活動",
-            "desc": "招待した友達がTBURN Chainで取引、ステーキングなどの活動をします。"
-          },
-          "earn": {
-            "title": "報酬受取",
-            "desc": "友達のアクティビティ手数料からリアルタイムでコミッションを受け取ります。"
-          }
-        }
-      },
-      "tiers": {
-        "badge": "ティアコミッション",
-        "title": "ティア別コミッション",
-        "subtitle": "招待実績に応じてティアが上がり、コミッション率が増加します",
-        "commission": "コミッション",
-        "referrals": "招待数",
-        "benefits": "特典"
-      },
-      "dashboard": {
-        "badge": "マイダッシュボード",
-        "title": "リファラルダッシュボード",
-        "subtitle": "招待状況と収益をリアルタイムで確認",
-        "currentTier": "現在のティア",
-        "myReferralLink": "マイ招待リンク",
-        "copy": "コピー",
-        "copied": "コピー済み!",
-        "share": {
-          "twitter": "Twitter",
-          "telegram": "Telegram",
-          "discord": "Discord",
-          "kakao": "KakaoTalk"
-        },
-        "stats": {
-          "totalInvites": "総招待数",
-          "activeUsers": "アクティブユーザー",
-          "totalEarned": "累計獲得 TBURN",
-          "totalDistributed": "総配布 TBURN"
-        },
-        "emptyState": "ウォレットを接続してリファラル活動を開始",
-        "connectButton": "ウォレット接続",
-        "toasts": {
-          "copied": "コピー完了",
-          "copiedDesc": "リファラルリンクがクリップボードにコピーされました。"
-        }
-      },
-      "calculator": {
-        "badge": "計算機",
-        "title": "報酬計算機",
-        "subtitle": "予想収益を事前に計算",
-        "input": {
-          "title": "条件入力",
-          "tier": "マイティア",
-          "referrals": "予想招待数（月）",
-          "volume": "被招待者平均月間取引量 ($)",
-          "price": "TBURN予想価格 ($)"
-        },
-        "result": {
-          "title": "予想収益",
-          "totalVolume": "総取引量（月）",
-          "tradingFee": "取引手数料 (0.1%)",
-          "myCommission": "マイコミッション",
-          "monthlyEarnings": "月間収益 (TBURN)",
-          "yearlyEarnings": "年間収益 (TBURN)",
-          "yearlyUsd": "予想年間収益 (USD)"
-        },
-        "disclaimer": "* 実際の収益は市場状況により異なる場合があります"
-      },
-      "leaderboard": {
-        "badge": "リーダーボード",
-        "title": "リファラルリーダーボード",
-        "subtitle": "トップリファラーのパフォーマンスを確認",
-        "topReferrers": "Top Referrers",
-        "filters": {
-          "all": "全期間",
-          "week": "今週",
-          "month": "今月"
-        },
-        "invites": "招待数",
-        "earnings": "総収益",
-        "viewAll": "全ランキングを見る",
-        "toasts": {
-          "allRank": "全ランキング",
-          "allRankDesc": "全期間のリファラルランキングを表示。",
-          "weekRank": "今週のランキング",
-          "weekRankDesc": "今週のリファラルランキング。(近日公開)",
-          "monthRank": "今月のランキング",
-          "monthRankDesc": "今月のリファラルランキング。(近日公開)",
-          "walletRequired": "ウォレット接続が必要",
-          "walletRequiredDesc": "全ランキングを見るにはウォレットを接続してください。",
-          "fullRankings": "全ランキング",
-          "fullRankingsDesc": "全ランキングページは近日公開。"
-        }
-      },
-      "faq": {
-        "badge": "FAQ",
-        "title": "よくある質問",
-        "subtitle": "リファラルプログラムに関するよくある質問への回答",
-        "q1": {
-          "question": "リファラル報酬プールの総額は？",
-          "answer": "リファラルプログラムの総報酬プールは3億TBURNです。これは総供給量100億TBURNの3%に相当します。TGE時に5%（1500万TBURN）がアンロックされ、残り95%は36ヶ月にわたり毎月約2.64%ずつ線形ベスティングされます。現在約4200万TBURNがリファラーに配布されています。"
-        },
-        "q2": {
-          "question": "コミッションはどう計算されますか？",
-          "answer": "あなたの紹介者がTBURN Chainで取引、ステーキング、ブリッジなどの活動で発生する手数料の一定割合をコミッションとして受け取ります。基本取引手数料は0.1%で、ティアに応じてその20-50%をコミッションとして受け取ります。例：紹介者が$1,000取引 → $1の手数料発生 → Goldティア(40%)で$0.40獲得"
-        },
-        "q3": {
-          "question": "ティアはどう上げられますか？",
-          "answer": "招待した友達の数に応じてティアが自動的に上がります。Bronze（0-9人、20%）、Silver（10-49人、30%）、Gold（50-199人、40%）、Diamond（200人+、50%）。ティアが上がるとコミッション率だけでなく、多層リファラル（2層、3層）特典も増加します。"
-        },
-        "q4": {
-          "question": "報酬はいつ受け取れますか？",
-          "answer": "リファラル報酬はリアルタイムで積み立てられ、累積報酬はいつでも引き出せます。最低引き出し額は100 TBURNで、少額のガス代（約0.001 TBURN）が差し引かれます。引き出しは接続されたウォレットに即座に送信されます。"
-        },
-        "q5": {
-          "question": "多層リファラルとは何ですか？",
-          "answer": "多層リファラルは、直接招待した人（1層）だけでなく、その人が招待した人（2層）やさらに先（3層）からもコミッションを獲得できるシステムです。Silver+で2層（5-10%）、Diamondで3層（15%）がアンロックされます。"
-        },
-        "q6": {
-          "question": "リファラルリンクはどこで取得できますか？",
-          "answer": "ウォレットを接続すると、固有のリファラルリンクとコードが自動生成されます。ダッシュボードで確認し、Twitter、Telegram、Discord、KakaoTalkなどで簡単に共有できます。対応ウォレット：MetaMask、Rabby、Trust Wallet、Coinbase Wallet、Ledger"
-        },
-        "q7": {
-          "question": "誰でもどこでも紹介できますか？",
-          "answer": "リファラルはグローバルに利用可能ですが、一部の制限地域（OFAC制裁国）は除外されます。詳細は資格セクションをご確認ください。"
-        },
-        "q8": {
-          "question": "不正対策はどうなっていますか？",
-          "answer": "システムはセルフリファラル、シビル攻撃、偽アカウントなどの不正を監視しています。検出された不正行為は即座にアカウント停止とすべての報酬没収につながります。"
-        }
-      },
-      "footer": {
-        "brand": "DeFiの未来のための最速で最も安全なブロックチェーン",
-        "products": "製品",
-        "scan": "エクスプローラー",
-        "dapp": "DApp",
-        "staking": "ステーキング",
-        "bridge": "ブリッジ",
-        "developers": "開発者",
-        "docs": "ドキュメント",
-        "api": "API",
-        "sdk": "SDK",
-        "github": "GitHub",
-        "resources": "リソース",
-        "whitepaper": "ホワイトペーパー",
-        "tokenomics": "トケノミクス",
-        "roadmap": "ロードマップ",
-        "faq": "FAQ",
-        "copyright": "© 2025-2045 TBURN Foundation. All Rights Reserved.",
-        "privacyPolicy": "プライバシーポリシー",
-        "termsOfService": "利用規約",
-        "contact": "お問い合わせ"
-      }
-    },
-    "eventsPage": {
-      "nav": {
-        "liveEvents": "開催中イベント",
-        "allEvents": "全イベント",
-        "leaderboard": "リーダーボード",
-        "faq": "FAQ",
-        "connectWallet": "ウォレット接続",
-        "connected": "接続済み"
-      },
-      "hero": {
-        "badge": "イベントセンター - 様々なイベント開催中",
-        "title": "参加して獲得！",
-        "titleHighlight": "4億 TBURN",
-        "titleSuffix": "イベント報酬",
-        "subtitle": "ローンチイベント、トレーディングコンペ、ステーキングブースト、コミュニティチャレンジに参加して報酬をゲット！",
-        "liveBadge": "開催中",
-        "liveTitle": "メインネットローンチグランドイベント",
-        "liveSubtitle": "今すぐ参加して最大10,000 TBURNを獲得！",
-        "countdown": {
-          "days": "日",
-          "hours": "時間",
-          "minutes": "分",
-          "seconds": "秒"
-        },
-        "participate": "参加する",
-        "connectFirst": "ウォレット接続後に申請"
-      },
-      "stats": {
-        "totalEvents": "総イベント数",
-        "activeEvents": "開催中イベント",
-        "totalParticipants": "総参加者",
-        "totalRewards": "総報酬プール"
-      },
-      "distribution": {
-        "badge": "配分",
-        "title": "イベント報酬配分",
-        "subtitle": "4億TBURNが5つのカテゴリに配分",
-        "launch": {
-          "name": "ローンチイベント",
-          "amount": "1億",
-          "percent": "25%"
-        },
-        "trading": {
-          "name": "トレーディングコンペ",
-          "amount": "1億",
-          "percent": "25%"
-        },
-        "staking": {
-          "name": "ステーキングブースト",
-          "amount": "8000万",
-          "percent": "20%"
-        },
-        "community": {
-          "name": "コミュニティチャレンジ",
-          "amount": "6000万",
-          "percent": "15%"
-        },
-        "partner": {
-          "name": "パートナーシップ＆シーズナル",
-          "amount": "6000万",
-          "percent": "15%"
-        }
-      },
-      "events": {
-        "badge": "全イベント",
-        "title": "イベント一覧",
-        "subtitle": "現在開催中または予定のイベントをチェック",
-        "categories": {
-          "all": "全て",
-          "live": "開催中",
-          "launch": "ローンチ",
-          "trading": "トレーディング",
-          "staking": "ステーキング",
-          "community": "コミュニティ"
-        },
-        "categoryToasts": {
-          "all": {
-            "title": "全イベント",
-            "desc": "全てのイベントを表示。"
-          },
-          "live": {
-            "title": "開催中イベント",
-            "desc": "現在開催中のイベントを表示。"
-          },
-          "launch": {
-            "title": "ローンチイベント",
-            "desc": "メインネットローンチ関連イベントを表示。"
-          },
-          "trading": {
-            "title": "トレーディングイベント",
-            "desc": "トレーディング関連イベントを表示。"
-          },
-          "staking": {
-            "title": "ステーキングイベント",
-            "desc": "ステーキング関連イベントを表示。"
-          },
-          "community": {
-            "title": "コミュニティイベント",
-            "desc": "コミュニティ参加イベントを表示。"
-          }
-        },
-        "loading": "読み込み中...",
-        "loadingDesc": "イベントデータを読み込み中...",
-        "noEvents": "イベントなし",
-        "noEventsDesc": "このカテゴリにイベントはありません",
-        "status": {
-          "live": "開催中",
-          "upcoming": "予定",
-          "ended": "終了"
-        },
-        "buttons": {
-          "participate": "参加する",
-          "connectWallet": "ウォレット接続",
-          "comingSoon": "まもなく開始"
-        }
-      },
-      "leaderboard": {
-        "badge": "リーダーボード",
-        "title": "イベントリーダーボード",
-        "subtitle": "トップ参加者の実績をチェック",
-        "topTitle": "ローンチイベント TOP 10",
-        "tabs": {
-          "all": "全期間",
-          "today": "今日",
-          "week": "今週"
-        },
-        "tabToasts": {
-          "all": {
-            "title": "全期間",
-            "desc": "全期間のランキングを表示。"
-          },
-          "today": {
-            "title": "今日",
-            "desc": "今日のランキングを表示。(近日公開)"
-          },
-          "week": {
-            "title": "今週",
-            "desc": "今週のランキングを表示。(近日公開)"
-          }
-        },
-        "table": {
-          "rank": "順位",
-          "participant": "参加者",
-          "missions": "ミッション",
-          "score": "スコア",
-          "reward": "予想報酬"
-        }
-      },
-      "faq": {
-        "badge": "FAQ",
-        "title": "よくある質問",
-        "subtitle": "イベント関連のよくある質問への回答",
-        "items": {
-          "q1": {
-            "question": "イベント報酬の総額は？",
-            "answer": "イベント報酬総プールは4億TBURNで、総供給量100億TBURNの4%です。"
-          },
-          "q2": {
-            "question": "誰がイベントに参加できますか？",
-            "answer": "ウォレットを接続した全てのユーザーが参加可能です。"
-          },
-          "q3": {
-            "question": "報酬はいつ配布されますか？",
-            "answer": "ほとんどのイベント報酬はイベント終了後7日以内に配布されます。"
-          },
-          "q4": {
-            "question": "複数のイベントに同時参加できますか？",
-            "answer": "はい、同時開催中の全イベントに参加可能です。"
-          },
-          "q5": {
-            "question": "トレーディングコンペの順位はどう決まりますか？",
-            "answer": "取引量と収益率で順位が決定されます。"
-          },
-          "q6": {
-            "question": "ステーキングブーストAPYはどう計算されますか？",
-            "answer": "イベント期間中は基本APYの2倍が適用されます。"
-          },
-          "q7": {
-            "question": "ミームコンテストの受賞者はどう選ばれますか？",
-            "answer": "コミュニティ投票と審査員評価で選出されます。"
-          },
-          "q8": {
-            "question": "不正行為が見つかったらどうなりますか？",
-            "answer": "全報酬が没収され、永久除外されます。"
-          }
-        }
-      },
-      "cta": {
-        "title": "今すぐイベントに参加！",
-        "subtitle": "様々なイベントに参加して最大4億TBURN報酬を獲得。",
-        "subtitleHighlight": "早期参加 = より多くの報酬！",
-        "buttonParticipate": "今すぐ参加",
-        "buttonConnect": "ウォレット接続して開始"
-      },
-      "footer": {
-        "description": "AIの知性、ブロックチェーンの透明性\n未来は今",
-        "quickLinks": "クイックリンク",
-        "explorer": "エクスプローラー",
-        "wallet": "ウォレット",
-        "bridge": "ブリッジ",
-        "staking": "ステーキング",
-        "developers": "開発者",
-        "docs": "ドキュメント",
-        "api": "API",
-        "github": "GitHub",
-        "sdk": "SDK",
-        "resources": "リソース",
-        "whitepaper": "ホワイトペーパー",
-        "tokenomics": "トークノミクス",
-        "roadmap": "ロードマップ",
-        "faqLink": "FAQ",
-        "copyright": "© 2025-2045 TBURN Foundation. All Rights Reserved.",
-        "termsOfService": "利用規約",
-        "privacyPolicy": "プライバシーポリシー"
-      }
-    }
+    "title": "マーケティングプログラム",
+    "subtitle": "TBURNコミュニティ成長のためのマーケティングイニシアチブ",
+    "heroTitle": "TBURN マーケティングプログラム",
+    "heroSubtitle": "TBURNについて広めて報酬を獲得",
+    "badge": "共に成長",
+    "totalBudget": "総予算",
+    "campaigns": "キャンペーン",
+    "reach": "総リーチ",
+    "programs": "プログラム",
+    "influencer": "インフルエンサープログラム",
+    "affiliate": "アフィリエイトプログラム",
+    "content": "コンテンツクリエイター",
+    "community": "コミュニティマーケティング",
+    "applyMarketing": "マーケティング申請",
+    "campaignDetails": "キャンペーン詳細"
   },
-  "communityProgram": {
-    "title": "コミュニティプログラム",
-    "subtitle": "TBURNエコシステムに貢献し、コミュニティメンバーとして報酬を獲得",
+  "strategicPartner": {
+    "title": "戦略的パートナー",
+    "subtitle": "TBURNエコシステムを形作る主要な戦略的パートナーシップ",
+    "heroTitle": "TBURN 戦略的パートナー",
+    "heroSubtitle": "TBURNビジョンをサポートする世界クラスのパートナー",
+    "badge": "エリートパートナー",
+    "partnerCount": "パートナー数",
+    "categories": "カテゴリ",
+    "tier1": "Tier 1パートナー",
+    "tier2": "Tier 2パートナー",
+    "tier3": "Tier 3パートナー",
+    "vcPartners": "VCパートナー",
+    "techPartners": "テクノロジーパートナー",
+    "mediaPartners": "メディアパートナー"
+  },
+  "advisorProgram": {
+    "title": "アドバイザープログラム",
+    "subtitle": "TBURN開発を導く業界専門家",
+    "heroTitle": "TBURN アドバイザリーボード",
+    "heroSubtitle": "TBURNエコシステムに専門知識を提供する世界クラスのアドバイザー",
+    "badge": "専門ガイダンス",
+    "advisorCount": "アドバイザー数",
+    "expertise": "専門分野",
+    "blockchain": "ブロックチェーン",
+    "finance": "ファイナンス",
+    "legal": "法務＆コンプライアンス",
+    "marketing": "マーケティング",
+    "technology": "テクノロジー",
+    "meetAdvisors": "アドバイザー紹介"
+  },
+  "seedRound": {
+    "title": "シードラウンド",
+    "subtitle": "TBURNへの初期投資機会",
+    "heroTitle": "TBURN シードラウンド",
+    "heroSubtitle": "TBURNエコシステムの最初の投資家になる",
+    "badge": "シード投資",
+    "tokenPrice": "トークン価格",
+    "discount": "ローンチ価格からの割引",
+    "allocation": "総割当",
+    "vestingInfo": "ベスティング情報",
+    "cliff": "クリフ期間",
+    "vesting": "ベスティング期間",
+    "tgeUnlock": "TGEアンロック",
+    "investorTiers": "投資家ティア",
+    "lead": "リード投資家",
+    "major": "メジャー投資家",
+    "standard": "スタンダード投資家",
+    "angel": "エンジェル投資家",
+    "investNow": "今すぐ投資",
+    "riskWarning": "リスク警告",
     "nav": {
-      "community": "コミュニティ",
-      "programs": "プログラム",
-      "tiers": "ティアシステム",
-      "activities": "活動報酬",
-      "leaderboard": "リーダーボード",
-      "faq": "FAQ"
+      "investorTiers": "投資ティア",
+      "vesting": "ベスティング",
+      "investors": "投資家",
+      "process": "プロセス",
+      "faq": "FAQ",
+      "badge": "SEED ROUND - 初期投資家",
+      "status": "進行中",
+      "title": "シードラウンドに投資して",
+      "titleHighlight": "5億 TBURN",
+      "titleEnd": "のチャンスを掴む",
+      "subtitle": "ブロックチェーンVC、クリプトファンド、エンジェル投資家向けに最大70%割引の初期投資機会を提供します。",
+      "loading": "読み込み中...",
+      "seedAllocation": "シード配分",
+      "tokenPriceLabel": "トークン価格",
+      "hardcap": "ハードキャップ",
+      "investorsLabel": "投資家",
+      "applySeed": "シード投資申請",
+      "investmentMemo": "投資メモ"
     },
-    "hero": {
-      "badge": "コミュニティプログラム - TBURNと共に成長",
-      "title": "コミュニティと共に創る",
-      "titleHighlight": "3億 TBURN",
-      "titleSuffix": "報酬プログラム",
-      "subtitle": "アンバサダー、コンテンツクリエイター、モデレーター、翻訳者として活動し、TBURNエコシステムの成長に貢献しながら豊富な報酬を獲得しましょう!",
-      "applyNow": "今すぐ申し込む",
-      "viewGuide": "ガイドを見る"
+    "highlights": {
+      "tokenPrice": "トークン単価",
+      "discountRate": "市場割引率",
+      "vestingPeriod": "ベスティング期間"
     },
-    "stats": {
-      "totalContributors": "総参加者数",
-      "totalContributions": "総貢献回数",
-      "rewardsDistributed": "配布済み報酬 (TBURN)",
-      "activeTasks": "アクティブタスク"
-    },
-    "distribution": {
-      "badge": "配分",
-      "title": "プログラム別報酬配分",
-      "subtitle": "3億TBURNが6つのプログラムに配分",
-      "ambassador": "アンバサダー",
-      "creator": "クリエイター",
-      "moderator": "モデレーター",
-      "educator": "教育専門家",
-      "translator": "翻訳者",
-      "bounty": "バグバウンティ",
-      "amount90m": "9,000万",
-      "amount60m": "6,000万",
-      "amount45m": "4,500万",
-      "amount30m": "3,000万"
-    },
-    "programs": {
-      "badge": "プログラム",
-      "title": "コミュニティプログラム",
-      "subtitle": "自分に合ったプログラムを見つけよう",
-      "featured": "人気",
-      "reward": "報酬",
-      "requirements": "参加条件",
-      "applyBtn": "申し込む",
-      "connectFirst": "ウォレット接続後に申請",
-      "featuredBadge": "⭐ 人気",
-      "ambassador": {
-        "title": "アンバサダープログラム",
-        "subtitle": "TBURN Chain公式代表",
-        "reward": "最大5,000 TBURN/月",
-        "benefit1": "公式アンバサダーバッジ＆NFT",
-        "benefit2": "月間報酬＋パフォーマンスボーナス",
-        "benefit3": "専用Discordチャンネルアクセス",
-        "benefit4": "オフラインイベント招待",
-        "requirements": "SNSフォロワー1,000人以上、暗号資産関連活動経験"
-      },
-      "creator": {
-        "title": "コンテンツクリエイター",
-        "subtitle": "教育＆プロモーションコンテンツ制作",
-        "reward": "コンテンツごと100~1,000 TBURN",
-        "benefit1": "動画/ブログ/インフォグラフィック報酬",
-        "benefit2": "コンテンツ制作ツールサポート",
-        "benefit3": "公式チャンネル宣伝機会",
-        "benefit4": "クリエイター限定イベント",
-        "requirements": "ポートフォリオ提出必須"
-      },
-      "moderator": {
-        "title": "コミュニティモデレーター",
-        "subtitle": "コミュニティ管理＆サポート",
-        "reward": "最大2,000 TBURN/月",
-        "benefit1": "Discord/Telegramモデレーター権限",
-        "benefit2": "月間固定報酬",
-        "benefit3": "コミュニティ成長ボーナス",
-        "benefit4": "内部情報事前共有",
-        "requirements": "週20時間以上活動可能"
-      },
-      "educator": {
-        "title": "教育専門家",
-        "subtitle": "ブロックチェーン教育＆チュートリアル",
-        "reward": "講義ごと500~2,000 TBURN",
-        "benefit1": "オンライン講義制作報酬",
-        "benefit2": "教育資料制作サポート",
-        "benefit3": "TBURN Academy講師認定",
-        "benefit4": "教育プラットフォームパートナーシップ",
-        "requirements": "ブロックチェーン/開発関連専門知識"
-      },
-      "translator": {
-        "title": "翻訳者プログラム",
-        "subtitle": "多言語サポート＆ローカライゼーション",
-        "reward": "文書ごと200~800 TBURN",
-        "benefit1": "公式文書翻訳報酬",
-        "benefit2": "コミュニティローカライゼーションサポート",
-        "benefit3": "翻訳者認定バッジ",
-        "benefit4": "言語別コミュニティリード機会",
-        "requirements": "英語＋1言語以上堪能"
-      },
-      "bounty": {
-        "title": "バグバウンティハンター",
-        "subtitle": "セキュリティ脆弱性発見＆報告",
-        "reward": "1件最大50,000 TBURN",
-        "benefit1": "深刻度別報酬",
-        "benefit2": "殿堂入り",
-        "benefit3": "セキュリティ専門家ネットワーク参加",
-        "benefit4": "ホワイトハット認定",
-        "requirements": "セキュリティ関連技術知識必須"
-      }
+    "comparison": {
+      "badge": "COMPARISON",
+      "title": "ラウンド比較",
+      "subtitle": "シードラウンドが最も有利な条件です",
+      "header": "投資ラウンド比較",
+      "round": "ラウンド",
+      "tokenPriceCol": "トークン価格",
+      "discountCol": "割引率",
+      "statusCol": "ステータス",
+      "maxDiscount": "最大割引",
+      "active": "進行中",
+      "upcoming": "予定"
     },
     "tiers": {
-      "badge": "ティアシステム",
-      "title": "コミュニティティアシステム",
-      "subtitle": "活動量に応じてティアが上昇し報酬倍率が増加",
-      "benefitsTitle": "ティア別特典",
-      "benefitsSubtitle": "ポイントを貯めて上位ティアに昇格しよう",
-      "newcomer": {
-        "name": "ニューカマー",
-        "points": "0~499ポイント",
-        "multiplier": "1x報酬"
+      "badge": "TIERS",
+      "title": "投資ティア",
+      "subtitle": "投資規模に応じた特典",
+      "minInvestment": "最小投資額",
+      "inquireBtn": "お問い合わせ"
+    },
+    "vestingSection": {
+      "badge": "VESTING",
+      "title": "ベスティングスケジュール",
+      "subtitle": "投資家保護のための体系的なトークン解除"
+    },
+    "investorsSection": {
+      "badge": "INVESTORS",
+      "title": "現在の投資家",
+      "subtitle": "パートナー"
+    },
+    "processSection": {
+      "badge": "PROCESS",
+      "title": "投資プロセス",
+      "subtitle": "シード投資手順"
+    },
+    "metrics": {
+      "badge": "METRICS",
+      "title": "トークン指標",
+      "subtitle": "シードラウンド主要指標"
+    },
+    "risks": {
+      "title": "投資リスク警告",
+      "item1": "暗号通貨投資は高い変動性とリスクを伴います。",
+      "item2": "元本を失う可能性があります。損失を許容できる範囲内で投資してください。",
+      "item3": "規制の変更によりサービスが制限される可能性があります。",
+      "item4": "過去のリターンは将来の利益を保証しません。"
+    },
+    "faqSection": {
+      "badge": "FAQ",
+      "title": "よくある質問",
+      "subtitle": "シード投資に関する一般的な質問"
+    },
+    "cta": {
+      "title": "シード投資家になる",
+      "subtitle": "初期投資家として最大70%割引でTBURN Chainに投資しましょう！",
+      "button": "今すぐ投資"
+    },
+    "footer": {
+      "tagline": "AIの知性、ブロックチェーンの透明性",
+      "slogan": "THE FUTURE IS NOW"
+    },
+    "dialog": {
+      "title": "シードラウンド投資お問い合わせ",
+      "description": "お問い合わせを残していただければ、チームからすぐにご連絡いたします。"
+    },
+    "toast": {
+      "inquirySuccess": "投資お問い合わせ受付完了",
+      "inquirySuccessDesc": "チームからすぐにご連絡いたします。",
+      "inquiryError": "お問い合わせ失敗",
+      "inquiryErrorDesc": "一時的なエラーが発生しました。もう一度お試しください。"
+    },
+    "connectWallet": "投資お問い合わせ"
+  },
+  "privateRound": {
+    "nav": {
+      "tiers": "投資ティア",
+      "vesting": "ベスティング",
+      "allocation": "配分",
+      "investors": "投資家",
+      "faq": "FAQ",
+      "connectWallet": "機関投資問合せ"
+    },
+    "hero": {
+      "badge": "PRIVATE ROUND - 機関投資",
+      "status": "進行中",
+      "title": "プライベートラウンド投資で",
+      "titleHighlight": "10億TBURN",
+      "titleSuffix": "のチャンスを掴もう",
+      "subtitle": "機関投資家、VC、ファミリーオフィス向け - ローンチ価格($0.50)から50%割引の$0.10投資機会。TGE 5%即時解除。",
+      "progressRaised": "$72,000,000",
+      "progressGoal": "目標 $100,000,000",
+      "progressPercent": "72% 達成",
+      "progressRemaining": "残り $28,000,000"
+    },
+    "highlights": {
+      "pricePerToken": "トークン単価",
+      "priceCompare": "シード比+150%",
+      "discountLaunch": "ローンチ価格比割引",
+      "tgeUnlock": "TGE即時解除",
+      "vestingPeriod": "ベスティング期間"
+    },
+    "stats": {
+      "loading": "読み込み中...",
+      "privateAllocation": "プライベート配分 (10%)",
+      "tokenPrice": "トークン価格",
+      "hardcap": "ハードキャップ",
+      "institutionalInvestors": "機関投資家"
+    },
+    "cta": {
+      "applyPrivate": "プライベート投資申請",
+      "viewDeck": "投資資料を見る"
+    },
+    "comparison": {
+      "badge": "COMPARISON",
+      "title": "ラウンド比較",
+      "subtitle": "プライベートラウンドはシードとパブリックの中間条件",
+      "tableTitle": "投資ラウンド比較",
+      "round": "ラウンド",
+      "tokenPrice": "トークン価格",
+      "discount": "割引率",
+      "status": "状態",
+      "inProgress": "進行中",
+      "completed": "完了",
+      "upcoming": "予定"
+    },
+    "tiers": {
+      "badge": "TIERS",
+      "title": "投資ティア",
+      "subtitle": "機関投資規模別の差等特典",
+      "minInvestment": "最低投資額",
+      "minInvestmentLabel": "最低投資",
+      "tokenPriceLabel": "トークン価格",
+      "tgeUnlockLabel": "TGE解除",
+      "inquireBtn": "投資問合せ",
+      "institutional": {
+        "name": "Institutional",
+        "subtitle": "機関投資家",
+        "benefits": [
+          "取締役会オブザーバー席",
+          "月次経営陣ブリーフィング",
+          "独占共同投資権",
+          "カスタムベスティング協議",
+          "専任IRマネージャー"
+        ]
       },
-      "contributor": {
-        "name": "コントリビューター",
-        "points": "500~1,999ポイント",
-        "multiplier": "1.2x報酬"
+      "strategic": {
+        "name": "Strategic",
+        "subtitle": "戦略的投資家",
+        "benefits": [
+          "四半期戦略セッション",
+          "パートナーシップ優先権",
+          "技術協力機会",
+          "共同マーケティング",
+          "ネットワークアクセス"
+        ]
       },
-      "advocate": {
-        "name": "アドボケイト",
-        "points": "2,000~4,999ポイント",
-        "multiplier": "1.5x報酬"
+      "growth": {
+        "name": "Growth",
+        "subtitle": "成長投資家",
+        "benefits": [
+          "四半期アップデートコール",
+          "プライベートコミュニティ",
+          "ガバナンス参加権",
+          "新機能早期アクセス",
+          "専用サポートチャネル"
+        ]
       },
-      "champion": {
-        "name": "チャンピオン",
-        "points": "5,000~9,999ポイント",
-        "multiplier": "2x報酬"
-      },
-      "legend": {
-        "name": "レジェンド",
-        "points": "10,000+ポイント",
-        "multiplier": "3x報酬"
+      "standard": {
+        "name": "Standard",
+        "subtitle": "一般投資家",
+        "benefits": [
+          "月次投資家ニュースレター",
+          "基本ガバナンス投票権",
+          "投資家専用チャネル",
+          "一般配分",
+          "メールサポート"
+        ]
       }
     },
-    "activities": {
-      "badge": "活動",
-      "title": "活動別ポイント＆報酬",
-      "subtitle": "様々な活動でポイントとTBURNを獲得",
-      "tableTitle": "ポイント獲得活動",
-      "columnActivity": "活動",
-      "columnCategory": "カテゴリ",
-      "columnPoints": "ポイント",
-      "columnReward": "TBURN報酬",
-      "columnFrequency": "頻度",
-      "frequency": {
-        "daily": "毎日",
-        "weekly": "毎週",
-        "monthly": "毎月",
-        "once": "1回"
-      },
-      "socialShare": {
-        "name": "SNSシェア",
-        "category": "ソーシャル"
-      },
-      "content": {
-        "name": "コンテンツ制作",
-        "category": "コンテンツ"
-      },
-      "community": {
-        "name": "コミュニティサポート",
-        "category": "サポート"
-      },
-      "ambassador": {
-        "name": "アンバサダー活動",
-        "category": "アンバサダー"
-      },
-      "translation": {
-        "name": "翻訳作業",
-        "category": "翻訳"
-      }
+    "vesting": {
+      "badge": "VESTING",
+      "title": "ベスティングスケジュール",
+      "subtitle": "TGE 5%即時解除、6ヶ月クリフ後12ヶ月月次ベスティング",
+      "tgeUnlock": "TGE解除",
+      "tgeDesc": "上場即時",
+      "cliffPeriod": "クリフ期間",
+      "cliffDesc": "初期ロック",
+      "monthlyVesting": "月次ベスティング",
+      "monthlyDesc": "12ヶ月間",
+      "fullUnlock": "完全アンロック",
+      "fullUnlockDesc": "18ヶ月後"
     },
-    "leaderboard": {
-      "badge": "リーダーボード",
-      "title": "コミュニティリーダーボード",
-      "subtitle": "最も活発なコミュニティメンバー",
-      "topContributors": "トップコントリビューター"
+    "allocation": {
+      "badge": "ALLOCATION",
+      "title": "投資家タイプ別配分",
+      "subtitle": "10億TBURN配分状況",
+      "vcFunds": "VC & ファンド",
+      "familyOffice": "ファミリーオフィス",
+      "strategicInvestors": "戦略投資家",
+      "corporateInvestors": "企業投資家"
+    },
+    "investors": {
+      "badge": "INVESTORS",
+      "title": "現在の投資家",
+      "subtitle": "機関パートナー"
+    },
+    "process": {
+      "badge": "PROCESS",
+      "title": "投資プロセス",
+      "subtitle": "機関投資手順",
+      "inquiry": "投資問合せ",
+      "inquiryDesc": "意向書提出",
+      "inquiryDuration": "1-3日",
+      "dueDiligence": "デューデリジェンス",
+      "dueDiligenceDesc": "企業・投資家DD",
+      "dueDiligenceDuration": "1-2週",
+      "negotiation": "契約交渉",
+      "negotiationDesc": "投資条件協議",
+      "negotiationDuration": "1-2週",
+      "funding": "資金送金",
+      "fundingDesc": "投資金送金",
+      "fundingDuration": "3-5日",
+      "tokenAllocation": "トークン配分",
+      "tokenAllocationDesc": "投資確定",
+      "tokenAllocationDuration": "即時"
+    },
+    "benefits": {
+      "badge": "BENEFITS",
+      "title": "プライベートラウンドのメリット",
+      "subtitle": "機関投資家専用特典",
+      "excellentPrice": "優れた価格",
+      "excellentPriceValue": "50%+割引",
+      "excellentPriceDesc": "パブリックの半額で投資",
+      "tgeLiquidity": "TGE流動性",
+      "tgeLiquidityValue": "5%解除",
+      "tgeLiquidityDesc": "上場時即座に流動化可能",
+      "strategicPartnership": "戦略的パートナーシップ",
+      "strategicPartnershipValue": "独占特典",
+      "strategicPartnershipDesc": "プロジェクトとの緊密な協力"
     },
     "faq": {
       "badge": "FAQ",
       "title": "よくある質問",
-      "subtitle": "コミュニティプログラムについての質問",
+      "subtitle": "プライベート投資に関する質問",
       "q1": {
-        "question": "コミュニティプログラムの総報酬プールはいくらですか?",
-        "answer": "コミュニティプログラムの総報酬プールは3億TBURNです。これは総供給量100億TBURNの3%に相当します。6つのプログラムに配分:アンバサダー(30%)、コンテンツクリエイター(20%)、モデレーター(15%)、教育専門家(15%)、翻訳者(10%)、バグバウンティ(10%)。"
+        "question": "プライベートラウンドの参加資格と投資条件は？",
+        "answer": "プライベートラウンドは適格機関投資家（VC、ファンド、ファミリーオフィス）、企業投資家、戦略的パートナーが対象です。最低投資額は$100,000（スタンダード）、$500,000+（グロース）、$2,000,000+（ストラテジック）、$5,000,000+（インスティテューショナル）で、投資規模に応じてトークン価格割引とTGE解除率が差等適用されます。全投資家はKYC/AML認証と適格性審査を通過する必要があります。"
       },
       "q2": {
-        "question": "コミュニティプログラムにどうやって参加しますか?",
-        "answer": "各プログラムカードの「申し込む」ボタンをクリックして申請してください。審査承認後、公式コミュニティメンバーとして活動を開始できます。アンバサダーは追加の面接プロセスがあります。"
+        "question": "シードラウンドとプライベートラウンドの違いは？",
+        "answer": "シードラウンド（$0.04/トークン、80%割引）は完了済みで、12ヶ月クリフ+24ヶ月ベスティング。プライベートラウンド（$0.10/トークン、50%割引）は6ヶ月クリフ+12ヶ月ベスティングでより短いロック期間が特長。プライベート投資家はTGE時に5~7%が即時解除され上場時に一部流動性確保可能。高い価格ですが、より早い流動化と機関級投資家特典が提供されます。"
       },
       "q3": {
-        "question": "ポイントはどのようにTBURNに変換されますか?",
-        "answer": "ポイントは毎月末に自動的にTBURNに変換されます。変換率はティアによって異なり、レジェンドティアは最大3倍の報酬倍率を受けます。変換されたTBURNは翌月第1週に配布されます。"
+        "question": "ベスティングスケジュールとTGE解除の仕組みは？",
+        "answer": "TGE（Token Generation Event）時に投資トークンの5%が即時解除。インスティテューショナルティアは最大7%、ストラテジックティアは6%。その後6ヶ月クリフ（ロック）期間があり、クリフ終了後12ヶ月にわたり毎月約7.9%ずつ線形ベスティング。完全アンロックまで計18ヶ月。インスティテューショナルティア投資家はカスタムベスティング日程の協議が可能です。"
       },
       "q4": {
-        "question": "複数のプログラムに同時参加できますか?",
-        "answer": "はい、複数のプログラムに同時参加できます。例えば、アンバサダーとして活動しながらコンテンツクリエイターとしても報酬を受け取れます。ただし、各プログラムのすべての要件を満たす必要があります。"
+        "question": "投資プロセスとデューデリジェンス手順は？",
+        "answer": "プロセス：(1)投資問合せ＆NDA締結→(2)意向書(LOI)提出→(3)双方向DD(プロジェクト技術/財務/法務DD＋投資家資金出所/適格性確認)→(4)投資条件交渉＆Term Sheet合意→(5)SAFT契約締結→(6)資金送金(USDT、USDC、銀行送金)→(7)トークン配分確認。DD期間は通常1-2週、機関規模により3-4週まで延長可能。専任IRマネージャーが全プロセスをご案内します。"
       },
       "q5": {
-        "question": "ティアシステムはどのように機能しますか?",
-        "answer": "5段階のティアがあります:ニューカマー(1x)→コントリビューター(1.2x)→アドボケイト(1.5x)→チャンピオン(2x)→レジェンド(3x)。活動でポイントを貯めて上位ティアに昇格し、報酬倍率が増加します。レジェンドティアには10,000+ポイントが必要です。"
+        "question": "投資家保護と法的構造は？",
+        "answer": "すべてのプライベート投資はSAFT（Simple Agreement for Future Tokens）契約により法的に保護されます。契約書にはトークン割当量、価格、ベスティング条件、投資家権利、紛争解決条項が明記されます。投資金はケイマン諸島所在のSPV（Special Purpose Vehicle）を通じて管理され、第三者エスクロー口座に預託されます。法律顧問はMorrison & Foersterと協力し、シンガポールMAS規制に準拠しています。"
       },
       "q6": {
-        "question": "降格条件は何ですか?",
-        "answer": "3ヶ月連続で最低活動要件(月100+ポイント)を満たさない場合、降格する可能性があります。降格は1ティアずつ行われ、該当ティアの報酬倍率が適用されます。"
+        "question": "上場計画とローンチ価格は？",
+        "answer": "TBURNトークンのローンチ予定価格は$0.50（プライベートの5倍）。上場戦略：メインネットローンチと同時にTGEを実施し、Uniswap、PancakeSwap等の主要DEXに初期流動性を供給。Tier-1 CEX（Binance、OKX、Bybit、Coinbase等）との上場協議が進行中で、ローンチ後3-6ヶ月以内に主要取引所上場を目標としています。マーケットメイキングは専門MMパートナーと協力。"
       },
       "q7": {
-        "question": "バグバウンティ報酬はどのように決定されますか?",
-        "answer": "バグバウンティ報酬は深刻度によって決定:Critical(最大50,000 TBURN)、High(10,000~25,000 TBURN)、Medium(2,000~10,000 TBURN)、Low(500~2,000 TBURN)。セキュリティ専門家の検証後7日以内に支払われます。"
+        "question": "ティア別特典とガバナンス権限は？",
+        "answer": "ティア別特典：(1)インスティテューショナル($5M+):取締役会オブザーバー席、月次経営陣ブリーフィング、独占共同投資権、カスタムベスティング、専任IRマネージャー (2)ストラテジック($2M+):四半期戦略セッション、パートナーシップ優先権、技術協力、共同マーケティング (3)グロース($500K+):四半期アップデートコール、プライベートコミュニティ、ガバナンス参加権、新機能早期アクセス (4)スタンダード($100K+):月次ニュースレター、基本ガバナンス投票権、投資家専用チャネル。すべてのプライベート投資家はDAOガバナンス投票権を保有します。"
       },
       "q8": {
-        "question": "コンテンツ品質基準は何ですか?",
-        "answer": "コンテンツは4つの基準で評価:正確性、独自性、品質、エンゲージメント。盗用、虚偽情報、低品質コンテンツは拒否され、繰り返しの違反はプログラム停止につながる可能性があります。優秀なコンテンツは公式チャンネルで宣伝され、追加ボーナスが支給されます。"
+        "question": "支払い方法と返金ポリシーは？",
+        "answer": "支払い方法：USDT（ERC-20/TRC-20）、USDC（ERC-20）、または銀行送金（USD/EUR）。$1M以上の投資は分割払い可能で、支払いスケジュールは協議可能です。返金ポリシー：SAFT契約締結前は全額返金可能。契約後はプロジェクト中断、メインネットローンチ失敗、重大なロードマップ変更時のみ返金請求可能。投資家都合による中途解約は不可で、詳細条件はSAFT契約書に明記されます。"
+      }
+    },
+    "ctaSection": {
+      "title": "機関投資家になりましょう",
+      "subtitle": "TBURN Chainのプライベート投資家として、ローンチ価格比50%割引とTGE即時流動性を確保！",
+      "button": "今すぐ投資"
+    },
+    "dialog": {
+      "title": "プライベートラウンド投資問合せ",
+      "description": "担当者より1-2営業日以内にご連絡いたします。機関投資家専用です。",
+      "name": "お名前",
+      "namePlaceholder": "お名前を入力",
+      "email": "メールアドレス",
+      "emailPlaceholder": "メールアドレスを入力",
+      "company": "会社/機関名",
+      "companyPlaceholder": "会社名を入力",
+      "investmentAmount": "投資予定額 (USD)",
+      "investmentAmountPlaceholder": "最低 $100,000",
+      "message": "追加メッセージ",
+      "messagePlaceholder": "投資意向、ご質問等",
+      "submit": "問い合わせる",
+      "submitting": "送信中...",
+      "success": "問合せを受け付けました",
+      "successDesc": "担当者より1-2営業日以内にご連絡いたします。",
+      "error": "エラーが発生しました",
+      "errorDesc": "問合せの送信に失敗しました。再度お試しください。",
+      "required": "必須情報が不足しています",
+      "requiredDesc": "お名前、メールアドレス、会社名は必須項目です。",
+      "cancelBtn": "キャンセル"
+    },
+    "footer": {
+      "description": "TBURN Chainは高度なDeFi、DAO、エンタープライズ統合機能を備えた次世代Layer-1ブロックチェーンです。",
+      "quickLinks": "クイックリンク",
+      "developers": "開発者",
+      "legal": "法的事項",
+      "whitepaper": "ホワイトペーパー",
+      "tokenomics": "トケノミクス",
+      "roadmap": "ロードマップ",
+      "team": "チーム",
+      "documentation": "ドキュメント",
+      "github": "GitHub",
+      "apiReference": "APIリファレンス",
+      "bugBounty": "バグバウンティ",
+      "termsOfService": "利用規約",
+      "privacyPolicy": "プライバシーポリシー",
+      "disclaimer": "免責事項",
+      "cookiePolicy": "Cookieポリシー",
+      "copyright": "© 2025 TBURN Chain. All rights reserved.",
+      "socialLinks": "フォロー",
+      "mainnet": "メインネット",
+      "explorer": "エクスプローラー",
+      "bridge": "ブリッジ",
+      "staking": "ステーキング",
+      "docs": "開発ドキュメント",
+      "audit": "セキュリティ監査",
+      "blog": "ブログ",
+      "ambassador": "アンバサダープログラム",
+      "grants": "助成金",
+      "support": "サポート",
+      "terms": "利用規約",
+      "privacy": "プライバシーポリシー",
+      "product": "製品",
+      "resources": "リソース",
+      "community": "コミュニティ"
+    }
+  },
+  "publicRound": {
+    "nav": {
+      "tiers": "参加ティア",
+      "vesting": "ベスティング",
+      "howTo": "参加方法",
+      "calculator": "計算機",
+      "faq": "FAQ",
+      "connectWallet": "今すぐ参加"
+    },
+    "hero": {
+      "badge": "PUBLIC ROUND - 公開販売",
+      "status": "進行中",
+      "title1": "パブリックラウンドで",
+      "title2": "10億 TBURN",
+      "title3": "のチャンスを掴む",
+      "subtitle": "誰でも参加可能な公開セール。ローンチ価格($0.50)より60%割引の$0.20！最低$100から、TGE 10%即時解除、3ヶ月クリフ！",
+      "countdownLabel": "セール終了まで",
+      "days": "日",
+      "hours": "時間",
+      "mins": "分",
+      "secs": "秒",
+      "progressGoal": "目標 $200,000,000",
+      "progressPercent": "45% 達成",
+      "progressRemaining": "残り $110,250,000"
+    },
+    "highlights": {
+      "tokenPrice": "トークン価格",
+      "discount": "ローンチ価格との割引",
+      "tgeUnlock": "TGE即時解除",
+      "minAmount": "最低参加金額"
+    },
+    "stats": {
+      "loading": "読み込み中...",
+      "publicAllocation": "パブリック配分 (10%)",
+      "tokenPrice": "トークン価格",
+      "hardcap": "ハードキャップ",
+      "participants": "参加者"
+    },
+    "cta": {
+      "joinNow": "今すぐ参加",
+      "viewGuide": "セールガイドを見る"
+    },
+    "comparison": {
+      "badge": "COMPARISON",
+      "title": "ラウンド比較",
+      "subtitle": "パブリックラウンドの利点を確認",
+      "tableTitle": "投資ラウンド比較",
+      "headers": {
+        "round": "ラウンド",
+        "tokenPrice": "トークン価格",
+        "discount": "割引",
+        "status": "ステータス"
+      },
+      "bestBadge": "アクセス性最高",
+      "seedRound": "シードラウンド",
+      "privateRound": "プライベートラウンド",
+      "publicRound": "パブリックラウンド",
+      "completed": "完了",
+      "live": "進行中",
+      "upcoming": "予定"
+    },
+    "tiers": {
+      "badge": "TIERS",
+      "title": "参加ティア",
+      "subtitle": "参加金額別の特典とボーナス",
+      "minAmountLabel": "最低参加金額",
+      "joinBtn": "参加する",
+      "whale": {
+        "name": "ホエール",
+        "subtitle": "大口参加者",
+        "details": [
+          "最低参加",
+          "ボーナス",
+          "TGE解除"
+        ],
+        "benefits": [
+          "VIPコミュニティ",
+          "エアドロップ優先",
+          "専用AMA招待",
+          "アルファ情報",
+          "専任サポート"
+        ]
+      },
+      "dolphin": {
+        "name": "ドルフィン",
+        "subtitle": "中口参加者",
+        "details": [
+          "最低参加",
+          "ボーナス",
+          "TGE解除"
+        ],
+        "benefits": [
+          "プレミアムコミュニティ",
+          "エアドロップ参加",
+          "四半期AMA",
+          "ニュースレター",
+          "優先サポート"
+        ]
+      },
+      "fish": {
+        "name": "フィッシュ",
+        "subtitle": "一般参加者",
+        "details": [
+          "最低参加",
+          "ボーナス",
+          "TGE解除"
+        ],
+        "benefits": [
+          "一般コミュニティ",
+          "基本エアドロップ",
+          "公開AMA",
+          "月次更新",
+          "標準サポート"
+        ]
+      },
+      "shrimp": {
+        "name": "シュリンプ",
+        "subtitle": "少額参加者",
+        "details": [
+          "最低参加",
+          "ボーナス",
+          "TGE解除"
+        ],
+        "benefits": [
+          "公開チャンネル",
+          "基本参加",
+          "公開情報",
+          "メール通知",
+          "コミュニティサポート"
+        ]
+      }
+    },
+    "vesting": {
+      "badge": "VESTING",
+      "title": "ベスティングスケジュール",
+      "subtitle": "TGE 10%即時解除、3ヶ月クリフ後6ヶ月月次ベスティング",
+      "phases": [
+        {
+          "title": "TGE解除",
+          "value": "10%",
+          "desc": "即時"
+        },
+        {
+          "title": "クリフ",
+          "value": "3ヶ月",
+          "desc": "ロック期間"
+        },
+        {
+          "title": "月次ベスティング",
+          "value": "15%",
+          "desc": "6ヶ月間"
+        },
+        {
+          "title": "完全解除",
+          "value": "100%",
+          "desc": "9ヶ月後"
+        }
+      ]
+    },
+    "howTo": {
+      "badge": "HOW TO",
+      "title": "参加方法",
+      "subtitle": "簡単4ステップで参加",
+      "steps": [
+        {
+          "title": "ウォレット接続",
+          "desc": "MetaMask, Trustなど"
+        },
+        {
+          "title": "KYC認証",
+          "desc": "簡単な本人確認"
+        },
+        {
+          "title": "支払い選択",
+          "desc": "USDT, USDC, ETH, BTC"
+        },
+        {
+          "title": "トークン受取",
+          "desc": "TGE 15%即時"
+        }
+      ]
+    },
+    "platforms": {
+      "badge": "PLATFORMS",
+      "title": "参加プラットフォーム",
+      "subtitle": "様々な方法で参加可能",
+      "joinBtn": "参加する",
+      "items": [
+        {
+          "name": "TBURN Launchpad",
+          "type": "公式ローンチパッド",
+          "desc": "TBURN公式セールプラットフォーム",
+          "features": [
+            "最低手数料",
+            "直接参加",
+            "24/7サポート",
+            "マルチ決済対応"
+          ]
+        },
+        {
+          "name": "パートナー取引所",
+          "type": "CEX IEO",
+          "desc": "パートナー取引所経由で参加",
+          "features": [
+            "簡単KYC",
+            "法定通貨対応",
+            "取引所保証",
+            "即時上場"
+          ]
+        },
+        {
+          "name": "DEXローンチパッド",
+          "type": "分散型IDO",
+          "desc": "分散型プラットフォームで参加",
+          "features": [
+            "ウォレット直接接続",
+            "スマートコントラクト",
+            "透明な配分",
+            "コミュニティ主導"
+          ]
+        }
+      ]
+    },
+    "calculator": {
+      "badge": "CALCULATOR",
+      "title": "トークン計算機",
+      "subtitle": "投資金額に基づく予想リターンを計算",
+      "inputTitle": "投資金額入力",
+      "inputLabel": "投資金額 (USD)",
+      "inputPlaceholder": "金額を入力",
+      "resultTitle": "予想結果",
+      "tokenAmount": "トークン数量",
+      "tgeUnlock": "TGE解除 (10%)",
+      "launchPrice": "予想ローンチ価格 ($0.50)",
+      "profit": "予想利益"
+    },
+    "faq": {
+      "badge": "FAQ",
+      "title": "よくある質問",
+      "subtitle": "パブリックセールに関する疑問",
+      "q1": {
+        "question": "パブリックラウンドの参加資格と条件は？",
+        "answer": "KYC認証を完了した世界中の個人投資家が参加可能です。最低$100から、上限なし。"
+      },
+      "q2": {
+        "question": "シード/プライベートラウンドとの違いは？",
+        "answer": "シード・プライベートラウンドは完了済み。パブリックラウンドは割引は低いですが$100から参加可能で、ベスティング期間も短いです。"
+      },
+      "q3": {
+        "question": "TGEとベスティングスケジュールは？",
+        "answer": "TGE時に10%即時解除、3ヶ月クリフ後6ヶ月で月15%ずつベスティング。"
+      },
+      "q4": {
+        "question": "対応している決済方法は？",
+        "answer": "USDT、USDC、ETH、BTC、BNB対応。パートナー取引所では法定通貨も可能。"
+      },
+      "q5": {
+        "question": "参加者保護は？",
+        "answer": "標準トークン販売契約で保護。スマートコントラクトは複数監査済み。"
+      },
+      "q6": {
+        "question": "上場計画とローンチ価格は？",
+        "answer": "TBURNのローンチ価格は$0.50予定。TGEはセール終了後2-4週間で実施。"
+      },
+      "q7": {
+        "question": "ティア別特典は？",
+        "answer": "参加金額に応じて4ティアに分類、各ティアで異なるボーナスとTGE解除率。"
+      },
+      "q8": {
+        "question": "返金ポリシーは？",
+        "answer": "原則として確定後の返金不可。特殊な場合は例外あり。"
+      }
+    },
+    "ctaSection": {
+      "title": "今すぐ参加！",
+      "subtitle": "TBURN Chainのパブリックセールに参加して、ローンチ価格より60%割引の$0.20でTBURNを獲得！",
+      "button": "今すぐ参加"
+    },
+    "dialog": {
+      "title": "パブリックラウンドお問い合わせ",
+      "description": "担当者からすぐにご連絡いたします。どなたでも参加可能です。",
+      "name": "お名前 *",
+      "namePlaceholder": "山田太郎",
+      "email": "メール *",
+      "investmentAmount": "参加予定金額",
+      "message": "追加メッセージ",
+      "messagePlaceholder": "その他のご質問をご入力ください",
+      "cancelBtn": "キャンセル",
+      "submit": "お問い合わせ送信",
+      "submitting": "送信中...",
+      "successTitle": "お問い合わせ受付",
+      "successDesc": "担当者からすぐにご連絡いたします。",
+      "errorTitle": "エラーが発生しました",
+      "requiredTitle": "必須項目が未入力です",
+      "requiredDesc": "お名前とメールは必須です。"
+    },
+    "footer": {
+      "description": "AIの知能、ブロックチェーンの透明性。THE FUTURE IS NOW",
+      "product": "製品",
+      "resources": "リソース",
+      "community": "コミュニティ",
+      "mainnet": "メインネット",
+      "explorer": "エクスプローラー",
+      "bridge": "ブリッジ",
+      "staking": "ステーキング",
+      "whitepaper": "ホワイトペーパー",
+      "docs": "ドキュメント",
+      "github": "GitHub",
+      "audit": "監査報告書",
+      "blog": "ブログ",
+      "ambassador": "アンバサダー",
+      "grants": "グラント",
+      "support": "サポート",
+      "terms": "利用規約",
+      "privacy": "プライバシーポリシー"
+    }
+  },
+  "coinlist": {
+    "title": "CoinListセール",
+    "subtitle": "CoinListプラットフォームでのTBURNトークンセール",
+    "heroTitle": "CoinListでのTBURN",
+    "heroSubtitle": "CoinListで限定TBURNトークンセールに参加",
+    "badge": "CoinList限定",
+    "salePrice": "セール価格",
+    "allocation": "総割当",
+    "participants": "予想参加者",
+    "kycRequired": "KYC必須",
+    "eligibility": "資格要件",
+    "registerNow": "CoinListで登録"
+  },
+  "daoMaker": {
+    "title": "DAO Maker",
+    "subtitle": "DAO MakerでのTBURNストロングホルダーオファリング",
+    "heroTitle": "DAO MakerでのTBURN",
+    "heroSubtitle": "DAO Makerでストロングホルダーオファリング(SHO)に参加",
+    "badge": "DAO Maker SHO",
+    "shoPrice": "SHO価格",
+    "allocation": "SHO割当",
+    "daoRequired": "必要DAOパワー",
+    "tiers": "SHOティア",
+    "guaranteed": "保証割当",
+    "lottery": "抽選プール",
+    "registerSHO": "SHO登録"
+  },
+  "airdropPage": {
+    "nav": {
+      "overview": "概要",
+      "airdrops": "エアドロップ",
+      "tasks": "タスク",
+      "timeline": "タイムライン",
+      "faq": "よくある質問"
+    },
+    "header": {
+      "connectWallet": "ウォレット接続"
+    },
+    "hero": {
+      "badge": "進行中 - メインネットエアドロップ実施中",
+      "tps": "TPS",
+      "title": "3億 TBURN",
+      "subtitle": "エアドロップ・プログラム",
+      "description": "TBURN Chainメインネットの開始を記念して、コミュニティに3億TBURN（総供給量の3%）を配布します。タスクを完了してポイントを獲得し、エアドロップの割り当てを増やしましょう！",
+      "totalAirdrop": "エアドロップ総供給量",
+      "distributed": "配布済み",
+      "participants": "参加者",
+      "claimRate": "請求率"
+    },
+    "eligibility": {
+      "title": "マイエアドロップ状況",
+      "checking": "資格確認中...",
+      "allocated": "割り当て済み",
+      "claimed": "請求済み",
+      "pending": "保留中",
+      "tier": "ティア",
+      "noAllocation": "エアドロップ割り当てが見つかりません。タスクを完了して参加してください。"
+    },
+    "buttons": {
+      "participateNow": "今すぐ参加",
+      "doTasks": "タスクを実行",
+      "viewDetails": "詳細を見る"
+    },
+    "toasts": {
+      "participating": "エアドロップに参加中！",
+      "completeTasksForPoints": "タスクを完了してより多くのポイントを獲得してください。",
+      "airdropTypes": "エアドロップタイプ",
+      "checkAirdropTypes": "3種類のエアドロッププログラムをチェック。",
+      "connectWalletFirst": "まずウォレットを接続してください",
+      "checkingNft": "NFT保有を確認中...",
+      "pleaseWait": "お待ちください",
+      "checkingTestnet": "テストネット活動を確認中..."
+    },
+    "types": {
+      "badge": "エアドロップタイプ",
+      "title": "エアドロップタイプ",
+      "subtitle": "3種類のエアドロッププログラムで3億TBURN（総供給量の3%）を配布",
+      "progress": "配布進捗",
+      "waiting": "待機中（TGE後90日開始）",
+      "genesis": {
+        "title": "ジェネシスエアドロップ",
+        "amount": "1.5億 TBURN",
+        "desc": "メインネット開始を記念した初期参加者への特別配布",
+        "feature1": "テストネット参加者優先",
+        "feature2": "ジェネシスNFTホルダーボーナス（2倍）",
+        "feature3": "早期参加者追加報酬（+20%）",
+        "feature4": "TGE時15%解除"
+      },
+      "community": {
+        "title": "コミュニティエアドロップ",
+        "amount": "1億 TBURN",
+        "desc": "ソーシャルタスクとコミュニティ参加への報酬",
+        "feature1": "X(Twitter)/Telegram/Discordフォロー",
+        "feature2": "コンテンツ作成・共有報酬",
+        "feature3": "紹介ボーナス（友達1人につき500P）",
+        "feature4": "ポイントベースの比例配分"
+      },
+      "loyalty": {
+        "title": "ロイヤルティエアドロップ",
+        "amount": "5000万 TBURN",
+        "desc": "長期保有者とステーキング参加者への報酬",
+        "feature1": "90日以上保有ボーナス（+50%）",
+        "feature2": "ステーキング参加報酬",
+        "feature3": "ガバナンス投票ボーナス",
+        "feature4": "四半期スナップショット報酬配布"
+      }
+    },
+    "tasks": {
+      "badge": "ポイントを稼ぐ",
+      "title": "タスクを完了",
+      "subtitle": "タスクを完了してポイントを獲得し、エアドロップの割り当てを増やしましょう",
+      "myStatus": "マイタスク状況",
+      "walletConnected": "ウォレット接続済み",
+      "connectToTrack": "ウォレットを接続してタスク進捗を追跡",
+      "earnedPoints": "獲得ポイント",
+      "required": {
+        "title": "必須タスク",
+        "wallet": {
+          "title": "ウォレット接続",
+          "desc": "MetaMaskまたは対応ウォレットを接続",
+          "points": "+500 P",
+          "buttonConnect": "接続",
+          "buttonComplete": "完了"
+        },
+        "email": {
+          "title": "メール認証",
+          "desc": "メールアドレスを登録して認証",
+          "points": "+300 P",
+          "button": "認証"
+        },
+        "telegram": {
+          "title": "Telegram参加",
+          "desc": "公式Telegramグループに参加",
+          "points": "+400 P",
+          "button": "参加"
+        }
+      },
+      "social": {
+        "title": "ソーシャルタスク",
+        "twitter": {
+          "title": "X(Twitter)フォロー",
+          "desc": "@TBURNChain公式アカウントをフォロー",
+          "points": "+200 P",
+          "button": "フォロー"
+        },
+        "retweet": {
+          "title": "ローンチツイートをリツイート",
+          "desc": "メインネット開始のお知らせをリツイート",
+          "points": "+300 P",
+          "button": "リツイート"
+        },
+        "discord": {
+          "title": "Discord参加",
+          "desc": "公式Discordサーバーに参加",
+          "points": "+400 P",
+          "button": "参加"
+        }
+      },
+      "bonus": {
+        "title": "ボーナスタスク",
+        "nft": {
+          "title": "Genesis NFTホルダー",
+          "desc": "TBURN Genesis NFT保有で2倍ボーナス",
+          "points": "+2,000 P",
+          "button": "確認"
+        },
+        "referral": {
+          "title": "友達を招待（紹介）",
+          "desc": "友達1人につき500P、最大10人",
+          "points": "最大 +5,000 P",
+          "button": "招待"
+        },
+        "testnet": {
+          "title": "テストネット参加者",
+          "desc": "テストネット活動記録があれば自動適用",
+          "points": "+3,000 P",
+          "button": "確認"
+        }
+      }
+    },
+    "timeline": {
+      "badge": "スケジュール",
+      "title": "配布スケジュール",
+      "subtitle": "エアドロップ配布はTGE後9ヶ月にわたります",
+      "nov2025": "2025年11月",
+      "registrationStart": "エアドロップ登録開始",
+      "registrationDesc": "ウォレット接続とタスク完了が開始",
+      "jan2026": "2026年1月（現在）",
+      "snapshotProgress": "スナップショット進行中",
+      "snapshotDesc": "参加者ポイント累積中（28,750ユーザー）",
+      "feb2026": "2026年2月",
+      "tge": "TGE（トークン生成イベント）",
+      "tgeDesc": "15%（4,500万TBURN）即時請求可能",
+      "mar2026": "2026年3月〜11月",
+      "monthlyVesting": "月次ベスティング解除",
+      "vestingDesc": "9ヶ月間で約9.4%リニアリリース",
+      "calculator": {
+        "title": "配布計算例",
+        "myPoints": "マイポイント",
+        "totalPool": "総ポイントプール",
+        "distribution": "配布量",
+        "estimated": "推定量",
+        "estimatedValue": "推定価値（@$0.50）",
+        "disclaimer": "* 実際の配布は最終スナップショットの総ポイントにより変動する場合があります。"
+      },
+      "vesting": {
+        "title": "ベスティングスケジュール",
+        "tgeDay": "TGE（0日目）",
+        "monthly": "M1〜M9",
+        "monthlyPercent": "約9.4%/月",
+        "complete": "9ヶ月後"
+      }
+    },
+    "eligibilitySection": {
+      "badge": "参加資格",
+      "title": "参加資格要件",
+      "subtitle": "エアドロップ参加要件を確認",
+      "eligible": {
+        "title": "対象条件",
+        "wallet": {
+          "title": "ウォレット接続必須",
+          "desc": "MetaMask、Trust Wallet、Coinbase Wallet対応"
+        },
+        "tasks": {
+          "title": "必須タスク完了",
+          "desc": "ウォレット接続 + メール認証 + Telegram参加"
+        },
+        "minPoints": {
+          "title": "最低1,000ポイント",
+          "desc": "最低ポイント未満は配布から除外されます"
+        },
+        "snapshot": {
+          "title": "スナップショットまで資格維持",
+          "desc": "スナップショットは2026年1月に予定"
+        }
+      },
+      "excluded": {
+        "title": "除外条件",
+        "restricted": {
+          "title": "規制対象国の居住者",
+          "desc": "米国、中国、北朝鮮およびその他の規制対象国は除外"
+        },
+        "sybil": {
+          "title": "シビル攻撃",
+          "desc": "複数アカウントはすべてのアカウントが除外されます"
+        },
+        "bot": {
+          "title": "ボット活動検出",
+          "desc": "自動化ツールの使用は除外されます"
+        },
+        "fraud": {
+          "title": "不正行為",
+          "desc": "タスク操作や虚偽情報の提出は永久除外となります"
+        }
+      }
+    },
+    "faq": {
+      "title": "よくある質問",
+      "q1": {
+        "question": "エアドロップに参加するには？",
+        "answer": "ウォレットを接続し、必須タスク（メール認証、Telegram参加）を完了してポイントを貯めてください。"
+      },
+      "q2": {
+        "question": "いつトークンを請求できますか？",
+        "answer": "TGE時に15%を請求でき、残りは9ヶ月間でリニアリリースされます。"
+      },
+      "q3": {
+        "question": "ポイントはどのようにトークンに変換されますか？",
+        "answer": "総ポイントプールに対するあなたのポイントの割合でトークン配分が決まります。"
+      },
+      "q4": {
+        "question": "複数のウォレットで参加できますか？",
+        "answer": "いいえ。1人につき1つのウォレットのみで、複数アカウントが検出された場合は失格となります。"
+      },
+      "q5": {
+        "question": "Genesis NFTボーナスとは？",
+        "answer": "TBURN Genesis NFTを保有しているユーザーは2倍のポイントボーナスを受け取れます。"
+      },
+      "badge": "よくある質問",
+      "subtitle": "エアドロップに関するよくある質問と回答を確認",
+      "q6": {
+        "question": "タスク完了でどれくらいのポイントがもらえますか？",
+        "answer": "各タスクのポイント：必須 - ウォレット接続(500P)、メール認証(300P)、Telegram参加(400P)。ソーシャル - Xフォロー(200P)、リツイート(300P)、Discord参加(400P)。ボーナス - Genesis NFT(2,000P)、友達招待(最大5,000P)、テストネット(3,000P)。"
+      },
+      "q7": {
+        "question": "NFTホルダーボーナスはどのように機能しますか？",
+        "answer": "TBURN Genesis NFTホルダーはエアドロップ配分に対して2倍のボーナスを受け取れます。ウォレット接続時にNFT認証が自動的に行われます。"
+      },
+      "q8": {
+        "question": "地域制限や条件はありますか？",
+        "answer": "規制遵守のため一部の地域が制限されています。制限地域：米国、中国、北朝鮮、イラン、シリア、キューバおよびその他のOFAC制裁対象国。"
+      }
+    },
+    "footer": {
+      "products": "製品",
+      "scan": "エクスプローラー",
+      "dapp": "DApp",
+      "staking": "ステーキング",
+      "bridge": "ブリッジ",
+      "developers": "開発者",
+      "docs": "ドキュメント",
+      "api": "API",
+      "sdk": "SDK",
+      "resources": "リソース",
+      "whitepaper": "ホワイトペーパー",
+      "tokenomics": "トークノミクス",
+      "roadmap": "ロードマップ",
+      "privacyPolicy": "プライバシーポリシー",
+      "termsOfService": "利用規約",
+      "contact": "お問い合わせ",
+      "brand": "DeFiの未来のための最速かつ最も安全なブロックチェーン",
+      "copyright": "© 2025-2045 TBURN財団。全著作権所有。",
+      "github": "GitHub",
+      "faq": "よくある質問"
+    },
+    "emailDialog": {
+      "title": "メール認証",
+      "description": "メールアドレスを入力して認証し、+300ポイントを獲得",
+      "label": "メールアドレス",
+      "info": "確認リンクをメールに送信します。",
+      "cancel": "キャンセル",
+      "submit": "送信",
+      "processing": "処理中..."
+    },
+    "referralDialog": {
+      "title": "友達を招待",
+      "description": "紹介リンクを共有して、友達1人につき500ポイント獲得！",
+      "linkLabel": "あなたの紹介リンク",
+      "copy": "コピー",
+      "copied": "コピー完了！",
+      "linkCopied": "紹介リンクがクリップボードにコピーされました",
+      "shareTitle": "共有先",
+      "shareTwitter": "Twitterでシェア",
+      "shareTelegram": "Telegramでシェア",
+      "shareKakao": "KakaoTalkでシェア",
+      "bonusTitle": "紹介ボーナス",
+      "bonusDesc": "紹介に成功した友達1人につき500ポイント、最大10人まで。"
+    }
+  },
+  "referralPage": {
+    "nav": {
+      "home": "ホーム",
+      "howItWorks": "仕組み",
+      "tiers": "ティア",
+      "dashboard": "ダッシュボード",
+      "calculator": "計算機",
+      "leaderboard": "リーダーボード",
+      "faq": "FAQ"
+    },
+    "header": {
+      "connectWallet": "ウォレット接続",
+      "connecting": "接続中..."
+    },
+    "hero": {
+      "badge": "リファラルプログラム",
+      "title": "3億 TBURN",
+      "subtitle": "リファラル報酬",
+      "description": "友達をTBURN Chainに招待し、アクティビティからコミッションを獲得しましょう。高いティアで最大50%のコミッション率をアンロック！",
+      "stats": {
+        "totalParticipants": "総参加者",
+        "totalReferrals": "総リファラル",
+        "totalRewards": "総報酬配布 (TBURN)",
+        "activeReferrers": "アクティブリファラー"
+      },
+      "buttons": {
+        "getReferralLink": "リファラルリンク取得",
+        "viewDashboard": "ダッシュボード表示"
+      }
+    },
+    "howItWorks": {
+      "badge": "仕組み",
+      "title": "リファラルプログラムの仕組み",
+      "subtitle": "4つのステップで簡単に報酬を獲得",
+      "steps": {
+        "connect": {
+          "title": "ウォレット接続",
+          "desc": "MetaMaskまたは対応ウォレットを接続して、あなた専用の招待リンクを生成します。"
+        },
+        "share": {
+          "title": "リンク共有",
+          "desc": "SNS、コミュニティ、友達に招待リンクを共有しましょう。"
+        },
+        "activity": {
+          "title": "友達の活動",
+          "desc": "招待した友達がTBURN Chainで取引、ステーキングなどの活動をします。"
+        },
+        "earn": {
+          "title": "報酬受取",
+          "desc": "友達のアクティビティ手数料からリアルタイムでコミッションを受け取ります。"
+        }
+      }
+    },
+    "tiers": {
+      "badge": "ティアコミッション",
+      "title": "ティア別コミッション",
+      "subtitle": "招待実績に応じてティアが上がり、コミッション率が増加します",
+      "commission": "コミッション",
+      "referrals": "招待数",
+      "benefits": "特典"
+    },
+    "dashboard": {
+      "badge": "マイダッシュボード",
+      "title": "リファラルダッシュボード",
+      "subtitle": "招待状況と収益をリアルタイムで確認",
+      "currentTier": "現在のティア",
+      "myReferralLink": "マイ招待リンク",
+      "copy": "コピー",
+      "copied": "コピー済み!",
+      "share": {
+        "twitter": "Twitter",
+        "telegram": "Telegram",
+        "discord": "Discord",
+        "kakao": "KakaoTalk"
+      },
+      "stats": {
+        "totalInvites": "総招待数",
+        "activeUsers": "アクティブユーザー",
+        "totalEarned": "累計獲得 TBURN",
+        "totalDistributed": "総配布 TBURN"
+      },
+      "emptyState": "ウォレットを接続してリファラル活動を開始",
+      "connectButton": "ウォレット接続",
+      "toasts": {
+        "copied": "コピー完了",
+        "copiedDesc": "リファラルリンクがクリップボードにコピーされました。"
+      }
+    },
+    "calculator": {
+      "badge": "計算機",
+      "title": "報酬計算機",
+      "subtitle": "予想収益を事前に計算",
+      "input": {
+        "title": "条件入力",
+        "tier": "マイティア",
+        "referrals": "予想招待数（月）",
+        "volume": "被招待者平均月間取引量 ($)",
+        "price": "TBURN予想価格 ($)"
+      },
+      "result": {
+        "title": "予想収益",
+        "totalVolume": "総取引量（月）",
+        "tradingFee": "取引手数料 (0.1%)",
+        "myCommission": "マイコミッション",
+        "monthlyEarnings": "月間収益 (TBURN)",
+        "yearlyEarnings": "年間収益 (TBURN)",
+        "yearlyUsd": "予想年間収益 (USD)"
+      },
+      "disclaimer": "* 実際の収益は市場状況により異なる場合があります"
+    },
+    "leaderboard": {
+      "badge": "リーダーボード",
+      "title": "リファラルリーダーボード",
+      "subtitle": "トップリファラーのパフォーマンスを確認",
+      "topReferrers": "Top Referrers",
+      "filters": {
+        "all": "全期間",
+        "week": "今週",
+        "month": "今月"
+      },
+      "invites": "招待数",
+      "earnings": "総収益",
+      "viewAll": "全ランキングを見る",
+      "toasts": {
+        "allRank": "全ランキング",
+        "allRankDesc": "全期間のリファラルランキングを表示。",
+        "weekRank": "今週のランキング",
+        "weekRankDesc": "今週のリファラルランキング。(近日公開)",
+        "monthRank": "今月のランキング",
+        "monthRankDesc": "今月のリファラルランキング。(近日公開)",
+        "walletRequired": "ウォレット接続が必要",
+        "walletRequiredDesc": "全ランキングを見るにはウォレットを接続してください。",
+        "fullRankings": "全ランキング",
+        "fullRankingsDesc": "全ランキングページは近日公開。"
+      }
+    },
+    "faq": {
+      "badge": "FAQ",
+      "title": "よくある質問",
+      "subtitle": "リファラルプログラムに関するよくある質問への回答",
+      "q1": {
+        "question": "リファラル報酬プールの総額は？",
+        "answer": "リファラルプログラムの総報酬プールは3億TBURNです。これは総供給量100億TBURNの3%に相当します。TGE時に5%（1500万TBURN）がアンロックされ、残り95%は36ヶ月にわたり毎月約2.64%ずつ線形ベスティングされます。現在約4200万TBURNがリファラーに配布されています。"
+      },
+      "q2": {
+        "question": "コミッションはどう計算されますか？",
+        "answer": "あなたの紹介者がTBURN Chainで取引、ステーキング、ブリッジなどの活動で発生する手数料の一定割合をコミッションとして受け取ります。基本取引手数料は0.1%で、ティアに応じてその20-50%をコミッションとして受け取ります。例：紹介者が$1,000取引 → $1の手数料発生 → Goldティア(40%)で$0.40獲得"
+      },
+      "q3": {
+        "question": "ティアはどう上げられますか？",
+        "answer": "招待した友達の数に応じてティアが自動的に上がります。Bronze（0-9人、20%）、Silver（10-49人、30%）、Gold（50-199人、40%）、Diamond（200人+、50%）。ティアが上がるとコミッション率だけでなく、多層リファラル（2層、3層）特典も増加します。"
+      },
+      "q4": {
+        "question": "報酬はいつ受け取れますか？",
+        "answer": "リファラル報酬はリアルタイムで積み立てられ、累積報酬はいつでも引き出せます。最低引き出し額は100 TBURNで、少額のガス代（約0.001 TBURN）が差し引かれます。引き出しは接続されたウォレットに即座に送信されます。"
+      },
+      "q5": {
+        "question": "多層リファラルとは何ですか？",
+        "answer": "多層リファラルは、直接招待した人（1層）だけでなく、その人が招待した人（2層）やさらに先（3層）からもコミッションを獲得できるシステムです。Silver+で2層（5-10%）、Diamondで3層（15%）がアンロックされます。"
+      },
+      "q6": {
+        "question": "リファラルリンクはどこで取得できますか？",
+        "answer": "ウォレットを接続すると、固有のリファラルリンクとコードが自動生成されます。ダッシュボードで確認し、Twitter、Telegram、Discord、KakaoTalkなどで簡単に共有できます。対応ウォレット：MetaMask、Rabby、Trust Wallet、Coinbase Wallet、Ledger"
+      },
+      "q7": {
+        "question": "誰でもどこでも紹介できますか？",
+        "answer": "リファラルはグローバルに利用可能ですが、一部の制限地域（OFAC制裁国）は除外されます。詳細は資格セクションをご確認ください。"
+      },
+      "q8": {
+        "question": "不正対策はどうなっていますか？",
+        "answer": "システムはセルフリファラル、シビル攻撃、偽アカウントなどの不正を監視しています。検出された不正行為は即座にアカウント停止とすべての報酬没収につながります。"
+      }
+    },
+    "footer": {
+      "brand": "DeFiの未来のための最速で最も安全なブロックチェーン",
+      "products": "製品",
+      "scan": "エクスプローラー",
+      "dapp": "DApp",
+      "staking": "ステーキング",
+      "bridge": "ブリッジ",
+      "developers": "開発者",
+      "docs": "ドキュメント",
+      "api": "API",
+      "sdk": "SDK",
+      "github": "GitHub",
+      "resources": "リソース",
+      "whitepaper": "ホワイトペーパー",
+      "tokenomics": "トケノミクス",
+      "roadmap": "ロードマップ",
+      "faq": "FAQ",
+      "copyright": "© 2025-2045 TBURN Foundation. All Rights Reserved.",
+      "privacyPolicy": "プライバシーポリシー",
+      "termsOfService": "利用規約",
+      "contact": "お問い合わせ"
+    }
+  },
+  "eventsPage": {
+    "nav": {
+      "liveEvents": "開催中イベント",
+      "allEvents": "全イベント",
+      "leaderboard": "リーダーボード",
+      "faq": "FAQ",
+      "connectWallet": "ウォレット接続",
+      "connected": "接続済み"
+    },
+    "hero": {
+      "badge": "イベントセンター - 様々なイベント開催中",
+      "title": "参加して獲得！",
+      "titleHighlight": "4億 TBURN",
+      "titleSuffix": "イベント報酬",
+      "subtitle": "ローンチイベント、トレーディングコンペ、ステーキングブースト、コミュニティチャレンジに参加して報酬をゲット！",
+      "liveBadge": "開催中",
+      "liveTitle": "メインネットローンチグランドイベント",
+      "liveSubtitle": "今すぐ参加して最大10,000 TBURNを獲得！",
+      "countdown": {
+        "days": "日",
+        "hours": "時間",
+        "minutes": "分",
+        "seconds": "秒"
+      },
+      "participate": "参加する",
+      "connectFirst": "ウォレット接続後に申請"
+    },
+    "stats": {
+      "totalEvents": "総イベント数",
+      "activeEvents": "開催中イベント",
+      "totalParticipants": "総参加者",
+      "totalRewards": "総報酬プール"
+    },
+    "distribution": {
+      "badge": "配分",
+      "title": "イベント報酬配分",
+      "subtitle": "4億TBURNが5つのカテゴリに配分",
+      "launch": {
+        "name": "ローンチイベント",
+        "amount": "1億",
+        "percent": "25%"
+      },
+      "trading": {
+        "name": "トレーディングコンペ",
+        "amount": "1億",
+        "percent": "25%"
+      },
+      "staking": {
+        "name": "ステーキングブースト",
+        "amount": "8000万",
+        "percent": "20%"
+      },
+      "community": {
+        "name": "コミュニティチャレンジ",
+        "amount": "6000万",
+        "percent": "15%"
+      },
+      "partner": {
+        "name": "パートナーシップ＆シーズナル",
+        "amount": "6000万",
+        "percent": "15%"
+      }
+    },
+    "events": {
+      "badge": "全イベント",
+      "title": "イベント一覧",
+      "subtitle": "現在開催中または予定のイベントをチェック",
+      "categories": {
+        "all": "全て",
+        "live": "開催中",
+        "launch": "ローンチ",
+        "trading": "トレーディング",
+        "staking": "ステーキング",
+        "community": "コミュニティ"
+      },
+      "categoryToasts": {
+        "all": {
+          "title": "全イベント",
+          "desc": "全てのイベントを表示。"
+        },
+        "live": {
+          "title": "開催中イベント",
+          "desc": "現在開催中のイベントを表示。"
+        },
+        "launch": {
+          "title": "ローンチイベント",
+          "desc": "メインネットローンチ関連イベントを表示。"
+        },
+        "trading": {
+          "title": "トレーディングイベント",
+          "desc": "トレーディング関連イベントを表示。"
+        },
+        "staking": {
+          "title": "ステーキングイベント",
+          "desc": "ステーキング関連イベントを表示。"
+        },
+        "community": {
+          "title": "コミュニティイベント",
+          "desc": "コミュニティ参加イベントを表示。"
+        }
+      },
+      "loading": "読み込み中...",
+      "loadingDesc": "イベントデータを読み込み中...",
+      "noEvents": "イベントなし",
+      "noEventsDesc": "このカテゴリにイベントはありません",
+      "status": {
+        "live": "開催中",
+        "upcoming": "予定",
+        "ended": "終了"
+      },
+      "buttons": {
+        "participate": "参加する",
+        "connectWallet": "ウォレット接続",
+        "comingSoon": "まもなく開始"
+      }
+    },
+    "leaderboard": {
+      "badge": "リーダーボード",
+      "title": "イベントリーダーボード",
+      "subtitle": "トップ参加者の実績をチェック",
+      "topTitle": "ローンチイベント TOP 10",
+      "tabs": {
+        "all": "全期間",
+        "today": "今日",
+        "week": "今週"
+      },
+      "tabToasts": {
+        "all": {
+          "title": "全期間",
+          "desc": "全期間のランキングを表示。"
+        },
+        "today": {
+          "title": "今日",
+          "desc": "今日のランキングを表示。(近日公開)"
+        },
+        "week": {
+          "title": "今週",
+          "desc": "今週のランキングを表示。(近日公開)"
+        }
+      },
+      "table": {
+        "rank": "順位",
+        "participant": "参加者",
+        "missions": "ミッション",
+        "score": "スコア",
+        "reward": "予想報酬"
+      }
+    },
+    "faq": {
+      "badge": "FAQ",
+      "title": "よくある質問",
+      "subtitle": "イベント関連のよくある質問への回答",
+      "items": {
+        "q1": {
+          "question": "イベント報酬の総額は？",
+          "answer": "イベント報酬総プールは4億TBURNで、総供給量100億TBURNの4%です。"
+        },
+        "q2": {
+          "question": "誰がイベントに参加できますか？",
+          "answer": "ウォレットを接続した全てのユーザーが参加可能です。"
+        },
+        "q3": {
+          "question": "報酬はいつ配布されますか？",
+          "answer": "ほとんどのイベント報酬はイベント終了後7日以内に配布されます。"
+        },
+        "q4": {
+          "question": "複数のイベントに同時参加できますか？",
+          "answer": "はい、同時開催中の全イベントに参加可能です。"
+        },
+        "q5": {
+          "question": "トレーディングコンペの順位はどう決まりますか？",
+          "answer": "取引量と収益率で順位が決定されます。"
+        },
+        "q6": {
+          "question": "ステーキングブーストAPYはどう計算されますか？",
+          "answer": "イベント期間中は基本APYの2倍が適用されます。"
+        },
+        "q7": {
+          "question": "ミームコンテストの受賞者はどう選ばれますか？",
+          "answer": "コミュニティ投票と審査員評価で選出されます。"
+        },
+        "q8": {
+          "question": "不正行為が見つかったらどうなりますか？",
+          "answer": "全報酬が没収され、永久除外されます。"
+        }
       }
     },
     "cta": {
-      "title": "TBURNコミュニティに参加しよう!",
-      "subtitle": "TBURNエコシステムで共に成長し、共に報酬を得よう",
-      "subtitleLine2": "今すぐコミュニティプログラムに参加!",
-      "button": "始める"
+      "title": "今すぐイベントに参加！",
+      "subtitle": "様々なイベントに参加して最大4億TBURN報酬を獲得。",
+      "subtitleHighlight": "早期参加 = より多くの報酬！",
+      "buttonParticipate": "今すぐ参加",
+      "buttonConnect": "ウォレット接続して開始"
     },
     "footer": {
-      "brand": {
-        "tagline": "AIの知性、ブロックチェーンの透明性",
-        "slogan": "THE FUTURE IS NOW"
-      },
-      "product": {
-        "title": "プロダクト",
-        "mainnet": "メインネット",
-        "explorer": "エクスプローラー",
-        "bridge": "ブリッジ",
-        "staking": "ステーキング"
-      },
-      "resources": {
-        "title": "リソース",
-        "whitepaper": "ホワイトペーパー",
-        "docs": "ドキュメント",
-        "github": "GitHub",
-        "blog": "ブログ"
-      },
-      "community": {
-        "title": "コミュニティ",
-        "blog": "ブログ",
-        "ambassador": "アンバサダープログラム",
-        "grants": "助成金",
-        "support": "サポート"
-      },
-      "copyright": "2024-2025 TBURN Chain. All rights reserved.",
-      "legal": {
-        "terms": "利用規約",
-        "privacy": "プライバシーポリシー"
-      }
-    },
-    "toast": {
-      "selectProgram": "プログラム選択",
-      "selectProgramDesc": "参加するプログラムを選択してください。",
-      "guide": "プログラムガイド",
-      "guideDesc": "各活動のポイントと報酬を確認してください。",
-      "applyComplete": "申し込み完了",
-      "applyCompleteDesc": "申し込みが送信されました。審査後、結果をお知らせします。",
-      "connectWallet": "先にウォレットを接続してください",
-      "githubRedirect": "GitHubにリダイレクト中...",
-      "shareTwitter": "Twitterでシェアしました",
-      "shareTelegram": "Telegramでシェアしました",
-      "shareDiscord": "Discordでシェアしました",
-      "shareGithub": "GitHubでシェアしました",
-      "walletConnected": "ウォレット接続完了",
-      "walletConnectedDesc": "MetaMaskウォレットが接続されました。",
-      "walletDisconnected": "ウォレット切断",
-      "walletDisconnectedDesc": "ウォレット接続が解除されました。",
-      "walletRequired": "ウォレットが必要です",
-      "walletRequiredDesc": "プログラムに申し込むには、先にウォレットを接続してください。",
-      "applicationSubmitted": "申請が送信されました",
-      "applicationSubmittedDesc": "申請が送信されました。審査後、結果をお知らせします。"
-    },
-    "connectWallet": "ウォレット接続"
+      "description": "AIの知性、ブロックチェーンの透明性\n未来は今",
+      "quickLinks": "クイックリンク",
+      "explorer": "エクスプローラー",
+      "wallet": "ウォレット",
+      "bridge": "ブリッジ",
+      "staking": "ステーキング",
+      "developers": "開発者",
+      "docs": "ドキュメント",
+      "api": "API",
+      "github": "GitHub",
+      "sdk": "SDK",
+      "resources": "リソース",
+      "whitepaper": "ホワイトペーパー",
+      "tokenomics": "トークノミクス",
+      "roadmap": "ロードマップ",
+      "faqLink": "FAQ",
+      "copyright": "© 2025-2045 TBURN Foundation. All Rights Reserved.",
+      "termsOfService": "利用規約",
+      "privacyPolicy": "プライバシーポリシー"
+    }
   }
 }

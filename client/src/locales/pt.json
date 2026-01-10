@@ -17821,21 +17821,271 @@
       }
     },
     "marketingProgram": {
-      "title": "Programa de Marketing",
-      "subtitle": "Iniciativas de marketing para crescer a comunidade TBURN",
-      "heroTitle": "Programa de Marketing TBURN",
-      "heroSubtitle": "Ajude a divulgar o TBURN e ganhe recompensas",
-      "badge": "Crescer Juntos",
-      "totalBudget": "Orçamento Total",
-      "campaigns": "Campanhas",
-      "reach": "Alcance Total",
-      "programs": "Programas",
-      "influencer": "Programa de Influenciadores",
-      "affiliate": "Programa de Afiliados",
-      "content": "Criador de Conteúdo",
-      "community": "Marketing Comunitário",
-      "applyMarketing": "Aplicar para Marketing",
-      "campaignDetails": "Detalhes da Campanha"
+      "nav": {
+        "programs": "Programas",
+        "ambassador": "Embaixador",
+        "campaigns": "Campanhas",
+        "leaderboard": "Classificação"
+      },
+      "wallet": {
+        "connect": "Conectar Carteira",
+        "connected": "Carteira Conectada",
+        "connectedDesc": "Sua carteira foi conectada.",
+        "disconnected": "Carteira Desconectada",
+        "disconnectedDesc": "Sua carteira foi desconectada.",
+        "required": "Carteira Necessária",
+        "requiredDesc": "Por favor conecte sua carteira para participar do programa.",
+        "campaignRequiredDesc": "Por favor conecte sua carteira para participar da campanha."
+      },
+      "hero": {
+        "badge": "PROGRAMA DE MARKETING - Divulgue TBURN Juntos",
+        "title": "Participe do Marketing TBURN",
+        "fundAmount": "300M TBURN",
+        "incentive": "Ganhe Recompensas",
+        "subtitle": "Torne-se embaixador, influenciador, criador de conteúdo ou participante de eventos para divulgar o ecossistema TBURN e ganhar recompensas."
+      },
+      "socialStats": {
+        "twitter": "Seguidores Twitter",
+        "telegram": "Membros Telegram",
+        "discord": "Membros Discord",
+        "youtube": "Inscritos YouTube",
+        "tiktok": "Seguidores TikTok"
+      },
+      "stats": {
+        "totalBudget": "Orçamento Total de Marketing",
+        "activeAmbassadors": "Embaixadores Ativos",
+        "ongoingCampaigns": "Campanhas em Andamento",
+        "activeCampaigns": "Campanhas Ativas"
+      },
+      "cta": {
+        "joinAmbassador": "Aplicar como Embaixador",
+        "viewGuide": "Guia de Marketing",
+        "ambassadorProgram": "Programa de Embaixadores",
+        "ambassadorDesc": "Confira os níveis de embaixador e comece a participar!",
+        "marketingGuide": "Guia de Marketing",
+        "guideDesc": "Confira nosso guia do programa de marketing.",
+        "programApply": "Aplicação {{programName}}",
+        "programApplyDesc": "Sua aplicação {{programName}} foi enviada. Analisaremos e entraremos em contato.",
+        "participate": "Participar"
+      },
+      "sections": {
+        "distribution": {
+          "title": "Distribuição do Orçamento de Marketing",
+          "subtitle": "300M TBURN distribuídos em 5 programas de marketing"
+        },
+        "programs": {
+          "title": "Programas de Marketing",
+          "subtitle": "Promova TBURN de várias maneiras"
+        },
+        "ambassador": {
+          "title": "Níveis de Embaixador",
+          "subtitle": "Benefícios por nível baseados em atividade"
+        },
+        "content": {
+          "title": "Recompensas de Conteúdo",
+          "subtitle": "Recompensas por tipo de conteúdo"
+        },
+        "campaigns": {
+          "title": "Campanhas em Andamento",
+          "subtitle": "Participe e ganhe recompensas"
+        },
+        "leaderboard": {
+          "title": "Classificação de Embaixadores",
+          "subtitle": "Top Embaixadores Este Mês"
+        },
+        "faq": {
+          "title": "Perguntas Frequentes",
+          "subtitle": "Perguntas sobre o Programa de Marketing"
+        }
+      },
+      "distributions": {
+        "brand": "Marketing de Marca",
+        "influencer": "Influenciador",
+        "creator": "Criador de Conteúdo",
+        "event": "Marketing de Eventos",
+        "pr": "RP e Mídia"
+      },
+      "programs": {
+        "ambassador": {
+          "title": "Programa de Embaixadores",
+          "subtitle": "Torne-se embaixador oficial TBURN",
+          "rewardValue1": "Até 500K",
+          "rewardLabel1": "Recompensa Mensal",
+          "rewardValue2": "Ilimitado",
+          "rewardLabel2": "Recompensa por Indicação",
+          "feature1": "Certificação Oficial de Embaixador",
+          "feature2": "Convites para Eventos Exclusivos",
+          "feature3": "Privilégios de Acesso Antecipado",
+          "feature4": "Materiais de Marketing Dedicados"
+        },
+        "influencer": {
+          "title": "Colaboração com Influenciadores",
+          "subtitle": "Crescendo juntos com criadores",
+          "rewardValue1": "$500+ por campanha",
+          "rewardLabel1": "Recompensa de Campanha",
+          "rewardValue2": "10%",
+          "rewardLabel2": "Comissão de Vendas",
+          "feature1": "Design de Campanha Personalizado",
+          "feature2": "Materiais de Marketing Fornecidos",
+          "feature3": "Bônus Baseado em Desempenho",
+          "feature4": "Opções de Parceria de Longo Prazo"
+        },
+        "creator": {
+          "title": "Criador de Conteúdo",
+          "subtitle": "Vídeos, artigos, conteúdo educacional",
+          "rewardValue1": "$100+ por conteúdo",
+          "rewardLabel1": "Recompensa Base",
+          "rewardValue2": "Bônus de Qualidade",
+          "rewardLabel2": "Recompensa Adicional",
+          "feature1": "Vários Tipos de Conteúdo",
+          "feature2": "Suporte do Fundo de Criadores",
+          "feature3": "Bônus de Visualizações",
+          "feature4": "Concursos Mensais"
+        },
+        "event": {
+          "title": "Marketing de Eventos",
+          "subtitle": "Participação em eventos online/offline",
+          "rewardValue1": "$200+ por evento",
+          "rewardLabel1": "Recompensa de Participação",
+          "rewardValue2": "NFT Especial",
+          "rewardLabel2": "Recompensa de Evento",
+          "feature1": "Suporte para Organizar Meetups",
+          "feature2": "Participação em Conferências",
+          "feature3": "AMA Online",
+          "feature4": "Eventos Comunitários"
+        }
+      },
+      "ambassadorTiers": {
+        "legend": {
+          "requirement": "500+ Indicações",
+          "reward": "500K/mês",
+          "perk1": "Mentor Dedicado",
+          "perk2": "Convites para Meetups Presenciais",
+          "perk3": "Airdrops de NFT",
+          "perk4": "Direitos de Voto em Governança"
+        },
+        "elite": {
+          "requirement": "200+ Indicações",
+          "reward": "200K/mês",
+          "perk1": "Badge Premium",
+          "perk2": "Suporte Prioritário",
+          "perk3": "Acesso a Beta Test",
+          "perk4": "Chamadas Mensais"
+        },
+        "rising": {
+          "requirement": "50+ Indicações",
+          "reward": "50K/mês",
+          "perk1": "Certificação Oficial",
+          "perk2": "Cargo no Discord",
+          "perk3": "Materiais de Marketing",
+          "perk4": "Link de Indicação"
+        },
+        "starter": {
+          "requirement": "10+ Indicações",
+          "reward": "10K/mês",
+          "perk1": "Badge Iniciante",
+          "perk2": "Materiais Básicos",
+          "perk3": "Acesso à Comunidade",
+          "perk4": "Tutoriais"
+        }
+      },
+      "contentTypes": {
+        "video": {
+          "title": "Vídeo",
+          "desc": "Vídeos YouTube/TikTok"
+        },
+        "article": {
+          "title": "Artigo",
+          "desc": "Posts de Blog/Medium"
+        },
+        "graphic": {
+          "title": "Gráficos",
+          "desc": "Infográficos/memes"
+        },
+        "tutorial": {
+          "title": "Tutorial",
+          "desc": "Conteúdo educacional"
+        }
+      },
+      "campaignList": {
+        "twitter": {
+          "title": "Desafio de Tweet #TBURNChain",
+          "desc": "Crie um tweet apresentando TBURN"
+        },
+        "youtube": {
+          "title": "Vídeo de Review TBURN",
+          "desc": "Crie um vídeo de análise TBURN Chain"
+        },
+        "tiktok": {
+          "title": "Desafio TikTok Curto",
+          "desc": "Vídeo de introdução TBURN 15-60 segundos"
+        },
+        "article": {
+          "title": "Artigo Detalhado TBURN",
+          "desc": "Escreva uma análise técnica/tokenomics"
+        }
+      },
+      "campaigns": {
+        "activeCampaigns": "Campanhas Ativas",
+        "participants": "Participantes",
+        "statusActive": "Ativo",
+        "statusEnding": "Terminando Em Breve",
+        "statusUpcoming": "Próximo",
+        "upcoming": "Próxima Campanha",
+        "upcomingDesc": "Esta campanha está começando em breve. Configure notificações!",
+        "joined": "Campanha Ingressada",
+        "joinedDesc": "Você ingressou na campanha \"{{campaignTitle}}\"!"
+      },
+      "leaderboard": {
+        "top5": "TOP 5 Embaixadores",
+        "rank": "Posição",
+        "ambassador": "Embaixador",
+        "points": "Pontos",
+        "rewards": "Recompensas Totais"
+      },
+      "faq": {
+        "q1": "Qual é o orçamento total do programa de marketing?",
+        "a1": "O programa de marketing tem uma alocação total de 300M TBURN. Distribuição: Marketing de Marca 30% (90M), Influenciador 25% (75M), Criador de Conteúdo 20% (60M), Marketing de Eventos 15% (45M), RP e Mídia 10% (30M).",
+        "q2": "Como me tornar um embaixador?",
+        "a2": "Envie sua aplicação na página de aplicação de embaixadores. A seleção é baseada em atividade em redes sociais e interesse em cripto. Comece no nível Starter (10K TBURN/mês) e avance para Rising (50K), Elite (200K) ou Legend (500K) baseado no desempenho de indicações.",
+        "q3": "Como as recompensas de conteúdo são pagas?",
+        "a3": "Após envio do conteúdo e revisão de qualidade, o conteúdo aprovado é recompensado em tokens TBURN. Recompensas base por tipo: Vídeo ($100-500), Artigo ($50-200), Gráficos ($30-100), Tutorial ($150-400). Bônus de visualizações e engajamento são adicionados. Pagamentos são feitos semanalmente às segundas.",
+        "q4": "Quais são os requisitos de elegibilidade para campanhas?",
+        "a4": "A maioria das campanhas está aberta para qualquer pessoa com carteira TBURN conectada. Algumas campanhas podem exigir nível de embaixador ou número de seguidores (Twitter 1K+, YouTube 5K+). Verifique a página de detalhes de cada campanha para requisitos específicos.",
+        "q5": "Como funciona a colaboração com influenciadores?",
+        "a5": "Influenciadores com 10K+ seguidores podem participar do nosso programa de colaboração. Oferecemos $500+ por campanha e 10% de comissão de vendas. Inclui design de campanha personalizado, materiais de marketing, bônus de desempenho e opções de parceria de longo prazo. Contate partnerships@tburn.io.",
+        "q6": "Como participar do marketing de eventos?",
+        "a6": "O programa de marketing de eventos permite participar ou organizar eventos online/offline. Recompensas incluem $200+ por evento e NFTs especiais. Opções incluem suporte para organizar meetups, participação em conferências, AMAs online e eventos comunitários.",
+        "q7": "Como a classificação do leaderboard é determinada?",
+        "a7": "As classificações são baseadas em pontos de indicações, desempenho de conteúdo, participação em campanhas e contribuições para a comunidade. Os melhores embaixadores recebem bônus mensais, com embaixadores Legend ganhando até 500K TBURN mensalmente.",
+        "q8": "Quando as recompensas de marketing são pagas?",
+        "a8": "Recompensas de conteúdo são pagas toda segunda-feira. Recompensas de campanha são pagas dentro de 7 dias do fim da campanha. Recompensas mensais de embaixador são pagas no dia 1 de cada mês. Todas as recompensas são automaticamente depositadas na sua carteira TBURN conectada."
+      },
+      "ctaSection": {
+        "title": "Comece Agora!",
+        "description": "Junte-se ao Programa de Marketing TBURN e ganhe 300M TBURN em recompensas!",
+        "toastTitle": "Aplicação de Embaixador",
+        "toastDesc": "Confira os níveis de embaixador e comece agora!"
+      },
+      "social": {
+        "navigating": "Navegando para {{platform}}."
+      },
+      "footer": {
+        "tagline": "Inteligência IA, Transparência Blockchain",
+        "mainnet": "Mainnet",
+        "explorer": "Explorador",
+        "bridge": "Ponte",
+        "staking": "Staking",
+        "whitepaper": "Whitepaper",
+        "docs": "Documentação",
+        "audit": "Relatório de Auditoria",
+        "blog": "Blog",
+        "ambassador": "Embaixador",
+        "grants": "Grants",
+        "support": "Suporte",
+        "terms": "Termos de Serviço",
+        "privacy": "Política de Privacidade"
+      }
     },
     "strategicPartner": {
       "title": "Parceiros Estratégicos",
