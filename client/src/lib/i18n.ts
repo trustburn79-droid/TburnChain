@@ -67,12 +67,24 @@ i18n
     returnNull: false,
   });
 
+const I18N_VERSION_KEY = 'tburn-i18n-version';
+const CURRENT_I18N_VERSION = '2';
+
 export const initializeI18n = async (): Promise<void> => {
   if (initialized) {
     console.log('[i18n] Already initialized, skipping...');
     return;
   }
   initialized = true;
+  
+  if (typeof localStorage !== 'undefined') {
+    const storedVersion = localStorage.getItem(I18N_VERSION_KEY);
+    if (storedVersion !== CURRENT_I18N_VERSION) {
+      localStorage.removeItem('tburn-language');
+      localStorage.setItem(I18N_VERSION_KEY, CURRENT_I18N_VERSION);
+      console.log('[i18n] Cleared legacy language preference, defaulting to English');
+    }
+  }
   
   const storedLang = typeof localStorage !== 'undefined' ? localStorage.getItem('tburn-language') : null;
   const targetLang = storedLang || 'en';
