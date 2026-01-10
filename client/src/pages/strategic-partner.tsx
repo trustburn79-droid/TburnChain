@@ -47,6 +47,7 @@ export default function StrategicPartnerPage() {
   const [activeFaq, setActiveFaq] = useState<string | null>("faq-1");
   const [activeTab, setActiveTab] = useState("enterprise");
   const { toast } = useToast();
+  const { t } = useTranslation();
 
   const { data: statsResponse, isLoading: isLoadingStats } = useQuery<PartnershipStatsResponse>({
     queryKey: ['/api/token-programs/partnerships/stats'],
@@ -67,91 +68,88 @@ export default function StrategicPartnerPage() {
   const handleWalletClick = async () => {
     if (isConnected) {
       disconnect();
-      toast({ title: "지갑 연결 해제", description: "지갑이 연결 해제되었습니다." });
+      toast({ title: t('strategicPartner.wallet.disconnect'), description: t('strategicPartner.wallet.disconnectDesc') });
     } else {
       await connect("metamask");
-      toast({ title: "지갑 연결", description: "지갑이 연결되었습니다." });
+      toast({ title: t('strategicPartner.wallet.connected'), description: t('strategicPartner.wallet.connectedDesc') });
     }
   };
 
   const handleApplyPartnership = () => {
     scrollToSection('tiers');
-    toast({ title: "파트너십 문의", description: "파트너 티어를 확인하고 문의해주세요!" });
+    toast({ title: t('strategicPartner.cta.partnershipInquiry'), description: t('strategicPartner.cta.partnershipInquiryDesc') });
   };
 
   const handleViewGuide = () => {
     scrollToSection('types');
-    toast({ title: "엔터프라이즈 가이드", description: "파트너십 유형 안내를 확인하세요." });
+    toast({ title: t('strategicPartner.cta.enterpriseGuide'), description: t('strategicPartner.cta.enterpriseGuideDesc') });
   };
 
   const handleInquireTier = (tierName: string, incentive: string) => {
     if (!isConnected) {
       toast({ 
-        title: "지갑 연결 필요", 
-        description: "파트너십 문의를 위해 먼저 지갑을 연결해주세요.",
+        title: t('strategicPartner.wallet.required'), 
+        description: t('strategicPartner.wallet.requiredDesc'),
         variant: "destructive"
       });
       return;
     }
     toast({ 
-      title: `${tierName} 파트너 문의`, 
-      description: `${tierName} 티어(${incentive} TBURN) 파트너십 문의가 접수되었습니다. 담당자가 연락드리겠습니다.`
+      title: t('strategicPartner.tierInquiry.title'), 
+      description: t('strategicPartner.tierInquiry.description', { tier: tierName, incentive })
     });
   };
 
   const handleShareSocial = (platform: string, url: string) => {
     window.open(url, '_blank');
-    toast({ title: `${platform}`, description: `${platform} 페이지로 이동합니다.` });
+    toast({ title: platform, description: `${platform}` });
   };
 
   const enterpriseLogos = [
-    { icon: "🏛️", name: "엔터프라이즈" },
-    { icon: "🔗", name: "프로토콜" },
-    { icon: "💰", name: "기관투자자" },
-    { icon: "🏢", name: "기업" },
-    { icon: "🎓", name: "연구기관" },
+    { icon: "🏛️", nameKey: "enterprise" },
+    { icon: "🔗", nameKey: "protocol" },
+    { icon: "💰", nameKey: "institutional" },
+    { icon: "🏢", nameKey: "corporate" },
+    { icon: "🎓", nameKey: "research" },
   ];
 
   const distributions = [
-    { id: "enterprise", icon: "🏛️", name: "엔터프라이즈", amount: "0.8억", percent: "40%" },
-    { id: "protocol", icon: "🔗", name: "프로토콜 통합", amount: "0.4억", percent: "20%" },
-    { id: "institutional", icon: "💰", name: "기관 투자자", amount: "0.4억", percent: "20%" },
-    { id: "government", icon: "🏢", name: "공공기관", amount: "0.2억", percent: "10%" },
-    { id: "academic", icon: "🎓", name: "학술/연구", amount: "0.2억", percent: "10%" },
+    { id: "enterprise", icon: "🏛️", nameKey: "enterprise", amountKey: "enterpriseAmount", percent: "40%" },
+    { id: "protocol", icon: "🔗", nameKey: "protocol", amountKey: "protocolAmount", percent: "20%" },
+    { id: "institutional", icon: "💰", nameKey: "institutional", amountKey: "institutionalAmount", percent: "20%" },
+    { id: "government", icon: "🏢", nameKey: "government", amountKey: "governmentAmount", percent: "10%" },
+    { id: "academic", icon: "🎓", nameKey: "academic", amountKey: "academicAmount", percent: "10%" },
   ];
 
   const partnerTiers = [
-    { id: "diamond", icon: "💎", name: "Diamond", subtitle: "최상위 전략 파트너", incentive: "최대 5,000만", requirement: "$10M+ 가치 제공", benefits: ["전용 기술 팀 배정", "맞춤형 솔루션 개발", "이사회 참여권", "독점 거버넌스 권한", "연간 오프라인 서밋"], color: "#B9F2FF" },
-    { id: "platinum", icon: "🏆", name: "Platinum", subtitle: "프리미엄 파트너", incentive: "최대 2,000만", requirement: "$5M+ 가치 제공", benefits: ["우선 기술 지원", "공동 마케팅", "분기별 전략 미팅", "거버넌스 투표권", "VIP 이벤트"], color: "#E5E4E2" },
-    { id: "gold", icon: "👑", name: "Gold", subtitle: "핵심 파트너", incentive: "최대 500만", requirement: "$1M+ 가치 제공", benefits: ["기술 통합 지원", "마케팅 협업", "월간 리포트", "DAO 참여권", "파트너 네트워킹"], color: "#D4AF37" },
-    { id: "silver", icon: "🥈", name: "Silver", subtitle: "성장 파트너", incentive: "최대 100만", requirement: "$100K+ 가치 제공", benefits: ["기술 문서 접근", "기본 지원", "분기별 업데이트", "커뮤니티 접근", "파트너 뱃지"], color: "#C0C0C0" },
+    { id: "diamond", icon: "💎", color: "#B9F2FF" },
+    { id: "platinum", icon: "🏆", color: "#E5E4E2" },
+    { id: "gold", icon: "👑", color: "#D4AF37" },
+    { id: "silver", icon: "🥈", color: "#C0C0C0" },
   ];
 
-  const partnershipTypes = [
-    { icon: "🏛️", title: "엔터프라이즈 솔루션", desc: "대기업 맞춤형 블록체인 솔루션", features: ["프라이빗 체인 구축", "API 통합", "보안 감사", "24/7 지원"] },
-    { icon: "🔗", title: "프로토콜 통합", desc: "DeFi 및 Web3 프로토콜 연동", features: ["크로스체인 브릿지", "유동성 풀", "스마트 컨트랙트", "오라클 연동"] },
-    { icon: "💰", title: "기관 투자", desc: "기관 투자자 전용 프로그램", features: ["커스터디 서비스", "OTC 거래", "세금 리포트", "규제 컴플라이언스"] },
-    { icon: "🏢", title: "공공 파트너십", desc: "정부 및 공공기관 협력", features: ["공공 인프라", "디지털 신원", "투명성 시스템", "시민 서비스"] },
-    { icon: "🎓", title: "학술 연구", desc: "대학 및 연구소 협력", features: ["연구 그랜트", "인턴십", "논문 지원", "기술 자문"] },
-    { icon: "🌐", title: "글로벌 확장", desc: "해외 시장 진출 지원", features: ["현지화 지원", "규제 자문", "파트너 연결", "마케팅 지원"] },
-  ];
+  const partnershipTypeKeys = ["enterprise", "protocol", "institutional", "government", "academic", "global"];
+  const partnershipTypeIcons: { [key: string]: string } = {
+    enterprise: "🏛️",
+    protocol: "🔗",
+    institutional: "💰",
+    government: "🏢",
+    academic: "🎓",
+    global: "🌐"
+  };
 
-  const processSteps = [
-    { icon: "📋", title: "문의 접수", desc: "파트너십 의향서 제출", duration: "1-3일" },
-    { icon: "🔍", title: "실사 & 평가", desc: "비즈니스/기술 검토", duration: "2-4주" },
-    { icon: "💼", title: "조건 협상", desc: "파트너십 조건 협의", duration: "2-4주" },
-    { icon: "📝", title: "계약 체결", desc: "법적 계약 서명", duration: "1-2주" },
-    { icon: "🚀", title: "온보딩", desc: "기술 통합 및 런칭", duration: "4-8주" },
-  ];
+  const processStepKeys = ["step1", "step2", "step3", "step4", "step5"];
+  const processStepIcons = ["📋", "🔍", "💼", "📝", "🚀"];
 
-  const benefits = [
-    { icon: "🔧", title: "맞춤형 기술 지원", desc: "전담 엔지니어 팀이 기업별 요구사항에 맞는 솔루션을 개발합니다." },
-    { icon: "📈", title: "성장 가속화", desc: "TBURN 생태계의 자원과 네트워크를 활용하여 비즈니스 성장을 지원합니다." },
-    { icon: "🛡️", title: "보안 & 규제 준수", desc: "엔터프라이즈급 보안과 글로벌 규제 컴플라이언스를 보장합니다." },
-    { icon: "🤝", title: "전략적 네트워킹", desc: "업계 리더들과의 네트워킹 기회 및 공동 사업 기회를 제공합니다." },
-    { icon: "💎", title: "독점 혜택", desc: "얼리 액세스, 거버넌스 참여, 특별 인센티브 등 독점 혜택을 누립니다." },
-    { icon: "📊", title: "데이터 인사이트", desc: "온체인 분석 및 맞춤형 리포트를 통한 비즈니스 인텔리전스를 제공합니다." },
-  ];
+  const benefitKeys = ["techSupport", "growth", "security", "networking", "exclusive", "data"];
+  const benefitIcons: { [key: string]: string } = {
+    techSupport: "🔧",
+    growth: "📈",
+    security: "🛡️",
+    networking: "🤝",
+    exclusive: "💎",
+    data: "📊"
+  };
 
   const currentPartners = [
     { icon: "🏛️", name: "Global Tech Corp", type: "Enterprise", tier: "diamond", investment: "$15M", since: "2024.01" },
@@ -160,13 +158,7 @@ export default function StrategicPartnerPage() {
     { icon: "🏢", name: "City of Seoul", type: "Government", tier: "gold", investment: "$2M", since: "2024.04" },
   ];
 
-  const useCases = {
-    enterprise: { title: "엔터프라이즈 블록체인", desc: "대기업을 위한 프라이빗 블록체인 솔루션을 제공합니다. 공급망 관리, 자산 토큰화, 내부 결제 시스템 등 다양한 유스케이스에 적용 가능합니다.", features: ["프라이빗 체인 구축", "API 통합 지원", "엔터프라이즈 보안", "24/7 기술 지원"], stats: [{ value: "99.99%", label: "가동률" }, { value: "< 100ms", label: "응답시간" }, { value: "무제한", label: "처리량" }, { value: "ISO 27001", label: "보안 인증" }] },
-    protocol: { title: "프로토콜 통합", desc: "DeFi 프로토콜과의 원활한 통합을 지원합니다. 크로스체인 브릿지, 유동성 풀, DEX 연동 등을 제공합니다.", features: ["크로스체인 브릿지", "유동성 인센티브", "스마트 컨트랙트 감사", "실시간 오라클"], stats: [{ value: "$500M+", label: "TVL" }, { value: "15+", label: "프로토콜 연동" }, { value: "1M+", label: "일일 트랜잭션" }, { value: "5개", label: "체인 지원" }] },
-    institutional: { title: "기관 투자자", desc: "규제 준수 기관 투자자를 위한 전용 서비스를 제공합니다. 커스터디, OTC 거래, 세금 리포트 등을 지원합니다.", features: ["규제 준수 커스터디", "대량 OTC 거래", "세금 리포트", "프라이빗 투자 라운드"], stats: [{ value: "$100M+", label: "AUM" }, { value: "50+", label: "기관 파트너" }, { value: "24/7", label: "OTC 데스크" }, { value: "글로벌", label: "규제 준수" }] },
-  };
-
-  const currentUseCase = useCases[activeTab as keyof typeof useCases];
+  const useCaseKeys = ["enterprise", "protocol", "institutional"] as const;
 
   return (
     <div className="strategic-partner-page">
@@ -1044,27 +1036,27 @@ export default function StrategicPartnerPage() {
               href="#tiers" 
               onClick={(e) => { e.preventDefault(); scrollToSection('tiers'); }}
               data-testid="nav-tiers"
-            >파트너 티어</a>
+            >{t('strategicPartner.nav.partnerTiers')}</a>
             <a 
               href="#types" 
               onClick={(e) => { e.preventDefault(); scrollToSection('types'); }}
               data-testid="nav-types"
-            >파트너십 유형</a>
+            >{t('strategicPartner.nav.partnershipTypes')}</a>
             <a 
               href="#benefits" 
               onClick={(e) => { e.preventDefault(); scrollToSection('benefits'); }}
               data-testid="nav-benefits"
-            >혜택</a>
+            >{t('strategicPartner.nav.benefits')}</a>
             <a 
               href="#use-cases" 
               onClick={(e) => { e.preventDefault(); scrollToSection('use-cases'); }}
               data-testid="nav-use-cases"
-            >유스케이스</a>
+            >{t('strategicPartner.nav.useCases')}</a>
             <a 
               href="#faq" 
               onClick={(e) => { e.preventDefault(); scrollToSection('faq'); }}
               data-testid="nav-faq"
-            >FAQ</a>
+            >{t('strategicPartner.nav.faq')}</a>
           </nav>
           <div className="header-actions">
             <LanguageSelector isDark={true} />
@@ -1073,7 +1065,7 @@ export default function StrategicPartnerPage() {
               data-testid="button-connect-wallet"
               onClick={handleWalletClick}
             >
-              {isConnected ? `${formatAddress(address || '')}` : '지갑 연결'}
+              {isConnected ? `${formatAddress(address || '')}` : t('strategicPartner.wallet.connect')}
             </button>
           </div>
         </div>
@@ -1084,15 +1076,14 @@ export default function StrategicPartnerPage() {
         <div className="hero-bg"></div>
         <div className="hero-content">
           <div className="badge">
-            <span className="building-icon">🏛️</span> STRATEGIC PARTNERSHIP - 엔터프라이즈 파트너십
+            <span className="building-icon">🏛️</span> {t('strategicPartner.badge')}
           </div>
           <h1>
-            전략적 파트너십으로<br />
-            <span className="gradient-text">2억 TBURN</span> 인센티브
+            {t('strategicPartner.hero.title1')}<br />
+            <span className="gradient-text">{t('strategicPartner.hero.title2')}</span> {t('strategicPartner.hero.title3')}
           </h1>
           <p className="hero-subtitle">
-            엔터프라이즈, 기관 투자자, 대형 프로토콜과의 전략적 파트너십을 통해
-            TBURN 생태계의 핵심 파트너가 되세요.
+            {t('strategicPartner.hero.subtitle')}
           </p>
 
           <div className="enterprise-banner" data-testid="enterprise-banner">
@@ -1100,7 +1091,7 @@ export default function StrategicPartnerPage() {
               {enterpriseLogos.map((logo, idx) => (
                 <div key={idx} className="enterprise-logo">
                   <div className="enterprise-logo-icon">{logo.icon}</div>
-                  <span className="enterprise-logo-name">{logo.name}</span>
+                  <span className="enterprise-logo-name">{t(`strategicPartner.enterpriseLogos.${logo.nameKey}`)}</span>
                 </div>
               ))}
             </div>
@@ -1109,27 +1100,27 @@ export default function StrategicPartnerPage() {
           <div className="stats-grid" data-testid="strategic-stats-grid">
             <div className="stat-card" data-testid="stat-total-strategic">
               <div className="stat-value">
-                {isLoadingStats ? '...' : partnershipData?.allocation ? `${(parseInt(partnershipData.allocation) / 1000000).toFixed(0)}M` : '2억'}
+                {isLoadingStats ? '...' : partnershipData?.allocation ? `${(parseInt(partnershipData.allocation) / 1000000).toFixed(0)}M` : '200M'}
               </div>
-              <div className="stat-label">총 전략 파트너 예산</div>
+              <div className="stat-label">{t('strategicPartner.stats.totalBudget')}</div>
             </div>
             <div className="stat-card" data-testid="stat-partners">
               <div className="stat-value">
                 {isLoadingStats ? '...' : `${partnershipData?.strategic || 8}+`}
               </div>
-              <div className="stat-label">전략 파트너</div>
+              <div className="stat-label">{t('strategicPartner.stats.strategicPartners')}</div>
             </div>
             <div className="stat-card" data-testid="stat-tvl">
               <div className="stat-value">
                 {isLoadingStats ? '...' : partnershipData?.distributed ? `$${(parseInt(partnershipData.distributed) / 1000000).toFixed(0)}M+` : '$500M+'}
               </div>
-              <div className="stat-label">배분 완료</div>
+              <div className="stat-label">{t('strategicPartner.stats.distributed')}</div>
             </div>
             <div className="stat-card" data-testid="stat-max-incentive">
               <div className="stat-value">
-                {isLoadingStats ? '...' : `${partnershipData?.total || 45}개`}
+                {isLoadingStats ? '...' : `${partnershipData?.total || 45}`}
               </div>
-              <div className="stat-label">총 파트너십</div>
+              <div className="stat-label">{t('strategicPartner.stats.totalPartnerships')}</div>
             </div>
           </div>
 
@@ -1139,14 +1130,14 @@ export default function StrategicPartnerPage() {
               data-testid="button-apply-strategic"
               onClick={handleApplyPartnership}
             >
-              파트너십 문의
+              {t('strategicPartner.cta.applyPartnership')}
             </button>
             <button 
               className="btn-secondary"
               data-testid="button-view-guide"
               onClick={handleViewGuide}
             >
-              엔터프라이즈 가이드
+              {t('strategicPartner.cta.enterpriseGuide')}
             </button>
           </div>
         </div>
@@ -1155,17 +1146,17 @@ export default function StrategicPartnerPage() {
       {/* Distribution Section */}
       <section className="section">
         <div className="section-header">
-          <span className="section-badge">DISTRIBUTION</span>
-          <h2 className="section-title">전략 예산 배분</h2>
-          <p className="section-subtitle">2억 TBURN이 5개 전략 분야로 배분됩니다</p>
+          <span className="section-badge">{t('strategicPartner.distribution.badge')}</span>
+          <h2 className="section-title">{t('strategicPartner.distribution.title')}</h2>
+          <p className="section-subtitle">{t('strategicPartner.distribution.subtitle')}</p>
         </div>
 
         <div className="distribution-grid">
           {distributions.map(dist => (
             <div key={dist.id} className={`dist-card ${dist.id}`} data-testid={`dist-${dist.id}`}>
               <div className="dist-icon">{dist.icon}</div>
-              <div className="dist-name">{dist.name}</div>
-              <div className="dist-amount">{dist.amount}</div>
+              <div className="dist-name">{t(`strategicPartner.distribution.${dist.nameKey}`)}</div>
+              <div className="dist-amount">{t(`strategicPartner.distribution.${dist.amountKey}`)}</div>
               <div className="dist-percent">{dist.percent}</div>
             </div>
           ))}
@@ -1175,9 +1166,9 @@ export default function StrategicPartnerPage() {
       {/* Partner Tiers Section */}
       <section className="section" id="tiers" style={{ background: 'rgba(255,255,255,0.02)' }}>
         <div className="section-header">
-          <span className="section-badge">TIERS</span>
-          <h2 className="section-title">전략 파트너 티어</h2>
-          <p className="section-subtitle">기여도와 투자 규모에 따른 차등 혜택</p>
+          <span className="section-badge">{t('strategicPartner.tiers.badge')}</span>
+          <h2 className="section-title">{t('strategicPartner.tiers.title')}</h2>
+          <p className="section-subtitle">{t('strategicPartner.tiers.subtitle')}</p>
         </div>
 
         <div className="tiers-grid">
@@ -1185,26 +1176,26 @@ export default function StrategicPartnerPage() {
             <div key={tier.id} className={`tier-card ${tier.id}`} data-testid={`tier-${tier.id}`}>
               <div className="tier-header">
                 <div className="tier-icon">{tier.icon}</div>
-                <h3 className="tier-name">{tier.name}</h3>
-                <p className="tier-subtitle">{tier.subtitle}</p>
+                <h3 className="tier-name">{t(`strategicPartner.tiers.${tier.id}.name`)}</h3>
+                <p className="tier-subtitle">{t(`strategicPartner.tiers.${tier.id}.subtitle`)}</p>
               </div>
               <div className="tier-content">
                 <div className="tier-incentive">
-                  <div className="tier-incentive-label">파트너 인센티브</div>
-                  <div className="tier-incentive-value">{tier.incentive} TBURN</div>
+                  <div className="tier-incentive-label">{t('strategicPartner.tiers.partnerIncentive')}</div>
+                  <div className="tier-incentive-value">{t(`strategicPartner.tiers.${tier.id}.incentive`)} TBURN</div>
                 </div>
-                <div className="tier-requirement">{tier.requirement}</div>
+                <div className="tier-requirement">{t(`strategicPartner.tiers.${tier.id}.requirement`)}</div>
                 <ul className="tier-benefits">
-                  {tier.benefits.map((benefit, idx) => (
+                  {(t(`strategicPartner.tiers.${tier.id}.benefits`, { returnObjects: true }) as string[]).map((benefit: string, idx: number) => (
                     <li key={idx}>{benefit}</li>
                   ))}
                 </ul>
                 <button 
                   className="tier-btn"
                   data-testid={`button-inquire-${tier.id}`}
-                  onClick={() => handleInquireTier(tier.name, tier.incentive)}
+                  onClick={() => handleInquireTier(t(`strategicPartner.tiers.${tier.id}.name`), t(`strategicPartner.tiers.${tier.id}.incentive`))}
                 >
-                  문의하기
+                  {t('strategicPartner.tiers.inquire')}
                 </button>
               </div>
             </div>
@@ -1215,19 +1206,19 @@ export default function StrategicPartnerPage() {
       {/* Partnership Types Section */}
       <section className="section" id="types">
         <div className="section-header">
-          <span className="section-badge">PARTNERSHIP TYPES</span>
-          <h2 className="section-title">파트너십 유형</h2>
-          <p className="section-subtitle">다양한 전략적 협력 방식</p>
+          <span className="section-badge">{t('strategicPartner.partnershipTypes.badge')}</span>
+          <h2 className="section-title">{t('strategicPartner.partnershipTypes.title')}</h2>
+          <p className="section-subtitle">{t('strategicPartner.partnershipTypes.subtitle')}</p>
         </div>
 
         <div className="partnership-types-grid">
-          {partnershipTypes.map((type, idx) => (
+          {partnershipTypeKeys.map((typeKey, idx) => (
             <div key={idx} className="partnership-card">
-              <div className="partnership-icon">{type.icon}</div>
-              <h3>{type.title}</h3>
-              <p>{type.desc}</p>
+              <div className="partnership-icon">{partnershipTypeIcons[typeKey]}</div>
+              <h3>{t(`strategicPartner.partnershipTypes.${typeKey}.title`)}</h3>
+              <p>{t(`strategicPartner.partnershipTypes.${typeKey}.desc`)}</p>
               <ul className="partnership-features">
-                {type.features.map((feature, fidx) => (
+                {(t(`strategicPartner.partnershipTypes.${typeKey}.features`, { returnObjects: true }) as string[]).map((feature: string, fidx: number) => (
                   <li key={fidx}>{feature}</li>
                 ))}
               </ul>
@@ -1239,19 +1230,19 @@ export default function StrategicPartnerPage() {
       {/* Process Section */}
       <section className="section" style={{ background: 'rgba(255,255,255,0.02)' }}>
         <div className="section-header">
-          <span className="section-badge">PROCESS</span>
-          <h2 className="section-title">파트너십 프로세스</h2>
-          <p className="section-subtitle">전략 파트너 온보딩 과정</p>
+          <span className="section-badge">{t('strategicPartner.process.badge')}</span>
+          <h2 className="section-title">{t('strategicPartner.process.title')}</h2>
+          <p className="section-subtitle">{t('strategicPartner.process.subtitle')}</p>
         </div>
 
         <div className="process-container">
           <div className="process-timeline">
-            {processSteps.map((step, idx) => (
+            {processStepKeys.map((stepKey, idx) => (
               <div key={idx} className="process-item">
-                <div className="process-dot">{step.icon}</div>
-                <div className="process-title">{step.title}</div>
-                <div className="process-desc">{step.desc}</div>
-                <div className="process-duration">{step.duration}</div>
+                <div className="process-dot">{processStepIcons[idx]}</div>
+                <div className="process-title">{t(`strategicPartner.process.${stepKey}.title`)}</div>
+                <div className="process-desc">{t(`strategicPartner.process.${stepKey}.desc`)}</div>
+                <div className="process-duration">{t(`strategicPartner.process.${stepKey}.duration`)}</div>
               </div>
             ))}
           </div>
@@ -1261,17 +1252,17 @@ export default function StrategicPartnerPage() {
       {/* Benefits Section */}
       <section className="section" id="benefits">
         <div className="section-header">
-          <span className="section-badge">BENEFITS</span>
-          <h2 className="section-title">전략 파트너 혜택</h2>
-          <p className="section-subtitle">전략 파트너만을 위한 특별 혜택</p>
+          <span className="section-badge">{t('strategicPartner.benefits.badge')}</span>
+          <h2 className="section-title">{t('strategicPartner.benefits.title')}</h2>
+          <p className="section-subtitle">{t('strategicPartner.benefits.subtitle')}</p>
         </div>
 
         <div className="benefits-grid">
-          {benefits.map((benefit, idx) => (
+          {benefitKeys.map((key, idx) => (
             <div key={idx} className="benefit-card">
-              <div className="benefit-icon">{benefit.icon}</div>
-              <h4>{benefit.title}</h4>
-              <p>{benefit.desc}</p>
+              <div className="benefit-icon">{benefitIcons[key]}</div>
+              <h4>{t(`strategicPartner.benefits.${key}.title`)}</h4>
+              <p>{t(`strategicPartner.benefits.${key}.desc`)}</p>
             </div>
           ))}
         </div>
@@ -1280,42 +1271,60 @@ export default function StrategicPartnerPage() {
       {/* Use Cases Section */}
       <section className="section" id="use-cases" style={{ background: 'rgba(255,255,255,0.02)' }}>
         <div className="section-header">
-          <span className="section-badge">USE CASES</span>
-          <h2 className="section-title">활용 사례</h2>
-          <p className="section-subtitle">전략 파트너십 활용 시나리오</p>
+          <span className="section-badge">{t('strategicPartner.useCases.badge')}</span>
+          <h2 className="section-title">{t('strategicPartner.useCases.title')}</h2>
+          <p className="section-subtitle">{t('strategicPartner.useCases.subtitle')}</p>
         </div>
 
         <div className="use-cases-container">
           <div className="use-case-tabs">
             <button className={`use-case-tab ${activeTab === 'enterprise' ? 'active' : ''}`} onClick={() => setActiveTab('enterprise')}>
-              🏛️ 엔터프라이즈
+              🏛️ {t('strategicPartner.useCases.tabs.enterprise')}
             </button>
             <button className={`use-case-tab ${activeTab === 'protocol' ? 'active' : ''}`} onClick={() => setActiveTab('protocol')}>
-              🔗 프로토콜
+              🔗 {t('strategicPartner.useCases.tabs.protocol')}
             </button>
             <button className={`use-case-tab ${activeTab === 'institutional' ? 'active' : ''}`} onClick={() => setActiveTab('institutional')}>
-              💰 기관 투자자
+              💰 {t('strategicPartner.useCases.tabs.institutional')}
             </button>
           </div>
           <div className="use-case-content">
             <div className="use-case-item">
               <div className="use-case-info">
-                <h4>{currentUseCase.title}</h4>
-                <p>{currentUseCase.desc}</p>
+                <h4>{t(`strategicPartner.useCases.${activeTab}.title`)}</h4>
+                <p>{t(`strategicPartner.useCases.${activeTab}.desc`)}</p>
                 <ul className="use-case-features">
-                  {currentUseCase.features.map((feature, idx) => (
+                  {(t(`strategicPartner.useCases.${activeTab}.features`, { returnObjects: true }) as string[]).map((feature: string, idx: number) => (
                     <li key={idx}>{feature}</li>
                   ))}
                 </ul>
               </div>
               <div className="use-case-image">
                 <div className="stats-display">
-                  {currentUseCase.stats.map((stat, idx) => (
-                    <div key={idx} className="use-case-stat">
-                      <div className="value">{stat.value}</div>
-                      <div className="label">{stat.label}</div>
-                    </div>
-                  ))}
+                  {activeTab === 'enterprise' && (
+                    <>
+                      <div className="use-case-stat"><div className="value">{t('strategicPartner.useCases.enterprise.stats.uptime')}</div><div className="label">{t('strategicPartner.useCases.enterprise.stats.uptimeLabel')}</div></div>
+                      <div className="use-case-stat"><div className="value">{t('strategicPartner.useCases.enterprise.stats.response')}</div><div className="label">{t('strategicPartner.useCases.enterprise.stats.responseLabel')}</div></div>
+                      <div className="use-case-stat"><div className="value">{t('strategicPartner.useCases.enterprise.stats.throughput')}</div><div className="label">{t('strategicPartner.useCases.enterprise.stats.throughputLabel')}</div></div>
+                      <div className="use-case-stat"><div className="value">{t('strategicPartner.useCases.enterprise.stats.security')}</div><div className="label">{t('strategicPartner.useCases.enterprise.stats.securityLabel')}</div></div>
+                    </>
+                  )}
+                  {activeTab === 'protocol' && (
+                    <>
+                      <div className="use-case-stat"><div className="value">{t('strategicPartner.useCases.protocol.stats.tvl')}</div><div className="label">{t('strategicPartner.useCases.protocol.stats.tvlLabel')}</div></div>
+                      <div className="use-case-stat"><div className="value">{t('strategicPartner.useCases.protocol.stats.protocols')}</div><div className="label">{t('strategicPartner.useCases.protocol.stats.protocolsLabel')}</div></div>
+                      <div className="use-case-stat"><div className="value">{t('strategicPartner.useCases.protocol.stats.transactions')}</div><div className="label">{t('strategicPartner.useCases.protocol.stats.transactionsLabel')}</div></div>
+                      <div className="use-case-stat"><div className="value">{t('strategicPartner.useCases.protocol.stats.chains')}</div><div className="label">{t('strategicPartner.useCases.protocol.stats.chainsLabel')}</div></div>
+                    </>
+                  )}
+                  {activeTab === 'institutional' && (
+                    <>
+                      <div className="use-case-stat"><div className="value">{t('strategicPartner.useCases.institutional.stats.aum')}</div><div className="label">{t('strategicPartner.useCases.institutional.stats.aumLabel')}</div></div>
+                      <div className="use-case-stat"><div className="value">{t('strategicPartner.useCases.institutional.stats.partners')}</div><div className="label">{t('strategicPartner.useCases.institutional.stats.partnersLabel')}</div></div>
+                      <div className="use-case-stat"><div className="value">{t('strategicPartner.useCases.institutional.stats.otc')}</div><div className="label">{t('strategicPartner.useCases.institutional.stats.otcLabel')}</div></div>
+                      <div className="use-case-stat"><div className="value">{t('strategicPartner.useCases.institutional.stats.compliance')}</div><div className="label">{t('strategicPartner.useCases.institutional.stats.complianceLabel')}</div></div>
+                    </>
+                  )}
                 </div>
               </div>
             </div>
@@ -1326,9 +1335,9 @@ export default function StrategicPartnerPage() {
       {/* Current Partners Section */}
       <section className="section">
         <div className="section-header">
-          <span className="section-badge">PARTNERS</span>
-          <h2 className="section-title">현재 전략 파트너</h2>
-          <p className="section-subtitle">함께하는 글로벌 파트너</p>
+          <span className="section-badge">{t('strategicPartner.currentPartners.badge')}</span>
+          <h2 className="section-title">{t('strategicPartner.currentPartners.title')}</h2>
+          <p className="section-subtitle">{t('strategicPartner.currentPartners.subtitle')}</p>
         </div>
 
         <div className="partners-showcase">
@@ -1345,11 +1354,11 @@ export default function StrategicPartnerPage() {
                 <span className={`partner-item-tier ${partner.tier}`}>{partner.tier.toUpperCase()}</span>
                 <div className="partner-item-stats">
                   <div>
-                    <span className="label">투자 규모</span>
+                    <span className="label">{t('strategicPartner.currentPartners.investmentScale')}</span>
                     <div className="value">{partner.investment}</div>
                   </div>
                   <div>
-                    <span className="label">파트너십</span>
+                    <span className="label">{t('strategicPartner.currentPartners.partnership')}</span>
                     <div className="value">{partner.since}</div>
                   </div>
                 </div>
@@ -1362,101 +1371,33 @@ export default function StrategicPartnerPage() {
       {/* FAQ */}
       <section className="section" id="faq" style={{ background: 'rgba(255,255,255,0.02)' }}>
         <div className="section-header">
-          <span className="section-badge">FAQ</span>
-          <h2 className="section-title">자주 묻는 질문</h2>
-          <p className="section-subtitle">전략 파트너십에 대해 궁금한 점</p>
+          <span className="section-badge">{t('strategicPartner.faq.badge')}</span>
+          <h2 className="section-title">{t('strategicPartner.faq.title')}</h2>
+          <p className="section-subtitle">{t('strategicPartner.faq.subtitle')}</p>
         </div>
 
         <div className="faq-container">
-          <div className={`faq-item ${activeFaq === 'faq-1' ? 'active' : ''}`} data-testid="faq-item-1">
-            <div className="faq-question" onClick={() => toggleFaq('faq-1')}>
-              <h4>전략 파트너십 총 예산 규모는 얼마인가요?</h4>
-              <span className="faq-chevron">▼</span>
+          {[1, 2, 3, 4, 5, 6, 7, 8].map((num) => (
+            <div key={num} className={`faq-item ${activeFaq === `faq-${num}` ? 'active' : ''}`} data-testid={`faq-item-${num}`}>
+              <div className="faq-question" onClick={() => toggleFaq(`faq-${num}`)}>
+                <h4>{t(`strategicPartner.faq.q${num}.question`)}</h4>
+                <span className="faq-chevron">▼</span>
+              </div>
+              <div className="faq-answer">
+                <p>{t(`strategicPartner.faq.q${num}.answer`)}</p>
+              </div>
             </div>
-            <div className="faq-answer">
-              <p>전략 파트너십에는 총 2억 TBURN이 배정되어 있습니다. 엔터프라이즈 40%(0.8억), 프로토콜 통합 20%(0.4억), 기관 투자자 20%(0.4억), 공공기관 10%(0.2억), 학술/연구 10%(0.2억)로 배분됩니다.</p>
-            </div>
-          </div>
-
-          <div className={`faq-item ${activeFaq === 'faq-2' ? 'active' : ''}`} data-testid="faq-item-2">
-            <div className="faq-question" onClick={() => toggleFaq('faq-2')}>
-              <h4>전략 파트너가 되려면 어떤 조건이 필요한가요?</h4>
-              <span className="faq-chevron">▼</span>
-            </div>
-            <div className="faq-answer">
-              <p>전략 파트너십은 최소 $100K 이상의 가치 제공(투자, 기술 통합, 비즈니스 협력 등)이 필요합니다. 티어에 따라 Silver($100K+, 최대 100만 TBURN), Gold($1M+, 최대 500만), Platinum($5M+, 최대 2,000만), Diamond($10M+, 최대 5,000만)로 구분됩니다.</p>
-            </div>
-          </div>
-
-          <div className={`faq-item ${activeFaq === 'faq-3' ? 'active' : ''}`} data-testid="faq-item-3">
-            <div className="faq-question" onClick={() => toggleFaq('faq-3')}>
-              <h4>파트너십 인센티브는 어떻게 지급되나요?</h4>
-              <span className="faq-chevron">▼</span>
-            </div>
-            <div className="faq-answer">
-              <p>인센티브는 베스팅 스케줄에 따라 지급됩니다. 일반적으로 12-24개월에 걸쳐 분할 지급되며, 초기 언락 후 월/분기별로 지급됩니다. 마일스톤 달성에 따른 성과 기반 보너스도 별도로 지급됩니다.</p>
-            </div>
-          </div>
-
-          <div className={`faq-item ${activeFaq === 'faq-4' ? 'active' : ''}`} data-testid="faq-item-4">
-            <div className="faq-question" onClick={() => toggleFaq('faq-4')}>
-              <h4>기관 투자자를 위한 특별 프로그램이 있나요?</h4>
-              <span className="faq-chevron">▼</span>
-            </div>
-            <div className="faq-answer">
-              <p>네, 기관 투자자를 위한 전용 프로그램을 운영합니다. 규제 준수 커스터디, 대량 OTC 거래, 세금 리포트, 프라이빗 투자 라운드 참여 기회 등을 제공합니다. 별도 문의를 통해 상세 안내를 받으실 수 있습니다.</p>
-            </div>
-          </div>
-
-          <div className={`faq-item ${activeFaq === 'faq-5' ? 'active' : ''}`} data-testid="faq-item-5">
-            <div className="faq-question" onClick={() => toggleFaq('faq-5')}>
-              <h4>파트너십 체결까지 얼마나 걸리나요?</h4>
-              <span className="faq-chevron">▼</span>
-            </div>
-            <div className="faq-answer">
-              <p>일반적으로 문의 접수(1-3일) → 실사 & 평가(2-4주) → 조건 협상(2-4주) → 계약 체결(1-2주) → 온보딩(4-8주)까지 총 8-16주가 소요됩니다. 긴급한 경우 패스트트랙 프로세스로 일정 단축이 가능합니다.</p>
-            </div>
-          </div>
-
-          <div className={`faq-item ${activeFaq === 'faq-6' ? 'active' : ''}`} data-testid="faq-item-6">
-            <div className="faq-question" onClick={() => toggleFaq('faq-6')}>
-              <h4>프로토콜 통합 파트너십은 어떻게 진행되나요?</h4>
-              <span className="faq-chevron">▼</span>
-            </div>
-            <div className="faq-answer">
-              <p>DeFi 프로토콜과의 기술 통합을 지원합니다. 크로스체인 브릿지, 유동성 풀, DEX 연동, 스마트 컨트랙트 감사, 실시간 오라클 연동 등을 제공합니다. 현재 15개 이상의 프로토콜과 연동되어 있으며 $500M+ TVL을 기록하고 있습니다.</p>
-            </div>
-          </div>
-
-          <div className={`faq-item ${activeFaq === 'faq-7' ? 'active' : ''}`} data-testid="faq-item-7">
-            <div className="faq-question" onClick={() => toggleFaq('faq-7')}>
-              <h4>Diamond 티어 파트너의 특별 혜택은 무엇인가요?</h4>
-              <span className="faq-chevron">▼</span>
-            </div>
-            <div className="faq-answer">
-              <p>Diamond 티어 파트너는 최대 5,000만 TBURN 인센티브와 함께 전용 기술 팀 배정, 맞춤형 솔루션 개발, 이사회 참여권, 독점 거버넌스 권한, 연간 오프라인 서밋 참여 등 최상위 혜택을 제공받습니다.</p>
-            </div>
-          </div>
-
-          <div className={`faq-item ${activeFaq === 'faq-8' ? 'active' : ''}`} data-testid="faq-item-8">
-            <div className="faq-question" onClick={() => toggleFaq('faq-8')}>
-              <h4>파트너십 문의는 어떻게 하나요?</h4>
-              <span className="faq-chevron">▼</span>
-            </div>
-            <div className="faq-answer">
-              <p>페이지 상단의 '파트너십 문의' 버튼을 통해 신청하거나 partnerships@tburn.io로 직접 연락하실 수 있습니다. 지갑 연결 후 문의하시면 더 빠른 검토가 가능합니다. 전담 팀이 3영업일 내 연락드립니다.</p>
-            </div>
-          </div>
+          ))}
         </div>
       </section>
 
       {/* CTA Section */}
       <section className="cta-section" id="cta">
         <div style={{ maxWidth: '800px', margin: '0 auto' }}>
-          <h2 style={{ fontSize: '2.5rem', fontWeight: 800, marginBottom: '1rem' }}>전략적 파트너가 되세요</h2>
+          <h2 style={{ fontSize: '2.5rem', fontWeight: 800, marginBottom: '1rem' }}>{t('strategicPartner.ctaSection.title')}</h2>
           <p style={{ color: 'rgba(255,255,255,0.8)', fontSize: '1.125rem', marginBottom: '2rem' }}>
-            TBURN 생태계의 핵심 파트너로<br />
-            2억 TBURN 인센티브를 받으세요!
+            {t('strategicPartner.ctaSection.subtitle1')}<br />
+            {t('strategicPartner.ctaSection.subtitle2')}
           </p>
           <button 
             className="btn-primary" 
@@ -1464,10 +1405,10 @@ export default function StrategicPartnerPage() {
             data-testid="button-cta-partnership"
             onClick={() => { 
               scrollToSection('tiers'); 
-              toast({ title: "파트너십 문의", description: "파트너 티어를 확인하고 지금 문의하세요!" }); 
+              toast({ title: t('strategicPartner.cta.partnershipInquiry'), description: t('strategicPartner.cta.partnershipInquiryDesc') }); 
             }}
           >
-            파트너십 문의하기
+            {t('strategicPartner.ctaSection.button')}
           </button>
         </div>
       </section>
@@ -1477,7 +1418,7 @@ export default function StrategicPartnerPage() {
         <div className="footer-content">
           <div className="footer-brand">
             <h3>TBURN<span>CHAIN</span></h3>
-            <p>AI의 지능, 블록체인의 투명성<br />THE FUTURE IS NOW</p>
+            <p>{t('strategicPartner.footer.tagline1')}<br />{t('strategicPartner.footer.tagline2')}</p>
             <div className="social-links">
               <a 
                 href="https://x.com/tburnchain" 
@@ -1502,42 +1443,42 @@ export default function StrategicPartnerPage() {
             </div>
           </div>
           <div className="footer-links">
-            <h4>Product</h4>
+            <h4>{t('strategicPartner.footer.products')}</h4>
             <ul>
-              <li><a href="/" data-testid="footer-link-mainnet">메인넷</a></li>
-              <li><a href="/scan" data-testid="footer-link-explorer">익스플로러</a></li>
-              <li><a href="/app/bridge" data-testid="footer-link-bridge">브릿지</a></li>
-              <li><a href="/app/staking" data-testid="footer-link-staking">스테이킹</a></li>
+              <li><a href="/" data-testid="footer-link-mainnet">{t('strategicPartner.footer.explorer')}</a></li>
+              <li><a href="/scan" data-testid="footer-link-explorer">{t('strategicPartner.footer.explorer')}</a></li>
+              <li><a href="/app/bridge" data-testid="footer-link-bridge">{t('strategicPartner.footer.bridge')}</a></li>
+              <li><a href="/app/staking" data-testid="footer-link-staking">{t('strategicPartner.footer.staking')}</a></li>
             </ul>
           </div>
           <div className="footer-links">
-            <h4>Resources</h4>
+            <h4>{t('strategicPartner.footer.developers')}</h4>
             <ul>
-              <li><a href="/learn/whitepaper" data-testid="footer-link-whitepaper">백서</a></li>
-              <li><a href="/developers/docs" data-testid="footer-link-docs">문서</a></li>
+              <li><a href="/learn/whitepaper" data-testid="footer-link-whitepaper">{t('strategicPartner.footer.documentation')}</a></li>
+              <li><a href="/developers/docs" data-testid="footer-link-docs">{t('strategicPartner.footer.api')}</a></li>
               <li><a 
                 href="https://github.com/tburnchain" 
                 onClick={(e) => { e.preventDefault(); handleShareSocial('GitHub', 'https://github.com/tburnchain'); }}
                 data-testid="footer-link-github-resources"
-              >GitHub</a></li>
-              <li><a href="/security-audit" data-testid="footer-link-audit">감사 보고서</a></li>
+              >{t('strategicPartner.footer.github')}</a></li>
+              <li><a href="/security-audit" data-testid="footer-link-audit">{t('strategicPartner.footer.bugBounty')}</a></li>
             </ul>
           </div>
           <div className="footer-links">
-            <h4>Community</h4>
+            <h4>{t('strategicPartner.footer.community')}</h4>
             <ul>
-              <li><a href="/community/news" data-testid="footer-link-blog">블로그</a></li>
-              <li><a href="/marketing-program" data-testid="footer-link-ambassador">앰배서더</a></li>
-              <li><a href="/ecosystem-fund" data-testid="footer-link-grants">그랜트</a></li>
-              <li><a href="/qna" data-testid="footer-link-support">고객지원</a></li>
+              <li><a href="/community/news" data-testid="footer-link-blog">{t('strategicPartner.footer.forum')}</a></li>
+              <li><a href="/marketing-program" data-testid="footer-link-ambassador">{t('strategicPartner.footer.twitter')}</a></li>
+              <li><a href="/ecosystem-fund" data-testid="footer-link-grants">{t('strategicPartner.footer.telegram')}</a></li>
+              <li><a href="/qna" data-testid="footer-link-support">{t('strategicPartner.footer.discord')}</a></li>
             </ul>
           </div>
         </div>
         <div className="footer-bottom">
-          <p>© 2025-2045 TBURN Foundation. All Rights Reserved.</p>
+          <p>{t('strategicPartner.footer.copyright')}</p>
           <div style={{ display: 'flex', gap: '2rem' }}>
-            <a href="/legal/terms-of-service" style={{ color: 'var(--gray)', textDecoration: 'none' }} data-testid="footer-link-terms">이용약관</a>
-            <a href="/legal/privacy-policy" style={{ color: 'var(--gray)', textDecoration: 'none' }} data-testid="footer-link-privacy">개인정보처리방침</a>
+            <a href="/legal/terms-of-service" style={{ color: 'var(--gray)', textDecoration: 'none' }} data-testid="footer-link-terms">{t('strategicPartner.footer.termsOfService')}</a>
+            <a href="/legal/privacy-policy" style={{ color: 'var(--gray)', textDecoration: 'none' }} data-testid="footer-link-privacy">{t('strategicPartner.footer.privacyPolicy')}</a>
           </div>
         </div>
       </footer>

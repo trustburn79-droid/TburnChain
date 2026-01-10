@@ -19780,5 +19780,407 @@
       }
     },
     "connectWallet": "Conectar Carteira"
+  },
+  "strategicPartner": {
+    "title": "Parceiros Estratégicos",
+    "subtitle": "Parcerias estratégicas-chave moldando o ecossistema TBURN",
+    "heroTitle": "Parceiros Estratégicos TBURN",
+    "heroSubtitle": "Parceiros de classe mundial apoiando a visão TBURN",
+    "badge": "PARCERIA ESTRATÉGICA - Parceria Empresarial",
+    "partnerCount": "Contagem de Parceiros",
+    "categories": "Categorias",
+    "tier1": "Parceiros Tier 1",
+    "tier2": "Parceiros Tier 2",
+    "tier3": "Parceiros Tier 3",
+    "vcPartners": "Parceiros VC",
+    "techPartners": "Parceiros de Tecnologia",
+    "mediaPartners": "Parceiros de Mídia",
+    "nav": {
+      "partnerTiers": "Níveis de Parceiros",
+      "partnershipTypes": "Tipos de Parceria",
+      "benefits": "Benefícios",
+      "useCases": "Casos de Uso",
+      "faq": "FAQ"
+    },
+    "wallet": {
+      "connect": "Conectar Carteira",
+      "disconnect": "Carteira Desconectada",
+      "disconnectDesc": "Sua carteira foi desconectada.",
+      "connected": "Carteira Conectada",
+      "connectedDesc": "Sua carteira foi conectada.",
+      "required": "Carteira Necessária",
+      "requiredDesc": "Por favor, conecte sua carteira primeiro para fazer uma consulta de parceria."
+    },
+    "hero": {
+      "title1": "Parceria Estratégica para",
+      "title2": "200M TBURN",
+      "title3": "Incentivos",
+      "subtitle": "Torne-se um parceiro central do ecossistema TBURN através de parcerias estratégicas com empresas, investidores institucionais e protocolos principais."
+    },
+    "enterpriseLogos": {
+      "enterprise": "Empresarial",
+      "protocol": "Protocolo",
+      "institutional": "Institucional",
+      "corporate": "Corporativo",
+      "research": "Pesquisa"
+    },
+    "stats": {
+      "totalBudget": "Orçamento Estratégico Total",
+      "strategicPartners": "Parceiros Estratégicos",
+      "distributed": "Distribuído",
+      "totalPartnerships": "Total de Parcerias"
+    },
+    "cta": {
+      "applyPartnership": "Candidatar-se à Parceria",
+      "enterpriseGuide": "Guia Empresarial",
+      "partnershipInquiry": "Consulta de Parceria",
+      "partnershipInquiryDesc": "Verifique os níveis de parceiros e entre em contato!",
+      "enterpriseGuideDesc": "Veja informações sobre tipos de parceria."
+    },
+    "distribution": {
+      "badge": "DISTRIBUIÇÃO",
+      "title": "Distribuição do Orçamento Estratégico",
+      "subtitle": "200M TBURN alocados para 5 áreas estratégicas",
+      "enterprise": "Empresarial",
+      "enterpriseAmount": "80M",
+      "protocol": "Integração de Protocolo",
+      "protocolAmount": "40M",
+      "institutional": "Investidores Institucionais",
+      "institutionalAmount": "40M",
+      "government": "Setor Público",
+      "governmentAmount": "20M",
+      "academic": "Acadêmico/Pesquisa",
+      "academicAmount": "20M"
+    },
+    "tiers": {
+      "badge": "NÍVEIS",
+      "title": "Níveis de Parceiros Estratégicos",
+      "subtitle": "Benefícios diferenciados baseados na escala de contribuição e investimento",
+      "diamond": {
+        "name": "Diamante",
+        "subtitle": "Parceiro Estratégico Principal",
+        "incentive": "Até 50M",
+        "requirement": "Provisão de valor de $10M+",
+        "benefits": [
+          "Equipe técnica dedicada",
+          "Desenvolvimento de soluções personalizadas",
+          "Participação no conselho",
+          "Direitos exclusivos de governança",
+          "Cúpula offline anual"
+        ]
+      },
+      "platinum": {
+        "name": "Platina",
+        "subtitle": "Parceiro Premium",
+        "incentive": "Até 20M",
+        "requirement": "Provisão de valor de $5M+",
+        "benefits": [
+          "Suporte técnico prioritário",
+          "Co-marketing",
+          "Reuniões estratégicas trimestrais",
+          "Direitos de voto de governança",
+          "Eventos VIP"
+        ]
+      },
+      "gold": {
+        "name": "Ouro",
+        "subtitle": "Parceiro Principal",
+        "incentive": "Até 5M",
+        "requirement": "Provisão de valor de $1M+",
+        "benefits": [
+          "Suporte de integração técnica",
+          "Colaboração de marketing",
+          "Relatórios mensais",
+          "Participação DAO",
+          "Networking de parceiros"
+        ]
+      },
+      "silver": {
+        "name": "Prata",
+        "subtitle": "Parceiro de Crescimento",
+        "incentive": "Até 1M",
+        "requirement": "Provisão de valor de $100K+",
+        "benefits": [
+          "Acesso à documentação técnica",
+          "Suporte básico",
+          "Atualizações trimestrais",
+          "Acesso à comunidade",
+          "Distintivo de parceiro"
+        ]
+      },
+      "partnerIncentive": "Incentivo de Parceiro",
+      "inquire": "Consultar"
+    },
+    "tierInquiry": {
+      "title": "Consulta de Parceiro",
+      "description": "A consulta de parceria para o nível {{tier}} ({{incentive}} TBURN) foi enviada. Um representante entrará em contato."
+    },
+    "partnershipTypes": {
+      "badge": "TIPOS DE PARCERIA",
+      "title": "Tipos de Parceria",
+      "subtitle": "Vários métodos de colaboração estratégica",
+      "enterprise": {
+        "title": "Soluções Empresariais",
+        "desc": "Soluções blockchain personalizadas para grandes corporações",
+        "features": [
+          "Construção de chain privada",
+          "Integração de API",
+          "Auditoria de segurança",
+          "Suporte 24/7"
+        ]
+      },
+      "protocol": {
+        "title": "Integração de Protocolo",
+        "desc": "Integração de protocolos DeFi e Web3",
+        "features": [
+          "Bridge cross-chain",
+          "Pool de liquidez",
+          "Contratos inteligentes",
+          "Integração de oracle"
+        ]
+      },
+      "institutional": {
+        "title": "Investimento Institucional",
+        "desc": "Programa dedicado para investidores institucionais",
+        "features": [
+          "Serviço de custódia",
+          "Negociação OTC",
+          "Relatórios fiscais",
+          "Conformidade regulatória"
+        ]
+      },
+      "government": {
+        "title": "Parceria Pública",
+        "desc": "Colaboração com governos e instituições públicas",
+        "features": [
+          "Infraestrutura pública",
+          "Identidade digital",
+          "Sistemas de transparência",
+          "Serviços cívicos"
+        ]
+      },
+      "academic": {
+        "title": "Pesquisa Acadêmica",
+        "desc": "Colaboração com universidades e institutos de pesquisa",
+        "features": [
+          "Bolsas de pesquisa",
+          "Estágios",
+          "Suporte a publicações",
+          "Consultoria técnica"
+        ]
+      },
+      "global": {
+        "title": "Expansão Global",
+        "desc": "Suporte à expansão de mercado internacional",
+        "features": [
+          "Suporte de localização",
+          "Consultoria regulatória",
+          "Conexões de parceiros",
+          "Suporte de marketing"
+        ]
+      }
+    },
+    "process": {
+      "badge": "PROCESSO",
+      "title": "Processo de Parceria",
+      "subtitle": "Processo de integração de parceiros estratégicos",
+      "step1": {
+        "title": "Envio da Consulta",
+        "desc": "Envio da carta de intenção de parceria",
+        "duration": "1-3 dias"
+      },
+      "step2": {
+        "title": "Due Diligence e Avaliação",
+        "desc": "Revisão comercial/técnica",
+        "duration": "2-4 semanas"
+      },
+      "step3": {
+        "title": "Negociação de Termos",
+        "desc": "Discussão dos termos de parceria",
+        "duration": "2-4 semanas"
+      },
+      "step4": {
+        "title": "Assinatura do Contrato",
+        "desc": "Assinatura do contrato legal",
+        "duration": "1-2 semanas"
+      },
+      "step5": {
+        "title": "Onboarding",
+        "desc": "Integração técnica e lançamento",
+        "duration": "4-8 semanas"
+      }
+    },
+    "benefits": {
+      "badge": "BENEFÍCIOS",
+      "title": "Benefícios de Parceiros Estratégicos",
+      "subtitle": "Benefícios exclusivos apenas para parceiros estratégicos",
+      "techSupport": {
+        "title": "Suporte Técnico Personalizado",
+        "desc": "Equipe de engenharia dedicada desenvolve soluções adaptadas aos requisitos de cada empresa."
+      },
+      "growth": {
+        "title": "Aceleração de Crescimento",
+        "desc": "Suporte ao crescimento empresarial aproveitando os recursos e a rede do ecossistema TBURN."
+      },
+      "security": {
+        "title": "Segurança e Conformidade",
+        "desc": "Segurança de nível empresarial e conformidade regulatória global garantidas."
+      },
+      "networking": {
+        "title": "Networking Estratégico",
+        "desc": "Oportunidades de networking com líderes do setor e oportunidades de negócios conjuntos fornecidas."
+      },
+      "exclusive": {
+        "title": "Benefícios Exclusivos",
+        "desc": "Desfrute de benefícios exclusivos incluindo acesso antecipado, participação na governança e incentivos especiais."
+      },
+      "data": {
+        "title": "Insights de Dados",
+        "desc": "Forneça inteligência de negócios através de análises on-chain e relatórios personalizados."
+      }
+    },
+    "useCases": {
+      "badge": "CASOS DE USO",
+      "title": "Casos de Uso",
+      "subtitle": "Cenários de utilização de parceria estratégica",
+      "tabs": {
+        "enterprise": "Empresarial",
+        "protocol": "Protocolo",
+        "institutional": "Institucional"
+      },
+      "enterprise": {
+        "title": "Blockchain Empresarial",
+        "desc": "Forneça soluções de blockchain privado para grandes empresas. Aplicável a vários casos de uso, incluindo gestão de cadeia de suprimentos, tokenização de ativos e sistemas de pagamento interno.",
+        "features": [
+          "Construção de chain privada",
+          "Suporte de integração de API",
+          "Segurança empresarial",
+          "Suporte técnico 24/7"
+        ],
+        "stats": {
+          "uptime": "99,99%",
+          "uptimeLabel": "Tempo de Atividade",
+          "response": "< 100ms",
+          "responseLabel": "Tempo de Resposta",
+          "throughput": "Ilimitado",
+          "throughputLabel": "Throughput",
+          "security": "ISO 27001",
+          "securityLabel": "Certificação de Segurança"
+        }
+      },
+      "protocol": {
+        "title": "Integração de Protocolo",
+        "desc": "Suporte integração perfeita com protocolos DeFi. Forneça bridges cross-chain, pools de liquidez e integração DEX.",
+        "features": [
+          "Bridge cross-chain",
+          "Incentivos de liquidez",
+          "Auditoria de contratos inteligentes",
+          "Oracle em tempo real"
+        ],
+        "stats": {
+          "tvl": "$500M+",
+          "tvlLabel": "TVL",
+          "protocols": "15+",
+          "protocolsLabel": "Integrações de Protocolo",
+          "transactions": "1M+",
+          "transactionsLabel": "Transações Diárias",
+          "chains": "5",
+          "chainsLabel": "Chains Suportadas"
+        }
+      },
+      "institutional": {
+        "title": "Investidores Institucionais",
+        "desc": "Forneça serviços dedicados para investidores institucionais em conformidade regulatória. Suporte custódia, negociação OTC e relatórios fiscais.",
+        "features": [
+          "Custódia em conformidade regulatória",
+          "Negociação OTC de grande escala",
+          "Relatórios fiscais",
+          "Rodadas de investimento privadas"
+        ],
+        "stats": {
+          "aum": "$100M+",
+          "aumLabel": "AUM",
+          "partners": "50+",
+          "partnersLabel": "Parceiros Institucionais",
+          "otc": "24/7",
+          "otcLabel": "Mesa OTC",
+          "compliance": "Global",
+          "complianceLabel": "Conformidade Regulatória"
+        }
+      }
+    },
+    "currentPartners": {
+      "badge": "PARCEIROS",
+      "title": "Parceiros Estratégicos Atuais",
+      "subtitle": "Parceiros globais que se juntam a nós",
+      "investmentScale": "Escala de Investimento",
+      "partnership": "Parceria"
+    },
+    "faq": {
+      "badge": "FAQ",
+      "title": "Perguntas Frequentes",
+      "subtitle": "Perguntas sobre parcerias estratégicas",
+      "q1": {
+        "question": "Qual é o orçamento total para parcerias estratégicas?",
+        "answer": "Um total de 200M TBURN é alocado para parcerias estratégicas. Isso é distribuído como Empresarial 40% (80M), Integração de Protocolo 20% (40M), Investidores Institucionais 20% (40M), Setor Público 10% (20M) e Acadêmico/Pesquisa 10% (20M)."
+      },
+      "q2": {
+        "question": "Quais são os requisitos para se tornar um parceiro estratégico?",
+        "answer": "Parcerias estratégicas requerem uma provisão de valor mínimo de $100K ou mais (investimento, integração de tecnologia, colaboração comercial, etc.). Os níveis são divididos em Prata ($100K+, até 1M TBURN), Ouro ($1M+, até 5M), Platina ($5M+, até 20M) e Diamante ($10M+, até 50M)."
+      },
+      "q3": {
+        "question": "Como os incentivos de parceria são distribuídos?",
+        "answer": "Os incentivos são distribuídos de acordo com um cronograma de vesting. Geralmente distribuídos ao longo de 12-24 meses, pagos mensalmente/trimestralmente após o desbloqueio inicial. Bônus baseados em desempenho também são pagos separadamente com base em conquistas de marcos."
+      },
+      "q4": {
+        "question": "Existem programas especiais para investidores institucionais?",
+        "answer": "Sim, operamos programas dedicados para investidores institucionais. Fornecemos custódia em conformidade regulatória, negociação OTC de grande escala, relatórios fiscais e oportunidades de participação em rodadas de investimento privadas. Entre em contato para informações detalhadas."
+      },
+      "q5": {
+        "question": "Quanto tempo leva para finalizar uma parceria?",
+        "answer": "Geralmente, leva 8-16 semanas no total: Envio da consulta (1-3 dias) → Due diligence e avaliação (2-4 semanas) → Negociação de termos (2-4 semanas) → Assinatura do contrato (1-2 semanas) → Onboarding (4-8 semanas). Processo acelerado está disponível para casos urgentes."
+      },
+      "q6": {
+        "question": "Como funciona a parceria de integração de protocolo?",
+        "answer": "Apoiamos a integração técnica com protocolos DeFi. Fornecemos bridges cross-chain, pools de liquidez, integração DEX, auditorias de contratos inteligentes e integração de oracle em tempo real. Atualmente integrado com 15+ protocolos com $500M+ TVL."
+      },
+      "q7": {
+        "question": "Quais são os benefícios exclusivos para parceiros do nível Diamante?",
+        "answer": "Parceiros do nível Diamante recebem até 50M TBURN de incentivos junto com uma equipe técnica dedicada, desenvolvimento de soluções personalizadas, direitos de participação no conselho, direitos exclusivos de governança e participação em cúpula offline anual - o mais alto nível de benefícios."
+      },
+      "q8": {
+        "question": "Como posso consultar sobre parceria?",
+        "answer": "Você pode se candidatar através do botão 'Candidatar-se à Parceria' no topo da página ou entrar em contato diretamente pelo partnerships@tburn.io. Conectar sua carteira permite uma revisão mais rápida. Uma equipe dedicada entrará em contato em até 3 dias úteis."
+      }
+    },
+    "ctaSection": {
+      "title": "Torne-se um Parceiro Estratégico",
+      "subtitle1": "Como parceiro central do ecossistema TBURN",
+      "subtitle2": "receba 200M TBURN em incentivos!",
+      "button": "Candidatar-se à Parceria"
+    },
+    "footer": {
+      "brand": "TBURNCHAIN",
+      "tagline1": "Inteligência Artificial, Transparência Blockchain",
+      "tagline2": "O FUTURO É AGORA",
+      "products": "Produtos",
+      "explorer": "Explorador",
+      "bridge": "Bridge",
+      "staking": "Staking",
+      "governance": "Governança",
+      "developers": "Desenvolvedores",
+      "documentation": "Documentação",
+      "api": "Referência da API",
+      "github": "GitHub",
+      "bugBounty": "Bug Bounty",
+      "community": "Comunidade",
+      "twitter": "Twitter",
+      "telegram": "Telegram",
+      "discord": "Discord",
+      "forum": "Fórum",
+      "copyright": "© 2024 TBURNCHAIN. Todos os direitos reservados.",
+      "privacyPolicy": "Política de Privacidade",
+      "termsOfService": "Termos de Serviço"
+    }
   }
 }

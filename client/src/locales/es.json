@@ -20625,7 +20625,7 @@
       "subtitle": "Alianzas estratégicas clave moldeando el ecosistema TBURN",
       "heroTitle": "Socios Estratégicos TBURN",
       "heroSubtitle": "Socios de clase mundial apoyando la visión TBURN",
-      "badge": "Socios Elite",
+      "badge": "ALIANZA ESTRATÉGICA - Partnership Empresarial",
       "partnerCount": "Cantidad de Socios",
       "categories": "Categorías",
       "tier1": "Socios Tier 1",
@@ -20633,7 +20633,394 @@
       "tier3": "Socios Tier 3",
       "vcPartners": "Socios VC",
       "techPartners": "Socios Tecnológicos",
-      "mediaPartners": "Socios de Medios"
+      "mediaPartners": "Socios de Medios",
+      "nav": {
+        "partnerTiers": "Niveles de Socios",
+        "partnershipTypes": "Tipos de Alianza",
+        "benefits": "Beneficios",
+        "useCases": "Casos de Uso",
+        "faq": "FAQ"
+      },
+      "wallet": {
+        "connect": "Conectar Cartera",
+        "disconnect": "Cartera Desconectada",
+        "disconnectDesc": "Tu cartera ha sido desconectada.",
+        "connected": "Cartera Conectada",
+        "connectedDesc": "Tu cartera ha sido conectada.",
+        "required": "Cartera Requerida",
+        "requiredDesc": "Por favor conecta tu cartera primero para realizar una consulta de alianza."
+      },
+      "hero": {
+        "title1": "Alianza Estratégica para",
+        "title2": "200M TBURN",
+        "title3": "en Incentivos",
+        "subtitle": "Conviértete en un socio clave del ecosistema TBURN a través de alianzas estratégicas con empresas, inversores institucionales y protocolos principales."
+      },
+      "enterpriseLogos": {
+        "enterprise": "Empresarial",
+        "protocol": "Protocolo",
+        "institutional": "Institucional",
+        "corporate": "Corporativo",
+        "research": "Investigación"
+      },
+      "stats": {
+        "totalBudget": "Presupuesto Estratégico Total",
+        "strategicPartners": "Socios Estratégicos",
+        "distributed": "Distribuido",
+        "totalPartnerships": "Total de Alianzas"
+      },
+      "cta": {
+        "applyPartnership": "Solicitar Alianza",
+        "enterpriseGuide": "Guía Empresarial",
+        "partnershipInquiry": "Consulta de Alianza",
+        "partnershipInquiryDesc": "¡Consulta los niveles de socios y contáctanos!",
+        "enterpriseGuideDesc": "Ver información sobre tipos de alianza."
+      },
+      "distribution": {
+        "badge": "DISTRIBUCIÓN",
+        "title": "Distribución del Presupuesto Estratégico",
+        "subtitle": "200M TBURN asignados a 5 áreas estratégicas",
+        "enterprise": "Empresarial",
+        "enterpriseAmount": "80M",
+        "protocol": "Integración de Protocolo",
+        "protocolAmount": "40M",
+        "institutional": "Inversores Institucionales",
+        "institutionalAmount": "40M",
+        "government": "Sector Público",
+        "governmentAmount": "20M",
+        "academic": "Académico/Investigación",
+        "academicAmount": "20M"
+      },
+      "tiers": {
+        "badge": "NIVELES",
+        "title": "Niveles de Socios Estratégicos",
+        "subtitle": "Beneficios diferenciados según contribución y escala de inversión",
+        "diamond": {
+          "name": "Diamond",
+          "subtitle": "Socio Estratégico Principal",
+          "incentive": "Hasta 50M",
+          "requirement": "$10M+ en aportación de valor",
+          "benefits": [
+            "Equipo técnico dedicado",
+            "Desarrollo de soluciones personalizadas",
+            "Participación en el consejo",
+            "Derechos exclusivos de gobernanza",
+            "Cumbre anual presencial"
+          ]
+        },
+        "platinum": {
+          "name": "Platinum",
+          "subtitle": "Socio Premium",
+          "incentive": "Hasta 20M",
+          "requirement": "$5M+ en aportación de valor",
+          "benefits": [
+            "Soporte técnico prioritario",
+            "Co-marketing",
+            "Reuniones estratégicas trimestrales",
+            "Derechos de voto en gobernanza",
+            "Eventos VIP"
+          ]
+        },
+        "gold": {
+          "name": "Gold",
+          "subtitle": "Socio Principal",
+          "incentive": "Hasta 5M",
+          "requirement": "$1M+ en aportación de valor",
+          "benefits": [
+            "Soporte de integración técnica",
+            "Colaboración de marketing",
+            "Informes mensuales",
+            "Participación DAO",
+            "Networking de socios"
+          ]
+        },
+        "silver": {
+          "name": "Silver",
+          "subtitle": "Socio de Crecimiento",
+          "incentive": "Hasta 1M",
+          "requirement": "$100K+ en aportación de valor",
+          "benefits": [
+            "Acceso a documentación técnica",
+            "Soporte básico",
+            "Actualizaciones trimestrales",
+            "Acceso a la comunidad",
+            "Insignia de socio"
+          ]
+        },
+        "partnerIncentive": "Incentivo de Socio",
+        "inquire": "Consultar"
+      },
+      "tierInquiry": {
+        "title": "Consulta de Socio",
+        "description": "La consulta de alianza para el nivel {{tier}} ({{incentive}} TBURN) ha sido enviada. Un representante se pondrá en contacto contigo."
+      },
+      "partnershipTypes": {
+        "badge": "TIPOS DE ALIANZA",
+        "title": "Tipos de Alianza",
+        "subtitle": "Diversos métodos de colaboración estratégica",
+        "enterprise": {
+          "title": "Soluciones Empresariales",
+          "desc": "Soluciones blockchain personalizadas para grandes corporaciones",
+          "features": [
+            "Construcción de cadena privada",
+            "Integración API",
+            "Auditoría de seguridad",
+            "Soporte 24/7"
+          ]
+        },
+        "protocol": {
+          "title": "Integración de Protocolo",
+          "desc": "Integración de protocolos DeFi y Web3",
+          "features": [
+            "Puente cross-chain",
+            "Pool de liquidez",
+            "Contratos inteligentes",
+            "Integración de oráculo"
+          ]
+        },
+        "institutional": {
+          "title": "Inversión Institucional",
+          "desc": "Programa dedicado para inversores institucionales",
+          "features": [
+            "Servicio de custodia",
+            "Trading OTC",
+            "Informes fiscales",
+            "Cumplimiento regulatorio"
+          ]
+        },
+        "government": {
+          "title": "Alianza Pública",
+          "desc": "Colaboración con instituciones gubernamentales y públicas",
+          "features": [
+            "Infraestructura pública",
+            "Identidad digital",
+            "Sistemas de transparencia",
+            "Servicios cívicos"
+          ]
+        },
+        "academic": {
+          "title": "Investigación Académica",
+          "desc": "Colaboración con universidades e institutos de investigación",
+          "features": [
+            "Becas de investigación",
+            "Prácticas profesionales",
+            "Apoyo a publicaciones",
+            "Consultoría técnica"
+          ]
+        },
+        "global": {
+          "title": "Expansión Global",
+          "desc": "Soporte para expansión en mercados internacionales",
+          "features": [
+            "Soporte de localización",
+            "Consultoría regulatoria",
+            "Conexiones con socios",
+            "Soporte de marketing"
+          ]
+        }
+      },
+      "process": {
+        "badge": "PROCESO",
+        "title": "Proceso de Alianza",
+        "subtitle": "Proceso de incorporación de socios estratégicos",
+        "step1": {
+          "title": "Envío de Consulta",
+          "desc": "Envío de carta de intención de alianza",
+          "duration": "1-3 días"
+        },
+        "step2": {
+          "title": "Due Diligence y Evaluación",
+          "desc": "Revisión comercial/técnica",
+          "duration": "2-4 semanas"
+        },
+        "step3": {
+          "title": "Negociación de Términos",
+          "desc": "Discusión de términos de alianza",
+          "duration": "2-4 semanas"
+        },
+        "step4": {
+          "title": "Firma de Contrato",
+          "desc": "Firma de contrato legal",
+          "duration": "1-2 semanas"
+        },
+        "step5": {
+          "title": "Incorporación",
+          "desc": "Integración técnica y lanzamiento",
+          "duration": "4-8 semanas"
+        }
+      },
+      "benefits": {
+        "badge": "BENEFICIOS",
+        "title": "Beneficios de Socio Estratégico",
+        "subtitle": "Beneficios exclusivos solo para socios estratégicos",
+        "techSupport": {
+          "title": "Soporte Técnico Personalizado",
+          "desc": "Un equipo de ingeniería dedicado desarrolla soluciones adaptadas a los requisitos de cada empresa."
+        },
+        "growth": {
+          "title": "Aceleración del Crecimiento",
+          "desc": "Apoya el crecimiento empresarial aprovechando los recursos y la red del ecosistema TBURN."
+        },
+        "security": {
+          "title": "Seguridad y Cumplimiento",
+          "desc": "Seguridad de nivel empresarial y cumplimiento regulatorio global garantizado."
+        },
+        "networking": {
+          "title": "Networking Estratégico",
+          "desc": "Oportunidades de networking con líderes de la industria y oportunidades de negocio conjuntas."
+        },
+        "exclusive": {
+          "title": "Beneficios Exclusivos",
+          "desc": "Disfruta de beneficios exclusivos incluyendo acceso anticipado, participación en gobernanza e incentivos especiales."
+        },
+        "data": {
+          "title": "Insights de Datos",
+          "desc": "Proporciona inteligencia empresarial a través de análisis on-chain e informes personalizados."
+        }
+      },
+      "useCases": {
+        "badge": "CASOS DE USO",
+        "title": "Casos de Uso",
+        "subtitle": "Escenarios de utilización de alianzas estratégicas",
+        "tabs": {
+          "enterprise": "Empresarial",
+          "protocol": "Protocolo",
+          "institutional": "Institucional"
+        },
+        "enterprise": {
+          "title": "Blockchain Empresarial",
+          "desc": "Proporciona soluciones de blockchain privada para grandes empresas. Aplicable a diversos casos de uso incluyendo gestión de cadena de suministro, tokenización de activos y sistemas de pago internos.",
+          "features": [
+            "Construcción de cadena privada",
+            "Soporte de integración API",
+            "Seguridad empresarial",
+            "Soporte técnico 24/7"
+          ],
+          "stats": {
+            "uptime": "99.99%",
+            "uptimeLabel": "Tiempo Activo",
+            "response": "< 100ms",
+            "responseLabel": "Tiempo de Respuesta",
+            "throughput": "Ilimitado",
+            "throughputLabel": "Rendimiento",
+            "security": "ISO 27001",
+            "securityLabel": "Certificación de Seguridad"
+          }
+        },
+        "protocol": {
+          "title": "Integración de Protocolo",
+          "desc": "Soporta integración fluida con protocolos DeFi. Proporciona puentes cross-chain, pools de liquidez e integración DEX.",
+          "features": [
+            "Puente cross-chain",
+            "Incentivos de liquidez",
+            "Auditoría de contratos inteligentes",
+            "Oráculo en tiempo real"
+          ],
+          "stats": {
+            "tvl": "$500M+",
+            "tvlLabel": "TVL",
+            "protocols": "15+",
+            "protocolsLabel": "Integraciones de Protocolo",
+            "transactions": "1M+",
+            "transactionsLabel": "Transacciones Diarias",
+            "chains": "5",
+            "chainsLabel": "Cadenas Soportadas"
+          }
+        },
+        "institutional": {
+          "title": "Inversores Institucionales",
+          "desc": "Proporciona servicios dedicados para inversores institucionales con cumplimiento regulatorio. Soporta custodia, trading OTC e informes fiscales.",
+          "features": [
+            "Custodia con cumplimiento regulatorio",
+            "Trading OTC de gran volumen",
+            "Informes fiscales",
+            "Rondas de inversión privada"
+          ],
+          "stats": {
+            "aum": "$100M+",
+            "aumLabel": "AUM",
+            "partners": "50+",
+            "partnersLabel": "Socios Institucionales",
+            "otc": "24/7",
+            "otcLabel": "Mesa OTC",
+            "compliance": "Global",
+            "complianceLabel": "Cumplimiento Regulatorio"
+          }
+        }
+      },
+      "currentPartners": {
+        "badge": "SOCIOS",
+        "title": "Socios Estratégicos Actuales",
+        "subtitle": "Socios globales que se unen a nosotros",
+        "investmentScale": "Escala de Inversión",
+        "partnership": "Alianza"
+      },
+      "faq": {
+        "badge": "FAQ",
+        "title": "Preguntas Frecuentes",
+        "subtitle": "Preguntas sobre alianzas estratégicas",
+        "q1": {
+          "question": "¿Cuál es el presupuesto total para alianzas estratégicas?",
+          "answer": "Un total de 200M TBURN está asignado para alianzas estratégicas. Esto se distribuye como Empresarial 40% (80M), Integración de Protocolo 20% (40M), Inversores Institucionales 20% (40M), Sector Público 10% (20M) y Académico/Investigación 10% (20M)."
+        },
+        "q2": {
+          "question": "¿Cuáles son los requisitos para convertirse en socio estratégico?",
+          "answer": "Las alianzas estratégicas requieren una aportación mínima de valor de $100K o más (inversión, integración tecnológica, colaboración empresarial, etc.). Los niveles se dividen en Silver ($100K+, hasta 1M TBURN), Gold ($1M+, hasta 5M), Platinum ($5M+, hasta 20M) y Diamond ($10M+, hasta 50M)."
+        },
+        "q3": {
+          "question": "¿Cómo se distribuyen los incentivos de alianza?",
+          "answer": "Los incentivos se distribuyen según un calendario de vesting. Generalmente se distribuyen durante 12-24 meses, pagados mensual/trimestralmente después del desbloqueo inicial. Los bonos basados en rendimiento también se pagan por separado según el logro de hitos."
+        },
+        "q4": {
+          "question": "¿Existen programas especiales para inversores institucionales?",
+          "answer": "Sí, operamos programas dedicados para inversores institucionales. Proporcionamos custodia con cumplimiento regulatorio, trading OTC de gran volumen, informes fiscales y oportunidades de participación en rondas de inversión privada. Contáctanos para información detallada."
+        },
+        "q5": {
+          "question": "¿Cuánto tiempo toma finalizar una alianza?",
+          "answer": "Generalmente, toma 8-16 semanas en total: Envío de consulta (1-3 días) → Due diligence y evaluación (2-4 semanas) → Negociación de términos (2-4 semanas) → Firma de contrato (1-2 semanas) → Incorporación (4-8 semanas). Proceso acelerado disponible para casos urgentes."
+        },
+        "q6": {
+          "question": "¿Cómo funciona la alianza de integración de protocolo?",
+          "answer": "Apoyamos la integración técnica con protocolos DeFi. Proporcionamos puentes cross-chain, pools de liquidez, integración DEX, auditorías de contratos inteligentes e integración de oráculos en tiempo real. Actualmente integrados con 15+ protocolos con $500M+ TVL."
+        },
+        "q7": {
+          "question": "¿Cuáles son los beneficios exclusivos para socios Diamond?",
+          "answer": "Los socios Diamond reciben hasta 50M TBURN en incentivos junto con un equipo técnico dedicado, desarrollo de soluciones personalizadas, derechos de participación en el consejo, derechos exclusivos de gobernanza y participación en la cumbre anual presencial - el nivel más alto de beneficios."
+        },
+        "q8": {
+          "question": "¿Cómo puedo consultar sobre una alianza?",
+          "answer": "Puedes aplicar a través del botón 'Solicitar Alianza' en la parte superior de la página o contactarnos directamente en partnerships@tburn.io. Conectar tu cartera permite una revisión más rápida. Un equipo dedicado te contactará dentro de 3 días hábiles."
+        }
+      },
+      "ctaSection": {
+        "title": "Conviértete en Socio Estratégico",
+        "subtitle1": "Como socio clave del ecosistema TBURN",
+        "subtitle2": "¡recibe 200M TBURN en incentivos!",
+        "button": "Solicitar Alianza"
+      },
+      "footer": {
+        "brand": "TBURNCHAIN",
+        "tagline1": "Inteligencia AI, Transparencia Blockchain",
+        "tagline2": "EL FUTURO ES AHORA",
+        "products": "Productos",
+        "explorer": "Explorador",
+        "bridge": "Puente",
+        "staking": "Staking",
+        "governance": "Gobernanza",
+        "developers": "Desarrolladores",
+        "documentation": "Documentación",
+        "api": "Referencia API",
+        "github": "GitHub",
+        "bugBounty": "Bug Bounty",
+        "community": "Comunidad",
+        "twitter": "Twitter",
+        "telegram": "Telegram",
+        "discord": "Discord",
+        "forum": "Foro",
+        "copyright": "© 2024 TBURNCHAIN. Todos los derechos reservados.",
+        "privacyPolicy": "Política de Privacidad",
+        "termsOfService": "Términos de Servicio"
+      }
     },
     "advisorProgram": {
       "title": "Programa de Asesores",
