@@ -10683,7 +10683,12 @@
           "storage": "Stockage : 1 To NVMe SSD",
           "bandwidth": "Bande passante : 1 Gbps"
         },
-        "slashingSection": { "badge": "SLASHING", "title": "Règles de Slashing", "subtitle": "Système de pénalité pour la sécurité du réseau" }, "slashing": {
+        "slashingSection": {
+          "badge": "SLASHING",
+          "title": "Règles de Slashing",
+          "subtitle": "Système de pénalité pour la sécurité du réseau"
+        },
+        "slashing": {
           "title": "Conditions de Pénalité",
           "subtitle": "Les validateurs doivent maintenir des standards élevés. Les violations entraînent des pénalités sur la mise.",
           "forumTitle": "Forum Communautaire",
@@ -15505,7 +15510,12 @@
           "stateTree": "Arbre d'État",
           "quantumResistant": "Résistant aux Quantiques"
         },
-        "slashingSection": { "badge": "SLASHING", "title": "Règles de Slashing", "subtitle": "Système de pénalité pour la sécurité du réseau" }, "slashing": {
+        "slashingSection": {
+          "badge": "SLASHING",
+          "title": "Règles de Slashing",
+          "subtitle": "Système de pénalité pour la sécurité du réseau"
+        },
+        "slashing": {
           "title": "Conditions de Slashing",
           "doubleSigning": "Double Signature",
           "doubleSigningPenalty": "100% du stake supprimé",
@@ -17264,7 +17274,12 @@
         "monthlyReward": "Récompense Mensuelle",
         "yearlyReward": "Récompense Annuelle"
       },
-      "slashingSection": { "badge": "SLASHING", "title": "Règles de Slashing", "subtitle": "Système de pénalité pour la sécurité du réseau" }, "slashing": {
+      "slashingSection": {
+        "badge": "SLASHING",
+        "title": "Règles de Slashing",
+        "subtitle": "Système de pénalité pour la sécurité du réseau"
+      },
+      "slashing": {
         "badge": "Pénalités",
         "title": "Conditions de Pénalité",
         "subtitle": "Sanctions pour mauvaise conduite du validateur",
@@ -17390,21 +17405,182 @@
       "delegateStake": "Déléguer le Stake"
     },
     "validatorIncentives": {
-      "title": "Incitations Validateurs",
+      "title": "Incitations pour Validateurs",
       "subtitle": "Incitations spéciales pour les validateurs maintenant le réseau TBURN",
-      "heroTitle": "Incitations Validateurs TBURN",
+      "heroTitle": "Incitations pour Validateurs TBURN",
       "heroSubtitle": "Gagnez des récompenses supplémentaires pour haute performance et contribution au réseau",
-      "badge": "Programme Validateurs",
+      "badge": "Programme Validateur",
       "incentivePool": "Pool d'Incitations",
       "activeValidators": "Validateurs Actifs",
       "performanceBonus": "Bonus de Performance",
-      "uptimeRequirement": "Exigence d'Uptime",
+      "uptimeRequirement": "Exigence de Disponibilité",
       "slashingPenalty": "Pénalité de Slashing",
-      "tiers": "Niveaux de Validateur",
-      "genesis": "Validateur Genesis",
-      "premium": "Validateur Premium",
-      "standard": "Validateur Standard",
-      "applyValidator": "Postuler comme Validateur"
+      "applyValidator": "Postuler comme Validateur",
+      "nav": {
+        "tiers": "Niveaux",
+        "loyalty": "Récompenses de Fidélité",
+        "performance": "Récompenses de Performance",
+        "leaderboard": "Classement"
+      },
+      "wallet": {
+        "connect": "Connecter le Portefeuille",
+        "disconnect": "Déconnecter",
+        "disconnected": "Portefeuille déconnecté.",
+        "disconnectTitle": "Portefeuille Déconnecté",
+        "connected": "Connecté",
+        "connectedTitle": "Portefeuille Connecté",
+        "connectedDesc": "Le portefeuille MetaMask a été connecté.",
+        "required": "Portefeuille Requis",
+        "requiredDesc": "Veuillez d'abord connecter votre portefeuille pour postuler comme validateur.",
+        "selectTier": "Sélection de Niveau",
+        "selectTierDesc": "Choisissez le niveau de validateur qui vous convient le mieux."
+      },
+      "apply": {
+        "complete": "Candidature Complète",
+        "completeDesc": "Votre candidature de validateur {{tierName}} a été soumise. Nous vous notifierons après examen.",
+        "applyNow": "Postuler Maintenant",
+        "checkLoyalty": "Voir les Récompenses de Fidélité",
+        "learnMore": "En Savoir Plus",
+        "joinNow": "Rejoindre Maintenant",
+        "loyaltyRewards": "Système de Récompenses de Fidélité",
+        "loyaltyRewardsDesc": "Consultez le système de récompenses de staking à long terme."
+      },
+      "distributions": {
+        "earlybird": "Bonus Early Bird",
+        "loyalty": "Récompenses de Fidélité à Long Terme",
+        "performance": "Incitations de Performance",
+        "growth": "Croissance du Réseau",
+        "governance": "Bonus de Gouvernance"
+      },
+      "amounts": {
+        "225m": "225M",
+        "187m": "187.5M",
+        "150m": "150M",
+        "112m": "112.5M",
+        "75m": "75M"
+      },
+      "tiers": {
+        "genesis": {
+          "name": "Validateur Genèse",
+          "range": "1er~25e",
+          "benefit1": "100% Bonus Early Bird",
+          "benefit2": "Badge NFT Genèse Exclusif",
+          "benefit3": "0% de Frais à Vie",
+          "benefit4": "2x Pouvoir de Vote Gouvernance",
+          "benefit5": "Accès Canal VIP",
+          "badge": "Premium"
+        },
+        "pioneer": {
+          "name": "Validateur Pionnier",
+          "range": "26e~75e",
+          "benefit1": "75% Bonus Early Bird",
+          "benefit2": "Badge NFT Pionnier",
+          "benefit3": "0.5% Réduction de Frais",
+          "benefit4": "1.5x Pouvoir de Vote Gouvernance",
+          "benefit5": "Accès Anticipé",
+          "badge": "Recommandé"
+        },
+        "early": {
+          "name": "Validateur Précoce",
+          "range": "76e~125e",
+          "benefit1": "50% Bonus Early Bird",
+          "benefit2": "Badge NFT Précoce",
+          "benefit3": "1% Réduction de Frais",
+          "benefit4": "1.25x Pouvoir de Vote Gouvernance",
+          "benefit5": "Reconnaissance Leader Communautaire",
+          "badge": "Ouvert"
+        },
+        "participant": "Participant",
+        "earlybirdBonus": "Bonus Early Bird"
+      },
+      "loyalty": {
+        "year1": "1 An",
+        "year2": "2 Ans",
+        "year3": "3 Ans",
+        "year4plus": "4+ Ans",
+        "basic": "Bonus de Fidélité de Base",
+        "silver": "Adhésion Argent",
+        "gold": "Adhésion Or",
+        "diamond": "Adhésion Diamant",
+        "title": "Multiplicateur de Fidélité",
+        "subtitle": "Les récompenses augmentent avec la durée de staking"
+      },
+      "performance": {
+        "uptime": {
+          "title": "Bonus de Disponibilité",
+          "subtitle": "Fonctionnement réseau stable"
+        },
+        "blocks": {
+          "title": "Bonus de Production de Blocs",
+          "subtitle": "Génération efficace de blocs",
+          "top10": "Top 10%",
+          "top30": "Top 30%",
+          "top50": "Top 50%"
+        },
+        "clean": {
+          "title": "Bonus Sans Violation",
+          "subtitle": "Zéro record de slashing",
+          "year1": "1 An Sans Violation",
+          "months6": "6 Mois Sans Violation",
+          "months3": "3 Mois Sans Violation"
+        }
+      },
+      "leaderboard": {
+        "rank": "Rang",
+        "validator": "Validateur",
+        "tier": "Niveau",
+        "points": "Points",
+        "cumulativeRewards": "Récompenses Cumulées"
+      },
+      "hero": {
+        "badge": "INCITATIONS VALIDATEURS",
+        "title": "750M TBURN en Incitations",
+        "titlePrefix": "Pour les Validateurs",
+        "subtitle": "Bonus Early Bird, Récompenses de Fidélité à Long Terme, Incitations de Performance et plus! Devenez validateur TBURN Chain et gagnez jusqu'à 300% de récompenses supplémentaires!",
+        "earlyBirdTitle": "Programme Early Bird Actif!",
+        "earlyBirdSubtitle": "Rejoignez maintenant pour jusqu'à 100,000 TBURN de bonus"
+      },
+      "stats": {
+        "totalValidators": "Total Validateurs",
+        "activeValidators": "Validateurs Actifs",
+        "totalStaked": "Total en Staking (TBURN)",
+        "countdown": {
+          "days": "Jours",
+          "hours": "Heures",
+          "mins": "Minutes",
+          "secs": "Secondes"
+        }
+      },
+      "sections": {
+        "distribution": "Distribution des Incitations",
+        "tiers": "Niveaux de Validateur Précoce",
+        "tiersSubtitle": "Récompenses différenciées basées sur l'ordre de participation",
+        "loyalty": "Récompenses de Fidélité à Long Terme",
+        "loyaltySubtitle": "Plus de récompenses pour une participation plus longue",
+        "performance": "Incitations de Performance",
+        "performanceSubtitle": "Récompenses supplémentaires pour excellente performance",
+        "leaderboard": "Classement des Incitations",
+        "leaderboardSubtitle": "Validateurs avec le plus de récompenses"
+      },
+      "faq": {
+        "title": "FAQ",
+        "subtitle": "Questions sur le programme d'incitations",
+        "q1": "Quelle est l'allocation totale des incitations validateurs?",
+        "a1": "Le programme d'incitations validateurs dispose de 750M TBURN (7.5% de l'offre totale). Distribution: Bonus Early Bird 30% (225M), Fidélité Long Terme 25% (187.5M), Incitations Performance 20% (150M), Croissance Réseau 15% (112.5M), Bonus Gouvernance 10% (75M).",
+        "q2": "Comment qualifier pour le Bonus Early Bird?",
+        "a2": "Le Bonus Early Bird est attribué selon votre moment d'adhésion. Validateurs Genèse (1er-25e) reçoivent 100%, Validateurs Pionniers (26e-75e) reçoivent 75%, Validateurs Précoces (76e-125e) reçoivent 50%.",
+        "q3": "Comment les Incitations de Performance sont-elles calculées?",
+        "a3": "Les Incitations de Performance sont basées sur la disponibilité (99.9%+ pour niveau Or), l'efficacité de production de blocs (Top 10% pour niveau Or), et un dossier propre sans violations de slashing.",
+        "q4": "Qu'est-ce que le Multiplicateur de Fidélité?",
+        "a4": "Le Multiplicateur de Fidélité augmente vos récompenses selon la durée de staking: 1.5x pour 1 an, 2.0x pour 2 ans, 2.5x pour 3 ans, et 3.0x pour 4+ ans de staking continu."
+      },
+      "footer": {
+        "rights": "Tous Droits Réservés",
+        "privacy": "Politique de Confidentialité",
+        "terms": "Conditions de Service",
+        "contact": "Contactez-nous"
+      },
+      "loading": "Chargement des incitations validateurs..."
     },
     "ecosystemFund": {
       "title": "Fonds d'Écosystème",

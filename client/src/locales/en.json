@@ -14217,7 +14217,12 @@
           "storage": "Storage: 1TB NVMe SSD",
           "bandwidth": "Bandwidth: 1Gbps"
         },
-        "slashingSection": { "badge": "SLASHING", "title": "Slashing Rules", "subtitle": "Penalty system for network security" }, "slashing": {
+        "slashingSection": {
+          "badge": "SLASHING",
+          "title": "Slashing Rules",
+          "subtitle": "Penalty system for network security"
+        },
+        "slashing": {
           "title": "Slashing Conditions",
           "subtitle": "Validators must maintain high standards. Violations result in stake penalties.",
           "minor": {
@@ -29594,7 +29599,12 @@
           "stateTree": "State Tree",
           "quantumResistant": "Quantum-Resistant"
         },
-        "slashingSection": { "badge": "SLASHING", "title": "Slashing Rules", "subtitle": "Penalty system for network security" }, "slashing": {
+        "slashingSection": {
+          "badge": "SLASHING",
+          "title": "Slashing Rules",
+          "subtitle": "Penalty system for network security"
+        },
+        "slashing": {
           "title": "Slashing Conditions",
           "doubleSigning": "Double Signing",
           "doubleSigningPenalty": "100% stake slashed",
@@ -31153,7 +31163,12 @@
         "monthlyReward": "Monthly Reward",
         "yearlyReward": "Yearly Reward"
       },
-      "slashingSection": { "badge": "SLASHING", "title": "Slashing Rules", "subtitle": "Penalty system for network security" }, "slashing": {
+      "slashingSection": {
+        "badge": "SLASHING",
+        "title": "Slashing Rules",
+        "subtitle": "Penalty system for network security"
+      },
+      "slashing": {
         "badge": "Slashing",
         "title": "Slashing Conditions",
         "subtitle": "Penalties for validator misconduct",
@@ -31289,11 +31304,172 @@
       "performanceBonus": "Performance Bonus",
       "uptimeRequirement": "Uptime Requirement",
       "slashingPenalty": "Slashing Penalty",
-      "tiers": "Validator Tiers",
-      "genesis": "Genesis Validator",
-      "premium": "Premium Validator",
-      "standard": "Standard Validator",
-      "applyValidator": "Apply as Validator"
+      "applyValidator": "Apply as Validator",
+      "nav": {
+        "tiers": "Tiers",
+        "loyalty": "Loyalty Rewards",
+        "performance": "Performance Rewards",
+        "leaderboard": "Leaderboard"
+      },
+      "wallet": {
+        "connect": "Connect Wallet",
+        "disconnect": "Disconnect",
+        "disconnected": "Wallet disconnected.",
+        "disconnectTitle": "Wallet Disconnected",
+        "connected": "Connected",
+        "connectedTitle": "Wallet Connected",
+        "connectedDesc": "MetaMask wallet has been connected.",
+        "required": "Wallet Required",
+        "requiredDesc": "Please connect your wallet first to apply as a validator.",
+        "selectTier": "Tier Selection",
+        "selectTierDesc": "Choose the validator tier that suits you best."
+      },
+      "apply": {
+        "complete": "Application Complete",
+        "completeDesc": "Your {{tierName}} validator application has been submitted. We will notify you after review.",
+        "applyNow": "Apply Now",
+        "checkLoyalty": "Check Loyalty Rewards",
+        "learnMore": "Learn More",
+        "joinNow": "Join Now",
+        "loyaltyRewards": "Loyalty Reward System",
+        "loyaltyRewardsDesc": "Check out the long-term staking reward system."
+      },
+      "distributions": {
+        "earlybird": "Early Bird Bonus",
+        "loyalty": "Long-term Loyalty Rewards",
+        "performance": "Performance Incentives",
+        "growth": "Network Growth",
+        "governance": "Governance Bonus"
+      },
+      "amounts": {
+        "225m": "225M",
+        "187m": "187.5M",
+        "150m": "150M",
+        "112m": "112.5M",
+        "75m": "75M"
+      },
+      "tiers": {
+        "genesis": {
+          "name": "Genesis Validator",
+          "range": "1st~25th",
+          "benefit1": "100% Early Bird Bonus",
+          "benefit2": "Exclusive Genesis NFT Badge",
+          "benefit3": "Lifetime 0% Fee",
+          "benefit4": "2x Governance Voting Power",
+          "benefit5": "VIP Channel Access",
+          "badge": "Premium"
+        },
+        "pioneer": {
+          "name": "Pioneer Validator",
+          "range": "26th~75th",
+          "benefit1": "75% Early Bird Bonus",
+          "benefit2": "Pioneer NFT Badge",
+          "benefit3": "0.5% Fee Discount",
+          "benefit4": "1.5x Governance Voting Power",
+          "benefit5": "Early Access",
+          "badge": "Recommended"
+        },
+        "early": {
+          "name": "Early Validator",
+          "range": "76th~125th",
+          "benefit1": "50% Early Bird Bonus",
+          "benefit2": "Early NFT Badge",
+          "benefit3": "1% Fee Discount",
+          "benefit4": "1.25x Governance Voting Power",
+          "benefit5": "Community Leader Recognition",
+          "badge": "Open"
+        },
+        "participant": "Participant",
+        "earlybirdBonus": "Early Bird Bonus"
+      },
+      "loyalty": {
+        "year1": "1 Year",
+        "year2": "2 Years",
+        "year3": "3 Years",
+        "year4plus": "4+ Years",
+        "basic": "Basic Loyalty Bonus",
+        "silver": "Silver Membership",
+        "gold": "Gold Membership",
+        "diamond": "Diamond Membership",
+        "title": "Loyalty Multiplier",
+        "subtitle": "Rewards increase with staking duration"
+      },
+      "performance": {
+        "uptime": {
+          "title": "Uptime Bonus",
+          "subtitle": "Stable network operation"
+        },
+        "blocks": {
+          "title": "Block Production Bonus",
+          "subtitle": "Efficient block generation",
+          "top10": "Top 10%",
+          "top30": "Top 30%",
+          "top50": "Top 50%"
+        },
+        "clean": {
+          "title": "No-Violation Bonus",
+          "subtitle": "Zero slashing record",
+          "year1": "1 Year No Violation",
+          "months6": "6 Months No Violation",
+          "months3": "3 Months No Violation"
+        }
+      },
+      "leaderboard": {
+        "rank": "Rank",
+        "validator": "Validator",
+        "tier": "Tier",
+        "points": "Points",
+        "cumulativeRewards": "Cumulative Rewards"
+      },
+      "hero": {
+        "badge": "VALIDATOR INCENTIVES",
+        "title": "750M TBURN Incentives",
+        "titlePrefix": "For Validators",
+        "subtitle": "Early Bird Bonus, Long-term Loyalty Rewards, Performance Incentives and more! Become a TBURN Chain validator and earn up to 300% additional rewards!",
+        "earlyBirdTitle": "Early Bird Program Active!",
+        "earlyBirdSubtitle": "Join now for up to 100,000 TBURN bonus"
+      },
+      "stats": {
+        "totalValidators": "Total Validators",
+        "activeValidators": "Active Validators",
+        "totalStaked": "Total Staked (TBURN)",
+        "countdown": {
+          "days": "Days",
+          "hours": "Hours",
+          "mins": "Minutes",
+          "secs": "Seconds"
+        }
+      },
+      "sections": {
+        "distribution": "Incentive Distribution",
+        "tiers": "Early Validator Tiers",
+        "tiersSubtitle": "Differentiated rewards based on participation order",
+        "loyalty": "Long-term Loyalty Rewards",
+        "loyaltySubtitle": "More rewards for longer participation",
+        "performance": "Performance Incentives",
+        "performanceSubtitle": "Additional rewards for excellent performance",
+        "leaderboard": "Incentive Leaderboard",
+        "leaderboardSubtitle": "Validators with the most rewards"
+      },
+      "faq": {
+        "title": "FAQ",
+        "subtitle": "Questions about the incentive program",
+        "q1": "What is the total validator incentive allocation?",
+        "a1": "The validator incentive program has 750M TBURN (7.5% of total supply). It is distributed as: Early Bird Bonus 30% (225M), Long-term Loyalty 25% (187.5M), Performance Incentives 20% (150M), Network Growth 15% (112.5M), Governance Bonus 10% (75M).",
+        "q2": "How do I qualify for the Early Bird Bonus?",
+        "a2": "The Early Bird Bonus is awarded based on when you join. Genesis Validators (1st-25th) receive 100% bonus, Pioneer Validators (26th-75th) receive 75% bonus, and Early Validators (76th-125th) receive 50% bonus.",
+        "q3": "How are Performance Incentives calculated?",
+        "a3": "Performance Incentives are based on uptime (99.9%+ for Gold tier), block production efficiency (Top 10% for Gold tier), and clean record without slashing violations.",
+        "q4": "What is the Loyalty Multiplier?",
+        "a4": "The Loyalty Multiplier increases your rewards based on staking duration: 1.5x for 1 year, 2.0x for 2 years, 2.5x for 3 years, and 3.0x for 4+ years of continuous staking."
+      },
+      "footer": {
+        "rights": "All Rights Reserved",
+        "privacy": "Privacy Policy",
+        "terms": "Terms of Service",
+        "contact": "Contact Us"
+      },
+      "loading": "Loading validator incentives..."
     },
     "ecosystemFund": {
       "title": "Ecosystem Fund",

@@ -13626,7 +13626,12 @@
           "storage": "ストレージ: 1TB NVMe SSD",
           "bandwidth": "帯域幅: 1Gbps"
         },
-        "slashingSection": { "badge": "SLASHING", "title": "スラッシングルール", "subtitle": "ネットワークセキュリティのためのペナルティシステム" }, "slashing": {
+        "slashingSection": {
+          "badge": "SLASHING",
+          "title": "スラッシングルール",
+          "subtitle": "ネットワークセキュリティのためのペナルティシステム"
+        },
+        "slashing": {
           "title": "スラッシング条件",
           "subtitle": "バリデーターは高い基準を維持する必要があります。違反はステークペナルティにつながります。",
           "forumTitle": "コミュニティフォーラム",
@@ -18473,7 +18478,12 @@
           "stateTree": "状態ツリー",
           "quantumResistant": "量子耐性"
         },
-        "slashingSection": { "badge": "SLASHING", "title": "スラッシングルール", "subtitle": "ネットワークセキュリティのためのペナルティシステム" }, "slashing": {
+        "slashingSection": {
+          "badge": "SLASHING",
+          "title": "スラッシングルール",
+          "subtitle": "ネットワークセキュリティのためのペナルティシステム"
+        },
+        "slashing": {
           "title": "スラッシング条件",
           "doubleSigning": "二重署名",
           "doubleSigningPenalty": "ステーク100%スラッシュ",
@@ -20232,7 +20242,12 @@
         "monthlyReward": "月次報酬",
         "yearlyReward": "年次報酬"
       },
-      "slashingSection": { "badge": "SLASHING", "title": "スラッシングルール", "subtitle": "ネットワークセキュリティのためのペナルティシステム" }, "slashing": {
+      "slashingSection": {
+        "badge": "SLASHING",
+        "title": "スラッシングルール",
+        "subtitle": "ネットワークセキュリティのためのペナルティシステム"
+      },
+      "slashing": {
         "badge": "スラッシング",
         "title": "スラッシング条件",
         "subtitle": "バリデーターの不正行為に対するペナルティ",
@@ -20360,19 +20375,180 @@
     "validatorIncentives": {
       "title": "バリデーターインセンティブ",
       "subtitle": "TBURNネットワークを維持するバリデーターへの特別インセンティブ",
-      "heroTitle": "TBURN バリデーターインセンティブ",
-      "heroSubtitle": "高パフォーマンスとネットワーク貢献に対する追加報酬を獲得",
+      "heroTitle": "TBURNバリデーターインセンティブ",
+      "heroSubtitle": "高性能とネットワーク貢献に対する追加報酬を獲得",
       "badge": "バリデータープログラム",
       "incentivePool": "インセンティブプール",
       "activeValidators": "アクティブバリデーター",
       "performanceBonus": "パフォーマンスボーナス",
       "uptimeRequirement": "稼働時間要件",
       "slashingPenalty": "スラッシングペナルティ",
-      "tiers": "バリデーターティア",
-      "genesis": "ジェネシスバリデーター",
-      "premium": "プレミアムバリデーター",
-      "standard": "スタンダードバリデーター",
-      "applyValidator": "バリデーター申請"
+      "applyValidator": "バリデーター申請",
+      "nav": {
+        "tiers": "ティア",
+        "loyalty": "ロイヤルティ報酬",
+        "performance": "パフォーマンス報酬",
+        "leaderboard": "リーダーボード"
+      },
+      "wallet": {
+        "connect": "ウォレット接続",
+        "disconnect": "切断",
+        "disconnected": "ウォレットが切断されました。",
+        "disconnectTitle": "ウォレット切断",
+        "connected": "接続済み",
+        "connectedTitle": "ウォレット接続完了",
+        "connectedDesc": "MetaMaskウォレットが接続されました。",
+        "required": "ウォレット接続が必要",
+        "requiredDesc": "バリデーター申請にはウォレット接続が必要です。",
+        "selectTier": "ティア選択",
+        "selectTierDesc": "最適なバリデーターティアを選択してください。"
+      },
+      "apply": {
+        "complete": "申請完了",
+        "completeDesc": "{{tierName}}バリデーター申請が提出されました。審査後にご連絡いたします。",
+        "applyNow": "今すぐ申請",
+        "checkLoyalty": "ロイヤルティ報酬を確認",
+        "learnMore": "詳細を見る",
+        "joinNow": "今すぐ参加",
+        "loyaltyRewards": "ロイヤルティ報酬システム",
+        "loyaltyRewardsDesc": "長期ステーキング報酬システムをご確認ください。"
+      },
+      "distributions": {
+        "earlybird": "アーリーバードボーナス",
+        "loyalty": "長期ロイヤルティ報酬",
+        "performance": "パフォーマンスインセンティブ",
+        "growth": "ネットワーク成長",
+        "governance": "ガバナンスボーナス"
+      },
+      "amounts": {
+        "225m": "2.25億",
+        "187m": "1.875億",
+        "150m": "1.5億",
+        "112m": "1.125億",
+        "75m": "0.75億"
+      },
+      "tiers": {
+        "genesis": {
+          "name": "ジェネシスバリデーター",
+          "range": "1~25番目",
+          "benefit1": "100%アーリーバードボーナス",
+          "benefit2": "限定Genesis NFTバッジ",
+          "benefit3": "永久0%手数料",
+          "benefit4": "ガバナンス2x投票権",
+          "benefit5": "VIP専用チャンネルアクセス",
+          "badge": "プレミアム"
+        },
+        "pioneer": {
+          "name": "パイオニアバリデーター",
+          "range": "26~75番目",
+          "benefit1": "75%アーリーバードボーナス",
+          "benefit2": "Pioneer NFTバッジ",
+          "benefit3": "0.5%手数料割引",
+          "benefit4": "ガバナンス1.5x投票権",
+          "benefit5": "早期アクセス",
+          "badge": "おすすめ"
+        },
+        "early": {
+          "name": "アーリーバリデーター",
+          "range": "76~125番目",
+          "benefit1": "50%アーリーバードボーナス",
+          "benefit2": "Early NFTバッジ",
+          "benefit3": "1%手数料割引",
+          "benefit4": "ガバナンス1.25x投票権",
+          "benefit5": "コミュニティリーダー認定",
+          "badge": "オープン"
+        },
+        "participant": "参加者",
+        "earlybirdBonus": "アーリーバードボーナス"
+      },
+      "loyalty": {
+        "year1": "1年",
+        "year2": "2年",
+        "year3": "3年",
+        "year4plus": "4年+",
+        "basic": "基本ロイヤルティボーナス",
+        "silver": "シルバーメンバーシップ",
+        "gold": "ゴールドメンバーシップ",
+        "diamond": "ダイヤモンドメンバーシップ",
+        "title": "ロイヤルティマルチプライヤー",
+        "subtitle": "ステーキング期間に応じて報酬が増加"
+      },
+      "performance": {
+        "uptime": {
+          "title": "アップタイムボーナス",
+          "subtitle": "安定したネットワーク運用"
+        },
+        "blocks": {
+          "title": "ブロック生成ボーナス",
+          "subtitle": "効率的なブロック生成",
+          "top10": "上位10%",
+          "top30": "上位30%",
+          "top50": "上位50%"
+        },
+        "clean": {
+          "title": "無違反ボーナス",
+          "subtitle": "スラッシング0回維持",
+          "year1": "1年無違反",
+          "months6": "6ヶ月無違反",
+          "months3": "3ヶ月無違反"
+        }
+      },
+      "leaderboard": {
+        "rank": "順位",
+        "validator": "バリデーター",
+        "tier": "ティア",
+        "points": "ポイント",
+        "cumulativeRewards": "累積報酬"
+      },
+      "hero": {
+        "badge": "バリデーターインセンティブ",
+        "title": "7.5億TBURNインセンティブ",
+        "titlePrefix": "バリデーターのための",
+        "subtitle": "アーリーバードボーナス、長期ロイヤルティ報酬、パフォーマンスインセンティブまで！TBURNチェーンバリデーターになって最大300%の追加報酬を獲得！",
+        "earlyBirdTitle": "アーリーバードプログラム実施中！",
+        "earlyBirdSubtitle": "今すぐ参加で最大100,000 TBURNボーナス"
+      },
+      "stats": {
+        "totalValidators": "総バリデーター数",
+        "activeValidators": "アクティブバリデーター",
+        "totalStaked": "総ステーキング (TBURN)",
+        "countdown": {
+          "days": "日",
+          "hours": "時間",
+          "mins": "分",
+          "secs": "秒"
+        }
+      },
+      "sections": {
+        "distribution": "インセンティブ配分",
+        "tiers": "アーリーバリデーターティア",
+        "tiersSubtitle": "参加順序に基づく差別化された報酬システム",
+        "loyalty": "長期ロイヤルティ報酬",
+        "loyaltySubtitle": "長く参加するほど多くの報酬",
+        "performance": "パフォーマンスインセンティブ",
+        "performanceSubtitle": "優れたパフォーマンスへの追加報酬",
+        "leaderboard": "インセンティブリーダーボード",
+        "leaderboardSubtitle": "最も多くの報酬を獲得したバリデーター"
+      },
+      "faq": {
+        "title": "よくある質問",
+        "subtitle": "インセンティブプログラムに関する質問",
+        "q1": "バリデーターインセンティブの総量は？",
+        "a1": "バリデーターインセンティブプログラムには7.5億TBURN（総供給量の7.5%）が割り当てられています。アーリーバードボーナス30%（2.25億）、長期ロイヤルティ25%（1.875億）、パフォーマンスインセンティブ20%（1.5億）、ネットワーク成長15%（1.125億）、ガバナンスボーナス10%（0.75億）に配分されます。",
+        "q2": "アーリーバードボーナスの取得方法は？",
+        "a2": "アーリーバードボーナスは参加時期に基づいて支給されます。ジェネシスバリデーター（1~25番目）は100%ボーナス、パイオニアバリデーター（26~75番目）は75%ボーナス、アーリーバリデーター（76~125番目）は50%ボーナスを受け取ります。",
+        "q3": "パフォーマンスインセンティブの計算方法は？",
+        "a3": "パフォーマンスインセンティブはアップタイム（ゴールドティア99.9%以上）、ブロック生成効率（ゴールドティア上位10%）、スラッシング違反のないクリーンな記録に基づきます。",
+        "q4": "ロイヤルティマルチプライヤーとは？",
+        "a4": "ロイヤルティマルチプライヤーはステーキング期間に応じて報酬が増加します：1年で1.5倍、2年で2.0倍、3年で2.5倍、4年以上の継続ステーキングで3.0倍です。"
+      },
+      "footer": {
+        "rights": "All Rights Reserved",
+        "privacy": "プライバシーポリシー",
+        "terms": "利用規約",
+        "contact": "お問い合わせ"
+      },
+      "loading": "バリデーターインセンティブを読み込み中..."
     },
     "ecosystemFund": {
       "title": "エコシステムファンド",

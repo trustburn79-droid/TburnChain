@@ -12773,7 +12773,12 @@
             "network": "网络: 500Mbps"
           }
         },
-        "slashingSection": { "badge": "SLASHING", "title": "惩罚规则", "subtitle": "网络安全的惩罚系统" }, "slashing": {
+        "slashingSection": {
+          "badge": "SLASHING",
+          "title": "惩罚规则",
+          "subtitle": "网络安全的惩罚系统"
+        },
+        "slashing": {
           "title": "罚没条件",
           "subtitle": "验证者必须维持高标准。违规将导致质押惩罚。",
           "forumTitle": "社区论坛",
@@ -17597,7 +17602,12 @@
           "stateTree": "状态树",
           "quantumResistant": "抗量子"
         },
-        "slashingSection": { "badge": "SLASHING", "title": "惩罚规则", "subtitle": "网络安全的惩罚系统" }, "slashing": {
+        "slashingSection": {
+          "badge": "SLASHING",
+          "title": "惩罚规则",
+          "subtitle": "网络安全的惩罚系统"
+        },
+        "slashing": {
           "title": "罚没条件",
           "doubleSigning": "双重签名",
           "doubleSigningPenalty": "100%质押罚没",
@@ -19356,7 +19366,12 @@
         "monthlyReward": "每月奖励",
         "yearlyReward": "每年奖励"
       },
-      "slashingSection": { "badge": "SLASHING", "title": "惩罚规则", "subtitle": "网络安全的惩罚系统" }, "slashing": {
+      "slashingSection": {
+        "badge": "SLASHING",
+        "title": "惩罚规则",
+        "subtitle": "网络安全的惩罚系统"
+      },
+      "slashing": {
         "badge": "惩罚",
         "title": "惩罚条件",
         "subtitle": "验证者不当行为的处罚",
@@ -19484,19 +19499,180 @@
     "validatorIncentives": {
       "title": "验证者激励",
       "subtitle": "为维护TBURN网络的验证者提供的特别激励",
-      "heroTitle": "TBURN 验证者激励",
-      "heroSubtitle": "为高性能和网络贡献获得额外奖励",
+      "heroTitle": "TBURN验证者激励",
+      "heroSubtitle": "因高性能和网络贡献获得额外奖励",
       "badge": "验证者计划",
       "incentivePool": "激励池",
       "activeValidators": "活跃验证者",
       "performanceBonus": "性能奖金",
-      "uptimeRequirement": "正常运行时间要求",
+      "uptimeRequirement": "运行时间要求",
       "slashingPenalty": "削减惩罚",
-      "tiers": "验证者等级",
-      "genesis": "创世验证者",
-      "premium": "高级验证者",
-      "standard": "标准验证者",
-      "applyValidator": "申请成为验证者"
+      "applyValidator": "申请成为验证者",
+      "nav": {
+        "tiers": "等级",
+        "loyalty": "忠诚奖励",
+        "performance": "性能奖励",
+        "leaderboard": "排行榜"
+      },
+      "wallet": {
+        "connect": "连接钱包",
+        "disconnect": "断开连接",
+        "disconnected": "钱包已断开连接。",
+        "disconnectTitle": "钱包已断开",
+        "connected": "已连接",
+        "connectedTitle": "钱包已连接",
+        "connectedDesc": "MetaMask钱包已连接。",
+        "required": "需要连接钱包",
+        "requiredDesc": "申请验证者需要先连接钱包。",
+        "selectTier": "选择等级",
+        "selectTierDesc": "选择最适合您的验证者等级。"
+      },
+      "apply": {
+        "complete": "申请完成",
+        "completeDesc": "您的{{tierName}}验证者申请已提交。审核后将通知您。",
+        "applyNow": "立即申请",
+        "checkLoyalty": "查看忠诚奖励",
+        "learnMore": "了解更多",
+        "joinNow": "立即加入",
+        "loyaltyRewards": "忠诚奖励系统",
+        "loyaltyRewardsDesc": "查看长期质押奖励系统。"
+      },
+      "distributions": {
+        "earlybird": "早鸟奖金",
+        "loyalty": "长期忠诚奖励",
+        "performance": "性能激励",
+        "growth": "网络增长",
+        "governance": "治理奖金"
+      },
+      "amounts": {
+        "225m": "2.25亿",
+        "187m": "1.875亿",
+        "150m": "1.5亿",
+        "112m": "1.125亿",
+        "75m": "0.75亿"
+      },
+      "tiers": {
+        "genesis": {
+          "name": "创世验证者",
+          "range": "第1~25位",
+          "benefit1": "100%早鸟奖金",
+          "benefit2": "独家Genesis NFT徽章",
+          "benefit3": "终身0%手续费",
+          "benefit4": "治理2倍投票权",
+          "benefit5": "VIP专属频道访问",
+          "badge": "高级"
+        },
+        "pioneer": {
+          "name": "先锋验证者",
+          "range": "第26~75位",
+          "benefit1": "75%早鸟奖金",
+          "benefit2": "Pioneer NFT徽章",
+          "benefit3": "0.5%手续费优惠",
+          "benefit4": "治理1.5倍投票权",
+          "benefit5": "早期访问权限",
+          "badge": "推荐"
+        },
+        "early": {
+          "name": "早期验证者",
+          "range": "第76~125位",
+          "benefit1": "50%早鸟奖金",
+          "benefit2": "Early NFT徽章",
+          "benefit3": "1%手续费优惠",
+          "benefit4": "治理1.25倍投票权",
+          "benefit5": "社区领袖认证",
+          "badge": "开放"
+        },
+        "participant": "参与者",
+        "earlybirdBonus": "早鸟奖金"
+      },
+      "loyalty": {
+        "year1": "1年",
+        "year2": "2年",
+        "year3": "3年",
+        "year4plus": "4年+",
+        "basic": "基础忠诚奖金",
+        "silver": "银牌会员",
+        "gold": "金牌会员",
+        "diamond": "钻石会员",
+        "title": "忠诚度乘数",
+        "subtitle": "奖励随质押时间增加"
+      },
+      "performance": {
+        "uptime": {
+          "title": "运行时间奖金",
+          "subtitle": "稳定的网络运行"
+        },
+        "blocks": {
+          "title": "区块生产奖金",
+          "subtitle": "高效的区块生成",
+          "top10": "前10%",
+          "top30": "前30%",
+          "top50": "前50%"
+        },
+        "clean": {
+          "title": "无违规奖金",
+          "subtitle": "保持零削减记录",
+          "year1": "1年无违规",
+          "months6": "6个月无违规",
+          "months3": "3个月无违规"
+        }
+      },
+      "leaderboard": {
+        "rank": "排名",
+        "validator": "验证者",
+        "tier": "等级",
+        "points": "积分",
+        "cumulativeRewards": "累计奖励"
+      },
+      "hero": {
+        "badge": "验证者激励",
+        "title": "7.5亿TBURN激励",
+        "titlePrefix": "为验证者",
+        "subtitle": "早鸟奖金、长期忠诚奖励、性能激励等！成为TBURN链验证者，获得高达300%的额外奖励！",
+        "earlyBirdTitle": "早鸟计划进行中！",
+        "earlyBirdSubtitle": "立即加入，最高可获100,000 TBURN奖金"
+      },
+      "stats": {
+        "totalValidators": "总验证者数",
+        "activeValidators": "活跃验证者",
+        "totalStaked": "总质押 (TBURN)",
+        "countdown": {
+          "days": "天",
+          "hours": "小时",
+          "mins": "分",
+          "secs": "秒"
+        }
+      },
+      "sections": {
+        "distribution": "激励分配",
+        "tiers": "早期验证者等级",
+        "tiersSubtitle": "基于参与顺序的差异化奖励系统",
+        "loyalty": "长期忠诚奖励",
+        "loyaltySubtitle": "参与时间越长，奖励越多",
+        "performance": "性能激励",
+        "performanceSubtitle": "优秀性能的额外奖励",
+        "leaderboard": "激励排行榜",
+        "leaderboardSubtitle": "获得最多奖励的验证者"
+      },
+      "faq": {
+        "title": "常见问题",
+        "subtitle": "关于激励计划的问题",
+        "q1": "验证者激励总量是多少？",
+        "a1": "验证者激励计划分配了7.5亿TBURN（总供应量的7.5%）。分配如下：早鸟奖金30%（2.25亿）、长期忠诚25%（1.875亿）、性能激励20%（1.5亿）、网络增长15%（1.125亿）、治理奖金10%（0.75亿）。",
+        "q2": "如何获得早鸟奖金？",
+        "a2": "早鸟奖金根据加入时间发放。创世验证者（第1-25位）获得100%奖金，先锋验证者（第26-75位）获得75%奖金，早期验证者（第76-125位）获得50%奖金。",
+        "q3": "性能激励如何计算？",
+        "a3": "性能激励基于运行时间（金牌等级99.9%以上）、区块生产效率（金牌等级前10%）和无削减违规的清洁记录。",
+        "q4": "什么是忠诚度乘数？",
+        "a4": "忠诚度乘数根据质押时间增加奖励：1年1.5倍，2年2.0倍，3年2.5倍，4年以上连续质押3.0倍。"
+      },
+      "footer": {
+        "rights": "版权所有",
+        "privacy": "隐私政策",
+        "terms": "服务条款",
+        "contact": "联系我们"
+      },
+      "loading": "正在加载验证者激励..."
     },
     "ecosystemFund": {
       "title": "生态系统基金",
