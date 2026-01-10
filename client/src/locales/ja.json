@@ -22917,7 +22917,9 @@
       "trading": "トレーディング",
       "staking": "ステーキング",
       "portfolio": "ポートフォリオ",
-      "connectWallet": "ウォレット接続"
+      "connectWallet": "ウォレット接続",
+      "walletConnected": "接続済み",
+      "walletPrompt": "クリックして接続"
     },
     "hero": {
       "badges": {
@@ -22971,7 +22973,8 @@
         "bitcoin": "ビットコイン"
       },
       "purchaseButton": "今すぐ参加",
-      "securityNote": "CoinListセキュリティ決済で安全に処理されます"
+      "securityNote": "CoinListセキュリティ決済で安全に処理されます",
+      "live": "LIVE"
     },
     "tabs": {
       "overview": "概要",

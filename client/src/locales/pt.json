@@ -20673,7 +20673,9 @@
       "trading": "Trading",
       "staking": "Staking",
       "portfolio": "Portfolio",
-      "connectWallet": "Connect Wallet"
+      "connectWallet": "Connect Wallet",
+      "walletConnected": "Conectado",
+      "walletPrompt": "Clique para conectar"
     },
     "hero": {
       "badges": {
@@ -20727,7 +20729,8 @@
         "bitcoin": "Bitcoin"
       },
       "purchaseButton": "Join Now",
-      "securityNote": "Secured by CoinList payment security"
+      "securityNote": "Secured by CoinList payment security",
+      "live": "LIVE"
     },
     "tabs": {
       "overview": "Overview",

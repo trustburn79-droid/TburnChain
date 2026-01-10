@@ -35406,7 +35406,9 @@
       "trading": "트레이딩",
       "staking": "스테이킹",
       "portfolio": "포트폴리오",
-      "connectWallet": "지갑 연결"
+      "connectWallet": "지갑 연결",
+      "walletConnected": "연결됨",
+      "walletPrompt": "클릭하여 연결"
     },
     "hero": {
       "badges": {
@@ -35460,7 +35462,8 @@
         "bitcoin": "비트코인"
       },
       "purchaseButton": "지금 참여하기",
-      "securityNote": "CoinList 보안 결제로 안전하게 처리됩니다"
+      "securityNote": "CoinList 보안 결제로 안전하게 처리됩니다",
+      "live": "LIVE"
     },
     "tabs": {
       "overview": "개요",

@@ -1150,7 +1150,7 @@ export default function CoinListPage() {
                 <div className="cl-user-avatar">{isConnected ? formatAddress(address || '').slice(0, 2).toUpperCase() : 'CL'}</div>
                 <div className="cl-user-info">
                   <div className="name">{isConnected ? formatAddress(address || '') : t('coinlist.header.connectWallet')}</div>
-                  <div className="level">{isConnected ? 'Connected' : 'Click to connect'}</div>
+                  <div className="level">{isConnected ? t('coinlist.header.walletConnected') : t('coinlist.header.walletPrompt')}</div>
                 </div>
               </button>
             </div>
@@ -1223,7 +1223,7 @@ export default function CoinListPage() {
               <div className="cl-sale-card">
                 <div className="cl-sale-header">
                   <div className="cl-sale-status">
-                    <div className="cl-live-badge"><span className="dot"></span>LIVE</div>
+                    <div className="cl-live-badge"><span className="dot"></span>{t('coinlist.saleCard.live')}</div>
                     <div className="cl-queue-info">12,450 {t('coinlist.saleCard.queueInfo')}</div>
                   </div>
                   <div className="cl-countdown" data-testid="countdown">

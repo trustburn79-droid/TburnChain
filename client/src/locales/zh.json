@@ -22137,7 +22137,9 @@
       "trading": "交易",
       "staking": "质押",
       "portfolio": "投资组合",
-      "connectWallet": "连接钱包"
+      "connectWallet": "连接钱包",
+      "walletConnected": "已连接",
+      "walletPrompt": "点击连接"
     },
     "hero": {
       "badges": {
@@ -22191,7 +22193,8 @@
         "bitcoin": "比特币"
       },
       "purchaseButton": "立即参与",
-      "securityNote": "由CoinList安全支付保护"
+      "securityNote": "由CoinList安全支付保护",
+      "live": "LIVE"
     },
     "tabs": {
       "overview": "概述",
