@@ -15730,21 +15730,252 @@
       }
     },
     "ecosystemFund": {
-      "title": "ইকোসিস্টেম ফান্ড",
-      "subtitle": "TBURN ইকোসিস্টেমে নির্মাণ করা প্রকল্পগুলির জন্য অর্থায়ন",
-      "heroTitle": "TBURN ইকোসিস্টেম ফান্ড",
-      "heroSubtitle": "আপনার উদ্ভাবনী প্রকল্পের জন্য অর্থায়ন পান এবং DeFi এর ভবিষ্যত নির্মাণ করুন",
-      "badge": "বিল্ডার গ্রান্ট",
-      "totalFund": "মোট ফান্ড",
-      "projectsFunded": "অর্থায়িত প্রকল্প",
-      "grantsAwarded": "প্রদত্ত গ্রান্ট",
-      "categories": "গ্রান্ট বিভাগ",
-      "defi": "DeFi অ্যাপ্লিকেশন",
-      "infrastructure": "ইনফ্রাস্ট্রাকচার",
-      "tooling": "ডেভেলপার টুলিং",
-      "research": "গবেষণা",
-      "applyGrant": "গ্রান্টের জন্য আবেদন",
-      "viewProjects": "অর্থায়িত প্রকল্প দেখুন"
+      "title": "Ecosystem Fund",
+      "subtitle": "Funding for projects building on the TBURN ecosystem",
+      "heroTitle": "TBURN Ecosystem Fund",
+      "heroSubtitle": "Get funding for your innovative project and build the future of DeFi",
+      "badge": "Builder Grants",
+      "totalFund": "Total Fund",
+      "projectsFunded": "Projects Funded",
+      "grantsAwarded": "Grants Awarded",
+      "categories": "Grant Categories",
+      "defi": "DeFi Applications",
+      "infrastructure": "Infrastructure",
+      "tooling": "Developer Tooling",
+      "research": "Research",
+      "applyGrant": "Apply for Grant",
+      "viewProjects": "View Funded Projects",
+      "nav": {
+        "grants": "Grants",
+        "incubator": "Incubator",
+        "hackathon": "Hackathon",
+        "portfolio": "Portfolio"
+      },
+      "hero": {
+        "badge": "ECOSYSTEM FUND",
+        "title": "TBURN Ecosystem Fund",
+        "fund": "700M",
+        "fundAmount": "700,000,000 TBURN",
+        "subtitle": "A fund supporting developers, startups, and researchers building on the TBURN Chain"
+      },
+      "wallet": {
+        "connectWallet": "Connect Wallet",
+        "connected": "Connected",
+        "disconnected": "Disconnected",
+        "walletRequired": "Wallet connection required",
+        "walletConnected": "Wallet connected successfully",
+        "walletDisconnected": "Wallet disconnected"
+      },
+      "stats": {
+        "totalFundSize": "Total Fund Size",
+        "supportedProjects": "Supported Projects",
+        "successRate": "Success Rate",
+        "activeDapps": "Active dApps"
+      },
+      "sections": {
+        "distribution": {
+          "title": "Fund Distribution",
+          "subtitle": "Strategic allocation for ecosystem growth"
+        },
+        "grants": {
+          "title": "Developer Grant Programs",
+          "subtitle": "Customized support programs for each development stage"
+        },
+        "process": {
+          "title": "Grant Application Process",
+          "subtitle": "Review process takes approximately 4-6 weeks"
+        },
+        "incubator": {
+          "title": "dApp Incubator",
+          "subtitle": "4-month intensive acceleration program"
+        },
+        "hackathon": {
+          "title": "Hackathons & Competitions",
+          "subtitle": "Win prizes for innovative ideas"
+        },
+        "portfolio": {
+          "title": "Investment Portfolio",
+          "subtitle": "Projects supported by the Ecosystem Fund"
+        },
+        "faq": {
+          "title": "Frequently Asked Questions",
+          "subtitle": "Questions about the Ecosystem Fund"
+        }
+      },
+      "distributions": {
+        "grant": {
+          "name": "Developer Grants",
+          "desc": "Builder, Growth, Research grants"
+        },
+        "incubator": {
+          "name": "dApp Incubator",
+          "desc": "4-month intensive acceleration"
+        },
+        "hackathon": {
+          "name": "Hackathons & Competitions",
+          "desc": "Prize pools and event operations"
+        },
+        "partnership": {
+          "name": "Partnership Support",
+          "desc": "Strategic partner collaboration"
+        },
+        "research": {
+          "name": "Research & Development",
+          "desc": "Academic research and innovation"
+        }
+      },
+      "grants": {
+        "fundingAmount": "Funding Amount",
+        "approved": "Approved",
+        "pending": "Under Review",
+        "apply": "Apply",
+        "builder": {
+          "title": "Builder Grant",
+          "subtitle": "Early-stage project support",
+          "amount": "50,000",
+          "feature1": "Early-stage project support",
+          "feature2": "Developer tool access",
+          "feature3": "Community channel access",
+          "feature4": "Technical documentation support"
+        },
+        "growth": {
+          "title": "Growth Grant",
+          "subtitle": "Scaling stage support",
+          "amount": "200,000",
+          "feature1": "Scaling stage support",
+          "feature2": "Marketing support",
+          "feature3": "Partner network access",
+          "feature4": "Dedicated mentor matching"
+        },
+        "research": {
+          "title": "Research Grant",
+          "subtitle": "Long-term research projects",
+          "amount": "500,000",
+          "feature1": "Long-term research projects",
+          "feature2": "Academic publication support",
+          "feature3": "Patent support",
+          "feature4": "Research team operation support"
+        }
+      },
+      "process": {
+        "step1": {
+          "title": "Submit Application",
+          "desc": "Fill out online application form",
+          "duration": "1 day"
+        },
+        "step2": {
+          "title": "Initial Review",
+          "desc": "Document review and evaluation",
+          "duration": "1-2 weeks"
+        },
+        "step3": {
+          "title": "Interview",
+          "desc": "Team interview and Q&A",
+          "duration": "1 week"
+        },
+        "step4": {
+          "title": "Final Review",
+          "desc": "Committee evaluation and decision",
+          "duration": "1-2 weeks"
+        },
+        "step5": {
+          "title": "Approval & Funding",
+          "desc": "Contract and fund distribution",
+          "duration": "1 week"
+        }
+      },
+      "incubator": {
+        "benefitsTitle": "Incubator Benefits",
+        "batchSchedule": "Batch Schedule",
+        "seedFunding": {
+          "title": "Seed Funding",
+          "desc": "Up to 100,000 TBURN initial investment"
+        },
+        "mentoring": {
+          "title": "Expert Mentoring",
+          "desc": "1:1 mentoring from industry experts"
+        },
+        "techSupport": {
+          "title": "Technical Support",
+          "desc": "Dedicated development team support"
+        },
+        "vcNetwork": {
+          "title": "VC Network",
+          "desc": "Demo Day and investor introductions"
+        },
+        "batch1": {
+          "statusLabel": "Completed",
+          "info": "Jan - Apr 2024 | 10 teams"
+        },
+        "batch2": {
+          "statusLabel": "In Progress",
+          "info": "May - Aug 2024 | 10 teams"
+        },
+        "batch3": {
+          "statusLabel": "Recruiting",
+          "info": "Sep - Dec 2024 | Applications open"
+        }
+      },
+      "hackathon": {
+        "eventTitle": "TBURN Global Hackathon 2025",
+        "eventSubtitle": "Total Prize: $100,000 | March 1 - April 30, 2025",
+        "totalPrize": "Total Prize",
+        "participants": "Participants",
+        "countries": "Countries",
+        "sponsors": "Sponsors"
+      },
+      "portfolio": {
+        "funding": "Funding"
+      },
+      "faq": {
+        "q1": "What is the total size of the Ecosystem Fund?",
+        "a1": "The Ecosystem Fund has a total allocation of 700 million TBURN (7% of total supply). It is distributed as: Developer Grants 40% (280M), dApp Incubator 20% (140M), Hackathons & Competitions 10% (70M), Partnership Support 20% (140M), and Research & Development 10% (70M).",
+        "q2": "What are the eligibility requirements for grants?",
+        "a2": "Any project building on TBURN Chain is eligible to apply. We welcome individual developers, startups, and existing projects. You can choose from Builder Grant (up to 50,000 TBURN), Growth Grant (up to 200,000 TBURN), or Research Grant (up to 500,000 TBURN).",
+        "q3": "How are grant funds distributed?",
+        "a3": "Funds are distributed based on milestones. Typically, 30% upon approval, 40% at mid-review, and 30% upon completion. The review process takes approximately 4-6 weeks, following: Application Submission → Initial Review → Interview → Final Review → Approval & Funding.",
+        "q4": "How can I participate in the Incubator program?",
+        "a4": "Apply online during each batch recruitment period. After document screening and interviews, 10 teams are selected per batch. Benefits include 4 months of intensive mentoring, up to 100,000 TBURN seed funding, expert mentoring, technical support, and VC network access.",
+        "q5": "How do I participate in hackathons?",
+        "a5": "Register on the hackathon page and participate individually or as a team (up to 5 members). Choose from GameFi ($25,000), DeFi ($25,000), NFT ($15,000), or AI+Blockchain ($35,000) tracks, submit your project, and winners are determined through judging.",
+        "q6": "What is the success rate of portfolio projects?",
+        "a6": "Projects supported by the Ecosystem Fund have an 85% success rate. Currently, 32 active dApps are operating, including TBurn Swap (DEX), TBurn Lend (Lending), ChainQuest (GameFi), and CrossBridge (Bridge) across various categories.",
+        "q7": "How can I receive partnership support?",
+        "a7": "The Partnership Support Program (140M TBURN, 20%) is dedicated to strategic partner collaborations. It is used for exchange listings, cross-chain integrations, and enterprise partnerships. Please submit a partnership application form for inquiries.",
+        "q8": "What projects are suitable for Research Grants?",
+        "a8": "Research Grants (up to 500,000 TBURN) are suitable for long-term research projects, including blockchain scalability research, security protocol development, academic publication, and patent support. We welcome applications from universities, research institutes, and specialized research teams."
+      },
+      "ctaSection": {
+        "title": "Start Today!",
+        "subtitle": "Become part of the TBURN ecosystem and receive support from the 700M TBURN fund!"
+      },
+      "cta": {
+        "applyForGrant": "Apply for Grant",
+        "grantProgram": "Grant Application",
+        "selectProgram": "Choose the grant program that fits your needs!",
+        "applicationSubmitted": "Application Submitted",
+        "applicationSubmittedDesc": "Your {{grantType}} application has been submitted. We will contact you via email.",
+        "applicationFailed": "Application Failed"
+      },
+      "footer": {
+        "tagline": "AI Intelligence, Blockchain Transparency. THE FUTURE IS NOW",
+        "mainnet": "Mainnet",
+        "explorer": "Explorer",
+        "bridge": "Bridge",
+        "staking": "Staking",
+        "whitepaper": "Whitepaper",
+        "docs": "Documentation",
+        "auditReport": "Audit Report",
+        "blog": "Blog",
+        "ambassador": "Ambassador",
+        "grants": "Grants",
+        "support": "Support",
+        "terms": "Terms of Service",
+        "privacy": "Privacy Policy"
+      },
+      "social": {
+        "connecting": "Connecting to {{platform}}..."
+      }
     },
     "partnershipProgram": {
       "title": "পার্টনারশিপ প্রোগ্রাম",
