@@ -46,7 +46,37 @@ const loadLocale = async (lang: string): Promise<Record<string, unknown>> => {
   }
 };
 
+const I18N_PREF_KEY = 'tburn-i18n-pref';
+const CURRENT_I18N_VERSION = 6;
+const SUPPORTED_LANGS = ['en', 'ko', 'zh', 'ja', 'es', 'fr', 'pt', 'ru', 'ar', 'hi', 'bn', 'ur'];
+
+interface I18nPreference {
+  lang: string;
+  version: number;
+  source: 'user' | 'system';
+}
+
+const getStoredPreferenceSync = (): string => {
+  if (typeof localStorage === 'undefined') return 'en';
+  try {
+    const stored = localStorage.getItem(I18N_PREF_KEY);
+    if (!stored) return 'en';
+    const pref = JSON.parse(stored) as I18nPreference;
+    if (pref.version !== CURRENT_I18N_VERSION) return 'en';
+    if (!SUPPORTED_LANGS.includes(pref.lang)) return 'en';
+    if (pref.source !== 'user') return 'en';
+    console.log(`[i18n] Sync read preference: ${pref.lang}`);
+    return pref.lang;
+  } catch {
+    return 'en';
+  }
+};
+
+const storedLang = getStoredPreferenceSync();
+console.log(`[i18n] Stored language preference: ${storedLang}`);
+
 let initialized = false;
+let pendingLanguage: string | null = storedLang !== 'en' ? storedLang : null;
 
 i18n
   .use(initReactI18next)
@@ -65,17 +95,12 @@ i18n
     },
     returnEmptyString: false,
     returnNull: false,
+    react: {
+      useSuspense: false,
+      bindI18n: 'languageChanged loaded',
+      bindI18nStore: 'added removed',
+    },
   });
-
-const I18N_PREF_KEY = 'tburn-i18n-pref';
-const CURRENT_I18N_VERSION = 6;
-const SUPPORTED_LANGS = ['en', 'ko', 'zh', 'ja', 'es', 'fr', 'pt', 'ru', 'ar', 'hi', 'bn', 'ur'];
-
-interface I18nPreference {
-  lang: string;
-  version: number;
-  source: 'user' | 'system';
-}
 
 const getStoredPreference = (): I18nPreference | null => {
   if (typeof localStorage === 'undefined') return null;
@@ -98,6 +123,7 @@ const savePreference = (lang: string, source: 'user' | 'system'): void => {
   localStorage.setItem(I18N_PREF_KEY, JSON.stringify(pref));
   localStorage.removeItem('tburn-language');
   localStorage.removeItem('tburn-i18n-version');
+  console.log(`[i18n] Saved preference: ${JSON.stringify(pref)}`);
 };
 
 export const initializeI18n = async (): Promise<void> => {
@@ -107,26 +133,26 @@ export const initializeI18n = async (): Promise<void> => {
   }
   initialized = true;
   
-  const pref = getStoredPreference();
-  const targetLang = pref?.lang || 'en';
-  
-  if (!pref) {
-    console.log('[i18n] No valid preference found, defaulting to English');
-  }
+  const targetLang = pendingLanguage || 'en';
+  console.log(`[i18n] Initializing with target language: ${targetLang}`);
   
   updateDocumentDirection(targetLang);
   
-  if (targetLang !== 'en' && !i18n.hasResourceBundle(targetLang, 'translation')) {
+  if (targetLang !== 'en') {
     try {
+      console.log(`[i18n] Loading translations for: ${targetLang}`);
       const translations = await loadLocale(targetLang);
       i18n.addResourceBundle(targetLang, 'translation', translations, true, true);
+      console.log(`[i18n] Added resource bundle for: ${targetLang}`);
       await i18n.changeLanguage(targetLang);
-      console.log(`[i18n] Switched to ${targetLang}`);
+      console.log(`[i18n] Language changed to: ${targetLang}`);
     } catch (error) {
-      console.warn(`[i18n] Failed to load ${targetLang}, using English`);
+      console.warn(`[i18n] Failed to load ${targetLang}, using English:`, error);
+      pendingLanguage = null;
     }
   }
   
+  pendingLanguage = null;
   console.log(`[i18n] Initialized with ${i18n.language} (12 languages supported)`);
 };
 

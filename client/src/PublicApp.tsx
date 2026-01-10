@@ -9,7 +9,8 @@ import { TBurnAlertProvider } from "@/components/tburn-alert-modal";
 import { Suspense, useEffect } from "react";
 import { TBurnLoader } from "@/components/tburn-loader";
 import { useLocation } from "wouter";
-import { useTranslation } from "react-i18next";
+import { useTranslation, I18nextProvider } from "react-i18next";
+import i18nInstance from "@/lib/i18n";
 import { lazyWithRetry } from "@/lib/dynamic-import-retry";
 
 const PublicRouter = lazyWithRetry(() => import("./public/PublicRouter").then(m => ({ default: m.PublicRouter })));
@@ -37,23 +38,25 @@ export default function PublicApp() {
   
   return (
     <ErrorBoundary>
-      <QueryClientProvider client={queryClient}>
-        <TooltipProvider>
-          <ThemeProvider>
-            <TBurnAlertProvider>
-              <Web3Provider>
-                <div key={i18n.language}>
-                  <ScrollToTop />
-                  <Suspense fallback={<PublicLoading />}>
-                    <PublicRouter />
-                  </Suspense>
-                  <Toaster />
-                </div>
-              </Web3Provider>
-            </TBurnAlertProvider>
-          </ThemeProvider>
-        </TooltipProvider>
-      </QueryClientProvider>
+      <I18nextProvider i18n={i18nInstance}>
+        <QueryClientProvider client={queryClient}>
+          <TooltipProvider>
+            <ThemeProvider>
+              <TBurnAlertProvider>
+                <Web3Provider>
+                  <div key={i18n.language}>
+                    <ScrollToTop />
+                    <Suspense fallback={<PublicLoading />}>
+                      <PublicRouter />
+                    </Suspense>
+                    <Toaster />
+                  </div>
+                </Web3Provider>
+              </TBurnAlertProvider>
+            </ThemeProvider>
+          </TooltipProvider>
+        </QueryClientProvider>
+      </I18nextProvider>
     </ErrorBoundary>
   );
 }

@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link } from "wouter";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
+import i18nInstance from "@/lib/i18n";
 import { TBurnLogo } from "@/components/tburn-logo";
 import { useWeb3 } from "@/lib/web3-context";
 import { apiRequest, queryClient } from "@/lib/queryClient";
@@ -34,8 +35,27 @@ interface EventsApiResponse {
 }
 
 export default function EventsPage() {
-  const { t, i18n } = useTranslation();
+  const { t, i18n, ready } = useTranslation();
   const [activeCategory, setActiveCategory] = useState("all");
+  const [, forceUpdate] = useState(0);
+  
+  // Force re-render when language changes
+  useEffect(() => {
+    const handleLanguageChange = () => {
+      console.log(`[EventsPage] Language changed to: ${i18n.language}`);
+      forceUpdate(n => n + 1);
+    };
+    i18n.on('languageChanged', handleLanguageChange);
+    return () => {
+      i18n.off('languageChanged', handleLanguageChange);
+    };
+  }, [i18n]);
+  
+  // Debug: Log current language and compare with direct import
+  console.log(`[EventsPage] useTranslation i18n.language: ${i18n.language}, direct import: ${i18nInstance.language}, Ready: ${ready}`);
+  console.log(`[EventsPage] Sample translation: "${t('events.hero.title')}"`);
+  console.log(`[EventsPage] Same instance: ${i18n === i18nInstance}`);
+  
   const [activeFaq, setActiveFaq] = useState<string | null>("faq-1");
   const [countdown, setCountdown] = useState({ days: 14, hours: 23, minutes: 59, seconds: 59 });
   

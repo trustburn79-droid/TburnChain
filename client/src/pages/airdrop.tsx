@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "wouter";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
@@ -51,13 +51,17 @@ interface EligibilityResponse {
 }
 
 export default function AirdropPage() {
-  const { t } = useTranslation();
+  const { t, i18n, ready } = useTranslation();
   const [activeTab, setActiveTab] = useState<string | null>("faq-1");
   const [emailDialogOpen, setEmailDialogOpen] = useState(false);
   const [referralDialogOpen, setReferralDialogOpen] = useState(false);
   const [emailInput, setEmailInput] = useState("");
   const { isConnected, address, connect, formatAddress } = useWeb3();
   const { toast } = useToast();
+  
+  useEffect(() => {
+    console.log(`[AirdropPage] Language: ${i18n.language}, Ready: ${ready}, Sample: "${t('tokenPrograms.airdropPage.hero.title')}"`);
+  }, [i18n.language, ready, t]);
 
   const toggleFaq = (id: string) => {
     setActiveTab(activeTab === id ? null : id);
