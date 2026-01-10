@@ -5,6 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useWeb3 } from "@/lib/web3-context";
 import { useToast } from "@/hooks/use-toast";
 import { LanguageSelector } from "@/components/LanguageSelector";
+import { useTranslation } from "react-i18next";
 
 interface PartnershipStatsData {
   partnerships: {
@@ -38,6 +39,7 @@ interface PartnershipStatsResponse {
 }
 
 export default function PartnershipProgramPage() {
+  const { t } = useTranslation();
   const { isConnected, address, connect, disconnect, formatAddress } = useWeb3();
   const [activeFaq, setActiveFaq] = useState<string | null>("faq-1");
   const { toast } = useToast();
@@ -61,94 +63,94 @@ export default function PartnershipProgramPage() {
   const handleWalletClick = async () => {
     if (isConnected) {
       disconnect();
-      toast({ title: "지갑 연결 해제", description: "지갑이 연결 해제되었습니다." });
+      toast({ title: t('tokenPrograms.partnershipProgram.wallet.disconnected'), description: t('tokenPrograms.partnershipProgram.wallet.disconnectedDesc') });
     } else {
       await connect();
-      toast({ title: "지갑 연결", description: "지갑이 연결되었습니다." });
+      toast({ title: t('tokenPrograms.partnershipProgram.wallet.connected'), description: t('tokenPrograms.partnershipProgram.wallet.connectedDesc') });
     }
   };
 
   const handleApplyPartner = () => {
     scrollToSection('tiers');
-    toast({ title: "파트너 신청", description: "파트너 티어를 선택하여 신청을 진행하세요!" });
+    toast({ title: t('tokenPrograms.partnershipProgram.cta.applyPartner'), description: t('tokenPrograms.partnershipProgram.cta.selectTier') });
   };
 
   const handleViewGuide = () => {
     scrollToSection('types');
-    toast({ title: "파트너 가이드", description: "파트너 유형별 안내를 확인하세요." });
+    toast({ title: t('tokenPrograms.partnershipProgram.cta.partnerGuide'), description: t('tokenPrograms.partnershipProgram.cta.checkTypes') });
   };
 
   const handleApplyTier = (tierName: string, tierColor: string) => {
     if (!isConnected) {
       toast({ 
-        title: "지갑 연결 필요", 
-        description: "파트너 신청을 위해 먼저 지갑을 연결해주세요.",
+        title: t('tokenPrograms.partnershipProgram.wallet.required'), 
+        description: t('tokenPrograms.partnershipProgram.wallet.requiredDesc'),
         variant: "destructive"
       });
       return;
     }
     toast({ 
-      title: `${tierName} 티어 신청`, 
-      description: `${tierName} 파트너 신청이 접수되었습니다. 1-2주 내 심사 결과를 안내드립니다.`
+      title: t('tokenPrograms.partnershipProgram.cta.tierApply', { tierName }), 
+      description: t('tokenPrograms.partnershipProgram.cta.tierApplyDesc', { tierName })
     });
   };
 
   const handleApplyPartnerType = (typeName: string) => {
     if (!isConnected) {
       toast({ 
-        title: "지갑 연결 필요", 
-        description: "파트너 신청을 위해 먼저 지갑을 연결해주세요.",
+        title: t('tokenPrograms.partnershipProgram.wallet.required'), 
+        description: t('tokenPrograms.partnershipProgram.wallet.requiredDesc'),
         variant: "destructive"
       });
       return;
     }
     toast({ 
-      title: `${typeName} 파트너 신청`, 
-      description: `${typeName} 파트너십 신청이 접수되었습니다. 담당자가 연락드릴 예정입니다.`
+      title: t('tokenPrograms.partnershipProgram.cta.typeApply', { typeName }), 
+      description: t('tokenPrograms.partnershipProgram.cta.typeApplyDesc', { typeName })
     });
   };
 
   const handleShareSocial = (platform: string, url: string) => {
     window.open(url, '_blank');
-    toast({ title: `${platform}`, description: `${platform} 페이지로 이동합니다.` });
+    toast({ title: platform, description: t('tokenPrograms.partnershipProgram.social.navigating', { platform }) });
   };
 
   const partnerLogos = ["🏛️", "💱", "🔗", "⚡", "🌐", "🔐"];
 
   const distributions = [
-    { id: "strategic", icon: "🏛️", name: "전략적 파트너", amount: "1.2억", percent: "30%" },
-    { id: "exchange", icon: "💱", name: "거래소 파트너", amount: "1억", percent: "25%" },
-    { id: "tech", icon: "🔧", name: "기술 파트너", amount: "0.8억", percent: "20%" },
-    { id: "marketing", icon: "📢", name: "마케팅 파트너", amount: "0.6억", percent: "15%" },
-    { id: "ecosystem", icon: "🌱", name: "생태계 파트너", amount: "0.4억", percent: "10%" },
+    { id: "strategic", icon: "🏛️", nameKey: "distributions.strategic", amount: "120M", percent: "30%" },
+    { id: "exchange", icon: "💱", nameKey: "distributions.exchange", amount: "100M", percent: "25%" },
+    { id: "tech", icon: "🔧", nameKey: "distributions.tech", amount: "80M", percent: "20%" },
+    { id: "marketing", icon: "📢", nameKey: "distributions.marketing", amount: "60M", percent: "15%" },
+    { id: "ecosystem", icon: "🌱", nameKey: "distributions.ecosystem", amount: "40M", percent: "10%" },
   ];
 
   const partnerTiers = [
-    { id: "platinum", icon: "💎", name: "Platinum", subtitle: "최상위 파트너", incentive: "최대 500만", benefits: ["전용 기술 지원", "공동 마케팅", "우선 통합 지원", "거버넌스 특권", "독점 이벤트"], color: "#E5E4E2" },
-    { id: "gold", icon: "👑", name: "Gold", subtitle: "프리미엄 파트너", incentive: "최대 200만", benefits: ["우선 기술 지원", "마케팅 협업", "통합 지원", "DAO 투표권", "파트너 이벤트"], color: "#D4AF37" },
-    { id: "silver", icon: "🥈", name: "Silver", subtitle: "성장 파트너", incentive: "최대 50만", benefits: ["기술 문서 접근", "공동 홍보", "API 액세스", "기본 투표권", "네트워킹"], color: "#C0C0C0" },
-    { id: "bronze", icon: "🥉", name: "Bronze", subtitle: "신규 파트너", incentive: "최대 10만", benefits: ["문서 접근", "로고 사용권", "기본 API", "커뮤니티 참여", "뉴스레터"], color: "#CD7F32" },
+    { id: "platinum", icon: "💎", name: "Platinum", subtitleKey: "tiers.platinum.subtitle", incentiveKey: "tiers.platinum.incentive", benefitsKeys: ["tiers.platinum.benefit1", "tiers.platinum.benefit2", "tiers.platinum.benefit3", "tiers.platinum.benefit4", "tiers.platinum.benefit5"], color: "#E5E4E2" },
+    { id: "gold", icon: "👑", name: "Gold", subtitleKey: "tiers.gold.subtitle", incentiveKey: "tiers.gold.incentive", benefitsKeys: ["tiers.gold.benefit1", "tiers.gold.benefit2", "tiers.gold.benefit3", "tiers.gold.benefit4", "tiers.gold.benefit5"], color: "#D4AF37" },
+    { id: "silver", icon: "🥈", name: "Silver", subtitleKey: "tiers.silver.subtitle", incentiveKey: "tiers.silver.incentive", benefitsKeys: ["tiers.silver.benefit1", "tiers.silver.benefit2", "tiers.silver.benefit3", "tiers.silver.benefit4", "tiers.silver.benefit5"], color: "#C0C0C0" },
+    { id: "bronze", icon: "🥉", name: "Bronze", subtitleKey: "tiers.bronze.subtitle", incentiveKey: "tiers.bronze.incentive", benefitsKeys: ["tiers.bronze.benefit1", "tiers.bronze.benefit2", "tiers.bronze.benefit3", "tiers.bronze.benefit4", "tiers.bronze.benefit5"], color: "#CD7F32" },
   ];
 
   const partnerTypes = [
-    { id: "strategic", icon: "🏛️", title: "전략적 파트너", desc: "장기적인 비전을 공유하는 핵심 파트너", benefits: [{ value: "500만+", label: "최대 인센티브" }, { value: "24/7", label: "전담 지원" }], features: ["공동 제품 개발", "브랜드 협업", "전략적 투자", "기술 통합"] },
-    { id: "exchange", icon: "💱", title: "거래소 파트너", desc: "TBURN 토큰 상장 및 거래 지원", benefits: [{ value: "200만+", label: "리스팅 보너스" }, { value: "50%", label: "수수료 할인" }], features: ["토큰 상장 지원", "유동성 공급", "마케팅 지원", "트레이딩 대회"] },
-    { id: "tech", icon: "🔧", title: "기술 파트너", desc: "인프라 및 개발 도구 협력", benefits: [{ value: "100만+", label: "통합 보너스" }, { value: "무제한", label: "API 호출" }], features: ["API/SDK 통합", "인프라 제공", "보안 감사", "기술 자문"] },
-    { id: "marketing", icon: "📢", title: "마케팅 파트너", desc: "브랜드 홍보 및 커뮤니티 확장", benefits: [{ value: "50만+", label: "캠페인 예산" }, { value: "100K+", label: "도달 범위" }], features: ["공동 캠페인", "인플루언서 협업", "이벤트 공동개최", "콘텐츠 제작"] },
+    { id: "strategic", icon: "🏛️", titleKey: "types.strategic.title", descKey: "types.strategic.desc", benefits: [{ valueKey: "types.strategic.benefitValue1", labelKey: "types.strategic.benefitLabel1" }, { valueKey: "types.strategic.benefitValue2", labelKey: "types.strategic.benefitLabel2" }], featuresKeys: ["types.strategic.feature1", "types.strategic.feature2", "types.strategic.feature3", "types.strategic.feature4"] },
+    { id: "exchange", icon: "💱", titleKey: "types.exchange.title", descKey: "types.exchange.desc", benefits: [{ valueKey: "types.exchange.benefitValue1", labelKey: "types.exchange.benefitLabel1" }, { valueKey: "types.exchange.benefitValue2", labelKey: "types.exchange.benefitLabel2" }], featuresKeys: ["types.exchange.feature1", "types.exchange.feature2", "types.exchange.feature3", "types.exchange.feature4"] },
+    { id: "tech", icon: "🔧", titleKey: "types.tech.title", descKey: "types.tech.desc", benefits: [{ valueKey: "types.tech.benefitValue1", labelKey: "types.tech.benefitLabel1" }, { valueKey: "types.tech.benefitValue2", labelKey: "types.tech.benefitLabel2" }], featuresKeys: ["types.tech.feature1", "types.tech.feature2", "types.tech.feature3", "types.tech.feature4"] },
+    { id: "marketing", icon: "📢", titleKey: "types.marketing.title", descKey: "types.marketing.desc", benefits: [{ valueKey: "types.marketing.benefitValue1", labelKey: "types.marketing.benefitLabel1" }, { valueKey: "types.marketing.benefitValue2", labelKey: "types.marketing.benefitLabel2" }], featuresKeys: ["types.marketing.feature1", "types.marketing.feature2", "types.marketing.feature3", "types.marketing.feature4"] },
   ];
 
   const processSteps = [
-    { icon: "📋", title: "신청서 제출", desc: "파트너십 신청서 작성", duration: "1일" },
-    { icon: "🔍", title: "심사 & 평가", desc: "팀/비즈니스 검토", duration: "1주" },
-    { icon: "💬", title: "미팅 & 협의", desc: "조건 논의 및 합의", duration: "1-2주" },
-    { icon: "📝", title: "계약 체결", desc: "파트너십 계약 서명", duration: "1주" },
-    { icon: "🚀", title: "통합 & 런칭", desc: "기술 통합 및 공식 발표", duration: "2-4주" },
+    { icon: "📋", titleKey: "process.step1.title", descKey: "process.step1.desc", durationKey: "process.step1.duration" },
+    { icon: "🔍", titleKey: "process.step2.title", descKey: "process.step2.desc", durationKey: "process.step2.duration" },
+    { icon: "💬", titleKey: "process.step3.title", descKey: "process.step3.desc", durationKey: "process.step3.duration" },
+    { icon: "📝", titleKey: "process.step4.title", descKey: "process.step4.desc", durationKey: "process.step4.duration" },
+    { icon: "🚀", titleKey: "process.step5.title", descKey: "process.step5.desc", durationKey: "process.step5.duration" },
   ];
 
   const successStories = [
-    { icon: "🔗", name: "ChainLink Pro", type: "기술 파트너", quote: "TBURN Chain과의 통합으로 우리 오라클 서비스의 처리량이 300% 향상되었습니다.", stats: [{ value: "300%", label: "성능 향상" }, { value: "2.5M", label: "거래 처리" }] },
-    { icon: "💱", name: "Global Exchange", type: "거래소 파트너", quote: "TBURN 상장 후 거래량이 급증했고, 사용자들의 만족도가 매우 높습니다.", stats: [{ value: "$50M", label: "거래량" }, { value: "150K", label: "신규 사용자" }] },
-    { icon: "🌿", name: "DeFi Protocol", type: "전략적 파트너", quote: "파트너십을 통해 새로운 DeFi 상품을 빠르게 출시할 수 있었습니다.", stats: [{ value: "$25M", label: "TVL" }, { value: "10K", label: "일일 사용자" }] },
+    { icon: "🔗", name: "ChainLink Pro", typeKey: "success.story1.type", quoteKey: "success.story1.quote", stats: [{ value: "300%", labelKey: "success.story1.statLabel1" }, { value: "2.5M", labelKey: "success.story1.statLabel2" }] },
+    { icon: "💱", name: "Global Exchange", typeKey: "success.story2.type", quoteKey: "success.story2.quote", stats: [{ value: "$50M", labelKey: "success.story2.statLabel1" }, { value: "150K", labelKey: "success.story2.statLabel2" }] },
+    { icon: "🌿", name: "DeFi Protocol", typeKey: "success.story3.type", quoteKey: "success.story3.quote", stats: [{ value: "$25M", labelKey: "success.story3.statLabel1" }, { value: "10K", labelKey: "success.story3.statLabel2" }] },
   ];
 
   const currentPartners = {
@@ -951,22 +953,22 @@ export default function PartnershipProgramPage() {
               href="#tiers" 
               onClick={(e) => { e.preventDefault(); scrollToSection('tiers'); }}
               data-testid="nav-tiers"
-            >파트너 티어</a>
+            >{t('tokenPrograms.partnershipProgram.nav.tiers')}</a>
             <a 
               href="#types" 
               onClick={(e) => { e.preventDefault(); scrollToSection('types'); }}
               data-testid="nav-types"
-            >파트너 유형</a>
+            >{t('tokenPrograms.partnershipProgram.nav.types')}</a>
             <a 
               href="#process" 
               onClick={(e) => { e.preventDefault(); scrollToSection('process'); }}
               data-testid="nav-process"
-            >프로세스</a>
+            >{t('tokenPrograms.partnershipProgram.nav.process')}</a>
             <a 
               href="#success" 
               onClick={(e) => { e.preventDefault(); scrollToSection('success'); }}
               data-testid="nav-success"
-            >성공사례</a>
+            >{t('tokenPrograms.partnershipProgram.nav.success')}</a>
             <a 
               href="#faq" 
               onClick={(e) => { e.preventDefault(); scrollToSection('faq'); }}
@@ -980,7 +982,7 @@ export default function PartnershipProgramPage() {
               data-testid="button-connect-wallet"
               onClick={handleWalletClick}
             >
-              {isConnected ? `${formatAddress(address || '')}` : '지갑 연결'}
+              {isConnected ? `${formatAddress(address || '')}` : t('tokenPrograms.partnershipProgram.wallet.connect')}
             </button>
           </div>
         </div>
@@ -991,19 +993,18 @@ export default function PartnershipProgramPage() {
         <div className="hero-bg"></div>
         <div className="hero-content">
           <div className="badge">
-            <span className="handshake-icon">🤝</span> PARTNERSHIP PROGRAM - 함께 성장하는 파트너십
+            <span className="handshake-icon">🤝</span> {t('tokenPrograms.partnershipProgram.hero.badge')}
           </div>
           <h1>
-            TBURN 파트너가 되어<br />
-            <span className="gradient-text">4억 TBURN</span> 인센티브를 받으세요
+            {t('tokenPrograms.partnershipProgram.hero.title')}<br />
+            <span className="gradient-text">{t('tokenPrograms.partnershipProgram.hero.fundAmount')}</span> {t('tokenPrograms.partnershipProgram.hero.incentive')}
           </h1>
           <p className="hero-subtitle">
-            전략적 파트너, 거래소, 기술 파트너, 마케팅 파트너로
-            TBURN 생태계와 함께 성장하세요.
+            {t('tokenPrograms.partnershipProgram.hero.subtitle')}
           </p>
 
           <div className="partner-logos-banner" data-testid="partner-logos">
-            <div className="partner-logos-title">우리의 파트너</div>
+            <div className="partner-logos-title">{t('tokenPrograms.partnershipProgram.hero.ourPartners')}</div>
             <div className="partner-logos-grid">
               {partnerLogos.map((logo, idx) => (
                 <div key={idx} className="partner-logo-item">{logo}</div>
@@ -1014,23 +1015,23 @@ export default function PartnershipProgramPage() {
           <div className="stats-grid">
             <div className="stat-card" data-testid="stat-total-incentive">
               <div className="stat-value">
-                {isLoadingStats ? '...' : partnershipStats?.partnerships?.allocation || '4억'}
+                {isLoadingStats ? '...' : partnershipStats?.partnerships?.allocation || '400M'}
               </div>
-              <div className="stat-label">총 파트너 인센티브</div>
+              <div className="stat-label">{t('tokenPrograms.partnershipProgram.stats.totalIncentive')}</div>
             </div>
             <div className="stat-card" data-testid="stat-partners">
               <div className="stat-value">
                 {isLoadingStats ? '...' : `${partnershipStats?.partnerships?.total || 45}+`}
               </div>
-              <div className="stat-label">활성 파트너</div>
+              <div className="stat-label">{t('tokenPrograms.partnershipProgram.stats.activePartners')}</div>
             </div>
             <div className="stat-card" data-testid="stat-categories">
               <div className="stat-value">5</div>
-              <div className="stat-label">파트너 카테고리</div>
+              <div className="stat-label">{t('tokenPrograms.partnershipProgram.stats.categories')}</div>
             </div>
             <div className="stat-card" data-testid="stat-max-incentive">
-              <div className="stat-value">500만</div>
-              <div className="stat-label">최대 인센티브</div>
+              <div className="stat-value">5M</div>
+              <div className="stat-label">{t('tokenPrograms.partnershipProgram.stats.maxIncentive')}</div>
             </div>
           </div>
 
@@ -1040,14 +1041,14 @@ export default function PartnershipProgramPage() {
               data-testid="button-apply-partner"
               onClick={handleApplyPartner}
             >
-              파트너 신청하기
+              {t('tokenPrograms.partnershipProgram.cta.applyPartner')}
             </button>
             <button 
               className="btn-secondary"
               data-testid="button-view-guide"
               onClick={handleViewGuide}
             >
-              파트너 가이드
+              {t('tokenPrograms.partnershipProgram.cta.partnerGuide')}
             </button>
           </div>
         </div>
@@ -1057,15 +1058,15 @@ export default function PartnershipProgramPage() {
       <section className="section">
         <div className="section-header">
           <span className="section-badge">DISTRIBUTION</span>
-          <h2 className="section-title">인센티브 배분</h2>
-          <p className="section-subtitle">4억 TBURN이 5가지 파트너 유형으로 배분됩니다</p>
+          <h2 className="section-title">{t('tokenPrograms.partnershipProgram.sections.distribution.title')}</h2>
+          <p className="section-subtitle">{t('tokenPrograms.partnershipProgram.sections.distribution.subtitle')}</p>
         </div>
 
         <div className="distribution-grid">
           {distributions.map(dist => (
             <div key={dist.id} className={`dist-card ${dist.id}`} data-testid={`dist-${dist.id}`}>
               <div className="dist-icon">{dist.icon}</div>
-              <div className="dist-name">{dist.name}</div>
+              <div className="dist-name">{t(`tokenPrograms.partnershipProgram.${dist.nameKey}`)}</div>
               <div className="dist-amount">{dist.amount}</div>
               <div className="dist-percent">{dist.percent}</div>
             </div>
@@ -1077,8 +1078,8 @@ export default function PartnershipProgramPage() {
       <section className="section" id="tiers" style={{ background: 'rgba(255,255,255,0.02)' }}>
         <div className="section-header">
           <span className="section-badge">TIERS</span>
-          <h2 className="section-title">파트너 티어</h2>
-          <p className="section-subtitle">기여도에 따른 차등 혜택 시스템</p>
+          <h2 className="section-title">{t('tokenPrograms.partnershipProgram.sections.tiers.title')}</h2>
+          <p className="section-subtitle">{t('tokenPrograms.partnershipProgram.sections.tiers.subtitle')}</p>
         </div>
 
         <div className="tiers-grid">
@@ -1087,16 +1088,16 @@ export default function PartnershipProgramPage() {
               <div className="tier-header">
                 <div className="tier-icon">{tier.icon}</div>
                 <h3 className="tier-name">{tier.name}</h3>
-                <p className="tier-subtitle">{tier.subtitle}</p>
+                <p className="tier-subtitle">{t(`tokenPrograms.partnershipProgram.${tier.subtitleKey}`)}</p>
               </div>
               <div className="tier-content">
                 <div className="tier-incentive">
-                  <div className="tier-incentive-label">파트너 인센티브</div>
-                  <div className="tier-incentive-value">{tier.incentive} TBURN</div>
+                  <div className="tier-incentive-label">{t('tokenPrograms.partnershipProgram.tiers.incentiveLabel')}</div>
+                  <div className="tier-incentive-value">{t(`tokenPrograms.partnershipProgram.${tier.incentiveKey}`)} TBURN</div>
                 </div>
                 <ul className="tier-benefits">
-                  {tier.benefits.map((benefit, idx) => (
-                    <li key={idx}>{benefit}</li>
+                  {tier.benefitsKeys.map((benefitKey, idx) => (
+                    <li key={idx}>{t(`tokenPrograms.partnershipProgram.${benefitKey}`)}</li>
                   ))}
                 </ul>
                 <button 
@@ -1104,7 +1105,7 @@ export default function PartnershipProgramPage() {
                   data-testid={`button-apply-${tier.id}`}
                   onClick={() => handleApplyTier(tier.name, tier.color)}
                 >
-                  신청하기
+                  {t('tokenPrograms.partnershipProgram.cta.apply')}
                 </button>
               </div>
             </div>
@@ -1116,8 +1117,8 @@ export default function PartnershipProgramPage() {
       <section className="section" id="types">
         <div className="section-header">
           <span className="section-badge">PARTNER TYPES</span>
-          <h2 className="section-title">파트너 유형</h2>
-          <p className="section-subtitle">다양한 방식으로 협력할 수 있습니다</p>
+          <h2 className="section-title">{t('tokenPrograms.partnershipProgram.sections.types.title')}</h2>
+          <p className="section-subtitle">{t('tokenPrograms.partnershipProgram.sections.types.subtitle')}</p>
         </div>
 
         <div className="partner-types-grid">
@@ -1126,31 +1127,31 @@ export default function PartnershipProgramPage() {
               <div className="partner-type-header">
                 <div className="partner-type-icon">{type.icon}</div>
                 <div className="partner-type-info">
-                  <h3>{type.title}</h3>
-                  <p>{type.desc}</p>
+                  <h3>{t(`tokenPrograms.partnershipProgram.${type.titleKey}`)}</h3>
+                  <p>{t(`tokenPrograms.partnershipProgram.${type.descKey}`)}</p>
                 </div>
               </div>
               <div className="partner-type-content">
                 <div className="partner-type-benefits">
                   {type.benefits.map((benefit, idx) => (
                     <div key={idx} className="benefit-box">
-                      <div className="value">{benefit.value}</div>
-                      <div className="label">{benefit.label}</div>
+                      <div className="value">{t(`tokenPrograms.partnershipProgram.${benefit.valueKey}`)}</div>
+                      <div className="label">{t(`tokenPrograms.partnershipProgram.${benefit.labelKey}`)}</div>
                     </div>
                   ))}
                 </div>
                 <ul className="partner-type-features">
-                  {type.features.map((feature, idx) => (
-                    <li key={idx}>{feature}</li>
+                  {type.featuresKeys.map((featureKey, idx) => (
+                    <li key={idx}>{t(`tokenPrograms.partnershipProgram.${featureKey}`)}</li>
                   ))}
                 </ul>
                 <button 
                   className="btn-primary" 
                   style={{ width: '100%', marginTop: '1rem' }}
                   data-testid={`button-apply-type-${type.id}`}
-                  onClick={() => handleApplyPartnerType(type.title)}
+                  onClick={() => handleApplyPartnerType(t(`tokenPrograms.partnershipProgram.${type.titleKey}`))}
                 >
-                  {type.title} 신청하기
+                  {t(`tokenPrograms.partnershipProgram.${type.titleKey}`)} {t('tokenPrograms.partnershipProgram.cta.applyType')}
                 </button>
               </div>
             </div>
@@ -1162,8 +1163,8 @@ export default function PartnershipProgramPage() {
       <section className="section" id="process" style={{ background: 'rgba(255,255,255,0.02)' }}>
         <div className="section-header">
           <span className="section-badge">PROCESS</span>
-          <h2 className="section-title">파트너십 프로세스</h2>
-          <p className="section-subtitle">약 4~6주 소요되는 파트너십 체결 과정</p>
+          <h2 className="section-title">{t('tokenPrograms.partnershipProgram.sections.process.title')}</h2>
+          <p className="section-subtitle">{t('tokenPrograms.partnershipProgram.sections.process.subtitle')}</p>
         </div>
 
         <div className="process-container">
@@ -1171,9 +1172,9 @@ export default function PartnershipProgramPage() {
             {processSteps.map((step, idx) => (
               <div key={idx} className="process-item">
                 <div className="process-dot">{step.icon}</div>
-                <div className="process-title">{step.title}</div>
-                <div className="process-desc">{step.desc}</div>
-                <div className="process-duration">{step.duration}</div>
+                <div className="process-title">{t(`tokenPrograms.partnershipProgram.${step.titleKey}`)}</div>
+                <div className="process-desc">{t(`tokenPrograms.partnershipProgram.${step.descKey}`)}</div>
+                <div className="process-duration">{t(`tokenPrograms.partnershipProgram.${step.durationKey}`)}</div>
               </div>
             ))}
           </div>
@@ -1184,8 +1185,8 @@ export default function PartnershipProgramPage() {
       <section className="section" id="success">
         <div className="section-header">
           <span className="section-badge">SUCCESS STORIES</span>
-          <h2 className="section-title">파트너 성공사례</h2>
-          <p className="section-subtitle">함께 성장한 파트너들의 이야기</p>
+          <h2 className="section-title">{t('tokenPrograms.partnershipProgram.sections.success.title')}</h2>
+          <p className="section-subtitle">{t('tokenPrograms.partnershipProgram.sections.success.subtitle')}</p>
         </div>
 
         <div className="success-grid">
@@ -1195,15 +1196,15 @@ export default function PartnershipProgramPage() {
                 <div className="success-logo">{story.icon}</div>
                 <div className="success-info">
                   <h4>{story.name}</h4>
-                  <p>{story.type}</p>
+                  <p>{t(`tokenPrograms.partnershipProgram.${story.typeKey}`)}</p>
                 </div>
               </div>
-              <p className="success-quote">"{story.quote}"</p>
+              <p className="success-quote">"{t(`tokenPrograms.partnershipProgram.${story.quoteKey}`)}"</p>
               <div className="success-stats">
                 {story.stats.map((stat, sidx) => (
                   <div key={sidx} className="success-stat">
                     <div className="value">{stat.value}</div>
-                    <div className="label">{stat.label}</div>
+                    <div className="label">{t(`tokenPrograms.partnershipProgram.${stat.labelKey}`)}</div>
                   </div>
                 ))}
               </div>
@@ -1216,88 +1217,88 @@ export default function PartnershipProgramPage() {
       <section className="section" id="faq" style={{ background: 'rgba(255,255,255,0.02)' }}>
         <div className="section-header">
           <span className="section-badge">FAQ</span>
-          <h2 className="section-title">자주 묻는 질문</h2>
-          <p className="section-subtitle">파트너십에 대해 궁금한 점</p>
+          <h2 className="section-title">{t('tokenPrograms.partnershipProgram.sections.faq.title')}</h2>
+          <p className="section-subtitle">{t('tokenPrograms.partnershipProgram.sections.faq.subtitle')}</p>
         </div>
 
         <div className="faq-container">
           <div className={`faq-item ${activeFaq === 'faq-1' ? 'active' : ''}`} data-testid="faq-item-1">
             <div className="faq-question" onClick={() => toggleFaq('faq-1')}>
-              <h4>파트너십 프로그램 총 인센티브 규모는 얼마인가요?</h4>
+              <h4>{t('tokenPrograms.partnershipProgram.faq.q1')}</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>파트너십 프로그램에는 총 4억 TBURN이 배정되어 있습니다. 전략적 파트너 30%(1.2억), 거래소 파트너 25%(1억), 기술 파트너 20%(0.8억), 마케팅 파트너 15%(0.6억), 생태계 파트너 10%(0.4억)로 배분됩니다.</p>
+              <p>{t('tokenPrograms.partnershipProgram.faq.a1')}</p>
             </div>
           </div>
 
           <div className={`faq-item ${activeFaq === 'faq-2' ? 'active' : ''}`} data-testid="faq-item-2">
             <div className="faq-question" onClick={() => toggleFaq('faq-2')}>
-              <h4>파트너 신청 자격은 어떻게 되나요?</h4>
+              <h4>{t('tokenPrograms.partnershipProgram.faq.q2')}</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>블록체인 관련 사업을 영위하는 기업, 프로젝트, 서비스 제공업체 모두 신청 가능합니다. 규모에 상관없이 TBURN 생태계에 가치를 제공할 수 있는 모든 파트너를 환영합니다. 신청 시 사업자등록증, 프로젝트 소개서, 협력 제안서 등을 제출해야 합니다.</p>
+              <p>{t('tokenPrograms.partnershipProgram.faq.a2')}</p>
             </div>
           </div>
 
           <div className={`faq-item ${activeFaq === 'faq-3' ? 'active' : ''}`} data-testid="faq-item-3">
             <div className="faq-question" onClick={() => toggleFaq('faq-3')}>
-              <h4>파트너 티어는 어떻게 결정되나요?</h4>
+              <h4>{t('tokenPrograms.partnershipProgram.faq.q3')}</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>파트너의 기여도, 통합 범위, 마케팅 협력 수준, 기술적 역량 등을 종합적으로 평가하여 티어가 결정됩니다. Platinum(최대 500만), Gold(최대 200만), Silver(최대 50만), Bronze(최대 10만) 4개 티어가 있으며, 활동 성과에 따라 상위 티어로 승급할 수 있습니다.</p>
+              <p>{t('tokenPrograms.partnershipProgram.faq.a3')}</p>
             </div>
           </div>
 
           <div className={`faq-item ${activeFaq === 'faq-4' ? 'active' : ''}`} data-testid="faq-item-4">
             <div className="faq-question" onClick={() => toggleFaq('faq-4')}>
-              <h4>파트너 인센티브는 어떻게 지급되나요?</h4>
+              <h4>{t('tokenPrograms.partnershipProgram.faq.q4')}</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>파트너십 계약 체결 시 초기 인센티브 30%가 지급되며, 마일스톤 달성 시 40%, 최종 KPI 달성 시 30%가 추가 지급됩니다. 모든 인센티브는 TBURN 토큰으로 지급되며, 6개월 베스팅 일정이 적용됩니다.</p>
+              <p>{t('tokenPrograms.partnershipProgram.faq.a4')}</p>
             </div>
           </div>
 
           <div className={`faq-item ${activeFaq === 'faq-5' ? 'active' : ''}`} data-testid="faq-item-5">
             <div className="faq-question" onClick={() => toggleFaq('faq-5')}>
-              <h4>여러 유형의 파트너십을 동시에 진행할 수 있나요?</h4>
+              <h4>{t('tokenPrograms.partnershipProgram.faq.q5')}</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>네, 가능합니다. 예를 들어 기술 파트너이면서 동시에 마케팅 파트너로 협력할 수 있습니다. 각 유형별 인센티브가 별도로 적용되어 복합 파트너십 시 최대 인센티브를 받을 수 있습니다.</p>
+              <p>{t('tokenPrograms.partnershipProgram.faq.a5')}</p>
             </div>
           </div>
 
           <div className={`faq-item ${activeFaq === 'faq-6' ? 'active' : ''}`} data-testid="faq-item-6">
             <div className="faq-question" onClick={() => toggleFaq('faq-6')}>
-              <h4>파트너십 체결까지 얼마나 걸리나요?</h4>
+              <h4>{t('tokenPrograms.partnershipProgram.faq.q6')}</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>일반적으로 4~6주가 소요됩니다. 신청서 제출(1일) → 심사 및 평가(1주) → 미팅 및 협의(1-2주) → 계약 체결(1주) → 통합 및 런칭(2-4주) 단계를 거칩니다. 긴급 파트너십의 경우 패스트트랙 심사가 가능합니다.</p>
+              <p>{t('tokenPrograms.partnershipProgram.faq.a6')}</p>
             </div>
           </div>
 
           <div className={`faq-item ${activeFaq === 'faq-7' ? 'active' : ''}`} data-testid="faq-item-7">
             <div className="faq-question" onClick={() => toggleFaq('faq-7')}>
-              <h4>거래소 상장 지원은 어떻게 받나요?</h4>
+              <h4>{t('tokenPrograms.partnershipProgram.faq.q7')}</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>거래소 파트너에게는 최대 200만 TBURN의 리스팅 보너스, 50% 수수료 할인, 유동성 공급 지원, 트레이딩 대회 공동 개최 등의 혜택이 제공됩니다. Tier 1 거래소 상장 시 추가 인센티브가 지급됩니다.</p>
+              <p>{t('tokenPrograms.partnershipProgram.faq.a7')}</p>
             </div>
           </div>
 
           <div className={`faq-item ${activeFaq === 'faq-8' ? 'active' : ''}`} data-testid="faq-item-8">
             <div className="faq-question" onClick={() => toggleFaq('faq-8')}>
-              <h4>기술 통합 지원은 어떻게 제공되나요?</h4>
+              <h4>{t('tokenPrograms.partnershipProgram.faq.q8')}</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>기술 파트너에게는 전담 개발팀 지원, API/SDK 통합 문서, 샌드박스 환경, 기술 자문 등이 제공됩니다. Platinum 티어 파트너에게는 24/7 전담 지원이 제공되며, 공동 제품 개발 프로젝트도 진행할 수 있습니다.</p>
+              <p>{t('tokenPrograms.partnershipProgram.faq.a8')}</p>
             </div>
           </div>
         </div>
@@ -1306,10 +1307,9 @@ export default function PartnershipProgramPage() {
       {/* CTA Section */}
       <section className="cta-section" id="cta">
         <div style={{ maxWidth: '800px', margin: '0 auto' }}>
-          <h2 style={{ fontSize: '2.5rem', fontWeight: 800, marginBottom: '1rem' }}>함께 성장해요!</h2>
+          <h2 style={{ fontSize: '2.5rem', fontWeight: 800, marginBottom: '1rem' }}>{t('tokenPrograms.partnershipProgram.ctaSection.title')}</h2>
           <p style={{ color: 'rgba(255,255,255,0.8)', fontSize: '1.125rem', marginBottom: '2rem' }}>
-            TBURN 생태계의 파트너가 되어<br />
-            4억 TBURN 인센티브를 받으세요!
+            {t('tokenPrograms.partnershipProgram.ctaSection.subtitle')}
           </p>
           <button 
             className="connect-btn" 
@@ -1317,10 +1317,10 @@ export default function PartnershipProgramPage() {
             data-testid="button-cta-apply"
             onClick={() => { 
               scrollToSection('tiers'); 
-              toast({ title: "파트너 신청", description: "자신에게 맞는 파트너 티어를 선택하세요!" }); 
+              toast({ title: t('tokenPrograms.partnershipProgram.cta.applyPartner'), description: t('tokenPrograms.partnershipProgram.cta.selectTier') }); 
             }}
           >
-            파트너 신청하기
+            {t('tokenPrograms.partnershipProgram.cta.applyPartner')}
           </button>
         </div>
       </section>
@@ -1330,7 +1330,7 @@ export default function PartnershipProgramPage() {
         <div className="footer-content">
           <div className="footer-brand">
             <h3>TBURN<span>CHAIN</span></h3>
-            <p>AI의 지능, 블록체인의 투명성<br />THE FUTURE IS NOW</p>
+            <p>{t('tokenPrograms.partnershipProgram.footer.tagline')}</p>
             <div className="social-links">
               <a 
                 href="https://x.com/tburnchain" 
@@ -1357,40 +1357,40 @@ export default function PartnershipProgramPage() {
           <div className="footer-links">
             <h4>Product</h4>
             <ul>
-              <li><a href="/" data-testid="footer-link-mainnet">메인넷</a></li>
-              <li><a href="/scan" data-testid="footer-link-explorer">익스플로러</a></li>
-              <li><a href="/app/bridge" data-testid="footer-link-bridge">브릿지</a></li>
-              <li><a href="/app/staking" data-testid="footer-link-staking">스테이킹</a></li>
+              <li><a href="/" data-testid="footer-link-mainnet">{t('tokenPrograms.partnershipProgram.footer.mainnet')}</a></li>
+              <li><a href="/scan" data-testid="footer-link-explorer">{t('tokenPrograms.partnershipProgram.footer.explorer')}</a></li>
+              <li><a href="/app/bridge" data-testid="footer-link-bridge">{t('tokenPrograms.partnershipProgram.footer.bridge')}</a></li>
+              <li><a href="/app/staking" data-testid="footer-link-staking">{t('tokenPrograms.partnershipProgram.footer.staking')}</a></li>
             </ul>
           </div>
           <div className="footer-links">
             <h4>Resources</h4>
             <ul>
-              <li><a href="/learn/whitepaper" data-testid="footer-link-whitepaper">백서</a></li>
-              <li><a href="/developers/docs" data-testid="footer-link-docs">문서</a></li>
+              <li><a href="/learn/whitepaper" data-testid="footer-link-whitepaper">{t('tokenPrograms.partnershipProgram.footer.whitepaper')}</a></li>
+              <li><a href="/developers/docs" data-testid="footer-link-docs">{t('tokenPrograms.partnershipProgram.footer.docs')}</a></li>
               <li><a 
                 href="https://github.com/tburnchain" 
                 onClick={(e) => { e.preventDefault(); handleShareSocial('GitHub', 'https://github.com/tburnchain'); }}
                 data-testid="footer-link-github-resources"
               >GitHub</a></li>
-              <li><a href="/security-audit" data-testid="footer-link-audit">감사 보고서</a></li>
+              <li><a href="/security-audit" data-testid="footer-link-audit">{t('tokenPrograms.partnershipProgram.footer.audit')}</a></li>
             </ul>
           </div>
           <div className="footer-links">
             <h4>Community</h4>
             <ul>
-              <li><a href="/community/news" data-testid="footer-link-blog">블로그</a></li>
-              <li><a href="/community-program" data-testid="footer-link-ambassador">앰배서더</a></li>
-              <li><a href="/ecosystem-fund" data-testid="footer-link-grants">그랜트</a></li>
-              <li><a href="/qna" data-testid="footer-link-support">고객지원</a></li>
+              <li><a href="/community/news" data-testid="footer-link-blog">{t('tokenPrograms.partnershipProgram.footer.blog')}</a></li>
+              <li><a href="/community-program" data-testid="footer-link-ambassador">{t('tokenPrograms.partnershipProgram.footer.ambassador')}</a></li>
+              <li><a href="/ecosystem-fund" data-testid="footer-link-grants">{t('tokenPrograms.partnershipProgram.footer.grants')}</a></li>
+              <li><a href="/qna" data-testid="footer-link-support">{t('tokenPrograms.partnershipProgram.footer.support')}</a></li>
             </ul>
           </div>
         </div>
         <div className="footer-bottom">
           <p>© 2025-2045 TBURN Foundation. All Rights Reserved.</p>
           <div style={{ display: 'flex', gap: '2rem' }}>
-            <a href="/legal/terms-of-service" style={{ color: 'var(--gray)', textDecoration: 'none' }} data-testid="footer-link-terms">이용약관</a>
-            <a href="/legal/privacy-policy" style={{ color: 'var(--gray)', textDecoration: 'none' }} data-testid="footer-link-privacy">개인정보처리방침</a>
+            <a href="/legal/terms-of-service" style={{ color: 'var(--gray)', textDecoration: 'none' }} data-testid="footer-link-terms">{t('tokenPrograms.partnershipProgram.footer.terms')}</a>
+            <a href="/legal/privacy-policy" style={{ color: 'var(--gray)', textDecoration: 'none' }} data-testid="footer-link-privacy">{t('tokenPrograms.partnershipProgram.footer.privacy')}</a>
           </div>
         </div>
       </footer>
