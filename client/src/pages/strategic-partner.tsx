@@ -5,6 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useWeb3 } from "@/lib/web3-context";
 import { useToast } from "@/hooks/use-toast";
 import { LanguageSelector } from "@/components/LanguageSelector";
+import { useTranslation } from "react-i18next";
 
 interface PartnershipStatsData {
   partnerships: {
