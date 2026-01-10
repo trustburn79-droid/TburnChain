@@ -22912,17 +22912,194 @@
     }
   },
   "coinlist": {
-    "title": "CoinListセール",
-    "subtitle": "CoinListプラットフォームでのTBURNトークンセール",
-    "heroTitle": "CoinListでのTBURN",
-    "heroSubtitle": "CoinListで限定TBURNトークンセールに参加",
-    "badge": "CoinList限定",
-    "salePrice": "セール価格",
-    "allocation": "総割当",
-    "participants": "予想参加者",
-    "kycRequired": "KYC必須",
-    "eligibility": "資格要件",
-    "registerNow": "CoinListで登録"
+    "header": {
+      "tokenSale": "トークンセール",
+      "trading": "トレーディング",
+      "staking": "ステーキング",
+      "portfolio": "ポートフォリオ",
+      "connectWallet": "ウォレット接続"
+    },
+    "hero": {
+      "badges": {
+        "saleInProgress": "セール進行中",
+        "verified": "CoinList認証",
+        "premium": "プレミアムローンチ"
+      },
+      "description": "TBURN ChainはAIとブロックチェーン技術を組み合わせた次世代レイヤー1プラットフォームです。200,000+ TPSの高性能、AI駆動のスマートコントラクト、自己最適化ネットワークでWeb3の未来をリードします。",
+      "metrics": {
+        "tokenPrice": "トークン価格",
+        "tgeUnlock": "TGEアンロック",
+        "totalSale": "総販売量",
+        "targetRaise": "目標調達額"
+      }
+    },
+    "saleCard": {
+      "queueInfo": "人が待機中",
+      "countdown": {
+        "days": "日",
+        "hours": "時間",
+        "mins": "分",
+        "secs": "秒"
+      },
+      "progress": {
+        "completed": "完了",
+        "participants": "人参加"
+      },
+      "saleInfo": {
+        "tokenPrice": "トークン価格",
+        "minParticipation": "最小参加額",
+        "maxParticipation": "最大参加額",
+        "tgeUnlock": "TGEアンロック"
+      },
+      "queue": {
+        "title": "待機列状況",
+        "estimatedWait": "予想待機時間：約5分"
+      },
+      "allocation": {
+        "title": "参加金額",
+        "max": "最大"
+      },
+      "tokenCalc": {
+        "receivingTokens": "受け取るトークン",
+        "bonus": "ボーナス",
+        "tgeUnlock": "TGEアンロック (15%)"
+      },
+      "payment": {
+        "title": "支払い方法を選択",
+        "creditCard": "クレジットカード/銀行振込",
+        "stablecoin": "ステーブルコイン",
+        "bitcoin": "ビットコイン"
+      },
+      "purchaseButton": "今すぐ参加",
+      "securityNote": "CoinListセキュリティ決済で安全に処理されます"
+    },
+    "tabs": {
+      "overview": "概要",
+      "tokenomics": "トークノミクス",
+      "team": "チーム",
+      "faq": "FAQ"
+    },
+    "overview": {
+      "aboutTitle": "プロジェクト紹介",
+      "aboutP1": "TBURN ChainはAI技術とブロックチェーンの組み合わせにより、次世代の分散型インフラを構築します。",
+      "aboutP2": "メインネットローンチ後、DeFi、NFT、GameFi、エンタープライズソリューションなど多様なエコシステムを構築予定です。",
+      "featuresTitle": "主な特徴",
+      "vesting": {
+        "title": "ベスティングスケジュール",
+        "tge": "TGE",
+        "tgeDesc": "トークン生成イベント",
+        "cliff": "クリフ",
+        "cliffDesc": "1-3ヶ月",
+        "linearVesting": "リニアベスティング",
+        "linearVestingDesc": "4-15ヶ月"
+      },
+      "documents": {
+        "title": "ドキュメント",
+        "whitepaper": "ホワイトペーパー",
+        "technicalDocs": "技術文書",
+        "tokenomics": "トークノミクス",
+        "auditReport": "監査レポート"
+      }
+    },
+    "tokenomics": {
+      "totalSupply": "総供給量",
+      "initialMarketCap": "初期時価総額",
+      "fdv": "FDV",
+      "publicSale": "パブリックセール",
+      "ecosystem": "エコシステム",
+      "community": "コミュニティ"
+    },
+    "team": {
+      "coreTeam": "コアチーム",
+      "keyPartners": "主要パートナー",
+      "investors": "投資家"
+    },
+    "faq": {
+      "q1": {
+        "question": "CoinListセールの総規模は？",
+        "answer": "CoinListを通じたTBURNトークンセール総規模は6億TBURN（総供給量の6%）で、目標調達額は1,200万ドルです。"
+      },
+      "q2": {
+        "question": "CoinListでどう参加しますか？",
+        "answer": "CoinListアカウント作成後、KYC認証を完了し、USD、クレジットカード、または暗号通貨で参加できます。"
+      },
+      "q3": {
+        "question": "最小/最大参加額は？",
+        "answer": "最小100ドル、最大50,000ドルまで参加可能です。"
+      },
+      "q4": {
+        "question": "トークンはいつ受け取れますか？",
+        "answer": "TGE時に15%が即時アンロックされ、3ヶ月のクリフ期間後、残り85%が12ヶ月間リニアで配布されます。"
+      },
+      "q5": {
+        "question": "どの支払い方法がサポートされていますか？",
+        "answer": "USD、USDT、USDC、BTCでの支払いが可能です。"
+      },
+      "q6": {
+        "question": "CoinList待機列システムはどう機能しますか？",
+        "answer": "参加開始時にランダムで待機番号が割り当てられ、順番に購入機会が与えられます。"
+      },
+      "q7": {
+        "question": "CoinList参加の特別な特典は？",
+        "answer": "CoinList認証プロジェクトとして高い信頼性、プレミアムローンチサポートが提供されます。"
+      },
+      "q8": {
+        "question": "サポートが必要な場合は？",
+        "answer": "support@coinlist.coまたはsupport@tburnchain.ioにメールでお問い合わせください。"
+      }
+    },
+    "footer": {
+      "terms": "利用規約",
+      "privacy": "プライバシーポリシー",
+      "riskDisclosure": "リスク開示",
+      "support": "カスタマーサポート",
+      "copyright": "© 2025 CoinList. All Rights Reserved."
+    },
+    "modal": {
+      "participationComplete": "参加完了！",
+      "processing": "処理中...",
+      "tokenSaleComplete": "トークンセール参加完了！",
+      "tokenDeliveryNote": "TGE時にトークンが配布されます",
+      "pleaseWait": "お待ちください",
+      "participationAmount": "参加金額",
+      "tokensToReceive": "受け取るトークン",
+      "tgeUnlock": "TGEアンロック",
+      "confirm": "確認"
+    },
+    "toast": {
+      "walletDisconnected": "ウォレット切断",
+      "walletDisconnectedDesc": "ウォレットが正常に切断されました。",
+      "walletConnecting": "ウォレット接続中",
+      "walletConnectingDesc": "MetaMaskウォレットに接続しています。",
+      "walletRequired": "ウォレット接続が必要",
+      "walletRequiredDesc": "トークン購入にはウォレット接続が必要です。",
+      "minAmount": "最小金額未満",
+      "minAmountDesc": "最低100ドル以上の参加が必要です。",
+      "maxAmount": "最大金額超過",
+      "maxAmountDesc": "最大50,000ドルまで参加可能です。",
+      "participationComplete": "参加完了！",
+      "participationCompleteDesc": "トークン購入が完了しました。",
+      "socialOpen": "開く",
+      "socialOpenDesc": "ページに移動します。",
+      "tabComingSoon": "タブ",
+      "tabComingSoonDesc": "機能は近日公開予定です。",
+      "documentDownload": "ドキュメントダウンロード",
+      "documentDownloadDesc": "ダウンロードを開始します。",
+      "riskDisclosure": "リスク開示",
+      "riskDisclosureDesc": "リスク開示ページに移動します。",
+      "customerSupport": "カスタマーサポート",
+      "customerSupportDesc": "support@coinlist.coにお問い合わせください。"
+    },
+    "features": {
+      "ultraFast": "超高速処理",
+      "ultraFastDesc": "200,000+ TPSでリアルタイム処理",
+      "aiIntegration": "AI統合",
+      "aiIntegrationDesc": "スマートコントラクトにAI機能内蔵",
+      "strongSecurity": "強力なセキュリティ",
+      "strongSecurityDesc": "AI駆動の脅威検出と防御",
+      "ecoFriendly": "環境に優しい",
+      "ecoFriendlyDesc": "エネルギー効率の良いPoSコンセンサス"
+    }
   },
   "daoMaker": {
     "title": "DAO Maker",

@@ -35399,5 +35399,195 @@
       "terms": "이용약관",
       "privacy": "개인정보처리방침"
     }
+  },
+  "coinlist": {
+    "header": {
+      "tokenSale": "토큰 세일",
+      "trading": "트레이딩",
+      "staking": "스테이킹",
+      "portfolio": "포트폴리오",
+      "connectWallet": "지갑 연결"
+    },
+    "hero": {
+      "badges": {
+        "saleInProgress": "세일 진행 중",
+        "verified": "CoinList 검증",
+        "premium": "프리미엄 런치"
+      },
+      "description": "TBURN Chain은 AI와 블록체인 기술을 결합한 차세대 레이어-1 플랫폼입니다. 200,000+ TPS의 고성능, AI 기반 스마트 컨트랙트, 자가 최적화 네트워크를 통해 Web3의 미래를 선도합니다.",
+      "metrics": {
+        "tokenPrice": "토큰 가격",
+        "tgeUnlock": "TGE 해제",
+        "totalSale": "총 세일 물량",
+        "targetRaise": "목표 모집"
+      }
+    },
+    "saleCard": {
+      "queueInfo": "명 대기 중",
+      "countdown": {
+        "days": "일",
+        "hours": "시간",
+        "mins": "분",
+        "secs": "초"
+      },
+      "progress": {
+        "completed": "완료",
+        "participants": "명 참여"
+      },
+      "saleInfo": {
+        "tokenPrice": "토큰 가격",
+        "minParticipation": "최소 참여",
+        "maxParticipation": "최대 참여",
+        "tgeUnlock": "TGE 해제"
+      },
+      "queue": {
+        "title": "대기열 현황",
+        "estimatedWait": "예상 대기 시간: 약 5분"
+      },
+      "allocation": {
+        "title": "참여 금액",
+        "max": "최대"
+      },
+      "tokenCalc": {
+        "receivingTokens": "받을 토큰",
+        "bonus": "보너스",
+        "tgeUnlock": "TGE 해제 (15%)"
+      },
+      "payment": {
+        "title": "결제 수단 선택",
+        "creditCard": "신용카드 / 계좌이체",
+        "stablecoin": "스테이블코인",
+        "bitcoin": "비트코인"
+      },
+      "purchaseButton": "지금 참여하기",
+      "securityNote": "CoinList 보안 결제로 안전하게 처리됩니다"
+    },
+    "tabs": {
+      "overview": "개요",
+      "tokenomics": "토크노믹스",
+      "team": "팀",
+      "faq": "FAQ"
+    },
+    "overview": {
+      "aboutTitle": "프로젝트 소개",
+      "aboutP1": "TBURN Chain은 AI 기술과 블록체인의 결합을 통해 차세대 탈중앙화 인프라를 구축합니다.",
+      "aboutP2": "메인넷 런칭 후 DeFi, NFT, GameFi, 엔터프라이즈 솔루션 등 다양한 생태계를 구축하여 Web3 대중화를 선도할 예정입니다.",
+      "featuresTitle": "주요 특징",
+      "vesting": {
+        "title": "베스팅 스케줄",
+        "tge": "TGE",
+        "tgeDesc": "토큰 생성 시점",
+        "cliff": "클리프",
+        "cliffDesc": "1~3개월",
+        "linearVesting": "선형 베스팅",
+        "linearVestingDesc": "4~15개월"
+      },
+      "documents": {
+        "title": "문서",
+        "whitepaper": "백서",
+        "technicalDocs": "기술 문서",
+        "tokenomics": "토크노믹스",
+        "auditReport": "감사 보고서"
+      }
+    },
+    "tokenomics": {
+      "totalSupply": "총 공급량",
+      "initialMarketCap": "초기 시가총액",
+      "fdv": "FDV",
+      "publicSale": "퍼블릭 세일",
+      "ecosystem": "생태계",
+      "community": "커뮤니티"
+    },
+    "team": {
+      "coreTeam": "핵심 팀",
+      "keyPartners": "주요 파트너",
+      "investors": "투자자"
+    },
+    "faq": {
+      "q1": {
+        "question": "CoinList 세일 총 규모는 얼마인가요?",
+        "answer": "CoinList를 통한 TBURN 토큰 세일 총 규모는 6억 TBURN (전체 공급량의 6%)이며, 목표 모집 금액은 $12,000,000입니다."
+      },
+      "q2": {
+        "question": "CoinList에서 어떻게 참여하나요?",
+        "answer": "CoinList 계정 생성 후 KYC 인증을 완료하고, USD, 신용카드, 또는 암호화폐로 참여할 수 있습니다."
+      },
+      "q3": {
+        "question": "최소/최대 참여 금액은 얼마인가요?",
+        "answer": "최소 $100, 최대 $50,000까지 참여 가능합니다."
+      },
+      "q4": {
+        "question": "토큰은 언제 받을 수 있나요?",
+        "answer": "TGE 시점에 15%가 즉시 해제되며, 3개월 클리프 기간 후 나머지 85%가 12개월 동안 지급됩니다."
+      },
+      "q5": {
+        "question": "어떤 결제 방법을 지원하나요?",
+        "answer": "USD, USDT, USDC, BTC로 결제 가능합니다."
+      },
+      "q6": {
+        "question": "CoinList 대기열 시스템은 어떻게 작동하나요?",
+        "answer": "참여 시작 시 무작위로 대기 순번이 배정되며, 순번에 따라 구매 기회가 주어집니다."
+      },
+      "q7": {
+        "question": "CoinList 참여의 특별한 혜택은 무엇인가요?",
+        "answer": "CoinList 검증 프로젝트로서 높은 신뢰도, 프리미엄 런치 지원이 제공됩니다."
+      },
+      "q8": {
+        "question": "문의나 지원이 필요하면 어떻게 하나요?",
+        "answer": "support@coinlist.co 또는 support@tburnchain.io로 이메일 문의가 가능합니다."
+      }
+    },
+    "footer": {
+      "terms": "이용약관",
+      "privacy": "개인정보처리방침",
+      "riskDisclosure": "리스크 고지",
+      "support": "고객 지원",
+      "copyright": "© 2025 CoinList. All Rights Reserved."
+    },
+    "modal": {
+      "participationComplete": "참여 완료!",
+      "processing": "처리 중...",
+      "tokenSaleComplete": "토큰 세일 참여 완료!",
+      "tokenDeliveryNote": "TGE 시점에 토큰이 지급됩니다",
+      "pleaseWait": "잠시만 기다려주세요",
+      "participationAmount": "참여 금액",
+      "tokensToReceive": "받을 토큰",
+      "tgeUnlock": "TGE 해제",
+      "confirm": "확인"
+    },
+    "toast": {
+      "walletDisconnected": "지갑 연결 해제",
+      "walletDisconnectedDesc": "지갑이 성공적으로 연결 해제되었습니다.",
+      "walletConnecting": "지갑 연결 중",
+      "walletConnectingDesc": "MetaMask 지갑 연결을 시도하고 있습니다.",
+      "walletRequired": "지갑 연결 필요",
+      "walletRequiredDesc": "토큰 구매를 위해 먼저 지갑을 연결해주세요.",
+      "minAmount": "최소 금액 미달",
+      "minAmountDesc": "최소 $100 이상 참여해야 합니다.",
+      "maxAmount": "최대 금액 초과",
+      "maxAmountDesc": "최대 $50,000까지 참여 가능합니다.",
+      "participationComplete": "참여 완료!",
+      "participationCompleteDesc": "토큰 구매가 완료되었습니다.",
+      "socialOpen": "열기",
+      "socialOpenDesc": "페이지로 이동합니다.",
+      "tabComingSoon": "탭",
+      "tabComingSoonDesc": "기능은 곧 출시됩니다.",
+      "documentDownload": "문서 다운로드",
+      "documentDownloadDesc": "다운로드를 시작합니다.",
+      "riskDisclosure": "리스크 고지",
+      "riskDisclosureDesc": "리스크 고지 페이지로 이동합니다.",
+      "customerSupport": "고객 지원",
+      "customerSupportDesc": "support@coinlist.co로 문의해 주세요."
+    },
+    "features": {
+      "ultraFast": "초고속 처리",
+      "ultraFastDesc": "200,000+ TPS로 실시간 트랜잭션 처리",
+      "aiIntegration": "AI 통합",
+      "aiIntegrationDesc": "스마트 컨트랙트에 AI 기능 내장",
+      "strongSecurity": "강력한 보안",
+      "strongSecurityDesc": "AI 기반 위협 탐지 및 방어",
+      "ecoFriendly": "친환경",
+      "ecoFriendlyDesc": "에너지 효율적인 PoS 합의"
+    }
   }
 }

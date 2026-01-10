@@ -23176,5 +23176,195 @@
       "privacy": "Política de Privacidad"
     },
     "title": "Advisor Program"
+  },
+  "coinlist": {
+    "header": {
+      "tokenSale": "Token Sale",
+      "trading": "Trading",
+      "staking": "Staking",
+      "portfolio": "Portfolio",
+      "connectWallet": "Connect Wallet"
+    },
+    "hero": {
+      "badges": {
+        "saleInProgress": "Sale In Progress",
+        "verified": "CoinList Verified",
+        "premium": "Premium Launch"
+      },
+      "description": "TBURN Chain is a next-generation Layer-1 platform combining AI and blockchain technology. With 200,000+ TPS high performance, AI-powered smart contracts, and a self-optimizing network, it leads the future of Web3.",
+      "metrics": {
+        "tokenPrice": "Token Price",
+        "tgeUnlock": "TGE Unlock",
+        "totalSale": "Total Sale Amount",
+        "targetRaise": "Target Raise"
+      }
+    },
+    "saleCard": {
+      "queueInfo": "waiting in queue",
+      "countdown": {
+        "days": "Days",
+        "hours": "Hours",
+        "mins": "Mins",
+        "secs": "Secs"
+      },
+      "progress": {
+        "completed": "completed",
+        "participants": "participants"
+      },
+      "saleInfo": {
+        "tokenPrice": "Token Price",
+        "minParticipation": "Min Participation",
+        "maxParticipation": "Max Participation",
+        "tgeUnlock": "TGE Unlock"
+      },
+      "queue": {
+        "title": "Queue Status",
+        "estimatedWait": "Estimated wait time: approx. 5 minutes"
+      },
+      "allocation": {
+        "title": "Participation Amount",
+        "max": "Max"
+      },
+      "tokenCalc": {
+        "receivingTokens": "Tokens to Receive",
+        "bonus": "Bonus",
+        "tgeUnlock": "TGE Unlock (15%)"
+      },
+      "payment": {
+        "title": "Select Payment Method",
+        "creditCard": "Credit Card / Bank Transfer",
+        "stablecoin": "Stablecoin",
+        "bitcoin": "Bitcoin"
+      },
+      "purchaseButton": "Join Now",
+      "securityNote": "Secured by CoinList payment security"
+    },
+    "tabs": {
+      "overview": "Overview",
+      "tokenomics": "Tokenomics",
+      "team": "Team",
+      "faq": "FAQ"
+    },
+    "overview": {
+      "aboutTitle": "About the Project",
+      "aboutP1": "TBURN Chain builds next-generation decentralized infrastructure through the combination of AI technology and blockchain.",
+      "aboutP2": "After mainnet launch, we plan to build diverse ecosystems including DeFi, NFT, GameFi, and enterprise solutions.",
+      "featuresTitle": "Key Features",
+      "vesting": {
+        "title": "Vesting Schedule",
+        "tge": "TGE",
+        "tgeDesc": "Token Generation Event",
+        "cliff": "Cliff",
+        "cliffDesc": "Month 1-3",
+        "linearVesting": "Linear Vesting",
+        "linearVestingDesc": "Month 4-15"
+      },
+      "documents": {
+        "title": "Documents",
+        "whitepaper": "Whitepaper",
+        "technicalDocs": "Technical Documentation",
+        "tokenomics": "Tokenomics",
+        "auditReport": "Audit Report"
+      }
+    },
+    "tokenomics": {
+      "totalSupply": "Total Supply",
+      "initialMarketCap": "Initial Market Cap",
+      "fdv": "FDV",
+      "publicSale": "Public Sale",
+      "ecosystem": "Ecosystem",
+      "community": "Community"
+    },
+    "team": {
+      "coreTeam": "Core Team",
+      "keyPartners": "Key Partners",
+      "investors": "Investors"
+    },
+    "faq": {
+      "q1": {
+        "question": "What is the total size of the CoinList sale?",
+        "answer": "The TBURN token sale through CoinList totals 600M TBURN (6% of total supply), with a target raise of $12,000,000."
+      },
+      "q2": {
+        "question": "How do I participate on CoinList?",
+        "answer": "Create a CoinList account, complete KYC verification, then participate using USD, credit card, or cryptocurrency."
+      },
+      "q3": {
+        "question": "What are the min/max participation amounts?",
+        "answer": "Minimum $100, maximum $50,000."
+      },
+      "q4": {
+        "question": "When will I receive my tokens?",
+        "answer": "15% is unlocked immediately at TGE. After a 3-month cliff period, the remaining 85% is distributed over 12 months."
+      },
+      "q5": {
+        "question": "What payment methods are supported?",
+        "answer": "CoinList supports USD, USDT, USDC, and BTC payments."
+      },
+      "q6": {
+        "question": "How does the CoinList queue system work?",
+        "answer": "A random queue number is assigned at participation start, and purchase opportunities are given based on your position."
+      },
+      "q7": {
+        "question": "What are the special benefits of CoinList participation?",
+        "answer": "High credibility as a CoinList verified project, premium launch support."
+      },
+      "q8": {
+        "question": "How do I get help or support?",
+        "answer": "Email support@coinlist.co or support@tburnchain.io."
+      }
+    },
+    "footer": {
+      "terms": "Terms of Service",
+      "privacy": "Privacy Policy",
+      "riskDisclosure": "Risk Disclosure",
+      "support": "Customer Support",
+      "copyright": "© 2025 CoinList. All Rights Reserved."
+    },
+    "modal": {
+      "participationComplete": "Participation Complete!",
+      "processing": "Processing...",
+      "tokenSaleComplete": "Token Sale Participation Complete!",
+      "tokenDeliveryNote": "Tokens will be delivered at TGE",
+      "pleaseWait": "Please wait",
+      "participationAmount": "Participation Amount",
+      "tokensToReceive": "Tokens to Receive",
+      "tgeUnlock": "TGE Unlock",
+      "confirm": "Confirm"
+    },
+    "toast": {
+      "walletDisconnected": "Wallet Disconnected",
+      "walletDisconnectedDesc": "Wallet successfully disconnected.",
+      "walletConnecting": "Connecting Wallet",
+      "walletConnectingDesc": "Attempting to connect MetaMask wallet.",
+      "walletRequired": "Wallet Required",
+      "walletRequiredDesc": "Please connect your wallet first to purchase tokens.",
+      "minAmount": "Below Minimum Amount",
+      "minAmountDesc": "You must participate with at least $100.",
+      "maxAmount": "Exceeds Maximum Amount",
+      "maxAmountDesc": "Maximum participation is $50,000.",
+      "participationComplete": "Participation Complete!",
+      "participationCompleteDesc": "TBURN tokens purchased successfully.",
+      "socialOpen": "Opening",
+      "socialOpenDesc": "Navigating to page.",
+      "tabComingSoon": "Tab",
+      "tabComingSoonDesc": "feature coming soon.",
+      "documentDownload": "Document Download",
+      "documentDownloadDesc": "Starting download.",
+      "riskDisclosure": "Risk Disclosure",
+      "riskDisclosureDesc": "Navigating to Risk Disclosure page.",
+      "customerSupport": "Customer Support",
+      "customerSupportDesc": "Please contact support@coinlist.co."
+    },
+    "features": {
+      "ultraFast": "Ultra Fast Processing",
+      "ultraFastDesc": "200,000+ TPS real-time transaction processing",
+      "aiIntegration": "AI Integration",
+      "aiIntegrationDesc": "Built-in AI functionality in smart contracts",
+      "strongSecurity": "Strong Security",
+      "strongSecurityDesc": "AI-based threat detection and defense",
+      "ecoFriendly": "Eco-Friendly",
+      "ecoFriendlyDesc": "Energy-efficient PoS consensus"
+    }
   }
 }
