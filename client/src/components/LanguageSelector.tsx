@@ -24,7 +24,6 @@ export function LanguageSelector({ isDark = true }: LanguageSelectorProps) {
   const handleLanguageChange = async (langCode: string) => {
     setIsLoading(true);
     try {
-      localStorage.setItem('tburn-language', langCode);
       await changeLanguageWithPreload(langCode);
     } finally {
       setIsLoading(false);

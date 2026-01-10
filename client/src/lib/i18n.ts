@@ -67,8 +67,38 @@ i18n
     returnNull: false,
   });
 
-const I18N_VERSION_KEY = 'tburn-i18n-version';
-const CURRENT_I18N_VERSION = '3';
+const I18N_PREF_KEY = 'tburn-i18n-pref';
+const CURRENT_I18N_VERSION = 4;
+const SUPPORTED_LANGS = ['en', 'ko', 'zh', 'ja', 'es', 'fr', 'pt', 'ru', 'ar', 'hi', 'bn', 'ur'];
+
+interface I18nPreference {
+  lang: string;
+  version: number;
+  source: 'user' | 'system';
+}
+
+const getStoredPreference = (): I18nPreference | null => {
+  if (typeof localStorage === 'undefined') return null;
+  try {
+    const stored = localStorage.getItem(I18N_PREF_KEY);
+    if (!stored) return null;
+    const pref = JSON.parse(stored) as I18nPreference;
+    if (pref.version !== CURRENT_I18N_VERSION) return null;
+    if (!SUPPORTED_LANGS.includes(pref.lang)) return null;
+    if (pref.source !== 'user') return null;
+    return pref;
+  } catch {
+    return null;
+  }
+};
+
+const savePreference = (lang: string, source: 'user' | 'system'): void => {
+  if (typeof localStorage === 'undefined') return;
+  const pref: I18nPreference = { lang, version: CURRENT_I18N_VERSION, source };
+  localStorage.setItem(I18N_PREF_KEY, JSON.stringify(pref));
+  localStorage.removeItem('tburn-language');
+  localStorage.removeItem('tburn-i18n-version');
+};
 
 export const initializeI18n = async (): Promise<void> => {
   if (initialized) {
@@ -77,17 +107,12 @@ export const initializeI18n = async (): Promise<void> => {
   }
   initialized = true;
   
-  if (typeof localStorage !== 'undefined') {
-    const storedVersion = localStorage.getItem(I18N_VERSION_KEY);
-    if (storedVersion !== CURRENT_I18N_VERSION) {
-      localStorage.removeItem('tburn-language');
-      localStorage.setItem(I18N_VERSION_KEY, CURRENT_I18N_VERSION);
-      console.log('[i18n] Cleared legacy language preference, defaulting to English');
-    }
-  }
+  const pref = getStoredPreference();
+  const targetLang = pref?.lang || 'en';
   
-  const storedLang = typeof localStorage !== 'undefined' ? localStorage.getItem('tburn-language') : null;
-  const targetLang = storedLang || 'en';
+  if (!pref) {
+    console.log('[i18n] No valid preference found, defaulting to English');
+  }
   
   updateDocumentDirection(targetLang);
   
@@ -102,7 +127,7 @@ export const initializeI18n = async (): Promise<void> => {
     }
   }
   
-  console.log(`[i18n] Initialized with ${i18n.language}`);
+  console.log(`[i18n] Initialized with ${i18n.language} (12 languages supported)`);
 };
 
 i18n.on('languageChanged', async (lang) => {
@@ -120,13 +145,11 @@ i18n.on('languageChanged', async (lang) => {
 });
 
 export const changeLanguageWithPreload = async (lang: string): Promise<void> => {
-  // Save language preference to localStorage for synchronization with other pages
-  if (typeof localStorage !== 'undefined') {
-    localStorage.setItem('tburn-language', lang);
-  }
+  savePreference(lang, 'user');
   
   if (lang === 'en') {
     await i18n.changeLanguage(lang);
+    console.log(`[i18n] User selected English`);
     return;
   }
   
@@ -141,6 +164,7 @@ export const changeLanguageWithPreload = async (lang: string): Promise<void> => 
   }
   
   await i18n.changeLanguage(lang);
+  console.log(`[i18n] User selected ${lang}`);
 };
 
 export default i18n;

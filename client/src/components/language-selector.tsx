@@ -21,9 +21,7 @@ export function LanguageSelector() {
     
     setIsChanging(true);
     try {
-      localStorage.setItem('tburn-language', code);
       await changeLanguageWithPreload(code);
-      
       const language = languages.find(l => l.code === code);
       document.documentElement.dir = language?.dir === 'rtl' ? 'rtl' : 'ltr';
     } catch (error) {
