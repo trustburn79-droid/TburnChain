@@ -20178,7 +20178,14 @@
       "content": "内容创作者",
       "community": "社区营销",
       "applyMarketing": "申请营销",
-      "campaignDetails": "活动详情"
+      "campaignDetails": "活动详情",
+      "distributions": {
+        "brand": "Brand Ambassador",
+        "influencer": "Influencer",
+        "creator": "Content Creator",
+        "event": "Event",
+        "pr": "PR & Media"
+      }
     },
     "strategicPartner": {
       "title": "战略合作伙伴",

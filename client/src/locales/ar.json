@@ -18026,6 +18026,13 @@
         "badge": "برنامج التسويق - انشر TBURN معاً",
         "title": "شارك في تسويق TBURN",
         "fundAmount": "300 مليون TBURN"
+      },
+      "distributions": {
+        "brand": "Brand Ambassador",
+        "influencer": "Influencer",
+        "creator": "Content Creator",
+        "event": "Event",
+        "pr": "PR & Media"
       }
     },
     "strategicPartner": {

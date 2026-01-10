@@ -18104,6 +18104,13 @@
         "title": "Participez au Marketing TBURN",
         "fundAmount": "300M TBURN",
         "subtitle": "Devenez ambassadeur ou créateur de contenu et gagnez des récompenses."
+      },
+      "distributions": {
+        "brand": "Brand Ambassador",
+        "influencer": "Influencer",
+        "creator": "Content Creator",
+        "event": "Event",
+        "pr": "PR & Media"
       }
     },
     "strategicPartner": {

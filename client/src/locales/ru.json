@@ -17144,6 +17144,13 @@
         "badge": "МАРКЕТИНГОВАЯ ПРОГРАММА - Распространяйте TBURN Вместе",
         "title": "Участвуйте в Маркетинге TBURN",
         "fundAmount": "300M TBURN"
+      },
+      "distributions": {
+        "brand": "Brand Ambassador",
+        "influencer": "Influencer",
+        "creator": "Content Creator",
+        "event": "Event",
+        "pr": "PR & Media"
       }
     },
     "strategicPartner": {

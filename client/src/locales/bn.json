@@ -16250,6 +16250,13 @@
         "badge": "মার্কেটিং প্রোগ্রাম - একসাথে TBURN ছড়িয়ে দিন",
         "title": "TBURN মার্কেটিংয়ে অংশ নিন",
         "fundAmount": "300M TBURN"
+      },
+      "distributions": {
+        "brand": "Brand Ambassador",
+        "influencer": "Influencer",
+        "creator": "Content Creator",
+        "event": "Event",
+        "pr": "PR & Media"
       }
     },
     "strategicPartner": {

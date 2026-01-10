@@ -18670,6 +18670,13 @@
         "badge": "मार्केटिंग प्रोग्राम - TBURN को एक साथ फैलाएं",
         "title": "TBURN मार्केटिंग में भाग लें",
         "fundAmount": "300M TBURN"
+      },
+      "distributions": {
+        "brand": "Brand Ambassador",
+        "influencer": "Influencer",
+        "creator": "Content Creator",
+        "event": "Event",
+        "pr": "PR & Media"
       }
     },
     "strategicPartner": {

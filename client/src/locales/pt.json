@@ -17852,6 +17852,13 @@
         "badge": "PROGRAMA DE MARKETING - Espalhe TBURN Juntos",
         "title": "Participe do Marketing TBURN",
         "fundAmount": "300M TBURN"
+      },
+      "distributions": {
+        "brand": "Brand Ambassador",
+        "influencer": "Influencer",
+        "creator": "Content Creator",
+        "event": "Event",
+        "pr": "PR & Media"
       }
     },
     "strategicPartner": {

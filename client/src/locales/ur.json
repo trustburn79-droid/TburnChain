@@ -16494,6 +16494,13 @@
         "badge": "مارکیٹنگ پروگرام - مل کر TBURN پھیلائیں",
         "title": "TBURN مارکیٹنگ میں شامل ہوں",
         "fundAmount": "300M TBURN"
+      },
+      "distributions": {
+        "brand": "Brand Ambassador",
+        "influencer": "Influencer",
+        "creator": "Content Creator",
+        "event": "Event",
+        "pr": "PR & Media"
       }
     },
     "strategicPartner": {

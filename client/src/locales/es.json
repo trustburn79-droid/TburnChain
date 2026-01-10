@@ -20388,6 +20388,13 @@
         "fundAmount": "300M TBURN",
         "incentive": "Gana Recompensas",
         "subtitle": "Conviértete en embajador, influencer o creador de contenido para difundir el ecosistema TBURN."
+      },
+      "distributions": {
+        "brand": "Brand Ambassador",
+        "influencer": "Influencer",
+        "creator": "Content Creator",
+        "event": "Event",
+        "pr": "PR & Media"
       }
     },
     "strategicPartner": {

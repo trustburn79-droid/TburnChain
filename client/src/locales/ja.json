@@ -21103,7 +21103,12 @@
       "heroSubtitle": "TBURNについて広めて報酬を獲得",
       "badge": "共に成長",
       "totalBudget": "総予算",
-      "campaigns": "キャンペーン",
+      "campaigns": {
+        "upcoming": "近日開始",
+        "upcomingDesc": "このキャンペーンは間もなく開始されます。",
+        "joined": "キャンペーン参加",
+        "joinedDesc": "{{campaignTitle}}キャンペーンに参加しました。"
+      },
       "reach": "総リーチ",
       "programs": {
         "ambassador": {
@@ -21257,6 +21262,16 @@
             "answer": "はい、複数のプログラムに同時参加可能です。"
           }
         ]
+      },
+      "social": {
+        "navigating": "移動中..."
+      },
+      "distributions": {
+        "brand": "ブランドアンバサダー",
+        "influencer": "インフルエンサー",
+        "creator": "コンテンツクリエイター",
+        "event": "イベント",
+        "pr": "PR・メディア"
       }
     },
     "strategicPartner": {
