@@ -5,6 +5,7 @@ import { useWeb3 } from "@/lib/web3-context";
 import { useToast } from "@/hooks/use-toast";
 import { LanguageSelector } from "@/components/LanguageSelector";
 import { TBurnLogo } from "@/components/tburn-logo";
+import { useTranslation } from "react-i18next";
 
 interface LaunchpadPlatform {
   name: string;
@@ -28,6 +29,7 @@ interface LaunchpadStatsResponse {
 }
 
 export default function DAOMakerPage() {
+  const { t } = useTranslation();
   const { isConnected, address, connect, disconnect, formatAddress } = useWeb3();
   const { toast } = useToast();
   const [activeTab, setActiveTab] = useState("tiers");
@@ -70,14 +72,14 @@ export default function DAOMakerPage() {
     if (isConnected) {
       disconnect();
       toast({
-        title: "지갑 연결 해제",
-        description: "지갑이 성공적으로 연결 해제되었습니다.",
+        title: t('daomaker.toast.walletDisconnected'),
+        description: t('daomaker.toast.walletDisconnectedDesc'),
       });
     } else {
       connect("metamask");
       toast({
-        title: "지갑 연결 중",
-        description: "MetaMask 지갑 연결을 시도하고 있습니다.",
+        title: t('daomaker.toast.walletConnecting'),
+        description: t('daomaker.toast.walletConnectingDesc'),
       });
     }
   };
@@ -85,15 +87,15 @@ export default function DAOMakerPage() {
   const handleShareSocial = (platform: string, url: string) => {
     window.open(url, '_blank');
     toast({
-      title: `${platform} 열기`,
-      description: `${platform} 페이지로 이동합니다.`,
+      title: `${t('daomaker.toast.socialOpen')} ${platform}`,
+      description: t('daomaker.toast.socialOpenDesc'),
     });
   };
 
   const handleNavItem = (itemName: string) => {
     toast({
-      title: `${itemName} 메뉴`,
-      description: `${itemName} 기능은 곧 출시됩니다.`,
+      title: `${itemName} ${t('daomaker.toast.menuComingSoon')}`,
+      description: t('daomaker.toast.menuComingSoonDesc'),
     });
   };
 
@@ -110,24 +112,24 @@ export default function DAOMakerPage() {
     if (!isConnected) {
       toast({
         variant: "destructive",
-        title: "지갑 연결 필요",
-        description: "SHO 참여를 위해 먼저 지갑을 연결해주세요.",
+        title: t('daomaker.toast.walletRequired'),
+        description: t('daomaker.toast.walletRequiredDesc'),
       });
       return;
     }
     if (allocationAmount < 100) {
       toast({
         variant: "destructive",
-        title: "최소 금액 미달",
-        description: "최소 $100 이상 참여해야 합니다.",
+        title: t('daomaker.toast.minAmount'),
+        description: t('daomaker.toast.minAmountDesc'),
       });
       return;
     }
     if (allocationAmount > maxAllocation) {
       toast({
         variant: "destructive",
-        title: "최대 금액 초과",
-        description: `${daoTier} 티어 최대 할당량 $${maxAllocation.toLocaleString()}을 초과했습니다.`,
+        title: t('daomaker.toast.maxAmount'),
+        description: t('daomaker.toast.maxAmountDescTemplate', { tier: daoTier, max: maxAllocation.toLocaleString() }),
       });
       return;
     }
@@ -136,8 +138,8 @@ export default function DAOMakerPage() {
     setTimeout(() => {
       setModalStatus("success");
       toast({
-        title: "SHO 참여 완료!",
-        description: `${totalTokens.toLocaleString()} TBURN 토큰 구매가 완료되었습니다.`,
+        title: t('daomaker.toast.shoComplete'),
+        description: t('daomaker.toast.shoCompleteDescTemplate', { tokens: totalTokens.toLocaleString() }),
       });
     }, 2500);
   };
@@ -146,83 +148,59 @@ export default function DAOMakerPage() {
     if (!isConnected) {
       toast({
         variant: "destructive",
-        title: "지갑 연결 필요",
-        description: "DAO 토큰 스테이킹을 위해 먼저 지갑을 연결해주세요.",
+        title: t('daomaker.toast.stakingRequired'),
+        description: t('daomaker.toast.stakingRequiredDesc'),
       });
       return;
     }
     toast({
-      title: "스테이킹 페이지로 이동",
-      description: "DAO Power를 높이기 위한 스테이킹 페이지로 이동합니다.",
+      title: t('daomaker.toast.stakingPage'),
+      description: t('daomaker.toast.stakingPageDesc'),
     });
   };
 
   const quickAmounts = [100, 500, 1000, 2500];
 
   const tiers = [
-    { icon: "🥉", name: "Bronze", power: "1,000+", allocation: "$500", features: ["SHO 참여 자격", "기본 할당량", "리펀드 정책 적용"] },
-    { icon: "🥈", name: "Silver", power: "5,000+", allocation: "$2,500", features: ["우선 할당", "+1% 보너스 토큰", "거버넌스 투표권", "리펀드 정책 적용"], recommended: true },
-    { icon: "🥇", name: "Gold", power: "25,000+", allocation: "$10,000", features: ["보장 할당", "+3% 보너스 토큰", "우선 거버넌스 투표", "VIP 커뮤니티 접근", "리펀드 정책 적용"] },
+    { icon: "🥉", nameKey: "bronze", power: "1,000+", allocation: "$500", featuresKey: "bronze" },
+    { icon: "🥈", nameKey: "silver", power: "5,000+", allocation: "$2,500", featuresKey: "silver", recommended: true },
+    { icon: "🥇", nameKey: "gold", power: "25,000+", allocation: "$10,000", featuresKey: "gold" },
   ];
 
   const vestingSchedule = [
-    { title: "TGE (토큰 생성)", desc: "토큰 생성 시점 즉시 해제", percent: "15%", active: true },
-    { title: "클리프 기간", desc: "1~3개월, 추가 해제 없음", percent: "0%" },
-    { title: "선형 베스팅", desc: "4~15개월, 월 7.08% 해제", percent: "85%" },
-    { title: "완전 해제", desc: "TGE 후 15개월", percent: "100%" },
+    { titleKey: "tge", percent: "15%", active: true },
+    { titleKey: "cliff", percent: "0%" },
+    { titleKey: "linear", percent: "85%" },
+    { titleKey: "full", percent: "100%" },
   ];
 
   const vestingChart = [
-    { label: "TGE", percent: 15 },
-    { label: "3개월", percent: 15 },
-    { label: "6개월", percent: 36 },
-    { label: "9개월", percent: 57 },
-    { label: "12개월", percent: 79 },
-    { label: "15개월", percent: 100 },
+    { labelKey: "tge", percent: 15 },
+    { labelKey: "month3", percent: 15 },
+    { labelKey: "month6", percent: 36 },
+    { labelKey: "month9", percent: 57 },
+    { labelKey: "month12", percent: 79 },
+    { labelKey: "month15", percent: 100 },
   ];
 
   const governanceCards = [
-    { icon: "🗳️", title: "커뮤니티 투표", desc: "DAO Power 보유자는 프로젝트 선정 및 주요 결정에 투표권을 행사할 수 있습니다." },
-    { icon: "📊", title: "투명한 운영", desc: "모든 SHO 진행 과정과 자금 사용 내역은 온체인에서 투명하게 공개됩니다." },
-    { icon: "🛡️", title: "리펀드 정책", desc: "TGE 후 30일 내 토큰 가격이 세일가 이하로 하락 시 100% 환불을 보장합니다." },
-    { icon: "⚡", title: "DAO Power 스테이킹", desc: "DAO 토큰을 스테이킹하여 DAO Power를 획득하고 더 높은 티어로 승급하세요." },
-    { icon: "🎁", title: "보상 프로그램", desc: "활발한 거버넌스 참여자에게 추가 보상과 에어드롭 기회를 제공합니다." },
-    { icon: "🤝", title: "커뮤니티 펀드", desc: "DAO 커뮤니티가 관리하는 펀드를 통해 생태계 발전을 지원합니다." },
+    { icon: "🗳️", titleKey: "communityVoting" },
+    { icon: "📊", titleKey: "transparentOperation" },
+    { icon: "🛡️", titleKey: "refundPolicy" },
+    { icon: "⚡", titleKey: "daoPowerStaking" },
+    { icon: "🎁", titleKey: "rewardsProgram" },
+    { icon: "🤝", titleKey: "communityFund" },
   ];
 
   const faqItems = [
-    { 
-      q: "SHO(Strong Holder Offering)란 무엇인가요?", 
-      a: "SHO는 DAO Maker의 독점적인 토큰 세일 방식입니다. DAO Power를 보유한 사용자만 참여할 수 있으며, 보유량에 따라 티어가 결정되고 할당량이 달라집니다. Bronze(1,000+), Silver(5,000+), Gold(25,000+) 세 가지 티어가 있습니다." 
-    },
-    { 
-      q: "DAO Power는 어떻게 얻나요?", 
-      a: "DAO Maker 플랫폼에서 DAO 토큰을 스테이킹하여 DAO Power를 획득할 수 있습니다. 스테이킹 기간과 수량에 따라 DAO Power가 결정됩니다. 더 오래 스테이킹할수록 더 많은 DAO Power를 얻을 수 있습니다." 
-    },
-    { 
-      q: "리펀드 정책은 어떻게 작동하나요?", 
-      a: "TGE(Token Generation Event) 후 30일 내에 토큰 가격이 세일 가격($0.02) 이하로 하락하면, 참여자는 구매한 토큰을 반환하고 100% 환불받을 수 있습니다. 이는 DAO Maker의 투자자 보호 정책입니다." 
-    },
-    { 
-      q: "최소/최대 참여 금액은 얼마인가요?", 
-      a: "최소 $100부터 참여 가능하며, 최대 참여 금액은 DAO Power 티어에 따라 달라집니다. Bronze: $500, Silver: $2,500, Gold: $10,000까지 참여할 수 있습니다. 티어가 높을수록 더 많은 할당량을 받습니다." 
-    },
-    { 
-      q: "토큰은 언제 받을 수 있나요?", 
-      a: "TGE 시점에 15%가 즉시 해제되며, 3개월 클리프 기간 후 나머지 85%가 12개월 동안 선형 베스팅으로 지급됩니다. 총 베스팅 기간은 15개월입니다." 
-    },
-    { 
-      q: "티어별 보너스 혜택은 무엇인가요?", 
-      a: "Silver 티어($2,500 이상 할당)는 +1% 보너스 토큰을 받고, Gold 티어($10,000 이상 할당)는 +3% 보너스 토큰을 받습니다. 또한 Gold 티어는 보장 할당과 VIP 커뮤니티 접근 권한도 제공됩니다." 
-    },
-    { 
-      q: "SHO 참여 방법은 어떻게 되나요?", 
-      a: "1) DAO 토큰을 스테이킹하여 DAO Power 획득, 2) 지갑 연결 후 KYC 완료, 3) 원하는 금액 입력 및 USDT로 결제, 4) 스마트 컨트랙트를 통한 안전한 토큰 구매 완료. SHO 기간 내 참여해야 합니다." 
-    },
-    { 
-      q: "문의나 지원이 필요하면 어떻게 하나요?", 
-      a: "DAO Maker 공식 Discord, Telegram 커뮤니티를 통해 지원받으실 수 있습니다. 또는 support@daomaker.com으로 이메일 문의하거나, TBURN 공식 커뮤니티(support@tburnchain.io)에 문의해 주세요." 
-    },
+    { qKey: "q1" },
+    { qKey: "q2" },
+    { qKey: "q3" },
+    { qKey: "q4" },
+    { qKey: "q5" },
+    { qKey: "q6" },
+    { qKey: "q7" },
+    { qKey: "q8" },
   ];
 
   const socialLinks = [
@@ -1123,35 +1101,35 @@ export default function DAOMakerPage() {
                 onClick={() => scrollToSection('hero')}
                 data-testid="nav-sho"
               >
-                SHO
+                {t('daomaker.header.sho')}
               </button>
               <button 
                 className="dm-nav-item" 
-                onClick={() => handleNavItem('스테이킹')}
+                onClick={() => handleNavItem(t('daomaker.header.staking'))}
                 data-testid="nav-staking"
               >
-                스테이킹
+                {t('daomaker.header.staking')}
               </button>
               <button 
                 className="dm-nav-item" 
-                onClick={() => handleNavItem('거버넌스')}
+                onClick={() => handleNavItem(t('daomaker.header.governance'))}
                 data-testid="nav-governance"
               >
-                거버넌스
+                {t('daomaker.header.governance')}
               </button>
               <button 
                 className="dm-nav-item" 
-                onClick={() => handleNavItem('포트폴리오')}
+                onClick={() => handleNavItem(t('daomaker.header.portfolio'))}
                 data-testid="nav-portfolio"
               >
-                포트폴리오
+                {t('daomaker.header.portfolio')}
               </button>
               <button 
                 className="dm-nav-item" 
-                onClick={() => handleNavItem('스왑')}
+                onClick={() => handleNavItem(t('daomaker.header.swap'))}
                 data-testid="nav-swap"
               >
-                스왑
+                {t('daomaker.header.swap')}
               </button>
             </nav>
           </div>
@@ -1159,7 +1137,7 @@ export default function DAOMakerPage() {
             <div className="dm-power-badge">
               <span className="icon">⚡</span>
               <div>
-                <div className="label">DAO Power</div>
+                <div className="label">{t('daomaker.header.daoPower')}</div>
                 <div className="value">12,500</div>
               </div>
             </div>
@@ -1170,7 +1148,7 @@ export default function DAOMakerPage() {
                 onClick={handleWalletClick}
                 data-testid="button-wallet-connect"
               >
-                💳 {isConnected ? formatAddress(address || '') : '지갑 연결'}
+                💳 {isConnected ? formatAddress(address || '') : t('daomaker.header.connectWallet')}
               </button>
             </div>
           </div>
@@ -1183,9 +1161,9 @@ export default function DAOMakerPage() {
         <section className="dm-hero" id="hero">
           <div className="dm-hero-container">
             <div className="dm-breadcrumb">
-              <a onClick={() => scrollToSection('hero')} data-testid="breadcrumb-sho">SHO</a>
+              <a onClick={() => scrollToSection('hero')} data-testid="breadcrumb-sho">{t('daomaker.hero.breadcrumb.sho')}</a>
               <span>/</span>
-              <span className="current">TBURN Chain</span>
+              <span className="current">{t('daomaker.hero.breadcrumb.current')}</span>
             </div>
 
             <div className="dm-project-hero">
@@ -1197,43 +1175,40 @@ export default function DAOMakerPage() {
                     <h1 data-testid="text-title">TBURN Chain</h1>
                     <p className="tagline">AI-Enhanced Blockchain Platform · Layer 1</p>
                     <div className="dm-badges">
-                      <span className="dm-badge sho">💎 SHO Round</span>
-                      <span className="dm-badge live"><span className="dot"></span>진행 중</span>
-                      <span className="dm-badge refund">🛡️ 리펀드 보장</span>
-                      <span className="dm-badge verified">✓ 검증됨</span>
+                      <span className="dm-badge sho">💎 {t('daomaker.hero.badges.shoRound')}</span>
+                      <span className="dm-badge live"><span className="dot"></span>{t('daomaker.hero.badges.live')}</span>
+                      <span className="dm-badge refund">🛡️ {t('daomaker.hero.badges.refund')}</span>
+                      <span className="dm-badge verified">✓ {t('daomaker.hero.badges.verified')}</span>
                     </div>
                   </div>
                 </div>
 
                 <p className="dm-description">
-                  TBURN Chain은 AI와 블록체인 기술을 융합한 차세대 레이어-1 플랫폼입니다. 
-                  200,000+ TPS의 초고속 처리, Triple-Band AI Orchestration, 자가 최적화 네트워크를 통해 
-                  엔터프라이즈급 성능과 탈중앙화를 동시에 실현합니다. DAO Maker의 Strong Holder Offering을 통해 
-                  DAO Power 보유자에게 우선 참여 기회를 제공합니다.
+                  {t('daomaker.hero.description')}
                 </p>
 
                 <div className="dm-stats-grid" data-testid="dao-maker-stats">
                   <div className="dm-stat-card" data-testid="stat-token-price">
                     <div className="dm-stat-icon">💰</div>
                     <div className="dm-stat-value primary">$0.020</div>
-                    <div className="dm-stat-label">토큰 가격</div>
+                    <div className="dm-stat-label">{t('daomaker.hero.stats.tokenPrice')}</div>
                   </div>
                   <div className="dm-stat-card" data-testid="stat-target">
                     <div className="dm-stat-icon">🎯</div>
                     <div className="dm-stat-value secondary">
                       {isLoadingStats ? '...' : daoMakerPlatform?.totalRaised || '$12M'}
                     </div>
-                    <div className="dm-stat-label">목표 모집액</div>
+                    <div className="dm-stat-label">{t('daomaker.hero.stats.targetRaise')}</div>
                   </div>
                   <div className="dm-stat-card" data-testid="stat-tge">
                     <div className="dm-stat-icon">🔓</div>
                     <div className="dm-stat-value accent">15%</div>
-                    <div className="dm-stat-label">TGE 해제</div>
+                    <div className="dm-stat-label">{t('daomaker.hero.stats.tgeUnlock')}</div>
                   </div>
                   <div className="dm-stat-card" data-testid="stat-vesting">
                     <div className="dm-stat-icon">⏱️</div>
-                    <div className="dm-stat-value pink">15개월</div>
-                    <div className="dm-stat-label">총 베스팅</div>
+                    <div className="dm-stat-value pink">15 {t('daomaker.hero.stats.months')}</div>
+                    <div className="dm-stat-label">{t('daomaker.hero.stats.totalVesting')}</div>
                   </div>
                 </div>
 
@@ -1257,32 +1232,32 @@ export default function DAOMakerPage() {
                   <div className="dm-sho-header-content">
                     <div className="dm-sho-title">
                       <span className="diamond">💎</span>
-                      <h3>Strong Holder Offering</h3>
+                      <h3>{t('daomaker.shoCard.title')}</h3>
                     </div>
-                    <p className="dm-sho-subtitle">DAO Power 보유자 전용 토큰 세일</p>
+                    <p className="dm-sho-subtitle">{t('daomaker.shoCard.subtitle')}</p>
                   </div>
                 </div>
 
                 <div className="dm-sho-body">
                   {/* Countdown */}
                   <div className="dm-sho-countdown" data-testid="countdown">
-                    <div className="dm-countdown-label">세일 종료까지</div>
+                    <div className="dm-countdown-label">{t('daomaker.shoCard.countdown.label')}</div>
                     <div className="dm-countdown-timer">
                       <div className="dm-countdown-item">
                         <div className="dm-countdown-value">{countdown.days.toString().padStart(2, '0')}</div>
-                        <div className="dm-countdown-unit">Days</div>
+                        <div className="dm-countdown-unit">{t('daomaker.shoCard.countdown.days')}</div>
                       </div>
                       <div className="dm-countdown-item">
                         <div className="dm-countdown-value">{countdown.hours.toString().padStart(2, '0')}</div>
-                        <div className="dm-countdown-unit">Hours</div>
+                        <div className="dm-countdown-unit">{t('daomaker.shoCard.countdown.hours')}</div>
                       </div>
                       <div className="dm-countdown-item">
                         <div className="dm-countdown-value">{countdown.minutes.toString().padStart(2, '0')}</div>
-                        <div className="dm-countdown-unit">Mins</div>
+                        <div className="dm-countdown-unit">{t('daomaker.shoCard.countdown.mins')}</div>
                       </div>
                       <div className="dm-countdown-item">
                         <div className="dm-countdown-value">{countdown.seconds.toString().padStart(2, '0')}</div>
-                        <div className="dm-countdown-unit">Secs</div>
+                        <div className="dm-countdown-unit">{t('daomaker.shoCard.countdown.secs')}</div>
                       </div>
                     </div>
                   </div>
@@ -1297,22 +1272,22 @@ export default function DAOMakerPage() {
                       <div className="dm-progress-fill"></div>
                     </div>
                     <div className="dm-progress-stats">
-                      <span className="dm-progress-percent">45% 완료</span>
-                      <span className="dm-progress-participants" data-testid="text-participants">5,847명 참여</span>
+                      <span className="dm-progress-percent">45% {t('daomaker.shoCard.progress.completed')}</span>
+                      <span className="dm-progress-participants" data-testid="text-participants">5,847 {t('daomaker.shoCard.progress.participants')}</span>
                     </div>
                   </div>
 
                   {/* Sale Details */}
                   <div className="dm-sale-details">
                     {[
-                      { label: "토큰 가격", value: "$0.020", highlight: true },
-                      { label: "최소 참여", value: "$100" },
-                      { label: "TGE 해제", value: "15%", highlight: true },
-                      { label: "베스팅", value: "3개월 클리프 + 12개월" },
+                      { labelKey: "tokenPrice", value: "$0.020", highlight: true },
+                      { labelKey: "minParticipation", value: "$100" },
+                      { labelKey: "tgeUnlock", value: "15%", highlight: true },
+                      { labelKey: "vesting", valueKey: "vestingValue" },
                     ].map((item, i) => (
                       <div key={i} className="dm-detail-row">
-                        <span className="label">{item.label}</span>
-                        <span className={`value ${item.highlight ? 'highlight' : ''}`}>{item.value}</span>
+                        <span className="label">{t(`daomaker.shoCard.saleDetails.${item.labelKey}`)}</span>
+                        <span className={`value ${item.highlight ? 'highlight' : ''}`}>{item.valueKey ? t(`daomaker.shoCard.saleDetails.${item.valueKey}`) : item.value}</span>
                       </div>
                     ))}
                   </div>
@@ -1320,17 +1295,17 @@ export default function DAOMakerPage() {
                   {/* DAO Power Section */}
                   <div className="dm-dao-power-section">
                     <div className="dm-power-header">
-                      <h4><span>⚡</span> 내 DAO Power</h4>
-                      <span className="dm-power-status">{daoTier} Tier</span>
+                      <h4><span>⚡</span> {t('daomaker.shoCard.daoPower.title')}</h4>
+                      <span className="dm-power-status">{daoTier} {t('daomaker.shoCard.daoPower.tier')}</span>
                     </div>
                     <div className="dm-power-info">
                       <div className="dm-power-stat">
                         <div className="value">12,500</div>
-                        <div className="label">DAO Power</div>
+                        <div className="label">{t('daomaker.header.daoPower')}</div>
                       </div>
                       <div className="dm-power-stat">
                         <div className="value">${maxAllocation.toLocaleString()}</div>
-                        <div className="label">최대 할당</div>
+                        <div className="label">{t('daomaker.shoCard.daoPower.maxAllocation')}</div>
                       </div>
                     </div>
                   </div>
@@ -1338,8 +1313,8 @@ export default function DAOMakerPage() {
                   {/* Allocation Input */}
                   <div className="dm-allocation">
                     <div className="dm-allocation-header">
-                      <span className="label">참여 금액</span>
-                      <span className="max">최대: ${maxAllocation.toLocaleString()}</span>
+                      <span className="label">{t('daomaker.shoCard.allocation.title')}</span>
+                      <span className="max">{t('daomaker.shoCard.allocation.max')}: ${maxAllocation.toLocaleString()}</span>
                     </div>
                     <div className="dm-allocation-input-wrapper">
                       <input 
@@ -1371,15 +1346,15 @@ export default function DAOMakerPage() {
                   {/* Token Output */}
                   <div className="dm-token-output" data-testid="token-calculation">
                     <div className="dm-token-row">
-                      <span className="label">받을 토큰</span>
+                      <span className="label">{t('daomaker.shoCard.tokenOutput.tokensToReceive')}</span>
                       <span className="value large">{totalTokens.toLocaleString()} TBURN</span>
                     </div>
                     <div className="dm-token-row">
-                      <span className="label">보너스 (+{bonusPercent}%)</span>
+                      <span className="label">{t('daomaker.shoCard.tokenOutput.bonus')} (+{bonusPercent}%)</span>
                       <span className="value bonus">+{bonusTokens.toLocaleString()} TBURN</span>
                     </div>
                     <div className="dm-token-row">
-                      <span className="label">TGE 해제 (15%)</span>
+                      <span className="label">{t('daomaker.shoCard.tokenOutput.tgeUnlock')}</span>
                       <span className="value">{tgeTokens.toLocaleString()} TBURN</span>
                     </div>
                   </div>
@@ -1388,8 +1363,8 @@ export default function DAOMakerPage() {
                   <div className="dm-refund-policy">
                     <div className="icon">🛡️</div>
                     <div className="content">
-                      <h5>리펀드 정책 적용</h5>
-                      <p>TGE 후 30일 내 토큰 가격이 세일가 이하 시 100% 환불</p>
+                      <h5>{t('daomaker.shoCard.refundPolicy.title')}</h5>
+                      <p>{t('daomaker.shoCard.refundPolicy.description')}</p>
                     </div>
                   </div>
 
@@ -1398,11 +1373,11 @@ export default function DAOMakerPage() {
                     onClick={handlePurchase} 
                     data-testid="button-purchase"
                   >
-                    💎 SHO 참여하기
+                    💎 {t('daomaker.shoCard.purchaseButton')}
                   </button>
 
                   <div className="dm-security-note">
-                    <span>🔒</span> DAO Maker 스마트 컨트랙트로 안전하게 처리
+                    <span>🔒</span> {t('daomaker.shoCard.securityNote')}
                   </div>
                 </div>
               </div>
@@ -1414,10 +1389,10 @@ export default function DAOMakerPage() {
         <section className="dm-details-section" id="details">
           <div className="dm-section-tabs">
             {[
-              { id: 'tiers', label: 'SHO 티어' },
-              { id: 'vesting', label: '베스팅' },
-              { id: 'governance', label: '거버넌스' },
-              { id: 'faq', label: 'FAQ' },
+              { id: 'tiers', labelKey: 'tiers' },
+              { id: 'vesting', labelKey: 'vesting' },
+              { id: 'governance', labelKey: 'governance' },
+              { id: 'faq', labelKey: 'faq' },
             ].map(tab => (
               <button 
                 key={tab.id}
@@ -1425,7 +1400,7 @@ export default function DAOMakerPage() {
                 onClick={() => setActiveTab(tab.id)}
                 data-testid={`tab-${tab.id}`}
               >
-                {tab.label}
+                {t(`daomaker.tabs.${tab.labelKey}`)}
               </button>
             ))}
           </div>
@@ -1437,20 +1412,20 @@ export default function DAOMakerPage() {
                 <div 
                   key={i} 
                   className={`dm-tier-card ${tier.recommended ? 'recommended' : ''}`}
-                  data-testid={`tier-card-${tier.name.toLowerCase()}`}
+                  data-testid={`tier-card-${tier.nameKey}`}
                 >
                   <div className="dm-tier-header">
                     <div className="dm-tier-icon">{tier.icon}</div>
-                    <div className="dm-tier-name">{tier.name}</div>
-                    <div className="dm-tier-power">{tier.power} DAO Power</div>
+                    <div className="dm-tier-name">{t(`daomaker.tiers.${tier.nameKey}.name`)}</div>
+                    <div className="dm-tier-power">{tier.power} {t('daomaker.tiers.daoPower')}</div>
                   </div>
                   <div className="dm-tier-body">
                     <div className="dm-tier-allocation">
-                      <div className="label">최대 할당</div>
+                      <div className="label">{t('daomaker.tiers.maxAllocation')}</div>
                       <div className="value">{tier.allocation}</div>
                     </div>
                     <div className="dm-tier-features">
-                      {tier.features.map((f, j) => (
+                      {(t(`daomaker.tiers.${tier.featuresKey}.features`, { returnObjects: true }) as string[]).map((f: string, j: number) => (
                         <div key={j} className="dm-tier-feature">
                           <span className="check">✓</span>
                           <span>{f}</span>
@@ -1467,14 +1442,14 @@ export default function DAOMakerPage() {
           <div className={`dm-tab-content ${activeTab === 'vesting' ? 'active' : ''}`}>
             <div className="dm-vesting-grid">
               <div className="dm-vesting-card">
-                <h3><span>📅</span> 베스팅 스케줄</h3>
+                <h3><span>📅</span> {t('daomaker.vesting.scheduleTitle')}</h3>
                 <div className="dm-vesting-timeline">
                   {vestingSchedule.map((v, i) => (
                     <div key={i} className={`dm-vesting-item ${v.active ? 'active' : ''}`}>
                       <div className="dm-vesting-dot">{v.active ? '✓' : i + 1}</div>
                       <div className="dm-vesting-content">
-                        <div className="title">{v.title}</div>
-                        <div className="desc">{v.desc}</div>
+                        <div className="title">{t(`daomaker.vesting.${v.titleKey}.title`)}</div>
+                        <div className="desc">{t(`daomaker.vesting.${v.titleKey}.desc`)}</div>
                       </div>
                       <div className="dm-vesting-percent">{v.percent}</div>
                     </div>
@@ -1483,11 +1458,11 @@ export default function DAOMakerPage() {
               </div>
 
               <div className="dm-vesting-card">
-                <h3><span>📊</span> 해제 현황</h3>
+                <h3><span>📊</span> {t('daomaker.vesting.unlockStatusTitle')}</h3>
                 <div className="dm-vesting-chart">
                   {vestingChart.map((c, i) => (
                     <div key={i} className="dm-chart-bar">
-                      <div className="dm-chart-label">{c.label}</div>
+                      <div className="dm-chart-label">{t(`daomaker.vesting.chart.${c.labelKey}`)}</div>
                       <div className="dm-chart-track">
                         <div className="dm-chart-fill" style={{ width: `${c.percent}%` }}>{c.percent}%</div>
                       </div>
@@ -1504,8 +1479,8 @@ export default function DAOMakerPage() {
               {governanceCards.map((g, i) => (
                 <div key={i} className="dm-governance-card" data-testid={`governance-card-${i}`}>
                   <div className="dm-governance-icon">{g.icon}</div>
-                  <h4>{g.title}</h4>
-                  <p>{g.desc}</p>
+                  <h4>{t(`daomaker.governance.${g.titleKey}.title`)}</h4>
+                  <p>{t(`daomaker.governance.${g.titleKey}.desc`)}</p>
                 </div>
               ))}
             </div>
@@ -1524,11 +1499,11 @@ export default function DAOMakerPage() {
                     className="dm-faq-question" 
                     onClick={() => setExpandedFaq(expandedFaq === i ? -1 : i)}
                   >
-                    <h4>{faq.q}</h4>
+                    <h4>{t(`daomaker.faq.${faq.qKey}.question`)}</h4>
                     <span className="arrow">▼</span>
                   </div>
                   <div className="dm-faq-answer">
-                    <p>{faq.a}</p>
+                    <p>{t(`daomaker.faq.${faq.qKey}.answer`)}</p>
                   </div>
                 </div>
               ))}
@@ -1540,19 +1515,19 @@ export default function DAOMakerPage() {
         <footer className="dm-footer">
           <div className="dm-footer-content">
             <div className="dm-footer-links">
-              <a href="/legal/terms-of-service" data-testid="footer-link-terms">이용약관</a>
-              <a href="/legal/privacy-policy" data-testid="footer-link-privacy">개인정보처리방침</a>
+              <a href="/legal/terms-of-service" data-testid="footer-link-terms">{t('common.termsOfService')}</a>
+              <a href="/legal/privacy-policy" data-testid="footer-link-privacy">{t('common.privacyPolicy')}</a>
               <a 
-                onClick={() => toast({ title: "리스크 고지", description: "리스크 고지 페이지로 이동합니다." })}
+                onClick={() => toast({ title: t('common.riskDisclosure'), description: t('common.riskDisclosureDesc') })}
                 data-testid="footer-link-risk"
               >
-                리스크 고지
+                {t('common.riskDisclosure')}
               </a>
               <a 
-                onClick={() => toast({ title: "고객 지원", description: "support@daomaker.com으로 문의해 주세요." })}
+                onClick={() => toast({ title: t('common.customerSupport'), description: t('common.customerSupportDesc') })}
                 data-testid="footer-link-support"
               >
-                고객 지원
+                {t('common.customerSupport')}
               </a>
             </div>
             <div className="dm-footer-social">
@@ -1585,7 +1560,7 @@ export default function DAOMakerPage() {
                 💻
               </button>
             </div>
-            <div className="dm-footer-copyright">© 2025 DAO Maker. All Rights Reserved.</div>
+            <div className="dm-footer-copyright">{t('daomaker.footer.copyright')}</div>
           </div>
         </footer>
       </main>
@@ -1595,7 +1570,7 @@ export default function DAOMakerPage() {
         <div className="dm-modal-overlay" data-testid="modal-purchase">
           <div className="dm-modal">
             <div className="dm-modal-header">
-              <h3>{modalStatus === 'success' ? 'SHO 참여 완료!' : '처리 중...'}</h3>
+              <h3>{modalStatus === 'success' ? t('daomaker.modal.success') : t('daomaker.modal.processing')}</h3>
               <button 
                 className="dm-modal-close" 
                 onClick={() => setShowModal(false)}
@@ -1608,20 +1583,20 @@ export default function DAOMakerPage() {
               <div className={`dm-modal-icon ${modalStatus}`}>
                 {modalStatus === 'pending' ? <div className="dm-spinner"></div> : '✓'}
               </div>
-              <h4>{modalStatus === 'success' ? 'Strong Holder Offering 참여 완료!' : '스마트 컨트랙트 처리 중...'}</h4>
-              <p>{modalStatus === 'success' ? 'TGE 시점에 토큰이 지급됩니다' : '잠시만 기다려주세요'}</p>
+              <h4>{modalStatus === 'success' ? t('daomaker.modal.successDesc') : t('daomaker.modal.processing')}</h4>
+              <p>{modalStatus === 'success' ? t('common.tokenDeliveryNote') : t('daomaker.modal.pleaseWait')}</p>
 
               <div className="dm-modal-details">
                 <div className="dm-modal-detail-row">
-                  <span className="label">참여 금액</span>
+                  <span className="label">{t('daomaker.modal.amount')}</span>
                   <span className="value">${allocationAmount.toLocaleString()} USDT</span>
                 </div>
                 <div className="dm-modal-detail-row">
-                  <span className="label">받을 토큰</span>
+                  <span className="label">{t('daomaker.modal.tokens')}</span>
                   <span className="value">{totalTokens.toLocaleString()} TBURN</span>
                 </div>
                 <div className="dm-modal-detail-row">
-                  <span className="label">TGE 해제</span>
+                  <span className="label">{t('daomaker.modal.tgeUnlock')}</span>
                   <span className="value">{tgeTokens.toLocaleString()} TBURN</span>
                 </div>
                 <div className="dm-modal-detail-row">
@@ -1636,7 +1611,7 @@ export default function DAOMakerPage() {
                   onClick={() => setShowModal(false)}
                   data-testid="button-modal-confirm"
                 >
-                  확인
+                  {t('daomaker.modal.confirm')}
                 </button>
               )}
             </div>

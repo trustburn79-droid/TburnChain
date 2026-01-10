@@ -144,7 +144,14 @@
     "resolved": "해결됨",
     "action": "작업",
     "time": "시간",
-    "login": "로그인"
+    "login": "로그인",
+    "termsOfService": "이용약관",
+    "privacyPolicy": "개인정보처리방침",
+    "riskDisclosure": "리스크 고지",
+    "riskDisclosureDesc": "리스크 고지 페이지로 이동합니다.",
+    "customerSupport": "고객 지원",
+    "customerSupportDesc": "support@daomaker.com으로 문의해 주세요.",
+    "tokenDeliveryNote": "TGE 시점에 토큰이 지급됩니다"
   },
   "nav": {
     "community": "커뮤니티",
@@ -35591,6 +35598,243 @@
       "strongSecurityDesc": "AI 기반 위협 탐지 및 방어",
       "ecoFriendly": "친환경",
       "ecoFriendlyDesc": "에너지 효율적인 PoS 합의"
+    }
+  },
+  "daomaker": {
+    "header": {
+      "sho": "SHO",
+      "staking": "스테이킹",
+      "governance": "거버넌스",
+      "portfolio": "포트폴리오",
+      "swap": "스왑",
+      "connectWallet": "지갑 연결",
+      "walletConnected": "연결됨",
+      "walletPrompt": "클릭하여 연결",
+      "daoPower": "DAO Power"
+    },
+    "hero": {
+      "breadcrumb": {
+        "sho": "SHO",
+        "current": "TBURN Chain"
+      },
+      "badges": {
+        "shoRound": "SHO 라운드",
+        "live": "진행 중",
+        "refund": "리펀드 보장",
+        "verified": "검증됨"
+      },
+      "description": "TBURN Chain은 AI와 블록체인 기술을 융합한 차세대 레이어-1 플랫폼입니다. 200,000+ TPS의 초고속 처리, Triple-Band AI Orchestration, 자가 최적화 네트워크를 통해 엔터프라이즈급 성능과 탈중앙화를 동시에 실현합니다. DAO Maker의 Strong Holder Offering을 통해 DAO Power 보유자에게 우선 참여 기회를 제공합니다.",
+      "stats": {
+        "tokenPrice": "토큰 가격",
+        "targetRaise": "목표 모집액",
+        "tgeUnlock": "TGE 해제",
+        "totalVesting": "총 베스팅",
+        "months": "개월"
+      }
+    },
+    "shoCard": {
+      "title": "Strong Holder Offering",
+      "subtitle": "DAO Power 보유자 전용 토큰 세일",
+      "countdown": {
+        "label": "세일 종료까지",
+        "days": "일",
+        "hours": "시간",
+        "mins": "분",
+        "secs": "초"
+      },
+      "progress": {
+        "completed": "완료",
+        "participants": "명 참여"
+      },
+      "saleDetails": {
+        "tokenPrice": "토큰 가격",
+        "minParticipation": "최소 참여",
+        "tgeUnlock": "TGE 해제",
+        "vesting": "베스팅",
+        "vestingValue": "3개월 클리프 + 12개월"
+      },
+      "daoPower": {
+        "title": "내 DAO Power",
+        "tier": "티어",
+        "maxAllocation": "최대 할당"
+      },
+      "allocation": {
+        "title": "참여 금액",
+        "max": "최대"
+      },
+      "tokenOutput": {
+        "tokensToReceive": "받을 토큰",
+        "bonus": "보너스",
+        "tgeUnlock": "TGE 해제 (15%)"
+      },
+      "refundPolicy": {
+        "title": "리펀드 정책 적용",
+        "description": "TGE 후 30일 내 토큰 가격이 세일가 이하 시 100% 환불"
+      },
+      "purchaseButton": "SHO 참여하기",
+      "securityNote": "DAO Maker 스마트 컨트랙트로 안전하게 처리"
+    },
+    "tabs": {
+      "tiers": "SHO 티어",
+      "vesting": "베스팅",
+      "governance": "거버넌스",
+      "faq": "FAQ"
+    },
+    "tiers": {
+      "bronze": {
+        "name": "Bronze",
+        "features": [
+          "SHO 참여 자격",
+          "기본 할당량",
+          "리펀드 정책 적용"
+        ]
+      },
+      "silver": {
+        "name": "Silver",
+        "features": [
+          "우선 할당",
+          "+1% 보너스 토큰",
+          "거버넌스 투표권",
+          "리펀드 정책 적용"
+        ]
+      },
+      "gold": {
+        "name": "Gold",
+        "features": [
+          "보장 할당",
+          "+3% 보너스 토큰",
+          "우선 거버넌스 투표",
+          "VIP 커뮤니티 접근",
+          "리펀드 정책 적용"
+        ]
+      },
+      "maxAllocation": "최대 할당",
+      "daoPower": "DAO Power"
+    },
+    "vesting": {
+      "scheduleTitle": "베스팅 스케줄",
+      "unlockStatusTitle": "해제 현황",
+      "tge": {
+        "title": "TGE (토큰 생성)",
+        "desc": "토큰 생성 시점 즉시 해제"
+      },
+      "cliff": {
+        "title": "클리프 기간",
+        "desc": "1~3개월, 추가 해제 없음"
+      },
+      "linear": {
+        "title": "선형 베스팅",
+        "desc": "4~15개월, 월 7.08% 해제"
+      },
+      "full": {
+        "title": "완전 해제",
+        "desc": "TGE 후 15개월"
+      },
+      "chart": {
+        "tge": "TGE",
+        "month3": "3개월",
+        "month6": "6개월",
+        "month9": "9개월",
+        "month12": "12개월",
+        "month15": "15개월"
+      }
+    },
+    "governance": {
+      "communityVoting": {
+        "title": "커뮤니티 투표",
+        "desc": "DAO Power 보유자는 프로젝트 선정 및 주요 결정에 투표권을 행사할 수 있습니다."
+      },
+      "transparentOperation": {
+        "title": "투명한 운영",
+        "desc": "모든 SHO 진행 과정과 자금 사용 내역은 온체인에서 투명하게 공개됩니다."
+      },
+      "refundPolicy": {
+        "title": "리펀드 정책",
+        "desc": "TGE 후 30일 내 토큰 가격이 세일가 이하로 하락 시 100% 환불을 보장합니다."
+      },
+      "daoPowerStaking": {
+        "title": "DAO Power 스테이킹",
+        "desc": "DAO 토큰을 스테이킹하여 DAO Power를 획득하고 더 높은 티어로 승급하세요."
+      },
+      "rewardsProgram": {
+        "title": "보상 프로그램",
+        "desc": "활발한 거버넌스 참여자에게 추가 보상과 에어드롭 기회를 제공합니다."
+      },
+      "communityFund": {
+        "title": "커뮤니티 펀드",
+        "desc": "DAO 커뮤니티가 관리하는 펀드를 통해 생태계 발전을 지원합니다."
+      }
+    },
+    "faq": {
+      "q1": {
+        "question": "SHO(Strong Holder Offering)란 무엇인가요?",
+        "answer": "SHO는 DAO Maker의 독점적인 토큰 세일 방식입니다. DAO Power를 보유한 사용자만 참여할 수 있으며, 보유량에 따라 티어가 결정되고 할당량이 달라집니다. Bronze(1,000+), Silver(5,000+), Gold(25,000+) 세 가지 티어가 있습니다."
+      },
+      "q2": {
+        "question": "DAO Power는 어떻게 얻나요?",
+        "answer": "DAO Maker 플랫폼에서 DAO 토큰을 스테이킹하여 DAO Power를 획득할 수 있습니다. 스테이킹 기간과 수량에 따라 DAO Power가 결정됩니다."
+      },
+      "q3": {
+        "question": "리펀드 정책은 어떻게 작동하나요?",
+        "answer": "TGE 후 30일 내에 토큰 가격이 세일 가격($0.02) 이하로 하락하면, 참여자는 구매한 토큰을 반환하고 100% 환불받을 수 있습니다."
+      },
+      "q4": {
+        "question": "최소/최대 참여 금액은 얼마인가요?",
+        "answer": "최소 $100부터 참여 가능하며, 최대 참여 금액은 DAO Power 티어에 따라 달라집니다. Bronze: $500, Silver: $2,500, Gold: $10,000까지 참여할 수 있습니다."
+      },
+      "q5": {
+        "question": "토큰은 언제 받을 수 있나요?",
+        "answer": "TGE 시점에 15%가 즉시 해제되며, 3개월 클리프 기간 후 나머지 85%가 12개월 동안 선형 베스팅으로 지급됩니다."
+      },
+      "q6": {
+        "question": "티어별 보너스 혜택은 무엇인가요?",
+        "answer": "Silver 티어($2,500 이상 할당)는 +1% 보너스 토큰을 받고, Gold 티어($10,000 이상 할당)는 +3% 보너스 토큰을 받습니다."
+      },
+      "q7": {
+        "question": "SHO 참여 방법은 어떻게 되나요?",
+        "answer": "1) DAO 토큰을 스테이킹하여 DAO Power 획득, 2) 지갑 연결 후 KYC 완료, 3) 원하는 금액 입력 및 USDT로 결제, 4) 스마트 컨트랙트를 통한 안전한 토큰 구매 완료."
+      },
+      "q8": {
+        "question": "문의나 지원이 필요하면 어떻게 하나요?",
+        "answer": "DAO Maker 공식 Discord, Telegram 커뮤니티를 통해 지원받으실 수 있습니다. 또는 support@daomaker.com으로 이메일 문의해 주세요."
+      }
+    },
+    "footer": {
+      "copyright": "© 2025 DAO Maker. All Rights Reserved.",
+      "poweredBy": "Powered by TBURN Chain"
+    },
+    "modal": {
+      "title": "SHO 참여",
+      "processing": "처리 중...",
+      "pleaseWait": "잠시만 기다려주세요",
+      "success": "참여 완료!",
+      "successDesc": "Strong Holder Offering 참여 완료!",
+      "amount": "참여 금액",
+      "tokens": "받을 토큰",
+      "tgeUnlock": "TGE 해제",
+      "confirm": "확인"
+    },
+    "toast": {
+      "walletDisconnected": "지갑 연결 해제",
+      "walletDisconnectedDesc": "지갑이 성공적으로 연결 해제되었습니다.",
+      "walletConnecting": "지갑 연결 중",
+      "walletConnectingDesc": "MetaMask 지갑 연결을 시도하고 있습니다.",
+      "walletRequired": "지갑 연결 필요",
+      "walletRequiredDesc": "SHO 참여를 위해 먼저 지갑을 연결해주세요.",
+      "minAmount": "최소 금액 미달",
+      "minAmountDesc": "최소 $100 이상 참여해야 합니다.",
+      "maxAmount": "최대 금액 초과",
+      "maxAmountDescTemplate": "{tier} 티어 최대 할당량 ${max}을 초과했습니다.",
+      "shoComplete": "SHO 참여 완료!",
+      "shoCompleteDescTemplate": "{tokens} TBURN 토큰 구매가 완료되었습니다.",
+      "stakingRequired": "지갑 연결 필요",
+      "stakingRequiredDesc": "DAO 토큰 스테이킹을 위해 먼저 지갑을 연결해주세요.",
+      "stakingPage": "스테이킹 페이지로 이동",
+      "stakingPageDesc": "DAO Power를 높이기 위한 스테이킹 페이지로 이동합니다.",
+      "socialOpen": "열기",
+      "socialOpenDesc": "페이지로 이동합니다.",
+      "menuComingSoon": "메뉴",
+      "menuComingSoonDesc": "기능은 곧 출시됩니다."
     }
   }
 }

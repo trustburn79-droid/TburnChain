@@ -107,7 +107,14 @@
     "noDataAvailable": "Нет Данных",
     "days": "Дни",
     "clickForDetails": "Нажмите для Деталей",
-    "login": "Войти"
+    "login": "Войти",
+    "termsOfService": "Terms of Service",
+    "privacyPolicy": "Privacy Policy",
+    "riskDisclosure": "Risk Disclosure",
+    "riskDisclosureDesc": "Navigating to Risk Disclosure page.",
+    "customerSupport": "Customer Support",
+    "customerSupportDesc": "Please contact support@daomaker.com.",
+    "tokenDeliveryNote": "Tokens will be delivered at TGE"
   },
   "tokenSchedule": {
     "title": "График Токенов",
@@ -20195,6 +20202,243 @@
       "strongSecurityDesc": "AI-based threat detection and defense",
       "ecoFriendly": "Eco-Friendly",
       "ecoFriendlyDesc": "Energy-efficient PoS consensus"
+    }
+  },
+  "daomaker": {
+    "header": {
+      "sho": "SHO",
+      "staking": "Staking",
+      "governance": "Governance",
+      "portfolio": "Portfolio",
+      "swap": "Swap",
+      "connectWallet": "Connect Wallet",
+      "walletConnected": "Connected",
+      "walletPrompt": "Click to connect",
+      "daoPower": "DAO Power"
+    },
+    "hero": {
+      "breadcrumb": {
+        "sho": "SHO",
+        "current": "TBURN Chain"
+      },
+      "badges": {
+        "shoRound": "SHO Round",
+        "live": "In Progress",
+        "refund": "Refund Guaranteed",
+        "verified": "Verified"
+      },
+      "description": "TBURN Chain is a next-generation Layer-1 platform that combines AI and blockchain technology. With 200,000+ TPS ultra-fast processing, Triple-Band AI Orchestration, and self-optimizing network, it achieves enterprise-grade performance and decentralization simultaneously.",
+      "stats": {
+        "tokenPrice": "Token Price",
+        "targetRaise": "Target Raise",
+        "tgeUnlock": "TGE Unlock",
+        "totalVesting": "Total Vesting",
+        "months": "months"
+      }
+    },
+    "shoCard": {
+      "title": "Strong Holder Offering",
+      "subtitle": "Exclusive token sale for DAO Power holders",
+      "countdown": {
+        "label": "Sale ends in",
+        "days": "Days",
+        "hours": "Hours",
+        "mins": "Mins",
+        "secs": "Secs"
+      },
+      "progress": {
+        "completed": "completed",
+        "participants": "participants"
+      },
+      "saleDetails": {
+        "tokenPrice": "Token Price",
+        "minParticipation": "Min Participation",
+        "tgeUnlock": "TGE Unlock",
+        "vesting": "Vesting",
+        "vestingValue": "3-month cliff + 12 months"
+      },
+      "daoPower": {
+        "title": "My DAO Power",
+        "tier": "Tier",
+        "maxAllocation": "Max Allocation"
+      },
+      "allocation": {
+        "title": "Participation Amount",
+        "max": "Max"
+      },
+      "tokenOutput": {
+        "tokensToReceive": "Tokens to Receive",
+        "bonus": "Bonus",
+        "tgeUnlock": "TGE Unlock (15%)"
+      },
+      "refundPolicy": {
+        "title": "Refund Policy Applied",
+        "description": "100% refund if token price falls below sale price within 30 days after TGE"
+      },
+      "purchaseButton": "Join SHO",
+      "securityNote": "Secured by DAO Maker smart contract"
+    },
+    "tabs": {
+      "tiers": "SHO Tiers",
+      "vesting": "Vesting",
+      "governance": "Governance",
+      "faq": "FAQ"
+    },
+    "tiers": {
+      "bronze": {
+        "name": "Bronze",
+        "features": [
+          "SHO participation eligibility",
+          "Basic allocation",
+          "Refund policy applied"
+        ]
+      },
+      "silver": {
+        "name": "Silver",
+        "features": [
+          "Priority allocation",
+          "+1% bonus tokens",
+          "Governance voting rights",
+          "Refund policy applied"
+        ]
+      },
+      "gold": {
+        "name": "Gold",
+        "features": [
+          "Guaranteed allocation",
+          "+3% bonus tokens",
+          "Priority governance voting",
+          "VIP community access",
+          "Refund policy applied"
+        ]
+      },
+      "maxAllocation": "Max Allocation",
+      "daoPower": "DAO Power"
+    },
+    "vesting": {
+      "scheduleTitle": "Vesting Schedule",
+      "unlockStatusTitle": "Unlock Status",
+      "tge": {
+        "title": "TGE (Token Generation)",
+        "desc": "Immediate unlock at token generation"
+      },
+      "cliff": {
+        "title": "Cliff Period",
+        "desc": "Month 1-3, no additional unlock"
+      },
+      "linear": {
+        "title": "Linear Vesting",
+        "desc": "Month 4-15, 7.08% unlock per month"
+      },
+      "full": {
+        "title": "Full Unlock",
+        "desc": "15 months after TGE"
+      },
+      "chart": {
+        "tge": "TGE",
+        "month3": "3 months",
+        "month6": "6 months",
+        "month9": "9 months",
+        "month12": "12 months",
+        "month15": "15 months"
+      }
+    },
+    "governance": {
+      "communityVoting": {
+        "title": "Community Voting",
+        "desc": "DAO Power holders can vote on project selection and major decisions."
+      },
+      "transparentOperation": {
+        "title": "Transparent Operation",
+        "desc": "All SHO processes and fund usage are transparently disclosed on-chain."
+      },
+      "refundPolicy": {
+        "title": "Refund Policy",
+        "desc": "100% refund guaranteed if token price falls below sale price within 30 days after TGE."
+      },
+      "daoPowerStaking": {
+        "title": "DAO Power Staking",
+        "desc": "Stake DAO tokens to earn DAO Power and upgrade to higher tiers."
+      },
+      "rewardsProgram": {
+        "title": "Rewards Program",
+        "desc": "Active governance participants receive additional rewards and airdrop opportunities."
+      },
+      "communityFund": {
+        "title": "Community Fund",
+        "desc": "Support ecosystem development through a fund managed by the DAO community."
+      }
+    },
+    "faq": {
+      "q1": {
+        "question": "What is SHO (Strong Holder Offering)?",
+        "answer": "SHO is DAO Makers exclusive token sale method. Only users with DAO Power can participate, and tiers and allocations are determined based on holdings."
+      },
+      "q2": {
+        "question": "How do I get DAO Power?",
+        "answer": "You can earn DAO Power by staking DAO tokens on the DAO Maker platform. DAO Power is determined by staking duration and amount."
+      },
+      "q3": {
+        "question": "How does the refund policy work?",
+        "answer": "If the token price falls below the sale price ($0.02) within 30 days after TGE, participants can return their tokens and receive a 100% refund."
+      },
+      "q4": {
+        "question": "What are the min/max participation amounts?",
+        "answer": "Minimum $100 participation. Maximum depends on DAO Power tier: Bronze: $500, Silver: $2,500, Gold: $10,000."
+      },
+      "q5": {
+        "question": "When will I receive my tokens?",
+        "answer": "15% unlocks immediately at TGE. After a 3-month cliff period, the remaining 85% is distributed linearly over 12 months."
+      },
+      "q6": {
+        "question": "What are the tier bonus benefits?",
+        "answer": "Silver tier ($2,500+ allocation) receives +1% bonus tokens, Gold tier ($10,000+ allocation) receives +3% bonus tokens."
+      },
+      "q7": {
+        "question": "How do I participate in SHO?",
+        "answer": "1) Stake DAO tokens to earn DAO Power, 2) Connect wallet and complete KYC, 3) Enter desired amount and pay with USDT, 4) Complete secure token purchase via smart contract."
+      },
+      "q8": {
+        "question": "How can I get help or support?",
+        "answer": "Get support through DAO Makers official Discord and Telegram communities. You can also email support@daomaker.com."
+      }
+    },
+    "footer": {
+      "copyright": "© 2025 DAO Maker. All Rights Reserved.",
+      "poweredBy": "Powered by TBURN Chain"
+    },
+    "modal": {
+      "title": "SHO Participation",
+      "processing": "Processing...",
+      "pleaseWait": "Please wait",
+      "success": "Participation Complete!",
+      "successDesc": "Your SHO participation has been completed successfully",
+      "amount": "Participation Amount",
+      "tokens": "Tokens to Receive",
+      "tgeUnlock": "TGE Unlock",
+      "confirm": "Confirm"
+    },
+    "toast": {
+      "walletDisconnected": "Wallet Disconnected",
+      "walletDisconnectedDesc": "Wallet successfully disconnected.",
+      "walletConnecting": "Connecting Wallet",
+      "walletConnectingDesc": "Attempting to connect MetaMask wallet.",
+      "walletRequired": "Wallet Required",
+      "walletRequiredDesc": "Please connect your wallet first to participate in SHO.",
+      "minAmount": "Below Minimum Amount",
+      "minAmountDesc": "You must participate with at least $100.",
+      "maxAmount": "Exceeds Maximum Amount",
+      "maxAmountDescTemplate": "Exceeds {tier} tier maximum allocation of ${max}.",
+      "shoComplete": "SHO Participation Complete!",
+      "shoCompleteDescTemplate": "{tokens} TBURN tokens purchased successfully.",
+      "stakingRequired": "Wallet Required",
+      "stakingRequiredDesc": "Please connect your wallet first to stake DAO tokens.",
+      "stakingPage": "Going to Staking Page",
+      "stakingPageDesc": "Navigating to staking page to increase DAO Power.",
+      "socialOpen": "Opening",
+      "socialOpenDesc": "Navigating to page.",
+      "menuComingSoon": "Menu",
+      "menuComingSoonDesc": "feature coming soon."
     }
   }
 }
