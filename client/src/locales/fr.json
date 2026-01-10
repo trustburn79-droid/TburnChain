@@ -4076,7 +4076,191 @@
     "yourAllocation": "Votre allocation",
     "contribute": "Contribuer",
     "claim": "Réclamer",
-    "refund": "Rembourser"
+    "refund": "Rembourser",
+    "header": {
+      "status": "Status",
+      "tokenPrice": "Token Price",
+      "progress": "Progress",
+      "connectWallet": "Connect Wallet"
+    },
+    "hero": {
+      "officialBadge": "TBURN Foundation Official Launchpad",
+      "title": "TBURN",
+      "titleHighlight": "Public Sale",
+      "subtitle": "Safe and transparent official token sale platform"
+    },
+    "countdown": {
+      "title": "Until Sale Ends",
+      "phase": "Phase 2 In Progress",
+      "days": "Days",
+      "hours": "Hours",
+      "minutes": "Minutes",
+      "seconds": "Seconds"
+    },
+    "progress": {
+      "goal": "Goal: $12,000,000",
+      "completed": "Completed",
+      "sold": "Sold",
+      "remaining": "Remaining"
+    },
+    "purchase": {
+      "title": "Token Purchase",
+      "steps": {
+        "wallet": "Connect Wallet",
+        "kyc": "KYC Verification",
+        "amount": "Enter Amount",
+        "complete": "Purchase Complete"
+      },
+      "walletSection": {
+        "title": "Connect Wallet",
+        "connectPrompt": "Connect your wallet",
+        "connected": "Connected"
+      },
+      "kycSection": {
+        "title": "KYC Verification",
+        "required": "KYC Verification Required",
+        "requiredDesc": "Please complete simple identity verification",
+        "completed": "KYC Verification Complete",
+        "completedDesc": "All verifications have been completed",
+        "verifyButton": "Verify KYC",
+        "verifiedButton": "Verified"
+      },
+      "amountSection": {
+        "title": "Participation Amount",
+        "placeholder": "Enter amount",
+        "tokenQuantity": "Token Quantity",
+        "tierBonus": "Tier Bonus",
+        "totalTokens": "Total Tokens",
+        "tgeUnlock": "TGE Unlock (15%)",
+        "estimatedValue": "Estimated Value (@$0.08)",
+        "paymentMethod": "Payment Method",
+        "purchaseButton": "Purchase Tokens",
+        "secureNote": "Processed through secure smart contract"
+      }
+    },
+    "sidebar": {
+      "saleInfo": {
+        "title": "Sale Information",
+        "tokenPrice": "Token Price",
+        "totalSale": "Total Sale Amount",
+        "minParticipation": "Minimum Participation",
+        "tgeUnlock": "TGE Unlock",
+        "cliff": "Cliff",
+        "vesting": "Vesting",
+        "network": "Network"
+      },
+      "tiers": {
+        "title": "Participation Tiers",
+        "whale": "Whale",
+        "dolphin": "Dolphin",
+        "fish": "Fish",
+        "shrimp": "Shrimp",
+        "whaleRange": "$50,000+",
+        "dolphinRange": "$10,000 ~ $49,999",
+        "fishRange": "$1,000 ~ $9,999",
+        "shrimpRange": "$100 ~ $999"
+      },
+      "vesting": {
+        "title": "Vesting Schedule",
+        "tge": "TGE",
+        "tgeDesc": "Token Generation Event",
+        "cliff": "Cliff",
+        "cliffDesc": "Month 1-3",
+        "vestingTitle": "Vesting",
+        "vestingDesc": "Month 4-15"
+      },
+      "features": {
+        "title": "Official Launchpad Features",
+        "foundation": "TBURN Foundation Official Guarantee",
+        "contract": "Secure Smart Contract",
+        "bonus": "All Tier Bonuses Applied",
+        "support": "24/7 Customer Support",
+        "claim": "Real-time Token Claim"
+      }
+    },
+    "faq": {
+      "title": "Frequently Asked Questions",
+      "subtitle": "Questions about TBURN Launchpad",
+      "q1": {
+        "question": "What is the total launchpad sale size?",
+        "answer": "The TBURN official launchpad sells a total of 600M TBURN (6% of total supply). Token price is $0.02, with a funding goal of $12,000,000."
+      },
+      "q2": {
+        "question": "What are the participation requirements?",
+        "answer": "All users who complete wallet connection and KYC verification can participate. Minimum participation is $100, with no maximum limit."
+      },
+      "q3": {
+        "question": "How are tier bonuses applied?",
+        "answer": "Bonuses are automatically applied based on participation amount. Whale($50,000+): +5%, Dolphin($10,000~$49,999): +3%, Fish($1,000~$9,999): +1%, Shrimp($100~$999): No bonus."
+      },
+      "q4": {
+        "question": "When can I receive my tokens?",
+        "answer": "15% is immediately released at TGE (Token Generation Event). After a 3-month cliff period, the remaining 85% is distributed monthly over 12 months."
+      },
+      "q5": {
+        "question": "What payment methods are supported?",
+        "answer": "Three payment methods are supported: USDT, USDC, and ETH. All payments are processed through secure smart contracts on the Ethereum network."
+      },
+      "q6": {
+        "question": "What is the participation process?",
+        "answer": "1) Connect wallet → 2) KYC verification → 3) Enter amount → 4) Select payment method → 5) Complete purchase. The entire process takes about 5 minutes."
+      },
+      "q7": {
+        "question": "What are the special benefits of the official launchpad?",
+        "answer": "We offer TBURN Foundation official guarantee, secure smart contract processing, all tier bonuses applied, 24/7 customer support, and real-time token claim functionality."
+      },
+      "q8": {
+        "question": "Where can I contact for inquiries?",
+        "answer": "You can contact us 24/7 via official Telegram(@tburnchain), Discord(discord.gg/tburnchain), or email(support@tburn.io). Our 24/7 live support team is standing by."
+      }
+    },
+    "footer": {
+      "terms": "Terms of Service",
+      "privacy": "Privacy Policy",
+      "riskDisclosure": "Risk Disclosure",
+      "support": "Customer Support",
+      "copyright": "© 2025-2045 TBURN Foundation. All Rights Reserved."
+    },
+    "modal": {
+      "purchaseComplete": "Purchase Complete!",
+      "processing": "Processing Transaction",
+      "tokenPurchaseComplete": "Token Purchase Complete!",
+      "successMessage": "Tokens have been successfully purchased",
+      "confirmingTx": "Confirming transaction...",
+      "confirmWallet": "Please confirm the transaction in your wallet",
+      "purchaseAmount": "Purchase Amount",
+      "receivingTokens": "Receiving Tokens",
+      "estimatedGas": "Estimated Gas Fee",
+      "confirm": "Confirm"
+    },
+    "toast": {
+      "walletDisconnected": "Wallet Disconnected",
+      "walletDisconnectedDesc": "Wallet has been disconnected.",
+      "walletConnect": "Wallet Connect",
+      "walletConnectDesc": "Attempting to connect",
+      "walletRequired": "Wallet Connection Required",
+      "walletRequiredDesc": "Please connect your wallet first.",
+      "kycRequired": "KYC Verification Required",
+      "kycRequiredDesc": "Please complete KYC verification to purchase tokens.",
+      "kycStart": "Starting KYC",
+      "kycStartDesc": "Proceeding with identity verification...",
+      "kycComplete": "KYC Complete",
+      "kycCompleteDesc": "Identity verification completed successfully.",
+      "minAmount": "Minimum Amount Not Met",
+      "minAmountDesc": "Minimum participation is $100.",
+      "purchasing": "Processing Purchase",
+      "purchasingDesc": "Processing transaction...",
+      "purchaseComplete": "Purchase Complete",
+      "purchaseCompleteDesc": "tokens successfully purchased.",
+      "viewDetails": "Sale Details",
+      "viewDetailsDesc": "Check sale details below.",
+      "tierSelect": "Tier Selected",
+      "tierSelectDesc": "Bonus:",
+      "tierWalletRequired": "Wallet Connection Required",
+      "tierWalletRequiredDesc": "Please connect your wallet to participate in tiers.",
+      "socialOpen": "Opening",
+      "socialOpenDesc": "Navigating to page."
+    }
   },
   "community": {
     "title": "Titre",
@@ -17144,7 +17328,107 @@
       "moderator": "Programme Modérateur",
       "developer": "Subventions Développeurs",
       "joinCommunity": "Rejoindre la Communauté",
-      "applyNow": "Postuler"
+      "applyNow": "Postuler",
+      "toast": {
+        "selectProgram": "Select Program",
+        "selectProgramDesc": "Please select a program to participate in.",
+        "guide": "Program Guide",
+        "guideDesc": "Check the points and rewards for each activity.",
+        "applyComplete": "Application Complete",
+        "applyCompleteDesc": "Your application has been submitted successfully. We will notify you of the results after review.",
+        "connectWallet": "Please connect your wallet first",
+        "githubRedirect": "Redirecting to GitHub...",
+        "shareTwitter": "Shared on Twitter",
+        "shareTelegram": "Shared on Telegram",
+        "shareDiscord": "Shared on Discord",
+        "shareGithub": "Shared on GitHub",
+        "walletConnected": "Wallet Connected",
+        "walletConnectedDesc": "MetaMask wallet has been connected.",
+        "walletDisconnected": "Wallet Disconnected",
+        "walletDisconnectedDesc": "Wallet connection has been disconnected.",
+        "walletRequired": "Wallet Required",
+        "walletRequiredDesc": "Please connect your wallet first to apply for the program.",
+        "applicationSubmitted": "Application Submitted",
+        "applicationSubmittedDesc": "Your application has been submitted. We will notify you of the results after review."
+      },
+      "nav": {
+        "community": "Community",
+        "programs": "Programs",
+        "tiers": "Tiers",
+        "activities": "Activities",
+        "leaderboard": "Leaderboard",
+        "faq": "FAQ"
+      },
+      "activities": {
+        "badge": "ACTIVITIES",
+        "title": "Activity Points & Rewards",
+        "subtitle": "Earn points and TBURN through various activities",
+        "tableTitle": "Point-Earning Activities",
+        "columnActivity": "Activity",
+        "columnCategory": "Category",
+        "columnPoints": "Points",
+        "columnReward": "TBURN Reward",
+        "columnFrequency": "Frequency",
+        "frequency": {
+          "daily": "Daily",
+          "weekly": "Weekly",
+          "monthly": "Monthly",
+          "once": "Once"
+        },
+        "socialShare": {
+          "name": "Social Media Sharing",
+          "category": "Social"
+        },
+        "content": {
+          "name": "Content Creation",
+          "category": "Content"
+        },
+        "community": {
+          "name": "Community Support",
+          "category": "Support"
+        },
+        "ambassador": {
+          "name": "Ambassador Activity",
+          "category": "Ambassador"
+        },
+        "translation": {
+          "name": "Translation Work",
+          "category": "Translation"
+        }
+      },
+      "tiers": {
+        "badge": "TIER SYSTEM",
+        "title": "Community Tier System",
+        "subtitle": "Earn higher tiers and increase your reward multiplier through activity",
+        "benefitsTitle": "Tier Benefits",
+        "benefitsSubtitle": "Collect points to advance to higher tiers",
+        "newcomer": {
+          "name": "Newcomer",
+          "points": "0-499 Points"
+        },
+        "contributor": {
+          "name": "Contributor",
+          "points": "500-1,999 Points"
+        },
+        "advocate": {
+          "name": "Advocate",
+          "points": "2,000-4,999 Points"
+        },
+        "champion": {
+          "name": "Champion",
+          "points": "5,000-9,999 Points"
+        },
+        "legend": {
+          "name": "Legend",
+          "points": "10,000+ Points"
+        }
+      },
+      "leaderboard": {
+        "badge": "LEADERBOARD",
+        "title": "Community Leaderboard",
+        "subtitle": "Most active community members",
+        "topContributors": "Top Contributors"
+      }
     },
     "daoGovernance": {
       "nav": {
@@ -17392,7 +17676,23 @@
         "navigating": "Navigation vers {{platform}}.",
         "participateTitle": "Participation à la Gouvernance",
         "participateDesc": "Veuillez voter sur les propositions actuellement actives!"
-      }
+      },
+      "title": "DAO Governance",
+      "subtitle": "Participate in decentralized governance and shape the future of TBURN",
+      "heroTitle": "TBURN DAO Governance",
+      "heroSubtitle": "Your voice matters. Vote on proposals and guide the protocol development",
+      "badge": "Decentralized Governance",
+      "governanceToken": "Governance Token",
+      "totalVotingPower": "Total Voting Power",
+      "activeProposals": "Active Proposals",
+      "passedProposals": "Passed Proposals",
+      "treasury": "Treasury",
+      "votingPower": "Voting Power",
+      "delegate": "Delegate",
+      "createProposal": "Create Proposal",
+      "vote": "Vote",
+      "quorum": "Quorum",
+      "votingPeriod": "Voting Period"
     },
     "blockRewards": {
       "nav": {
@@ -18084,9 +18384,68 @@
       "heroSubtitle": "Aidez à promouvoir TBURN et gagnez des récompenses",
       "badge": "Grandir Ensemble",
       "totalBudget": "Budget Total",
-      "campaigns": "Campagnes",
+      "campaigns": {
+        "activeCampaigns": "Active Campaigns",
+        "participants": "Participants",
+        "statusActive": "Active",
+        "statusEnding": "Ending Soon",
+        "statusUpcoming": "Upcoming",
+        "upcoming": "Upcoming Campaign",
+        "upcomingDesc": "This campaign is starting soon. Set up notifications!",
+        "joined": "Campaign Joined",
+        "joinedDesc": "You've joined the \"{{campaignTitle}}\" campaign!"
+      },
       "reach": "Portée Totale",
-      "programs": "Programmes",
+      "programs": {
+        "ambassador": {
+          "title": "Ambassador Program",
+          "subtitle": "Become an official TBURN ambassador",
+          "rewardValue1": "Up to 500K",
+          "rewardLabel1": "Monthly Reward",
+          "rewardValue2": "Unlimited",
+          "rewardLabel2": "Referral Reward",
+          "feature1": "Official Ambassador Certification",
+          "feature2": "Exclusive Event Invitations",
+          "feature3": "Early Access Privileges",
+          "feature4": "Dedicated Marketing Materials"
+        },
+        "influencer": {
+          "title": "Influencer Collaboration",
+          "subtitle": "Growing together with creators",
+          "rewardValue1": "$500+ per campaign",
+          "rewardLabel1": "Campaign Reward",
+          "rewardValue2": "10%",
+          "rewardLabel2": "Sales Commission",
+          "feature1": "Custom Campaign Design",
+          "feature2": "Marketing Materials Provided",
+          "feature3": "Performance-based Bonus",
+          "feature4": "Long-term Partnership Options"
+        },
+        "creator": {
+          "title": "Content Creator",
+          "subtitle": "Videos, articles, educational content",
+          "rewardValue1": "$100+ per content",
+          "rewardLabel1": "Base Reward",
+          "rewardValue2": "Quality Bonus",
+          "rewardLabel2": "Additional Reward",
+          "feature1": "Various Content Types",
+          "feature2": "Creator Fund Support",
+          "feature3": "View Count Bonus",
+          "feature4": "Monthly Contests"
+        },
+        "event": {
+          "title": "Event Marketing",
+          "subtitle": "Online/offline event participation",
+          "rewardValue1": "$200+ per event",
+          "rewardLabel1": "Participation Reward",
+          "rewardValue2": "Special NFT",
+          "rewardLabel2": "Event Reward",
+          "feature1": "Meetup Hosting Support",
+          "feature2": "Conference Participation",
+          "feature3": "Online AMA",
+          "feature4": "Community Events"
+        }
+      },
       "influencer": "Programme Influenceurs",
       "affiliate": "Programme Affiliés",
       "content": "Créateur de Contenu",
@@ -18103,7 +18462,8 @@
         "badge": "PROGRAMME MARKETING - Diffusez TBURN Ensemble",
         "title": "Participez au Marketing TBURN",
         "fundAmount": "300M TBURN",
-        "subtitle": "Devenez ambassadeur ou créateur de contenu et gagnez des récompenses."
+        "subtitle": "Devenez ambassadeur ou créateur de contenu et gagnez des récompenses.",
+        "incentive": "Earn Rewards"
       },
       "distributions": {
         "brand": "Brand Ambassador",
@@ -18111,6 +18471,190 @@
         "creator": "Content Creator",
         "event": "Event",
         "pr": "PR & Media"
+      },
+      "wallet": {
+        "connect": "Connect Wallet",
+        "connected": "Wallet Connected",
+        "connectedDesc": "Your wallet has been connected.",
+        "disconnected": "Wallet Disconnected",
+        "disconnectedDesc": "Your wallet has been disconnected.",
+        "required": "Wallet Required",
+        "requiredDesc": "Please connect your wallet to participate in the program.",
+        "campaignRequiredDesc": "Please connect your wallet to join the campaign."
+      },
+      "socialStats": {
+        "twitter": "Twitter Followers",
+        "telegram": "Telegram Members",
+        "discord": "Discord Members",
+        "youtube": "YouTube Subscribers",
+        "tiktok": "TikTok Followers"
+      },
+      "stats": {
+        "totalBudget": "Total Marketing Budget",
+        "activeAmbassadors": "Active Ambassadors",
+        "ongoingCampaigns": "Ongoing Campaigns",
+        "activeCampaigns": "Active Campaigns"
+      },
+      "cta": {
+        "joinAmbassador": "Apply as Ambassador",
+        "viewGuide": "Marketing Guide",
+        "ambassadorProgram": "Ambassador Program",
+        "ambassadorDesc": "Check ambassador tiers and start participating!",
+        "marketingGuide": "Marketing Guide",
+        "guideDesc": "Check out our marketing program guide.",
+        "programApply": "{{programName}} Application",
+        "programApplyDesc": "Your {{programName}} application has been submitted. We'll review and contact you.",
+        "participate": "Participate"
+      },
+      "sections": {
+        "distribution": {
+          "title": "Marketing Budget Distribution",
+          "subtitle": "300M TBURN distributed across 5 marketing programs"
+        },
+        "programs": {
+          "title": "Marketing Programs",
+          "subtitle": "Promote TBURN in various ways"
+        },
+        "ambassador": {
+          "title": "Ambassador Tiers",
+          "subtitle": "Tier benefits based on activity"
+        },
+        "content": {
+          "title": "Content Rewards",
+          "subtitle": "Rewards by content type"
+        },
+        "campaigns": {
+          "title": "Ongoing Campaigns",
+          "subtitle": "Participate and earn rewards"
+        },
+        "leaderboard": {
+          "title": "Ambassador Leaderboard",
+          "subtitle": "Top Ambassadors This Month"
+        },
+        "faq": {
+          "title": "Frequently Asked Questions",
+          "subtitle": "Questions about the Marketing Program"
+        }
+      },
+      "ambassadorTiers": {
+        "legend": {
+          "requirement": "500+ Referrals",
+          "reward": "500K/month",
+          "perk1": "Dedicated Mentor",
+          "perk2": "Offline Meetup Invites",
+          "perk3": "NFT Airdrops",
+          "perk4": "Governance Voting Rights"
+        },
+        "elite": {
+          "requirement": "200+ Referrals",
+          "reward": "200K/month",
+          "perk1": "Premium Badge",
+          "perk2": "Priority Support",
+          "perk3": "Beta Test Access",
+          "perk4": "Monthly Calls"
+        },
+        "rising": {
+          "requirement": "50+ Referrals",
+          "reward": "50K/month",
+          "perk1": "Official Certification",
+          "perk2": "Discord Role",
+          "perk3": "Marketing Materials",
+          "perk4": "Referral Link"
+        },
+        "starter": {
+          "requirement": "10+ Referrals",
+          "reward": "10K/month",
+          "perk1": "Starter Badge",
+          "perk2": "Basic Materials",
+          "perk3": "Community Access",
+          "perk4": "Tutorials"
+        }
+      },
+      "contentTypes": {
+        "video": {
+          "title": "Video",
+          "desc": "YouTube/TikTok videos"
+        },
+        "article": {
+          "title": "Article",
+          "desc": "Blog/Medium posts"
+        },
+        "graphic": {
+          "title": "Graphics",
+          "desc": "Infographics/memes"
+        },
+        "tutorial": {
+          "title": "Tutorial",
+          "desc": "Educational content"
+        }
+      },
+      "campaignList": {
+        "twitter": {
+          "title": "#TBURNChain Tweet Challenge",
+          "desc": "Create a tweet introducing TBURN"
+        },
+        "youtube": {
+          "title": "TBURN Review Video",
+          "desc": "Create a TBURN Chain analysis video"
+        },
+        "tiktok": {
+          "title": "TikTok Short-form Challenge",
+          "desc": "15-60 second TBURN introduction video"
+        },
+        "article": {
+          "title": "TBURN Deep Dive Article",
+          "desc": "Write a technical/tokenomics analysis"
+        }
+      },
+      "leaderboard": {
+        "top5": "TOP 5 Ambassadors",
+        "rank": "Rank",
+        "ambassador": "Ambassador",
+        "points": "Points",
+        "rewards": "Total Rewards"
+      },
+      "faq": {
+        "q1": "What is the total marketing program budget?",
+        "a1": "The marketing program has a total allocation of 300M TBURN. Distribution: Brand Marketing 30% (90M), Influencer 25% (75M), Content Creator 20% (60M), Event Marketing 15% (45M), PR & Media 10% (30M).",
+        "q2": "How do I become an ambassador?",
+        "a2": "Submit your application on the ambassador application page. Selection is based on social media activity and crypto interest. Start at Starter tier (10K TBURN/month) and advance to Rising (50K), Elite (200K), or Legend (500K) based on referral performance.",
+        "q3": "How are content rewards paid?",
+        "a3": "After content submission and quality review, approved content is rewarded in TBURN tokens. Base rewards by type: Video ($100-500), Article ($50-200), Graphics ($30-100), Tutorial ($150-400). View count and engagement bonuses are added. Payments are made weekly on Mondays.",
+        "q4": "What are the campaign eligibility requirements?",
+        "a4": "Most campaigns are open to anyone with a connected TBURN wallet. Some campaigns may require ambassador tier or follower count (Twitter 1K+, YouTube 5K+). Check each campaign's detail page for specific requirements.",
+        "q5": "How does influencer collaboration work?",
+        "a5": "Influencers with 10K+ followers can join our collaboration program. We offer $500+ per campaign and 10% sales commission. Includes custom campaign design, marketing materials, performance bonuses, and long-term partnership options. Contact partnerships@tburn.io.",
+        "q6": "How can I participate in event marketing?",
+        "a6": "The event marketing program allows you to participate in or host online/offline events. Rewards include $200+ per event and special NFTs. Options include meetup hosting support, conference participation, online AMAs, and community events.",
+        "q7": "How is leaderboard ranking determined?",
+        "a7": "Rankings are based on points from referrals, content performance, campaign participation, and community contributions. Top ambassadors receive monthly bonuses, with Legend tier ambassadors earning up to 500K TBURN monthly.",
+        "q8": "When are marketing rewards paid?",
+        "a8": "Content rewards are paid every Monday. Campaign rewards are paid within 7 days of campaign end. Ambassador monthly rewards are paid on the 1st of each month. All rewards are automatically deposited to your connected TBURN wallet."
+      },
+      "ctaSection": {
+        "title": "Start Now!",
+        "description": "Join the TBURN Marketing Program and earn 300M TBURN rewards!",
+        "toastTitle": "Ambassador Application",
+        "toastDesc": "Check ambassador tiers and start now!"
+      },
+      "social": {
+        "navigating": "Navigating to {{platform}}."
+      },
+      "footer": {
+        "tagline": "AI Intelligence, Blockchain Transparency",
+        "mainnet": "Mainnet",
+        "explorer": "Explorer",
+        "bridge": "Bridge",
+        "staking": "Staking",
+        "whitepaper": "Whitepaper",
+        "docs": "Documentation",
+        "audit": "Audit Report",
+        "blog": "Blog",
+        "ambassador": "Ambassador",
+        "grants": "Grants",
+        "support": "Support",
+        "terms": "Terms of Service",
+        "privacy": "Privacy Policy"
       }
     },
     "strategicPartner": {
@@ -19107,7 +19651,8 @@
         "claimed": "Réclamé",
         "pending": "En attente",
         "tier": "Niveau",
-        "noAllocation": "Aucune allocation d'airdrop trouvée. Accomplissez des tâches pour participer."
+        "noAllocation": "Aucune allocation d'airdrop trouvée. Accomplissez des tâches pour participer.",
+        "standardTier": "Standard"
       },
       "buttons": {
         "participateNow": "Participer maintenant",
@@ -19122,7 +19667,8 @@
         "connectWalletFirst": "Veuillez d'abord connecter votre portefeuille",
         "checkingNft": "Vérification des NFT détenus...",
         "pleaseWait": "Veuillez patienter",
-        "checkingTestnet": "Vérification de l'activité testnet..."
+        "checkingTestnet": "Vérification de l'activité testnet...",
+        "invalidEmail": "Invalid email"
       },
       "types": {
         "badge": "TYPES D'AIRDROP",
@@ -19364,7 +19910,16 @@
         "brand": "La blockchain la plus rapide et la plus sécurisée pour l'avenir de DeFi",
         "copyright": "© 2025-2045 Fondation TBURN. Tous droits réservés.",
         "github": "GitHub",
-        "faq": "FAQ"
+        "faq": "FAQ",
+        "tagline": "Next-generation blockchain infrastructure",
+        "program": "Program",
+        "support": "Support",
+        "blog": "Blog",
+        "legal": "Legal",
+        "terms": "Terms of Service",
+        "privacy": "Privacy Policy",
+        "disclaimer": "Disclaimer",
+        "poweredBy": "Powered by TBURN Technology"
       },
       "emailDialog": {
         "title": "Vérification email",
@@ -19373,7 +19928,8 @@
         "info": "Nous enverrons un lien de vérification à votre email.",
         "cancel": "Annuler",
         "submit": "Soumettre",
-        "processing": "Traitement..."
+        "processing": "Traitement...",
+        "placeholder": "example@email.com"
       },
       "referralDialog": {
         "title": "Inviter des amis",
@@ -19387,7 +19943,18 @@
         "shareTelegram": "Partager sur Telegram",
         "shareKakao": "Partager sur KakaoTalk",
         "bonusTitle": "Bonus de parrainage",
-        "bonusDesc": "500 points pour chaque ami parrainé avec succès, jusqu'à 10 amis."
+        "bonusDesc": "500 points pour chaque ami parrainé avec succès, jusqu'à 10 amis.",
+        "referralCode": "Referral Code",
+        "shareText": "Join TBURN Chain referral program! Earn up to 50% commission.",
+        "benefits": "Referral Benefits",
+        "benefit1": "When friend connects wallet: +500P for you, +100P for friend",
+        "benefit2": "Max 10 invites (up to +5,000P)",
+        "benefit3": "+50P extra when friend's friend joins",
+        "statusTitle": "My Invite Status",
+        "invitedFriends": "Invited Friends",
+        "earnedPoints": "Earned Points",
+        "walletRequired": "Wallet Required",
+        "close": "Close"
       }
     },
     "referralPage": {
@@ -19449,7 +20016,40 @@
         "subtitle": "Votre niveau augmente avec plus de parrainages, débloquant des taux de commission plus élevés",
         "commission": "Commission",
         "referrals": "Parrainages",
-        "benefits": "Avantages"
+        "benefits": "Avantages",
+        "levels": {
+          "bronze": {
+            "requirement": "0-9 referrals",
+            "benefit1": "20% base commission",
+            "benefit2": "1st level referral",
+            "benefit3": "Real-time settlement",
+            "benefit4": "Basic dashboard"
+          },
+          "silver": {
+            "requirement": "10-49 referrals",
+            "benefit1": "30% commission",
+            "benefit2": "2nd level referral (5%)",
+            "benefit3": "Weekly bonus",
+            "benefit4": "Premium dashboard"
+          },
+          "gold": {
+            "requirement": "50-199 referrals",
+            "benefit1": "40% commission",
+            "benefit2": "2nd level referral (10%)",
+            "benefit3": "Monthly bonus",
+            "benefit4": "Dedicated manager",
+            "benefit5": "Early access"
+          },
+          "diamond": {
+            "requirement": "200+ referrals",
+            "benefit1": "Max 50% commission",
+            "benefit2": "3rd level referral (15%)",
+            "benefit3": "VIP bonus",
+            "benefit4": "1:1 dedicated manager",
+            "benefit5": "Exclusive event invites",
+            "benefit6": "Governance bonus"
+          }
+        }
       },
       "dashboard": {
         "badge": "MON TABLEAU DE BORD",
@@ -19475,8 +20075,13 @@
         "connectButton": "Connecter Portefeuille",
         "toasts": {
           "copied": "Copié",
-          "copiedDesc": "Lien de parrainage copié dans le presse-papiers."
-        }
+          "copiedDesc": "Lien de parrainage copié dans le presse-papiers.",
+          "copiedKakao": "Paste to KakaoTalk!",
+          "copyFailed": "Copy Failed",
+          "copyFailedDesc": "Please copy the link manually."
+        },
+        "referralCode": "Referral Code",
+        "shareText": "Join TBURN Chain referral program! Earn up to 50% commission."
       },
       "calculator": {
         "badge": "CALCULATEUR",
@@ -19523,7 +20128,45 @@
           "walletRequired": "Portefeuille Requis",
           "walletRequiredDesc": "Veuillez connecter votre portefeuille pour voir les classements complets.",
           "fullRankings": "Classements Complets",
-          "fullRankingsDesc": "Page des classements complets bientôt disponible."
+          "fullRankingsDesc": "Page des classements complets bientôt disponible.",
+          "comingSoon": "Coming soon."
+        },
+        "labels": {
+          "referrals": "Referrals",
+          "levels": {
+            "bronze": {
+              "requirement": "0-9 referrals",
+              "benefit1": "20% base commission",
+              "benefit2": "1st level referral",
+              "benefit3": "Real-time settlement",
+              "benefit4": "Basic dashboard"
+            },
+            "silver": {
+              "requirement": "10-49 referrals",
+              "benefit1": "30% commission",
+              "benefit2": "2nd level referral (5%)",
+              "benefit3": "Weekly bonus",
+              "benefit4": "Premium dashboard"
+            },
+            "gold": {
+              "requirement": "50-199 referrals",
+              "benefit1": "40% commission",
+              "benefit2": "2nd level referral (10%)",
+              "benefit3": "Monthly bonus",
+              "benefit4": "Dedicated manager",
+              "benefit5": "Early access"
+            },
+            "diamond": {
+              "requirement": "200+ referrals",
+              "benefit1": "Max 50% commission",
+              "benefit2": "3rd level referral (15%)",
+              "benefit3": "VIP bonus",
+              "benefit4": "1:1 dedicated manager",
+              "benefit5": "Exclusive event invites",
+              "benefit6": "Governance bonus"
+            }
+          },
+          "totalEarnings": "Total Earnings"
         }
       },
       "faq": {
@@ -19583,7 +20226,16 @@
         "copyright": "© 2025-2045 TBURN Foundation. Tous Droits Réservés.",
         "privacyPolicy": "Politique de Confidentialité",
         "termsOfService": "Conditions d'Utilisation",
-        "contact": "Contact"
+        "contact": "Contact",
+        "tagline": "Next-generation blockchain infrastructure",
+        "program": "Program",
+        "support": "Support",
+        "blog": "Blog",
+        "legal": "Legal",
+        "terms": "Terms of Service",
+        "privacy": "Privacy Policy",
+        "disclaimer": "Disclaimer",
+        "poweredBy": "Powered by TBURN Technology"
       }
     },
     "eventsPage": {
@@ -19700,6 +20352,32 @@
           "participate": "Participer",
           "connectWallet": "Connecter Portefeuille",
           "comingSoon": "Bientôt Disponible"
+        },
+        "staticEvents": {
+          "launch": {
+            "title": "Mainnet Launch Grand Event",
+            "desc": "Celebrate TBURN Chain mainnet launch! Participate and earn rewards"
+          },
+          "trading": {
+            "title": "Trading Competition Season 1",
+            "desc": "Top 100 by volume share 20M TBURN! Profit ranking also available"
+          },
+          "staking": {
+            "title": "Staking Boost Event",
+            "desc": "2x APY for first 30 days! Early staker special bonus"
+          },
+          "meme": {
+            "title": "Meme Contest",
+            "desc": "Create the best TBURN memes! Community voting to select winners"
+          },
+          "quiz": {
+            "title": "TBURN Quiz Challenge",
+            "desc": "Solve quizzes about TBURN Chain and win rewards! New questions daily"
+          },
+          "dex": {
+            "title": "DEX Launch Celebration Event",
+            "desc": "Celebrate TBURN DEX launch! Special rewards for liquidity providers"
+          }
         }
       },
       "leaderboard": {
@@ -19799,7 +20477,22 @@
         "faqLink": "FAQ",
         "copyright": "© 2025-2045 TBURN Foundation. Tous Droits Réservés.",
         "termsOfService": "Conditions d'Utilisation",
-        "privacyPolicy": "Politique de Confidentialité"
+        "privacyPolicy": "Politique de Confidentialité",
+        "contact": "Contact"
+      },
+      "toasts": {
+        "registerSuccess": {
+          "title": "Registration Complete!",
+          "desc": "Successfully registered for the event."
+        },
+        "registerFailed": {
+          "title": "Registration Failed",
+          "desc": "Failed to register for the event."
+        },
+        "walletRequired": {
+          "title": "Wallet Required",
+          "desc": "Please connect your wallet to participate."
+        }
       }
     }
   },
@@ -19811,7 +20504,8 @@
       "programs": "Programmes",
       "tiers": "Niveaux",
       "activities": "Activités",
-      "leaderboard": "Classement"
+      "leaderboard": "Classement",
+      "faq": "FAQ"
     },
     "hero": {
       "badge": "PROGRAMME COMMUNAUTAIRE - Grandir Ensemble avec TBURN",
@@ -19976,6 +20670,19 @@
       "translation": {
         "name": "Travail de Traduction",
         "category": "Traduction"
+      },
+      "items": {
+        "blog": "Blog Post Writing",
+        "youtube": "YouTube Video Creation",
+        "tweet": "Twitter/X Post",
+        "qa": "Q&A Support",
+        "tutorial": "Tutorial Creation"
+      },
+      "categories": {
+        "content": "Content",
+        "social": "Social Media",
+        "support": "Community Support",
+        "education": "Education"
       }
     },
     "leaderboard": {
@@ -20082,5 +20789,1911 @@
       "applicationSubmittedDesc": "Votre candidature a été soumise. Nous vous informerons des résultats après examen."
     },
     "connectWallet": "Connecter le Portefeuille"
+  },
+  "referral": {
+    "header": {
+      "connectWallet": "Connect Wallet",
+      "connecting": "Connecting..."
+    },
+    "nav": {
+      "home": "Home",
+      "howItWorks": "How It Works",
+      "tiers": "Tiers",
+      "dashboard": "Dashboard",
+      "calculator": "Calculator",
+      "leaderboard": "Leaderboard",
+      "faq": "FAQ"
+    },
+    "hero": {
+      "badge": "REFERRAL PROGRAM",
+      "title": "300M TBURN",
+      "subtitle": "Referral Rewards",
+      "description": "Invite friends to TBURN Chain and earn commissions from their activities. Higher tiers unlock higher commission rates up to 50%!",
+      "stats": {
+        "totalParticipants": "Total Participants",
+        "totalReferrals": "Total Referrals",
+        "totalRewards": "Total Rewards (TBURN)",
+        "activeReferrers": "Active Referrers"
+      },
+      "buttons": {
+        "getReferralLink": "Get Referral Link",
+        "viewDashboard": "View Dashboard"
+      }
+    },
+    "howItWorks": {
+      "badge": "HOW IT WORKS",
+      "title": "How the Referral Program Works",
+      "subtitle": "Earn rewards in 4 simple steps",
+      "steps": {
+        "connect": {
+          "title": "Connect Wallet",
+          "desc": "Connect MetaMask or supported wallet to generate your unique referral link."
+        },
+        "share": {
+          "title": "Share Link",
+          "desc": "Share your referral link on social media, communities, and with friends."
+        },
+        "activity": {
+          "title": "Friend Activity",
+          "desc": "Your referred friends trade, stake, and participate on TBURN Chain."
+        },
+        "earn": {
+          "title": "Earn Rewards",
+          "desc": "Receive commission from your friends' activity fees in real-time."
+        }
+      }
+    },
+    "tiers": {
+      "badge": "TIER COMMISSION",
+      "title": "Commission by Tier",
+      "subtitle": "Your tier increases with more referrals, unlocking higher commission rates",
+      "commission": "Commission",
+      "referrals": "Referrals",
+      "badges": {
+        "starter": "STARTER",
+        "intermediate": "INTERMEDIATE",
+        "popular": "POPULAR",
+        "elite": "ELITE",
+        "bronze": "BRONZE",
+        "silver": "SILVER",
+        "gold": "GOLD",
+        "diamond": "DIAMOND"
+      },
+      "levels": {
+        "bronze": {
+          "requirement": "0-9 referrals",
+          "benefit1": "20% base commission",
+          "benefit2": "1st level referral",
+          "benefit3": "Real-time settlement",
+          "benefit4": "Basic dashboard"
+        },
+        "silver": {
+          "requirement": "10-49 referrals",
+          "benefit1": "30% commission",
+          "benefit2": "2nd level referral (5%)",
+          "benefit3": "Weekly bonus",
+          "benefit4": "Premium dashboard"
+        },
+        "gold": {
+          "requirement": "50-199 referrals",
+          "benefit1": "40% commission",
+          "benefit2": "2nd level referral (10%)",
+          "benefit3": "Monthly bonus",
+          "benefit4": "Dedicated manager",
+          "benefit5": "Early access"
+        },
+        "diamond": {
+          "requirement": "200+ referrals",
+          "benefit1": "Max 50% commission",
+          "benefit2": "3rd level referral (15%)",
+          "benefit3": "VIP bonus",
+          "benefit4": "1:1 dedicated manager",
+          "benefit5": "Exclusive event invites",
+          "benefit6": "Governance bonus"
+        }
+      },
+      "benefits": "Benefits"
+    },
+    "dashboard": {
+      "badge": "MY DASHBOARD",
+      "title": "Referral Dashboard",
+      "subtitle": "Track your referral activity and earnings in real-time",
+      "currentTier": "Current Tier",
+      "tierLabel": "Tier",
+      "myReferralLink": "My Referral Link",
+      "copy": "Copy",
+      "copied": "Copied!",
+      "referralCode": "Referral Code",
+      "shareText": "Join TBURN Chain referral program! Earn up to 50% commission.",
+      "emptyState": "Please connect wallet to view referral info",
+      "connectButton": "Connect Wallet to Start",
+      "share": {
+        "twitter": "Twitter",
+        "telegram": "Telegram",
+        "discord": "Discord",
+        "kakao": "KakaoTalk"
+      },
+      "stats": {
+        "totalInvites": "Total Invites",
+        "activeUsers": "Active Users",
+        "totalEarned": "Total Earned (TBURN)",
+        "totalDistributed": "Total Distributed"
+      },
+      "toasts": {
+        "copied": "Copied!",
+        "copiedDesc": "Referral link copied to clipboard",
+        "copiedKakao": "Link copied for KakaoTalk sharing",
+        "copyFailed": "Copy Failed",
+        "copyFailedDesc": "Failed to copy link to clipboard"
+      }
+    },
+    "calculator": {
+      "badge": "EARNINGS CALCULATOR",
+      "title": "Estimated Earnings Calculator",
+      "subtitle": "Calculate your potential referral earnings",
+      "disclaimer": "* These are estimated values based on assumed conditions and may differ from actual earnings.",
+      "options": {
+        "bronze": "Bronze (20%)",
+        "silver": "Silver (30%)",
+        "gold": "Gold (40%)",
+        "diamond": "Diamond (50%)"
+      },
+      "priceOptions": {
+        "tge": "$0.50 (TGE)",
+        "one": "$1.00",
+        "two": "$2.00",
+        "five": "$5.00"
+      },
+      "input": {
+        "title": "Input Parameters",
+        "tier": "Commission Tier",
+        "referrals": "Active Referrals",
+        "volume": "Avg Monthly Volume ($)",
+        "price": "TBURN Price"
+      },
+      "result": {
+        "title": "Expected Earnings",
+        "totalVolume": "Total Trading Volume",
+        "tradingFee": "Trading Fee (0.1%)",
+        "myCommission": "My Commission",
+        "monthlyEarnings": "Monthly Earnings",
+        "yearlyEarnings": "Yearly Earnings",
+        "yearlyUsd": "Yearly in USD"
+      }
+    },
+    "leaderboard": {
+      "badge": "LEADERBOARD",
+      "title": "Top Referrers",
+      "subtitle": "Compete with other referrers and climb the rankings",
+      "topReferrers": "Top Referrers",
+      "viewAll": "View All Rankings",
+      "tier": "Tier",
+      "referrer": "Referrer",
+      "filters": {
+        "all": "All Time",
+        "week": "This Week",
+        "month": "This Month"
+      },
+      "labels": {
+        "referrals": "Referrals",
+        "totalEarnings": "Total Earnings"
+      },
+      "toasts": {
+        "allRank": "All Time Rankings",
+        "allRankDesc": "Showing all-time leaderboard data",
+        "weekRank": "Weekly Rankings",
+        "weekRankDesc": "Showing this week's leaderboard data",
+        "monthRank": "Monthly Rankings",
+        "monthRankDesc": "Showing this month's leaderboard data",
+        "walletRequired": "Wallet Required",
+        "walletRequiredDesc": "Please connect wallet to view full rankings",
+        "comingSoon": "Full rankings feature coming soon!"
+      }
+    },
+    "faq": {
+      "badge": "FAQ",
+      "title": "Frequently Asked Questions",
+      "subtitle": "Get answers to common questions about the referral program",
+      "q1": {
+        "question": "How do I join the referral program?",
+        "answer": "Simply connect your wallet and you'll automatically receive a unique referral link. Share this link with friends and start earning commissions when they participate on TBURN Chain."
+      },
+      "q2": {
+        "question": "How are commissions calculated?",
+        "answer": "Commissions are calculated based on a percentage of the transaction fees generated by your referrals. Your tier determines your commission rate, ranging from 20% (Bronze) to 50% (Diamond)."
+      },
+      "q3": {
+        "question": "When are rewards distributed?",
+        "answer": "Rewards are distributed in real-time. As soon as your referrals complete transactions, your commission is credited to your wallet automatically."
+      },
+      "q4": {
+        "question": "How do I upgrade my tier?",
+        "answer": "Your tier automatically upgrades as you accumulate more active referrals. Bronze (0-9), Silver (10-49), Gold (50-199), and Diamond (200+)."
+      },
+      "q5": {
+        "question": "Are there any limits on referrals?",
+        "answer": "There is no limit to the number of people you can refer. The more active referrals you have, the higher your tier and commission rate!"
+      },
+      "q6": {
+        "question": "What counts as an active referral?",
+        "answer": "An active referral is someone who has connected their wallet through your referral link and has made at least one transaction on TBURN Chain within the last 30 days."
+      },
+      "q7": {
+        "question": "Can I earn from multi-level referrals?",
+        "answer": "Yes! Higher tiers unlock multi-level referral bonuses. Silver gets 5% from 2nd level, Gold gets 10% from 2nd level, and Diamond gets 15% from 3rd level referrals."
+      },
+      "q8": {
+        "question": "How do I track my referral earnings?",
+        "answer": "You can track all your referral activity, earnings, and tier progress in real-time through your personalized dashboard after connecting your wallet."
+      }
+    },
+    "footer": {
+      "tagline": "The next-generation AI-powered blockchain platform with enterprise-grade security and performance.",
+      "program": "Program",
+      "resources": "Resources",
+      "legal": "Legal",
+      "blog": "Blog",
+      "docs": "Documentation",
+      "support": "Support",
+      "terms": "Terms of Service",
+      "privacy": "Privacy Policy",
+      "disclaimer": "Disclaimer",
+      "copyright": "© 2024-2025 TBURN Chain. All rights reserved.",
+      "poweredBy": "Powered by TBURN Lab"
+    }
+  },
+  "events": {
+    "header": {
+      "title": "TBURN Events"
+    },
+    "nav": {
+      "liveEvents": "Live Events",
+      "allEvents": "All Events",
+      "leaderboard": "Leaderboard",
+      "faq": "FAQ",
+      "connectWallet": "Connect Wallet"
+    },
+    "hero": {
+      "badge": "TBURN Launch Celebration Event Live",
+      "title": "TBURN Ecosystem",
+      "titleHighlight": "Mega Event",
+      "titleSuffix": "Festival",
+      "subtitle": "Earn massive rewards by participating in various ecosystem events. From staking to trading, community activities to partner collaborations - there's an event for everyone!",
+      "liveBadge": "LIVE NOW",
+      "liveTitle": "Mainnet Launch Celebration",
+      "liveSubtitle": "Join now and earn up to 50M TBURN!",
+      "countdown": {
+        "days": "Days",
+        "hours": "Hours",
+        "minutes": "Min",
+        "seconds": "Sec"
+      },
+      "participate": "Participate Now",
+      "connectFirst": "Connect & Join"
+    },
+    "stats": {
+      "totalEvents": "Total Events",
+      "activeEvents": "Active Events",
+      "totalParticipants": "Total Participants",
+      "totalRewards": "Total Rewards (TBURN)"
+    },
+    "distribution": {
+      "badge": "Reward Distribution",
+      "title": "Event Reward Allocation",
+      "subtitle": "Total 400M TBURN tokens allocated across various event categories",
+      "launch": {
+        "name": "Launch Events",
+        "amount": "120M",
+        "percent": "30%"
+      },
+      "trading": {
+        "name": "Trading Events",
+        "amount": "80M",
+        "percent": "20%"
+      },
+      "staking": {
+        "name": "Staking Events",
+        "amount": "80M",
+        "percent": "20%"
+      },
+      "community": {
+        "name": "Community",
+        "amount": "60M",
+        "percent": "15%"
+      },
+      "partner": {
+        "name": "Partner Events",
+        "amount": "60M",
+        "percent": "15%"
+      }
+    },
+    "upcoming": {
+      "badge": "All Events",
+      "title": "Explore Events",
+      "subtitle": "Discover ongoing and upcoming events to maximize your rewards",
+      "status": {
+        "live": "LIVE",
+        "upcoming": "UPCOMING"
+      },
+      "staticEvents": {
+        "launch": {
+          "title": "Mainnet Launch Celebration",
+          "desc": "Celebrate the mainnet launch with exclusive rewards and bonuses!"
+        },
+        "trading": {
+          "title": "Trading Competition",
+          "desc": "Compete with other traders and win from the 20M TBURN prize pool!"
+        },
+        "staking": {
+          "title": "Super Staking Boost",
+          "desc": "Stake TBURN and receive up to 300% APY during the launch period!"
+        },
+        "meme": {
+          "title": "Meme Contest",
+          "desc": "Create viral TBURN memes and win community rewards!"
+        },
+        "quiz": {
+          "title": "TBURN Quiz Challenge",
+          "desc": "Test your knowledge about TBURN and earn tokens!"
+        },
+        "dex": {
+          "title": "DEX Launch Party",
+          "desc": "Celebrate DEX launch with liquidity mining rewards!"
+        }
+      },
+      "categories": {
+        "all": "All Events",
+        "live": "Live",
+        "launch": "Launch",
+        "trading": "Trading",
+        "staking": "Staking",
+        "community": "Community"
+      },
+      "categoryToasts": {
+        "all": {
+          "title": "All Events",
+          "desc": "Showing all available events"
+        },
+        "live": {
+          "title": "Live Events",
+          "desc": "Showing currently active events"
+        },
+        "launch": {
+          "title": "Launch Events",
+          "desc": "Showing mainnet launch related events"
+        },
+        "trading": {
+          "title": "Trading Events",
+          "desc": "Showing trading competition events"
+        },
+        "staking": {
+          "title": "Staking Events",
+          "desc": "Showing staking reward events"
+        },
+        "community": {
+          "title": "Community Events",
+          "desc": "Showing community engagement events"
+        }
+      },
+      "loading": "Loading Events...",
+      "loadingDesc": "Please wait while we fetch the latest events",
+      "noEvents": "No Events Found",
+      "noEventsDesc": "There are no events matching your criteria",
+      "buttons": {
+        "comingSoon": "Coming Soon",
+        "participate": "Participate Now",
+        "connectWallet": "Connect Wallet"
+      }
+    },
+    "leaderboard": {
+      "badge": "Top Earners",
+      "title": "Event Leaderboard",
+      "subtitle": "See who's earning the most rewards from ecosystem events",
+      "topTitle": "Top Participants",
+      "tabs": {
+        "all": "All Time",
+        "today": "Today",
+        "week": "This Week"
+      },
+      "tabToasts": {
+        "all": {
+          "title": "All Time Rankings",
+          "desc": "Showing cumulative scores from all events"
+        },
+        "today": {
+          "title": "Today's Rankings",
+          "desc": "Showing today's top performers"
+        },
+        "week": {
+          "title": "Weekly Rankings",
+          "desc": "Showing this week's top performers"
+        }
+      },
+      "table": {
+        "rank": "Rank",
+        "participant": "Participant",
+        "missions": "Missions",
+        "score": "Score",
+        "reward": "Reward"
+      }
+    },
+    "faq": {
+      "badge": "FAQ",
+      "title": "Frequently Asked Questions",
+      "subtitle": "Everything you need to know about TBURN events",
+      "items": {
+        "q1": {
+          "question": "How do I participate in events?",
+          "answer": "Connect your wallet, browse available events, and click 'Participate' on any event you want to join. Complete the required tasks to earn rewards. Each event has specific requirements and reward structures."
+        },
+        "q2": {
+          "question": "When are rewards distributed?",
+          "answer": "Rewards are typically distributed within 24-48 hours after an event ends. For ongoing events, rewards may be distributed weekly or monthly. Check each event's details for specific distribution schedules."
+        },
+        "q3": {
+          "question": "What is the minimum stake requirement?",
+          "answer": "Minimum requirements vary by event. Launch events typically require 100 TBURN minimum, while staking events may have higher thresholds for bonus tiers. Always check the event details before participating."
+        },
+        "q4": {
+          "question": "Can I participate in multiple events?",
+          "answer": "Absolutely! You can participate in as many events as you qualify for simultaneously. Multi-event participants often receive bonus rewards for ecosystem engagement."
+        },
+        "q5": {
+          "question": "How is the leaderboard calculated?",
+          "answer": "Leaderboard rankings are based on a combined score of: participation points, task completion, staking amount, trading volume, and referral bonuses. The algorithm updates every 15 minutes."
+        },
+        "q6": {
+          "question": "Are there KYC requirements?",
+          "answer": "Basic events don't require KYC. However, events with rewards exceeding 10,000 TBURN may require identity verification for regulatory compliance. We'll notify you if KYC is needed."
+        },
+        "q7": {
+          "question": "What wallets are supported?",
+          "answer": "We support MetaMask, WalletConnect, Coinbase Wallet, and most major Web3 wallets. Ensure your wallet is connected to the TBURN network to participate."
+        },
+        "q8": {
+          "question": "How can I report an issue?",
+          "answer": "For any issues, please contact our support team through Discord or Telegram. You can also submit a support ticket through the official TBURN website. We aim to respond within 24 hours."
+        }
+      }
+    },
+    "cta": {
+      "title": "Ready to Start Earning?",
+      "subtitle": "Join thousands of participants in the TBURN ecosystem.",
+      "subtitleHighlight": "Connect your wallet and start earning rewards today!",
+      "buttonParticipate": "Start Participating",
+      "buttonConnect": "Connect Wallet"
+    },
+    "footer": {
+      "description": "The next-generation AI-powered blockchain platform with enterprise-grade security and performance.",
+      "quickLinks": "Quick Links",
+      "explorer": "Explorer",
+      "wallet": "Wallet",
+      "bridge": "Bridge",
+      "staking": "Staking",
+      "developers": "Developers",
+      "docs": "Documentation",
+      "api": "API Reference",
+      "github": "GitHub",
+      "sdk": "SDK",
+      "resources": "Resources",
+      "whitepaper": "Whitepaper",
+      "tokenomics": "Tokenomics",
+      "roadmap": "Roadmap",
+      "faqLink": "FAQ",
+      "copyright": "© 2024-2025 TBURN Chain. All rights reserved.",
+      "termsOfService": "Terms of Service",
+      "privacyPolicy": "Privacy Policy"
+    },
+    "toasts": {
+      "registerSuccess": {
+        "title": "Registration Successful!",
+        "desc": "You have been registered for this event."
+      },
+      "registerFailed": {
+        "title": "Registration Failed",
+        "desc": "Unable to register for this event. Please try again."
+      },
+      "walletRequired": {
+        "title": "Wallet Required",
+        "desc": "Please connect your wallet to participate in events."
+      }
+    }
+  },
+  "daoGovernance": {
+    "nav": {
+      "process": "Process",
+      "proposals": "Proposals",
+      "committees": "Committees",
+      "rewards": "Rewards",
+      "faq": "FAQ",
+      "connectWallet": "Connect Wallet"
+    },
+    "hero": {
+      "badge": "DAO GOVERNANCE",
+      "title1": "300M TBURN",
+      "title2": "DAO",
+      "title3": "Governance",
+      "subtitle": "Participate in TBURN Chain governance and shape the future of decentralized finance. Vote on proposals, delegate voting power, and earn rewards for active participation."
+    },
+    "stats": {
+      "totalProposals": "Total Proposals",
+      "activeProposals": "Active Proposals",
+      "totalVotes": "Total Votes",
+      "totalVotingPower": "Total Voting Power"
+    },
+    "distribution": {
+      "badge": "DISTRIBUTION",
+      "title": "Governance Token Distribution",
+      "subtitle": "300M TBURN allocated for governance rewards and incentives",
+      "treasury": "Treasury",
+      "treasuryAmount": "100M TBURN",
+      "proposal": "Proposal Rewards",
+      "proposalAmount": "50M TBURN",
+      "voting": "Voting Rewards",
+      "votingAmount": "100M TBURN",
+      "committee": "Committee",
+      "committeeAmount": "50M TBURN"
+    },
+    "process": {
+      "badge": "GOVERNANCE PROCESS",
+      "title": "How Governance Works",
+      "subtitle": "Follow the democratic process to shape TBURN Chain's future"
+    },
+    "processSteps": [
+      {
+        "title": "Submit Proposal",
+        "description": "Create and submit your governance proposal with detailed specifications"
+      },
+      {
+        "title": "Community Discussion",
+        "description": "Engage with the community to refine and improve the proposal"
+      },
+      {
+        "title": "Voting Period",
+        "description": "Token holders vote on the proposal during the voting window"
+      },
+      {
+        "title": "Implementation",
+        "description": "Approved proposals are implemented by the core team"
+      }
+    ],
+    "proposals": {
+      "badge": "PROPOSALS",
+      "title": "Active Proposals",
+      "subtitle": "Review and vote on current governance proposals",
+      "deadline": "Deadline",
+      "proposer": "Proposer",
+      "voting": "Voting",
+      "pending": "Pending",
+      "categories": {
+        "protocol": "Protocol",
+        "treasury": "Treasury",
+        "ecosystem": "Ecosystem"
+      }
+    },
+    "proposalsData": [
+      {
+        "title": "Protocol Upgrade v2.0",
+        "category": "Protocol",
+        "votes": "125K",
+        "deadline": "3 days"
+      },
+      {
+        "title": "Treasury Allocation Q1",
+        "category": "Treasury",
+        "votes": "98K",
+        "deadline": "5 days"
+      },
+      {
+        "title": "Ecosystem Fund Distribution",
+        "category": "Ecosystem",
+        "votes": "75K",
+        "deadline": "7 days"
+      }
+    ],
+    "voting": {
+      "for": "For",
+      "against": "Against",
+      "quorumRate": "Quorum Rate"
+    },
+    "committees": {
+      "badge": "COMMITTEES",
+      "title": "Governance Committees",
+      "subtitle": "Specialized groups driving TBURN Chain governance",
+      "members": "Members",
+      "processedProposals": "Proposals Processed"
+    },
+    "committeesData": [
+      {
+        "name": "Technical Committee",
+        "members": 7,
+        "processed": 45
+      },
+      {
+        "name": "Treasury Committee",
+        "members": 5,
+        "processed": 32
+      },
+      {
+        "name": "Community Committee",
+        "members": 9,
+        "processed": 28
+      }
+    ],
+    "rewards": {
+      "badge": "REWARDS",
+      "title": "Governance Rewards",
+      "subtitle": "Earn TBURN by actively participating in governance"
+    },
+    "rewardsData": [
+      {
+        "action": "Vote on Proposal",
+        "reward": "100 TBURN"
+      },
+      {
+        "action": "Submit Proposal",
+        "reward": "500 TBURN"
+      },
+      {
+        "action": "Committee Participation",
+        "reward": "1000 TBURN"
+      }
+    ],
+    "delegation": {
+      "badge": "DELEGATION",
+      "title": "Vote Delegation",
+      "subtitle": "Delegate your voting power to trusted representatives",
+      "topDelegates": "Top Delegates",
+      "votingPower": "Voting Power"
+    },
+    "delegatesData": [
+      {
+        "name": "ValidatorOne",
+        "power": "2.5M TBURN"
+      },
+      {
+        "name": "CommunityLead",
+        "power": "1.8M TBURN"
+      },
+      {
+        "name": "DeFiExpert",
+        "power": "1.2M TBURN"
+      }
+    ],
+    "faq": {
+      "badge": "FAQ",
+      "title": "Frequently Asked Questions",
+      "subtitle": "Learn more about TBURN DAO governance",
+      "q1": "What is TBURN DAO governance?",
+      "a1": "TBURN DAO governance is a decentralized decision-making system where token holders vote on protocol upgrades, treasury allocations, and ecosystem initiatives.",
+      "q2": "How can I participate in governance?",
+      "a2": "Connect your wallet, hold TBURN tokens, and vote on active proposals. You can also delegate your voting power to trusted representatives.",
+      "q3": "What is the minimum voting requirement?",
+      "a3": "You need at least 100 TBURN tokens to participate in governance voting.",
+      "q4": "How are governance rewards distributed?",
+      "a4": "Rewards are distributed proportionally based on your voting participation and the amount of TBURN tokens you hold.",
+      "q5": "What is vote delegation?",
+      "a5": "Vote delegation allows you to assign your voting power to another address while retaining ownership of your tokens.",
+      "q6": "How long is the voting period?",
+      "a6": "Standard proposals have a 7-day voting period, while emergency proposals may have shorter timeframes.",
+      "q7": "What is quorum?",
+      "a7": "Quorum is the minimum percentage of total voting power required for a proposal to pass. Currently set at 10%.",
+      "q8": "How do I submit a proposal?",
+      "a8": "Submit proposals through the governance portal. You need a minimum of 10,000 TBURN tokens to create a proposal."
+    },
+    "ctaSection": {
+      "title": "Shape the Future of TBURN",
+      "subtitle1": "Join the governance and make your voice heard.",
+      "subtitle2": "Vote on proposals and earn rewards.",
+      "button": "Start Participating"
+    },
+    "cta": {
+      "vote": "Vote",
+      "submitProposal": "Submit Proposal",
+      "activeProposals": "Active Proposals",
+      "activeProposalsDesc": "View and vote on current proposals",
+      "comingSoon": "Coming Soon"
+    },
+    "toast": {
+      "connected": "Wallet Connected",
+      "connectedDesc": "You can now participate in governance",
+      "disconnected": "Wallet Disconnected",
+      "disconnectedDesc": "Connect your wallet to participate",
+      "navigating": "Navigating...",
+      "participateTitle": "Participate in Governance",
+      "participateDesc": "Connect your wallet to vote on proposals",
+      "walletRequired": "Wallet Required",
+      "walletRequiredDesc": "Please connect your wallet to continue",
+      "proposalWalletRequired": "Wallet required to view proposal details",
+      "voteFor": "Voted For",
+      "voteAgainst": "Voted Against",
+      "voteSubmitted": "Vote submitted successfully"
+    },
+    "footer": {
+      "tagline1": "Decentralized Governance",
+      "tagline2": "Community-Driven Future",
+      "product": "Product",
+      "mainnet": "Mainnet",
+      "staking": "Staking",
+      "bridge": "Bridge",
+      "explorer": "Explorer",
+      "resources": "Resources",
+      "docs": "Documentation",
+      "whitepaper": "Whitepaper",
+      "blog": "Blog",
+      "audit": "Audit Reports",
+      "community": "Community",
+      "support": "Support",
+      "ambassador": "Ambassador",
+      "grants": "Grants",
+      "terms": "Terms of Service",
+      "privacy": "Privacy Policy"
+    }
+  },
+  "strategicPartner": {
+    "title": "Strategic Partners",
+    "subtitle": "Key strategic partnerships shaping the TBURN ecosystem",
+    "heroTitle": "TBURN Strategic Partners",
+    "heroSubtitle": "World-class partners supporting the TBURN vision",
+    "badge": "STRATEGIC PARTNERSHIP - Enterprise Partnership",
+    "partnerCount": "Partner Count",
+    "categories": "Categories",
+    "tier1": "Tier 1 Partners",
+    "tier2": "Tier 2 Partners",
+    "tier3": "Tier 3 Partners",
+    "vcPartners": "VC Partners",
+    "techPartners": "Technology Partners",
+    "mediaPartners": "Media Partners",
+    "nav": {
+      "partnerTiers": "Partner Tiers",
+      "partnershipTypes": "Partnership Types",
+      "benefits": "Benefits",
+      "useCases": "Use Cases",
+      "faq": "FAQ"
+    },
+    "wallet": {
+      "connect": "Connect Wallet",
+      "disconnect": "Wallet Disconnected",
+      "disconnectDesc": "Your wallet has been disconnected.",
+      "connected": "Wallet Connected",
+      "connectedDesc": "Your wallet has been connected.",
+      "required": "Wallet Required",
+      "requiredDesc": "Please connect your wallet first to make a partnership inquiry."
+    },
+    "hero": {
+      "title1": "Strategic Partnership for",
+      "title2": "200M TBURN",
+      "title3": "Incentives",
+      "subtitle": "Become a core partner of the TBURN ecosystem through strategic partnerships with enterprises, institutional investors, and major protocols."
+    },
+    "enterpriseLogos": {
+      "enterprise": "Enterprise",
+      "protocol": "Protocol",
+      "institutional": "Institutional",
+      "corporate": "Corporate",
+      "research": "Research"
+    },
+    "stats": {
+      "totalBudget": "Total Strategic Budget",
+      "strategicPartners": "Strategic Partners",
+      "distributed": "Distributed",
+      "totalPartnerships": "Total Partnerships"
+    },
+    "cta": {
+      "applyPartnership": "Apply Partnership",
+      "enterpriseGuide": "Enterprise Guide",
+      "partnershipInquiry": "Partnership Inquiry",
+      "partnershipInquiryDesc": "Check the partner tiers and contact us!",
+      "enterpriseGuideDesc": "View partnership type information."
+    },
+    "distribution": {
+      "badge": "DISTRIBUTION",
+      "title": "Strategic Budget Distribution",
+      "subtitle": "200M TBURN allocated to 5 strategic areas",
+      "enterprise": "Enterprise",
+      "enterpriseAmount": "80M",
+      "protocol": "Protocol Integration",
+      "protocolAmount": "40M",
+      "institutional": "Institutional Investors",
+      "institutionalAmount": "40M",
+      "government": "Public Sector",
+      "governmentAmount": "20M",
+      "academic": "Academic/Research",
+      "academicAmount": "20M"
+    },
+    "tiers": {
+      "badge": "TIERS",
+      "title": "Strategic Partner Tiers",
+      "subtitle": "Differentiated benefits based on contribution and investment scale",
+      "diamond": {
+        "name": "Diamond",
+        "subtitle": "Top Strategic Partner",
+        "incentive": "Up to 50M",
+        "requirement": "$10M+ value provision",
+        "benefits": [
+          "Dedicated tech team",
+          "Custom solution development",
+          "Board participation",
+          "Exclusive governance rights",
+          "Annual offline summit"
+        ]
+      },
+      "platinum": {
+        "name": "Platinum",
+        "subtitle": "Premium Partner",
+        "incentive": "Up to 20M",
+        "requirement": "$5M+ value provision",
+        "benefits": [
+          "Priority tech support",
+          "Co-marketing",
+          "Quarterly strategy meetings",
+          "Governance voting rights",
+          "VIP events"
+        ]
+      },
+      "gold": {
+        "name": "Gold",
+        "subtitle": "Core Partner",
+        "incentive": "Up to 5M",
+        "requirement": "$1M+ value provision",
+        "benefits": [
+          "Tech integration support",
+          "Marketing collaboration",
+          "Monthly reports",
+          "DAO participation",
+          "Partner networking"
+        ]
+      },
+      "silver": {
+        "name": "Silver",
+        "subtitle": "Growth Partner",
+        "incentive": "Up to 1M",
+        "requirement": "$100K+ value provision",
+        "benefits": [
+          "Tech documentation access",
+          "Basic support",
+          "Quarterly updates",
+          "Community access",
+          "Partner badge"
+        ]
+      },
+      "partnerIncentive": "Partner Incentive",
+      "inquire": "Inquire"
+    },
+    "tierInquiry": {
+      "title": "Partner Inquiry",
+      "description": "Partnership inquiry for {{tier}} tier ({{incentive}} TBURN) has been submitted. A representative will contact you."
+    },
+    "partnershipTypes": {
+      "badge": "PARTNERSHIP TYPES",
+      "title": "Partnership Types",
+      "subtitle": "Various strategic collaboration methods",
+      "enterprise": {
+        "title": "Enterprise Solutions",
+        "desc": "Customized blockchain solutions for large corporations",
+        "features": [
+          "Private chain construction",
+          "API integration",
+          "Security audit",
+          "24/7 support"
+        ]
+      },
+      "protocol": {
+        "title": "Protocol Integration",
+        "desc": "DeFi and Web3 protocol integration",
+        "features": [
+          "Cross-chain bridge",
+          "Liquidity pool",
+          "Smart contracts",
+          "Oracle integration"
+        ]
+      },
+      "institutional": {
+        "title": "Institutional Investment",
+        "desc": "Dedicated program for institutional investors",
+        "features": [
+          "Custody service",
+          "OTC trading",
+          "Tax reports",
+          "Regulatory compliance"
+        ]
+      },
+      "government": {
+        "title": "Public Partnership",
+        "desc": "Collaboration with government and public institutions",
+        "features": [
+          "Public infrastructure",
+          "Digital identity",
+          "Transparency systems",
+          "Civic services"
+        ]
+      },
+      "academic": {
+        "title": "Academic Research",
+        "desc": "Collaboration with universities and research institutes",
+        "features": [
+          "Research grants",
+          "Internships",
+          "Paper support",
+          "Technical consulting"
+        ]
+      },
+      "global": {
+        "title": "Global Expansion",
+        "desc": "International market expansion support",
+        "features": [
+          "Localization support",
+          "Regulatory consulting",
+          "Partner connections",
+          "Marketing support"
+        ]
+      }
+    },
+    "process": {
+      "badge": "PROCESS",
+      "title": "Partnership Process",
+      "subtitle": "Strategic partner onboarding process",
+      "step1": {
+        "title": "Inquiry Submission",
+        "desc": "Partnership letter of intent submission",
+        "duration": "1-3 days"
+      },
+      "step2": {
+        "title": "Due Diligence & Evaluation",
+        "desc": "Business/technical review",
+        "duration": "2-4 weeks"
+      },
+      "step3": {
+        "title": "Terms Negotiation",
+        "desc": "Partnership terms discussion",
+        "duration": "2-4 weeks"
+      },
+      "step4": {
+        "title": "Contract Signing",
+        "desc": "Legal contract signing",
+        "duration": "1-2 weeks"
+      },
+      "step5": {
+        "title": "Onboarding",
+        "desc": "Technical integration and launch",
+        "duration": "4-8 weeks"
+      }
+    },
+    "benefits": {
+      "badge": "BENEFITS",
+      "title": "Strategic Partner Benefits",
+      "subtitle": "Exclusive benefits for strategic partners only",
+      "techSupport": {
+        "title": "Customized Tech Support",
+        "desc": "Dedicated engineering team develops solutions tailored to each company's requirements."
+      },
+      "growth": {
+        "title": "Growth Acceleration",
+        "desc": "Support business growth leveraging TBURN ecosystem resources and network."
+      },
+      "security": {
+        "title": "Security & Compliance",
+        "desc": "Enterprise-grade security and global regulatory compliance guaranteed."
+      },
+      "networking": {
+        "title": "Strategic Networking",
+        "desc": "Networking opportunities with industry leaders and joint business opportunities provided."
+      },
+      "exclusive": {
+        "title": "Exclusive Benefits",
+        "desc": "Enjoy exclusive benefits including early access, governance participation, and special incentives."
+      },
+      "data": {
+        "title": "Data Insights",
+        "desc": "Provide business intelligence through on-chain analytics and customized reports."
+      }
+    },
+    "useCases": {
+      "badge": "USE CASES",
+      "title": "Use Cases",
+      "subtitle": "Strategic partnership utilization scenarios",
+      "tabs": {
+        "enterprise": "Enterprise",
+        "protocol": "Protocol",
+        "institutional": "Institutional"
+      },
+      "enterprise": {
+        "title": "Enterprise Blockchain",
+        "desc": "Provide private blockchain solutions for large enterprises. Applicable to various use cases including supply chain management, asset tokenization, and internal payment systems.",
+        "features": [
+          "Private chain construction",
+          "API integration support",
+          "Enterprise security",
+          "24/7 technical support"
+        ],
+        "stats": {
+          "uptime": "99.99%",
+          "uptimeLabel": "Uptime",
+          "response": "< 100ms",
+          "responseLabel": "Response Time",
+          "throughput": "Unlimited",
+          "throughputLabel": "Throughput",
+          "security": "ISO 27001",
+          "securityLabel": "Security Certification"
+        }
+      },
+      "protocol": {
+        "title": "Protocol Integration",
+        "desc": "Support seamless integration with DeFi protocols. Provide cross-chain bridges, liquidity pools, and DEX integration.",
+        "features": [
+          "Cross-chain bridge",
+          "Liquidity incentives",
+          "Smart contract audit",
+          "Real-time oracle"
+        ],
+        "stats": {
+          "tvl": "$500M+",
+          "tvlLabel": "TVL",
+          "protocols": "15+",
+          "protocolsLabel": "Protocol Integrations",
+          "transactions": "1M+",
+          "transactionsLabel": "Daily Transactions",
+          "chains": "5",
+          "chainsLabel": "Chains Supported"
+        }
+      },
+      "institutional": {
+        "title": "Institutional Investors",
+        "desc": "Provide dedicated services for regulatory-compliant institutional investors. Support custody, OTC trading, and tax reports.",
+        "features": [
+          "Regulatory-compliant custody",
+          "Large OTC trading",
+          "Tax reports",
+          "Private investment rounds"
+        ],
+        "stats": {
+          "aum": "$100M+",
+          "aumLabel": "AUM",
+          "partners": "50+",
+          "partnersLabel": "Institutional Partners",
+          "otc": "24/7",
+          "otcLabel": "OTC Desk",
+          "compliance": "Global",
+          "complianceLabel": "Regulatory Compliance"
+        }
+      }
+    },
+    "currentPartners": {
+      "badge": "PARTNERS",
+      "title": "Current Strategic Partners",
+      "subtitle": "Global partners joining us",
+      "investmentScale": "Investment Scale",
+      "partnership": "Partnership"
+    },
+    "faq": {
+      "badge": "FAQ",
+      "title": "Frequently Asked Questions",
+      "subtitle": "Questions about strategic partnerships",
+      "q1": {
+        "question": "What is the total budget for strategic partnerships?",
+        "answer": "A total of 200M TBURN is allocated for strategic partnerships. This is distributed as Enterprise 40% (80M), Protocol Integration 20% (40M), Institutional Investors 20% (40M), Public Sector 10% (20M), and Academic/Research 10% (20M)."
+      },
+      "q2": {
+        "question": "What are the requirements to become a strategic partner?",
+        "answer": "Strategic partnerships require a minimum value provision of $100K or more (investment, technology integration, business collaboration, etc.). Tiers are divided into Silver ($100K+, up to 1M TBURN), Gold ($1M+, up to 5M), Platinum ($5M+, up to 20M), and Diamond ($10M+, up to 50M)."
+      },
+      "q3": {
+        "question": "How are partnership incentives distributed?",
+        "answer": "Incentives are distributed according to a vesting schedule. Generally distributed over 12-24 months, paid monthly/quarterly after initial unlock. Performance-based bonuses are also paid separately based on milestone achievements."
+      },
+      "q4": {
+        "question": "Are there special programs for institutional investors?",
+        "answer": "Yes, we operate dedicated programs for institutional investors. We provide regulatory-compliant custody, large OTC trading, tax reports, and private investment round participation opportunities. Contact us for detailed information."
+      },
+      "q5": {
+        "question": "How long does it take to finalize a partnership?",
+        "answer": "Generally, it takes 8-16 weeks total: Inquiry submission (1-3 days) → Due diligence & evaluation (2-4 weeks) → Terms negotiation (2-4 weeks) → Contract signing (1-2 weeks) → Onboarding (4-8 weeks). Fast-track process is available for urgent cases."
+      },
+      "q6": {
+        "question": "How does protocol integration partnership work?",
+        "answer": "We support technical integration with DeFi protocols. We provide cross-chain bridges, liquidity pools, DEX integration, smart contract audits, and real-time oracle integration. Currently integrated with 15+ protocols with $500M+ TVL."
+      },
+      "q7": {
+        "question": "What are the exclusive benefits for Diamond tier partners?",
+        "answer": "Diamond tier partners receive up to 50M TBURN incentives along with a dedicated technical team, custom solution development, board participation rights, exclusive governance rights, and annual offline summit participation - the highest level of benefits."
+      },
+      "q8": {
+        "question": "How can I inquire about partnership?",
+        "answer": "You can apply through the 'Apply Partnership' button at the top of the page or contact us directly at partnerships@tburn.io. Connecting your wallet allows for faster review. A dedicated team will contact you within 3 business days."
+      }
+    },
+    "ctaSection": {
+      "title": "Become a Strategic Partner",
+      "subtitle1": "As a core partner of the TBURN ecosystem",
+      "subtitle2": "receive 200M TBURN incentives!",
+      "button": "Apply Partnership"
+    },
+    "footer": {
+      "brand": "TBURNCHAIN",
+      "tagline1": "AI Intelligence, Blockchain Transparency",
+      "tagline2": "THE FUTURE IS NOW",
+      "products": "Products",
+      "explorer": "Explorer",
+      "bridge": "Bridge",
+      "staking": "Staking",
+      "governance": "Governance",
+      "developers": "Developers",
+      "documentation": "Documentation",
+      "api": "API Reference",
+      "github": "GitHub",
+      "bugBounty": "Bug Bounty",
+      "community": "Community",
+      "twitter": "Twitter",
+      "telegram": "Telegram",
+      "discord": "Discord",
+      "forum": "Forum",
+      "copyright": "© 2024 TBURNCHAIN. All rights reserved.",
+      "privacyPolicy": "Privacy Policy",
+      "termsOfService": "Terms of Service"
+    }
+  },
+  "advisorProgram": {
+    "title": "Advisor Program",
+    "badge": "ADVISOR PROGRAM - Expert Advisory Board",
+    "nav": {
+      "advisorRoles": "Advisor Roles",
+      "tiers": "Tiers",
+      "currentAdvisors": "Current Advisors",
+      "applicationProcess": "Application Process",
+      "faq": "FAQ"
+    },
+    "wallet": {
+      "connect": "Connect Wallet",
+      "disconnect": "Wallet Disconnected",
+      "disconnectDesc": "Your wallet has been disconnected.",
+      "connected": "Wallet Connected",
+      "connectedDesc": "Your wallet is now connected.",
+      "required": "Wallet Connection Required",
+      "requiredDesc": "Please connect your wallet first to apply for advisor position."
+    },
+    "hero": {
+      "title1": "Become a TBURN Advisor,",
+      "title2": "200M TBURN",
+      "title3": "in Rewards",
+      "subtitle": "Join as an expert in Technology, Business, Legal, or Academic fields to contribute to TBURN ecosystem growth and earn rewards."
+    },
+    "advisorPreviews": {
+      "jk": {
+        "initial": "JK",
+        "name": "Dr. John Kim",
+        "role": "Tech Advisor"
+      },
+      "sp": {
+        "initial": "SP",
+        "name": "Sarah Park",
+        "role": "Business Advisor"
+      },
+      "ml": {
+        "initial": "ML",
+        "name": "Michael Lee",
+        "role": "Legal Advisor"
+      },
+      "ec": {
+        "initial": "EC",
+        "name": "Emma Choi",
+        "role": "Academic Advisor"
+      }
+    },
+    "stats": {
+      "totalBudget": "Total Advisory Budget",
+      "currentAdvisors": "Current Advisors",
+      "activeAdvisors": "Active Advisors",
+      "vestingPeriod": "Vesting Period (months)"
+    },
+    "cta": {
+      "applyButton": "Apply to Advisor Program",
+      "guideButton": "Advisor Guide",
+      "applyAdvisor": "Advisor Application",
+      "applyAdvisorDesc": "Check the advisor fields and apply now!",
+      "advisorGuide": "Advisor Guide",
+      "advisorGuideDesc": "Check the application process."
+    },
+    "roleApply": {
+      "title": "{{role}} Application",
+      "description": "Your {{role}} application has been submitted. We will contact you after document review."
+    },
+    "tierApply": {
+      "title": "{{tier}} Application",
+      "description": "Your {{tier}} ({{incentive}} TBURN) application has been submitted. We will guide you after review."
+    },
+    "distribution": {
+      "badge": "DISTRIBUTION",
+      "title": "Advisory Budget Allocation",
+      "subtitle": "200M TBURN distributed across 5 advisory fields",
+      "items": {
+        "tech": {
+          "name": "Tech Advisory",
+          "amount": "60M",
+          "percent": "30%"
+        },
+        "business": {
+          "name": "Business Advisory",
+          "amount": "40M",
+          "percent": "20%"
+        },
+        "legal": {
+          "name": "Legal Advisory",
+          "amount": "40M",
+          "percent": "20%"
+        },
+        "academic": {
+          "name": "Academic Advisory",
+          "amount": "30M",
+          "percent": "15%"
+        },
+        "industry": {
+          "name": "Industry Advisory",
+          "amount": "30M",
+          "percent": "15%"
+        }
+      }
+    },
+    "roles": {
+      "badge": "ROLES",
+      "title": "Advisory Fields",
+      "subtitle": "Advisor roles by specialized fields",
+      "applyButton": "Apply",
+      "items": {
+        "tech": {
+          "title": "Tech Advisor",
+          "subtitle": "Blockchain, AI, Security Expert",
+          "reward1Value": "Up to 10M",
+          "reward1Label": "Annual Reward",
+          "reward2Value": "Quarterly",
+          "reward2Label": "Tech Review",
+          "resp1": "Code review and architecture consulting",
+          "resp2": "Security audit participation",
+          "resp3": "Technical roadmap review",
+          "resp4": "New technology trend analysis"
+        },
+        "business": {
+          "title": "Business Advisor",
+          "subtitle": "Management, Strategy, Marketing Expert",
+          "reward1Value": "Up to 8M",
+          "reward1Label": "Annual Reward",
+          "reward2Value": "Monthly",
+          "reward2Label": "Strategy Meeting",
+          "resp1": "Business strategy consulting",
+          "resp2": "Partnership networking",
+          "resp3": "Market analysis and insights",
+          "resp4": "Growth strategy development"
+        },
+        "legal": {
+          "title": "Legal Advisor",
+          "subtitle": "Blockchain Regulation, Compliance",
+          "reward1Value": "Up to 8M",
+          "reward1Label": "Annual Reward",
+          "reward2Value": "As Needed",
+          "reward2Label": "Legal Review",
+          "resp1": "Regulatory trend analysis",
+          "resp2": "Compliance consulting",
+          "resp3": "Contract review",
+          "resp4": "Risk management"
+        },
+        "academic": {
+          "title": "Academic Advisor",
+          "subtitle": "University Professors, Researchers",
+          "reward1Value": "Up to 6M",
+          "reward1Label": "Annual Reward",
+          "reward2Value": "Quarterly",
+          "reward2Label": "Research Collaboration",
+          "resp1": "Academic research collaboration",
+          "resp2": "Whitepaper review",
+          "resp3": "Educational content development",
+          "resp4": "Academic networking"
+        }
+      }
+    },
+    "tiers": {
+      "badge": "TIERS",
+      "title": "Advisor Tiers",
+      "subtitle": "Tier-based benefits by experience and contribution",
+      "incentiveLabel": "Annual Incentive",
+      "applyButton": "Apply",
+      "items": {
+        "principal": {
+          "name": "Principal Advisor",
+          "subtitle": "Chief Advisor",
+          "incentive": "Up to 15M",
+          "requirement": "10+ years experience, Industry Leader",
+          "benefit1": "Dedicated team assignment",
+          "benefit2": "Board observer rights",
+          "benefit3": "Exclusive information access",
+          "benefit4": "Annual offline summit",
+          "benefit5": "VIP networking"
+        },
+        "senior": {
+          "name": "Senior Advisor",
+          "subtitle": "Senior Advisor",
+          "incentive": "Up to 8M",
+          "requirement": "5+ years experience, Expert",
+          "benefit1": "Priority support",
+          "benefit2": "Quarterly strategy meetings",
+          "benefit3": "Early access",
+          "benefit4": "Governance participation",
+          "benefit5": "Partner networking"
+        },
+        "advisor": {
+          "name": "Advisor",
+          "subtitle": "Advisor",
+          "incentive": "Up to 4M",
+          "requirement": "3+ years experience, Specialized Field",
+          "benefit1": "Monthly meetings",
+          "benefit2": "Technical documentation access",
+          "benefit3": "Community participation",
+          "benefit4": "Base incentives",
+          "benefit5": "Growth opportunities"
+        }
+      }
+    },
+    "currentAdvisors": {
+      "badge": "ADVISORS",
+      "title": "Current Advisory Board",
+      "subtitle": "Experts working with us"
+    },
+    "process": {
+      "badge": "PROCESS",
+      "title": "Application Process",
+      "subtitle": "Advisor selection procedure",
+      "steps": {
+        "step1": {
+          "title": "Submit Application",
+          "desc": "Complete online application",
+          "duration": "1-3 days"
+        },
+        "step2": {
+          "title": "Document Review",
+          "desc": "Document review and evaluation",
+          "duration": "1-2 weeks"
+        },
+        "step3": {
+          "title": "Interview",
+          "desc": "In-depth interview",
+          "duration": "1-2 weeks"
+        },
+        "step4": {
+          "title": "Contract Signing",
+          "desc": "Advisory contract signature",
+          "duration": "1 week"
+        },
+        "step5": {
+          "title": "Onboarding",
+          "desc": "Begin advisory activities",
+          "duration": "1 week"
+        }
+      }
+    },
+    "compensation": {
+      "badge": "COMPENSATION",
+      "title": "Compensation Structure",
+      "subtitle": "Advisor compensation components",
+      "items": {
+        "token": {
+          "title": "Token Incentive",
+          "desc": "Quarterly TBURN token distribution",
+          "value": "Up to 15M TBURN/year"
+        },
+        "bonus": {
+          "title": "Performance Bonus",
+          "desc": "Additional rewards for goal achievement",
+          "value": "Up to 50% of base"
+        },
+        "special": {
+          "title": "Special Benefits",
+          "desc": "Event invitations, NFT airdrops",
+          "value": "Various annual benefits"
+        }
+      }
+    },
+    "faq": {
+      "badge": "FAQ",
+      "title": "Frequently Asked Questions",
+      "subtitle": "Questions about the advisor program",
+      "items": {
+        "q1": {
+          "question": "What is the total budget for the advisor program?",
+          "answer": "The advisor program has a total allocation of 200M TBURN. It is distributed as: Tech Advisory 30% (60M), Business Advisory 20% (40M), Legal Advisory 20% (40M), Academic Advisory 15% (30M), Industry Advisory 15% (30M)."
+        },
+        "q2": {
+          "question": "What qualifications are needed to become an advisor?",
+          "answer": "Minimum 3 years of experience in your field is required, along with a portfolio or track record demonstrating expertise. Principal Advisor requires 10+ years (up to 15M TBURN), Senior Advisor 5+ years (up to 8M), and Advisor 3+ years (up to 4M) of experience."
+        },
+        "q3": {
+          "question": "How are advisory activities conducted?",
+          "answer": "Participation includes regular meetings (monthly/quarterly), document review, strategic consulting, and networking. Online meetings are primary, with offline workshops as needed. Advisory scope and time vary by tier."
+        },
+        "q4": {
+          "question": "How are rewards distributed?",
+          "answer": "Token incentives are distributed quarterly, unlocking progressively over a 24-month vesting schedule. Performance bonuses (up to 50% of base) are paid after semi-annual evaluations. Special benefits like event invitations and NFT airdrops are provided regularly."
+        },
+        "q5": {
+          "question": "What is the advisory contract duration?",
+          "answer": "The base contract period is 1 year, renewable by mutual agreement. High-performing advisors receive automatic renewal options. There is a 30-day notice clause before contract termination."
+        },
+        "q6": {
+          "question": "What is the application process?",
+          "answer": "Application submission (1-3 days) → Document review (1-2 weeks) → Interview (1-2 weeks) → Contract signing (1 week) → Onboarding (1 week), totaling 5-7 weeks. Fast-track process is available for urgent cases."
+        },
+        "q7": {
+          "question": "What are the special benefits for Principal Advisors?",
+          "answer": "Principal Advisors receive up to 15M TBURN annual incentive along with dedicated team assignment, board observer rights, exclusive information access, annual offline summit participation, and VIP networking. 10+ years of industry leader experience is required."
+        },
+        "q8": {
+          "question": "How do I apply for the advisor program?",
+          "answer": "Click the 'Apply to Advisor Program' button at the top of the page or contact advisor@tburn.io directly. Connecting your wallet enables faster review. Our dedicated team will contact you within 1-2 weeks."
+        }
+      }
+    },
+    "ctaSection": {
+      "title": "Join the Expert Advisory Board",
+      "subtitle1": "Become a strategic partner in the TBURN ecosystem",
+      "subtitle2": "Receive 200M TBURN in rewards!",
+      "button": "Apply Now",
+      "toastDesc": "Check the advisor fields and apply now!"
+    },
+    "footer": {
+      "tagline1": "AI Intelligence, Blockchain Transparency",
+      "tagline2": "THE FUTURE IS NOW",
+      "product": "Product",
+      "mainnet": "Mainnet",
+      "explorer": "Explorer",
+      "bridge": "Bridge",
+      "staking": "Staking",
+      "resources": "Resources",
+      "whitepaper": "Whitepaper",
+      "docs": "Documentation",
+      "auditReport": "Audit Report",
+      "community": "Community",
+      "blog": "Blog",
+      "ambassador": "Ambassador",
+      "grants": "Grants",
+      "support": "Support",
+      "copyright": "© 2025-2045 TBURN Foundation. All Rights Reserved.",
+      "terms": "Terms of Service",
+      "privacy": "Privacy Policy"
+    }
+  },
+  "coinlist": {
+    "header": {
+      "tokenSale": "Token Sale",
+      "trading": "Trading",
+      "staking": "Staking",
+      "portfolio": "Portfolio",
+      "connectWallet": "Connect Wallet",
+      "walletConnected": "Connected",
+      "walletPrompt": "Click to connect"
+    },
+    "hero": {
+      "badges": {
+        "saleInProgress": "Sale In Progress",
+        "verified": "CoinList Verified",
+        "premium": "Premium Launch"
+      },
+      "description": "TBURN Chain is a next-generation Layer-1 platform combining AI and blockchain technology. With 200,000+ TPS high performance, AI-powered smart contracts, and a self-optimizing network, it leads the future of Web3. Available to global investors through CoinList.",
+      "metrics": {
+        "tokenPrice": "Token Price",
+        "tgeUnlock": "TGE Unlock",
+        "totalSale": "Total Sale Amount",
+        "targetRaise": "Target Raise"
+      }
+    },
+    "saleCard": {
+      "queueInfo": "waiting in queue",
+      "countdown": {
+        "days": "Days",
+        "hours": "Hours",
+        "mins": "Mins",
+        "secs": "Secs"
+      },
+      "progress": {
+        "completed": "completed",
+        "participants": "participants"
+      },
+      "saleInfo": {
+        "tokenPrice": "Token Price",
+        "minParticipation": "Min Participation",
+        "maxParticipation": "Max Participation",
+        "tgeUnlock": "TGE Unlock"
+      },
+      "queue": {
+        "title": "Queue Status",
+        "estimatedWait": "Estimated wait time: approx. 5 minutes"
+      },
+      "allocation": {
+        "title": "Participation Amount",
+        "max": "Max"
+      },
+      "tokenCalc": {
+        "receivingTokens": "Tokens to Receive",
+        "bonus": "Bonus",
+        "tgeUnlock": "TGE Unlock (15%)"
+      },
+      "payment": {
+        "title": "Select Payment Method",
+        "creditCard": "Credit Card / Bank Transfer",
+        "stablecoin": "Stablecoin",
+        "bitcoin": "Bitcoin"
+      },
+      "purchaseButton": "Join Now",
+      "securityNote": "Secured by CoinList payment security",
+      "live": "LIVE"
+    },
+    "tabs": {
+      "overview": "Overview",
+      "tokenomics": "Tokenomics",
+      "team": "Team",
+      "faq": "FAQ"
+    },
+    "overview": {
+      "aboutTitle": "About the Project",
+      "aboutP1": "TBURN Chain builds next-generation decentralized infrastructure through the combination of AI technology and blockchain. With innovative technologies like Triple-Band AI Orchestration, AI-Enhanced Committee BFT, and Dynamic Sharding, it surpasses the limits of existing blockchains.",
+      "aboutP2": "After mainnet launch, we plan to build diverse ecosystems including DeFi, NFT, GameFi, and enterprise solutions to lead Web3 adoption.",
+      "featuresTitle": "Key Features",
+      "vesting": {
+        "title": "Vesting Schedule",
+        "tge": "TGE",
+        "tgeDesc": "Token Generation Event",
+        "cliff": "Cliff",
+        "cliffDesc": "Month 1-3",
+        "linearVesting": "Linear Vesting",
+        "linearVestingDesc": "Month 4-15"
+      },
+      "documents": {
+        "title": "Documents",
+        "whitepaper": "Whitepaper",
+        "technicalDocs": "Technical Documentation",
+        "tokenomics": "Tokenomics",
+        "auditReport": "Audit Report"
+      }
+    },
+    "tokenomics": {
+      "totalSupply": "Total Supply",
+      "initialMarketCap": "Initial Market Cap",
+      "fdv": "FDV",
+      "publicSale": "Public Sale",
+      "ecosystem": "Ecosystem",
+      "community": "Community"
+    },
+    "team": {
+      "coreTeam": "Core Team",
+      "keyPartners": "Key Partners",
+      "investors": "Investors"
+    },
+    "faq": {
+      "q1": {
+        "question": "What is the total size of the CoinList sale?",
+        "answer": "The TBURN token sale through CoinList totals 600M TBURN (6% of total supply), with a target raise of $12,000,000. Token price is set at $0.02."
+      },
+      "q2": {
+        "question": "How do I participate on CoinList?",
+        "answer": "Create a CoinList account, complete KYC verification, then participate using USD, credit card, or cryptocurrency (USDT, USDC, BTC). Connect your wallet and enter the amount you wish to invest."
+      },
+      "q3": {
+        "question": "What are the min/max participation amounts?",
+        "answer": "Minimum $100, maximum $50,000. Allocation may vary based on CoinList level. 3% bonus for $10,000+ participation, 1% bonus for $1,000+ participation."
+      },
+      "q4": {
+        "question": "When will I receive my tokens?",
+        "answer": "15% is unlocked immediately at TGE (Token Generation Event). After a 3-month cliff period, the remaining 85% is distributed according to a 12-month linear vesting schedule."
+      },
+      "q5": {
+        "question": "What payment methods are supported?",
+        "answer": "CoinList supports various payment methods: USD (credit card, bank transfer), USDT, USDC, and BTC. Both fiat and cryptocurrency are accepted."
+      },
+      "q6": {
+        "question": "How does the CoinList queue system work?",
+        "answer": "CoinList operates a queue system for fair participation. A random queue number is assigned at participation start, and purchase opportunities are given based on your position. Estimated wait time is displayed in real-time."
+      },
+      "q7": {
+        "question": "What are the special benefits of CoinList participation?",
+        "answer": "High credibility as a CoinList verified project, premium launch support, fiat payment support, priority listing on CoinList exchange, and dedicated customer support."
+      },
+      "q8": {
+        "question": "How do I get help or support?",
+        "answer": "Contact CoinList customer support, or reach out through official TBURN communities (Telegram, Discord). Email support is also available at support@coinlist.co or support@tburnchain.io."
+      }
+    },
+    "footer": {
+      "terms": "Terms of Service",
+      "privacy": "Privacy Policy",
+      "riskDisclosure": "Risk Disclosure",
+      "support": "Customer Support",
+      "copyright": "© 2025 CoinList. All Rights Reserved."
+    },
+    "modal": {
+      "participationComplete": "Participation Complete!",
+      "processing": "Processing...",
+      "tokenSaleComplete": "Token Sale Participation Complete!",
+      "tokenDeliveryNote": "Tokens will be delivered at TGE",
+      "pleaseWait": "Please wait",
+      "participationAmount": "Participation Amount",
+      "tokensToReceive": "Tokens to Receive",
+      "tgeUnlock": "TGE Unlock",
+      "confirm": "Confirm"
+    },
+    "toast": {
+      "walletDisconnected": "Wallet Disconnected",
+      "walletDisconnectedDesc": "Wallet successfully disconnected.",
+      "walletConnecting": "Connecting Wallet",
+      "walletConnectingDesc": "Attempting to connect MetaMask wallet.",
+      "walletRequired": "Wallet Required",
+      "walletRequiredDesc": "Please connect your wallet first to purchase tokens.",
+      "minAmount": "Below Minimum Amount",
+      "minAmountDesc": "You must participate with at least $100.",
+      "maxAmount": "Exceeds Maximum Amount",
+      "maxAmountDesc": "Maximum participation is $50,000.",
+      "participationComplete": "Participation Complete!",
+      "participationCompleteDesc": "TBURN tokens purchased successfully.",
+      "socialOpen": "Opening",
+      "socialOpenDesc": "Navigating to page.",
+      "tabComingSoon": "Tab",
+      "tabComingSoonDesc": "feature coming soon.",
+      "documentDownload": "Document Download",
+      "documentDownloadDesc": "Starting download.",
+      "riskDisclosure": "Risk Disclosure",
+      "riskDisclosureDesc": "Navigating to Risk Disclosure page.",
+      "customerSupport": "Customer Support",
+      "customerSupportDesc": "Please contact support@coinlist.co."
+    },
+    "features": {
+      "ultraFast": "Ultra Fast Processing",
+      "ultraFastDesc": "200,000+ TPS real-time transaction processing",
+      "aiIntegration": "AI Integration",
+      "aiIntegrationDesc": "Built-in AI functionality in smart contracts",
+      "strongSecurity": "Strong Security",
+      "strongSecurityDesc": "AI-based threat detection and defense",
+      "ecoFriendly": "Eco-Friendly",
+      "ecoFriendlyDesc": "Energy-efficient PoS consensus"
+    }
+  },
+  "daomaker": {
+    "header": {
+      "sho": "SHO",
+      "staking": "Staking",
+      "governance": "Governance",
+      "portfolio": "Portfolio",
+      "swap": "Swap",
+      "connectWallet": "Connect Wallet",
+      "walletConnected": "Connected",
+      "walletPrompt": "Click to connect",
+      "daoPower": "DAO Power"
+    },
+    "hero": {
+      "breadcrumb": {
+        "sho": "SHO",
+        "current": "TBURN Chain"
+      },
+      "badges": {
+        "shoRound": "SHO Round",
+        "live": "In Progress",
+        "refund": "Refund Guaranteed",
+        "verified": "Verified"
+      },
+      "description": "TBURN Chain is a next-generation Layer-1 platform that combines AI and blockchain technology. With 200,000+ TPS ultra-fast processing, Triple-Band AI Orchestration, and self-optimizing network, it achieves enterprise-grade performance and decentralization simultaneously. Through DAO Makers Strong Holder Offering, priority participation is available to DAO Power holders.",
+      "stats": {
+        "tokenPrice": "Token Price",
+        "targetRaise": "Target Raise",
+        "tgeUnlock": "TGE Unlock",
+        "totalVesting": "Total Vesting",
+        "months": "months"
+      }
+    },
+    "shoCard": {
+      "title": "Strong Holder Offering",
+      "subtitle": "Exclusive token sale for DAO Power holders",
+      "countdown": {
+        "label": "Sale ends in",
+        "days": "Days",
+        "hours": "Hours",
+        "mins": "Mins",
+        "secs": "Secs"
+      },
+      "progress": {
+        "completed": "completed",
+        "participants": "participants"
+      },
+      "saleDetails": {
+        "tokenPrice": "Token Price",
+        "minParticipation": "Min Participation",
+        "tgeUnlock": "TGE Unlock",
+        "vesting": "Vesting",
+        "vestingValue": "3-month cliff + 12 months"
+      },
+      "daoPower": {
+        "title": "My DAO Power",
+        "tier": "Tier",
+        "standardTier": "Standard",
+        "maxAllocation": "Max Allocation"
+      },
+      "allocation": {
+        "title": "Participation Amount",
+        "max": "Max"
+      },
+      "tokenOutput": {
+        "tokensToReceive": "Tokens to Receive",
+        "bonus": "Bonus",
+        "tgeUnlock": "TGE Unlock (15%)"
+      },
+      "refundPolicy": {
+        "title": "Refund Policy Applied",
+        "description": "100% refund if token price falls below sale price within 30 days after TGE"
+      },
+      "purchaseButton": "Join SHO",
+      "securityNote": "Secured by DAO Maker smart contract"
+    },
+    "tabs": {
+      "tiers": "SHO Tiers",
+      "vesting": "Vesting",
+      "governance": "Governance",
+      "faq": "FAQ"
+    },
+    "tiers": {
+      "bronze": {
+        "name": "Bronze",
+        "power": "1,000+",
+        "allocation": "$500",
+        "features": [
+          "SHO participation eligibility",
+          "Basic allocation",
+          "Refund policy applied"
+        ]
+      },
+      "silver": {
+        "name": "Silver",
+        "power": "5,000+",
+        "allocation": "$2,500",
+        "features": [
+          "Priority allocation",
+          "+1% bonus tokens",
+          "Governance voting rights",
+          "Refund policy applied"
+        ],
+        "recommended": true
+      },
+      "gold": {
+        "name": "Gold",
+        "power": "25,000+",
+        "allocation": "$10,000",
+        "features": [
+          "Guaranteed allocation",
+          "+3% bonus tokens",
+          "Priority governance voting",
+          "VIP community access",
+          "Refund policy applied"
+        ]
+      },
+      "maxAllocation": "Max Allocation",
+      "daoPower": "DAO Power"
+    },
+    "vesting": {
+      "scheduleTitle": "Vesting Schedule",
+      "unlockStatusTitle": "Unlock Status",
+      "tge": {
+        "title": "TGE (Token Generation)",
+        "desc": "Immediate unlock at token generation"
+      },
+      "cliff": {
+        "title": "Cliff Period",
+        "desc": "Month 1-3, no additional unlock"
+      },
+      "linear": {
+        "title": "Linear Vesting",
+        "desc": "Month 4-15, 7.08% unlock per month"
+      },
+      "full": {
+        "title": "Full Unlock",
+        "desc": "15 months after TGE"
+      },
+      "chart": {
+        "tge": "TGE",
+        "month3": "3 months",
+        "month6": "6 months",
+        "month9": "9 months",
+        "month12": "12 months",
+        "month15": "15 months"
+      }
+    },
+    "governance": {
+      "communityVoting": {
+        "title": "Community Voting",
+        "desc": "DAO Power holders can vote on project selection and major decisions."
+      },
+      "transparentOperation": {
+        "title": "Transparent Operation",
+        "desc": "All SHO processes and fund usage are transparently disclosed on-chain."
+      },
+      "refundPolicy": {
+        "title": "Refund Policy",
+        "desc": "100% refund guaranteed if token price falls below sale price within 30 days after TGE."
+      },
+      "daoPowerStaking": {
+        "title": "DAO Power Staking",
+        "desc": "Stake DAO tokens to earn DAO Power and upgrade to higher tiers."
+      },
+      "rewardsProgram": {
+        "title": "Rewards Program",
+        "desc": "Active governance participants receive additional rewards and airdrop opportunities."
+      },
+      "communityFund": {
+        "title": "Community Fund",
+        "desc": "Support ecosystem development through a fund managed by the DAO community."
+      }
+    },
+    "faq": {
+      "q1": {
+        "question": "What is SHO (Strong Holder Offering)?",
+        "answer": "SHO is DAO Makers exclusive token sale method. Only users with DAO Power can participate, and tiers and allocations are determined based on holdings. There are three tiers: Bronze (1,000+), Silver (5,000+), and Gold (25,000+)."
+      },
+      "q2": {
+        "question": "How do I get DAO Power?",
+        "answer": "You can earn DAO Power by staking DAO tokens on the DAO Maker platform. DAO Power is determined by staking duration and amount. The longer you stake, the more DAO Power you earn."
+      },
+      "q3": {
+        "question": "How does the refund policy work?",
+        "answer": "If the token price falls below the sale price ($0.02) within 30 days after TGE (Token Generation Event), participants can return their tokens and receive a 100% refund. This is DAO Makers investor protection policy."
+      },
+      "q4": {
+        "question": "What are the min/max participation amounts?",
+        "answer": "Minimum $100 participation. Maximum depends on DAO Power tier: Bronze: $500, Silver: $2,500, Gold: $10,000. Higher tiers get larger allocations."
+      },
+      "q5": {
+        "question": "When will I receive my tokens?",
+        "answer": "15% unlocks immediately at TGE. After a 3-month cliff period, the remaining 85% is distributed linearly over 12 months. Total vesting period is 15 months."
+      },
+      "q6": {
+        "question": "What are the tier bonus benefits?",
+        "answer": "Silver tier ($2,500+ allocation) receives +1% bonus tokens, Gold tier ($10,000+ allocation) receives +3% bonus tokens. Gold tier also gets guaranteed allocation and VIP community access."
+      },
+      "q7": {
+        "question": "How do I participate in SHO?",
+        "answer": "1) Stake DAO tokens to earn DAO Power, 2) Connect wallet and complete KYC, 3) Enter desired amount and pay with USDT, 4) Complete secure token purchase via smart contract. Participate during the SHO period."
+      },
+      "q8": {
+        "question": "How can I get help or support?",
+        "answer": "Get support through DAO Makers official Discord and Telegram communities. You can also email support@daomaker.com or contact TBURNs official community at support@tburnchain.io."
+      }
+    },
+    "footer": {
+      "copyright": "2025 DAO Maker. All Rights Reserved.",
+      "poweredBy": "Powered by TBURN Chain"
+    },
+    "modal": {
+      "title": "SHO Participation",
+      "processing": "Processing...",
+      "pleaseWait": "Please wait while your transaction is being processed",
+      "success": "Participation Complete!",
+      "successDesc": "Your SHO participation has been completed successfully",
+      "amount": "Participation Amount",
+      "tokens": "Tokens to Receive",
+      "tgeUnlock": "TGE Unlock",
+      "confirm": "Confirm"
+    },
+    "toast": {
+      "walletDisconnected": "Wallet Disconnected",
+      "walletDisconnectedDesc": "Wallet successfully disconnected.",
+      "walletConnecting": "Connecting Wallet",
+      "walletConnectingDesc": "Attempting to connect MetaMask wallet.",
+      "walletRequired": "Wallet Required",
+      "walletRequiredDesc": "Please connect your wallet first to participate in SHO.",
+      "minAmount": "Below Minimum Amount",
+      "minAmountDesc": "You must participate with at least $100.",
+      "maxAmount": "Exceeds Maximum Amount",
+      "maxAmountDescTemplate": "Exceeds {tier} tier maximum allocation of ${max}.",
+      "shoComplete": "SHO Participation Complete!",
+      "shoCompleteDescTemplate": "{tokens} TBURN tokens purchased successfully.",
+      "stakingRequired": "Wallet Required",
+      "stakingRequiredDesc": "Please connect your wallet first to stake DAO tokens.",
+      "stakingPage": "Going to Staking Page",
+      "stakingPageDesc": "Navigating to staking page to increase DAO Power.",
+      "socialOpen": "Opening",
+      "socialOpenDesc": "Navigating to page.",
+      "menuComingSoon": "Menu",
+      "menuComingSoonDesc": "feature coming soon."
+    }
   }
 }
