@@ -5,6 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useWeb3 } from "@/lib/web3-context";
 import { useToast } from "@/hooks/use-toast";
 import { LanguageSelector } from "@/components/LanguageSelector";
+import { useTranslation } from "react-i18next";
 
 interface LaunchpadPlatform {
   name: string;
@@ -28,6 +29,7 @@ interface LaunchpadStatsResponse {
 }
 
 export default function LaunchpadPage() {
+  const { t } = useTranslation();
   const { isConnected, address, connect, disconnect, formatAddress } = useWeb3();
   const { toast } = useToast();
   const [isKYCVerified, setIsKYCVerified] = useState(false);

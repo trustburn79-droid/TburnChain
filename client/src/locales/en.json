@@ -2688,29 +2688,190 @@
     "auctionEnds": "Auction Ends"
   },
   "launchpad": {
-    "title": "NFT Launchpad",
-    "subtitle": "Discover and participate in exclusive NFT launches",
-    "upcomingLaunches": "Upcoming Launches",
-    "activeLaunches": "Active Launches",
-    "pastLaunches": "Past Launches",
-    "projectName": "Project Name",
-    "mintPrice": "Mint Price",
-    "totalSupply": "Total Supply",
-    "minted": "Minted",
-    "remaining": "Remaining",
-    "startDate": "Start Date",
-    "endDate": "End Date",
-    "whitelist": "Whitelist",
-    "public": "Public",
-    "joinWhitelist": "Join Whitelist",
-    "leaveWhitelist": "Leave Whitelist",
-    "mint": "Mint",
-    "mintNow": "Mint Now",
-    "maxPerWallet": "Max Per Wallet",
-    "yourAllocation": "Your Allocation",
-    "contribute": "Contribute",
-    "claim": "Claim",
-    "refund": "Refund"
+    "header": {
+      "status": "Status",
+      "tokenPrice": "Token Price",
+      "progress": "Progress",
+      "connectWallet": "Connect Wallet"
+    },
+    "hero": {
+      "officialBadge": "TBURN Foundation Official Launchpad",
+      "title": "TBURN",
+      "titleHighlight": "Public Sale",
+      "subtitle": "Safe and transparent official token sale platform"
+    },
+    "countdown": {
+      "title": "Until Sale Ends",
+      "phase": "Phase 2 In Progress",
+      "days": "Days",
+      "hours": "Hours",
+      "minutes": "Minutes",
+      "seconds": "Seconds"
+    },
+    "progress": {
+      "goal": "Goal: $12,000,000",
+      "completed": "Completed",
+      "sold": "Sold",
+      "remaining": "Remaining"
+    },
+    "purchase": {
+      "title": "Token Purchase",
+      "steps": {
+        "wallet": "Connect Wallet",
+        "kyc": "KYC Verification",
+        "amount": "Enter Amount",
+        "complete": "Purchase Complete"
+      },
+      "walletSection": {
+        "title": "Connect Wallet",
+        "connectPrompt": "Connect your wallet",
+        "connected": "Connected"
+      },
+      "kycSection": {
+        "title": "KYC Verification",
+        "required": "KYC Verification Required",
+        "requiredDesc": "Please complete simple identity verification",
+        "completed": "KYC Verification Complete",
+        "completedDesc": "All verifications have been completed",
+        "verifyButton": "Verify KYC",
+        "verifiedButton": "Verified"
+      },
+      "amountSection": {
+        "title": "Participation Amount",
+        "placeholder": "Enter amount",
+        "tokenQuantity": "Token Quantity",
+        "tierBonus": "Tier Bonus",
+        "totalTokens": "Total Tokens",
+        "tgeUnlock": "TGE Unlock (15%)",
+        "estimatedValue": "Estimated Value (@$0.08)",
+        "paymentMethod": "Payment Method",
+        "purchaseButton": "Purchase Tokens",
+        "secureNote": "Processed through secure smart contract"
+      }
+    },
+    "sidebar": {
+      "saleInfo": {
+        "title": "Sale Information",
+        "tokenPrice": "Token Price",
+        "totalSale": "Total Sale Amount",
+        "minParticipation": "Minimum Participation",
+        "tgeUnlock": "TGE Unlock",
+        "cliff": "Cliff",
+        "vesting": "Vesting",
+        "network": "Network"
+      },
+      "tiers": {
+        "title": "Participation Tiers",
+        "whale": "Whale",
+        "dolphin": "Dolphin",
+        "fish": "Fish",
+        "shrimp": "Shrimp",
+        "whaleRange": "$50,000+",
+        "dolphinRange": "$10,000 ~ $49,999",
+        "fishRange": "$1,000 ~ $9,999",
+        "shrimpRange": "$100 ~ $999"
+      },
+      "vesting": {
+        "title": "Vesting Schedule",
+        "tge": "TGE",
+        "tgeDesc": "Token Generation Event",
+        "cliff": "Cliff",
+        "cliffDesc": "Month 1-3",
+        "vestingTitle": "Vesting",
+        "vestingDesc": "Month 4-15"
+      },
+      "features": {
+        "title": "Official Launchpad Features",
+        "foundation": "TBURN Foundation Official Guarantee",
+        "contract": "Secure Smart Contract",
+        "bonus": "All Tier Bonuses Applied",
+        "support": "24/7 Customer Support",
+        "claim": "Real-time Token Claim"
+      }
+    },
+    "faq": {
+      "title": "Frequently Asked Questions",
+      "subtitle": "Questions about TBURN Launchpad",
+      "q1": {
+        "question": "What is the total launchpad sale size?",
+        "answer": "The TBURN official launchpad sells a total of 600M TBURN (6% of total supply). Token price is $0.02, with a funding goal of $12,000,000."
+      },
+      "q2": {
+        "question": "What are the participation requirements?",
+        "answer": "All users who complete wallet connection and KYC verification can participate. Minimum participation is $100, with no maximum limit."
+      },
+      "q3": {
+        "question": "How are tier bonuses applied?",
+        "answer": "Bonuses are automatically applied based on participation amount. Whale($50,000+): +5%, Dolphin($10,000~$49,999): +3%, Fish($1,000~$9,999): +1%, Shrimp($100~$999): No bonus."
+      },
+      "q4": {
+        "question": "When can I receive my tokens?",
+        "answer": "15% is immediately released at TGE (Token Generation Event). After a 3-month cliff period, the remaining 85% is distributed monthly over 12 months."
+      },
+      "q5": {
+        "question": "What payment methods are supported?",
+        "answer": "Three payment methods are supported: USDT, USDC, and ETH. All payments are processed through secure smart contracts on the Ethereum network."
+      },
+      "q6": {
+        "question": "What is the participation process?",
+        "answer": "1) Connect wallet → 2) KYC verification → 3) Enter amount → 4) Select payment method → 5) Complete purchase. The entire process takes about 5 minutes."
+      },
+      "q7": {
+        "question": "What are the special benefits of the official launchpad?",
+        "answer": "We offer TBURN Foundation official guarantee, secure smart contract processing, all tier bonuses applied, 24/7 customer support, and real-time token claim functionality."
+      },
+      "q8": {
+        "question": "Where can I contact for inquiries?",
+        "answer": "You can contact us 24/7 via official Telegram(@tburnchain), Discord(discord.gg/tburnchain), or email(support@tburn.io). Our 24/7 live support team is standing by."
+      }
+    },
+    "footer": {
+      "terms": "Terms of Service",
+      "privacy": "Privacy Policy",
+      "riskDisclosure": "Risk Disclosure",
+      "support": "Customer Support",
+      "copyright": "© 2025-2045 TBURN Foundation. All Rights Reserved."
+    },
+    "modal": {
+      "purchaseComplete": "Purchase Complete!",
+      "processing": "Processing Transaction",
+      "tokenPurchaseComplete": "Token Purchase Complete!",
+      "successMessage": "Tokens have been successfully purchased",
+      "confirmingTx": "Confirming transaction...",
+      "confirmWallet": "Please confirm the transaction in your wallet",
+      "purchaseAmount": "Purchase Amount",
+      "receivingTokens": "Receiving Tokens",
+      "estimatedGas": "Estimated Gas Fee",
+      "confirm": "Confirm"
+    },
+    "toast": {
+      "walletDisconnected": "Wallet Disconnected",
+      "walletDisconnectedDesc": "Wallet has been disconnected.",
+      "walletConnect": "Wallet Connect",
+      "walletConnectDesc": "Attempting to connect",
+      "walletRequired": "Wallet Connection Required",
+      "walletRequiredDesc": "Please connect your wallet first.",
+      "kycRequired": "KYC Verification Required",
+      "kycRequiredDesc": "Please complete KYC verification to purchase tokens.",
+      "kycStart": "Starting KYC",
+      "kycStartDesc": "Proceeding with identity verification...",
+      "kycComplete": "KYC Complete",
+      "kycCompleteDesc": "Identity verification completed successfully.",
+      "minAmount": "Minimum Amount Not Met",
+      "minAmountDesc": "Minimum participation is $100.",
+      "purchasing": "Processing Purchase",
+      "purchasingDesc": "Processing transaction...",
+      "purchaseComplete": "Purchase Complete",
+      "purchaseCompleteDesc": "tokens successfully purchased.",
+      "viewDetails": "Sale Details",
+      "viewDetailsDesc": "Check sale details below.",
+      "tierSelect": "Tier Selected",
+      "tierSelectDesc": "Bonus:",
+      "tierWalletRequired": "Wallet Connection Required",
+      "tierWalletRequiredDesc": "Please connect your wallet to participate in tiers.",
+      "socialOpen": "Opening",
+      "socialOpenDesc": "Navigating to page."
+    }
   },
   "community": {
     "title": "Title",
