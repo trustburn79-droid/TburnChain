@@ -20379,29 +20379,74 @@
         "earlyBirdTitle": "アーリーバードボーナス",
         "earlyBirdSubtitle": "今すぐ登録して限定報酬を獲得"
       },
+      "nav": {
+        "tiers": "ティア",
+        "loyalty": "ロイヤルティ",
+        "performance": "パフォーマンス"
+      },
       "wallet": {
         "title": "ウォレットステータス",
         "subtitle": "ウォレットを接続してバリデーター資格を確認",
         "connect": "ウォレット接続",
         "connected": "接続済み",
+        "connectedTitle": "ウォレット接続済み",
+        "connectedDesc": "ウォレットが接続され準備完了です",
+        "disconnectTitle": "ウォレット切断",
+        "disconnected": "ウォレットが切断されました",
         "eligible": "バリデーター資格あり",
         "notEligible": "資格なし",
         "balance": "残高",
         "stakedAmount": "ステーキング額",
-        "stakingRequired": "最低100,000 TBURN必要"
+        "stakingRequired": "最低100,000 TBURN必要",
+        "required": "ウォレットが必要",
+        "requiredDesc": "続行するにはウォレットを接続してください",
+        "selectTier": "ティアを選択",
+        "selectTierDesc": "続行するバリデーターティアを選択してください"
+      },
+      "sections": {
+        "tiers": "バリデーターティア",
+        "tiersSubtitle": "コミットメントレベルに合ったティアを選択",
+        "distribution": "トークン分配",
+        "loyalty": "ロイヤルティ報酬",
+        "loyaltySubtitle": "長期バリデーターは増加する報酬を獲得",
+        "performance": "パフォーマンス指標",
+        "performanceSubtitle": "トップパフォーマーは追加報酬を獲得",
+        "leaderboard": "バリデーターリーダーボード",
+        "leaderboardSubtitle": "トップパフォーマンスバリデーター"
       },
       "tiers": {
-        "title": "バリデーターティア",
-        "subtitle": "コミットメントレベルに合ったティアを選択",
-        "genesis": "ジェネシスバリデーター",
-        "genesisDesc": "最高報酬を受け取る最初の125名のバリデーター",
-        "premium": "プレミアムバリデーター",
-        "premiumDesc": "ボーナス報酬付きの高性能バリデーター",
-        "standard": "スタンダードバリデーター",
-        "standardDesc": "コアネットワークバリデーター",
-        "minStake": "最低ステーキング",
-        "maxReward": "最大年間報酬",
-        "slots": "利用可能スロット"
+        "genesis": {
+          "name": "ジェネシスバリデーター",
+          "badge": "ジェネシス",
+          "range": "1-25",
+          "benefit1": "最高報酬倍率 (2.5倍)",
+          "benefit2": "優先ブロック提案権",
+          "benefit3": "独占ガバナンス投票権",
+          "benefit4": "新機能への早期アクセス",
+          "benefit5": "プレミアムサポートチャンネル"
+        },
+        "pioneer": {
+          "name": "パイオニアバリデーター",
+          "badge": "パイオニア",
+          "range": "26-75",
+          "benefit1": "高報酬倍率 (2.0倍)",
+          "benefit2": "強化されたブロック提案優先権",
+          "benefit3": "ガバナンス投票権",
+          "benefit4": "ベータ機能アクセス",
+          "benefit5": "優先サポート"
+        },
+        "early": {
+          "name": "アーリーアダプター",
+          "badge": "アーリー",
+          "range": "76-125",
+          "benefit1": "標準報酬倍率 (1.5倍)",
+          "benefit2": "通常ブロック提案権",
+          "benefit3": "標準ガバナンス権限",
+          "benefit4": "コミュニティ機能アクセス",
+          "benefit5": "標準サポート"
+        },
+        "participant": "参加者",
+        "earlybirdBonus": "アーリーバードボーナス"
       },
       "loyalty": {
         "title": "ロイヤルティ報酬",
@@ -20413,14 +20458,30 @@
         "year1": "1年目",
         "year2": "2年目",
         "year3": "3年目",
-        "year4": "4年目以降",
+        "year4plus": "4年目以降",
         "bonus": "ボーナス"
       },
       "performance": {
         "title": "パフォーマンス指標",
         "subtitle": "トップパフォーマーは追加報酬を獲得",
-        "uptime": "稼働時間",
-        "blocks": "生成ブロック",
+        "uptime": {
+          "title": "稼働時間ボーナス",
+          "subtitle": "高可用性維持でボーナス報酬"
+        },
+        "blocks": {
+          "title": "ブロック生成",
+          "subtitle": "ブロック生成で報酬獲得",
+          "top10": "トップ10%",
+          "top30": "トップ30%",
+          "top50": "トップ50%"
+        },
+        "clean": {
+          "title": "無違反ボーナス",
+          "subtitle": "連続月間スラッシングイベントなし",
+          "months3": "3ヶ月",
+          "months6": "6ヶ月",
+          "year1": "1年"
+        },
         "attestations": "アテステーション",
         "slashing": "スラッシングイベント",
         "score": "パフォーマンススコア",
@@ -20456,7 +20517,7 @@
         "learnMore": "詳細を見る",
         "joinNow": "今すぐ参加",
         "complete": "登録完了",
-        "completeDesc": "バリデーター申請を完了",
+        "completeDesc": "{{tierName}}バリデーター申請を完了",
         "loyaltyRewards": "ロイヤルティ報酬",
         "loyaltyRewardsDesc": "長期参加でボーナス報酬を獲得"
       },
@@ -20478,7 +20539,15 @@
         "totalPool": "総インセンティブプール",
         "activeValidators": "アクティブバリデーター",
         "avgReward": "平均報酬",
-        "networkUptime": "ネットワーク稼働時間"
+        "networkUptime": "ネットワーク稼働時間",
+        "totalValidators": "総バリデーター",
+        "totalStaked": "総ステーキング",
+        "countdown": {
+          "days": "日",
+          "hours": "時間",
+          "mins": "分",
+          "secs": "秒"
+        }
       }
     },
     "ecosystemFund": {

@@ -17160,29 +17160,74 @@
         "earlyBirdTitle": "Bônus Early Bird",
         "earlyBirdSubtitle": "Registre-se agora para recompensas exclusivas"
       },
+      "nav": {
+        "tiers": "Níveis",
+        "loyalty": "Fidelidade",
+        "performance": "Desempenho"
+      },
       "wallet": {
         "title": "Status da Carteira",
         "subtitle": "Conecte sua carteira para verificar elegibilidade de validador",
         "connect": "Conectar Carteira",
         "connected": "Conectada",
+        "connectedTitle": "Carteira Conectada",
+        "connectedDesc": "Sua carteira está conectada e pronta",
+        "disconnectTitle": "Carteira Desconectada",
+        "disconnected": "Sua carteira foi desconectada",
         "eligible": "Elegível para Validador",
         "notEligible": "Não Elegível",
         "balance": "Saldo",
         "stakedAmount": "Valor em Stake",
-        "stakingRequired": "Mínimo de 100.000 TBURN necessário"
+        "stakingRequired": "Mínimo de 100.000 TBURN necessário",
+        "required": "Carteira Necessária",
+        "requiredDesc": "Por favor conecte sua carteira para continuar",
+        "selectTier": "Selecionar Nível",
+        "selectTierDesc": "Escolha seu nível de validador para prosseguir"
+      },
+      "sections": {
+        "tiers": "Níveis de Validador",
+        "tiersSubtitle": "Escolha o nível que corresponde ao seu compromisso",
+        "distribution": "Distribuição de Tokens",
+        "loyalty": "Recompensas de Fidelidade",
+        "loyaltySubtitle": "Validadores de longo prazo ganham recompensas crescentes",
+        "performance": "Métricas de Desempenho",
+        "performanceSubtitle": "Os melhores ganham recompensas adicionais",
+        "leaderboard": "Ranking de Validadores",
+        "leaderboardSubtitle": "Validadores com melhor desempenho"
       },
       "tiers": {
-        "title": "Níveis de Validador",
-        "subtitle": "Escolha o nível que corresponde ao seu compromisso",
-        "genesis": "Validador Genesis",
-        "genesisDesc": "Os primeiros 125 validadores com as maiores recompensas",
-        "premium": "Validador Premium",
-        "premiumDesc": "Validadores de alto desempenho com bônus",
-        "standard": "Validador Padrão",
-        "standardDesc": "Validadores da rede principal",
-        "minStake": "Stake Mínimo",
-        "maxReward": "Recompensa Anual Máxima",
-        "slots": "Vagas Disponíveis"
+        "genesis": {
+          "name": "Validador Genesis",
+          "badge": "Genesis",
+          "range": "1-25",
+          "benefit1": "Maior multiplicador de recompensa (2.5x)",
+          "benefit2": "Direitos prioritários de proposta de bloco",
+          "benefit3": "Poder exclusivo de voto de governança",
+          "benefit4": "Acesso antecipado a novas funcionalidades",
+          "benefit5": "Canal de suporte premium"
+        },
+        "pioneer": {
+          "name": "Validador Pioneiro",
+          "badge": "Pioneiro",
+          "range": "26-75",
+          "benefit1": "Alto multiplicador de recompensa (2.0x)",
+          "benefit2": "Prioridade aprimorada de proposta de bloco",
+          "benefit3": "Poder de voto de governança",
+          "benefit4": "Acesso a funcionalidades beta",
+          "benefit5": "Suporte prioritário"
+        },
+        "early": {
+          "name": "Adotante Inicial",
+          "badge": "Inicial",
+          "range": "76-125",
+          "benefit1": "Multiplicador de recompensa padrão (1.5x)",
+          "benefit2": "Direitos regulares de proposta de bloco",
+          "benefit3": "Direitos padrão de governança",
+          "benefit4": "Acesso a funcionalidades da comunidade",
+          "benefit5": "Suporte padrão"
+        },
+        "participant": "Participante",
+        "earlybirdBonus": "Bônus Early Bird"
       },
       "loyalty": {
         "title": "Recompensas de Fidelidade",
@@ -17194,14 +17239,30 @@
         "year1": "Ano 1",
         "year2": "Ano 2",
         "year3": "Ano 3",
-        "year4": "Ano 4+",
+        "year4plus": "Ano 4+",
         "bonus": "Bônus"
       },
       "performance": {
         "title": "Métricas de Desempenho",
         "subtitle": "Os melhores ganham recompensas adicionais",
-        "uptime": "Tempo Ativo",
-        "blocks": "Blocos Produzidos",
+        "uptime": {
+          "title": "Bônus de Tempo Ativo",
+          "subtitle": "Mantenha alta disponibilidade para bônus"
+        },
+        "blocks": {
+          "title": "Produção de Blocos",
+          "subtitle": "Ganhe recompensas por produzir blocos",
+          "top10": "Top 10%",
+          "top30": "Top 30%",
+          "top50": "Top 50%"
+        },
+        "clean": {
+          "title": "Bônus Histórico Limpo",
+          "subtitle": "Sem eventos de slashing por meses consecutivos",
+          "months3": "3 Meses",
+          "months6": "6 Meses",
+          "year1": "1 Ano"
+        },
         "attestations": "Atestações",
         "slashing": "Eventos de Slashing",
         "score": "Pontuação de Desempenho",
@@ -17237,7 +17298,7 @@
         "learnMore": "Saiba Mais",
         "joinNow": "Participar Agora",
         "complete": "Completar Registro",
-        "completeDesc": "Finalize sua candidatura de validador",
+        "completeDesc": "Finalize sua candidatura de validador {{tierName}}",
         "loyaltyRewards": "Recompensas de Fidelidade",
         "loyaltyRewardsDesc": "Ganhe bônus por participação de longo prazo"
       },
@@ -17259,7 +17320,15 @@
         "totalPool": "Pool Total de Incentivos",
         "activeValidators": "Validadores Ativos",
         "avgReward": "Recompensa Média",
-        "networkUptime": "Tempo Ativo da Rede"
+        "networkUptime": "Tempo Ativo da Rede",
+        "totalValidators": "Total de Validadores",
+        "totalStaked": "Total em Stake",
+        "countdown": {
+          "days": "Dias",
+          "hours": "Horas",
+          "mins": "Mins",
+          "secs": "Segs"
+        }
       }
     },
     "ecosystemFund": {

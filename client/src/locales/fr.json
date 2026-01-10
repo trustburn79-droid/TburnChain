@@ -17411,29 +17411,74 @@
         "earlyBirdTitle": "Bonus Early Bird",
         "earlyBirdSubtitle": "Inscrivez-vous maintenant pour des récompenses exclusives"
       },
+      "nav": {
+        "tiers": "Niveaux",
+        "loyalty": "Fidélité",
+        "performance": "Performance"
+      },
       "wallet": {
         "title": "État du Portefeuille",
         "subtitle": "Connectez votre portefeuille pour vérifier l'éligibilité validateur",
         "connect": "Connecter Portefeuille",
         "connected": "Connecté",
+        "connectedTitle": "Portefeuille Connecté",
+        "connectedDesc": "Votre portefeuille est connecté et prêt",
+        "disconnectTitle": "Portefeuille Déconnecté",
+        "disconnected": "Votre portefeuille a été déconnecté",
         "eligible": "Éligible Validateur",
         "notEligible": "Non Éligible",
         "balance": "Solde",
         "stakedAmount": "Montant Staké",
-        "stakingRequired": "Minimum 100,000 TBURN requis"
+        "stakingRequired": "Minimum 100,000 TBURN requis",
+        "required": "Portefeuille Requis",
+        "requiredDesc": "Veuillez connecter votre portefeuille pour continuer",
+        "selectTier": "Sélectionner Niveau",
+        "selectTierDesc": "Choisissez votre niveau de validateur pour continuer"
+      },
+      "sections": {
+        "tiers": "Niveaux Validateur",
+        "tiersSubtitle": "Choisissez le niveau qui correspond à votre engagement",
+        "distribution": "Distribution de Tokens",
+        "loyalty": "Récompenses de Fidélité",
+        "loyaltySubtitle": "Les validateurs à long terme gagnent des récompenses croissantes",
+        "performance": "Métriques de Performance",
+        "performanceSubtitle": "Les meilleurs performeurs gagnent des récompenses supplémentaires",
+        "leaderboard": "Classement Validateurs",
+        "leaderboardSubtitle": "Validateurs les plus performants"
       },
       "tiers": {
-        "title": "Niveaux Validateur",
-        "subtitle": "Choisissez le niveau qui correspond à votre engagement",
-        "genesis": "Validateur Genesis",
-        "genesisDesc": "Les 125 premiers validateurs avec les meilleures récompenses",
-        "premium": "Validateur Premium",
-        "premiumDesc": "Validateurs haute performance avec bonus",
-        "standard": "Validateur Standard",
-        "standardDesc": "Validateurs du réseau principal",
-        "minStake": "Stake Minimum",
-        "maxReward": "Récompense Annuelle Max",
-        "slots": "Places Disponibles"
+        "genesis": {
+          "name": "Validateur Genesis",
+          "badge": "Genesis",
+          "range": "1-25",
+          "benefit1": "Multiplicateur de récompense le plus élevé (2.5x)",
+          "benefit2": "Droits prioritaires de proposition de bloc",
+          "benefit3": "Pouvoir exclusif de vote de gouvernance",
+          "benefit4": "Accès anticipé aux nouvelles fonctionnalités",
+          "benefit5": "Canal de support premium"
+        },
+        "pioneer": {
+          "name": "Validateur Pionnier",
+          "badge": "Pionnier",
+          "range": "26-75",
+          "benefit1": "Multiplicateur de récompense élevé (2.0x)",
+          "benefit2": "Priorité améliorée de proposition de bloc",
+          "benefit3": "Pouvoir de vote de gouvernance",
+          "benefit4": "Accès aux fonctionnalités beta",
+          "benefit5": "Support prioritaire"
+        },
+        "early": {
+          "name": "Adopteur Précoce",
+          "badge": "Précoce",
+          "range": "76-125",
+          "benefit1": "Multiplicateur de récompense standard (1.5x)",
+          "benefit2": "Droits réguliers de proposition de bloc",
+          "benefit3": "Droits standard de gouvernance",
+          "benefit4": "Accès aux fonctionnalités communautaires",
+          "benefit5": "Support standard"
+        },
+        "participant": "Participant",
+        "earlybirdBonus": "Bonus Early Bird"
       },
       "loyalty": {
         "title": "Récompenses de Fidélité",
@@ -17445,14 +17490,30 @@
         "year1": "Année 1",
         "year2": "Année 2",
         "year3": "Année 3",
-        "year4": "Année 4+",
+        "year4plus": "Année 4+",
         "bonus": "Bonus"
       },
       "performance": {
         "title": "Métriques de Performance",
         "subtitle": "Les meilleurs performeurs gagnent des récompenses supplémentaires",
-        "uptime": "Disponibilité",
-        "blocks": "Blocs Produits",
+        "uptime": {
+          "title": "Bonus Disponibilité",
+          "subtitle": "Maintenez haute disponibilité pour bonus"
+        },
+        "blocks": {
+          "title": "Production de Blocs",
+          "subtitle": "Gagnez des récompenses pour produire des blocs",
+          "top10": "Top 10%",
+          "top30": "Top 30%",
+          "top50": "Top 50%"
+        },
+        "clean": {
+          "title": "Bonus Historique Propre",
+          "subtitle": "Aucun événement de slashing pendant des mois consécutifs",
+          "months3": "3 Mois",
+          "months6": "6 Mois",
+          "year1": "1 An"
+        },
         "attestations": "Attestations",
         "slashing": "Événements de Slashing",
         "score": "Score Performance",
@@ -17488,7 +17549,7 @@
         "learnMore": "En Savoir Plus",
         "joinNow": "Rejoindre Maintenant",
         "complete": "Compléter Inscription",
-        "completeDesc": "Finalisez votre candidature validateur",
+        "completeDesc": "Finalisez votre candidature validateur {{tierName}}",
         "loyaltyRewards": "Récompenses Fidélité",
         "loyaltyRewardsDesc": "Gagnez des bonus pour participation à long terme"
       },
@@ -17510,7 +17571,15 @@
         "totalPool": "Pool Incitations Total",
         "activeValidators": "Validateurs Actifs",
         "avgReward": "Récompense Moyenne",
-        "networkUptime": "Disponibilité Réseau"
+        "networkUptime": "Disponibilité Réseau",
+        "totalValidators": "Total Validateurs",
+        "totalStaked": "Total Staké",
+        "countdown": {
+          "days": "Jours",
+          "hours": "Heures",
+          "mins": "Mins",
+          "secs": "Secs"
+        }
       }
     },
     "ecosystemFund": {

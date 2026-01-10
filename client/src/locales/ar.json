@@ -17334,29 +17334,74 @@
         "earlyBirdTitle": "مكافأة الطيور المبكرة",
         "earlyBirdSubtitle": "سجل الآن للحصول على مكافآت حصرية"
       },
+      "nav": {
+        "tiers": "المستويات",
+        "loyalty": "الولاء",
+        "performance": "الأداء"
+      },
       "wallet": {
         "title": "حالة المحفظة",
         "subtitle": "قم بتوصيل محفظتك للتحقق من أهلية المدقق",
         "connect": "توصيل المحفظة",
         "connected": "متصل",
+        "connectedTitle": "المحفظة متصلة",
+        "connectedDesc": "محفظتك متصلة وجاهزة",
+        "disconnectTitle": "المحفظة غير متصلة",
+        "disconnected": "تم فصل محفظتك",
         "eligible": "مؤهل للمدقق",
         "notEligible": "غير مؤهل",
         "balance": "الرصيد",
         "stakedAmount": "المبلغ المرهون",
-        "stakingRequired": "مطلوب 100,000 TBURN كحد أدنى"
+        "stakingRequired": "مطلوب 100,000 TBURN كحد أدنى",
+        "required": "المحفظة مطلوبة",
+        "requiredDesc": "يرجى توصيل محفظتك للمتابعة",
+        "selectTier": "اختر المستوى",
+        "selectTierDesc": "اختر مستوى المدقق للمتابعة"
+      },
+      "sections": {
+        "tiers": "مستويات المدققين",
+        "tiersSubtitle": "اختر المستوى الذي يناسب التزامك",
+        "distribution": "توزيع الرموز",
+        "loyalty": "مكافآت الولاء",
+        "loyaltySubtitle": "المدققون طويلو الأمد يحصلون على مكافآت متزايدة",
+        "performance": "مقاييس الأداء",
+        "performanceSubtitle": "الأفضل أداءً يحصلون على مكافآت إضافية",
+        "leaderboard": "لوحة المتصدرين",
+        "leaderboardSubtitle": "أفضل المدققين أداءً"
       },
       "tiers": {
-        "title": "مستويات المدققين",
-        "subtitle": "اختر المستوى الذي يناسب التزامك",
-        "genesis": "مدقق Genesis",
-        "genesisDesc": "أول 125 مدقق بأعلى المكافآت",
-        "premium": "مدقق Premium",
-        "premiumDesc": "مدققون عالي الأداء مع مكافآت إضافية",
-        "standard": "مدقق قياسي",
-        "standardDesc": "مدققو الشبكة الأساسية",
-        "minStake": "الحد الأدنى للرهان",
-        "maxReward": "أقصى مكافأة سنوية",
-        "slots": "الأماكن المتاحة"
+        "genesis": {
+          "name": "مدقق Genesis",
+          "badge": "Genesis",
+          "range": "1-25",
+          "benefit1": "أعلى مضاعف مكافأة (2.5x)",
+          "benefit2": "حقوق أولوية اقتراح الكتلة",
+          "benefit3": "قوة تصويت حوكمة حصرية",
+          "benefit4": "وصول مبكر للميزات الجديدة",
+          "benefit5": "قناة دعم متميزة"
+        },
+        "pioneer": {
+          "name": "مدقق رائد",
+          "badge": "رائد",
+          "range": "26-75",
+          "benefit1": "مضاعف مكافأة عالي (2.0x)",
+          "benefit2": "أولوية محسنة لاقتراح الكتلة",
+          "benefit3": "قوة تصويت الحوكمة",
+          "benefit4": "وصول للميزات التجريبية",
+          "benefit5": "دعم ذو أولوية"
+        },
+        "early": {
+          "name": "متبني مبكر",
+          "badge": "مبكر",
+          "range": "76-125",
+          "benefit1": "مضاعف مكافأة قياسي (1.5x)",
+          "benefit2": "حقوق اقتراح كتلة عادية",
+          "benefit3": "حقوق حوكمة قياسية",
+          "benefit4": "وصول لميزات المجتمع",
+          "benefit5": "دعم قياسي"
+        },
+        "participant": "مشارك",
+        "earlybirdBonus": "مكافأة الطيور المبكرة"
       },
       "loyalty": {
         "title": "مكافآت الولاء",
@@ -17368,14 +17413,30 @@
         "year1": "السنة 1",
         "year2": "السنة 2",
         "year3": "السنة 3",
-        "year4": "السنة 4+",
+        "year4plus": "السنة 4+",
         "bonus": "مكافأة"
       },
       "performance": {
         "title": "مقاييس الأداء",
         "subtitle": "الأفضل أداءً يحصلون على مكافآت إضافية",
-        "uptime": "وقت التشغيل",
-        "blocks": "الكتل المنتجة",
+        "uptime": {
+          "title": "مكافأة وقت التشغيل",
+          "subtitle": "حافظ على توفر عالي للمكافآت"
+        },
+        "blocks": {
+          "title": "إنتاج الكتل",
+          "subtitle": "اكسب مكافآت لإنتاج الكتل",
+          "top10": "أعلى 10%",
+          "top30": "أعلى 30%",
+          "top50": "أعلى 50%"
+        },
+        "clean": {
+          "title": "مكافأة السجل النظيف",
+          "subtitle": "لا أحداث عقوبة لأشهر متتالية",
+          "months3": "3 أشهر",
+          "months6": "6 أشهر",
+          "year1": "سنة 1"
+        },
         "attestations": "التصديقات",
         "slashing": "أحداث العقوبة",
         "score": "درجة الأداء",
@@ -17411,7 +17472,7 @@
         "learnMore": "اعرف المزيد",
         "joinNow": "انضم الآن",
         "complete": "أكمل التسجيل",
-        "completeDesc": "أكمل طلب المدقق",
+        "completeDesc": "أكمل طلب مدقق {{tierName}}",
         "loyaltyRewards": "مكافآت الولاء",
         "loyaltyRewardsDesc": "احصل على مكافآت إضافية للمشاركة طويلة الأمد"
       },
@@ -17433,7 +17494,15 @@
         "totalPool": "إجمالي مجمع الحوافز",
         "activeValidators": "المدققون النشطون",
         "avgReward": "متوسط المكافأة",
-        "networkUptime": "وقت تشغيل الشبكة"
+        "networkUptime": "وقت تشغيل الشبكة",
+        "totalValidators": "إجمالي المدققين",
+        "totalStaked": "إجمالي المرهون",
+        "countdown": {
+          "days": "أيام",
+          "hours": "ساعات",
+          "mins": "دقائق",
+          "secs": "ثوان"
+        }
       }
     },
     "ecosystemFund": {

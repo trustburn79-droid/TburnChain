@@ -19503,29 +19503,74 @@
         "earlyBirdTitle": "早鸟奖励",
         "earlyBirdSubtitle": "立即注册获得专属奖励"
       },
+      "nav": {
+        "tiers": "等级",
+        "loyalty": "忠诚度",
+        "performance": "性能"
+      },
       "wallet": {
         "title": "钱包状态",
         "subtitle": "连接钱包检查验证者资格",
         "connect": "连接钱包",
         "connected": "已连接",
+        "connectedTitle": "钱包已连接",
+        "connectedDesc": "您的钱包已连接并准备就绪",
+        "disconnectTitle": "钱包已断开",
+        "disconnected": "您的钱包已断开连接",
         "eligible": "符合验证者资格",
         "notEligible": "不符合资格",
         "balance": "余额",
         "stakedAmount": "质押金额",
-        "stakingRequired": "最少需要100,000 TBURN"
+        "stakingRequired": "最少需要100,000 TBURN",
+        "required": "需要钱包",
+        "requiredDesc": "请连接钱包以继续",
+        "selectTier": "选择等级",
+        "selectTierDesc": "选择您的验证者等级以继续"
+      },
+      "sections": {
+        "tiers": "验证者等级",
+        "tiersSubtitle": "选择符合您承诺级别的等级",
+        "distribution": "代币分配",
+        "loyalty": "忠诚度奖励",
+        "loyaltySubtitle": "长期验证者获得递增奖励",
+        "performance": "性能指标",
+        "performanceSubtitle": "顶级表现者获得额外奖励",
+        "leaderboard": "验证者排行榜",
+        "leaderboardSubtitle": "表现最佳的验证者"
       },
       "tiers": {
-        "title": "验证者等级",
-        "subtitle": "选择符合您承诺级别的等级",
-        "genesis": "创世验证者",
-        "genesisDesc": "获得最高奖励的首批125名验证者",
-        "premium": "高级验证者",
-        "premiumDesc": "具有额外奖励的高性能验证者",
-        "standard": "标准验证者",
-        "standardDesc": "核心网络验证者",
-        "minStake": "最低质押",
-        "maxReward": "最高年度奖励",
-        "slots": "可用名额"
+        "genesis": {
+          "name": "创世验证者",
+          "badge": "创世",
+          "range": "1-25",
+          "benefit1": "最高奖励倍数 (2.5倍)",
+          "benefit2": "优先出块权",
+          "benefit3": "专属治理投票权",
+          "benefit4": "新功能抢先体验",
+          "benefit5": "高级支持渠道"
+        },
+        "pioneer": {
+          "name": "先锋验证者",
+          "badge": "先锋",
+          "range": "26-75",
+          "benefit1": "高奖励倍数 (2.0倍)",
+          "benefit2": "增强出块优先权",
+          "benefit3": "治理投票权",
+          "benefit4": "测试功能访问",
+          "benefit5": "优先支持"
+        },
+        "early": {
+          "name": "早期采用者",
+          "badge": "早期",
+          "range": "76-125",
+          "benefit1": "标准奖励倍数 (1.5倍)",
+          "benefit2": "常规出块权",
+          "benefit3": "标准治理权限",
+          "benefit4": "社区功能访问",
+          "benefit5": "标准支持"
+        },
+        "participant": "参与者",
+        "earlybirdBonus": "早鸟奖励"
       },
       "loyalty": {
         "title": "忠诚度奖励",
@@ -19537,14 +19582,30 @@
         "year1": "第1年",
         "year2": "第2年",
         "year3": "第3年",
-        "year4": "第4年+",
+        "year4plus": "第4年+",
         "bonus": "奖励"
       },
       "performance": {
         "title": "性能指标",
         "subtitle": "顶级表现者获得额外奖励",
-        "uptime": "在线时间",
-        "blocks": "出块数",
+        "uptime": {
+          "title": "在线时间奖励",
+          "subtitle": "保持高可用性获得奖励"
+        },
+        "blocks": {
+          "title": "出块",
+          "subtitle": "通过出块获得奖励",
+          "top10": "前10%",
+          "top30": "前30%",
+          "top50": "前50%"
+        },
+        "clean": {
+          "title": "无惩罚奖励",
+          "subtitle": "连续数月无惩罚事件",
+          "months3": "3个月",
+          "months6": "6个月",
+          "year1": "1年"
+        },
         "attestations": "证明",
         "slashing": "惩罚事件",
         "score": "性能得分",
@@ -19580,7 +19641,7 @@
         "learnMore": "了解更多",
         "joinNow": "立即加入",
         "complete": "完成注册",
-        "completeDesc": "完成验证者申请",
+        "completeDesc": "完成{{tierName}}验证者申请",
         "loyaltyRewards": "忠诚度奖励",
         "loyaltyRewardsDesc": "长期参与获得额外奖励"
       },
@@ -19602,7 +19663,15 @@
         "totalPool": "总激励池",
         "activeValidators": "活跃验证者",
         "avgReward": "平均奖励",
-        "networkUptime": "网络在线时间"
+        "networkUptime": "网络在线时间",
+        "totalValidators": "总验证者",
+        "totalStaked": "总质押量",
+        "countdown": {
+          "days": "天",
+          "hours": "时",
+          "mins": "分",
+          "secs": "秒"
+        }
       }
     },
     "ecosystemFund": {

@@ -30838,29 +30838,74 @@
         "earlyBirdTitle": "Early Bird Bonus",
         "earlyBirdSubtitle": "Register now for exclusive rewards"
       },
+      "nav": {
+        "tiers": "Tiers",
+        "loyalty": "Loyalty",
+        "performance": "Performance"
+      },
       "wallet": {
         "title": "Wallet Status",
         "subtitle": "Connect your wallet to check validator eligibility",
         "connect": "Connect Wallet",
         "connected": "Connected",
+        "connectedTitle": "Wallet Connected",
+        "connectedDesc": "Your wallet is connected and ready",
+        "disconnectTitle": "Wallet Disconnected",
+        "disconnected": "Your wallet has been disconnected",
         "eligible": "Eligible for Validator",
         "notEligible": "Not Eligible",
         "balance": "Balance",
         "stakedAmount": "Staked Amount",
-        "stakingRequired": "Minimum 100,000 TBURN required"
+        "stakingRequired": "Minimum 100,000 TBURN required",
+        "required": "Wallet Required",
+        "requiredDesc": "Please connect your wallet to continue",
+        "selectTier": "Select Tier",
+        "selectTierDesc": "Choose your validator tier to proceed"
+      },
+      "sections": {
+        "tiers": "Validator Tiers",
+        "tiersSubtitle": "Choose the tier that matches your commitment level",
+        "distribution": "Token Distribution",
+        "loyalty": "Loyalty Rewards",
+        "loyaltySubtitle": "Long-term validators earn increasing rewards",
+        "performance": "Performance Metrics",
+        "performanceSubtitle": "Top performers earn additional rewards",
+        "leaderboard": "Validator Leaderboard",
+        "leaderboardSubtitle": "Top performing validators"
       },
       "tiers": {
-        "title": "Validator Tiers",
-        "subtitle": "Choose the tier that matches your commitment level",
-        "genesis": "Genesis Validator",
-        "genesisDesc": "First 125 validators with highest rewards",
-        "premium": "Premium Validator",
-        "premiumDesc": "High-performance validators with bonus rewards",
-        "standard": "Standard Validator",
-        "standardDesc": "Core network validators",
-        "minStake": "Minimum Stake",
-        "maxReward": "Max Annual Reward",
-        "slots": "Available Slots"
+        "genesis": {
+          "name": "Genesis Validator",
+          "badge": "Genesis",
+          "range": "1-25",
+          "benefit1": "Highest reward multiplier (2.5x)",
+          "benefit2": "Priority block proposal rights",
+          "benefit3": "Exclusive governance voting power",
+          "benefit4": "Early access to new features",
+          "benefit5": "Premium support channel"
+        },
+        "pioneer": {
+          "name": "Pioneer Validator",
+          "badge": "Pioneer",
+          "range": "26-75",
+          "benefit1": "High reward multiplier (2.0x)",
+          "benefit2": "Enhanced block proposal priority",
+          "benefit3": "Governance voting power",
+          "benefit4": "Access to beta features",
+          "benefit5": "Priority support"
+        },
+        "early": {
+          "name": "Early Adopter",
+          "badge": "Early",
+          "range": "76-125",
+          "benefit1": "Standard reward multiplier (1.5x)",
+          "benefit2": "Regular block proposal rights",
+          "benefit3": "Standard governance rights",
+          "benefit4": "Community features access",
+          "benefit5": "Standard support"
+        },
+        "participant": "Participant",
+        "earlybirdBonus": "Early Bird Bonus"
       },
       "loyalty": {
         "title": "Loyalty Rewards",
@@ -30872,14 +30917,30 @@
         "year1": "Year 1",
         "year2": "Year 2",
         "year3": "Year 3",
-        "year4": "Year 4+",
+        "year4plus": "Year 4+",
         "bonus": "Bonus"
       },
       "performance": {
         "title": "Performance Metrics",
         "subtitle": "Top performers earn additional rewards",
-        "uptime": "Uptime",
-        "blocks": "Blocks Produced",
+        "uptime": {
+          "title": "Uptime Bonus",
+          "subtitle": "Maintain high availability for bonus rewards"
+        },
+        "blocks": {
+          "title": "Block Production",
+          "subtitle": "Earn rewards for producing blocks",
+          "top10": "Top 10%",
+          "top30": "Top 30%",
+          "top50": "Top 50%"
+        },
+        "clean": {
+          "title": "Clean Record Bonus",
+          "subtitle": "No slashing events for consecutive months",
+          "months3": "3 Months",
+          "months6": "6 Months",
+          "year1": "1 Year"
+        },
         "attestations": "Attestations",
         "slashing": "Slashing Events",
         "score": "Performance Score",
@@ -30915,7 +30976,7 @@
         "learnMore": "Learn More",
         "joinNow": "Join Now",
         "complete": "Complete Registration",
-        "completeDesc": "Finish your validator application",
+        "completeDesc": "Finish your validator application for {{tierName}}",
         "loyaltyRewards": "Loyalty Rewards",
         "loyaltyRewardsDesc": "Earn bonus rewards for long-term participation"
       },
@@ -30937,7 +30998,15 @@
         "totalPool": "Total Incentive Pool",
         "activeValidators": "Active Validators",
         "avgReward": "Average Reward",
-        "networkUptime": "Network Uptime"
+        "networkUptime": "Network Uptime",
+        "totalValidators": "Total Validators",
+        "totalStaked": "Total Staked",
+        "countdown": {
+          "days": "Days",
+          "hours": "Hours",
+          "mins": "Mins",
+          "secs": "Secs"
+        }
       }
     },
     "ecosystemFund": {

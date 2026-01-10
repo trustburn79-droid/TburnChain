@@ -31417,29 +31417,74 @@
         "earlyBirdTitle": "얼리버드 보너스",
         "earlyBirdSubtitle": "지금 등록하고 독점 보상을 받으세요"
       },
+      "nav": {
+        "tiers": "티어",
+        "loyalty": "충성도",
+        "performance": "성능"
+      },
       "wallet": {
         "title": "지갑 상태",
         "subtitle": "지갑을 연결하여 검증자 자격을 확인하세요",
         "connect": "지갑 연결",
         "connected": "연결됨",
+        "connectedTitle": "지갑 연결됨",
+        "connectedDesc": "지갑이 연결되어 준비되었습니다",
+        "disconnectTitle": "지갑 연결 해제됨",
+        "disconnected": "지갑 연결이 해제되었습니다",
         "eligible": "검증자 자격 있음",
         "notEligible": "자격 없음",
         "balance": "잔액",
         "stakedAmount": "스테이킹 금액",
-        "stakingRequired": "최소 100,000 TBURN 필요"
+        "stakingRequired": "최소 100,000 TBURN 필요",
+        "required": "지갑 필요",
+        "requiredDesc": "계속하려면 지갑을 연결하세요",
+        "selectTier": "티어 선택",
+        "selectTierDesc": "진행할 검증자 티어를 선택하세요"
+      },
+      "sections": {
+        "tiers": "검증자 티어",
+        "tiersSubtitle": "참여 수준에 맞는 티어를 선택하세요",
+        "distribution": "토큰 분배",
+        "loyalty": "충성도 보상",
+        "loyaltySubtitle": "장기 검증자는 증가하는 보상을 받습니다",
+        "performance": "성능 지표",
+        "performanceSubtitle": "최고 성과자는 추가 보상을 받습니다",
+        "leaderboard": "검증자 리더보드",
+        "leaderboardSubtitle": "최고 성과 검증자"
       },
       "tiers": {
-        "title": "검증자 티어",
-        "subtitle": "귀하의 참여 수준에 맞는 티어를 선택하세요",
-        "genesis": "제네시스 검증자",
-        "genesisDesc": "최고 보상을 받는 첫 125명의 검증자",
-        "premium": "프리미엄 검증자",
-        "premiumDesc": "보너스 보상이 있는 고성능 검증자",
-        "standard": "스탠다드 검증자",
-        "standardDesc": "핵심 네트워크 검증자",
-        "minStake": "최소 스테이킹",
-        "maxReward": "최대 연간 보상",
-        "slots": "사용 가능 슬롯"
+        "genesis": {
+          "name": "제네시스 검증자",
+          "badge": "제네시스",
+          "range": "1-25",
+          "benefit1": "최고 보상 배수 (2.5배)",
+          "benefit2": "우선 블록 제안권",
+          "benefit3": "독점 거버넌스 투표권",
+          "benefit4": "신기능 조기 접근",
+          "benefit5": "프리미엄 지원 채널"
+        },
+        "pioneer": {
+          "name": "파이오니어 검증자",
+          "badge": "파이오니어",
+          "range": "26-75",
+          "benefit1": "높은 보상 배수 (2.0배)",
+          "benefit2": "향상된 블록 제안 우선권",
+          "benefit3": "거버넌스 투표권",
+          "benefit4": "베타 기능 접근",
+          "benefit5": "우선 지원"
+        },
+        "early": {
+          "name": "얼리 어답터",
+          "badge": "얼리",
+          "range": "76-125",
+          "benefit1": "표준 보상 배수 (1.5배)",
+          "benefit2": "일반 블록 제안권",
+          "benefit3": "표준 거버넌스 권한",
+          "benefit4": "커뮤니티 기능 접근",
+          "benefit5": "표준 지원"
+        },
+        "participant": "참여자",
+        "earlybirdBonus": "얼리버드 보너스"
       },
       "loyalty": {
         "title": "충성도 보상",
@@ -31451,14 +31496,30 @@
         "year1": "1년차",
         "year2": "2년차",
         "year3": "3년차",
-        "year4": "4년차+",
+        "year4plus": "4년차+",
         "bonus": "보너스"
       },
       "performance": {
         "title": "성능 지표",
         "subtitle": "최고 성과자는 추가 보상을 받습니다",
-        "uptime": "가동 시간",
-        "blocks": "생성된 블록",
+        "uptime": {
+          "title": "가동 시간 보너스",
+          "subtitle": "높은 가용성 유지로 보너스 보상 획득"
+        },
+        "blocks": {
+          "title": "블록 생성",
+          "subtitle": "블록 생성으로 보상 획득",
+          "top10": "상위 10%",
+          "top30": "상위 30%",
+          "top50": "상위 50%"
+        },
+        "clean": {
+          "title": "무결점 보너스",
+          "subtitle": "연속 월간 슬래싱 이벤트 없음",
+          "months3": "3개월",
+          "months6": "6개월",
+          "year1": "1년"
+        },
         "attestations": "증명",
         "slashing": "슬래싱 이벤트",
         "score": "성능 점수",
@@ -31494,7 +31555,7 @@
         "learnMore": "더 알아보기",
         "joinNow": "지금 참여",
         "complete": "등록 완료",
-        "completeDesc": "검증자 신청을 완료하세요",
+        "completeDesc": "{{tierName}} 검증자 신청을 완료하세요",
         "loyaltyRewards": "충성도 보상",
         "loyaltyRewardsDesc": "장기 참여에 대한 보너스 보상을 받으세요"
       },
@@ -31516,7 +31577,15 @@
         "totalPool": "총 인센티브 풀",
         "activeValidators": "활성 검증자",
         "avgReward": "평균 보상",
-        "networkUptime": "네트워크 가동 시간"
+        "networkUptime": "네트워크 가동 시간",
+        "totalValidators": "총 검증자",
+        "totalStaked": "총 스테이킹",
+        "countdown": {
+          "days": "일",
+          "hours": "시간",
+          "mins": "분",
+          "secs": "초"
+        }
       }
     },
     "ecosystemFund": {
