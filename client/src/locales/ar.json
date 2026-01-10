@@ -16696,11 +16696,12 @@
         "portfolio": "Portfolio"
       },
       "hero": {
-        "badge": "ECOSYSTEM FUND",
-        "title": "TBURN Ecosystem Fund",
+        "badge": "صندوق النظام البيئي",
+        "title": "صندوق نظام TBURN البيئي",
         "fund": "700M TBURN",
         "fundAmount": "700,000,000",
-        "subtitle": "A fund supporting developers, startups, and researchers building on TBURN Chain"
+        "subtitle": "A fund supporting developers, startups, and researchers building on TBURN Chain",
+        "titleHighlight": "500 مليون TBURN"
       },
       "stats": {
         "totalFundSize": "Total Fund Size",
@@ -17555,7 +17556,12 @@
       "networkFees": "رسوم الشبكة",
       "burnedFees": "الرسوم المحروقة",
       "becomeValidator": "كن مدققاً",
-      "delegateStake": "تفويض الحصة"
+      "delegateStake": "تفويض الحصة",
+      "hero": {
+        "badge": "مكافآت الكتل",
+        "title": "برنامج مكافآت الكتل",
+        "titleHighlight": "650 مليون TBURN"
+      }
     },
     "validatorIncentives": {
       "loading": "جار التحميل...",
@@ -18009,7 +18015,18 @@
       "content": "صانع المحتوى",
       "community": "التسويق المجتمعي",
       "applyMarketing": "التقدم للتسويق",
-      "campaignDetails": "تفاصيل الحملة"
+      "campaignDetails": "تفاصيل الحملة",
+      "nav": {
+        "programs": "البرامج",
+        "ambassador": "السفير",
+        "campaigns": "الحملات",
+        "leaderboard": "لوحة المتصدرين"
+      },
+      "hero": {
+        "badge": "برنامج التسويق - انشر TBURN معاً",
+        "title": "شارك في تسويق TBURN",
+        "fundAmount": "300 مليون TBURN"
+      }
     },
     "strategicPartner": {
       "title": "الشركاء الاستراتيجيون",
@@ -18043,10 +18060,10 @@
     },
     "seedRound": {
       "title": "جولة البذور",
-      "subtitle": "فرصة استثمار مبكر في TBURN",
+      "subtitle": "فرصة استثمار مبكرة في TBURN",
       "heroTitle": "جولة بذور TBURN",
       "heroSubtitle": "كن من أوائل المستثمرين في نظام TBURN البيئي",
-      "badge": "استثمار بذري",
+      "badge": "استثمار البذور",
       "tokenPrice": "سعر التوكن",
       "discount": "خصم من الإطلاق",
       "allocation": "إجمالي التخصيص",
@@ -18079,7 +18096,14 @@
         "subtitle": "استثمر في TBURN Chain بخصم يصل إلى 70% كمستثمر مبكر!",
         "button": "استثمر الآن"
       },
-      "connectWallet": "استفسار استثماري"
+      "connectWallet": "استفسار استثماري",
+      "hero": {
+        "badge": "جولة البذور - مستثمر مبكر",
+        "status": "نشط",
+        "title": "استثمر في جولة البذور",
+        "titleHighlight": "500 مليون TBURN",
+        "subtitle": "خصم يصل إلى 70% لمستثمري البلوكتشين المؤهلين."
+      }
     },
     "privateRound": {
       "nav": {
@@ -18345,7 +18369,10 @@
         "product": "المنتج",
         "resources": "الموارد",
         "community": "المجتمع"
-      }
+      },
+      "title": "الجولة الخاصة",
+      "subtitle": "بيع خاص للمستثمرين المؤهلين",
+      "badge": "بيع خاص"
     },
     "publicRound": {
       "nav": {
@@ -18662,7 +18689,10 @@
         "support": "Support",
         "terms": "Terms of Service",
         "privacy": "Privacy Policy"
-      }
+      },
+      "title": "الجولة العامة",
+      "subtitle": "بيع عام مفتوح للجميع",
+      "badge": "بيع عام"
     },
     "launchpad": {
       "title": "منصة الإطلاق",
@@ -18678,7 +18708,12 @@
       "antiBot": "حماية من الروبوتات",
       "vestingSchedule": "جدول الاستحقاق",
       "liquidityLock": "قفل السيولة",
-      "participateNow": "شارك الآن"
+      "participateNow": "شارك الآن",
+      "hero": {
+        "badge": "TBURN Launchpad",
+        "title": "أطلق مشاريع الجيل القادم",
+        "titleHighlight": "100 مليون TBURN"
+      }
     },
     "coinlist": {
       "title": "بيع CoinList",
@@ -18691,7 +18726,12 @@
       "participants": "المشاركون المتوقعون",
       "kycRequired": "KYC مطلوب",
       "eligibility": "متطلبات الأهلية",
-      "registerNow": "سجل على CoinList"
+      "registerNow": "سجل على CoinList",
+      "hero": {
+        "badge": "CoinList - البيع الرسمي",
+        "title": "البيع العام على CoinList",
+        "titleHighlight": "30 مليون TBURN"
+      }
     },
     "daoMaker": {
       "title": "DAO Maker",
@@ -18705,7 +18745,11 @@
       "tiers": "مستويات SHO",
       "guaranteed": "تخصيص مضمون",
       "lottery": "مجمع اليانصيب",
-      "registerSHO": "سجل في SHO"
+      "registerSHO": "سجل في SHO",
+      "hero": {
+        "badge": "DAO Maker - IDO الرسمي",
+        "title": "DAO Maker IDO"
+      }
     },
     "airdropPage": {
       "nav": {

@@ -17340,11 +17340,12 @@
         "portfolio": "Portfolio"
       },
       "hero": {
-        "badge": "ECOSYSTEM FUND",
-        "title": "TBURN Ecosystem Fund",
+        "badge": "इकोसिस्टम फंड",
+        "title": "TBURN इकोसिस्टम फंड",
         "fund": "700M TBURN",
         "fundAmount": "700,000,000",
-        "subtitle": "A fund supporting developers, startups, and researchers building on TBURN Chain"
+        "subtitle": "A fund supporting developers, startups, and researchers building on TBURN Chain",
+        "titleHighlight": "500M TBURN"
       },
       "stats": {
         "totalFundSize": "Total Fund Size",
@@ -18199,7 +18200,12 @@
       "networkFees": "नेटवर्क शुल्क",
       "burnedFees": "जलाए गए शुल्क",
       "becomeValidator": "वैलिडेटर बनें",
-      "delegateStake": "स्टेक डेलीगेट करें"
+      "delegateStake": "स्टेक डेलीगेट करें",
+      "hero": {
+        "badge": "ब्लॉक रिवॉर्ड्स",
+        "title": "ब्लॉक रिवॉर्ड्स प्रोग्राम",
+        "titleHighlight": "650M TBURN"
+      }
     },
     "validatorIncentives": {
       "loading": "लोड हो रहा है...",
@@ -18653,7 +18659,18 @@
       "content": "कंटेंट क्रिएटर",
       "community": "कम्युनिटी मार्केटिंग",
       "applyMarketing": "मार्केटिंग के लिए आवेदन करें",
-      "campaignDetails": "कैंपेन विवरण"
+      "campaignDetails": "कैंपेन विवरण",
+      "nav": {
+        "programs": "कार्यक्रम",
+        "ambassador": "एंबेसडर",
+        "campaigns": "अभियान",
+        "leaderboard": "लीडरबोर्ड"
+      },
+      "hero": {
+        "badge": "मार्केटिंग प्रोग्राम - TBURN को एक साथ फैलाएं",
+        "title": "TBURN मार्केटिंग में भाग लें",
+        "fundAmount": "300M TBURN"
+      }
     },
     "strategicPartner": {
       "title": "स्ट्रैटेजिक पार्टनर्स",
@@ -18723,7 +18740,14 @@
         "subtitle": "प्रारंभिक निवेशक के रूप में 70% तक की छूट पर TBURN Chain में निवेश करें!",
         "button": "अभी निवेश करें"
       },
-      "connectWallet": "निवेश पूछताछ"
+      "connectWallet": "निवेश पूछताछ",
+      "hero": {
+        "badge": "सीड राउंड - प्रारंभिक निवेशक",
+        "status": "सक्रिय",
+        "title": "सीड राउंड में निवेश करें",
+        "titleHighlight": "500M TBURN",
+        "subtitle": "ब्लॉकचेन VC और योग्य निवेशकों के लिए 70% तक की छूट।"
+      }
     },
     "privateRound": {
       "nav": {
@@ -18989,7 +19013,10 @@
         "product": "उत्पाद",
         "resources": "संसाधन",
         "community": "समुदाय"
-      }
+      },
+      "title": "प्राइवेट राउंड",
+      "subtitle": "योग्य निवेशकों के लिए प्राइवेट सेल",
+      "badge": "प्राइवेट सेल"
     },
     "publicRound": {
       "nav": {
@@ -19306,7 +19333,10 @@
         "support": "Support",
         "terms": "Terms of Service",
         "privacy": "Privacy Policy"
-      }
+      },
+      "title": "पब्लिक राउंड",
+      "subtitle": "सभी के लिए खुली पब्लिक सेल",
+      "badge": "पब्लिक सेल"
     },
     "launchpad": {
       "title": "लॉन्चपैड",
@@ -19322,7 +19352,12 @@
       "antiBot": "एंटी-बॉट प्रोटेक्शन",
       "vestingSchedule": "वेस्टिंग शेड्यूल",
       "liquidityLock": "लिक्विडिटी लॉक",
-      "participateNow": "अभी भाग लें"
+      "participateNow": "अभी भाग लें",
+      "hero": {
+        "badge": "TBURN Launchpad",
+        "title": "नई पीढ़ी के प्रोजेक्ट लॉन्च करें",
+        "titleHighlight": "100M TBURN"
+      }
     },
     "coinlist": {
       "title": "CoinList सेल",
@@ -19335,7 +19370,12 @@
       "participants": "अपेक्षित प्रतिभागी",
       "kycRequired": "KYC आवश्यक",
       "eligibility": "पात्रता आवश्यकताएं",
-      "registerNow": "CoinList पर रजिस्टर करें"
+      "registerNow": "CoinList पर रजिस्टर करें",
+      "hero": {
+        "badge": "CoinList - आधिकारिक सेल",
+        "title": "CoinList पब्लिक सेल",
+        "titleHighlight": "30M TBURN"
+      }
     },
     "daoMaker": {
       "title": "DAO Maker",
@@ -19349,7 +19389,11 @@
       "tiers": "SHO स्तर",
       "guaranteed": "गारंटीड आवंटन",
       "lottery": "लॉटरी पूल",
-      "registerSHO": "SHO के लिए रजिस्टर करें"
+      "registerSHO": "SHO के लिए रजिस्टर करें",
+      "hero": {
+        "badge": "DAO Maker - आधिकारिक IDO",
+        "title": "DAO Maker IDO"
+      }
     },
     "airdropPage": {
       "nav": {

@@ -15814,11 +15814,12 @@
         "portfolio": "Portfolio"
       },
       "hero": {
-        "badge": "ECOSYSTEM FUND",
-        "title": "TBURN Ecosystem Fund",
+        "badge": "ФОНД ЭКОСИСТЕМЫ",
+        "title": "Фонд Экосистемы TBURN",
         "fund": "700M TBURN",
         "fundAmount": "700,000,000",
-        "subtitle": "A fund supporting developers, startups, and researchers building on TBURN Chain"
+        "subtitle": "A fund supporting developers, startups, and researchers building on TBURN Chain",
+        "titleHighlight": "500M TBURN"
       },
       "stats": {
         "totalFundSize": "Total Fund Size",
@@ -16673,7 +16674,12 @@
       "networkFees": "Сетевые Комиссии",
       "burnedFees": "Сожженные Комиссии",
       "becomeValidator": "Стать Валидатором",
-      "delegateStake": "Делегировать Стейк"
+      "delegateStake": "Делегировать Стейк",
+      "hero": {
+        "badge": "НАГРАДЫ ЗА БЛОКИ",
+        "title": "Программа Наград за Блоки",
+        "titleHighlight": "650M TBURN"
+      }
     },
     "validatorIncentives": {
       "loading": "Загрузка...",
@@ -17127,7 +17133,18 @@
       "content": "Создатель Контента",
       "community": "Комьюнити Маркетинг",
       "applyMarketing": "Подать на Маркетинг",
-      "campaignDetails": "Детали Кампании"
+      "campaignDetails": "Детали Кампании",
+      "nav": {
+        "programs": "Программы",
+        "ambassador": "Амбассадор",
+        "campaigns": "Кампании",
+        "leaderboard": "Рейтинг"
+      },
+      "hero": {
+        "badge": "МАРКЕТИНГОВАЯ ПРОГРАММА - Распространяйте TBURN Вместе",
+        "title": "Участвуйте в Маркетинге TBURN",
+        "fundAmount": "300M TBURN"
+      }
     },
     "strategicPartner": {
       "title": "Стратегические Партнеры",
@@ -17160,11 +17177,11 @@
       "meetAdvisors": "Наши Советники"
     },
     "seedRound": {
-      "title": "Посевной раунд",
+      "title": "Seed Раунд",
       "subtitle": "Возможность раннего инвестирования в TBURN",
       "heroTitle": "Сид Раунд TBURN",
       "heroSubtitle": "Станьте одним из первых инвесторов в экосистему TBURN",
-      "badge": "Сид Инвестиция",
+      "badge": "Seed Инвестиция",
       "tokenPrice": "Цена Токена",
       "discount": "Скидка от Запуска",
       "allocation": "Общее Распределение",
@@ -17197,7 +17214,14 @@
         "subtitle": "Инвестируйте в TBURN Chain со скидкой до 70% как ранний инвестор!",
         "button": "Инвестировать сейчас"
       },
-      "connectWallet": "Запрос на инвестиции"
+      "connectWallet": "Запрос на инвестиции",
+      "hero": {
+        "badge": "SEED РАУНД - Ранний Инвестор",
+        "status": "Активен",
+        "title": "Инвестировать в Seed Раунд",
+        "titleHighlight": "500M TBURN",
+        "subtitle": "Скидка до 70% для Blockchain VC и квалифицированных инвесторов."
+      }
     },
     "privateRound": {
       "nav": {
@@ -17463,7 +17487,10 @@
         "product": "Продукт",
         "resources": "Ресурсы",
         "community": "Сообщество"
-      }
+      },
+      "title": "Приватный Раунд",
+      "subtitle": "Приватная продажа для квалифицированных инвесторов",
+      "badge": "Приватная Продажа"
     },
     "publicRound": {
       "nav": {
@@ -17780,7 +17807,10 @@
         "support": "Support",
         "terms": "Terms of Service",
         "privacy": "Privacy Policy"
-      }
+      },
+      "title": "Публичный Раунд",
+      "subtitle": "Публичная продажа открыта для всех",
+      "badge": "Публичная Продажа"
     },
     "launchpad": {
       "title": "Лаунчпад",
@@ -17796,7 +17826,12 @@
       "antiBot": "Защита от Ботов",
       "vestingSchedule": "График Вестинга",
       "liquidityLock": "Блокировка Ликвидности",
-      "participateNow": "Участвовать Сейчас"
+      "participateNow": "Участвовать Сейчас",
+      "hero": {
+        "badge": "TBURN Launchpad",
+        "title": "Запускайте Проекты Нового Поколения",
+        "titleHighlight": "100M TBURN"
+      }
     },
     "coinlist": {
       "title": "Продажа CoinList",
@@ -17809,7 +17844,12 @@
       "participants": "Ожидаемые Участники",
       "kycRequired": "Требуется KYC",
       "eligibility": "Требования Участия",
-      "registerNow": "Регистрация на CoinList"
+      "registerNow": "Регистрация на CoinList",
+      "hero": {
+        "badge": "CoinList - Официальная Продажа",
+        "title": "Публичная Продажа CoinList",
+        "titleHighlight": "30M TBURN"
+      }
     },
     "daoMaker": {
       "title": "DAO Maker",
@@ -17823,7 +17863,11 @@
       "tiers": "Уровни SHO",
       "guaranteed": "Гарантированное Распределение",
       "lottery": "Лотерейный Пул",
-      "registerSHO": "Регистрация на SHO"
+      "registerSHO": "Регистрация на SHO",
+      "hero": {
+        "badge": "DAO Maker - Официальный IDO",
+        "title": "DAO Maker IDO"
+      }
     },
     "airdropPage": {
       "nav": {

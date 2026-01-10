@@ -18804,11 +18804,12 @@
         "portfolio": "Portfolio"
       },
       "hero": {
-        "badge": "ECOSYSTEM FUND",
-        "title": "TBURN Ecosystem Fund",
+        "badge": "FONDO DEL ECOSISTEMA",
+        "title": "Fondo del Ecosistema TBURN",
         "fund": "700M TBURN",
         "fundAmount": "700,000,000",
-        "subtitle": "A fund supporting developers, startups, and researchers building on TBURN Chain"
+        "subtitle": "Fondo para apoyar el crecimiento y desarrollo del ecosistema",
+        "titleHighlight": "500M TBURN"
       },
       "stats": {
         "totalFundSize": "Total Fund Size",
@@ -19914,7 +19915,13 @@
       "networkFees": "Comisiones de Red",
       "burnedFees": "Comisiones Quemadas",
       "becomeValidator": "Convertirse en Validador",
-      "delegateStake": "Delegar Stake"
+      "delegateStake": "Delegar Stake",
+      "hero": {
+        "badge": "RECOMPENSAS DE BLOQUE - Recompensas de Validador",
+        "title": "Programa de Recompensas de Bloque",
+        "titleHighlight": "650M TBURN",
+        "subtitle": "Asegura la red como validador y gana recompensas de bloque."
+      }
     },
     "validatorIncentives": {
       "loading": "Cargando...",
@@ -20368,7 +20375,20 @@
       "content": "Creador de Contenido",
       "community": "Marketing Comunitario",
       "applyMarketing": "Aplicar para Marketing",
-      "campaignDetails": "Detalles de Campaña"
+      "campaignDetails": "Detalles de Campaña",
+      "nav": {
+        "programs": "Programas",
+        "ambassador": "Embajador",
+        "campaigns": "Campañas",
+        "leaderboard": "Clasificación"
+      },
+      "hero": {
+        "badge": "PROGRAMA DE MARKETING - Difunde TBURN Juntos",
+        "title": "Participa en el Marketing de TBURN",
+        "fundAmount": "300M TBURN",
+        "incentive": "Gana Recompensas",
+        "subtitle": "Conviértete en embajador, influencer o creador de contenido para difundir el ecosistema TBURN."
+      }
     },
     "strategicPartner": {
       "title": "Socios Estratégicos",
@@ -20401,17 +20421,17 @@
       "meetAdvisors": "Conoce a Nuestros Asesores"
     },
     "seedRound": {
-      "title": "Ronda Semilla",
-      "subtitle": "Oportunidad de inversión temprana en TBURN",
-      "heroTitle": "Ronda Semilla TBURN",
-      "heroSubtitle": "Sé de los primeros inversores en el ecosistema TBURN",
-      "badge": "Inversión Semilla",
+      "title": "Ronda Seed",
+      "subtitle": "Oportunidad de inversión en etapa inicial en TBURN",
+      "heroTitle": "Ronda Seed de TBURN",
+      "heroSubtitle": "Sé uno de los primeros inversores en el ecosistema TBURN",
+      "badge": "Inversión Seed",
       "tokenPrice": "Precio del Token",
-      "discount": "Descuento del Lanzamiento",
+      "discount": "Descuento desde el Lanzamiento",
       "allocation": "Asignación Total",
       "vestingInfo": "Información de Vesting",
-      "cliff": "Período de Cliff",
-      "vesting": "Duración de Vesting",
+      "cliff": "Período Cliff",
+      "vesting": "Duración del Vesting",
       "tgeUnlock": "Desbloqueo TGE",
       "investorTiers": "Niveles de Inversor",
       "lead": "Inversor Líder",
@@ -20438,7 +20458,15 @@
         "subtitle": "¡Invierte en TBURN Chain con hasta 70% de descuento como inversor temprano!",
         "button": "Invertir Ahora"
       },
-      "connectWallet": "Consulta de Inversión"
+      "connectWallet": "Consulta de Inversión",
+      "hero": {
+        "badge": "RONDA SEED - Inversor Temprano",
+        "status": "Activo",
+        "title": "Invertir en Ronda Seed",
+        "titleHighlight": "500M TBURN",
+        "titleEnd": "Oportunidad",
+        "subtitle": "Hasta 70% de descuento para VCs Blockchain, Fondos Crypto e Inversores Ángel."
+      }
     },
     "privateRound": {
       "nav": {
@@ -20704,7 +20732,14 @@
         "product": "Producto",
         "resources": "Recursos",
         "community": "Comunidad"
-      }
+      },
+      "title": "Ronda Privada",
+      "subtitle": "Venta privada para inversores calificados",
+      "heroTitle": "Ronda Privada de TBURN",
+      "heroSubtitle": "Oportunidad exclusiva para inversores institucionales y calificados",
+      "badge": "Venta Privada",
+      "tokenPrice": "Precio del Token",
+      "applyPrivate": "Aplicar para Ronda Privada"
     },
     "publicRound": {
       "nav": {
@@ -21021,7 +21056,15 @@
         "support": "Support",
         "terms": "Terms of Service",
         "privacy": "Privacy Policy"
-      }
+      },
+      "title": "Ronda Pública",
+      "subtitle": "Venta pública de tokens abierta a todos",
+      "heroTitle": "Ronda Pública de TBURN",
+      "heroSubtitle": "Participa en la venta pública y únete a la comunidad TBURN",
+      "badge": "Venta Pública",
+      "tokenPrice": "Precio del Token",
+      "joinWhitelist": "Unirse a Whitelist",
+      "purchaseTokens": "Comprar Tokens"
     },
     "launchpad": {
       "title": "Launchpad",
@@ -21037,7 +21080,13 @@
       "antiBot": "Protección Anti-Bot",
       "vestingSchedule": "Calendario de Vesting",
       "liquidityLock": "Bloqueo de Liquidez",
-      "participateNow": "Participar Ahora"
+      "participateNow": "Participar Ahora",
+      "hero": {
+        "badge": "TBURN Launchpad",
+        "title": "Lanza Proyectos de Nueva Generación",
+        "titleHighlight": "100M TBURN",
+        "subtitle": "Lanza proyectos innovadores en el ecosistema TBURN"
+      }
     },
     "coinlist": {
       "title": "Venta CoinList",
@@ -21050,7 +21099,13 @@
       "participants": "Participantes Esperados",
       "kycRequired": "KYC Requerido",
       "eligibility": "Requisitos de Elegibilidad",
-      "registerNow": "Registrarse en CoinList"
+      "registerNow": "Registrarse en CoinList",
+      "hero": {
+        "badge": "CoinList - Venta Oficial",
+        "title": "Venta Pública en CoinList",
+        "titleHighlight": "30M TBURN",
+        "subtitle": "Venta oficial de tokens TBURN en la plataforma CoinList"
+      }
     },
     "daoMaker": {
       "title": "DAO Maker",
@@ -21064,7 +21119,13 @@
       "tiers": "Niveles SHO",
       "guaranteed": "Asignación Garantizada",
       "lottery": "Pool de Lotería",
-      "registerSHO": "Registrarse para SHO"
+      "registerSHO": "Registrarse para SHO",
+      "hero": {
+        "badge": "DAO Maker - IDO Oficial",
+        "title": "DAO Maker IDO",
+        "titleHighlight": "Venta Pública",
+        "subtitle": "Venta oficial de tokens TBURN en la plataforma DAO Maker"
+      }
     },
     "airdropPage": {
       "nav": {

@@ -14920,11 +14920,12 @@
         "portfolio": "Portfolio"
       },
       "hero": {
-        "badge": "ECOSYSTEM FUND",
-        "title": "TBURN Ecosystem Fund",
+        "badge": "ইকোসিস্টেম ফান্ড",
+        "title": "TBURN ইকোসিস্টেম ফান্ড",
         "fund": "700M TBURN",
         "fundAmount": "700,000,000",
-        "subtitle": "A fund supporting developers, startups, and researchers building on TBURN Chain"
+        "subtitle": "A fund supporting developers, startups, and researchers building on TBURN Chain",
+        "titleHighlight": "500M TBURN"
       },
       "stats": {
         "totalFundSize": "Total Fund Size",
@@ -15779,7 +15780,12 @@
       "networkFees": "নেটওয়ার্ক ফি",
       "burnedFees": "বার্ন করা ফি",
       "becomeValidator": "ভ্যালিডেটর হন",
-      "delegateStake": "স্টেক ডেলিগেট করুন"
+      "delegateStake": "স্টেক ডেলিগেট করুন",
+      "hero": {
+        "badge": "ব্লক রিওয়ার্ডস",
+        "title": "ব্লক রিওয়ার্ডস প্রোগ্রাম",
+        "titleHighlight": "650M TBURN"
+      }
     },
     "validatorIncentives": {
       "loading": "লোড হচ্ছে...",
@@ -16233,7 +16239,18 @@
       "content": "কন্টেন্ট ক্রিয়েটর",
       "community": "কমিউনিটি মার্কেটিং",
       "applyMarketing": "মার্কেটিং এর জন্য আবেদন",
-      "campaignDetails": "প্রচারণার বিবরণ"
+      "campaignDetails": "প্রচারণার বিবরণ",
+      "nav": {
+        "programs": "প্রোগ্রাম",
+        "ambassador": "অ্যাম্বাসেডর",
+        "campaigns": "ক্যাম্পেইন",
+        "leaderboard": "লিডারবোর্ড"
+      },
+      "hero": {
+        "badge": "মার্কেটিং প্রোগ্রাম - একসাথে TBURN ছড়িয়ে দিন",
+        "title": "TBURN মার্কেটিংয়ে অংশ নিন",
+        "fundAmount": "300M TBURN"
+      }
     },
     "strategicPartner": {
       "title": "কৌশলগত পার্টনার",
@@ -16270,7 +16287,7 @@
       "subtitle": "TBURN-এ প্রাথমিক বিনিয়োগের সুযোগ",
       "heroTitle": "TBURN সিড রাউন্ড",
       "heroSubtitle": "TBURN ইকোসিস্টেমের প্রথম বিনিয়োগকারীদের মধ্যে থাকুন",
-      "badge": "সিড বিনিয়োগ",
+      "badge": "সীড বিনিয়োগ",
       "tokenPrice": "টোকেন মূল্য",
       "discount": "লঞ্চ থেকে ছাড়",
       "allocation": "মোট বরাদ্দ",
@@ -16303,7 +16320,14 @@
         "subtitle": "প্রাথমিক বিনিয়োগকারী হিসেবে 70% পর্যন্ত ছাড়ে TBURN Chain-এ বিনিয়োগ করুন!",
         "button": "এখনই বিনিয়োগ করুন"
       },
-      "connectWallet": "বিনিয়োগ অনুসন্ধান"
+      "connectWallet": "বিনিয়োগ অনুসন্ধান",
+      "hero": {
+        "badge": "সীড রাউন্ড - প্রাথমিক বিনিয়োগকারী",
+        "status": "সক্রিয়",
+        "title": "সীড রাউন্ডে বিনিয়োগ করুন",
+        "titleHighlight": "500M TBURN",
+        "subtitle": "ব্লকচেইন VC এবং যোগ্য বিনিয়োগকারীদের জন্য 70% পর্যন্ত ছাড়।"
+      }
     },
     "privateRound": {
       "nav": {
@@ -16569,7 +16593,10 @@
         "product": "পণ্য",
         "resources": "সম্পদ",
         "community": "সম্প্রদায়"
-      }
+      },
+      "title": "প্রাইভেট রাউন্ড",
+      "subtitle": "যোগ্য বিনিয়োগকারীদের জন্য প্রাইভেট সেল",
+      "badge": "প্রাইভেট সেল"
     },
     "publicRound": {
       "nav": {
@@ -16886,7 +16913,10 @@
         "support": "Support",
         "terms": "Terms of Service",
         "privacy": "Privacy Policy"
-      }
+      },
+      "title": "পাবলিক রাউন্ড",
+      "subtitle": "সবার জন্য উন্মুক্ত পাবলিক সেল",
+      "badge": "পাবলিক সেল"
     },
     "launchpad": {
       "title": "লঞ্চপ্যাড",

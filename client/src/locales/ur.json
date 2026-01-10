@@ -15164,11 +15164,12 @@
         "portfolio": "Portfolio"
       },
       "hero": {
-        "badge": "ECOSYSTEM FUND",
-        "title": "TBURN Ecosystem Fund",
+        "badge": "ایکو سسٹم فنڈ",
+        "title": "TBURN ایکو سسٹم فنڈ",
         "fund": "700M TBURN",
         "fundAmount": "700,000,000",
-        "subtitle": "A fund supporting developers, startups, and researchers building on TBURN Chain"
+        "subtitle": "A fund supporting developers, startups, and researchers building on TBURN Chain",
+        "titleHighlight": "500M TBURN"
       },
       "stats": {
         "totalFundSize": "Total Fund Size",
@@ -16023,7 +16024,12 @@
       "networkFees": "نیٹ ورک فیس",
       "burnedFees": "جلائی گئی فیس",
       "becomeValidator": "ویلیڈیٹر بنیں",
-      "delegateStake": "سٹیک ڈیلیگیٹ کریں"
+      "delegateStake": "سٹیک ڈیلیگیٹ کریں",
+      "hero": {
+        "badge": "بلاک انعامات",
+        "title": "بلاک انعامات پروگرام",
+        "titleHighlight": "650M TBURN"
+      }
     },
     "validatorIncentives": {
       "loading": "لوڈ ہو رہا ہے...",
@@ -16477,7 +16483,18 @@
       "content": "کنٹینٹ کریئٹر",
       "community": "کمیونٹی مارکیٹنگ",
       "applyMarketing": "مارکیٹنگ کے لیے درخواست",
-      "campaignDetails": "مہم کی تفصیلات"
+      "campaignDetails": "مہم کی تفصیلات",
+      "nav": {
+        "programs": "پروگرامز",
+        "ambassador": "ایمبیسڈر",
+        "campaigns": "مہمات",
+        "leaderboard": "لیڈر بورڈ"
+      },
+      "hero": {
+        "badge": "مارکیٹنگ پروگرام - مل کر TBURN پھیلائیں",
+        "title": "TBURN مارکیٹنگ میں شامل ہوں",
+        "fundAmount": "300M TBURN"
+      }
     },
     "strategicPartner": {
       "title": "اسٹریٹیجک پارٹنرز",
@@ -16547,7 +16564,14 @@
         "subtitle": "ابتدائی سرمایہ کار کے طور پر 70% تک رعایت پر TBURN Chain میں سرمایہ کاری کریں!",
         "button": "ابھی سرمایہ کاری کریں"
       },
-      "connectWallet": "سرمایہ کاری کی انکوائری"
+      "connectWallet": "سرمایہ کاری کی انکوائری",
+      "hero": {
+        "badge": "سیڈ راؤنڈ - ابتدائی سرمایہ کار",
+        "status": "فعال",
+        "title": "سیڈ راؤنڈ میں سرمایہ کاری کریں",
+        "titleHighlight": "500M TBURN",
+        "subtitle": "بلاکچین VC اور اہل سرمایہ کاروں کے لیے 70% تک رعایت۔"
+      }
     },
     "privateRound": {
       "nav": {
@@ -16813,7 +16837,10 @@
         "product": "پروڈکٹ",
         "resources": "وسائل",
         "community": "کمیونٹی"
-      }
+      },
+      "title": "پرائیویٹ راؤنڈ",
+      "subtitle": "اہل سرمایہ کاروں کے لیے نجی فروخت",
+      "badge": "نجی فروخت"
     },
     "publicRound": {
       "nav": {
@@ -17130,7 +17157,10 @@
         "support": "Support",
         "terms": "Terms of Service",
         "privacy": "Privacy Policy"
-      }
+      },
+      "title": "پبلک راؤنڈ",
+      "subtitle": "سب کے لیے کھلی عوامی فروخت",
+      "badge": "عوامی فروخت"
     },
     "launchpad": {
       "title": "لانچ پیڈ",

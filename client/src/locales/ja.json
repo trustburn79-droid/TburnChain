@@ -19728,24 +19728,28 @@
         "connect": "ウォレット接続",
         "connectWallet": "ウォレットを接続",
         "connected": "ウォレット接続済み",
-        "connectedDesc": "グラントに申請できます",
+        "connectedDesc": "ウォレットが接続されました。",
         "disconnected": "ウォレット切断済み",
-        "disconnectedDesc": "参加するにはウォレットを接続してください",
-        "required": "ウォレットが必要",
-        "requiredDesc": "まずウォレットを接続してください"
+        "disconnectedDesc": "ウォレットが切断されました。",
+        "required": "ウォレットが必要です",
+        "requiredDesc": "グラントに申請するにはウォレットを接続してください。"
       },
       "nav": {
         "grants": "グラント",
         "incubator": "インキュベーター",
         "hackathon": "ハッカソン",
-        "portfolio": "ポートフォリオ"
+        "portfolio": "ポートフォリオ",
+        "overview": "概要",
+        "projects": "プロジェクト",
+        "apply": "申請"
       },
       "hero": {
         "badge": "エコシステムファンド",
         "title": "TBURN エコシステムファンド",
         "fund": "7億 TBURN",
         "fundAmount": "700,000,000",
-        "subtitle": "TBURN Chainで構築する開発者、スタートアップ、研究者を支援するファンド"
+        "subtitle": "エコシステムの成長と開発を支援するための資金プール",
+        "titleHighlight": "5億 TBURN"
       },
       "stats": {
         "totalFundSize": "総ファンド規模",
@@ -19756,7 +19760,11 @@
         "totalEcosystemFund": "総エコシステムファンド",
         "developerGrant": "開発者グラント",
         "incubatorFund": "インキュベーターファンド",
-        "hackathonPrize": "ハッカソン賞金"
+        "hackathonPrize": "ハッカソン賞金",
+        "totalFund": "総ファンド規模",
+        "distributed": "配布済み",
+        "activeGrants": "アクティブグラント",
+        "projects": "支援プロジェクト"
       },
       "sections": {
         "distribution": {
@@ -19820,11 +19828,24 @@
         },
         "research": {
           "subtitle": "長期研究プロジェクト",
-          "amount": "500,000",
+          "amount": "最大 $50,000",
           "feature1": "長期研究プロジェクト",
           "feature2": "学術出版サポート",
           "feature3": "特許サポート",
-          "feature4": "研究チーム運営サポート"
+          "feature4": "研究チーム運営サポート",
+          "title": "研究グラント",
+          "description": "ブロックチェーン研究支援"
+        },
+        "title": "グラントプログラム",
+        "development": {
+          "title": "開発グラント",
+          "description": "DApps・インフラ開発支援",
+          "amount": "最大 $100,000"
+        },
+        "community": {
+          "title": "コミュニティグラント",
+          "description": "コミュニティイニシアチブ支援",
+          "amount": "最大 $25,000"
         }
       },
       "process": {
@@ -19954,6 +19975,12 @@
       "social": {
         "opening": "{{platform}}を開いています...",
         "openedInNewTab": "{{platform}}が新しいタブで開きました"
+      },
+      "apply": {
+        "title": "グラント申請",
+        "button": "申請する",
+        "requirements": "申請要件",
+        "process": "審査プロセス"
       }
     },
     "nav": {
@@ -20367,16 +20394,18 @@
         "halving": "半減期",
         "calculator": "計算機",
         "slashing": "スラッシング",
-        "faq": "FAQ",
+        "faq": "よくある質問",
         "connectWallet": "ウォレット接続",
         "badge": "ブロック報酬",
         "title1": "TBURN",
         "title2": "ブロック報酬",
         "title3": "プログラム",
-        "subtitle": "ネットワーク検証に参加してTBURNを獲得しましょう。分散型セキュリティシステムに参加して報酬を受け取りましょう。"
+        "subtitle": "ネットワーク検証に参加してTBURNを獲得しましょう。分散型セキュリティシステムに参加して報酬を受け取りましょう。",
+        "overview": "概要",
+        "rewards": "報酬"
       },
       "stats": {
-        "activeValidators": "アクティブなバリデーター",
+        "activeValidators": "アクティブバリデーター",
         "tps": "TPS",
         "blockTime": "ブロック時間",
         "shards": "シャード",
@@ -20384,7 +20413,10 @@
         "distributedRewards": "分配された報酬",
         "currentBlockReward": "現在のブロック報酬",
         "nextHalvingBlock": "次の半減期ブロック",
-        "validatorDistribution": "バリデーター分布"
+        "validatorDistribution": "バリデーター分布",
+        "totalRewards": "総報酬プール",
+        "avgBlockReward": "平均ブロック報酬",
+        "nextHalving": "次の半減期"
       },
       "cta": {
         "becomeValidator": "バリデーターになる",
@@ -20392,7 +20424,7 @@
       },
       "distribution": {
         "badge": "分配",
-        "title": "ブロック報酬の分配",
+        "title": "報酬配分",
         "subtitle": "ブロック報酬が参加者にどのように分配されるか",
         "blockReward": "ブロック報酬",
         "blockRewardAmount": "14.5億 TBURN",
@@ -20405,7 +20437,10 @@
         "performanceBonusPercent": "7%",
         "reserveFund": "リザーブファンド",
         "reserveFundAmount": "0.1億 TBURN",
-        "reserveFundPercent": "0.5%"
+        "reserveFundPercent": "0.5%",
+        "proposer": "ブロック提案者",
+        "validators": "バリデーター",
+        "treasury": "トレジャリー"
       },
       "halving": {
         "amounts": {
@@ -20467,10 +20502,15 @@
         "subtitle": "予想報酬を計算してみましょう",
         "stakingInput": "ステーキング金額",
         "stakingAmount": "TBURN金額を入力",
-        "estimatedRewards": "予想報酬",
+        "estimatedRewards": "推定報酬",
         "dailyReward": "日次報酬",
         "monthlyReward": "月次報酬",
-        "yearlyReward": "年次報酬"
+        "yearlyReward": "年次報酬",
+        "stakeAmount": "ステーク額",
+        "daily": "日次",
+        "weekly": "週次",
+        "monthly": "月次",
+        "yearly": "年次"
       },
       "slashingSection": {
         "badge": "SLASHING",
@@ -20539,7 +20579,17 @@
         "q7": "パフォーマンスボーナスを受け取るにはどうすればいいですか？",
         "a7": "パフォーマンスボーナス（7%、1.015億TBURN）は、パフォーマンス指標に基づいてバリデーターに授与されます。99.9%以上の稼働率維持、ブロック遅延ゼロ、高いネットワーク貢献度が追加報酬の対象となります。",
         "q8": "ハードウェア要件は何ですか？",
-        "a8": "フルノードには16コアCPU、64GB RAM、2TB NVMe SSD、1Gbpsネットワークが必要です。ライトノードには4コアCPU、16GB RAM、500GB SSDが必要です。クラウドサービス（AWS、GCP、Azure）または専用サーバーの両方がサポートされています。"
+        "a8": "フルノードには16コアCPU、64GB RAM、2TB NVMe SSD、1Gbpsネットワークが必要です。ライトノードには4コアCPU、16GB RAM、500GB SSDが必要です。クラウドサービス（AWS、GCP、Azure）または専用サーバーの両方がサポートされています。",
+        "items": [
+          {
+            "question": "ブロック報酬はどのように計算されますか？",
+            "answer": "ブロック報酬は、ステーク量とネットワーク参加率に基づいて計算されます。"
+          },
+          {
+            "question": "バリデーターになるには？",
+            "answer": "最低1,000 TBURNをステークし、バリデーターノードを運用する必要があります。"
+          }
+        ]
       },
       "ctaSection": {
         "title": "バリデーターになりましょう！",
@@ -20568,11 +20618,11 @@
         "privacy": "プライバシーポリシー"
       },
       "toast": {
-        "walletConnected": "ウォレット接続完了",
-        "walletConnectedDesc": "MetaMaskウォレットが正常に接続されました。",
-        "walletDisconnected": "ウォレット切断",
+        "walletConnected": "ウォレット接続済み",
+        "walletConnectedDesc": "ウォレットが正常に接続されました。",
+        "walletDisconnected": "ウォレット切断済み",
         "walletDisconnectedDesc": "ウォレットが切断されました。",
-        "walletRequired": "ウォレット接続が必要",
+        "walletRequired": "ウォレットが必要です",
         "walletRequiredDesc": "この操作を実行するには、まずウォレットを接続してください。",
         "validatorTypes": "バリデータータイプ",
         "validatorTypesDesc": "ニーズに合ったバリデータータイプを選択してください。",
@@ -20584,7 +20634,8 @@
         "applicationSubmitted": "申請完了",
         "applicationSubmittedDesc": "バリデーター申請が正常に送信されました。",
         "delegationSubmitted": "デリゲーション完了",
-        "delegationSubmittedDesc": "デリゲーションが正常に送信されました。"
+        "delegationSubmittedDesc": "デリゲーションが正常に送信されました。",
+        "walletRequiredForValidator": "バリデーターになるにはウォレットを接続してください。"
       },
       "title": "ブロック報酬",
       "subtitle": "ブロック生成とネットワークセキュリティへの参加で報酬を獲得",
@@ -20600,7 +20651,13 @@
       "networkFees": "ネットワーク手数料",
       "burnedFees": "バーン手数料",
       "becomeValidator": "バリデーターになる",
-      "delegateStake": "ステーク委任"
+      "delegateStake": "ステーク委任",
+      "hero": {
+        "badge": "ブロック報酬 - バリデーター報酬",
+        "title": "ブロック報酬プログラム",
+        "titleHighlight": "6.5億 TBURN",
+        "subtitle": "バリデーターとしてネットワークを保護し、ブロック報酬を獲得しましょう。"
+      }
     },
     "validatorIncentives": {
       "loading": "読み込み中...",
@@ -21048,13 +21105,159 @@
       "totalBudget": "総予算",
       "campaigns": "キャンペーン",
       "reach": "総リーチ",
-      "programs": "プログラム",
+      "programs": {
+        "ambassador": {
+          "title": "アンバサダープログラム",
+          "description": "公式アンバサダーとしてコミュニティをリード",
+          "allocation": "6000万 TBURN",
+          "rewards": "月次報酬 + ボーナス"
+        },
+        "influencer": {
+          "title": "インフルエンサープログラム",
+          "description": "SNSでTBURNを広める",
+          "allocation": "8000万 TBURN",
+          "rewards": "コンテンツ報酬"
+        },
+        "content": {
+          "title": "コンテンツクリエイター",
+          "description": "教育・マーケティングコンテンツを作成",
+          "allocation": "6000万 TBURN",
+          "rewards": "記事/動画ごとの報酬"
+        },
+        "community": {
+          "title": "コミュニティマネージャー",
+          "description": "ローカルコミュニティを管理・成長",
+          "allocation": "5000万 TBURN",
+          "rewards": "コミュニティ成長報酬"
+        },
+        "events": {
+          "title": "イベントプログラム",
+          "description": "オンライン・オフラインイベントを主催",
+          "allocation": "5000万 TBURN",
+          "rewards": "イベント報酬"
+        }
+      },
       "influencer": "インフルエンサープログラム",
       "affiliate": "アフィリエイトプログラム",
       "content": "コンテンツクリエイター",
       "community": "コミュニティマーケティング",
       "applyMarketing": "マーケティング申請",
-      "campaignDetails": "キャンペーン詳細"
+      "campaignDetails": "キャンペーン詳細",
+      "nav": {
+        "programs": "プログラム",
+        "ambassador": "アンバサダー",
+        "campaigns": "キャンペーン",
+        "leaderboard": "リーダーボード"
+      },
+      "wallet": {
+        "connect": "ウォレット接続",
+        "connected": "ウォレット接続済み",
+        "connectedDesc": "ウォレットが接続されました。",
+        "disconnected": "ウォレット切断済み",
+        "disconnectedDesc": "ウォレットが切断されました。",
+        "required": "ウォレットが必要です",
+        "requiredDesc": "プログラムに参加するにはウォレットを接続してください。",
+        "campaignRequiredDesc": "キャンペーンに参加するにはウォレットを接続してください。"
+      },
+      "hero": {
+        "badge": "マーケティングプログラム - TBURNを一緒に広めよう",
+        "title": "TBURNマーケティングに参加",
+        "fundAmount": "3億 TBURN",
+        "incentive": "報酬を獲得",
+        "subtitle": "アンバサダー、インフルエンサー、コンテンツクリエイター、イベント参加者としてTBURNエコシステムを広め、報酬を獲得しましょう。"
+      },
+      "socialStats": {
+        "twitter": "Twitterフォロワー",
+        "telegram": "Telegramメンバー",
+        "discord": "Discordメンバー",
+        "youtube": "YouTube登録者",
+        "tiktok": "TikTokフォロワー"
+      },
+      "stats": {
+        "totalBudget": "総マーケティング予算",
+        "activeAmbassadors": "アクティブアンバサダー",
+        "ongoingCampaigns": "進行中のキャンペーン",
+        "activeCampaigns": "アクティブキャンペーン"
+      },
+      "cta": {
+        "joinAmbassador": "アンバサダーに応募",
+        "viewGuide": "マーケティングガイド",
+        "ambassadorProgram": "アンバサダープログラム",
+        "ambassadorDesc": "アンバサダーティアを確認して参加を始めましょう！",
+        "marketingGuide": "マーケティングガイド",
+        "guideDesc": "マーケティングプログラムガイドをご覧ください。",
+        "programApply": "{{programName}}申請",
+        "programApplyDesc": "{{programName}}への申請が提出されました。審査後、ご連絡いたします。",
+        "participate": "参加する"
+      },
+      "sections": {
+        "distribution": {
+          "title": "マーケティング予算配分",
+          "subtitle": "3億TBURNが5つのマーケティングプログラムに配分"
+        },
+        "programs": {
+          "title": "マーケティングプログラム",
+          "subtitle": "5つのプログラムから選択"
+        },
+        "ambassador": {
+          "title": "アンバサダープログラム",
+          "subtitle": "TBURNの公式代表者になろう"
+        },
+        "campaigns": {
+          "title": "マーケティングキャンペーン",
+          "subtitle": "進行中のキャンペーンに参加"
+        },
+        "leaderboard": {
+          "title": "リーダーボード",
+          "subtitle": "トップパフォーマーを確認"
+        }
+      },
+      "ambassadorTiers": {
+        "bronze": {
+          "name": "ブロンズアンバサダー",
+          "requirements": "SNSフォロワー1,000+",
+          "monthlyReward": "500 TBURN/月"
+        },
+        "silver": {
+          "name": "シルバーアンバサダー",
+          "requirements": "SNSフォロワー5,000+",
+          "monthlyReward": "2,000 TBURN/月"
+        },
+        "gold": {
+          "name": "ゴールドアンバサダー",
+          "requirements": "SNSフォロワー25,000+",
+          "monthlyReward": "10,000 TBURN/月"
+        },
+        "platinum": {
+          "name": "プラチナアンバサダー",
+          "requirements": "SNSフォロワー100,000+",
+          "monthlyReward": "50,000 TBURN/月"
+        }
+      },
+      "leaderboard": {
+        "rank": "順位",
+        "ambassador": "アンバサダー",
+        "points": "ポイント",
+        "rewards": "報酬",
+        "noData": "リーダーボードデータがありません"
+      },
+      "faq": {
+        "title": "よくある質問",
+        "items": [
+          {
+            "question": "アンバサダーになるにはどうすればいいですか？",
+            "answer": "申請フォームを提出し、審査を通過するとアンバサダーとして活動を開始できます。"
+          },
+          {
+            "question": "報酬はいつ支払われますか？",
+            "answer": "月末に集計され、翌月初旬に支払われます。"
+          },
+          {
+            "question": "複数のプログラムに参加できますか？",
+            "answer": "はい、複数のプログラムに同時参加可能です。"
+          }
+        ]
+      }
     },
     "strategicPartner": {
       "title": "戦略的パートナー",
@@ -21088,16 +21291,28 @@
     },
     "seedRound": {
       "title": "シードラウンド",
-      "subtitle": "TBURNへの初期投資機会",
+      "subtitle": "TBURNへの初期段階投資機会",
       "heroTitle": "TBURN シードラウンド",
-      "heroSubtitle": "TBURNエコシステムの最初の投資家になる",
+      "heroSubtitle": "TBURNエコシステムの最初の投資家になりましょう",
       "badge": "シード投資",
       "tokenPrice": "トークン価格",
-      "discount": "ローンチ価格からの割引",
-      "allocation": "総割当",
+      "discount": "ローンチからの割引",
+      "allocation": "総割当量",
       "vestingInfo": "ベスティング情報",
       "cliff": "クリフ期間",
-      "vesting": "ベスティング期間",
+      "vesting": {
+        "badge": "ベスティング",
+        "title": "ベスティングスケジュール",
+        "subtitle": "透明で予測可能なトークン解除スケジュール",
+        "cliff": "クリフ",
+        "cliffValue": "3ヶ月",
+        "duration": "ベスティング期間",
+        "durationValue": "18ヶ月",
+        "tge": "TGEアンロック",
+        "tgeValue": "10%",
+        "monthly": "月次リリース",
+        "monthlyValue": "5%"
+      },
       "tgeUnlock": "TGEアンロック",
       "investorTiers": "投資家ティア",
       "lead": "リード投資家",
@@ -21107,11 +21322,11 @@
       "investNow": "今すぐ投資",
       "riskWarning": "リスク警告",
       "nav": {
-        "investorTiers": "投資ティア",
+        "investorTiers": "投資家ティア",
         "vesting": "ベスティング",
         "investors": "投資家",
         "process": "プロセス",
-        "faq": "FAQ",
+        "faq": "よくある質問",
         "badge": "SEED ROUND - 初期投資家",
         "status": "進行中",
         "title": "シードラウンドに投資して",
@@ -21127,29 +21342,69 @@
         "investmentMemo": "投資メモ"
       },
       "highlights": {
-        "tokenPrice": "トークン単価",
-        "discountRate": "市場割引率",
+        "tokenPrice": "トークンあたりの価格",
+        "discountRate": "市場価格からの割引",
         "vestingPeriod": "ベスティング期間"
       },
       "comparison": {
-        "badge": "COMPARISON",
+        "badge": "比較",
         "title": "ラウンド比較",
-        "subtitle": "シードラウンドが最も有利な条件です",
+        "subtitle": "シードラウンドは最も有利な条件を提供します",
         "header": "投資ラウンド比較",
         "round": "ラウンド",
         "tokenPriceCol": "トークン価格",
-        "discountCol": "割引率",
+        "discountCol": "割引",
         "statusCol": "ステータス",
         "maxDiscount": "最大割引",
-        "active": "進行中",
-        "upcoming": "予定"
+        "active": "アクティブ",
+        "upcoming": "近日開始"
       },
       "tiers": {
-        "badge": "TIERS",
-        "title": "投資ティア",
-        "subtitle": "投資規模に応じた特典",
+        "badge": "ティア",
+        "title": "投資家ティア",
+        "subtitle": "投資額に応じたティア別特典",
         "minInvestment": "最小投資額",
-        "inquireBtn": "お問い合わせ"
+        "inquireBtn": "お問い合わせ",
+        "bonus": "ボーナス",
+        "benefits": "特典",
+        "lead": {
+          "name": "リード投資家",
+          "min": "$500,000+",
+          "bonus": "+15%",
+          "benefits": [
+            "優先割当",
+            "戦略会議参加権",
+            "アドバイザリーボード"
+          ]
+        },
+        "major": {
+          "name": "メジャー投資家",
+          "min": "$100,000+",
+          "bonus": "+10%",
+          "benefits": [
+            "優先割当",
+            "四半期レポート",
+            "プライベートテレグラム"
+          ]
+        },
+        "standard": {
+          "name": "スタンダード投資家",
+          "min": "$25,000+",
+          "bonus": "+5%",
+          "benefits": [
+            "通常割当",
+            "月次ニュースレター"
+          ]
+        },
+        "angel": {
+          "name": "エンジェル投資家",
+          "min": "$5,000+",
+          "bonus": "0%",
+          "benefits": [
+            "基本割当",
+            "コミュニティアクセス"
+          ]
+        }
       },
       "vestingSection": {
         "badge": "VESTING",
@@ -21186,7 +21441,10 @@
       "cta": {
         "title": "シード投資家になる",
         "subtitle": "初期投資家として最大70%割引でTBURN Chainに投資しましょう！",
-        "button": "今すぐ投資"
+        "button": "今すぐ投資",
+        "applyNow": "今すぐ申請",
+        "viewDetails": "詳細を見る",
+        "contactUs": "お問い合わせ"
       },
       "footer": {
         "tagline": "AIの知性、ブロックチェーンの透明性",
@@ -21202,7 +21460,71 @@
         "inquiryError": "お問い合わせ失敗",
         "inquiryErrorDesc": "一時的なエラーが発生しました。もう一度お試しください。"
       },
-      "connectWallet": "投資お問い合わせ"
+      "connectWallet": "投資お問い合わせ",
+      "hero": {
+        "badge": "シードラウンド - 初期投資家",
+        "status": "アクティブ",
+        "title": "シードラウンドに投資",
+        "titleHighlight": "5億 TBURN",
+        "titleEnd": "投資機会",
+        "subtitle": "ブロックチェーンVC、暗号ファンド、エンジェル投資家向けの最大70%割引の早期投資機会。",
+        "loading": "読み込み中...",
+        "seedAllocation": "シード割当",
+        "tokenPriceLabel": "トークン価格",
+        "hardcap": "ハードキャップ",
+        "investorsLabel": "投資家",
+        "applySeed": "シード投資を申請",
+        "investmentMemo": "投資メモ"
+      },
+      "investors": {
+        "badge": "投資家",
+        "title": "現在の投資家",
+        "subtitle": "TBURNを支援する主要投資家",
+        "noInvestors": "まだ投資家情報がありません"
+      },
+      "process": {
+        "badge": "プロセス",
+        "title": "投資プロセス",
+        "subtitle": "シンプルで透明な投資手続き",
+        "step1": {
+          "title": "申請提出",
+          "description": "投資申請フォームを提出"
+        },
+        "step2": {
+          "title": "KYC/AML認証",
+          "description": "本人確認と法的確認"
+        },
+        "step3": {
+          "title": "投資承認",
+          "description": "チームによる審査と承認"
+        },
+        "step4": {
+          "title": "資金送金",
+          "description": "指定アドレスへの送金"
+        },
+        "step5": {
+          "title": "トークン配布",
+          "description": "TGE後のトークン受取"
+        }
+      },
+      "faq": {
+        "badge": "よくある質問",
+        "title": "シードラウンドFAQ",
+        "items": [
+          {
+            "question": "シードラウンドの最小投資額は？",
+            "answer": "最小投資額は$5,000です。より大きな投資にはボーナスが適用されます。"
+          },
+          {
+            "question": "ベスティングスケジュールは？",
+            "answer": "3ヶ月のクリフ期間後、18ヶ月間で月5%ずつリリースされます。TGE時に10%がアンロックされます。"
+          },
+          {
+            "question": "どの通貨で投資できますか？",
+            "answer": "USDT、USDC、ETH、BTCでの投資を受け付けています。"
+          }
+        ]
+      }
     },
     "privateRound": {
       "nav": {
@@ -21323,15 +21645,7 @@
         "fullUnlock": "完全アンロック",
         "fullUnlockDesc": "18ヶ月後"
       },
-      "allocation": {
-        "badge": "ALLOCATION",
-        "title": "投資家タイプ別配分",
-        "subtitle": "10億TBURN配分状況",
-        "vcFunds": "VC & ファンド",
-        "familyOffice": "ファミリーオフィス",
-        "strategicInvestors": "戦略投資家",
-        "corporateInvestors": "企業投資家"
-      },
+      "allocation": "総割当量",
       "investors": {
         "badge": "INVESTORS",
         "title": "現在の投資家",
@@ -21470,7 +21784,20 @@
         "product": "製品",
         "resources": "リソース",
         "community": "コミュニティ"
-      }
+      },
+      "title": "プライベートラウンド",
+      "subtitle": "適格投資家向けプライベートセール",
+      "heroTitle": "TBURN プライベートラウンド",
+      "heroSubtitle": "機関投資家・適格投資家向けの独占投資機会",
+      "badge": "プライベートセール",
+      "tokenPrice": "トークン価格",
+      "discount": "ローンチからの割引",
+      "minInvestment": "最小投資額",
+      "investorRequirements": "投資家要件",
+      "kyc": "KYC/AML認証",
+      "accredited": "適格投資家",
+      "institutional": "機関投資家",
+      "applyPrivate": "プライベートラウンドに申請"
     },
     "publicRound": {
       "nav": {
@@ -21787,7 +22114,20 @@
         "support": "サポート",
         "terms": "利用規約",
         "privacy": "プライバシーポリシー"
-      }
+      },
+      "title": "パブリックラウンド",
+      "subtitle": "誰でも参加できる公開トークンセール",
+      "heroTitle": "TBURN パブリックラウンド",
+      "heroSubtitle": "公開トークンセールに参加してTBURNコミュニティに加わろう",
+      "badge": "パブリックセール",
+      "tokenPrice": "トークン価格",
+      "discount": "ローンチからの割引",
+      "allocation": "総割当量",
+      "minPurchase": "最小購入額",
+      "maxPurchase": "最大購入額",
+      "whitelistRequired": "ホワイトリスト登録が必要",
+      "joinWhitelist": "ホワイトリストに参加",
+      "purchaseTokens": "トークンを購入"
     },
     "launchpad": {
       "title": "ローンチパッド",
@@ -21803,7 +22143,35 @@
       "antiBot": "アンチボット保護",
       "vestingSchedule": "ベスティングスケジュール",
       "liquidityLock": "流動性ロック",
-      "participateNow": "今すぐ参加"
+      "participateNow": "今すぐ参加",
+      "header": {
+        "badge": "ローンチパッド",
+        "title": "TBURN ローンチパッド"
+      },
+      "hero": {
+        "badge": "TBURNローンチパッド",
+        "title": "次世代プロジェクトをローンチ",
+        "titleHighlight": "1億 TBURN",
+        "subtitle": "TBURNエコシステムで革新的なプロジェクトをローンチしましょう"
+      },
+      "stats": {
+        "totalProjects": "総プロジェクト数",
+        "totalRaised": "総調達額",
+        "participants": "参加者数",
+        "avgRoi": "平均ROI"
+      },
+      "projects": {
+        "title": "プロジェクト一覧",
+        "upcoming": "近日開始",
+        "live": "販売中",
+        "ended": "終了",
+        "noProjects": "プロジェクトがありません"
+      },
+      "apply": {
+        "title": "プロジェクトを申請",
+        "description": "TBURNローンチパッドでプロジェクトをローンチしませんか？",
+        "button": "申請する"
+      }
     },
     "coinlist": {
       "title": "CoinListセール",
@@ -21816,7 +22184,48 @@
       "participants": "予想参加者",
       "kycRequired": "KYC必須",
       "eligibility": "資格要件",
-      "registerNow": "CoinListで登録"
+      "registerNow": "CoinListで登録",
+      "header": {
+        "badge": "CoinList セール",
+        "title": "CoinList トークンセール"
+      },
+      "hero": {
+        "badge": "CoinList - 公式トークンセール",
+        "title": "CoinList パブリックセール",
+        "titleHighlight": "3000万 TBURN",
+        "subtitle": "CoinListプラットフォームでの公式TBURNトークンセール"
+      },
+      "stats": {
+        "totalAllocation": "総割当量",
+        "tokenPrice": "トークン価格",
+        "participants": "参加者数",
+        "saleDate": "セール日程"
+      },
+      "participation": {
+        "title": "参加方法",
+        "step1": "CoinListアカウント作成",
+        "step2": "KYC認証完了",
+        "step3": "対象国確認",
+        "step4": "セールに参加"
+      },
+      "faq": {
+        "title": "よくある質問",
+        "items": [
+          {
+            "question": "どの国から参加できますか？",
+            "answer": "CoinListの利用可能国からの参加者が対象です。詳細はCoinListをご確認ください。"
+          },
+          {
+            "question": "最小・最大購入額は？",
+            "answer": "最小$100、最大$5,000まで購入可能です。"
+          }
+        ]
+      },
+      "cta": {
+        "joinSale": "セールに参加",
+        "learnMore": "詳細を見る",
+        "visitCoinlist": "CoinListを訪問"
+      }
     },
     "daoMaker": {
       "title": "DAO Maker",
@@ -21830,7 +22239,65 @@
       "tiers": "SHOティア",
       "guaranteed": "保証割当",
       "lottery": "抽選プール",
-      "registerSHO": "SHO登録"
+      "registerSHO": "SHO登録",
+      "header": {
+        "badge": "DAO Maker IDO",
+        "title": "DAO Maker IDO"
+      },
+      "nav": {
+        "overview": "概要",
+        "allocation": "割当",
+        "timeline": "タイムライン",
+        "faq": "FAQ"
+      },
+      "hero": {
+        "badge": "DAO Maker - 公式IDO",
+        "title": "DAO Maker IDO",
+        "titleHighlight": "公開販売",
+        "subtitle": "DAO Makerプラットフォームでの公式TBURNトークンセール",
+        "fundAmount": "2000万 TBURN",
+        "idoDate": "IDO日程",
+        "tokenPrice": "トークン価格"
+      },
+      "stats": {
+        "totalAllocation": "総割当量",
+        "tokenPrice": "トークン価格",
+        "participants": "参加者数",
+        "raised": "調達額"
+      },
+      "timeline": {
+        "title": "IDOタイムライン",
+        "registration": "登録開始",
+        "kycDeadline": "KYC締切",
+        "saleStart": "セール開始",
+        "saleEnd": "セール終了",
+        "distribution": "トークン配布"
+      },
+      "participation": {
+        "title": "参加方法",
+        "step1": "DAO Makerアカウント作成",
+        "step2": "KYC認証完了",
+        "step3": "DAOステーキング",
+        "step4": "セールに参加"
+      },
+      "faq": {
+        "title": "よくある質問",
+        "items": [
+          {
+            "question": "参加に必要な条件は？",
+            "answer": "DAO Makerアカウント、KYC認証、最低限のDAOステーキングが必要です。"
+          },
+          {
+            "question": "割当はどう決まりますか？",
+            "answer": "ステーキング量とDAO Powerスコアに基づいて割当が決定されます。"
+          }
+        ]
+      },
+      "cta": {
+        "joinIdo": "IDOに参加",
+        "learnMore": "詳細を見る",
+        "visitDaoMaker": "DAO Makerを訪問"
+      }
     },
     "airdropPage": {
       "nav": {
