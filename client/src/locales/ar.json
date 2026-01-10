@@ -18109,7 +18109,235 @@
         "status": "نشط",
         "title": "استثمر في جولة البذور",
         "titleHighlight": "500 مليون TBURN",
-        "subtitle": "خصم يصل إلى 70% لمستثمري البلوكتشين المؤهلين."
+        "subtitle": "خصم يصل إلى 70% لمستثمري البلوكتشين المؤهلين.",
+        "titleEnd": "Opportunity",
+        "loading": "Loading...",
+        "seedAllocation": "Seed Allocation",
+        "tokenPriceLabel": "Token Price",
+        "hardcap": "Hardcap",
+        "investorsLabel": "Investors",
+        "applySeed": "Apply for Seed Investment",
+        "investmentMemo": "Investment Memo"
+      },
+      "highlights": {
+        "tokenPrice": "Price per Token",
+        "discountRate": "Discount from Market",
+        "vestingPeriod": "Vesting Period"
+      },
+      "comparison": {
+        "badge": "COMPARISON",
+        "title": "Round Comparison",
+        "subtitle": "Seed Round offers the most favorable terms",
+        "header": "Investment Round Comparison",
+        "round": "Round",
+        "tokenPriceCol": "Token Price",
+        "discountCol": "Discount",
+        "statusCol": "Status",
+        "maxDiscount": "Max Discount",
+        "active": "Active",
+        "upcoming": "Upcoming"
+      },
+      "tiers": {
+        "badge": "TIERS",
+        "title": "Investor Tiers",
+        "subtitle": "Tiered benefits based on investment size",
+        "minInvestment": "Minimum Investment",
+        "leadInvestor": "Lead Investor",
+        "leadSubtitle": "Lead Investor",
+        "majorInvestor": "Major Investor",
+        "majorSubtitle": "Major Investor",
+        "standardInvestor": "Standard Investor",
+        "standardSubtitle": "Standard Investor",
+        "angelInvestor": "Angel Investor",
+        "angelSubtitle": "Angel Investor",
+        "minInvestmentLabel": "Min Investment",
+        "discountRate": "Discount Rate",
+        "lockupPeriod": "Lockup Period",
+        "inquireBtn": "Inquire",
+        "benefits": {
+          "boardObserver": "Board Observer Rights",
+          "monthlyMeeting": "Monthly Executive Meetings",
+          "exclusiveDealFlow": "Exclusive Deal Flow",
+          "priorityInvestment": "Priority Investment Rights",
+          "dedicatedIR": "Dedicated IR Manager",
+          "quarterlyStrategy": "Quarterly Strategy Meetings",
+          "earlyAccess": "Early Access",
+          "governanceParticipation": "Governance Participation",
+          "priorityAllocation": "Priority Allocation",
+          "dedicatedSupport": "Dedicated Support",
+          "monthlyNewsletter": "Monthly Newsletter",
+          "communityAccess": "Community Access",
+          "basicGovernance": "Basic Governance",
+          "generalAllocation": "General Allocation",
+          "emailSupport": "Email Support",
+          "quarterlyUpdates": "Quarterly Updates",
+          "communityChannel": "Community Channel",
+          "nftBadge": "NFT Badge",
+          "angelNetwork": "Angel Network",
+          "basicSupport": "Basic Support"
+        }
+      },
+      "vestingSection": {
+        "badge": "VESTING",
+        "title": "Vesting Schedule",
+        "subtitle": "Systematic token release for investor protection",
+        "cliffPeriod": "Cliff Period",
+        "initialLockup": "Initial Lockup",
+        "initialUnlock": "Initial Unlock",
+        "afterTge": "After TGE 12 months",
+        "monthlyVesting": "Monthly Vesting",
+        "over12Months": "Over 12 months",
+        "fullUnlock": "Full Unlock",
+        "after24Months": "After 24 months"
+      },
+      "investorsSection": {
+        "badge": "INVESTORS",
+        "title": "Current Investors",
+        "subtitle": "Our Partners"
+      },
+      "processSection": {
+        "badge": "PROCESS",
+        "title": "Investment Process",
+        "subtitle": "Seed Investment Procedure",
+        "step1": {
+          "title": "Investment Inquiry",
+          "desc": "Submit Letter of Intent",
+          "duration": "1-3 days"
+        },
+        "step2": {
+          "title": "KYC/AML",
+          "desc": "Investor Verification",
+          "duration": "3-5 days"
+        },
+        "step3": {
+          "title": "SAFT Signing",
+          "desc": "Investment Contract",
+          "duration": "1-2 days"
+        },
+        "step4": {
+          "title": "Fund Transfer",
+          "desc": "Investment Transfer",
+          "duration": "1-3 days"
+        },
+        "step5": {
+          "title": "Token Allocation",
+          "desc": "Investment Confirmed",
+          "duration": "Immediate"
+        }
+      },
+      "metrics": {
+        "badge": "METRICS",
+        "title": "Token Metrics",
+        "subtitle": "Seed Round Key Metrics",
+        "totalSupply": "Total Supply",
+        "totalSupplyValue": "10B TBURN",
+        "totalSupplyDesc": "Fixed Supply",
+        "seedAllocation": "Seed Allocation",
+        "seedAllocationValue": "500M TBURN",
+        "seedAllocationDesc": "5% of Total Supply",
+        "seedGoal": "Seed Goal",
+        "seedGoalValue": "$20,000,000",
+        "seedGoalDesc": "Hardcap"
+      },
+      "risks": {
+        "title": "Investment Risk Warning",
+        "item1": "Cryptocurrency investments carry high volatility and risk.",
+        "item2": "There is a possibility of losing your principal. Invest only what you can afford to lose.",
+        "item3": "Regulatory changes may limit services.",
+        "item4": "Past returns do not guarantee future profits."
+      },
+      "faqSection": {
+        "badge": "FAQ",
+        "title": "Frequently Asked Questions",
+        "subtitle": "Common questions about seed investment",
+        "faq1": {
+          "question": "What is TBURN Chain and why should I invest?",
+          "answer": "TBURN Chain is a next-generation Layer-1 blockchain with AI-based dynamic sharding technology. With 64 shards and 125 genesis validators, it targets 210,000 TPS and 100ms block time. It combines deflationary tokenomics with AI governance for long-term value growth. Seed investors can participate at $0.04, an 80% discount from public sale, and enjoy early investor benefits as the network grows."
+        },
+        "faq2": {
+          "question": "What are the seed round investment terms and vesting schedule?",
+          "answer": "The seed round is priced at $0.04 per token, with 500M TBURN (5% of total supply) allocated. Hardcap is $20M. Vesting: 12-month cliff after TGE, followed by 24-month linear unlock. 5% unlocks at cliff end, then ~3.96% monthly. Designed to ensure network stability through long-term holding."
+        },
+        "faq3": {
+          "question": "What are the minimum/maximum investment amounts and how are investor tiers structured?",
+          "answer": "The seed round has 3 tiers: (1) Angel Tier: $25,000-$99,999, basic allocation and monthly investor newsletter (2) Strategic Tier: $100,000-$499,999, 10% bonus tokens and quarterly team meetings (3) Lead Tier: $500,000+, 20% bonus tokens, advisor board participation, monthly project update calls. KYC verification required for all tiers."
+        },
+        "faq4": {
+          "question": "What is the investment process and required documents?",
+          "answer": "Process: (1) Investment inquiry → (2) NDA and Letter of Intent → (3) KYC/AML verification (passport/ID, address proof, source of funds) → (4) SAFT contract → (5) Fund transfer (USDT, USDC, or bank wire) → (6) Token allocation confirmation. Typically 7-14 business days with dedicated manager support. Separate arrangements available for institutional investors."
+        },
+        "faq5": {
+          "question": "What is a SAFT contract and how are investors protected?",
+          "answer": "SAFT (Simple Agreement for Future Tokens) is a standard investment contract complying with US SEC guidelines. It specifies token allocation, vesting schedule, investor rights, refund conditions, and dispute resolution. Funds are held in third-party escrow, released based on milestone achievement. Legal counsel by global law firm Dentons, with quarterly financial reports provided to investors."
+        },
+        "faq6": {
+          "question": "What are the token listing plans and expected timeline?",
+          "answer": "TGE (Token Generation Event) is planned alongside mainnet launch. Listing strategy: First, liquidity provision on major DEXs (Uniswap, PancakeSwap), then Tier-1 CEX listings (Binance, OKX, Bybit, etc.) with marketing boost and gradual exchange expansion. Launch price is expected at $0.50 (12.5x from seed), subject to market conditions."
+        },
+        "faq7": {
+          "question": "How will the funds be used?",
+          "answer": "Seed round fund allocation: Technology Development 45% (core protocol, AI engine, security infrastructure), Marketing & Partnerships 25% (global marketing, strategic partnerships, community building), Operations & Legal 15% (team operations, legal/compliance, office), Liquidity 10% (DEX/CEX initial liquidity), Reserve 5% (emergency fund, market opportunities). Quarterly fund usage reports provided to investors."
+        },
+        "faq8": {
+          "question": "What is the refund policy and can I cancel my investment?",
+          "answer": "Full refund available before SAFT contract signing. After signing, refunds only possible for project discontinuation, mainnet launch failure, or legal issues. 100% principal returned with ~30 business days processing. Mid-term cancellation for personal reasons not permitted. Please invest carefully. Detailed refund terms in SAFT contract."
+        }
+      },
+      "footer": {
+        "tagline": "AI Intelligence, Blockchain Transparency",
+        "slogan": "THE FUTURE IS NOW",
+        "product": "Product",
+        "mainnet": "Mainnet",
+        "explorer": "Explorer",
+        "bridge": "Bridge",
+        "staking": "Staking",
+        "resources": "Resources",
+        "whitepaper": "Whitepaper",
+        "docs": "Documentation",
+        "github": "GitHub",
+        "auditReport": "Audit Report",
+        "community": "Community",
+        "blog": "Blog",
+        "ambassador": "Ambassador",
+        "grants": "Grants",
+        "support": "Support",
+        "copyright": "© 2025-2045 TBURN Foundation. All Rights Reserved.",
+        "terms": "Terms of Service",
+        "privacy": "Privacy Policy"
+      },
+      "dialog": {
+        "title": "Seed Round Investment Inquiry",
+        "description": "Leave your inquiry and our team will contact you shortly.",
+        "nameLabel": "Name",
+        "namePlaceholder": "Your name",
+        "emailLabel": "Email",
+        "emailPlaceholder": "your@email.com",
+        "companyLabel": "Company/Organization (Optional)",
+        "companyPlaceholder": "Company name",
+        "amountLabel": "Investment Amount (Optional)",
+        "amountPlaceholder": "e.g. $100,000",
+        "messageLabel": "Message (Optional)",
+        "messagePlaceholder": "Additional questions or requests",
+        "submitBtn": "Submit Inquiry",
+        "submitting": "Submitting...",
+        "requiredFields": "Required Information",
+        "requiredFieldsDesc": "Name and email are required fields."
+      },
+      "memoDialog": {
+        "title": "Seed Round Investment Memo",
+        "projectOverview": "Project Overview",
+        "contact": "Contact",
+        "investmentHighlights": "Investment Highlights",
+        "tokenomics": "Tokenomics",
+        "team": "Team",
+        "roadmap": "Roadmap",
+        "close": "Close"
+      },
+      "toast": {
+        "inquirySuccess": "Investment Inquiry Received",
+        "inquirySuccessDesc": "Our team will contact you shortly.",
+        "inquiryError": "Inquiry Failed",
+        "inquiryErrorDesc": "A temporary error occurred. Please try again."
       }
     },
     "privateRound": {
@@ -18229,15 +18457,7 @@
         "fullUnlock": "فتح كامل",
         "fullUnlockDesc": "بعد 18 شهر"
       },
-      "allocation": {
-        "badge": "ALLOCATION",
-        "title": "التخصيص حسب نوع المستثمر",
-        "subtitle": "حالة تخصيص 1 مليار TBURN",
-        "vcFunds": "رأس المال الاستثماري والصناديق",
-        "familyOffice": "المكاتب العائلية",
-        "strategicInvestors": "المستثمرون الاستراتيجيون",
-        "corporateInvestors": "المستثمرون من الشركات"
-      },
+      "allocation": "Total Allocation",
       "investors": {
         "badge": "INVESTORS",
         "title": "المستثمرون الحاليون",
@@ -18379,7 +18599,17 @@
       },
       "title": "الجولة الخاصة",
       "subtitle": "بيع خاص للمستثمرين المؤهلين",
-      "badge": "بيع خاص"
+      "badge": "بيع خاص",
+      "heroTitle": "TBURN Private Round",
+      "heroSubtitle": "Exclusive investment opportunity for institutional and qualified investors",
+      "tokenPrice": "Token Price",
+      "discount": "Discount from Launch",
+      "minInvestment": "Minimum Investment",
+      "investorRequirements": "Investor Requirements",
+      "kyc": "KYC/AML Verification",
+      "accredited": "Accredited Investor",
+      "institutional": "Institutional",
+      "applyPrivate": "Apply for Private Round"
     },
     "publicRound": {
       "nav": {
@@ -18511,7 +18741,8 @@
             "Email Alerts",
             "Community Support"
           ]
-        }
+        },
+        "maxAmountLabel": "Max Amount"
       },
       "vesting": {
         "badge": "VESTING",
@@ -18699,7 +18930,17 @@
       },
       "title": "الجولة العامة",
       "subtitle": "بيع عام مفتوح للجميع",
-      "badge": "بيع عام"
+      "badge": "بيع عام",
+      "heroTitle": "TBURN Public Round",
+      "heroSubtitle": "Participate in the public token sale and join the TBURN community",
+      "tokenPrice": "Token Price",
+      "discount": "Discount from Launch",
+      "allocation": "Total Allocation",
+      "minPurchase": "Minimum Purchase",
+      "maxPurchase": "Maximum Purchase",
+      "whitelistRequired": "Whitelist Required",
+      "joinWhitelist": "Join Whitelist",
+      "purchaseTokens": "Purchase Tokens"
     },
     "launchpad": {
       "title": "منصة الإطلاق",

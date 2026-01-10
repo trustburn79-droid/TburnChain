@@ -20302,7 +20302,18 @@
           "nftBadge": "NFT徽章",
           "angelNetwork": "天使网络",
           "basicSupport": "基本支持"
-        }
+        },
+        "leadInvestor": "Lead Investor",
+        "leadSubtitle": "Lead Investor",
+        "majorInvestor": "Major Investor",
+        "majorSubtitle": "Major Investor",
+        "standardInvestor": "Standard Investor",
+        "standardSubtitle": "Standard Investor",
+        "angelInvestor": "Angel Investor",
+        "angelSubtitle": "Angel Investor",
+        "minInvestmentLabel": "Min Investment",
+        "discountRate": "Discount Rate",
+        "lockupPeriod": "Lockup Period"
       },
       "vestingSection": {
         "badge": "VESTING",
@@ -20376,7 +20387,39 @@
       "faqSection": {
         "badge": "FAQ",
         "title": "常见问题",
-        "subtitle": "关于种子投资的常见问题"
+        "subtitle": "关于种子投资的常见问题",
+        "faq1": {
+          "question": "What is TBURN Chain and why should I invest?",
+          "answer": "TBURN Chain is a next-generation Layer-1 blockchain with AI-based dynamic sharding technology. With 64 shards and 125 genesis validators, it targets 210,000 TPS and 100ms block time. It combines deflationary tokenomics with AI governance for long-term value growth. Seed investors can participate at $0.04, an 80% discount from public sale, and enjoy early investor benefits as the network grows."
+        },
+        "faq2": {
+          "question": "What are the seed round investment terms and vesting schedule?",
+          "answer": "The seed round is priced at $0.04 per token, with 500M TBURN (5% of total supply) allocated. Hardcap is $20M. Vesting: 12-month cliff after TGE, followed by 24-month linear unlock. 5% unlocks at cliff end, then ~3.96% monthly. Designed to ensure network stability through long-term holding."
+        },
+        "faq3": {
+          "question": "What are the minimum/maximum investment amounts and how are investor tiers structured?",
+          "answer": "The seed round has 3 tiers: (1) Angel Tier: $25,000-$99,999, basic allocation and monthly investor newsletter (2) Strategic Tier: $100,000-$499,999, 10% bonus tokens and quarterly team meetings (3) Lead Tier: $500,000+, 20% bonus tokens, advisor board participation, monthly project update calls. KYC verification required for all tiers."
+        },
+        "faq4": {
+          "question": "What is the investment process and required documents?",
+          "answer": "Process: (1) Investment inquiry → (2) NDA and Letter of Intent → (3) KYC/AML verification (passport/ID, address proof, source of funds) → (4) SAFT contract → (5) Fund transfer (USDT, USDC, or bank wire) → (6) Token allocation confirmation. Typically 7-14 business days with dedicated manager support. Separate arrangements available for institutional investors."
+        },
+        "faq5": {
+          "question": "What is a SAFT contract and how are investors protected?",
+          "answer": "SAFT (Simple Agreement for Future Tokens) is a standard investment contract complying with US SEC guidelines. It specifies token allocation, vesting schedule, investor rights, refund conditions, and dispute resolution. Funds are held in third-party escrow, released based on milestone achievement. Legal counsel by global law firm Dentons, with quarterly financial reports provided to investors."
+        },
+        "faq6": {
+          "question": "What are the token listing plans and expected timeline?",
+          "answer": "TGE (Token Generation Event) is planned alongside mainnet launch. Listing strategy: First, liquidity provision on major DEXs (Uniswap, PancakeSwap), then Tier-1 CEX listings (Binance, OKX, Bybit, etc.) with marketing boost and gradual exchange expansion. Launch price is expected at $0.50 (12.5x from seed), subject to market conditions."
+        },
+        "faq7": {
+          "question": "How will the funds be used?",
+          "answer": "Seed round fund allocation: Technology Development 45% (core protocol, AI engine, security infrastructure), Marketing & Partnerships 25% (global marketing, strategic partnerships, community building), Operations & Legal 15% (team operations, legal/compliance, office), Liquidity 10% (DEX/CEX initial liquidity), Reserve 5% (emergency fund, market opportunities). Quarterly fund usage reports provided to investors."
+        },
+        "faq8": {
+          "question": "What is the refund policy and can I cancel my investment?",
+          "answer": "Full refund available before SAFT contract signing. After signing, refunds only possible for project discontinuation, mainnet launch failure, or legal issues. 100% principal returned with ~30 business days processing. Mid-term cancellation for personal reasons not permitted. Please invest carefully. Detailed refund terms in SAFT contract."
+        }
       },
       "cta": {
         "title": "成为种子投资者",
@@ -20429,7 +20472,32 @@
         "inquiryError": "咨询失败",
         "inquiryErrorDesc": "发生临时错误。请重试。"
       },
-      "connectWallet": "投资咨询"
+      "connectWallet": "投资咨询",
+      "hero": {
+        "badge": "SEED ROUND - Early Investor",
+        "status": "Active",
+        "title": "Invest in Seed Round",
+        "titleHighlight": "500M TBURN",
+        "titleEnd": "Opportunity",
+        "subtitle": "Up to 70% discount early investment opportunity for Blockchain VCs, Crypto Funds, and Angel Investors.",
+        "loading": "Loading...",
+        "seedAllocation": "Seed Allocation",
+        "tokenPriceLabel": "Token Price",
+        "hardcap": "Hardcap",
+        "investorsLabel": "Investors",
+        "applySeed": "Apply for Seed Investment",
+        "investmentMemo": "Investment Memo"
+      },
+      "memoDialog": {
+        "title": "Seed Round Investment Memo",
+        "projectOverview": "Project Overview",
+        "contact": "Contact",
+        "investmentHighlights": "Investment Highlights",
+        "tokenomics": "Tokenomics",
+        "team": "Team",
+        "roadmap": "Roadmap",
+        "close": "Close"
+      }
     },
     "privateRound": {
       "nav": {
@@ -20550,15 +20618,7 @@
         "fullUnlock": "完全解锁",
         "fullUnlockDesc": "18个月后"
       },
-      "allocation": {
-        "badge": "ALLOCATION",
-        "title": "投资者类型分配",
-        "subtitle": "10亿TBURN分配状况",
-        "vcFunds": "VC & 基金",
-        "familyOffice": "家族办公室",
-        "strategicInvestors": "战略投资者",
-        "corporateInvestors": "企业投资者"
-      },
+      "allocation": "Total Allocation",
       "investors": {
         "badge": "INVESTORS",
         "title": "当前投资者",
@@ -20697,7 +20757,20 @@
         "product": "产品",
         "resources": "资源",
         "community": "社区"
-      }
+      },
+      "title": "Private Round",
+      "subtitle": "Private sale for qualified investors",
+      "heroTitle": "TBURN Private Round",
+      "heroSubtitle": "Exclusive investment opportunity for institutional and qualified investors",
+      "badge": "Private Sale",
+      "tokenPrice": "Token Price",
+      "discount": "Discount from Launch",
+      "minInvestment": "Minimum Investment",
+      "investorRequirements": "Investor Requirements",
+      "kyc": "KYC/AML Verification",
+      "accredited": "Accredited Investor",
+      "institutional": "Institutional",
+      "applyPrivate": "Apply for Private Round"
     },
     "publicRound": {
       "nav": {
@@ -20829,7 +20902,8 @@
             "邮件提醒",
             "社区支持"
           ]
-        }
+        },
+        "maxAmountLabel": "Max Amount"
       },
       "vesting": {
         "badge": "VESTING",
@@ -21014,7 +21088,20 @@
         "support": "支持",
         "terms": "服务条款",
         "privacy": "隐私政策"
-      }
+      },
+      "title": "Public Round",
+      "subtitle": "Public token sale open to everyone",
+      "heroTitle": "TBURN Public Round",
+      "heroSubtitle": "Participate in the public token sale and join the TBURN community",
+      "badge": "Public Sale",
+      "tokenPrice": "Token Price",
+      "discount": "Discount from Launch",
+      "allocation": "Total Allocation",
+      "minPurchase": "Minimum Purchase",
+      "maxPurchase": "Maximum Purchase",
+      "whitelistRequired": "Whitelist Required",
+      "joinWhitelist": "Join Whitelist",
+      "purchaseTokens": "Purchase Tokens"
     },
     "launchpad": {
       "title": "发射台",
