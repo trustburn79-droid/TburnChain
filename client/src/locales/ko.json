@@ -31294,6 +31294,7 @@
         "requiredFieldsDesc": "이름과 이메일은 필수 입력 항목입니다."
       },
       "memoDialog": {
+        "contact": "문의처",
         "title": "시드 라운드 투자 메모",
         "projectOverview": "프로젝트 개요",
         "investmentHighlights": "투자 하이라이트",

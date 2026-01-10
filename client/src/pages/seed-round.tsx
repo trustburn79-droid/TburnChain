@@ -1025,7 +1025,7 @@ export default function SeedRoundPage() {
           <div className="stats-grid">
             {isLoading ? (
               <div className="stat-card" data-testid="loading-indicator">
-                <div className="stat-value" style={{ opacity: 0.5 }}>로딩중...</div>
+                <div className="stat-value" style={{ opacity: 0.5 }}>{t("tokenPrograms.seedRound.hero.loading")}</div>
               </div>
             ) : (
               <>
@@ -1071,7 +1071,7 @@ export default function SeedRoundPage() {
       {/* Round Comparison Section */}
       <section className="section">
         <div className="section-header">
-          <span className="section-badge">COMPARISON</span>
+          <span className="section-badge">{t("tokenPrograms.seedRound.comparison.badge")}</span>
           <h2 className="section-title">{t("tokenPrograms.seedRound.comparison.title")}</h2>
           <p className="section-subtitle">{t("tokenPrograms.seedRound.comparison.subtitle")}</p>
         </div>
@@ -1113,7 +1113,7 @@ export default function SeedRoundPage() {
       {/* Investment Tiers Section */}
       <section className="section" id="tiers" style={{ background: 'rgba(255,255,255,0.02)' }}>
         <div className="section-header">
-          <span className="section-badge">TIERS</span>
+          <span className="section-badge">{t("tokenPrograms.seedRound.tiers.badge")}</span>
           <h2 className="section-title">{t("tokenPrograms.seedRound.tiers.title")}</h2>
           <p className="section-subtitle">{t("tokenPrograms.seedRound.tiers.subtitle")}</p>
         </div>
@@ -1160,7 +1160,7 @@ export default function SeedRoundPage() {
       {/* Vesting Section */}
       <section className="section" id="vesting">
         <div className="section-header">
-          <span className="section-badge">VESTING</span>
+          <span className="section-badge">{t("tokenPrograms.seedRound.vestingSection.badge")}</span>
           <h2 className="section-title">{t("tokenPrograms.seedRound.vestingSection.title")}</h2>
           <p className="section-subtitle">{t("tokenPrograms.seedRound.vestingSection.subtitle")}</p>
         </div>
@@ -1182,9 +1182,9 @@ export default function SeedRoundPage() {
       {/* Current Investors Section */}
       <section className="section" id="investors" style={{ background: 'rgba(255,255,255,0.02)' }}>
         <div className="section-header">
-          <span className="section-badge">INVESTORS</span>
+          <span className="section-badge">{t("tokenPrograms.seedRound.investorsSection.badge")}</span>
           <h2 className="section-title">{t("tokenPrograms.seedRound.investorsSection.title")}</h2>
-          <p className="section-subtitle">함께하는 파트너들</p>
+          <p className="section-subtitle">{t("tokenPrograms.seedRound.investorsSection.subtitle")}</p>
         </div>
 
         <div className="investors-showcase">
@@ -1206,7 +1206,7 @@ export default function SeedRoundPage() {
       {/* Investment Process Section */}
       <section className="section" id="process">
         <div className="section-header">
-          <span className="section-badge">PROCESS</span>
+          <span className="section-badge">{t("tokenPrograms.seedRound.processSection.badge")}</span>
           <h2 className="section-title">{t("tokenPrograms.seedRound.processSection.title")}</h2>
           <p className="section-subtitle">{t("tokenPrograms.seedRound.processSection.subtitle")}</p>
         </div>
@@ -1228,7 +1228,7 @@ export default function SeedRoundPage() {
       {/* Token Metrics Section */}
       <section className="section" style={{ background: 'rgba(255,255,255,0.02)' }}>
         <div className="section-header">
-          <span className="section-badge">METRICS</span>
+          <span className="section-badge">{t("tokenPrograms.seedRound.metrics.badge")}</span>
           <h2 className="section-title">{t("tokenPrograms.seedRound.metrics.title")}</h2>
           <p className="section-subtitle">{t("tokenPrograms.seedRound.metrics.subtitle")}</p>
         </div>
@@ -1257,7 +1257,7 @@ export default function SeedRoundPage() {
       {/* FAQ */}
       <section className="section" id="faq">
         <div className="section-header">
-          <span className="section-badge">FAQ</span>
+          <span className="section-badge">{t("tokenPrograms.seedRound.faqSection.badge")}</span>
           <h2 className="section-title">{t("tokenPrograms.seedRound.faqSection.title")}</h2>
           <p className="section-subtitle">{t("tokenPrograms.seedRound.faqSection.subtitle")}</p>
         </div>
@@ -1369,7 +1369,7 @@ export default function SeedRoundPage() {
         <div className="footer-content">
           <div className="footer-brand">
             <h3>TBURN<span>CHAIN</span></h3>
-            <p>{t("tokenPrograms.seedRound.footer.tagline")}<br />THE FUTURE IS NOW</p>
+            <p>{t("tokenPrograms.seedRound.footer.tagline")}<br />{t("tokenPrograms.seedRound.footer.slogan")}</p>
             <div className="social-links">
               <a href="#">𝕏</a>
               <a href="#">✈</a>
@@ -1378,7 +1378,7 @@ export default function SeedRoundPage() {
             </div>
           </div>
           <div className="footer-links">
-            <h4>Product</h4>
+            <h4>{t("tokenPrograms.seedRound.footer.product")}</h4>
             <ul>
               <li><Link href="/">{t("tokenPrograms.seedRound.footer.mainnet")}</Link></li>
               <li><Link href="/scan">{t("tokenPrograms.seedRound.footer.explorer")}</Link></li>
@@ -1387,16 +1387,16 @@ export default function SeedRoundPage() {
             </ul>
           </div>
           <div className="footer-links">
-            <h4>Resources</h4>
+            <h4>{t("tokenPrograms.seedRound.footer.resources")}</h4>
             <ul>
               <li><Link href="/learn/whitepaper">{t("tokenPrograms.seedRound.footer.whitepaper")}</Link></li>
               <li><Link href="/developers/docs">{t("tokenPrograms.seedRound.footer.docs")}</Link></li>
-              <li><a href="#">GitHub</a></li>
+              <li><a href="#">{t("tokenPrograms.seedRound.footer.github")}</a></li>
               <li><Link href="/security-audit">{t("tokenPrograms.seedRound.footer.auditReport")}</Link></li>
             </ul>
           </div>
           <div className="footer-links">
-            <h4>Community</h4>
+            <h4>{t("tokenPrograms.seedRound.footer.community")}</h4>
             <ul>
               <li><Link href="/community/news">{t("tokenPrograms.seedRound.footer.blog")}</Link></li>
               <li><a href="#">{t("tokenPrograms.seedRound.footer.ambassador")}</a></li>
@@ -1406,7 +1406,7 @@ export default function SeedRoundPage() {
           </div>
         </div>
         <div className="footer-bottom">
-          <p>© 2025-2045 TBURN Foundation. All Rights Reserved.</p>
+          <p>{t("tokenPrograms.seedRound.footer.copyright")}</p>
           <div style={{ display: 'flex', gap: '2rem' }}>
             <Link href="/legal/terms-of-service" style={{ color: 'var(--gray)', textDecoration: 'none' }}>{t("tokenPrograms.seedRound.footer.terms")}</Link>
             <Link href="/legal/privacy-policy" style={{ color: 'var(--gray)', textDecoration: 'none' }}>{t("tokenPrograms.seedRound.footer.privacy")}</Link>
@@ -1545,7 +1545,7 @@ export default function SeedRoundPage() {
             </div>
 
             <div style={{ padding: '1rem', background: 'rgba(59, 130, 246, 0.1)', borderRadius: '8px', border: '1px solid rgba(59, 130, 246, 0.3)' }}>
-              <h4 style={{ color: '#3b82f6', marginBottom: '0.5rem', fontWeight: 600 }}>Contact</h4>
+              <h4 style={{ color: '#3b82f6', marginBottom: '0.5rem', fontWeight: 600 }}>{t("tokenPrograms.seedRound.memoDialog.contact")}</h4>
               <p style={{ color: 'rgba(255,255,255,0.8)' }}>
                 이메일: <a href="mailto:invest@tburnchain.io" style={{ color: '#22c55e' }}>invest@tburnchain.io</a><br />
                 텔레그램: <a href="https://t.me/tburnchain" style={{ color: '#22c55e' }}>@tburnchain</a>
