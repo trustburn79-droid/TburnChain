@@ -5,6 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useWeb3 } from "@/lib/web3-context";
 import { useToast } from "@/hooks/use-toast";
 import { LanguageSelector } from "@/components/LanguageSelector";
+import { useTranslation } from "react-i18next";
 
 interface PartnershipStatsData {
   partnerships: {
@@ -45,6 +46,7 @@ export default function AdvisorProgramPage() {
   const { isConnected, address, connect, disconnect, formatAddress } = useWeb3();
   const [activeFaq, setActiveFaq] = useState<string | null>("faq-1");
   const { toast } = useToast();
+  const { t } = useTranslation();
 
   const { data: statsResponse, isLoading: isLoadingStats } = useQuery<PartnershipStatsResponse>({
     queryKey: ['/api/token-programs/partnerships/stats'],
@@ -65,106 +67,101 @@ export default function AdvisorProgramPage() {
   const handleWalletClick = async () => {
     if (isConnected) {
       disconnect();
-      toast({ title: "지갑 연결 해제", description: "지갑이 연결 해제되었습니다." });
+      toast({ title: t('advisorProgram.wallet.disconnect'), description: t('advisorProgram.wallet.disconnectDesc') });
     } else {
       await connect("metamask");
-      toast({ title: "지갑 연결", description: "지갑이 연결되었습니다." });
+      toast({ title: t('advisorProgram.wallet.connected'), description: t('advisorProgram.wallet.connectedDesc') });
     }
   };
 
   const handleApplyAdvisor = () => {
     scrollToSection('roles');
-    toast({ title: "자문단 지원", description: "자문 분야를 확인하고 지원해주세요!" });
+    toast({ title: t('advisorProgram.cta.applyAdvisor'), description: t('advisorProgram.cta.applyAdvisorDesc') });
   };
 
   const handleViewGuide = () => {
     scrollToSection('process');
-    toast({ title: "자문단 가이드", description: "지원 절차를 확인하세요." });
+    toast({ title: t('advisorProgram.cta.advisorGuide'), description: t('advisorProgram.cta.advisorGuideDesc') });
   };
 
   const handleApplyRole = (roleTitle: string) => {
     if (!isConnected) {
       toast({ 
-        title: "지갑 연결 필요", 
-        description: "자문단 지원을 위해 먼저 지갑을 연결해주세요.",
+        title: t('advisorProgram.wallet.required'), 
+        description: t('advisorProgram.wallet.requiredDesc'),
         variant: "destructive"
       });
       return;
     }
     toast({ 
-      title: `${roleTitle} 지원`, 
-      description: `${roleTitle} 지원서가 접수되었습니다. 서류 심사 후 연락드리겠습니다.`
+      title: t('advisorProgram.roleApply.title', { role: roleTitle }), 
+      description: t('advisorProgram.roleApply.description', { role: roleTitle })
     });
   };
 
   const handleApplyTier = (tierName: string, incentive: string) => {
     if (!isConnected) {
       toast({ 
-        title: "지갑 연결 필요", 
-        description: "자문단 지원을 위해 먼저 지갑을 연결해주세요.",
+        title: t('advisorProgram.wallet.required'), 
+        description: t('advisorProgram.wallet.requiredDesc'),
         variant: "destructive"
       });
       return;
     }
     toast({ 
-      title: `${tierName} 지원`, 
-      description: `${tierName}(${incentive} TBURN) 지원이 접수되었습니다. 심사 후 안내드립니다.`
+      title: t('advisorProgram.tierApply.title', { tier: tierName }), 
+      description: t('advisorProgram.tierApply.description', { tier: tierName, incentive })
     });
   };
 
   const handleShareSocial = (platform: string, url: string) => {
     window.open(url, '_blank');
-    toast({ title: `${platform}`, description: `${platform} 페이지로 이동합니다.` });
+    toast({ title: platform, description: platform });
   };
 
-  const advisorPreviews = [
-    { initial: "JK", name: "Dr. John Kim", role: "기술 자문", type: "tech" },
-    { initial: "SP", name: "Sarah Park", role: "비즈니스 자문", type: "business" },
-    { initial: "ML", name: "Michael Lee", role: "법률 자문", type: "legal" },
-    { initial: "EC", name: "Emma Choi", role: "학술 자문", type: "academic" },
-  ];
+  const advisorPreviewKeys = ["jk", "sp", "ml", "ec"];
+  const advisorPreviewTypes = ["tech", "business", "legal", "academic"];
 
-  const distributions = [
-    { id: "tech", icon: "💻", name: "기술 자문", amount: "0.6억", percent: "30%" },
-    { id: "business", icon: "📊", name: "비즈니스 자문", amount: "0.4억", percent: "20%" },
-    { id: "legal", icon: "⚖️", name: "법률 자문", amount: "0.4억", percent: "20%" },
-    { id: "academic", icon: "🎓", name: "학술 자문", amount: "0.3억", percent: "15%" },
-    { id: "industry", icon: "🏭", name: "산업 자문", amount: "0.3억", percent: "15%" },
-  ];
+  const distributionKeys = ["tech", "business", "legal", "academic", "industry"];
+  const distributionIcons: { [key: string]: string } = {
+    tech: "💻",
+    business: "📊",
+    legal: "⚖️",
+    academic: "🎓",
+    industry: "🏭"
+  };
 
-  const advisorRoles = [
-    { id: "tech", icon: "💻", title: "기술 자문위원", subtitle: "블록체인, AI, 보안 전문가", rewards: [{ value: "최대 1,000만", label: "연간 보상" }, { value: "분기별", label: "기술 리뷰" }], responsibilities: ["코드 리뷰 및 아키텍처 자문", "보안 감사 참여", "기술 로드맵 검토", "신기술 트렌드 분석"] },
-    { id: "business", icon: "📊", title: "비즈니스 자문위원", subtitle: "경영, 전략, 마케팅 전문가", rewards: [{ value: "최대 800만", label: "연간 보상" }, { value: "월간", label: "전략 미팅" }], responsibilities: ["사업 전략 자문", "파트너십 네트워킹", "시장 분석 및 인사이트", "성장 전략 수립"] },
-    { id: "legal", icon: "⚖️", title: "법률 자문위원", subtitle: "블록체인 규제, 컴플라이언스", rewards: [{ value: "최대 800만", label: "연간 보상" }, { value: "수시", label: "법률 검토" }], responsibilities: ["규제 동향 분석", "컴플라이언스 자문", "계약 검토", "리스크 관리"] },
-    { id: "academic", icon: "🎓", title: "학술 자문위원", subtitle: "대학 교수, 연구원", rewards: [{ value: "최대 600만", label: "연간 보상" }, { value: "분기별", label: "연구 협력" }], responsibilities: ["학술 연구 협력", "백서 검토", "교육 컨텐츠 개발", "학계 네트워킹"] },
-  ];
+  const roleKeys = ["tech", "business", "legal", "academic"];
+  const roleIcons: { [key: string]: string } = {
+    tech: "💻",
+    business: "📊",
+    legal: "⚖️",
+    academic: "🎓"
+  };
 
-  const advisorTiers = [
-    { id: "principal", icon: "👑", name: "Principal Advisor", subtitle: "수석 자문위원", incentive: "최대 1,500만", requirement: "10년+ 경력, 업계 리더", benefits: ["전용 팀 배정", "이사회 참관권", "독점 정보 접근", "연간 오프라인 서밋", "VIP 네트워킹"] },
-    { id: "senior", icon: "⭐", name: "Senior Advisor", subtitle: "시니어 자문위원", incentive: "최대 800만", requirement: "5년+ 경력, 전문가", benefits: ["우선 지원", "분기별 전략 미팅", "얼리 액세스", "거버넌스 참여", "파트너 네트워킹"] },
-    { id: "advisor", icon: "💡", name: "Advisor", subtitle: "자문위원", incentive: "최대 400만", requirement: "3년+ 경력, 전문 분야", benefits: ["월간 미팅", "기술 문서 접근", "커뮤니티 참여", "기본 인센티브", "성장 기회"] },
-  ];
+  const tierKeys = ["principal", "senior", "advisor"];
+  const tierIcons: { [key: string]: string } = {
+    principal: "👑",
+    senior: "⭐",
+    advisor: "💡"
+  };
 
   const currentAdvisors = [
-    { initial: "JK", name: "Dr. John Kim", title: "CTO, Tech Corp", org: "기술 자문", type: "tech", tier: "principal" },
-    { initial: "SP", name: "Sarah Park", title: "CEO, Growth VC", org: "비즈니스 자문", type: "business", tier: "principal" },
-    { initial: "ML", name: "Michael Lee", title: "Partner, Law Firm", org: "법률 자문", type: "legal", tier: "senior" },
-    { initial: "EC", name: "Prof. Emma Choi", title: "Professor, KAIST", org: "학술 자문", type: "academic", tier: "senior" },
+    { initial: "JK", name: "Dr. John Kim", title: "CTO, Tech Corp", orgKey: "tech", type: "tech", tier: "principal" },
+    { initial: "SP", name: "Sarah Park", title: "CEO, Growth VC", orgKey: "business", type: "business", tier: "principal" },
+    { initial: "ML", name: "Michael Lee", title: "Partner, Law Firm", orgKey: "legal", type: "legal", tier: "senior" },
+    { initial: "EC", name: "Prof. Emma Choi", title: "Professor, KAIST", orgKey: "academic", type: "academic", tier: "senior" },
   ];
 
-  const processSteps = [
-    { icon: "📋", title: "지원서 제출", desc: "온라인 지원서 작성", duration: "1-3일" },
-    { icon: "🔍", title: "1차 심사", desc: "서류 검토 및 평가", duration: "1-2주" },
-    { icon: "💬", title: "인터뷰", desc: "심층 면접 진행", duration: "1-2주" },
-    { icon: "📝", title: "계약 체결", desc: "자문 계약 서명", duration: "1주" },
-    { icon: "🚀", title: "온보딩", desc: "자문 활동 시작", duration: "1주" },
-  ];
+  const processStepKeys = ["step1", "step2", "step3", "step4", "step5"];
+  const processStepIcons = ["📋", "🔍", "💬", "📝", "🚀"];
 
-  const compensations = [
-    { icon: "💰", title: "토큰 인센티브", desc: "분기별 TBURN 토큰 지급", value: "최대 1,500만 TBURN/년" },
-    { icon: "📈", title: "성과 보너스", desc: "목표 달성시 추가 보상", value: "기본 보상의 50%까지" },
-    { icon: "🎁", title: "특별 혜택", desc: "이벤트 초대, NFT 에어드랍", value: "연간 다양한 혜택" },
-  ];
+  const compensationKeys = ["token", "bonus", "special"];
+  const compensationIcons: { [key: string]: string } = {
+    token: "💰",
+    bonus: "📈",
+    special: "🎁"
+  };
 
   return (
     <div className="advisor-program-page">
@@ -1010,27 +1007,27 @@ export default function AdvisorProgramPage() {
               href="#roles" 
               onClick={(e) => { e.preventDefault(); scrollToSection('roles'); }}
               data-testid="nav-roles"
-            >자문 분야</a>
+            >{t('advisorProgram.nav.advisorRoles')}</a>
             <a 
               href="#tiers" 
               onClick={(e) => { e.preventDefault(); scrollToSection('tiers'); }}
               data-testid="nav-tiers"
-            >티어</a>
+            >{t('advisorProgram.nav.tiers')}</a>
             <a 
               href="#advisors" 
               onClick={(e) => { e.preventDefault(); scrollToSection('advisors'); }}
               data-testid="nav-advisors"
-            >현재 자문단</a>
+            >{t('advisorProgram.nav.currentAdvisors')}</a>
             <a 
               href="#process" 
               onClick={(e) => { e.preventDefault(); scrollToSection('process'); }}
               data-testid="nav-process"
-            >지원 절차</a>
+            >{t('advisorProgram.nav.applicationProcess')}</a>
             <a 
               href="#faq" 
               onClick={(e) => { e.preventDefault(); scrollToSection('faq'); }}
               data-testid="nav-faq"
-            >FAQ</a>
+            >{t('advisorProgram.nav.faq')}</a>
           </nav>
           <div className="header-actions">
             <LanguageSelector isDark={true} />
@@ -1039,7 +1036,7 @@ export default function AdvisorProgramPage() {
               data-testid="button-connect-wallet"
               onClick={handleWalletClick}
             >
-              {isConnected ? `${formatAddress(address || '')}` : '지갑 연결'}
+              {isConnected ? `${formatAddress(address || '')}` : t('advisorProgram.wallet.connect')}
             </button>
           </div>
         </div>
@@ -1050,25 +1047,24 @@ export default function AdvisorProgramPage() {
         <div className="hero-bg"></div>
         <div className="hero-content">
           <div className="badge">
-            <span className="lightbulb-icon">💡</span> ADVISOR PROGRAM - 전문가 자문단
+            <span className="lightbulb-icon">💡</span> {t('advisorProgram.badge')}
           </div>
           <h1>
-            TBURN 자문위원으로<br />
-            <span className="gradient-text">2억 TBURN</span> 보상을 받으세요
+            {t('advisorProgram.hero.title1')}<br />
+            <span className="gradient-text">{t('advisorProgram.hero.title2')}</span> {t('advisorProgram.hero.title3')}
           </h1>
           <p className="hero-subtitle">
-            기술, 비즈니스, 법률, 학술 분야 전문가로 참여하여
-            TBURN 생태계 발전에 기여하고 보상받으세요.
+            {t('advisorProgram.hero.subtitle')}
           </p>
 
           <div className="advisor-showcase" data-testid="advisor-showcase">
-            {advisorPreviews.map((advisor, idx) => (
+            {advisorPreviewKeys.map((key, idx) => (
               <div key={idx} className="advisor-preview">
-                <div className={`advisor-preview-avatar ${advisor.type}`}>
-                  {advisor.initial}
+                <div className={`advisor-preview-avatar ${advisorPreviewTypes[idx]}`}>
+                  {t(`advisorProgram.advisorPreviews.${key}.initial`)}
                 </div>
-                <div className="advisor-preview-name">{advisor.name}</div>
-                <div className="advisor-preview-role">{advisor.role}</div>
+                <div className="advisor-preview-name">{t(`advisorProgram.advisorPreviews.${key}.name`)}</div>
+                <div className="advisor-preview-role">{t(`advisorProgram.advisorPreviews.${key}.role`)}</div>
               </div>
             ))}
           </div>
@@ -1076,27 +1072,27 @@ export default function AdvisorProgramPage() {
           <div className="stats-grid" data-testid="advisor-stats-grid">
             <div className="stat-card" data-testid="stat-total-advisor">
               <div className="stat-value">
-                {isLoadingStats ? '...' : advisorData?.allocation ? `${(parseInt(advisorData.allocation) / 1000000).toFixed(0)}M` : '2억'}
+                {isLoadingStats ? '...' : advisorData?.allocation ? `${(parseInt(advisorData.allocation) / 1000000).toFixed(0)}M` : '200M'}
               </div>
-              <div className="stat-label">총 자문 예산</div>
+              <div className="stat-label">{t('advisorProgram.stats.totalBudget')}</div>
             </div>
             <div className="stat-card" data-testid="stat-advisors">
               <div className="stat-value">
                 {isLoadingStats ? '...' : `${advisorData?.total || 12}+`}
               </div>
-              <div className="stat-label">현재 자문위원</div>
+              <div className="stat-label">{t('advisorProgram.stats.currentAdvisors')}</div>
             </div>
             <div className="stat-card" data-testid="stat-fields">
               <div className="stat-value">
-                {isLoadingStats ? '...' : `${advisorData?.unlocked || 8}명`}
+                {isLoadingStats ? '...' : `${advisorData?.unlocked || 8}`}
               </div>
-              <div className="stat-label">활성 자문위원</div>
+              <div className="stat-label">{t('advisorProgram.stats.activeAdvisors')}</div>
             </div>
             <div className="stat-card" data-testid="stat-max-reward">
               <div className="stat-value">
-                {isLoadingStats ? '...' : advisorData?.vesting || '24개월'}
+                {isLoadingStats ? '...' : advisorData?.vesting || '24'}
               </div>
-              <div className="stat-label">베스팅 기간</div>
+              <div className="stat-label">{t('advisorProgram.stats.vestingPeriod')}</div>
             </div>
           </div>
 
@@ -1106,14 +1102,14 @@ export default function AdvisorProgramPage() {
               data-testid="button-apply"
               onClick={handleApplyAdvisor}
             >
-              자문단 지원하기
+              {t('advisorProgram.cta.applyButton')}
             </button>
             <button 
               className="btn-secondary"
               data-testid="button-view-guide"
               onClick={handleViewGuide}
             >
-              자문단 가이드
+              {t('advisorProgram.cta.guideButton')}
             </button>
           </div>
         </div>
@@ -1122,18 +1118,18 @@ export default function AdvisorProgramPage() {
       {/* Distribution Section */}
       <section className="section">
         <div className="section-header">
-          <span className="section-badge">DISTRIBUTION</span>
-          <h2 className="section-title">자문 예산 배분</h2>
-          <p className="section-subtitle">2억 TBURN이 5개 자문 분야로 배분됩니다</p>
+          <span className="section-badge">{t('advisorProgram.distribution.badge')}</span>
+          <h2 className="section-title">{t('advisorProgram.distribution.title')}</h2>
+          <p className="section-subtitle">{t('advisorProgram.distribution.subtitle')}</p>
         </div>
 
         <div className="distribution-grid">
-          {distributions.map(dist => (
-            <div key={dist.id} className={`dist-card ${dist.id}`} data-testid={`dist-${dist.id}`}>
-              <div className="dist-icon">{dist.icon}</div>
-              <div className="dist-name">{dist.name}</div>
-              <div className="dist-amount">{dist.amount}</div>
-              <div className="dist-percent">{dist.percent}</div>
+          {distributionKeys.map(key => (
+            <div key={key} className={`dist-card ${key}`} data-testid={`dist-${key}`}>
+              <div className="dist-icon">{distributionIcons[key]}</div>
+              <div className="dist-name">{t(`advisorProgram.distribution.items.${key}.name`)}</div>
+              <div className="dist-amount">{t(`advisorProgram.distribution.items.${key}.amount`)}</div>
+              <div className="dist-percent">{t(`advisorProgram.distribution.items.${key}.percent`)}</div>
             </div>
           ))}
         </div>
@@ -1142,41 +1138,44 @@ export default function AdvisorProgramPage() {
       {/* Advisor Roles Section */}
       <section className="section" id="roles" style={{ background: 'rgba(255,255,255,0.02)' }}>
         <div className="section-header">
-          <span className="section-badge">ROLES</span>
-          <h2 className="section-title">자문 분야</h2>
-          <p className="section-subtitle">전문 분야별 자문위원 역할</p>
+          <span className="section-badge">{t('advisorProgram.roles.badge')}</span>
+          <h2 className="section-title">{t('advisorProgram.roles.title')}</h2>
+          <p className="section-subtitle">{t('advisorProgram.roles.subtitle')}</p>
         </div>
 
         <div className="roles-grid">
-          {advisorRoles.map(role => (
-            <div key={role.id} className={`role-card ${role.id}`} data-testid={`role-${role.id}`}>
+          {roleKeys.map(key => (
+            <div key={key} className={`role-card ${key}`} data-testid={`role-${key}`}>
               <div className="role-header">
-                <div className="role-icon">{role.icon}</div>
+                <div className="role-icon">{roleIcons[key]}</div>
                 <div className="role-info">
-                  <h3>{role.title}</h3>
-                  <p>{role.subtitle}</p>
+                  <h3>{t(`advisorProgram.roles.items.${key}.title`)}</h3>
+                  <p>{t(`advisorProgram.roles.items.${key}.subtitle`)}</p>
                 </div>
               </div>
               <div className="role-content">
                 <div className="role-rewards">
-                  {role.rewards.map((reward, idx) => (
-                    <div key={idx} className="role-reward-box">
-                      <div className="value">{reward.value}</div>
-                      <div className="label">{reward.label}</div>
-                    </div>
-                  ))}
+                  <div className="role-reward-box">
+                    <div className="value">{t(`advisorProgram.roles.items.${key}.reward1Value`)}</div>
+                    <div className="label">{t(`advisorProgram.roles.items.${key}.reward1Label`)}</div>
+                  </div>
+                  <div className="role-reward-box">
+                    <div className="value">{t(`advisorProgram.roles.items.${key}.reward2Value`)}</div>
+                    <div className="label">{t(`advisorProgram.roles.items.${key}.reward2Label`)}</div>
+                  </div>
                 </div>
                 <ul className="role-responsibilities">
-                  {role.responsibilities.map((resp, idx) => (
-                    <li key={idx}>{resp}</li>
-                  ))}
+                  <li>{t(`advisorProgram.roles.items.${key}.resp1`)}</li>
+                  <li>{t(`advisorProgram.roles.items.${key}.resp2`)}</li>
+                  <li>{t(`advisorProgram.roles.items.${key}.resp3`)}</li>
+                  <li>{t(`advisorProgram.roles.items.${key}.resp4`)}</li>
                 </ul>
                 <button 
                   className="role-btn"
-                  data-testid={`button-apply-role-${role.id}`}
-                  onClick={() => handleApplyRole(role.title)}
+                  data-testid={`button-apply-role-${key}`}
+                  onClick={() => handleApplyRole(t(`advisorProgram.roles.items.${key}.title`))}
                 >
-                  지원하기
+                  {t('advisorProgram.roles.applyButton')}
                 </button>
               </div>
             </div>
@@ -1187,36 +1186,38 @@ export default function AdvisorProgramPage() {
       {/* Advisor Tiers Section */}
       <section className="section" id="tiers">
         <div className="section-header">
-          <span className="section-badge">TIERS</span>
-          <h2 className="section-title">자문 티어</h2>
-          <p className="section-subtitle">경력과 기여도에 따른 등급별 혜택</p>
+          <span className="section-badge">{t('advisorProgram.tiers.badge')}</span>
+          <h2 className="section-title">{t('advisorProgram.tiers.title')}</h2>
+          <p className="section-subtitle">{t('advisorProgram.tiers.subtitle')}</p>
         </div>
 
         <div className="tiers-grid">
-          {advisorTiers.map(tier => (
-            <div key={tier.id} className={`tier-card ${tier.id}`} data-testid={`tier-${tier.id}`}>
+          {tierKeys.map(key => (
+            <div key={key} className={`tier-card ${key}`} data-testid={`tier-${key}`}>
               <div className="tier-header">
-                <div className="tier-icon">{tier.icon}</div>
-                <h3 className="tier-name">{tier.name}</h3>
-                <p className="tier-subtitle">{tier.subtitle}</p>
+                <div className="tier-icon">{tierIcons[key]}</div>
+                <h3 className="tier-name">{t(`advisorProgram.tiers.items.${key}.name`)}</h3>
+                <p className="tier-subtitle">{t(`advisorProgram.tiers.items.${key}.subtitle`)}</p>
               </div>
               <div className="tier-content">
                 <div className="tier-incentive">
-                  <div className="tier-incentive-label">연간 인센티브</div>
-                  <div className="tier-incentive-value">{tier.incentive} TBURN</div>
+                  <div className="tier-incentive-label">{t('advisorProgram.tiers.incentiveLabel')}</div>
+                  <div className="tier-incentive-value">{t(`advisorProgram.tiers.items.${key}.incentive`)} TBURN</div>
                 </div>
-                <div className="tier-requirement">{tier.requirement}</div>
+                <div className="tier-requirement">{t(`advisorProgram.tiers.items.${key}.requirement`)}</div>
                 <ul className="tier-benefits">
-                  {tier.benefits.map((benefit, idx) => (
-                    <li key={idx}>{benefit}</li>
-                  ))}
+                  <li>{t(`advisorProgram.tiers.items.${key}.benefit1`)}</li>
+                  <li>{t(`advisorProgram.tiers.items.${key}.benefit2`)}</li>
+                  <li>{t(`advisorProgram.tiers.items.${key}.benefit3`)}</li>
+                  <li>{t(`advisorProgram.tiers.items.${key}.benefit4`)}</li>
+                  <li>{t(`advisorProgram.tiers.items.${key}.benefit5`)}</li>
                 </ul>
                 <button 
                   className="tier-btn"
-                  data-testid={`button-apply-tier-${tier.id}`}
-                  onClick={() => handleApplyTier(tier.name, tier.incentive)}
+                  data-testid={`button-apply-tier-${key}`}
+                  onClick={() => handleApplyTier(t(`advisorProgram.tiers.items.${key}.name`), t(`advisorProgram.tiers.items.${key}.incentive`))}
                 >
-                  지원하기
+                  {t('advisorProgram.tiers.applyButton')}
                 </button>
               </div>
             </div>
@@ -1227,9 +1228,9 @@ export default function AdvisorProgramPage() {
       {/* Current Advisors Section */}
       <section className="section" id="advisors" style={{ background: 'rgba(255,255,255,0.02)' }}>
         <div className="section-header">
-          <span className="section-badge">ADVISORS</span>
-          <h2 className="section-title">현재 자문단</h2>
-          <p className="section-subtitle">함께하는 전문가들</p>
+          <span className="section-badge">{t('advisorProgram.currentAdvisors.badge')}</span>
+          <h2 className="section-title">{t('advisorProgram.currentAdvisors.title')}</h2>
+          <p className="section-subtitle">{t('advisorProgram.currentAdvisors.subtitle')}</p>
         </div>
 
         <div className="advisors-showcase">
@@ -1244,7 +1245,7 @@ export default function AdvisorProgramPage() {
                 </div>
                 <div className="advisor-card-name">{advisor.name}</div>
                 <div className="advisor-card-title">{advisor.title}</div>
-                <div className="advisor-card-org">{advisor.org}</div>
+                <div className="advisor-card-org">{t(`advisorProgram.distribution.items.${advisor.orgKey}.name`)}</div>
               </div>
             ))}
           </div>
@@ -1254,19 +1255,19 @@ export default function AdvisorProgramPage() {
       {/* Process Section */}
       <section className="section" id="process">
         <div className="section-header">
-          <span className="section-badge">PROCESS</span>
-          <h2 className="section-title">지원 절차</h2>
-          <p className="section-subtitle">자문위원 선발 과정</p>
+          <span className="section-badge">{t('advisorProgram.process.badge')}</span>
+          <h2 className="section-title">{t('advisorProgram.process.title')}</h2>
+          <p className="section-subtitle">{t('advisorProgram.process.subtitle')}</p>
         </div>
 
         <div className="process-container">
           <div className="process-timeline">
-            {processSteps.map((step, idx) => (
+            {processStepKeys.map((key, idx) => (
               <div key={idx} className="process-item">
-                <div className="process-dot">{step.icon}</div>
-                <div className="process-title">{step.title}</div>
-                <div className="process-desc">{step.desc}</div>
-                <div className="process-duration">{step.duration}</div>
+                <div className="process-dot">{processStepIcons[idx]}</div>
+                <div className="process-title">{t(`advisorProgram.process.steps.${key}.title`)}</div>
+                <div className="process-desc">{t(`advisorProgram.process.steps.${key}.desc`)}</div>
+                <div className="process-duration">{t(`advisorProgram.process.steps.${key}.duration`)}</div>
               </div>
             ))}
           </div>
@@ -1276,18 +1277,18 @@ export default function AdvisorProgramPage() {
       {/* Compensation Section */}
       <section className="section" style={{ background: 'rgba(255,255,255,0.02)' }}>
         <div className="section-header">
-          <span className="section-badge">COMPENSATION</span>
-          <h2 className="section-title">보상 체계</h2>
-          <p className="section-subtitle">자문위원 보상 구성</p>
+          <span className="section-badge">{t('advisorProgram.compensation.badge')}</span>
+          <h2 className="section-title">{t('advisorProgram.compensation.title')}</h2>
+          <p className="section-subtitle">{t('advisorProgram.compensation.subtitle')}</p>
         </div>
 
         <div className="compensation-grid">
-          {compensations.map((comp, idx) => (
-            <div key={idx} className="compensation-card">
-              <div className="compensation-icon">{comp.icon}</div>
-              <h4>{comp.title}</h4>
-              <p>{comp.desc}</p>
-              <div className="compensation-value">{comp.value}</div>
+          {compensationKeys.map((key) => (
+            <div key={key} className="compensation-card">
+              <div className="compensation-icon">{compensationIcons[key]}</div>
+              <h4>{t(`advisorProgram.compensation.items.${key}.title`)}</h4>
+              <p>{t(`advisorProgram.compensation.items.${key}.desc`)}</p>
+              <div className="compensation-value">{t(`advisorProgram.compensation.items.${key}.value`)}</div>
             </div>
           ))}
         </div>
@@ -1296,101 +1297,33 @@ export default function AdvisorProgramPage() {
       {/* FAQ */}
       <section className="section" id="faq">
         <div className="section-header">
-          <span className="section-badge">FAQ</span>
-          <h2 className="section-title">자주 묻는 질문</h2>
-          <p className="section-subtitle">자문 프로그램에 대해 궁금한 점</p>
+          <span className="section-badge">{t('advisorProgram.faq.badge')}</span>
+          <h2 className="section-title">{t('advisorProgram.faq.title')}</h2>
+          <p className="section-subtitle">{t('advisorProgram.faq.subtitle')}</p>
         </div>
 
         <div className="faq-container">
-          <div className={`faq-item ${activeFaq === 'faq-1' ? 'active' : ''}`} data-testid="faq-item-1">
-            <div className="faq-question" onClick={() => toggleFaq('faq-1')}>
-              <h4>자문 프로그램 총 예산 규모는 얼마인가요?</h4>
-              <span className="faq-chevron">▼</span>
+          {[1, 2, 3, 4, 5, 6, 7, 8].map(num => (
+            <div key={num} className={`faq-item ${activeFaq === `faq-${num}` ? 'active' : ''}`} data-testid={`faq-item-${num}`}>
+              <div className="faq-question" onClick={() => toggleFaq(`faq-${num}`)}>
+                <h4>{t(`advisorProgram.faq.items.q${num}.question`)}</h4>
+                <span className="faq-chevron">▼</span>
+              </div>
+              <div className="faq-answer">
+                <p>{t(`advisorProgram.faq.items.q${num}.answer`)}</p>
+              </div>
             </div>
-            <div className="faq-answer">
-              <p>자문 프로그램에는 총 2억 TBURN이 배정되어 있습니다. 기술 자문 30%(0.6억), 비즈니스 자문 20%(0.4억), 법률 자문 20%(0.4억), 학술 자문 15%(0.3억), 산업 자문 15%(0.3억)로 배분됩니다.</p>
-            </div>
-          </div>
-
-          <div className={`faq-item ${activeFaq === 'faq-2' ? 'active' : ''}`} data-testid="faq-item-2">
-            <div className="faq-question" onClick={() => toggleFaq('faq-2')}>
-              <h4>자문위원이 되려면 어떤 자격이 필요한가요?</h4>
-              <span className="faq-chevron">▼</span>
-            </div>
-            <div className="faq-answer">
-              <p>분야별로 최소 3년 이상의 경력이 필요하며, 해당 분야의 전문성을 증명할 수 있는 포트폴리오나 이력이 필요합니다. Principal Advisor는 10년 이상(최대 1,500만 TBURN), Senior Advisor는 5년 이상(최대 800만), Advisor는 3년 이상(최대 400만) 경력이 권장됩니다.</p>
-            </div>
-          </div>
-
-          <div className={`faq-item ${activeFaq === 'faq-3' ? 'active' : ''}`} data-testid="faq-item-3">
-            <div className="faq-question" onClick={() => toggleFaq('faq-3')}>
-              <h4>자문 활동은 어떤 방식으로 진행되나요?</h4>
-              <span className="faq-chevron">▼</span>
-            </div>
-            <div className="faq-answer">
-              <p>정기 미팅(월간/분기별), 문서 검토, 전략 자문, 네트워킹 등 다양한 방식으로 참여합니다. 온라인 미팅이 주를 이루며, 필요시 오프라인 워크숍도 진행됩니다. 자문 범위와 시간은 티어에 따라 달라집니다.</p>
-            </div>
-          </div>
-
-          <div className={`faq-item ${activeFaq === 'faq-4' ? 'active' : ''}`} data-testid="faq-item-4">
-            <div className="faq-question" onClick={() => toggleFaq('faq-4')}>
-              <h4>보상은 어떻게 지급되나요?</h4>
-              <span className="faq-chevron">▼</span>
-            </div>
-            <div className="faq-answer">
-              <p>토큰 인센티브는 분기별로 지급되며, 24개월 베스팅 스케줄에 따라 순차적으로 언락됩니다. 성과 보너스(기본 보상의 최대 50%)는 반기별 평가 후 지급되며, 이벤트 초대 및 NFT 에어드랍 등 특별 혜택도 수시로 제공됩니다.</p>
-            </div>
-          </div>
-
-          <div className={`faq-item ${activeFaq === 'faq-5' ? 'active' : ''}`} data-testid="faq-item-5">
-            <div className="faq-question" onClick={() => toggleFaq('faq-5')}>
-              <h4>자문 계약 기간은 얼마인가요?</h4>
-              <span className="faq-chevron">▼</span>
-            </div>
-            <div className="faq-answer">
-              <p>기본 계약 기간은 1년이며, 상호 합의에 따라 연장 가능합니다. 우수한 성과를 보이는 자문위원은 자동 갱신 옵션이 제공됩니다. 계약 종료 30일 전 통보 조항이 있습니다.</p>
-            </div>
-          </div>
-
-          <div className={`faq-item ${activeFaq === 'faq-6' ? 'active' : ''}`} data-testid="faq-item-6">
-            <div className="faq-question" onClick={() => toggleFaq('faq-6')}>
-              <h4>지원 절차는 어떻게 되나요?</h4>
-              <span className="faq-chevron">▼</span>
-            </div>
-            <div className="faq-answer">
-              <p>지원서 제출(1-3일) → 1차 서류 심사(1-2주) → 인터뷰(1-2주) → 계약 체결(1주) → 온보딩(1주)으로 총 5-7주가 소요됩니다. 긴급한 경우 패스트트랙 프로세스를 통해 일정 단축이 가능합니다.</p>
-            </div>
-          </div>
-
-          <div className={`faq-item ${activeFaq === 'faq-7' ? 'active' : ''}`} data-testid="faq-item-7">
-            <div className="faq-question" onClick={() => toggleFaq('faq-7')}>
-              <h4>Principal Advisor의 특별 혜택은 무엇인가요?</h4>
-              <span className="faq-chevron">▼</span>
-            </div>
-            <div className="faq-answer">
-              <p>Principal Advisor는 최대 1,500만 TBURN 연간 인센티브와 함께 전용 팀 배정, 이사회 참관권, 독점 정보 접근, 연간 오프라인 서밋 참여, VIP 네트워킹 등 최상위 혜택을 제공받습니다. 10년 이상의 업계 리더급 경력이 요구됩니다.</p>
-            </div>
-          </div>
-
-          <div className={`faq-item ${activeFaq === 'faq-8' ? 'active' : ''}`} data-testid="faq-item-8">
-            <div className="faq-question" onClick={() => toggleFaq('faq-8')}>
-              <h4>자문단 지원은 어떻게 하나요?</h4>
-              <span className="faq-chevron">▼</span>
-            </div>
-            <div className="faq-answer">
-              <p>페이지 상단의 '자문단 지원하기' 버튼을 통해 신청하거나 advisor@tburn.io로 직접 연락하실 수 있습니다. 지갑 연결 후 지원하시면 더 빠른 검토가 가능합니다. 전담 팀이 1-2주 내 연락드립니다.</p>
-            </div>
-          </div>
+          ))}
         </div>
       </section>
 
       {/* CTA Section */}
       <section className="cta-section" id="cta">
         <div style={{ maxWidth: '800px', margin: '0 auto' }}>
-          <h2 style={{ fontSize: '2.5rem', fontWeight: 800, marginBottom: '1rem', color: 'var(--dark)' }}>전문가 자문단에 합류하세요</h2>
+          <h2 style={{ fontSize: '2.5rem', fontWeight: 800, marginBottom: '1rem', color: 'var(--dark)' }}>{t('advisorProgram.ctaSection.title')}</h2>
           <p style={{ color: 'rgba(0,0,0,0.7)', fontSize: '1.125rem', marginBottom: '2rem' }}>
-            TBURN 생태계의 전략적 파트너로<br />
-            2억 TBURN 보상을 받으세요!
+            {t('advisorProgram.ctaSection.subtitle1')}<br />
+            {t('advisorProgram.ctaSection.subtitle2')}
           </p>
           <button 
             className="btn-primary" 
@@ -1398,10 +1331,10 @@ export default function AdvisorProgramPage() {
             data-testid="button-cta-apply"
             onClick={() => { 
               scrollToSection('roles'); 
-              toast({ title: "자문단 지원", description: "자문 분야를 확인하고 지금 지원하세요!" }); 
+              toast({ title: t('advisorProgram.cta.applyAdvisor'), description: t('advisorProgram.ctaSection.toastDesc') }); 
             }}
           >
-            지금 지원하기
+            {t('advisorProgram.ctaSection.button')}
           </button>
         </div>
       </section>
@@ -1411,7 +1344,7 @@ export default function AdvisorProgramPage() {
         <div className="footer-content">
           <div className="footer-brand">
             <h3>TBURN<span>CHAIN</span></h3>
-            <p>AI의 지능, 블록체인의 투명성<br />THE FUTURE IS NOW</p>
+            <p>{t('advisorProgram.footer.tagline1')}<br />{t('advisorProgram.footer.tagline2')}</p>
             <div className="social-links">
               <a 
                 href="https://x.com/tburnchain" 
@@ -1436,42 +1369,42 @@ export default function AdvisorProgramPage() {
             </div>
           </div>
           <div className="footer-links">
-            <h4>Product</h4>
+            <h4>{t('advisorProgram.footer.product')}</h4>
             <ul>
-              <li><a href="/" data-testid="footer-link-mainnet">메인넷</a></li>
-              <li><a href="/scan" data-testid="footer-link-explorer">익스플로러</a></li>
-              <li><a href="/app/bridge" data-testid="footer-link-bridge">브릿지</a></li>
-              <li><a href="/app/staking" data-testid="footer-link-staking">스테이킹</a></li>
+              <li><a href="/" data-testid="footer-link-mainnet">{t('advisorProgram.footer.mainnet')}</a></li>
+              <li><a href="/scan" data-testid="footer-link-explorer">{t('advisorProgram.footer.explorer')}</a></li>
+              <li><a href="/app/bridge" data-testid="footer-link-bridge">{t('advisorProgram.footer.bridge')}</a></li>
+              <li><a href="/app/staking" data-testid="footer-link-staking">{t('advisorProgram.footer.staking')}</a></li>
             </ul>
           </div>
           <div className="footer-links">
-            <h4>Resources</h4>
+            <h4>{t('advisorProgram.footer.resources')}</h4>
             <ul>
-              <li><a href="/learn/whitepaper" data-testid="footer-link-whitepaper">백서</a></li>
-              <li><a href="/developers/docs" data-testid="footer-link-docs">문서</a></li>
+              <li><a href="/learn/whitepaper" data-testid="footer-link-whitepaper">{t('advisorProgram.footer.whitepaper')}</a></li>
+              <li><a href="/developers/docs" data-testid="footer-link-docs">{t('advisorProgram.footer.docs')}</a></li>
               <li><a 
                 href="https://github.com/tburnchain" 
                 onClick={(e) => { e.preventDefault(); handleShareSocial('GitHub', 'https://github.com/tburnchain'); }}
                 data-testid="footer-link-github-resources"
               >GitHub</a></li>
-              <li><a href="/security-audit" data-testid="footer-link-audit">감사 보고서</a></li>
+              <li><a href="/security-audit" data-testid="footer-link-audit">{t('advisorProgram.footer.auditReport')}</a></li>
             </ul>
           </div>
           <div className="footer-links">
-            <h4>Community</h4>
+            <h4>{t('advisorProgram.footer.community')}</h4>
             <ul>
-              <li><a href="/community/news" data-testid="footer-link-blog">블로그</a></li>
-              <li><a href="/marketing-program" data-testid="footer-link-ambassador">앰배서더</a></li>
-              <li><a href="/ecosystem-fund" data-testid="footer-link-grants">그랜트</a></li>
-              <li><a href="/qna" data-testid="footer-link-support">고객지원</a></li>
+              <li><a href="/community/news" data-testid="footer-link-blog">{t('advisorProgram.footer.blog')}</a></li>
+              <li><a href="/marketing-program" data-testid="footer-link-ambassador">{t('advisorProgram.footer.ambassador')}</a></li>
+              <li><a href="/ecosystem-fund" data-testid="footer-link-grants">{t('advisorProgram.footer.grants')}</a></li>
+              <li><a href="/qna" data-testid="footer-link-support">{t('advisorProgram.footer.support')}</a></li>
             </ul>
           </div>
         </div>
         <div className="footer-bottom">
-          <p>© 2025-2045 TBURN Foundation. All Rights Reserved.</p>
+          <p>{t('advisorProgram.footer.copyright')}</p>
           <div style={{ display: 'flex', gap: '2rem' }}>
-            <a href="/legal/terms-of-service" style={{ color: 'var(--gray)', textDecoration: 'none' }} data-testid="footer-link-terms">이용약관</a>
-            <a href="/legal/privacy-policy" style={{ color: 'var(--gray)', textDecoration: 'none' }} data-testid="footer-link-privacy">개인정보처리방침</a>
+            <a href="/legal/terms-of-service" style={{ color: 'var(--gray)', textDecoration: 'none' }} data-testid="footer-link-terms">{t('advisorProgram.footer.terms')}</a>
+            <a href="/legal/privacy-policy" style={{ color: 'var(--gray)', textDecoration: 'none' }} data-testid="footer-link-privacy">{t('advisorProgram.footer.privacy')}</a>
           </div>
         </div>
       </footer>

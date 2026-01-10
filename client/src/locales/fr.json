@@ -20425,5 +20425,331 @@
       "applicationSubmittedDesc": "Votre candidature a été soumise. Nous vous informerons des résultats après examen."
     },
     "connectWallet": "Connecter le Portefeuille"
+  },
+  "advisorProgram": {
+    "badge": "ADVISOR PROGRAM - Conseil Consultatif Expert",
+    "nav": {
+      "advisorRoles": "Rôles de Conseiller",
+      "tiers": "Niveaux",
+      "currentAdvisors": "Conseillers Actuels",
+      "applicationProcess": "Processus de Candidature",
+      "faq": "FAQ"
+    },
+    "wallet": {
+      "connect": "Connecter Portefeuille",
+      "disconnect": "Portefeuille Déconnecté",
+      "disconnectDesc": "Votre portefeuille a été déconnecté.",
+      "connected": "Portefeuille Connecté",
+      "connectedDesc": "Votre portefeuille est connecté.",
+      "required": "Connexion Portefeuille Requise",
+      "requiredDesc": "Veuillez d'abord connecter votre portefeuille pour postuler au poste de conseiller."
+    },
+    "hero": {
+      "title1": "Devenez Conseiller TBURN,",
+      "title2": "200M TBURN",
+      "title3": "en Récompenses",
+      "subtitle": "Rejoignez en tant qu'expert en Technologie, Business, Juridique ou Académique pour contribuer à la croissance de l'écosystème TBURN et gagner des récompenses."
+    },
+    "advisorPreviews": {
+      "jk": {
+        "initial": "JK",
+        "name": "Dr. John Kim",
+        "role": "Conseiller Tech"
+      },
+      "sp": {
+        "initial": "SP",
+        "name": "Sarah Park",
+        "role": "Conseiller Business"
+      },
+      "ml": {
+        "initial": "ML",
+        "name": "Michael Lee",
+        "role": "Conseiller Juridique"
+      },
+      "ec": {
+        "initial": "EC",
+        "name": "Emma Choi",
+        "role": "Conseiller Académique"
+      }
+    },
+    "stats": {
+      "totalBudget": "Budget Consultatif Total",
+      "currentAdvisors": "Conseillers Actuels",
+      "activeAdvisors": "Conseillers Actifs",
+      "vestingPeriod": "Période de Vesting (mois)"
+    },
+    "cta": {
+      "applyButton": "Postuler au Programme Conseiller",
+      "guideButton": "Guide du Conseiller",
+      "applyAdvisor": "Candidature Conseiller",
+      "applyAdvisorDesc": "Consultez les domaines de conseil et postulez maintenant!",
+      "advisorGuide": "Guide du Conseiller",
+      "advisorGuideDesc": "Consultez le processus de candidature."
+    },
+    "roleApply": {
+      "title": "Candidature {{role}}",
+      "description": "Votre candidature {{role}} a été soumise. Nous vous contacterons après examen des documents."
+    },
+    "tierApply": {
+      "title": "Candidature {{tier}}",
+      "description": "Votre candidature {{tier}} ({{incentive}} TBURN) a été soumise. Nous vous guiderons après examen."
+    },
+    "distribution": {
+      "badge": "DISTRIBUTION",
+      "title": "Allocation du Budget Consultatif",
+      "subtitle": "200M TBURN distribués dans 5 domaines de conseil",
+      "items": {
+        "tech": {
+          "name": "Conseil Tech",
+          "amount": "60M",
+          "percent": "30%"
+        },
+        "business": {
+          "name": "Conseil Business",
+          "amount": "40M",
+          "percent": "20%"
+        },
+        "legal": {
+          "name": "Conseil Juridique",
+          "amount": "40M",
+          "percent": "20%"
+        },
+        "academic": {
+          "name": "Conseil Académique",
+          "amount": "30M",
+          "percent": "15%"
+        },
+        "industry": {
+          "name": "Conseil Industrie",
+          "amount": "30M",
+          "percent": "15%"
+        }
+      }
+    },
+    "roles": {
+      "badge": "ROLES",
+      "title": "Domaines de Conseil",
+      "subtitle": "Rôles de conseiller par domaines spécialisés",
+      "applyButton": "Postuler",
+      "items": {
+        "tech": {
+          "title": "Conseiller Tech",
+          "subtitle": "Expert Blockchain, IA, Sécurité",
+          "reward1Value": "Jusqu'à 10M",
+          "reward1Label": "Récompense Annuelle",
+          "reward2Value": "Trimestriel",
+          "reward2Label": "Revue Technique",
+          "resp1": "Revue de code et conseil architecture",
+          "resp2": "Participation aux audits de sécurité",
+          "resp3": "Revue de feuille de route technique",
+          "resp4": "Analyse des tendances technologiques"
+        },
+        "business": {
+          "title": "Conseiller Business",
+          "subtitle": "Expert Gestion, Stratégie, Marketing",
+          "reward1Value": "Jusqu'à 8M",
+          "reward1Label": "Récompense Annuelle",
+          "reward2Value": "Mensuel",
+          "reward2Label": "Réunion Stratégie",
+          "resp1": "Conseil en stratégie d'entreprise",
+          "resp2": "Networking partenariats",
+          "resp3": "Analyse de marché et insights",
+          "resp4": "Développement stratégie croissance"
+        },
+        "legal": {
+          "title": "Conseiller Juridique",
+          "subtitle": "Réglementation Blockchain, Conformité",
+          "reward1Value": "Jusqu'à 8M",
+          "reward1Label": "Récompense Annuelle",
+          "reward2Value": "Sur Demande",
+          "reward2Label": "Revue Juridique",
+          "resp1": "Analyse tendances réglementaires",
+          "resp2": "Conseil conformité",
+          "resp3": "Revue de contrats",
+          "resp4": "Gestion des risques"
+        },
+        "academic": {
+          "title": "Conseiller Académique",
+          "subtitle": "Professeurs, Chercheurs",
+          "reward1Value": "Jusqu'à 6M",
+          "reward1Label": "Récompense Annuelle",
+          "reward2Value": "Trimestriel",
+          "reward2Label": "Collaboration Recherche",
+          "resp1": "Collaboration recherche académique",
+          "resp2": "Revue du whitepaper",
+          "resp3": "Développement contenu éducatif",
+          "resp4": "Networking académique"
+        }
+      }
+    },
+    "tiers": {
+      "badge": "TIERS",
+      "title": "Niveaux de Conseiller",
+      "subtitle": "Avantages par niveau basés sur l'expérience et la contribution",
+      "incentiveLabel": "Incentive Annuel",
+      "applyButton": "Postuler",
+      "items": {
+        "principal": {
+          "name": "Principal Advisor",
+          "subtitle": "Conseiller Principal",
+          "incentive": "Jusqu'à 15M",
+          "requirement": "10+ ans expérience, Leader Industrie",
+          "benefit1": "Équipe dédiée assignée",
+          "benefit2": "Droits d'observateur du conseil",
+          "benefit3": "Accès information exclusive",
+          "benefit4": "Sommet offline annuel",
+          "benefit5": "Networking VIP"
+        },
+        "senior": {
+          "name": "Senior Advisor",
+          "subtitle": "Conseiller Senior",
+          "incentive": "Jusqu'à 8M",
+          "requirement": "5+ ans expérience, Expert",
+          "benefit1": "Support prioritaire",
+          "benefit2": "Réunions stratégie trimestrielles",
+          "benefit3": "Accès anticipé",
+          "benefit4": "Participation gouvernance",
+          "benefit5": "Networking partenaires"
+        },
+        "advisor": {
+          "name": "Advisor",
+          "subtitle": "Conseiller",
+          "incentive": "Jusqu'à 4M",
+          "requirement": "3+ ans expérience, Domaine Spécialisé",
+          "benefit1": "Réunions mensuelles",
+          "benefit2": "Accès documentation technique",
+          "benefit3": "Participation communautaire",
+          "benefit4": "Incentives de base",
+          "benefit5": "Opportunités de croissance"
+        }
+      }
+    },
+    "currentAdvisors": {
+      "badge": "ADVISORS",
+      "title": "Conseil Consultatif Actuel",
+      "subtitle": "Experts travaillant avec nous"
+    },
+    "process": {
+      "badge": "PROCESS",
+      "title": "Processus de Candidature",
+      "subtitle": "Procédure de sélection des conseillers",
+      "steps": {
+        "step1": {
+          "title": "Soumettre Candidature",
+          "desc": "Compléter candidature en ligne",
+          "duration": "1-3 jours"
+        },
+        "step2": {
+          "title": "Revue Documents",
+          "desc": "Revue et évaluation documents",
+          "duration": "1-2 semaines"
+        },
+        "step3": {
+          "title": "Entretien",
+          "desc": "Entretien approfondi",
+          "duration": "1-2 semaines"
+        },
+        "step4": {
+          "title": "Signature Contrat",
+          "desc": "Signature du contrat conseil",
+          "duration": "1 semaine"
+        },
+        "step5": {
+          "title": "Intégration",
+          "desc": "Début activités conseil",
+          "duration": "1 semaine"
+        }
+      }
+    },
+    "compensation": {
+      "badge": "COMPENSATION",
+      "title": "Structure de Rémunération",
+      "subtitle": "Composants rémunération conseiller",
+      "items": {
+        "token": {
+          "title": "Incentive Tokens",
+          "desc": "Distribution trimestrielle tokens TBURN",
+          "value": "Jusqu'à 15M TBURN/an"
+        },
+        "bonus": {
+          "title": "Bonus Performance",
+          "desc": "Récompenses additionnelles pour objectifs atteints",
+          "value": "Jusqu'à 50% de la base"
+        },
+        "special": {
+          "title": "Avantages Spéciaux",
+          "desc": "Invitations événements, airdrops NFT",
+          "value": "Divers avantages annuels"
+        }
+      }
+    },
+    "faq": {
+      "badge": "FAQ",
+      "title": "Questions Fréquentes",
+      "subtitle": "Questions sur le programme conseiller",
+      "items": {
+        "q1": {
+          "question": "Quel est le budget total du programme conseiller?",
+          "answer": "Le programme conseiller a une allocation totale de 200M TBURN. Distribué comme: Conseil Tech 30% (60M), Conseil Business 20% (40M), Conseil Juridique 20% (40M), Conseil Académique 15% (30M), Conseil Industrie 15% (30M)."
+        },
+        "q2": {
+          "question": "Quelles qualifications pour devenir conseiller?",
+          "answer": "Minimum 3 ans d'expérience dans votre domaine requis, avec un portfolio ou historique démontrant l'expertise. Principal Advisor nécessite 10+ ans (jusqu'à 15M TBURN), Senior Advisor 5+ ans (jusqu'à 8M), Advisor 3+ ans (jusqu'à 4M) d'expérience."
+        },
+        "q3": {
+          "question": "Comment se déroulent les activités de conseil?",
+          "answer": "La participation inclut réunions régulières (mensuelles/trimestrielles), revue documents, conseil stratégique et networking. Réunions en ligne principales, ateliers offline si nécessaire. Portée et temps conseil varient par niveau."
+        },
+        "q4": {
+          "question": "Comment les récompenses sont-elles distribuées?",
+          "answer": "Les incentives tokens sont distribués trimestriellement, débloqués progressivement sur un calendrier de vesting de 24 mois. Bonus performance (jusqu'à 50% de la base) payés après évaluations semestrielles. Avantages spéciaux comme invitations événements et airdrops NFT fournis régulièrement."
+        },
+        "q5": {
+          "question": "Quelle est la durée du contrat conseil?",
+          "answer": "La période de contrat de base est 1 an, renouvelable par accord mutuel. Conseillers performants reçoivent options de renouvellement automatique. Clause de préavis 30 jours avant fin de contrat."
+        },
+        "q6": {
+          "question": "Quel est le processus de candidature?",
+          "answer": "Soumission candidature (1-3 jours) → Revue documents (1-2 semaines) → Entretien (1-2 semaines) → Signature contrat (1 semaine) → Intégration (1 semaine), totalisant 5-7 semaines. Processus accéléré disponible pour cas urgents."
+        },
+        "q7": {
+          "question": "Quels sont les avantages spéciaux pour Principal Advisors?",
+          "answer": "Les Principal Advisors reçoivent jusqu'à 15M TBURN d'incentive annuel avec équipe dédiée assignée, droits d'observateur conseil, accès information exclusive, participation sommet offline annuel et networking VIP. 10+ ans d'expérience leader industrie requis."
+        },
+        "q8": {
+          "question": "Comment postuler au programme conseiller?",
+          "answer": "Cliquez sur le bouton 'Postuler au Programme Conseiller' en haut de page ou contactez directement advisor@tburn.io. Connecter votre portefeuille permet une revue plus rapide. Notre équipe dédiée vous contactera sous 1-2 semaines."
+        }
+      }
+    },
+    "ctaSection": {
+      "title": "Rejoignez le Conseil Consultatif Expert",
+      "subtitle1": "Devenez partenaire stratégique de l'écosystème TBURN",
+      "subtitle2": "Recevez 200M TBURN en récompenses!",
+      "button": "Postuler Maintenant",
+      "toastDesc": "Consultez les domaines de conseil et postulez maintenant!"
+    },
+    "footer": {
+      "tagline1": "Intelligence IA, Transparence Blockchain",
+      "tagline2": "THE FUTURE IS NOW",
+      "product": "Produit",
+      "mainnet": "Mainnet",
+      "explorer": "Explorateur",
+      "bridge": "Bridge",
+      "staking": "Staking",
+      "resources": "Ressources",
+      "whitepaper": "Whitepaper",
+      "docs": "Documentation",
+      "auditReport": "Rapport d'Audit",
+      "community": "Communauté",
+      "blog": "Blog",
+      "ambassador": "Ambassadeur",
+      "grants": "Subventions",
+      "support": "Support",
+      "copyright": "© 2025-2045 TBURN Foundation. Tous Droits Réservés.",
+      "terms": "Conditions d'Utilisation",
+      "privacy": "Politique de Confidentialité"
+    },
+    "title": "Advisor Program"
   }
 }

@@ -21713,19 +21713,330 @@
     }
   },
   "advisorProgram": {
-    "title": "アドバイザープログラム",
-    "subtitle": "TBURN開発を導く業界専門家",
-    "heroTitle": "TBURN アドバイザリーボード",
-    "heroSubtitle": "TBURNエコシステムに専門知識を提供する世界クラスのアドバイザー",
-    "badge": "専門ガイダンス",
-    "advisorCount": "アドバイザー数",
-    "expertise": "専門分野",
-    "blockchain": "ブロックチェーン",
-    "finance": "ファイナンス",
-    "legal": "法務＆コンプライアンス",
-    "marketing": "マーケティング",
-    "technology": "テクノロジー",
-    "meetAdvisors": "アドバイザー紹介"
+    "badge": "ADVISOR PROGRAM - 専門家諮問委員会",
+    "nav": {
+      "advisorRoles": "アドバイザー分野",
+      "tiers": "ティア",
+      "currentAdvisors": "現在のアドバイザー",
+      "applicationProcess": "申請プロセス",
+      "faq": "FAQ"
+    },
+    "wallet": {
+      "connect": "ウォレット接続",
+      "disconnect": "ウォレット切断",
+      "disconnectDesc": "ウォレットが切断されました。",
+      "connected": "ウォレット接続済み",
+      "connectedDesc": "ウォレットが接続されました。",
+      "required": "ウォレット接続が必要",
+      "requiredDesc": "アドバイザー申請にはまずウォレットを接続してください。"
+    },
+    "hero": {
+      "title1": "TBURNアドバイザーとして、",
+      "title2": "2億 TBURN",
+      "title3": "の報酬を獲得",
+      "subtitle": "技術、ビジネス、法律、学術分野の専門家として参加し、TBURNエコシステムの発展に貢献して報酬を受け取りましょう。"
+    },
+    "advisorPreviews": {
+      "jk": {
+        "initial": "JK",
+        "name": "Dr. John Kim",
+        "role": "技術アドバイザー"
+      },
+      "sp": {
+        "initial": "SP",
+        "name": "Sarah Park",
+        "role": "ビジネスアドバイザー"
+      },
+      "ml": {
+        "initial": "ML",
+        "name": "Michael Lee",
+        "role": "法律アドバイザー"
+      },
+      "ec": {
+        "initial": "EC",
+        "name": "Emma Choi",
+        "role": "学術アドバイザー"
+      }
+    },
+    "stats": {
+      "totalBudget": "アドバイザー総予算",
+      "currentAdvisors": "現在のアドバイザー",
+      "activeAdvisors": "アクティブアドバイザー",
+      "vestingPeriod": "ベスティング期間（月）"
+    },
+    "cta": {
+      "applyButton": "アドバイザーに申請",
+      "guideButton": "アドバイザーガイド",
+      "applyAdvisor": "アドバイザー申請",
+      "applyAdvisorDesc": "アドバイザー分野を確認して今すぐ申請！",
+      "advisorGuide": "アドバイザーガイド",
+      "advisorGuideDesc": "申請プロセスを確認。"
+    },
+    "roleApply": {
+      "title": "{{role}} 申請",
+      "description": "{{role}} 申請が提出されました。書類審査後にご連絡します。"
+    },
+    "tierApply": {
+      "title": "{{tier}} 申請",
+      "description": "{{tier}}（{{incentive}} TBURN）申請が提出されました。審査後にご案内します。"
+    },
+    "distribution": {
+      "badge": "DISTRIBUTION",
+      "title": "アドバイザー予算配分",
+      "subtitle": "2億TBURNが5つのアドバイザー分野に配分",
+      "items": {
+        "tech": {
+          "name": "技術アドバイザー",
+          "amount": "6000万",
+          "percent": "30%"
+        },
+        "business": {
+          "name": "ビジネスアドバイザー",
+          "amount": "4000万",
+          "percent": "20%"
+        },
+        "legal": {
+          "name": "法律アドバイザー",
+          "amount": "4000万",
+          "percent": "20%"
+        },
+        "academic": {
+          "name": "学術アドバイザー",
+          "amount": "3000万",
+          "percent": "15%"
+        },
+        "industry": {
+          "name": "産業アドバイザー",
+          "amount": "3000万",
+          "percent": "15%"
+        }
+      }
+    },
+    "roles": {
+      "badge": "ROLES",
+      "title": "アドバイザー分野",
+      "subtitle": "専門分野別アドバイザー役割",
+      "applyButton": "申請",
+      "items": {
+        "tech": {
+          "title": "技術アドバイザー",
+          "subtitle": "ブロックチェーン、AI、セキュリティ専門家",
+          "reward1Value": "最大1000万",
+          "reward1Label": "年間報酬",
+          "reward2Value": "四半期",
+          "reward2Label": "技術レビュー",
+          "resp1": "コードレビューとアーキテクチャコンサル",
+          "resp2": "セキュリティ監査参加",
+          "resp3": "技術ロードマップレビュー",
+          "resp4": "新技術トレンド分析"
+        },
+        "business": {
+          "title": "ビジネスアドバイザー",
+          "subtitle": "経営、戦略、マーケティング専門家",
+          "reward1Value": "最大800万",
+          "reward1Label": "年間報酬",
+          "reward2Value": "月次",
+          "reward2Label": "戦略ミーティング",
+          "resp1": "ビジネス戦略コンサル",
+          "resp2": "パートナーシップネットワーク",
+          "resp3": "市場分析とインサイト",
+          "resp4": "成長戦略策定"
+        },
+        "legal": {
+          "title": "法律アドバイザー",
+          "subtitle": "ブロックチェーン規制、コンプライアンス",
+          "reward1Value": "最大800万",
+          "reward1Label": "年間報酬",
+          "reward2Value": "随時",
+          "reward2Label": "法律レビュー",
+          "resp1": "規制動向分析",
+          "resp2": "コンプライアンスコンサル",
+          "resp3": "契約レビュー",
+          "resp4": "リスク管理"
+        },
+        "academic": {
+          "title": "学術アドバイザー",
+          "subtitle": "大学教授、研究者",
+          "reward1Value": "最大600万",
+          "reward1Label": "年間報酬",
+          "reward2Value": "四半期",
+          "reward2Label": "研究協力",
+          "resp1": "学術研究協力",
+          "resp2": "ホワイトペーパーレビュー",
+          "resp3": "教育コンテンツ開発",
+          "resp4": "学界ネットワーク"
+        }
+      }
+    },
+    "tiers": {
+      "badge": "TIERS",
+      "title": "アドバイザーティア",
+      "subtitle": "経験と貢献に基づくティア別特典",
+      "incentiveLabel": "年間インセンティブ",
+      "applyButton": "申請",
+      "items": {
+        "principal": {
+          "name": "Principal Advisor",
+          "subtitle": "主席アドバイザー",
+          "incentive": "最大1500万",
+          "requirement": "10年以上経験、業界リーダー",
+          "benefit1": "専任チーム配置",
+          "benefit2": "取締役会オブザーバー権",
+          "benefit3": "独占情報アクセス",
+          "benefit4": "年次オフラインサミット",
+          "benefit5": "VIPネットワーク"
+        },
+        "senior": {
+          "name": "Senior Advisor",
+          "subtitle": "シニアアドバイザー",
+          "incentive": "最大800万",
+          "requirement": "5年以上経験、専門家",
+          "benefit1": "優先サポート",
+          "benefit2": "四半期戦略ミーティング",
+          "benefit3": "アーリーアクセス",
+          "benefit4": "ガバナンス参加",
+          "benefit5": "パートナーネットワーク"
+        },
+        "advisor": {
+          "name": "Advisor",
+          "subtitle": "アドバイザー",
+          "incentive": "最大400万",
+          "requirement": "3年以上経験、専門分野",
+          "benefit1": "月次ミーティング",
+          "benefit2": "技術文書アクセス",
+          "benefit3": "コミュニティ参加",
+          "benefit4": "基本インセンティブ",
+          "benefit5": "成長機会"
+        }
+      }
+    },
+    "currentAdvisors": {
+      "badge": "ADVISORS",
+      "title": "現在の諮問委員会",
+      "subtitle": "一緒に活動する専門家"
+    },
+    "process": {
+      "badge": "PROCESS",
+      "title": "申請プロセス",
+      "subtitle": "アドバイザー選考手順",
+      "steps": {
+        "step1": {
+          "title": "申請提出",
+          "desc": "オンライン申請完了",
+          "duration": "1-3日"
+        },
+        "step2": {
+          "title": "書類審査",
+          "desc": "書類審査と評価",
+          "duration": "1-2週"
+        },
+        "step3": {
+          "title": "面接",
+          "desc": "詳細面接",
+          "duration": "1-2週"
+        },
+        "step4": {
+          "title": "契約締結",
+          "desc": "アドバイザー契約署名",
+          "duration": "1週"
+        },
+        "step5": {
+          "title": "オンボーディング",
+          "desc": "アドバイザー活動開始",
+          "duration": "1週"
+        }
+      }
+    },
+    "compensation": {
+      "badge": "COMPENSATION",
+      "title": "報酬体系",
+      "subtitle": "アドバイザー報酬構成",
+      "items": {
+        "token": {
+          "title": "トークンインセンティブ",
+          "desc": "四半期TBURNトークン配布",
+          "value": "最大1500万TBURN/年"
+        },
+        "bonus": {
+          "title": "パフォーマンスボーナス",
+          "desc": "目標達成時の追加報酬",
+          "value": "基本報酬の50%まで"
+        },
+        "special": {
+          "title": "特別特典",
+          "desc": "イベント招待、NFTエアドロップ",
+          "value": "各種年間特典"
+        }
+      }
+    },
+    "faq": {
+      "badge": "FAQ",
+      "title": "よくある質問",
+      "subtitle": "アドバイザープログラムについて",
+      "items": {
+        "q1": {
+          "question": "アドバイザープログラムの総予算は？",
+          "answer": "アドバイザープログラムには合計2億TBURNが配分されています。技術アドバイザー30%（6000万）、ビジネスアドバイザー20%（4000万）、法律アドバイザー20%（4000万）、学術アドバイザー15%（3000万）、産業アドバイザー15%（3000万）として配分されます。"
+        },
+        "q2": {
+          "question": "アドバイザーになるための資格は？",
+          "answer": "該当分野で最低3年以上の経験と、専門性を証明するポートフォリオまたは実績が必要です。Principal Advisorは10年以上（最大1500万TBURN）、Senior Advisorは5年以上（最大800万）、Advisorは3年以上（最大400万）の経験が推奨されます。"
+        },
+        "q3": {
+          "question": "アドバイザー活動はどのように行われますか？",
+          "answer": "定期ミーティング（月次/四半期）、文書レビュー、戦略コンサル、ネットワーキングなど様々な方法で参加します。オンラインミーティングが主で、必要に応じてオフラインワークショップも開催されます。アドバイザーの範囲と時間はティアによって異なります。"
+        },
+        "q4": {
+          "question": "報酬はどのように配布されますか？",
+          "answer": "トークンインセンティブは四半期ごとに配布され、24ヶ月のベスティングスケジュールに従って順次アンロックされます。パフォーマンスボーナス（基本報酬の最大50%）は半期評価後に支払われ、イベント招待やNFTエアドロップなどの特別特典も随時提供されます。"
+        },
+        "q5": {
+          "question": "アドバイザー契約期間は？",
+          "answer": "基本契約期間は1年で、相互合意により更新可能です。優秀な成果を上げたアドバイザーには自動更新オプションが提供されます。契約終了30日前の通知条項があります。"
+        },
+        "q6": {
+          "question": "申請プロセスは？",
+          "answer": "申請提出（1-3日）→ 書類審査（1-2週）→ 面接（1-2週）→ 契約締結（1週）→ オンボーディング（1週）で、合計5-7週かかります。緊急の場合はファストトラックプロセスで短縮可能です。"
+        },
+        "q7": {
+          "question": "Principal Advisorの特別特典は？",
+          "answer": "Principal Advisorは最大1500万TBURN年間インセンティブに加え、専任チーム配置、取締役会オブザーバー権、独占情報アクセス、年次オフラインサミット参加、VIPネットワークなど最上位の特典を受けられます。10年以上の業界リーダー級経験が必要です。"
+        },
+        "q8": {
+          "question": "アドバイザープログラムへの申請方法は？",
+          "answer": "ページ上部の「アドバイザーに申請」ボタンをクリックするか、advisor@tburn.ioに直接お問い合わせください。ウォレット接続後に申請すると、より迅速な審査が可能です。専任チームが1-2週以内にご連絡します。"
+        }
+      }
+    },
+    "ctaSection": {
+      "title": "専門家諮問委員会に参加",
+      "subtitle1": "TBURNエコシステムの戦略的パートナーに",
+      "subtitle2": "2億TBURNの報酬を獲得！",
+      "button": "今すぐ申請",
+      "toastDesc": "アドバイザー分野を確認して今すぐ申請！"
+    },
+    "footer": {
+      "tagline1": "AIの知性、ブロックチェーンの透明性",
+      "tagline2": "THE FUTURE IS NOW",
+      "product": "Product",
+      "mainnet": "メインネット",
+      "explorer": "エクスプローラー",
+      "bridge": "ブリッジ",
+      "staking": "ステーキング",
+      "resources": "Resources",
+      "whitepaper": "ホワイトペーパー",
+      "docs": "ドキュメント",
+      "auditReport": "監査レポート",
+      "community": "Community",
+      "blog": "ブログ",
+      "ambassador": "アンバサダー",
+      "grants": "グラント",
+      "support": "サポート",
+      "copyright": "© 2025-2045 TBURN Foundation. All Rights Reserved.",
+      "terms": "利用規約",
+      "privacy": "プライバシーポリシー"
+    },
+    "title": "アドバイザープログラム"
   },
   "seedRound": {
     "title": "シードラウンド",

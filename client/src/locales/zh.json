@@ -20837,19 +20837,330 @@
     }
   },
   "advisorProgram": {
-    "title": "顾问计划",
-    "subtitle": "指导TBURN发展的行业专家",
-    "heroTitle": "TBURN 顾问委员会",
-    "heroSubtitle": "为TBURN生态系统带来专业知识的世界级顾问",
-    "badge": "专家指导",
-    "advisorCount": "顾问数量",
-    "expertise": "专业领域",
-    "blockchain": "区块链",
-    "finance": "金融",
-    "legal": "法律与合规",
-    "marketing": "营销",
-    "technology": "技术",
-    "meetAdvisors": "认识我们的顾问"
+    "badge": "ADVISOR PROGRAM - 专家顾问委员会",
+    "nav": {
+      "advisorRoles": "顾问领域",
+      "tiers": "等级",
+      "currentAdvisors": "现任顾问",
+      "applicationProcess": "申请流程",
+      "faq": "常见问题"
+    },
+    "wallet": {
+      "connect": "连接钱包",
+      "disconnect": "钱包断开连接",
+      "disconnectDesc": "您的钱包已断开连接。",
+      "connected": "钱包已连接",
+      "connectedDesc": "您的钱包已连接。",
+      "required": "需要连接钱包",
+      "requiredDesc": "请先连接钱包以申请顾问职位。"
+    },
+    "hero": {
+      "title1": "成为TBURN顾问，",
+      "title2": "2亿 TBURN",
+      "title3": "奖励",
+      "subtitle": "以技术、商业、法律或学术领域专家身份加入，为TBURN生态系统发展做出贡献并获得奖励。"
+    },
+    "advisorPreviews": {
+      "jk": {
+        "initial": "JK",
+        "name": "Dr. John Kim",
+        "role": "技术顾问"
+      },
+      "sp": {
+        "initial": "SP",
+        "name": "Sarah Park",
+        "role": "商业顾问"
+      },
+      "ml": {
+        "initial": "ML",
+        "name": "Michael Lee",
+        "role": "法律顾问"
+      },
+      "ec": {
+        "initial": "EC",
+        "name": "Emma Choi",
+        "role": "学术顾问"
+      }
+    },
+    "stats": {
+      "totalBudget": "顾问总预算",
+      "currentAdvisors": "现任顾问",
+      "activeAdvisors": "活跃顾问",
+      "vestingPeriod": "归属期（月）"
+    },
+    "cta": {
+      "applyButton": "申请成为顾问",
+      "guideButton": "顾问指南",
+      "applyAdvisor": "顾问申请",
+      "applyAdvisorDesc": "查看顾问领域并立即申请！",
+      "advisorGuide": "顾问指南",
+      "advisorGuideDesc": "查看申请流程。"
+    },
+    "roleApply": {
+      "title": "{{role}} 申请",
+      "description": "您的 {{role}} 申请已提交。文件审核后我们将与您联系。"
+    },
+    "tierApply": {
+      "title": "{{tier}} 申请",
+      "description": "您的 {{tier}}（{{incentive}} TBURN）申请已提交。审核后我们将为您指导。"
+    },
+    "distribution": {
+      "badge": "DISTRIBUTION",
+      "title": "顾问预算分配",
+      "subtitle": "2亿TBURN分配给5个顾问领域",
+      "items": {
+        "tech": {
+          "name": "技术顾问",
+          "amount": "6000万",
+          "percent": "30%"
+        },
+        "business": {
+          "name": "商业顾问",
+          "amount": "4000万",
+          "percent": "20%"
+        },
+        "legal": {
+          "name": "法律顾问",
+          "amount": "4000万",
+          "percent": "20%"
+        },
+        "academic": {
+          "name": "学术顾问",
+          "amount": "3000万",
+          "percent": "15%"
+        },
+        "industry": {
+          "name": "行业顾问",
+          "amount": "3000万",
+          "percent": "15%"
+        }
+      }
+    },
+    "roles": {
+      "badge": "ROLES",
+      "title": "顾问领域",
+      "subtitle": "按专业领域划分的顾问角色",
+      "applyButton": "申请",
+      "items": {
+        "tech": {
+          "title": "技术顾问",
+          "subtitle": "区块链、AI、安全专家",
+          "reward1Value": "最高1000万",
+          "reward1Label": "年度奖励",
+          "reward2Value": "季度",
+          "reward2Label": "技术审查",
+          "resp1": "代码审查和架构咨询",
+          "resp2": "安全审计参与",
+          "resp3": "技术路线图审查",
+          "resp4": "新技术趋势分析"
+        },
+        "business": {
+          "title": "商业顾问",
+          "subtitle": "管理、战略、营销专家",
+          "reward1Value": "最高800万",
+          "reward1Label": "年度奖励",
+          "reward2Value": "月度",
+          "reward2Label": "战略会议",
+          "resp1": "商业战略咨询",
+          "resp2": "合作伙伴网络",
+          "resp3": "市场分析与洞察",
+          "resp4": "增长战略制定"
+        },
+        "legal": {
+          "title": "法律顾问",
+          "subtitle": "区块链法规、合规",
+          "reward1Value": "最高800万",
+          "reward1Label": "年度奖励",
+          "reward2Value": "按需",
+          "reward2Label": "法律审查",
+          "resp1": "监管趋势分析",
+          "resp2": "合规咨询",
+          "resp3": "合同审查",
+          "resp4": "风险管理"
+        },
+        "academic": {
+          "title": "学术顾问",
+          "subtitle": "大学教授、研究员",
+          "reward1Value": "最高600万",
+          "reward1Label": "年度奖励",
+          "reward2Value": "季度",
+          "reward2Label": "研究合作",
+          "resp1": "学术研究合作",
+          "resp2": "白皮书审查",
+          "resp3": "教育内容开发",
+          "resp4": "学术网络"
+        }
+      }
+    },
+    "tiers": {
+      "badge": "TIERS",
+      "title": "顾问等级",
+      "subtitle": "基于经验和贡献的等级福利",
+      "incentiveLabel": "年度激励",
+      "applyButton": "申请",
+      "items": {
+        "principal": {
+          "name": "Principal Advisor",
+          "subtitle": "首席顾问",
+          "incentive": "最高1500万",
+          "requirement": "10年以上经验，行业领袖",
+          "benefit1": "专属团队分配",
+          "benefit2": "董事会观察员权",
+          "benefit3": "独家信息访问",
+          "benefit4": "年度线下峰会",
+          "benefit5": "VIP网络"
+        },
+        "senior": {
+          "name": "Senior Advisor",
+          "subtitle": "高级顾问",
+          "incentive": "最高800万",
+          "requirement": "5年以上经验，专家",
+          "benefit1": "优先支持",
+          "benefit2": "季度战略会议",
+          "benefit3": "提前访问",
+          "benefit4": "治理参与",
+          "benefit5": "合作伙伴网络"
+        },
+        "advisor": {
+          "name": "Advisor",
+          "subtitle": "顾问",
+          "incentive": "最高400万",
+          "requirement": "3年以上经验，专业领域",
+          "benefit1": "月度会议",
+          "benefit2": "技术文档访问",
+          "benefit3": "社区参与",
+          "benefit4": "基本激励",
+          "benefit5": "成长机会"
+        }
+      }
+    },
+    "currentAdvisors": {
+      "badge": "ADVISORS",
+      "title": "现任顾问委员会",
+      "subtitle": "与我们合作的专家"
+    },
+    "process": {
+      "badge": "PROCESS",
+      "title": "申请流程",
+      "subtitle": "顾问选拔程序",
+      "steps": {
+        "step1": {
+          "title": "提交申请",
+          "desc": "完成在线申请",
+          "duration": "1-3天"
+        },
+        "step2": {
+          "title": "文件审核",
+          "desc": "文件审核和评估",
+          "duration": "1-2周"
+        },
+        "step3": {
+          "title": "面试",
+          "desc": "深度面试",
+          "duration": "1-2周"
+        },
+        "step4": {
+          "title": "签订合同",
+          "desc": "顾问合同签署",
+          "duration": "1周"
+        },
+        "step5": {
+          "title": "入职",
+          "desc": "开始顾问活动",
+          "duration": "1周"
+        }
+      }
+    },
+    "compensation": {
+      "badge": "COMPENSATION",
+      "title": "薪酬结构",
+      "subtitle": "顾问薪酬组成",
+      "items": {
+        "token": {
+          "title": "代币激励",
+          "desc": "季度TBURN代币分配",
+          "value": "最高1500万TBURN/年"
+        },
+        "bonus": {
+          "title": "绩效奖金",
+          "desc": "目标达成额外奖励",
+          "value": "基本薪酬的50%"
+        },
+        "special": {
+          "title": "特殊福利",
+          "desc": "活动邀请、NFT空投",
+          "value": "各种年度福利"
+        }
+      }
+    },
+    "faq": {
+      "badge": "FAQ",
+      "title": "常见问题",
+      "subtitle": "关于顾问计划的问题",
+      "items": {
+        "q1": {
+          "question": "顾问计划的总预算是多少？",
+          "answer": "顾问计划总分配为2亿TBURN。分配如下：技术顾问30%（6000万）、商业顾问20%（4000万）、法律顾问20%（4000万）、学术顾问15%（3000万）、行业顾问15%（3000万）。"
+        },
+        "q2": {
+          "question": "成为顾问需要什么资格？",
+          "answer": "需要在您的领域有至少3年经验，以及能证明专业能力的作品集或履历。Principal Advisor需要10年以上（最高1500万TBURN），Senior Advisor需要5年以上（最高800万），Advisor需要3年以上（最高400万）经验。"
+        },
+        "q3": {
+          "question": "顾问活动如何进行？",
+          "answer": "参与包括定期会议（月度/季度）、文件审查、战略咨询和网络活动。主要是在线会议，必要时举办线下工作坊。顾问范围和时间因等级而异。"
+        },
+        "q4": {
+          "question": "奖励如何分配？",
+          "answer": "代币激励每季度分配，按24个月归属计划逐步解锁。绩效奖金（最高基本薪酬的50%）在半年评估后支付。活动邀请和NFT空投等特殊福利定期提供。"
+        },
+        "q5": {
+          "question": "顾问合同期限是多长？",
+          "answer": "基本合同期为1年，可经双方同意续签。表现优秀的顾问可获得自动续签选项。合同终止前有30天通知条款。"
+        },
+        "q6": {
+          "question": "申请流程是什么？",
+          "answer": "申请提交（1-3天）→ 文件审核（1-2周）→ 面试（1-2周）→ 签订合同（1周）→ 入职（1周），共需5-7周。紧急情况下可使用快速通道流程。"
+        },
+        "q7": {
+          "question": "Principal Advisor有什么特殊福利？",
+          "answer": "Principal Advisor获得最高1500万TBURN年度激励，以及专属团队分配、董事会观察员权、独家信息访问、年度线下峰会参与和VIP网络。需要10年以上行业领袖经验。"
+        },
+        "q8": {
+          "question": "如何申请顾问计划？",
+          "answer": "点击页面顶部的'申请成为顾问'按钮或直接联系advisor@tburn.io。连接钱包可加快审核速度。我们的专属团队将在1-2周内与您联系。"
+        }
+      }
+    },
+    "ctaSection": {
+      "title": "加入专家顾问委员会",
+      "subtitle1": "成为TBURN生态系统的战略合作伙伴",
+      "subtitle2": "获得2亿TBURN奖励！",
+      "button": "立即申请",
+      "toastDesc": "查看顾问领域并立即申请！"
+    },
+    "footer": {
+      "tagline1": "AI智能，区块链透明",
+      "tagline2": "THE FUTURE IS NOW",
+      "product": "Product",
+      "mainnet": "主网",
+      "explorer": "浏览器",
+      "bridge": "跨链桥",
+      "staking": "质押",
+      "resources": "Resources",
+      "whitepaper": "白皮书",
+      "docs": "文档",
+      "auditReport": "审计报告",
+      "community": "Community",
+      "blog": "博客",
+      "ambassador": "大使",
+      "grants": "资助",
+      "support": "支持",
+      "copyright": "© 2025-2045 TBURN Foundation. All Rights Reserved.",
+      "terms": "服务条款",
+      "privacy": "隐私政策"
+    },
+    "title": "顾问计划"
   },
   "seedRound": {
     "title": "种子轮",

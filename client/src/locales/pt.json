@@ -20182,5 +20182,331 @@
       "privacyPolicy": "Política de Privacidade",
       "termsOfService": "Termos de Serviço"
     }
+  },
+  "advisorProgram": {
+    "badge": "ADVISOR PROGRAM - Conselho Consultivo de Especialistas",
+    "nav": {
+      "advisorRoles": "Funções de Consultor",
+      "tiers": "Níveis",
+      "currentAdvisors": "Consultores Atuais",
+      "applicationProcess": "Processo de Candidatura",
+      "faq": "FAQ"
+    },
+    "wallet": {
+      "connect": "Conectar Carteira",
+      "disconnect": "Carteira Desconectada",
+      "disconnectDesc": "Sua carteira foi desconectada.",
+      "connected": "Carteira Conectada",
+      "connectedDesc": "Sua carteira está conectada.",
+      "required": "Conexão de Carteira Necessária",
+      "requiredDesc": "Por favor conecte sua carteira primeiro para candidatar-se à posição de consultor."
+    },
+    "hero": {
+      "title1": "Torne-se um Consultor TBURN,",
+      "title2": "200M TBURN",
+      "title3": "em Recompensas",
+      "subtitle": "Junte-se como especialista em Tecnologia, Negócios, Jurídico ou Acadêmico para contribuir com o crescimento do ecossistema TBURN e ganhar recompensas."
+    },
+    "advisorPreviews": {
+      "jk": {
+        "initial": "JK",
+        "name": "Dr. John Kim",
+        "role": "Consultor Técnico"
+      },
+      "sp": {
+        "initial": "SP",
+        "name": "Sarah Park",
+        "role": "Consultor de Negócios"
+      },
+      "ml": {
+        "initial": "ML",
+        "name": "Michael Lee",
+        "role": "Consultor Jurídico"
+      },
+      "ec": {
+        "initial": "EC",
+        "name": "Emma Choi",
+        "role": "Consultor Acadêmico"
+      }
+    },
+    "stats": {
+      "totalBudget": "Orçamento Total Consultoria",
+      "currentAdvisors": "Consultores Atuais",
+      "activeAdvisors": "Consultores Ativos",
+      "vestingPeriod": "Período de Vesting (meses)"
+    },
+    "cta": {
+      "applyButton": "Candidatar ao Programa de Consultor",
+      "guideButton": "Guia do Consultor",
+      "applyAdvisor": "Candidatura de Consultor",
+      "applyAdvisorDesc": "Verifique os campos de consultor e candidate-se agora!",
+      "advisorGuide": "Guia do Consultor",
+      "advisorGuideDesc": "Verifique o processo de candidatura."
+    },
+    "roleApply": {
+      "title": "Candidatura {{role}}",
+      "description": "Sua candidatura {{role}} foi enviada. Entraremos em contato após revisão de documentos."
+    },
+    "tierApply": {
+      "title": "Candidatura {{tier}}",
+      "description": "Sua candidatura {{tier}} ({{incentive}} TBURN) foi enviada. Orientaremos após revisão."
+    },
+    "distribution": {
+      "badge": "DISTRIBUTION",
+      "title": "Alocação do Orçamento Consultivo",
+      "subtitle": "200M TBURN distribuídos em 5 campos de consultoria",
+      "items": {
+        "tech": {
+          "name": "Consultoria Técnica",
+          "amount": "60M",
+          "percent": "30%"
+        },
+        "business": {
+          "name": "Consultoria de Negócios",
+          "amount": "40M",
+          "percent": "20%"
+        },
+        "legal": {
+          "name": "Consultoria Jurídica",
+          "amount": "40M",
+          "percent": "20%"
+        },
+        "academic": {
+          "name": "Consultoria Acadêmica",
+          "amount": "30M",
+          "percent": "15%"
+        },
+        "industry": {
+          "name": "Consultoria Industrial",
+          "amount": "30M",
+          "percent": "15%"
+        }
+      }
+    },
+    "roles": {
+      "badge": "ROLES",
+      "title": "Campos de Consultoria",
+      "subtitle": "Funções de consultor por campos especializados",
+      "applyButton": "Candidatar",
+      "items": {
+        "tech": {
+          "title": "Consultor Técnico",
+          "subtitle": "Especialista em Blockchain, IA, Segurança",
+          "reward1Value": "Até 10M",
+          "reward1Label": "Recompensa Anual",
+          "reward2Value": "Trimestral",
+          "reward2Label": "Revisão Técnica",
+          "resp1": "Revisão de código e consultoria de arquitetura",
+          "resp2": "Participação em auditoria de segurança",
+          "resp3": "Revisão do roteiro técnico",
+          "resp4": "Análise de tendências tecnológicas"
+        },
+        "business": {
+          "title": "Consultor de Negócios",
+          "subtitle": "Especialista em Gestão, Estratégia, Marketing",
+          "reward1Value": "Até 8M",
+          "reward1Label": "Recompensa Anual",
+          "reward2Value": "Mensal",
+          "reward2Label": "Reunião de Estratégia",
+          "resp1": "Consultoria de estratégia empresarial",
+          "resp2": "Networking de parcerias",
+          "resp3": "Análise de mercado e insights",
+          "resp4": "Desenvolvimento de estratégia de crescimento"
+        },
+        "legal": {
+          "title": "Consultor Jurídico",
+          "subtitle": "Regulamentação Blockchain, Conformidade",
+          "reward1Value": "Até 8M",
+          "reward1Label": "Recompensa Anual",
+          "reward2Value": "Conforme Necessário",
+          "reward2Label": "Revisão Jurídica",
+          "resp1": "Análise de tendências regulatórias",
+          "resp2": "Consultoria de conformidade",
+          "resp3": "Revisão de contratos",
+          "resp4": "Gestão de riscos"
+        },
+        "academic": {
+          "title": "Consultor Acadêmico",
+          "subtitle": "Professores Universitários, Pesquisadores",
+          "reward1Value": "Até 6M",
+          "reward1Label": "Recompensa Anual",
+          "reward2Value": "Trimestral",
+          "reward2Label": "Colaboração de Pesquisa",
+          "resp1": "Colaboração de pesquisa acadêmica",
+          "resp2": "Revisão do whitepaper",
+          "resp3": "Desenvolvimento de conteúdo educacional",
+          "resp4": "Networking acadêmico"
+        }
+      }
+    },
+    "tiers": {
+      "badge": "TIERS",
+      "title": "Níveis de Consultor",
+      "subtitle": "Benefícios por nível baseados em experiência e contribuição",
+      "incentiveLabel": "Incentivo Anual",
+      "applyButton": "Candidatar",
+      "items": {
+        "principal": {
+          "name": "Principal Advisor",
+          "subtitle": "Consultor Principal",
+          "incentive": "Até 15M",
+          "requirement": "10+ anos experiência, Líder da Indústria",
+          "benefit1": "Atribuição de equipe dedicada",
+          "benefit2": "Direitos de observador do conselho",
+          "benefit3": "Acesso a informação exclusiva",
+          "benefit4": "Cúpula offline anual",
+          "benefit5": "Networking VIP"
+        },
+        "senior": {
+          "name": "Senior Advisor",
+          "subtitle": "Consultor Sênior",
+          "incentive": "Até 8M",
+          "requirement": "5+ anos experiência, Especialista",
+          "benefit1": "Suporte prioritário",
+          "benefit2": "Reuniões de estratégia trimestrais",
+          "benefit3": "Acesso antecipado",
+          "benefit4": "Participação em governança",
+          "benefit5": "Networking de parceiros"
+        },
+        "advisor": {
+          "name": "Advisor",
+          "subtitle": "Consultor",
+          "incentive": "Até 4M",
+          "requirement": "3+ anos experiência, Campo Especializado",
+          "benefit1": "Reuniões mensais",
+          "benefit2": "Acesso a documentação técnica",
+          "benefit3": "Participação na comunidade",
+          "benefit4": "Incentivos base",
+          "benefit5": "Oportunidades de crescimento"
+        }
+      }
+    },
+    "currentAdvisors": {
+      "badge": "ADVISORS",
+      "title": "Conselho Consultivo Atual",
+      "subtitle": "Especialistas trabalhando conosco"
+    },
+    "process": {
+      "badge": "PROCESS",
+      "title": "Processo de Candidatura",
+      "subtitle": "Procedimento de seleção de consultores",
+      "steps": {
+        "step1": {
+          "title": "Enviar Candidatura",
+          "desc": "Completar candidatura online",
+          "duration": "1-3 dias"
+        },
+        "step2": {
+          "title": "Revisão de Documentos",
+          "desc": "Revisão e avaliação de documentos",
+          "duration": "1-2 semanas"
+        },
+        "step3": {
+          "title": "Entrevista",
+          "desc": "Entrevista aprofundada",
+          "duration": "1-2 semanas"
+        },
+        "step4": {
+          "title": "Assinatura de Contrato",
+          "desc": "Assinatura do contrato de consultoria",
+          "duration": "1 semana"
+        },
+        "step5": {
+          "title": "Integração",
+          "desc": "Início das atividades de consultoria",
+          "duration": "1 semana"
+        }
+      }
+    },
+    "compensation": {
+      "badge": "COMPENSATION",
+      "title": "Estrutura de Compensação",
+      "subtitle": "Componentes de compensação do consultor",
+      "items": {
+        "token": {
+          "title": "Incentivo de Tokens",
+          "desc": "Distribuição trimestral de tokens TBURN",
+          "value": "Até 15M TBURN/ano"
+        },
+        "bonus": {
+          "title": "Bônus de Desempenho",
+          "desc": "Recompensas adicionais por alcance de metas",
+          "value": "Até 50% da base"
+        },
+        "special": {
+          "title": "Benefícios Especiais",
+          "desc": "Convites para eventos, airdrops de NFT",
+          "value": "Vários benefícios anuais"
+        }
+      }
+    },
+    "faq": {
+      "badge": "FAQ",
+      "title": "Perguntas Frequentes",
+      "subtitle": "Questões sobre o programa de consultores",
+      "items": {
+        "q1": {
+          "question": "Qual é o orçamento total do programa de consultores?",
+          "answer": "O programa de consultores tem uma alocação total de 200M TBURN. Distribuído como: Consultoria Técnica 30% (60M), Consultoria de Negócios 20% (40M), Consultoria Jurídica 20% (40M), Consultoria Acadêmica 15% (30M), Consultoria Industrial 15% (30M)."
+        },
+        "q2": {
+          "question": "Quais qualificações são necessárias para ser consultor?",
+          "answer": "Mínimo de 3 anos de experiência em sua área é necessário, junto com um portfólio ou histórico demonstrando expertise. Principal Advisor requer 10+ anos (até 15M TBURN), Senior Advisor 5+ anos (até 8M), e Advisor 3+ anos (até 4M) de experiência."
+        },
+        "q3": {
+          "question": "Como as atividades de consultoria são conduzidas?",
+          "answer": "A participação inclui reuniões regulares (mensais/trimestrais), revisão de documentos, consultoria estratégica e networking. Reuniões online são principais, com workshops offline conforme necessário. Escopo e tempo de consultoria variam por nível."
+        },
+        "q4": {
+          "question": "Como as recompensas são distribuídas?",
+          "answer": "Incentivos de tokens são distribuídos trimestralmente, desbloqueando progressivamente ao longo de um cronograma de vesting de 24 meses. Bônus de desempenho (até 50% da base) são pagos após avaliações semestrais. Benefícios especiais como convites para eventos e airdrops de NFT são fornecidos regularmente."
+        },
+        "q5": {
+          "question": "Qual é a duração do contrato de consultoria?",
+          "answer": "O período de contrato base é 1 ano, renovável por acordo mútuo. Consultores de alto desempenho recebem opções de renovação automática. Há uma cláusula de aviso de 30 dias antes do término do contrato."
+        },
+        "q6": {
+          "question": "Qual é o processo de candidatura?",
+          "answer": "Envio de candidatura (1-3 dias) → Revisão de documentos (1-2 semanas) → Entrevista (1-2 semanas) → Assinatura de contrato (1 semana) → Integração (1 semana), totalizando 5-7 semanas. Processo de via rápida disponível para casos urgentes."
+        },
+        "q7": {
+          "question": "Quais são os benefícios especiais para Principal Advisors?",
+          "answer": "Principal Advisors recebem até 15M TBURN de incentivo anual junto com atribuição de equipe dedicada, direitos de observador do conselho, acesso a informação exclusiva, participação em cúpula offline anual e networking VIP. 10+ anos de experiência de líder da indústria é necessário."
+        },
+        "q8": {
+          "question": "Como me candidato ao programa de consultores?",
+          "answer": "Clique no botão 'Candidatar ao Programa de Consultor' no topo da página ou entre em contato diretamente com advisor@tburn.io. Conectar sua carteira permite uma revisão mais rápida. Nossa equipe dedicada entrará em contato em 1-2 semanas."
+        }
+      }
+    },
+    "ctaSection": {
+      "title": "Junte-se ao Conselho Consultivo de Especialistas",
+      "subtitle1": "Torne-se um parceiro estratégico no ecossistema TBURN",
+      "subtitle2": "Receba 200M TBURN em recompensas!",
+      "button": "Candidatar Agora",
+      "toastDesc": "Verifique os campos de consultor e candidate-se agora!"
+    },
+    "footer": {
+      "tagline1": "Inteligência IA, Transparência Blockchain",
+      "tagline2": "THE FUTURE IS NOW",
+      "product": "Produto",
+      "mainnet": "Mainnet",
+      "explorer": "Explorador",
+      "bridge": "Bridge",
+      "staking": "Staking",
+      "resources": "Recursos",
+      "whitepaper": "Whitepaper",
+      "docs": "Documentação",
+      "auditReport": "Relatório de Auditoria",
+      "community": "Comunidade",
+      "blog": "Blog",
+      "ambassador": "Embaixador",
+      "grants": "Subsídios",
+      "support": "Suporte",
+      "copyright": "© 2025-2045 TBURN Foundation. Todos os Direitos Reservados.",
+      "terms": "Termos de Serviço",
+      "privacy": "Política de Privacidade"
+    },
+    "title": "Advisor Program"
   }
 }

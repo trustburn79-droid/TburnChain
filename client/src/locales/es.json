@@ -22692,5 +22692,331 @@
       "viewGuideDesc": "Revisa los puntos y recompensas de cada actividad."
     },
     "connectWallet": "Conectar Wallet"
+  },
+  "advisorProgram": {
+    "badge": "ADVISOR PROGRAM - Junta de Asesores Expertos",
+    "nav": {
+      "advisorRoles": "Roles de Asesor",
+      "tiers": "Niveles",
+      "currentAdvisors": "Asesores Actuales",
+      "applicationProcess": "Proceso de Solicitud",
+      "faq": "FAQ"
+    },
+    "wallet": {
+      "connect": "Conectar Billetera",
+      "disconnect": "Billetera Desconectada",
+      "disconnectDesc": "Su billetera ha sido desconectada.",
+      "connected": "Billetera Conectada",
+      "connectedDesc": "Su billetera está conectada.",
+      "required": "Conexión de Billetera Requerida",
+      "requiredDesc": "Por favor conecte su billetera primero para solicitar posición de asesor."
+    },
+    "hero": {
+      "title1": "Conviértase en Asesor de TBURN,",
+      "title2": "200M TBURN",
+      "title3": "en Recompensas",
+      "subtitle": "Únase como experto en Tecnología, Negocios, Legal o Académico para contribuir al crecimiento del ecosistema TBURN y ganar recompensas."
+    },
+    "advisorPreviews": {
+      "jk": {
+        "initial": "JK",
+        "name": "Dr. John Kim",
+        "role": "Asesor Técnico"
+      },
+      "sp": {
+        "initial": "SP",
+        "name": "Sarah Park",
+        "role": "Asesor de Negocios"
+      },
+      "ml": {
+        "initial": "ML",
+        "name": "Michael Lee",
+        "role": "Asesor Legal"
+      },
+      "ec": {
+        "initial": "EC",
+        "name": "Emma Choi",
+        "role": "Asesor Académico"
+      }
+    },
+    "stats": {
+      "totalBudget": "Presupuesto Total de Asesoría",
+      "currentAdvisors": "Asesores Actuales",
+      "activeAdvisors": "Asesores Activos",
+      "vestingPeriod": "Período de Vesting (meses)"
+    },
+    "cta": {
+      "applyButton": "Solicitar Programa de Asesor",
+      "guideButton": "Guía del Asesor",
+      "applyAdvisor": "Solicitud de Asesor",
+      "applyAdvisorDesc": "¡Revise los campos de asesor y solicite ahora!",
+      "advisorGuide": "Guía del Asesor",
+      "advisorGuideDesc": "Revise el proceso de solicitud."
+    },
+    "roleApply": {
+      "title": "Solicitud {{role}}",
+      "description": "Su solicitud de {{role}} ha sido enviada. Le contactaremos después de la revisión de documentos."
+    },
+    "tierApply": {
+      "title": "Solicitud {{tier}}",
+      "description": "Su solicitud de {{tier}} ({{incentive}} TBURN) ha sido enviada. Le guiaremos después de la revisión."
+    },
+    "distribution": {
+      "badge": "DISTRIBUTION",
+      "title": "Asignación de Presupuesto de Asesoría",
+      "subtitle": "200M TBURN distribuidos en 5 campos de asesoría",
+      "items": {
+        "tech": {
+          "name": "Asesoría Técnica",
+          "amount": "60M",
+          "percent": "30%"
+        },
+        "business": {
+          "name": "Asesoría de Negocios",
+          "amount": "40M",
+          "percent": "20%"
+        },
+        "legal": {
+          "name": "Asesoría Legal",
+          "amount": "40M",
+          "percent": "20%"
+        },
+        "academic": {
+          "name": "Asesoría Académica",
+          "amount": "30M",
+          "percent": "15%"
+        },
+        "industry": {
+          "name": "Asesoría Industrial",
+          "amount": "30M",
+          "percent": "15%"
+        }
+      }
+    },
+    "roles": {
+      "badge": "ROLES",
+      "title": "Campos de Asesoría",
+      "subtitle": "Roles de asesor por campos especializados",
+      "applyButton": "Solicitar",
+      "items": {
+        "tech": {
+          "title": "Asesor Técnico",
+          "subtitle": "Experto en Blockchain, IA, Seguridad",
+          "reward1Value": "Hasta 10M",
+          "reward1Label": "Recompensa Anual",
+          "reward2Value": "Trimestral",
+          "reward2Label": "Revisión Técnica",
+          "resp1": "Revisión de código y consultoría de arquitectura",
+          "resp2": "Participación en auditoría de seguridad",
+          "resp3": "Revisión de hoja de ruta técnica",
+          "resp4": "Análisis de tendencias tecnológicas"
+        },
+        "business": {
+          "title": "Asesor de Negocios",
+          "subtitle": "Experto en Gestión, Estrategia, Marketing",
+          "reward1Value": "Hasta 8M",
+          "reward1Label": "Recompensa Anual",
+          "reward2Value": "Mensual",
+          "reward2Label": "Reunión de Estrategia",
+          "resp1": "Consultoría de estrategia empresarial",
+          "resp2": "Networking de alianzas",
+          "resp3": "Análisis de mercado e insights",
+          "resp4": "Desarrollo de estrategia de crecimiento"
+        },
+        "legal": {
+          "title": "Asesor Legal",
+          "subtitle": "Regulación Blockchain, Cumplimiento",
+          "reward1Value": "Hasta 8M",
+          "reward1Label": "Recompensa Anual",
+          "reward2Value": "Según Necesidad",
+          "reward2Label": "Revisión Legal",
+          "resp1": "Análisis de tendencias regulatorias",
+          "resp2": "Consultoría de cumplimiento",
+          "resp3": "Revisión de contratos",
+          "resp4": "Gestión de riesgos"
+        },
+        "academic": {
+          "title": "Asesor Académico",
+          "subtitle": "Profesores Universitarios, Investigadores",
+          "reward1Value": "Hasta 6M",
+          "reward1Label": "Recompensa Anual",
+          "reward2Value": "Trimestral",
+          "reward2Label": "Colaboración de Investigación",
+          "resp1": "Colaboración de investigación académica",
+          "resp2": "Revisión de whitepaper",
+          "resp3": "Desarrollo de contenido educativo",
+          "resp4": "Networking académico"
+        }
+      }
+    },
+    "tiers": {
+      "badge": "TIERS",
+      "title": "Niveles de Asesor",
+      "subtitle": "Beneficios por nivel basados en experiencia y contribución",
+      "incentiveLabel": "Incentivo Anual",
+      "applyButton": "Solicitar",
+      "items": {
+        "principal": {
+          "name": "Principal Advisor",
+          "subtitle": "Asesor Principal",
+          "incentive": "Hasta 15M",
+          "requirement": "10+ años experiencia, Líder de Industria",
+          "benefit1": "Asignación de equipo dedicado",
+          "benefit2": "Derechos de observador de junta",
+          "benefit3": "Acceso a información exclusiva",
+          "benefit4": "Cumbre offline anual",
+          "benefit5": "Networking VIP"
+        },
+        "senior": {
+          "name": "Senior Advisor",
+          "subtitle": "Asesor Senior",
+          "incentive": "Hasta 8M",
+          "requirement": "5+ años experiencia, Experto",
+          "benefit1": "Soporte prioritario",
+          "benefit2": "Reuniones de estrategia trimestrales",
+          "benefit3": "Acceso anticipado",
+          "benefit4": "Participación en gobernanza",
+          "benefit5": "Networking de socios"
+        },
+        "advisor": {
+          "name": "Advisor",
+          "subtitle": "Asesor",
+          "incentive": "Hasta 4M",
+          "requirement": "3+ años experiencia, Campo Especializado",
+          "benefit1": "Reuniones mensuales",
+          "benefit2": "Acceso a documentación técnica",
+          "benefit3": "Participación comunitaria",
+          "benefit4": "Incentivos base",
+          "benefit5": "Oportunidades de crecimiento"
+        }
+      }
+    },
+    "currentAdvisors": {
+      "badge": "ADVISORS",
+      "title": "Junta de Asesores Actual",
+      "subtitle": "Expertos trabajando con nosotros"
+    },
+    "process": {
+      "badge": "PROCESS",
+      "title": "Proceso de Solicitud",
+      "subtitle": "Procedimiento de selección de asesores",
+      "steps": {
+        "step1": {
+          "title": "Enviar Solicitud",
+          "desc": "Completar solicitud en línea",
+          "duration": "1-3 días"
+        },
+        "step2": {
+          "title": "Revisión de Documentos",
+          "desc": "Revisión y evaluación de documentos",
+          "duration": "1-2 semanas"
+        },
+        "step3": {
+          "title": "Entrevista",
+          "desc": "Entrevista en profundidad",
+          "duration": "1-2 semanas"
+        },
+        "step4": {
+          "title": "Firma de Contrato",
+          "desc": "Firma del contrato de asesoría",
+          "duration": "1 semana"
+        },
+        "step5": {
+          "title": "Onboarding",
+          "desc": "Inicio de actividades de asesoría",
+          "duration": "1 semana"
+        }
+      }
+    },
+    "compensation": {
+      "badge": "COMPENSATION",
+      "title": "Estructura de Compensación",
+      "subtitle": "Componentes de compensación del asesor",
+      "items": {
+        "token": {
+          "title": "Incentivo de Tokens",
+          "desc": "Distribución trimestral de tokens TBURN",
+          "value": "Hasta 15M TBURN/año"
+        },
+        "bonus": {
+          "title": "Bono por Rendimiento",
+          "desc": "Recompensas adicionales por logro de objetivos",
+          "value": "Hasta 50% de la base"
+        },
+        "special": {
+          "title": "Beneficios Especiales",
+          "desc": "Invitaciones a eventos, airdrops de NFT",
+          "value": "Varios beneficios anuales"
+        }
+      }
+    },
+    "faq": {
+      "badge": "FAQ",
+      "title": "Preguntas Frecuentes",
+      "subtitle": "Preguntas sobre el programa de asesores",
+      "items": {
+        "q1": {
+          "question": "¿Cuál es el presupuesto total del programa de asesores?",
+          "answer": "El programa de asesores tiene una asignación total de 200M TBURN. Se distribuye como: Asesoría Técnica 30% (60M), Asesoría de Negocios 20% (40M), Asesoría Legal 20% (40M), Asesoría Académica 15% (30M), Asesoría Industrial 15% (30M)."
+        },
+        "q2": {
+          "question": "¿Qué calificaciones se necesitan para ser asesor?",
+          "answer": "Se requiere mínimo 3 años de experiencia en su campo, junto con un portafolio o historial que demuestre experiencia. Principal Advisor requiere 10+ años (hasta 15M TBURN), Senior Advisor 5+ años (hasta 8M), y Advisor 3+ años (hasta 4M) de experiencia."
+        },
+        "q3": {
+          "question": "¿Cómo se realizan las actividades de asesoría?",
+          "answer": "La participación incluye reuniones regulares (mensuales/trimestrales), revisión de documentos, consultoría estratégica y networking. Las reuniones en línea son principales, con talleres offline según sea necesario. El alcance y tiempo de asesoría varían por nivel."
+        },
+        "q4": {
+          "question": "¿Cómo se distribuyen las recompensas?",
+          "answer": "Los incentivos de tokens se distribuyen trimestralmente, desbloqueándose progresivamente durante un calendario de vesting de 24 meses. Los bonos por rendimiento (hasta 50% de la base) se pagan después de evaluaciones semestrales. Beneficios especiales como invitaciones a eventos y airdrops de NFT se proporcionan regularmente."
+        },
+        "q5": {
+          "question": "¿Cuál es la duración del contrato de asesoría?",
+          "answer": "El período de contrato base es 1 año, renovable por acuerdo mutuo. Los asesores de alto rendimiento reciben opciones de renovación automática. Hay una cláusula de notificación de 30 días antes de la terminación del contrato."
+        },
+        "q6": {
+          "question": "¿Cuál es el proceso de solicitud?",
+          "answer": "Envío de solicitud (1-3 días) → Revisión de documentos (1-2 semanas) → Entrevista (1-2 semanas) → Firma de contrato (1 semana) → Onboarding (1 semana), totalizando 5-7 semanas. El proceso de vía rápida está disponible para casos urgentes."
+        },
+        "q7": {
+          "question": "¿Cuáles son los beneficios especiales para Principal Advisors?",
+          "answer": "Los Principal Advisors reciben hasta 15M TBURN de incentivo anual junto con asignación de equipo dedicado, derechos de observador de junta, acceso a información exclusiva, participación en cumbre offline anual y networking VIP. Se requiere 10+ años de experiencia de líder de industria."
+        },
+        "q8": {
+          "question": "¿Cómo solicito el programa de asesores?",
+          "answer": "Haga clic en el botón 'Solicitar Programa de Asesor' en la parte superior de la página o contacte directamente a advisor@tburn.io. Conectar su billetera permite una revisión más rápida. Nuestro equipo dedicado le contactará en 1-2 semanas."
+        }
+      }
+    },
+    "ctaSection": {
+      "title": "Únase a la Junta de Asesores Expertos",
+      "subtitle1": "Conviértase en socio estratégico del ecosistema TBURN",
+      "subtitle2": "¡Reciba 200M TBURN en recompensas!",
+      "button": "Solicitar Ahora",
+      "toastDesc": "¡Revise los campos de asesor y solicite ahora!"
+    },
+    "footer": {
+      "tagline1": "Inteligencia IA, Transparencia Blockchain",
+      "tagline2": "THE FUTURE IS NOW",
+      "product": "Producto",
+      "mainnet": "Mainnet",
+      "explorer": "Explorador",
+      "bridge": "Bridge",
+      "staking": "Staking",
+      "resources": "Recursos",
+      "whitepaper": "Whitepaper",
+      "docs": "Documentación",
+      "auditReport": "Informe de Auditoría",
+      "community": "Comunidad",
+      "blog": "Blog",
+      "ambassador": "Embajador",
+      "grants": "Subvenciones",
+      "support": "Soporte",
+      "copyright": "© 2025-2045 TBURN Foundation. Todos los Derechos Reservados.",
+      "terms": "Términos de Servicio",
+      "privacy": "Política de Privacidad"
+    },
+    "title": "Advisor Program"
   }
 }
