@@ -2367,20 +2367,190 @@
     "auctionEnds": "拍卖结束"
   },
   "launchpad": {
-    "title": "发射台",
-    "subtitle": "TBURN代币发射平台",
-    "heroTitle": "TBURN 发射台",
-    "heroSubtitle": "TBURN代币分发的首选发射台",
-    "badge": "代币发射",
-    "launchDate": "发射日期",
-    "totalSupply": "总供应量",
-    "initialPrice": "初始价格",
-    "features": "发射台功能",
-    "fairLaunch": "公平发射",
-    "antiBot": "防机器人保护",
-    "vestingSchedule": "归属时间表",
-    "liquidityLock": "流动性锁定",
-    "participateNow": "立即参与"
+    "header": {
+      "status": "状态",
+      "tokenPrice": "代币价格",
+      "progress": "进度",
+      "connectWallet": "连接钱包"
+    },
+    "hero": {
+      "officialBadge": "TBURN Foundation 官方发射台",
+      "title": "TBURN",
+      "titleHighlight": "公开发售",
+      "subtitle": "安全透明的官方代币销售平台"
+    },
+    "countdown": {
+      "title": "距离销售结束",
+      "phase": "第二阶段进行中",
+      "days": "天",
+      "hours": "小时",
+      "minutes": "分钟",
+      "seconds": "秒"
+    },
+    "progress": {
+      "goal": "目标: $12,000,000",
+      "completed": "已完成",
+      "sold": "已售",
+      "remaining": "剩余"
+    },
+    "purchase": {
+      "title": "代币购买",
+      "steps": {
+        "wallet": "连接钱包",
+        "kyc": "KYC验证",
+        "amount": "输入金额",
+        "complete": "购买完成"
+      },
+      "walletSection": {
+        "title": "连接钱包",
+        "connectPrompt": "请连接您的钱包",
+        "connected": "已连接"
+      },
+      "kycSection": {
+        "title": "KYC验证",
+        "required": "需要KYC验证",
+        "requiredDesc": "请完成简单的身份验证",
+        "completed": "KYC验证完成",
+        "completedDesc": "所有验证已完成",
+        "verifyButton": "验证KYC",
+        "verifiedButton": "已验证"
+      },
+      "amountSection": {
+        "title": "参与金额",
+        "placeholder": "输入金额",
+        "tokenQuantity": "代币数量",
+        "tierBonus": "等级奖励",
+        "totalTokens": "总代币",
+        "tgeUnlock": "TGE解锁 (15%)",
+        "estimatedValue": "预估价值 (@$0.08)",
+        "paymentMethod": "支付方式",
+        "purchaseButton": "购买代币",
+        "secureNote": "通过安全智能合约处理"
+      }
+    },
+    "sidebar": {
+      "saleInfo": {
+        "title": "销售信息",
+        "tokenPrice": "代币价格",
+        "totalSale": "总销售量",
+        "minParticipation": "最低参与",
+        "tgeUnlock": "TGE解锁",
+        "cliff": "锁仓期",
+        "vesting": "释放期",
+        "network": "网络"
+      },
+      "tiers": {
+        "title": "参与等级",
+        "whale": "鲸鱼",
+        "dolphin": "海豚",
+        "fish": "鱼",
+        "shrimp": "虾",
+        "whaleRange": "$50,000+",
+        "dolphinRange": "$10,000 ~ $49,999",
+        "fishRange": "$1,000 ~ $9,999",
+        "shrimpRange": "$100 ~ $999"
+      },
+      "vesting": {
+        "title": "释放计划",
+        "tge": "TGE",
+        "tgeDesc": "代币生成事件",
+        "cliff": "锁仓期",
+        "cliffDesc": "第1-3月",
+        "vestingTitle": "释放",
+        "vestingDesc": "第4-15月"
+      },
+      "features": {
+        "title": "官方发射台特色",
+        "foundation": "TBURN Foundation官方保障",
+        "contract": "安全智能合约",
+        "bonus": "全等级奖励适用",
+        "support": "24/7客户支持",
+        "claim": "实时代币领取"
+      }
+    },
+    "faq": {
+      "title": "常见问题",
+      "subtitle": "关于TBURN发射台的问题",
+      "q1": {
+        "question": "发射台总销售规模是多少？",
+        "answer": "TBURN官方发射台销售总计6亿TBURN（总供应量的6%）。代币价格为$0.02，募资目标为$12,000,000。"
+      },
+      "q2": {
+        "question": "参与资格是什么？",
+        "answer": "所有完成钱包连接和KYC验证的用户都可以参与。最低参与金额为$100，没有最高限额。"
+      },
+      "q3": {
+        "question": "等级奖励如何适用？",
+        "answer": "奖励根据参与金额自动适用。鲸鱼($50,000+): +5%，海豚($10,000~$49,999): +3%，鱼($1,000~$9,999): +1%，虾($100~$999): 无奖励。"
+      },
+      "q4": {
+        "question": "何时可以收到代币？",
+        "answer": "TGE（代币生成事件）时15%立即解锁。3个月锁仓期后，剩余85%将在12个月内按月分配。"
+      },
+      "q5": {
+        "question": "支持哪些支付方式？",
+        "answer": "支持USDT、USDC、ETH三种支付方式。所有支付通过以太坊网络上的安全智能合约处理。"
+      },
+      "q6": {
+        "question": "参与流程是什么？",
+        "answer": "1) 连接钱包 → 2) KYC验证 → 3) 输入金额 → 4) 选择支付方式 → 5) 完成购买。整个过程约需5分钟。"
+      },
+      "q7": {
+        "question": "官方发射台有什么特别优惠？",
+        "answer": "我们提供TBURN Foundation官方保障、安全智能合约处理、全等级奖励适用、24/7客户支持和实时代币领取功能。"
+      },
+      "q8": {
+        "question": "如有问题如何联系？",
+        "answer": "您可以24/7通过官方Telegram(@tburnchain)、Discord(discord.gg/tburnchain)或邮件(support@tburn.io)联系我们。24/7实时支持团队随时待命。"
+      }
+    },
+    "footer": {
+      "terms": "服务条款",
+      "privacy": "隐私政策",
+      "riskDisclosure": "风险披露",
+      "support": "客户支持",
+      "copyright": "© 2025-2045 TBURN Foundation. 保留所有权利。"
+    },
+    "modal": {
+      "purchaseComplete": "购买完成！",
+      "processing": "处理交易中",
+      "tokenPurchaseComplete": "代币购买完成！",
+      "successMessage": "代币已成功购买",
+      "confirmingTx": "确认交易中...",
+      "confirmWallet": "请在钱包中确认交易",
+      "purchaseAmount": "购买金额",
+      "receivingTokens": "获得代币",
+      "estimatedGas": "预估Gas费",
+      "confirm": "确认"
+    },
+    "toast": {
+      "walletDisconnected": "钱包已断开",
+      "walletDisconnectedDesc": "钱包连接已断开。",
+      "walletConnect": "连接钱包",
+      "walletConnectDesc": "尝试连接",
+      "walletRequired": "需要连接钱包",
+      "walletRequiredDesc": "请先连接您的钱包。",
+      "kycRequired": "需要KYC验证",
+      "kycRequiredDesc": "请完成KYC验证以购买代币。",
+      "kycStart": "开始KYC",
+      "kycStartDesc": "正在进行身份验证...",
+      "kycComplete": "KYC完成",
+      "kycCompleteDesc": "身份验证成功完成。",
+      "minAmount": "未达最低金额",
+      "minAmountDesc": "最低参与金额为$100。",
+      "purchasing": "处理购买中",
+      "purchasingDesc": "正在处理交易...",
+      "purchaseComplete": "购买完成",
+      "purchaseCompleteDesc": "代币购买成功。",
+      "viewDetails": "销售详情",
+      "viewDetailsDesc": "查看下方销售详情。",
+      "tierSelect": "已选择等级",
+      "tierSelectDesc": "奖励:",
+      "tierWalletRequired": "需要连接钱包",
+      "tierWalletRequiredDesc": "请先连接钱包以参与等级。",
+      "socialOpen": "打开",
+      "socialOpenDesc": "正在跳转到页面。"
+    }
   },
   "gamefi": {
     "title": "GameFi 中心",

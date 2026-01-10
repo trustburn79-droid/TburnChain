@@ -2911,20 +2911,190 @@
     "auctionEnds": "オークション終了"
   },
   "launchpad": {
-    "title": "ローンチパッド",
-    "subtitle": "TBURNトークンローンチプラットフォーム",
-    "heroTitle": "TBURN ローンチパッド",
-    "heroSubtitle": "TBURNトークン配布のプレミアローンチパッド",
-    "badge": "トークンローンチ",
-    "launchDate": "ローンチ日",
-    "totalSupply": "総供給量",
-    "initialPrice": "初期価格",
-    "features": "ローンチパッド機能",
-    "fairLaunch": "フェアローンチ",
-    "antiBot": "アンチボット保護",
-    "vestingSchedule": "ベスティングスケジュール",
-    "liquidityLock": "流動性ロック",
-    "participateNow": "今すぐ参加"
+    "header": {
+      "status": "ステータス",
+      "tokenPrice": "トークン価格",
+      "progress": "進捗",
+      "connectWallet": "ウォレット接続"
+    },
+    "hero": {
+      "officialBadge": "TBURN Foundation 公式ローンチパッド",
+      "title": "TBURN",
+      "titleHighlight": "パブリックセール",
+      "subtitle": "安全で透明な公式トークンセールプラットフォーム"
+    },
+    "countdown": {
+      "title": "セール終了まで",
+      "phase": "フェーズ2進行中",
+      "days": "日",
+      "hours": "時間",
+      "minutes": "分",
+      "seconds": "秒"
+    },
+    "progress": {
+      "goal": "目標: $12,000,000",
+      "completed": "完了",
+      "sold": "販売済み",
+      "remaining": "残り"
+    },
+    "purchase": {
+      "title": "トークン購入",
+      "steps": {
+        "wallet": "ウォレット接続",
+        "kyc": "KYC認証",
+        "amount": "金額入力",
+        "complete": "購入完了"
+      },
+      "walletSection": {
+        "title": "ウォレット接続",
+        "connectPrompt": "ウォレットを接続してください",
+        "connected": "接続済み"
+      },
+      "kycSection": {
+        "title": "KYC認証",
+        "required": "KYC認証が必要です",
+        "requiredDesc": "簡単な本人確認を行ってください",
+        "completed": "KYC認証完了",
+        "completedDesc": "すべての認証が完了しました",
+        "verifyButton": "KYC認証",
+        "verifiedButton": "認証済み"
+      },
+      "amountSection": {
+        "title": "参加金額",
+        "placeholder": "金額を入力",
+        "tokenQuantity": "トークン数量",
+        "tierBonus": "ティアボーナス",
+        "totalTokens": "合計トークン",
+        "tgeUnlock": "TGEアンロック (15%)",
+        "estimatedValue": "予想価値 (@$0.08)",
+        "paymentMethod": "支払い方法",
+        "purchaseButton": "トークンを購入",
+        "secureNote": "安全なスマートコントラクトで処理されます"
+      }
+    },
+    "sidebar": {
+      "saleInfo": {
+        "title": "セール情報",
+        "tokenPrice": "トークン価格",
+        "totalSale": "総セール量",
+        "minParticipation": "最低参加額",
+        "tgeUnlock": "TGEアンロック",
+        "cliff": "クリフ",
+        "vesting": "ベスティング",
+        "network": "ネットワーク"
+      },
+      "tiers": {
+        "title": "参加ティア",
+        "whale": "クジラ",
+        "dolphin": "イルカ",
+        "fish": "魚",
+        "shrimp": "エビ",
+        "whaleRange": "$50,000以上",
+        "dolphinRange": "$10,000 ~ $49,999",
+        "fishRange": "$1,000 ~ $9,999",
+        "shrimpRange": "$100 ~ $999"
+      },
+      "vesting": {
+        "title": "ベスティングスケジュール",
+        "tge": "TGE",
+        "tgeDesc": "トークン生成イベント",
+        "cliff": "クリフ",
+        "cliffDesc": "1〜3ヶ月目",
+        "vestingTitle": "ベスティング",
+        "vestingDesc": "4〜15ヶ月目"
+      },
+      "features": {
+        "title": "公式ローンチパッドの特徴",
+        "foundation": "TBURN Foundation公式保証",
+        "contract": "安全なスマートコントラクト",
+        "bonus": "全ティアボーナス適用",
+        "support": "24時間年中無休サポート",
+        "claim": "リアルタイムトークンクレーム"
+      }
+    },
+    "faq": {
+      "title": "よくある質問",
+      "subtitle": "TBURNローンチパッドに関する質問",
+      "q1": {
+        "question": "ローンチパッドの総販売規模は？",
+        "answer": "TBURN公式ローンチパッドでは合計6億TBURN（総供給量の6%）が販売されます。トークン価格は$0.02、調達目標は$12,000,000です。"
+      },
+      "q2": {
+        "question": "参加資格は？",
+        "answer": "ウォレット接続とKYC認証を完了したすべてのユーザーが参加できます。最低参加額は$100、最大制限はありません。"
+      },
+      "q3": {
+        "question": "ティアボーナスはどのように適用されますか？",
+        "answer": "参加金額に応じて自動適用されます。クジラ($50,000+): +5%、イルカ($10,000~$49,999): +3%、魚($1,000~$9,999): +1%、エビ($100~$999): ボーナスなし。"
+      },
+      "q4": {
+        "question": "トークンはいつ受け取れますか？",
+        "answer": "TGE（トークン生成イベント）時に15%が即座にアンロックされます。3ヶ月のクリフ期間後、残りの85%が12ヶ月かけて毎月配布されます。"
+      },
+      "q5": {
+        "question": "どの支払い方法がサポートされていますか？",
+        "answer": "USDT、USDC、ETHの3つの支払い方法をサポートしています。すべての支払いはEthereumネットワーク上の安全なスマートコントラクトで処理されます。"
+      },
+      "q6": {
+        "question": "参加手順は？",
+        "answer": "1) ウォレット接続 → 2) KYC認証 → 3) 金額入力 → 4) 支払い方法選択 → 5) 購入完了。全プロセスは約5分かかります。"
+      },
+      "q7": {
+        "question": "公式ローンチパッドの特別な特典は？",
+        "answer": "TBURN Foundation公式保証、安全なスマートコントラクト処理、全ティアボーナス適用、24時間サポート、リアルタイムトークンクレーム機能を提供します。"
+      },
+      "q8": {
+        "question": "お問い合わせ先は？",
+        "answer": "公式Telegram(@tburnchain)、Discord(discord.gg/tburnchain)、またはメール(support@tburn.io)で24時間お問い合わせいただけます。24時間対応のサポートチームがお待ちしています。"
+      }
+    },
+    "footer": {
+      "terms": "利用規約",
+      "privacy": "プライバシーポリシー",
+      "riskDisclosure": "リスク開示",
+      "support": "カスタマーサポート",
+      "copyright": "© 2025-2045 TBURN Foundation. All Rights Reserved."
+    },
+    "modal": {
+      "purchaseComplete": "購入完了！",
+      "processing": "トランザクション処理中",
+      "tokenPurchaseComplete": "トークン購入完了！",
+      "successMessage": "トークンが正常に購入されました",
+      "confirmingTx": "トランザクション確認中...",
+      "confirmWallet": "ウォレットでトランザクションを確認してください",
+      "purchaseAmount": "購入金額",
+      "receivingTokens": "受取トークン",
+      "estimatedGas": "予想ガス代",
+      "confirm": "確認"
+    },
+    "toast": {
+      "walletDisconnected": "ウォレット切断",
+      "walletDisconnectedDesc": "ウォレットが切断されました。",
+      "walletConnect": "ウォレット接続",
+      "walletConnectDesc": "接続を試みています",
+      "walletRequired": "ウォレット接続が必要",
+      "walletRequiredDesc": "先にウォレットを接続してください。",
+      "kycRequired": "KYC認証が必要",
+      "kycRequiredDesc": "トークン購入にはKYC認証を完了してください。",
+      "kycStart": "KYC開始",
+      "kycStartDesc": "本人確認を行っています...",
+      "kycComplete": "KYC完了",
+      "kycCompleteDesc": "本人確認が正常に完了しました。",
+      "minAmount": "最低金額未満",
+      "minAmountDesc": "最低参加額は$100です。",
+      "purchasing": "購入処理中",
+      "purchasingDesc": "トランザクションを処理しています...",
+      "purchaseComplete": "購入完了",
+      "purchaseCompleteDesc": "トークンを正常に購入しました。",
+      "viewDetails": "セール詳細",
+      "viewDetailsDesc": "以下でセール詳細をご確認ください。",
+      "tierSelect": "ティア選択",
+      "tierSelectDesc": "ボーナス:",
+      "tierWalletRequired": "ウォレット接続が必要",
+      "tierWalletRequiredDesc": "ティア参加には先にウォレットを接続してください。",
+      "socialOpen": "開く",
+      "socialOpenDesc": "ページに移動します。"
+    }
   },
   "gamefi": {
     "title": "GameFiハブ",

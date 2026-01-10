@@ -2503,32 +2503,190 @@
     "auctionEnds": "경매 종료"
   },
   "launchpad": {
-    "title": "NFT 런치패드",
-    "subtitle": "독점 NFT 출시에 발견하고 참여하세요",
-    "forumTitle": "커뮤니티 포럼",
-    "viewAll": "전체 보기",
-    "recentPosts": "최근 게시물",
-    "upcomingLaunches": "예정된 출시",
-    "activeLaunches": "진행 중인 출시",
-    "pastLaunches": "지난 출시",
-    "projectName": "프로젝트 이름",
-    "mintPrice": "민트 가격",
-    "totalSupply": "총 공급량",
-    "minted": "민트됨",
-    "remaining": "남은 수량",
-    "startDate": "시작일",
-    "endDate": "종료일",
-    "whitelist": "화이트리스트",
-    "public": "퍼블릭",
-    "joinWhitelist": "화이트리스트 참여",
-    "leaveWhitelist": "화이트리스트 탈퇴",
-    "mint": "민트",
-    "mintNow": "지금 민트",
-    "maxPerWallet": "지갑당 최대",
-    "yourAllocation": "내 할당량",
-    "contribute": "기여",
-    "claim": "청구",
-    "refund": "환불"
+    "header": {
+      "status": "상태",
+      "tokenPrice": "토큰 가격",
+      "progress": "진행률",
+      "connectWallet": "지갑 연결"
+    },
+    "hero": {
+      "officialBadge": "TBURN Foundation 공식 런치패드",
+      "title": "TBURN",
+      "titleHighlight": "Public Sale",
+      "subtitle": "안전하고 투명한 공식 토큰 세일 플랫폼"
+    },
+    "countdown": {
+      "title": "세일 종료까지",
+      "phase": "Phase 2 진행 중",
+      "days": "일",
+      "hours": "시간",
+      "minutes": "분",
+      "seconds": "초"
+    },
+    "progress": {
+      "goal": "목표: $12,000,000",
+      "completed": "완료",
+      "sold": "판매",
+      "remaining": "잔여"
+    },
+    "purchase": {
+      "title": "토큰 구매",
+      "steps": {
+        "wallet": "지갑 연결",
+        "kyc": "KYC 인증",
+        "amount": "금액 입력",
+        "complete": "구매 완료"
+      },
+      "walletSection": {
+        "title": "지갑 연결",
+        "connectPrompt": "지갑을 연결하세요",
+        "connected": "연결됨"
+      },
+      "kycSection": {
+        "title": "KYC 인증",
+        "required": "KYC 인증 필요",
+        "requiredDesc": "간단한 본인 인증을 진행해주세요",
+        "completed": "KYC 인증 완료",
+        "completedDesc": "모든 인증이 완료되었습니다",
+        "verifyButton": "KYC 인증하기",
+        "verifiedButton": "인증 완료"
+      },
+      "amountSection": {
+        "title": "참여 금액",
+        "placeholder": "금액 입력",
+        "tokenQuantity": "토큰 수량",
+        "tierBonus": "티어 보너스",
+        "totalTokens": "총 토큰",
+        "tgeUnlock": "TGE 해제 (15%)",
+        "estimatedValue": "예상 가치 (@$0.08)",
+        "paymentMethod": "결제 방법",
+        "purchaseButton": "토큰 구매하기",
+        "secureNote": "안전한 스마트 컨트랙트로 처리됩니다"
+      }
+    },
+    "sidebar": {
+      "saleInfo": {
+        "title": "세일 정보",
+        "tokenPrice": "토큰 가격",
+        "totalSale": "총 세일 물량",
+        "minParticipation": "최소 참여",
+        "tgeUnlock": "TGE 해제",
+        "cliff": "클리프",
+        "vesting": "베스팅",
+        "network": "네트워크"
+      },
+      "tiers": {
+        "title": "참여 티어",
+        "whale": "Whale",
+        "dolphin": "Dolphin",
+        "fish": "Fish",
+        "shrimp": "Shrimp",
+        "whaleRange": "$50,000 이상",
+        "dolphinRange": "$10,000 ~ $49,999",
+        "fishRange": "$1,000 ~ $9,999",
+        "shrimpRange": "$100 ~ $999"
+      },
+      "vesting": {
+        "title": "베스팅 스케줄",
+        "tge": "TGE",
+        "tgeDesc": "토큰 생성 시점",
+        "cliff": "클리프",
+        "cliffDesc": "1~3개월",
+        "vestingTitle": "베스팅",
+        "vestingDesc": "4~15개월"
+      },
+      "features": {
+        "title": "공식 런치패드 특징",
+        "foundation": "TBURN Foundation 공식 보장",
+        "contract": "안전한 스마트 컨트랙트",
+        "bonus": "모든 티어 보너스 적용",
+        "support": "24/7 고객 지원",
+        "claim": "실시간 토큰 클레임"
+      }
+    },
+    "faq": {
+      "title": "자주 묻는 질문",
+      "subtitle": "TBURN 런치패드에 대해 궁금한 점",
+      "q1": {
+        "question": "런치패드 총 판매 규모는 얼마인가요?",
+        "answer": "TBURN 공식 런치패드에서는 총 6억 TBURN (전체 공급량의 6%)이 판매됩니다. 토큰 가격은 $0.02이며, 목표 모금액은 $12,000,000입니다."
+      },
+      "q2": {
+        "question": "참여 자격은 어떻게 되나요?",
+        "answer": "지갑 연결과 KYC 인증을 완료한 모든 사용자가 참여할 수 있습니다. 최소 참여 금액은 $100이며, 최대 한도는 없습니다."
+      },
+      "q3": {
+        "question": "티어별 보너스는 어떻게 적용되나요?",
+        "answer": "참여 금액에 따라 보너스가 자동 적용됩니다. Whale($50,000+): +5%, Dolphin($10,000~$49,999): +3%, Fish($1,000~$9,999): +1%, Shrimp($100~$999): 보너스 없음."
+      },
+      "q4": {
+        "question": "토큰은 언제 받을 수 있나요?",
+        "answer": "TGE(토큰 생성 이벤트) 시점에 15%가 즉시 해제됩니다. 이후 3개월 클리프 기간 후 12개월에 걸쳐 나머지 85%가 월별로 배분됩니다."
+      },
+      "q5": {
+        "question": "어떤 결제 방법을 지원하나요?",
+        "answer": "USDT, USDC, ETH 세 가지 결제 방법을 지원합니다. 모든 결제는 Ethereum 네트워크에서 안전한 스마트 컨트랙트를 통해 처리됩니다."
+      },
+      "q6": {
+        "question": "참여 절차는 어떻게 되나요?",
+        "answer": "1) 지갑 연결 → 2) KYC 인증 → 3) 참여 금액 입력 → 4) 결제 방법 선택 → 5) 토큰 구매 완료. 전체 과정은 약 5분 소요됩니다."
+      },
+      "q7": {
+        "question": "공식 런치패드의 특별한 혜택은 무엇인가요?",
+        "answer": "TBURN Foundation 공식 보장, 안전한 스마트 컨트랙트 처리, 모든 티어 보너스 적용, 24/7 고객 지원, 실시간 토큰 클레임 기능을 제공합니다."
+      },
+      "q8": {
+        "question": "문의사항이 있으면 어디로 연락하나요?",
+        "answer": "공식 Telegram(@tburnchain), Discord(discord.gg/tburnchain) 또는 이메일(support@tburn.io)로 24시간 문의 가능합니다. 24/7 실시간 고객 지원팀이 대기중입니다."
+      }
+    },
+    "footer": {
+      "terms": "이용약관",
+      "privacy": "개인정보처리방침",
+      "riskDisclosure": "리스크 고지",
+      "support": "고객 지원",
+      "copyright": "© 2025-2045 TBURN Foundation. All Rights Reserved."
+    },
+    "modal": {
+      "purchaseComplete": "구매 완료!",
+      "processing": "트랜잭션 처리 중",
+      "tokenPurchaseComplete": "토큰 구매 완료!",
+      "successMessage": "토큰이 성공적으로 구매되었습니다",
+      "confirmingTx": "트랜잭션 확인 중...",
+      "confirmWallet": "지갑에서 트랜잭션을 확인해주세요",
+      "purchaseAmount": "구매 금액",
+      "receivingTokens": "받을 토큰",
+      "estimatedGas": "예상 가스비",
+      "confirm": "확인"
+    },
+    "toast": {
+      "walletDisconnected": "지갑 연결 해제",
+      "walletDisconnectedDesc": "지갑 연결이 해제되었습니다.",
+      "walletConnect": "지갑 연결",
+      "walletConnectDesc": "연결을 시도합니다.",
+      "walletRequired": "지갑 연결 필요",
+      "walletRequiredDesc": "먼저 지갑을 연결해주세요.",
+      "kycRequired": "KYC 인증 필요",
+      "kycRequiredDesc": "토큰 구매를 위해 KYC 인증을 완료해주세요.",
+      "kycStart": "KYC 인증 시작",
+      "kycStartDesc": "본인 인증을 진행합니다...",
+      "kycComplete": "KYC 인증 완료",
+      "kycCompleteDesc": "본인 인증이 성공적으로 완료되었습니다.",
+      "minAmount": "최소 금액 미달",
+      "minAmountDesc": "최소 참여 금액은 $100입니다.",
+      "purchasing": "구매 진행중",
+      "purchasingDesc": "트랜잭션을 처리합니다...",
+      "purchaseComplete": "구매 완료",
+      "purchaseCompleteDesc": "토큰을 성공적으로 구매했습니다.",
+      "viewDetails": "세일 상세 정보",
+      "viewDetailsDesc": "아래에서 세일 상세 정보를 확인하세요.",
+      "tierSelect": "티어 선택",
+      "tierSelectDesc": "보너스:",
+      "tierWalletRequired": "지갑 연결 필요",
+      "tierWalletRequiredDesc": "티어 참여를 위해 먼저 지갑을 연결해주세요.",
+      "socialOpen": "열기",
+      "socialOpenDesc": "페이지로 이동합니다."
+    }
   },
   "community": {
     "title": "제목",

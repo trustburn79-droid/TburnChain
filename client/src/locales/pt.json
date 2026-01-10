@@ -956,32 +956,190 @@
     "instantFee": "Taxa Instantânea"
   },
   "launchpad": {
-    "title": "Launchpad NFT",
-    "subtitle": "Descubra e participe de lançamentos NFT exclusivos",
-    "forumTitle": "Fórum da Comunidade",
-    "viewAll": "Ver Tudo",
-    "recentPosts": "Postagens Recentes",
-    "upcomingLaunches": "Lançamentos Próximos",
-    "activeLaunches": "Lançamentos Ativos",
-    "pastLaunches": "Lançamentos Passados",
-    "projectName": "Nome do Projeto",
-    "mintPrice": "Preço de Mint",
-    "totalSupply": "Oferta Total",
-    "minted": "Mintado",
-    "remaining": "Restante",
-    "startDate": "Data de Início",
-    "endDate": "Data de Término",
-    "whitelist": "Lista Branca",
-    "public": "Público",
-    "joinWhitelist": "Entrar na Lista Branca",
-    "leaveWhitelist": "Sair da Lista Branca",
-    "mint": "Mintar",
-    "mintNow": "Mintar Agora",
-    "maxPerWallet": "Máx Por Carteira",
-    "yourAllocation": "Sua Alocação",
-    "contribute": "Contribuir",
-    "claim": "Reivindicar",
-    "refund": "Reembolso"
+    "header": {
+      "status": "Status",
+      "tokenPrice": "Preço do Token",
+      "progress": "Progresso",
+      "connectWallet": "Conectar Carteira"
+    },
+    "hero": {
+      "officialBadge": "Launchpad Oficial da TBURN Foundation",
+      "title": "TBURN",
+      "titleHighlight": "Venda Pública",
+      "subtitle": "Plataforma oficial de venda de tokens segura e transparente"
+    },
+    "countdown": {
+      "title": "Até o Fim da Venda",
+      "phase": "Fase 2 em Progresso",
+      "days": "Dias",
+      "hours": "Horas",
+      "minutes": "Minutos",
+      "seconds": "Segundos"
+    },
+    "progress": {
+      "goal": "Meta: $12,000,000",
+      "completed": "Concluído",
+      "sold": "Vendido",
+      "remaining": "Restante"
+    },
+    "purchase": {
+      "title": "Compra de Tokens",
+      "steps": {
+        "wallet": "Conectar Carteira",
+        "kyc": "Verificação KYC",
+        "amount": "Inserir Valor",
+        "complete": "Compra Concluída"
+      },
+      "walletSection": {
+        "title": "Conectar Carteira",
+        "connectPrompt": "Conecte sua carteira",
+        "connected": "Conectado"
+      },
+      "kycSection": {
+        "title": "Verificação KYC",
+        "required": "Verificação KYC Necessária",
+        "requiredDesc": "Complete a verificação de identidade simples",
+        "completed": "Verificação KYC Concluída",
+        "completedDesc": "Todas as verificações foram concluídas",
+        "verifyButton": "Verificar KYC",
+        "verifiedButton": "Verificado"
+      },
+      "amountSection": {
+        "title": "Valor de Participação",
+        "placeholder": "Inserir valor",
+        "tokenQuantity": "Quantidade de Tokens",
+        "tierBonus": "Bônus de Nível",
+        "totalTokens": "Total de Tokens",
+        "tgeUnlock": "Desbloqueio TGE (15%)",
+        "estimatedValue": "Valor Estimado (@$0.08)",
+        "paymentMethod": "Método de Pagamento",
+        "purchaseButton": "Comprar Tokens",
+        "secureNote": "Processado via contrato inteligente seguro"
+      }
+    },
+    "sidebar": {
+      "saleInfo": {
+        "title": "Informações da Venda",
+        "tokenPrice": "Preço do Token",
+        "totalSale": "Quantidade Total de Venda",
+        "minParticipation": "Participação Mínima",
+        "tgeUnlock": "Desbloqueio TGE",
+        "cliff": "Cliff",
+        "vesting": "Vesting",
+        "network": "Rede"
+      },
+      "tiers": {
+        "title": "Níveis de Participação",
+        "whale": "Baleia",
+        "dolphin": "Golfinho",
+        "fish": "Peixe",
+        "shrimp": "Camarão",
+        "whaleRange": "$50,000+",
+        "dolphinRange": "$10,000 ~ $49,999",
+        "fishRange": "$1,000 ~ $9,999",
+        "shrimpRange": "$100 ~ $999"
+      },
+      "vesting": {
+        "title": "Cronograma de Vesting",
+        "tge": "TGE",
+        "tgeDesc": "Evento de Geração de Token",
+        "cliff": "Cliff",
+        "cliffDesc": "Mês 1-3",
+        "vestingTitle": "Vesting",
+        "vestingDesc": "Mês 4-15"
+      },
+      "features": {
+        "title": "Recursos do Launchpad Oficial",
+        "foundation": "Garantia Oficial da TBURN Foundation",
+        "contract": "Contrato Inteligente Seguro",
+        "bonus": "Todos os Bônus de Nível Aplicados",
+        "support": "Suporte 24/7",
+        "claim": "Reivindicação de Tokens em Tempo Real"
+      }
+    },
+    "faq": {
+      "title": "Perguntas Frequentes",
+      "subtitle": "Perguntas sobre o Launchpad TBURN",
+      "q1": {
+        "question": "Qual é o tamanho total da venda do launchpad?",
+        "answer": "O launchpad oficial TBURN vende um total de 600M TBURN (6% do fornecimento total). O preço do token é $0.02, com meta de arrecadação de $12,000,000."
+      },
+      "q2": {
+        "question": "Quais são os requisitos de participação?",
+        "answer": "Todos os usuários que completarem a conexão de carteira e verificação KYC podem participar. A participação mínima é $100, sem limite máximo."
+      },
+      "q3": {
+        "question": "Como os bônus de nível são aplicados?",
+        "answer": "Os bônus são aplicados automaticamente com base no valor de participação. Baleia($50,000+): +5%, Golfinho($10,000~$49,999): +3%, Peixe($1,000~$9,999): +1%, Camarão($100~$999): Sem bônus."
+      },
+      "q4": {
+        "question": "Quando posso receber meus tokens?",
+        "answer": "15% são liberados imediatamente no TGE (Evento de Geração de Token). Após um período cliff de 3 meses, os 85% restantes são distribuídos mensalmente durante 12 meses."
+      },
+      "q5": {
+        "question": "Quais métodos de pagamento são suportados?",
+        "answer": "Três métodos de pagamento são suportados: USDT, USDC e ETH. Todos os pagamentos são processados via contratos inteligentes seguros na rede Ethereum."
+      },
+      "q6": {
+        "question": "Qual é o processo de participação?",
+        "answer": "1) Conectar carteira → 2) Verificação KYC → 3) Inserir valor → 4) Selecionar método de pagamento → 5) Completar compra. Todo o processo leva aproximadamente 5 minutos."
+      },
+      "q7": {
+        "question": "Quais são os benefícios especiais do launchpad oficial?",
+        "answer": "Oferecemos garantia oficial da TBURN Foundation, processamento seguro por contrato inteligente, todos os bônus de nível aplicados, suporte 24/7 e funcionalidade de reivindicação de tokens em tempo real."
+      },
+      "q8": {
+        "question": "Onde posso entrar em contato para dúvidas?",
+        "answer": "Você pode nos contatar 24/7 via Telegram oficial(@tburnchain), Discord(discord.gg/tburnchain) ou email(support@tburn.io). Nossa equipe de suporte ao vivo 24/7 está disponível."
+      }
+    },
+    "footer": {
+      "terms": "Termos de Serviço",
+      "privacy": "Política de Privacidade",
+      "riskDisclosure": "Divulgação de Riscos",
+      "support": "Suporte ao Cliente",
+      "copyright": "© 2025-2045 TBURN Foundation. Todos os Direitos Reservados."
+    },
+    "modal": {
+      "purchaseComplete": "Compra Concluída!",
+      "processing": "Processando Transação",
+      "tokenPurchaseComplete": "Compra de Tokens Concluída!",
+      "successMessage": "Tokens comprados com sucesso",
+      "confirmingTx": "Confirmando transação...",
+      "confirmWallet": "Confirme a transação em sua carteira",
+      "purchaseAmount": "Valor da Compra",
+      "receivingTokens": "Tokens a Receber",
+      "estimatedGas": "Taxa de Gas Estimada",
+      "confirm": "Confirmar"
+    },
+    "toast": {
+      "walletDisconnected": "Carteira Desconectada",
+      "walletDisconnectedDesc": "A carteira foi desconectada.",
+      "walletConnect": "Conectar Carteira",
+      "walletConnectDesc": "Tentando conectar",
+      "walletRequired": "Conexão de Carteira Necessária",
+      "walletRequiredDesc": "Conecte sua carteira primeiro.",
+      "kycRequired": "Verificação KYC Necessária",
+      "kycRequiredDesc": "Complete a verificação KYC para comprar tokens.",
+      "kycStart": "Iniciando KYC",
+      "kycStartDesc": "Prosseguindo com verificação de identidade...",
+      "kycComplete": "KYC Concluído",
+      "kycCompleteDesc": "Verificação de identidade concluída com sucesso.",
+      "minAmount": "Valor Mínimo Não Atingido",
+      "minAmountDesc": "A participação mínima é $100.",
+      "purchasing": "Processando Compra",
+      "purchasingDesc": "Processando transação...",
+      "purchaseComplete": "Compra Concluída",
+      "purchaseCompleteDesc": "tokens comprados com sucesso.",
+      "viewDetails": "Detalhes da Venda",
+      "viewDetailsDesc": "Ver detalhes da venda abaixo.",
+      "tierSelect": "Nível Selecionado",
+      "tierSelectDesc": "Bônus:",
+      "tierWalletRequired": "Conexão de Carteira Necessária",
+      "tierWalletRequiredDesc": "Conecte sua carteira para participar dos níveis.",
+      "socialOpen": "Abrindo",
+      "socialOpenDesc": "Navegando para a página."
+    }
   },
   "gamefi": {
     "title": "Hub GameFi",

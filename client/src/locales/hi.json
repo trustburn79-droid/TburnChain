@@ -1580,32 +1580,190 @@
     "auctionEnds": "नीलामी समाप्त"
   },
   "launchpad": {
-    "title": "NFT लॉन्चपैड",
-    "subtitle": "विशेष NFT लॉन्च में खोजें और भाग लें",
-    "forumTitle": "समुदाय मंच",
-    "viewAll": "सभी देखें",
-    "recentPosts": "हाल की पोस्ट",
-    "upcomingLaunches": "आगामी लॉन्च",
-    "activeLaunches": "सक्रिय लॉन्च",
-    "pastLaunches": "पिछले लॉन्च",
-    "projectName": "प्रोजेक्ट नाम",
-    "mintPrice": "मिंट मूल्य",
-    "totalSupply": "कुल सप्लाई",
-    "minted": "मिंटेड",
-    "remaining": "शेष",
-    "startDate": "प्रारंभ तिथि",
-    "endDate": "समाप्ति तिथि",
-    "whitelist": "व्हाइटलिस्ट",
-    "publicSale": "पब्लिक सेल",
-    "mint": "मिंट",
-    "mintNow": "अभी मिंट करें",
-    "soldOut": "बिक गया",
-    "comingSoon": "जल्द आ रहा है",
-    "ended": "समाप्त",
-    "projectDetails": "प्रोजेक्ट विवरण",
-    "roadmap": "रोडमैप",
-    "team": "टीम",
-    "socials": "सोशल्स"
+    "header": {
+      "status": "स्थिति",
+      "tokenPrice": "टोकन मूल्य",
+      "progress": "प्रगति",
+      "connectWallet": "वॉलेट कनेक्ट करें"
+    },
+    "hero": {
+      "officialBadge": "TBURN Foundation आधिकारिक लॉन्चपैड",
+      "title": "TBURN",
+      "titleHighlight": "पब्लिक सेल",
+      "subtitle": "सुरक्षित और पारदर्शी आधिकारिक टोकन बिक्री मंच"
+    },
+    "countdown": {
+      "title": "बिक्री समाप्ति तक",
+      "phase": "चरण 2 जारी",
+      "days": "दिन",
+      "hours": "घंटे",
+      "minutes": "मिनट",
+      "seconds": "सेकंड"
+    },
+    "progress": {
+      "goal": "लक्ष्य: $12,000,000",
+      "completed": "पूर्ण",
+      "sold": "बेचा गया",
+      "remaining": "शेष"
+    },
+    "purchase": {
+      "title": "टोकन खरीदें",
+      "steps": {
+        "wallet": "वॉलेट कनेक्ट करें",
+        "kyc": "KYC सत्यापन",
+        "amount": "राशि दर्ज करें",
+        "complete": "खरीद पूर्ण"
+      },
+      "walletSection": {
+        "title": "वॉलेट कनेक्ट करें",
+        "connectPrompt": "अपना वॉलेट कनेक्ट करें",
+        "connected": "कनेक्टेड"
+      },
+      "kycSection": {
+        "title": "KYC सत्यापन",
+        "required": "KYC सत्यापन आवश्यक",
+        "requiredDesc": "कृपया सरल पहचान सत्यापन पूर्ण करें",
+        "completed": "KYC सत्यापन पूर्ण",
+        "completedDesc": "सभी सत्यापन पूर्ण हो गए हैं",
+        "verifyButton": "KYC सत्यापित करें",
+        "verifiedButton": "सत्यापित"
+      },
+      "amountSection": {
+        "title": "भागीदारी राशि",
+        "placeholder": "राशि दर्ज करें",
+        "tokenQuantity": "टोकन मात्रा",
+        "tierBonus": "टियर बोनस",
+        "totalTokens": "कुल टोकन",
+        "tgeUnlock": "TGE अनलॉक (15%)",
+        "estimatedValue": "अनुमानित मूल्य (@$0.08)",
+        "paymentMethod": "भुगतान विधि",
+        "purchaseButton": "टोकन खरीदें",
+        "secureNote": "सुरक्षित स्मार्ट कॉन्ट्रैक्ट द्वारा प्रोसेस किया जाता है"
+      }
+    },
+    "sidebar": {
+      "saleInfo": {
+        "title": "बिक्री जानकारी",
+        "tokenPrice": "टोकन मूल्य",
+        "totalSale": "कुल बिक्री राशि",
+        "minParticipation": "न्यूनतम भागीदारी",
+        "tgeUnlock": "TGE अनलॉक",
+        "cliff": "क्लिफ",
+        "vesting": "वेस्टिंग",
+        "network": "नेटवर्क"
+      },
+      "tiers": {
+        "title": "भागीदारी टियर",
+        "whale": "व्हेल",
+        "dolphin": "डॉल्फिन",
+        "fish": "फिश",
+        "shrimp": "श्रिम्प",
+        "whaleRange": "$50,000+",
+        "dolphinRange": "$10,000 ~ $49,999",
+        "fishRange": "$1,000 ~ $9,999",
+        "shrimpRange": "$100 ~ $999"
+      },
+      "vesting": {
+        "title": "वेस्टिंग शेड्यूल",
+        "tge": "TGE",
+        "tgeDesc": "टोकन जनरेशन इवेंट",
+        "cliff": "क्लिफ",
+        "cliffDesc": "महीना 1-3",
+        "vestingTitle": "वेस्टिंग",
+        "vestingDesc": "महीना 4-15"
+      },
+      "features": {
+        "title": "आधिकारिक लॉन्चपैड विशेषताएं",
+        "foundation": "TBURN Foundation आधिकारिक गारंटी",
+        "contract": "सुरक्षित स्मार्ट कॉन्ट्रैक्ट",
+        "bonus": "सभी टियर बोनस लागू",
+        "support": "24/7 ग्राहक सहायता",
+        "claim": "रीयल-टाइम टोकन क्लेम"
+      }
+    },
+    "faq": {
+      "title": "अक्सर पूछे जाने वाले प्रश्न",
+      "subtitle": "TBURN लॉन्चपैड के बारे में प्रश्न",
+      "q1": {
+        "question": "लॉन्चपैड की कुल बिक्री कितनी है?",
+        "answer": "TBURN आधिकारिक लॉन्चपैड कुल 600M TBURN (कुल आपूर्ति का 6%) बेचता है। टोकन मूल्य $0.02 है, फंडिंग लक्ष्य $12,000,000 है।"
+      },
+      "q2": {
+        "question": "भागीदारी की आवश्यकताएं क्या हैं?",
+        "answer": "वॉलेट कनेक्शन और KYC सत्यापन पूर्ण करने वाले सभी उपयोगकर्ता भाग ले सकते हैं। न्यूनतम भागीदारी $100 है, कोई अधिकतम सीमा नहीं।"
+      },
+      "q3": {
+        "question": "टियर बोनस कैसे लागू होते हैं?",
+        "answer": "भागीदारी राशि के आधार पर बोनस स्वचालित रूप से लागू होते हैं। व्हेल($50,000+): +5%, डॉल्फिन($10,000~$49,999): +3%, फिश($1,000~$9,999): +1%, श्रिम्प($100~$999): कोई बोनस नहीं।"
+      },
+      "q4": {
+        "question": "मुझे अपने टोकन कब मिलेंगे?",
+        "answer": "TGE (टोकन जनरेशन इवेंट) पर 15% तुरंत अनलॉक होते हैं। 3 महीने की क्लिफ अवधि के बाद, शेष 85% 12 महीनों में मासिक वितरित किए जाते हैं।"
+      },
+      "q5": {
+        "question": "कौन सी भुगतान विधियां समर्थित हैं?",
+        "answer": "तीन भुगतान विधियां समर्थित हैं: USDT, USDC और ETH। सभी भुगतान Ethereum नेटवर्क पर सुरक्षित स्मार्ट कॉन्ट्रैक्ट्स के माध्यम से प्रोसेस किए जाते हैं।"
+      },
+      "q6": {
+        "question": "भागीदारी प्रक्रिया क्या है?",
+        "answer": "1) वॉलेट कनेक्ट करें → 2) KYC सत्यापन → 3) राशि दर्ज करें → 4) भुगतान विधि चुनें → 5) खरीद पूर्ण करें। पूरी प्रक्रिया में लगभग 5 मिनट लगते हैं।"
+      },
+      "q7": {
+        "question": "आधिकारिक लॉन्चपैड के विशेष लाभ क्या हैं?",
+        "answer": "हम TBURN Foundation आधिकारिक गारंटी, सुरक्षित स्मार्ट कॉन्ट्रैक्ट प्रोसेसिंग, सभी टियर बोनस लागू, 24/7 ग्राहक सहायता और रीयल-टाइम टोकन क्लेम कार्यक्षमता प्रदान करते हैं।"
+      },
+      "q8": {
+        "question": "प्रश्नों के लिए कहां संपर्क करें?",
+        "answer": "आप आधिकारिक Telegram(@tburnchain), Discord(discord.gg/tburnchain), या ईमेल(support@tburn.io) के माध्यम से 24/7 संपर्क कर सकते हैं। हमारी 24/7 लाइव सपोर्ट टीम तैयार है।"
+      }
+    },
+    "footer": {
+      "terms": "सेवा की शर्तें",
+      "privacy": "गोपनीयता नीति",
+      "riskDisclosure": "जोखिम प्रकटीकरण",
+      "support": "ग्राहक सहायता",
+      "copyright": "© 2025-2045 TBURN Foundation. सर्वाधिकार सुरक्षित।"
+    },
+    "modal": {
+      "purchaseComplete": "खरीद पूर्ण!",
+      "processing": "लेनदेन प्रोसेस हो रहा है",
+      "tokenPurchaseComplete": "टोकन खरीद पूर्ण!",
+      "successMessage": "टोकन सफलतापूर्वक खरीदे गए",
+      "confirmingTx": "लेनदेन की पुष्टि हो रही है...",
+      "confirmWallet": "कृपया अपने वॉलेट में लेनदेन की पुष्टि करें",
+      "purchaseAmount": "खरीद राशि",
+      "receivingTokens": "प्राप्त होने वाले टोकन",
+      "estimatedGas": "अनुमानित गैस शुल्क",
+      "confirm": "पुष्टि करें"
+    },
+    "toast": {
+      "walletDisconnected": "वॉलेट डिस्कनेक्ट",
+      "walletDisconnectedDesc": "वॉलेट डिस्कनेक्ट हो गया है।",
+      "walletConnect": "वॉलेट कनेक्ट",
+      "walletConnectDesc": "कनेक्ट करने का प्रयास",
+      "walletRequired": "वॉलेट कनेक्शन आवश्यक",
+      "walletRequiredDesc": "कृपया पहले अपना वॉलेट कनेक्ट करें।",
+      "kycRequired": "KYC सत्यापन आवश्यक",
+      "kycRequiredDesc": "टोकन खरीदने के लिए KYC सत्यापन पूर्ण करें।",
+      "kycStart": "KYC शुरू",
+      "kycStartDesc": "पहचान सत्यापन जारी...",
+      "kycComplete": "KYC पूर्ण",
+      "kycCompleteDesc": "पहचान सत्यापन सफलतापूर्वक पूर्ण।",
+      "minAmount": "न्यूनतम राशि पूरी नहीं",
+      "minAmountDesc": "न्यूनतम भागीदारी $100 है।",
+      "purchasing": "खरीद प्रोसेस हो रही है",
+      "purchasingDesc": "लेनदेन प्रोसेस हो रहा है...",
+      "purchaseComplete": "खरीद पूर्ण",
+      "purchaseCompleteDesc": "टोकन सफलतापूर्वक खरीदे गए।",
+      "viewDetails": "बिक्री विवरण",
+      "viewDetailsDesc": "नीचे बिक्री विवरण देखें।",
+      "tierSelect": "टियर चयनित",
+      "tierSelectDesc": "बोनस:",
+      "tierWalletRequired": "वॉलेट कनेक्शन आवश्यक",
+      "tierWalletRequiredDesc": "टियर में भाग लेने के लिए कृपया अपना वॉलेट कनेक्ट करें।",
+      "socialOpen": "खुल रहा है",
+      "socialOpenDesc": "पेज पर जा रहे हैं।"
+    }
   },
   "gamefi": {
     "title": "GameFi हब",
