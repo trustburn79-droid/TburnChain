@@ -20393,19 +20393,321 @@
       }
     },
     "publicRound": {
-      "title": "パブリックラウンド",
-      "subtitle": "誰でも参加できる公開トークンセール",
-      "heroTitle": "TBURN パブリックラウンド",
-      "heroSubtitle": "公開トークンセールに参加してTBURNコミュニティに参加",
-      "badge": "パブリックセール",
-      "tokenPrice": "トークン価格",
-      "discount": "ローンチ価格からの割引",
-      "allocation": "総割当",
-      "minPurchase": "最小購入額",
-      "maxPurchase": "最大購入額",
-      "whitelistRequired": "ホワイトリスト必須",
-      "joinWhitelist": "ホワイトリスト参加",
-      "purchaseTokens": "トークン購入"
+      "nav": {
+        "tiers": "参加ティア",
+        "vesting": "ベスティング",
+        "howTo": "参加方法",
+        "calculator": "計算機",
+        "faq": "FAQ",
+        "connectWallet": "今すぐ参加"
+      },
+      "hero": {
+        "badge": "PUBLIC ROUND - 公開販売",
+        "status": "進行中",
+        "title1": "パブリックラウンドで",
+        "title2": "10億 TBURN",
+        "title3": "のチャンスを掴む",
+        "subtitle": "誰でも参加可能な公開セール。ローンチ価格($0.50)より60%割引の$0.20！最低$100から、TGE 10%即時解除、3ヶ月クリフ！",
+        "countdownLabel": "セール終了まで",
+        "days": "日",
+        "hours": "時間",
+        "mins": "分",
+        "secs": "秒",
+        "progressGoal": "目標 $200,000,000",
+        "progressPercent": "45% 達成",
+        "progressRemaining": "残り $110,250,000"
+      },
+      "highlights": {
+        "tokenPrice": "トークン価格",
+        "discount": "ローンチ価格との割引",
+        "tgeUnlock": "TGE即時解除",
+        "minAmount": "最低参加金額"
+      },
+      "stats": {
+        "loading": "読み込み中...",
+        "publicAllocation": "パブリック配分 (10%)",
+        "tokenPrice": "トークン価格",
+        "hardcap": "ハードキャップ",
+        "participants": "参加者"
+      },
+      "cta": {
+        "joinNow": "今すぐ参加",
+        "viewGuide": "セールガイドを見る"
+      },
+      "comparison": {
+        "badge": "COMPARISON",
+        "title": "ラウンド比較",
+        "subtitle": "パブリックラウンドの利点を確認",
+        "tableTitle": "投資ラウンド比較",
+        "headers": {
+          "round": "ラウンド",
+          "tokenPrice": "トークン価格",
+          "discount": "割引",
+          "status": "ステータス"
+        },
+        "bestBadge": "アクセス性最高",
+        "seedRound": "シードラウンド",
+        "privateRound": "プライベートラウンド",
+        "publicRound": "パブリックラウンド",
+        "completed": "完了",
+        "live": "進行中",
+        "upcoming": "予定"
+      },
+      "tiers": {
+        "badge": "TIERS",
+        "title": "参加ティア",
+        "subtitle": "参加金額別の特典とボーナス",
+        "minAmountLabel": "最低参加金額",
+        "joinBtn": "参加する",
+        "whale": {
+          "name": "ホエール",
+          "subtitle": "大口参加者",
+          "details": [
+            "最低参加",
+            "ボーナス",
+            "TGE解除"
+          ],
+          "benefits": [
+            "VIPコミュニティ",
+            "エアドロップ優先",
+            "専用AMA招待",
+            "アルファ情報",
+            "専任サポート"
+          ]
+        },
+        "dolphin": {
+          "name": "ドルフィン",
+          "subtitle": "中口参加者",
+          "details": [
+            "最低参加",
+            "ボーナス",
+            "TGE解除"
+          ],
+          "benefits": [
+            "プレミアムコミュニティ",
+            "エアドロップ参加",
+            "四半期AMA",
+            "ニュースレター",
+            "優先サポート"
+          ]
+        },
+        "fish": {
+          "name": "フィッシュ",
+          "subtitle": "一般参加者",
+          "details": [
+            "最低参加",
+            "ボーナス",
+            "TGE解除"
+          ],
+          "benefits": [
+            "一般コミュニティ",
+            "基本エアドロップ",
+            "公開AMA",
+            "月次更新",
+            "標準サポート"
+          ]
+        },
+        "shrimp": {
+          "name": "シュリンプ",
+          "subtitle": "少額参加者",
+          "details": [
+            "最低参加",
+            "ボーナス",
+            "TGE解除"
+          ],
+          "benefits": [
+            "公開チャンネル",
+            "基本参加",
+            "公開情報",
+            "メール通知",
+            "コミュニティサポート"
+          ]
+        }
+      },
+      "vesting": {
+        "badge": "VESTING",
+        "title": "ベスティングスケジュール",
+        "subtitle": "TGE 10%即時解除、3ヶ月クリフ後6ヶ月月次ベスティング",
+        "phases": [
+          {
+            "title": "TGE解除",
+            "value": "10%",
+            "desc": "即時"
+          },
+          {
+            "title": "クリフ",
+            "value": "3ヶ月",
+            "desc": "ロック期間"
+          },
+          {
+            "title": "月次ベスティング",
+            "value": "15%",
+            "desc": "6ヶ月間"
+          },
+          {
+            "title": "完全解除",
+            "value": "100%",
+            "desc": "9ヶ月後"
+          }
+        ]
+      },
+      "howTo": {
+        "badge": "HOW TO",
+        "title": "参加方法",
+        "subtitle": "簡単4ステップで参加",
+        "steps": [
+          {
+            "title": "ウォレット接続",
+            "desc": "MetaMask, Trustなど"
+          },
+          {
+            "title": "KYC認証",
+            "desc": "簡単な本人確認"
+          },
+          {
+            "title": "支払い選択",
+            "desc": "USDT, USDC, ETH, BTC"
+          },
+          {
+            "title": "トークン受取",
+            "desc": "TGE 15%即時"
+          }
+        ]
+      },
+      "platforms": {
+        "badge": "PLATFORMS",
+        "title": "参加プラットフォーム",
+        "subtitle": "様々な方法で参加可能",
+        "joinBtn": "参加する",
+        "items": [
+          {
+            "name": "TBURN Launchpad",
+            "type": "公式ローンチパッド",
+            "desc": "TBURN公式セールプラットフォーム",
+            "features": [
+              "最低手数料",
+              "直接参加",
+              "24/7サポート",
+              "マルチ決済対応"
+            ]
+          },
+          {
+            "name": "パートナー取引所",
+            "type": "CEX IEO",
+            "desc": "パートナー取引所経由で参加",
+            "features": [
+              "簡単KYC",
+              "法定通貨対応",
+              "取引所保証",
+              "即時上場"
+            ]
+          },
+          {
+            "name": "DEXローンチパッド",
+            "type": "分散型IDO",
+            "desc": "分散型プラットフォームで参加",
+            "features": [
+              "ウォレット直接接続",
+              "スマートコントラクト",
+              "透明な配分",
+              "コミュニティ主導"
+            ]
+          }
+        ]
+      },
+      "calculator": {
+        "badge": "CALCULATOR",
+        "title": "トークン計算機",
+        "subtitle": "投資金額に基づく予想リターンを計算",
+        "inputTitle": "投資金額入力",
+        "inputLabel": "投資金額 (USD)",
+        "inputPlaceholder": "金額を入力",
+        "resultTitle": "予想結果",
+        "tokenAmount": "トークン数量",
+        "tgeUnlock": "TGE解除 (10%)",
+        "launchPrice": "予想ローンチ価格 ($0.50)",
+        "profit": "予想利益"
+      },
+      "faq": {
+        "badge": "FAQ",
+        "title": "よくある質問",
+        "subtitle": "パブリックセールに関する疑問",
+        "q1": {
+          "question": "パブリックラウンドの参加資格と条件は？",
+          "answer": "KYC認証を完了した世界中の個人投資家が参加可能です。最低$100から、上限なし。"
+        },
+        "q2": {
+          "question": "シード/プライベートラウンドとの違いは？",
+          "answer": "シード・プライベートラウンドは完了済み。パブリックラウンドは割引は低いですが$100から参加可能で、ベスティング期間も短いです。"
+        },
+        "q3": {
+          "question": "TGEとベスティングスケジュールは？",
+          "answer": "TGE時に10%即時解除、3ヶ月クリフ後6ヶ月で月15%ずつベスティング。"
+        },
+        "q4": {
+          "question": "対応している決済方法は？",
+          "answer": "USDT、USDC、ETH、BTC、BNB対応。パートナー取引所では法定通貨も可能。"
+        },
+        "q5": {
+          "question": "参加者保護は？",
+          "answer": "標準トークン販売契約で保護。スマートコントラクトは複数監査済み。"
+        },
+        "q6": {
+          "question": "上場計画とローンチ価格は？",
+          "answer": "TBURNのローンチ価格は$0.50予定。TGEはセール終了後2-4週間で実施。"
+        },
+        "q7": {
+          "question": "ティア別特典は？",
+          "answer": "参加金額に応じて4ティアに分類、各ティアで異なるボーナスとTGE解除率。"
+        },
+        "q8": {
+          "question": "返金ポリシーは？",
+          "answer": "原則として確定後の返金不可。特殊な場合は例外あり。"
+        }
+      },
+      "ctaSection": {
+        "title": "今すぐ参加！",
+        "subtitle": "TBURN Chainのパブリックセールに参加して、ローンチ価格より60%割引の$0.20でTBURNを獲得！",
+        "button": "今すぐ参加"
+      },
+      "dialog": {
+        "title": "パブリックラウンドお問い合わせ",
+        "description": "担当者からすぐにご連絡いたします。どなたでも参加可能です。",
+        "name": "お名前 *",
+        "namePlaceholder": "山田太郎",
+        "email": "メール *",
+        "investmentAmount": "参加予定金額",
+        "message": "追加メッセージ",
+        "messagePlaceholder": "その他のご質問をご入力ください",
+        "cancelBtn": "キャンセル",
+        "submit": "お問い合わせ送信",
+        "submitting": "送信中...",
+        "successTitle": "お問い合わせ受付",
+        "successDesc": "担当者からすぐにご連絡いたします。",
+        "errorTitle": "エラーが発生しました",
+        "requiredTitle": "必須項目が未入力です",
+        "requiredDesc": "お名前とメールは必須です。"
+      },
+      "footer": {
+        "description": "AIの知能、ブロックチェーンの透明性。THE FUTURE IS NOW",
+        "product": "製品",
+        "resources": "リソース",
+        "community": "コミュニティ",
+        "mainnet": "メインネット",
+        "explorer": "エクスプローラー",
+        "bridge": "ブリッジ",
+        "staking": "ステーキング",
+        "whitepaper": "ホワイトペーパー",
+        "docs": "ドキュメント",
+        "github": "GitHub",
+        "audit": "監査報告書",
+        "blog": "ブログ",
+        "ambassador": "アンバサダー",
+        "grants": "グラント",
+        "support": "サポート",
+        "terms": "利用規約",
+        "privacy": "プライバシーポリシー"
+      }
     },
     "launchpad": {
       "title": "ローンチパッド",

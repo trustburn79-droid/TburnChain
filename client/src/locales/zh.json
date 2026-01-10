@@ -19613,19 +19613,321 @@
       }
     },
     "publicRound": {
-      "title": "公募轮",
-      "subtitle": "向所有人开放的公开代币销售",
-      "heroTitle": "TBURN 公募轮",
-      "heroSubtitle": "参与公开代币销售，加入TBURN社区",
-      "badge": "公开销售",
-      "tokenPrice": "代币价格",
-      "discount": "发行价折扣",
-      "allocation": "总分配",
-      "minPurchase": "最低购买",
-      "maxPurchase": "最高购买",
-      "whitelistRequired": "需要白名单",
-      "joinWhitelist": "加入白名单",
-      "purchaseTokens": "购买代币"
+      "nav": {
+        "tiers": "参与等级",
+        "vesting": "归属计划",
+        "howTo": "如何参与",
+        "calculator": "计算器",
+        "faq": "常见问题",
+        "connectWallet": "立即参与"
+      },
+      "hero": {
+        "badge": "PUBLIC ROUND - 公开销售",
+        "status": "进行中",
+        "title1": "通过公开轮",
+        "title2": "10亿 TBURN",
+        "title3": "抓住机会",
+        "subtitle": "所有人均可参与的公开销售。比上市价($0.50)优惠60%，仅$0.20！最低$100起，TGE 10%即时解锁，3个月锁定期！",
+        "countdownLabel": "销售结束倒计时",
+        "days": "天",
+        "hours": "时",
+        "mins": "分",
+        "secs": "秒",
+        "progressGoal": "目标 $200,000,000",
+        "progressPercent": "已完成 45%",
+        "progressRemaining": "剩余 $110,250,000"
+      },
+      "highlights": {
+        "tokenPrice": "单价",
+        "discount": "相比上市价优惠",
+        "tgeUnlock": "TGE即时解锁",
+        "minAmount": "最低参与金额"
+      },
+      "stats": {
+        "loading": "加载中...",
+        "publicAllocation": "公开配额 (10%)",
+        "tokenPrice": "代币价格",
+        "hardcap": "硬顶",
+        "participants": "参与者"
+      },
+      "cta": {
+        "joinNow": "立即参与",
+        "viewGuide": "查看销售指南"
+      },
+      "comparison": {
+        "badge": "COMPARISON",
+        "title": "轮次对比",
+        "subtitle": "了解公开轮的优势",
+        "tableTitle": "投资轮次对比",
+        "headers": {
+          "round": "轮次",
+          "tokenPrice": "代币价格",
+          "discount": "折扣",
+          "status": "状态"
+        },
+        "bestBadge": "最佳可及性",
+        "seedRound": "种子轮",
+        "privateRound": "私募轮",
+        "publicRound": "公开轮",
+        "completed": "已完成",
+        "live": "进行中",
+        "upcoming": "即将开始"
+      },
+      "tiers": {
+        "badge": "TIERS",
+        "title": "参与等级",
+        "subtitle": "按参与金额享受不同优惠",
+        "minAmountLabel": "最低参与",
+        "joinBtn": "立即参与",
+        "whale": {
+          "name": "鲸鱼",
+          "subtitle": "大额参与者",
+          "details": [
+            "最低参与",
+            "额外奖励",
+            "TGE解锁"
+          ],
+          "benefits": [
+            "VIP社区访问",
+            "空投优先权",
+            "专属AMA邀请",
+            "早期信息",
+            "专属支持"
+          ]
+        },
+        "dolphin": {
+          "name": "海豚",
+          "subtitle": "中额参与者",
+          "details": [
+            "最低参与",
+            "额外奖励",
+            "TGE解锁"
+          ],
+          "benefits": [
+            "高级社区",
+            "空投参与",
+            "季度AMA",
+            "新闻通讯",
+            "优先支持"
+          ]
+        },
+        "fish": {
+          "name": "鱼",
+          "subtitle": "普通参与者",
+          "details": [
+            "最低参与",
+            "额外奖励",
+            "TGE解锁"
+          ],
+          "benefits": [
+            "普通社区",
+            "基础空投",
+            "公开AMA",
+            "月度更新",
+            "标准支持"
+          ]
+        },
+        "shrimp": {
+          "name": "虾",
+          "subtitle": "小额参与者",
+          "details": [
+            "最低参与",
+            "额外奖励",
+            "TGE解锁"
+          ],
+          "benefits": [
+            "公开频道",
+            "基础参与",
+            "公开信息",
+            "邮件提醒",
+            "社区支持"
+          ]
+        }
+      },
+      "vesting": {
+        "badge": "VESTING",
+        "title": "归属计划",
+        "subtitle": "TGE 10%即时解锁，3个月锁定期后6个月月度归属",
+        "phases": [
+          {
+            "title": "TGE解锁",
+            "value": "10%",
+            "desc": "即时"
+          },
+          {
+            "title": "锁定期",
+            "value": "3个月",
+            "desc": "锁定阶段"
+          },
+          {
+            "title": "月度归属",
+            "value": "15%",
+            "desc": "持续6个月"
+          },
+          {
+            "title": "完全解锁",
+            "value": "100%",
+            "desc": "9个月后"
+          }
+        ]
+      },
+      "howTo": {
+        "badge": "HOW TO",
+        "title": "如何参与",
+        "subtitle": "简单4步即可参与",
+        "steps": [
+          {
+            "title": "连接钱包",
+            "desc": "MetaMask, Trust等"
+          },
+          {
+            "title": "KYC验证",
+            "desc": "简单身份验证"
+          },
+          {
+            "title": "选择支付",
+            "desc": "USDT, USDC, ETH, BTC"
+          },
+          {
+            "title": "接收代币",
+            "desc": "TGE 15%即时"
+          }
+        ]
+      },
+      "platforms": {
+        "badge": "PLATFORMS",
+        "title": "参与平台",
+        "subtitle": "多种方式参与",
+        "joinBtn": "立即参与",
+        "items": [
+          {
+            "name": "TBURN Launchpad",
+            "type": "官方启动平台",
+            "desc": "TBURN官方销售平台",
+            "features": [
+              "最低手续费",
+              "直接参与",
+              "24/7支持",
+              "多支付方式"
+            ]
+          },
+          {
+            "name": "合作交易所",
+            "type": "CEX IEO",
+            "desc": "通过合作交易所参与",
+            "features": [
+              "简单KYC",
+              "法币支持",
+              "交易所保障",
+              "即时上市"
+            ]
+          },
+          {
+            "name": "DEX启动平台",
+            "type": "去中心化IDO",
+            "desc": "在去中心化平台参与",
+            "features": [
+              "直接钱包连接",
+              "智能合约",
+              "透明分配",
+              "社区驱动"
+            ]
+          }
+        ]
+      },
+      "calculator": {
+        "badge": "CALCULATOR",
+        "title": "代币计算器",
+        "subtitle": "根据投资金额计算预期收益",
+        "inputTitle": "输入投资金额",
+        "inputLabel": "投资金额 (USD)",
+        "inputPlaceholder": "输入金额",
+        "resultTitle": "预期结果",
+        "tokenAmount": "代币数量",
+        "tgeUnlock": "TGE解锁 (10%)",
+        "launchPrice": "预期上市价 ($0.50)",
+        "profit": "预期收益"
+      },
+      "faq": {
+        "badge": "FAQ",
+        "title": "常见问题",
+        "subtitle": "关于公开销售的常见疑问",
+        "q1": {
+          "question": "公开轮参与资格和条件是什么？",
+          "answer": "公开轮向完成KYC验证的全球所有个人投资者开放。最低参与金额为$100，无上限（鲸鱼等级$50,000以上有额外优惠）。"
+        },
+        "q2": {
+          "question": "与种子/私募轮有什么区别？",
+          "answer": "种子轮和私募轮已完成，优惠更高但锁定期更长。公开轮优惠较低但任何人都可从$100起参与，锁定期更短。"
+        },
+        "q3": {
+          "question": "TGE和归属计划是怎样的？",
+          "answer": "TGE时公开轮参与者可即时获得10%。3个月锁定期后，6个月内每月归属15%。"
+        },
+        "q4": {
+          "question": "支持哪些支付方式？",
+          "answer": "官方启动平台接受USDT、USDC、ETH、BTC、BNB。合作交易所也支持法币支付。"
+        },
+        "q5": {
+          "question": "参与者有哪些保护措施？",
+          "answer": "所有参与者受标准代币销售协议保护。智能合约已通过多方审计。"
+        },
+        "q6": {
+          "question": "上市计划和价格是怎样的？",
+          "answer": "TBURN代币计划上市价为$0.50。TGE预计在公开销售结束后2-4周进行。"
+        },
+        "q7": {
+          "question": "各等级的优惠是什么？",
+          "answer": "按参与金额分4个等级，各有不同的奖励代币和TGE解锁比例。"
+        },
+        "q8": {
+          "question": "退款政策是怎样的？",
+          "answer": "公开销售确认后原则上不可退款，但特殊情况除外。"
+        }
+      },
+      "ctaSection": {
+        "title": "立即参与！",
+        "subtitle": "加入TBURN Chain公开销售，以$0.20获取TBURN - 比上市价优惠60%！",
+        "button": "立即参与"
+      },
+      "dialog": {
+        "title": "公开轮参与咨询",
+        "description": "我们的团队将尽快联系您。所有人均可参与。",
+        "name": "姓名 *",
+        "namePlaceholder": "张三",
+        "email": "邮箱 *",
+        "investmentAmount": "计划金额",
+        "message": "附加信息",
+        "messagePlaceholder": "请输入任何其他问题",
+        "cancelBtn": "取消",
+        "submit": "提交咨询",
+        "submitting": "提交中...",
+        "successTitle": "咨询已提交",
+        "successDesc": "我们的团队将尽快联系您。",
+        "errorTitle": "发生错误",
+        "requiredTitle": "缺少必填字段",
+        "requiredDesc": "姓名和邮箱是必填项。"
+      },
+      "footer": {
+        "description": "AI的智能，区块链的透明。THE FUTURE IS NOW",
+        "product": "产品",
+        "resources": "资源",
+        "community": "社区",
+        "mainnet": "主网",
+        "explorer": "浏览器",
+        "bridge": "跨链桥",
+        "staking": "质押",
+        "whitepaper": "白皮书",
+        "docs": "文档",
+        "github": "GitHub",
+        "audit": "审计报告",
+        "blog": "博客",
+        "ambassador": "大使",
+        "grants": "资助",
+        "support": "支持",
+        "terms": "服务条款",
+        "privacy": "隐私政策"
+      }
     },
     "launchpad": {
       "title": "发射台",

@@ -17270,19 +17270,321 @@
       }
     },
     "publicRound": {
-      "title": "الجولة العامة",
-      "subtitle": "بيع توكنات عام مفتوح للجميع",
-      "heroTitle": "جولة TBURN العامة",
-      "heroSubtitle": "شارك في بيع التوكنات العام وانضم إلى مجتمع TBURN",
-      "badge": "بيع عام",
-      "tokenPrice": "سعر التوكن",
-      "discount": "خصم من الإطلاق",
-      "allocation": "إجمالي التخصيص",
-      "minPurchase": "الحد الأدنى للشراء",
-      "maxPurchase": "الحد الأقصى للشراء",
-      "whitelistRequired": "القائمة البيضاء مطلوبة",
-      "joinWhitelist": "انضم للقائمة البيضاء",
-      "purchaseTokens": "شراء التوكنات"
+      "nav": {
+        "tiers": "Tiers",
+        "vesting": "Vesting",
+        "howTo": "How to Join",
+        "calculator": "Calculator",
+        "faq": "FAQ",
+        "connectWallet": "Join Now"
+      },
+      "hero": {
+        "badge": "PUBLIC ROUND - Public Sale",
+        "status": "Live",
+        "title1": "Grab Your",
+        "title2": "1B TBURN",
+        "title3": "Opportunity with Public Round",
+        "subtitle": "Open to everyone. 60% discount at $0.20 vs launch price ($0.50)! Start from $100, 10% TGE unlock, 3-month cliff!",
+        "countdownLabel": "Sale ends in",
+        "days": "DAYS",
+        "hours": "HOURS",
+        "mins": "MINS",
+        "secs": "SECS",
+        "progressGoal": "Goal $200,000,000",
+        "progressPercent": "45% Achieved",
+        "progressRemaining": "$110,250,000 remaining"
+      },
+      "highlights": {
+        "tokenPrice": "Per Token",
+        "discount": "Discount vs Launch",
+        "tgeUnlock": "TGE Unlock",
+        "minAmount": "Min Participation"
+      },
+      "stats": {
+        "loading": "Loading...",
+        "publicAllocation": "Public Allocation (10%)",
+        "tokenPrice": "Token Price",
+        "hardcap": "Hardcap",
+        "participants": "Participants"
+      },
+      "cta": {
+        "joinNow": "Join Now",
+        "viewGuide": "View Sale Guide"
+      },
+      "comparison": {
+        "badge": "COMPARISON",
+        "title": "Round Comparison",
+        "subtitle": "See the advantages of Public Round",
+        "tableTitle": "Investment Round Comparison",
+        "headers": {
+          "round": "Round",
+          "tokenPrice": "Token Price",
+          "discount": "Discount",
+          "status": "Status"
+        },
+        "bestBadge": "Best Access",
+        "seedRound": "Seed Round",
+        "privateRound": "Private Round",
+        "publicRound": "Public Round",
+        "completed": "Completed",
+        "live": "Live",
+        "upcoming": "Upcoming"
+      },
+      "tiers": {
+        "badge": "TIERS",
+        "title": "Participation Tiers",
+        "subtitle": "Benefits and bonuses by participation amount",
+        "minAmountLabel": "Min Participation",
+        "joinBtn": "Join Now",
+        "whale": {
+          "name": "Whale",
+          "subtitle": "Large Participant",
+          "details": [
+            "Min Participation",
+            "Bonus",
+            "TGE Unlock"
+          ],
+          "benefits": [
+            "VIP Community Access",
+            "Airdrop Priority",
+            "Exclusive AMA Invite",
+            "Early Alpha Info",
+            "Dedicated Support"
+          ]
+        },
+        "dolphin": {
+          "name": "Dolphin",
+          "subtitle": "Medium Participant",
+          "details": [
+            "Min Participation",
+            "Bonus",
+            "TGE Unlock"
+          ],
+          "benefits": [
+            "Premium Community",
+            "Airdrop Participation",
+            "Quarterly AMA",
+            "Newsletter",
+            "Priority Support"
+          ]
+        },
+        "fish": {
+          "name": "Fish",
+          "subtitle": "Regular Participant",
+          "details": [
+            "Min Participation",
+            "Bonus",
+            "TGE Unlock"
+          ],
+          "benefits": [
+            "General Community",
+            "Basic Airdrop",
+            "Public AMA",
+            "Monthly Updates",
+            "Standard Support"
+          ]
+        },
+        "shrimp": {
+          "name": "Shrimp",
+          "subtitle": "Small Participant",
+          "details": [
+            "Min Participation",
+            "Bonus",
+            "TGE Unlock"
+          ],
+          "benefits": [
+            "Public Channel Access",
+            "Basic Participation",
+            "Public Info",
+            "Email Alerts",
+            "Community Support"
+          ]
+        }
+      },
+      "vesting": {
+        "badge": "VESTING",
+        "title": "Vesting Schedule",
+        "subtitle": "10% TGE unlock, 3-month cliff, then 6-month monthly vesting",
+        "phases": [
+          {
+            "title": "TGE Unlock",
+            "value": "10%",
+            "desc": "Immediate"
+          },
+          {
+            "title": "Cliff",
+            "value": "3 Months",
+            "desc": "Lock Period"
+          },
+          {
+            "title": "Monthly Vesting",
+            "value": "15%",
+            "desc": "Over 6 Months"
+          },
+          {
+            "title": "Full Unlock",
+            "value": "100%",
+            "desc": "After 9 Months"
+          }
+        ]
+      },
+      "howTo": {
+        "badge": "HOW TO",
+        "title": "How to Participate",
+        "subtitle": "Join in 4 simple steps",
+        "steps": [
+          {
+            "title": "Connect Wallet",
+            "desc": "MetaMask, Trust, etc."
+          },
+          {
+            "title": "KYC Verification",
+            "desc": "Simple identity check"
+          },
+          {
+            "title": "Select Payment",
+            "desc": "USDT, USDC, ETH, BTC"
+          },
+          {
+            "title": "Receive Tokens",
+            "desc": "15% at TGE"
+          }
+        ]
+      },
+      "platforms": {
+        "badge": "PLATFORMS",
+        "title": "Participation Platforms",
+        "subtitle": "Multiple ways to participate",
+        "joinBtn": "Join Now",
+        "items": [
+          {
+            "name": "TBURN Launchpad",
+            "type": "Official Launchpad",
+            "desc": "TBURN official sale platform",
+            "features": [
+              "Lowest fees",
+              "Direct participation",
+              "24/7 support",
+              "Multi-payment support"
+            ]
+          },
+          {
+            "name": "Partner Exchanges",
+            "type": "CEX IEO",
+            "desc": "Participate via partner exchanges",
+            "features": [
+              "Easy KYC",
+              "Fiat support",
+              "Exchange guarantee",
+              "Instant listing"
+            ]
+          },
+          {
+            "name": "DEX Launchpad",
+            "type": "Decentralized IDO",
+            "desc": "Participate on decentralized platforms",
+            "features": [
+              "Direct wallet connection",
+              "Smart contract",
+              "Transparent distribution",
+              "Community-driven"
+            ]
+          }
+        ]
+      },
+      "calculator": {
+        "badge": "CALCULATOR",
+        "title": "Token Calculator",
+        "subtitle": "Calculate your potential returns based on investment amount",
+        "inputTitle": "Enter Investment Amount",
+        "inputLabel": "Investment Amount (USD)",
+        "inputPlaceholder": "Enter amount",
+        "resultTitle": "Estimated Results",
+        "tokenAmount": "Token Amount",
+        "tgeUnlock": "TGE Unlock (10%)",
+        "launchPrice": "Est. Launch Price ($0.50)",
+        "profit": "Est. Profit"
+      },
+      "faq": {
+        "badge": "FAQ",
+        "title": "Frequently Asked Questions",
+        "subtitle": "Common questions about the public sale",
+        "q1": {
+          "question": "What are the eligibility and requirements for the Public Round?",
+          "answer": "The Public Round is open to all individual investors worldwide who complete KYC verification. Minimum participation is $100 with no upper limit (additional benefits for Whale tier $50,000+). Steps: (1) Connect wallet (MetaMask, Trust Wallet, Coinbase Wallet, etc.) → (2) Simple KYC (passport/ID, ~5 minutes) → (3) Payment and token allocation. Residents of regulated jurisdictions (US, China, North Korea, etc.) are restricted."
+        },
+        "q2": {
+          "question": "How does this differ from Seed/Private rounds?",
+          "answer": "Seed Round ($0.04, 80% discount) and Private Round ($0.10, 50% discount) are completed. They offered higher discounts but required longer vesting (Seed: 12-month cliff + 24-month vesting, Private: 6-month cliff + 12-month vesting) and higher minimums ($100K+). Public Round ($0.20, 60% discount) has lower discount but anyone can join from $100, with 3-month cliff + 6-month vesting for faster liquidity."
+        },
+        "q3": {
+          "question": "What is the TGE and vesting schedule?",
+          "answer": "TGE (Token Generation Event) is when TBURN tokens are created on mainnet and listed on exchanges. Public Round participants receive 10% immediately at TGE. After a 3-month cliff (lockup), 15% vests monthly over 6 months. Full unlock takes 9 months total. Whale tier ($50K+) receives 15% at TGE."
+        },
+        "q4": {
+          "question": "What payment methods are supported?",
+          "answer": "Official launchpad accepts USDT (ERC-20, TRC-20), USDC (ERC-20), ETH, BTC, BNB. Partner exchanges (CEX) also accept fiat (USD, EUR, KRW, etc.). After payment, tokens are automatically allocated to your connected wallet at TGE - no separate claim required. Payment confirmation takes 5-30 minutes."
+        },
+        "q5": {
+          "question": "What protections and safeguards exist for participants?",
+          "answer": "All public sale participants are legally protected under standard token sale agreements. Smart contracts are audited by 3+ firms (CertiK, Hacken, etc.) with published reports. Funds are held in multisig wallets (3/5 signatures), and token allocation/vesting is managed transparently on-chain. Full refund policy applies if sale doesn't meet soft cap."
+        },
+        "q6": {
+          "question": "What are the listing plans and launch price?",
+          "answer": "TBURN token launch price is planned at $0.50 (150% above public sale price of $0.20). TGE and listing scheduled 2-4 weeks after public sale ends. Initial listings: Uniswap V3, PancakeSwap, SushiSwap and major DEXs. CEX listings: In discussion with Tier-1 exchanges (Binance, OKX, Bybit, Coinbase, etc.), targeting major exchange listings within 3 months of launch."
+        },
+        "q7": {
+          "question": "What are the tier benefits and bonuses?",
+          "answer": "4 tiers based on participation amount: (1) Whale ($50K+): +5% bonus tokens, 15% TGE unlock, VIP community, dedicated support (2) Dolphin ($10K+): +3% bonus, 12% TGE, premium community (3) Fish ($1K+): +1% bonus, 10% TGE, general community (4) Shrimp ($100+): standard terms, 10% TGE. All tiers get same $0.20 price; bonus tokens distributed at TGE."
+        },
+        "q8": {
+          "question": "What is the refund policy?",
+          "answer": "Public sale is generally non-refundable after payment confirmation. Exceptions: (1) Sale doesn't meet soft cap - full refund (2) Project cancellation or mainnet launch failure - refund (3) Payment error causing duplicate payment - excess refunded. Refund requests via official support (support@tburn.io), processing takes 7-14 business days, returned via original payment method."
+        }
+      },
+      "ctaSection": {
+        "title": "Join Now!",
+        "subtitle": "Join TBURN Chain's public sale and get TBURN at $0.20 - 60% discount vs launch price!",
+        "button": "Join Now"
+      },
+      "dialog": {
+        "title": "Public Round Inquiry",
+        "description": "Our team will contact you shortly. Anyone can participate.",
+        "name": "Name *",
+        "namePlaceholder": "John Doe",
+        "email": "Email *",
+        "investmentAmount": "Planned Amount",
+        "message": "Additional Message",
+        "messagePlaceholder": "Enter any additional questions about participation",
+        "cancelBtn": "Cancel",
+        "submit": "Submit Inquiry",
+        "submitting": "Submitting...",
+        "successTitle": "Inquiry Submitted",
+        "successDesc": "Our team will contact you soon.",
+        "errorTitle": "An error occurred",
+        "requiredTitle": "Required fields missing",
+        "requiredDesc": "Name and email are required."
+      },
+      "footer": {
+        "description": "Intelligence of AI, Transparency of Blockchain. THE FUTURE IS NOW",
+        "product": "Product",
+        "resources": "Resources",
+        "community": "Community",
+        "mainnet": "Mainnet",
+        "explorer": "Explorer",
+        "bridge": "Bridge",
+        "staking": "Staking",
+        "whitepaper": "Whitepaper",
+        "docs": "Documentation",
+        "github": "GitHub",
+        "audit": "Audit Report",
+        "blog": "Blog",
+        "ambassador": "Ambassador",
+        "grants": "Grants",
+        "support": "Support",
+        "terms": "Terms of Service",
+        "privacy": "Privacy Policy"
+      }
     },
     "launchpad": {
       "title": "منصة الإطلاق",

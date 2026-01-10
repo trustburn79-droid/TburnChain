@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "wouter";
 import { useQuery, useMutation } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
 import { TBurnLogo } from "@/components/tburn-logo";
 import { useWeb3 } from "@/lib/web3-context";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
@@ -36,6 +37,7 @@ interface InvestmentRoundsStatsResponse {
 }
 
 export default function PublicRoundPage() {
+  const { t } = useTranslation();
   const [activeFaq, setActiveFaq] = useState<string | null>("faq-1");
   const [investAmount, setInvestAmount] = useState(1000);
   const [inquiryDialogOpen, setInquiryDialogOpen] = useState(false);
@@ -65,15 +67,15 @@ export default function PublicRoundPage() {
     },
     onSuccess: () => {
       toast({
-        title: "문의가 접수되었습니다",
-        description: "담당자가 곧 연락드리겠습니다.",
+        title: t('tokenPrograms.publicRound.dialog.successTitle'),
+        description: t('tokenPrograms.publicRound.dialog.successDesc'),
       });
       setInquiryDialogOpen(false);
       setFormData({ name: "", email: "", company: "", investmentAmount: "", message: "" });
     },
     onError: (error: Error) => {
       toast({
-        title: "오류가 발생했습니다",
+        title: t('tokenPrograms.publicRound.dialog.errorTitle'),
         description: error.message,
         variant: "destructive",
       });
@@ -84,8 +86,8 @@ export default function PublicRoundPage() {
     e.preventDefault();
     if (!formData.name || !formData.email) {
       toast({
-        title: "필수 항목을 입력해주세요",
-        description: "이름과 이메일은 필수입니다.",
+        title: t('tokenPrograms.publicRound.dialog.requiredTitle'),
+        description: t('tokenPrograms.publicRound.dialog.requiredDesc'),
         variant: "destructive",
       });
       return;
@@ -106,43 +108,46 @@ export default function PublicRoundPage() {
   };
 
   const investmentHighlights = [
-    { value: "$0.20", label: "토큰당 가격", compare: "" },
-    { value: "60%", label: "런칭가 대비 할인", compare: "" },
-    { value: "10%", label: "TGE 즉시 해제", compare: "" },
-    { value: "$100", label: "최소 참여금액", compare: "" },
+    { value: "$0.20", label: t('tokenPrograms.publicRound.highlights.tokenPrice'), compare: "" },
+    { value: "60%", label: t('tokenPrograms.publicRound.highlights.discount'), compare: "" },
+    { value: "10%", label: t('tokenPrograms.publicRound.highlights.tgeUnlock'), compare: "" },
+    { value: "$100", label: t('tokenPrograms.publicRound.highlights.minAmount'), compare: "" },
   ];
 
   const distributions = [
-    { id: "seed", name: "Seed Round", amount: "$0.04", discount: "80%", status: "completed" },
-    { id: "private", name: "Private Round", amount: "$0.10", discount: "50%", status: "completed" },
-    { id: "public", name: "Public Round", amount: "$0.20", discount: "60%", status: "current" },
+    { id: "seed", name: t('tokenPrograms.publicRound.comparison.seedRound'), amount: "$0.04", discount: "80%", status: "completed" },
+    { id: "private", name: t('tokenPrograms.publicRound.comparison.privateRound'), amount: "$0.10", discount: "50%", status: "completed" },
+    { id: "public", name: t('tokenPrograms.publicRound.comparison.publicRound'), amount: "$0.20", discount: "60%", status: "current" },
   ];
 
   const participationTiers = [
-    { id: "whale", icon: "🐋", name: "Whale", subtitle: "대형 참여자", amount: "$50K+", details: [{ label: "최소 참여", value: "$50,000" }, { label: "추가 보너스", value: "+5%" }, { label: "TGE 해제", value: "15%" }], benefits: ["VIP 커뮤니티 접근", "에어드랍 우선권", "전용 AMA 초대", "얼리 알파 정보", "전담 지원"] },
-    { id: "dolphin", icon: "🐬", name: "Dolphin", subtitle: "중형 참여자", amount: "$10K+", details: [{ label: "최소 참여", value: "$10,000" }, { label: "추가 보너스", value: "+3%" }, { label: "TGE 해제", value: "12%" }], benefits: ["프리미엄 커뮤니티", "에어드랍 참여", "분기 AMA", "뉴스레터", "우선 지원"] },
-    { id: "fish", icon: "🐟", name: "Fish", subtitle: "일반 참여자", amount: "$1K+", details: [{ label: "최소 참여", value: "$1,000" }, { label: "추가 보너스", value: "+1%" }, { label: "TGE 해제", value: "10%" }], benefits: ["일반 커뮤니티", "기본 에어드랍", "공개 AMA", "월간 업데이트", "일반 지원"] },
-    { id: "shrimp", icon: "🦐", name: "Shrimp", subtitle: "소액 참여자", amount: "$100+", details: [{ label: "최소 참여", value: "$100" }, { label: "추가 보너스", value: "-" }, { label: "TGE 해제", value: "10%" }], benefits: ["공개 채널 접근", "기본 참여", "공개 정보", "이메일 알림", "커뮤니티 지원"] },
+    { id: "whale", icon: "🐋", name: t('tokenPrograms.publicRound.tiers.whale.name'), subtitle: t('tokenPrograms.publicRound.tiers.whale.subtitle'), amount: "$50K+", details: [{ label: (t('tokenPrograms.publicRound.tiers.whale.details', { returnObjects: true }) as string[])[0], value: "$50,000" }, { label: (t('tokenPrograms.publicRound.tiers.whale.details', { returnObjects: true }) as string[])[1], value: "+5%" }, { label: (t('tokenPrograms.publicRound.tiers.whale.details', { returnObjects: true }) as string[])[2], value: "15%" }], benefits: t('tokenPrograms.publicRound.tiers.whale.benefits', { returnObjects: true }) as string[] },
+    { id: "dolphin", icon: "🐬", name: t('tokenPrograms.publicRound.tiers.dolphin.name'), subtitle: t('tokenPrograms.publicRound.tiers.dolphin.subtitle'), amount: "$10K+", details: [{ label: (t('tokenPrograms.publicRound.tiers.dolphin.details', { returnObjects: true }) as string[])[0], value: "$10,000" }, { label: (t('tokenPrograms.publicRound.tiers.dolphin.details', { returnObjects: true }) as string[])[1], value: "+3%" }, { label: (t('tokenPrograms.publicRound.tiers.dolphin.details', { returnObjects: true }) as string[])[2], value: "12%" }], benefits: t('tokenPrograms.publicRound.tiers.dolphin.benefits', { returnObjects: true }) as string[] },
+    { id: "fish", icon: "🐟", name: t('tokenPrograms.publicRound.tiers.fish.name'), subtitle: t('tokenPrograms.publicRound.tiers.fish.subtitle'), amount: "$1K+", details: [{ label: (t('tokenPrograms.publicRound.tiers.fish.details', { returnObjects: true }) as string[])[0], value: "$1,000" }, { label: (t('tokenPrograms.publicRound.tiers.fish.details', { returnObjects: true }) as string[])[1], value: "+1%" }, { label: (t('tokenPrograms.publicRound.tiers.fish.details', { returnObjects: true }) as string[])[2], value: "10%" }], benefits: t('tokenPrograms.publicRound.tiers.fish.benefits', { returnObjects: true }) as string[] },
+    { id: "shrimp", icon: "🦐", name: t('tokenPrograms.publicRound.tiers.shrimp.name'), subtitle: t('tokenPrograms.publicRound.tiers.shrimp.subtitle'), amount: "$100+", details: [{ label: (t('tokenPrograms.publicRound.tiers.shrimp.details', { returnObjects: true }) as string[])[0], value: "$100" }, { label: (t('tokenPrograms.publicRound.tiers.shrimp.details', { returnObjects: true }) as string[])[1], value: "-" }, { label: (t('tokenPrograms.publicRound.tiers.shrimp.details', { returnObjects: true }) as string[])[2], value: "10%" }], benefits: t('tokenPrograms.publicRound.tiers.shrimp.benefits', { returnObjects: true }) as string[] },
   ];
 
+  const vestingPhasesData = t('tokenPrograms.publicRound.vesting.phases', { returnObjects: true }) as Array<{title: string, value: string, desc: string}>;
   const vestingPhases = [
-    { icon: "🎉", title: "TGE 해제", value: "10%", desc: "즉시 해제" },
-    { icon: "⏳", title: "클리프", value: "3개월", desc: "락업 기간" },
-    { icon: "📈", title: "월간 베스팅", value: "15%", desc: "6개월간" },
-    { icon: "✅", title: "완전 언락", value: "100%", desc: "9개월 후" },
+    { icon: "🎉", title: vestingPhasesData[0]?.title || "TGE Unlock", value: vestingPhasesData[0]?.value || "10%", desc: vestingPhasesData[0]?.desc || "Immediate" },
+    { icon: "⏳", title: vestingPhasesData[1]?.title || "Cliff", value: vestingPhasesData[1]?.value || "3 Months", desc: vestingPhasesData[1]?.desc || "Lock Period" },
+    { icon: "📈", title: vestingPhasesData[2]?.title || "Monthly Vesting", value: vestingPhasesData[2]?.value || "15%", desc: vestingPhasesData[2]?.desc || "Over 6 Months" },
+    { icon: "✅", title: vestingPhasesData[3]?.title || "Full Unlock", value: vestingPhasesData[3]?.value || "100%", desc: vestingPhasesData[3]?.desc || "After 9 Months" },
   ];
 
+  const stepsData = t('tokenPrograms.publicRound.howTo.steps', { returnObjects: true }) as Array<{title: string, desc: string}>;
   const participateSteps = [
-    { step: 1, icon: "👛", title: "지갑 연결", desc: "MetaMask, Trust 등 지원" },
-    { step: 2, icon: "✅", title: "KYC 인증", desc: "간단한 본인 인증" },
-    { step: 3, icon: "💳", title: "결제 선택", desc: "USDT, USDC, ETH, BTC" },
-    { step: 4, icon: "🎉", title: "토큰 수령", desc: "TGE 15% 즉시 지급" },
+    { step: 1, icon: "👛", title: stepsData[0]?.title || "Connect Wallet", desc: stepsData[0]?.desc || "MetaMask, Trust, etc." },
+    { step: 2, icon: "✅", title: stepsData[1]?.title || "KYC Verification", desc: stepsData[1]?.desc || "Simple identity check" },
+    { step: 3, icon: "💳", title: stepsData[2]?.title || "Select Payment", desc: stepsData[2]?.desc || "USDT, USDC, ETH, BTC" },
+    { step: 4, icon: "🎉", title: stepsData[3]?.title || "Receive Tokens", desc: stepsData[3]?.desc || "15% at TGE" },
   ];
 
+  const platformsData = t('tokenPrograms.publicRound.platforms.items', { returnObjects: true }) as Array<{name: string, type: string, desc: string, features: string[]}>;
   const platforms = [
-    { icon: "🌐", name: "TBURN Launchpad", type: "공식 런치패드", desc: "TBURN 공식 세일 플랫폼", features: ["최저 수수료", "직접 참여", "24/7 지원", "다중 결제 지원"] },
-    { icon: "🏛️", name: "파트너 거래소", type: "CEX IEO", desc: "파트너 거래소 통한 참여", features: ["간편한 KYC", "법정화폐 지원", "거래소 보증", "즉시 상장"] },
-    { icon: "🦄", name: "DEX 런치패드", type: "탈중앙화 IDO", desc: "탈중앙화 플랫폼 참여", features: ["지갑 직접 연결", "스마트컨트랙트", "투명한 배분", "커뮤니티 주도"] },
+    { icon: "🌐", name: platformsData[0]?.name || "TBURN Launchpad", type: platformsData[0]?.type || "Official Launchpad", desc: platformsData[0]?.desc || "TBURN official sale platform", features: platformsData[0]?.features || ["Lowest fees", "Direct participation", "24/7 support", "Multi-payment support"] },
+    { icon: "🏛️", name: platformsData[1]?.name || "Partner Exchanges", type: platformsData[1]?.type || "CEX IEO", desc: platformsData[1]?.desc || "Participate via partner exchanges", features: platformsData[1]?.features || ["Easy KYC", "Fiat support", "Exchange guarantee", "Instant listing"] },
+    { icon: "🦄", name: platformsData[2]?.name || "DEX Launchpad", type: platformsData[2]?.type || "Decentralized IDO", desc: platformsData[2]?.desc || "Participate on decentralized platforms", features: platformsData[2]?.features || ["Direct wallet connection", "Smart contract", "Transparent distribution", "Community-driven"] },
   ];
 
   const quickAmounts = [100, 500, 1000, 5000, 10000];
@@ -1093,11 +1098,11 @@ export default function PublicRoundPage() {
             <div className="logo-text">TBURN<span>CHAIN</span></div>
           </Link>
           <nav className="nav-links">
-            <a href="#tiers">참여 티어</a>
-            <a href="#vesting">베스팅</a>
-            <a href="#how">참여 방법</a>
-            <a href="#calculator">계산기</a>
-            <a href="#faq">FAQ</a>
+            <a href="#tiers">{t('tokenPrograms.publicRound.nav.tiers')}</a>
+            <a href="#vesting">{t('tokenPrograms.publicRound.nav.vesting')}</a>
+            <a href="#how">{t('tokenPrograms.publicRound.nav.howTo')}</a>
+            <a href="#calculator">{t('tokenPrograms.publicRound.nav.calculator')}</a>
+            <a href="#faq">{t('tokenPrograms.publicRound.nav.faq')}</a>
           </nav>
           <div className="header-actions">
             <LanguageSelector isDark={true} />
@@ -1106,7 +1111,7 @@ export default function PublicRoundPage() {
               onClick={handleWalletClick}
               data-testid="button-connect-wallet"
             >
-              {isConnected ? formatAddress(address!) : "🚀 지금 참여하기"}
+              {isConnected ? formatAddress(address!) : t('tokenPrograms.publicRound.nav.connectWallet')}
             </button>
           </div>
         </div>
@@ -1117,36 +1122,35 @@ export default function PublicRoundPage() {
         <div className="hero-bg"></div>
         <div className="hero-content">
           <div className="badge">
-            <span className="rocket-icon">🚀</span> PUBLIC ROUND - 공개 세일
-            <span className="round-status"><span className="dot"></span> 진행중</span>
+            <span className="rocket-icon">🚀</span> {t('tokenPrograms.publicRound.hero.badge')}
+            <span className="round-status"><span className="dot"></span> {t('tokenPrograms.publicRound.hero.status')}</span>
           </div>
           <h1>
-            퍼블릭 라운드로<br />
-            <span className="gradient-text">10억 TBURN</span> 기회를 잡으세요
+            {t('tokenPrograms.publicRound.hero.title1')}<br />
+            <span className="gradient-text">{t('tokenPrograms.publicRound.hero.title2')}</span> {t('tokenPrograms.publicRound.hero.title3')}
           </h1>
           <p className="hero-subtitle">
-            누구나 참여 가능한 공개 세일. 런칭가($0.50) 대비 60% 할인된 $0.20!
-            최소 $100부터 시작, TGE 10% 즉시 해제, 3개월 클리프!
+            {t('tokenPrograms.publicRound.hero.subtitle')}
           </p>
 
           <div className="countdown-container" data-testid="countdown-timer">
-            <div className="countdown-label">🔥 세일 종료까지</div>
+            <div className="countdown-label">🔥 {t('tokenPrograms.publicRound.hero.countdownLabel')}</div>
             <div className="countdown-timer">
               <div className="countdown-item">
                 <div className="countdown-value">21</div>
-                <div className="countdown-unit">DAYS</div>
+                <div className="countdown-unit">{t('tokenPrograms.publicRound.hero.days')}</div>
               </div>
               <div className="countdown-item">
                 <div className="countdown-value">14</div>
-                <div className="countdown-unit">HOURS</div>
+                <div className="countdown-unit">{t('tokenPrograms.publicRound.hero.hours')}</div>
               </div>
               <div className="countdown-item">
                 <div className="countdown-value">45</div>
-                <div className="countdown-unit">MINS</div>
+                <div className="countdown-unit">{t('tokenPrograms.publicRound.hero.mins')}</div>
               </div>
               <div className="countdown-item">
                 <div className="countdown-value">30</div>
-                <div className="countdown-unit">SECS</div>
+                <div className="countdown-unit">{t('tokenPrograms.publicRound.hero.secs')}</div>
               </div>
             </div>
           </div>
@@ -1154,14 +1158,14 @@ export default function PublicRoundPage() {
           <div className="fundraise-progress" data-testid="fundraise-progress">
             <div className="progress-header">
               <span className="raised">$89,750,000</span>
-              <span className="goal">목표 $200,000,000</span>
+              <span className="goal">{t('tokenPrograms.publicRound.hero.progressGoal')}</span>
             </div>
             <div className="progress-bar">
               <div className="progress-fill"></div>
             </div>
             <div className="progress-stats">
-              <span className="percent">45% 달성</span>
-              <span className="remaining">$110,250,000 남음</span>
+              <span className="percent">{t('tokenPrograms.publicRound.hero.progressPercent')}</span>
+              <span className="remaining">{t('tokenPrograms.publicRound.hero.progressRemaining')}</span>
             </div>
           </div>
 
@@ -1177,25 +1181,25 @@ export default function PublicRoundPage() {
           <div className="stats-grid">
             {isLoading ? (
               <div className="stat-card" data-testid="loading-indicator">
-                <div className="stat-value" style={{ opacity: 0.5 }}>로딩중...</div>
+                <div className="stat-value" style={{ opacity: 0.5 }}>{t('tokenPrograms.publicRound.stats.loading')}</div>
               </div>
             ) : (
               <>
                 <div className="stat-card" data-testid="stat-total-public">
-                  <div className="stat-value">{publicRound?.allocation || "10억"}</div>
-                  <div className="stat-label">퍼블릭 배정 (10%)</div>
+                  <div className="stat-value">{publicRound?.allocation || "1B"}</div>
+                  <div className="stat-label">{t('tokenPrograms.publicRound.stats.publicAllocation')}</div>
                 </div>
                 <div className="stat-card" data-testid="stat-price">
                   <div className="stat-value">{publicRound?.price || "$0.20"}</div>
-                  <div className="stat-label">토큰 가격</div>
+                  <div className="stat-label">{t('tokenPrograms.publicRound.stats.tokenPrice')}</div>
                 </div>
                 <div className="stat-card" data-testid="stat-hardcap">
                   <div className="stat-value">{publicRound?.raised || "$200M"}</div>
-                  <div className="stat-label">하드캡</div>
+                  <div className="stat-label">{t('tokenPrograms.publicRound.stats.hardcap')}</div>
                 </div>
                 <div className="stat-card" data-testid="stat-participants">
                   <div className="stat-value">{publicRound?.investors || 12500}+</div>
-                  <div className="stat-label">참여자</div>
+                  <div className="stat-label">{t('tokenPrograms.publicRound.stats.participants')}</div>
                 </div>
               </>
             )}
@@ -1203,10 +1207,10 @@ export default function PublicRoundPage() {
 
           <div className="cta-group">
             <button className="btn-primary" data-testid="button-apply-public" onClick={() => setInquiryDialogOpen(true)}>
-              🚀 지금 참여하기
+              🚀 {t('tokenPrograms.publicRound.cta.joinNow')}
             </button>
             <button className="btn-secondary" onClick={() => window.open('/learn/whitepaper', '_blank')}>
-              📖 세일 가이드 보기
+              📖 {t('tokenPrograms.publicRound.cta.viewGuide')}
             </button>
           </div>
         </div>
@@ -1215,22 +1219,22 @@ export default function PublicRoundPage() {
       {/* Round Comparison Section */}
       <section className="section">
         <div className="section-header">
-          <span className="section-badge">COMPARISON</span>
-          <h2 className="section-title">라운드 비교</h2>
-          <p className="section-subtitle">퍼블릭 라운드의 장점을 확인하세요</p>
+          <span className="section-badge">{t('tokenPrograms.publicRound.comparison.badge')}</span>
+          <h2 className="section-title">{t('tokenPrograms.publicRound.comparison.title')}</h2>
+          <p className="section-subtitle">{t('tokenPrograms.publicRound.comparison.subtitle')}</p>
         </div>
 
         <div className="round-comparison">
           <div className="comparison-header">
-            <h3>📊 투자 라운드 비교</h3>
+            <h3>📊 {t('tokenPrograms.publicRound.comparison.tableTitle')}</h3>
           </div>
           <table className="comparison-table">
             <thead>
               <tr>
-                <th>라운드</th>
-                <th>토큰 가격</th>
-                <th>할인율</th>
-                <th>상태</th>
+                <th>{t('tokenPrograms.publicRound.comparison.headers.round')}</th>
+                <th>{t('tokenPrograms.publicRound.comparison.headers.tokenPrice')}</th>
+                <th>{t('tokenPrograms.publicRound.comparison.headers.discount')}</th>
+                <th>{t('tokenPrograms.publicRound.comparison.headers.status')}</th>
               </tr>
             </thead>
             <tbody>
@@ -1244,11 +1248,11 @@ export default function PublicRoundPage() {
                   <td>{round.amount}</td>
                   <td>
                     {round.discount}
-                    {round.status === 'current' && <span className="best-badge">접근성 최고</span>}
+                    {round.status === 'current' && <span className="best-badge">{t('tokenPrograms.publicRound.comparison.bestBadge')}</span>}
                   </td>
                   <td>
-                    {round.status === 'completed' ? '✅ 완료' : 
-                     round.status === 'current' ? '🚀 진행중' : '⏳ 예정'}
+                    {round.status === 'completed' ? `✅ ${t('tokenPrograms.publicRound.comparison.completed')}` : 
+                     round.status === 'current' ? `🚀 ${t('tokenPrograms.publicRound.comparison.live')}` : `⏳ ${t('tokenPrograms.publicRound.comparison.upcoming')}`}
                   </td>
                 </tr>
               ))}
@@ -1260,9 +1264,9 @@ export default function PublicRoundPage() {
       {/* Participation Tiers Section */}
       <section className="section" id="tiers" style={{ background: 'rgba(255,255,255,0.02)' }}>
         <div className="section-header">
-          <span className="section-badge">TIERS</span>
-          <h2 className="section-title">참여 티어</h2>
-          <p className="section-subtitle">참여 금액별 혜택과 보너스</p>
+          <span className="section-badge">{t('tokenPrograms.publicRound.tiers.badge')}</span>
+          <h2 className="section-title">{t('tokenPrograms.publicRound.tiers.title')}</h2>
+          <p className="section-subtitle">{t('tokenPrograms.publicRound.tiers.subtitle')}</p>
         </div>
 
         <div className="tiers-grid">
@@ -1275,7 +1279,7 @@ export default function PublicRoundPage() {
               </div>
               <div className="tier-content">
                 <div className="tier-amount">
-                  <div className="label">최소 참여금</div>
+                  <div className="label">{t('tokenPrograms.publicRound.tiers.minAmountLabel')}</div>
                   <div className="value">{tier.amount}</div>
                 </div>
                 <div className="tier-details">
@@ -1291,7 +1295,7 @@ export default function PublicRoundPage() {
                     <li key={idx}>{benefit}</li>
                   ))}
                 </ul>
-                <button className="tier-btn" onClick={() => setInquiryDialogOpen(true)}>참여하기</button>
+                <button className="tier-btn" onClick={() => setInquiryDialogOpen(true)}>{t('tokenPrograms.publicRound.tiers.joinBtn')}</button>
               </div>
             </div>
           ))}
@@ -1301,9 +1305,9 @@ export default function PublicRoundPage() {
       {/* Vesting Section */}
       <section className="section" id="vesting">
         <div className="section-header">
-          <span className="section-badge">VESTING</span>
-          <h2 className="section-title">베스팅 스케줄</h2>
-          <p className="section-subtitle">TGE 10% 즉시 해제, 3개월 클리프 후 6개월 월간 베스팅</p>
+          <span className="section-badge">{t('tokenPrograms.publicRound.vesting.badge')}</span>
+          <h2 className="section-title">{t('tokenPrograms.publicRound.vesting.title')}</h2>
+          <p className="section-subtitle">{t('tokenPrograms.publicRound.vesting.subtitle')}</p>
         </div>
 
         <div className="vesting-container">
@@ -1323,9 +1327,9 @@ export default function PublicRoundPage() {
       {/* How to Participate Section */}
       <section className="section" id="how" style={{ background: 'rgba(255,255,255,0.02)' }}>
         <div className="section-header">
-          <span className="section-badge">HOW TO</span>
-          <h2 className="section-title">참여 방법</h2>
-          <p className="section-subtitle">간단한 4단계로 참여하세요</p>
+          <span className="section-badge">{t('tokenPrograms.publicRound.howTo.badge')}</span>
+          <h2 className="section-title">{t('tokenPrograms.publicRound.howTo.title')}</h2>
+          <p className="section-subtitle">{t('tokenPrograms.publicRound.howTo.subtitle')}</p>
         </div>
 
         <div className="participate-grid">
@@ -1343,9 +1347,9 @@ export default function PublicRoundPage() {
       {/* Platforms Section */}
       <section className="section">
         <div className="section-header">
-          <span className="section-badge">PLATFORMS</span>
-          <h2 className="section-title">참여 플랫폼</h2>
-          <p className="section-subtitle">다양한 방법으로 참여할 수 있습니다</p>
+          <span className="section-badge">{t('tokenPrograms.publicRound.platforms.badge')}</span>
+          <h2 className="section-title">{t('tokenPrograms.publicRound.platforms.title')}</h2>
+          <p className="section-subtitle">{t('tokenPrograms.publicRound.platforms.subtitle')}</p>
         </div>
 
         <div className="platforms-grid">
@@ -1360,7 +1364,7 @@ export default function PublicRoundPage() {
                   <li key={fidx}>{feature}</li>
                 ))}
               </ul>
-              <button className="platform-btn" onClick={() => setInquiryDialogOpen(true)}>참여하기</button>
+              <button className="platform-btn" onClick={() => setInquiryDialogOpen(true)}>{t('tokenPrograms.publicRound.platforms.joinBtn')}</button>
             </div>
           ))}
         </div>
@@ -1369,22 +1373,22 @@ export default function PublicRoundPage() {
       {/* Calculator Section */}
       <section className="section" id="calculator" style={{ background: 'rgba(255,255,255,0.02)' }}>
         <div className="section-header">
-          <span className="section-badge">CALCULATOR</span>
-          <h2 className="section-title">토큰 계산기</h2>
-          <p className="section-subtitle">투자 금액에 따른 예상 수익을 계산해보세요</p>
+          <span className="section-badge">{t('tokenPrograms.publicRound.calculator.badge')}</span>
+          <h2 className="section-title">{t('tokenPrograms.publicRound.calculator.title')}</h2>
+          <p className="section-subtitle">{t('tokenPrograms.publicRound.calculator.subtitle')}</p>
         </div>
 
         <div className="calculator-container">
           <div className="calculator-grid">
             <div className="calculator-input">
-              <h4>💵 투자 금액 입력</h4>
+              <h4>💵 {t('tokenPrograms.publicRound.calculator.inputTitle')}</h4>
               <div className="input-group">
-                <label>투자 금액 (USD)</label>
+                <label>{t('tokenPrograms.publicRound.calculator.inputLabel')}</label>
                 <input 
                   type="number" 
                   value={investAmount}
                   onChange={(e) => setInvestAmount(Number(e.target.value) || 0)}
-                  placeholder="투자 금액 입력"
+                  placeholder={t('tokenPrograms.publicRound.calculator.inputPlaceholder')}
                   data-testid="input-invest-amount"
                 />
               </div>
@@ -1401,21 +1405,21 @@ export default function PublicRoundPage() {
               </div>
             </div>
             <div className="calculator-result">
-              <h4>📊 예상 결과</h4>
+              <h4>📊 {t('tokenPrograms.publicRound.calculator.resultTitle')}</h4>
               <div className="result-item">
-                <span className="label">토큰 수량</span>
+                <span className="label">{t('tokenPrograms.publicRound.calculator.tokenAmount')}</span>
                 <span className="value highlight">{tokensReceived.toLocaleString()} TBURN</span>
               </div>
               <div className="result-item">
-                <span className="label">TGE 해제 (10%)</span>
+                <span className="label">{t('tokenPrograms.publicRound.calculator.tgeUnlock')}</span>
                 <span className="value">{(tokensReceived * 0.10).toLocaleString()} TBURN</span>
               </div>
               <div className="result-item">
-                <span className="label">예상 런칭가 ($0.50)</span>
+                <span className="label">{t('tokenPrograms.publicRound.calculator.launchPrice')}</span>
                 <span className="value">${potentialValue.toLocaleString()}</span>
               </div>
               <div className="result-item">
-                <span className="label">예상 수익</span>
+                <span className="label">{t('tokenPrograms.publicRound.calculator.profit')}</span>
                 <span className="value gold">+${potentialProfit.toLocaleString()} (+{((potentialProfit / investAmount) * 100).toFixed(1)}%)</span>
               </div>
             </div>
@@ -1426,89 +1430,89 @@ export default function PublicRoundPage() {
       {/* FAQ */}
       <section className="section" id="faq">
         <div className="section-header">
-          <span className="section-badge">FAQ</span>
-          <h2 className="section-title">자주 묻는 질문</h2>
-          <p className="section-subtitle">퍼블릭 세일에 대한 궁금증</p>
+          <span className="section-badge">{t('tokenPrograms.publicRound.faq.badge')}</span>
+          <h2 className="section-title">{t('tokenPrograms.publicRound.faq.title')}</h2>
+          <p className="section-subtitle">{t('tokenPrograms.publicRound.faq.subtitle')}</p>
         </div>
 
         <div className="faq-container">
           <div className={`faq-item ${activeFaq === 'faq-1' ? 'active' : ''}`}>
             <div className="faq-question" onClick={() => toggleFaq('faq-1')}>
-              <h4>퍼블릭 라운드 참여 자격과 조건은 무엇인가요?</h4>
+              <h4>{t('tokenPrograms.publicRound.faq.q1.question')}</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>퍼블릭 라운드는 KYC 인증을 완료한 전 세계 모든 개인 투자자가 참여할 수 있습니다. 최소 참여 금액은 $100이며, 상한 제한은 없습니다(Whale 티어 $50,000 이상 시 추가 혜택). 참여 방법: (1) 지갑 연결(MetaMask, Trust Wallet, Coinbase Wallet 등) → (2) 간편 KYC 인증(여권/신분증, 약 5분 소요) → (3) 결제 및 토큰 배정. 미국, 중국, 북한 등 규제 지역 거주자는 참여가 제한됩니다.</p>
+              <p>{t('tokenPrograms.publicRound.faq.q1.answer')}</p>
             </div>
           </div>
 
           <div className={`faq-item ${activeFaq === 'faq-2' ? 'active' : ''}`}>
             <div className="faq-question" onClick={() => toggleFaq('faq-2')}>
-              <h4>시드/프라이빗 라운드와 어떤 차이가 있나요?</h4>
+              <h4>{t('tokenPrograms.publicRound.faq.q2.question')}</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>시드 라운드($0.04, 80% 할인)와 프라이빗 라운드($0.10, 50% 할인)는 이미 완료되었으며, 높은 할인율 대신 긴 베스팅 기간(시드: 12개월 클리프 + 24개월 베스팅, 프라이빗: 6개월 클리프 + 12개월 베스팅)과 높은 최소 투자금($100K+)이 필요했습니다. 퍼블릭 라운드($0.20, 60% 할인)는 할인율은 낮지만 $100부터 누구나 참여 가능하고, 3개월 클리프 + 6개월 베스팅으로 더 빠른 유동화가 장점입니다.</p>
+              <p>{t('tokenPrograms.publicRound.faq.q2.answer')}</p>
             </div>
           </div>
 
           <div className={`faq-item ${activeFaq === 'faq-3' ? 'active' : ''}`}>
             <div className="faq-question" onClick={() => toggleFaq('faq-3')}>
-              <h4>TGE와 베스팅 스케줄은 어떻게 되나요?</h4>
+              <h4>{t('tokenPrograms.publicRound.faq.q3.question')}</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>TGE(Token Generation Event)는 TBURN 토큰이 메인넷에서 생성되어 거래소에 상장되는 시점입니다. 퍼블릭 라운드 참여자는 TGE 시점에 투자 토큰의 10%를 즉시 받습니다. 이후 3개월 클리프(락업) 기간이 있으며, 클리프 종료 후 6개월에 걸쳐 매월 15%씩 선형 베스팅됩니다. 전체 언락까지 총 9개월이 소요됩니다. Whale 티어($50K+)는 TGE 15% 즉시 해제 혜택이 적용됩니다.</p>
+              <p>{t('tokenPrograms.publicRound.faq.q3.answer')}</p>
             </div>
           </div>
 
           <div className={`faq-item ${activeFaq === 'faq-4' ? 'active' : ''}`}>
             <div className="faq-question" onClick={() => toggleFaq('faq-4')}>
-              <h4>어떤 결제 방식을 지원하나요?</h4>
+              <h4>{t('tokenPrograms.publicRound.faq.q4.question')}</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>공식 런치패드에서는 USDT(ERC-20, TRC-20), USDC(ERC-20), ETH, BTC, BNB로 결제할 수 있습니다. 파트너 거래소(CEX)를 통해 법정화폐(USD, EUR, KRW 등)로도 참여 가능합니다. 결제 후 토큰은 연결된 지갑 주소로 TGE 시점에 자동 배정되며, 별도의 클레임 과정 없이 지갑에서 확인할 수 있습니다. 결제 확인은 보통 5-30분 내에 완료됩니다.</p>
+              <p>{t('tokenPrograms.publicRound.faq.q4.answer')}</p>
             </div>
           </div>
 
           <div className={`faq-item ${activeFaq === 'faq-5' ? 'active' : ''}`}>
             <div className="faq-question" onClick={() => toggleFaq('faq-5')}>
-              <h4>참여자 보호와 안전장치는 어떻게 되나요?</h4>
+              <h4>{t('tokenPrograms.publicRound.faq.q5.question')}</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>모든 퍼블릭 세일 참여자는 표준 토큰 판매 계약에 따라 법적 보호를 받습니다. 스마트 컨트랙트는 CertiK, Hacken 등 3개 이상의 보안 감사를 완료했으며, 결과 보고서는 공개되어 있습니다. 결제된 자금은 멀티시그 지갑(3/5 서명)에 보관되며, 토큰 배정 및 베스팅은 온체인에서 투명하게 관리됩니다. 세일 미달성 시 전액 환불 정책이 적용됩니다.</p>
+              <p>{t('tokenPrograms.publicRound.faq.q5.answer')}</p>
             </div>
           </div>
 
           <div className={`faq-item ${activeFaq === 'faq-6' ? 'active' : ''}`}>
             <div className="faq-question" onClick={() => toggleFaq('faq-6')}>
-              <h4>토큰 상장 계획과 런칭 가격은 어떻게 되나요?</h4>
+              <h4>{t('tokenPrograms.publicRound.faq.q6.question')}</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>TBURN 토큰의 런칭 예정 가격은 $0.50입니다(퍼블릭 세일 가격 $0.20 대비 150% 상승). TGE 및 상장 일정은 퍼블릭 세일 종료 후 2-4주 내에 진행됩니다. 초기 상장: Uniswap V3, PancakeSwap, SushiSwap 등 주요 DEX에 유동성 공급. CEX 상장: Tier-1 거래소(Binance, OKX, Bybit, Coinbase 등)와 상장 협의 진행 중이며, 런칭 후 3개월 내 주요 거래소 상장을 목표로 합니다.</p>
+              <p>{t('tokenPrograms.publicRound.faq.q6.answer')}</p>
             </div>
           </div>
 
           <div className={`faq-item ${activeFaq === 'faq-7' ? 'active' : ''}`}>
             <div className="faq-question" onClick={() => toggleFaq('faq-7')}>
-              <h4>티어별 혜택과 보너스는 무엇인가요?</h4>
+              <h4>{t('tokenPrograms.publicRound.faq.q7.question')}</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>참여 금액에 따라 4개 티어로 구분됩니다: (1) Whale($50K+): +5% 보너스 토큰, TGE 15% 해제, VIP 커뮤니티, 전담 지원 (2) Dolphin($10K+): +3% 보너스, TGE 12% 해제, 프리미엄 커뮤니티 (3) Fish($1K+): +1% 보너스, TGE 10% 해제, 일반 커뮤니티 (4) Shrimp($100+): 기본 조건, TGE 10% 해제. 모든 티어는 동일한 $0.20 가격이 적용되며, 보너스 토큰은 TGE 시 함께 배정됩니다.</p>
+              <p>{t('tokenPrograms.publicRound.faq.q7.answer')}</p>
             </div>
           </div>
 
           <div className={`faq-item ${activeFaq === 'faq-8' ? 'active' : ''}`}>
             <div className="faq-question" onClick={() => toggleFaq('faq-8')}>
-              <h4>환불 정책과 취소는 어떻게 되나요?</h4>
+              <h4>{t('tokenPrograms.publicRound.faq.q8.question')}</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>퍼블릭 세일은 원칙적으로 결제 확정 후 취소/환불이 불가합니다. 단, 다음 경우에는 환불이 가능합니다: (1) 세일 미달성(소프트캡 미충족) 시 전액 환불 (2) 프로젝트 중단 또는 메인넷 런칭 불발 시 환불 (3) 결제 오류로 인한 중복 결제 시 초과분 환불. 환불 신청은 공식 지원 채널(support@tburn.io)을 통해 접수하며, 처리 기간은 영업일 기준 7-14일이 소요됩니다. 환불은 원래 결제 수단으로 지급됩니다.</p>
+              <p>{t('tokenPrograms.publicRound.faq.q8.answer')}</p>
             </div>
           </div>
         </div>
@@ -1517,10 +1521,9 @@ export default function PublicRoundPage() {
       {/* CTA Section */}
       <section className="cta-section">
         <div style={{ maxWidth: '800px', margin: '0 auto' }}>
-          <h2 style={{ fontSize: '2.5rem', fontWeight: 800, marginBottom: '1rem' }}>지금 참여하세요!</h2>
+          <h2 style={{ fontSize: '2.5rem', fontWeight: 800, marginBottom: '1rem' }}>{t('tokenPrograms.publicRound.ctaSection.title')}</h2>
           <p style={{ color: 'rgba(255,255,255,0.8)', fontSize: '1.125rem', marginBottom: '2rem' }}>
-            TBURN Chain의 퍼블릭 세일에 참여하고<br />
-            런칭가 대비 60% 할인된 $0.20에 TBURN을 확보하세요!
+            {t('tokenPrograms.publicRound.ctaSection.subtitle')}
           </p>
           <button 
             className="btn-primary" 
@@ -1528,7 +1531,7 @@ export default function PublicRoundPage() {
             onClick={() => setInquiryDialogOpen(true)}
             data-testid="button-invest-now"
           >
-            🚀 지금 참여하기
+            🚀 {t('tokenPrograms.publicRound.ctaSection.button')}
           </button>
         </div>
       </section>
@@ -1537,17 +1540,17 @@ export default function PublicRoundPage() {
       <Dialog open={inquiryDialogOpen} onOpenChange={setInquiryDialogOpen}>
         <DialogContent className="sm:max-w-[500px] bg-slate-900 border-blue-500/30 text-white">
           <DialogHeader>
-            <DialogTitle className="text-xl font-bold text-blue-400">퍼블릭 라운드 참여 문의</DialogTitle>
+            <DialogTitle className="text-xl font-bold text-blue-400">{t('tokenPrograms.publicRound.dialog.title')}</DialogTitle>
             <DialogDescription className="text-slate-400">
-              담당자가 곧 연락드리겠습니다. 누구나 참여 가능합니다.
+              {t('tokenPrograms.publicRound.dialog.description')}
             </DialogDescription>
           </DialogHeader>
           <form onSubmit={handleSubmit} className="space-y-4 mt-4">
             <div className="space-y-2">
-              <Label htmlFor="name" className="text-slate-300">이름 *</Label>
+              <Label htmlFor="name" className="text-slate-300">{t('tokenPrograms.publicRound.dialog.name')}</Label>
               <Input
                 id="name"
-                placeholder="홍길동"
+                placeholder={t('tokenPrograms.publicRound.dialog.namePlaceholder')}
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                 className="bg-slate-800 border-slate-700 text-white placeholder:text-slate-500"
@@ -1555,7 +1558,7 @@ export default function PublicRoundPage() {
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="email" className="text-slate-300">이메일 *</Label>
+              <Label htmlFor="email" className="text-slate-300">{t('tokenPrograms.publicRound.dialog.email')}</Label>
               <Input
                 id="email"
                 type="email"
@@ -1567,7 +1570,7 @@ export default function PublicRoundPage() {
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="investmentAmount" className="text-slate-300">참여 예정 금액</Label>
+              <Label htmlFor="investmentAmount" className="text-slate-300">{t('tokenPrograms.publicRound.dialog.investmentAmount')}</Label>
               <Input
                 id="investmentAmount"
                 placeholder="$1,000"
@@ -1578,10 +1581,10 @@ export default function PublicRoundPage() {
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="message" className="text-slate-300">추가 메시지</Label>
+              <Label htmlFor="message" className="text-slate-300">{t('tokenPrograms.publicRound.dialog.message')}</Label>
               <Textarea
                 id="message"
-                placeholder="참여 관련 추가 문의사항을 입력해주세요"
+                placeholder={t('tokenPrograms.publicRound.dialog.messagePlaceholder')}
                 value={formData.message}
                 onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                 className="bg-slate-800 border-slate-700 text-white placeholder:text-slate-500 min-h-[80px]"
@@ -1595,7 +1598,7 @@ export default function PublicRoundPage() {
                 onClick={() => setInquiryDialogOpen(false)}
                 className="flex-1 border-slate-600 text-slate-300 hover:bg-slate-800"
               >
-                취소
+                {t('tokenPrograms.publicRound.dialog.cancelBtn')}
               </Button>
               <Button
                 type="submit"
@@ -1603,7 +1606,7 @@ export default function PublicRoundPage() {
                 className="flex-1 bg-blue-600 hover:bg-blue-700 text-white"
                 data-testid="button-submit-inquiry"
               >
-                {inquiryMutation.isPending ? "제출 중..." : "참여 문의 제출"}
+                {inquiryMutation.isPending ? t('tokenPrograms.publicRound.dialog.submitting') : t('tokenPrograms.publicRound.dialog.submit')}
               </Button>
             </div>
           </form>
@@ -1615,7 +1618,7 @@ export default function PublicRoundPage() {
         <div className="footer-content">
           <div className="footer-brand">
             <h3>TBURN<span>CHAIN</span></h3>
-            <p>AI의 지능, 블록체인의 투명성<br />THE FUTURE IS NOW</p>
+            <p>{t('tokenPrograms.publicRound.footer.description')}</p>
             <div className="social-links">
               <a href="#">𝕏</a>
               <a href="#">✈</a>
@@ -1624,38 +1627,38 @@ export default function PublicRoundPage() {
             </div>
           </div>
           <div className="footer-links">
-            <h4>Product</h4>
+            <h4>{t('tokenPrograms.publicRound.footer.product')}</h4>
             <ul>
-              <li><Link href="/">메인넷</Link></li>
-              <li><Link href="/scan">익스플로러</Link></li>
-              <li><Link href="/app/bridge">브릿지</Link></li>
-              <li><Link href="/app/staking">스테이킹</Link></li>
+              <li><Link href="/">{t('tokenPrograms.publicRound.footer.mainnet')}</Link></li>
+              <li><Link href="/scan">{t('tokenPrograms.publicRound.footer.explorer')}</Link></li>
+              <li><Link href="/app/bridge">{t('tokenPrograms.publicRound.footer.bridge')}</Link></li>
+              <li><Link href="/app/staking">{t('tokenPrograms.publicRound.footer.staking')}</Link></li>
             </ul>
           </div>
           <div className="footer-links">
-            <h4>Resources</h4>
+            <h4>{t('tokenPrograms.publicRound.footer.resources')}</h4>
             <ul>
-              <li><Link href="/learn/whitepaper">백서</Link></li>
-              <li><Link href="/developers/docs">문서</Link></li>
-              <li><a href="#">GitHub</a></li>
-              <li><Link href="/security-audit">감사 보고서</Link></li>
+              <li><Link href="/learn/whitepaper">{t('tokenPrograms.publicRound.footer.whitepaper')}</Link></li>
+              <li><Link href="/developers/docs">{t('tokenPrograms.publicRound.footer.docs')}</Link></li>
+              <li><a href="#">{t('tokenPrograms.publicRound.footer.github')}</a></li>
+              <li><Link href="/security-audit">{t('tokenPrograms.publicRound.footer.audit')}</Link></li>
             </ul>
           </div>
           <div className="footer-links">
-            <h4>Community</h4>
+            <h4>{t('tokenPrograms.publicRound.footer.community')}</h4>
             <ul>
-              <li><Link href="/community/news">블로그</Link></li>
-              <li><a href="#">앰배서더</a></li>
-              <li><a href="#">그랜트</a></li>
-              <li><Link href="/qna">고객지원</Link></li>
+              <li><Link href="/community/news">{t('tokenPrograms.publicRound.footer.blog')}</Link></li>
+              <li><a href="#">{t('tokenPrograms.publicRound.footer.ambassador')}</a></li>
+              <li><a href="#">{t('tokenPrograms.publicRound.footer.grants')}</a></li>
+              <li><Link href="/qna">{t('tokenPrograms.publicRound.footer.support')}</Link></li>
             </ul>
           </div>
         </div>
         <div className="footer-bottom">
           <p>© 2025-2045 TBURN Foundation. All Rights Reserved.</p>
           <div style={{ display: 'flex', gap: '2rem' }}>
-            <Link href="/legal/terms-of-service" style={{ color: 'var(--gray)', textDecoration: 'none' }}>이용약관</Link>
-            <Link href="/legal/privacy-policy" style={{ color: 'var(--gray)', textDecoration: 'none' }}>개인정보처리방침</Link>
+            <Link href="/legal/terms-of-service" style={{ color: 'var(--gray)', textDecoration: 'none' }}>{t('tokenPrograms.publicRound.footer.terms')}</Link>
+            <Link href="/legal/privacy-policy" style={{ color: 'var(--gray)', textDecoration: 'none' }}>{t('tokenPrograms.publicRound.footer.privacy')}</Link>
           </div>
         </div>
       </footer>
