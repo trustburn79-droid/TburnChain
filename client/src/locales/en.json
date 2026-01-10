@@ -32262,7 +32262,61 @@
       "kyc": "KYC/AML Verification",
       "accredited": "Accredited Investor",
       "institutional": "Institutional",
-      "applyPrivate": "Apply for Private Round"
+      "applyPrivate": "Apply for Private Round",
+      "tiers": {
+        "badge": "TIERS",
+        "title": "Investment Tiers",
+        "subtitle": "Tiered benefits based on institutional investment scale",
+        "minInvestment": "Minimum Investment",
+        "minInvestmentLabel": "Min Investment",
+        "tokenPriceLabel": "Token Price",
+        "tgeUnlockLabel": "TGE Unlock",
+        "inquireBtn": "Inquire Investment",
+        "institutional": {
+          "name": "Institutional",
+          "subtitle": "Institutional Investors",
+          "benefits": [
+            "Board observer seat",
+            "Monthly executive briefing",
+            "Exclusive co-investment rights",
+            "Custom vesting negotiation",
+            "Dedicated IR manager"
+          ]
+        },
+        "strategic": {
+          "name": "Strategic",
+          "subtitle": "Strategic Investors",
+          "benefits": [
+            "Quarterly strategy sessions",
+            "Partnership priority rights",
+            "Technology collaboration opportunities",
+            "Co-marketing programs",
+            "Network access"
+          ]
+        },
+        "growth": {
+          "name": "Growth",
+          "subtitle": "Growth Investors",
+          "benefits": [
+            "Quarterly update calls",
+            "Private community access",
+            "Governance participation rights",
+            "Early feature access",
+            "Dedicated support channel"
+          ]
+        },
+        "standard": {
+          "name": "Standard",
+          "subtitle": "Standard Investors",
+          "benefits": [
+            "Monthly investor newsletter",
+            "Basic governance voting rights",
+            "Investor-only channels",
+            "Standard allocation",
+            "Email support"
+          ]
+        }
+      }
     },
     "publicRound": {
       "title": "Public Round",
@@ -32277,7 +32331,74 @@
       "maxPurchase": "Maximum Purchase",
       "whitelistRequired": "Whitelist Required",
       "joinWhitelist": "Join Whitelist",
-      "purchaseTokens": "Purchase Tokens"
+      "purchaseTokens": "Purchase Tokens",
+      "tiers": {
+        "badge": "TIERS",
+        "title": "Participation Tiers",
+        "subtitle": "Tiered benefits based on public sale participation",
+        "minAmountLabel": "Min Amount",
+        "maxAmountLabel": "Max Amount",
+        "joinBtn": "Join Public Sale",
+        "whale": {
+          "name": "Whale",
+          "subtitle": "Large Participants ($50K+)",
+          "details": [
+            "Min Investment",
+            "Bonus Rate",
+            "TGE Unlock"
+          ],
+          "benefits": [
+            "Priority allocation",
+            "Early access window",
+            "Premium support",
+            "Exclusive community access",
+            "Enhanced governance power"
+          ]
+        },
+        "dolphin": {
+          "name": "Dolphin",
+          "subtitle": "Medium Participants ($10K+)",
+          "details": [
+            "Min Investment",
+            "Bonus Rate",
+            "TGE Unlock"
+          ],
+          "benefits": [
+            "Standard allocation",
+            "Community access",
+            "Basic governance rights",
+            "Email support"
+          ]
+        },
+        "fish": {
+          "name": "Fish",
+          "subtitle": "Small Participants ($1K+)",
+          "details": [
+            "Min Investment",
+            "Bonus Rate",
+            "TGE Unlock"
+          ],
+          "benefits": [
+            "Standard allocation",
+            "Community access",
+            "Basic support"
+          ]
+        },
+        "shrimp": {
+          "name": "Shrimp",
+          "subtitle": "Entry Level ($100+)",
+          "details": [
+            "Min Investment",
+            "Bonus Rate",
+            "TGE Unlock"
+          ],
+          "benefits": [
+            "Minimum allocation",
+            "Public community",
+            "FAQ support"
+          ]
+        }
+      }
     },
     "launchpad": {
       "title": "Launchpad",
