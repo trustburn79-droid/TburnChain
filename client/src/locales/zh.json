@@ -22056,5 +22056,313 @@
       "applicationSubmittedDesc": "您的申请已提交。审核后我们会通知您结果。"
     },
     "connectWallet": "连接钱包"
+  },
+  "referral": {
+    "header": {
+      "connectWallet": "连接钱包",
+      "connecting": "连接中..."
+    },
+    "nav": {
+      "home": "首页",
+      "howItWorks": "运作方式",
+      "tiers": "等级",
+      "dashboard": "仪表板",
+      "calculator": "计算器",
+      "leaderboard": "排行榜",
+      "faq": "常见问题"
+    },
+    "hero": {
+      "badge": "推荐计划",
+      "title": "3亿 TBURN",
+      "subtitle": "推荐奖励",
+      "description": "邀请朋友加入TBURN链并从他们的活动中赚取佣金。更高等级可解锁高达50%的佣金率！",
+      "stats": {
+        "totalParticipants": "总参与者",
+        "totalReferrals": "总推荐数",
+        "totalRewards": "总奖励 (TBURN)",
+        "activeReferrers": "活跃推荐人"
+      },
+      "buttons": {
+        "getReferralLink": "获取推荐链接",
+        "viewDashboard": "查看仪表板"
+      }
+    },
+    "howItWorks": {
+      "badge": "运作方式",
+      "title": "推荐计划如何运作",
+      "subtitle": "通过4个简单步骤赚取奖励",
+      "steps": {
+        "connect": {
+          "title": "连接钱包",
+          "desc": "连接MetaMask或支持的钱包以生成您的专属推荐链接。"
+        },
+        "share": {
+          "title": "分享链接",
+          "desc": "在社交媒体、社区和朋友中分享您的推荐链接。"
+        },
+        "activity": {
+          "title": "朋友活动",
+          "desc": "您推荐的朋友在TBURN链上交易、质押和参与。"
+        },
+        "earn": {
+          "title": "赚取奖励",
+          "desc": "实时从朋友的活动费用中获得佣金。"
+        }
+      }
+    },
+    "tiers": {
+      "badge": "等级佣金",
+      "title": "各等级佣金",
+      "subtitle": "推荐越多，等级越高，解锁更高佣金率",
+      "commission": "佣金",
+      "referrals": "推荐数",
+      "badges": {
+        "starter": "初级",
+        "intermediate": "中级",
+        "popular": "热门",
+        "elite": "精英",
+        "master": "大师"
+      }
+    },
+    "dashboard": {
+      "title": "推荐仪表板",
+      "subtitle": "追踪您的推荐活动和奖励",
+      "stats": {
+        "totalReferrals": "总推荐数",
+        "activeReferrals": "活跃推荐",
+        "pendingRewards": "待领奖励",
+        "claimedRewards": "已领奖励"
+      },
+      "referralLink": {
+        "title": "您的推荐链接",
+        "copy": "复制",
+        "copied": "已复制！"
+      },
+      "toasts": {
+        "copied": "推荐链接已复制"
+      }
+    },
+    "calculator": {
+      "badge": "奖励计算器",
+      "title": "计算您的潜在收益",
+      "subtitle": "根据推荐数量和活动水平估算收益",
+      "referralCount": "推荐数量",
+      "avgActivity": "平均活动",
+      "estimatedRewards": "预估奖励"
+    },
+    "leaderboard": {
+      "badge": "排行榜",
+      "title": "顶级推荐人",
+      "subtitle": "推荐最多的参与者",
+      "rank": "排名",
+      "wallet": "钱包",
+      "referrals": "推荐数",
+      "rewards": "奖励"
+    },
+    "faq": {
+      "badge": "常见问题",
+      "title": "FAQ",
+      "subtitle": "关于推荐计划的常见问题",
+      "items": []
+    }
+  },
+  "events": {
+    "header": {
+      "title": "TBURN活动"
+    },
+    "nav": {
+      "liveEvents": "进行中活动",
+      "allEvents": "全部活动",
+      "leaderboard": "排行榜",
+      "faq": "常见问题",
+      "connectWallet": "连接钱包"
+    },
+    "hero": {
+      "badge": "TBURN上线庆典活动进行中",
+      "title": "TBURN生态系统",
+      "titleHighlight": "超级活动",
+      "titleSuffix": "节日",
+      "subtitle": "参与各种生态系统活动获得丰厚奖励。从质押到交易，社区活动到合作伙伴合作 - 每个人都能找到适合的活动！",
+      "liveBadge": "进行中",
+      "liveTitle": "主网上线庆典",
+      "liveSubtitle": "立即参与赚取高达5000万TBURN！",
+      "countdown": {
+        "days": "天",
+        "hours": "小时",
+        "minutes": "分",
+        "seconds": "秒"
+      },
+      "participate": "立即参与",
+      "connectFirst": "连接并加入"
+    },
+    "stats": {
+      "totalEvents": "活动总数",
+      "activeEvents": "进行中活动",
+      "totalParticipants": "参与者总数",
+      "totalRewards": "总奖励 (TBURN)"
+    },
+    "distribution": {
+      "badge": "奖励分配",
+      "title": "活动奖励分配",
+      "subtitle": "各活动类别共分配4亿TBURN代币",
+      "launch": {
+        "name": "上线活动",
+        "amount": "1.2亿",
+        "percent": "30%"
+      },
+      "trading": {
+        "name": "交易活动",
+        "amount": "8000万",
+        "percent": "20%"
+      },
+      "staking": {
+        "name": "质押活动",
+        "amount": "8000万",
+        "percent": "20%"
+      },
+      "community": {
+        "name": "社区",
+        "amount": "6000万",
+        "percent": "15%"
+      },
+      "partner": {
+        "name": "合作伙伴活动",
+        "amount": "6000万",
+        "percent": "15%"
+      }
+    },
+    "upcoming": {
+      "badge": "全部活动",
+      "title": "探索活动",
+      "subtitle": "发现进行中和即将开始的活动以最大化奖励",
+      "viewAll": "查看全部"
+    },
+    "toasts": {
+      "registerSuccess": {
+        "title": "注册成功",
+        "desc": "已成功注册活动"
+      },
+      "registerError": {
+        "title": "注册失败",
+        "desc": "活动注册时发生错误"
+      }
+    }
+  },
+  "daoGovernance": {
+    "header": {
+      "title": "DAO治理",
+      "subtitle": "塑造TBURN的未来"
+    },
+    "nav": {
+      "overview": "概览",
+      "proposals": "提案",
+      "voting": "投票",
+      "delegates": "委托",
+      "treasury": "国库"
+    },
+    "hero": {
+      "badge": "DAO治理",
+      "title": "5亿 TBURN",
+      "subtitle": "治理分配",
+      "description": "参与治理，塑造TBURN链的未来。通过创建提案、投票和委托，为生态系统的发展做出贡献。"
+    },
+    "stats": {
+      "totalProposals": "提案总数",
+      "activeProposals": "活跃提案",
+      "totalVoters": "投票者总数",
+      "treasuryBalance": "国库余额"
+    },
+    "toast": {
+      "disconnected": "钱包已断开",
+      "disconnectedDesc": "钱包连接已断开"
+    }
+  },
+  "strategicPartner": {
+    "header": {
+      "title": "战略合作伙伴",
+      "subtitle": "生态系统增长合作"
+    },
+    "hero": {
+      "badge": "战略合作伙伴计划",
+      "title": "2.5亿 TBURN",
+      "subtitle": "战略合作伙伴分配",
+      "description": "加速TBURN生态系统增长的战略合作伙伴关系。面向基础设施、技术和营销合作伙伴的分配。"
+    },
+    "stats": {
+      "totalAllocation": "总分配",
+      "partners": "合作伙伴数",
+      "distributed": "已分配",
+      "remaining": "剩余"
+    },
+    "wallet": {
+      "disconnect": "钱包已断开",
+      "disconnectDesc": "钱包连接已断开"
+    }
+  },
+  "advisorProgram": {
+    "header": {
+      "title": "顾问计划",
+      "subtitle": "专家指导"
+    },
+    "hero": {
+      "badge": "顾问计划",
+      "title": "1亿 TBURN",
+      "subtitle": "顾问分配",
+      "description": "面向行业专家和顾问的分配。支持战略指导、技术审查和网络扩展。"
+    },
+    "stats": {
+      "totalAllocation": "总分配",
+      "advisors": "顾问数",
+      "vested": "已归属",
+      "remaining": "剩余"
+    },
+    "wallet": {
+      "disconnect": "钱包已断开",
+      "disconnectDesc": "钱包连接已断开"
+    }
+  },
+  "coinlist": {
+    "header": {
+      "title": "CoinList销售",
+      "subtitle": "公开代币销售"
+    },
+    "hero": {
+      "badge": "CoinList代币销售",
+      "title": "5000万 TBURN",
+      "subtitle": "CoinList分配",
+      "description": "通过CoinList平台进行的公开代币销售。面向经过严格KYC/AML审核的可信投资者。"
+    },
+    "stats": {
+      "totalAllocation": "总分配",
+      "tokenPrice": "代币价格",
+      "participants": "参与者数",
+      "raised": "募集金额"
+    },
+    "toast": {
+      "walletDisconnected": "钱包已断开",
+      "walletDisconnectedDesc": "钱包连接已断开"
+    }
+  },
+  "daomaker": {
+    "header": {
+      "title": "DAO Maker SHO",
+      "subtitle": "强力持有者发行"
+    },
+    "hero": {
+      "badge": "DAO Maker SHO",
+      "title": "5000万 TBURN",
+      "subtitle": "DAO Maker分配",
+      "description": "通过DAO Maker的Strong Holder Offering (SHO)进行代币分配。DAO Power持有者优先参与。"
+    },
+    "stats": {
+      "totalAllocation": "总分配",
+      "tokenPrice": "代币价格",
+      "participants": "参与者数",
+      "raised": "募集金额"
+    },
+    "toast": {
+      "walletDisconnected": "钱包已断开",
+      "walletDisconnectedDesc": "钱包连接已断开"
+    }
   }
 }

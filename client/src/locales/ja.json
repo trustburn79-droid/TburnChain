@@ -22842,5 +22842,313 @@
       "applicationSubmittedDesc": "申請が送信されました。審査後、結果をお知らせします。"
     },
     "connectWallet": "ウォレット接続"
+  },
+  "referral": {
+    "header": {
+      "connectWallet": "ウォレットを接続",
+      "connecting": "接続中..."
+    },
+    "nav": {
+      "home": "ホーム",
+      "howItWorks": "仕組み",
+      "tiers": "ティア",
+      "dashboard": "ダッシュボード",
+      "calculator": "計算機",
+      "leaderboard": "リーダーボード",
+      "faq": "よくある質問"
+    },
+    "hero": {
+      "badge": "リファラルプログラム",
+      "title": "3億 TBURN",
+      "subtitle": "リファラル報酬",
+      "description": "友人をTBURNチェーンに招待して、その活動から手数料を獲得しましょう。より高いティアで最大50%の手数料率をアンロック！",
+      "stats": {
+        "totalParticipants": "総参加者数",
+        "totalReferrals": "総リファラル数",
+        "totalRewards": "総報酬 (TBURN)",
+        "activeReferrers": "アクティブリファラー"
+      },
+      "buttons": {
+        "getReferralLink": "リファラルリンクを取得",
+        "viewDashboard": "ダッシュボードを見る"
+      }
+    },
+    "howItWorks": {
+      "badge": "仕組み",
+      "title": "リファラルプログラムの仕組み",
+      "subtitle": "4つの簡単なステップで報酬を獲得",
+      "steps": {
+        "connect": {
+          "title": "ウォレット接続",
+          "desc": "MetaMaskまたは対応ウォレットを接続して、固有のリファラルリンクを生成します。"
+        },
+        "share": {
+          "title": "リンク共有",
+          "desc": "リファラルリンクをソーシャルメディア、コミュニティ、友人と共有しましょう。"
+        },
+        "activity": {
+          "title": "友人の活動",
+          "desc": "招待した友人がTBURNチェーンでトレード、ステーキング、参加します。"
+        },
+        "earn": {
+          "title": "報酬獲得",
+          "desc": "友人の活動手数料からリアルタイムでコミッションを受け取ります。"
+        }
+      }
+    },
+    "tiers": {
+      "badge": "ティアコミッション",
+      "title": "ティア別コミッション",
+      "subtitle": "リファラルが増えるとティアが上がり、より高いコミッション率がアンロックされます",
+      "commission": "コミッション",
+      "referrals": "リファラル数",
+      "badges": {
+        "starter": "スターター",
+        "intermediate": "中級",
+        "popular": "人気",
+        "elite": "エリート",
+        "master": "マスター"
+      }
+    },
+    "dashboard": {
+      "title": "リファラルダッシュボード",
+      "subtitle": "リファラル活動と報酬を追跡",
+      "stats": {
+        "totalReferrals": "総リファラル数",
+        "activeReferrals": "アクティブリファラル",
+        "pendingRewards": "保留中の報酬",
+        "claimedRewards": "請求済み報酬"
+      },
+      "referralLink": {
+        "title": "あなたのリファラルリンク",
+        "copy": "コピー",
+        "copied": "コピー完了！"
+      },
+      "toasts": {
+        "copied": "リファラルリンクをコピーしました"
+      }
+    },
+    "calculator": {
+      "badge": "報酬計算機",
+      "title": "獲得可能な報酬を計算",
+      "subtitle": "リファラル数と活動レベルに基づいて潜在的な収益を見積もり",
+      "referralCount": "リファラル数",
+      "avgActivity": "平均活動量",
+      "estimatedRewards": "推定報酬"
+    },
+    "leaderboard": {
+      "badge": "リーダーボード",
+      "title": "トップリファラー",
+      "subtitle": "最も多くのリファラルを獲得した参加者",
+      "rank": "順位",
+      "wallet": "ウォレット",
+      "referrals": "リファラル数",
+      "rewards": "報酬"
+    },
+    "faq": {
+      "badge": "よくある質問",
+      "title": "FAQ",
+      "subtitle": "リファラルプログラムについてよくある質問",
+      "items": []
+    }
+  },
+  "events": {
+    "header": {
+      "title": "TBURNイベント"
+    },
+    "nav": {
+      "liveEvents": "ライブイベント",
+      "allEvents": "全イベント",
+      "leaderboard": "リーダーボード",
+      "faq": "よくある質問",
+      "connectWallet": "ウォレット接続"
+    },
+    "hero": {
+      "badge": "TBURNローンチ記念イベント開催中",
+      "title": "TBURNエコシステム",
+      "titleHighlight": "メガイベント",
+      "titleSuffix": "フェスティバル",
+      "subtitle": "様々なエコシステムイベントに参加して大量の報酬を獲得しましょう。ステーキングからトレード、コミュニティ活動からパートナーコラボまで - 誰でも参加できるイベントがあります！",
+      "liveBadge": "開催中",
+      "liveTitle": "メインネットローンチ記念",
+      "liveSubtitle": "今すぐ参加して最大5,000万TBURNを獲得！",
+      "countdown": {
+        "days": "日",
+        "hours": "時間",
+        "minutes": "分",
+        "seconds": "秒"
+      },
+      "participate": "今すぐ参加",
+      "connectFirst": "接続して参加"
+    },
+    "stats": {
+      "totalEvents": "総イベント数",
+      "activeEvents": "開催中イベント",
+      "totalParticipants": "総参加者数",
+      "totalRewards": "総報酬 (TBURN)"
+    },
+    "distribution": {
+      "badge": "報酬配分",
+      "title": "イベント報酬配分",
+      "subtitle": "様々なイベントカテゴリーに合計4億TBURNトークンを割当",
+      "launch": {
+        "name": "ローンチイベント",
+        "amount": "1.2億",
+        "percent": "30%"
+      },
+      "trading": {
+        "name": "トレードイベント",
+        "amount": "8,000万",
+        "percent": "20%"
+      },
+      "staking": {
+        "name": "ステーキングイベント",
+        "amount": "8,000万",
+        "percent": "20%"
+      },
+      "community": {
+        "name": "コミュニティ",
+        "amount": "6,000万",
+        "percent": "15%"
+      },
+      "partner": {
+        "name": "パートナーイベント",
+        "amount": "6,000万",
+        "percent": "15%"
+      }
+    },
+    "upcoming": {
+      "badge": "全イベント",
+      "title": "イベント一覧",
+      "subtitle": "進行中および今後のイベントを発見して報酬を最大化",
+      "viewAll": "全て見る"
+    },
+    "toasts": {
+      "registerSuccess": {
+        "title": "登録完了",
+        "desc": "イベントに正常に登録されました"
+      },
+      "registerError": {
+        "title": "登録失敗",
+        "desc": "イベント登録中にエラーが発生しました"
+      }
+    }
+  },
+  "daoGovernance": {
+    "header": {
+      "title": "DAOガバナンス",
+      "subtitle": "TBURNの未来を形作る"
+    },
+    "nav": {
+      "overview": "概要",
+      "proposals": "提案",
+      "voting": "投票",
+      "delegates": "委任",
+      "treasury": "トレジャリー"
+    },
+    "hero": {
+      "badge": "DAOガバナンス",
+      "title": "5億 TBURN",
+      "subtitle": "ガバナンス配分",
+      "description": "TBURNチェーンの未来を形作るためにガバナンスに参加しましょう。提案の作成、投票、委任を通じてエコシステムの発展に貢献できます。"
+    },
+    "stats": {
+      "totalProposals": "総提案数",
+      "activeProposals": "アクティブ提案",
+      "totalVoters": "総投票者数",
+      "treasuryBalance": "トレジャリー残高"
+    },
+    "toast": {
+      "disconnected": "ウォレット切断",
+      "disconnectedDesc": "ウォレットが切断されました"
+    }
+  },
+  "strategicPartner": {
+    "header": {
+      "title": "戦略パートナー",
+      "subtitle": "エコシステム成長パートナーシップ"
+    },
+    "hero": {
+      "badge": "戦略パートナープログラム",
+      "title": "2.5億 TBURN",
+      "subtitle": "戦略パートナー配分",
+      "description": "TBURNエコシステムの成長を加速するための戦略的パートナーシップ。インフラ、技術、マーケティングパートナーへの配分。"
+    },
+    "stats": {
+      "totalAllocation": "総配分量",
+      "partners": "パートナー数",
+      "distributed": "配布済み",
+      "remaining": "残高"
+    },
+    "wallet": {
+      "disconnect": "ウォレット切断",
+      "disconnectDesc": "ウォレットが切断されました"
+    }
+  },
+  "advisorProgram": {
+    "header": {
+      "title": "アドバイザープログラム",
+      "subtitle": "専門家によるガイダンス"
+    },
+    "hero": {
+      "badge": "アドバイザープログラム",
+      "title": "1億 TBURN",
+      "subtitle": "アドバイザー配分",
+      "description": "業界専門家とアドバイザーへの配分。戦略的ガイダンス、技術レビュー、ネットワーク拡大を支援。"
+    },
+    "stats": {
+      "totalAllocation": "総配分量",
+      "advisors": "アドバイザー数",
+      "vested": "ベスティング済み",
+      "remaining": "残高"
+    },
+    "wallet": {
+      "disconnect": "ウォレット切断",
+      "disconnectDesc": "ウォレットが切断されました"
+    }
+  },
+  "coinlist": {
+    "header": {
+      "title": "CoinListセール",
+      "subtitle": "公開トークンセール"
+    },
+    "hero": {
+      "badge": "CoinListトークンセール",
+      "title": "5,000万 TBURN",
+      "subtitle": "CoinList配分",
+      "description": "CoinListプラットフォームを通じた公開トークンセール。厳格なKYC/AML審査を経た信頼性の高い投資家向け。"
+    },
+    "stats": {
+      "totalAllocation": "総配分量",
+      "tokenPrice": "トークン価格",
+      "participants": "参加者数",
+      "raised": "調達額"
+    },
+    "toast": {
+      "walletDisconnected": "ウォレット切断",
+      "walletDisconnectedDesc": "ウォレットが切断されました"
+    }
+  },
+  "daomaker": {
+    "header": {
+      "title": "DAO Maker SHO",
+      "subtitle": "ストロングホルダーオファリング"
+    },
+    "hero": {
+      "badge": "DAO Maker SHO",
+      "title": "5,000万 TBURN",
+      "subtitle": "DAO Maker配分",
+      "description": "DAO MakerのStrong Holder Offering (SHO)を通じたトークン配布。DAO Powerホルダー向けの優先参加権。"
+    },
+    "stats": {
+      "totalAllocation": "総配分量",
+      "tokenPrice": "トークン価格",
+      "participants": "参加者数",
+      "raised": "調達額"
+    },
+    "toast": {
+      "walletDisconnected": "ウォレット切断",
+      "walletDisconnectedDesc": "ウォレットが切断されました"
+    }
   }
 }

@@ -34513,5 +34513,313 @@
         "navigatingTo": "{{platform}}(으)로 이동합니다..."
       }
     }
+  },
+  "referral": {
+    "header": {
+      "connectWallet": "지갑 연결",
+      "connecting": "연결 중..."
+    },
+    "nav": {
+      "home": "홈",
+      "howItWorks": "작동 방식",
+      "tiers": "티어",
+      "dashboard": "대시보드",
+      "calculator": "계산기",
+      "leaderboard": "리더보드",
+      "faq": "자주 묻는 질문"
+    },
+    "hero": {
+      "badge": "리퍼럴 프로그램",
+      "title": "3억 TBURN",
+      "subtitle": "리퍼럴 보상",
+      "description": "친구를 TBURN 체인에 초대하고 그들의 활동에서 커미션을 받으세요. 높은 티어에서 최대 50% 커미션율 해제!",
+      "stats": {
+        "totalParticipants": "총 참가자",
+        "totalReferrals": "총 리퍼럴",
+        "totalRewards": "총 보상 (TBURN)",
+        "activeReferrers": "활성 리퍼러"
+      },
+      "buttons": {
+        "getReferralLink": "리퍼럴 링크 받기",
+        "viewDashboard": "대시보드 보기"
+      }
+    },
+    "howItWorks": {
+      "badge": "작동 방식",
+      "title": "리퍼럴 프로그램 작동 방식",
+      "subtitle": "4단계로 보상 받기",
+      "steps": {
+        "connect": {
+          "title": "지갑 연결",
+          "desc": "MetaMask 또는 지원되는 지갑을 연결하여 고유 리퍼럴 링크를 생성하세요."
+        },
+        "share": {
+          "title": "링크 공유",
+          "desc": "소셜 미디어, 커뮤니티, 친구들과 리퍼럴 링크를 공유하세요."
+        },
+        "activity": {
+          "title": "친구 활동",
+          "desc": "초대한 친구들이 TBURN 체인에서 거래, 스테이킹, 참여합니다."
+        },
+        "earn": {
+          "title": "보상 획득",
+          "desc": "친구들의 활동 수수료에서 실시간으로 커미션을 받습니다."
+        }
+      }
+    },
+    "tiers": {
+      "badge": "티어 커미션",
+      "title": "티어별 커미션",
+      "subtitle": "리퍼럴이 늘어나면 티어가 올라가고 더 높은 커미션율이 해제됩니다",
+      "commission": "커미션",
+      "referrals": "리퍼럴 수",
+      "badges": {
+        "starter": "스타터",
+        "intermediate": "중급",
+        "popular": "인기",
+        "elite": "엘리트",
+        "master": "마스터"
+      }
+    },
+    "dashboard": {
+      "title": "리퍼럴 대시보드",
+      "subtitle": "리퍼럴 활동과 보상 추적",
+      "stats": {
+        "totalReferrals": "총 리퍼럴",
+        "activeReferrals": "활성 리퍼럴",
+        "pendingRewards": "대기 보상",
+        "claimedRewards": "청구된 보상"
+      },
+      "referralLink": {
+        "title": "내 리퍼럴 링크",
+        "copy": "복사",
+        "copied": "복사됨!"
+      },
+      "toasts": {
+        "copied": "리퍼럴 링크가 복사되었습니다"
+      }
+    },
+    "calculator": {
+      "badge": "보상 계산기",
+      "title": "잠재 수익 계산",
+      "subtitle": "리퍼럴 수와 활동 수준에 따른 예상 수익",
+      "referralCount": "리퍼럴 수",
+      "avgActivity": "평균 활동",
+      "estimatedRewards": "예상 보상"
+    },
+    "leaderboard": {
+      "badge": "리더보드",
+      "title": "탑 리퍼러",
+      "subtitle": "가장 많은 리퍼럴을 가진 참가자",
+      "rank": "순위",
+      "wallet": "지갑",
+      "referrals": "리퍼럴",
+      "rewards": "보상"
+    },
+    "faq": {
+      "badge": "자주 묻는 질문",
+      "title": "FAQ",
+      "subtitle": "리퍼럴 프로그램에 대한 자주 묻는 질문",
+      "items": []
+    }
+  },
+  "events": {
+    "header": {
+      "title": "TBURN 이벤트"
+    },
+    "nav": {
+      "liveEvents": "라이브 이벤트",
+      "allEvents": "전체 이벤트",
+      "leaderboard": "리더보드",
+      "faq": "자주 묻는 질문",
+      "connectWallet": "지갑 연결"
+    },
+    "hero": {
+      "badge": "TBURN 런칭 기념 이벤트 진행 중",
+      "title": "TBURN 생태계",
+      "titleHighlight": "메가 이벤트",
+      "titleSuffix": "페스티벌",
+      "subtitle": "다양한 생태계 이벤트에 참여하여 대규모 보상을 받으세요. 스테이킹부터 거래, 커뮤니티 활동부터 파트너 협업까지 - 모두를 위한 이벤트가 있습니다!",
+      "liveBadge": "진행 중",
+      "liveTitle": "메인넷 런칭 기념",
+      "liveSubtitle": "지금 참여하여 최대 5천만 TBURN 획득!",
+      "countdown": {
+        "days": "일",
+        "hours": "시간",
+        "minutes": "분",
+        "seconds": "초"
+      },
+      "participate": "지금 참여",
+      "connectFirst": "연결 후 참여"
+    },
+    "stats": {
+      "totalEvents": "총 이벤트",
+      "activeEvents": "진행 중 이벤트",
+      "totalParticipants": "총 참가자",
+      "totalRewards": "총 보상 (TBURN)"
+    },
+    "distribution": {
+      "badge": "보상 분배",
+      "title": "이벤트 보상 할당",
+      "subtitle": "다양한 이벤트 카테고리에 총 4억 TBURN 토큰 할당",
+      "launch": {
+        "name": "런칭 이벤트",
+        "amount": "1.2억",
+        "percent": "30%"
+      },
+      "trading": {
+        "name": "거래 이벤트",
+        "amount": "8천만",
+        "percent": "20%"
+      },
+      "staking": {
+        "name": "스테이킹 이벤트",
+        "amount": "8천만",
+        "percent": "20%"
+      },
+      "community": {
+        "name": "커뮤니티",
+        "amount": "6천만",
+        "percent": "15%"
+      },
+      "partner": {
+        "name": "파트너 이벤트",
+        "amount": "6천만",
+        "percent": "15%"
+      }
+    },
+    "upcoming": {
+      "badge": "전체 이벤트",
+      "title": "이벤트 탐색",
+      "subtitle": "진행 중 및 예정된 이벤트를 발견하여 보상 최대화",
+      "viewAll": "전체 보기"
+    },
+    "toasts": {
+      "registerSuccess": {
+        "title": "등록 완료",
+        "desc": "이벤트에 성공적으로 등록되었습니다"
+      },
+      "registerError": {
+        "title": "등록 실패",
+        "desc": "이벤트 등록 중 오류가 발생했습니다"
+      }
+    }
+  },
+  "daoGovernance": {
+    "header": {
+      "title": "DAO 거버넌스",
+      "subtitle": "TBURN의 미래를 만들어가다"
+    },
+    "nav": {
+      "overview": "개요",
+      "proposals": "제안",
+      "voting": "투표",
+      "delegates": "위임",
+      "treasury": "재무"
+    },
+    "hero": {
+      "badge": "DAO 거버넌스",
+      "title": "5억 TBURN",
+      "subtitle": "거버넌스 할당",
+      "description": "거버넌스에 참여하여 TBURN 체인의 미래를 만들어가세요. 제안 생성, 투표, 위임을 통해 생태계 발전에 기여할 수 있습니다."
+    },
+    "stats": {
+      "totalProposals": "총 제안",
+      "activeProposals": "활성 제안",
+      "totalVoters": "총 투표자",
+      "treasuryBalance": "재무 잔액"
+    },
+    "toast": {
+      "disconnected": "지갑 연결 해제",
+      "disconnectedDesc": "지갑 연결이 해제되었습니다"
+    }
+  },
+  "strategicPartner": {
+    "header": {
+      "title": "전략 파트너",
+      "subtitle": "생태계 성장 파트너십"
+    },
+    "hero": {
+      "badge": "전략 파트너 프로그램",
+      "title": "2.5억 TBURN",
+      "subtitle": "전략 파트너 할당",
+      "description": "TBURN 생태계 성장을 가속화하는 전략적 파트너십. 인프라, 기술, 마케팅 파트너에 대한 할당."
+    },
+    "stats": {
+      "totalAllocation": "총 할당",
+      "partners": "파트너 수",
+      "distributed": "배포됨",
+      "remaining": "잔여"
+    },
+    "wallet": {
+      "disconnect": "지갑 연결 해제",
+      "disconnectDesc": "지갑 연결이 해제되었습니다"
+    }
+  },
+  "advisorProgram": {
+    "header": {
+      "title": "어드바이저 프로그램",
+      "subtitle": "전문가 가이던스"
+    },
+    "hero": {
+      "badge": "어드바이저 프로그램",
+      "title": "1억 TBURN",
+      "subtitle": "어드바이저 할당",
+      "description": "업계 전문가와 어드바이저에 대한 할당. 전략적 가이던스, 기술 검토, 네트워크 확장 지원."
+    },
+    "stats": {
+      "totalAllocation": "총 할당",
+      "advisors": "어드바이저 수",
+      "vested": "베스팅됨",
+      "remaining": "잔여"
+    },
+    "wallet": {
+      "disconnect": "지갑 연결 해제",
+      "disconnectDesc": "지갑 연결이 해제되었습니다"
+    }
+  },
+  "coinlist": {
+    "header": {
+      "title": "CoinList 세일",
+      "subtitle": "공개 토큰 세일"
+    },
+    "hero": {
+      "badge": "CoinList 토큰 세일",
+      "title": "5천만 TBURN",
+      "subtitle": "CoinList 할당",
+      "description": "CoinList 플랫폼을 통한 공개 토큰 세일. 엄격한 KYC/AML 심사를 통과한 신뢰할 수 있는 투자자 대상."
+    },
+    "stats": {
+      "totalAllocation": "총 할당",
+      "tokenPrice": "토큰 가격",
+      "participants": "참가자 수",
+      "raised": "모금액"
+    },
+    "toast": {
+      "walletDisconnected": "지갑 연결 해제",
+      "walletDisconnectedDesc": "지갑 연결이 해제되었습니다"
+    }
+  },
+  "daomaker": {
+    "header": {
+      "title": "DAO Maker SHO",
+      "subtitle": "스트롱 홀더 오퍼링"
+    },
+    "hero": {
+      "badge": "DAO Maker SHO",
+      "title": "5천만 TBURN",
+      "subtitle": "DAO Maker 할당",
+      "description": "DAO Maker의 Strong Holder Offering (SHO)을 통한 토큰 배포. DAO Power 홀더에게 우선 참여권 제공."
+    },
+    "stats": {
+      "totalAllocation": "총 할당",
+      "tokenPrice": "토큰 가격",
+      "participants": "참가자 수",
+      "raised": "모금액"
+    },
+    "toast": {
+      "walletDisconnected": "지갑 연결 해제",
+      "walletDisconnectedDesc": "지갑 연결이 해제되었습니다"
+    }
   }
 }
