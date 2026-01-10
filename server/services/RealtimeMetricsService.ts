@@ -60,7 +60,8 @@ class RealtimeMetricsService {
   
   // 폴링 인터벌
   private pollInterval: ReturnType<typeof setInterval> | null = null;
-  private readonly POLL_INTERVAL_MS = 5000; // ★ 5초로 늘림 (메모리 절약)
+  // ★ [2026-01-10 ARCHITECT FIX] 10초로 증가 (이벤트 루프 부하 감소)
+  private readonly POLL_INTERVAL_MS = 10000;
   
   // ★ [ARCHITECT FIX v2] 결정적 카운터 (10번마다 2차 데이터 폴링)
   private pollCounter = 0;

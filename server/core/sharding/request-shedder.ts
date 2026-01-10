@@ -88,6 +88,8 @@ const DEFAULT_CONFIG: ShedderConfig = {
     '/rpc',
     '/api/session-health',
     '/api/public/v1/network/stats',
+    // ★ [2026-01-10] 페이지 로드에 필수적인 엔드포인트 추가
+    '/api/network/stats',
   ],
   highPriorityEndpoints: [
     '/api/shards',
@@ -106,14 +108,16 @@ const DEFAULT_CONFIG: ShedderConfig = {
     '/api/system-health/history',
   ],
   cachedResponseTtlMs: 30000,
-  maxEventLoopLagMs: 150,
-  adaptiveThresholdMinMs: 50,
-  adaptiveThresholdMaxMs: 300,
-  degradedModeDurationMs: 60000,
+  // ★ [2026-01-10 ARCHITECT FIX v2] 균형 잡힌 임계값 조정
+  // 과도한 민감도 감소와 합리적인 보호 유지 사이의 균형
+  maxEventLoopLagMs: 250,           // 150 → 250ms (적절한 여유)
+  adaptiveThresholdMinMs: 100,      // 50 → 100ms (약간 완화)
+  adaptiveThresholdMaxMs: 400,      // 300 → 400ms (상한 확대)
+  degradedModeDurationMs: 30000,    // 60s → 30s (빠른 복구)
   checkIntervalMs: 1000,
   maxCacheSize: 1000,
-  backpressureThreshold: 100,
-  recoveryThresholdMs: 50,
+  backpressureThreshold: 150,       // 100 → 150 RPS (약간 완화)
+  recoveryThresholdMs: 80,          // 50 → 80ms (복구 기준 완화)
   requestQueueMaxSize: 500,
 };
 
@@ -236,7 +240,8 @@ export class RequestShedder extends EventEmitter {
     this.requestTimestamps = this.requestTimestamps.filter(t => t > oneSecondAgo);
     
     const rps = this.requestTimestamps.length;
-    const shouldActivate = rps > this.config.backpressureThreshold || this.eventLoopLagMs > 200;
+    // ★ [2026-01-10 ARCHITECT FIX v2] 백프레셔 임계값 (200ms → 300ms)
+    const shouldActivate = rps > this.config.backpressureThreshold || this.eventLoopLagMs > 300;
     
     if (shouldActivate !== this.backpressureActive) {
       this.backpressureActive = shouldActivate;
@@ -348,7 +353,8 @@ export class RequestShedder extends EventEmitter {
       return { shed: false };
     }
     
-    if (priority === 'high' && !this.backpressureActive && this.eventLoopLagMs < 200) {
+    // ★ [2026-01-10 ARCHITECT FIX v2] 높은 우선순위 엔드포인트 (300ms)
+    if (priority === 'high' && !this.backpressureActive && this.eventLoopLagMs < 300) {
       return { shed: false };
     }
     
@@ -364,7 +370,8 @@ export class RequestShedder extends EventEmitter {
     }
     this.cacheMisses++;
     
-    if (priority === 'deferrable' || this.backpressureActive || this.eventLoopLagMs > 200) {
+    // ★ [2026-01-10 ARCHITECT FIX v2] 요청 거부 임계값 (200ms → 350ms)
+    if (priority === 'deferrable' || this.backpressureActive || this.eventLoopLagMs > 350) {
       this.metrics.totalSheddedRequests++;
       
       const retryAfter = this.calculateRetryAfter();
