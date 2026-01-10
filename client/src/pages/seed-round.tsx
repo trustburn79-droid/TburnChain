@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { useState } from "react";
 import { Link } from "wouter";
 import { useQuery, useMutation } from "@tanstack/react-query";
@@ -54,6 +55,7 @@ export default function SeedRoundPage() {
   });
   const { isConnected, address, connect, disconnect, formatAddress } = useWeb3();
   const { toast } = useToast();
+  const { t } = useTranslation();
 
   const { data: response, isLoading } = useQuery<InvestmentRoundsStatsResponse>({
     queryKey: ['/api/token-programs/investment-rounds/stats'],
@@ -68,8 +70,8 @@ export default function SeedRoundPage() {
     },
     onSuccess: () => {
       toast({
-        title: "투자 문의 접수 완료",
-        description: "담당자가 빠른 시일 내에 연락드리겠습니다.",
+        t("tokenPrograms.seedRound.toast.inquirySuccess"),
+        description: t("tokenPrograms.seedRound.toast.inquirySuccessDesc"),
       });
       setInquiryDialogOpen(false);
       setFormData({ name: "", email: "", company: "", investmentAmount: "", message: "" });
@@ -77,8 +79,8 @@ export default function SeedRoundPage() {
     onError: (error) => {
       console.error('[Investment Inquiry] Error:', error);
       toast({
-        title: "문의 접수 실패",
-        description: "일시적인 오류가 발생했습니다. 다시 시도해주세요.",
+        title: t("tokenPrograms.seedRound.toast.inquiryError"),
+        description: t("tokenPrograms.seedRound.toast.inquiryErrorDesc"),
         variant: "destructive"
       });
     }
@@ -96,8 +98,8 @@ export default function SeedRoundPage() {
     e.preventDefault();
     if (!formData.name || !formData.email) {
       toast({
-        title: "필수 정보 입력",
-        description: "이름과 이메일은 필수 입력 항목입니다.",
+        title: t("tokenPrograms.seedRound.dialog.requiredFields"),
+        description: t("tokenPrograms.seedRound.dialog.requiredFieldsDesc"),
         variant: "destructive"
       });
       return;
@@ -110,9 +112,9 @@ export default function SeedRoundPage() {
   };
 
   const investmentHighlights = [
-    { value: "$0.04", label: "토큰당 가격" },
-    { value: "80%", label: "시장가 대비 할인" },
-    { value: "12개월", label: "베스팅 기간" },
+    { value: "$0.04", label: t("tokenPrograms.seedRound.highlights.tokenPrice") },
+    { value: "80%", label: t("tokenPrograms.seedRound.highlights.discountRate") },
+    { value: "12mo", label: t("tokenPrograms.seedRound.highlights.vestingPeriod") },
   ];
 
   const distributions = [
@@ -122,17 +124,17 @@ export default function SeedRoundPage() {
   ];
 
   const investorTiers = [
-    { id: "lead", icon: "👑", name: "Lead Investor", subtitle: "리드 투자자", amount: "$1M+", details: [{ label: "최소 투자", value: "$1,000,000" }, { label: "할인율", value: "85%" }, { label: "락업 기간", value: "12개월" }], benefits: ["이사회 참관권", "월간 경영진 미팅", "독점 딜 플로우", "우선 투자권", "전담 IR 매니저"] },
-    { id: "major", icon: "🌱", name: "Major Investor", subtitle: "주요 투자자", amount: "$500K+", details: [{ label: "최소 투자", value: "$500,000" }, { label: "할인율", value: "82%" }, { label: "락업 기간", value: "12개월" }], benefits: ["분기별 전략 미팅", "얼리 액세스", "거버넌스 참여", "우선 배정", "전용 지원"] },
-    { id: "standard", icon: "💎", name: "Standard Investor", subtitle: "일반 투자자", amount: "$100K+", details: [{ label: "최소 투자", value: "$100,000" }, { label: "할인율", value: "80%" }, { label: "락업 기간", value: "12개월" }], benefits: ["월간 뉴스레터", "커뮤니티 접근", "기본 거버넌스", "일반 배정", "이메일 지원"] },
-    { id: "angel", icon: "😇", name: "Angel Investor", subtitle: "엔젤 투자자", amount: "$25K+", details: [{ label: "최소 투자", value: "$25,000" }, { label: "할인율", value: "78%" }, { label: "락업 기간", value: "12개월" }], benefits: ["분기별 업데이트", "커뮤니티 채널", "NFT 뱃지", "엔젤 네트워크", "기본 지원"] },
+    { id: "lead", icon: "👑", name: "Lead Investor", subtitle: t("tokenPrograms.seedRound.tiers.leadSubtitle"), amount: "$1M+", details: [{ label: t("tokenPrograms.seedRound.tiers.minInvestmentLabel"), value: "$1,000,000" }, { label: t("tokenPrograms.seedRound.tiers.discountRate"), value: "85%" }, { label: t("tokenPrograms.seedRound.tiers.lockupPeriod"), value: "12 months" }], benefits: [t("tokenPrograms.seedRound.tiers.benefits.boardObserver"), t("tokenPrograms.seedRound.tiers.benefits.monthlyMeeting"), t("tokenPrograms.seedRound.tiers.benefits.exclusiveDealFlow"), t("tokenPrograms.seedRound.tiers.benefits.priorityInvestment"), t("tokenPrograms.seedRound.tiers.benefits.dedicatedIR")] },
+    { id: "major", icon: "🌱", name: "Major Investor", subtitle: t("tokenPrograms.seedRound.tiers.majorSubtitle"), amount: "$500K+", details: [{ label: t("tokenPrograms.seedRound.tiers.minInvestmentLabel"), value: "$500,000" }, { label: t("tokenPrograms.seedRound.tiers.discountRate"), value: "82%" }, { label: t("tokenPrograms.seedRound.tiers.lockupPeriod"), value: "12 months" }], benefits: [t("tokenPrograms.seedRound.tiers.benefits.quarterlyStrategy"), t("tokenPrograms.seedRound.tiers.benefits.earlyAccess"), t("tokenPrograms.seedRound.tiers.benefits.governanceParticipation"), t("tokenPrograms.seedRound.tiers.benefits.priorityAllocation"), t("tokenPrograms.seedRound.tiers.benefits.dedicatedSupport")] },
+    { id: "standard", icon: "💎", name: "Standard Investor", subtitle: t("tokenPrograms.seedRound.tiers.standardSubtitle"), amount: "$100K+", details: [{ label: t("tokenPrograms.seedRound.tiers.minInvestmentLabel"), value: "$100,000" }, { label: t("tokenPrograms.seedRound.tiers.discountRate"), value: "80%" }, { label: t("tokenPrograms.seedRound.tiers.lockupPeriod"), value: "12 months" }], benefits: [t("tokenPrograms.seedRound.tiers.benefits.monthlyNewsletter"), t("tokenPrograms.seedRound.tiers.benefits.communityAccess"), t("tokenPrograms.seedRound.tiers.benefits.basicGovernance"), t("tokenPrograms.seedRound.tiers.benefits.generalAllocation"), t("tokenPrograms.seedRound.tiers.benefits.emailSupport")] },
+    { id: "angel", icon: "😇", name: "Angel Investor", subtitle: t("tokenPrograms.seedRound.tiers.angelSubtitle"), amount: "$25K+", details: [{ label: t("tokenPrograms.seedRound.tiers.minInvestmentLabel"), value: "$25,000" }, { label: t("tokenPrograms.seedRound.tiers.discountRate"), value: "78%" }, { label: t("tokenPrograms.seedRound.tiers.lockupPeriod"), value: "12 months" }], benefits: [t("tokenPrograms.seedRound.tiers.benefits.quarterlyUpdates"), t("tokenPrograms.seedRound.tiers.benefits.communityChannel"), t("tokenPrograms.seedRound.tiers.benefits.nftBadge"), t("tokenPrograms.seedRound.tiers.benefits.angelNetwork"), t("tokenPrograms.seedRound.tiers.benefits.basicSupport")] },
   ];
 
   const vestingPhases = [
-    { icon: "🔒", title: "클리프 기간", value: "12개월", desc: "초기 락업" },
-    { icon: "🔓", title: "초기 언락", value: "10%", desc: "TGE 후 12개월" },
-    { icon: "📈", title: "월간 베스팅", value: "7.5%", desc: "12개월간" },
-    { icon: "✅", title: "완전 언락", value: "100%", desc: "24개월 후" },
+    { icon: "🔒", title: t("tokenPrograms.seedRound.vestingSection.cliffPeriod"), value: "12 months", desc: t("tokenPrograms.seedRound.vestingSection.initialLockup") },
+    { icon: "🔓", title: t("tokenPrograms.seedRound.vestingSection.initialUnlock"), value: "10%", desc: t("tokenPrograms.seedRound.vestingSection.afterTge") },
+    { icon: "📈", title: t("tokenPrograms.seedRound.vestingSection.monthlyVesting"), value: "7.5%", desc: t("tokenPrograms.seedRound.vestingSection.over12Months") },
+    { icon: "✅", title: t("tokenPrograms.seedRound.vestingSection.fullUnlock"), value: "100%", desc: t("tokenPrograms.seedRound.vestingSection.after24Months") },
   ];
 
   const currentInvestors = [
@@ -143,24 +145,24 @@ export default function SeedRoundPage() {
   ];
 
   const processSteps = [
-    { icon: "📋", title: "투자 문의", desc: "투자 의향서 제출", duration: "1-3일" },
-    { icon: "🔍", title: "KYC/AML", desc: "투자자 인증 절차", duration: "3-5일" },
-    { icon: "📝", title: "SAFT 서명", desc: "투자 계약 체결", duration: "1-2일" },
-    { icon: "💸", title: "자금 송금", desc: "투자금 전송", duration: "1-3일" },
-    { icon: "🎉", title: "토큰 배정", desc: "투자 확정", duration: "즉시" },
+    { icon: "📋", title: t("tokenPrograms.seedRound.processSection.step1.title"), desc: t("tokenPrograms.seedRound.processSection.step1.desc"), duration: "1-3일" },
+    { icon: "🔍", title: "KYC/AML", desc: t("tokenPrograms.seedRound.processSection.step2.desc"), duration: "3-5일" },
+    { icon: "📝", title: "SAFT 서명", desc: t("tokenPrograms.seedRound.processSection.step3.desc"), duration: "1-2일" },
+    { icon: "💸", title: t("tokenPrograms.seedRound.processSection.step4.title"), desc: t("tokenPrograms.seedRound.processSection.step4.desc"), duration: "1-3일" },
+    { icon: "🎉", title: t("tokenPrograms.seedRound.processSection.step5.title"), desc: t("tokenPrograms.seedRound.processSection.step5.desc"), duration: t("tokenPrograms.seedRound.processSection.step5.duration") },
   ];
 
   const tokenMetrics = [
-    { icon: "📊", title: "총 발행량", value: "100억 TBURN", desc: "고정 공급량" },
-    { icon: "🌱", title: "시드 배정", value: "5억 TBURN", desc: "총 공급량의 5%" },
-    { icon: "💵", title: "시드 목표", value: "$20,000,000", desc: "하드캡" },
+    { icon: "📊", title: t("tokenPrograms.seedRound.metrics.totalSupply"), value: t("tokenPrograms.seedRound.metrics.totalSupplyValue"), desc: t("tokenPrograms.seedRound.metrics.totalSupplyDesc") },
+    { icon: "🌱", title: t("tokenPrograms.seedRound.metrics.seedAllocation"), value: t("tokenPrograms.seedRound.metrics.seedAllocationValue"), desc: t("tokenPrograms.seedRound.metrics.seedAllocationDesc") },
+    { icon: "💵", title: t("tokenPrograms.seedRound.metrics.seedGoal"), value: t("tokenPrograms.seedRound.metrics.seedGoalValue"), desc: "하드캡" },
   ];
 
   const riskItems = [
-    "암호화폐 투자는 높은 변동성과 리스크가 있습니다.",
-    "투자 원금 손실 가능성이 있으며, 손실 감당 가능한 범위 내에서 투자하세요.",
-    "규제 환경 변화로 인해 서비스가 제한될 수 있습니다.",
-    "과거 수익률이 미래 수익을 보장하지 않습니다.",
+    t("tokenPrograms.seedRound.risks.item1"),
+    t("tokenPrograms.seedRound.risks.item2"),
+    t("tokenPrograms.seedRound.risks.item3"),
+    t("tokenPrograms.seedRound.risks.item4"),
   ];
 
   return (
@@ -976,9 +978,9 @@ export default function SeedRoundPage() {
             <div className="logo-text">TBURN<span>CHAIN</span></div>
           </Link>
           <nav className="nav-links">
-            <a href="#tiers">투자 티어</a>
-            <a href="#vesting">베스팅</a>
-            <a href="#investors">투자자</a>
+            <a href="#tiers">{t("tokenPrograms.seedRound.tiers.title")}</a>
+            <a href="#vesting">{t("tokenPrograms.seedRound.nav.vesting")}</a>
+            <a href="#investors">{t("tokenPrograms.seedRound.investorsSection.title")}</a>
             <a href="#process">절차</a>
             <a href="#faq">FAQ</a>
           </nav>
@@ -989,7 +991,7 @@ export default function SeedRoundPage() {
               onClick={handleWalletClick}
               data-testid="button-connect-wallet"
             >
-              {isConnected ? formatAddress(address!) : "🌱 투자 문의"}
+              {isConnected ? formatAddress(address!) : t("tokenPrograms.seedRound.connectWallet")}
             </button>
           </div>
         </div>
@@ -1000,16 +1002,15 @@ export default function SeedRoundPage() {
         <div className="hero-bg"></div>
         <div className="hero-content">
           <div className="badge">
-            <span className="seed-icon">🌱</span> SEED ROUND - 초기 투자자
+            <span className="seed-icon">🌱</span> {t("tokenPrograms.seedRound.hero.badge")}
             <span className="round-status"><span className="dot"></span> 진행중</span>
           </div>
           <h1>
-            시드 라운드 투자로<br />
-            <span className="gradient-text">5억 TBURN</span> 기회를 잡으세요
+            {t("tokenPrograms.seedRound.hero.title")}<br />
+            <span className="gradient-text">{t("tokenPrograms.seedRound.hero.titleHighlight")}</span> 기회를 잡으세요
           </h1>
           <p className="hero-subtitle">
-            블록체인 VC, 크립토 펀드, 엔젤 투자자를 위한 
-            최대 70% 할인 초기 투자 기회를 제공합니다.
+            {t("tokenPrograms.seedRound.hero.subtitle")}
           </p>
 
           <div className="investment-highlights" data-testid="investment-highlights">
@@ -1030,19 +1031,19 @@ export default function SeedRoundPage() {
               <>
                 <div className="stat-card" data-testid="stat-total-seed">
                   <div className="stat-value">{seedRound?.allocation || "5억"}</div>
-                  <div className="stat-label">시드 배정</div>
+                  <div className="stat-label">{t("tokenPrograms.seedRound.hero.seedAllocation")}</div>
                 </div>
                 <div className="stat-card" data-testid="stat-price">
                   <div className="stat-value">${seedRound?.price || "0.04"}</div>
-                  <div className="stat-label">토큰 가격</div>
+                  <div className="stat-label">{t("tokenPrograms.seedRound.hero.tokenPriceLabel")}</div>
                 </div>
                 <div className="stat-card" data-testid="stat-hardcap">
                   <div className="stat-value">${seedRound?.raised || "20M"}</div>
-                  <div className="stat-label">하드캡</div>
+                  <div className="stat-label">{t("tokenPrograms.seedRound.hero.hardcap")}</div>
                 </div>
                 <div className="stat-card" data-testid="stat-investors">
                   <div className="stat-value">{seedRound?.investors || 15}+</div>
-                  <div className="stat-label">투자자</div>
+                  <div className="stat-label">{t("tokenPrograms.seedRound.investorsSection.title")}</div>
                 </div>
               </>
             )}
@@ -1054,14 +1055,14 @@ export default function SeedRoundPage() {
               data-testid="button-apply-seed"
               onClick={() => setInquiryDialogOpen(true)}
             >
-              🌱 시드 투자 신청
+              {t("tokenPrograms.seedRound.hero.applySeed")}
             </button>
             <button 
               className="btn-secondary"
               data-testid="button-investment-memo"
               onClick={() => setMemoDialogOpen(true)}
             >
-              📖 투자 메모
+              {t("tokenPrograms.seedRound.hero.investmentMemo")}
             </button>
           </div>
         </div>
@@ -1071,21 +1072,21 @@ export default function SeedRoundPage() {
       <section className="section">
         <div className="section-header">
           <span className="section-badge">COMPARISON</span>
-          <h2 className="section-title">라운드 비교</h2>
-          <p className="section-subtitle">시드 라운드가 가장 유리한 조건입니다</p>
+          <h2 className="section-title">{t("tokenPrograms.seedRound.comparison.title")}</h2>
+          <p className="section-subtitle">{t("tokenPrograms.seedRound.comparison.subtitle")}</p>
         </div>
 
         <div className="round-comparison">
           <div className="comparison-header">
-            <h3>📊 투자 라운드 비교</h3>
+            <h3>{t("tokenPrograms.seedRound.comparison.header")}</h3>
           </div>
           <table className="comparison-table">
             <thead>
               <tr>
-                <th>라운드</th>
-                <th>토큰 가격</th>
-                <th>할인율</th>
-                <th>상태</th>
+                <th>{t("tokenPrograms.seedRound.comparison.round")}</th>
+                <th>{t("tokenPrograms.seedRound.hero.tokenPriceLabel")}</th>
+                <th>{t("tokenPrograms.seedRound.comparison.discountCol")}</th>
+                <th>{t("tokenPrograms.seedRound.comparison.statusCol")}</th>
               </tr>
             </thead>
             <tbody>
@@ -1099,7 +1100,7 @@ export default function SeedRoundPage() {
                   <td>{round.amount}</td>
                   <td>
                     {round.discount}
-                    {round.status === 'current' && <span className="discount-badge">최대 할인</span>}
+                    {round.status === 'current' && <span className="discount-badge">{t("tokenPrograms.seedRound.comparison.maxDiscount")}</span>}
                   </td>
                   <td>{round.status === 'current' ? '✅ 진행중' : '⏳ 예정'}</td>
                 </tr>
@@ -1113,8 +1114,8 @@ export default function SeedRoundPage() {
       <section className="section" id="tiers" style={{ background: 'rgba(255,255,255,0.02)' }}>
         <div className="section-header">
           <span className="section-badge">TIERS</span>
-          <h2 className="section-title">투자 티어</h2>
-          <p className="section-subtitle">투자 규모별 차등 혜택</p>
+          <h2 className="section-title">{t("tokenPrograms.seedRound.tiers.title")}</h2>
+          <p className="section-subtitle">{t("tokenPrograms.seedRound.tiers.subtitle")}</p>
         </div>
 
         <div className="tiers-grid">
@@ -1127,7 +1128,7 @@ export default function SeedRoundPage() {
               </div>
               <div className="tier-content">
                 <div className="tier-amount">
-                  <div className="label">최소 투자금</div>
+                  <div className="label">{t("tokenPrograms.seedRound.tiers.minInvestment")}</div>
                   <div className="value">{tier.amount}</div>
                 </div>
                 <div className="tier-details">
@@ -1148,7 +1149,7 @@ export default function SeedRoundPage() {
                   data-testid={`button-tier-inquiry-${tier.id}`}
                   onClick={() => setInquiryDialogOpen(true)}
                 >
-                  투자 문의
+                  {t("tokenPrograms.seedRound.tiers.inquireBtn")}
                 </button>
               </div>
             </div>
@@ -1160,8 +1161,8 @@ export default function SeedRoundPage() {
       <section className="section" id="vesting">
         <div className="section-header">
           <span className="section-badge">VESTING</span>
-          <h2 className="section-title">베스팅 스케줄</h2>
-          <p className="section-subtitle">투자자 보호를 위한 체계적인 토큰 해제</p>
+          <h2 className="section-title">{t("tokenPrograms.seedRound.vestingSection.title")}</h2>
+          <p className="section-subtitle">{t("tokenPrograms.seedRound.vestingSection.subtitle")}</p>
         </div>
 
         <div className="vesting-container">
@@ -1182,7 +1183,7 @@ export default function SeedRoundPage() {
       <section className="section" id="investors" style={{ background: 'rgba(255,255,255,0.02)' }}>
         <div className="section-header">
           <span className="section-badge">INVESTORS</span>
-          <h2 className="section-title">현재 투자자</h2>
+          <h2 className="section-title">{t("tokenPrograms.seedRound.investorsSection.title")}</h2>
           <p className="section-subtitle">함께하는 파트너들</p>
         </div>
 
@@ -1206,8 +1207,8 @@ export default function SeedRoundPage() {
       <section className="section" id="process">
         <div className="section-header">
           <span className="section-badge">PROCESS</span>
-          <h2 className="section-title">투자 절차</h2>
-          <p className="section-subtitle">시드 투자 진행 과정</p>
+          <h2 className="section-title">{t("tokenPrograms.seedRound.processSection.title")}</h2>
+          <p className="section-subtitle">{t("tokenPrograms.seedRound.processSection.subtitle")}</p>
         </div>
 
         <div className="process-container">
@@ -1228,8 +1229,8 @@ export default function SeedRoundPage() {
       <section className="section" style={{ background: 'rgba(255,255,255,0.02)' }}>
         <div className="section-header">
           <span className="section-badge">METRICS</span>
-          <h2 className="section-title">토큰 지표</h2>
-          <p className="section-subtitle">시드 라운드 핵심 지표</p>
+          <h2 className="section-title">{t("tokenPrograms.seedRound.metrics.title")}</h2>
+          <p className="section-subtitle">{t("tokenPrograms.seedRound.metrics.subtitle")}</p>
         </div>
 
         <div className="metrics-grid">
@@ -1244,7 +1245,7 @@ export default function SeedRoundPage() {
         </div>
 
         <div className="risk-section">
-          <h4>⚠️ 투자 위험 고지</h4>
+          <h4>{t("tokenPrograms.seedRound.risks.title")}</h4>
           <ul>
             {riskItems.map((risk, idx) => (
               <li key={idx}>{risk}</li>
@@ -1257,88 +1258,88 @@ export default function SeedRoundPage() {
       <section className="section" id="faq">
         <div className="section-header">
           <span className="section-badge">FAQ</span>
-          <h2 className="section-title">자주 묻는 질문</h2>
-          <p className="section-subtitle">시드 투자에 대해 궁금한 점</p>
+          <h2 className="section-title">{t("tokenPrograms.seedRound.faqSection.title")}</h2>
+          <p className="section-subtitle">{t("tokenPrograms.seedRound.faqSection.subtitle")}</p>
         </div>
 
         <div className="faq-container">
           <div className={`faq-item ${activeFaq === 'faq-1' ? 'active' : ''}`}>
             <div className="faq-question" onClick={() => toggleFaq('faq-1')}>
-              <h4>TBURN Chain은 무엇이고 왜 투자해야 하나요?</h4>
+              <h4>{t("tokenPrograms.seedRound.faqSection.faq1.question")}</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>TBURN Chain은 AI 기반 동적 샤딩 기술을 적용한 차세대 Layer-1 블록체인입니다. 64개 샤드, 125개 제네시스 검증자를 통해 초당 21만 TPS와 100ms 블록 타임을 목표로 합니다. 디플레이션 토큰 이코노믹스와 AI 거버넌스를 결합하여 장기적인 가치 성장을 추구합니다. 시드 투자자는 퍼블릭 세일 대비 80% 할인된 $0.04에 참여할 수 있으며, 네트워크 성장에 따른 초기 투자자 혜택을 누릴 수 있습니다.</p>
+              <p>{t("tokenPrograms.seedRound.faqSection.faq1.answer")}</p>
             </div>
           </div>
 
           <div className={`faq-item ${activeFaq === 'faq-2' ? 'active' : ''}`}>
             <div className="faq-question" onClick={() => toggleFaq('faq-2')}>
-              <h4>시드 라운드 투자 조건과 베스팅 일정은 어떻게 되나요?</h4>
+              <h4>{t("tokenPrograms.seedRound.faqSection.faq2.question")}</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>시드 라운드는 토큰당 $0.04, 총 5억 TBURN(전체 공급량의 5%)이 배정됩니다. 하드캡은 $2,000만입니다. 베스팅 조건: TGE 후 12개월 클리프(락업) 기간이 있으며, 클리프 종료 후 24개월에 걸쳐 선형 언락됩니다. 첫 언락 시 5%가 지급되고, 이후 매월 약 3.96%씩 자동 분배됩니다. 장기 보유를 통한 네트워크 안정성 확보를 위한 설계입니다.</p>
+              <p>{t("tokenPrograms.seedRound.faqSection.faq2.answer")}</p>
             </div>
           </div>
 
           <div className={`faq-item ${activeFaq === 'faq-3' ? 'active' : ''}`}>
             <div className="faq-question" onClick={() => toggleFaq('faq-3')}>
-              <h4>최소/최대 투자 금액과 투자자 티어는 어떻게 구분되나요?</h4>
+              <h4>{t("tokenPrograms.seedRound.faqSection.faq3.question")}</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>시드 라운드는 3개 티어로 구성됩니다: (1) 엔젤 티어: $25,000 ~ $99,999, 기본 할당 및 월간 투자자 뉴스레터 제공 (2) 스트래티직 티어: $100,000 ~ $499,999, 10% 추가 보너스 토큰 및 분기별 팀 미팅 참여권 (3) 리드 티어: $500,000 이상, 20% 추가 보너스 토큰, 어드바이저 보드 참여 기회, 월간 프로젝트 업데이트 콜 제공. 모든 티어에서 KYC 인증이 필수입니다.</p>
+              <p>{t("tokenPrograms.seedRound.faqSection.faq3.answer")}</p>
             </div>
           </div>
 
           <div className={`faq-item ${activeFaq === 'faq-4' ? 'active' : ''}`}>
             <div className="faq-question" onClick={() => toggleFaq('faq-4')}>
-              <h4>투자 절차와 필요 서류는 무엇인가요?</h4>
+              <h4>{t("tokenPrograms.seedRound.faqSection.faq4.question")}</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>투자 절차: (1) 투자 문의 접수 → (2) NDA 및 투자 의향서 체결 → (3) KYC/AML 인증(여권/신분증, 주소 증빙, 자금 출처 증명) → (4) SAFT 계약 체결 → (5) 투자금 송금(USDT, USDC, 또는 은행 송금) → (6) 토큰 할당 확인서 발급. 전체 과정은 보통 7-14 영업일 소요되며, 담당 매니저가 배정되어 1:1로 안내해 드립니다. 기관 투자자의 경우 별도 협의가 가능합니다.</p>
+              <p>{t("tokenPrograms.seedRound.faqSection.faq4.answer")}</p>
             </div>
           </div>
 
           <div className={`faq-item ${activeFaq === 'faq-5' ? 'active' : ''}`}>
             <div className="faq-question" onClick={() => toggleFaq('faq-5')}>
-              <h4>SAFT 계약이란 무엇이며, 투자자 보호는 어떻게 되나요?</h4>
+              <h4>{t("tokenPrograms.seedRound.faqSection.faq5.question")}</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>SAFT(Simple Agreement for Future Tokens)는 미국 SEC 가이드라인을 준수하는 표준 투자 계약입니다. 계약에는 토큰 할당량, 베스팅 일정, 투자자 권리, 환불 조건, 분쟁 해결 절차가 명시됩니다. 투자금은 제3자 에스크로 계정에 보관되며, 마일스톤 달성에 따라 프로젝트에 지급됩니다. 법률 자문은 글로벌 로펌 Dentons와 협력하며, 분기별 재무 보고서를 투자자에게 제공합니다.</p>
+              <p>{t("tokenPrograms.seedRound.faqSection.faq5.answer")}</p>
             </div>
           </div>
 
           <div className={`faq-item ${activeFaq === 'faq-6' ? 'active' : ''}`}>
             <div className="faq-question" onClick={() => toggleFaq('faq-6')}>
-              <h4>토큰 상장 계획과 예상 일정은 어떻게 되나요?</h4>
+              <h4>{t("tokenPrograms.seedRound.faqSection.faq6.question")}</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>TGE(Token Generation Event)는 메인넷 런칭과 동시에 진행될 예정입니다. 상장 전략: 먼저 주요 DEX(Uniswap, PancakeSwap)에 유동성을 공급하고, 이후 Tier-1 CEX(Binance, OKX, Bybit 등)와의 상장 협의를 진행합니다. 마케팅 부스팅과 함께 단계적 거래소 확장을 계획하고 있습니다. 런칭 가격은 $0.50(시드 대비 12.5배)으로 예정되어 있으며, 시장 상황에 따라 조정될 수 있습니다.</p>
+              <p>{t("tokenPrograms.seedRound.faqSection.faq6.answer")}</p>
             </div>
           </div>
 
           <div className={`faq-item ${activeFaq === 'faq-7' ? 'active' : ''}`}>
             <div className="faq-question" onClick={() => toggleFaq('faq-7')}>
-              <h4>투자금 용도와 자금 집행 계획은 어떻게 되나요?</h4>
+              <h4>{t("tokenPrograms.seedRound.faqSection.faq7.question")}</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>시드 라운드 모집 자금 사용 계획: 기술 개발 45%(코어 프로토콜, AI 엔진, 보안 인프라), 마케팅 및 파트너십 25%(글로벌 마케팅, 전략적 파트너십, 커뮤니티 빌딩), 운영 및 법률 15%(팀 운영, 법률/컴플라이언스, 오피스), 유동성 공급 10%(DEX/CEX 초기 유동성), 예비비 5%(비상 자금, 시장 기회 대응). 분기별 자금 사용 보고서를 투자자에게 제공합니다.</p>
+              <p>{t("tokenPrograms.seedRound.faqSection.faq7.answer")}</p>
             </div>
           </div>
 
           <div className={`faq-item ${activeFaq === 'faq-8' ? 'active' : ''}`}>
             <div className="faq-question" onClick={() => toggleFaq('faq-8')}>
-              <h4>환불 정책과 투자 취소는 가능한가요?</h4>
+              <h4>{t("tokenPrograms.seedRound.faqSection.faq8.question")}</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>SAFT 계약 체결 전까지는 전액 환불이 가능합니다. 계약 체결 후에는 프로젝트 중단, 메인넷 런칭 실패, 법적 문제 발생 시에만 환불 청구가 가능합니다. 환불 시에는 원금의 100%가 지급되며, 처리 기간은 약 30 영업일입니다. 투자자 개인 사정에 의한 중도 해지는 불가하오니, 신중한 투자 결정을 부탁드립니다. 세부 환불 조건은 SAFT 계약서에 명시되어 있습니다.</p>
+              <p>{t("tokenPrograms.seedRound.faqSection.faq8.answer")}</p>
             </div>
           </div>
         </div>
@@ -1347,10 +1348,10 @@ export default function SeedRoundPage() {
       {/* CTA Section */}
       <section className="cta-section">
         <div style={{ maxWidth: '800px', margin: '0 auto' }}>
-          <h2 style={{ fontSize: '2.5rem', fontWeight: 800, marginBottom: '1rem' }}>시드 투자자가 되세요</h2>
+          <h2 style={{ fontSize: '2.5rem', fontWeight: 800, marginBottom: '1rem' }}>{t("tokenPrograms.seedRound.cta.title")}</h2>
           <p style={{ color: 'rgba(255,255,255,0.8)', fontSize: '1.125rem', marginBottom: '2rem' }}>
-            TBURN Chain의 초기 투자자로<br />
-            최대 70% 할인된 가격에 투자하세요!
+            {t("tokenPrograms.seedRound.cta.subtitle")}<br />
+            
           </p>
           <button 
             className="btn-primary" 
@@ -1358,7 +1359,7 @@ export default function SeedRoundPage() {
             data-testid="button-invest-now"
             onClick={() => setInquiryDialogOpen(true)}
           >
-            🌱 지금 투자하기
+            {t("tokenPrograms.seedRound.cta.button")}
           </button>
         </div>
       </section>
@@ -1368,7 +1369,7 @@ export default function SeedRoundPage() {
         <div className="footer-content">
           <div className="footer-brand">
             <h3>TBURN<span>CHAIN</span></h3>
-            <p>AI의 지능, 블록체인의 투명성<br />THE FUTURE IS NOW</p>
+            <p>{t("tokenPrograms.seedRound.footer.tagline")}<br />THE FUTURE IS NOW</p>
             <div className="social-links">
               <a href="#">𝕏</a>
               <a href="#">✈</a>
@@ -1379,36 +1380,36 @@ export default function SeedRoundPage() {
           <div className="footer-links">
             <h4>Product</h4>
             <ul>
-              <li><Link href="/">메인넷</Link></li>
-              <li><Link href="/scan">익스플로러</Link></li>
-              <li><Link href="/app/bridge">브릿지</Link></li>
-              <li><Link href="/app/staking">스테이킹</Link></li>
+              <li><Link href="/">{t("tokenPrograms.seedRound.footer.mainnet")}</Link></li>
+              <li><Link href="/scan">{t("tokenPrograms.seedRound.footer.explorer")}</Link></li>
+              <li><Link href="/app/bridge">{t("tokenPrograms.seedRound.footer.bridge")}</Link></li>
+              <li><Link href="/app/staking">{t("tokenPrograms.seedRound.footer.staking")}</Link></li>
             </ul>
           </div>
           <div className="footer-links">
             <h4>Resources</h4>
             <ul>
-              <li><Link href="/learn/whitepaper">백서</Link></li>
-              <li><Link href="/developers/docs">문서</Link></li>
+              <li><Link href="/learn/whitepaper">{t("tokenPrograms.seedRound.footer.whitepaper")}</Link></li>
+              <li><Link href="/developers/docs">{t("tokenPrograms.seedRound.footer.docs")}</Link></li>
               <li><a href="#">GitHub</a></li>
-              <li><Link href="/security-audit">감사 보고서</Link></li>
+              <li><Link href="/security-audit">{t("tokenPrograms.seedRound.footer.auditReport")}</Link></li>
             </ul>
           </div>
           <div className="footer-links">
             <h4>Community</h4>
             <ul>
-              <li><Link href="/community/news">블로그</Link></li>
-              <li><a href="#">앰배서더</a></li>
-              <li><a href="#">그랜트</a></li>
-              <li><Link href="/qna">고객지원</Link></li>
+              <li><Link href="/community/news">{t("tokenPrograms.seedRound.footer.blog")}</Link></li>
+              <li><a href="#">{t("tokenPrograms.seedRound.footer.ambassador")}</a></li>
+              <li><a href="#">{t("tokenPrograms.seedRound.footer.grants")}</a></li>
+              <li><Link href="/qna">{t("tokenPrograms.seedRound.footer.support")}</Link></li>
             </ul>
           </div>
         </div>
         <div className="footer-bottom">
           <p>© 2025-2045 TBURN Foundation. All Rights Reserved.</p>
           <div style={{ display: 'flex', gap: '2rem' }}>
-            <Link href="/legal/terms-of-service" style={{ color: 'var(--gray)', textDecoration: 'none' }}>이용약관</Link>
-            <Link href="/legal/privacy-policy" style={{ color: 'var(--gray)', textDecoration: 'none' }}>개인정보처리방침</Link>
+            <Link href="/legal/terms-of-service" style={{ color: 'var(--gray)', textDecoration: 'none' }}>{t("tokenPrograms.seedRound.footer.terms")}</Link>
+            <Link href="/legal/privacy-policy" style={{ color: 'var(--gray)', textDecoration: 'none' }}>{t("tokenPrograms.seedRound.footer.privacy")}</Link>
           </div>
         </div>
       </footer>
@@ -1417,9 +1418,9 @@ export default function SeedRoundPage() {
       <Dialog open={inquiryDialogOpen} onOpenChange={setInquiryDialogOpen}>
         <DialogContent className="sm:max-w-[500px]" style={{ background: '#0f0f0f', border: '1px solid rgba(255,255,255,0.1)', color: 'white' }}>
           <DialogHeader>
-            <DialogTitle style={{ color: 'white', fontSize: '1.5rem' }}>🌱 시드 라운드 투자 문의</DialogTitle>
+            <DialogTitle style={{ color: 'white', fontSize: '1.5rem' }}>{t("tokenPrograms.seedRound.dialog.title")}</DialogTitle>
             <DialogDescription style={{ color: 'rgba(255,255,255,0.7)' }}>
-              투자 문의를 남겨주시면 담당자가 빠른 시일 내에 연락드리겠습니다.
+              {t("tokenPrograms.seedRound.dialog.description")}
             </DialogDescription>
           </DialogHeader>
           <form onSubmit={handleInquirySubmit} className="space-y-4" style={{ marginTop: '1rem' }}>
@@ -1429,7 +1430,7 @@ export default function SeedRoundPage() {
                 id="name"
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                placeholder="홍길동"
+                placeholder={t("tokenPrograms.seedRound.dialog.namePlaceholder")}
                 data-testid="input-inquiry-name"
                 style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.2)', color: 'white' }}
               />
@@ -1452,13 +1453,13 @@ export default function SeedRoundPage() {
                 id="company"
                 value={formData.company}
                 onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                placeholder="투자회사명"
+                placeholder={t("tokenPrograms.seedRound.dialog.companyPlaceholder")}
                 data-testid="input-inquiry-company"
                 style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.2)', color: 'white' }}
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="investmentAmount" style={{ color: 'rgba(255,255,255,0.9)' }}>예상 투자금액</Label>
+              <Label htmlFor="investmentAmount" style={{ color: 'rgba(255,255,255,0.9)' }}>{t("tokenPrograms.seedRound.dialog.amountLabel")}</Label>
               <Input
                 id="investmentAmount"
                 value={formData.investmentAmount}
@@ -1469,12 +1470,12 @@ export default function SeedRoundPage() {
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="message" style={{ color: 'rgba(255,255,255,0.9)' }}>문의 내용</Label>
+              <Label htmlFor="message" style={{ color: 'rgba(255,255,255,0.9)' }}>{t("tokenPrograms.seedRound.dialog.messageLabel")}</Label>
               <Textarea
                 id="message"
                 value={formData.message}
                 onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                placeholder="투자에 관한 질문이나 요청사항을 작성해주세요."
+                placeholder={t("tokenPrograms.seedRound.dialog.messagePlaceholder")}
                 rows={4}
                 data-testid="input-inquiry-message"
                 style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.2)', color: 'white', resize: 'none' }}
@@ -1496,7 +1497,7 @@ export default function SeedRoundPage() {
                 data-testid="button-submit-inquiry"
                 style={{ background: 'linear-gradient(135deg, #22c55e, #16a34a)', color: 'white' }}
               >
-                {inquiryMutation.isPending ? '제출 중...' : '문의 제출'}
+                {inquiryMutation.isPending ? t("tokenPrograms.seedRound.dialog.submitting") : t("tokenPrograms.seedRound.dialog.submitBtn")}
               </Button>
             </div>
           </form>
@@ -1507,44 +1508,44 @@ export default function SeedRoundPage() {
       <Dialog open={memoDialogOpen} onOpenChange={setMemoDialogOpen}>
         <DialogContent className="sm:max-w-[600px]" style={{ background: '#0f0f0f', border: '1px solid rgba(255,255,255,0.1)', color: 'white', maxHeight: '80vh', overflowY: 'auto' }}>
           <DialogHeader>
-            <DialogTitle style={{ color: 'white', fontSize: '1.5rem' }}>📖 TBURN Chain 투자 메모</DialogTitle>
+            <DialogTitle style={{ color: 'white', fontSize: '1.5rem' }}>{t("tokenPrograms.seedRound.memoDialog.title")}</DialogTitle>
             <DialogDescription style={{ color: 'rgba(255,255,255,0.7)' }}>
-              시드 라운드 투자에 대한 주요 정보입니다.
+              {t("tokenPrograms.seedRound.memoDialog.projectOverview")}
             </DialogDescription>
           </DialogHeader>
           <div style={{ marginTop: '1.5rem', lineHeight: '1.8' }}>
             <div style={{ marginBottom: '1.5rem', padding: '1rem', background: 'rgba(34, 197, 94, 0.1)', borderRadius: '8px', border: '1px solid rgba(34, 197, 94, 0.3)' }}>
-              <h4 style={{ color: '#22c55e', marginBottom: '0.5rem', fontWeight: 600 }}>핵심 투자 정보</h4>
+              <h4 style={{ color: '#22c55e', marginBottom: '0.5rem', fontWeight: 600 }}>{t("tokenPrograms.seedRound.memoDialog.investmentHighlights")}</h4>
               <ul style={{ color: 'rgba(255,255,255,0.8)', paddingLeft: '1.25rem' }}>
-                <li>토큰 가격: <strong style={{ color: 'white' }}>$0.04</strong> (시장가 대비 80% 할인)</li>
-                <li>총 배정량: <strong style={{ color: 'white' }}>5억 TBURN</strong></li>
+                <li>Token Price: <strong style={{ color: 'white' }}>$0.04</strong> (80% discount from market)</li>
+                <li>총 배정량: <strong style={{ color: 'white' }}>{t("tokenPrograms.seedRound.hero.titleHighlight")}</strong></li>
                 <li>하드캡: <strong style={{ color: 'white' }}>$20,000,000</strong></li>
-                <li>최소 투자금: <strong style={{ color: 'white' }}>$10,000</strong></li>
+                <li>Min Investment: <strong style={{ color: 'white' }}>$10,000</strong></li>
               </ul>
             </div>
 
             <div style={{ marginBottom: '1.5rem', padding: '1rem', background: 'rgba(255,255,255,0.03)', borderRadius: '8px' }}>
-              <h4 style={{ color: 'white', marginBottom: '0.5rem', fontWeight: 600 }}>베스팅 스케줄</h4>
+              <h4 style={{ color: 'white', marginBottom: '0.5rem', fontWeight: 600 }}>{t("tokenPrograms.seedRound.vestingSection.title")}</h4>
               <ul style={{ color: 'rgba(255,255,255,0.8)', paddingLeft: '1.25rem' }}>
-                <li>클리프 기간: <strong style={{ color: 'white' }}>12개월</strong></li>
-                <li>초기 언락: <strong style={{ color: 'white' }}>10%</strong> (TGE+12개월)</li>
-                <li>월별 베스팅: <strong style={{ color: 'white' }}>7.5%</strong> (12개월)</li>
-                <li>전체 언락: <strong style={{ color: 'white' }}>24개월</strong></li>
+                <li>Cliff Period: <strong style={{ color: 'white' }}>12 months</strong></li>
+                <li>Initial Unlock: <strong style={{ color: 'white' }}>10%</strong> (TGE+12 months)</li>
+                <li>Monthly Vesting: <strong style={{ color: 'white' }}>7.5%</strong> (12 months)</li>
+                <li>Full Unlock: <strong style={{ color: 'white' }}>24 months</strong></li>
               </ul>
             </div>
 
             <div style={{ marginBottom: '1.5rem', padding: '1rem', background: 'rgba(255,255,255,0.03)', borderRadius: '8px' }}>
-              <h4 style={{ color: 'white', marginBottom: '0.5rem', fontWeight: 600 }}>투자 절차</h4>
+              <h4 style={{ color: 'white', marginBottom: '0.5rem', fontWeight: 600 }}>{t("tokenPrograms.seedRound.processSection.title")}</h4>
               <ol style={{ color: 'rgba(255,255,255,0.8)', paddingLeft: '1.25rem' }}>
-                <li>투자 문의 제출 (1-3일)</li>
+                <li>Submit Inquiry (1-3 days)</li>
                 <li>KYC/AML 인증 절차 (3-5일)</li>
                 <li>SAFT 계약 체결 (1-2일)</li>
-                <li>투자금 전송 및 확인 (1-2일)</li>
+                <li>Fund Transfer (1-2 days)</li>
               </ol>
             </div>
 
             <div style={{ padding: '1rem', background: 'rgba(59, 130, 246, 0.1)', borderRadius: '8px', border: '1px solid rgba(59, 130, 246, 0.3)' }}>
-              <h4 style={{ color: '#3b82f6', marginBottom: '0.5rem', fontWeight: 600 }}>문의처</h4>
+              <h4 style={{ color: '#3b82f6', marginBottom: '0.5rem', fontWeight: 600 }}>Contact</h4>
               <p style={{ color: 'rgba(255,255,255,0.8)' }}>
                 이메일: <a href="mailto:invest@tburnchain.io" style={{ color: '#22c55e' }}>invest@tburnchain.io</a><br />
                 텔레그램: <a href="https://t.me/tburnchain" style={{ color: '#22c55e' }}>@tburnchain</a>
@@ -1570,7 +1571,7 @@ export default function SeedRoundPage() {
               data-testid="button-memo-to-inquiry"
               style={{ background: 'linear-gradient(135deg, #22c55e, #16a34a)', color: 'white' }}
             >
-              투자 문의하기
+              {t("tokenPrograms.seedRound.connectWallet")}
             </Button>
           </div>
         </DialogContent>
