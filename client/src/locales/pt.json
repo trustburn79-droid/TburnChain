@@ -16787,7 +16787,7 @@
     },
     "seedRound": {
       "title": "Rodada Semente",
-      "subtitle": "Oportunidade de investimento em estágio inicial no TBURN",
+      "subtitle": "Oportunidade de investimento antecipado em TBURN",
       "heroTitle": "Rodada Semente TBURN",
       "heroSubtitle": "Esteja entre os primeiros investidores no ecossistema TBURN",
       "badge": "Investimento Semente",
@@ -16804,7 +16804,28 @@
       "standard": "Investidor Padrão",
       "angel": "Investidor Anjo",
       "investNow": "Investir Agora",
-      "riskWarning": "Aviso de Risco"
+      "riskWarning": "Aviso de Risco",
+      "nav": {
+        "investorTiers": "Níveis de Investidor",
+        "vesting": "Vesting",
+        "investors": "Investidores",
+        "process": "Processo",
+        "faq": "FAQ"
+      },
+      "hero": {
+        "badge": "SEED ROUND - Investidor Antecipado",
+        "status": "Ativo",
+        "title": "Invista na Rodada Semente",
+        "titleHighlight": "500M TBURN",
+        "titleEnd": "Oportunidade",
+        "subtitle": "Até 70% de desconto para VCs de blockchain, fundos cripto e investidores anjo."
+      },
+      "cta": {
+        "title": "Torne-se um Investidor Semente",
+        "subtitle": "Invista na TBURN Chain com até 70% de desconto como investidor antecipado!",
+        "button": "Investir Agora"
+      },
+      "connectWallet": "Consulta de Investimento"
     },
     "privateRound": {
       "title": "Rodada Privada",

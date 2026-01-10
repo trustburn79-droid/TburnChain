@@ -19130,7 +19130,7 @@
     },
     "seedRound": {
       "title": "种子轮",
-      "subtitle": "TBURN的早期投资机会",
+      "subtitle": "TBURN早期投资机会",
       "heroTitle": "TBURN 种子轮",
       "heroSubtitle": "成为TBURN生态系统的首批投资者",
       "badge": "种子投资",
@@ -19147,7 +19147,202 @@
       "standard": "标准投资者",
       "angel": "天使投资者",
       "investNow": "立即投资",
-      "riskWarning": "风险警告"
+      "riskWarning": "风险警告",
+      "nav": {
+        "investorTiers": "投资等级",
+        "vesting": "锁仓",
+        "investors": "投资者",
+        "process": "流程",
+        "faq": "常见问题"
+      },
+      "hero": {
+        "badge": "SEED ROUND - 早期投资者",
+        "status": "进行中",
+        "title": "投资种子轮",
+        "titleHighlight": "5亿 TBURN",
+        "titleEnd": "机会",
+        "subtitle": "为区块链VC、加密基金和天使投资者提供高达70%折扣的早期投资机会。",
+        "loading": "加载中...",
+        "seedAllocation": "种子配额",
+        "tokenPriceLabel": "代币价格",
+        "hardcap": "硬顶",
+        "investorsLabel": "投资者",
+        "applySeed": "申请种子投资",
+        "investmentMemo": "投资备忘录"
+      },
+      "highlights": {
+        "tokenPrice": "每代币价格",
+        "discountRate": "市场折扣",
+        "vestingPeriod": "锁仓期"
+      },
+      "comparison": {
+        "badge": "COMPARISON",
+        "title": "轮次对比",
+        "subtitle": "种子轮提供最优惠条件",
+        "header": "投资轮次对比",
+        "round": "轮次",
+        "tokenPriceCol": "代币价格",
+        "discountCol": "折扣",
+        "statusCol": "状态",
+        "maxDiscount": "最大折扣",
+        "active": "进行中",
+        "upcoming": "即将开始"
+      },
+      "tiers": {
+        "badge": "TIERS",
+        "title": "投资等级",
+        "subtitle": "基于投资规模的分级福利",
+        "minInvestment": "最低投资",
+        "inquireBtn": "咨询",
+        "benefits": {
+          "boardObserver": "董事会观察员权",
+          "monthlyMeeting": "月度高管会议",
+          "exclusiveDealFlow": "独家交易流程",
+          "priorityInvestment": "优先投资权",
+          "dedicatedIR": "专属IR经理",
+          "quarterlyStrategy": "季度战略会议",
+          "earlyAccess": "早期访问",
+          "governanceParticipation": "治理参与",
+          "priorityAllocation": "优先配额",
+          "dedicatedSupport": "专属支持",
+          "monthlyNewsletter": "月度简报",
+          "communityAccess": "社区访问",
+          "basicGovernance": "基本治理",
+          "generalAllocation": "一般配额",
+          "emailSupport": "邮件支持",
+          "quarterlyUpdates": "季度更新",
+          "communityChannel": "社区频道",
+          "nftBadge": "NFT徽章",
+          "angelNetwork": "天使网络",
+          "basicSupport": "基本支持"
+        }
+      },
+      "vestingSection": {
+        "badge": "VESTING",
+        "title": "锁仓计划",
+        "subtitle": "保护投资者的系统性代币释放",
+        "cliffPeriod": "锁定期",
+        "initialLockup": "初始锁定",
+        "initialUnlock": "初始解锁",
+        "afterTge": "TGE后12个月",
+        "monthlyVesting": "月度释放",
+        "over12Months": "12个月内",
+        "fullUnlock": "完全解锁",
+        "after24Months": "24个月后"
+      },
+      "investorsSection": {
+        "badge": "INVESTORS",
+        "title": "当前投资者",
+        "subtitle": "我们的合作伙伴"
+      },
+      "processSection": {
+        "badge": "PROCESS",
+        "title": "投资流程",
+        "subtitle": "种子投资程序",
+        "step1": {
+          "title": "投资咨询",
+          "desc": "提交意向书",
+          "duration": "1-3天"
+        },
+        "step2": {
+          "title": "KYC/AML",
+          "desc": "投资者验证",
+          "duration": "3-5天"
+        },
+        "step3": {
+          "title": "SAFT签署",
+          "desc": "投资合同",
+          "duration": "1-2天"
+        },
+        "step4": {
+          "title": "资金转账",
+          "desc": "投资转账",
+          "duration": "1-3天"
+        },
+        "step5": {
+          "title": "代币分配",
+          "desc": "投资确认",
+          "duration": "即时"
+        }
+      },
+      "metrics": {
+        "badge": "METRICS",
+        "title": "代币指标",
+        "subtitle": "种子轮关键指标",
+        "totalSupply": "总供应量",
+        "totalSupplyValue": "100亿 TBURN",
+        "totalSupplyDesc": "固定供应",
+        "seedAllocation": "种子配额",
+        "seedAllocationValue": "5亿 TBURN",
+        "seedAllocationDesc": "总供应量的5%",
+        "seedGoal": "种子目标",
+        "seedGoalValue": "$20,000,000",
+        "seedGoalDesc": "硬顶"
+      },
+      "risks": {
+        "title": "投资风险警告",
+        "item1": "加密货币投资具有高波动性和风险。",
+        "item2": "可能损失本金。请只投资您能承受损失的金额。",
+        "item3": "监管变化可能限制服务。",
+        "item4": "过去的回报不保证未来收益。"
+      },
+      "faqSection": {
+        "badge": "FAQ",
+        "title": "常见问题",
+        "subtitle": "关于种子投资的常见问题"
+      },
+      "cta": {
+        "title": "成为种子投资者",
+        "subtitle": "作为早期投资者，以高达70%的折扣投资TBURN Chain！",
+        "button": "立即投资"
+      },
+      "footer": {
+        "tagline": "AI智能，区块链透明",
+        "slogan": "THE FUTURE IS NOW",
+        "product": "产品",
+        "mainnet": "主网",
+        "explorer": "浏览器",
+        "bridge": "跨链桥",
+        "staking": "质押",
+        "resources": "资源",
+        "whitepaper": "白皮书",
+        "docs": "文档",
+        "github": "GitHub",
+        "auditReport": "审计报告",
+        "community": "社区",
+        "blog": "博客",
+        "ambassador": "大使",
+        "grants": "资助",
+        "support": "支持",
+        "copyright": "© 2025-2045 TBURN Foundation. 保留所有权利。",
+        "terms": "服务条款",
+        "privacy": "隐私政策"
+      },
+      "dialog": {
+        "title": "种子轮投资咨询",
+        "description": "留下您的咨询，我们的团队将尽快与您联系。",
+        "nameLabel": "姓名",
+        "namePlaceholder": "您的姓名",
+        "emailLabel": "邮箱",
+        "emailPlaceholder": "your@email.com",
+        "companyLabel": "公司/机构（可选）",
+        "companyPlaceholder": "公司名称",
+        "amountLabel": "投资金额（可选）",
+        "amountPlaceholder": "例如：$100,000",
+        "messageLabel": "留言（可选）",
+        "messagePlaceholder": "其他问题或要求",
+        "submitBtn": "提交咨询",
+        "submitting": "提交中...",
+        "requiredFields": "必填信息",
+        "requiredFieldsDesc": "姓名和邮箱为必填项。"
+      },
+      "toast": {
+        "inquirySuccess": "投资咨询已收到",
+        "inquirySuccessDesc": "我们的团队将尽快与您联系。",
+        "inquiryError": "咨询失败",
+        "inquiryErrorDesc": "发生临时错误。请重试。"
+      },
+      "connectWallet": "投资咨询"
     },
     "privateRound": {
       "title": "私募轮",

@@ -147,7 +147,7 @@
     "login": "로그인"
   },
   "nav": {
-      "community": "커뮤니티",
+    "community": "커뮤니티",
     "stakingDashboard": "스테이킹",
     "delegationValidator": "위임검증자",
     "brand": "TBURN 체인 메인넷",
@@ -175,7 +175,6 @@
     "nftMarketplace": "NFT 마켓플레이스",
     "nftLaunchpad": "NFT 런치패드",
     "gamefiHub": "GameFi 허브",
-    "community": "커뮤니티",
     "network": "네트워크",
     "validators": "검증자",
     "validatorsRegistered": "검증자 등록됨",
@@ -7844,7 +7843,7 @@
         }
       },
       "nav": {
-      "community": "커뮤니티",
+        "community": "커뮤니티",
         "stakingDashboard": "스테이킹",
         "delegationValidator": "위임검증자",
         "developers": "개발자",
@@ -7895,7 +7894,21 @@
       "loginInterface": "로그인 인터페이스",
       "selectLanguage": "언어 선택",
       "nav": {
-      "community": "커뮤니티",
+        "community": {
+          "title": "커뮤니티",
+          "news": {
+            "title": "뉴스 & 블로그",
+            "description": "최신 업데이트"
+          },
+          "events": {
+            "title": "이벤트",
+            "description": "예정된 이벤트"
+          },
+          "hub": {
+            "title": "커뮤니티",
+            "description": "커뮤니티 참여"
+          }
+        },
         "stakingDashboard": "스테이킹",
         "delegationValidator": "위임검증자",
         "learn": {
@@ -8105,21 +8118,6 @@
           "ramp": {
             "title": "Burn 체인 램프",
             "description": "TBURN 구매/판매"
-          }
-        },
-        "community": {
-          "title": "커뮤니티",
-          "news": {
-            "title": "뉴스 & 블로그",
-            "description": "최신 업데이트"
-          },
-          "events": {
-            "title": "이벤트",
-            "description": "예정된 이벤트"
-          },
-          "hub": {
-            "title": "커뮤니티",
-            "description": "커뮤니티 참여"
           }
         }
       }
@@ -14122,13 +14120,13 @@
             "desc": "공급망 추적, 품질 보증 및 리콜 관리."
           },
           "community": {
-        "title": "커뮤니티",
-        "blog": "블로그",
-        "ambassador": "앰배서더 프로그램",
-        "grants": "그랜트",
-        "support": "지원"
-      },
-      "legal": {
+            "title": "커뮤니티",
+            "blog": "블로그",
+            "ambassador": "앰배서더 프로그램",
+            "grants": "그랜트",
+            "support": "지원"
+          },
+          "legal": {
             "title": "법률 서비스",
             "desc": "스마트 컨트랙트, 증거 보존 및 규제 준수 자동화."
           },
@@ -14189,13 +14187,13 @@
             "description": "공급망 및 품질 보증"
           },
           "community": {
-        "title": "커뮤니티",
-        "blog": "블로그",
-        "ambassador": "앰배서더 프로그램",
-        "grants": "그랜트",
-        "support": "지원"
-      },
-      "legal": {
+            "title": "커뮤니티",
+            "blog": "블로그",
+            "ambassador": "앰배서더 프로그램",
+            "grants": "그랜트",
+            "support": "지원"
+          },
+          "legal": {
             "title": "법률",
             "description": "계약 관리 및 전자 서명"
           },
@@ -15108,1054 +15106,13 @@
       }
     },
     "community": {
-      "hub": {
-        "tag": "커뮤니티",
-        "title": "커뮤니티 허브",
-        "subtitle": "빌더, 검증자, 열성적인 사용자들과 연결하세요.",
-        "forumTitle": "커뮤니티 포럼",
-        "viewAll": "전체 보기",
-        "recentPosts": "최근 게시물",
-        "stats": {
-          "totalMembers": "총 멤버",
-          "monthlyActive": "월간 활성",
-          "totalPosts": "포럼 게시물",
-          "ambassadors": "앰배서더",
-          "contributors": "기여자"
-        },
-        "channelsTitle": "채널 참여하기",
-        "channels": {
-          "title": "커뮤니티 채널",
-          "discord": {
-            "name": "Discord",
-            "members": "124,500+ 멤버",
-            "description": "실시간 개발자 채팅, 지원 및 커뮤니티 교류.",
-            "action": "서버 참여"
-          },
-          "telegram": {
-            "name": "Telegram",
-            "members": "89,200+ 멤버",
-            "description": "빠른 공지사항 및 지역 커뮤니티 그룹.",
-            "action": "채널 참여"
-          },
-          "twitter": {
-            "name": "Twitter / X",
-            "members": "156,000+ 팔로워",
-            "description": "최신 업데이트, 파트너십 및 이벤트 소식.",
-            "action": "팔로우"
-          },
-          "github": {
-            "name": "GitHub",
-            "members": "2,400+ 스타",
-            "description": "오픈 소스 코드, SDK 및 기술 문서.",
-            "action": "기여하기"
-          }
-        },
-        "leaderboard": {
-          "title": "기여자 리더보드",
-          "subtitle": "이달의 최고 커뮤니티 기여자",
-          "forumTitle": "커뮤니티 포럼",
-          "viewAll": "전체 보기",
-          "recentPosts": "최근 게시물",
-          "points": "{{count}} 포인트",
-          "tiers": {
-            "diamond": "다이아몬드",
-            "platinum": "플래티넘",
-            "gold": "골드",
-            "silver": "실버",
-            "bronze": "브론즈"
-          }
-        },
-        "ambassador": {
-          "title": "앰배서더 프로그램",
-          "subtitle": "글로벌 TBurn 커뮤니티를 이끌어주세요",
-          "forumTitle": "커뮤니티 포럼",
-          "viewAll": "전체 보기",
-          "recentPosts": "최근 게시물",
-          "applyButton": "앰배서더 신청",
-          "benefits": {
-            "rewards": "월간 TBURN 토큰 보상",
-            "earlyAccess": "신기능 조기 액세스",
-            "nftBadge": "공식 NFT 배지 및 굿즈",
-            "directChannel": "팀 직접 소통 채널"
-          },
-          "modalTitle": "앰배서더 신청",
-          "modalDescription": "TBURN 글로벌 앰배서더 프로그램에 참여하여 생태계 성장에 기여하세요. 아래 양식을 작성하여 신청해 주세요.",
-          "successTitle": "신청 완료!",
-          "successMessage": "TBURN 앰배서더 신청이 접수되었습니다. 5-7일 이내에 검토 후 연락드리겠습니다.",
-          "errorTitle": "신청 실패",
-          "errorMessage": "신청서 제출 중 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.",
-          "validationError": "필수 정보 누락",
-          "requiredFields": "필수 항목(이름, 이메일, 지원 동기)을 모두 입력해 주세요.",
-          "form": {
-            "name": "이름",
-            "namePlaceholder": "이름을 입력하세요",
-            "email": "이메일 주소",
-            "emailPlaceholder": "your@email.com",
-            "telegram": "텔레그램",
-            "twitter": "트위터/X",
-            "reason": "앰배서더에 지원하는 이유",
-            "reasonPlaceholder": "TBURN에 대한 경험과 왜 훌륭한 앰배서더가 될 수 있는지 알려주세요...",
-            "cancel": "취소",
-            "submit": "신청서 제출"
-          }
-        },
-        "ambassadorProgram": {
-          "title": "앰배서더 프로그램",
-          "subtitle": "글로벌 커뮤니티를 이끌어주세요",
-          "forumTitle": "커뮤니티 포럼",
-          "viewAll": "전체 보기",
-          "recentPosts": "최근 게시물",
-          "benefits": {
-            "tokenRewards": "월간 TBURN 토큰 보상",
-            "earlyAccess": "새로운 기능 얼리 액세스",
-            "nftBadge": "공식 NFT 배지 및 굿즈",
-            "directChannel": "팀 직접 커뮤니케이션 채널"
-          },
-          "applyButton": "앰배서더 신청"
-        },
-        "contributeTitle": "기여 방법",
-        "contribute": {
-          "title": "기여 방법",
-          "code": {
-            "title": "코드",
-            "description": "SDK, 스마트 컨트랙트, 도구",
-            "action": "이슈 보기"
-          },
-          "content": {
-            "title": "콘텐츠",
-            "description": "튜토리얼, 블로그, 번역",
-            "action": "콘텐츠 제출"
-          },
-          "moderation": {
-            "title": "모더레이션",
-            "description": "Discord 및 Telegram 지원",
-            "action": "모드 신청"
-          },
-          "marketing": {
-            "title": "마케팅",
-            "description": "이벤트, 소셜 미디어, 성장",
-            "action": "팀 참여"
-          }
-        },
-        "governance": {
-          "title": "거버넌스",
-          "subtitle": "TBURN DAO를 통해 탈중앙화 프로토콜 거버넌스에 참여하세요",
-          "forumTitle": "커뮤니티 포럼",
-          "viewAll": "전체 보기",
-          "recentPosts": "최근 게시물",
-          "tag": "TBURN DAO",
-          "description": "TBURN 토큰을 스테이킹하여 프로토콜 결정에 참여하세요. 제안서 생성, 업그레이드 투표, 커뮤니티 재무 관리에 참여할 수 있습니다.",
-          "button": "거버넌스 포털 이동",
-          "goToPortal": "거버넌스 포털로 이동",
-          "voting": {
-            "title": "투표 시스템",
-            "description": "TBURN 스테이킹으로 제안에 투표하고 프로토콜 결정에 참여하세요"
-          },
-          "security": {
-            "title": "보안 거버넌스",
-            "description": "보안 업그레이드와 프로토콜 변경사항에 대한 투표 참여"
-          },
-          "treasury": {
-            "title": "재무 관리",
-            "description": "커뮨티 재무 자금의 할당 및 사용에 대한 의사결정"
-          },
-          "stats": {
-            "proposals": "제안",
-            "votesCast": "투표 수",
-            "treasury": "재무 잔액",
-            "treasuryBalance": "재무 잔액"
-          }
-        }
-      },
-      "news": {
-        "tag": "뉴스 & 블로그",
-        "title": "뉴스 & 블로그",
-        "subtitle": "최신 업데이트, 공지사항, 인사이트.",
-        "forumTitle": "커뮤니티 포럼",
-        "viewAll": "전체 보기",
-        "recentPosts": "최근 게시물",
-        "searchPlaceholder": "기사 검색...",
-        "featuredTitle": "주요 기사",
-        "featuredBadge": "추천",
-        "latestTitle": "최신 기사",
-        "readMore": "더 보기",
-        "readTime": "{{minutes}}분 소요",
-        "views": "조회",
-        "showingCount": "{{current}} / {{total}} 표시 중",
-        "categories": {
-          "all": "전체",
-          "announcement": "공지",
-          "technology": "기술",
-          "security": "보안",
-          "tokenomics": "토큰노믹스",
-          "partnership": "파트너십",
-          "defi": "DeFi",
-          "development": "개발"
-        },
-        "featured": {
-          "mainnetLaunch": {
-            "title": "TBURN V4 메인넷 공식 출시",
-            "description": "18개월의 개발 끝에 TBURN Lab V4 메인넷이 500K+ TPS, Triple-Band AI, 양자 저항 보안으로 출시되었습니다.",
-            "author": "TBURN 재단"
-          },
-          "tripleBandAi": {
-            "title": "Triple-Band AI 오케스트레이션 공개",
-            "description": "전략, 전술, 운영 레이어 전반에 걸쳐 지능적인 의사결정을 지원하는 혁신적인 3단계 AI 시스템에 대한 심층 분석.",
-            "author": "AI 연구팀"
-          },
-          "partnership": {
-            "title": "글로벌 파트너십 확장: 12개 신규 통합",
-            "description": "TBURN Lab이 아시아, 유럽, 미주 전역의 주요 DeFi 프로토콜, 거래소, 기업 고객과의 전략적 파트너십을 발표합니다.",
-            "author": "비즈니스 개발팀"
-          }
-        },
-        "articles": {
-          "staking": {
-            "title": "TBURN 스테이킹 프로그램: 보상 획득 완전 가이드",
-            "description": "3단계 스테이킹 시스템, APY 계산, 검증자 보상 극대화 방법에 대한 모든 것."
-          },
-          "trustScore": {
-            "title": "트러스트 스코어 심층 분석: 3단계 검증 프로세스",
-            "description": "AI 분석, 전문가 리뷰, 커뮤니티 투표가 어떻게 함께 작동하여 투자자를 사기 프로젝트로부터 보호하는지 알아보세요."
-          },
-          "sdk": {
-            "title": "TBURN SDK 2.0 출시: 개발자를 위한 새로운 기능",
-            "description": "TypeScript 지원, 개선된 WebSocket 처리, 간소화된 스마트 컨트랙트 배포 도구를 갖춘 SDK 2.0을 발표합니다."
-          },
-          "quantum": {
-            "title": "양자 저항 암호화: TBURN의 미래 대비",
-            "description": "CRYSTALS-Dilithium 및 ED25519 하이브리드 서명이 TBURN Lab을 신흥 양자 컴퓨팅 위협으로부터 어떻게 보호하는지 알아보세요."
-          },
-          "dex": {
-            "title": "TBURN DEX 베타 출시: 트러스트 스코어로 거래하기",
-            "description": "네이티브 탈중앙화 거래소가 베타로 출시되었습니다. 통합 트러스트 스코어 보호와 낮은 수수료로 검증된 토큰을 거래하세요."
-          }
-        },
-        "newsletter": {
-          "title": "최신 소식 받기",
-          "description": "최신 뉴스, 업데이트, 인사이트를 받은편지함으로 직접 받아보세요.",
-          "placeholder": "이메일 주소 입력",
-          "button": "구독",
-          "privacy": "개인정보를 존중합니다. 언제든 구독 취소 가능.",
-          "success": "구독 성공",
-          "subscribed": "뉴스레터에 추가되었습니다. 받은편지함에서 확인 메일을 확인하세요.",
-          "error": "구독 오류",
-          "invalidEmail": "유효한 이메일 주소를 입력해 주세요."
-        },
-        "detail": {
-          "backToNews": "뉴스로 돌아가기",
-          "notFound": "기사를 찾을 수 없습니다",
-          "notFoundDesc": "찾으시는 기사가 존재하지 않거나 삭제되었습니다.",
-          "linkCopied": "링크 복사됨!",
-          "shareSuccess": "기사 링크가 클립보드에 복사되었습니다",
-          "bookmarked": "북마크됨!",
-          "bookmarkSuccess": "기사가 북마크에 저장되었습니다",
-          "helpful": "도움됨",
-          "discuss": "토론하기",
-          "relatedArticles": "관련 기사",
-          "articles": {
-            "v4-mainnet-launch": {
-              "title": "TBURN v7.0 메인넷 출시: 블록체인 혁신의 새로운 시대",
-              "description": "수개월간의 엄격한 테스트 끝에, TBURN v7.0 메인넷이 혁신적인 AI 강화 합의 및 엔터프라이즈급 기능과 함께 출시되었습니다.",
-              "author": "TBURN 코어 팀",
-              "authorRole": "공식 발표",
-              "date": "2024년 11월 28일",
-              "readTime": "5분 읽기",
-              "views": "128.5K",
-              "category": "발표",
-              "content": {
-                "0": "TBURN v7.0 메인넷이 공식 출시되었음을 기쁘게 발표합니다. 이번 릴리스는 블록체인 기술을 혁신하기 위한 우리 여정의 중요한 이정표이며, 2년 이상의 연구 개발의 결정체입니다.",
-                "1": "TBURN v7.0의 주요 기능:",
-                "2": "AI 강화 위원회 BFT 합의: 전통적인 비잔틴 장애 허용과 최적의 검증자 선택 및 네트워크 보안을 위한 고급 AI 알고리즘을 결합한 독자적인 합의 메커니즘입니다.",
-                "3": "동적 샤딩 시스템: 네트워크는 이제 여러 샤드에 걸쳐 자동 로드 밸런싱을 지원하여 탈중앙화를 희생하지 않으면서도 전례 없는 확장성을 가능하게 합니다.",
-                "4": "Triple-Band AI 오케스트레이션: 세 개의 독립적인 AI 시스템(GPT-5, Claude, Llama 4)이 조화롭게 작동하여 트랜잭션 라우팅에서 리소스 할당까지 네트워크 운영을 최적화합니다.",
-                "5": "엔터프라이즈 토큰 표준(TBC-20, TBC-721, TBC-1155): 강화된 토큰 표준은 기관 채택을 위한 양자 저항 보안과 내장 규정 준수 기능을 제공합니다.",
-                "6": "메인넷 출시에는 DEX/AMM, 렌딩 프로토콜, 리퀴드 스테이킹, NFT 마켓플레이스, 크로스체인 브릿지 기능을 갖춘 종합적인 DeFi 생태계가 포함됩니다.",
-                "7": "개발자, 검증자, 사용자 여러분을 TBURN v7.0에서 탈중앙화 금융의 미래를 함께 만들어 가실 것을 초대합니다."
-              },
-              "tags": {
-                "0": "메인넷",
-                "1": "출시",
-                "2": "v7.0",
-                "3": "AI",
-                "4": "DeFi"
-              }
-            },
-            "triple-band-ai-revealed": {
-              "title": "Triple-Band AI 아키텍처 공개: 블록체인 인텔리전스의 미래",
-              "description": "TBURN이 최적의 블록체인 성능을 위해 세 가지 AI 시스템을 어떻게 활용하는지에 대한 심층 기술 탐구.",
-              "author": "Dr. Sarah Chen",
-              "authorRole": "수석 AI 아키텍트",
-              "date": "2024년 11월 25일",
-              "readTime": "8분 읽기",
-              "views": "89.2K",
-              "category": "기술",
-              "content": {
-                "0": "TBURN v7.0 AI 오케스트레이션 시스템은 중복성, 정확성, 최적의 의사결정을 위해 여러 AI 제공자를 결합한 블록체인 기술의 혁신입니다.",
-                "1": "Triple-Band 아키텍처 이해:",
-                "2": "Primary Band (GPT-5): 검증자 신뢰 점수, 이상 감지, 예측 유지보수를 포함한 복잡한 분석 작업을 처리합니다.",
-                "3": "Secondary Band (Claude): 코드 분석, 스마트 컨트랙트 감사, 거버넌스 제안의 자연어 처리를 전문으로 합니다.",
-                "4": "Tertiary Band (Llama 4): 실시간 트랜잭션 라우팅 및 로드 밸런싱 결정을 위한 고처리량, 저지연 처리를 제공합니다.",
-                "5": "Cross-Band 상호작용: 높은 신뢰도가 필요한 결정의 경우, 세 AI 시스템이 독립적으로 상황을 분석합니다. 그런 다음 합의 메커니즘이 각각의 출력을 결합하며, 유사한 결정 유형에 대한 과거 정확도를 기반으로 가중치를 부여합니다.",
-                "6": "피드백 학습 시스템: 모든 AI 결정은 추적되고 실제 결과와 비교 평가됩니다. 이러한 지속적인 피드백 루프를 통해 시스템은 시간이 지남에 따라 개선되며, 현재 검증자 선택 결정에 대해 99.7%를 초과하는 정확도를 기록하고 있습니다.",
-                "7": "결과적으로 블록체인 운영의 모든 측면을 향상시키는 자가 개선, 장애 허용 AI 계층이 완성됩니다."
-              },
-              "tags": {
-                "0": "AI",
-                "1": "기술",
-                "2": "심층 분석",
-                "3": "아키텍처"
-              }
-            },
-            "global-partnership-expansion": {
-              "title": "글로벌 파트너십 확장: TBURN, 업계 리더들과 손잡다",
-              "description": "TBURN 생태계 성장과 글로벌 채택을 가속화하기 위한 전략적 파트너십 발표.",
-              "author": "비즈니스 개발팀",
-              "authorRole": "파트너십 업데이트",
-              "date": "2024년 11월 15일",
-              "readTime": "4분 읽기",
-              "views": "98.7K",
-              "category": "파트너십",
-              "content": {
-                "0": "TBURN은 생태계 성장을 가속화하고 전 세계 수백만 명의 신규 사용자에게 블록체인 기술을 제공할 일련의 전략적 파트너십을 발표하게 되어 자랑스럽습니다.",
-                "1": "주요 파트너십 하이라이트:",
-                "2": "엔터프라이즈 통합 파트너: 주요 금융 기관과 기술 기업들이 TBURN의 엔터프라이즈 솔루션을 통합하기로 약속했습니다.",
-                "3": "개발자 생태계: 주요 개발 스튜디오와 블록체인 도구 제공업체가 TBURN에서 구축하고 있습니다.",
-                "4": "인프라 파트너: 클라우드 제공업체와 데이터 센터 운영자가 글로벌 노드 네트워크를 지원합니다.",
-                "5": "지역 확장: 이러한 파트너십을 통해 TBURN은 아시아, 유럽, 미주 전역의 주요 시장에서 현지화된 지원과 규정 준수 프레임워크를 갖춘 입지를 확보할 수 있습니다.",
-                "6": "개발자 리소스: 파트너들이 SDK, 문서, 교육 프로그램을 포함한 종합적인 개발자 리소스에 기여하고 있습니다.",
-                "7": "이러한 파트너십이 커뮤니티와 더 넓은 블록체인 생태계에 가져다주는 기회에 대해 기대가 큽니다."
-              },
-              "tags": {
-                "0": "파트너십",
-                "1": "확장",
-                "2": "엔터프라이즈",
-                "3": "글로벌"
-              }
-            },
-            "staking-program-details": {
-              "title": "스테이킹 프로그램 상세: TBURN 보상을 극대화하세요",
-              "description": "TBURN 스테이킹 등급, 보상, 수익 극대화 방법에 대한 완벽 가이드.",
-              "author": "TBURN 경제학 팀",
-              "authorRole": "공식 가이드",
-              "date": "2024년 11월 22일",
-              "readTime": "6분 읽기",
-              "views": "67.8K",
-              "category": "토큰노믹스",
-              "content": {
-                "0": "TBURN 스테이킹 프로그램은 네트워크 보안을 지원하면서 보상을 받을 수 있는 다양한 방법을 제공합니다. 알아야 할 모든 것이 여기 있습니다.",
-                "1": "스테이킹 등급:",
-                "2": "브론즈 등급: 최소 1,000 TBURN - 기본 APY 8%",
-                "3": "실버 등급: 최소 10,000 TBURN - 기본 APY 12% + 거버넌스 권한",
-                "4": "골드 등급: 최소 100,000 TBURN - 기본 APY 18% + 우선 검증자 선택",
-                "5": "플래티넘 등급: 최소 1,000,000 TBURN - 기본 APY 25% + 모든 혜택",
-                "6": "잠금 기간 보너스: 더 긴 잠금 기간은 최대 50%까지 추가 APY 보너스를 제공합니다.",
-                "7": "자동 복리: 자동 복리를 활성화하여 보상을 자동으로 재투자하고 수익을 극대화하세요.",
-                "8": "시작하기: 오늘 TBURN 스테이킹 대시보드를 방문하여 보상 획득을 시작하세요."
-              },
-              "tags": {
-                "0": "스테이킹",
-                "1": "보상",
-                "2": "토큰노믹스",
-                "3": "APY"
-              }
-            },
-            "trust-score-deep-dive": {
-              "title": "트러스트 스코어 심층 분석: TBURN AI가 네트워크 보안을 평가하는 방법",
-              "description": "네트워크 무결성을 보장하는 AI 기반 트러스트 스코어 시스템에 대한 종합 설명.",
-              "author": "보안팀",
-              "authorRole": "기술 가이드",
-              "date": "2024년 11월 20일",
-              "readTime": "7분 읽기",
-              "views": "56.3K",
-              "category": "보안",
-              "content": {
-                "0": "TBURN 트러스트 스코어 시스템은 AI를 활용하여 생태계의 모든 참여자를 지속적으로 평가하고 점수를 매기는 네트워크 보안에 대한 혁신적인 접근 방식입니다.",
-                "1": "트러스트 스코어 작동 방식:",
-                "2": "실시간 모니터링: AI 시스템이 검증자 행동, 트랜잭션 패턴, 네트워크 기여도를 지속적으로 분석합니다.",
-                "3": "다요소 분석: 점수는 가동 시간, 응답 시간, 블록 생산 정확도, 거버넌스 참여, 과거 신뢰도를 고려합니다.",
-                "4": "동적 조정: 트러스트 스코어는 최근 활동을 기반으로 실시간으로 업데이트되며, 최근 활동에 더 높은 가중치가 부여됩니다.",
-                "5": "트러스트 스코어 영향: 높은 트러스트 스코어는 우선 트랜잭션 처리, 수수료 할인, 향상된 거버넌스 투표권과 같은 혜택을 제공합니다.",
-                "6": "높은 점수 유지: 일관된 가동 시간, 적시 블록 생산, 활발한 거버넌스 참여가 높은 트러스트 스코어 유지의 핵심 요소입니다.",
-                "7": "트러스트 스코어 시스템은 가장 신뢰할 수 있는 참여자가 보상받도록 보장하여 자기 강화 보안 메커니즘을 만듭니다."
-              },
-              "tags": {
-                "0": "보안",
-                "1": "트러스트 스코어",
-                "2": "AI",
-                "3": "검증자"
-              }
-            },
-            "sdk-2-released": {
-              "title": "TBURN SDK 2.0 출시: 새로운 개발자 도구로 더 빠르게 개발하세요",
-              "description": "새 SDK 버전은 개선된 API, TypeScript 지원, 종합적인 문서를 제공합니다.",
-              "author": "개발자 관계팀",
-              "authorRole": "릴리스 노트",
-              "date": "2024년 11월 18일",
-              "readTime": "5분 읽기",
-              "views": "43.1K",
-              "category": "개발",
-              "content": {
-                "0": "플랫폼에서 개발하는 개발자들을 위한 상당한 개선 사항이 포함된 TBURN SDK 2.0 출시를 발표하게 되어 기쁩니다.",
-                "1": "SDK 2.0의 새로운 기능:",
-                "2": "완전한 TypeScript 지원: 모든 SDK 함수 및 객체에 대한 완전한 타입 정의.",
-                "3": "간소화된 API: 트랜잭션, 스테이킹, 스마트 컨트랙트 상호작용과 같은 일반 작업을 위한 간소화된 인터페이스.",
-                "4": "React Hooks: React 애플리케이션과 쉽게 통합할 수 있는 미리 구축된 훅.",
-                "5": "향상된 오류 처리: 디버깅을 쉽게 하기 위한 종합적인 오류 유형과 메시지.",
-                "6": "시작하기: npm으로 설치: npm install @tburn/sdk",
-                "7": "문서: 종합 가이드, API 레퍼런스, 예제 프로젝트는 개발자 포털을 방문하세요.",
-                "8": "SDK 2.0은 TBURN 개발을 접근하기 쉽고 즐겁게 만들겠다는 우리의 약속을 나타냅니다."
-              },
-              "tags": {
-                "0": "SDK",
-                "1": "개발",
-                "2": "TypeScript",
-                "3": "도구"
-              }
-            },
-            "quantum-resistant-cryptography": {
-              "title": "양자 저항 암호화: TBURN의 미래를 보호하다",
-              "description": "TBURN이 미래 위협으로부터 보호하기 위해 양자 저항 알고리즘을 구현하는 방법.",
-              "author": "암호화 팀",
-              "authorRole": "보안 연구",
-              "date": "2024년 11월 12일",
-              "readTime": "6분 읽기",
-              "views": "34.2K",
-              "category": "보안",
-              "content": {
-                "0": "양자 컴퓨팅이 발전함에 따라 전통적인 암호화 방법은 잠재적 취약성에 직면합니다. TBURN은 양자 저항 구현으로 이를 선제적으로 해결하고 있습니다.",
-                "1": "우리의 접근 방식:",
-                "2": "하이브리드 암호화: 즉각적인 보안과 미래 대비를 위해 전통적 알고리즘과 포스트 양자 알고리즘을 결합합니다.",
-                "3": "NIST 승인 표준: 포스트 양자 보안을 위해 NIST가 승인한 암호화 알고리즘을 구현합니다.",
-                "4": "점진적 마이그레이션: 안정성을 보장하기 위해 양자 저항 기능을 단계적으로 출시합니다.",
-                "5": "보호되는 구성 요소:",
-                "6": "트랜잭션 서명: 모든 새 트랜잭션은 양자 저항 서명 체계를 사용합니다.",
-                "7": "키 교환: 양자 공격에 저항하는 안전한 키 교환 프로토콜.",
-                "8": "해시 함수: 양자 저항 옵션을 갖춘 멀티 해시 시스템.",
-                "9": "이러한 선제적 접근 방식은 양자 컴퓨팅 능력이 발전해도 TBURN이 안전하게 유지되도록 보장합니다."
-              },
-              "tags": {
-                "0": "양자",
-                "1": "암호화",
-                "2": "보안",
-                "3": "연구"
-              }
-            },
-            "tburn-dex-beta": {
-              "title": "TBURN DEX 베타 출시: 탈중앙화 거래가 시작되었습니다",
-              "description": "TBURN 탈중앙화 거래소가 다양한 AMM 곡선 유형과 AI 최적화 라우팅으로 베타 출시되었습니다.",
-              "author": "DeFi 팀",
-              "authorRole": "제품 출시",
-              "date": "2024년 11월 10일",
-              "readTime": "5분 읽기",
-              "views": "51.4K",
-              "category": "DeFi",
-              "content": {
-                "0": "TBURN DEX 베타가 출시되어 고급 기능과 AI 최적화로 생태계에 탈중앙화 거래를 제공합니다.",
-                "1": "주요 기능:",
-                "2": "다양한 AMM 유형: 상수곱, 스테이블 스왑, 집중 유동성 풀.",
-                "3": "AI 최적화 라우팅: 스마트 라우팅이 최적의 스왑 비율을 위해 모든 풀에서 최상의 경로를 찾습니다.",
-                "4": "MEV 보호: 샌드위치 공격 및 프론트러닝에 대한 내장 보호.",
-                "5": "낮은 수수료: 고거래량 트레이더를 위한 할인이 있는 경쟁력 있는 거래 수수료.",
-                "6": "유동성 제공: 풀에 유동성을 제공하여 수수료를 받으세요. 자동 복리 기능이 수익을 극대화합니다.",
-                "7": "시작하기: 오늘 지갑을 연결하고 TBURN DEX에서 거래를 시작하세요. 전체 문서는 개발자 포털에서 확인할 수 있습니다.",
-                "8": "커뮤니티 채널에 참여하여 피드백을 제공하고 TBURN의 탈중앙화 거래의 미래를 함께 만들어 가세요."
-              },
-              "tags": {
-                "0": "DEX",
-                "1": "DeFi",
-                "2": "거래",
-                "3": "AMM"
-              }
-            }
-          },
-          "important": "중요",
-          "readTime": "3분 읽기",
-          "tburnTeam": "TBURN 팀",
-          "officialAnnouncement": "공식 발표"
-        },
-        "types": {
-          "news": "뉴스",
-          "feature": "기능",
-          "update": "업데이트",
-          "alert": "알림"
-        }
-      },
-      "events": {
-        "tag": "이벤트 & 활동",
-        "title": "다가오는 이벤트",
-        "subtitle": "이벤트에 참여하세요",
-        "forumTitle": "커뮤니티 포럼",
-        "viewAll": "모든 이벤트 보기",
-        "recentPosts": "최근 게시물",
-        "featuredTitle": "주요 이벤트",
-        "upcomingTitle": "예정된 이벤트",
-        "capacity": "정원",
-        "filters": {
-          "all": "전체 이벤트",
-          "hackathon": "해커톤",
-          "ama": "AMA",
-          "webinar": "웨비나",
-          "meetup": "밋업",
-          "conference": "컨퍼런스"
-        },
-        "types": {
-          "launchEvent": "런칭 이벤트",
-          "amaSession": "AMA 세션",
-          "seminar": "기술 세미나",
-          "training": "트레이닝 워크숍",
-          "ama": "AMA",
-          "workshop": "워크숍",
-          "hackathon": "해커톤",
-          "meetup": "밋업",
-          "conference": "컨퍼런스",
-          "airdrop": "에어드롭",
-          "competition": "경쟁"
-        },
-        "locations": {
-          "online": "온라인",
-          "sanfrancisco": "샌프란시스코, 미국",
-          "singapore": "싱가포르"
-        },
-        "featured": {
-          "title": "주요 이벤트",
-          "capacity": "정원",
-          "mainnetLaunch": {
-            "title": "TBURN 메인넷 출시 기념 행사",
-            "description": "TBURN V4 메인넷의 역사적인 출시에 함께하세요. 라이브 데모와 독점 에어드롭과 함께 차세대 신뢰 기반 블록체인 기술의 일원이 되세요."
-          },
-          "defiChallenge": {
-            "title": "TBURN DeFi 챌린지 해커톤",
-            "description": "50만 달러 상금 규모의 48시간 글로벌 해커톤. TBURN Lab에서 혁신적인 DeFi 솔루션을 구축하고 그랜트 및 인큐베이션 기회를 놓고 경쟁하세요."
-          }
-        },
-        "upcoming": {
-          "title": "예정된 이벤트",
-          "foundersAma": {
-            "title": "창립자 AMA: 2025 비전",
-            "description": "TBURN 창립자들과 함께하는 라이브 Q&A. 새해 로드맵, 예정된 기능, 커뮤니티 이니셔티브에 대해 논의합니다."
-          },
-          "trustScoreApi": {
-            "title": "트러스트 스코어 API 통합 워크숍",
-            "description": "개발자를 위한 실습 기술 워크숍. dApp과 스마트 컨트랙트에 트러스트 스코어 검증을 통합하는 방법을 배웁니다."
-          },
-          "sanFranciscoMeetup": {
-            "title": "샌프란시스코 개발자 밋업",
-            "description": "글로벌 개발자를 위한 오프라인 네트워킹 이벤트. 기술 프레젠테이션, 데모, 참가자 전용 굿즈 제공."
-          },
-          "aiDeepDive": {
-            "title": "Triple-Band AI 심층 세미나",
-            "description": "AI 오케스트레이션 시스템에 대한 기술 심층 분석. 지능형 블록체인 운영의 아키텍처를 배웁니다."
-          },
-          "validatorOps": {
-            "title": "검증자 운영 트레이닝",
-            "description": "노드 운영자를 위한 종합 교육. 설정, 유지보수, 보안 모범 사례, 보상 최적화를 다룹니다."
-          },
-          "futureOfTrust": {
-            "title": "신뢰의 미래: TBURN Summit 2025",
-            "description": "업계 리더들의 기조연설, 기술 워크숍, 독점 발표가 포함된 연례 플래그십 컨퍼런스."
-          }
-        },
-        "eventTypes": {
-          "launchEvent": "출시 이벤트",
-          "hackathon": "해커톤",
-          "ama": "AMA 세션",
-          "webinar": "웨비나",
-          "meetup": "밋업",
-          "seminar": "세미나",
-          "training": "교육",
-          "conference": "컨퍼런스"
-        },
-        "buttons": {
-          "registerNow": "지금 등록",
-          "applyNow": "지금 신청",
-          "setReminder": "알림 설정",
-          "register": "등록",
-          "rsvp": "RSVP (제한)",
-          "rsvpLimited": "RSVP (좌석 한정)",
-          "getTickets": "티켓 구매"
-        },
-        "hostEvent": {
-          "title": "이벤트를 주최하고 싶으신가요?",
-          "description": "TBurn 체인 커뮤니티와 함께 밋업, 웨비나, 해커톤을 주최하세요. 펀딩, 굿즈, 마케팅 지원을 제공합니다.",
-          "applyToHost": "주최 신청"
-        },
-        "hostCta": {
-          "title": "이벤트를 주최하고 싶으신가요?",
-          "description": "TBurn Chain 커뮤니티와 함께 밋업, 웨비나, 해커톤을 주최하세요. 승인된 호스트에게 펀딩, 굿즈, 마케팅 지원을 제공합니다.",
-          "button": "호스트 신청"
-        },
-        "toast": {
-          "codeSentTitle": "인증 코드 발송됨",
-          "codeSentDescription": "이메일에서 6자리 코드를 확인해 주세요",
-          "sendCodeError": "인증 코드 발송에 실패했습니다",
-          "invalidCodeLength": "6자리 모두 입력해 주세요",
-          "verifiedTitle": "이메일 인증 완료",
-          "verifiedDescription": "이메일이 성공적으로 인증되었습니다",
-          "verifyError": "유효하지 않거나 만료된 코드입니다",
-          "codeResent": "새 인증 코드가 발송되었습니다",
-          "resendError": "코드 재발송에 실패했습니다",
-          "reminderSet": "알림 설정됨",
-          "reminderDescription": "\"{{title}}\" 전에 알림을 받게 됩니다"
-        },
-        "detail": {
-          "backToEvents": "이벤트로 돌아가기",
-          "notFound": "이벤트를 찾을 수 없습니다",
-          "notFoundDesc": "찾으시는 이벤트가 존재하지 않거나 종료되었습니다.",
-          "register": "등록하기",
-          "about": "이벤트 소개",
-          "agenda": "이벤트 일정",
-          "speakers": "발표자",
-          "requirements": "요구 사항",
-          "registration": "등록",
-          "spotsFilled": "참가 신청",
-          "full": "마감",
-          "youAreRegistered": "등록 완료!",
-          "registerNow": "지금 등록",
-          "remindMe": "알림 받기",
-          "eventDetails": "이벤트 정보",
-          "wantToHost": "이벤트를 주최하고 싶으신가요?",
-          "registered": "등록 성공!",
-          "registeredDesc": "이벤트에 등록되었습니다. 세부 정보는 이메일을 확인해 주세요.",
-          "notificationSet": "알림 설정됨!",
-          "notificationDesc": "이벤트 시작 전에 알림을 보내드립니다.",
-          "linkCopied": "링크 복사됨!",
-          "shareSuccess": "이벤트 링크가 클립보드에 복사되었습니다",
-          "events": {
-            "1": {
-              "title": "TBURN v7.0 메인넷 런칭 이벤트",
-              "description": "라이브 데모 및 Q&A와 함께 TBURN v7.0 메인넷 공식 런칭 축하 행사에 참여하세요.",
-              "date": "2024년 12월 3일",
-              "time": "14:00 - 16:00",
-              "timezone": "UTC",
-              "location": "온라인 이벤트 (Zoom)",
-              "locationType": "virtual",
-              "type": "런칭 이벤트",
-              "fullDescription": {
-                "0": "TBURN v7.0 메인넷 공식 런칭의 역사적인 순간에 함께하세요! 이 온라인 이벤트에서는 혁신적인 AI 강화 블록체인 기술의 라이브 데모를 선보입니다.",
-                "1": "TBURN 코어 팀이 Triple-Band AI 오케스트레이션 시스템, 동적 샤딩, 종합 DeFi 생태계를 포함한 v7.0의 핵심 기능을 안내해 드립니다.",
-                "2": "참석자들은 개발자에게 직접 질문하고 TBURN v7.0 시작 방법을 배울 수 있는 기회를 갖게 됩니다."
-              },
-              "speakers": {
-                "0": {
-                  "name": "Alex Park",
-                  "role": "CEO & 창립자",
-                  "avatar": "AP"
-                },
-                "1": {
-                  "name": "Dr. Sarah Chen",
-                  "role": "수석 AI 아키텍트",
-                  "avatar": "SC"
-                },
-                "2": {
-                  "name": "Michael Rodriguez",
-                  "role": "DeFi 제품 리드",
-                  "avatar": "MR"
-                }
-              },
-              "agenda": {
-                "0": {
-                  "time": "14:00",
-                  "title": "환영사 & 소개",
-                  "speaker": "Alex Park"
-                },
-                "1": {
-                  "time": "14:15",
-                  "title": "TBURN v7.0 기술 개요"
-                },
-                "2": {
-                  "time": "14:45",
-                  "title": "AI 오케스트레이션 심층 분석",
-                  "speaker": "Dr. Sarah Chen"
-                },
-                "3": {
-                  "time": "15:15",
-                  "title": "DeFi 생태계 데모",
-                  "speaker": "Michael Rodriguez"
-                },
-                "4": {
-                  "time": "15:45",
-                  "title": "라이브 Q&A 세션"
-                }
-              },
-              "requirements": {
-                "0": "안정적인 인터넷 연결",
-                "1": "Zoom 클라이언트 설치",
-                "2": "Q&A용 질문 준비"
-              }
-            },
-            "2": {
-              "title": "개발자 워크숍: TBURN에서 개발하기",
-              "description": "TBURN v7.0에서 스마트 컨트랙트 개발을 배우는 개발자 대상 실습 워크숍.",
-              "date": "2024년 12월 5일",
-              "time": "10:00 - 14:00",
-              "timezone": "UTC",
-              "location": "온라인 워크숍",
-              "locationType": "virtual",
-              "type": "워크숍",
-              "fullDescription": {
-                "0": "이 집중 워크숍은 TBURN v7.0에서 탈중앙화 애플리케이션을 구축하려는 개발자를 위해 설계되었습니다.",
-                "1": "향상된 토큰 표준(TBC-20, TBC-721, TBC-1155), 스마트 컨트랙트 모범 사례, AI 기반 API 통합 방법을 배웁니다.",
-                "2": "워크숍이 끝나면 TBURN 테스트넷에 첫 스마트 컨트랙트를 배포하고 전체 개발 라이프사이클을 이해하게 됩니다."
-              },
-              "speakers": {
-                "0": {
-                  "name": "James Liu",
-                  "role": "리드 개발자",
-                  "avatar": "JL"
-                },
-                "1": {
-                  "name": "Emma Wilson",
-                  "role": "개발자 관계",
-                  "avatar": "EW"
-                }
-              },
-              "agenda": {
-                "0": {
-                  "time": "10:00",
-                  "title": "환경 설정 & 사전 요구 사항"
-                },
-                "1": {
-                  "time": "10:30",
-                  "title": "TBURN SDK 소개",
-                  "speaker": "James Liu"
-                },
-                "2": {
-                  "time": "11:30",
-                  "title": "스마트 컨트랙트 개발"
-                },
-                "3": {
-                  "time": "12:30",
-                  "title": "점심 휴식"
-                },
-                "4": {
-                  "time": "13:00",
-                  "title": "테스트 & 배포",
-                  "speaker": "Emma Wilson"
-                },
-                "5": {
-                  "time": "13:45",
-                  "title": "Q&A 및 마무리"
-                }
-              },
-              "requirements": {
-                "0": "Node.js 18+ 설치",
-                "1": "기본 Solidity 지식",
-                "2": "코드 편집기 (VS Code 권장)",
-                "3": "GitHub 계정"
-              }
-            },
-            "3": {
-              "title": "TBURN 커뮤니티 AMA",
-              "description": "TBURN 팀과 함께하는 월간 Ask Me Anything 세션. 질문을 제출하세요!",
-              "date": "2024년 12월 10일",
-              "time": "18:00 - 19:30",
-              "timezone": "UTC",
-              "location": "Discord 음성 채널",
-              "locationType": "virtual",
-              "type": "AMA",
-              "fullDescription": {
-                "0": "TBURN 팀이 여러분의 궁금한 질문에 답하는 월간 커뮤니티 AMA에 참여하세요!",
-                "1": "로드맵 업데이트, 기술 결정, 커뮤니티 이니셔티브에 대한 인사이트를 팀에서 직접 들을 수 있는 기회입니다.",
-                "2": "질문은 Discord를 통해 미리 제출하거나 세션 중에 실시간으로 할 수 있습니다."
-              },
-              "speakers": {
-                "0": {
-                  "name": "Alex Park",
-                  "role": "CEO & 창립자",
-                  "avatar": "AP"
-                },
-                "1": {
-                  "name": "커뮤니티 팀",
-                  "role": "모더레이터",
-                  "avatar": "CT"
-                }
-              },
-              "agenda": {
-                "0": {
-                  "time": "18:00",
-                  "title": "환영 & 업데이트"
-                },
-                "1": {
-                  "time": "18:15",
-                  "title": "사전 제출 질문"
-                },
-                "2": {
-                  "time": "18:45",
-                  "title": "커뮤니티 실시간 질문"
-                },
-                "3": {
-                  "time": "19:15",
-                  "title": "마무리 & 공지사항"
-                }
-              },
-              "requirements": {
-                "0": "Discord 계정",
-                "1": "TBURN Discord 서버 가입"
-              }
-            },
-            "4": {
-              "title": "검증자 온보딩 세션",
-              "description": "TBURN 검증자가 되어 보상을 받는 방법을 배워보세요.",
-              "date": "2024년 12월 12일",
-              "time": "15:00 - 17:00",
-              "timezone": "UTC",
-              "location": "온라인 이벤트",
-              "locationType": "virtual",
-              "type": "온보딩",
-              "fullDescription": {
-                "0": "TBURN에서 검증자 노드를 운영하고 싶으신가요? 이 세션에서 알아야 할 모든 것을 다룹니다.",
-                "1": "하드웨어 요구 사항, 설정 절차, 스테이킹 요구 사항, 검증자의 수익 구조를 안내해 드립니다.",
-                "2": "팀에서 3단계 검증자 시스템과 AI 트러스트 스코어가 보상에 미치는 영향도 설명합니다."
-              },
-              "speakers": {
-                "0": {
-                  "name": "David Kim",
-                  "role": "인프라 리드",
-                  "avatar": "DK"
-                },
-                "1": {
-                  "name": "Lisa Zhang",
-                  "role": "검증자 관계",
-                  "avatar": "LZ"
-                }
-              },
-              "agenda": {
-                "0": {
-                  "time": "15:00",
-                  "title": "TBURN 검증 소개"
-                },
-                "1": {
-                  "time": "15:30",
-                  "title": "기술 요구 사항 & 설정",
-                  "speaker": "David Kim"
-                },
-                "2": {
-                  "time": "16:00",
-                  "title": "수익 & 보상",
-                  "speaker": "Lisa Zhang"
-                },
-                "3": {
-                  "time": "16:30",
-                  "title": "라이브 데모 & Q&A"
-                }
-              },
-              "requirements": {
-                "0": "블록체인 기본 이해",
-                "1": "인프라 운영에 대한 관심",
-                "2": "최소 스테이킹 요구 사항: 100,000 TBURN"
-              }
-            }
-          },
-          "online": "온라인",
-          "inPerson": "오프라인",
-          "onlineLocation": "온라인 (Zoom/Discord)",
-          "upcoming": "예정",
-          "rewards": "보상",
-          "participantRewards": "참가자 보상",
-          "registeredCount": "참가자",
-          "spotsRemaining": "남은 자리",
-          "notify": "알림",
-          "share": "공유",
-          "type": "유형",
-          "date": "날짜",
-          "tableTime": "시간",
-          "statusCompleted": "완료",
-          "statusFailed": "실패",
-          "statusExecuting": "실행 중",
-          "location": "장소",
-          "time": "시간"
-        },
-        "online": "온라인",
-        "inPerson": "오프라인",
-        "register": "등록",
-        "items": {
-          "launchAma": {
-            "title": "TBURN v7.0 출시 AMA",
-            "description": "메인넷 출시 및 향후 기능에 대한 라이브 Q&A 세션에 코어 팀과 함께하세요"
-          },
-          "defiWorkshop": {
-            "title": "DeFi 워크샵: 유동성 마이닝",
-            "description": "실습과 전문가 가이드와 함께 고급 유동성 마이닝 전략을 배워보세요"
-          },
-          "hackathon": {
-            "title": "TBURN 해커톤 2025",
-            "description": "50만 달러 상금 규모의 48시간 글로벌 해커톤. TBURN Lab에서 혁신적인 DeFi 솔루션을 구축하고 그랜트 및 인큐베이션 기회를 놓고 경쟁하세요."
-          },
-          "tokyoMeetup": {
-            "title": "커뮤니티 밋업 - 도쿄",
-            "description": "도쿄에서 TBURN 열정가들과 네트워킹하세요. 음식과 음료가 제공됩니다!"
-          },
-          "stakingCompetition": {
-            "title": "스테이킹 대회",
-            "description": "이번 달 최고의 스테이킹 보상을 놓고 경쟁하세요. 최고 스테이커에게 보너스 보상!"
-          },
-          "nftContest": {
-            "title": "NFT 아트 콘테스트",
-            "description": "TBURN 테마 NFT 아트워크를 만들고 상품을 받으세요. 지금 참가 가능!"
-          },
-          "validatorTraining": {
-            "title": "밸리데이터 교육 세션",
-            "description": "종합 교육 세션을 통해 TBURN 밸리데이터가 되는 방법을 배우세요"
-          },
-          "airdropEvent": {
-            "title": "커뮤니티 에어드롭 이벤트",
-            "description": "활동적인 커뮤니티 멤버를 위한 독점 에어드롭. 태스크를 완료하고 보상을 받으세요!"
-          }
-        }
-      },
-      "hero": {
-        "tag": "커뮤니티",
-        "title": "커뮤니티에",
-        "titleHighlight": "참여하세요",
-        "subtitle": "개발자, 검증자, 열정적인 사용자들과 연결하세요."
-      },
-      "buttons": {
-        "joinDiscord": "Discord 참여",
-        "followTwitter": "X 팔로우"
-      },
-      "channels": {
-        "title": "커뮤니티 채널",
-        "subtitle": "저희와 소통하세요",
-        "forumTitle": "커뮤니티 포럼",
-        "viewAll": "전체 보기",
-        "recentPosts": "최근 게시물",
-        "discord": {
-          "title": "Discord",
-          "description": "Discord 커뮤니티 참여",
-          "members": "멤버"
-        },
-        "twitter": {
-          "title": "X (Twitter)",
-          "description": "업데이트 받기",
-          "followers": "팔로워"
-        },
-        "telegram": {
-          "title": "Telegram",
-          "description": "Telegram 그룹 참여",
-          "members": "멤버"
-        },
-        "github": {
-          "title": "GitHub",
-          "description": "프로젝트에 기여",
-          "stars": "스타"
-        }
-      },
-      "grants": {
-        "title": "커뮤니티 그랜트",
-        "subtitle": "프로젝트 자금 지원 받기",
-        "forumTitle": "커뮤니티 포럼",
-        "viewAll": "전체 보기",
-        "recentPosts": "최근 게시물",
-        "description": "TBurn 체인 빌드 자금 신청",
-        "applyNow": "지금 신청"
-      },
-      "ambassadors": {
-        "title": "앰배서더 프로그램",
-        "subtitle": "앰배서더 되기",
-        "forumTitle": "커뮤니티 포럼",
-        "viewAll": "전체 보기",
-        "recentPosts": "최근 게시물",
-        "description": "TBurn 생태계 성장에 기여",
-        "apply": "신청"
-      },
-      "time": {
-        "justNow": "방금",
-        "hoursAgo": "{{count}}시간 전",
-        "daysAgo": "{{count}}일 전"
-      },
-      "announcements": {
-        "mainnetLaunch": {
-          "title": "메인넷 출시일 확정: 12월 8일",
-          "content": "TBURN v7.0 메인넷이 2024년 12월 8일에 공식 출시됩니다. 역사상 가장 큰 업그레이드를 위한 모든 시스템이 준비되었습니다!"
-        },
-        "stakingTiers": {
-          "title": "새로운 스테이킹 티어 출시",
-          "content": "다이아몬드 티어 스테이킹이 최대 25% APY 부스트와 함께 출시되었습니다. 새로운 스테이킹 대시보드에서 자세한 내용을 확인하세요."
-        },
-        "securityAudit": {
-          "title": "보안 감사 완료",
-          "content": "스마트 컨트랙트가 CertiK과 Trail of Bits의 종합 보안 감사를 통과했습니다. 전체 보고서는 GitHub에서 확인 가능합니다."
-        },
-        "bridgeIntegration": {
-          "title": "크로스체인 브릿지 출시",
-          "content": "TBURN 브릿지가 이더리움, BSC, 폴리곤 네트워크 간 전송을 지원하며 출시되었습니다."
-        },
-        "maintenance": {
-          "title": "정기 점검: 노드 업그레이드",
-          "content": "12월 10일 오전 2시(UTC) 정기 점검이 예정되어 있습니다. 예상 다운타임: 15분."
-        },
-        "aiOrchestration": {
-          "title": "AI 오케스트레이션 시스템 가동",
-          "content": "Quad-Band AI 오케스트레이션 시스템이 Gemini를 기본으로 Claude, ChatGPT, Grok를 폴백으로 완전히 가동되었습니다."
-        }
-      },
-      "posts": {
-        "mainnetLaunch": {
-          "title": "TBURN v7.0 메인넷 출시 논의",
-          "content": "흥미진진한 시간이 다가옵니다! 다가오는 메인넷 출시에 대해 논의하고 새로운 기능에 대한 의견을 공유해 주세요."
-        },
-        "stakingStrategies": {
-          "title": "최대 APY를 위한 최고의 스테이킹 전략",
-          "content": "스테이킹 보상을 극대화하기 위한 최고의 전략을 공유합니다. 다양한 접근 방식을 테스트해왔습니다..."
-        },
-        "aiOrchestration": {
-          "title": "기술 심층 분석: AI 오케스트레이션 시스템",
-          "content": "Triple-Band AI 시스템이 어떻게 작동하는지 살펴보겠습니다. 아키텍처는..."
-        },
-        "treasuryProposal": {
-          "title": "거버넌스 제안 #42: 재무 할당",
-          "content": "생태계 개발을 위해 재무의 5%를 할당하는 제안입니다. 여기에는..."
-        },
-        "welcomeGuide": {
-          "title": "TBURN이 처음이신가요? 여기서 시작하세요!",
-          "content": "TBURN 커뮤니티에 오신 것을 환영합니다! 이 종합 가이드가 시작하는 데 도움이 될 것입니다..."
-        },
-        "bridgeSecurity": {
-          "title": "크로스체인 브릿지 보안 분석",
-          "content": "브릿지 보안 메커니즘과 사용자에 대한 영향에 대한 심층 분석."
-        },
-        "weeklyTrading": {
-          "title": "주간 트레이딩 토론 스레드",
-          "content": "이번 주 시장 동향과 거래 기회에 대해 논의해 봅시다."
-        },
-        "nodeSetup": {
-          "title": "초보자를 위한 노드 설정 가이드",
-          "content": "TBURN 노드 설정에 대한 단계별 가이드와 문제 해결 팁."
-        },
-        "detail": {
-          "notFound": "게시물을 찾을 수 없습니다",
-          "notFoundDesc": "찾으시는 게시물이 존재하지 않거나 삭제되었습니다.",
-          "backToHub": "커뮤니티 허브로 돌아가기",
-          "linkCopied": "링크 복사됨!",
-          "linkCopiedDesc": "게시물 링크가 클립보드에 복사되었습니다",
-          "bookmarked": "북마크됨!",
-          "bookmarkedDesc": "게시물이 북마크에 저장되었습니다",
-          "liked": "좋아요!",
-          "likedDesc": "게시물에 좋아요를 눌렀습니다",
-          "relatedPosts": "관련 게시물"
-        }
-      },
-      "pinned": "고정됨",
-      "hot": "인기",
-      "categories": {
-        "announcements": "공지사항",
-        "genesisLaunch": "제네시스 출시",
-        "trading": "거래",
-        "technical": "기술",
-        "governance": "거버넌스",
-        "general": "일반",
-        "support": "지원"
-      }
+      "title": "커뮤니티",
+      "blog": "블로그",
+      "ambassador": "앰배서더 프로그램",
+      "grants": "그랜트",
+      "support": "지원"
     },
-    "community": {
-        "title": "커뮤니티",
-        "blog": "블로그",
-        "ambassador": "앰배서더 프로그램",
-        "grants": "그랜트",
-        "support": "지원"
-      },
-      "legal": {
+    "legal": {
       "terms": {
         "title": "이용약관",
         "subtitle": "TBurn 체인 서비스 이용에 대한 약관.",
@@ -16341,13 +15298,13 @@
           "generalSupport": "일반 지원",
           "note": "참고: 본 이용약관은 영어로 제공됩니다. 편의를 위해 번역본이 제공될 수 있으나, 충돌이 있는 경우 영어 버전이 우선합니다.",
           "community": {
-        "title": "커뮤니티",
-        "blog": "블로그",
-        "ambassador": "앰배서더 프로그램",
-        "grants": "그랜트",
-        "support": "지원"
-      },
-      "legal": {
+            "title": "커뮤니티",
+            "blog": "블로그",
+            "ambassador": "앰배서더 프로그램",
+            "grants": "그랜트",
+            "support": "지원"
+          },
+          "legal": {
             "label": "법적 고지 Inquiries"
           },
           "support": {
@@ -16509,13 +15466,13 @@
               "value": "Infrastructure and support partners"
             },
             "community": {
-        "title": "커뮤니티",
-        "blog": "블로그",
-        "ambassador": "앰배서더 프로그램",
-        "grants": "그랜트",
-        "support": "지원"
-      },
-      "legal": {
+              "title": "커뮤니티",
+              "blog": "블로그",
+              "ambassador": "앰배서더 프로그램",
+              "grants": "그랜트",
+              "support": "지원"
+            },
+            "legal": {
               "label": "법적 고지 Authorities",
               "value": "When required by law"
             },
@@ -30984,7 +29941,6 @@
     "nav": {
       "community": "커뮤니티",
       "overview": "개요",
-      "community": "커뮤니티",
       "rewards": "보상",
       "investors": "투자자",
       "ecosystem": "생태계",
@@ -32088,24 +31044,271 @@
     },
     "seedRound": {
       "title": "시드 라운드",
-      "subtitle": "TBURN의 초기 단계 투자 기회",
+      "subtitle": "TBURN 초기 투자 기회",
       "heroTitle": "TBURN 시드 라운드",
       "heroSubtitle": "TBURN 생태계의 첫 번째 투자자가 되세요",
       "badge": "시드 투자",
       "tokenPrice": "토큰 가격",
       "discount": "런칭가 대비 할인",
-      "allocation": "총 할당량",
+      "allocation": "총 배정량",
       "vestingInfo": "베스팅 정보",
       "cliff": "클리프 기간",
       "vesting": "베스팅 기간",
       "tgeUnlock": "TGE 언락",
-      "investorTiers": "투자자 등급",
+      "investorTiers": "투자자 티어",
       "lead": "리드 투자자",
       "major": "주요 투자자",
       "standard": "일반 투자자",
       "angel": "엔젤 투자자",
-      "investNow": "지금 투자",
-      "riskWarning": "위험 경고"
+      "investNow": "지금 투자하기",
+      "riskWarning": "투자 위험 고지",
+      "nav": {
+        "investorTiers": "투자 티어",
+        "vesting": "베스팅",
+        "investors": "투자자",
+        "process": "절차",
+        "faq": "FAQ"
+      },
+      "hero": {
+        "badge": "SEED ROUND - 초기 투자자",
+        "status": "진행중",
+        "title": "시드 라운드 투자로",
+        "titleHighlight": "5억 TBURN",
+        "titleEnd": "기회를 잡으세요",
+        "subtitle": "블록체인 VC, 크립토 펀드, 엔젤 투자자를 위한 최대 70% 할인 초기 투자 기회를 제공합니다.",
+        "loading": "로딩중...",
+        "seedAllocation": "시드 배정",
+        "tokenPriceLabel": "토큰 가격",
+        "hardcap": "하드캡",
+        "investorsLabel": "투자자",
+        "applySeed": "시드 투자 신청",
+        "investmentMemo": "투자 메모"
+      },
+      "highlights": {
+        "tokenPrice": "토큰당 가격",
+        "discountRate": "시장가 대비 할인",
+        "vestingPeriod": "베스팅 기간"
+      },
+      "comparison": {
+        "badge": "COMPARISON",
+        "title": "라운드 비교",
+        "subtitle": "시드 라운드가 가장 유리한 조건입니다",
+        "header": "투자 라운드 비교",
+        "round": "라운드",
+        "tokenPriceCol": "토큰 가격",
+        "discountCol": "할인율",
+        "statusCol": "상태",
+        "maxDiscount": "최대 할인",
+        "active": "진행중",
+        "upcoming": "예정"
+      },
+      "tiers": {
+        "badge": "TIERS",
+        "title": "투자 티어",
+        "subtitle": "투자 규모별 차등 혜택",
+        "minInvestment": "최소 투자금",
+        "leadInvestor": "리드 투자자",
+        "leadSubtitle": "리드 투자자",
+        "majorInvestor": "주요 투자자",
+        "majorSubtitle": "주요 투자자",
+        "standardInvestor": "일반 투자자",
+        "standardSubtitle": "일반 투자자",
+        "angelInvestor": "엔젤 투자자",
+        "angelSubtitle": "엔젤 투자자",
+        "minInvestmentLabel": "최소 투자",
+        "discountRate": "할인율",
+        "lockupPeriod": "락업 기간",
+        "inquireBtn": "투자 문의",
+        "benefits": {
+          "boardObserver": "이사회 참관권",
+          "monthlyMeeting": "월간 경영진 미팅",
+          "exclusiveDealFlow": "독점 딜 플로우",
+          "priorityInvestment": "우선 투자권",
+          "dedicatedIR": "전담 IR 매니저",
+          "quarterlyStrategy": "분기별 전략 미팅",
+          "earlyAccess": "얼리 액세스",
+          "governanceParticipation": "거버넌스 참여",
+          "priorityAllocation": "우선 배정",
+          "dedicatedSupport": "전용 지원",
+          "monthlyNewsletter": "월간 뉴스레터",
+          "communityAccess": "커뮤니티 접근",
+          "basicGovernance": "기본 거버넌스",
+          "generalAllocation": "일반 배정",
+          "emailSupport": "이메일 지원",
+          "quarterlyUpdates": "분기별 업데이트",
+          "communityChannel": "커뮤니티 채널",
+          "nftBadge": "NFT 뱃지",
+          "angelNetwork": "엔젤 네트워크",
+          "basicSupport": "기본 지원"
+        }
+      },
+      "vestingSection": {
+        "badge": "VESTING",
+        "title": "베스팅 스케줄",
+        "subtitle": "투자자 보호를 위한 체계적인 토큰 해제",
+        "cliffPeriod": "클리프 기간",
+        "initialLockup": "초기 락업",
+        "initialUnlock": "초기 언락",
+        "afterTge": "TGE 후 12개월",
+        "monthlyVesting": "월간 베스팅",
+        "over12Months": "12개월간",
+        "fullUnlock": "완전 언락",
+        "after24Months": "24개월 후"
+      },
+      "investorsSection": {
+        "badge": "INVESTORS",
+        "title": "현재 투자자",
+        "subtitle": "함께하는 파트너들"
+      },
+      "processSection": {
+        "badge": "PROCESS",
+        "title": "투자 절차",
+        "subtitle": "시드 투자 진행 과정",
+        "step1": {
+          "title": "투자 문의",
+          "desc": "투자 의향서 제출",
+          "duration": "1-3일"
+        },
+        "step2": {
+          "title": "KYC/AML",
+          "desc": "투자자 인증 절차",
+          "duration": "3-5일"
+        },
+        "step3": {
+          "title": "SAFT 서명",
+          "desc": "투자 계약 체결",
+          "duration": "1-2일"
+        },
+        "step4": {
+          "title": "자금 송금",
+          "desc": "투자금 전송",
+          "duration": "1-3일"
+        },
+        "step5": {
+          "title": "토큰 배정",
+          "desc": "투자 확정",
+          "duration": "즉시"
+        }
+      },
+      "metrics": {
+        "badge": "METRICS",
+        "title": "토큰 지표",
+        "subtitle": "시드 라운드 핵심 지표",
+        "totalSupply": "총 발행량",
+        "totalSupplyValue": "100억 TBURN",
+        "totalSupplyDesc": "고정 공급량",
+        "seedAllocation": "시드 배정",
+        "seedAllocationValue": "5억 TBURN",
+        "seedAllocationDesc": "총 공급량의 5%",
+        "seedGoal": "시드 목표",
+        "seedGoalValue": "$20,000,000",
+        "seedGoalDesc": "하드캡"
+      },
+      "risks": {
+        "title": "투자 위험 고지",
+        "item1": "암호화폐 투자는 높은 변동성과 리스크가 있습니다.",
+        "item2": "투자 원금 손실 가능성이 있으며, 손실 감당 가능한 범위 내에서 투자하세요.",
+        "item3": "규제 환경 변화로 인해 서비스가 제한될 수 있습니다.",
+        "item4": "과거 수익률이 미래 수익을 보장하지 않습니다."
+      },
+      "faqSection": {
+        "badge": "FAQ",
+        "title": "자주 묻는 질문",
+        "subtitle": "시드 투자에 대해 궁금한 점",
+        "faq1": {
+          "question": "TBURN Chain은 무엇이고 왜 투자해야 하나요?",
+          "answer": "TBURN Chain은 AI 기반 동적 샤딩 기술을 적용한 차세대 Layer-1 블록체인입니다. 64개 샤드, 125개 제네시스 검증자를 통해 초당 21만 TPS와 100ms 블록 타임을 목표로 합니다. 디플레이션 토큰 이코노믹스와 AI 거버넌스를 결합하여 장기적인 가치 성장을 추구합니다. 시드 투자자는 퍼블릭 세일 대비 80% 할인된 $0.04에 참여할 수 있으며, 네트워크 성장에 따른 초기 투자자 혜택을 누릴 수 있습니다."
+        },
+        "faq2": {
+          "question": "시드 라운드 투자 조건과 베스팅 일정은 어떻게 되나요?",
+          "answer": "시드 라운드는 토큰당 $0.04, 총 5억 TBURN(전체 공급량의 5%)이 배정됩니다. 하드캡은 $2,000만입니다. 베스팅 조건: TGE 후 12개월 클리프(락업) 기간이 있으며, 클리프 종료 후 24개월에 걸쳐 선형 언락됩니다. 첫 언락 시 5%가 지급되고, 이후 매월 약 3.96%씩 자동 분배됩니다."
+        },
+        "faq3": {
+          "question": "최소/최대 투자 금액과 투자자 티어는 어떻게 구분되나요?",
+          "answer": "시드 라운드는 3개 티어로 구성됩니다: (1) 엔젤 티어: $25,000 ~ $99,999 (2) 스트래티직 티어: $100,000 ~ $499,999, 10% 추가 보너스 토큰 (3) 리드 티어: $500,000 이상, 20% 추가 보너스 토큰. 모든 티어에서 KYC 인증이 필수입니다."
+        },
+        "faq4": {
+          "question": "투자 절차와 필요 서류는 무엇인가요?",
+          "answer": "투자 절차: (1) 투자 문의 접수 → (2) NDA 및 투자 의향서 체결 → (3) KYC/AML 인증 → (4) SAFT 계약 체결 → (5) 투자금 송금 → (6) 토큰 할당 확인서 발급. 전체 과정은 보통 7-14 영업일 소요되며, 담당 매니저가 배정되어 1:1로 안내해 드립니다."
+        },
+        "faq5": {
+          "question": "SAFT 계약이란 무엇이며, 투자자 보호는 어떻게 되나요?",
+          "answer": "SAFT(Simple Agreement for Future Tokens)는 미국 SEC 가이드라인을 준수하는 표준 투자 계약입니다. 계약에는 토큰 할당량, 베스팅 일정, 투자자 권리, 환불 조건이 명시됩니다. 투자금은 제3자 에스크로 계정에 보관되며, 분기별 재무 보고서를 투자자에게 제공합니다."
+        },
+        "faq6": {
+          "question": "토큰 상장 계획과 예상 일정은 어떻게 되나요?",
+          "answer": "TGE(Token Generation Event)는 메인넷 런칭과 동시에 진행될 예정입니다. 먼저 주요 DEX에 유동성을 공급하고, 이후 Tier-1 CEX와의 상장 협의를 진행합니다. 런칭 가격은 $0.50(시드 대비 12.5배)으로 예정되어 있습니다."
+        },
+        "faq7": {
+          "question": "투자금 용도와 자금 집행 계획은 어떻게 되나요?",
+          "answer": "시드 라운드 모집 자금 사용 계획: 기술 개발 45%, 마케팅 및 파트너십 25%, 운영 및 법률 15%, 유동성 공급 10%, 예비비 5%. 분기별 자금 사용 보고서를 투자자에게 제공합니다."
+        },
+        "faq8": {
+          "question": "환불 정책과 투자 취소는 가능한가요?",
+          "answer": "SAFT 계약 체결 전까지는 전액 환불이 가능합니다. 계약 체결 후에는 프로젝트 중단, 메인넷 런칭 실패, 법적 문제 발생 시에만 환불 청구가 가능합니다. 투자자 개인 사정에 의한 중도 해지는 불가합니다."
+        }
+      },
+      "cta": {
+        "title": "시드 투자자가 되세요",
+        "subtitle": "TBURN Chain의 초기 투자자로 최대 70% 할인된 가격에 투자하세요!",
+        "button": "지금 투자하기"
+      },
+      "footer": {
+        "tagline": "AI의 지능, 블록체인의 투명성",
+        "slogan": "THE FUTURE IS NOW",
+        "product": "Product",
+        "mainnet": "메인넷",
+        "explorer": "익스플로러",
+        "bridge": "브릿지",
+        "staking": "스테이킹",
+        "resources": "Resources",
+        "whitepaper": "백서",
+        "docs": "문서",
+        "github": "GitHub",
+        "auditReport": "감사 보고서",
+        "community": "Community",
+        "blog": "블로그",
+        "ambassador": "앰배서더",
+        "grants": "그랜트",
+        "support": "고객지원",
+        "copyright": "© 2025-2045 TBURN Foundation. All Rights Reserved.",
+        "terms": "이용약관",
+        "privacy": "개인정보처리방침"
+      },
+      "dialog": {
+        "title": "시드 라운드 투자 문의",
+        "description": "투자 문의를 남겨주시면 담당자가 빠른 시일 내에 연락드리겠습니다.",
+        "nameLabel": "이름",
+        "namePlaceholder": "홍길동",
+        "emailLabel": "이메일",
+        "emailPlaceholder": "your@email.com",
+        "companyLabel": "회사/기관 (선택)",
+        "companyPlaceholder": "회사명",
+        "amountLabel": "투자 예정 금액 (선택)",
+        "amountPlaceholder": "예: $100,000",
+        "messageLabel": "문의 내용 (선택)",
+        "messagePlaceholder": "추가 질문이나 요청사항",
+        "submitBtn": "문의 제출",
+        "submitting": "제출 중...",
+        "requiredFields": "필수 정보 입력",
+        "requiredFieldsDesc": "이름과 이메일은 필수 입력 항목입니다."
+      },
+      "memoDialog": {
+        "title": "시드 라운드 투자 메모",
+        "projectOverview": "프로젝트 개요",
+        "investmentHighlights": "투자 하이라이트",
+        "tokenomics": "토크노믹스",
+        "team": "팀",
+        "roadmap": "로드맵",
+        "close": "닫기"
+      },
+      "toast": {
+        "inquirySuccess": "투자 문의 접수 완료",
+        "inquirySuccessDesc": "담당자가 빠른 시일 내에 연락드리겠습니다.",
+        "inquiryError": "문의 접수 실패",
+        "inquiryErrorDesc": "일시적인 오류가 발생했습니다. 다시 시도해주세요."
+      },
+      "connectWallet": "투자 문의"
     },
     "privateRound": {
       "title": "프라이빗 라운드",
@@ -32183,7 +31386,7 @@
     },
     "airdropPage": {
       "nav": {
-      "community": "커뮤니티",
+        "community": "커뮤니티",
         "overview": "개요",
         "airdrops": "에어드랍",
         "tasks": "미션",
@@ -32496,7 +31699,7 @@
     },
     "referralPage": {
       "nav": {
-      "community": "커뮤니티",
+        "community": "커뮤니티",
         "home": "홈",
         "howItWorks": "작동 방식",
         "tiers": "등급",
@@ -32693,7 +31896,7 @@
     },
     "eventsPage": {
       "nav": {
-      "community": "커뮤니티",
+        "community": "커뮤니티",
         "liveEvents": "진행중 이벤트",
         "allEvents": "전체 이벤트",
         "leaderboard": "리더보드",

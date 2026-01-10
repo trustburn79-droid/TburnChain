@@ -17605,7 +17605,7 @@
     },
     "seedRound": {
       "title": "सीड राउंड",
-      "subtitle": "TBURN में प्रारंभिक चरण निवेश का अवसर",
+      "subtitle": "TBURN में प्रारंभिक निवेश का अवसर",
       "heroTitle": "TBURN सीड राउंड",
       "heroSubtitle": "TBURN इकोसिस्टम में पहले निवेशकों में शामिल हों",
       "badge": "सीड निवेश",
@@ -17622,7 +17622,28 @@
       "standard": "स्टैंडर्ड निवेशक",
       "angel": "एंजेल निवेशक",
       "investNow": "अभी निवेश करें",
-      "riskWarning": "जोखिम चेतावनी"
+      "riskWarning": "जोखिम चेतावनी",
+      "nav": {
+        "investorTiers": "निवेशक स्तर",
+        "vesting": "वेस्टिंग",
+        "investors": "निवेशक",
+        "process": "प्रक्रिया",
+        "faq": "FAQ"
+      },
+      "hero": {
+        "badge": "SEED ROUND - प्रारंभिक निवेशक",
+        "status": "सक्रिय",
+        "title": "सीड राउंड में निवेश करें",
+        "titleHighlight": "500M TBURN",
+        "titleEnd": "अवसर",
+        "subtitle": "ब्लॉकचेन VC, क्रिप्टो फंड और एंजेल निवेशकों के लिए 70% तक की छूट।"
+      },
+      "cta": {
+        "title": "सीड निवेशक बनें",
+        "subtitle": "प्रारंभिक निवेशक के रूप में 70% तक की छूट पर TBURN Chain में निवेश करें!",
+        "button": "अभी निवेश करें"
+      },
+      "connectWallet": "निवेश पूछताछ"
     },
     "privateRound": {
       "title": "प्राइवेट राउंड",

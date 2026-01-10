@@ -16961,7 +16961,7 @@
     },
     "seedRound": {
       "title": "جولة البذور",
-      "subtitle": "فرصة استثمار مبكرة في TBURN",
+      "subtitle": "فرصة استثمار مبكر في TBURN",
       "heroTitle": "جولة بذور TBURN",
       "heroSubtitle": "كن من أوائل المستثمرين في نظام TBURN البيئي",
       "badge": "استثمار بذري",
@@ -16978,7 +16978,28 @@
       "standard": "مستثمر قياسي",
       "angel": "مستثمر ملاك",
       "investNow": "استثمر الآن",
-      "riskWarning": "تحذير المخاطر"
+      "riskWarning": "تحذير المخاطر",
+      "nav": {
+        "investorTiers": "مستويات المستثمرين",
+        "vesting": "الاستحقاق",
+        "investors": "المستثمرون",
+        "process": "العملية",
+        "faq": "الأسئلة الشائعة"
+      },
+      "hero": {
+        "badge": "SEED ROUND - مستثمر مبكر",
+        "status": "نشط",
+        "title": "استثمر في جولة البذور",
+        "titleHighlight": "500M TBURN",
+        "titleEnd": "فرصة",
+        "subtitle": "خصم يصل إلى 70% لشركات رأس المال المخاطر في البلوكتشين وصناديق الكريبتو والمستثمرين الملائكة."
+      },
+      "cta": {
+        "title": "كن مستثمراً في جولة البذور",
+        "subtitle": "استثمر في TBURN Chain بخصم يصل إلى 70% كمستثمر مبكر!",
+        "button": "استثمر الآن"
+      },
+      "connectWallet": "استفسار استثماري"
     },
     "privateRound": {
       "title": "الجولة الخاصة",

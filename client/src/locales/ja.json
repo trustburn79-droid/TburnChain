@@ -20006,7 +20006,7 @@
     },
     "seedRound": {
       "title": "シードラウンド",
-      "subtitle": "TBURNへの初期段階投資機会",
+      "subtitle": "TBURNへの初期投資機会",
       "heroTitle": "TBURN シードラウンド",
       "heroSubtitle": "TBURNエコシステムの最初の投資家になる",
       "badge": "シード投資",
@@ -20023,7 +20023,106 @@
       "standard": "スタンダード投資家",
       "angel": "エンジェル投資家",
       "investNow": "今すぐ投資",
-      "riskWarning": "リスク警告"
+      "riskWarning": "リスク警告",
+      "nav": {
+        "investorTiers": "投資ティア",
+        "vesting": "ベスティング",
+        "investors": "投資家",
+        "process": "プロセス",
+        "faq": "FAQ"
+      },
+      "hero": {
+        "badge": "SEED ROUND - 初期投資家",
+        "status": "進行中",
+        "title": "シードラウンドに投資して",
+        "titleHighlight": "5億 TBURN",
+        "titleEnd": "のチャンスを掴む",
+        "subtitle": "ブロックチェーンVC、クリプトファンド、エンジェル投資家向けに最大70%割引の初期投資機会を提供します。",
+        "loading": "読み込み中...",
+        "seedAllocation": "シード配分",
+        "tokenPriceLabel": "トークン価格",
+        "hardcap": "ハードキャップ",
+        "investorsLabel": "投資家",
+        "applySeed": "シード投資申請",
+        "investmentMemo": "投資メモ"
+      },
+      "highlights": {
+        "tokenPrice": "トークン単価",
+        "discountRate": "市場割引率",
+        "vestingPeriod": "ベスティング期間"
+      },
+      "comparison": {
+        "badge": "COMPARISON",
+        "title": "ラウンド比較",
+        "subtitle": "シードラウンドが最も有利な条件です",
+        "header": "投資ラウンド比較",
+        "round": "ラウンド",
+        "tokenPriceCol": "トークン価格",
+        "discountCol": "割引率",
+        "statusCol": "ステータス",
+        "maxDiscount": "最大割引",
+        "active": "進行中",
+        "upcoming": "予定"
+      },
+      "tiers": {
+        "badge": "TIERS",
+        "title": "投資ティア",
+        "subtitle": "投資規模に応じた特典",
+        "minInvestment": "最小投資額",
+        "inquireBtn": "お問い合わせ"
+      },
+      "vestingSection": {
+        "badge": "VESTING",
+        "title": "ベスティングスケジュール",
+        "subtitle": "投資家保護のための体系的なトークン解除"
+      },
+      "investorsSection": {
+        "badge": "INVESTORS",
+        "title": "現在の投資家",
+        "subtitle": "パートナー"
+      },
+      "processSection": {
+        "badge": "PROCESS",
+        "title": "投資プロセス",
+        "subtitle": "シード投資手順"
+      },
+      "metrics": {
+        "badge": "METRICS",
+        "title": "トークン指標",
+        "subtitle": "シードラウンド主要指標"
+      },
+      "risks": {
+        "title": "投資リスク警告",
+        "item1": "暗号通貨投資は高い変動性とリスクを伴います。",
+        "item2": "元本を失う可能性があります。損失を許容できる範囲内で投資してください。",
+        "item3": "規制の変更によりサービスが制限される可能性があります。",
+        "item4": "過去のリターンは将来の利益を保証しません。"
+      },
+      "faqSection": {
+        "badge": "FAQ",
+        "title": "よくある質問",
+        "subtitle": "シード投資に関する一般的な質問"
+      },
+      "cta": {
+        "title": "シード投資家になる",
+        "subtitle": "初期投資家として最大70%割引でTBURN Chainに投資しましょう！",
+        "button": "今すぐ投資"
+      },
+      "footer": {
+        "tagline": "AIの知性、ブロックチェーンの透明性",
+        "slogan": "THE FUTURE IS NOW"
+      },
+      "dialog": {
+        "title": "シードラウンド投資お問い合わせ",
+        "description": "お問い合わせを残していただければ、チームからすぐにご連絡いたします。"
+      },
+      "toast": {
+        "inquirySuccess": "投資お問い合わせ受付完了",
+        "inquirySuccessDesc": "チームからすぐにご連絡いたします。",
+        "inquiryError": "お問い合わせ失敗",
+        "inquiryErrorDesc": "一時的なエラーが発生しました。もう一度お試しください。"
+      },
+      "connectWallet": "投資お問い合わせ"
     },
     "privateRound": {
       "title": "プライベートラウンド",

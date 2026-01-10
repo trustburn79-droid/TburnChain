@@ -17037,7 +17037,7 @@
       "meetAdvisors": "Rencontrez Nos Conseillers"
     },
     "seedRound": {
-      "title": "Tour de Semence",
+      "title": "Tour de Semences",
       "subtitle": "Opportunité d'investissement précoce dans TBURN",
       "heroTitle": "Tour de Semence TBURN",
       "heroSubtitle": "Soyez parmi les premiers investisseurs dans l'écosystème TBURN",
@@ -17055,7 +17055,28 @@
       "standard": "Investisseur Standard",
       "angel": "Investisseur Angel",
       "investNow": "Investir Maintenant",
-      "riskWarning": "Avertissement de Risque"
+      "riskWarning": "Avertissement de Risque",
+      "nav": {
+        "investorTiers": "Niveaux d'Investisseur",
+        "vesting": "Vesting",
+        "investors": "Investisseurs",
+        "process": "Processus",
+        "faq": "FAQ"
+      },
+      "hero": {
+        "badge": "SEED ROUND - Investisseur Précoce",
+        "status": "Actif",
+        "title": "Investissez dans le Tour de Semences",
+        "titleHighlight": "500M TBURN",
+        "titleEnd": "Opportunité",
+        "subtitle": "Jusqu'à 70% de réduction pour les VCs blockchain, fonds crypto et investisseurs providentiels."
+      },
+      "cta": {
+        "title": "Devenez Investisseur Semence",
+        "subtitle": "Investissez dans TBURN Chain avec jusqu'à 70% de réduction en tant qu'investisseur précoce!",
+        "button": "Investir Maintenant"
+      },
+      "connectWallet": "Demande d'Investissement"
     },
     "privateRound": {
       "title": "Tour Privé",

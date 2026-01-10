@@ -18982,7 +18982,7 @@
         "requirements": "Requisitos",
         "applyBtn": "Aplicar",
         "connectFirst": "Conectar Cartera para Aplicar",
-      "featuredBadge": "⭐ Popular",
+        "featuredBadge": "⭐ Popular",
         "ambassador": {
           "title": "Programa de Embajadores",
           "subtitle": "Representante Oficial de TBURN Chain",
@@ -19322,7 +19322,7 @@
     },
     "seedRound": {
       "title": "Ronda Semilla",
-      "subtitle": "Oportunidad de inversión en etapa temprana en TBURN",
+      "subtitle": "Oportunidad de inversión temprana en TBURN",
       "heroTitle": "Ronda Semilla TBURN",
       "heroSubtitle": "Sé de los primeros inversores en el ecosistema TBURN",
       "badge": "Inversión Semilla",
@@ -19339,7 +19339,28 @@
       "standard": "Inversor Estándar",
       "angel": "Inversor Ángel",
       "investNow": "Invertir Ahora",
-      "riskWarning": "Advertencia de Riesgo"
+      "riskWarning": "Advertencia de Riesgo",
+      "nav": {
+        "investorTiers": "Niveles de Inversor",
+        "vesting": "Vesting",
+        "investors": "Inversores",
+        "process": "Proceso",
+        "faq": "FAQ"
+      },
+      "hero": {
+        "badge": "SEED ROUND - Inversor Temprano",
+        "status": "Activo",
+        "title": "Invierte en la Ronda Semilla",
+        "titleHighlight": "500M TBURN",
+        "titleEnd": "Oportunidad",
+        "subtitle": "Hasta 70% de descuento para VCs de blockchain, fondos cripto e inversores ángel."
+      },
+      "cta": {
+        "title": "Conviértete en Inversor Semilla",
+        "subtitle": "¡Invierte en TBURN Chain con hasta 70% de descuento como inversor temprano!",
+        "button": "Invertir Ahora"
+      },
+      "connectWallet": "Consulta de Inversión"
     },
     "privateRound": {
       "title": "Ronda Privada",
