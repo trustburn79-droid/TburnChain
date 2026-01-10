@@ -19929,6 +19929,182 @@
         "privacy": "隐私政策"
       }
     },
+    "daoGovernance": {
+      "nav": {
+        "proposals": "提案",
+        "process": "流程",
+        "committees": "委员会",
+        "rewards": "奖励",
+        "faq": "常见问题",
+        "connectWallet": "连接钱包"
+      },
+      "hero": {
+        "badge": "DAO 治理 - 去中心化治理",
+        "title1": "决定协议的未来",
+        "title2": "800M TBURN",
+        "title3": "治理奖励",
+        "subtitle": "参与投票、提交提案、参与委员会活动，塑造 TBURN Chain 的方向并获得奖励！"
+      },
+      "stats": {
+        "totalProposals": "总提案数",
+        "activeProposals": "活跃提案",
+        "totalVotes": "总投票数",
+        "totalVotingPower": "总投票权 (TBURN)"
+      },
+      "cta": {
+        "vote": "参与投票",
+        "submitProposal": "提交提案",
+        "activeProposals": "活跃提案",
+        "activeProposalsDesc": "请对当前活跃的提案进行投票。",
+        "comingSoon": "提案提交功能即将推出。"
+      },
+      "distribution": {
+        "badge": "分配",
+        "title": "治理奖励分配",
+        "subtitle": "800M TBURN 分配到4个类别",
+        "voting": "投票参与奖励",
+        "votingAmount": "400M",
+        "proposal": "提案奖励",
+        "proposalAmount": "160M",
+        "committee": "委员会奖励",
+        "committeeAmount": "160M",
+        "treasury": "DAO 储备金",
+        "treasuryAmount": "80M"
+      },
+      "process": {
+        "badge": "流程",
+        "title": "治理流程",
+        "subtitle": "从提案到执行的5步流程"
+      },
+      "processSteps": [
+        { "title": "提交提案", "desc": "任何人都可以提交提案", "duration": "最低 10,000 vTBURN" },
+        { "title": "讨论期", "desc": "收集社区反馈", "duration": "3天" },
+        { "title": "投票期", "desc": "代币持有者投票", "duration": "5天" },
+        { "title": "时间锁", "desc": "执行等待期", "duration": "2天" },
+        { "title": "执行", "desc": "自动链上执行", "duration": "立即" }
+      ],
+      "proposals": {
+        "badge": "提案",
+        "title": "活跃提案",
+        "subtitle": "参与当前正在进行的投票",
+        "deadline": "截止日期",
+        "proposer": "提案者",
+        "voting": "投票中",
+        "pending": "待处理",
+        "categories": {
+          "protocol": "协议",
+          "treasury": "财务",
+          "ecosystem": "生态系统"
+        }
+      },
+      "proposalsData": [
+        { "title": "质押奖励调整", "desc": "将年度质押奖励率从12%提高到15%" },
+        { "title": "生态系统基金分配", "desc": "为DeFi协议合作伙伴分配50M TBURN" },
+        { "title": "跨链桥扩展", "desc": "增加Polygon、Arbitrum网络桥支持" }
+      ],
+      "voting": {
+        "for": "赞成",
+        "against": "反对",
+        "quorumRate": "法定人数达成率"
+      },
+      "committees": {
+        "badge": "委员会",
+        "title": "治理委员会",
+        "subtitle": "专业领域委员会的深入讨论",
+        "members": "成员",
+        "processedProposals": "审核"
+      },
+      "committeesData": [
+        { "name": "技术委员会", "desc": "协议升级审核" },
+        { "name": "财务委员会", "desc": "资金支出批准" },
+        { "name": "生态系统委员会", "desc": "合作伙伴与资助" },
+        { "name": "安全委员会", "desc": "安全审计与响应" }
+      ],
+      "rewards": {
+        "badge": "奖励",
+        "title": "治理参与奖励",
+        "subtitle": "通过各种方式参与治理并获得奖励"
+      },
+      "rewardsData": [
+        { "title": "投票参与奖励", "amount": "每次投票 10~50 TBURN", "benefits": ["所有提案投票奖励", "基于参与率的奖励", "连续投票奖励", "治理NFT机会"] },
+        { "title": "提案奖励", "amount": "每个提案最高 5,000 TBURN", "benefits": ["批准提案的奖励", "实施完成后的额外奖励", "社区贡献认可", "提案者名人堂"] },
+        { "title": "委员会奖励", "amount": "每月最高 10,000 TBURN", "benefits": ["委员会活动的定期奖励", "每次审核的额外奖励", "任期完成奖励", "治理领导认证"] }
+      ],
+      "delegation": {
+        "badge": "委托",
+        "title": "投票权委托",
+        "subtitle": "将您的投票权委托给可信赖的代表",
+        "topDelegates": "顶级代表",
+        "votingPower": "投票权"
+      },
+      "delegatesData": [
+        { "role": "验证者" },
+        { "role": "DeFi专家" },
+        { "role": "社区" }
+      ],
+      "faq": {
+        "badge": "常见问题",
+        "title": "常见问题",
+        "subtitle": "关于治理的问题",
+        "q1": "DAO治理奖励的总分配量是多少？",
+        "a1": "800M TBURN（占总供应量的8%）分配给DAO治理计划。分配：投票参与奖励50%（400M）、提案奖励20%（160M）、委员会奖励20%（160M）、DAO储备金10%（80M）。",
+        "q2": "如何获得投票权（vTBURN）？",
+        "a2": "质押TBURN代币即可获得投票权（vTBURN）。质押期限越长，投票权越多。1周锁定：1:1比例，1年锁定：2倍，4年锁定：最高4倍投票权。",
+        "q3": "如何提交提案？",
+        "a3": "提交提案需要至少10,000 vTBURN。撰写提案后经过3天论坛讨论，进入链上投票。5天投票后，如果获得多数批准和法定人数，将在2天时间锁后自动执行。",
+        "q4": "如何加入委员会？",
+        "a4": "委员会选举每季度举行一次。候选人注册后，通过社区投票选出成员。需要至少50,000 vTBURN并需证明相关领域的专业知识。运营四个委员会：技术、财务、生态系统和安全。",
+        "q5": "投票奖励如何分配？",
+        "a5": "奖励按您的投票权比例分配。基本奖励：10-50 TBURN。投票结束后24小时内可领取。连续10次以上投票20%奖励，30次以上50%奖励。",
+        "q6": "批准的提案能获得什么奖励？",
+        "a6": "批准的提案最高可获得5,000 TBURN奖励。奖励因提案类型而异：协议改进2,000 TBURN，生态系统扩展3,000 TBURN，财务相关5,000 TBURN。实施完成后额外50%奖励。",
+        "q7": "如何委托投票权？",
+        "a7": "您可以将投票权委托给可信赖的代表。委托可随时撤销。委托期间直接投票，该提案的委托将失效。即使使用委托的投票权投票，奖励仍归原持有者。",
+        "q8": "法定人数如何确定？",
+        "a8": "提案通过需要至少4%的总投票权参与。重要的协议更改需要10%，财务执行需要7%。如果未达到法定人数，提案将自动被拒绝，提案者可在1周后重新提交。"
+      },
+      "ctaSection": {
+        "title": "参与治理！",
+        "subtitle1": "帮助决定TBURN Chain的未来",
+        "subtitle2": "并赚取800M TBURN奖励！",
+        "button": "立即参与"
+      },
+      "footer": {
+        "tagline1": "AI的智能，区块链的透明",
+        "tagline2": "未来就是现在",
+        "product": "产品",
+        "mainnet": "主网",
+        "explorer": "浏览器",
+        "bridge": "桥接",
+        "staking": "质押",
+        "resources": "资源",
+        "whitepaper": "白皮书",
+        "docs": "文档",
+        "audit": "审计报告",
+        "community": "社区",
+        "blog": "博客",
+        "ambassador": "大使",
+        "grants": "资助",
+        "support": "支持",
+        "terms": "服务条款",
+        "privacy": "隐私政策"
+      },
+      "toast": {
+        "disconnected": "钱包已断开",
+        "disconnectedDesc": "钱包已断开连接。",
+        "connected": "钱包已连接",
+        "connectedDesc": "MetaMask钱包已连接。",
+        "walletRequired": "需要连接钱包",
+        "walletRequiredDesc": "请先连接您的钱包才能投票。",
+        "proposalWalletRequired": "请连接您的钱包并拥有至少10,000 vTBURN才能提交提案。",
+        "voteFor": "赞成票已提交",
+        "voteAgainst": "反对票已提交",
+        "voteSubmitted": "您对{{proposalId}}的{{voteType}}投票已提交。",
+        "navigating": "正在导航到{{platform}}。",
+        "participateTitle": "治理参与",
+        "participateDesc": "请对当前活跃的提案进行投票！"
+      }
+    },
     "launchpad": {
       "title": "发射台",
       "subtitle": "TBURN代币发射平台",

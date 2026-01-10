@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "wouter";
 import { useQuery } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
 import { TBurnLogo } from "@/components/tburn-logo";
 import { useWeb3 } from "@/lib/web3-context";
 import { useToast } from "@/hooks/use-toast";
@@ -27,6 +28,7 @@ interface DAOStatsResponse {
 }
 
 export default function DAOGovernancePage() {
+  const { t } = useTranslation();
   const [activeFaq, setActiveFaq] = useState<string | null>("faq-1");
   const { isConnected, address, connect, disconnect, formatAddress } = useWeb3();
   const { toast } = useToast();
@@ -43,10 +45,10 @@ export default function DAOGovernancePage() {
   const handleWalletClick = async () => {
     if (isConnected) {
       disconnect();
-      toast({ title: "지갑 연결 해제", description: "지갑 연결이 해제되었습니다." });
+      toast({ title: t('tokenPrograms.daoGovernance.toast.disconnected'), description: t('tokenPrograms.daoGovernance.toast.disconnectedDesc') });
     } else {
       await connect("metamask");
-      toast({ title: "지갑 연결", description: "MetaMask 지갑이 연결되었습니다." });
+      toast({ title: t('tokenPrograms.daoGovernance.toast.connected'), description: t('tokenPrograms.daoGovernance.toast.connectedDesc') });
     }
   };
 
@@ -60,51 +62,56 @@ export default function DAOGovernancePage() {
   const handleVote = (proposalId: string, voteType: 'for' | 'against') => {
     if (!isConnected) {
       connect("metamask");
-      toast({ title: "지갑 연결 필요", description: "투표하려면 먼저 지갑을 연결해주세요." });
+      toast({ title: t('tokenPrograms.daoGovernance.toast.walletRequired'), description: t('tokenPrograms.daoGovernance.toast.walletRequiredDesc') });
       return;
     }
     toast({ 
-      title: voteType === 'for' ? "찬성 투표 완료" : "반대 투표 완료",
-      description: `${proposalId} 제안에 ${voteType === 'for' ? '찬성' : '반대'} 투표가 접수되었습니다.` 
+      title: voteType === 'for' ? t('tokenPrograms.daoGovernance.toast.voteFor') : t('tokenPrograms.daoGovernance.toast.voteAgainst'),
+      description: t('tokenPrograms.daoGovernance.toast.voteSubmitted', { proposalId, voteType: voteType === 'for' ? t('tokenPrograms.daoGovernance.voting.for') : t('tokenPrograms.daoGovernance.voting.against') })
     });
   };
 
   const handleShareSocial = (platform: string, url: string) => {
     window.open(url, '_blank', 'width=600,height=400');
-    toast({ title: platform, description: `${platform} 페이지로 이동합니다.` });
+    toast({ title: platform, description: t('tokenPrograms.daoGovernance.toast.navigating', { platform }) });
   };
 
+  const proposalsData = t('tokenPrograms.daoGovernance.proposalsData', { returnObjects: true }) as Array<{title: string, desc: string}>;
   const proposals = [
-    { id: "TIP-001", title: "스테이킹 보상률 조정", desc: "연간 스테이킹 보상률을 12%에서 15%로 상향 조정", category: "protocol", status: "active", forVotes: 72, againstVotes: 18, abstainVotes: 10, quorum: 65, author: "CoreTeam", endDate: "2026.01.15" },
-    { id: "TIP-002", title: "생태계 펀드 집행 제안", desc: "DeFi 프로토콜 파트너십을 위한 5,000만 TBURN 집행", category: "treasury", status: "active", forVotes: 58, againstVotes: 32, abstainVotes: 10, quorum: 48, author: "Treasury", endDate: "2026.01.18" },
-    { id: "TIP-003", title: "크로스체인 브릿지 확장", desc: "Polygon, Arbitrum 네트워크 브릿지 추가 지원", category: "ecosystem", status: "pending", forVotes: 0, againstVotes: 0, abstainVotes: 0, quorum: 0, author: "DevTeam", endDate: "2026.01.20" },
+    { id: "TIP-001", title: proposalsData[0]?.title || "Staking Reward Adjustment", desc: proposalsData[0]?.desc || "Increase annual staking reward rate from 12% to 15%", category: "protocol", status: "active", forVotes: 72, againstVotes: 18, abstainVotes: 10, quorum: 65, author: "CoreTeam", endDate: "2026.01.15" },
+    { id: "TIP-002", title: proposalsData[1]?.title || "Ecosystem Fund Allocation", desc: proposalsData[1]?.desc || "Allocate 50M TBURN for DeFi protocol partnerships", category: "treasury", status: "active", forVotes: 58, againstVotes: 32, abstainVotes: 10, quorum: 48, author: "Treasury", endDate: "2026.01.18" },
+    { id: "TIP-003", title: proposalsData[2]?.title || "Cross-Chain Bridge Expansion", desc: proposalsData[2]?.desc || "Add Polygon, Arbitrum network bridge support", category: "ecosystem", status: "pending", forVotes: 0, againstVotes: 0, abstainVotes: 0, quorum: 0, author: "DevTeam", endDate: "2026.01.20" },
   ];
 
+  const stepsData = t('tokenPrograms.daoGovernance.processSteps', { returnObjects: true }) as Array<{title: string, desc: string, duration: string}>;
   const processSteps = [
-    { number: 1, title: "제안 제출", desc: "누구나 제안 제출 가능", duration: "최소 10,000 vTBURN" },
-    { number: 2, title: "토론 기간", desc: "커뮤니티 피드백 수집", duration: "3일" },
-    { number: 3, title: "투표 기간", desc: "토큰 보유자 투표", duration: "5일" },
-    { number: 4, title: "타임락", desc: "실행 대기 기간", duration: "2일" },
-    { number: 5, title: "실행", desc: "자동 온체인 실행", duration: "즉시" },
+    { number: 1, title: stepsData[0]?.title || "Submit Proposal", desc: stepsData[0]?.desc || "Anyone can submit proposals", duration: stepsData[0]?.duration || "Min 10,000 vTBURN" },
+    { number: 2, title: stepsData[1]?.title || "Discussion Period", desc: stepsData[1]?.desc || "Collect community feedback", duration: stepsData[1]?.duration || "3 Days" },
+    { number: 3, title: stepsData[2]?.title || "Voting Period", desc: stepsData[2]?.desc || "Token holder voting", duration: stepsData[2]?.duration || "5 Days" },
+    { number: 4, title: stepsData[3]?.title || "Timelock", desc: stepsData[3]?.desc || "Execution waiting period", duration: stepsData[3]?.duration || "2 Days" },
+    { number: 5, title: stepsData[4]?.title || "Execution", desc: stepsData[4]?.desc || "Automatic on-chain execution", duration: stepsData[4]?.duration || "Immediate" },
   ];
 
+  const committeesData = t('tokenPrograms.daoGovernance.committeesData', { returnObjects: true }) as Array<{name: string, desc: string}>;
   const committees = [
-    { id: "tech", icon: "⚙️", name: "기술 위원회", desc: "프로토콜 업그레이드 검토", members: 7, proposals: 23 },
-    { id: "finance", icon: "💰", name: "재무 위원회", desc: "자금 집행 승인", members: 5, proposals: 45 },
-    { id: "ecosystem", icon: "🌱", name: "생태계 위원회", desc: "파트너십 & 그랜트", members: 9, proposals: 67 },
-    { id: "security", icon: "🛡️", name: "보안 위원회", desc: "보안 감사 및 대응", members: 5, proposals: 12 },
+    { id: "tech", icon: "⚙️", name: committeesData[0]?.name || "Technical Committee", desc: committeesData[0]?.desc || "Protocol upgrade review", members: 7, proposals: 23 },
+    { id: "finance", icon: "💰", name: committeesData[1]?.name || "Finance Committee", desc: committeesData[1]?.desc || "Fund disbursement approval", members: 5, proposals: 45 },
+    { id: "ecosystem", icon: "🌱", name: committeesData[2]?.name || "Ecosystem Committee", desc: committeesData[2]?.desc || "Partnerships & Grants", members: 9, proposals: 67 },
+    { id: "security", icon: "🛡️", name: committeesData[3]?.name || "Security Committee", desc: committeesData[3]?.desc || "Security audits and response", members: 5, proposals: 12 },
   ];
 
+  const rewardsData = t('tokenPrograms.daoGovernance.rewardsData', { returnObjects: true }) as Array<{title: string, amount: string, benefits: string[]}>;
   const rewardTypes = [
-    { id: "voting", icon: "🗳️", title: "투표 참여 보상", amount: "투표당 10~50 TBURN", benefits: ["모든 제안 투표 시 보상", "참여율에 따른 보너스", "연속 투표 스트릭 보너스", "거버넌스 NFT 획득 기회"] },
-    { id: "proposal", icon: "📝", title: "제안 보상", amount: "제안당 최대 5,000 TBURN", benefits: ["승인된 제안에 대한 보상", "구현 완료 시 추가 보너스", "커뮤니티 기여도 인정", "제안자 명예의 전당 등재"] },
-    { id: "committee", icon: "👥", title: "위원회 보상", amount: "월 최대 10,000 TBURN", benefits: ["위원회 활동 정기 보상", "심사 건수당 추가 보상", "임기 완료 보너스", "거버넌스 리더십 인증"] },
+    { id: "voting", icon: "🗳️", title: rewardsData[0]?.title || "Voting Participation Reward", amount: rewardsData[0]?.amount || "10~50 TBURN per vote", benefits: rewardsData[0]?.benefits || ["Reward for all proposal votes", "Bonus based on participation rate", "Consecutive voting streak bonus", "Governance NFT opportunity"] },
+    { id: "proposal", icon: "📝", title: rewardsData[1]?.title || "Proposal Reward", amount: rewardsData[1]?.amount || "Up to 5,000 TBURN per proposal", benefits: rewardsData[1]?.benefits || ["Reward for approved proposals", "Additional bonus upon implementation", "Community contribution recognition", "Proposer Hall of Fame listing"] },
+    { id: "committee", icon: "👥", title: rewardsData[2]?.title || "Committee Reward", amount: rewardsData[2]?.amount || "Up to 10,000 TBURN per month", benefits: rewardsData[2]?.benefits || ["Regular rewards for committee activities", "Additional reward per review", "Term completion bonus", "Governance leadership certification"] },
   ];
 
+  const delegatesData = t('tokenPrograms.daoGovernance.delegatesData', { returnObjects: true }) as Array<{role: string}>;
   const delegates = [
-    { name: "CoreValidator", role: "검증인", power: "2.4M", initials: "CV" },
-    { name: "DeFiMaster", role: "DeFi 전문가", power: "1.8M", initials: "DM" },
-    { name: "CommunityLead", role: "커뮤니티", power: "1.2M", initials: "CL" },
+    { name: "CoreValidator", role: delegatesData[0]?.role || "Validator", power: "2.4M", initials: "CV" },
+    { name: "DeFiMaster", role: delegatesData[1]?.role || "DeFi Expert", power: "1.8M", initials: "DM" },
+    { name: "CommunityLead", role: delegatesData[2]?.role || "Community", power: "1.2M", initials: "CL" },
   ];
 
   return (
@@ -1120,27 +1127,27 @@ export default function DAOGovernancePage() {
               href="#proposals"
               onClick={(e) => { e.preventDefault(); scrollToSection('proposals'); }}
               data-testid="nav-proposals"
-            >제안</a>
+            >{t('tokenPrograms.daoGovernance.nav.proposals')}</a>
             <a 
               href="#process"
               onClick={(e) => { e.preventDefault(); scrollToSection('process'); }}
               data-testid="nav-process"
-            >프로세스</a>
+            >{t('tokenPrograms.daoGovernance.nav.process')}</a>
             <a 
               href="#committees"
               onClick={(e) => { e.preventDefault(); scrollToSection('committees'); }}
               data-testid="nav-committees"
-            >위원회</a>
+            >{t('tokenPrograms.daoGovernance.nav.committees')}</a>
             <a 
               href="#rewards"
               onClick={(e) => { e.preventDefault(); scrollToSection('rewards'); }}
               data-testid="nav-rewards"
-            >보상</a>
+            >{t('tokenPrograms.daoGovernance.nav.rewards')}</a>
             <a 
               href="#faq"
               onClick={(e) => { e.preventDefault(); scrollToSection('faq'); }}
               data-testid="nav-faq"
-            >FAQ</a>
+            >{t('tokenPrograms.daoGovernance.nav.faq')}</a>
           </nav>
           <div className="header-actions">
             <LanguageSelector isDark={true} />
@@ -1149,7 +1156,7 @@ export default function DAOGovernancePage() {
               data-testid="button-connect-wallet"
               onClick={handleWalletClick}
             >
-              {isConnected && address ? `🔗 ${formatAddress(address)}` : '🔗 지갑 연결'}
+              {isConnected && address ? `🔗 ${formatAddress(address)}` : t('tokenPrograms.daoGovernance.nav.connectWallet')}
             </button>
           </div>
         </div>
@@ -1160,33 +1167,32 @@ export default function DAOGovernancePage() {
         <div className="hero-bg"></div>
         <div className="hero-content">
           <div className="badge">
-            🏛️ DAO GOVERNANCE - 탈중앙화 거버넌스
+            🏛️ {t('tokenPrograms.daoGovernance.hero.badge')}
           </div>
           <h1>
-            프로토콜의 미래를 결정하는<br />
-            <span className="gradient-text">8억 TBURN</span> 거버넌스 보상
+            {t('tokenPrograms.daoGovernance.hero.title1')}<br />
+            <span className="gradient-text">{t('tokenPrograms.daoGovernance.hero.title2')}</span> {t('tokenPrograms.daoGovernance.hero.title3')}
           </h1>
           <p className="hero-subtitle">
-            투표에 참여하고, 제안을 제출하고, 위원회 활동을 통해
-            TBURN Chain의 방향을 결정하며 보상을 받으세요!
+            {t('tokenPrograms.daoGovernance.hero.subtitle')}
           </p>
 
           <div className="stats-grid">
             <div className="stat-card" data-testid="stat-total-proposals">
               <div className="stat-value">{isLoading ? '...' : stats?.totalProposals || 0}</div>
-              <div className="stat-label">총 제안 수</div>
+              <div className="stat-label">{t('tokenPrograms.daoGovernance.stats.totalProposals')}</div>
             </div>
             <div className="stat-card" data-testid="stat-active-proposals">
               <div className="stat-value">{isLoading ? '...' : stats?.activeProposals || 0}</div>
-              <div className="stat-label">진행중인 제안</div>
+              <div className="stat-label">{t('tokenPrograms.daoGovernance.stats.activeProposals')}</div>
             </div>
             <div className="stat-card" data-testid="stat-total-votes">
               <div className="stat-value">{isLoading ? '...' : stats?.totalVotes?.toLocaleString() || 0}</div>
-              <div className="stat-label">총 투표 수</div>
+              <div className="stat-label">{t('tokenPrograms.daoGovernance.stats.totalVotes')}</div>
             </div>
             <div className="stat-card" data-testid="stat-voting-power">
               <div className="stat-value">{isLoading ? '...' : Number(stats?.totalVotingPower || 0).toLocaleString()}</div>
-              <div className="stat-label">총 투표력 (TBURN)</div>
+              <div className="stat-label">{t('tokenPrograms.daoGovernance.stats.totalVotingPower')}</div>
             </div>
           </div>
 
@@ -1194,9 +1200,9 @@ export default function DAOGovernancePage() {
             <button 
               className="btn-primary" 
               data-testid="button-vote"
-              onClick={() => { scrollToSection('proposals'); toast({ title: "활성 제안", description: "현재 진행 중인 제안에서 투표해주세요." }); }}
+              onClick={() => { scrollToSection('proposals'); toast({ title: t('tokenPrograms.daoGovernance.cta.activeProposals'), description: t('tokenPrograms.daoGovernance.cta.activeProposalsDesc') }); }}
             >
-              투표 참여하기
+              {t('tokenPrograms.daoGovernance.cta.vote')}
             </button>
             <button 
               className="btn-secondary"
@@ -1204,13 +1210,13 @@ export default function DAOGovernancePage() {
               onClick={() => { 
                 if (!isConnected) { 
                   connect("metamask"); 
-                  toast({ title: "지갑 연결 필요", description: "제안을 제출하려면 먼저 지갑을 연결하고 최소 10,000 vTBURN이 필요합니다." });
+                  toast({ title: t('tokenPrograms.daoGovernance.toast.walletRequired'), description: t('tokenPrograms.daoGovernance.toast.proposalWalletRequired') });
                 } else {
-                  toast({ title: "제안 제출", description: "제안 제출 기능이 곧 출시됩니다. (Coming Soon)" }); 
+                  toast({ title: t('tokenPrograms.daoGovernance.cta.submitProposal'), description: t('tokenPrograms.daoGovernance.cta.comingSoon') }); 
                 }
               }}
             >
-              제안 제출하기
+              {t('tokenPrograms.daoGovernance.cta.submitProposal')}
             </button>
           </div>
         </div>
@@ -1219,34 +1225,34 @@ export default function DAOGovernancePage() {
       {/* Distribution Section */}
       <section className="section">
         <div className="section-header">
-          <span className="section-badge">DISTRIBUTION</span>
-          <h2 className="section-title">거버넌스 보상 배분</h2>
-          <p className="section-subtitle">8억 TBURN이 4가지 카테고리로 배분됩니다</p>
+          <span className="section-badge">{t('tokenPrograms.daoGovernance.distribution.badge')}</span>
+          <h2 className="section-title">{t('tokenPrograms.daoGovernance.distribution.title')}</h2>
+          <p className="section-subtitle">{t('tokenPrograms.daoGovernance.distribution.subtitle')}</p>
         </div>
 
         <div className="distribution-grid">
           <div className="dist-card voting" data-testid="dist-voting">
             <div className="dist-icon">🗳️</div>
-            <div className="dist-name">투표 참여 보상</div>
-            <div className="dist-amount">4억</div>
+            <div className="dist-name">{t('tokenPrograms.daoGovernance.distribution.voting')}</div>
+            <div className="dist-amount">{t('tokenPrograms.daoGovernance.distribution.votingAmount')}</div>
             <div className="dist-percent">50%</div>
           </div>
           <div className="dist-card proposal" data-testid="dist-proposal">
             <div className="dist-icon">📝</div>
-            <div className="dist-name">제안 보상</div>
-            <div className="dist-amount">1.6억</div>
+            <div className="dist-name">{t('tokenPrograms.daoGovernance.distribution.proposal')}</div>
+            <div className="dist-amount">{t('tokenPrograms.daoGovernance.distribution.proposalAmount')}</div>
             <div className="dist-percent">20%</div>
           </div>
           <div className="dist-card committee" data-testid="dist-committee">
             <div className="dist-icon">👥</div>
-            <div className="dist-name">위원회 보상</div>
-            <div className="dist-amount">1.6억</div>
+            <div className="dist-name">{t('tokenPrograms.daoGovernance.distribution.committee')}</div>
+            <div className="dist-amount">{t('tokenPrograms.daoGovernance.distribution.committeeAmount')}</div>
             <div className="dist-percent">20%</div>
           </div>
           <div className="dist-card treasury" data-testid="dist-treasury">
             <div className="dist-icon">💰</div>
-            <div className="dist-name">DAO 예비금</div>
-            <div className="dist-amount">0.8억</div>
+            <div className="dist-name">{t('tokenPrograms.daoGovernance.distribution.treasury')}</div>
+            <div className="dist-amount">{t('tokenPrograms.daoGovernance.distribution.treasuryAmount')}</div>
             <div className="dist-percent">10%</div>
           </div>
         </div>
@@ -1255,9 +1261,9 @@ export default function DAOGovernancePage() {
       {/* Process Section */}
       <section className="section" id="process" style={{ background: 'rgba(255,255,255,0.02)' }}>
         <div className="section-header">
-          <span className="section-badge">PROCESS</span>
-          <h2 className="section-title">거버넌스 프로세스</h2>
-          <p className="section-subtitle">제안부터 실행까지의 5단계 과정</p>
+          <span className="section-badge">{t('tokenPrograms.daoGovernance.process.badge')}</span>
+          <h2 className="section-title">{t('tokenPrograms.daoGovernance.process.title')}</h2>
+          <p className="section-subtitle">{t('tokenPrograms.daoGovernance.process.subtitle')}</p>
         </div>
 
         <div className="process-grid">
@@ -1275,9 +1281,9 @@ export default function DAOGovernancePage() {
       {/* Active Proposals Section */}
       <section className="section" id="proposals">
         <div className="section-header">
-          <span className="section-badge">PROPOSALS</span>
-          <h2 className="section-title">활성 제안</h2>
-          <p className="section-subtitle">현재 진행 중인 투표에 참여하세요</p>
+          <span className="section-badge">{t('tokenPrograms.daoGovernance.proposals.badge')}</span>
+          <h2 className="section-title">{t('tokenPrograms.daoGovernance.proposals.title')}</h2>
+          <p className="section-subtitle">{t('tokenPrograms.daoGovernance.proposals.subtitle')}</p>
         </div>
 
         <div className="proposals-container">
@@ -1288,19 +1294,19 @@ export default function DAOGovernancePage() {
                   <div className="proposal-id">{proposal.id}</div>
                   <h3 className="proposal-title">{proposal.title}</h3>
                   <div className="proposal-meta">
-                    <span>📅 마감: {proposal.endDate}</span>
-                    <span>👤 제안자: {proposal.author}</span>
+                    <span>📅 {t('tokenPrograms.daoGovernance.proposals.deadline')}: {proposal.endDate}</span>
+                    <span>👤 {t('tokenPrograms.daoGovernance.proposals.proposer')}: {proposal.author}</span>
                   </div>
                 </div>
                 <span className={`proposal-status ${proposal.status}`}>
-                  {proposal.status === 'active' ? '투표중' : '대기중'}
+                  {proposal.status === 'active' ? t('tokenPrograms.daoGovernance.proposals.voting') : t('tokenPrograms.daoGovernance.proposals.pending')}
                 </span>
               </div>
               <div className="proposal-body">
                 <p className="proposal-desc">{proposal.desc}</p>
                 <span className={`proposal-category ${proposal.category}`}>
-                  {proposal.category === 'protocol' ? '프로토콜' : 
-                   proposal.category === 'treasury' ? '재무' : '생태계'}
+                  {proposal.category === 'protocol' ? t('tokenPrograms.daoGovernance.proposals.categories.protocol') : 
+                   proposal.category === 'treasury' ? t('tokenPrograms.daoGovernance.proposals.categories.treasury') : t('tokenPrograms.daoGovernance.proposals.categories.ecosystem')}
                 </span>
               </div>
               {proposal.status === 'active' && (
@@ -1312,12 +1318,12 @@ export default function DAOGovernancePage() {
                       <div className="abstain" style={{ width: `${proposal.abstainVotes}%` }}></div>
                     </div>
                     <div className="vote-labels">
-                      <span className="for">찬성 {proposal.forVotes}%</span>
-                      <span className="against">반대 {proposal.againstVotes}%</span>
+                      <span className="for">{t('tokenPrograms.daoGovernance.voting.for')} {proposal.forVotes}%</span>
+                      <span className="against">{t('tokenPrograms.daoGovernance.voting.against')} {proposal.againstVotes}%</span>
                     </div>
                   </div>
                   <div className="vote-stats">
-                    <div className="quorum-label">정족수 달성률</div>
+                    <div className="quorum-label">{t('tokenPrograms.daoGovernance.voting.quorumRate')}</div>
                     <div className="quorum-value">{proposal.quorum}%</div>
                   </div>
                   <div className="vote-buttons">
@@ -1326,14 +1332,14 @@ export default function DAOGovernancePage() {
                       onClick={() => handleVote(proposal.id, 'for')}
                       data-testid={`button-vote-for-${proposal.id}`}
                     >
-                      {isConnected ? '찬성' : '지갑 연결'}
+                      {isConnected ? t('tokenPrograms.daoGovernance.voting.for') : t('tokenPrograms.daoGovernance.nav.connectWallet')}
                     </button>
                     <button 
                       className="vote-btn against"
                       onClick={() => handleVote(proposal.id, 'against')}
                       data-testid={`button-vote-against-${proposal.id}`}
                     >
-                      {isConnected ? '반대' : '지갑 연결'}
+                      {isConnected ? t('tokenPrograms.daoGovernance.voting.against') : t('tokenPrograms.daoGovernance.nav.connectWallet')}
                     </button>
                   </div>
                 </div>
@@ -1346,9 +1352,9 @@ export default function DAOGovernancePage() {
       {/* Committees Section */}
       <section className="section" id="committees" style={{ background: 'rgba(255,255,255,0.02)' }}>
         <div className="section-header">
-          <span className="section-badge">COMMITTEES</span>
-          <h2 className="section-title">거버넌스 위원회</h2>
-          <p className="section-subtitle">전문 분야별 위원회에서 심도있는 논의</p>
+          <span className="section-badge">{t('tokenPrograms.daoGovernance.committees.badge')}</span>
+          <h2 className="section-title">{t('tokenPrograms.daoGovernance.committees.title')}</h2>
+          <p className="section-subtitle">{t('tokenPrograms.daoGovernance.committees.subtitle')}</p>
         </div>
 
         <div className="committee-grid">
@@ -1360,11 +1366,11 @@ export default function DAOGovernancePage() {
               <div className="committee-stats">
                 <div className="committee-stat">
                   <div className="value">{committee.members}</div>
-                  <div className="label">위원</div>
+                  <div className="label">{t('tokenPrograms.daoGovernance.committees.members')}</div>
                 </div>
                 <div className="committee-stat">
                   <div className="value">{committee.proposals}</div>
-                  <div className="label">심의</div>
+                  <div className="label">{t('tokenPrograms.daoGovernance.committees.processedProposals')}</div>
                 </div>
               </div>
             </div>
@@ -1375,9 +1381,9 @@ export default function DAOGovernancePage() {
       {/* Rewards Section */}
       <section className="section" id="rewards">
         <div className="section-header">
-          <span className="section-badge">REWARDS</span>
-          <h2 className="section-title">거버넌스 참여 보상</h2>
-          <p className="section-subtitle">다양한 방법으로 거버넌스에 참여하고 보상받으세요</p>
+          <span className="section-badge">{t('tokenPrograms.daoGovernance.rewards.badge')}</span>
+          <h2 className="section-title">{t('tokenPrograms.daoGovernance.rewards.title')}</h2>
+          <p className="section-subtitle">{t('tokenPrograms.daoGovernance.rewards.subtitle')}</p>
         </div>
 
         <div className="rewards-grid">
@@ -1401,14 +1407,14 @@ export default function DAOGovernancePage() {
       {/* Delegation Section */}
       <section className="section" style={{ background: 'rgba(255,255,255,0.02)' }}>
         <div className="section-header">
-          <span className="section-badge">DELEGATION</span>
-          <h2 className="section-title">투표권 위임</h2>
-          <p className="section-subtitle">신뢰하는 대리인에게 투표권을 위임하세요</p>
+          <span className="section-badge">{t('tokenPrograms.daoGovernance.delegation.badge')}</span>
+          <h2 className="section-title">{t('tokenPrograms.daoGovernance.delegation.title')}</h2>
+          <p className="section-subtitle">{t('tokenPrograms.daoGovernance.delegation.subtitle')}</p>
         </div>
 
         <div className="delegation-section">
           <div className="delegation-header">
-            <h3>🏆 Top Delegates</h3>
+            <h3>🏆 {t('tokenPrograms.daoGovernance.delegation.topDelegates')}</h3>
           </div>
 
           <div className="delegate-list">
@@ -1421,7 +1427,7 @@ export default function DAOGovernancePage() {
                 </div>
                 <div className="delegate-power">
                   <div className="value">{delegate.power} vTBURN</div>
-                  <div className="label">Voting Power</div>
+                  <div className="label">{t('tokenPrograms.daoGovernance.delegation.votingPower')}</div>
                 </div>
               </div>
             ))}
@@ -1432,89 +1438,89 @@ export default function DAOGovernancePage() {
       {/* FAQ */}
       <section className="section" id="faq">
         <div className="section-header">
-          <span className="section-badge">FAQ</span>
-          <h2 className="section-title">자주 묻는 질문</h2>
-          <p className="section-subtitle">거버넌스에 대해 궁금한 점</p>
+          <span className="section-badge">{t('tokenPrograms.daoGovernance.faq.badge')}</span>
+          <h2 className="section-title">{t('tokenPrograms.daoGovernance.faq.title')}</h2>
+          <p className="section-subtitle">{t('tokenPrograms.daoGovernance.faq.subtitle')}</p>
         </div>
 
         <div className="faq-container">
           <div className={`faq-item ${activeFaq === 'faq-1' ? 'active' : ''}`} data-testid="faq-item-1">
             <div className="faq-question" onClick={() => toggleFaq('faq-1')}>
-              <h4>DAO 거버넌스 보상 총 물량은 얼마인가요?</h4>
+              <h4>{t('tokenPrograms.daoGovernance.faq.q1')}</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>DAO 거버넌스 프로그램에 총 8억 TBURN(전체 공급량의 8%)이 배정되어 있습니다. 투표 참여 보상 50%(4억), 제안 보상 20%(1.6억), 위원회 보상 20%(1.6억), DAO 예비금 10%(0.8억)으로 배분됩니다.</p>
+              <p>{t('tokenPrograms.daoGovernance.faq.a1')}</p>
             </div>
           </div>
 
           <div className={`faq-item ${activeFaq === 'faq-2' ? 'active' : ''}`} data-testid="faq-item-2">
             <div className="faq-question" onClick={() => toggleFaq('faq-2')}>
-              <h4>투표권(vTBURN)은 어떻게 얻나요?</h4>
+              <h4>{t('tokenPrograms.daoGovernance.faq.q2')}</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>TBURN 토큰을 스테이킹하면 투표권(vTBURN)을 받습니다. 스테이킹 기간이 길수록 더 많은 투표권을 받습니다. 1주 락업 시 1:1 비율, 1년 락업 시 2배, 4년 락업 시 최대 4배의 투표권을 받을 수 있습니다.</p>
+              <p>{t('tokenPrograms.daoGovernance.faq.a2')}</p>
             </div>
           </div>
 
           <div className={`faq-item ${activeFaq === 'faq-3' ? 'active' : ''}`} data-testid="faq-item-3">
             <div className="faq-question" onClick={() => toggleFaq('faq-3')}>
-              <h4>제안을 제출하려면 어떻게 하나요?</h4>
+              <h4>{t('tokenPrograms.daoGovernance.faq.q3')}</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>최소 10,000 vTBURN을 보유해야 제안을 제출할 수 있습니다. 제안서를 작성하고 포럼에서 3일간 토론 후 온체인 투표에 부쳐집니다. 5일간의 투표 기간 후 과반 찬성과 정족수 달성 시 2일의 타임락을 거쳐 자동으로 실행됩니다.</p>
+              <p>{t('tokenPrograms.daoGovernance.faq.a3')}</p>
             </div>
           </div>
 
           <div className={`faq-item ${activeFaq === 'faq-4' ? 'active' : ''}`} data-testid="faq-item-4">
             <div className="faq-question" onClick={() => toggleFaq('faq-4')}>
-              <h4>위원회에 참여하려면 어떻게 하나요?</h4>
+              <h4>{t('tokenPrograms.daoGovernance.faq.q4')}</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>위원회 선거는 분기별로 진행됩니다. 후보 등록 후 커뮤니티 투표를 통해 선출됩니다. 최소 50,000 vTBURN을 보유하고 관련 분야 전문성을 입증해야 합니다. 기술, 재무, 생태계, 보안 4개 위원회가 운영됩니다.</p>
+              <p>{t('tokenPrograms.daoGovernance.faq.a4')}</p>
             </div>
           </div>
 
           <div className={`faq-item ${activeFaq === 'faq-5' ? 'active' : ''}`} data-testid="faq-item-5">
             <div className="faq-question" onClick={() => toggleFaq('faq-5')}>
-              <h4>투표 보상은 어떻게 지급되나요?</h4>
+              <h4>{t('tokenPrograms.daoGovernance.faq.q5')}</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>투표에 참여할 때마다 투표권 수량에 비례하여 보상이 지급됩니다. 기본 보상 10~50 TBURN, 보상은 투표 종료 후 24시간 이내에 청구 가능하며, 연속 10회 이상 참여 시 20% 보너스, 30회 이상 시 50% 보너스가 제공됩니다.</p>
+              <p>{t('tokenPrograms.daoGovernance.faq.a5')}</p>
             </div>
           </div>
 
           <div className={`faq-item ${activeFaq === 'faq-6' ? 'active' : ''}`} data-testid="faq-item-6">
             <div className="faq-question" onClick={() => toggleFaq('faq-6')}>
-              <h4>제안이 승인되면 어떤 보상을 받나요?</h4>
+              <h4>{t('tokenPrograms.daoGovernance.faq.q6')}</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>승인된 제안에 대해 최대 5,000 TBURN의 보상이 지급됩니다. 제안 유형에 따라 보상이 달라지며, 프로토콜 개선 제안은 2,000 TBURN, 생태계 확장 제안은 3,000 TBURN, 재무 관련 제안은 5,000 TBURN입니다. 구현 완료 시 추가 50% 보너스도 제공됩니다.</p>
+              <p>{t('tokenPrograms.daoGovernance.faq.a6')}</p>
             </div>
           </div>
 
           <div className={`faq-item ${activeFaq === 'faq-7' ? 'active' : ''}`} data-testid="faq-item-7">
             <div className="faq-question" onClick={() => toggleFaq('faq-7')}>
-              <h4>투표권 위임은 어떻게 하나요?</h4>
+              <h4>{t('tokenPrograms.daoGovernance.faq.q7')}</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>신뢰하는 대리인(Delegate)에게 투표권을 위임할 수 있습니다. 위임은 언제든지 취소 가능하며, 위임 중에도 본인이 직접 투표하면 위임이 해당 제안에 대해 무효화됩니다. 위임받은 투표권으로 투표해도 원본 보유자에게 보상이 지급됩니다.</p>
+              <p>{t('tokenPrograms.daoGovernance.faq.a7')}</p>
             </div>
           </div>
 
           <div className={`faq-item ${activeFaq === 'faq-8' ? 'active' : ''}`} data-testid="faq-item-8">
             <div className="faq-question" onClick={() => toggleFaq('faq-8')}>
-              <h4>정족수(Quorum)는 어떻게 결정되나요?</h4>
+              <h4>{t('tokenPrograms.daoGovernance.faq.q8')}</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>제안이 승인되려면 최소 4%의 총 투표권이 참여해야 합니다. 중요 프로토콜 변경은 10%, 재무 집행은 7%의 정족수가 필요합니다. 정족수 미달 시 제안은 자동으로 기각되며, 제안자는 1주 후 재제출할 수 있습니다.</p>
+              <p>{t('tokenPrograms.daoGovernance.faq.a8')}</p>
             </div>
           </div>
         </div>
@@ -1523,10 +1529,10 @@ export default function DAOGovernancePage() {
       {/* CTA Section */}
       <section className="cta-section" id="cta">
         <div style={{ maxWidth: '800px', margin: '0 auto' }}>
-          <h2 style={{ fontSize: '2.5rem', fontWeight: 800, marginBottom: '1rem' }}>거버넌스에 참여하세요!</h2>
+          <h2 style={{ fontSize: '2.5rem', fontWeight: 800, marginBottom: '1rem' }}>{t('tokenPrograms.daoGovernance.ctaSection.title')}</h2>
           <p style={{ color: 'rgba(255,255,255,0.8)', fontSize: '1.125rem', marginBottom: '2rem' }}>
-            TBURN Chain의 미래를 함께 결정하고<br />
-            8억 TBURN 보상을 받아가세요!
+            {t('tokenPrograms.daoGovernance.ctaSection.subtitle1')}<br />
+            {t('tokenPrograms.daoGovernance.ctaSection.subtitle2')}
           </p>
           <button 
             className="connect-btn" 
@@ -1534,10 +1540,10 @@ export default function DAOGovernancePage() {
             data-testid="button-cta-participate"
             onClick={() => { 
               scrollToSection('proposals'); 
-              toast({ title: "거버넌스 참여", description: "지금 활성화된 제안에서 투표해주세요!" }); 
+              toast({ title: t('tokenPrograms.daoGovernance.toast.participateTitle'), description: t('tokenPrograms.daoGovernance.toast.participateDesc') }); 
             }}
           >
-            지금 참여하기
+            {t('tokenPrograms.daoGovernance.ctaSection.button')}
           </button>
         </div>
       </section>
@@ -1547,7 +1553,7 @@ export default function DAOGovernancePage() {
         <div className="footer-content">
           <div className="footer-brand">
             <h3>TBURN<span>CHAIN</span></h3>
-            <p>AI의 지능, 블록체인의 투명성<br />THE FUTURE IS NOW</p>
+            <p>{t('tokenPrograms.daoGovernance.footer.tagline1')}<br />{t('tokenPrograms.daoGovernance.footer.tagline2')}</p>
             <div className="social-links">
               <a 
                 href="https://x.com/tburnchain" 
@@ -1572,42 +1578,42 @@ export default function DAOGovernancePage() {
             </div>
           </div>
           <div className="footer-links">
-            <h4>Product</h4>
+            <h4>{t('tokenPrograms.daoGovernance.footer.product')}</h4>
             <ul>
-              <li><a href="/" data-testid="footer-link-mainnet">메인넷</a></li>
-              <li><a href="/scan" data-testid="footer-link-explorer">익스플로러</a></li>
-              <li><a href="/app/bridge" data-testid="footer-link-bridge">브릿지</a></li>
-              <li><a href="/app/staking" data-testid="footer-link-staking">스테이킹</a></li>
+              <li><a href="/" data-testid="footer-link-mainnet">{t('tokenPrograms.daoGovernance.footer.mainnet')}</a></li>
+              <li><a href="/scan" data-testid="footer-link-explorer">{t('tokenPrograms.daoGovernance.footer.explorer')}</a></li>
+              <li><a href="/app/bridge" data-testid="footer-link-bridge">{t('tokenPrograms.daoGovernance.footer.bridge')}</a></li>
+              <li><a href="/app/staking" data-testid="footer-link-staking">{t('tokenPrograms.daoGovernance.footer.staking')}</a></li>
             </ul>
           </div>
           <div className="footer-links">
-            <h4>Resources</h4>
+            <h4>{t('tokenPrograms.daoGovernance.footer.resources')}</h4>
             <ul>
-              <li><a href="/learn/whitepaper" data-testid="footer-link-whitepaper">백서</a></li>
-              <li><a href="/developers/docs" data-testid="footer-link-docs">문서</a></li>
+              <li><a href="/learn/whitepaper" data-testid="footer-link-whitepaper">{t('tokenPrograms.daoGovernance.footer.whitepaper')}</a></li>
+              <li><a href="/developers/docs" data-testid="footer-link-docs">{t('tokenPrograms.daoGovernance.footer.docs')}</a></li>
               <li><a 
                 href="https://github.com/tburnchain" 
                 onClick={(e) => { e.preventDefault(); handleShareSocial('GitHub', 'https://github.com/tburnchain'); }}
                 data-testid="footer-link-github-resources"
               >GitHub</a></li>
-              <li><a href="/security-audit" data-testid="footer-link-audit">감사 보고서</a></li>
+              <li><a href="/security-audit" data-testid="footer-link-audit">{t('tokenPrograms.daoGovernance.footer.audit')}</a></li>
             </ul>
           </div>
           <div className="footer-links">
-            <h4>Community</h4>
+            <h4>{t('tokenPrograms.daoGovernance.footer.community')}</h4>
             <ul>
-              <li><a href="/community/news" data-testid="footer-link-blog">블로그</a></li>
-              <li><a href="/community-program" data-testid="footer-link-ambassador">앰배서더</a></li>
-              <li><a href="/community-program" data-testid="footer-link-grants">그랜트</a></li>
-              <li><a href="/qna" data-testid="footer-link-support">고객지원</a></li>
+              <li><a href="/community/news" data-testid="footer-link-blog">{t('tokenPrograms.daoGovernance.footer.blog')}</a></li>
+              <li><a href="/community-program" data-testid="footer-link-ambassador">{t('tokenPrograms.daoGovernance.footer.ambassador')}</a></li>
+              <li><a href="/community-program" data-testid="footer-link-grants">{t('tokenPrograms.daoGovernance.footer.grants')}</a></li>
+              <li><a href="/qna" data-testid="footer-link-support">{t('tokenPrograms.daoGovernance.footer.support')}</a></li>
             </ul>
           </div>
         </div>
         <div className="footer-bottom">
           <p>© 2025-2045 TBURN Foundation. All Rights Reserved.</p>
           <div style={{ display: 'flex', gap: '2rem' }}>
-            <a href="/legal/terms-of-service" style={{ color: 'var(--gray)', textDecoration: 'none' }} data-testid="footer-link-terms">이용약관</a>
-            <a href="/legal/privacy-policy" style={{ color: 'var(--gray)', textDecoration: 'none' }} data-testid="footer-link-privacy">개인정보처리방침</a>
+            <a href="/legal/terms-of-service" style={{ color: 'var(--gray)', textDecoration: 'none' }} data-testid="footer-link-terms">{t('tokenPrograms.daoGovernance.footer.terms')}</a>
+            <a href="/legal/privacy-policy" style={{ color: 'var(--gray)', textDecoration: 'none' }} data-testid="footer-link-privacy">{t('tokenPrograms.daoGovernance.footer.privacy')}</a>
           </div>
         </div>
       </footer>

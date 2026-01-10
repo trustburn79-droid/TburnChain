@@ -17663,6 +17663,182 @@
         "privacy": "Privacy Policy"
       }
     },
+    "daoGovernance": {
+      "nav": {
+        "proposals": "Propositions",
+        "process": "Processus",
+        "committees": "Comités",
+        "rewards": "Récompenses",
+        "faq": "FAQ",
+        "connectWallet": "Connecter Portefeuille"
+      },
+      "hero": {
+        "badge": "GOUVERNANCE DAO - Gouvernance Décentralisée",
+        "title1": "Décidez de l'Avenir du Protocole",
+        "title2": "800M TBURN",
+        "title3": "Récompenses de Gouvernance",
+        "subtitle": "Participez aux votes, soumettez des propositions et engagez-vous dans les activités des comités pour façonner la direction de TBURN Chain et gagner des récompenses!"
+      },
+      "stats": {
+        "totalProposals": "Propositions Totales",
+        "activeProposals": "Propositions Actives",
+        "totalVotes": "Votes Totaux",
+        "totalVotingPower": "Pouvoir de Vote Total (TBURN)"
+      },
+      "cta": {
+        "vote": "Participer au Vote",
+        "submitProposal": "Soumettre une Proposition",
+        "activeProposals": "Propositions Actives",
+        "activeProposalsDesc": "Veuillez voter sur les propositions actuellement actives.",
+        "comingSoon": "Fonctionnalité de soumission de proposition bientôt disponible."
+      },
+      "distribution": {
+        "badge": "DISTRIBUTION",
+        "title": "Distribution des Récompenses de Gouvernance",
+        "subtitle": "800M TBURN distribués en 4 catégories",
+        "voting": "Récompenses de Participation au Vote",
+        "votingAmount": "400M",
+        "proposal": "Récompenses de Proposition",
+        "proposalAmount": "160M",
+        "committee": "Récompenses de Comité",
+        "committeeAmount": "160M",
+        "treasury": "Réserve DAO",
+        "treasuryAmount": "80M"
+      },
+      "process": {
+        "badge": "PROCESSUS",
+        "title": "Processus de Gouvernance",
+        "subtitle": "Processus en 5 étapes de la proposition à l'exécution"
+      },
+      "processSteps": [
+        { "title": "Soumettre Proposition", "desc": "Tout le monde peut soumettre des propositions", "duration": "Min 10 000 vTBURN" },
+        { "title": "Période de Discussion", "desc": "Recueillir les commentaires de la communauté", "duration": "3 Jours" },
+        { "title": "Période de Vote", "desc": "Vote des détenteurs de tokens", "duration": "5 Jours" },
+        { "title": "Timelock", "desc": "Période d'attente d'exécution", "duration": "2 Jours" },
+        { "title": "Exécution", "desc": "Exécution automatique on-chain", "duration": "Immédiat" }
+      ],
+      "proposals": {
+        "badge": "PROPOSITIONS",
+        "title": "Propositions Actives",
+        "subtitle": "Participez aux votes actuellement actifs",
+        "deadline": "Date limite",
+        "proposer": "Proposant",
+        "voting": "Vote en cours",
+        "pending": "En attente",
+        "categories": {
+          "protocol": "Protocole",
+          "treasury": "Trésorerie",
+          "ecosystem": "Écosystème"
+        }
+      },
+      "proposalsData": [
+        { "title": "Ajustement des Récompenses de Staking", "desc": "Augmenter le taux de récompense annuel de staking de 12% à 15%" },
+        { "title": "Allocation du Fonds Écosystème", "desc": "Allouer 50M TBURN pour les partenariats de protocoles DeFi" },
+        { "title": "Expansion du Pont Cross-Chain", "desc": "Ajouter le support de pont pour les réseaux Polygon et Arbitrum" }
+      ],
+      "voting": {
+        "for": "Pour",
+        "against": "Contre",
+        "quorumRate": "Taux d'Atteinte du Quorum"
+      },
+      "committees": {
+        "badge": "COMITÉS",
+        "title": "Comités de Gouvernance",
+        "subtitle": "Discussions approfondies par les comités spécialisés",
+        "members": "Membres",
+        "processedProposals": "Révisions"
+      },
+      "committeesData": [
+        { "name": "Comité Technique", "desc": "Révision des mises à niveau du protocole" },
+        { "name": "Comité Financier", "desc": "Approbation des décaissements" },
+        { "name": "Comité Écosystème", "desc": "Partenariats et Subventions" },
+        { "name": "Comité Sécurité", "desc": "Audits de sécurité et réponse" }
+      ],
+      "rewards": {
+        "badge": "RÉCOMPENSES",
+        "title": "Récompenses de Participation à la Gouvernance",
+        "subtitle": "Participez à la gouvernance de diverses manières et recevez des récompenses"
+      },
+      "rewardsData": [
+        { "title": "Récompense de Participation au Vote", "amount": "10~50 TBURN par vote", "benefits": ["Récompense pour tous les votes de proposition", "Bonus basé sur le taux de participation", "Bonus de série de votes consécutifs", "Opportunité NFT de Gouvernance"] },
+        { "title": "Récompense de Proposition", "amount": "Jusqu'à 5 000 TBURN par proposition", "benefits": ["Récompense pour les propositions approuvées", "Bonus supplémentaire lors de l'implémentation", "Reconnaissance de contribution communautaire", "Inscription au Temple de la Renommée des Proposants"] },
+        { "title": "Récompense de Comité", "amount": "Jusqu'à 10 000 TBURN par mois", "benefits": ["Récompenses régulières pour les activités de comité", "Récompense supplémentaire par révision", "Bonus de fin de mandat", "Certification de leadership de gouvernance"] }
+      ],
+      "delegation": {
+        "badge": "DÉLÉGATION",
+        "title": "Délégation du Pouvoir de Vote",
+        "subtitle": "Déléguez votre pouvoir de vote à un représentant de confiance",
+        "topDelegates": "Top Délégués",
+        "votingPower": "Pouvoir de Vote"
+      },
+      "delegatesData": [
+        { "role": "Validateur" },
+        { "role": "Expert DeFi" },
+        { "role": "Communauté" }
+      ],
+      "faq": {
+        "badge": "FAQ",
+        "title": "Questions Fréquemment Posées",
+        "subtitle": "Questions sur la gouvernance",
+        "q1": "Quelle est l'allocation totale pour les récompenses de gouvernance DAO?",
+        "a1": "800M TBURN (8% de l'offre totale) est alloué au programme de gouvernance DAO. Distribution: Récompenses de participation au vote 50% (400M), Récompenses de proposition 20% (160M), Récompenses de comité 20% (160M), Réserve DAO 10% (80M).",
+        "q2": "Comment obtenir du pouvoir de vote (vTBURN)?",
+        "a2": "Stakez des tokens TBURN pour recevoir du pouvoir de vote (vTBURN). Les périodes de staking plus longues accordent plus de pouvoir de vote. Verrouillage d'1 semaine: ratio 1:1, verrouillage d'1 an: 2x, verrouillage de 4 ans: jusqu'à 4x pouvoir de vote.",
+        "q3": "Comment soumettre une proposition?",
+        "a3": "Vous avez besoin d'au moins 10 000 vTBURN pour soumettre une proposition. Après avoir rédigé la proposition et 3 jours de discussion sur le forum, elle passe au vote on-chain. Après 5 jours de vote, si approuvée à la majorité et avec quorum, elle s'exécute automatiquement après un timelock de 2 jours.",
+        "q4": "Comment rejoindre un comité?",
+        "a4": "Les élections de comité ont lieu trimestriellement. Après l'inscription des candidats, les membres sont élus par vote communautaire. Vous avez besoin d'au moins 50 000 vTBURN et devez démontrer une expertise dans le domaine concerné. Quatre comités fonctionnent: Technique, Finance, Écosystème et Sécurité.",
+        "q5": "Comment les récompenses de vote sont-elles distribuées?",
+        "a5": "Les récompenses sont distribuées proportionnellement à votre pouvoir de vote pour chaque vote. Récompense de base: 10-50 TBURN. Les récompenses sont réclamables dans les 24 heures suivant la fin du vote. 20% de bonus pour 10+ votes consécutifs, 50% de bonus pour 30+ votes consécutifs.",
+        "q6": "Quelles récompenses obtient-on pour les propositions approuvées?",
+        "a6": "Jusqu'à 5 000 TBURN de récompense pour les propositions approuvées. Les récompenses varient selon le type de proposition: Amélioration du protocole 2 000 TBURN, Expansion de l'écosystème 3 000 TBURN, Lié à la trésorerie 5 000 TBURN. 50% de bonus supplémentaire à l'achèvement de l'implémentation.",
+        "q7": "Comment déléguer le pouvoir de vote?",
+        "a7": "Vous pouvez déléguer le pouvoir de vote à un Délégué de confiance. La délégation peut être révoquée à tout moment. Si vous votez directement pendant la délégation, la délégation est invalidée pour cette proposition. Les récompenses vont toujours au détenteur original même si le pouvoir délégué est utilisé.",
+        "q8": "Comment le quorum est-il déterminé?",
+        "a8": "Au moins 4% du pouvoir de vote total doit participer pour qu'une proposition soit adoptée. Les changements importants du protocole nécessitent 10%, l'exécution de la trésorerie nécessite 7%. Si le quorum n'est pas atteint, la proposition est automatiquement rejetée et le proposant peut resoumettre après 1 semaine."
+      },
+      "ctaSection": {
+        "title": "Participez à la Gouvernance!",
+        "subtitle1": "Aidez à décider de l'avenir de TBURN Chain",
+        "subtitle2": "et gagnez 800M TBURN de récompenses!",
+        "button": "Participer Maintenant"
+      },
+      "footer": {
+        "tagline1": "L'Intelligence de l'IA, La Transparence de la Blockchain",
+        "tagline2": "L'AVENIR C'EST MAINTENANT",
+        "product": "Produit",
+        "mainnet": "Mainnet",
+        "explorer": "Explorateur",
+        "bridge": "Pont",
+        "staking": "Staking",
+        "resources": "Ressources",
+        "whitepaper": "Livre Blanc",
+        "docs": "Documentation",
+        "audit": "Rapport d'Audit",
+        "community": "Communauté",
+        "blog": "Blog",
+        "ambassador": "Ambassadeur",
+        "grants": "Subventions",
+        "support": "Support",
+        "terms": "Conditions d'Utilisation",
+        "privacy": "Politique de Confidentialité"
+      },
+      "toast": {
+        "disconnected": "Portefeuille Déconnecté",
+        "disconnectedDesc": "Le portefeuille a été déconnecté.",
+        "connected": "Portefeuille Connecté",
+        "connectedDesc": "Le portefeuille MetaMask a été connecté.",
+        "walletRequired": "Connexion de Portefeuille Requise",
+        "walletRequiredDesc": "Veuillez d'abord connecter votre portefeuille pour voter.",
+        "proposalWalletRequired": "Veuillez connecter votre portefeuille et avoir au moins 10 000 vTBURN pour soumettre une proposition.",
+        "voteFor": "Vote Pour Soumis",
+        "voteAgainst": "Vote Contre Soumis",
+        "voteSubmitted": "Votre vote {{voteType}} pour {{proposalId}} a été soumis.",
+        "navigating": "Navigation vers {{platform}}.",
+        "participateTitle": "Participation à la Gouvernance",
+        "participateDesc": "Veuillez voter sur les propositions actuellement actives!"
+      }
+    },
     "launchpad": {
       "title": "Launchpad",
       "subtitle": "Plateforme de lancement de tokens TBURN",

@@ -31896,6 +31896,182 @@
         "privacy": "개인정보처리방침"
       }
     },
+    "daoGovernance": {
+      "nav": {
+        "proposals": "제안",
+        "process": "프로세스",
+        "committees": "위원회",
+        "rewards": "보상",
+        "faq": "FAQ",
+        "connectWallet": "지갑 연결"
+      },
+      "hero": {
+        "badge": "DAO 거버넌스 - 탈중앙화 거버넌스",
+        "title1": "프로토콜의 미래를 결정하세요",
+        "title2": "800M TBURN",
+        "title3": "거버넌스 보상",
+        "subtitle": "투표 참여, 제안 제출, 위원회 활동 등 다양한 방법으로 TBURN Chain의 방향을 결정하고 보상을 받으세요!"
+      },
+      "stats": {
+        "totalProposals": "총 제안 수",
+        "activeProposals": "활성 제안",
+        "totalVotes": "총 투표 수",
+        "totalVotingPower": "총 투표권 (TBURN)"
+      },
+      "cta": {
+        "vote": "투표 참여하기",
+        "submitProposal": "제안 제출",
+        "activeProposals": "활성 제안",
+        "activeProposalsDesc": "현재 진행 중인 제안에 투표해 주세요.",
+        "comingSoon": "제안 제출 기능이 곧 제공될 예정입니다."
+      },
+      "distribution": {
+        "badge": "분배",
+        "title": "거버넌스 보상 분배",
+        "subtitle": "4가지 카테고리로 분배되는 800M TBURN",
+        "voting": "투표 참여 보상",
+        "votingAmount": "400M",
+        "proposal": "제안 보상",
+        "proposalAmount": "160M",
+        "committee": "위원회 보상",
+        "committeeAmount": "160M",
+        "treasury": "DAO 예비금",
+        "treasuryAmount": "80M"
+      },
+      "process": {
+        "badge": "프로세스",
+        "title": "거버넌스 프로세스",
+        "subtitle": "제안부터 실행까지 5단계 프로세스"
+      },
+      "processSteps": [
+        { "title": "제안 제출", "desc": "누구나 제안 가능", "duration": "최소 10,000 vTBURN" },
+        { "title": "토론 기간", "desc": "커뮤니티 피드백 수집", "duration": "3일" },
+        { "title": "투표 기간", "desc": "토큰 홀더 투표", "duration": "5일" },
+        { "title": "타임락", "desc": "실행 대기 기간", "duration": "2일" },
+        { "title": "실행", "desc": "자동 온체인 실행", "duration": "즉시" }
+      ],
+      "proposals": {
+        "badge": "제안",
+        "title": "활성 제안",
+        "subtitle": "현재 진행 중인 투표에 참여하세요",
+        "deadline": "마감",
+        "proposer": "제안자",
+        "voting": "투표 중",
+        "pending": "대기 중",
+        "categories": {
+          "protocol": "프로토콜",
+          "treasury": "재무",
+          "ecosystem": "생태계"
+        }
+      },
+      "proposalsData": [
+        { "title": "스테이킹 보상률 조정", "desc": "연간 스테이킹 보상률을 12%에서 15%로 상향" },
+        { "title": "생태계 펀드 배분", "desc": "DeFi 프로토콜 파트너십을 위한 50M TBURN 할당" },
+        { "title": "크로스체인 브릿지 확장", "desc": "Polygon, Arbitrum 네트워크 브릿지 지원 추가" }
+      ],
+      "voting": {
+        "for": "찬성",
+        "against": "반대",
+        "quorumRate": "정족수 달성률"
+      },
+      "committees": {
+        "badge": "위원회",
+        "title": "거버넌스 위원회",
+        "subtitle": "전문 분야별 위원회의 심층 논의",
+        "members": "멤버",
+        "processedProposals": "검토"
+      },
+      "committeesData": [
+        { "name": "기술 위원회", "desc": "프로토콜 업그레이드 검토" },
+        { "name": "재무 위원회", "desc": "자금 집행 승인" },
+        { "name": "생태계 위원회", "desc": "파트너십 및 그랜트" },
+        { "name": "보안 위원회", "desc": "보안 감사 및 대응" }
+      ],
+      "rewards": {
+        "badge": "보상",
+        "title": "거버넌스 참여 보상",
+        "subtitle": "다양한 방법으로 거버넌스에 참여하고 보상을 받으세요"
+      },
+      "rewardsData": [
+        { "title": "투표 참여 보상", "amount": "투표당 10~50 TBURN", "benefits": ["모든 제안 투표 시 보상", "참여율에 따른 보너스", "연속 투표 스트릭 보너스", "거버넌스 NFT 획득 기회"] },
+        { "title": "제안 보상", "amount": "제안당 최대 5,000 TBURN", "benefits": ["승인된 제안에 대한 보상", "실행 완료 시 추가 보너스", "커뮤니티 기여 인정", "제안자 명예의 전당 등재"] },
+        { "title": "위원회 보상", "amount": "월 최대 10,000 TBURN", "benefits": ["위원회 활동에 대한 정기 보상", "검토당 추가 보상", "임기 완료 보너스", "거버넌스 리더십 인증"] }
+      ],
+      "delegation": {
+        "badge": "위임",
+        "title": "투표권 위임",
+        "subtitle": "신뢰할 수 있는 대리인에게 투표권을 위임하세요",
+        "topDelegates": "상위 대리인",
+        "votingPower": "투표권"
+      },
+      "delegatesData": [
+        { "role": "밸리데이터" },
+        { "role": "DeFi 전문가" },
+        { "role": "커뮤니티" }
+      ],
+      "faq": {
+        "badge": "FAQ",
+        "title": "자주 묻는 질문",
+        "subtitle": "거버넌스에 관한 질문들",
+        "q1": "DAO 거버넌스 보상의 총 할당량은 얼마인가요?",
+        "a1": "800M TBURN(전체 공급량의 8%)이 DAO 거버넌스 프로그램에 할당됩니다. 분배: 투표 참여 보상 50% (400M), 제안 보상 20% (160M), 위원회 보상 20% (160M), DAO 예비금 10% (80M).",
+        "q2": "투표권(vTBURN)은 어떻게 얻나요?",
+        "a2": "TBURN 토큰을 스테이킹하면 투표권(vTBURN)을 받을 수 있습니다. 스테이킹 기간이 길수록 더 많은 투표권을 받습니다. 1주 락업: 1:1 비율, 1년 락업: 2배, 4년 락업: 최대 4배 투표권.",
+        "q3": "제안은 어떻게 제출하나요?",
+        "a3": "제안을 제출하려면 최소 10,000 vTBURN이 필요합니다. 제안서 작성 후 3일간 포럼 토론을 거쳐 온체인 투표로 진행됩니다. 5일간의 투표 후 과반 찬성과 정족수를 충족하면 2일 타임락 후 자동 실행됩니다.",
+        "q4": "위원회에는 어떻게 참여하나요?",
+        "a4": "위원회 선거는 분기별로 진행됩니다. 후보 등록 후 커뮤니티 투표로 선출됩니다. 최소 50,000 vTBURN이 필요하며 해당 분야의 전문성을 입증해야 합니다. 기술, 재무, 생태계, 보안 4개 위원회가 운영됩니다.",
+        "q5": "투표 보상은 어떻게 분배되나요?",
+        "a5": "투표 시 보유 투표권에 비례하여 보상이 분배됩니다. 기본 보상: 10-50 TBURN. 투표 종료 후 24시간 내 청구 가능합니다. 연속 10회 이상 투표 시 20% 보너스, 30회 이상 시 50% 보너스가 제공됩니다.",
+        "q6": "승인된 제안에 대해 어떤 보상을 받나요?",
+        "a6": "승인된 제안에 대해 최대 5,000 TBURN 보상이 제공됩니다. 제안 유형별로 다릅니다: 프로토콜 개선 2,000 TBURN, 생태계 확장 3,000 TBURN, 재무 관련 5,000 TBURN. 실행 완료 시 추가 50% 보너스가 제공됩니다.",
+        "q7": "투표권은 어떻게 위임하나요?",
+        "a7": "신뢰할 수 있는 Delegate에게 투표권을 위임할 수 있습니다. 위임은 언제든 철회 가능합니다. 위임 중에도 직접 투표하면 해당 제안에 대해 위임이 무효화됩니다. 위임된 투표권으로 투표해도 보상은 원래 소유자에게 돌아갑니다.",
+        "q8": "정족수는 어떻게 결정되나요?",
+        "a8": "제안 통과를 위해 최소 전체 투표권의 4%가 참여해야 합니다. 중요한 프로토콜 변경은 10%, 재무 집행은 7%가 필요합니다. 정족수 미달 시 제안은 자동 거부되며 1주 후 재제출 가능합니다."
+      },
+      "ctaSection": {
+        "title": "거버넌스에 참여하세요!",
+        "subtitle1": "TBURN Chain의 미래를 결정하는 데 참여하고",
+        "subtitle2": "800M TBURN 보상을 받으세요!",
+        "button": "지금 참여하기"
+      },
+      "footer": {
+        "tagline1": "AI의 지능, 블록체인의 투명성",
+        "tagline2": "THE FUTURE IS NOW",
+        "product": "제품",
+        "mainnet": "메인넷",
+        "explorer": "익스플로러",
+        "bridge": "브릿지",
+        "staking": "스테이킹",
+        "resources": "자료",
+        "whitepaper": "백서",
+        "docs": "문서",
+        "audit": "감사 보고서",
+        "community": "커뮤니티",
+        "blog": "블로그",
+        "ambassador": "앰버서더",
+        "grants": "그랜트",
+        "support": "고객지원",
+        "terms": "이용약관",
+        "privacy": "개인정보처리방침"
+      },
+      "toast": {
+        "disconnected": "지갑 연결 해제됨",
+        "disconnectedDesc": "지갑 연결이 해제되었습니다.",
+        "connected": "지갑 연결됨",
+        "connectedDesc": "MetaMask 지갑이 연결되었습니다.",
+        "walletRequired": "지갑 연결 필요",
+        "walletRequiredDesc": "투표하려면 먼저 지갑을 연결해 주세요.",
+        "proposalWalletRequired": "제안을 제출하려면 지갑을 연결하고 최소 10,000 vTBURN이 필요합니다.",
+        "voteFor": "찬성 투표 제출됨",
+        "voteAgainst": "반대 투표 제출됨",
+        "voteSubmitted": "{{proposalId}}에 대한 {{voteType}} 투표가 제출되었습니다.",
+        "navigating": "{{platform}}(으)로 이동합니다.",
+        "participateTitle": "거버넌스 참여",
+        "participateDesc": "현재 진행 중인 제안에 투표해 주세요!"
+      }
+    },
     "launchpad": {
       "title": "런치패드",
       "subtitle": "TBURN 토큰 런치 플랫폼",
