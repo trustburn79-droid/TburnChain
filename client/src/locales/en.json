@@ -14217,11 +14217,6 @@
           "storage": "Storage: 1TB NVMe SSD",
           "bandwidth": "Bandwidth: 1Gbps"
         },
-        "slashingSection": {
-          "badge": "SLASHING",
-          "title": "Slashing Rules",
-          "subtitle": "Penalty system for network security"
-        },
         "slashing": {
           "title": "Slashing Conditions",
           "subtitle": "Validators must maintain high standards. Violations result in stake penalties.",
@@ -15682,6 +15677,8 @@
             "description": "Exclusive airdrop for active community members. Complete tasks to earn rewards!"
           }
         }
+      },
+      "hero": {
         "tag": "Community",
         "title": "Join the",
         "titleHighlight": "Community",
@@ -16534,6 +16531,7 @@
       }
     },
     "about": {
+      "hero": {
         "tag": "About TBurn",
         "title": "Building the",
         "titleHighlight": "Future",
@@ -16590,6 +16588,7 @@
       }
     },
     "contact": {
+      "hero": {
         "title": "Contact",
         "titleHighlight": "Us",
         "subtitle": "Get in touch with our team."
@@ -16625,6 +16624,7 @@
       }
     },
     "features": {
+      "hero": {
         "tag": "Features",
         "title": "Powerful",
         "titleHighlight": "Features",
@@ -16653,6 +16653,7 @@
       }
     },
     "economics": {
+      "hero": {
         "tag": "Economics",
         "title": "Token",
         "titleHighlight": "Economics",
@@ -29593,11 +29594,6 @@
           "stateTree": "State Tree",
           "quantumResistant": "Quantum-Resistant"
         },
-        "slashingSection": {
-          "badge": "SLASHING",
-          "title": "Slashing Rules",
-          "subtitle": "Penalty system for network security"
-        },
         "slashing": {
           "title": "Slashing Conditions",
           "doubleSigning": "Double Signing",
@@ -30795,478 +30791,26 @@
       }
     },
     "daoGovernance": {
-      "nav": {
-        "proposals": "Proposals",
-        "process": "Process",
-        "committees": "Committees",
-        "rewards": "Rewards",
-        "faq": "FAQ",
-        "connectWallet": "Connect Wallet"
-        "badge": "DAO GOVERNANCE - Decentralized Governance",
-        "title1": "Decide the Future of the Protocol",
-        "title2": "800M TBURN",
-        "title3": "Governance Rewards",
-        "subtitle": "Participate in voting, submit proposals, and engage in committee activities to shape the direction of TBURN Chain and earn rewards!"
-      },
-      "stats": {
-        "totalProposals": "Total Proposals",
-        "activeProposals": "Active Proposals",
-        "totalVotes": "Total Votes",
-        "totalVotingPower": "Total Voting Power (TBURN)"
-      },
-      "cta": {
-        "vote": "Participate in Voting",
-        "submitProposal": "Submit Proposal",
-        "activeProposals": "Active Proposals",
-        "activeProposalsDesc": "Please vote on currently active proposals.",
-        "comingSoon": "Proposal submission feature coming soon."
-      },
-      "distribution": {
-        "badge": "DISTRIBUTION",
-        "title": "Governance Reward Distribution",
-        "subtitle": "800M TBURN distributed across 4 categories",
-        "voting": "Voting Participation Rewards",
-        "votingAmount": "400M",
-        "proposal": "Proposal Rewards",
-        "proposalAmount": "160M",
-        "committee": "Committee Rewards",
-        "committeeAmount": "160M",
-        "treasury": "DAO Reserve",
-        "treasuryAmount": "80M"
-      },
-      "process": {
-        "badge": "PROCESS",
-        "title": "Governance Process",
-        "subtitle": "5-step process from proposal to execution"
-      },
-      "processSteps": [
-        {
-          "title": "Submit Proposal",
-          "desc": "Anyone can submit proposals",
-          "duration": "Min 10,000 vTBURN"
-        },
-        {
-          "title": "Discussion Period",
-          "desc": "Collect community feedback",
-          "duration": "3 Days"
-        },
-        {
-          "title": "Voting Period",
-          "desc": "Token holder voting",
-          "duration": "5 Days"
-        },
-        {
-          "title": "Timelock",
-          "desc": "Execution waiting period",
-          "duration": "2 Days"
-        },
-        {
-          "title": "Execution",
-          "desc": "Automatic on-chain execution",
-          "duration": "Immediate"
-        }
-      ],
-      "proposals": {
-        "badge": "PROPOSALS",
-        "title": "Active Proposals",
-        "subtitle": "Participate in currently active votes",
-        "deadline": "Deadline",
-        "proposer": "Proposer",
-        "voting": "Voting",
-        "pending": "Pending",
-        "categories": {
-          "protocol": "Protocol",
-          "treasury": "Treasury",
-          "ecosystem": "Ecosystem"
-        }
-      },
-      "proposalsData": [
-        {
-          "title": "Staking Reward Adjustment",
-          "desc": "Increase annual staking reward rate from 12% to 15%"
-        },
-        {
-          "title": "Ecosystem Fund Allocation",
-          "desc": "Allocate 50M TBURN for DeFi protocol partnerships"
-        },
-        {
-          "title": "Cross-Chain Bridge Expansion",
-          "desc": "Add Polygon, Arbitrum network bridge support"
-        }
-      ],
-      "voting": {
-        "for": "For",
-        "against": "Against",
-        "quorumRate": "Quorum Achievement Rate"
-      },
-      "committees": {
-        "badge": "COMMITTEES",
-        "title": "Governance Committees",
-        "subtitle": "In-depth discussions by specialized field committees",
-        "members": "Members",
-        "processedProposals": "Reviews"
-      },
-      "committeesData": [
-        {
-          "name": "Technical Committee",
-          "desc": "Protocol upgrade review"
-        },
-        {
-          "name": "Finance Committee",
-          "desc": "Fund disbursement approval"
-        },
-        {
-          "name": "Ecosystem Committee",
-          "desc": "Partnerships & Grants"
-        },
-        {
-          "name": "Security Committee",
-          "desc": "Security audits and response"
-        }
-      ],
-      "rewards": {
-        "badge": "REWARDS",
-        "title": "Governance Participation Rewards",
-        "subtitle": "Participate in governance in various ways and receive rewards"
-      },
-      "rewardsData": [
-        {
-          "title": "Voting Participation Reward",
-          "amount": "10~50 TBURN per vote",
-          "benefits": [
-            "Reward for all proposal votes",
-            "Bonus based on participation rate",
-            "Consecutive voting streak bonus",
-            "Governance NFT opportunity"
-          ]
-        },
-        {
-          "title": "Proposal Reward",
-          "amount": "Up to 5,000 TBURN per proposal",
-          "benefits": [
-            "Reward for approved proposals",
-            "Additional bonus upon implementation",
-            "Community contribution recognition",
-            "Proposer Hall of Fame listing"
-          ]
-        },
-        {
-          "title": "Committee Reward",
-          "amount": "Up to 10,000 TBURN per month",
-          "benefits": [
-            "Regular rewards for committee activities",
-            "Additional reward per review",
-            "Term completion bonus",
-            "Governance leadership certification"
-          ]
-        }
-      ],
-      "delegation": {
-        "badge": "DELEGATION",
-        "title": "Voting Power Delegation",
-        "subtitle": "Delegate your voting power to a trusted representative",
-        "topDelegates": "Top Delegates",
-        "votingPower": "Voting Power"
-      },
-      "delegatesData": [
-        {
-          "role": "Validator"
-        },
-        {
-          "role": "DeFi Expert"
-        },
-        {
-          "role": "Community"
-        }
-      ],
-      "faq": {
-        "badge": "FAQ",
-        "title": "Frequently Asked Questions",
-        "subtitle": "Questions about governance",
-        "q1": "What is the total allocation for DAO governance rewards?",
-        "a1": "800M TBURN (8% of total supply) is allocated to the DAO governance program. Distribution: Voting participation rewards 50% (400M), Proposal rewards 20% (160M), Committee rewards 20% (160M), DAO reserve 10% (80M).",
-        "q2": "How do I get voting power (vTBURN)?",
-        "a2": "Stake TBURN tokens to receive voting power (vTBURN). Longer staking periods grant more voting power. 1-week lock: 1:1 ratio, 1-year lock: 2x, 4-year lock: up to 4x voting power.",
-        "q3": "How do I submit a proposal?",
-        "a3": "You need at least 10,000 vTBURN to submit a proposal. After writing the proposal and 3 days of forum discussion, it goes to on-chain voting. After 5 days of voting, if passed with majority approval and quorum, it executes automatically after a 2-day timelock.",
-        "q4": "How do I join a committee?",
-        "a4": "Committee elections are held quarterly. After candidate registration, members are elected through community voting. You need at least 50,000 vTBURN and must demonstrate expertise in the relevant field. Four committees operate: Technical, Finance, Ecosystem, and Security.",
-        "q5": "How are voting rewards distributed?",
-        "a5": "Rewards are distributed proportionally to your voting power for each vote. Base reward: 10-50 TBURN. Rewards are claimable within 24 hours after voting ends. 20% bonus for 10+ consecutive votes, 50% bonus for 30+ consecutive votes.",
-        "q6": "What rewards do I get for approved proposals?",
-        "a6": "Up to 5,000 TBURN reward for approved proposals. Rewards vary by proposal type: Protocol improvement 2,000 TBURN, Ecosystem expansion 3,000 TBURN, Treasury-related 5,000 TBURN. Additional 50% bonus upon implementation completion.",
-        "q7": "How do I delegate voting power?",
-        "a7": "You can delegate voting power to a trusted Delegate. Delegation can be revoked anytime. If you vote directly while delegating, the delegation is invalidated for that proposal. Rewards still go to the original holder even if the delegated power is used.",
-        "q8": "How is quorum determined?",
-        "a8": "At least 4% of total voting power must participate for a proposal to pass. Important protocol changes require 10%, treasury execution requires 7%. If quorum is not met, the proposal is automatically rejected, and the proposer can resubmit after 1 week."
-      },
-      "ctaSection": {
-        "title": "Participate in Governance!",
-        "subtitle1": "Help decide the future of TBURN Chain",
-        "subtitle2": "and earn 800M TBURN rewards!",
-        "button": "Participate Now"
-      },
-      "footer": {
-        "tagline1": "The Intelligence of AI, The Transparency of Blockchain",
-        "tagline2": "THE FUTURE IS NOW",
-        "product": "Product",
-        "mainnet": "Mainnet",
-        "explorer": "Explorer",
-        "bridge": "Bridge",
-        "staking": "Staking",
-        "resources": "Resources",
-        "whitepaper": "Whitepaper",
-        "docs": "Documentation",
-        "audit": "Audit Report",
-        "community": "Community",
-        "blog": "Blog",
-        "ambassador": "Ambassador",
-        "grants": "Grants",
-        "support": "Support",
-        "terms": "Terms of Service",
-        "privacy": "Privacy Policy"
-      },
-      "toast": {
-        "disconnected": "Wallet Disconnected",
-        "disconnectedDesc": "Wallet has been disconnected.",
-        "connected": "Wallet Connected",
-        "connectedDesc": "MetaMask wallet has been connected.",
-        "walletRequired": "Wallet Connection Required",
-        "walletRequiredDesc": "Please connect your wallet first to vote.",
-        "proposalWalletRequired": "Please connect your wallet and have at least 10,000 vTBURN to submit a proposal.",
-        "voteFor": "Vote For Submitted",
-        "voteAgainst": "Vote Against Submitted",
-        "voteSubmitted": "Your {{voteType}} vote for {{proposalId}} has been submitted.",
-        "navigating": "Navigating to {{platform}}.",
-        "participateTitle": "Governance Participation",
-        "participateDesc": "Please vote on currently active proposals!"
-      }
+      "title": "DAO Governance",
+      "subtitle": "Participate in decentralized governance and shape the future of TBURN",
+      "heroTitle": "TBURN DAO Governance",
+      "heroSubtitle": "Your voice matters. Vote on proposals and guide the protocol development",
+      "badge": "Decentralized Governance",
+      "governanceToken": "Governance Token",
+      "totalVotingPower": "Total Voting Power",
+      "activeProposals": "Active Proposals",
+      "passedProposals": "Passed Proposals",
+      "treasury": "Treasury",
+      "votingPower": "Voting Power",
+      "delegate": "Delegate",
+      "createProposal": "Create Proposal",
+      "vote": "Vote",
+      "proposals": "Proposals",
+      "delegation": "Delegation",
+      "quorum": "Quorum",
+      "votingPeriod": "Voting Period"
     },
     "blockRewards": {
-      "nav": {
-        "validators": "Validators",
-        "halving": "Halving",
-        "calculator": "Calculator",
-        "slashing": "Slashing",
-        "faq": "FAQ",
-        "connectWallet": "Connect Wallet"
-        "badge": "Block Rewards",
-        "title1": "TBURN",
-        "title2": "Block Rewards",
-        "title3": "Program",
-        "subtitle": "Earn TBURN by validating the network. Join the decentralized security system and receive rewards."
-      },
-      "stats": {
-        "activeValidators": "Active Validators",
-        "tps": "TPS",
-        "blockTime": "Block Time",
-        "shards": "Shards",
-        "networkUptime": "Network Uptime",
-        "distributedRewards": "Distributed Rewards",
-        "currentBlockReward": "Current Block Reward",
-        "nextHalvingBlock": "Next Halving Block",
-        "validatorDistribution": "Validator Distribution"
-      },
-      "cta": {
-        "becomeValidator": "Become a Validator",
-        "viewHalving": "View Halving Schedule"
-      },
-      "distribution": {
-        "badge": "Distribution",
-        "title": "Block Reward Distribution",
-        "subtitle": "How block rewards are distributed among participants",
-        "blockReward": "Block Reward",
-        "blockRewardAmount": "1.45B TBURN",
-        "blockRewardPercent": "70%",
-        "delegatorReward": "Delegator Reward",
-        "delegatorRewardAmount": "465M TBURN",
-        "delegatorRewardPercent": "22.5%",
-        "performanceBonus": "Performance Bonus",
-        "performanceBonusAmount": "101.5M TBURN",
-        "performanceBonusPercent": "7%",
-        "reserveFund": "Reserve Fund",
-        "reserveFundAmount": "10M TBURN",
-        "reserveFundPercent": "0.5%"
-      },
-      "halving": {
-        "amounts": {
-          "year1": "100 TBURN/block",
-          "year5": "50 TBURN/block",
-          "year9": "25 TBURN/block",
-          "year13": "12.5 TBURN/block",
-          "year17": "6.25 TBURN/block"
-        },
-        "badge": "Halving Schedule",
-        "title": "20-Year Halving Roadmap",
-        "subtitle": "Block rewards decrease by 50% every 4 years",
-        "roadmapTitle": "Halving Roadmap",
-        "roadmapDesc": "TBURN block rewards follow a 20-year halving schedule",
-        "year1": "Year 1-4: 100 TBURN/block",
-        "year2": "Year 5-8: 50 TBURN/block",
-        "year3": "Year 9-12: 25 TBURN/block",
-        "year4": "Year 13-16: 12.5 TBURN/block",
-        "year5": "Year 17-20: 6.25 TBURN/block"
-      },
-      "validators": {
-        "badge": "Validators",
-        "title": "Become a Validator",
-        "subtitle": "Choose the validator type that fits you",
-        "expectedApy": "Expected APY",
-        "getStarted": "Get Started",
-        "connectWallet": "Connect Wallet",
-        "recommended": "Recommended"
-      },
-      "validatorTypes": {
-        "full": {
-          "title": "Full Node",
-          "subtitle": "Run a complete validation node",
-          "req1": "16 Core CPU",
-          "req2": "64GB RAM",
-          "req3": "2TB NVMe SSD",
-          "req4": "1Gbps Network"
-        },
-        "light": {
-          "title": "Light Node",
-          "subtitle": "Run a lightweight validation node",
-          "req1": "4 Core CPU",
-          "req2": "16GB RAM",
-          "req3": "500GB SSD",
-          "req4": "100Mbps Network"
-        },
-        "delegate": {
-          "title": "Delegate",
-          "subtitle": "Delegate your stake to validators",
-          "req1": "No hardware required",
-          "req2": "Minimum 100 TBURN",
-          "req3": "Wallet connection",
-          "req4": "Choose reliable validator"
-        }
-      },
-      "calculator": {
-        "badge": "Calculator",
-        "title": "Reward Calculator",
-        "subtitle": "Estimate your potential rewards",
-        "stakingInput": "Staking Amount",
-        "stakingAmount": "Enter TBURN amount",
-        "estimatedRewards": "Estimated Rewards",
-        "dailyReward": "Daily Reward",
-        "monthlyReward": "Monthly Reward",
-        "yearlyReward": "Yearly Reward"
-      },
-      "slashingSection": {
-        "badge": "SLASHING",
-        "title": "Slashing Rules",
-        "subtitle": "Penalty system for network security"
-      },
-      "slashing": {
-        "badge": "Slashing",
-        "title": "Slashing Conditions",
-        "subtitle": "Penalties for validator misconduct",
-        "minor": {
-          "title": "Minor Violation",
-          "penalty": "0.1% Slash",
-          "desc": "Minor infractions with minimal penalties",
-          "ex1": "Missed blocks (< 10)",
-          "ex2": "Brief offline periods",
-          "ex3": "Minor sync delays"
-        },
-        "major": {
-          "title": "Major Violation",
-          "penalty": "1% Slash",
-          "desc": "Significant violations with moderate penalties",
-          "ex1": "Extended downtime (> 24h)",
-          "ex2": "Repeated minor violations",
-          "ex3": "Node misconfiguration"
-        },
-        "critical": {
-          "title": "Critical Violation",
-          "penalty": "10% Slash + Jail",
-          "desc": "Severe violations with maximum penalties",
-          "ex1": "Double signing",
-          "ex2": "Malicious behavior",
-          "ex3": "Consensus attacks"
-        }
-      },
-      "activeValidators": {
-        "badge": "Active Validators",
-        "title": "Top Validators",
-        "subtitle": "Leading validators on the network",
-        "topValidators": "Top Validators",
-        "validator": "Validator",
-        "staking": "Staking",
-        "commission": "Commission",
-        "uptime": "Uptime",
-        "status": "Status",
-        "delegate": "Delegate",
-        "delegateBtn": "Delegate",
-        "active": "Active"
-      },
-      "faq": {
-        "badge": "FAQ",
-        "title": "Frequently Asked Questions",
-        "subtitle": "Common questions about block rewards",
-        "q1": "What are block rewards?",
-        "a1": "Block rewards are TBURN tokens distributed to validators and delegators for securing the network. Validators who produce blocks receive rewards, and delegators earn a portion based on their staked amount.",
-        "q2": "How much can I earn as a validator?",
-        "a2": "Validator earnings depend on your stake amount, network participation, and uptime. With the current reward rate, validators can expect 15-25% APY on their staked TBURN.",
-        "q3": "What is the halving schedule?",
-        "a3": "TBURN follows a 20-year halving schedule where block rewards are reduced by 50% every 4 years. This ensures a controlled supply and long-term value appreciation.",
-        "q4": "How do I become a validator?",
-        "a4": "To become a validator, you need to meet the hardware requirements, stake the minimum required TBURN, and register your node on the network. Follow our validator setup guide for detailed instructions.",
-        "q5": "What is delegation?",
-        "a5": "Delegation allows you to stake your TBURN with an existing validator without running your own node. You earn rewards proportional to your stake, minus the validator's commission fee.",
-        "q6": "What are the delegation fees?",
-        "a6": "Each validator sets their own commission rate, typically between 5-10%. Lower fees mean higher returns for delegators, but also consider the validator's uptime and reliability.",
-        "q7": "How do I earn performance bonuses?",
-        "a7": "Performance bonuses (7%, 101.5M TBURN) are awarded to validators based on their performance metrics. Maintaining 99.9%+ uptime, zero block delays, and high network contribution qualifies for additional rewards.",
-        "q8": "What are the hardware requirements?",
-        "a8": "Full nodes require 16-core CPU, 64GB RAM, 2TB NVMe SSD, and 1Gbps network. Light nodes require 4-core CPU, 16GB RAM, 500GB SSD. Cloud services (AWS, GCP, Azure) or dedicated servers are both supported."
-      },
-      "ctaSection": {
-        "title": "Become a Validator!",
-        "desc1": "Contribute to TBURN Chain network security",
-        "desc2": "and earn 1.45B TBURN block rewards!",
-        "startNow": "Start Now"
-      },
-      "footer": {
-        "tagline1": "AI Intelligence, Blockchain Transparency",
-        "tagline2": "THE FUTURE IS NOW",
-        "product": "Product",
-        "mainnet": "Mainnet",
-        "explorer": "Explorer",
-        "bridge": "Bridge",
-        "staking": "Staking",
-        "resources": "Resources",
-        "whitepaper": "Whitepaper",
-        "docs": "Documentation",
-        "audit": "Audit Report",
-        "community": "Community",
-        "blog": "Blog",
-        "ambassador": "Ambassador",
-        "grants": "Grants",
-        "support": "Support",
-        "terms": "Terms of Service",
-        "privacy": "Privacy Policy"
-      },
-      "toast": {
-        "walletConnected": "Wallet Connected",
-        "walletConnectedDesc": "MetaMask wallet connected successfully.",
-        "walletDisconnected": "Wallet Disconnected",
-        "walletDisconnectedDesc": "Wallet has been disconnected.",
-        "walletRequired": "Wallet Required",
-        "walletRequiredDesc": "Please connect your wallet first to perform this action.",
-        "validatorTypes": "Validator Types",
-        "validatorTypesDesc": "Choose the validator type that best fits your needs.",
-        "halvingSchedule": "Halving Schedule",
-        "halvingScheduleDesc": "View the 20-year halving schedule for block rewards.",
-        "validatorStart": "Start Validating",
-        "validatorStartDesc": "Begin your journey as a TBURN validator.",
-        "navigatingTo": "Navigating to",
-        "applicationSubmitted": "Application Submitted",
-        "applicationSubmittedDesc": "Your validator application has been submitted successfully.",
-        "delegationSubmitted": "Delegation Submitted",
-        "delegationSubmittedDesc": "Your delegation has been submitted successfully."
-      },
       "title": "Block Rewards",
       "subtitle": "Earn rewards by participating in block production and network security",
       "heroTitle": "TBURN Block Rewards",
@@ -31294,175 +30838,11 @@
       "performanceBonus": "Performance Bonus",
       "uptimeRequirement": "Uptime Requirement",
       "slashingPenalty": "Slashing Penalty",
-      "applyValidator": "Apply as Validator",
-      "nav": {
-        "tiers": "Tiers",
-        "loyalty": "Loyalty Rewards",
-        "performance": "Performance Rewards",
-        "leaderboard": "Leaderboard"
-      },
-      "wallet": {
-        "connect": "Connect Wallet",
-        "disconnect": "Disconnect",
-        "disconnected": "Wallet disconnected.",
-        "disconnectTitle": "Wallet Disconnected",
-        "connected": "Connected",
-        "connectedTitle": "Wallet Connected",
-        "connectedDesc": "MetaMask wallet has been connected.",
-        "required": "Wallet Required",
-        "requiredDesc": "Please connect your wallet first to apply as a validator.",
-        "selectTier": "Tier Selection",
-        "selectTierDesc": "Choose the validator tier that suits you best."
-      },
-      "apply": {
-        "complete": "Application Complete",
-        "completeDesc": "Your {{tierName}} validator application has been submitted. We will notify you after review.",
-        "applyNow": "Apply Now",
-        "checkLoyalty": "Check Loyalty Rewards",
-        "learnMore": "Learn More",
-        "joinNow": "Join Now",
-        "loyaltyRewards": "Loyalty Reward System",
-        "loyaltyRewardsDesc": "Check out the long-term staking reward system."
-      },
-      "distributions": {
-        "earlybird": "Early Bird Bonus",
-        "loyalty": "Long-term Loyalty Rewards",
-        "performance": "Performance Incentives",
-        "growth": "Network Growth",
-        "governance": "Governance Bonus"
-      },
-      "amounts": {
-        "225m": "225M",
-        "187m": "187.5M",
-        "150m": "150M",
-        "112m": "112.5M",
-        "75m": "75M"
-      },
-      "tiers": {
-        "genesis": {
-          "name": "Genesis Validator",
-          "range": "1st~25th",
-          "benefit1": "100% Early Bird Bonus",
-          "benefit2": "Exclusive Genesis NFT Badge",
-          "benefit3": "Lifetime 0% Fee",
-          "benefit4": "2x Governance Voting Power",
-          "benefit5": "VIP Channel Access",
-          "badge": "Premium"
-        },
-        "pioneer": {
-          "name": "Pioneer Validator",
-          "range": "26th~75th",
-          "benefit1": "75% Early Bird Bonus",
-          "benefit2": "Pioneer NFT Badge",
-          "benefit3": "0.5% Fee Discount",
-          "benefit4": "1.5x Governance Voting Power",
-          "benefit5": "Early Access",
-          "badge": "Recommended"
-        },
-        "early": {
-          "name": "Early Validator",
-          "range": "76th~125th",
-          "benefit1": "50% Early Bird Bonus",
-          "benefit2": "Early NFT Badge",
-          "benefit3": "1% Fee Discount",
-          "benefit4": "1.25x Governance Voting Power",
-          "benefit5": "Community Leader Recognition",
-          "badge": "Open"
-        },
-        "participant": "Participant",
-        "earlybirdBonus": "Early Bird Bonus"
-      },
-      "loyalty": {
-        "year1": "1 Year",
-        "year2": "2 Years",
-        "year3": "3 Years",
-        "year4plus": "4+ Years",
-        "basic": "Basic Loyalty Bonus",
-        "silver": "Silver Membership",
-        "gold": "Gold Membership",
-        "diamond": "Diamond Membership",
-        "title": "Loyalty Multiplier",
-        "subtitle": "Rewards increase with staking duration"
-      },
-      "performance": {
-        "uptime": {
-          "title": "Uptime Bonus",
-          "subtitle": "Stable network operation"
-        },
-        "blocks": {
-          "title": "Block Production Bonus",
-          "subtitle": "Efficient block generation",
-          "top10": "Top 10%",
-          "top30": "Top 30%",
-          "top50": "Top 50%"
-        },
-        "clean": {
-          "title": "No-Violation Bonus",
-          "subtitle": "Zero slashing record",
-          "year1": "1 Year No Violation",
-          "months6": "6 Months No Violation",
-          "months3": "3 Months No Violation"
-        }
-      },
-      "leaderboard": {
-        "rank": "Rank",
-        "validator": "Validator",
-        "tier": "Tier",
-        "points": "Points",
-        "cumulativeRewards": "Cumulative Rewards"
-        "badge": "VALIDATOR INCENTIVES",
-        "title": "750M TBURN Incentives",
-        "titlePrefix": "For Validators",
-        "subtitle": "Early Bird Bonus, Long-term Loyalty Rewards, Performance Incentives and more! Become a TBURN Chain validator and earn up to 300% additional rewards!",
-        "earlyBirdTitle": "Early Bird Program Active!",
-        "earlyBirdSubtitle": "Join now for up to 100,000 TBURN bonus",
-      },
-      "stats": {
-        "totalValidators": "Total Validators",
-        "activeValidators": "Active Validators",
-        "totalStaked": "Total Staked (TBURN)",
-        "countdown": {
-          "days": "Days",
-          "hours": "Hours",
-          "mins": "Minutes",
-          "secs": "Seconds"
-        }
-      },
-      "sections": {
-        "distribution": "Incentive Distribution",
-        "tiers": "Early Validator Tiers",
-        "tiersSubtitle": "Differentiated rewards based on participation order",
-        "loyalty": "Long-term Loyalty Rewards",
-        "loyaltySubtitle": "More rewards for longer participation",
-        "performance": "Performance Incentives",
-        "performanceSubtitle": "Additional rewards for excellent performance",
-        "leaderboard": "Incentive Leaderboard",
-        "leaderboardSubtitle": "Validators with the most rewards"
-      },
-      "faq": {
-        "title": "FAQ",
-        "subtitle": "Questions about the incentive program",
-        "q1": "What is the total validator incentive allocation?",
-        "a1": "The validator incentive program has 750M TBURN (7.5% of total supply). It is distributed as: Early Bird Bonus 30% (225M), Long-term Loyalty 25% (187.5M), Performance Incentives 20% (150M), Network Growth 15% (112.5M), Governance Bonus 10% (75M).",
-        "q2": "How do I qualify for the Early Bird Bonus?",
-        "a2": "The Early Bird Bonus is awarded based on when you join. Genesis Validators (1st-25th) receive 100% bonus, Pioneer Validators (26th-75th) receive 75% bonus, and Early Validators (76th-125th) receive 50% bonus.",
-        "q3": "How are Performance Incentives calculated?",
-        "a3": "Performance Incentives are based on uptime (99.9%+ for Gold tier), block production efficiency (Top 10% for Gold tier), and clean record without slashing violations.",
-        "q4": "What is the Loyalty Multiplier?",
-        "a4": "The Loyalty Multiplier increases your rewards based on staking duration: 1.5x for 1 year, 2.0x for 2 years, 2.5x for 3 years, and 3.0x for 4+ years of continuous staking."
-      },
-      "footer": {
-        "rights": "All Rights Reserved",
-        "privacy": "Privacy Policy",
-        "terms": "Terms of Service",
-        "contact": "Contact Us"
-      },
-      "cta": {
-        "title": "Become a Validator Now!",
-        "subtitle": "Early bird slots are filling up fast! Join now and earn up to 750M TBURN incentives!",
-        "applyNow": "Apply Now"
-      },
-      "loading": "Loading validator incentives..."
+      "tiers": "Validator Tiers",
+      "genesis": "Genesis Validator",
+      "premium": "Premium Validator",
+      "standard": "Standard Validator",
+      "applyValidator": "Apply as Validator"
     },
     "ecosystemFund": {
       "title": "Ecosystem Fund",
@@ -31571,6 +30951,8 @@
         "investors": "Investors",
         "process": "Process",
         "faq": "FAQ"
+      },
+      "hero": {
         "badge": "SEED ROUND - Early Investor",
         "status": "Active",
         "title": "Invest in Seed Round",
@@ -31813,589 +31195,35 @@
       "connectWallet": "Investment Inquiry"
     },
     "privateRound": {
-      "nav": {
-        "tiers": "Investment Tiers",
-        "vesting": "Vesting",
-        "allocation": "Allocation",
-        "investors": "Investors",
-        "faq": "FAQ",
-        "connectWallet": "Institutional Inquiry"
-      },
-      "hero": {
-        "badge": "PRIVATE ROUND - Institutional Investment",
-        "status": "In Progress",
-        "title": "Seize the Opportunity with",
-        "titleHighlight": "1 Billion TBURN",
-        "titleSuffix": "Private Round Investment",
-        "subtitle": "For institutional investors, VCs, and family offices - 50% discount from launch price ($0.50) at $0.10. 5% immediate unlock at TGE.",
-        "progressRaised": "$72,000,000",
-        "progressGoal": "Goal $100,000,000",
-        "progressPercent": "72% Achieved",
-        "progressRemaining": "$28,000,000 remaining"
-      },
-      "highlights": {
-        "pricePerToken": "Price per Token",
-        "priceCompare": "+150% vs Seed",
-        "discountLaunch": "Discount vs Launch",
-        "tgeUnlock": "TGE Immediate Unlock",
-        "vestingPeriod": "Vesting Period"
-      },
-      "stats": {
-        "loading": "Loading...",
-        "privateAllocation": "Private Allocation (10%)",
-        "tokenPrice": "Token Price",
-        "hardcap": "Hardcap",
-        "institutionalInvestors": "Institutional Investors"
-      },
-      "cta": {
-        "applyPrivate": "Apply for Private Investment",
-        "viewDeck": "View Investment Deck"
-      },
-      "comparison": {
-        "badge": "COMPARISON",
-        "title": "Round Comparison",
-        "subtitle": "Private round offers middle-ground between seed and public",
-        "tableTitle": "Investment Round Comparison",
-        "round": "Round",
-        "tokenPrice": "Token Price",
-        "discount": "Discount",
-        "status": "Status",
-        "inProgress": "In Progress",
-        "completed": "Completed",
-        "upcoming": "Upcoming"
-      },
-      "tiers": {
-        "badge": "TIERS",
-        "title": "Investment Tiers",
-        "subtitle": "Tiered benefits based on institutional investment size",
-        "minInvestment": "Minimum Investment",
-        "minInvestmentLabel": "Minimum Investment",
-        "tokenPriceLabel": "Token Price",
-        "tgeUnlockLabel": "TGE Unlock",
-        "inquireBtn": "Investment Inquiry",
-        "institutional": {
-          "name": "Institutional",
-          "subtitle": "Institutional Investors",
-          "benefits": [
-            "Board Observer Seat",
-            "Monthly Executive Briefing",
-            "Exclusive Co-Investment Rights",
-            "Custom Vesting Negotiation",
-            "Dedicated IR Manager"
-          ]
-        },
-        "strategic": {
-          "name": "Strategic",
-          "subtitle": "Strategic Partners",
-          "benefits": [
-            "Quarterly Strategy Sessions",
-            "Partnership Priority",
-            "Technical Collaboration",
-            "Co-Marketing",
-            "Network Access"
-          ]
-        },
-        "growth": {
-          "name": "Growth",
-          "subtitle": "Growth Investors",
-          "benefits": [
-            "Quarterly Update Calls",
-            "Private Community",
-            "Governance Participation",
-            "Early Feature Access",
-            "Dedicated Support Channel"
-          ]
-        },
-        "standard": {
-          "name": "Standard",
-          "subtitle": "General Investors",
-          "benefits": [
-            "Monthly Investor Newsletter",
-            "Basic Governance Voting",
-            "Investor-Only Channel",
-            "General Allocation",
-            "Email Support"
-          ]
-        }
-      },
-      "vesting": {
-        "badge": "VESTING",
-        "title": "Vesting Schedule",
-        "subtitle": "5% TGE immediate unlock, 6-month cliff, 12-month linear vesting",
-        "tgeUnlock": "TGE Unlock",
-        "tgeDesc": "At Listing",
-        "cliffPeriod": "Cliff Period",
-        "cliffDesc": "Initial Lockup",
-        "monthlyVesting": "Monthly Vesting",
-        "monthlyDesc": "Over 12 Months",
-        "fullUnlock": "Full Unlock",
-        "fullUnlockDesc": "After 18 Months"
-      },
-      "allocation": {
-        "badge": "ALLOCATION",
-        "title": "Allocation by Investor Type",
-        "subtitle": "1 Billion TBURN Allocation Status",
-        "vcFunds": "VC & Funds",
-        "familyOffice": "Family Offices",
-        "strategicInvestors": "Strategic Investors",
-        "corporateInvestors": "Corporate Investors"
-      },
-      "investors": {
-        "badge": "INVESTORS",
-        "title": "Current Investors",
-        "subtitle": "Our Institutional Partners"
-      },
-      "process": {
-        "badge": "PROCESS",
-        "title": "Investment Process",
-        "subtitle": "Institutional Investment Procedure",
-        "inquiry": "Investment Inquiry",
-        "inquiryDesc": "Submit Letter of Intent",
-        "inquiryDuration": "1-3 days",
-        "dueDiligence": "Due Diligence",
-        "dueDiligenceDesc": "Company & Investor DD",
-        "dueDiligenceDuration": "1-2 weeks",
-        "negotiation": "Contract Negotiation",
-        "negotiationDesc": "Investment Terms Discussion",
-        "negotiationDuration": "1-2 weeks",
-        "funding": "Fund Transfer",
-        "fundingDesc": "Investment Transfer",
-        "fundingDuration": "3-5 days",
-        "tokenAllocation": "Token Allocation",
-        "tokenAllocationDesc": "Investment Confirmation",
-        "tokenAllocationDuration": "Immediate"
-      },
-      "benefits": {
-        "badge": "BENEFITS",
-        "title": "Private Round Advantages",
-        "subtitle": "Exclusive Benefits for Institutional Investors",
-        "excellentPrice": "Excellent Pricing",
-        "excellentPriceValue": "50%+ Discount",
-        "excellentPriceDesc": "Invest at half the public price",
-        "tgeLiquidity": "TGE Liquidity",
-        "tgeLiquidityValue": "5% Unlock",
-        "tgeLiquidityDesc": "Immediate liquidity at listing",
-        "strategicPartnership": "Strategic Partnership",
-        "strategicPartnershipValue": "Exclusive Benefits",
-        "strategicPartnershipDesc": "Close collaboration with project"
-      },
-      "faq": {
-        "badge": "FAQ",
-        "title": "Frequently Asked Questions",
-        "subtitle": "Questions about private investment",
-        "q1": {
-          "question": "What are the eligibility requirements and investment terms for the Private Round?",
-          "answer": "The Private Round is for qualified institutional investors (VCs, funds, family offices), corporate investors, and strategic partners. Minimum investment is $100,000 (Standard tier), with tiered pricing: $500,000+ (Growth), $2,000,000+ (Strategic), $5,000,000+ (Institutional). Higher tiers receive better token pricing and TGE unlock rates. All investors must pass KYC/AML verification and investor accreditation review."
-        },
-        "q2": {
-          "question": "What is the difference between Seed Round and Private Round?",
-          "answer": "Seed Round ($0.04/token, 80% discount) is complete with 12-month cliff + 24-month vesting. Private Round ($0.10/token, 50% discount) offers shorter lockup with 6-month cliff + 12-month vesting. Private investors also receive 5-7% TGE unlock for immediate liquidity at listing. Higher price but faster liquidity and institutional-grade benefits."
-        },
-        "q3": {
-          "question": "How does the vesting schedule and TGE unlock work?",
-          "answer": "At TGE (Token Generation Event), 5% of investment tokens unlock immediately. Institutional tier gets up to 7%, Strategic tier 6%. Following is a 6-month cliff (lockup), then 12-month linear vesting at ~7.9% monthly. Full unlock takes 18 months total. Institutional tier investors can negotiate custom vesting schedules."
-        },
-        "q4": {
-          "question": "What is the investment process and due diligence procedure?",
-          "answer": "Process: (1) Investment inquiry & NDA signing → (2) Letter of Intent (LOI) submission → (3) Bilateral due diligence (project tech/finance/legal DD + investor source of funds/accreditation) → (4) Term Sheet negotiation → (5) SAFT contract signing → (6) Fund transfer (USDT, USDC, wire) → (7) Token allocation confirmation. DD typically takes 1-2 weeks, up to 3-4 weeks for larger institutions. Dedicated IR manager guides the entire process."
-        },
-        "q5": {
-          "question": "What investor protections and legal structure are in place?",
-          "answer": "All private investments are legally protected through SAFT (Simple Agreement for Future Tokens) contracts. Contracts specify token allocation, price, vesting terms, investor rights, and dispute resolution. Funds are managed through a Cayman Islands SPV (Special Purpose Vehicle) and held in third-party escrow accounts. Legal counsel from Morrison & Foerster, compliant with Singapore MAS regulations."
-        },
-        "q6": {
-          "question": "What are the listing plans and launch price?",
-          "answer": "TBURN token launch price target is $0.50 (5x from Private). Listing strategy: TGE concurrent with mainnet launch, initial liquidity on Uniswap, PancakeSwap and major DEXs. Tier-1 CEX listings (Binance, OKX, Bybit, Coinbase) under negotiation, targeting major exchange listings within 3-6 months post-launch. Market making with professional MM partners."
-        },
-        "q7": {
-          "question": "What are the tier-specific benefits and governance rights?",
-          "answer": "Tier benefits: (1) Institutional ($5M+): Board observer seat, monthly executive briefings, exclusive co-investment rights, custom vesting, dedicated IR manager (2) Strategic ($2M+): Quarterly strategy sessions, partnership priority, technical collaboration, co-marketing (3) Growth ($500K+): Quarterly update calls, private community, governance participation, early feature access (4) Standard ($100K+): Monthly newsletter, basic governance voting, investor channel. All private investors hold DAO governance voting rights."
-        },
-        "q8": {
-          "question": "What are the payment methods and refund policy?",
-          "answer": "Payment methods: USDT (ERC-20/TRC-20), USDC (ERC-20), or wire transfer (USD/EUR). Installment payments available for $1M+ investments with negotiable schedule. Refund policy: Full refund available until SAFT contract signing. Post-contract refunds only for project discontinuation, mainnet launch failure, or material roadmap changes. No early termination for investor-initiated reasons; details specified in SAFT contract."
-        }
-      },
-      "ctaSection": {
-        "title": "Become an Institutional Investor",
-        "subtitle": "As a TBURN Chain private investor, secure 50% discount from launch price and immediate TGE liquidity!",
-        "button": "Invest Now"
-      },
-      "dialog": {
-        "title": "Private Round Investment Inquiry",
-        "description": "Our team will contact you within 1-2 business days. For institutional investors only.",
-        "name": "Name",
-        "namePlaceholder": "Enter your full name",
-        "email": "Email",
-        "emailPlaceholder": "Enter your email address",
-        "company": "Company/Organization",
-        "companyPlaceholder": "Enter company name",
-        "investmentAmount": "Investment Amount (USD)",
-        "investmentAmountPlaceholder": "Minimum $100,000",
-        "message": "Additional Message",
-        "messagePlaceholder": "Investment intent, questions, etc.",
-        "submit": "Submit Inquiry",
-        "submitting": "Submitting...",
-        "success": "Inquiry Submitted",
-        "successDesc": "Our team will contact you within 1-2 business days.",
-        "error": "Error Occurred",
-        "errorDesc": "Failed to submit inquiry. Please try again.",
-        "required": "Required Fields Missing",
-        "requiredDesc": "Name, email, and company are required fields.",
-        "cancelBtn": "Cancel"
-      },
-      "footer": {
-        "description": "TBURN Chain is a next-generation Layer-1 blockchain with advanced DeFi, DAO, and enterprise integration capabilities.",
-        "quickLinks": "Quick Links",
-        "developers": "Developers",
-        "legal": "Legal",
-        "whitepaper": "Whitepaper",
-        "tokenomics": "Tokenomics",
-        "roadmap": "Roadmap",
-        "team": "Team",
-        "documentation": "Documentation",
-        "github": "GitHub",
-        "apiReference": "API Reference",
-        "bugBounty": "Bug Bounty",
-        "termsOfService": "Terms of Service",
-        "privacyPolicy": "Privacy Policy",
-        "disclaimer": "Disclaimer",
-        "cookiePolicy": "Cookie Policy",
-        "copyright": "© 2025 TBURN Chain. All rights reserved.",
-        "socialLinks": "Follow Us",
-        "mainnet": "Mainnet",
-        "explorer": "Explorer",
-        "bridge": "Bridge",
-        "staking": "Staking",
-        "docs": "Documentation",
-        "audit": "Security Audit",
-        "blog": "Blog",
-        "ambassador": "Ambassador Program",
-        "grants": "Grants",
-        "support": "Support",
-        "terms": "Terms of Service",
-        "privacy": "Privacy Policy",
-        "product": "Product",
-        "resources": "Resources",
-        "community": "Community"
-      }
+      "title": "Private Round",
+      "subtitle": "Private sale for qualified investors",
+      "heroTitle": "TBURN Private Round",
+      "heroSubtitle": "Exclusive investment opportunity for institutional and qualified investors",
+      "badge": "Private Sale",
+      "tokenPrice": "Token Price",
+      "discount": "Discount from Launch",
+      "allocation": "Total Allocation",
+      "minInvestment": "Minimum Investment",
+      "investorRequirements": "Investor Requirements",
+      "kyc": "KYC/AML Verification",
+      "accredited": "Accredited Investor",
+      "institutional": "Institutional",
+      "applyPrivate": "Apply for Private Round"
     },
     "publicRound": {
-      "nav": {
-        "tiers": "Tiers",
-        "vesting": "Vesting",
-        "howTo": "How to Join",
-        "calculator": "Calculator",
-        "faq": "FAQ",
-        "connectWallet": "Join Now"
-      },
-      "hero": {
-        "badge": "PUBLIC ROUND - Public Sale",
-        "status": "Live",
-        "title1": "Grab Your",
-        "title2": "1B TBURN",
-        "title3": "Opportunity with Public Round",
-        "subtitle": "Open to everyone. 60% discount at $0.20 vs launch price ($0.50)! Start from $100, 10% TGE unlock, 3-month cliff!",
-        "countdownLabel": "Sale ends in",
-        "days": "DAYS",
-        "hours": "HOURS",
-        "mins": "MINS",
-        "secs": "SECS",
-        "progressGoal": "Goal $200,000,000",
-        "progressPercent": "45% Achieved",
-        "progressRemaining": "$110,250,000 remaining"
-      },
-      "highlights": {
-        "tokenPrice": "Per Token",
-        "discount": "Discount vs Launch",
-        "tgeUnlock": "TGE Unlock",
-        "minAmount": "Min Participation"
-      },
-      "stats": {
-        "loading": "Loading...",
-        "publicAllocation": "Public Allocation (10%)",
-        "tokenPrice": "Token Price",
-        "hardcap": "Hardcap",
-        "participants": "Participants"
-      },
-      "cta": {
-        "joinNow": "Join Now",
-        "viewGuide": "View Sale Guide"
-      },
-      "comparison": {
-        "badge": "COMPARISON",
-        "title": "Round Comparison",
-        "subtitle": "See the advantages of Public Round",
-        "tableTitle": "Investment Round Comparison",
-        "headers": {
-          "round": "Round",
-          "tokenPrice": "Token Price",
-          "discount": "Discount",
-          "status": "Status"
-        },
-        "bestBadge": "Best Access",
-        "seedRound": "Seed Round",
-        "privateRound": "Private Round",
-        "publicRound": "Public Round",
-        "completed": "Completed",
-        "live": "Live",
-        "upcoming": "Upcoming"
-      },
-      "tiers": {
-        "badge": "TIERS",
-        "title": "Participation Tiers",
-        "subtitle": "Benefits and bonuses by participation amount",
-        "minAmountLabel": "Min Participation",
-        "joinBtn": "Join Now",
-        "whale": {
-          "name": "Whale",
-          "subtitle": "Large Participant",
-          "details": [
-            "Min Participation",
-            "Bonus",
-            "TGE Unlock"
-          ],
-          "benefits": [
-            "VIP Community Access",
-            "Airdrop Priority",
-            "Exclusive AMA Invite",
-            "Early Alpha Info",
-            "Dedicated Support"
-          ]
-        },
-        "dolphin": {
-          "name": "Dolphin",
-          "subtitle": "Medium Participant",
-          "details": [
-            "Min Participation",
-            "Bonus",
-            "TGE Unlock"
-          ],
-          "benefits": [
-            "Premium Community",
-            "Airdrop Participation",
-            "Quarterly AMA",
-            "Newsletter",
-            "Priority Support"
-          ]
-        },
-        "fish": {
-          "name": "Fish",
-          "subtitle": "Regular Participant",
-          "details": [
-            "Min Participation",
-            "Bonus",
-            "TGE Unlock"
-          ],
-          "benefits": [
-            "General Community",
-            "Basic Airdrop",
-            "Public AMA",
-            "Monthly Updates",
-            "Standard Support"
-          ]
-        },
-        "shrimp": {
-          "name": "Shrimp",
-          "subtitle": "Small Participant",
-          "details": [
-            "Min Participation",
-            "Bonus",
-            "TGE Unlock"
-          ],
-          "benefits": [
-            "Public Channel Access",
-            "Basic Participation",
-            "Public Info",
-            "Email Alerts",
-            "Community Support"
-          ]
-        }
-      },
-      "vesting": {
-        "badge": "VESTING",
-        "title": "Vesting Schedule",
-        "subtitle": "10% TGE unlock, 3-month cliff, then 6-month monthly vesting",
-        "phases": [
-          {
-            "title": "TGE Unlock",
-            "value": "10%",
-            "desc": "Immediate"
-          },
-          {
-            "title": "Cliff",
-            "value": "3 Months",
-            "desc": "Lock Period"
-          },
-          {
-            "title": "Monthly Vesting",
-            "value": "15%",
-            "desc": "Over 6 Months"
-          },
-          {
-            "title": "Full Unlock",
-            "value": "100%",
-            "desc": "After 9 Months"
-          }
-        ]
-      },
-      "howTo": {
-        "badge": "HOW TO",
-        "title": "How to Participate",
-        "subtitle": "Join in 4 simple steps",
-        "steps": [
-          {
-            "title": "Connect Wallet",
-            "desc": "MetaMask, Trust, etc."
-          },
-          {
-            "title": "KYC Verification",
-            "desc": "Simple identity check"
-          },
-          {
-            "title": "Select Payment",
-            "desc": "USDT, USDC, ETH, BTC"
-          },
-          {
-            "title": "Receive Tokens",
-            "desc": "15% at TGE"
-          }
-        ]
-      },
-      "platforms": {
-        "badge": "PLATFORMS",
-        "title": "Participation Platforms",
-        "subtitle": "Multiple ways to participate",
-        "joinBtn": "Join Now",
-        "items": [
-          {
-            "name": "TBURN Launchpad",
-            "type": "Official Launchpad",
-            "desc": "TBURN official sale platform",
-            "features": [
-              "Lowest fees",
-              "Direct participation",
-              "24/7 support",
-              "Multi-payment support"
-            ]
-          },
-          {
-            "name": "Partner Exchanges",
-            "type": "CEX IEO",
-            "desc": "Participate via partner exchanges",
-            "features": [
-              "Easy KYC",
-              "Fiat support",
-              "Exchange guarantee",
-              "Instant listing"
-            ]
-          },
-          {
-            "name": "DEX Launchpad",
-            "type": "Decentralized IDO",
-            "desc": "Participate on decentralized platforms",
-            "features": [
-              "Direct wallet connection",
-              "Smart contract",
-              "Transparent distribution",
-              "Community-driven"
-            ]
-          }
-        ]
-      },
-      "calculator": {
-        "badge": "CALCULATOR",
-        "title": "Token Calculator",
-        "subtitle": "Calculate your potential returns based on investment amount",
-        "inputTitle": "Enter Investment Amount",
-        "inputLabel": "Investment Amount (USD)",
-        "inputPlaceholder": "Enter amount",
-        "resultTitle": "Estimated Results",
-        "tokenAmount": "Token Amount",
-        "tgeUnlock": "TGE Unlock (10%)",
-        "launchPrice": "Est. Launch Price ($0.50)",
-        "profit": "Est. Profit"
-      },
-      "faq": {
-        "badge": "FAQ",
-        "title": "Frequently Asked Questions",
-        "subtitle": "Common questions about the public sale",
-        "q1": {
-          "question": "What are the eligibility and requirements for the Public Round?",
-          "answer": "The Public Round is open to all individual investors worldwide who complete KYC verification. Minimum participation is $100 with no upper limit (additional benefits for Whale tier $50,000+). Steps: (1) Connect wallet (MetaMask, Trust Wallet, Coinbase Wallet, etc.) → (2) Simple KYC (passport/ID, ~5 minutes) → (3) Payment and token allocation. Residents of regulated jurisdictions (US, China, North Korea, etc.) are restricted."
-        },
-        "q2": {
-          "question": "How does this differ from Seed/Private rounds?",
-          "answer": "Seed Round ($0.04, 80% discount) and Private Round ($0.10, 50% discount) are completed. They offered higher discounts but required longer vesting (Seed: 12-month cliff + 24-month vesting, Private: 6-month cliff + 12-month vesting) and higher minimums ($100K+). Public Round ($0.20, 60% discount) has lower discount but anyone can join from $100, with 3-month cliff + 6-month vesting for faster liquidity."
-        },
-        "q3": {
-          "question": "What is the TGE and vesting schedule?",
-          "answer": "TGE (Token Generation Event) is when TBURN tokens are created on mainnet and listed on exchanges. Public Round participants receive 10% immediately at TGE. After a 3-month cliff (lockup), 15% vests monthly over 6 months. Full unlock takes 9 months total. Whale tier ($50K+) receives 15% at TGE."
-        },
-        "q4": {
-          "question": "What payment methods are supported?",
-          "answer": "Official launchpad accepts USDT (ERC-20, TRC-20), USDC (ERC-20), ETH, BTC, BNB. Partner exchanges (CEX) also accept fiat (USD, EUR, KRW, etc.). After payment, tokens are automatically allocated to your connected wallet at TGE - no separate claim required. Payment confirmation takes 5-30 minutes."
-        },
-        "q5": {
-          "question": "What protections and safeguards exist for participants?",
-          "answer": "All public sale participants are legally protected under standard token sale agreements. Smart contracts are audited by 3+ firms (CertiK, Hacken, etc.) with published reports. Funds are held in multisig wallets (3/5 signatures), and token allocation/vesting is managed transparently on-chain. Full refund policy applies if sale doesn't meet soft cap."
-        },
-        "q6": {
-          "question": "What are the listing plans and launch price?",
-          "answer": "TBURN token launch price is planned at $0.50 (150% above public sale price of $0.20). TGE and listing scheduled 2-4 weeks after public sale ends. Initial listings: Uniswap V3, PancakeSwap, SushiSwap and major DEXs. CEX listings: In discussion with Tier-1 exchanges (Binance, OKX, Bybit, Coinbase, etc.), targeting major exchange listings within 3 months of launch."
-        },
-        "q7": {
-          "question": "What are the tier benefits and bonuses?",
-          "answer": "4 tiers based on participation amount: (1) Whale ($50K+): +5% bonus tokens, 15% TGE unlock, VIP community, dedicated support (2) Dolphin ($10K+): +3% bonus, 12% TGE, premium community (3) Fish ($1K+): +1% bonus, 10% TGE, general community (4) Shrimp ($100+): standard terms, 10% TGE. All tiers get same $0.20 price; bonus tokens distributed at TGE."
-        },
-        "q8": {
-          "question": "What is the refund policy?",
-          "answer": "Public sale is generally non-refundable after payment confirmation. Exceptions: (1) Sale doesn't meet soft cap - full refund (2) Project cancellation or mainnet launch failure - refund (3) Payment error causing duplicate payment - excess refunded. Refund requests via official support (support@tburn.io), processing takes 7-14 business days, returned via original payment method."
-        }
-      },
-      "ctaSection": {
-        "title": "Join Now!",
-        "subtitle": "Join TBURN Chain's public sale and get TBURN at $0.20 - 60% discount vs launch price!",
-        "button": "Join Now"
-      },
-      "dialog": {
-        "title": "Public Round Inquiry",
-        "description": "Our team will contact you shortly. Anyone can participate.",
-        "name": "Name *",
-        "namePlaceholder": "John Doe",
-        "email": "Email *",
-        "investmentAmount": "Planned Amount",
-        "message": "Additional Message",
-        "messagePlaceholder": "Enter any additional questions about participation",
-        "cancelBtn": "Cancel",
-        "submit": "Submit Inquiry",
-        "submitting": "Submitting...",
-        "successTitle": "Inquiry Submitted",
-        "successDesc": "Our team will contact you soon.",
-        "errorTitle": "An error occurred",
-        "requiredTitle": "Required fields missing",
-        "requiredDesc": "Name and email are required."
-      },
-      "footer": {
-        "description": "Intelligence of AI, Transparency of Blockchain. THE FUTURE IS NOW",
-        "product": "Product",
-        "resources": "Resources",
-        "community": "Community",
-        "mainnet": "Mainnet",
-        "explorer": "Explorer",
-        "bridge": "Bridge",
-        "staking": "Staking",
-        "whitepaper": "Whitepaper",
-        "docs": "Documentation",
-        "github": "GitHub",
-        "audit": "Audit Report",
-        "blog": "Blog",
-        "ambassador": "Ambassador",
-        "grants": "Grants",
-        "support": "Support",
-        "terms": "Terms of Service",
-        "privacy": "Privacy Policy"
-      }
+      "title": "Public Round",
+      "subtitle": "Public token sale open to everyone",
+      "heroTitle": "TBURN Public Round",
+      "heroSubtitle": "Participate in the public token sale and join the TBURN community",
+      "badge": "Public Sale",
+      "tokenPrice": "Token Price",
+      "discount": "Discount from Launch",
+      "allocation": "Total Allocation",
+      "minPurchase": "Minimum Purchase",
+      "maxPurchase": "Maximum Purchase",
+      "whitelistRequired": "Whitelist Required",
+      "joinWhitelist": "Join Whitelist",
+      "purchaseTokens": "Purchase Tokens"
     },
     "launchpad": {
       "title": "Launchpad",

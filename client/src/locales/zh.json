@@ -19010,7 +19010,7 @@
         "committees": "委员会",
         "rewards": "奖励",
         "faq": "常见问题",
-        "connectWallet": "连接钱包"
+        "connectWallet": "连接钱包",
         "badge": "DAO 治理 - 去中心化治理",
         "title1": "决定协议的未来",
         "title2": "800M TBURN",
@@ -19258,7 +19258,7 @@
         "calculator": "计算器",
         "slashing": "惩罚",
         "faq": "常见问题",
-        "connectWallet": "连接钱包"
+        "connectWallet": "连接钱包",
         "badge": "区块奖励",
         "title1": "TBURN",
         "title2": "区块奖励",
@@ -19618,13 +19618,13 @@
         "validator": "验证者",
         "tier": "等级",
         "points": "积分",
-        "cumulativeRewards": "累计奖励"
+        "cumulativeRewards": "累计奖励",
         "badge": "验证者激励",
         "title": "7.5亿TBURN激励",
         "titlePrefix": "为验证者",
         "subtitle": "早鸟奖金、长期忠诚奖励、性能激励等！成为TBURN链验证者，获得高达300%的额外奖励！",
         "earlyBirdTitle": "早鸟计划进行中！",
-        "earlyBirdSubtitle": "立即加入，最高可获100,000 TBURN奖金",
+        "earlyBirdSubtitle": "立即加入，最高可获100,000 TBURN奖金"
       },
       "stats": {
         "totalValidators": "总验证者数",
@@ -19774,7 +19774,7 @@
         "vesting": "锁仓",
         "investors": "投资者",
         "process": "流程",
-        "faq": "常见问题"
+        "faq": "常见问题",
         "badge": "SEED ROUND - 早期投资者",
         "status": "进行中",
         "title": "投资种子轮",

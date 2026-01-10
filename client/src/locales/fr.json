@@ -16918,7 +16918,7 @@
         "committees": "Comités",
         "rewards": "Récompenses",
         "faq": "FAQ",
-        "connectWallet": "Connecter Portefeuille"
+        "connectWallet": "Connecter Portefeuille",
         "badge": "GOUVERNANCE DAO - Gouvernance Décentralisée",
         "title1": "Décidez de l'Avenir du Protocole",
         "title2": "800M TBURN",
@@ -17166,7 +17166,7 @@
         "calculator": "Calculateur",
         "slashing": "Pénalités",
         "faq": "FAQ",
-        "connectWallet": "Connecter le Portefeuille"
+        "connectWallet": "Connecter le Portefeuille",
         "badge": "Récompenses de Bloc",
         "title1": "TBURN",
         "title2": "Récompenses de",
@@ -17526,13 +17526,13 @@
         "validator": "Validateur",
         "tier": "Niveau",
         "points": "Points",
-        "cumulativeRewards": "Récompenses Cumulées"
+        "cumulativeRewards": "Récompenses Cumulées",
         "badge": "INCITATIONS VALIDATEURS",
         "title": "750M TBURN en Incitations",
         "titlePrefix": "Pour les Validateurs",
         "subtitle": "Bonus Early Bird, Récompenses de Fidélité à Long Terme, Incitations de Performance et plus! Devenez validateur TBURN Chain et gagnez jusqu'à 300% de récompenses supplémentaires!",
         "earlyBirdTitle": "Programme Early Bird Actif!",
-        "earlyBirdSubtitle": "Rejoignez maintenant pour jusqu'à 100,000 TBURN de bonus",
+        "earlyBirdSubtitle": "Rejoignez maintenant pour jusqu'à 100,000 TBURN de bonus"
       },
       "stats": {
         "totalValidators": "Total Validateurs",
@@ -17682,7 +17682,7 @@
         "vesting": "Vesting",
         "investors": "Investisseurs",
         "process": "Processus",
-        "faq": "FAQ"
+        "faq": "FAQ",
         "badge": "SEED ROUND - Investisseur Précoce",
         "status": "Actif",
         "title": "Investissez dans le Tour de Semences",
@@ -17704,7 +17704,7 @@
         "allocation": "Allocation",
         "investors": "Investisseurs",
         "faq": "FAQ",
-        "connectWallet": "Demande Institutionnelle"
+        "connectWallet": "Demande Institutionnelle",
         "badge": "PRIVATE ROUND - Investissement Institutionnel",
         "status": "En Cours",
         "title": "Saisissez l'opportunité avec",

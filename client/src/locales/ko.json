@@ -30924,7 +30924,7 @@
         "committees": "위원회",
         "rewards": "보상",
         "faq": "FAQ",
-        "connectWallet": "지갑 연결"
+        "connectWallet": "지갑 연결",
         "badge": "DAO 거버넌스 - 탈중앙화 거버넌스",
         "title1": "프로토콜의 미래를 결정하세요",
         "title2": "800M TBURN",
@@ -31172,7 +31172,7 @@
         "calculator": "계산기",
         "slashing": "슬래싱",
         "faq": "FAQ",
-        "connectWallet": "지갑 연결"
+        "connectWallet": "지갑 연결",
         "badge": "블록 보상",
         "title1": "TBURN",
         "title2": "블록 보상",
@@ -31532,13 +31532,13 @@
         "validator": "밸리데이터",
         "tier": "티어",
         "points": "포인트",
-        "cumulativeRewards": "누적 보상"
+        "cumulativeRewards": "누적 보상",
         "badge": "VALIDATOR INCENTIVES - 검증자 인센티브",
         "title": "7.5억 TBURN 인센티브",
         "titlePrefix": "밸리데이터를 위한",
         "subtitle": "얼리버드 보너스, 장기 충성 보상, 성능 인센티브까지! TBURN Chain 밸리데이터가 되어 최대 300% 추가 보상을 받으세요!",
         "earlyBirdTitle": "얼리버드 프로그램 진행중!",
-        "earlyBirdSubtitle": "지금 참여하면 최대 100,000 TBURN 보너스",
+        "earlyBirdSubtitle": "지금 참여하면 최대 100,000 TBURN 보너스"
       },
       "stats": {
         "totalValidators": "총 밸리데이터",
@@ -31688,7 +31688,7 @@
         "vesting": "베스팅",
         "investors": "투자자",
         "process": "절차",
-        "faq": "FAQ"
+        "faq": "FAQ",
         "badge": "SEED ROUND - 초기 투자자",
         "status": "진행중",
         "title": "시드 라운드 투자로",
@@ -33608,7 +33608,7 @@
         "calculator": "계산기",
         "slashing": "슬래싱",
         "faq": "FAQ",
-        "connectWallet": "🔗 지갑 연결"
+        "connectWallet": "🔗 지갑 연결",
         "badge": "BLOCK REWARDS - 밸리데이터 보상",
         "title1": "블록 생성으로 받는",
         "title2": "14.5억 TBURN",

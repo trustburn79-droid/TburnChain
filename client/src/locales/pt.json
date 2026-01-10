@@ -16667,7 +16667,7 @@
         "committees": "Comitês",
         "rewards": "Recompensas",
         "faq": "FAQ",
-        "connectWallet": "Conectar Carteira"
+        "connectWallet": "Conectar Carteira",
         "badge": "GOVERNANÇA DAO - Governança Descentralizada",
         "title1": "Decida o Futuro do Protocolo",
         "title2": "800M TBURN",
@@ -16915,7 +16915,7 @@
         "calculator": "Calculadora",
         "slashing": "Penalidades",
         "faq": "FAQ",
-        "connectWallet": "Conectar Carteira"
+        "connectWallet": "Conectar Carteira",
         "badge": "Recompensas de Bloco",
         "title1": "TBURN",
         "title2": "Recompensas de",
@@ -17275,13 +17275,13 @@
         "validator": "Validador",
         "tier": "Nível",
         "points": "Pontos",
-        "cumulativeRewards": "Recompensas Acumuladas"
+        "cumulativeRewards": "Recompensas Acumuladas",
         "badge": "INCENTIVOS PARA VALIDADORES",
         "title": "750M TBURN em Incentivos",
         "titlePrefix": "Para Validadores",
         "subtitle": "Bônus Early Bird, Recompensas de Fidelidade de Longo Prazo, Incentivos de Desempenho e mais! Torne-se um validador TBURN Chain e ganhe até 300% de recompensas adicionais!",
         "earlyBirdTitle": "Programa Early Bird Ativo!",
-        "earlyBirdSubtitle": "Participe agora para até 100,000 TBURN de bônus",
+        "earlyBirdSubtitle": "Participe agora para até 100,000 TBURN de bônus"
       },
       "stats": {
         "totalValidators": "Total de Validadores",
@@ -17431,7 +17431,7 @@
         "vesting": "Vesting",
         "investors": "Investidores",
         "process": "Processo",
-        "faq": "FAQ"
+        "faq": "FAQ",
         "badge": "SEED ROUND - Investidor Antecipado",
         "status": "Ativo",
         "title": "Invista na Rodada Semente",
@@ -17453,7 +17453,7 @@
         "allocation": "Alocação",
         "investors": "Investidores",
         "faq": "FAQ",
-        "connectWallet": "Consulta Institucional"
+        "connectWallet": "Consulta Institucional",
         "badge": "PRIVATE ROUND - Investimento Institucional",
         "status": "Em Andamento",
         "title": "Aproveite a oportunidade com",

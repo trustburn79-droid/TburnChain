@@ -18930,7 +18930,7 @@
         "programs": "Programas",
         "tiers": "Niveles",
         "activities": "Actividades",
-        "leaderboard": "Clasificación"
+        "leaderboard": "Clasificación",
         "badge": "PROGRAMA COMUNITARIO - Creciendo Juntos con TBURN",
         "title": "Impulsado por la Comunidad",
         "titleHighlight": "300M TBURN",
@@ -19200,7 +19200,7 @@
         "committees": "Comités",
         "rewards": "Recompensas",
         "faq": "FAQ",
-        "connectWallet": "Conectar Billetera"
+        "connectWallet": "Conectar Billetera",
         "badge": "GOBERNANZA DAO - Gobernanza Descentralizada",
         "title1": "Decide el Futuro del Protocolo",
         "title2": "800M TBURN",
@@ -19448,7 +19448,7 @@
         "calculator": "Calculadora",
         "slashing": "Penalizaciones",
         "faq": "FAQ",
-        "connectWallet": "Conectar Billetera"
+        "connectWallet": "Conectar Billetera",
         "badge": "Recompensas de Bloque",
         "title1": "TBURN",
         "title2": "Recompensas de",
@@ -19808,13 +19808,13 @@
         "validator": "Validador",
         "tier": "Nivel",
         "points": "Puntos",
-        "cumulativeRewards": "Recompensas Acumuladas"
+        "cumulativeRewards": "Recompensas Acumuladas",
         "badge": "INCENTIVOS PARA VALIDADORES",
         "title": "750M TBURN en Incentivos",
         "titlePrefix": "Para Validadores",
         "subtitle": "¡Bonificación Early Bird, Recompensas de Lealtad a Largo Plazo, Incentivos de Rendimiento y más! ¡Conviértete en validador de TBURN Chain y gana hasta 300% de recompensas adicionales!",
         "earlyBirdTitle": "¡Programa Early Bird Activo!",
-        "earlyBirdSubtitle": "Únete ahora para hasta 100,000 TBURN de bonificación",
+        "earlyBirdSubtitle": "Únete ahora para hasta 100,000 TBURN de bonificación"
       },
       "stats": {
         "totalValidators": "Total de Validadores",
@@ -19964,7 +19964,7 @@
         "vesting": "Vesting",
         "investors": "Inversores",
         "process": "Proceso",
-        "faq": "FAQ"
+        "faq": "FAQ",
         "badge": "SEED ROUND - Inversor Temprano",
         "status": "Activo",
         "title": "Invierte en la Ronda Semilla",
@@ -19986,7 +19986,7 @@
         "allocation": "Asignación",
         "investors": "Inversores",
         "faq": "FAQ",
-        "connectWallet": "Consulta Institucional"
+        "connectWallet": "Consulta Institucional",
         "badge": "PRIVATE ROUND - Inversión Institucional",
         "status": "En Progreso",
         "title": "Aproveche la oportunidad con",

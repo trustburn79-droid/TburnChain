@@ -17485,7 +17485,7 @@
         "committees": "समितियां",
         "rewards": "पुरस्कार",
         "faq": "FAQ",
-        "connectWallet": "वॉलेट कनेक्ट करें"
+        "connectWallet": "वॉलेट कनेक्ट करें",
         "badge": "DAO गवर्नेंस - विकेंद्रीकृत शासन",
         "title1": "प्रोटोकॉल का भविष्य तय करें",
         "title2": "800M TBURN",
@@ -17733,7 +17733,7 @@
         "calculator": "कैलकुलेटर",
         "slashing": "स्लैशिंग",
         "faq": "FAQ",
-        "connectWallet": "वॉलेट कनेक्ट करें"
+        "connectWallet": "वॉलेट कनेक्ट करें",
         "badge": "ब्लॉक रिवॉर्ड",
         "title1": "TBURN",
         "title2": "ब्लॉक रिवॉर्ड",
@@ -18093,13 +18093,13 @@
         "validator": "वैलिडेटर",
         "tier": "टियर",
         "points": "पॉइंट्स",
-        "cumulativeRewards": "कुल रिवॉर्ड्स"
+        "cumulativeRewards": "कुल रिवॉर्ड्स",
         "badge": "वैलिडेटर प्रोत्साहन",
         "title": "750M TBURN प्रोत्साहन",
         "titlePrefix": "वैलिडेटर्स के लिए",
         "subtitle": "अर्ली बर्ड बोनस, दीर्घकालिक लॉयल्टी रिवॉर्ड्स, प्रदर्शन प्रोत्साहन और भी बहुत कुछ! TBURN Chain वैलिडेटर बनें और 300% तक अतिरिक्त रिवॉर्ड्स प्राप्त करें!",
         "earlyBirdTitle": "अर्ली बर्ड प्रोग्राम सक्रिय!",
-        "earlyBirdSubtitle": "अभी जुड़ें और 100,000 TBURN तक बोनस पाएं",
+        "earlyBirdSubtitle": "अभी जुड़ें और 100,000 TBURN तक बोनस पाएं"
       },
       "stats": {
         "totalValidators": "कुल वैलिडेटर्स",
@@ -18249,7 +18249,7 @@
         "vesting": "वेस्टिंग",
         "investors": "निवेशक",
         "process": "प्रक्रिया",
-        "faq": "FAQ"
+        "faq": "FAQ",
         "badge": "SEED ROUND - प्रारंभिक निवेशक",
         "status": "सक्रिय",
         "title": "सीड राउंड में निवेश करें",
@@ -18271,7 +18271,7 @@
         "allocation": "आवंटन",
         "investors": "निवेशक",
         "faq": "FAQ",
-        "connectWallet": "संस्थागत पूछताछ"
+        "connectWallet": "संस्थागत पूछताछ",
         "badge": "PRIVATE ROUND - संस्थागत निवेश",
         "status": "प्रगति पर",
         "title": "निजी राउंड निवेश से",

@@ -15309,7 +15309,7 @@
         "committees": "کمیٹیاں",
         "rewards": "انعامات",
         "faq": "عمومی سوالات",
-        "connectWallet": "والیٹ جوڑیں"
+        "connectWallet": "والیٹ جوڑیں",
         "badge": "DAO گورننس - غیر مرکزی گورننس",
         "title1": "پروٹوکول کا مستقبل طے کریں",
         "title2": "800M TBURN",
@@ -15557,7 +15557,7 @@
         "calculator": "کیلکولیٹر",
         "slashing": "سزا",
         "faq": "FAQ",
-        "connectWallet": "والیٹ کنیکٹ کریں"
+        "connectWallet": "والیٹ کنیکٹ کریں",
         "badge": "بلاک انعامات",
         "title1": "TBURN",
         "title2": "بلاک انعامات",
@@ -15917,13 +15917,13 @@
         "validator": "ویلیڈیٹر",
         "tier": "ٹائر",
         "points": "پوائنٹس",
-        "cumulativeRewards": "مجموعی انعامات"
+        "cumulativeRewards": "مجموعی انعامات",
         "badge": "ویلیڈیٹر مراعات",
         "title": "750M TBURN مراعات",
         "titlePrefix": "ویلیڈیٹرز کے لیے",
         "subtitle": "ارلی برڈ بونس، طویل مدتی وفاداری انعامات، کارکردگی مراعات اور بہت کچھ! TBURN Chain ویلیڈیٹر بنیں اور 300% تک اضافی انعامات حاصل کریں!",
         "earlyBirdTitle": "ارلی برڈ پروگرام فعال!",
-        "earlyBirdSubtitle": "ابھی شامل ہوں اور 100,000 TBURN تک بونس حاصل کریں",
+        "earlyBirdSubtitle": "ابھی شامل ہوں اور 100,000 TBURN تک بونس حاصل کریں"
       },
       "stats": {
         "totalValidators": "کل ویلیڈیٹرز",
@@ -16073,7 +16073,7 @@
         "vesting": "ویسٹنگ",
         "investors": "سرمایہ کار",
         "process": "عمل",
-        "faq": "FAQ"
+        "faq": "FAQ",
         "badge": "SEED ROUND - ابتدائی سرمایہ کار",
         "status": "فعال",
         "title": "سیڈ راؤنڈ میں سرمایہ کاری کریں",
@@ -16095,7 +16095,7 @@
         "allocation": "تخصیص",
         "investors": "سرمایہ کار",
         "faq": "عمومی سوالات",
-        "connectWallet": "ادارہ جاتی انکوائری"
+        "connectWallet": "ادارہ جاتی انکوائری",
         "badge": "PRIVATE ROUND - ادارہ جاتی سرمایہ کاری",
         "status": "جاری",
         "title": "پرائیویٹ راؤنڈ سرمایہ کاری سے",
