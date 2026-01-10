@@ -31089,6 +31089,13 @@
         "reserveFundPercent": "0.5%"
       },
       "halving": {
+        "amounts": {
+          "year1": "100 TBURN/block",
+          "year5": "50 TBURN/block",
+          "year9": "25 TBURN/block",
+          "year13": "12.5 TBURN/block",
+          "year17": "6.25 TBURN/block"
+        },
         "badge": "Halving Schedule",
         "title": "20-Year Halving Roadmap",
         "subtitle": "Block rewards decrease by 50% every 4 years",

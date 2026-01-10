@@ -16949,6 +16949,13 @@
         "reserveFundPercent": "0.5%"
       },
       "halving": {
+        "amounts": {
+          "year1": "100 TBURN/bloco",
+          "year5": "50 TBURN/bloco",
+          "year9": "25 TBURN/bloco",
+          "year13": "12.5 TBURN/bloco",
+          "year17": "6.25 TBURN/bloco"
+        },
         "badge": "Calendário de Halving",
         "title": "Roteiro de Halving de 20 Anos",
         "subtitle": "As recompensas de bloco diminuem 50% a cada 4 anos",

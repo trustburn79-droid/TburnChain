@@ -20168,6 +20168,13 @@
         "reserveFundPercent": "0.5%"
       },
       "halving": {
+        "amounts": {
+          "year1": "100 TBURN/ブロック",
+          "year5": "50 TBURN/ブロック",
+          "year9": "25 TBURN/ブロック",
+          "year13": "12.5 TBURN/ブロック",
+          "year17": "6.25 TBURN/ブロック"
+        },
         "badge": "半減期スケジュール",
         "title": "20年半減期ロードマップ",
         "subtitle": "ブロック報酬は4年ごとに50%減少します",

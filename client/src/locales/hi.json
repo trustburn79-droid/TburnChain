@@ -17767,6 +17767,13 @@
         "reserveFundPercent": "0.5%"
       },
       "halving": {
+        "amounts": {
+          "year1": "100 TBURN/ब्लॉक",
+          "year5": "50 TBURN/ब्लॉक",
+          "year9": "25 TBURN/ब्लॉक",
+          "year13": "12.5 TBURN/ब्लॉक",
+          "year17": "6.25 TBURN/ब्लॉक"
+        },
         "badge": "हाल्विंग शेड्यूल",
         "title": "20-वर्षीय हाल्विंग रोडमैप",
         "subtitle": "ब्लॉक रिवॉर्ड हर 4 साल में 50% कम होते हैं",

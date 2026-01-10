@@ -31206,6 +31206,13 @@
         "reserveFundPercent": "0.5%"
       },
       "halving": {
+        "amounts": {
+          "year1": "100 TBURN/블록",
+          "year5": "50 TBURN/블록",
+          "year9": "25 TBURN/블록",
+          "year13": "12.5 TBURN/블록",
+          "year17": "6.25 TBURN/블록"
+        },
         "badge": "반감기 스케줄",
         "title": "20년 반감기 로드맵",
         "subtitle": "블록 보상은 4년마다 50% 감소합니다",
@@ -33470,6 +33477,13 @@
         "reserveFundAmount": "0.435억"
       },
       "halving": {
+        "amounts": {
+          "year1": "100 TBURN/블록",
+          "year5": "50 TBURN/블록",
+          "year9": "25 TBURN/블록",
+          "year13": "12.5 TBURN/블록",
+          "year17": "6.25 TBURN/블록"
+        },
         "title": "반감기 스케줄",
         "subtitle": "4년마다 보상이 절반으로 감소합니다",
         "roadmapTitle": "20년 반감기 로드맵",

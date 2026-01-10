@@ -17200,6 +17200,13 @@
         "reserveFundPercent": "0.5%"
       },
       "halving": {
+        "amounts": {
+          "year1": "100 TBURN/bloc",
+          "year5": "50 TBURN/bloc",
+          "year9": "25 TBURN/bloc",
+          "year13": "12.5 TBURN/bloc",
+          "year17": "6.25 TBURN/bloc"
+        },
         "badge": "Calendrier de Halving",
         "title": "Feuille de Route de Halving sur 20 Ans",
         "subtitle": "Les récompenses de bloc diminuent de 50% tous les 4 ans",

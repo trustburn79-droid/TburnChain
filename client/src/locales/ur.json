@@ -15591,6 +15591,13 @@
         "reserveFundPercent": "0.5%"
       },
       "halving": {
+        "amounts": {
+          "year1": "100 TBURN/بلاک",
+          "year5": "50 TBURN/بلاک",
+          "year9": "25 TBURN/بلاک",
+          "year13": "12.5 TBURN/بلاک",
+          "year17": "6.25 TBURN/بلاک"
+        },
         "badge": "ہاوِنگ شیڈول",
         "title": "20 سالہ ہاوِنگ روڈ میپ",
         "subtitle": "بلاک انعامات ہر 4 سال میں 50% کم ہوتے ہیں",

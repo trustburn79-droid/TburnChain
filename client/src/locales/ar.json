@@ -17123,6 +17123,13 @@
         "reserveFundPercent": "0.5%"
       },
       "halving": {
+        "amounts": {
+          "year1": "100 TBURN/كتلة",
+          "year5": "50 TBURN/كتلة",
+          "year9": "25 TBURN/كتلة",
+          "year13": "12.5 TBURN/كتلة",
+          "year17": "6.25 TBURN/كتلة"
+        },
         "badge": "جدول التنصيف",
         "title": "خارطة طريق التنصيف لـ 20 عاماً",
         "subtitle": "تنخفض مكافآت الكتل بنسبة 50% كل 4 سنوات",

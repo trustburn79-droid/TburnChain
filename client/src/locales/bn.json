@@ -15347,6 +15347,13 @@
         "reserveFundPercent": "০.৫%"
       },
       "halving": {
+        "amounts": {
+          "year1": "100 TBURN/ব্লক",
+          "year5": "50 TBURN/ব্লক",
+          "year9": "25 TBURN/ব্লক",
+          "year13": "12.5 TBURN/ব্লক",
+          "year17": "6.25 TBURN/ব্লক"
+        },
         "badge": "হাভিং সময়সূচী",
         "title": "২০-বছরের হাভিং রোডম্যাপ",
         "subtitle": "প্রতি ৪ বছরে ব্লক পুরস্কার ৫০% কমে যায়",

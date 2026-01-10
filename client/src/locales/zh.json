@@ -19292,6 +19292,13 @@
         "reserveFundPercent": "0.5%"
       },
       "halving": {
+        "amounts": {
+          "year1": "100 TBURN/区块",
+          "year5": "50 TBURN/区块",
+          "year9": "25 TBURN/区块",
+          "year13": "12.5 TBURN/区块",
+          "year17": "6.25 TBURN/区块"
+        },
         "badge": "减半时间表",
         "title": "20年减半路线图",
         "subtitle": "区块奖励每4年减少50%",
