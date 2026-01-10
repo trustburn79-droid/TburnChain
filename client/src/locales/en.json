@@ -15682,8 +15682,6 @@
             "description": "Exclusive airdrop for active community members. Complete tasks to earn rewards!"
           }
         }
-      },
-      "hero": {
         "tag": "Community",
         "title": "Join the",
         "titleHighlight": "Community",
@@ -16536,7 +16534,6 @@
       }
     },
     "about": {
-      "hero": {
         "tag": "About TBurn",
         "title": "Building the",
         "titleHighlight": "Future",
@@ -16593,7 +16590,6 @@
       }
     },
     "contact": {
-      "hero": {
         "title": "Contact",
         "titleHighlight": "Us",
         "subtitle": "Get in touch with our team."
@@ -16629,7 +16625,6 @@
       }
     },
     "features": {
-      "hero": {
         "tag": "Features",
         "title": "Powerful",
         "titleHighlight": "Features",
@@ -16658,7 +16653,6 @@
       }
     },
     "economics": {
-      "hero": {
         "tag": "Economics",
         "title": "Token",
         "titleHighlight": "Economics",
@@ -30808,8 +30802,6 @@
         "rewards": "Rewards",
         "faq": "FAQ",
         "connectWallet": "Connect Wallet"
-      },
-      "hero": {
         "badge": "DAO GOVERNANCE - Decentralized Governance",
         "title1": "Decide the Future of the Protocol",
         "title2": "800M TBURN",
@@ -31058,8 +31050,6 @@
         "slashing": "Slashing",
         "faq": "FAQ",
         "connectWallet": "Connect Wallet"
-      },
-      "hero": {
         "badge": "Block Rewards",
         "title1": "TBURN",
         "title2": "Block Rewards",
@@ -31420,14 +31410,12 @@
         "tier": "Tier",
         "points": "Points",
         "cumulativeRewards": "Cumulative Rewards"
-      },
-      "hero": {
         "badge": "VALIDATOR INCENTIVES",
         "title": "750M TBURN Incentives",
         "titlePrefix": "For Validators",
         "subtitle": "Early Bird Bonus, Long-term Loyalty Rewards, Performance Incentives and more! Become a TBURN Chain validator and earn up to 300% additional rewards!",
         "earlyBirdTitle": "Early Bird Program Active!",
-        "earlyBirdSubtitle": "Join now for up to 100,000 TBURN bonus"
+        "earlyBirdSubtitle": "Join now for up to 100,000 TBURN bonus",
       },
       "stats": {
         "totalValidators": "Total Validators",
@@ -31468,6 +31456,11 @@
         "privacy": "Privacy Policy",
         "terms": "Terms of Service",
         "contact": "Contact Us"
+      },
+      "cta": {
+        "title": "Become a Validator Now!",
+        "subtitle": "Early bird slots are filling up fast! Join now and earn up to 750M TBURN incentives!",
+        "applyNow": "Apply Now"
       },
       "loading": "Loading validator incentives..."
     },
@@ -31578,8 +31571,6 @@
         "investors": "Investors",
         "process": "Process",
         "faq": "FAQ"
-      },
-      "hero": {
         "badge": "SEED ROUND - Early Investor",
         "status": "Active",
         "title": "Invest in Seed Round",

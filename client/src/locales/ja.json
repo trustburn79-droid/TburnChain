@@ -19887,8 +19887,6 @@
         "rewards": "報酬",
         "faq": "FAQ",
         "connectWallet": "ウォレット接続"
-      },
-      "hero": {
         "badge": "DAOガバナンス - 分散型ガバナンス",
         "title1": "プロトコルの未来を決定する",
         "title2": "800M TBURN",
@@ -20137,8 +20135,6 @@
         "slashing": "スラッシング",
         "faq": "FAQ",
         "connectWallet": "ウォレット接続"
-      },
-      "hero": {
         "badge": "ブロック報酬",
         "title1": "TBURN",
         "title2": "ブロック報酬",
@@ -20499,14 +20495,12 @@
         "tier": "ティア",
         "points": "ポイント",
         "cumulativeRewards": "累積報酬"
-      },
-      "hero": {
         "badge": "バリデーターインセンティブ",
         "title": "7.5億TBURNインセンティブ",
         "titlePrefix": "バリデーターのための",
         "subtitle": "アーリーバードボーナス、長期ロイヤルティ報酬、パフォーマンスインセンティブまで！TBURNチェーンバリデーターになって最大300%の追加報酬を獲得！",
         "earlyBirdTitle": "アーリーバードプログラム実施中！",
-        "earlyBirdSubtitle": "今すぐ参加で最大100,000 TBURNボーナス"
+        "earlyBirdSubtitle": "今すぐ参加で最大100,000 TBURNボーナス",
       },
       "stats": {
         "totalValidators": "総バリデーター数",
@@ -20657,8 +20651,6 @@
         "investors": "投資家",
         "process": "プロセス",
         "faq": "FAQ"
-      },
-      "hero": {
         "badge": "SEED ROUND - 初期投資家",
         "status": "進行中",
         "title": "シードラウンドに投資して",

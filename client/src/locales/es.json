@@ -18931,8 +18931,6 @@
         "tiers": "Niveles",
         "activities": "Actividades",
         "leaderboard": "Clasificación"
-      },
-      "hero": {
         "badge": "PROGRAMA COMUNITARIO - Creciendo Juntos con TBURN",
         "title": "Impulsado por la Comunidad",
         "titleHighlight": "300M TBURN",
@@ -19203,8 +19201,6 @@
         "rewards": "Recompensas",
         "faq": "FAQ",
         "connectWallet": "Conectar Billetera"
-      },
-      "hero": {
         "badge": "GOBERNANZA DAO - Gobernanza Descentralizada",
         "title1": "Decide el Futuro del Protocolo",
         "title2": "800M TBURN",
@@ -19453,8 +19449,6 @@
         "slashing": "Penalizaciones",
         "faq": "FAQ",
         "connectWallet": "Conectar Billetera"
-      },
-      "hero": {
         "badge": "Recompensas de Bloque",
         "title1": "TBURN",
         "title2": "Recompensas de",
@@ -19815,14 +19809,12 @@
         "tier": "Nivel",
         "points": "Puntos",
         "cumulativeRewards": "Recompensas Acumuladas"
-      },
-      "hero": {
         "badge": "INCENTIVOS PARA VALIDADORES",
         "title": "750M TBURN en Incentivos",
         "titlePrefix": "Para Validadores",
         "subtitle": "¡Bonificación Early Bird, Recompensas de Lealtad a Largo Plazo, Incentivos de Rendimiento y más! ¡Conviértete en validador de TBURN Chain y gana hasta 300% de recompensas adicionales!",
         "earlyBirdTitle": "¡Programa Early Bird Activo!",
-        "earlyBirdSubtitle": "Únete ahora para hasta 100,000 TBURN de bonificación"
+        "earlyBirdSubtitle": "Únete ahora para hasta 100,000 TBURN de bonificación",
       },
       "stats": {
         "totalValidators": "Total de Validadores",
@@ -19973,8 +19965,6 @@
         "investors": "Inversores",
         "process": "Proceso",
         "faq": "FAQ"
-      },
-      "hero": {
         "badge": "SEED ROUND - Inversor Temprano",
         "status": "Activo",
         "title": "Invierte en la Ronda Semilla",
@@ -19997,8 +19987,6 @@
         "investors": "Inversores",
         "faq": "FAQ",
         "connectWallet": "Consulta Institucional"
-      },
-      "hero": {
         "badge": "PRIVATE ROUND - Inversión Institucional",
         "status": "En Progreso",
         "title": "Aproveche la oportunidad con",

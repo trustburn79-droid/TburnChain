@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "wouter";
 import { useQuery } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
 import { TBurnLogo } from "@/components/tburn-logo";
 import { useWeb3 } from "@/lib/web3-context";
 import { useToast } from "@/hooks/use-toast";
@@ -31,6 +32,7 @@ interface ValidatorStatsResponse {
 }
 
 export default function ValidatorIncentivesPage() {
+  const { t } = useTranslation();
   const [activeFaq, setActiveFaq] = useState<string | null>("faq-1");
   const [countdown, setCountdown] = useState({ days: 12, hours: 8, mins: 45, secs: 30 });
   const { isConnected, address, connect, disconnect, formatAddress } = useWeb3();
@@ -72,14 +74,14 @@ export default function ValidatorIncentivesPage() {
     if (isConnected) {
       disconnect();
       toast({
-        title: "지갑 연결 해제",
-        description: "지갑 연결이 해제되었습니다.",
+        title: t('tokenPrograms.validatorIncentives.wallet.disconnectTitle'),
+        description: t('tokenPrograms.validatorIncentives.wallet.disconnected'),
       });
     } else {
       await connect("metamask");
       toast({
-        title: "지갑 연결됨",
-        description: "MetaMask 지갑이 연결되었습니다.",
+        title: t('tokenPrograms.validatorIncentives.wallet.connectedTitle'),
+        description: t('tokenPrograms.validatorIncentives.wallet.connectedDesc'),
       });
     }
   };
@@ -87,51 +89,51 @@ export default function ValidatorIncentivesPage() {
   const handleApplyTier = (tierId: string, tierName: string) => {
     if (!isConnected) {
       toast({
-        title: "지갑 연결 필요",
-        description: "밸리데이터 신청을 위해 먼저 지갑을 연결해주세요.",
+        title: t('tokenPrograms.validatorIncentives.wallet.required'),
+        description: t('tokenPrograms.validatorIncentives.wallet.requiredDesc'),
         variant: "destructive",
       });
       return;
     }
     toast({
-      title: `${tierName} 신청 완료`,
-      description: `${tierName} 밸리데이터 신청이 접수되었습니다. 검토 후 결과를 알려드립니다.`,
+      title: t('tokenPrograms.validatorIncentives.apply.complete'),
+      description: t('tokenPrograms.validatorIncentives.apply.completeDesc', { tierName }),
     });
   };
 
   const handleShareSocial = (platform: string, url: string) => {
     window.open(url, '_blank');
     toast({
-      title: `${platform} 열기`,
-      description: `${platform} 페이지가 새 창에서 열렸습니다.`,
+      title: `${platform}`,
+      description: `Opening ${platform}...`,
     });
   };
 
   const distributions = [
-    { id: "early", icon: "🏆", name: "얼리버드 보너스", amount: "2.25억", percent: "30%" },
-    { id: "loyalty", icon: "💎", name: "장기 충성 보상", amount: "1.875억", percent: "25%" },
-    { id: "performance", icon: "⚡", name: "성능 인센티브", amount: "1.5억", percent: "20%" },
-    { id: "growth", icon: "📈", name: "네트워크 성장", amount: "1.125억", percent: "15%" },
-    { id: "governance", icon: "🏛️", name: "거버넌스 보너스", amount: "0.75억", percent: "10%" },
+    { id: "early", icon: "🏆", name: t('tokenPrograms.validatorIncentives.distributions.earlybird'), amount: t('tokenPrograms.validatorIncentives.amounts.225m'), percent: "30%" },
+    { id: "loyalty", icon: "💎", name: t('tokenPrograms.validatorIncentives.distributions.loyalty'), amount: t('tokenPrograms.validatorIncentives.amounts.187m'), percent: "25%" },
+    { id: "performance", icon: "⚡", name: t('tokenPrograms.validatorIncentives.distributions.performance'), amount: t('tokenPrograms.validatorIncentives.amounts.150m'), percent: "20%" },
+    { id: "growth", icon: "📈", name: t('tokenPrograms.validatorIncentives.distributions.growth'), amount: t('tokenPrograms.validatorIncentives.amounts.112m'), percent: "15%" },
+    { id: "governance", icon: "🏛️", name: t('tokenPrograms.validatorIncentives.distributions.governance'), amount: t('tokenPrograms.validatorIncentives.amounts.75m'), percent: "10%" },
   ];
 
   const tiers = [
-    { id: "genesis", icon: "👑", name: "Genesis Validator", range: "1~25번째", reward: "100,000", benefits: ["100% 얼리버드 보너스", "독점 Genesis NFT 뱃지", "평생 0% 수수료 우대", "거버넌스 2x 투표권", "VIP 전용 채널 접근"], slots: "2/25", slotsClass: "limited", badge: "프리미엄" },
-    { id: "pioneer", icon: "🚀", name: "Pioneer Validator", range: "26~75번째", reward: "50,000", benefits: ["75% 얼리버드 보너스", "Pioneer NFT 뱃지", "0.5% 수수료 우대", "거버넌스 1.5x 투표권", "얼리 액세스 권한"], slots: "18/50", slotsClass: "available", badge: "추천" },
-    { id: "early", icon: "🌟", name: "Early Validator", range: "76~125번째", reward: "25,000", benefits: ["50% 얼리버드 보너스", "Early NFT 뱃지", "1% 수수료 우대", "거버넌스 1.25x 투표권", "커뮤니티 리더 인정"], slots: "32/50", slotsClass: "available", badge: "오픈" },
+    { id: "genesis", icon: "👑", name: t('tokenPrograms.validatorIncentives.tiers.genesis.name'), range: t('tokenPrograms.validatorIncentives.tiers.genesis.range'), reward: "100,000", benefits: [t('tokenPrograms.validatorIncentives.tiers.genesis.benefit1'), t('tokenPrograms.validatorIncentives.tiers.genesis.benefit2'), t('tokenPrograms.validatorIncentives.tiers.genesis.benefit3'), t('tokenPrograms.validatorIncentives.tiers.genesis.benefit4'), t('tokenPrograms.validatorIncentives.tiers.genesis.benefit5')], slots: "2/25", slotsClass: "limited", badge: t('tokenPrograms.validatorIncentives.tiers.genesis.badge') },
+    { id: "pioneer", icon: "🚀", name: t('tokenPrograms.validatorIncentives.tiers.pioneer.name'), range: t('tokenPrograms.validatorIncentives.tiers.pioneer.range'), reward: "50,000", benefits: [t('tokenPrograms.validatorIncentives.tiers.pioneer.benefit1'), t('tokenPrograms.validatorIncentives.tiers.pioneer.benefit2'), t('tokenPrograms.validatorIncentives.tiers.pioneer.benefit3'), t('tokenPrograms.validatorIncentives.tiers.pioneer.benefit4'), t('tokenPrograms.validatorIncentives.tiers.pioneer.benefit5')], slots: "18/50", slotsClass: "available", badge: t('tokenPrograms.validatorIncentives.tiers.pioneer.badge') },
+    { id: "early", icon: "🌟", name: t('tokenPrograms.validatorIncentives.tiers.early.name'), range: t('tokenPrograms.validatorIncentives.tiers.early.range'), reward: "25,000", benefits: [t('tokenPrograms.validatorIncentives.tiers.early.benefit1'), t('tokenPrograms.validatorIncentives.tiers.early.benefit2'), t('tokenPrograms.validatorIncentives.tiers.early.benefit3'), t('tokenPrograms.validatorIncentives.tiers.early.benefit4'), t('tokenPrograms.validatorIncentives.tiers.early.benefit5')], slots: "32/50", slotsClass: "available", badge: t('tokenPrograms.validatorIncentives.tiers.early.badge') },
   ];
 
   const loyaltyTiers = [
-    { year: "1년", multiplier: "1.5x", desc: "기본 충성 보너스" },
-    { year: "2년", multiplier: "2.0x", desc: "실버 멤버십" },
-    { year: "3년", multiplier: "2.5x", desc: "골드 멤버십" },
-    { year: "4년+", multiplier: "3.0x", desc: "다이아몬드 멤버십" },
+    { year: t('tokenPrograms.validatorIncentives.loyalty.year1'), multiplier: "1.5x", desc: t('tokenPrograms.validatorIncentives.loyalty.basic') },
+    { year: t('tokenPrograms.validatorIncentives.loyalty.year2'), multiplier: "2.0x", desc: t('tokenPrograms.validatorIncentives.loyalty.silver') },
+    { year: t('tokenPrograms.validatorIncentives.loyalty.year3'), multiplier: "2.5x", desc: t('tokenPrograms.validatorIncentives.loyalty.gold') },
+    { year: t('tokenPrograms.validatorIncentives.loyalty.year4plus'), multiplier: "3.0x", desc: t('tokenPrograms.validatorIncentives.loyalty.diamond') },
   ];
 
   const performanceTypes = [
-    { id: "uptime", icon: "📊", title: "업타임 보너스", subtitle: "안정적인 네트워크 운영", tiers: [{ badge: "gold", condition: "99.9%+", reward: "+15%" }, { badge: "silver", condition: "99.5%+", reward: "+10%" }, { badge: "bronze", condition: "99.0%+", reward: "+5%" }] },
-    { id: "blocks", icon: "⛏️", title: "블록 생산 보너스", subtitle: "효율적인 블록 생성", tiers: [{ badge: "gold", condition: "상위 10%", reward: "+20%" }, { badge: "silver", condition: "상위 30%", reward: "+12%" }, { badge: "bronze", condition: "상위 50%", reward: "+5%" }] },
-    { id: "clean", icon: "🛡️", title: "무위반 보너스", subtitle: "슬래싱 0회 유지", tiers: [{ badge: "gold", condition: "1년 무위반", reward: "+25%" }, { badge: "silver", condition: "6개월 무위반", reward: "+15%" }, { badge: "bronze", condition: "3개월 무위반", reward: "+8%" }] },
+    { id: "uptime", icon: "📊", title: t('tokenPrograms.validatorIncentives.performance.uptime.title'), subtitle: t('tokenPrograms.validatorIncentives.performance.uptime.subtitle'), tiers: [{ badge: "gold", condition: "99.9%+", reward: "+15%" }, { badge: "silver", condition: "99.5%+", reward: "+10%" }, { badge: "bronze", condition: "99.0%+", reward: "+5%" }] },
+    { id: "blocks", icon: "⛏️", title: t('tokenPrograms.validatorIncentives.performance.blocks.title'), subtitle: t('tokenPrograms.validatorIncentives.performance.blocks.subtitle'), tiers: [{ badge: "gold", condition: t('tokenPrograms.validatorIncentives.performance.blocks.top10'), reward: "+20%" }, { badge: "silver", condition: t('tokenPrograms.validatorIncentives.performance.blocks.top30'), reward: "+12%" }, { badge: "bronze", condition: t('tokenPrograms.validatorIncentives.performance.blocks.top50'), reward: "+5%" }] },
+    { id: "clean", icon: "🛡️", title: t('tokenPrograms.validatorIncentives.performance.clean.title'), subtitle: t('tokenPrograms.validatorIncentives.performance.clean.subtitle'), tiers: [{ badge: "gold", condition: t('tokenPrograms.validatorIncentives.performance.clean.year1'), reward: "+25%" }, { badge: "silver", condition: t('tokenPrograms.validatorIncentives.performance.clean.months6'), reward: "+15%" }, { badge: "bronze", condition: t('tokenPrograms.validatorIncentives.performance.clean.months3'), reward: "+8%" }] },
   ];
 
   const leaderboard = [
@@ -154,7 +156,7 @@ export default function ValidatorIncentivesPage() {
         <div className="flex flex-col items-center justify-center min-h-[60vh] gap-6">
           <TBurnLogo className="w-16 h-16" />
           <div className="animate-spin text-orange-500" style={{ width: 48, height: 48, border: '3px solid currentColor', borderTopColor: 'transparent', borderRadius: '50%' }} />
-          <div className="text-slate-400 text-lg">Loading validator incentives...</div>
+          <div className="text-slate-400 text-lg">{t('tokenPrograms.validatorIncentives.loading')}</div>
           <div className="flex gap-2 mt-4">
             {[1, 2, 3, 4, 5].map(i => (
               <div key={i} className="w-3 h-3 rounded-full bg-orange-500/30 animate-pulse" style={{ animationDelay: `${i * 100}ms` }} />
@@ -1119,11 +1121,11 @@ export default function ValidatorIncentivesPage() {
             <div className="logo-text">TBURN<span>CHAIN</span></div>
           </Link>
           <nav className="nav-links">
-            <a href="#tiers" onClick={(e) => { e.preventDefault(); scrollToSection('tiers'); }} data-testid="nav-tiers">티어</a>
-            <a href="#loyalty" onClick={(e) => { e.preventDefault(); scrollToSection('loyalty'); }} data-testid="nav-loyalty">충성 보상</a>
-            <a href="#performance" onClick={(e) => { e.preventDefault(); scrollToSection('performance'); }} data-testid="nav-performance">성능 보상</a>
-            <a href="#leaderboard" onClick={(e) => { e.preventDefault(); scrollToSection('leaderboard'); }} data-testid="nav-leaderboard">리더보드</a>
-            <a href="#faq" onClick={(e) => { e.preventDefault(); scrollToSection('faq'); }} data-testid="nav-faq">FAQ</a>
+            <a href="#tiers" onClick={(e) => { e.preventDefault(); scrollToSection('tiers'); }} data-testid="nav-tiers">{t('tokenPrograms.validatorIncentives.nav.tiers')}</a>
+            <a href="#loyalty" onClick={(e) => { e.preventDefault(); scrollToSection('loyalty'); }} data-testid="nav-loyalty">{t('tokenPrograms.validatorIncentives.nav.loyalty')}</a>
+            <a href="#performance" onClick={(e) => { e.preventDefault(); scrollToSection('performance'); }} data-testid="nav-performance">{t('tokenPrograms.validatorIncentives.nav.performance')}</a>
+            <a href="#leaderboard" onClick={(e) => { e.preventDefault(); scrollToSection('leaderboard'); }} data-testid="nav-leaderboard">{t('tokenPrograms.validatorIncentives.leaderboard.rank')}</a>
+            <a href="#faq" onClick={(e) => { e.preventDefault(); scrollToSection('faq'); }} data-testid="nav-faq">{t('tokenPrograms.validatorIncentives.faq.title')}</a>
           </nav>
           <div className="header-actions">
             <LanguageSelector isDark={true} />
@@ -1132,7 +1134,7 @@ export default function ValidatorIncentivesPage() {
               data-testid="button-connect-wallet"
               onClick={handleWalletClick}
             >
-              {isConnected && address ? `🔗 ${formatAddress(address)}` : '🔗 지갑 연결'}
+              {isConnected && address ? `🔗 ${formatAddress(address)}` : `🔗 ${t('tokenPrograms.validatorIncentives.wallet.connect')}`}
             </button>
           </div>
         </div>
@@ -1143,15 +1145,14 @@ export default function ValidatorIncentivesPage() {
         <div className="hero-bg"></div>
         <div className="hero-content">
           <div className="badge">
-            <span className="trophy-icon">🏆</span> VALIDATOR INCENTIVES - 검증자 인센티브
+            <span className="trophy-icon">🏆</span> {t('tokenPrograms.validatorIncentives.hero.badge')}
           </div>
           <h1>
-            밸리데이터를 위한<br />
-            <span className="gradient-text">7.5억 TBURN</span> 인센티브
+            {t('tokenPrograms.validatorIncentives.hero.titlePrefix')}<br />
+            <span className="gradient-text">{t('tokenPrograms.validatorIncentives.hero.title')}</span>
           </h1>
           <p className="hero-subtitle">
-            얼리버드 보너스, 장기 충성 보상, 성능 인센티브까지!
-            TBURN Chain 밸리데이터가 되어 최대 300% 추가 보상을 받으세요!
+            {t('tokenPrograms.validatorIncentives.hero.subtitle')}
           </p>
 
           <div className="early-bird-banner" data-testid="early-bird-banner">
@@ -1159,34 +1160,34 @@ export default function ValidatorIncentivesPage() {
               <div className="early-bird-left">
                 <span className="early-bird-icon">🦅</span>
                 <div className="early-bird-text">
-                  <h3>얼리버드 프로그램 진행중!</h3>
-                  <p>지금 참여하면 최대 100,000 TBURN 보너스</p>
+                  <h3>{t('tokenPrograms.validatorIncentives.hero.earlyBirdTitle')}</h3>
+                  <p>{t('tokenPrograms.validatorIncentives.hero.earlyBirdSubtitle')}</p>
                 </div>
               </div>
               <div className="early-bird-countdown">
-                <div className="label">마감까지</div>
+                <div className="label">{t('tokenPrograms.validatorIncentives.hero.countdownLabel')}</div>
                 <div className="countdown-timer">
                   <div className="countdown-item">
                     <div className="value" data-testid="countdown-days">{countdown.days}</div>
-                    <div className="unit">일</div>
+                    <div className="unit">{t('tokenPrograms.validatorIncentives.stats.countdown.days')}</div>
                   </div>
                   <div className="countdown-item">
                     <div className="value" data-testid="countdown-hours">{countdown.hours}</div>
-                    <div className="unit">시간</div>
+                    <div className="unit">{t('tokenPrograms.validatorIncentives.stats.countdown.hours')}</div>
                   </div>
                   <div className="countdown-item">
                     <div className="value" data-testid="countdown-mins">{countdown.mins}</div>
-                    <div className="unit">분</div>
+                    <div className="unit">{t('tokenPrograms.validatorIncentives.stats.countdown.mins')}</div>
                   </div>
                   <div className="countdown-item">
                     <div className="value" data-testid="countdown-secs">{countdown.secs}</div>
-                    <div className="unit">초</div>
+                    <div className="unit">{t('tokenPrograms.validatorIncentives.stats.countdown.secs')}</div>
                   </div>
                 </div>
               </div>
               <div className="early-bird-slots">
                 <div className="available" data-testid="slots-available">{isLoading ? '...' : stats?.activeValidators ? `${stats.activeValidators}/${stats.totalValidators}` : '52/125'}</div>
-                <div className="total">잔여 슬롯</div>
+                <div className="total">Remaining Slots</div>
               </div>
             </div>
           </div>
@@ -1194,19 +1195,19 @@ export default function ValidatorIncentivesPage() {
           <div className="stats-grid">
             <div className="stat-card" data-testid="stat-total-validators">
               <div className="stat-value">{isLoading ? '...' : stats?.totalValidators || 0}</div>
-              <div className="stat-label">총 밸리데이터</div>
+              <div className="stat-label">{t('tokenPrograms.validatorIncentives.stats.totalValidators')}</div>
             </div>
             <div className="stat-card" data-testid="stat-active-validators">
               <div className="stat-value">{isLoading ? '...' : stats?.activeValidators || 0}</div>
-              <div className="stat-label">활성 밸리데이터</div>
+              <div className="stat-label">{t('tokenPrograms.validatorIncentives.stats.activeValidators')}</div>
             </div>
             <div className="stat-card" data-testid="stat-total-staked">
               <div className="stat-value">{isLoading ? '...' : Number(stats?.totalStaked || 0).toLocaleString()}</div>
-              <div className="stat-label">총 스테이킹 (TBURN)</div>
+              <div className="stat-label">{t('tokenPrograms.validatorIncentives.stats.totalStaked')}</div>
             </div>
             <div className="stat-card" data-testid="stat-average-apy">
               <div className="stat-value">{isLoading ? '...' : stats?.averageApy ? `~${stats.averageApy}%` : '~0%'}</div>
-              <div className="stat-label">평균 APY</div>
+              <div className="stat-label">APY</div>
             </div>
           </div>
 
@@ -1214,16 +1215,16 @@ export default function ValidatorIncentivesPage() {
             <button 
               className="btn-primary" 
               data-testid="button-join-validator"
-              onClick={() => { scrollToSection('tiers'); toast({ title: "티어 선택", description: "자신에게 맞는 밸리데이터 티어를 선택하세요." }); }}
+              onClick={() => { scrollToSection('tiers'); toast({ title: t('tokenPrograms.validatorIncentives.wallet.selectTier'), description: t('tokenPrograms.validatorIncentives.wallet.selectTierDesc') }); }}
             >
-              지금 참여하기
+              {t('tokenPrograms.validatorIncentives.apply.joinNow')}
             </button>
             <button 
               className="btn-secondary"
               data-testid="button-learn-more"
-              onClick={() => { scrollToSection('loyalty'); toast({ title: "충성 보상 시스템", description: "장기 스테이킹 보상 시스템을 확인하세요." }); }}
+              onClick={() => { scrollToSection('loyalty'); toast({ title: t('tokenPrograms.validatorIncentives.apply.loyaltyRewards'), description: t('tokenPrograms.validatorIncentives.apply.loyaltyRewardsDesc') }); }}
             >
-              자세히 알아보기
+              {t('tokenPrograms.validatorIncentives.apply.learnMore')}
             </button>
           </div>
         </div>
@@ -1233,8 +1234,8 @@ export default function ValidatorIncentivesPage() {
       <section className="section">
         <div className="section-header">
           <span className="section-badge">DISTRIBUTION</span>
-          <h2 className="section-title">인센티브 배분</h2>
-          <p className="section-subtitle">7.5억 TBURN이 5가지 카테고리로 배분됩니다</p>
+          <h2 className="section-title">{t('tokenPrograms.validatorIncentives.sections.distribution')}</h2>
+          <p className="section-subtitle">750M TBURN distributed across 5 categories</p>
         </div>
 
         <div className="distribution-grid">
@@ -1253,8 +1254,8 @@ export default function ValidatorIncentivesPage() {
       <section className="section" id="tiers" style={{ background: 'rgba(255,255,255,0.02)' }}>
         <div className="section-header">
           <span className="section-badge">EARLY BIRD</span>
-          <h2 className="section-title">얼리 밸리데이터 티어</h2>
-          <p className="section-subtitle">참여 순서에 따른 차등 보상 시스템</p>
+          <h2 className="section-title">{t('tokenPrograms.validatorIncentives.sections.tiers')}</h2>
+          <p className="section-subtitle">{t('tokenPrograms.validatorIncentives.sections.tiersSubtitle')}</p>
         </div>
 
         <div className="tiers-grid">
@@ -1264,11 +1265,11 @@ export default function ValidatorIncentivesPage() {
               <div className="tier-header">
                 <div className="tier-icon">{tier.icon}</div>
                 <h3 className="tier-name">{tier.name}</h3>
-                <p className="tier-range">{tier.range} 참여자</p>
+                <p className="tier-range">{tier.range} {t('tokenPrograms.validatorIncentives.tiers.participant')}</p>
               </div>
               <div className="tier-content">
                 <div className="tier-reward">
-                  <div className="tier-reward-label">얼리버드 보너스</div>
+                  <div className="tier-reward-label">{t('tokenPrograms.validatorIncentives.tiers.earlybirdBonus')}</div>
                   <div className="tier-reward-value">{tier.reward} TBURN</div>
                 </div>
                 <ul className="tier-benefits">
@@ -1277,7 +1278,7 @@ export default function ValidatorIncentivesPage() {
                   ))}
                 </ul>
                 <div className="tier-slots">
-                  <span className="tier-slots-label">잔여 슬롯</span>
+                  <span className="tier-slots-label">Remaining Slots</span>
                   <span className={`tier-slots-value ${tier.slotsClass}`}>{tier.slots}</span>
                 </div>
                 <button 
@@ -1285,7 +1286,7 @@ export default function ValidatorIncentivesPage() {
                   onClick={() => handleApplyTier(tier.id, tier.name)}
                   data-testid={`button-apply-${tier.id}`}
                 >
-                  {isConnected ? '지금 신청하기' : '지갑 연결'}
+                  {isConnected ? t('tokenPrograms.validatorIncentives.apply.applyNow') : t('tokenPrograms.validatorIncentives.wallet.connect')}
                 </button>
               </div>
             </div>
@@ -1297,14 +1298,14 @@ export default function ValidatorIncentivesPage() {
       <section className="section" id="loyalty">
         <div className="section-header">
           <span className="section-badge">LOYALTY</span>
-          <h2 className="section-title">장기 충성 보상</h2>
-          <p className="section-subtitle">오래 함께할수록 더 많은 보상</p>
+          <h2 className="section-title">{t('tokenPrograms.validatorIncentives.sections.loyalty')}</h2>
+          <p className="section-subtitle">{t('tokenPrograms.validatorIncentives.sections.loyaltySubtitle')}</p>
         </div>
 
         <div className="loyalty-container">
           <div className="loyalty-header">
-            <h3>💎 충성도 멀티플라이어</h3>
-            <p style={{ color: 'var(--light-gray)' }}>스테이킹 기간에 따라 보상이 증가합니다</p>
+            <h3>💎 {t('tokenPrograms.validatorIncentives.loyalty.title')}</h3>
+            <p style={{ color: 'var(--light-gray)' }}>{t('tokenPrograms.validatorIncentives.loyalty.subtitle')}</p>
           </div>
 
           <div className="loyalty-timeline">
@@ -1324,8 +1325,8 @@ export default function ValidatorIncentivesPage() {
       <section className="section" id="performance" style={{ background: 'rgba(255,255,255,0.02)' }}>
         <div className="section-header">
           <span className="section-badge">PERFORMANCE</span>
-          <h2 className="section-title">성능 인센티브</h2>
-          <p className="section-subtitle">우수한 성능에 대한 추가 보상</p>
+          <h2 className="section-title">{t('tokenPrograms.validatorIncentives.sections.performance')}</h2>
+          <p className="section-subtitle">{t('tokenPrograms.validatorIncentives.sections.performanceSubtitle')}</p>
         </div>
 
         <div className="performance-grid">
@@ -1360,8 +1361,8 @@ export default function ValidatorIncentivesPage() {
       <section className="section" id="leaderboard">
         <div className="section-header">
           <span className="section-badge">LEADERBOARD</span>
-          <h2 className="section-title">인센티브 리더보드</h2>
-          <p className="section-subtitle">가장 많은 보상을 받은 밸리데이터</p>
+          <h2 className="section-title">{t('tokenPrograms.validatorIncentives.sections.leaderboard')}</h2>
+          <p className="section-subtitle">{t('tokenPrograms.validatorIncentives.sections.leaderboardSubtitle')}</p>
         </div>
 
         <div className="leaderboard-section">
@@ -1372,10 +1373,10 @@ export default function ValidatorIncentivesPage() {
           <table className="leaderboard-table">
             <thead>
               <tr>
-                <th>순위</th>
-                <th>밸리데이터</th>
-                <th>포인트</th>
-                <th>누적 보상</th>
+                <th>{t('tokenPrograms.validatorIncentives.leaderboard.rank')}</th>
+                <th>{t('tokenPrograms.validatorIncentives.leaderboard.validator')}</th>
+                <th>{t('tokenPrograms.validatorIncentives.leaderboard.points')}</th>
+                <th>{t('tokenPrograms.validatorIncentives.leaderboard.cumulativeRewards')}</th>
               </tr>
             </thead>
             <tbody>
@@ -1410,88 +1411,48 @@ export default function ValidatorIncentivesPage() {
       <section className="section" id="faq" style={{ background: 'rgba(255,255,255,0.02)' }}>
         <div className="section-header">
           <span className="section-badge">FAQ</span>
-          <h2 className="section-title">자주 묻는 질문</h2>
-          <p className="section-subtitle">인센티브 프로그램에 대해 궁금한 점</p>
+          <h2 className="section-title">{t('tokenPrograms.validatorIncentives.faq.title')}</h2>
+          <p className="section-subtitle">{t('tokenPrograms.validatorIncentives.faq.subtitle')}</p>
         </div>
 
         <div className="faq-container">
           <div className={`faq-item ${activeFaq === 'faq-1' ? 'active' : ''}`} data-testid="faq-item-1">
             <div className="faq-question" onClick={() => toggleFaq('faq-1')}>
-              <h4>밸리데이터 인센티브 총 물량은 얼마인가요?</h4>
+              <h4>{t('tokenPrograms.validatorIncentives.faq.q1')}</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>밸리데이터 인센티브 프로그램에 총 7.5억 TBURN(전체 공급량의 7.5%)이 배정되어 있습니다. 얼리버드 보너스 30%(2.25억), 장기 충성 보상 25%(1.875억), 성능 인센티브 20%(1.5억), 네트워크 성장 15%(1.125억), 거버넌스 보너스 10%(0.75억)으로 배분됩니다.</p>
+              <p>{t('tokenPrograms.validatorIncentives.faq.a1')}</p>
             </div>
           </div>
 
           <div className={`faq-item ${activeFaq === 'faq-2' ? 'active' : ''}`} data-testid="faq-item-2">
             <div className="faq-question" onClick={() => toggleFaq('faq-2')}>
-              <h4>얼리버드 보너스는 어떻게 받나요?</h4>
+              <h4>{t('tokenPrograms.validatorIncentives.faq.q2')}</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>Genesis(1~25번째, 100,000 TBURN), Pioneer(26~75번째, 50,000 TBURN), Early(76~125번째, 25,000 TBURN) 티어로 구분되며, 참여 순서에 따라 자동으로 티어가 결정됩니다. 보너스는 첫 스테이킹 시점에 즉시 지급됩니다.</p>
+              <p>{t('tokenPrograms.validatorIncentives.faq.a2')}</p>
             </div>
           </div>
 
           <div className={`faq-item ${activeFaq === 'faq-3' ? 'active' : ''}`} data-testid="faq-item-3">
             <div className="faq-question" onClick={() => toggleFaq('faq-3')}>
-              <h4>충성 보상 멀티플라이어는 어떻게 적용되나요?</h4>
+              <h4>{t('tokenPrograms.validatorIncentives.faq.q3')}</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>스테이킹을 유지한 기간에 따라 자동으로 멀티플라이어가 적용됩니다. 1년 후 1.5x(기본 충성), 2년 후 2.0x(실버), 3년 후 2.5x(골드), 4년 이상 3.0x(다이아몬드)가 적용되어 기본 보상에 곱해집니다.</p>
+              <p>{t('tokenPrograms.validatorIncentives.faq.a3')}</p>
             </div>
           </div>
 
           <div className={`faq-item ${activeFaq === 'faq-4' ? 'active' : ''}`} data-testid="faq-item-4">
             <div className="faq-question" onClick={() => toggleFaq('faq-4')}>
-              <h4>성능 보너스는 어떻게 계산되나요?</h4>
+              <h4>{t('tokenPrograms.validatorIncentives.faq.q4')}</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>업타임(99.9%+: +15%, 99.5%+: +10%, 99.0%+: +5%), 블록 생산(상위 10%: +20%, 30%: +12%, 50%: +5%), 무위반(1년: +25%, 6개월: +15%, 3개월: +8%)을 기준으로 매월 정산됩니다. Gold/Silver/Bronze 등급에 따른 보너스가 기본 보상에 추가됩니다.</p>
-            </div>
-          </div>
-
-          <div className={`faq-item ${activeFaq === 'faq-5' ? 'active' : ''}`} data-testid="faq-item-5">
-            <div className="faq-question" onClick={() => toggleFaq('faq-5')}>
-              <h4>보너스를 최대로 받으려면 어떻게 해야 하나요?</h4>
-              <span className="faq-chevron">▼</span>
-            </div>
-            <div className="faq-answer">
-              <p>Genesis 티어로 참여(+100,000 TBURN), 4년 이상 스테이킹(3.0x 멀티플라이어), 모든 성능 지표 Gold 등급(+60% 보너스) 달성 시 최대 300%의 추가 보상을 받을 수 있습니다. 거버넌스 참여도 추가 보너스 대상입니다.</p>
-            </div>
-          </div>
-
-          <div className={`faq-item ${activeFaq === 'faq-6' ? 'active' : ''}`} data-testid="faq-item-6">
-            <div className="faq-question" onClick={() => toggleFaq('faq-6')}>
-              <h4>Genesis 밸리데이터의 특별 혜택은 무엇인가요?</h4>
-              <span className="faq-chevron">▼</span>
-            </div>
-            <div className="faq-answer">
-              <p>Genesis 밸리데이터(1~25번째)는 100,000 TBURN 얼리버드 보너스, 독점 Genesis NFT 뱃지, 평생 0% 수수료 우대, 거버넌스 2x 투표권, VIP 전용 채널 접근 권한을 받습니다. 현재 2/25 슬롯이 남아있습니다.</p>
-            </div>
-          </div>
-
-          <div className={`faq-item ${activeFaq === 'faq-7' ? 'active' : ''}`} data-testid="faq-item-7">
-            <div className="faq-question" onClick={() => toggleFaq('faq-7')}>
-              <h4>인센티브 리더보드는 어떻게 운영되나요?</h4>
-              <span className="faq-chevron">▼</span>
-            </div>
-            <div className="faq-answer">
-              <p>리더보드는 포인트 시스템으로 운영됩니다. 업타임, 블록 생산, 스테이킹 금액, 거버넌스 참여에 따라 포인트가 누적됩니다. 상위 밸리데이터에게는 추가 TBURN 보상이 지급되며, 매월 순위가 갱신됩니다.</p>
-            </div>
-          </div>
-
-          <div className={`faq-item ${activeFaq === 'faq-8' ? 'active' : ''}`} data-testid="faq-item-8">
-            <div className="faq-question" onClick={() => toggleFaq('faq-8')}>
-              <h4>밸리데이터 인센티브는 언제 지급되나요?</h4>
-              <span className="faq-chevron">▼</span>
-            </div>
-            <div className="faq-answer">
-              <p>얼리버드 보너스는 첫 스테이킹 시 즉시 지급됩니다. 충성 보상 멀티플라이어는 각 기간 도달 시 자동 적용되며, 성능 보너스는 매월 정산됩니다. 모든 보상은 TBURN으로 지급되며 언제든 청구 가능합니다.</p>
+              <p>{t('tokenPrograms.validatorIncentives.faq.a4')}</p>
             </div>
           </div>
         </div>
@@ -1500,10 +1461,9 @@ export default function ValidatorIncentivesPage() {
       {/* CTA Section */}
       <section className="cta-section" id="cta">
         <div style={{ maxWidth: '800px', margin: '0 auto' }}>
-          <h2 style={{ fontSize: '2.5rem', fontWeight: 800, marginBottom: '1rem' }}>지금 밸리데이터가 되세요!</h2>
+          <h2 style={{ fontSize: '2.5rem', fontWeight: 800, marginBottom: '1rem' }}>{t('tokenPrograms.validatorIncentives.cta.title')}</h2>
           <p style={{ color: 'rgba(255,255,255,0.8)', fontSize: '1.125rem', marginBottom: '2rem' }}>
-            얼리버드 슬롯이 빠르게 마감되고 있습니다!<br />
-            지금 참여하고 최대 7.5억 TBURN 인센티브를 받으세요!
+            {t('tokenPrograms.validatorIncentives.cta.subtitle')}
           </p>
           <button 
             className="connect-btn" 
@@ -1511,10 +1471,10 @@ export default function ValidatorIncentivesPage() {
             data-testid="button-cta-apply"
             onClick={() => { 
               scrollToSection('tiers'); 
-              toast({ title: "밸리데이터 신청", description: "자신에게 맞는 티어를 선택하세요!" }); 
+              toast({ title: t('tokenPrograms.validatorIncentives.wallet.selectTier'), description: t('tokenPrograms.validatorIncentives.wallet.selectTierDesc') }); 
             }}
           >
-            지금 신청하기
+            {t('tokenPrograms.validatorIncentives.cta.applyNow')}
           </button>
         </div>
       </section>
@@ -1524,7 +1484,7 @@ export default function ValidatorIncentivesPage() {
         <div className="footer-content">
           <div className="footer-brand">
             <h3>TBURN<span>CHAIN</span></h3>
-            <p>AI의 지능, 블록체인의 투명성<br />THE FUTURE IS NOW</p>
+            <p>AI Intelligence, Blockchain Transparency<br />THE FUTURE IS NOW</p>
             <div className="social-links">
               <a 
                 href="https://x.com/tburnchain" 

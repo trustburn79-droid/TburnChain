@@ -16919,8 +16919,6 @@
         "rewards": "Récompenses",
         "faq": "FAQ",
         "connectWallet": "Connecter Portefeuille"
-      },
-      "hero": {
         "badge": "GOUVERNANCE DAO - Gouvernance Décentralisée",
         "title1": "Décidez de l'Avenir du Protocole",
         "title2": "800M TBURN",
@@ -17169,8 +17167,6 @@
         "slashing": "Pénalités",
         "faq": "FAQ",
         "connectWallet": "Connecter le Portefeuille"
-      },
-      "hero": {
         "badge": "Récompenses de Bloc",
         "title1": "TBURN",
         "title2": "Récompenses de",
@@ -17531,14 +17527,12 @@
         "tier": "Niveau",
         "points": "Points",
         "cumulativeRewards": "Récompenses Cumulées"
-      },
-      "hero": {
         "badge": "INCITATIONS VALIDATEURS",
         "title": "750M TBURN en Incitations",
         "titlePrefix": "Pour les Validateurs",
         "subtitle": "Bonus Early Bird, Récompenses de Fidélité à Long Terme, Incitations de Performance et plus! Devenez validateur TBURN Chain et gagnez jusqu'à 300% de récompenses supplémentaires!",
         "earlyBirdTitle": "Programme Early Bird Actif!",
-        "earlyBirdSubtitle": "Rejoignez maintenant pour jusqu'à 100,000 TBURN de bonus"
+        "earlyBirdSubtitle": "Rejoignez maintenant pour jusqu'à 100,000 TBURN de bonus",
       },
       "stats": {
         "totalValidators": "Total Validateurs",
@@ -17689,8 +17683,6 @@
         "investors": "Investisseurs",
         "process": "Processus",
         "faq": "FAQ"
-      },
-      "hero": {
         "badge": "SEED ROUND - Investisseur Précoce",
         "status": "Actif",
         "title": "Investissez dans le Tour de Semences",
@@ -17713,8 +17705,6 @@
         "investors": "Investisseurs",
         "faq": "FAQ",
         "connectWallet": "Demande Institutionnelle"
-      },
-      "hero": {
         "badge": "PRIVATE ROUND - Investissement Institutionnel",
         "status": "En Cours",
         "title": "Saisissez l'opportunité avec",
