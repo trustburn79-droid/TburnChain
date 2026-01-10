@@ -9122,7 +9122,7 @@
             "network": "نیٹ ورک: 500Mbps"
           }
         },
-        "slashing": {
+        "slashingSection": { "badge": "SLASHING", "title": "سلیشنگ قواعد", "subtitle": "نیٹ ورک سیکورٹی کے لیے جرمانہ نظام" }, "slashing": {
           "title": "سلیشنگ شرائط",
           "subtitle": "تصدیق کنندگان کو اعلیٰ معیار برقرار رکھنا ہوگا۔ خلاف ورزیوں کے نتیجے میں اسٹیک کی سزا ہوگی۔",
           "forumTitle": "کمیونٹی فورم",
@@ -13896,7 +13896,7 @@
           "stateTree": "اسٹیٹ ٹری",
           "quantumResistant": "کوانٹم مزاحم"
         },
-        "slashing": {
+        "slashingSection": { "badge": "SLASHING", "title": "سلیشنگ قواعد", "subtitle": "نیٹ ورک سیکورٹی کے لیے جرمانہ نظام" }, "slashing": {
           "title": "سلیشنگ شرائط",
           "doubleSigning": "دوہرا دستخط",
           "doubleSigningPenalty": "100% اسٹیک سلیش",
@@ -15612,7 +15612,7 @@
         "recommended": "تجویز کردہ"
       },
       "validatorTypes": {
-        "fullNode": {
+        "full": {
           "title": "مکمل نوڈ",
           "subtitle": "مکمل تصدیق نوڈ چلائیں",
           "req1": "16 کور CPU",
@@ -15620,7 +15620,7 @@
           "req3": "2TB NVMe SSD",
           "req4": "1Gbps نیٹ ورک"
         },
-        "lightNode": {
+        "light": {
           "title": "لائٹ نوڈ",
           "subtitle": "ہلکا تصدیق نوڈ چلائیں",
           "req1": "4 کور CPU",
@@ -15648,7 +15648,7 @@
         "monthlyReward": "ماہانہ انعام",
         "yearlyReward": "سالانہ انعام"
       },
-      "slashing": {
+      "slashingSection": { "badge": "SLASHING", "title": "سلیشنگ قواعد", "subtitle": "نیٹ ورک سیکورٹی کے لیے جرمانہ نظام" }, "slashing": {
         "badge": "سزا",
         "title": "سزا کی شرائط",
         "subtitle": "تصدیق کنندہ کی بدسلوکی پر جرمانے",

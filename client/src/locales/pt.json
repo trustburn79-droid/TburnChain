@@ -10475,7 +10475,7 @@
           "storage": "Armazenamento: 1TB NVMe SSD",
           "bandwidth": "Largura de banda: 1Gbps"
         },
-        "slashing": {
+        "slashingSection": { "badge": "SLASHING", "title": "Regras de Slashing", "subtitle": "Sistema de penalidade para segurança da rede" }, "slashing": {
           "title": "Condições de Slashing",
           "subtitle": "Validadores devem manter altos padrões. Violações resultam em penalidades de stake.",
           "forumTitle": "Fórum da Comunidade",
@@ -15254,7 +15254,7 @@
           "stateTree": "Árvore de Estado",
           "quantumResistant": "Resistente a Quânticos"
         },
-        "slashing": {
+        "slashingSection": { "badge": "SLASHING", "title": "Regras de Slashing", "subtitle": "Sistema de penalidade para segurança da rede" }, "slashing": {
           "title": "Condições de Slashing",
           "doubleSigning": "Assinatura Dupla",
           "doubleSigningPenalty": "100% do stake removido",
@@ -16970,7 +16970,7 @@
         "recommended": "Recomendado"
       },
       "validatorTypes": {
-        "fullNode": {
+        "full": {
           "title": "Nó Completo",
           "subtitle": "Execute um nó de validação completo",
           "req1": "CPU de 16 Núcleos",
@@ -16978,7 +16978,7 @@
           "req3": "2TB NVMe SSD",
           "req4": "Rede de 1Gbps"
         },
-        "lightNode": {
+        "light": {
           "title": "Nó Leve",
           "subtitle": "Execute um nó de validação leve",
           "req1": "CPU de 4 Núcleos",
@@ -17006,7 +17006,7 @@
         "monthlyReward": "Recompensa Mensal",
         "yearlyReward": "Recompensa Anual"
       },
-      "slashing": {
+      "slashingSection": { "badge": "SLASHING", "title": "Regras de Slashing", "subtitle": "Sistema de penalidade para segurança da rede" }, "slashing": {
         "badge": "Penalidades",
         "title": "Condições de Penalidade",
         "subtitle": "Penalizações por má conduta do validador",

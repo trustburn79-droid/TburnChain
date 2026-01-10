@@ -10284,7 +10284,7 @@
           "storage": "Хранилище: 1TB NVMe SSD",
           "bandwidth": "Пропускная способность: 1Gbps"
         },
-        "slashing": {
+        "slashingSection": { "badge": "SLASHING", "title": "Правила слэшинга", "subtitle": "Штрафная система для безопасности сети" }, "slashing": {
           "title": "Условия слэшинга",
           "subtitle": "Валидаторы должны поддерживать высокие стандарты. Нарушения приводят к штрафам стейка.",
           "forumTitle": "Форум сообщества",
@@ -15099,7 +15099,7 @@
           "stateTree": "Дерево Состояния",
           "quantumResistant": "Квантово-Устойчивый"
         },
-        "slashing": {
+        "slashingSection": { "badge": "SLASHING", "title": "Правила слэшинга", "subtitle": "Штрафная система для безопасности сети" }, "slashing": {
           "title": "Условия Слэшинга",
           "doubleSigning": "Двойная Подпись",
           "doubleSigningPenalty": "100% стейка изъято",
@@ -16262,7 +16262,7 @@
         "recommended": "Рекомендуется"
       },
       "validatorTypes": {
-        "fullNode": {
+        "full": {
           "title": "Полный узел",
           "subtitle": "Запустите полный узел валидации",
           "req1": "16-ядерный CPU",
@@ -16270,7 +16270,7 @@
           "req3": "2TB NVMe SSD",
           "req4": "Сеть 1Gbps"
         },
-        "lightNode": {
+        "light": {
           "title": "Легкий узел",
           "subtitle": "Запустите легкий узел валидации",
           "req1": "4-ядерный CPU",
@@ -16298,7 +16298,7 @@
         "monthlyReward": "Месячная награда",
         "yearlyReward": "Годовая награда"
       },
-      "slashing": {
+      "slashingSection": { "badge": "SLASHING", "title": "Правила слэшинга", "subtitle": "Штрафная система для безопасности сети" }, "slashing": {
         "badge": "Штрафы",
         "title": "Условия штрафов",
         "subtitle": "Наказания за нарушения валидаторов",

@@ -9112,7 +9112,7 @@
           "storage": "স্টোরেজ: 1TB NVMe SSD",
           "bandwidth": "ব্যান্ডউইথ: 1Gbps"
         },
-        "slashing": {
+        "slashingSection": { "badge": "SLASHING", "title": "স্ল্যাশিং নিয়ম", "subtitle": "নেটওয়ার্ক নিরাপত্তার জন্য জরিমানা ব্যবস্থা" }, "slashing": {
           "title": "স্ল্যাশিং শর্তাবলী",
           "subtitle": "ভ্যালিডেটরদের উচ্চ মান বজায় রাখতে হবে। লঙ্ঘনের ফলে স্টেক জরিমানা হয়।",
           "forumTitle": "সম্প্রদায় ফোরাম",
@@ -13652,7 +13652,7 @@
           "stateTree": "স্টেট ট্রি",
           "quantumResistant": "কোয়ান্টাম-প্রতিরোধী"
         },
-        "slashing": {
+        "slashingSection": { "badge": "SLASHING", "title": "স্ল্যাশিং নিয়ম", "subtitle": "নেটওয়ার্ক নিরাপত্তার জন্য জরিমানা ব্যবস্থা" }, "slashing": {
           "title": "স্ল্যাশিং শর্ত",
           "doubleSigning": "ডাবল সাইনিং",
           "doubleSigningPenalty": "100% স্টেক স্ল্যাশ",
@@ -15368,7 +15368,7 @@
         "recommended": "প্রস্তাবিত"
       },
       "validatorTypes": {
-        "fullNode": {
+        "full": {
           "title": "সম্পূর্ণ নোড",
           "subtitle": "একটি সম্পূর্ণ যাচাইকরণ নোড চালান",
           "req1": "১৬ কোর CPU",
@@ -15376,7 +15376,7 @@
           "req3": "২TB NVMe SSD",
           "req4": "১Gbps নেটওয়ার্ক"
         },
-        "lightNode": {
+        "light": {
           "title": "হালকা নোড",
           "subtitle": "একটি হালকা যাচাইকরণ নোড চালান",
           "req1": "৪ কোর CPU",
@@ -15404,7 +15404,7 @@
         "monthlyReward": "মাসিক পুরস্কার",
         "yearlyReward": "বার্ষিক পুরস্কার"
       },
-      "slashing": {
+      "slashingSection": { "badge": "SLASHING", "title": "স্ল্যাশিং নিয়ম", "subtitle": "নেটওয়ার্ক নিরাপত্তার জন্য জরিমানা ব্যবস্থা" }, "slashing": {
         "badge": "স্ল্যাশিং",
         "title": "স্ল্যাশিং শর্তাবলী",
         "subtitle": "যাচাইকারী অসদাচরণের জন্য জরিমানা",

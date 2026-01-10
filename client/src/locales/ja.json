@@ -13626,7 +13626,7 @@
           "storage": "ストレージ: 1TB NVMe SSD",
           "bandwidth": "帯域幅: 1Gbps"
         },
-        "slashing": {
+        "slashingSection": { "badge": "SLASHING", "title": "スラッシングルール", "subtitle": "ネットワークセキュリティのためのペナルティシステム" }, "slashing": {
           "title": "スラッシング条件",
           "subtitle": "バリデーターは高い基準を維持する必要があります。違反はステークペナルティにつながります。",
           "forumTitle": "コミュニティフォーラム",
@@ -18473,7 +18473,7 @@
           "stateTree": "状態ツリー",
           "quantumResistant": "量子耐性"
         },
-        "slashing": {
+        "slashingSection": { "badge": "SLASHING", "title": "スラッシングルール", "subtitle": "ネットワークセキュリティのためのペナルティシステム" }, "slashing": {
           "title": "スラッシング条件",
           "doubleSigning": "二重署名",
           "doubleSigningPenalty": "ステーク100%スラッシュ",
@@ -20189,7 +20189,7 @@
         "recommended": "おすすめ"
       },
       "validatorTypes": {
-        "fullNode": {
+        "full": {
           "title": "フルノード",
           "subtitle": "完全な検証ノードを運営",
           "req1": "16コアCPU",
@@ -20197,7 +20197,7 @@
           "req3": "2TB NVMe SSD",
           "req4": "1Gbpsネットワーク"
         },
-        "lightNode": {
+        "light": {
           "title": "ライトノード",
           "subtitle": "軽量検証ノードを運営",
           "req1": "4コアCPU",
@@ -20225,7 +20225,7 @@
         "monthlyReward": "月次報酬",
         "yearlyReward": "年次報酬"
       },
-      "slashing": {
+      "slashingSection": { "badge": "SLASHING", "title": "スラッシングルール", "subtitle": "ネットワークセキュリティのためのペナルティシステム" }, "slashing": {
         "badge": "スラッシング",
         "title": "スラッシング条件",
         "subtitle": "バリデーターの不正行為に対するペナルティ",

@@ -11283,7 +11283,7 @@
           "storage": "स्टोरेज: 1TB NVMe SSD",
           "bandwidth": "बैंडविड्थ: 1Gbps"
         },
-        "slashing": {
+        "slashingSection": { "badge": "SLASHING", "title": "स्लैशिंग नियम", "subtitle": "नेटवर्क सुरक्षा के लिए जुर्माना प्रणाली" }, "slashing": {
           "title": "स्लैशिंग शर्तें",
           "subtitle": "वैलिडेटर्स को उच्च मानकों का पालन करना चाहिए। उल्लंघन के परिणामस्वरूप स्टेक दंड लगता है।",
           "forumTitle": "समुदाय मंच",
@@ -16072,7 +16072,7 @@
           "stateTree": "स्टेट ट्री",
           "quantumResistant": "क्वांटम-प्रतिरोधी"
         },
-        "slashing": {
+        "slashingSection": { "badge": "SLASHING", "title": "स्लैशिंग नियम", "subtitle": "नेटवर्क सुरक्षा के लिए जुर्माना प्रणाली" }, "slashing": {
           "title": "स्लैशिंग कंडीशन",
           "doubleSigning": "डबल साइनिंग",
           "doubleSigningPenalty": "100% स्टेक स्लैश",
@@ -17788,7 +17788,7 @@
         "recommended": "अनुशंसित"
       },
       "validatorTypes": {
-        "fullNode": {
+        "full": {
           "title": "फुल नोड",
           "subtitle": "पूर्ण वैलिडेशन नोड चलाएं",
           "req1": "16 कोर CPU",
@@ -17796,7 +17796,7 @@
           "req3": "2TB NVMe SSD",
           "req4": "1Gbps नेटवर्क"
         },
-        "lightNode": {
+        "light": {
           "title": "लाइट नोड",
           "subtitle": "हल्का वैलिडेशन नोड चलाएं",
           "req1": "4 कोर CPU",
@@ -17824,7 +17824,7 @@
         "monthlyReward": "मासिक पुरस्कार",
         "yearlyReward": "वार्षिक पुरस्कार"
       },
-      "slashing": {
+      "slashingSection": { "badge": "SLASHING", "title": "स्लैशिंग नियम", "subtitle": "नेटवर्क सुरक्षा के लिए जुर्माना प्रणाली" }, "slashing": {
         "badge": "स्लैशिंग",
         "title": "स्लैशिंग शर्तें",
         "subtitle": "वैलिडेटर दुर्व्यवहार के लिए दंड",

@@ -12773,7 +12773,7 @@
             "network": "网络: 500Mbps"
           }
         },
-        "slashing": {
+        "slashingSection": { "badge": "SLASHING", "title": "惩罚规则", "subtitle": "网络安全的惩罚系统" }, "slashing": {
           "title": "罚没条件",
           "subtitle": "验证者必须维持高标准。违规将导致质押惩罚。",
           "forumTitle": "社区论坛",
@@ -17597,7 +17597,7 @@
           "stateTree": "状态树",
           "quantumResistant": "抗量子"
         },
-        "slashing": {
+        "slashingSection": { "badge": "SLASHING", "title": "惩罚规则", "subtitle": "网络安全的惩罚系统" }, "slashing": {
           "title": "罚没条件",
           "doubleSigning": "双重签名",
           "doubleSigningPenalty": "100%质押罚没",
@@ -19313,7 +19313,7 @@
         "recommended": "推荐"
       },
       "validatorTypes": {
-        "fullNode": {
+        "full": {
           "title": "全节点",
           "subtitle": "运行完整的验证节点",
           "req1": "16核CPU",
@@ -19321,7 +19321,7 @@
           "req3": "2TB NVMe固态硬盘",
           "req4": "1Gbps网络"
         },
-        "lightNode": {
+        "light": {
           "title": "轻节点",
           "subtitle": "运行轻量级验证节点",
           "req1": "4核CPU",
@@ -19349,7 +19349,7 @@
         "monthlyReward": "每月奖励",
         "yearlyReward": "每年奖励"
       },
-      "slashing": {
+      "slashingSection": { "badge": "SLASHING", "title": "惩罚规则", "subtitle": "网络安全的惩罚系统" }, "slashing": {
         "badge": "惩罚",
         "title": "惩罚条件",
         "subtitle": "验证者不当行为的处罚",

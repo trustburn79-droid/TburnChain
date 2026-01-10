@@ -14217,7 +14217,7 @@
           "storage": "Storage: 1TB NVMe SSD",
           "bandwidth": "Bandwidth: 1Gbps"
         },
-        "slashing": {
+        "slashingSection": { "badge": "SLASHING", "title": "Slashing Rules", "subtitle": "Penalty system for network security" }, "slashing": {
           "title": "Slashing Conditions",
           "subtitle": "Validators must maintain high standards. Violations result in stake penalties.",
           "minor": {
@@ -29594,7 +29594,7 @@
           "stateTree": "State Tree",
           "quantumResistant": "Quantum-Resistant"
         },
-        "slashing": {
+        "slashingSection": { "badge": "SLASHING", "title": "Slashing Rules", "subtitle": "Penalty system for network security" }, "slashing": {
           "title": "Slashing Conditions",
           "doubleSigning": "Double Signing",
           "doubleSigningPenalty": "100% stake slashed",
@@ -31110,7 +31110,7 @@
         "recommended": "Recommended"
       },
       "validatorTypes": {
-        "fullNode": {
+        "full": {
           "title": "Full Node",
           "subtitle": "Run a complete validation node",
           "req1": "16 Core CPU",
@@ -31118,7 +31118,7 @@
           "req3": "2TB NVMe SSD",
           "req4": "1Gbps Network"
         },
-        "lightNode": {
+        "light": {
           "title": "Light Node",
           "subtitle": "Run a lightweight validation node",
           "req1": "4 Core CPU",
@@ -31146,7 +31146,7 @@
         "monthlyReward": "Monthly Reward",
         "yearlyReward": "Yearly Reward"
       },
-      "slashing": {
+      "slashingSection": { "badge": "SLASHING", "title": "Slashing Rules", "subtitle": "Penalty system for network security" }, "slashing": {
         "badge": "Slashing",
         "title": "Slashing Conditions",
         "subtitle": "Penalties for validator misconduct",

@@ -12280,7 +12280,7 @@
           "storage": "Almacenamiento: 1TB NVMe SSD",
           "bandwidth": "Ancho de banda: 1Gbps"
         },
-        "slashing": {
+        "slashingSection": { "badge": "SLASHING", "title": "Reglas de Slashing", "subtitle": "Sistema de penalización para la seguridad de la red" }, "slashing": {
           "title": "Condiciones de Penalización",
           "subtitle": "Los validadores deben mantener altos estándares. Las violaciones resultan en penalizaciones de stake.",
           "forumTitle": "Foro de la Comunidad",
@@ -17536,7 +17536,7 @@
           "stateTree": "Árbol de Estado",
           "quantumResistant": "Resistente a Cuánticos"
         },
-        "slashing": {
+        "slashingSection": { "badge": "SLASHING", "title": "Reglas de Slashing", "subtitle": "Sistema de penalización para la seguridad de la red" }, "slashing": {
           "title": "Condiciones de Slashing",
           "doubleSigning": "Doble Firma",
           "doubleSigningPenalty": "100% del stake eliminado",
@@ -19505,7 +19505,7 @@
         "recommended": "Recomendado"
       },
       "validatorTypes": {
-        "fullNode": {
+        "full": {
           "title": "Nodo Completo",
           "subtitle": "Ejecuta un nodo de validación completo",
           "req1": "CPU de 16 Núcleos",
@@ -19513,7 +19513,7 @@
           "req3": "2TB NVMe SSD",
           "req4": "Red de 1Gbps"
         },
-        "lightNode": {
+        "light": {
           "title": "Nodo Ligero",
           "subtitle": "Ejecuta un nodo de validación ligero",
           "req1": "CPU de 4 Núcleos",
@@ -19541,7 +19541,7 @@
         "monthlyReward": "Recompensa Mensual",
         "yearlyReward": "Recompensa Anual"
       },
-      "slashing": {
+      "slashingSection": { "badge": "SLASHING", "title": "Reglas de Slashing", "subtitle": "Sistema de penalización para la seguridad de la red" }, "slashing": {
         "badge": "Penalizaciones",
         "title": "Condiciones de Penalización",
         "subtitle": "Sanciones por mala conducta del validador",

@@ -14502,7 +14502,7 @@
           "storage": "스토리지: 1TB NVMe SSD",
           "bandwidth": "대역폭: 1Gbps"
         },
-        "slashing": {
+        "slashingSection": { "badge": "SLASHING", "title": "슬래싱 규칙", "subtitle": "네트워크 안전을 위한 페널티 시스템" }, "slashing": {
           "title": "슬래싱 조건",
           "subtitle": "검증자는 높은 기준을 유지해야 합니다. 위반 시 스테이크 페널티가 부과됩니다.",
           "forumTitle": "커뮤니티 포럼",
@@ -29533,7 +29533,7 @@
           "stateTree": "상태 트리",
           "quantumResistant": "양자 내성"
         },
-        "slashing": {
+        "slashingSection": { "badge": "SLASHING", "title": "슬래싱 규칙", "subtitle": "네트워크 안전을 위한 페널티 시스템" }, "slashing": {
           "title": "슬래싱 조건",
           "doubleSigning": "이중 서명",
           "doubleSigningPenalty": "스테이크 100% 슬래싱",
@@ -31227,7 +31227,7 @@
         "recommended": "추천"
       },
       "validatorTypes": {
-        "fullNode": {
+        "full": {
           "title": "풀 노드",
           "subtitle": "완전한 검증 노드 운영",
           "req1": "16코어 CPU",
@@ -31235,7 +31235,7 @@
           "req3": "2TB NVMe SSD",
           "req4": "1Gbps 네트워크"
         },
-        "lightNode": {
+        "light": {
           "title": "라이트 노드",
           "subtitle": "경량 검증 노드 운영",
           "req1": "4코어 CPU",
@@ -31263,7 +31263,7 @@
         "monthlyReward": "월간 보상",
         "yearlyReward": "연간 보상"
       },
-      "slashing": {
+      "slashingSection": { "badge": "SLASHING", "title": "슬래싱 규칙", "subtitle": "네트워크 안전을 위한 페널티 시스템" }, "slashing": {
         "badge": "슬래싱",
         "title": "슬래싱 조건",
         "subtitle": "검증자 부정행위에 대한 페널티",
@@ -33530,7 +33530,7 @@
         "title": "슬래싱 규칙",
         "subtitle": "네트워크 안전을 위한 페널티 시스템"
       },
-      "slashing": {
+      "slashingSection": { "badge": "SLASHING", "title": "슬래싱 규칙", "subtitle": "네트워크 안전을 위한 페널티 시스템" }, "slashing": {
         "minor": {
           "title": "경미한 위반",
           "penalty": "-0.1% 슬래싱",

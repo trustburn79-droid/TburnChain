@@ -10647,7 +10647,7 @@
           "storage": "التخزين: 1TB NVMe SSD",
           "bandwidth": "عرض النطاق: 1Gbps"
         },
-        "slashing": {
+        "slashingSection": { "badge": "SLASHING", "title": "قواعد العقوبات", "subtitle": "نظام العقوبات لأمان الشبكة" }, "slashing": {
           "title": "شروط العقوبات",
           "subtitle": "يجب على المدققين الحفاظ على معايير عالية. تؤدي الانتهاكات إلى عقوبات على الحصة.",
           "forumTitle": "منتدى المجتمع",
@@ -15428,7 +15428,7 @@
           "stateTree": "شجرة الحالة",
           "quantumResistant": "مقاوم للكم"
         },
-        "slashing": {
+        "slashingSection": { "badge": "SLASHING", "title": "قواعد العقوبات", "subtitle": "نظام العقوبات لأمان الشبكة" }, "slashing": {
           "title": "شروط التخفيض",
           "doubleSigning": "التوقيع المزدوج",
           "doubleSigningPenalty": "تخفيض 100% من الحصة",
@@ -17144,7 +17144,7 @@
         "recommended": "موصى به"
       },
       "validatorTypes": {
-        "fullNode": {
+        "full": {
           "title": "عقدة كاملة",
           "subtitle": "تشغيل عقدة تحقق كاملة",
           "req1": "معالج 16 نواة",
@@ -17152,7 +17152,7 @@
           "req3": "2TB NVMe SSD",
           "req4": "شبكة 1Gbps"
         },
-        "lightNode": {
+        "light": {
           "title": "عقدة خفيفة",
           "subtitle": "تشغيل عقدة تحقق خفيفة",
           "req1": "معالج 4 نواة",
@@ -17180,7 +17180,7 @@
         "monthlyReward": "المكافأة الشهرية",
         "yearlyReward": "المكافأة السنوية"
       },
-      "slashing": {
+      "slashingSection": { "badge": "SLASHING", "title": "قواعد العقوبات", "subtitle": "نظام العقوبات لأمان الشبكة" }, "slashing": {
         "badge": "العقوبات",
         "title": "شروط العقوبات",
         "subtitle": "عقوبات سوء سلوك المدقق",
