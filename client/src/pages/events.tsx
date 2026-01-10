@@ -42,9 +42,6 @@ export default function EventsPage() {
   const { isConnected, address, connect, disconnect, formatAddress } = useWeb3();
   const { toast } = useToast();
   const [registering, setRegistering] = useState<string | null>(null);
-  
-  // i18n helper for eventsPage namespace
-  const tp = (key: string) => t(`tokenPrograms.eventsPage.${key}`);
 
   const { data: eventsData, isLoading: isEventsLoading } = useQuery<EventsApiResponse>({
     queryKey: ['/api/token-programs/events/list'],
@@ -56,16 +53,16 @@ export default function EventsPage() {
     },
     onSuccess: (data: any) => {
       toast({
-        title: tp('toasts.registerSuccess.title'),
-        description: data.data?.message || tp('toasts.registerSuccess.desc'),
+        title: t('events.toasts.registerSuccess.title'),
+        description: data.data?.message || t('events.toasts.registerSuccess.desc'),
       });
       queryClient.invalidateQueries({ queryKey: ['/api/token-programs/events/list'] });
       setRegistering(null);
     },
     onError: (error: any) => {
       toast({
-        title: tp('toasts.registerFailed.title'),
-        description: error.message || tp('toasts.registerFailed.desc'),
+        title: t('events.toasts.registerFailed.title'),
+        description: error.message || t('events.toasts.registerFailed.desc'),
         variant: "destructive",
       });
       setRegistering(null);
@@ -106,8 +103,8 @@ export default function EventsPage() {
     }
     if (!address) {
       toast({
-        title: tp('toasts.walletRequired.title'),
-        description: tp('toasts.walletRequired.desc'),
+        title: t('events.toasts.walletRequired.title'),
+        description: t('events.toasts.walletRequired.desc'),
         variant: "destructive",
       });
       return;
@@ -126,19 +123,19 @@ export default function EventsPage() {
   };
 
   const staticEvents = [
-    { id: "launch", category: "launch live", icon: "🚀", status: tp('events.status.live'), statusClass: "live", title: tp('events.staticEvents.launch.title'), desc: tp('events.staticEvents.launch.desc'), reward: "50M", date: "~2026.01.31", featured: true },
-    { id: "trading", category: "trading live", icon: "📊", status: tp('events.status.live'), statusClass: "live", title: tp('events.staticEvents.trading.title'), desc: tp('events.staticEvents.trading.desc'), reward: "20M", date: "~2026.02.28", featured: false },
-    { id: "staking", category: "staking live", icon: "💎", status: tp('events.status.live'), statusClass: "live", title: tp('events.staticEvents.staking.title'), desc: tp('events.staticEvents.staking.desc'), reward: "30M", date: "~2026.02.15", featured: false },
-    { id: "meme", category: "community", icon: "👥", status: tp('events.status.upcoming'), statusClass: "upcoming", title: tp('events.staticEvents.meme.title'), desc: tp('events.staticEvents.meme.desc'), reward: "5M", date: "2026.01.15~", featured: false },
-    { id: "quiz", category: "community live", icon: "🧠", status: tp('events.status.live'), statusClass: "live", title: tp('events.staticEvents.quiz.title'), desc: tp('events.staticEvents.quiz.desc'), reward: "10M", date: "Always", featured: false },
-    { id: "dex", category: "partner", icon: "🤝", status: tp('events.status.upcoming'), statusClass: "upcoming", title: tp('events.staticEvents.dex.title'), desc: tp('events.staticEvents.dex.desc'), reward: "20M", date: "2026.02.01~", featured: false },
+    { id: "launch", category: "launch live", icon: "🚀", status: t('events.upcoming.status.live'), statusClass: "live", title: t('events.upcoming.staticEvents.launch.title'), desc: t('events.upcoming.staticEvents.launch.desc'), reward: "50M", date: "~2026.01.31", featured: true },
+    { id: "trading", category: "trading live", icon: "📊", status: t('events.upcoming.status.live'), statusClass: "live", title: t('events.upcoming.staticEvents.trading.title'), desc: t('events.upcoming.staticEvents.trading.desc'), reward: "20M", date: "~2026.02.28", featured: false },
+    { id: "staking", category: "staking live", icon: "💎", status: t('events.upcoming.status.live'), statusClass: "live", title: t('events.upcoming.staticEvents.staking.title'), desc: t('events.upcoming.staticEvents.staking.desc'), reward: "30M", date: "~2026.02.15", featured: false },
+    { id: "meme", category: "community", icon: "👥", status: t('events.upcoming.status.upcoming'), statusClass: "upcoming", title: t('events.upcoming.staticEvents.meme.title'), desc: t('events.upcoming.staticEvents.meme.desc'), reward: "5M", date: "2026.01.15~", featured: false },
+    { id: "quiz", category: "community live", icon: "🧠", status: t('events.upcoming.status.live'), statusClass: "live", title: t('events.upcoming.staticEvents.quiz.title'), desc: t('events.upcoming.staticEvents.quiz.desc'), reward: "10M", date: "Always", featured: false },
+    { id: "dex", category: "partner", icon: "🤝", status: t('events.upcoming.status.upcoming'), statusClass: "upcoming", title: t('events.upcoming.staticEvents.dex.title'), desc: t('events.upcoming.staticEvents.dex.desc'), reward: "20M", date: "2026.02.01~", featured: false },
   ];
 
   const apiActiveEvents = (Array.isArray(apiData?.activeEvents) ? apiData.activeEvents : []).map((e: ApiEvent) => ({
     id: e.id,
     category: e.category || "live",
     icon: e.icon || "🎯",
-    status: tp('events.status.live'),
+    status: t('events.upcoming.status.live'),
     statusClass: "live",
     title: e.name,
     desc: e.description,
@@ -151,7 +148,7 @@ export default function EventsPage() {
     id: e.id,
     category: e.category || "upcoming",
     icon: e.icon || "📅",
-    status: tp('events.status.upcoming'),
+    status: t('events.upcoming.status.upcoming'),
     statusClass: "upcoming",
     title: e.name,
     desc: e.description,
@@ -1016,22 +1013,22 @@ export default function EventsPage() {
               href="#live-events"
               onClick={(e) => { e.preventDefault(); document.getElementById('live-events')?.scrollIntoView({ behavior: 'smooth' }); }}
               data-testid="nav-live-events"
-            >{tp('nav.liveEvents')}</a>
+            >{t('events.nav.liveEvents')}</a>
             <a 
               href="#all-events"
               onClick={(e) => { e.preventDefault(); document.getElementById('all-events')?.scrollIntoView({ behavior: 'smooth' }); }}
               data-testid="nav-all-events"
-            >{tp('nav.allEvents')}</a>
+            >{t('events.nav.allEvents')}</a>
             <a 
               href="#leaderboard"
               onClick={(e) => { e.preventDefault(); document.getElementById('leaderboard')?.scrollIntoView({ behavior: 'smooth' }); }}
               data-testid="nav-leaderboard"
-            >{tp('nav.leaderboard')}</a>
+            >{t('events.nav.leaderboard')}</a>
             <a 
               href="#faq"
               onClick={(e) => { e.preventDefault(); document.getElementById('faq')?.scrollIntoView({ behavior: 'smooth' }); }}
               data-testid="nav-faq"
-            >{tp('nav.faq')}</a>
+            >{t('events.nav.faq')}</a>
           </nav>
           <div className="header-actions">
             <LanguageSelector isDark={true} />
@@ -1040,7 +1037,7 @@ export default function EventsPage() {
               data-testid="button-connect-wallet"
               onClick={handleWalletClick}
             >
-              {isConnected && address ? `🔗 ${formatAddress(address)}` : `🔗 ${tp('nav.connectWallet')}`}
+              {isConnected && address ? `🔗 ${formatAddress(address)}` : `🔗 ${t('events.nav.connectWallet')}`}
             </button>
           </div>
         </div>
@@ -1051,41 +1048,41 @@ export default function EventsPage() {
         <div className="hero-bg"></div>
         <div className="hero-content">
           <div className="badge">
-            🔥 {tp('hero.badge')}
+            🔥 {t('events.hero.badge')}
           </div>
           <h1>
-            {tp('hero.title')}<br />
-            <span className="gradient-text">{tp('hero.titleHighlight')}</span> {tp('hero.titleSuffix')}
+            {t('events.hero.title')}<br />
+            <span className="gradient-text">{t('events.hero.titleHighlight')}</span> {t('events.hero.titleSuffix')}
           </h1>
           <p className="hero-subtitle">
-            {tp('hero.subtitle')}
+            {t('events.hero.subtitle')}
           </p>
 
           {/* Live Event Banner */}
           <div className="live-banner" id="live-events">
             <div>
-              <div className="live-badge">{tp('hero.liveBadge')}</div>
+              <div className="live-badge">{t('events.hero.liveBadge')}</div>
             </div>
             <div className="live-info">
-              <h3>🚀 {tp('hero.liveTitle')}</h3>
-              <p>{tp('hero.liveSubtitle')}</p>
+              <h3>🚀 {t('events.hero.liveTitle')}</h3>
+              <p>{t('events.hero.liveSubtitle')}</p>
             </div>
             <div className="countdown-container">
               <div className="countdown-item">
                 <div className="countdown-value">{countdown.days}</div>
-                <div className="countdown-label">{tp('hero.countdown.days')}</div>
+                <div className="countdown-label">{t('events.hero.countdown.days')}</div>
               </div>
               <div className="countdown-item">
                 <div className="countdown-value">{countdown.hours}</div>
-                <div className="countdown-label">{tp('hero.countdown.hours')}</div>
+                <div className="countdown-label">{t('events.hero.countdown.hours')}</div>
               </div>
               <div className="countdown-item">
                 <div className="countdown-value">{countdown.minutes}</div>
-                <div className="countdown-label">{tp('hero.countdown.minutes')}</div>
+                <div className="countdown-label">{t('events.hero.countdown.minutes')}</div>
               </div>
               <div className="countdown-item">
                 <div className="countdown-value">{countdown.seconds}</div>
-                <div className="countdown-label">{tp('hero.countdown.seconds')}</div>
+                <div className="countdown-label">{t('events.hero.countdown.seconds')}</div>
               </div>
             </div>
             <button 
@@ -1093,7 +1090,7 @@ export default function EventsPage() {
               data-testid="button-participate"
               onClick={() => handleParticipate('launch')}
             >
-              {isConnected ? `➜ ${tp('hero.participate')}` : `➜ ${tp('hero.connectFirst')}`}
+              {isConnected ? `➜ ${t('events.hero.participate')}` : `➜ ${t('events.hero.connectFirst')}`}
             </button>
           </div>
 
@@ -1102,25 +1099,25 @@ export default function EventsPage() {
               <div className="stat-value">
                 {isEventsLoading ? '...' : (apiStats.totalEvents > 0 ? apiStats.totalEvents.toLocaleString() : '12+')}
               </div>
-              <div className="stat-label">{tp('stats.totalEvents')}</div>
+              <div className="stat-label">{t('events.stats.totalEvents')}</div>
             </div>
             <div className="stat-card" data-testid="stat-active-events">
               <div className="stat-value">
                 {isEventsLoading ? '...' : (apiStats.activeEvents > 0 ? apiStats.activeEvents.toLocaleString() : '6')}
               </div>
-              <div className="stat-label">{tp('stats.activeEvents')}</div>
+              <div className="stat-label">{t('events.stats.activeEvents')}</div>
             </div>
             <div className="stat-card" data-testid="stat-total-participants">
               <div className="stat-value">
                 {isEventsLoading ? '...' : (apiStats.totalParticipants > 0 ? apiStats.totalParticipants.toLocaleString() : '0')}
               </div>
-              <div className="stat-label">{tp('stats.totalParticipants')}</div>
+              <div className="stat-label">{t('events.stats.totalParticipants')}</div>
             </div>
             <div className="stat-card" data-testid="stat-rewards-distributed">
               <div className="stat-value">
                 {isEventsLoading ? '...' : (Number(apiStats.totalRewardsDistributed) > 0 ? Number(apiStats.totalRewardsDistributed).toLocaleString() : '400M')}
               </div>
-              <div className="stat-label">{tp('stats.totalRewards')}</div>
+              <div className="stat-label">{t('events.stats.totalRewards')}</div>
             </div>
           </div>
         </div>
@@ -1129,41 +1126,41 @@ export default function EventsPage() {
       {/* Distribution Section */}
       <section className="section">
         <div className="section-header">
-          <span className="section-badge">{tp('distribution.badge')}</span>
-          <h2 className="section-title">{tp('distribution.title')}</h2>
-          <p className="section-subtitle">{tp('distribution.subtitle')}</p>
+          <span className="section-badge">{t('events.distribution.badge')}</span>
+          <h2 className="section-title">{t('events.distribution.title')}</h2>
+          <p className="section-subtitle">{t('events.distribution.subtitle')}</p>
         </div>
 
         <div className="distribution-grid">
           <div className="dist-card launch" data-testid="dist-launch">
             <div className="dist-icon">🚀</div>
-            <div className="dist-name">{tp('distribution.launch.name')}</div>
-            <div className="dist-amount">{tp('distribution.launch.amount')}</div>
-            <div className="dist-percent">{tp('distribution.launch.percent')}</div>
+            <div className="dist-name">{t('events.distribution.launch.name')}</div>
+            <div className="dist-amount">{t('events.distribution.launch.amount')}</div>
+            <div className="dist-percent">{t('events.distribution.launch.percent')}</div>
           </div>
           <div className="dist-card trading" data-testid="dist-trading">
             <div className="dist-icon">📊</div>
-            <div className="dist-name">{tp('distribution.trading.name')}</div>
-            <div className="dist-amount">{tp('distribution.trading.amount')}</div>
-            <div className="dist-percent">{tp('distribution.trading.percent')}</div>
+            <div className="dist-name">{t('events.distribution.trading.name')}</div>
+            <div className="dist-amount">{t('events.distribution.trading.amount')}</div>
+            <div className="dist-percent">{t('events.distribution.trading.percent')}</div>
           </div>
           <div className="dist-card staking" data-testid="dist-staking">
             <div className="dist-icon">💎</div>
-            <div className="dist-name">{tp('distribution.staking.name')}</div>
-            <div className="dist-amount">{tp('distribution.staking.amount')}</div>
-            <div className="dist-percent">{tp('distribution.staking.percent')}</div>
+            <div className="dist-name">{t('events.distribution.staking.name')}</div>
+            <div className="dist-amount">{t('events.distribution.staking.amount')}</div>
+            <div className="dist-percent">{t('events.distribution.staking.percent')}</div>
           </div>
           <div className="dist-card community" data-testid="dist-community">
             <div className="dist-icon">👥</div>
-            <div className="dist-name">{tp('distribution.community.name')}</div>
-            <div className="dist-amount">{tp('distribution.community.amount')}</div>
-            <div className="dist-percent">{tp('distribution.community.percent')}</div>
+            <div className="dist-name">{t('events.distribution.community.name')}</div>
+            <div className="dist-amount">{t('events.distribution.community.amount')}</div>
+            <div className="dist-percent">{t('events.distribution.community.percent')}</div>
           </div>
           <div className="dist-card partner" data-testid="dist-partner">
             <div className="dist-icon">🤝</div>
-            <div className="dist-name">{tp('distribution.partner.name')}</div>
-            <div className="dist-amount">{tp('distribution.partner.amount')}</div>
-            <div className="dist-percent">{tp('distribution.partner.percent')}</div>
+            <div className="dist-name">{t('events.distribution.partner.name')}</div>
+            <div className="dist-amount">{t('events.distribution.partner.amount')}</div>
+            <div className="dist-percent">{t('events.distribution.partner.percent')}</div>
           </div>
         </div>
       </section>
@@ -1171,66 +1168,66 @@ export default function EventsPage() {
       {/* All Events Section */}
       <section className="section" id="all-events" style={{ background: 'rgba(255,255,255,0.02)' }}>
         <div className="section-header">
-          <span className="section-badge">{tp('events.badge')}</span>
-          <h2 className="section-title">{tp('events.title')}</h2>
-          <p className="section-subtitle">{tp('events.subtitle')}</p>
+          <span className="section-badge">{t('events.upcoming.badge')}</span>
+          <h2 className="section-title">{t('events.upcoming.title')}</h2>
+          <p className="section-subtitle">{t('events.upcoming.subtitle')}</p>
         </div>
 
         <div className="category-tabs">
           <button 
             className={`category-tab ${activeCategory === 'all' ? 'active' : ''}`} 
-            onClick={() => { setActiveCategory('all'); toast({ title: tp('events.categoryToasts.all.title'), description: tp('events.categoryToasts.all.desc') }); }}
+            onClick={() => { setActiveCategory('all'); toast({ title: t('events.upcoming.categoryToasts.all.title'), description: t('events.upcoming.categoryToasts.all.desc') }); }}
             data-testid="category-all"
           >
-            {tp('events.categories.all')}
+            {t('events.upcoming.categories.all')}
           </button>
           <button 
             className={`category-tab ${activeCategory === 'live' ? 'active' : ''}`} 
-            onClick={() => { setActiveCategory('live'); toast({ title: tp('events.categoryToasts.live.title'), description: tp('events.categoryToasts.live.desc') }); }}
+            onClick={() => { setActiveCategory('live'); toast({ title: t('events.upcoming.categoryToasts.live.title'), description: t('events.upcoming.categoryToasts.live.desc') }); }}
             data-testid="category-live"
           >
-            {tp('events.categories.live')}
+            {t('events.upcoming.categories.live')}
           </button>
           <button 
             className={`category-tab ${activeCategory === 'launch' ? 'active' : ''}`} 
-            onClick={() => { setActiveCategory('launch'); toast({ title: tp('events.categoryToasts.launch.title'), description: tp('events.categoryToasts.launch.desc') }); }}
+            onClick={() => { setActiveCategory('launch'); toast({ title: t('events.upcoming.categoryToasts.launch.title'), description: t('events.upcoming.categoryToasts.launch.desc') }); }}
             data-testid="category-launch"
           >
-            {tp('events.categories.launch')}
+            {t('events.upcoming.categories.launch')}
           </button>
           <button 
             className={`category-tab ${activeCategory === 'trading' ? 'active' : ''}`} 
-            onClick={() => { setActiveCategory('trading'); toast({ title: tp('events.categoryToasts.trading.title'), description: tp('events.categoryToasts.trading.desc') }); }}
+            onClick={() => { setActiveCategory('trading'); toast({ title: t('events.upcoming.categoryToasts.trading.title'), description: t('events.upcoming.categoryToasts.trading.desc') }); }}
             data-testid="category-trading"
           >
-            {tp('events.categories.trading')}
+            {t('events.upcoming.categories.trading')}
           </button>
           <button 
             className={`category-tab ${activeCategory === 'staking' ? 'active' : ''}`} 
-            onClick={() => { setActiveCategory('staking'); toast({ title: tp('events.categoryToasts.staking.title'), description: tp('events.categoryToasts.staking.desc') }); }}
+            onClick={() => { setActiveCategory('staking'); toast({ title: t('events.upcoming.categoryToasts.staking.title'), description: t('events.upcoming.categoryToasts.staking.desc') }); }}
             data-testid="category-staking"
           >
-            {tp('events.categories.staking')}
+            {t('events.upcoming.categories.staking')}
           </button>
           <button 
             className={`category-tab ${activeCategory === 'community' ? 'active' : ''}`} 
-            onClick={() => { setActiveCategory('community'); toast({ title: tp('events.categoryToasts.community.title'), description: tp('events.categoryToasts.community.desc') }); }}
+            onClick={() => { setActiveCategory('community'); toast({ title: t('events.upcoming.categoryToasts.community.title'), description: t('events.upcoming.categoryToasts.community.desc') }); }}
             data-testid="category-community"
           >
-            {tp('events.categories.community')}
+            {t('events.upcoming.categories.community')}
           </button>
         </div>
 
         <div className="events-grid" data-testid="events-grid">
           {isEventsLoading ? (
             <div className="stat-card" style={{ gridColumn: '1 / -1', textAlign: 'center', padding: '3rem' }} data-testid="events-loading">
-              <div className="stat-value">{tp('events.loading')}</div>
-              <div className="stat-label">{tp('events.loadingDesc')}</div>
+              <div className="stat-value">{t('events.upcoming.loading')}</div>
+              <div className="stat-label">{t('events.upcoming.loadingDesc')}</div>
             </div>
           ) : filteredEvents.length === 0 ? (
             <div className="stat-card" style={{ gridColumn: '1 / -1', textAlign: 'center', padding: '3rem' }} data-testid="events-empty">
-              <div className="stat-value">{tp('events.noEvents')}</div>
-              <div className="stat-label">{tp('events.noEventsDesc')}</div>
+              <div className="stat-value">{t('events.upcoming.noEvents')}</div>
+              <div className="stat-label">{t('events.upcoming.noEventsDesc')}</div>
             </div>
           ) : (
             filteredEvents.map(event => (
@@ -1253,7 +1250,7 @@ export default function EventsPage() {
                     onClick={() => handleParticipate(event.id)}
                     data-testid={`button-event-participate-${event.id}`}
                   >
-                    {event.statusClass === 'upcoming' ? tp('events.buttons.comingSoon') : (isConnected ? tp('events.buttons.participate') : tp('events.buttons.connectWallet'))}
+                    {event.statusClass === 'upcoming' ? t('events.upcoming.buttons.comingSoon') : (isConnected ? t('events.upcoming.buttons.participate') : t('events.upcoming.buttons.connectWallet'))}
                   </button>
                 </div>
               </div>
@@ -1265,41 +1262,41 @@ export default function EventsPage() {
       {/* Leaderboard Section */}
       <section className="section" id="leaderboard">
         <div className="section-header">
-          <span className="section-badge">{tp('leaderboard.badge')}</span>
-          <h2 className="section-title">{tp('leaderboard.title')}</h2>
-          <p className="section-subtitle">{tp('leaderboard.subtitle')}</p>
+          <span className="section-badge">{t('events.leaderboard.badge')}</span>
+          <h2 className="section-title">{t('events.leaderboard.title')}</h2>
+          <p className="section-subtitle">{t('events.leaderboard.subtitle')}</p>
         </div>
 
         <div className="leaderboard-section">
           <div className="leaderboard-header">
-            <h3>🏆 {tp('leaderboard.topTitle')}</h3>
+            <h3>🏆 {t('events.leaderboard.topTitle')}</h3>
             <div className="leaderboard-tabs">
               <button 
                 className="lb-tab active" 
                 data-testid="lb-tab-all"
-                onClick={() => toast({ title: tp('leaderboard.tabToasts.all.title'), description: tp('leaderboard.tabToasts.all.desc') })}
-              >{tp('leaderboard.tabs.all')}</button>
+                onClick={() => toast({ title: t('events.leaderboard.tabToasts.all.title'), description: t('events.leaderboard.tabToasts.all.desc') })}
+              >{t('events.leaderboard.tabs.all')}</button>
               <button 
                 className="lb-tab" 
                 data-testid="lb-tab-today"
-                onClick={() => toast({ title: tp('leaderboard.tabToasts.today.title'), description: tp('leaderboard.tabToasts.today.desc') })}
-              >{tp('leaderboard.tabs.today')}</button>
+                onClick={() => toast({ title: t('events.leaderboard.tabToasts.today.title'), description: t('events.leaderboard.tabToasts.today.desc') })}
+              >{t('events.leaderboard.tabs.today')}</button>
               <button 
                 className="lb-tab" 
                 data-testid="lb-tab-week"
-                onClick={() => toast({ title: tp('leaderboard.tabToasts.week.title'), description: tp('leaderboard.tabToasts.week.desc') })}
-              >{tp('leaderboard.tabs.week')}</button>
+                onClick={() => toast({ title: t('events.leaderboard.tabToasts.week.title'), description: t('events.leaderboard.tabToasts.week.desc') })}
+              >{t('events.leaderboard.tabs.week')}</button>
             </div>
           </div>
 
           <table className="leaderboard-table">
             <thead>
               <tr>
-                <th>{tp('leaderboard.table.rank')}</th>
-                <th>{tp('leaderboard.table.participant')}</th>
-                <th>{tp('leaderboard.table.missions')}</th>
-                <th>{tp('leaderboard.table.score')}</th>
-                <th>{tp('leaderboard.table.reward')}</th>
+                <th>{t('events.leaderboard.table.rank')}</th>
+                <th>{t('events.leaderboard.table.participant')}</th>
+                <th>{t('events.leaderboard.table.missions')}</th>
+                <th>{t('events.leaderboard.table.score')}</th>
+                <th>{t('events.leaderboard.table.reward')}</th>
               </tr>
             </thead>
             <tbody>
@@ -1331,89 +1328,89 @@ export default function EventsPage() {
       {/* FAQ */}
       <section className="section" id="faq" style={{ background: 'rgba(255,255,255,0.02)' }}>
         <div className="section-header">
-          <span className="section-badge">{tp('faq.badge')}</span>
-          <h2 className="section-title">{tp('faq.title')}</h2>
-          <p className="section-subtitle">{tp('faq.subtitle')}</p>
+          <span className="section-badge">{t('events.faq.badge')}</span>
+          <h2 className="section-title">{t('events.faq.title')}</h2>
+          <p className="section-subtitle">{t('events.faq.subtitle')}</p>
         </div>
 
         <div className="faq-container">
           <div className={`faq-item ${activeFaq === 'faq-1' ? 'active' : ''}`} data-testid="faq-1">
             <div className="faq-question" onClick={() => toggleFaq('faq-1')}>
-              <h4>{tp('faq.items.q1.question')}</h4>
+              <h4>{t('events.faq.items.q1.question')}</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>{tp('faq.items.q1.answer')}</p>
+              <p>{t('events.faq.items.q1.answer')}</p>
             </div>
           </div>
 
           <div className={`faq-item ${activeFaq === 'faq-2' ? 'active' : ''}`} data-testid="faq-2">
             <div className="faq-question" onClick={() => toggleFaq('faq-2')}>
-              <h4>{tp('faq.items.q2.question')}</h4>
+              <h4>{t('events.faq.items.q2.question')}</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>{tp('faq.items.q2.answer')}</p>
+              <p>{t('events.faq.items.q2.answer')}</p>
             </div>
           </div>
 
           <div className={`faq-item ${activeFaq === 'faq-3' ? 'active' : ''}`} data-testid="faq-3">
             <div className="faq-question" onClick={() => toggleFaq('faq-3')}>
-              <h4>{tp('faq.items.q3.question')}</h4>
+              <h4>{t('events.faq.items.q3.question')}</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>{tp('faq.items.q3.answer')}</p>
+              <p>{t('events.faq.items.q3.answer')}</p>
             </div>
           </div>
 
           <div className={`faq-item ${activeFaq === 'faq-4' ? 'active' : ''}`} data-testid="faq-4">
             <div className="faq-question" onClick={() => toggleFaq('faq-4')}>
-              <h4>{tp('faq.items.q4.question')}</h4>
+              <h4>{t('events.faq.items.q4.question')}</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>{tp('faq.items.q4.answer')}</p>
+              <p>{t('events.faq.items.q4.answer')}</p>
             </div>
           </div>
 
           <div className={`faq-item ${activeFaq === 'faq-5' ? 'active' : ''}`} data-testid="faq-5">
             <div className="faq-question" onClick={() => toggleFaq('faq-5')}>
-              <h4>{tp('faq.items.q5.question')}</h4>
+              <h4>{t('events.faq.items.q5.question')}</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>{tp('faq.items.q5.answer')}</p>
+              <p>{t('events.faq.items.q5.answer')}</p>
             </div>
           </div>
 
           <div className={`faq-item ${activeFaq === 'faq-6' ? 'active' : ''}`} data-testid="faq-6">
             <div className="faq-question" onClick={() => toggleFaq('faq-6')}>
-              <h4>{tp('faq.items.q6.question')}</h4>
+              <h4>{t('events.faq.items.q6.question')}</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>{tp('faq.items.q6.answer')}</p>
+              <p>{t('events.faq.items.q6.answer')}</p>
             </div>
           </div>
 
           <div className={`faq-item ${activeFaq === 'faq-7' ? 'active' : ''}`} data-testid="faq-7">
             <div className="faq-question" onClick={() => toggleFaq('faq-7')}>
-              <h4>{tp('faq.items.q7.question')}</h4>
+              <h4>{t('events.faq.items.q7.question')}</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>{tp('faq.items.q7.answer')}</p>
+              <p>{t('events.faq.items.q7.answer')}</p>
             </div>
           </div>
 
           <div className={`faq-item ${activeFaq === 'faq-8' ? 'active' : ''}`} data-testid="faq-8">
             <div className="faq-question" onClick={() => toggleFaq('faq-8')}>
-              <h4>{tp('faq.items.q8.question')}</h4>
+              <h4>{t('events.faq.items.q8.question')}</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>{tp('faq.items.q8.answer')}</p>
+              <p>{t('events.faq.items.q8.answer')}</p>
             </div>
           </div>
         </div>
@@ -1422,10 +1419,10 @@ export default function EventsPage() {
       {/* CTA Section */}
       <section className="cta-section" data-testid="cta-section">
         <div style={{ maxWidth: '800px', margin: '0 auto' }}>
-          <h2 style={{ fontSize: '2.5rem', fontWeight: 800, marginBottom: '1rem' }}>{tp('cta.title')}</h2>
+          <h2 style={{ fontSize: '2.5rem', fontWeight: 800, marginBottom: '1rem' }}>{t('events.cta.title')}</h2>
           <p style={{ color: 'rgba(255,255,255,0.8)', fontSize: '1.125rem', marginBottom: '2rem' }}>
-            {tp('cta.subtitle')}<br />
-            {tp('cta.subtitleHighlight')}
+            {t('events.cta.subtitle')}<br />
+            {t('events.cta.subtitleHighlight')}
           </p>
           <button 
             className="connect-btn" 
@@ -1433,7 +1430,7 @@ export default function EventsPage() {
             onClick={handleWalletClick}
             data-testid="button-cta-participate"
           >
-            {isConnected ? `🚀 ${tp('cta.buttonParticipate')}` : `🔗 ${tp('cta.buttonConnect')}`}
+            {isConnected ? `🚀 ${t('events.cta.buttonParticipate')}` : `🔗 ${t('events.cta.buttonConnect')}`}
           </button>
         </div>
       </section>
@@ -1443,7 +1440,7 @@ export default function EventsPage() {
         <div className="footer-content">
           <div className="footer-brand">
             <h3>TBURN<span>CHAIN</span></h3>
-            <p>{tp('footer.description')}</p>
+            <p>{t('events.footer.description')}</p>
             <div className="social-links">
               <a 
                 href="https://twitter.com/tburnchain" 
@@ -1476,43 +1473,43 @@ export default function EventsPage() {
             </div>
           </div>
           <div className="footer-links">
-            <h4>{tp('footer.quickLinks')}</h4>
+            <h4>{t('events.footer.quickLinks')}</h4>
             <ul>
-              <li><Link href="/">{tp('footer.explorer')}</Link></li>
-              <li><Link href="/app/wallet">{tp('footer.wallet')}</Link></li>
-              <li><Link href="/app/bridge">{tp('footer.bridge')}</Link></li>
-              <li><Link href="/app/staking">{tp('footer.staking')}</Link></li>
+              <li><Link href="/">{t('events.footer.explorer')}</Link></li>
+              <li><Link href="/app/wallet">{t('events.footer.wallet')}</Link></li>
+              <li><Link href="/app/bridge">{t('events.footer.bridge')}</Link></li>
+              <li><Link href="/app/staking">{t('events.footer.staking')}</Link></li>
             </ul>
           </div>
           <div className="footer-links">
-            <h4>{tp('footer.developers')}</h4>
+            <h4>{t('events.footer.developers')}</h4>
             <ul>
-              <li><Link href="/developers/docs" data-testid="footer-link-docs">{tp('footer.docs')}</Link></li>
-              <li><Link href="/developers/api" data-testid="footer-link-api">{tp('footer.api')}</Link></li>
+              <li><Link href="/developers/docs" data-testid="footer-link-docs">{t('events.footer.docs')}</Link></li>
+              <li><Link href="/developers/api" data-testid="footer-link-api">{t('events.footer.api')}</Link></li>
               <li><a 
                 href="https://github.com/tburn-chain" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 data-testid="footer-link-github"
-              >{tp('footer.github')}</a></li>
-              <li><Link href="/developers/sdk" data-testid="footer-link-sdk">{tp('footer.sdk')}</Link></li>
+              >{t('events.footer.github')}</a></li>
+              <li><Link href="/developers/sdk" data-testid="footer-link-sdk">{t('events.footer.sdk')}</Link></li>
             </ul>
           </div>
           <div className="footer-links">
-            <h4>{tp('footer.resources')}</h4>
+            <h4>{t('events.footer.resources')}</h4>
             <ul>
-              <li><Link href="/learn/whitepaper" data-testid="footer-link-whitepaper">{tp('footer.whitepaper')}</Link></li>
-              <li><Link href="/tokenomics" data-testid="footer-link-tokenomics">{tp('footer.tokenomics')}</Link></li>
-              <li><Link href="/roadmap" data-testid="footer-link-roadmap">{tp('footer.roadmap')}</Link></li>
-              <li><Link href="/learn/faq" data-testid="footer-link-faq">{tp('footer.faqLink')}</Link></li>
+              <li><Link href="/learn/whitepaper" data-testid="footer-link-whitepaper">{t('events.footer.whitepaper')}</Link></li>
+              <li><Link href="/tokenomics" data-testid="footer-link-tokenomics">{t('events.footer.tokenomics')}</Link></li>
+              <li><Link href="/roadmap" data-testid="footer-link-roadmap">{t('events.footer.roadmap')}</Link></li>
+              <li><Link href="/learn/faq" data-testid="footer-link-faq">{t('events.footer.faqLink')}</Link></li>
             </ul>
           </div>
         </div>
         <div className="footer-bottom">
-          <p>{tp('footer.copyright')}</p>
+          <p>{t('events.footer.copyright')}</p>
           <div style={{ display: 'flex', gap: '2rem' }}>
-            <Link href="/legal/terms-of-service" style={{ color: 'var(--gray)', textDecoration: 'none' }}>{tp('footer.termsOfService')}</Link>
-            <Link href="/legal/privacy-policy" style={{ color: 'var(--gray)', textDecoration: 'none' }}>{tp('footer.privacyPolicy')}</Link>
+            <Link href="/legal/terms-of-service" style={{ color: 'var(--gray)', textDecoration: 'none' }}>{t('events.footer.termsOfService')}</Link>
+            <Link href="/legal/privacy-policy" style={{ color: 'var(--gray)', textDecoration: 'none' }}>{t('events.footer.privacyPolicy')}</Link>
           </div>
         </div>
       </footer>

@@ -124,8 +124,8 @@ export default function ReferralPage() {
       await navigator.clipboard.writeText(link);
       setCopied(true);
       toast({
-        title: t('tokenPrograms.referralPage.dashboard.toasts.copied'),
-        description: t('tokenPrograms.referralPage.dashboard.toasts.copiedDesc'),
+        title: t('referral.dashboard.toasts.copied'),
+        description: t('referral.dashboard.toasts.copiedDesc'),
       });
       setTimeout(() => setCopied(false), 2000);
     } catch {
@@ -1213,27 +1213,27 @@ export default function ReferralPage() {
               href="#how-it-works"
               onClick={(e) => { e.preventDefault(); document.getElementById('how-it-works')?.scrollIntoView({ behavior: 'smooth' }); }}
               data-testid="nav-how-it-works"
-            >{t('tokenPrograms.referralPage.nav.howItWorks')}</a>
+            >{t('referral.nav.howItWorks')}</a>
             <a 
               href="#tiers"
               onClick={(e) => { e.preventDefault(); document.getElementById('tiers')?.scrollIntoView({ behavior: 'smooth' }); }}
               data-testid="nav-tiers"
-            >{t('tokenPrograms.referralPage.nav.tiers')}</a>
+            >{t('referral.nav.tiers')}</a>
             <a 
               href="#dashboard"
               onClick={(e) => { e.preventDefault(); document.getElementById('dashboard')?.scrollIntoView({ behavior: 'smooth' }); }}
               data-testid="nav-dashboard"
-            >{t('tokenPrograms.referralPage.nav.dashboard')}</a>
+            >{t('referral.nav.dashboard')}</a>
             <a 
               href="#calculator"
               onClick={(e) => { e.preventDefault(); document.getElementById('calculator')?.scrollIntoView({ behavior: 'smooth' }); }}
               data-testid="nav-calculator"
-            >{t('tokenPrograms.referralPage.nav.calculator')}</a>
+            >{t('referral.nav.calculator')}</a>
             <a 
               href="#leaderboard"
               onClick={(e) => { e.preventDefault(); document.getElementById('leaderboard')?.scrollIntoView({ behavior: 'smooth' }); }}
               data-testid="nav-leaderboard"
-            >{t('tokenPrograms.referralPage.nav.leaderboard')}</a>
+            >{t('referral.nav.leaderboard')}</a>
           </nav>
           <div className="header-actions">
             <LanguageSelector isDark={true} />
@@ -1243,7 +1243,7 @@ export default function ReferralPage() {
               disabled={isConnecting}
               data-testid="button-connect-wallet"
             >
-              {isConnecting ? t('tokenPrograms.referralPage.header.connecting') : isConnected ? `${formatAddress(address || '')}` : `🔗 ${t('tokenPrograms.referralPage.header.connectWallet')}`}
+              {isConnecting ? t('referral.header.connecting') : isConnected ? `${formatAddress(address || '')}` : `🔗 ${t('referral.header.connectWallet')}`}
             </button>
           </div>
         </div>
@@ -1254,14 +1254,14 @@ export default function ReferralPage() {
         <div className="hero-bg"></div>
         <div className="hero-content">
           <div className="badge">
-            {t('tokenPrograms.referralPage.hero.badge')}
+            {t('referral.hero.badge')}
           </div>
           <h1>
-            <span className="purple">{t('tokenPrograms.referralPage.hero.title')}</span><br />
-            {t('tokenPrograms.referralPage.hero.subtitle')}
+            <span className="purple">{t('referral.hero.title')}</span><br />
+            {t('referral.hero.subtitle')}
           </h1>
           <p className="hero-subtitle">
-            {t('tokenPrograms.referralPage.hero.description')}
+            {t('referral.hero.description')}
           </p>
 
           <div className="stats-grid">
@@ -1273,7 +1273,7 @@ export default function ReferralPage() {
                   {stats?.totalParticipants?.toLocaleString() || '0'}
                 </div>
               )}
-              <div className="stat-label">{t('tokenPrograms.referralPage.hero.stats.totalParticipants')}</div>
+              <div className="stat-label">{t('referral.hero.stats.totalParticipants')}</div>
             </div>
             <div className="stat-card" data-testid="stat-total-referrals">
               {isLoadingStats ? (
@@ -1283,7 +1283,7 @@ export default function ReferralPage() {
                   {stats?.totalReferrals?.toLocaleString() || '0'}
                 </div>
               )}
-              <div className="stat-label">{t('tokenPrograms.referralPage.hero.stats.totalReferrals')}</div>
+              <div className="stat-label">{t('referral.hero.stats.totalReferrals')}</div>
             </div>
             <div className="stat-card" data-testid="stat-total-rewards">
               {isLoadingStats ? (
@@ -1293,7 +1293,7 @@ export default function ReferralPage() {
                   {Number(stats?.totalRewardsDistributed || 0).toLocaleString()}
                 </div>
               )}
-              <div className="stat-label">{t('tokenPrograms.referralPage.hero.stats.totalRewards')}</div>
+              <div className="stat-label">{t('referral.hero.stats.totalRewards')}</div>
             </div>
             <div className="stat-card" data-testid="stat-active-referrers">
               {isLoadingStats ? (
@@ -1303,7 +1303,7 @@ export default function ReferralPage() {
                   {stats?.activeReferrers?.toLocaleString() || '0'}
                 </div>
               )}
-              <div className="stat-label">{t('tokenPrograms.referralPage.hero.stats.activeReferrers')}</div>
+              <div className="stat-label">{t('referral.hero.stats.activeReferrers')}</div>
             </div>
           </div>
 
@@ -1314,7 +1314,7 @@ export default function ReferralPage() {
               disabled={generateReferralMutation.isPending}
               data-testid="button-get-link"
             >
-              {generateReferralMutation.isPending ? t('tokenPrograms.referralPage.header.connecting') : `🔗 ${t('tokenPrograms.referralPage.hero.buttons.getReferralLink')}`}
+              {generateReferralMutation.isPending ? t('referral.header.connecting') : `🔗 ${t('referral.hero.buttons.getReferralLink')}`}
             </button>
             <button 
               className="btn-secondary"
@@ -1323,7 +1323,7 @@ export default function ReferralPage() {
                 document.getElementById('how-it-works')?.scrollIntoView({ behavior: 'smooth' });
               }}
             >
-              {t('tokenPrograms.referralPage.hero.buttons.viewDashboard')}
+              {t('referral.hero.buttons.viewDashboard')}
             </button>
           </div>
         </div>
@@ -1332,31 +1332,31 @@ export default function ReferralPage() {
       {/* How It Works */}
       <section className="section" id="how-it-works">
         <div className="section-header">
-          <span className="section-badge">{t('tokenPrograms.referralPage.howItWorks.badge')}</span>
-          <h2 className="section-title">{t('tokenPrograms.referralPage.howItWorks.title')}</h2>
-          <p className="section-subtitle">{t('tokenPrograms.referralPage.howItWorks.subtitle')}</p>
+          <span className="section-badge">{t('referral.howItWorks.badge')}</span>
+          <h2 className="section-title">{t('referral.howItWorks.title')}</h2>
+          <p className="section-subtitle">{t('referral.howItWorks.subtitle')}</p>
         </div>
 
         <div className="steps-grid">
           <div className="step-card" data-testid="step-1">
             <div className="step-number">1</div>
-            <h3 className="step-title">{t('tokenPrograms.referralPage.howItWorks.steps.connect.title')}</h3>
-            <p className="step-desc">{t('tokenPrograms.referralPage.howItWorks.steps.connect.desc')}</p>
+            <h3 className="step-title">{t('referral.howItWorks.steps.connect.title')}</h3>
+            <p className="step-desc">{t('referral.howItWorks.steps.connect.desc')}</p>
           </div>
           <div className="step-card" data-testid="step-2">
             <div className="step-number">2</div>
-            <h3 className="step-title">{t('tokenPrograms.referralPage.howItWorks.steps.share.title')}</h3>
-            <p className="step-desc">{t('tokenPrograms.referralPage.howItWorks.steps.share.desc')}</p>
+            <h3 className="step-title">{t('referral.howItWorks.steps.share.title')}</h3>
+            <p className="step-desc">{t('referral.howItWorks.steps.share.desc')}</p>
           </div>
           <div className="step-card" data-testid="step-3">
             <div className="step-number">3</div>
-            <h3 className="step-title">{t('tokenPrograms.referralPage.howItWorks.steps.activity.title')}</h3>
-            <p className="step-desc">{t('tokenPrograms.referralPage.howItWorks.steps.activity.desc')}</p>
+            <h3 className="step-title">{t('referral.howItWorks.steps.activity.title')}</h3>
+            <p className="step-desc">{t('referral.howItWorks.steps.activity.desc')}</p>
           </div>
           <div className="step-card" data-testid="step-4">
             <div className="step-number">4</div>
-            <h3 className="step-title">{t('tokenPrograms.referralPage.howItWorks.steps.earn.title')}</h3>
-            <p className="step-desc">{t('tokenPrograms.referralPage.howItWorks.steps.earn.desc')}</p>
+            <h3 className="step-title">{t('referral.howItWorks.steps.earn.title')}</h3>
+            <p className="step-desc">{t('referral.howItWorks.steps.earn.desc')}</p>
           </div>
         </div>
       </section>
@@ -1364,9 +1364,9 @@ export default function ReferralPage() {
       {/* Tier System */}
       <section className="section" id="tiers" style={{ background: 'rgba(255,255,255,0.02)' }}>
         <div className="section-header">
-          <span className="section-badge">{t('tokenPrograms.referralPage.tiers.badge')}</span>
-          <h2 className="section-title">{t('tokenPrograms.referralPage.tiers.title')}</h2>
-          <p className="section-subtitle">{t('tokenPrograms.referralPage.tiers.subtitle')}</p>
+          <span className="section-badge">{t('referral.tiers.badge')}</span>
+          <h2 className="section-title">{t('referral.tiers.title')}</h2>
+          <p className="section-subtitle">{t('referral.tiers.subtitle')}</p>
         </div>
 
         <div className="tier-grid">
@@ -1378,16 +1378,16 @@ export default function ReferralPage() {
                 data-testid={`tier-${tier.name.toLowerCase()}`}
               >
                 <span className="tier-badge">
-                  {tier.name.toLowerCase() === 'gold' ? 'POPULAR' : tier.name.toUpperCase()}
+                  {tier.name.toLowerCase() === 'gold' ? t('referral.tiers.badges.popular') : t(`referral.tiers.badges.${tier.name.toLowerCase()}`)}
                 </span>
                 <div className="tier-icon">{getTierIcon(tier.name)}</div>
                 <h3 className="tier-name">{tier.name}</h3>
                 <div className="tier-commission">{tier.commission}%</div>
                 <p className="tier-requirement">
-                  {tier.minReferrals} ~ {tier.maxReferrals || '∞'} {t('tokenPrograms.referralPage.tiers.referrals')}
+                  {tier.minReferrals} ~ {tier.maxReferrals || '∞'} {t('referral.tiers.referrals')}
                 </p>
                 <ul className="tier-benefits">
-                  {(tier.benefits || [`${tier.commission}% ${t('tokenPrograms.referralPage.tiers.commission')}`, `${tier.bonus || 0} TBURN`]).map((benefit, i) => (
+                  {(tier.benefits || [`${tier.commission}% ${t('referral.tiers.commission')}`, `${tier.bonus || 0} TBURN`]).map((benefit, i) => (
                     <li key={i}><span className="check">✓</span> {benefit}</li>
                   ))}
                 </ul>
@@ -1396,61 +1396,61 @@ export default function ReferralPage() {
           ) : (
             <>
               <div className="tier-card bronze" data-testid="tier-bronze">
-                <span className="tier-badge">STARTER</span>
+                <span className="tier-badge">{t('referral.tiers.badges.starter')}</span>
                 <div className="tier-icon">🥉</div>
                 <h3 className="tier-name">Bronze</h3>
                 <div className="tier-commission">20%</div>
-                <p className="tier-requirement">{t('tokenPrograms.referralPage.tiers.levels.bronze.requirement')}</p>
+                <p className="tier-requirement">{t('referral.tiers.levels.bronze.requirement')}</p>
                 <ul className="tier-benefits">
-                  <li><span className="check">✓</span> {t('tokenPrograms.referralPage.tiers.levels.bronze.benefit1')}</li>
-                  <li><span className="check">✓</span> {t('tokenPrograms.referralPage.tiers.levels.bronze.benefit2')}</li>
-                  <li><span className="check">✓</span> {t('tokenPrograms.referralPage.tiers.levels.bronze.benefit3')}</li>
-                  <li><span className="check">✓</span> {t('tokenPrograms.referralPage.tiers.levels.bronze.benefit4')}</li>
+                  <li><span className="check">✓</span> {t('referral.tiers.levels.bronze.benefit1')}</li>
+                  <li><span className="check">✓</span> {t('referral.tiers.levels.bronze.benefit2')}</li>
+                  <li><span className="check">✓</span> {t('referral.tiers.levels.bronze.benefit3')}</li>
+                  <li><span className="check">✓</span> {t('referral.tiers.levels.bronze.benefit4')}</li>
                 </ul>
               </div>
 
               <div className="tier-card silver" data-testid="tier-silver">
-                <span className="tier-badge">INTERMEDIATE</span>
+                <span className="tier-badge">{t('referral.tiers.badges.intermediate')}</span>
                 <div className="tier-icon">🥈</div>
                 <h3 className="tier-name">Silver</h3>
                 <div className="tier-commission">30%</div>
-                <p className="tier-requirement">{t('tokenPrograms.referralPage.tiers.levels.silver.requirement')}</p>
+                <p className="tier-requirement">{t('referral.tiers.levels.silver.requirement')}</p>
                 <ul className="tier-benefits">
-                  <li><span className="check">✓</span> {t('tokenPrograms.referralPage.tiers.levels.silver.benefit1')}</li>
-                  <li><span className="check">✓</span> {t('tokenPrograms.referralPage.tiers.levels.silver.benefit2')}</li>
-                  <li><span className="check">✓</span> {t('tokenPrograms.referralPage.tiers.levels.silver.benefit3')}</li>
-                  <li><span className="check">✓</span> {t('tokenPrograms.referralPage.tiers.levels.silver.benefit4')}</li>
+                  <li><span className="check">✓</span> {t('referral.tiers.levels.silver.benefit1')}</li>
+                  <li><span className="check">✓</span> {t('referral.tiers.levels.silver.benefit2')}</li>
+                  <li><span className="check">✓</span> {t('referral.tiers.levels.silver.benefit3')}</li>
+                  <li><span className="check">✓</span> {t('referral.tiers.levels.silver.benefit4')}</li>
                 </ul>
               </div>
 
               <div className="tier-card gold featured" data-testid="tier-gold">
-                <span className="tier-badge">POPULAR</span>
+                <span className="tier-badge">{t('referral.tiers.badges.popular')}</span>
                 <div className="tier-icon">🥇</div>
                 <h3 className="tier-name">Gold</h3>
                 <div className="tier-commission">40%</div>
-                <p className="tier-requirement">{t('tokenPrograms.referralPage.tiers.levels.gold.requirement')}</p>
+                <p className="tier-requirement">{t('referral.tiers.levels.gold.requirement')}</p>
                 <ul className="tier-benefits">
-                  <li><span className="check">✓</span> {t('tokenPrograms.referralPage.tiers.levels.gold.benefit1')}</li>
-                  <li><span className="check">✓</span> {t('tokenPrograms.referralPage.tiers.levels.gold.benefit2')}</li>
-                  <li><span className="check">✓</span> {t('tokenPrograms.referralPage.tiers.levels.gold.benefit3')}</li>
-                  <li><span className="check">✓</span> {t('tokenPrograms.referralPage.tiers.levels.gold.benefit4')}</li>
-                  <li><span className="check">✓</span> {t('tokenPrograms.referralPage.tiers.levels.gold.benefit5')}</li>
+                  <li><span className="check">✓</span> {t('referral.tiers.levels.gold.benefit1')}</li>
+                  <li><span className="check">✓</span> {t('referral.tiers.levels.gold.benefit2')}</li>
+                  <li><span className="check">✓</span> {t('referral.tiers.levels.gold.benefit3')}</li>
+                  <li><span className="check">✓</span> {t('referral.tiers.levels.gold.benefit4')}</li>
+                  <li><span className="check">✓</span> {t('referral.tiers.levels.gold.benefit5')}</li>
                 </ul>
               </div>
 
               <div className="tier-card diamond" data-testid="tier-diamond">
-                <span className="tier-badge">ELITE</span>
+                <span className="tier-badge">{t('referral.tiers.badges.elite')}</span>
                 <div className="tier-icon">💎</div>
                 <h3 className="tier-name">Diamond</h3>
                 <div className="tier-commission">50%</div>
-                <p className="tier-requirement">{t('tokenPrograms.referralPage.tiers.levels.diamond.requirement')}</p>
+                <p className="tier-requirement">{t('referral.tiers.levels.diamond.requirement')}</p>
                 <ul className="tier-benefits">
-                  <li><span className="check">✓</span> {t('tokenPrograms.referralPage.tiers.levels.diamond.benefit1')}</li>
-                  <li><span className="check">✓</span> {t('tokenPrograms.referralPage.tiers.levels.diamond.benefit2')}</li>
-                  <li><span className="check">✓</span> {t('tokenPrograms.referralPage.tiers.levels.diamond.benefit3')}</li>
-                  <li><span className="check">✓</span> {t('tokenPrograms.referralPage.tiers.levels.diamond.benefit4')}</li>
-                  <li><span className="check">✓</span> {t('tokenPrograms.referralPage.tiers.levels.diamond.benefit5')}</li>
-                  <li><span className="check">✓</span> {t('tokenPrograms.referralPage.tiers.levels.diamond.benefit6')}</li>
+                  <li><span className="check">✓</span> {t('referral.tiers.levels.diamond.benefit1')}</li>
+                  <li><span className="check">✓</span> {t('referral.tiers.levels.diamond.benefit2')}</li>
+                  <li><span className="check">✓</span> {t('referral.tiers.levels.diamond.benefit3')}</li>
+                  <li><span className="check">✓</span> {t('referral.tiers.levels.diamond.benefit4')}</li>
+                  <li><span className="check">✓</span> {t('referral.tiers.levels.diamond.benefit5')}</li>
+                  <li><span className="check">✓</span> {t('referral.tiers.levels.diamond.benefit6')}</li>
                 </ul>
               </div>
             </>
@@ -1461,31 +1461,31 @@ export default function ReferralPage() {
       {/* Dashboard */}
       <section className="section" id="dashboard">
         <div className="section-header">
-          <span className="section-badge">{t('tokenPrograms.referralPage.dashboard.badge')}</span>
-          <h2 className="section-title">{t('tokenPrograms.referralPage.dashboard.title')}</h2>
-          <p className="section-subtitle">{t('tokenPrograms.referralPage.dashboard.subtitle')}</p>
+          <span className="section-badge">{t('referral.dashboard.badge')}</span>
+          <h2 className="section-title">{t('referral.dashboard.title')}</h2>
+          <p className="section-subtitle">{t('referral.dashboard.subtitle')}</p>
         </div>
 
         <div className="dashboard-container">
           <div className="dashboard-header">
             <div className="dashboard-title">
-              <h3>{t('tokenPrograms.referralPage.dashboard.currentTier')}</h3>
-              <p>{isConnected ? `${formatAddress(address || '')}` : t('tokenPrograms.referralPage.dashboard.emptyState')}</p>
+              <h3>{t('referral.dashboard.currentTier')}</h3>
+              <p>{isConnected ? `${formatAddress(address || '')}` : t('referral.dashboard.emptyState')}</p>
             </div>
             {userReferralData && (
               <div className="current-tier" data-testid="user-tier">
                 <span>{getTierIcon(userReferralData.tier)}</span>
-                <span>{userReferralData.tier} Tier</span>
+                <span>{userReferralData.tier} {t('referral.dashboard.tierLabel')}</span>
               </div>
             )}
           </div>
 
           <div className="referral-link-box">
-            <div className="referral-link-label">{t('tokenPrograms.referralPage.dashboard.myReferralLink')}</div>
+            <div className="referral-link-label">{t('referral.dashboard.myReferralLink')}</div>
             <div className="referral-link-input">
               <input 
                 type="text" 
-                value={userReferralData?.referralLink || (isConnected ? `https://tburn.io/ref/${address?.slice(0, 8)}` : t('tokenPrograms.referralPage.dashboard.emptyState'))} 
+                value={userReferralData?.referralLink || (isConnected ? `https://tburn.io/ref/${address?.slice(0, 8)}` : t('referral.dashboard.emptyState'))} 
                 readOnly 
                 id="refLink"
                 data-testid="input-referral-link"
@@ -1496,12 +1496,12 @@ export default function ReferralPage() {
                 disabled={!isConnected}
                 data-testid="button-copy-link"
               >
-                {copied ? `✓ ${t('tokenPrograms.referralPage.dashboard.copied')}` : t('tokenPrograms.referralPage.dashboard.copy')}
+                {copied ? `✓ ${t('referral.dashboard.copied')}` : t('referral.dashboard.copy')}
               </button>
             </div>
             {userReferralData?.referralCode && (
               <div style={{ marginTop: '0.75rem', fontSize: '0.875rem', color: 'var(--light-gray)' }}>
-                {t('tokenPrograms.referralPage.dashboard.referralCode')}: <span style={{ fontFamily: 'monospace', color: 'var(--gold)' }} data-testid="text-referral-code">{userReferralData.referralCode}</span>
+                {t('referral.dashboard.referralCode')}: <span style={{ fontFamily: 'monospace', color: 'var(--gold)' }} data-testid="text-referral-code">{userReferralData.referralCode}</span>
               </div>
             )}
             <div className="share-buttons">
@@ -1510,24 +1510,24 @@ export default function ReferralPage() {
                 data-testid="button-share-twitter"
                 onClick={() => {
                   const refLink = userReferralData?.referralLink || `https://tburn.io/ref/${address?.slice(0, 8) || 'TBURN'}`;
-                  const shareText = t('tokenPrograms.referralPage.dashboard.shareText');
+                  const shareText = t('referral.dashboard.shareText');
                   const text = encodeURIComponent(`${shareText} ${refLink}`);
                   window.open(`https://twitter.com/intent/tweet?text=${text}`, '_blank');
                 }}
               >
-                𝕏 {t('tokenPrograms.referralPage.dashboard.share.twitter')}
+                𝕏 {t('referral.dashboard.share.twitter')}
               </button>
               <button 
                 className="share-btn" 
                 data-testid="button-share-telegram"
                 onClick={() => {
                   const refLink = userReferralData?.referralLink || `https://tburn.io/ref/${address?.slice(0, 8) || 'TBURN'}`;
-                  const shareText = t('tokenPrograms.referralPage.dashboard.shareText');
+                  const shareText = t('referral.dashboard.shareText');
                   const text = encodeURIComponent(shareText);
                   window.open(`https://t.me/share/url?url=${encodeURIComponent(refLink)}&text=${text}`, '_blank');
                 }}
               >
-                {t('tokenPrograms.referralPage.dashboard.share.telegram')}
+                {t('referral.dashboard.share.telegram')}
               </button>
               <button 
                 className="share-btn" 
@@ -1536,23 +1536,23 @@ export default function ReferralPage() {
                   window.open('https://discord.gg/tburn', '_blank');
                 }}
               >
-                {t('tokenPrograms.referralPage.dashboard.share.discord')}
+                {t('referral.dashboard.share.discord')}
               </button>
               <button 
                 className="share-btn" 
                 data-testid="button-share-kakaotalk"
                 onClick={async () => {
                   const refLink = userReferralData?.referralLink || `https://tburn.io/ref/${address?.slice(0, 8) || 'TBURN'}`;
-                  const shareText = t('tokenPrograms.referralPage.dashboard.shareText');
+                  const shareText = t('referral.dashboard.shareText');
                   try {
                     await navigator.clipboard.writeText(`${shareText} ${refLink}`);
-                    toast({ title: t('tokenPrograms.referralPage.dashboard.toasts.copied'), description: t('tokenPrograms.referralPage.dashboard.toasts.copiedKakao') });
+                    toast({ title: t('referral.dashboard.toasts.copied'), description: t('referral.dashboard.toasts.copiedKakao') });
                   } catch {
-                    toast({ title: t('tokenPrograms.referralPage.dashboard.toasts.copyFailed'), description: t('tokenPrograms.referralPage.dashboard.toasts.copyFailedDesc'), variant: "destructive" });
+                    toast({ title: t('referral.dashboard.toasts.copyFailed'), description: t('referral.dashboard.toasts.copyFailedDesc'), variant: "destructive" });
                   }
                 }}
               >
-                {t('tokenPrograms.referralPage.dashboard.share.kakao')}
+                {t('referral.dashboard.share.kakao')}
               </button>
             </div>
           </div>
@@ -1562,38 +1562,38 @@ export default function ReferralPage() {
               <div className="dash-stat-value purple" data-testid="text-user-referral-count">
                 {userReferralData?.referralCount?.toLocaleString() || '0'}
               </div>
-              <div className="dash-stat-label">{t('tokenPrograms.referralPage.dashboard.stats.totalInvites')}</div>
+              <div className="dash-stat-label">{t('referral.dashboard.stats.totalInvites')}</div>
             </div>
             <div className="dash-stat">
               <div className="dash-stat-value success">
                 {stats?.activeReferrers?.toLocaleString() || '0'}
               </div>
-              <div className="dash-stat-label">{t('tokenPrograms.referralPage.dashboard.stats.activeUsers')}</div>
+              <div className="dash-stat-label">{t('referral.dashboard.stats.activeUsers')}</div>
             </div>
             <div className="dash-stat">
               <div className="dash-stat-value gold" data-testid="text-user-total-earnings">
                 {Number(userReferralData?.totalEarnings || 0).toLocaleString()}
               </div>
-              <div className="dash-stat-label">{t('tokenPrograms.referralPage.dashboard.stats.totalEarned')}</div>
+              <div className="dash-stat-label">{t('referral.dashboard.stats.totalEarned')}</div>
             </div>
             <div className="dash-stat">
               <div className="dash-stat-value blue">
                 {Number(stats?.totalRewardsDistributed || 0).toLocaleString()}
               </div>
-              <div className="dash-stat-label">{t('tokenPrograms.referralPage.dashboard.stats.totalDistributed')}</div>
+              <div className="dash-stat-label">{t('referral.dashboard.stats.totalDistributed')}</div>
             </div>
           </div>
 
           {!isConnected && (
             <div className="empty-state" data-testid="empty-dashboard">
-              <p>{t('tokenPrograms.referralPage.dashboard.emptyState')}</p>
+              <p>{t('referral.dashboard.emptyState')}</p>
               <button 
                 className="btn-primary" 
                 onClick={handleConnectWallet}
                 disabled={isConnecting}
                 data-testid="button-dashboard-connect"
               >
-                {isConnecting ? t('tokenPrograms.referralPage.header.connecting') : t('tokenPrograms.referralPage.dashboard.connectButton')}
+                {isConnecting ? t('referral.header.connecting') : t('referral.dashboard.connectButton')}
               </button>
             </div>
           )}
@@ -1603,25 +1603,25 @@ export default function ReferralPage() {
       {/* Calculator */}
       <section className="section" id="calculator" style={{ background: 'rgba(255,255,255,0.02)' }}>
         <div className="section-header">
-          <span className="section-badge">{t('tokenPrograms.referralPage.calculator.badge')}</span>
-          <h2 className="section-title">{t('tokenPrograms.referralPage.calculator.title')}</h2>
-          <p className="section-subtitle">{t('tokenPrograms.referralPage.calculator.subtitle')}</p>
+          <span className="section-badge">{t('referral.calculator.badge')}</span>
+          <h2 className="section-title">{t('referral.calculator.title')}</h2>
+          <p className="section-subtitle">{t('referral.calculator.subtitle')}</p>
         </div>
 
         <div className="calculator-container">
           <div className="calc-section">
-            <h3>{t('tokenPrograms.referralPage.calculator.input.title')}</h3>
+            <h3>{t('referral.calculator.input.title')}</h3>
             <div className="calc-field">
-              <label>{t('tokenPrograms.referralPage.calculator.input.tier')}</label>
+              <label>{t('referral.calculator.input.tier')}</label>
               <select value={calcTier} onChange={(e) => setCalcTier(Number(e.target.value))} data-testid="select-calc-tier">
-                <option value={20}>Bronze (20%)</option>
-                <option value={30}>Silver (30%)</option>
-                <option value={40}>Gold (40%)</option>
-                <option value={50}>Diamond (50%)</option>
+                <option value={20}>{t('referral.calculator.options.bronze')}</option>
+                <option value={30}>{t('referral.calculator.options.silver')}</option>
+                <option value={40}>{t('referral.calculator.options.gold')}</option>
+                <option value={50}>{t('referral.calculator.options.diamond')}</option>
               </select>
             </div>
             <div className="calc-field">
-              <label>{t('tokenPrograms.referralPage.calculator.input.referrals')}</label>
+              <label>{t('referral.calculator.input.referrals')}</label>
               <input 
                 type="number" 
                 value={calcReferrals} 
@@ -1632,7 +1632,7 @@ export default function ReferralPage() {
               />
             </div>
             <div className="calc-field">
-              <label>{t('tokenPrograms.referralPage.calculator.input.volume')}</label>
+              <label>{t('referral.calculator.input.volume')}</label>
               <input 
                 type="number" 
                 value={calcVolume} 
@@ -1643,44 +1643,44 @@ export default function ReferralPage() {
               />
             </div>
             <div className="calc-field">
-              <label>{t('tokenPrograms.referralPage.calculator.input.price')}</label>
+              <label>{t('referral.calculator.input.price')}</label>
               <select value={calcPrice} onChange={(e) => setCalcPrice(Number(e.target.value))} data-testid="select-calc-price">
-                <option value={0.5}>$0.50 (TGE)</option>
-                <option value={1}>$1.00</option>
-                <option value={2}>$2.00</option>
-                <option value={5}>$5.00</option>
+                <option value={0.5}>{t('referral.calculator.priceOptions.tge')}</option>
+                <option value={1}>{t('referral.calculator.priceOptions.one')}</option>
+                <option value={2}>{t('referral.calculator.priceOptions.two')}</option>
+                <option value={5}>{t('referral.calculator.priceOptions.five')}</option>
               </select>
             </div>
           </div>
 
           <div className="calc-section result">
-            <h3>{t('tokenPrograms.referralPage.calculator.result.title')}</h3>
+            <h3>{t('referral.calculator.result.title')}</h3>
             <div className="result-item">
-              <span className="result-label">{t('tokenPrograms.referralPage.calculator.result.totalVolume')}</span>
+              <span className="result-label">{t('referral.calculator.result.totalVolume')}</span>
               <span className="result-value" data-testid="text-calc-total-volume">${totalVolume.toLocaleString()}</span>
             </div>
             <div className="result-item">
-              <span className="result-label">{t('tokenPrograms.referralPage.calculator.result.tradingFee')}</span>
+              <span className="result-label">{t('referral.calculator.result.tradingFee')}</span>
               <span className="result-value">${fee.toFixed(2)}</span>
             </div>
             <div className="result-item">
-              <span className="result-label">{t('tokenPrograms.referralPage.calculator.result.myCommission')} ({calcTier}%)</span>
+              <span className="result-label">{t('referral.calculator.result.myCommission')} ({calcTier}%)</span>
               <span className="result-value">${commission.toFixed(2)}</span>
             </div>
             <div className="result-item">
-              <span className="result-label">{t('tokenPrograms.referralPage.calculator.result.monthlyEarnings')}</span>
+              <span className="result-label">{t('referral.calculator.result.monthlyEarnings')}</span>
               <span className="result-value highlight" data-testid="text-calc-monthly">{monthlyTburn.toFixed(0)} TBURN</span>
             </div>
             <div className="result-item">
-              <span className="result-label">{t('tokenPrograms.referralPage.calculator.result.yearlyEarnings')}</span>
+              <span className="result-label">{t('referral.calculator.result.yearlyEarnings')}</span>
               <span className="result-value highlight">{yearlyTburn.toFixed(0)} TBURN</span>
             </div>
             <div className="result-total">
-              <div className="result-total-label">{t('tokenPrograms.referralPage.calculator.result.yearlyUsd')}</div>
+              <div className="result-total-label">{t('referral.calculator.result.yearlyUsd')}</div>
               <div className="result-total-value" data-testid="text-calc-yearly-usd">${yearlyUsd.toFixed(2)}</div>
             </div>
             <p style={{ color: 'var(--gray)', fontSize: '0.8rem', marginTop: '1rem', textAlign: 'center' }}>
-              {t('tokenPrograms.referralPage.calculator.disclaimer')}
+              {t('referral.calculator.disclaimer')}
             </p>
           </div>
         </div>
@@ -1689,30 +1689,30 @@ export default function ReferralPage() {
       {/* Leaderboard */}
       <section className="section" id="leaderboard">
         <div className="section-header">
-          <span className="section-badge">{t('tokenPrograms.referralPage.leaderboard.badge')}</span>
-          <h2 className="section-title">{t('tokenPrograms.referralPage.leaderboard.title')}</h2>
-          <p className="section-subtitle">{t('tokenPrograms.referralPage.leaderboard.subtitle')}</p>
+          <span className="section-badge">{t('referral.leaderboard.badge')}</span>
+          <h2 className="section-title">{t('referral.leaderboard.title')}</h2>
+          <p className="section-subtitle">{t('referral.leaderboard.subtitle')}</p>
         </div>
 
         <div className="leaderboard-container">
           <div className="leaderboard-header">
-            <h3>{t('tokenPrograms.referralPage.leaderboard.topReferrers')}</h3>
+            <h3>{t('referral.leaderboard.topReferrers')}</h3>
             <div className="leaderboard-filter">
               <button 
                 className="filter-btn active" 
                 data-testid="filter-all"
-                onClick={() => toast({ title: t('tokenPrograms.referralPage.leaderboard.toasts.allRank'), description: t('tokenPrograms.referralPage.leaderboard.toasts.allRankDesc') })}
-              >{t('tokenPrograms.referralPage.leaderboard.filters.all')}</button>
+                onClick={() => toast({ title: t('referral.leaderboard.toasts.allRank'), description: t('referral.leaderboard.toasts.allRankDesc') })}
+              >{t('referral.leaderboard.filters.all')}</button>
               <button 
                 className="filter-btn" 
                 data-testid="filter-week"
-                onClick={() => toast({ title: t('tokenPrograms.referralPage.leaderboard.toasts.weekRank'), description: t('tokenPrograms.referralPage.leaderboard.toasts.weekRankDesc') })}
-              >{t('tokenPrograms.referralPage.leaderboard.filters.week')}</button>
+                onClick={() => toast({ title: t('referral.leaderboard.toasts.weekRank'), description: t('referral.leaderboard.toasts.weekRankDesc') })}
+              >{t('referral.leaderboard.filters.week')}</button>
               <button 
                 className="filter-btn" 
                 data-testid="filter-month"
-                onClick={() => toast({ title: t('tokenPrograms.referralPage.leaderboard.toasts.monthRank'), description: t('tokenPrograms.referralPage.leaderboard.toasts.monthRankDesc') })}
-              >{t('tokenPrograms.referralPage.leaderboard.filters.month')}</button>
+                onClick={() => toast({ title: t('referral.leaderboard.toasts.monthRank'), description: t('referral.leaderboard.toasts.monthRankDesc') })}
+              >{t('referral.leaderboard.filters.month')}</button>
             </div>
           </div>
 
@@ -1729,21 +1729,21 @@ export default function ReferralPage() {
                   </div>
                   <div className="user-info">
                     <div className="user-address" data-testid={`leaderboard-address-${index}`}>
-                      {entry.walletAddress ? formatAddress(entry.walletAddress) : `Referrer #${entry.rank}`}
+                      {entry.walletAddress ? formatAddress(entry.walletAddress) : `${t('referral.leaderboard.referrer')} #${entry.rank}`}
                     </div>
-                    <div className="user-tier">{getTierIcon(entry.tier)} {entry.tier} Tier</div>
+                    <div className="user-tier">{getTierIcon(entry.tier)} {entry.tier} {t('referral.leaderboard.tier')}</div>
                   </div>
                   <div className="referral-count">
                     <div className="value" data-testid={`leaderboard-count-${index}`}>
                       {(entry.referralCount || entry.referrals || 0).toLocaleString()}
                     </div>
-                    <div className="label">{t('tokenPrograms.referralPage.leaderboard.labels.referrals')}</div>
+                    <div className="label">{t('referral.leaderboard.labels.referrals')}</div>
                   </div>
                   <div className="earnings">
                     <div className="value" data-testid={`leaderboard-earnings-${index}`}>
                       {Number(entry.totalEarnings || entry.earnings || 0).toLocaleString()} TBURN
                     </div>
-                    <div className="label">{t('tokenPrograms.referralPage.leaderboard.labels.totalEarnings')}</div>
+                    <div className="label">{t('referral.leaderboard.labels.totalEarnings')}</div>
                   </div>
                 </div>
               ))
@@ -1753,15 +1753,15 @@ export default function ReferralPage() {
                   <div className="rank gold-rank">1</div>
                   <div className="user-info">
                     <div className="user-address">0x1a2B...3c4D</div>
-                    <div className="user-tier">💎 Diamond Tier</div>
+                    <div className="user-tier">💎 Diamond {t('referral.leaderboard.tier')}</div>
                   </div>
                   <div className="referral-count">
                     <div className="value">1,247</div>
-                    <div className="label">{t('tokenPrograms.referralPage.leaderboard.labels.referrals')}</div>
+                    <div className="label">{t('referral.leaderboard.labels.referrals')}</div>
                   </div>
                   <div className="earnings">
                     <div className="value">125,000 TBURN</div>
-                    <div className="label">{t('tokenPrograms.referralPage.leaderboard.labels.totalEarnings')}</div>
+                    <div className="label">{t('referral.leaderboard.labels.totalEarnings')}</div>
                   </div>
                 </div>
 
@@ -1769,15 +1769,15 @@ export default function ReferralPage() {
                   <div className="rank silver-rank">2</div>
                   <div className="user-info">
                     <div className="user-address">0x5e6F...7g8H</div>
-                    <div className="user-tier">💎 Diamond Tier</div>
+                    <div className="user-tier">💎 Diamond {t('referral.leaderboard.tier')}</div>
                   </div>
                   <div className="referral-count">
                     <div className="value">892</div>
-                    <div className="label">{t('tokenPrograms.referralPage.leaderboard.labels.referrals')}</div>
+                    <div className="label">{t('referral.leaderboard.labels.referrals')}</div>
                   </div>
                   <div className="earnings">
                     <div className="value">89,200 TBURN</div>
-                    <div className="label">{t('tokenPrograms.referralPage.leaderboard.labels.totalEarnings')}</div>
+                    <div className="label">{t('referral.leaderboard.labels.totalEarnings')}</div>
                   </div>
                 </div>
 
@@ -1785,15 +1785,15 @@ export default function ReferralPage() {
                   <div className="rank bronze-rank">3</div>
                   <div className="user-info">
                     <div className="user-address">0x9i0J...1k2L</div>
-                    <div className="user-tier">💎 Diamond Tier</div>
+                    <div className="user-tier">💎 Diamond {t('referral.leaderboard.tier')}</div>
                   </div>
                   <div className="referral-count">
                     <div className="value">654</div>
-                    <div className="label">{t('tokenPrograms.referralPage.leaderboard.labels.referrals')}</div>
+                    <div className="label">{t('referral.leaderboard.labels.referrals')}</div>
                   </div>
                   <div className="earnings">
                     <div className="value">65,400 TBURN</div>
-                    <div className="label">{t('tokenPrograms.referralPage.leaderboard.labels.totalEarnings')}</div>
+                    <div className="label">{t('referral.leaderboard.labels.totalEarnings')}</div>
                   </div>
                 </div>
 
@@ -1801,15 +1801,15 @@ export default function ReferralPage() {
                   <div className="rank normal">4</div>
                   <div className="user-info">
                     <div className="user-address">0x3m4N...5o6P</div>
-                    <div className="user-tier">🥇 Gold Tier</div>
+                    <div className="user-tier">🥇 Gold {t('referral.leaderboard.tier')}</div>
                   </div>
                   <div className="referral-count">
                     <div className="value">423</div>
-                    <div className="label">{t('tokenPrograms.referralPage.leaderboard.labels.referrals')}</div>
+                    <div className="label">{t('referral.leaderboard.labels.referrals')}</div>
                   </div>
                   <div className="earnings">
                     <div className="value">42,300 TBURN</div>
-                    <div className="label">{t('tokenPrograms.referralPage.leaderboard.labels.totalEarnings')}</div>
+                    <div className="label">{t('referral.leaderboard.labels.totalEarnings')}</div>
                   </div>
                 </div>
 
@@ -1817,15 +1817,15 @@ export default function ReferralPage() {
                   <div className="rank normal">5</div>
                   <div className="user-info">
                     <div className="user-address">0x7q8R...9s0T</div>
-                    <div className="user-tier">🥇 Gold Tier</div>
+                    <div className="user-tier">🥇 Gold {t('referral.leaderboard.tier')}</div>
                   </div>
                   <div className="referral-count">
                     <div className="value">318</div>
-                    <div className="label">{t('tokenPrograms.referralPage.leaderboard.labels.referrals')}</div>
+                    <div className="label">{t('referral.leaderboard.labels.referrals')}</div>
                   </div>
                   <div className="earnings">
                     <div className="value">31,800 TBURN</div>
-                    <div className="label">{t('tokenPrograms.referralPage.leaderboard.labels.totalEarnings')}</div>
+                    <div className="label">{t('referral.leaderboard.labels.totalEarnings')}</div>
                   </div>
                 </div>
               </>
@@ -1839,13 +1839,13 @@ export default function ReferralPage() {
               data-testid="button-view-all-rankings"
               onClick={() => {
                 if (!isConnected) {
-                  toast({ title: t('tokenPrograms.referralPage.leaderboard.toasts.walletRequired'), description: t('tokenPrograms.referralPage.leaderboard.toasts.walletRequiredDesc') });
+                  toast({ title: t('referral.leaderboard.toasts.walletRequired'), description: t('referral.leaderboard.toasts.walletRequiredDesc') });
                   return;
                 }
-                toast({ title: t('tokenPrograms.referralPage.leaderboard.toasts.allRank'), description: t('tokenPrograms.referralPage.leaderboard.toasts.comingSoon') });
+                toast({ title: t('referral.leaderboard.toasts.allRank'), description: t('referral.leaderboard.toasts.comingSoon') });
               }}
             >
-              {t('tokenPrograms.referralPage.leaderboard.viewAll')}
+              {t('referral.leaderboard.viewAll')}
             </button>
           </div>
         </div>
@@ -1854,89 +1854,89 @@ export default function ReferralPage() {
       {/* FAQ */}
       <section className="section" id="faq" style={{ background: 'rgba(255,255,255,0.02)' }}>
         <div className="section-header">
-          <span className="section-badge">{t('tokenPrograms.referralPage.faq.badge')}</span>
-          <h2 className="section-title">{t('tokenPrograms.referralPage.faq.title')}</h2>
-          <p className="section-subtitle">{t('tokenPrograms.referralPage.faq.subtitle')}</p>
+          <span className="section-badge">{t('referral.faq.badge')}</span>
+          <h2 className="section-title">{t('referral.faq.title')}</h2>
+          <p className="section-subtitle">{t('referral.faq.subtitle')}</p>
         </div>
 
         <div className="faq-container">
           <div className={`faq-item ${activeTab === 'faq-1' ? 'active' : ''}`} data-testid="faq-1">
             <div className="faq-question" onClick={() => toggleFaq('faq-1')}>
-              <h4>{t('tokenPrograms.referralPage.faq.q1.question')}</h4>
+              <h4>{t('referral.faq.q1.question')}</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>{t('tokenPrograms.referralPage.faq.q1.answer')}</p>
+              <p>{t('referral.faq.q1.answer')}</p>
             </div>
           </div>
 
           <div className={`faq-item ${activeTab === 'faq-2' ? 'active' : ''}`} data-testid="faq-2">
             <div className="faq-question" onClick={() => toggleFaq('faq-2')}>
-              <h4>{t('tokenPrograms.referralPage.faq.q2.question')}</h4>
+              <h4>{t('referral.faq.q2.question')}</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>{t('tokenPrograms.referralPage.faq.q2.answer')}</p>
+              <p>{t('referral.faq.q2.answer')}</p>
             </div>
           </div>
 
           <div className={`faq-item ${activeTab === 'faq-3' ? 'active' : ''}`} data-testid="faq-3">
             <div className="faq-question" onClick={() => toggleFaq('faq-3')}>
-              <h4>{t('tokenPrograms.referralPage.faq.q3.question')}</h4>
+              <h4>{t('referral.faq.q3.question')}</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>{t('tokenPrograms.referralPage.faq.q3.answer')}</p>
+              <p>{t('referral.faq.q3.answer')}</p>
             </div>
           </div>
 
           <div className={`faq-item ${activeTab === 'faq-4' ? 'active' : ''}`} data-testid="faq-4">
             <div className="faq-question" onClick={() => toggleFaq('faq-4')}>
-              <h4>{t('tokenPrograms.referralPage.faq.q4.question')}</h4>
+              <h4>{t('referral.faq.q4.question')}</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>{t('tokenPrograms.referralPage.faq.q4.answer')}</p>
+              <p>{t('referral.faq.q4.answer')}</p>
             </div>
           </div>
 
           <div className={`faq-item ${activeTab === 'faq-5' ? 'active' : ''}`} data-testid="faq-5">
             <div className="faq-question" onClick={() => toggleFaq('faq-5')}>
-              <h4>{t('tokenPrograms.referralPage.faq.q5.question')}</h4>
+              <h4>{t('referral.faq.q5.question')}</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>{t('tokenPrograms.referralPage.faq.q5.answer')}</p>
+              <p>{t('referral.faq.q5.answer')}</p>
             </div>
           </div>
 
           <div className={`faq-item ${activeTab === 'faq-6' ? 'active' : ''}`} data-testid="faq-6">
             <div className="faq-question" onClick={() => toggleFaq('faq-6')}>
-              <h4>{t('tokenPrograms.referralPage.faq.q6.question')}</h4>
+              <h4>{t('referral.faq.q6.question')}</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>{t('tokenPrograms.referralPage.faq.q6.answer')}</p>
+              <p>{t('referral.faq.q6.answer')}</p>
             </div>
           </div>
 
           <div className={`faq-item ${activeTab === 'faq-7' ? 'active' : ''}`} data-testid="faq-7">
             <div className="faq-question" onClick={() => toggleFaq('faq-7')}>
-              <h4>{t('tokenPrograms.referralPage.faq.q7.question')}</h4>
+              <h4>{t('referral.faq.q7.question')}</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>{t('tokenPrograms.referralPage.faq.q7.answer')}</p>
+              <p>{t('referral.faq.q7.answer')}</p>
             </div>
           </div>
 
           <div className={`faq-item ${activeTab === 'faq-8' ? 'active' : ''}`} data-testid="faq-8">
             <div className="faq-question" onClick={() => toggleFaq('faq-8')}>
-              <h4>{t('tokenPrograms.referralPage.faq.q8.question')}</h4>
+              <h4>{t('referral.faq.q8.question')}</h4>
               <span className="faq-chevron">▼</span>
             </div>
             <div className="faq-answer">
-              <p>{t('tokenPrograms.referralPage.faq.q8.answer')}</p>
+              <p>{t('referral.faq.q8.answer')}</p>
             </div>
           </div>
         </div>
@@ -1952,7 +1952,7 @@ export default function ReferralPage() {
               </div>
               <div className="logo-text">TBURN<span>CHAIN</span></div>
             </div>
-            <p>{t('tokenPrograms.referralPage.footer.tagline')}</p>
+            <p>{t('referral.footer.tagline')}</p>
             <div className="social-links">
               <a 
                 href="https://twitter.com/tburnchain" 
@@ -1985,35 +1985,35 @@ export default function ReferralPage() {
             </div>
           </div>
           <div className="footer-links">
-            <h4>{t('tokenPrograms.referralPage.footer.program')}</h4>
+            <h4>{t('referral.footer.program')}</h4>
             <ul>
-              <li><a href="#how-it-works" onClick={() => document.getElementById('how-it-works')?.scrollIntoView({ behavior: 'smooth' })}>{t('tokenPrograms.referralPage.nav.howItWorks')}</a></li>
-              <li><a href="#tiers" onClick={() => document.getElementById('tiers')?.scrollIntoView({ behavior: 'smooth' })}>{t('tokenPrograms.referralPage.nav.tiers')}</a></li>
-              <li><a href="#calculator" onClick={() => document.getElementById('calculator')?.scrollIntoView({ behavior: 'smooth' })}>{t('tokenPrograms.referralPage.nav.calculator')}</a></li>
-              <li><a href="#leaderboard" onClick={() => document.getElementById('leaderboard')?.scrollIntoView({ behavior: 'smooth' })}>{t('tokenPrograms.referralPage.nav.leaderboard')}</a></li>
+              <li><a href="#how-it-works" onClick={() => document.getElementById('how-it-works')?.scrollIntoView({ behavior: 'smooth' })}>{t('referral.nav.howItWorks')}</a></li>
+              <li><a href="#tiers" onClick={() => document.getElementById('tiers')?.scrollIntoView({ behavior: 'smooth' })}>{t('referral.nav.tiers')}</a></li>
+              <li><a href="#calculator" onClick={() => document.getElementById('calculator')?.scrollIntoView({ behavior: 'smooth' })}>{t('referral.nav.calculator')}</a></li>
+              <li><a href="#leaderboard" onClick={() => document.getElementById('leaderboard')?.scrollIntoView({ behavior: 'smooth' })}>{t('referral.nav.leaderboard')}</a></li>
             </ul>
           </div>
           <div className="footer-links">
-            <h4>{t('tokenPrograms.referralPage.footer.resources')}</h4>
+            <h4>{t('referral.footer.resources')}</h4>
             <ul>
-              <li><Link href="/developers/docs" data-testid="footer-link-docs">{t('tokenPrograms.referralPage.footer.docs')}</Link></li>
+              <li><Link href="/developers/docs" data-testid="footer-link-docs">{t('referral.footer.docs')}</Link></li>
               <li><a href="#faq" onClick={() => document.getElementById('faq')?.scrollIntoView({ behavior: 'smooth' })} data-testid="footer-link-faq">FAQ</a></li>
-              <li><Link href="/qna" data-testid="footer-link-support">{t('tokenPrograms.referralPage.footer.support')}</Link></li>
-              <li><Link href="/blog" data-testid="footer-link-blog">{t('tokenPrograms.referralPage.footer.blog')}</Link></li>
+              <li><Link href="/qna" data-testid="footer-link-support">{t('referral.footer.support')}</Link></li>
+              <li><Link href="/blog" data-testid="footer-link-blog">{t('referral.footer.blog')}</Link></li>
             </ul>
           </div>
           <div className="footer-links">
-            <h4>{t('tokenPrograms.referralPage.footer.legal')}</h4>
+            <h4>{t('referral.footer.legal')}</h4>
             <ul>
-              <li><Link href="/legal/terms-of-service" data-testid="footer-link-terms">{t('tokenPrograms.referralPage.footer.terms')}</Link></li>
-              <li><Link href="/legal/privacy-policy" data-testid="footer-link-privacy">{t('tokenPrograms.referralPage.footer.privacy')}</Link></li>
-              <li><Link href="/legal/disclaimer" data-testid="footer-link-disclaimer">{t('tokenPrograms.referralPage.footer.disclaimer')}</Link></li>
+              <li><Link href="/legal/terms-of-service" data-testid="footer-link-terms">{t('referral.footer.terms')}</Link></li>
+              <li><Link href="/legal/privacy-policy" data-testid="footer-link-privacy">{t('referral.footer.privacy')}</Link></li>
+              <li><Link href="/legal/disclaimer" data-testid="footer-link-disclaimer">{t('referral.footer.disclaimer')}</Link></li>
             </ul>
           </div>
         </div>
         <div className="footer-bottom">
-          <p>{t('tokenPrograms.referralPage.footer.copyright')}</p>
-          <p>{t('tokenPrograms.referralPage.footer.poweredBy')}</p>
+          <p>{t('referral.footer.copyright')}</p>
+          <p>{t('referral.footer.poweredBy')}</p>
         </div>
       </footer>
     </div>

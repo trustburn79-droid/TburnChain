@@ -87,7 +87,7 @@ export default function AirdropPage() {
     },
     onError: (error: Error) => {
       toast({
-        title: "Error",
+        title: t('common.error'),
         description: error.message,
         variant: "destructive",
       });
@@ -98,7 +98,7 @@ export default function AirdropPage() {
     e.preventDefault();
     if (!emailInput || !emailInput.includes("@")) {
       toast({
-        title: "Invalid email",
+        title: t('tokenPrograms.airdropPage.toasts.invalidEmail'),
         variant: "destructive",
       });
       return;
@@ -130,8 +130,9 @@ export default function AirdropPage() {
   const formatNumber = (value: string | number | undefined) => {
     if (!value) return '0';
     const num = typeof value === 'string' ? parseFloat(value) : value;
-    if (num >= 1e8) return `${(num / 1e8).toFixed(1)}억`;
-    if (num >= 1e4) return `${(num / 1e4).toFixed(1)}만`;
+    if (num >= 1e9) return `${(num / 1e9).toFixed(1)}B`;
+    if (num >= 1e6) return `${(num / 1e6).toFixed(1)}M`;
+    if (num >= 1e3) return `${(num / 1e3).toFixed(1)}K`;
     return num.toLocaleString();
   };
 
@@ -1133,7 +1134,7 @@ export default function AirdropPage() {
                   <div data-testid="eligibility-tier">
                     <div style={{ fontSize: '0.875rem', color: 'var(--light-gray)', marginBottom: '0.25rem' }}>{t('tokenPrograms.airdropPage.eligibility.tier')}</div>
                     <div style={{ fontSize: '1.5rem', fontWeight: 700, color: 'var(--gold)' }}>
-                      {eligibility.tier || 'Standard'} ({eligibility.multiplier || 1}x)
+                      {eligibility.tier || t('tokenPrograms.airdropPage.eligibility.standardTier')} ({eligibility.multiplier || 1}x)
                     </div>
                   </div>
                 </div>
