@@ -31825,19 +31825,257 @@
     "partnershipProgram": {
       "title": "파트너십 프로그램",
       "subtitle": "TBURN 생태계 성장을 이끄는 전략적 파트너십",
-      "heroTitle": "TBURN 파트너십 프로그램",
-      "heroSubtitle": "TBURN과 함께 탈중앙화 금융의 미래를 구축하세요",
-      "badge": "전략적 파트너",
-      "totalAllocated": "총 할당량",
-      "activePartners": "활성 파트너",
-      "integrations": "통합",
-      "partnerTypes": "파트너 유형",
-      "exchange": "거래소 파트너",
-      "defi": "DeFi 파트너",
-      "infrastructure": "인프라 파트너",
-      "enterprise": "기업 파트너",
-      "becomePartner": "파트너 되기",
-      "partnerBenefits": "파트너 혜택"
+      "nav": {
+        "tiers": "파트너 티어",
+        "types": "파트너 유형",
+        "process": "프로세스",
+        "success": "성공사례"
+      },
+      "wallet": {
+        "connect": "지갑 연결",
+        "connected": "지갑 연결됨",
+        "connectedDesc": "지갑이 연결되었습니다.",
+        "disconnected": "지갑 연결 해제",
+        "disconnectedDesc": "지갑이 연결 해제되었습니다.",
+        "required": "지갑 연결 필요",
+        "requiredDesc": "파트너 신청을 위해 먼저 지갑을 연결해주세요."
+      },
+      "hero": {
+        "badge": "PARTNERSHIP PROGRAM - 함께 성장하는 파트너십",
+        "title": "TBURN 파트너가 되어",
+        "fundAmount": "4억 TBURN",
+        "incentive": "인센티브를 받으세요",
+        "subtitle": "전략적 파트너, 거래소, 기술 파트너, 마케팅 파트너로 TBURN 생태계와 함께 성장하세요.",
+        "ourPartners": "우리의 파트너"
+      },
+      "stats": {
+        "totalIncentive": "총 파트너 인센티브",
+        "activePartners": "활성 파트너",
+        "categories": "파트너 카테고리",
+        "maxIncentive": "최대 인센티브"
+      },
+      "cta": {
+        "applyPartner": "파트너 신청하기",
+        "partnerGuide": "파트너 가이드",
+        "selectTier": "파트너 티어를 선택하여 신청을 진행하세요!",
+        "checkTypes": "파트너 유형별 안내를 확인하세요.",
+        "apply": "신청하기",
+        "applyType": "신청하기",
+        "tierApply": "{{tierName}} 티어 신청",
+        "tierApplyDesc": "{{tierName}} 파트너 신청이 접수되었습니다. 1-2주 내 심사 결과를 안내드립니다.",
+        "typeApply": "{{typeName}} 파트너 신청",
+        "typeApplyDesc": "{{typeName}} 파트너십 신청이 접수되었습니다. 담당자가 연락드릴 예정입니다."
+      },
+      "sections": {
+        "distribution": {
+          "title": "인센티브 배분",
+          "subtitle": "4억 TBURN이 5가지 파트너 유형으로 배분됩니다"
+        },
+        "tiers": {
+          "title": "파트너 티어",
+          "subtitle": "기여도에 따른 차등 혜택 시스템"
+        },
+        "types": {
+          "title": "파트너 유형",
+          "subtitle": "다양한 방식으로 협력할 수 있습니다"
+        },
+        "process": {
+          "title": "파트너십 프로세스",
+          "subtitle": "약 4~6주 소요되는 파트너십 체결 과정"
+        },
+        "success": {
+          "title": "파트너 성공사례",
+          "subtitle": "함께 성장한 파트너들의 이야기"
+        },
+        "faq": {
+          "title": "자주 묻는 질문",
+          "subtitle": "파트너십에 대해 궁금한 점"
+        }
+      },
+      "distributions": {
+        "strategic": "전략적 파트너",
+        "exchange": "거래소 파트너",
+        "tech": "기술 파트너",
+        "marketing": "마케팅 파트너",
+        "ecosystem": "생태계 파트너"
+      },
+      "tiers": {
+        "incentiveLabel": "파트너 인센티브",
+        "platinum": {
+          "subtitle": "최상위 파트너",
+          "incentive": "최대 500만",
+          "benefit1": "전용 기술 지원",
+          "benefit2": "공동 마케팅",
+          "benefit3": "우선 통합 지원",
+          "benefit4": "거버넌스 특권",
+          "benefit5": "독점 이벤트"
+        },
+        "gold": {
+          "subtitle": "프리미엄 파트너",
+          "incentive": "최대 200만",
+          "benefit1": "우선 기술 지원",
+          "benefit2": "마케팅 협업",
+          "benefit3": "통합 지원",
+          "benefit4": "DAO 투표권",
+          "benefit5": "파트너 이벤트"
+        },
+        "silver": {
+          "subtitle": "성장 파트너",
+          "incentive": "최대 50만",
+          "benefit1": "기술 문서 접근",
+          "benefit2": "공동 홍보",
+          "benefit3": "API 액세스",
+          "benefit4": "기본 투표권",
+          "benefit5": "네트워킹"
+        },
+        "bronze": {
+          "subtitle": "신규 파트너",
+          "incentive": "최대 10만",
+          "benefit1": "문서 접근",
+          "benefit2": "로고 사용권",
+          "benefit3": "기본 API",
+          "benefit4": "커뮤니티 참여",
+          "benefit5": "뉴스레터"
+        }
+      },
+      "types": {
+        "strategic": {
+          "title": "전략적 파트너",
+          "desc": "장기적인 비전을 공유하는 핵심 파트너",
+          "benefitValue1": "500만+",
+          "benefitLabel1": "최대 인센티브",
+          "benefitValue2": "24/7",
+          "benefitLabel2": "전담 지원",
+          "feature1": "공동 제품 개발",
+          "feature2": "브랜드 협업",
+          "feature3": "전략적 투자",
+          "feature4": "기술 통합"
+        },
+        "exchange": {
+          "title": "거래소 파트너",
+          "desc": "TBURN 토큰 상장 및 거래 지원",
+          "benefitValue1": "200만+",
+          "benefitLabel1": "리스팅 보너스",
+          "benefitValue2": "50%",
+          "benefitLabel2": "수수료 할인",
+          "feature1": "토큰 상장 지원",
+          "feature2": "유동성 공급",
+          "feature3": "마케팅 지원",
+          "feature4": "트레이딩 대회"
+        },
+        "tech": {
+          "title": "기술 파트너",
+          "desc": "인프라 및 개발 도구 협력",
+          "benefitValue1": "100만+",
+          "benefitLabel1": "통합 보너스",
+          "benefitValue2": "무제한",
+          "benefitLabel2": "API 호출",
+          "feature1": "API/SDK 통합",
+          "feature2": "인프라 제공",
+          "feature3": "보안 감사",
+          "feature4": "기술 자문"
+        },
+        "marketing": {
+          "title": "마케팅 파트너",
+          "desc": "브랜드 홍보 및 커뮤니티 확장",
+          "benefitValue1": "50만+",
+          "benefitLabel1": "캠페인 예산",
+          "benefitValue2": "100K+",
+          "benefitLabel2": "도달 범위",
+          "feature1": "공동 캠페인",
+          "feature2": "인플루언서 협업",
+          "feature3": "이벤트 공동개최",
+          "feature4": "콘텐츠 제작"
+        }
+      },
+      "process": {
+        "step1": {
+          "title": "신청서 제출",
+          "desc": "파트너십 신청서 작성",
+          "duration": "1일"
+        },
+        "step2": {
+          "title": "심사 & 평가",
+          "desc": "팀/비즈니스 검토",
+          "duration": "1주"
+        },
+        "step3": {
+          "title": "미팅 & 협의",
+          "desc": "조건 논의 및 합의",
+          "duration": "1-2주"
+        },
+        "step4": {
+          "title": "계약 체결",
+          "desc": "파트너십 계약 서명",
+          "duration": "1주"
+        },
+        "step5": {
+          "title": "통합 & 런칭",
+          "desc": "기술 통합 및 공식 발표",
+          "duration": "2-4주"
+        }
+      },
+      "success": {
+        "story1": {
+          "type": "기술 파트너",
+          "quote": "TBURN Chain과의 통합으로 우리 오라클 서비스의 처리량이 300% 향상되었습니다.",
+          "statLabel1": "성능 향상",
+          "statLabel2": "거래 처리"
+        },
+        "story2": {
+          "type": "거래소 파트너",
+          "quote": "TBURN 상장 후 거래량이 급증했고, 사용자들의 만족도가 매우 높습니다.",
+          "statLabel1": "거래량",
+          "statLabel2": "신규 사용자"
+        },
+        "story3": {
+          "type": "전략적 파트너",
+          "quote": "파트너십을 통해 새로운 DeFi 상품을 빠르게 출시할 수 있었습니다.",
+          "statLabel1": "TVL",
+          "statLabel2": "일일 사용자"
+        }
+      },
+      "faq": {
+        "q1": "파트너십 프로그램 총 인센티브 규모는 얼마인가요?",
+        "a1": "파트너십 프로그램에는 총 4억 TBURN이 배정되어 있습니다. 전략적 파트너 30%(1.2억), 거래소 파트너 25%(1억), 기술 파트너 20%(0.8억), 마케팅 파트너 15%(0.6억), 생태계 파트너 10%(0.4억)로 배분됩니다.",
+        "q2": "파트너 신청 자격은 어떻게 되나요?",
+        "a2": "블록체인 관련 사업을 영위하는 기업, 프로젝트, 서비스 제공업체 모두 신청 가능합니다. 규모에 상관없이 TBURN 생태계에 가치를 제공할 수 있는 모든 파트너를 환영합니다. 신청 시 사업자등록증, 프로젝트 소개서, 협력 제안서 등을 제출해야 합니다.",
+        "q3": "파트너 티어는 어떻게 결정되나요?",
+        "a3": "파트너의 기여도, 통합 범위, 마케팅 협력 수준, 기술적 역량 등을 종합적으로 평가하여 티어가 결정됩니다. Platinum(최대 500만), Gold(최대 200만), Silver(최대 50만), Bronze(최대 10만) 4개 티어가 있으며, 활동 성과에 따라 상위 티어로 승급할 수 있습니다.",
+        "q4": "파트너 인센티브는 어떻게 지급되나요?",
+        "a4": "파트너십 계약 체결 시 초기 인센티브 30%가 지급되며, 마일스톤 달성 시 40%, 최종 KPI 달성 시 30%가 추가 지급됩니다. 모든 인센티브는 TBURN 토큰으로 지급되며, 6개월 베스팅 일정이 적용됩니다.",
+        "q5": "여러 유형의 파트너십을 동시에 진행할 수 있나요?",
+        "a5": "네, 가능합니다. 예를 들어 기술 파트너이면서 동시에 마케팅 파트너로 협력할 수 있습니다. 각 유형별 인센티브가 별도로 적용되어 복합 파트너십 시 최대 인센티브를 받을 수 있습니다.",
+        "q6": "파트너십 체결까지 얼마나 걸리나요?",
+        "a6": "일반적으로 4~6주가 소요됩니다. 신청서 제출(1일) → 심사 및 평가(1주) → 미팅 및 협의(1-2주) → 계약 체결(1주) → 통합 및 런칭(2-4주) 단계를 거칩니다. 긴급 파트너십의 경우 패스트트랙 심사가 가능합니다.",
+        "q7": "거래소 상장 지원은 어떻게 받나요?",
+        "a7": "거래소 파트너에게는 최대 200만 TBURN의 리스팅 보너스, 50% 수수료 할인, 유동성 공급 지원, 트레이딩 대회 공동 개최 등의 혜택이 제공됩니다. Tier 1 거래소 상장 시 추가 인센티브가 지급됩니다.",
+        "q8": "기술 통합 지원은 어떻게 제공되나요?",
+        "a8": "기술 파트너에게는 전담 개발팀 지원, API/SDK 통합 문서, 샌드박스 환경, 기술 자문 등이 제공됩니다. Platinum 티어 파트너에게는 24/7 전담 지원이 제공되며, 공동 제품 개발 프로젝트도 진행할 수 있습니다."
+      },
+      "ctaSection": {
+        "title": "함께 성장해요!",
+        "subtitle": "TBURN 생태계의 파트너가 되어 4억 TBURN 인센티브를 받으세요!"
+      },
+      "footer": {
+        "tagline": "AI의 지능, 블록체인의 투명성 - THE FUTURE IS NOW",
+        "mainnet": "메인넷",
+        "explorer": "익스플로러",
+        "bridge": "브릿지",
+        "staking": "스테이킹",
+        "whitepaper": "백서",
+        "docs": "문서",
+        "audit": "감사 보고서",
+        "blog": "블로그",
+        "ambassador": "앰배서더",
+        "grants": "그랜트",
+        "support": "고객지원",
+        "terms": "이용약관",
+        "privacy": "개인정보처리방침"
+      },
+      "social": {
+        "navigating": "{{platform}} 페이지로 이동합니다."
+      }
     },
     "marketingProgram": {
       "title": "마케팅 프로그램",

@@ -31246,19 +31246,257 @@
     "partnershipProgram": {
       "title": "Partnership Program",
       "subtitle": "Strategic partnerships driving TBURN ecosystem growth",
-      "heroTitle": "TBURN Partnership Program",
-      "heroSubtitle": "Join forces with TBURN to build the future of decentralized finance",
-      "badge": "Strategic Partners",
-      "totalAllocated": "Total Allocated",
-      "activePartners": "Active Partners",
-      "integrations": "Integrations",
-      "partnerTypes": "Partner Types",
-      "exchange": "Exchange Partners",
-      "defi": "DeFi Partners",
-      "infrastructure": "Infrastructure Partners",
-      "enterprise": "Enterprise Partners",
-      "becomePartner": "Become a Partner",
-      "partnerBenefits": "Partner Benefits"
+      "nav": {
+        "tiers": "Partner Tiers",
+        "types": "Partner Types",
+        "process": "Process",
+        "success": "Success Stories"
+      },
+      "wallet": {
+        "connect": "Connect Wallet",
+        "connected": "Wallet Connected",
+        "connectedDesc": "Your wallet has been connected.",
+        "disconnected": "Wallet Disconnected",
+        "disconnectedDesc": "Your wallet has been disconnected.",
+        "required": "Wallet Required",
+        "requiredDesc": "Please connect your wallet to apply for partnership."
+      },
+      "hero": {
+        "badge": "PARTNERSHIP PROGRAM - Growing Together",
+        "title": "Become a TBURN Partner",
+        "fundAmount": "400M TBURN",
+        "incentive": "Incentives Available",
+        "subtitle": "Join as a strategic partner, exchange, technology partner, or marketing partner and grow with the TBURN ecosystem.",
+        "ourPartners": "Our Partners"
+      },
+      "stats": {
+        "totalIncentive": "Total Partner Incentive",
+        "activePartners": "Active Partners",
+        "categories": "Partner Categories",
+        "maxIncentive": "Max Incentive"
+      },
+      "cta": {
+        "applyPartner": "Apply for Partnership",
+        "partnerGuide": "Partner Guide",
+        "selectTier": "Select a partner tier to proceed with your application!",
+        "checkTypes": "Check the guide for each partner type.",
+        "apply": "Apply",
+        "applyType": "Apply",
+        "tierApply": "{{tierName}} Tier Application",
+        "tierApplyDesc": "Your {{tierName}} partner application has been submitted. You will receive review results within 1-2 weeks.",
+        "typeApply": "{{typeName}} Partner Application",
+        "typeApplyDesc": "Your {{typeName}} partnership application has been submitted. A representative will contact you shortly."
+      },
+      "sections": {
+        "distribution": {
+          "title": "Incentive Distribution",
+          "subtitle": "400M TBURN allocated across 5 partner types"
+        },
+        "tiers": {
+          "title": "Partner Tiers",
+          "subtitle": "Tiered benefits based on contribution level"
+        },
+        "types": {
+          "title": "Partner Types",
+          "subtitle": "Various ways to collaborate with us"
+        },
+        "process": {
+          "title": "Partnership Process",
+          "subtitle": "Partnership completion takes approximately 4-6 weeks"
+        },
+        "success": {
+          "title": "Partner Success Stories",
+          "subtitle": "Stories from partners who grew with us"
+        },
+        "faq": {
+          "title": "Frequently Asked Questions",
+          "subtitle": "Questions about partnership"
+        }
+      },
+      "distributions": {
+        "strategic": "Strategic Partners",
+        "exchange": "Exchange Partners",
+        "tech": "Technology Partners",
+        "marketing": "Marketing Partners",
+        "ecosystem": "Ecosystem Partners"
+      },
+      "tiers": {
+        "incentiveLabel": "Partner Incentive",
+        "platinum": {
+          "subtitle": "Top-tier Partner",
+          "incentive": "Up to 5M",
+          "benefit1": "Dedicated Tech Support",
+          "benefit2": "Co-marketing",
+          "benefit3": "Priority Integration Support",
+          "benefit4": "Governance Privileges",
+          "benefit5": "Exclusive Events"
+        },
+        "gold": {
+          "subtitle": "Premium Partner",
+          "incentive": "Up to 2M",
+          "benefit1": "Priority Tech Support",
+          "benefit2": "Marketing Collaboration",
+          "benefit3": "Integration Support",
+          "benefit4": "DAO Voting Rights",
+          "benefit5": "Partner Events"
+        },
+        "silver": {
+          "subtitle": "Growth Partner",
+          "incentive": "Up to 500K",
+          "benefit1": "Tech Documentation Access",
+          "benefit2": "Joint Promotion",
+          "benefit3": "API Access",
+          "benefit4": "Basic Voting Rights",
+          "benefit5": "Networking"
+        },
+        "bronze": {
+          "subtitle": "New Partner",
+          "incentive": "Up to 100K",
+          "benefit1": "Documentation Access",
+          "benefit2": "Logo Usage Rights",
+          "benefit3": "Basic API",
+          "benefit4": "Community Participation",
+          "benefit5": "Newsletter"
+        }
+      },
+      "types": {
+        "strategic": {
+          "title": "Strategic Partner",
+          "desc": "Core partners sharing long-term vision",
+          "benefitValue1": "5M+",
+          "benefitLabel1": "Max Incentive",
+          "benefitValue2": "24/7",
+          "benefitLabel2": "Dedicated Support",
+          "feature1": "Joint Product Development",
+          "feature2": "Brand Collaboration",
+          "feature3": "Strategic Investment",
+          "feature4": "Technology Integration"
+        },
+        "exchange": {
+          "title": "Exchange Partner",
+          "desc": "TBURN token listing and trading support",
+          "benefitValue1": "2M+",
+          "benefitLabel1": "Listing Bonus",
+          "benefitValue2": "50%",
+          "benefitLabel2": "Fee Discount",
+          "feature1": "Token Listing Support",
+          "feature2": "Liquidity Provision",
+          "feature3": "Marketing Support",
+          "feature4": "Trading Competitions"
+        },
+        "tech": {
+          "title": "Technology Partner",
+          "desc": "Infrastructure and development tool collaboration",
+          "benefitValue1": "1M+",
+          "benefitLabel1": "Integration Bonus",
+          "benefitValue2": "Unlimited",
+          "benefitLabel2": "API Calls",
+          "feature1": "API/SDK Integration",
+          "feature2": "Infrastructure Provision",
+          "feature3": "Security Audit",
+          "feature4": "Technical Advisory"
+        },
+        "marketing": {
+          "title": "Marketing Partner",
+          "desc": "Brand promotion and community expansion",
+          "benefitValue1": "500K+",
+          "benefitLabel1": "Campaign Budget",
+          "benefitValue2": "100K+",
+          "benefitLabel2": "Reach",
+          "feature1": "Joint Campaigns",
+          "feature2": "Influencer Collaboration",
+          "feature3": "Co-hosted Events",
+          "feature4": "Content Creation"
+        }
+      },
+      "process": {
+        "step1": {
+          "title": "Submit Application",
+          "desc": "Complete partnership application",
+          "duration": "1 day"
+        },
+        "step2": {
+          "title": "Review & Evaluation",
+          "desc": "Team/Business review",
+          "duration": "1 week"
+        },
+        "step3": {
+          "title": "Meeting & Discussion",
+          "desc": "Terms negotiation and agreement",
+          "duration": "1-2 weeks"
+        },
+        "step4": {
+          "title": "Contract Signing",
+          "desc": "Partnership contract execution",
+          "duration": "1 week"
+        },
+        "step5": {
+          "title": "Integration & Launch",
+          "desc": "Technical integration and official announcement",
+          "duration": "2-4 weeks"
+        }
+      },
+      "success": {
+        "story1": {
+          "type": "Technology Partner",
+          "quote": "Integration with TBURN Chain improved our oracle service throughput by 300%.",
+          "statLabel1": "Performance Improvement",
+          "statLabel2": "Transactions Processed"
+        },
+        "story2": {
+          "type": "Exchange Partner",
+          "quote": "Trading volume surged after TBURN listing, and user satisfaction is extremely high.",
+          "statLabel1": "Trading Volume",
+          "statLabel2": "New Users"
+        },
+        "story3": {
+          "type": "Strategic Partner",
+          "quote": "Through the partnership, we were able to rapidly launch new DeFi products.",
+          "statLabel1": "TVL",
+          "statLabel2": "Daily Users"
+        }
+      },
+      "faq": {
+        "q1": "What is the total incentive pool for the partnership program?",
+        "a1": "The partnership program has a total allocation of 400M TBURN. It is distributed as: Strategic Partners 30% (120M), Exchange Partners 25% (100M), Technology Partners 20% (80M), Marketing Partners 15% (60M), and Ecosystem Partners 10% (40M).",
+        "q2": "What are the eligibility requirements for partnership?",
+        "a2": "Any company, project, or service provider operating in the blockchain space can apply. We welcome all partners who can add value to the TBURN ecosystem regardless of size. Applications require business registration, project introduction, and partnership proposal documents.",
+        "q3": "How are partner tiers determined?",
+        "a3": "Tiers are determined by comprehensive evaluation of partner contribution, integration scope, marketing collaboration level, and technical capabilities. There are 4 tiers: Platinum (up to 5M), Gold (up to 2M), Silver (up to 500K), and Bronze (up to 100K). Partners can be promoted to higher tiers based on performance.",
+        "q4": "How are partner incentives distributed?",
+        "a4": "Upon partnership contract signing, 30% initial incentive is distributed, with 40% upon milestone achievement, and 30% upon final KPI achievement. All incentives are paid in TBURN tokens with a 6-month vesting schedule.",
+        "q5": "Can I participate in multiple partnership types simultaneously?",
+        "a5": "Yes, you can. For example, you can be both a technology partner and a marketing partner. Incentives for each type are applied separately, so combined partnerships can receive maximum incentives.",
+        "q6": "How long does partnership completion take?",
+        "a6": "Generally 4-6 weeks. The process includes: Application submission (1 day) - Review & Evaluation (1 week) - Meeting & Discussion (1-2 weeks) - Contract Signing (1 week) - Integration & Launch (2-4 weeks). Fast-track review is available for urgent partnerships.",
+        "q7": "How do I receive exchange listing support?",
+        "a7": "Exchange partners receive up to 2M TBURN listing bonus, 50% fee discount, liquidity provision support, and co-hosted trading competitions. Additional incentives are provided for Tier 1 exchange listings.",
+        "q8": "How is technical integration support provided?",
+        "a8": "Technology partners receive dedicated development team support, API/SDK integration documentation, sandbox environment, and technical advisory. Platinum tier partners receive 24/7 dedicated support and can participate in joint product development projects."
+      },
+      "ctaSection": {
+        "title": "Let's Grow Together!",
+        "subtitle": "Become a partner in the TBURN ecosystem and receive 400M TBURN incentives!"
+      },
+      "footer": {
+        "tagline": "AI Intelligence, Blockchain Transparency - THE FUTURE IS NOW",
+        "mainnet": "Mainnet",
+        "explorer": "Explorer",
+        "bridge": "Bridge",
+        "staking": "Staking",
+        "whitepaper": "Whitepaper",
+        "docs": "Documentation",
+        "audit": "Audit Report",
+        "blog": "Blog",
+        "ambassador": "Ambassador",
+        "grants": "Grants",
+        "support": "Support",
+        "terms": "Terms of Service",
+        "privacy": "Privacy Policy"
+      },
+      "social": {
+        "navigating": "Navigating to {{platform}}."
+      }
     },
     "marketingProgram": {
       "title": "Marketing Program",
