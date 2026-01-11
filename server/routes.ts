@@ -1963,6 +1963,11 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
         const v8 = require('v8');
         heapLimitMB = v8.getHeapStatistics().heap_size_limit / (1024 * 1024);
       } catch {}
+      
+      // ★ [2026-01-11] 데이터베이스 환경 정보 추가
+      const { dbEnvironment, checkDatabaseHealth } = await import('./db');
+      const dbHealth = await checkDatabaseHealth();
+      
       res.json({ 
         status: 'ok', 
         timestamp: new Date().toISOString(),
@@ -1971,10 +1976,62 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
           heapUsed: Math.round(mem.heapUsed / 1024 / 1024),
           heapTotal: Math.round(heapLimitMB),
           rss: Math.round(mem.rss / 1024 / 1024)
+        },
+        database: {
+          environment: dbEnvironment.environmentName,
+          isProduction: dbEnvironment.isProduction,
+          hasSeparateProductionDb: dbEnvironment.hasSeparateProductionDb,
+          healthy: dbHealth.healthy,
+          latencyMs: dbHealth.latencyMs
         }
       });
     } catch (error) {
       res.status(503).json({ status: 'error', error: 'Health check failed' });
+    }
+  });
+
+
+  // ═══════════════════════════════════════════════════════════════════════════════
+  // ★ [2026-01-11] ENTERPRISE DATABASE ENVIRONMENT API
+  // 개발/프로덕션 DB 분리 상태 및 유지보수 모드 확인
+  // ═══════════════════════════════════════════════════════════════════════════════
+  app.get("/api/db-environment", async (_req, res) => {
+    try {
+      const { dbEnvironment, checkDatabaseHealth, maintenanceMode } = await import('./db');
+      const health = await checkDatabaseHealth();
+      
+      res.json({
+        status: 'ok',
+        timestamp: new Date().toISOString(),
+        environment: {
+          name: dbEnvironment.environmentName,
+          isProduction: dbEnvironment.isProduction,
+          isDevelopment: dbEnvironment.isDevelopment,
+          hasSeparateProductionDb: dbEnvironment.hasSeparateProductionDb
+        },
+        database: {
+          healthy: health.healthy,
+          latencyMs: health.latencyMs,
+          error: health.error
+        },
+        maintenance: {
+          enabled: maintenanceMode.enabled,
+          readOnly: maintenanceMode.readOnly,
+          message: maintenanceMode.enabled || maintenanceMode.readOnly ? maintenanceMode.message : null
+        },
+        recommendations: dbEnvironment.hasSeparateProductionDb 
+          ? ['✅ Production database is properly isolated']
+          : [
+              '⚠️ Development and production share the same database',
+              '→ Set DATABASE_URL_PROD secret for production isolation',
+              '→ Run: tsx server/db-migration.ts for data migration'
+            ]
+      });
+    } catch (error: any) {
+      res.status(503).json({ 
+        status: 'error', 
+        error: error.message 
+      });
     }
   });
 

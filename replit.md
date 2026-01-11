@@ -54,3 +54,36 @@ Core architectural decisions include:
 - **Validation**: Zod
 - **Authentication**: `express-session`, `bcryptjs`
 - **Internationalization**: `react-i18next`
+## Enterprise Database Separation (2026-01-11)
+
+### 개발/프로덕션 DB 분리 구성
+Replit의 새로운 데이터베이스 인프라를 활용하여 개발과 프로덕션 환경의 데이터베이스를 분리합니다.
+
+#### 환경 변수 설정
+| 환경 변수 | 용도 | 환경 |
+|-----------|------|------|
+| `DATABASE_URL` | 개발 DB 연결 문자열 | 개발 (워크플로우) |
+| `DATABASE_URL_PROD` | 프로덕션 DB 연결 문자열 | 프로덕션 (퍼블리싱) |
+
+#### 환경 감지 우선순위
+1. `REPLIT_DEPLOYMENT=1` → 프로덕션 DB 사용
+2. `NODE_ENV=production` + `!REPLIT_DEV_DOMAIN` → 프로덕션 DB 사용
+3. 그 외 → 개발 DB 사용
+
+#### API 엔드포인트
+- `GET /api/db-environment` - DB 환경 상태 조회
+- `GET /api/health` - 헬스체크 (DB 정보 포함)
+
+#### 마이그레이션 도구
+```bash
+# 드라이런 (테스트)
+MIGRATION_DRY_RUN=true tsx server/db-migration.ts
+
+# 실제 마이그레이션
+tsx server/db-migration.ts
+```
+
+#### 유지보수 모드
+- `MAINTENANCE_MODE=true` - 모든 쓰기 작업 차단
+- `MAINTENANCE_READ_ONLY=true` - 읽기만 허용
+- `MAINTENANCE_MESSAGE` - 사용자 정의 메시지
