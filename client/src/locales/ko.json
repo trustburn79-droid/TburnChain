@@ -36628,12 +36628,32 @@
       "title": "어드바이저가 되세요",
       "subtitle": "전문 지식을 TBURN 생태계 성장에 기여하고 보상을 받으세요.",
       "applyButton": "지금 지원하기",
-      "learnButton": "더 알아보기"
+      "learnButton": "더 알아보기",
+      "subtitle1": "TBURN 생태계 성장에 전문성을 기여하고",
+      "subtitle2": "독점적인 보상을 받으세요.",
+      "button": "지금 신청하기",
+      "toastDesc": "어드바이저 신청이 접수되었습니다. 검토 후 연락드리겠습니다."
     },
     "footer": {
       "copyright": "2024 TBURN. 모든 권리 보유.",
       "privacy": "개인정보 처리방침",
-      "terms": "이용약관"
+      "terms": "이용약관",
+      "tagline1": "탈중앙화 블록체인의",
+      "tagline2": "미래를 만들어갑니다",
+      "product": "제품",
+      "mainnet": "메인넷",
+      "explorer": "익스플로러",
+      "bridge": "브릿지",
+      "staking": "스테이킹",
+      "resources": "리소스",
+      "whitepaper": "백서",
+      "docs": "문서",
+      "auditReport": "감사 보고서",
+      "community": "커뮤니티",
+      "blog": "블로그",
+      "ambassador": "앰배서더",
+      "grants": "그랜트",
+      "support": "지원"
     }
   },
   "coinlist": {

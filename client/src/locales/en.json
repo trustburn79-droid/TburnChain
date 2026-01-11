@@ -35066,12 +35066,32 @@
       "title": "Become an Advisor",
       "subtitle": "Contribute your expertise to TBURN ecosystem growth and receive rewards.",
       "applyButton": "Apply Now",
-      "learnButton": "Learn More"
+      "learnButton": "Learn More",
+      "subtitle1": "Contribute your expertise to TBURN ecosystem growth",
+      "subtitle2": "and receive exclusive rewards.",
+      "button": "Apply Now",
+      "toastDesc": "Your advisor application has been submitted. We will contact you after review."
     },
     "footer": {
       "copyright": "2024 TBURN. All rights reserved.",
       "privacy": "Privacy Policy",
-      "terms": "Terms of Service"
+      "terms": "Terms of Service",
+      "tagline1": "Building the future of",
+      "tagline2": "decentralized blockchain",
+      "product": "Product",
+      "mainnet": "Mainnet",
+      "explorer": "Explorer",
+      "bridge": "Bridge",
+      "staking": "Staking",
+      "resources": "Resources",
+      "whitepaper": "Whitepaper",
+      "docs": "Documentation",
+      "auditReport": "Audit Report",
+      "community": "Community",
+      "blog": "Blog",
+      "ambassador": "Ambassador",
+      "grants": "Grants",
+      "support": "Support"
     }
   },
   "coinlist": {

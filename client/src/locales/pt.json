@@ -22123,12 +22123,32 @@
       "title": "Torne-se um Consultor",
       "subtitle": "Contribua sua expertise para o crescimento do ecossistema TBURN e receba recompensas.",
       "applyButton": "Candidate-se Agora",
-      "learnButton": "Saiba Mais"
+      "learnButton": "Saiba Mais",
+      "subtitle1": "Contribua com sua expertise para o crescimento do ecossistema TBURN",
+      "subtitle2": "e receba recompensas exclusivas.",
+      "button": "Candidatar-se Agora",
+      "toastDesc": "Sua candidatura de consultor foi enviada. Entraremos em contato após a análise."
     },
     "footer": {
       "copyright": "2024 TBURN. Todos os direitos reservados.",
       "privacy": "Política de Privacidade",
-      "terms": "Termos de Serviço"
+      "terms": "Termos de Serviço",
+      "tagline1": "Construindo o futuro da",
+      "tagline2": "blockchain descentralizada",
+      "product": "Produto",
+      "mainnet": "Mainnet",
+      "explorer": "Explorador",
+      "bridge": "Ponte",
+      "staking": "Staking",
+      "resources": "Recursos",
+      "whitepaper": "Whitepaper",
+      "docs": "Documentação",
+      "auditReport": "Relatório de Auditoria",
+      "community": "Comunidade",
+      "blog": "Blog",
+      "ambassador": "Embaixador",
+      "grants": "Subsídios",
+      "support": "Suporte"
     }
   },
   "coinlist": {

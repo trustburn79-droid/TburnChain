@@ -22377,12 +22377,32 @@
       "title": "Devenez Conseiller",
       "subtitle": "Contribuez votre expertise à la croissance de l'écosystème TBURN et recevez des récompenses.",
       "applyButton": "Postuler Maintenant",
-      "learnButton": "En Savoir Plus"
+      "learnButton": "En Savoir Plus",
+      "subtitle1": "Contribuez votre expertise à la croissance de l'écosystème TBURN",
+      "subtitle2": "et recevez des récompenses exclusives.",
+      "button": "Postuler Maintenant",
+      "toastDesc": "Votre candidature de conseiller a été soumise. Nous vous contacterons après examen."
     },
     "footer": {
       "copyright": "2024 TBURN. Tous droits réservés.",
       "privacy": "Politique de Confidentialité",
-      "terms": "Conditions d'Utilisation"
+      "terms": "Conditions d'Utilisation",
+      "tagline1": "Construire l'avenir de la",
+      "tagline2": "blockchain décentralisée",
+      "product": "Produit",
+      "mainnet": "Mainnet",
+      "explorer": "Explorateur",
+      "bridge": "Pont",
+      "staking": "Staking",
+      "resources": "Ressources",
+      "whitepaper": "Livre Blanc",
+      "docs": "Documentation",
+      "auditReport": "Rapport d'Audit",
+      "community": "Communauté",
+      "blog": "Blog",
+      "ambassador": "Ambassadeur",
+      "grants": "Subventions",
+      "support": "Support"
     }
   },
   "coinlist": {

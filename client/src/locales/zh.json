@@ -24497,12 +24497,32 @@
       "title": "成为顾问",
       "subtitle": "将您的专业知识贡献给TBURN生态系统的发展并获得奖励。",
       "applyButton": "立即申请",
-      "learnButton": "了解更多"
+      "learnButton": "了解更多",
+      "subtitle1": "为TBURN生态系统的发展贡献您的专业知识",
+      "subtitle2": "并获得独家奖励。",
+      "button": "立即申请",
+      "toastDesc": "您的顾问申请已提交。审核后我们将与您联系。"
     },
     "footer": {
       "copyright": "2024 TBURN. 保留所有权利。",
       "privacy": "隐私政策",
-      "terms": "服务条款"
+      "terms": "服务条款",
+      "tagline1": "构建去中心化",
+      "tagline2": "区块链的未来",
+      "product": "产品",
+      "mainnet": "主网",
+      "explorer": "浏览器",
+      "bridge": "跨链桥",
+      "staking": "质押",
+      "resources": "资源",
+      "whitepaper": "白皮书",
+      "docs": "文档",
+      "auditReport": "审计报告",
+      "community": "社区",
+      "blog": "博客",
+      "ambassador": "大使",
+      "grants": "资助",
+      "support": "支持"
     }
   },
   "coinlist": {

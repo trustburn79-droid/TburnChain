@@ -24610,12 +24610,32 @@
       "title": "Conviértase en Asesor",
       "subtitle": "Contribuya su experiencia al crecimiento del ecosistema TBURN y reciba recompensas.",
       "applyButton": "Solicitar Ahora",
-      "learnButton": "Más Información"
+      "learnButton": "Más Información",
+      "subtitle1": "Contribuye con tu experiencia al crecimiento del ecosistema TBURN",
+      "subtitle2": "y recibe recompensas exclusivas.",
+      "button": "Aplicar Ahora",
+      "toastDesc": "Tu solicitud de asesor ha sido enviada. Te contactaremos después de la revisión."
     },
     "footer": {
       "copyright": "2024 TBURN. Todos los derechos reservados.",
       "privacy": "Política de Privacidad",
-      "terms": "Términos de Servicio"
+      "terms": "Términos de Servicio",
+      "tagline1": "Construyendo el futuro de",
+      "tagline2": "la blockchain descentralizada",
+      "product": "Producto",
+      "mainnet": "Mainnet",
+      "explorer": "Explorador",
+      "bridge": "Puente",
+      "staking": "Staking",
+      "resources": "Recursos",
+      "whitepaper": "Whitepaper",
+      "docs": "Documentación",
+      "auditReport": "Informe de Auditoría",
+      "community": "Comunidad",
+      "blog": "Blog",
+      "ambassador": "Embajador",
+      "grants": "Subvenciones",
+      "support": "Soporte"
     }
   },
   "coinlist": {
