@@ -22256,18 +22256,41 @@
         "months": "months"
       },
       "allocation": {
-        "badge": "Allocation",
-        "title": "Allocation Distribution",
-        "subtitle": "How the private round allocation is distributed",
-        "vcFunds": "VC Funds",
-        "strategicInvestors": "Strategic Investors",
-        "familyOffice": "Family Offices",
-        "corporateInvestors": "Corporate Investors"
+        "badge": "配分",
+        "title": "配分分布",
+        "subtitle": "プライベートラウンドの配分方法",
+        "vcFunds": "VCファンド",
+        "strategicInvestors": "戦略的投資家",
+        "familyOffice": "ファミリーオフィス",
+        "corporateInvestors": "企業投資家"
       },
       "investors": {
-        "badge": "INVESTORS",
+        "badge": "投資家",
         "title": "現在の投資家",
-        "subtitle": "機関パートナー"
+        "subtitle": "機関パートナー",
+        "types": {
+          "vc": "VC",
+          "familyOffice": "ファミリーオフィス",
+          "strategic": "戦略的",
+          "corporate": "企業"
+        },
+        "tierBadges": {
+          "institutional": "機関",
+          "strategic": "戦略的",
+          "growth": "成長"
+        },
+        "investor1": {
+          "name": "ギャラクシーデジタル"
+        },
+        "investor2": {
+          "name": "アジアキャピタルパートナーズ"
+        },
+        "investor3": {
+          "name": "ブロックチェーンパートナーズコリア"
+        },
+        "investor4": {
+          "name": "デジタルアセットホールディングス"
+        }
       },
       "process": {
         "badge": "PROCESS",

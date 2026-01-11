@@ -19669,18 +19669,41 @@
         "months": "months"
       },
       "allocation": {
-        "badge": "Allocation",
-        "title": "Allocation Distribution",
-        "subtitle": "How the private round allocation is distributed",
-        "vcFunds": "VC Funds",
-        "strategicInvestors": "Strategic Investors",
-        "familyOffice": "Family Offices",
-        "corporateInvestors": "Corporate Investors"
+        "badge": "आवंटन",
+        "title": "आवंटन वितरण",
+        "subtitle": "प्राइवेट राउंड आवंटन कैसे वितरित होता है",
+        "vcFunds": "VC फंड",
+        "strategicInvestors": "रणनीतिक निवेशक",
+        "familyOffice": "फैमिली ऑफिस",
+        "corporateInvestors": "कॉर्पोरेट निवेशक"
       },
       "investors": {
-        "badge": "INVESTORS",
+        "badge": "निवेशक",
         "title": "वर्तमान निवेशक",
-        "subtitle": "हमारे संस्थागत भागीदार"
+        "subtitle": "संस्थागत भागीदार",
+        "types": {
+          "vc": "VC",
+          "familyOffice": "फैमिली ऑफिस",
+          "strategic": "रणनीतिक",
+          "corporate": "कॉर्पोरेट"
+        },
+        "tierBadges": {
+          "institutional": "संस्थागत",
+          "strategic": "रणनीतिक",
+          "growth": "विकास"
+        },
+        "investor1": {
+          "name": "गैलेक्सी डिजिटल"
+        },
+        "investor2": {
+          "name": "एशिया कैपिटल पार्टनर्स"
+        },
+        "investor3": {
+          "name": "ब्लॉकचेन पार्टनर्स कोरिया"
+        },
+        "investor4": {
+          "name": "डिजिटल एसेट होल्डिंग्स"
+        }
       },
       "process": {
         "badge": "PROCESS",

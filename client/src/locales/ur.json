@@ -17493,18 +17493,41 @@
         "months": "months"
       },
       "allocation": {
-        "badge": "Allocation",
-        "title": "Allocation Distribution",
-        "subtitle": "How the private round allocation is distributed",
-        "vcFunds": "VC Funds",
-        "strategicInvestors": "Strategic Investors",
-        "familyOffice": "Family Offices",
-        "corporateInvestors": "Corporate Investors"
+        "badge": "مختص",
+        "title": "مختص تقسیم",
+        "subtitle": "پرائیویٹ راؤنڈ مختص کیسے تقسیم ہوتا ہے",
+        "vcFunds": "VC فنڈز",
+        "strategicInvestors": "اسٹریٹجک سرمایہ کار",
+        "familyOffice": "فیملی آفس",
+        "corporateInvestors": "کارپوریٹ سرمایہ کار"
       },
       "investors": {
-        "badge": "INVESTORS",
+        "badge": "سرمایہ کار",
         "title": "موجودہ سرمایہ کار",
-        "subtitle": "ہمارے ادارہ جاتی شراکت دار"
+        "subtitle": "ادارہ جاتی شراکت دار",
+        "types": {
+          "vc": "VC",
+          "familyOffice": "فیملی آفس",
+          "strategic": "اسٹریٹجک",
+          "corporate": "کارپوریٹ"
+        },
+        "tierBadges": {
+          "institutional": "ادارہ جاتی",
+          "strategic": "اسٹریٹجک",
+          "growth": "ترقی"
+        },
+        "investor1": {
+          "name": "گیلکسی ڈیجیٹل"
+        },
+        "investor2": {
+          "name": "ایشیا کیپٹل پارٹنرز"
+        },
+        "investor3": {
+          "name": "بلاکچین پارٹنرز کوریا"
+        },
+        "investor4": {
+          "name": "ڈیجیٹل ایسٹ ہولڈنگز"
+        }
       },
       "process": {
         "badge": "PROCESS",

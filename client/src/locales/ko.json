@@ -33103,18 +33103,41 @@
         "months": "months"
       },
       "allocation": {
-        "badge": "Allocation",
-        "title": "Allocation Distribution",
-        "subtitle": "How the private round allocation is distributed",
-        "vcFunds": "VC Funds",
-        "strategicInvestors": "Strategic Investors",
-        "familyOffice": "Family Offices",
-        "corporateInvestors": "Corporate Investors"
+        "badge": "할당",
+        "title": "할당 분배",
+        "subtitle": "프라이빗 라운드 할당 분배 방식",
+        "vcFunds": "VC 펀드",
+        "strategicInvestors": "전략적 투자자",
+        "familyOffice": "패밀리 오피스",
+        "corporateInvestors": "기업 투자자"
       },
       "investors": {
-        "badge": "INVESTORS",
+        "badge": "투자자",
         "title": "현재 투자자",
-        "subtitle": "함께하는 기관 파트너"
+        "subtitle": "기관 파트너",
+        "types": {
+          "vc": "VC",
+          "familyOffice": "패밀리 오피스",
+          "strategic": "전략적",
+          "corporate": "기업"
+        },
+        "tierBadges": {
+          "institutional": "기관",
+          "strategic": "전략적",
+          "growth": "성장"
+        },
+        "investor1": {
+          "name": "갤럭시 디지털"
+        },
+        "investor2": {
+          "name": "아시아 캐피탈 파트너스"
+        },
+        "investor3": {
+          "name": "블록체인 파트너스 코리아"
+        },
+        "investor4": {
+          "name": "디지털 애셋 홀딩스"
+        }
       },
       "process": {
         "badge": "PROCESS",

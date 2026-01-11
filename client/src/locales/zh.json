@@ -21202,18 +21202,41 @@
         "months": "months"
       },
       "allocation": {
-        "badge": "Allocation",
-        "title": "Allocation Distribution",
-        "subtitle": "How the private round allocation is distributed",
-        "vcFunds": "VC Funds",
-        "strategicInvestors": "Strategic Investors",
-        "familyOffice": "Family Offices",
-        "corporateInvestors": "Corporate Investors"
+        "badge": "分配",
+        "title": "分配分布",
+        "subtitle": "私募轮分配方式",
+        "vcFunds": "VC基金",
+        "strategicInvestors": "战略投资者",
+        "familyOffice": "家族办公室",
+        "corporateInvestors": "企业投资者"
       },
       "investors": {
-        "badge": "INVESTORS",
+        "badge": "投资者",
         "title": "当前投资者",
-        "subtitle": "我们的机构合作伙伴"
+        "subtitle": "机构合作伙伴",
+        "types": {
+          "vc": "VC",
+          "familyOffice": "家族办公室",
+          "strategic": "战略",
+          "corporate": "企业"
+        },
+        "tierBadges": {
+          "institutional": "机构",
+          "strategic": "战略",
+          "growth": "成长"
+        },
+        "investor1": {
+          "name": "银河数字"
+        },
+        "investor2": {
+          "name": "亚洲资本合伙人"
+        },
+        "investor3": {
+          "name": "区块链合伙人韩国"
+        },
+        "investor4": {
+          "name": "数字资产控股"
+        }
       },
       "process": {
         "badge": "PROCESS",

@@ -18143,18 +18143,41 @@
         "months": "months"
       },
       "allocation": {
-        "badge": "Allocation",
-        "title": "Allocation Distribution",
-        "subtitle": "How the private round allocation is distributed",
-        "vcFunds": "VC Funds",
-        "strategicInvestors": "Strategic Investors",
-        "familyOffice": "Family Offices",
-        "corporateInvestors": "Corporate Investors"
+        "badge": "Распределение",
+        "title": "Распределение Аллокации",
+        "subtitle": "Как распределяется аллокация частного раунда",
+        "vcFunds": "VC Фонды",
+        "strategicInvestors": "Стратегические Инвесторы",
+        "familyOffice": "Семейные Офисы",
+        "corporateInvestors": "Корпоративные Инвесторы"
       },
       "investors": {
-        "badge": "INVESTORS",
+        "badge": "ИНВЕСТОРЫ",
         "title": "Текущие Инвесторы",
-        "subtitle": "Наши Институциональные Партнеры"
+        "subtitle": "Институциональные Партнеры",
+        "types": {
+          "vc": "VC",
+          "familyOffice": "Семейный Офис",
+          "strategic": "Стратегический",
+          "corporate": "Корпоративный"
+        },
+        "tierBadges": {
+          "institutional": "ИНСТИТУЦИОНАЛЬНЫЙ",
+          "strategic": "СТРАТЕГИЧЕСКИЙ",
+          "growth": "РОСТ"
+        },
+        "investor1": {
+          "name": "Galaxy Digital"
+        },
+        "investor2": {
+          "name": "Asia Capital Partners"
+        },
+        "investor3": {
+          "name": "Blockchain Partners Korea"
+        },
+        "investor4": {
+          "name": "Digital Asset Holdings"
+        }
       },
       "process": {
         "badge": "PROCESS",

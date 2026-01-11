@@ -145,10 +145,10 @@ export default function PrivateRoundPage() {
   ];
 
   const currentInvestors = [
-    { icon: "🏛️", name: "Galaxy Digital", type: "VC", tier: "institutional" },
-    { icon: "🏢", name: "Asia Capital Partners", type: "Family Office", tier: "institutional" },
-    { icon: "🎯", name: "Blockchain Partners Korea", type: "Strategic", tier: "strategic" },
-    { icon: "💼", name: "Digital Asset Holdings", type: "Corporate", tier: "growth" },
+    { icon: "🏛️", name: t('tokenPrograms.privateRound.investors.investor1.name'), type: t('tokenPrograms.privateRound.investors.types.vc'), tier: "institutional" },
+    { icon: "🏢", name: t('tokenPrograms.privateRound.investors.investor2.name'), type: t('tokenPrograms.privateRound.investors.types.familyOffice'), tier: "institutional" },
+    { icon: "🎯", name: t('tokenPrograms.privateRound.investors.investor3.name'), type: t('tokenPrograms.privateRound.investors.types.strategic'), tier: "strategic" },
+    { icon: "💼", name: t('tokenPrograms.privateRound.investors.investor4.name'), type: t('tokenPrograms.privateRound.investors.types.corporate'), tier: "growth" },
   ];
 
   const processSteps = [

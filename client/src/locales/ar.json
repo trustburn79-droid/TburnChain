@@ -19025,18 +19025,41 @@
         "months": "months"
       },
       "allocation": {
-        "badge": "Allocation",
-        "title": "Allocation Distribution",
-        "subtitle": "How the private round allocation is distributed",
-        "vcFunds": "VC Funds",
-        "strategicInvestors": "Strategic Investors",
-        "familyOffice": "Family Offices",
-        "corporateInvestors": "Corporate Investors"
+        "badge": "التخصيص",
+        "title": "توزيع التخصيص",
+        "subtitle": "كيفية توزيع تخصيص الجولة الخاصة",
+        "vcFunds": "صناديق VC",
+        "strategicInvestors": "مستثمرون استراتيجيون",
+        "familyOffice": "مكاتب عائلية",
+        "corporateInvestors": "مستثمرون شركات"
       },
       "investors": {
-        "badge": "INVESTORS",
+        "badge": "المستثمرون",
         "title": "المستثمرون الحاليون",
-        "subtitle": "شركاؤنا المؤسسيون"
+        "subtitle": "الشركاء المؤسسيون",
+        "types": {
+          "vc": "VC",
+          "familyOffice": "مكتب عائلي",
+          "strategic": "استراتيجي",
+          "corporate": "شركات"
+        },
+        "tierBadges": {
+          "institutional": "مؤسسي",
+          "strategic": "استراتيجي",
+          "growth": "نمو"
+        },
+        "investor1": {
+          "name": "جالاكسي ديجيتال"
+        },
+        "investor2": {
+          "name": "آسيا كابيتال بارتنرز"
+        },
+        "investor3": {
+          "name": "بلوكتشين بارتنرز كوريا"
+        },
+        "investor4": {
+          "name": "ديجيتال أسيت هولدينجز"
+        }
       },
       "process": {
         "badge": "PROCESS",

@@ -17249,18 +17249,41 @@
         "months": "months"
       },
       "allocation": {
-        "badge": "Allocation",
-        "title": "Allocation Distribution",
-        "subtitle": "How the private round allocation is distributed",
-        "vcFunds": "VC Funds",
-        "strategicInvestors": "Strategic Investors",
-        "familyOffice": "Family Offices",
-        "corporateInvestors": "Corporate Investors"
+        "badge": "বরাদ্দ",
+        "title": "বরাদ্দ বিতরণ",
+        "subtitle": "প্রাইভেট রাউন্ড বরাদ্দ কিভাবে বিতরণ করা হয়",
+        "vcFunds": "VC ফান্ড",
+        "strategicInvestors": "কৌশলগত বিনিয়োগকারী",
+        "familyOffice": "ফ্যামিলি অফিস",
+        "corporateInvestors": "কর্পোরেট বিনিয়োগকারী"
       },
       "investors": {
-        "badge": "INVESTORS",
+        "badge": "বিনিয়োগকারী",
         "title": "বর্তমান বিনিয়োগকারী",
-        "subtitle": "আমাদের প্রাতিষ্ঠানিক অংশীদার"
+        "subtitle": "প্রাতিষ্ঠানিক অংশীদার",
+        "types": {
+          "vc": "VC",
+          "familyOffice": "ফ্যামিলি অফিস",
+          "strategic": "কৌশলগত",
+          "corporate": "কর্পোরেট"
+        },
+        "tierBadges": {
+          "institutional": "প্রাতিষ্ঠানিক",
+          "strategic": "কৌশলগত",
+          "growth": "প্রবৃদ্ধি"
+        },
+        "investor1": {
+          "name": "গ্যালাক্সি ডিজিটাল"
+        },
+        "investor2": {
+          "name": "এশিয়া ক্যাপিটাল পার্টনার্স"
+        },
+        "investor3": {
+          "name": "ব্লকচেইন পার্টনার্স কোরিয়া"
+        },
+        "investor4": {
+          "name": "ডিজিটাল অ্যাসেট হোল্ডিংস"
+        }
       },
       "process": {
         "badge": "PROCESS",

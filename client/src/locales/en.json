@@ -32761,9 +32761,32 @@
         "button": "Apply Now"
       },
       "investors": {
-        "badge": "Investors",
-        "title": "Backed by Leading Investors",
-        "subtitle": "Trusted by top-tier venture capital firms"
+        "badge": "INVESTORS",
+        "title": "Current Investors",
+        "subtitle": "Institutional Partners",
+        "types": {
+          "vc": "VC",
+          "familyOffice": "Family Office",
+          "strategic": "Strategic",
+          "corporate": "Corporate"
+        },
+        "tierBadges": {
+          "institutional": "INSTITUTIONAL",
+          "strategic": "STRATEGIC",
+          "growth": "GROWTH"
+        },
+        "investor1": {
+          "name": "Galaxy Digital"
+        },
+        "investor2": {
+          "name": "Asia Capital Partners"
+        },
+        "investor3": {
+          "name": "Blockchain Partners Korea"
+        },
+        "investor4": {
+          "name": "Digital Asset Holdings"
+        }
       },
       "stats": {
         "hardcap": "Hard Cap",
