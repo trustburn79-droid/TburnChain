@@ -20867,14 +20867,34 @@
         "after24Months": "24个月后"
       },
       "investorsSection": {
-        "badge": "INVESTORS",
+        "badge": "投资者",
         "title": "当前投资者",
-        "subtitle": "我们的合作伙伴"
+        "subtitle": "合作伙伴",
+        "types": {
+          "vc": "VC",
+          "fund": "基金"
+        },
+        "tierBadges": {
+          "lead": "领投",
+          "major": "主要"
+        },
+        "investor1": {
+          "name": "区块链风投"
+        },
+        "investor2": {
+          "name": "加密资本"
+        },
+        "investor3": {
+          "name": "Web3合伙人"
+        },
+        "investor4": {
+          "name": "DeFi基金"
+        }
       },
       "processSection": {
-        "badge": "PROCESS",
+        "badge": "流程",
         "title": "投资流程",
-        "subtitle": "种子投资程序",
+        "subtitle": "种子轮投资步骤",
         "step1": {
           "title": "投资咨询",
           "desc": "提交意向书",
@@ -20902,14 +20922,14 @@
         }
       },
       "metrics": {
-        "badge": "METRICS",
+        "badge": "指标",
         "title": "代币指标",
         "subtitle": "种子轮关键指标",
         "totalSupply": "总供应量",
-        "totalSupplyValue": "100亿 TBURN",
+        "totalSupplyValue": "100亿TBURN",
         "totalSupplyDesc": "固定供应",
-        "seedAllocation": "种子配额",
-        "seedAllocationValue": "5亿 TBURN",
+        "seedAllocation": "种子分配",
+        "seedAllocationValue": "5亿TBURN",
         "seedAllocationDesc": "总供应量的5%",
         "seedGoal": "种子目标",
         "seedGoalValue": "$20,000,000",

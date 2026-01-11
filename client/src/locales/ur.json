@@ -17181,53 +17181,73 @@
         "after24Months": "After 24 months"
       },
       "investorsSection": {
-        "badge": "INVESTORS",
-        "title": "Current Investors",
-        "subtitle": "Our Partners"
+        "badge": "سرمایہ کار",
+        "title": "موجودہ سرمایہ کار",
+        "subtitle": "شراکت دار",
+        "types": {
+          "vc": "VC",
+          "fund": "فنڈ"
+        },
+        "tierBadges": {
+          "lead": "لیڈ",
+          "major": "میجر"
+        },
+        "investor1": {
+          "name": "بلاکچین وینچرز"
+        },
+        "investor2": {
+          "name": "کرپٹو کیپٹل"
+        },
+        "investor3": {
+          "name": "ویب3 پارٹنرز"
+        },
+        "investor4": {
+          "name": "ڈی فائی فنڈ"
+        }
       },
       "processSection": {
-        "badge": "PROCESS",
-        "title": "Investment Process",
-        "subtitle": "Seed Investment Procedure",
+        "badge": "عمل",
+        "title": "سرمایہ کاری کا عمل",
+        "subtitle": "سیڈ سرمایہ کاری کے مراحل",
         "step1": {
-          "title": "Investment Inquiry",
-          "desc": "Submit Letter of Intent",
-          "duration": "1-3 days"
+          "title": "سرمایہ کاری کی تحقیقات",
+          "desc": "ارادے کا خط جمع کریں",
+          "duration": "1-3 دن"
         },
         "step2": {
           "title": "KYC/AML",
-          "desc": "Investor Verification",
-          "duration": "3-5 days"
+          "desc": "سرمایہ کار کی تصدیق",
+          "duration": "3-5 دن"
         },
         "step3": {
-          "title": "SAFT Signing",
-          "desc": "Investment Contract",
-          "duration": "1-2 days"
+          "title": "SAFT دستخط",
+          "desc": "سرمایہ کاری کا معاہدہ",
+          "duration": "1-2 دن"
         },
         "step4": {
-          "title": "Fund Transfer",
-          "desc": "Investment Transfer",
-          "duration": "1-3 days"
+          "title": "فنڈ منتقلی",
+          "desc": "سرمایہ کاری کی منتقلی",
+          "duration": "1-3 دن"
         },
         "step5": {
-          "title": "Token Allocation",
-          "desc": "Investment Confirmed",
-          "duration": "Immediate"
+          "title": "ٹوکن مختص",
+          "desc": "سرمایہ کاری کی تصدیق",
+          "duration": "فوری"
         }
       },
       "metrics": {
-        "badge": "METRICS",
-        "title": "Token Metrics",
-        "subtitle": "Seed Round Key Metrics",
-        "totalSupply": "Total Supply",
+        "badge": "میٹرکس",
+        "title": "ٹوکن میٹرکس",
+        "subtitle": "سیڈ راؤنڈ کلیدی میٹرکس",
+        "totalSupply": "کل سپلائی",
         "totalSupplyValue": "10B TBURN",
-        "totalSupplyDesc": "Fixed Supply",
-        "seedAllocation": "Seed Allocation",
+        "totalSupplyDesc": "فکسڈ سپلائی",
+        "seedAllocation": "سیڈ مختص",
         "seedAllocationValue": "500M TBURN",
-        "seedAllocationDesc": "5% of Total Supply",
-        "seedGoal": "Seed Goal",
+        "seedAllocationDesc": "کل سپلائی کا 5%",
+        "seedGoal": "سیڈ ہدف",
         "seedGoalValue": "$20,000,000",
-        "seedGoalDesc": "Hardcap"
+        "seedGoalDesc": "ہارڈ کیپ"
       },
       "risks": {
         "title": "Investment Risk Warning",

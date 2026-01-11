@@ -16937,53 +16937,73 @@
         "after24Months": "After 24 months"
       },
       "investorsSection": {
-        "badge": "INVESTORS",
-        "title": "Current Investors",
-        "subtitle": "Our Partners"
+        "badge": "বিনিয়োগকারী",
+        "title": "বর্তমান বিনিয়োগকারী",
+        "subtitle": "অংশীদার",
+        "types": {
+          "vc": "VC",
+          "fund": "ফান্ড"
+        },
+        "tierBadges": {
+          "lead": "লিড",
+          "major": "মেজর"
+        },
+        "investor1": {
+          "name": "ব্লকচেইন ভেঞ্চার্স"
+        },
+        "investor2": {
+          "name": "ক্রিপ্টো ক্যাপিটাল"
+        },
+        "investor3": {
+          "name": "ওয়েব3 পার্টনার্স"
+        },
+        "investor4": {
+          "name": "ডিফাই ফান্ড"
+        }
       },
       "processSection": {
-        "badge": "PROCESS",
-        "title": "Investment Process",
-        "subtitle": "Seed Investment Procedure",
+        "badge": "প্রক্রিয়া",
+        "title": "বিনিয়োগ প্রক্রিয়া",
+        "subtitle": "সিড বিনিয়োগ ধাপ",
         "step1": {
-          "title": "Investment Inquiry",
-          "desc": "Submit Letter of Intent",
-          "duration": "1-3 days"
+          "title": "বিনিয়োগ অনুসন্ধান",
+          "desc": "ইচ্ছাপত্র জমা দিন",
+          "duration": "1-3 দিন"
         },
         "step2": {
           "title": "KYC/AML",
-          "desc": "Investor Verification",
-          "duration": "3-5 days"
+          "desc": "বিনিয়োগকারী যাচাই",
+          "duration": "3-5 দিন"
         },
         "step3": {
-          "title": "SAFT Signing",
-          "desc": "Investment Contract",
-          "duration": "1-2 days"
+          "title": "SAFT স্বাক্ষর",
+          "desc": "বিনিয়োগ চুক্তি",
+          "duration": "1-2 দিন"
         },
         "step4": {
-          "title": "Fund Transfer",
-          "desc": "Investment Transfer",
-          "duration": "1-3 days"
+          "title": "তহবিল স্থানান্তর",
+          "desc": "বিনিয়োগ স্থানান্তর",
+          "duration": "1-3 দিন"
         },
         "step5": {
-          "title": "Token Allocation",
-          "desc": "Investment Confirmed",
-          "duration": "Immediate"
+          "title": "টোকেন বরাদ্দ",
+          "desc": "বিনিয়োগ নিশ্চিত",
+          "duration": "তাৎক্ষণিক"
         }
       },
       "metrics": {
-        "badge": "METRICS",
-        "title": "Token Metrics",
-        "subtitle": "Seed Round Key Metrics",
-        "totalSupply": "Total Supply",
+        "badge": "মেট্রিক্স",
+        "title": "টোকেন মেট্রিক্স",
+        "subtitle": "সিড রাউন্ড মূল মেট্রিক্স",
+        "totalSupply": "মোট সরবরাহ",
         "totalSupplyValue": "10B TBURN",
-        "totalSupplyDesc": "Fixed Supply",
-        "seedAllocation": "Seed Allocation",
+        "totalSupplyDesc": "নির্ধারিত সরবরাহ",
+        "seedAllocation": "সিড বরাদ্দ",
         "seedAllocationValue": "500M TBURN",
-        "seedAllocationDesc": "5% of Total Supply",
-        "seedGoal": "Seed Goal",
+        "seedAllocationDesc": "মোট সরবরাহের 5%",
+        "seedGoal": "সিড লক্ষ্য",
         "seedGoalValue": "$20,000,000",
-        "seedGoalDesc": "Hardcap"
+        "seedGoalDesc": "হার্ডক্যাপ"
       },
       "risks": {
         "title": "Investment Risk Warning",

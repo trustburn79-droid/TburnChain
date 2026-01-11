@@ -138,24 +138,24 @@ export default function SeedRoundPage() {
   ];
 
   const currentInvestors = [
-    { icon: "🏦", name: "Blockchain Ventures", type: "VC", tier: "lead" },
-    { icon: "💰", name: "Crypto Capital", type: "Fund", tier: "lead" },
-    { icon: "🌐", name: "Web3 Partners", type: "VC", tier: "major" },
-    { icon: "⚡", name: "DeFi Fund", type: "Fund", tier: "major" },
+    { icon: "🏦", name: t("tokenPrograms.seedRound.investorsSection.investor1.name"), type: t("tokenPrograms.seedRound.investorsSection.types.vc"), tier: "lead" },
+    { icon: "💰", name: t("tokenPrograms.seedRound.investorsSection.investor2.name"), type: t("tokenPrograms.seedRound.investorsSection.types.fund"), tier: "lead" },
+    { icon: "🌐", name: t("tokenPrograms.seedRound.investorsSection.investor3.name"), type: t("tokenPrograms.seedRound.investorsSection.types.vc"), tier: "major" },
+    { icon: "⚡", name: t("tokenPrograms.seedRound.investorsSection.investor4.name"), type: t("tokenPrograms.seedRound.investorsSection.types.fund"), tier: "major" },
   ];
 
   const processSteps = [
-    { icon: "📋", title: t("tokenPrograms.seedRound.processSection.step1.title"), desc: t("tokenPrograms.seedRound.processSection.step1.desc"), duration: "1-3일" },
-    { icon: "🔍", title: "KYC/AML", desc: t("tokenPrograms.seedRound.processSection.step2.desc"), duration: "3-5일" },
-    { icon: "📝", title: "SAFT 서명", desc: t("tokenPrograms.seedRound.processSection.step3.desc"), duration: "1-2일" },
-    { icon: "💸", title: t("tokenPrograms.seedRound.processSection.step4.title"), desc: t("tokenPrograms.seedRound.processSection.step4.desc"), duration: "1-3일" },
+    { icon: "📋", title: t("tokenPrograms.seedRound.processSection.step1.title"), desc: t("tokenPrograms.seedRound.processSection.step1.desc"), duration: t("tokenPrograms.seedRound.processSection.step1.duration") },
+    { icon: "🔍", title: t("tokenPrograms.seedRound.processSection.step2.title"), desc: t("tokenPrograms.seedRound.processSection.step2.desc"), duration: t("tokenPrograms.seedRound.processSection.step2.duration") },
+    { icon: "📝", title: t("tokenPrograms.seedRound.processSection.step3.title"), desc: t("tokenPrograms.seedRound.processSection.step3.desc"), duration: t("tokenPrograms.seedRound.processSection.step3.duration") },
+    { icon: "💸", title: t("tokenPrograms.seedRound.processSection.step4.title"), desc: t("tokenPrograms.seedRound.processSection.step4.desc"), duration: t("tokenPrograms.seedRound.processSection.step4.duration") },
     { icon: "🎉", title: t("tokenPrograms.seedRound.processSection.step5.title"), desc: t("tokenPrograms.seedRound.processSection.step5.desc"), duration: t("tokenPrograms.seedRound.processSection.step5.duration") },
   ];
 
   const tokenMetrics = [
     { icon: "📊", title: t("tokenPrograms.seedRound.metrics.totalSupply"), value: t("tokenPrograms.seedRound.metrics.totalSupplyValue"), desc: t("tokenPrograms.seedRound.metrics.totalSupplyDesc") },
     { icon: "🌱", title: t("tokenPrograms.seedRound.metrics.seedAllocation"), value: t("tokenPrograms.seedRound.metrics.seedAllocationValue"), desc: t("tokenPrograms.seedRound.metrics.seedAllocationDesc") },
-    { icon: "💵", title: t("tokenPrograms.seedRound.metrics.seedGoal"), value: t("tokenPrograms.seedRound.metrics.seedGoalValue"), desc: "하드캡" },
+    { icon: "💵", title: t("tokenPrograms.seedRound.metrics.seedGoal"), value: t("tokenPrograms.seedRound.metrics.seedGoalValue"), desc: t("tokenPrograms.seedRound.metrics.seedGoalDesc") },
   ];
 
   const riskItems = [

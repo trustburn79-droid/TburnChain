@@ -21869,53 +21869,73 @@
         "after24Months": "After 24 months"
       },
       "investorsSection": {
-        "badge": "INVESTORS",
+        "badge": "投資家",
         "title": "現在の投資家",
-        "subtitle": "パートナー"
+        "subtitle": "パートナー",
+        "types": {
+          "vc": "VC",
+          "fund": "ファンド"
+        },
+        "tierBadges": {
+          "lead": "リード",
+          "major": "メジャー"
+        },
+        "investor1": {
+          "name": "ブロックチェーンベンチャーズ"
+        },
+        "investor2": {
+          "name": "クリプトキャピタル"
+        },
+        "investor3": {
+          "name": "Web3パートナーズ"
+        },
+        "investor4": {
+          "name": "DeFiファンド"
+        }
       },
       "processSection": {
-        "badge": "PROCESS",
+        "badge": "プロセス",
         "title": "投資プロセス",
         "subtitle": "シード投資手順",
         "step1": {
-          "title": "Investment Inquiry",
-          "desc": "Submit Letter of Intent",
-          "duration": "1-3 days"
+          "title": "投資お問い合わせ",
+          "desc": "意向書提出",
+          "duration": "1-3日"
         },
         "step2": {
           "title": "KYC/AML",
-          "desc": "Investor Verification",
-          "duration": "3-5 days"
+          "desc": "投資家認証",
+          "duration": "3-5日"
         },
         "step3": {
-          "title": "SAFT Signing",
-          "desc": "Investment Contract",
-          "duration": "1-2 days"
+          "title": "SAFT署名",
+          "desc": "投資契約",
+          "duration": "1-2日"
         },
         "step4": {
-          "title": "Fund Transfer",
-          "desc": "Investment Transfer",
-          "duration": "1-3 days"
+          "title": "資金送金",
+          "desc": "投資金転送",
+          "duration": "1-3日"
         },
         "step5": {
-          "title": "Token Allocation",
-          "desc": "Investment Confirmed",
-          "duration": "Immediate"
+          "title": "トークン配分",
+          "desc": "投資確定",
+          "duration": "即時"
         }
       },
       "metrics": {
-        "badge": "METRICS",
+        "badge": "指標",
         "title": "トークン指標",
         "subtitle": "シードラウンド主要指標",
-        "totalSupply": "Total Supply",
-        "totalSupplyValue": "10B TBURN",
-        "totalSupplyDesc": "Fixed Supply",
-        "seedAllocation": "Seed Allocation",
-        "seedAllocationValue": "500M TBURN",
-        "seedAllocationDesc": "5% of Total Supply",
-        "seedGoal": "Seed Goal",
+        "totalSupply": "総供給量",
+        "totalSupplyValue": "100億TBURN",
+        "totalSupplyDesc": "固定供給",
+        "seedAllocation": "シード配分",
+        "seedAllocationValue": "5億TBURN",
+        "seedAllocationDesc": "総供給量の5%",
+        "seedGoal": "シード目標",
         "seedGoalValue": "$20,000,000",
-        "seedGoalDesc": "Hardcap"
+        "seedGoalDesc": "ハードキャップ"
       },
       "risks": {
         "title": "投資リスク警告",

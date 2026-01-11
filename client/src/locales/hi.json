@@ -19357,53 +19357,73 @@
         "after24Months": "After 24 months"
       },
       "investorsSection": {
-        "badge": "INVESTORS",
-        "title": "Current Investors",
-        "subtitle": "Our Partners"
+        "badge": "निवेशक",
+        "title": "वर्तमान निवेशक",
+        "subtitle": "भागीदार",
+        "types": {
+          "vc": "VC",
+          "fund": "फंड"
+        },
+        "tierBadges": {
+          "lead": "लीड",
+          "major": "मेजर"
+        },
+        "investor1": {
+          "name": "ब्लॉकचेन वेंचर्स"
+        },
+        "investor2": {
+          "name": "क्रिप्टो कैपिटल"
+        },
+        "investor3": {
+          "name": "वेब3 पार्टनर्स"
+        },
+        "investor4": {
+          "name": "डीफाई फंड"
+        }
       },
       "processSection": {
-        "badge": "PROCESS",
-        "title": "Investment Process",
-        "subtitle": "Seed Investment Procedure",
+        "badge": "प्रक्रिया",
+        "title": "निवेश प्रक्रिया",
+        "subtitle": "सीड निवेश चरण",
         "step1": {
-          "title": "Investment Inquiry",
-          "desc": "Submit Letter of Intent",
-          "duration": "1-3 days"
+          "title": "निवेश पूछताछ",
+          "desc": "इरादे का पत्र जमा करें",
+          "duration": "1-3 दिन"
         },
         "step2": {
           "title": "KYC/AML",
-          "desc": "Investor Verification",
-          "duration": "3-5 days"
+          "desc": "निवेशक सत्यापन",
+          "duration": "3-5 दिन"
         },
         "step3": {
-          "title": "SAFT Signing",
-          "desc": "Investment Contract",
-          "duration": "1-2 days"
+          "title": "SAFT हस्ताक्षर",
+          "desc": "निवेश अनुबंध",
+          "duration": "1-2 दिन"
         },
         "step4": {
-          "title": "Fund Transfer",
-          "desc": "Investment Transfer",
-          "duration": "1-3 days"
+          "title": "फंड ट्रांसफर",
+          "desc": "निवेश स्थानांतरण",
+          "duration": "1-3 दिन"
         },
         "step5": {
-          "title": "Token Allocation",
-          "desc": "Investment Confirmed",
-          "duration": "Immediate"
+          "title": "टोकन आवंटन",
+          "desc": "निवेश पुष्टि",
+          "duration": "तत्काल"
         }
       },
       "metrics": {
-        "badge": "METRICS",
-        "title": "Token Metrics",
-        "subtitle": "Seed Round Key Metrics",
-        "totalSupply": "Total Supply",
+        "badge": "मेट्रिक्स",
+        "title": "टोकन मेट्रिक्स",
+        "subtitle": "सीड राउंड प्रमुख मेट्रिक्स",
+        "totalSupply": "कुल आपूर्ति",
         "totalSupplyValue": "10B TBURN",
-        "totalSupplyDesc": "Fixed Supply",
-        "seedAllocation": "Seed Allocation",
+        "totalSupplyDesc": "निश्चित आपूर्ति",
+        "seedAllocation": "सीड आवंटन",
         "seedAllocationValue": "500M TBURN",
-        "seedAllocationDesc": "5% of Total Supply",
-        "seedGoal": "Seed Goal",
+        "seedAllocationDesc": "कुल आपूर्ति का 5%",
+        "seedGoal": "सीड लक्ष्य",
         "seedGoalValue": "$20,000,000",
-        "seedGoalDesc": "Hardcap"
+        "seedGoalDesc": "हार्डकैप"
       },
       "risks": {
         "title": "Investment Risk Warning",

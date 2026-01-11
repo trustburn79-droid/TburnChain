@@ -32301,12 +32301,32 @@
       "investorsSection": {
         "badge": "INVESTORS",
         "title": "Current Investors",
-        "subtitle": "Our Partners"
+        "subtitle": "Partners",
+        "types": {
+          "vc": "VC",
+          "fund": "Fund"
+        },
+        "tierBadges": {
+          "lead": "LEAD",
+          "major": "MAJOR"
+        },
+        "investor1": {
+          "name": "Blockchain Ventures"
+        },
+        "investor2": {
+          "name": "Crypto Capital"
+        },
+        "investor3": {
+          "name": "Web3 Partners"
+        },
+        "investor4": {
+          "name": "DeFi Fund"
+        }
       },
       "processSection": {
         "badge": "PROCESS",
         "title": "Investment Process",
-        "subtitle": "Seed Investment Procedure",
+        "subtitle": "Seed Investment Steps",
         "step1": {
           "title": "Investment Inquiry",
           "desc": "Submit Letter of Intent",

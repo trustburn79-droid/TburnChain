@@ -18713,53 +18713,73 @@
         "after24Months": "After 24 months"
       },
       "investorsSection": {
-        "badge": "INVESTORS",
-        "title": "Current Investors",
-        "subtitle": "Our Partners"
+        "badge": "المستثمرون",
+        "title": "المستثمرون الحاليون",
+        "subtitle": "الشركاء",
+        "types": {
+          "vc": "VC",
+          "fund": "صندوق"
+        },
+        "tierBadges": {
+          "lead": "رئيسي",
+          "major": "كبير"
+        },
+        "investor1": {
+          "name": "بلوكتشين فينتشرز"
+        },
+        "investor2": {
+          "name": "كريبتو كابيتال"
+        },
+        "investor3": {
+          "name": "ويب3 بارتنرز"
+        },
+        "investor4": {
+          "name": "ديفاي فند"
+        }
       },
       "processSection": {
-        "badge": "PROCESS",
-        "title": "Investment Process",
-        "subtitle": "Seed Investment Procedure",
+        "badge": "العملية",
+        "title": "عملية الاستثمار",
+        "subtitle": "خطوات الاستثمار التأسيسي",
         "step1": {
-          "title": "Investment Inquiry",
-          "desc": "Submit Letter of Intent",
-          "duration": "1-3 days"
+          "title": "استفسار الاستثمار",
+          "desc": "تقديم خطاب النوايا",
+          "duration": "1-3 أيام"
         },
         "step2": {
           "title": "KYC/AML",
-          "desc": "Investor Verification",
-          "duration": "3-5 days"
+          "desc": "التحقق من المستثمر",
+          "duration": "3-5 أيام"
         },
         "step3": {
-          "title": "SAFT Signing",
-          "desc": "Investment Contract",
-          "duration": "1-2 days"
+          "title": "توقيع SAFT",
+          "desc": "عقد الاستثمار",
+          "duration": "1-2 يوم"
         },
         "step4": {
-          "title": "Fund Transfer",
-          "desc": "Investment Transfer",
-          "duration": "1-3 days"
+          "title": "تحويل الأموال",
+          "desc": "تحويل الاستثمار",
+          "duration": "1-3 أيام"
         },
         "step5": {
-          "title": "Token Allocation",
-          "desc": "Investment Confirmed",
-          "duration": "Immediate"
+          "title": "تخصيص التوكن",
+          "desc": "تأكيد الاستثمار",
+          "duration": "فوري"
         }
       },
       "metrics": {
-        "badge": "METRICS",
-        "title": "Token Metrics",
-        "subtitle": "Seed Round Key Metrics",
-        "totalSupply": "Total Supply",
+        "badge": "المقاييس",
+        "title": "مقاييس التوكن",
+        "subtitle": "المقاييس الرئيسية للجولة التأسيسية",
+        "totalSupply": "إجمالي العرض",
         "totalSupplyValue": "10B TBURN",
-        "totalSupplyDesc": "Fixed Supply",
-        "seedAllocation": "Seed Allocation",
+        "totalSupplyDesc": "عرض ثابت",
+        "seedAllocation": "تخصيص التأسيس",
         "seedAllocationValue": "500M TBURN",
-        "seedAllocationDesc": "5% of Total Supply",
-        "seedGoal": "Seed Goal",
+        "seedAllocationDesc": "5% من إجمالي العرض",
+        "seedGoal": "هدف التأسيس",
         "seedGoalValue": "$20,000,000",
-        "seedGoalDesc": "Hardcap"
+        "seedGoalDesc": "الحد الأقصى"
       },
       "risks": {
         "title": "Investment Risk Warning",

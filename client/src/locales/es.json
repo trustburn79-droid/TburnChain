@@ -20989,51 +20989,71 @@
         "after24Months": "After 24 months"
       },
       "investorsSection": {
-        "badge": "INVESTORS",
-        "title": "Current Investors",
-        "subtitle": "Our Partners"
+        "badge": "INVERSORES",
+        "title": "Inversores Actuales",
+        "subtitle": "Socios",
+        "types": {
+          "vc": "VC",
+          "fund": "Fondo"
+        },
+        "tierBadges": {
+          "lead": "LÍDER",
+          "major": "PRINCIPAL"
+        },
+        "investor1": {
+          "name": "Blockchain Ventures"
+        },
+        "investor2": {
+          "name": "Crypto Capital"
+        },
+        "investor3": {
+          "name": "Web3 Partners"
+        },
+        "investor4": {
+          "name": "DeFi Fund"
+        }
       },
       "processSection": {
-        "badge": "PROCESS",
-        "title": "Investment Process",
-        "subtitle": "Seed Investment Procedure",
+        "badge": "PROCESO",
+        "title": "Proceso de Inversión",
+        "subtitle": "Pasos de Inversión Semilla",
         "step1": {
-          "title": "Investment Inquiry",
-          "desc": "Submit Letter of Intent",
-          "duration": "1-3 days"
+          "title": "Consulta de Inversión",
+          "desc": "Enviar Carta de Intención",
+          "duration": "1-3 días"
         },
         "step2": {
           "title": "KYC/AML",
-          "desc": "Investor Verification",
-          "duration": "3-5 days"
+          "desc": "Verificación del Inversor",
+          "duration": "3-5 días"
         },
         "step3": {
-          "title": "SAFT Signing",
-          "desc": "Investment Contract",
-          "duration": "1-2 days"
+          "title": "Firma SAFT",
+          "desc": "Contrato de Inversión",
+          "duration": "1-2 días"
         },
         "step4": {
-          "title": "Fund Transfer",
-          "desc": "Investment Transfer",
-          "duration": "1-3 days"
+          "title": "Transferencia de Fondos",
+          "desc": "Transferencia de Inversión",
+          "duration": "1-3 días"
         },
         "step5": {
-          "title": "Token Allocation",
-          "desc": "Investment Confirmed",
-          "duration": "Immediate"
+          "title": "Asignación de Tokens",
+          "desc": "Inversión Confirmada",
+          "duration": "Inmediato"
         }
       },
       "metrics": {
-        "badge": "METRICS",
-        "title": "Token Metrics",
-        "subtitle": "Seed Round Key Metrics",
-        "totalSupply": "Total Supply",
+        "badge": "MÉTRICAS",
+        "title": "Métricas de Tokens",
+        "subtitle": "Métricas Clave de la Ronda Semilla",
+        "totalSupply": "Suministro Total",
         "totalSupplyValue": "10B TBURN",
-        "totalSupplyDesc": "Fixed Supply",
-        "seedAllocation": "Seed Allocation",
+        "totalSupplyDesc": "Suministro Fijo",
+        "seedAllocation": "Asignación Semilla",
         "seedAllocationValue": "500M TBURN",
-        "seedAllocationDesc": "5% of Total Supply",
-        "seedGoal": "Seed Goal",
+        "seedAllocationDesc": "5% del Suministro Total",
+        "seedGoal": "Meta Semilla",
         "seedGoalValue": "$20,000,000",
         "seedGoalDesc": "Hardcap"
       },

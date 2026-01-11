@@ -32768,31 +32768,51 @@
         "after24Months": "24개월 후"
       },
       "investorsSection": {
-        "badge": "INVESTORS",
+        "badge": "투자자",
         "title": "현재 투자자",
-        "subtitle": "함께하는 파트너들"
+        "subtitle": "파트너",
+        "types": {
+          "vc": "VC",
+          "fund": "펀드"
+        },
+        "tierBadges": {
+          "lead": "리드",
+          "major": "메이저"
+        },
+        "investor1": {
+          "name": "블록체인 벤처스"
+        },
+        "investor2": {
+          "name": "크립토 캐피탈"
+        },
+        "investor3": {
+          "name": "웹3 파트너스"
+        },
+        "investor4": {
+          "name": "디파이 펀드"
+        }
       },
       "processSection": {
-        "badge": "PROCESS",
-        "title": "투자 절차",
-        "subtitle": "시드 투자 진행 과정",
+        "badge": "프로세스",
+        "title": "투자 프로세스",
+        "subtitle": "시드 투자 절차",
         "step1": {
           "title": "투자 문의",
-          "desc": "투자 의향서 제출",
+          "desc": "의향서 제출",
           "duration": "1-3일"
         },
         "step2": {
           "title": "KYC/AML",
-          "desc": "투자자 인증 절차",
+          "desc": "투자자 검증",
           "duration": "3-5일"
         },
         "step3": {
           "title": "SAFT 서명",
-          "desc": "투자 계약 체결",
+          "desc": "투자 계약",
           "duration": "1-2일"
         },
         "step4": {
-          "title": "자금 송금",
+          "title": "자금 이체",
           "desc": "투자금 전송",
           "duration": "1-3일"
         },
@@ -32803,12 +32823,12 @@
         }
       },
       "metrics": {
-        "badge": "METRICS",
+        "badge": "지표",
         "title": "토큰 지표",
         "subtitle": "시드 라운드 핵심 지표",
-        "totalSupply": "총 발행량",
+        "totalSupply": "총 공급량",
         "totalSupplyValue": "100억 TBURN",
-        "totalSupplyDesc": "고정 공급량",
+        "totalSupplyDesc": "고정 공급",
         "seedAllocation": "시드 배정",
         "seedAllocationValue": "5억 TBURN",
         "seedAllocationDesc": "총 공급량의 5%",
