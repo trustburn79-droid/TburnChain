@@ -22283,7 +22283,7 @@
       "badge": "PROCESSUS",
       "title": "Processus de Candidature",
       "subtitle": "Processus de candidature conseiller en 5 étapes",
-      "items": {
+      "steps": {
         "step1": {
           "title": "Candidature en Ligne",
           "desc": "Soumission du CV et portfolio",
@@ -22357,6 +22357,18 @@
         "q5": {
           "question": "Puis-je occuper plusieurs postes de conseiller?",
           "answer": "Les postes de conseiller dans un seul domaine sont de base, mais les conseillers multi-domaines peuvent être nommés avec une approbation spéciale."
+        },
+        "q6": {
+          "question": "Quel est le calendrier d'acquisition des tokens pour les conseillers ?",
+          "answer": "Les tokens des conseillers ont une période de blocage de 12 mois suivie de 24 mois d'acquisition linéaire."
+        },
+        "q7": {
+          "question": "Puis-je participer à distance ?",
+          "answer": "Oui, toutes les activités de conseil peuvent être menées à distance, avec des réunions trimestrielles en personne facultatives."
+        },
+        "q8": {
+          "question": "Comment les contributions des conseillers sont-elles évaluées ?",
+          "answer": "Les contributions sont évaluées trimestriellement selon la participation, les livrables et l'impact sur l'écosystème."
         }
       }
     },

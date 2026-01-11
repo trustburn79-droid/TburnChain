@@ -34972,7 +34972,7 @@
       "badge": "PROCESS",
       "title": "Application Process",
       "subtitle": "5-step advisor application process",
-      "items": {
+      "steps": {
         "step1": {
           "title": "Online Application",
           "desc": "Resume and portfolio submission",
@@ -35046,6 +35046,18 @@
         "q5": {
           "question": "Can I hold multiple advisor positions?",
           "answer": "Single field advisor positions are basic, but multiple field advisors may be appointed through special approval."
+        },
+        "q6": {
+          "question": "What is the vesting schedule for advisor tokens?",
+          "answer": "Advisor tokens have a 12-month cliff followed by 24 months of linear vesting."
+        },
+        "q7": {
+          "question": "Can I participate remotely?",
+          "answer": "Yes, all advisory activities can be conducted remotely with quarterly in-person meetings optional."
+        },
+        "q8": {
+          "question": "How are advisor contributions evaluated?",
+          "answer": "Contributions are evaluated quarterly based on participation, deliverables, and ecosystem impact."
         }
       }
     },

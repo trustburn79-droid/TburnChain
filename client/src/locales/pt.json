@@ -22029,7 +22029,7 @@
       "badge": "PROCESSO",
       "title": "Processo de Candidatura",
       "subtitle": "Processo de candidatura de consultor em 5 etapas",
-      "items": {
+      "steps": {
         "step1": {
           "title": "Candidatura Online",
           "desc": "Envio de currículo e portfólio",
@@ -22103,6 +22103,18 @@
         "q5": {
           "question": "Posso ocupar múltiplas posições de consultor?",
           "answer": "Posições de consultor em um único campo são básicas, mas consultores multi-campo podem ser nomeados com aprovação especial."
+        },
+        "q6": {
+          "question": "Qual é o cronograma de vesting dos tokens de consultores?",
+          "answer": "Os tokens de consultores têm um período de cliff de 12 meses seguido de 24 meses de vesting linear."
+        },
+        "q7": {
+          "question": "Posso participar remotamente?",
+          "answer": "Sim, todas as atividades de consultoria podem ser realizadas remotamente, com reuniões presenciais trimestrais opcionais."
+        },
+        "q8": {
+          "question": "Como as contribuições dos consultores são avaliadas?",
+          "answer": "As contribuições são avaliadas trimestralmente com base na participação, entregas e impacto no ecossistema."
         }
       }
     },

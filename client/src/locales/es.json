@@ -24516,7 +24516,7 @@
       "badge": "PROCESO",
       "title": "Proceso de Solicitud",
       "subtitle": "Proceso de solicitud de asesor en 5 pasos",
-      "items": {
+      "steps": {
         "step1": {
           "title": "Solicitud Online",
           "desc": "Envío de CV y portafolio",
@@ -24590,6 +24590,18 @@
         "q5": {
           "question": "¿Puedo tener múltiples posiciones de asesor?",
           "answer": "Las posiciones de asesor de un solo campo son básicas, pero los asesores de múltiples campos pueden ser designados mediante aprobación especial."
+        },
+        "q6": {
+          "question": "¿Cuál es el calendario de adquisición de tokens para asesores?",
+          "answer": "Los tokens de asesores tienen un período de espera de 12 meses seguido de 24 meses de adquisición lineal."
+        },
+        "q7": {
+          "question": "¿Puedo participar de forma remota?",
+          "answer": "Sí, todas las actividades de asesoría se pueden realizar de forma remota, con reuniones presenciales trimestrales opcionales."
+        },
+        "q8": {
+          "question": "¿Cómo se evalúan las contribuciones de los asesores?",
+          "answer": "Las contribuciones se evalúan trimestralmente según la participación, entregables e impacto en el ecosistema."
         }
       }
     },
