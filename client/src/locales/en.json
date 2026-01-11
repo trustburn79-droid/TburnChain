@@ -32282,7 +32282,8 @@
           "nftBadge": "NFT Badge",
           "angelNetwork": "Angel Network",
           "basicSupport": "Basic Support"
-        }
+        },
+        "lockupPeriodValue": "12 months"
       },
       "vestingSection": {
         "badge": "VESTING",
