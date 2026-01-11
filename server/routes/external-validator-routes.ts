@@ -14,7 +14,7 @@ import {
 
 const router = Router();
 
-const WEI_PER_TBURN = 10n ** 18n;
+const WEI_PER_TBURN = BigInt(10) ** BigInt(18);
 
 function formatValidatorResponse(validator: any) {
   return {
