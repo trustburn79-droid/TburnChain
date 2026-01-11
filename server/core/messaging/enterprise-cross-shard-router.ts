@@ -44,8 +44,8 @@ export const ROUTER_CONFIG = {
   BATCH_SIZE_MAX: 1024,
   BATCH_FLUSH_INTERVAL_MS: 10,
   
-  // Ring Buffer
-  RING_BUFFER_CAPACITY: 262144, // 256K slots
+  // Ring Buffer (Production Tuned: 384K for high-load scenarios)
+  RING_BUFFER_CAPACITY: 393216, // 384K slots (tuned from 256K)
   RING_BUFFER_HIGH_WATER_MARK: 0.85,
   RING_BUFFER_LOW_WATER_MARK: 0.60,
   
@@ -76,8 +76,8 @@ export const ROUTER_CONFIG = {
   BLOOM_FALSE_POSITIVE_RATE: 0.001,
   BLOOM_ROTATION_INTERVAL_MS: 60000,
   
-  // WAL
-  WAL_SEGMENT_SIZE: 16 * 1024 * 1024, // 16MB
+  // WAL (Production Tuned: 32MB segments for reduced I/O pressure)
+  WAL_SEGMENT_SIZE: 32 * 1024 * 1024, // 32MB (tuned from 16MB)
   WAL_FLUSH_INTERVAL_MS: 100,
   WAL_RETENTION_SEGMENTS: 10,
   

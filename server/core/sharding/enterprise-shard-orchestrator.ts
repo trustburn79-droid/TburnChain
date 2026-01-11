@@ -25,10 +25,10 @@ export const SHARD_CONFIG = {
   TARGET_TOTAL_TPS: 210000,
   MAX_TPS_PER_SHARD: 4000,    // Headroom for burst
   
-  // Scaling thresholds
-  SCALE_UP_THRESHOLD: 0.85,   // 85% utilization triggers scale-up
+  // Scaling thresholds (Production Tuned: faster response to load spikes)
+  SCALE_UP_THRESHOLD: 0.82,   // 82% utilization triggers scale-up (tuned from 85%)
   SCALE_DOWN_THRESHOLD: 0.40, // 40% utilization triggers scale-down
-  SCALE_COOLDOWN_MS: 60000,   // 1 minute between scaling events
+  SCALE_COOLDOWN_MS: 30000,   // 30 seconds between scaling events (tuned from 60s)
   
   // Metrics collection
   METRICS_INTERVAL_MS: 250,   // 250ms metric sampling
@@ -39,10 +39,10 @@ export const SHARD_CONFIG = {
   MESSAGE_TIMEOUT_MS: 5000,   // 5 second message timeout
   RETRY_LIMIT: 3,
   
-  // Ring buffer
-  RING_BUFFER_SIZE: 131072,   // 128K slots
+  // Ring buffer (Production Tuned: 192K for high-throughput)
+  RING_BUFFER_SIZE: 196608,   // 192K slots (tuned from 128K)
   BATCH_SIZE_MIN: 8,
-  BATCH_SIZE_MAX: 256,
+  BATCH_SIZE_MAX: 384,        // Tuned from 256 for better batching
   
   // Circuit breaker
   FAILURE_THRESHOLD: 5,
