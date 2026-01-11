@@ -280,6 +280,10 @@ export default function ValidatorCommandCenter() {
               <Coins className="text-amber-400" weight="duotone" size={18} />
               {t('validatorPage.governanceAndRewards', { defaultValue: 'Governance & Rewards' })}
             </Link>
+            <Link href="/external-validator-program" className="glass-panel px-5 py-3 rounded-lg flex items-center gap-2 hover:border-emerald-500/50 transition text-sm font-medium" data-testid="link-external-validators">
+              <ShieldCheck className="text-emerald-400" weight="duotone" size={18} />
+              {t('validatorPage.externalValidators', { defaultValue: 'External Program' })}
+            </Link>
             <div className="glass-panel px-6 py-3 rounded-lg flex flex-col items-end">
               <span className="text-xs text-slate-500 uppercase font-bold">{t('validatorPage.networkTps', { defaultValue: 'Network TPS' })}</span>
               <span className="text-2xl font-bold text-emerald-400 font-mono" data-testid="network-tps">{formatNumber(currentTps)}</span>

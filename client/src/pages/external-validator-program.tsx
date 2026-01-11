@@ -307,6 +307,9 @@ export default function ExternalValidatorProgramPage() {
             </div>
           </Link>
           <nav className="hidden md:flex items-center gap-6">
+            <Link href="/validator" className="text-muted-foreground hover:text-foreground transition-colors" data-testid="nav-back-validators">
+              ← Validator Hub
+            </Link>
             <button 
               onClick={() => scrollToSection("tiers")} 
               className="text-muted-foreground hover:text-foreground transition-colors"
