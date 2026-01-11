@@ -87,3 +87,52 @@ tsx server/db-migration.ts
 - `MAINTENANCE_MODE=true` - 모든 쓰기 작업 차단
 - `MAINTENANCE_READ_ONLY=true` - 읽기만 허용
 - `MAINTENANCE_MESSAGE` - 사용자 정의 메시지
+
+## Production Tuning (2026-01-11)
+
+### 120K+ Sustained TPS Configuration
+Core engine parameters optimized for real-world mainnet deployment:
+
+#### Cross-Shard Router (`enterprise-cross-shard-router.ts`)
+| Parameter | Before | After | Rationale |
+|-----------|--------|-------|-----------|
+| Ring Buffer Capacity | 256K | 384K | Higher burst capacity |
+| WAL Segment Size | 16MB | 32MB | Reduced I/O pressure |
+
+#### Dynamic Sharding (`enterprise-shard-orchestrator.ts`)
+| Parameter | Before | After | Rationale |
+|-----------|--------|-------|-----------|
+| Scale Up Threshold | 85% | 82% | Faster response to load spikes |
+| Scale Cooldown | 60s | 30s | Quicker adaptation |
+| Ring Buffer Size | 128K | 192K | Higher throughput |
+| Max Batch Size | 256 | 384 | Better batching |
+
+#### Block Production (`enterprise-block-engine.ts`)
+| Parameter | Before | After | Rationale |
+|-----------|--------|-------|-----------|
+| Batch Verification Size | 10 | 192 | Parallel verification pipeline |
+| Max Pending Blocks | 1000 | 1500 | Burst handling capacity |
+
+#### BFT Consensus (`enterprise-bft-engine.ts`)
+| Parameter | Before | After | Rationale |
+|-----------|--------|-------|-----------|
+| Vote Buffer Size | 10K | 16K | Higher validator throughput |
+| Metrics Window | 1K | 2K | Better trend analysis |
+| Signature Workers | 4 (implicit) | 8 | Parallel BLS aggregation |
+| Vote Aggregation Batch | - | 64 | Parallel vote processing |
+
+#### Adaptive Fee Engine (`adaptive-fee-engine.ts`)
+| Parameter | Before | After | Rationale |
+|-----------|--------|-------|-----------|
+| Mempool Threshold | 1000 | 850 | Earlier backpressure (85%) |
+| Surge Multiplier | 10x | 12x | Stronger spam deterrent |
+| Cross-Shard Harmony | 0.30 | 0.35 | Better fee consistency |
+| Target Blobs/Block | 3 | 4 | Higher throughput |
+| Max Blobs/Block | 6 | 8 | Burst capacity |
+
+### Monitoring Thresholds
+- Verification queue >70%
+- Consensus round >180ms
+- Router back-pressure activation
+- Shard utilization >82%
+- Mempool >85%
