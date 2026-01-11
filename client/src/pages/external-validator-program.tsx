@@ -66,15 +66,15 @@ interface ValidatorTier {
 }
 
 const REGIONS = [
-  { id: "na-east", name: "North America East", flag: "🇺🇸" },
-  { id: "na-west", name: "North America West", flag: "🇺🇸" },
+  { id: "us-east", name: "US East", flag: "🇺🇸" },
+  { id: "us-west", name: "US West", flag: "🇺🇸" },
   { id: "eu-west", name: "Europe West", flag: "🇪🇺" },
   { id: "eu-central", name: "Europe Central", flag: "🇩🇪" },
   { id: "asia-east", name: "Asia East", flag: "🇯🇵" },
   { id: "asia-south", name: "Asia South", flag: "🇸🇬" },
-  { id: "asia-pacific", name: "Asia Pacific", flag: "🇦🇺" },
+  { id: "asia-southeast", name: "Asia Southeast", flag: "🇹🇭" },
+  { id: "oceania", name: "Oceania", flag: "🇦🇺" },
   { id: "south-america", name: "South America", flag: "🇧🇷" },
-  { id: "middle-east", name: "Middle East", flag: "🇦🇪" },
   { id: "africa", name: "Africa", flag: "🇿🇦" },
 ];
 
@@ -185,11 +185,16 @@ export default function ExternalValidatorProgramPage() {
   const registerMutation = useMutation({
     mutationFn: async (data: { 
       operatorAddress: string;
+      operatorName: string;
       tier: string;
       region: string;
-      nodeName: string;
-      rpcEndpoint: string;
+      endpoints: {
+        rpcUrl: string;
+        wsUrl: string;
+        p2pAddress: string;
+      };
       stakeAmount: string;
+      commission: number;
     }) => {
       return apiRequest('POST', '/api/external-validators/register', data);
     },
@@ -234,11 +239,16 @@ export default function ExternalValidatorProgramPage() {
 
     registerMutation.mutate({
       operatorAddress: address,
+      operatorName: nodeName,
       tier: selectedTier,
       region: selectedRegion,
-      nodeName,
-      rpcEndpoint,
+      endpoints: {
+        rpcUrl: rpcEndpoint || `https://${nodeName}.tburn.io:8545`,
+        wsUrl: `wss://${nodeName}.tburn.io:8546`,
+        p2pAddress: `/ip4/0.0.0.0/tcp/30303/p2p/${address.slice(2, 18)}`,
+      },
       stakeAmount: tier.minStake.toString(),
+      commission: tier.id === 'genesis' ? 0.03 : tier.id === 'pioneer' ? 0.10 : tier.id === 'standard' ? 0.15 : 0.20,
     });
   };
 

@@ -2801,6 +2801,14 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     if (req.path.startsWith("/soak-tests/")) {
       return next();
     }
+    // ★ [External Validators] Skip auth for external validator public endpoints
+    if (req.path.startsWith("/external-validators/stats") || 
+        req.path.startsWith("/external-validators/tiers") ||
+        req.path.startsWith("/external-validators/network-stats") ||
+        req.path.startsWith("/external-validators/setup-guide") ||
+        req.path.startsWith("/external-validators/leaderboard")) {
+      return next();
+    }
     requireAuth(req, res, next);
   });
   // ============================================

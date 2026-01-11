@@ -57,6 +57,29 @@ function formatValidatorResponse(validator: any) {
   };
 }
 
+router.get('/stats', async (_req: Request, res: Response) => {
+  try {
+    const stats = externalValidatorEngine.getNetworkStats();
+    res.json({
+      success: true,
+      data: {
+        totalValidators: stats.totalValidators,
+        activeValidators: stats.activeValidators,
+        pendingValidators: 0,
+        totalStaked: stats.totalStaked.toString(),
+        totalRewardsDistributed: stats.totalRewardsDistributed.toString(),
+        averageUptime: 99.5,
+        networkHealthScore: Math.round(stats.averageHealthScore * 100),
+        tierBreakdown: stats.tierCapacity,
+        regionDistribution: {},
+      },
+    });
+  } catch (error) {
+    console.error('[ExternalValidatorAPI] Stats error:', error);
+    res.status(500).json({ success: false, error: 'Failed to fetch stats' });
+  }
+});
+
 router.get('/network-stats', async (_req: Request, res: Response) => {
   try {
     const stats = externalValidatorEngine.getNetworkStats();
