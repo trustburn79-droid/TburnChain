@@ -16924,17 +16924,21 @@
         "lockupPeriodValue": "১২ মাস"
       },
       "vestingSection": {
-        "badge": "VESTING",
-        "title": "Vesting Schedule",
-        "subtitle": "Systematic token release for investor protection",
-        "cliffPeriod": "Cliff Period",
-        "initialLockup": "Initial Lockup",
-        "initialUnlock": "Initial Unlock",
-        "afterTge": "After TGE 12 months",
-        "monthlyVesting": "Monthly Vesting",
-        "over12Months": "Over 12 months",
-        "fullUnlock": "Full Unlock",
-        "after24Months": "After 24 months"
+        "badge": "ভেস্টিং",
+        "title": "ভেস্টিং সময়সূচী",
+        "subtitle": "বিনিয়োগকারী সুরক্ষার জন্য পদ্ধতিগত টোকেন আনলক",
+        "cliffPeriod": "ক্লিফ সময়কাল",
+        "initialLockup": "প্রাথমিক লকআপ",
+        "initialUnlock": "প্রাথমিক আনলক",
+        "afterTge": "TGE এর ১২ মাস পরে",
+        "monthlyVesting": "মাসিক ভেস্টিং",
+        "over12Months": "১২ মাস ধরে",
+        "fullUnlock": "সম্পূর্ণ আনলক",
+        "after24Months": "২৪ মাস পরে",
+        "cliffPeriodValue": "১২ মাস",
+        "initialUnlockValue": "১০%",
+        "monthlyVestingValue": "৭.৫%",
+        "fullUnlockValue": "১০০%"
       },
       "investorsSection": {
         "badge": "বিনিয়োগকারী",

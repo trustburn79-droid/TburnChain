@@ -17818,17 +17818,21 @@
         "lockupPeriodValue": "12 месяцев"
       },
       "vestingSection": {
-        "badge": "VESTING",
-        "title": "Vesting Schedule",
-        "subtitle": "Systematic token release for investor protection",
-        "cliffPeriod": "Cliff Period",
-        "initialLockup": "Initial Lockup",
-        "initialUnlock": "Initial Unlock",
-        "afterTge": "After TGE 12 months",
-        "monthlyVesting": "Monthly Vesting",
-        "over12Months": "Over 12 months",
-        "fullUnlock": "Full Unlock",
-        "after24Months": "After 24 months"
+        "badge": "ВЕСТИНГ",
+        "title": "График Вестинга",
+        "subtitle": "Систематическая разблокировка токенов для защиты инвесторов",
+        "cliffPeriod": "Период Клиффа",
+        "initialLockup": "Начальная Блокировка",
+        "initialUnlock": "Начальная Разблокировка",
+        "afterTge": "После TGE 12 месяцев",
+        "monthlyVesting": "Ежемесячный Вестинг",
+        "over12Months": "В течение 12 месяцев",
+        "fullUnlock": "Полная Разблокировка",
+        "after24Months": "Через 24 месяца",
+        "cliffPeriodValue": "12 месяцев",
+        "initialUnlockValue": "10%",
+        "monthlyVestingValue": "7.5%",
+        "fullUnlockValue": "100%"
       },
       "investorsSection": {
         "badge": "ИНВЕСТОРЫ",

@@ -17168,17 +17168,21 @@
         "lockupPeriodValue": "12 ماہ"
       },
       "vestingSection": {
-        "badge": "VESTING",
-        "title": "Vesting Schedule",
-        "subtitle": "Systematic token release for investor protection",
-        "cliffPeriod": "Cliff Period",
-        "initialLockup": "Initial Lockup",
-        "initialUnlock": "Initial Unlock",
-        "afterTge": "After TGE 12 months",
-        "monthlyVesting": "Monthly Vesting",
-        "over12Months": "Over 12 months",
-        "fullUnlock": "Full Unlock",
-        "after24Months": "After 24 months"
+        "badge": "ویسٹنگ",
+        "title": "ویسٹنگ شیڈول",
+        "subtitle": "سرمایہ کار تحفظ کے لیے منظم ٹوکن ان لاک",
+        "cliffPeriod": "کلف مدت",
+        "initialLockup": "ابتدائی لاک اپ",
+        "initialUnlock": "ابتدائی ان لاک",
+        "afterTge": "TGE کے 12 ماہ بعد",
+        "monthlyVesting": "ماہانہ ویسٹنگ",
+        "over12Months": "12 ماہ میں",
+        "fullUnlock": "مکمل ان لاک",
+        "after24Months": "24 ماہ بعد",
+        "cliffPeriodValue": "12 ماہ",
+        "initialUnlockValue": "10%",
+        "monthlyVestingValue": "7.5%",
+        "fullUnlockValue": "100%"
       },
       "investorsSection": {
         "badge": "سرمایہ کار",

@@ -32755,17 +32755,21 @@
         "lockupPeriodValue": "12개월"
       },
       "vestingSection": {
-        "badge": "VESTING",
+        "badge": "베스팅",
         "title": "베스팅 스케줄",
         "subtitle": "투자자 보호를 위한 체계적인 토큰 해제",
         "cliffPeriod": "클리프 기간",
-        "initialLockup": "초기 락업",
-        "initialUnlock": "초기 언락",
-        "afterTge": "TGE 후 12개월",
+        "initialLockup": "초기 잠금",
+        "initialUnlock": "초기 해제",
+        "afterTge": "TGE 12개월 후",
         "monthlyVesting": "월간 베스팅",
-        "over12Months": "12개월간",
-        "fullUnlock": "완전 언락",
-        "after24Months": "24개월 후"
+        "over12Months": "12개월 동안",
+        "fullUnlock": "전체 해제",
+        "after24Months": "24개월 후",
+        "cliffPeriodValue": "12개월",
+        "initialUnlockValue": "10%",
+        "monthlyVestingValue": "7.5%",
+        "fullUnlockValue": "100%"
       },
       "investorsSection": {
         "badge": "투자자",

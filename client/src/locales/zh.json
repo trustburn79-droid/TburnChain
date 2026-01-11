@@ -20854,17 +20854,21 @@
         "lockupPeriodValue": "12个月"
       },
       "vestingSection": {
-        "badge": "VESTING",
-        "title": "锁仓计划",
-        "subtitle": "保护投资者的系统性代币释放",
+        "badge": "归属",
+        "title": "归属时间表",
+        "subtitle": "为投资者保护设计的系统性代币解锁",
         "cliffPeriod": "锁定期",
         "initialLockup": "初始锁定",
         "initialUnlock": "初始解锁",
         "afterTge": "TGE后12个月",
-        "monthlyVesting": "月度释放",
-        "over12Months": "12个月内",
+        "monthlyVesting": "月度归属",
+        "over12Months": "持续12个月",
         "fullUnlock": "完全解锁",
-        "after24Months": "24个月后"
+        "after24Months": "24个月后",
+        "cliffPeriodValue": "12个月",
+        "initialUnlockValue": "10%",
+        "monthlyVestingValue": "7.5%",
+        "fullUnlockValue": "100%"
       },
       "investorsSection": {
         "badge": "投资者",

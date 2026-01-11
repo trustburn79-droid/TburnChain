@@ -18700,17 +18700,21 @@
         "lockupPeriodValue": "12 شهر"
       },
       "vestingSection": {
-        "badge": "VESTING",
-        "title": "Vesting Schedule",
-        "subtitle": "Systematic token release for investor protection",
-        "cliffPeriod": "Cliff Period",
-        "initialLockup": "Initial Lockup",
-        "initialUnlock": "Initial Unlock",
-        "afterTge": "After TGE 12 months",
-        "monthlyVesting": "Monthly Vesting",
-        "over12Months": "Over 12 months",
-        "fullUnlock": "Full Unlock",
-        "after24Months": "After 24 months"
+        "badge": "الاستحقاق",
+        "title": "جدول الاستحقاق",
+        "subtitle": "فتح منهجي للرموز لحماية المستثمر",
+        "cliffPeriod": "فترة الانتظار",
+        "initialLockup": "الإغلاق الأولي",
+        "initialUnlock": "الفتح الأولي",
+        "afterTge": "بعد TGE 12 شهر",
+        "monthlyVesting": "الاستحقاق الشهري",
+        "over12Months": "على مدار 12 شهر",
+        "fullUnlock": "الفتح الكامل",
+        "after24Months": "بعد 24 شهر",
+        "cliffPeriodValue": "12 شهر",
+        "initialUnlockValue": "10%",
+        "monthlyVestingValue": "7.5%",
+        "fullUnlockValue": "100%"
       },
       "investorsSection": {
         "badge": "المستثمرون",

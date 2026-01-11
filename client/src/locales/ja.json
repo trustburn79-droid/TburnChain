@@ -21856,17 +21856,21 @@
         "lockupPeriodValue": "12ヶ月"
       },
       "vestingSection": {
-        "badge": "VESTING",
+        "badge": "ベスティング",
         "title": "ベスティングスケジュール",
         "subtitle": "投資家保護のための体系的なトークン解除",
-        "cliffPeriod": "Cliff Period",
-        "initialLockup": "Initial Lockup",
-        "initialUnlock": "Initial Unlock",
-        "afterTge": "After TGE 12 months",
-        "monthlyVesting": "Monthly Vesting",
-        "over12Months": "Over 12 months",
-        "fullUnlock": "Full Unlock",
-        "after24Months": "After 24 months"
+        "cliffPeriod": "クリフ期間",
+        "initialLockup": "初期ロックアップ",
+        "initialUnlock": "初期アンロック",
+        "afterTge": "TGE後12ヶ月",
+        "monthlyVesting": "月次ベスティング",
+        "over12Months": "12ヶ月間",
+        "fullUnlock": "完全アンロック",
+        "after24Months": "24ヶ月後",
+        "cliffPeriodValue": "12ヶ月",
+        "initialUnlockValue": "10%",
+        "monthlyVestingValue": "7.5%",
+        "fullUnlockValue": "100%"
       },
       "investorsSection": {
         "badge": "投資家",

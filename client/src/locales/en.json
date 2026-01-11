@@ -32288,7 +32288,7 @@
       "vestingSection": {
         "badge": "VESTING",
         "title": "Vesting Schedule",
-        "subtitle": "Systematic token release for investor protection",
+        "subtitle": "Systematic token unlock for investor protection",
         "cliffPeriod": "Cliff Period",
         "initialLockup": "Initial Lockup",
         "initialUnlock": "Initial Unlock",
@@ -32296,7 +32296,11 @@
         "monthlyVesting": "Monthly Vesting",
         "over12Months": "Over 12 months",
         "fullUnlock": "Full Unlock",
-        "after24Months": "After 24 months"
+        "after24Months": "After 24 months",
+        "cliffPeriodValue": "12 months",
+        "initialUnlockValue": "10%",
+        "monthlyVestingValue": "7.5%",
+        "fullUnlockValue": "100%"
       },
       "investorsSection": {
         "badge": "INVESTORS",
