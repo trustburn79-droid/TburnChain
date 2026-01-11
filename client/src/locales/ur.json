@@ -20047,440 +20047,361 @@
     }
   },
   "strategicPartner": {
-    "title": "Strategic Partners",
-    "subtitle": "Key strategic partnerships shaping the TBURN ecosystem",
-    "heroTitle": "TBURN Strategic Partners",
-    "heroSubtitle": "World-class partners supporting the TBURN vision",
+    "title": "اسٹریٹجک پارٹنرز",
+    "subtitle": "TBURN ایکو سسٹم کو شکل دینے والی اہم اسٹریٹجک پارٹنرشپس",
+    "heroTitle": "TBURN اسٹریٹجک پارٹنرز",
+    "heroSubtitle": "TBURN وژن کی حمایت کرنے والے عالمی معیار کے پارٹنرز",
     "badge": "اسٹریٹجک پارٹنرشپ - انٹرپرائز پارٹنرشپ",
-    "partnerCount": "Partner Count",
-    "categories": "Categories",
-    "tier1": "Tier 1 Partners",
-    "tier2": "Tier 2 Partners",
-    "tier3": "Tier 3 Partners",
-    "vcPartners": "VC Partners",
-    "techPartners": "Technology Partners",
-    "mediaPartners": "Media Partners",
+    "partnerCount": "پارٹنرز کی تعداد",
+    "categories": "زمرے",
+    "tier1": "ٹیئر 1 پارٹنرز",
+    "tier2": "ٹیئر 2 پارٹنرز",
+    "tier3": "ٹیئر 3 پارٹنرز",
+    "vcPartners": "VC پارٹنرز",
+    "techPartners": "ٹیکنالوجی پارٹنرز",
+    "mediaPartners": "میڈیا پارٹنرز",
     "nav": {
       "partnerTiers": "پارٹنر ٹیئرز",
       "partnershipTypes": "پارٹنرشپ کی اقسام",
       "benefits": "فوائد",
       "useCases": "استعمال کے کیسز",
-      "faq": "FAQ"
+      "faq": "عمومی سوالات"
     },
     "wallet": {
-      "connect": "Connect Wallet",
-      "disconnect": "Wallet Disconnected",
-      "disconnectDesc": "Your wallet has been disconnected.",
-      "connected": "Wallet Connected",
-      "connectedDesc": "Your wallet has been connected.",
-      "required": "Wallet Required",
-      "requiredDesc": "Please connect your wallet first to make a partnership inquiry."
+      "connect": "والیٹ جوڑیں",
+      "disconnect": "والیٹ منقطع ہو گیا",
+      "disconnectDesc": "آپ کا والیٹ منقطع کر دیا گیا ہے۔",
+      "connected": "والیٹ جڑ گیا",
+      "connectedDesc": "آپ کا والیٹ جڑ گیا ہے۔",
+      "required": "والیٹ ضروری ہے",
+      "requiredDesc": "پارٹنرشپ کی درخواست کے لیے پہلے اپنا والیٹ جوڑیں۔"
     },
     "hero": {
       "title1": "اسٹریٹجک پارٹنرشپ",
       "title2": "200M TBURN",
       "title3": "مراعات",
-      "subtitle": "TBURN ایکو سسٹم کا بنیادی پارٹنر بنیں۔"
+      "subtitle": "انٹرپرائزز، ادارہ جاتی سرمایہ کاروں، اور بڑے پروٹوکولز کے ساتھ اسٹریٹجک پارٹنرشپس کے ذریعے TBURN ایکو سسٹم کا بنیادی پارٹنر بنیں۔"
     },
     "enterpriseLogos": {
-      "enterprise": "Enterprise",
-      "protocol": "Protocol",
-      "institutional": "Institutional",
-      "corporate": "Corporate",
-      "research": "Research"
+      "enterprise": "انٹرپرائز",
+      "protocol": "پروٹوکول",
+      "institutional": "ادارہ جاتی",
+      "corporate": "کارپوریٹ",
+      "research": "تحقیق"
     },
     "stats": {
-      "totalBudget": "Total Strategic Budget",
-      "strategicPartners": "Strategic Partners",
-      "distributed": "Distributed",
-      "totalPartnerships": "Total Partnerships"
+      "totalBudget": "کل اسٹریٹجک بجٹ",
+      "strategicPartners": "اسٹریٹجک پارٹنرز",
+      "distributed": "تقسیم شدہ",
+      "totalPartnerships": "کل پارٹنرشپس"
     },
     "cta": {
-      "applyPartnership": "Apply Partnership",
-      "enterpriseGuide": "Enterprise Guide",
-      "partnershipInquiry": "Partnership Inquiry",
-      "partnershipInquiryDesc": "Check the partner tiers and contact us!",
-      "enterpriseGuideDesc": "View partnership type information."
+      "applyPartnership": "پارٹنرشپ کے لیے درخواست دیں",
+      "enterpriseGuide": "انٹرپرائز گائیڈ",
+      "partnershipInquiry": "پارٹنرشپ کی درخواست",
+      "partnershipInquiryDesc": "پارٹنر ٹیئرز چیک کریں اور ہم سے رابطہ کریں!",
+      "enterpriseGuideDesc": "پارٹنرشپ کی قسم کی معلومات دیکھیں۔"
     },
     "distribution": {
-      "badge": "DISTRIBUTION",
-      "title": "Strategic Budget Distribution",
-      "subtitle": "200M TBURN allocated to 5 strategic areas",
-      "enterprise": "Enterprise",
+      "badge": "تقسیم",
+      "title": "اسٹریٹجک بجٹ کی تقسیم",
+      "subtitle": "5 اسٹریٹجک شعبوں میں 200M TBURN مختص",
+      "enterprise": "انٹرپرائز",
       "enterpriseAmount": "80M",
-      "protocol": "Protocol Integration",
+      "protocol": "پروٹوکول انٹیگریشن",
       "protocolAmount": "40M",
-      "institutional": "Institutional Investors",
+      "institutional": "ادارہ جاتی سرمایہ کار",
       "institutionalAmount": "40M",
-      "government": "Public Sector",
+      "government": "سرکاری شعبہ",
       "governmentAmount": "20M",
-      "academic": "Academic/Research",
+      "academic": "تعلیمی/تحقیقی",
       "academicAmount": "20M"
     },
     "tiers": {
-      "badge": "TIERS",
-      "title": "Strategic Partner Tiers",
-      "subtitle": "Differentiated benefits based on contribution and investment scale",
+      "badge": "ٹیئرز",
+      "title": "اسٹریٹجک پارٹنر ٹیئرز",
+      "subtitle": "شراکت اور سرمایہ کاری کے پیمانے پر مبنی مختلف فوائد",
       "diamond": {
-        "name": "Diamond",
-        "subtitle": "Top Strategic Partner",
-        "incentive": "Up to 50M",
-        "requirement": "$10M+ value provision",
+        "name": "ہیرا",
+        "subtitle": "اعلیٰ اسٹریٹجک پارٹنر",
+        "incentive": "50M تک",
+        "requirement": "$10M+ قدر کی فراہمی",
         "benefits": [
-          "Dedicated tech team",
-          "Custom solution development",
-          "Board participation",
-          "Exclusive governance rights",
-          "Annual offline summit"
+          "وقف شدہ ٹیک ٹیم",
+          "حسب ضرورت حل کی تیاری",
+          "بورڈ میں شرکت",
+          "خصوصی گورننس حقوق",
+          "سالانہ آف لائن سمٹ"
         ]
       },
       "platinum": {
-        "name": "Platinum",
-        "subtitle": "Premium Partner",
-        "incentive": "Up to 20M",
-        "requirement": "$5M+ value provision",
+        "name": "پلاٹینم",
+        "subtitle": "پریمیم پارٹنر",
+        "incentive": "20M تک",
+        "requirement": "$5M+ قدر کی فراہمی",
         "benefits": [
-          "Priority tech support",
-          "Co-marketing",
-          "Quarterly strategy meetings",
-          "Governance voting rights",
-          "VIP events"
+          "ترجیحی ٹیک سپورٹ",
+          "مشترکہ مارکیٹنگ",
+          "سہ ماہی حکمت عملی میٹنگز",
+          "گورننس ووٹنگ حقوق",
+          "VIP تقریبات"
         ]
       },
       "gold": {
-        "name": "Gold",
-        "subtitle": "Core Partner",
-        "incentive": "Up to 5M",
-        "requirement": "$1M+ value provision",
+        "name": "سونا",
+        "subtitle": "بنیادی پارٹنر",
+        "incentive": "5M تک",
+        "requirement": "$1M+ قدر کی فراہمی",
         "benefits": [
-          "Tech integration support",
-          "Marketing collaboration",
-          "Monthly reports",
-          "DAO participation",
-          "Partner networking"
+          "ٹیک انٹیگریشن سپورٹ",
+          "مارکیٹنگ تعاون",
+          "ماہانہ رپورٹس",
+          "DAO میں شرکت",
+          "پارٹنر نیٹ ورکنگ"
         ]
       },
       "silver": {
-        "name": "Silver",
-        "subtitle": "Growth Partner",
-        "incentive": "Up to 1M",
-        "requirement": "$100K+ value provision",
+        "name": "چاندی",
+        "subtitle": "ترقیاتی پارٹنر",
+        "incentive": "1M تک",
+        "requirement": "$100K+ قدر کی فراہمی",
         "benefits": [
-          "Standard tech support",
-          "Co-branding",
-          "Quarterly reports",
-          "Community access",
-          "Developer support"
+          "معیاری ٹیک سپورٹ",
+          "مشترکہ برانڈنگ",
+          "سہ ماہی رپورٹس",
+          "کمیونٹی رسائی",
+          "ڈویلپر سپورٹ"
         ]
       },
-      "partnerIncentive": "Partner Incentive",
-      "inquire": "Inquire"
-    },
-    "tierInquiry": {
-      "title": "Partnership Inquiry Submitted",
-      "description": "Thank you for your interest in {{tier}} tier. The incentive package is {{incentive}} TBURN. Our team will contact you shortly."
+      "partnerIncentive": "پارٹنر مراعات",
+      "requirement": "ضروریات",
+      "inquireButton": "درخواست دیں"
     },
     "partnershipTypes": {
-      "badge": "TYPES",
-      "title": "Partnership Types",
-      "subtitle": "Various partnership opportunities for different sectors",
+      "badge": "پارٹنرشپ کی اقسام",
+      "title": "پارٹنرشپ کی اقسام",
+      "subtitle": "مختلف شعبوں میں اسٹریٹجک پارٹنرشپ کے مواقع",
       "enterprise": {
-        "title": "Enterprise Solutions",
-        "desc": "Large-scale enterprise blockchain integration and solutions",
-        "features": [
-          "Private chain construction",
-          "API integration",
-          "Security audit",
-          "24/7 support"
-        ],
-        "name": "Enterprise"
+        "name": "انٹرپرائز",
+        "description": "کاروباری ادارے اپنے بلاکچین سلوشنز کے لیے TBURN کو مربوط کریں۔ ہم کسٹم انٹیگریشنز، وقف شدہ سپورٹ، اور انٹرپرائز گریڈ SLAs فراہم کرتے ہیں۔"
       },
       "protocol": {
-        "title": "Protocol Integration",
-        "desc": "DeFi and blockchain protocol partnerships",
-        "features": [
-          "Cross-chain bridge",
-          "Liquidity pool",
-          "Smart contracts",
-          "Oracle integration"
-        ],
-        "name": "Protocol Integration"
+        "name": "پروٹوکول",
+        "description": "DeFi پروٹوکولز اور بلاکچین پروجیکٹس کے ساتھ تکنیکی انٹیگریشن۔ کراس چین برج، لیکویڈیٹی شیئرنگ، اور باہمی تعاون کے مواقع۔"
       },
       "institutional": {
-        "title": "Institutional Investment",
-        "desc": "Institutional investor partnerships and fund management",
-        "features": [
-          "Custody service",
-          "OTC trading",
-          "Tax reports",
-          "Regulatory compliance"
-        ],
-        "name": "Institutional Investment"
+        "name": "ادارہ جاتی",
+        "description": "ہیج فنڈز، فیملی آفسز، اور بڑے سرمایہ کاروں کے لیے ادارہ جاتی گریڈ سرمایہ کاری کے مواقع۔ OTC ڈیلز اور کسٹم ویسٹنگ شیڈول۔"
       },
       "government": {
-        "title": "Public Partnership",
-        "desc": "Public sector blockchain adoption and smart city projects",
-        "features": [
-          "Public infrastructure",
-          "Digital identity",
-          "Transparency systems",
-          "Civic services"
-        ],
-        "name": "Government/Public Sector"
+        "name": "سرکاری",
+        "description": "سرکاری اداروں اور ریگولیٹری باڈیز کے ساتھ پارٹنرشپ۔ بلاکچین پالیسی ڈویلپمنٹ اور ڈیجیٹل انفراسٹرکچر میں تعاون۔"
       },
       "academic": {
-        "title": "Academic Research",
-        "desc": "University research partnerships and talent development",
-        "features": [
-          "Research grants",
-          "Internships",
-          "Paper support",
-          "Technical consulting"
-        ],
-        "name": "Academic Research"
+        "name": "تعلیمی",
+        "description": "یونیورسٹیوں اور تحقیقی اداروں کے ساتھ تعلیمی تحقیق اور بلاکچین تعلیم کی ترقی۔ گرانٹس اور تحقیقی تعاون۔"
       },
       "global": {
-        "title": "Global Expansion",
-        "desc": "International market expansion and localization partnerships",
-        "features": [
-          "Localization support",
-          "Regulatory consulting",
-          "Partner connections",
-          "Marketing support"
-        ],
-        "name": "Global Expansion"
+        "name": "عالمی",
+        "description": "بین الاقوامی توسیع اور مارکیٹ داخلے کے لیے علاقائی پارٹنرز۔ لوکلائزیشن سپورٹ اور مارکیٹ مخصوص مراعات۔"
       }
     },
     "process": {
-      "badge": "PROCESS",
-      "title": "Partnership Process",
-      "subtitle": "Systematic onboarding process",
+      "badge": "عمل",
+      "title": "پارٹنرشپ کا عمل",
+      "subtitle": "اسٹریٹجک پارٹنر بننے کے مراحل",
       "step1": {
-        "title": "Application",
-        "desc": "Submit partnership application",
-        "duration": "1-2 days"
+        "title": "درخواست جمع کرائیں",
+        "description": "آن لائن فارم کے ذریعے پارٹنرشپ کی درخواست دیں۔"
       },
       "step2": {
-        "title": "Review",
-        "desc": "Internal review and due diligence",
-        "duration": "1-2 weeks"
+        "title": "جائزہ اور تشخیص",
+        "description": "ہماری ٹیم آپ کی درخواست کا جائزہ لے گی۔"
       },
       "step3": {
-        "title": "Negotiation",
-        "desc": "Terms and conditions negotiation",
-        "duration": "2-4 weeks"
+        "title": "گفت و شنید",
+        "description": "شرائط اور فوائد پر بات چیت کریں۔"
       },
       "step4": {
-        "title": "Contract Signing",
-        "desc": "Legal contract signing",
-        "duration": "1-2 weeks"
+        "title": "معاہدہ",
+        "description": "پارٹنرشپ کے معاہدے پر دستخط کریں۔"
       },
       "step5": {
-        "title": "Onboarding",
-        "desc": "Technical integration and launch",
-        "duration": "4-8 weeks"
+        "title": "آغاز",
+        "description": "انٹیگریشن شروع کریں اور فوائد حاصل کریں۔"
       }
     },
     "benefits": {
-      "badge": "BENEFITS",
-      "title": "Strategic Partner Benefits",
-      "subtitle": "Exclusive benefits for strategic partners only",
+      "badge": "فوائد",
+      "title": "پارٹنرشپ کے فوائد",
+      "subtitle": "TBURN کے اسٹریٹجک پارٹنر بننے کے فوائد",
       "techSupport": {
-        "title": "Customized Tech Support",
-        "desc": "Dedicated engineering team develops solutions tailored to each company's requirements."
+        "title": "تکنیکی سپورٹ",
+        "description": "وقف شدہ انجینئرنگ ٹیم، ترجیحی API رسائی، اور انٹیگریشن سپورٹ۔"
       },
       "growth": {
-        "title": "Growth Acceleration",
-        "desc": "Support business growth leveraging TBURN ecosystem resources and network."
+        "title": "ترقی کے مواقع",
+        "description": "مشترکہ مارکیٹنگ، کو-برانڈنگ، اور نیٹ ورک توسیع کے مواقع۔"
       },
       "security": {
-        "title": "Security & Compliance",
-        "desc": "Enterprise-grade security and global regulatory compliance guaranteed."
+        "title": "سیکیورٹی",
+        "description": "انٹرپرائز گریڈ سیکیورٹی، آڈٹ شدہ سمارٹ کنٹریکٹس، اور بیمہ کوریج۔"
       },
       "networking": {
-        "title": "Strategic Networking",
-        "desc": "Networking opportunities with industry leaders and joint business opportunities provided."
+        "title": "نیٹ ورکنگ",
+        "description": "خصوصی تقریبات، سمٹس، اور دیگر پارٹنرز کے ساتھ رابطے۔"
       },
       "exclusive": {
-        "title": "Exclusive Benefits",
-        "desc": "Enjoy exclusive benefits including early access, governance participation, and special incentives."
+        "title": "خصوصی رسائی",
+        "description": "نئی خصوصیات، پروڈکٹس، اور سرمایہ کاری کے مواقع تک ابتدائی رسائی۔"
       },
       "data": {
-        "title": "Data Insights",
-        "desc": "Provide business intelligence through on-chain analytics and customized reports."
+        "title": "ڈیٹا انسائٹس",
+        "description": "جدید تجزیات، مارکیٹ ڈیٹا، اور نیٹ ورک میٹرکس تک رسائی۔"
       }
     },
     "useCases": {
-      "badge": "USE CASES",
-      "title": "Use Cases",
-      "subtitle": "Strategic partnership utilization scenarios",
+      "badge": "استعمال کے کیسز",
+      "title": "پارٹنرشپ کے استعمال کے کیسز",
+      "subtitle": "اسٹریٹجک پارٹنرز TBURN کو کیسے استعمال کرتے ہیں",
       "tabs": {
-        "enterprise": "Enterprise",
-        "protocol": "Protocol",
-        "institutional": "Institutional"
+        "enterprise": "انٹرپرائز",
+        "protocol": "پروٹوکول",
+        "institutional": "ادارہ جاتی"
       },
       "enterprise": {
-        "title": "Enterprise Solutions",
-        "desc": "Large-scale blockchain integration and customized enterprise solutions",
-        "features": [
-          "Private chain construction",
-          "API integration support",
-          "Enterprise security",
-          "24/7 technical support"
-        ],
+        "title": "انٹرپرائز انٹیگریشن",
+        "description": "بڑے کاروباری اداروں کے لیے بلاکچین سلوشنز۔",
         "stats": {
-          "uptime": "99.99%",
-          "uptimeLabel": "Uptime SLA",
-          "response": "<100ms",
-          "responseLabel": "Response Time",
-          "throughput": "210K",
-          "throughputLabel": "TPS",
-          "security": "Enterprise",
-          "securityLabel": "Security Grade"
+          "integrations": "فعال انٹیگریشنز",
+          "transactions": "ماہانہ ٹرانزیکشنز",
+          "savings": "لاگت میں بچت"
         }
       },
       "protocol": {
-        "title": "Protocol Integration",
-        "desc": "DeFi protocol partnerships and cross-chain integration",
-        "features": [
-          "Cross-chain bridge",
-          "Liquidity provision",
-          "Smart contract audit",
-          "Protocol governance"
-        ],
+        "title": "پروٹوکول انٹیگریشن",
+        "description": "DeFi پروٹوکولز کے ساتھ تکنیکی تعاون۔",
         "stats": {
-          "tvl": "$2.5B+",
-          "tvlLabel": "TVL Target",
-          "protocols": "50+",
-          "protocolsLabel": "Partner Protocols",
-          "transactions": "1M+",
-          "transactionsLabel": "Daily Transactions",
-          "chains": "15+",
-          "chainsLabel": "Supported Chains"
+          "protocols": "منسلک پروٹوکولز",
+          "tvl": "کل لاک ویلیو",
+          "volume": "تجارتی حجم"
         }
       },
       "institutional": {
-        "title": "Institutional Services",
-        "desc": "Institutional investor services and compliance solutions",
-        "features": [
-          "Custody solution",
-          "OTC trading",
-          "Compliance reporting",
-          "Tax optimization"
-        ],
+        "title": "ادارہ جاتی سرمایہ کاری",
+        "description": "ادارہ جاتی سرمایہ کاروں کے لیے حل۔",
         "stats": {
-          "aum": "$500M+",
-          "aumLabel": "AUM Target",
-          "partners": "25+",
-          "partnersLabel": "Institutional Partners",
-          "otc": "Available",
-          "otcLabel": "OTC Desk",
-          "compliance": "SOC2",
-          "complianceLabel": "Compliance"
+          "investors": "فعال سرمایہ کار",
+          "aum": "زیر انتظام اثاثے",
+          "returns": "اوسط منافع"
         }
       }
     },
     "currentPartners": {
-      "badge": "PARTNERS",
-      "title": "Current Partners",
-      "subtitle": "World-class organizations partnering with TBURN",
-      "investmentScale": "Investment Scale",
-      "partnership": "Partnership Since",
+      "badge": "پارٹنرز",
+      "title": "موجودہ پارٹنرز",
+      "subtitle": "TBURN کے ساتھ شراکت دار عالمی معیار کی تنظیمیں",
+      "investmentScale": "سرمایہ کاری کا پیمانہ",
+      "partnership": "شراکت کا آغاز",
       "partners": {
         "partner1": {
-          "name": "Global Tech Corp",
-          "type": "Enterprise"
+          "name": "گلوبل ٹیک کارپ",
+          "type": "انٹرپرائز"
         },
         "partner2": {
-          "name": "DeFi Protocol X",
-          "type": "Protocol"
+          "name": "DeFi پروٹوکول X",
+          "type": "پروٹوکول"
         },
         "partner3": {
-          "name": "Crypto Fund Alpha",
-          "type": "Institutional"
+          "name": "کرپٹو فنڈ الفا",
+          "type": "ادارہ جاتی"
         },
         "partner4": {
-          "name": "City of Seoul",
-          "type": "Government"
+          "name": "سٹی آف سیول",
+          "type": "سرکاری"
         }
       },
       "tierBadges": {
-        "diamond": "DIAMOND",
-        "platinum": "PLATINUM",
-        "gold": "GOLD",
-        "silver": "SILVER"
+        "diamond": "ہیرا",
+        "platinum": "پلاٹینم",
+        "gold": "سونا",
+        "silver": "چاندی"
       }
     },
     "faq": {
-      "badge": "FAQ",
-      "title": "Frequently Asked Questions",
-      "subtitle": "Common questions about strategic partnerships",
+      "badge": "عمومی سوالات",
+      "title": "اکثر پوچھے جانے والے سوالات",
+      "subtitle": "اسٹریٹجک پارٹنرشپس کے بارے میں عام سوالات",
       "q1": {
-        "question": "What is the total budget for strategic partnerships?",
-        "answer": "A total of 200M TBURN is allocated for strategic partnerships."
+        "question": "اسٹریٹجک پارٹنرشپس کا کل بجٹ کتنا ہے؟",
+        "answer": "اسٹریٹجک پارٹنرشپس کے لیے کل 200M TBURN مختص ہے۔"
       },
       "q2": {
-        "question": "What are the requirements to become a strategic partner?",
-        "answer": "Requirements vary by tier. Silver starts at $100K, Gold $1M, Platinum $5M, Diamond $10M+."
+        "question": "اسٹریٹجک پارٹنر بننے کی ضروریات کیا ہیں؟",
+        "answer": "ضروریات ٹیئر کے لحاظ سے مختلف ہیں۔ چاندی $100K سے شروع ہوتی ہے، سونا $1M، پلاٹینم $5M، ہیرا $10M+۔"
       },
       "q3": {
-        "question": "How are partnership incentives distributed?",
-        "answer": "Incentives follow a vesting schedule. Typically 20% at onboarding, remainder over 12-36 months."
+        "question": "پارٹنرشپ کی مراعات کیسے تقسیم ہوتی ہیں؟",
+        "answer": "مراعات ویسٹنگ شیڈول کے مطابق تقسیم ہوتی ہیں۔ عام طور پر 20% آن بورڈنگ پر، باقی 12-36 ماہ میں۔"
       },
       "q4": {
-        "question": "Are there special programs for institutional investors?",
-        "answer": "Yes, institutional investors receive dedicated account management and priority OTC access."
+        "question": "کیا ادارہ جاتی سرمایہ کاروں کے لیے خصوصی پروگرام ہیں؟",
+        "answer": "جی ہاں، ادارہ جاتی سرمایہ کاروں کو وقف شدہ اکاؤنٹ مینجمنٹ اور ترجیحی OTC رسائی ملتی ہے۔"
       },
       "q5": {
-        "question": "How long does it take to finalize a partnership?",
-        "answer": "The typical process takes 8-16 weeks from application to onboarding."
+        "question": "پارٹنرشپ مکمل ہونے میں کتنا وقت لگتا ہے؟",
+        "answer": "عام عمل درخواست سے آن بورڈنگ تک 8-16 ہفتے لیتا ہے۔"
       },
       "q6": {
-        "question": "How does protocol integration partnership work?",
-        "answer": "Protocol partners receive technical integration support, API access, and liquidity incentives."
+        "question": "پروٹوکول انٹیگریشن پارٹنرشپ کیسے کام کرتی ہے؟",
+        "answer": "پروٹوکول پارٹنرز کو تکنیکی انٹیگریشن سپورٹ، API رسائی، اور لیکویڈیٹی مراعات ملتی ہیں۔"
       },
       "q7": {
-        "question": "What are the exclusive benefits for Diamond tier partners?",
-        "answer": "Diamond partners receive dedicated tech team, board participation, and up to 50M TBURN incentives."
+        "question": "ہیرا ٹیئر پارٹنرز کے خصوصی فوائد کیا ہیں؟",
+        "answer": "ہیرا پارٹنرز کو وقف شدہ ٹیک ٹیم، بورڈ میں شرکت، اور 50M TBURN تک کی مراعات ملتی ہیں۔"
       },
       "q8": {
-        "question": "How can I inquire about partnership?",
-        "answer": "Click the Apply for Partnership button or contact our partnership team directly."
+        "question": "پارٹنرشپ کے بارے میں کیسے استفسار کر سکتا ہوں؟",
+        "answer": "پارٹنرشپ کے لیے درخواست دیں بٹن پر کلک کریں یا براہ راست ہماری پارٹنرشپ ٹیم سے رابطہ کریں۔"
       },
       "items": {
         "q1": {
-          "question": "What are the minimum requirements to become a strategic partner?",
-          "answer": "Strategic partnership requirements vary by tier. Silver tier starts at $100K value provision, while Diamond tier requires $10M+ value provision including technology, capital, or network contributions."
+          "question": "اسٹریٹجک پارٹنر بننے کی کم از کم ضروریات کیا ہیں؟",
+          "answer": "اسٹریٹجک پارٹنرشپ کی ضروریات ٹیئر کے لحاظ سے مختلف ہیں۔ چاندی ٹیئر $100K قدر کی فراہمی سے شروع ہوتی ہے، جبکہ ہیرا ٹیئر کے لیے $10M+ قدر کی فراہمی کی ضرورت ہے جس میں ٹیکنالوجی، سرمایہ، یا نیٹ ورک شراکت شامل ہے۔"
         },
         "q2": {
-          "question": "How long does the partnership process take?",
-          "answer": "The typical partnership process takes 8-16 weeks from application to onboarding. This includes review (1-2 weeks), negotiation (2-4 weeks), contract signing (1-2 weeks), and technical integration (4-8 weeks)."
+          "question": "پارٹنرشپ کے عمل میں کتنا وقت لگتا ہے؟",
+          "answer": "عام پارٹنرشپ کا عمل درخواست سے آن بورڈنگ تک 8-16 ہفتے لیتا ہے۔ اس میں جائزہ (1-2 ہفتے)، گفت و شنید (2-4 ہفتے)، معاہدہ (1-2 ہفتے)، اور تکنیکی انٹیگریشن (4-8 ہفتے) شامل ہے۔"
         },
         "q3": {
-          "question": "What types of value contributions are accepted?",
-          "answer": "We accept various forms of value including direct investment, technology integration, network access, marketing reach, research contributions, and strategic advisory services."
+          "question": "کس قسم کی قدر کی شراکت قبول کی جاتی ہے؟",
+          "answer": "ہم مختلف اقسام کی قدر قبول کرتے ہیں جن میں براہ راست سرمایہ کاری، ٹیکنالوجی انٹیگریشن، نیٹ ورک رسائی، مارکیٹنگ رسائی، تحقیقی شراکت، اور اسٹریٹجک مشاورتی خدمات شامل ہیں۔"
         },
         "q4": {
-          "question": "Can partnership tiers be upgraded?",
-          "answer": "Yes, partners can upgrade their tier by increasing their value contribution. Tier upgrades are reviewed quarterly and additional benefits are applied immediately upon approval."
+          "question": "کیا پارٹنرشپ ٹیئرز کو اپ گریڈ کیا جا سکتا ہے؟",
+          "answer": "جی ہاں، پارٹنرز اپنی قدر کی شراکت بڑھا کر اپنا ٹیئر اپ گریڈ کر سکتے ہیں۔ ٹیئر اپ گریڈز کا سہ ماہی جائزہ لیا جاتا ہے اور منظوری کے فوراً بعد اضافی فوائد لاگو ہو جاتے ہیں۔"
         },
         "q5": {
-          "question": "What governance rights do partners receive?",
-          "answer": "Governance rights vary by tier. Diamond partners receive exclusive governance rights including board participation, while other tiers receive proportional voting rights in the DAO."
+          "question": "پارٹنرز کو کون سے گورننس حقوق ملتے ہیں؟",
+          "answer": "گورننس حقوق ٹیئر کے لحاظ سے مختلف ہیں۔ ہیرا پارٹنرز کو بورڈ میں شرکت سمیت خصوصی گورننس حقوق ملتے ہیں، جبکہ دیگر ٹیئرز کو DAO میں متناسب ووٹنگ حقوق ملتے ہیں۔"
         },
         "q6": {
-          "question": "How are TBURN incentives distributed?",
-          "answer": "Incentives are distributed according to a vesting schedule specified in the partnership agreement. Typically, 20% is released at onboarding with the remainder vesting over 12-36 months."
+          "question": "TBURN مراعات کیسے تقسیم ہوتی ہیں؟",
+          "answer": "مراعات پارٹنرشپ معاہدے میں مذکور ویسٹنگ شیڈول کے مطابق تقسیم ہوتی ہیں۔ عام طور پر، 20% آن بورڈنگ پر جاری ہوتی ہے اور باقی 12-36 ماہ میں ویسٹ ہوتی ہے۔"
         },
         "q7": {
-          "question": "What technical support is provided?",
-          "answer": "Technical support ranges from standard documentation access (Silver) to dedicated engineering teams (Diamond). All partners receive API access and integration documentation."
+          "question": "کون سی تکنیکی سپورٹ فراہم کی جاتی ہے؟",
+          "answer": "تکنیکی سپورٹ معیاری دستاویزات کی رسائی (چاندی) سے لے کر وقف شدہ انجینئرنگ ٹیموں (ہیرا) تک ہوتی ہے۔ تمام پارٹنرز کو API رسائی اور انٹیگریشن دستاویزات ملتی ہیں۔"
         },
         "q8": {
-          "question": "Are there regional partnership opportunities?",
-          "answer": "Yes, we actively seek regional partners for market expansion. Regional partners may receive additional benefits including localization support and market-specific incentives."
+          "question": "کیا علاقائی پارٹنرشپ کے مواقع ہیں؟",
+          "answer": "جی ہاں، ہم مارکیٹ توسیع کے لیے علاقائی پارٹنرز کی فعال طور پر تلاش کرتے ہیں۔ علاقائی پارٹنرز کو لوکلائزیشن سپورٹ اور مارکیٹ مخصوص مراعات سمیت اضافی فوائد مل سکتے ہیں۔"
         }
       }
+    },
+    "tierInquiry": {
+      "title": "ٹیئر درخواست",
+      "description": "آپ نے {{tier}} ({{incentive}} TBURN) کے لیے دلچسپی ظاہر کی ہے۔ ہماری ٹیم جلد آپ سے رابطہ کرے گی۔"
     },
     "ctaSection": {
       "title": "اسٹریٹجک پارٹنر بنیں",
@@ -20496,7 +20417,7 @@
       "explorer": "ایکسپلورر",
       "bridge": "برج",
       "staking": "اسٹیکنگ",
-      "governance": "Governance",
+      "governance": "گورننس",
       "developers": "ڈویلپرز",
       "documentation": "دستاویزات",
       "api": "API",
@@ -20507,7 +20428,7 @@
       "telegram": "ٹیلیگرام",
       "discord": "ڈسکارڈ",
       "forum": "فورم",
-      "copyright": "2024 TBURN. جملہ حقوق محفوظ ہیں۔",
+      "copyright": "2024 TBURN۔ جملہ حقوق محفوظ ہیں۔",
       "privacyPolicy": "رازداری کی پالیسی",
       "termsOfService": "سروس کی شرائط"
     }

@@ -21564,19 +21564,19 @@
     }
   },
   "strategicPartner": {
-    "title": "Strategic Partners",
-    "subtitle": "Key strategic partnerships shaping the TBURN ecosystem",
-    "heroTitle": "TBURN Strategic Partners",
-    "heroSubtitle": "World-class partners supporting the TBURN vision",
+    "title": "الشركاء الاستراتيجيون",
+    "subtitle": "شراكات استراتيجية رئيسية تشكل نظام TBURN البيئي",
+    "heroTitle": "شركاء TBURN الاستراتيجيون",
+    "heroSubtitle": "شركاء عالميون يدعمون رؤية TBURN",
     "badge": "الشراكة الاستراتيجية - شراكة المؤسسات",
-    "partnerCount": "Partner Count",
-    "categories": "Categories",
-    "tier1": "Tier 1 Partners",
-    "tier2": "Tier 2 Partners",
-    "tier3": "Tier 3 Partners",
-    "vcPartners": "VC Partners",
-    "techPartners": "Technology Partners",
-    "mediaPartners": "Media Partners",
+    "partnerCount": "عدد الشركاء",
+    "categories": "الفئات",
+    "tier1": "شركاء المستوى الأول",
+    "tier2": "شركاء المستوى الثاني",
+    "tier3": "شركاء المستوى الثالث",
+    "vcPartners": "شركاء رأس المال الاستثماري",
+    "techPartners": "الشركاء التقنيون",
+    "mediaPartners": "الشركاء الإعلاميون",
     "nav": {
       "partnerTiers": "مستويات الشركاء",
       "partnershipTypes": "أنواع الشراكة",
@@ -21585,424 +21585,424 @@
       "faq": "الأسئلة الشائعة"
     },
     "wallet": {
-      "connect": "Connect Wallet",
-      "disconnect": "Wallet Disconnected",
-      "disconnectDesc": "Your wallet has been disconnected.",
-      "connected": "Wallet Connected",
-      "connectedDesc": "Your wallet has been connected.",
-      "required": "Wallet Required",
-      "requiredDesc": "Please connect your wallet first to make a partnership inquiry."
+      "connect": "ربط المحفظة",
+      "disconnect": "تم فصل المحفظة",
+      "disconnectDesc": "تم فصل محفظتك.",
+      "connected": "المحفظة متصلة",
+      "connectedDesc": "تم ربط محفظتك بنجاح.",
+      "required": "المحفظة مطلوبة",
+      "requiredDesc": "يرجى ربط محفظتك أولاً للاستعلام عن الشراكة."
     },
     "hero": {
       "title1": "شراكة استراتيجية بـ",
       "title2": "200 مليون TBURN",
       "title3": "حوافز",
-      "subtitle": "كن شريكا اساسيا في نظام TBURN البيئي."
+      "subtitle": "كن شريكاً أساسياً في نظام TBURN البيئي من خلال الشراكات الاستراتيجية مع المؤسسات والمستثمرين المؤسسيين والبروتوكولات الرئيسية."
     },
     "enterpriseLogos": {
-      "enterprise": "Enterprise",
-      "protocol": "Protocol",
-      "institutional": "Institutional",
-      "corporate": "Corporate",
-      "research": "Research"
+      "enterprise": "المؤسسات",
+      "protocol": "البروتوكول",
+      "institutional": "المؤسسي",
+      "corporate": "الشركات",
+      "research": "البحث العلمي"
     },
     "stats": {
-      "totalBudget": "Total Strategic Budget",
-      "strategicPartners": "Strategic Partners",
-      "distributed": "Distributed",
-      "totalPartnerships": "Total Partnerships"
+      "totalBudget": "إجمالي الميزانية الاستراتيجية",
+      "strategicPartners": "الشركاء الاستراتيجيون",
+      "distributed": "تم التوزيع",
+      "totalPartnerships": "إجمالي الشراكات"
     },
     "cta": {
-      "applyPartnership": "Apply Partnership",
-      "enterpriseGuide": "Enterprise Guide",
-      "partnershipInquiry": "Partnership Inquiry",
-      "partnershipInquiryDesc": "Check the partner tiers and contact us!",
-      "enterpriseGuideDesc": "View partnership type information."
+      "applyPartnership": "التقدم للشراكة",
+      "enterpriseGuide": "دليل المؤسسات",
+      "partnershipInquiry": "استفسار الشراكة",
+      "partnershipInquiryDesc": "تحقق من مستويات الشركاء وتواصل معنا!",
+      "enterpriseGuideDesc": "عرض معلومات أنواع الشراكة."
     },
     "distribution": {
-      "badge": "DISTRIBUTION",
-      "title": "Strategic Budget Distribution",
-      "subtitle": "200M TBURN allocated to 5 strategic areas",
-      "enterprise": "Enterprise",
+      "badge": "التوزيع",
+      "title": "توزيع الميزانية الاستراتيجية",
+      "subtitle": "200 مليون TBURN مخصصة لـ 5 مجالات استراتيجية",
+      "enterprise": "المؤسسات",
       "enterpriseAmount": "80M",
-      "protocol": "Protocol Integration",
+      "protocol": "تكامل البروتوكول",
       "protocolAmount": "40M",
-      "institutional": "Institutional Investors",
+      "institutional": "المستثمرون المؤسسيون",
       "institutionalAmount": "40M",
-      "government": "Public Sector",
+      "government": "القطاع العام",
       "governmentAmount": "20M",
-      "academic": "Academic/Research",
+      "academic": "الأكاديمي/البحث العلمي",
       "academicAmount": "20M"
     },
     "tiers": {
-      "badge": "TIERS",
-      "title": "Strategic Partner Tiers",
-      "subtitle": "Differentiated benefits based on contribution and investment scale",
+      "badge": "المستويات",
+      "title": "مستويات الشركاء الاستراتيجيين",
+      "subtitle": "مزايا متباينة بناءً على حجم المساهمة والاستثمار",
       "diamond": {
-        "name": "Diamond",
-        "subtitle": "Top Strategic Partner",
-        "incentive": "Up to 50M",
-        "requirement": "$10M+ value provision",
+        "name": "الماسي",
+        "subtitle": "شريك استراتيجي رفيع المستوى",
+        "incentive": "حتى 50M",
+        "requirement": "توفير قيمة $10M+",
         "benefits": [
-          "Dedicated tech team",
-          "Custom solution development",
-          "Board participation",
-          "Exclusive governance rights",
-          "Annual offline summit"
+          "فريق تقني مخصص",
+          "تطوير حلول مخصصة",
+          "المشاركة في مجلس الإدارة",
+          "حقوق حوكمة حصرية",
+          "قمة سنوية حضورية"
         ]
       },
       "platinum": {
-        "name": "Platinum",
-        "subtitle": "Premium Partner",
-        "incentive": "Up to 20M",
-        "requirement": "$5M+ value provision",
+        "name": "البلاتيني",
+        "subtitle": "شريك متميز",
+        "incentive": "حتى 20M",
+        "requirement": "توفير قيمة $5M+",
         "benefits": [
-          "Priority tech support",
-          "Co-marketing",
-          "Quarterly strategy meetings",
-          "Governance voting rights",
-          "VIP events"
+          "دعم تقني ذو أولوية",
+          "تسويق مشترك",
+          "اجتماعات استراتيجية ربع سنوية",
+          "حقوق التصويت في الحوكمة",
+          "فعاليات VIP"
         ]
       },
       "gold": {
-        "name": "Gold",
-        "subtitle": "Core Partner",
-        "incentive": "Up to 5M",
-        "requirement": "$1M+ value provision",
+        "name": "الذهبي",
+        "subtitle": "شريك أساسي",
+        "incentive": "حتى 5M",
+        "requirement": "توفير قيمة $1M+",
         "benefits": [
-          "Tech integration support",
-          "Marketing collaboration",
-          "Monthly reports",
-          "DAO participation",
-          "Partner networking"
+          "دعم التكامل التقني",
+          "تعاون تسويقي",
+          "تقارير شهرية",
+          "المشاركة في DAO",
+          "شبكات الشركاء"
         ]
       },
       "silver": {
-        "name": "Silver",
-        "subtitle": "Growth Partner",
-        "incentive": "Up to 1M",
-        "requirement": "$100K+ value provision",
+        "name": "الفضي",
+        "subtitle": "شريك النمو",
+        "incentive": "حتى 1M",
+        "requirement": "توفير قيمة $100K+",
         "benefits": [
-          "Standard tech support",
-          "Co-branding",
-          "Quarterly reports",
-          "Community access",
-          "Developer support"
+          "دعم تقني قياسي",
+          "علامة تجارية مشتركة",
+          "تقارير ربع سنوية",
+          "وصول المجتمع",
+          "دعم المطورين"
         ]
       },
-      "partnerIncentive": "Partner Incentive",
-      "inquire": "Inquire"
+      "partnerIncentive": "حافز الشريك",
+      "inquire": "استفسار"
     },
     "tierInquiry": {
-      "title": "Partnership Inquiry Submitted",
-      "description": "Thank you for your interest in {{tier}} tier. The incentive package is {{incentive}} TBURN. Our team will contact you shortly."
+      "title": "تم تقديم استفسار الشراكة",
+      "description": "شكراً لاهتمامك بمستوى {{tier}}. حزمة الحوافز هي {{incentive}} TBURN. سيتواصل معك فريقنا قريباً."
     },
     "partnershipTypes": {
-      "badge": "TYPES",
-      "title": "Partnership Types",
-      "subtitle": "Various partnership opportunities for different sectors",
+      "badge": "الأنواع",
+      "title": "أنواع الشراكة",
+      "subtitle": "فرص شراكة متنوعة للقطاعات المختلفة",
       "enterprise": {
-        "title": "Enterprise Solutions",
-        "desc": "Large-scale enterprise blockchain integration and solutions",
+        "title": "حلول المؤسسات",
+        "desc": "تكامل بلوكتشين على نطاق واسع وحلول للمؤسسات",
         "features": [
-          "Private chain construction",
-          "API integration",
-          "Security audit",
-          "24/7 support"
+          "بناء سلسلة خاصة",
+          "تكامل API",
+          "تدقيق أمني",
+          "دعم على مدار الساعة"
         ],
-        "name": "Enterprise"
+        "name": "المؤسسات"
       },
       "protocol": {
-        "title": "Protocol Integration",
-        "desc": "DeFi and blockchain protocol partnerships",
+        "title": "تكامل البروتوكول",
+        "desc": "شراكات بروتوكولات DeFi والبلوكتشين",
         "features": [
-          "Cross-chain bridge",
-          "Liquidity pool",
-          "Smart contracts",
-          "Oracle integration"
+          "جسر عبر السلاسل",
+          "مجمع السيولة",
+          "العقود الذكية",
+          "تكامل الأوراكل"
         ],
-        "name": "Protocol Integration"
+        "name": "تكامل البروتوكول"
       },
       "institutional": {
-        "title": "Institutional Investment",
-        "desc": "Institutional investor partnerships and fund management",
+        "title": "الاستثمار المؤسسي",
+        "desc": "شراكات المستثمرين المؤسسيين وإدارة الصناديق",
         "features": [
-          "Custody service",
-          "OTC trading",
-          "Tax reports",
-          "Regulatory compliance"
+          "خدمة الحفظ",
+          "تداول OTC",
+          "تقارير ضريبية",
+          "الامتثال التنظيمي"
         ],
-        "name": "Institutional Investment"
+        "name": "الاستثمار المؤسسي"
       },
       "government": {
-        "title": "Public Partnership",
-        "desc": "Public sector blockchain adoption and smart city projects",
+        "title": "الشراكة العامة",
+        "desc": "اعتماد البلوكتشين في القطاع العام ومشاريع المدن الذكية",
         "features": [
-          "Public infrastructure",
-          "Digital identity",
-          "Transparency systems",
-          "Civic services"
+          "البنية التحتية العامة",
+          "الهوية الرقمية",
+          "أنظمة الشفافية",
+          "الخدمات المدنية"
         ],
-        "name": "Government/Public Sector"
+        "name": "الحكومة/القطاع العام"
       },
       "academic": {
-        "title": "Academic Research",
-        "desc": "University research partnerships and talent development",
+        "title": "البحث الأكاديمي",
+        "desc": "شراكات البحث الجامعي وتطوير المواهب",
         "features": [
-          "Research grants",
-          "Internships",
-          "Paper support",
-          "Technical consulting"
+          "منح بحثية",
+          "برامج تدريبية",
+          "دعم الأوراق البحثية",
+          "استشارات تقنية"
         ],
-        "name": "Academic Research"
+        "name": "البحث الأكاديمي"
       },
       "global": {
-        "title": "Global Expansion",
-        "desc": "International market expansion and localization partnerships",
+        "title": "التوسع العالمي",
+        "desc": "التوسع في الأسواق الدولية وشراكات التوطين",
         "features": [
-          "Localization support",
-          "Regulatory consulting",
-          "Partner connections",
-          "Marketing support"
+          "دعم التوطين",
+          "استشارات تنظيمية",
+          "روابط الشركاء",
+          "دعم التسويق"
         ],
-        "name": "Global Expansion"
+        "name": "التوسع العالمي"
       }
     },
     "process": {
-      "badge": "PROCESS",
-      "title": "Partnership Process",
-      "subtitle": "Systematic onboarding process",
+      "badge": "العملية",
+      "title": "عملية الشراكة",
+      "subtitle": "عملية انضمام منهجية",
       "step1": {
-        "title": "Application",
-        "desc": "Submit partnership application",
-        "duration": "1-2 days"
+        "title": "التقديم",
+        "desc": "تقديم طلب الشراكة",
+        "duration": "1-2 يوم"
       },
       "step2": {
-        "title": "Review",
-        "desc": "Internal review and due diligence",
-        "duration": "1-2 weeks"
+        "title": "المراجعة",
+        "desc": "مراجعة داخلية والعناية الواجبة",
+        "duration": "1-2 أسبوع"
       },
       "step3": {
-        "title": "Negotiation",
-        "desc": "Terms and conditions negotiation",
-        "duration": "2-4 weeks"
+        "title": "التفاوض",
+        "desc": "التفاوض على الشروط والأحكام",
+        "duration": "2-4 أسابيع"
       },
       "step4": {
-        "title": "Contract Signing",
-        "desc": "Legal contract signing",
-        "duration": "1-2 weeks"
+        "title": "توقيع العقد",
+        "desc": "توقيع العقد القانوني",
+        "duration": "1-2 أسبوع"
       },
       "step5": {
-        "title": "Onboarding",
-        "desc": "Technical integration and launch",
-        "duration": "4-8 weeks"
+        "title": "الانضمام",
+        "desc": "التكامل التقني والإطلاق",
+        "duration": "4-8 أسابيع"
       }
     },
     "benefits": {
-      "badge": "BENEFITS",
-      "title": "Strategic Partner Benefits",
-      "subtitle": "Exclusive benefits for strategic partners only",
+      "badge": "المزايا",
+      "title": "مزايا الشركاء الاستراتيجيين",
+      "subtitle": "مزايا حصرية للشركاء الاستراتيجيين فقط",
       "techSupport": {
-        "title": "Customized Tech Support",
-        "desc": "Dedicated engineering team develops solutions tailored to each company's requirements."
+        "title": "دعم تقني مخصص",
+        "desc": "فريق هندسي مخصص يطور حلولاً مصممة حسب متطلبات كل شركة."
       },
       "growth": {
-        "title": "Growth Acceleration",
-        "desc": "Support business growth leveraging TBURN ecosystem resources and network."
+        "title": "تسريع النمو",
+        "desc": "دعم نمو الأعمال بالاستفادة من موارد وشبكة نظام TBURN البيئي."
       },
       "security": {
-        "title": "Security & Compliance",
-        "desc": "Enterprise-grade security and global regulatory compliance guaranteed."
+        "title": "الأمان والامتثال",
+        "desc": "أمان على مستوى المؤسسات والامتثال التنظيمي العالمي مضمون."
       },
       "networking": {
-        "title": "Strategic Networking",
-        "desc": "Networking opportunities with industry leaders and joint business opportunities provided."
+        "title": "الشبكات الاستراتيجية",
+        "desc": "فرص التواصل مع قادة الصناعة وفرص الأعمال المشتركة."
       },
       "exclusive": {
-        "title": "Exclusive Benefits",
-        "desc": "Enjoy exclusive benefits including early access, governance participation, and special incentives."
+        "title": "مزايا حصرية",
+        "desc": "استمتع بمزايا حصرية تشمل الوصول المبكر والمشاركة في الحوكمة والحوافز الخاصة."
       },
       "data": {
-        "title": "Data Insights",
-        "desc": "Provide business intelligence through on-chain analytics and customized reports."
+        "title": "رؤى البيانات",
+        "desc": "توفير ذكاء الأعمال من خلال تحليلات السلسلة والتقارير المخصصة."
       }
     },
     "useCases": {
-      "badge": "USE CASES",
-      "title": "Use Cases",
-      "subtitle": "Strategic partnership utilization scenarios",
+      "badge": "حالات الاستخدام",
+      "title": "حالات الاستخدام",
+      "subtitle": "سيناريوهات استخدام الشراكة الاستراتيجية",
       "tabs": {
-        "enterprise": "Enterprise",
-        "protocol": "Protocol",
-        "institutional": "Institutional"
+        "enterprise": "المؤسسات",
+        "protocol": "البروتوكول",
+        "institutional": "المؤسسي"
       },
       "enterprise": {
-        "title": "Enterprise Solutions",
-        "desc": "Large-scale blockchain integration and customized enterprise solutions",
+        "title": "حلول المؤسسات",
+        "desc": "تكامل بلوكتشين واسع النطاق وحلول مؤسسية مخصصة",
         "features": [
-          "Private chain construction",
-          "API integration support",
-          "Enterprise security",
-          "24/7 technical support"
+          "بناء سلسلة خاصة",
+          "دعم تكامل API",
+          "أمان المؤسسات",
+          "دعم تقني على مدار الساعة"
         ],
         "stats": {
           "uptime": "99.99%",
-          "uptimeLabel": "Uptime SLA",
+          "uptimeLabel": "اتفاقية وقت التشغيل",
           "response": "<100ms",
-          "responseLabel": "Response Time",
+          "responseLabel": "وقت الاستجابة",
           "throughput": "210K",
-          "throughputLabel": "TPS",
-          "security": "Enterprise",
-          "securityLabel": "Security Grade"
+          "throughputLabel": "معاملة/ثانية",
+          "security": "مؤسسي",
+          "securityLabel": "درجة الأمان"
         }
       },
       "protocol": {
-        "title": "Protocol Integration",
-        "desc": "DeFi protocol partnerships and cross-chain integration",
+        "title": "تكامل البروتوكول",
+        "desc": "شراكات بروتوكولات DeFi والتكامل عبر السلاسل",
         "features": [
-          "Cross-chain bridge",
-          "Liquidity provision",
-          "Smart contract audit",
-          "Protocol governance"
+          "جسر عبر السلاسل",
+          "توفير السيولة",
+          "تدقيق العقود الذكية",
+          "حوكمة البروتوكول"
         ],
         "stats": {
           "tvl": "$2.5B+",
-          "tvlLabel": "TVL Target",
+          "tvlLabel": "هدف TVL",
           "protocols": "50+",
-          "protocolsLabel": "Partner Protocols",
+          "protocolsLabel": "بروتوكولات الشركاء",
           "transactions": "1M+",
-          "transactionsLabel": "Daily Transactions",
+          "transactionsLabel": "المعاملات اليومية",
           "chains": "15+",
-          "chainsLabel": "Supported Chains"
+          "chainsLabel": "السلاسل المدعومة"
         }
       },
       "institutional": {
-        "title": "Institutional Services",
-        "desc": "Institutional investor services and compliance solutions",
+        "title": "الخدمات المؤسسية",
+        "desc": "خدمات المستثمرين المؤسسيين وحلول الامتثال",
         "features": [
-          "Custody solution",
-          "OTC trading",
-          "Compliance reporting",
-          "Tax optimization"
+          "حل الحفظ",
+          "تداول OTC",
+          "تقارير الامتثال",
+          "تحسين الضرائب"
         ],
         "stats": {
           "aum": "$500M+",
-          "aumLabel": "AUM Target",
+          "aumLabel": "هدف الأصول المدارة",
           "partners": "25+",
-          "partnersLabel": "Institutional Partners",
-          "otc": "Available",
-          "otcLabel": "OTC Desk",
+          "partnersLabel": "الشركاء المؤسسيون",
+          "otc": "متاح",
+          "otcLabel": "مكتب OTC",
           "compliance": "SOC2",
-          "complianceLabel": "Compliance"
+          "complianceLabel": "الامتثال"
         }
       }
     },
     "currentPartners": {
-      "badge": "PARTNERS",
-      "title": "Current Partners",
-      "subtitle": "World-class organizations partnering with TBURN",
-      "investmentScale": "Investment Scale",
-      "partnership": "Partnership Since",
+      "badge": "الشركاء",
+      "title": "الشركاء الحاليون",
+      "subtitle": "منظمات عالمية المستوى تتشارك مع TBURN",
+      "investmentScale": "حجم الاستثمار",
+      "partnership": "الشراكة منذ",
       "partners": {
         "partner1": {
-          "name": "Global Tech Corp",
-          "type": "Enterprise"
+          "name": "جلوبال تك كورب",
+          "type": "مؤسسات"
         },
         "partner2": {
-          "name": "DeFi Protocol X",
-          "type": "Protocol"
+          "name": "بروتوكول DeFi X",
+          "type": "بروتوكول"
         },
         "partner3": {
-          "name": "Crypto Fund Alpha",
-          "type": "Institutional"
+          "name": "صندوق كريبتو ألفا",
+          "type": "مؤسسي"
         },
         "partner4": {
-          "name": "City of Seoul",
-          "type": "Government"
+          "name": "مدينة سيول",
+          "type": "حكومة"
         }
       },
       "tierBadges": {
-        "diamond": "DIAMOND",
-        "platinum": "PLATINUM",
-        "gold": "GOLD",
-        "silver": "SILVER"
+        "diamond": "الماسي",
+        "platinum": "البلاتيني",
+        "gold": "الذهبي",
+        "silver": "الفضي"
       }
     },
     "faq": {
-      "badge": "FAQ",
-      "title": "Frequently Asked Questions",
-      "subtitle": "Common questions about strategic partnerships",
+      "badge": "الأسئلة الشائعة",
+      "title": "الأسئلة المتكررة",
+      "subtitle": "أسئلة شائعة حول الشراكات الاستراتيجية",
       "q1": {
-        "question": "What is the total budget for strategic partnerships?",
-        "answer": "A total of 200M TBURN is allocated for strategic partnerships."
+        "question": "ما هي الميزانية الإجمالية للشراكات الاستراتيجية؟",
+        "answer": "تم تخصيص إجمالي 200 مليون TBURN للشراكات الاستراتيجية."
       },
       "q2": {
-        "question": "What are the requirements to become a strategic partner?",
-        "answer": "Requirements vary by tier. Silver starts at $100K, Gold $1M, Platinum $5M, Diamond $10M+."
+        "question": "ما هي متطلبات أن تصبح شريكاً استراتيجياً؟",
+        "answer": "تختلف المتطلبات حسب المستوى. الفضي يبدأ من $100K، الذهبي $1M، البلاتيني $5M، الماسي $10M+."
       },
       "q3": {
-        "question": "How are partnership incentives distributed?",
-        "answer": "Incentives follow a vesting schedule. Typically 20% at onboarding, remainder over 12-36 months."
+        "question": "كيف يتم توزيع حوافز الشراكة؟",
+        "answer": "تتبع الحوافز جدول استحقاق. عادةً 20% عند الانضمام، والباقي على 12-36 شهراً."
       },
       "q4": {
-        "question": "Are there special programs for institutional investors?",
-        "answer": "Yes, institutional investors receive dedicated account management and priority OTC access."
+        "question": "هل توجد برامج خاصة للمستثمرين المؤسسيين؟",
+        "answer": "نعم، يحصل المستثمرون المؤسسيون على إدارة حساب مخصصة وأولوية الوصول لـ OTC."
       },
       "q5": {
-        "question": "How long does it take to finalize a partnership?",
-        "answer": "The typical process takes 8-16 weeks from application to onboarding."
+        "question": "كم يستغرق الوقت لإتمام الشراكة؟",
+        "answer": "تستغرق العملية النموذجية 8-16 أسبوعاً من التقديم إلى الانضمام."
       },
       "q6": {
-        "question": "How does protocol integration partnership work?",
-        "answer": "Protocol partners receive technical integration support, API access, and liquidity incentives."
+        "question": "كيف تعمل شراكة تكامل البروتوكول؟",
+        "answer": "يحصل شركاء البروتوكول على دعم التكامل التقني والوصول لـ API وحوافز السيولة."
       },
       "q7": {
-        "question": "What are the exclusive benefits for Diamond tier partners?",
-        "answer": "Diamond partners receive dedicated tech team, board participation, and up to 50M TBURN incentives."
+        "question": "ما هي المزايا الحصرية لشركاء المستوى الماسي؟",
+        "answer": "يحصل الشركاء الماسيون على فريق تقني مخصص ومشاركة في مجلس الإدارة وحتى 50M TBURN حوافز."
       },
       "q8": {
-        "question": "How can I inquire about partnership?",
-        "answer": "Click the Apply for Partnership button or contact our partnership team directly."
+        "question": "كيف يمكنني الاستفسار عن الشراكة؟",
+        "answer": "انقر على زر التقدم للشراكة أو تواصل مع فريق الشراكات مباشرة."
       },
       "items": {
         "q1": {
-          "question": "What are the minimum requirements to become a strategic partner?",
-          "answer": "Strategic partnership requirements vary by tier. Silver tier starts at $100K value provision, while Diamond tier requires $10M+ value provision including technology, capital, or network contributions."
+          "question": "ما هي الحد الأدنى من المتطلبات لتصبح شريكاً استراتيجياً؟",
+          "answer": "تختلف متطلبات الشراكة الاستراتيجية حسب المستوى. المستوى الفضي يبدأ من توفير قيمة $100K، بينما المستوى الماسي يتطلب توفير قيمة $10M+ تشمل التكنولوجيا أو رأس المال أو المساهمات الشبكية."
         },
         "q2": {
-          "question": "How long does the partnership process take?",
-          "answer": "The typical partnership process takes 8-16 weeks from application to onboarding. This includes review (1-2 weeks), negotiation (2-4 weeks), contract signing (1-2 weeks), and technical integration (4-8 weeks)."
+          "question": "كم تستغرق عملية الشراكة؟",
+          "answer": "تستغرق عملية الشراكة النموذجية 8-16 أسبوعاً من التقديم إلى الانضمام. تشمل المراجعة (1-2 أسبوع)، التفاوض (2-4 أسابيع)، توقيع العقد (1-2 أسبوع)، والتكامل التقني (4-8 أسابيع)."
         },
         "q3": {
-          "question": "What types of value contributions are accepted?",
-          "answer": "We accept various forms of value including direct investment, technology integration, network access, marketing reach, research contributions, and strategic advisory services."
+          "question": "ما هي أنواع مساهمات القيمة المقبولة؟",
+          "answer": "نقبل أشكالاً مختلفة من القيمة تشمل الاستثمار المباشر، التكامل التكنولوجي، الوصول للشبكات، الوصول التسويقي، المساهمات البحثية، والخدمات الاستشارية الاستراتيجية."
         },
         "q4": {
-          "question": "Can partnership tiers be upgraded?",
-          "answer": "Yes, partners can upgrade their tier by increasing their value contribution. Tier upgrades are reviewed quarterly and additional benefits are applied immediately upon approval."
+          "question": "هل يمكن ترقية مستويات الشراكة؟",
+          "answer": "نعم، يمكن للشركاء ترقية مستواهم بزيادة مساهماتهم في القيمة. تتم مراجعة ترقيات المستويات ربع سنوياً ويتم تطبيق المزايا الإضافية فوراً عند الموافقة."
         },
         "q5": {
-          "question": "What governance rights do partners receive?",
-          "answer": "Governance rights vary by tier. Diamond partners receive exclusive governance rights including board participation, while other tiers receive proportional voting rights in the DAO."
+          "question": "ما هي حقوق الحوكمة التي يحصل عليها الشركاء؟",
+          "answer": "تختلف حقوق الحوكمة حسب المستوى. الشركاء الماسيون يحصلون على حقوق حوكمة حصرية تشمل المشاركة في مجلس الإدارة، بينما تحصل المستويات الأخرى على حقوق تصويت نسبية في DAO."
         },
         "q6": {
-          "question": "How are TBURN incentives distributed?",
-          "answer": "Incentives are distributed according to a vesting schedule specified in the partnership agreement. Typically, 20% is released at onboarding with the remainder vesting over 12-36 months."
+          "question": "كيف يتم توزيع حوافز TBURN؟",
+          "answer": "يتم توزيع الحوافز وفقاً لجدول استحقاق محدد في اتفاقية الشراكة. عادةً، يتم إصدار 20% عند الانضمام مع استحقاق الباقي على 12-36 شهراً."
         },
         "q7": {
-          "question": "What technical support is provided?",
-          "answer": "Technical support ranges from standard documentation access (Silver) to dedicated engineering teams (Diamond). All partners receive API access and integration documentation."
+          "question": "ما هو الدعم التقني المقدم؟",
+          "answer": "يتراوح الدعم التقني من الوصول للوثائق القياسية (الفضي) إلى فرق هندسية مخصصة (الماسي). جميع الشركاء يحصلون على وصول API ووثائق التكامل."
         },
         "q8": {
-          "question": "Are there regional partnership opportunities?",
-          "answer": "Yes, we actively seek regional partners for market expansion. Regional partners may receive additional benefits including localization support and market-specific incentives."
+          "question": "هل توجد فرص شراكة إقليمية؟",
+          "answer": "نعم، نسعى بنشاط للشركاء الإقليميين للتوسع في السوق. قد يحصل الشركاء الإقليميون على مزايا إضافية تشمل دعم التوطين وحوافز خاصة بالسوق."
         }
       }
     },
     "ctaSection": {
-      "title": "كن شريكا استراتيجيا",
-      "subtitle1": "ابن مستقبل البلوكتشين معا",
-      "subtitle2": "وانم مع نظام TBURN البيئي.",
+      "title": "كن شريكاً استراتيجياً",
+      "subtitle1": "ابنِ مستقبل البلوكتشين معاً",
+      "subtitle2": "وانمُ مع نظام TBURN البيئي.",
       "button": "تقدم للشراكة"
     },
     "footer": {
@@ -22013,12 +22013,12 @@
       "explorer": "المستكشف",
       "bridge": "الجسر",
       "staking": "التخزين",
-      "governance": "Governance",
+      "governance": "الحوكمة",
       "developers": "المطورون",
       "documentation": "التوثيق",
       "api": "API",
       "github": "GitHub",
-      "bugBounty": "مكافاة الاخطاء",
+      "bugBounty": "مكافأة الأخطاء",
       "community": "المجتمع",
       "twitter": "تويتر",
       "telegram": "تيليجرام",

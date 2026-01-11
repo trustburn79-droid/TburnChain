@@ -20715,438 +20715,356 @@
     }
   },
   "strategicPartner": {
-    "title": "Strategic Partners",
-    "subtitle": "Key strategic partnerships shaping the TBURN ecosystem",
-    "heroTitle": "TBURN Strategic Partners",
-    "heroSubtitle": "World-class partners supporting the TBURN vision",
+    "title": "Стратегические Партнеры",
+    "subtitle": "Ключевые стратегические партнерства, формирующие экосистему TBURN",
+    "heroTitle": "Стратегические Партнеры TBURN",
+    "heroSubtitle": "Партнеры мирового класса, поддерживающие видение TBURN",
     "badge": "СТРАТЕГИЧЕСКОЕ ПАРТНЕРСТВО - Корпоративное партнерство",
-    "partnerCount": "Partner Count",
-    "categories": "Categories",
-    "tier1": "Tier 1 Partners",
-    "tier2": "Tier 2 Partners",
-    "tier3": "Tier 3 Partners",
-    "vcPartners": "VC Partners",
-    "techPartners": "Technology Partners",
-    "mediaPartners": "Media Partners",
+    "partnerCount": "Количество партнеров",
+    "categories": "Категории",
+    "tier1": "Партнеры 1 уровня",
+    "tier2": "Партнеры 2 уровня",
+    "tier3": "Партнеры 3 уровня",
+    "vcPartners": "Венчурные партнеры",
+    "techPartners": "Технологические партнеры",
+    "mediaPartners": "Медиа партнеры",
     "nav": {
       "partnerTiers": "Уровни партнеров",
       "partnershipTypes": "Типы партнерства",
       "benefits": "Преимущества",
       "useCases": "Примеры использования",
-      "faq": "FAQ"
+      "faq": "Часто задаваемые вопросы"
     },
     "wallet": {
-      "connect": "Connect Wallet",
-      "disconnect": "Wallet Disconnected",
-      "disconnectDesc": "Your wallet has been disconnected.",
-      "connected": "Wallet Connected",
-      "connectedDesc": "Your wallet has been connected.",
-      "required": "Wallet Required",
-      "requiredDesc": "Please connect your wallet first to make a partnership inquiry."
+      "connect": "Подключить кошелек",
+      "disconnect": "Кошелек отключен",
+      "disconnectDesc": "Ваш кошелек был отключен.",
+      "connected": "Кошелек подключен",
+      "connectedDesc": "Ваш кошелек успешно подключен.",
+      "required": "Требуется кошелек",
+      "requiredDesc": "Пожалуйста, сначала подключите кошелек для отправки запроса на партнерство."
     },
     "hero": {
       "title1": "Стратегическое партнерство на",
       "title2": "200M TBURN",
       "title3": "поощрений",
-      "subtitle": "Станьте ключевым партнером экосистемы TBURN."
+      "subtitle": "Станьте ключевым партнером экосистемы TBURN через стратегические партнерства с предприятиями, институциональными инвесторами и крупными протоколами."
     },
     "enterpriseLogos": {
-      "enterprise": "Enterprise",
-      "protocol": "Protocol",
-      "institutional": "Institutional",
-      "corporate": "Corporate",
-      "research": "Research"
+      "enterprise": "Корпорации",
+      "protocol": "Протоколы",
+      "institutional": "Институции",
+      "corporate": "Компании",
+      "research": "Исследования"
     },
     "stats": {
-      "totalBudget": "Total Strategic Budget",
-      "strategicPartners": "Strategic Partners",
-      "distributed": "Distributed",
-      "totalPartnerships": "Total Partnerships"
+      "totalBudget": "Общий стратегический бюджет",
+      "strategicPartners": "Стратегические партнеры",
+      "distributed": "Распределено",
+      "totalPartnerships": "Всего партнерств"
     },
     "cta": {
-      "applyPartnership": "Apply Partnership",
-      "enterpriseGuide": "Enterprise Guide",
-      "partnershipInquiry": "Partnership Inquiry",
-      "partnershipInquiryDesc": "Check the partner tiers and contact us!",
-      "enterpriseGuideDesc": "View partnership type information."
+      "applyPartnership": "Подать заявку",
+      "enterpriseGuide": "Руководство для корпораций",
+      "partnershipInquiry": "Запрос на партнерство",
+      "partnershipInquiryDesc": "Ознакомьтесь с уровнями партнеров и свяжитесь с нами!",
+      "enterpriseGuideDesc": "Просмотреть информацию о типах партнерства."
     },
     "distribution": {
-      "badge": "DISTRIBUTION",
-      "title": "Strategic Budget Distribution",
-      "subtitle": "200M TBURN allocated to 5 strategic areas",
-      "enterprise": "Enterprise",
+      "badge": "РАСПРЕДЕЛЕНИЕ",
+      "title": "Распределение стратегического бюджета",
+      "subtitle": "200M TBURN распределены по 5 стратегическим направлениям",
+      "enterprise": "Корпорации",
       "enterpriseAmount": "80M",
-      "protocol": "Protocol Integration",
+      "protocol": "Интеграция протоколов",
       "protocolAmount": "40M",
-      "institutional": "Institutional Investors",
+      "institutional": "Институциональные инвесторы",
       "institutionalAmount": "40M",
-      "government": "Public Sector",
+      "government": "Государственный сектор",
       "governmentAmount": "20M",
-      "academic": "Academic/Research",
+      "academic": "Академия/Исследования",
       "academicAmount": "20M"
     },
     "tiers": {
-      "badge": "TIERS",
-      "title": "Strategic Partner Tiers",
-      "subtitle": "Differentiated benefits based on contribution and investment scale",
+      "badge": "УРОВНИ",
+      "title": "Уровни стратегических партнеров",
+      "subtitle": "Дифференцированные преимущества в зависимости от вклада и масштаба инвестиций",
       "diamond": {
-        "name": "Diamond",
-        "subtitle": "Top Strategic Partner",
-        "incentive": "Up to 50M",
-        "requirement": "$10M+ value provision",
+        "name": "Бриллиант",
+        "subtitle": "Топовый стратегический партнер",
+        "incentive": "До 50M",
+        "requirement": "Предоставление ценности от $10M",
         "benefits": [
-          "Dedicated tech team",
-          "Custom solution development",
-          "Board participation",
-          "Exclusive governance rights",
-          "Annual offline summit"
+          "Выделенная техническая команда",
+          "Разработка индивидуальных решений",
+          "Участие в совете директоров",
+          "Эксклюзивные права управления",
+          "Ежегодный офлайн-саммит"
         ]
       },
       "platinum": {
-        "name": "Platinum",
-        "subtitle": "Premium Partner",
-        "incentive": "Up to 20M",
-        "requirement": "$5M+ value provision",
+        "name": "Платина",
+        "subtitle": "Премиум партнер",
+        "incentive": "До 20M",
+        "requirement": "Предоставление ценности от $5M",
         "benefits": [
-          "Priority tech support",
-          "Co-marketing",
-          "Quarterly strategy meetings",
-          "Governance voting rights",
-          "VIP events"
+          "Приоритетная техническая поддержка",
+          "Совместный маркетинг",
+          "Ежеквартальные стратегические встречи",
+          "Права голосования в управлении",
+          "VIP мероприятия"
         ]
       },
       "gold": {
-        "name": "Gold",
-        "subtitle": "Core Partner",
-        "incentive": "Up to 5M",
-        "requirement": "$1M+ value provision",
+        "name": "Золото",
+        "subtitle": "Основной партнер",
+        "incentive": "До 5M",
+        "requirement": "Предоставление ценности от $1M",
         "benefits": [
-          "Tech integration support",
-          "Marketing collaboration",
-          "Monthly reports",
-          "DAO participation",
-          "Partner networking"
+          "Поддержка технической интеграции",
+          "Маркетинговое сотрудничество",
+          "Ежемесячные отчеты",
+          "Участие в DAO",
+          "Нетворкинг с партнерами"
         ]
       },
       "silver": {
-        "name": "Silver",
-        "subtitle": "Growth Partner",
-        "incentive": "Up to 1M",
-        "requirement": "$100K+ value provision",
+        "name": "Серебро",
+        "subtitle": "Растущий партнер",
+        "incentive": "До 1M",
+        "requirement": "Предоставление ценности от $100K",
         "benefits": [
-          "Standard tech support",
-          "Co-branding",
-          "Quarterly reports",
-          "Community access",
-          "Developer support"
+          "Стандартная техническая поддержка",
+          "Совместный брендинг",
+          "Ежеквартальные отчеты",
+          "Доступ к сообществу",
+          "Поддержка разработчиков"
         ]
       },
-      "partnerIncentive": "Partner Incentive",
-      "inquire": "Inquire"
-    },
-    "tierInquiry": {
-      "title": "Partnership Inquiry Submitted",
-      "description": "Thank you for your interest in {{tier}} tier. The incentive package is {{incentive}} TBURN. Our team will contact you shortly."
+      "inquireButton": "Отправить запрос"
     },
     "partnershipTypes": {
-      "badge": "TYPES",
-      "title": "Partnership Types",
-      "subtitle": "Various partnership opportunities for different sectors",
+      "badge": "ТИПЫ ПАРТНЕРСТВА",
+      "title": "Типы партнерства",
+      "subtitle": "Специализированные программы партнерства, адаптированные для различных организаций",
       "enterprise": {
-        "title": "Enterprise Solutions",
-        "desc": "Large-scale enterprise blockchain integration and solutions",
+        "title": "Корпоративное партнерство",
+        "description": "Для крупных предприятий и корпораций, желающих интегрировать технологию TBURN в свои бизнес-операции.",
         "features": [
-          "Private chain construction",
-          "API integration",
-          "Security audit",
-          "24/7 support"
-        ],
-        "name": "Enterprise"
+          "Интеграция корпоративного блокчейна",
+          "Пользовательские решения смарт-контрактов",
+          "Выделенная команда поддержки",
+          "Соответствие SLA уровня предприятия"
+        ]
       },
       "protocol": {
-        "title": "Protocol Integration",
-        "desc": "DeFi and blockchain protocol partnerships",
+        "title": "Партнерство протоколов",
+        "description": "Для блокчейн-протоколов и DeFi-проектов, заинтересованных в кросс-чейн интеграции и совместимости.",
         "features": [
-          "Cross-chain bridge",
-          "Liquidity pool",
-          "Smart contracts",
-          "Oracle integration"
-        ],
-        "name": "Protocol Integration"
+          "Кросс-чейн мостовые решения",
+          "Интеграция пулов ликвидности",
+          "Совместное управление протоколом",
+          "Общие стандарты безопасности"
+        ]
       },
       "institutional": {
-        "title": "Institutional Investment",
-        "desc": "Institutional investor partnerships and fund management",
+        "title": "Институциональное партнерство",
+        "description": "Для институциональных инвесторов и финансовых учреждений, ищущих экспозицию в блокчейн.",
         "features": [
-          "Custody service",
-          "OTC trading",
-          "Tax reports",
-          "Regulatory compliance"
-        ],
-        "name": "Institutional Investment"
+          "Индивидуальные инвестиционные структуры",
+          "Институциональное хранение",
+          "Соответствие нормативным требованиям",
+          "Премиум OTC сервисы"
+        ]
       },
       "government": {
-        "title": "Public Partnership",
-        "desc": "Public sector blockchain adoption and smart city projects",
+        "title": "Государственное партнерство",
+        "description": "Для государственных органов и организаций государственного сектора, изучающих блокчейн-решения.",
         "features": [
-          "Public infrastructure",
-          "Digital identity",
-          "Transparency systems",
-          "Civic services"
-        ],
-        "name": "Government/Public Sector"
+          "Блокчейн-решения для госсектора",
+          "Прозрачность и аудит",
+          "Соответствие нормативам",
+          "Инициативы цифровой трансформации"
+        ]
       },
       "academic": {
-        "title": "Academic Research",
-        "desc": "University research partnerships and talent development",
+        "title": "Академическое партнерство",
+        "description": "Для университетов и исследовательских институтов, занимающихся исследованиями блокчейна.",
         "features": [
-          "Research grants",
-          "Internships",
-          "Paper support",
-          "Technical consulting"
-        ],
-        "name": "Academic Research"
+          "Исследовательские гранты",
+          "Доступ к техническим ресурсам",
+          "Совместные публикации",
+          "Студенческие программы"
+        ]
       },
       "global": {
-        "title": "Global Expansion",
-        "desc": "International market expansion and localization partnerships",
+        "title": "Глобальное партнерство",
+        "description": "Для международных организаций, ищущих глобальное партнерство с экосистемой TBURN.",
         "features": [
-          "Localization support",
-          "Regulatory consulting",
-          "Partner connections",
-          "Marketing support"
-        ],
-        "name": "Global Expansion"
+          "Мультирегиональное присутствие",
+          "Поддержка локализации",
+          "Глобальный маркетинг",
+          "Межрегиональное сотрудничество"
+        ]
       }
     },
     "process": {
-      "badge": "PROCESS",
-      "title": "Partnership Process",
-      "subtitle": "Systematic onboarding process",
+      "badge": "ПРОЦЕСС",
+      "title": "Процесс партнерства",
+      "subtitle": "Оптимизированный путь от начала до конца для потенциальных партнеров",
       "step1": {
-        "title": "Application",
-        "desc": "Submit partnership application",
-        "duration": "1-2 days"
+        "title": "Подача заявки",
+        "description": "Отправьте свою заявку на партнерство с информацией о компании и целях партнерства."
       },
       "step2": {
-        "title": "Review",
-        "desc": "Internal review and due diligence",
-        "duration": "1-2 weeks"
+        "title": "Первичная проверка",
+        "description": "Наша команда рассмотрит вашу заявку и проведет первоначальную оценку."
       },
       "step3": {
-        "title": "Negotiation",
-        "desc": "Terms and conditions negotiation",
-        "duration": "2-4 weeks"
+        "title": "Due Diligence",
+        "description": "Комплексная оценка включая техническую, юридическую и деловую проверку."
       },
       "step4": {
-        "title": "Contract Signing",
-        "desc": "Legal contract signing",
-        "duration": "1-2 weeks"
+        "title": "Соглашение о партнерстве",
+        "description": "Финализация условий, прав и обязанностей обеих сторон."
       },
       "step5": {
-        "title": "Onboarding",
-        "desc": "Technical integration and launch",
-        "duration": "4-8 weeks"
+        "title": "Запуск и онбординг",
+        "description": "Официальный запуск партнерства с полной интеграцией и активацией преимуществ."
       }
     },
     "benefits": {
-      "badge": "BENEFITS",
-      "title": "Strategic Partner Benefits",
-      "subtitle": "Exclusive benefits for strategic partners only",
+      "badge": "ПРЕИМУЩЕСТВА",
+      "title": "Преимущества партнерства",
+      "subtitle": "Комплексные преимущества для стратегических партнеров",
       "techSupport": {
-        "title": "Customized Tech Support",
-        "desc": "Dedicated engineering team develops solutions tailored to each company's requirements."
+        "title": "Техническая поддержка",
+        "description": "Выделенная инженерная поддержка и приоритетный доступ к технической документации."
       },
       "growth": {
-        "title": "Growth Acceleration",
-        "desc": "Support business growth leveraging TBURN ecosystem resources and network."
+        "title": "Поддержка роста",
+        "description": "Маркетинговое сотрудничество, совместный брендинг и экспозиция в экосистеме."
       },
       "security": {
-        "title": "Security & Compliance",
-        "desc": "Enterprise-grade security and global regulatory compliance guaranteed."
+        "title": "Безопасность",
+        "description": "Общие аудиты безопасности, соответствие требованиям и управление рисками."
       },
       "networking": {
-        "title": "Strategic Networking",
-        "desc": "Networking opportunities with industry leaders and joint business opportunities provided."
+        "title": "Нетворкинг",
+        "description": "Доступ к эксклюзивной партнерской сети и отраслевым мероприятиям."
       },
       "exclusive": {
-        "title": "Exclusive Benefits",
-        "desc": "Enjoy exclusive benefits including early access, governance participation, and special incentives."
+        "title": "Эксклюзивный доступ",
+        "description": "Ранний доступ к новым функциям, бета-тестирование и приоритетные обновления."
       },
       "data": {
-        "title": "Data Insights",
-        "desc": "Provide business intelligence through on-chain analytics and customized reports."
+        "title": "Аналитика данных",
+        "description": "Расширенная аналитика, отчеты и рыночные insights."
       }
     },
     "useCases": {
-      "badge": "USE CASES",
-      "title": "Use Cases",
-      "subtitle": "Strategic partnership utilization scenarios",
+      "badge": "ПРИМЕРЫ ИСПОЛЬЗОВАНИЯ",
+      "title": "Примеры использования партнерства",
+      "subtitle": "Реальные сценарии применения стратегических партнерств",
       "tabs": {
-        "enterprise": "Enterprise",
-        "protocol": "Protocol",
-        "institutional": "Institutional"
+        "enterprise": "Корпорации",
+        "protocol": "Протоколы",
+        "institutional": "Институции"
       },
       "enterprise": {
-        "title": "Enterprise Solutions",
-        "desc": "Large-scale blockchain integration and customized enterprise solutions",
-        "features": [
-          "Private chain construction",
-          "API integration support",
-          "Enterprise security",
-          "24/7 technical support"
-        ],
+        "title": "Корпоративная интеграция",
+        "description": "Как корпорации используют технологию TBURN для трансформации бизнеса.",
         "stats": {
-          "uptime": "99.99%",
-          "uptimeLabel": "Uptime SLA",
-          "response": "<100ms",
-          "responseLabel": "Response Time",
-          "throughput": "210K",
-          "throughputLabel": "TPS",
-          "security": "Enterprise",
-          "securityLabel": "Security Grade"
+          "integrations": "Интеграции",
+          "integrationsValue": "50+",
+          "transactions": "Транзакции",
+          "transactionsValue": "10M+",
+          "savings": "Экономия",
+          "savingsValue": "40%"
         }
       },
       "protocol": {
-        "title": "Protocol Integration",
-        "desc": "DeFi protocol partnerships and cross-chain integration",
-        "features": [
-          "Cross-chain bridge",
-          "Liquidity provision",
-          "Smart contract audit",
-          "Protocol governance"
-        ],
+        "title": "Интеграция протоколов",
+        "description": "Кросс-чейн совместимость и синергия DeFi экосистемы.",
         "stats": {
-          "tvl": "$2.5B+",
-          "tvlLabel": "TVL Target",
-          "protocols": "50+",
-          "protocolsLabel": "Partner Protocols",
-          "transactions": "1M+",
-          "transactionsLabel": "Daily Transactions",
-          "chains": "15+",
-          "chainsLabel": "Supported Chains"
+          "protocols": "Протоколы",
+          "protocolsValue": "25+",
+          "tvl": "TVL",
+          "tvlValue": "$500M+",
+          "bridges": "Мосты",
+          "bridgesValue": "10+"
         }
       },
       "institutional": {
-        "title": "Institutional Services",
-        "desc": "Institutional investor services and compliance solutions",
-        "features": [
-          "Custody solution",
-          "OTC trading",
-          "Compliance reporting",
-          "Tax optimization"
-        ],
+        "title": "Институциональные инвестиции",
+        "description": "Как институциональные инвесторы получают экспозицию через TBURN.",
         "stats": {
-          "aum": "$500M+",
-          "aumLabel": "AUM Target",
-          "partners": "25+",
-          "partnersLabel": "Institutional Partners",
-          "otc": "Available",
-          "otcLabel": "OTC Desk",
-          "compliance": "SOC2",
-          "complianceLabel": "Compliance"
+          "investors": "Инвесторы",
+          "investorsValue": "100+",
+          "aum": "AUM",
+          "aumValue": "$2B+",
+          "returns": "Доходность",
+          "returnsValue": "25%+"
         }
       }
     },
     "currentPartners": {
-      "badge": "PARTNERS",
-      "title": "Current Partners",
-      "subtitle": "World-class organizations partnering with TBURN",
-      "investmentScale": "Investment Scale",
-      "partnership": "Partnership Since",
-      "partners": {
-        "partner1": {
-          "name": "Global Tech Corp",
-          "type": "Enterprise"
-        },
-        "partner2": {
-          "name": "DeFi Protocol X",
-          "type": "Protocol"
-        },
-        "partner3": {
-          "name": "Crypto Fund Alpha",
-          "type": "Institutional"
-        },
-        "partner4": {
-          "name": "City of Seoul",
-          "type": "Government"
-        }
+      "badge": "ТЕКУЩИЕ ПАРТНЕРЫ",
+      "title": "Наши стратегические партнеры",
+      "subtitle": "Лидеры отрасли, формирующие экосистему TBURN",
+      "partner1": {
+        "name": "Global Tech Corp",
+        "description": "Ведущий корпоративный партнер в области технологической интеграции"
       },
-      "tierBadges": {
-        "diamond": "DIAMOND",
-        "platinum": "PLATINUM",
-        "gold": "GOLD",
-        "silver": "SILVER"
+      "partner2": {
+        "name": "DeFi Protocol Alpha",
+        "description": "Крупнейший партнер по интеграции протоколов"
+      },
+      "partner3": {
+        "name": "Institutional Capital",
+        "description": "Ведущий институциональный инвестиционный партнер"
+      },
+      "partner4": {
+        "name": "Blockchain Research Lab",
+        "description": "Премиум академический исследовательский партнер"
       }
     },
     "faq": {
-      "badge": "FAQ",
-      "title": "Frequently Asked Questions",
-      "subtitle": "Common questions about strategic partnerships",
-      "q1": {
-        "question": "What is the total budget for strategic partnerships?",
-        "answer": "A total of 200M TBURN is allocated for strategic partnerships."
-      },
-      "q2": {
-        "question": "What are the requirements to become a strategic partner?",
-        "answer": "Requirements vary by tier. Silver starts at $100K, Gold $1M, Platinum $5M, Diamond $10M+."
-      },
-      "q3": {
-        "question": "How are partnership incentives distributed?",
-        "answer": "Incentives follow a vesting schedule. Typically 20% at onboarding, remainder over 12-36 months."
-      },
-      "q4": {
-        "question": "Are there special programs for institutional investors?",
-        "answer": "Yes, institutional investors receive dedicated account management and priority OTC access."
-      },
-      "q5": {
-        "question": "How long does it take to finalize a partnership?",
-        "answer": "The typical process takes 8-16 weeks from application to onboarding."
-      },
-      "q6": {
-        "question": "How does protocol integration partnership work?",
-        "answer": "Protocol partners receive technical integration support, API access, and liquidity incentives."
-      },
-      "q7": {
-        "question": "What are the exclusive benefits for Diamond tier partners?",
-        "answer": "Diamond partners receive dedicated tech team, board participation, and up to 50M TBURN incentives."
-      },
-      "q8": {
-        "question": "How can I inquire about partnership?",
-        "answer": "Click the Apply for Partnership button or contact our partnership team directly."
-      },
+      "badge": "ЧАСТО ЗАДАВАЕМЫЕ ВОПРОСЫ",
+      "title": "Часто задаваемые вопросы",
+      "subtitle": "Ответы на распространенные вопросы о стратегическом партнерстве",
       "items": {
         "q1": {
-          "question": "What are the minimum requirements to become a strategic partner?",
-          "answer": "Strategic partnership requirements vary by tier. Silver tier starts at $100K value provision, while Diamond tier requires $10M+ value provision including technology, capital, or network contributions."
+          "question": "Каковы минимальные требования для партнерства?",
+          "answer": "Минимальные требования зависят от уровня партнерства. Уровень Серебро требует предоставления ценности от $100K, а уровень Бриллиант требует от $10M и более. Мы также учитываем стратегическое соответствие, технические возможности и долгосрочное видение."
         },
         "q2": {
-          "question": "How long does the partnership process take?",
-          "answer": "The typical partnership process takes 8-16 weeks from application to onboarding. This includes review (1-2 weeks), negotiation (2-4 weeks), contract signing (1-2 weeks), and technical integration (4-8 weeks)."
+          "question": "Сколько времени занимает процесс партнерства?",
+          "answer": "Процесс партнерства обычно занимает 4-8 недель от подачи заявки до активации. Более крупные партнерства могут требовать дополнительного времени на due diligence."
         },
         "q3": {
-          "question": "What types of value contributions are accepted?",
-          "answer": "We accept various forms of value including direct investment, technology integration, network access, marketing reach, research contributions, and strategic advisory services."
+          "question": "Какие виды поддержки предоставляются партнерам?",
+          "answer": "Партнеры получают техническую поддержку, маркетинговое сотрудничество, права управления, доступ к эксклюзивным мероприятиям и приоритетные обновления. Конкретные преимущества зависят от уровня партнерства."
         },
         "q4": {
-          "question": "Can partnership tiers be upgraded?",
-          "answer": "Yes, partners can upgrade their tier by increasing their value contribution. Tier upgrades are reviewed quarterly and additional benefits are applied immediately upon approval."
+          "question": "Возможно ли повышение уровня партнерства?",
+          "answer": "Да, партнеры могут повысить свой уровень, увеличив свой вклад. Повышение уровня рассматривается ежеквартально, и дополнительные преимущества применяются сразу после одобрения."
         },
         "q5": {
-          "question": "What governance rights do partners receive?",
-          "answer": "Governance rights vary by tier. Diamond partners receive exclusive governance rights including board participation, while other tiers receive proportional voting rights in the DAO."
+          "question": "Какие права управления получают партнеры?",
+          "answer": "Права управления различаются в зависимости от уровня. Партнеры уровня Бриллиант получают эксклюзивные права управления, включая участие в совете директоров, тогда как другие уровни получают пропорциональные права голосования в DAO."
         },
         "q6": {
-          "question": "How are TBURN incentives distributed?",
-          "answer": "Incentives are distributed according to a vesting schedule specified in the partnership agreement. Typically, 20% is released at onboarding with the remainder vesting over 12-36 months."
+          "question": "Как распределяются поощрения TBURN?",
+          "answer": "Поощрения распределяются согласно графику вестинга, указанному в соглашении о партнерстве. Обычно 20% выплачивается при онбординге, а остаток распределяется в течение 12-36 месяцев."
         },
         "q7": {
-          "question": "What technical support is provided?",
-          "answer": "Technical support ranges from standard documentation access (Silver) to dedicated engineering teams (Diamond). All partners receive API access and integration documentation."
+          "question": "Какая техническая поддержка предоставляется?",
+          "answer": "Техническая поддержка варьируется от стандартного доступа к документации (Серебро) до выделенных инженерных команд (Бриллиант). Все партнеры получают доступ к API и документации по интеграции."
         },
         "q8": {
-          "question": "Are there regional partnership opportunities?",
-          "answer": "Yes, we actively seek regional partners for market expansion. Regional partners may receive additional benefits including localization support and market-specific incentives."
+          "question": "Есть ли возможности регионального партнерства?",
+          "answer": "Да, мы активно ищем региональных партнеров для расширения рынка. Региональные партнеры могут получить дополнительные преимущества, включая поддержку локализации и региональные стимулы."
         }
       }
     },
@@ -21164,7 +21082,7 @@
       "explorer": "Обозреватель",
       "bridge": "Мост",
       "staking": "Стейкинг",
-      "governance": "Governance",
+      "governance": "Управление",
       "developers": "Разработчики",
       "documentation": "Документация",
       "api": "API",
@@ -21178,6 +21096,10 @@
       "copyright": "2024 TBURN. Все права защищены.",
       "privacyPolicy": "Политика конфиденциальности",
       "termsOfService": "Условия использования"
+    },
+    "tierInquiry": {
+      "title": "Запрос на партнерство отправлен",
+      "description": "Отправлен запрос на уровень {{tier}} с поощрением {{incentive}} TBURN."
     }
   },
   "advisorProgram": {

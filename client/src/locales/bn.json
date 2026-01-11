@@ -19806,440 +19806,364 @@
     }
   },
   "strategicPartner": {
-    "title": "Strategic Partners",
-    "subtitle": "Key strategic partnerships shaping the TBURN ecosystem",
-    "heroTitle": "TBURN Strategic Partners",
-    "heroSubtitle": "World-class partners supporting the TBURN vision",
+    "title": "কৌশলগত অংশীদার",
+    "subtitle": "TBURN ইকোসিস্টেম গঠনকারী গুরুত্বপূর্ণ কৌশলগত অংশীদারিত্ব",
+    "heroTitle": "TBURN কৌশলগত অংশীদার",
+    "heroSubtitle": "বিশ্বমানের অংশীদার যারা TBURN দৃষ্টিভঙ্গি সমর্থন করছে",
     "badge": "কৌশলগত অংশীদারিত্ব - এন্টারপ্রাইজ অংশীদারিত্ব",
-    "partnerCount": "Partner Count",
-    "categories": "Categories",
-    "tier1": "Tier 1 Partners",
-    "tier2": "Tier 2 Partners",
-    "tier3": "Tier 3 Partners",
-    "vcPartners": "VC Partners",
-    "techPartners": "Technology Partners",
-    "mediaPartners": "Media Partners",
+    "partnerCount": "অংশীদার সংখ্যা",
+    "categories": "বিভাগসমূহ",
+    "tier1": "টায়ার ১ অংশীদার",
+    "tier2": "টায়ার ২ অংশীদার",
+    "tier3": "টায়ার ৩ অংশীদার",
+    "vcPartners": "ভেঞ্চার ক্যাপিটাল অংশীদার",
+    "techPartners": "প্রযুক্তি অংশীদার",
+    "mediaPartners": "মিডিয়া অংশীদার",
     "nav": {
       "partnerTiers": "অংশীদার স্তর",
       "partnershipTypes": "অংশীদারিত্বের ধরন",
       "benefits": "সুবিধা",
       "useCases": "ব্যবহারের ক্ষেত্র",
-      "faq": "FAQ"
+      "faq": "সাধারণ জিজ্ঞাসা"
     },
     "wallet": {
-      "connect": "Connect Wallet",
-      "disconnect": "Wallet Disconnected",
-      "disconnectDesc": "Your wallet has been disconnected.",
-      "connected": "Wallet Connected",
-      "connectedDesc": "Your wallet has been connected.",
-      "required": "Wallet Required",
-      "requiredDesc": "Please connect your wallet first to make a partnership inquiry."
+      "connect": "ওয়ালেট সংযুক্ত করুন",
+      "disconnect": "ওয়ালেট সংযোগ বিচ্ছিন্ন",
+      "disconnectDesc": "আপনার ওয়ালেট সংযোগ বিচ্ছিন্ন হয়েছে।",
+      "connected": "ওয়ালেট সংযুক্ত",
+      "connectedDesc": "আপনার ওয়ালেট সংযুক্ত হয়েছে।",
+      "required": "ওয়ালেট প্রয়োজন",
+      "requiredDesc": "অংশীদারিত্বের অনুসন্ধান করতে প্রথমে আপনার ওয়ালেট সংযুক্ত করুন।"
     },
     "hero": {
       "title1": "কৌশলগত অংশীদারিত্ব",
       "title2": "200M TBURN",
       "title3": "প্রণোদনা",
-      "subtitle": "TBURN ইকোসিস্টেমের মূল অংশীদার হন।"
+      "subtitle": "এন্টারপ্রাইজ, প্রাতিষ্ঠানিক বিনিয়োগকারী এবং প্রধান প্রোটোকলের সাথে কৌশলগত অংশীদারিত্বের মাধ্যমে TBURN ইকোসিস্টেমের মূল অংশীদার হন।"
     },
     "enterpriseLogos": {
-      "enterprise": "Enterprise",
-      "protocol": "Protocol",
-      "institutional": "Institutional",
-      "corporate": "Corporate",
-      "research": "Research"
+      "enterprise": "এন্টারপ্রাইজ",
+      "protocol": "প্রোটোকল",
+      "institutional": "প্রাতিষ্ঠানিক",
+      "corporate": "কর্পোরেট",
+      "research": "গবেষণা"
     },
     "stats": {
-      "totalBudget": "Total Strategic Budget",
-      "strategicPartners": "Strategic Partners",
-      "distributed": "Distributed",
-      "totalPartnerships": "Total Partnerships"
+      "totalBudget": "মোট কৌশলগত বাজেট",
+      "strategicPartners": "কৌশলগত অংশীদার",
+      "distributed": "বিতরিত",
+      "totalPartnerships": "মোট অংশীদারিত্ব"
     },
     "cta": {
-      "applyPartnership": "Apply Partnership",
-      "enterpriseGuide": "Enterprise Guide",
-      "partnershipInquiry": "Partnership Inquiry",
-      "partnershipInquiryDesc": "Check the partner tiers and contact us!",
-      "enterpriseGuideDesc": "View partnership type information."
+      "applyPartnership": "অংশীদারিত্বে আবেদন করুন",
+      "enterpriseGuide": "এন্টারপ্রাইজ গাইড",
+      "partnershipInquiry": "অংশীদারিত্ব অনুসন্ধান",
+      "partnershipInquiryDesc": "অংশীদার স্তর দেখুন এবং আমাদের সাথে যোগাযোগ করুন!",
+      "enterpriseGuideDesc": "অংশীদারিত্বের ধরন সম্পর্কে তথ্য দেখুন।"
     },
     "distribution": {
-      "badge": "DISTRIBUTION",
-      "title": "Strategic Budget Distribution",
-      "subtitle": "200M TBURN allocated to 5 strategic areas",
-      "enterprise": "Enterprise",
+      "badge": "বিতরণ",
+      "title": "কৌশলগত বাজেট বিতরণ",
+      "subtitle": "৫টি কৌশলগত ক্ষেত্রে 200M TBURN বরাদ্দ",
+      "enterprise": "এন্টারপ্রাইজ",
       "enterpriseAmount": "80M",
-      "protocol": "Protocol Integration",
+      "protocol": "প্রোটোকল ইন্টিগ্রেশন",
       "protocolAmount": "40M",
-      "institutional": "Institutional Investors",
+      "institutional": "প্রাতিষ্ঠানিক বিনিয়োগকারী",
       "institutionalAmount": "40M",
-      "government": "Public Sector",
+      "government": "সরকারি খাত",
       "governmentAmount": "20M",
-      "academic": "Academic/Research",
+      "academic": "একাডেমিক/গবেষণা",
       "academicAmount": "20M"
     },
     "tiers": {
-      "badge": "TIERS",
-      "title": "Strategic Partner Tiers",
-      "subtitle": "Differentiated benefits based on contribution and investment scale",
+      "badge": "স্তর",
+      "title": "কৌশলগত অংশীদার স্তর",
+      "subtitle": "অবদান এবং বিনিয়োগের পরিমাণ অনুসারে বিভেদযুক্ত সুবিধা",
       "diamond": {
-        "name": "Diamond",
-        "subtitle": "Top Strategic Partner",
-        "incentive": "Up to 50M",
-        "requirement": "$10M+ value provision",
+        "name": "ডায়মন্ড",
+        "subtitle": "শীর্ষ কৌশলগত অংশীদার",
+        "incentive": "৫০ মিলিয়ন পর্যন্ত",
+        "requirement": "$১০ মিলিয়ন+ মূল্য প্রদান",
         "benefits": [
-          "Dedicated tech team",
-          "Custom solution development",
-          "Board participation",
-          "Exclusive governance rights",
-          "Annual offline summit"
+          "নিবেদিত প্রযুক্তি দল",
+          "কাস্টম সমাধান উন্নয়ন",
+          "বোর্ড অংশগ্রহণ",
+          "একচেটিয়া গভর্ন্যান্স অধিকার",
+          "বার্ষিক অফলাইন সামিট"
         ]
       },
       "platinum": {
-        "name": "Platinum",
-        "subtitle": "Premium Partner",
-        "incentive": "Up to 20M",
-        "requirement": "$5M+ value provision",
+        "name": "প্লাটিনাম",
+        "subtitle": "প্রিমিয়াম অংশীদার",
+        "incentive": "২০ মিলিয়ন পর্যন্ত",
+        "requirement": "$৫ মিলিয়ন+ মূল্য প্রদান",
         "benefits": [
-          "Priority tech support",
-          "Co-marketing",
-          "Quarterly strategy meetings",
-          "Governance voting rights",
-          "VIP events"
+          "অগ্রাধিকার প্রযুক্তি সহায়তা",
+          "যৌথ বিপণন",
+          "ত্রৈমাসিক কৌশল বৈঠক",
+          "গভর্ন্যান্স ভোটাধিকার",
+          "ভিআইপি ইভেন্ট"
         ]
       },
       "gold": {
-        "name": "Gold",
-        "subtitle": "Core Partner",
-        "incentive": "Up to 5M",
-        "requirement": "$1M+ value provision",
+        "name": "গোল্ড",
+        "subtitle": "মূল অংশীদার",
+        "incentive": "৫ মিলিয়ন পর্যন্ত",
+        "requirement": "$১ মিলিয়ন+ মূল্য প্রদান",
         "benefits": [
-          "Tech integration support",
-          "Marketing collaboration",
-          "Monthly reports",
-          "DAO participation",
-          "Partner networking"
+          "প্রযুক্তি ইন্টিগ্রেশন সহায়তা",
+          "বিপণন সহযোগিতা",
+          "মাসিক প্রতিবেদন",
+          "DAO অংশগ্রহণ",
+          "অংশীদার নেটওয়ার্কিং"
         ]
       },
       "silver": {
-        "name": "Silver",
-        "subtitle": "Growth Partner",
-        "incentive": "Up to 1M",
-        "requirement": "$100K+ value provision",
+        "name": "সিলভার",
+        "subtitle": "বৃদ্ধি অংশীদার",
+        "incentive": "১ মিলিয়ন পর্যন্ত",
+        "requirement": "$১০০ হাজার+ মূল্য প্রদান",
         "benefits": [
-          "Standard tech support",
-          "Co-branding",
-          "Quarterly reports",
-          "Community access",
-          "Developer support"
+          "স্ট্যান্ডার্ড প্রযুক্তি সহায়তা",
+          "যৌথ ব্র্যান্ডিং",
+          "ত্রৈমাসিক প্রতিবেদন",
+          "কমিউনিটি অ্যাক্সেস",
+          "ডেভেলপার সহায়তা"
         ]
       },
-      "partnerIncentive": "Partner Incentive",
-      "inquire": "Inquire"
-    },
-    "tierInquiry": {
-      "title": "Partnership Inquiry Submitted",
-      "description": "Thank you for your interest in {{tier}} tier. The incentive package is {{incentive}} TBURN. Our team will contact you shortly."
+      "inquire": "অনুসন্ধান করুন"
     },
     "partnershipTypes": {
-      "badge": "TYPES",
-      "title": "Partnership Types",
-      "subtitle": "Various partnership opportunities for different sectors",
+      "badge": "অংশীদারিত্বের ধরন",
+      "title": "অংশীদারিত্বের ধরন",
+      "subtitle": "বিভিন্ন শিল্প ও ক্ষেত্রের জন্য বিশেষায়িত অংশীদারিত্ব প্রোগ্রাম",
       "enterprise": {
-        "title": "Enterprise Solutions",
-        "desc": "Large-scale enterprise blockchain integration and solutions",
+        "name": "এন্টারপ্রাইজ অংশীদারিত্ব",
+        "description": "বৃহৎ প্রতিষ্ঠান এবং কর্পোরেশনের জন্য কাস্টমাইজড ব্লকচেইন সমাধান এবং এন্টারপ্রাইজ-গ্রেড ইন্টিগ্রেশন।",
         "features": [
-          "Private chain construction",
-          "API integration",
-          "Security audit",
-          "24/7 support"
-        ],
-        "name": "Enterprise"
+          "কাস্টম স্মার্ট কন্ট্রাক্ট উন্নয়ন",
+          "প্রাইভেট চেইন বিকল্প",
+          "২৪/৭ এন্টারপ্রাইজ সহায়তা",
+          "SLA গ্যারান্টি"
+        ]
       },
       "protocol": {
-        "title": "Protocol Integration",
-        "desc": "DeFi and blockchain protocol partnerships",
+        "name": "প্রোটোকল ইন্টিগ্রেশন",
+        "description": "DeFi প্রোটোকল, ব্রিজ এবং ক্রস-চেইন সমাধানের জন্য প্রযুক্তিগত ইন্টিগ্রেশন অংশীদারিত্ব।",
         "features": [
-          "Cross-chain bridge",
-          "Liquidity pool",
-          "Smart contracts",
-          "Oracle integration"
-        ],
-        "name": "Protocol Integration"
+          "ক্রস-চেইন ব্রিজ সহায়তা",
+          "লিকুইডিটি প্রোগ্রাম",
+          "প্রযুক্তি সহযোগিতা",
+          "যৌথ উন্নয়ন"
+        ]
       },
       "institutional": {
-        "title": "Institutional Investment",
-        "desc": "Institutional investor partnerships and fund management",
+        "name": "প্রাতিষ্ঠানিক বিনিয়োগ",
+        "description": "ভেঞ্চার ক্যাপিটাল, হেজ ফান্ড এবং প্রাতিষ্ঠানিক বিনিয়োগকারীদের জন্য বিনিয়োগ অংশীদারিত্ব।",
         "features": [
-          "Custody service",
-          "OTC trading",
-          "Tax reports",
-          "Regulatory compliance"
-        ],
-        "name": "Institutional Investment"
+          "কৌশলগত বিনিয়োগ সুযোগ",
+          "টোকেন বরাদ্দ",
+          "গভর্ন্যান্স অংশগ্রহণ",
+          "অগ্রাধিকার অ্যাক্সেস"
+        ]
       },
       "government": {
-        "title": "Public Partnership",
-        "desc": "Public sector blockchain adoption and smart city projects",
+        "name": "সরকারি ও পাবলিক সেক্টর",
+        "description": "সরকারি সংস্থা এবং পাবলিক সেক্টর প্রতিষ্ঠানের সাথে ব্লকচেইন উদ্যোগের অংশীদারিত্ব।",
         "features": [
-          "Public infrastructure",
-          "Digital identity",
-          "Transparency systems",
-          "Civic services"
-        ],
-        "name": "Government/Public Sector"
+          "নিয়ন্ত্রক কমপ্লায়েন্স",
+          "পাবলিক সার্ভিস ইন্টিগ্রেশন",
+          "স্বচ্ছতা সমাধান",
+          "ডিজিটাল পরিচয়"
+        ]
       },
       "academic": {
-        "title": "Academic Research",
-        "desc": "University research partnerships and talent development",
+        "name": "একাডেমিক ও গবেষণা",
+        "description": "বিশ্ববিদ্যালয় এবং গবেষণা প্রতিষ্ঠানের সাথে ব্লকচেইন গবেষণা ও শিক্ষা অংশীদারিত্ব।",
         "features": [
-          "Research grants",
-          "Internships",
-          "Paper support",
-          "Technical consulting"
-        ],
-        "name": "Academic Research"
+          "গবেষণা অনুদান",
+          "ইন্টার্নশিপ প্রোগ্রাম",
+          "একাডেমিক সহযোগিতা",
+          "প্রকাশনা সহায়তা"
+        ]
       },
       "global": {
-        "title": "Global Expansion",
-        "desc": "International market expansion and localization partnerships",
+        "name": "গ্লোবাল এক্সপ্যানশন",
+        "description": "আঞ্চলিক বাজার সম্প্রসারণ এবং স্থানীয়করণের জন্য কৌশলগত অংশীদারিত্ব।",
         "features": [
-          "Localization support",
-          "Regulatory consulting",
-          "Partner connections",
-          "Marketing support"
-        ],
-        "name": "Global Expansion"
+          "আঞ্চলিক প্রতিনিধিত্ব",
+          "স্থানীয়করণ সহায়তা",
+          "বাজার বিকাশ",
+          "কমিউনিটি বিল্ডিং"
+        ]
       }
     },
     "process": {
-      "badge": "PROCESS",
-      "title": "Partnership Process",
-      "subtitle": "Systematic onboarding process",
+      "badge": "প্রক্রিয়া",
+      "title": "অংশীদারিত্ব প্রক্রিয়া",
+      "subtitle": "আবেদন থেকে অংশীদারিত্ব পর্যন্ত ৫ ধাপ",
       "step1": {
-        "title": "Application",
-        "desc": "Submit partnership application",
-        "duration": "1-2 days"
+        "title": "আবেদন জমা",
+        "description": "অনলাইন ফর্মের মাধ্যমে আপনার প্রতিষ্ঠানের তথ্য এবং অংশীদারিত্বের আগ্রহ জমা দিন।"
       },
       "step2": {
-        "title": "Review",
-        "desc": "Internal review and due diligence",
-        "duration": "1-2 weeks"
+        "title": "প্রাথমিক পর্যালোচনা",
+        "description": "আমাদের টিম আপনার আবেদন পর্যালোচনা করে এবং ৭ কর্মদিবসের মধ্যে প্রতিক্রিয়া জানাবে।"
       },
       "step3": {
-        "title": "Negotiation",
-        "desc": "Terms and conditions negotiation",
-        "duration": "2-4 weeks"
+        "title": "সাক্ষাৎকার ও আলোচনা",
+        "description": "বিস্তারিত আলোচনার জন্য আমাদের অংশীদারিত্ব দলের সাথে সাক্ষাৎকার।"
       },
       "step4": {
-        "title": "Contract Signing",
-        "desc": "Legal contract signing",
-        "duration": "1-2 weeks"
+        "title": "চুক্তি স্বাক্ষর",
+        "description": "অংশীদারিত্বের শর্তাবলী চূড়ান্তকরণ এবং চুক্তি স্বাক্ষর।"
       },
       "step5": {
-        "title": "Onboarding",
-        "desc": "Technical integration and launch",
-        "duration": "4-8 weeks"
+        "title": "অনবোর্ডিং ও লঞ্চ",
+        "description": "প্রযুক্তিগত ইন্টিগ্রেশন, টোকেন বরাদ্দ এবং অফিসিয়াল অংশীদারিত্ব ঘোষণা।"
       }
     },
     "benefits": {
-      "badge": "BENEFITS",
-      "title": "Strategic Partner Benefits",
-      "subtitle": "Exclusive benefits for strategic partners only",
+      "badge": "সুবিধা",
+      "title": "অংশীদার সুবিধা",
+      "subtitle": "TBURN অংশীদার হিসেবে আপনি যে সুবিধাগুলি উপভোগ করবেন",
       "techSupport": {
-        "title": "Customized Tech Support",
-        "desc": "Dedicated engineering team develops solutions tailored to each company's requirements."
+        "title": "প্রযুক্তি সহায়তা",
+        "description": "২৪/৭ নিবেদিত প্রযুক্তি সহায়তা এবং অগ্রাধিকার সমস্যা সমাধান।"
       },
       "growth": {
-        "title": "Growth Acceleration",
-        "desc": "Support business growth leveraging TBURN ecosystem resources and network."
+        "title": "বৃদ্ধি সহায়তা",
+        "description": "বিপণন সহযোগিতা, যৌথ প্রচার এবং ব্র্যান্ড এক্সপোজার সুযোগ।"
       },
       "security": {
-        "title": "Security & Compliance",
-        "desc": "Enterprise-grade security and global regulatory compliance guaranteed."
+        "title": "নিরাপত্তা",
+        "description": "এন্টারপ্রাইজ-গ্রেড নিরাপত্তা অডিট এবং স্মার্ট কন্ট্রাক্ট রিভিউ।"
       },
       "networking": {
-        "title": "Strategic Networking",
-        "desc": "Networking opportunities with industry leaders and joint business opportunities provided."
+        "title": "নেটওয়ার্কিং",
+        "description": "বিশ্বব্যাপী অংশীদার নেটওয়ার্কে অ্যাক্সেস এবং একচেটিয়া ইভেন্টে আমন্ত্রণ।"
       },
       "exclusive": {
-        "title": "Exclusive Benefits",
-        "desc": "Enjoy exclusive benefits including early access, governance participation, and special incentives."
+        "title": "একচেটিয়া অ্যাক্সেস",
+        "description": "নতুন বৈশিষ্ট্য এবং পণ্যে প্রথম অ্যাক্সেস এবং বিটা টেস্টিং সুযোগ।"
       },
       "data": {
-        "title": "Data Insights",
-        "desc": "Provide business intelligence through on-chain analytics and customized reports."
+        "title": "ডেটা ও অন্তর্দৃষ্টি",
+        "description": "বিস্তারিত বিশ্লেষণ, বাজার প্রতিবেদন এবং শিল্প অন্তর্দৃষ্টি অ্যাক্সেস।"
       }
     },
     "useCases": {
-      "badge": "USE CASES",
-      "title": "Use Cases",
-      "subtitle": "Strategic partnership utilization scenarios",
+      "badge": "ব্যবহারের ক্ষেত্র",
+      "title": "অংশীদারিত্বের সাফল্যের গল্প",
+      "subtitle": "বাস্তব বিশ্বের অংশীদারিত্ব বাস্তবায়নের উদাহরণ",
       "tabs": {
-        "enterprise": "Enterprise",
-        "protocol": "Protocol",
-        "institutional": "Institutional"
+        "enterprise": "এন্টারপ্রাইজ",
+        "protocol": "প্রোটোকল",
+        "institutional": "প্রাতিষ্ঠানিক"
       },
       "enterprise": {
-        "title": "Enterprise Solutions",
-        "desc": "Large-scale blockchain integration and customized enterprise solutions",
-        "features": [
-          "Private chain construction",
-          "API integration support",
-          "Enterprise security",
-          "24/7 technical support"
-        ],
+        "title": "এন্টারপ্রাইজ সাপ্লাই চেইন সমাধান",
+        "description": "একটি বহুজাতিক লজিস্টিক কোম্পানি TBURN ব্লকচেইন ব্যবহার করে তাদের সাপ্লাই চেইন ট্র্যাকিং সিস্টেম বাস্তবায়ন করেছে।",
         "stats": {
-          "uptime": "99.99%",
-          "uptimeLabel": "Uptime SLA",
-          "response": "<100ms",
-          "responseLabel": "Response Time",
-          "throughput": "210K",
-          "throughputLabel": "TPS",
-          "security": "Enterprise",
-          "securityLabel": "Security Grade"
+          "efficiency": "দক্ষতা বৃদ্ধি",
+          "efficiencyValue": "৪৫%",
+          "cost": "খরচ সাশ্রয়",
+          "costValue": "$২ মিলিয়ন/বছর",
+          "time": "প্রক্রিয়াকরণ সময়",
+          "timeValue": "৭৫% দ্রুত"
         }
       },
       "protocol": {
-        "title": "Protocol Integration",
-        "desc": "DeFi protocol partnerships and cross-chain integration",
-        "features": [
-          "Cross-chain bridge",
-          "Liquidity provision",
-          "Smart contract audit",
-          "Protocol governance"
-        ],
+        "title": "ক্রস-চেইন DeFi ইন্টিগ্রেশন",
+        "description": "একটি শীর্ষস্থানীয় DeFi প্রোটোকল TBURN চেইনে তাদের লিকুইডিটি পুল সম্প্রসারিত করেছে।",
         "stats": {
-          "tvl": "$2.5B+",
-          "tvlLabel": "TVL Target",
-          "protocols": "50+",
-          "protocolsLabel": "Partner Protocols",
-          "transactions": "1M+",
-          "transactionsLabel": "Daily Transactions",
-          "chains": "15+",
-          "chainsLabel": "Supported Chains"
+          "tvl": "মোট মূল্য লক",
+          "tvlValue": "$৫০ মিলিয়ন",
+          "users": "নতুন ব্যবহারকারী",
+          "usersValue": "৫০,০০০+",
+          "volume": "দৈনিক ভলিউম",
+          "volumeValue": "$৫ মিলিয়ন"
         }
       },
       "institutional": {
-        "title": "Institutional Services",
-        "desc": "Institutional investor services and compliance solutions",
-        "features": [
-          "Custody solution",
-          "OTC trading",
-          "Compliance reporting",
-          "Tax optimization"
-        ],
+        "title": "প্রাতিষ্ঠানিক বিনিয়োগ সাফল্য",
+        "description": "একটি প্রধান ভেঞ্চার ক্যাপিটাল ফার্ম TBURN-এ কৌশলগত বিনিয়োগ করেছে।",
         "stats": {
-          "aum": "$500M+",
-          "aumLabel": "AUM Target",
-          "partners": "25+",
-          "partnersLabel": "Institutional Partners",
-          "otc": "Available",
-          "otcLabel": "OTC Desk",
-          "compliance": "SOC2",
-          "complianceLabel": "Compliance"
+          "investment": "মোট বিনিয়োগ",
+          "investmentValue": "$২৫ মিলিয়ন",
+          "portfolio": "পোর্টফোলিও সংস্থা",
+          "portfolioValue": "১২টি",
+          "roi": "গড় ROI",
+          "roiValue": "৩৫০%"
         }
       }
     },
     "currentPartners": {
-      "badge": "PARTNERS",
-      "title": "Current Partners",
-      "subtitle": "World-class organizations partnering with TBURN",
-      "investmentScale": "Investment Scale",
-      "partnership": "Partnership Since",
-      "partners": {
-        "partner1": {
-          "name": "Global Tech Corp",
-          "type": "Enterprise"
-        },
-        "partner2": {
-          "name": "DeFi Protocol X",
-          "type": "Protocol"
-        },
-        "partner3": {
-          "name": "Crypto Fund Alpha",
-          "type": "Institutional"
-        },
-        "partner4": {
-          "name": "City of Seoul",
-          "type": "Government"
-        }
+      "badge": "বর্তমান অংশীদার",
+      "title": "আমাদের কৌশলগত অংশীদার",
+      "subtitle": "TBURN ইকোসিস্টেম তৈরিতে নেতৃস্থানীয় সংস্থাগুলি",
+      "partner1": {
+        "name": "গ্লোবাল টেক এন্টারপ্রাইজ",
+        "type": "এন্টারপ্রাইজ অংশীদার",
+        "description": "এন্টারপ্রাইজ ব্লকচেইন সমাধানে বিশ্বনেতা"
       },
-      "tierBadges": {
-        "diamond": "DIAMOND",
-        "platinum": "PLATINUM",
-        "gold": "GOLD",
-        "silver": "SILVER"
+      "partner2": {
+        "name": "ডিফাই ইনোভেশন প্রোটোকল",
+        "type": "প্রোটোকল অংশীদার",
+        "description": "শীর্ষস্থানীয় ক্রস-চেইন DeFi প্রোটোকল"
+      },
+      "partner3": {
+        "name": "ব্লকচেইন ক্যাপিটাল",
+        "type": "প্রাতিষ্ঠানিক বিনিয়োগকারী",
+        "description": "প্রধান ব্লকচেইন-কেন্দ্রিক ভেঞ্চার ক্যাপিটাল ফার্ম"
+      },
+      "partner4": {
+        "name": "সাপ্লাই চেইন সলিউশনস",
+        "type": "এন্টারপ্রাইজ অংশীদার",
+        "description": "গ্লোবাল লজিস্টিক এবং সাপ্লাই চেইন কোম্পানি"
       }
     },
     "faq": {
-      "badge": "FAQ",
-      "title": "Frequently Asked Questions",
-      "subtitle": "Common questions about strategic partnerships",
+      "badge": "সাধারণ জিজ্ঞাসা",
+      "title": "সাধারণ জিজ্ঞাসা",
+      "subtitle": "কৌশলগত অংশীদারিত্ব সম্পর্কে সাধারণ প্রশ্নের উত্তর",
       "q1": {
-        "question": "What is the total budget for strategic partnerships?",
-        "answer": "A total of 200M TBURN is allocated for strategic partnerships."
+        "question": "কৌশলগত অংশীদার হতে ন্যূনতম প্রয়োজনীয়তা কী?",
+        "answer": "ন্যূনতম প্রয়োজনীয়তা অংশীদারিত্বের ধরন অনুসারে পরিবর্তিত হয়। সিলভার স্তরের জন্য ন্যূনতম $১০০,০০০ মূল্য প্রদান প্রয়োজন, যা টোকেন ক্রয়, প্রযুক্তি অবদান বা বিপণন সহায়তার মাধ্যমে হতে পারে।"
       },
       "q2": {
-        "question": "What are the requirements to become a strategic partner?",
-        "answer": "Requirements vary by tier. Silver starts at $100K, Gold $1M, Platinum $5M, Diamond $10M+."
+        "question": "অংশীদারিত্ব প্রক্রিয়া কতক্ষণ সময় নেয়?",
+        "answer": "সাধারণ অংশীদারিত্ব প্রক্রিয়া আবেদন থেকে অনবোর্ডিং পর্যন্ত ৪-৮ সপ্তাহ সময় নেয়। এতে প্রাথমিক পর্যালোচনা, আলোচনা, চুক্তি স্বাক্ষর এবং প্রযুক্তিগত ইন্টিগ্রেশন অন্তর্ভুক্ত।"
       },
       "q3": {
-        "question": "How are partnership incentives distributed?",
-        "answer": "Incentives follow a vesting schedule. Typically 20% at onboarding, remainder over 12-36 months."
+        "question": "অংশীদারদের জন্য টোকেন ভেস্টিং সময়সূচী কী?",
+        "answer": "টোকেন ভেস্টিং অংশীদারিত্বের স্তর এবং চুক্তির শর্তাবলী অনুসারে পরিবর্তিত হয়। সাধারণত ২০% অনবোর্ডিংয়ে মুক্তি পায় এবং বাকি ১২-৩৬ মাসে ভেস্ট হয়।"
       },
       "q4": {
-        "question": "Are there special programs for institutional investors?",
-        "answer": "Yes, institutional investors receive dedicated account management and priority OTC access."
+        "question": "অংশীদাররা কি তাদের স্তর আপগ্রেড করতে পারে?",
+        "answer": "হ্যাঁ, অংশীদাররা তাদের মূল্য অবদান বৃদ্ধি করে স্তর আপগ্রেড করতে পারে। স্তর আপগ্রেড ত্রৈমাসিক পর্যালোচনা করা হয় এবং অনুমোদনের পর অতিরিক্ত সুবিধা অবিলম্বে প্রয়োগ করা হয়।"
       },
       "q5": {
-        "question": "How long does it take to finalize a partnership?",
-        "answer": "The typical process takes 8-16 weeks from application to onboarding."
+        "question": "অংশীদাররা কী গভর্ন্যান্স অধিকার পায়?",
+        "answer": "গভর্ন্যান্স অধিকার স্তর অনুসারে পরিবর্তিত হয়। ডায়মন্ড অংশীদাররা বোর্ড অংশগ্রহণসহ একচেটিয়া গভর্ন্যান্স অধিকার পায়, অন্যান্য স্তর DAO-তে আনুপাতিক ভোটাধিকার পায়।"
       },
       "q6": {
-        "question": "How does protocol integration partnership work?",
-        "answer": "Protocol partners receive technical integration support, API access, and liquidity incentives."
+        "question": "TBURN প্রণোদনা কীভাবে বিতরণ করা হয়?",
+        "answer": "প্রণোদনা অংশীদারিত্ব চুক্তিতে নির্দিষ্ট ভেস্টিং সময়সূচী অনুসারে বিতরণ করা হয়। সাধারণত ২০% অনবোর্ডিংয়ে মুক্তি পায় এবং বাকি ১২-৩৬ মাসে ভেস্ট হয়।"
       },
       "q7": {
-        "question": "What are the exclusive benefits for Diamond tier partners?",
-        "answer": "Diamond partners receive dedicated tech team, board participation, and up to 50M TBURN incentives."
+        "question": "কী ধরনের প্রযুক্তি সহায়তা প্রদান করা হয়?",
+        "answer": "প্রযুক্তি সহায়তা স্ট্যান্ডার্ড ডকুমেন্টেশন অ্যাক্সেস (সিলভার) থেকে নিবেদিত ইঞ্জিনিয়ারিং দল (ডায়মন্ড) পর্যন্ত বিস্তৃত। সকল অংশীদার API অ্যাক্সেস এবং ইন্টিগ্রেশন ডকুমেন্টেশন পায়।"
       },
       "q8": {
-        "question": "How can I inquire about partnership?",
-        "answer": "Click the Apply for Partnership button or contact our partnership team directly."
-      },
-      "items": {
-        "q1": {
-          "question": "What are the minimum requirements to become a strategic partner?",
-          "answer": "Strategic partnership requirements vary by tier. Silver tier starts at $100K value provision, while Diamond tier requires $10M+ value provision including technology, capital, or network contributions."
-        },
-        "q2": {
-          "question": "How long does the partnership process take?",
-          "answer": "The typical partnership process takes 8-16 weeks from application to onboarding. This includes review (1-2 weeks), negotiation (2-4 weeks), contract signing (1-2 weeks), and technical integration (4-8 weeks)."
-        },
-        "q3": {
-          "question": "What types of value contributions are accepted?",
-          "answer": "We accept various forms of value including direct investment, technology integration, network access, marketing reach, research contributions, and strategic advisory services."
-        },
-        "q4": {
-          "question": "Can partnership tiers be upgraded?",
-          "answer": "Yes, partners can upgrade their tier by increasing their value contribution. Tier upgrades are reviewed quarterly and additional benefits are applied immediately upon approval."
-        },
-        "q5": {
-          "question": "What governance rights do partners receive?",
-          "answer": "Governance rights vary by tier. Diamond partners receive exclusive governance rights including board participation, while other tiers receive proportional voting rights in the DAO."
-        },
-        "q6": {
-          "question": "How are TBURN incentives distributed?",
-          "answer": "Incentives are distributed according to a vesting schedule specified in the partnership agreement. Typically, 20% is released at onboarding with the remainder vesting over 12-36 months."
-        },
-        "q7": {
-          "question": "What technical support is provided?",
-          "answer": "Technical support ranges from standard documentation access (Silver) to dedicated engineering teams (Diamond). All partners receive API access and integration documentation."
-        },
-        "q8": {
-          "question": "Are there regional partnership opportunities?",
-          "answer": "Yes, we actively seek regional partners for market expansion. Regional partners may receive additional benefits including localization support and market-specific incentives."
-        }
+        "question": "আঞ্চলিক অংশীদারিত্বের সুযোগ আছে কি?",
+        "answer": "হ্যাঁ, আমরা সক্রিয়ভাবে বাজার সম্প্রসারণের জন্য আঞ্চলিক অংশীদার খুঁজছি। আঞ্চলিক অংশীদাররা স্থানীয়করণ সহায়তা এবং বাজার-নির্দিষ্ট প্রণোদনাসহ অতিরিক্ত সুবিধা পেতে পারে।"
       }
+    },
+    "tierInquiry": {
+      "title": "স্তর অনুসন্ধান",
+      "description": "{{tier}} স্তরের জন্য অনুসন্ধান জমা দেওয়া হয়েছে। প্রণোদনা: {{incentive}} TBURN"
     },
     "ctaSection": {
       "title": "কৌশলগত অংশীদার হন",
@@ -20255,7 +20179,7 @@
       "explorer": "এক্সপ্লোরার",
       "bridge": "ব্রিজ",
       "staking": "স্টেকিং",
-      "governance": "Governance",
+      "governance": "গভর্ন্যান্স",
       "developers": "ডেভেলপার",
       "documentation": "ডকুমেন্টেশন",
       "api": "API",
@@ -20266,7 +20190,7 @@
       "telegram": "টেলিগ্রাম",
       "discord": "ডিসকর্ড",
       "forum": "ফোরাম",
-      "copyright": "2024 TBURN. সর্বস্বত্ব সংরক্ষিত।",
+      "copyright": "২০২৪ TBURN। সর্বস্বত্ব সংরক্ষিত।",
       "privacyPolicy": "গোপনীয়তা নীতি",
       "termsOfService": "সেবার শর্তাবলী"
     }
