@@ -5120,7 +5120,7 @@
         "self_funded": "Self Funded",
         "delegated": "Delegated",
         "pool": "Staking Pool",
-        "institutional": "Institutional",
+        "institutional": "機関投資",
         "mixed": "Mixed Sources"
       },
       "unknown": "Unknown",
@@ -24785,7 +24785,7 @@
       "voting": "Voting",
       "pending": "Pending",
       "categories": {
-        "protocol": "Protocol",
+        "protocol": "プロトコル",
         "treasury": "Treasury",
         "ecosystem": "Ecosystem"
       }
@@ -24966,19 +24966,19 @@
       "required": "ウォレット必要",
       "requiredDesc": "パートナーシップのお問い合わせには、まずウォレットを接続してください。"
     },
-    "title": "Strategic Partners",
-    "subtitle": "Key strategic partnerships shaping the TBURN ecosystem",
-    "heroTitle": "TBURN Strategic Partners",
-    "heroSubtitle": "World-class partners supporting the TBURN vision",
+    "title": "戦略的パートナー",
+    "subtitle": "TBURNエコシステムを形成する主要な戦略的パートナーシップ",
+    "heroTitle": "TBURN戦略的パートナー",
+    "heroSubtitle": "TBURNビジョンを支援する世界クラスのパートナー",
     "badge": "戦略的パートナーシップ - エンタープライズパートナーシップ",
-    "partnerCount": "Partner Count",
-    "categories": "Categories",
-    "tier1": "Tier 1 Partners",
-    "tier2": "Tier 2 Partners",
-    "tier3": "Tier 3 Partners",
-    "vcPartners": "VC Partners",
-    "techPartners": "Technology Partners",
-    "mediaPartners": "Media Partners",
+    "partnerCount": "パートナー数",
+    "categories": "カテゴリー",
+    "tier1": "Tier 1 パートナー",
+    "tier2": "Tier 2 パートナー",
+    "tier3": "Tier 3 パートナー",
+    "vcPartners": "VCパートナー",
+    "techPartners": "テクノロジーパートナー",
+    "mediaPartners": "メディアパートナー",
     "nav": {
       "partnerTiers": "パートナーティア",
       "partnershipTypes": "パートナーシップタイプ",
@@ -24987,11 +24987,11 @@
       "faq": "FAQ"
     },
     "enterpriseLogos": {
-      "enterprise": "Enterprise",
-      "protocol": "Protocol",
-      "institutional": "Institutional",
-      "corporate": "Corporate",
-      "research": "Research"
+      "enterprise": "エンタープライズ",
+      "protocol": "プロトコル",
+      "institutional": "機関投資",
+      "corporate": "コーポレート",
+      "research": "リサーチ"
     },
     "cta": {
       "applyPartnership": "パートナーシップ申請",
@@ -25083,68 +25083,68 @@
       "title": "パートナーシップタイプ",
       "subtitle": "様々な分野でのパートナーシップ機会",
       "enterprise": {
-        "title": "Enterprise Solutions",
+        "title": "エンタープライズソリューション",
         "desc": "大規模企業ブロックチェーン統合とソリューション",
         "features": [
-          "Private chain construction",
-          "API integration",
-          "Security audit",
-          "24/7 support"
+          "プライベートチェーン構築",
+          "API統合",
+          "セキュリティ監査",
+          "24/7サポート"
         ],
         "name": "エンタープライズ"
       },
       "protocol": {
-        "title": "Protocol Integration",
+        "title": "プロトコル統合",
         "desc": "DeFiとブロックチェーンプロトコルパートナーシップ",
         "features": [
-          "Cross-chain bridge",
-          "Liquidity pool",
-          "Smart contracts",
-          "Oracle integration"
+          "クロスチェーンブリッジ",
+          "流動性プール",
+          "スマートコントラクト",
+          "オラクル統合"
         ],
         "name": "プロトコル統合"
       },
       "institutional": {
-        "title": "Institutional Investment",
+        "title": "機関投資",
         "desc": "機関投資家パートナーシップとファンド管理",
         "features": [
-          "Custody service",
-          "OTC trading",
-          "Tax reports",
-          "Regulatory compliance"
+          "カストディサービス",
+          "OTC取引",
+          "税務レポート",
+          "規制コンプライアンス"
         ],
         "name": "機関投資"
       },
       "government": {
-        "title": "Public Partnership",
+        "title": "公共パートナーシップ",
         "desc": "公共セクターブロックチェーン導入とスマートシティプロジェクト",
         "features": [
-          "Public infrastructure",
-          "Digital identity",
-          "Transparency systems",
-          "Civic services"
+          "公共インフラ",
+          "デジタルID",
+          "透明性システム",
+          "市民サービス"
         ],
         "name": "政府/公共セクター"
       },
       "academic": {
-        "title": "Academic Research",
+        "title": "学術研究",
         "desc": "大学研究パートナーシップと人材育成",
         "features": [
-          "Research grants",
-          "Internships",
-          "Paper support",
-          "Technical consulting"
+          "研究助成金",
+          "インターンシップ",
+          "論文サポート",
+          "技術コンサルティング"
         ],
         "name": "学術研究"
       },
       "global": {
-        "title": "Global Expansion",
+        "title": "グローバル展開",
         "desc": "国際市場展開とローカライゼーションパートナーシップ",
         "features": [
-          "Localization support",
-          "Regulatory consulting",
-          "Partner connections",
-          "Marketing support"
+          "ローカライゼーションサポート",
+          "規制コンサルティング",
+          "パートナーコネクション",
+          "マーケティングサポート"
         ],
         "name": "グローバル展開"
       }
@@ -25394,7 +25394,7 @@
       "explorer": "エクスプローラー",
       "bridge": "ブリッジ",
       "staking": "ステーキング",
-      "governance": "Governance",
+      "governance": "ガバナンス",
       "developers": "開発者",
       "documentation": "ドキュメント",
       "api": "API",
@@ -25980,7 +25980,7 @@
       "subtitle": "ストロングホルダーオファリング",
       "sho": "SHO",
       "staking": "Staking",
-      "governance": "Governance",
+      "governance": "ガバナンス",
       "portfolio": "Portfolio",
       "swap": "Swap",
       "connectWallet": "Connect Wallet",
@@ -26085,7 +26085,7 @@
     "tabs": {
       "tiers": "SHO Tiers",
       "vesting": "Vesting",
-      "governance": "Governance",
+      "governance": "ガバナンス",
       "faq": "FAQ"
     },
     "tiers": {

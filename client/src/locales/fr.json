@@ -21644,19 +21644,19 @@
     }
   },
   "strategicPartner": {
-    "title": "Strategic Partners",
-    "subtitle": "Key strategic partnerships shaping the TBURN ecosystem",
-    "heroTitle": "TBURN Strategic Partners",
-    "heroSubtitle": "World-class partners supporting the TBURN vision",
+    "title": "Partenaires Strategiques",
+    "subtitle": "Partenariats strategiques cles faconnant l'ecosysteme TBURN",
+    "heroTitle": "Partenaires Strategiques TBURN",
+    "heroSubtitle": "Des partenaires de classe mondiale soutenant la vision TBURN",
     "badge": "PARTENARIAT STRATEGIQUE - Partenariat d'Entreprise",
-    "partnerCount": "Partner Count",
+    "partnerCount": "Nombre de Partenaires",
     "categories": "Categories",
-    "tier1": "Tier 1 Partners",
-    "tier2": "Tier 2 Partners",
-    "tier3": "Tier 3 Partners",
-    "vcPartners": "VC Partners",
-    "techPartners": "Technology Partners",
-    "mediaPartners": "Media Partners",
+    "tier1": "Partenaires Niveau 1",
+    "tier2": "Partenaires Niveau 2",
+    "tier3": "Partenaires Niveau 3",
+    "vcPartners": "Partenaires Capital-Risque",
+    "techPartners": "Partenaires Technologiques",
+    "mediaPartners": "Partenaires Media",
     "nav": {
       "partnerTiers": "Niveaux de Partenaires",
       "partnershipTypes": "Types de Partenariat",
@@ -21665,13 +21665,13 @@
       "faq": "FAQ"
     },
     "wallet": {
-      "connect": "Connect Wallet",
-      "disconnect": "Wallet Disconnected",
-      "disconnectDesc": "Your wallet has been disconnected.",
-      "connected": "Wallet Connected",
-      "connectedDesc": "Your wallet has been connected.",
-      "required": "Wallet Required",
-      "requiredDesc": "Please connect your wallet first to make a partnership inquiry."
+      "connect": "Connecter le Portefeuille",
+      "disconnect": "Portefeuille Deconnecte",
+      "disconnectDesc": "Votre portefeuille a ete deconnecte.",
+      "connected": "Portefeuille Connecte",
+      "connectedDesc": "Votre portefeuille a ete connecte.",
+      "required": "Portefeuille Requis",
+      "requiredDesc": "Veuillez d'abord connecter votre portefeuille pour faire une demande de partenariat."
     },
     "hero": {
       "title1": "Partenariat Strategique pour",
@@ -21680,402 +21680,402 @@
       "subtitle": "Devenez un partenaire central de l'ecosysteme TBURN."
     },
     "enterpriseLogos": {
-      "enterprise": "Enterprise",
-      "protocol": "Protocol",
-      "institutional": "Institutional",
-      "corporate": "Corporate",
-      "research": "Research"
+      "enterprise": "Entreprise",
+      "protocol": "Protocole",
+      "institutional": "Institutionnel",
+      "corporate": "Corporatif",
+      "research": "Recherche"
     },
     "stats": {
-      "totalBudget": "Total Strategic Budget",
-      "strategicPartners": "Strategic Partners",
-      "distributed": "Distributed",
-      "totalPartnerships": "Total Partnerships"
+      "totalBudget": "Budget Strategique Total",
+      "strategicPartners": "Partenaires Strategiques",
+      "distributed": "Distribue",
+      "totalPartnerships": "Partenariats Totaux"
     },
     "cta": {
-      "applyPartnership": "Apply Partnership",
-      "enterpriseGuide": "Enterprise Guide",
-      "partnershipInquiry": "Partnership Inquiry",
-      "partnershipInquiryDesc": "Check the partner tiers and contact us!",
-      "enterpriseGuideDesc": "View partnership type information."
+      "applyPartnership": "Demander un Partenariat",
+      "enterpriseGuide": "Guide Entreprise",
+      "partnershipInquiry": "Demande de Partenariat",
+      "partnershipInquiryDesc": "Consultez les niveaux de partenaires et contactez-nous !",
+      "enterpriseGuideDesc": "Voir les informations sur les types de partenariat."
     },
     "distribution": {
       "badge": "DISTRIBUTION",
-      "title": "Strategic Budget Distribution",
-      "subtitle": "200M TBURN allocated to 5 strategic areas",
-      "enterprise": "Enterprise",
+      "title": "Distribution du Budget Strategique",
+      "subtitle": "200M TBURN alloues a 5 domaines strategiques",
+      "enterprise": "Entreprise",
       "enterpriseAmount": "80M",
-      "protocol": "Protocol Integration",
+      "protocol": "Integration de Protocole",
       "protocolAmount": "40M",
-      "institutional": "Institutional Investors",
+      "institutional": "Investisseurs Institutionnels",
       "institutionalAmount": "40M",
-      "government": "Public Sector",
+      "government": "Secteur Public",
       "governmentAmount": "20M",
-      "academic": "Academic/Research",
+      "academic": "Academique/Recherche",
       "academicAmount": "20M"
     },
     "tiers": {
-      "badge": "TIERS",
-      "title": "Strategic Partner Tiers",
-      "subtitle": "Differentiated benefits based on contribution and investment scale",
+      "badge": "NIVEAUX",
+      "title": "Niveaux de Partenaires Strategiques",
+      "subtitle": "Avantages differencies selon l'echelle de contribution et d'investissement",
       "diamond": {
-        "name": "Diamond",
-        "subtitle": "Top Strategic Partner",
-        "incentive": "Up to 50M",
-        "requirement": "$10M+ value provision",
+        "name": "Diamant",
+        "subtitle": "Partenaire Strategique Premium",
+        "incentive": "Jusqu'a 50M",
+        "requirement": "Apport de valeur de 10M$+",
         "benefits": [
-          "Dedicated tech team",
-          "Custom solution development",
-          "Board participation",
-          "Exclusive governance rights",
-          "Annual offline summit"
+          "Equipe technique dediee",
+          "Developpement de solutions personnalisees",
+          "Participation au conseil",
+          "Droits de gouvernance exclusifs",
+          "Sommet annuel hors ligne"
         ]
       },
       "platinum": {
-        "name": "Platinum",
-        "subtitle": "Premium Partner",
-        "incentive": "Up to 20M",
-        "requirement": "$5M+ value provision",
+        "name": "Platine",
+        "subtitle": "Partenaire Premium",
+        "incentive": "Jusqu'a 20M",
+        "requirement": "Apport de valeur de 5M$+",
         "benefits": [
-          "Priority tech support",
+          "Support technique prioritaire",
           "Co-marketing",
-          "Quarterly strategy meetings",
-          "Governance voting rights",
-          "VIP events"
+          "Reunions strategiques trimestrielles",
+          "Droits de vote en gouvernance",
+          "Evenements VIP"
         ]
       },
       "gold": {
-        "name": "Gold",
-        "subtitle": "Core Partner",
-        "incentive": "Up to 5M",
-        "requirement": "$1M+ value provision",
+        "name": "Or",
+        "subtitle": "Partenaire Principal",
+        "incentive": "Jusqu'a 5M",
+        "requirement": "Apport de valeur de 1M$+",
         "benefits": [
-          "Tech integration support",
-          "Marketing collaboration",
-          "Monthly reports",
-          "DAO participation",
-          "Partner networking"
+          "Support d'integration technique",
+          "Collaboration marketing",
+          "Rapports mensuels",
+          "Participation DAO",
+          "Reseau de partenaires"
         ]
       },
       "silver": {
-        "name": "Silver",
-        "subtitle": "Growth Partner",
-        "incentive": "Up to 1M",
-        "requirement": "$100K+ value provision",
+        "name": "Argent",
+        "subtitle": "Partenaire Croissance",
+        "incentive": "Jusqu'a 1M",
+        "requirement": "Apport de valeur de 100K$+",
         "benefits": [
-          "Standard tech support",
+          "Support technique standard",
           "Co-branding",
-          "Quarterly reports",
-          "Community access",
-          "Developer support"
+          "Rapports trimestriels",
+          "Acces communautaire",
+          "Support developpeur"
         ]
       },
-      "partnerIncentive": "Partner Incentive",
-      "inquire": "Inquire"
+      "partnerIncentive": "Incitatif Partenaire",
+      "inquire": "Demande d'Information"
     },
     "tierInquiry": {
-      "title": "Partnership Inquiry Submitted",
-      "description": "Thank you for your interest in {{tier}} tier. The incentive package is {{incentive}} TBURN. Our team will contact you shortly."
+      "title": "Demande de Partenariat Soumise",
+      "description": "Merci pour votre interet pour le niveau {{tier}}. Le package d'incitatifs est de {{incentive}} TBURN. Notre equipe vous contactera sous peu."
     },
     "partnershipTypes": {
       "badge": "TYPES",
-      "title": "Partnership Types",
-      "subtitle": "Various partnership opportunities for different sectors",
+      "title": "Types de Partenariat",
+      "subtitle": "Diverses opportunites de partenariat pour differents secteurs",
       "enterprise": {
-        "title": "Enterprise Solutions",
-        "desc": "Large-scale enterprise blockchain integration and solutions",
+        "title": "Solutions Entreprise",
+        "desc": "Integration blockchain a grande echelle et solutions pour entreprises",
         "features": [
-          "Private chain construction",
-          "API integration",
-          "Security audit",
-          "24/7 support"
+          "Construction de chaine privee",
+          "Integration API",
+          "Audit de securite",
+          "Support 24/7"
         ],
-        "name": "Enterprise"
+        "name": "Entreprise"
       },
       "protocol": {
-        "title": "Protocol Integration",
-        "desc": "DeFi and blockchain protocol partnerships",
+        "title": "Integration de Protocole",
+        "desc": "Partenariats de protocoles DeFi et blockchain",
         "features": [
-          "Cross-chain bridge",
-          "Liquidity pool",
-          "Smart contracts",
-          "Oracle integration"
+          "Pont inter-chaines",
+          "Pool de liquidite",
+          "Contrats intelligents",
+          "Integration oracle"
         ],
-        "name": "Protocol Integration"
+        "name": "Integration de Protocole"
       },
       "institutional": {
-        "title": "Institutional Investment",
-        "desc": "Institutional investor partnerships and fund management",
+        "title": "Investissement Institutionnel",
+        "desc": "Partenariats d'investisseurs institutionnels et gestion de fonds",
         "features": [
-          "Custody service",
-          "OTC trading",
-          "Tax reports",
-          "Regulatory compliance"
+          "Service de conservation",
+          "Trading OTC",
+          "Rapports fiscaux",
+          "Conformite reglementaire"
         ],
-        "name": "Institutional Investment"
+        "name": "Investissement Institutionnel"
       },
       "government": {
-        "title": "Public Partnership",
-        "desc": "Public sector blockchain adoption and smart city projects",
+        "title": "Partenariat Public",
+        "desc": "Adoption blockchain du secteur public et projets de ville intelligente",
         "features": [
-          "Public infrastructure",
-          "Digital identity",
-          "Transparency systems",
-          "Civic services"
+          "Infrastructure publique",
+          "Identite numerique",
+          "Systemes de transparence",
+          "Services civiques"
         ],
-        "name": "Government/Public Sector"
+        "name": "Gouvernement/Secteur Public"
       },
       "academic": {
-        "title": "Academic Research",
-        "desc": "University research partnerships and talent development",
+        "title": "Recherche Academique",
+        "desc": "Partenariats de recherche universitaire et developpement des talents",
         "features": [
-          "Research grants",
-          "Internships",
-          "Paper support",
-          "Technical consulting"
+          "Subventions de recherche",
+          "Stages",
+          "Support de publications",
+          "Conseil technique"
         ],
-        "name": "Academic Research"
+        "name": "Recherche Academique"
       },
       "global": {
-        "title": "Global Expansion",
-        "desc": "International market expansion and localization partnerships",
+        "title": "Expansion Mondiale",
+        "desc": "Expansion sur les marches internationaux et partenariats de localisation",
         "features": [
-          "Localization support",
-          "Regulatory consulting",
-          "Partner connections",
-          "Marketing support"
+          "Support de localisation",
+          "Conseil reglementaire",
+          "Connexions partenaires",
+          "Support marketing"
         ],
-        "name": "Global Expansion"
+        "name": "Expansion Mondiale"
       }
     },
     "process": {
-      "badge": "PROCESS",
-      "title": "Partnership Process",
-      "subtitle": "Systematic onboarding process",
+      "badge": "PROCESSUS",
+      "title": "Processus de Partenariat",
+      "subtitle": "Processus d'integration systematique",
       "step1": {
-        "title": "Application",
-        "desc": "Submit partnership application",
-        "duration": "1-2 days"
+        "title": "Candidature",
+        "desc": "Soumission de la demande de partenariat",
+        "duration": "1-2 jours"
       },
       "step2": {
-        "title": "Review",
-        "desc": "Internal review and due diligence",
-        "duration": "1-2 weeks"
+        "title": "Examen",
+        "desc": "Examen interne et due diligence",
+        "duration": "1-2 semaines"
       },
       "step3": {
-        "title": "Negotiation",
-        "desc": "Terms and conditions negotiation",
-        "duration": "2-4 weeks"
+        "title": "Negociation",
+        "desc": "Negociation des termes et conditions",
+        "duration": "2-4 semaines"
       },
       "step4": {
-        "title": "Contract Signing",
-        "desc": "Legal contract signing",
-        "duration": "1-2 weeks"
+        "title": "Signature du Contrat",
+        "desc": "Signature du contrat juridique",
+        "duration": "1-2 semaines"
       },
       "step5": {
-        "title": "Onboarding",
-        "desc": "Technical integration and launch",
-        "duration": "4-8 weeks"
+        "title": "Integration",
+        "desc": "Integration technique et lancement",
+        "duration": "4-8 semaines"
       }
     },
     "benefits": {
-      "badge": "BENEFITS",
-      "title": "Strategic Partner Benefits",
-      "subtitle": "Exclusive benefits for strategic partners only",
+      "badge": "AVANTAGES",
+      "title": "Avantages des Partenaires Strategiques",
+      "subtitle": "Avantages exclusifs reserves aux partenaires strategiques",
       "techSupport": {
-        "title": "Customized Tech Support",
-        "desc": "Dedicated engineering team develops solutions tailored to each company's requirements."
+        "title": "Support Technique Personnalise",
+        "desc": "Une equipe d'ingenieurs dediee developpe des solutions adaptees aux exigences de chaque entreprise."
       },
       "growth": {
-        "title": "Growth Acceleration",
-        "desc": "Support business growth leveraging TBURN ecosystem resources and network."
+        "title": "Acceleration de la Croissance",
+        "desc": "Soutenez la croissance de votre entreprise en tirant parti des ressources et du reseau de l'ecosysteme TBURN."
       },
       "security": {
-        "title": "Security & Compliance",
-        "desc": "Enterprise-grade security and global regulatory compliance guaranteed."
+        "title": "Securite et Conformite",
+        "desc": "Securite de niveau entreprise et conformite reglementaire mondiale garanties."
       },
       "networking": {
-        "title": "Strategic Networking",
-        "desc": "Networking opportunities with industry leaders and joint business opportunities provided."
+        "title": "Reseau Strategique",
+        "desc": "Opportunites de reseautage avec les leaders de l'industrie et opportunites commerciales conjointes."
       },
       "exclusive": {
-        "title": "Exclusive Benefits",
-        "desc": "Enjoy exclusive benefits including early access, governance participation, and special incentives."
+        "title": "Avantages Exclusifs",
+        "desc": "Profitez d'avantages exclusifs incluant l'acces anticipe, la participation a la gouvernance et des incitatifs speciaux."
       },
       "data": {
-        "title": "Data Insights",
-        "desc": "Provide business intelligence through on-chain analytics and customized reports."
+        "title": "Insights Donnees",
+        "desc": "Fournissez une intelligence d'affaires grace a l'analytique on-chain et aux rapports personnalises."
       }
     },
     "useCases": {
-      "badge": "USE CASES",
-      "title": "Use Cases",
-      "subtitle": "Strategic partnership utilization scenarios",
+      "badge": "CAS D'USAGE",
+      "title": "Cas d'Usage",
+      "subtitle": "Scenarios d'utilisation des partenariats strategiques",
       "tabs": {
-        "enterprise": "Enterprise",
-        "protocol": "Protocol",
-        "institutional": "Institutional"
+        "enterprise": "Entreprise",
+        "protocol": "Protocole",
+        "institutional": "Institutionnel"
       },
       "enterprise": {
-        "title": "Enterprise Solutions",
-        "desc": "Large-scale blockchain integration and customized enterprise solutions",
+        "title": "Solutions Entreprise",
+        "desc": "Integration blockchain a grande echelle et solutions entreprise personnalisees",
         "features": [
-          "Private chain construction",
-          "API integration support",
-          "Enterprise security",
-          "24/7 technical support"
+          "Construction de chaine privee",
+          "Support d'integration API",
+          "Securite entreprise",
+          "Support technique 24/7"
         ],
         "stats": {
           "uptime": "99.99%",
-          "uptimeLabel": "Uptime SLA",
+          "uptimeLabel": "SLA de Disponibilite",
           "response": "<100ms",
-          "responseLabel": "Response Time",
+          "responseLabel": "Temps de Reponse",
           "throughput": "210K",
           "throughputLabel": "TPS",
-          "security": "Enterprise",
-          "securityLabel": "Security Grade"
+          "security": "Entreprise",
+          "securityLabel": "Niveau de Securite"
         }
       },
       "protocol": {
-        "title": "Protocol Integration",
-        "desc": "DeFi protocol partnerships and cross-chain integration",
+        "title": "Integration de Protocole",
+        "desc": "Partenariats de protocoles DeFi et integration inter-chaines",
         "features": [
-          "Cross-chain bridge",
-          "Liquidity provision",
-          "Smart contract audit",
-          "Protocol governance"
+          "Pont inter-chaines",
+          "Provision de liquidite",
+          "Audit de contrats intelligents",
+          "Gouvernance de protocole"
         ],
         "stats": {
           "tvl": "$2.5B+",
-          "tvlLabel": "TVL Target",
+          "tvlLabel": "Objectif TVL",
           "protocols": "50+",
-          "protocolsLabel": "Partner Protocols",
+          "protocolsLabel": "Protocoles Partenaires",
           "transactions": "1M+",
-          "transactionsLabel": "Daily Transactions",
+          "transactionsLabel": "Transactions Quotidiennes",
           "chains": "15+",
-          "chainsLabel": "Supported Chains"
+          "chainsLabel": "Chaines Supportees"
         }
       },
       "institutional": {
-        "title": "Institutional Services",
-        "desc": "Institutional investor services and compliance solutions",
+        "title": "Services Institutionnels",
+        "desc": "Services aux investisseurs institutionnels et solutions de conformite",
         "features": [
-          "Custody solution",
-          "OTC trading",
-          "Compliance reporting",
-          "Tax optimization"
+          "Solution de conservation",
+          "Trading OTC",
+          "Rapports de conformite",
+          "Optimisation fiscale"
         ],
         "stats": {
           "aum": "$500M+",
-          "aumLabel": "AUM Target",
+          "aumLabel": "Objectif AUM",
           "partners": "25+",
-          "partnersLabel": "Institutional Partners",
-          "otc": "Available",
-          "otcLabel": "OTC Desk",
+          "partnersLabel": "Partenaires Institutionnels",
+          "otc": "Disponible",
+          "otcLabel": "Bureau OTC",
           "compliance": "SOC2",
-          "complianceLabel": "Compliance"
+          "complianceLabel": "Conformite"
         }
       }
     },
     "currentPartners": {
-      "badge": "PARTNERS",
-      "title": "Current Partners",
-      "subtitle": "World-class organizations partnering with TBURN",
-      "investmentScale": "Investment Scale",
-      "partnership": "Partnership Since",
+      "badge": "PARTENAIRES",
+      "title": "Partenaires Actuels",
+      "subtitle": "Organisations de classe mondiale en partenariat avec TBURN",
+      "investmentScale": "Echelle d'Investissement",
+      "partnership": "Partenariat Depuis",
       "partners": {
         "partner1": {
           "name": "Global Tech Corp",
-          "type": "Enterprise"
+          "type": "Entreprise"
         },
         "partner2": {
           "name": "DeFi Protocol X",
-          "type": "Protocol"
+          "type": "Protocole"
         },
         "partner3": {
           "name": "Crypto Fund Alpha",
-          "type": "Institutional"
+          "type": "Institutionnel"
         },
         "partner4": {
-          "name": "City of Seoul",
-          "type": "Government"
+          "name": "Ville de Seoul",
+          "type": "Gouvernement"
         }
       },
       "tierBadges": {
-        "diamond": "DIAMOND",
-        "platinum": "PLATINUM",
-        "gold": "GOLD",
-        "silver": "SILVER"
+        "diamond": "DIAMANT",
+        "platinum": "PLATINE",
+        "gold": "OR",
+        "silver": "ARGENT"
       }
     },
     "faq": {
       "badge": "FAQ",
-      "title": "Frequently Asked Questions",
-      "subtitle": "Common questions about strategic partnerships",
+      "title": "Questions Frequemment Posees",
+      "subtitle": "Questions courantes sur les partenariats strategiques",
       "q1": {
-        "question": "What is the total budget for strategic partnerships?",
-        "answer": "A total of 200M TBURN is allocated for strategic partnerships."
+        "question": "Quel est le budget total pour les partenariats strategiques ?",
+        "answer": "Un total de 200M TBURN est alloue aux partenariats strategiques."
       },
       "q2": {
-        "question": "What are the requirements to become a strategic partner?",
-        "answer": "Requirements vary by tier. Silver starts at $100K, Gold $1M, Platinum $5M, Diamond $10M+."
+        "question": "Quelles sont les conditions pour devenir partenaire strategique ?",
+        "answer": "Les conditions varient selon le niveau. Argent commence a 100K$, Or 1M$, Platine 5M$, Diamant 10M$+."
       },
       "q3": {
-        "question": "How are partnership incentives distributed?",
-        "answer": "Incentives follow a vesting schedule. Typically 20% at onboarding, remainder over 12-36 months."
+        "question": "Comment les incitatifs de partenariat sont-ils distribues ?",
+        "answer": "Les incitatifs suivent un calendrier de vesting. Typiquement 20% a l'integration, le reste sur 12-36 mois."
       },
       "q4": {
-        "question": "Are there special programs for institutional investors?",
-        "answer": "Yes, institutional investors receive dedicated account management and priority OTC access."
+        "question": "Existe-t-il des programmes speciaux pour les investisseurs institutionnels ?",
+        "answer": "Oui, les investisseurs institutionnels beneficient d'une gestion de compte dediee et d'un acces prioritaire OTC."
       },
       "q5": {
-        "question": "How long does it take to finalize a partnership?",
-        "answer": "The typical process takes 8-16 weeks from application to onboarding."
+        "question": "Combien de temps faut-il pour finaliser un partenariat ?",
+        "answer": "Le processus typique prend 8-16 semaines de la candidature a l'integration."
       },
       "q6": {
-        "question": "How does protocol integration partnership work?",
-        "answer": "Protocol partners receive technical integration support, API access, and liquidity incentives."
+        "question": "Comment fonctionne le partenariat d'integration de protocole ?",
+        "answer": "Les partenaires de protocole recoivent un support d'integration technique, un acces API et des incitatifs de liquidite."
       },
       "q7": {
-        "question": "What are the exclusive benefits for Diamond tier partners?",
-        "answer": "Diamond partners receive dedicated tech team, board participation, and up to 50M TBURN incentives."
+        "question": "Quels sont les avantages exclusifs pour les partenaires niveau Diamant ?",
+        "answer": "Les partenaires Diamant recoivent une equipe technique dediee, la participation au conseil et jusqu'a 50M TBURN d'incitatifs."
       },
       "q8": {
-        "question": "How can I inquire about partnership?",
-        "answer": "Click the Apply for Partnership button or contact our partnership team directly."
+        "question": "Comment puis-je faire une demande de partenariat ?",
+        "answer": "Cliquez sur le bouton Demander un Partenariat ou contactez directement notre equipe partenariats."
       },
       "items": {
         "q1": {
-          "question": "What are the minimum requirements to become a strategic partner?",
-          "answer": "Strategic partnership requirements vary by tier. Silver tier starts at $100K value provision, while Diamond tier requires $10M+ value provision including technology, capital, or network contributions."
+          "question": "Quelles sont les conditions minimales pour devenir partenaire strategique ?",
+          "answer": "Les conditions de partenariat strategique varient selon le niveau. Le niveau Argent commence a 100K$ d'apport de valeur, tandis que le niveau Diamant requiert 10M$+ d'apport de valeur incluant technologie, capital ou contributions reseau."
         },
         "q2": {
-          "question": "How long does the partnership process take?",
-          "answer": "The typical partnership process takes 8-16 weeks from application to onboarding. This includes review (1-2 weeks), negotiation (2-4 weeks), contract signing (1-2 weeks), and technical integration (4-8 weeks)."
+          "question": "Combien de temps dure le processus de partenariat ?",
+          "answer": "Le processus de partenariat typique prend 8-16 semaines de la candidature a l'integration. Cela inclut l'examen (1-2 semaines), la negociation (2-4 semaines), la signature du contrat (1-2 semaines) et l'integration technique (4-8 semaines)."
         },
         "q3": {
-          "question": "What types of value contributions are accepted?",
-          "answer": "We accept various forms of value including direct investment, technology integration, network access, marketing reach, research contributions, and strategic advisory services."
+          "question": "Quels types de contributions de valeur sont acceptes ?",
+          "answer": "Nous acceptons diverses formes de valeur incluant l'investissement direct, l'integration technologique, l'acces au reseau, la portee marketing, les contributions de recherche et les services de conseil strategique."
         },
         "q4": {
-          "question": "Can partnership tiers be upgraded?",
-          "answer": "Yes, partners can upgrade their tier by increasing their value contribution. Tier upgrades are reviewed quarterly and additional benefits are applied immediately upon approval."
+          "question": "Les niveaux de partenariat peuvent-ils etre ameliores ?",
+          "answer": "Oui, les partenaires peuvent ameliorer leur niveau en augmentant leur contribution de valeur. Les ameliorations de niveau sont examinees trimestriellement et les avantages supplementaires sont appliques immediatement apres approbation."
         },
         "q5": {
-          "question": "What governance rights do partners receive?",
-          "answer": "Governance rights vary by tier. Diamond partners receive exclusive governance rights including board participation, while other tiers receive proportional voting rights in the DAO."
+          "question": "Quels droits de gouvernance les partenaires recoivent-ils ?",
+          "answer": "Les droits de gouvernance varient selon le niveau. Les partenaires Diamant recoivent des droits de gouvernance exclusifs incluant la participation au conseil, tandis que les autres niveaux recoivent des droits de vote proportionnels dans la DAO."
         },
         "q6": {
-          "question": "How are TBURN incentives distributed?",
-          "answer": "Incentives are distributed according to a vesting schedule specified in the partnership agreement. Typically, 20% is released at onboarding with the remainder vesting over 12-36 months."
+          "question": "Comment les incitatifs TBURN sont-ils distribues ?",
+          "answer": "Les incitatifs sont distribues selon un calendrier de vesting specifie dans l'accord de partenariat. Typiquement, 20% est libere a l'integration avec le reste s'acquierant sur 12-36 mois."
         },
         "q7": {
-          "question": "What technical support is provided?",
-          "answer": "Technical support ranges from standard documentation access (Silver) to dedicated engineering teams (Diamond). All partners receive API access and integration documentation."
+          "question": "Quel support technique est fourni ?",
+          "answer": "Le support technique va de l'acces a la documentation standard (Argent) aux equipes d'ingenieurs dediees (Diamant). Tous les partenaires recoivent un acces API et une documentation d'integration."
         },
         "q8": {
-          "question": "Are there regional partnership opportunities?",
-          "answer": "Yes, we actively seek regional partners for market expansion. Regional partners may receive additional benefits including localization support and market-specific incentives."
+          "question": "Existe-t-il des opportunites de partenariat regional ?",
+          "answer": "Oui, nous recherchons activement des partenaires regionaux pour l'expansion du marche. Les partenaires regionaux peuvent recevoir des avantages supplementaires incluant le support de localisation et des incitatifs specifiques au marche."
         }
       }
     },

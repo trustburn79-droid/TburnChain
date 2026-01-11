@@ -23785,19 +23785,19 @@
       "required": "需要钱包",
       "requiredDesc": "请先连接您的钱包以提交合作咨询。"
     },
-    "title": "Strategic Partners",
-    "subtitle": "Key strategic partnerships shaping the TBURN ecosystem",
-    "heroTitle": "TBURN Strategic Partners",
-    "heroSubtitle": "World-class partners supporting the TBURN vision",
+    "title": "战略合作伙伴",
+    "subtitle": "塑造TBURN生态系统的关键战略合作伙伴",
+    "heroTitle": "TBURN战略合作伙伴",
+    "heroSubtitle": "支持TBURN愿景的世界级合作伙伴",
     "badge": "战略合作伙伴关系 - 企业合作",
-    "partnerCount": "Partner Count",
-    "categories": "Categories",
-    "tier1": "Tier 1 Partners",
-    "tier2": "Tier 2 Partners",
-    "tier3": "Tier 3 Partners",
-    "vcPartners": "VC Partners",
-    "techPartners": "Technology Partners",
-    "mediaPartners": "Media Partners",
+    "partnerCount": "合作伙伴数量",
+    "categories": "类别",
+    "tier1": "一级合作伙伴",
+    "tier2": "二级合作伙伴",
+    "tier3": "三级合作伙伴",
+    "vcPartners": "风险投资合作伙伴",
+    "techPartners": "技术合作伙伴",
+    "mediaPartners": "媒体合作伙伴",
     "nav": {
       "partnerTiers": "合作等级",
       "partnershipTypes": "合作类型",
@@ -23806,11 +23806,11 @@
       "faq": "常见问题"
     },
     "enterpriseLogos": {
-      "enterprise": "Enterprise",
-      "protocol": "Protocol",
-      "institutional": "Institutional",
-      "corporate": "Corporate",
-      "research": "Research"
+      "enterprise": "企业",
+      "protocol": "协议",
+      "institutional": "机构",
+      "corporate": "企业客户",
+      "research": "研究"
     },
     "cta": {
       "applyPartnership": "申请合作",
@@ -23902,68 +23902,68 @@
       "title": "合作类型",
       "subtitle": "不同领域的多样化合作机会",
       "enterprise": {
-        "title": "Enterprise Solutions",
+        "title": "企业解决方案",
         "desc": "大规模企业区块链集成和解决方案",
         "features": [
-          "Private chain construction",
-          "API integration",
-          "Security audit",
-          "24/7 support"
+          "私有链构建",
+          "API集成",
+          "安全审计",
+          "24/7支持"
         ],
         "name": "企业"
       },
       "protocol": {
-        "title": "Protocol Integration",
+        "title": "协议集成",
         "desc": "DeFi和区块链协议合作",
         "features": [
-          "Cross-chain bridge",
-          "Liquidity pool",
-          "Smart contracts",
-          "Oracle integration"
+          "跨链桥",
+          "流动性池",
+          "智能合约",
+          "预言机集成"
         ],
         "name": "协议集成"
       },
       "institutional": {
-        "title": "Institutional Investment",
+        "title": "机构投资",
         "desc": "机构投资者合作和基金管理",
         "features": [
-          "Custody service",
-          "OTC trading",
-          "Tax reports",
-          "Regulatory compliance"
+          "托管服务",
+          "场外交易",
+          "税务报告",
+          "监管合规"
         ],
         "name": "机构投资"
       },
       "government": {
-        "title": "Public Partnership",
+        "title": "公共部门合作",
         "desc": "公共部门区块链采用和智慧城市项目",
         "features": [
-          "Public infrastructure",
-          "Digital identity",
-          "Transparency systems",
-          "Civic services"
+          "公共基础设施",
+          "数字身份",
+          "透明度系统",
+          "公民服务"
         ],
         "name": "政府/公共部门"
       },
       "academic": {
-        "title": "Academic Research",
+        "title": "学术研究",
         "desc": "大学研究合作和人才培养",
         "features": [
-          "Research grants",
-          "Internships",
-          "Paper support",
-          "Technical consulting"
+          "研究资助",
+          "实习项目",
+          "论文支持",
+          "技术咨询"
         ],
         "name": "学术研究"
       },
       "global": {
-        "title": "Global Expansion",
+        "title": "全球扩张",
         "desc": "国际市场扩张和本地化合作",
         "features": [
-          "Localization support",
-          "Regulatory consulting",
-          "Partner connections",
-          "Marketing support"
+          "本地化支持",
+          "监管咨询",
+          "合作伙伴对接",
+          "营销支持"
         ],
         "name": "全球扩张"
       }
@@ -24213,7 +24213,7 @@
       "explorer": "浏览器",
       "bridge": "跨链桥",
       "staking": "质押",
-      "governance": "Governance",
+      "governance": "治理",
       "developers": "开发者",
       "documentation": "文档",
       "api": "API",
