@@ -36,6 +36,7 @@ const CommunityProgramPage = lazyWithRetry(() => import("@/pages/community-progr
 const DAOGovernancePage = lazyWithRetry(() => import("@/pages/dao-governance"));
 const BlockRewardsPage = lazyWithRetry(() => import("@/pages/block-rewards"));
 const ValidatorIncentivesPage = lazyWithRetry(() => import("@/pages/validator-incentives"));
+const ExternalValidatorProgramPage = lazyWithRetry(() => import("@/pages/external-validator-program"));
 const EcosystemFundPage = lazyWithRetry(() => import("@/pages/ecosystem-fund"));
 const PartnershipProgramPage = lazyWithRetry(() => import("@/pages/partnership-program"));
 const MarketingProgramPage = lazyWithRetry(() => import("@/pages/marketing-program"));
@@ -210,6 +211,16 @@ export function PublicRouter() {
     );
   }
   
+  if (location === "/external-validator-program") {
+    return (
+      <ErrorBoundary>
+        <Suspense fallback={<PageLoading />}>
+          <ExternalValidatorProgramPage />
+        </Suspense>
+      </ErrorBoundary>
+    );
+  }
+
   if (location === "/validator-incentives") {
     return (
       <ErrorBoundary>
