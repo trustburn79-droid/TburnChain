@@ -349,11 +349,17 @@ class RealtimeMetricsService {
     const now = Date.now();
     const timeSeed = Math.floor(now / 1000); // 초 단위 시드
     
+    // ★ [CRITICAL FIX] 샤드당 최대 TPS 제한 (10,000 TPS/shard)
+    const MAX_TPS_PER_SHARD = 10000;
+    const MIN_TPS_PER_SHARD = 5000;
+    const DEFAULT_BASE_TPS = 8500;
+    
     // 각 샤드별로 TPS 업데이트
     for (const [shardId, shard] of this.shardMetrics) {
       // ★ 블록 생성 시뮬레이션 기반 TPS 계산
-      // 기준 TPS (DB에서 로드된 값)에서 자연스러운 변동 적용
-      const baseTps = shard.tps || 8500;
+      // ★ [FIX] 기준 TPS를 10,000으로 제한 (DB 값이 초과해도 cap 적용)
+      const rawBaseTps = shard.tps || DEFAULT_BASE_TPS;
+      const baseTps = Math.min(rawBaseTps, MAX_TPS_PER_SHARD);
       
       // 결정적 변동: 샤드ID와 시간 기반 (±3-8% 범위)
       // sin/cos 조합으로 자연스러운 파동 생성
@@ -362,7 +368,8 @@ class RealtimeMetricsService {
       const phase3 = Math.sin((timeSeed + shardId * 31) * 0.02) * 0.02; // ±2% 느린 파동
       
       const variationFactor = 1 + phase1 + phase2 + phase3; // 0.92 ~ 1.08 범위
-      const newTps = Math.max(5000, Math.floor(baseTps * variationFactor));
+      // ★ [FIX] 최소 5,000, 최대 10,000 TPS 제한 적용
+      const newTps = Math.min(MAX_TPS_PER_SHARD, Math.max(MIN_TPS_PER_SHARD, Math.floor(baseTps * variationFactor)));
       
       // 메모리 캐시 업데이트
       shard.tps = newTps;
