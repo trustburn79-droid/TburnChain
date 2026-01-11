@@ -60,6 +60,7 @@ import verificationRoutes from "./routes/verification-routes";
 import { registerDbOptimizationRoutes } from "./routes/db-optimization-routes";
 import { registerShardingRoutes } from "./routes/sharding-routes";
 import validatorRoutes from "./routes/validator-routes";
+import { registerExternalValidatorRoutes } from "./routes/external-validator-routes";
 import { rewardRoutes } from "./routes/reward-routes";
 import crossShardRouterRoutes from "./routes/cross-shard-router-routes";
 import shardCacheRoutes from "./routes/shard-cache-routes";
@@ -2969,6 +2970,13 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   // ============================================
   app.use("/api/validators", validatorRoutes);
   console.log("[Validators] ✅ Enterprise validator orchestrator routes registered");
+
+  // ============================================
+  // ENTERPRISE EXTERNAL VALIDATOR PROGRAM
+  // External validator node registration, connection, rewards
+  // ============================================
+  registerExternalValidatorRoutes(app);
+  console.log("[ExternalValidators] ✅ Enterprise external validator routes registered");
 
   // ============================================
   // ENTERPRISE REWARD DISTRIBUTION ENGINE
