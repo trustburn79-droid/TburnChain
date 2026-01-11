@@ -154,91 +154,10 @@ curl http://localhost:9100/metrics
 ./tburn-validator sync-status`
 };
 
-const FEATURES = [
-  {
-    icon: Shield,
-    title: "Enterprise BFT Consensus",
-    description: "5-phase Byzantine Fault Tolerant consensus with lock-based safety guarantees"
-  },
-  {
-    icon: Lock,
-    title: "Quantum-Resistant Security",
-    description: "AES-256-GCM encrypted keystore with TLS 1.3 and mTLS support"
-  },
-  {
-    icon: Network,
-    title: "P2P Gossip Network",
-    description: "Efficient peer discovery and message propagation across 125+ validators"
-  },
-  {
-    icon: Monitor,
-    title: "Prometheus Metrics",
-    description: "Built-in metrics exporter for Grafana dashboards and alerting"
-  },
-  {
-    icon: RefreshCw,
-    title: "Auto-Update Manager",
-    description: "Seamless version upgrades with rollback support and zero downtime"
-  },
-  {
-    icon: Terminal,
-    title: "Interactive CLI",
-    description: "Full-featured command-line interface with setup wizard and diagnostics"
-  },
-  {
-    icon: Zap,
-    title: "High Performance",
-    description: "Optimized for 210,000+ TPS with 100ms block time and parallel verification"
-  },
-  {
-    icon: HardDrive,
-    title: "Crash Recovery",
-    description: "Automatic state recovery and crash diagnostics with heap snapshot capture"
-  }
-];
+const FEATURE_ICONS = [Shield, Lock, Zap, Clock, Network, Monitor, RefreshCw, HardDrive];
+const FEATURE_KEYS = ['bft', 'security', 'tps', 'blockTime', 'sharding', 'monitoring', 'updates', 'recovery'];
 
-const FAQ_ITEMS = [
-  {
-    id: "faq-1",
-    question: "What are the minimum hardware requirements?",
-    answer: "Minimum requirements are 4 CPU cores, 8GB RAM, and 100GB SSD storage. For optimal performance in production, we recommend 8+ cores, 32GB RAM, and 500GB NVMe SSD."
-  },
-  {
-    id: "faq-2",
-    question: "How do I get my validator API key?",
-    answer: "After completing the setup wizard, your validator will be registered with the network and you'll receive a unique API key. This key is stored in your keystore and used for authentication with the TBURN mainnet."
-  },
-  {
-    id: "faq-3",
-    question: "Can I run multiple validators on one server?",
-    answer: "While technically possible, we recommend running one validator per server for optimal performance and security isolation. Each validator requires dedicated resources and should have its own keystore."
-  },
-  {
-    id: "faq-4",
-    question: "How do I stake TBURN tokens for validation?",
-    answer: "During the setup process, you'll connect your wallet and stake the required amount of TBURN tokens. Minimum stake varies by tier: Genesis (1M TBURN), Pioneer (500K), Standard (200K), Community (100K)."
-  },
-  {
-    id: "faq-5",
-    question: "What happens if my validator goes offline?",
-    answer: "If your validator is offline for extended periods, you may face slashing penalties. The auto-recovery system will attempt to restart the node automatically. We recommend setting up monitoring alerts."
-  },
-  {
-    id: "faq-6",
-    question: "How do I update my validator software?",
-    answer: "Use the auto-update manager: `./tburn-validator update`. This will download, verify, and install the latest version with zero downtime. Rollback is available if issues occur."
-  },
-  {
-    id: "faq-7",
-    question: "Where can I view my validator performance?",
-    answer: "Access the TBURN Explorer at explorer.tburn.io to view your validator's performance metrics, uptime, rewards earned, and network participation statistics."
-  },
-  {
-    id: "faq-8",
-    question: "How do I configure firewall rules?",
-    answer: "Open ports 8545 (RPC), 8546 (WebSocket), 30303 (P2P), and 9100 (Prometheus metrics). For security, restrict RPC/WS ports to trusted IPs only and keep P2P port open for network participation."
-  }
-];
+const FAQ_KEYS = ['stake', 'hardware', 'updates', 'rewards', 'slashing', 'backup', 'migrate', 'support'];
 
 function CopyButton({ text, className = "", testId = "button-copy" }: { text: string; className?: string; testId?: string }) {
   const [copied, setCopied] = useState(false);
@@ -298,17 +217,17 @@ export default function ExternalValidatorSoftwarePage() {
             </Link>
             <div className="hidden md:flex items-center gap-1 text-sm text-muted-foreground" data-testid="nav-breadcrumb">
               <Link href="/external-validator-program" className="hover:text-foreground transition-colors" data-testid="link-breadcrumb-program">
-                External Validators
+                {t("nav.validators")}
               </Link>
               <ChevronRight className="h-4 w-4" />
-              <span className="text-foreground font-medium">Software</span>
+              <span className="text-foreground font-medium">{t("externalValidatorSoftware.nav.download")}</span>
             </div>
           </div>
           <div className="flex items-center gap-4">
             <LanguageSelector />
             <Link href="/external-validator-program">
               <Button variant="outline" size="sm" data-testid="button-back-program">
-                Back to Program
+                {t("externalValidatorSoftware.nav.backToProgram")}
               </Button>
             </Link>
           </div>
@@ -319,21 +238,20 @@ export default function ExternalValidatorSoftwarePage() {
       <section className="relative py-16 lg:py-24 border-b bg-gradient-to-b from-zinc-900 to-background">
         <div className="container">
           <div className="max-w-4xl mx-auto text-center">
-            <Badge variant="outline" className="mb-4 border-primary/50 text-primary">
-              v{releaseData?.latestVersion || "1.0.0"} - Production Ready
+            <Badge variant="outline" className="mb-4 border-primary/50 text-primary" data-testid="badge-hero">
+              v{releaseData?.latestVersion || "1.0.0"} - {t("externalValidatorSoftware.hero.badge")}
             </Badge>
             <h1 className="text-4xl lg:text-5xl font-bold tracking-tight text-white mb-6">
-              TBURN Validator Node Software
+              {t("externalValidatorSoftware.hero.title")}
             </h1>
             <p className="text-lg text-zinc-400 mb-8 max-w-2xl mx-auto">
-              Enterprise-grade validator software for the TBURN Mainnet. 
-              Join 125 genesis validators securing a network capable of 210,000+ TPS with 100ms block finality.
+              {t("externalValidatorSoftware.hero.subtitle")}
             </p>
             <div className="flex flex-wrap items-center justify-center gap-4">
               <Button size="lg" className="gap-2" asChild data-testid="button-download-hero">
                 <a href={linuxRelease?.downloadUrl || "/downloads/tburn-validator-node-v1.0.0-linux-x64.tar.gz"} download>
                   <Download className="h-5 w-5" />
-                  Download for Linux
+                  {t("externalValidatorSoftware.download.linux.download")}
                 </a>
               </Button>
               <Button size="lg" variant="outline" className="gap-2" asChild data-testid="link-docker-hub">
@@ -360,25 +278,25 @@ export default function ExternalValidatorSoftwarePage() {
             <Card className="text-center" data-testid="card-stat-validators">
               <CardContent className="pt-6">
                 <div className="text-3xl font-bold text-primary" data-testid="text-validators-count">125</div>
-                <div className="text-sm text-muted-foreground">Genesis Validators</div>
+                <div className="text-sm text-muted-foreground">{t("externalValidatorSoftware.stats.validators")}</div>
               </CardContent>
             </Card>
             <Card className="text-center" data-testid="card-stat-tps">
               <CardContent className="pt-6">
                 <div className="text-3xl font-bold text-primary" data-testid="text-tps-target">210K+</div>
-                <div className="text-sm text-muted-foreground">Target TPS</div>
+                <div className="text-sm text-muted-foreground">{t("externalValidatorSoftware.stats.tps")}</div>
               </CardContent>
             </Card>
             <Card className="text-center" data-testid="card-stat-blocktime">
               <CardContent className="pt-6">
                 <div className="text-3xl font-bold text-primary" data-testid="text-block-time">100ms</div>
-                <div className="text-sm text-muted-foreground">Block Time</div>
+                <div className="text-sm text-muted-foreground">{t("externalValidatorSoftware.stats.blockTime")}</div>
               </CardContent>
             </Card>
             <Card className="text-center" data-testid="card-stat-uptime">
               <CardContent className="pt-6">
                 <div className="text-3xl font-bold text-primary" data-testid="text-uptime-sla">99.9%</div>
-                <div className="text-sm text-muted-foreground">Uptime SLA</div>
+                <div className="text-sm text-muted-foreground">{t("externalValidatorSoftware.stats.uptime")}</div>
               </CardContent>
             </Card>
           </div>
@@ -389,9 +307,9 @@ export default function ExternalValidatorSoftwarePage() {
       <section className="py-16 border-b" id="requirements">
         <div className="container">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4">System Requirements</h2>
+            <h2 className="text-3xl font-bold mb-4">{t("externalValidatorSoftware.requirements.title")}</h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              Ensure your server meets these requirements for optimal validator performance
+              {t("externalValidatorSoftware.requirements.subtitle")}
             </p>
           </div>
           <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
@@ -399,7 +317,7 @@ export default function ExternalValidatorSoftwarePage() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <AlertTriangle className="h-5 w-5 text-yellow-500" />
-                  Minimum Requirements
+                  {t("externalValidatorSoftware.requirements.minimum")}
                 </CardTitle>
                 <CardDescription>Required for basic validator operation</CardDescription>
               </CardHeader>
@@ -445,7 +363,7 @@ export default function ExternalValidatorSoftwarePage() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <CheckCircle2 className="h-5 w-5 text-green-500" />
-                  Recommended Specifications
+                  {t("externalValidatorSoftware.requirements.recommended")}
                 </CardTitle>
                 <CardDescription>Optimal for high-performance validation</CardDescription>
               </CardHeader>
@@ -495,23 +413,23 @@ export default function ExternalValidatorSoftwarePage() {
       <section className="py-16 border-b bg-muted/30" id="download">
         <div className="container">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4">Download Validator Node</h2>
+            <h2 className="text-3xl font-bold mb-4">{t("externalValidatorSoftware.download.title")}</h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              Choose your preferred installation method
+              {t("externalValidatorSoftware.download.subtitle")}
             </p>
           </div>
           <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
             {/* Linux Binary */}
             <Card className="relative overflow-hidden">
               <div className="absolute top-0 right-0 px-3 py-1 bg-primary text-primary-foreground text-xs font-medium rounded-bl-lg">
-                Recommended
+                {t("externalValidatorSoftware.download.linux.recommended")}
               </div>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Terminal className="h-5 w-5" />
-                  Linux Binary
+                  {t("externalValidatorSoftware.download.linux.title")}
                 </CardTitle>
-                <CardDescription>Pre-compiled binary for x64 systems</CardDescription>
+                <CardDescription>{t("externalValidatorSoftware.download.linux.description")}</CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="text-sm space-y-2">
@@ -548,9 +466,9 @@ export default function ExternalValidatorSoftwarePage() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Box className="h-5 w-5" />
-                  Docker Image
+                  {t("externalValidatorSoftware.download.docker.title")}
                 </CardTitle>
-                <CardDescription>Container-based deployment</CardDescription>
+                <CardDescription>{t("externalValidatorSoftware.download.docker.description")}</CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="text-sm space-y-2">
@@ -584,9 +502,9 @@ export default function ExternalValidatorSoftwarePage() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Code className="h-5 w-5" />
-                  Source Code
+                  {t("externalValidatorSoftware.download.source.title")}
                 </CardTitle>
-                <CardDescription>Build from source</CardDescription>
+                <CardDescription>{t("externalValidatorSoftware.download.source.description")}</CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="text-sm space-y-2">
@@ -622,9 +540,9 @@ export default function ExternalValidatorSoftwarePage() {
       <section className="py-16 border-b" id="installation">
         <div className="container">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4">Installation Guide</h2>
+            <h2 className="text-3xl font-bold mb-4">{t("externalValidatorSoftware.installation.title")}</h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              Follow these steps to install and configure your TBURN validator node
+              {t("externalValidatorSoftware.installation.subtitle")}
             </p>
           </div>
           <div className="max-w-4xl mx-auto">
@@ -709,9 +627,9 @@ export default function ExternalValidatorSoftwarePage() {
       <section className="py-16 border-b bg-muted/30" id="configuration">
         <div className="container">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4">Configuration</h2>
+            <h2 className="text-3xl font-bold mb-4">{t("externalValidatorSoftware.configuration.title")}</h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              Customize your validator node settings
+              {t("externalValidatorSoftware.configuration.subtitle")}
             </p>
           </div>
           <div className="max-w-4xl mx-auto">
@@ -735,21 +653,24 @@ export default function ExternalValidatorSoftwarePage() {
       <section className="py-16 border-b" id="features">
         <div className="container">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4">Key Features</h2>
+            <h2 className="text-3xl font-bold mb-4">{t("externalValidatorSoftware.features.title")}</h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              Enterprise-grade features for professional validators
+              {t("externalValidatorSoftware.features.subtitle")}
             </p>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {FEATURES.map((feature, index) => (
-              <Card key={index} className="hover-elevate">
-                <CardContent className="pt-6">
-                  <feature.icon className="h-10 w-10 text-primary mb-4" />
-                  <h3 className="font-semibold mb-2">{feature.title}</h3>
-                  <p className="text-sm text-muted-foreground">{feature.description}</p>
-                </CardContent>
-              </Card>
-            ))}
+            {FEATURE_KEYS.map((key, index) => {
+              const Icon = FEATURE_ICONS[index];
+              return (
+                <Card key={key} className="hover-elevate">
+                  <CardContent className="pt-6">
+                    <Icon className="h-10 w-10 text-primary mb-4" />
+                    <h3 className="font-semibold mb-2">{t(`externalValidatorSoftware.features.items.${key}.title`)}</h3>
+                    <p className="text-sm text-muted-foreground">{t(`externalValidatorSoftware.features.items.${key}.description`)}</p>
+                  </CardContent>
+                </Card>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -758,9 +679,9 @@ export default function ExternalValidatorSoftwarePage() {
       <section className="py-16 border-b bg-muted/30" id="monitoring">
         <div className="container">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4">Monitoring & Metrics</h2>
+            <h2 className="text-3xl font-bold mb-4">{t("externalValidatorSoftware.monitoring.title")}</h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              Built-in observability for production deployments
+              {t("externalValidatorSoftware.monitoring.subtitle")}
             </p>
           </div>
           <div className="max-w-4xl mx-auto">
@@ -834,9 +755,9 @@ export default function ExternalValidatorSoftwarePage() {
       <section className="py-16 border-b" id="network">
         <div className="container">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4">Network Configuration</h2>
+            <h2 className="text-3xl font-bold mb-4">{t("externalValidatorSoftware.ports.title")}</h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              Required ports and firewall settings
+              {t("externalValidatorSoftware.ports.subtitle")}
             </p>
           </div>
           <div className="max-w-3xl mx-auto">
@@ -890,20 +811,20 @@ export default function ExternalValidatorSoftwarePage() {
       <section className="py-16 border-b bg-muted/30" id="faq">
         <div className="container">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4">Frequently Asked Questions</h2>
+            <h2 className="text-3xl font-bold mb-4">{t("externalValidatorSoftware.faq.title")}</h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              Common questions about running a TBURN validator
+              {t("externalValidatorSoftware.faq.subtitle")}
             </p>
           </div>
           <div className="max-w-3xl mx-auto">
-            <Accordion type="single" collapsible defaultValue="faq-1">
-              {FAQ_ITEMS.map((faq) => (
-                <AccordionItem key={faq.id} value={faq.id}>
-                  <AccordionTrigger className="text-left" data-testid={`accordion-${faq.id}`}>
-                    {faq.question}
+            <Accordion type="single" collapsible defaultValue="faq-stake">
+              {FAQ_KEYS.map((key) => (
+                <AccordionItem key={key} value={`faq-${key}`}>
+                  <AccordionTrigger className="text-left" data-testid={`accordion-faq-${key}`}>
+                    {t(`externalValidatorSoftware.faq.items.${key}.question`)}
                   </AccordionTrigger>
                   <AccordionContent className="text-muted-foreground">
-                    {faq.answer}
+                    {t(`externalValidatorSoftware.faq.items.${key}.answer`)}
                   </AccordionContent>
                 </AccordionItem>
               ))}
@@ -916,20 +837,20 @@ export default function ExternalValidatorSoftwarePage() {
       <section className="py-16 border-b" id="support">
         <div className="container">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4">Support & Resources</h2>
+            <h2 className="text-3xl font-bold mb-4">{t("externalValidatorSoftware.support.title")}</h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              Get help and stay connected with the TBURN community
+              {t("externalValidatorSoftware.support.subtitle")}
             </p>
           </div>
           <div className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
             <Card className="hover-elevate">
               <CardContent className="pt-6 text-center">
                 <BookOpen className="h-10 w-10 text-primary mx-auto mb-4" />
-                <h3 className="font-semibold mb-2">Documentation</h3>
-                <p className="text-sm text-muted-foreground mb-4">Comprehensive guides and API reference</p>
+                <h3 className="font-semibold mb-2">{t("externalValidatorSoftware.support.docs.title")}</h3>
+                <p className="text-sm text-muted-foreground mb-4">{t("externalValidatorSoftware.support.docs.description")}</p>
                 <Button variant="outline" className="gap-2" asChild data-testid="link-docs">
                   <a href="https://docs.tburn.io/validators" target="_blank" rel="noopener noreferrer">
-                    Read Docs
+                    {t("common.view")}
                     <ExternalLink className="h-4 w-4" />
                   </a>
                 </Button>
@@ -938,11 +859,11 @@ export default function ExternalValidatorSoftwarePage() {
             <Card className="hover-elevate">
               <CardContent className="pt-6 text-center">
                 <MessageCircle className="h-10 w-10 text-primary mx-auto mb-4" />
-                <h3 className="font-semibold mb-2">Discord Community</h3>
-                <p className="text-sm text-muted-foreground mb-4">Join validators and developers</p>
+                <h3 className="font-semibold mb-2">{t("externalValidatorSoftware.support.discord.title")}</h3>
+                <p className="text-sm text-muted-foreground mb-4">{t("externalValidatorSoftware.support.discord.description")}</p>
                 <Button variant="outline" className="gap-2" asChild data-testid="link-discord">
                   <a href="https://discord.gg/tburn" target="_blank" rel="noopener noreferrer">
-                    Join Discord
+                    {t("common.connect")}
                     <ExternalLink className="h-4 w-4" />
                   </a>
                 </Button>
@@ -951,11 +872,11 @@ export default function ExternalValidatorSoftwarePage() {
             <Card className="hover-elevate">
               <CardContent className="pt-6 text-center">
                 <Clock className="h-10 w-10 text-primary mx-auto mb-4" />
-                <h3 className="font-semibold mb-2">Enterprise Support</h3>
-                <p className="text-sm text-muted-foreground mb-4">24/7 priority support for Genesis tier</p>
+                <h3 className="font-semibold mb-2">{t("externalValidatorSoftware.support.enterprise.title")}</h3>
+                <p className="text-sm text-muted-foreground mb-4">{t("externalValidatorSoftware.support.enterprise.description")}</p>
                 <Button variant="outline" className="gap-2" asChild data-testid="link-support">
                   <a href="mailto:validators@tburn.io">
-                    Contact Support
+                    {t("common.connect")}
                     <ExternalLink className="h-4 w-4" />
                   </a>
                 </Button>
@@ -969,22 +890,21 @@ export default function ExternalValidatorSoftwarePage() {
       <section className="py-16">
         <div className="container">
           <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-3xl font-bold mb-4">Ready to Become a Validator?</h2>
+            <h2 className="text-3xl font-bold mb-4">{t("externalValidatorSoftware.cta.title")}</h2>
             <p className="text-muted-foreground mb-8">
-              Download the validator software and join the TBURN network today. 
-              Earn rewards while helping secure a high-performance blockchain.
+              {t("externalValidatorSoftware.cta.subtitle")}
             </p>
             <div className="flex flex-wrap items-center justify-center gap-4">
               <Button size="lg" className="gap-2" asChild data-testid="button-download-cta">
                 <a href={linuxRelease?.downloadUrl || "/downloads/tburn-validator-node-v1.0.0-linux-x64.tar.gz"} download>
                   <Download className="h-5 w-5" />
-                  Download Now
+                  {t("externalValidatorSoftware.cta.download")}
                 </a>
               </Button>
               <Button size="lg" variant="outline" asChild data-testid="link-program-cta">
                 <Link href="/external-validator-program">
                   <Play className="h-5 w-5 mr-2" />
-                  View Program Details
+                  {t("externalValidatorSoftware.cta.learnMore")}
                 </Link>
               </Button>
             </div>
