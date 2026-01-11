@@ -47,7 +47,7 @@ const loadLocale = async (lang: string): Promise<Record<string, unknown>> => {
 };
 
 const I18N_PREF_KEY = 'tburn-i18n-pref';
-const CURRENT_I18N_VERSION = 6;
+const CURRENT_I18N_VERSION = 7;
 const SUPPORTED_LANGS = ['en', 'ko', 'zh', 'ja', 'es', 'fr', 'pt', 'ru', 'ar', 'hi', 'bn', 'ur'];
 
 interface I18nPreference {

@@ -22471,195 +22471,195 @@
   },
   "coinlist": {
     "header": {
-      "tokenSale": "Token Sale",
+      "tokenSale": "Vente de Tokens",
       "trading": "Trading",
       "staking": "Staking",
-      "portfolio": "Portfolio",
-      "connectWallet": "Connect Wallet",
-      "walletConnected": "Connected",
-      "walletPrompt": "Click to connect"
+      "portfolio": "Portefeuille",
+      "connectWallet": "Connecter le Portefeuille",
+      "walletConnected": "Connecté",
+      "walletPrompt": "Cliquez pour connecter"
     },
     "hero": {
       "badges": {
-        "saleInProgress": "Sale In Progress",
-        "verified": "CoinList Verified",
-        "premium": "Premium Launch"
+        "saleInProgress": "Vente en Cours",
+        "verified": "Vérifié par CoinList",
+        "premium": "Lancement Premium"
       },
-      "description": "TBURN Chain is a next-generation Layer-1 platform combining AI and blockchain technology. With 200,000+ TPS high performance, AI-powered smart contracts, and a self-optimizing network, it leads the future of Web3. Available to global investors through CoinList.",
+      "description": "TBURN Chain est une plateforme Layer-1 de nouvelle génération combinant l'IA et la technologie blockchain. Avec plus de 200 000 TPS haute performance, des contrats intelligents alimentés par l'IA et un réseau auto-optimisant, elle mène l'avenir du Web3. Disponible pour les investisseurs mondiaux via CoinList.",
       "metrics": {
-        "tokenPrice": "Token Price",
-        "tgeUnlock": "TGE Unlock",
-        "totalSale": "Total Sale Amount",
-        "targetRaise": "Target Raise"
+        "tokenPrice": "Prix du Token",
+        "tgeUnlock": "Déblocage TGE",
+        "totalSale": "Montant Total de la Vente",
+        "targetRaise": "Objectif de Levée"
       }
     },
     "saleCard": {
-      "queueInfo": "waiting in queue",
+      "queueInfo": "en attente dans la file",
       "countdown": {
-        "days": "Days",
-        "hours": "Hours",
-        "mins": "Mins",
-        "secs": "Secs"
+        "days": "Jours",
+        "hours": "Heures",
+        "mins": "Min",
+        "secs": "Sec"
       },
       "progress": {
-        "completed": "completed",
+        "completed": "complété",
         "participants": "participants"
       },
       "saleInfo": {
-        "tokenPrice": "Token Price",
-        "minParticipation": "Min Participation",
-        "maxParticipation": "Max Participation",
-        "tgeUnlock": "TGE Unlock"
+        "tokenPrice": "Prix du Token",
+        "minParticipation": "Participation Min",
+        "maxParticipation": "Participation Max",
+        "tgeUnlock": "Déblocage TGE"
       },
       "queue": {
-        "title": "Queue Status",
-        "estimatedWait": "Estimated wait time: approx. 5 minutes"
+        "title": "Statut de la File",
+        "estimatedWait": "Temps d'attente estimé : environ 5 minutes"
       },
       "allocation": {
-        "title": "Participation Amount",
+        "title": "Montant de Participation",
         "max": "Max"
       },
       "tokenCalc": {
-        "receivingTokens": "Tokens to Receive",
+        "receivingTokens": "Tokens à Recevoir",
         "bonus": "Bonus",
-        "tgeUnlock": "TGE Unlock (15%)"
+        "tgeUnlock": "Déblocage TGE (15%)"
       },
       "payment": {
-        "title": "Select Payment Method",
-        "creditCard": "Credit Card / Bank Transfer",
+        "title": "Sélectionner le Mode de Paiement",
+        "creditCard": "Carte de Crédit / Virement Bancaire",
         "stablecoin": "Stablecoin",
         "bitcoin": "Bitcoin"
       },
-      "purchaseButton": "Join Now",
-      "securityNote": "Secured by CoinList payment security",
-      "live": "LIVE"
+      "purchaseButton": "Rejoindre Maintenant",
+      "securityNote": "Sécurisé par la protection de paiement CoinList",
+      "live": "EN DIRECT"
     },
     "tabs": {
-      "overview": "Overview",
+      "overview": "Aperçu",
       "tokenomics": "Tokenomics",
-      "team": "Team",
+      "team": "Équipe",
       "faq": "FAQ"
     },
     "overview": {
-      "aboutTitle": "About the Project",
-      "aboutP1": "TBURN Chain builds next-generation decentralized infrastructure through the combination of AI technology and blockchain. With innovative technologies like Triple-Band AI Orchestration, AI-Enhanced Committee BFT, and Dynamic Sharding, it surpasses the limits of existing blockchains.",
-      "aboutP2": "After mainnet launch, we plan to build diverse ecosystems including DeFi, NFT, GameFi, and enterprise solutions to lead Web3 adoption.",
-      "featuresTitle": "Key Features",
+      "aboutTitle": "À Propos du Projet",
+      "aboutP1": "TBURN Chain construit une infrastructure décentralisée de nouvelle génération grâce à la combinaison de la technologie IA et de la blockchain. Avec des technologies innovantes comme l'Orchestration IA Triple-Bande, le BFT de Comité Amélioré par IA et le Sharding Dynamique, elle dépasse les limites des blockchains existantes.",
+      "aboutP2": "Après le lancement du mainnet, nous prévoyons de construire des écosystèmes diversifiés incluant DeFi, NFT, GameFi et des solutions d'entreprise pour mener l'adoption du Web3.",
+      "featuresTitle": "Fonctionnalités Clés",
       "vesting": {
-        "title": "Vesting Schedule",
+        "title": "Calendrier de Vesting",
         "tge": "TGE",
-        "tgeDesc": "Token Generation Event",
+        "tgeDesc": "Événement de Génération de Tokens",
         "cliff": "Cliff",
-        "cliffDesc": "Month 1-3",
-        "linearVesting": "Linear Vesting",
-        "linearVestingDesc": "Month 4-15"
+        "cliffDesc": "Mois 1-3",
+        "linearVesting": "Vesting Linéaire",
+        "linearVestingDesc": "Mois 4-15"
       },
       "documents": {
         "title": "Documents",
-        "whitepaper": "Whitepaper",
-        "technicalDocs": "Technical Documentation",
+        "whitepaper": "Livre Blanc",
+        "technicalDocs": "Documentation Technique",
         "tokenomics": "Tokenomics",
-        "auditReport": "Audit Report"
+        "auditReport": "Rapport d'Audit"
       }
     },
     "tokenomics": {
-      "totalSupply": "Total Supply",
-      "initialMarketCap": "Initial Market Cap",
-      "fdv": "FDV",
-      "publicSale": "Public Sale",
-      "ecosystem": "Ecosystem",
-      "community": "Community"
+      "totalSupply": "Offre Totale",
+      "initialMarketCap": "Capitalisation Initiale",
+      "fdv": "VDE",
+      "publicSale": "Vente Publique",
+      "ecosystem": "Écosystème",
+      "community": "Communauté"
     },
     "team": {
-      "coreTeam": "Core Team",
-      "keyPartners": "Key Partners",
-      "investors": "Investors"
+      "coreTeam": "Équipe Principale",
+      "keyPartners": "Partenaires Clés",
+      "investors": "Investisseurs"
     },
     "faq": {
       "q1": {
-        "question": "What is the total size of the CoinList sale?",
-        "answer": "The TBURN token sale through CoinList totals 600M TBURN (6% of total supply), with a target raise of $12,000,000. Token price is set at $0.02."
+        "question": "Quelle est la taille totale de la vente CoinList ?",
+        "answer": "La vente de tokens TBURN via CoinList totalise 600M TBURN (6% de l'offre totale), avec un objectif de levée de 12 000 000 $. Le prix du token est fixé à 0,02 $."
       },
       "q2": {
-        "question": "How do I participate on CoinList?",
-        "answer": "Create a CoinList account, complete KYC verification, then participate using USD, credit card, or cryptocurrency (USDT, USDC, BTC). Connect your wallet and enter the amount you wish to invest."
+        "question": "Comment participer sur CoinList ?",
+        "answer": "Créez un compte CoinList, complétez la vérification KYC, puis participez en utilisant USD, carte de crédit ou cryptomonnaie (USDT, USDC, BTC). Connectez votre portefeuille et entrez le montant que vous souhaitez investir."
       },
       "q3": {
-        "question": "What are the min/max participation amounts?",
-        "answer": "Minimum $100, maximum $50,000. Allocation may vary based on CoinList level. 3% bonus for $10,000+ participation, 1% bonus for $1,000+ participation."
+        "question": "Quels sont les montants de participation min/max ?",
+        "answer": "Minimum 100 $, maximum 50 000 $. L'allocation peut varier selon le niveau CoinList. Bonus de 3% pour une participation de 10 000 $+, bonus de 1% pour une participation de 1 000 $+."
       },
       "q4": {
-        "question": "When will I receive my tokens?",
-        "answer": "15% is unlocked immediately at TGE (Token Generation Event). After a 3-month cliff period, the remaining 85% is distributed according to a 12-month linear vesting schedule."
+        "question": "Quand recevrai-je mes tokens ?",
+        "answer": "15% sont débloqués immédiatement au TGE (Événement de Génération de Tokens). Après une période de cliff de 3 mois, les 85% restants sont distribués selon un calendrier de vesting linéaire de 12 mois."
       },
       "q5": {
-        "question": "What payment methods are supported?",
-        "answer": "CoinList supports various payment methods: USD (credit card, bank transfer), USDT, USDC, and BTC. Both fiat and cryptocurrency are accepted."
+        "question": "Quels modes de paiement sont acceptés ?",
+        "answer": "CoinList prend en charge divers modes de paiement : USD (carte de crédit, virement bancaire), USDT, USDC et BTC. Les devises fiat et les cryptomonnaies sont acceptées."
       },
       "q6": {
-        "question": "How does the CoinList queue system work?",
-        "answer": "CoinList operates a queue system for fair participation. A random queue number is assigned at participation start, and purchase opportunities are given based on your position. Estimated wait time is displayed in real-time."
+        "question": "Comment fonctionne le système de file d'attente CoinList ?",
+        "answer": "CoinList utilise un système de file d'attente pour une participation équitable. Un numéro de file aléatoire est attribué au début de la participation, et les opportunités d'achat sont données selon votre position. Le temps d'attente estimé est affiché en temps réel."
       },
       "q7": {
-        "question": "What are the special benefits of CoinList participation?",
-        "answer": "High credibility as a CoinList verified project, premium launch support, fiat payment support, priority listing on CoinList exchange, and dedicated customer support."
+        "question": "Quels sont les avantages spéciaux de la participation CoinList ?",
+        "answer": "Haute crédibilité en tant que projet vérifié CoinList, support de lancement premium, support de paiement fiat, listing prioritaire sur l'exchange CoinList et support client dédié."
       },
       "q8": {
-        "question": "How do I get help or support?",
-        "answer": "Contact CoinList customer support, or reach out through official TBURN communities (Telegram, Discord). Email support is also available at support@coinlist.co or support@tburnchain.io."
+        "question": "Comment obtenir de l'aide ou du support ?",
+        "answer": "Contactez le support client CoinList, ou contactez-nous via les communautés officielles TBURN (Telegram, Discord). Le support par email est également disponible à support@coinlist.co ou support@tburnchain.io."
       }
     },
     "footer": {
-      "terms": "Terms of Service",
-      "privacy": "Privacy Policy",
-      "riskDisclosure": "Risk Disclosure",
-      "support": "Customer Support",
-      "copyright": "© 2025 CoinList. All Rights Reserved."
+      "terms": "Conditions d'Utilisation",
+      "privacy": "Politique de Confidentialité",
+      "riskDisclosure": "Divulgation des Risques",
+      "support": "Support Client",
+      "copyright": "© 2025 CoinList. Tous Droits Réservés."
     },
     "modal": {
-      "participationComplete": "Participation Complete!",
-      "processing": "Processing...",
-      "tokenSaleComplete": "Token Sale Participation Complete!",
-      "tokenDeliveryNote": "Tokens will be delivered at TGE",
-      "pleaseWait": "Please wait",
-      "participationAmount": "Participation Amount",
-      "tokensToReceive": "Tokens to Receive",
-      "tgeUnlock": "TGE Unlock",
-      "confirm": "Confirm"
+      "participationComplete": "Participation Terminée !",
+      "processing": "Traitement en cours...",
+      "tokenSaleComplete": "Participation à la Vente de Tokens Terminée !",
+      "tokenDeliveryNote": "Les tokens seront livrés au TGE",
+      "pleaseWait": "Veuillez patienter",
+      "participationAmount": "Montant de Participation",
+      "tokensToReceive": "Tokens à Recevoir",
+      "tgeUnlock": "Déblocage TGE",
+      "confirm": "Confirmer"
     },
     "toast": {
-      "walletDisconnected": "Wallet Disconnected",
-      "walletDisconnectedDesc": "Wallet successfully disconnected.",
-      "walletConnecting": "Connecting Wallet",
-      "walletConnectingDesc": "Attempting to connect MetaMask wallet.",
-      "walletRequired": "Wallet Required",
-      "walletRequiredDesc": "Please connect your wallet first to purchase tokens.",
-      "minAmount": "Below Minimum Amount",
-      "minAmountDesc": "You must participate with at least $100.",
-      "maxAmount": "Exceeds Maximum Amount",
-      "maxAmountDesc": "Maximum participation is $50,000.",
-      "participationComplete": "Participation Complete!",
-      "participationCompleteDesc": "TBURN tokens purchased successfully.",
-      "socialOpen": "Opening",
-      "socialOpenDesc": "Navigating to page.",
-      "tabComingSoon": "Tab",
-      "tabComingSoonDesc": "feature coming soon.",
-      "documentDownload": "Document Download",
-      "documentDownloadDesc": "Starting download.",
-      "riskDisclosure": "Risk Disclosure",
-      "riskDisclosureDesc": "Navigating to Risk Disclosure page.",
-      "customerSupport": "Customer Support",
-      "customerSupportDesc": "Please contact support@coinlist.co."
+      "walletDisconnected": "Portefeuille Déconnecté",
+      "walletDisconnectedDesc": "Portefeuille déconnecté avec succès.",
+      "walletConnecting": "Connexion du Portefeuille",
+      "walletConnectingDesc": "Tentative de connexion au portefeuille MetaMask.",
+      "walletRequired": "Portefeuille Requis",
+      "walletRequiredDesc": "Veuillez d'abord connecter votre portefeuille pour acheter des tokens.",
+      "minAmount": "Montant Minimum Non Atteint",
+      "minAmountDesc": "Vous devez participer avec au moins 100 $.",
+      "maxAmount": "Montant Maximum Dépassé",
+      "maxAmountDesc": "La participation maximale est de 50 000 $.",
+      "participationComplete": "Participation Terminée !",
+      "participationCompleteDesc": "Tokens TBURN achetés avec succès.",
+      "socialOpen": "Ouverture",
+      "socialOpenDesc": "Navigation vers la page.",
+      "tabComingSoon": "Onglet",
+      "tabComingSoonDesc": "fonctionnalité bientôt disponible.",
+      "documentDownload": "Téléchargement du Document",
+      "documentDownloadDesc": "Début du téléchargement.",
+      "riskDisclosure": "Divulgation des Risques",
+      "riskDisclosureDesc": "Navigation vers la page Divulgation des Risques.",
+      "customerSupport": "Support Client",
+      "customerSupportDesc": "Veuillez contacter support@coinlist.co."
     },
     "features": {
-      "ultraFast": "Ultra Fast Processing",
-      "ultraFastDesc": "200,000+ TPS real-time transaction processing",
-      "aiIntegration": "AI Integration",
-      "aiIntegrationDesc": "Built-in AI functionality in smart contracts",
-      "strongSecurity": "Strong Security",
-      "strongSecurityDesc": "AI-based threat detection and defense",
-      "ecoFriendly": "Eco-Friendly",
-      "ecoFriendlyDesc": "Energy-efficient PoS consensus"
+      "ultraFast": "Traitement Ultra Rapide",
+      "ultraFastDesc": "Traitement de transactions en temps réel à plus de 200 000 TPS",
+      "aiIntegration": "Intégration IA",
+      "aiIntegrationDesc": "Fonctionnalité IA intégrée dans les contrats intelligents",
+      "strongSecurity": "Sécurité Renforcée",
+      "strongSecurityDesc": "Détection et défense des menaces basées sur l'IA",
+      "ecoFriendly": "Écologique",
+      "ecoFriendlyDesc": "Consensus PoS économe en énergie"
     }
   },
   "daomaker": {

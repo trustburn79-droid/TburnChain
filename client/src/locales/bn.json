@@ -20563,195 +20563,195 @@
   },
   "coinlist": {
     "header": {
-      "tokenSale": "Token Sale",
-      "trading": "Trading",
-      "staking": "Staking",
-      "portfolio": "Portfolio",
-      "connectWallet": "Connect Wallet",
-      "walletConnected": "Connected",
-      "walletPrompt": "Click to connect"
+      "tokenSale": "টোকেন সেল",
+      "trading": "ট্রেডিং",
+      "staking": "স্টেকিং",
+      "portfolio": "পোর্টফোলিও",
+      "connectWallet": "ওয়ালেট সংযুক্ত করুন",
+      "walletConnected": "সংযুক্ত",
+      "walletPrompt": "সংযোগ করতে ক্লিক করুন"
     },
     "hero": {
       "badges": {
-        "saleInProgress": "Sale In Progress",
-        "verified": "CoinList Verified",
-        "premium": "Premium Launch"
+        "saleInProgress": "বিক্রয় চলছে",
+        "verified": "CoinList যাচাইকৃত",
+        "premium": "প্রিমিয়াম লঞ্চ"
       },
-      "description": "TBURN Chain is a next-generation Layer-1 platform combining AI and blockchain technology. With 200,000+ TPS high performance, AI-powered smart contracts, and a self-optimizing network, it leads the future of Web3. Available to global investors through CoinList.",
+      "description": "TBURN Chain হল AI এবং ব্লকচেইন প্রযুক্তির সমন্বয়ে একটি পরবর্তী প্রজন্মের Layer-1 প্ল্যাটফর্ম। ২০০,০০০+ TPS উচ্চ কর্মক্ষমতা, AI-চালিত স্মার্ট কন্ট্রাক্ট এবং স্ব-অপ্টিমাইজিং নেটওয়ার্ক সহ, এটি Web3 এর ভবিষ্যতের নেতৃত্ব দেয়। CoinList এর মাধ্যমে বৈশ্বিক বিনিয়োগকারীদের জন্য উপলব্ধ।",
       "metrics": {
-        "tokenPrice": "Token Price",
-        "tgeUnlock": "TGE Unlock",
-        "totalSale": "Total Sale Amount",
-        "targetRaise": "Target Raise"
+        "tokenPrice": "টোকেন মূল্য",
+        "tgeUnlock": "TGE আনলক",
+        "totalSale": "মোট বিক্রয় পরিমাণ",
+        "targetRaise": "লক্ষ্য সংগ্রহ"
       }
     },
     "saleCard": {
-      "queueInfo": "waiting in queue",
+      "queueInfo": "সারিতে অপেক্ষমান",
       "countdown": {
-        "days": "Days",
-        "hours": "Hours",
-        "mins": "Mins",
-        "secs": "Secs"
+        "days": "দিন",
+        "hours": "ঘন্টা",
+        "mins": "মিনিট",
+        "secs": "সেকেন্ড"
       },
       "progress": {
-        "completed": "completed",
-        "participants": "participants"
+        "completed": "সম্পন্ন",
+        "participants": "অংশগ্রহণকারী"
       },
       "saleInfo": {
-        "tokenPrice": "Token Price",
-        "minParticipation": "Min Participation",
-        "maxParticipation": "Max Participation",
-        "tgeUnlock": "TGE Unlock"
+        "tokenPrice": "টোকেন মূল্য",
+        "minParticipation": "ন্যূনতম অংশগ্রহণ",
+        "maxParticipation": "সর্বোচ্চ অংশগ্রহণ",
+        "tgeUnlock": "TGE আনলক"
       },
       "queue": {
-        "title": "Queue Status",
-        "estimatedWait": "Estimated wait time: approx. 5 minutes"
+        "title": "সারির অবস্থা",
+        "estimatedWait": "আনুমানিক অপেক্ষার সময়: প্রায় ৫ মিনিট"
       },
       "allocation": {
-        "title": "Participation Amount",
-        "max": "Max"
+        "title": "অংশগ্রহণের পরিমাণ",
+        "max": "সর্বোচ্চ"
       },
       "tokenCalc": {
-        "receivingTokens": "Tokens to Receive",
-        "bonus": "Bonus",
-        "tgeUnlock": "TGE Unlock (15%)"
+        "receivingTokens": "প্রাপ্তব্য টোকেন",
+        "bonus": "বোনাস",
+        "tgeUnlock": "TGE আনলক (১৫%)"
       },
       "payment": {
-        "title": "Select Payment Method",
-        "creditCard": "Credit Card / Bank Transfer",
-        "stablecoin": "Stablecoin",
-        "bitcoin": "Bitcoin"
+        "title": "পেমেন্ট পদ্ধতি নির্বাচন করুন",
+        "creditCard": "ক্রেডিট কার্ড / ব্যাংক ট্রান্সফার",
+        "stablecoin": "স্টেবলকয়েন",
+        "bitcoin": "বিটকয়েন"
       },
-      "purchaseButton": "Join Now",
-      "securityNote": "Secured by CoinList payment security",
-      "live": "LIVE"
+      "purchaseButton": "এখনই যোগ দিন",
+      "securityNote": "CoinList পেমেন্ট নিরাপত্তা দ্বারা সুরক্ষিত",
+      "live": "লাইভ"
     },
     "tabs": {
-      "overview": "Overview",
-      "tokenomics": "Tokenomics",
-      "team": "Team",
-      "faq": "FAQ"
+      "overview": "সংক্ষিপ্ত বিবরণ",
+      "tokenomics": "টোকেনমিক্স",
+      "team": "টিম",
+      "faq": "সাধারণ প্রশ্ন"
     },
     "overview": {
-      "aboutTitle": "About the Project",
-      "aboutP1": "TBURN Chain builds next-generation decentralized infrastructure through the combination of AI technology and blockchain. With innovative technologies like Triple-Band AI Orchestration, AI-Enhanced Committee BFT, and Dynamic Sharding, it surpasses the limits of existing blockchains.",
-      "aboutP2": "After mainnet launch, we plan to build diverse ecosystems including DeFi, NFT, GameFi, and enterprise solutions to lead Web3 adoption.",
-      "featuresTitle": "Key Features",
+      "aboutTitle": "প্রকল্প সম্পর্কে",
+      "aboutP1": "TBURN Chain AI প্রযুক্তি এবং ব্লকচেইনের সমন্বয়ের মাধ্যমে পরবর্তী প্রজন্মের বিকেন্দ্রীভূত অবকাঠামো তৈরি করে। Triple-Band AI Orchestration, AI-Enhanced Committee BFT, এবং Dynamic Sharding এর মতো উদ্ভাবনী প্রযুক্তির সাথে, এটি বিদ্যমান ব্লকচেইনের সীমা অতিক্রম করে।",
+      "aboutP2": "মেইননেট লঞ্চের পরে, আমরা Web3 গ্রহণে নেতৃত্ব দিতে DeFi, NFT, GameFi এবং এন্টারপ্রাইজ সলিউশন সহ বৈচিত্র্যময় ইকোসিস্টেম তৈরি করার পরিকল্পনা করছি।",
+      "featuresTitle": "মূল বৈশিষ্ট্যসমূহ",
       "vesting": {
-        "title": "Vesting Schedule",
+        "title": "ভেস্টিং সময়সূচী",
         "tge": "TGE",
-        "tgeDesc": "Token Generation Event",
-        "cliff": "Cliff",
-        "cliffDesc": "Month 1-3",
-        "linearVesting": "Linear Vesting",
-        "linearVestingDesc": "Month 4-15"
+        "tgeDesc": "টোকেন জেনারেশন ইভেন্ট",
+        "cliff": "ক্লিফ",
+        "cliffDesc": "মাস ১-৩",
+        "linearVesting": "লিনিয়ার ভেস্টিং",
+        "linearVestingDesc": "মাস ৪-১৫"
       },
       "documents": {
-        "title": "Documents",
-        "whitepaper": "Whitepaper",
-        "technicalDocs": "Technical Documentation",
-        "tokenomics": "Tokenomics",
-        "auditReport": "Audit Report"
+        "title": "ডকুমেন্টস",
+        "whitepaper": "হোয়াইটপেপার",
+        "technicalDocs": "প্রযুক্তিগত ডকুমেন্টেশন",
+        "tokenomics": "টোকেনমিক্স",
+        "auditReport": "অডিট রিপোর্ট"
       }
     },
     "tokenomics": {
-      "totalSupply": "Total Supply",
-      "initialMarketCap": "Initial Market Cap",
+      "totalSupply": "মোট সরবরাহ",
+      "initialMarketCap": "প্রাথমিক মার্কেট ক্যাপ",
       "fdv": "FDV",
-      "publicSale": "Public Sale",
-      "ecosystem": "Ecosystem",
-      "community": "Community"
+      "publicSale": "পাবলিক সেল",
+      "ecosystem": "ইকোসিস্টেম",
+      "community": "কমিউনিটি"
     },
     "team": {
-      "coreTeam": "Core Team",
-      "keyPartners": "Key Partners",
-      "investors": "Investors"
+      "coreTeam": "মূল টিম",
+      "keyPartners": "প্রধান অংশীদার",
+      "investors": "বিনিয়োগকারী"
     },
     "faq": {
       "q1": {
-        "question": "What is the total size of the CoinList sale?",
-        "answer": "The TBURN token sale through CoinList totals 600M TBURN (6% of total supply), with a target raise of $12,000,000. Token price is set at $0.02."
+        "question": "CoinList সেলের মোট আকার কত?",
+        "answer": "CoinList এর মাধ্যমে TBURN টোকেন সেল মোট ৬০০M TBURN (মোট সরবরাহের ৬%), লক্ষ্য সংগ্রহ $১২,০০০,০০০। টোকেন মূল্য $০.০২ নির্ধারিত।"
       },
       "q2": {
-        "question": "How do I participate on CoinList?",
-        "answer": "Create a CoinList account, complete KYC verification, then participate using USD, credit card, or cryptocurrency (USDT, USDC, BTC). Connect your wallet and enter the amount you wish to invest."
+        "question": "CoinList-এ কীভাবে অংশগ্রহণ করব?",
+        "answer": "CoinList অ্যাকাউন্ট তৈরি করুন, KYC যাচাই সম্পূর্ণ করুন, তারপর USD, ক্রেডিট কার্ড, বা ক্রিপ্টোকারেন্সি (USDT, USDC, BTC) ব্যবহার করে অংশগ্রহণ করুন। আপনার ওয়ালেট সংযুক্ত করুন এবং বিনিয়োগের পরিমাণ লিখুন।"
       },
       "q3": {
-        "question": "What are the min/max participation amounts?",
-        "answer": "Minimum $100, maximum $50,000. Allocation may vary based on CoinList level. 3% bonus for $10,000+ participation, 1% bonus for $1,000+ participation."
+        "question": "ন্যূনতম/সর্বোচ্চ অংশগ্রহণের পরিমাণ কত?",
+        "answer": "ন্যূনতম $১০০, সর্বোচ্চ $৫০,০০০। CoinList লেভেলের উপর ভিত্তি করে বরাদ্দ পরিবর্তিত হতে পারে। $১০,০০০+ অংশগ্রহণে ৩% বোনাস, $১,০০০+ অংশগ্রহণে ১% বোনাস।"
       },
       "q4": {
-        "question": "When will I receive my tokens?",
-        "answer": "15% is unlocked immediately at TGE (Token Generation Event). After a 3-month cliff period, the remaining 85% is distributed according to a 12-month linear vesting schedule."
+        "question": "আমি কখন আমার টোকেন পাব?",
+        "answer": "TGE (টোকেন জেনারেশন ইভেন্ট)-এ ১৫% তাৎক্ষণিক আনলক হয়। ৩ মাসের ক্লিফ পিরিয়ডের পর, বাকি ৮৫% ১২ মাসের লিনিয়ার ভেস্টিং সময়সূচী অনুযায়ী বিতরণ করা হয়।"
       },
       "q5": {
-        "question": "What payment methods are supported?",
-        "answer": "CoinList supports various payment methods: USD (credit card, bank transfer), USDT, USDC, and BTC. Both fiat and cryptocurrency are accepted."
+        "question": "কোন পেমেন্ট পদ্ধতিগুলো সমর্থিত?",
+        "answer": "CoinList বিভিন্ন পেমেন্ট পদ্ধতি সমর্থন করে: USD (ক্রেডিট কার্ড, ব্যাংক ট্রান্সফার), USDT, USDC, এবং BTC। ফিয়াট এবং ক্রিপ্টোকারেন্সি উভয়ই গ্রহণযোগ্য।"
       },
       "q6": {
-        "question": "How does the CoinList queue system work?",
-        "answer": "CoinList operates a queue system for fair participation. A random queue number is assigned at participation start, and purchase opportunities are given based on your position. Estimated wait time is displayed in real-time."
+        "question": "CoinList কিউ সিস্টেম কীভাবে কাজ করে?",
+        "answer": "CoinList ন্যায্য অংশগ্রহণের জন্য একটি কিউ সিস্টেম পরিচালনা করে। অংশগ্রহণ শুরুতে একটি র্যান্ডম কিউ নম্বর বরাদ্দ করা হয় এবং আপনার অবস্থানের উপর ভিত্তি করে ক্রয়ের সুযোগ দেওয়া হয়। আনুমানিক অপেক্ষার সময় রিয়েল-টাইমে প্রদর্শিত হয়।"
       },
       "q7": {
-        "question": "What are the special benefits of CoinList participation?",
-        "answer": "High credibility as a CoinList verified project, premium launch support, fiat payment support, priority listing on CoinList exchange, and dedicated customer support."
+        "question": "CoinList অংশগ্রহণের বিশেষ সুবিধা কী?",
+        "answer": "CoinList যাচাইকৃত প্রকল্প হিসাবে উচ্চ বিশ্বাসযোগ্যতা, প্রিমিয়াম লঞ্চ সাপোর্ট, ফিয়াট পেমেন্ট সাপোর্ট, CoinList এক্সচেঞ্জে অগ্রাধিকার তালিকাভুক্তি, এবং ডেডিকেটেড গ্রাহক সাপোর্ট।"
       },
       "q8": {
-        "question": "How do I get help or support?",
-        "answer": "Contact CoinList customer support, or reach out through official TBURN communities (Telegram, Discord). Email support is also available at support@coinlist.co or support@tburnchain.io."
+        "question": "সাহায্য বা সাপোর্ট কীভাবে পাব?",
+        "answer": "CoinList গ্রাহক সাপোর্টে যোগাযোগ করুন, অথবা অফিসিয়াল TBURN কমিউনিটির মাধ্যমে যোগাযোগ করুন (Telegram, Discord)। ইমেইল সাপোর্টও উপলব্ধ support@coinlist.co বা support@tburnchain.io এ।"
       }
     },
     "footer": {
-      "terms": "Terms of Service",
-      "privacy": "Privacy Policy",
-      "riskDisclosure": "Risk Disclosure",
-      "support": "Customer Support",
-      "copyright": "© 2025 CoinList. All Rights Reserved."
+      "terms": "সেবার শর্তাবলী",
+      "privacy": "গোপনীয়তা নীতি",
+      "riskDisclosure": "ঝুঁকি প্রকাশ",
+      "support": "গ্রাহক সাপোর্ট",
+      "copyright": "© ২০২৫ CoinList। সর্বস্বত্ব সংরক্ষিত।"
     },
     "modal": {
-      "participationComplete": "Participation Complete!",
-      "processing": "Processing...",
-      "tokenSaleComplete": "Token Sale Participation Complete!",
-      "tokenDeliveryNote": "Tokens will be delivered at TGE",
-      "pleaseWait": "Please wait",
-      "participationAmount": "Participation Amount",
-      "tokensToReceive": "Tokens to Receive",
-      "tgeUnlock": "TGE Unlock",
-      "confirm": "Confirm"
+      "participationComplete": "অংশগ্রহণ সম্পন্ন!",
+      "processing": "প্রসেসিং হচ্ছে...",
+      "tokenSaleComplete": "টোকেন সেল অংশগ্রহণ সম্পন্ন!",
+      "tokenDeliveryNote": "TGE-তে টোকেন বিতরণ করা হবে",
+      "pleaseWait": "অনুগ্রহ করে অপেক্ষা করুন",
+      "participationAmount": "অংশগ্রহণের পরিমাণ",
+      "tokensToReceive": "প্রাপ্তব্য টোকেন",
+      "tgeUnlock": "TGE আনলক",
+      "confirm": "নিশ্চিত করুন"
     },
     "toast": {
-      "walletDisconnected": "Wallet Disconnected",
-      "walletDisconnectedDesc": "Wallet successfully disconnected.",
-      "walletConnecting": "Connecting Wallet",
-      "walletConnectingDesc": "Attempting to connect MetaMask wallet.",
-      "walletRequired": "Wallet Required",
-      "walletRequiredDesc": "Please connect your wallet first to purchase tokens.",
-      "minAmount": "Below Minimum Amount",
-      "minAmountDesc": "You must participate with at least $100.",
-      "maxAmount": "Exceeds Maximum Amount",
-      "maxAmountDesc": "Maximum participation is $50,000.",
-      "participationComplete": "Participation Complete!",
-      "participationCompleteDesc": "TBURN tokens purchased successfully.",
-      "socialOpen": "Opening",
-      "socialOpenDesc": "Navigating to page.",
-      "tabComingSoon": "Tab",
-      "tabComingSoonDesc": "feature coming soon.",
-      "documentDownload": "Document Download",
-      "documentDownloadDesc": "Starting download.",
-      "riskDisclosure": "Risk Disclosure",
-      "riskDisclosureDesc": "Navigating to Risk Disclosure page.",
-      "customerSupport": "Customer Support",
-      "customerSupportDesc": "Please contact support@coinlist.co."
+      "walletDisconnected": "ওয়ালেট সংযোগ বিচ্ছিন্ন",
+      "walletDisconnectedDesc": "ওয়ালেট সফলভাবে সংযোগ বিচ্ছিন্ন হয়েছে।",
+      "walletConnecting": "ওয়ালেট সংযুক্ত হচ্ছে",
+      "walletConnectingDesc": "MetaMask ওয়ালেট সংযোগ করার চেষ্টা করা হচ্ছে।",
+      "walletRequired": "ওয়ালেট প্রয়োজন",
+      "walletRequiredDesc": "টোকেন কেনার জন্য অনুগ্রহ করে প্রথমে আপনার ওয়ালেট সংযুক্ত করুন।",
+      "minAmount": "ন্যূনতম পরিমাণের নিচে",
+      "minAmountDesc": "আপনাকে কমপক্ষে $১০০ দিয়ে অংশগ্রহণ করতে হবে।",
+      "maxAmount": "সর্বোচ্চ পরিমাণ অতিক্রম",
+      "maxAmountDesc": "সর্বোচ্চ অংশগ্রহণ $৫০,০০০।",
+      "participationComplete": "অংশগ্রহণ সম্পন্ন!",
+      "participationCompleteDesc": "TBURN টোকেন সফলভাবে কেনা হয়েছে।",
+      "socialOpen": "খোলা হচ্ছে",
+      "socialOpenDesc": "পেজে নেভিগেট করা হচ্ছে।",
+      "tabComingSoon": "ট্যাব",
+      "tabComingSoonDesc": "বৈশিষ্ট্য শীঘ্রই আসছে।",
+      "documentDownload": "ডকুমেন্ট ডাউনলোড",
+      "documentDownloadDesc": "ডাউনলোড শুরু হচ্ছে।",
+      "riskDisclosure": "ঝুঁকি প্রকাশ",
+      "riskDisclosureDesc": "ঝুঁকি প্রকাশ পেজে নেভিগেট করা হচ্ছে।",
+      "customerSupport": "গ্রাহক সাপোর্ট",
+      "customerSupportDesc": "অনুগ্রহ করে support@coinlist.co তে যোগাযোগ করুন।"
     },
     "features": {
-      "ultraFast": "Ultra Fast Processing",
-      "ultraFastDesc": "200,000+ TPS real-time transaction processing",
-      "aiIntegration": "AI Integration",
-      "aiIntegrationDesc": "Built-in AI functionality in smart contracts",
-      "strongSecurity": "Strong Security",
-      "strongSecurityDesc": "AI-based threat detection and defense",
-      "ecoFriendly": "Eco-Friendly",
-      "ecoFriendlyDesc": "Energy-efficient PoS consensus"
+      "ultraFast": "অতি দ্রুত প্রসেসিং",
+      "ultraFastDesc": "২০০,০০০+ TPS রিয়েল-টাইম লেনদেন প্রসেসিং",
+      "aiIntegration": "AI ইন্টিগ্রেশন",
+      "aiIntegrationDesc": "স্মার্ট কন্ট্রাক্টে বিল্ট-ইন AI কার্যকারিতা",
+      "strongSecurity": "শক্তিশালী নিরাপত্তা",
+      "strongSecurityDesc": "AI-ভিত্তিক হুমকি সনাক্তকরণ এবং প্রতিরক্ষা",
+      "ecoFriendly": "পরিবেশ বান্ধব",
+      "ecoFriendlyDesc": "শক্তি-দক্ষ PoS কনসেনসাস"
     }
   },
   "daomaker": {

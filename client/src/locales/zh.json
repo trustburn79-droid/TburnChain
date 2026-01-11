@@ -24593,13 +24593,13 @@
     "header": {
       "title": "CoinList销售",
       "subtitle": "公开代币销售",
-      "tokenSale": "Token Sale",
-      "trading": "Trading",
-      "staking": "Staking",
-      "portfolio": "Portfolio",
-      "connectWallet": "Connect Wallet",
-      "walletConnected": "Connected",
-      "walletPrompt": "Click to connect"
+      "tokenSale": "代币销售",
+      "trading": "交易",
+      "staking": "质押",
+      "portfolio": "投资组合",
+      "connectWallet": "连接钱包",
+      "walletConnected": "已连接",
+      "walletPrompt": "点击连接"
     },
     "hero": {
       "badge": "CoinList代币销售",
@@ -24607,15 +24607,15 @@
       "subtitle": "CoinList分配",
       "description": "通过CoinList平台进行的公开代币销售。面向经过严格KYC/AML审核的可信投资者。",
       "badges": {
-        "saleInProgress": "Sale In Progress",
-        "verified": "CoinList Verified",
-        "premium": "Premium Launch"
+        "saleInProgress": "销售进行中",
+        "verified": "CoinList认证",
+        "premium": "高级发售"
       },
       "metrics": {
-        "tokenPrice": "Token Price",
-        "tgeUnlock": "TGE Unlock",
-        "totalSale": "Total Sale Amount",
-        "targetRaise": "Target Raise"
+        "tokenPrice": "代币价格",
+        "tgeUnlock": "TGE解锁",
+        "totalSale": "总销售额",
+        "targetRaise": "目标筹资"
       }
     },
     "stats": {
@@ -24627,170 +24627,170 @@
     "toast": {
       "walletDisconnected": "钱包已断开",
       "walletDisconnectedDesc": "钱包连接已断开",
-      "walletConnecting": "Connecting Wallet",
-      "walletConnectingDesc": "Attempting to connect MetaMask wallet.",
-      "walletRequired": "Wallet Required",
-      "walletRequiredDesc": "Please connect your wallet first to purchase tokens.",
-      "minAmount": "Below Minimum Amount",
-      "minAmountDesc": "You must participate with at least $100.",
-      "maxAmount": "Exceeds Maximum Amount",
-      "maxAmountDesc": "Maximum participation is $50,000.",
-      "participationComplete": "Participation Complete!",
-      "participationCompleteDesc": "TBURN tokens purchased successfully.",
-      "socialOpen": "Opening",
-      "socialOpenDesc": "Navigating to page.",
-      "tabComingSoon": "Tab",
-      "tabComingSoonDesc": "feature coming soon.",
-      "documentDownload": "Document Download",
-      "documentDownloadDesc": "Starting download.",
-      "riskDisclosure": "Risk Disclosure",
-      "riskDisclosureDesc": "Navigating to Risk Disclosure page.",
-      "customerSupport": "Customer Support",
-      "customerSupportDesc": "Please contact support@coinlist.co."
+      "walletConnecting": "正在连接钱包",
+      "walletConnectingDesc": "正在尝试连接MetaMask钱包。",
+      "walletRequired": "需要钱包",
+      "walletRequiredDesc": "请先连接您的钱包以购买代币。",
+      "minAmount": "低于最低金额",
+      "minAmountDesc": "您必须至少参与100美元。",
+      "maxAmount": "超过最高金额",
+      "maxAmountDesc": "最高参与金额为50,000美元。",
+      "participationComplete": "参与完成！",
+      "participationCompleteDesc": "TBURN代币购买成功。",
+      "socialOpen": "正在打开",
+      "socialOpenDesc": "正在导航到页面。",
+      "tabComingSoon": "标签页",
+      "tabComingSoonDesc": "功能即将推出。",
+      "documentDownload": "文档下载",
+      "documentDownloadDesc": "正在开始下载。",
+      "riskDisclosure": "风险披露",
+      "riskDisclosureDesc": "正在导航到风险披露页面。",
+      "customerSupport": "客户支持",
+      "customerSupportDesc": "请联系 support@coinlist.co。"
     },
     "saleCard": {
-      "queueInfo": "waiting in queue",
+      "queueInfo": "正在排队等待",
       "countdown": {
-        "days": "Days",
-        "hours": "Hours",
-        "mins": "Mins",
-        "secs": "Secs"
+        "days": "天",
+        "hours": "时",
+        "mins": "分",
+        "secs": "秒"
       },
       "progress": {
-        "completed": "completed",
-        "participants": "participants"
+        "completed": "已完成",
+        "participants": "参与者"
       },
       "saleInfo": {
-        "tokenPrice": "Token Price",
-        "minParticipation": "Min Participation",
-        "maxParticipation": "Max Participation",
-        "tgeUnlock": "TGE Unlock"
+        "tokenPrice": "代币价格",
+        "minParticipation": "最低参与金额",
+        "maxParticipation": "最高参与金额",
+        "tgeUnlock": "TGE解锁"
       },
       "queue": {
-        "title": "Queue Status",
-        "estimatedWait": "Estimated wait time: approx. 5 minutes"
+        "title": "排队状态",
+        "estimatedWait": "预计等待时间：约5分钟"
       },
       "allocation": {
-        "title": "Participation Amount",
-        "max": "Max"
+        "title": "参与金额",
+        "max": "最大"
       },
       "tokenCalc": {
-        "receivingTokens": "Tokens to Receive",
-        "bonus": "Bonus",
-        "tgeUnlock": "TGE Unlock (15%)"
+        "receivingTokens": "将获得的代币",
+        "bonus": "奖励",
+        "tgeUnlock": "TGE解锁 (15%)"
       },
       "payment": {
-        "title": "Select Payment Method",
-        "creditCard": "Credit Card / Bank Transfer",
-        "stablecoin": "Stablecoin",
-        "bitcoin": "Bitcoin"
+        "title": "选择支付方式",
+        "creditCard": "信用卡 / 银行转账",
+        "stablecoin": "稳定币",
+        "bitcoin": "比特币"
       },
-      "purchaseButton": "Join Now",
-      "securityNote": "Secured by CoinList payment security",
-      "live": "LIVE"
+      "purchaseButton": "立即加入",
+      "securityNote": "由CoinList支付安全保障",
+      "live": "进行中"
     },
     "tabs": {
-      "overview": "Overview",
-      "tokenomics": "Tokenomics",
-      "team": "Team",
-      "faq": "FAQ"
+      "overview": "概述",
+      "tokenomics": "代币经济",
+      "team": "团队",
+      "faq": "常见问题"
     },
     "overview": {
-      "aboutTitle": "About the Project",
-      "aboutP1": "TBURN Chain builds next-generation decentralized infrastructure through the combination of AI technology and blockchain. With innovative technologies like Triple-Band AI Orchestration, AI-Enhanced Committee BFT, and Dynamic Sharding, it surpasses the limits of existing blockchains.",
-      "aboutP2": "After mainnet launch, we plan to build diverse ecosystems including DeFi, NFT, GameFi, and enterprise solutions to lead Web3 adoption.",
-      "featuresTitle": "Key Features",
+      "aboutTitle": "项目介绍",
+      "aboutP1": "TBURN Chain通过AI技术与区块链的结合构建下一代去中心化基础设施。凭借三频AI编排、AI增强委员会BFT和动态分片等创新技术，突破现有区块链的限制。",
+      "aboutP2": "主网上线后，我们计划构建包括DeFi、NFT、GameFi和企业解决方案在内的多元生态系统，引领Web3的普及。",
+      "featuresTitle": "核心功能",
       "vesting": {
-        "title": "Vesting Schedule",
+        "title": "归属计划",
         "tge": "TGE",
-        "tgeDesc": "Token Generation Event",
-        "cliff": "Cliff",
-        "cliffDesc": "Month 1-3",
-        "linearVesting": "Linear Vesting",
-        "linearVestingDesc": "Month 4-15"
+        "tgeDesc": "代币生成事件",
+        "cliff": "锁定期",
+        "cliffDesc": "第1-3个月",
+        "linearVesting": "线性归属",
+        "linearVestingDesc": "第4-15个月"
       },
       "documents": {
-        "title": "Documents",
-        "whitepaper": "Whitepaper",
-        "technicalDocs": "Technical Documentation",
-        "tokenomics": "Tokenomics",
-        "auditReport": "Audit Report"
+        "title": "文档资料",
+        "whitepaper": "白皮书",
+        "technicalDocs": "技术文档",
+        "tokenomics": "代币经济学",
+        "auditReport": "审计报告"
       }
     },
     "tokenomics": {
-      "totalSupply": "Total Supply",
-      "initialMarketCap": "Initial Market Cap",
-      "fdv": "FDV",
-      "publicSale": "Public Sale",
-      "ecosystem": "Ecosystem",
-      "community": "Community"
+      "totalSupply": "总供应量",
+      "initialMarketCap": "初始市值",
+      "fdv": "完全稀释估值",
+      "publicSale": "公开销售",
+      "ecosystem": "生态系统",
+      "community": "社区"
     },
     "team": {
-      "coreTeam": "Core Team",
-      "keyPartners": "Key Partners",
-      "investors": "Investors"
+      "coreTeam": "核心团队",
+      "keyPartners": "主要合作伙伴",
+      "investors": "投资者"
     },
     "faq": {
       "q1": {
-        "question": "What is the total size of the CoinList sale?",
-        "answer": "The TBURN token sale through CoinList totals 600M TBURN (6% of total supply), with a target raise of $12,000,000. Token price is set at $0.02."
+        "question": "CoinList销售的总规模是多少？",
+        "answer": "通过CoinList进行的TBURN代币销售总量为6亿TBURN（占总供应量的6%），目标筹资1200万美元。代币价格设定为0.02美元。"
       },
       "q2": {
-        "question": "How do I participate on CoinList?",
-        "answer": "Create a CoinList account, complete KYC verification, then participate using USD, credit card, or cryptocurrency (USDT, USDC, BTC). Connect your wallet and enter the amount you wish to invest."
+        "question": "如何在CoinList上参与？",
+        "answer": "创建CoinList账户，完成KYC验证，然后使用美元、信用卡或加密货币（USDT、USDC、BTC）参与。连接您的钱包并输入您希望投资的金额。"
       },
       "q3": {
-        "question": "What are the min/max participation amounts?",
-        "answer": "Minimum $100, maximum $50,000. Allocation may vary based on CoinList level. 3% bonus for $10,000+ participation, 1% bonus for $1,000+ participation."
+        "question": "最低/最高参与金额是多少？",
+        "answer": "最低100美元，最高50,000美元。分配额度可能因CoinList等级而异。参与10,000美元以上可获得3%奖励，参与1,000美元以上可获得1%奖励。"
       },
       "q4": {
-        "question": "When will I receive my tokens?",
-        "answer": "15% is unlocked immediately at TGE (Token Generation Event). After a 3-month cliff period, the remaining 85% is distributed according to a 12-month linear vesting schedule."
+        "question": "我什么时候能收到代币？",
+        "answer": "TGE（代币生成事件）时立即解锁15%。经过3个月锁定期后，剩余85%按照12个月线性归属计划分发。"
       },
       "q5": {
-        "question": "What payment methods are supported?",
-        "answer": "CoinList supports various payment methods: USD (credit card, bank transfer), USDT, USDC, and BTC. Both fiat and cryptocurrency are accepted."
+        "question": "支持哪些支付方式？",
+        "answer": "CoinList支持多种支付方式：美元（信用卡、银行转账）、USDT、USDC和BTC。法币和加密货币均可使用。"
       },
       "q6": {
-        "question": "How does the CoinList queue system work?",
-        "answer": "CoinList operates a queue system for fair participation. A random queue number is assigned at participation start, and purchase opportunities are given based on your position. Estimated wait time is displayed in real-time."
+        "question": "CoinList排队系统如何运作？",
+        "answer": "CoinList采用排队系统以确保公平参与。参与开始时会分配一个随机排队号码，根据您的位置给予购买机会。预计等待时间会实时显示。"
       },
       "q7": {
-        "question": "What are the special benefits of CoinList participation?",
-        "answer": "High credibility as a CoinList verified project, premium launch support, fiat payment support, priority listing on CoinList exchange, and dedicated customer support."
+        "question": "CoinList参与有哪些特别优势？",
+        "answer": "作为CoinList认证项目具有高可信度、高级发售支持、法币支付支持、CoinList交易所优先上市以及专属客户支持。"
       },
       "q8": {
-        "question": "How do I get help or support?",
-        "answer": "Contact CoinList customer support, or reach out through official TBURN communities (Telegram, Discord). Email support is also available at support@coinlist.co or support@tburnchain.io."
+        "question": "如何获得帮助或支持？",
+        "answer": "联系CoinList客户支持，或通过TBURN官方社区（Telegram、Discord）联系我们。也可发送邮件至support@coinlist.co或support@tburnchain.io获得支持。"
       }
     },
     "footer": {
-      "terms": "Terms of Service",
-      "privacy": "Privacy Policy",
-      "riskDisclosure": "Risk Disclosure",
-      "support": "Customer Support",
-      "copyright": "© 2025 CoinList. All Rights Reserved."
+      "terms": "服务条款",
+      "privacy": "隐私政策",
+      "riskDisclosure": "风险披露",
+      "support": "客户支持",
+      "copyright": "© 2025 CoinList. 保留所有权利。"
     },
     "modal": {
-      "participationComplete": "Participation Complete!",
-      "processing": "Processing...",
-      "tokenSaleComplete": "Token Sale Participation Complete!",
-      "tokenDeliveryNote": "Tokens will be delivered at TGE",
-      "pleaseWait": "Please wait",
-      "participationAmount": "Participation Amount",
-      "tokensToReceive": "Tokens to Receive",
-      "tgeUnlock": "TGE Unlock",
-      "confirm": "Confirm"
+      "participationComplete": "参与完成！",
+      "processing": "处理中...",
+      "tokenSaleComplete": "代币销售参与完成！",
+      "tokenDeliveryNote": "代币将在TGE时发放",
+      "pleaseWait": "请稍候",
+      "participationAmount": "参与金额",
+      "tokensToReceive": "将获得的代币",
+      "tgeUnlock": "TGE解锁",
+      "confirm": "确认"
     },
     "features": {
-      "ultraFast": "Ultra Fast Processing",
-      "ultraFastDesc": "200,000+ TPS real-time transaction processing",
-      "aiIntegration": "AI Integration",
-      "aiIntegrationDesc": "Built-in AI functionality in smart contracts",
-      "strongSecurity": "Strong Security",
-      "strongSecurityDesc": "AI-based threat detection and defense",
-      "ecoFriendly": "Eco-Friendly",
-      "ecoFriendlyDesc": "Energy-efficient PoS consensus"
+      "ultraFast": "超高速处理",
+      "ultraFastDesc": "200,000+ TPS实时交易处理",
+      "aiIntegration": "AI集成",
+      "aiIntegrationDesc": "智能合约内置AI功能",
+      "strongSecurity": "强大安全性",
+      "strongSecurityDesc": "基于AI的威胁检测与防御",
+      "ecoFriendly": "环保节能",
+      "ecoFriendlyDesc": "高能效PoS共识机制"
     }
   },
   "daomaker": {

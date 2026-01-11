@@ -24670,440 +24670,180 @@
   },
   "coinlist": {
     "header": {
-      "tokenSale": "Token Sale",
+      "tokenSale": "Venta de Tokens",
       "trading": "Trading",
       "staking": "Staking",
-      "portfolio": "Portfolio",
-      "connectWallet": "Connect Wallet",
-      "walletConnected": "Connected",
-      "walletPrompt": "Click to connect"
+      "portfolio": "Portafolio",
+      "connectWallet": "Conectar Billetera",
+      "walletConnected": "Conectado",
+      "walletPrompt": "Clic para conectar"
     },
     "hero": {
       "badges": {
-        "saleInProgress": "Sale In Progress",
-        "verified": "CoinList Verified",
-        "premium": "Premium Launch"
+        "saleInProgress": "Venta en Progreso",
+        "verified": "Verificado por CoinList",
+        "premium": "Lanzamiento Premium"
       },
-      "description": "TBURN Chain is a next-generation Layer-1 platform combining AI and blockchain technology. With 200,000+ TPS high performance, AI-powered smart contracts, and a self-optimizing network, it leads the future of Web3. Available to global investors through CoinList.",
+      "description": "TBURN Chain es una plataforma Layer-1 de próxima generación que combina tecnología de IA y blockchain. Con alto rendimiento de más de 200,000 TPS, contratos inteligentes impulsados por IA y una red auto-optimizable, lidera el futuro de Web3. Disponible para inversores globales a través de CoinList.",
       "metrics": {
-        "tokenPrice": "Token Price",
-        "tgeUnlock": "TGE Unlock",
-        "totalSale": "Total Sale Amount",
-        "targetRaise": "Target Raise"
+        "tokenPrice": "Precio del Token",
+        "tgeUnlock": "Desbloqueo TGE",
+        "totalSale": "Monto Total de Venta",
+        "targetRaise": "Meta de Recaudación"
       }
     },
     "saleCard": {
-      "queueInfo": "waiting in queue",
+      "queueInfo": "esperando en cola",
       "countdown": {
-        "days": "Days",
-        "hours": "Hours",
-        "mins": "Mins",
-        "secs": "Secs"
+        "days": "Días",
+        "hours": "Horas",
+        "mins": "Min",
+        "secs": "Seg"
       },
       "progress": {
-        "completed": "completed",
-        "participants": "participants"
+        "completed": "completado",
+        "participants": "participantes"
       },
       "saleInfo": {
-        "tokenPrice": "Token Price",
-        "minParticipation": "Min Participation",
-        "maxParticipation": "Max Participation",
-        "tgeUnlock": "TGE Unlock"
+        "tokenPrice": "Precio del Token",
+        "minParticipation": "Participación Mínima",
+        "maxParticipation": "Participación Máxima",
+        "tgeUnlock": "Desbloqueo TGE"
       },
       "queue": {
-        "title": "Queue Status",
-        "estimatedWait": "Estimated wait time: approx. 5 minutes"
+        "title": "Estado de la Cola",
+        "estimatedWait": "Tiempo de espera estimado: aprox. 5 minutos"
       },
       "allocation": {
-        "title": "Participation Amount",
-        "max": "Max"
+        "title": "Monto de Participación",
+        "max": "Máx"
       },
       "tokenCalc": {
-        "receivingTokens": "Tokens to Receive",
-        "bonus": "Bonus",
-        "tgeUnlock": "TGE Unlock (15%)"
+        "receivingTokens": "Tokens a Recibir",
+        "bonus": "Bonificación",
+        "tgeUnlock": "Desbloqueo TGE (15%)"
       },
       "payment": {
-        "title": "Select Payment Method",
-        "creditCard": "Credit Card / Bank Transfer",
+        "title": "Seleccionar Método de Pago",
+        "creditCard": "Tarjeta de Crédito / Transferencia Bancaria",
         "stablecoin": "Stablecoin",
         "bitcoin": "Bitcoin"
       },
-      "purchaseButton": "Join Now",
-      "securityNote": "Secured by CoinList payment security",
-      "live": "LIVE"
+      "purchaseButton": "Unirse Ahora",
+      "securityNote": "Asegurado por la seguridad de pagos de CoinList",
+      "live": "EN VIVO"
     },
     "tabs": {
-      "overview": "Overview",
+      "overview": "Resumen",
       "tokenomics": "Tokenomics",
-      "team": "Team",
-      "faq": "FAQ"
+      "team": "Equipo",
+      "faq": "Preguntas Frecuentes"
     },
     "overview": {
-      "aboutTitle": "About the Project",
-      "aboutP1": "TBURN Chain builds next-generation decentralized infrastructure through the combination of AI technology and blockchain. With innovative technologies like Triple-Band AI Orchestration, AI-Enhanced Committee BFT, and Dynamic Sharding, it surpasses the limits of existing blockchains.",
-      "aboutP2": "After mainnet launch, we plan to build diverse ecosystems including DeFi, NFT, GameFi, and enterprise solutions to lead Web3 adoption.",
-      "featuresTitle": "Key Features",
+      "aboutTitle": "Acerca del Proyecto",
+      "aboutP1": "TBURN Chain construye infraestructura descentralizada de próxima generación mediante la combinación de tecnología de IA y blockchain. Con tecnologías innovadoras como la Orquestación de IA Triple-Banda, BFT de Comité Mejorado con IA y Sharding Dinámico, supera los límites de las blockchains existentes.",
+      "aboutP2": "Después del lanzamiento de mainnet, planeamos construir diversos ecosistemas incluyendo DeFi, NFT, GameFi y soluciones empresariales para liderar la adopción de Web3.",
+      "featuresTitle": "Características Principales",
       "vesting": {
-        "title": "Vesting Schedule",
+        "title": "Calendario de Vesting",
         "tge": "TGE",
-        "tgeDesc": "Token Generation Event",
+        "tgeDesc": "Evento de Generación de Token",
         "cliff": "Cliff",
-        "cliffDesc": "Month 1-3",
-        "linearVesting": "Linear Vesting",
-        "linearVestingDesc": "Month 4-15"
+        "cliffDesc": "Mes 1-3",
+        "linearVesting": "Vesting Lineal",
+        "linearVestingDesc": "Mes 4-15"
       },
       "documents": {
-        "title": "Documents",
+        "title": "Documentos",
         "whitepaper": "Whitepaper",
-        "technicalDocs": "Technical Documentation",
+        "technicalDocs": "Documentación Técnica",
         "tokenomics": "Tokenomics",
-        "auditReport": "Audit Report"
+        "auditReport": "Informe de Auditoría"
       }
     },
     "tokenomics": {
-      "totalSupply": "Total Supply",
-      "initialMarketCap": "Initial Market Cap",
+      "totalSupply": "Suministro Total",
+      "initialMarketCap": "Capitalización de Mercado Inicial",
       "fdv": "FDV",
-      "publicSale": "Public Sale",
-      "ecosystem": "Ecosystem",
-      "community": "Community"
+      "publicSale": "Venta Pública",
+      "ecosystem": "Ecosistema",
+      "community": "Comunidad"
     },
     "team": {
-      "coreTeam": "Core Team",
-      "keyPartners": "Key Partners",
-      "investors": "Investors"
+      "coreTeam": "Equipo Principal",
+      "keyPartners": "Socios Clave",
+      "investors": "Inversores"
     },
     "faq": {
       "q1": {
-        "question": "What is the total size of the CoinList sale?",
-        "answer": "The TBURN token sale through CoinList totals 600M TBURN (6% of total supply), with a target raise of $12,000,000. Token price is set at $0.02."
+        "question": "¿Cuál es el tamaño total de la venta en CoinList?",
+        "answer": "La venta de tokens TBURN a través de CoinList totaliza 600M TBURN (6% del suministro total), con una meta de recaudación de $12,000,000. El precio del token está fijado en $0.02."
       },
       "q2": {
-        "question": "How do I participate on CoinList?",
-        "answer": "Create a CoinList account, complete KYC verification, then participate using USD, credit card, or cryptocurrency (USDT, USDC, BTC). Connect your wallet and enter the amount you wish to invest."
+        "question": "¿Cómo participo en CoinList?",
+        "answer": "1) Crea una cuenta en CoinList y completa la verificación KYC, 2) Deposita fondos (USD, USDC, ETH, etc.), 3) Únete a la cola de la venta de tokens TBURN, 4) Compra tokens después de aprobar la verificación."
       },
       "q3": {
-        "question": "What are the min/max participation amounts?",
-        "answer": "Minimum $100, maximum $50,000. Allocation may vary based on CoinList level. 3% bonus for $10,000+ participation, 1% bonus for $1,000+ participation."
+        "question": "¿Cuál es el calendario de vesting?",
+        "answer": "15% se desbloquea en el TGE (Evento de Generación de Token), seguido de un período de cliff de 3 meses. Después del cliff, los tokens restantes se liberan linealmente durante 12 meses (Mes 4-15)."
       },
       "q4": {
-        "question": "When will I receive my tokens?",
-        "answer": "15% is unlocked immediately at TGE (Token Generation Event). After a 3-month cliff period, the remaining 85% is distributed according to a 12-month linear vesting schedule."
+        "question": "¿Cuáles son los requisitos de participación mínima/máxima?",
+        "answer": "La participación mínima es de $100, y la asignación máxima varía según el nivel: Bronce hasta $2,500, Plata hasta $10,000, y Oro hasta $50,000."
       },
       "q5": {
-        "question": "What payment methods are supported?",
-        "answer": "CoinList supports various payment methods: USD (credit card, bank transfer), USDT, USDC, and BTC. Both fiat and cryptocurrency are accepted."
+        "question": "¿Qué métodos de pago son compatibles?",
+        "answer": "CoinList admite pago con tarjeta de crédito/débito, transferencia bancaria, y criptomonedas (USDC, USDT, ETH, BTC). Los métodos de pago pueden variar según la región."
       },
       "q6": {
-        "question": "How does the CoinList queue system work?",
-        "answer": "CoinList operates a queue system for fair participation. A random queue number is assigned at participation start, and purchase opportunities are given based on your position. Estimated wait time is displayed in real-time."
+        "question": "¿Hay beneficios adicionales para los participantes?",
+        "answer": "El nivel Plata (asignación de $2,500+) recibe +1% de tokens de bonificación, el nivel Oro (asignación de $10,000+) recibe +3% de tokens de bonificación. El nivel Oro también obtiene asignación garantizada y acceso a la comunidad VIP."
       },
       "q7": {
-        "question": "What are the special benefits of CoinList participation?",
-        "answer": "High credibility as a CoinList verified project, premium launch support, fiat payment support, priority listing on CoinList exchange, and dedicated customer support."
+        "question": "¿Cómo participo en el SHO?",
+        "answer": "1) Hacer staking de tokens DAO para ganar DAO Power, 2) Conectar billetera y completar KYC, 3) Ingresar el monto deseado y pagar con USDT, 4) Completar la compra segura de tokens a través del contrato inteligente. Participa durante el período del SHO."
       },
       "q8": {
-        "question": "How do I get help or support?",
-        "answer": "Contact CoinList customer support, or reach out through official TBURN communities (Telegram, Discord). Email support is also available at support@coinlist.co or support@tburnchain.io."
+        "question": "¿Cómo puedo obtener ayuda o soporte?",
+        "answer": "Obtén soporte a través de las comunidades oficiales de DAO Maker en Discord y Telegram. También puedes enviar un correo electrónico a support@daomaker.com o contactar a la comunidad oficial de TBURN en support@tburnchain.io."
       }
     },
     "footer": {
-      "terms": "Terms of Service",
-      "privacy": "Privacy Policy",
-      "riskDisclosure": "Risk Disclosure",
-      "support": "Customer Support",
-      "copyright": "© 2025 CoinList. All Rights Reserved."
+      "copyright": "2025 DAO Maker. Todos los Derechos Reservados.",
+      "poweredBy": "Impulsado por TBURN Chain"
     },
     "modal": {
-      "participationComplete": "Participation Complete!",
-      "processing": "Processing...",
-      "tokenSaleComplete": "Token Sale Participation Complete!",
-      "tokenDeliveryNote": "Tokens will be delivered at TGE",
-      "pleaseWait": "Please wait",
-      "participationAmount": "Participation Amount",
-      "tokensToReceive": "Tokens to Receive",
-      "tgeUnlock": "TGE Unlock",
-      "confirm": "Confirm"
+      "title": "Participación en SHO",
+      "processing": "Procesando...",
+      "pleaseWait": "Por favor espera mientras tu transacción está siendo procesada",
+      "success": "¡Participación Completa!",
+      "successDesc": "Tu participación en el SHO se ha completado exitosamente",
+      "amount": "Monto de Participación",
+      "tokens": "Tokens a Recibir",
+      "tgeUnlock": "Desbloqueo TGE",
+      "confirm": "Confirmar"
     },
     "toast": {
-      "walletDisconnected": "Wallet Disconnected",
-      "walletDisconnectedDesc": "Wallet successfully disconnected.",
-      "walletConnecting": "Connecting Wallet",
-      "walletConnectingDesc": "Attempting to connect MetaMask wallet.",
-      "walletRequired": "Wallet Required",
-      "walletRequiredDesc": "Please connect your wallet first to purchase tokens.",
-      "minAmount": "Below Minimum Amount",
-      "minAmountDesc": "You must participate with at least $100.",
-      "maxAmount": "Exceeds Maximum Amount",
-      "maxAmountDesc": "Maximum participation is $50,000.",
-      "participationComplete": "Participation Complete!",
-      "participationCompleteDesc": "TBURN tokens purchased successfully.",
-      "socialOpen": "Opening",
-      "socialOpenDesc": "Navigating to page.",
-      "tabComingSoon": "Tab",
-      "tabComingSoonDesc": "feature coming soon.",
-      "documentDownload": "Document Download",
-      "documentDownloadDesc": "Starting download.",
-      "riskDisclosure": "Risk Disclosure",
-      "riskDisclosureDesc": "Navigating to Risk Disclosure page.",
-      "customerSupport": "Customer Support",
-      "customerSupportDesc": "Please contact support@coinlist.co."
-    },
-    "features": {
-      "ultraFast": "Ultra Fast Processing",
-      "ultraFastDesc": "200,000+ TPS real-time transaction processing",
-      "aiIntegration": "AI Integration",
-      "aiIntegrationDesc": "Built-in AI functionality in smart contracts",
-      "strongSecurity": "Strong Security",
-      "strongSecurityDesc": "AI-based threat detection and defense",
-      "ecoFriendly": "Eco-Friendly",
-      "ecoFriendlyDesc": "Energy-efficient PoS consensus"
-    }
-  },
-  "daomaker": {
-    "header": {
-      "sho": "SHO",
-      "staking": "Staking",
-      "governance": "Governance",
-      "portfolio": "Portfolio",
-      "swap": "Swap",
-      "connectWallet": "Connect Wallet",
-      "walletConnected": "Connected",
-      "walletPrompt": "Click to connect",
-      "daoPower": "DAO Power"
-    },
-    "hero": {
-      "breadcrumb": {
-        "sho": "SHO",
-        "current": "TBURN Chain"
-      },
-      "badges": {
-        "shoRound": "SHO Round",
-        "live": "In Progress",
-        "refund": "Refund Guaranteed",
-        "verified": "Verified"
-      },
-      "description": "TBURN Chain is a next-generation Layer-1 platform that combines AI and blockchain technology. With 200,000+ TPS ultra-fast processing, Triple-Band AI Orchestration, and self-optimizing network, it achieves enterprise-grade performance and decentralization simultaneously. Through DAO Makers Strong Holder Offering, priority participation is available to DAO Power holders.",
-      "stats": {
-        "tokenPrice": "Token Price",
-        "targetRaise": "Target Raise",
-        "tgeUnlock": "TGE Unlock",
-        "totalVesting": "Total Vesting",
-        "months": "months"
-      }
-    },
-    "shoCard": {
-      "title": "Strong Holder Offering",
-      "subtitle": "Exclusive token sale for DAO Power holders",
-      "countdown": {
-        "label": "Sale ends in",
-        "days": "Days",
-        "hours": "Hours",
-        "mins": "Mins",
-        "secs": "Secs"
-      },
-      "progress": {
-        "completed": "completed",
-        "participants": "participants"
-      },
-      "saleDetails": {
-        "tokenPrice": "Token Price",
-        "minParticipation": "Min Participation",
-        "tgeUnlock": "TGE Unlock",
-        "vesting": "Vesting",
-        "vestingValue": "3-month cliff + 12 months"
-      },
-      "daoPower": {
-        "title": "My DAO Power",
-        "tier": "Tier",
-        "standardTier": "Standard",
-        "maxAllocation": "Max Allocation"
-      },
-      "allocation": {
-        "title": "Participation Amount",
-        "max": "Max"
-      },
-      "tokenOutput": {
-        "tokensToReceive": "Tokens to Receive",
-        "bonus": "Bonus",
-        "tgeUnlock": "TGE Unlock (15%)"
-      },
-      "refundPolicy": {
-        "title": "Refund Policy Applied",
-        "description": "100% refund if token price falls below sale price within 30 days after TGE"
-      },
-      "purchaseButton": "Join SHO",
-      "securityNote": "Secured by DAO Maker smart contract"
-    },
-    "tabs": {
-      "tiers": "SHO Tiers",
-      "vesting": "Vesting",
-      "governance": "Governance",
-      "faq": "FAQ"
-    },
-    "tiers": {
-      "bronze": {
-        "name": "Bronze",
-        "power": "1,000+",
-        "allocation": "$500",
-        "features": [
-          "SHO participation eligibility",
-          "Basic allocation",
-          "Refund policy applied"
-        ]
-      },
-      "silver": {
-        "name": "Silver",
-        "power": "5,000+",
-        "allocation": "$2,500",
-        "features": [
-          "Priority allocation",
-          "+1% bonus tokens",
-          "Governance voting rights",
-          "Refund policy applied"
-        ],
-        "recommended": true
-      },
-      "gold": {
-        "name": "Gold",
-        "power": "25,000+",
-        "allocation": "$10,000",
-        "features": [
-          "Guaranteed allocation",
-          "+3% bonus tokens",
-          "Priority governance voting",
-          "VIP community access",
-          "Refund policy applied"
-        ]
-      },
-      "maxAllocation": "Max Allocation",
-      "daoPower": "DAO Power"
-    },
-    "vesting": {
-      "scheduleTitle": "Vesting Schedule",
-      "unlockStatusTitle": "Unlock Status",
-      "tge": {
-        "title": "TGE (Token Generation)",
-        "desc": "Immediate unlock at token generation"
-      },
-      "cliff": {
-        "title": "Cliff Period",
-        "desc": "Month 1-3, no additional unlock"
-      },
-      "linear": {
-        "title": "Linear Vesting",
-        "desc": "Month 4-15, 7.08% unlock per month"
-      },
-      "full": {
-        "title": "Full Unlock",
-        "desc": "15 months after TGE"
-      },
-      "chart": {
-        "tge": "TGE",
-        "month3": "3 months",
-        "month6": "6 months",
-        "month9": "9 months",
-        "month12": "12 months",
-        "month15": "15 months"
-      }
-    },
-    "governance": {
-      "communityVoting": {
-        "title": "Community Voting",
-        "desc": "DAO Power holders can vote on project selection and major decisions."
-      },
-      "transparentOperation": {
-        "title": "Transparent Operation",
-        "desc": "All SHO processes and fund usage are transparently disclosed on-chain."
-      },
-      "refundPolicy": {
-        "title": "Refund Policy",
-        "desc": "100% refund guaranteed if token price falls below sale price within 30 days after TGE."
-      },
-      "daoPowerStaking": {
-        "title": "DAO Power Staking",
-        "desc": "Stake DAO tokens to earn DAO Power and upgrade to higher tiers."
-      },
-      "rewardsProgram": {
-        "title": "Rewards Program",
-        "desc": "Active governance participants receive additional rewards and airdrop opportunities."
-      },
-      "communityFund": {
-        "title": "Community Fund",
-        "desc": "Support ecosystem development through a fund managed by the DAO community."
-      }
-    },
-    "faq": {
-      "q1": {
-        "question": "What is SHO (Strong Holder Offering)?",
-        "answer": "SHO is DAO Makers exclusive token sale method. Only users with DAO Power can participate, and tiers and allocations are determined based on holdings. There are three tiers: Bronze (1,000+), Silver (5,000+), and Gold (25,000+)."
-      },
-      "q2": {
-        "question": "How do I get DAO Power?",
-        "answer": "You can earn DAO Power by staking DAO tokens on the DAO Maker platform. DAO Power is determined by staking duration and amount. The longer you stake, the more DAO Power you earn."
-      },
-      "q3": {
-        "question": "How does the refund policy work?",
-        "answer": "If the token price falls below the sale price ($0.02) within 30 days after TGE (Token Generation Event), participants can return their tokens and receive a 100% refund. This is DAO Makers investor protection policy."
-      },
-      "q4": {
-        "question": "What are the min/max participation amounts?",
-        "answer": "Minimum $100 participation. Maximum depends on DAO Power tier: Bronze: $500, Silver: $2,500, Gold: $10,000. Higher tiers get larger allocations."
-      },
-      "q5": {
-        "question": "When will I receive my tokens?",
-        "answer": "15% unlocks immediately at TGE. After a 3-month cliff period, the remaining 85% is distributed linearly over 12 months. Total vesting period is 15 months."
-      },
-      "q6": {
-        "question": "What are the tier bonus benefits?",
-        "answer": "Silver tier ($2,500+ allocation) receives +1% bonus tokens, Gold tier ($10,000+ allocation) receives +3% bonus tokens. Gold tier also gets guaranteed allocation and VIP community access."
-      },
-      "q7": {
-        "question": "How do I participate in SHO?",
-        "answer": "1) Stake DAO tokens to earn DAO Power, 2) Connect wallet and complete KYC, 3) Enter desired amount and pay with USDT, 4) Complete secure token purchase via smart contract. Participate during the SHO period."
-      },
-      "q8": {
-        "question": "How can I get help or support?",
-        "answer": "Get support through DAO Makers official Discord and Telegram communities. You can also email support@daomaker.com or contact TBURNs official community at support@tburnchain.io."
-      }
-    },
-    "footer": {
-      "copyright": "2025 DAO Maker. All Rights Reserved.",
-      "poweredBy": "Powered by TBURN Chain"
-    },
-    "modal": {
-      "title": "SHO Participation",
-      "processing": "Processing...",
-      "pleaseWait": "Please wait while your transaction is being processed",
-      "success": "Participation Complete!",
-      "successDesc": "Your SHO participation has been completed successfully",
-      "amount": "Participation Amount",
-      "tokens": "Tokens to Receive",
-      "tgeUnlock": "TGE Unlock",
-      "confirm": "Confirm"
-    },
-    "toast": {
-      "walletDisconnected": "Wallet Disconnected",
-      "walletDisconnectedDesc": "Wallet successfully disconnected.",
-      "walletConnecting": "Connecting Wallet",
-      "walletConnectingDesc": "Attempting to connect MetaMask wallet.",
-      "walletRequired": "Wallet Required",
-      "walletRequiredDesc": "Please connect your wallet first to participate in SHO.",
-      "minAmount": "Below Minimum Amount",
-      "minAmountDesc": "You must participate with at least $100.",
-      "maxAmount": "Exceeds Maximum Amount",
-      "maxAmountDescTemplate": "Exceeds {tier} tier maximum allocation of ${max}.",
-      "shoComplete": "SHO Participation Complete!",
-      "shoCompleteDescTemplate": "{tokens} TBURN tokens purchased successfully.",
-      "stakingRequired": "Wallet Required",
-      "stakingRequiredDesc": "Please connect your wallet first to stake DAO tokens.",
-      "stakingPage": "Going to Staking Page",
-      "stakingPageDesc": "Navigating to staking page to increase DAO Power.",
-      "socialOpen": "Opening",
-      "socialOpenDesc": "Navigating to page.",
-      "menuComingSoon": "Menu",
-      "menuComingSoonDesc": "feature coming soon."
+      "walletDisconnected": "Billetera Desconectada",
+      "walletDisconnectedDesc": "Billetera desconectada exitosamente.",
+      "walletConnecting": "Conectando Billetera",
+      "walletConnectingDesc": "Intentando conectar la billetera MetaMask.",
+      "walletRequired": "Billetera Requerida",
+      "walletRequiredDesc": "Por favor conecta tu billetera primero para participar en el SHO.",
+      "minAmount": "Por Debajo del Monto Mínimo",
+      "minAmountDesc": "Debes participar con al menos $100.",
+      "maxAmount": "Excede el Monto Máximo",
+      "maxAmountDescTemplate": "Excede la asignación máxima del nivel {tier} de ${max}.",
+      "shoComplete": "¡Participación en SHO Completa!",
+      "shoCompleteDescTemplate": "{tokens} tokens TBURN comprados exitosamente.",
+      "stakingRequired": "Billetera Requerida",
+      "stakingRequiredDesc": "Por favor conecta tu billetera primero para hacer staking de tokens DAO.",
+      "stakingPage": "Ir a la Página de Staking",
+      "stakingPageDesc": "Navegando a la página de staking para aumentar el DAO Power.",
+      "socialOpen": "Abriendo",
+      "socialOpenDesc": "Navegando a la página.",
+      "menuComingSoon": "Menú",
+      "menuComingSoonDesc": "función próximamente."
     }
   }
 }

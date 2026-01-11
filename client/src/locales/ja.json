@@ -2939,9 +2939,9 @@
     "refund": "返金",
     "header": {
       "status": "Status",
-      "tokenPrice": "Token Price",
+      "tokenPrice": "トークン価格",
       "progress": "Progress",
-      "connectWallet": "Connect Wallet"
+      "connectWallet": "ウォレット接続"
     },
     "hero": {
       "officialBadge": "TBURN Foundation Official Launchpad",
@@ -2952,8 +2952,8 @@
     "countdown": {
       "title": "Until Sale Ends",
       "phase": "Phase 2 In Progress",
-      "days": "Days",
-      "hours": "Hours",
+      "days": "日",
+      "hours": "時間",
       "minutes": "Minutes",
       "seconds": "Seconds"
     },
@@ -2986,12 +2986,12 @@
         "verifiedButton": "Verified"
       },
       "amountSection": {
-        "title": "Participation Amount",
+        "title": "参加金額",
         "placeholder": "Enter amount",
         "tokenQuantity": "Token Quantity",
         "tierBonus": "Tier Bonus",
         "totalTokens": "Total Tokens",
-        "tgeUnlock": "TGE Unlock (15%)",
+        "tgeUnlock": "TGEアンロック (15%)",
         "estimatedValue": "Estimated Value (@$0.08)",
         "paymentMethod": "Payment Method",
         "purchaseButton": "Purchase Tokens",
@@ -3001,11 +3001,11 @@
     "sidebar": {
       "saleInfo": {
         "title": "Sale Information",
-        "tokenPrice": "Token Price",
-        "totalSale": "Total Sale Amount",
+        "tokenPrice": "トークン価格",
+        "totalSale": "総販売量",
         "minParticipation": "Minimum Participation",
-        "tgeUnlock": "TGE Unlock",
-        "cliff": "Cliff",
+        "tgeUnlock": "TGEアンロック",
+        "cliff": "クリフ",
         "vesting": "Vesting",
         "network": "Network"
       },
@@ -3021,11 +3021,11 @@
         "shrimpRange": "$100 ~ $999"
       },
       "vesting": {
-        "title": "Vesting Schedule",
+        "title": "ベスティングスケジュール",
         "tge": "TGE",
-        "tgeDesc": "Token Generation Event",
-        "cliff": "Cliff",
-        "cliffDesc": "Month 1-3",
+        "tgeDesc": "トークン生成イベント",
+        "cliff": "クリフ",
+        "cliffDesc": "1-3ヶ月目",
         "vestingTitle": "Vesting",
         "vestingDesc": "Month 4-15"
       },
@@ -3058,7 +3058,7 @@
         "answer": "15% is immediately released at TGE (Token Generation Event). After a 3-month cliff period, the remaining 85% is distributed monthly over 12 months."
       },
       "q5": {
-        "question": "What payment methods are supported?",
+        "question": "どの支払い方法が利用できますか？",
         "answer": "Three payment methods are supported: USDT, USDC, and ETH. All payments are processed through secure smart contracts on the Ethereum network."
       },
       "q6": {
@@ -3075,10 +3075,10 @@
       }
     },
     "footer": {
-      "terms": "Terms of Service",
-      "privacy": "Privacy Policy",
-      "riskDisclosure": "Risk Disclosure",
-      "support": "Customer Support",
+      "terms": "利用規約",
+      "privacy": "プライバシーポリシー",
+      "riskDisclosure": "リスク開示",
+      "support": "カスタマーサポート",
       "copyright": "© 2025-2045 TBURN Foundation. All Rights Reserved."
     },
     "modal": {
@@ -3091,7 +3091,7 @@
       "purchaseAmount": "Purchase Amount",
       "receivingTokens": "Receiving Tokens",
       "estimatedGas": "Estimated Gas Fee",
-      "confirm": "Confirm"
+      "confirm": "確認"
     },
     "toast": {
       "walletDisconnected": "Wallet Disconnected",
@@ -3118,8 +3118,8 @@
       "tierSelectDesc": "Bonus:",
       "tierWalletRequired": "Wallet Connection Required",
       "tierWalletRequiredDesc": "Please connect your wallet to participate in tiers.",
-      "socialOpen": "Opening",
-      "socialOpenDesc": "Navigating to page."
+      "socialOpen": "開いています",
+      "socialOpenDesc": "ページに移動しています。"
     }
   },
   "gamefi": {
@@ -20217,7 +20217,7 @@
       "tge": "TGE",
       "monthly": "月次",
       "quarterly": "四半期",
-      "faq": "FAQ",
+      "faq": "よくある質問",
       "howItWorks": "仕組み",
       "requirements": "要件",
       "benefits": "特典",
@@ -20340,18 +20340,18 @@
         "walletConnectedDesc": "MetaMask wallet has been connected.",
         "walletDisconnected": "Wallet Disconnected",
         "walletDisconnectedDesc": "Wallet connection has been disconnected.",
-        "walletRequired": "Wallet Required",
+        "walletRequired": "ウォレットが必要です",
         "walletRequiredDesc": "Please connect your wallet first to apply for the program.",
         "applicationSubmitted": "Application Submitted",
         "applicationSubmittedDesc": "Your application has been submitted. We will notify you of the results after review."
       },
       "nav": {
-        "community": "Community",
+        "community": "コミュニティ",
         "programs": "Programs",
         "tiers": "Tiers",
         "activities": "Activities",
         "leaderboard": "Leaderboard",
-        "faq": "FAQ"
+        "faq": "よくある質問"
       },
       "activities": {
         "badge": "ACTIVITIES",
@@ -20430,7 +20430,7 @@
         "process": "プロセス",
         "committees": "委員会",
         "rewards": "報酬",
-        "faq": "FAQ",
+        "faq": "よくある質問",
         "connectWallet": "ウォレット接続",
         "badge": "DAOガバナンス - 分散型ガバナンス",
         "title1": "プロトコルの未来を決定する",
@@ -20709,7 +20709,7 @@
         "halving": "半減期",
         "calculator": "計算機",
         "slashing": "スラッシング",
-        "faq": "FAQ",
+        "faq": "よくある質問",
         "connectWallet": "ウォレット接続"
       },
       "hero": {
@@ -21675,16 +21675,16 @@
         "mainnet": "Mainnet",
         "explorer": "Explorer",
         "bridge": "Bridge",
-        "staking": "Staking",
-        "whitepaper": "Whitepaper",
+        "staking": "ステーキング",
+        "whitepaper": "ホワイトペーパー",
         "docs": "Documentation",
         "audit": "Audit Report",
         "blog": "Blog",
         "ambassador": "Ambassador",
         "grants": "Grants",
         "support": "Support",
-        "terms": "Terms of Service",
-        "privacy": "Privacy Policy"
+        "terms": "利用規約",
+        "privacy": "プライバシーポリシー"
       }
     },
     "strategicPartner": {
@@ -22000,20 +22000,20 @@
         "mainnet": "Mainnet",
         "explorer": "Explorer",
         "bridge": "Bridge",
-        "staking": "Staking",
+        "staking": "ステーキング",
         "resources": "Resources",
-        "whitepaper": "Whitepaper",
+        "whitepaper": "ホワイトペーパー",
         "docs": "Documentation",
         "github": "GitHub",
-        "auditReport": "Audit Report",
-        "community": "Community",
+        "auditReport": "監査レポート",
+        "community": "コミュニティ",
         "blog": "Blog",
         "ambassador": "Ambassador",
         "grants": "Grants",
         "support": "Support",
         "copyright": "© 2025-2045 TBURN Foundation. All Rights Reserved.",
-        "terms": "Terms of Service",
-        "privacy": "Privacy Policy"
+        "terms": "利用規約",
+        "privacy": "プライバシーポリシー"
       },
       "dialog": {
         "title": "シードラウンド投資お問い合わせ",
@@ -22109,8 +22109,8 @@
         "projectOverview": "Project Overview",
         "contact": "Contact",
         "investmentHighlights": "Investment Highlights",
-        "tokenomics": "Tokenomics",
-        "team": "Team",
+        "tokenomics": "トークノミクス",
+        "team": "チーム",
         "roadmap": "Roadmap",
         "close": "Close"
       }
@@ -22121,7 +22121,7 @@
         "vesting": "ベスティング",
         "allocation": "配分",
         "investors": "投資家",
-        "faq": "FAQ",
+        "faq": "よくある質問",
         "connectWallet": "機関投資問合せ",
         "highlights": "Highlights",
         "comparison": "Comparison",
@@ -22145,7 +22145,7 @@
         "discountLaunch": "ローンチ価格比割引",
         "tgeUnlock": "TGE即時解除",
         "vestingPeriod": "ベスティング期間",
-        "tokenPrice": "Token Price",
+        "tokenPrice": "トークン価格",
         "allocation": "Total Allocation",
         "minInvestment": "Min Investment",
         "discount": "Discount from IDO"
@@ -22461,7 +22461,7 @@
         "vesting": "ベスティング",
         "howTo": "参加方法",
         "calculator": "計算機",
-        "faq": "FAQ",
+        "faq": "よくある質問",
         "connectWallet": "今すぐ参加",
         "highlights": "Highlights",
         "comparison": "Comparison"
@@ -22625,7 +22625,7 @@
           }
         ],
         "tge": "TGE",
-        "tgeUnlock": "TGE Unlock",
+        "tgeUnlock": "TGEアンロック",
         "cliff": "Cliff Period",
         "linear": "Linear Vesting",
         "fullUnlock": "Full Unlock",
@@ -22935,7 +22935,7 @@
         "overview": "概要",
         "allocation": "割当",
         "timeline": "タイムライン",
-        "faq": "FAQ"
+        "faq": "よくある質問"
       },
       "hero": {
         "badge": "DAO Maker - 公式IDO",
@@ -23280,8 +23280,8 @@
         "support": "Support",
         "blog": "Blog",
         "legal": "Legal",
-        "terms": "Terms of Service",
-        "privacy": "Privacy Policy",
+        "terms": "利用規約",
+        "privacy": "プライバシーポリシー",
         "disclaimer": "Disclaimer",
         "poweredBy": "Powered by TBURN Technology"
       },
@@ -23317,7 +23317,7 @@
         "statusTitle": "My Invite Status",
         "invitedFriends": "Invited Friends",
         "earnedPoints": "Earned Points",
-        "walletRequired": "Wallet Required",
+        "walletRequired": "ウォレットが必要です",
         "close": "Close"
       }
     },
@@ -23329,7 +23329,7 @@
         "dashboard": "ダッシュボード",
         "calculator": "計算機",
         "leaderboard": "リーダーボード",
-        "faq": "FAQ"
+        "faq": "よくある質問"
       },
       "header": {
         "connectWallet": "ウォレット接続",
@@ -23586,7 +23586,7 @@
         "whitepaper": "ホワイトペーパー",
         "tokenomics": "トケノミクス",
         "roadmap": "ロードマップ",
-        "faq": "FAQ",
+        "faq": "よくある質問",
         "copyright": "© 2025-2045 TBURN Foundation. All Rights Reserved.",
         "privacyPolicy": "プライバシーポリシー",
         "termsOfService": "利用規約",
@@ -23596,8 +23596,8 @@
         "support": "Support",
         "blog": "Blog",
         "legal": "Legal",
-        "terms": "Terms of Service",
-        "privacy": "Privacy Policy",
+        "terms": "利用規約",
+        "privacy": "プライバシーポリシー",
         "disclaimer": "Disclaimer",
         "poweredBy": "Powered by TBURN Technology"
       }
@@ -23607,7 +23607,7 @@
         "liveEvents": "開催中イベント",
         "allEvents": "全イベント",
         "leaderboard": "リーダーボード",
-        "faq": "FAQ",
+        "faq": "よくある質問",
         "connectWallet": "ウォレット接続",
         "connected": "接続済み"
       },
@@ -23869,7 +23869,7 @@
       "tiers": "ティアシステム",
       "activities": "活動報酬",
       "leaderboard": "リーダーボード",
-      "faq": "FAQ"
+      "faq": "よくある質問"
     },
     "hero": {
       "badge": "コミュニティプログラム - TBURNと共に成長",
@@ -24371,7 +24371,7 @@
         "weekRankDesc": "Showing this week's leaderboard data",
         "monthRank": "Monthly Rankings",
         "monthRankDesc": "Showing this month's leaderboard data",
-        "walletRequired": "Wallet Required",
+        "walletRequired": "ウォレットが必要です",
         "walletRequiredDesc": "Please connect wallet to view full rankings",
         "comingSoon": "Full rankings feature coming soon!"
       }
@@ -24422,8 +24422,8 @@
       "blog": "Blog",
       "docs": "Documentation",
       "support": "Support",
-      "terms": "Terms of Service",
-      "privacy": "Privacy Policy",
+      "terms": "利用規約",
+      "privacy": "プライバシーポリシー",
       "disclaimer": "Disclaimer",
       "copyright": "© 2024-2025 TBURN Chain. All rights reserved.",
       "poweredBy": "Powered by TBURN Lab"
@@ -24500,7 +24500,7 @@
       "subtitle": "進行中および今後のイベントを発見して報酬を最大化",
       "viewAll": "全て見る",
       "status": {
-        "live": "LIVE",
+        "live": "ライブ",
         "upcoming": "UPCOMING"
       },
       "staticEvents": {
@@ -24533,9 +24533,9 @@
         "all": "All Events",
         "live": "Live",
         "launch": "Launch",
-        "trading": "Trading",
-        "staking": "Staking",
-        "community": "Community"
+        "trading": "取引",
+        "staking": "ステーキング",
+        "community": "コミュニティ"
       },
       "categoryToasts": {
         "all": {
@@ -24570,7 +24570,7 @@
       "buttons": {
         "comingSoon": "Coming Soon",
         "participate": "Participate Now",
-        "connectWallet": "Connect Wallet"
+        "connectWallet": "ウォレット接続"
       }
     },
     "toasts": {
@@ -24675,15 +24675,15 @@
       "explorer": "Explorer",
       "wallet": "Wallet",
       "bridge": "Bridge",
-      "staking": "Staking",
+      "staking": "ステーキング",
       "developers": "Developers",
       "docs": "Documentation",
       "api": "API Reference",
       "github": "GitHub",
       "sdk": "SDK",
       "resources": "Resources",
-      "whitepaper": "Whitepaper",
-      "tokenomics": "Tokenomics",
+      "whitepaper": "ホワイトペーパー",
+      "tokenomics": "トークノミクス",
       "roadmap": "Roadmap",
       "faqLink": "FAQ",
       "copyright": "© 2024-2025 TBURN Chain. All rights reserved.",
@@ -24705,8 +24705,8 @@
       "process": "Process",
       "committees": "Committees",
       "rewards": "Rewards",
-      "faq": "FAQ",
-      "connectWallet": "Connect Wallet"
+      "faq": "よくある質問",
+      "connectWallet": "ウォレット接続"
     },
     "hero": {
       "badge": "DAOガバナンス",
@@ -24733,7 +24733,7 @@
       "navigating": "Navigating...",
       "participateTitle": "Participate in Governance",
       "participateDesc": "Connect your wallet to vote on proposals",
-      "walletRequired": "Wallet Required",
+      "walletRequired": "ウォレットが必要です",
       "walletRequiredDesc": "Please connect your wallet to continue",
       "proposalWalletRequired": "Wallet required to view proposal details",
       "voteFor": "Voted For",
@@ -24787,7 +24787,7 @@
       "categories": {
         "protocol": "プロトコル",
         "treasury": "Treasury",
-        "ecosystem": "Ecosystem"
+        "ecosystem": "エコシステム"
       }
     },
     "proposalsData": [
@@ -24918,20 +24918,20 @@
       "tagline2": "Community-Driven Future",
       "product": "Product",
       "mainnet": "Mainnet",
-      "staking": "Staking",
+      "staking": "ステーキング",
       "bridge": "Bridge",
       "explorer": "Explorer",
       "resources": "Resources",
       "docs": "Documentation",
-      "whitepaper": "Whitepaper",
+      "whitepaper": "ホワイトペーパー",
       "blog": "Blog",
       "audit": "Audit Reports",
-      "community": "Community",
+      "community": "コミュニティ",
       "support": "Support",
       "ambassador": "Ambassador",
       "grants": "Grants",
-      "terms": "Terms of Service",
-      "privacy": "Privacy Policy"
+      "terms": "利用規約",
+      "privacy": "プライバシーポリシー"
     }
   },
   "strategicPartner": {
@@ -24984,7 +24984,7 @@
       "partnershipTypes": "パートナーシップタイプ",
       "benefits": "特典",
       "useCases": "ユースケース",
-      "faq": "FAQ"
+      "faq": "よくある質問"
     },
     "enterpriseLogos": {
       "enterprise": "エンタープライズ",
@@ -25418,7 +25418,7 @@
       "tiers": "ティア",
       "currentAdvisors": "現在のアドバイザー",
       "applicationProcess": "応募プロセス",
-      "faq": "FAQ"
+      "faq": "よくある質問"
     },
     "wallet": {
       "connect": "ウォレット接続",
@@ -25774,13 +25774,13 @@
     "header": {
       "title": "CoinListセール",
       "subtitle": "公開トークンセール",
-      "tokenSale": "Token Sale",
-      "trading": "Trading",
-      "staking": "Staking",
-      "portfolio": "Portfolio",
-      "connectWallet": "Connect Wallet",
-      "walletConnected": "Connected",
-      "walletPrompt": "Click to connect"
+      "tokenSale": "トークンセール",
+      "trading": "取引",
+      "staking": "ステーキング",
+      "portfolio": "ポートフォリオ",
+      "connectWallet": "ウォレット接続",
+      "walletConnected": "接続済み",
+      "walletPrompt": "クリックして接続"
     },
     "hero": {
       "badge": "CoinListトークンセール",
@@ -25788,15 +25788,15 @@
       "subtitle": "CoinList配分",
       "description": "CoinListプラットフォームを通じた公開トークンセール。厳格なKYC/AML審査を経た信頼性の高い投資家向け。",
       "badges": {
-        "saleInProgress": "Sale In Progress",
-        "verified": "CoinList Verified",
-        "premium": "Premium Launch"
+        "saleInProgress": "販売中",
+        "verified": "CoinList認証済み",
+        "premium": "プレミアムローンチ"
       },
       "metrics": {
-        "tokenPrice": "Token Price",
-        "tgeUnlock": "TGE Unlock",
-        "totalSale": "Total Sale Amount",
-        "targetRaise": "Target Raise"
+        "tokenPrice": "トークン価格",
+        "tgeUnlock": "TGEアンロック",
+        "totalSale": "総販売量",
+        "targetRaise": "目標調達額"
       }
     },
     "stats": {
@@ -25808,170 +25808,170 @@
     "toast": {
       "walletDisconnected": "ウォレット切断",
       "walletDisconnectedDesc": "ウォレットが切断されました",
-      "walletConnecting": "Connecting Wallet",
-      "walletConnectingDesc": "Attempting to connect MetaMask wallet.",
-      "walletRequired": "Wallet Required",
-      "walletRequiredDesc": "Please connect your wallet first to purchase tokens.",
-      "minAmount": "Below Minimum Amount",
-      "minAmountDesc": "You must participate with at least $100.",
-      "maxAmount": "Exceeds Maximum Amount",
-      "maxAmountDesc": "Maximum participation is $50,000.",
-      "participationComplete": "Participation Complete!",
-      "participationCompleteDesc": "TBURN tokens purchased successfully.",
-      "socialOpen": "Opening",
-      "socialOpenDesc": "Navigating to page.",
-      "tabComingSoon": "Tab",
-      "tabComingSoonDesc": "feature coming soon.",
-      "documentDownload": "Document Download",
-      "documentDownloadDesc": "Starting download.",
-      "riskDisclosure": "Risk Disclosure",
-      "riskDisclosureDesc": "Navigating to Risk Disclosure page.",
-      "customerSupport": "Customer Support",
-      "customerSupportDesc": "Please contact support@coinlist.co."
+      "walletConnecting": "ウォレット接続中",
+      "walletConnectingDesc": "MetaMaskウォレットに接続を試みています。",
+      "walletRequired": "ウォレットが必要です",
+      "walletRequiredDesc": "トークンを購入するには、まずウォレットを接続してください。",
+      "minAmount": "最低金額未満",
+      "minAmountDesc": "最低$100以上で参加する必要があります。",
+      "maxAmount": "最大金額超過",
+      "maxAmountDesc": "最大参加金額は$50,000です。",
+      "participationComplete": "参加完了！",
+      "participationCompleteDesc": "TBURNトークンの購入が完了しました。",
+      "socialOpen": "開いています",
+      "socialOpenDesc": "ページに移動しています。",
+      "tabComingSoon": "タブ",
+      "tabComingSoonDesc": "機能は近日公開予定です。",
+      "documentDownload": "ドキュメントダウンロード",
+      "documentDownloadDesc": "ダウンロードを開始しています。",
+      "riskDisclosure": "リスク開示",
+      "riskDisclosureDesc": "リスク開示ページに移動しています。",
+      "customerSupport": "カスタマーサポート",
+      "customerSupportDesc": "support@coinlist.coまでお問い合わせください。"
     },
     "saleCard": {
-      "queueInfo": "waiting in queue",
+      "queueInfo": "待機中",
       "countdown": {
-        "days": "Days",
-        "hours": "Hours",
-        "mins": "Mins",
-        "secs": "Secs"
+        "days": "日",
+        "hours": "時間",
+        "mins": "分",
+        "secs": "秒"
       },
       "progress": {
-        "completed": "completed",
-        "participants": "participants"
+        "completed": "完了",
+        "participants": "参加者"
       },
       "saleInfo": {
-        "tokenPrice": "Token Price",
-        "minParticipation": "Min Participation",
-        "maxParticipation": "Max Participation",
-        "tgeUnlock": "TGE Unlock"
+        "tokenPrice": "トークン価格",
+        "minParticipation": "最低参加額",
+        "maxParticipation": "最大参加額",
+        "tgeUnlock": "TGEアンロック"
       },
       "queue": {
-        "title": "Queue Status",
-        "estimatedWait": "Estimated wait time: approx. 5 minutes"
+        "title": "待機状況",
+        "estimatedWait": "推定待機時間：約5分"
       },
       "allocation": {
-        "title": "Participation Amount",
-        "max": "Max"
+        "title": "参加金額",
+        "max": "最大"
       },
       "tokenCalc": {
-        "receivingTokens": "Tokens to Receive",
-        "bonus": "Bonus",
-        "tgeUnlock": "TGE Unlock (15%)"
+        "receivingTokens": "受け取るトークン",
+        "bonus": "ボーナス",
+        "tgeUnlock": "TGEアンロック (15%)"
       },
       "payment": {
-        "title": "Select Payment Method",
-        "creditCard": "Credit Card / Bank Transfer",
-        "stablecoin": "Stablecoin",
-        "bitcoin": "Bitcoin"
+        "title": "支払い方法を選択",
+        "creditCard": "クレジットカード / 銀行振込",
+        "stablecoin": "ステーブルコイン",
+        "bitcoin": "ビットコイン"
       },
-      "purchaseButton": "Join Now",
-      "securityNote": "Secured by CoinList payment security",
-      "live": "LIVE"
+      "purchaseButton": "今すぐ参加",
+      "securityNote": "CoinList決済セキュリティで保護",
+      "live": "ライブ"
     },
     "tabs": {
-      "overview": "Overview",
-      "tokenomics": "Tokenomics",
-      "team": "Team",
-      "faq": "FAQ"
+      "overview": "概要",
+      "tokenomics": "トークノミクス",
+      "team": "チーム",
+      "faq": "よくある質問"
     },
     "overview": {
-      "aboutTitle": "About the Project",
-      "aboutP1": "TBURN Chain builds next-generation decentralized infrastructure through the combination of AI technology and blockchain. With innovative technologies like Triple-Band AI Orchestration, AI-Enhanced Committee BFT, and Dynamic Sharding, it surpasses the limits of existing blockchains.",
-      "aboutP2": "After mainnet launch, we plan to build diverse ecosystems including DeFi, NFT, GameFi, and enterprise solutions to lead Web3 adoption.",
-      "featuresTitle": "Key Features",
+      "aboutTitle": "プロジェクトについて",
+      "aboutP1": "TBURN ChainはAI技術とブロックチェーンの融合により、次世代の分散型インフラを構築しています。Triple-Band AIオーケストレーション、AI強化委員会BFT、ダイナミックシャーディングなどの革新的な技術で、既存のブロックチェーンの限界を超えています。",
+      "aboutP2": "メインネットローンチ後、DeFi、NFT、GameFi、エンタープライズソリューションなど多様なエコシステムを構築し、Web3の普及をリードする予定です。",
+      "featuresTitle": "主な特徴",
       "vesting": {
-        "title": "Vesting Schedule",
+        "title": "ベスティングスケジュール",
         "tge": "TGE",
-        "tgeDesc": "Token Generation Event",
-        "cliff": "Cliff",
-        "cliffDesc": "Month 1-3",
-        "linearVesting": "Linear Vesting",
-        "linearVestingDesc": "Month 4-15"
+        "tgeDesc": "トークン生成イベント",
+        "cliff": "クリフ",
+        "cliffDesc": "1-3ヶ月目",
+        "linearVesting": "リニアベスティング",
+        "linearVestingDesc": "4-15ヶ月目"
       },
       "documents": {
-        "title": "Documents",
-        "whitepaper": "Whitepaper",
-        "technicalDocs": "Technical Documentation",
-        "tokenomics": "Tokenomics",
-        "auditReport": "Audit Report"
+        "title": "ドキュメント",
+        "whitepaper": "ホワイトペーパー",
+        "technicalDocs": "技術文書",
+        "tokenomics": "トークノミクス",
+        "auditReport": "監査レポート"
       }
     },
     "tokenomics": {
-      "totalSupply": "Total Supply",
-      "initialMarketCap": "Initial Market Cap",
-      "fdv": "FDV",
-      "publicSale": "Public Sale",
-      "ecosystem": "Ecosystem",
-      "community": "Community"
+      "totalSupply": "総供給量",
+      "initialMarketCap": "初期時価総額",
+      "fdv": "FDV（完全希薄化評価）",
+      "publicSale": "パブリックセール",
+      "ecosystem": "エコシステム",
+      "community": "コミュニティ"
     },
     "team": {
-      "coreTeam": "Core Team",
-      "keyPartners": "Key Partners",
-      "investors": "Investors"
+      "coreTeam": "コアチーム",
+      "keyPartners": "主要パートナー",
+      "investors": "投資家"
     },
     "faq": {
       "q1": {
-        "question": "What is the total size of the CoinList sale?",
-        "answer": "The TBURN token sale through CoinList totals 600M TBURN (6% of total supply), with a target raise of $12,000,000. Token price is set at $0.02."
+        "question": "CoinListセールの総規模はどのくらいですか？",
+        "answer": "CoinListを通じたTBURNトークンセールは総額6億TBURN（総供給量の6%）で、目標調達額は$12,000,000です。トークン価格は$0.02に設定されています。"
       },
       "q2": {
-        "question": "How do I participate on CoinList?",
-        "answer": "Create a CoinList account, complete KYC verification, then participate using USD, credit card, or cryptocurrency (USDT, USDC, BTC). Connect your wallet and enter the amount you wish to invest."
+        "question": "CoinListでどのように参加できますか？",
+        "answer": "CoinListアカウントを作成し、KYC認証を完了してから、USD、クレジットカード、または暗号通貨（USDT、USDC、BTC）で参加できます。ウォレットを接続して投資したい金額を入力してください。"
       },
       "q3": {
-        "question": "What are the min/max participation amounts?",
-        "answer": "Minimum $100, maximum $50,000. Allocation may vary based on CoinList level. 3% bonus for $10,000+ participation, 1% bonus for $1,000+ participation."
+        "question": "最低/最大参加金額はいくらですか？",
+        "answer": "最低$100、最大$50,000です。CoinListレベルに応じて配分が異なる場合があります。$10,000以上の参加で3%ボーナス、$1,000以上の参加で1%ボーナスがあります。"
       },
       "q4": {
-        "question": "When will I receive my tokens?",
-        "answer": "15% is unlocked immediately at TGE (Token Generation Event). After a 3-month cliff period, the remaining 85% is distributed according to a 12-month linear vesting schedule."
+        "question": "トークンはいつ受け取れますか？",
+        "answer": "TGE（トークン生成イベント）時に15%が即座にアンロックされます。3ヶ月のクリフ期間後、残りの85%が12ヶ月のリニアベスティングスケジュールに従って配布されます。"
       },
       "q5": {
-        "question": "What payment methods are supported?",
-        "answer": "CoinList supports various payment methods: USD (credit card, bank transfer), USDT, USDC, and BTC. Both fiat and cryptocurrency are accepted."
+        "question": "どの支払い方法が利用できますか？",
+        "answer": "CoinListは様々な支払い方法に対応しています：USD（クレジットカード、銀行振込）、USDT、USDC、BTCがご利用いただけます。法定通貨と暗号通貨の両方に対応しています。"
       },
       "q6": {
-        "question": "How does the CoinList queue system work?",
-        "answer": "CoinList operates a queue system for fair participation. A random queue number is assigned at participation start, and purchase opportunities are given based on your position. Estimated wait time is displayed in real-time."
+        "question": "CoinListのキューシステムはどのように機能しますか？",
+        "answer": "CoinListは公平な参加のためにキューシステムを運営しています。参加開始時にランダムなキュー番号が割り当てられ、順番に基づいて購入機会が与えられます。推定待機時間はリアルタイムで表示されます。"
       },
       "q7": {
-        "question": "What are the special benefits of CoinList participation?",
-        "answer": "High credibility as a CoinList verified project, premium launch support, fiat payment support, priority listing on CoinList exchange, and dedicated customer support."
+        "question": "CoinList参加の特別な特典は何ですか？",
+        "answer": "CoinList認証プロジェクトとしての高い信頼性、プレミアムローンチサポート、法定通貨決済対応、CoinList取引所への優先上場、専任カスタマーサポートがあります。"
       },
       "q8": {
-        "question": "How do I get help or support?",
-        "answer": "Contact CoinList customer support, or reach out through official TBURN communities (Telegram, Discord). Email support is also available at support@coinlist.co or support@tburnchain.io."
+        "question": "ヘルプやサポートはどこで受けられますか？",
+        "answer": "CoinListカスタマーサポートにお問い合わせいただくか、TBURNの公式コミュニティ（Telegram、Discord）を通じてご連絡ください。support@coinlist.coまたはsupport@tburnchain.ioへのメールサポートもご利用いただけます。"
       }
     },
     "footer": {
-      "terms": "Terms of Service",
-      "privacy": "Privacy Policy",
-      "riskDisclosure": "Risk Disclosure",
-      "support": "Customer Support",
+      "terms": "利用規約",
+      "privacy": "プライバシーポリシー",
+      "riskDisclosure": "リスク開示",
+      "support": "カスタマーサポート",
       "copyright": "© 2025 CoinList. All Rights Reserved."
     },
     "modal": {
-      "participationComplete": "Participation Complete!",
-      "processing": "Processing...",
-      "tokenSaleComplete": "Token Sale Participation Complete!",
-      "tokenDeliveryNote": "Tokens will be delivered at TGE",
-      "pleaseWait": "Please wait",
-      "participationAmount": "Participation Amount",
-      "tokensToReceive": "Tokens to Receive",
-      "tgeUnlock": "TGE Unlock",
-      "confirm": "Confirm"
+      "participationComplete": "参加完了！",
+      "processing": "処理中...",
+      "tokenSaleComplete": "トークンセールへの参加が完了しました！",
+      "tokenDeliveryNote": "トークンはTGE時に配布されます",
+      "pleaseWait": "お待ちください",
+      "participationAmount": "参加金額",
+      "tokensToReceive": "受け取るトークン",
+      "tgeUnlock": "TGEアンロック",
+      "confirm": "確認"
     },
     "features": {
-      "ultraFast": "Ultra Fast Processing",
-      "ultraFastDesc": "200,000+ TPS real-time transaction processing",
-      "aiIntegration": "AI Integration",
-      "aiIntegrationDesc": "Built-in AI functionality in smart contracts",
-      "strongSecurity": "Strong Security",
-      "strongSecurityDesc": "AI-based threat detection and defense",
-      "ecoFriendly": "Eco-Friendly",
-      "ecoFriendlyDesc": "Energy-efficient PoS consensus"
+      "ultraFast": "超高速処理",
+      "ultraFastDesc": "200,000+ TPSリアルタイムトランザクション処理",
+      "aiIntegration": "AI統合",
+      "aiIntegrationDesc": "スマートコントラクトにAI機能を内蔵",
+      "strongSecurity": "強固なセキュリティ",
+      "strongSecurityDesc": "AIベースの脅威検出と防御",
+      "ecoFriendly": "環境にやさしい",
+      "ecoFriendlyDesc": "エネルギー効率の高いPoSコンセンサス"
     }
   },
   "daomaker": {
@@ -25979,13 +25979,13 @@
       "title": "DAO Maker SHO",
       "subtitle": "ストロングホルダーオファリング",
       "sho": "SHO",
-      "staking": "Staking",
+      "staking": "ステーキング",
       "governance": "ガバナンス",
-      "portfolio": "Portfolio",
+      "portfolio": "ポートフォリオ",
       "swap": "Swap",
-      "connectWallet": "Connect Wallet",
-      "walletConnected": "Connected",
-      "walletPrompt": "Click to connect",
+      "connectWallet": "ウォレット接続",
+      "walletConnected": "接続済み",
+      "walletPrompt": "クリックして接続",
       "daoPower": "DAO Power"
     },
     "hero": {
@@ -26004,9 +26004,9 @@
         "verified": "Verified"
       },
       "stats": {
-        "tokenPrice": "Token Price",
-        "targetRaise": "Target Raise",
-        "tgeUnlock": "TGE Unlock",
+        "tokenPrice": "トークン価格",
+        "targetRaise": "目標調達額",
+        "tgeUnlock": "TGEアンロック",
         "totalVesting": "Total Vesting",
         "months": "months"
       }
@@ -26020,13 +26020,13 @@
     "toast": {
       "walletDisconnected": "ウォレット切断",
       "walletDisconnectedDesc": "ウォレットが切断されました",
-      "walletConnecting": "Connecting Wallet",
-      "walletConnectingDesc": "Attempting to connect MetaMask wallet.",
-      "walletRequired": "Wallet Required",
+      "walletConnecting": "ウォレット接続中",
+      "walletConnectingDesc": "MetaMaskウォレットに接続を試みています。",
+      "walletRequired": "ウォレットが必要です",
       "walletRequiredDesc": "Please connect your wallet first to participate in SHO.",
-      "minAmount": "Below Minimum Amount",
-      "minAmountDesc": "You must participate with at least $100.",
-      "maxAmount": "Exceeds Maximum Amount",
+      "minAmount": "最低金額未満",
+      "minAmountDesc": "最低$100以上で参加する必要があります。",
+      "maxAmount": "最大金額超過",
       "maxAmountDescTemplate": "Exceeds {tier} tier maximum allocation of ${max}.",
       "shoComplete": "SHO Participation Complete!",
       "shoCompleteDescTemplate": "{tokens} TBURN tokens purchased successfully.",
@@ -26034,8 +26034,8 @@
       "stakingRequiredDesc": "Please connect your wallet first to stake DAO tokens.",
       "stakingPage": "Going to Staking Page",
       "stakingPageDesc": "Navigating to staking page to increase DAO Power.",
-      "socialOpen": "Opening",
-      "socialOpenDesc": "Navigating to page.",
+      "socialOpen": "開いています",
+      "socialOpenDesc": "ページに移動しています。",
       "menuComingSoon": "Menu",
       "menuComingSoonDesc": "feature coming soon."
     },
@@ -26044,19 +26044,19 @@
       "subtitle": "Exclusive token sale for DAO Power holders",
       "countdown": {
         "label": "Sale ends in",
-        "days": "Days",
-        "hours": "Hours",
-        "mins": "Mins",
-        "secs": "Secs"
+        "days": "日",
+        "hours": "時間",
+        "mins": "分",
+        "secs": "秒"
       },
       "progress": {
-        "completed": "completed",
-        "participants": "participants"
+        "completed": "完了",
+        "participants": "参加者"
       },
       "saleDetails": {
-        "tokenPrice": "Token Price",
-        "minParticipation": "Min Participation",
-        "tgeUnlock": "TGE Unlock",
+        "tokenPrice": "トークン価格",
+        "minParticipation": "最低参加額",
+        "tgeUnlock": "TGEアンロック",
         "vesting": "Vesting",
         "vestingValue": "3-month cliff + 12 months"
       },
@@ -26067,13 +26067,13 @@
         "maxAllocation": "Max Allocation"
       },
       "allocation": {
-        "title": "Participation Amount",
-        "max": "Max"
+        "title": "参加金額",
+        "max": "最大"
       },
       "tokenOutput": {
-        "tokensToReceive": "Tokens to Receive",
-        "bonus": "Bonus",
-        "tgeUnlock": "TGE Unlock (15%)"
+        "tokensToReceive": "受け取るトークン",
+        "bonus": "ボーナス",
+        "tgeUnlock": "TGEアンロック (15%)"
       },
       "refundPolicy": {
         "title": "Refund Policy Applied",
@@ -26086,7 +26086,7 @@
       "tiers": "SHO Tiers",
       "vesting": "Vesting",
       "governance": "ガバナンス",
-      "faq": "FAQ"
+      "faq": "よくある質問"
     },
     "tiers": {
       "bronze": {
@@ -26194,11 +26194,11 @@
         "answer": "If the token price falls below the sale price ($0.02) within 30 days after TGE (Token Generation Event), participants can return their tokens and receive a 100% refund. This is DAO Makers investor protection policy."
       },
       "q4": {
-        "question": "What are the min/max participation amounts?",
+        "question": "最低/最大参加金額はいくらですか？",
         "answer": "Minimum $100 participation. Maximum depends on DAO Power tier: Bronze: $500, Silver: $2,500, Gold: $10,000. Higher tiers get larger allocations."
       },
       "q5": {
-        "question": "When will I receive my tokens?",
+        "question": "トークンはいつ受け取れますか？",
         "answer": "15% unlocks immediately at TGE. After a 3-month cliff period, the remaining 85% is distributed linearly over 12 months. Total vesting period is 15 months."
       },
       "q6": {
@@ -26220,14 +26220,14 @@
     },
     "modal": {
       "title": "SHO Participation",
-      "processing": "Processing...",
+      "processing": "処理中...",
       "pleaseWait": "Please wait while your transaction is being processed",
       "success": "Participation Complete!",
       "successDesc": "Your SHO participation has been completed successfully",
       "amount": "Participation Amount",
       "tokens": "Tokens to Receive",
-      "tgeUnlock": "TGE Unlock",
-      "confirm": "Confirm"
+      "tgeUnlock": "TGEアンロック",
+      "confirm": "確認"
     }
   }
 }
