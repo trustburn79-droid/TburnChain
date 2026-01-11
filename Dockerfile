@@ -1,17 +1,91 @@
-FROM node:20-alpine
+# ===================================
+# Multi-stage Dockerfile for Google Cloud Platform
+# Optimized for TburnChain - Blockchain Explorer
+# ===================================
 
-ENV PORT=5000
+# Stage 1: Dependencies
+FROM node:20-alpine AS dependencies
 
-WORKDIR /usr/src/app
+# Install build dependencies
+RUN apk add --no-cache \
+    python3 \
+    make \
+    g++ \
+    cairo-dev \
+    jpeg-dev \
+    pango-dev \
+    giflib-dev
 
+WORKDIR /app
+
+# Copy package files
 COPY package*.json ./
 
+# Install dependencies with cache optimization
+RUN npm ci --only=production --ignore-scripts && \
+    npm cache clean --force
+
+# Stage 2: Build
+FROM node:20-alpine AS builder
+
+WORKDIR /app
+
+# Copy dependencies from previous stage
+COPY --from=dependencies /app/node_modules ./node_modules
+COPY package*.json ./
+
+# Install all dependencies including devDependencies
 RUN npm install
 
+# Copy source code
 COPY . .
 
+# Build the application
 RUN npm run build
 
-EXPOSE 5000 8546 3000 3001 3002 6000 8008 8000 4200 3003 5173
+# Stage 3: Production
+FROM node:20-alpine AS production
 
-CMD [ "npm", "run", "start" ] 
+# Add non-root user for security
+RUN addgroup -g 1001 -S nodejs && \
+    adduser -S nodejs -u 1001
+
+# Install production runtime dependencies only
+RUN apk add --no-cache \
+    tini \
+    dumb-init \
+    ca-certificates
+
+WORKDIR /app
+
+# Copy built application and production dependencies
+COPY --from=builder --chown=nodejs:nodejs /app/dist ./dist
+COPY --from=builder --chown=nodejs:nodejs /app/client/dist ./client/dist
+COPY --from=dependencies --chown=nodejs:nodejs /app/node_modules ./node_modules
+COPY --chown=nodejs:nodejs package*.json ./
+
+# Copy necessary configuration files
+COPY --chown=nodejs:nodejs drizzle.config.ts ./
+COPY --chown=nodejs:nodejs tsconfig.json ./
+
+# Set environment variables for production
+ENV NODE_ENV=production \
+    NODE_MODE=production \
+    PORT=8080 \
+    NODE_OPTIONS="--max-old-space-size=2048"
+
+# Expose the port that Cloud Run expects
+EXPOSE 8080
+
+# Switch to non-root user
+USER nodejs
+
+# Use tini for proper signal handling
+ENTRYPOINT ["/sbin/tini", "--"]
+
+# Health check for Cloud Run
+HEALTHCHECK --interval=30s --timeout=10s --start-period=40s --retries=3 \
+    CMD node -e "require('http').get('http://localhost:8080/health', (r) => {process.exit(r.statusCode === 200 ? 0 : 1)})"
+
+# Start the application
+CMD ["node", "dist/index.js"]

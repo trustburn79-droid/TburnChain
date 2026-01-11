@@ -1,6 +1,135 @@
+# ===================================
+# .dockerignore for Google Cloud Platform
+# Optimized for TburnChain Project
+# ===================================
+
+# Dependencies
 node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.pnpm-store/
+
+# Build outputs (will be generated during build)
 dist/
-.git
-.replit
+build/
+.output/
+.nuxt/
+.next/
+out/
+
+# Development files
 .env
+.env.local
+.env.*.local
+.env.development
+.env.test
+*.local
+
+# Git
+.git/
+.gitignore
+.gitattributes
+.github/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Testing
+coverage/
+.nyc_output/
+test/
+tests/
+__tests__/
+*.test.ts
+*.test.js
+*.spec.ts
+*.spec.js
+jest.config.*
+
+# Documentation
+README.md
+LICENSE
+*.md
+docs/
+
+# CI/CD
+.circleci/
+.travis.yml
+.gitlab-ci.yml
+azure-pipelines.yml
+
+# Logs
+logs/
 *.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# Replit specific
+.replit
+.replit.nix
+replit.nix
+.config/
+.upm/
+.cache/
+
+# Python (if any)
+__pycache__/
+*.py[cod]
+*$py.class
+.Python
+.pythonlibs/
+venv/
+ENV/
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+
+# Media files (if not needed)
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.ico
+*.svg
+*.mp4
+*.webm
+*.mov
+
+# Rust build artifacts (if applicable)
+target/
+Cargo.lock
+
+# Misc
+.editorconfig
+.prettierrc
+.prettierignore
+.eslintrc*
+.eslintignore
+tsconfig.tsbuildinfo
+
+# Docker
+Dockerfile
+.dockerignore
+docker-compose*.yml
+
+# Monitoring and profiling
+.vscode/
+*.cpuprofile
+*.heapprofile
+*.heapsnapshot
