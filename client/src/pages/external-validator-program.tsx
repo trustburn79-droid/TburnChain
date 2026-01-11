@@ -612,6 +612,12 @@ export default function ExternalValidatorProgramPage() {
               Production-grade validator software for TBURN mainnet. 
               Enterprise-level security with AES-256-GCM encryption and TLS 1.3.
             </p>
+            <Link href="/external-validator-software">
+              <Button variant="outline" className="mt-4" data-testid="link-software-docs">
+                <ArrowRight className="w-4 h-4 mr-2" />
+                View Full Installation Guide
+              </Button>
+            </Link>
           </div>
 
           <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
