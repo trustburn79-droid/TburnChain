@@ -1366,8 +1366,8 @@ export default function StrategicPartnerPage() {
                 <div className="partner-item-header">
                   <div className="partner-item-logo">{currentPartnerIcons[partnerKey]}</div>
                   <div className="partner-item-info">
-                    <h5>{t(`strategicPartner.currentPartners.${partnerKey}.name`)}</h5>
-                    <p>{t(`strategicPartner.currentPartners.${partnerKey}.type`)}</p>
+                    <h5>{t(`strategicPartner.currentPartners.partners.${partnerKey}.name`)}</h5>
+                    <p>{t(`strategicPartner.currentPartners.partners.${partnerKey}.type`)}</p>
                   </div>
                 </div>
                 <span className={`partner-item-tier ${currentPartnerTiers[partnerKey]}`}>{currentPartnerTiers[partnerKey].toUpperCase()}</span>
