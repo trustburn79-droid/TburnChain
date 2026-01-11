@@ -2359,6 +2359,224 @@
         "answer": "You can contact us 24/7 via official Telegram(@tburnchain), Discord(discord.gg/tburnchain), or email(support@tburn.io). Our 24/7 live support team is standing by."
       }
     },
+        "externalValidatorSoftware": {
+      "nav": {
+        "backToProgram": "Volver al Programa de Validadores Externos",
+        "requirements": "Requisitos",
+        "download": "Descargar",
+        "installation": "Instalación",
+        "configuration": "Configuración",
+        "features": "Características",
+        "monitoring": "Monitoreo",
+        "ports": "Puertos de Red",
+        "faq": "Preguntas Frecuentes",
+        "support": "Soporte"
+      },
+      "hero": {
+        "badge": "Software Listo para Producción",
+        "title": "Software de Nodo Validador Externo",
+        "subtitle": "Software de nodo validador de nivel empresarial para participar en el consenso de la mainnet de TBURN",
+        "downloadNow": "Descargar Ahora",
+        "viewDocs": "Ver Documentación"
+      },
+      "stats": {
+        "validators": "Validadores Génesis",
+        "tps": "TPS Objetivo",
+        "blockTime": "Tiempo de Bloque",
+        "uptime": "Disponibilidad SLA"
+      },
+      "requirements": {
+        "title": "Requisitos del Sistema",
+        "subtitle": "Especificaciones de hardware para ejecutar el nodo validador de TBURN",
+        "minimum": "Requisitos Mínimos",
+        "recommended": "Especificaciones Recomendadas",
+        "cpu": "CPU",
+        "ram": "RAM",
+        "storage": "Almacenamiento",
+        "network": "Red",
+        "os": "Sistema Operativo"
+      },
+      "download": {
+        "title": "Descargar Nodo Validador",
+        "subtitle": "Elija su método de instalación preferido",
+        "linux": {
+          "title": "Binario Linux",
+          "description": "Binario precompilado para sistemas x64",
+          "version": "Versión",
+          "size": "Tamaño",
+          "sha256": "SHA256",
+          "download": "Descargar .tar.gz",
+          "recommended": "Recomendado"
+        },
+        "docker": {
+          "title": "Imagen Docker",
+          "description": "Despliegue containerizado",
+          "pullCommand": "Obtener de Docker Hub",
+          "dockerPull": "docker pull"
+        },
+        "source": {
+          "title": "Código Fuente",
+          "description": "Compilar desde fuente",
+          "viewSource": "Ver en GitHub"
+        }
+      },
+      "installation": {
+        "title": "Guía de Instalación",
+        "subtitle": "Siga estos pasos para instalar y configurar su nodo validador",
+        "tabs": {
+          "linux": "Binario Linux",
+          "docker": "Docker",
+          "systemd": "Servicio SystemD"
+        },
+        "linux": {
+          "step1": "Descargue y extraiga el paquete del nodo validador",
+          "step2": "Instale el binario en su sistema",
+          "step3": "Inicie el nodo validador"
+        },
+        "docker": {
+          "step1": "Obtenga la imagen Docker y ejecute el contenedor"
+        },
+        "systemd": {
+          "description": "Cree un servicio systemd para inicio automático y gestión",
+          "step1": "Cree el archivo de servicio en /etc/systemd/system/tburn-validator.service"
+        }
+      },
+      "configuration": {
+        "title": "Configuración del Nodo",
+        "subtitle": "Configure su nodo validador para un rendimiento óptimo",
+        "configFile": "Ubicación del archivo de configuración: ~/.tburn/config.toml",
+        "parameters": {
+          "nodeId": "Identificador único para este nodo",
+          "rpcPort": "Puerto API JSON-RPC",
+          "p2pPort": "Puerto de comunicación peer-to-peer",
+          "grpcPort": "Puerto API gRPC (operaciones del validador)",
+          "dataDir": "Ubicación de almacenamiento de datos",
+          "logLevel": "Nivel de registro",
+          "metricsPort": "Puerto de métricas Prometheus"
+        }
+      },
+      "features": {
+        "title": "Características Empresariales",
+        "subtitle": "Capacidades de nivel de producción para validación en mainnet",
+        "items": {
+          "bft": {
+            "title": "Consenso BFT Empresarial",
+            "description": "Protocolo tolerante a fallas bizantinas de 5 fases con seguridad de consenso basada en bloqueo"
+          },
+          "sharding": {
+            "title": "Fragmentación Dinámica",
+            "description": "Escalado automático de fragmentos (5-64 fragmentos) con actualizaciones transaccionales"
+          },
+          "tps": {
+            "title": "Alto Rendimiento",
+            "description": "Optimizado para 120K+ TPS sostenido con pipeline de verificación paralela"
+          },
+          "blockTime": {
+            "title": "Tiempo de Bloque Rápido",
+            "description": "Producción de bloques de 100ms con compensación de deriva"
+          },
+          "security": {
+            "title": "Resistente a Cuántica",
+            "description": "Firmas criptográficas resistentes a cuántica para seguridad a futuro"
+          },
+          "monitoring": {
+            "title": "Monitoreo Empresarial",
+            "description": "Métricas Prometheus, paneles Grafana y alertas en tiempo real"
+          },
+          "recovery": {
+            "title": "Auto-Recuperación",
+            "description": "Capacidades de auto-reparación con recuperación automática de fallos"
+          },
+          "updates": {
+            "title": "Actualizaciones Continuas",
+            "description": "Actualizaciones sin tiempo de inactividad con rotación de validadores elegante"
+          }
+        }
+      },
+      "monitoring": {
+        "title": "Monitoreo y Métricas",
+        "subtitle": "Monitoree el rendimiento de su nodo validador en tiempo real",
+        "endpoints": "Endpoints de Monitoreo",
+        "prometheusDesc": "Endpoint de métricas Prometheus para scraping",
+        "healthDesc": "Endpoint de verificación de salud para balanceadores de carga",
+        "statusDesc": "Estado del validador e información de sincronización"
+      },
+      "ports": {
+        "title": "Puertos de Red",
+        "subtitle": "Configuración de firewall requerida para nodos validadores",
+        "table": {
+          "port": "Puerto",
+          "protocol": "Protocolo",
+          "description": "Descripción"
+        },
+        "descriptions": {
+          "p2p": "Comunicación de Red P2P",
+          "rpc": "API JSON-RPC",
+          "grpc": "API gRPC del Validador",
+          "metrics": "Métricas Prometheus"
+        }
+      },
+      "faq": {
+        "title": "Preguntas Frecuentes",
+        "subtitle": "Preguntas comunes sobre la ejecución de un nodo validador",
+        "items": {
+          "stake": {
+            "question": "¿Cuál es el stake mínimo requerido?",
+            "answer": "El stake mínimo para convertirse en validador es 1,000,000 TBURN para Validadores Completos y 100,000 TBURN para Validadores Ligeros."
+          },
+          "hardware": {
+            "question": "¿Puedo ejecutar múltiples validadores en un servidor?",
+            "answer": "Recomendamos ejecutar un validador por servidor físico para asegurar un rendimiento óptimo y evitar la contención de recursos."
+          },
+          "updates": {
+            "question": "¿Cómo actualizo el software del validador?",
+            "answer": "Proporcionamos actualizaciones continuas que se pueden aplicar sin tiempo de inactividad. Simplemente descargue la nueva versión y reinicie el servicio."
+          },
+          "rewards": {
+            "question": "¿Cuándo recibo las recompensas del validador?",
+            "answer": "Las recompensas se distribuyen al final de cada época (aproximadamente cada 6 horas). Puede reclamar las recompensas a través del panel del validador."
+          },
+          "slashing": {
+            "question": "¿Cuáles son las condiciones de penalización?",
+            "answer": "La penalización ocurre por doble firma, tiempo de inactividad prolongado (>4 horas) o envío de bloques inválidos. Las penalizaciones van del 0.1% al 100% del stake."
+          },
+          "backup": {
+            "question": "¿Cómo respaldo mis claves de validador?",
+            "answer": "Las claves del validador se almacenan en ~/.tburn/keys/. Respalde este directorio de forma segura y nunca comparta sus claves privadas."
+          },
+          "migrate": {
+            "question": "¿Puedo migrar mi validador a un nuevo servidor?",
+            "answer": "Sí, puede migrar deteniendo el nodo antiguo, transfiriendo el directorio de claves e iniciando en el nuevo servidor. Nunca ejecute dos instancias con las mismas claves."
+          },
+          "support": {
+            "question": "¿Cómo obtengo soporte técnico?",
+            "answer": "Únase a nuestro servidor Discord para soporte comunitario, o contacte enterprise-support@tburn.io para asistencia prioritaria."
+          }
+        }
+      },
+      "support": {
+        "title": "¿Necesita Ayuda?",
+        "subtitle": "Nuestro equipo está aquí para ayudarle a tener éxito",
+        "docs": {
+          "title": "Documentación",
+          "description": "Guías completas y referencias de API"
+        },
+        "discord": {
+          "title": "Comunidad Discord",
+          "description": "Únase a nuestra comunidad de validadores"
+        },
+        "enterprise": {
+          "title": "Soporte Empresarial",
+          "description": "Soporte prioritario para validadores"
+        }
+      },
+      "cta": {
+        "title": "¿Listo para Convertirse en Validador?",
+        "subtitle": "Descargue el software y comience a ganar recompensas hoy",
+        "download": "Descargar Software",
+        "learnMore": "Más Información sobre el Programa"
+      }
+    },
     "footer": {
       "terms": "Terms of Service",
       "privacy": "Privacy Policy",

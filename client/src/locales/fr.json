@@ -22869,6 +22869,224 @@
         "answer": "Get support through DAO Makers official Discord and Telegram communities. You can also email support@daomaker.com or contact TBURNs official community at support@tburnchain.io."
       }
     },
+    "externalValidatorSoftware": {
+      "nav": {
+        "backToProgram": "Retour au Programme Validateur Externe",
+        "requirements": "Configuration Requise",
+        "download": "Télécharger",
+        "installation": "Installation",
+        "configuration": "Configuration",
+        "features": "Fonctionnalités",
+        "monitoring": "Surveillance",
+        "ports": "Ports Réseau",
+        "faq": "FAQ",
+        "support": "Support"
+      },
+      "hero": {
+        "badge": "Logiciel Prêt pour la Production",
+        "title": "Logiciel de Nœud Validateur Externe",
+        "subtitle": "Logiciel de nœud validateur de qualité entreprise pour participer au consensus du mainnet TBURN",
+        "downloadNow": "Télécharger Maintenant",
+        "viewDocs": "Voir la Documentation"
+      },
+      "stats": {
+        "validators": "Validateurs Genesis",
+        "tps": "TPS Cible",
+        "blockTime": "Temps de Bloc",
+        "uptime": "SLA Disponibilité"
+      },
+      "requirements": {
+        "title": "Configuration Requise",
+        "subtitle": "Spécifications matérielles pour exécuter le nœud validateur TBURN",
+        "minimum": "Configuration Minimale",
+        "recommended": "Spécifications Recommandées",
+        "cpu": "Processeur",
+        "ram": "RAM",
+        "storage": "Stockage",
+        "network": "Réseau",
+        "os": "Système d'Exploitation"
+      },
+      "download": {
+        "title": "Télécharger Nœud Validateur",
+        "subtitle": "Choisissez votre méthode d'installation préférée",
+        "linux": {
+          "title": "Binaire Linux",
+          "description": "Binaire précompilé pour systèmes x64",
+          "version": "Version",
+          "size": "Taille",
+          "sha256": "SHA256",
+          "download": "Télécharger .tar.gz",
+          "recommended": "Recommandé"
+        },
+        "docker": {
+          "title": "Image Docker",
+          "description": "Déploiement conteneurisé",
+          "pullCommand": "Extraire de Docker Hub",
+          "dockerPull": "docker pull"
+        },
+        "source": {
+          "title": "Code Source",
+          "description": "Construire à partir de la source",
+          "viewSource": "Voir sur GitHub"
+        }
+      },
+      "installation": {
+        "title": "Guide d'Installation",
+        "subtitle": "Suivez ces étapes pour installer et configurer votre nœud validateur",
+        "tabs": {
+          "linux": "Binaire Linux",
+          "docker": "Docker",
+          "systemd": "Service SystemD"
+        },
+        "linux": {
+          "step1": "Télécharger et extraire le package du nœud validateur",
+          "step2": "Installer le binaire sur votre système",
+          "step3": "Démarrer le nœud validateur"
+        },
+        "docker": {
+          "step1": "Extraire l'image Docker et exécuter le conteneur"
+        },
+        "systemd": {
+          "description": "Créer un service systemd pour démarrage automatique et gestion",
+          "step1": "Créer le fichier de service à /etc/systemd/system/tburn-validator.service"
+        }
+      },
+      "configuration": {
+        "title": "Configuration du Nœud",
+        "subtitle": "Configurer votre nœud validateur pour des performances optimales",
+        "configFile": "Emplacement du fichier de configuration : ~/.tburn/config.toml",
+        "parameters": {
+          "nodeId": "Identifiant unique pour ce nœud",
+          "rpcPort": "Port API JSON-RPC",
+          "p2pPort": "Port de communication pair-à-pair",
+          "grpcPort": "Port API gRPC (opérations validateur)",
+          "dataDir": "Emplacement de stockage des données",
+          "logLevel": "Verbosité de la journalisation",
+          "metricsPort": "Port de métriques Prometheus"
+        }
+      },
+      "features": {
+        "title": "Fonctionnalités Entreprise",
+        "subtitle": "Capacités de qualité production pour la validation du mainnet",
+        "items": {
+          "bft": {
+            "title": "Consensus BFT Entreprise",
+            "description": "Protocole tolérant aux pannes byzantines en 5 phases avec sécurité de consensus basée sur verrouillage"
+          },
+          "sharding": {
+            "title": "Sharding Dynamique",
+            "description": "Mise à l'échelle automatique des shards (5-64 shards) avec mises à jour transactionnelles"
+          },
+          "tps": {
+            "title": "Débit Élevé",
+            "description": "Optimisé pour 120 000+ TPS soutenus avec pipeline de vérification parallèle"
+          },
+          "blockTime": {
+            "title": "Temps de Bloc Rapide",
+            "description": "Production de blocs en 100 ms avec compensation de dérive"
+          },
+          "security": {
+            "title": "Résistant à la Cryptographie Quantique",
+            "description": "Signatures cryptographiques résistantes à la cryptographie quantique pour la sécurité à l'épreuve du temps"
+          },
+          "monitoring": {
+            "title": "Surveillance Entreprise",
+            "description": "Métriques Prometheus, tableaux de bord Grafana et alertes en temps réel"
+          },
+          "recovery": {
+            "title": "Récupération Automatique",
+            "description": "Capacités d'auto-guérison avec récupération automatique en cas de crash"
+          },
+          "updates": {
+            "title": "Mises à Jour Continues",
+            "description": "Mises à jour sans temps d'arrêt avec rotation gracieuse des validateurs"
+          }
+        }
+      },
+      "monitoring": {
+        "title": "Surveillance et Métriques",
+        "subtitle": "Surveiller les performances de votre nœud validateur en temps réel",
+        "endpoints": "Points de Terminaison de Surveillance",
+        "prometheusDesc": "Point de terminaison de métriques Prometheus pour scraper",
+        "healthDesc": "Point de terminaison de vérification de santé pour les équilibreurs de charge",
+        "statusDesc": "Statut du validateur et informations de synchronisation"
+      },
+      "ports": {
+        "title": "Ports Réseau",
+        "subtitle": "Configuration de pare-feu requise pour les nœuds validateurs",
+        "table": {
+          "port": "Port",
+          "protocol": "Protocole",
+          "description": "Description"
+        },
+        "descriptions": {
+          "p2p": "Communication Réseau Pair-à-Pair",
+          "rpc": "API JSON-RPC",
+          "grpc": "API Validateur gRPC",
+          "metrics": "Métriques Prometheus"
+        }
+      },
+      "faq": {
+        "title": "Questions Fréquemment Posées",
+        "subtitle": "Questions courantes sur l'exécution d'un nœud validateur",
+        "items": {
+          "stake": {
+            "question": "Quel est le stake minimum requis?",
+            "answer": "Le stake minimum pour devenir validateur est de 1 000 000 TBURN pour les Validateurs Complets et 100 000 TBURN pour les Validateurs Légers."
+          },
+          "hardware": {
+            "question": "Puis-je exécuter plusieurs validateurs sur un seul serveur?",
+            "answer": "Nous recommandons d'exécuter un validateur par serveur physique pour assurer des performances optimales et éviter les contentions de ressources."
+          },
+          "updates": {
+            "question": "Comment mettre à jour le logiciel validateur?",
+            "answer": "Nous fournissons des mises à jour continues qui peuvent être appliquées sans temps d'arrêt. Téléchargez simplement la nouvelle version et redémarrez le service."
+          },
+          "rewards": {
+            "question": "Quand reçois-je les récompenses du validateur?",
+            "answer": "Les récompenses sont distribuées à la fin de chaque époque (environ toutes les 6 heures). Vous pouvez réclamer les récompenses via le tableau de bord du validateur."
+          },
+          "slashing": {
+            "question": "Quelles sont les conditions de slashing?",
+            "answer": "Le slashing se produit pour la signature double, les temps d'arrêt prolongés (>4 heures) ou la soumission de blocs invalides. Les pénalités varient de 0,1% à 100% du stake."
+          },
+          "backup": {
+            "question": "Comment sauvegarder mes clés de validateur?",
+            "answer": "Les clés de validateur sont stockées dans ~/.tburn/keys/. Sauvegardez ce répertoire de manière sécurisée et ne partagez jamais vos clés privées."
+          },
+          "migrate": {
+            "question": "Puis-je migrer mon validateur vers un nouveau serveur?",
+            "answer": "Oui, vous pouvez migrer en arrêtant l'ancien nœud, en transférant le répertoire des clés et en démarrant sur le nouveau serveur. N'exécutez jamais deux instances avec les mêmes clés."
+          },
+          "support": {
+            "question": "Comment obtenir un support technique?",
+            "answer": "Rejoignez notre serveur Discord pour le support communautaire, ou contactez enterprise-support@tburn.io pour une assistance prioritaire."
+          }
+        }
+      },
+      "support": {
+        "title": "Besoin d'Aide?",
+        "subtitle": "Notre équipe est là pour vous aider à réussir",
+        "docs": {
+          "title": "Documentation",
+          "description": "Guides complets et références API"
+        },
+        "discord": {
+          "title": "Communauté Discord",
+          "description": "Rejoignez notre communauté de validateurs"
+        },
+        "enterprise": {
+          "title": "Support Entreprise",
+          "description": "Support prioritaire pour les validateurs"
+        }
+      },
+      "cta": {
+        "title": "Prêt à Devenir Validateur?",
+        "subtitle": "Téléchargez le logiciel et commencez à gagner des récompenses aujourd'hui",
+        "download": "Télécharger le Logiciel",
+        "learnMore": "En Savoir Plus sur le Programme"
+      }
+    },
     "footer": {
       "copyright": "2025 DAO Maker. All Rights Reserved.",
       "poweredBy": "Powered by TBURN Chain"

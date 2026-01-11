@@ -2530,6 +2530,224 @@
         "answer": "You can contact us 24/7 via official Telegram(@tburnchain), Discord(discord.gg/tburnchain), or email(support@tburn.io). Our 24/7 live support team is standing by."
       }
     },
+    "externalValidatorSoftware": {
+      "nav": {
+        "backToProgram": "返回外部验证者计划",
+        "requirements": "系统要求",
+        "download": "下载",
+        "installation": "安装",
+        "configuration": "配置",
+        "features": "功能",
+        "monitoring": "监控",
+        "ports": "网络端口",
+        "faq": "常见问题",
+        "support": "支持"
+      },
+      "hero": {
+        "badge": "生产就绪软件",
+        "title": "外部验证者节点软件",
+        "subtitle": "参与TBURN主网共识的企业级验证者节点软件",
+        "downloadNow": "立即下载",
+        "viewDocs": "查看文档"
+      },
+      "stats": {
+        "validators": "创世验证者",
+        "tps": "目标TPS",
+        "blockTime": "出块时间",
+        "uptime": "SLA可用性"
+      },
+      "requirements": {
+        "title": "系统要求",
+        "subtitle": "运行TBURN验证者节点的硬件规格",
+        "minimum": "最低要求",
+        "recommended": "推荐配置",
+        "cpu": "CPU",
+        "ram": "内存",
+        "storage": "存储",
+        "network": "网络",
+        "os": "操作系统"
+      },
+      "download": {
+        "title": "下载验证者节点",
+        "subtitle": "选择您偏好的安装方式",
+        "linux": {
+          "title": "Linux二进制文件",
+          "description": "x64系统预编译二进制文件",
+          "version": "版本",
+          "size": "大小",
+          "sha256": "SHA256",
+          "download": "下载 .tar.gz",
+          "recommended": "推荐"
+        },
+        "docker": {
+          "title": "Docker镜像",
+          "description": "容器化部署",
+          "pullCommand": "从Docker Hub拉取",
+          "dockerPull": "docker pull"
+        },
+        "source": {
+          "title": "源代码",
+          "description": "从源码构建",
+          "viewSource": "在GitHub查看"
+        }
+      },
+      "installation": {
+        "title": "安装指南",
+        "subtitle": "按照以下步骤安装和配置验证者节点",
+        "tabs": {
+          "linux": "Linux二进制",
+          "docker": "Docker",
+          "systemd": "SystemD服务"
+        },
+        "linux": {
+          "step1": "下载并解压验证者节点包",
+          "step2": "将二进制文件安装到系统",
+          "step3": "启动验证者节点"
+        },
+        "docker": {
+          "step1": "拉取Docker镜像并运行容器"
+        },
+        "systemd": {
+          "description": "创建systemd服务以实现自动启动和管理",
+          "step1": "在/etc/systemd/system/tburn-validator.service创建服务文件"
+        }
+      },
+      "configuration": {
+        "title": "节点配置",
+        "subtitle": "配置验证者节点以获得最佳性能",
+        "configFile": "配置文件位置: ~/.tburn/config.toml",
+        "parameters": {
+          "nodeId": "此节点的唯一标识符",
+          "rpcPort": "JSON-RPC API端口",
+          "p2pPort": "点对点通信端口",
+          "grpcPort": "gRPC API端口(验证者操作)",
+          "dataDir": "数据存储位置",
+          "logLevel": "日志级别",
+          "metricsPort": "Prometheus指标端口"
+        }
+      },
+      "features": {
+        "title": "企业级功能",
+        "subtitle": "主网验证的生产级能力",
+        "items": {
+          "bft": {
+            "title": "企业级BFT共识",
+            "description": "具有锁定共识安全性的5阶段拜占庭容错协议"
+          },
+          "sharding": {
+            "title": "动态分片",
+            "description": "支持事务更新的自动分片扩展(5-64个分片)"
+          },
+          "tps": {
+            "title": "高吞吐量",
+            "description": "通过并行验证管道优化120K+持续TPS"
+          },
+          "blockTime": {
+            "title": "快速出块",
+            "description": "具有漂移补偿的100ms出块时间"
+          },
+          "security": {
+            "title": "抗量子攻击",
+            "description": "面向未来的抗量子密码签名"
+          },
+          "monitoring": {
+            "title": "企业级监控",
+            "description": "Prometheus指标、Grafana仪表板和实时告警"
+          },
+          "recovery": {
+            "title": "自动恢复",
+            "description": "具有自动崩溃恢复的自愈能力"
+          },
+          "updates": {
+            "title": "滚动更新",
+            "description": "通过优雅验证者轮换实现零停机更新"
+          }
+        }
+      },
+      "monitoring": {
+        "title": "监控与指标",
+        "subtitle": "实时监控验证者节点性能",
+        "endpoints": "监控端点",
+        "prometheusDesc": "用于抓取的Prometheus指标端点",
+        "healthDesc": "负载均衡器健康检查端点",
+        "statusDesc": "验证者状态和同步信息"
+      },
+      "ports": {
+        "title": "网络端口",
+        "subtitle": "验证者节点所需的防火墙配置",
+        "table": {
+          "port": "端口",
+          "protocol": "协议",
+          "description": "描述"
+        },
+        "descriptions": {
+          "p2p": "P2P网络通信",
+          "rpc": "JSON-RPC API",
+          "grpc": "gRPC验证者API",
+          "metrics": "Prometheus指标"
+        }
+      },
+      "faq": {
+        "title": "常见问题",
+        "subtitle": "关于运行验证者节点的常见问题",
+        "items": {
+          "stake": {
+            "question": "最低质押要求是多少?",
+            "answer": "成为验证者的最低质押量为:全节点验证者1,000,000 TBURN,轻节点验证者100,000 TBURN。"
+          },
+          "hardware": {
+            "question": "可以在一台服务器上运行多个验证者吗?",
+            "answer": "我们建议每台物理服务器运行一个验证者,以确保最佳性能并避免资源争用。"
+          },
+          "updates": {
+            "question": "如何更新验证者软件?",
+            "answer": "我们提供可在无停机情况下应用的滚动更新。只需下载新版本并重启服务即可。"
+          },
+          "rewards": {
+            "question": "何时收到验证者奖励?",
+            "answer": "奖励在每个纪元结束时分发(约每6小时)。您可以通过验证者仪表板领取奖励。"
+          },
+          "slashing": {
+            "question": "什么情况会被惩罚?",
+            "answer": "双签、长时间宕机(超过4小时)或提交无效区块会触发惩罚。罚款范围从质押的0.1%到100%不等。"
+          },
+          "backup": {
+            "question": "如何备份验证者密钥?",
+            "answer": "验证者密钥存储在~/.tburn/keys/。请安全备份此目录,切勿分享您的私钥。"
+          },
+          "migrate": {
+            "question": "可以将验证者迁移到新服务器吗?",
+            "answer": "可以,停止旧节点,转移密钥目录,然后在新服务器上启动。切勿使用相同密钥运行两个实例。"
+          },
+          "support": {
+            "question": "如何获得技术支持?",
+            "answer": "加入我们的Discord服务器获取社区支持,或联系enterprise-support@tburn.io获取优先支持。"
+          }
+        }
+      },
+      "support": {
+        "title": "需要帮助?",
+        "subtitle": "我们的团队随时为您提供支持",
+        "docs": {
+          "title": "文档",
+          "description": "全面的指南和API参考"
+        },
+        "discord": {
+          "title": "Discord社区",
+          "description": "加入我们的验证者社区"
+        },
+        "enterprise": {
+          "title": "企业支持",
+          "description": "验证者优先支持"
+        }
+      },
+      "cta": {
+        "title": "准备成为验证者了吗?",
+        "subtitle": "下载软件,今天就开始获得奖励",
+        "download": "下载软件",
+        "learnMore": "了解更多计划详情"
+      }
+    },
     "footer": {
       "terms": "Terms of Service",
       "privacy": "Privacy Policy",
