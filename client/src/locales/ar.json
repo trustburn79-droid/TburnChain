@@ -18769,40 +18769,40 @@
         "item4": "Past returns do not guarantee future profits."
       },
       "faqSection": {
-        "badge": "FAQ",
-        "title": "Frequently Asked Questions",
-        "subtitle": "Common questions about seed investment",
+        "badge": "الأسئلة الشائعة",
+        "title": "الأسئلة الشائعة",
+        "subtitle": "أسئلة شائعة حول الاستثمار التأسيسي",
         "faq1": {
-          "question": "What is TBURN Chain and why should I invest?",
-          "answer": "TBURN Chain is a next-generation Layer-1 blockchain with AI-based dynamic sharding technology. With 64 shards and 125 genesis validators, it targets 210,000 TPS and 100ms block time. It combines deflationary tokenomics with AI governance for long-term value growth. Seed investors can participate at $0.04, an 80% discount from public sale, and enjoy early investor benefits as the network grows."
+          "question": "ما هو TBURN Chain ولماذا يجب أن أستثمر؟",
+          "answer": "TBURN Chain هو بلوكتشين من الجيل التالي من المستوى الأول مع تقنية التجزئة الديناميكية القائمة على الذكاء الاصطناعي. مع 64 جزءًا و125 مدققًا أصليًا، يستهدف 210,000 معاملة في الثانية ووقت كتلة 100 مللي ثانية. يجمع بين اقتصاديات التوكن الانكماشية وحوكمة الذكاء الاصطناعي للنمو طويل المدى في القيمة. يمكن للمستثمرين المؤسسين المشاركة بسعر $0.04، بخصم 80% من البيع العام، والتمتع بمزايا المستثمر المبكر مع نمو الشبكة."
         },
         "faq2": {
-          "question": "What are the seed round investment terms and vesting schedule?",
-          "answer": "The seed round is priced at $0.04 per token, with 500M TBURN (5% of total supply) allocated. Hardcap is $20M. Vesting: 12-month cliff after TGE, followed by 24-month linear unlock. 5% unlocks at cliff end, then ~3.96% monthly. Designed to ensure network stability through long-term holding."
+          "question": "ما هي شروط استثمار الجولة التأسيسية وجدول الاستحقاق؟",
+          "answer": "الجولة التأسيسية بسعر $0.04 لكل توكن، مع تخصيص 500 مليون TBURN (5% من إجمالي العرض). الحد الأقصى هو $20M. الاستحقاق: 12 شهرًا فترة انتظار بعد TGE، تليها 24 شهرًا من الفتح الخطي. 5% يُفتح في نهاية فترة الانتظار، ثم ~3.96% شهريًا. مصمم لضمان استقرار الشبكة من خلال الاحتفاظ طويل المدى."
         },
         "faq3": {
-          "question": "What are the minimum/maximum investment amounts and how are investor tiers structured?",
-          "answer": "The seed round has 3 tiers: (1) Angel Tier: $25,000-$99,999, basic allocation and monthly investor newsletter (2) Strategic Tier: $100,000-$499,999, 10% bonus tokens and quarterly team meetings (3) Lead Tier: $500,000+, 20% bonus tokens, advisor board participation, monthly project update calls. KYC verification required for all tiers."
+          "question": "ما هي الحدود الدنيا/القصوى للاستثمار وكيف يتم هيكلة مستويات المستثمرين؟",
+          "answer": "الجولة التأسيسية لها 3 مستويات: (1) مستوى الملاك: $25,000-$99,999، تخصيص أساسي ونشرة إخبارية شهرية للمستثمر (2) المستوى الاستراتيجي: $100,000-$499,999، 10% توكنات مكافأة واجتماعات فريق ربع سنوية (3) المستوى الرائد: $500,000+، 20% توكنات مكافأة، المشاركة في مجلس المستشارين، مكالمات تحديث المشروع الشهرية. التحقق من KYC مطلوب لجميع المستويات."
         },
         "faq4": {
-          "question": "What is the investment process and required documents?",
-          "answer": "Process: (1) Investment inquiry → (2) NDA and Letter of Intent → (3) KYC/AML verification (passport/ID, address proof, source of funds) → (4) SAFT contract → (5) Fund transfer (USDT, USDC, or bank wire) → (6) Token allocation confirmation. Typically 7-14 business days with dedicated manager support. Separate arrangements available for institutional investors."
+          "question": "ما هي عملية الاستثمار والمستندات المطلوبة؟",
+          "answer": "العملية: (1) استفسار الاستثمار → (2) اتفاقية عدم الإفصاح وخطاب النوايا → (3) التحقق من KYC/AML (جواز السفر/الهوية، إثبات العنوان، مصدر الأموال) → (4) عقد SAFT → (5) تحويل الأموال (USDT، USDC، أو تحويل مصرفي) → (6) تأكيد تخصيص التوكن. عادة 7-14 يوم عمل مع دعم مدير مخصص. ترتيبات منفصلة متاحة للمستثمرين المؤسسيين."
         },
         "faq5": {
-          "question": "What is a SAFT contract and how are investors protected?",
-          "answer": "SAFT (Simple Agreement for Future Tokens) is a standard investment contract complying with US SEC guidelines. It specifies token allocation, vesting schedule, investor rights, refund conditions, and dispute resolution. Funds are held in third-party escrow, released based on milestone achievement. Legal counsel by global law firm Dentons, with quarterly financial reports provided to investors."
+          "question": "ما هو عقد SAFT وكيف يُحمى المستثمرون؟",
+          "answer": "SAFT (اتفاقية بسيطة للتوكنات المستقبلية) هو عقد استثمار قياسي يتوافق مع إرشادات SEC الأمريكية. يحدد تخصيص التوكن، جدول الاستحقاق، حقوق المستثمر، شروط الاسترداد، وحل النزاعات. الأموال محفوظة في حساب ضمان طرف ثالث، تُصدر بناءً على تحقيق المعالم. استشارة قانونية من مكتب المحاماة العالمي Dentons، مع تقارير مالية ربع سنوية مقدمة للمستثمرين."
         },
         "faq6": {
-          "question": "What are the token listing plans and expected timeline?",
-          "answer": "TGE (Token Generation Event) is planned alongside mainnet launch. Listing strategy: First, liquidity provision on major DEXs (Uniswap, PancakeSwap), then Tier-1 CEX listings (Binance, OKX, Bybit, etc.) with marketing boost and gradual exchange expansion. Launch price is expected at $0.50 (12.5x from seed), subject to market conditions."
+          "question": "ما هي خطط إدراج التوكن والجدول الزمني المتوقع؟",
+          "answer": "TGE (حدث توليد التوكن) مخطط له مع إطلاق الشبكة الرئيسية. استراتيجية الإدراج: أولاً، توفير السيولة على DEXs الرئيسية (Uniswap، PancakeSwap)، ثم الإدراج في CEX من المستوى الأول (Binance، OKX، Bybit، إلخ) مع دفع التسويق والتوسع التدريجي في البورصات. سعر الإطلاق المتوقع $0.50 (12.5 ضعف من التأسيسي)، خاضع لظروف السوق."
         },
         "faq7": {
-          "question": "How will the funds be used?",
-          "answer": "Seed round fund allocation: Technology Development 45% (core protocol, AI engine, security infrastructure), Marketing & Partnerships 25% (global marketing, strategic partnerships, community building), Operations & Legal 15% (team operations, legal/compliance, office), Liquidity 10% (DEX/CEX initial liquidity), Reserve 5% (emergency fund, market opportunities). Quarterly fund usage reports provided to investors."
+          "question": "كيف سيتم استخدام الأموال؟",
+          "answer": "توزيع أموال الجولة التأسيسية: التطوير التقني 45% (البروتوكول الأساسي، محرك الذكاء الاصطناعي، بنية الأمان)، التسويق والشراكات 25% (التسويق العالمي، الشراكات الاستراتيجية، بناء المجتمع)، العمليات والقانونية 15% (عمليات الفريق، القانونية/الامتثال، المكتب)، السيولة 10% (السيولة الأولية DEX/CEX)، الاحتياطي 5% (صندوق الطوارئ، فرص السوق). تقارير استخدام الأموال ربع السنوية مقدمة للمستثمرين."
         },
         "faq8": {
-          "question": "What is the refund policy and can I cancel my investment?",
-          "answer": "Full refund available before SAFT contract signing. After signing, refunds only possible for project discontinuation, mainnet launch failure, or legal issues. 100% principal returned with ~30 business days processing. Mid-term cancellation for personal reasons not permitted. Please invest carefully. Detailed refund terms in SAFT contract."
+          "question": "ما هي سياسة الاسترداد وهل يمكنني إلغاء استثماري؟",
+          "answer": "الاسترداد الكامل متاح قبل توقيع عقد SAFT. بعد التوقيع، الاستردادات ممكنة فقط عند توقف المشروع، فشل إطلاق الشبكة الرئيسية، أو المشاكل القانونية. استرداد 100% من رأس المال مع معالجة ~30 يوم عمل. الإلغاء في منتصف المدة لأسباب شخصية غير مسموح. يرجى الاستثمار بعناية. شروط الاسترداد التفصيلية في عقد SAFT."
         }
       },
       "footer": {

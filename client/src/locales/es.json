@@ -21046,39 +21046,39 @@
       },
       "faqSection": {
         "badge": "FAQ",
-        "title": "Frequently Asked Questions",
-        "subtitle": "Common questions about seed investment",
+        "title": "Preguntas Frecuentes",
+        "subtitle": "Preguntas comunes sobre la inversión semilla",
         "faq1": {
-          "question": "What is TBURN Chain and why should I invest?",
-          "answer": "TBURN Chain is a next-generation Layer-1 blockchain with AI-based dynamic sharding technology. With 64 shards and 125 genesis validators, it targets 210,000 TPS and 100ms block time. It combines deflationary tokenomics with AI governance for long-term value growth. Seed investors can participate at $0.04, an 80% discount from public sale, and enjoy early investor benefits as the network grows."
+          "question": "¿Qué es TBURN Chain y por qué debería invertir?",
+          "answer": "TBURN Chain es una blockchain de capa 1 de próxima generación con tecnología de fragmentación dinámica basada en IA. Con 64 fragmentos y 125 validadores génesis, apunta a 210,000 TPS y tiempo de bloque de 100ms. Combina tokenomics deflacionarios con gobernanza de IA para el crecimiento del valor a largo plazo. Los inversores semilla pueden participar a $0.04, un 80% de descuento sobre la venta pública, y disfrutar de beneficios de inversores tempranos a medida que crece la red."
         },
         "faq2": {
-          "question": "What are the seed round investment terms and vesting schedule?",
-          "answer": "The seed round is priced at $0.04 per token, with 500M TBURN (5% of total supply) allocated. Hardcap is $20M. Vesting: 12-month cliff after TGE, followed by 24-month linear unlock. 5% unlocks at cliff end, then ~3.96% monthly. Designed to ensure network stability through long-term holding."
+          "question": "¿Cuáles son los términos de inversión de la ronda semilla y el calendario de adquisición?",
+          "answer": "La ronda semilla tiene un precio de $0.04 por token, con 500M TBURN (5% del suministro total) asignados. El hardcap es $20M. Adquisición: 12 meses de cliff después del TGE, seguido de 24 meses de desbloqueo lineal. 5% se desbloquea al final del cliff, luego ~3.96% mensual. Diseñado para garantizar la estabilidad de la red mediante tenencia a largo plazo."
         },
         "faq3": {
-          "question": "What are the minimum/maximum investment amounts and how are investor tiers structured?",
-          "answer": "The seed round has 3 tiers: (1) Angel Tier: $25,000-$99,999, basic allocation and monthly investor newsletter (2) Strategic Tier: $100,000-$499,999, 10% bonus tokens and quarterly team meetings (3) Lead Tier: $500,000+, 20% bonus tokens, advisor board participation, monthly project update calls. KYC verification required for all tiers."
+          "question": "¿Cuáles son los montos mínimos/máximos de inversión y cómo se estructuran los niveles de inversores?",
+          "answer": "La ronda semilla tiene 3 niveles: (1) Nivel Ángel: $25,000-$99,999, asignación básica y boletín mensual para inversores (2) Nivel Estratégico: $100,000-$499,999, 10% de tokens de bonificación y reuniones trimestrales del equipo (3) Nivel Líder: $500,000+, 20% de tokens de bonificación, participación en el consejo asesor, llamadas mensuales de actualización del proyecto. Verificación KYC requerida para todos los niveles."
         },
         "faq4": {
-          "question": "What is the investment process and required documents?",
-          "answer": "Process: (1) Investment inquiry → (2) NDA and Letter of Intent → (3) KYC/AML verification (passport/ID, address proof, source of funds) → (4) SAFT contract → (5) Fund transfer (USDT, USDC, or bank wire) → (6) Token allocation confirmation. Typically 7-14 business days with dedicated manager support. Separate arrangements available for institutional investors."
+          "question": "¿Cuál es el proceso de inversión y los documentos requeridos?",
+          "answer": "Proceso: (1) Consulta de inversión → (2) NDA y Carta de Intención → (3) Verificación KYC/AML (pasaporte/ID, comprobante de domicilio, origen de fondos) → (4) Contrato SAFT → (5) Transferencia de fondos (USDT, USDC o transferencia bancaria) → (6) Confirmación de asignación de tokens. Típicamente 7-14 días hábiles con soporte de gerente dedicado. Arreglos separados disponibles para inversores institucionales."
         },
         "faq5": {
-          "question": "What is a SAFT contract and how are investors protected?",
-          "answer": "SAFT (Simple Agreement for Future Tokens) is a standard investment contract complying with US SEC guidelines. It specifies token allocation, vesting schedule, investor rights, refund conditions, and dispute resolution. Funds are held in third-party escrow, released based on milestone achievement. Legal counsel by global law firm Dentons, with quarterly financial reports provided to investors."
+          "question": "¿Qué es un contrato SAFT y cómo se protegen los inversores?",
+          "answer": "SAFT (Acuerdo Simple para Tokens Futuros) es un contrato de inversión estándar que cumple con las directrices de la SEC de EE.UU. Especifica la asignación de tokens, el calendario de adquisición, los derechos del inversor, las condiciones de reembolso y la resolución de disputas. Los fondos se mantienen en fideicomiso de terceros, liberados según el logro de hitos. Asesoría legal por el bufete global Dentons, con informes financieros trimestrales proporcionados a los inversores."
         },
         "faq6": {
-          "question": "What are the token listing plans and expected timeline?",
-          "answer": "TGE (Token Generation Event) is planned alongside mainnet launch. Listing strategy: First, liquidity provision on major DEXs (Uniswap, PancakeSwap), then Tier-1 CEX listings (Binance, OKX, Bybit, etc.) with marketing boost and gradual exchange expansion. Launch price is expected at $0.50 (12.5x from seed), subject to market conditions."
+          "question": "¿Cuáles son los planes de listado de tokens y el cronograma esperado?",
+          "answer": "El TGE (Evento de Generación de Tokens) está planeado junto con el lanzamiento de la mainnet. Estrategia de listado: Primero, provisión de liquidez en DEXs principales (Uniswap, PancakeSwap), luego listados en CEX Tier-1 (Binance, OKX, Bybit, etc.) con impulso de marketing y expansión gradual de exchanges. El precio de lanzamiento se espera en $0.50 (12.5x desde semilla), sujeto a condiciones del mercado."
         },
         "faq7": {
-          "question": "How will the funds be used?",
-          "answer": "Seed round fund allocation: Technology Development 45% (core protocol, AI engine, security infrastructure), Marketing & Partnerships 25% (global marketing, strategic partnerships, community building), Operations & Legal 15% (team operations, legal/compliance, office), Liquidity 10% (DEX/CEX initial liquidity), Reserve 5% (emergency fund, market opportunities). Quarterly fund usage reports provided to investors."
+          "question": "¿Cómo se utilizarán los fondos?",
+          "answer": "Asignación de fondos de la ronda semilla: Desarrollo Tecnológico 45% (protocolo central, motor de IA, infraestructura de seguridad), Marketing y Alianzas 25% (marketing global, alianzas estratégicas, construcción de comunidad), Operaciones y Legal 15% (operaciones del equipo, legal/cumplimiento, oficina), Liquidez 10% (liquidez inicial DEX/CEX), Reserva 5% (fondo de emergencia, oportunidades de mercado). Informes trimestrales de uso de fondos proporcionados a los inversores."
         },
         "faq8": {
-          "question": "What is the refund policy and can I cancel my investment?",
-          "answer": "Full refund available before SAFT contract signing. After signing, refunds only possible for project discontinuation, mainnet launch failure, or legal issues. 100% principal returned with ~30 business days processing. Mid-term cancellation for personal reasons not permitted. Please invest carefully. Detailed refund terms in SAFT contract."
+          "question": "¿Cuál es la política de reembolso y puedo cancelar mi inversión?",
+          "answer": "Reembolso completo disponible antes de la firma del contrato SAFT. Después de la firma, los reembolsos solo son posibles por discontinuación del proyecto, fallo en el lanzamiento de la mainnet o problemas legales. Se devuelve el 100% del principal con procesamiento de ~30 días hábiles. No se permite la cancelación a mitad de camino por razones personales. Por favor, invierta cuidadosamente. Términos detallados de reembolso en el contrato SAFT."
         }
       },
       "footer": {

@@ -17888,39 +17888,39 @@
       },
       "faqSection": {
         "badge": "FAQ",
-        "title": "Frequently Asked Questions",
-        "subtitle": "Common questions about seed investment",
+        "title": "Часто Задаваемые Вопросы",
+        "subtitle": "Общие вопросы о посевных инвестициях",
         "faq1": {
-          "question": "What is TBURN Chain and why should I invest?",
-          "answer": "TBURN Chain is a next-generation Layer-1 blockchain with AI-based dynamic sharding technology. With 64 shards and 125 genesis validators, it targets 210,000 TPS and 100ms block time. It combines deflationary tokenomics with AI governance for long-term value growth. Seed investors can participate at $0.04, an 80% discount from public sale, and enjoy early investor benefits as the network grows."
+          "question": "Что такое TBURN Chain и почему стоит инвестировать?",
+          "answer": "TBURN Chain — это блокчейн уровня 1 нового поколения с технологией динамического шардинга на основе ИИ. С 64 шардами и 125 генезис-валидаторами он нацелен на 210 000 TPS и время блока 100 мс. Он сочетает дефляционную токеномику с управлением ИИ для долгосрочного роста стоимости. Посевные инвесторы могут участвовать по $0.04, со скидкой 80% от публичной продажи, и пользоваться преимуществами ранних инвесторов по мере роста сети."
         },
         "faq2": {
-          "question": "What are the seed round investment terms and vesting schedule?",
-          "answer": "The seed round is priced at $0.04 per token, with 500M TBURN (5% of total supply) allocated. Hardcap is $20M. Vesting: 12-month cliff after TGE, followed by 24-month linear unlock. 5% unlocks at cliff end, then ~3.96% monthly. Designed to ensure network stability through long-term holding."
+          "question": "Каковы условия инвестирования посевного раунда и график вестинга?",
+          "answer": "Посевной раунд оценивается в $0.04 за токен, с выделением 500M TBURN (5% от общего предложения). Хардкап — $20M. Вестинг: 12-месячный клифф после TGE, затем 24-месячная линейная разблокировка. 5% разблокируется в конце клиффа, затем ~3.96% ежемесячно. Разработан для обеспечения стабильности сети через долгосрочное хранение."
         },
         "faq3": {
-          "question": "What are the minimum/maximum investment amounts and how are investor tiers structured?",
-          "answer": "The seed round has 3 tiers: (1) Angel Tier: $25,000-$99,999, basic allocation and monthly investor newsletter (2) Strategic Tier: $100,000-$499,999, 10% bonus tokens and quarterly team meetings (3) Lead Tier: $500,000+, 20% bonus tokens, advisor board participation, monthly project update calls. KYC verification required for all tiers."
+          "question": "Каковы минимальные/максимальные суммы инвестиций и как структурированы уровни инвесторов?",
+          "answer": "Посевной раунд имеет 3 уровня: (1) Ангельский уровень: $25 000-$99 999, базовое распределение и ежемесячная рассылка для инвесторов (2) Стратегический уровень: $100 000-$499 999, 10% бонусных токенов и квартальные встречи команды (3) Ведущий уровень: $500 000+, 20% бонусных токенов, участие в консультативном совете, ежемесячные звонки обновления проекта. Верификация KYC требуется для всех уровней."
         },
         "faq4": {
-          "question": "What is the investment process and required documents?",
-          "answer": "Process: (1) Investment inquiry → (2) NDA and Letter of Intent → (3) KYC/AML verification (passport/ID, address proof, source of funds) → (4) SAFT contract → (5) Fund transfer (USDT, USDC, or bank wire) → (6) Token allocation confirmation. Typically 7-14 business days with dedicated manager support. Separate arrangements available for institutional investors."
+          "question": "Каков процесс инвестирования и требуемые документы?",
+          "answer": "Процесс: (1) Запрос на инвестиции → (2) NDA и Письмо о намерениях → (3) Верификация KYC/AML (паспорт/удостоверение, подтверждение адреса, источник средств) → (4) Контракт SAFT → (5) Перевод средств (USDT, USDC или банковский перевод) → (6) Подтверждение распределения токенов. Обычно 7-14 рабочих дней с поддержкой выделенного менеджера. Отдельные договоренности доступны для институциональных инвесторов."
         },
         "faq5": {
-          "question": "What is a SAFT contract and how are investors protected?",
-          "answer": "SAFT (Simple Agreement for Future Tokens) is a standard investment contract complying with US SEC guidelines. It specifies token allocation, vesting schedule, investor rights, refund conditions, and dispute resolution. Funds are held in third-party escrow, released based on milestone achievement. Legal counsel by global law firm Dentons, with quarterly financial reports provided to investors."
+          "question": "Что такое контракт SAFT и как защищены инвесторы?",
+          "answer": "SAFT (Simple Agreement for Future Tokens) — это стандартный инвестиционный контракт, соответствующий рекомендациям SEC США. Он определяет распределение токенов, график вестинга, права инвесторов, условия возврата и разрешение споров. Средства хранятся на стороннем эскроу, выпускаются на основе достижения вех. Юридическое консультирование глобальной юридической фирмой Dentons, с квартальными финансовыми отчетами для инвесторов."
         },
         "faq6": {
-          "question": "What are the token listing plans and expected timeline?",
-          "answer": "TGE (Token Generation Event) is planned alongside mainnet launch. Listing strategy: First, liquidity provision on major DEXs (Uniswap, PancakeSwap), then Tier-1 CEX listings (Binance, OKX, Bybit, etc.) with marketing boost and gradual exchange expansion. Launch price is expected at $0.50 (12.5x from seed), subject to market conditions."
+          "question": "Каковы планы листинга токенов и ожидаемые сроки?",
+          "answer": "TGE (Token Generation Event) планируется одновременно с запуском мейннета. Стратегия листинга: сначала обеспечение ликвидности на крупных DEX (Uniswap, PancakeSwap), затем листинг на CEX Tier-1 (Binance, OKX, Bybit и др.) с маркетинговым продвижением и постепенным расширением бирж. Ожидаемая цена запуска — $0.50 (12.5x от посевной), с учетом рыночных условий."
         },
         "faq7": {
-          "question": "How will the funds be used?",
-          "answer": "Seed round fund allocation: Technology Development 45% (core protocol, AI engine, security infrastructure), Marketing & Partnerships 25% (global marketing, strategic partnerships, community building), Operations & Legal 15% (team operations, legal/compliance, office), Liquidity 10% (DEX/CEX initial liquidity), Reserve 5% (emergency fund, market opportunities). Quarterly fund usage reports provided to investors."
+          "question": "Как будут использоваться средства?",
+          "answer": "Распределение средств посевного раунда: Технологическое развитие 45% (основной протокол, ИИ-движок, инфраструктура безопасности), Маркетинг и партнерства 25% (глобальный маркетинг, стратегические партнерства, построение сообщества), Операции и юридическое 15% (операции команды, юридическое/комплаенс, офис), Ликвидность 10% (начальная ликвидность DEX/CEX), Резерв 5% (аварийный фонд, рыночные возможности). Квартальные отчеты об использовании средств предоставляются инвесторам."
         },
         "faq8": {
-          "question": "What is the refund policy and can I cancel my investment?",
-          "answer": "Full refund available before SAFT contract signing. After signing, refunds only possible for project discontinuation, mainnet launch failure, or legal issues. 100% principal returned with ~30 business days processing. Mid-term cancellation for personal reasons not permitted. Please invest carefully. Detailed refund terms in SAFT contract."
+          "question": "Какова политика возврата и могу ли я отменить инвестицию?",
+          "answer": "Полный возврат доступен до подписания контракта SAFT. После подписания возврат возможен только при прекращении проекта, неудаче запуска мейннета или юридических проблемах. Возврат 100% основной суммы с обработкой ~30 рабочих дней. Отмена в середине срока по личным причинам не допускается. Пожалуйста, инвестируйте осторожно. Подробные условия возврата в контракте SAFT."
         }
       },
       "footer": {

@@ -16994,39 +16994,39 @@
       },
       "faqSection": {
         "badge": "FAQ",
-        "title": "Frequently Asked Questions",
-        "subtitle": "Common questions about seed investment",
+        "title": "প্রায়শই জিজ্ঞাসিত প্রশ্ন",
+        "subtitle": "সিড বিনিয়োগ সম্পর্কে সাধারণ প্রশ্ন",
         "faq1": {
-          "question": "What is TBURN Chain and why should I invest?",
-          "answer": "TBURN Chain is a next-generation Layer-1 blockchain with AI-based dynamic sharding technology. With 64 shards and 125 genesis validators, it targets 210,000 TPS and 100ms block time. It combines deflationary tokenomics with AI governance for long-term value growth. Seed investors can participate at $0.04, an 80% discount from public sale, and enjoy early investor benefits as the network grows."
+          "question": "TBURN Chain কী এবং কেন আমার বিনিয়োগ করা উচিত?",
+          "answer": "TBURN Chain হল AI-ভিত্তিক ডায়নামিক শার্ডিং প্রযুক্তি সহ পরবর্তী প্রজন্মের লেয়ার-১ ব্লকচেইন। ৬৪টি শার্ড এবং ১২৫টি জেনেসিস ভ্যালিডেটর সহ, এটি ২১০,০০০ TPS এবং ১০০ms ব্লক টাইম লক্ষ্য করে। এটি দীর্ঘমেয়াদী মূল্য বৃদ্ধির জন্য ডিফ্লেশনারি টোকেনোমিক্স এবং AI গভর্নেন্স একত্রিত করে। সিড বিনিয়োগকারীরা $0.04 এ অংশগ্রহণ করতে পারেন, পাবলিক সেল থেকে ৮০% ছাড়, এবং নেটওয়ার্ক বাড়ার সাথে সাথে প্রাথমিক বিনিয়োগকারী সুবিধা উপভোগ করতে পারেন।"
         },
         "faq2": {
-          "question": "What are the seed round investment terms and vesting schedule?",
-          "answer": "The seed round is priced at $0.04 per token, with 500M TBURN (5% of total supply) allocated. Hardcap is $20M. Vesting: 12-month cliff after TGE, followed by 24-month linear unlock. 5% unlocks at cliff end, then ~3.96% monthly. Designed to ensure network stability through long-term holding."
+          "question": "সিড রাউন্ড বিনিয়োগ শর্তাবলী এবং ভেস্টিং সময়সূচী কী?",
+          "answer": "সিড রাউন্ড প্রতি টোকেন $0.04 মূল্যে, ৫০০M TBURN (মোট সরবরাহের ৫%) বরাদ্দ করা হয়েছে। হার্ডক্যাপ $20M। ভেস্টিং: TGE এর পরে ১২ মাস ক্লিফ, তারপর ২৪ মাস লিনিয়ার আনলক। ক্লিফ শেষে ৫% আনলক হয়, তারপর মাসিক ~৩.৯৬%। দীর্ঘমেয়াদী ধারণের মাধ্যমে নেটওয়ার্ক স্থিতিশীলতা নিশ্চিত করতে ডিজাইন করা হয়েছে।"
         },
         "faq3": {
-          "question": "What are the minimum/maximum investment amounts and how are investor tiers structured?",
-          "answer": "The seed round has 3 tiers: (1) Angel Tier: $25,000-$99,999, basic allocation and monthly investor newsletter (2) Strategic Tier: $100,000-$499,999, 10% bonus tokens and quarterly team meetings (3) Lead Tier: $500,000+, 20% bonus tokens, advisor board participation, monthly project update calls. KYC verification required for all tiers."
+          "question": "সর্বনিম্ন/সর্বোচ্চ বিনিয়োগ পরিমাণ এবং বিনিয়োগকারী টায়ার কাঠামো কী?",
+          "answer": "সিড রাউন্ডে ৩টি টায়ার আছে: (১) এঞ্জেল টায়ার: $২৫,০০০-$৯৯,৯৯৯, বেসিক বরাদ্দ এবং মাসিক বিনিয়োগকারী নিউজলেটার (২) স্ট্র্যাটেজিক টায়ার: $১০০,০০০-$৪৯৯,৯৯৯, ১০% বোনাস টোকেন এবং ত্রৈমাসিক টিম মিটিং (৩) লিড টায়ার: $৫০০,০০০+, ২০% বোনাস টোকেন, অ্যাডভাইজর বোর্ড অংশগ্রহণ, মাসিক প্রকল্প আপডেট কল। সকল টায়ারের জন্য KYC যাচাই প্রয়োজন।"
         },
         "faq4": {
-          "question": "What is the investment process and required documents?",
-          "answer": "Process: (1) Investment inquiry → (2) NDA and Letter of Intent → (3) KYC/AML verification (passport/ID, address proof, source of funds) → (4) SAFT contract → (5) Fund transfer (USDT, USDC, or bank wire) → (6) Token allocation confirmation. Typically 7-14 business days with dedicated manager support. Separate arrangements available for institutional investors."
+          "question": "বিনিয়োগ প্রক্রিয়া এবং প্রয়োজনীয় নথি কী?",
+          "answer": "প্রক্রিয়া: (১) বিনিয়োগ অনুসন্ধান → (২) NDA এবং ইন্টেন্ট লেটার → (৩) KYC/AML যাচাই (পাসপোর্ট/ID, ঠিকানা প্রমাণ, তহবিলের উৎস) → (৪) SAFT চুক্তি → (৫) তহবিল স্থানান্তর (USDT, USDC, বা ব্যাংক ওয়্যার) → (৬) টোকেন বরাদ্দ নিশ্চিতকরণ। সাধারণত ৭-১৪ ব্যবসায়িক দিন, নিবেদিত ম্যানেজার সাপোর্ট সহ। প্রাতিষ্ঠানিক বিনিয়োগকারীদের জন্য আলাদা ব্যবস্থা উপলব্ধ।"
         },
         "faq5": {
-          "question": "What is a SAFT contract and how are investors protected?",
-          "answer": "SAFT (Simple Agreement for Future Tokens) is a standard investment contract complying with US SEC guidelines. It specifies token allocation, vesting schedule, investor rights, refund conditions, and dispute resolution. Funds are held in third-party escrow, released based on milestone achievement. Legal counsel by global law firm Dentons, with quarterly financial reports provided to investors."
+          "question": "SAFT চুক্তি কী এবং বিনিয়োগকারীদের কীভাবে সুরক্ষিত করা হয়?",
+          "answer": "SAFT (Simple Agreement for Future Tokens) হল US SEC নির্দেশিকা মেনে চলা স্ট্যান্ডার্ড বিনিয়োগ চুক্তি। এটি টোকেন বরাদ্দ, ভেস্টিং সময়সূচী, বিনিয়োগকারী অধিকার, রিফান্ড শর্তাবলী এবং বিরোধ নিষ্পত্তি নির্দিষ্ট করে। তহবিল তৃতীয় পক্ষের এসক্রোতে রাখা হয়, মাইলস্টোন অর্জনের ভিত্তিতে মুক্তি দেওয়া হয়। গ্লোবাল ল ফার্ম Dentons দ্বারা আইনি পরামর্শ, বিনিয়োগকারীদের ত্রৈমাসিক আর্থিক প্রতিবেদন প্রদান করা হয়।"
         },
         "faq6": {
-          "question": "What are the token listing plans and expected timeline?",
-          "answer": "TGE (Token Generation Event) is planned alongside mainnet launch. Listing strategy: First, liquidity provision on major DEXs (Uniswap, PancakeSwap), then Tier-1 CEX listings (Binance, OKX, Bybit, etc.) with marketing boost and gradual exchange expansion. Launch price is expected at $0.50 (12.5x from seed), subject to market conditions."
+          "question": "টোকেন তালিকাভুক্তি পরিকল্পনা এবং প্রত্যাশিত সময়সীমা কী?",
+          "answer": "TGE (Token Generation Event) মেইননেট লঞ্চের সাথে পরিকল্পিত। তালিকাভুক্তি কৌশল: প্রথমে প্রধান DEXs (Uniswap, PancakeSwap) এ তারল্য সরবরাহ, তারপর Tier-1 CEX তালিকাভুক্তি (Binance, OKX, Bybit, ইত্যাদি) মার্কেটিং বুস্ট এবং ক্রমিক এক্সচেঞ্জ সম্প্রসারণ সহ। লঞ্চ মূল্য $0.50 (সিড থেকে ১২.৫x) প্রত্যাশিত, বাজার পরিস্থিতির উপর নির্ভরশীল।"
         },
         "faq7": {
-          "question": "How will the funds be used?",
-          "answer": "Seed round fund allocation: Technology Development 45% (core protocol, AI engine, security infrastructure), Marketing & Partnerships 25% (global marketing, strategic partnerships, community building), Operations & Legal 15% (team operations, legal/compliance, office), Liquidity 10% (DEX/CEX initial liquidity), Reserve 5% (emergency fund, market opportunities). Quarterly fund usage reports provided to investors."
+          "question": "তহবিল কীভাবে ব্যবহার করা হবে?",
+          "answer": "সিড রাউন্ড তহবিল বরাদ্দ: প্রযুক্তি উন্নয়ন ৪৫% (কোর প্রোটোকল, AI ইঞ্জিন, নিরাপত্তা অবকাঠামো), মার্কেটিং & পার্টনারশিপ ২৫% (গ্লোবাল মার্কেটিং, কৌশলগত অংশীদারিত্ব, কমিউনিটি বিল্ডিং), অপারেশন & আইনি ১৫% (টিম অপারেশন, আইনি/কমপ্লায়েন্স, অফিস), তারল্য ১০% (DEX/CEX প্রাথমিক তারল্য), রিজার্ভ ৫% (জরুরি তহবিল, বাজার সুযোগ)। বিনিয়োগকারীদের ত্রৈমাসিক তহবিল ব্যবহার প্রতিবেদন প্রদান করা হয়।"
         },
         "faq8": {
-          "question": "What is the refund policy and can I cancel my investment?",
-          "answer": "Full refund available before SAFT contract signing. After signing, refunds only possible for project discontinuation, mainnet launch failure, or legal issues. 100% principal returned with ~30 business days processing. Mid-term cancellation for personal reasons not permitted. Please invest carefully. Detailed refund terms in SAFT contract."
+          "question": "রিফান্ড নীতি কী এবং আমি কি আমার বিনিয়োগ বাতিল করতে পারি?",
+          "answer": "SAFT চুক্তি স্বাক্ষরের আগে সম্পূর্ণ রিফান্ড পাওয়া যায়। স্বাক্ষরের পরে, রিফান্ড শুধুমাত্র প্রকল্প বন্ধ, মেইননেট লঞ্চ ব্যর্থতা, বা আইনি সমস্যার ক্ষেত্রে সম্ভব। ১০০% মূলধন ফেরত ~৩০ ব্যবসায়িক দিনে প্রক্রিয়া করা হয়। ব্যক্তিগত কারণে মাঝপথে বাতিল অনুমোদিত নয়। দয়া করে সাবধানে বিনিয়োগ করুন। বিস্তারিত রিফান্ড শর্তাবলী SAFT চুক্তিতে আছে।"
         }
       },
       "footer": {

@@ -21929,36 +21929,36 @@
         "title": "よくある質問",
         "subtitle": "シード投資に関する一般的な質問",
         "faq1": {
-          "question": "What is TBURN Chain and why should I invest?",
-          "answer": "TBURN Chain is a next-generation Layer-1 blockchain with AI-based dynamic sharding technology. With 64 shards and 125 genesis validators, it targets 210,000 TPS and 100ms block time. It combines deflationary tokenomics with AI governance for long-term value growth. Seed investors can participate at $0.04, an 80% discount from public sale, and enjoy early investor benefits as the network grows."
+          "question": "TBURN Chainとは何か、なぜ投資すべきですか?",
+          "answer": "TBURN Chainは、AIベースの動的シャーディング技術を持つ次世代レイヤー1ブロックチェーンです。64シャードと125のジェネシスバリデーターで、210,000 TPSと100msブロックタイムを目標としています。デフレーショナリートークノミクスとAIガバナンスを組み合わせ、長期的な価値成長を追求します。シード投資家は公開販売から80%割引の$0.04で参加でき、ネットワークの成長に伴い早期投資家特典を享受できます。"
         },
         "faq2": {
-          "question": "What are the seed round investment terms and vesting schedule?",
-          "answer": "The seed round is priced at $0.04 per token, with 500M TBURN (5% of total supply) allocated. Hardcap is $20M. Vesting: 12-month cliff after TGE, followed by 24-month linear unlock. 5% unlocks at cliff end, then ~3.96% monthly. Designed to ensure network stability through long-term holding."
+          "question": "シードラウンドの投資条件とベスティングスケジュールは?",
+          "answer": "シードラウンドはトークンあたり$0.04で、5億TBURN(総供給量の5%)が割り当てられます。ハードキャップは$20Mです。ベスティング:TGE後12ヶ月クリフ、その後24ヶ月リニアアンロック。クリフ終了時5%アンロック、その後月約3.96%。長期保有によるネットワーク安定性確保のために設計されています。"
         },
         "faq3": {
-          "question": "What are the minimum/maximum investment amounts and how are investor tiers structured?",
-          "answer": "The seed round has 3 tiers: (1) Angel Tier: $25,000-$99,999, basic allocation and monthly investor newsletter (2) Strategic Tier: $100,000-$499,999, 10% bonus tokens and quarterly team meetings (3) Lead Tier: $500,000+, 20% bonus tokens, advisor board participation, monthly project update calls. KYC verification required for all tiers."
+          "question": "最低/最高投資額と投資家ティア構造は?",
+          "answer": "シードラウンドは3ティア構成:(1)エンジェルティア:$25,000-$99,999、基本配分と月次投資家ニュースレター(2)ストラテジックティア:$100,000-$499,999、10%ボーナストークンと四半期チームミーティング(3)リードティア:$500,000+、20%ボーナストークン、アドバイザーボード参加、月次プロジェクトアップデートコール。全ティアでKYC認証が必要です。"
         },
         "faq4": {
-          "question": "What is the investment process and required documents?",
-          "answer": "Process: (1) Investment inquiry → (2) NDA and Letter of Intent → (3) KYC/AML verification (passport/ID, address proof, source of funds) → (4) SAFT contract → (5) Fund transfer (USDT, USDC, or bank wire) → (6) Token allocation confirmation. Typically 7-14 business days with dedicated manager support. Separate arrangements available for institutional investors."
+          "question": "投資プロセスと必要書類は?",
+          "answer": "プロセス:(1)投資お問い合わせ→(2)NDAおよび意向書→(3)KYC/AML認証(パスポート/身分証、住所証明、資金源)→(4)SAFT契約→(5)送金(USDT、USDC、または銀行振込)→(6)トークン配分確認。通常7-14営業日、専任マネージャーがサポート。機関投資家向けの特別対応も可能。"
         },
         "faq5": {
-          "question": "What is a SAFT contract and how are investors protected?",
-          "answer": "SAFT (Simple Agreement for Future Tokens) is a standard investment contract complying with US SEC guidelines. It specifies token allocation, vesting schedule, investor rights, refund conditions, and dispute resolution. Funds are held in third-party escrow, released based on milestone achievement. Legal counsel by global law firm Dentons, with quarterly financial reports provided to investors."
+          "question": "SAFT契約とは何か、投資家はどのように保護されますか?",
+          "answer": "SAFT(Simple Agreement for Future Tokens)は米国SECガイドラインに準拠した標準投資契約です。トークン配分、ベスティングスケジュール、投資家の権利、返金条件、紛争解決を規定します。資金は第三者エスクローで保管され、マイルストーン達成に基づいて放出されます。グローバル法律事務所Dentonsによる法的助言と四半期財務報告書が投資家に提供されます。"
         },
         "faq6": {
-          "question": "What are the token listing plans and expected timeline?",
-          "answer": "TGE (Token Generation Event) is planned alongside mainnet launch. Listing strategy: First, liquidity provision on major DEXs (Uniswap, PancakeSwap), then Tier-1 CEX listings (Binance, OKX, Bybit, etc.) with marketing boost and gradual exchange expansion. Launch price is expected at $0.50 (12.5x from seed), subject to market conditions."
+          "question": "トークン上場計画と予想スケジュールは?",
+          "answer": "TGE(Token Generation Event)はメインネットローンチと同時に計画されています。上場戦略:まず主要DEX(Uniswap、PancakeSwap)に流動性供給、その後Tier-1 CEX上場(Binance、OKX、Bybitなど)とマーケティングブースト、段階的な取引所拡大。ローンチ価格は$0.50(シードから12.5倍)を予想、市場状況により変動の可能性があります。"
         },
         "faq7": {
-          "question": "How will the funds be used?",
-          "answer": "Seed round fund allocation: Technology Development 45% (core protocol, AI engine, security infrastructure), Marketing & Partnerships 25% (global marketing, strategic partnerships, community building), Operations & Legal 15% (team operations, legal/compliance, office), Liquidity 10% (DEX/CEX initial liquidity), Reserve 5% (emergency fund, market opportunities). Quarterly fund usage reports provided to investors."
+          "question": "資金はどのように使用されますか?",
+          "answer": "シードラウンド資金配分:技術開発45%(コアプロトコル、AIエンジン、セキュリティインフラ)、マーケティング&パートナーシップ25%(グローバルマーケティング、戦略的パートナーシップ、コミュニティ構築)、運営&法務15%(チーム運営、法務/コンプライアンス、オフィス)、流動性10%(DEX/CEX初期流動性)、リザーブ5%(緊急資金、市場機会)。四半期ごとの資金使用報告書が投資家に提供されます。"
         },
         "faq8": {
-          "question": "What is the refund policy and can I cancel my investment?",
-          "answer": "Full refund available before SAFT contract signing. After signing, refunds only possible for project discontinuation, mainnet launch failure, or legal issues. 100% principal returned with ~30 business days processing. Mid-term cancellation for personal reasons not permitted. Please invest carefully. Detailed refund terms in SAFT contract."
+          "question": "返金ポリシーと投資キャンセルは可能ですか?",
+          "answer": "SAFT契約締結前は全額返金可能です。契約締結後は、プロジェクト中止、メインネットローンチ失敗、または法的問題発生時のみ返金可能です。元本100%返還、約30営業日で処理されます。個人的な理由による中途解約は不可です。慎重に投資してください。詳細な返金条件はSAFT契約書に記載されています。"
         }
       },
       "cta": {

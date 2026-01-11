@@ -20925,38 +20925,38 @@
       "faqSection": {
         "badge": "FAQ",
         "title": "常见问题",
-        "subtitle": "关于种子投资的常见问题",
+        "subtitle": "关于种子轮投资的常见问题",
         "faq1": {
-          "question": "What is TBURN Chain and why should I invest?",
-          "answer": "TBURN Chain is a next-generation Layer-1 blockchain with AI-based dynamic sharding technology. With 64 shards and 125 genesis validators, it targets 210,000 TPS and 100ms block time. It combines deflationary tokenomics with AI governance for long-term value growth. Seed investors can participate at $0.04, an 80% discount from public sale, and enjoy early investor benefits as the network grows."
+          "question": "什么是TBURN Chain,为什么要投资?",
+          "answer": "TBURN Chain是一个具有AI动态分片技术的下一代Layer-1区块链。拥有64个分片和125个创世验证者,目标达到210,000 TPS和100ms出块时间。它结合通缩代币经济学和AI治理,实现长期价值增长。种子投资者可以以$0.04参与,比公开发售优惠80%,并随着网络增长享受早期投资者福利。"
         },
         "faq2": {
-          "question": "What are the seed round investment terms and vesting schedule?",
-          "answer": "The seed round is priced at $0.04 per token, with 500M TBURN (5% of total supply) allocated. Hardcap is $20M. Vesting: 12-month cliff after TGE, followed by 24-month linear unlock. 5% unlocks at cliff end, then ~3.96% monthly. Designed to ensure network stability through long-term holding."
+          "question": "种子轮投资条款和归属时间表是什么?",
+          "answer": "种子轮定价为每代币$0.04,分配5亿TBURN(总供应量的5%)。硬顶为$20M。归属:TGE后12个月锁定期,随后24个月线性解锁。锁定期结束时解锁5%,之后每月约3.96%。设计旨在通过长期持有确保网络稳定性。"
         },
         "faq3": {
-          "question": "What are the minimum/maximum investment amounts and how are investor tiers structured?",
-          "answer": "The seed round has 3 tiers: (1) Angel Tier: $25,000-$99,999, basic allocation and monthly investor newsletter (2) Strategic Tier: $100,000-$499,999, 10% bonus tokens and quarterly team meetings (3) Lead Tier: $500,000+, 20% bonus tokens, advisor board participation, monthly project update calls. KYC verification required for all tiers."
+          "question": "最低/最高投资额和投资者等级结构是什么?",
+          "answer": "种子轮分为3个等级:(1)天使等级:$25,000-$99,999,基本配额和月度投资者通讯(2)战略等级:$100,000-$499,999,10%奖励代币和季度团队会议(3)领投等级:$500,000+,20%奖励代币,顾问委员会参与,月度项目更新电话。所有等级需要KYC验证。"
         },
         "faq4": {
-          "question": "What is the investment process and required documents?",
-          "answer": "Process: (1) Investment inquiry → (2) NDA and Letter of Intent → (3) KYC/AML verification (passport/ID, address proof, source of funds) → (4) SAFT contract → (5) Fund transfer (USDT, USDC, or bank wire) → (6) Token allocation confirmation. Typically 7-14 business days with dedicated manager support. Separate arrangements available for institutional investors."
+          "question": "投资流程和所需文件是什么?",
+          "answer": "流程:(1)投资咨询→(2)NDA和意向书→(3)KYC/AML验证(护照/身份证、地址证明、资金来源)→(4)SAFT合同→(5)资金转账(USDT、USDC或银行电汇)→(6)代币分配确认。通常7-14个工作日,有专属经理支持。机构投资者可另行安排。"
         },
         "faq5": {
-          "question": "What is a SAFT contract and how are investors protected?",
-          "answer": "SAFT (Simple Agreement for Future Tokens) is a standard investment contract complying with US SEC guidelines. It specifies token allocation, vesting schedule, investor rights, refund conditions, and dispute resolution. Funds are held in third-party escrow, released based on milestone achievement. Legal counsel by global law firm Dentons, with quarterly financial reports provided to investors."
+          "question": "什么是SAFT合同,投资者如何受到保护?",
+          "answer": "SAFT(未来代币简单协议)是符合美国SEC指南的标准投资合同。它规定代币分配、归属时间表、投资者权利、退款条件和争议解决。资金由第三方托管持有,根据里程碑达成情况释放。全球律师事务所Dentons提供法律咨询,季度财务报告提供给投资者。"
         },
         "faq6": {
-          "question": "What are the token listing plans and expected timeline?",
-          "answer": "TGE (Token Generation Event) is planned alongside mainnet launch. Listing strategy: First, liquidity provision on major DEXs (Uniswap, PancakeSwap), then Tier-1 CEX listings (Binance, OKX, Bybit, etc.) with marketing boost and gradual exchange expansion. Launch price is expected at $0.50 (12.5x from seed), subject to market conditions."
+          "question": "代币上市计划和预期时间表是什么?",
+          "answer": "TGE(代币生成事件)计划与主网上线同步。上市策略:首先在主要DEX(Uniswap、PancakeSwap)提供流动性,然后Tier-1 CEX上市(Binance、OKX、Bybit等)配合营销推广,逐步扩展交易所。预计上市价格为$0.50(种子轮的12.5倍),视市场情况可能调整。"
         },
         "faq7": {
-          "question": "How will the funds be used?",
-          "answer": "Seed round fund allocation: Technology Development 45% (core protocol, AI engine, security infrastructure), Marketing & Partnerships 25% (global marketing, strategic partnerships, community building), Operations & Legal 15% (team operations, legal/compliance, office), Liquidity 10% (DEX/CEX initial liquidity), Reserve 5% (emergency fund, market opportunities). Quarterly fund usage reports provided to investors."
+          "question": "资金将如何使用?",
+          "answer": "种子轮资金分配:技术开发45%(核心协议、AI引擎、安全基础设施),营销与合作25%(全球营销、战略合作、社区建设),运营与法务15%(团队运营、法律/合规、办公室),流动性10%(DEX/CEX初始流动性),储备5%(紧急资金、市场机会)。季度资金使用报告提供给投资者。"
         },
         "faq8": {
-          "question": "What is the refund policy and can I cancel my investment?",
-          "answer": "Full refund available before SAFT contract signing. After signing, refunds only possible for project discontinuation, mainnet launch failure, or legal issues. 100% principal returned with ~30 business days processing. Mid-term cancellation for personal reasons not permitted. Please invest carefully. Detailed refund terms in SAFT contract."
+          "question": "退款政策是什么,可以取消投资吗?",
+          "answer": "SAFT合同签署前可全额退款。签署后,仅在项目终止、主网上线失败或法律问题时可退款。返还100%本金,约30个工作日处理。个人原因中途取消不被允许。请谨慎投资。详细退款条款请参阅SAFT合同。"
         }
       },
       "cta": {
