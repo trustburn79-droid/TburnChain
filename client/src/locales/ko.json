@@ -36297,38 +36297,6 @@
     }
   },
   "advisorProgram": {
-    "header": {
-      "title": "어드바이저 프로그램",
-      "subtitle": "전문가 가이던스"
-    },
-    "hero": {
-      "badge": "어드바이저 프로그램",
-      "title": "1억 TBURN",
-      "subtitle": "기술, 비즈니스, 법률, 학술 분야의 전문가로 참여하여 TBURN 생태계 성장에 기여하고 보상을 받으세요.",
-      "description": "업계 전문가와 어드바이저에 대한 할당. 전략적 가이던스, 기술 검토, 네트워크 확장 지원.",
-      "title1": "TBURN 어드바이저가 되세요,",
-      "title2": "2억 TBURN",
-      "title3": "보상 지급"
-    },
-    "stats": {
-      "totalAllocation": "총 할당",
-      "advisors": "어드바이저 수",
-      "vested": "베스팅됨",
-      "remaining": "잔여",
-      "totalBudget": "총 자문 예산",
-      "currentAdvisors": "현재 어드바이저",
-      "activeAdvisors": "활동 어드바이저",
-      "vestingPeriod": "베스팅 기간 (개월)"
-    },
-    "wallet": {
-      "disconnect": "지갑 연결 해제됨",
-      "disconnectDesc": "지갑 연결이 해제되었습니다.",
-      "connect": "지갑 연결",
-      "connected": "지갑 연결됨",
-      "connectedDesc": "지갑이 연결되었습니다.",
-      "required": "지갑 연결 필요",
-      "requiredDesc": "어드바이저 지원을 위해 먼저 지갑을 연결해주세요."
-    },
     "title": "어드바이저 프로그램",
     "badge": "어드바이저 프로그램 - 전문 자문단",
     "nav": {
@@ -36337,6 +36305,21 @@
       "currentAdvisors": "현재 어드바이저",
       "applicationProcess": "지원 절차",
       "faq": "FAQ"
+    },
+    "wallet": {
+      "connect": "지갑 연결",
+      "disconnect": "지갑 연결 해제됨",
+      "disconnectDesc": "지갑 연결이 해제되었습니다.",
+      "connected": "지갑 연결됨",
+      "connectedDesc": "지갑이 연결되었습니다.",
+      "required": "지갑 연결 필요",
+      "requiredDesc": "어드바이저 지원을 위해 먼저 지갑을 연결해주세요."
+    },
+    "hero": {
+      "title1": "TBURN 어드바이저가 되세요,",
+      "title2": "2억 TBURN",
+      "title3": "보상 지급",
+      "subtitle": "기술, 비즈니스, 법률, 학술 분야의 전문가로 참여하여 TBURN 생태계 성장에 기여하고 보상을 받으세요."
     },
     "advisorPreviews": {
       "jk": {
@@ -36359,6 +36342,12 @@
         "name": "최엠마 교수",
         "role": "학술 어드바이저"
       }
+    },
+    "stats": {
+      "totalBudget": "총 자문 예산",
+      "currentAdvisors": "현재 어드바이저",
+      "activeAdvisors": "활동 어드바이저",
+      "vestingPeriod": "베스팅 기간 (개월)"
     },
     "cta": {
       "applyButton": "어드바이저 지원하기",
@@ -36545,33 +36534,6 @@
       "badge": "절차",
       "title": "지원 절차",
       "subtitle": "5단계 어드바이저 지원 프로세스",
-      "steps": {
-        "step1": {
-          "title": "Submit Application",
-          "desc": "Complete online application",
-          "duration": "1-3 days"
-        },
-        "step2": {
-          "title": "Document Review",
-          "desc": "Document review and evaluation",
-          "duration": "1-2 weeks"
-        },
-        "step3": {
-          "title": "Interview",
-          "desc": "In-depth interview",
-          "duration": "1-2 weeks"
-        },
-        "step4": {
-          "title": "Contract Signing",
-          "desc": "Advisory contract signature",
-          "duration": "1 week"
-        },
-        "step5": {
-          "title": "Onboarding",
-          "desc": "Begin advisory activities",
-          "duration": "1 week"
-        }
-      },
       "items": {
         "step1": {
           "title": "온라인 지원",
@@ -36607,18 +36569,18 @@
       "items": {
         "token": {
           "title": "토큰 인센티브",
-          "desc": "연간 TBURN 배정",
-          "value": "최대 1천5백만"
+          "value": "최대 1천5백만",
+          "desc": "연간 TBURN 배정"
         },
         "bonus": {
           "title": "성과 보너스",
-          "desc": "기여도 기반 보상",
-          "value": "최대 5백만"
+          "value": "최대 5백만",
+          "desc": "기여도 기반 보상"
         },
         "special": {
           "title": "특별 인센티브",
-          "desc": "마일스톤 달성 보상",
-          "value": "최대 3백만"
+          "value": "최대 3백만",
+          "desc": "마일스톤 달성 보상"
         }
       }
     },
@@ -36646,52 +36608,20 @@
         "q5": {
           "question": "여러 어드바이저 직책을 맡을 수 있나요?",
           "answer": "단일 분야 어드바이저가 기본이지만, 특별 승인을 통해 다중 분야 어드바이저가 될 수 있습니다."
-        },
-        "q6": {
-          "question": "What is the application process?",
-          "answer": "Application submission (1-3 days) → Document review (1-2 weeks) → Interview (1-2 weeks) → Contract signing (1 week) → Onboarding (1 week), totaling 5-7 weeks. Fast-track process is available for urgent cases."
-        },
-        "q7": {
-          "question": "What are the special benefits for Principal Advisors?",
-          "answer": "Principal Advisors receive up to 15M TBURN annual incentive along with dedicated team assignment, board observer rights, exclusive information access, annual offline summit participation, and VIP networking. 10+ years of industry leader experience is required."
-        },
-        "q8": {
-          "question": "How do I apply for the advisor program?",
-          "answer": "Click the 'Apply to Advisor Program' button at the top of the page or contact advisor@tburn.io directly. Connecting your wallet enables faster review. Our dedicated team will contact you within 1-2 weeks."
         }
       }
     },
     "ctaSection": {
-      "title": "어드바이저가 되세요",
-      "subtitle1": "Become a strategic partner in the TBURN ecosystem",
-      "subtitle2": "Receive 200M TBURN in rewards!",
-      "button": "Apply Now",
-      "toastDesc": "Check the advisor fields and apply now!",
       "badge": "참여",
+      "title": "어드바이저가 되세요",
       "subtitle": "전문 지식을 TBURN 생태계 성장에 기여하고 보상을 받으세요.",
       "applyButton": "지금 지원하기",
       "learnButton": "더 알아보기"
     },
     "footer": {
-      "tagline1": "AI Intelligence, Blockchain Transparency",
-      "tagline2": "THE FUTURE IS NOW",
-      "product": "Product",
-      "mainnet": "Mainnet",
-      "explorer": "Explorer",
-      "bridge": "Bridge",
-      "staking": "Staking",
-      "resources": "Resources",
-      "whitepaper": "Whitepaper",
-      "docs": "Documentation",
-      "auditReport": "Audit Report",
-      "community": "Community",
-      "blog": "Blog",
-      "ambassador": "Ambassador",
-      "grants": "Grants",
-      "support": "Support",
       "copyright": "2024 TBURN. 모든 권리 보유.",
-      "terms": "이용약관",
-      "privacy": "개인정보 처리방침"
+      "privacy": "개인정보 처리방침",
+      "terms": "이용약관"
     }
   },
   "coinlist": {

@@ -22049,211 +22049,211 @@
     "title": "Programme de Conseillers",
     "badge": "PROGRAMME DE CONSEILLERS - Conseil Consultatif d'Experts",
     "nav": {
-      "advisorRoles": "Advisor Roles",
-      "tiers": "Tiers",
-      "currentAdvisors": "Current Advisors",
-      "applicationProcess": "Application Process",
+      "advisorRoles": "Rôles de Conseiller",
+      "tiers": "Niveaux",
+      "currentAdvisors": "Conseillers Actuels",
+      "applicationProcess": "Processus de Candidature",
       "faq": "FAQ"
     },
     "wallet": {
-      "connect": "Connect Wallet",
-      "disconnect": "Wallet Disconnected",
-      "disconnectDesc": "Your wallet has been disconnected.",
-      "connected": "Wallet Connected",
-      "connectedDesc": "Your wallet is now connected.",
-      "required": "Wallet Connection Required",
-      "requiredDesc": "Please connect your wallet first to apply for advisor position."
+      "connect": "Connecter le Portefeuille",
+      "disconnect": "Portefeuille Déconnecté",
+      "disconnectDesc": "Votre portefeuille a été déconnecté.",
+      "connected": "Portefeuille Connecté",
+      "connectedDesc": "Votre portefeuille est connecté.",
+      "required": "Connexion au Portefeuille Requise",
+      "requiredDesc": "Veuillez d'abord connecter votre portefeuille pour postuler au poste de conseiller."
     },
     "hero": {
-      "title1": "Become a TBURN Advisor,",
+      "title1": "Devenez Conseiller TBURN,",
       "title2": "200M TBURN",
-      "title3": "in Rewards",
-      "subtitle": "Join as an expert in Technology, Business, Legal, or Academic fields to contribute to TBURN ecosystem growth and earn rewards."
+      "title3": "en Récompenses",
+      "subtitle": "Rejoignez-nous en tant qu'expert dans les domaines de la Technologie, des Affaires, du Juridique ou de l'Académique pour contribuer à la croissance de l'écosystème TBURN et obtenir des récompenses."
     },
     "advisorPreviews": {
       "jk": {
         "initial": "JK",
         "name": "Dr. John Kim",
-        "role": "Tech Advisor"
+        "role": "Conseiller Tech"
       },
       "sp": {
         "initial": "SP",
         "name": "Sarah Park",
-        "role": "Business Advisor"
+        "role": "Conseiller Business"
       },
       "ml": {
         "initial": "ML",
         "name": "Michael Lee",
-        "role": "Legal Advisor"
+        "role": "Conseiller Juridique"
       },
       "ec": {
         "initial": "EC",
         "name": "Emma Choi",
-        "role": "Academic Advisor"
+        "role": "Conseiller Académique"
       }
     },
     "stats": {
-      "totalBudget": "Total Advisory Budget",
-      "currentAdvisors": "Current Advisors",
-      "activeAdvisors": "Active Advisors",
-      "vestingPeriod": "Vesting Period (months)"
+      "totalBudget": "Budget Total de Conseil",
+      "currentAdvisors": "Conseillers Actuels",
+      "activeAdvisors": "Conseillers Actifs",
+      "vestingPeriod": "Période de Vesting (mois)"
     },
     "cta": {
-      "applyButton": "Apply to Advisor Program",
-      "guideButton": "Advisor Guide",
-      "applyAdvisor": "Advisor Application",
-      "applyAdvisorDesc": "Check the advisor fields and apply now!",
-      "advisorGuide": "Advisor Guide",
-      "advisorGuideDesc": "Check the application process."
+      "applyButton": "Postuler au Programme de Conseillers",
+      "guideButton": "Guide du Conseiller",
+      "applyAdvisor": "Candidature Conseiller",
+      "applyAdvisorDesc": "Consultez les domaines de conseil et postulez maintenant!",
+      "advisorGuide": "Guide du Conseiller",
+      "advisorGuideDesc": "Consultez le processus de candidature."
     },
     "roleApply": {
-      "title": "{{role}} Application",
-      "description": "Your {{role}} application has been submitted. We will contact you after document review."
+      "title": "Candidature {{role}}",
+      "description": "Votre candidature {{role}} a été soumise. Nous vous contacterons après examen des documents."
     },
     "tierApply": {
-      "title": "{{tier}} Application",
-      "description": "Your {{tier}} ({{incentive}} TBURN) application has been submitted. We will guide you after review."
+      "title": "Candidature {{tier}}",
+      "description": "Votre candidature {{tier}} ({{incentive}} TBURN) a été soumise. Nous vous guiderons après examen."
     },
     "distribution": {
       "badge": "DISTRIBUTION",
-      "title": "Advisory Budget Allocation",
-      "subtitle": "200M TBURN distributed across 5 advisory fields",
+      "title": "Allocation du Budget de Conseil",
+      "subtitle": "200M TBURN répartis sur 5 domaines de conseil",
       "items": {
         "tech": {
-          "name": "Tech Advisory",
+          "name": "Conseil Tech",
           "amount": "60M",
           "percent": "30%"
         },
         "business": {
-          "name": "Business Advisory",
+          "name": "Conseil Business",
           "amount": "40M",
           "percent": "20%"
         },
         "legal": {
-          "name": "Legal Advisory",
+          "name": "Conseil Juridique",
           "amount": "40M",
           "percent": "20%"
         },
         "academic": {
-          "name": "Academic Advisory",
+          "name": "Conseil Académique",
           "amount": "30M",
           "percent": "15%"
         },
         "industry": {
-          "name": "Industry Advisory",
+          "name": "Conseil Industriel",
           "amount": "30M",
           "percent": "15%"
         }
       }
     },
     "roles": {
-      "badge": "ROLES",
-      "title": "Advisory Fields",
-      "subtitle": "Advisor roles by specialized fields",
-      "applyButton": "Apply",
+      "badge": "RÔLES",
+      "title": "Domaines de Conseil",
+      "subtitle": "Rôles de conseiller par domaines spécialisés",
+      "applyButton": "Postuler",
       "items": {
         "tech": {
-          "title": "Tech Advisor",
-          "subtitle": "Blockchain, AI, Security Expert",
-          "reward1Value": "Up to 10M",
-          "reward1Label": "Annual Reward",
-          "reward2Value": "Quarterly",
-          "reward2Label": "Tech Review",
-          "resp1": "Code review and architecture consulting",
-          "resp2": "Security audit participation",
-          "resp3": "Technical roadmap review",
-          "resp4": "New technology trend analysis"
+          "title": "Conseiller Tech",
+          "subtitle": "Expert Blockchain, IA, Sécurité",
+          "reward1Value": "Jusqu'à 10M",
+          "reward1Label": "Récompense Annuelle",
+          "reward2Value": "Trimestriel",
+          "reward2Label": "Revue Tech",
+          "resp1": "Revue de code et conseil en architecture",
+          "resp2": "Participation aux audits de sécurité",
+          "resp3": "Revue de la feuille de route technique",
+          "resp4": "Analyse des tendances technologiques"
         },
         "business": {
-          "title": "Business Advisor",
-          "subtitle": "Management, Strategy, Marketing Expert",
-          "reward1Value": "Up to 8M",
-          "reward1Label": "Annual Reward",
-          "reward2Value": "Monthly",
-          "reward2Label": "Strategy Meeting",
-          "resp1": "Business strategy consulting",
-          "resp2": "Partnership networking",
-          "resp3": "Market analysis and insights",
-          "resp4": "Growth strategy development"
+          "title": "Conseiller Business",
+          "subtitle": "Expert Gestion, Stratégie, Marketing",
+          "reward1Value": "Jusqu'à 8M",
+          "reward1Label": "Récompense Annuelle",
+          "reward2Value": "Mensuel",
+          "reward2Label": "Réunion Stratégique",
+          "resp1": "Conseil en stratégie d'entreprise",
+          "resp2": "Networking de partenaires",
+          "resp3": "Analyse de marché et insights",
+          "resp4": "Développement de stratégie de croissance"
         },
         "legal": {
-          "title": "Legal Advisor",
-          "subtitle": "Blockchain Regulation, Compliance",
-          "reward1Value": "Up to 8M",
-          "reward1Label": "Annual Reward",
-          "reward2Value": "As Needed",
-          "reward2Label": "Legal Review",
-          "resp1": "Regulatory trend analysis",
-          "resp2": "Compliance consulting",
-          "resp3": "Contract review",
-          "resp4": "Risk management"
+          "title": "Conseiller Juridique",
+          "subtitle": "Réglementation Blockchain, Conformité",
+          "reward1Value": "Jusqu'à 8M",
+          "reward1Label": "Récompense Annuelle",
+          "reward2Value": "Sur Demande",
+          "reward2Label": "Revue Juridique",
+          "resp1": "Analyse des tendances réglementaires",
+          "resp2": "Conseil en conformité",
+          "resp3": "Revue de contrats",
+          "resp4": "Gestion des risques"
         },
         "academic": {
-          "title": "Academic Advisor",
-          "subtitle": "University Professors, Researchers",
-          "reward1Value": "Up to 6M",
-          "reward1Label": "Annual Reward",
-          "reward2Value": "Quarterly",
-          "reward2Label": "Research Collaboration",
-          "resp1": "Academic research collaboration",
-          "resp2": "Whitepaper review",
-          "resp3": "Educational content development",
-          "resp4": "Academic networking"
+          "title": "Conseiller Académique",
+          "subtitle": "Professeurs d'Université, Chercheurs",
+          "reward1Value": "Jusqu'à 6M",
+          "reward1Label": "Récompense Annuelle",
+          "reward2Value": "Trimestriel",
+          "reward2Label": "Collaboration de Recherche",
+          "resp1": "Collaboration en recherche académique",
+          "resp2": "Revue du whitepaper",
+          "resp3": "Développement de contenu éducatif",
+          "resp4": "Networking académique"
         }
       }
     },
     "tiers": {
-      "badge": "TIERS",
-      "title": "Advisor Tiers",
-      "subtitle": "Tier-based benefits by experience and contribution",
-      "incentiveLabel": "Annual Incentive",
-      "applyButton": "Apply",
+      "badge": "NIVEAUX",
+      "title": "Niveaux de Conseiller",
+      "subtitle": "Avantages par niveau selon l'expérience et la contribution",
+      "incentiveLabel": "Incitation Annuelle",
+      "applyButton": "Postuler",
       "items": {
         "principal": {
-          "name": "Principal Advisor",
-          "subtitle": "Chief Advisor",
-          "incentive": "Up to 15M",
-          "requirement": "10+ years experience, Industry Leader",
-          "benefit1": "Dedicated team assignment",
-          "benefit2": "Board observer rights",
-          "benefit3": "Exclusive information access",
-          "benefit4": "Annual offline summit",
-          "benefit5": "VIP networking"
+          "name": "Conseiller Principal",
+          "subtitle": "Conseiller en Chef",
+          "incentive": "Jusqu'à 15M",
+          "requirement": "10+ ans d'expérience, Leader de l'industrie",
+          "benefit1": "Attribution d'équipe dédiée",
+          "benefit2": "Droits d'observateur au conseil",
+          "benefit3": "Accès exclusif à l'information",
+          "benefit4": "Sommet annuel hors ligne",
+          "benefit5": "Networking VIP"
         },
         "senior": {
-          "name": "Senior Advisor",
-          "subtitle": "Senior Advisor",
-          "incentive": "Up to 8M",
-          "requirement": "5+ years experience, Expert",
-          "benefit1": "Priority support",
-          "benefit2": "Quarterly strategy meetings",
-          "benefit3": "Early access",
-          "benefit4": "Governance participation",
-          "benefit5": "Partner networking"
+          "name": "Conseiller Senior",
+          "subtitle": "Conseiller Senior",
+          "incentive": "Jusqu'à 8M",
+          "requirement": "5+ ans d'expérience, Expert",
+          "benefit1": "Support prioritaire",
+          "benefit2": "Réunions stratégiques trimestrielles",
+          "benefit3": "Accès anticipé",
+          "benefit4": "Participation à la gouvernance",
+          "benefit5": "Networking de partenaires"
         },
         "advisor": {
-          "name": "Advisor",
-          "subtitle": "Advisor",
-          "incentive": "Up to 4M",
-          "requirement": "3+ years experience, Specialized Field",
-          "benefit1": "Monthly meetings",
-          "benefit2": "Technical documentation access",
-          "benefit3": "Community participation",
-          "benefit4": "Base incentives",
-          "benefit5": "Growth opportunities"
+          "name": "Conseiller",
+          "subtitle": "Conseiller",
+          "incentive": "Jusqu'à 4M",
+          "requirement": "3+ ans d'expérience, Domaine Spécialisé",
+          "benefit1": "Réunions mensuelles",
+          "benefit2": "Accès à la documentation technique",
+          "benefit3": "Participation communautaire",
+          "benefit4": "Incitations de base",
+          "benefit5": "Opportunités de croissance"
         }
       }
     },
     "currentAdvisors": {
-      "badge": "ADVISORS",
-      "title": "Current Advisors",
-      "subtitle": "Industry experts leading the TBURN ecosystem",
+      "badge": "CONSEILLERS",
+      "title": "Conseillers Actuels",
+      "subtitle": "Experts de l'industrie dirigeant l'écosystème TBURN",
       "items": {
         "jk": {
           "initial": "JK",
           "name": "Dr. John Kim",
           "title": "CTO, Tech Corp",
-          "org": "Technology"
+          "org": "Technologie"
         },
         "sp": {
           "initial": "SP",
@@ -22264,14 +22264,14 @@
         "ml": {
           "initial": "ML",
           "name": "Michael Lee",
-          "title": "Partner, Law Firm",
-          "org": "Legal"
+          "title": "Associé, Cabinet Juridique",
+          "org": "Juridique"
         },
         "ec": {
           "initial": "EC",
           "name": "Prof. Emma Choi",
-          "title": "Professor, KAIST",
-          "org": "Academic"
+          "title": "Professeure, KAIST",
+          "org": "Académique"
         }
       },
       "tierBadges": {
@@ -22280,156 +22280,97 @@
       }
     },
     "process": {
-      "badge": "PROCESS",
-      "title": "Application Process",
-      "subtitle": "5-step advisor application process",
-      "steps": {
-        "step1": {
-          "title": "Submit Application",
-          "desc": "Complete online application",
-          "duration": "1-3 days"
-        },
-        "step2": {
-          "title": "Document Review",
-          "desc": "Document review and evaluation",
-          "duration": "1-2 weeks"
-        },
-        "step3": {
-          "title": "Interview",
-          "desc": "In-depth interview",
-          "duration": "1-2 weeks"
-        },
-        "step4": {
-          "title": "Contract Signing",
-          "desc": "Advisory contract signature",
-          "duration": "1 week"
-        },
-        "step5": {
-          "title": "Onboarding",
-          "desc": "Begin advisory activities",
-          "duration": "1 week"
-        }
-      },
+      "badge": "PROCESSUS",
+      "title": "Processus de Candidature",
+      "subtitle": "Processus de candidature conseiller en 5 étapes",
       "items": {
         "step1": {
-          "title": "Online Application",
-          "desc": "Resume and portfolio submission",
+          "title": "Candidature en Ligne",
+          "desc": "Soumission du CV et portfolio",
           "duration": "5 min"
         },
         "step2": {
-          "title": "Document Review",
-          "desc": "Expertise and experience verification",
-          "duration": "3-5 days"
+          "title": "Examen des Documents",
+          "desc": "Vérification de l'expertise et de l'expérience",
+          "duration": "3-5 jours"
         },
         "step3": {
-          "title": "Interview",
-          "desc": "Video interview with existing advisors",
-          "duration": "1 week"
+          "title": "Entretien",
+          "desc": "Entretien vidéo avec les conseillers existants",
+          "duration": "1 semaine"
         },
         "step4": {
-          "title": "Contract",
-          "desc": "Advisory contract signing",
-          "duration": "1-2 days"
+          "title": "Contrat",
+          "desc": "Signature du contrat de conseil",
+          "duration": "1-2 jours"
         },
         "step5": {
-          "title": "Onboarding",
-          "desc": "Official registration and orientation",
-          "duration": "1 week"
+          "title": "Intégration",
+          "desc": "Inscription officielle et orientation",
+          "duration": "1 semaine"
         }
       }
     },
     "compensation": {
-      "badge": "COMPENSATION",
-      "title": "Compensation Structure",
-      "subtitle": "Transparent advisor compensation",
+      "badge": "RÉMUNÉRATION",
+      "title": "Structure de Rémunération",
+      "subtitle": "Rémunération transparente des conseillers",
       "items": {
         "token": {
-          "title": "Token Incentive",
-          "desc": "Annual TBURN allocation",
-          "value": "Up to 15M"
+          "title": "Incitation en Tokens",
+          "value": "Jusqu'à 15M",
+          "desc": "Allocation annuelle TBURN"
         },
         "bonus": {
-          "title": "Performance Bonus",
-          "desc": "Contribution-based reward",
-          "value": "Up to 5M"
+          "title": "Prime de Performance",
+          "value": "Jusqu'à 5M",
+          "desc": "Récompense basée sur la contribution"
         },
         "special": {
-          "title": "Special Incentive",
-          "desc": "Milestone achievement reward",
-          "value": "Up to 3M"
+          "title": "Incitation Spéciale",
+          "value": "Jusqu'à 3M",
+          "desc": "Récompense pour atteinte d'objectifs"
         }
       }
     },
     "faq": {
       "badge": "FAQ",
-      "title": "Frequently Asked Questions",
-      "subtitle": "Common questions about the advisor program",
+      "title": "Questions Fréquentes",
+      "subtitle": "Questions courantes sur le programme de conseillers",
       "items": {
         "q1": {
-          "question": "What are the advisor requirements?",
-          "answer": "A minimum of 3 years experience in a relevant field and expertise in blockchain or Web3 is required."
+          "question": "Quelles sont les exigences pour être conseiller?",
+          "answer": "Un minimum de 3 ans d'expérience dans un domaine pertinent et une expertise en blockchain ou Web3 est requis."
         },
         "q2": {
-          "question": "What is the advisor contract period?",
-          "answer": "The basic contract period is 1 year, renewable annually based on contribution."
+          "question": "Quelle est la durée du contrat de conseiller?",
+          "answer": "La durée de base du contrat est de 1 an, renouvelable annuellement selon la contribution."
         },
         "q3": {
-          "question": "When are the token rewards paid?",
-          "answer": "Token rewards are paid quarterly according to the vesting schedule."
+          "question": "Quand les récompenses en tokens sont-elles versées?",
+          "answer": "Les récompenses en tokens sont versées trimestriellement selon le calendrier de vesting."
         },
         "q4": {
-          "question": "Is overseas application possible?",
-          "answer": "Yes, global experts from all countries are welcome to apply."
+          "question": "Est-il possible de postuler depuis l'étranger?",
+          "answer": "Oui, les experts mondiaux de tous les pays sont les bienvenus pour postuler."
         },
         "q5": {
-          "question": "Can I hold multiple advisor positions?",
-          "answer": "Single field advisor positions are basic, but multiple field advisors may be appointed through special approval."
-        },
-        "q6": {
-          "question": "What is the application process?",
-          "answer": "Application submission (1-3 days) → Document review (1-2 weeks) → Interview (1-2 weeks) → Contract signing (1 week) → Onboarding (1 week), totaling 5-7 weeks. Fast-track process is available for urgent cases."
-        },
-        "q7": {
-          "question": "What are the special benefits for Principal Advisors?",
-          "answer": "Principal Advisors receive up to 15M TBURN annual incentive along with dedicated team assignment, board observer rights, exclusive information access, annual offline summit participation, and VIP networking. 10+ years of industry leader experience is required."
-        },
-        "q8": {
-          "question": "How do I apply for the advisor program?",
-          "answer": "Click the 'Apply to Advisor Program' button at the top of the page or contact advisor@tburn.io directly. Connecting your wallet enables faster review. Our dedicated team will contact you within 1-2 weeks."
+          "question": "Puis-je occuper plusieurs postes de conseiller?",
+          "answer": "Les postes de conseiller dans un seul domaine sont de base, mais les conseillers multi-domaines peuvent être nommés avec une approbation spéciale."
         }
       }
     },
     "ctaSection": {
-      "title": "Become an Advisor",
-      "subtitle1": "Become a strategic partner in the TBURN ecosystem",
-      "subtitle2": "Receive 200M TBURN in rewards!",
-      "button": "Apply Now",
-      "toastDesc": "Check the advisor fields and apply now!",
-      "badge": "JOIN",
-      "subtitle": "Contribute your expertise to TBURN ecosystem growth and receive rewards.",
-      "applyButton": "Apply Now",
-      "learnButton": "Learn More"
+      "badge": "REJOINDRE",
+      "title": "Devenez Conseiller",
+      "subtitle": "Contribuez votre expertise à la croissance de l'écosystème TBURN et recevez des récompenses.",
+      "applyButton": "Postuler Maintenant",
+      "learnButton": "En Savoir Plus"
     },
     "footer": {
-      "tagline1": "AI Intelligence, Blockchain Transparency",
-      "tagline2": "THE FUTURE IS NOW",
-      "product": "Product",
-      "mainnet": "Mainnet",
-      "explorer": "Explorer",
-      "bridge": "Bridge",
-      "staking": "Staking",
-      "resources": "Resources",
-      "whitepaper": "Whitepaper",
-      "docs": "Documentation",
-      "auditReport": "Audit Report",
-      "community": "Community",
-      "blog": "Blog",
-      "ambassador": "Ambassador",
-      "grants": "Grants",
-      "support": "Support",
-      "copyright": "2024 TBURN. All rights reserved.",
-      "terms": "Terms of Service",
-      "privacy": "Privacy Policy"
+      "copyright": "2024 TBURN. Tous droits réservés.",
+      "privacy": "Politique de Confidentialité",
+      "terms": "Conditions d'Utilisation"
     }
   },
   "coinlist": {

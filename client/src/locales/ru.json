@@ -21120,387 +21120,328 @@
     "title": "Программа Консультантов",
     "badge": "ПРОГРАММА КОНСУЛЬТАНТОВ - Экспертный Консультативный Совет",
     "nav": {
-      "advisorRoles": "Advisor Roles",
-      "tiers": "Tiers",
-      "currentAdvisors": "Current Advisors",
-      "applicationProcess": "Application Process",
+      "advisorRoles": "Роли Консультантов",
+      "tiers": "Уровни",
+      "currentAdvisors": "Текущие Консультанты",
+      "applicationProcess": "Процесс Подачи",
       "faq": "FAQ"
     },
     "wallet": {
-      "connect": "Connect Wallet",
-      "disconnect": "Wallet Disconnected",
-      "disconnectDesc": "Your wallet has been disconnected.",
-      "connected": "Wallet Connected",
-      "connectedDesc": "Your wallet is now connected.",
-      "required": "Wallet Connection Required",
-      "requiredDesc": "Please connect your wallet first to apply for advisor position."
+      "connect": "Подключить Кошелек",
+      "disconnect": "Кошелек Отключен",
+      "disconnectDesc": "Ваш кошелек был отключен.",
+      "connected": "Кошелек Подключен",
+      "connectedDesc": "Ваш кошелек подключен.",
+      "required": "Требуется Подключение Кошелька",
+      "requiredDesc": "Сначала подключите кошелек, чтобы подать заявку на должность консультанта."
     },
     "hero": {
-      "title1": "Become a TBURN Advisor,",
+      "title1": "Станьте Консультантом TBURN,",
       "title2": "200M TBURN",
-      "title3": "in Rewards",
-      "subtitle": "Join as an expert in Technology, Business, Legal, or Academic fields to contribute to TBURN ecosystem growth and earn rewards."
+      "title3": "в Вознаграждениях",
+      "subtitle": "Присоединяйтесь как эксперт в области Технологий, Бизнеса, Права или Академии, чтобы внести вклад в рост экосистемы TBURN и получить вознаграждение."
     },
     "advisorPreviews": {
       "jk": {
         "initial": "JK",
-        "name": "Dr. John Kim",
-        "role": "Tech Advisor"
+        "name": "Д-р Джон Ким",
+        "role": "Технический Консультант"
       },
       "sp": {
         "initial": "SP",
-        "name": "Sarah Park",
-        "role": "Business Advisor"
+        "name": "Сара Парк",
+        "role": "Бизнес Консультант"
       },
       "ml": {
         "initial": "ML",
-        "name": "Michael Lee",
-        "role": "Legal Advisor"
+        "name": "Майкл Ли",
+        "role": "Юридический Консультант"
       },
       "ec": {
         "initial": "EC",
-        "name": "Emma Choi",
-        "role": "Academic Advisor"
+        "name": "Эмма Чой",
+        "role": "Академический Консультант"
       }
     },
     "stats": {
-      "totalBudget": "Total Advisory Budget",
-      "currentAdvisors": "Current Advisors",
-      "activeAdvisors": "Active Advisors",
-      "vestingPeriod": "Vesting Period (months)"
+      "totalBudget": "Общий Бюджет Консультирования",
+      "currentAdvisors": "Текущие Консультанты",
+      "activeAdvisors": "Активные Консультанты",
+      "vestingPeriod": "Период Вестинга (месяцы)"
     },
     "cta": {
-      "applyButton": "Apply to Advisor Program",
-      "guideButton": "Advisor Guide",
-      "applyAdvisor": "Advisor Application",
-      "applyAdvisorDesc": "Check the advisor fields and apply now!",
-      "advisorGuide": "Advisor Guide",
-      "advisorGuideDesc": "Check the application process."
+      "applyButton": "Подать Заявку в Программу",
+      "guideButton": "Руководство Консультанта",
+      "applyAdvisor": "Заявка Консультанта",
+      "applyAdvisorDesc": "Ознакомьтесь с областями консультирования и подайте заявку!",
+      "advisorGuide": "Руководство Консультанта",
+      "advisorGuideDesc": "Ознакомьтесь с процессом подачи."
     },
     "roleApply": {
-      "title": "{{role}} Application",
-      "description": "Your {{role}} application has been submitted. We will contact you after document review."
+      "title": "Заявка {{role}}",
+      "description": "Ваша заявка {{role}} была отправлена. Мы свяжемся с вами после рассмотрения документов."
     },
     "tierApply": {
-      "title": "{{tier}} Application",
-      "description": "Your {{tier}} ({{incentive}} TBURN) application has been submitted. We will guide you after review."
+      "title": "Заявка {{tier}}",
+      "description": "Ваша заявка {{tier}} ({{incentive}} TBURN) была отправлена. Мы свяжемся с вами после рассмотрения."
     },
     "distribution": {
-      "badge": "DISTRIBUTION",
-      "title": "Advisory Budget Allocation",
-      "subtitle": "200M TBURN distributed across 5 advisory fields",
+      "badge": "РАСПРЕДЕЛЕНИЕ",
+      "title": "Распределение Бюджета Консультирования",
+      "subtitle": "200M TBURN распределены по 5 областям консультирования",
       "items": {
         "tech": {
-          "name": "Tech Advisory",
+          "name": "Техническое Консультирование",
           "amount": "60M",
           "percent": "30%"
         },
         "business": {
-          "name": "Business Advisory",
+          "name": "Бизнес Консультирование",
           "amount": "40M",
           "percent": "20%"
         },
         "legal": {
-          "name": "Legal Advisory",
+          "name": "Юридическое Консультирование",
           "amount": "40M",
           "percent": "20%"
         },
         "academic": {
-          "name": "Academic Advisory",
+          "name": "Академическое Консультирование",
           "amount": "30M",
           "percent": "15%"
         },
         "industry": {
-          "name": "Industry Advisory",
+          "name": "Отраслевое Консультирование",
           "amount": "30M",
           "percent": "15%"
         }
       }
     },
     "roles": {
-      "badge": "ROLES",
-      "title": "Advisory Fields",
-      "subtitle": "Advisor roles by specialized fields",
-      "applyButton": "Apply",
+      "badge": "РОЛИ",
+      "title": "Области Консультирования",
+      "subtitle": "Роли консультантов по специализированным областям",
+      "applyButton": "Подать Заявку",
       "items": {
         "tech": {
-          "title": "Tech Advisor",
-          "subtitle": "Blockchain, AI, Security Expert",
-          "reward1Value": "Up to 10M",
-          "reward1Label": "Annual Reward",
-          "reward2Value": "Quarterly",
-          "reward2Label": "Tech Review",
-          "resp1": "Code review and architecture consulting",
-          "resp2": "Security audit participation",
-          "resp3": "Technical roadmap review",
-          "resp4": "New technology trend analysis"
+          "title": "Технический Консультант",
+          "subtitle": "Эксперт по Блокчейну, ИИ, Безопасности",
+          "reward1Value": "До 10M",
+          "reward1Label": "Годовое Вознаграждение",
+          "reward2Value": "Квартальный",
+          "reward2Label": "Техническая Проверка",
+          "resp1": "Проверка кода и консультирование по архитектуре",
+          "resp2": "Участие в аудите безопасности",
+          "resp3": "Проверка технической дорожной карты",
+          "resp4": "Анализ технологических трендов"
         },
         "business": {
-          "title": "Business Advisor",
-          "subtitle": "Management, Strategy, Marketing Expert",
-          "reward1Value": "Up to 8M",
-          "reward1Label": "Annual Reward",
-          "reward2Value": "Monthly",
-          "reward2Label": "Strategy Meeting",
-          "resp1": "Business strategy consulting",
-          "resp2": "Partnership networking",
-          "resp3": "Market analysis and insights",
-          "resp4": "Growth strategy development"
+          "title": "Бизнес Консультант",
+          "subtitle": "Эксперт по Управлению, Стратегии, Маркетингу",
+          "reward1Value": "До 8M",
+          "reward1Label": "Годовое Вознаграждение",
+          "reward2Value": "Ежемесячный",
+          "reward2Label": "Стратегическое Совещание",
+          "resp1": "Консультирование по бизнес-стратегии",
+          "resp2": "Нетворкинг партнеров",
+          "resp3": "Анализ рынка и инсайты",
+          "resp4": "Разработка стратегии роста"
         },
         "legal": {
-          "title": "Legal Advisor",
-          "subtitle": "Blockchain Regulation, Compliance",
-          "reward1Value": "Up to 8M",
-          "reward1Label": "Annual Reward",
-          "reward2Value": "As Needed",
-          "reward2Label": "Legal Review",
-          "resp1": "Regulatory trend analysis",
-          "resp2": "Compliance consulting",
-          "resp3": "Contract review",
-          "resp4": "Risk management"
+          "title": "Юридический Консультант",
+          "subtitle": "Регулирование Блокчейна, Комплаенс",
+          "reward1Value": "До 8M",
+          "reward1Label": "Годовое Вознаграждение",
+          "reward2Value": "По Необходимости",
+          "reward2Label": "Юридическая Проверка",
+          "resp1": "Анализ регуляторных трендов",
+          "resp2": "Консультирование по комплаенсу",
+          "resp3": "Проверка контрактов",
+          "resp4": "Управление рисками"
         },
         "academic": {
-          "title": "Academic Advisor",
-          "subtitle": "University Professors, Researchers",
-          "reward1Value": "Up to 6M",
-          "reward1Label": "Annual Reward",
-          "reward2Value": "Quarterly",
-          "reward2Label": "Research Collaboration",
-          "resp1": "Academic research collaboration",
-          "resp2": "Whitepaper review",
-          "resp3": "Educational content development",
-          "resp4": "Academic networking"
+          "title": "Академический Консультант",
+          "subtitle": "Профессора Университетов, Исследователи",
+          "reward1Value": "До 6M",
+          "reward1Label": "Годовое Вознаграждение",
+          "reward2Value": "Квартальный",
+          "reward2Label": "Научное Сотрудничество",
+          "resp1": "Академическое исследовательское сотрудничество",
+          "resp2": "Проверка whitepaper",
+          "resp3": "Разработка образовательного контента",
+          "resp4": "Академический нетворкинг"
         }
       }
     },
     "tiers": {
-      "badge": "TIERS",
-      "title": "Advisor Tiers",
-      "subtitle": "Tier-based benefits by experience and contribution",
-      "incentiveLabel": "Annual Incentive",
-      "applyButton": "Apply",
+      "badge": "УРОВНИ",
+      "title": "Уровни Консультантов",
+      "subtitle": "Преимущества по уровням в зависимости от опыта и вклада",
+      "incentiveLabel": "Годовой Стимул",
+      "applyButton": "Подать Заявку",
       "items": {
         "principal": {
-          "name": "Principal Advisor",
-          "subtitle": "Chief Advisor",
-          "incentive": "Up to 15M",
-          "requirement": "10+ years experience, Industry Leader",
-          "benefit1": "Dedicated team assignment",
-          "benefit2": "Board observer rights",
-          "benefit3": "Exclusive information access",
-          "benefit4": "Annual offline summit",
-          "benefit5": "VIP networking"
+          "name": "Главный Консультант",
+          "subtitle": "Старший Консультант",
+          "incentive": "До 15M",
+          "requirement": "10+ лет опыта, Лидер отрасли",
+          "benefit1": "Назначение выделенной команды",
+          "benefit2": "Права наблюдателя совета",
+          "benefit3": "Эксклюзивный доступ к информации",
+          "benefit4": "Ежегодный офлайн-саммит",
+          "benefit5": "VIP нетворкинг"
         },
         "senior": {
-          "name": "Senior Advisor",
-          "subtitle": "Senior Advisor",
-          "incentive": "Up to 8M",
-          "requirement": "5+ years experience, Expert",
-          "benefit1": "Priority support",
-          "benefit2": "Quarterly strategy meetings",
-          "benefit3": "Early access",
-          "benefit4": "Governance participation",
-          "benefit5": "Partner networking"
+          "name": "Старший Консультант",
+          "subtitle": "Старший Консультант",
+          "incentive": "До 8M",
+          "requirement": "5+ лет опыта, Эксперт",
+          "benefit1": "Приоритетная поддержка",
+          "benefit2": "Квартальные стратегические совещания",
+          "benefit3": "Ранний доступ",
+          "benefit4": "Участие в управлении",
+          "benefit5": "Партнерский нетворкинг"
         },
         "advisor": {
-          "name": "Advisor",
-          "subtitle": "Advisor",
-          "incentive": "Up to 4M",
-          "requirement": "3+ years experience, Specialized Field",
-          "benefit1": "Monthly meetings",
-          "benefit2": "Technical documentation access",
-          "benefit3": "Community participation",
-          "benefit4": "Base incentives",
-          "benefit5": "Growth opportunities"
+          "name": "Консультант",
+          "subtitle": "Консультант",
+          "incentive": "До 4M",
+          "requirement": "3+ года опыта, Специализированная область",
+          "benefit1": "Ежемесячные встречи",
+          "benefit2": "Доступ к технической документации",
+          "benefit3": "Участие в сообществе",
+          "benefit4": "Базовые стимулы",
+          "benefit5": "Возможности для роста"
         }
       }
     },
     "currentAdvisors": {
-      "badge": "ADVISORS",
-      "title": "Current Advisors",
-      "subtitle": "Industry experts leading the TBURN ecosystem",
+      "badge": "КОНСУЛЬТАНТЫ",
+      "title": "Текущие Консультанты",
+      "subtitle": "Эксперты отрасли, возглавляющие экосистему TBURN",
       "items": {
         "jk": {
           "initial": "JK",
-          "name": "Dr. John Kim",
+          "name": "Д-р Джон Ким",
           "title": "CTO, Tech Corp",
-          "org": "Technology"
+          "org": "Технологии"
         },
         "sp": {
           "initial": "SP",
-          "name": "Sarah Park",
+          "name": "Сара Парк",
           "title": "CEO, Growth VC",
-          "org": "Business"
+          "org": "Бизнес"
         },
         "ml": {
           "initial": "ML",
-          "name": "Michael Lee",
-          "title": "Partner, Law Firm",
-          "org": "Legal"
+          "name": "Майкл Ли",
+          "title": "Партнер, Юридическая Фирма",
+          "org": "Право"
         },
         "ec": {
           "initial": "EC",
-          "name": "Prof. Emma Choi",
-          "title": "Professor, KAIST",
-          "org": "Academic"
+          "name": "Проф. Эмма Чой",
+          "title": "Профессор, KAIST",
+          "org": "Академия"
         }
       },
       "tierBadges": {
-        "principal": "PRINCIPAL",
-        "senior": "SENIOR"
+        "principal": "ГЛАВНЫЙ",
+        "senior": "СТАРШИЙ"
       }
     },
     "process": {
-      "badge": "PROCESS",
-      "title": "Application Process",
-      "subtitle": "5-step advisor application process",
-      "steps": {
-        "step1": {
-          "title": "Submit Application",
-          "desc": "Complete online application",
-          "duration": "1-3 days"
-        },
-        "step2": {
-          "title": "Document Review",
-          "desc": "Document review and evaluation",
-          "duration": "1-2 weeks"
-        },
-        "step3": {
-          "title": "Interview",
-          "desc": "In-depth interview",
-          "duration": "1-2 weeks"
-        },
-        "step4": {
-          "title": "Contract Signing",
-          "desc": "Advisory contract signature",
-          "duration": "1 week"
-        },
-        "step5": {
-          "title": "Onboarding",
-          "desc": "Begin advisory activities",
-          "duration": "1 week"
-        }
-      },
+      "badge": "ПРОЦЕСС",
+      "title": "Процесс Подачи Заявки",
+      "subtitle": "5-этапный процесс подачи заявки консультанта",
       "items": {
         "step1": {
-          "title": "Online Application",
-          "desc": "Resume and portfolio submission",
-          "duration": "5 min"
+          "title": "Онлайн Заявка",
+          "desc": "Подача резюме и портфолио",
+          "duration": "5 мин"
         },
         "step2": {
-          "title": "Document Review",
-          "desc": "Expertise and experience verification",
-          "duration": "3-5 days"
+          "title": "Рассмотрение Документов",
+          "desc": "Проверка экспертизы и опыта",
+          "duration": "3-5 дней"
         },
         "step3": {
-          "title": "Interview",
-          "desc": "Video interview with existing advisors",
-          "duration": "1 week"
+          "title": "Собеседование",
+          "desc": "Видео-интервью с действующими консультантами",
+          "duration": "1 неделя"
         },
         "step4": {
-          "title": "Contract",
-          "desc": "Advisory contract signing",
-          "duration": "1-2 days"
+          "title": "Контракт",
+          "desc": "Подписание консультационного контракта",
+          "duration": "1-2 дня"
         },
         "step5": {
-          "title": "Onboarding",
-          "desc": "Official registration and orientation",
-          "duration": "1 week"
+          "title": "Адаптация",
+          "desc": "Официальная регистрация и ориентация",
+          "duration": "1 неделя"
         }
       }
     },
     "compensation": {
-      "badge": "COMPENSATION",
-      "title": "Compensation Structure",
-      "subtitle": "Transparent advisor compensation",
+      "badge": "КОМПЕНСАЦИЯ",
+      "title": "Структура Компенсации",
+      "subtitle": "Прозрачная компенсация консультантов",
       "items": {
         "token": {
-          "title": "Token Incentive",
-          "desc": "Annual TBURN allocation",
-          "value": "Up to 15M"
+          "title": "Токен Стимул",
+          "value": "До 15M",
+          "desc": "Годовое распределение TBURN"
         },
         "bonus": {
-          "title": "Performance Bonus",
-          "desc": "Contribution-based reward",
-          "value": "Up to 5M"
+          "title": "Бонус за Результат",
+          "value": "До 5M",
+          "desc": "Вознаграждение за вклад"
         },
         "special": {
-          "title": "Special Incentive",
-          "desc": "Milestone achievement reward",
-          "value": "Up to 3M"
+          "title": "Специальный Стимул",
+          "value": "До 3M",
+          "desc": "Вознаграждение за достижение целей"
         }
       }
     },
     "faq": {
       "badge": "FAQ",
-      "title": "Frequently Asked Questions",
-      "subtitle": "Common questions about the advisor program",
+      "title": "Часто Задаваемые Вопросы",
+      "subtitle": "Общие вопросы о программе консультантов",
       "items": {
         "q1": {
-          "question": "What are the advisor requirements?",
-          "answer": "A minimum of 3 years experience in a relevant field and expertise in blockchain or Web3 is required."
+          "question": "Каковы требования к консультанту?",
+          "answer": "Требуется минимум 3 года опыта в соответствующей области и экспертиза в блокчейне или Web3."
         },
         "q2": {
-          "question": "What is the advisor contract period?",
-          "answer": "The basic contract period is 1 year, renewable annually based on contribution."
+          "question": "Каков срок контракта консультанта?",
+          "answer": "Базовый срок контракта — 1 год, продлевается ежегодно в зависимости от вклада."
         },
         "q3": {
-          "question": "When are the token rewards paid?",
-          "answer": "Token rewards are paid quarterly according to the vesting schedule."
+          "question": "Когда выплачиваются токен-вознаграждения?",
+          "answer": "Токен-вознаграждения выплачиваются ежеквартально в соответствии с графиком вестинга."
         },
         "q4": {
-          "question": "Is overseas application possible?",
-          "answer": "Yes, global experts from all countries are welcome to apply."
+          "question": "Можно ли подать заявку из-за рубежа?",
+          "answer": "Да, мы приветствуем заявки от глобальных экспертов из всех стран."
         },
         "q5": {
-          "question": "Can I hold multiple advisor positions?",
-          "answer": "Single field advisor positions are basic, but multiple field advisors may be appointed through special approval."
-        },
-        "q6": {
-          "question": "What is the application process?",
-          "answer": "Application submission (1-3 days) → Document review (1-2 weeks) → Interview (1-2 weeks) → Contract signing (1 week) → Onboarding (1 week), totaling 5-7 weeks. Fast-track process is available for urgent cases."
-        },
-        "q7": {
-          "question": "What are the special benefits for Principal Advisors?",
-          "answer": "Principal Advisors receive up to 15M TBURN annual incentive along with dedicated team assignment, board observer rights, exclusive information access, annual offline summit participation, and VIP networking. 10+ years of industry leader experience is required."
-        },
-        "q8": {
-          "question": "How do I apply for the advisor program?",
-          "answer": "Click the 'Apply to Advisor Program' button at the top of the page or contact advisor@tburn.io directly. Connecting your wallet enables faster review. Our dedicated team will contact you within 1-2 weeks."
+          "question": "Можно ли занимать несколько должностей консультанта?",
+          "answer": "Должности консультанта в одной области являются базовыми, но консультанты нескольких областей могут быть назначены по специальному одобрению."
         }
       }
     },
     "ctaSection": {
-      "title": "Become an Advisor",
-      "subtitle1": "Become a strategic partner in the TBURN ecosystem",
-      "subtitle2": "Receive 200M TBURN in rewards!",
-      "button": "Apply Now",
-      "toastDesc": "Check the advisor fields and apply now!",
-      "badge": "JOIN",
-      "subtitle": "Contribute your expertise to TBURN ecosystem growth and receive rewards.",
-      "applyButton": "Apply Now",
-      "learnButton": "Learn More"
+      "badge": "ПРИСОЕДИНЯЙТЕСЬ",
+      "title": "Станьте Консультантом",
+      "subtitle": "Внесите свою экспертизу в рост экосистемы TBURN и получите вознаграждение.",
+      "applyButton": "Подать Заявку",
+      "learnButton": "Узнать Больше"
     },
     "footer": {
-      "tagline1": "AI Intelligence, Blockchain Transparency",
-      "tagline2": "THE FUTURE IS NOW",
-      "product": "Product",
-      "mainnet": "Mainnet",
-      "explorer": "Explorer",
-      "bridge": "Bridge",
-      "staking": "Staking",
-      "resources": "Resources",
-      "whitepaper": "Whitepaper",
-      "docs": "Documentation",
-      "auditReport": "Audit Report",
-      "community": "Community",
-      "blog": "Blog",
-      "ambassador": "Ambassador",
-      "grants": "Grants",
-      "support": "Support",
-      "copyright": "2024 TBURN. All rights reserved.",
-      "terms": "Terms of Service",
-      "privacy": "Privacy Policy"
+      "copyright": "2024 TBURN. Все права защищены.",
+      "privacy": "Политика Конфиденциальности",
+      "terms": "Условия Использования"
     }
   },
   "coinlist": {

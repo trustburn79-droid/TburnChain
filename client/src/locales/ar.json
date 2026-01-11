@@ -21969,387 +21969,328 @@
     "title": "برنامج المستشارين",
     "badge": "برنامج المستشارين - مجلس استشاري خبراء",
     "nav": {
-      "advisorRoles": "Advisor Roles",
-      "tiers": "Tiers",
-      "currentAdvisors": "Current Advisors",
-      "applicationProcess": "Application Process",
-      "faq": "FAQ"
+      "advisorRoles": "أدوار المستشارين",
+      "tiers": "المستويات",
+      "currentAdvisors": "المستشارون الحاليون",
+      "applicationProcess": "عملية التقديم",
+      "faq": "الأسئلة الشائعة"
     },
     "wallet": {
-      "connect": "Connect Wallet",
-      "disconnect": "Wallet Disconnected",
-      "disconnectDesc": "Your wallet has been disconnected.",
-      "connected": "Wallet Connected",
-      "connectedDesc": "Your wallet is now connected.",
-      "required": "Wallet Connection Required",
-      "requiredDesc": "Please connect your wallet first to apply for advisor position."
+      "connect": "ربط المحفظة",
+      "disconnect": "تم فصل المحفظة",
+      "disconnectDesc": "تم فصل محفظتك.",
+      "connected": "المحفظة متصلة",
+      "connectedDesc": "محفظتك متصلة الآن.",
+      "required": "مطلوب ربط المحفظة",
+      "requiredDesc": "يرجى ربط محفظتك أولاً للتقدم لمنصب المستشار."
     },
     "hero": {
-      "title1": "Become a TBURN Advisor,",
+      "title1": "كن مستشاراً لـ TBURN،",
       "title2": "200M TBURN",
-      "title3": "in Rewards",
-      "subtitle": "Join as an expert in Technology, Business, Legal, or Academic fields to contribute to TBURN ecosystem growth and earn rewards."
+      "title3": "كمكافآت",
+      "subtitle": "انضم كخبير في مجالات التكنولوجيا أو الأعمال أو القانون أو الأكاديمية للمساهمة في نمو نظام TBURN البيئي والحصول على مكافآت."
     },
     "advisorPreviews": {
       "jk": {
         "initial": "JK",
-        "name": "Dr. John Kim",
-        "role": "Tech Advisor"
+        "name": "د. جون كيم",
+        "role": "مستشار تقني"
       },
       "sp": {
         "initial": "SP",
-        "name": "Sarah Park",
-        "role": "Business Advisor"
+        "name": "سارة بارك",
+        "role": "مستشار أعمال"
       },
       "ml": {
         "initial": "ML",
-        "name": "Michael Lee",
-        "role": "Legal Advisor"
+        "name": "مايكل لي",
+        "role": "مستشار قانوني"
       },
       "ec": {
         "initial": "EC",
-        "name": "Emma Choi",
-        "role": "Academic Advisor"
+        "name": "إيما تشوي",
+        "role": "مستشار أكاديمي"
       }
     },
     "stats": {
-      "totalBudget": "Total Advisory Budget",
-      "currentAdvisors": "Current Advisors",
-      "activeAdvisors": "Active Advisors",
-      "vestingPeriod": "Vesting Period (months)"
+      "totalBudget": "إجمالي ميزانية الاستشارات",
+      "currentAdvisors": "المستشارون الحاليون",
+      "activeAdvisors": "المستشارون النشطون",
+      "vestingPeriod": "فترة الاستحقاق (شهور)"
     },
     "cta": {
-      "applyButton": "Apply to Advisor Program",
-      "guideButton": "Advisor Guide",
-      "applyAdvisor": "Advisor Application",
-      "applyAdvisorDesc": "Check the advisor fields and apply now!",
-      "advisorGuide": "Advisor Guide",
-      "advisorGuideDesc": "Check the application process."
+      "applyButton": "التقدم لبرنامج المستشارين",
+      "guideButton": "دليل المستشار",
+      "applyAdvisor": "طلب المستشار",
+      "applyAdvisorDesc": "تحقق من مجالات الاستشارة وقدم الآن!",
+      "advisorGuide": "دليل المستشار",
+      "advisorGuideDesc": "تحقق من عملية التقديم."
     },
     "roleApply": {
-      "title": "{{role}} Application",
-      "description": "Your {{role}} application has been submitted. We will contact you after document review."
+      "title": "طلب {{role}}",
+      "description": "تم تقديم طلب {{role}} الخاص بك. سنتواصل معك بعد مراجعة المستندات."
     },
     "tierApply": {
-      "title": "{{tier}} Application",
-      "description": "Your {{tier}} ({{incentive}} TBURN) application has been submitted. We will guide you after review."
+      "title": "طلب {{tier}}",
+      "description": "تم تقديم طلب {{tier}} ({{incentive}} TBURN) الخاص بك. سنرشدك بعد المراجعة."
     },
     "distribution": {
-      "badge": "DISTRIBUTION",
-      "title": "Advisory Budget Allocation",
-      "subtitle": "200M TBURN distributed across 5 advisory fields",
+      "badge": "التوزيع",
+      "title": "توزيع ميزانية الاستشارات",
+      "subtitle": "200M TBURN موزعة على 5 مجالات استشارية",
       "items": {
         "tech": {
-          "name": "Tech Advisory",
+          "name": "استشارات تقنية",
           "amount": "60M",
           "percent": "30%"
         },
         "business": {
-          "name": "Business Advisory",
+          "name": "استشارات أعمال",
           "amount": "40M",
           "percent": "20%"
         },
         "legal": {
-          "name": "Legal Advisory",
+          "name": "استشارات قانونية",
           "amount": "40M",
           "percent": "20%"
         },
         "academic": {
-          "name": "Academic Advisory",
+          "name": "استشارات أكاديمية",
           "amount": "30M",
           "percent": "15%"
         },
         "industry": {
-          "name": "Industry Advisory",
+          "name": "استشارات صناعية",
           "amount": "30M",
           "percent": "15%"
         }
       }
     },
     "roles": {
-      "badge": "ROLES",
-      "title": "Advisory Fields",
-      "subtitle": "Advisor roles by specialized fields",
-      "applyButton": "Apply",
+      "badge": "الأدوار",
+      "title": "مجالات الاستشارات",
+      "subtitle": "أدوار المستشارين حسب المجالات المتخصصة",
+      "applyButton": "تقديم",
       "items": {
         "tech": {
-          "title": "Tech Advisor",
-          "subtitle": "Blockchain, AI, Security Expert",
-          "reward1Value": "Up to 10M",
-          "reward1Label": "Annual Reward",
-          "reward2Value": "Quarterly",
-          "reward2Label": "Tech Review",
-          "resp1": "Code review and architecture consulting",
-          "resp2": "Security audit participation",
-          "resp3": "Technical roadmap review",
-          "resp4": "New technology trend analysis"
+          "title": "مستشار تقني",
+          "subtitle": "خبير بلوكتشين، ذكاء اصطناعي، أمن",
+          "reward1Value": "حتى 10M",
+          "reward1Label": "مكافأة سنوية",
+          "reward2Value": "ربع سنوي",
+          "reward2Label": "مراجعة تقنية",
+          "resp1": "مراجعة الكود واستشارات البنية",
+          "resp2": "المشاركة في تدقيق الأمان",
+          "resp3": "مراجعة خارطة الطريق التقنية",
+          "resp4": "تحليل اتجاهات التكنولوجيا"
         },
         "business": {
-          "title": "Business Advisor",
-          "subtitle": "Management, Strategy, Marketing Expert",
-          "reward1Value": "Up to 8M",
-          "reward1Label": "Annual Reward",
-          "reward2Value": "Monthly",
-          "reward2Label": "Strategy Meeting",
-          "resp1": "Business strategy consulting",
-          "resp2": "Partnership networking",
-          "resp3": "Market analysis and insights",
-          "resp4": "Growth strategy development"
+          "title": "مستشار أعمال",
+          "subtitle": "خبير إدارة، استراتيجية، تسويق",
+          "reward1Value": "حتى 8M",
+          "reward1Label": "مكافأة سنوية",
+          "reward2Value": "شهري",
+          "reward2Label": "اجتماع استراتيجي",
+          "resp1": "استشارات استراتيجية الأعمال",
+          "resp2": "شبكة الشركاء",
+          "resp3": "تحليل السوق والرؤى",
+          "resp4": "تطوير استراتيجية النمو"
         },
         "legal": {
-          "title": "Legal Advisor",
-          "subtitle": "Blockchain Regulation, Compliance",
-          "reward1Value": "Up to 8M",
-          "reward1Label": "Annual Reward",
-          "reward2Value": "As Needed",
-          "reward2Label": "Legal Review",
-          "resp1": "Regulatory trend analysis",
-          "resp2": "Compliance consulting",
-          "resp3": "Contract review",
-          "resp4": "Risk management"
+          "title": "مستشار قانوني",
+          "subtitle": "تنظيم البلوكتشين، الامتثال",
+          "reward1Value": "حتى 8M",
+          "reward1Label": "مكافأة سنوية",
+          "reward2Value": "حسب الحاجة",
+          "reward2Label": "مراجعة قانونية",
+          "resp1": "تحليل الاتجاهات التنظيمية",
+          "resp2": "استشارات الامتثال",
+          "resp3": "مراجعة العقود",
+          "resp4": "إدارة المخاطر"
         },
         "academic": {
-          "title": "Academic Advisor",
-          "subtitle": "University Professors, Researchers",
-          "reward1Value": "Up to 6M",
-          "reward1Label": "Annual Reward",
-          "reward2Value": "Quarterly",
-          "reward2Label": "Research Collaboration",
-          "resp1": "Academic research collaboration",
-          "resp2": "Whitepaper review",
-          "resp3": "Educational content development",
-          "resp4": "Academic networking"
+          "title": "مستشار أكاديمي",
+          "subtitle": "أساتذة جامعات، باحثون",
+          "reward1Value": "حتى 6M",
+          "reward1Label": "مكافأة سنوية",
+          "reward2Value": "ربع سنوي",
+          "reward2Label": "تعاون بحثي",
+          "resp1": "التعاون البحثي الأكاديمي",
+          "resp2": "مراجعة الورقة البيضاء",
+          "resp3": "تطوير المحتوى التعليمي",
+          "resp4": "شبكة أكاديمية"
         }
       }
     },
     "tiers": {
-      "badge": "TIERS",
-      "title": "Advisor Tiers",
-      "subtitle": "Tier-based benefits by experience and contribution",
-      "incentiveLabel": "Annual Incentive",
-      "applyButton": "Apply",
+      "badge": "المستويات",
+      "title": "مستويات المستشارين",
+      "subtitle": "مزايا حسب المستوى بناءً على الخبرة والمساهمة",
+      "incentiveLabel": "حافز سنوي",
+      "applyButton": "تقديم",
       "items": {
         "principal": {
-          "name": "Principal Advisor",
-          "subtitle": "Chief Advisor",
-          "incentive": "Up to 15M",
-          "requirement": "10+ years experience, Industry Leader",
-          "benefit1": "Dedicated team assignment",
-          "benefit2": "Board observer rights",
-          "benefit3": "Exclusive information access",
-          "benefit4": "Annual offline summit",
-          "benefit5": "VIP networking"
+          "name": "المستشار الرئيسي",
+          "subtitle": "كبير المستشارين",
+          "incentive": "حتى 15M",
+          "requirement": "10+ سنوات خبرة، قائد الصناعة",
+          "benefit1": "تخصيص فريق مخصص",
+          "benefit2": "حقوق مراقب مجلس الإدارة",
+          "benefit3": "وصول حصري للمعلومات",
+          "benefit4": "قمة سنوية حضورية",
+          "benefit5": "شبكة VIP"
         },
         "senior": {
-          "name": "Senior Advisor",
-          "subtitle": "Senior Advisor",
-          "incentive": "Up to 8M",
-          "requirement": "5+ years experience, Expert",
-          "benefit1": "Priority support",
-          "benefit2": "Quarterly strategy meetings",
-          "benefit3": "Early access",
-          "benefit4": "Governance participation",
-          "benefit5": "Partner networking"
+          "name": "مستشار أول",
+          "subtitle": "مستشار أول",
+          "incentive": "حتى 8M",
+          "requirement": "5+ سنوات خبرة، خبير",
+          "benefit1": "دعم أولوي",
+          "benefit2": "اجتماعات استراتيجية ربع سنوية",
+          "benefit3": "وصول مبكر",
+          "benefit4": "المشاركة في الحوكمة",
+          "benefit5": "شبكة شركاء"
         },
         "advisor": {
-          "name": "Advisor",
-          "subtitle": "Advisor",
-          "incentive": "Up to 4M",
-          "requirement": "3+ years experience, Specialized Field",
-          "benefit1": "Monthly meetings",
-          "benefit2": "Technical documentation access",
-          "benefit3": "Community participation",
-          "benefit4": "Base incentives",
-          "benefit5": "Growth opportunities"
+          "name": "مستشار",
+          "subtitle": "مستشار",
+          "incentive": "حتى 4M",
+          "requirement": "3+ سنوات خبرة، مجال متخصص",
+          "benefit1": "اجتماعات شهرية",
+          "benefit2": "الوصول للوثائق التقنية",
+          "benefit3": "المشاركة المجتمعية",
+          "benefit4": "حوافز أساسية",
+          "benefit5": "فرص النمو"
         }
       }
     },
     "currentAdvisors": {
-      "badge": "ADVISORS",
-      "title": "Current Advisors",
-      "subtitle": "Industry experts leading the TBURN ecosystem",
+      "badge": "المستشارون",
+      "title": "المستشارون الحاليون",
+      "subtitle": "خبراء الصناعة يقودون نظام TBURN البيئي",
       "items": {
         "jk": {
           "initial": "JK",
-          "name": "Dr. John Kim",
-          "title": "CTO, Tech Corp",
-          "org": "Technology"
+          "name": "د. جون كيم",
+          "title": "CTO، تك كورب",
+          "org": "التكنولوجيا"
         },
         "sp": {
           "initial": "SP",
-          "name": "Sarah Park",
-          "title": "CEO, Growth VC",
-          "org": "Business"
+          "name": "سارة بارك",
+          "title": "CEO، جروث VC",
+          "org": "الأعمال"
         },
         "ml": {
           "initial": "ML",
-          "name": "Michael Lee",
-          "title": "Partner, Law Firm",
-          "org": "Legal"
+          "name": "مايكل لي",
+          "title": "شريك، مكتب محاماة",
+          "org": "القانون"
         },
         "ec": {
           "initial": "EC",
-          "name": "Prof. Emma Choi",
-          "title": "Professor, KAIST",
-          "org": "Academic"
+          "name": "بروف. إيما تشوي",
+          "title": "أستاذة، KAIST",
+          "org": "الأكاديمي"
         }
       },
       "tierBadges": {
-        "principal": "PRINCIPAL",
-        "senior": "SENIOR"
+        "principal": "رئيسي",
+        "senior": "أول"
       }
     },
     "process": {
-      "badge": "PROCESS",
-      "title": "Application Process",
-      "subtitle": "5-step advisor application process",
-      "steps": {
-        "step1": {
-          "title": "Submit Application",
-          "desc": "Complete online application",
-          "duration": "1-3 days"
-        },
-        "step2": {
-          "title": "Document Review",
-          "desc": "Document review and evaluation",
-          "duration": "1-2 weeks"
-        },
-        "step3": {
-          "title": "Interview",
-          "desc": "In-depth interview",
-          "duration": "1-2 weeks"
-        },
-        "step4": {
-          "title": "Contract Signing",
-          "desc": "Advisory contract signature",
-          "duration": "1 week"
-        },
-        "step5": {
-          "title": "Onboarding",
-          "desc": "Begin advisory activities",
-          "duration": "1 week"
-        }
-      },
+      "badge": "العملية",
+      "title": "عملية التقديم",
+      "subtitle": "عملية تقديم المستشار من 5 خطوات",
       "items": {
         "step1": {
-          "title": "Online Application",
-          "desc": "Resume and portfolio submission",
-          "duration": "5 min"
+          "title": "التقديم عبر الإنترنت",
+          "desc": "تقديم السيرة الذاتية والحافظة",
+          "duration": "5 دقائق"
         },
         "step2": {
-          "title": "Document Review",
-          "desc": "Expertise and experience verification",
-          "duration": "3-5 days"
+          "title": "مراجعة المستندات",
+          "desc": "التحقق من الخبرة والتجربة",
+          "duration": "3-5 أيام"
         },
         "step3": {
-          "title": "Interview",
-          "desc": "Video interview with existing advisors",
-          "duration": "1 week"
+          "title": "المقابلة",
+          "desc": "مقابلة فيديو مع المستشارين الحاليين",
+          "duration": "أسبوع واحد"
         },
         "step4": {
-          "title": "Contract",
-          "desc": "Advisory contract signing",
-          "duration": "1-2 days"
+          "title": "العقد",
+          "desc": "توقيع عقد الاستشارات",
+          "duration": "1-2 يوم"
         },
         "step5": {
-          "title": "Onboarding",
-          "desc": "Official registration and orientation",
-          "duration": "1 week"
+          "title": "التأهيل",
+          "desc": "التسجيل الرسمي والتوجيه",
+          "duration": "أسبوع واحد"
         }
       }
     },
     "compensation": {
-      "badge": "COMPENSATION",
-      "title": "Compensation Structure",
-      "subtitle": "Transparent advisor compensation",
+      "badge": "التعويض",
+      "title": "هيكل التعويض",
+      "subtitle": "تعويض شفاف للمستشارين",
       "items": {
         "token": {
-          "title": "Token Incentive",
-          "desc": "Annual TBURN allocation",
-          "value": "Up to 15M"
+          "title": "حافز الرموز",
+          "value": "حتى 15M",
+          "desc": "تخصيص TBURN سنوي"
         },
         "bonus": {
-          "title": "Performance Bonus",
-          "desc": "Contribution-based reward",
-          "value": "Up to 5M"
+          "title": "مكافأة الأداء",
+          "value": "حتى 5M",
+          "desc": "مكافأة قائمة على المساهمة"
         },
         "special": {
-          "title": "Special Incentive",
-          "desc": "Milestone achievement reward",
-          "value": "Up to 3M"
+          "title": "حافز خاص",
+          "value": "حتى 3M",
+          "desc": "مكافأة تحقيق المراحل"
         }
       }
     },
     "faq": {
-      "badge": "FAQ",
-      "title": "Frequently Asked Questions",
-      "subtitle": "Common questions about the advisor program",
+      "badge": "الأسئلة الشائعة",
+      "title": "الأسئلة الشائعة",
+      "subtitle": "أسئلة شائعة حول برنامج المستشارين",
       "items": {
         "q1": {
-          "question": "What are the advisor requirements?",
-          "answer": "A minimum of 3 years experience in a relevant field and expertise in blockchain or Web3 is required."
+          "question": "ما هي متطلبات المستشار؟",
+          "answer": "مطلوب خبرة لا تقل عن 3 سنوات في مجال ذي صلة وخبرة في البلوكتشين أو Web3."
         },
         "q2": {
-          "question": "What is the advisor contract period?",
-          "answer": "The basic contract period is 1 year, renewable annually based on contribution."
+          "question": "ما هي مدة عقد المستشار؟",
+          "answer": "مدة العقد الأساسية هي سنة واحدة، قابلة للتجديد سنوياً بناءً على المساهمة."
         },
         "q3": {
-          "question": "When are the token rewards paid?",
-          "answer": "Token rewards are paid quarterly according to the vesting schedule."
+          "question": "متى يتم دفع مكافآت الرموز؟",
+          "answer": "يتم دفع مكافآت الرموز ربع سنوياً وفقاً لجدول الاستحقاق."
         },
         "q4": {
-          "question": "Is overseas application possible?",
-          "answer": "Yes, global experts from all countries are welcome to apply."
+          "question": "هل يمكن التقديم من الخارج؟",
+          "answer": "نعم، نرحب بالخبراء العالميين من جميع البلدان للتقديم."
         },
         "q5": {
-          "question": "Can I hold multiple advisor positions?",
-          "answer": "Single field advisor positions are basic, but multiple field advisors may be appointed through special approval."
-        },
-        "q6": {
-          "question": "What is the application process?",
-          "answer": "Application submission (1-3 days) → Document review (1-2 weeks) → Interview (1-2 weeks) → Contract signing (1 week) → Onboarding (1 week), totaling 5-7 weeks. Fast-track process is available for urgent cases."
-        },
-        "q7": {
-          "question": "What are the special benefits for Principal Advisors?",
-          "answer": "Principal Advisors receive up to 15M TBURN annual incentive along with dedicated team assignment, board observer rights, exclusive information access, annual offline summit participation, and VIP networking. 10+ years of industry leader experience is required."
-        },
-        "q8": {
-          "question": "How do I apply for the advisor program?",
-          "answer": "Click the 'Apply to Advisor Program' button at the top of the page or contact advisor@tburn.io directly. Connecting your wallet enables faster review. Our dedicated team will contact you within 1-2 weeks."
+          "question": "هل يمكنني شغل مناصب استشارية متعددة؟",
+          "answer": "مناصب المستشار في مجال واحد هي الأساس، ولكن يمكن تعيين مستشارين في مجالات متعددة بموافقة خاصة."
         }
       }
     },
     "ctaSection": {
-      "title": "Become an Advisor",
-      "subtitle1": "Become a strategic partner in the TBURN ecosystem",
-      "subtitle2": "Receive 200M TBURN in rewards!",
-      "button": "Apply Now",
-      "toastDesc": "Check the advisor fields and apply now!",
-      "badge": "JOIN",
-      "subtitle": "Contribute your expertise to TBURN ecosystem growth and receive rewards.",
-      "applyButton": "Apply Now",
-      "learnButton": "Learn More"
+      "badge": "انضم",
+      "title": "كن مستشاراً",
+      "subtitle": "ساهم بخبرتك في نمو نظام TBURN البيئي واحصل على مكافآت.",
+      "applyButton": "قدم الآن",
+      "learnButton": "اعرف المزيد"
     },
     "footer": {
-      "tagline1": "AI Intelligence, Blockchain Transparency",
-      "tagline2": "THE FUTURE IS NOW",
-      "product": "Product",
-      "mainnet": "Mainnet",
-      "explorer": "Explorer",
-      "bridge": "Bridge",
-      "staking": "Staking",
-      "resources": "Resources",
-      "whitepaper": "Whitepaper",
-      "docs": "Documentation",
-      "auditReport": "Audit Report",
-      "community": "Community",
-      "blog": "Blog",
-      "ambassador": "Ambassador",
-      "grants": "Grants",
-      "support": "Support",
-      "copyright": "2024 TBURN. All rights reserved.",
-      "terms": "Terms of Service",
-      "privacy": "Privacy Policy"
+      "copyright": "2024 TBURN. جميع الحقوق محفوظة.",
+      "privacy": "سياسة الخصوصية",
+      "terms": "شروط الخدمة"
     }
   },
   "coinlist": {

@@ -24166,401 +24166,331 @@
     }
   },
   "advisorProgram": {
-    "header": {
-      "title": "顾问计划",
-      "subtitle": "专家指导"
-    },
-    "hero": {
-      "badge": "顾问计划",
-      "title": "1亿 TBURN",
-      "subtitle": "Join as an expert in Technology, Business, Legal, or Academic fields to contribute to TBURN ecosystem growth and earn rewards.",
-      "description": "面向行业专家和顾问的分配。支持战略指导、技术审查和网络扩展。",
-      "title1": "Become a TBURN Advisor,",
-      "title2": "200M TBURN",
-      "title3": "in Rewards"
-    },
-    "stats": {
-      "totalAllocation": "总分配",
-      "advisors": "顾问数",
-      "vested": "已归属",
-      "remaining": "剩余",
-      "totalBudget": "Total Advisory Budget",
-      "currentAdvisors": "Current Advisors",
-      "activeAdvisors": "Active Advisors",
-      "vestingPeriod": "Vesting Period (months)"
-    },
-    "wallet": {
-      "disconnect": "Wallet Disconnected",
-      "disconnectDesc": "Your wallet has been disconnected.",
-      "connect": "Connect Wallet",
-      "connected": "Wallet Connected",
-      "connectedDesc": "Your wallet is now connected.",
-      "required": "Wallet Connection Required",
-      "requiredDesc": "Please connect your wallet first to apply for advisor position."
-    },
     "title": "顾问计划",
     "badge": "顾问计划 - 专家顾问委员会",
     "nav": {
-      "advisorRoles": "Advisor Roles",
-      "tiers": "Tiers",
-      "currentAdvisors": "Current Advisors",
-      "applicationProcess": "Application Process",
-      "faq": "FAQ"
+      "advisorRoles": "顾问角色",
+      "tiers": "等级",
+      "currentAdvisors": "当前顾问",
+      "applicationProcess": "申请流程",
+      "faq": "常见问题"
+    },
+    "wallet": {
+      "connect": "连接钱包",
+      "disconnect": "钱包已断开",
+      "disconnectDesc": "您的钱包已断开连接。",
+      "connected": "钱包已连接",
+      "connectedDesc": "您的钱包已连接。",
+      "required": "需要连接钱包",
+      "requiredDesc": "请先连接钱包以申请顾问职位。"
+    },
+    "hero": {
+      "title1": "成为TBURN顾问，",
+      "title2": "2亿TBURN",
+      "title3": "奖励",
+      "subtitle": "作为技术、商业、法律或学术领域的专家加入，为TBURN生态系统的发展做出贡献并获得奖励。"
     },
     "advisorPreviews": {
       "jk": {
         "initial": "JK",
-        "name": "Dr. John Kim",
-        "role": "Tech Advisor"
+        "name": "金约翰博士",
+        "role": "技术顾问"
       },
       "sp": {
         "initial": "SP",
-        "name": "Sarah Park",
-        "role": "Business Advisor"
+        "name": "朴萨拉",
+        "role": "商业顾问"
       },
       "ml": {
         "initial": "ML",
-        "name": "Michael Lee",
-        "role": "Legal Advisor"
+        "name": "李迈克尔",
+        "role": "法务顾问"
       },
       "ec": {
         "initial": "EC",
-        "name": "Emma Choi",
-        "role": "Academic Advisor"
+        "name": "崔艾玛教授",
+        "role": "学术顾问"
       }
     },
+    "stats": {
+      "totalBudget": "顾问总预算",
+      "currentAdvisors": "当前顾问",
+      "activeAdvisors": "活跃顾问",
+      "vestingPeriod": "锁定期（月）"
+    },
     "cta": {
-      "applyButton": "Apply to Advisor Program",
-      "guideButton": "Advisor Guide",
-      "applyAdvisor": "Advisor Application",
-      "applyAdvisorDesc": "Check the advisor fields and apply now!",
-      "advisorGuide": "Advisor Guide",
-      "advisorGuideDesc": "Check the application process."
+      "applyButton": "申请成为顾问",
+      "guideButton": "顾问指南",
+      "applyAdvisor": "顾问申请",
+      "applyAdvisorDesc": "查看顾问领域并立即申请！",
+      "advisorGuide": "顾问指南",
+      "advisorGuideDesc": "查看申请流程。"
     },
     "roleApply": {
-      "title": "{{role}} Application",
-      "description": "Your {{role}} application has been submitted. We will contact you after document review."
+      "title": "{{role}}申请",
+      "description": "您的{{role}}申请已提交。我们将在审核后与您联系。"
     },
     "tierApply": {
-      "title": "{{tier}} Application",
-      "description": "Your {{tier}} ({{incentive}} TBURN) application has been submitted. We will guide you after review."
+      "title": "{{tier}}申请",
+      "description": "您的{{tier}}（{{incentive}} TBURN）申请已提交。审核后我们将为您提供指导。"
     },
     "distribution": {
-      "badge": "DISTRIBUTION",
-      "title": "Advisory Budget Allocation",
-      "subtitle": "200M TBURN distributed across 5 advisory fields",
+      "badge": "分配",
+      "title": "顾问预算分配",
+      "subtitle": "2亿TBURN分配给5个顾问领域",
       "items": {
         "tech": {
-          "name": "Tech Advisory",
-          "amount": "60M",
+          "name": "技术顾问",
+          "amount": "6千万",
           "percent": "30%"
         },
         "business": {
-          "name": "Business Advisory",
-          "amount": "40M",
+          "name": "商业顾问",
+          "amount": "4千万",
           "percent": "20%"
         },
         "legal": {
-          "name": "Legal Advisory",
-          "amount": "40M",
+          "name": "法务顾问",
+          "amount": "4千万",
           "percent": "20%"
         },
         "academic": {
-          "name": "Academic Advisory",
-          "amount": "30M",
+          "name": "学术顾问",
+          "amount": "3千万",
           "percent": "15%"
         },
         "industry": {
-          "name": "Industry Advisory",
-          "amount": "30M",
+          "name": "产业顾问",
+          "amount": "3千万",
           "percent": "15%"
         }
       }
     },
     "roles": {
-      "badge": "ROLES",
-      "title": "Advisory Fields",
-      "subtitle": "Advisor roles by specialized fields",
-      "applyButton": "Apply",
+      "badge": "角色",
+      "title": "顾问领域",
+      "subtitle": "按专业领域划分的顾问角色",
+      "applyButton": "申请",
       "items": {
         "tech": {
-          "title": "Tech Advisor",
-          "subtitle": "Blockchain, AI, Security Expert",
-          "reward1Value": "Up to 10M",
-          "reward1Label": "Annual Reward",
-          "reward2Value": "Quarterly",
-          "reward2Label": "Tech Review",
-          "resp1": "Code review and architecture consulting",
-          "resp2": "Security audit participation",
-          "resp3": "Technical roadmap review",
-          "resp4": "New technology trend analysis"
+          "title": "技术顾问",
+          "subtitle": "区块链、AI、安全专家",
+          "reward1Value": "最高1千万",
+          "reward1Label": "年度奖励",
+          "reward2Value": "季度",
+          "reward2Label": "技术审核",
+          "resp1": "代码审核和架构咨询",
+          "resp2": "安全审计参与",
+          "resp3": "技术路线图审核",
+          "resp4": "新技术趋势分析"
         },
         "business": {
-          "title": "Business Advisor",
-          "subtitle": "Management, Strategy, Marketing Expert",
-          "reward1Value": "Up to 8M",
-          "reward1Label": "Annual Reward",
-          "reward2Value": "Monthly",
-          "reward2Label": "Strategy Meeting",
-          "resp1": "Business strategy consulting",
-          "resp2": "Partnership networking",
-          "resp3": "Market analysis and insights",
-          "resp4": "Growth strategy development"
+          "title": "商业顾问",
+          "subtitle": "管理、战略、营销专家",
+          "reward1Value": "最高8百万",
+          "reward1Label": "年度奖励",
+          "reward2Value": "月度",
+          "reward2Label": "战略会议",
+          "resp1": "商业战略咨询",
+          "resp2": "合作伙伴网络",
+          "resp3": "市场分析与洞察",
+          "resp4": "增长战略开发"
         },
         "legal": {
-          "title": "Legal Advisor",
-          "subtitle": "Blockchain Regulation, Compliance",
-          "reward1Value": "Up to 8M",
-          "reward1Label": "Annual Reward",
-          "reward2Value": "As Needed",
-          "reward2Label": "Legal Review",
-          "resp1": "Regulatory trend analysis",
-          "resp2": "Compliance consulting",
-          "resp3": "Contract review",
-          "resp4": "Risk management"
+          "title": "法务顾问",
+          "subtitle": "区块链监管、合规",
+          "reward1Value": "最高8百万",
+          "reward1Label": "年度奖励",
+          "reward2Value": "按需",
+          "reward2Label": "法务审核",
+          "resp1": "监管趋势分析",
+          "resp2": "合规咨询",
+          "resp3": "合同审核",
+          "resp4": "风险管理"
         },
         "academic": {
-          "title": "Academic Advisor",
-          "subtitle": "University Professors, Researchers",
-          "reward1Value": "Up to 6M",
-          "reward1Label": "Annual Reward",
-          "reward2Value": "Quarterly",
-          "reward2Label": "Research Collaboration",
-          "resp1": "Academic research collaboration",
-          "resp2": "Whitepaper review",
-          "resp3": "Educational content development",
-          "resp4": "Academic networking"
+          "title": "学术顾问",
+          "subtitle": "大学教授、研究员",
+          "reward1Value": "最高6百万",
+          "reward1Label": "年度奖励",
+          "reward2Value": "季度",
+          "reward2Label": "研究合作",
+          "resp1": "学术研究合作",
+          "resp2": "白皮书审核",
+          "resp3": "教育内容开发",
+          "resp4": "学术网络"
         }
       }
     },
     "tiers": {
-      "badge": "TIERS",
-      "title": "Advisor Tiers",
-      "subtitle": "Tier-based benefits by experience and contribution",
-      "incentiveLabel": "Annual Incentive",
-      "applyButton": "Apply",
+      "badge": "等级",
+      "title": "顾问等级",
+      "subtitle": "根据经验和贡献的等级福利",
+      "incentiveLabel": "年度激励",
+      "applyButton": "申请",
       "items": {
         "principal": {
-          "name": "Principal Advisor",
-          "subtitle": "Chief Advisor",
-          "incentive": "Up to 15M",
-          "requirement": "10+ years experience, Industry Leader",
-          "benefit1": "Dedicated team assignment",
-          "benefit2": "Board observer rights",
-          "benefit3": "Exclusive information access",
-          "benefit4": "Annual offline summit",
-          "benefit5": "VIP networking"
+          "name": "首席顾问",
+          "subtitle": "首席顾问",
+          "incentive": "最高1千5百万",
+          "requirement": "10年以上经验，行业领袖",
+          "benefit1": "专属团队分配",
+          "benefit2": "董事会观察员权利",
+          "benefit3": "独家信息访问",
+          "benefit4": "年度线下峰会",
+          "benefit5": "VIP网络"
         },
         "senior": {
-          "name": "Senior Advisor",
-          "subtitle": "Senior Advisor",
-          "incentive": "Up to 8M",
-          "requirement": "5+ years experience, Expert",
-          "benefit1": "Priority support",
-          "benefit2": "Quarterly strategy meetings",
-          "benefit3": "Early access",
-          "benefit4": "Governance participation",
-          "benefit5": "Partner networking"
+          "name": "高级顾问",
+          "subtitle": "高级顾问",
+          "incentive": "最高8百万",
+          "requirement": "5年以上经验，专家",
+          "benefit1": "优先支持",
+          "benefit2": "季度战略会议",
+          "benefit3": "抢先体验",
+          "benefit4": "治理参与",
+          "benefit5": "合作伙伴网络"
         },
         "advisor": {
-          "name": "Advisor",
-          "subtitle": "Advisor",
-          "incentive": "Up to 4M",
-          "requirement": "3+ years experience, Specialized Field",
-          "benefit1": "Monthly meetings",
-          "benefit2": "Technical documentation access",
-          "benefit3": "Community participation",
-          "benefit4": "Base incentives",
-          "benefit5": "Growth opportunities"
+          "name": "顾问",
+          "subtitle": "顾问",
+          "incentive": "最高4百万",
+          "requirement": "3年以上经验，专业领域",
+          "benefit1": "月度会议",
+          "benefit2": "技术文档访问",
+          "benefit3": "社区参与",
+          "benefit4": "基础激励",
+          "benefit5": "成长机会"
         }
       }
     },
     "currentAdvisors": {
-      "badge": "ADVISORS",
-      "title": "Current Advisors",
-      "subtitle": "Industry experts leading the TBURN ecosystem",
+      "badge": "顾问",
+      "title": "当前顾问",
+      "subtitle": "引领TBURN生态系统的行业专家",
       "items": {
         "jk": {
           "initial": "JK",
-          "name": "Dr. John Kim",
-          "title": "CTO, Tech Corp",
-          "org": "Technology"
+          "name": "金约翰博士",
+          "title": "CTO，科技公司",
+          "org": "技术"
         },
         "sp": {
           "initial": "SP",
-          "name": "Sarah Park",
-          "title": "CEO, Growth VC",
-          "org": "Business"
+          "name": "朴萨拉",
+          "title": "CEO，增长VC",
+          "org": "商业"
         },
         "ml": {
           "initial": "ML",
-          "name": "Michael Lee",
-          "title": "Partner, Law Firm",
-          "org": "Legal"
+          "name": "李迈克尔",
+          "title": "合伙人，律师事务所",
+          "org": "法务"
         },
         "ec": {
           "initial": "EC",
-          "name": "Prof. Emma Choi",
-          "title": "Professor, KAIST",
-          "org": "Academic"
+          "name": "崔艾玛教授",
+          "title": "教授，KAIST",
+          "org": "学术"
         }
       },
       "tierBadges": {
-        "principal": "PRINCIPAL",
-        "senior": "SENIOR"
+        "principal": "首席",
+        "senior": "高级"
       }
     },
     "process": {
-      "badge": "PROCESS",
-      "title": "Application Process",
-      "subtitle": "5-step advisor application process",
-      "steps": {
-        "step1": {
-          "title": "Submit Application",
-          "desc": "Complete online application",
-          "duration": "1-3 days"
-        },
-        "step2": {
-          "title": "Document Review",
-          "desc": "Document review and evaluation",
-          "duration": "1-2 weeks"
-        },
-        "step3": {
-          "title": "Interview",
-          "desc": "In-depth interview",
-          "duration": "1-2 weeks"
-        },
-        "step4": {
-          "title": "Contract Signing",
-          "desc": "Advisory contract signature",
-          "duration": "1 week"
-        },
-        "step5": {
-          "title": "Onboarding",
-          "desc": "Begin advisory activities",
-          "duration": "1 week"
-        }
-      },
+      "badge": "流程",
+      "title": "申请流程",
+      "subtitle": "5步顾问申请流程",
       "items": {
         "step1": {
-          "title": "Online Application",
-          "desc": "Resume and portfolio submission",
-          "duration": "5 min"
+          "title": "在线申请",
+          "desc": "简历和作品集提交",
+          "duration": "5分钟"
         },
         "step2": {
-          "title": "Document Review",
-          "desc": "Expertise and experience verification",
-          "duration": "3-5 days"
+          "title": "资料审核",
+          "desc": "专业性和经验验证",
+          "duration": "3-5天"
         },
         "step3": {
-          "title": "Interview",
-          "desc": "Video interview with existing advisors",
-          "duration": "1 week"
+          "title": "面试",
+          "desc": "与现有顾问视频面试",
+          "duration": "1周"
         },
         "step4": {
-          "title": "Contract",
-          "desc": "Advisory contract signing",
-          "duration": "1-2 days"
+          "title": "合同",
+          "desc": "顾问合同签署",
+          "duration": "1-2天"
         },
         "step5": {
-          "title": "Onboarding",
-          "desc": "Official registration and orientation",
-          "duration": "1 week"
+          "title": "入职",
+          "desc": "正式注册和培训",
+          "duration": "1周"
         }
       }
     },
     "compensation": {
-      "badge": "COMPENSATION",
-      "title": "Compensation Structure",
-      "subtitle": "Transparent advisor compensation",
+      "badge": "报酬",
+      "title": "报酬结构",
+      "subtitle": "透明的顾问报酬",
       "items": {
         "token": {
-          "title": "Token Incentive",
-          "desc": "Annual TBURN allocation",
-          "value": "Up to 15M"
+          "title": "代币激励",
+          "value": "最高1千5百万",
+          "desc": "年度TBURN分配"
         },
         "bonus": {
-          "title": "Performance Bonus",
-          "desc": "Contribution-based reward",
-          "value": "Up to 5M"
+          "title": "绩效奖金",
+          "value": "最高5百万",
+          "desc": "贡献奖励"
         },
         "special": {
-          "title": "Special Incentive",
-          "desc": "Milestone achievement reward",
-          "value": "Up to 3M"
+          "title": "特别激励",
+          "value": "最高3百万",
+          "desc": "里程碑达成奖励"
         }
       }
     },
     "faq": {
-      "badge": "FAQ",
-      "title": "Frequently Asked Questions",
-      "subtitle": "Common questions about the advisor program",
+      "badge": "常见问题",
+      "title": "常见问题",
+      "subtitle": "关于顾问计划的常见问题",
       "items": {
         "q1": {
-          "question": "What are the advisor requirements?",
-          "answer": "A minimum of 3 years experience in a relevant field and expertise in blockchain or Web3 is required."
+          "question": "顾问要求是什么？",
+          "answer": "需要相关领域至少3年经验以及区块链或Web3专业知识。"
         },
         "q2": {
-          "question": "What is the advisor contract period?",
-          "answer": "The basic contract period is 1 year, renewable annually based on contribution."
+          "question": "顾问合同期限是多久？",
+          "answer": "基本合同期限为1年，根据贡献每年续签。"
         },
         "q3": {
-          "question": "When are the token rewards paid?",
-          "answer": "Token rewards are paid quarterly according to the vesting schedule."
+          "question": "代币奖励何时支付？",
+          "answer": "代币奖励按照锁定计划每季度支付。"
         },
         "q4": {
-          "question": "Is overseas application possible?",
-          "answer": "Yes, global experts from all countries are welcome to apply."
+          "question": "可以从海外申请吗？",
+          "answer": "是的，欢迎来自所有国家的全球专家申请。"
         },
         "q5": {
-          "question": "Can I hold multiple advisor positions?",
-          "answer": "Single field advisor positions are basic, but multiple field advisors may be appointed through special approval."
-        },
-        "q6": {
-          "question": "What is the application process?",
-          "answer": "Application submission (1-3 days) → Document review (1-2 weeks) → Interview (1-2 weeks) → Contract signing (1 week) → Onboarding (1 week), totaling 5-7 weeks. Fast-track process is available for urgent cases."
-        },
-        "q7": {
-          "question": "What are the special benefits for Principal Advisors?",
-          "answer": "Principal Advisors receive up to 15M TBURN annual incentive along with dedicated team assignment, board observer rights, exclusive information access, annual offline summit participation, and VIP networking. 10+ years of industry leader experience is required."
-        },
-        "q8": {
-          "question": "How do I apply for the advisor program?",
-          "answer": "Click the 'Apply to Advisor Program' button at the top of the page or contact advisor@tburn.io directly. Connecting your wallet enables faster review. Our dedicated team will contact you within 1-2 weeks."
+          "question": "可以担任多个顾问职位吗？",
+          "answer": "单一领域顾问是基本的，但可以通过特别批准担任多个领域的顾问。"
         }
       }
     },
     "ctaSection": {
-      "title": "Become an Advisor",
-      "subtitle1": "Become a strategic partner in the TBURN ecosystem",
-      "subtitle2": "Receive 200M TBURN in rewards!",
-      "button": "Apply Now",
-      "toastDesc": "Check the advisor fields and apply now!",
-      "badge": "JOIN",
-      "subtitle": "Contribute your expertise to TBURN ecosystem growth and receive rewards.",
-      "applyButton": "Apply Now",
-      "learnButton": "Learn More"
+      "badge": "加入",
+      "title": "成为顾问",
+      "subtitle": "将您的专业知识贡献给TBURN生态系统的发展并获得奖励。",
+      "applyButton": "立即申请",
+      "learnButton": "了解更多"
     },
     "footer": {
-      "tagline1": "AI Intelligence, Blockchain Transparency",
-      "tagline2": "THE FUTURE IS NOW",
-      "product": "Product",
-      "mainnet": "Mainnet",
-      "explorer": "Explorer",
-      "bridge": "Bridge",
-      "staking": "Staking",
-      "resources": "Resources",
-      "whitepaper": "Whitepaper",
-      "docs": "Documentation",
-      "auditReport": "Audit Report",
-      "community": "Community",
-      "blog": "Blog",
-      "ambassador": "Ambassador",
-      "grants": "Grants",
-      "support": "Support",
-      "copyright": "2024 TBURN. All rights reserved.",
-      "terms": "Terms of Service",
-      "privacy": "Privacy Policy"
+      "copyright": "2024 TBURN. 保留所有权利。",
+      "privacy": "隐私政策",
+      "terms": "服务条款"
     }
   },
   "coinlist": {

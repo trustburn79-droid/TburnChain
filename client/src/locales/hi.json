@@ -22613,387 +22613,328 @@
     "title": "सलाहकार कार्यक्रम",
     "badge": "सलाहकार कार्यक्रम - विशेषज्ञ सलाहकार बोर्ड",
     "nav": {
-      "advisorRoles": "Advisor Roles",
-      "tiers": "Tiers",
-      "currentAdvisors": "Current Advisors",
-      "applicationProcess": "Application Process",
+      "advisorRoles": "सलाहकार भूमिकाएं",
+      "tiers": "स्तर",
+      "currentAdvisors": "वर्तमान सलाहकार",
+      "applicationProcess": "आवेदन प्रक्रिया",
       "faq": "FAQ"
     },
     "wallet": {
-      "connect": "Connect Wallet",
-      "disconnect": "Wallet Disconnected",
-      "disconnectDesc": "Your wallet has been disconnected.",
-      "connected": "Wallet Connected",
-      "connectedDesc": "Your wallet is now connected.",
-      "required": "Wallet Connection Required",
-      "requiredDesc": "Please connect your wallet first to apply for advisor position."
+      "connect": "वॉलेट कनेक्ट करें",
+      "disconnect": "वॉलेट डिस्कनेक्ट",
+      "disconnectDesc": "आपका वॉलेट डिस्कनेक्ट हो गया।",
+      "connected": "वॉलेट कनेक्ट",
+      "connectedDesc": "आपका वॉलेट कनेक्ट है।",
+      "required": "वॉलेट कनेक्शन आवश्यक",
+      "requiredDesc": "सलाहकार पद के लिए आवेदन करने के लिए पहले अपना वॉलेट कनेक्ट करें।"
     },
     "hero": {
-      "title1": "Become a TBURN Advisor,",
+      "title1": "TBURN सलाहकार बनें,",
       "title2": "200M TBURN",
-      "title3": "in Rewards",
-      "subtitle": "Join as an expert in Technology, Business, Legal, or Academic fields to contribute to TBURN ecosystem growth and earn rewards."
+      "title3": "पुरस्कार में",
+      "subtitle": "प्रौद्योगिकी, व्यवसाय, कानूनी या शैक्षणिक क्षेत्रों में विशेषज्ञ के रूप में शामिल हों और TBURN पारिस्थितिकी तंत्र के विकास में योगदान करें और पुरस्कार प्राप्त करें।"
     },
     "advisorPreviews": {
       "jk": {
         "initial": "JK",
-        "name": "Dr. John Kim",
-        "role": "Tech Advisor"
+        "name": "डॉ. जॉन किम",
+        "role": "तकनीकी सलाहकार"
       },
       "sp": {
         "initial": "SP",
-        "name": "Sarah Park",
-        "role": "Business Advisor"
+        "name": "सारा पार्क",
+        "role": "व्यवसाय सलाहकार"
       },
       "ml": {
         "initial": "ML",
-        "name": "Michael Lee",
-        "role": "Legal Advisor"
+        "name": "माइकल ली",
+        "role": "कानूनी सलाहकार"
       },
       "ec": {
         "initial": "EC",
-        "name": "Emma Choi",
-        "role": "Academic Advisor"
+        "name": "एम्मा चोई",
+        "role": "शैक्षणिक सलाहकार"
       }
     },
     "stats": {
-      "totalBudget": "Total Advisory Budget",
-      "currentAdvisors": "Current Advisors",
-      "activeAdvisors": "Active Advisors",
-      "vestingPeriod": "Vesting Period (months)"
+      "totalBudget": "कुल सलाहकार बजट",
+      "currentAdvisors": "वर्तमान सलाहकार",
+      "activeAdvisors": "सक्रिय सलाहकार",
+      "vestingPeriod": "वेस्टिंग अवधि (महीने)"
     },
     "cta": {
-      "applyButton": "Apply to Advisor Program",
-      "guideButton": "Advisor Guide",
-      "applyAdvisor": "Advisor Application",
-      "applyAdvisorDesc": "Check the advisor fields and apply now!",
-      "advisorGuide": "Advisor Guide",
-      "advisorGuideDesc": "Check the application process."
+      "applyButton": "सलाहकार कार्यक्रम के लिए आवेदन करें",
+      "guideButton": "सलाहकार गाइड",
+      "applyAdvisor": "सलाहकार आवेदन",
+      "applyAdvisorDesc": "सलाहकार क्षेत्रों की जांच करें और अभी आवेदन करें!",
+      "advisorGuide": "सलाहकार गाइड",
+      "advisorGuideDesc": "आवेदन प्रक्रिया देखें।"
     },
     "roleApply": {
-      "title": "{{role}} Application",
-      "description": "Your {{role}} application has been submitted. We will contact you after document review."
+      "title": "{{role}} आवेदन",
+      "description": "आपका {{role}} आवेदन जमा हो गया। दस्तावेज़ समीक्षा के बाद हम आपसे संपर्क करेंगे।"
     },
     "tierApply": {
-      "title": "{{tier}} Application",
-      "description": "Your {{tier}} ({{incentive}} TBURN) application has been submitted. We will guide you after review."
+      "title": "{{tier}} आवेदन",
+      "description": "आपका {{tier}} ({{incentive}} TBURN) आवेदन जमा हो गया। समीक्षा के बाद हम आपका मार्गदर्शन करेंगे।"
     },
     "distribution": {
-      "badge": "DISTRIBUTION",
-      "title": "Advisory Budget Allocation",
-      "subtitle": "200M TBURN distributed across 5 advisory fields",
+      "badge": "वितरण",
+      "title": "सलाहकार बजट आवंटन",
+      "subtitle": "5 सलाहकार क्षेत्रों में 200M TBURN वितरित",
       "items": {
         "tech": {
-          "name": "Tech Advisory",
+          "name": "तकनीकी सलाह",
           "amount": "60M",
           "percent": "30%"
         },
         "business": {
-          "name": "Business Advisory",
+          "name": "व्यवसाय सलाह",
           "amount": "40M",
           "percent": "20%"
         },
         "legal": {
-          "name": "Legal Advisory",
+          "name": "कानूनी सलाह",
           "amount": "40M",
           "percent": "20%"
         },
         "academic": {
-          "name": "Academic Advisory",
+          "name": "शैक्षणिक सलाह",
           "amount": "30M",
           "percent": "15%"
         },
         "industry": {
-          "name": "Industry Advisory",
+          "name": "उद्योग सलाह",
           "amount": "30M",
           "percent": "15%"
         }
       }
     },
     "roles": {
-      "badge": "ROLES",
-      "title": "Advisory Fields",
-      "subtitle": "Advisor roles by specialized fields",
-      "applyButton": "Apply",
+      "badge": "भूमिकाएं",
+      "title": "सलाहकार क्षेत्र",
+      "subtitle": "विशेष क्षेत्रों द्वारा सलाहकार भूमिकाएं",
+      "applyButton": "आवेदन करें",
       "items": {
         "tech": {
-          "title": "Tech Advisor",
-          "subtitle": "Blockchain, AI, Security Expert",
-          "reward1Value": "Up to 10M",
-          "reward1Label": "Annual Reward",
-          "reward2Value": "Quarterly",
-          "reward2Label": "Tech Review",
-          "resp1": "Code review and architecture consulting",
-          "resp2": "Security audit participation",
-          "resp3": "Technical roadmap review",
-          "resp4": "New technology trend analysis"
+          "title": "तकनीकी सलाहकार",
+          "subtitle": "ब्लॉकचेन, AI, सुरक्षा विशेषज्ञ",
+          "reward1Value": "10M तक",
+          "reward1Label": "वार्षिक पुरस्कार",
+          "reward2Value": "त्रैमासिक",
+          "reward2Label": "तकनीकी समीक्षा",
+          "resp1": "कोड समीक्षा और आर्किटेक्चर परामर्श",
+          "resp2": "सुरक्षा ऑडिट भागीदारी",
+          "resp3": "तकनीकी रोडमैप समीक्षा",
+          "resp4": "नई तकनीक प्रवृत्ति विश्लेषण"
         },
         "business": {
-          "title": "Business Advisor",
-          "subtitle": "Management, Strategy, Marketing Expert",
-          "reward1Value": "Up to 8M",
-          "reward1Label": "Annual Reward",
-          "reward2Value": "Monthly",
-          "reward2Label": "Strategy Meeting",
-          "resp1": "Business strategy consulting",
-          "resp2": "Partnership networking",
-          "resp3": "Market analysis and insights",
-          "resp4": "Growth strategy development"
+          "title": "व्यवसाय सलाहकार",
+          "subtitle": "प्रबंधन, रणनीति, मार्केटिंग विशेषज्ञ",
+          "reward1Value": "8M तक",
+          "reward1Label": "वार्षिक पुरस्कार",
+          "reward2Value": "मासिक",
+          "reward2Label": "रणनीति बैठक",
+          "resp1": "व्यवसाय रणनीति परामर्श",
+          "resp2": "साझेदार नेटवर्किंग",
+          "resp3": "बाजार विश्लेषण और अंतर्दृष्टि",
+          "resp4": "विकास रणनीति विकास"
         },
         "legal": {
-          "title": "Legal Advisor",
-          "subtitle": "Blockchain Regulation, Compliance",
-          "reward1Value": "Up to 8M",
-          "reward1Label": "Annual Reward",
-          "reward2Value": "As Needed",
-          "reward2Label": "Legal Review",
-          "resp1": "Regulatory trend analysis",
-          "resp2": "Compliance consulting",
-          "resp3": "Contract review",
-          "resp4": "Risk management"
+          "title": "कानूनी सलाहकार",
+          "subtitle": "ब्लॉकचेन विनियमन, अनुपालन",
+          "reward1Value": "8M तक",
+          "reward1Label": "वार्षिक पुरस्कार",
+          "reward2Value": "आवश्यकतानुसार",
+          "reward2Label": "कानूनी समीक्षा",
+          "resp1": "नियामक प्रवृत्ति विश्लेषण",
+          "resp2": "अनुपालन परामर्श",
+          "resp3": "अनुबंध समीक्षा",
+          "resp4": "जोखिम प्रबंधन"
         },
         "academic": {
-          "title": "Academic Advisor",
-          "subtitle": "University Professors, Researchers",
-          "reward1Value": "Up to 6M",
-          "reward1Label": "Annual Reward",
-          "reward2Value": "Quarterly",
-          "reward2Label": "Research Collaboration",
-          "resp1": "Academic research collaboration",
-          "resp2": "Whitepaper review",
-          "resp3": "Educational content development",
-          "resp4": "Academic networking"
+          "title": "शैक्षणिक सलाहकार",
+          "subtitle": "विश्वविद्यालय प्रोफेसर, शोधकर्ता",
+          "reward1Value": "6M तक",
+          "reward1Label": "वार्षिक पुरस्कार",
+          "reward2Value": "त्रैमासिक",
+          "reward2Label": "अनुसंधान सहयोग",
+          "resp1": "शैक्षणिक अनुसंधान सहयोग",
+          "resp2": "व्हाइटपेपर समीक्षा",
+          "resp3": "शैक्षिक सामग्री विकास",
+          "resp4": "शैक्षणिक नेटवर्किंग"
         }
       }
     },
     "tiers": {
-      "badge": "TIERS",
-      "title": "Advisor Tiers",
-      "subtitle": "Tier-based benefits by experience and contribution",
-      "incentiveLabel": "Annual Incentive",
-      "applyButton": "Apply",
+      "badge": "स्तर",
+      "title": "सलाहकार स्तर",
+      "subtitle": "अनुभव और योगदान के आधार पर स्तर-आधारित लाभ",
+      "incentiveLabel": "वार्षिक प्रोत्साहन",
+      "applyButton": "आवेदन करें",
       "items": {
         "principal": {
-          "name": "Principal Advisor",
-          "subtitle": "Chief Advisor",
-          "incentive": "Up to 15M",
-          "requirement": "10+ years experience, Industry Leader",
-          "benefit1": "Dedicated team assignment",
-          "benefit2": "Board observer rights",
-          "benefit3": "Exclusive information access",
-          "benefit4": "Annual offline summit",
-          "benefit5": "VIP networking"
+          "name": "मुख्य सलाहकार",
+          "subtitle": "प्रमुख सलाहकार",
+          "incentive": "15M तक",
+          "requirement": "10+ वर्ष अनुभव, उद्योग नेता",
+          "benefit1": "समर्पित टीम असाइनमेंट",
+          "benefit2": "बोर्ड पर्यवेक्षक अधिकार",
+          "benefit3": "विशेष जानकारी पहुंच",
+          "benefit4": "वार्षिक ऑफलाइन शिखर सम्मेलन",
+          "benefit5": "VIP नेटवर्किंग"
         },
         "senior": {
-          "name": "Senior Advisor",
-          "subtitle": "Senior Advisor",
-          "incentive": "Up to 8M",
-          "requirement": "5+ years experience, Expert",
-          "benefit1": "Priority support",
-          "benefit2": "Quarterly strategy meetings",
-          "benefit3": "Early access",
-          "benefit4": "Governance participation",
-          "benefit5": "Partner networking"
+          "name": "वरिष्ठ सलाहकार",
+          "subtitle": "वरिष्ठ सलाहकार",
+          "incentive": "8M तक",
+          "requirement": "5+ वर्ष अनुभव, विशेषज्ञ",
+          "benefit1": "प्राथमिकता सहायता",
+          "benefit2": "त्रैमासिक रणनीति बैठकें",
+          "benefit3": "जल्दी पहुंच",
+          "benefit4": "शासन भागीदारी",
+          "benefit5": "साझेदार नेटवर्किंग"
         },
         "advisor": {
-          "name": "Advisor",
-          "subtitle": "Advisor",
-          "incentive": "Up to 4M",
-          "requirement": "3+ years experience, Specialized Field",
-          "benefit1": "Monthly meetings",
-          "benefit2": "Technical documentation access",
-          "benefit3": "Community participation",
-          "benefit4": "Base incentives",
-          "benefit5": "Growth opportunities"
+          "name": "सलाहकार",
+          "subtitle": "सलाहकार",
+          "incentive": "4M तक",
+          "requirement": "3+ वर्ष अनुभव, विशेष क्षेत्र",
+          "benefit1": "मासिक बैठकें",
+          "benefit2": "तकनीकी दस्तावेज़ पहुंच",
+          "benefit3": "समुदाय भागीदारी",
+          "benefit4": "आधार प्रोत्साहन",
+          "benefit5": "विकास अवसर"
         }
       }
     },
     "currentAdvisors": {
-      "badge": "ADVISORS",
-      "title": "Current Advisors",
-      "subtitle": "Industry experts leading the TBURN ecosystem",
+      "badge": "सलाहकार",
+      "title": "वर्तमान सलाहकार",
+      "subtitle": "TBURN पारिस्थितिकी तंत्र का नेतृत्व करने वाले उद्योग विशेषज्ञ",
       "items": {
         "jk": {
           "initial": "JK",
-          "name": "Dr. John Kim",
-          "title": "CTO, Tech Corp",
-          "org": "Technology"
+          "name": "डॉ. जॉन किम",
+          "title": "CTO, टेक कॉर्प",
+          "org": "प्रौद्योगिकी"
         },
         "sp": {
           "initial": "SP",
-          "name": "Sarah Park",
-          "title": "CEO, Growth VC",
-          "org": "Business"
+          "name": "सारा पार्क",
+          "title": "CEO, ग्रोथ VC",
+          "org": "व्यवसाय"
         },
         "ml": {
           "initial": "ML",
-          "name": "Michael Lee",
-          "title": "Partner, Law Firm",
-          "org": "Legal"
+          "name": "माइकल ली",
+          "title": "पार्टनर, लॉ फर्म",
+          "org": "कानूनी"
         },
         "ec": {
           "initial": "EC",
-          "name": "Prof. Emma Choi",
-          "title": "Professor, KAIST",
-          "org": "Academic"
+          "name": "प्रो. एम्मा चोई",
+          "title": "प्रोफेसर, KAIST",
+          "org": "शैक्षणिक"
         }
       },
       "tierBadges": {
-        "principal": "PRINCIPAL",
-        "senior": "SENIOR"
+        "principal": "मुख्य",
+        "senior": "वरिष्ठ"
       }
     },
     "process": {
-      "badge": "PROCESS",
-      "title": "Application Process",
-      "subtitle": "5-step advisor application process",
-      "steps": {
-        "step1": {
-          "title": "Submit Application",
-          "desc": "Complete online application",
-          "duration": "1-3 days"
-        },
-        "step2": {
-          "title": "Document Review",
-          "desc": "Document review and evaluation",
-          "duration": "1-2 weeks"
-        },
-        "step3": {
-          "title": "Interview",
-          "desc": "In-depth interview",
-          "duration": "1-2 weeks"
-        },
-        "step4": {
-          "title": "Contract Signing",
-          "desc": "Advisory contract signature",
-          "duration": "1 week"
-        },
-        "step5": {
-          "title": "Onboarding",
-          "desc": "Begin advisory activities",
-          "duration": "1 week"
-        }
-      },
+      "badge": "प्रक्रिया",
+      "title": "आवेदन प्रक्रिया",
+      "subtitle": "5-चरण सलाहकार आवेदन प्रक्रिया",
       "items": {
         "step1": {
-          "title": "Online Application",
-          "desc": "Resume and portfolio submission",
-          "duration": "5 min"
+          "title": "ऑनलाइन आवेदन",
+          "desc": "रेज़्यूमे और पोर्टफोलियो जमा",
+          "duration": "5 मिनट"
         },
         "step2": {
-          "title": "Document Review",
-          "desc": "Expertise and experience verification",
-          "duration": "3-5 days"
+          "title": "दस्तावेज़ समीक्षा",
+          "desc": "विशेषज्ञता और अनुभव सत्यापन",
+          "duration": "3-5 दिन"
         },
         "step3": {
-          "title": "Interview",
-          "desc": "Video interview with existing advisors",
-          "duration": "1 week"
+          "title": "साक्षात्कार",
+          "desc": "मौजूदा सलाहकारों के साथ वीडियो साक्षात्कार",
+          "duration": "1 सप्ताह"
         },
         "step4": {
-          "title": "Contract",
-          "desc": "Advisory contract signing",
-          "duration": "1-2 days"
+          "title": "अनुबंध",
+          "desc": "सलाहकार अनुबंध हस्ताक्षर",
+          "duration": "1-2 दिन"
         },
         "step5": {
-          "title": "Onboarding",
-          "desc": "Official registration and orientation",
-          "duration": "1 week"
+          "title": "ऑनबोर्डिंग",
+          "desc": "आधिकारिक पंजीकरण और अभिविन्यास",
+          "duration": "1 सप्ताह"
         }
       }
     },
     "compensation": {
-      "badge": "COMPENSATION",
-      "title": "Compensation Structure",
-      "subtitle": "Transparent advisor compensation",
+      "badge": "मुआवज़ा",
+      "title": "मुआवज़ा संरचना",
+      "subtitle": "पारदर्शी सलाहकार मुआवज़ा",
       "items": {
         "token": {
-          "title": "Token Incentive",
-          "desc": "Annual TBURN allocation",
-          "value": "Up to 15M"
+          "title": "टोकन प्रोत्साहन",
+          "value": "15M तक",
+          "desc": "वार्षिक TBURN आवंटन"
         },
         "bonus": {
-          "title": "Performance Bonus",
-          "desc": "Contribution-based reward",
-          "value": "Up to 5M"
+          "title": "प्रदर्शन बोनस",
+          "value": "5M तक",
+          "desc": "योगदान-आधारित पुरस्कार"
         },
         "special": {
-          "title": "Special Incentive",
-          "desc": "Milestone achievement reward",
-          "value": "Up to 3M"
+          "title": "विशेष प्रोत्साहन",
+          "value": "3M तक",
+          "desc": "मील के पत्थर उपलब्धि पुरस्कार"
         }
       }
     },
     "faq": {
       "badge": "FAQ",
-      "title": "Frequently Asked Questions",
-      "subtitle": "Common questions about the advisor program",
+      "title": "अक्सर पूछे जाने वाले प्रश्न",
+      "subtitle": "सलाहकार कार्यक्रम के बारे में सामान्य प्रश्न",
       "items": {
         "q1": {
-          "question": "What are the advisor requirements?",
-          "answer": "A minimum of 3 years experience in a relevant field and expertise in blockchain or Web3 is required."
+          "question": "सलाहकार आवश्यकताएं क्या हैं?",
+          "answer": "संबंधित क्षेत्र में न्यूनतम 3 वर्ष का अनुभव और ब्लॉकचेन या Web3 में विशेषज्ञता आवश्यक है।"
         },
         "q2": {
-          "question": "What is the advisor contract period?",
-          "answer": "The basic contract period is 1 year, renewable annually based on contribution."
+          "question": "सलाहकार अनुबंध अवधि क्या है?",
+          "answer": "मूल अनुबंध अवधि 1 वर्ष है, योगदान के आधार पर वार्षिक नवीनीकरण।"
         },
         "q3": {
-          "question": "When are the token rewards paid?",
-          "answer": "Token rewards are paid quarterly according to the vesting schedule."
+          "question": "टोकन पुरस्कार कब दिए जाते हैं?",
+          "answer": "वेस्टिंग शेड्यूल के अनुसार टोकन पुरस्कार त्रैमासिक दिए जाते हैं।"
         },
         "q4": {
-          "question": "Is overseas application possible?",
-          "answer": "Yes, global experts from all countries are welcome to apply."
+          "question": "क्या विदेश से आवेदन संभव है?",
+          "answer": "हां, सभी देशों के वैश्विक विशेषज्ञों का स्वागत है।"
         },
         "q5": {
-          "question": "Can I hold multiple advisor positions?",
-          "answer": "Single field advisor positions are basic, but multiple field advisors may be appointed through special approval."
-        },
-        "q6": {
-          "question": "What is the application process?",
-          "answer": "Application submission (1-3 days) → Document review (1-2 weeks) → Interview (1-2 weeks) → Contract signing (1 week) → Onboarding (1 week), totaling 5-7 weeks. Fast-track process is available for urgent cases."
-        },
-        "q7": {
-          "question": "What are the special benefits for Principal Advisors?",
-          "answer": "Principal Advisors receive up to 15M TBURN annual incentive along with dedicated team assignment, board observer rights, exclusive information access, annual offline summit participation, and VIP networking. 10+ years of industry leader experience is required."
-        },
-        "q8": {
-          "question": "How do I apply for the advisor program?",
-          "answer": "Click the 'Apply to Advisor Program' button at the top of the page or contact advisor@tburn.io directly. Connecting your wallet enables faster review. Our dedicated team will contact you within 1-2 weeks."
+          "question": "क्या मैं कई सलाहकार पद रख सकता हूं?",
+          "answer": "एकल क्षेत्र सलाहकार पद मूल हैं, लेकिन विशेष अनुमोदन के माध्यम से बहु-क्षेत्र सलाहकार नियुक्त किए जा सकते हैं।"
         }
       }
     },
     "ctaSection": {
-      "title": "Become an Advisor",
-      "subtitle1": "Become a strategic partner in the TBURN ecosystem",
-      "subtitle2": "Receive 200M TBURN in rewards!",
-      "button": "Apply Now",
-      "toastDesc": "Check the advisor fields and apply now!",
-      "badge": "JOIN",
-      "subtitle": "Contribute your expertise to TBURN ecosystem growth and receive rewards.",
-      "applyButton": "Apply Now",
-      "learnButton": "Learn More"
+      "badge": "शामिल हों",
+      "title": "सलाहकार बनें",
+      "subtitle": "TBURN पारिस्थितिकी तंत्र के विकास में अपनी विशेषज्ञता का योगदान करें और पुरस्कार प्राप्त करें।",
+      "applyButton": "अभी आवेदन करें",
+      "learnButton": "और जानें"
     },
     "footer": {
-      "tagline1": "AI Intelligence, Blockchain Transparency",
-      "tagline2": "THE FUTURE IS NOW",
-      "product": "Product",
-      "mainnet": "Mainnet",
-      "explorer": "Explorer",
-      "bridge": "Bridge",
-      "staking": "Staking",
-      "resources": "Resources",
-      "whitepaper": "Whitepaper",
-      "docs": "Documentation",
-      "auditReport": "Audit Report",
-      "community": "Community",
-      "blog": "Blog",
-      "ambassador": "Ambassador",
-      "grants": "Grants",
-      "support": "Support",
-      "copyright": "2024 TBURN. All rights reserved.",
-      "terms": "Terms of Service",
-      "privacy": "Privacy Policy"
+      "copyright": "2024 TBURN. सर्वाधिकार सुरक्षित।",
+      "privacy": "गोपनीयता नीति",
+      "terms": "सेवा की शर्तें"
     }
   },
   "coinlist": {
