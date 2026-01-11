@@ -36304,217 +36304,247 @@
     "hero": {
       "badge": "어드바이저 프로그램",
       "title": "1억 TBURN",
-      "subtitle": "어드바이저 할당",
+      "subtitle": "기술, 비즈니스, 법률, 학술 분야의 전문가로 참여하여 TBURN 생태계 성장에 기여하고 보상을 받으세요.",
       "description": "업계 전문가와 어드바이저에 대한 할당. 전략적 가이던스, 기술 검토, 네트워크 확장 지원.",
-      "title1": "Become a TBURN Advisor,",
-      "title2": "200M TBURN",
-      "title3": "in Rewards"
+      "title1": "TBURN 어드바이저가 되세요,",
+      "title2": "2억 TBURN",
+      "title3": "보상 지급"
     },
     "stats": {
       "totalAllocation": "총 할당",
       "advisors": "어드바이저 수",
       "vested": "베스팅됨",
       "remaining": "잔여",
-      "totalBudget": "Total Advisory Budget",
-      "currentAdvisors": "Current Advisors",
-      "activeAdvisors": "Active Advisors",
-      "vestingPeriod": "Vesting Period (months)"
+      "totalBudget": "총 자문 예산",
+      "currentAdvisors": "현재 어드바이저",
+      "activeAdvisors": "활동 어드바이저",
+      "vestingPeriod": "베스팅 기간 (개월)"
     },
     "wallet": {
-      "disconnect": "지갑 연결 해제",
-      "disconnectDesc": "지갑 연결이 해제되었습니다",
-      "connect": "Connect Wallet",
-      "connected": "Wallet Connected",
-      "connectedDesc": "Your wallet is now connected.",
-      "required": "Wallet Connection Required",
-      "requiredDesc": "Please connect your wallet first to apply for advisor position."
+      "disconnect": "지갑 연결 해제됨",
+      "disconnectDesc": "지갑 연결이 해제되었습니다.",
+      "connect": "지갑 연결",
+      "connected": "지갑 연결됨",
+      "connectedDesc": "지갑이 연결되었습니다.",
+      "required": "지갑 연결 필요",
+      "requiredDesc": "어드바이저 지원을 위해 먼저 지갑을 연결해주세요."
     },
-    "title": "Advisor Program",
-    "badge": "ADVISOR PROGRAM - Expert Advisory Board",
+    "title": "어드바이저 프로그램",
+    "badge": "어드바이저 프로그램 - 전문 자문단",
     "nav": {
-      "advisorRoles": "Advisor Roles",
-      "tiers": "Tiers",
-      "currentAdvisors": "Current Advisors",
-      "applicationProcess": "Application Process",
+      "advisorRoles": "어드바이저 역할",
+      "tiers": "등급",
+      "currentAdvisors": "현재 어드바이저",
+      "applicationProcess": "지원 절차",
       "faq": "FAQ"
     },
     "advisorPreviews": {
       "jk": {
         "initial": "JK",
-        "name": "Dr. John Kim",
-        "role": "Tech Advisor"
+        "name": "김존 박사",
+        "role": "기술 어드바이저"
       },
       "sp": {
         "initial": "SP",
-        "name": "Sarah Park",
-        "role": "Business Advisor"
+        "name": "박사라",
+        "role": "비즈니스 어드바이저"
       },
       "ml": {
         "initial": "ML",
-        "name": "Michael Lee",
-        "role": "Legal Advisor"
+        "name": "이마이클",
+        "role": "법률 어드바이저"
       },
       "ec": {
         "initial": "EC",
-        "name": "Emma Choi",
-        "role": "Academic Advisor"
+        "name": "최엠마 교수",
+        "role": "학술 어드바이저"
       }
     },
     "cta": {
-      "applyButton": "Apply to Advisor Program",
-      "guideButton": "Advisor Guide",
-      "applyAdvisor": "Advisor Application",
-      "applyAdvisorDesc": "Check the advisor fields and apply now!",
-      "advisorGuide": "Advisor Guide",
-      "advisorGuideDesc": "Check the application process."
+      "applyButton": "어드바이저 지원하기",
+      "guideButton": "어드바이저 가이드",
+      "applyAdvisor": "어드바이저 지원",
+      "applyAdvisorDesc": "어드바이저 분야를 확인하고 지금 지원하세요!",
+      "advisorGuide": "어드바이저 가이드",
+      "advisorGuideDesc": "지원 절차를 확인하세요."
     },
     "roleApply": {
-      "title": "{{role}} Application",
-      "description": "Your {{role}} application has been submitted. We will contact you after document review."
+      "title": "{{role}} 지원",
+      "description": "{{role}} 지원이 접수되었습니다. 서류 검토 후 연락드리겠습니다."
     },
     "tierApply": {
-      "title": "{{tier}} Application",
-      "description": "Your {{tier}} ({{incentive}} TBURN) application has been submitted. We will guide you after review."
+      "title": "{{tier}} 지원",
+      "description": "{{tier}} ({{incentive}} TBURN) 지원이 접수되었습니다. 검토 후 안내드리겠습니다."
     },
     "distribution": {
-      "badge": "DISTRIBUTION",
-      "title": "Advisory Budget Allocation",
-      "subtitle": "200M TBURN distributed across 5 advisory fields",
+      "badge": "배분",
+      "title": "자문 예산 배분",
+      "subtitle": "5개 자문 분야에 2억 TBURN 배분",
       "items": {
         "tech": {
-          "name": "Tech Advisory",
-          "amount": "60M",
+          "name": "기술 자문",
+          "amount": "6천만",
           "percent": "30%"
         },
         "business": {
-          "name": "Business Advisory",
-          "amount": "40M",
+          "name": "비즈니스 자문",
+          "amount": "4천만",
           "percent": "20%"
         },
         "legal": {
-          "name": "Legal Advisory",
-          "amount": "40M",
+          "name": "법률 자문",
+          "amount": "4천만",
           "percent": "20%"
         },
         "academic": {
-          "name": "Academic Advisory",
-          "amount": "30M",
+          "name": "학술 자문",
+          "amount": "3천만",
           "percent": "15%"
         },
         "industry": {
-          "name": "Industry Advisory",
-          "amount": "30M",
+          "name": "산업 자문",
+          "amount": "3천만",
           "percent": "15%"
         }
       }
     },
     "roles": {
-      "badge": "ROLES",
-      "title": "Advisory Fields",
-      "subtitle": "Advisor roles by specialized fields",
-      "applyButton": "Apply",
+      "badge": "역할",
+      "title": "자문 분야",
+      "subtitle": "전문 분야별 어드바이저 역할",
+      "applyButton": "지원하기",
       "items": {
         "tech": {
-          "title": "Tech Advisor",
-          "subtitle": "Blockchain, AI, Security Expert",
-          "reward1Value": "Up to 10M",
-          "reward1Label": "Annual Reward",
-          "reward2Value": "Quarterly",
-          "reward2Label": "Tech Review",
-          "resp1": "Code review and architecture consulting",
-          "resp2": "Security audit participation",
-          "resp3": "Technical roadmap review",
-          "resp4": "New technology trend analysis"
+          "title": "기술 어드바이저",
+          "subtitle": "블록체인, AI, 보안 전문가",
+          "reward1Value": "최대 1천만",
+          "reward1Label": "연간 보상",
+          "reward2Value": "분기별",
+          "reward2Label": "기술 검토",
+          "resp1": "코드 리뷰 및 아키텍처 컨설팅",
+          "resp2": "보안 감사 참여",
+          "resp3": "기술 로드맵 검토",
+          "resp4": "신기술 트렌드 분석"
         },
         "business": {
-          "title": "Business Advisor",
-          "subtitle": "Management, Strategy, Marketing Expert",
-          "reward1Value": "Up to 8M",
-          "reward1Label": "Annual Reward",
-          "reward2Value": "Monthly",
-          "reward2Label": "Strategy Meeting",
-          "resp1": "Business strategy consulting",
-          "resp2": "Partnership networking",
-          "resp3": "Market analysis and insights",
-          "resp4": "Growth strategy development"
+          "title": "비즈니스 어드바이저",
+          "subtitle": "경영, 전략, 마케팅 전문가",
+          "reward1Value": "최대 8백만",
+          "reward1Label": "연간 보상",
+          "reward2Value": "월별",
+          "reward2Label": "전략 회의",
+          "resp1": "사업 전략 컨설팅",
+          "resp2": "파트너십 네트워킹",
+          "resp3": "시장 분석 및 인사이트",
+          "resp4": "성장 전략 개발"
         },
         "legal": {
-          "title": "Legal Advisor",
-          "subtitle": "Blockchain Regulation, Compliance",
-          "reward1Value": "Up to 8M",
-          "reward1Label": "Annual Reward",
-          "reward2Value": "As Needed",
-          "reward2Label": "Legal Review",
-          "resp1": "Regulatory trend analysis",
-          "resp2": "Compliance consulting",
-          "resp3": "Contract review",
-          "resp4": "Risk management"
+          "title": "법률 어드바이저",
+          "subtitle": "블록체인 규제, 컴플라이언스",
+          "reward1Value": "최대 8백만",
+          "reward1Label": "연간 보상",
+          "reward2Value": "필요시",
+          "reward2Label": "법률 검토",
+          "resp1": "규제 동향 분석",
+          "resp2": "컴플라이언스 컨설팅",
+          "resp3": "계약 검토",
+          "resp4": "리스크 관리"
         },
         "academic": {
-          "title": "Academic Advisor",
-          "subtitle": "University Professors, Researchers",
-          "reward1Value": "Up to 6M",
-          "reward1Label": "Annual Reward",
-          "reward2Value": "Quarterly",
-          "reward2Label": "Research Collaboration",
-          "resp1": "Academic research collaboration",
-          "resp2": "Whitepaper review",
-          "resp3": "Educational content development",
-          "resp4": "Academic networking"
+          "title": "학술 어드바이저",
+          "subtitle": "대학 교수, 연구원",
+          "reward1Value": "최대 6백만",
+          "reward1Label": "연간 보상",
+          "reward2Value": "분기별",
+          "reward2Label": "연구 협력",
+          "resp1": "학술 연구 협력",
+          "resp2": "백서 검토",
+          "resp3": "교육 콘텐츠 개발",
+          "resp4": "학술 네트워킹"
         }
       }
     },
     "tiers": {
-      "badge": "TIERS",
-      "title": "Advisor Tiers",
-      "subtitle": "Tier-based benefits by experience and contribution",
-      "incentiveLabel": "Annual Incentive",
-      "applyButton": "Apply",
+      "badge": "등급",
+      "title": "어드바이저 등급",
+      "subtitle": "경험과 기여도에 따른 등급별 혜택",
+      "incentiveLabel": "연간 인센티브",
+      "applyButton": "지원하기",
       "items": {
         "principal": {
-          "name": "Principal Advisor",
-          "subtitle": "Chief Advisor",
-          "incentive": "Up to 15M",
-          "requirement": "10+ years experience, Industry Leader",
-          "benefit1": "Dedicated team assignment",
-          "benefit2": "Board observer rights",
-          "benefit3": "Exclusive information access",
-          "benefit4": "Annual offline summit",
-          "benefit5": "VIP networking"
+          "name": "수석 어드바이저",
+          "subtitle": "최고 어드바이저",
+          "incentive": "최대 1천5백만",
+          "requirement": "10년 이상 경력, 업계 리더",
+          "benefit1": "전담팀 배정",
+          "benefit2": "이사회 참관권",
+          "benefit3": "독점 정보 접근",
+          "benefit4": "연간 오프라인 서밋",
+          "benefit5": "VIP 네트워킹"
         },
         "senior": {
-          "name": "Senior Advisor",
-          "subtitle": "Senior Advisor",
-          "incentive": "Up to 8M",
-          "requirement": "5+ years experience, Expert",
-          "benefit1": "Priority support",
-          "benefit2": "Quarterly strategy meetings",
-          "benefit3": "Early access",
-          "benefit4": "Governance participation",
-          "benefit5": "Partner networking"
+          "name": "시니어 어드바이저",
+          "subtitle": "선임 어드바이저",
+          "incentive": "최대 8백만",
+          "requirement": "5년 이상 경력, 전문가",
+          "benefit1": "우선 지원",
+          "benefit2": "분기별 전략 회의",
+          "benefit3": "얼리 액세스",
+          "benefit4": "거버넌스 참여",
+          "benefit5": "파트너 네트워킹"
         },
         "advisor": {
-          "name": "Advisor",
-          "subtitle": "Advisor",
-          "incentive": "Up to 4M",
-          "requirement": "3+ years experience, Specialized Field",
-          "benefit1": "Monthly meetings",
-          "benefit2": "Technical documentation access",
-          "benefit3": "Community participation",
-          "benefit4": "Base incentives",
-          "benefit5": "Growth opportunities"
+          "name": "어드바이저",
+          "subtitle": "어드바이저",
+          "incentive": "최대 4백만",
+          "requirement": "3년 이상 경력, 전문 분야",
+          "benefit1": "월간 미팅",
+          "benefit2": "기술 문서 접근",
+          "benefit3": "커뮤니티 참여",
+          "benefit4": "기본 인센티브",
+          "benefit5": "성장 기회"
         }
       }
     },
     "currentAdvisors": {
-      "badge": "ADVISORS",
-      "title": "Current Advisory Board",
-      "subtitle": "Experts working with us"
+      "badge": "어드바이저",
+      "title": "현재 어드바이저",
+      "subtitle": "TBURN 생태계를 이끄는 업계 전문가",
+      "items": {
+        "jk": {
+          "initial": "JK",
+          "name": "김존 박사",
+          "title": "CTO, 테크 코프",
+          "org": "기술"
+        },
+        "sp": {
+          "initial": "SP",
+          "name": "박사라",
+          "title": "CEO, 그로스 VC",
+          "org": "비즈니스"
+        },
+        "ml": {
+          "initial": "ML",
+          "name": "이마이클",
+          "title": "파트너, 로펌",
+          "org": "법률"
+        },
+        "ec": {
+          "initial": "EC",
+          "name": "최엠마 교수",
+          "title": "교수, KAIST",
+          "org": "학술"
+        }
+      },
+      "tierBadges": {
+        "principal": "수석",
+        "senior": "시니어"
+      }
     },
     "process": {
-      "badge": "PROCESS",
-      "title": "Application Process",
-      "subtitle": "Advisor selection procedure",
+      "badge": "절차",
+      "title": "지원 절차",
+      "subtitle": "5단계 어드바이저 지원 프로세스",
       "steps": {
         "step1": {
           "title": "Submit Application",
@@ -36541,54 +36571,81 @@
           "desc": "Begin advisory activities",
           "duration": "1 week"
         }
+      },
+      "items": {
+        "step1": {
+          "title": "온라인 지원",
+          "desc": "이력서 및 포트폴리오 제출",
+          "duration": "5분"
+        },
+        "step2": {
+          "title": "서류 검토",
+          "desc": "전문성 및 경력 확인",
+          "duration": "3-5일"
+        },
+        "step3": {
+          "title": "인터뷰",
+          "desc": "기존 어드바이저와 화상 면접",
+          "duration": "1주"
+        },
+        "step4": {
+          "title": "계약",
+          "desc": "자문 계약 체결",
+          "duration": "1-2일"
+        },
+        "step5": {
+          "title": "온보딩",
+          "desc": "공식 등록 및 오리엔테이션",
+          "duration": "1주"
+        }
       }
     },
     "compensation": {
-      "badge": "COMPENSATION",
-      "title": "Compensation Structure",
-      "subtitle": "Advisor compensation components",
+      "badge": "보상",
+      "title": "보상 구조",
+      "subtitle": "투명한 어드바이저 보상",
       "items": {
         "token": {
-          "title": "Token Incentive",
-          "desc": "Quarterly TBURN token distribution",
-          "value": "Up to 15M TBURN/year"
+          "title": "토큰 인센티브",
+          "desc": "연간 TBURN 배정",
+          "value": "최대 1천5백만"
         },
         "bonus": {
-          "title": "Performance Bonus",
-          "desc": "Additional rewards for goal achievement",
-          "value": "Up to 50% of base"
+          "title": "성과 보너스",
+          "desc": "기여도 기반 보상",
+          "value": "최대 5백만"
         },
         "special": {
-          "title": "Special Benefits",
-          "desc": "Event invitations, NFT airdrops",
-          "value": "Various annual benefits"
+          "title": "특별 인센티브",
+          "desc": "마일스톤 달성 보상",
+          "value": "최대 3백만"
         }
       }
     },
     "faq": {
       "badge": "FAQ",
-      "title": "Frequently Asked Questions",
-      "subtitle": "Questions about the advisor program",
+      "title": "자주 묻는 질문",
+      "subtitle": "어드바이저 프로그램 관련 일반 질문",
       "items": {
         "q1": {
-          "question": "What is the total budget for the advisor program?",
-          "answer": "The advisor program has a total allocation of 200M TBURN. It is distributed as: Tech Advisory 30% (60M), Business Advisory 20% (40M), Legal Advisory 20% (40M), Academic Advisory 15% (30M), Industry Advisory 15% (30M)."
+          "question": "어드바이저 자격 요건은?",
+          "answer": "관련 분야 최소 3년 경력과 블록체인 또는 Web3 전문성이 필요합니다."
         },
         "q2": {
-          "question": "What qualifications are needed to become an advisor?",
-          "answer": "Minimum 3 years of experience in your field is required, along with a portfolio or track record demonstrating expertise. Principal Advisor requires 10+ years (up to 15M TBURN), Senior Advisor 5+ years (up to 8M), and Advisor 3+ years (up to 4M) of experience."
+          "question": "어드바이저 계약 기간은?",
+          "answer": "기본 계약 기간은 1년이며, 기여도에 따라 매년 갱신됩니다."
         },
         "q3": {
-          "question": "How are advisory activities conducted?",
-          "answer": "Participation includes regular meetings (monthly/quarterly), document review, strategic consulting, and networking. Online meetings are primary, with offline workshops as needed. Advisory scope and time vary by tier."
+          "question": "토큰 보상은 언제 지급되나요?",
+          "answer": "토큰 보상은 베스팅 일정에 따라 분기별로 지급됩니다."
         },
         "q4": {
-          "question": "How are rewards distributed?",
-          "answer": "Token incentives are distributed quarterly, unlocking progressively over a 24-month vesting schedule. Performance bonuses (up to 50% of base) are paid after semi-annual evaluations. Special benefits like event invitations and NFT airdrops are provided regularly."
+          "question": "해외 지원이 가능한가요?",
+          "answer": "네, 모든 국가의 글로벌 전문가를 환영합니다."
         },
         "q5": {
-          "question": "What is the advisory contract duration?",
-          "answer": "The base contract period is 1 year, renewable by mutual agreement. High-performing advisors receive automatic renewal options. There is a 30-day notice clause before contract termination."
+          "question": "여러 어드바이저 직책을 맡을 수 있나요?",
+          "answer": "단일 분야 어드바이저가 기본이지만, 특별 승인을 통해 다중 분야 어드바이저가 될 수 있습니다."
         },
         "q6": {
           "question": "What is the application process?",
@@ -36605,11 +36662,15 @@
       }
     },
     "ctaSection": {
-      "title": "Join the Expert Advisory Board",
+      "title": "어드바이저가 되세요",
       "subtitle1": "Become a strategic partner in the TBURN ecosystem",
       "subtitle2": "Receive 200M TBURN in rewards!",
       "button": "Apply Now",
-      "toastDesc": "Check the advisor fields and apply now!"
+      "toastDesc": "Check the advisor fields and apply now!",
+      "badge": "참여",
+      "subtitle": "전문 지식을 TBURN 생태계 성장에 기여하고 보상을 받으세요.",
+      "applyButton": "지금 지원하기",
+      "learnButton": "더 알아보기"
     },
     "footer": {
       "tagline1": "AI Intelligence, Blockchain Transparency",
@@ -36628,9 +36689,9 @@
       "ambassador": "Ambassador",
       "grants": "Grants",
       "support": "Support",
-      "copyright": "© 2025-2045 TBURN Foundation. All Rights Reserved.",
-      "terms": "Terms of Service",
-      "privacy": "Privacy Policy"
+      "copyright": "2024 TBURN. 모든 권리 보유.",
+      "terms": "이용약관",
+      "privacy": "개인정보 처리방침"
     }
   },
   "coinlist": {

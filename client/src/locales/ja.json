@@ -25354,217 +25354,247 @@
     "hero": {
       "badge": "アドバイザープログラム",
       "title": "1億 TBURN",
-      "subtitle": "アドバイザー配分",
+      "subtitle": "テクノロジー、ビジネス、法律、学術分野の専門家として参加し、TBURNエコシステムの成長に貢献して報酬を得ましょう。",
       "description": "業界専門家とアドバイザーへの配分。戦略的ガイダンス、技術レビュー、ネットワーク拡大を支援。",
-      "title1": "Become a TBURN Advisor,",
-      "title2": "200M TBURN",
-      "title3": "in Rewards"
+      "title1": "TBURNアドバイザーになろう、",
+      "title2": "2億TBURN",
+      "title3": "報酬"
     },
     "stats": {
       "totalAllocation": "総配分量",
       "advisors": "アドバイザー数",
       "vested": "ベスティング済み",
       "remaining": "残高",
-      "totalBudget": "Total Advisory Budget",
-      "currentAdvisors": "Current Advisors",
-      "activeAdvisors": "Active Advisors",
-      "vestingPeriod": "Vesting Period (months)"
+      "totalBudget": "総アドバイザリー予算",
+      "currentAdvisors": "現在のアドバイザー",
+      "activeAdvisors": "アクティブアドバイザー",
+      "vestingPeriod": "ベスティング期間（月）"
     },
     "wallet": {
-      "disconnect": "ウォレット切断",
-      "disconnectDesc": "ウォレットが切断されました",
-      "connect": "Connect Wallet",
-      "connected": "Wallet Connected",
-      "connectedDesc": "Your wallet is now connected.",
-      "required": "Wallet Connection Required",
-      "requiredDesc": "Please connect your wallet first to apply for advisor position."
+      "disconnect": "ウォレット切断済み",
+      "disconnectDesc": "ウォレットが切断されました。",
+      "connect": "ウォレット接続",
+      "connected": "ウォレット接続済み",
+      "connectedDesc": "ウォレットが接続されました。",
+      "required": "ウォレット接続必須",
+      "requiredDesc": "アドバイザー応募には先にウォレットを接続してください。"
     },
-    "title": "Advisor Program",
-    "badge": "ADVISOR PROGRAM - Expert Advisory Board",
+    "title": "アドバイザープログラム",
+    "badge": "アドバイザープログラム - 専門アドバイザリーボード",
     "nav": {
-      "advisorRoles": "Advisor Roles",
-      "tiers": "Tiers",
-      "currentAdvisors": "Current Advisors",
-      "applicationProcess": "Application Process",
+      "advisorRoles": "アドバイザーの役割",
+      "tiers": "ティア",
+      "currentAdvisors": "現在のアドバイザー",
+      "applicationProcess": "応募プロセス",
       "faq": "FAQ"
     },
     "advisorPreviews": {
       "jk": {
         "initial": "JK",
-        "name": "Dr. John Kim",
-        "role": "Tech Advisor"
+        "name": "キム・ジョン博士",
+        "role": "テックアドバイザー"
       },
       "sp": {
         "initial": "SP",
-        "name": "Sarah Park",
-        "role": "Business Advisor"
+        "name": "パク・サラ",
+        "role": "ビジネスアドバイザー"
       },
       "ml": {
         "initial": "ML",
-        "name": "Michael Lee",
-        "role": "Legal Advisor"
+        "name": "リー・マイケル",
+        "role": "法務アドバイザー"
       },
       "ec": {
         "initial": "EC",
-        "name": "Emma Choi",
-        "role": "Academic Advisor"
+        "name": "チェ・エマ教授",
+        "role": "学術アドバイザー"
       }
     },
     "cta": {
-      "applyButton": "Apply to Advisor Program",
-      "guideButton": "Advisor Guide",
-      "applyAdvisor": "Advisor Application",
-      "applyAdvisorDesc": "Check the advisor fields and apply now!",
-      "advisorGuide": "Advisor Guide",
-      "advisorGuideDesc": "Check the application process."
+      "applyButton": "アドバイザーに応募",
+      "guideButton": "アドバイザーガイド",
+      "applyAdvisor": "アドバイザー応募",
+      "applyAdvisorDesc": "アドバイザー分野を確認して今すぐ応募！",
+      "advisorGuide": "アドバイザーガイド",
+      "advisorGuideDesc": "応募プロセスを確認してください。"
     },
     "roleApply": {
-      "title": "{{role}} Application",
-      "description": "Your {{role}} application has been submitted. We will contact you after document review."
+      "title": "{{role}}応募",
+      "description": "{{role}}の応募が提出されました。書類審査後にご連絡いたします。"
     },
     "tierApply": {
-      "title": "{{tier}} Application",
-      "description": "Your {{tier}} ({{incentive}} TBURN) application has been submitted. We will guide you after review."
+      "title": "{{tier}}応募",
+      "description": "{{tier}}（{{incentive}} TBURN）の応募が提出されました。審査後にご案内いたします。"
     },
     "distribution": {
-      "badge": "DISTRIBUTION",
-      "title": "Advisory Budget Allocation",
-      "subtitle": "200M TBURN distributed across 5 advisory fields",
+      "badge": "配分",
+      "title": "アドバイザリー予算配分",
+      "subtitle": "5つのアドバイザリー分野に2億TBURN配分",
       "items": {
         "tech": {
-          "name": "Tech Advisory",
-          "amount": "60M",
+          "name": "テックアドバイザリー",
+          "amount": "6千万",
           "percent": "30%"
         },
         "business": {
-          "name": "Business Advisory",
-          "amount": "40M",
+          "name": "ビジネスアドバイザリー",
+          "amount": "4千万",
           "percent": "20%"
         },
         "legal": {
-          "name": "Legal Advisory",
-          "amount": "40M",
+          "name": "法務アドバイザリー",
+          "amount": "4千万",
           "percent": "20%"
         },
         "academic": {
-          "name": "Academic Advisory",
-          "amount": "30M",
+          "name": "学術アドバイザリー",
+          "amount": "3千万",
           "percent": "15%"
         },
         "industry": {
-          "name": "Industry Advisory",
-          "amount": "30M",
+          "name": "産業アドバイザリー",
+          "amount": "3千万",
           "percent": "15%"
         }
       }
     },
     "roles": {
-      "badge": "ROLES",
-      "title": "Advisory Fields",
-      "subtitle": "Advisor roles by specialized fields",
-      "applyButton": "Apply",
+      "badge": "役割",
+      "title": "アドバイザリー分野",
+      "subtitle": "専門分野別アドバイザーの役割",
+      "applyButton": "応募する",
       "items": {
         "tech": {
-          "title": "Tech Advisor",
-          "subtitle": "Blockchain, AI, Security Expert",
-          "reward1Value": "Up to 10M",
-          "reward1Label": "Annual Reward",
-          "reward2Value": "Quarterly",
-          "reward2Label": "Tech Review",
-          "resp1": "Code review and architecture consulting",
-          "resp2": "Security audit participation",
-          "resp3": "Technical roadmap review",
-          "resp4": "New technology trend analysis"
+          "title": "テックアドバイザー",
+          "subtitle": "ブロックチェーン、AI、セキュリティ専門家",
+          "reward1Value": "最大1千万",
+          "reward1Label": "年間報酬",
+          "reward2Value": "四半期",
+          "reward2Label": "技術レビュー",
+          "resp1": "コードレビューとアーキテクチャコンサルティング",
+          "resp2": "セキュリティ監査参加",
+          "resp3": "技術ロードマップレビュー",
+          "resp4": "新技術トレンド分析"
         },
         "business": {
-          "title": "Business Advisor",
-          "subtitle": "Management, Strategy, Marketing Expert",
-          "reward1Value": "Up to 8M",
-          "reward1Label": "Annual Reward",
-          "reward2Value": "Monthly",
-          "reward2Label": "Strategy Meeting",
-          "resp1": "Business strategy consulting",
-          "resp2": "Partnership networking",
-          "resp3": "Market analysis and insights",
-          "resp4": "Growth strategy development"
+          "title": "ビジネスアドバイザー",
+          "subtitle": "経営、戦略、マーケティング専門家",
+          "reward1Value": "最大8百万",
+          "reward1Label": "年間報酬",
+          "reward2Value": "月次",
+          "reward2Label": "戦略会議",
+          "resp1": "事業戦略コンサルティング",
+          "resp2": "パートナーシップネットワーキング",
+          "resp3": "市場分析とインサイト",
+          "resp4": "成長戦略開発"
         },
         "legal": {
-          "title": "Legal Advisor",
-          "subtitle": "Blockchain Regulation, Compliance",
-          "reward1Value": "Up to 8M",
-          "reward1Label": "Annual Reward",
-          "reward2Value": "As Needed",
-          "reward2Label": "Legal Review",
-          "resp1": "Regulatory trend analysis",
-          "resp2": "Compliance consulting",
-          "resp3": "Contract review",
-          "resp4": "Risk management"
+          "title": "法務アドバイザー",
+          "subtitle": "ブロックチェーン規制、コンプライアンス",
+          "reward1Value": "最大8百万",
+          "reward1Label": "年間報酬",
+          "reward2Value": "随時",
+          "reward2Label": "法務レビュー",
+          "resp1": "規制動向分析",
+          "resp2": "コンプライアンスコンサルティング",
+          "resp3": "契約レビュー",
+          "resp4": "リスク管理"
         },
         "academic": {
-          "title": "Academic Advisor",
-          "subtitle": "University Professors, Researchers",
-          "reward1Value": "Up to 6M",
-          "reward1Label": "Annual Reward",
-          "reward2Value": "Quarterly",
-          "reward2Label": "Research Collaboration",
-          "resp1": "Academic research collaboration",
-          "resp2": "Whitepaper review",
-          "resp3": "Educational content development",
-          "resp4": "Academic networking"
+          "title": "学術アドバイザー",
+          "subtitle": "大学教授、研究者",
+          "reward1Value": "最大6百万",
+          "reward1Label": "年間報酬",
+          "reward2Value": "四半期",
+          "reward2Label": "研究協力",
+          "resp1": "学術研究協力",
+          "resp2": "ホワイトペーパーレビュー",
+          "resp3": "教育コンテンツ開発",
+          "resp4": "学術ネットワーキング"
         }
       }
     },
     "tiers": {
-      "badge": "TIERS",
-      "title": "Advisor Tiers",
-      "subtitle": "Tier-based benefits by experience and contribution",
-      "incentiveLabel": "Annual Incentive",
-      "applyButton": "Apply",
+      "badge": "ティア",
+      "title": "アドバイザーティア",
+      "subtitle": "経験と貢献度によるティア別特典",
+      "incentiveLabel": "年間インセンティブ",
+      "applyButton": "応募する",
       "items": {
         "principal": {
-          "name": "Principal Advisor",
-          "subtitle": "Chief Advisor",
-          "incentive": "Up to 15M",
-          "requirement": "10+ years experience, Industry Leader",
-          "benefit1": "Dedicated team assignment",
-          "benefit2": "Board observer rights",
-          "benefit3": "Exclusive information access",
-          "benefit4": "Annual offline summit",
-          "benefit5": "VIP networking"
+          "name": "プリンシパルアドバイザー",
+          "subtitle": "チーフアドバイザー",
+          "incentive": "最大1千5百万",
+          "requirement": "10年以上の経験、業界リーダー",
+          "benefit1": "専任チーム配置",
+          "benefit2": "取締役会オブザーバー権",
+          "benefit3": "独占情報アクセス",
+          "benefit4": "年間オフラインサミット",
+          "benefit5": "VIPネットワーキング"
         },
         "senior": {
-          "name": "Senior Advisor",
-          "subtitle": "Senior Advisor",
-          "incentive": "Up to 8M",
-          "requirement": "5+ years experience, Expert",
-          "benefit1": "Priority support",
-          "benefit2": "Quarterly strategy meetings",
-          "benefit3": "Early access",
-          "benefit4": "Governance participation",
-          "benefit5": "Partner networking"
+          "name": "シニアアドバイザー",
+          "subtitle": "シニアアドバイザー",
+          "incentive": "最大8百万",
+          "requirement": "5年以上の経験、専門家",
+          "benefit1": "優先サポート",
+          "benefit2": "四半期戦略会議",
+          "benefit3": "アーリーアクセス",
+          "benefit4": "ガバナンス参加",
+          "benefit5": "パートナーネットワーキング"
         },
         "advisor": {
-          "name": "Advisor",
-          "subtitle": "Advisor",
-          "incentive": "Up to 4M",
-          "requirement": "3+ years experience, Specialized Field",
-          "benefit1": "Monthly meetings",
-          "benefit2": "Technical documentation access",
-          "benefit3": "Community participation",
-          "benefit4": "Base incentives",
-          "benefit5": "Growth opportunities"
+          "name": "アドバイザー",
+          "subtitle": "アドバイザー",
+          "incentive": "最大4百万",
+          "requirement": "3年以上の経験、専門分野",
+          "benefit1": "月次ミーティング",
+          "benefit2": "技術文書アクセス",
+          "benefit3": "コミュニティ参加",
+          "benefit4": "基本インセンティブ",
+          "benefit5": "成長機会"
         }
       }
     },
     "currentAdvisors": {
-      "badge": "ADVISORS",
-      "title": "Current Advisory Board",
-      "subtitle": "Experts working with us"
+      "badge": "アドバイザー",
+      "title": "現在のアドバイザー",
+      "subtitle": "TBURNエコシステムを率いる業界専門家",
+      "items": {
+        "jk": {
+          "initial": "JK",
+          "name": "キム・ジョン博士",
+          "title": "CTO、テックコープ",
+          "org": "テクノロジー"
+        },
+        "sp": {
+          "initial": "SP",
+          "name": "パク・サラ",
+          "title": "CEO、グロースVC",
+          "org": "ビジネス"
+        },
+        "ml": {
+          "initial": "ML",
+          "name": "リー・マイケル",
+          "title": "パートナー、法律事務所",
+          "org": "法務"
+        },
+        "ec": {
+          "initial": "EC",
+          "name": "チェ・エマ教授",
+          "title": "教授、KAIST",
+          "org": "学術"
+        }
+      },
+      "tierBadges": {
+        "principal": "プリンシパル",
+        "senior": "シニア"
+      }
     },
     "process": {
-      "badge": "PROCESS",
-      "title": "Application Process",
-      "subtitle": "Advisor selection procedure",
+      "badge": "プロセス",
+      "title": "応募プロセス",
+      "subtitle": "5ステップのアドバイザー応募プロセス",
       "steps": {
         "step1": {
           "title": "Submit Application",
@@ -25591,54 +25621,81 @@
           "desc": "Begin advisory activities",
           "duration": "1 week"
         }
+      },
+      "items": {
+        "step1": {
+          "title": "オンライン応募",
+          "desc": "履歴書とポートフォリオ提出",
+          "duration": "5分"
+        },
+        "step2": {
+          "title": "書類審査",
+          "desc": "専門性と経験の確認",
+          "duration": "3-5日"
+        },
+        "step3": {
+          "title": "面接",
+          "desc": "既存アドバイザーとのビデオ面接",
+          "duration": "1週間"
+        },
+        "step4": {
+          "title": "契約",
+          "desc": "アドバイザリー契約締結",
+          "duration": "1-2日"
+        },
+        "step5": {
+          "title": "オンボーディング",
+          "desc": "正式登録とオリエンテーション",
+          "duration": "1週間"
+        }
       }
     },
     "compensation": {
-      "badge": "COMPENSATION",
-      "title": "Compensation Structure",
-      "subtitle": "Advisor compensation components",
+      "badge": "報酬",
+      "title": "報酬体系",
+      "subtitle": "透明なアドバイザー報酬",
       "items": {
         "token": {
-          "title": "Token Incentive",
-          "desc": "Quarterly TBURN token distribution",
-          "value": "Up to 15M TBURN/year"
+          "title": "トークンインセンティブ",
+          "desc": "年間TBURN配分",
+          "value": "最大1千5百万"
         },
         "bonus": {
-          "title": "Performance Bonus",
-          "desc": "Additional rewards for goal achievement",
-          "value": "Up to 50% of base"
+          "title": "パフォーマンスボーナス",
+          "desc": "貢献度ベースの報酬",
+          "value": "最大5百万"
         },
         "special": {
-          "title": "Special Benefits",
-          "desc": "Event invitations, NFT airdrops",
-          "value": "Various annual benefits"
+          "title": "特別インセンティブ",
+          "desc": "マイルストーン達成報酬",
+          "value": "最大3百万"
         }
       }
     },
     "faq": {
       "badge": "FAQ",
-      "title": "Frequently Asked Questions",
-      "subtitle": "Questions about the advisor program",
+      "title": "よくある質問",
+      "subtitle": "アドバイザープログラムに関する一般的な質問",
       "items": {
         "q1": {
-          "question": "What is the total budget for the advisor program?",
-          "answer": "The advisor program has a total allocation of 200M TBURN. It is distributed as: Tech Advisory 30% (60M), Business Advisory 20% (40M), Legal Advisory 20% (40M), Academic Advisory 15% (30M), Industry Advisory 15% (30M)."
+          "question": "アドバイザーの要件は？",
+          "answer": "関連分野で最低3年の経験とブロックチェーンまたはWeb3の専門知識が必要です。"
         },
         "q2": {
-          "question": "What qualifications are needed to become an advisor?",
-          "answer": "Minimum 3 years of experience in your field is required, along with a portfolio or track record demonstrating expertise. Principal Advisor requires 10+ years (up to 15M TBURN), Senior Advisor 5+ years (up to 8M), and Advisor 3+ years (up to 4M) of experience."
+          "question": "アドバイザー契約期間は？",
+          "answer": "基本契約期間は1年で、貢献度に応じて毎年更新されます。"
         },
         "q3": {
-          "question": "How are advisory activities conducted?",
-          "answer": "Participation includes regular meetings (monthly/quarterly), document review, strategic consulting, and networking. Online meetings are primary, with offline workshops as needed. Advisory scope and time vary by tier."
+          "question": "トークン報酬はいつ支払われますか？",
+          "answer": "トークン報酬はベスティングスケジュールに従い四半期ごとに支払われます。"
         },
         "q4": {
-          "question": "How are rewards distributed?",
-          "answer": "Token incentives are distributed quarterly, unlocking progressively over a 24-month vesting schedule. Performance bonuses (up to 50% of base) are paid after semi-annual evaluations. Special benefits like event invitations and NFT airdrops are provided regularly."
+          "question": "海外からの応募は可能ですか？",
+          "answer": "はい、すべての国からのグローバル専門家を歓迎します。"
         },
         "q5": {
-          "question": "What is the advisory contract duration?",
-          "answer": "The base contract period is 1 year, renewable by mutual agreement. High-performing advisors receive automatic renewal options. There is a 30-day notice clause before contract termination."
+          "question": "複数のアドバイザーポジションを持てますか？",
+          "answer": "単一分野のアドバイザーが基本ですが、特別承認により複数分野のアドバイザーになることができます。"
         },
         "q6": {
           "question": "What is the application process?",
@@ -25655,11 +25712,15 @@
       }
     },
     "ctaSection": {
-      "title": "Join the Expert Advisory Board",
+      "title": "アドバイザーになろう",
       "subtitle1": "Become a strategic partner in the TBURN ecosystem",
       "subtitle2": "Receive 200M TBURN in rewards!",
       "button": "Apply Now",
-      "toastDesc": "Check the advisor fields and apply now!"
+      "toastDesc": "Check the advisor fields and apply now!",
+      "badge": "参加",
+      "subtitle": "専門知識をTBURNエコシステムの成長に貢献し、報酬を受け取りましょう。",
+      "applyButton": "今すぐ応募",
+      "learnButton": "詳細を見る"
     },
     "footer": {
       "tagline1": "AI Intelligence, Blockchain Transparency",
@@ -25678,9 +25739,9 @@
       "ambassador": "Ambassador",
       "grants": "Grants",
       "support": "Support",
-      "copyright": "© 2025-2045 TBURN Foundation. All Rights Reserved.",
-      "terms": "Terms of Service",
-      "privacy": "Privacy Policy"
+      "copyright": "2024 TBURN. All rights reserved.",
+      "terms": "利用規約",
+      "privacy": "プライバシーポリシー"
     }
   },
   "coinlist": {

@@ -21117,8 +21117,8 @@
     }
   },
   "advisorProgram": {
-    "title": "Advisor Program",
-    "badge": "ADVISOR PROGRAM - Expert Advisory Board",
+    "title": "Программа Консультантов",
+    "badge": "ПРОГРАММА КОНСУЛЬТАНТОВ - Экспертный Консультативный Совет",
     "nav": {
       "advisorRoles": "Advisor Roles",
       "tiers": "Tiers",
@@ -21317,13 +21317,43 @@
     },
     "currentAdvisors": {
       "badge": "ADVISORS",
-      "title": "Current Advisory Board",
-      "subtitle": "Experts working with us"
+      "title": "Current Advisors",
+      "subtitle": "Industry experts leading the TBURN ecosystem",
+      "items": {
+        "jk": {
+          "initial": "JK",
+          "name": "Dr. John Kim",
+          "title": "CTO, Tech Corp",
+          "org": "Technology"
+        },
+        "sp": {
+          "initial": "SP",
+          "name": "Sarah Park",
+          "title": "CEO, Growth VC",
+          "org": "Business"
+        },
+        "ml": {
+          "initial": "ML",
+          "name": "Michael Lee",
+          "title": "Partner, Law Firm",
+          "org": "Legal"
+        },
+        "ec": {
+          "initial": "EC",
+          "name": "Prof. Emma Choi",
+          "title": "Professor, KAIST",
+          "org": "Academic"
+        }
+      },
+      "tierBadges": {
+        "principal": "PRINCIPAL",
+        "senior": "SENIOR"
+      }
     },
     "process": {
       "badge": "PROCESS",
       "title": "Application Process",
-      "subtitle": "Advisor selection procedure",
+      "subtitle": "5-step advisor application process",
       "steps": {
         "step1": {
           "title": "Submit Application",
@@ -21350,54 +21380,81 @@
           "desc": "Begin advisory activities",
           "duration": "1 week"
         }
+      },
+      "items": {
+        "step1": {
+          "title": "Online Application",
+          "desc": "Resume and portfolio submission",
+          "duration": "5 min"
+        },
+        "step2": {
+          "title": "Document Review",
+          "desc": "Expertise and experience verification",
+          "duration": "3-5 days"
+        },
+        "step3": {
+          "title": "Interview",
+          "desc": "Video interview with existing advisors",
+          "duration": "1 week"
+        },
+        "step4": {
+          "title": "Contract",
+          "desc": "Advisory contract signing",
+          "duration": "1-2 days"
+        },
+        "step5": {
+          "title": "Onboarding",
+          "desc": "Official registration and orientation",
+          "duration": "1 week"
+        }
       }
     },
     "compensation": {
       "badge": "COMPENSATION",
       "title": "Compensation Structure",
-      "subtitle": "Advisor compensation components",
+      "subtitle": "Transparent advisor compensation",
       "items": {
         "token": {
           "title": "Token Incentive",
-          "desc": "Quarterly TBURN token distribution",
-          "value": "Up to 15M TBURN/year"
+          "desc": "Annual TBURN allocation",
+          "value": "Up to 15M"
         },
         "bonus": {
           "title": "Performance Bonus",
-          "desc": "Additional rewards for goal achievement",
-          "value": "Up to 50% of base"
+          "desc": "Contribution-based reward",
+          "value": "Up to 5M"
         },
         "special": {
-          "title": "Special Benefits",
-          "desc": "Event invitations, NFT airdrops",
-          "value": "Various annual benefits"
+          "title": "Special Incentive",
+          "desc": "Milestone achievement reward",
+          "value": "Up to 3M"
         }
       }
     },
     "faq": {
       "badge": "FAQ",
       "title": "Frequently Asked Questions",
-      "subtitle": "Questions about the advisor program",
+      "subtitle": "Common questions about the advisor program",
       "items": {
         "q1": {
-          "question": "What is the total budget for the advisor program?",
-          "answer": "The advisor program has a total allocation of 200M TBURN. It is distributed as: Tech Advisory 30% (60M), Business Advisory 20% (40M), Legal Advisory 20% (40M), Academic Advisory 15% (30M), Industry Advisory 15% (30M)."
+          "question": "What are the advisor requirements?",
+          "answer": "A minimum of 3 years experience in a relevant field and expertise in blockchain or Web3 is required."
         },
         "q2": {
-          "question": "What qualifications are needed to become an advisor?",
-          "answer": "Minimum 3 years of experience in your field is required, along with a portfolio or track record demonstrating expertise. Principal Advisor requires 10+ years (up to 15M TBURN), Senior Advisor 5+ years (up to 8M), and Advisor 3+ years (up to 4M) of experience."
+          "question": "What is the advisor contract period?",
+          "answer": "The basic contract period is 1 year, renewable annually based on contribution."
         },
         "q3": {
-          "question": "How are advisory activities conducted?",
-          "answer": "Participation includes regular meetings (monthly/quarterly), document review, strategic consulting, and networking. Online meetings are primary, with offline workshops as needed. Advisory scope and time vary by tier."
+          "question": "When are the token rewards paid?",
+          "answer": "Token rewards are paid quarterly according to the vesting schedule."
         },
         "q4": {
-          "question": "How are rewards distributed?",
-          "answer": "Token incentives are distributed quarterly, unlocking progressively over a 24-month vesting schedule. Performance bonuses (up to 50% of base) are paid after semi-annual evaluations. Special benefits like event invitations and NFT airdrops are provided regularly."
+          "question": "Is overseas application possible?",
+          "answer": "Yes, global experts from all countries are welcome to apply."
         },
         "q5": {
-          "question": "What is the advisory contract duration?",
-          "answer": "The base contract period is 1 year, renewable by mutual agreement. High-performing advisors receive automatic renewal options. There is a 30-day notice clause before contract termination."
+          "question": "Can I hold multiple advisor positions?",
+          "answer": "Single field advisor positions are basic, but multiple field advisors may be appointed through special approval."
         },
         "q6": {
           "question": "What is the application process?",
@@ -21414,11 +21471,15 @@
       }
     },
     "ctaSection": {
-      "title": "Join the Expert Advisory Board",
+      "title": "Become an Advisor",
       "subtitle1": "Become a strategic partner in the TBURN ecosystem",
       "subtitle2": "Receive 200M TBURN in rewards!",
       "button": "Apply Now",
-      "toastDesc": "Check the advisor fields and apply now!"
+      "toastDesc": "Check the advisor fields and apply now!",
+      "badge": "JOIN",
+      "subtitle": "Contribute your expertise to TBURN ecosystem growth and receive rewards.",
+      "applyButton": "Apply Now",
+      "learnButton": "Learn More"
     },
     "footer": {
       "tagline1": "AI Intelligence, Blockchain Transparency",
@@ -21437,7 +21498,7 @@
       "ambassador": "Ambassador",
       "grants": "Grants",
       "support": "Support",
-      "copyright": "© 2025-2045 TBURN Foundation. All Rights Reserved.",
+      "copyright": "2024 TBURN. All rights reserved.",
       "terms": "Terms of Service",
       "privacy": "Privacy Policy"
     }
