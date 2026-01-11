@@ -23761,35 +23761,35 @@
     "hero": {
       "badge": "战略合作伙伴计划",
       "title": "2.5亿 TBURN",
-      "subtitle": "战略合作伙伴分配",
+      "subtitle": "通过与企业、机构投资者和主要协议的战略合作，成为TBURN生态系统的核心合作伙伴。",
       "description": "加速TBURN生态系统增长的战略合作伙伴关系。面向基础设施、技术和营销合作伙伴的分配。",
-      "title1": "Strategic Partnership for",
-      "title2": "200M TBURN",
-      "title3": "Incentives"
+      "title1": "战略合作伙伴",
+      "title2": "2亿TBURN",
+      "title3": "激励"
     },
     "stats": {
       "totalAllocation": "总分配",
       "partners": "合作伙伴数",
-      "distributed": "已分配",
+      "distributed": "已分发",
       "remaining": "剩余",
-      "totalBudget": "Total Strategic Budget",
-      "strategicPartners": "Strategic Partners",
-      "totalPartnerships": "Total Partnerships"
+      "totalBudget": "战略总预算",
+      "strategicPartners": "战略合作伙伴",
+      "totalPartnerships": "总合作关系"
     },
     "wallet": {
       "disconnect": "钱包已断开",
-      "disconnectDesc": "钱包连接已断开",
-      "connect": "Connect Wallet",
-      "connected": "Wallet Connected",
-      "connectedDesc": "Your wallet has been connected.",
-      "required": "Wallet Required",
-      "requiredDesc": "Please connect your wallet first to make a partnership inquiry."
+      "disconnectDesc": "您的钱包已断开连接。",
+      "connect": "连接钱包",
+      "connected": "钱包已连接",
+      "connectedDesc": "您的钱包已连接。",
+      "required": "需要钱包",
+      "requiredDesc": "请先连接您的钱包以提交合作咨询。"
     },
     "title": "Strategic Partners",
     "subtitle": "Key strategic partnerships shaping the TBURN ecosystem",
     "heroTitle": "TBURN Strategic Partners",
     "heroSubtitle": "World-class partners supporting the TBURN vision",
-    "badge": "STRATEGIC PARTNERSHIP - Enterprise Partnership",
+    "badge": "战略合作伙伴关系 - 企业合作",
     "partnerCount": "Partner Count",
     "categories": "Categories",
     "tier1": "Tier 1 Partners",
@@ -23799,11 +23799,11 @@
     "techPartners": "Technology Partners",
     "mediaPartners": "Media Partners",
     "nav": {
-      "partnerTiers": "Partner Tiers",
-      "partnershipTypes": "Partnership Types",
-      "benefits": "Benefits",
-      "useCases": "Use Cases",
-      "faq": "FAQ"
+      "partnerTiers": "合作等级",
+      "partnershipTypes": "合作类型",
+      "benefits": "权益",
+      "useCases": "应用案例",
+      "faq": "常见问题"
     },
     "enterpriseLogos": {
       "enterprise": "Enterprise",
@@ -23813,226 +23813,232 @@
       "research": "Research"
     },
     "cta": {
-      "applyPartnership": "Apply Partnership",
-      "enterpriseGuide": "Enterprise Guide",
-      "partnershipInquiry": "Partnership Inquiry",
-      "partnershipInquiryDesc": "Check the partner tiers and contact us!",
-      "enterpriseGuideDesc": "View partnership type information."
+      "applyPartnership": "申请合作",
+      "enterpriseGuide": "企业指南",
+      "partnershipInquiry": "合作咨询",
+      "partnershipInquiryDesc": "查看合作等级并联系我们！",
+      "enterpriseGuideDesc": "查看合作类型信息。"
     },
     "distribution": {
-      "badge": "DISTRIBUTION",
-      "title": "Strategic Budget Distribution",
-      "subtitle": "200M TBURN allocated to 5 strategic areas",
-      "enterprise": "Enterprise",
-      "enterpriseAmount": "80M",
-      "protocol": "Protocol Integration",
-      "protocolAmount": "40M",
-      "institutional": "Institutional Investors",
-      "institutionalAmount": "40M",
-      "government": "Public Sector",
-      "governmentAmount": "20M",
-      "academic": "Academic/Research",
-      "academicAmount": "20M"
+      "badge": "分配",
+      "title": "战略预算分配",
+      "subtitle": "2亿TBURN分配到5个战略领域",
+      "enterprise": "企业",
+      "enterpriseAmount": "8000万",
+      "protocol": "协议集成",
+      "protocolAmount": "4000万",
+      "institutional": "机构投资者",
+      "institutionalAmount": "4000万",
+      "government": "公共部门",
+      "governmentAmount": "2000万",
+      "academic": "学术/研究",
+      "academicAmount": "2000万"
     },
     "tiers": {
-      "badge": "TIERS",
-      "title": "Strategic Partner Tiers",
-      "subtitle": "Differentiated benefits based on contribution and investment scale",
+      "badge": "等级",
+      "title": "战略合作伙伴等级",
+      "subtitle": "基于贡献和投资规模的差异化权益",
       "diamond": {
-        "name": "Diamond",
-        "subtitle": "Top Strategic Partner",
-        "incentive": "Up to 50M",
-        "requirement": "$10M+ value provision",
+        "name": "钻石",
+        "subtitle": "顶级战略合作伙伴",
+        "incentive": "最高5000万",
+        "requirement": "提供1000万美元以上价值",
         "benefits": [
-          "Dedicated tech team",
-          "Custom solution development",
-          "Board participation",
-          "Exclusive governance rights",
-          "Annual offline summit"
+          "专属技术团队",
+          "定制解决方案开发",
+          "董事会参与",
+          "独家治理权",
+          "年度线下峰会"
         ]
       },
       "platinum": {
-        "name": "Platinum",
-        "subtitle": "Premium Partner",
-        "incentive": "Up to 20M",
-        "requirement": "$5M+ value provision",
+        "name": "铂金",
+        "subtitle": "高级合作伙伴",
+        "incentive": "最高2000万",
+        "requirement": "提供500万美元以上价值",
         "benefits": [
-          "Priority tech support",
-          "Co-marketing",
-          "Quarterly strategy meetings",
-          "Governance voting rights",
-          "VIP events"
+          "优先技术支持",
+          "联合营销",
+          "季度战略会议",
+          "治理投票权",
+          "VIP活动"
         ]
       },
       "gold": {
-        "name": "Gold",
-        "subtitle": "Core Partner",
-        "incentive": "Up to 5M",
-        "requirement": "$1M+ value provision",
+        "name": "黄金",
+        "subtitle": "核心合作伙伴",
+        "incentive": "最高500万",
+        "requirement": "提供100万美元以上价值",
         "benefits": [
-          "Tech integration support",
-          "Marketing collaboration",
-          "Monthly reports",
-          "DAO participation",
-          "Partner networking"
+          "技术集成支持",
+          "营销协作",
+          "月度报告",
+          "DAO参与",
+          "合作伙伴网络"
         ]
       },
       "silver": {
-        "name": "Silver",
-        "subtitle": "Growth Partner",
-        "incentive": "Up to 1M",
-        "requirement": "$100K+ value provision",
+        "name": "白银",
+        "subtitle": "成长合作伙伴",
+        "incentive": "最高100万",
+        "requirement": "提供10万美元以上价值",
         "benefits": [
-          "Tech documentation access",
-          "Basic support",
-          "Quarterly updates",
-          "Community access",
-          "Partner badge"
+          "标准技术支持",
+          "联合品牌",
+          "季度报告",
+          "社区访问",
+          "开发者支持"
         ]
       },
-      "partnerIncentive": "Partner Incentive",
-      "inquire": "Inquire"
+      "partnerIncentive": "合作伙伴激励",
+      "inquire": "咨询"
     },
     "tierInquiry": {
-      "title": "Partner Inquiry",
-      "description": "Partnership inquiry for {{tier}} tier ({{incentive}} TBURN) has been submitted. A representative will contact you."
+      "title": "合作咨询已提交",
+      "description": "感谢您对{{tier}}等级的关注。激励套餐为{{incentive}} TBURN。我们的团队将尽快与您联系。"
     },
     "partnershipTypes": {
-      "badge": "PARTNERSHIP TYPES",
-      "title": "Partnership Types",
-      "subtitle": "Various strategic collaboration methods",
+      "badge": "类型",
+      "title": "合作类型",
+      "subtitle": "不同领域的多样化合作机会",
       "enterprise": {
         "title": "Enterprise Solutions",
-        "desc": "Customized blockchain solutions for large corporations",
+        "desc": "大规模企业区块链集成和解决方案",
         "features": [
           "Private chain construction",
           "API integration",
           "Security audit",
           "24/7 support"
-        ]
+        ],
+        "name": "企业"
       },
       "protocol": {
         "title": "Protocol Integration",
-        "desc": "DeFi and Web3 protocol integration",
+        "desc": "DeFi和区块链协议合作",
         "features": [
           "Cross-chain bridge",
           "Liquidity pool",
           "Smart contracts",
           "Oracle integration"
-        ]
+        ],
+        "name": "协议集成"
       },
       "institutional": {
         "title": "Institutional Investment",
-        "desc": "Dedicated program for institutional investors",
+        "desc": "机构投资者合作和基金管理",
         "features": [
           "Custody service",
           "OTC trading",
           "Tax reports",
           "Regulatory compliance"
-        ]
+        ],
+        "name": "机构投资"
       },
       "government": {
         "title": "Public Partnership",
-        "desc": "Collaboration with government and public institutions",
+        "desc": "公共部门区块链采用和智慧城市项目",
         "features": [
           "Public infrastructure",
           "Digital identity",
           "Transparency systems",
           "Civic services"
-        ]
+        ],
+        "name": "政府/公共部门"
       },
       "academic": {
         "title": "Academic Research",
-        "desc": "Collaboration with universities and research institutes",
+        "desc": "大学研究合作和人才培养",
         "features": [
           "Research grants",
           "Internships",
           "Paper support",
           "Technical consulting"
-        ]
+        ],
+        "name": "学术研究"
       },
       "global": {
         "title": "Global Expansion",
-        "desc": "International market expansion support",
+        "desc": "国际市场扩张和本地化合作",
         "features": [
           "Localization support",
           "Regulatory consulting",
           "Partner connections",
           "Marketing support"
-        ]
+        ],
+        "name": "全球扩张"
       }
     },
     "process": {
-      "badge": "PROCESS",
-      "title": "Partnership Process",
-      "subtitle": "Strategic partner onboarding process",
+      "badge": "流程",
+      "title": "合作流程",
+      "subtitle": "系统化的入职流程",
       "step1": {
-        "title": "Inquiry Submission",
-        "desc": "Partnership letter of intent submission",
-        "duration": "1-3 days"
+        "title": "申请",
+        "desc": "提交合作申请",
+        "duration": "1-2天"
       },
       "step2": {
-        "title": "Due Diligence & Evaluation",
-        "desc": "Business/technical review",
-        "duration": "2-4 weeks"
+        "title": "审核",
+        "desc": "内部审核和尽职调查",
+        "duration": "1-2周"
       },
       "step3": {
-        "title": "Terms Negotiation",
-        "desc": "Partnership terms discussion",
-        "duration": "2-4 weeks"
+        "title": "谈判",
+        "desc": "条款协商",
+        "duration": "2-4周"
       },
       "step4": {
-        "title": "Contract Signing",
-        "desc": "Legal contract signing",
-        "duration": "1-2 weeks"
+        "title": "签约",
+        "desc": "法律合同签署",
+        "duration": "1-2周"
       },
       "step5": {
-        "title": "Onboarding",
-        "desc": "Technical integration and launch",
-        "duration": "4-8 weeks"
+        "title": "入职",
+        "desc": "技术集成和启动",
+        "duration": "4-8周"
       }
     },
     "benefits": {
-      "badge": "BENEFITS",
-      "title": "Strategic Partner Benefits",
-      "subtitle": "Exclusive benefits for strategic partners only",
+      "badge": "权益",
+      "title": "战略合作伙伴权益",
+      "subtitle": "仅限战略合作伙伴的专属权益",
       "techSupport": {
-        "title": "Customized Tech Support",
-        "desc": "Dedicated engineering team develops solutions tailored to each company's requirements."
+        "title": "定制技术支持",
+        "desc": "专属工程团队根据各公司需求开发解决方案。"
       },
       "growth": {
-        "title": "Growth Acceleration",
-        "desc": "Support business growth leveraging TBURN ecosystem resources and network."
+        "title": "增长加速",
+        "desc": "利用TBURN生态系统资源和网络支持业务增长。"
       },
       "security": {
-        "title": "Security & Compliance",
-        "desc": "Enterprise-grade security and global regulatory compliance guaranteed."
+        "title": "安全与合规",
+        "desc": "保证企业级安全和全球监管合规。"
       },
       "networking": {
-        "title": "Strategic Networking",
-        "desc": "Networking opportunities with industry leaders and joint business opportunities provided."
+        "title": "战略网络",
+        "desc": "提供与行业领袖的网络机会和联合商业机会。"
       },
       "exclusive": {
-        "title": "Exclusive Benefits",
-        "desc": "Enjoy exclusive benefits including early access, governance participation, and special incentives."
+        "title": "专属权益",
+        "desc": "享受早期访问、治理参与和特别激励等专属权益。"
       },
       "data": {
-        "title": "Data Insights",
-        "desc": "Provide business intelligence through on-chain analytics and customized reports."
+        "title": "数据洞察",
+        "desc": "通过链上分析和定制报告提供商业智能。"
       }
     },
     "useCases": {
-      "badge": "USE CASES",
-      "title": "Use Cases",
-      "subtitle": "Strategic partnership utilization scenarios",
+      "badge": "应用案例",
+      "title": "应用案例",
+      "subtitle": "战略合作伙伴关系应用场景",
       "tabs": {
-        "enterprise": "Enterprise",
-        "protocol": "Protocol",
-        "institutional": "Institutional"
+        "enterprise": "企业",
+        "protocol": "协议",
+        "institutional": "机构"
       },
       "enterprise": {
-        "title": "Enterprise Blockchain",
-        "desc": "Provide private blockchain solutions for large enterprises. Applicable to various use cases including supply chain management, asset tokenization, and internal payment systems.",
+        "title": "企业解决方案",
+        "desc": "大规模区块链集成和定制企业解决方案",
         "features": [
           "Private chain construction",
           "API integration support",
@@ -24041,18 +24047,18 @@
         ],
         "stats": {
           "uptime": "99.99%",
-          "uptimeLabel": "Uptime",
-          "response": "< 100ms",
-          "responseLabel": "Response Time",
-          "throughput": "Unlimited",
-          "throughputLabel": "Throughput",
-          "security": "ISO 27001",
-          "securityLabel": "Security Certification"
+          "uptimeLabel": "正常运行时间SLA",
+          "response": "<100ms",
+          "responseLabel": "响应时间",
+          "throughput": "210K",
+          "throughputLabel": "TPS",
+          "security": "企业级",
+          "securityLabel": "安全等级"
         }
       },
       "protocol": {
-        "title": "Protocol Integration",
-        "desc": "Support seamless integration with DeFi protocols. Provide cross-chain bridges, liquidity pools, and DEX integration.",
+        "title": "协议集成",
+        "desc": "DeFi协议合作和跨链集成",
         "features": [
           "Cross-chain bridge",
           "Liquidity incentives",
@@ -24060,19 +24066,19 @@
           "Real-time oracle"
         ],
         "stats": {
-          "tvl": "$500M+",
-          "tvlLabel": "TVL",
-          "protocols": "15+",
-          "protocolsLabel": "Protocol Integrations",
-          "transactions": "1M+",
-          "transactionsLabel": "Daily Transactions",
-          "chains": "5",
-          "chainsLabel": "Chains Supported"
+          "tvl": "$25亿+",
+          "tvlLabel": "TVL目标",
+          "protocols": "50+",
+          "protocolsLabel": "合作协议",
+          "transactions": "100万+",
+          "transactionsLabel": "日交易量",
+          "chains": "15+",
+          "chainsLabel": "支持链"
         }
       },
       "institutional": {
-        "title": "Institutional Investors",
-        "desc": "Provide dedicated services for regulatory-compliant institutional investors. Support custody, OTC trading, and tax reports.",
+        "title": "机构服务",
+        "desc": "机构投资者服务和合规解决方案",
         "features": [
           "Regulatory-compliant custody",
           "Large OTC trading",
@@ -24080,28 +24086,28 @@
           "Private investment rounds"
         ],
         "stats": {
-          "aum": "$100M+",
-          "aumLabel": "AUM",
-          "partners": "50+",
-          "partnersLabel": "Institutional Partners",
-          "otc": "24/7",
-          "otcLabel": "OTC Desk",
-          "compliance": "Global",
-          "complianceLabel": "Regulatory Compliance"
+          "aum": "$5亿+",
+          "aumLabel": "AUM目标",
+          "partners": "25+",
+          "partnersLabel": "机构合作伙伴",
+          "otc": "可用",
+          "otcLabel": "OTC服务",
+          "compliance": "SOC2",
+          "complianceLabel": "合规认证"
         }
       }
     },
     "currentPartners": {
-      "badge": "PARTNERS",
-      "title": "Current Strategic Partners",
-      "subtitle": "Global partners joining us",
-      "investmentScale": "Investment Scale",
-      "partnership": "Partnership"
+      "badge": "合作伙伴",
+      "title": "当前合作伙伴",
+      "subtitle": "与TBURN合作的世界级组织",
+      "investmentScale": "投资规模",
+      "partnership": "合作开始"
     },
     "faq": {
       "badge": "FAQ",
-      "title": "Frequently Asked Questions",
-      "subtitle": "Questions about strategic partnerships",
+      "title": "常见问题",
+      "subtitle": "关于战略合作的常见问题",
       "q1": {
         "question": "What is the total budget for strategic partnerships?",
         "answer": "A total of 200M TBURN is allocated for strategic partnerships. This is distributed as Enterprise 40% (80M), Protocol Integration 20% (40M), Institutional Investors 20% (40M), Public Sector 10% (20M), and Academic/Research 10% (20M)."
@@ -24133,36 +24139,70 @@
       "q8": {
         "question": "How can I inquire about partnership?",
         "answer": "You can apply through the 'Apply Partnership' button at the top of the page or contact us directly at partnerships@tburn.io. Connecting your wallet allows for faster review. A dedicated team will contact you within 3 business days."
+      },
+      "items": {
+        "q1": {
+          "question": "成为战略合作伙伴的最低要求是什么？",
+          "answer": "战略合作伙伴要求因等级而异。白银等级从10万美元价值提供开始，钻石等级需要提供1000万美元以上价值，包括技术、资本或网络贡献。"
+        },
+        "q2": {
+          "question": "合作流程需要多长时间？",
+          "answer": "典型的合作流程从申请到入职需要8-16周。包括审核(1-2周)、谈判(2-4周)、签约(1-2周)和技术集成(4-8周)。"
+        },
+        "q3": {
+          "question": "接受哪些类型的价值贡献？",
+          "answer": "我们接受各种形式的价值，包括直接投资、技术集成、网络访问、营销影响力、研究贡献和战略咨询服务。"
+        },
+        "q4": {
+          "question": "合作等级可以升级吗？",
+          "answer": "是的，合作伙伴可以通过增加价值贡献来升级等级。等级升级每季度审核，批准后立即获得额外权益。"
+        },
+        "q5": {
+          "question": "合作伙伴获得什么治理权？",
+          "answer": "治理权因等级而异。钻石合作伙伴获得包括董事会参与在内的独家治理权，其他等级在DAO中获得相应的投票权。"
+        },
+        "q6": {
+          "question": "TBURN激励如何分配？",
+          "answer": "激励按照合作协议中规定的归属时间表分配。通常入职时释放20%，其余在12-36个月内归属。"
+        },
+        "q7": {
+          "question": "提供什么技术支持？",
+          "answer": "技术支持从标准文档访问(白银)到专属工程团队(钻石)不等。所有合作伙伴都可获得API访问和集成文档。"
+        },
+        "q8": {
+          "question": "有区域合作机会吗？",
+          "answer": "是的，我们积极寻求区域合作伙伴以扩大市场。区域合作伙伴可获得包括本地化支持和市场特定激励在内的额外权益。"
+        }
       }
     },
     "ctaSection": {
-      "title": "Become a Strategic Partner",
-      "subtitle1": "As a core partner of the TBURN ecosystem",
-      "subtitle2": "receive 200M TBURN incentives!",
-      "button": "Apply Partnership"
+      "title": "成为战略合作伙伴",
+      "subtitle1": "共同构建区块链的未来",
+      "subtitle2": "与TBURN生态系统一起成长。",
+      "button": "申请合作"
     },
     "footer": {
       "brand": "TBURNCHAIN",
-      "tagline1": "AI Intelligence, Blockchain Transparency",
-      "tagline2": "THE FUTURE IS NOW",
-      "products": "Products",
-      "explorer": "Explorer",
-      "bridge": "Bridge",
-      "staking": "Staking",
+      "tagline1": "构建下一代",
+      "tagline2": "区块链生态系统",
+      "products": "产品",
+      "explorer": "浏览器",
+      "bridge": "跨链桥",
+      "staking": "质押",
       "governance": "Governance",
-      "developers": "Developers",
-      "documentation": "Documentation",
-      "api": "API Reference",
+      "developers": "开发者",
+      "documentation": "文档",
+      "api": "API",
       "github": "GitHub",
-      "bugBounty": "Bug Bounty",
-      "community": "Community",
+      "bugBounty": "漏洞赏金",
+      "community": "社区",
       "twitter": "Twitter",
       "telegram": "Telegram",
       "discord": "Discord",
-      "forum": "Forum",
-      "copyright": "© 2024 TBURNCHAIN. All rights reserved.",
-      "privacyPolicy": "Privacy Policy",
-      "termsOfService": "Terms of Service"
+      "forum": "论坛",
+      "copyright": "2024 TBURN. 保留所有权利。",
+      "privacyPolicy": "隐私政策",
+      "termsOfService": "服务条款"
     }
   },
   "advisorProgram": {

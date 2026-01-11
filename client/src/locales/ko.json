@@ -35892,35 +35892,35 @@
     "hero": {
       "badge": "전략 파트너 프로그램",
       "title": "2.5억 TBURN",
-      "subtitle": "전략 파트너 할당",
+      "subtitle": "기업, 기관 투자자, 주요 프로토콜과의 전략적 파트너십을 통해 TBURN 생태계의 핵심 파트너가 되세요.",
       "description": "TBURN 생태계 성장을 가속화하는 전략적 파트너십. 인프라, 기술, 마케팅 파트너에 대한 할당.",
-      "title1": "Strategic Partnership for",
-      "title2": "200M TBURN",
-      "title3": "Incentives"
+      "title1": "전략적 파트너십",
+      "title2": "2억 TBURN",
+      "title3": "인센티브"
     },
     "stats": {
       "totalAllocation": "총 할당",
       "partners": "파트너 수",
       "distributed": "배포됨",
       "remaining": "잔여",
-      "totalBudget": "Total Strategic Budget",
-      "strategicPartners": "Strategic Partners",
-      "totalPartnerships": "Total Partnerships"
+      "totalBudget": "전략 총 예산",
+      "strategicPartners": "전략적 파트너",
+      "totalPartnerships": "총 파트너십"
     },
     "wallet": {
       "disconnect": "지갑 연결 해제",
-      "disconnectDesc": "지갑 연결이 해제되었습니다",
-      "connect": "Connect Wallet",
-      "connected": "Wallet Connected",
-      "connectedDesc": "Your wallet has been connected.",
-      "required": "Wallet Required",
-      "requiredDesc": "Please connect your wallet first to make a partnership inquiry."
+      "disconnectDesc": "지갑 연결이 해제되었습니다.",
+      "connect": "지갑 연결",
+      "connected": "지갑 연결됨",
+      "connectedDesc": "지갑이 연결되었습니다.",
+      "required": "지갑 필요",
+      "requiredDesc": "파트너십 문의를 위해 먼저 지갑을 연결해주세요."
     },
     "title": "Strategic Partners",
     "subtitle": "Key strategic partnerships shaping the TBURN ecosystem",
     "heroTitle": "TBURN Strategic Partners",
     "heroSubtitle": "World-class partners supporting the TBURN vision",
-    "badge": "STRATEGIC PARTNERSHIP - Enterprise Partnership",
+    "badge": "전략적 파트너십 - 엔터프라이즈 파트너십",
     "partnerCount": "Partner Count",
     "categories": "Categories",
     "tier1": "Tier 1 Partners",
@@ -35930,240 +35930,246 @@
     "techPartners": "Technology Partners",
     "mediaPartners": "Media Partners",
     "nav": {
-      "partnerTiers": "Partner Tiers",
-      "partnershipTypes": "Partnership Types",
-      "benefits": "Benefits",
-      "useCases": "Use Cases",
+      "partnerTiers": "파트너 등급",
+      "partnershipTypes": "파트너십 유형",
+      "benefits": "혜택",
+      "useCases": "활용 사례",
       "faq": "FAQ"
     },
     "enterpriseLogos": {
-      "enterprise": "Enterprise",
-      "protocol": "Protocol",
-      "institutional": "Institutional",
-      "corporate": "Corporate",
-      "research": "Research"
+      "enterprise": "엔터프라이즈",
+      "protocol": "프로토콜",
+      "institutional": "기관",
+      "corporate": "기업",
+      "research": "연구"
     },
     "cta": {
-      "applyPartnership": "Apply Partnership",
-      "enterpriseGuide": "Enterprise Guide",
-      "partnershipInquiry": "Partnership Inquiry",
-      "partnershipInquiryDesc": "Check the partner tiers and contact us!",
-      "enterpriseGuideDesc": "View partnership type information."
+      "applyPartnership": "파트너십 신청",
+      "enterpriseGuide": "엔터프라이즈 가이드",
+      "partnershipInquiry": "파트너십 문의",
+      "partnershipInquiryDesc": "파트너 등급을 확인하고 문의하세요!",
+      "enterpriseGuideDesc": "파트너십 유형 정보를 확인하세요."
     },
     "distribution": {
-      "badge": "DISTRIBUTION",
-      "title": "Strategic Budget Distribution",
-      "subtitle": "200M TBURN allocated to 5 strategic areas",
-      "enterprise": "Enterprise",
-      "enterpriseAmount": "80M",
-      "protocol": "Protocol Integration",
-      "protocolAmount": "40M",
-      "institutional": "Institutional Investors",
-      "institutionalAmount": "40M",
-      "government": "Public Sector",
-      "governmentAmount": "20M",
-      "academic": "Academic/Research",
-      "academicAmount": "20M"
+      "badge": "배분",
+      "title": "전략 예산 배분",
+      "subtitle": "5개 전략 영역에 2억 TBURN 할당",
+      "enterprise": "엔터프라이즈",
+      "enterpriseAmount": "8천만",
+      "protocol": "프로토콜 통합",
+      "protocolAmount": "4천만",
+      "institutional": "기관 투자자",
+      "institutionalAmount": "4천만",
+      "government": "공공 부문",
+      "governmentAmount": "2천만",
+      "academic": "학술/연구",
+      "academicAmount": "2천만"
     },
     "tiers": {
-      "badge": "TIERS",
-      "title": "Strategic Partner Tiers",
-      "subtitle": "Differentiated benefits based on contribution and investment scale",
+      "badge": "등급",
+      "title": "전략적 파트너 등급",
+      "subtitle": "기여도와 투자 규모에 따른 차별화된 혜택",
       "diamond": {
-        "name": "Diamond",
-        "subtitle": "Top Strategic Partner",
-        "incentive": "Up to 50M",
-        "requirement": "$10M+ value provision",
+        "name": "다이아몬드",
+        "subtitle": "최고 전략 파트너",
+        "incentive": "최대 5천만",
+        "requirement": "$1천만 이상 가치 제공",
         "benefits": [
-          "Dedicated tech team",
-          "Custom solution development",
-          "Board participation",
-          "Exclusive governance rights",
-          "Annual offline summit"
+          "전담 기술팀",
+          "맞춤 솔루션 개발",
+          "이사회 참여",
+          "독점 거버넌스 권한",
+          "연간 오프라인 서밋"
         ]
       },
       "platinum": {
-        "name": "Platinum",
-        "subtitle": "Premium Partner",
-        "incentive": "Up to 20M",
-        "requirement": "$5M+ value provision",
+        "name": "플래티넘",
+        "subtitle": "프리미엄 파트너",
+        "incentive": "최대 2천만",
+        "requirement": "$5백만 이상 가치 제공",
         "benefits": [
-          "Priority tech support",
-          "Co-marketing",
-          "Quarterly strategy meetings",
-          "Governance voting rights",
-          "VIP events"
+          "우선 기술 지원",
+          "공동 마케팅",
+          "분기별 전략 회의",
+          "거버넌스 투표권",
+          "VIP 이벤트"
         ]
       },
       "gold": {
-        "name": "Gold",
-        "subtitle": "Core Partner",
-        "incentive": "Up to 5M",
-        "requirement": "$1M+ value provision",
+        "name": "골드",
+        "subtitle": "핵심 파트너",
+        "incentive": "최대 5백만",
+        "requirement": "$1백만 이상 가치 제공",
         "benefits": [
-          "Tech integration support",
-          "Marketing collaboration",
-          "Monthly reports",
-          "DAO participation",
-          "Partner networking"
+          "기술 통합 지원",
+          "마케팅 협업",
+          "월간 보고서",
+          "DAO 참여",
+          "파트너 네트워킹"
         ]
       },
       "silver": {
-        "name": "Silver",
-        "subtitle": "Growth Partner",
-        "incentive": "Up to 1M",
-        "requirement": "$100K+ value provision",
+        "name": "실버",
+        "subtitle": "성장 파트너",
+        "incentive": "최대 1백만",
+        "requirement": "$10만 이상 가치 제공",
         "benefits": [
-          "Tech documentation access",
-          "Basic support",
-          "Quarterly updates",
-          "Community access",
-          "Partner badge"
+          "표준 기술 지원",
+          "공동 브랜딩",
+          "분기별 보고서",
+          "커뮤니티 접근",
+          "개발자 지원"
         ]
       },
-      "partnerIncentive": "Partner Incentive",
-      "inquire": "Inquire"
+      "partnerIncentive": "파트너 인센티브",
+      "inquire": "문의하기"
     },
     "tierInquiry": {
-      "title": "Partner Inquiry",
-      "description": "Partnership inquiry for {{tier}} tier ({{incentive}} TBURN) has been submitted. A representative will contact you."
+      "title": "파트너십 문의 접수됨",
+      "description": "{{tier}} 등급에 관심을 가져주셔서 감사합니다. 인센티브 패키지는 {{incentive}} TBURN입니다. 담당팀이 곧 연락드리겠습니다."
     },
     "partnershipTypes": {
-      "badge": "PARTNERSHIP TYPES",
-      "title": "Partnership Types",
-      "subtitle": "Various strategic collaboration methods",
+      "badge": "유형",
+      "title": "파트너십 유형",
+      "subtitle": "다양한 분야별 파트너십 기회",
       "enterprise": {
         "title": "Enterprise Solutions",
-        "desc": "Customized blockchain solutions for large corporations",
+        "desc": "대규모 기업 블록체인 통합 및 솔루션",
         "features": [
           "Private chain construction",
           "API integration",
           "Security audit",
           "24/7 support"
-        ]
+        ],
+        "name": "엔터프라이즈"
       },
       "protocol": {
         "title": "Protocol Integration",
-        "desc": "DeFi and Web3 protocol integration",
+        "desc": "DeFi 및 블록체인 프로토콜 파트너십",
         "features": [
           "Cross-chain bridge",
           "Liquidity pool",
           "Smart contracts",
           "Oracle integration"
-        ]
+        ],
+        "name": "프로토콜 통합"
       },
       "institutional": {
         "title": "Institutional Investment",
-        "desc": "Dedicated program for institutional investors",
+        "desc": "기관 투자자 파트너십 및 펀드 관리",
         "features": [
           "Custody service",
           "OTC trading",
           "Tax reports",
           "Regulatory compliance"
-        ]
+        ],
+        "name": "기관 투자"
       },
       "government": {
         "title": "Public Partnership",
-        "desc": "Collaboration with government and public institutions",
+        "desc": "공공부문 블록체인 도입 및 스마트시티 프로젝트",
         "features": [
           "Public infrastructure",
           "Digital identity",
           "Transparency systems",
           "Civic services"
-        ]
+        ],
+        "name": "정부/공공부문"
       },
       "academic": {
         "title": "Academic Research",
-        "desc": "Collaboration with universities and research institutes",
+        "desc": "대학 연구 파트너십 및 인재 양성",
         "features": [
           "Research grants",
           "Internships",
           "Paper support",
           "Technical consulting"
-        ]
+        ],
+        "name": "학술 연구"
       },
       "global": {
         "title": "Global Expansion",
-        "desc": "International market expansion support",
+        "desc": "국제 시장 확장 및 현지화 파트너십",
         "features": [
           "Localization support",
           "Regulatory consulting",
           "Partner connections",
           "Marketing support"
-        ]
+        ],
+        "name": "글로벌 확장"
       }
     },
     "process": {
-      "badge": "PROCESS",
-      "title": "Partnership Process",
-      "subtitle": "Strategic partner onboarding process",
+      "badge": "프로세스",
+      "title": "파트너십 프로세스",
+      "subtitle": "체계적인 온보딩 프로세스",
       "step1": {
-        "title": "Inquiry Submission",
-        "desc": "Partnership letter of intent submission",
-        "duration": "1-3 days"
+        "title": "신청",
+        "desc": "파트너십 신청서 제출",
+        "duration": "1-2일"
       },
       "step2": {
-        "title": "Due Diligence & Evaluation",
-        "desc": "Business/technical review",
-        "duration": "2-4 weeks"
+        "title": "검토",
+        "desc": "내부 검토 및 실사",
+        "duration": "1-2주"
       },
       "step3": {
-        "title": "Terms Negotiation",
-        "desc": "Partnership terms discussion",
-        "duration": "2-4 weeks"
+        "title": "협상",
+        "desc": "조건 협상",
+        "duration": "2-4주"
       },
       "step4": {
-        "title": "Contract Signing",
-        "desc": "Legal contract signing",
-        "duration": "1-2 weeks"
+        "title": "계약 체결",
+        "desc": "법적 계약 체결",
+        "duration": "1-2주"
       },
       "step5": {
-        "title": "Onboarding",
-        "desc": "Technical integration and launch",
-        "duration": "4-8 weeks"
+        "title": "온보딩",
+        "desc": "기술 통합 및 런칭",
+        "duration": "4-8주"
       }
     },
     "benefits": {
-      "badge": "BENEFITS",
-      "title": "Strategic Partner Benefits",
-      "subtitle": "Exclusive benefits for strategic partners only",
+      "badge": "혜택",
+      "title": "전략적 파트너 혜택",
+      "subtitle": "전략적 파트너만을 위한 독점 혜택",
       "techSupport": {
-        "title": "Customized Tech Support",
-        "desc": "Dedicated engineering team develops solutions tailored to each company's requirements."
+        "title": "맞춤형 기술 지원",
+        "desc": "전담 엔지니어링 팀이 각 기업 요구사항에 맞는 솔루션을 개발합니다."
       },
       "growth": {
-        "title": "Growth Acceleration",
-        "desc": "Support business growth leveraging TBURN ecosystem resources and network."
+        "title": "성장 가속화",
+        "desc": "TBURN 생태계 리소스와 네트워크를 활용한 비즈니스 성장을 지원합니다."
       },
       "security": {
-        "title": "Security & Compliance",
-        "desc": "Enterprise-grade security and global regulatory compliance guaranteed."
+        "title": "보안 및 컴플라이언스",
+        "desc": "엔터프라이즈급 보안과 글로벌 규제 준수를 보장합니다."
       },
       "networking": {
-        "title": "Strategic Networking",
-        "desc": "Networking opportunities with industry leaders and joint business opportunities provided."
+        "title": "전략적 네트워킹",
+        "desc": "업계 리더들과의 네트워킹 기회와 공동 비즈니스 기회를 제공합니다."
       },
       "exclusive": {
-        "title": "Exclusive Benefits",
-        "desc": "Enjoy exclusive benefits including early access, governance participation, and special incentives."
+        "title": "독점 혜택",
+        "desc": "조기 접근, 거버넌스 참여, 특별 인센티브 등 독점 혜택을 누리세요."
       },
       "data": {
-        "title": "Data Insights",
-        "desc": "Provide business intelligence through on-chain analytics and customized reports."
+        "title": "데이터 인사이트",
+        "desc": "온체인 분석과 맞춤형 보고서를 통해 비즈니스 인텔리전스를 제공합니다."
       }
     },
     "useCases": {
-      "badge": "USE CASES",
-      "title": "Use Cases",
-      "subtitle": "Strategic partnership utilization scenarios",
+      "badge": "활용 사례",
+      "title": "활용 사례",
+      "subtitle": "전략적 파트너십 활용 시나리오",
       "tabs": {
-        "enterprise": "Enterprise",
-        "protocol": "Protocol",
-        "institutional": "Institutional"
+        "enterprise": "엔터프라이즈",
+        "protocol": "프로토콜",
+        "institutional": "기관"
       },
       "enterprise": {
-        "title": "Enterprise Blockchain",
-        "desc": "Provide private blockchain solutions for large enterprises. Applicable to various use cases including supply chain management, asset tokenization, and internal payment systems.",
+        "title": "엔터프라이즈 솔루션",
+        "desc": "대규모 블록체인 통합 및 맞춤형 엔터프라이즈 솔루션",
         "features": [
           "Private chain construction",
           "API integration support",
@@ -36172,18 +36178,18 @@
         ],
         "stats": {
           "uptime": "99.99%",
-          "uptimeLabel": "Uptime",
-          "response": "< 100ms",
-          "responseLabel": "Response Time",
-          "throughput": "Unlimited",
-          "throughputLabel": "Throughput",
-          "security": "ISO 27001",
-          "securityLabel": "Security Certification"
+          "uptimeLabel": "가동률 SLA",
+          "response": "<100ms",
+          "responseLabel": "응답 시간",
+          "throughput": "210K",
+          "throughputLabel": "TPS",
+          "security": "엔터프라이즈",
+          "securityLabel": "보안 등급"
         }
       },
       "protocol": {
-        "title": "Protocol Integration",
-        "desc": "Support seamless integration with DeFi protocols. Provide cross-chain bridges, liquidity pools, and DEX integration.",
+        "title": "프로토콜 통합",
+        "desc": "DeFi 프로토콜 파트너십 및 크로스체인 통합",
         "features": [
           "Cross-chain bridge",
           "Liquidity incentives",
@@ -36191,19 +36197,19 @@
           "Real-time oracle"
         ],
         "stats": {
-          "tvl": "$500M+",
-          "tvlLabel": "TVL",
-          "protocols": "15+",
-          "protocolsLabel": "Protocol Integrations",
-          "transactions": "1M+",
-          "transactionsLabel": "Daily Transactions",
-          "chains": "5",
-          "chainsLabel": "Chains Supported"
+          "tvl": "$25억+",
+          "tvlLabel": "TVL 목표",
+          "protocols": "50+",
+          "protocolsLabel": "파트너 프로토콜",
+          "transactions": "100만+",
+          "transactionsLabel": "일일 트랜잭션",
+          "chains": "15+",
+          "chainsLabel": "지원 체인"
         }
       },
       "institutional": {
-        "title": "Institutional Investors",
-        "desc": "Provide dedicated services for regulatory-compliant institutional investors. Support custody, OTC trading, and tax reports.",
+        "title": "기관 서비스",
+        "desc": "기관 투자자 서비스 및 컴플라이언스 솔루션",
         "features": [
           "Regulatory-compliant custody",
           "Large OTC trading",
@@ -36211,28 +36217,28 @@
           "Private investment rounds"
         ],
         "stats": {
-          "aum": "$100M+",
-          "aumLabel": "AUM",
-          "partners": "50+",
-          "partnersLabel": "Institutional Partners",
-          "otc": "24/7",
-          "otcLabel": "OTC Desk",
-          "compliance": "Global",
-          "complianceLabel": "Regulatory Compliance"
+          "aum": "$5억+",
+          "aumLabel": "AUM 목표",
+          "partners": "25+",
+          "partnersLabel": "기관 파트너",
+          "otc": "가능",
+          "otcLabel": "OTC 데스크",
+          "compliance": "SOC2",
+          "complianceLabel": "컴플라이언스"
         }
       }
     },
     "currentPartners": {
-      "badge": "PARTNERS",
-      "title": "Current Strategic Partners",
-      "subtitle": "Global partners joining us",
-      "investmentScale": "Investment Scale",
-      "partnership": "Partnership"
+      "badge": "파트너",
+      "title": "현재 파트너",
+      "subtitle": "TBURN과 함께하는 세계적인 조직들",
+      "investmentScale": "투자 규모",
+      "partnership": "파트너십 시작"
     },
     "faq": {
       "badge": "FAQ",
-      "title": "Frequently Asked Questions",
-      "subtitle": "Questions about strategic partnerships",
+      "title": "자주 묻는 질문",
+      "subtitle": "전략적 파트너십에 대한 일반적인 질문",
       "q1": {
         "question": "What is the total budget for strategic partnerships?",
         "answer": "A total of 200M TBURN is allocated for strategic partnerships. This is distributed as Enterprise 40% (80M), Protocol Integration 20% (40M), Institutional Investors 20% (40M), Public Sector 10% (20M), and Academic/Research 10% (20M)."
@@ -36264,36 +36270,70 @@
       "q8": {
         "question": "How can I inquire about partnership?",
         "answer": "You can apply through the 'Apply Partnership' button at the top of the page or contact us directly at partnerships@tburn.io. Connecting your wallet allows for faster review. A dedicated team will contact you within 3 business days."
+      },
+      "items": {
+        "q1": {
+          "question": "전략적 파트너가 되기 위한 최소 요건은 무엇인가요?",
+          "answer": "전략적 파트너십 요건은 등급에 따라 다릅니다. 실버 등급은 $10만 가치 제공부터 시작하며, 다이아몬드 등급은 기술, 자본 또는 네트워크 기여를 포함한 $1천만 이상의 가치 제공이 필요합니다."
+        },
+        "q2": {
+          "question": "파트너십 프로세스는 얼마나 걸리나요?",
+          "answer": "일반적인 파트너십 프로세스는 신청부터 온보딩까지 8-16주가 소요됩니다. 검토(1-2주), 협상(2-4주), 계약 체결(1-2주), 기술 통합(4-8주)이 포함됩니다."
+        },
+        "q3": {
+          "question": "어떤 유형의 가치 기여가 인정되나요?",
+          "answer": "직접 투자, 기술 통합, 네트워크 접근, 마케팅 영향력, 연구 기여, 전략적 자문 서비스 등 다양한 형태의 가치를 인정합니다."
+        },
+        "q4": {
+          "question": "파트너십 등급을 업그레이드할 수 있나요?",
+          "answer": "네, 파트너는 가치 기여를 늘려 등급을 업그레이드할 수 있습니다. 등급 업그레이드는 분기별로 검토되며 승인 즉시 추가 혜택이 적용됩니다."
+        },
+        "q5": {
+          "question": "파트너는 어떤 거버넌스 권한을 받나요?",
+          "answer": "거버넌스 권한은 등급에 따라 다릅니다. 다이아몬드 파트너는 이사회 참여를 포함한 독점 거버넌스 권한을 받고, 다른 등급은 DAO에서 비례적 투표권을 받습니다."
+        },
+        "q6": {
+          "question": "TBURN 인센티브는 어떻게 배분되나요?",
+          "answer": "인센티브는 파트너십 계약에 명시된 베스팅 일정에 따라 배분됩니다. 일반적으로 온보딩 시 20%가 해제되고 나머지는 12-36개월에 걸쳐 베스팅됩니다."
+        },
+        "q7": {
+          "question": "어떤 기술 지원이 제공되나요?",
+          "answer": "기술 지원은 표준 문서 접근(실버)부터 전담 엔지니어링 팀(다이아몬드)까지 다양합니다. 모든 파트너는 API 접근과 통합 문서를 받습니다."
+        },
+        "q8": {
+          "question": "지역 파트너십 기회가 있나요?",
+          "answer": "네, 시장 확장을 위해 지역 파트너를 적극적으로 찾고 있습니다. 지역 파트너는 현지화 지원과 시장별 인센티브를 포함한 추가 혜택을 받을 수 있습니다."
+        }
       }
     },
     "ctaSection": {
-      "title": "Become a Strategic Partner",
-      "subtitle1": "As a core partner of the TBURN ecosystem",
-      "subtitle2": "receive 200M TBURN incentives!",
-      "button": "Apply Partnership"
+      "title": "전략적 파트너가 되세요",
+      "subtitle1": "블록체인의 미래를 함께 만들어가고",
+      "subtitle2": "TBURN 생태계와 함께 성장하세요.",
+      "button": "파트너십 신청하기"
     },
     "footer": {
       "brand": "TBURNCHAIN",
-      "tagline1": "AI Intelligence, Blockchain Transparency",
-      "tagline2": "THE FUTURE IS NOW",
-      "products": "Products",
-      "explorer": "Explorer",
-      "bridge": "Bridge",
-      "staking": "Staking",
+      "tagline1": "차세대 블록체인",
+      "tagline2": "생태계를 구축합니다",
+      "products": "제품",
+      "explorer": "익스플로러",
+      "bridge": "브릿지",
+      "staking": "스테이킹",
       "governance": "Governance",
-      "developers": "Developers",
-      "documentation": "Documentation",
-      "api": "API Reference",
+      "developers": "개발자",
+      "documentation": "문서",
+      "api": "API",
       "github": "GitHub",
-      "bugBounty": "Bug Bounty",
-      "community": "Community",
-      "twitter": "Twitter",
-      "telegram": "Telegram",
-      "discord": "Discord",
-      "forum": "Forum",
-      "copyright": "© 2024 TBURNCHAIN. All rights reserved.",
-      "privacyPolicy": "Privacy Policy",
-      "termsOfService": "Terms of Service"
+      "bugBounty": "버그 바운티",
+      "community": "커뮤니티",
+      "twitter": "트위터",
+      "telegram": "텔레그램",
+      "discord": "디스코드",
+      "forum": "포럼",
+      "copyright": "2024 TBURN. All rights reserved.",
+      "privacyPolicy": "개인정보처리방침",
+      "termsOfService": "이용약관"
     }
   },
   "advisorProgram": {

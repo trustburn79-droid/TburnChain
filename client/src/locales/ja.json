@@ -24942,35 +24942,35 @@
     "hero": {
       "badge": "戦略パートナープログラム",
       "title": "2.5億 TBURN",
-      "subtitle": "戦略パートナー配分",
+      "subtitle": "企業、機関投資家、主要プロトコルとの戦略的パートナーシップを通じて、TBURNエコシステムのコアパートナーになりましょう。",
       "description": "TBURNエコシステムの成長を加速するための戦略的パートナーシップ。インフラ、技術、マーケティングパートナーへの配分。",
-      "title1": "Strategic Partnership for",
-      "title2": "200M TBURN",
-      "title3": "Incentives"
+      "title1": "戦略的パートナーシップ",
+      "title2": "2億TBURN",
+      "title3": "インセンティブ"
     },
     "stats": {
       "totalAllocation": "総配分量",
       "partners": "パートナー数",
       "distributed": "配布済み",
       "remaining": "残高",
-      "totalBudget": "Total Strategic Budget",
-      "strategicPartners": "Strategic Partners",
-      "totalPartnerships": "Total Partnerships"
+      "totalBudget": "戦略総予算",
+      "strategicPartners": "戦略的パートナー",
+      "totalPartnerships": "総パートナーシップ"
     },
     "wallet": {
       "disconnect": "ウォレット切断",
-      "disconnectDesc": "ウォレットが切断されました",
-      "connect": "Connect Wallet",
-      "connected": "Wallet Connected",
-      "connectedDesc": "Your wallet has been connected.",
-      "required": "Wallet Required",
-      "requiredDesc": "Please connect your wallet first to make a partnership inquiry."
+      "disconnectDesc": "ウォレットが切断されました。",
+      "connect": "ウォレット接続",
+      "connected": "ウォレット接続済み",
+      "connectedDesc": "ウォレットが接続されました。",
+      "required": "ウォレット必要",
+      "requiredDesc": "パートナーシップのお問い合わせには、まずウォレットを接続してください。"
     },
     "title": "Strategic Partners",
     "subtitle": "Key strategic partnerships shaping the TBURN ecosystem",
     "heroTitle": "TBURN Strategic Partners",
     "heroSubtitle": "World-class partners supporting the TBURN vision",
-    "badge": "STRATEGIC PARTNERSHIP - Enterprise Partnership",
+    "badge": "戦略的パートナーシップ - エンタープライズパートナーシップ",
     "partnerCount": "Partner Count",
     "categories": "Categories",
     "tier1": "Tier 1 Partners",
@@ -24980,10 +24980,10 @@
     "techPartners": "Technology Partners",
     "mediaPartners": "Media Partners",
     "nav": {
-      "partnerTiers": "Partner Tiers",
-      "partnershipTypes": "Partnership Types",
-      "benefits": "Benefits",
-      "useCases": "Use Cases",
+      "partnerTiers": "パートナーティア",
+      "partnershipTypes": "パートナーシップタイプ",
+      "benefits": "特典",
+      "useCases": "ユースケース",
       "faq": "FAQ"
     },
     "enterpriseLogos": {
@@ -24994,226 +24994,232 @@
       "research": "Research"
     },
     "cta": {
-      "applyPartnership": "Apply Partnership",
-      "enterpriseGuide": "Enterprise Guide",
-      "partnershipInquiry": "Partnership Inquiry",
-      "partnershipInquiryDesc": "Check the partner tiers and contact us!",
-      "enterpriseGuideDesc": "View partnership type information."
+      "applyPartnership": "パートナーシップ申請",
+      "enterpriseGuide": "エンタープライズガイド",
+      "partnershipInquiry": "パートナーシップお問い合わせ",
+      "partnershipInquiryDesc": "パートナーティアを確認してお問い合わせください！",
+      "enterpriseGuideDesc": "パートナーシップタイプ情報をご覧ください。"
     },
     "distribution": {
-      "badge": "DISTRIBUTION",
-      "title": "Strategic Budget Distribution",
-      "subtitle": "200M TBURN allocated to 5 strategic areas",
-      "enterprise": "Enterprise",
-      "enterpriseAmount": "80M",
-      "protocol": "Protocol Integration",
-      "protocolAmount": "40M",
-      "institutional": "Institutional Investors",
-      "institutionalAmount": "40M",
-      "government": "Public Sector",
-      "governmentAmount": "20M",
-      "academic": "Academic/Research",
-      "academicAmount": "20M"
+      "badge": "配分",
+      "title": "戦略予算配分",
+      "subtitle": "5つの戦略分野に2億TBURNを配分",
+      "enterprise": "エンタープライズ",
+      "enterpriseAmount": "8000万",
+      "protocol": "プロトコル統合",
+      "protocolAmount": "4000万",
+      "institutional": "機関投資家",
+      "institutionalAmount": "4000万",
+      "government": "公共セクター",
+      "governmentAmount": "2000万",
+      "academic": "学術/研究",
+      "academicAmount": "2000万"
     },
     "tiers": {
-      "badge": "TIERS",
-      "title": "Strategic Partner Tiers",
-      "subtitle": "Differentiated benefits based on contribution and investment scale",
+      "badge": "ティア",
+      "title": "戦略的パートナーティア",
+      "subtitle": "貢献度と投資規模に基づく差別化された特典",
       "diamond": {
-        "name": "Diamond",
-        "subtitle": "Top Strategic Partner",
-        "incentive": "Up to 50M",
-        "requirement": "$10M+ value provision",
+        "name": "ダイヤモンド",
+        "subtitle": "トップ戦略パートナー",
+        "incentive": "最大5000万",
+        "requirement": "1000万ドル以上の価値提供",
         "benefits": [
-          "Dedicated tech team",
-          "Custom solution development",
-          "Board participation",
-          "Exclusive governance rights",
-          "Annual offline summit"
+          "専任技術チーム",
+          "カスタムソリューション開発",
+          "取締役会参加",
+          "独占ガバナンス権",
+          "年次オフラインサミット"
         ]
       },
       "platinum": {
-        "name": "Platinum",
-        "subtitle": "Premium Partner",
-        "incentive": "Up to 20M",
-        "requirement": "$5M+ value provision",
+        "name": "プラチナ",
+        "subtitle": "プレミアムパートナー",
+        "incentive": "最大2000万",
+        "requirement": "500万ドル以上の価値提供",
         "benefits": [
-          "Priority tech support",
-          "Co-marketing",
-          "Quarterly strategy meetings",
-          "Governance voting rights",
-          "VIP events"
+          "優先技術サポート",
+          "共同マーケティング",
+          "四半期戦略会議",
+          "ガバナンス投票権",
+          "VIPイベント"
         ]
       },
       "gold": {
-        "name": "Gold",
-        "subtitle": "Core Partner",
-        "incentive": "Up to 5M",
-        "requirement": "$1M+ value provision",
+        "name": "ゴールド",
+        "subtitle": "コアパートナー",
+        "incentive": "最大500万",
+        "requirement": "100万ドル以上の価値提供",
         "benefits": [
-          "Tech integration support",
-          "Marketing collaboration",
-          "Monthly reports",
-          "DAO participation",
-          "Partner networking"
+          "技術統合サポート",
+          "マーケティング協力",
+          "月次レポート",
+          "DAO参加",
+          "パートナーネットワーキング"
         ]
       },
       "silver": {
-        "name": "Silver",
-        "subtitle": "Growth Partner",
-        "incentive": "Up to 1M",
-        "requirement": "$100K+ value provision",
+        "name": "シルバー",
+        "subtitle": "成長パートナー",
+        "incentive": "最大100万",
+        "requirement": "10万ドル以上の価値提供",
         "benefits": [
-          "Tech documentation access",
-          "Basic support",
-          "Quarterly updates",
-          "Community access",
-          "Partner badge"
+          "標準技術サポート",
+          "共同ブランディング",
+          "四半期レポート",
+          "コミュニティアクセス",
+          "開発者サポート"
         ]
       },
-      "partnerIncentive": "Partner Incentive",
-      "inquire": "Inquire"
+      "partnerIncentive": "パートナーインセンティブ",
+      "inquire": "お問い合わせ"
     },
     "tierInquiry": {
-      "title": "Partner Inquiry",
-      "description": "Partnership inquiry for {{tier}} tier ({{incentive}} TBURN) has been submitted. A representative will contact you."
+      "title": "パートナーシップお問い合わせ受付",
+      "description": "{{tier}}ティアにご関心をお寄せいただきありがとうございます。インセンティブパッケージは{{incentive}} TBURNです。担当チームより間もなくご連絡いたします。"
     },
     "partnershipTypes": {
-      "badge": "PARTNERSHIP TYPES",
-      "title": "Partnership Types",
-      "subtitle": "Various strategic collaboration methods",
+      "badge": "タイプ",
+      "title": "パートナーシップタイプ",
+      "subtitle": "様々な分野でのパートナーシップ機会",
       "enterprise": {
         "title": "Enterprise Solutions",
-        "desc": "Customized blockchain solutions for large corporations",
+        "desc": "大規模企業ブロックチェーン統合とソリューション",
         "features": [
           "Private chain construction",
           "API integration",
           "Security audit",
           "24/7 support"
-        ]
+        ],
+        "name": "エンタープライズ"
       },
       "protocol": {
         "title": "Protocol Integration",
-        "desc": "DeFi and Web3 protocol integration",
+        "desc": "DeFiとブロックチェーンプロトコルパートナーシップ",
         "features": [
           "Cross-chain bridge",
           "Liquidity pool",
           "Smart contracts",
           "Oracle integration"
-        ]
+        ],
+        "name": "プロトコル統合"
       },
       "institutional": {
         "title": "Institutional Investment",
-        "desc": "Dedicated program for institutional investors",
+        "desc": "機関投資家パートナーシップとファンド管理",
         "features": [
           "Custody service",
           "OTC trading",
           "Tax reports",
           "Regulatory compliance"
-        ]
+        ],
+        "name": "機関投資"
       },
       "government": {
         "title": "Public Partnership",
-        "desc": "Collaboration with government and public institutions",
+        "desc": "公共セクターブロックチェーン導入とスマートシティプロジェクト",
         "features": [
           "Public infrastructure",
           "Digital identity",
           "Transparency systems",
           "Civic services"
-        ]
+        ],
+        "name": "政府/公共セクター"
       },
       "academic": {
         "title": "Academic Research",
-        "desc": "Collaboration with universities and research institutes",
+        "desc": "大学研究パートナーシップと人材育成",
         "features": [
           "Research grants",
           "Internships",
           "Paper support",
           "Technical consulting"
-        ]
+        ],
+        "name": "学術研究"
       },
       "global": {
         "title": "Global Expansion",
-        "desc": "International market expansion support",
+        "desc": "国際市場展開とローカライゼーションパートナーシップ",
         "features": [
           "Localization support",
           "Regulatory consulting",
           "Partner connections",
           "Marketing support"
-        ]
+        ],
+        "name": "グローバル展開"
       }
     },
     "process": {
-      "badge": "PROCESS",
-      "title": "Partnership Process",
-      "subtitle": "Strategic partner onboarding process",
+      "badge": "プロセス",
+      "title": "パートナーシッププロセス",
+      "subtitle": "体系的なオンボーディングプロセス",
       "step1": {
-        "title": "Inquiry Submission",
-        "desc": "Partnership letter of intent submission",
-        "duration": "1-3 days"
+        "title": "申請",
+        "desc": "パートナーシップ申請書提出",
+        "duration": "1-2日"
       },
       "step2": {
-        "title": "Due Diligence & Evaluation",
-        "desc": "Business/technical review",
-        "duration": "2-4 weeks"
+        "title": "審査",
+        "desc": "内部審査とデューデリジェンス",
+        "duration": "1-2週間"
       },
       "step3": {
-        "title": "Terms Negotiation",
-        "desc": "Partnership terms discussion",
-        "duration": "2-4 weeks"
+        "title": "交渉",
+        "desc": "条件交渉",
+        "duration": "2-4週間"
       },
       "step4": {
-        "title": "Contract Signing",
-        "desc": "Legal contract signing",
-        "duration": "1-2 weeks"
+        "title": "契約締結",
+        "desc": "法的契約締結",
+        "duration": "1-2週間"
       },
       "step5": {
-        "title": "Onboarding",
-        "desc": "Technical integration and launch",
-        "duration": "4-8 weeks"
+        "title": "オンボーディング",
+        "desc": "技術統合とローンチ",
+        "duration": "4-8週間"
       }
     },
     "benefits": {
-      "badge": "BENEFITS",
-      "title": "Strategic Partner Benefits",
-      "subtitle": "Exclusive benefits for strategic partners only",
+      "badge": "特典",
+      "title": "戦略的パートナー特典",
+      "subtitle": "戦略的パートナー限定の特典",
       "techSupport": {
-        "title": "Customized Tech Support",
-        "desc": "Dedicated engineering team develops solutions tailored to each company's requirements."
+        "title": "カスタマイズ技術サポート",
+        "desc": "専任エンジニアリングチームが各企業の要件に合わせたソリューションを開発します。"
       },
       "growth": {
-        "title": "Growth Acceleration",
-        "desc": "Support business growth leveraging TBURN ecosystem resources and network."
+        "title": "成長加速",
+        "desc": "TBURNエコシステムのリソースとネットワークを活用したビジネス成長をサポートします。"
       },
       "security": {
-        "title": "Security & Compliance",
-        "desc": "Enterprise-grade security and global regulatory compliance guaranteed."
+        "title": "セキュリティ＆コンプライアンス",
+        "desc": "エンタープライズグレードのセキュリティとグローバル規制準拠を保証します。"
       },
       "networking": {
-        "title": "Strategic Networking",
-        "desc": "Networking opportunities with industry leaders and joint business opportunities provided."
+        "title": "戦略的ネットワーキング",
+        "desc": "業界リーダーとのネットワーキング機会と共同ビジネス機会を提供します。"
       },
       "exclusive": {
-        "title": "Exclusive Benefits",
-        "desc": "Enjoy exclusive benefits including early access, governance participation, and special incentives."
+        "title": "独占特典",
+        "desc": "早期アクセス、ガバナンス参加、特別インセンティブなどの独占特典をお楽しみください。"
       },
       "data": {
-        "title": "Data Insights",
-        "desc": "Provide business intelligence through on-chain analytics and customized reports."
+        "title": "データインサイト",
+        "desc": "オンチェーン分析とカスタマイズレポートを通じてビジネスインテリジェンスを提供します。"
       }
     },
     "useCases": {
-      "badge": "USE CASES",
-      "title": "Use Cases",
-      "subtitle": "Strategic partnership utilization scenarios",
+      "badge": "ユースケース",
+      "title": "ユースケース",
+      "subtitle": "戦略的パートナーシップ活用シナリオ",
       "tabs": {
-        "enterprise": "Enterprise",
-        "protocol": "Protocol",
-        "institutional": "Institutional"
+        "enterprise": "エンタープライズ",
+        "protocol": "プロトコル",
+        "institutional": "機関"
       },
       "enterprise": {
-        "title": "Enterprise Blockchain",
-        "desc": "Provide private blockchain solutions for large enterprises. Applicable to various use cases including supply chain management, asset tokenization, and internal payment systems.",
+        "title": "エンタープライズソリューション",
+        "desc": "大規模ブロックチェーン統合とカスタムエンタープライズソリューション",
         "features": [
           "Private chain construction",
           "API integration support",
@@ -25222,18 +25228,18 @@
         ],
         "stats": {
           "uptime": "99.99%",
-          "uptimeLabel": "Uptime",
-          "response": "< 100ms",
-          "responseLabel": "Response Time",
-          "throughput": "Unlimited",
-          "throughputLabel": "Throughput",
-          "security": "ISO 27001",
-          "securityLabel": "Security Certification"
+          "uptimeLabel": "稼働率SLA",
+          "response": "<100ms",
+          "responseLabel": "応答時間",
+          "throughput": "210K",
+          "throughputLabel": "TPS",
+          "security": "エンタープライズ",
+          "securityLabel": "セキュリティグレード"
         }
       },
       "protocol": {
-        "title": "Protocol Integration",
-        "desc": "Support seamless integration with DeFi protocols. Provide cross-chain bridges, liquidity pools, and DEX integration.",
+        "title": "プロトコル統合",
+        "desc": "DeFiプロトコルパートナーシップとクロスチェーン統合",
         "features": [
           "Cross-chain bridge",
           "Liquidity incentives",
@@ -25241,19 +25247,19 @@
           "Real-time oracle"
         ],
         "stats": {
-          "tvl": "$500M+",
-          "tvlLabel": "TVL",
-          "protocols": "15+",
-          "protocolsLabel": "Protocol Integrations",
-          "transactions": "1M+",
-          "transactionsLabel": "Daily Transactions",
-          "chains": "5",
-          "chainsLabel": "Chains Supported"
+          "tvl": "$25億+",
+          "tvlLabel": "TVL目標",
+          "protocols": "50+",
+          "protocolsLabel": "パートナープロトコル",
+          "transactions": "100万+",
+          "transactionsLabel": "日次トランザクション",
+          "chains": "15+",
+          "chainsLabel": "対応チェーン"
         }
       },
       "institutional": {
-        "title": "Institutional Investors",
-        "desc": "Provide dedicated services for regulatory-compliant institutional investors. Support custody, OTC trading, and tax reports.",
+        "title": "機関サービス",
+        "desc": "機関投資家サービスとコンプライアンスソリューション",
         "features": [
           "Regulatory-compliant custody",
           "Large OTC trading",
@@ -25261,28 +25267,28 @@
           "Private investment rounds"
         ],
         "stats": {
-          "aum": "$100M+",
-          "aumLabel": "AUM",
-          "partners": "50+",
-          "partnersLabel": "Institutional Partners",
-          "otc": "24/7",
-          "otcLabel": "OTC Desk",
-          "compliance": "Global",
-          "complianceLabel": "Regulatory Compliance"
+          "aum": "$5億+",
+          "aumLabel": "AUM目標",
+          "partners": "25+",
+          "partnersLabel": "機関パートナー",
+          "otc": "対応",
+          "otcLabel": "OTCデスク",
+          "compliance": "SOC2",
+          "complianceLabel": "コンプライアンス"
         }
       }
     },
     "currentPartners": {
-      "badge": "PARTNERS",
-      "title": "Current Strategic Partners",
-      "subtitle": "Global partners joining us",
-      "investmentScale": "Investment Scale",
-      "partnership": "Partnership"
+      "badge": "パートナー",
+      "title": "現在のパートナー",
+      "subtitle": "TBURNと提携する世界クラスの組織",
+      "investmentScale": "投資規模",
+      "partnership": "パートナーシップ開始"
     },
     "faq": {
       "badge": "FAQ",
-      "title": "Frequently Asked Questions",
-      "subtitle": "Questions about strategic partnerships",
+      "title": "よくある質問",
+      "subtitle": "戦略的パートナーシップに関するよくある質問",
       "q1": {
         "question": "What is the total budget for strategic partnerships?",
         "answer": "A total of 200M TBURN is allocated for strategic partnerships. This is distributed as Enterprise 40% (80M), Protocol Integration 20% (40M), Institutional Investors 20% (40M), Public Sector 10% (20M), and Academic/Research 10% (20M)."
@@ -25314,36 +25320,70 @@
       "q8": {
         "question": "How can I inquire about partnership?",
         "answer": "You can apply through the 'Apply Partnership' button at the top of the page or contact us directly at partnerships@tburn.io. Connecting your wallet allows for faster review. A dedicated team will contact you within 3 business days."
+      },
+      "items": {
+        "q1": {
+          "question": "戦略的パートナーになるための最低要件は何ですか？",
+          "answer": "戦略的パートナーシップの要件はティアによって異なります。シルバーティアは10万ドルの価値提供から始まり、ダイヤモンドティアは技術、資本、またはネットワーク貢献を含む1000万ドル以上の価値提供が必要です。"
+        },
+        "q2": {
+          "question": "パートナーシッププロセスにはどのくらいかかりますか？",
+          "answer": "一般的なパートナーシッププロセスは申請からオンボーディングまで8-16週間かかります。審査(1-2週間)、交渉(2-4週間)、契約締結(1-2週間)、技術統合(4-8週間)が含まれます。"
+        },
+        "q3": {
+          "question": "どのような価値貢献が認められますか？",
+          "answer": "直接投資、技術統合、ネットワークアクセス、マーケティングリーチ、研究貢献、戦略的アドバイザリーサービスなど、様々な形式の価値を受け入れます。"
+        },
+        "q4": {
+          "question": "パートナーシップティアをアップグレードできますか？",
+          "answer": "はい、パートナーは価値貢献を増やすことでティアをアップグレードできます。ティアアップグレードは四半期ごとに審査され、承認後すぐに追加特典が適用されます。"
+        },
+        "q5": {
+          "question": "パートナーはどのようなガバナンス権を得ますか？",
+          "answer": "ガバナンス権はティアによって異なります。ダイヤモンドパートナーは取締役会参加を含む独占的なガバナンス権を受け、他のティアはDAOで比例投票権を受けます。"
+        },
+        "q6": {
+          "question": "TBURNインセンティブはどのように配布されますか？",
+          "answer": "インセンティブはパートナーシップ契約で指定されたベスティングスケジュールに従って配布されます。通常、オンボーディング時に20%がリリースされ、残りは12-36ヶ月にわたってベスティングされます。"
+        },
+        "q7": {
+          "question": "どのような技術サポートが提供されますか？",
+          "answer": "技術サポートは標準ドキュメントアクセス(シルバー)から専任エンジニアリングチーム(ダイヤモンド)まで様々です。すべてのパートナーはAPIアクセスと統合ドキュメントを受け取ります。"
+        },
+        "q8": {
+          "question": "地域パートナーシップの機会はありますか？",
+          "answer": "はい、市場拡大のために地域パートナーを積極的に求めています。地域パートナーはローカライゼーションサポートや市場固有のインセンティブを含む追加特典を受けることができます。"
+        }
       }
     },
     "ctaSection": {
-      "title": "Become a Strategic Partner",
-      "subtitle1": "As a core partner of the TBURN ecosystem",
-      "subtitle2": "receive 200M TBURN incentives!",
-      "button": "Apply Partnership"
+      "title": "戦略的パートナーになる",
+      "subtitle1": "ブロックチェーンの未来を一緒に築き",
+      "subtitle2": "TBURNエコシステムと共に成長しましょう。",
+      "button": "パートナーシップ申請"
     },
     "footer": {
       "brand": "TBURNCHAIN",
-      "tagline1": "AI Intelligence, Blockchain Transparency",
-      "tagline2": "THE FUTURE IS NOW",
-      "products": "Products",
-      "explorer": "Explorer",
-      "bridge": "Bridge",
-      "staking": "Staking",
+      "tagline1": "次世代",
+      "tagline2": "ブロックチェーンエコシステムを構築",
+      "products": "製品",
+      "explorer": "エクスプローラー",
+      "bridge": "ブリッジ",
+      "staking": "ステーキング",
       "governance": "Governance",
-      "developers": "Developers",
-      "documentation": "Documentation",
-      "api": "API Reference",
+      "developers": "開発者",
+      "documentation": "ドキュメント",
+      "api": "API",
       "github": "GitHub",
-      "bugBounty": "Bug Bounty",
-      "community": "Community",
+      "bugBounty": "バグバウンティ",
+      "community": "コミュニティ",
       "twitter": "Twitter",
       "telegram": "Telegram",
       "discord": "Discord",
-      "forum": "Forum",
-      "copyright": "© 2024 TBURNCHAIN. All rights reserved.",
-      "privacyPolicy": "Privacy Policy",
-      "termsOfService": "Terms of Service"
+      "forum": "フォーラム",
+      "copyright": "2024 TBURN. All rights reserved.",
+      "privacyPolicy": "プライバシーポリシー",
+      "termsOfService": "利用規約"
     }
   },
   "advisorProgram": {

@@ -20051,7 +20051,7 @@
     "subtitle": "Key strategic partnerships shaping the TBURN ecosystem",
     "heroTitle": "TBURN Strategic Partners",
     "heroSubtitle": "World-class partners supporting the TBURN vision",
-    "badge": "STRATEGIC PARTNERSHIP - Enterprise Partnership",
+    "badge": "اسٹریٹجک پارٹنرشپ - انٹرپرائز پارٹنرشپ",
     "partnerCount": "Partner Count",
     "categories": "Categories",
     "tier1": "Tier 1 Partners",
@@ -20061,10 +20061,10 @@
     "techPartners": "Technology Partners",
     "mediaPartners": "Media Partners",
     "nav": {
-      "partnerTiers": "Partner Tiers",
-      "partnershipTypes": "Partnership Types",
-      "benefits": "Benefits",
-      "useCases": "Use Cases",
+      "partnerTiers": "پارٹنر ٹیئرز",
+      "partnershipTypes": "پارٹنرشپ کی اقسام",
+      "benefits": "فوائد",
+      "useCases": "استعمال کے کیسز",
       "faq": "FAQ"
     },
     "wallet": {
@@ -20077,10 +20077,10 @@
       "requiredDesc": "Please connect your wallet first to make a partnership inquiry."
     },
     "hero": {
-      "title1": "Strategic Partnership for",
+      "title1": "اسٹریٹجک پارٹنرشپ",
       "title2": "200M TBURN",
-      "title3": "Incentives",
-      "subtitle": "Become a core partner of the TBURN ecosystem through strategic partnerships with enterprises, institutional investors, and major protocols."
+      "title3": "مراعات",
+      "subtitle": "TBURN ایکو سسٹم کا بنیادی پارٹنر بنیں۔"
     },
     "enterpriseLogos": {
       "enterprise": "Enterprise",
@@ -20166,102 +20166,108 @@
         "incentive": "Up to 1M",
         "requirement": "$100K+ value provision",
         "benefits": [
-          "Tech documentation access",
-          "Basic support",
-          "Quarterly updates",
+          "Standard tech support",
+          "Co-branding",
+          "Quarterly reports",
           "Community access",
-          "Partner badge"
+          "Developer support"
         ]
       },
       "partnerIncentive": "Partner Incentive",
       "inquire": "Inquire"
     },
     "tierInquiry": {
-      "title": "Partner Inquiry",
-      "description": "Partnership inquiry for {{tier}} tier ({{incentive}} TBURN) has been submitted. A representative will contact you."
+      "title": "Partnership Inquiry Submitted",
+      "description": "Thank you for your interest in {{tier}} tier. The incentive package is {{incentive}} TBURN. Our team will contact you shortly."
     },
     "partnershipTypes": {
-      "badge": "PARTNERSHIP TYPES",
+      "badge": "TYPES",
       "title": "Partnership Types",
-      "subtitle": "Various strategic collaboration methods",
+      "subtitle": "Various partnership opportunities for different sectors",
       "enterprise": {
         "title": "Enterprise Solutions",
-        "desc": "Customized blockchain solutions for large corporations",
+        "desc": "Large-scale enterprise blockchain integration and solutions",
         "features": [
           "Private chain construction",
           "API integration",
           "Security audit",
           "24/7 support"
-        ]
+        ],
+        "name": "Enterprise"
       },
       "protocol": {
         "title": "Protocol Integration",
-        "desc": "DeFi and Web3 protocol integration",
+        "desc": "DeFi and blockchain protocol partnerships",
         "features": [
           "Cross-chain bridge",
           "Liquidity pool",
           "Smart contracts",
           "Oracle integration"
-        ]
+        ],
+        "name": "Protocol Integration"
       },
       "institutional": {
         "title": "Institutional Investment",
-        "desc": "Dedicated program for institutional investors",
+        "desc": "Institutional investor partnerships and fund management",
         "features": [
           "Custody service",
           "OTC trading",
           "Tax reports",
           "Regulatory compliance"
-        ]
+        ],
+        "name": "Institutional Investment"
       },
       "government": {
         "title": "Public Partnership",
-        "desc": "Collaboration with government and public institutions",
+        "desc": "Public sector blockchain adoption and smart city projects",
         "features": [
           "Public infrastructure",
           "Digital identity",
           "Transparency systems",
           "Civic services"
-        ]
+        ],
+        "name": "Government/Public Sector"
       },
       "academic": {
         "title": "Academic Research",
-        "desc": "Collaboration with universities and research institutes",
+        "desc": "University research partnerships and talent development",
         "features": [
           "Research grants",
           "Internships",
           "Paper support",
           "Technical consulting"
-        ]
+        ],
+        "name": "Academic Research"
       },
       "global": {
         "title": "Global Expansion",
-        "desc": "International market expansion support",
+        "desc": "International market expansion and localization partnerships",
         "features": [
           "Localization support",
           "Regulatory consulting",
           "Partner connections",
           "Marketing support"
-        ]
+        ],
+        "name": "Global Expansion"
       }
     },
     "process": {
       "badge": "PROCESS",
       "title": "Partnership Process",
-      "subtitle": "Strategic partner onboarding process",
+      "subtitle": "Systematic onboarding process",
       "step1": {
-        "title": "Inquiry Submission",
-        "desc": "Partnership letter of intent submission",
-        "duration": "1-3 days"
+        "title": "Application",
+        "desc": "Submit partnership application",
+        "duration": "1-2 days"
       },
       "step2": {
-        "title": "Due Diligence & Evaluation",
-        "desc": "Business/technical review",
-        "duration": "2-4 weeks"
+        "title": "Review",
+        "desc": "Internal review and due diligence",
+        "duration": "1-2 weeks"
       },
       "step3": {
-        "title": "Terms Negotiation",
-        "desc": "Partnership terms discussion",
+        "title": "Negotiation",
+        "desc": "Terms and conditions negotiation",
         "duration": "2-4 weeks"
       },
       "step4": {
@@ -20314,8 +20320,8 @@
         "institutional": "Institutional"
       },
       "enterprise": {
-        "title": "Enterprise Blockchain",
-        "desc": "Provide private blockchain solutions for large enterprises. Applicable to various use cases including supply chain management, asset tokenization, and internal payment systems.",
+        "title": "Enterprise Solutions",
+        "desc": "Large-scale blockchain integration and customized enterprise solutions",
         "features": [
           "Private chain construction",
           "API integration support",
@@ -20324,18 +20330,18 @@
         ],
         "stats": {
           "uptime": "99.99%",
-          "uptimeLabel": "Uptime",
-          "response": "< 100ms",
+          "uptimeLabel": "Uptime SLA",
+          "response": "<100ms",
           "responseLabel": "Response Time",
-          "throughput": "Unlimited",
-          "throughputLabel": "Throughput",
-          "security": "ISO 27001",
-          "securityLabel": "Security Certification"
+          "throughput": "210K",
+          "throughputLabel": "TPS",
+          "security": "Enterprise",
+          "securityLabel": "Security Grade"
         }
       },
       "protocol": {
         "title": "Protocol Integration",
-        "desc": "Support seamless integration with DeFi protocols. Provide cross-chain bridges, liquidity pools, and DEX integration.",
+        "desc": "DeFi protocol partnerships and cross-chain integration",
         "features": [
           "Cross-chain bridge",
           "Liquidity incentives",
@@ -20343,19 +20349,19 @@
           "Real-time oracle"
         ],
         "stats": {
-          "tvl": "$500M+",
-          "tvlLabel": "TVL",
-          "protocols": "15+",
-          "protocolsLabel": "Protocol Integrations",
+          "tvl": "$2.5B+",
+          "tvlLabel": "TVL Target",
+          "protocols": "50+",
+          "protocolsLabel": "Partner Protocols",
           "transactions": "1M+",
           "transactionsLabel": "Daily Transactions",
-          "chains": "5",
-          "chainsLabel": "Chains Supported"
+          "chains": "15+",
+          "chainsLabel": "Supported Chains"
         }
       },
       "institutional": {
-        "title": "Institutional Investors",
-        "desc": "Provide dedicated services for regulatory-compliant institutional investors. Support custody, OTC trading, and tax reports.",
+        "title": "Institutional Services",
+        "desc": "Institutional investor services and compliance solutions",
         "features": [
           "Regulatory-compliant custody",
           "Large OTC trading",
@@ -20363,28 +20369,28 @@
           "Private investment rounds"
         ],
         "stats": {
-          "aum": "$100M+",
-          "aumLabel": "AUM",
-          "partners": "50+",
+          "aum": "$500M+",
+          "aumLabel": "AUM Target",
+          "partners": "25+",
           "partnersLabel": "Institutional Partners",
-          "otc": "24/7",
+          "otc": "Available",
           "otcLabel": "OTC Desk",
-          "compliance": "Global",
-          "complianceLabel": "Regulatory Compliance"
+          "compliance": "SOC2",
+          "complianceLabel": "Compliance"
         }
       }
     },
     "currentPartners": {
       "badge": "PARTNERS",
-      "title": "Current Strategic Partners",
-      "subtitle": "Global partners joining us",
+      "title": "Current Partners",
+      "subtitle": "World-class organizations partnering with TBURN",
       "investmentScale": "Investment Scale",
-      "partnership": "Partnership"
+      "partnership": "Partnership Since"
     },
     "faq": {
       "badge": "FAQ",
       "title": "Frequently Asked Questions",
-      "subtitle": "Questions about strategic partnerships",
+      "subtitle": "Common questions about strategic partnerships",
       "q1": {
         "question": "What is the total budget for strategic partnerships?",
         "answer": "A total of 200M TBURN is allocated for strategic partnerships. This is distributed as Enterprise 40% (80M), Protocol Integration 20% (40M), Institutional Investors 20% (40M), Public Sector 10% (20M), and Academic/Research 10% (20M)."
@@ -20416,36 +20422,70 @@
       "q8": {
         "question": "How can I inquire about partnership?",
         "answer": "You can apply through the 'Apply Partnership' button at the top of the page or contact us directly at partnerships@tburn.io. Connecting your wallet allows for faster review. A dedicated team will contact you within 3 business days."
+      },
+      "items": {
+        "q1": {
+          "question": "What are the minimum requirements to become a strategic partner?",
+          "answer": "Strategic partnership requirements vary by tier. Silver tier starts at $100K value provision, while Diamond tier requires $10M+ value provision including technology, capital, or network contributions."
+        },
+        "q2": {
+          "question": "How long does the partnership process take?",
+          "answer": "The typical partnership process takes 8-16 weeks from application to onboarding. This includes review (1-2 weeks), negotiation (2-4 weeks), contract signing (1-2 weeks), and technical integration (4-8 weeks)."
+        },
+        "q3": {
+          "question": "What types of value contributions are accepted?",
+          "answer": "We accept various forms of value including direct investment, technology integration, network access, marketing reach, research contributions, and strategic advisory services."
+        },
+        "q4": {
+          "question": "Can partnership tiers be upgraded?",
+          "answer": "Yes, partners can upgrade their tier by increasing their value contribution. Tier upgrades are reviewed quarterly and additional benefits are applied immediately upon approval."
+        },
+        "q5": {
+          "question": "What governance rights do partners receive?",
+          "answer": "Governance rights vary by tier. Diamond partners receive exclusive governance rights including board participation, while other tiers receive proportional voting rights in the DAO."
+        },
+        "q6": {
+          "question": "How are TBURN incentives distributed?",
+          "answer": "Incentives are distributed according to a vesting schedule specified in the partnership agreement. Typically, 20% is released at onboarding with the remainder vesting over 12-36 months."
+        },
+        "q7": {
+          "question": "What technical support is provided?",
+          "answer": "Technical support ranges from standard documentation access (Silver) to dedicated engineering teams (Diamond). All partners receive API access and integration documentation."
+        },
+        "q8": {
+          "question": "Are there regional partnership opportunities?",
+          "answer": "Yes, we actively seek regional partners for market expansion. Regional partners may receive additional benefits including localization support and market-specific incentives."
+        }
       }
     },
     "ctaSection": {
-      "title": "Become a Strategic Partner",
-      "subtitle1": "As a core partner of the TBURN ecosystem",
-      "subtitle2": "receive 200M TBURN incentives!",
-      "button": "Apply Partnership"
+      "title": "اسٹریٹجک پارٹنر بنیں",
+      "subtitle1": "بلاکچین کا مستقبل مل کر بنائیں",
+      "subtitle2": "اور TBURN ایکو سسٹم کے ساتھ بڑھیں۔",
+      "button": "پارٹنرشپ کے لیے درخواست دیں"
     },
     "footer": {
       "brand": "TBURNCHAIN",
-      "tagline1": "AI Intelligence, Blockchain Transparency",
-      "tagline2": "THE FUTURE IS NOW",
-      "products": "Products",
-      "explorer": "Explorer",
-      "bridge": "Bridge",
-      "staking": "Staking",
+      "tagline1": "اگلی نسل کا",
+      "tagline2": "بلاکچین ایکو سسٹم بنانا",
+      "products": "مصنوعات",
+      "explorer": "ایکسپلورر",
+      "bridge": "برج",
+      "staking": "اسٹیکنگ",
       "governance": "Governance",
-      "developers": "Developers",
-      "documentation": "Documentation",
-      "api": "API Reference",
+      "developers": "ڈویلپرز",
+      "documentation": "دستاویزات",
+      "api": "API",
       "github": "GitHub",
-      "bugBounty": "Bug Bounty",
-      "community": "Community",
-      "twitter": "Twitter",
-      "telegram": "Telegram",
-      "discord": "Discord",
-      "forum": "Forum",
-      "copyright": "© 2024 TBURNCHAIN. All rights reserved.",
-      "privacyPolicy": "Privacy Policy",
-      "termsOfService": "Terms of Service"
+      "bugBounty": "بگ باؤنٹی",
+      "community": "کمیونٹی",
+      "twitter": "ٹویٹر",
+      "telegram": "ٹیلیگرام",
+      "discord": "ڈسکارڈ",
+      "forum": "فورم",
+      "copyright": "2024 TBURN. جملہ حقوق محفوظ ہیں۔",
+      "privacyPolicy": "رازداری کی پالیسی",
+      "termsOfService": "سروس کی شرائط"
     }
   },
   "advisorProgram": {
