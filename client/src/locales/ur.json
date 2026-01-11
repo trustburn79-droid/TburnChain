@@ -20344,9 +20344,9 @@
         "desc": "DeFi protocol partnerships and cross-chain integration",
         "features": [
           "Cross-chain bridge",
-          "Liquidity incentives",
+          "Liquidity provision",
           "Smart contract audit",
-          "Real-time oracle"
+          "Protocol governance"
         ],
         "stats": {
           "tvl": "$2.5B+",
@@ -20363,10 +20363,10 @@
         "title": "Institutional Services",
         "desc": "Institutional investor services and compliance solutions",
         "features": [
-          "Regulatory-compliant custody",
-          "Large OTC trading",
-          "Tax reports",
-          "Private investment rounds"
+          "Custody solution",
+          "OTC trading",
+          "Compliance reporting",
+          "Tax optimization"
         ],
         "stats": {
           "aum": "$500M+",
@@ -20385,7 +20385,31 @@
       "title": "Current Partners",
       "subtitle": "World-class organizations partnering with TBURN",
       "investmentScale": "Investment Scale",
-      "partnership": "Partnership Since"
+      "partnership": "Partnership Since",
+      "partners": {
+        "partner1": {
+          "name": "Global Tech Corp",
+          "type": "Enterprise"
+        },
+        "partner2": {
+          "name": "DeFi Protocol X",
+          "type": "Protocol"
+        },
+        "partner3": {
+          "name": "Crypto Fund Alpha",
+          "type": "Institutional"
+        },
+        "partner4": {
+          "name": "City of Seoul",
+          "type": "Government"
+        }
+      },
+      "tierBadges": {
+        "diamond": "DIAMOND",
+        "platinum": "PLATINUM",
+        "gold": "GOLD",
+        "silver": "SILVER"
+      }
     },
     "faq": {
       "badge": "FAQ",
@@ -20393,35 +20417,35 @@
       "subtitle": "Common questions about strategic partnerships",
       "q1": {
         "question": "What is the total budget for strategic partnerships?",
-        "answer": "A total of 200M TBURN is allocated for strategic partnerships. This is distributed as Enterprise 40% (80M), Protocol Integration 20% (40M), Institutional Investors 20% (40M), Public Sector 10% (20M), and Academic/Research 10% (20M)."
+        "answer": "A total of 200M TBURN is allocated for strategic partnerships."
       },
       "q2": {
         "question": "What are the requirements to become a strategic partner?",
-        "answer": "Strategic partnerships require a minimum value provision of $100K or more (investment, technology integration, business collaboration, etc.). Tiers are divided into Silver ($100K+, up to 1M TBURN), Gold ($1M+, up to 5M), Platinum ($5M+, up to 20M), and Diamond ($10M+, up to 50M)."
+        "answer": "Requirements vary by tier. Silver starts at $100K, Gold $1M, Platinum $5M, Diamond $10M+."
       },
       "q3": {
         "question": "How are partnership incentives distributed?",
-        "answer": "Incentives are distributed according to a vesting schedule. Generally distributed over 12-24 months, paid monthly/quarterly after initial unlock. Performance-based bonuses are also paid separately based on milestone achievements."
+        "answer": "Incentives follow a vesting schedule. Typically 20% at onboarding, remainder over 12-36 months."
       },
       "q4": {
         "question": "Are there special programs for institutional investors?",
-        "answer": "Yes, we operate dedicated programs for institutional investors. We provide regulatory-compliant custody, large OTC trading, tax reports, and private investment round participation opportunities. Contact us for detailed information."
+        "answer": "Yes, institutional investors receive dedicated account management and priority OTC access."
       },
       "q5": {
         "question": "How long does it take to finalize a partnership?",
-        "answer": "Generally, it takes 8-16 weeks total: Inquiry submission (1-3 days) → Due diligence & evaluation (2-4 weeks) → Terms negotiation (2-4 weeks) → Contract signing (1-2 weeks) → Onboarding (4-8 weeks). Fast-track process is available for urgent cases."
+        "answer": "The typical process takes 8-16 weeks from application to onboarding."
       },
       "q6": {
         "question": "How does protocol integration partnership work?",
-        "answer": "We support technical integration with DeFi protocols. We provide cross-chain bridges, liquidity pools, DEX integration, smart contract audits, and real-time oracle integration. Currently integrated with 15+ protocols with $500M+ TVL."
+        "answer": "Protocol partners receive technical integration support, API access, and liquidity incentives."
       },
       "q7": {
         "question": "What are the exclusive benefits for Diamond tier partners?",
-        "answer": "Diamond tier partners receive up to 50M TBURN incentives along with a dedicated technical team, custom solution development, board participation rights, exclusive governance rights, and annual offline summit participation - the highest level of benefits."
+        "answer": "Diamond partners receive dedicated tech team, board participation, and up to 50M TBURN incentives."
       },
       "q8": {
         "question": "How can I inquire about partnership?",
-        "answer": "You can apply through the 'Apply Partnership' button at the top of the page or contact us directly at partnerships@tburn.io. Connecting your wallet allows for faster review. A dedicated team will contact you within 3 business days."
+        "answer": "Click the Apply for Partnership button or contact our partnership team directly."
       },
       "items": {
         "q1": {

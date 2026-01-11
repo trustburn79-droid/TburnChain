@@ -151,12 +151,31 @@ export default function StrategicPartnerPage() {
     data: "📊"
   };
 
-  const currentPartners = [
-    { icon: "🏛️", name: "Global Tech Corp", type: "Enterprise", tier: "diamond", investment: "$15M", since: "2024.01" },
-    { icon: "🔗", name: "DeFi Protocol X", type: "Protocol", tier: "platinum", investment: "$8M", since: "2024.03" },
-    { icon: "💰", name: "Crypto Fund Alpha", type: "Institutional", tier: "platinum", investment: "$12M", since: "2024.02" },
-    { icon: "🏢", name: "City of Seoul", type: "Government", tier: "gold", investment: "$2M", since: "2024.04" },
-  ];
+  const currentPartnerKeys = ["partner1", "partner2", "partner3", "partner4"];
+  const currentPartnerIcons: { [key: string]: string } = {
+    partner1: "🏛️",
+    partner2: "🔗",
+    partner3: "💰",
+    partner4: "🏢"
+  };
+  const currentPartnerTiers: { [key: string]: string } = {
+    partner1: "diamond",
+    partner2: "platinum",
+    partner3: "platinum",
+    partner4: "gold"
+  };
+  const currentPartnerInvestments: { [key: string]: string } = {
+    partner1: "$15M",
+    partner2: "$8M",
+    partner3: "$12M",
+    partner4: "$2M"
+  };
+  const currentPartnerSince: { [key: string]: string } = {
+    partner1: "2024.01",
+    partner2: "2024.03",
+    partner3: "2024.02",
+    partner4: "2024.04"
+  };
 
   const useCaseKeys = ["enterprise", "protocol", "institutional"] as const;
 
