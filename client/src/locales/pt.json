@@ -21523,40 +21523,70 @@
       "title": "Tipos de Parceria",
       "subtitle": "Oportunidades de parceria estratégica diversificadas",
       "enterprise": {
-        "icon": "🏛️",
-        "title": "Parceria Empresarial",
-        "description": "Soluções blockchain personalizadas para grandes corporações e empresas. Inclui integração dedicada e suporte técnico.",
-        "examples": "Empresas Fortune 500, Conglomerados Globais, Instituições Financeiras"
+        "title": "Soluções Empresariais",
+        "desc": "Integração blockchain empresarial em larga escala e soluções",
+        "features": [
+          "Construção de chain privada",
+          "Integração API",
+          "Auditoria de segurança",
+          "Suporte 24/7"
+        ],
+        "name": "Empresarial"
       },
       "protocol": {
-        "icon": "🔗",
         "title": "Integração de Protocolo",
-        "description": "Colaboração técnica com protocolos DeFi, pontes cross-chain e provedores de infraestrutura.",
-        "examples": "Protocolos DeFi, Pontes Cross-Chain, Oráculos"
+        "desc": "Parcerias de protocolo DeFi e blockchain",
+        "features": [
+          "Bridge cross-chain",
+          "Pool de liquidez",
+          "Contratos inteligentes",
+          "Integração de oracle"
+        ],
+        "name": "Protocolo"
       },
       "institutional": {
-        "icon": "💰",
-        "title": "Investidores Institucionais",
-        "description": "Parcerias estratégicas de investimento com fundos de VC, fundos de hedge e family offices.",
-        "examples": "Fundos de VC, Fundos de Hedge, Family Offices"
+        "title": "Investimento Institucional",
+        "desc": "Parcerias com investidores institucionais e gestão de fundos",
+        "features": [
+          "Serviço de custódia",
+          "Trading OTC",
+          "Relatórios fiscais",
+          "Conformidade regulatória"
+        ],
+        "name": "Institucional"
       },
       "government": {
-        "icon": "🏢",
-        "title": "Setor Público",
-        "description": "Colaboração com agências governamentais e organizações do setor público para adoção de blockchain.",
-        "examples": "Agências Governamentais, Bancos Centrais, Organizações Internacionais"
+        "title": "Parceria Pública",
+        "desc": "Adoção de blockchain no setor público e projetos de cidade inteligente",
+        "features": [
+          "Infraestrutura pública",
+          "Identidade digital",
+          "Sistemas de transparência",
+          "Serviços civis"
+        ],
+        "name": "Governamental"
       },
       "academic": {
-        "icon": "🎓",
-        "title": "Parceria Acadêmica",
-        "description": "Colaboração em pesquisa com universidades e instituições de pesquisa para avanço da tecnologia blockchain.",
-        "examples": "Universidades, Institutos de Pesquisa, Think Tanks"
+        "title": "Pesquisa Acadêmica",
+        "desc": "Parcerias de pesquisa universitária e desenvolvimento de talentos",
+        "features": [
+          "Bolsas de pesquisa",
+          "Estágios",
+          "Suporte a papers",
+          "Consultoria técnica"
+        ],
+        "name": "Acadêmico"
       },
       "global": {
-        "icon": "🌐",
         "title": "Expansão Global",
-        "description": "Parcerias regionais para expandir a presença do TBURN em mercados-chave ao redor do mundo.",
-        "examples": "Parceiros Regionais, Distribuidores Locais, Embaixadores de Mercado"
+        "desc": "Expansão de mercado internacional e parcerias de localização",
+        "features": [
+          "Suporte de localização",
+          "Consultoria regulatória",
+          "Conexões de parceiros",
+          "Suporte de marketing"
+        ],
+        "name": "Global"
       }
     },
     "process": {
@@ -21662,31 +21692,35 @@
       }
     },
     "currentPartners": {
-      "badge": "PARCEIROS ATUAIS",
-      "title": "Nossos Parceiros Estratégicos",
-      "subtitle": "Parceiros que estão construindo o futuro do TBURN conosco",
-      "partner1": {
-        "name": "Empresa de Tecnologia Global",
-        "type": "Empresarial",
-        "description": "Líder global em soluções de tecnologia empresarial"
+      "badge": "PARCEIROS",
+      "title": "Parceiros Atuais",
+      "subtitle": "Organizações de classe mundial em parceria com TBURN",
+      "investmentScale": "Escala de Investimento",
+      "partnership": "Parceria Desde",
+      "partners": {
+        "partner1": {
+          "name": "Global Tech Corp",
+          "type": "Empresarial"
+        },
+        "partner2": {
+          "name": "DeFi Protocol X",
+          "type": "Protocolo"
+        },
+        "partner3": {
+          "name": "Crypto Fund Alpha",
+          "type": "Institucional"
+        },
+        "partner4": {
+          "name": "Cidade de Seul",
+          "type": "Governamental"
+        }
       },
-      "partner2": {
-        "name": "Protocolo DeFi Principal",
-        "type": "Protocolo",
-        "description": "Principal protocolo DeFi cross-chain"
-      },
-      "partner3": {
-        "name": "Fundo de Investimento VC",
-        "type": "Institucional",
-        "description": "Fundo de capital de risco tier-1 focado em blockchain"
-      },
-      "partner4": {
-        "name": "Parceiro Regional APAC",
-        "type": "Regional",
-        "description": "Líder de mercado na região Ásia-Pacífico"
-      },
-      "investmentLabel": "Investimento",
-      "partnerSince": "Parceiro desde"
+      "tierBadges": {
+        "diamond": "DIAMANTE",
+        "platinum": "PLATINA",
+        "gold": "OURO",
+        "silver": "PRATA"
+      }
     },
     "faq": {
       "badge": "FAQ",

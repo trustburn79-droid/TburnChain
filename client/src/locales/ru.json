@@ -1381,6 +1381,37 @@
       }
     },
     "faq": {
+      "currentPartners": {
+        "badge": "ПАРТНЁРЫ",
+        "title": "Текущие Партнёры",
+        "subtitle": "Организации мирового класса в партнёрстве с TBURN",
+        "investmentScale": "Масштаб Инвестиций",
+        "partnership": "Партнёрство С",
+        "partners": {
+          "partner1": {
+            "name": "Global Tech Corp",
+            "type": "Предприятие"
+          },
+          "partner2": {
+            "name": "DeFi Protocol X",
+            "type": "Протокол"
+          },
+          "partner3": {
+            "name": "Crypto Fund Alpha",
+            "type": "Институциональный"
+          },
+          "partner4": {
+            "name": "Город Сеул",
+            "type": "Государственный"
+          }
+        },
+        "tierBadges": {
+          "diamond": "БРИЛЛИАНТ",
+          "platinum": "ПЛАТИНА",
+          "gold": "ЗОЛОТО",
+          "silver": "СЕРЕБРО"
+        }
+      },
       "title": "Frequently Asked Questions",
       "subtitle": "Questions about TBURN Launchpad",
       "q1": {
@@ -19872,6 +19903,37 @@
       "header": "Топ контрибьюторов"
     },
     "faq": {
+      "currentPartners": {
+        "badge": "ПАРТНЁРЫ",
+        "title": "Текущие Партнёры",
+        "subtitle": "Организации мирового класса в партнёрстве с TBURN",
+        "investmentScale": "Масштаб Инвестиций",
+        "partnership": "Партнёрство С",
+        "partners": {
+          "partner1": {
+            "name": "Global Tech Corp",
+            "type": "Предприятие"
+          },
+          "partner2": {
+            "name": "DeFi Protocol X",
+            "type": "Протокол"
+          },
+          "partner3": {
+            "name": "Crypto Fund Alpha",
+            "type": "Институциональный"
+          },
+          "partner4": {
+            "name": "Город Сеул",
+            "type": "Государственный"
+          }
+        },
+        "tierBadges": {
+          "diamond": "БРИЛЛИАНТ",
+          "platinum": "ПЛАТИНА",
+          "gold": "ЗОЛОТО",
+          "silver": "СЕРЕБРО"
+        }
+      },
       "badge": "FAQ",
       "title": "Часто задаваемые вопросы",
       "subtitle": "Общие вопросы о программе сообщества",
@@ -20175,6 +20237,37 @@
       }
     },
     "faq": {
+      "currentPartners": {
+        "badge": "ПАРТНЁРЫ",
+        "title": "Текущие Партнёры",
+        "subtitle": "Организации мирового класса в партнёрстве с TBURN",
+        "investmentScale": "Масштаб Инвестиций",
+        "partnership": "Партнёрство С",
+        "partners": {
+          "partner1": {
+            "name": "Global Tech Corp",
+            "type": "Предприятие"
+          },
+          "partner2": {
+            "name": "DeFi Protocol X",
+            "type": "Протокол"
+          },
+          "partner3": {
+            "name": "Crypto Fund Alpha",
+            "type": "Институциональный"
+          },
+          "partner4": {
+            "name": "Город Сеул",
+            "type": "Государственный"
+          }
+        },
+        "tierBadges": {
+          "diamond": "БРИЛЛИАНТ",
+          "platinum": "ПЛАТИНА",
+          "gold": "ЗОЛОТО",
+          "silver": "СЕРЕБРО"
+        }
+      },
       "badge": "FAQ",
       "title": "Frequently Asked Questions",
       "subtitle": "Get answers to common questions about the referral program",
@@ -20402,6 +20495,37 @@
       }
     },
     "faq": {
+      "currentPartners": {
+        "badge": "ПАРТНЁРЫ",
+        "title": "Текущие Партнёры",
+        "subtitle": "Организации мирового класса в партнёрстве с TBURN",
+        "investmentScale": "Масштаб Инвестиций",
+        "partnership": "Партнёрство С",
+        "partners": {
+          "partner1": {
+            "name": "Global Tech Corp",
+            "type": "Предприятие"
+          },
+          "partner2": {
+            "name": "DeFi Protocol X",
+            "type": "Протокол"
+          },
+          "partner3": {
+            "name": "Crypto Fund Alpha",
+            "type": "Институциональный"
+          },
+          "partner4": {
+            "name": "Город Сеул",
+            "type": "Государственный"
+          }
+        },
+        "tierBadges": {
+          "diamond": "БРИЛЛИАНТ",
+          "platinum": "ПЛАТИНА",
+          "gold": "ЗОЛОТО",
+          "silver": "СЕРЕБРО"
+        }
+      },
       "badge": "FAQ",
       "title": "Frequently Asked Questions",
       "subtitle": "Everything you need to know about TBURN events",
@@ -20645,6 +20769,37 @@
       }
     ],
     "faq": {
+      "currentPartners": {
+        "badge": "ПАРТНЁРЫ",
+        "title": "Текущие Партнёры",
+        "subtitle": "Организации мирового класса в партнёрстве с TBURN",
+        "investmentScale": "Масштаб Инвестиций",
+        "partnership": "Партнёрство С",
+        "partners": {
+          "partner1": {
+            "name": "Global Tech Corp",
+            "type": "Предприятие"
+          },
+          "partner2": {
+            "name": "DeFi Protocol X",
+            "type": "Протокол"
+          },
+          "partner3": {
+            "name": "Crypto Fund Alpha",
+            "type": "Институциональный"
+          },
+          "partner4": {
+            "name": "Город Сеул",
+            "type": "Государственный"
+          }
+        },
+        "tierBadges": {
+          "diamond": "БРИЛЛИАНТ",
+          "platinum": "ПЛАТИНА",
+          "gold": "ЗОЛОТО",
+          "silver": "СЕРЕБРО"
+        }
+      },
       "badge": "FAQ",
       "title": "Frequently Asked Questions",
       "subtitle": "Learn more about TBURN DAO governance",
@@ -21008,28 +21163,38 @@
         }
       }
     },
-    "currentPartners": {
-      "badge": "ТЕКУЩИЕ ПАРТНЕРЫ",
-      "title": "Наши стратегические партнеры",
-      "subtitle": "Лидеры отрасли, формирующие экосистему TBURN",
-      "partner1": {
-        "name": "Global Tech Corp",
-        "description": "Ведущий корпоративный партнер в области технологической интеграции"
-      },
-      "partner2": {
-        "name": "DeFi Protocol Alpha",
-        "description": "Крупнейший партнер по интеграции протоколов"
-      },
-      "partner3": {
-        "name": "Institutional Capital",
-        "description": "Ведущий институциональный инвестиционный партнер"
-      },
-      "partner4": {
-        "name": "Blockchain Research Lab",
-        "description": "Премиум академический исследовательский партнер"
-      }
-    },
     "faq": {
+      "currentPartners": {
+        "badge": "ПАРТНЁРЫ",
+        "title": "Текущие Партнёры",
+        "subtitle": "Организации мирового класса в партнёрстве с TBURN",
+        "investmentScale": "Масштаб Инвестиций",
+        "partnership": "Партнёрство С",
+        "partners": {
+          "partner1": {
+            "name": "Global Tech Corp",
+            "type": "Предприятие"
+          },
+          "partner2": {
+            "name": "DeFi Protocol X",
+            "type": "Протокол"
+          },
+          "partner3": {
+            "name": "Crypto Fund Alpha",
+            "type": "Институциональный"
+          },
+          "partner4": {
+            "name": "Город Сеул",
+            "type": "Государственный"
+          }
+        },
+        "tierBadges": {
+          "diamond": "БРИЛЛИАНТ",
+          "platinum": "ПЛАТИНА",
+          "gold": "ЗОЛОТО",
+          "silver": "СЕРЕБРО"
+        }
+      },
       "badge": "ЧАСТО ЗАДАВАЕМЫЕ ВОПРОСЫ",
       "title": "Часто задаваемые вопросы",
       "subtitle": "Ответы на распространенные вопросы о стратегическом партнерстве",
@@ -21100,6 +21265,37 @@
     "tierInquiry": {
       "title": "Запрос на партнерство отправлен",
       "description": "Отправлен запрос на уровень {{tier}} с поощрением {{incentive}} TBURN."
+    },
+    "currentPartners": {
+      "badge": "ПАРТНЁРЫ",
+      "title": "Текущие Партнёры",
+      "subtitle": "Организации мирового класса в партнёрстве с TBURN",
+      "investmentScale": "Масштаб Инвестиций",
+      "partnership": "Партнёрство С",
+      "partners": {
+        "partner1": {
+          "name": "Global Tech Corp",
+          "type": "Предприятие"
+        },
+        "partner2": {
+          "name": "DeFi Protocol X",
+          "type": "Протокол"
+        },
+        "partner3": {
+          "name": "Crypto Fund Alpha",
+          "type": "Институциональный"
+        },
+        "partner4": {
+          "name": "Город Сеул",
+          "type": "Государственный"
+        }
+      },
+      "tierBadges": {
+        "diamond": "БРИЛЛИАНТ",
+        "platinum": "ПЛАТИНА",
+        "gold": "ЗОЛОТО",
+        "silver": "СЕРЕБРО"
+      }
     }
   },
   "advisorProgram": {
@@ -21391,6 +21587,37 @@
       }
     },
     "faq": {
+      "currentPartners": {
+        "badge": "ПАРТНЁРЫ",
+        "title": "Текущие Партнёры",
+        "subtitle": "Организации мирового класса в партнёрстве с TBURN",
+        "investmentScale": "Масштаб Инвестиций",
+        "partnership": "Партнёрство С",
+        "partners": {
+          "partner1": {
+            "name": "Global Tech Corp",
+            "type": "Предприятие"
+          },
+          "partner2": {
+            "name": "DeFi Protocol X",
+            "type": "Протокол"
+          },
+          "partner3": {
+            "name": "Crypto Fund Alpha",
+            "type": "Институциональный"
+          },
+          "partner4": {
+            "name": "Город Сеул",
+            "type": "Государственный"
+          }
+        },
+        "tierBadges": {
+          "diamond": "БРИЛЛИАНТ",
+          "platinum": "ПЛАТИНА",
+          "gold": "ЗОЛОТО",
+          "silver": "СЕРЕБРО"
+        }
+      },
       "badge": "FAQ",
       "title": "Часто Задаваемые Вопросы",
       "subtitle": "Общие вопросы о программе консультантов",
@@ -21569,6 +21796,37 @@
       "investors": "Investors"
     },
     "faq": {
+      "currentPartners": {
+        "badge": "ПАРТНЁРЫ",
+        "title": "Текущие Партнёры",
+        "subtitle": "Организации мирового класса в партнёрстве с TBURN",
+        "investmentScale": "Масштаб Инвестиций",
+        "partnership": "Партнёрство С",
+        "partners": {
+          "partner1": {
+            "name": "Global Tech Corp",
+            "type": "Предприятие"
+          },
+          "partner2": {
+            "name": "DeFi Protocol X",
+            "type": "Протокол"
+          },
+          "partner3": {
+            "name": "Crypto Fund Alpha",
+            "type": "Институциональный"
+          },
+          "partner4": {
+            "name": "Город Сеул",
+            "type": "Государственный"
+          }
+        },
+        "tierBadges": {
+          "diamond": "БРИЛЛИАНТ",
+          "platinum": "ПЛАТИНА",
+          "gold": "ЗОЛОТО",
+          "silver": "СЕРЕБРО"
+        }
+      },
       "q1": {
         "question": "What is the total size of the CoinList sale?",
         "answer": "The TBURN token sale through CoinList totals 600M TBURN (6% of total supply), with a target raise of $12,000,000. Token price is set at $0.02."
@@ -21829,6 +22087,37 @@
       }
     },
     "faq": {
+      "currentPartners": {
+        "badge": "ПАРТНЁРЫ",
+        "title": "Текущие Партнёры",
+        "subtitle": "Организации мирового класса в партнёрстве с TBURN",
+        "investmentScale": "Масштаб Инвестиций",
+        "partnership": "Партнёрство С",
+        "partners": {
+          "partner1": {
+            "name": "Global Tech Corp",
+            "type": "Предприятие"
+          },
+          "partner2": {
+            "name": "DeFi Protocol X",
+            "type": "Протокол"
+          },
+          "partner3": {
+            "name": "Crypto Fund Alpha",
+            "type": "Институциональный"
+          },
+          "partner4": {
+            "name": "Город Сеул",
+            "type": "Государственный"
+          }
+        },
+        "tierBadges": {
+          "diamond": "БРИЛЛИАНТ",
+          "platinum": "ПЛАТИНА",
+          "gold": "ЗОЛОТО",
+          "silver": "СЕРЕБРО"
+        }
+      },
       "q1": {
         "question": "What is SHO (Strong Holder Offering)?",
         "answer": "SHO is DAO Makers exclusive token sale method. Only users with DAO Power can participate, and tiers and allocations are determined based on holdings. There are three tiers: Bronze (1,000+), Silver (5,000+), and Gold (25,000+)."
