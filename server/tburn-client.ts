@@ -153,6 +153,15 @@ export class TBurnClient {
 
   // Connect or reconnect to the TBURN API
   async connect(): Promise<boolean> {
+    // ★ [2026-01-11 FIX] 프로덕션 모드에서 RPC 연결 완전 차단
+    // 127.0.0.1:8545 연결 시도가 이벤트 루프를 차단하여 503 오류 발생
+    if (IS_PRODUCTION && DISABLE_ENTERPRISE_IN_PRODUCTION) {
+      console.log('[TBURN Client] 🔒 Production mode - Skipping RPC connection (using DB fallback)');
+      this.isApiAvailable = false;
+      this.isAuthenticated = false;
+      return true; // Return true to indicate "handled" - not a failure
+    }
+    
     // If enterprise mode, use local node
     if (this.isEnterpriseMode) {
       try {
@@ -208,6 +217,11 @@ export class TBurnClient {
   }
 
   async authenticate(): Promise<boolean> {
+    // ★ [2026-01-11 FIX] 프로덕션 모드에서 인증 완전 차단
+    if (IS_PRODUCTION && DISABLE_ENTERPRISE_IN_PRODUCTION) {
+      return false; // 프로덕션에서는 외부 인증 불필요
+    }
+    
     // Skip authentication for enterprise mode - already authenticated via API key
     if (this.isEnterpriseMode) {
       console.log('[TBURN Client] Enterprise mode - skipping external authentication');
@@ -283,6 +297,14 @@ export class TBurnClient {
   }
 
   private async request<T>(endpoint: string, method = 'GET', body?: any, customHeaders?: Record<string, string>): Promise<T> {
+    // ★ [2026-01-11 FIX] 프로덕션 모드에서 RPC 요청 완전 차단
+    if (IS_PRODUCTION && DISABLE_ENTERPRISE_IN_PRODUCTION) {
+      const error: any = new Error(`TBURN API unavailable in production - use database fallback`);
+      error.statusCode = 503;
+      error.isProductionMode = true;
+      throw error;
+    }
+    
     // Queue requests to prevent concurrent API calls
     return this.requestQueue = this.requestQueue.then(async () => {
       // Check if we're still rate limited - DON'T WAIT, throw immediately
@@ -585,6 +607,12 @@ export class TBurnClient {
   }
 
   connectWebSocket(): void {
+    // ★ [2026-01-11 FIX] 프로덕션 모드에서 WebSocket 연결 완전 차단
+    if (IS_PRODUCTION && DISABLE_ENTERPRISE_IN_PRODUCTION) {
+      console.log('[TBURN WS] 🔒 Production mode - Skipping WebSocket connection');
+      return;
+    }
+    
     if (this.ws && (this.ws.readyState === WebSocket.OPEN || this.ws.readyState === WebSocket.CONNECTING)) {
       console.log('[TBURN WS] Already connected or connecting');
       return;
