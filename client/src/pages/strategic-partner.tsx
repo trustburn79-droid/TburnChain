@@ -1361,24 +1361,24 @@ export default function StrategicPartnerPage() {
 
         <div className="partners-showcase">
           <div className="partners-grid">
-            {currentPartners.map((partner, idx) => (
+            {currentPartnerKeys.map((partnerKey, idx) => (
               <div key={idx} className="partner-item">
                 <div className="partner-item-header">
-                  <div className="partner-item-logo">{partner.icon}</div>
+                  <div className="partner-item-logo">{currentPartnerIcons[partnerKey]}</div>
                   <div className="partner-item-info">
-                    <h5>{partner.name}</h5>
-                    <p>{partner.type}</p>
+                    <h5>{t(`strategicPartner.currentPartners.${partnerKey}.name`)}</h5>
+                    <p>{t(`strategicPartner.currentPartners.${partnerKey}.type`)}</p>
                   </div>
                 </div>
-                <span className={`partner-item-tier ${partner.tier}`}>{partner.tier.toUpperCase()}</span>
+                <span className={`partner-item-tier ${currentPartnerTiers[partnerKey]}`}>{currentPartnerTiers[partnerKey].toUpperCase()}</span>
                 <div className="partner-item-stats">
                   <div>
                     <span className="label">{t('strategicPartner.currentPartners.investmentScale')}</span>
-                    <div className="value">{partner.investment}</div>
+                    <div className="value">{currentPartnerInvestments[partnerKey]}</div>
                   </div>
                   <div>
                     <span className="label">{t('strategicPartner.currentPartners.partnership')}</span>
-                    <div className="value">{partner.since}</div>
+                    <div className="value">{currentPartnerSince[partnerKey]}</div>
                   </div>
                 </div>
               </div>
