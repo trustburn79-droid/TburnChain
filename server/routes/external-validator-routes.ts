@@ -525,6 +525,62 @@ router.get('/health', async (_req: Request, res: Response) => {
   });
 });
 
+router.get('/software/releases', async (_req: Request, res: Response) => {
+  res.json({
+    success: true,
+    data: {
+      latestVersion: '1.0.0',
+      releaseDate: '2026-01-11',
+      changelog: 'Initial production release with BFT consensus, P2P networking, and enterprise security features.',
+      releases: [
+        {
+          version: '1.0.0',
+          platform: 'linux-x64',
+          filename: 'tburn-validator-node-v1.0.0-linux-x64.tar.gz',
+          size: '97 MB',
+          sha256: 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855',
+          downloadUrl: '/downloads/tburn-validator-node-v1.0.0-linux-x64.tar.gz',
+          features: [
+            'BFT 5-phase consensus engine',
+            'P2P gossip networking',
+            'AES-256-GCM encrypted keystore',
+            'TLS 1.3/mTLS support',
+            'Prometheus metrics exporter',
+            'Interactive CLI setup wizard',
+            'SystemD service installer',
+            'Auto-update manager',
+          ],
+        },
+        {
+          version: '1.0.0',
+          platform: 'docker',
+          filename: 'tburn/validator:1.0.0',
+          downloadUrl: 'docker pull tburn/validator:1.0.0',
+          features: [
+            'Docker Compose included',
+            'Kubernetes deployment ready',
+            'Multi-arch support (amd64, arm64)',
+          ],
+        },
+      ],
+      systemRequirements: {
+        minimum: {
+          cpu: '4 cores',
+          ram: '8 GB',
+          storage: '100 GB SSD',
+          network: '100 Mbps',
+        },
+        recommended: {
+          cpu: '8+ cores',
+          ram: '32 GB',
+          storage: '500 GB NVMe SSD',
+          network: '1 Gbps',
+        },
+      },
+    },
+  });
+});
+
 export function registerExternalValidatorRoutes(app: any): void {
   app.use('/api/external-validators', router);
   

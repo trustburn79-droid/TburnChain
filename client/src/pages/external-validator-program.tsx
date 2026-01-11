@@ -31,7 +31,9 @@ import {
   ExternalLink,
   Copy,
   RefreshCw,
-  ChevronDown
+  ChevronDown,
+  Download,
+  Code
 } from "lucide-react";
 
 interface ExternalValidatorStats {
@@ -338,6 +340,13 @@ export default function ExternalValidatorProgramPage() {
             >
               FAQ
             </button>
+            <button 
+              onClick={() => scrollToSection("download")} 
+              className="text-muted-foreground hover:text-foreground transition-colors font-medium text-primary"
+              data-testid="nav-download"
+            >
+              Download
+            </button>
           </nav>
           <div className="flex items-center gap-4">
             <LanguageSelector />
@@ -590,6 +599,152 @@ export default function ExternalValidatorProgramPage() {
                 </CardContent>
               </Card>
             ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="download" className="py-20 bg-muted/30">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <Badge className="mb-4">Enterprise Software</Badge>
+            <h2 className="text-3xl font-bold mb-4">Download Validator Node</h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Production-grade validator software for TBURN mainnet. 
+              Enterprise-level security with AES-256-GCM encryption and TLS 1.3.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+            <Card className="hover-elevate">
+              <CardHeader>
+                <div className="flex items-center gap-3">
+                  <div className="p-3 rounded-lg bg-primary/10">
+                    <Server className="w-6 h-6 text-primary" />
+                  </div>
+                  <div>
+                    <CardTitle className="text-lg">Linux x64</CardTitle>
+                    <CardDescription>Ubuntu 20.04+, Debian 11+</CardDescription>
+                  </div>
+                </div>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="text-sm text-muted-foreground space-y-1">
+                  <p>• Node.js 20+ runtime included</p>
+                  <p>• SystemD service installer</p>
+                  <p>• Auto-update support</p>
+                </div>
+                <a 
+                  href="/downloads/tburn-validator-node-v1.0.0-linux-x64.tar.gz"
+                  download
+                  className="block"
+                  data-testid="download-linux"
+                >
+                  <Button className="w-full" variant="outline">
+                    <Download className="w-4 h-4 mr-2" />
+                    Download (97 MB)
+                  </Button>
+                </a>
+              </CardContent>
+            </Card>
+
+            <Card className="hover-elevate">
+              <CardHeader>
+                <div className="flex items-center gap-3">
+                  <div className="p-3 rounded-lg bg-blue-500/10">
+                    <Cpu className="w-6 h-6 text-blue-500" />
+                  </div>
+                  <div>
+                    <CardTitle className="text-lg">Docker Image</CardTitle>
+                    <CardDescription>All platforms</CardDescription>
+                  </div>
+                </div>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="text-sm text-muted-foreground space-y-1">
+                  <p>• Docker Compose included</p>
+                  <p>• Kubernetes ready</p>
+                  <p>• Prometheus metrics</p>
+                </div>
+                <div className="bg-muted rounded-lg p-2 font-mono text-xs overflow-x-auto">
+                  docker pull tburn/validator:1.0.0
+                </div>
+                <Button className="w-full" variant="outline" data-testid="download-docker">
+                  View Docker Guide
+                </Button>
+              </CardContent>
+            </Card>
+
+            <Card className="hover-elevate">
+              <CardHeader>
+                <div className="flex items-center gap-3">
+                  <div className="p-3 rounded-lg bg-green-500/10">
+                    <Code className="w-6 h-6 text-green-500" />
+                  </div>
+                  <div>
+                    <CardTitle className="text-lg">Source Code</CardTitle>
+                    <CardDescription>Build from source</CardDescription>
+                  </div>
+                </div>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="text-sm text-muted-foreground space-y-1">
+                  <p>• TypeScript source</p>
+                  <p>• Full test suite</p>
+                  <p>• Development docs</p>
+                </div>
+                <a 
+                  href="https://github.com/tburn-foundation/validator-node"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block"
+                  data-testid="download-source"
+                >
+                  <Button className="w-full" variant="outline">
+                    <ExternalLink className="w-4 h-4 mr-2" />
+                    GitHub Repository
+                  </Button>
+                </a>
+              </CardContent>
+            </Card>
+          </div>
+
+          <div className="mt-12 max-w-3xl mx-auto">
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-lg">Quick Start Guide</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="grid md:grid-cols-3 gap-4 text-center">
+                  <div className="space-y-2">
+                    <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center mx-auto">
+                      <span className="font-bold text-primary">1</span>
+                    </div>
+                    <p className="font-medium">Download & Extract</p>
+                    <p className="text-sm text-muted-foreground">
+                      Download the validator package and extract it to your server
+                    </p>
+                  </div>
+                  <div className="space-y-2">
+                    <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center mx-auto">
+                      <span className="font-bold text-primary">2</span>
+                    </div>
+                    <p className="font-medium">Run Setup Wizard</p>
+                    <p className="text-sm text-muted-foreground">
+                      Execute <code className="bg-muted px-1 rounded">./tburn-validator setup</code> for guided setup
+                    </p>
+                  </div>
+                  <div className="space-y-2">
+                    <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center mx-auto">
+                      <span className="font-bold text-primary">3</span>
+                    </div>
+                    <p className="font-medium">Register & Start</p>
+                    <p className="text-sm text-muted-foreground">
+                      Register on this page, then start your node with the API key
+                    </p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </section>

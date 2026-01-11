@@ -666,6 +666,19 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   app.use('/api/production-monitor', productionMonitor.getRoutes());
   console.log('[Routes] ✅ Production monitor routes registered (/api/production-monitor/*)');
   
+  // ★ [2026-01-11] Serve validator node software downloads
+  const expressStatic = await import('express');
+  const pathModule = await import('path');
+  app.use('/downloads', expressStatic.default.static(pathModule.default.join(process.cwd(), 'public/downloads'), {
+    maxAge: '7d',
+    setHeaders: (res: any, filePath: string) => {
+      if (filePath.endsWith('.tar.gz') || filePath.endsWith('.zip')) {
+        res.set('Content-Disposition', 'attachment; filename="' + pathModule.default.basename(filePath) + '"');
+      }
+    },
+  }));
+  console.log('[Routes] ✅ Validator node downloads registered (/downloads/*)');
+  
   // ★ [2026-01-06] Enterprise Session Policy Prometheus Metrics
   app.get('/api/session-policy/prometheus', (req, res) => {
     res.set('Content-Type', 'text/plain; charset=utf-8');
@@ -2806,7 +2819,9 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
         req.path.startsWith("/external-validators/tiers") ||
         req.path.startsWith("/external-validators/network-stats") ||
         req.path.startsWith("/external-validators/setup-guide") ||
-        req.path.startsWith("/external-validators/leaderboard")) {
+        req.path.startsWith("/external-validators/leaderboard") ||
+        req.path.startsWith("/external-validators/software") ||
+        req.path.startsWith("/external-validators/health")) {
       return next();
     }
     requireAuth(req, res, next);
