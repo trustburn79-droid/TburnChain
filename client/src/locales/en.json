@@ -30899,7 +30899,186 @@
       "participants": "Expected Participants",
       "kycRequired": "KYC Required",
       "eligibility": "Eligibility Requirements",
-      "registerNow": "Register on CoinList"
+      "registerNow": "Register on CoinList",
+      "header": {
+        "tokenSale": "Token Sale",
+        "staking": "Staking",
+        "trading": "Trading",
+        "portfolio": "Portfolio",
+        "connectWallet": "Connect Wallet",
+        "walletConnected": "Connected",
+        "walletPrompt": "Connect your wallet"
+      },
+      "hero": {
+        "description": "TBURN is building the next-generation high-performance blockchain with 210,000 TPS and AI integration. Join our exclusive CoinList sale and become part of the future of decentralized finance.",
+        "badges": {
+          "saleInProgress": "Sale In Progress",
+          "verified": "Verified Project",
+          "premium": "Premium Launch"
+        },
+        "metrics": {
+          "tokenPrice": "Token Price",
+          "targetRaise": "Target Raise",
+          "totalSale": "Total Sale",
+          "tgeUnlock": "TGE Unlock"
+        }
+      },
+      "saleCard": {
+        "live": "LIVE NOW",
+        "queueInfo": "in queue ahead of you",
+        "countdown": {
+          "days": "Days",
+          "hours": "Hours",
+          "mins": "Mins",
+          "secs": "Secs"
+        },
+        "progress": {
+          "completed": "Completed",
+          "participants": "participants"
+        },
+        "queue": {
+          "title": "Queue System",
+          "estimatedWait": "Estimated wait time: ~3 min"
+        },
+        "allocation": {
+          "title": "Your Allocation",
+          "max": "Max: $50,000"
+        },
+        "tokenCalc": {
+          "receivingTokens": "Tokens You'll Receive",
+          "bonus": "Bonus",
+          "tgeUnlock": "TGE Unlock (15%)"
+        },
+        "payment": {
+          "title": "Payment Method",
+          "creditCard": "Credit Card",
+          "stablecoin": "Stablecoin",
+          "bitcoin": "Bitcoin"
+        },
+        "purchaseButton": "Purchase TBURN",
+        "securityNote": "Secured by CoinList • KYC Verified"
+      },
+      "overview": {
+        "aboutTitle": "About TBURN",
+        "aboutP1": "TBURN is a next-generation Layer 1 blockchain designed for ultra-high throughput with 210,000 TPS capability. Our innovative BFT consensus mechanism and dynamic sharding technology enable seamless scalability.",
+        "aboutP2": "With AI-integrated smart contracts and quantum-resistant cryptography, TBURN is positioned to become the leading infrastructure for DeFi, GameFi, and enterprise applications.",
+        "featuresTitle": "Key Features",
+        "vesting": {
+          "title": "Vesting Schedule",
+          "tge": "TGE (15%)",
+          "tgeDesc": "15% unlocked immediately at Token Generation Event",
+          "cliff": "Cliff Period",
+          "cliffDesc": "1 month cliff after TGE",
+          "linearVesting": "Linear Vesting",
+          "linearVestingDesc": "85% released linearly over 12 months"
+        },
+        "documents": {
+          "title": "Documents",
+          "whitepaper": "Whitepaper",
+          "technicalDocs": "Technical Documentation",
+          "tokenomics": "Tokenomics Report",
+          "auditReport": "Security Audit Report"
+        }
+      },
+      "features": {
+        "ultraFast": "Ultra Fast",
+        "ultraFastDesc": "210,000 TPS with 100ms finality",
+        "aiIntegration": "AI Integration",
+        "aiIntegrationDesc": "Native AI-powered smart contracts",
+        "strongSecurity": "Strong Security",
+        "strongSecurityDesc": "Quantum-resistant signatures",
+        "ecoFriendly": "Eco Friendly",
+        "ecoFriendlyDesc": "99.9% energy efficient vs PoW"
+      },
+      "tokenomics": {
+        "totalSupply": "Total Supply",
+        "initialMarketCap": "Initial Market Cap",
+        "fdv": "Fully Diluted Valuation",
+        "publicSale": "Public Sale",
+        "ecosystem": "Ecosystem",
+        "community": "Community"
+      },
+      "team": {
+        "coreTeam": "Core Team",
+        "investors": "Investors",
+        "keyPartners": "Key Partners"
+      },
+      "faq": {
+        "q1": {
+          "question": "What is TBURN?",
+          "answer": "TBURN is a next-generation Layer 1 blockchain with 210,000 TPS, AI integration, and quantum-resistant security designed for DeFi and enterprise applications."
+        },
+        "q2": {
+          "question": "How do I participate in the sale?",
+          "answer": "Complete KYC on CoinList, connect your wallet, and submit your allocation amount during the sale window."
+        },
+        "q3": {
+          "question": "What is the token price?",
+          "answer": "The CoinList sale price is $0.02 per TBURN token with bonuses available for larger allocations."
+        },
+        "q4": {
+          "question": "What is the vesting schedule?",
+          "answer": "15% unlocks at TGE, followed by a 1-month cliff and 12-month linear vesting for the remaining 85%."
+        },
+        "q5": {
+          "question": "What payment methods are accepted?",
+          "answer": "We accept USD (credit card), USDT, USDC, and BTC."
+        },
+        "q6": {
+          "question": "Is KYC required?",
+          "answer": "Yes, all participants must complete KYC verification on CoinList before participating."
+        },
+        "q7": {
+          "question": "What is the minimum/maximum allocation?",
+          "answer": "Minimum allocation is $100 and maximum is $50,000 per participant."
+        },
+        "q8": {
+          "question": "When will tokens be distributed?",
+          "answer": "15% of tokens will be distributed at TGE, with the remaining vesting over 12 months."
+        }
+      },
+      "modal": {
+        "processing": "Processing Transaction",
+        "pleaseWait": "Please wait while we process your purchase...",
+        "tokenSaleComplete": "Purchase Complete!",
+        "participationComplete": "Participation Successful",
+        "participationAmount": "Participation Amount",
+        "tokensToReceive": "Tokens to Receive",
+        "tgeUnlock": "TGE Unlock (15%)",
+        "tokenDeliveryNote": "Tokens will be delivered to your wallet at TGE.",
+        "confirm": "Confirm"
+      },
+      "toast": {
+        "walletDisconnected": "Wallet Disconnected",
+        "walletDisconnectedDesc": "Your wallet has been disconnected.",
+        "walletConnecting": "Connecting Wallet",
+        "walletConnectingDesc": "Please approve the connection in your wallet.",
+        "socialOpen": "Opening",
+        "socialOpenDesc": "Opening in new tab...",
+        "tabComingSoon": "Coming Soon",
+        "tabComingSoonDesc": "This feature will be available soon.",
+        "documentDownload": "Downloading Document",
+        "documentDownloadDesc": "download will start shortly.",
+        "walletRequired": "Wallet Required",
+        "walletRequiredDesc": "Please connect your wallet to participate.",
+        "minAmount": "Minimum Amount",
+        "minAmountDesc": "Minimum allocation is $100.",
+        "maxAmount": "Maximum Amount",
+        "maxAmountDesc": "Maximum allocation is $50,000.",
+        "participationComplete": "Participation Complete",
+        "participationCompleteDesc": "tokens allocated to your wallet.",
+        "customerSupport": "Customer Support",
+        "customerSupportDesc": "Our support team will assist you shortly.",
+        "riskDisclosure": "Risk Disclosure",
+        "riskDisclosureDesc": "Please read our risk disclosure carefully."
+      },
+      "footer": {
+        "terms": "Terms of Service",
+        "privacy": "Privacy Policy",
+        "support": "Support",
+        "riskDisclosure": "Risk Disclosure",
+        "copyright": "© 2025 TBURN. All rights reserved."
+      }
     },
     "daoMaker": {
       "title": "DAO Maker",
@@ -31998,6 +32177,210 @@
       "subtitle": "Download the software and start earning rewards today",
       "download": "Download Software",
       "learnMore": "Learn More About the Program"
+    }
+  },
+  "coinlist": {
+    "title": "CoinList Sale",
+    "subtitle": "TBURN token sale on CoinList platform",
+    "heroTitle": "TBURN on CoinList",
+    "heroSubtitle": "Participate in the exclusive TBURN token sale on CoinList",
+    "badge": "CoinList Exclusive",
+    "salePrice": "Sale Price",
+    "allocation": "Total Allocation",
+    "participants": "Expected Participants",
+    "kycRequired": "KYC Required",
+    "eligibility": "Eligibility Requirements",
+    "registerNow": "Register on CoinList",
+    "header": {
+      "tokenSale": "Token Sale",
+      "staking": "Staking",
+      "trading": "Trading",
+      "portfolio": "Portfolio",
+      "connectWallet": "Connect Wallet",
+      "walletConnected": "Connected",
+      "walletPrompt": "Connect your wallet"
+    },
+    "hero": {
+      "description": "TBURN is building the next-generation high-performance blockchain with 210,000 TPS and AI integration. Join our exclusive CoinList sale and become part of the future of decentralized finance.",
+      "badges": {
+        "saleInProgress": "Sale In Progress",
+        "verified": "Verified Project",
+        "premium": "Premium Launch"
+      },
+      "metrics": {
+        "tokenPrice": "Token Price",
+        "targetRaise": "Target Raise",
+        "totalSale": "Total Sale",
+        "tgeUnlock": "TGE Unlock"
+      }
+    },
+    "saleCard": {
+      "live": "LIVE NOW",
+      "queueInfo": "in queue ahead of you",
+      "countdown": {
+        "days": "Days",
+        "hours": "Hours",
+        "mins": "Mins",
+        "secs": "Secs"
+      },
+      "progress": {
+        "completed": "Completed",
+        "participants": "participants"
+      },
+      "queue": {
+        "title": "Queue System",
+        "estimatedWait": "Estimated wait time: ~3 min"
+      },
+      "allocation": {
+        "title": "Your Allocation",
+        "max": "Max: $50,000"
+      },
+      "tokenCalc": {
+        "receivingTokens": "Tokens You'll Receive",
+        "bonus": "Bonus",
+        "tgeUnlock": "TGE Unlock (15%)"
+      },
+      "payment": {
+        "title": "Payment Method",
+        "creditCard": "Credit Card",
+        "stablecoin": "Stablecoin",
+        "bitcoin": "Bitcoin"
+      },
+      "purchaseButton": "Purchase TBURN",
+      "securityNote": "Secured by CoinList • KYC Verified",
+      "saleInfo": {
+        "tokenPrice": "Token Price",
+        "minParticipation": "Min Participation",
+        "maxParticipation": "Max Participation",
+        "tgeUnlock": "TGE Unlock"
+      }
+    },
+    "overview": {
+      "aboutTitle": "About TBURN",
+      "aboutP1": "TBURN is a next-generation Layer 1 blockchain designed for ultra-high throughput with 210,000 TPS capability. Our innovative BFT consensus mechanism and dynamic sharding technology enable seamless scalability.",
+      "aboutP2": "With AI-integrated smart contracts and quantum-resistant cryptography, TBURN is positioned to become the leading infrastructure for DeFi, GameFi, and enterprise applications.",
+      "featuresTitle": "Key Features",
+      "vesting": {
+        "title": "Vesting Schedule",
+        "tge": "TGE (15%)",
+        "tgeDesc": "15% unlocked immediately at Token Generation Event",
+        "cliff": "Cliff Period",
+        "cliffDesc": "1 month cliff after TGE",
+        "linearVesting": "Linear Vesting",
+        "linearVestingDesc": "85% released linearly over 12 months"
+      },
+      "documents": {
+        "title": "Documents",
+        "whitepaper": "Whitepaper",
+        "technicalDocs": "Technical Documentation",
+        "tokenomics": "Tokenomics Report",
+        "auditReport": "Security Audit Report"
+      }
+    },
+    "features": {
+      "ultraFast": "Ultra Fast",
+      "ultraFastDesc": "210,000 TPS with 100ms finality",
+      "aiIntegration": "AI Integration",
+      "aiIntegrationDesc": "Native AI-powered smart contracts",
+      "strongSecurity": "Strong Security",
+      "strongSecurityDesc": "Quantum-resistant signatures",
+      "ecoFriendly": "Eco Friendly",
+      "ecoFriendlyDesc": "99.9% energy efficient vs PoW"
+    },
+    "tokenomics": {
+      "totalSupply": "Total Supply",
+      "initialMarketCap": "Initial Market Cap",
+      "fdv": "Fully Diluted Valuation",
+      "publicSale": "Public Sale",
+      "ecosystem": "Ecosystem",
+      "community": "Community"
+    },
+    "team": {
+      "coreTeam": "Core Team",
+      "investors": "Investors",
+      "keyPartners": "Key Partners"
+    },
+    "faq": {
+      "q1": {
+        "question": "What is TBURN?",
+        "answer": "TBURN is a next-generation Layer 1 blockchain with 210,000 TPS, AI integration, and quantum-resistant security designed for DeFi and enterprise applications."
+      },
+      "q2": {
+        "question": "How do I participate in the sale?",
+        "answer": "Complete KYC on CoinList, connect your wallet, and submit your allocation amount during the sale window."
+      },
+      "q3": {
+        "question": "What is the token price?",
+        "answer": "The CoinList sale price is $0.02 per TBURN token with bonuses available for larger allocations."
+      },
+      "q4": {
+        "question": "What is the vesting schedule?",
+        "answer": "15% unlocks at TGE, followed by a 1-month cliff and 12-month linear vesting for the remaining 85%."
+      },
+      "q5": {
+        "question": "What payment methods are accepted?",
+        "answer": "We accept USD (credit card), USDT, USDC, and BTC."
+      },
+      "q6": {
+        "question": "Is KYC required?",
+        "answer": "Yes, all participants must complete KYC verification on CoinList before participating."
+      },
+      "q7": {
+        "question": "What is the minimum/maximum allocation?",
+        "answer": "Minimum allocation is $100 and maximum is $50,000 per participant."
+      },
+      "q8": {
+        "question": "When will tokens be distributed?",
+        "answer": "15% of tokens will be distributed at TGE, with the remaining vesting over 12 months."
+      }
+    },
+    "modal": {
+      "processing": "Processing Transaction",
+      "pleaseWait": "Please wait while we process your purchase...",
+      "tokenSaleComplete": "Purchase Complete!",
+      "participationComplete": "Participation Successful",
+      "participationAmount": "Participation Amount",
+      "tokensToReceive": "Tokens to Receive",
+      "tgeUnlock": "TGE Unlock (15%)",
+      "tokenDeliveryNote": "Tokens will be delivered to your wallet at TGE.",
+      "confirm": "Confirm"
+    },
+    "toast": {
+      "walletDisconnected": "Wallet Disconnected",
+      "walletDisconnectedDesc": "Your wallet has been disconnected.",
+      "walletConnecting": "Connecting Wallet",
+      "walletConnectingDesc": "Please approve the connection in your wallet.",
+      "socialOpen": "Opening",
+      "socialOpenDesc": "Opening in new tab...",
+      "tabComingSoon": "Coming Soon",
+      "tabComingSoonDesc": "This feature will be available soon.",
+      "documentDownload": "Downloading Document",
+      "documentDownloadDesc": "download will start shortly.",
+      "walletRequired": "Wallet Required",
+      "walletRequiredDesc": "Please connect your wallet to participate.",
+      "minAmount": "Minimum Amount",
+      "minAmountDesc": "Minimum allocation is $100.",
+      "maxAmount": "Maximum Amount",
+      "maxAmountDesc": "Maximum allocation is $50,000.",
+      "participationComplete": "Participation Complete",
+      "participationCompleteDesc": "tokens allocated to your wallet.",
+      "customerSupport": "Customer Support",
+      "customerSupportDesc": "Our support team will assist you shortly.",
+      "riskDisclosure": "Risk Disclosure",
+      "riskDisclosureDesc": "Please read our risk disclosure carefully."
+    },
+    "footer": {
+      "terms": "Terms of Service",
+      "privacy": "Privacy Policy",
+      "support": "Support",
+      "riskDisclosure": "Risk Disclosure",
+      "copyright": "© 2025 TBURN. All rights reserved."
+    },
+    "tabs": {
+      "overview": "Overview",
+      "tokenomics": "Tokenomics",
+      "team": "Team",
+      "faq": "FAQ"
     }
   }
 }
