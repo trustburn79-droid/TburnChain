@@ -236,8 +236,29 @@ class DisasterRecoveryManager extends EventEmitter {
     
     // Handle uncaught exceptions - prevent complete crash
     process.on('uncaughtException', (error) => {
+      const message = error?.message || String(error);
+      
+      // ★ [v4.2] Neon serverless WebSocket errors are recoverable - don't restart
+      const neonRecoverablePatterns = [
+        'Cannot set property message of',
+        'ErrorEvent',
+        '_connectionCallback',
+        '_handleErrorWhileConnecting',
+        'neon',
+        'serverless',
+      ];
+      const isNeonRecoverable = neonRecoverablePatterns.some(pattern => 
+        message.includes(pattern) || (error.stack && error.stack.includes(pattern))
+      );
+      
+      if (isNeonRecoverable) {
+        console.warn(`[DR] ⚠️ Neon connection error (recoverable): ${message.substring(0, 100)}`);
+        console.warn('[DR] Database will auto-reconnect on next query');
+        return; // Don't restart for Neon connection errors
+      }
+      
       console.error('[DR] ⚠️ UNCAUGHT EXCEPTION - Attempting recovery');
-      console.error('[DR] Error:', error.message);
+      console.error('[DR] Error:', message);
       console.error('[DR] Stack:', error.stack);
       
       // Try emergency memory relief first

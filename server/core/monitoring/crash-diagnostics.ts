@@ -402,6 +402,25 @@ class EnterpriseCrashDiagnosticsService {
    */
   handleUncaughtException(error: Error) {
     if (this.isShuttingDown) return;
+    
+    // ★ [v2.0] Neon serverless WebSocket errors are recoverable - don't treat as crash
+    const message = error?.message || String(error);
+    const neonRecoverablePatterns = [
+      'Cannot set property message of',
+      'ErrorEvent',
+      '_connectionCallback',
+      '_handleErrorWhileConnecting',
+      '@neondatabase/serverless',
+    ];
+    const isNeonRecoverable = neonRecoverablePatterns.some(pattern => 
+      message.includes(pattern) || (error.stack && error.stack.includes(pattern))
+    );
+    
+    if (isNeonRecoverable) {
+      console.warn('[CrashDiagnostics] ⚠️ Neon connection error (recoverable, not counted as crash)');
+      return; // Don't count Neon errors as crashes
+    }
+    
     this.isShuttingDown = true;
     this.stats.totalCrashes++;
     this.stats.lastCrashTime = new Date().toISOString();
