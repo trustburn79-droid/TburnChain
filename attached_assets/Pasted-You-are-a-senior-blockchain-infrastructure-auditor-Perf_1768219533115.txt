@@ -1,0 +1,113 @@
+You are a senior blockchain infrastructure auditor. Perform a comprehensive production-readiness audit for the TBURN Mainnet before Genesis Pool activation.
+
+Execute the following enterprise-grade checklist systematically:
+
+## 1. GENESIS BLOCK & INITIAL STATE VERIFICATION
+- Verify genesis.json configuration integrity (chain ID, initial validators, token allocations)
+- Validate genesis block hash consistency
+- Confirm initial token supply matches tokenomics specification (total supply, distribution ratios)
+- Check pre-allocated addresses for foundation, ecosystem, staking rewards pools
+
+## 2. CONSENSUS MECHANISM VALIDATION
+- Test Triple-Band AI Orchestration consensus activation
+- Verify validator registration and selection algorithms
+- Simulate block production cycle under normal conditions
+- Test consensus finality guarantees and confirmation times
+- Validate slashing conditions and penalty mechanisms
+
+## 3. NETWORK INFRASTRUCTURE
+- Test all RPC endpoints (HTTP, WebSocket) for stability
+- Verify P2P node discovery and peer connections
+- Check network partition tolerance and recovery
+- Validate NAT traversal and firewall compatibility
+- Test maximum concurrent connection handling
+
+## 4. CRYPTOGRAPHIC SECURITY
+- Verify quantum-resistant cryptography implementation
+- Test digital signature verification (transaction signing, block signing)
+- Validate key derivation functions and wallet generation
+- Check merkle tree construction and proof verification
+- Audit randomness sources for validator selection
+
+## 5. TRANSACTION PROCESSING
+- Test transaction lifecycle (creation → propagation → inclusion → finality)
+- Verify gas fee calculation and dynamic fee adjustment
+- Test transaction throughput under load (target: 200,000+ TPS)
+- Validate nonce management and replay protection
+- Check transaction receipt generation and event logging
+
+## 6. SMART CONTRACT RUNTIME
+- Test VM execution environment stability
+- Verify contract deployment and state persistence
+- Test cross-contract calls and delegate calls
+- Validate gas metering accuracy
+- Check contract upgrade mechanisms if implemented
+
+## 7. STAKING & VALIDATOR OPERATIONS
+- Test stake delegation and undelegation flows
+- Verify reward distribution calculations
+- Test validator join/exit procedures
+- Validate voting power calculations
+- Check epoch transitions and reward cycles
+
+## 8. TOKENOMICS IMPLEMENTATION
+- Verify burn mechanism triggers and execution
+- Test deflationary model calculations (20-year projection alignment)
+- Validate yield pool distribution logic
+- Check inflation/deflation rate adjustments
+- Test token transfer restrictions if any
+
+## 9. API & EXTERNAL INTERFACES
+- Test JSON-RPC API compliance (eth_* compatible methods)
+- Verify WebSocket subscription events
+- Test API rate limiting and DDoS protection
+- Validate API authentication if required
+- Check API response consistency and error handling
+
+## 10. MONITORING & OBSERVABILITY
+- Verify logging infrastructure (structured logs, log levels)
+- Test metrics collection (Prometheus/Grafana compatible)
+- Check alerting thresholds for critical events
+- Validate health check endpoints
+- Test dashboard data accuracy
+
+## 11. DISASTER RECOVERY & PERSISTENCE
+- Test database backup and restoration procedures
+- Verify state snapshot creation and loading
+- Test node recovery from crash scenarios
+- Validate chain data integrity after restart
+- Check rollback procedures for emergency situations
+
+## 12. SECURITY HARDENING
+- Audit environment variable handling (no exposed secrets)
+- Test input validation on all endpoints
+- Check for common vulnerabilities (reentrancy, overflow, etc.)
+- Validate access control mechanisms
+- Test rate limiting effectiveness
+
+## 13. PERFORMANCE BENCHMARKS
+- Run sustained load test (minimum 1 hour at target TPS)
+- Measure block production latency
+- Test memory consumption under load
+- Check CPU utilization patterns
+- Validate storage growth projections
+
+## 14. DOCUMENTATION & OPERATIONAL READINESS
+- Verify runbook completeness for common operations
+- Check incident response procedures
+- Validate deployment scripts and automation
+- Test upgrade/migration procedures
+- Confirm monitoring dashboard accessibility
+
+---
+
+For each category:
+1. Execute relevant test scenarios
+2. Report PASS/FAIL/WARNING status
+3. Document any issues found with severity level (Critical/High/Medium/Low)
+4. Provide specific remediation steps for failures
+5. Estimate effort required to fix issues
+
+Output a final Production Readiness Score (0-100%) and GO/NO-GO recommendation for Genesis Pool activation.
+
+If any CRITICAL issues are found, immediately flag them and halt further testing until resolved.
