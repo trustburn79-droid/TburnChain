@@ -114,7 +114,7 @@ function PhaseCard({ phase, t }: { phase: import("@shared/schema").ConsensusPhas
       {/* Progress bar for active phase */}
       {phase.status === "active" && (
         <div 
-          className="absolute bottom-0 left-0 h-1 bg-white/30 transition-all duration-[10ms]"
+          className="absolute bottom-0 left-0 h-1 bg-white/30 transition-all duration-75"
           style={{ width: `${progress}%` }}
         />
       )}

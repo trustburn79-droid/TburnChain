@@ -4,13 +4,12 @@ import { type Server } from "node:http";
 
 import { nanoid } from "nanoid";
 import { type Express } from "express";
-import { createServer as createViteServer, createLogger } from "vite";
+import { createServer as createViteServer } from "vite";
 
 import viteConfig from "../vite.config";
 import runApp from "./app";
 
 export async function setupVite(app: Express, server: Server) {
-  const viteLogger = createLogger();
   const isReplit = Boolean(process.env.REPL_ID);
   
   const serverOptions = {
@@ -21,13 +20,11 @@ export async function setupVite(app: Express, server: Server) {
     allowedHosts: true as const,
   };
 
-  // ★ [2026-01-12 ARCHITECT FIX] Use default Vite logger - no custom error handling
-  // PostCSS warnings were being promoted to errors and causing process.exit(1)
-  // Removing custom logger prevents warnings from terminating the dev server
+  // ★ [2026-01-12 ARCHITECT FIX] No custom logger - use Vite's native logger
+  // Custom logger was causing PostCSS warnings to terminate the dev server
   const vite = await createViteServer({
     ...viteConfig,
     configFile: false,
-    customLogger: viteLogger,
     server: serverOptions,
     appType: "custom",
   });
