@@ -37,6 +37,7 @@ Core architectural decisions include:
 - **Pipeline API Endpoints**: Monitoring and control via `/api/pipeline/*` (stats, blocks, start, stop, health, config, benchmark). Session bypass enabled for unauthenticated monitoring access.
 - **Drizzle Persistence Adapters**: Five PostgreSQL adapters (state, sync, bootstrap, block, validator) in `server/core/persistence/drizzle-persistence-adapters.ts` with retry logic and write buffering for enterprise reliability.
 - **Shard Processing Coordinator**: Bridges RealtimeBlockPipeline with Enterprise Sharding System (`server/core/pipeline/shard-processing-coordinator.ts`). Routes transactions to 24 shards, manages 15% cross-shard ratio, integrates with Cross-Shard Router (WAL-enabled message durability). Auto-starts with BlockPipeline.
+- **Parallel Shard Block Producer**: Enables true horizontal scaling across 24 shards (`server/core/pipeline/parallel-shard-block-producer.ts`). Each shard independently produces blocks at 200ms intervals, targeting 2,500 TPS per shard (60K TPS total). Features jitter-based timing to avoid synchronization, singleton pattern, EventEmitter for loose coupling. API endpoints: `/api/pipeline/parallel/stats`, `/api/pipeline/parallel/start`, `/api/pipeline/parallel/stop`, `/api/pipeline/combined/stats`. DEV_SAFE_MODE caps at 1,250 TPS/shard (30K total).
 
 ## External Dependencies
 - **Database**: Neon Serverless PostgreSQL

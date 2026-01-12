@@ -71,6 +71,7 @@ export class ShardProcessingCoordinator extends EventEmitter {
   private orchestrator: ReturnType<typeof getShardOrchestrator> | null = null;
   private router: ReturnType<typeof getEnterpriseCrossShardRouter> | null = null;
   private parallelProducer: ParallelShardBlockProducer | null = null;
+  private shardBlockHandler: ((block: ShardBlock) => void) | null = null;
 
   private constructor() {
     super();
@@ -109,9 +110,15 @@ export class ShardProcessingCoordinator extends EventEmitter {
       
       if (COORDINATOR_CONFIG.ENABLE_PARALLEL_PRODUCTION) {
         this.parallelProducer = getParallelShardBlockProducer();
-        this.parallelProducer.on('shardBlockProduced', (block: ShardBlock) => {
+        
+        if (this.shardBlockHandler) {
+          this.parallelProducer.removeListener('shardBlockProduced', this.shardBlockHandler);
+        }
+        this.shardBlockHandler = (block: ShardBlock) => {
           this.handleShardBlock(block);
-        });
+        };
+        this.parallelProducer.on('shardBlockProduced', this.shardBlockHandler);
+        
         await this.parallelProducer.start();
         console.log('[ShardCoordinator] ✅ Parallel shard block producer started');
       }
@@ -144,7 +151,9 @@ export class ShardProcessingCoordinator extends EventEmitter {
       this.metricsTimer = null;
     }
     
-    if (this.parallelProducer) {
+    if (this.parallelProducer && this.shardBlockHandler) {
+      this.parallelProducer.removeListener('shardBlockProduced', this.shardBlockHandler);
+      this.shardBlockHandler = null;
       await this.parallelProducer.stop();
       this.parallelProducer = null;
     }
