@@ -141,6 +141,9 @@ export class RequestShedder extends EventEmitter {
   private backpressureActive = false;
   private maxObservedLag = 0;
   
+  // ★ [2026-01-12] Startup grace period - ignore high lag during initialization
+  private readonly STARTUP_GRACE_PERIOD_MS = 60000; // 60 seconds grace period
+  
   private metrics: ShedderMetrics = {
     isScalingInProgress: false,
     isDegradedMode: false,
@@ -189,7 +192,10 @@ export class RequestShedder extends EventEmitter {
       
       this.updateMetrics();
       
-      if (this.eventLoopLagMs > this.adaptiveThresholdMs && !this.isDegradedMode) {
+      // ★ [2026-01-12] Skip degraded mode during startup grace period
+      const isInStartupGrace = (Date.now() - this.startTime) < this.STARTUP_GRACE_PERIOD_MS;
+      
+      if (this.eventLoopLagMs > this.adaptiveThresholdMs && !this.isDegradedMode && !isInStartupGrace) {
         this.enterDegradedMode(`Event loop lag ${this.eventLoopLagMs}ms exceeded adaptive threshold ${this.adaptiveThresholdMs}ms`);
       }
       
