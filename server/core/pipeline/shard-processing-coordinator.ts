@@ -15,6 +15,7 @@ import { EventEmitter } from 'events';
 import { getShardOrchestrator } from '../sharding/enterprise-shard-orchestrator';
 import { getEnterpriseCrossShardRouter } from '../messaging/enterprise-cross-shard-router';
 import { DEV_SAFE_MODE } from '../memory/metrics-config';
+import { getParallelShardBlockProducer, type ParallelShardBlockProducer, type ShardBlock } from './parallel-shard-block-producer';
 
 const COORDINATOR_CONFIG = {
   SHARD_COUNT: 24,
@@ -22,6 +23,7 @@ const COORDINATOR_CONFIG = {
   BATCH_SIZE: DEV_SAFE_MODE ? 100 : 500,
   METRICS_INTERVAL_MS: 1000,
   STARTUP_DELAY_MS: 5000,
+  ENABLE_PARALLEL_PRODUCTION: true,
 };
 
 export interface ShardTransaction {
@@ -68,6 +70,7 @@ export class ShardProcessingCoordinator extends EventEmitter {
   
   private orchestrator: ReturnType<typeof getShardOrchestrator> | null = null;
   private router: ReturnType<typeof getEnterpriseCrossShardRouter> | null = null;
+  private parallelProducer: ParallelShardBlockProducer | null = null;
 
   private constructor() {
     super();
@@ -104,6 +107,15 @@ export class ShardProcessingCoordinator extends EventEmitter {
       this.router = getEnterpriseCrossShardRouter();
       console.log('[ShardCoordinator] ✅ Cross-shard router started');
       
+      if (COORDINATOR_CONFIG.ENABLE_PARALLEL_PRODUCTION) {
+        this.parallelProducer = getParallelShardBlockProducer();
+        this.parallelProducer.on('shardBlockProduced', (block: ShardBlock) => {
+          this.handleShardBlock(block);
+        });
+        await this.parallelProducer.start();
+        console.log('[ShardCoordinator] ✅ Parallel shard block producer started');
+      }
+      
       this.isRunning = true;
       this.startTime = Date.now();
       this.lastMetricsTime = Date.now();
@@ -113,6 +125,7 @@ export class ShardProcessingCoordinator extends EventEmitter {
       console.log('[ShardCoordinator] ✅ Coordinator started successfully');
       console.log(`[ShardCoordinator] 📊 Active shards: ${COORDINATOR_CONFIG.SHARD_COUNT}`);
       console.log(`[ShardCoordinator] 📊 Cross-shard ratio: ${COORDINATOR_CONFIG.CROSS_SHARD_RATIO * 100}%`);
+      console.log(`[ShardCoordinator] 📊 Parallel production: ${COORDINATOR_CONFIG.ENABLE_PARALLEL_PRODUCTION ? 'ENABLED' : 'DISABLED'}`);
       
       this.emit('started');
     } catch (error) {
@@ -131,9 +144,36 @@ export class ShardProcessingCoordinator extends EventEmitter {
       this.metricsTimer = null;
     }
     
+    if (this.parallelProducer) {
+      await this.parallelProducer.stop();
+      this.parallelProducer = null;
+    }
+    
     this.isRunning = false;
     this.emit('stopped');
     console.log('[ShardCoordinator] ✅ Stopped');
+  }
+  
+  private handleShardBlock(block: ShardBlock): void {
+    this.totalTransactionsRouted += block.transactionCount;
+    this.crossShardMessagesRouted += block.crossShardTxCount;
+    this.recordShardTransaction(block.shardId, block.transactionCount);
+    
+    for (let i = 0; i < block.crossShardTxCount; i++) {
+      const targetShard = this.selectRandomShard(block.shardId);
+      const tx: ShardTransaction = {
+        id: `tx-${block.blockNumber}-${block.shardId}-${i}`,
+        sourceShard: block.shardId,
+        targetShard,
+        isCrossShard: true,
+        priority: this.assignPriority(),
+        timestamp: block.timestamp,
+        data: { blockNumber: block.blockNumber, shardId: block.shardId },
+      };
+      this.routeCrossShardMessage(tx);
+    }
+    
+    this.emit('shardBlockProcessed', block);
   }
 
   processBlock(blockNumber: number, transactionCount: number, shardId: number): ShardBlockData {
@@ -221,9 +261,9 @@ export class ShardProcessingCoordinator extends EventEmitter {
     }
   }
 
-  private recordShardTransaction(shardId: number): void {
+  private recordShardTransaction(shardId: number, count: number = 1): void {
     const current = this.shardTransactionCounts.get(shardId) || 0;
-    this.shardTransactionCounts.set(shardId, current + 1);
+    this.shardTransactionCounts.set(shardId, current + count);
   }
 
   private collectMetrics(): void {

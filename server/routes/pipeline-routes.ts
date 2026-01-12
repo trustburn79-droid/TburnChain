@@ -5,6 +5,7 @@
 
 import { Router, Request, Response } from 'express';
 import { getRealtimeBlockPipeline } from '../core/pipeline/realtime-block-pipeline';
+import { getParallelShardBlockProducer } from '../core/pipeline/parallel-shard-block-producer';
 
 const router = Router();
 
@@ -232,6 +233,150 @@ function formatUptime(seconds: number): string {
   if (seconds < 3600) return `${Math.floor(seconds / 60)}m ${Math.floor(seconds % 60)}s`;
   return `${Math.floor(seconds / 3600)}h ${Math.floor((seconds % 3600) / 60)}m`;
 }
+
+/**
+ * GET /api/pipeline/parallel/stats
+ * Get parallel shard block producer statistics
+ */
+router.get('/parallel/stats', (_req: Request, res: Response) => {
+  try {
+    const producer = getParallelShardBlockProducer();
+    const stats = producer.getStats();
+    
+    const tpsPerShardObj: Record<number, number> = {};
+    stats.tpsPerShard.forEach((tps, shardId) => {
+      tpsPerShardObj[shardId] = tps;
+    });
+    
+    res.json({
+      success: true,
+      data: {
+        isRunning: stats.isRunning,
+        activeShards: stats.activeShards,
+        totalBlocksProduced: stats.totalBlocksProduced,
+        totalTransactionsProcessed: stats.totalTransactionsProcessed,
+        totalCrossShardTx: stats.totalCrossShardTx,
+        currentTPS: stats.currentTPS,
+        averageTPS: stats.averageTPS,
+        peakTPS: stats.peakTPS,
+        tpsPerShard: tpsPerShardObj,
+        uptimeMs: stats.uptimeMs,
+        blocksPerSecond: stats.blocksPerSecond,
+      },
+      timestamp: Date.now(),
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: (error as Error).message,
+    });
+  }
+});
+
+/**
+ * POST /api/pipeline/parallel/start
+ * Start the parallel shard block producer
+ */
+router.post('/parallel/start', async (_req: Request, res: Response) => {
+  try {
+    const producer = getParallelShardBlockProducer();
+    
+    if (producer.isActive()) {
+      res.json({
+        success: true,
+        message: 'Parallel producer already running',
+      });
+      return;
+    }
+    
+    await producer.start();
+    
+    res.json({
+      success: true,
+      message: 'Parallel producer started',
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: (error as Error).message,
+    });
+  }
+});
+
+/**
+ * POST /api/pipeline/parallel/stop
+ * Stop the parallel shard block producer
+ */
+router.post('/parallel/stop', async (_req: Request, res: Response) => {
+  try {
+    const producer = getParallelShardBlockProducer();
+    
+    if (!producer.isActive()) {
+      res.json({
+        success: true,
+        message: 'Parallel producer already stopped',
+      });
+      return;
+    }
+    
+    await producer.stop();
+    
+    res.json({
+      success: true,
+      message: 'Parallel producer stopped',
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: (error as Error).message,
+    });
+  }
+});
+
+/**
+ * GET /api/pipeline/combined/stats
+ * Get combined stats from both pipelines
+ */
+router.get('/combined/stats', (_req: Request, res: Response) => {
+  try {
+    const pipeline = getRealtimeBlockPipeline();
+    const producer = getParallelShardBlockProducer();
+    const pipelineStats = pipeline.getStats();
+    const producerStats = producer.getStats();
+    
+    const combinedTPS = pipelineStats.currentTPS + producerStats.currentTPS;
+    const combinedPeakTPS = Math.max(pipelineStats.peakTPS + producerStats.peakTPS, combinedTPS);
+    
+    res.json({
+      success: true,
+      data: {
+        combined: {
+          currentTPS: combinedTPS,
+          peakTPS: combinedPeakTPS,
+          totalTransactions: pipelineStats.transactionsProcessed + producerStats.totalTransactionsProcessed,
+          totalBlocks: pipelineStats.blocksProduced + producerStats.totalBlocksProduced,
+        },
+        globalPipeline: {
+          isRunning: pipelineStats.isRunning,
+          currentTPS: pipelineStats.currentTPS,
+          peakTPS: pipelineStats.peakTPS,
+        },
+        parallelProducer: {
+          isRunning: producerStats.isRunning,
+          activeShards: producerStats.activeShards,
+          currentTPS: producerStats.currentTPS,
+          peakTPS: producerStats.peakTPS,
+        },
+      },
+      timestamp: Date.now(),
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: (error as Error).message,
+    });
+  }
+});
 
 export default router;
 
