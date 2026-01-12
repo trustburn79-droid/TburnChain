@@ -158,6 +158,9 @@ class EnterpriseSystemHealthMonitor extends EventEmitter {
   private alerts: Map<string, SystemAlert> = new Map();
   private alertHistory: SystemAlert[] = [];
   
+  private readonly STARTUP_GRACE_PERIOD_MS = 60000;
+  private startTime = Date.now();
+  
   private httpRequestTimes: number[] = [];
   private httpRequestCount = 0;
   private httpErrorCount = 0;
@@ -205,6 +208,7 @@ class EnterpriseSystemHealthMonitor extends EventEmitter {
   start(): void {
     if (this.isRunning) return;
     this.isRunning = true;
+    this.startTime = Date.now();
     
     this.monitorInterval = setInterval(() => {
       this.collectAndProcessMetrics();
@@ -215,6 +219,7 @@ class EnterpriseSystemHealthMonitor extends EventEmitter {
     console.log('[SystemHealth] ✅ Enterprise system health monitoring started');
     console.log('[SystemHealth] 📊 Metrics collection: 10s interval');
     console.log('[SystemHealth] 🎯 Self-healing: ' + (this.selfHealingEnabled ? 'enabled' : 'disabled'));
+    console.log('[SystemHealth] ⏳ Startup grace period: 60s (alerts suppressed)');
   }
   
   stop(): void {
@@ -493,6 +498,11 @@ class EnterpriseSystemHealthMonitor extends EventEmitter {
   }
   
   private processAlerts(metrics: SystemMetrics): void {
+    const elapsedSinceStart = Date.now() - this.startTime;
+    if (elapsedSinceStart < this.STARTUP_GRACE_PERIOD_MS) {
+      return;
+    }
+    
     const checks: { id: string; category: string; metric: string; value: number; threshold: ThresholdConfig; invert?: boolean }[] = [
       { id: 'cpu', category: 'System', metric: 'CPU Usage', value: metrics.cpu.usagePercent, threshold: THRESHOLDS.cpu },
       { id: 'memory', category: 'System', metric: 'Memory Usage', value: metrics.memory.usagePercent, threshold: THRESHOLDS.memory },

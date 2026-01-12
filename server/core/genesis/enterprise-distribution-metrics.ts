@@ -216,6 +216,7 @@ export class DistributionMetricsService extends EventEmitter {
   private readonly MAX_HISTORY = 100;
   private readonly METRICS_INTERVAL_MS = 1000;
   private readonly SNAPSHOT_INTERVAL_MS = 10000;
+  private readonly STARTUP_GRACE_PERIOD_MS = 60000;
 
   start(): void {
     if (this.isRunning) return;
@@ -305,6 +306,11 @@ export class DistributionMetricsService extends EventEmitter {
   }
 
   private evaluateAlertPolicies(metrics: DistributionMetrics): void {
+    const elapsedSinceStart = Date.now() - this.startTime;
+    if (elapsedSinceStart < this.STARTUP_GRACE_PERIOD_MS) {
+      return;
+    }
+    
     for (const policy of this.alertPolicies) {
       if (!policy.enabled) continue;
 

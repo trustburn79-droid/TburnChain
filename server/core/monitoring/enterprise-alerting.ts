@@ -79,10 +79,14 @@ class EnterpriseAlertingService extends EventEmitter {
   private cooldowns: Map<string, Date> = new Map();
   private isEnabled = true;
   
+  private readonly STARTUP_GRACE_PERIOD_MS = 60000;
+  private startTime = Date.now();
+  
   private constructor() {
     super();
     this.initializeDefaultChannels();
     this.initializeDefaultRules();
+    this.startTime = Date.now();
   }
   
   static getInstance(): EnterpriseAlertingService {
@@ -224,6 +228,11 @@ class EnterpriseAlertingService extends EventEmitter {
   
   async processAlert(alert: SystemAlert): Promise<void> {
     if (!this.isEnabled) return;
+    
+    const elapsedSinceStart = Date.now() - this.startTime;
+    if (elapsedSinceStart < this.STARTUP_GRACE_PERIOD_MS) {
+      return;
+    }
     
     const cooldownKey = `${alert.id}-${alert.severity}`;
     const lastTriggered = this.cooldowns.get(cooldownKey);
