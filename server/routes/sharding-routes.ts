@@ -12,6 +12,7 @@ import {
 import { shardBootPipeline } from "../core/sharding/shard-boot-pipeline";
 import { memoryGovernor } from "../core/sharding/memory-governor";
 import { requestShedder } from "../core/sharding/request-shedder";
+import { getRealtimeMetricsService } from "../services/RealtimeMetricsService";
 
 const router = Router();
 
@@ -28,6 +29,39 @@ function ensureOrchestrator() {
 // ============================================
 // PUBLIC SHARDING ENDPOINTS
 // ============================================
+
+// ★ [TPS SYNC] GET /api/sharding - Main endpoint for /admin/shards page
+// Uses RealtimeMetricsService.getShardSnapshot() for consistent TPS across all pages
+router.get('/', async (_req: Request, res: Response) => {
+  try {
+    const metricsService = getRealtimeMetricsService();
+    let snapshot = metricsService.getShardSnapshot();
+    
+    // ★ [CRITICAL FIX] 캐시가 비어있으면 강제로 DB에서 로드
+    if (snapshot.shards.length === 0) {
+      console.log('[Sharding] Cache empty, forcing DB reload...');
+      await metricsService.forceReloadFromDB();
+      snapshot = metricsService.getShardSnapshot();
+      console.log(`[Sharding] After reload: ${snapshot.shards.length} shards, TPS: ${snapshot.stats.totalTps}`);
+    }
+    
+    res.json(snapshot);
+  } catch (error) {
+    console.error('[Sharding] Error getting shard snapshot:', error);
+    res.status(500).json({
+      shards: [],
+      stats: {
+        totalShards: 0,
+        totalTps: 0,
+        avgLoad: 0,
+        totalValidators: 0,
+        healthyShards: 0,
+        pendingRebalance: 0
+      },
+      loadHistory: []
+    });
+  }
+});
 
 // GET /api/sharding/status - System status overview
 router.get('/status', (_req: Request, res: Response) => {

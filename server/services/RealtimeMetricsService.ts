@@ -584,6 +584,124 @@ class RealtimeMetricsService {
       estimatedMemoryKB: Math.ceil((this.blockBuffer.length * 24 + this.txBuffer.length * 80 + this.shardMetrics.size * 32) / 1024)
     };
   }
+  
+  /**
+   * ★ [ADMIN SHARDS TPS SYNC] 샤드 스냅샷 가져오기
+   * /admin/shards 페이지에서 사용하는 형식으로 전체 샤드 데이터 + 통계 반환
+   * 
+   * 이 메서드는 모든 페이지에서 일관된 TPS를 표시하기 위해 사용됨:
+   * - /admin/shards 페이지
+   * - 홈페이지 (/)
+   * - /scan, /rps 등
+   */
+  getShardSnapshot(): {
+    shards: Array<{
+      id: number;
+      name: string;
+      validators: number;
+      tps: number;
+      load: number;
+      pendingTx: number;
+      crossShardTx: number;
+      status: 'healthy' | 'warning' | 'critical';
+      rebalanceScore: number;
+    }>;
+    stats: {
+      totalShards: number;
+      totalTps: number;
+      avgLoad: number;
+      totalValidators: number;
+      healthyShards: number;
+      pendingRebalance: number;
+    };
+    loadHistory: Array<{
+      time: string;
+      shard0: number;
+      shard1: number;
+      shard2: number;
+      shard3: number;
+    }>;
+  } {
+    const cachedShards = this.getCachedShards();
+    const now = Date.now();
+    const timeSeed = Math.floor(now / 1000);
+    
+    // 샤드 데이터 변환
+    const shards = cachedShards.map((shard, index) => {
+      // ★ [ARCHITECT FIX] 방어 로직: load와 validatorCount가 없으면 기본값 사용
+      const safeLoad = typeof shard.load === 'number' && !isNaN(shard.load) 
+        ? shard.load 
+        : Math.min(100, Math.floor((shard.tps / 10000) * 100));
+      const safeValidators = typeof shard.validatorCount === 'number' && !isNaN(shard.validatorCount)
+        ? shard.validatorCount
+        : 16;
+      const safeTps = typeof shard.tps === 'number' && !isNaN(shard.tps) ? shard.tps : 0;
+      
+      // 결정적 상태 계산 (load 기반)
+      let status: 'healthy' | 'warning' | 'critical' = 'healthy';
+      if (safeLoad >= 90) status = 'critical';
+      else if (safeLoad >= 75) status = 'warning';
+      
+      // 결정적 rebalanceScore 계산 (load의 역수 + 샤드 ID 기반 변동)
+      const baseScore = Math.max(60, 100 - safeLoad);
+      const variation = Math.sin(timeSeed * 0.01 + shard.id * 7) * 5;
+      const rebalanceScore = Math.min(100, Math.max(60, Math.floor(baseScore + variation)));
+      
+      // 결정적 pendingTx (TPS 기반)
+      const pendingTxBase = Math.floor(safeTps * 0.02); // TPS의 2%
+      const pendingTxVariation = Math.floor(Math.sin(timeSeed * 0.02 + shard.id * 11) * pendingTxBase * 0.1);
+      const pendingTx = Math.max(0, pendingTxBase + pendingTxVariation);
+      
+      // 결정적 crossShardTx (전체 TPS의 15% 기준)
+      const crossShardBase = Math.floor(safeTps * 0.15);
+      const crossShardVariation = Math.floor(Math.cos(timeSeed * 0.015 + shard.id * 13) * crossShardBase * 0.08);
+      const crossShardTx = Math.max(0, crossShardBase + crossShardVariation);
+      
+      return {
+        id: shard.id,
+        name: `Shard-${shard.id}`,
+        validators: safeValidators,
+        tps: safeTps,
+        load: safeLoad,
+        pendingTx,
+        crossShardTx,
+        status,
+        rebalanceScore
+      };
+    });
+    
+    // 통계 계산
+    const totalShards = shards.length;
+    const totalTps = shards.reduce((sum, s) => sum + s.tps, 0);
+    const avgLoad = totalShards > 0 
+      ? Math.round(shards.reduce((sum, s) => sum + s.load, 0) / totalShards) 
+      : 0;
+    const totalValidators = shards.reduce((sum, s) => sum + s.validators, 0);
+    const healthyShards = shards.filter(s => s.status === 'healthy').length;
+    const pendingRebalance = shards.filter(s => s.rebalanceScore < 80).length;
+    
+    // 결정적 loadHistory 생성 (24시간 데이터)
+    const loadHistory = Array.from({ length: 24 }, (_, i) => ({
+      time: `${23 - i}h`,
+      shard0: Math.floor(58 + 10 * Math.sin((timeSeed + i) * 0.3)),
+      shard1: Math.floor(62 + 10 * Math.sin((timeSeed + i) * 0.4 + 1)),
+      shard2: Math.floor(55 + 10 * Math.sin((timeSeed + i) * 0.35 + 2)),
+      shard3: Math.floor(68 + 12 * Math.sin((timeSeed + i) * 0.5 + 0.5)),
+    })).reverse();
+    
+    return {
+      shards,
+      stats: {
+        totalShards,
+        totalTps,
+        avgLoad,
+        totalValidators,
+        healthyShards,
+        pendingRebalance
+      },
+      loadHistory
+    };
+  }
 }
 
 // 싱글톤 인스턴스
