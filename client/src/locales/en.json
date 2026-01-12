@@ -35397,19 +35397,71 @@
     "benefits": {
       "badge": "Benefits",
       "title": "Partner Benefits",
-      "subtitle": "Advantages of strategic partnership"
+      "subtitle": "Advantages of strategic partnership",
+      "techSupport": {
+        "title": "Technical Support",
+        "desc": "24/7 dedicated technical assistance"
+      },
+      "growth": {
+        "title": "Growth Support",
+        "desc": "Co-marketing and business development"
+      },
+      "security": {
+        "title": "Security",
+        "desc": "Enterprise-grade security infrastructure"
+      },
+      "networking": {
+        "title": "Networking",
+        "desc": "Access to partner ecosystem"
+      },
+      "exclusive": {
+        "title": "Exclusive Access",
+        "desc": "Early access to new features"
+      },
+      "data": {
+        "title": "Data & Analytics",
+        "desc": "Advanced analytics dashboard"
+      }
     },
     "currentPartners": {
       "badge": "Partners",
       "title": "Current Partners",
       "subtitle": "Leading organizations partnering with TBURN",
       "investmentScale": "Investment Scale",
-      "partnership": "Partnership Type"
+      "partnership": "Partnership Type",
+      "partners": {
+        "partner1": {
+          "name": "Enterprise Corp",
+          "type": "Enterprise"
+        },
+        "partner2": {
+          "name": "DeFi Protocol",
+          "type": "Protocol"
+        },
+        "partner3": {
+          "name": "Capital Partners",
+          "type": "Institutional"
+        },
+        "partner4": {
+          "name": "Tech Solutions",
+          "type": "Technology"
+        }
+      }
     },
     "distribution": {
       "badge": "Distribution",
       "title": "Token Distribution",
-      "subtitle": "Allocation for strategic partners"
+      "subtitle": "Allocation for strategic partners",
+      "enterprise": "Enterprise",
+      "enterpriseAmount": "40M TBURN",
+      "protocol": "Protocol",
+      "protocolAmount": "20M TBURN",
+      "institutional": "Institutional",
+      "institutionalAmount": "20M TBURN",
+      "government": "Government",
+      "governmentAmount": "10M TBURN",
+      "academic": "Academic",
+      "academicAmount": "10M TBURN"
     },
     "faq": {
       "badge": "FAQ",
@@ -35464,19 +35516,152 @@
     "process": {
       "badge": "Process",
       "title": "Partnership Process",
-      "subtitle": "How to become a strategic partner"
+      "subtitle": "How to become a strategic partner",
+      "step1": {
+        "title": "Initial Contact",
+        "desc": "Submit partnership inquiry",
+        "duration": "1-2 days"
+      },
+      "step2": {
+        "title": "Evaluation",
+        "desc": "Team reviews application",
+        "duration": "1 week"
+      },
+      "step3": {
+        "title": "Discussion",
+        "desc": "Partnership terms negotiation",
+        "duration": "2-3 weeks"
+      },
+      "step4": {
+        "title": "Agreement",
+        "desc": "Sign partnership agreement",
+        "duration": "1 week"
+      },
+      "step5": {
+        "title": "Onboarding",
+        "desc": "Integration and launch",
+        "duration": "2-4 weeks"
+      }
     },
     "tiers": {
       "badge": "Tiers",
       "title": "Partnership Tiers",
       "subtitle": "Choose your partnership level",
       "inquire": "Inquire Now",
-      "partnerIncentive": "Partner Incentive"
+      "partnerIncentive": "Partner Incentive",
+      "diamond": {
+        "name": "Diamond Partner",
+        "subtitle": "Premier strategic partnership",
+        "incentive": "10,000,000",
+        "requirement": "$15M+ investment",
+        "benefits": [
+          "Revenue sharing",
+          "Board observer rights",
+          "Exclusive events",
+          "Priority support",
+          "Custom development"
+        ]
+      },
+      "platinum": {
+        "name": "Platinum Partner",
+        "subtitle": "Advanced partnership level",
+        "incentive": "5,000,000",
+        "requirement": "$8M+ investment",
+        "benefits": [
+          "Co-marketing",
+          "Technical integration",
+          "Priority access",
+          "Dedicated support"
+        ]
+      },
+      "gold": {
+        "name": "Gold Partner",
+        "subtitle": "Standard partnership",
+        "incentive": "2,500,000",
+        "requirement": "$2M+ investment",
+        "benefits": [
+          "API access",
+          "Community badge",
+          "Partner events",
+          "Technical support"
+        ]
+      },
+      "silver": {
+        "name": "Silver Partner",
+        "subtitle": "Entry level partnership",
+        "incentive": "1,000,000",
+        "requirement": "$500K+ investment",
+        "benefits": [
+          "Basic API access",
+          "Partner directory listing",
+          "Newsletter access"
+        ]
+      }
     },
     "partnershipTypes": {
       "badge": "Types",
       "title": "Partnership Types",
-      "subtitle": "Different ways to partner"
+      "subtitle": "Different ways to partner",
+      "enterprise": {
+        "title": "Enterprise Partnership",
+        "desc": "Enterprise-grade blockchain solutions",
+        "features": [
+          "Custom infrastructure",
+          "Dedicated support",
+          "SLA guarantee",
+          "Private deployments"
+        ]
+      },
+      "protocol": {
+        "title": "Protocol Partnership",
+        "desc": "DeFi and blockchain protocol integration",
+        "features": [
+          "Cross-chain bridges",
+          "Liquidity pools",
+          "Smart contract audits",
+          "Technical collaboration"
+        ]
+      },
+      "institutional": {
+        "title": "Institutional Partnership",
+        "desc": "Institutional investment and custody",
+        "features": [
+          "Custody solutions",
+          "OTC trading",
+          "Compliance support",
+          "Asset management"
+        ]
+      },
+      "government": {
+        "title": "Government Partnership",
+        "desc": "Public sector blockchain solutions",
+        "features": [
+          "Regulatory compliance",
+          "Identity solutions",
+          "Public infrastructure",
+          "Data transparency"
+        ]
+      },
+      "academic": {
+        "title": "Academic Partnership",
+        "desc": "Research and education collaboration",
+        "features": [
+          "Research grants",
+          "Student programs",
+          "Academic papers",
+          "Lab access"
+        ]
+      },
+      "global": {
+        "title": "Global Partnership",
+        "desc": "International expansion support",
+        "features": [
+          "Local market access",
+          "Regulatory guidance",
+          "Translation support",
+          "Regional marketing"
+        ]
+      }
     },
     "stats": {
       "distributed": "Tokens Distributed",
@@ -35505,7 +35690,15 @@
           "securityLabel": "Security",
           "response": "<1s",
           "responseLabel": "Response Time"
-        }
+        },
+        "title": "Enterprise Solutions",
+        "desc": "Scalable blockchain infrastructure for enterprise",
+        "features": [
+          "Private network deployment",
+          "Custom smart contracts",
+          "Enterprise API",
+          "24/7 support"
+        ]
       },
       "institutional": {
         "stats": {
@@ -35517,7 +35710,15 @@
           "complianceLabel": "Compliance",
           "otc": "$10M+",
           "otcLabel": "OTC Volume"
-        }
+        },
+        "title": "Institutional Services",
+        "desc": "Professional services for institutions",
+        "features": [
+          "Custody solutions",
+          "OTC desk access",
+          "Compliance tools",
+          "Reporting dashboards"
+        ]
       },
       "protocol": {
         "stats": {
@@ -35529,11 +35730,20 @@
           "chainsLabel": "Chains",
           "transactions": "1M+",
           "transactionsLabel": "Transactions"
-        }
+        },
+        "title": "Protocol Integration",
+        "desc": "Deep integration with DeFi protocols",
+        "features": [
+          "Cross-chain bridges",
+          "Liquidity provision",
+          "Governance participation",
+          "Technical collaboration"
+        ]
       }
     },
     "tierInquiry": {
-      "title": "Partnership Inquiry"
+      "title": "Partnership Inquiry",
+      "description": "Inquiring about {{tier}} tier with {{incentive}} TBURN incentive"
     }
   },
   "advisorProgram": {
