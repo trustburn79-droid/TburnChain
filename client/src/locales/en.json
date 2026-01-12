@@ -32382,5 +32382,1049 @@
       "team": "Team",
       "faq": "FAQ"
     }
+  },
+  "referral": {
+    "calculator": {
+      "badge": "Badge",
+      "disclaimer": "Disclaimer",
+      "input": {
+        "price": "Price",
+        "referrals": "Referrals",
+        "tier": "Tier",
+        "title": "Title",
+        "volume": "Volume"
+      },
+      "options": {
+        "bronze": "Bronze",
+        "diamond": "Diamond",
+        "gold": "Gold",
+        "silver": "Silver"
+      },
+      "priceOptions": {
+        "five": "Five",
+        "one": "One",
+        "tge": "Tge",
+        "two": "Two"
+      },
+      "result": {
+        "monthlyEarnings": "Monthly Earnings",
+        "myCommission": "My Commission",
+        "title": "Title",
+        "totalVolume": "Total Volume",
+        "tradingFee": "Trading Fee",
+        "yearlyEarnings": "Yearly Earnings",
+        "yearlyUsd": "Yearly Usd"
+      },
+      "subtitle": "Subtitle",
+      "title": "Title"
+    },
+    "dashboard": {
+      "badge": "Badge",
+      "connectButton": "Connect Button",
+      "copied": "Copied!",
+      "copy": "Copy",
+      "currentTier": "Current Tier",
+      "emptyState": "Empty State",
+      "myReferralLink": "My Referral Link",
+      "referralCode": "Referral Code",
+      "share": {
+        "discord": "Discord",
+        "kakao": "Kakao",
+        "telegram": "Telegram",
+        "twitter": "Twitter"
+      },
+      "shareText": "Share Text",
+      "stats": {
+        "activeUsers": "Active Users",
+        "totalDistributed": "Total Distributed",
+        "totalEarned": "Total Earned",
+        "totalInvites": "Total Invites"
+      },
+      "subtitle": "Subtitle",
+      "tierLabel": "Tier Label",
+      "title": "Title",
+      "toasts": {
+        "copied": "Copied!",
+        "copiedDesc": "Copied Desc",
+        "copiedKakao": "Copied Kakao",
+        "copyFailed": "Copy Failed",
+        "copyFailedDesc": "Copy Failed Desc"
+      }
+    },
+    "faq": {
+      "badge": "Badge",
+      "q1": {
+        "answer": "Answer",
+        "question": "Question"
+      },
+      "q2": {
+        "answer": "Answer",
+        "question": "Question"
+      },
+      "q3": {
+        "answer": "Answer",
+        "question": "Question"
+      },
+      "q4": {
+        "answer": "Answer",
+        "question": "Question"
+      },
+      "q5": {
+        "answer": "Answer",
+        "question": "Question"
+      },
+      "q6": {
+        "answer": "Answer",
+        "question": "Question"
+      },
+      "q7": {
+        "answer": "Answer",
+        "question": "Question"
+      },
+      "q8": {
+        "answer": "Answer",
+        "question": "Question"
+      },
+      "subtitle": "Subtitle",
+      "title": "Title"
+    },
+    "footer": {
+      "blog": "Blog",
+      "copyright": "Copyright",
+      "disclaimer": "Disclaimer",
+      "docs": "Docs",
+      "legal": "Legal",
+      "poweredBy": "Powered By",
+      "privacy": "Privacy",
+      "program": "Program",
+      "resources": "Resources",
+      "support": "Support",
+      "tagline": "Tagline",
+      "terms": "Terms"
+    },
+    "header": {
+      "connecting": "Connecting...",
+      "connectWallet": "Connect Wallet"
+    },
+    "hero": {
+      "badge": "Badge",
+      "buttons": {
+        "getReferralLink": "Get Referral Link",
+        "viewDashboard": "View Dashboard"
+      },
+      "description": "Description",
+      "stats": {
+        "activeReferrers": "Active Referrers",
+        "totalParticipants": "Total Participants",
+        "totalReferrals": "Total Referrals",
+        "totalRewards": "Total Rewards"
+      },
+      "subtitle": "Subtitle",
+      "title": "Title"
+    },
+    "howItWorks": {
+      "badge": "Badge",
+      "steps": {
+        "activity": {
+          "desc": "Description",
+          "title": "Title"
+        },
+        "connect": {
+          "desc": "Description",
+          "title": "Title"
+        },
+        "earn": {
+          "desc": "Description",
+          "title": "Title"
+        },
+        "share": {
+          "desc": "Description",
+          "title": "Title"
+        }
+      },
+      "subtitle": "Subtitle",
+      "title": "Title"
+    },
+    "leaderboard": {
+      "badge": "Badge",
+      "filters": {
+        "all": "All Time",
+        "month": "This Month",
+        "week": "This Week"
+      },
+      "labels": {
+        "referrals": "Referrals",
+        "totalEarnings": "Total Earnings"
+      },
+      "referrer": "Referrer",
+      "subtitle": "Subtitle",
+      "tier": "Tier",
+      "title": "Title",
+      "toasts": {
+        "allRank": "All Rank",
+        "allRankDesc": "All Rank Desc",
+        "comingSoon": "Coming Soon",
+        "monthRank": "Month Rank",
+        "monthRankDesc": "Month Rank Desc",
+        "walletRequired": "Wallet Required",
+        "walletRequiredDesc": "Wallet Required Desc",
+        "weekRank": "Week Rank",
+        "weekRankDesc": "Week Rank Desc"
+      },
+      "topReferrers": "Top Referrers",
+      "viewAll": "View All"
+    },
+    "nav": {
+      "calculator": "Calculator",
+      "dashboard": "Dashboard",
+      "howItWorks": "How It Works",
+      "leaderboard": "Leaderboard",
+      "tiers": "Tiers"
+    },
+    "tiers": {
+      "badge": "Badge",
+      "badges": {
+        "elite": "Elite",
+        "intermediate": "Intermediate",
+        "popular": "Popular",
+        "starter": "Starter"
+      },
+      "commission": "Commission",
+      "levels": {
+        "bronze": {
+          "benefit1": "Benefit 1",
+          "benefit2": "Benefit 2",
+          "benefit3": "Benefit 3",
+          "benefit4": "Benefit 4",
+          "requirement": "Requirement"
+        },
+        "diamond": {
+          "benefit1": "Benefit 1",
+          "benefit2": "Benefit 2",
+          "benefit3": "Benefit 3",
+          "benefit4": "Benefit 4",
+          "benefit5": "Benefit 5",
+          "benefit6": "Benefit 6",
+          "requirement": "Requirement"
+        },
+        "gold": {
+          "benefit1": "Benefit 1",
+          "benefit2": "Benefit 2",
+          "benefit3": "Benefit 3",
+          "benefit4": "Benefit 4",
+          "benefit5": "Benefit 5",
+          "requirement": "Requirement"
+        },
+        "silver": {
+          "benefit1": "Benefit 1",
+          "benefit2": "Benefit 2",
+          "benefit3": "Benefit 3",
+          "benefit4": "Benefit 4",
+          "requirement": "Requirement"
+        }
+      },
+      "referrals": "Referrals",
+      "subtitle": "Subtitle",
+      "title": "Title"
+    }
+  },
+  "events": {
+    "cta": {
+      "buttonConnect": "Connect Wallet",
+      "buttonParticipate": "Participate Now",
+      "subtitle": "Join our exclusive token events",
+      "subtitleHighlight": "and earn rewards",
+      "title": "Join TBURN Events"
+    },
+    "distribution": {
+      "badge": "Distribution",
+      "community": {
+        "amount": "50M TBURN",
+        "name": "Community Rewards",
+        "percent": "25%"
+      },
+      "launch": {
+        "amount": "40M TBURN",
+        "name": "Launch Events",
+        "percent": "20%"
+      },
+      "partner": {
+        "amount": "30M TBURN",
+        "name": "Partner Programs",
+        "percent": "15%"
+      },
+      "staking": {
+        "amount": "50M TBURN",
+        "name": "Staking Rewards",
+        "percent": "25%"
+      },
+      "subtitle": "How TBURN tokens are distributed across events",
+      "title": "Event Distribution",
+      "trading": {
+        "amount": "30M TBURN",
+        "name": "Trading Competitions",
+        "percent": "15%"
+      }
+    },
+    "faq": {
+      "badge": "FAQ",
+      "items": {
+        "q1": {
+          "answer": "TBURN events include airdrops, trading competitions, staking rewards, and community programs.",
+          "question": "What types of events does TBURN offer?"
+        },
+        "q2": {
+          "answer": "Connect your wallet and complete the required tasks to participate in events.",
+          "question": "How do I participate in events?"
+        },
+        "q3": {
+          "answer": "Rewards are distributed based on your participation level and contribution.",
+          "question": "How are rewards calculated?"
+        },
+        "q4": {
+          "answer": "Events typically run for 7-30 days depending on the event type.",
+          "question": "How long do events last?"
+        }
+      },
+      "subtitle": "Common questions about TBURN events",
+      "title": "Frequently Asked Questions"
+    },
+    "footer": {
+      "copyright": "© 2024 TBURN Chain. All rights reserved.",
+      "privacy": "Privacy Policy",
+      "support": "Support",
+      "terms": "Terms of Service"
+    },
+    "header": {
+      "connecting": "Connecting...",
+      "connectWallet": "Connect Wallet",
+      "events": "Events",
+      "title": "TBURN Events"
+    },
+    "hero": {
+      "badge": "Live Events",
+      "description": "Participate in TBURN token events and earn exclusive rewards through airdrops, competitions, and community programs.",
+      "stats": {
+        "activeEvents": "Active Events",
+        "participants": "Total Participants",
+        "poolSize": "Total Pool Size",
+        "totalDistributed": "Total Distributed"
+      },
+      "subtitle": "Earn TBURN Tokens",
+      "title": "TBURN Token Events"
+    },
+    "liveEvents": {
+      "badge": "Live",
+      "endDate": "End Date",
+      "joinNow": "Join Now",
+      "participants": "Participants",
+      "poolSize": "Pool Size",
+      "startDate": "Start Date",
+      "subtitle": "Currently active token events",
+      "title": "Live Events",
+      "viewDetails": "View Details"
+    },
+    "nav": {
+      "distribution": "Distribution",
+      "faq": "FAQ",
+      "liveEvents": "Live Events",
+      "timeline": "Timeline",
+      "upcoming": "Upcoming"
+    },
+    "timeline": {
+      "badge": "Timeline",
+      "completed": "Completed",
+      "ongoing": "Ongoing",
+      "subtitle": "Event schedule and milestones",
+      "title": "Event Timeline",
+      "upcoming": "Upcoming"
+    },
+    "toasts": {
+      "eventJoined": "Event Joined",
+      "eventJoinedDesc": "You have successfully joined the event",
+      "walletRequired": "Wallet Required",
+      "walletRequiredDesc": "Please connect your wallet to participate"
+    },
+    "upcoming": {
+      "badge": "Coming Soon",
+      "comingSoon": "Coming Soon",
+      "notify": "Get Notified",
+      "subtitle": "Upcoming events and opportunities",
+      "title": "Upcoming Events"
+    }
+  },
+  "communityProgram": {
+    "activities": {
+      "badge": "Program Overview",
+      "columnActivity": "Column Activity",
+      "columnCategory": "Column Category",
+      "columnFrequency": "Column Frequency",
+      "columnPoints": "Column Points",
+      "columnReward": "Column Reward",
+      "subtitle": "Subtitle",
+      "tableTitle": "Table Title",
+      "title": "Title"
+    },
+    "cta": {
+      "button": "Get Started",
+      "subtitle": "Subtitle",
+      "subtitleLine2": "Subtitle Line2",
+      "title": "Title"
+    },
+    "distribution": {
+      "ambassador": "Ambassador",
+      "amount30m": "Amount 30m",
+      "amount45m": "Amount 45m",
+      "amount60m": "Amount 60m",
+      "amount90m": "Amount 90m",
+      "badge": "Program Overview",
+      "bounty": "Bounty",
+      "creator": "Creator",
+      "educator": "Educator",
+      "moderator": "Moderator",
+      "subtitle": "Subtitle",
+      "title": "Title",
+      "translator": "Translator"
+    },
+    "faq": {
+      "badge": "Program Overview",
+      "q1": {
+        "answer": "Answer",
+        "question": "Question"
+      },
+      "q2": {
+        "answer": "Answer",
+        "question": "Question"
+      },
+      "q3": {
+        "answer": "Answer",
+        "question": "Question"
+      },
+      "q4": {
+        "answer": "Answer",
+        "question": "Question"
+      },
+      "q5": {
+        "answer": "Answer",
+        "question": "Question"
+      },
+      "q6": {
+        "answer": "Answer",
+        "question": "Question"
+      },
+      "q7": {
+        "answer": "Answer",
+        "question": "Question"
+      },
+      "q8": {
+        "answer": "Answer",
+        "question": "Question"
+      },
+      "subtitle": "Subtitle",
+      "title": "Title"
+    },
+    "footer": {
+      "brand": {
+        "slogan": "Slogan",
+        "tagline": "Tagline"
+      },
+      "community": {
+        "ambassador": "Ambassador",
+        "blog": "Blog",
+        "grants": "Grants",
+        "support": "Support",
+        "title": "Title"
+      },
+      "copyright": "© 2024 TBURN Chain. All rights reserved.",
+      "legal": {
+        "privacy": "Privacy Policy",
+        "terms": "Terms of Service"
+      },
+      "product": {
+        "bridge": "Bridge",
+        "explorer": "Explorer",
+        "mainnet": "Mainnet",
+        "staking": "Staking",
+        "title": "Title"
+      },
+      "resources": {
+        "blog": "Blog",
+        "docs": "Documentation",
+        "github": "GitHub",
+        "title": "Title",
+        "whitepaper": "Whitepaper"
+      }
+    },
+    "hero": {
+      "applyNow": "Apply Now",
+      "badge": "Program Overview",
+      "subtitle": "Subtitle",
+      "title": "Title",
+      "titleHighlight": "Title Highlight",
+      "titleSuffix": "Title Suffix",
+      "viewGuide": "View Guide"
+    },
+    "leaderboard": {
+      "badge": "Program Overview",
+      "subtitle": "Subtitle",
+      "title": "Title",
+      "topContributors": "Top Contributors"
+    },
+    "nav": {
+      "activities": "Activities",
+      "faq": "Faq",
+      "leaderboard": "Leaderboard",
+      "programs": "Programs",
+      "tiers": "Tiers"
+    },
+    "programs": {
+      "applyBtn": "Apply Btn",
+      "badge": "Program Overview",
+      "connectFirst": "Connect First",
+      "featuredBadge": "Featured Badge",
+      "requirements": "Requirements",
+      "reward": "Reward",
+      "subtitle": "Subtitle",
+      "title": "Title"
+    },
+    "stats": {
+      "activeTasks": "Active Tasks",
+      "rewardsDistributed": "Rewards Distributed",
+      "totalContributions": "Total Contributions",
+      "totalContributors": "Total Contributors"
+    },
+    "tiers": {
+      "badge": "Program Overview",
+      "benefitsSubtitle": "Benefits Subtitle",
+      "benefitsTitle": "Benefits Title",
+      "subtitle": "Subtitle",
+      "title": "Title"
+    },
+    "toast": {
+      "applicationSubmitted": "Application Submitted",
+      "applicationSubmittedDesc": "Application Submitted Desc",
+      "githubRedirect": "Github Redirect",
+      "guide": "Guide",
+      "guideDesc": "Guide Desc",
+      "selectProgram": "Select Program",
+      "selectProgramDesc": "Select Program Desc",
+      "walletConnected": "Wallet Connected",
+      "walletConnectedDesc": "Wallet Connected Desc",
+      "walletDisconnected": "Wallet Disconnected",
+      "walletDisconnectedDesc": "Wallet Disconnected Desc",
+      "walletRequired": "Wallet Required",
+      "walletRequiredDesc": "Wallet Required Desc"
+    }
+  },
+  "daoGovernance": {
+    "committees": {
+      "badge": "Program Overview",
+      "members": "Members",
+      "processedProposals": "Processed Proposals",
+      "subtitle": "Subtitle",
+      "title": "Title"
+    },
+    "cta": {
+      "activeProposals": "Active Proposals",
+      "activeProposalsDesc": "Active Proposals Desc",
+      "comingSoon": "Coming Soon",
+      "submitProposal": "Submit Proposal",
+      "vote": "Vote"
+    },
+    "ctaSection": {
+      "button": "Get Started",
+      "subtitle1": "Subtitle1",
+      "subtitle2": "Subtitle2",
+      "title": "Title"
+    },
+    "delegation": {
+      "badge": "Program Overview",
+      "subtitle": "Subtitle",
+      "title": "Title",
+      "topDelegates": "Top Delegates",
+      "votingPower": "Voting Power"
+    },
+    "distribution": {
+      "badge": "Program Overview",
+      "committee": "Committee",
+      "committeeAmount": "Committee Amount",
+      "proposal": "Proposal",
+      "proposalAmount": "Proposal Amount",
+      "subtitle": "Subtitle",
+      "title": "Title",
+      "treasury": "Treasury",
+      "treasuryAmount": "Treasury Amount",
+      "voting": "Voting",
+      "votingAmount": "Voting Amount"
+    },
+    "faq": {
+      "a1": "A1",
+      "a2": "A2",
+      "a3": "A3",
+      "a4": "A4",
+      "a5": "A5",
+      "a6": "A6",
+      "a7": "A7",
+      "a8": "A8",
+      "badge": "Program Overview",
+      "q1": "Q1",
+      "q2": "Q2",
+      "q3": "Q3",
+      "q4": "Q4",
+      "q5": "Q5",
+      "q6": "Q6",
+      "q7": "Q7",
+      "q8": "Q8",
+      "subtitle": "Subtitle",
+      "title": "Title"
+    },
+    "footer": {
+      "ambassador": "Ambassador",
+      "audit": "Audit",
+      "blog": "Blog",
+      "bridge": "Bridge",
+      "community": "Community",
+      "docs": "Documentation",
+      "explorer": "Explorer",
+      "grants": "Grants",
+      "mainnet": "Mainnet",
+      "privacy": "Privacy Policy",
+      "product": "Product",
+      "resources": "Resources",
+      "staking": "Staking",
+      "support": "Support",
+      "tagline1": "Tagline1",
+      "tagline2": "Tagline2",
+      "terms": "Terms of Service",
+      "whitepaper": "Whitepaper"
+    },
+    "hero": {
+      "badge": "Program Overview",
+      "subtitle": "Subtitle",
+      "title1": "Title1",
+      "title2": "Title2",
+      "title3": "Title3"
+    },
+    "nav": {
+      "committees": "Committees",
+      "connectWallet": "Connect Wallet",
+      "faq": "Faq",
+      "process": "Process",
+      "proposals": "Proposals",
+      "rewards": "Rewards"
+    },
+    "process": {
+      "badge": "Program Overview",
+      "subtitle": "Subtitle",
+      "title": "Title"
+    },
+    "proposals": {
+      "badge": "Program Overview",
+      "categories": {
+        "ecosystem": "Ecosystem",
+        "protocol": "Protocol",
+        "treasury": "Treasury"
+      },
+      "deadline": "Deadline",
+      "pending": "Pending",
+      "proposer": "Proposer",
+      "subtitle": "Subtitle",
+      "title": "Title",
+      "voting": "Voting"
+    },
+    "rewards": {
+      "badge": "Program Overview",
+      "subtitle": "Subtitle",
+      "title": "Title"
+    },
+    "stats": {
+      "activeProposals": "Active Proposals",
+      "totalProposals": "Total Proposals",
+      "totalVotes": "Total Votes",
+      "totalVotingPower": "Total Voting Power"
+    },
+    "toast": {
+      "connected": "Connected",
+      "connectedDesc": "Connected Desc",
+      "disconnected": "Disconnected",
+      "disconnectedDesc": "Disconnected Desc",
+      "participateDesc": "Participate Desc",
+      "participateTitle": "Participate Title",
+      "proposalWalletRequired": "Proposal Wallet Required",
+      "voteAgainst": "Vote Against",
+      "voteFor": "Vote For",
+      "walletRequired": "Wallet Required",
+      "walletRequiredDesc": "Wallet Required Desc"
+    },
+    "voting": {
+      "against": "Against",
+      "for": "For",
+      "quorumRate": "Quorum Rate"
+    }
+  },
+  "strategicPartner": {
+    "badge": "Program Overview",
+    "benefits": {
+      "badge": "Program Overview",
+      "subtitle": "Subtitle",
+      "title": "Title"
+    },
+    "cta": {
+      "applyPartnership": "Apply Partnership",
+      "enterpriseGuide": "Enterprise Guide",
+      "enterpriseGuideDesc": "Enterprise Guide Desc",
+      "partnershipInquiry": "Partnership Inquiry",
+      "partnershipInquiryDesc": "Partnership Inquiry Desc"
+    },
+    "ctaSection": {
+      "button": "Get Started",
+      "subtitle1": "Subtitle1",
+      "subtitle2": "Subtitle2",
+      "title": "Title"
+    },
+    "currentPartners": {
+      "badge": "Program Overview",
+      "investmentScale": "Investment Scale",
+      "partnership": "Partnership",
+      "subtitle": "Subtitle",
+      "title": "Title"
+    },
+    "distribution": {
+      "badge": "Program Overview",
+      "subtitle": "Subtitle",
+      "title": "Title"
+    },
+    "faq": {
+      "badge": "Program Overview",
+      "subtitle": "Subtitle",
+      "title": "Title"
+    },
+    "footer": {
+      "api": "Api",
+      "bridge": "Bridge",
+      "bugBounty": "Bug Bounty",
+      "community": "Community",
+      "copyright": "© 2024 TBURN Chain. All rights reserved.",
+      "developers": "Developers",
+      "discord": "Discord",
+      "documentation": "Documentation",
+      "explorer": "Explorer",
+      "forum": "Forum",
+      "github": "GitHub",
+      "privacyPolicy": "Privacy Policy",
+      "products": "Products",
+      "staking": "Staking",
+      "tagline1": "Tagline1",
+      "tagline2": "Tagline2",
+      "telegram": "Telegram",
+      "termsOfService": "Terms Of Service",
+      "twitter": "Twitter"
+    },
+    "hero": {
+      "subtitle": "Subtitle",
+      "title1": "Title1",
+      "title2": "Title2",
+      "title3": "Title3"
+    },
+    "nav": {
+      "benefits": "Benefits",
+      "faq": "Faq",
+      "partnershipTypes": "Partnership Types",
+      "partnerTiers": "Partner Tiers",
+      "useCases": "Use Cases"
+    },
+    "partnershipTypes": {
+      "badge": "Program Overview",
+      "subtitle": "Subtitle",
+      "title": "Title"
+    },
+    "process": {
+      "badge": "Program Overview",
+      "subtitle": "Subtitle",
+      "title": "Title"
+    },
+    "stats": {
+      "distributed": "Distributed",
+      "strategicPartners": "Strategic Partners",
+      "totalBudget": "Total Budget",
+      "totalPartnerships": "Total Partnerships"
+    },
+    "tierInquiry": {
+      "title": "Title"
+    },
+    "tiers": {
+      "badge": "Program Overview",
+      "inquire": "Inquire",
+      "partnerIncentive": "Partner Incentive",
+      "subtitle": "Subtitle",
+      "title": "Title"
+    },
+    "useCases": {
+      "badge": "Program Overview",
+      "enterprise": {
+        "stats": {
+          "response": "Response",
+          "responseLabel": "Response Label",
+          "security": "Security",
+          "securityLabel": "Security Label",
+          "throughput": "Throughput",
+          "throughputLabel": "Throughput Label",
+          "uptime": "Uptime",
+          "uptimeLabel": "Uptime Label"
+        }
+      },
+      "institutional": {
+        "stats": {
+          "aum": "Aum",
+          "aumLabel": "Aum Label",
+          "compliance": "Compliance",
+          "complianceLabel": "Compliance Label",
+          "otc": "Otc",
+          "otcLabel": "Otc Label",
+          "partners": "Partners",
+          "partnersLabel": "Partners Label"
+        }
+      },
+      "protocol": {
+        "stats": {
+          "chains": "Chains",
+          "chainsLabel": "Chains Label",
+          "protocols": "Protocols",
+          "protocolsLabel": "Protocols Label",
+          "transactions": "Transactions",
+          "transactionsLabel": "Transactions Label",
+          "tvl": "Tvl",
+          "tvlLabel": "Tvl Label"
+        }
+      },
+      "subtitle": "Subtitle",
+      "tabs": {
+        "enterprise": "Enterprise",
+        "institutional": "Institutional",
+        "protocol": "Protocol"
+      },
+      "title": "Title"
+    },
+    "wallet": {
+      "connect": "Connect",
+      "connected": "Connected",
+      "connectedDesc": "Connected Desc",
+      "disconnect": "Disconnect",
+      "disconnectDesc": "Disconnect Desc",
+      "required": "Required",
+      "requiredDesc": "Required Desc"
+    }
+  },
+  "advisorProgram": {
+    "badge": "Program Overview",
+    "compensation": {
+      "badge": "Program Overview",
+      "subtitle": "Subtitle",
+      "title": "Title"
+    },
+    "cta": {
+      "advisorGuide": "Advisor Guide",
+      "advisorGuideDesc": "Advisor Guide Desc",
+      "applyAdvisor": "Apply Advisor",
+      "applyAdvisorDesc": "Apply Advisor Desc",
+      "applyButton": "Apply Now",
+      "guideButton": "View Guide"
+    },
+    "ctaSection": {
+      "button": "Get Started",
+      "subtitle1": "Subtitle1",
+      "subtitle2": "Subtitle2",
+      "title": "Title",
+      "toastDesc": "Toast Desc"
+    },
+    "currentAdvisors": {
+      "badge": "Program Overview",
+      "subtitle": "Subtitle",
+      "title": "Title"
+    },
+    "distribution": {
+      "badge": "Program Overview",
+      "subtitle": "Subtitle",
+      "title": "Title"
+    },
+    "faq": {
+      "badge": "Program Overview",
+      "subtitle": "Subtitle",
+      "title": "Title"
+    },
+    "footer": {
+      "ambassador": "Ambassador",
+      "auditReport": "Audit Report",
+      "blog": "Blog",
+      "bridge": "Bridge",
+      "community": "Community",
+      "copyright": "© 2024 TBURN Chain. All rights reserved.",
+      "docs": "Documentation",
+      "explorer": "Explorer",
+      "grants": "Grants",
+      "mainnet": "Mainnet",
+      "privacy": "Privacy Policy",
+      "product": "Product",
+      "resources": "Resources",
+      "staking": "Staking",
+      "support": "Support",
+      "tagline1": "Tagline1",
+      "tagline2": "Tagline2",
+      "terms": "Terms of Service",
+      "whitepaper": "Whitepaper"
+    },
+    "hero": {
+      "subtitle": "Subtitle",
+      "title1": "Title1",
+      "title2": "Title2",
+      "title3": "Title3"
+    },
+    "nav": {
+      "advisorRoles": "Advisor Roles",
+      "applicationProcess": "Application Process",
+      "currentAdvisors": "Current Advisors",
+      "faq": "Faq",
+      "tiers": "Tiers"
+    },
+    "process": {
+      "badge": "Program Overview",
+      "subtitle": "Subtitle",
+      "title": "Title"
+    },
+    "roles": {
+      "applyButton": "Apply Now",
+      "badge": "Program Overview",
+      "subtitle": "Subtitle",
+      "title": "Title"
+    },
+    "stats": {
+      "activeAdvisors": "Active Advisors",
+      "currentAdvisors": "Current Advisors",
+      "totalBudget": "Total Budget",
+      "vestingPeriod": "Vesting Period"
+    },
+    "tiers": {
+      "applyButton": "Apply Now",
+      "badge": "Program Overview",
+      "incentiveLabel": "Incentive Label",
+      "subtitle": "Subtitle",
+      "title": "Title"
+    },
+    "wallet": {
+      "connect": "Connect",
+      "connected": "Connected",
+      "connectedDesc": "Connected Desc",
+      "disconnect": "Disconnect",
+      "disconnectDesc": "Disconnect Desc",
+      "required": "Required",
+      "requiredDesc": "Required Desc"
+    }
+  },
+  "daomaker": {
+    "footer": {
+      "copyright": "© 2024 TBURN Chain. All rights reserved."
+    },
+    "header": {
+      "connectWallet": "Connect Wallet",
+      "daoPower": "DAO Power",
+      "governance": "Governance",
+      "portfolio": "Portfolio",
+      "sho": "SHO",
+      "staking": "Staking",
+      "swap": "Swap"
+    },
+    "hero": {
+      "badges": {
+        "live": "Live",
+        "refund": "Refund Policy",
+        "shoRound": "Sho Round",
+        "verified": "Verified"
+      },
+      "breadcrumb": {
+        "current": "Current",
+        "sho": "SHO"
+      },
+      "description": "Description",
+      "stats": {
+        "months": "Months",
+        "targetRaise": "Target Raise",
+        "tgeUnlock": "Tge Unlock",
+        "tokenPrice": "Token Price",
+        "totalVesting": "Total Vesting"
+      }
+    },
+    "modal": {
+      "amount": "Amount",
+      "confirm": "Confirm",
+      "pleaseWait": "Please wait...",
+      "processing": "Processing...",
+      "success": "Success",
+      "successDesc": "Success Desc",
+      "tgeUnlock": "Tge Unlock",
+      "tokens": "Tokens"
+    },
+    "shoCard": {
+      "allocation": {
+        "max": "Maximum",
+        "title": "Title"
+      },
+      "countdown": {
+        "days": "Days",
+        "hours": "Hours",
+        "label": "Label",
+        "mins": "Minutes",
+        "secs": "Seconds"
+      },
+      "daoPower": {
+        "maxAllocation": "Max Allocation",
+        "tier": "Tier",
+        "title": "Title"
+      },
+      "progress": {
+        "completed": "Completed",
+        "participants": "Participants"
+      },
+      "purchaseButton": "Purchase Button",
+      "refundPolicy": {
+        "description": "Description",
+        "title": "Title"
+      },
+      "securityNote": "Security Note",
+      "subtitle": "Subtitle",
+      "title": "Title",
+      "tokenOutput": {
+        "bonus": "Bonus",
+        "tgeUnlock": "Tge Unlock",
+        "tokensToReceive": "Tokens To Receive"
+      }
+    },
+    "tiers": {
+      "daoPower": "DAO Power",
+      "maxAllocation": "Max Allocation"
+    },
+    "toast": {
+      "maxAmount": "Max Amount",
+      "menuComingSoon": "Menu Coming Soon",
+      "menuComingSoonDesc": "Menu Coming Soon Desc",
+      "minAmount": "Min Amount",
+      "minAmountDesc": "Min Amount Desc",
+      "shoComplete": "Sho Complete",
+      "socialOpen": "Social Open",
+      "socialOpenDesc": "Social Open Desc",
+      "stakingPage": "Staking Page",
+      "stakingPageDesc": "Staking Page Desc",
+      "stakingRequired": "Staking Required",
+      "stakingRequiredDesc": "Staking Required Desc",
+      "walletConnecting": "Wallet Connecting",
+      "walletConnectingDesc": "Wallet Connecting Desc",
+      "walletDisconnected": "Wallet Disconnected",
+      "walletDisconnectedDesc": "Wallet Disconnected Desc",
+      "walletRequired": "Wallet Required",
+      "walletRequiredDesc": "Wallet Required Desc"
+    },
+    "vesting": {
+      "scheduleTitle": "Schedule Title",
+      "unlockStatusTitle": "Unlock Status Title"
+    }
   }
 }
