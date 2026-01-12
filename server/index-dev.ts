@@ -27,8 +27,16 @@ export async function setupVite(app: Express, server: Server) {
     customLogger: {
       ...viteLogger,
       error: (msg, options) => {
+        // ★ [2026-01-12] Don't exit on non-fatal errors like PostCSS warnings
+        // Only exit on actual fatal errors, not warnings promoted to errors
+        const isFatalError = msg.includes('ENOENT') || 
+                             msg.includes('SyntaxError') || 
+                             msg.includes('Cannot find module') ||
+                             msg.includes('EADDRINUSE');
         viteLogger.error(msg, options);
-        process.exit(1);
+        if (isFatalError) {
+          process.exit(1);
+        }
       },
     },
     server: serverOptions,

@@ -241,6 +241,12 @@ export class RequestShedder extends EventEmitter {
   }
   
   private updateBackpressure(): void {
+    // ★ [2026-01-12] Skip backpressure evaluation during startup grace period
+    const isInStartupGrace = (Date.now() - this.startTime) < this.STARTUP_GRACE_PERIOD_MS;
+    if (isInStartupGrace) {
+      return;
+    }
+    
     const now = Date.now();
     const oneSecondAgo = now - 1000;
     this.requestTimestamps = this.requestTimestamps.filter(t => t > oneSecondAgo);
