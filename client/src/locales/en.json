@@ -14416,7 +14416,43 @@
           "readDocs": "Read Documentation"
         },
         "tierSystem": {
-          "title": "3-Tier Validator System",
+          "title": "4-Tier Validator System",
+          "genesis": {
+            "name": "Genesis Validator",
+            "badge": "Genesis",
+            "stakeAmount": "1,000,000+ TBURN",
+            "apyAmount": "20-25%",
+            "slotsAmount": "25 slots",
+            "benefits": {
+              "blockPriority": "Priority block production",
+              "revenueShare": "Enhanced revenue share",
+              "aiDecision": "AI governance voting"
+            }
+          },
+          "pioneer": {
+            "name": "Pioneer Validator",
+            "badge": "Pioneer",
+            "stakeAmount": "500,000+ TBURN",
+            "apyAmount": "16-20%",
+            "slotsAmount": "50 slots",
+            "benefits": {
+              "earlyAdopter": "Early adopter rewards",
+              "priorityFee": "Priority fee distribution",
+              "governance": "Governance participation"
+            }
+          },
+          "community": {
+            "name": "Community Validator",
+            "badge": "Community",
+            "stakeAmount": "100,000+ TBURN",
+            "apyAmount": "12-15%",
+            "slotsAmount": "Unlimited",
+            "benefits": {
+              "delegate": "Delegate to validators",
+              "autoRewards": "Auto-compound rewards",
+              "unstakePeriod": "7-day unstaking"
+            }
+          },
           "stake": "Minimum Stake",
           "apy": "Target APY",
           "slots": "Max Participants",

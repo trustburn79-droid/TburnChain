@@ -146,104 +146,136 @@ export default function Validators() {
         </div>
       </section>
 
-      {/* Validator Tier System */}
+      {/* Validator Tier System - 4 Marketing Tiers */}
       <section className="py-20 px-6 bg-gradient-to-b from-transparent to-[#7000ff]/5">
         <div className="container mx-auto max-w-7xl">
-          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-12 text-center">{t('publicPages.network.validators.tierSystem.title')}</h2>
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-12 text-center">{t('publicPages.network.validators.tierSystem.title', { defaultValue: '4-Tier Validator System' })}</h2>
           
-          <div className="grid md:grid-cols-3 gap-8">
-            {/* Super Node - Elite */}
-            <div className="spotlight-card rounded-2xl p-0 border border-[#ffd700]/30 overflow-hidden group">
-              <div className="p-6 bg-[#ffd700]/10 border-b border-[#ffd700]/20">
-                <div className="flex justify-between items-center mb-4">
-                  <div className="w-12 h-12 rounded-lg bg-[#ffd700]/20 flex items-center justify-center text-[#ffd700]">
-                    <Crown className="w-6 h-6" />
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {/* Genesis Tier - 1M+ TBURN */}
+            <div className="spotlight-card rounded-2xl p-0 border border-amber-500/30 overflow-hidden group" data-testid="tier-card-genesis">
+              <div className="p-5 bg-gradient-to-r from-amber-500/10 to-orange-500/10 border-b border-amber-500/20">
+                <div className="flex justify-between items-center mb-3">
+                  <div className="w-10 h-10 rounded-lg bg-amber-500/20 flex items-center justify-center text-amber-500">
+                    <Crown className="w-5 h-5" />
                   </div>
-                  <span className="px-3 py-1 rounded-full bg-[#ffd700]/20 text-[#ffd700] text-xs font-bold border border-[#ffd700]/30">{t('publicPages.network.validators.tierSystem.elite.badge')}</span>
+                  <span className="px-2 py-1 rounded-full bg-amber-500/20 text-amber-500 text-xs font-bold border border-amber-500/30">{t('publicPages.network.validators.tierSystem.genesis.badge', { defaultValue: 'Genesis' })}</span>
                 </div>
-                <h3 className="text-2xl font-bold text-gray-900 dark:text-white">{t('publicPages.network.validators.tierSystem.elite.name')}</h3>
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white">{t('publicPages.network.validators.tierSystem.genesis.name', { defaultValue: 'Genesis Validator' })}</h3>
               </div>
-              <div className="p-8 space-y-6">
+              <div className="p-5 space-y-4">
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-600 dark:text-gray-400">{t('publicPages.network.validators.tierSystem.stake')}</span>
-                  <span className="font-bold text-gray-900 dark:text-white">{t('publicPages.network.validators.tierSystem.elite.stakeAmount')}</span>
+                  <span className="text-gray-600 dark:text-gray-400">{t('publicPages.network.validators.tierSystem.stake', { defaultValue: 'Minimum Stake' })}</span>
+                  <span className="font-bold text-gray-900 dark:text-white">1,000,000+ TBURN</span>
                 </div>
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-600 dark:text-gray-400">{t('publicPages.network.validators.tierSystem.slots')}</span>
-                  <span className="font-bold text-gray-900 dark:text-white">{t('publicPages.network.validators.tierSystem.elite.slotsAmount')}</span>
+                  <span className="text-gray-600 dark:text-gray-400">{t('publicPages.network.validators.tierSystem.slots', { defaultValue: 'Max Participants' })}</span>
+                  <span className="font-bold text-gray-900 dark:text-white">25 slots</span>
                 </div>
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-600 dark:text-gray-400">{t('publicPages.network.validators.tierSystem.apy')}</span>
-                  <span className="font-bold text-[#00ff9d]">{t('publicPages.network.validators.tierSystem.elite.apyAmount')}</span>
+                  <span className="text-gray-600 dark:text-gray-400">{t('publicPages.network.validators.tierSystem.apy', { defaultValue: 'Target APY' })}</span>
+                  <span className="font-bold text-[#00ff9d]">20-25%</span>
                 </div>
-                <ul className="space-y-3 text-sm text-gray-600 dark:text-gray-400 mt-6 pt-6 border-t border-gray-300 dark:border-white/10">
-                  <li className="flex items-center gap-2"><Check className="w-4 h-4 text-[#ffd700]" /> {t('publicPages.network.validators.tierSystem.elite.benefits.blockPriority')}</li>
-                  <li className="flex items-center gap-2"><Check className="w-4 h-4 text-[#ffd700]" /> {t('publicPages.network.validators.tierSystem.elite.benefits.revenueShare')}</li>
-                  <li className="flex items-center gap-2"><Check className="w-4 h-4 text-[#ffd700]" /> {t('publicPages.network.validators.tierSystem.elite.benefits.aiDecision')}</li>
+                <ul className="space-y-2 text-xs text-gray-600 dark:text-gray-400 mt-4 pt-4 border-t border-gray-300 dark:border-white/10">
+                  <li className="flex items-center gap-2"><Check className="w-3 h-3 text-amber-500" /> Priority block production</li>
+                  <li className="flex items-center gap-2"><Check className="w-3 h-3 text-amber-500" /> Enhanced revenue share</li>
+                  <li className="flex items-center gap-2"><Check className="w-3 h-3 text-amber-500" /> AI governance voting</li>
                 </ul>
               </div>
             </div>
 
-            {/* Standard Node */}
-            <div className="spotlight-card rounded-2xl p-0 border border-[#00f0ff]/30 overflow-hidden group">
-              <div className="p-6 bg-[#00f0ff]/10 border-b border-[#00f0ff]/20">
-                <div className="flex justify-between items-center mb-4">
-                  <div className="w-12 h-12 rounded-lg bg-[#00f0ff]/20 flex items-center justify-center text-[#00f0ff]">
-                    <Server className="w-6 h-6" />
+            {/* Pioneer Tier - 500K+ TBURN */}
+            <div className="spotlight-card rounded-2xl p-0 border border-purple-500/30 overflow-hidden group" data-testid="tier-card-pioneer">
+              <div className="p-5 bg-gradient-to-r from-purple-500/10 to-pink-500/10 border-b border-purple-500/20">
+                <div className="flex justify-between items-center mb-3">
+                  <div className="w-10 h-10 rounded-lg bg-purple-500/20 flex items-center justify-center text-purple-500">
+                    <Zap className="w-5 h-5" />
                   </div>
-                  <span className="px-3 py-1 rounded-full bg-[#00f0ff]/20 text-[#00f0ff] text-xs font-bold border border-[#00f0ff]/30">{t('publicPages.network.validators.tierSystem.standard.badge')}</span>
+                  <span className="px-2 py-1 rounded-full bg-purple-500/20 text-purple-500 text-xs font-bold border border-purple-500/30">{t('publicPages.network.validators.tierSystem.pioneer.badge', { defaultValue: 'Pioneer' })}</span>
                 </div>
-                <h3 className="text-2xl font-bold text-gray-900 dark:text-white">{t('publicPages.network.validators.tierSystem.standard.name')}</h3>
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white">{t('publicPages.network.validators.tierSystem.pioneer.name', { defaultValue: 'Pioneer Validator' })}</h3>
               </div>
-              <div className="p-8 space-y-6">
+              <div className="p-5 space-y-4">
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-600 dark:text-gray-400">{t('publicPages.network.validators.tierSystem.stake')}</span>
-                  <span className="font-bold text-gray-900 dark:text-white">{t('publicPages.network.validators.tierSystem.standard.stakeAmount')}</span>
+                  <span className="text-gray-600 dark:text-gray-400">{t('publicPages.network.validators.tierSystem.stake', { defaultValue: 'Minimum Stake' })}</span>
+                  <span className="font-bold text-gray-900 dark:text-white">500,000+ TBURN</span>
                 </div>
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-600 dark:text-gray-400">{t('publicPages.network.validators.tierSystem.slots')}</span>
-                  <span className="font-bold text-gray-900 dark:text-white">{t('publicPages.network.validators.tierSystem.standard.slotsAmount')}</span>
+                  <span className="text-gray-600 dark:text-gray-400">{t('publicPages.network.validators.tierSystem.slots', { defaultValue: 'Max Participants' })}</span>
+                  <span className="font-bold text-gray-900 dark:text-white">50 slots</span>
                 </div>
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-600 dark:text-gray-400">{t('publicPages.network.validators.tierSystem.apy')}</span>
-                  <span className="font-bold text-[#00ff9d]">{t('publicPages.network.validators.tierSystem.standard.apyAmount')}</span>
+                  <span className="text-gray-600 dark:text-gray-400">{t('publicPages.network.validators.tierSystem.apy', { defaultValue: 'Target APY' })}</span>
+                  <span className="font-bold text-[#00ff9d]">16-20%</span>
                 </div>
-                <ul className="space-y-3 text-sm text-gray-600 dark:text-gray-400 mt-6 pt-6 border-t border-gray-300 dark:border-white/10">
-                  <li className="flex items-center gap-2"><Check className="w-4 h-4 text-[#00f0ff]" /> {t('publicPages.network.validators.tierSystem.standard.benefits.blockValidation')}</li>
-                  <li className="flex items-center gap-2"><Check className="w-4 h-4 text-[#00f0ff]" /> {t('publicPages.network.validators.tierSystem.standard.benefits.votingRights')}</li>
-                  <li className="flex items-center gap-2"><Check className="w-4 h-4 text-[#00f0ff]" /> {t('publicPages.network.validators.tierSystem.standard.benefits.feeDistribution')}</li>
+                <ul className="space-y-2 text-xs text-gray-600 dark:text-gray-400 mt-4 pt-4 border-t border-gray-300 dark:border-white/10">
+                  <li className="flex items-center gap-2"><Check className="w-3 h-3 text-purple-500" /> Early adopter rewards</li>
+                  <li className="flex items-center gap-2"><Check className="w-3 h-3 text-purple-500" /> Priority fee distribution</li>
+                  <li className="flex items-center gap-2"><Check className="w-3 h-3 text-purple-500" /> Governance participation</li>
                 </ul>
               </div>
             </div>
 
-            {/* Delegator - Starter */}
-            <div className="spotlight-card rounded-2xl p-0 border border-[#00ff9d]/30 overflow-hidden group">
-              <div className="p-6 bg-[#00ff9d]/10 border-b border-[#00ff9d]/20">
-                <div className="flex justify-between items-center mb-4">
-                  <div className="w-12 h-12 rounded-lg bg-[#00ff9d]/20 flex items-center justify-center text-[#00ff9d]">
-                    <UserCheck className="w-6 h-6" />
+            {/* Standard Tier - 200K+ TBURN */}
+            <div className="spotlight-card rounded-2xl p-0 border border-[#00f0ff]/30 overflow-hidden group" data-testid="tier-card-standard">
+              <div className="p-5 bg-gradient-to-r from-blue-500/10 to-cyan-500/10 border-b border-[#00f0ff]/20">
+                <div className="flex justify-between items-center mb-3">
+                  <div className="w-10 h-10 rounded-lg bg-[#00f0ff]/20 flex items-center justify-center text-[#00f0ff]">
+                    <Server className="w-5 h-5" />
                   </div>
-                  <span className="px-3 py-1 rounded-full bg-[#00ff9d]/20 text-[#00ff9d] text-xs font-bold border border-[#00ff9d]/30">{t('publicPages.network.validators.tierSystem.starter.badge')}</span>
+                  <span className="px-2 py-1 rounded-full bg-[#00f0ff]/20 text-[#00f0ff] text-xs font-bold border border-[#00f0ff]/30">{t('publicPages.network.validators.tierSystem.standard.badge', { defaultValue: 'Standard' })}</span>
                 </div>
-                <h3 className="text-2xl font-bold text-gray-900 dark:text-white">{t('publicPages.network.validators.tierSystem.starter.name')}</h3>
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white">{t('publicPages.network.validators.tierSystem.standard.name', { defaultValue: 'Standard Validator' })}</h3>
               </div>
-              <div className="p-8 space-y-6">
+              <div className="p-5 space-y-4">
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-600 dark:text-gray-400">{t('publicPages.network.validators.tierSystem.stake')}</span>
-                  <span className="font-bold text-gray-900 dark:text-white">{t('publicPages.network.validators.tierSystem.starter.stakeAmount')}</span>
+                  <span className="text-gray-600 dark:text-gray-400">{t('publicPages.network.validators.tierSystem.stake', { defaultValue: 'Minimum Stake' })}</span>
+                  <span className="font-bold text-gray-900 dark:text-white">200,000+ TBURN</span>
                 </div>
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-600 dark:text-gray-400">{t('publicPages.network.validators.tierSystem.slots')}</span>
-                  <span className="font-bold text-gray-900 dark:text-white">{t('publicPages.network.validators.tierSystem.starter.slotsAmount')}</span>
+                  <span className="text-gray-600 dark:text-gray-400">{t('publicPages.network.validators.tierSystem.slots', { defaultValue: 'Max Participants' })}</span>
+                  <span className="font-bold text-gray-900 dark:text-white">200 slots</span>
                 </div>
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-600 dark:text-gray-400">{t('publicPages.network.validators.tierSystem.apy')}</span>
-                  <span className="font-bold text-[#00ff9d]">{t('publicPages.network.validators.tierSystem.starter.apyAmount')}</span>
+                  <span className="text-gray-600 dark:text-gray-400">{t('publicPages.network.validators.tierSystem.apy', { defaultValue: 'Target APY' })}</span>
+                  <span className="font-bold text-[#00ff9d]">14-18%</span>
                 </div>
-                <ul className="space-y-3 text-sm text-gray-600 dark:text-gray-400 mt-6 pt-6 border-t border-gray-300 dark:border-white/10">
-                  <li className="flex items-center gap-2"><Check className="w-4 h-4 text-[#00ff9d]" /> {t('publicPages.network.validators.tierSystem.starter.benefits.delegate')}</li>
-                  <li className="flex items-center gap-2"><Check className="w-4 h-4 text-[#00ff9d]" /> {t('publicPages.network.validators.tierSystem.starter.benefits.autoRewards')}</li>
-                  <li className="flex items-center gap-2"><Check className="w-4 h-4 text-[#00ff9d]" /> {t('publicPages.network.validators.tierSystem.starter.benefits.unstakePeriod')}</li>
+                <ul className="space-y-2 text-xs text-gray-600 dark:text-gray-400 mt-4 pt-4 border-t border-gray-300 dark:border-white/10">
+                  <li className="flex items-center gap-2"><Check className="w-3 h-3 text-[#00f0ff]" /> Block validation rights</li>
+                  <li className="flex items-center gap-2"><Check className="w-3 h-3 text-[#00f0ff]" /> Governance voting</li>
+                  <li className="flex items-center gap-2"><Check className="w-3 h-3 text-[#00f0ff]" /> Fee distribution</li>
+                </ul>
+              </div>
+            </div>
+
+            {/* Community Tier - 100K+ TBURN */}
+            <div className="spotlight-card rounded-2xl p-0 border border-[#00ff9d]/30 overflow-hidden group" data-testid="tier-card-community">
+              <div className="p-5 bg-gradient-to-r from-green-500/10 to-emerald-500/10 border-b border-[#00ff9d]/20">
+                <div className="flex justify-between items-center mb-3">
+                  <div className="w-10 h-10 rounded-lg bg-[#00ff9d]/20 flex items-center justify-center text-[#00ff9d]">
+                    <Users className="w-5 h-5" />
+                  </div>
+                  <span className="px-2 py-1 rounded-full bg-[#00ff9d]/20 text-[#00ff9d] text-xs font-bold border border-[#00ff9d]/30">{t('publicPages.network.validators.tierSystem.community.badge', { defaultValue: 'Community' })}</span>
+                </div>
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white">{t('publicPages.network.validators.tierSystem.community.name', { defaultValue: 'Community Validator' })}</h3>
+              </div>
+              <div className="p-5 space-y-4">
+                <div className="flex justify-between text-sm">
+                  <span className="text-gray-600 dark:text-gray-400">{t('publicPages.network.validators.tierSystem.stake', { defaultValue: 'Minimum Stake' })}</span>
+                  <span className="font-bold text-gray-900 dark:text-white">100,000+ TBURN</span>
+                </div>
+                <div className="flex justify-between text-sm">
+                  <span className="text-gray-600 dark:text-gray-400">{t('publicPages.network.validators.tierSystem.slots', { defaultValue: 'Max Participants' })}</span>
+                  <span className="font-bold text-gray-900 dark:text-white">Unlimited</span>
+                </div>
+                <div className="flex justify-between text-sm">
+                  <span className="text-gray-600 dark:text-gray-400">{t('publicPages.network.validators.tierSystem.apy', { defaultValue: 'Target APY' })}</span>
+                  <span className="font-bold text-[#00ff9d]">12-15%</span>
+                </div>
+                <ul className="space-y-2 text-xs text-gray-600 dark:text-gray-400 mt-4 pt-4 border-t border-gray-300 dark:border-white/10">
+                  <li className="flex items-center gap-2"><Check className="w-3 h-3 text-[#00ff9d]" /> Delegate to validators</li>
+                  <li className="flex items-center gap-2"><Check className="w-3 h-3 text-[#00ff9d]" /> Auto-compound rewards</li>
+                  <li className="flex items-center gap-2"><Check className="w-3 h-3 text-[#00ff9d]" /> 7-day unstaking</li>
                 </ul>
               </div>
             </div>
