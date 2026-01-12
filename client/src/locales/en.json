@@ -34004,220 +34004,169 @@
   },
   "externalValidatorSoftware": {
     "nav": {
-      "backToProgram": "Back to External Validator Program",
-      "requirements": "Requirements",
-      "download": "Download",
-      "installation": "Installation",
-      "configuration": "Configuration",
-      "features": "Features",
-      "monitoring": "Monitoring",
-      "ports": "Network Ports",
-      "faq": "FAQ",
-      "support": "Support"
+      "backToProgram": "← Back to Validator Program",
+      "download": "Download Software"
     },
     "hero": {
-      "badge": "Production-Ready Software",
-      "title": "External Validator Node Software",
-      "subtitle": "Enterprise-grade validator node software for participating in TBURN mainnet consensus",
-      "downloadNow": "Download Now",
-      "viewDocs": "View Documentation"
+      "badge": "Enterprise Validator Software",
+      "title": "TBURN Validator Node",
+      "subtitle": "Production-grade validator software with enterprise security, BFT consensus, and real-time monitoring for TBURN mainnet."
     },
     "stats": {
-      "validators": "Genesis Validators",
-      "tps": "Target TPS",
+      "validators": "Active Validators",
+      "tps": "Network TPS",
       "blockTime": "Block Time",
-      "uptime": "SLA Uptime"
-    },
-    "requirements": {
-      "title": "System Requirements",
-      "subtitle": "Hardware specifications for running the TBURN validator node",
-      "minimum": "Minimum Requirements",
-      "recommended": "Recommended Specifications",
-      "cpu": "CPU",
-      "ram": "RAM",
-      "storage": "Storage",
-      "network": "Network",
-      "os": "OS"
+      "uptime": "Network Uptime"
     },
     "download": {
-      "title": "Download Validator Node",
+      "title": "Download Validator Software",
       "subtitle": "Choose your preferred installation method",
       "linux": {
-        "title": "Linux Binary",
-        "description": "Pre-compiled binary for x64 systems",
-        "version": "Version",
-        "size": "Size",
-        "sha256": "SHA256",
-        "download": "Download .tar.gz",
-        "recommended": "Recommended"
+        "title": "Linux x64",
+        "description": "Ubuntu 20.04+, Debian 11+, CentOS 8+",
+        "recommended": "Recommended",
+        "download": "Download"
       },
       "docker": {
-        "title": "Docker Image",
-        "description": "Containerized deployment",
-        "pullCommand": "Pull from Docker Hub",
-        "dockerPull": "docker pull"
+        "title": "Docker",
+        "description": "All platforms with Docker support"
       },
       "source": {
         "title": "Source Code",
-        "description": "Build from source",
-        "viewSource": "View on GitHub"
-      }
-    },
-    "installation": {
-      "title": "Installation Guide",
-      "subtitle": "Follow these steps to install and configure your validator node",
-      "tabs": {
-        "linux": "Linux Binary",
-        "docker": "Docker",
-        "systemd": "SystemD Service"
-      },
-      "linux": {
-        "step1": "Download and extract the validator node package",
-        "step2": "Install the binary to your system",
-        "step3": "Start the validator node"
-      },
-      "docker": {
-        "step1": "Pull the Docker image and run the container"
-      },
-      "systemd": {
-        "description": "Create a systemd service for automatic startup and management",
-        "step1": "Create the service file at /etc/systemd/system/tburn-validator.service"
-      }
-    },
-    "configuration": {
-      "title": "Node Configuration",
-      "subtitle": "Configure your validator node for optimal performance",
-      "configFile": "Configuration file location: ~/.tburn/config.toml",
-      "parameters": {
-        "nodeId": "Unique identifier for this node",
-        "rpcPort": "JSON-RPC API port",
-        "p2pPort": "Peer-to-peer communication port",
-        "grpcPort": "gRPC API port (validator operations)",
-        "dataDir": "Data storage location",
-        "logLevel": "Logging verbosity",
-        "metricsPort": "Prometheus metrics port"
+        "description": "Build from source on GitHub"
       }
     },
     "features": {
       "title": "Enterprise Features",
-      "subtitle": "Production-grade capabilities for mainnet validation",
+      "subtitle": "Built for production workloads with enterprise-grade security",
       "items": {
         "bft": {
-          "title": "Enterprise BFT Consensus",
-          "description": "5-phase Byzantine Fault Tolerant protocol with lock-based consensus safety"
+          "title": "BFT Consensus",
+          "description": "Byzantine Fault Tolerant consensus with 100ms finality"
+        },
+        "security": {
+          "title": "Enterprise Security",
+          "description": "AES-256-GCM encryption, TLS 1.3, mTLS support"
+        },
+        "tps": {
+          "title": "High Performance",
+          "description": "Optimized for 210,000+ TPS throughput"
+        },
+        "blockTime": {
+          "title": "Fast Blocks",
+          "description": "100ms block time with instant finality"
         },
         "sharding": {
           "title": "Dynamic Sharding",
-          "description": "Automatic shard scaling (5-64 shards) with transactional updates"
-        },
-        "tps": {
-          "title": "High Throughput",
-          "description": "Optimized for 120K+ sustained TPS with parallel verification pipeline"
-        },
-        "blockTime": {
-          "title": "Fast Block Time",
-          "description": "100ms block production with drift compensation"
-        },
-        "security": {
-          "title": "Quantum-Resistant",
-          "description": "Quantum-resistant cryptographic signatures for future-proof security"
+          "description": "Auto-scaling 5-64 shards based on load"
         },
         "monitoring": {
-          "title": "Enterprise Monitoring",
-          "description": "Prometheus metrics, Grafana dashboards, and real-time alerting"
-        },
-        "recovery": {
-          "title": "Auto-Recovery",
-          "description": "Self-healing capabilities with automatic crash recovery"
+          "title": "Real-time Monitoring",
+          "description": "Prometheus metrics and Grafana dashboards"
         },
         "updates": {
-          "title": "Rolling Updates",
-          "description": "Zero-downtime updates with graceful validator rotation"
+          "title": "Auto Updates",
+          "description": "Seamless rolling updates with zero downtime"
+        },
+        "recovery": {
+          "title": "Disaster Recovery",
+          "description": "Automated backup and point-in-time recovery"
         }
       }
     },
+    "requirements": {
+      "title": "System Requirements",
+      "subtitle": "Hardware and software requirements for running a validator node",
+      "minimum": "Minimum Requirements",
+      "recommended": "Recommended",
+      "cpu": "CPU",
+      "ram": "RAM",
+      "storage": "Storage",
+      "network": "Network",
+      "os": "Operating System"
+    },
+    "installation": {
+      "title": "Installation Guide",
+      "subtitle": "Step-by-step installation instructions",
+      "tabs": {
+        "linux": "Linux",
+        "docker": "Docker",
+        "systemd": "SystemD"
+      }
+    },
+    "configuration": {
+      "title": "Configuration",
+      "subtitle": "Example configuration file for validator node"
+    },
     "monitoring": {
-      "title": "Monitoring & Metrics",
-      "subtitle": "Monitor your validator node performance in real-time",
-      "endpoints": "Monitoring Endpoints",
-      "prometheusDesc": "Prometheus metrics endpoint for scraping",
-      "healthDesc": "Health check endpoint for load balancers",
-      "statusDesc": "Validator status and sync information"
+      "title": "Monitoring & Logs",
+      "subtitle": "Commands for monitoring your validator node"
     },
     "ports": {
       "title": "Network Ports",
-      "subtitle": "Required firewall configuration for validator nodes",
-      "table": {
-        "port": "Port",
-        "protocol": "Protocol",
-        "description": "Description"
-      },
-      "descriptions": {
-        "p2p": "P2P Network Communication",
-        "rpc": "JSON-RPC API",
-        "grpc": "gRPC Validator API",
-        "metrics": "Prometheus Metrics"
-      }
+      "subtitle": "Required ports for validator operation",
+      "rpc": "RPC API",
+      "ws": "WebSocket",
+      "p2p": "P2P Network",
+      "metrics": "Prometheus Metrics"
     },
     "faq": {
       "title": "Frequently Asked Questions",
-      "subtitle": "Common questions about running a validator node",
-      "items": {
-        "stake": {
-          "question": "What is the minimum stake required?",
-          "answer": "The minimum stake to become a validator is 1,000,000 TBURN for Full Validators and 100,000 TBURN for Light Validators."
-        },
-        "hardware": {
-          "question": "Can I run multiple validators on one server?",
-          "answer": "We recommend running one validator per physical server to ensure optimal performance and avoid resource contention."
-        },
-        "updates": {
-          "question": "How do I update the validator software?",
-          "answer": "We provide rolling updates that can be applied without downtime. Simply download the new version and restart the service."
-        },
-        "rewards": {
-          "question": "When do I receive validator rewards?",
-          "answer": "Rewards are distributed at the end of each epoch (approximately every 6 hours). You can claim rewards through the validator dashboard."
-        },
-        "slashing": {
-          "question": "What are the slashing conditions?",
-          "answer": "Slashing occurs for double-signing, extended downtime (>4 hours), or submitting invalid blocks. Penalties range from 0.1% to 100% of stake."
-        },
-        "backup": {
-          "question": "How do I backup my validator keys?",
-          "answer": "Validator keys are stored in ~/.tburn/keys/. Back up this directory securely and never share your private keys."
-        },
-        "migrate": {
-          "question": "Can I migrate my validator to a new server?",
-          "answer": "Yes, you can migrate by stopping the old node, transferring the keys directory, and starting on the new server. Never run two instances with the same keys."
-        },
-        "support": {
-          "question": "How do I get technical support?",
-          "answer": "Join our Discord server for community support, or contact enterprise-support@tburn.io for priority assistance."
-        }
+      "subtitle": "Common questions about validator software",
+      "stake": {
+        "question": "How much TBURN do I need to stake?",
+        "answer": "Minimum stake depends on your tier: Community (100,000), Standard (200,000), Pioneer (500,000), Genesis (1,000,000 TBURN)."
+      },
+      "hardware": {
+        "question": "What are the hardware requirements?",
+        "answer": "Minimum: 8 CPU cores, 32GB RAM, 1TB NVMe SSD, 1Gbps network. Recommended: 16+ cores, 64GB RAM, 2TB NVMe."
+      },
+      "updates": {
+        "question": "How do updates work?",
+        "answer": "The validator software supports automatic updates. You can configure auto-update or manually update using the CLI."
+      },
+      "rewards": {
+        "question": "How are rewards calculated?",
+        "answer": "Rewards are based on your stake amount, tier level, uptime, and performance metrics. Higher tiers receive better reward multipliers."
+      },
+      "slashing": {
+        "question": "What causes slashing?",
+        "answer": "Slashing occurs for double-signing, extended downtime (>24h), or malicious behavior. Minor penalties apply for missed heartbeats."
+      },
+      "backup": {
+        "question": "How do I backup my validator?",
+        "answer": "Use the built-in backup command: ./tburn-validator backup. Store keystore files securely offline."
+      },
+      "migrate": {
+        "question": "Can I migrate to a new server?",
+        "answer": "Yes, export your configuration and keystore, then import on the new server using the migration wizard."
+      },
+      "support": {
+        "question": "Where can I get support?",
+        "answer": "Join our Discord for community support, or contact enterprise support for priority assistance."
       }
     },
     "support": {
-      "title": "Need Help?",
-      "subtitle": "Our team is here to help you succeed",
+      "title": "Support & Resources",
+      "subtitle": "Get help and access documentation",
       "docs": {
         "title": "Documentation",
-        "description": "Comprehensive guides and API references"
+        "description": "Comprehensive guides and API reference"
       },
       "discord": {
         "title": "Discord Community",
-        "description": "Join our validator community"
+        "description": "Join our validator community for support"
       },
       "enterprise": {
         "title": "Enterprise Support",
-        "description": "Priority support for validators"
+        "description": "24/7 priority support for enterprise partners"
       }
     },
     "cta": {
-      "title": "Ready to Become a Validator?",
-      "subtitle": "Download the software and start earning rewards today",
-      "download": "Download Software",
-      "learnMore": "Learn More About the Program"
+      "title": "Ready to Start?",
+      "subtitle": "Download the validator software and join the TBURN network",
+      "download": "Download Now",
+      "learnMore": "Learn More"
     }
   },
   "coinlist": {

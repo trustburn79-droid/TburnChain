@@ -37563,5 +37563,172 @@
       "south-america": "남아메리카",
       "africa": "아프리카"
     }
+  },
+  "externalValidatorSoftware": {
+    "nav": {
+      "backToProgram": "← 검증자 프로그램으로",
+      "download": "소프트웨어 다운로드"
+    },
+    "hero": {
+      "badge": "엔터프라이즈 검증자 소프트웨어",
+      "title": "TBURN 검증자 노드",
+      "subtitle": "엔터프라이즈급 보안, BFT 합의, 실시간 모니터링을 갖춘 TBURN 메인넷용 프로덕션 수준 검증자 소프트웨어."
+    },
+    "stats": {
+      "validators": "활성 검증자",
+      "tps": "네트워크 TPS",
+      "blockTime": "블록 시간",
+      "uptime": "네트워크 가동시간"
+    },
+    "download": {
+      "title": "검증자 소프트웨어 다운로드",
+      "subtitle": "선호하는 설치 방법을 선택하세요",
+      "linux": {
+        "title": "Linux x64",
+        "description": "Ubuntu 20.04+, Debian 11+, CentOS 8+",
+        "recommended": "권장",
+        "download": "다운로드"
+      },
+      "docker": {
+        "title": "Docker",
+        "description": "Docker를 지원하는 모든 플랫폼"
+      },
+      "source": {
+        "title": "소스 코드",
+        "description": "GitHub에서 소스로 빌드"
+      }
+    },
+    "features": {
+      "title": "엔터프라이즈 기능",
+      "subtitle": "엔터프라이즈급 보안으로 프로덕션 워크로드를 위해 구축",
+      "items": {
+        "bft": {
+          "title": "BFT 합의",
+          "description": "100ms 최종성을 가진 비잔틴 장애 허용 합의"
+        },
+        "security": {
+          "title": "엔터프라이즈 보안",
+          "description": "AES-256-GCM 암호화, TLS 1.3, mTLS 지원"
+        },
+        "tps": {
+          "title": "고성능",
+          "description": "210,000+ TPS 처리량에 최적화"
+        },
+        "blockTime": {
+          "title": "빠른 블록",
+          "description": "즉시 최종성을 가진 100ms 블록 시간"
+        },
+        "sharding": {
+          "title": "동적 샤딩",
+          "description": "로드에 따른 5-64 샤드 자동 확장"
+        },
+        "monitoring": {
+          "title": "실시간 모니터링",
+          "description": "Prometheus 메트릭 및 Grafana 대시보드"
+        },
+        "updates": {
+          "title": "자동 업데이트",
+          "description": "제로 다운타임으로 원활한 롤링 업데이트"
+        },
+        "recovery": {
+          "title": "재해 복구",
+          "description": "자동화된 백업 및 시점 복구"
+        }
+      }
+    },
+    "requirements": {
+      "title": "시스템 요구사항",
+      "subtitle": "검증자 노드 실행을 위한 하드웨어 및 소프트웨어 요구사항",
+      "minimum": "최소 요구사항",
+      "recommended": "권장",
+      "cpu": "CPU",
+      "ram": "RAM",
+      "storage": "저장공간",
+      "network": "네트워크",
+      "os": "운영 체제"
+    },
+    "installation": {
+      "title": "설치 가이드",
+      "subtitle": "단계별 설치 지침",
+      "tabs": {
+        "linux": "Linux",
+        "docker": "Docker",
+        "systemd": "SystemD"
+      }
+    },
+    "configuration": {
+      "title": "구성",
+      "subtitle": "검증자 노드용 예제 구성 파일"
+    },
+    "monitoring": {
+      "title": "모니터링 및 로그",
+      "subtitle": "검증자 노드 모니터링 명령어"
+    },
+    "ports": {
+      "title": "네트워크 포트",
+      "subtitle": "검증자 운영에 필요한 포트",
+      "rpc": "RPC API",
+      "ws": "WebSocket",
+      "p2p": "P2P 네트워크",
+      "metrics": "Prometheus 메트릭"
+    },
+    "faq": {
+      "title": "자주 묻는 질문",
+      "subtitle": "검증자 소프트웨어에 대한 일반적인 질문",
+      "stake": {
+        "question": "얼마나 많은 TBURN을 스테이킹해야 하나요?",
+        "answer": "최소 스테이킹은 등급에 따라 다릅니다: 커뮤니티 (100,000), 스탠다드 (200,000), 파이오니어 (500,000), 제네시스 (1,000,000 TBURN)."
+      },
+      "hardware": {
+        "question": "하드웨어 요구사항은 무엇인가요?",
+        "answer": "최소: 8 CPU 코어, 32GB RAM, 1TB NVMe SSD, 1Gbps 네트워크. 권장: 16+ 코어, 64GB RAM, 2TB NVMe."
+      },
+      "updates": {
+        "question": "업데이트는 어떻게 작동하나요?",
+        "answer": "검증자 소프트웨어는 자동 업데이트를 지원합니다. 자동 업데이트를 설정하거나 CLI를 사용하여 수동으로 업데이트할 수 있습니다."
+      },
+      "rewards": {
+        "question": "보상은 어떻게 계산되나요?",
+        "answer": "보상은 스테이킹 금액, 등급 레벨, 가동시간 및 성능 메트릭에 따라 계산됩니다."
+      },
+      "slashing": {
+        "question": "슬래싱의 원인은 무엇인가요?",
+        "answer": "이중 서명, 장기간 다운타임(24시간 이상), 악의적인 행동 시 슬래싱이 발생합니다."
+      },
+      "backup": {
+        "question": "검증자를 어떻게 백업하나요?",
+        "answer": "내장 백업 명령어 사용: ./tburn-validator backup. 키스토어 파일은 오프라인에 안전하게 보관하세요."
+      },
+      "migrate": {
+        "question": "새 서버로 마이그레이션할 수 있나요?",
+        "answer": "네, 구성과 키스토어를 내보내고 마이그레이션 마법사를 사용하여 새 서버에서 가져오세요."
+      },
+      "support": {
+        "question": "어디서 지원을 받을 수 있나요?",
+        "answer": "커뮤니티 지원을 위해 Discord에 가입하거나, 우선 지원을 위해 엔터프라이즈 지원에 연락하세요."
+      }
+    },
+    "support": {
+      "title": "지원 및 리소스",
+      "subtitle": "도움말 및 문서에 액세스",
+      "docs": {
+        "title": "문서",
+        "description": "종합 가이드 및 API 레퍼런스"
+      },
+      "discord": {
+        "title": "Discord 커뮤니티",
+        "description": "지원을 위해 검증자 커뮤니티에 가입하세요"
+      },
+      "enterprise": {
+        "title": "엔터프라이즈 지원",
+        "description": "엔터프라이즈 파트너를 위한 24/7 우선 지원"
+      }
+    },
+    "cta": {
+      "title": "시작할 준비가 되셨나요?",
+      "subtitle": "검증자 소프트웨어를 다운로드하고 TBURN 네트워크에 참여하세요",
+      "download": "지금 다운로드",
+      "learnMore": "자세히 알아보기"
+    }
   }
 }

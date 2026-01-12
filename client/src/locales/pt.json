@@ -22976,5 +22976,172 @@
       "south-america": "América do Sul",
       "africa": "África"
     }
+  },
+  "externalValidatorSoftware": {
+    "nav": {
+      "backToProgram": "← Voltar ao Programa",
+      "download": "Baixar Software"
+    },
+    "hero": {
+      "badge": "Software de Validador Empresarial",
+      "title": "Nó Validador TBURN",
+      "subtitle": "Software de validador de produção com segurança empresarial, consenso BFT e monitoramento em tempo real."
+    },
+    "stats": {
+      "validators": "Validadores Ativos",
+      "tps": "TPS da Rede",
+      "blockTime": "Tempo de Bloco",
+      "uptime": "Tempo Ativo"
+    },
+    "download": {
+      "title": "Baixar Software de Validador",
+      "subtitle": "Escolha seu método de instalação preferido",
+      "linux": {
+        "title": "Linux x64",
+        "description": "Ubuntu 20.04+, Debian 11+, CentOS 8+",
+        "recommended": "Recomendado",
+        "download": "Baixar"
+      },
+      "docker": {
+        "title": "Docker",
+        "description": "Todas as plataformas com suporte Docker"
+      },
+      "source": {
+        "title": "Código Fonte",
+        "description": "Compilar do GitHub"
+      }
+    },
+    "features": {
+      "title": "Recursos Empresariais",
+      "subtitle": "Construído para cargas de trabalho de produção",
+      "items": {
+        "bft": {
+          "title": "Consenso BFT",
+          "description": "Consenso tolerante a falhas bizantinas com finalidade de 100ms"
+        },
+        "security": {
+          "title": "Segurança Empresarial",
+          "description": "Criptografia AES-256-GCM, TLS 1.3, suporte mTLS"
+        },
+        "tps": {
+          "title": "Alto Desempenho",
+          "description": "Otimizado para 210,000+ TPS"
+        },
+        "blockTime": {
+          "title": "Blocos Rápidos",
+          "description": "Tempo de bloco de 100ms com finalidade instantânea"
+        },
+        "sharding": {
+          "title": "Sharding Dinâmico",
+          "description": "Escalonamento automático de 5-64 shards"
+        },
+        "monitoring": {
+          "title": "Monitoramento em Tempo Real",
+          "description": "Métricas Prometheus e dashboards Grafana"
+        },
+        "updates": {
+          "title": "Atualizações Automáticas",
+          "description": "Atualizações sem tempo de inatividade"
+        },
+        "recovery": {
+          "title": "Recuperação de Desastres",
+          "description": "Backup automatizado e recuperação"
+        }
+      }
+    },
+    "requirements": {
+      "title": "Requisitos do Sistema",
+      "subtitle": "Requisitos de hardware e software",
+      "minimum": "Requisitos Mínimos",
+      "recommended": "Recomendado",
+      "cpu": "CPU",
+      "ram": "RAM",
+      "storage": "Armazenamento",
+      "network": "Rede",
+      "os": "Sistema Operacional"
+    },
+    "installation": {
+      "title": "Guia de Instalação",
+      "subtitle": "Instruções passo a passo",
+      "tabs": {
+        "linux": "Linux",
+        "docker": "Docker",
+        "systemd": "SystemD"
+      }
+    },
+    "configuration": {
+      "title": "Configuração",
+      "subtitle": "Arquivo de configuração de exemplo"
+    },
+    "monitoring": {
+      "title": "Monitoramento e Logs",
+      "subtitle": "Comandos para monitorar seu nó"
+    },
+    "ports": {
+      "title": "Portas de Rede",
+      "subtitle": "Portas necessárias",
+      "rpc": "API RPC",
+      "ws": "WebSocket",
+      "p2p": "Rede P2P",
+      "metrics": "Métricas Prometheus"
+    },
+    "faq": {
+      "title": "Perguntas Frequentes",
+      "subtitle": "Perguntas comuns sobre o software",
+      "stake": {
+        "question": "Quanto TBURN preciso fazer staking?",
+        "answer": "O staking mínimo depende do nível: Community (100,000), Standard (200,000), Pioneer (500,000), Genesis (1,000,000 TBURN)."
+      },
+      "hardware": {
+        "question": "Quais são os requisitos de hardware?",
+        "answer": "Mínimo: 8 núcleos CPU, 32GB RAM, 1TB NVMe SSD, rede 1Gbps."
+      },
+      "updates": {
+        "question": "Como funcionam as atualizações?",
+        "answer": "O software suporta atualizações automáticas."
+      },
+      "rewards": {
+        "question": "Como as recompensas são calculadas?",
+        "answer": "As recompensas são baseadas no seu stake, nível, tempo ativo e desempenho."
+      },
+      "slashing": {
+        "question": "O que causa slashing?",
+        "answer": "Assinatura dupla, tempo offline prolongado ou comportamento malicioso."
+      },
+      "backup": {
+        "question": "Como faço backup do validador?",
+        "answer": "Use o comando de backup integrado: ./tburn-validator backup"
+      },
+      "migrate": {
+        "question": "Posso migrar para um novo servidor?",
+        "answer": "Sim, exporte sua configuração e keystore, depois importe no novo servidor."
+      },
+      "support": {
+        "question": "Onde posso obter suporte?",
+        "answer": "Junte-se ao nosso Discord ou contate o suporte empresarial."
+      }
+    },
+    "support": {
+      "title": "Suporte e Recursos",
+      "subtitle": "Obtenha ajuda e acesse documentação",
+      "docs": {
+        "title": "Documentação",
+        "description": "Guias completos e referência API"
+      },
+      "discord": {
+        "title": "Comunidade Discord",
+        "description": "Junte-se à nossa comunidade de validadores"
+      },
+      "enterprise": {
+        "title": "Suporte Empresarial",
+        "description": "Suporte prioritário 24/7"
+      }
+    },
+    "cta": {
+      "title": "Pronto para Começar?",
+      "subtitle": "Baixe o software e junte-se à rede TBURN",
+      "download": "Baixar Agora",
+      "learnMore": "Saiba Mais"
+    }
   }
 }

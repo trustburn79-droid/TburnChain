@@ -3124,220 +3124,169 @@
   },
   "externalValidatorSoftware": {
     "nav": {
-      "backToProgram": "外部バリデータープログラムに戻る",
-      "requirements": "システム要件",
-      "download": "ダウンロード",
-      "installation": "インストール",
-      "configuration": "設定",
-      "features": "機能",
-      "monitoring": "モニタリング",
-      "ports": "ネットワークポート",
-      "faq": "よくある質問",
-      "support": "サポート"
+      "backToProgram": "← バリデータープログラムへ",
+      "download": "ソフトウェアダウンロード"
     },
     "hero": {
-      "badge": "本番環境対応ソフトウェア",
-      "title": "外部バリデーターノードソフトウェア",
-      "subtitle": "TBURNメインネットコンセンサスに参加するためのエンタープライズグレードバリデーターノードソフトウェア",
-      "downloadNow": "今すぐダウンロード",
-      "viewDocs": "ドキュメントを見る"
+      "badge": "エンタープライズバリデーターソフトウェア",
+      "title": "TBURN バリデーターノード",
+      "subtitle": "エンタープライズセキュリティ、BFTコンセンサス、リアルタイム監視を備えたTBURNメインネット用プロダクションレベルのバリデーターソフトウェア。"
     },
     "stats": {
-      "validators": "ジェネシスバリデーター",
-      "tps": "目標TPS",
+      "validators": "アクティブバリデーター",
+      "tps": "ネットワーク TPS",
       "blockTime": "ブロック時間",
-      "uptime": "SLA稼働率"
-    },
-    "requirements": {
-      "title": "システム要件",
-      "subtitle": "TBURNバリデーターノード運用のためのハードウェア仕様",
-      "minimum": "最小要件",
-      "recommended": "推奨仕様",
-      "cpu": "CPU",
-      "ram": "メモリ",
-      "storage": "ストレージ",
-      "network": "ネットワーク",
-      "os": "OS"
+      "uptime": "ネットワーク稼働時間"
     },
     "download": {
-      "title": "バリデーターノードのダウンロード",
+      "title": "バリデーターソフトウェアをダウンロード",
       "subtitle": "お好みのインストール方法を選択してください",
       "linux": {
-        "title": "Linuxバイナリ",
-        "description": "x64システム用プリコンパイルバイナリ",
-        "version": "バージョン",
-        "size": "サイズ",
-        "sha256": "SHA256",
-        "download": ".tar.gzをダウンロード",
-        "recommended": "推奨"
+        "title": "Linux x64",
+        "description": "Ubuntu 20.04+, Debian 11+, CentOS 8+",
+        "recommended": "推奨",
+        "download": "ダウンロード"
       },
       "docker": {
-        "title": "Dockerイメージ",
-        "description": "コンテナ化デプロイメント",
-        "pullCommand": "Docker Hubからプル",
-        "dockerPull": "docker pull"
+        "title": "Docker",
+        "description": "Docker対応のすべてのプラットフォーム"
       },
       "source": {
         "title": "ソースコード",
-        "description": "ソースからビルド",
-        "viewSource": "GitHubで見る"
-      }
-    },
-    "installation": {
-      "title": "インストールガイド",
-      "subtitle": "以下の手順でバリデーターノードをインストールおよび設定します",
-      "tabs": {
-        "linux": "Linuxバイナリ",
-        "docker": "Docker",
-        "systemd": "SystemDサービス"
-      },
-      "linux": {
-        "step1": "バリデーターノードパッケージをダウンロードして展開",
-        "step2": "システムにバイナリをインストール",
-        "step3": "バリデーターノードを起動"
-      },
-      "docker": {
-        "step1": "Dockerイメージをプルしてコンテナを実行"
-      },
-      "systemd": {
-        "description": "自動起動と管理のためのsystemdサービスを作成",
-        "step1": "/etc/systemd/system/tburn-validator.serviceにサービスファイルを作成"
-      }
-    },
-    "configuration": {
-      "title": "ノード設定",
-      "subtitle": "最適なパフォーマンスのためにバリデーターノードを設定",
-      "configFile": "設定ファイルの場所: ~/.tburn/config.toml",
-      "parameters": {
-        "nodeId": "このノードの一意識別子",
-        "rpcPort": "JSON-RPC APIポート",
-        "p2pPort": "ピアツーピア通信ポート",
-        "grpcPort": "gRPC APIポート(バリデーター操作用)",
-        "dataDir": "データ保存場所",
-        "logLevel": "ログレベル",
-        "metricsPort": "Prometheusメトリクスポート"
+        "description": "GitHubからソースビルド"
       }
     },
     "features": {
       "title": "エンタープライズ機能",
-      "subtitle": "メインネット検証のためのプロダクショングレード機能",
+      "subtitle": "エンタープライズグレードのセキュリティで本番ワークロード向けに構築",
       "items": {
         "bft": {
-          "title": "エンタープライズBFTコンセンサス",
-          "description": "ロックベースのコンセンサス安全性を持つ5フェーズビザンチン障害耐性プロトコル"
-        },
-        "sharding": {
-          "title": "ダイナミックシャーディング",
-          "description": "トランザクション更新による自動シャードスケーリング(5〜64シャード)"
-        },
-        "tps": {
-          "title": "高スループット",
-          "description": "並列検証パイプラインで120K+持続TPSに最適化"
-        },
-        "blockTime": {
-          "title": "高速ブロック時間",
-          "description": "ドリフト補正付き100msブロック生成"
+          "title": "BFTコンセンサス",
+          "description": "100msファイナリティを持つビザンチン障害耐性コンセンサス"
         },
         "security": {
-          "title": "量子耐性",
-          "description": "将来を見据えた量子耐性暗号署名"
+          "title": "エンタープライズセキュリティ",
+          "description": "AES-256-GCM暗号化、TLS 1.3、mTLSサポート"
+        },
+        "tps": {
+          "title": "高性能",
+          "description": "210,000+ TPSスループットに最適化"
+        },
+        "blockTime": {
+          "title": "高速ブロック",
+          "description": "即時ファイナリティを持つ100msブロック時間"
+        },
+        "sharding": {
+          "title": "動的シャーディング",
+          "description": "負荷に応じた5-64シャードの自動スケーリング"
         },
         "monitoring": {
-          "title": "エンタープライズモニタリング",
-          "description": "Prometheusメトリクス、Grafanaダッシュボード、リアルタイムアラート"
-        },
-        "recovery": {
-          "title": "自動復旧",
-          "description": "自動クラッシュ復旧による自己修復機能"
+          "title": "リアルタイム監視",
+          "description": "PrometheusメトリクスとGrafanaダッシュボード"
         },
         "updates": {
-          "title": "ローリングアップデート",
-          "description": "優雅なバリデーターローテーションによるゼロダウンタイム更新"
+          "title": "自動アップデート",
+          "description": "ゼロダウンタイムでシームレスなローリングアップデート"
+        },
+        "recovery": {
+          "title": "災害復旧",
+          "description": "自動バックアップとポイントインタイムリカバリ"
         }
       }
     },
+    "requirements": {
+      "title": "システム要件",
+      "subtitle": "バリデーターノード実行のためのハードウェアとソフトウェア要件",
+      "minimum": "最小要件",
+      "recommended": "推奨",
+      "cpu": "CPU",
+      "ram": "RAM",
+      "storage": "ストレージ",
+      "network": "ネットワーク",
+      "os": "オペレーティングシステム"
+    },
+    "installation": {
+      "title": "インストールガイド",
+      "subtitle": "ステップバイステップのインストール手順",
+      "tabs": {
+        "linux": "Linux",
+        "docker": "Docker",
+        "systemd": "SystemD"
+      }
+    },
+    "configuration": {
+      "title": "設定",
+      "subtitle": "バリデーターノード用設定ファイルの例"
+    },
     "monitoring": {
-      "title": "モニタリングとメトリクス",
-      "subtitle": "バリデーターノードのパフォーマンスをリアルタイムで監視",
-      "endpoints": "モニタリングエンドポイント",
-      "prometheusDesc": "スクレイピング用Prometheusメトリクスエンドポイント",
-      "healthDesc": "ロードバランサー用ヘルスチェックエンドポイント",
-      "statusDesc": "バリデーターステータスと同期情報"
+      "title": "監視とログ",
+      "subtitle": "バリデーターノードを監視するコマンド"
     },
     "ports": {
       "title": "ネットワークポート",
-      "subtitle": "バリデーターノードに必要なファイアウォール設定",
-      "table": {
-        "port": "ポート",
-        "protocol": "プロトコル",
-        "description": "説明"
-      },
-      "descriptions": {
-        "p2p": "P2Pネットワーク通信",
-        "rpc": "JSON-RPC API",
-        "grpc": "gRPCバリデーターAPI",
-        "metrics": "Prometheusメトリクス"
-      }
+      "subtitle": "バリデーター運用に必要なポート",
+      "rpc": "RPC API",
+      "ws": "WebSocket",
+      "p2p": "P2Pネットワーク",
+      "metrics": "Prometheusメトリクス"
     },
     "faq": {
       "title": "よくある質問",
-      "subtitle": "バリデーターノード運用に関する一般的な質問",
-      "items": {
-        "stake": {
-          "question": "最低ステーク要件は?",
-          "answer": "バリデーターになるための最低ステークは、フルバリデーターで1,000,000 TBURN、ライトバリデーターで100,000 TBURNです。"
-        },
-        "hardware": {
-          "question": "1台のサーバーで複数のバリデーターを実行できますか?",
-          "answer": "最適なパフォーマンスを確保しリソース競合を避けるため、物理サーバーごとに1つのバリデーターを推奨します。"
-        },
-        "updates": {
-          "question": "バリデーターソフトウェアの更新方法は?",
-          "answer": "ダウンタイムなしで適用できるローリングアップデートを提供しています。新バージョンをダウンロードしてサービスを再起動するだけです。"
-        },
-        "rewards": {
-          "question": "バリデーター報酬はいつ受け取れますか?",
-          "answer": "報酬は各エポック終了時(約6時間ごと)に配布されます。バリデーターダッシュボードから報酬を請求できます。"
-        },
-        "slashing": {
-          "question": "スラッシング条件は?",
-          "answer": "二重署名、長時間のダウンタイム(4時間以上)、無効なブロックの送信でスラッシングが発生します。ペナルティはステークの0.1%から100%です。"
-        },
-        "backup": {
-          "question": "バリデーターキーのバックアップ方法は?",
-          "answer": "バリデーターキーは~/.tburn/keys/に保存されています。このディレクトリを安全にバックアップし、秘密鍵を共有しないでください。"
-        },
-        "migrate": {
-          "question": "バリデーターを新しいサーバーに移行できますか?",
-          "answer": "はい、古いノードを停止し、キーディレクトリを転送して新しいサーバーで起動できます。同じキーで2つのインスタンスを実行しないでください。"
-        },
-        "support": {
-          "question": "技術サポートの受け方は?",
-          "answer": "コミュニティサポートはDiscordサーバーに参加するか、優先サポートはenterprise-support@tburn.ioにお問い合わせください。"
-        }
+      "subtitle": "バリデーターソフトウェアに関するよくある質問",
+      "stake": {
+        "question": "どのくらいのTBURNをステーキングする必要がありますか？",
+        "answer": "最低ステーキングは等級によって異なります：コミュニティ(100,000)、スタンダード(200,000)、パイオニア(500,000)、ジェネシス(1,000,000 TBURN)。"
+      },
+      "hardware": {
+        "question": "ハードウェア要件は何ですか？",
+        "answer": "最低：8 CPUコア、32GB RAM、1TB NVMe SSD、1Gbpsネットワーク。推奨：16+コア、64GB RAM、2TB NVMe。"
+      },
+      "updates": {
+        "question": "アップデートはどのように機能しますか？",
+        "answer": "バリデーターソフトウェアは自動アップデートをサポートしています。自動アップデートを設定するか、CLIを使用して手動で更新できます。"
+      },
+      "rewards": {
+        "question": "報酬はどのように計算されますか？",
+        "answer": "報酬はステーキング金額、等級レベル、稼働時間、パフォーマンス指標に基づいて計算されます。"
+      },
+      "slashing": {
+        "question": "スラッシングの原因は何ですか？",
+        "answer": "二重署名、長時間のダウンタイム（24時間以上）、悪意のある行動でスラッシングが発生します。"
+      },
+      "backup": {
+        "question": "バリデーターをバックアップするには？",
+        "answer": "内蔵のバックアップコマンドを使用：./tburn-validator backup。キーストアファイルはオフラインで安全に保管してください。"
+      },
+      "migrate": {
+        "question": "新しいサーバーに移行できますか？",
+        "answer": "はい、設定とキーストアをエクスポートし、移行ウィザードを使用して新しいサーバーにインポートします。"
+      },
+      "support": {
+        "question": "サポートはどこで受けられますか？",
+        "answer": "コミュニティサポートはDiscordに参加するか、優先サポートはエンタープライズサポートにお問い合わせください。"
       }
     },
     "support": {
-      "title": "お困りですか?",
-      "subtitle": "私たちのチームがあなたの成功をサポートします",
+      "title": "サポートとリソース",
+      "subtitle": "ヘルプを取得しドキュメントにアクセス",
       "docs": {
         "title": "ドキュメント",
         "description": "包括的なガイドとAPIリファレンス"
       },
       "discord": {
         "title": "Discordコミュニティ",
-        "description": "バリデーターコミュニティに参加"
+        "description": "サポートのためにバリデーターコミュニティに参加"
       },
       "enterprise": {
         "title": "エンタープライズサポート",
-        "description": "バリデーター向け優先サポート"
+        "description": "エンタープライズパートナー向け24時間優先サポート"
       }
     },
     "cta": {
-      "title": "バリデーターになる準備はできましたか?",
-      "subtitle": "ソフトウェアをダウンロードして今日から報酬を獲得",
-      "download": "ソフトウェアをダウンロード",
-      "learnMore": "プログラムの詳細を見る"
+      "title": "始める準備はできましたか？",
+      "subtitle": "バリデーターソフトウェアをダウンロードしてTBURNネットワークに参加",
+      "download": "今すぐダウンロード",
+      "learnMore": "詳細を見る"
     }
   },
   "gamefi": {

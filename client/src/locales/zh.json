@@ -25432,5 +25432,172 @@
       "south-america": "南美洲",
       "africa": "非洲"
     }
+  },
+  "externalValidatorSoftware": {
+    "nav": {
+      "backToProgram": "← 返回验证者计划",
+      "download": "下载软件"
+    },
+    "hero": {
+      "badge": "企业级验证者软件",
+      "title": "TBURN 验证者节点",
+      "subtitle": "具有企业级安全性、BFT共识和实时监控的TBURN主网生产级验证者软件。"
+    },
+    "stats": {
+      "validators": "活跃验证者",
+      "tps": "网络 TPS",
+      "blockTime": "出块时间",
+      "uptime": "网络运行时间"
+    },
+    "download": {
+      "title": "下载验证者软件",
+      "subtitle": "选择您喜欢的安装方式",
+      "linux": {
+        "title": "Linux x64",
+        "description": "Ubuntu 20.04+, Debian 11+, CentOS 8+",
+        "recommended": "推荐",
+        "download": "下载"
+      },
+      "docker": {
+        "title": "Docker",
+        "description": "支持Docker的所有平台"
+      },
+      "source": {
+        "title": "源代码",
+        "description": "从GitHub源码构建"
+      }
+    },
+    "features": {
+      "title": "企业功能",
+      "subtitle": "专为生产工作负载构建，具有企业级安全性",
+      "items": {
+        "bft": {
+          "title": "BFT共识",
+          "description": "具有100ms最终性的拜占庭容错共识"
+        },
+        "security": {
+          "title": "企业安全",
+          "description": "AES-256-GCM加密、TLS 1.3、mTLS支持"
+        },
+        "tps": {
+          "title": "高性能",
+          "description": "优化至210,000+ TPS吞吐量"
+        },
+        "blockTime": {
+          "title": "快速出块",
+          "description": "100ms出块时间，即时最终性"
+        },
+        "sharding": {
+          "title": "动态分片",
+          "description": "根据负载自动扩展5-64分片"
+        },
+        "monitoring": {
+          "title": "实时监控",
+          "description": "Prometheus指标和Grafana仪表板"
+        },
+        "updates": {
+          "title": "自动更新",
+          "description": "零停机时间的无缝滚动更新"
+        },
+        "recovery": {
+          "title": "灾难恢复",
+          "description": "自动备份和时间点恢复"
+        }
+      }
+    },
+    "requirements": {
+      "title": "系统要求",
+      "subtitle": "运行验证者节点的硬件和软件要求",
+      "minimum": "最低要求",
+      "recommended": "推荐配置",
+      "cpu": "CPU",
+      "ram": "内存",
+      "storage": "存储",
+      "network": "网络",
+      "os": "操作系统"
+    },
+    "installation": {
+      "title": "安装指南",
+      "subtitle": "分步安装说明",
+      "tabs": {
+        "linux": "Linux",
+        "docker": "Docker",
+        "systemd": "SystemD"
+      }
+    },
+    "configuration": {
+      "title": "配置",
+      "subtitle": "验证者节点配置文件示例"
+    },
+    "monitoring": {
+      "title": "监控和日志",
+      "subtitle": "监控验证者节点的命令"
+    },
+    "ports": {
+      "title": "网络端口",
+      "subtitle": "验证者运营所需端口",
+      "rpc": "RPC API",
+      "ws": "WebSocket",
+      "p2p": "P2P网络",
+      "metrics": "Prometheus指标"
+    },
+    "faq": {
+      "title": "常见问题",
+      "subtitle": "关于验证者软件的常见问题",
+      "stake": {
+        "question": "我需要质押多少TBURN？",
+        "answer": "最低质押取决于您的等级：社区(100,000)、标准(200,000)、先锋(500,000)、创世(1,000,000 TBURN)。"
+      },
+      "hardware": {
+        "question": "硬件要求是什么？",
+        "answer": "最低：8个CPU核心、32GB RAM、1TB NVMe SSD、1Gbps网络。推荐：16+核心、64GB RAM、2TB NVMe。"
+      },
+      "updates": {
+        "question": "更新如何工作？",
+        "answer": "验证者软件支持自动更新。您可以配置自动更新或使用CLI手动更新。"
+      },
+      "rewards": {
+        "question": "奖励如何计算？",
+        "answer": "奖励基于您的质押金额、等级、运行时间和性能指标。"
+      },
+      "slashing": {
+        "question": "什么导致罚没？",
+        "answer": "双签、长时间离线（超过24小时）或恶意行为会导致罚没。"
+      },
+      "backup": {
+        "question": "如何备份验证者？",
+        "answer": "使用内置备份命令：./tburn-validator backup。将密钥库文件安全存储在离线位置。"
+      },
+      "migrate": {
+        "question": "可以迁移到新服务器吗？",
+        "answer": "可以，导出您的配置和密钥库，然后使用迁移向导在新服务器上导入。"
+      },
+      "support": {
+        "question": "在哪里获得支持？",
+        "answer": "加入我们的Discord获取社区支持，或联系企业支持获取优先帮助。"
+      }
+    },
+    "support": {
+      "title": "支持和资源",
+      "subtitle": "获取帮助并访问文档",
+      "docs": {
+        "title": "文档",
+        "description": "全面的指南和API参考"
+      },
+      "discord": {
+        "title": "Discord社区",
+        "description": "加入我们的验证者社区获取支持"
+      },
+      "enterprise": {
+        "title": "企业支持",
+        "description": "为企业合作伙伴提供24/7优先支持"
+      }
+    },
+    "cta": {
+      "title": "准备开始了吗？",
+      "subtitle": "下载验证者软件并加入TBURN网络",
+      "download": "立即下载",
+      "learnMore": "了解更多"
+    }
   }
 }

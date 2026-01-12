@@ -21275,240 +21275,169 @@
   },
   "externalValidatorSoftware": {
     "nav": {
-      "backToProgram": "بیرونی ویلیڈیٹر پروگرام پر واپس جائیں",
-      "requirements": "ضروریات",
-      "download": "ڈاؤن لوڈ",
-      "installation": "انسٹالیشن",
-      "configuration": "ترتیب",
-      "features": "خصوصیات",
-      "monitoring": "نگرانی",
-      "ports": "نیٹ ورک پورٹس",
-      "faq": "اکثر پوچھے جانے والے سوالات",
-      "support": "سپورٹ"
+      "backToProgram": "→ پروگرام پر واپس",
+      "download": "سافٹ ویئر ڈاؤن لوڈ"
     },
     "hero": {
-      "badge": "پروڈکشن کے لیے تیار سافٹ ویئر",
-      "title": "بیرونی توثیق کار نوڈ سافٹ ویئر",
-      "subtitle": "TBURN مین نیٹ کنسنسس میں حصہ لینے کے لیے انٹرپرائز گریڈ ویلیڈیٹر نوڈ سافٹ ویئر",
-      "downloadNow": "ابھی ڈاؤن لوڈ کریں",
-      "viewDocs": "دستاویزات دیکھیں"
+      "badge": "انٹرپرائز توثیق کار سافٹ ویئر",
+      "title": "TBURN توثیق کار نوڈ",
+      "subtitle": "انٹرپرائز سیکورٹی، BFT اتفاق رائے اور ریئل ٹائم مانیٹرنگ کے ساتھ پروڈکشن گریڈ توثیق کار سافٹ ویئر۔"
     },
     "stats": {
-      "validators": "جینیسس ویلیڈیٹرز",
-      "tps": "ہدفی TPS",
+      "validators": "فعال توثیق کار",
+      "tps": "نیٹ ورک TPS",
       "blockTime": "بلاک وقت",
-      "uptime": "SLA اپ ٹائم"
-    },
-    "requirements": {
-      "title": "سسٹم کی ضروریات",
-      "subtitle": "TBURN ویلیڈیٹر نوڈ چلانے کے لیے ہارڈ ویئر کی تفصیلات",
-      "minimum": "کم سے کم ضروریات",
-      "recommended": "تجویز کردہ تفصیلات",
-      "cpu": "CPU",
-      "ram": "RAM",
-      "storage": "ذخیرہ کاری",
-      "network": "نیٹ ورک",
-      "os": "آپریٹنگ سسٹم"
+      "uptime": "نیٹ ورک اپ ٹائم"
     },
     "download": {
-      "title": "ویلیڈیٹر نوڈ ڈاؤن لوڈ کریں",
-      "subtitle": "اپنی پسندیدہ تنصیب کا طریقہ منتخب کریں",
+      "title": "توثیق کار سافٹ ویئر ڈاؤن لوڈ کریں",
+      "subtitle": "اپنا پسندیدہ انسٹالیشن طریقہ منتخب کریں",
       "linux": {
-        "title": "لینکس بائنری",
-        "description": "x64 سسٹمز کے لیے پہلے سے مرتب شدہ بائنری",
-        "version": "ورژن",
-        "size": "سائز",
-        "sha256": "SHA256",
-        "download": "ڈاؤن لوڈ .tar.gz",
-        "recommended": "تجویز کردہ"
+        "title": "Linux x64",
+        "description": "Ubuntu 20.04+, Debian 11+, CentOS 8+",
+        "recommended": "تجویز کردہ",
+        "download": "ڈاؤن لوڈ"
       },
       "docker": {
-        "title": "Docker تصویر",
-        "description": "کنٹینرائزڈ تعیناتی",
-        "pullCommand": "Docker Hub سے حاصل کریں",
-        "dockerPull": "docker pull"
+        "title": "Docker",
+        "description": "Docker سپورٹ والے تمام پلیٹ فارم"
       },
       "source": {
         "title": "سورس کوڈ",
-        "description": "سورس سے تعمیر کریں",
-        "viewSource": "GitHub پر دیکھیں"
-      }
-    },
-    "installation": {
-      "title": "انسٹالیشن گائیڈ",
-      "subtitle": "اپنے ویلیڈیٹر نوڈ کو انسٹال اور ترتیب دینے کے لیے ان مراحل پر عمل کریں",
-      "tabs": {
-        "linux": "لینکس بائنری",
-        "docker": "Docker",
-        "systemd": "SystemD سروس"
-      },
-      "linux": {
-        "step1": "ویلیڈیٹر نوڈ پیکج ڈاؤن لوڈ اور نکالیں",
-        "step2": "بائنری کو اپنے سسٹم میں انسٹال کریں",
-        "step3": "ویلیڈیٹر نوڈ شروع کریں"
-      },
-      "docker": {
-        "step1": "Docker تصویر حاصل کریں اور کنٹینر چلائیں"
-      },
-      "systemd": {
-        "description": "خودکار شروعات اور انتظام کے لیے systemd سروس بنائیں",
-        "step1": "/etc/systemd/system/tburn-validator.service میں سروس فائل بنائیں"
-      }
-    },
-    "configuration": {
-      "title": "نوڈ کی ترتیب",
-      "subtitle": "بہترین کارکردگی کے لیے اپنے ویلیڈیٹر نوڈ کو ترتیب دیں",
-      "configFile": "ترتیب فائل کی جگہ: ~/.tburn/config.toml",
-      "parameters": {
-        "nodeId": "اس نوڈ کے لیے منفرد شناخت",
-        "rpcPort": "JSON-RPC API پورٹ",
-        "p2pPort": "پیئر ٹو پیئر کمیونیکیشن پورٹ",
-        "grpcPort": "gRPC API پورٹ (ویلیڈیٹر آپریشنز)",
-        "dataDir": "ڈیٹا ذخیرہ کی جگہ",
-        "logLevel": "لاگنگ تفصیل",
-        "metricsPort": "Prometheus میٹرکس پورٹ"
+        "description": "GitHub سے بنائیں"
       }
     },
     "features": {
       "title": "انٹرپرائز خصوصیات",
-      "subtitle": "مین نیٹ توثیق کے لیے پروڈکشن گریڈ صلاحیتیں",
+      "subtitle": "پروڈکشن ورک لوڈ کے لیے بنایا گیا",
       "items": {
         "bft": {
-          "title": "انٹرپرائز BFT کنسنسس",
-          "description": "لاک پر مبنی کنسنسس سیفٹی کے ساتھ 5 مرحلہ بازنطینی فالٹ ٹولرنٹ پروٹوکول"
+          "title": "BFT اتفاق رائے",
+          "description": "100ms حتمیت کے ساتھ بازنطینی خرابی برداشت کرنے والا اتفاق رائے"
+        },
+        "security": {
+          "title": "انٹرپرائز سیکورٹی",
+          "description": "AES-256-GCM انکرپشن، TLS 1.3، mTLS سپورٹ"
+        },
+        "tps": {
+          "title": "اعلی کارکردگی",
+          "description": "210,000+ TPS کے لیے بہتر"
+        },
+        "blockTime": {
+          "title": "تیز بلاکس",
+          "description": "فوری حتمیت کے ساتھ 100ms بلاک وقت"
         },
         "sharding": {
           "title": "متحرک شارڈنگ",
-          "description": "ٹرانزیکشنل اپڈیٹس کے ساتھ خودکار شارڈ اسکیلنگ (5-64 شارڈز)"
-        },
-        "tps": {
-          "title": "اعلیٰ تھروپٹ",
-          "description": "متوازی تصدیق پائپ لائن کے ساتھ 120K+ مسلسل TPS کے لیے بہتری"
-        },
-        "blockTime": {
-          "title": "تیز بلاک ٹائم",
-          "description": "1 سیکنڈ کا ہدفی بلاک ٹائم"
-        },
-        "finality": {
-          "title": "فوری حتمی نتیجہ",
-          "description": "بلاک کی تصدیق کے 5 سیکنڈ کے اندر لین دین کے حتمی نتیجہ کی ضمانت"
-        },
-        "security": {
-          "title": "Enterprise سیکیورٹی",
-          "description": "Audited slashing، Byzantine validation، اور key recovery"
+          "description": "5-64 شارڈز کی آٹو اسکیلنگ"
         },
         "monitoring": {
-          "title": "مکمل نگرانی",
-          "description": "Prometheus میٹرکس اور JSON-RPC APIs"
+          "title": "ریئل ٹائم مانیٹرنگ",
+          "description": "Prometheus میٹرکس اور Grafana ڈیش بورڈز"
         },
         "updates": {
-          "title": "سہل اپ ڈیٹس",
-          "description": "ڈاؤن ٹائم کے بغیر رولنگ اپ ڈیٹس"
+          "title": "آٹو اپڈیٹس",
+          "description": "صفر ڈاؤن ٹائم کے ساتھ ہموار اپڈیٹس"
+        },
+        "recovery": {
+          "title": "ڈیزاسٹر ریکوری",
+          "description": "خودکار بیک اپ اور ریکوری"
         }
       }
     },
-    "monitoring": {
-      "title": "نوڈ نگرانی",
-      "subtitle": "اپنے ویلیڈیٹر نوڈ کی کارکردگی کو ٹریک کریں",
-      "metrics": {
-        "title": "کلیدی میٹرکس",
-        "blockProposal": "بلاک تجاویز",
-        "blockValidation": "بلاک تصدیق",
-        "consensusRound": "کنسنسس راؤنڈ",
-        "syncStatus": "سنک حیثیت"
-      },
-      "health": {
-        "title": "نوڈ کی صحت",
-        "uptime": "اپ ٹائم",
-        "peers": "متصل پیر نوڈز",
-        "blockLatency": "بلاک تاخیری",
-        "cpuUsage": "CPU استعمال",
-        "memoryUsage": "میموری استعمال",
-        "diskUsage": "ڈسک استعمال"
+    "requirements": {
+      "title": "سسٹم ضروریات",
+      "subtitle": "ہارڈ ویئر اور سافٹ ویئر ضروریات",
+      "minimum": "کم از کم ضروریات",
+      "recommended": "تجویز کردہ",
+      "cpu": "CPU",
+      "ram": "RAM",
+      "storage": "اسٹوریج",
+      "network": "نیٹ ورک",
+      "os": "آپریٹنگ سسٹم"
+    },
+    "installation": {
+      "title": "انسٹالیشن گائیڈ",
+      "subtitle": "قدم بہ قدم ہدایات",
+      "tabs": {
+        "linux": "Linux",
+        "docker": "Docker",
+        "systemd": "SystemD"
       }
+    },
+    "configuration": {
+      "title": "کنفیگریشن",
+      "subtitle": "مثال کنفیگریشن فائل"
+    },
+    "monitoring": {
+      "title": "مانیٹرنگ اور لاگز",
+      "subtitle": "اپنے نوڈ کی نگرانی کے لیے کمانڈز"
     },
     "ports": {
       "title": "نیٹ ورک پورٹس",
-      "subtitle": "ویلیڈیٹر نوڈ کے لیے درکار پورٹس",
-      "rpc": {
-        "port": "8545",
-        "description": "JSON-RPC API - بیرونی کلائنٹ کنکشنز"
-      },
-      "p2p": {
-        "port": "30333",
-        "description": "P2P نیٹ ورک - دوسری نوڈز کے ساتھ کمیونیکیشن"
-      },
-      "grpc": {
-        "port": "9090",
-        "description": "gRPC API - validator-specific operations"
-      },
-      "metrics": {
-        "port": "9100",
-        "description": "Prometheus میٹرکس - monitoring"
-      }
+      "subtitle": "ضروری پورٹس",
+      "rpc": "RPC API",
+      "ws": "WebSocket",
+      "p2p": "P2P نیٹ ورک",
+      "metrics": "Prometheus میٹرکس"
     },
     "faq": {
       "title": "اکثر پوچھے جانے والے سوالات",
-      "items": {
-        "systemReqs": {
-          "question": "ویلیڈیٹر نوڈ چلانے کے لیے کم سے کم سسٹم ضروریات کیا ہیں؟",
-          "answer": "کم سے کم: 4-core CPU، 8GB RAM، 100GB SSD۔ تجویز کردہ: 8-core CPU، 16GB RAM، 500GB NVMe SSD۔"
-        },
-        "installation": {
-          "question": "نوڈ انسٹال کرنے میں کتنا وقت لگتا ہے؟",
-          "answer": "انسٹالیشن عام طور پر 5-10 منٹ میں مکمل ہوتی ہے۔ ابتدائی سنکرونائزیشن 2-4 گھنٹے لے سکتی ہے۔"
-        },
-        "stake": {
-          "question": "ویلیڈیٹر بننے کے لیے کتنا TBURN اسٹیک کرنا ہوگا؟",
-          "answer": "جینیسس ویلیڈیٹرز کے لیے کم سے کم 1,000,000 TBURN اسٹیک ضروری ہے۔"
-        },
-        "backup": {
-          "question": "کیا میں اپنے ویلیڈیٹر کیز کو بیک اپ کر سکتا ہوں؟",
-          "answer": "ہاں، ~/.tburn/keys/ ڈائریکٹری میں ویلیڈیٹر کیز ہیں۔ انہیں محفوظ طریقے سے بیک اپ کریں۔"
-        },
-        "updates": {
-          "question": "میں ویلیڈیٹر سافٹ ویئر کو کیسے اپ ڈیٹ کروں؟",
-          "answer": "ہم رولنگ اپ ڈیٹس فراہم کرتے ہیں جو ڈاؤن ٹائم کے بغیر لاگو کیے جا سکتے ہیں۔ نیا ورژن ڈاؤن لوڈ کریں اور سروس دوبارہ شروع کریں۔"
-        },
-        "rewards": {
-          "question": "میں ویلیڈیٹر انعامات کب حاصل کروں گا؟",
-          "answer": "انعامات ہر epoch کے آخر میں تقسیم کیے جاتے ہیں (تقریباً ہر 6 گھنٹے)۔ آپ ویلیڈیٹر ڈیش بورڈ کے ذریعے انعامات کا دعویٰ کر سکتے ہیں۔"
-        },
-        "slashing": {
-          "question": "slashing کی شرائط کیا ہیں؟",
-          "answer": "Slashing ڈبل-سائننگ، طویل مدتی downtime (>4 گھنٹے)، یا غلط بلاکس جمع کرنے کے لیے ہوتی ہے۔ سزائیں 0.1% سے 100% اسٹیک تک ہو سکتی ہیں۔"
-        },
-        "migration": {
-          "question": "کیا میں اپنے ویلیڈیٹر کو نیے سرور پر منتقل کر سکتا ہوں؟",
-          "answer": "ہاں، پرانے نوڈ کو روک کر، کیز ڈائریکٹری منتقل کر کے، اور نیے سرور پر شروع کر کے منتقل کریں۔ کبھی بھی ایک جیسی کیز سے دو instances نہ چلائیں۔"
-        },
-        "support": {
-          "question": "میں تکنیکی سپورٹ کیسے حاصل کروں؟",
-          "answer": "کمیونٹی سپورٹ کے لیے ہمارے Discord سرور میں شامل ہوں، یا ترجیحی مدد کے لیے enterprise-support@tburn.io سے رابطہ کریں۔"
-        }
+      "subtitle": "سافٹ ویئر کے بارے میں عام سوالات",
+      "stake": {
+        "question": "مجھے کتنا TBURN اسٹیک کرنا ہوگا؟",
+        "answer": "کم از کم اسٹیک سطح پر منحصر ہے: Community (100,000)، Standard (200,000)، Pioneer (500,000)، Genesis (1,000,000 TBURN)۔"
+      },
+      "hardware": {
+        "question": "ہارڈ ویئر ضروریات کیا ہیں؟",
+        "answer": "کم از کم: 8 CPU کور، 32GB RAM، 1TB NVMe SSD، 1Gbps نیٹ ورک۔"
+      },
+      "updates": {
+        "question": "اپڈیٹس کیسے کام کرتے ہیں؟",
+        "answer": "سافٹ ویئر خودکار اپڈیٹس کو سپورٹ کرتا ہے۔"
+      },
+      "rewards": {
+        "question": "انعامات کا حساب کیسے ہوتا ہے؟",
+        "answer": "انعامات آپ کے اسٹیک، سطح، اپ ٹائم اور کارکردگی پر مبنی ہیں۔"
+      },
+      "slashing": {
+        "question": "سلیشنگ کا سبب کیا ہے؟",
+        "answer": "ڈبل سائننگ، طویل آف لائن وقت یا بدنیتی پر مبنی رویہ۔"
+      },
+      "backup": {
+        "question": "توثیق کار کا بیک اپ کیسے لیں؟",
+        "answer": "بلٹ ان بیک اپ کمانڈ استعمال کریں: ./tburn-validator backup"
+      },
+      "migrate": {
+        "question": "کیا میں نئے سرور پر منتقل ہو سکتا ہوں؟",
+        "answer": "ہاں، اپنی کنفیگریشن اور keystore ایکسپورٹ کریں، پھر نئے سرور پر امپورٹ کریں۔"
+      },
+      "support": {
+        "question": "سپورٹ کہاں سے ملے گی؟",
+        "answer": "ہمارے Discord میں شامل ہوں یا انٹرپرائز سپورٹ سے رابطہ کریں۔"
       }
     },
     "support": {
-      "title": "مدد چاہیے؟",
-      "subtitle": "ہماری ٹیم آپ کی کامیابی میں مدد کے لیے موجود ہے",
+      "title": "سپورٹ اور وسائل",
+      "subtitle": "مدد حاصل کریں اور دستاویزات دیکھیں",
       "docs": {
         "title": "دستاویزات",
-        "description": "جامع گائیڈز اور API حوالہ جات"
+        "description": "جامع گائیڈز اور API ریفرنس"
       },
       "discord": {
         "title": "Discord کمیونٹی",
-        "description": "ہمارے ویلیڈیٹر کمیونٹی میں شامل ہوں"
+        "description": "توثیق کار کمیونٹی میں شامل ہوں"
       },
       "enterprise": {
         "title": "انٹرپرائز سپورٹ",
-        "description": "ویلیڈیٹرز کے لیے ترجیحی سپورٹ"
+        "description": "24/7 ترجیحی سپورٹ"
       }
     },
     "cta": {
-      "title": "توثیق کار بننے کے لیے تیار ہیں؟",
-      "subtitle": "سافٹ ویئر ڈاؤن لوڈ کریں اور آج انعامات حاصل کرنا شروع کریں",
-      "download": "سافٹ ویئر ڈاؤن لوڈ کریں",
-      "learnMore": "پروگرام کے بارے میں مزید جانیں"
+      "title": "شروع کرنے کے لیے تیار؟",
+      "subtitle": "سافٹ ویئر ڈاؤن لوڈ کریں اور TBURN نیٹ ورک میں شامل ہوں",
+      "download": "ابھی ڈاؤن لوڈ کریں",
+      "learnMore": "مزید جانیں"
     }
   },
   "externalValidator": {
