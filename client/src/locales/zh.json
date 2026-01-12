@@ -25266,5 +25266,171 @@
       "tgeUnlock": "TGE Unlock",
       "confirm": "Confirm"
     }
+  },
+  "externalValidator": {
+    "nav": {
+      "backToValidators": "← 验证者中心",
+      "tiers": "验证者等级",
+      "requirements": "要求",
+      "leaderboard": "排行榜",
+      "faq": "常见问题",
+      "download": "下载"
+    },
+    "hero": {
+      "badge": "外部验证者计划",
+      "title": "加入TBURN网络",
+      "subtitle": "成为外部验证者，在保护TBURN区块链的同时获得奖励。运行您自己的节点并参与网络共识。",
+      "registerBtn": "注册为验证者",
+      "viewTiersBtn": "查看验证者等级",
+      "connectWallet": "连接钱包"
+    },
+    "stats": {
+      "totalValidators": "总验证者",
+      "activeValidators": "活跃验证者",
+      "tburnStaked": "已质押TBURN",
+      "networkHealth": "网络健康"
+    },
+    "tiers": {
+      "title": "验证者等级",
+      "subtitle": "选择与您的参与程度和质押能力相匹配的等级。更高的等级提供更好的奖励和额外福利。",
+      "minStake": "最低质押",
+      "slots": "名额",
+      "commission": "佣金",
+      "estApy": "预计APY",
+      "benefits": "福利",
+      "selectTier": "选择等级",
+      "genesis": {
+        "name": "创世验证者",
+        "badge": "创世",
+        "benefits": [
+          "最高奖励优先级",
+          "核心网络治理权",
+          "独家创世NFT徽章",
+          "协议团队直接支持",
+          "协议升级抢先体验"
+        ]
+      },
+      "pioneer": {
+        "name": "先锋验证者",
+        "badge": "先锋",
+        "benefits": [
+          "高奖励优先级",
+          "网络治理参与",
+          "先锋NFT徽章",
+          "优先技术支持",
+          "Beta功能访问"
+        ]
+      },
+      "standard": {
+        "name": "标准验证者",
+        "badge": "标准",
+        "benefits": [
+          "标准奖励分配",
+          "提案投票权",
+          "标准NFT徽章",
+          "社区支持访问",
+          "月度绩效报告"
+        ]
+      },
+      "community": {
+        "name": "社区验证者",
+        "badge": "社区",
+        "benefits": [
+          "社区奖励池",
+          "基本治理权",
+          "社区NFT徽章",
+          "论坛支持访问",
+          "季度绩效审查"
+        ]
+      }
+    },
+    "requirements": {
+      "title": "系统要求",
+      "subtitle": "确保您的基础设施满足这些最低要求以获得最佳验证者性能。",
+      "cpu": "CPU",
+      "cpuReq": "8核以上（建议16核以上）",
+      "ram": "内存",
+      "ramReq": "最低32GB（建议64GB）",
+      "storage": "存储",
+      "storageReq": "1TB NVMe SSD（建议2TB）",
+      "network": "网络",
+      "networkReq": "1Gbps连接",
+      "uptime": "运行时间",
+      "uptimeReq": "需要99.9% SLA"
+    },
+    "leaderboard": {
+      "title": "验证者排行榜",
+      "subtitle": "按运行时间、性能和总奖励排名的顶级外部验证者。",
+      "comingSoon": "排行榜即将推出",
+      "beFirst": "成为第一批注册并占据您的位置！"
+    },
+    "faq": {
+      "title": "常见问题",
+      "subtitle": "关于成为外部验证者您需要知道的一切。",
+      "q1": {
+        "question": "运行外部验证者的硬件要求是什么？",
+        "answer": "外部验证者需要至少8个CPU核心、32GB RAM、1TB NVMe SSD存储和1Gbps网络连接。"
+      },
+      "q2": {
+        "question": "我需要质押多少TBURN？",
+        "answer": "质押要求因等级而异：社区（100,000 TBURN）、标准（200,000 TBURN）、先锋（500,000 TBURN）和创世（1,000,000 TBURN）。"
+      },
+      "q3": {
+        "question": "外部验证者的预期APY是多少？",
+        "answer": "APY因等级和性能而异。社区验证者可期待12-15% APY，标准14-18%，先锋16-20%，创世验证者20-25%。"
+      },
+      "q4": {
+        "question": "心跳监控如何工作？",
+        "answer": "验证者必须每10秒发送一次心跳信号以保持活跃状态。"
+      },
+      "q5": {
+        "question": "如果我的验证者离线会发生什么？",
+        "answer": "如果验证者错过心跳，在3次信号丢失后将转为'降级'状态，30秒后转为'离线'。"
+      },
+      "q6": {
+        "question": "我可以升级验证者等级吗？",
+        "answer": "是的，您可以通过质押额外的TBURN代币来满足更高等级要求来升级您的等级。"
+      }
+    },
+    "download": {
+      "title": "下载验证者软件",
+      "subtitle": "获取适用于您平台的官方TBURN验证者节点软件。",
+      "downloadBtn": "下载Linux版",
+      "version": "版本",
+      "docs": "文档",
+      "viewDocs": "查看文档"
+    },
+    "registration": {
+      "title": "注册为外部验证者",
+      "subtitle": "填写以下表格在TBURN网络上注册您的验证者节点。",
+      "nodeName": "节点名称",
+      "nodeNamePlaceholder": "my-validator-node",
+      "selectTier": "选择等级",
+      "selectTierPlaceholder": "选择一个等级",
+      "selectRegion": "选择地区",
+      "selectRegionPlaceholder": "选择一个地区",
+      "rpcEndpoint": "RPC端点（可选）",
+      "rpcPlaceholder": "https://your-node.example.com:8545",
+      "cancel": "取消",
+      "register": "注册验证者",
+      "walletRequired": "需要钱包",
+      "walletRequiredDesc": "请连接您的钱包以注册为验证者",
+      "missingInfo": "信息缺失",
+      "missingInfoDesc": "请填写所有必填字段",
+      "success": "注册成功",
+      "failed": "注册失败"
+    },
+    "regions": {
+      "us-east": "美国东部",
+      "us-west": "美国西部",
+      "eu-west": "欧洲西部",
+      "eu-central": "欧洲中部",
+      "asia-east": "亚洲东部",
+      "asia-south": "亚洲南部",
+      "asia-southeast": "亚洲东南部",
+      "oceania": "大洋洲",
+      "south-america": "南美洲",
+      "africa": "非洲"
+    }
   }
 }

@@ -23039,5 +23039,171 @@
       "download": "تحميل البرنامج",
       "learnMore": "اعرف المزيد عن البرنامج"
     }
+  },
+  "externalValidator": {
+    "nav": {
+      "backToValidators": "→ مركز المدققين",
+      "tiers": "مستويات المدقق",
+      "requirements": "المتطلبات",
+      "leaderboard": "لوحة الصدارة",
+      "faq": "الأسئلة الشائعة",
+      "download": "تحميل"
+    },
+    "hero": {
+      "badge": "برنامج المدققين الخارجيين",
+      "title": "انضم إلى شبكة TBURN",
+      "subtitle": "كن مدققًا خارجيًا واكسب المكافآت أثناء تأمين سلسلة TBURN.",
+      "registerBtn": "التسجيل كمدقق",
+      "viewTiersBtn": "عرض المستويات",
+      "connectWallet": "ربط المحفظة"
+    },
+    "stats": {
+      "totalValidators": "إجمالي المدققين",
+      "activeValidators": "المدققون النشطون",
+      "tburnStaked": "TBURN المرهون",
+      "networkHealth": "صحة الشبكة"
+    },
+    "tiers": {
+      "title": "مستويات المدقق",
+      "subtitle": "اختر المستوى الذي يتناسب مع التزامك وقدرة الرهن لديك.",
+      "minStake": "الحد الأدنى للرهن",
+      "slots": "الفتحات",
+      "commission": "العمولة",
+      "estApy": "APY المتوقع",
+      "benefits": "المزايا",
+      "selectTier": "اختر المستوى",
+      "genesis": {
+        "name": "مدقق Genesis",
+        "badge": "Genesis",
+        "benefits": [
+          "أولوية مكافأة قصوى",
+          "حقوق الحوكمة الأساسية",
+          "شارة NFT Genesis حصرية",
+          "دعم مباشر من الفريق",
+          "وصول مبكر للتحديثات"
+        ]
+      },
+      "pioneer": {
+        "name": "مدقق Pioneer",
+        "badge": "Pioneer",
+        "benefits": [
+          "أولوية مكافأة عالية",
+          "المشاركة في الحوكمة",
+          "شارة NFT Pioneer",
+          "دعم فني ذو أولوية",
+          "الوصول إلى الميزات التجريبية"
+        ]
+      },
+      "standard": {
+        "name": "مدقق Standard",
+        "badge": "Standard",
+        "benefits": [
+          "تخصيص مكافآت قياسي",
+          "حقوق التصويت",
+          "شارة NFT Standard",
+          "الوصول لدعم المجتمع",
+          "تقارير شهرية"
+        ]
+      },
+      "community": {
+        "name": "مدقق Community",
+        "badge": "Community",
+        "benefits": [
+          "مجمع مكافآت المجتمع",
+          "حقوق حوكمة أساسية",
+          "شارة NFT Community",
+          "الوصول للمنتدى",
+          "مراجعات ربع سنوية"
+        ]
+      }
+    },
+    "requirements": {
+      "title": "متطلبات النظام",
+      "subtitle": "تأكد من أن بنيتك التحتية تلبي هذه المتطلبات الدنيا.",
+      "cpu": "المعالج",
+      "cpuReq": "8+ أنوية (يوصى بـ 16+)",
+      "ram": "الذاكرة",
+      "ramReq": "32GB كحد أدنى (يوصى بـ 64GB)",
+      "storage": "التخزين",
+      "storageReq": "1TB NVMe SSD (يوصى بـ 2TB)",
+      "network": "الشبكة",
+      "networkReq": "اتصال 1Gbps",
+      "uptime": "وقت التشغيل",
+      "uptimeReq": "مطلوب SLA 99.9%"
+    },
+    "leaderboard": {
+      "title": "لوحة صدارة المدققين",
+      "subtitle": "أفضل المدققين الخارجيين مرتبين حسب وقت التشغيل والأداء.",
+      "comingSoon": "لوحة الصدارة قريبًا",
+      "beFirst": "كن من الأوائل في التسجيل!"
+    },
+    "faq": {
+      "title": "الأسئلة الشائعة",
+      "subtitle": "كل ما تحتاج معرفته لتصبح مدققًا خارجيًا.",
+      "q1": {
+        "question": "ما هي متطلبات الأجهزة؟",
+        "answer": "يتطلب المدققون الخارجيون 8 أنوية معالج كحد أدنى، 32GB ذاكرة، 1TB NVMe SSD واتصال 1Gbps."
+      },
+      "q2": {
+        "question": "كم TBURN أحتاج للرهن؟",
+        "answer": "تختلف المتطلبات حسب المستوى: Community (100,000)، Standard (200,000)، Pioneer (500,000)، Genesis (1,000,000 TBURN)."
+      },
+      "q3": {
+        "question": "ما هو APY المتوقع؟",
+        "answer": "يختلف APY حسب المستوى: Community 12-15%، Standard 14-18%، Pioneer 16-20%، Genesis 20-25%."
+      },
+      "q4": {
+        "question": "كيف تعمل مراقبة heartbeat؟",
+        "answer": "يجب على المدققين إرسال إشارات heartbeat كل 10 ثوانٍ للحفاظ على الحالة النشطة."
+      },
+      "q5": {
+        "question": "ماذا يحدث إذا انقطع اتصال المدقق؟",
+        "answer": "إذا فاتت إشارات heartbeat، سينتقل المدقق إلى حالة 'متدهور' بعد 3 إشارات مفقودة، ثم 'غير متصل' بعد 30 ثانية."
+      },
+      "q6": {
+        "question": "هل يمكنني ترقية مستوى المدقق؟",
+        "answer": "نعم، يمكنك ترقية مستواك عن طريق رهن رموز TBURN إضافية."
+      }
+    },
+    "download": {
+      "title": "تحميل برنامج المدقق",
+      "subtitle": "احصل على برنامج عقدة مدقق TBURN الرسمي لمنصتك.",
+      "downloadBtn": "تحميل لـ Linux",
+      "version": "الإصدار",
+      "docs": "الوثائق",
+      "viewDocs": "عرض الوثائق"
+    },
+    "registration": {
+      "title": "التسجيل كمدقق خارجي",
+      "subtitle": "أكمل النموذج لتسجيل عقدة المدقق الخاصة بك على شبكة TBURN.",
+      "nodeName": "اسم العقدة",
+      "nodeNamePlaceholder": "my-validator-node",
+      "selectTier": "اختر المستوى",
+      "selectTierPlaceholder": "اختر مستوى",
+      "selectRegion": "اختر المنطقة",
+      "selectRegionPlaceholder": "اختر منطقة",
+      "rpcEndpoint": "نقطة RPC (اختياري)",
+      "rpcPlaceholder": "https://your-node.example.com:8545",
+      "cancel": "إلغاء",
+      "register": "تسجيل المدقق",
+      "walletRequired": "المحفظة مطلوبة",
+      "walletRequiredDesc": "يرجى ربط محفظتك للتسجيل كمدقق",
+      "missingInfo": "معلومات ناقصة",
+      "missingInfoDesc": "يرجى ملء جميع الحقول المطلوبة",
+      "success": "نجح التسجيل",
+      "failed": "فشل التسجيل"
+    },
+    "regions": {
+      "us-east": "شرق الولايات المتحدة",
+      "us-west": "غرب الولايات المتحدة",
+      "eu-west": "غرب أوروبا",
+      "eu-central": "وسط أوروبا",
+      "asia-east": "شرق آسيا",
+      "asia-south": "جنوب آسيا",
+      "asia-southeast": "جنوب شرق آسيا",
+      "oceania": "أوقيانوسيا",
+      "south-america": "أمريكا الجنوبية",
+      "africa": "أفريقيا"
+    }
   }
 }

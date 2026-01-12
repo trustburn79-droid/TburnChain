@@ -26447,5 +26447,171 @@
       "tgeUnlock": "TGEアンロック",
       "confirm": "確認"
     }
+  },
+  "externalValidator": {
+    "nav": {
+      "backToValidators": "← バリデーターハブ",
+      "tiers": "バリデーター等級",
+      "requirements": "要件",
+      "leaderboard": "リーダーボード",
+      "faq": "FAQ",
+      "download": "ダウンロード"
+    },
+    "hero": {
+      "badge": "外部バリデータープログラム",
+      "title": "TBURNネットワークに参加",
+      "subtitle": "外部バリデーターになり、報酬を得ながらTBURNブロックチェーンを保護しましょう。独自のノードを運営し、ネットワークコンセンサスに参加してください。",
+      "registerBtn": "バリデーターとして登録",
+      "viewTiersBtn": "バリデーター等級を見る",
+      "connectWallet": "ウォレット接続"
+    },
+    "stats": {
+      "totalValidators": "総バリデーター数",
+      "activeValidators": "アクティブバリデーター",
+      "tburnStaked": "ステーキングTBURN",
+      "networkHealth": "ネットワーク健全性"
+    },
+    "tiers": {
+      "title": "バリデーター等級",
+      "subtitle": "あなたのコミットメントレベルとステーキング容量に合った等級を選択してください。高い等級はより良い報酬と追加特典を提供します。",
+      "minStake": "最低ステーキング",
+      "slots": "スロット",
+      "commission": "手数料",
+      "estApy": "予想APY",
+      "benefits": "特典",
+      "selectTier": "等級を選択",
+      "genesis": {
+        "name": "ジェネシスバリデーター",
+        "badge": "ジェネシス",
+        "benefits": [
+          "最高報酬優先",
+          "コアネットワークガバナンス権",
+          "独占ジェネシスNFTバッジ",
+          "プロトコルチーム直接サポート",
+          "プロトコルアップグレード早期アクセス"
+        ]
+      },
+      "pioneer": {
+        "name": "パイオニアバリデーター",
+        "badge": "パイオニア",
+        "benefits": [
+          "高報酬優先",
+          "ネットワークガバナンス参加",
+          "パイオニアNFTバッジ",
+          "優先技術サポート",
+          "ベータ機能アクセス"
+        ]
+      },
+      "standard": {
+        "name": "スタンダードバリデーター",
+        "badge": "スタンダード",
+        "benefits": [
+          "標準報酬配分",
+          "提案投票権",
+          "スタンダードNFTバッジ",
+          "コミュニティサポートアクセス",
+          "月次パフォーマンスレポート"
+        ]
+      },
+      "community": {
+        "name": "コミュニティバリデーター",
+        "badge": "コミュニティ",
+        "benefits": [
+          "コミュニティ報酬プール",
+          "基本ガバナンス権",
+          "コミュニティNFTバッジ",
+          "フォーラムサポートアクセス",
+          "四半期パフォーマンスレビュー"
+        ]
+      }
+    },
+    "requirements": {
+      "title": "システム要件",
+      "subtitle": "最適なバリデーターパフォーマンスのためにインフラがこれらの最小要件を満たしていることを確認してください。",
+      "cpu": "CPU",
+      "cpuReq": "8コア以上（16コア以上推奨）",
+      "ram": "RAM",
+      "ramReq": "最低32GB（64GB推奨）",
+      "storage": "ストレージ",
+      "storageReq": "1TB NVMe SSD（2TB推奨）",
+      "network": "ネットワーク",
+      "networkReq": "1Gbps接続",
+      "uptime": "稼働時間",
+      "uptimeReq": "99.9% SLA必須"
+    },
+    "leaderboard": {
+      "title": "バリデーターリーダーボード",
+      "subtitle": "稼働時間、パフォーマンス、総報酬でランク付けされたトップ外部バリデーター。",
+      "comingSoon": "リーダーボード準備中",
+      "beFirst": "最初に登録してあなたの場所を確保しましょう！"
+    },
+    "faq": {
+      "title": "よくある質問",
+      "subtitle": "外部バリデーターになるために知っておくべきすべて。",
+      "q1": {
+        "question": "外部バリデーターを運営するためのハードウェア要件は？",
+        "answer": "外部バリデーターには最低8つのCPUコア、32GB RAM、1TB NVMe SSDストレージ、1Gbpsネットワーク接続が必要です。"
+      },
+      "q2": {
+        "question": "どのくらいのTBURNをステーキングする必要がありますか？",
+        "answer": "ステーキング要件は等級によって異なります：コミュニティ（100,000 TBURN）、スタンダード（200,000 TBURN）、パイオニア（500,000 TBURN）、ジェネシス（1,000,000 TBURN）。"
+      },
+      "q3": {
+        "question": "外部バリデーターの予想APYは？",
+        "answer": "APYは等級とパフォーマンスによって異なります。コミュニティバリデーターは12-15%、スタンダード14-18%、パイオニア16-20%、ジェネシスバリデーターは20-25%のAPYが期待できます。"
+      },
+      "q4": {
+        "question": "ハートビートモニタリングはどのように機能しますか？",
+        "answer": "バリデーターはアクティブ状態を維持するために10秒ごとにハートビート信号を送信する必要があります。"
+      },
+      "q5": {
+        "question": "バリデーターがオフラインになったらどうなりますか？",
+        "answer": "バリデーターがハートビートを逃すと、3回の信号欠落後に「低下」状態に移行し、30秒後に「オフライン」になります。"
+      },
+      "q6": {
+        "question": "バリデーター等級をアップグレードできますか？",
+        "answer": "はい、より高い等級要件を満たすために追加のTBURNトークンをステーキングすることで等級をアップグレードできます。"
+      }
+    },
+    "download": {
+      "title": "バリデーターソフトウェアをダウンロード",
+      "subtitle": "お使いのプラットフォーム用の公式TBURNバリデーターノードソフトウェアを入手してください。",
+      "downloadBtn": "Linux用ダウンロード",
+      "version": "バージョン",
+      "docs": "ドキュメント",
+      "viewDocs": "ドキュメントを見る"
+    },
+    "registration": {
+      "title": "外部バリデーターとして登録",
+      "subtitle": "TBURNネットワークにバリデーターノードを登録するには以下のフォームを記入してください。",
+      "nodeName": "ノード名",
+      "nodeNamePlaceholder": "my-validator-node",
+      "selectTier": "等級を選択",
+      "selectTierPlaceholder": "等級を選択してください",
+      "selectRegion": "地域を選択",
+      "selectRegionPlaceholder": "地域を選択してください",
+      "rpcEndpoint": "RPCエンドポイント（オプション）",
+      "rpcPlaceholder": "https://your-node.example.com:8545",
+      "cancel": "キャンセル",
+      "register": "バリデーター登録",
+      "walletRequired": "ウォレットが必要",
+      "walletRequiredDesc": "バリデーターとして登録するにはウォレットを接続してください",
+      "missingInfo": "情報不足",
+      "missingInfoDesc": "すべての必須フィールドを入力してください",
+      "success": "登録成功",
+      "failed": "登録失敗"
+    },
+    "regions": {
+      "us-east": "米国東部",
+      "us-west": "米国西部",
+      "eu-west": "欧州西部",
+      "eu-central": "欧州中部",
+      "asia-east": "アジア東部",
+      "asia-south": "アジア南部",
+      "asia-southeast": "東南アジア",
+      "oceania": "オセアニア",
+      "south-america": "南米",
+      "africa": "アフリカ"
+    }
   }
 }

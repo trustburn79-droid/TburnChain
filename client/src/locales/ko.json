@@ -37397,5 +37397,171 @@
       "tgeUnlock": "TGE Unlock",
       "confirm": "Confirm"
     }
+  },
+  "externalValidator": {
+    "nav": {
+      "backToValidators": "← 검증자 허브",
+      "tiers": "검증자 등급",
+      "requirements": "요구사항",
+      "leaderboard": "리더보드",
+      "faq": "FAQ",
+      "download": "다운로드"
+    },
+    "hero": {
+      "badge": "외부 검증자 프로그램",
+      "title": "TBURN 네트워크에 참여하세요",
+      "subtitle": "외부 검증자가 되어 보상을 받으면서 TBURN 블록체인을 보호하세요. 자체 노드를 운영하고 네트워크 합의에 참여하세요.",
+      "registerBtn": "검증자로 등록",
+      "viewTiersBtn": "검증자 등급 보기",
+      "connectWallet": "지갑 연결"
+    },
+    "stats": {
+      "totalValidators": "전체 검증자",
+      "activeValidators": "활성 검증자",
+      "tburnStaked": "스테이킹된 TBURN",
+      "networkHealth": "네트워크 상태"
+    },
+    "tiers": {
+      "title": "검증자 등급",
+      "subtitle": "귀하의 참여 수준과 스테이킹 용량에 맞는 등급을 선택하세요. 높은 등급은 더 나은 보상과 추가 혜택을 제공합니다.",
+      "minStake": "최소 스테이킹",
+      "slots": "슬롯",
+      "commission": "수수료",
+      "estApy": "예상 APY",
+      "benefits": "혜택",
+      "selectTier": "등급 선택",
+      "genesis": {
+        "name": "제네시스 검증자",
+        "badge": "제네시스",
+        "benefits": [
+          "최고 보상 우선순위",
+          "핵심 네트워크 거버넌스 권한",
+          "독점 제네시스 NFT 배지",
+          "프로토콜 팀 직접 지원",
+          "프로토콜 업그레이드 조기 액세스"
+        ]
+      },
+      "pioneer": {
+        "name": "파이오니어 검증자",
+        "badge": "파이오니어",
+        "benefits": [
+          "높은 보상 우선순위",
+          "네트워크 거버넌스 참여",
+          "파이오니어 NFT 배지",
+          "우선 기술 지원",
+          "베타 기능 액세스"
+        ]
+      },
+      "standard": {
+        "name": "스탠다드 검증자",
+        "badge": "스탠다드",
+        "benefits": [
+          "표준 보상 할당",
+          "제안 투표 권한",
+          "스탠다드 NFT 배지",
+          "커뮤니티 지원 액세스",
+          "월간 성과 보고서"
+        ]
+      },
+      "community": {
+        "name": "커뮤니티 검증자",
+        "badge": "커뮤니티",
+        "benefits": [
+          "커뮤니티 보상 풀",
+          "기본 거버넌스 권한",
+          "커뮤니티 NFT 배지",
+          "포럼 지원 액세스",
+          "분기별 성과 검토"
+        ]
+      }
+    },
+    "requirements": {
+      "title": "시스템 요구사항",
+      "subtitle": "최적의 검증자 성능을 위해 인프라가 이러한 최소 요구사항을 충족하는지 확인하세요.",
+      "cpu": "CPU",
+      "cpuReq": "8코어 이상 (16코어 이상 권장)",
+      "ram": "RAM",
+      "ramReq": "최소 32GB (64GB 권장)",
+      "storage": "저장공간",
+      "storageReq": "1TB NVMe SSD (2TB 권장)",
+      "network": "네트워크",
+      "networkReq": "1Gbps 연결",
+      "uptime": "가동시간",
+      "uptimeReq": "99.9% SLA 필요"
+    },
+    "leaderboard": {
+      "title": "검증자 리더보드",
+      "subtitle": "가동시간, 성능 및 총 보상으로 순위가 매겨진 최고 성능의 외부 검증자.",
+      "comingSoon": "리더보드 준비 중",
+      "beFirst": "첫 번째로 등록하고 자리를 확보하세요!"
+    },
+    "faq": {
+      "title": "자주 묻는 질문",
+      "subtitle": "외부 검증자가 되기 위해 알아야 할 모든 것.",
+      "q1": {
+        "question": "외부 검증자를 운영하기 위한 하드웨어 요구사항은 무엇인가요?",
+        "answer": "외부 검증자는 최소 8개의 CPU 코어, 32GB RAM, 1TB NVMe SSD 스토리지 및 1Gbps 네트워크 연결이 필요합니다."
+      },
+      "q2": {
+        "question": "얼마나 많은 TBURN을 스테이킹해야 하나요?",
+        "answer": "스테이킹 요구사항은 등급에 따라 다릅니다: 커뮤니티 (100,000 TBURN), 스탠다드 (200,000 TBURN), 파이오니어 (500,000 TBURN), 제네시스 (1,000,000 TBURN)."
+      },
+      "q3": {
+        "question": "외부 검증자의 예상 APY는 얼마인가요?",
+        "answer": "APY는 등급과 성능에 따라 다릅니다. 커뮤니티 검증자는 12-15% APY, 스탠다드 14-18%, 파이오니어 16-20%, 제네시스 검증자는 20-25%를 기대할 수 있습니다."
+      },
+      "q4": {
+        "question": "하트비트 모니터링은 어떻게 작동하나요?",
+        "answer": "검증자는 활성 상태를 유지하기 위해 10초마다 하트비트 신호를 보내야 합니다."
+      },
+      "q5": {
+        "question": "검증자가 오프라인이 되면 어떻게 되나요?",
+        "answer": "검증자가 하트비트를 놓치면 3번의 신호 누락 후 '저하' 상태로 전환되고, 30초 후 '오프라인'이 됩니다."
+      },
+      "q6": {
+        "question": "검증자 등급을 업그레이드할 수 있나요?",
+        "answer": "네, 더 높은 등급 요구사항을 충족하기 위해 추가 TBURN 토큰을 스테이킹하여 등급을 업그레이드할 수 있습니다."
+      }
+    },
+    "download": {
+      "title": "검증자 소프트웨어 다운로드",
+      "subtitle": "플랫폼에 맞는 공식 TBURN 검증자 노드 소프트웨어를 받으세요.",
+      "downloadBtn": "Linux용 다운로드",
+      "version": "버전",
+      "docs": "문서",
+      "viewDocs": "문서 보기"
+    },
+    "registration": {
+      "title": "외부 검증자로 등록",
+      "subtitle": "TBURN 네트워크에 검증자 노드를 등록하려면 아래 양식을 작성하세요.",
+      "nodeName": "노드 이름",
+      "nodeNamePlaceholder": "my-validator-node",
+      "selectTier": "등급 선택",
+      "selectTierPlaceholder": "등급을 선택하세요",
+      "selectRegion": "지역 선택",
+      "selectRegionPlaceholder": "지역을 선택하세요",
+      "rpcEndpoint": "RPC 엔드포인트 (선택사항)",
+      "rpcPlaceholder": "https://your-node.example.com:8545",
+      "cancel": "취소",
+      "register": "검증자 등록",
+      "walletRequired": "지갑 필요",
+      "walletRequiredDesc": "검증자로 등록하려면 지갑을 연결하세요",
+      "missingInfo": "정보 누락",
+      "missingInfoDesc": "모든 필수 필드를 입력하세요",
+      "success": "등록 성공",
+      "failed": "등록 실패"
+    },
+    "regions": {
+      "us-east": "미국 동부",
+      "us-west": "미국 서부",
+      "eu-west": "유럽 서부",
+      "eu-central": "유럽 중부",
+      "asia-east": "아시아 동부",
+      "asia-south": "아시아 남부",
+      "asia-southeast": "아시아 동남부",
+      "oceania": "오세아니아",
+      "south-america": "남아메리카",
+      "africa": "아프리카"
+    }
   }
 }

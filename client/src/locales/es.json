@@ -2359,7 +2359,7 @@
         "answer": "You can contact us 24/7 via official Telegram(@tburnchain), Discord(discord.gg/tburnchain), or email(support@tburn.io). Our 24/7 live support team is standing by."
       }
     },
-        "externalValidatorSoftware": {
+    "externalValidatorSoftware": {
       "nav": {
         "backToProgram": "Volver al Programa de Validadores Externos",
         "requirements": "Requisitos",
@@ -25062,6 +25062,172 @@
       "socialOpenDesc": "Navegando a la página.",
       "menuComingSoon": "Menú",
       "menuComingSoonDesc": "función próximamente."
+    }
+  },
+  "externalValidator": {
+    "nav": {
+      "backToValidators": "← Centro de Validadores",
+      "tiers": "Niveles de Validador",
+      "requirements": "Requisitos",
+      "leaderboard": "Clasificación",
+      "faq": "FAQ",
+      "download": "Descargar"
+    },
+    "hero": {
+      "badge": "Programa de Validadores Externos",
+      "title": "Únete a la Red TBURN",
+      "subtitle": "Conviértete en un validador externo y gana recompensas mientras aseguras la blockchain TBURN.",
+      "registerBtn": "Registrarse como Validador",
+      "viewTiersBtn": "Ver Niveles",
+      "connectWallet": "Conectar Cartera"
+    },
+    "stats": {
+      "totalValidators": "Total Validadores",
+      "activeValidators": "Validadores Activos",
+      "tburnStaked": "TBURN en Staking",
+      "networkHealth": "Salud de Red"
+    },
+    "tiers": {
+      "title": "Niveles de Validador",
+      "subtitle": "Elige el nivel que coincida con tu compromiso y capacidad de staking.",
+      "minStake": "Staking Mín.",
+      "slots": "Espacios",
+      "commission": "Comisión",
+      "estApy": "APY Est.",
+      "benefits": "Beneficios",
+      "selectTier": "Seleccionar Nivel",
+      "genesis": {
+        "name": "Validador Génesis",
+        "badge": "Génesis",
+        "benefits": [
+          "Máxima prioridad de recompensa",
+          "Derechos de gobernanza",
+          "NFT exclusivo Génesis",
+          "Soporte directo del equipo",
+          "Acceso temprano a actualizaciones"
+        ]
+      },
+      "pioneer": {
+        "name": "Validador Pionero",
+        "badge": "Pionero",
+        "benefits": [
+          "Alta prioridad de recompensa",
+          "Participación en gobernanza",
+          "NFT Pionero",
+          "Soporte técnico prioritario",
+          "Acceso a funciones beta"
+        ]
+      },
+      "standard": {
+        "name": "Validador Estándar",
+        "badge": "Estándar",
+        "benefits": [
+          "Asignación estándar de recompensas",
+          "Derechos de voto",
+          "NFT Estándar",
+          "Acceso a soporte comunitario",
+          "Informes mensuales"
+        ]
+      },
+      "community": {
+        "name": "Validador Comunitario",
+        "badge": "Comunitario",
+        "benefits": [
+          "Pool de recompensas comunitario",
+          "Derechos básicos de gobernanza",
+          "NFT Comunitario",
+          "Acceso a foro",
+          "Revisiones trimestrales"
+        ]
+      }
+    },
+    "requirements": {
+      "title": "Requisitos del Sistema",
+      "subtitle": "Asegúrate de que tu infraestructura cumpla estos requisitos mínimos.",
+      "cpu": "CPU",
+      "cpuReq": "8+ núcleos (16+ recomendado)",
+      "ram": "RAM",
+      "ramReq": "32GB mínimo (64GB recomendado)",
+      "storage": "Almacenamiento",
+      "storageReq": "1TB NVMe SSD (2TB recomendado)",
+      "network": "Red",
+      "networkReq": "Conexión 1Gbps",
+      "uptime": "Disponibilidad",
+      "uptimeReq": "99.9% SLA requerido"
+    },
+    "leaderboard": {
+      "title": "Clasificación de Validadores",
+      "subtitle": "Los mejores validadores externos clasificados por disponibilidad y rendimiento.",
+      "comingSoon": "Clasificación Próximamente",
+      "beFirst": "¡Sé de los primeros en registrarte!"
+    },
+    "faq": {
+      "title": "Preguntas Frecuentes",
+      "subtitle": "Todo lo que necesitas saber sobre ser un validador externo.",
+      "q1": {
+        "question": "¿Cuáles son los requisitos de hardware?",
+        "answer": "Los validadores externos requieren mínimo 8 núcleos CPU, 32GB RAM, 1TB NVMe SSD y conexión de red 1Gbps."
+      },
+      "q2": {
+        "question": "¿Cuánto TBURN necesito hacer staking?",
+        "answer": "Los requisitos varían por nivel: Comunitario (100,000), Estándar (200,000), Pionero (500,000), Génesis (1,000,000 TBURN)."
+      },
+      "q3": {
+        "question": "¿Cuál es el APY esperado?",
+        "answer": "El APY varía por nivel: Comunitario 12-15%, Estándar 14-18%, Pionero 16-20%, Génesis 20-25%."
+      },
+      "q4": {
+        "question": "¿Cómo funciona el monitoreo de heartbeat?",
+        "answer": "Los validadores deben enviar señales de heartbeat cada 10 segundos para mantener el estado activo."
+      },
+      "q5": {
+        "question": "¿Qué pasa si mi validador se desconecta?",
+        "answer": "Si un validador pierde heartbeats, pasará a estado 'degradado' después de 3 señales perdidas, luego a 'offline' después de 30 segundos."
+      },
+      "q6": {
+        "question": "¿Puedo actualizar mi nivel de validador?",
+        "answer": "Sí, puedes actualizar tu nivel haciendo staking de tokens TBURN adicionales."
+      }
+    },
+    "download": {
+      "title": "Descargar Software de Validador",
+      "subtitle": "Obtén el software oficial del nodo validador TBURN para tu plataforma.",
+      "downloadBtn": "Descargar para Linux",
+      "version": "Versión",
+      "docs": "Documentación",
+      "viewDocs": "Ver Documentación"
+    },
+    "registration": {
+      "title": "Registrarse como Validador Externo",
+      "subtitle": "Completa el formulario para registrar tu nodo validador en la red TBURN.",
+      "nodeName": "Nombre del Nodo",
+      "nodeNamePlaceholder": "mi-nodo-validador",
+      "selectTier": "Seleccionar Nivel",
+      "selectTierPlaceholder": "Elige un nivel",
+      "selectRegion": "Seleccionar Región",
+      "selectRegionPlaceholder": "Elige una región",
+      "rpcEndpoint": "Endpoint RPC (Opcional)",
+      "rpcPlaceholder": "https://tu-nodo.example.com:8545",
+      "cancel": "Cancelar",
+      "register": "Registrar Validador",
+      "walletRequired": "Cartera Requerida",
+      "walletRequiredDesc": "Conecta tu cartera para registrarte como validador",
+      "missingInfo": "Información Faltante",
+      "missingInfoDesc": "Completa todos los campos requeridos",
+      "success": "Registro Exitoso",
+      "failed": "Registro Fallido"
+    },
+    "regions": {
+      "us-east": "EE.UU. Este",
+      "us-west": "EE.UU. Oeste",
+      "eu-west": "Europa Oeste",
+      "eu-central": "Europa Central",
+      "asia-east": "Asia Este",
+      "asia-south": "Asia Sur",
+      "asia-southeast": "Sudeste Asiático",
+      "oceania": "Oceanía",
+      "south-america": "Sudamérica",
+      "africa": "África"
     }
   }
 }

@@ -22810,5 +22810,171 @@
       "menuComingSoon": "Menu",
       "menuComingSoonDesc": "feature coming soon."
     }
+  },
+  "externalValidator": {
+    "nav": {
+      "backToValidators": "← Hub de Validadores",
+      "tiers": "Níveis de Validador",
+      "requirements": "Requisitos",
+      "leaderboard": "Classificação",
+      "faq": "FAQ",
+      "download": "Download"
+    },
+    "hero": {
+      "badge": "Programa de Validadores Externos",
+      "title": "Junte-se à Rede TBURN",
+      "subtitle": "Torne-se um validador externo e ganhe recompensas enquanto protege a blockchain TBURN.",
+      "registerBtn": "Registrar como Validador",
+      "viewTiersBtn": "Ver Níveis",
+      "connectWallet": "Conectar Carteira"
+    },
+    "stats": {
+      "totalValidators": "Total de Validadores",
+      "activeValidators": "Validadores Ativos",
+      "tburnStaked": "TBURN em Staking",
+      "networkHealth": "Saúde da Rede"
+    },
+    "tiers": {
+      "title": "Níveis de Validador",
+      "subtitle": "Escolha o nível que corresponde ao seu compromisso e capacidade de staking.",
+      "minStake": "Stake Mín.",
+      "slots": "Vagas",
+      "commission": "Comissão",
+      "estApy": "APY Est.",
+      "benefits": "Benefícios",
+      "selectTier": "Selecionar Nível",
+      "genesis": {
+        "name": "Validador Genesis",
+        "badge": "Genesis",
+        "benefits": [
+          "Máxima prioridade de recompensa",
+          "Direitos de governança",
+          "NFT Genesis exclusivo",
+          "Suporte direto da equipe",
+          "Acesso antecipado a atualizações"
+        ]
+      },
+      "pioneer": {
+        "name": "Validador Pioneiro",
+        "badge": "Pioneiro",
+        "benefits": [
+          "Alta prioridade de recompensa",
+          "Participação na governança",
+          "NFT Pioneiro",
+          "Suporte técnico prioritário",
+          "Acesso a recursos beta"
+        ]
+      },
+      "standard": {
+        "name": "Validador Padrão",
+        "badge": "Padrão",
+        "benefits": [
+          "Alocação padrão de recompensas",
+          "Direitos de voto",
+          "NFT Padrão",
+          "Acesso ao suporte comunitário",
+          "Relatórios mensais"
+        ]
+      },
+      "community": {
+        "name": "Validador Comunitário",
+        "badge": "Comunitário",
+        "benefits": [
+          "Pool de recompensas comunitário",
+          "Direitos básicos de governança",
+          "NFT Comunitário",
+          "Acesso ao fórum",
+          "Revisões trimestrais"
+        ]
+      }
+    },
+    "requirements": {
+      "title": "Requisitos do Sistema",
+      "subtitle": "Certifique-se de que sua infraestrutura atenda a estes requisitos mínimos.",
+      "cpu": "CPU",
+      "cpuReq": "8+ núcleos (16+ recomendado)",
+      "ram": "RAM",
+      "ramReq": "32GB mínimo (64GB recomendado)",
+      "storage": "Armazenamento",
+      "storageReq": "1TB NVMe SSD (2TB recomendado)",
+      "network": "Rede",
+      "networkReq": "Conexão 1Gbps",
+      "uptime": "Disponibilidade",
+      "uptimeReq": "SLA 99.9% necessário"
+    },
+    "leaderboard": {
+      "title": "Classificação de Validadores",
+      "subtitle": "Os melhores validadores externos classificados por disponibilidade e desempenho.",
+      "comingSoon": "Classificação em Breve",
+      "beFirst": "Seja um dos primeiros a se registrar!"
+    },
+    "faq": {
+      "title": "Perguntas Frequentes",
+      "subtitle": "Tudo que você precisa saber sobre ser um validador externo.",
+      "q1": {
+        "question": "Quais são os requisitos de hardware?",
+        "answer": "Validadores externos requerem mínimo 8 núcleos CPU, 32GB RAM, 1TB NVMe SSD e conexão de rede 1Gbps."
+      },
+      "q2": {
+        "question": "Quanto TBURN preciso fazer staking?",
+        "answer": "Os requisitos variam por nível: Comunitário (100,000), Padrão (200,000), Pioneiro (500,000), Genesis (1,000,000 TBURN)."
+      },
+      "q3": {
+        "question": "Qual é o APY esperado?",
+        "answer": "O APY varia por nível: Comunitário 12-15%, Padrão 14-18%, Pioneiro 16-20%, Genesis 20-25%."
+      },
+      "q4": {
+        "question": "Como funciona o monitoramento de heartbeat?",
+        "answer": "Validadores devem enviar sinais de heartbeat a cada 10 segundos para manter o status ativo."
+      },
+      "q5": {
+        "question": "O que acontece se meu validador ficar offline?",
+        "answer": "Se um validador perder heartbeats, passará para status 'degradado' após 3 sinais perdidos, depois 'offline' após 30 segundos."
+      },
+      "q6": {
+        "question": "Posso atualizar meu nível de validador?",
+        "answer": "Sim, você pode atualizar seu nível fazendo staking de tokens TBURN adicionais."
+      }
+    },
+    "download": {
+      "title": "Baixar Software de Validador",
+      "subtitle": "Obtenha o software oficial do nó validador TBURN para sua plataforma.",
+      "downloadBtn": "Baixar para Linux",
+      "version": "Versão",
+      "docs": "Documentação",
+      "viewDocs": "Ver Documentação"
+    },
+    "registration": {
+      "title": "Registrar como Validador Externo",
+      "subtitle": "Preencha o formulário para registrar seu nó validador na rede TBURN.",
+      "nodeName": "Nome do Nó",
+      "nodeNamePlaceholder": "meu-no-validador",
+      "selectTier": "Selecionar Nível",
+      "selectTierPlaceholder": "Escolha um nível",
+      "selectRegion": "Selecionar Região",
+      "selectRegionPlaceholder": "Escolha uma região",
+      "rpcEndpoint": "Endpoint RPC (Opcional)",
+      "rpcPlaceholder": "https://seu-no.example.com:8545",
+      "cancel": "Cancelar",
+      "register": "Registrar Validador",
+      "walletRequired": "Carteira Necessária",
+      "walletRequiredDesc": "Conecte sua carteira para registrar como validador",
+      "missingInfo": "Informação Faltando",
+      "missingInfoDesc": "Preencha todos os campos obrigatórios",
+      "success": "Registro Bem-sucedido",
+      "failed": "Registro Falhou"
+    },
+    "regions": {
+      "us-east": "EUA Leste",
+      "us-west": "EUA Oeste",
+      "eu-west": "Europa Oeste",
+      "eu-central": "Europa Central",
+      "asia-east": "Ásia Leste",
+      "asia-south": "Ásia Sul",
+      "asia-southeast": "Sudeste Asiático",
+      "oceania": "Oceania",
+      "south-america": "América do Sul",
+      "africa": "África"
+    }
   }
 }

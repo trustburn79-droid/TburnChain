@@ -23124,5 +23124,171 @@
       "menuComingSoon": "Menu",
       "menuComingSoonDesc": "feature coming soon."
     }
+  },
+  "externalValidator": {
+    "nav": {
+      "backToValidators": "← Hub Validateurs",
+      "tiers": "Niveaux Validateur",
+      "requirements": "Exigences",
+      "leaderboard": "Classement",
+      "faq": "FAQ",
+      "download": "Télécharger"
+    },
+    "hero": {
+      "badge": "Programme Validateurs Externes",
+      "title": "Rejoignez le Réseau TBURN",
+      "subtitle": "Devenez validateur externe et gagnez des récompenses en sécurisant la blockchain TBURN.",
+      "registerBtn": "S'inscrire comme Validateur",
+      "viewTiersBtn": "Voir les Niveaux",
+      "connectWallet": "Connecter Portefeuille"
+    },
+    "stats": {
+      "totalValidators": "Total Validateurs",
+      "activeValidators": "Validateurs Actifs",
+      "tburnStaked": "TBURN Staké",
+      "networkHealth": "Santé Réseau"
+    },
+    "tiers": {
+      "title": "Niveaux de Validateur",
+      "subtitle": "Choisissez le niveau correspondant à votre engagement et capacité de staking.",
+      "minStake": "Stake Min.",
+      "slots": "Places",
+      "commission": "Commission",
+      "estApy": "APY Est.",
+      "benefits": "Avantages",
+      "selectTier": "Sélectionner Niveau",
+      "genesis": {
+        "name": "Validateur Genesis",
+        "badge": "Genesis",
+        "benefits": [
+          "Priorité maximale de récompense",
+          "Droits de gouvernance",
+          "NFT Genesis exclusif",
+          "Support direct de l'équipe",
+          "Accès anticipé aux mises à jour"
+        ]
+      },
+      "pioneer": {
+        "name": "Validateur Pionnier",
+        "badge": "Pionnier",
+        "benefits": [
+          "Haute priorité de récompense",
+          "Participation à la gouvernance",
+          "NFT Pionnier",
+          "Support technique prioritaire",
+          "Accès aux fonctionnalités bêta"
+        ]
+      },
+      "standard": {
+        "name": "Validateur Standard",
+        "badge": "Standard",
+        "benefits": [
+          "Allocation standard de récompenses",
+          "Droits de vote",
+          "NFT Standard",
+          "Accès au support communautaire",
+          "Rapports mensuels"
+        ]
+      },
+      "community": {
+        "name": "Validateur Communautaire",
+        "badge": "Communauté",
+        "benefits": [
+          "Pool de récompenses communautaire",
+          "Droits de gouvernance de base",
+          "NFT Communautaire",
+          "Accès au forum",
+          "Revues trimestrielles"
+        ]
+      }
+    },
+    "requirements": {
+      "title": "Exigences Système",
+      "subtitle": "Assurez-vous que votre infrastructure répond à ces exigences minimales.",
+      "cpu": "CPU",
+      "cpuReq": "8+ cœurs (16+ recommandé)",
+      "ram": "RAM",
+      "ramReq": "32GB minimum (64GB recommandé)",
+      "storage": "Stockage",
+      "storageReq": "1TB NVMe SSD (2TB recommandé)",
+      "network": "Réseau",
+      "networkReq": "Connexion 1Gbps",
+      "uptime": "Disponibilité",
+      "uptimeReq": "SLA 99.9% requis"
+    },
+    "leaderboard": {
+      "title": "Classement des Validateurs",
+      "subtitle": "Les meilleurs validateurs externes classés par disponibilité et performance.",
+      "comingSoon": "Classement Bientôt",
+      "beFirst": "Soyez parmi les premiers à vous inscrire!"
+    },
+    "faq": {
+      "title": "Questions Fréquentes",
+      "subtitle": "Tout ce que vous devez savoir pour devenir validateur externe.",
+      "q1": {
+        "question": "Quelles sont les exigences matérielles?",
+        "answer": "Les validateurs externes nécessitent au minimum 8 cœurs CPU, 32GB RAM, 1TB NVMe SSD et une connexion réseau 1Gbps."
+      },
+      "q2": {
+        "question": "Combien de TBURN dois-je staker?",
+        "answer": "Les exigences varient par niveau: Communautaire (100,000), Standard (200,000), Pionnier (500,000), Genesis (1,000,000 TBURN)."
+      },
+      "q3": {
+        "question": "Quel est l'APY attendu?",
+        "answer": "L'APY varie par niveau: Communautaire 12-15%, Standard 14-18%, Pionnier 16-20%, Genesis 20-25%."
+      },
+      "q4": {
+        "question": "Comment fonctionne la surveillance heartbeat?",
+        "answer": "Les validateurs doivent envoyer des signaux heartbeat toutes les 10 secondes pour maintenir le statut actif."
+      },
+      "q5": {
+        "question": "Que se passe-t-il si mon validateur se déconnecte?",
+        "answer": "Si un validateur manque des heartbeats, il passera en statut 'dégradé' après 3 signaux manqués, puis 'hors ligne' après 30 secondes."
+      },
+      "q6": {
+        "question": "Puis-je améliorer mon niveau de validateur?",
+        "answer": "Oui, vous pouvez améliorer votre niveau en stakant des tokens TBURN supplémentaires."
+      }
+    },
+    "download": {
+      "title": "Télécharger le Logiciel Validateur",
+      "subtitle": "Obtenez le logiciel officiel du nœud validateur TBURN pour votre plateforme.",
+      "downloadBtn": "Télécharger pour Linux",
+      "version": "Version",
+      "docs": "Documentation",
+      "viewDocs": "Voir Documentation"
+    },
+    "registration": {
+      "title": "S'inscrire comme Validateur Externe",
+      "subtitle": "Remplissez le formulaire pour enregistrer votre nœud validateur sur le réseau TBURN.",
+      "nodeName": "Nom du Nœud",
+      "nodeNamePlaceholder": "mon-noeud-validateur",
+      "selectTier": "Sélectionner Niveau",
+      "selectTierPlaceholder": "Choisir un niveau",
+      "selectRegion": "Sélectionner Région",
+      "selectRegionPlaceholder": "Choisir une région",
+      "rpcEndpoint": "Point RPC (Optionnel)",
+      "rpcPlaceholder": "https://votre-noeud.example.com:8545",
+      "cancel": "Annuler",
+      "register": "Enregistrer Validateur",
+      "walletRequired": "Portefeuille Requis",
+      "walletRequiredDesc": "Connectez votre portefeuille pour vous inscrire comme validateur",
+      "missingInfo": "Information Manquante",
+      "missingInfoDesc": "Veuillez remplir tous les champs requis",
+      "success": "Inscription Réussie",
+      "failed": "Inscription Échouée"
+    },
+    "regions": {
+      "us-east": "États-Unis Est",
+      "us-west": "États-Unis Ouest",
+      "eu-west": "Europe Ouest",
+      "eu-central": "Europe Centrale",
+      "asia-east": "Asie Est",
+      "asia-south": "Asie Sud",
+      "asia-southeast": "Asie Sud-Est",
+      "oceania": "Océanie",
+      "south-america": "Amérique du Sud",
+      "africa": "Afrique"
+    }
   }
 }
