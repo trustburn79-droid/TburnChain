@@ -36005,5 +36005,171 @@
   "Coinbase": "Coinbase Wallet",
   "MetaMask": "MetaMask",
   "Rabby": "Rabby Wallet",
-  "Trust": "Trust Wallet"
+  "Trust": "Trust Wallet",
+  "externalValidator": {
+    "nav": {
+      "backToValidators": "← Validator Hub",
+      "tiers": "Validator Tiers",
+      "requirements": "Requirements",
+      "leaderboard": "Leaderboard",
+      "faq": "FAQ",
+      "download": "Download"
+    },
+    "hero": {
+      "badge": "External Validator Program",
+      "title": "Join the TBURN Network",
+      "subtitle": "Become an external validator and help secure the TBURN blockchain while earning rewards. Run your own node and participate in network consensus.",
+      "registerBtn": "Register as Validator",
+      "viewTiersBtn": "View Validator Tiers",
+      "connectWallet": "Connect Wallet"
+    },
+    "stats": {
+      "totalValidators": "Total Validators",
+      "activeValidators": "Active Validators",
+      "tburnStaked": "TBURN Staked",
+      "networkHealth": "Network Health"
+    },
+    "tiers": {
+      "title": "Validator Tiers",
+      "subtitle": "Choose the tier that matches your commitment level and staking capacity. Higher tiers offer better rewards and additional benefits.",
+      "minStake": "Min. Stake",
+      "slots": "Slots",
+      "commission": "Commission",
+      "estApy": "Est. APY",
+      "benefits": "Benefits",
+      "selectTier": "Select Tier",
+      "genesis": {
+        "name": "Genesis Validator",
+        "badge": "Genesis",
+        "benefits": [
+          "Highest reward priority",
+          "Core network governance rights",
+          "Exclusive genesis NFT badge",
+          "Direct protocol team support",
+          "Early access to protocol upgrades"
+        ]
+      },
+      "pioneer": {
+        "name": "Pioneer Validator",
+        "badge": "Pioneer",
+        "benefits": [
+          "High reward priority",
+          "Network governance participation",
+          "Pioneer NFT badge",
+          "Priority technical support",
+          "Beta feature access"
+        ]
+      },
+      "standard": {
+        "name": "Standard Validator",
+        "badge": "Standard",
+        "benefits": [
+          "Standard reward allocation",
+          "Voting rights on proposals",
+          "Standard NFT badge",
+          "Community support access",
+          "Monthly performance reports"
+        ]
+      },
+      "community": {
+        "name": "Community Validator",
+        "badge": "Community",
+        "benefits": [
+          "Community reward pool",
+          "Basic governance rights",
+          "Community NFT badge",
+          "Forum support access",
+          "Quarterly performance reviews"
+        ]
+      }
+    },
+    "requirements": {
+      "title": "System Requirements",
+      "subtitle": "Ensure your infrastructure meets these minimum requirements for optimal validator performance.",
+      "cpu": "CPU",
+      "cpuReq": "8+ cores (16+ recommended)",
+      "ram": "RAM",
+      "ramReq": "32GB minimum (64GB recommended)",
+      "storage": "Storage",
+      "storageReq": "1TB NVMe SSD (2TB recommended)",
+      "network": "Network",
+      "networkReq": "1Gbps connection",
+      "uptime": "Uptime",
+      "uptimeReq": "99.9% SLA required"
+    },
+    "leaderboard": {
+      "title": "Validator Leaderboard",
+      "subtitle": "Top performing external validators ranked by uptime, performance, and total rewards.",
+      "comingSoon": "Leaderboard Coming Soon",
+      "beFirst": "Be among the first to register and claim your spot!"
+    },
+    "faq": {
+      "title": "Frequently Asked Questions",
+      "subtitle": "Everything you need to know about becoming an external validator.",
+      "q1": {
+        "question": "What are the hardware requirements for running an external validator?",
+        "answer": "External validators require a minimum of 8 CPU cores, 32GB RAM, 1TB NVMe SSD storage, and a 1Gbps network connection. For optimal performance, we recommend 16+ cores, 64GB RAM, and 2TB storage."
+      },
+      "q2": {
+        "question": "How much TBURN do I need to stake?",
+        "answer": "Staking requirements vary by tier: Community (100,000 TBURN), Standard (200,000 TBURN), Pioneer (500,000 TBURN), and Genesis (1,000,000 TBURN). Higher tiers receive better rewards and priority in the validator selection process."
+      },
+      "q3": {
+        "question": "What is the expected APY for external validators?",
+        "answer": "APY varies by tier and performance. Community validators can expect 12-15% APY, Standard 14-18%, Pioneer 16-20%, and Genesis validators 20-25%. Actual returns depend on uptime, performance metrics, and network conditions."
+      },
+      "q4": {
+        "question": "How does the heartbeat monitoring work?",
+        "answer": "Validators must send heartbeat signals every 10 seconds to maintain active status. The system uses EWMA (Exponentially Weighted Moving Average) to calculate health scores. Validators with low health scores may face reduced rewards or temporary suspension."
+      },
+      "q5": {
+        "question": "What happens if my validator goes offline?",
+        "answer": "If a validator misses heartbeats, it will transition to 'degraded' status after 3 missed signals, then to 'offline' after 30 seconds. Consistent poor performance may result in slashing of staked tokens according to the network's slashing policy."
+      },
+      "q6": {
+        "question": "Can I upgrade my validator tier?",
+        "answer": "Yes, you can upgrade your tier by staking additional TBURN tokens to meet the higher tier requirements. Tier changes take effect after a 24-hour cooldown period to ensure network stability."
+      }
+    },
+    "download": {
+      "title": "Download Validator Software",
+      "subtitle": "Get the official TBURN validator node software for your platform.",
+      "downloadBtn": "Download for Linux",
+      "version": "Version",
+      "docs": "Documentation",
+      "viewDocs": "View Documentation"
+    },
+    "registration": {
+      "title": "Register as External Validator",
+      "subtitle": "Complete the form below to register your validator node on the TBURN network.",
+      "nodeName": "Node Name",
+      "nodeNamePlaceholder": "my-validator-node",
+      "selectTier": "Select Tier",
+      "selectTierPlaceholder": "Choose a tier",
+      "selectRegion": "Select Region",
+      "selectRegionPlaceholder": "Choose a region",
+      "rpcEndpoint": "RPC Endpoint (Optional)",
+      "rpcPlaceholder": "https://your-node.example.com:8545",
+      "cancel": "Cancel",
+      "register": "Register Validator",
+      "walletRequired": "Wallet Required",
+      "walletRequiredDesc": "Please connect your wallet to register as a validator",
+      "missingInfo": "Missing Information",
+      "missingInfoDesc": "Please fill in all required fields",
+      "success": "Registration Successful",
+      "failed": "Registration Failed"
+    },
+    "regions": {
+      "us-east": "US East",
+      "us-west": "US West",
+      "eu-west": "Europe West",
+      "eu-central": "Europe Central",
+      "asia-east": "Asia East",
+      "asia-south": "Asia South",
+      "asia-southeast": "Asia Southeast",
+      "oceania": "Oceania",
+      "south-america": "South America",
+      "africa": "Africa"
+    }
+  }
 }

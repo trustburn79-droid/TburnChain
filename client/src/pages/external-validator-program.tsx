@@ -55,116 +55,69 @@ interface ExternalValidatorStats {
 
 interface ValidatorTier {
   id: string;
-  name: string;
   icon: string;
   minStake: number;
   maxValidators: number;
   currentValidators: number;
   commissionRange: string;
   estimatedApy: string;
-  benefits: string[];
-  badge: string;
   badgeClass: string;
 }
 
 const REGIONS = [
-  { id: "us-east", name: "US East", flag: "🇺🇸" },
-  { id: "us-west", name: "US West", flag: "🇺🇸" },
-  { id: "eu-west", name: "Europe West", flag: "🇪🇺" },
-  { id: "eu-central", name: "Europe Central", flag: "🇩🇪" },
-  { id: "asia-east", name: "Asia East", flag: "🇯🇵" },
-  { id: "asia-south", name: "Asia South", flag: "🇸🇬" },
-  { id: "asia-southeast", name: "Asia Southeast", flag: "🇹🇭" },
-  { id: "oceania", name: "Oceania", flag: "🇦🇺" },
-  { id: "south-america", name: "South America", flag: "🇧🇷" },
-  { id: "africa", name: "Africa", flag: "🇿🇦" },
+  { id: "us-east", flag: "🇺🇸" },
+  { id: "us-west", flag: "🇺🇸" },
+  { id: "eu-west", flag: "🇪🇺" },
+  { id: "eu-central", flag: "🇩🇪" },
+  { id: "asia-east", flag: "🇯🇵" },
+  { id: "asia-south", flag: "🇸🇬" },
+  { id: "asia-southeast", flag: "🇹🇭" },
+  { id: "oceania", flag: "🇦🇺" },
+  { id: "south-america", flag: "🇧🇷" },
+  { id: "africa", flag: "🇿🇦" },
 ];
 
 const VALIDATOR_TIERS: ValidatorTier[] = [
   {
     id: "genesis",
-    name: "Genesis Validator",
     icon: "👑",
     minStake: 1000000,
     maxValidators: 50,
     currentValidators: 0,
     commissionRange: "1-5%",
     estimatedApy: "20-25%",
-    benefits: [
-      "Highest reward priority",
-      "Core network governance rights",
-      "Exclusive genesis NFT badge",
-      "Direct protocol team support",
-      "Early access to protocol upgrades"
-    ],
-    badge: "Genesis",
     badgeClass: "bg-yellow-500"
   },
   {
     id: "pioneer",
-    name: "Pioneer Validator",
     icon: "🚀",
     minStake: 500000,
     maxValidators: 100,
     currentValidators: 0,
     commissionRange: "5-15%",
     estimatedApy: "16-20%",
-    benefits: [
-      "High reward priority",
-      "Network governance participation",
-      "Pioneer NFT badge",
-      "Priority technical support",
-      "Beta feature access"
-    ],
-    badge: "Pioneer",
     badgeClass: "bg-purple-500"
   },
   {
     id: "standard",
-    name: "Standard Validator",
     icon: "⭐",
     minStake: 200000,
     maxValidators: 150,
     currentValidators: 0,
     commissionRange: "10-20%",
     estimatedApy: "14-18%",
-    benefits: [
-      "Standard reward allocation",
-      "Voting rights on proposals",
-      "Standard NFT badge",
-      "Community support access",
-      "Monthly performance reports"
-    ],
-    badge: "Standard",
     badgeClass: "bg-blue-500"
   },
   {
     id: "community",
-    name: "Community Validator",
     icon: "🌐",
     minStake: 100000,
     maxValidators: 75,
     currentValidators: 0,
     commissionRange: "15-30%",
     estimatedApy: "12-15%",
-    benefits: [
-      "Community reward pool",
-      "Basic governance rights",
-      "Community NFT badge",
-      "Forum support access",
-      "Quarterly performance reviews"
-    ],
-    badge: "Community",
     badgeClass: "bg-green-500"
   },
-];
-
-const SYSTEM_REQUIREMENTS = [
-  { label: "CPU", requirement: "8+ cores (16+ recommended)", icon: Cpu },
-  { label: "RAM", requirement: "32GB minimum (64GB recommended)", icon: Server },
-  { label: "Storage", requirement: "1TB NVMe SSD (2TB recommended)", icon: Server },
-  { label: "Network", requirement: "1Gbps connection", icon: Globe },
-  { label: "Uptime", requirement: "99.9% SLA required", icon: Activity },
 ];
 
 export default function ExternalValidatorProgramPage() {
@@ -202,7 +155,7 @@ export default function ExternalValidatorProgramPage() {
     },
     onSuccess: (data: any) => {
       toast({
-        title: "Registration Successful",
+        title: t("externalValidator.registration.success"),
         description: `Your validator node "${nodeName}" has been registered. API Key: ${data.apiKey?.substring(0, 8)}...`,
       });
       setIsRegistrationOpen(false);
@@ -210,7 +163,7 @@ export default function ExternalValidatorProgramPage() {
     },
     onError: (error: any) => {
       toast({
-        title: "Registration Failed",
+        title: t("externalValidator.registration.failed"),
         description: error.message || "Failed to register validator node",
         variant: "destructive",
       });
@@ -220,8 +173,8 @@ export default function ExternalValidatorProgramPage() {
   const handleRegister = () => {
     if (!isConnected || !address) {
       toast({
-        title: "Wallet Required",
-        description: "Please connect your wallet to register as a validator",
+        title: t("externalValidator.registration.walletRequired"),
+        description: t("externalValidator.registration.walletRequiredDesc"),
         variant: "destructive",
       });
       return;
@@ -229,8 +182,8 @@ export default function ExternalValidatorProgramPage() {
 
     if (!selectedTier || !selectedRegion || !nodeName || !rpcEndpoint) {
       toast({
-        title: "Missing Information",
-        description: "Please fill in all required fields",
+        title: t("externalValidator.registration.missingInfo"),
+        description: t("externalValidator.registration.missingInfoDesc"),
         variant: "destructive",
       });
       return;
@@ -265,37 +218,14 @@ export default function ExternalValidatorProgramPage() {
     }
   };
 
-  const faqs = [
-    {
-      id: "faq-1",
-      question: "What are the hardware requirements for running an external validator?",
-      answer: "External validators require a minimum of 8 CPU cores, 32GB RAM, 1TB NVMe SSD storage, and a 1Gbps network connection. For optimal performance, we recommend 16+ cores, 64GB RAM, and 2TB storage."
-    },
-    {
-      id: "faq-2",
-      question: "How much TBURN do I need to stake?",
-      answer: "Staking requirements vary by tier: Community (100,000 TBURN), Standard (200,000 TBURN), Pioneer (500,000 TBURN), and Genesis (1,000,000 TBURN). Higher tiers receive better rewards and priority in the validator selection process."
-    },
-    {
-      id: "faq-3",
-      question: "What is the expected APY for external validators?",
-      answer: "APY varies by tier and performance. Community validators can expect 12-15% APY, Standard 14-18%, Pioneer 16-20%, and Genesis validators 20-25%. Actual returns depend on uptime, performance metrics, and network conditions."
-    },
-    {
-      id: "faq-4",
-      question: "How does the heartbeat monitoring work?",
-      answer: "Validators must send heartbeat signals every 10 seconds to maintain active status. The system uses EWMA (Exponentially Weighted Moving Average) to calculate health scores. Validators with low health scores may face reduced rewards or temporary suspension."
-    },
-    {
-      id: "faq-5",
-      question: "What happens if my validator goes offline?",
-      answer: "If a validator misses heartbeats, it will transition to 'degraded' status after 3 missed signals, then to 'offline' after 30 seconds. Consistent poor performance may result in slashing of staked tokens according to the network's slashing policy."
-    },
-    {
-      id: "faq-6",
-      question: "Can I upgrade my validator tier?",
-      answer: "Yes, you can upgrade your tier by staking additional TBURN tokens to meet the higher tier requirements. Tier changes take effect after a 24-hour cooldown period to ensure network stability."
-    },
+  const faqIds = ["1", "2", "3", "4", "5", "6"];
+
+  const systemRequirements = [
+    { key: "cpu", icon: Cpu },
+    { key: "ram", icon: Server },
+    { key: "storage", icon: Server },
+    { key: "network", icon: Globe },
+    { key: "uptime", icon: Activity },
   ];
 
   return (
@@ -310,42 +240,42 @@ export default function ExternalValidatorProgramPage() {
           </Link>
           <nav className="hidden md:flex items-center gap-6">
             <Link href="/validator" className="text-muted-foreground hover:text-foreground transition-colors" data-testid="nav-back-validators">
-              ← Validator Hub
+              {t("externalValidator.nav.backToValidators")}
             </Link>
             <button 
               onClick={() => scrollToSection("tiers")} 
               className="text-muted-foreground hover:text-foreground transition-colors"
               data-testid="nav-tiers"
             >
-              Validator Tiers
+              {t("externalValidator.nav.tiers")}
             </button>
             <button 
               onClick={() => scrollToSection("requirements")} 
               className="text-muted-foreground hover:text-foreground transition-colors"
               data-testid="nav-requirements"
             >
-              Requirements
+              {t("externalValidator.nav.requirements")}
             </button>
             <button 
               onClick={() => scrollToSection("leaderboard")} 
               className="text-muted-foreground hover:text-foreground transition-colors"
               data-testid="nav-leaderboard"
             >
-              Leaderboard
+              {t("externalValidator.nav.leaderboard")}
             </button>
             <button 
               onClick={() => scrollToSection("faq")} 
               className="text-muted-foreground hover:text-foreground transition-colors"
               data-testid="nav-faq"
             >
-              FAQ
+              {t("externalValidator.nav.faq")}
             </button>
             <button 
               onClick={() => scrollToSection("download")} 
               className="text-muted-foreground hover:text-foreground transition-colors font-medium text-primary"
               data-testid="nav-download"
             >
-              Download
+              {t("externalValidator.nav.download")}
             </button>
           </nav>
           <div className="flex items-center gap-4">
@@ -363,7 +293,7 @@ export default function ExternalValidatorProgramPage() {
                 onClick={() => connect("metamask")}
                 data-testid="button-connect-wallet"
               >
-                Connect Wallet
+                {t("externalValidator.hero.connectWallet")}
               </Button>
             )}
           </div>
@@ -376,14 +306,13 @@ export default function ExternalValidatorProgramPage() {
           <div className="max-w-4xl mx-auto text-center">
             <Badge className="mb-6 bg-primary/20 text-primary border-primary/30" data-testid="badge-program-status">
               <Activity className="w-4 h-4 mr-2" />
-              External Validator Program
+              {t("externalValidator.hero.badge")}
             </Badge>
             <h1 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">
-              Join the TBURN Network
+              {t("externalValidator.hero.title")}
             </h1>
             <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-              Become an external validator and help secure the TBURN blockchain while earning rewards. 
-              Run your own node and participate in network consensus.
+              {t("externalValidator.hero.subtitle")}
             </p>
             <div className="flex flex-wrap justify-center gap-4">
               <Button 
@@ -391,7 +320,7 @@ export default function ExternalValidatorProgramPage() {
                 onClick={() => setIsRegistrationOpen(true)}
                 data-testid="button-register-validator"
               >
-                Register as Validator
+                {t("externalValidator.hero.registerBtn")}
                 <ArrowRight className="ml-2 w-5 h-5" />
               </Button>
               <Button 
@@ -400,7 +329,7 @@ export default function ExternalValidatorProgramPage() {
                 onClick={() => scrollToSection("tiers")}
                 data-testid="button-view-tiers"
               >
-                View Validator Tiers
+                {t("externalValidator.hero.viewTiersBtn")}
               </Button>
             </div>
           </div>
@@ -415,7 +344,7 @@ export default function ExternalValidatorProgramPage() {
                 <div className="text-4xl font-bold text-primary mb-2">
                   {statsLoading ? "..." : (stats?.totalValidators || 0)}
                 </div>
-                <div className="text-sm text-muted-foreground">Total Validators</div>
+                <div className="text-sm text-muted-foreground">{t("externalValidator.stats.totalValidators")}</div>
               </CardContent>
             </Card>
             <Card className="text-center" data-testid="stat-active-validators">
@@ -423,7 +352,7 @@ export default function ExternalValidatorProgramPage() {
                 <div className="text-4xl font-bold text-green-500 mb-2">
                   {statsLoading ? "..." : (stats?.activeValidators || 0)}
                 </div>
-                <div className="text-sm text-muted-foreground">Active Validators</div>
+                <div className="text-sm text-muted-foreground">{t("externalValidator.stats.activeValidators")}</div>
               </CardContent>
             </Card>
             <Card className="text-center" data-testid="stat-total-staked">
@@ -431,7 +360,7 @@ export default function ExternalValidatorProgramPage() {
                 <div className="text-4xl font-bold text-orange-500 mb-2">
                   {statsLoading ? "..." : stats?.totalStaked ? `${(parseInt(stats.totalStaked) / 1e6).toFixed(1)}M` : "0"}
                 </div>
-                <div className="text-sm text-muted-foreground">TBURN Staked</div>
+                <div className="text-sm text-muted-foreground">{t("externalValidator.stats.tburnStaked")}</div>
               </CardContent>
             </Card>
             <Card className="text-center" data-testid="stat-network-health">
@@ -439,7 +368,7 @@ export default function ExternalValidatorProgramPage() {
                 <div className="text-4xl font-bold text-blue-500 mb-2">
                   {statsLoading ? "..." : `${stats?.networkHealthScore || 100}%`}
                 </div>
-                <div className="text-sm text-muted-foreground">Network Health</div>
+                <div className="text-sm text-muted-foreground">{t("externalValidator.stats.networkHealth")}</div>
               </CardContent>
             </Card>
           </div>
@@ -449,77 +378,79 @@ export default function ExternalValidatorProgramPage() {
       <section id="tiers" className="py-20">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Validator Tiers</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">{t("externalValidator.tiers.title")}</h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Choose the tier that matches your commitment level and staking capacity. 
-              Higher tiers offer better rewards and additional benefits.
+              {t("externalValidator.tiers.subtitle")}
             </p>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {VALIDATOR_TIERS.map((tier) => (
-              <Card 
-                key={tier.id} 
-                className="relative overflow-hidden hover-elevate transition-all duration-300"
-                data-testid={`tier-card-${tier.id}`}
-              >
-                <div className={`absolute top-0 left-0 right-0 h-1 ${tier.badgeClass}`} />
-                <CardHeader>
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="text-4xl">{tier.icon}</span>
-                    <Badge className={tier.badgeClass} data-testid={`tier-badge-${tier.id}`}>
-                      {tier.badge}
-                    </Badge>
-                  </div>
-                  <CardTitle className="text-xl">{tier.name}</CardTitle>
-                  <CardDescription>
-                    Min. Stake: {tier.minStake.toLocaleString()} TBURN
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-4">
-                    <div className="flex justify-between text-sm">
-                      <span className="text-muted-foreground">Slots</span>
-                      <span className="font-medium">
-                        {tier.currentValidators}/{tier.maxValidators}
-                      </span>
+            {VALIDATOR_TIERS.map((tier) => {
+              const benefits = t(`externalValidator.tiers.${tier.id}.benefits`, { returnObjects: true }) as string[];
+              return (
+                <Card 
+                  key={tier.id} 
+                  className="relative overflow-hidden hover-elevate transition-all duration-300"
+                  data-testid={`tier-card-${tier.id}`}
+                >
+                  <div className={`absolute top-0 left-0 right-0 h-1 ${tier.badgeClass}`} />
+                  <CardHeader>
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-4xl">{tier.icon}</span>
+                      <Badge className={tier.badgeClass} data-testid={`tier-badge-${tier.id}`}>
+                        {t(`externalValidator.tiers.${tier.id}.badge`)}
+                      </Badge>
                     </div>
-                    <Progress 
-                      value={(tier.currentValidators / tier.maxValidators) * 100} 
-                      className="h-2"
-                    />
-                    <div className="flex justify-between text-sm">
-                      <span className="text-muted-foreground">Commission</span>
-                      <span className="font-medium">{tier.commissionRange}</span>
+                    <CardTitle className="text-xl">{t(`externalValidator.tiers.${tier.id}.name`)}</CardTitle>
+                    <CardDescription>
+                      {t("externalValidator.tiers.minStake")}: {tier.minStake.toLocaleString()} TBURN
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-4">
+                      <div className="flex justify-between text-sm">
+                        <span className="text-muted-foreground">{t("externalValidator.tiers.slots")}</span>
+                        <span className="font-medium">
+                          {tier.currentValidators}/{tier.maxValidators}
+                        </span>
+                      </div>
+                      <Progress 
+                        value={(tier.currentValidators / tier.maxValidators) * 100} 
+                        className="h-2"
+                      />
+                      <div className="flex justify-between text-sm">
+                        <span className="text-muted-foreground">{t("externalValidator.tiers.commission")}</span>
+                        <span className="font-medium">{tier.commissionRange}</span>
+                      </div>
+                      <div className="flex justify-between text-sm">
+                        <span className="text-muted-foreground">{t("externalValidator.tiers.estApy")}</span>
+                        <span className="font-medium text-green-500">{tier.estimatedApy}</span>
+                      </div>
+                      <div className="pt-4 border-t">
+                        <div className="text-sm font-medium mb-2">{t("externalValidator.tiers.benefits")}</div>
+                        <ul className="space-y-1">
+                          {Array.isArray(benefits) && benefits.slice(0, 3).map((benefit, idx) => (
+                            <li key={idx} className="text-xs text-muted-foreground flex items-start gap-2">
+                              <Check className="w-3 h-3 text-green-500 mt-0.5 flex-shrink-0" />
+                              {benefit}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                      <Button 
+                        className="w-full mt-4"
+                        onClick={() => {
+                          setSelectedTier(tier.id);
+                          setIsRegistrationOpen(true);
+                        }}
+                        data-testid={`button-select-tier-${tier.id}`}
+                      >
+                        {t("externalValidator.tiers.selectTier")}
+                      </Button>
                     </div>
-                    <div className="flex justify-between text-sm">
-                      <span className="text-muted-foreground">Est. APY</span>
-                      <span className="font-medium text-green-500">{tier.estimatedApy}</span>
-                    </div>
-                    <div className="pt-4 border-t">
-                      <div className="text-sm font-medium mb-2">Benefits</div>
-                      <ul className="space-y-1">
-                        {tier.benefits.slice(0, 3).map((benefit, idx) => (
-                          <li key={idx} className="text-xs text-muted-foreground flex items-start gap-2">
-                            <Check className="w-3 h-3 text-green-500 mt-0.5 flex-shrink-0" />
-                            {benefit}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                    <Button 
-                      className="w-full mt-4"
-                      onClick={() => {
-                        setSelectedTier(tier.id);
-                        setIsRegistrationOpen(true);
-                      }}
-                      data-testid={`button-select-tier-${tier.id}`}
-                    >
-                      Select Tier
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
+                  </CardContent>
+                </Card>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -527,18 +458,18 @@ export default function ExternalValidatorProgramPage() {
       <section id="requirements" className="py-20 bg-muted/30">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">System Requirements</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">{t("externalValidator.requirements.title")}</h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Ensure your infrastructure meets these minimum requirements for optimal validator performance.
+              {t("externalValidator.requirements.subtitle")}
             </p>
           </div>
           <div className="grid md:grid-cols-3 lg:grid-cols-5 gap-6">
-            {SYSTEM_REQUIREMENTS.map((req, idx) => (
-              <Card key={idx} className="text-center" data-testid={`requirement-${req.label.toLowerCase()}`}>
+            {systemRequirements.map((req) => (
+              <Card key={req.key} className="text-center" data-testid={`requirement-${req.key}`}>
                 <CardContent className="pt-6">
                   <req.icon className="w-12 h-12 mx-auto mb-4 text-primary" />
-                  <div className="font-semibold mb-2">{req.label}</div>
-                  <div className="text-sm text-muted-foreground">{req.requirement}</div>
+                  <div className="font-semibold mb-2">{t(`externalValidator.requirements.${req.key}`)}</div>
+                  <div className="text-sm text-muted-foreground">{t(`externalValidator.requirements.${req.key}Req`)}</div>
                 </CardContent>
               </Card>
             ))}
@@ -549,17 +480,17 @@ export default function ExternalValidatorProgramPage() {
       <section id="leaderboard" className="py-20">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Validator Leaderboard</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">{t("externalValidator.leaderboard.title")}</h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Top performing external validators ranked by uptime, performance, and total rewards.
+              {t("externalValidator.leaderboard.subtitle")}
             </p>
           </div>
           <Card data-testid="leaderboard-card">
             <CardContent className="pt-6">
               <div className="text-center py-12 text-muted-foreground">
                 <Users className="w-16 h-16 mx-auto mb-4 opacity-50" />
-                <p className="text-lg font-medium">Leaderboard Coming Soon</p>
-                <p className="text-sm">Be among the first to register and claim your spot!</p>
+                <p className="text-lg font-medium">{t("externalValidator.leaderboard.comingSoon")}</p>
+                <p className="text-sm">{t("externalValidator.leaderboard.beFirst")}</p>
               </div>
             </CardContent>
           </Card>
@@ -569,31 +500,31 @@ export default function ExternalValidatorProgramPage() {
       <section id="faq" className="py-20 bg-muted/30">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Frequently Asked Questions</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">{t("externalValidator.faq.title")}</h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Everything you need to know about becoming an external validator.
+              {t("externalValidator.faq.subtitle")}
             </p>
           </div>
           <div className="max-w-3xl mx-auto space-y-4">
-            {faqs.map((faq) => (
+            {faqIds.map((id) => (
               <Card 
-                key={faq.id} 
+                key={`faq-${id}`}
                 className="overflow-hidden cursor-pointer"
-                onClick={() => toggleFaq(faq.id)}
-                data-testid={`faq-item-${faq.id}`}
+                onClick={() => toggleFaq(`faq-${id}`)}
+                data-testid={`faq-item-faq-${id}`}
               >
                 <CardContent className="py-4">
                   <div className="flex items-center justify-between">
-                    <h3 className="font-medium pr-4">{faq.question}</h3>
+                    <h3 className="font-medium pr-4">{t(`externalValidator.faq.q${id}.question`)}</h3>
                     <ChevronDown 
                       className={`w-5 h-5 flex-shrink-0 transition-transform ${
-                        activeFaq === faq.id ? 'rotate-180' : ''
+                        activeFaq === `faq-${id}` ? 'rotate-180' : ''
                       }`} 
                     />
                   </div>
-                  {activeFaq === faq.id && (
+                  {activeFaq === `faq-${id}` && (
                     <p className="mt-4 text-muted-foreground text-sm leading-relaxed">
-                      {faq.answer}
+                      {t(`externalValidator.faq.q${id}.answer`)}
                     </p>
                   )}
                 </CardContent>
@@ -606,16 +537,15 @@ export default function ExternalValidatorProgramPage() {
       <section id="download" className="py-20 bg-muted/30">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <Badge className="mb-4">Enterprise Software</Badge>
-            <h2 className="text-3xl font-bold mb-4">Download Validator Node</h2>
+            <Badge className="mb-4">{t("externalValidator.download.title")}</Badge>
+            <h2 className="text-3xl font-bold mb-4">{t("externalValidator.download.title")}</h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Production-grade validator software for TBURN mainnet. 
-              Enterprise-level security with AES-256-GCM encryption and TLS 1.3.
+              {t("externalValidator.download.subtitle")}
             </p>
             <Link href="/external-validator-software">
               <Button variant="outline" className="mt-4" data-testid="link-software-docs">
                 <ArrowRight className="w-4 h-4 mr-2" />
-                View Full Installation Guide
+                {t("externalValidator.download.viewDocs")}
               </Button>
             </Link>
           </div>
@@ -647,7 +577,7 @@ export default function ExternalValidatorProgramPage() {
                 >
                   <Button className="w-full" variant="outline">
                     <Download className="w-4 h-4 mr-2" />
-                    Download (97 MB)
+                    {t("externalValidator.download.downloadBtn")} (97 MB)
                   </Button>
                 </a>
               </CardContent>
@@ -713,45 +643,6 @@ export default function ExternalValidatorProgramPage() {
               </CardContent>
             </Card>
           </div>
-
-          <div className="mt-12 max-w-3xl mx-auto">
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-lg">Quick Start Guide</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="grid md:grid-cols-3 gap-4 text-center">
-                  <div className="space-y-2">
-                    <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center mx-auto">
-                      <span className="font-bold text-primary">1</span>
-                    </div>
-                    <p className="font-medium">Download & Extract</p>
-                    <p className="text-sm text-muted-foreground">
-                      Download the validator package and extract it to your server
-                    </p>
-                  </div>
-                  <div className="space-y-2">
-                    <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center mx-auto">
-                      <span className="font-bold text-primary">2</span>
-                    </div>
-                    <p className="font-medium">Run Setup Wizard</p>
-                    <p className="text-sm text-muted-foreground">
-                      Execute <code className="bg-muted px-1 rounded">./tburn-validator setup</code> for guided setup
-                    </p>
-                  </div>
-                  <div className="space-y-2">
-                    <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center mx-auto">
-                      <span className="font-bold text-primary">3</span>
-                    </div>
-                    <p className="font-medium">Register & Start</p>
-                    <p className="text-sm text-muted-foreground">
-                      Register on this page, then start your node with the API key
-                    </p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
         </div>
       </section>
 
@@ -760,17 +651,16 @@ export default function ExternalValidatorProgramPage() {
           <Card className="bg-gradient-to-r from-primary/10 to-accent/10 border-primary/20">
             <CardContent className="py-12 text-center">
               <Shield className="w-16 h-16 mx-auto mb-6 text-primary" />
-              <h2 className="text-3xl font-bold mb-4">Ready to Join?</h2>
+              <h2 className="text-3xl font-bold mb-4">{t("externalValidator.hero.title")}</h2>
               <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
-                Start your journey as a TBURN validator today. Secure the network, 
-                earn rewards, and be part of the decentralized future.
+                {t("externalValidator.hero.subtitle")}
               </p>
               <Button 
                 size="lg" 
                 onClick={() => setIsRegistrationOpen(true)}
                 data-testid="button-cta-register"
               >
-                Register Your Validator Node
+                {t("externalValidator.hero.registerBtn")}
                 <ArrowRight className="ml-2 w-5 h-5" />
               </Button>
             </CardContent>
@@ -783,150 +673,93 @@ export default function ExternalValidatorProgramPage() {
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <div className="flex items-center gap-2">
               <TBurnLogo className="w-6 h-6" />
-              <span className="font-semibold">TBURN External Validator Program</span>
+              <span className="font-semibold">{t("externalValidator.hero.badge")}</span>
             </div>
             <div className="flex items-center gap-6 text-sm text-muted-foreground">
-              <Link href="/validator-incentives">
-                <span className="hover:text-foreground cursor-pointer" data-testid="link-validator-incentives">
-                  Validator Incentives
-                </span>
+              <Link href="/validator" className="hover:text-foreground">
+                {t("externalValidator.nav.backToValidators")}
               </Link>
-              <Link href="/docs">
-                <span className="hover:text-foreground cursor-pointer" data-testid="link-docs">
-                  Documentation
-                </span>
+              <Link href="/docs" className="hover:text-foreground">
+                {t("externalValidator.download.docs")}
               </Link>
-              <a 
-                href="https://discord.gg/tburn" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="hover:text-foreground flex items-center gap-1"
-                data-testid="link-discord"
-              >
-                Discord
-                <ExternalLink className="w-3 h-3" />
-              </a>
+              <Link href="/" className="hover:text-foreground">
+                TBURN Explorer
+              </Link>
             </div>
           </div>
         </div>
       </footer>
 
       <Dialog open={isRegistrationOpen} onOpenChange={setIsRegistrationOpen}>
-        <DialogContent className="max-w-2xl" data-testid="dialog-registration">
+        <DialogContent className="max-w-lg">
           <DialogHeader>
-            <DialogTitle>Register External Validator</DialogTitle>
+            <DialogTitle>{t("externalValidator.registration.title")}</DialogTitle>
             <DialogDescription>
-              Fill in your node details to register as an external validator on the TBURN network.
+              {t("externalValidator.registration.subtitle")}
             </DialogDescription>
           </DialogHeader>
-          <div className="space-y-6 py-4">
-            {!isConnected && (
-              <div className="bg-destructive/10 border border-destructive/20 rounded-lg p-4">
-                <p className="text-sm text-destructive">
-                  Please connect your wallet to continue with registration.
-                </p>
-                <Button 
-                  className="mt-3"
-                  onClick={() => connect("metamask")}
-                  data-testid="button-connect-in-dialog"
-                >
-                  Connect Wallet
-                </Button>
-              </div>
-            )}
-            
-            <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <Label htmlFor="tier">Validator Tier</Label>
-                <Select value={selectedTier} onValueChange={setSelectedTier}>
-                  <SelectTrigger id="tier" data-testid="select-tier">
-                    <SelectValue placeholder="Select tier" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {VALIDATOR_TIERS.map((tier) => (
-                      <SelectItem key={tier.id} value={tier.id}>
-                        {tier.icon} {tier.name} ({tier.minStake.toLocaleString()} TBURN)
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-              
-              <div className="space-y-2">
-                <Label htmlFor="region">Region</Label>
-                <Select value={selectedRegion} onValueChange={setSelectedRegion}>
-                  <SelectTrigger id="region" data-testid="select-region">
-                    <SelectValue placeholder="Select region" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {REGIONS.map((region) => (
-                      <SelectItem key={region.id} value={region.id}>
-                        {region.flag} {region.name}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-            </div>
-
+          <div className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="nodeName">Node Name</Label>
+              <Label htmlFor="nodeName">{t("externalValidator.registration.nodeName")}</Label>
               <Input 
                 id="nodeName"
-                placeholder="e.g., tburn-validator-01"
                 value={nodeName}
                 onChange={(e) => setNodeName(e.target.value)}
+                placeholder={t("externalValidator.registration.nodeNamePlaceholder")}
                 data-testid="input-node-name"
               />
             </div>
-
             <div className="space-y-2">
-              <Label htmlFor="rpcEndpoint">RPC Endpoint (Optional)</Label>
+              <Label>{t("externalValidator.registration.selectTier")}</Label>
+              <Select value={selectedTier} onValueChange={setSelectedTier}>
+                <SelectTrigger data-testid="select-tier">
+                  <SelectValue placeholder={t("externalValidator.registration.selectTierPlaceholder")} />
+                </SelectTrigger>
+                <SelectContent>
+                  {VALIDATOR_TIERS.map((tier) => (
+                    <SelectItem key={tier.id} value={tier.id}>
+                      {tier.icon} {t(`externalValidator.tiers.${tier.id}.name`)} ({tier.minStake.toLocaleString()} TBURN)
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="space-y-2">
+              <Label>{t("externalValidator.registration.selectRegion")}</Label>
+              <Select value={selectedRegion} onValueChange={setSelectedRegion}>
+                <SelectTrigger data-testid="select-region">
+                  <SelectValue placeholder={t("externalValidator.registration.selectRegionPlaceholder")} />
+                </SelectTrigger>
+                <SelectContent>
+                  {REGIONS.map((region) => (
+                    <SelectItem key={region.id} value={region.id}>
+                      {region.flag} {t(`externalValidator.regions.${region.id}`)}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="rpcEndpoint">{t("externalValidator.registration.rpcEndpoint")}</Label>
               <Input 
                 id="rpcEndpoint"
-                placeholder="e.g., https://your-node.example.com:8545"
                 value={rpcEndpoint}
                 onChange={(e) => setRpcEndpoint(e.target.value)}
+                placeholder={t("externalValidator.registration.rpcPlaceholder")}
                 data-testid="input-rpc-endpoint"
               />
-              <p className="text-xs text-muted-foreground">
-                Your node's RPC endpoint for network connectivity verification.
-              </p>
             </div>
-
-            {selectedTier && (
-              <div className="bg-muted rounded-lg p-4">
-                <h4 className="font-medium mb-2">Registration Summary</h4>
-                <div className="grid grid-cols-2 gap-2 text-sm">
-                  <div className="text-muted-foreground">Required Stake:</div>
-                  <div className="font-medium">
-                    {VALIDATOR_TIERS.find(t => t.id === selectedTier)?.minStake.toLocaleString()} TBURN
-                  </div>
-                  <div className="text-muted-foreground">Est. APY:</div>
-                  <div className="font-medium text-green-500">
-                    {VALIDATOR_TIERS.find(t => t.id === selectedTier)?.estimatedApy}
-                  </div>
-                </div>
-              </div>
-            )}
           </div>
           <DialogFooter>
-            <Button variant="outline" onClick={() => setIsRegistrationOpen(false)} data-testid="button-cancel-registration">
-              Cancel
+            <Button variant="outline" onClick={() => setIsRegistrationOpen(false)} data-testid="button-cancel">
+              {t("externalValidator.registration.cancel")}
             </Button>
             <Button 
               onClick={handleRegister}
-              disabled={!isConnected || !selectedTier || !selectedRegion || !nodeName || registerMutation.isPending}
-              data-testid="button-submit-registration"
+              disabled={registerMutation.isPending}
+              data-testid="button-submit-register"
             >
-              {registerMutation.isPending ? (
-                <>
-                  <RefreshCw className="w-4 h-4 mr-2 animate-spin" />
-                  Registering...
-                </>
-              ) : (
-                "Register Validator"
-              )}
+              {registerMutation.isPending ? "..." : t("externalValidator.registration.register")}
             </Button>
           </DialogFooter>
         </DialogContent>
