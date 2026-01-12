@@ -448,8 +448,52 @@ class StakingPortfolioService {
     this.log('info', 'Metrics reset');
   }
 
+  invalidateCache(pattern?: string): number {
+    let invalidated = 0;
+    
+    if (!pattern) {
+      invalidated = this.cache.size;
+      this.cache.clear();
+      this.cacheVersion++;
+      this.log('info', 'Full cache invalidated', { invalidated });
+      return invalidated;
+    }
+    
+    for (const key of this.cache.keys()) {
+      if (key.includes(pattern)) {
+        this.cache.delete(key);
+        invalidated++;
+      }
+    }
+    
+    this.log('info', 'Cache invalidated by pattern', { pattern, invalidated });
+    return invalidated;
+  }
+
+  invalidateCacheForAddress(address: string): number {
+    let invalidated = 0;
+    const patterns = [
+      `portfolio:${address}`,
+      `unbondings:${address}`,
+      `rewards:${address}`
+    ];
+    
+    for (const key of this.cache.keys()) {
+      if (patterns.some(p => key.includes(p))) {
+        this.cache.delete(key);
+        invalidated++;
+      }
+    }
+    
+    this.log('info', 'Cache invalidated for address', { 
+      address: this.maskAddress(address), 
+      invalidated 
+    });
+    return invalidated;
+  }
+
   // ============================================
-  // Cache Management
+  // Cache Management (Private)
   // ============================================
   
   private getFromCache<T>(key: string, allowStale: boolean = false): T | null {
