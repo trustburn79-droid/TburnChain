@@ -6,6 +6,7 @@
 
 import { Router, Request, Response } from 'express';
 import { getEnterpriseNode } from '../services/TBurnEnterpriseNode';
+import { stakingPortfolioService } from '../services/StakingPortfolioService';
 
 const router = Router();
 
@@ -818,45 +819,7 @@ router.get('/:address/staking-portfolio', async (req: Request, res: Response) =>
       return res.json({ success: true, data: cached, cached: true });
     }
     
-    const seed = addressSeed(address);
-    const positions = generateStakingPositions(address);
-    const stakingRewards = generateStakingRewards(address);
-    
-    const totalStaked = positions.reduce((sum, p) => sum + parseFloat(p.stakedAmount || '0'), 0);
-    const totalPendingRewards = positions.reduce((sum, p) => sum + parseFloat(p.pendingRewards || '0'), 0);
-    const totalEarned = positions.reduce((sum, p) => sum + parseFloat(p.totalRewardsEarned || '0'), 0);
-    const avgApy = positions.length > 0 
-      ? positions.reduce((sum, p) => sum + parseFloat(p.currentApy || '0'), 0) / positions.length 
-      : 0;
-    
-    const unbondingPositions = generateUnbondingPositions(address);
-    const totalUnbonding = unbondingPositions.reduce((sum, u) => sum + parseFloat(u.amount || '0'), 0);
-    
-    const portfolio = {
-      summary: {
-        totalStaked: totalStaked.toFixed(4),
-        totalPendingRewards: totalPendingRewards.toFixed(4),
-        totalEarned: totalEarned.toFixed(4),
-        totalUnbonding: totalUnbonding.toFixed(4),
-        totalPortfolioValue: (totalStaked + totalPendingRewards + totalUnbonding).toFixed(4),
-        avgApy: avgApy.toFixed(2),
-        activePositions: positions.length,
-        unbondingPositions: unbondingPositions.length,
-        autoCompoundEnabled: seed % 2 === 0,
-      },
-      positions: positions.map(p => ({
-        ...p,
-        validatorAddress: `tb1${p.validatorId.slice(4)}${address.slice(-20)}`,
-        validatorCommission: ((seed + parseInt(p.validatorId.slice(-2), 16)) % 10 + 1).toFixed(2),
-        validatorUptime: (99 + (seed % 100) / 100).toFixed(2),
-        validatorRiskScore: p.status === 'active' ? 'low' : 'medium',
-        dailyReward: (parseFloat(p.stakedAmount) * parseFloat(p.currentApy) / 100 / 365).toFixed(6),
-        weeklyReward: (parseFloat(p.stakedAmount) * parseFloat(p.currentApy) / 100 / 52).toFixed(4),
-        monthlyReward: (parseFloat(p.stakedAmount) * parseFloat(p.currentApy) / 100 / 12).toFixed(4),
-      })),
-      unbonding: unbondingPositions,
-      rewardHistory: stakingRewards.slice(0, 10),
-    };
+    const portfolio = await stakingPortfolioService.getPortfolio(address);
     
     setCachedData(cacheKey, portfolio);
     res.json({ success: true, data: portfolio });
@@ -914,7 +877,7 @@ router.get('/:address/unbondings', async (req: Request, res: Response) => {
       return res.status(400).json({ success: false, error: 'Invalid wallet address' });
     }
     
-    const unbondings = generateUnbondingPositions(address);
+    const unbondings = await stakingPortfolioService.getUnbondings(address);
     const totalUnbonding = unbondings.reduce((sum, u) => sum + parseFloat(u.amount || '0'), 0);
     const readyToClaim = unbondings.filter(u => u.status === 'ready');
     
@@ -1073,6 +1036,8 @@ router.post('/:address/auto-compound', async (req: Request, res: Response) => {
       return res.status(400).json({ success: false, error: 'Invalid wallet address' });
     }
     
+    await stakingPortfolioService.setAutoCompound(address, enabled);
+    
     res.json({
       success: true,
       data: {
@@ -1136,43 +1101,37 @@ router.post('/:address/redelegate', async (req: Request, res: Response) => {
 router.get('/:address/reward-history', async (req: Request, res: Response) => {
   try {
     const { address } = req.params;
-    const { limit = '50', offset = '0', type = 'all' } = req.query;
+    const { limit = '20', page = '1' } = req.query;
     
     if (!isValidAddress(address)) {
       return res.status(400).json({ success: false, error: 'Invalid wallet address' });
     }
     
-    const stakingRewards = generateStakingRewards(address);
-    const miningRewards = generateMiningRewards(address);
+    const pageNum = parseInt(page as string) || 1;
+    const limitNum = parseInt(limit as string) || 20;
     
-    let allRewards = [
-      ...stakingRewards.map(r => ({ ...r, rewardType: 'staking' })),
-      ...miningRewards.map(r => ({ ...r, rewardType: 'mining' })),
-    ].sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+    const result = await stakingPortfolioService.getRewardHistory(address, pageNum, limitNum);
     
-    if (type !== 'all') {
-      allRewards = allRewards.filter(r => r.rewardType === type);
-    }
-    
-    const total = allRewards.length;
-    const rewards = allRewards.slice(parseInt(offset as string), parseInt(offset as string) + parseInt(limit as string));
+    const claimedRewards = result.rewards.filter(r => r.claimedAt !== null);
+    const unclaimedRewards = result.rewards.filter(r => r.claimedAt === null);
     
     const summary = {
-      totalRewards: allRewards.reduce((sum, r) => sum + parseFloat(r.amount || '0'), 0).toFixed(4),
-      claimedRewards: allRewards.filter(r => r.claimed).reduce((sum, r) => sum + parseFloat(r.amount || '0'), 0).toFixed(4),
-      unclaimedRewards: allRewards.filter(r => !r.claimed).reduce((sum, r) => sum + parseFloat(r.amount || '0'), 0).toFixed(4),
+      totalRewards: result.rewards.reduce((sum, r) => sum + parseFloat(r.amount || '0'), 0).toFixed(4),
+      claimedRewards: claimedRewards.reduce((sum, r) => sum + parseFloat(r.amount || '0'), 0).toFixed(4),
+      unclaimedRewards: unclaimedRewards.reduce((sum, r) => sum + parseFloat(r.amount || '0'), 0).toFixed(4),
     };
     
     res.json({
       success: true,
       data: {
-        rewards,
+        rewards: result.rewards,
         summary,
         pagination: {
-          total,
-          limit: parseInt(limit as string),
-          offset: parseInt(offset as string),
-          hasMore: parseInt(offset as string) + parseInt(limit as string) < total,
+          total: result.total,
+          page: result.page,
+          totalPages: result.totalPages,
+          limit: limitNum,
+          hasMore: result.page < result.totalPages,
         },
       },
     });
