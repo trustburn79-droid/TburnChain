@@ -59,26 +59,53 @@ export const TOKEN_PRICING = {
 };
 
 // ============================================
-// Validator Tier System
+// Validator Tier System (Unified Configuration)
 // ============================================
 export enum ValidatorTier {
-  TIER_1_COMMITTEE = 'tier_1_committee',     // Active Committee
-  TIER_2_STANDBY = 'tier_2_standby',         // Standby Validators
-  TIER_3_DELEGATOR = 'tier_3_delegator',     // Delegators
+  TIER_1_COMMITTEE = 'tier_1_committee',     // Active Committee (Block Producers)
+  TIER_2_STANDBY = 'tier_2_standby',         // Standby Validators (Ready for rotation)
+  TIER_3_DELEGATOR = 'tier_3_delegator',     // Delegators (Token holders)
+}
+
+// Marketing tier names (maps to underlying validator tiers)
+export enum MarketingTier {
+  GENESIS = 'genesis',       // Premium tier → maps to Tier 1
+  PIONEER = 'pioneer',       // Early adopter → maps to Tier 1
+  STANDARD = 'standard',     // Regular validator → maps to Tier 2
+  COMMUNITY = 'community',   // Entry level → maps to Tier 3 (with validator rights)
 }
 
 export interface TierConfig {
   tier: ValidatorTier;
   name: string;
   displayName: string;
+  displayNameKo: string;
   maxParticipants: number;
   minStakeTBURN: number;
   minStakeWei: string;
   rewardPoolShare: number;           // Percentage of daily emission (0-1)
   targetAPY: number;                 // Target APY in percentage (e.g., 8.0)
   apyRange: { min: number; max: number };
+  feeRange: { min: number; max: number }; // Commission fee range in percentage
   description: string;
   benefits: string[];
+}
+
+// Marketing tier configuration for external-facing pages
+export interface MarketingTierConfig {
+  tier: MarketingTier;
+  underlyingTier: ValidatorTier;
+  name: string;
+  displayName: string;
+  displayNameKo: string;
+  icon: string;                      // Icon identifier (crown, rocket, star, users)
+  color: string;                     // Theme color
+  maxSlots: number;
+  minStakeTBURN: number;
+  feeRange: { min: number; max: number };
+  apyRange: { min: number; max: number };
+  benefits: string[];
+  benefitsKo: string[];
 }
 
 export const VALIDATOR_TIERS: Record<ValidatorTier, TierConfig> = {
@@ -86,12 +113,14 @@ export const VALIDATOR_TIERS: Record<ValidatorTier, TierConfig> = {
     tier: ValidatorTier.TIER_1_COMMITTEE,
     name: 'tier_1_committee',
     displayName: 'Active Committee',
+    displayNameKo: '활성 위원회',
     maxParticipants: 512,
-    minStakeTBURN: 20_000_000,       // 20M TBURN (scaled 100x for 10B supply)
-    minStakeWei: (BigInt(20_000_000) * BigInt(10 ** 18)).toString(),
+    minStakeTBURN: 200_000,          // 200K TBURN minimum for committee
+    minStakeWei: (BigInt(200_000) * BigInt(10 ** 18)).toString(),
     rewardPoolShare: 0.50,           // 50% of daily emission (250,000 TBURN/day)
-    targetAPY: 8.0,
+    targetAPY: 8.01,
     apyRange: { min: 6.0, max: 10.0 },
+    feeRange: { min: 1.0, max: 10.0 },
     description: 'Elite validators participating in block production and consensus',
     benefits: [
       'Block production rights',
@@ -104,12 +133,14 @@ export const VALIDATOR_TIERS: Record<ValidatorTier, TierConfig> = {
     tier: ValidatorTier.TIER_2_STANDBY,
     name: 'tier_2_standby',
     displayName: 'Standby Validator',
+    displayNameKo: '대기 검증자',
     maxParticipants: 4_488,
-    minStakeTBURN: 5_000_000,        // 5M TBURN (scaled 100x for 10B supply)
-    minStakeWei: (BigInt(5_000_000) * BigInt(10 ** 18)).toString(),
+    minStakeTBURN: 50_000,           // 50K TBURN minimum for standby
+    minStakeWei: (BigInt(50_000) * BigInt(10 ** 18)).toString(),
     rewardPoolShare: 0.30,           // 30% of daily emission (150,000 TBURN/day)
     targetAPY: 4.0,
     apyRange: { min: 3.0, max: 5.0 },
+    feeRange: { min: 5.0, max: 15.0 },
     description: 'Backup validators ready for committee rotation',
     benefits: [
       'Committee rotation eligibility',
@@ -122,12 +153,14 @@ export const VALIDATOR_TIERS: Record<ValidatorTier, TierConfig> = {
     tier: ValidatorTier.TIER_3_DELEGATOR,
     name: 'tier_3_delegator',
     displayName: 'Delegator',
+    displayNameKo: '위임자',
     maxParticipants: -1,             // Unlimited
-    minStakeTBURN: 10_000,           // 10K TBURN (scaled 100x for 10B supply)
-    minStakeWei: (BigInt(10_000) * BigInt(10 ** 18)).toString(),
+    minStakeTBURN: 100,              // 100 TBURN minimum for delegators
+    minStakeWei: (BigInt(100) * BigInt(10 ** 18)).toString(),
     rewardPoolShare: 0.20,           // 20% of daily emission (100,000 TBURN/day)
     targetAPY: 5.0,
     apyRange: { min: 4.0, max: 6.0 },
+    feeRange: { min: 0.0, max: 0.0 }, // Delegators don't charge fees
     description: 'Token holders delegating stake to validators',
     benefits: [
       'Low entry barrier',
@@ -137,6 +170,169 @@ export const VALIDATOR_TIERS: Record<ValidatorTier, TierConfig> = {
     ],
   },
 };
+
+// ============================================
+// Marketing Tier Configuration (External-facing)
+// Maps marketing labels to underlying validator tiers
+// ============================================
+export const MARKETING_TIERS: Record<MarketingTier, MarketingTierConfig> = {
+  [MarketingTier.GENESIS]: {
+    tier: MarketingTier.GENESIS,
+    underlyingTier: ValidatorTier.TIER_1_COMMITTEE,
+    name: 'genesis',
+    displayName: 'Genesis Validator',
+    displayNameKo: '제네시스 검증자',
+    icon: 'crown',
+    color: 'gold',
+    maxSlots: 50,
+    minStakeTBURN: 1_000_000,        // 1M TBURN for Genesis tier
+    feeRange: { min: 1.0, max: 5.0 },
+    apyRange: { min: 20.0, max: 25.0 },
+    benefits: [
+      'Highest reward priority',
+      'Core network governance rights',
+      'Exclusive Genesis NFT badge',
+    ],
+    benefitsKo: [
+      '최고 보상 우선순위',
+      '핵심 네트워크 거버넌스 권한',
+      '독점 제네시스 NFT 배지',
+    ],
+  },
+  [MarketingTier.PIONEER]: {
+    tier: MarketingTier.PIONEER,
+    underlyingTier: ValidatorTier.TIER_1_COMMITTEE,
+    name: 'pioneer',
+    displayName: 'Pioneer Validator',
+    displayNameKo: '파이오니어 검증자',
+    icon: 'rocket',
+    color: 'purple',
+    maxSlots: 100,
+    minStakeTBURN: 500_000,          // 500K TBURN for Pioneer tier
+    feeRange: { min: 5.0, max: 15.0 },
+    apyRange: { min: 16.0, max: 20.0 },
+    benefits: [
+      'High reward priority',
+      'Network governance participation',
+      'Pioneer NFT badge',
+    ],
+    benefitsKo: [
+      '높은 보상 우선순위',
+      '네트워크 거버넌스 참여',
+      '파이오니어 NFT 배지',
+    ],
+  },
+  [MarketingTier.STANDARD]: {
+    tier: MarketingTier.STANDARD,
+    underlyingTier: ValidatorTier.TIER_2_STANDBY,
+    name: 'standard',
+    displayName: 'Standard Validator',
+    displayNameKo: '스탠다드 검증자',
+    icon: 'star',
+    color: 'yellow',
+    maxSlots: 150,
+    minStakeTBURN: 200_000,          // 200K TBURN for Standard tier
+    feeRange: { min: 10.0, max: 20.0 },
+    apyRange: { min: 14.0, max: 18.0 },
+    benefits: [
+      'Standard reward allocation',
+      'Proposal voting rights',
+      'Standard NFT badge',
+    ],
+    benefitsKo: [
+      '표준 보상 할당',
+      '제안 투표 권한',
+      '스탠다드 NFT 배지',
+    ],
+  },
+  [MarketingTier.COMMUNITY]: {
+    tier: MarketingTier.COMMUNITY,
+    underlyingTier: ValidatorTier.TIER_3_DELEGATOR,
+    name: 'community',
+    displayName: 'Community Validator',
+    displayNameKo: '커뮤니티 검증자',
+    icon: 'users',
+    color: 'green',
+    maxSlots: 75,
+    minStakeTBURN: 100_000,          // 100K TBURN for Community tier
+    feeRange: { min: 15.0, max: 30.0 },
+    apyRange: { min: 12.0, max: 15.0 },
+    benefits: [
+      'Community reward pool',
+      'Basic governance rights',
+      'Community NFT badge',
+    ],
+    benefitsKo: [
+      '커뮤니티 보상 풀',
+      '기본 거버넌스 권한',
+      '커뮤니티 NFT 배지',
+    ],
+  },
+};
+
+// ============================================
+// Validator Tier Helper Functions
+// ============================================
+
+/**
+ * Get validator tier by stake amount
+ */
+export function getValidatorTierByStake(stakeTBURN: number): ValidatorTier {
+  if (stakeTBURN >= VALIDATOR_TIERS[ValidatorTier.TIER_1_COMMITTEE].minStakeTBURN) {
+    return ValidatorTier.TIER_1_COMMITTEE;
+  }
+  if (stakeTBURN >= VALIDATOR_TIERS[ValidatorTier.TIER_2_STANDBY].minStakeTBURN) {
+    return ValidatorTier.TIER_2_STANDBY;
+  }
+  return ValidatorTier.TIER_3_DELEGATOR;
+}
+
+/**
+ * Get marketing tier by stake amount
+ */
+export function getMarketingTierByStake(stakeTBURN: number): MarketingTier | null {
+  if (stakeTBURN >= MARKETING_TIERS[MarketingTier.GENESIS].minStakeTBURN) {
+    return MarketingTier.GENESIS;
+  }
+  if (stakeTBURN >= MARKETING_TIERS[MarketingTier.PIONEER].minStakeTBURN) {
+    return MarketingTier.PIONEER;
+  }
+  if (stakeTBURN >= MARKETING_TIERS[MarketingTier.STANDARD].minStakeTBURN) {
+    return MarketingTier.STANDARD;
+  }
+  if (stakeTBURN >= MARKETING_TIERS[MarketingTier.COMMUNITY].minStakeTBURN) {
+    return MarketingTier.COMMUNITY;
+  }
+  return null;
+}
+
+/**
+ * Get tier configuration by tier enum
+ */
+export function getTierConfig(tier: ValidatorTier): TierConfig {
+  return VALIDATOR_TIERS[tier];
+}
+
+/**
+ * Get marketing tier configuration
+ */
+export function getMarketingTierConfig(tier: MarketingTier): MarketingTierConfig {
+  return MARKETING_TIERS[tier];
+}
+
+/**
+ * Calculate total marketing tier slots
+ */
+export function getTotalMarketingSlots(): number {
+  return Object.values(MARKETING_TIERS).reduce((sum, tier) => sum + tier.maxSlots, 0);
+}
+
+/**
+ * Get all marketing tiers as array (sorted by stake requirement, highest first)
+ */
+export function getMarketingTiersArray(): MarketingTierConfig[] {
+  return Object.values(MARKETING_TIERS).sort((a, b) => b.minStakeTBURN - a.minStakeTBURN);
+}
 
 // ============================================
 // Adaptive Emission Model

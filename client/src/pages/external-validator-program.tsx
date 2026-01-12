@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, type ReactNode } from "react";
 import { Link } from "wouter";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
@@ -16,6 +16,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { apiRequest, queryClient } from "@/lib/queryClient";
+import { getMarketingTiersArray } from "@shared/tokenomics-config";
 import { 
   Shield, 
   Server, 
@@ -33,7 +34,10 @@ import {
   RefreshCw,
   ChevronDown,
   Download,
-  Code
+  Code,
+  Crown,
+  Rocket,
+  Star
 } from "lucide-react";
 
 interface ExternalValidatorStats {
@@ -53,9 +57,9 @@ interface ExternalValidatorStats {
   regionDistribution: Record<string, number>;
 }
 
-interface ValidatorTier {
+interface ValidatorTierDisplay {
   id: string;
-  icon: string;
+  icon: ReactNode;
   minStake: number;
   maxValidators: number;
   currentValidators: number;
@@ -77,48 +81,34 @@ const REGIONS = [
   { id: "africa", flag: "🇿🇦" },
 ];
 
-const VALIDATOR_TIERS: ValidatorTier[] = [
-  {
-    id: "genesis",
-    icon: "👑",
-    minStake: 1000000,
-    maxValidators: 50,
+const TIER_ICONS: Record<string, ReactNode> = {
+  crown: <Crown className="h-6 w-6" />,
+  rocket: <Rocket className="h-6 w-6" />,
+  star: <Star className="h-6 w-6" />,
+  users: <Users className="h-6 w-6" />,
+};
+
+const TIER_BADGE_CLASSES: Record<string, string> = {
+  gold: "bg-yellow-500",
+  purple: "bg-purple-500",
+  yellow: "bg-blue-500",
+  green: "bg-green-500",
+};
+
+function getValidatorTiersFromConfig(): ValidatorTierDisplay[] {
+  return getMarketingTiersArray().map(tier => ({
+    id: tier.name,
+    icon: TIER_ICONS[tier.icon] || <Star className="h-6 w-6" />,
+    minStake: tier.minStakeTBURN,
+    maxValidators: tier.maxSlots,
     currentValidators: 0,
-    commissionRange: "1-5%",
-    estimatedApy: "20-25%",
-    badgeClass: "bg-yellow-500"
-  },
-  {
-    id: "pioneer",
-    icon: "🚀",
-    minStake: 500000,
-    maxValidators: 100,
-    currentValidators: 0,
-    commissionRange: "5-15%",
-    estimatedApy: "16-20%",
-    badgeClass: "bg-purple-500"
-  },
-  {
-    id: "standard",
-    icon: "⭐",
-    minStake: 200000,
-    maxValidators: 150,
-    currentValidators: 0,
-    commissionRange: "10-20%",
-    estimatedApy: "14-18%",
-    badgeClass: "bg-blue-500"
-  },
-  {
-    id: "community",
-    icon: "🌐",
-    minStake: 100000,
-    maxValidators: 75,
-    currentValidators: 0,
-    commissionRange: "15-30%",
-    estimatedApy: "12-15%",
-    badgeClass: "bg-green-500"
-  },
-];
+    commissionRange: `${tier.feeRange.min}-${tier.feeRange.max}%`,
+    estimatedApy: `${tier.apyRange.min}-${tier.apyRange.max}%`,
+    badgeClass: TIER_BADGE_CLASSES[tier.color] || "bg-gray-500",
+  }));
+}
+
+const VALIDATOR_TIERS = getValidatorTiersFromConfig();
 
 export default function ExternalValidatorProgramPage() {
   const { t } = useTranslation();
