@@ -1112,20 +1112,11 @@ router.get('/:address/reward-history', async (req: Request, res: Response) => {
     
     const result = await stakingPortfolioService.getRewardHistory(address, pageNum, limitNum);
     
-    const claimedRewards = result.rewards.filter(r => r.claimedAt !== null);
-    const unclaimedRewards = result.rewards.filter(r => r.claimedAt === null);
-    
-    const summary = {
-      totalRewards: result.rewards.reduce((sum, r) => sum + parseFloat(r.amount || '0'), 0).toFixed(4),
-      claimedRewards: claimedRewards.reduce((sum, r) => sum + parseFloat(r.amount || '0'), 0).toFixed(4),
-      unclaimedRewards: unclaimedRewards.reduce((sum, r) => sum + parseFloat(r.amount || '0'), 0).toFixed(4),
-    };
-    
     res.json({
       success: true,
       data: {
         rewards: result.rewards,
-        summary,
+        summary: result.aggregatedTotals,
         pagination: {
           total: result.total,
           page: result.page,

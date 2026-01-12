@@ -96,6 +96,11 @@ class StakingPortfolioService {
     total: number;
     page: number;
     totalPages: number;
+    aggregatedTotals: {
+      totalRewards: string;
+      claimedRewards: string;
+      unclaimedRewards: string;
+    };
   }> {
     const allRewards = await storage.getRewardEventsByAddress(address, 1000);
     const total = allRewards.length;
@@ -103,7 +108,21 @@ class StakingPortfolioService {
     const start = (page - 1) * limit;
     const rewards = allRewards.slice(start, start + limit);
 
-    return { rewards, total, page, totalPages };
+    const totalRewardsValue = allRewards.reduce((sum, r) => sum + parseFloat(r.amount || "0"), 0);
+    const claimedRewardsValue = allRewards.filter(r => r.claimedAt !== null).reduce((sum, r) => sum + parseFloat(r.amount || "0"), 0);
+    const unclaimedRewardsValue = allRewards.filter(r => r.claimedAt === null).reduce((sum, r) => sum + parseFloat(r.amount || "0"), 0);
+
+    return { 
+      rewards, 
+      total, 
+      page, 
+      totalPages,
+      aggregatedTotals: {
+        totalRewards: totalRewardsValue.toFixed(4),
+        claimedRewards: claimedRewardsValue.toFixed(4),
+        unclaimedRewards: unclaimedRewardsValue.toFixed(4)
+      }
+    };
   }
 
   async getAutoCompoundStatus(address: string): Promise<boolean> {
@@ -138,17 +157,20 @@ class StakingPortfolioService {
 
       const validator = validators.get(delegation.validatorId);
       const pendingRewards = this.calculatePendingRewards(rewards, delegation.validatorId);
-      const apyValue = validator?.apy ? String(validator.apy) : "8.5";
-      const dailyReward = this.calculateDailyReward(delegation.amount, apyValue);
+      const apyBasisPoints = validator?.apy ? Number(validator.apy) : 850;
+      const apyPercent = (apyBasisPoints / 100).toFixed(2);
+      const commissionBasisPoints = validator?.commission ? Number(validator.commission) : 500;
+      const commissionPercent = (commissionBasisPoints / 100).toFixed(2);
+      const dailyReward = this.calculateDailyReward(delegation.amount, apyPercent);
 
       result.push({
         id: delegation.id,
         validatorId: delegation.validatorId,
         validatorName: validator?.name || "Unknown Validator",
         validatorAddress: validator?.address || delegation.validatorId,
-        validatorCommission: validator?.commission?.toString() || "5",
+        validatorCommission: commissionPercent,
         stakedAmount: delegation.amount,
-        currentApy: apyValue,
+        currentApy: apyPercent,
         pendingRewards,
         dailyReward,
         validatorRiskScore: this.calculateRiskScore(validator),
@@ -284,10 +306,11 @@ class StakingPortfolioService {
     if (!validator) return "medium";
     
     const uptime = validator.uptime || 99;
-    const commission = parseFloat(validator.commission?.toString() || "5");
+    const commissionBasisPoints = Number(validator.commission || 500);
+    const commissionPercent = commissionBasisPoints / 100;
     
-    if (uptime >= 99.5 && commission <= 5) return "low";
-    if (uptime >= 98 && commission <= 10) return "medium";
+    if (uptime >= 99.5 && commissionPercent <= 5) return "low";
+    if (uptime >= 98 && commissionPercent <= 10) return "medium";
     return "high";
   }
 }
