@@ -39,7 +39,9 @@ import {
 } from "@/components/ui/table";
 import { formatAddress, formatTokenAmount, formatPercentage, formatNumber } from "@/lib/format";
 import type { Validator } from "@shared/schema";
+import { getMarketingTiersArray, type MarketingTierConfig } from "@shared/tokenomics-config";
 import { useEffect, useState } from "react";
+import { Rocket } from "lucide-react";
 import { useWebSocket } from "@/lib/websocket-context";
 import {
   PieChart,
@@ -58,6 +60,8 @@ import {
   Bar,
 } from 'recharts';
 
+type MarketingTierKey = 'genesis' | 'pioneer' | 'standard' | 'community';
+
 interface TierInfo {
   name: string;
   maxValidators: number;
@@ -73,9 +77,10 @@ interface TierInfo {
 
 interface TokenomicsTiers {
   tiers: {
-    tier1: TierInfo;
-    tier2: TierInfo;
-    tier3: TierInfo;
+    genesis: TierInfo;
+    pioneer: TierInfo;
+    standard: TierInfo;
+    community: TierInfo;
   };
   emission: {
     dailyGrossEmission: number;
@@ -97,41 +102,28 @@ interface TokenomicsTiers {
   lastUpdated: string;
 }
 
-function getTierFromStake(stakeTBURN: number): 'tier_1' | 'tier_2' | 'tier_3' {
-  if (stakeTBURN >= 200000) return 'tier_1';
-  if (stakeTBURN >= 50000) return 'tier_2';
-  return 'tier_3';
+function getTierFromStake(stakeTBURN: number): MarketingTierKey {
+  if (stakeTBURN >= 1_000_000) return 'genesis';
+  if (stakeTBURN >= 500_000) return 'pioneer';
+  if (stakeTBURN >= 200_000) return 'standard';
+  return 'community';
 }
 
-function getTierBadge(tier: 'tier_1' | 'tier_2' | 'tier_3', isCommitteeMember: boolean, t: (key: string) => string) {
-  if (tier === 'tier_1' && isCommitteeMember) {
-    return (
-      <Badge className="bg-gradient-to-r from-amber-500 to-orange-500 text-white" data-testid="badge-tier-1">
-        <Crown className="h-3 w-3 mr-1" />
-        {t('validators.tier1')}
-      </Badge>
-    );
-  }
-  if (tier === 'tier_1') {
-    return (
-      <Badge className="bg-gradient-to-r from-purple-600 to-blue-600 text-white" data-testid="badge-tier-1">
-        <Shield className="h-3 w-3 mr-1" />
-        {t('validators.tier1')}
-      </Badge>
-    );
-  }
-  if (tier === 'tier_2') {
-    return (
-      <Badge className="bg-gradient-to-r from-blue-500 to-cyan-500 text-white" data-testid="badge-tier-2">
-        <Layers className="h-3 w-3 mr-1" />
-        {t('validators.tier2')}
-      </Badge>
-    );
-  }
+function getTierBadge(tier: MarketingTierKey, isCommitteeMember: boolean, t: (key: string, options?: Record<string, unknown>) => string) {
+  const tierConfig: Record<MarketingTierKey, { gradient: string; Icon: typeof Crown; translationKey: string }> = {
+    genesis: { gradient: 'from-amber-500 to-orange-500', Icon: Crown, translationKey: 'validators.tierGenesis' },
+    pioneer: { gradient: 'from-purple-500 to-pink-500', Icon: Rocket, translationKey: 'validators.tierPioneer' },
+    standard: { gradient: 'from-blue-500 to-cyan-500', Icon: Award, translationKey: 'validators.tierStandard' },
+    community: { gradient: 'from-green-500 to-emerald-500', Icon: Users, translationKey: 'validators.tierCommunity' },
+  };
+  
+  const config = tierConfig[tier];
+  const TierIcon = config.Icon;
+  
   return (
-    <Badge variant="secondary" data-testid="badge-tier-3">
-      <Users className="h-3 w-3 mr-1" />
-      {t('validators.tier3')}
+    <Badge className={`bg-gradient-to-r ${config.gradient} text-white`} data-testid={`badge-tier-${tier}`}>
+      <TierIcon className="h-3 w-3 mr-1" />
+      {t(config.translationKey, { defaultValue: tier.charAt(0).toUpperCase() + tier.slice(1) })}
     </Badge>
   );
 }
@@ -140,7 +132,7 @@ interface ValidatorWithPower extends Validator {
   votingPower: string;
   votingPowerNumber: number;
   stakeInTBURN: number;
-  tier: 'tier_1' | 'tier_2' | 'tier_3';
+  tier: MarketingTierKey;
 }
 
 interface ValidatorDetailModalProps {
@@ -532,7 +524,7 @@ function ValidatorDetailModal({ validator, isCommitteeMember, open, onClose }: V
 }
 
 interface TierDetailDialogProps {
-  tier: 'tier1' | 'tier2' | 'tier3' | null;
+  tier: MarketingTierKey | null;
   tierData: TokenomicsTiers | undefined;
   validators: ValidatorWithPower[];
   open: boolean;
@@ -546,16 +538,13 @@ function TierDetailDialog({ tier, tierData, validators, open, onClose }: TierDet
   if (!tier || !tierData) return null;
 
   const tierInfo = tierData.tiers[tier];
-  const tierValidators = validators.filter(v => {
-    if (tier === 'tier1') return v.tier === 'tier_1';
-    if (tier === 'tier2') return v.tier === 'tier_2';
-    return v.tier === 'tier_3';
-  });
+  const tierValidators = validators.filter(v => v.tier === tier);
 
-  const tierColors = {
-    tier1: { primary: 'amber', gradient: 'from-amber-500 to-orange-500', icon: Crown },
-    tier2: { primary: 'blue', gradient: 'from-blue-500 to-cyan-500', icon: Layers },
-    tier3: { primary: 'gray', gradient: 'from-gray-500 to-slate-500', icon: Users },
+  const tierColors: Record<MarketingTierKey, { primary: string; gradient: string; icon: typeof Crown }> = {
+    genesis: { primary: 'amber', gradient: 'from-amber-500 to-orange-500', icon: Crown },
+    pioneer: { primary: 'purple', gradient: 'from-purple-500 to-pink-500', icon: Rocket },
+    standard: { primary: 'blue', gradient: 'from-blue-500 to-cyan-500', icon: Award },
+    community: { primary: 'green', gradient: 'from-green-500 to-emerald-500', icon: Users },
   };
   const color = tierColors[tier];
   const TierIcon = color.icon;
@@ -573,7 +562,8 @@ function TierDetailDialog({ tier, tierData, validators, open, onClose }: TierDet
     ? tierValidators.reduce((sum, v) => sum + v.aiTrustScore, 0) / tierValidators.length / 100
     : 0;
 
-  const tierSeed = tier === 'tier1' ? 1 : tier === 'tier2' ? 2 : 3;
+  const tierSeedMap: Record<MarketingTierKey, number> = { genesis: 1, pioneer: 2, standard: 3, community: 4 };
+  const tierSeed = tierSeedMap[tier];
   const uptimePercent = tierValidators.length > 0 
     ? tierValidators.reduce((sum, v) => sum + v.uptime, 0) / tierValidators.length / 100
     : 98;
@@ -653,9 +643,9 @@ function TierDetailDialog({ tier, tierData, validators, open, onClose }: TierDet
                 <div>
                   <DialogTitle className="text-xl font-bold">{tierInfo.name}</DialogTitle>
                   <DialogDescription>
-                    {tier === 'tier1' && t('validators.tier1DescFull')}
-                    {tier === 'tier2' && t('validators.tier2DescFull')}
-                    {tier === 'tier3' && t('validators.tier3DescFull')}
+                    {t(`validators.tier${tier.charAt(0).toUpperCase() + tier.slice(1)}DescFull`, { 
+                      defaultValue: `${tier.charAt(0).toUpperCase() + tier.slice(1)} tier validators` 
+                    })}
                   </DialogDescription>
                 </div>
               </div>
@@ -1092,23 +1082,30 @@ function EmissionDetailDialog({ type, tierData, open, onClose }: EmissionDetailD
                         <div className="flex justify-between items-center">
                           <div className="flex items-center gap-2">
                             <div className="w-3 h-3 rounded-full bg-amber-500" />
-                            <span className="text-sm">{t('validators.tier1Pool')}</span>
+                            <span className="text-sm">{t('validators.tierGenesisPool', { defaultValue: 'Genesis Pool' })}</span>
                           </div>
-                          <span className="font-medium">{formatNumber(tierData.tiers.tier1.dailyRewardPool)} TBURN</span>
+                          <span className="font-medium">{formatNumber(tierData.tiers.genesis.dailyRewardPool)} TBURN</span>
+                        </div>
+                        <div className="flex justify-between items-center">
+                          <div className="flex items-center gap-2">
+                            <div className="w-3 h-3 rounded-full bg-purple-500" />
+                            <span className="text-sm">{t('validators.tierPioneerPool', { defaultValue: 'Pioneer Pool' })}</span>
+                          </div>
+                          <span className="font-medium">{formatNumber(tierData.tiers.pioneer.dailyRewardPool)} TBURN</span>
                         </div>
                         <div className="flex justify-between items-center">
                           <div className="flex items-center gap-2">
                             <div className="w-3 h-3 rounded-full bg-blue-500" />
-                            <span className="text-sm">{t('validators.tier2Pool')}</span>
+                            <span className="text-sm">{t('validators.tierStandardPool', { defaultValue: 'Standard Pool' })}</span>
                           </div>
-                          <span className="font-medium">{formatNumber(tierData.tiers.tier2.dailyRewardPool)} TBURN</span>
+                          <span className="font-medium">{formatNumber(tierData.tiers.standard.dailyRewardPool)} TBURN</span>
                         </div>
                         <div className="flex justify-between items-center">
                           <div className="flex items-center gap-2">
-                            <div className="w-3 h-3 rounded-full bg-gray-500" />
-                            <span className="text-sm">{t('validators.tier3Pool')}</span>
+                            <div className="w-3 h-3 rounded-full bg-green-500" />
+                            <span className="text-sm">{t('validators.tierCommunityPool', { defaultValue: 'Community Pool' })}</span>
                           </div>
-                          <span className="font-medium">{formatNumber(tierData.tiers.tier3.dailyRewardPool)} TBURN</span>
+                          <span className="font-medium">{formatNumber(tierData.tiers.community.dailyRewardPool)} TBURN</span>
                         </div>
                       </div>
                     </CardContent>
@@ -1352,28 +1349,36 @@ function ValidatorStatsDialog({ type, validators, tierData, open, onClose }: Val
                   </CardContent>
                 </Card>
 
-                <div className="grid grid-cols-3 gap-4">
+                <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
                   <Card>
                     <CardContent className="pt-4 text-center">
-                      <p className="text-xs text-muted-foreground">{t('validators.tier1Stake')}</p>
+                      <p className="text-xs text-muted-foreground">{t('validators.tierGenesisStake', { defaultValue: 'Genesis Stake' })}</p>
                       <p className="text-xl font-bold text-amber-500">
-                        {formatNumber(validators.filter(v => v.tier === 'tier_1').reduce((s, v) => s + v.stakeInTBURN, 0))}
+                        {formatNumber(validators.filter(v => v.tier === 'genesis').reduce((s, v) => s + v.stakeInTBURN, 0))}
                       </p>
                     </CardContent>
                   </Card>
                   <Card>
                     <CardContent className="pt-4 text-center">
-                      <p className="text-xs text-muted-foreground">{t('validators.tier2Stake')}</p>
+                      <p className="text-xs text-muted-foreground">{t('validators.tierPioneerStake', { defaultValue: 'Pioneer Stake' })}</p>
+                      <p className="text-xl font-bold text-purple-500">
+                        {formatNumber(validators.filter(v => v.tier === 'pioneer').reduce((s, v) => s + v.stakeInTBURN, 0))}
+                      </p>
+                    </CardContent>
+                  </Card>
+                  <Card>
+                    <CardContent className="pt-4 text-center">
+                      <p className="text-xs text-muted-foreground">{t('validators.tierStandardStake', { defaultValue: 'Standard Stake' })}</p>
                       <p className="text-xl font-bold text-blue-500">
-                        {formatNumber(validators.filter(v => v.tier === 'tier_2').reduce((s, v) => s + v.stakeInTBURN, 0))}
+                        {formatNumber(validators.filter(v => v.tier === 'standard').reduce((s, v) => s + v.stakeInTBURN, 0))}
                       </p>
                     </CardContent>
                   </Card>
                   <Card>
                     <CardContent className="pt-4 text-center">
-                      <p className="text-xs text-muted-foreground">{t('validators.tier3Stake')}</p>
-                      <p className="text-xl font-bold text-gray-500">
-                        {formatNumber(validators.filter(v => v.tier === 'tier_3').reduce((s, v) => s + v.stakeInTBURN, 0))}
+                      <p className="text-xs text-muted-foreground">{t('validators.tierCommunityStake', { defaultValue: 'Community Stake' })}</p>
+                      <p className="text-xl font-bold text-green-500">
+                        {formatNumber(validators.filter(v => v.tier === 'community').reduce((s, v) => s + v.stakeInTBURN, 0))}
                       </p>
                     </CardContent>
                   </Card>
@@ -1593,7 +1598,7 @@ export default function Validators() {
   const [selectedValidator, setSelectedValidator] = useState<ValidatorWithPower | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   
-  const [selectedTier, setSelectedTier] = useState<'tier1' | 'tier2' | 'tier3' | null>(null);
+  const [selectedTier, setSelectedTier] = useState<MarketingTierKey | null>(null);
   const [isTierModalOpen, setIsTierModalOpen] = useState(false);
   const [selectedEmission, setSelectedEmission] = useState<'emission' | 'burn' | 'netEmission' | 'security' | null>(null);
   const [isEmissionModalOpen, setIsEmissionModalOpen] = useState(false);
@@ -1637,8 +1642,10 @@ export default function Validators() {
   const totalDelegated = validators?.reduce((sum, v) => sum + parseFloat(v.delegatedStake || "0"), 0) || 0;
   const avgApy = (validators?.reduce((sum, v) => sum + v.apy, 0) || 0) / (validators?.length || 1) / 100;
 
-  const tier1Count = validatorsWithPower.filter(v => v.tier === 'tier_1').length;
-  const tier2Count = validatorsWithPower.filter(v => v.tier === 'tier_2').length;
+  const genesisCount = validatorsWithPower.filter(v => v.tier === 'genesis').length;
+  const pioneerCount = validatorsWithPower.filter(v => v.tier === 'pioneer').length;
+  const standardCount = validatorsWithPower.filter(v => v.tier === 'standard').length;
+  const communityCount = validatorsWithPower.filter(v => v.tier === 'community').length;
 
   const getStatusBadge = (status: string) => {
     switch (status) {
@@ -1685,114 +1692,155 @@ export default function Validators() {
         </p>
       </div>
 
-      {/* Tiered System Overview */}
+      {/* Tiered System Overview - 4 Marketing Tiers */}
       {tierData && (
-        <div className="grid gap-4 md:grid-cols-3">
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+          {/* Genesis Tier - 1M+ TBURN */}
           <Card 
             className="border-amber-500/30 bg-gradient-to-br from-amber-500/5 to-orange-500/5 hover-elevate cursor-pointer transition-all"
-            onClick={() => { setSelectedTier('tier1'); setIsTierModalOpen(true); }}
-            data-testid="card-tier1"
+            onClick={() => { setSelectedTier('genesis'); setIsTierModalOpen(true); }}
+            data-testid="card-genesis"
           >
             <CardHeader className="pb-2">
               <CardTitle className="text-base flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <Crown className="h-4 w-4 text-amber-500" />
-                  {t('validators.tier1ActiveCommittee')}
+                  {t('validators.tierGenesis', { defaultValue: 'Genesis Validator' })}
                 </div>
                 <ChevronRight className="h-4 w-4 text-muted-foreground" />
               </CardTitle>
-              <CardDescription>{t('validators.tier1Desc')}</CardDescription>
+              <CardDescription>{t('validators.tierGenesisDesc', { defaultValue: '1M+ TBURN staked' })}</CardDescription>
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <p className="text-2xl font-bold text-amber-500" data-testid="tier1-count">{tier1Count}</p>
+                  <p className="text-2xl font-bold text-amber-500" data-testid="genesis-count">{genesisCount}</p>
                   <p className="text-xs text-muted-foreground">{t('validators.activeCount')}</p>
                 </div>
                 <div>
-                  <p className="text-2xl font-bold text-green-500" data-testid="tier1-apy">{tierData.tiers.tier1.targetAPY}%</p>
+                  <p className="text-2xl font-bold text-green-500" data-testid="genesis-apy">{tierData.tiers.genesis.targetAPY}%</p>
                   <p className="text-xs text-muted-foreground">{t('validators.targetApy')}</p>
                 </div>
                 <div>
-                  <p className="text-lg font-semibold">{formatNumber(tierData.tiers.tier1.dailyRewardPool)}</p>
+                  <p className="text-lg font-semibold">{formatNumber(tierData.tiers.genesis.dailyRewardPool)}</p>
                   <p className="text-xs text-muted-foreground">{t('validators.tburnPerDay')}</p>
                 </div>
                 <div>
-                  <p className="text-lg font-semibold">{tierData.tiers.tier1.rewardPoolShare}%</p>
+                  <p className="text-lg font-semibold">{tierData.tiers.genesis.rewardPoolShare}%</p>
                   <p className="text-xs text-muted-foreground">{t('validators.poolShare')}</p>
                 </div>
               </div>
             </CardContent>
           </Card>
 
+          {/* Pioneer Tier - 500K+ TBURN */}
+          <Card 
+            className="border-purple-500/30 bg-gradient-to-br from-purple-500/5 to-pink-500/5 hover-elevate cursor-pointer transition-all"
+            onClick={() => { setSelectedTier('pioneer'); setIsTierModalOpen(true); }}
+            data-testid="card-pioneer"
+          >
+            <CardHeader className="pb-2">
+              <CardTitle className="text-base flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <Rocket className="h-4 w-4 text-purple-500" />
+                  {t('validators.tierPioneer', { defaultValue: 'Pioneer Validator' })}
+                </div>
+                <ChevronRight className="h-4 w-4 text-muted-foreground" />
+              </CardTitle>
+              <CardDescription>{t('validators.tierPioneerDesc', { defaultValue: '500K+ TBURN staked' })}</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <p className="text-2xl font-bold text-purple-500" data-testid="pioneer-count">{pioneerCount}</p>
+                  <p className="text-xs text-muted-foreground">{t('validators.activeCount')}</p>
+                </div>
+                <div>
+                  <p className="text-2xl font-bold text-green-500" data-testid="pioneer-apy">{tierData.tiers.pioneer.targetAPY}%</p>
+                  <p className="text-xs text-muted-foreground">{t('validators.targetApy')}</p>
+                </div>
+                <div>
+                  <p className="text-lg font-semibold">{formatNumber(tierData.tiers.pioneer.dailyRewardPool)}</p>
+                  <p className="text-xs text-muted-foreground">{t('validators.tburnPerDay')}</p>
+                </div>
+                <div>
+                  <p className="text-lg font-semibold">{tierData.tiers.pioneer.rewardPoolShare}%</p>
+                  <p className="text-xs text-muted-foreground">{t('validators.poolShare')}</p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Standard Tier - 200K+ TBURN */}
           <Card 
             className="border-blue-500/30 bg-gradient-to-br from-blue-500/5 to-cyan-500/5 hover-elevate cursor-pointer transition-all"
-            onClick={() => { setSelectedTier('tier2'); setIsTierModalOpen(true); }}
-            data-testid="card-tier2"
+            onClick={() => { setSelectedTier('standard'); setIsTierModalOpen(true); }}
+            data-testid="card-standard"
           >
             <CardHeader className="pb-2">
               <CardTitle className="text-base flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <Layers className="h-4 w-4 text-blue-500" />
-                  {t('validators.tier2StandbyValidators')}
+                  <Award className="h-4 w-4 text-blue-500" />
+                  {t('validators.tierStandard', { defaultValue: 'Standard Validator' })}
                 </div>
                 <ChevronRight className="h-4 w-4 text-muted-foreground" />
               </CardTitle>
-              <CardDescription>{t('validators.tier2Desc')}</CardDescription>
+              <CardDescription>{t('validators.tierStandardDesc', { defaultValue: '200K+ TBURN staked' })}</CardDescription>
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <p className="text-2xl font-bold text-blue-500" data-testid="tier2-count">{tier2Count}</p>
-                  <p className="text-xs text-muted-foreground">{t('validators.standby')}</p>
+                  <p className="text-2xl font-bold text-blue-500" data-testid="standard-count">{standardCount}</p>
+                  <p className="text-xs text-muted-foreground">{t('validators.activeCount')}</p>
                 </div>
                 <div>
-                  <p className="text-2xl font-bold text-green-500" data-testid="tier2-apy">{tierData.tiers.tier2.targetAPY}%</p>
+                  <p className="text-2xl font-bold text-green-500" data-testid="standard-apy">{tierData.tiers.standard.targetAPY}%</p>
                   <p className="text-xs text-muted-foreground">{t('validators.targetApy')}</p>
                 </div>
                 <div>
-                  <p className="text-lg font-semibold">{formatNumber(tierData.tiers.tier2.dailyRewardPool)}</p>
+                  <p className="text-lg font-semibold">{formatNumber(tierData.tiers.standard.dailyRewardPool)}</p>
                   <p className="text-xs text-muted-foreground">{t('validators.tburnPerDay')}</p>
                 </div>
                 <div>
-                  <p className="text-lg font-semibold">{tierData.tiers.tier2.rewardPoolShare}%</p>
+                  <p className="text-lg font-semibold">{tierData.tiers.standard.rewardPoolShare}%</p>
                   <p className="text-xs text-muted-foreground">{t('validators.poolShare')}</p>
                 </div>
               </div>
             </CardContent>
           </Card>
 
+          {/* Community Tier - 100K+ TBURN */}
           <Card 
-            className="border-gray-500/30 bg-gradient-to-br from-gray-500/5 to-slate-500/5 hover-elevate cursor-pointer transition-all"
-            onClick={() => { setSelectedTier('tier3'); setIsTierModalOpen(true); }}
-            data-testid="card-tier3"
+            className="border-green-500/30 bg-gradient-to-br from-green-500/5 to-emerald-500/5 hover-elevate cursor-pointer transition-all"
+            onClick={() => { setSelectedTier('community'); setIsTierModalOpen(true); }}
+            data-testid="card-community"
           >
             <CardHeader className="pb-2">
               <CardTitle className="text-base flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <Users className="h-4 w-4 text-gray-500" />
-                  {t('validators.tier3Delegators')}
+                  <Users className="h-4 w-4 text-green-500" />
+                  {t('validators.tierCommunity', { defaultValue: 'Community Validator' })}
                 </div>
                 <ChevronRight className="h-4 w-4 text-muted-foreground" />
               </CardTitle>
-              <CardDescription>{t('validators.tier3Desc')}</CardDescription>
+              <CardDescription>{t('validators.tierCommunityDesc', { defaultValue: '100K+ TBURN staked' })}</CardDescription>
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <p className="text-2xl font-bold text-gray-500" data-testid="tier3-count">{formatNumber(tierData.tiers.tier3.currentDelegators || 0)}</p>
-                  <p className="text-xs text-muted-foreground">{t('validators.delegatorsLabel')}</p>
+                  <p className="text-2xl font-bold text-green-500" data-testid="community-count">{communityCount}</p>
+                  <p className="text-xs text-muted-foreground">{t('validators.activeCount')}</p>
                 </div>
                 <div>
-                  <p className="text-2xl font-bold text-green-500" data-testid="tier3-apy">{tierData.tiers.tier3.targetAPY}%</p>
+                  <p className="text-2xl font-bold text-green-500" data-testid="community-apy">{tierData.tiers.community.targetAPY}%</p>
                   <p className="text-xs text-muted-foreground">{t('validators.targetApy')}</p>
                 </div>
                 <div>
-                  <p className="text-lg font-semibold">{formatNumber(tierData.tiers.tier3.dailyRewardPool)}</p>
+                  <p className="text-lg font-semibold">{formatNumber(tierData.tiers.community.dailyRewardPool)}</p>
                   <p className="text-xs text-muted-foreground">{t('validators.tburnPerDay')}</p>
                 </div>
                 <div>
-                  <p className="text-lg font-semibold">{tierData.tiers.tier3.rewardPoolShare}%</p>
+                  <p className="text-lg font-semibold">{tierData.tiers.community.rewardPoolShare}%</p>
                   <p className="text-xs text-muted-foreground">{t('validators.poolShare')}</p>
                 </div>
               </div>
