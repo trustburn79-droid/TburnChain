@@ -1132,9 +1132,69 @@ router.get('/:address/reward-history', async (req: Request, res: Response) => {
   }
 });
 
+// ============================================
+// Enterprise Staking Portfolio Metrics & Admin
+// ============================================
+router.get('/staking-portfolio/metrics', async (req: Request, res: Response) => {
+  try {
+    const metrics = stakingPortfolioService.getMetrics();
+    
+    res.json({
+      success: true,
+      data: {
+        ...metrics,
+        uptimeMs: Date.now() - metrics.lastReset,
+        service: 'StakingPortfolioService',
+        version: '2.0.0'
+      }
+    });
+  } catch (error: any) {
+    console.error('[UserData] Metrics error:', error);
+    res.status(500).json({ success: false, error: 'Failed to fetch metrics' });
+  }
+});
+
+router.post('/staking-portfolio/cache/invalidate', async (req: Request, res: Response) => {
+  try {
+    const { address, pattern } = req.body;
+    
+    if (address) {
+      stakingPortfolioService.invalidateCacheForAddress(address);
+      return res.json({
+        success: true,
+        message: `Cache invalidated for address: ${address.slice(0, 10)}...`
+      });
+    }
+    
+    if (pattern) {
+      stakingPortfolioService.invalidateCache(pattern);
+      return res.json({
+        success: true,
+        message: `Cache invalidated for pattern: ${pattern}`
+      });
+    }
+    
+    res.status(400).json({ success: false, error: 'Address or pattern required' });
+  } catch (error: any) {
+    console.error('[UserData] Cache invalidation error:', error);
+    res.status(500).json({ success: false, error: 'Failed to invalidate cache' });
+  }
+});
+
+router.post('/staking-portfolio/metrics/reset', async (req: Request, res: Response) => {
+  try {
+    stakingPortfolioService.resetMetrics();
+    res.json({ success: true, message: 'Metrics reset successfully' });
+  } catch (error: any) {
+    console.error('[UserData] Metrics reset error:', error);
+    res.status(500).json({ success: false, error: 'Failed to reset metrics' });
+  }
+});
+
 export function registerUserDataRoutes(app: any) {
   app.use('/api/user', router);
   console.log('[UserData] Routes registered successfully');
+  console.log('[UserData] ✅ Enterprise staking portfolio metrics enabled');
 }
 
 export default router;
