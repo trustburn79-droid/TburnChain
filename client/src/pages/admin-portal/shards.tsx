@@ -132,6 +132,47 @@ interface ShardPreview {
   };
 }
 
+interface CoreTechMetrics {
+  success: boolean;
+  data: {
+    pipeline: {
+      totalIntents: number;
+      pendingIntents: number;
+      activeActivations: number;
+      completedActivations: number;
+      failedActivations: number;
+      avgActivationTimeMs: number;
+      circuitBreakerState: 'closed' | 'open' | 'half-open';
+      circuitBreakerTrips: number;
+      currentThroughput: number;
+      uptime: number;
+    };
+    memoryGovernor: {
+      currentState: string;
+      heapUsagePercent: number;
+      heapUsedMB: number;
+      heapTotalMB: number;
+      activeShardCount: number;
+      hibernatedShardCount: number;
+      deferredActivations: number;
+      memoryTrend: string;
+      uptime: number;
+    };
+    requestShedder: {
+      isDegradedMode: boolean;
+      eventLoopLagMs: number;
+      adaptiveThresholdMs: number;
+      totalSheddedRequests: number;
+      cachedResponsesServed: number;
+      cacheHitRate: number;
+      backpressureActive: boolean;
+      requestsPerSecond: number;
+      uptime: number;
+    };
+  };
+  timestamp: number;
+}
+
 function MetricCardSkeleton() {
   return (
     <Card>
@@ -200,6 +241,12 @@ export default function AdminShards() {
     refetchOnMount: false,
     refetchOnWindowFocus: false,
     enabled: selectedShardCount !== null && selectedShardCount !== shardConfig?.currentShardCount,
+  });
+
+  const { data: coreTechMetrics, isLoading: isCoreTechLoading } = useQuery<CoreTechMetrics>({
+    queryKey: ["/api/sharding/v6/metrics"],
+    staleTime: 10000,
+    refetchInterval: 10000,
   });
 
   const updateConfigMutation = useMutation({
@@ -886,6 +933,240 @@ export default function AdminShards() {
               ) : (
                 <div className="text-center text-muted-foreground py-8">
                   {t("adminShards.configLoadError") || "Unable to load configuration"}
+                </div>
+              )}
+            </CardContent>
+          </Card>
+
+          {/* Core Technologies Panel - Enterprise Shard Infrastructure */}
+          <Card data-testid="card-core-technologies">
+            <CardHeader className="pb-4">
+              <div className="flex items-center justify-between flex-wrap gap-2">
+                <div className="flex items-center gap-2">
+                  <Cpu className="h-5 w-5 text-blue-500" />
+                  <CardTitle className="text-lg">
+                    {t("adminShards.coreTechnologies") || "Core Technologies"}
+                  </CardTitle>
+                </div>
+                <Badge className="bg-green-500/10 text-green-500">
+                  {t("adminShards.enterpriseV6") || "Enterprise v6.0"}
+                </Badge>
+              </div>
+              <CardDescription>
+                {t("adminShards.coreTechDescription") || "Real-time status of TBURN mainnet high-throughput processing infrastructure"}
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              {isCoreTechLoading ? (
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <Skeleton className="h-48" />
+                  <Skeleton className="h-48" />
+                  <Skeleton className="h-48" />
+                </div>
+              ) : coreTechMetrics?.data ? (
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  {/* 1. Parallel Shard Block Producer (Pipeline) */}
+                  <div className="p-4 rounded-lg border bg-card" data-testid="core-tech-pipeline">
+                    <div className="flex items-center justify-between mb-3">
+                      <div className="flex items-center gap-2">
+                        <GitBranch className="h-4 w-4 text-blue-500" />
+                        <span className="text-sm font-medium">
+                          {t("adminShards.shardBootPipeline") || "Shard Boot Pipeline"}
+                        </span>
+                      </div>
+                      <Badge className={
+                        coreTechMetrics.data.pipeline.circuitBreakerState === 'closed' 
+                          ? 'bg-green-500/10 text-green-500' 
+                          : coreTechMetrics.data.pipeline.circuitBreakerState === 'half-open'
+                          ? 'bg-yellow-500/10 text-yellow-500'
+                          : 'bg-red-500/10 text-red-500'
+                      }>
+                        {coreTechMetrics.data.pipeline.circuitBreakerState === 'closed' ? (
+                          <><CheckCircle className="h-3 w-3 mr-1" />Closed</>
+                        ) : coreTechMetrics.data.pipeline.circuitBreakerState === 'half-open' ? (
+                          <><Activity className="h-3 w-3 mr-1" />Half-Open</>
+                        ) : (
+                          <><XCircle className="h-3 w-3 mr-1" />Open</>
+                        )}
+                      </Badge>
+                    </div>
+                    <div className="space-y-2 text-sm">
+                      <div className="flex justify-between">
+                        <span className="text-muted-foreground">{t("adminShards.completedActivations") || "Completed"}</span>
+                        <span className="font-medium">{coreTechMetrics.data.pipeline.completedActivations.toLocaleString()}</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-muted-foreground">{t("adminShards.pendingActivations") || "Pending"}</span>
+                        <span className="font-medium">{coreTechMetrics.data.pipeline.pendingIntents}</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-muted-foreground">{t("adminShards.avgActivationTime") || "Avg Time"}</span>
+                        <span className="font-medium">{coreTechMetrics.data.pipeline.avgActivationTimeMs.toFixed(0)}ms</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-muted-foreground">{t("adminShards.circuitBreakerTrips") || "CB Trips"}</span>
+                        <span className={`font-medium ${coreTechMetrics.data.pipeline.circuitBreakerTrips > 0 ? 'text-yellow-500' : ''}`}>
+                          {coreTechMetrics.data.pipeline.circuitBreakerTrips}
+                        </span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-muted-foreground">{t("adminShards.throughput") || "Throughput"}</span>
+                        <span className="font-medium">{coreTechMetrics.data.pipeline.currentThroughput.toFixed(1)}/s</span>
+                      </div>
+                    </div>
+                    <div className="mt-3 pt-3 border-t text-xs text-muted-foreground">
+                      {t("adminShards.pipelineDesc") || "Circuit breaker pattern for safe shard activation"}
+                    </div>
+                  </div>
+
+                  {/* 2. Memory Governor */}
+                  <div className="p-4 rounded-lg border bg-card" data-testid="core-tech-memory">
+                    <div className="flex items-center justify-between mb-3">
+                      <div className="flex items-center gap-2">
+                        <HardDrive className="h-4 w-4 text-green-500" />
+                        <span className="text-sm font-medium">
+                          {t("adminShards.memoryGovernor") || "Memory Governor"}
+                        </span>
+                      </div>
+                      <Badge className={
+                        coreTechMetrics.data.memoryGovernor.currentState === 'normal'
+                          ? 'bg-green-500/10 text-green-500'
+                          : coreTechMetrics.data.memoryGovernor.currentState === 'warning'
+                          ? 'bg-yellow-500/10 text-yellow-500'
+                          : 'bg-red-500/10 text-red-500'
+                      }>
+                        {coreTechMetrics.data.memoryGovernor.currentState.toUpperCase()}
+                      </Badge>
+                    </div>
+                    <div className="space-y-2 text-sm">
+                      <div className="flex justify-between items-center">
+                        <span className="text-muted-foreground">{t("adminShards.heapUsage") || "Heap Usage"}</span>
+                        <span className="font-medium">{coreTechMetrics.data.memoryGovernor.heapUsagePercent.toFixed(1)}%</span>
+                      </div>
+                      <Progress 
+                        value={coreTechMetrics.data.memoryGovernor.heapUsagePercent} 
+                        className={`h-2 ${coreTechMetrics.data.memoryGovernor.heapUsagePercent >= 85 ? '[&>div]:bg-red-500' : coreTechMetrics.data.memoryGovernor.heapUsagePercent >= 75 ? '[&>div]:bg-yellow-500' : '[&>div]:bg-green-500'}`}
+                      />
+                      <div className="flex justify-between">
+                        <span className="text-muted-foreground">{t("adminShards.heapUsed") || "Used"}</span>
+                        <span className="font-medium">{coreTechMetrics.data.memoryGovernor.heapUsedMB.toFixed(0)}MB / {coreTechMetrics.data.memoryGovernor.heapTotalMB.toFixed(0)}MB</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-muted-foreground">{t("adminShards.activeShards") || "Active Shards"}</span>
+                        <span className="font-medium text-green-500">{coreTechMetrics.data.memoryGovernor.activeShardCount}</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-muted-foreground">{t("adminShards.hibernatedShards") || "Hibernated"}</span>
+                        <span className="font-medium text-muted-foreground">{coreTechMetrics.data.memoryGovernor.hibernatedShardCount}</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-muted-foreground">{t("adminShards.memoryTrend") || "Trend"}</span>
+                        <span className={`font-medium ${coreTechMetrics.data.memoryGovernor.memoryTrend === 'increasing' ? 'text-yellow-500' : coreTechMetrics.data.memoryGovernor.memoryTrend === 'decreasing' ? 'text-green-500' : ''}`}>
+                          {coreTechMetrics.data.memoryGovernor.memoryTrend === 'increasing' ? '↑' : coreTechMetrics.data.memoryGovernor.memoryTrend === 'decreasing' ? '↓' : '→'} {coreTechMetrics.data.memoryGovernor.memoryTrend}
+                        </span>
+                      </div>
+                    </div>
+                    <div className="mt-3 pt-3 border-t text-xs text-muted-foreground">
+                      {t("adminShards.memoryDesc") || "Thresholds: 75% warning → 85% defer → 90% hibernate"}
+                    </div>
+                  </div>
+
+                  {/* 3. Request Shedder */}
+                  <div className="p-4 rounded-lg border bg-card" data-testid="core-tech-shedder">
+                    <div className="flex items-center justify-between mb-3">
+                      <div className="flex items-center gap-2">
+                        <Gauge className="h-4 w-4 text-orange-500" />
+                        <span className="text-sm font-medium">
+                          {t("adminShards.requestShedder") || "Request Shedder"}
+                        </span>
+                      </div>
+                      <Badge className={
+                        !coreTechMetrics.data.requestShedder.isDegradedMode && !coreTechMetrics.data.requestShedder.backpressureActive
+                          ? 'bg-green-500/10 text-green-500'
+                          : coreTechMetrics.data.requestShedder.backpressureActive
+                          ? 'bg-red-500/10 text-red-500'
+                          : 'bg-yellow-500/10 text-yellow-500'
+                      }>
+                        {coreTechMetrics.data.requestShedder.backpressureActive ? 'BACKPRESSURE' : 
+                         coreTechMetrics.data.requestShedder.isDegradedMode ? 'DEGRADED' : 'NORMAL'}
+                      </Badge>
+                    </div>
+                    <div className="space-y-2 text-sm">
+                      <div className="flex justify-between">
+                        <span className="text-muted-foreground">{t("adminShards.eventLoopLag") || "Event Loop Lag"}</span>
+                        <span className={`font-medium ${coreTechMetrics.data.requestShedder.eventLoopLagMs > 100 ? 'text-yellow-500' : ''}`}>
+                          {coreTechMetrics.data.requestShedder.eventLoopLagMs.toFixed(1)}ms
+                        </span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-muted-foreground">{t("adminShards.adaptiveThreshold") || "Adaptive Threshold"}</span>
+                        <span className="font-medium">{coreTechMetrics.data.requestShedder.adaptiveThresholdMs.toFixed(0)}ms</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-muted-foreground">{t("adminShards.requestsPerSec") || "Requests/sec"}</span>
+                        <span className="font-medium">{coreTechMetrics.data.requestShedder.requestsPerSecond.toFixed(1)}</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-muted-foreground">{t("adminShards.cacheHitRate") || "Cache Hit Rate"}</span>
+                        <span className="font-medium text-green-500">{(coreTechMetrics.data.requestShedder.cacheHitRate * 100).toFixed(1)}%</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-muted-foreground">{t("adminShards.sheddedRequests") || "Shedded"}</span>
+                        <span className={`font-medium ${coreTechMetrics.data.requestShedder.totalSheddedRequests > 0 ? 'text-yellow-500' : ''}`}>
+                          {coreTechMetrics.data.requestShedder.totalSheddedRequests.toLocaleString()}
+                        </span>
+                      </div>
+                    </div>
+                    <div className="mt-3 pt-3 border-t text-xs text-muted-foreground">
+                      {t("adminShards.shedderDesc") || "Priority-based request management (100-400ms adaptive)"}
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <div className="text-center text-muted-foreground py-8">
+                  {t("adminShards.coreTechLoadError") || "Unable to load core technology metrics"}
+                </div>
+              )}
+
+              {/* Performance Targets */}
+              {coreTechMetrics?.data && (
+                <div className="mt-6 p-4 rounded-lg border bg-muted/30" data-testid="performance-targets">
+                  <p className="text-sm font-medium flex items-center gap-2 mb-3">
+                    <Zap className="h-4 w-4 text-yellow-500" />
+                    {t("adminShards.performanceTargets") || "Enterprise Performance Targets"}
+                  </p>
+                  <div className="grid grid-cols-2 md:grid-cols-6 gap-4 text-center">
+                    <div className="p-2 bg-background/50 rounded">
+                      <div className="text-xs text-muted-foreground">{t("adminShards.dailyUsers") || "Daily Users"}</div>
+                      <div className="font-bold text-lg">50,000</div>
+                      <div className="text-xs text-green-500">Target</div>
+                    </div>
+                    <div className="p-2 bg-background/50 rounded">
+                      <div className="text-xs text-muted-foreground">{t("adminShards.concurrentUsers") || "Concurrent"}</div>
+                      <div className="font-bold text-lg">3-5K</div>
+                      <div className="text-xs text-green-500">Target</div>
+                    </div>
+                    <div className="p-2 bg-background/50 rounded">
+                      <div className="text-xs text-muted-foreground">{t("adminShards.devTps") || "Dev TPS"}</div>
+                      <div className="font-bold text-lg">60K</div>
+                      <div className="text-xs text-green-500">{stats.totalTps > 50000 ? 'Achieved' : 'Target'}</div>
+                    </div>
+                    <div className="p-2 bg-background/50 rounded">
+                      <div className="text-xs text-muted-foreground">{t("adminShards.prodTps") || "Prod TPS"}</div>
+                      <div className="font-bold text-lg">100K+</div>
+                      <div className="text-xs text-blue-500">Configured</div>
+                    </div>
+                    <div className="p-2 bg-background/50 rounded">
+                      <div className="text-xs text-muted-foreground">{t("adminShards.sessionSkip") || "Session Skip"}</div>
+                      <div className="font-bold text-lg">≥95%</div>
+                      <div className="text-xs text-green-500">Target</div>
+                    </div>
+                    <div className="p-2 bg-background/50 rounded">
+                      <div className="text-xs text-muted-foreground">{t("adminShards.shardRange") || "Shards"}</div>
+                      <div className="font-bold text-lg">24-64</div>
+                      <div className="text-xs text-green-500">Dynamic</div>
+                    </div>
+                  </div>
                 </div>
               )}
             </CardContent>
