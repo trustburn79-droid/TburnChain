@@ -1,5 +1,9 @@
 import { QueryClient, QueryFunction } from "@tanstack/react-query";
 
+// ★ [v7.0] Track consecutive server errors for auto-recovery
+let consecutiveServerErrors = 0;
+const MAX_CONSECUTIVE_ERRORS_BEFORE_REFRESH = 5;
+
 class ServiceInitializingError extends Error {
   constructor(message: string) {
     super(message);
@@ -69,24 +73,45 @@ export const getQueryFn: <T>(options: {
     }
 
     await throwIfResNotOk(res);
+    
+    // ★ [v7.0] Reset error counter on successful response
+    consecutiveServerErrors = 0;
+    
     return await res.json();
   };
 
 // Retry function that handles 5xx errors with exponential backoff
-// ★ [v6.0] 10분 유휴 후 첫 요청 에러 자동 복구
+// ★ [v7.0] Enhanced cold start recovery with auto-refresh
 const retryFn = (failureCount: number, error: Error) => {
   // Always retry 503 errors (service initializing) up to 12 times (~60 seconds)
   if (error instanceof ServiceInitializingError) {
+    consecutiveServerErrors++;
     return failureCount < 12;
   }
-  // ★ [v6.0] 500 에러 재시도 (cold start 복구)
+  // ★ [v7.0] 500 에러 재시도 (cold start 복구) - 5번까지 확장
   if (error instanceof ServerError) {
-    console.warn(`[QueryClient] Server error ${error.status}, retry ${failureCount + 1}/3`);
-    return failureCount < 3;
+    consecutiveServerErrors++;
+    console.warn(`[QueryClient] Server error ${error.status}, retry ${failureCount + 1}/5, consecutive: ${consecutiveServerErrors}`);
+    
+    // After too many consecutive errors, trigger page refresh
+    if (consecutiveServerErrors >= MAX_CONSECUTIVE_ERRORS_BEFORE_REFRESH) {
+      console.warn('[QueryClient] Too many server errors, triggering page refresh in 2s...');
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000);
+      return false; // Stop retrying, refresh will handle it
+    }
+    
+    return failureCount < 5; // Increased from 3 to 5
   }
   // For other errors, retry twice (same as original behavior)
   return failureCount < 2;
 };
+
+// Reset consecutive error counter on successful query
+export function resetConsecutiveErrors() {
+  consecutiveServerErrors = 0;
+}
 
 // Retry delay with exponential backoff for 5xx errors
 const retryDelay = (attemptIndex: number, error: Error) => {
