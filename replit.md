@@ -36,6 +36,7 @@ Core architectural decisions include:
 - **Realtime Block Production Pipeline**: Production-grade block production system (`server/core/pipeline/realtime-block-pipeline.ts`) with automatic startup after 30s delay. DEV_SAFE_MODE settings: 500ms block interval, 6,000 tx/block, achieving 12K sustained TPS at 97% efficiency. Production mode targets 100K TPS with 100ms blocks.
 - **Pipeline API Endpoints**: Monitoring and control via `/api/pipeline/*` (stats, blocks, start, stop, health, config, benchmark). Session bypass enabled for unauthenticated monitoring access.
 - **Drizzle Persistence Adapters**: Five PostgreSQL adapters (state, sync, bootstrap, block, validator) in `server/core/persistence/drizzle-persistence-adapters.ts` with retry logic and write buffering for enterprise reliability.
+- **Shard Processing Coordinator**: Bridges RealtimeBlockPipeline with Enterprise Sharding System (`server/core/pipeline/shard-processing-coordinator.ts`). Routes transactions to 24 shards, manages 15% cross-shard ratio, integrates with Cross-Shard Router (WAL-enabled message durability). Auto-starts with BlockPipeline.
 
 ## External Dependencies
 - **Database**: Neon Serverless PostgreSQL
