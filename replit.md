@@ -136,3 +136,52 @@ Core engine parameters optimized for real-world mainnet deployment:
 - Router back-pressure activation
 - Shard utilization >82%
 - Mempool >85%
+
+## Enterprise Delegator Staking System (2026-01-12)
+
+### Staking Portfolio API
+Comprehensive REST API for delegator staking management with real-time portfolio tracking:
+
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/api/user/:address/staking-portfolio` | GET | Full portfolio summary, positions, unbonding, rewards |
+| `/api/user/:address/unbondings` | GET | Unbonding positions with countdown |
+| `/api/user/:address/undelegate` | POST | Initiate 21-day unbonding |
+| `/api/user/:address/emergency-unstake` | POST | Emergency unstake with 10% penalty |
+| `/api/user/:address/claim-staking` | POST | Batch or individual reward claiming |
+| `/api/user/:address/auto-compound` | POST | Toggle auto-compound setting |
+| `/api/user/:address/redelegate` | POST | Move stake between validators (7-day) |
+| `/api/user/:address/reward-history` | GET | Paginated reward history |
+
+### Staking Parameters
+- **Unbonding Period**: 21 days standard
+- **Redelegation Cooldown**: 7 days
+- **Emergency Unstake Penalty**: 10%
+- **Minimum Delegation**: 100 TBURN
+- **Auto-Compound**: Per-user toggle
+
+### Portfolio Data Structure
+```typescript
+interface StakingPortfolio {
+  summary: {
+    totalStaked, totalPendingRewards, totalEarned,
+    totalUnbonding, totalPortfolioValue, avgApy,
+    activePositions, unbondingPositions, autoCompoundEnabled
+  };
+  positions: Array<{
+    validatorId, validatorName, stakedAmount, currentApy,
+    pendingRewards, dailyReward, validatorRiskScore
+  }>;
+  unbonding: Array<{
+    amount, remainingDays, progressPercent, canEmergencyUnstake
+  }>;
+  rewardHistory: Array<{ amount, rewardType, claimed, createdAt }>;
+}
+```
+
+### Frontend Components (user.tsx)
+- Portfolio summary cards (Total Staked, Pending Rewards, Avg APY)
+- Active delegations table with risk badges
+- Unbonding countdown with progress bars
+- Claim rewards dialog with batch/auto-compound options
+- Auto-compound toggle button

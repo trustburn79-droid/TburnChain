@@ -223,6 +223,58 @@ interface UserEventParticipation {
   claimedAt: string | null;
 }
 
+interface StakingPortfolio {
+  summary: {
+    totalStaked: string;
+    totalPendingRewards: string;
+    totalEarned: string;
+    totalUnbonding: string;
+    totalPortfolioValue: string;
+    avgApy: string;
+    activePositions: number;
+    unbondingPositions: number;
+    autoCompoundEnabled: boolean;
+  };
+  positions: Array<{
+    id: string;
+    validatorId: string;
+    validatorName: string;
+    validatorAddress: string;
+    validatorCommission: string;
+    validatorUptime: string;
+    validatorRiskScore: string;
+    stakedAmount: string;
+    currentApy: string;
+    pendingRewards: string;
+    totalRewardsEarned: string;
+    dailyReward: string;
+    weeklyReward: string;
+    monthlyReward: string;
+    status: string;
+  }>;
+  unbonding: Array<{
+    id: string;
+    validatorId: string;
+    validatorName: string;
+    amount: string;
+    startedAt: string;
+    completesAt: string;
+    remainingDays: number;
+    remainingHours: number;
+    progressPercent: string;
+    status: string;
+    canEmergencyUnstake: boolean;
+    emergencyPenalty: string;
+  }>;
+  rewardHistory: Array<{
+    id: string;
+    amount: string;
+    rewardType: string;
+    claimed: boolean;
+    createdAt: string;
+  }>;
+}
+
 interface UserActivity {
   id: string;
   activityType: string;
@@ -2504,10 +2556,21 @@ function StakingSection({
 }) {
   const [selectedValidator, setSelectedValidator] = useState<string | null>(null);
   const [delegateAmount, setDelegateAmount] = useState("");
+  const [activeTab, setActiveTab] = useState<"portfolio" | "delegate" | "unbonding" | "history">("portfolio");
+  const [claimDialogOpen, setClaimDialogOpen] = useState(false);
+  const [undelegateDialogOpen, setUndelegateDialogOpen] = useState(false);
+  const [selectedPosition, setSelectedPosition] = useState<string | null>(null);
   const { toast } = useToast();
   const queryClient = useQueryClient();
 
   const { t } = useTranslation();
+
+  const { data: portfolioData, isLoading: portfolioLoading, refetch: refetchPortfolio } = useQuery<{ success: boolean; data: StakingPortfolio }>({
+    queryKey: ['/api/user', walletAddress, 'staking-portfolio'],
+    enabled: isConnected && !!walletAddress,
+  });
+
+  const portfolio = portfolioData?.data;
 
   const selectedValidatorInfo = validators.find(v => v.address === selectedValidator);
   
@@ -2523,6 +2586,7 @@ function StakingSection({
       });
       setDelegateAmount("");
       setSelectedValidator(null);
+      refetchPortfolio();
       queryClient.invalidateQueries({ queryKey: ["/api/public/v1/validators"] });
     },
     onError: (error: any) => {
@@ -2531,6 +2595,65 @@ function StakingSection({
         description: error?.message || t('userPage.stakingPage.delegationFailed', 'Failed to create delegation'),
         variant: "destructive",
       });
+    },
+  });
+
+  const claimMutation = useMutation({
+    mutationFn: async ({ claimAll, validatorAddress, autoCompound }: { claimAll?: boolean; validatorAddress?: string; autoCompound?: boolean }) => {
+      const response = await apiRequest('POST', `/api/user/${walletAddress}/claim-staking`, { claimAll, validatorAddress, autoCompound });
+      return response.json();
+    },
+    onSuccess: (data: any) => {
+      toast({
+        title: t('userPage.stakingPage.claimSuccess', 'Rewards Claimed'),
+        description: data?.data?.message || `${data?.data?.totalClaimed} TBURN claimed successfully`,
+      });
+      setClaimDialogOpen(false);
+      refetchPortfolio();
+    },
+    onError: (error: any) => {
+      toast({
+        title: t('userPage.stakingPage.claimError', 'Claim Failed'),
+        description: error?.message || 'Failed to claim rewards',
+        variant: "destructive",
+      });
+    },
+  });
+
+  const undelegateMutation = useMutation({
+    mutationFn: async ({ validatorAddress, amount, positionId }: { validatorAddress: string; amount: string; positionId: string }) => {
+      const response = await apiRequest('POST', `/api/user/${walletAddress}/undelegate`, { validatorAddress, amount, positionId });
+      return response.json();
+    },
+    onSuccess: (data: any) => {
+      toast({
+        title: t('userPage.stakingPage.undelegateSuccess', 'Unbonding Initiated'),
+        description: data?.data?.message || 'Your tokens will be available in 21 days',
+      });
+      setUndelegateDialogOpen(false);
+      setSelectedPosition(null);
+      refetchPortfolio();
+    },
+    onError: (error: any) => {
+      toast({
+        title: t('userPage.stakingPage.undelegateError', 'Unbonding Failed'),
+        description: error?.message || 'Failed to initiate unbonding',
+        variant: "destructive",
+      });
+    },
+  });
+
+  const autoCompoundMutation = useMutation({
+    mutationFn: async ({ enabled }: { enabled: boolean }) => {
+      const response = await apiRequest('POST', `/api/user/${walletAddress}/auto-compound`, { enabled });
+      return response.json();
+    },
+    onSuccess: (data: any) => {
+      toast({
+        title: data?.data?.autoCompoundEnabled ? 'Auto-Compound Enabled' : 'Auto-Compound Disabled',
+        description: data?.data?.message,
+      });
+      refetchPortfolio();
     },
   });
   
@@ -2564,6 +2687,15 @@ function StakingSection({
     return num.toFixed(0);
   };
 
+  const getRiskBadge = (riskScore: string) => {
+    switch (riskScore) {
+      case 'low': return <Badge className="bg-emerald-100 text-emerald-600 dark:bg-emerald-500/20 dark:text-emerald-400">Low Risk</Badge>;
+      case 'medium': return <Badge className="bg-yellow-100 text-yellow-600 dark:bg-yellow-500/20 dark:text-yellow-400">Medium Risk</Badge>;
+      case 'high': return <Badge className="bg-red-100 text-red-600 dark:bg-red-500/20 dark:text-red-400">High Risk</Badge>;
+      default: return <Badge variant="secondary">Unknown</Badge>;
+    }
+  };
+
   return (
     <section className="space-y-4 sm:space-y-6" data-testid="section-staking">
       <div className="flex flex-col sm:flex-row justify-between items-start gap-3 sm:gap-4">
@@ -2571,44 +2703,271 @@ function StakingSection({
           <h2 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white mb-1">{t('userPage.staking')}</h2>
           <p className="text-sm sm:text-base text-slate-500 dark:text-gray-400">{t('userPage.stakingPage.description')}</p>
         </div>
-        {!isConnected && (
-          <Button onClick={onConnectWallet} className="w-full sm:w-auto bg-gradient-to-r from-blue-500 to-purple-600" data-testid="button-connect-staking">
-            <Wallet className="w-4 h-4 mr-2" /> {t('userPage.connectWallet')}
-          </Button>
-        )}
+        <div className="flex items-center gap-2">
+          {isConnected && portfolio?.summary?.autoCompoundEnabled !== undefined && (
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => autoCompoundMutation.mutate({ enabled: !portfolio.summary.autoCompoundEnabled })}
+              className={portfolio.summary.autoCompoundEnabled ? "border-emerald-500 text-emerald-600" : ""}
+              data-testid="button-toggle-autocompound"
+            >
+              <RefreshCw className={`w-4 h-4 mr-2 ${portfolio.summary.autoCompoundEnabled ? "text-emerald-500" : ""}`} />
+              {portfolio.summary.autoCompoundEnabled ? "Auto-Compound ON" : "Auto-Compound OFF"}
+            </Button>
+          )}
+          {!isConnected && (
+            <Button onClick={onConnectWallet} className="w-full sm:w-auto bg-gradient-to-r from-blue-500 to-purple-600" data-testid="button-connect-staking">
+              <Wallet className="w-4 h-4 mr-2" /> {t('userPage.connectWallet')}
+            </Button>
+          )}
+        </div>
       </div>
 
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-4">
-        <MetricCard
-          title={t('userPage.stakingPage.totalTVL')}
-          value={formatBurnAmount(stakingStats?.totalValueLocked)}
-          subtitle="TB"
-          icon={Lock}
-          color="blue"
-        />
-        <MetricCard
-          title={t('userPage.stakingPage.averageAPY')}
-          value={`${stakingStats?.averageApy?.toFixed(1) || "12.5"}%`}
-          subtitle={t('userPage.stakingPage.annualReturn')}
-          icon={TrendingUp}
-          trend={2.3}
-          color="green"
-        />
-        <MetricCard
-          title={t('userPage.stakingPage.activeStakers')}
-          value={formatNumber(stakingStats?.totalStakers || 0)}
-          subtitle=""
-          icon={Users}
-          color="purple"
-        />
-        <MetricCard
-          title={t('userPage.stakingPage.totalRewardsDistributed')}
-          value={formatBurnAmount(stakingStats?.totalRewardsDistributed)}
-          subtitle="TB"
-          icon={Award}
-          color="orange"
-        />
-      </div>
+      {isConnected && portfolio && (
+        <div className="grid grid-cols-2 lg:grid-cols-5 gap-2 sm:gap-4">
+          <MetricCard
+            title="Total Staked"
+            value={formatNumber(parseFloat(portfolio.summary.totalStaked || '0'))}
+            subtitle="TBURN"
+            icon={Lock}
+            color="blue"
+          />
+          <MetricCard
+            title="Pending Rewards"
+            value={formatNumber(parseFloat(portfolio.summary.totalPendingRewards || '0'))}
+            subtitle="TBURN"
+            icon={Award}
+            color="green"
+          />
+          <MetricCard
+            title="Total Earned"
+            value={formatNumber(parseFloat(portfolio.summary.totalEarned || '0'))}
+            subtitle="TBURN"
+            icon={TrendingUp}
+            color="purple"
+          />
+          <MetricCard
+            title="Unbonding"
+            value={formatNumber(parseFloat(portfolio.summary.totalUnbonding || '0'))}
+            subtitle="TBURN"
+            icon={Unlock}
+            color="orange"
+          />
+          <MetricCard
+            title="Avg APY"
+            value={`${portfolio.summary.avgApy || '12.5'}%`}
+            subtitle="Annual Return"
+            icon={Activity}
+            color="blue"
+          />
+        </div>
+      )}
+
+      {!isConnected && (
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-4">
+          <MetricCard
+            title={t('userPage.stakingPage.totalTVL')}
+            value={formatBurnAmount(stakingStats?.totalValueLocked)}
+            subtitle="TB"
+            icon={Lock}
+            color="blue"
+          />
+          <MetricCard
+            title={t('userPage.stakingPage.averageAPY')}
+            value={`${stakingStats?.averageApy?.toFixed(1) || "12.5"}%`}
+            subtitle={t('userPage.stakingPage.annualReturn')}
+            icon={TrendingUp}
+            trend={2.3}
+            color="green"
+          />
+          <MetricCard
+            title={t('userPage.stakingPage.activeStakers')}
+            value={formatNumber(stakingStats?.totalStakers || 0)}
+            subtitle=""
+            icon={Users}
+            color="purple"
+          />
+          <MetricCard
+            title={t('userPage.stakingPage.totalRewardsDistributed')}
+            value={formatBurnAmount(stakingStats?.totalRewardsDistributed)}
+            subtitle="TB"
+            icon={Award}
+            color="orange"
+          />
+        </div>
+      )}
+
+      {isConnected && portfolio && (
+        <>
+          <div className="flex items-center gap-2 mb-4">
+            <Button
+              variant={claimDialogOpen ? "default" : "outline"}
+              onClick={() => setClaimDialogOpen(true)}
+              disabled={parseFloat(portfolio.summary.totalPendingRewards || '0') <= 0}
+              data-testid="button-claim-rewards"
+            >
+              <Award className="w-4 h-4 mr-2" />
+              Claim Rewards ({portfolio.summary.totalPendingRewards} TB)
+            </Button>
+          </div>
+
+          {portfolio.positions.length > 0 && (
+            <div className="bg-white dark:bg-[#151E32] rounded-2xl border border-slate-200 dark:border-gray-800 shadow-sm overflow-hidden">
+              <div className="p-4 border-b border-slate-100 dark:border-gray-800 flex justify-between items-center">
+                <h3 className="font-bold text-lg text-slate-900 dark:text-white">Active Delegations</h3>
+                <Badge variant="secondary">{portfolio.summary.activePositions} positions</Badge>
+              </div>
+              <div className="overflow-x-auto">
+                <table className="w-full">
+                  <thead>
+                    <tr className="text-left text-xs text-slate-500 dark:text-gray-400 uppercase bg-slate-50 dark:bg-[#0B1120]">
+                      <th className="p-4 font-medium">Validator</th>
+                      <th className="p-4 font-medium text-right">Staked</th>
+                      <th className="p-4 font-medium text-right">APY</th>
+                      <th className="p-4 font-medium text-right">Rewards</th>
+                      <th className="p-4 font-medium text-center">Risk</th>
+                      <th className="p-4 font-medium text-center">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-slate-100 dark:divide-gray-800">
+                    {portfolio.positions.map((pos) => (
+                      <tr key={pos.id} className="hover:bg-slate-50 dark:hover:bg-white/5 transition-colors">
+                        <td className="p-4">
+                          <div className="flex items-center gap-3">
+                            <img
+                              src={`https://api.dicebear.com/7.x/identicon/svg?seed=${pos.validatorAddress}`}
+                              className="w-10 h-10 rounded-full"
+                              alt={pos.validatorName}
+                            />
+                            <div>
+                              <p className="font-medium text-slate-900 dark:text-white">{pos.validatorName}</p>
+                              <p className="text-xs text-slate-400">Commission: {pos.validatorCommission}%</p>
+                            </div>
+                          </div>
+                        </td>
+                        <td className="p-4 text-right font-mono text-slate-900 dark:text-white">
+                          {formatNumber(parseFloat(pos.stakedAmount))} TB
+                        </td>
+                        <td className="p-4 text-right">
+                          <span className="text-emerald-500 font-medium">{pos.currentApy}%</span>
+                        </td>
+                        <td className="p-4 text-right">
+                          <div>
+                            <p className="text-emerald-500 font-medium">{pos.pendingRewards} TB</p>
+                            <p className="text-xs text-slate-400">~{pos.dailyReward}/day</p>
+                          </div>
+                        </td>
+                        <td className="p-4 text-center">
+                          {getRiskBadge(pos.validatorRiskScore)}
+                        </td>
+                        <td className="p-4 text-center">
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            onClick={() => {
+                              setSelectedPosition(pos.id);
+                              setUndelegateDialogOpen(true);
+                            }}
+                            data-testid={`button-undelegate-${pos.id}`}
+                          >
+                            <Unlock className="w-4 h-4 mr-1" /> Undelegate
+                          </Button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          )}
+
+          {portfolio.unbonding.length > 0 && (
+            <div className="bg-white dark:bg-[#151E32] rounded-2xl border border-slate-200 dark:border-gray-800 shadow-sm overflow-hidden">
+              <div className="p-4 border-b border-slate-100 dark:border-gray-800 flex justify-between items-center">
+                <h3 className="font-bold text-lg text-slate-900 dark:text-white">Unbonding Positions</h3>
+                <Badge variant="secondary" className="bg-orange-100 text-orange-600 dark:bg-orange-500/20 dark:text-orange-400">
+                  {portfolio.summary.unbondingPositions} pending
+                </Badge>
+              </div>
+              <div className="p-4 space-y-4">
+                {portfolio.unbonding.map((unbond) => (
+                  <div key={unbond.id} className="bg-slate-50 dark:bg-[#0B1120] rounded-xl p-4">
+                    <div className="flex justify-between items-start mb-3">
+                      <div>
+                        <p className="font-medium text-slate-900 dark:text-white">{unbond.validatorName}</p>
+                        <p className="text-lg font-bold text-orange-500">{unbond.amount} TBURN</p>
+                      </div>
+                      <div className="text-right">
+                        {unbond.status === 'ready' ? (
+                          <Badge className="bg-emerald-100 text-emerald-600 dark:bg-emerald-500/20 dark:text-emerald-400">
+                            Ready to Claim
+                          </Badge>
+                        ) : (
+                          <div className="text-sm">
+                            <p className="text-slate-500">
+                              <Clock className="w-4 h-4 inline mr-1" />
+                              {unbond.remainingDays}d {unbond.remainingHours}h remaining
+                            </p>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                    <div className="space-y-2">
+                      <div className="flex justify-between text-xs text-slate-500">
+                        <span>Progress</span>
+                        <span>{unbond.progressPercent}%</span>
+                      </div>
+                      <Progress value={parseFloat(unbond.progressPercent)} className="h-2" />
+                    </div>
+                    {unbond.canEmergencyUnstake && (
+                      <p className="text-xs text-yellow-500 mt-2">
+                        Emergency unstake available ({unbond.emergencyPenalty}% penalty)
+                      </p>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </>
+      )}
+
+      <Dialog open={claimDialogOpen} onOpenChange={setClaimDialogOpen}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle>Claim Staking Rewards</DialogTitle>
+            <DialogDescription>
+              You have {portfolio?.summary?.totalPendingRewards || '0'} TBURN in pending rewards.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-4 py-4">
+            <div className="flex items-center justify-between p-4 bg-slate-50 dark:bg-slate-800 rounded-lg">
+              <span className="text-slate-600 dark:text-slate-400">Total Claimable</span>
+              <span className="text-xl font-bold text-emerald-500">{portfolio?.summary?.totalPendingRewards || '0'} TB</span>
+            </div>
+            <div className="flex gap-2">
+              <Button
+                className="flex-1"
+                onClick={() => claimMutation.mutate({ claimAll: true })}
+                disabled={claimMutation.isPending}
+              >
+                {claimMutation.isPending ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Award className="w-4 h-4 mr-2" />}
+                Claim All
+              </Button>
+              <Button
+                variant="outline"
+                className="flex-1"
+                onClick={() => claimMutation.mutate({ claimAll: true, autoCompound: true })}
+                disabled={claimMutation.isPending}
+              >
+                <RefreshCw className="w-4 h-4 mr-2" />
+                Auto-Compound
+              </Button>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
 
       <div className="bg-gradient-to-r from-blue-500/10 to-purple-500/10 dark:from-blue-500/20 dark:to-purple-500/20 rounded-2xl p-6 border border-blue-200/50 dark:border-blue-500/20">
         <div className="flex items-center justify-between mb-4">

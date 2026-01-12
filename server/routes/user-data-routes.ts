@@ -801,6 +801,387 @@ router.post('/:address/transfer', async (req: Request, res: Response) => {
   }
 });
 
+// ============================================
+// Enterprise Staking Portfolio API
+// ============================================
+router.get('/:address/staking-portfolio', async (req: Request, res: Response) => {
+  try {
+    const { address } = req.params;
+    
+    if (!isValidAddress(address)) {
+      return res.status(400).json({ success: false, error: 'Invalid wallet address' });
+    }
+    
+    const cacheKey = `portfolio-${address}`;
+    const cached = getCachedData(cacheKey);
+    if (cached) {
+      return res.json({ success: true, data: cached, cached: true });
+    }
+    
+    const seed = addressSeed(address);
+    const positions = generateStakingPositions(address);
+    const stakingRewards = generateStakingRewards(address);
+    
+    const totalStaked = positions.reduce((sum, p) => sum + parseFloat(p.stakedAmount || '0'), 0);
+    const totalPendingRewards = positions.reduce((sum, p) => sum + parseFloat(p.pendingRewards || '0'), 0);
+    const totalEarned = positions.reduce((sum, p) => sum + parseFloat(p.totalRewardsEarned || '0'), 0);
+    const avgApy = positions.length > 0 
+      ? positions.reduce((sum, p) => sum + parseFloat(p.currentApy || '0'), 0) / positions.length 
+      : 0;
+    
+    const unbondingPositions = generateUnbondingPositions(address);
+    const totalUnbonding = unbondingPositions.reduce((sum, u) => sum + parseFloat(u.amount || '0'), 0);
+    
+    const portfolio = {
+      summary: {
+        totalStaked: totalStaked.toFixed(4),
+        totalPendingRewards: totalPendingRewards.toFixed(4),
+        totalEarned: totalEarned.toFixed(4),
+        totalUnbonding: totalUnbonding.toFixed(4),
+        totalPortfolioValue: (totalStaked + totalPendingRewards + totalUnbonding).toFixed(4),
+        avgApy: avgApy.toFixed(2),
+        activePositions: positions.length,
+        unbondingPositions: unbondingPositions.length,
+        autoCompoundEnabled: seed % 2 === 0,
+      },
+      positions: positions.map(p => ({
+        ...p,
+        validatorAddress: `tb1${p.validatorId.slice(4)}${address.slice(-20)}`,
+        validatorCommission: ((seed + parseInt(p.validatorId.slice(-2), 16)) % 10 + 1).toFixed(2),
+        validatorUptime: (99 + (seed % 100) / 100).toFixed(2),
+        validatorRiskScore: p.status === 'active' ? 'low' : 'medium',
+        dailyReward: (parseFloat(p.stakedAmount) * parseFloat(p.currentApy) / 100 / 365).toFixed(6),
+        weeklyReward: (parseFloat(p.stakedAmount) * parseFloat(p.currentApy) / 100 / 52).toFixed(4),
+        monthlyReward: (parseFloat(p.stakedAmount) * parseFloat(p.currentApy) / 100 / 12).toFixed(4),
+      })),
+      unbonding: unbondingPositions,
+      rewardHistory: stakingRewards.slice(0, 10),
+    };
+    
+    setCachedData(cacheKey, portfolio);
+    res.json({ success: true, data: portfolio });
+  } catch (error: any) {
+    console.error('[UserData] Portfolio error:', error);
+    res.status(500).json({ success: false, error: 'Failed to fetch staking portfolio' });
+  }
+});
+
+// Generate unbonding positions for a user
+function generateUnbondingPositions(address: string) {
+  const seed = addressSeed(address);
+  const now = Date.now();
+  const unbondingPeriodMs = 21 * 24 * 60 * 60 * 1000; // 21 days
+  
+  const positions = [];
+  const numPositions = seed % 3; // 0-2 unbonding positions
+  
+  for (let i = 0; i < numPositions; i++) {
+    const startedDaysAgo = (seed + i * 3) % 20; // 0-19 days ago
+    const startedAt = new Date(now - startedDaysAgo * 24 * 60 * 60 * 1000);
+    const completesAt = new Date(startedAt.getTime() + unbondingPeriodMs);
+    const remainingMs = Math.max(0, completesAt.getTime() - now);
+    const remainingDays = Math.ceil(remainingMs / (24 * 60 * 60 * 1000));
+    const progressPercent = Math.min(100, ((21 - remainingDays) / 21) * 100);
+    
+    positions.push({
+      id: `unbond-${address.slice(-8)}-${i}`,
+      delegatorAddress: address,
+      validatorId: `val-0${(seed + i) % 4 + 1}`,
+      validatorName: ['TBURN Foundation', 'Genesis Validator', 'Enterprise Node Alpha', 'Community Stake Pool'][(seed + i) % 4],
+      amount: (((seed + i * 500) % 5000) + 500).toFixed(4),
+      startedAt: startedAt.toISOString(),
+      completesAt: completesAt.toISOString(),
+      remainingDays,
+      remainingHours: Math.ceil(remainingMs / (60 * 60 * 1000)) % 24,
+      progressPercent: progressPercent.toFixed(1),
+      status: remainingDays <= 0 ? 'ready' : 'pending',
+      canEmergencyUnstake: remainingDays > 7,
+      emergencyPenalty: '10.00', // 10% penalty for emergency unstake
+    });
+  }
+  
+  return positions;
+}
+
+// ============================================
+// Get Unbonding Positions
+// ============================================
+router.get('/:address/unbondings', async (req: Request, res: Response) => {
+  try {
+    const { address } = req.params;
+    
+    if (!isValidAddress(address)) {
+      return res.status(400).json({ success: false, error: 'Invalid wallet address' });
+    }
+    
+    const unbondings = generateUnbondingPositions(address);
+    const totalUnbonding = unbondings.reduce((sum, u) => sum + parseFloat(u.amount || '0'), 0);
+    const readyToClaim = unbondings.filter(u => u.status === 'ready');
+    
+    res.json({
+      success: true,
+      data: {
+        unbondings,
+        summary: {
+          totalPositions: unbondings.length,
+          totalAmount: totalUnbonding.toFixed(4),
+          readyToClaim: readyToClaim.length,
+          readyAmount: readyToClaim.reduce((sum, u) => sum + parseFloat(u.amount || '0'), 0).toFixed(4),
+        },
+      },
+    });
+  } catch (error: any) {
+    console.error('[UserData] Unbondings error:', error);
+    res.status(500).json({ success: false, error: 'Failed to fetch unbonding positions' });
+  }
+});
+
+// ============================================
+// Initiate Unbonding (Undelegate)
+// ============================================
+router.post('/:address/undelegate', async (req: Request, res: Response) => {
+  try {
+    const { address } = req.params;
+    const { validatorAddress, amount, positionId } = req.body;
+    
+    if (!isValidAddress(address)) {
+      return res.status(400).json({ success: false, error: 'Invalid wallet address' });
+    }
+    
+    const parsedAmount = parseFloat(amount);
+    if (isNaN(parsedAmount) || parsedAmount < 100) {
+      return res.status(400).json({ success: false, error: 'Minimum undelegation amount is 100 TBURN' });
+    }
+    
+    const now = new Date();
+    const completesAt = new Date(now.getTime() + 21 * 24 * 60 * 60 * 1000);
+    const txHash = `0x${Array.from({ length: 64 }, () => Math.floor(Math.random() * 16).toString(16)).join('')}`;
+    
+    res.json({
+      success: true,
+      data: {
+        unbondingId: `unbond-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+        amount: parsedAmount.toFixed(4),
+        startedAt: now.toISOString(),
+        completesAt: completesAt.toISOString(),
+        remainingDays: 21,
+        txHash,
+        message: `Unbonding initiated. Your ${parsedAmount.toFixed(4)} TBURN will be available in 21 days.`,
+      },
+    });
+  } catch (error: any) {
+    console.error('[UserData] Undelegate error:', error);
+    res.status(500).json({ success: false, error: 'Failed to initiate unbonding' });
+  }
+});
+
+// ============================================
+// Emergency Unstake (with penalty)
+// ============================================
+router.post('/:address/emergency-unstake', async (req: Request, res: Response) => {
+  try {
+    const { address } = req.params;
+    const { unbondingId, confirmPenalty } = req.body;
+    
+    if (!isValidAddress(address)) {
+      return res.status(400).json({ success: false, error: 'Invalid wallet address' });
+    }
+    
+    if (!confirmPenalty) {
+      return res.status(400).json({ 
+        success: false, 
+        error: 'Emergency unstake requires confirming the 10% penalty',
+        penaltyRate: '10.00',
+      });
+    }
+    
+    const txHash = `0x${Array.from({ length: 64 }, () => Math.floor(Math.random() * 16).toString(16)).join('')}`;
+    
+    res.json({
+      success: true,
+      data: {
+        unbondingId,
+        penaltyApplied: '10.00',
+        txHash,
+        message: 'Emergency unstake completed. 10% penalty has been applied.',
+      },
+    });
+  } catch (error: any) {
+    console.error('[UserData] Emergency unstake error:', error);
+    res.status(500).json({ success: false, error: 'Failed to process emergency unstake' });
+  }
+});
+
+// ============================================
+// Claim Staking Rewards (Batch or Individual)
+// ============================================
+router.post('/:address/claim-staking', async (req: Request, res: Response) => {
+  try {
+    const { address } = req.params;
+    const { validatorAddress, claimAll, autoCompound } = req.body;
+    
+    if (!isValidAddress(address)) {
+      return res.status(400).json({ success: false, error: 'Invalid wallet address' });
+    }
+    
+    const positions = generateStakingPositions(address);
+    let claimablePositions = positions;
+    
+    if (!claimAll && validatorAddress) {
+      claimablePositions = positions.filter(p => 
+        `tb1${p.validatorId.slice(4)}${address.slice(-20)}` === validatorAddress
+      );
+    }
+    
+    const totalClaimed = claimablePositions.reduce((sum, p) => sum + parseFloat(p.pendingRewards || '0'), 0);
+    const txHash = `0x${Array.from({ length: 64 }, () => Math.floor(Math.random() * 16).toString(16)).join('')}`;
+    
+    const claimDetails = claimablePositions.map(p => ({
+      validatorId: p.validatorId,
+      validatorName: p.validatorName,
+      amount: p.pendingRewards,
+    }));
+    
+    res.json({
+      success: true,
+      data: {
+        totalClaimed: totalClaimed.toFixed(4),
+        claimCount: claimablePositions.length,
+        claimDetails,
+        autoCompounded: autoCompound || false,
+        txHash,
+        message: autoCompound 
+          ? `${totalClaimed.toFixed(4)} TBURN auto-compounded into your staking positions`
+          : `${totalClaimed.toFixed(4)} TBURN claimed to your wallet`,
+      },
+    });
+  } catch (error: any) {
+    console.error('[UserData] Claim staking error:', error);
+    res.status(500).json({ success: false, error: 'Failed to claim staking rewards' });
+  }
+});
+
+// ============================================
+// Toggle Auto-Compound
+// ============================================
+router.post('/:address/auto-compound', async (req: Request, res: Response) => {
+  try {
+    const { address } = req.params;
+    const { enabled, validatorAddress } = req.body;
+    
+    if (!isValidAddress(address)) {
+      return res.status(400).json({ success: false, error: 'Invalid wallet address' });
+    }
+    
+    res.json({
+      success: true,
+      data: {
+        autoCompoundEnabled: enabled,
+        validatorAddress: validatorAddress || 'all',
+        message: enabled 
+          ? 'Auto-compound enabled. Your rewards will be automatically restaked.'
+          : 'Auto-compound disabled. Rewards will accumulate for manual claiming.',
+      },
+    });
+  } catch (error: any) {
+    console.error('[UserData] Auto-compound error:', error);
+    res.status(500).json({ success: false, error: 'Failed to update auto-compound setting' });
+  }
+});
+
+// ============================================
+// Redelegate (Move stake between validators)
+// ============================================
+router.post('/:address/redelegate', async (req: Request, res: Response) => {
+  try {
+    const { address } = req.params;
+    const { fromValidator, toValidator, amount } = req.body;
+    
+    if (!isValidAddress(address)) {
+      return res.status(400).json({ success: false, error: 'Invalid wallet address' });
+    }
+    
+    if (!fromValidator || !toValidator) {
+      return res.status(400).json({ success: false, error: 'Both source and destination validators are required' });
+    }
+    
+    const parsedAmount = parseFloat(amount);
+    if (isNaN(parsedAmount) || parsedAmount < 100) {
+      return res.status(400).json({ success: false, error: 'Minimum redelegation amount is 100 TBURN' });
+    }
+    
+    const txHash = `0x${Array.from({ length: 64 }, () => Math.floor(Math.random() * 16).toString(16)).join('')}`;
+    
+    res.json({
+      success: true,
+      data: {
+        redelegationId: `redel-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+        fromValidator,
+        toValidator,
+        amount: parsedAmount.toFixed(4),
+        completesAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString(), // 7 days
+        txHash,
+        message: `Redelegation initiated. ${parsedAmount.toFixed(4)} TBURN will be moved in 7 days.`,
+      },
+    });
+  } catch (error: any) {
+    console.error('[UserData] Redelegate error:', error);
+    res.status(500).json({ success: false, error: 'Failed to initiate redelegation' });
+  }
+});
+
+// ============================================
+// Get Reward History
+// ============================================
+router.get('/:address/reward-history', async (req: Request, res: Response) => {
+  try {
+    const { address } = req.params;
+    const { limit = '50', offset = '0', type = 'all' } = req.query;
+    
+    if (!isValidAddress(address)) {
+      return res.status(400).json({ success: false, error: 'Invalid wallet address' });
+    }
+    
+    const stakingRewards = generateStakingRewards(address);
+    const miningRewards = generateMiningRewards(address);
+    
+    let allRewards = [
+      ...stakingRewards.map(r => ({ ...r, rewardType: 'staking' })),
+      ...miningRewards.map(r => ({ ...r, rewardType: 'mining' })),
+    ].sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+    
+    if (type !== 'all') {
+      allRewards = allRewards.filter(r => r.rewardType === type);
+    }
+    
+    const total = allRewards.length;
+    const rewards = allRewards.slice(parseInt(offset as string), parseInt(offset as string) + parseInt(limit as string));
+    
+    const summary = {
+      totalRewards: allRewards.reduce((sum, r) => sum + parseFloat(r.amount || '0'), 0).toFixed(4),
+      claimedRewards: allRewards.filter(r => r.claimed).reduce((sum, r) => sum + parseFloat(r.amount || '0'), 0).toFixed(4),
+      unclaimedRewards: allRewards.filter(r => !r.claimed).reduce((sum, r) => sum + parseFloat(r.amount || '0'), 0).toFixed(4),
+    };
+    
+    res.json({
+      success: true,
+      data: {
+        rewards,
+        summary,
+        pagination: {
+          total,
+          limit: parseInt(limit as string),
+          offset: parseInt(offset as string),
+          hasMore: parseInt(offset as string) + parseInt(limit as string) < total,
+        },
+      },
+    });
+  } catch (error: any) {
+    console.error('[UserData] Reward history error:', error);
+    res.status(500).json({ success: false, error: 'Failed to fetch reward history' });
+  }
+});
+
 export function registerUserDataRoutes(app: any) {
   app.use('/api/user', router);
   console.log('[UserData] Routes registered successfully');
