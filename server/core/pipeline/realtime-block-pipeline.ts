@@ -13,6 +13,7 @@ import { DEV_SAFE_MODE, METRICS_CONFIG } from '../memory/metrics-config';
 import { db } from '../../db';
 import { blocks } from '@shared/schema';
 import { desc } from 'drizzle-orm';
+import { getShardProcessingCoordinator, type ShardProcessingCoordinator } from './shard-processing-coordinator';
 
 // ============================================================================
 // Configuration
@@ -99,6 +100,9 @@ export class RealtimeBlockPipeline extends EventEmitter {
   private validators: string[] = [];
   private validatorIndex: number = 0;
   
+  // Shard processing coordinator
+  private shardCoordinator: ShardProcessingCoordinator | null = null;
+  
   private constructor() {
     super();
     this.initializeValidators();
@@ -149,6 +153,15 @@ export class RealtimeBlockPipeline extends EventEmitter {
     }
     
     await this.initialize();
+    
+    // Initialize shard processing coordinator
+    try {
+      this.shardCoordinator = getShardProcessingCoordinator();
+      await this.shardCoordinator.start();
+      console.log('[BlockPipeline] ✅ Shard coordinator connected');
+    } catch (error) {
+      console.error('[BlockPipeline] Shard coordinator init failed:', error);
+    }
     
     this.isRunning = true;
     this.startTime = Date.now();
@@ -250,6 +263,11 @@ export class RealtimeBlockPipeline extends EventEmitter {
     this.blocksProduced++;
     this.transactionsProcessed += transactionCount;
     this.lastBlockTime = now;
+    
+    // Process through shard coordinator (enables cross-shard routing)
+    if (this.shardCoordinator && this.shardCoordinator.isActive()) {
+      this.shardCoordinator.processBlock(block.number, transactionCount, block.shardId);
+    }
     
     // Add to TPS rolling window (separate from flush buffer)
     this.tpsWindow.push({ timestamp: now, txCount: transactionCount });
