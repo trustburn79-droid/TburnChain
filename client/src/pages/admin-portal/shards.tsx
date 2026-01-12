@@ -173,6 +173,30 @@ interface CoreTechMetrics {
   timestamp: number;
 }
 
+interface ParallelPipelineStats {
+  success: boolean;
+  data: {
+    combined: {
+      currentTPS: number;
+      peakTPS: number;
+      totalTransactions: number;
+      totalBlocks: number;
+    };
+    globalPipeline: {
+      isRunning: boolean;
+      currentTPS: number;
+      peakTPS: number;
+    };
+    parallelProducer: {
+      isRunning: boolean;
+      activeShards: number;
+      currentTPS: number;
+      peakTPS: number;
+    };
+  };
+  timestamp: number;
+}
+
 function MetricCardSkeleton() {
   return (
     <Card>
@@ -247,6 +271,12 @@ export default function AdminShards() {
     queryKey: ["/api/sharding/v6/metrics"],
     staleTime: 10000,
     refetchInterval: 10000,
+  });
+
+  const { data: parallelPipelineStats, isLoading: isParallelLoading } = useQuery<ParallelPipelineStats>({
+    queryKey: ["/api/pipeline/combined/stats"],
+    staleTime: 5000,
+    refetchInterval: 5000,
   });
 
   const updateConfigMutation = useMutation({
@@ -933,6 +963,133 @@ export default function AdminShards() {
               ) : (
                 <div className="text-center text-muted-foreground py-8">
                   {t("adminShards.configLoadError") || "Unable to load configuration"}
+                </div>
+              )}
+            </CardContent>
+          </Card>
+
+          {/* Parallel Shard Block Producer - Real-time TPS Panel */}
+          <Card data-testid="card-parallel-block-producer">
+            <CardHeader className="pb-4">
+              <div className="flex items-center justify-between flex-wrap gap-2">
+                <div className="flex items-center gap-2">
+                  <Zap className="h-5 w-5 text-yellow-500" />
+                  <CardTitle className="text-lg">
+                    {t("adminShards.parallelBlockProducer") || "Parallel Shard Block Producer"}
+                  </CardTitle>
+                </div>
+                {parallelPipelineStats?.data?.parallelProducer.isRunning ? (
+                  <Badge className="bg-green-500/10 text-green-500">
+                    <PlayCircle className="h-3 w-3 mr-1" />
+                    {t("adminShards.running") || "Running"}
+                  </Badge>
+                ) : (
+                  <Badge className="bg-yellow-500/10 text-yellow-500">
+                    <PauseCircle className="h-3 w-3 mr-1" />
+                    {t("adminShards.stopped") || "Stopped"}
+                  </Badge>
+                )}
+              </div>
+              <CardDescription>
+                {t("adminShards.parallelProducerDesc") || "Enterprise-grade parallel block production across 24 shards with 200ms block intervals"}
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              {isParallelLoading ? (
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                  <Skeleton className="h-24" />
+                  <Skeleton className="h-24" />
+                  <Skeleton className="h-24" />
+                  <Skeleton className="h-24" />
+                </div>
+              ) : parallelPipelineStats?.data ? (
+                <>
+                  {/* Main TPS Display */}
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                    {/* Combined TPS - Hero Metric */}
+                    <div className="col-span-2 p-6 rounded-lg border-2 border-yellow-500/30 bg-gradient-to-br from-yellow-500/5 to-orange-500/5" data-testid="metric-combined-tps">
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="text-sm text-muted-foreground">{t("adminShards.combinedTps") || "Combined TPS"}</span>
+                        <Badge className="bg-yellow-500/10 text-yellow-500">
+                          <Activity className="h-3 w-3 mr-1" />Live
+                        </Badge>
+                      </div>
+                      <div className="text-4xl font-bold text-yellow-500">
+                        {parallelPipelineStats.data.combined.currentTPS.toLocaleString()}
+                      </div>
+                      <div className="flex items-center gap-4 mt-2 text-sm">
+                        <span className="text-muted-foreground">
+                          Peak: <span className="font-medium text-green-500">{parallelPipelineStats.data.combined.peakTPS.toLocaleString()}</span>
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Parallel Producer TPS */}
+                    <div className="p-4 rounded-lg border bg-card" data-testid="metric-parallel-tps">
+                      <div className="text-sm text-muted-foreground mb-1">{t("adminShards.parallelTps") || "Parallel TPS"}</div>
+                      <div className="text-2xl font-bold">{parallelPipelineStats.data.parallelProducer.currentTPS.toLocaleString()}</div>
+                      <div className="text-xs text-muted-foreground mt-1">
+                        Peak: {parallelPipelineStats.data.parallelProducer.peakTPS.toLocaleString()}
+                      </div>
+                    </div>
+
+                    {/* Global Pipeline TPS */}
+                    <div className="p-4 rounded-lg border bg-card" data-testid="metric-global-tps">
+                      <div className="text-sm text-muted-foreground mb-1">{t("adminShards.globalTps") || "Global Pipeline"}</div>
+                      <div className="text-2xl font-bold">{parallelPipelineStats.data.globalPipeline.currentTPS.toLocaleString()}</div>
+                      <div className="text-xs text-muted-foreground mt-1">
+                        Peak: {parallelPipelineStats.data.globalPipeline.peakTPS.toLocaleString()}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Additional Metrics */}
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div className="p-3 rounded-lg bg-muted/30 text-center" data-testid="metric-active-shards">
+                      <div className="text-xs text-muted-foreground">{t("adminShards.activeShards") || "Active Shards"}</div>
+                      <div className="text-xl font-bold">{parallelPipelineStats.data.parallelProducer.activeShards}</div>
+                    </div>
+                    <div className="p-3 rounded-lg bg-muted/30 text-center" data-testid="metric-total-blocks">
+                      <div className="text-xs text-muted-foreground">{t("adminShards.totalBlocks") || "Total Blocks"}</div>
+                      <div className="text-xl font-bold">{parallelPipelineStats.data.combined.totalBlocks.toLocaleString()}</div>
+                    </div>
+                    <div className="p-3 rounded-lg bg-muted/30 text-center" data-testid="metric-total-tx">
+                      <div className="text-xs text-muted-foreground">{t("adminShards.totalTransactions") || "Total Transactions"}</div>
+                      <div className="text-xl font-bold">{(parallelPipelineStats.data.combined.totalTransactions / 1000000).toFixed(1)}M</div>
+                    </div>
+                    <div className="p-3 rounded-lg bg-muted/30 text-center" data-testid="metric-tps-per-shard">
+                      <div className="text-xs text-muted-foreground">{t("adminShards.tpsPerShard") || "TPS per Shard"}</div>
+                      <div className="text-xl font-bold">
+                        {parallelPipelineStats.data.parallelProducer.activeShards > 0 
+                          ? Math.round(parallelPipelineStats.data.parallelProducer.currentTPS / parallelPipelineStats.data.parallelProducer.activeShards).toLocaleString()
+                          : 0}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Progress Bar - TPS Target */}
+                  <div className="mt-4 p-3 rounded-lg border bg-card">
+                    <div className="flex justify-between text-sm mb-2">
+                      <span className="text-muted-foreground">{t("adminShards.targetProgress") || "Target Progress (60K Dev / 100K Prod)"}</span>
+                      <span className="font-medium">
+                        {Math.min(100, Math.round((parallelPipelineStats.data.combined.currentTPS / 60000) * 100))}%
+                      </span>
+                    </div>
+                    <Progress 
+                      value={Math.min(100, (parallelPipelineStats.data.combined.currentTPS / 60000) * 100)} 
+                      className={`h-2 ${parallelPipelineStats.data.combined.currentTPS >= 60000 ? '[&>div]:bg-green-500' : parallelPipelineStats.data.combined.currentTPS >= 50000 ? '[&>div]:bg-yellow-500' : '[&>div]:bg-blue-500'}`}
+                    />
+                    <div className="flex justify-between text-xs text-muted-foreground mt-1">
+                      <span>0</span>
+                      <span>30K</span>
+                      <span>60K</span>
+                      <span>100K</span>
+                    </div>
+                  </div>
+                </>
+              ) : (
+                <div className="text-center text-muted-foreground py-8">
+                  {t("adminShards.parallelStatsLoadError") || "Unable to load parallel pipeline statistics"}
                 </div>
               )}
             </CardContent>
