@@ -83,7 +83,11 @@ export class RealtimeBlockPipeline extends EventEmitter {
   private peakTPS: number = 0;
   private currentTPS: number = 0;
   
-  // Block buffer
+  // Rolling window for TPS calculation (separate from flush buffer)
+  private tpsWindow: { timestamp: number; txCount: number }[] = [];
+  private readonly TPS_WINDOW_SIZE_MS = 10000; // 10 second rolling window
+  
+  // Block buffer (for DB persistence)
   private blockBuffer: BlockData[] = [];
   
   // Timers
@@ -247,7 +251,14 @@ export class RealtimeBlockPipeline extends EventEmitter {
     this.transactionsProcessed += transactionCount;
     this.lastBlockTime = now;
     
-    // Trim buffer if needed
+    // Add to TPS rolling window (separate from flush buffer)
+    this.tpsWindow.push({ timestamp: now, txCount: transactionCount });
+    
+    // Trim TPS window to last 10 seconds
+    const windowCutoff = now - this.TPS_WINDOW_SIZE_MS;
+    this.tpsWindow = this.tpsWindow.filter(w => w.timestamp > windowCutoff);
+    
+    // Trim block buffer if needed (for memory)
     if (this.blockBuffer.length > PIPELINE_CONFIG.BLOCK_BUFFER_SIZE) {
       this.blockBuffer.shift();
     }
@@ -264,15 +275,13 @@ export class RealtimeBlockPipeline extends EventEmitter {
   
   private collectStats(): void {
     const now = Date.now();
-    const elapsedSeconds = (now - this.startTime) / 1000;
     
-    // Calculate current TPS (transactions in last second)
-    const recentBlocks = this.blockBuffer.filter(
-      b => b.timestamp > now - 1000
-    );
-    this.currentTPS = recentBlocks.reduce((sum, b) => sum + b.transactionCount, 0);
+    // Calculate current TPS from rolling window (last 1 second)
+    const oneSecAgo = now - 1000;
+    const recentTx = this.tpsWindow.filter(w => w.timestamp > oneSecAgo);
+    this.currentTPS = recentTx.reduce((sum, w) => sum + w.txCount, 0);
     
-    // Track TPS history
+    // Track TPS history for averaging
     this.tpsHistory.push(this.currentTPS);
     if (this.tpsHistory.length > 60) {
       this.tpsHistory.shift();
@@ -372,6 +381,13 @@ export class RealtimeBlockPipeline extends EventEmitter {
   
   isActive(): boolean {
     return this.isRunning;
+  }
+  
+  getConfig(): typeof PIPELINE_CONFIG & { DEV_SAFE_MODE: boolean } {
+    return {
+      ...PIPELINE_CONFIG,
+      DEV_SAFE_MODE,
+    };
   }
 }
 

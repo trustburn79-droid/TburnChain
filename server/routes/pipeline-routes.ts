@@ -152,6 +152,87 @@ router.get('/health', (_req: Request, res: Response) => {
   }
 });
 
+/**
+ * GET /api/pipeline/config
+ * Get current pipeline configuration
+ */
+router.get('/config', (_req: Request, res: Response) => {
+  try {
+    const pipeline = getRealtimeBlockPipeline();
+    const config = pipeline.getConfig();
+    
+    res.json({
+      success: true,
+      data: {
+        ...config,
+        mode: config.DEV_SAFE_MODE ? 'DEV_SAFE_MODE' : 'PRODUCTION',
+        theoreticalMaxTPS: Math.floor(config.MAX_TX_PER_BLOCK * (1000 / config.BLOCK_INTERVAL_MS)),
+      },
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: (error as Error).message,
+    });
+  }
+});
+
+/**
+ * GET /api/pipeline/benchmark
+ * Get detailed benchmark information
+ */
+router.get('/benchmark', (_req: Request, res: Response) => {
+  try {
+    const pipeline = getRealtimeBlockPipeline();
+    const stats = pipeline.getStats();
+    const config = pipeline.getConfig();
+    
+    const theoreticalMaxTPS = Math.floor(config.MAX_TX_PER_BLOCK * (1000 / config.BLOCK_INTERVAL_MS));
+    const efficiency = stats.averageTPS > 0 ? (stats.averageTPS / theoreticalMaxTPS * 100).toFixed(2) : 0;
+    
+    res.json({
+      success: true,
+      data: {
+        mode: config.DEV_SAFE_MODE ? 'DEV_SAFE_MODE' : 'PRODUCTION',
+        config: {
+          blockIntervalMs: config.BLOCK_INTERVAL_MS,
+          maxTxPerBlock: config.MAX_TX_PER_BLOCK,
+          targetTPS: config.TARGET_TPS,
+        },
+        performance: {
+          currentTPS: stats.currentTPS,
+          averageTPS: stats.averageTPS,
+          peakTPS: stats.peakTPS,
+          blocksPerSecond: stats.blocksPerSecond,
+          totalBlocks: stats.blocksProduced,
+          totalTransactions: stats.transactionsProcessed,
+        },
+        theoretical: {
+          maxTPS: theoreticalMaxTPS,
+          efficiency: `${efficiency}%`,
+          targetTPS: config.TARGET_TPS,
+        },
+        uptime: {
+          seconds: stats.uptime,
+          formatted: formatUptime(stats.uptime),
+        },
+      },
+      timestamp: Date.now(),
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: (error as Error).message,
+    });
+  }
+});
+
+function formatUptime(seconds: number): string {
+  if (seconds < 60) return `${seconds.toFixed(0)}s`;
+  if (seconds < 3600) return `${Math.floor(seconds / 60)}m ${Math.floor(seconds % 60)}s`;
+  return `${Math.floor(seconds / 3600)}h ${Math.floor((seconds % 3600) / 60)}m`;
+}
+
 export default router;
 
 console.log('[Pipeline] ✅ Pipeline API routes registered');
