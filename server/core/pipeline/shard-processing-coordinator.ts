@@ -64,6 +64,7 @@ export class ShardProcessingCoordinator extends EventEmitter {
   
   private totalTransactionsRouted: number = 0;
   private crossShardMessagesRouted: number = 0;
+  private crossShardMessagesFailed: number = 0; // Track failures
   private shardTPS: Map<number, number> = new Map();
   private shardTransactionCounts: Map<number, number> = new Map();
   private lastMetricsTime: number = 0;
@@ -72,6 +73,7 @@ export class ShardProcessingCoordinator extends EventEmitter {
   private router: ReturnType<typeof getEnterpriseCrossShardRouter> | null = null;
   private parallelProducer: ParallelShardBlockProducer | null = null;
   private shardBlockHandler: ((block: ShardBlock) => void) | null = null;
+  private isShuttingDown: boolean = false;
 
   private constructor() {
     super();
@@ -97,6 +99,11 @@ export class ShardProcessingCoordinator extends EventEmitter {
       console.log('[ShardCoordinator] Already running');
       return;
     }
+    
+    if (this.isShuttingDown) {
+      console.log('[ShardCoordinator] Cannot start while shutting down');
+      return;
+    }
 
     try {
       console.log('[ShardCoordinator] Starting shard processing coordinator...');
@@ -111,11 +118,19 @@ export class ShardProcessingCoordinator extends EventEmitter {
       if (COORDINATOR_CONFIG.ENABLE_PARALLEL_PRODUCTION) {
         this.parallelProducer = getParallelShardBlockProducer();
         
+        // Always remove existing listener first to prevent duplicates
         if (this.shardBlockHandler) {
           this.parallelProducer.removeListener('shardBlockProduced', this.shardBlockHandler);
+          this.shardBlockHandler = null;
         }
+        
+        // Remove any orphaned listeners (safety measure)
+        this.parallelProducer.removeAllListeners('shardBlockProduced');
+        
         this.shardBlockHandler = (block: ShardBlock) => {
-          this.handleShardBlock(block);
+          if (this.isRunning && !this.isShuttingDown) {
+            this.handleShardBlock(block);
+          }
         };
         this.parallelProducer.on('shardBlockProduced', this.shardBlockHandler);
         
@@ -144,23 +159,65 @@ export class ShardProcessingCoordinator extends EventEmitter {
   async stop(): Promise<void> {
     if (!this.isRunning) return;
     
+    this.isShuttingDown = true;
     console.log('[ShardCoordinator] Stopping...');
+    
+    // Clear metrics timer first
+    if (this.metricsTimer) {
+      clearInterval(this.metricsTimer);
+      this.metricsTimer = null;
+    }
+    
+    // Stop parallel producer and remove listener
+    if (this.parallelProducer) {
+      // Remove all listeners to prevent any orphaned handlers
+      if (this.shardBlockHandler) {
+        this.parallelProducer.removeListener('shardBlockProduced', this.shardBlockHandler);
+      }
+      this.parallelProducer.removeAllListeners('shardBlockProduced');
+      this.shardBlockHandler = null;
+      
+      await this.parallelProducer.stop();
+      this.parallelProducer = null;
+    }
+    
+    // Clear counters to free memory
+    this.shardTPS.clear();
+    this.shardTransactionCounts.clear();
+    this.initializeShardCounters();
+    
+    this.isRunning = false;
+    this.isShuttingDown = false;
+    this.emit('stopped');
+    console.log('[ShardCoordinator] ✅ Stopped');
+  }
+  
+  /**
+   * Emergency stop for memory pressure situations
+   */
+  async emergencyStop(): Promise<void> {
+    console.log('[ShardCoordinator] ⚠️ Emergency stop triggered');
+    this.isShuttingDown = true;
+    this.isRunning = false;
     
     if (this.metricsTimer) {
       clearInterval(this.metricsTimer);
       this.metricsTimer = null;
     }
     
-    if (this.parallelProducer && this.shardBlockHandler) {
-      this.parallelProducer.removeListener('shardBlockProduced', this.shardBlockHandler);
+    if (this.parallelProducer) {
+      this.parallelProducer.removeAllListeners('shardBlockProduced');
       this.shardBlockHandler = null;
-      await this.parallelProducer.stop();
+      this.parallelProducer.emergencyStop();
       this.parallelProducer = null;
     }
     
-    this.isRunning = false;
-    this.emit('stopped');
-    console.log('[ShardCoordinator] ✅ Stopped');
+    this.shardTPS.clear();
+    this.shardTransactionCounts.clear();
+    
+    this.isShuttingDown = false;
+    console.log('[ShardCoordinator] ⚠️ Emergency stop completed');
+    this.emit('emergencyStopped');
   }
   
   private handleShardBlock(block: ShardBlock): void {
@@ -251,7 +308,7 @@ export class ShardProcessingCoordinator extends EventEmitter {
   }
 
   private async routeCrossShardMessage(tx: ShardTransaction): Promise<void> {
-    if (!this.router) return;
+    if (!this.router || this.isShuttingDown) return;
 
     try {
       await this.router.sendMessage(
@@ -266,8 +323,24 @@ export class ShardProcessingCoordinator extends EventEmitter {
         }
       );
     } catch (error) {
-      console.error('[ShardCoordinator] Route message error:', error);
+      this.crossShardMessagesFailed++;
+      // Only log every 100 failures to avoid log spam
+      if (this.crossShardMessagesFailed % 100 === 1) {
+        console.error(`[ShardCoordinator] Cross-shard routing failed (total: ${this.crossShardMessagesFailed}):`, error);
+      }
     }
+  }
+  
+  /**
+   * Get failure statistics for monitoring
+   */
+  getFailureStats(): { failed: number; successRate: number } {
+    const total = this.crossShardMessagesRouted + this.crossShardMessagesFailed;
+    const successRate = total > 0 ? (this.crossShardMessagesRouted / total) * 100 : 100;
+    return {
+      failed: this.crossShardMessagesFailed,
+      successRate: Math.round(successRate * 100) / 100,
+    };
   }
 
   private recordShardTransaction(shardId: number, count: number = 1): void {

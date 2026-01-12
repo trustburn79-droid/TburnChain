@@ -338,8 +338,29 @@ export class MemoryManager extends EventEmitter {
     metricsAggregator.record('memory.aggressive_cleanup', 1);
   }
   
+  /**
+   * Emergency stop pipeline systems to free memory
+   * Dynamically imports to avoid circular dependencies
+   */
+  private emergencyStopPipelines(): void {
+    try {
+      // Use dynamic require to avoid circular dependency issues
+      const { getParallelShardBlockProducer } = require('../pipeline/parallel-shard-block-producer');
+      const producer = getParallelShardBlockProducer();
+      if (producer && typeof producer.forceMemoryCleanup === 'function') {
+        producer.forceMemoryCleanup();
+        console.log('[MemoryManager] Pipeline memory cleanup executed');
+      }
+    } catch (err) {
+      // Pipeline may not be initialized yet - safe to ignore
+    }
+  }
+  
   private emergencyCleanup(): void {
     this.emergencyCleanupCount++;
+    
+    // 0. Emergency stop pipeline systems to free memory
+    this.emergencyStopPipelines();
     
     // 1. 모든 캐시 정리
     blockMemoryManager.clear();

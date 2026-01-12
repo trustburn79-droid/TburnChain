@@ -79,6 +79,8 @@ export class ParallelShardBlockProducer extends EventEmitter {
   private currentTPS: number = 0;
   
   private readonly TPS_WINDOW_SIZE_MS = 5000;
+  private readonly MAX_TPS_HISTORY = 60;
+  private readonly MAX_TPS_WINDOW_ENTRIES = 50; // Prevent memory leak per shard
   
   private constructor() {
     super();
@@ -151,11 +153,14 @@ export class ParallelShardBlockProducer extends EventEmitter {
     
     this.isRunning = false;
     
+    // Clear all shard timers first
     Array.from(this.shards.values()).forEach(shard => {
       if (shard.timer) {
         clearInterval(shard.timer);
         shard.timer = null;
       }
+      // Clear per-shard memory
+      shard.tpsWindow = [];
     });
     
     if (this.statsTimer) {
@@ -163,8 +168,62 @@ export class ParallelShardBlockProducer extends EventEmitter {
       this.statsTimer = null;
     }
     
+    // Clear global telemetry to free memory
+    this.tpsHistory = [];
+    
     console.log('[ParallelProducer] Stopped');
     this.emit('stopped');
+  }
+  
+  /**
+   * Emergency stop for memory pressure situations
+   * Immediately stops all shards and clears memory
+   */
+  emergencyStop(): void {
+    console.log('[ParallelProducer] ⚠️ Emergency stop triggered');
+    
+    this.isRunning = false;
+    
+    // Immediately clear all timers
+    Array.from(this.shards.values()).forEach(shard => {
+      if (shard.timer) {
+        clearInterval(shard.timer);
+        shard.timer = null;
+      }
+      shard.tpsWindow = [];
+      shard.currentTPS = 0;
+    });
+    
+    if (this.statsTimer) {
+      clearInterval(this.statsTimer);
+      this.statsTimer = null;
+    }
+    
+    // Clear all telemetry immediately
+    this.tpsHistory = [];
+    this.currentTPS = 0;
+    
+    console.log('[ParallelProducer] ⚠️ Emergency stop completed - memory freed');
+    this.emit('emergencyStopped');
+  }
+  
+  /**
+   * Force memory cleanup without stopping
+   */
+  forceMemoryCleanup(): void {
+    // Trim tpsHistory
+    if (this.tpsHistory.length > 30) {
+      this.tpsHistory = this.tpsHistory.slice(-30);
+    }
+    
+    // Trim all shard tpsWindows
+    Array.from(this.shards.values()).forEach(shard => {
+      if (shard.tpsWindow.length > 25) {
+        shard.tpsWindow = shard.tpsWindow.slice(-25);
+      }
+    });
+    
+    console.log('[ParallelProducer] Memory cleanup executed');
   }
   
   private produceShardBlock(shardId: number): void {
@@ -210,6 +269,11 @@ export class ParallelShardBlockProducer extends EventEmitter {
     const windowCutoff = now - this.TPS_WINDOW_SIZE_MS;
     shard.tpsWindow = shard.tpsWindow.filter(w => w.timestamp > windowCutoff);
     
+    // Enforce memory cap on tpsWindow
+    if (shard.tpsWindow.length > this.MAX_TPS_WINDOW_ENTRIES) {
+      shard.tpsWindow = shard.tpsWindow.slice(-this.MAX_TPS_WINDOW_ENTRIES);
+    }
+    
     const oneSecAgo = now - 1000;
     const recentTx = shard.tpsWindow.filter(w => w.timestamp > oneSecAgo);
     shard.currentTPS = recentTx.reduce((sum, w) => sum + w.txCount, 0);
@@ -228,8 +292,8 @@ export class ParallelShardBlockProducer extends EventEmitter {
     
     this.currentTPS = totalTPS;
     this.tpsHistory.push(totalTPS);
-    if (this.tpsHistory.length > 60) {
-      this.tpsHistory.shift();
+    if (this.tpsHistory.length > this.MAX_TPS_HISTORY) {
+      this.tpsHistory = this.tpsHistory.slice(-this.MAX_TPS_HISTORY);
     }
     
     if (totalTPS > this.peakTPS) {
