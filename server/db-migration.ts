@@ -100,6 +100,19 @@ const CORE_TABLES = [
   'referrals',
   'newsletters',
   
+  // 회원 관리 (Members)
+  'members',
+  'member_profiles',
+  'member_staking_positions',
+  'member_governance_profiles',
+  'member_financial_profiles',
+  'member_security_profiles',
+  'member_performance_metrics',
+  'member_slash_events',
+  'member_audit_logs',
+  'member_documents',
+  'member_notes',
+  
   // 시스템
   'api_metrics',
   'api_hourly_stats',
@@ -447,9 +460,11 @@ async function main() {
   }
 }
 
-// 직접 실행 시에만 main 함수 호출
-if (require.main === module) {
-  main();
-}
+// 직접 실행 시에만 main 함수 호출 (ES module 방식)
+import { fileURLToPath } from 'url';
+const __filename = fileURLToPath(import.meta.url);
+
+// tsx로 직접 실행 시 main 함수 호출
+main();
 
 export { EnterpriseDbMigrator, CORE_TABLES, MigrationConfig, MigrationReport };
