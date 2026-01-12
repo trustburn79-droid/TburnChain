@@ -56,6 +56,8 @@ import { registerLaunchEventRoutes } from "./routes/launch-event-routes";
 import { registerScalabilityRoutes } from "./routes/scalability-routes";
 import consensusRoutes from "./routes/consensus-routes";
 import blockProductionRoutes from "./routes/block-production-routes";
+import pipelineRoutes from "./routes/pipeline-routes";
+import { getRealtimeBlockPipeline } from "./core/pipeline/realtime-block-pipeline";
 import verificationRoutes from "./routes/verification-routes";
 import { registerDbOptimizationRoutes } from "./routes/db-optimization-routes";
 import { registerShardingRoutes } from "./routes/sharding-routes";
@@ -732,6 +734,17 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   // Always defer heavy services to allow server to start responding immediately
   console.log(`[Routes] 🚀 Deferring heavy services by ${HEAVY_INIT_DELAY/1000}s for fast cold-start`);
   setTimeout(startHeavyServices, HEAVY_INIT_DELAY);
+  
+  // Start realtime block pipeline after 30s for production block production
+  setTimeout(async () => {
+    try {
+      const pipeline = getRealtimeBlockPipeline();
+      await pipeline.start();
+      console.log('[Routes] ✅ Realtime block pipeline started (auto-start)');
+    } catch (error) {
+      console.error('[Routes] Failed to start pipeline:', error);
+    }
+  }, 30000);
 
   // Initialize validator simulation service
   let validatorSimulation: ValidatorSimulationService | null = null;
@@ -2791,6 +2804,10 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
     }
     // Skip auth for Block Production GET endpoints only (monitoring is read-only)
     // POST operations (start/stop) require authentication via requireAuth
+    // Skip auth for Pipeline endpoints (realtime block production monitoring)
+    if (req.path.startsWith("/pipeline/")) {
+      return next();
+    }
     if (req.method === "GET" && req.path.startsWith("/block-production/")) {
       return next();
     }
@@ -2973,6 +2990,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   // BLOCK PRODUCTION ENGINE (100ms Block Time)
   // ============================================
   app.use("/api/block-production", blockProductionRoutes);
+  app.use("/api/pipeline", pipelineRoutes);
   app.use("/api/verification", verificationRoutes);
   console.log("[BlockProduction] ✅ Enterprise block production routes registered");
 

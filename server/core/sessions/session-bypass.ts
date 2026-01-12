@@ -266,6 +266,7 @@ const SESSION_FREE_API_PATHS = [
   '/api/consensus/info',
   '/api/consensus/rounds',
   '/api/block-production',
+  '/api/pipeline',
   '/api/dex/pools',
   '/api/dex/pairs',
   '/api/lending/markets',
