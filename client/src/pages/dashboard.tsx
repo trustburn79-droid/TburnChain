@@ -60,6 +60,7 @@ import {
 } from "@/components/ui/tooltip";
 import { formatAddress, formatTimeAgo, formatNumber, formatTokenAmount } from "@/lib/format";
 import type { NetworkStats, Block, Transaction } from "@shared/schema";
+import { getMarketingTiersArray } from "@shared/tokenomics-config";
 import { Link, useLocation } from "wouter";
 import { AreaChart, Area, XAxis, YAxis, ResponsiveContainer, Tooltip as RechartsTooltip, LineChart, Line } from "recharts";
 import { motion } from "framer-motion";
@@ -1104,84 +1105,58 @@ export default function Dashboard() {
               </Card>
             </div>
 
-            <div className="grid gap-4 md:grid-cols-3">
-              <Card className="border-amber-500/30 bg-gradient-to-br from-amber-500/5 to-orange-500/5 hover-elevate">
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-sm flex items-center gap-2">
-                    <Crown className="h-4 w-4 text-amber-500" />
-                    {t("dashboard.tier1ActiveCommittee")}
-                  </CardTitle>
-                  <CardDescription>{t("dashboard.tier1Desc")}</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="flex justify-between items-center">
-                    <div>
-                      <p className="text-lg font-bold text-amber-500" data-testid="tier1-validators">{tokenomics.tiers.tier1.currentValidators || 0}</p>
-                      <p className="text-xs text-muted-foreground">{t("dashboard.validators")}</p>
-                    </div>
-                    <div>
-                      <p className="text-lg font-bold text-green-500">{tokenomics.tiers.tier1.targetAPY}%</p>
-                      <p className="text-xs text-muted-foreground">{t("dashboard.apy")}</p>
-                    </div>
-                    <div>
-                      <p className="text-lg font-bold">{formatNumber(tokenomics.tiers.tier1.dailyRewardPool)}</p>
-                      <p className="text-xs text-muted-foreground">{t("dashboard.tburnPerDay")}</p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card className="border-blue-500/30 bg-gradient-to-br from-blue-500/5 to-cyan-500/5 hover-elevate">
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-sm flex items-center gap-2">
-                    <Layers className="h-4 w-4 text-blue-500" />
-                    {t("dashboard.tier2StandbyValidators")}
-                  </CardTitle>
-                  <CardDescription>{t("dashboard.tier2Desc")}</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="flex justify-between items-center">
-                    <div>
-                      <p className="text-lg font-bold text-blue-500" data-testid="tier2-validators">{tokenomics.tiers.tier2.currentValidators || 0}</p>
-                      <p className="text-xs text-muted-foreground">{t("dashboard.validators")}</p>
-                    </div>
-                    <div>
-                      <p className="text-lg font-bold text-green-500">{tokenomics.tiers.tier2.targetAPY}%</p>
-                      <p className="text-xs text-muted-foreground">{t("dashboard.apy")}</p>
-                    </div>
-                    <div>
-                      <p className="text-lg font-bold">{formatNumber(tokenomics.tiers.tier2.dailyRewardPool)}</p>
-                      <p className="text-xs text-muted-foreground">{t("dashboard.tburnPerDay")}</p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card className="border-gray-500/30 bg-gradient-to-br from-gray-500/5 to-slate-500/5 hover-elevate">
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-sm flex items-center gap-2">
-                    <Users className="h-4 w-4 text-gray-500" />
-                    {t("dashboard.tier3Delegators")}
-                  </CardTitle>
-                  <CardDescription>{t("dashboard.tier3Desc")}</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="flex justify-between items-center">
-                    <div>
-                      <p className="text-lg font-bold text-gray-500" data-testid="tier3-delegators">{formatNumber(tokenomics.tiers.tier3.currentDelegators || 0)}</p>
-                      <p className="text-xs text-muted-foreground">{t("dashboard.delegators")}</p>
-                    </div>
-                    <div>
-                      <p className="text-lg font-bold text-green-500">{tokenomics.tiers.tier3.targetAPY}%</p>
-                      <p className="text-xs text-muted-foreground">{t("dashboard.apy")}</p>
-                    </div>
-                    <div>
-                      <p className="text-lg font-bold">{formatNumber(tokenomics.tiers.tier3.dailyRewardPool)}</p>
-                      <p className="text-xs text-muted-foreground">{t("dashboard.tburnPerDay")}</p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
+            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+              {getMarketingTiersArray().map((tier) => {
+                const iconMap: Record<string, React.ReactNode> = {
+                  crown: <Crown className="h-4 w-4 text-amber-500" />,
+                  rocket: <Rocket className="h-4 w-4 text-purple-500" />,
+                  star: <Award className="h-4 w-4 text-blue-500" />,
+                  users: <Users className="h-4 w-4 text-green-500" />,
+                };
+                const colorMap: Record<string, { border: string; bg: string; text: string }> = {
+                  gold: { border: "border-amber-500/30", bg: "from-amber-500/5 to-orange-500/5", text: "text-amber-500" },
+                  purple: { border: "border-purple-500/30", bg: "from-purple-500/5 to-pink-500/5", text: "text-purple-500" },
+                  yellow: { border: "border-blue-500/30", bg: "from-blue-500/5 to-cyan-500/5", text: "text-blue-500" },
+                  green: { border: "border-green-500/30", bg: "from-green-500/5 to-emerald-500/5", text: "text-green-500" },
+                };
+                const colors = colorMap[tier.color] || colorMap.green;
+                const tierNameCapitalized = tier.name.charAt(0).toUpperCase() + tier.name.slice(1);
+                
+                return (
+                  <Card 
+                    key={tier.name} 
+                    className={`${colors.border} bg-gradient-to-br ${colors.bg} hover-elevate`}
+                  >
+                    <CardHeader className="pb-2">
+                      <CardTitle className="text-sm flex items-center gap-2">
+                        {iconMap[tier.icon]}
+                        {t(`dashboard.tier${tierNameCapitalized}`, { defaultValue: tier.displayName })}
+                      </CardTitle>
+                      <CardDescription>
+                        {formatNumber(tier.minStakeTBURN)}+ TBURN, {t("dashboard.maxSlots", { count: tier.maxSlots })}
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="flex justify-between items-center">
+                        <div>
+                          <p className={`text-lg font-bold ${colors.text}`} data-testid={`tier-${tier.name}-validators`}>
+                            {tier.maxSlots}
+                          </p>
+                          <p className="text-xs text-muted-foreground">{t("dashboard.maxValidators")}</p>
+                        </div>
+                        <div>
+                          <p className="text-lg font-bold text-green-500">{tier.apyRange.min}-{tier.apyRange.max}%</p>
+                          <p className="text-xs text-muted-foreground">{t("dashboard.apy")}</p>
+                        </div>
+                        <div>
+                          <p className="text-lg font-bold">{tier.feeRange.min}-{tier.feeRange.max}%</p>
+                          <p className="text-xs text-muted-foreground">{t("dashboard.commission")}</p>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                );
+              })}
             </div>
           </>
         ) : null}
