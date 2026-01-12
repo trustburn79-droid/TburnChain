@@ -107,34 +107,51 @@ function serveIndexHtml(res: express.Response) {
   res.sendFile(path.resolve(distPath, "index.html"));
 }
 
-// API placeholder - returns 503 while services are initializing
-// Allow critical auth endpoints through even during initialization
-// Other APIs will be blocked until full initialization completes
+// ★ [2026-01-12] CRITICAL: Block ALL API requests until services are ready
+// This prevents 500 errors during cold start / instance spin-up
+// During initialization, return 503 (Service Unavailable) instead of 500
 app.use('/api', (req, res, next) => {
-  // Allow health checks and auth-related APIs during initialization
-  // Auth APIs are lightweight and only need database + session
-  const earlyAllowedPaths = [
+  // Allow only health checks during initialization
+  const alwaysAllowedPaths = [
     '/api/health',
-    '/api/auth/check',
-    '/api/auth/login',
-    '/api/auth/logout',
-    '/api/auth/register',
-    '/api/public/',  // All public API endpoints
+    '/api/db-environment',
   ];
   
-  const isEarlyAllowed = earlyAllowedPaths.some(path => 
+  const isAlwaysAllowed = alwaysAllowedPaths.some(path => 
     req.path === path || req.path.startsWith(path)
   );
   
-  if (!servicesReady && !isEarlyAllowed) {
+  if (!servicesReady && !isAlwaysAllowed) {
+    console.log(`[Autoscale] 503 during init: ${req.method} ${req.path}`);
     return res.status(503).json({
       error: 'Service initializing',
       message: 'Backend services are starting up. Please retry in a few seconds.',
       retryAfter: 3,
       servicesReady: false,
+      hint: 'This is normal during cold start. The page will auto-refresh.',
     });
   }
   next();
+});
+
+// ★ [2026-01-12] Global error handler for production - NEVER return 500
+// This catches any unhandled errors before Express default handler
+app.use((err: any, req: express.Request, res: express.Response, _next: express.NextFunction) => {
+  if (res.headersSent) {
+    return;
+  }
+  
+  const requestId = `req_${Date.now()}_${Math.random().toString(36).substr(2, 6)}`;
+  console.error(`[Production Error] ${req.method} ${req.path} [${requestId}]:`, err.message || err);
+  
+  // Always return 503 instead of 500 for better client handling
+  return res.status(503).json({
+    error: 'Service temporarily unavailable',
+    message: 'An unexpected condition occurred. Please try again.',
+    degraded: true,
+    retryAfter: 5,
+    requestId,
+  });
 });
 
 // WebSocket upgrade happens at HTTP server level (not Express middleware)
