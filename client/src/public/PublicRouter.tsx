@@ -49,6 +49,7 @@ const PublicRoundPage = lazyWithRetry(() => import("@/pages/public-round"));
 const LaunchpadPage = lazyWithRetry(() => import("@/pages/launchpad"));
 const CoinListPage = lazyWithRetry(() => import("@/pages/coinlist"));
 const DAOMakerPage = lazyWithRetry(() => import("@/pages/dao-maker"));
+const StakingDashboard = lazyWithRetry(() => import("@/pages/staking"));
 
 const LearnRoutes = lazyWithRetry(() => import("./routes/LearnRoutes"));
 const DeveloperRoutes = lazyWithRetry(() => import("./routes/DeveloperRoutes"));
@@ -237,6 +238,16 @@ export function PublicRouter() {
       <ErrorBoundary>
         <Suspense fallback={<PageLoading />}>
           <ValidatorIncentivesPage />
+        </Suspense>
+      </ErrorBoundary>
+    );
+  }
+  
+  if (location === "/staking") {
+    return (
+      <ErrorBoundary>
+        <Suspense fallback={<PageLoading />}>
+          <StakingDashboard />
         </Suspense>
       </ErrorBoundary>
     );

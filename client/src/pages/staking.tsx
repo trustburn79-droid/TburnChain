@@ -217,6 +217,52 @@ interface ApyPrediction {
   analysis: string;
 }
 
+interface StakingPortfolioSummary {
+  totalStaked: string;
+  totalPendingRewards: string;
+  totalEarned: string;
+  totalUnbonding: string;
+  totalPortfolioValue: string;
+  avgApy: string;
+  activePositions: number;
+  unbondingPositions: number;
+  autoCompoundEnabled: boolean;
+}
+
+interface StakingPosition {
+  id: string;
+  validatorId: string;
+  validatorName: string;
+  validatorAddress: string;
+  validatorCommission: string;
+  validatorUptime: string;
+  validatorRiskScore: string;
+  stakedAmount: string;
+  currentApy: string;
+  pendingRewards: string;
+  totalRewardsEarned: string;
+  dailyReward: string;
+  status: string;
+}
+
+interface UnbondingPosition {
+  id: string;
+  validatorName: string;
+  amount: string;
+  remainingDays: number;
+  remainingHours: number;
+  progressPercent: string;
+  status: string;
+  canEmergencyUnstake: boolean;
+  emergencyPenalty: string;
+}
+
+interface StakingPortfolioData {
+  summary: StakingPortfolioSummary;
+  positions: StakingPosition[];
+  unbonding: UnbondingPosition[];
+}
+
 interface CalculatorResults {
   dailyRewards: number;
   weeklyRewards: number;
@@ -244,6 +290,60 @@ export default function StakingDashboard() {
   
   const [apyPrediction, setApyPrediction] = useState<ApyPrediction | null>(null);
   const [riskDialogOpen, setRiskDialogOpen] = useState(false);
+  const [claimDialogOpen, setClaimDialogOpen] = useState(false);
+
+  const { data: portfolioResponse, isLoading: portfolioLoading, refetch: refetchPortfolio } = useQuery<{ success: boolean; data: StakingPortfolioData }>({
+    queryKey: ['/api/user', address, 'staking-portfolio'],
+    enabled: isConnected && !!address,
+    refetchInterval: 30000,
+  });
+
+  const portfolio = portfolioResponse?.data;
+
+  const claimMutation = useMutation({
+    mutationFn: async ({ claimAll, autoCompound }: { claimAll?: boolean; autoCompound?: boolean }) => {
+      const response = await apiRequest('POST', `/api/user/${address}/claim-staking`, { claimAll, autoCompound });
+      return response.json();
+    },
+    onSuccess: (data: any) => {
+      toast({
+        title: t('staking.rewardsClaimed'),
+        description: data?.data?.message || t('staking.rewardsClaimedDesc'),
+      });
+      setClaimDialogOpen(false);
+      refetchPortfolio();
+    },
+    onError: () => {
+      toast({
+        title: t('staking.claimFailed'),
+        description: t('staking.claimFailedDesc'),
+        variant: "destructive",
+      });
+    },
+  });
+
+  const autoCompoundMutation = useMutation({
+    mutationFn: async ({ enabled }: { enabled: boolean }) => {
+      const response = await apiRequest('POST', `/api/user/${address}/auto-compound`, { enabled });
+      return response.json();
+    },
+    onSuccess: (data: any) => {
+      toast({
+        title: data?.data?.autoCompoundEnabled ? t('staking.autoCompoundEnabled') : t('staking.autoCompoundDisabled'),
+        description: data?.data?.message,
+      });
+      refetchPortfolio();
+    },
+  });
+
+  const getRiskBadge = (riskScore: string) => {
+    switch (riskScore) {
+      case 'low': return <Badge className="bg-green-100 text-green-600 dark:bg-green-500/20 dark:text-green-400">{t('staking.lowRisk')}</Badge>;
+      case 'medium': return <Badge className="bg-yellow-100 text-yellow-600 dark:bg-yellow-500/20 dark:text-yellow-400">{t('staking.mediumRisk')}</Badge>;
+      case 'high': return <Badge className="bg-red-100 text-red-600 dark:bg-red-500/20 dark:text-red-400">{t('staking.highRisk')}</Badge>;
+      default: return <Badge variant="secondary">{t('common.unknown')}</Badge>;
+    }
+  };
 
   const { data: stats, isLoading: statsLoading } = useQuery<StakingStatsResponse>({
     queryKey: ["/api/staking/stats"],
@@ -570,13 +670,265 @@ export default function StakingDashboard() {
         </Card>
       </div>
 
-      <Tabs defaultValue="pools" className="space-y-4">
+      <Tabs defaultValue={isConnected ? "portfolio" : "pools"} className="space-y-4">
         <TabsList data-testid="tabs-staking">
+          <TabsTrigger value="portfolio" data-testid="tab-portfolio" className="flex items-center gap-1">
+            <Wallet className="h-4 w-4" />
+            {t('staking.myPortfolio', 'My Portfolio')}
+          </TabsTrigger>
           <TabsTrigger value="pools" data-testid="tab-pools">{t('staking.pools')}</TabsTrigger>
           <TabsTrigger value="tiers" data-testid="tab-tiers">{t('staking.tierSystem')}</TabsTrigger>
           <TabsTrigger value="ai-insights" data-testid="tab-ai-insights">{t('staking.aiInsights')}</TabsTrigger>
           <TabsTrigger value="calculator" data-testid="tab-calculator">{t('staking.rewardsCalculator')}</TabsTrigger>
         </TabsList>
+
+        <TabsContent value="portfolio" className="space-y-6" data-testid="content-portfolio">
+          {!isConnected ? (
+            <Card className="p-8 text-center">
+              <Wallet className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
+              <h3 className="text-xl font-bold mb-2">{t('staking.connectToViewPortfolio', 'Connect Wallet to View Portfolio')}</h3>
+              <p className="text-muted-foreground mb-4">{t('staking.connectDesc', 'Connect your wallet to view your staking positions, pending rewards, and manage your delegations.')}</p>
+              <Button onClick={() => setWalletModalOpen(true)} className="bg-gradient-to-r from-blue-500 to-purple-600" data-testid="button-connect-portfolio">
+                <Wallet className="h-4 w-4 mr-2" />
+                {t('wallet.connectWallet')}
+              </Button>
+            </Card>
+          ) : portfolioLoading ? (
+            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-5">
+              {[1, 2, 3, 4, 5].map(i => <Skeleton key={i} className="h-32" />)}
+            </div>
+          ) : portfolio ? (
+            <>
+              <div className="flex items-center justify-between">
+                <h3 className="text-xl font-bold">{t('staking.portfolioOverview', 'Portfolio Overview')}</h3>
+                <div className="flex items-center gap-2">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => autoCompoundMutation.mutate({ enabled: !portfolio.summary.autoCompoundEnabled })}
+                    className={portfolio.summary.autoCompoundEnabled ? "border-green-500 text-green-600" : ""}
+                    data-testid="button-toggle-autocompound"
+                  >
+                    <RefreshCw className={`h-4 w-4 mr-2 ${portfolio.summary.autoCompoundEnabled ? "text-green-500" : ""}`} />
+                    {portfolio.summary.autoCompoundEnabled ? t('staking.autoCompoundOn', 'Auto-Compound ON') : t('staking.autoCompoundOff', 'Auto-Compound OFF')}
+                  </Button>
+                  <Button
+                    onClick={() => setClaimDialogOpen(true)}
+                    disabled={parseFloat(portfolio.summary.totalPendingRewards || '0') <= 0}
+                    data-testid="button-claim-rewards"
+                  >
+                    <Award className="h-4 w-4 mr-2" />
+                    {t('staking.claimRewards', 'Claim Rewards')} ({portfolio.summary.totalPendingRewards} TB)
+                  </Button>
+                </div>
+              </div>
+
+              <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-5">
+                <Card data-testid="card-total-staked">
+                  <CardHeader className="flex flex-row items-center justify-between gap-2 space-y-0 pb-2">
+                    <CardTitle className="text-sm font-medium">{t('staking.totalStaked', 'Total Staked')}</CardTitle>
+                    <Lock className="h-4 w-4 text-blue-500" />
+                  </CardHeader>
+                  <CardContent>
+                    <div className="text-2xl font-bold text-blue-600">{formatNumber(parseFloat(portfolio.summary.totalStaked || '0'))} TBURN</div>
+                    <p className="text-xs text-muted-foreground">{portfolio.summary.activePositions} {t('staking.activePositions', 'active positions')}</p>
+                  </CardContent>
+                </Card>
+
+                <Card data-testid="card-pending-rewards">
+                  <CardHeader className="flex flex-row items-center justify-between gap-2 space-y-0 pb-2">
+                    <CardTitle className="text-sm font-medium">{t('staking.pendingRewards', 'Pending Rewards')}</CardTitle>
+                    <Award className="h-4 w-4 text-green-500" />
+                  </CardHeader>
+                  <CardContent>
+                    <div className="text-2xl font-bold text-green-600">{portfolio.summary.totalPendingRewards} TBURN</div>
+                    <p className="text-xs text-muted-foreground">{t('staking.readyToClaim', 'Ready to claim')}</p>
+                  </CardContent>
+                </Card>
+
+                <Card data-testid="card-total-earned">
+                  <CardHeader className="flex flex-row items-center justify-between gap-2 space-y-0 pb-2">
+                    <CardTitle className="text-sm font-medium">{t('staking.totalEarned', 'Total Earned')}</CardTitle>
+                    <TrendingUp className="h-4 w-4 text-purple-500" />
+                  </CardHeader>
+                  <CardContent>
+                    <div className="text-2xl font-bold text-purple-600">{portfolio.summary.totalEarned} TBURN</div>
+                    <p className="text-xs text-muted-foreground">{t('staking.lifetimeRewards', 'Lifetime rewards')}</p>
+                  </CardContent>
+                </Card>
+
+                <Card data-testid="card-unbonding">
+                  <CardHeader className="flex flex-row items-center justify-between gap-2 space-y-0 pb-2">
+                    <CardTitle className="text-sm font-medium">{t('staking.unbonding', 'Unbonding')}</CardTitle>
+                    <Unlock className="h-4 w-4 text-orange-500" />
+                  </CardHeader>
+                  <CardContent>
+                    <div className="text-2xl font-bold text-orange-600">{portfolio.summary.totalUnbonding} TBURN</div>
+                    <p className="text-xs text-muted-foreground">{portfolio.summary.unbondingPositions} {t('staking.pendingUnbonds', 'pending')}</p>
+                  </CardContent>
+                </Card>
+
+                <Card data-testid="card-avg-apy">
+                  <CardHeader className="flex flex-row items-center justify-between gap-2 space-y-0 pb-2">
+                    <CardTitle className="text-sm font-medium">{t('staking.avgApy', 'Avg APY')}</CardTitle>
+                    <Percent className="h-4 w-4 text-cyan-500" />
+                  </CardHeader>
+                  <CardContent>
+                    <div className="text-2xl font-bold text-cyan-600">{portfolio.summary.avgApy}%</div>
+                    <p className="text-xs text-muted-foreground">{t('staking.annualReturn', 'Annual return')}</p>
+                  </CardContent>
+                </Card>
+              </div>
+
+              {portfolio.positions.length > 0 && (
+                <Card data-testid="card-active-delegations">
+                  <CardHeader>
+                    <CardTitle className="flex items-center justify-between">
+                      {t('staking.activeDelegations', 'Active Delegations')}
+                      <Badge variant="secondary">{portfolio.positions.length} {t('staking.positions', 'positions')}</Badge>
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <ScrollArea className="h-[300px]">
+                      <div className="space-y-4">
+                        {portfolio.positions.map((pos) => (
+                          <div key={pos.id} className="flex items-center justify-between p-4 bg-muted/50 rounded-lg" data-testid={`delegation-${pos.id}`}>
+                            <div className="flex items-center gap-4">
+                              <img
+                                src={`https://api.dicebear.com/7.x/identicon/svg?seed=${pos.validatorAddress}`}
+                                className="w-10 h-10 rounded-full"
+                                alt={pos.validatorName}
+                              />
+                              <div>
+                                <p className="font-medium">{translateValidatorName(t, pos.validatorName)}</p>
+                                <p className="text-xs text-muted-foreground">{t('staking.commission', 'Commission')}: {pos.validatorCommission}%</p>
+                              </div>
+                            </div>
+                            <div className="text-center">
+                              <p className="font-bold">{formatNumber(parseFloat(pos.stakedAmount))} TB</p>
+                              <p className="text-xs text-muted-foreground">{t('staking.staked', 'Staked')}</p>
+                            </div>
+                            <div className="text-center">
+                              <p className="font-bold text-green-500">{pos.currentApy}%</p>
+                              <p className="text-xs text-muted-foreground">APY</p>
+                            </div>
+                            <div className="text-center">
+                              <p className="font-bold text-green-500">{pos.pendingRewards} TB</p>
+                              <p className="text-xs text-muted-foreground">~{pos.dailyReward}/{t('common.day', 'day')}</p>
+                            </div>
+                            <div className="text-center">
+                              {getRiskBadge(pos.validatorRiskScore)}
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </ScrollArea>
+                  </CardContent>
+                </Card>
+              )}
+
+              {portfolio.unbonding.length > 0 && (
+                <Card data-testid="card-unbonding-positions">
+                  <CardHeader>
+                    <CardTitle className="flex items-center justify-between">
+                      {t('staking.unbondingPositions', 'Unbonding Positions')}
+                      <Badge variant="secondary" className="bg-orange-100 text-orange-600 dark:bg-orange-500/20 dark:text-orange-400">
+                        {portfolio.unbonding.length} {t('staking.pending', 'pending')}
+                      </Badge>
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-4">
+                      {portfolio.unbonding.map((unbond) => (
+                        <div key={unbond.id} className="p-4 bg-muted/50 rounded-lg" data-testid={`unbonding-${unbond.id}`}>
+                          <div className="flex justify-between items-start mb-3">
+                            <div>
+                              <p className="font-medium">{translateValidatorName(t, unbond.validatorName)}</p>
+                              <p className="text-lg font-bold text-orange-500">{unbond.amount} TBURN</p>
+                            </div>
+                            <div className="text-right">
+                              {unbond.status === 'ready' ? (
+                                <Badge className="bg-green-100 text-green-600 dark:bg-green-500/20 dark:text-green-400">
+                                  {t('staking.readyToClaim', 'Ready to Claim')}
+                                </Badge>
+                              ) : (
+                                <div className="text-sm">
+                                  <p className="text-muted-foreground flex items-center">
+                                    <Clock className="h-4 w-4 mr-1" />
+                                    {unbond.remainingDays}d {unbond.remainingHours}h {t('staking.remaining', 'remaining')}
+                                  </p>
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                          <div className="space-y-2">
+                            <div className="flex justify-between text-xs text-muted-foreground">
+                              <span>{t('staking.progress', 'Progress')}</span>
+                              <span>{unbond.progressPercent}%</span>
+                            </div>
+                            <Progress value={parseFloat(unbond.progressPercent)} className="h-2" />
+                          </div>
+                          {unbond.canEmergencyUnstake && (
+                            <p className="text-xs text-yellow-500 mt-2">
+                              {t('staking.emergencyUnstakeAvailable', 'Emergency unstake available')} ({unbond.emergencyPenalty}% {t('staking.penalty', 'penalty')})
+                            </p>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+              )}
+            </>
+          ) : (
+            <Card className="p-8 text-center">
+              <AlertCircle className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
+              <h3 className="text-xl font-bold mb-2">{t('staking.noPositions', 'No Staking Positions')}</h3>
+              <p className="text-muted-foreground mb-4">{t('staking.noPositionsDesc', 'You don\'t have any active staking positions. Start staking to earn rewards!')}</p>
+              <Button asChild>
+                <Link href="#pools">{t('staking.explorePools', 'Explore Pools')}</Link>
+              </Button>
+            </Card>
+          )}
+
+          <Dialog open={claimDialogOpen} onOpenChange={setClaimDialogOpen}>
+            <DialogContent className="sm:max-w-md">
+              <DialogHeader>
+                <DialogTitle>{t('staking.claimStakingRewards', 'Claim Staking Rewards')}</DialogTitle>
+                <DialogDescription>
+                  {t('staking.claimDialogDesc', 'You have {{amount}} TBURN in pending rewards.', { amount: portfolio?.summary?.totalPendingRewards || '0' })}
+                </DialogDescription>
+              </DialogHeader>
+              <div className="space-y-4 py-4">
+                <div className="flex items-center justify-between p-4 bg-muted rounded-lg">
+                  <span className="text-muted-foreground">{t('staking.totalClaimable', 'Total Claimable')}</span>
+                  <span className="text-xl font-bold text-green-500">{portfolio?.summary?.totalPendingRewards || '0'} TB</span>
+                </div>
+                <div className="flex gap-2">
+                  <Button
+                    className="flex-1"
+                    onClick={() => claimMutation.mutate({ claimAll: true })}
+                    disabled={claimMutation.isPending}
+                    data-testid="button-claim-all"
+                  >
+                    {claimMutation.isPending ? <Loader2 className="h-4 w-4 mr-2 animate-spin" /> : <Award className="h-4 w-4 mr-2" />}
+                    {t('staking.claimAll', 'Claim All')}
+                  </Button>
+                  <Button
+                    variant="outline"
+                    className="flex-1"
+                    onClick={() => claimMutation.mutate({ claimAll: true, autoCompound: true })}
+                    disabled={claimMutation.isPending}
+                    data-testid="button-auto-compound"
+                  >
+                    <RefreshCw className="h-4 w-4 mr-2" />
+                    {t('staking.autoCompound', 'Auto-Compound')}
+                  </Button>
+                </div>
+              </div>
+            </DialogContent>
+          </Dialog>
+        </TabsContent>
 
         <TabsContent value="pools" className="space-y-4">
           <div className="flex items-center gap-2 flex-wrap">
