@@ -531,14 +531,14 @@ function requireAuth(req: Request, res: Response, next: NextFunction) {
     if (req.session.adminAuthenticated) {
       return next();
     }
-    return res.status(401).json({ error: "Unauthorized" });
+    return res.status(401).json({ error: "Unauthorized", message: "Admin authentication required. Please login via /api/admin/auth/login", code: "ADMIN_AUTH_REQUIRED" });
   }
   
   // For other paths, regular authentication (either authenticated or adminAuthenticated)
   if (req.session.authenticated || req.session.adminAuthenticated) {
     return next();
   }
-  res.status(401).json({ error: "Unauthorized" });
+  res.status(401).json({ error: "Unauthorized", message: "Authentication required. Please login to access this resource", code: "AUTH_REQUIRED" });
 }
 
 // Admin authentication middleware
@@ -571,7 +571,7 @@ function requireAdmin(req: Request, res: Response, next: NextFunction) {
   }
   
   console.warn('[Admin] Unauthorized access attempt - not authenticated');
-  return res.status(401).json({ error: "Unauthorized" });
+  return res.status(401).json({ error: "Unauthorized", message: "Admin authentication required. Please login via /api/admin/auth/login", code: "ADMIN_AUTH_REQUIRED" });
 }
 
 // NOTE: WebSocket authentication limitation

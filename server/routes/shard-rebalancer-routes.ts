@@ -227,7 +227,7 @@ router.get('/config', (_req: Request, res: Response) => {
 router.post('/start', async (req: Request, res: Response) => {
   try {
     if (!validateAdminAuth(req)) {
-      return sendError(res, 'Unauthorized', 401);
+      return sendError(res, 'Admin authentication required. Use x-admin-password header or login via /api/admin/auth/login', 401);
     }
     
     const rebalancer = getRebalancer();
@@ -245,7 +245,7 @@ router.post('/start', async (req: Request, res: Response) => {
 router.post('/stop', async (req: Request, res: Response) => {
   try {
     if (!validateAdminAuth(req)) {
-      return sendError(res, 'Unauthorized', 401);
+      return sendError(res, 'Admin authentication required. Use x-admin-password header or login via /api/admin/auth/login', 401);
     }
     
     const rebalancer = getRebalancer();
@@ -263,7 +263,7 @@ router.post('/stop', async (req: Request, res: Response) => {
 router.post('/pause', (req: Request, res: Response) => {
   try {
     if (!validateAdminAuth(req)) {
-      return sendError(res, 'Unauthorized', 401);
+      return sendError(res, 'Admin authentication required. Use x-admin-password header or login via /api/admin/auth/login', 401);
     }
     
     const rebalancer = getRebalancer();
@@ -281,7 +281,7 @@ router.post('/pause', (req: Request, res: Response) => {
 router.post('/resume', (req: Request, res: Response) => {
   try {
     if (!validateAdminAuth(req)) {
-      return sendError(res, 'Unauthorized', 401);
+      return sendError(res, 'Admin authentication required. Use x-admin-password header or login via /api/admin/auth/login', 401);
     }
     
     const rebalancer = getRebalancer();
@@ -299,7 +299,7 @@ router.post('/resume', (req: Request, res: Response) => {
 router.post('/force-rebalance', (req: Request, res: Response) => {
   try {
     if (!validateAdminAuth(req)) {
-      return sendError(res, 'Unauthorized', 401);
+      return sendError(res, 'Admin authentication required. Use x-admin-password header or login via /api/admin/auth/login', 401);
     }
     
     const rebalancer = getRebalancer();
@@ -317,7 +317,7 @@ router.post('/force-rebalance', (req: Request, res: Response) => {
 router.post('/benchmark', async (req: Request, res: Response) => {
   try {
     if (!validateAdminAuth(req)) {
-      return sendError(res, 'Unauthorized', 401);
+      return sendError(res, 'Admin authentication required. Use x-admin-password header or login via /api/admin/auth/login', 401);
     }
     
     const iterations = parseInt(req.body?.iterations) || 10000;
