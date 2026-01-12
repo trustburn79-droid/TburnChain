@@ -58,6 +58,23 @@ import {
   GenesisBlock 
 } from '../genesis/enterprise-genesis-builder';
 
+// Import new enterprise components
+import { EnterpriseExecutionEngine } from '../execution/enterprise-execution-engine';
+import { EnterpriseSlashingManager } from '../slashing/enterprise-slashing-manager';
+import { EnterpriseBlockProposalPipeline } from '../block/enterprise-block-proposal';
+import { EnterpriseAttestationPool } from '../attestation/enterprise-attestation-pool';
+import { EnterpriseStateSyncManager } from '../sync/enterprise-state-sync';
+import { EnterpriseProductionBootstrap } from '../bootstrap/enterprise-production-bootstrap';
+
+// Import persistence adapters
+import {
+  getStateStorageAdapter,
+  getSyncPersistenceAdapter,
+  getBootstrapPersistenceAdapter,
+  getBlockPersistenceAdapter,
+  getValidatorPersistenceAdapter,
+} from '../persistence/drizzle-persistence-adapters';
+
 // ============================================================================
 // Configuration
 // ============================================================================
@@ -494,13 +511,21 @@ class SyncManager extends EventEmitter {
 // ============================================================================
 
 export class ProductionBlockchainOrchestrator extends EventEmitter {
-  // Infrastructure components
+  // Core Infrastructure components
   private txValidator: EnterpriseTxValidator;
   private mempool: EnterpriseMempoolService;
   private stateStore: EnterpriseStateStore;
   private p2pNetwork: EnterpriseP2PNetwork;
   private forkChoice: EnterpriseForkChoice;
   private genesisBuilder: EnterpriseGenesisBuilder;
+  
+  // Enterprise Components (v2.0)
+  private executionEngine: EnterpriseExecutionEngine;
+  private slashingManager: EnterpriseSlashingManager;
+  private blockProposal: EnterpriseBlockProposalPipeline;
+  private attestationPool: EnterpriseAttestationPool;
+  private stateSync: EnterpriseStateSyncManager;
+  private productionBootstrap: EnterpriseProductionBootstrap;
   
   // Pipelines
   private txPipeline: TransactionPipeline;
@@ -525,13 +550,21 @@ export class ProductionBlockchainOrchestrator extends EventEmitter {
   constructor() {
     super();
     
-    // Get singleton instances
+    // Get singleton instances for core infrastructure
     this.txValidator = getEnterpriseTxValidator();
     this.mempool = getEnterpriseMempoolService();
     this.stateStore = getEnterpriseStateStore();
     this.p2pNetwork = getEnterpriseP2PNetwork();
     this.forkChoice = getEnterpriseForkChoice();
     this.genesisBuilder = getEnterpriseGenesisBuilder();
+    
+    // Initialize enterprise components (v2.0)
+    this.executionEngine = EnterpriseExecutionEngine.getInstance();
+    this.slashingManager = EnterpriseSlashingManager.getInstance();
+    this.blockProposal = EnterpriseBlockProposalPipeline.getInstance();
+    this.attestationPool = EnterpriseAttestationPool.getInstance();
+    this.stateSync = EnterpriseStateSyncManager.getInstance();
+    this.productionBootstrap = EnterpriseProductionBootstrap.getInstance();
     
     // Initialize pipelines
     this.txPipeline = new TransactionPipeline(this.txValidator, this.mempool);
@@ -554,6 +587,8 @@ export class ProductionBlockchainOrchestrator extends EventEmitter {
     
     // Set up event handlers
     this.setupEventHandlers();
+    
+    console.log('[Orchestrator] ✅ Enterprise components v2.0 integrated');
   }
   
   // ==================== Lifecycle ====================
@@ -563,30 +598,23 @@ export class ProductionBlockchainOrchestrator extends EventEmitter {
       throw new Error(`Cannot start from state: ${this.state}`);
     }
     
-    console.log('[Orchestrator] Starting Production Blockchain Orchestrator...');
+    console.log('[Orchestrator] Starting Production Blockchain Orchestrator v2.0...');
     console.log(`[Orchestrator] Network: ${ORCHESTRATOR_CONFIG.NETWORK_TYPE}`);
     console.log(`[Orchestrator] DEV_SAFE_MODE: ${ORCHESTRATOR_CONFIG.DEV_SAFE_MODE}`);
+    console.log(`[Orchestrator] Target TPS: ${ORCHESTRATOR_CONFIG.TARGET_TPS}`);
     
     this.state = 'INITIALIZING';
     this.startTime = Date.now();
     this.emit('stateChanged', this.state);
     
     try {
-      // 1. Initialize state store
-      console.log('[Orchestrator] Initializing state store...');
-      await this.stateStore.initialize();
+      // Phase 1: Core Infrastructure (async batched for reduced event loop blocking)
+      console.log('[Orchestrator] Phase 1: Initializing core infrastructure...');
+      await this.initializeCoreInfrastructureAsync();
       
-      // 2. Start transaction validator
-      console.log('[Orchestrator] Starting transaction validator...');
-      await this.txValidator.start();
-      
-      // 3. Start mempool
-      console.log('[Orchestrator] Starting mempool...');
-      await this.mempool.start();
-      
-      // 4. Start fork choice
-      console.log('[Orchestrator] Starting fork choice manager...');
-      await this.forkChoice.start();
+      // Phase 2: Enterprise Components (async initialization)
+      console.log('[Orchestrator] Phase 2: Initializing enterprise components...');
+      await this.initializeEnterpriseComponentsAsync();
       
       // 5. Initialize genesis if needed
       const latestBlock = this.stateStore.getLatestBlock();
@@ -692,6 +720,71 @@ export class ProductionBlockchainOrchestrator extends EventEmitter {
     this.emit('stopped');
     
     console.log('[Orchestrator] Production Blockchain Orchestrator stopped');
+  }
+  
+  // ==================== Async Initialization ====================
+  
+  /**
+   * Initialize core infrastructure asynchronously with yielding to event loop
+   * Reduces startup blocking for better responsiveness
+   */
+  private async initializeCoreInfrastructureAsync(): Promise<void> {
+    // Batch initialization with micro-yields to reduce event loop blocking
+    await this.yieldToEventLoop();
+    console.log('[Orchestrator] Initializing state store...');
+    await this.stateStore.initialize();
+    
+    await this.yieldToEventLoop();
+    console.log('[Orchestrator] Starting transaction validator...');
+    await this.txValidator.start();
+    
+    await this.yieldToEventLoop();
+    console.log('[Orchestrator] Starting mempool...');
+    await this.mempool.start();
+    
+    await this.yieldToEventLoop();
+    console.log('[Orchestrator] Starting fork choice manager...');
+    await this.forkChoice.start();
+    
+    console.log('[Orchestrator] ✅ Core infrastructure initialized');
+  }
+  
+  /**
+   * Initialize enterprise components asynchronously
+   */
+  private async initializeEnterpriseComponentsAsync(): Promise<void> {
+    await this.yieldToEventLoop();
+    console.log('[Orchestrator] Initializing execution engine...');
+    await this.executionEngine.initialize();
+    
+    await this.yieldToEventLoop();
+    console.log('[Orchestrator] Initializing slashing manager...');
+    await this.slashingManager.initialize();
+    
+    await this.yieldToEventLoop();
+    console.log('[Orchestrator] Initializing block proposal pipeline...');
+    await this.blockProposal.initialize();
+    
+    await this.yieldToEventLoop();
+    console.log('[Orchestrator] Initializing attestation pool...');
+    await this.attestationPool.initialize();
+    
+    await this.yieldToEventLoop();
+    console.log('[Orchestrator] Initializing state sync...');
+    await this.stateSync.initialize();
+    
+    await this.yieldToEventLoop();
+    console.log('[Orchestrator] Initializing production bootstrap...');
+    await this.productionBootstrap.initialize();
+    
+    console.log('[Orchestrator] ✅ Enterprise components v2.0 initialized');
+  }
+  
+  /**
+   * Yield to event loop to prevent blocking
+   */
+  private yieldToEventLoop(): Promise<void> {
+    return new Promise(resolve => setImmediate(resolve));
   }
   
   // ==================== Genesis ====================
