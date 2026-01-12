@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { TBurnLogo } from "@/components/tburn-logo";
 import { useWeb3 } from "@/lib/web3-context";
+import { WalletConnectionModal, useWalletModal } from "@/components/WalletConnectionModal";
 import { useToast } from "@/hooks/use-toast";
 import { LanguageSelector } from "@/components/LanguageSelector";
 
@@ -35,7 +36,8 @@ export default function ValidatorIncentivesPage() {
   const { t } = useTranslation();
   const [activeFaq, setActiveFaq] = useState<string | null>("faq-1");
   const [countdown, setCountdown] = useState({ days: 12, hours: 8, mins: 45, secs: 30 });
-  const { isConnected, address, connect, disconnect, formatAddress } = useWeb3();
+  const { isConnected, address, disconnect, formatAddress } = useWeb3();
+  const { isOpen: walletModalOpen, setIsOpen: setWalletModalOpen, openModal: openWalletModal } = useWalletModal();
 
   const { data: response, isLoading } = useQuery<ValidatorStatsResponse>({
     queryKey: ['/api/token-programs/validator-incentives/stats'],
@@ -70,7 +72,7 @@ export default function ValidatorIncentivesPage() {
     }
   };
 
-  const handleWalletClick = async () => {
+  const handleWalletClick = () => {
     if (isConnected) {
       disconnect();
       toast({
@@ -78,11 +80,7 @@ export default function ValidatorIncentivesPage() {
         description: t('tokenPrograms.validatorIncentives.wallet.disconnected'),
       });
     } else {
-      await connect("metamask");
-      toast({
-        title: t('tokenPrograms.validatorIncentives.wallet.connectedTitle'),
-        description: t('tokenPrograms.validatorIncentives.wallet.connectedDesc'),
-      });
+      openWalletModal();
     }
   };
 
@@ -1548,6 +1546,11 @@ export default function ValidatorIncentivesPage() {
           </div>
         </div>
       </footer>
+
+      <WalletConnectionModal 
+        open={walletModalOpen} 
+        onOpenChange={setWalletModalOpen}
+      />
     </div>
   );
 }

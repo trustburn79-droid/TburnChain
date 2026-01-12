@@ -3,6 +3,7 @@ import { Link } from "wouter";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { TBurnLogo } from "@/components/tburn-logo";
 import { useWeb3 } from "@/lib/web3-context";
+import { WalletConnectionModal, useWalletModal } from "@/components/WalletConnectionModal";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 import { LanguageSelector } from "@/components/LanguageSelector";
@@ -53,7 +54,8 @@ export default function ReferralPage() {
   const [calcPrice, setCalcPrice] = useState(0.5);
   const [copied, setCopied] = useState(false);
 
-  const { isConnected, address, connect, isConnecting } = useWeb3();
+  const { isConnected, address, isConnecting } = useWeb3();
+  const { isOpen: walletModalOpen, setIsOpen: setWalletModalOpen, openModal: openWalletModal } = useWalletModal();
   const { toast } = useToast();
 
   const { data: statsData, isLoading: isLoadingStats } = useQuery<ReferralStats>({
@@ -86,9 +88,9 @@ export default function ReferralPage() {
     }
   }, [isConnected, address, userReferralData]);
 
-  const handleConnectWallet = async () => {
+  const handleConnectWallet = () => {
     if (isConnecting) return;
-    await connect("metamask");
+    openWalletModal();
   };
 
   const handleGetReferralLink = async () => {
@@ -2016,6 +2018,11 @@ export default function ReferralPage() {
           <p>{t('referral.footer.poweredBy')}</p>
         </div>
       </footer>
+
+      <WalletConnectionModal 
+        open={walletModalOpen} 
+        onOpenChange={setWalletModalOpen}
+      />
     </div>
   );
 }

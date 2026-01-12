@@ -3,6 +3,7 @@ import { Link } from "wouter";
 import { TBurnLogo } from "@/components/tburn-logo";
 import { useQuery } from "@tanstack/react-query";
 import { useWeb3 } from "@/lib/web3-context";
+import { WalletConnectionModal, useWalletModal } from "@/components/WalletConnectionModal";
 import { useToast } from "@/hooks/use-toast";
 import { LanguageSelector } from "@/components/LanguageSelector";
 import { useTranslation } from "react-i18next";
@@ -44,7 +45,8 @@ interface PartnershipStatsResponse {
 
 export default function MarketingProgramPage() {
   const { t } = useTranslation();
-  const { isConnected, address, connect, disconnect, formatAddress } = useWeb3();
+  const { isConnected, address, disconnect, formatAddress } = useWeb3();
+  const { isOpen: walletModalOpen, setIsOpen: setWalletModalOpen, openModal: openWalletModal } = useWalletModal();
   const [activeFaq, setActiveFaq] = useState<string | null>("faq-1");
   const { toast } = useToast();
 
@@ -64,13 +66,12 @@ export default function MarketingProgramPage() {
     }
   };
 
-  const handleWalletClick = async () => {
+  const handleWalletClick = () => {
     if (isConnected) {
       disconnect();
       toast({ title: t('tokenPrograms.marketingProgram.wallet.disconnected'), description: t('tokenPrograms.marketingProgram.wallet.disconnectedDesc') });
     } else {
-      await connect("metamask");
-      toast({ title: t('tokenPrograms.marketingProgram.wallet.connected'), description: t('tokenPrograms.marketingProgram.wallet.connectedDesc') });
+      openWalletModal();
     }
   };
 
@@ -86,11 +87,7 @@ export default function MarketingProgramPage() {
 
   const handleApplyProgram = (programName: string) => {
     if (!isConnected) {
-      toast({ 
-        title: t('tokenPrograms.marketingProgram.wallet.required'), 
-        description: t('tokenPrograms.marketingProgram.wallet.requiredDesc'),
-        variant: "destructive"
-      });
+      openWalletModal();
       return;
     }
     toast({ 
@@ -101,11 +98,7 @@ export default function MarketingProgramPage() {
 
   const handleJoinCampaign = (campaignTitle: string, status: string) => {
     if (!isConnected) {
-      toast({ 
-        title: t('tokenPrograms.marketingProgram.wallet.required'), 
-        description: t('tokenPrograms.marketingProgram.wallet.campaignRequiredDesc'),
-        variant: "destructive"
-      });
+      openWalletModal();
       return;
     }
     if (status === 'upcoming') {
@@ -1509,6 +1502,11 @@ export default function MarketingProgramPage() {
           </div>
         </div>
       </footer>
+
+      <WalletConnectionModal 
+        open={walletModalOpen} 
+        onOpenChange={setWalletModalOpen}
+      />
     </div>
   );
 }

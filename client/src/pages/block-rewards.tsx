@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { TBurnLogo } from "@/components/tburn-logo";
 import { useWeb3 } from "@/lib/web3-context";
+import { WalletConnectionModal, useWalletModal } from "@/components/WalletConnectionModal";
 import { useToast } from "@/hooks/use-toast";
 import { LanguageSelector } from "@/components/LanguageSelector";
 
@@ -35,7 +36,8 @@ export default function BlockRewardsPage() {
   const { t } = useTranslation();
   const [activeFaq, setActiveFaq] = useState<string | null>("faq-1");
   const [stakeAmount, setStakeAmount] = useState(1000000);
-  const { isConnected, address, connect, disconnect, formatAddress } = useWeb3();
+  const { isConnected, address, disconnect, formatAddress } = useWeb3();
+  const { isOpen: walletModalOpen, setIsOpen: setWalletModalOpen, openModal: openWalletModal } = useWalletModal();
   const { toast } = useToast();
 
   const { data: response, isLoading } = useQuery<BlockRewardsStatsResponse>({
@@ -47,13 +49,12 @@ export default function BlockRewardsPage() {
     setActiveFaq(activeFaq === id ? null : id);
   };
 
-  const handleWalletClick = async () => {
+  const handleWalletClick = () => {
     if (isConnected) {
       disconnect();
       toast({ title: t('tokenPrograms.blockRewards.toast.walletDisconnected'), description: t('tokenPrograms.blockRewards.toast.walletDisconnectedDesc') });
     } else {
-      await connect("metamask");
-      toast({ title: t('tokenPrograms.blockRewards.toast.walletConnected'), description: t('tokenPrograms.blockRewards.toast.walletConnectedDesc') });
+      openWalletModal();
     }
   };
 
@@ -66,8 +67,7 @@ export default function BlockRewardsPage() {
 
   const handleBecomeValidator = (validatorType: string) => {
     if (!isConnected) {
-      connect("metamask");
-      toast({ title: t('tokenPrograms.blockRewards.toast.walletRequired'), description: t('tokenPrograms.blockRewards.toast.walletRequiredForValidator') });
+      openWalletModal();
       return;
     }
     const typeNames: Record<string, string> = {
@@ -1785,6 +1785,11 @@ export default function BlockRewardsPage() {
           </div>
         </div>
       </footer>
+
+      <WalletConnectionModal 
+        open={walletModalOpen} 
+        onOpenChange={setWalletModalOpen}
+      />
     </div>
   );
 }

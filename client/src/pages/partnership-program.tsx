@@ -3,6 +3,7 @@ import { Link } from "wouter";
 import { TBurnLogo } from "@/components/tburn-logo";
 import { useQuery } from "@tanstack/react-query";
 import { useWeb3 } from "@/lib/web3-context";
+import { WalletConnectionModal, useWalletModal } from "@/components/WalletConnectionModal";
 import { useToast } from "@/hooks/use-toast";
 import { LanguageSelector } from "@/components/LanguageSelector";
 import { useTranslation } from "react-i18next";
@@ -40,7 +41,8 @@ interface PartnershipStatsResponse {
 
 export default function PartnershipProgramPage() {
   const { t } = useTranslation();
-  const { isConnected, address, connect, disconnect, formatAddress } = useWeb3();
+  const { isConnected, address, disconnect, formatAddress } = useWeb3();
+  const { isOpen: walletModalOpen, setIsOpen: setWalletModalOpen, openModal: openWalletModal } = useWalletModal();
   const [activeFaq, setActiveFaq] = useState<string | null>("faq-1");
   const { toast } = useToast();
 
@@ -60,13 +62,12 @@ export default function PartnershipProgramPage() {
     }
   };
 
-  const handleWalletClick = async () => {
+  const handleWalletClick = () => {
     if (isConnected) {
       disconnect();
       toast({ title: t('tokenPrograms.partnershipProgram.wallet.disconnected'), description: t('tokenPrograms.partnershipProgram.wallet.disconnectedDesc') });
     } else {
-      await connect();
-      toast({ title: t('tokenPrograms.partnershipProgram.wallet.connected'), description: t('tokenPrograms.partnershipProgram.wallet.connectedDesc') });
+      openWalletModal();
     }
   };
 
@@ -82,11 +83,7 @@ export default function PartnershipProgramPage() {
 
   const handleApplyTier = (tierName: string, tierColor: string) => {
     if (!isConnected) {
-      toast({ 
-        title: t('tokenPrograms.partnershipProgram.wallet.required'), 
-        description: t('tokenPrograms.partnershipProgram.wallet.requiredDesc'),
-        variant: "destructive"
-      });
+      openWalletModal();
       return;
     }
     toast({ 
@@ -97,11 +94,7 @@ export default function PartnershipProgramPage() {
 
   const handleApplyPartnerType = (typeName: string) => {
     if (!isConnected) {
-      toast({ 
-        title: t('tokenPrograms.partnershipProgram.wallet.required'), 
-        description: t('tokenPrograms.partnershipProgram.wallet.requiredDesc'),
-        variant: "destructive"
-      });
+      openWalletModal();
       return;
     }
     toast({ 
@@ -1394,6 +1387,11 @@ export default function PartnershipProgramPage() {
           </div>
         </div>
       </footer>
+
+      <WalletConnectionModal 
+        open={walletModalOpen} 
+        onOpenChange={setWalletModalOpen}
+      />
     </div>
   );
 }

@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 import i18nInstance from "@/lib/i18n";
 import { TBurnLogo } from "@/components/tburn-logo";
 import { useWeb3 } from "@/lib/web3-context";
+import { WalletConnectionModal, useWalletModal } from "@/components/WalletConnectionModal";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 import { LanguageSelector } from "@/components/LanguageSelector";
@@ -59,7 +60,8 @@ export default function EventsPage() {
   const [activeFaq, setActiveFaq] = useState<string | null>("faq-1");
   const [countdown, setCountdown] = useState({ days: 14, hours: 23, minutes: 59, seconds: 59 });
   
-  const { isConnected, address, connect, disconnect, formatAddress } = useWeb3();
+  const { isConnected, address, disconnect, formatAddress } = useWeb3();
+  const { isOpen: walletModalOpen, setIsOpen: setWalletModalOpen, openModal: openWalletModal } = useWalletModal();
   const { toast } = useToast();
   const [registering, setRegistering] = useState<string | null>(null);
 
@@ -108,17 +110,17 @@ export default function EventsPage() {
     setActiveFaq(activeFaq === id ? null : id);
   };
 
-  const handleWalletClick = async () => {
+  const handleWalletClick = () => {
     if (isConnected) {
       disconnect();
     } else {
-      await connect("metamask");
+      openWalletModal();
     }
   };
 
   const handleParticipate = async (eventId: string) => {
     if (!isConnected) {
-      await connect("metamask");
+      openWalletModal();
       return;
     }
     if (!address) {
@@ -1533,6 +1535,11 @@ export default function EventsPage() {
           </div>
         </div>
       </footer>
+
+      <WalletConnectionModal 
+        open={walletModalOpen} 
+        onOpenChange={setWalletModalOpen}
+      />
     </div>
   );
 }

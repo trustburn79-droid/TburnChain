@@ -3,6 +3,7 @@ import { Link } from "wouter";
 import { TBurnLogo } from "@/components/tburn-logo";
 import { useQuery } from "@tanstack/react-query";
 import { useWeb3 } from "@/lib/web3-context";
+import { WalletConnectionModal, useWalletModal } from "@/components/WalletConnectionModal";
 import { useToast } from "@/hooks/use-toast";
 import { LanguageSelector } from "@/components/LanguageSelector";
 import { useTranslation } from "react-i18next";
@@ -30,7 +31,8 @@ interface LaunchpadStatsResponse {
 
 export default function LaunchpadPage() {
   const { t } = useTranslation();
-  const { isConnected, address, connect, disconnect, formatAddress } = useWeb3();
+  const { isConnected, address, disconnect, formatAddress } = useWeb3();
+  const { isOpen: walletModalOpen, setIsOpen: setWalletModalOpen, openModal: openWalletModal } = useWalletModal();
   const { toast } = useToast();
   const [isKYCVerified, setIsKYCVerified] = useState(false);
   const [currentStep, setCurrentStep] = useState(isConnected ? 2 : 1);
@@ -62,8 +64,7 @@ export default function LaunchpadPage() {
       disconnect();
       toast({ title: t('launchpad.toast.walletDisconnected'), description: t('launchpad.toast.walletDisconnectedDesc') });
     } else {
-      connect("metamask");
-      toast({ title: t('launchpad.toast.walletConnect'), description: `MetaMask ${t('launchpad.toast.walletConnectDesc')}` });
+      openWalletModal();
     }
   };
 
@@ -110,18 +111,13 @@ export default function LaunchpadPage() {
   const tgeTokens = totalTokens * 0.15;
   const estimatedValue = totalTokens * listingPrice;
 
-  const handleConnectWallet = async (walletType: string = "metamask") => {
-    await connect("metamask");
-    toast({ title: t('launchpad.toast.walletConnect'), description: `${walletType} ${t('launchpad.toast.walletConnectDesc')}` });
+  const handleConnectWallet = () => {
+    openWalletModal();
   };
 
   const handleKYC = () => {
     if (!isConnected) {
-      toast({ 
-        title: t('launchpad.toast.walletRequired'), 
-        description: t('launchpad.toast.walletRequiredDesc'), 
-        variant: "destructive" 
-      });
+      openWalletModal();
       return;
     }
     toast({ title: t('launchpad.toast.kycStart'), description: t('launchpad.toast.kycStartDesc') });
@@ -134,11 +130,7 @@ export default function LaunchpadPage() {
 
   const handlePurchase = () => {
     if (!isConnected) {
-      toast({ 
-        title: t('launchpad.toast.walletRequired'), 
-        description: t('launchpad.toast.walletRequiredDesc'), 
-        variant: "destructive" 
-      });
+      openWalletModal();
       return;
     }
     if (!isKYCVerified) {
@@ -175,11 +167,7 @@ export default function LaunchpadPage() {
 
   const handleSelectTier = (tierName: string, bonus: string) => {
     if (!isConnected) {
-      toast({ 
-        title: t('launchpad.toast.tierWalletRequired'), 
-        description: t('launchpad.toast.tierWalletRequiredDesc'), 
-        variant: "destructive" 
-      });
+      openWalletModal();
       return;
     }
     toast({ title: `${tierName} ${t('launchpad.toast.tierSelect')}`, description: `${t('launchpad.toast.tierSelectDesc')} ${bonus}` });
@@ -1642,6 +1630,11 @@ export default function LaunchpadPage() {
           </div>
         </div>
       )}
+
+      <WalletConnectionModal 
+        open={walletModalOpen} 
+        onOpenChange={setWalletModalOpen}
+      />
     </div>
   );
 }

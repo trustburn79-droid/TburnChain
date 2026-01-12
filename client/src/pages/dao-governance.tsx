@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { TBurnLogo } from "@/components/tburn-logo";
 import { useWeb3 } from "@/lib/web3-context";
+import { WalletConnectionModal, useWalletModal } from "@/components/WalletConnectionModal";
 import { useToast } from "@/hooks/use-toast";
 import { LanguageSelector } from "@/components/LanguageSelector";
 
@@ -30,7 +31,8 @@ interface DAOStatsResponse {
 export default function DAOGovernancePage() {
   const { t } = useTranslation();
   const [activeFaq, setActiveFaq] = useState<string | null>("faq-1");
-  const { isConnected, address, connect, disconnect, formatAddress } = useWeb3();
+  const { isConnected, address, disconnect, formatAddress } = useWeb3();
+  const { isOpen: walletModalOpen, setIsOpen: setWalletModalOpen, openModal: openWalletModal } = useWalletModal();
   const { toast } = useToast();
 
   const { data: response, isLoading } = useQuery<DAOStatsResponse>({
@@ -42,13 +44,12 @@ export default function DAOGovernancePage() {
     setActiveFaq(activeFaq === id ? null : id);
   };
 
-  const handleWalletClick = async () => {
+  const handleWalletClick = () => {
     if (isConnected) {
       disconnect();
       toast({ title: t('daoGovernance.toast.disconnected'), description: t('daoGovernance.toast.disconnectedDesc') });
     } else {
-      await connect("metamask");
-      toast({ title: t('daoGovernance.toast.connected'), description: t('daoGovernance.toast.connectedDesc') });
+      openWalletModal();
     }
   };
 
@@ -61,8 +62,7 @@ export default function DAOGovernancePage() {
 
   const handleVote = (proposalId: string, voteType: 'for' | 'against') => {
     if (!isConnected) {
-      connect("metamask");
-      toast({ title: t('daoGovernance.toast.walletRequired'), description: t('daoGovernance.toast.walletRequiredDesc') });
+      openWalletModal();
       return;
     }
     toast({ 
@@ -1617,6 +1617,11 @@ export default function DAOGovernancePage() {
           </div>
         </div>
       </footer>
+
+      <WalletConnectionModal 
+        open={walletModalOpen} 
+        onOpenChange={setWalletModalOpen}
+      />
     </div>
   );
 }

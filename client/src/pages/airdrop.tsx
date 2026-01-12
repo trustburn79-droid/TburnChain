@@ -4,6 +4,7 @@ import { useQuery, useMutation } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { TBurnLogo } from "@/components/tburn-logo";
 import { useWeb3 } from "@/lib/web3-context";
+import { WalletConnectionModal, useWalletModal } from "@/components/WalletConnectionModal";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -56,7 +57,8 @@ export default function AirdropPage() {
   const [emailDialogOpen, setEmailDialogOpen] = useState(false);
   const [referralDialogOpen, setReferralDialogOpen] = useState(false);
   const [emailInput, setEmailInput] = useState("");
-  const { isConnected, address, connect, formatAddress } = useWeb3();
+  const { isConnected, address, formatAddress } = useWeb3();
+  const { isOpen: walletModalOpen, setIsOpen: setWalletModalOpen, openModal: openWalletModal } = useWalletModal();
   const { toast } = useToast();
   
   useEffect(() => {
@@ -152,8 +154,8 @@ export default function AirdropPage() {
     return Math.min(100, (dist / alloc) * 100);
   };
 
-  const handleConnectWallet = async () => {
-    await connect("metamask");
+  const handleConnectWallet = () => {
+    openWalletModal();
   };
 
   return (
@@ -2004,6 +2006,11 @@ export default function AirdropPage() {
           </div>
         </DialogContent>
       </Dialog>
+
+      <WalletConnectionModal 
+        open={walletModalOpen} 
+        onOpenChange={setWalletModalOpen}
+      />
     </div>
   );
 }

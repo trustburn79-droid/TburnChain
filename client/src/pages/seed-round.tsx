@@ -4,6 +4,7 @@ import { Link } from "wouter";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { TBurnLogo } from "@/components/tburn-logo";
 import { useWeb3 } from "@/lib/web3-context";
+import { WalletConnectionModal, useWalletModal } from "@/components/WalletConnectionModal";
 import { useToast } from "@/hooks/use-toast";
 import { LanguageSelector } from "@/components/LanguageSelector";
 import {
@@ -53,7 +54,8 @@ export default function SeedRoundPage() {
     investmentAmount: "",
     message: ""
   });
-  const { isConnected, address, connect, disconnect, formatAddress } = useWeb3();
+  const { isConnected, address, disconnect, formatAddress } = useWeb3();
+  const { isOpen: walletModalOpen, setIsOpen: setWalletModalOpen, openModal: openWalletModal } = useWalletModal();
   const { toast } = useToast();
   const { t } = useTranslation();
 
@@ -86,11 +88,11 @@ export default function SeedRoundPage() {
     }
   });
 
-  const handleWalletClick = async () => {
+  const handleWalletClick = () => {
     if (isConnected) {
       disconnect();
     } else {
-      setInquiryDialogOpen(true);
+      openWalletModal();
     }
   };
 
@@ -1576,6 +1578,11 @@ export default function SeedRoundPage() {
           </div>
         </DialogContent>
       </Dialog>
+
+      <WalletConnectionModal 
+        open={walletModalOpen} 
+        onOpenChange={setWalletModalOpen}
+      />
     </div>
   );
 }

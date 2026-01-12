@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { TBurnLogo } from "@/components/tburn-logo";
 import { useWeb3 } from "@/lib/web3-context";
+import { WalletConnectionModal, useWalletModal } from "@/components/WalletConnectionModal";
 import { useToast } from "@/hooks/use-toast";
 import { LanguageSelector } from "@/components/LanguageSelector";
 
@@ -23,7 +24,8 @@ interface CommunityStatsResponse {
 export default function CommunityProgramPage() {
   const { t } = useTranslation();
   const [activeFaq, setActiveFaq] = useState<string | null>("faq-1");
-  const { isConnected, address, connect, disconnect, formatAddress } = useWeb3();
+  const { isConnected, address, disconnect, formatAddress } = useWeb3();
+  const { isOpen: walletModalOpen, setIsOpen: setWalletModalOpen, openModal: openWalletModal } = useWalletModal();
   const { toast } = useToast();
 
   const { data: response, isLoading } = useQuery<CommunityStatsResponse>({
@@ -35,13 +37,12 @@ export default function CommunityProgramPage() {
     setActiveFaq(activeFaq === id ? null : id);
   };
 
-  const handleWalletClick = async () => {
+  const handleWalletClick = () => {
     if (isConnected) {
       disconnect();
       toast({ title: t('communityProgram.toast.walletDisconnected'), description: t('communityProgram.toast.walletDisconnectedDesc') });
     } else {
-      await connect("metamask");
-      toast({ title: t('communityProgram.toast.walletConnected'), description: t('communityProgram.toast.walletConnectedDesc') });
+      openWalletModal();
     }
   };
 
@@ -54,8 +55,7 @@ export default function CommunityProgramPage() {
 
   const handleApplyProgram = (programId: string, programTitle: string) => {
     if (!isConnected) {
-      connect("metamask");
-      toast({ title: t('communityProgram.toast.walletRequired'), description: t('communityProgram.toast.walletRequiredDesc') });
+      openWalletModal();
       return;
     }
     toast({ 
@@ -1558,6 +1558,11 @@ export default function CommunityProgramPage() {
           </div>
         </div>
       </footer>
+
+      <WalletConnectionModal 
+        open={walletModalOpen} 
+        onOpenChange={setWalletModalOpen}
+      />
     </div>
   );
 }

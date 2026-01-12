@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { TBurnLogo } from "@/components/tburn-logo";
 import { useWeb3 } from "@/lib/web3-context";
+import { WalletConnectionModal, useWalletModal } from "@/components/WalletConnectionModal";
 import { useToast } from "@/hooks/use-toast";
 import { LanguageSelector } from "@/components/LanguageSelector";
 
@@ -24,7 +25,8 @@ interface EcosystemFundStatsResponse {
 export default function EcosystemFundPage() {
   const { t } = useTranslation();
   const [activeFaq, setActiveFaq] = useState<string | null>("faq-1");
-  const { isConnected, address, connect, disconnect, formatAddress } = useWeb3();
+  const { isConnected, address, disconnect, formatAddress } = useWeb3();
+  const { isOpen: walletModalOpen, setIsOpen: setWalletModalOpen, openModal: openWalletModal } = useWalletModal();
 
   const { data: response, isLoading } = useQuery<EcosystemFundStatsResponse>({
     queryKey: ['/api/token-programs/ecosystem-fund/stats'],
@@ -40,7 +42,7 @@ export default function EcosystemFundPage() {
     }
   };
 
-  const handleWalletClick = async () => {
+  const handleWalletClick = () => {
     if (isConnected) {
       disconnect();
       toast({
@@ -48,21 +50,13 @@ export default function EcosystemFundPage() {
         description: t('tokenPrograms.ecosystemFund.wallet.disconnectedDesc'),
       });
     } else {
-      await connect("metamask");
-      toast({
-        title: t('tokenPrograms.ecosystemFund.wallet.connected'),
-        description: t('tokenPrograms.ecosystemFund.wallet.connectedDesc'),
-      });
+      openWalletModal();
     }
   };
 
   const handleApplyGrant = (grantId: string, grantTitle: string) => {
     if (!isConnected) {
-      toast({
-        title: t('tokenPrograms.ecosystemFund.wallet.required'),
-        description: t('tokenPrograms.ecosystemFund.wallet.requiredDesc'),
-        variant: "destructive",
-      });
+      openWalletModal();
       return;
     }
     toast({
@@ -1459,6 +1453,11 @@ export default function EcosystemFundPage() {
           </div>
         </div>
       </footer>
+
+      <WalletConnectionModal 
+        open={walletModalOpen} 
+        onOpenChange={setWalletModalOpen}
+      />
     </div>
   );
 }

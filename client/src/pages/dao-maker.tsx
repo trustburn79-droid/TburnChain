@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link } from "wouter";
 import { useQuery } from "@tanstack/react-query";
 import { useWeb3 } from "@/lib/web3-context";
+import { WalletConnectionModal, useWalletModal } from "@/components/WalletConnectionModal";
 import { useToast } from "@/hooks/use-toast";
 import { LanguageSelector } from "@/components/LanguageSelector";
 import { TBurnLogo } from "@/components/tburn-logo";
@@ -30,7 +31,8 @@ interface LaunchpadStatsResponse {
 
 export default function DAOMakerPage() {
   const { t } = useTranslation();
-  const { isConnected, address, connect, disconnect, formatAddress } = useWeb3();
+  const { isConnected, address, disconnect, formatAddress } = useWeb3();
+  const { isOpen: walletModalOpen, setIsOpen: setWalletModalOpen, openModal: openWalletModal } = useWalletModal();
   const { toast } = useToast();
   const [activeTab, setActiveTab] = useState("tiers");
   const [allocationAmount, setAllocationAmount] = useState(1000);
@@ -76,11 +78,7 @@ export default function DAOMakerPage() {
         description: t('daomaker.toast.walletDisconnectedDesc'),
       });
     } else {
-      connect("metamask");
-      toast({
-        title: t('daomaker.toast.walletConnecting'),
-        description: t('daomaker.toast.walletConnectingDesc'),
-      });
+      openWalletModal();
     }
   };
 
@@ -110,11 +108,7 @@ export default function DAOMakerPage() {
 
   const handlePurchase = () => {
     if (!isConnected) {
-      toast({
-        variant: "destructive",
-        title: t('daomaker.toast.walletRequired'),
-        description: t('daomaker.toast.walletRequiredDesc'),
-      });
+      openWalletModal();
       return;
     }
     if (allocationAmount < 100) {
@@ -146,11 +140,7 @@ export default function DAOMakerPage() {
 
   const handleStakeDAO = () => {
     if (!isConnected) {
-      toast({
-        variant: "destructive",
-        title: t('daomaker.toast.stakingRequired'),
-        description: t('daomaker.toast.stakingRequiredDesc'),
-      });
+      openWalletModal();
       return;
     }
     toast({
@@ -1618,6 +1608,11 @@ export default function DAOMakerPage() {
           </div>
         </div>
       )}
+
+      <WalletConnectionModal 
+        open={walletModalOpen} 
+        onOpenChange={setWalletModalOpen}
+      />
     </div>
   );
 }

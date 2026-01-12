@@ -3,6 +3,7 @@ import { Link } from "wouter";
 import { TBurnLogo } from "@/components/tburn-logo";
 import { useQuery } from "@tanstack/react-query";
 import { useWeb3 } from "@/lib/web3-context";
+import { WalletConnectionModal, useWalletModal } from "@/components/WalletConnectionModal";
 import { useToast } from "@/hooks/use-toast";
 import { LanguageSelector } from "@/components/LanguageSelector";
 import { useTranslation } from "react-i18next";
@@ -43,7 +44,8 @@ interface PartnershipStatsResponse {
 }
 
 export default function AdvisorProgramPage() {
-  const { isConnected, address, connect, disconnect, formatAddress } = useWeb3();
+  const { isConnected, address, disconnect, formatAddress } = useWeb3();
+  const { isOpen: walletModalOpen, setIsOpen: setWalletModalOpen, openModal: openWalletModal } = useWalletModal();
   const [activeFaq, setActiveFaq] = useState<string | null>("faq-1");
   const { toast } = useToast();
   const { t } = useTranslation();
@@ -64,13 +66,12 @@ export default function AdvisorProgramPage() {
     }
   };
 
-  const handleWalletClick = async () => {
+  const handleWalletClick = () => {
     if (isConnected) {
       disconnect();
       toast({ title: t('advisorProgram.wallet.disconnect'), description: t('advisorProgram.wallet.disconnectDesc') });
     } else {
-      await connect("metamask");
-      toast({ title: t('advisorProgram.wallet.connected'), description: t('advisorProgram.wallet.connectedDesc') });
+      openWalletModal();
     }
   };
 
@@ -86,11 +87,7 @@ export default function AdvisorProgramPage() {
 
   const handleApplyRole = (roleTitle: string) => {
     if (!isConnected) {
-      toast({ 
-        title: t('advisorProgram.wallet.required'), 
-        description: t('advisorProgram.wallet.requiredDesc'),
-        variant: "destructive"
-      });
+      openWalletModal();
       return;
     }
     toast({ 
@@ -101,11 +98,7 @@ export default function AdvisorProgramPage() {
 
   const handleApplyTier = (tierName: string, incentive: string) => {
     if (!isConnected) {
-      toast({ 
-        title: t('advisorProgram.wallet.required'), 
-        description: t('advisorProgram.wallet.requiredDesc'),
-        variant: "destructive"
-      });
+      openWalletModal();
       return;
     }
     toast({ 
@@ -1408,6 +1401,11 @@ export default function AdvisorProgramPage() {
           </div>
         </div>
       </footer>
+
+      <WalletConnectionModal 
+        open={walletModalOpen} 
+        onOpenChange={setWalletModalOpen}
+      />
     </div>
   );
 }
