@@ -21,24 +21,13 @@ export async function setupVite(app: Express, server: Server) {
     allowedHosts: true as const,
   };
 
+  // ★ [2026-01-12 ARCHITECT FIX] Use default Vite logger - no custom error handling
+  // PostCSS warnings were being promoted to errors and causing process.exit(1)
+  // Removing custom logger prevents warnings from terminating the dev server
   const vite = await createViteServer({
     ...viteConfig,
     configFile: false,
-    customLogger: {
-      ...viteLogger,
-      error: (msg, options) => {
-        // ★ [2026-01-12] Don't exit on non-fatal errors like PostCSS warnings
-        // Only exit on actual fatal errors, not warnings promoted to errors
-        const isFatalError = msg.includes('ENOENT') || 
-                             msg.includes('SyntaxError') || 
-                             msg.includes('Cannot find module') ||
-                             msg.includes('EADDRINUSE');
-        viteLogger.error(msg, options);
-        if (isFatalError) {
-          process.exit(1);
-        }
-      },
-    },
+    customLogger: viteLogger,
     server: serverOptions,
     appType: "custom",
   });
