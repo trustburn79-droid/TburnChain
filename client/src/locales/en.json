@@ -35466,7 +35466,39 @@
     "faq": {
       "badge": "FAQ",
       "title": "Frequently Asked Questions",
-      "subtitle": "Common questions about partnerships"
+      "subtitle": "Common questions about strategic partnerships",
+      "q1": {
+        "question": "What are the partnership tiers?",
+        "answer": "We offer Diamond, Platinum, Gold, and Silver tiers based on investment level and commitment."
+      },
+      "q2": {
+        "question": "What is the minimum investment?",
+        "answer": "The minimum investment starts at $500K for Silver tier partnerships."
+      },
+      "q3": {
+        "question": "How long is the partnership term?",
+        "answer": "Partnership agreements typically run for 1-3 years with renewal options."
+      },
+      "q4": {
+        "question": "What benefits do partners receive?",
+        "answer": "Partners receive token incentives, technical support, co-marketing opportunities, and exclusive access."
+      },
+      "q5": {
+        "question": "How do I apply for partnership?",
+        "answer": "Submit an inquiry through our partnership form and our team will review your application."
+      },
+      "q6": {
+        "question": "Can international companies apply?",
+        "answer": "Yes, we welcome partners from all countries and regions globally."
+      },
+      "q7": {
+        "question": "What is the token allocation for partners?",
+        "answer": "Strategic partners receive up to 1.5% of total token supply depending on tier."
+      },
+      "q8": {
+        "question": "Is there a vesting schedule?",
+        "answer": "Yes, partner tokens have a 24-month vesting schedule with 6-month cliff."
+      }
     },
     "cta": {
       "applyPartnership": "Apply for Partnership",
@@ -35744,6 +35776,13 @@
     "tierInquiry": {
       "title": "Partnership Inquiry",
       "description": "Inquiring about {{tier}} tier with {{incentive}} TBURN incentive"
+    },
+    "enterpriseLogos": {
+      "enterprise": "Enterprise",
+      "protocol": "Protocol",
+      "institutional": "Institutional",
+      "corporate": "Corporate",
+      "research": "Research"
     }
   },
   "advisorProgram": {
