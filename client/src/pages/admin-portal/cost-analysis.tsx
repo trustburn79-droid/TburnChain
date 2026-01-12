@@ -147,9 +147,9 @@ export default function CostAnalysis() {
     { category: "Blockchain Infrastructure", subcategory: "100K TPS Node Cluster (8 Shards)", current: 45000000, previous: 42000000, budget: 50000000, change: 7.1, icon: Cloud },
     { category: "Blockchain Infrastructure", subcategory: "NVMe Storage Array (Petabyte-Scale)", current: 15000000, previous: 14000000, budget: 18000000, change: 7.1, icon: Database },
     { category: "Blockchain Infrastructure", subcategory: "Global CDN & Network (P99 <50ms)", current: 12000000, previous: 11000000, budget: 15000000, change: 9.1, icon: Network },
-    { category: "AI Services", subcategory: "Gemini API (Primary)", current: 8000000, previous: 7500000, budget: 10000000, change: 6.7, icon: Bot },
-    { category: "AI Services", subcategory: "Claude API (Secondary)", current: 5000000, previous: 4800000, budget: 6000000, change: 4.2, icon: Bot },
-    { category: "AI Services", subcategory: "ChatGPT + Grok Fallback", current: 3500000, previous: 3200000, budget: 4000000, change: 9.4, icon: Cpu },
+    { category: "AI Services", subcategory: "AI Engine α (Primary)", current: 8000000, previous: 7500000, budget: 10000000, change: 6.7, icon: Bot },
+    { category: "AI Services", subcategory: "AI Engine β (Secondary)", current: 5000000, previous: 4800000, budget: 6000000, change: 4.2, icon: Bot },
+    { category: "AI Services", subcategory: "AI Engine γ + δ Fallback", current: 3500000, previous: 3200000, budget: 4000000, change: 9.4, icon: Cpu },
     { category: "Security", subcategory: "Quantum-Resistant Signatures", current: 8000000, previous: 7500000, budget: 10000000, change: 6.7, icon: Shield },
     { category: "Operations", subcategory: "156 Validator Infrastructure", current: 6000000, previous: 5500000, budget: 7000000, change: 9.1, icon: Server },
   ];

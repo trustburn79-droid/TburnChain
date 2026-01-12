@@ -948,7 +948,7 @@ export default function TokenSystemPage() {
               <span className="text-xs font-semibold">{t('tokenGenerator.tripleBandAi')}</span>
             </div>
             <p className={`text-xs ${isDark ? 'text-gray-400' : 'text-slate-500'}`}>
-              ChatGPT + Claude + Gemini
+              Multi-Model AI Orchestration
             </p>
           </div>
         </div>

@@ -89,10 +89,10 @@
     "showing": "عرض",
     "page": "صفحة",
     "unknown": "غير معروف",
-    "claudeSonnet": "Claude",
-    "gpt5": "GPT-5",
-    "llama4": "Llama 4",
-    "gemini": "Gemini 2.0",
+    "claudeSonnet": "AI Engine β",
+    "gpt5": "AI Engine α",
+    "llama4": "AI Engine γ",
+    "gemini": "AI Engine α",
     "id": "ID",
     "refreshing": "جاري التحديث",
     "optional": "اختياري",
@@ -1144,7 +1144,8 @@
     "burnSuccess": "بدأ الحرق",
     "burnSuccessDesc": "تم إرسال معاملة حرق الرموز.",
     "pauseSuccess": "تم إيقاف الرمز",
-    "pauseSuccessDesc": "تم إيقاف تحويلات الرموز مؤقتاً."
+    "pauseSuccessDesc": "تم إيقاف تحويلات الرموز مؤقتاً.",
+    "aiModelLlama": "AI Engine γ"
   },
   "dex": {
     "title": "البورصة اللامركزية",
@@ -1810,7 +1811,7 @@
       },
       "aiOrchestration": {
         "title": "تعمق تقني: نظام تنسيق الذكاء الاصطناعي",
-        "content": "دعونا نستكشف كيف يعمل نظام Triple-Band AI مع GPT-5 و Claude و Llama."
+        "content": "دعونا نستكشف كيف يعمل نظام Triple-Band AI (AI Engine α, β, γ)."
       },
       "governanceProposal": {
         "title": "اقتراح الحوكمة #42: توزيع الخزينة",
@@ -2288,9 +2289,9 @@
     "viewAll": "عرض الكل",
     "recentPosts": "المشاركات الأخيرة",
     "tripleBandAi": "الذكاء الاصطناعي الثلاثي النطاق",
-    "gpt5": "GPT-5",
-    "claudeSonnet": "Claude",
-    "llama4": "Llama 4",
+    "gpt5": "AI Engine α",
+    "claudeSonnet": "AI Engine β",
+    "llama4": "AI Engine γ",
     "modelWeight": "وزن النموذج",
     "requestCount": "عدد الطلبات",
     "responseTime": "وقت الاستجابة",
@@ -4592,11 +4593,11 @@
     "totalVoters": "{{count}} ناخب إجمالي",
     "aiPredictionAccuracy": "دقة تنبؤ الذكاء الاصطناعي",
     "analyzed": "{{count}} تم تحليلها",
-    "gpt5TurboAnalysis": "تحليل GPT-5 Turbo",
+    "gpt5TurboAnalysis": "تحليل AI Engine α",
     "gpt5TurboDesc": "تحلل الطبقة الاستراتيجية التأثير الاقتصادي والآثار الأمنية وتوفر تقييم المخاطر لكل مقترح.",
-    "claudeSonnetPrediction": "توقعات Claude",
+    "claudeSonnetPrediction": "AI Engine β Prediction",
     "claudeSonnetDesc": "تتنبأ الطبقة التكتيكية بنتائج التصويت بناءً على مشاعر المجتمع والأنماط التاريخية ومحتوى المقترح.",
-    "llamaRecommendations": "توصيات Llama 3.3 70B",
+    "llamaRecommendations": "توصيات AI Engine γ",
     "llamaDesc": "توفر الطبقة التشغيلية توصيات تصويت مخصصة بناءً على تاريخ الناخب ومحاذاة الحصة.",
     "activeTab": "نشطة ({{count}})",
     "completedTab": "مكتملة",
@@ -4743,11 +4744,11 @@
       "title": "محرك تحسين حرق الذكاء الاصطناعي",
       "description": "يستخدم الذكاء الاصطناعي رباعي النطاق لتحسين معدلات الحرق بناءً على ظروف السوق وأهداف الاقتصاد الرمزي",
       "strategicAnalysis": "التحليل الاستراتيجي",
-      "strategicAnalysisDesc": "يحلل Gemini أهداف العرض طويلة المدى وظروف السوق والتأثير الاقتصادي لتحديد أهداف الحرق المثلى.",
+      "strategicAnalysisDesc": "يحلل AI Engine α أهداف العرض طويلة المدى وظروف السوق والتأثير الاقتصادي لتحديد أهداف الحرق المثلى.",
       "tacticalAdjustment": "التعديل التكتيكي",
       "tacticalAdjustmentDesc": "يجري GPT تعديلات في الوقت الفعلي بناءً على ازدحام الشبكة وحجم المعاملات وتقلب الأسعار.",
       "operationalExecution": "التنفيذ التشغيلي",
-      "operationalExecutionDesc": "ينفذ Grok عمليات الحرق في الأوقات المثلى، مع مراعاة تكاليف الغاز وظروف الشبكة.",
+      "operationalExecutionDesc": "ينفذ AI Engine δ عمليات الحرق في الأوقات المثلى، مع مراعاة تكاليف الغاز وظروف الشبكة.",
       "burnOptimizationFactors": "عوامل تحسين الحرق",
       "currentSupplyVsTarget": "العرض الحالي مقابل الهدف",
       "marketPriceAnalysis": "تحليل سعر السوق",
@@ -6321,19 +6322,19 @@
           "items": {
             "strategic": {
               "title": "Strategic Layer",
-              "model": ":: ChatGPT Latest",
+              "model": ":: AI Engine γ",
               "latency": "450ms",
               "description": "Handles complex market analysis, governance proposal evaluation, and long-term strategy formulation."
             },
             "tactical": {
               "title": "Tactical Layer",
-              "model": ":: Claude Latest",
+              "model": ":: AI Engine β",
               "latency": "180ms",
               "description": "Processes trust assessment, transaction verification, and smart contract auditing."
             },
             "operational": {
               "title": "Operational Layer",
-              "model": ":: Gemini Latest",
+              "model": ":: AI Engine α",
               "latency": "45ms",
               "description": "Executes real-time monitoring, emergency response (Auto-Burn), and automated actions."
             }
@@ -9624,7 +9625,7 @@
         "tiers": {
           "strategic": {
             "title": "الذكاء الاصطناعي الاستراتيجي",
-            "model": "GPT-4 / Claude 3",
+            "model": "AI Engine α / β",
             "description": "اتخاذ القرارات عالية المستوى للحوكمة وتصميم اقتصاديات الرموز وتقييم المخاطر طويلة المدى. يعالج التحليلات المعقدة بتفكير يشبه الإنسان.",
             "capabilities": {
               "governance": "تحليل مقترحات DAO",
@@ -11146,15 +11147,15 @@
           "latency": "زمن الاستجابة",
           "strategic": {
             "title": "الذكاء الاصطناعي الاستراتيجي",
-            "model": "GPT-5"
+            "model": "AI Engine α"
           },
           "tactical": {
             "title": "الذكاء الاصطناعي التكتيكي",
-            "model": "Claude"
+            "model": "AI Engine β"
           },
           "operational": {
             "title": "الذكاء الاصطناعي التشغيلي",
-            "model": "Llama 4"
+            "model": "AI Engine γ"
           }
         },
         "uptime": {
@@ -11637,7 +11638,7 @@
                 "1": "الميزات الرئيسية لـ TBURN v7.0:",
                 "2": "إجماع لجنة BFT المحسّن بالذكاء الاصطناعي: آلية الإجماع الخاصة بنا تجمع بين التسامح البيزنطي التقليدي مع الخوارزميات المتقدمة للذكاء الاصطناعي.",
                 "3": "نظام التجزئة الديناميكي: تدعم الشبكة الآن موازنة الحمل التلقائية عبر أجزاء متعددة.",
-                "4": "تنسيق الذكاء الاصطناعي ثلاثي النطاق: ثلاثة أنظمة ذكاء اصطناعي مستقلة (GPT-5، Claude، Llama 4) تعمل بتناغم.",
+                "4": "تنسيق الذكاء الاصطناعي ثلاثي النطاق: ثلاثة أنظمة ذكاء اصطناعي مستقلة (AI Engine α، β، γ) تعمل بتناغم.",
                 "5": "معايير الرموز المؤسسية (TBC-20، TBC-721، TBC-1155): توفر أماناً مقاوماً للحوسبة الكمية.",
                 "6": "يتضمن إطلاق الشبكة الرئيسية نظاماً بيئياً كاملاً للتمويل اللامركزي.",
                 "7": "ندعو المطورين والمدققين والمستخدمين للانضمام إلينا في بناء مستقبل التمويل اللامركزي."
@@ -11662,8 +11663,8 @@
               "content": {
                 "0": "يمثل نظام تنسيق الذكاء الاصطناعي TBURN v7.0 طفرة في تقنية البلوكتشين.",
                 "1": "فهم بنية النطاق الثلاثي:",
-                "2": "النطاق الأساسي (GPT-5): يتعامل مع المهام التحليلية المعقدة بما في ذلك تسجيل ثقة المدققين.",
-                "3": "النطاق الثانوي (Claude): متخصص في تحليل الكود وتدقيق العقود الذكية.",
+                "2": "النطاق الأساسي (AI Engine α): يتعامل مع المهام التحليلية المعقدة بما في ذلك تسجيل ثقة المدققين.",
+                "3": "النطاق الثانوي (AI Engine β): متخصص في تحليل الكود وتدقيق العقود الذكية.",
                 "4": "النطاق الثالث (Llama 4): يوفر معالجة عالية الإنتاجية ومنخفضة التأخير.",
                 "5": "التفاعل عبر النطاقات: تحلل الأنظمة الثلاثة بشكل مستقل وتجمع مخرجاتها.",
                 "6": "نظام التعلم بالتغذية الراجعة: يتم تتبع جميع قرارات الذكاء الاصطناعي وتقييمها. تتجاوز الدقة حالياً 99.7%.",
@@ -12284,7 +12285,7 @@
         },
         "aiOrchestration": {
           "title": "نظام تنسيق الذكاء الاصطناعي مباشر",
-          "content": "نظام تنسيق Quad-Band AI يعمل بالكامل الآن مع Gemini كأساسي و Claude و ChatGPT و Grok كاحتياطي."
+          "content": "نظام تنسيق Quad-Band AI (AI Engine α, β, γ, δ) كاحتياطي."
         }
       },
       "posts": {
@@ -13979,7 +13980,7 @@
       },
       "51": {
         "question": "ما هي تنسيق الذكاء الاصطناعي؟",
-        "answer": "تدمج تنسيق الذكاء الاصطناعي عدة نماذج ذكاء اصطناعي (Gemini، Claude، ChatGPT، Grok) لأتمتة تحسين الشبكة وتعديل معدل الحرق واكتشاف التهديدات الأمنية والمزيد.",
+        "answer": "تدمج تنسيق الذكاء الاصطناعي عدة نماذج ذكاء اصطناعي (AI Engine α، β، γ، δ) لأتمتة تحسين الشبكة وتعديل معدل الحرق واكتشاف التهديدات الأمنية والمزيد.",
         "tags": [
           "AI",
           "optimization",
@@ -14330,7 +14331,7 @@
       },
       "90": {
         "question": "ما هي ميزات الذكاء الاصطناعي المتاحة؟",
-        "answer": "توفر تحسين الحرق القائم على الذكاء الاصطناعي وتحليل الحوكمة وتقييم مخاطر الجسر واكتشاف الشذوذ وجدولة المدققين. يتم دمج عدة نماذج ذكاء اصطناعي (Gemini، Claude، ChatGPT، Grok).",
+        "answer": "توفر تحسين الحرق القائم على الذكاء الاصطناعي وتحليل الحوكمة وتقييم مخاطر الجسر واكتشاف الشذوذ وجدولة المدققين. يتم دمج عدة نماذج ذكاء اصطناعي (AI Engine α، β، γ، δ).",
         "tags": [
           "AI",
           "optimization",
@@ -14845,9 +14846,9 @@
     "enterpriseFeatures": "Configure enterprise-grade AI and security options",
     "aiOptimizationEnabled": "AI Optimization Enabled",
     "aiOptimizationEnabledDesc": "Enable AI-powered token optimization features",
-    "gpt4oStrategic": "ChatGPT Strategic",
-    "claudeTactical": "Claude Tactical",
-    "geminiOperational": "Gemini Operational",
+    "gpt4oStrategic": "AI Engine γ Strategic",
+    "claudeTactical": "AI Engine β Tactical",
+    "geminiOperational": "AI Engine α Operational",
     "aiBurnOptimization": "AI Burn Optimization",
     "burnRateAuto": "Burn rate auto-adjusted by AI for optimal tokenomics",
     "aiPriceOracle": "AI Price Oracle",

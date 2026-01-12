@@ -474,7 +474,7 @@ export default function DashboardBuilder() {
     {
       id: "ai-orchestration",
       name: "Triple-Band AI Orchestration",
-      description: "Gemini, Claude, ChatGPT with Grok fallback - Real-time AI decision monitoring",
+      description: "AI Engine α, β, γ with δ fallback - Real-time AI decision monitoring",
       isDefault: false,
       isPublic: false,
       widgets: [],

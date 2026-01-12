@@ -168,7 +168,7 @@ const productionCategories: HelpCategory[] = [
     name: "Quad-Band AI System", 
     icon: "Cpu", 
     articleCount: 18, 
-    description: "Gemini, Claude, ChatGPT, Grok orchestration guide",
+    description: "Multi-Band AI orchestration guide",
     color: "bg-purple-500/10 text-purple-500"
   },
   { 
@@ -219,8 +219,8 @@ const productionFeaturedArticles: HelpArticle[] = [
   { 
     id: "art-3", 
     title: "Quad-Band AI Orchestration Configuration", 
-    description: "Set up Gemini (primary), Claude (secondary), ChatGPT + Grok fallback system",
-    content: "Configure the Quad-Band AI Orchestration system for optimal performance.\n\n## AI Model Hierarchy\n\n### Primary Band - Gemini\n- Main decision engine\n- Consensus optimization\n- Real-time analysis\n- Latency: <50ms\n\n### Secondary Band - Claude\n- Complex reasoning tasks\n- Governance analysis\n- Security assessment\n- Latency: <100ms\n\n### Operational Band - ChatGPT\n- Standard operations\n- Transaction classification\n- User interaction\n- Latency: <150ms\n\n### Fallback Band - Grok\n- Emergency backup\n- High-load scenarios\n- Redundancy layer\n- Latency: <200ms\n\n## Configuration Steps\n1. API key setup for each model\n2. Failover threshold configuration\n3. Load balancing rules\n4. Monitoring integration",
+    description: "Set up AI Engine α (primary), β (secondary), γ + δ fallback system",
+    content: "Configure the Quad-Band AI Orchestration system for optimal performance.\n\n## AI Model Hierarchy\n\n### Primary Band - AI Engine α\n- Main decision engine\n- Consensus optimization\n- Real-time analysis\n- Latency: <50ms\n\n### Secondary Band - AI Engine β\n- Complex reasoning tasks\n- Governance analysis\n- Security assessment\n- Latency: <100ms\n\n### Operational Band - AI Engine γ\n- Standard operations\n- Transaction classification\n- User interaction\n- Latency: <150ms\n\n### Fallback Band - AI Engine δ\n- Emergency backup\n- High-load scenarios\n- Redundancy layer\n- Latency: <200ms\n\n## Configuration Steps\n1. API key setup for each model\n2. Failover threshold configuration\n3. Load balancing rules\n4. Monitoring integration",
     category: "Quad-Band AI System", 
     views: 3256, 
     lastUpdated: "2024-12-05", 
@@ -310,7 +310,7 @@ const productionFAQs: FAQ[] = [
   { 
     id: "faq-2",
     question: "How does the Quad-Band AI Orchestration work?", 
-    answer: "The system uses Gemini as primary AI, Claude as secondary, with ChatGPT and Grok as fallback bands. Automatic failover ensures 99.99% AI availability for consensus optimization, burn rate calculations, and governance analysis. Each band has specific responsibilities and performance thresholds.",
+    answer: "The system uses AI Engine α as primary, β as secondary, with γ and δ as fallback bands. Automatic failover ensures 99.99% AI availability for consensus optimization, burn rate calculations, and governance analysis. Each band has specific responsibilities and performance thresholds.",
     category: "AI System",
     helpful: 142
   },

@@ -185,7 +185,7 @@ export default function FinanceOverview() {
     { id: "TREASURY-001", type: "inflow", category: "Treasury Allocation", amount: 1500000000, date: "2024-12-08", description: "Foundation Treasury - 15% of Genesis Supply (1.5B TBURN)", status: "completed" },
     { id: "VALIDATOR-001", type: "outflow", category: "Validator Staking", amount: 312000000, date: "2024-12-08", description: "156 Validators Bonded - 3-Tier Structure Active", status: "completed" },
     { id: "BRIDGE-001", type: "inflow", category: "Bridge Liquidity", amount: 250000000, date: "2024-12-08", description: "Multi-Chain Bridge v2.0 - ETH/BSC/Polygon/Arbitrum", status: "completed" },
-    { id: "AI-001", type: "outflow", category: "AI Infrastructure", amount: 50000000, date: "2024-12-08", description: "Triple-Band AI Orchestration - Gemini Primary", status: "completed" },
+    { id: "AI-001", type: "outflow", category: "AI Infrastructure", amount: 50000000, date: "2024-12-08", description: "Multi-Band AI Orchestration - Primary Engine", status: "completed" },
     { id: "DEX-001", type: "inflow", category: "DEX Liquidity", amount: 200000000, date: "2024-12-08", description: "TBURN-USDT/ETH/BTC Initial Liquidity Pools", status: "pending" },
   ];
 

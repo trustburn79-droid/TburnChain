@@ -268,7 +268,7 @@ export default function AlertRules() {
     {
       id: "rule-004",
       name: "Triple-Band AI Failover",
-      description: "Alert when primary AI (Gemini) triggers failover",
+      description: "Alert when primary AI (Engine α) triggers failover",
       condition: "tburn_ai_primary_status != 'healthy'",
       severity: "high",
       enabled: true,

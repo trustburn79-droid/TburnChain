@@ -124,10 +124,10 @@
     "approve": "승인",
     "reject": "거부",
     "unknown": "알 수 없음",
-    "claudeSonnet": "Claude",
-    "gpt5": "GPT-5",
-    "llama4": "Llama 4",
-    "gemini": "Gemini 2.0",
+    "claudeSonnet": "AI 엔진 β",
+    "gpt5": "AI 엔진 α",
+    "llama4": "AI 엔진 γ",
+    "gemini": "AI 엔진 α",
     "days": "일",
     "clickForDetails": "클릭하여 상세보기",
     "realtime": "실시간",
@@ -1815,10 +1815,10 @@
     "pauseSuccessDesc": "토큰 전송이 일시정지되었습니다.",
     "tokenStatsBreakdown": "토큰 통계 분석",
     "percentPopular": "인기 비율",
-    "aiModelGemini": "Gemini",
-    "aiModelClaude": "Claude",
-    "aiModelGpt4o": "ChatGPT",
-    "aiModelGrok": "Grok",
+    "aiModelGemini": "AI 엔진 α",
+    "aiModelClaude": "AI 엔진 β",
+    "aiModelGpt4o": "AI 엔진 γ",
+    "aiModelGrok": "AI 엔진 δ",
     "multisig2ofN": "2/N 다중서명",
     "multisig3ofN": "3/N 다중서명",
     "multisig4ofN": "4/N 다중서명",
@@ -1855,7 +1855,8 @@
       "Governance": "거버넌스",
       "Meme": "밈",
       "Infrastructure": "인프라"
-    }
+    },
+    "aiModelLlama": "AI 엔진 γ"
   },
   "dex": {
     "title": "탈중앙화 거래소",
@@ -3202,7 +3203,7 @@
       },
       "aiOrchestration": {
         "title": "기술 심층 분석: AI 오케스트레이션 시스템",
-        "content": "GPT-5, Claude, Llama로 구성된 Triple-Band AI 시스템이 어떻게 작동하는지 탐구해봅시다."
+        "content": "AI 엔진 α, β, γ로 구성된 Triple-Band AI 시스템이 어떻게 작동하는지 탐구해봅시다."
       },
       "governanceProposal": {
         "title": "거버넌스 제안 #42: 재무 배분",
@@ -3524,7 +3525,7 @@
     "bridge": "브릿지",
     "chainsTab": "체인",
     "aiRiskAssessment": "AI 위험 평가",
-    "aiRiskAssessmentDesc": "ChatGPT가 사기, 의심스러운 패턴 및 보안 위협에 대해 전송을 분석합니다.",
+    "aiRiskAssessmentDesc": "AI 엔진 γ가 사기, 의심스러운 패턴 및 보안 위협에 대해 전송을 분석합니다.",
     "accuracy": "{{percent}}% 정확도",
     "routeOptimization": "경로 최적화",
     "routeOptimizationDesc": "AI 최적화 경로로 가스 비용을 최소화하고, 유동성을 극대화하며, 빠른 전송을 보장합니다.",
@@ -3623,9 +3624,9 @@
     "viewAll": "전체 보기",
     "recentPosts": "최근 게시물",
     "tripleBandAi": "트리플밴드 AI",
-    "gpt5": "GPT-5",
-    "claudeSonnet": "Claude",
-    "llama4": "Llama 4",
+    "gpt5": "AI 엔진 α",
+    "claudeSonnet": "AI 엔진 β",
+    "llama4": "AI 엔진 γ",
     "modelWeight": "모델 가중치",
     "requestCount": "요청 수",
     "responseTime": "응답 시간",
@@ -3658,7 +3659,7 @@
     "realTimeControl": "실시간 제어",
     "emergencyBackup": "비상 백업 (Priority 99)",
     "standby": "대기",
-    "grokFallback": "Grok 폴백",
+    "grokFallback": "AI 엔진 δ 폴백",
     "activatesAfterFailures": "3회 연속 실패 시 활성화",
     "ai": "AI",
     "aiProcessing": "AI 처리",
@@ -7065,9 +7066,9 @@
     "totalVoters": "총 {{count}}명 투표자",
     "aiPredictionAccuracy": "AI 예측 정확도",
     "analyzed": "{{count}}개 분석됨",
-    "geminiAnalysis": "Gemini 분석",
+    "geminiAnalysis": "AI 엔진 α 분석",
     "geminiAnalysisDesc": "전략 레이어가 경제적 영향, 보안 함의를 분석하고 각 제안에 대한 위험 평가를 제공합니다.",
-    "claudePrediction": "Claude 예측",
+    "claudePrediction": "AI 엔진 β 예측",
     "claudePredictionDesc": "전술 레이어가 커뮤니티 감정, 과거 패턴 및 제안 내용을 기반으로 투표 결과를 예측합니다.",
     "gptRecommendations": "GPT 추천",
     "gptRecommendationsDesc": "운영 레이어가 투표자 이력과 스테이크 정렬을 기반으로 맞춤형 투표 추천을 제공합니다.",
@@ -7321,11 +7322,11 @@
       "title": "AI 소각 최적화 엔진",
       "description": "쿼드밴드 AI를 사용하여 시장 상황과 토크노믹스 목표에 따라 소각률 최적화",
       "strategicAnalysis": "전략적 분석",
-      "strategicAnalysisDesc": "Gemini가 장기 공급 목표, 시장 상황 및 경제적 영향을 분석하여 최적의 소각 목표 설정.",
+      "strategicAnalysisDesc": "AI 엔진 α가 장기 공급 목표, 시장 상황 및 경제적 영향을 분석하여 최적의 소각 목표 설정.",
       "tacticalAdjustment": "전술적 조정",
-      "tacticalAdjustmentDesc": "Claude가 네트워크 혼잡, 거래량 및 가격 변동성에 따라 실시간 조정 수행.",
+      "tacticalAdjustmentDesc": "AI 엔진 β가 네트워크 혼잡, 거래량 및 가격 변동성에 따라 실시간 조정 수행.",
       "operationalExecution": "운영적 실행",
-      "operationalExecutionDesc": "ChatGPT가 가스 비용과 네트워크 상황을 고려하여 최적의 시점에 소각 실행.",
+      "operationalExecutionDesc": "AI 엔진 γ가 가스 비용과 네트워크 상황을 고려하여 최적의 시점에 소각 실행.",
       "burnOptimizationFactors": "소각 최적화 요소",
       "currentSupplyVsTarget": "현재 공급량 대 목표",
       "marketPriceAnalysis": "시장 가격 분석",
@@ -15219,15 +15220,15 @@
           "latency": "지연 시간",
           "strategic": {
             "title": "전략적 AI",
-            "model": "Gemini"
+            "model": "AI 엔진 α"
           },
           "tactical": {
             "title": "전술적 AI",
-            "model": "Claude"
+            "model": "AI 엔진 β"
           },
           "operational": {
             "title": "운영 AI",
-            "model": "ChatGPT"
+            "model": "AI 엔진 γ"
           }
         },
         "uptime": {
@@ -17266,7 +17267,7 @@
     "databaseConnectionPool": "데이터베이스 연결 풀",
     "databaseConnectionPoolDesc": "연결 풀 사용률이 95%입니다",
     "aiModelAccuracy": "AI 모델 정확도 저하",
-    "aiModelAccuracyDesc": "GPT-5 정확도가 95% 임계값 아래로 떨어졌습니다",
+    "aiModelAccuracyDesc": "AI 엔진 α 정확도가 95% 임계값 아래로 떨어졌습니다",
     "minAgo": "{{count}}분 전",
     "hourAgo": "{{count}}시간 전",
     "dayAgo": "{{count}}일 전",
@@ -17609,7 +17610,7 @@
     "ofVolume": "거래량의 %",
     "enabled": "활성화",
     "aiBurnOptimization": "AI 소각 최적화",
-    "gpt5TurboPowered": "GPT-5 Turbo 기반 소각률 최적화",
+    "gpt5TurboPowered": "AI 엔진 기반 소각률 최적화",
     "aiOptimizationToggle": "AI 최적화",
     "allowAiAdjust": "AI가 소각률을 조정하도록 허용",
     "minimumConfidence": "최소 신뢰도",
@@ -18044,8 +18045,8 @@
       "launchStatus": "12월 9일 런칭 상태",
       "phase1": "Phase 1: AI 서비스 인프라",
       "phase2": "Phase 2: 결정 실행기",
-      "phase3": "Phase 3: 전술 밴드 (Claude)",
-      "phase4": "Phase 4: 전략 밴드 (Gemini)",
+      "phase3": "Phase 3: 전술 밴드 (AI 엔진 β)",
+      "phase4": "Phase 4: 전략 밴드 (AI 엔진 α)",
       "phase5": "Phase 5: 전체 시스템 통합",
       "recommendations": "권장 사항",
       "aiDecisionExecutor": "AI 결정 실행기",
@@ -27803,7 +27804,7 @@
       },
       "51": {
         "question": "AI 오케스트레이션이란?",
-        "answer": "AI 오케스트레이션은 다중 AI 모델(Gemini, Claude, ChatGPT, Grok)을 통합하여 네트워크 최적화, 번 비율 조정, 보안 위협 감지 등을 자동화합니다.",
+        "answer": "AI 오케스트레이션은 다중 AI 엔진(AI 엔진 α, β, γ, δ)을 통합하여 네트워크 최적화, 번 비율 조정, 보안 위협 감지 등을 자동화합니다.",
         "tags": [
           "AI",
           "최적화",
@@ -28154,7 +28155,7 @@
       },
       "90": {
         "question": "AI 기능은 무엇이 있나요?",
-        "answer": "AI 기반 번 최적화, 거버넌스 분석, 브릿지 리스크 평가, 이상 탐지, 밸리데이터 스케줄링을 제공합니다. 다중 AI 모델(Gemini, Claude, ChatGPT, Grok)이 통합되어 있습니다.",
+        "answer": "AI 기반 번 최적화, 거버넌스 분석, 브릿지 리스크 평가, 이상 탐지, 밸리데이터 스케줄링을 제공합니다. 다중 AI 엔진(AI 엔진 α, β, γ, δ)이 통합되어 있습니다.",
         "tags": [
           "AI",
           "최적화",
@@ -28612,7 +28613,7 @@
     },
     "q90": {
       "question": "AI 기능은 무엇이 있나요?",
-      "answer": "AI 기반 번 최적화, 거버넌스 분석, 브릿지 리스크 평가, 이상 탐지, 밸리데이터 스케줄링을 제공합니다. 다중 AI 모델(Gemini, Claude, ChatGPT, Grok)이 통합되어 있습니다."
+      "answer": "AI 기반 번 최적화, 거버넌스 분석, 브릿지 리스크 평가, 이상 탐지, 밸리데이터 스케줄링을 제공합니다. 다중 AI 엔진(AI 엔진 α, β, γ, δ)이 통합되어 있습니다."
     },
     "q91": {
       "question": "엔터프라이즈 사용 사례는?",
@@ -29104,9 +29105,9 @@
     "enterpriseFeatures": "엔터프라이즈급 AI 및 보안 옵션 구성",
     "aiOptimizationEnabled": "AI 최적화 활성화",
     "aiOptimizationEnabledDesc": "AI 기반 토큰 최적화 기능 활성화",
-    "gpt4oStrategic": "ChatGPT 전략적",
-    "claudeTactical": "Claude 전술적",
-    "geminiOperational": "Gemini 운영적",
+    "gpt4oStrategic": "AI 엔진 γ 전략적",
+    "claudeTactical": "AI 엔진 β 전술적",
+    "geminiOperational": "AI 엔진 α 운영적",
     "aiBurnOptimization": "AI 소각 최적화",
     "burnRateAuto": "AI가 최적의 토크노믹스를 위해 소각률 자동 조정",
     "aiPriceOracle": "AI 가격 오라클",

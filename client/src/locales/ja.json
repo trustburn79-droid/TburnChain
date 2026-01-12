@@ -93,10 +93,10 @@
     "noDataAvailable": "データがありません",
     "unknown": "不明",
     "na": "該当なし",
-    "claudeSonnet": "Claude",
-    "gpt5": "GPT-5",
-    "llama4": "Llama 4",
-    "gemini": "Gemini 2.0",
+    "claudeSonnet": "AI Engine β",
+    "gpt5": "AI Engine α",
+    "llama4": "AI Engine γ",
+    "gemini": "AI Engine α",
     "optional": "任意",
     "required": "必須",
     "of": "/",
@@ -1968,9 +1968,9 @@
     "createTbc1155": "TBC-1155トークンを作成",
     "tripleBandAiTitle": "トリプルバンドAIトークン管理",
     "tripleBandAiDesc": "戦略、戦術、運用レイヤーによるAIファーストトークン管理",
-    "aiModelGpt5": "GPT-5 Turbo",
-    "aiModelClaude": "Claude",
-    "aiModelLlama": "Llama 3.3 70B",
+    "aiModelGpt5": "AI Engine α",
+    "aiModelClaude": "AI Engine β",
+    "aiModelLlama": "AI Engine γ",
     "templateDefiGovernanceName": "DeFiガバナンストークン",
     "templateDefiGovernanceDesc": "ステーキング、投票、バーンメカニズムを備えたフル機能ガバナンストークン",
     "templateDefiGovernanceCategory": "DeFi",
@@ -3597,7 +3597,7 @@
     "bridge": "ブリッジ",
     "chainsTab": "チェーン",
     "aiRiskAssessment": "AIリスク評価",
-    "aiRiskAssessmentDesc": "Claudeが詐欺、疑わしいパターン、セキュリティ脅威の転送を分析。",
+    "aiRiskAssessmentDesc": "AI Engine βが詐欺、疑わしいパターン、セキュリティ脅威の転送を分析。",
     "accuracy": "{{percent}}%精度",
     "routeOptimization": "ルート最適化",
     "routeOptimizationDesc": "AI最適化ルートでガスコストを最小化し、流動性を最大化し、高速転送を保証。",
@@ -3696,9 +3696,9 @@
     "viewAll": "すべて表示",
     "recentPosts": "最近の投稿",
     "tripleBandAi": "トリプルバンドAI",
-    "gpt5": "GPT-5",
-    "claudeSonnet": "Claude",
-    "llama4": "Llama 4",
+    "gpt5": "AI Engine α",
+    "claudeSonnet": "AI Engine β",
+    "llama4": "AI Engine γ",
     "modelWeight": "モデル重み",
     "requestCount": "リクエスト数",
     "responseTime": "応答時間",
@@ -6615,11 +6615,11 @@
     "totalVoters": "総投票者{{count}}人",
     "aiPredictionAccuracy": "AI予測精度",
     "analyzed": "{{count}}件分析済み",
-    "gpt5TurboAnalysis": "GPT-5 Turbo 分析",
+    "gpt5TurboAnalysis": "AI Engine α 分析",
     "gpt5TurboDesc": "戦略レイヤーが各提案の経済的影響、セキュリティへの影響、リスク評価を分析します。",
-    "claudeSonnetPrediction": "Claude 予測",
+    "claudeSonnetPrediction": "AI Engine β 予測",
     "claudeSonnetDesc": "戦術レイヤーがコミュニティの感情、過去のパターン、提案内容に基づいて投票結果を予測します。",
-    "llamaRecommendations": "Llama 3.3 70B 推奨",
+    "llamaRecommendations": "AI Engine γ 推奨",
     "llamaDesc": "運用レイヤーが投票者の履歴とステークの整合性に基づいてパーソナライズされた投票推奨を提供します。",
     "activeTab": "アクティブ ({{count}})",
     "completedTab": "完了",
@@ -6766,11 +6766,11 @@
       "title": "AIバーン最適化エンジン",
       "description": "クアッドバンドAIを使用して市場条件とトークノミクス目標に基づいてバーン率を最適化",
       "strategicAnalysis": "戦略的分析",
-      "strategicAnalysisDesc": "Geminiが長期供給目標、市場条件、経済的影響を分析して最適なバーン目標を設定します。",
+      "strategicAnalysisDesc": "AI Engine αが長期供給目標、市場条件、経済的影響を分析して最適なバーン目標を設定します。",
       "tacticalAdjustment": "戦術的調整",
       "tacticalAdjustmentDesc": "GPTがネットワーク混雑、トランザクション量、価格ボラティリティに基づいてリアルタイム調整を行います。",
       "operationalExecution": "運用実行",
-      "operationalExecutionDesc": "Grokがガスコストとネットワーク条件を考慮して最適なタイミングでバーンを実行します。",
+      "operationalExecutionDesc": "AI Engine δがガスコストとネットワーク条件を考慮して最適なタイミングでバーンを実行します。",
       "burnOptimizationFactors": "バーン最適化要因",
       "currentSupplyVsTarget": "現在の供給量 vs 目標",
       "marketPriceAnalysis": "市場価格分析",
@@ -7541,7 +7541,7 @@
       },
       "aiOrchestration": {
         "title": "技術深掘り：AIオーケストレーションシステム",
-        "content": "GPT-5、Claude、Llamaで構成されるTriple-Band AIシステムがどのように動作するかを探ってみましょう。"
+        "content": "AI Engine α、β、γで構成されるTriple-Band AIシステムがどのように動作するかを探ってみましょう。"
       },
       "governanceProposal": {
         "title": "ガバナンス提案 #42：財務配分",
@@ -9139,19 +9139,19 @@
           "items": {
             "strategic": {
               "title": "戦略レイヤー",
-              "model": ":: ChatGPT Latest",
+              "model": ":: AI Engine γ",
               "latency": "450ms",
               "description": "複雑な市場分析、ガバナンス提案評価、長期戦略策定を処理。"
             },
             "tactical": {
               "title": "戦術レイヤー",
-              "model": ":: Claude Latest",
+              "model": ":: AI Engine β",
               "latency": "180ms",
               "description": "信頼評価、トランザクション検証、スマートコントラクト監査を処理。"
             },
             "operational": {
               "title": "運用レイヤー",
-              "model": ":: Gemini Latest",
+              "model": ":: AI Engine α",
               "latency": "45ms",
               "description": "リアルタイム監視、緊急対応（自動バーン）、自動化アクションを実行。"
             }
@@ -12763,7 +12763,7 @@
         "tiers": {
           "strategic": {
             "title": "戦略的AI",
-            "model": "GPT-4 / Claude 3",
+            "model": "AI Engine α / β",
             "description": "ガバナンス、トークノミクス設計、長期リスク評価のための高レベル意思決定。人間のような推論で複雑な分析を処理。",
             "capabilities": {
               "governance": "DAO提案分析",
@@ -14292,15 +14292,15 @@
           "latency": "レイテンシ",
           "strategic": {
             "title": "戦略AI",
-            "model": "GPT-5"
+            "model": "AI Engine α"
           },
           "tactical": {
             "title": "戦術AI",
-            "model": "Claude"
+            "model": "AI Engine β"
           },
           "operational": {
             "title": "運用AI",
-            "model": "Llama 4"
+            "model": "AI Engine γ"
           }
         },
         "uptime": {
@@ -14783,7 +14783,7 @@
                 "1": "TBURN v7.0の主な機能：",
                 "2": "AI強化委員会BFTコンセンサス：従来のビザンチンフォールトトレランスと高度なAIアルゴリズムを組み合わせた独自のコンセンサスメカニズム。",
                 "3": "動的シャーディングシステム：複数のシャードにわたる自動ロードバランシングにより、分散化を損なうことなく前例のないスケーラビリティを実現。",
-                "4": "Triple-Band AIオーケストレーション：3つの独立したAIシステム（GPT-5、Claude、Llama 4）が協調してネットワーク運用を最適化。",
+                "4": "Triple-Band AIオーケストレーション：3つの独立したAIシステム（AI Engine α、β、γ）が協調してネットワーク運用を最適化。",
                 "5": "エンタープライズトークン標準（TBC-20、TBC-721、TBC-1155）：量子耐性セキュリティと組み込みコンプライアンス機能を提供。",
                 "6": "メインネットローンチには、DEX/AMM、レンディングプロトコル、リキッドステーキング、NFTマーケットプレイス、クロスチェーンブリッジを含む包括的なDeFiエコシステムが含まれます。",
                 "7": "開発者、バリデーター、ユーザーの皆様をTBURN v7.0で分散型金融の未来を共に築くことにご招待します。"
@@ -14808,9 +14808,9 @@
               "content": {
                 "0": "TBURN v7.0 AIオーケストレーションシステムは、冗長性、精度、最適な意思決定のために複数のAIプロバイダーを組み合わせたブロックチェーン技術の画期的な進歩です。",
                 "1": "Triple-Bandアーキテクチャの理解：",
-                "2": "Primary Band（GPT-5）：バリデーター信頼スコアリング、異常検出、予測メンテナンスなどの複雑な分析タスクを処理。",
-                "3": "Secondary Band（Claude）：コード分析、スマートコントラクト監査、ガバナンス提案の自然言語処理を専門とする。",
-                "4": "Tertiary Band（Llama 4）：リアルタイムトランザクションルーティングとロードバランシング決定のための高スループット、低レイテンシー処理を提供。",
+                "2": "Primary Band（AI Engine α）：バリデーター信頼スコアリング、異常検出、予測メンテナンスなどの複雑な分析タスクを処理。",
+                "3": "Secondary Band（AI Engine β）：コード分析、スマートコントラクト監査、ガバナンス提案の自然言語処理を専門とする。",
+                "4": "Tertiary Band（AI Engine γ）：リアルタイムトランザクションルーティングとロードバランシング決定のための高スループット、低レイテンシー処理を提供。",
                 "5": "Cross-Band相互作用：高い信頼度が必要な決定の場合、3つのAIシステムが独立して状況を分析し、過去の精度に基づいて重み付けされた出力を組み合わせます。",
                 "6": "フィードバック学習システム：すべてのAI決定は追跡され、実際の結果と比較評価されます。この継続的なフィードバックループにより、バリデーター選択決定で99.7%を超える精度を達成。",
                 "7": "結果として、ブロックチェーン運用のあらゆる側面を向上させる自己改善型、フォールトトレラントなAI層が完成します。"
@@ -15430,7 +15430,7 @@
         },
         "aiOrchestration": {
           "title": "AIオーケストレーションシステム稼働開始",
-          "content": "Quad-Band AIオーケストレーションシステムがGeminiをプライマリとし、Claude、ChatGPT、Grokをフォールバックとして完全稼働しています。"
+          "content": "Quad-Band AIオーケストレーションシステムがAI Engine αをプライマリとし、β、γ、δをフォールバックとして完全稼働しています。"
         }
       },
       "posts": {
@@ -17184,7 +17184,7 @@
       },
       "51": {
         "question": "AIオーケストレーションとは何ですか？",
-        "answer": "AIオーケストレーションは、複数のAIモデル（Gemini、Claude、ChatGPT、Grok）を統合して、ネットワーク最適化、バーンレート調整、セキュリティ脅威検出などを自動化します。",
+        "answer": "AIオーケストレーションは、複数のAIモデル（AI Engine α、β、γ、δ）を統合して、ネットワーク最適化、バーンレート調整、セキュリティ脅威検出などを自動化します。",
         "tags": [
           "AI",
           "最適化",
@@ -17535,7 +17535,7 @@
       },
       "90": {
         "question": "どのようなAI機能がありますか？",
-        "answer": "AIベースのバーン最適化、ガバナンス分析、ブリッジリスク評価、異常検出、バリデータースケジューリングを提供しています。複数のAIモデル（Gemini、Claude、ChatGPT、Grok）が統合されています。",
+        "answer": "AIベースのバーン最適化、ガバナンス分析、ブリッジリスク評価、異常検出、バリデータースケジューリングを提供しています。複数のAIモデル（AI Engine α、β、γ、δ）が統合されています。",
         "tags": [
           "AI",
           "最適化",
@@ -18057,9 +18057,9 @@
     "enterpriseFeatures": "エンタープライズグレードのAIとセキュリティオプションを構成",
     "aiOptimizationEnabled": "AI最適化有効",
     "aiOptimizationEnabledDesc": "AI駆動トークン最適化機能を有効化",
-    "gpt4oStrategic": "ChatGPT 戦略的",
-    "claudeTactical": "Claude 戦術的",
-    "geminiOperational": "Gemini 運用的",
+    "gpt4oStrategic": "AI Engine γ 戦略的",
+    "claudeTactical": "AI Engine β 戦術的",
+    "geminiOperational": "AI Engine α 運用的",
     "aiBurnOptimization": "AIバーン最適化",
     "burnRateAuto": "最適なトークノミクスのためにAIがバーン率を自動調整",
     "aiPriceOracle": "AI価格オラクル",

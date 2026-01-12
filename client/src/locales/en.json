@@ -121,10 +121,10 @@
     "approve": "Approve",
     "reject": "Reject",
     "unknown": "Unknown",
-    "claudeSonnet": "Claude",
-    "gpt5": "GPT-5",
-    "llama4": "Llama 4",
-    "gemini": "Gemini 2.0",
+    "claudeSonnet": "AI Engine β",
+    "gpt5": "AI Engine α",
+    "llama4": "AI Engine γ",
+    "gemini": "AI Engine α",
     "days": "days",
     "clickForDetails": "Click for details",
     "realtime": "Real-time",
@@ -2007,10 +2007,10 @@
     "addressCopied": "Address copied to clipboard",
     "tokenStatsBreakdown": "TBC-20: {{tbc20}} | TBC-721: {{tbc721}} | TBC-1155: {{tbc1155}}",
     "percentPopular": "{{percent}}% popular",
-    "aiModelGemini": "Gemini",
-    "aiModelClaude": "Claude",
-    "aiModelGpt4o": "ChatGPT",
-    "aiModelGrok": "Grok",
+    "aiModelGemini": "AI Engine α",
+    "aiModelClaude": "AI Engine β",
+    "aiModelGpt4o": "AI Engine γ",
+    "aiModelGrok": "AI Engine δ",
     "multisig2ofN": "2 of N",
     "multisig3ofN": "3 of N",
     "multisig4ofN": "4 of N",
@@ -2104,7 +2104,8 @@
       "Governance": "Governance",
       "Meme": "Meme",
       "Infrastructure": "Infrastructure"
-    }
+    },
+    "aiModelLlama": "AI Engine γ"
   },
   "dex": {
     "title": "Decentralized Exchange",
@@ -3290,7 +3291,7 @@
       },
       "aiOrchestration": {
         "title": "Technical Deep Dive: AI Orchestration System",
-        "content": "Let's explore how the Triple-Band AI system works under the hood with GPT-5, Claude, and Llama."
+        "content": "Let's explore how the Triple-Band AI system works under the hood with AI Engine α, β, and γ."
       },
       "governanceProposal": {
         "title": "Governance Proposal #42: Treasury Allocation",
@@ -3606,7 +3607,7 @@
     "bridge": "Bridge",
     "chainsTab": "Chains",
     "aiRiskAssessment": "AI Risk Assessment",
-    "aiRiskAssessmentDesc": "ChatGPT analyzes transfers for fraud, suspicious patterns, and security threats.",
+    "aiRiskAssessmentDesc": "AI Engine γ analyzes transfers for fraud, suspicious patterns, and security threats.",
     "accuracy": "{{percent}}% Accuracy",
     "routeOptimization": "Route Optimization",
     "routeOptimizationDesc": "AI-optimized routes minimize gas costs, maximize liquidity, and ensure fast transfers.",
@@ -3702,9 +3703,9 @@
     "title": "AI Orchestration",
     "subtitle": "Triple-Band AI system monitoring and management",
     "tripleBandAi": "Triple-Band AI",
-    "gpt5": "GPT-5",
-    "claudeSonnet": "Claude",
-    "llama4": "Llama 4",
+    "gpt5": "AI Engine α",
+    "claudeSonnet": "AI Engine β",
+    "llama4": "AI Engine γ",
     "modelWeight": "Model Weight",
     "requestCount": "Request Count",
     "responseTime": "Response Time",
@@ -3737,7 +3738,7 @@
     "realTimeControl": "Real-time Control",
     "emergencyBackup": "Emergency Backup (Priority 99)",
     "standby": "Standby",
-    "grokFallback": "Grok Fallback",
+    "grokFallback": "AI Engine δ Fallback",
     "activatesAfterFailures": "Activates after 3 consecutive failures",
     "ai": "AI",
     "aiProcessing": "AI Processing",
@@ -5486,26 +5487,26 @@
       "tier1": "Tier 1",
       "tier2": "Tier 2",
       "tier3": "Tier 3",
-    "tierGenesis": "Genesis Validator",
-    "tierPioneer": "Pioneer Validator",
-    "tierStandard": "Standard Validator",
-    "tierCommunity": "Community Validator",
-    "tierGenesisDesc": "1M+ TBURN staked",
-    "tierPioneerDesc": "500K+ TBURN staked",
-    "tierStandardDesc": "200K+ TBURN staked",
-    "tierCommunityDesc": "100K+ TBURN staked",
-    "tierGenesisDescFull": "Top-tier validators with maximum stake requirements and highest rewards",
-    "tierPioneerDescFull": "Early adopter validators with significant stake and priority rewards",
-    "tierStandardDescFull": "Core network validators with balanced stake requirements",
-    "tierCommunityDescFull": "Community validators with accessible entry requirements",
-    "tierGenesisPool": "Genesis Pool",
-    "tierPioneerPool": "Pioneer Pool",
-    "tierStandardPool": "Standard Pool",
-    "tierCommunityPool": "Community Pool",
-    "tierGenesisStake": "Genesis Stake",
-    "tierPioneerStake": "Pioneer Stake",
-    "tierStandardStake": "Standard Stake",
-    "tierCommunityStake": "Community Stake",
+      "tierGenesis": "Genesis Validator",
+      "tierPioneer": "Pioneer Validator",
+      "tierStandard": "Standard Validator",
+      "tierCommunity": "Community Validator",
+      "tierGenesisDesc": "1M+ TBURN staked",
+      "tierPioneerDesc": "500K+ TBURN staked",
+      "tierStandardDesc": "200K+ TBURN staked",
+      "tierCommunityDesc": "100K+ TBURN staked",
+      "tierGenesisDescFull": "Top-tier validators with maximum stake requirements and highest rewards",
+      "tierPioneerDescFull": "Early adopter validators with significant stake and priority rewards",
+      "tierStandardDescFull": "Core network validators with balanced stake requirements",
+      "tierCommunityDescFull": "Community validators with accessible entry requirements",
+      "tierGenesisPool": "Genesis Pool",
+      "tierPioneerPool": "Pioneer Pool",
+      "tierStandardPool": "Standard Pool",
+      "tierCommunityPool": "Community Pool",
+      "tierGenesisStake": "Genesis Stake",
+      "tierPioneerStake": "Pioneer Stake",
+      "tierStandardStake": "Standard Stake",
+      "tierCommunityStake": "Community Stake",
       "applicationTypes": {
         "new": "New Application",
         "renewal": "Renewal",
@@ -7013,9 +7014,9 @@
     "totalVoters": "{{count}} total voters",
     "aiPredictionAccuracy": "AI Prediction Accuracy",
     "analyzed": "{{count}} analyzed",
-    "geminiAnalysis": "Gemini Analysis",
+    "geminiAnalysis": "AI Engine α Analysis",
     "geminiAnalysisDesc": "Strategic layer analyzes economic impact, security implications, and provides risk assessment for each proposal.",
-    "claudePrediction": "Claude Prediction",
+    "claudePrediction": "AI Engine β Prediction",
     "claudePredictionDesc": "Tactical layer predicts voting outcomes based on community sentiment, historical patterns, and proposal content.",
     "gptRecommendations": "GPT Recommendations",
     "gptRecommendationsDesc": "Operational layer provides personalized voting recommendations based on voter history and stake alignment.",
@@ -7317,11 +7318,11 @@
       "title": "AI Burn Optimization Engine",
       "description": "Uses Quad-Band AI to optimize burn rates based on market conditions and tokenomics goals",
       "strategicAnalysis": "Strategic Analysis",
-      "strategicAnalysisDesc": "Gemini analyzes long-term supply goals, market conditions, and economic impact to set optimal burn targets.",
+      "strategicAnalysisDesc": "AI Engine α analyzes long-term supply goals, market conditions, and economic impact to set optimal burn targets.",
       "tacticalAdjustment": "Tactical Adjustment",
-      "tacticalAdjustmentDesc": "Claude makes real-time adjustments based on network congestion, transaction volume, and price volatility.",
+      "tacticalAdjustmentDesc": "AI Engine β makes real-time adjustments based on network congestion, transaction volume, and price volatility.",
       "operationalExecution": "Operational Execution",
-      "operationalExecutionDesc": "ChatGPT executes burns at optimal times, considering gas costs and network conditions.",
+      "operationalExecutionDesc": "AI Engine γ executes burns at optimal times, considering gas costs and network conditions.",
       "burnOptimizationFactors": "Burn Optimization Factors",
       "currentSupplyVsTarget": "Current Supply vs Target",
       "marketPriceAnalysis": "Market Price Analysis",
@@ -14885,15 +14886,15 @@
           "latency": "Latency",
           "strategic": {
             "title": "Strategic AI",
-            "model": "Gemini"
+            "model": "AI Engine α"
           },
           "tactical": {
             "title": "Tactical AI",
-            "model": "Claude"
+            "model": "AI Engine β"
           },
           "operational": {
             "title": "Operational AI",
-            "model": "ChatGPT"
+            "model": "AI Engine γ"
           }
         },
         "uptime": {
@@ -15421,7 +15422,7 @@
                 "1": "Key Features of TBURN v7.0:",
                 "2": "AI-Enhanced Committee BFT Consensus: Our proprietary consensus mechanism combines traditional Byzantine Fault Tolerance with advanced AI algorithms for optimal validator selection and network security.",
                 "3": "Dynamic Sharding System: The network now supports automatic load balancing across multiple shards, enabling unprecedented scalability without sacrificing decentralization.",
-                "4": "Triple-Band AI Orchestration: Three independent AI systems (GPT-5, Claude, Llama 4) work in harmony to optimize network operations, from transaction routing to resource allocation.",
+                "4": "Triple-Band AI Orchestration: Three independent AI systems (AI Engine α, β, γ 4) work in harmony to optimize network operations, from transaction routing to resource allocation.",
                 "5": "Enterprise Token Standards (TBC-20, TBC-721, TBC-1155): Our enhanced token standards provide quantum-resistant security and built-in compliance features for institutional adoption.",
                 "6": "The mainnet launch includes a comprehensive DeFi ecosystem with DEX/AMM, lending protocols, liquid staking, NFT marketplace, and cross-chain bridge capabilities.",
                 "7": "We invite developers, validators, and users to join us in building the future of decentralized finance on TBURN v7.0."
@@ -15446,9 +15447,9 @@
               "content": {
                 "0": "The TBURN v7.0 AI Orchestration system represents a breakthrough in blockchain technology, combining multiple AI providers for redundancy, accuracy, and optimal decision-making.",
                 "1": "Understanding Triple-Band Architecture:",
-                "2": "Primary Band (GPT-5): Handles complex analytical tasks including validator trust scoring, anomaly detection, and predictive maintenance.",
-                "3": "Secondary Band (Claude): Specializes in code analysis, smart contract auditing, and natural language processing for governance proposals.",
-                "4": "Tertiary Band (Llama 4): Provides high-throughput, low-latency processing for real-time transaction routing and load balancing decisions.",
+                "2": "Primary Band (AI Engine α): Handles complex analytical tasks including validator trust scoring, anomaly detection, and predictive maintenance.",
+                "3": "Secondary Band (AI Engine β): Specializes in code analysis, smart contract auditing, and natural language processing for governance proposals.",
+                "4": "Tertiary Band (AI Engine γ): Provides high-throughput, low-latency processing for real-time transaction routing and load balancing decisions.",
                 "5": "Cross-Band Interaction: When a decision requires high confidence, all three AI systems independently analyze the situation. A consensus mechanism then combines their outputs, weighting each based on historical accuracy for similar decision types.",
                 "6": "Feedback Learning System: Every AI decision is tracked and evaluated against actual outcomes. This continuous feedback loop enables the system to improve over time, with accuracy metrics currently exceeding 99.7% for validator selection decisions.",
                 "7": "The result is a self-improving, fault-tolerant AI layer that enhances every aspect of blockchain operations."
@@ -16116,7 +16117,7 @@
         },
         "aiOrchestration": {
           "title": "AI Orchestration System Goes Live",
-          "content": "The Quad-Band AI Orchestration System is now fully operational with Gemini as primary, Claude, ChatGPT, and Grok as fallback."
+          "content": "The Quad-Band AI Orchestration System is now fully operational with AI Engine α as primary, β, γ, and δ as fallback."
         }
       },
       "posts": {
@@ -17848,7 +17849,7 @@
     "databaseConnectionPool": "Database Connection Pool",
     "databaseConnectionPoolDesc": "Connection pool utilization at 95%",
     "aiModelAccuracy": "AI Model Accuracy Drop",
-    "aiModelAccuracyDesc": "GPT-5 accuracy dropped below 95% threshold",
+    "aiModelAccuracyDesc": "AI Engine α accuracy dropped below 95% threshold",
     "minAgo": "{{count}}m ago",
     "hourAgo": "{{count}}h ago",
     "dayAgo": "{{count}}d ago",
@@ -18181,7 +18182,7 @@
     "ofVolume": "% of volume",
     "enabled": "Enabled",
     "aiBurnOptimization": "AI Burn Optimization",
-    "gpt5TurboPowered": "GPT-5 Turbo powered burn rate optimization",
+    "gpt5TurboPowered": "AI Engine powered burn rate optimization",
     "aiOptimizationToggle": "AI Optimization",
     "allowAiAdjust": "Allow AI to adjust burn rates",
     "minimumConfidence": "Minimum Confidence",
@@ -18587,8 +18588,8 @@
       "launchStatus": "December 9th Launch Status",
       "phase1": "Phase 1: AI Service Infrastructure",
       "phase2": "Phase 2: Decision Executor",
-      "phase3": "Phase 3: Tactical Band (Claude)",
-      "phase4": "Phase 4: Strategic Band (Gemini)",
+      "phase3": "Phase 3: Tactical Band (AI Engine β)",
+      "phase4": "Phase 4: Strategic Band (AI Engine α)",
       "phase5": "Phase 5: Full System Integration",
       "recommendations": "Recommendations",
       "aiDecisionExecutor": "AI Decision Executor",
@@ -27813,7 +27814,7 @@
       },
       "51": {
         "question": "What is AI orchestration?",
-        "answer": "AI orchestration integrates multiple AI models (Gemini, Claude, ChatGPT, Grok) to automate network optimization, burn rate adjustment, security threat detection, and more.",
+        "answer": "AI orchestration integrates multiple AI models (AI Engine α, β, γ, δ) to automate network optimization, burn rate adjustment, security threat detection, and more.",
         "tags": [
           "AI",
           "optimization",
@@ -28164,7 +28165,7 @@
       },
       "90": {
         "question": "What AI features are available?",
-        "answer": "Provides AI-based burn optimization, governance analysis, bridge risk assessment, anomaly detection, and validator scheduling. Multiple AI models (Gemini, Claude, ChatGPT, Grok) are integrated.",
+        "answer": "Provides AI-based burn optimization, governance analysis, bridge risk assessment, anomaly detection, and validator scheduling. Multiple AI models (AI Engine α, β, γ, δ) are integrated.",
         "tags": [
           "AI",
           "optimization",
@@ -28622,7 +28623,7 @@
     },
     "q90": {
       "question": "What AI features are available?",
-      "answer": "Provides AI-based burn optimization, governance analysis, bridge risk assessment, anomaly detection, and validator scheduling. Multiple AI models (Gemini, Claude, ChatGPT, Grok) are integrated."
+      "answer": "Provides AI-based burn optimization, governance analysis, bridge risk assessment, anomaly detection, and validator scheduling. Multiple AI models (AI Engine α, β, γ, δ) are integrated."
     },
     "q91": {
       "question": "What are enterprise use cases?",
@@ -29114,9 +29115,9 @@
     "enterpriseFeatures": "Configure enterprise-grade AI and security options",
     "aiOptimizationEnabled": "AI Optimization Enabled",
     "aiOptimizationEnabledDesc": "Enable AI-powered token optimization features",
-    "gpt4oStrategic": "ChatGPT Strategic",
-    "claudeTactical": "Claude Tactical",
-    "geminiOperational": "Gemini Operational",
+    "gpt4oStrategic": "AI Engine γ Strategic",
+    "claudeTactical": "AI Engine β Tactical",
+    "geminiOperational": "AI Engine α Operational",
     "aiBurnOptimization": "AI Burn Optimization",
     "burnRateAuto": "Burn rate auto-adjusted by AI for optimal tokenomics",
     "aiPriceOracle": "AI Price Oracle",

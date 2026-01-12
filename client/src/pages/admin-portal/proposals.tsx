@@ -345,7 +345,7 @@ export default function Proposals() {
     {
       id: "TIP-002",
       title: "Triple-Band AI Orchestration System Activation",
-      description: "Enable Quad-Band AI System with Gemini, Claude, ChatGPT, and Grok fallback for mainnet operations",
+      description: "Enable Quad-Band AI System with AI Engine α, β, γ, δ fallback for mainnet operations",
       category: "AI",
       proposer: "0xAI0rch3str4t10n5yst3m0p3r4t10n4l",
       status: "executed",

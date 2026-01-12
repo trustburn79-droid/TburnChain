@@ -238,7 +238,7 @@ export default function BudgetManagement() {
     { id: "REQ-001", title: "Mainnet v8.0 Launch Infrastructure", department: "Core Engineering", amount: 5000000, status: "approved", requestDate: "2024-12-01", requester: "CTO Office" },
     { id: "REQ-002", title: "Security Audit - CertiK Final Review", department: "Security", amount: 2500000, status: "approved", requestDate: "2024-12-05", requester: "CISO" },
     { id: "REQ-003", title: "Q1 2025 Marketing Campaign", department: "Marketing", amount: 10000000, status: "pending", requestDate: "2024-12-07", requester: "CMO" },
-    { id: "REQ-004", title: "AI Model Training - Grok Fallback", department: "AI Engineering", amount: 3000000, status: "approved", requestDate: "2024-12-03", requester: "AI Director" },
+    { id: "REQ-004", title: "AI Model Training - Fallback Engine", department: "AI Engineering", amount: 3000000, status: "approved", requestDate: "2024-12-03", requester: "AI Director" },
   ];
 
   const monthlyBudgetData = budgetData?.monthlyBudgetData || [

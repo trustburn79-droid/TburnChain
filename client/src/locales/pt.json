@@ -83,10 +83,10 @@
     "light": "Claro",
     "system": "Sistema",
     "unknown": "Desconhecido",
-    "claudeSonnet": "Claude",
-    "gpt5": "GPT-5",
-    "llama4": "Llama 4",
-    "gemini": "Gemini 2.0",
+    "claudeSonnet": "AI Engine β",
+    "gpt5": "AI Engine α",
+    "llama4": "AI Engine γ",
+    "gemini": "AI Engine α",
     "id": "ID",
     "refreshing": "Atualizando",
     "optional": "Opcional",
@@ -1245,9 +1245,9 @@
     "viewAll": "Ver Tudo",
     "recentPosts": "Postagens Recentes",
     "tripleBandAi": "Triple-Band IA",
-    "gpt5": "GPT-5",
-    "claudeSonnet": "Claude",
-    "llama4": "Llama 4",
+    "gpt5": "AI Engine α",
+    "claudeSonnet": "AI Engine β",
+    "llama4": "AI Engine γ",
     "modelWeight": "Peso do Modelo",
     "requestCount": "Contagem de Requisições",
     "responseTime": "Tempo de Resposta",
@@ -2980,9 +2980,9 @@
     "tripleBandAiDesc": "Gestão de tokens IA-first com camadas estratégica, tática e operacional",
     "tokenStatsBreakdown": "TBC-20: {{tbc20}} | TBC-721: {{tbc721}} | TBC-1155: {{tbc1155}}",
     "percentPopular": "{{percent}}% popular",
-    "aiModelGpt5": "GPT-5 Turbo",
-    "aiModelClaude": "Claude",
-    "aiModelLlama": "Llama 3.3 70B",
+    "aiModelGpt5": "AI Engine α",
+    "aiModelClaude": "AI Engine β",
+    "aiModelLlama": "AI Engine γ",
     "multisig2ofN": "2 de N",
     "multisig3ofN": "3 de N",
     "multisig4ofN": "4 de N",
@@ -3497,11 +3497,11 @@
     "totalVoters": "{{count}} votantes no total",
     "aiPredictionAccuracy": "Precisão de Previsão IA",
     "analyzed": "{{count}} analisadas",
-    "gpt5TurboAnalysis": "Análise GPT-5 Turbo",
+    "gpt5TurboAnalysis": "Análise AI Engine α",
     "gpt5TurboDesc": "A camada estratégica analisa impacto econômico, implicações de segurança e fornece avaliação de risco para cada proposta.",
-    "claudeSonnetPrediction": "Previsão Claude",
+    "claudeSonnetPrediction": "AI Engine β Prediction",
     "claudeSonnetDesc": "A camada tática prevê resultados de votação com base no sentimento da comunidade, padrões históricos e conteúdo da proposta.",
-    "llamaRecommendations": "Recomendações Llama 3.3 70B",
+    "llamaRecommendations": "Recomendações AI Engine γ",
     "llamaDesc": "A camada operacional fornece recomendações de voto personalizadas com base no histórico do votante e alinhamento de stake.",
     "activeTab": "Ativas ({{count}})",
     "completedTab": "Concluídas",
@@ -3648,11 +3648,11 @@
       "title": "Motor de Otimização de Queima IA",
       "description": "Usa IA Quad-Band para otimizar taxas de queima com base nas condições de mercado e metas de tokenomics",
       "strategicAnalysis": "Análise Estratégica",
-      "strategicAnalysisDesc": "Gemini analisa metas de fornecimento de longo prazo, condições de mercado e impacto econômico para definir metas de queima ótimas.",
+      "strategicAnalysisDesc": "AI Engine α analisa metas de fornecimento de longo prazo, condições de mercado e impacto econômico para definir metas de queima ótimas.",
       "tacticalAdjustment": "Ajuste Tático",
       "tacticalAdjustmentDesc": "GPT faz ajustes em tempo real com base no congestionamento da rede, volume de transações e volatilidade de preços.",
       "operationalExecution": "Execução Operacional",
-      "operationalExecutionDesc": "Grok executa queimas em momentos ótimos, considerando custos de gás e condições da rede.",
+      "operationalExecutionDesc": "AI Engine δ executa queimas em momentos ótimos, considerando custos de gás e condições da rede.",
       "burnOptimizationFactors": "Fatores de Otimização de Queima",
       "currentSupplyVsTarget": "Fornecimento Atual vs Meta",
       "marketPriceAnalysis": "Análise de Preço de Mercado",
@@ -3931,7 +3931,7 @@
       },
       "aiOrchestration": {
         "title": "Imersão Técnica: Sistema de Orquestração de IA",
-        "content": "Vamos explorar como o sistema Triple-Band AI funciona com GPT-5, Claude e Llama por baixo dos panos."
+        "content": "Vamos explorar como o sistema Triple-Band AI (AI Engine α, β, γ) por baixo dos panos."
       },
       "governanceProposal": {
         "title": "Proposta de Governança #42: Alocação do Tesouro",
@@ -5534,19 +5534,19 @@
           "items": {
             "strategic": {
               "title": "Camada Estratégica",
-              "model": ":: ChatGPT Latest",
+              "model": ":: AI Engine γ",
               "latency": "450ms",
               "description": "Lida com análise de mercado complexa, avaliação de propostas de governança e formulação de estratégias de longo prazo."
             },
             "tactical": {
               "title": "Camada Tática",
-              "model": ":: Claude Latest",
+              "model": ":: AI Engine β",
               "latency": "180ms",
               "description": "Processa avaliação de confiança, verificação de transações e auditoria de contratos inteligentes."
             },
             "operational": {
               "title": "Camada Operacional",
-              "model": ":: Gemini Latest",
+              "model": ":: AI Engine α",
               "latency": "45ms",
               "description": "Executa monitoramento em tempo real, resposta a emergências (Auto-Burn) e ações automatizadas."
             }
@@ -9198,7 +9198,7 @@
         "tiers": {
           "strategic": {
             "title": "IA Estratégica",
-            "model": "GPT-4 / Claude 3",
+            "model": "AI Engine α / β",
             "description": "Tomada de decisão de alto nível para governança, design de tokenomics e avaliação de risco de longo prazo. Processa análises complexas com raciocínio semelhante ao humano.",
             "capabilities": {
               "governance": "Análise de Propostas DAO",
@@ -10974,15 +10974,15 @@
           "latency": "Latência",
           "strategic": {
             "title": "IA Estratégica",
-            "model": "GPT-5"
+            "model": "AI Engine α"
           },
           "tactical": {
             "title": "IA Tática",
-            "model": "Claude"
+            "model": "AI Engine β"
           },
           "operational": {
             "title": "IA Operacional",
-            "model": "Llama 4"
+            "model": "AI Engine γ"
           }
         },
         "uptime": {
@@ -11465,7 +11465,7 @@
                 "1": "Principais Recursos do TBURN v7.0:",
                 "2": "Consenso BFT de Comitê Aprimorado por IA: Nosso mecanismo de consenso proprietário combina tolerância a falhas bizantinas tradicional com algoritmos de IA avançados.",
                 "3": "Sistema de Fragmentação Dinâmica: A rede agora suporta balanceamento de carga automático em múltiplos fragmentos.",
-                "4": "Orquestração Triple-Band AI: Três sistemas de IA independentes (GPT-5, Claude, Llama 4) trabalham em harmonia.",
+                "4": "Orquestração Triple-Band AI: Três sistemas de IA independentes (AI Engine α, β, γ 4) trabalham em harmonia.",
                 "5": "Padrões de Token Empresarial (TBC-20, TBC-721, TBC-1155): Fornecem segurança resistente a quantum.",
                 "6": "O lançamento do mainnet inclui um ecossistema DeFi completo com DEX/AMM, protocolos de empréstimo, staking líquido, marketplace NFT e pontes cross-chain.",
                 "7": "Convidamos desenvolvedores, validadores e usuários a se juntarem a nós na construção do futuro das finanças descentralizadas no TBURN v7.0."
@@ -11490,9 +11490,9 @@
               "content": {
                 "0": "O sistema de Orquestração de IA TBURN v7.0 representa um avanço na tecnologia blockchain.",
                 "1": "Entendendo a Arquitetura Triple-Band:",
-                "2": "Primary Band (GPT-5): Lida com tarefas analíticas complexas, incluindo pontuação de confiança de validadores.",
-                "3": "Secondary Band (Claude): Especializado em análise de código e auditoria de smart contracts.",
-                "4": "Tertiary Band (Llama 4): Fornece processamento de alta taxa e baixa latência para roteamento de transações.",
+                "2": "Primary Band (AI Engine α): Lida com tarefas analíticas complexas, incluindo pontuação de confiança de validadores.",
+                "3": "Secondary Band (AI Engine β): Especializado em análise de código e auditoria de smart contracts.",
+                "4": "Tertiary Band (AI Engine γ): Fornece processamento de alta taxa e baixa latência para roteamento de transações.",
                 "5": "Interação Cross-Band: Os três sistemas analisam independentemente e combinam suas saídas.",
                 "6": "Sistema de Aprendizado por Feedback: Todas as decisões de IA são rastreadas e avaliadas. A precisão atualmente excede 99.7%.",
                 "7": "O resultado é uma camada de IA auto-aperfeiçoante e tolerante a falhas."
@@ -12112,7 +12112,7 @@
         },
         "aiOrchestration": {
           "title": "Sistema de orquestração de IA ativo",
-          "content": "O sistema de orquestração Quad-Band AI agora está totalmente operacional com Gemini como primário, Claude, ChatGPT e Grok como fallback."
+          "content": "O sistema de orquestração Quad-Band AI (AI Engine α, β, γ, δ) como fallback."
         }
       },
       "posts": {
@@ -13805,7 +13805,7 @@
       },
       "51": {
         "question": "What is AI orchestration?",
-        "answer": "AI orchestration integrates multiple AI models (Gemini, Claude, ChatGPT, Grok) to automate network optimization, burn rate adjustment, security threat detection, and more.",
+        "answer": "AI orchestration integrates multiple AI models (AI Engine α, β, γ, δ) to automate network optimization, burn rate adjustment, security threat detection, and more.",
         "tags": [
           "AI",
           "optimization",
@@ -14156,7 +14156,7 @@
       },
       "90": {
         "question": "What AI features are available?",
-        "answer": "Provides AI-based burn optimization, governance analysis, bridge risk assessment, anomaly detection, and validator scheduling. Multiple AI models (Gemini, Claude, ChatGPT, Grok) are integrated.",
+        "answer": "Provides AI-based burn optimization, governance analysis, bridge risk assessment, anomaly detection, and validator scheduling. Multiple AI models (AI Engine α, β, γ, δ) are integrated.",
         "tags": [
           "AI",
           "optimization",
@@ -14671,9 +14671,9 @@
     "enterpriseFeatures": "Configure opções de IA e segurança de nível empresarial",
     "aiOptimizationEnabled": "Otimização IA Habilitada",
     "aiOptimizationEnabledDesc": "Habilitar recursos de otimização de token por IA",
-    "gpt4oStrategic": "ChatGPT Estratégico",
-    "claudeTactical": "Claude Tático",
-    "geminiOperational": "Gemini Operacional",
+    "gpt4oStrategic": "AI Engine γ Estratégico",
+    "claudeTactical": "AI Engine β Tático",
+    "geminiOperational": "AI Engine α Operacional",
     "aiBurnOptimization": "Otimização de Queima por IA",
     "burnRateAuto": "Taxa de queima ajustada automaticamente por IA para tokenomics ideal",
     "aiPriceOracle": "Oráculo de Preço IA",

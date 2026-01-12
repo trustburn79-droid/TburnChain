@@ -92,10 +92,10 @@
     "page": "页",
     "noDataAvailable": "暂无数据",
     "unknown": "未知",
-    "claudeSonnet": "Claude",
-    "gpt5": "GPT-5",
-    "llama4": "Llama 4",
-    "gemini": "Gemini 2.0",
+    "claudeSonnet": "AI Engine β",
+    "gpt5": "AI Engine α",
+    "llama4": "AI Engine γ",
+    "gemini": "AI Engine α",
     "optional": "可选",
     "required": "必填",
     "of": "/",
@@ -1699,9 +1699,9 @@
     "pauseSuccessDesc": "代币转账已暂停。",
     "tokenStatsBreakdown": "代币统计细分",
     "percentPopular": "最受欢迎",
-    "aiModelGpt5": "GPT-5",
-    "aiModelClaude": "Claude",
-    "aiModelLlama": "Llama",
+    "aiModelGpt5": "AI Engine α",
+    "aiModelClaude": "AI Engine β",
+    "aiModelLlama": "AI Engine γ",
     "multisig2ofN": "2/N多签",
     "multisig3ofN": "3/N多签",
     "multisig4ofN": "4/N多签",
@@ -3104,7 +3104,7 @@
     "bridge": "桥接",
     "chainsTab": "链",
     "aiRiskAssessment": "AI 风险评估",
-    "aiRiskAssessmentDesc": "Claude 分析转账以检测欺诈、可疑模式和安全威胁。",
+    "aiRiskAssessmentDesc": "AI Engine β 分析转账以检测欺诈、可疑模式和安全威胁。",
     "accuracy": "{{percent}}% 准确率",
     "routeOptimization": "路由优化",
     "routeOptimizationDesc": "AI 优化的路由最小化 Gas 成本，最大化流动性，确保快速转账。",
@@ -3203,9 +3203,9 @@
     "viewAll": "查看全部",
     "recentPosts": "最近帖子",
     "tripleBandAi": "三带 AI",
-    "gpt5": "GPT-5",
-    "claudeSonnet": "Claude",
-    "llama4": "Llama 4",
+    "gpt5": "AI Engine α",
+    "claudeSonnet": "AI Engine β",
+    "llama4": "AI Engine γ",
     "modelWeight": "模型权重",
     "requestCount": "请求数",
     "responseTime": "响应时间",
@@ -6167,11 +6167,11 @@
     "totalVoters": "共 {{count}} 位投票者",
     "aiPredictionAccuracy": "AI 预测准确率",
     "analyzed": "{{count}} 个已分析",
-    "gpt5TurboAnalysis": "GPT-5 Turbo 分析",
+    "gpt5TurboAnalysis": "AI Engine α 分析",
     "gpt5TurboDesc": "战略层分析经济影响、安全隐患，并为每个提案提供风险评估。",
-    "claudeSonnetPrediction": "Claude 预测",
+    "claudeSonnetPrediction": "AI Engine β 预测",
     "claudeSonnetDesc": "战术层基于社区情绪、历史模式和提案内容预测投票结果。",
-    "llamaRecommendations": "Llama 3.3 70B 推荐",
+    "llamaRecommendations": "AI Engine γ 推荐",
     "llamaDesc": "运营层基于投票者历史和质押配置提供个性化投票建议。",
     "activeTab": "活跃 ({{count}})",
     "completedTab": "已完成",
@@ -6318,11 +6318,11 @@
       "title": "AI 销毁优化引擎",
       "description": "使用四带 AI 根据市场条件和代币经济目标优化销毁率",
       "strategicAnalysis": "战略分析",
-      "strategicAnalysisDesc": "Gemini 分析长期供应目标、市场条件和经济影响，设定最佳销毁目标。",
+      "strategicAnalysisDesc": "AI Engine α 分析长期供应目标、市场条件和经济影响，设定最佳销毁目标。",
       "tacticalAdjustment": "战术调整",
       "tacticalAdjustmentDesc": "GPT 根据网络拥塞、交易量和价格波动进行实时调整。",
       "operationalExecution": "运营执行",
-      "operationalExecutionDesc": "Grok 考虑 Gas 成本和网络条件，在最佳时间执行销毁。",
+      "operationalExecutionDesc": "AI Engine δ 考虑 Gas 成本和网络条件，在最佳时间执行销毁。",
       "burnOptimizationFactors": "销毁优化因素",
       "currentSupplyVsTarget": "当前供应 vs 目标",
       "marketPriceAnalysis": "市场价格分析",
@@ -6929,7 +6929,7 @@
       },
       "aiOrchestration": {
         "title": "技术深入：AI编排系统",
-        "content": "让我们探索由GPT-5、Claude和Llama组成的三频AI系统如何在底层运作。"
+        "content": "让我们探索由AI Engine α、β和γ组成的三频AI系统如何在底层运作。"
       },
       "governanceProposal": {
         "title": "治理提案 #42：国库分配",
@@ -8527,19 +8527,19 @@
           "items": {
             "strategic": {
               "title": "战略层",
-              "model": ":: ChatGPT Latest",
+              "model": ":: AI Engine γ",
               "latency": "450ms",
               "description": "处理复杂市场分析、治理提案评估和长期战略制定。"
             },
             "tactical": {
               "title": "战术层",
-              "model": ":: Claude Latest",
+              "model": ":: AI Engine β",
               "latency": "180ms",
               "description": "处理信任评估、交易验证和智能合约审计。"
             },
             "operational": {
               "title": "操作层",
-              "model": ":: Gemini Latest",
+              "model": ":: AI Engine α",
               "latency": "45ms",
               "description": "执行实时监控、紧急响应（自动销毁）和自动化操作。"
             }
@@ -11960,7 +11960,7 @@
         "tiers": {
           "strategic": {
             "title": "战略 AI",
-            "model": "GPT-4 / Claude 3",
+            "model": "AI Engine α / β",
             "description": "用于治理、代币经济设计和长期风险评估的高级决策。以类人推理处理复杂分析。",
             "capabilities": {
               "governance": "DAO 提案分析",
@@ -13489,15 +13489,15 @@
           "latency": "延迟",
           "strategic": {
             "title": "战略 AI",
-            "model": "GPT-5"
+            "model": "AI Engine α"
           },
           "tactical": {
             "title": "战术 AI",
-            "model": "Claude"
+            "model": "AI Engine β"
           },
           "operational": {
             "title": "运营 AI",
-            "model": "Llama 4"
+            "model": "AI Engine γ"
           }
         },
         "uptime": {
@@ -13980,7 +13980,7 @@
                 "1": "TBURN v7.0 的主要特性：",
                 "2": "AI 增强委员会 BFT 共识：我们专有的共识机制将传统的拜占庭容错与先进的 AI 算法相结合，实现最优验证者选择和网络安全。",
                 "3": "动态分片系统：网络现支持跨多个分片的自动负载均衡，在不牺牲去中心化的情况下实现前所未有的可扩展性。",
-                "4": "Triple-Band AI 编排：三个独立的 AI 系统（GPT-5、Claude、Llama 4）协同工作，从交易路由到资源分配优化网络运营。",
+                "4": "Triple-Band AI 编排：三个独立的 AI 系统（AI Engine α、β、γ）协同工作，从交易路由到资源分配优化网络运营。",
                 "5": "企业代币标准（TBC-20、TBC-721、TBC-1155）：增强的代币标准为机构采用提供量子抗性安全和内置合规功能。",
                 "6": "主网启动包含完整的 DeFi 生态系统，包括 DEX/AMM、借贷协议、流动性质押、NFT 市场和跨链桥功能。",
                 "7": "我们邀请开发者、验证者和用户加入我们，在 TBURN v7.0 上共同构建去中心化金融的未来。"
@@ -14005,9 +14005,9 @@
               "content": {
                 "0": "TBURN v7.0 AI 编排系统代表了区块链技术的突破，结合多个 AI 提供商以实现冗余、准确性和最优决策。",
                 "1": "理解 Triple-Band 架构：",
-                "2": "Primary Band（GPT-5）：处理复杂的分析任务，包括验证者信任评分、异常检测和预测性维护。",
-                "3": "Secondary Band（Claude）：专门进行代码分析、智能合约审计和治理提案的自然语言处理。",
-                "4": "Tertiary Band（Llama 4）：为实时交易路由和负载均衡决策提供高吞吐量、低延迟处理。",
+                "2": "Primary Band（AI Engine α）：处理复杂的分析任务，包括验证者信任评分、异常检测和预测性维护。",
+                "3": "Secondary Band（AI Engine β）：专门进行代码分析、智能合约审计和治理提案的自然语言处理。",
+                "4": "Tertiary Band（AI Engine γ）：为实时交易路由和负载均衡决策提供高吞吐量、低延迟处理。",
                 "5": "跨 Band 交互：当决策需要高置信度时，三个 AI 系统独立分析情况，然后共识机制结合它们的输出，根据类似决策类型的历史准确性加权。",
                 "6": "反馈学习系统：所有 AI 决策都被跟踪并与实际结果进行评估。这个持续的反馈循环使系统能够不断改进，验证者选择决策的准确率目前超过 99.7%。",
                 "7": "结果是一个自我改进、容错的 AI 层，增强区块链运营的各个方面。"
@@ -14627,7 +14627,7 @@
         },
         "aiOrchestration": {
           "title": "AI编排系统上线",
-          "content": "Quad-Band AI编排系统现已全面运行，Gemini为主，Claude、ChatGPT和Grok为备用。"
+          "content": "Quad-Band AI编排系统现已全面运行，AI Engine α为主，β、γ和δ为备用。"
         }
       },
       "posts": {
@@ -16359,7 +16359,7 @@
       },
       "51": {
         "question": "什么是AI编排？",
-        "answer": "AI编排集成多个AI模型（Gemini、Claude、ChatGPT、Grok）来自动化网络优化、燃烧率调整、安全威胁检测等功能。",
+        "answer": "AI编排集成多个AI模型（AI Engine α、β、γ、δ）来自动化网络优化、燃烧率调整、安全威胁检测等功能。",
         "tags": [
           "AI",
           "优化",
@@ -16710,7 +16710,7 @@
       },
       "90": {
         "question": "有哪些AI功能？",
-        "answer": "提供基于AI的燃烧优化、治理分析、桥接风险评估、异常检测和验证者调度。集成多个AI模型（Gemini、Claude、ChatGPT、Grok）。",
+        "answer": "提供基于AI的燃烧优化、治理分析、桥接风险评估、异常检测和验证者调度。集成多个AI模型（AI Engine α、β、γ、δ）。",
         "tags": [
           "AI",
           "优化",
@@ -17232,9 +17232,9 @@
     "enterpriseFeatures": "配置企业级AI和安全选项",
     "aiOptimizationEnabled": "启用AI优化",
     "aiOptimizationEnabledDesc": "启用AI驱动的代币优化功能",
-    "gpt4oStrategic": "ChatGPT 战略层",
-    "claudeTactical": "Claude 战术层",
-    "geminiOperational": "Gemini 运营层",
+    "gpt4oStrategic": "AI Engine γ 战略层",
+    "claudeTactical": "AI Engine β 战术层",
+    "geminiOperational": "AI Engine α 运营层",
     "aiBurnOptimization": "AI销毁优化",
     "burnRateAuto": "AI自动调整销毁率以实现最佳代币经济学",
     "aiPriceOracle": "AI价格预言机",

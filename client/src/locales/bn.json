@@ -82,10 +82,10 @@
     "light": "লাইট",
     "system": "সিস্টেম",
     "unknown": "অজানা",
-    "claudeSonnet": "Claude",
-    "gpt5": "GPT-5",
-    "llama4": "Llama 4",
-    "gemini": "Gemini 2.0",
+    "claudeSonnet": "AI Engine β",
+    "gpt5": "AI Engine α",
+    "llama4": "AI Engine γ",
+    "gemini": "AI Engine α",
     "id": "ID",
     "live": "লাইভ",
     "refreshing": "রিফ্রেশ হচ্ছে",
@@ -1255,7 +1255,7 @@
       },
       "aiOrchestration": {
         "title": "প্রযুক্তিগত গভীরতা: AI অর্কেস্ট্রেশন সিস্টেম",
-        "content": "আসুন দেখি GPT-5, Claude এবং Llama-এর সাথে Triple-Band AI সিস্টেম কীভাবে কাজ করে।"
+        "content": "আসুন দেখি AI Engine α, β এবং γ-এর সাথে Triple-Band AI সিস্টেম কীভাবে কাজ করে।"
       },
       "governanceProposal": {
         "title": "গভার্ন্যান্স প্রস্তাব #42: ট্রেজারি বরাদ্দ",
@@ -1345,9 +1345,9 @@
     "viewAll": "সব দেখুন",
     "recentPosts": "সাম্প্রতিক পোস্ট",
     "tripleBandAi": "ট্রিপল-ব্যান্ড AI",
-    "gpt5": "GPT-5",
-    "claudeSonnet": "Claude",
-    "llama4": "Llama 4",
+    "gpt5": "AI Engine α",
+    "claudeSonnet": "AI Engine β",
+    "llama4": "AI Engine γ",
     "modelWeight": "মডেল ওয়েট",
     "requestCount": "রিকোয়েস্ট কাউন্ট",
     "responseTime": "রেসপন্স টাইম",
@@ -2597,8 +2597,8 @@
     "tokenStatsBreakdown": "TBC-20: {{tbc20}} | TBC-721: {{tbc721}} | TBC-1155: {{tbc1155}}",
     "percentPopular": "{{percent}}% জনপ্রিয়",
     "aiModelGpt5": "GPT-5 টার্বো",
-    "aiModelClaude": "Claude",
-    "aiModelLlama": "Llama 3.3 70B",
+    "aiModelClaude": "AI Engine β",
+    "aiModelLlama": "AI Engine γ",
     "multisig2ofN": "N এর মধ্যে ২",
     "multisig3ofN": "N এর মধ্যে ৩",
     "multisig4ofN": "N এর মধ্যে ৪",
@@ -2900,11 +2900,11 @@
     "totalVoters": "মোট {{count}} ভোটার",
     "aiPredictionAccuracy": "AI পূর্বাভাস নির্ভুলতা",
     "analyzed": "{{count}} বিশ্লেষিত",
-    "gpt5TurboAnalysis": "GPT-5 Turbo বিশ্লেষণ",
+    "gpt5TurboAnalysis": "AI Engine α বিশ্লেষণ",
     "gpt5TurboDesc": "কৌশলগত স্তর অর্থনৈতিক প্রভাব, নিরাপত্তা জড়িত বিষয়গুলি বিশ্লেষণ করে এবং প্রতিটি প্রস্তাবের জন্য ঝুঁকি মূল্যায়ন প্রদান করে।",
-    "claudeSonnetPrediction": "Claude পূর্বাভাস",
+    "claudeSonnetPrediction": "AI Engine β Prediction",
     "claudeSonnetDesc": "কৌশলগত স্তর সম্প্রদায়ের মনোভাব, ঐতিহাসিক প্যাটার্ন এবং প্রস্তাব বিষয়বস্তুর উপর ভিত্তি করে ভোটের ফলাফল পূর্বাভাস দেয়।",
-    "llamaRecommendations": "Llama 3.3 70B সুপারিশ",
+    "llamaRecommendations": "AI Engine γ সুপারিশ",
     "llamaDesc": "অপারেশনাল স্তর ভোটারের ইতিহাস এবং স্টেক সারিবদ্ধতার উপর ভিত্তি করে ব্যক্তিগতকৃত ভোটের সুপারিশ প্রদান করে।",
     "activeTab": "সক্রিয় ({{count}})",
     "completedTab": "সম্পন্ন",
@@ -3051,11 +3051,11 @@
       "title": "AI বার্ন অপ্টিমাইজেশন ইঞ্জিন",
       "description": "বাজারের অবস্থা এবং টোকেনোমিক্স লক্ষ্যের উপর ভিত্তি করে বার্ন রেট অপ্টিমাইজ করতে কোয়াড-ব্যান্ড AI ব্যবহার করে",
       "strategicAnalysis": "কৌশলগত বিশ্লেষণ",
-      "strategicAnalysisDesc": "Gemini দীর্ঘমেয়াদী সরবরাহ লক্ষ্য, বাজার পরিস্থিতি এবং অর্থনৈতিক প্রভাব বিশ্লেষণ করে সর্বোত্তম বার্ন লক্ষ্য নির্ধারণ করে।",
+      "strategicAnalysisDesc": "AI Engine α দীর্ঘমেয়াদী সরবরাহ লক্ষ্য, বাজার পরিস্থিতি এবং অর্থনৈতিক প্রভাব বিশ্লেষণ করে সর্বোত্তম বার্ন লক্ষ্য নির্ধারণ করে।",
       "tacticalAdjustment": "কৌশলগত সমন্বয়",
       "tacticalAdjustmentDesc": "GPT নেটওয়ার্ক জ্যাম, লেনদেন ভলিউম এবং মূল্য অস্থিরতার উপর ভিত্তি করে রিয়েল-টাইম সমন্বয় করে।",
       "operationalExecution": "অপারেশনাল এক্সিকিউশন",
-      "operationalExecutionDesc": "Grok গ্যাস খরচ এবং নেটওয়ার্ক পরিস্থিতি বিবেচনা করে সর্বোত্তম সময়ে বার্ন এক্সিকিউট করে।",
+      "operationalExecutionDesc": "AI Engine δ গ্যাস খরচ এবং নেটওয়ার্ক পরিস্থিতি বিবেচনা করে সর্বোত্তম সময়ে বার্ন এক্সিকিউট করে।",
       "burnOptimizationFactors": "বার্ন অপ্টিমাইজেশন ফ্যাক্টর",
       "currentSupplyVsTarget": "বর্তমান সরবরাহ বনাম লক্ষ্য",
       "marketPriceAnalysis": "বাজার মূল্য বিশ্লেষণ",
@@ -4656,19 +4656,19 @@
           "items": {
             "strategic": {
               "title": "কৌশলগত স্তর",
-              "model": ":: ChatGPT সর্বশেষ",
+              "model": ":: AI Engine γ সর্বশেষ",
               "latency": "৪৫০ মিলিসেকেন্ড",
               "description": "জটিল বাজার বিশ্লেষণ, গভর্ন্যান্স প্রস্তাব মূল্যায়ন এবং দীর্ঘমেয়াদী কৌশল প্রণয়ন পরিচালনা করে।"
             },
             "tactical": {
               "title": "কৌশলগত স্তর",
-              "model": ":: Claude সর্বশেষ",
+              "model": ":: AI Engine β সর্বশেষ",
               "latency": "১৮০ মিলিসেকেন্ড",
               "description": "ট্রাস্ট মূল্যায়ন, লেনদেন যাচাইকরণ এবং স্মার্ট কন্ট্রাক্ট অডিটিং প্রক্রিয়া করে।"
             },
             "operational": {
               "title": "অপারেশনাল স্তর",
-              "model": ":: Gemini সর্বশেষ",
+              "model": ":: AI Engine α সর্বশেষ",
               "latency": "৪৫ মিলিসেকেন্ড",
               "description": "রিয়েল-টাইম মনিটরিং, জরুরি প্রতিক্রিয়া (অটো-বার্ন) এবং স্বয়ংক্রিয় কর্ম সম্পাদন করে।"
             }
@@ -8089,7 +8089,7 @@
         "tiers": {
           "strategic": {
             "title": "কৌশলগত AI",
-            "model": "GPT-4 / Claude 3",
+            "model": "AI Engine α / β",
             "description": "গভর্ন্যান্স, টোকেনোমিক্স ডিজাইন এবং দীর্ঘমেয়াদী ঝুঁকি মূল্যায়নের জন্য উচ্চ-স্তরের সিদ্ধান্ত গ্রহণ। মানব-সদৃশ যুক্তি দিয়ে জটিল বিশ্লেষণ প্রক্রিয়া করে।",
             "capabilities": {
               "governance": "DAO প্রস্তাব বিশ্লেষণ",
@@ -9611,15 +9611,15 @@
           "latency": "ল্যাটেন্সি",
           "strategic": {
             "title": "কৌশলগত AI",
-            "model": "GPT-5"
+            "model": "AI Engine α"
           },
           "tactical": {
             "title": "সামরিক AI",
-            "model": "Claude"
+            "model": "AI Engine β"
           },
           "operational": {
             "title": "অপারেশনাল AI",
-            "model": "Llama 4"
+            "model": "AI Engine γ"
           }
         },
         "uptime": {
@@ -10134,8 +10134,8 @@
               "content": {
                 "0": "TBURN v7.0 AI অর্কেস্ট্রেশন সিস্টেম ব্লকচেইন প্রযুক্তিতে একটি যুগান্তকারী অগ্রগতি।",
                 "1": "ট্রিপল-ব্যান্ড আর্কিটেকচার বোঝা:",
-                "2": "প্রাইমারি ব্যান্ড (GPT-5): জটিল বিশ্লেষণমূলক কাজ পরিচালনা করে।",
-                "3": "সেকেন্ডারি ব্যান্ড (Claude): কোড বিশ্লেষণে বিশেষজ্ঞ।",
+                "2": "প্রাইমারি ব্যান্ড (AI Engine α): জটিল বিশ্লেষণমূলক কাজ পরিচালনা করে।",
+                "3": "সেকেন্ডারি ব্যান্ড (AI Engine β): কোড বিশ্লেষণে বিশেষজ্ঞ।",
                 "4": "টার্শিয়ারি ব্যান্ড (Llama 4): হাই-থ্রুপুট প্রসেসিং প্রদান করে।",
                 "5": "ক্রস-ব্যান্ড ইন্টারঅ্যাকশন: তিনটি সিস্টেম স্বাধীনভাবে বিশ্লেষণ করে।",
                 "6": "ফিডব্যাক লার্নিং সিস্টেম: নির্ভুলতা 99.7% এর বেশি।",
@@ -10510,7 +10510,7 @@
         },
         "aiOrchestration": {
           "title": "AI অর্কেস্ট্রেশন সিস্টেম লাইভ",
-          "content": "Quad-Band AI অর্কেস্ট্রেশন সিস্টেম এখন Gemini প্রাইমারি হিসেবে, Claude, ChatGPT এবং Grok ফলব্যাক হিসেবে সম্পূর্ণরূপে কার্যকর।"
+          "content": "Quad-Band AI (AI Engine α, β, γ, δ) ফলব্যাক হিসেবে সম্পূর্ণরূপে কার্যকর।"
         }
       },
       "posts": {
@@ -12203,7 +12203,7 @@
       },
       "51": {
         "question": "What is AI orchestration?",
-        "answer": "AI orchestration integrates multiple AI models (Gemini, Claude, ChatGPT, Grok) to automate network optimization, burn rate adjustment, security threat detection, and more.",
+        "answer": "AI orchestration integrates multiple AI models (AI Engine α, β, γ, δ) to automate network optimization, burn rate adjustment, security threat detection, and more.",
         "tags": [
           "AI",
           "optimization",
@@ -12554,7 +12554,7 @@
       },
       "90": {
         "question": "What AI features are available?",
-        "answer": "Provides AI-based burn optimization, governance analysis, bridge risk assessment, anomaly detection, and validator scheduling. Multiple AI models (Gemini, Claude, ChatGPT, Grok) are integrated.",
+        "answer": "Provides AI-based burn optimization, governance analysis, bridge risk assessment, anomaly detection, and validator scheduling. Multiple AI models (AI Engine α, β, γ, δ) are integrated.",
         "tags": [
           "AI",
           "optimization",
@@ -13069,9 +13069,9 @@
     "enterpriseFeatures": "Configure enterprise-grade AI and security options",
     "aiOptimizationEnabled": "AI Optimization Enabled",
     "aiOptimizationEnabledDesc": "Enable AI-powered token optimization features",
-    "gpt4oStrategic": "ChatGPT Strategic",
-    "claudeTactical": "Claude Tactical",
-    "geminiOperational": "Gemini Operational",
+    "gpt4oStrategic": "AI Engine γ Strategic",
+    "claudeTactical": "AI Engine β Tactical",
+    "geminiOperational": "AI Engine α Operational",
     "aiBurnOptimization": "AI Burn Optimization",
     "burnRateAuto": "Burn rate auto-adjusted by AI for optimal tokenomics",
     "aiPriceOracle": "AI Price Oracle",
