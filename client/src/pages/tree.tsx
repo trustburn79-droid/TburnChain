@@ -230,6 +230,8 @@ const routeTree: RouteItem[] = [
       { path: "/validator/infrastructure", label: "Infrastructure" },
       { path: "/validator/:id", label: "Validator Detail" },
       { path: "/validator-governance", label: "Governance & Rewards" },
+      { path: "/external-validator-program", label: "External Validator Program" },
+      { path: "/external-validator-software", label: "External Validator Software" },
     ]
   },
   {
