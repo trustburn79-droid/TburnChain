@@ -12,25 +12,12 @@ import runApp from "./app";
 export async function setupVite(app: Express, server: Server) {
   const isReplit = Boolean(process.env.REPL_ID);
   
-  // Configure HMR for Replit compatibility
-  // Replit requires specific WebSocket settings to work through their proxy
-  let hmrConfig: boolean | { server: Server; clientPort?: number; protocol?: string; host?: string } = { server };
-  
-  if (isReplit) {
-    // Use Replit-compatible HMR settings instead of disabling it entirely
-    // This prevents 502 errors from the Vite client trying to connect to a missing WebSocket
-    const replitHost = process.env.REPLIT_DEV_DOMAIN || `${process.env.REPL_SLUG}.${process.env.REPL_OWNER}.repl.co`;
-    hmrConfig = {
-      server,
-      clientPort: 443,
-      protocol: 'wss',
-      host: replitHost,
-    };
-  }
-  
   const serverOptions = {
     middlewareMode: true,
-    hmr: hmrConfig,
+    // Disable HMR entirely in Replit to save memory
+    // The Vite client will show "connection lost" messages but this is harmless
+    // Memory savings is more important for this enterprise application
+    hmr: isReplit ? false : { server },
     allowedHosts: true as const,
   };
 
