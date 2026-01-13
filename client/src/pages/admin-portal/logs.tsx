@@ -123,7 +123,7 @@ export default function AdminLogs() {
     return [
       { id: "1", timestamp: new Date(Date.now() - 500), level: "info", source: "Consensus", message: "Block #18,750,523 finalized successfully", metadata: { blockNumber: 18750523, validators: 84, attestations: 82 } },
       { id: "2", timestamp: new Date(Date.now() - 1200), level: "info", source: "Bridge", message: "Cross-chain transfer completed: ETH → TBURN", metadata: { amount: "125,000 TBURN", chain: "Ethereum", txHash: "0x8f2a...4e1b" } },
-      { id: "3", timestamp: new Date(Date.now() - 2500), level: "info", source: "AI", message: "Triple-Band AI consensus reached: Gas optimization applied", metadata: { gemini: "agree", claude: "agree", gpt4: "agree", decision: "reduce_gas_5%" } },
+      { id: "3", timestamp: new Date(Date.now() - 2500), level: "info", source: "AI", message: "Triple-Band AI consensus reached: Gas optimization applied", metadata: { aiEngineAlpha: "agree", aiEngineBeta: "agree", aiEngineGamma: "agree", decision: "reduce_gas_5%" } },
       { id: "4", timestamp: new Date(Date.now() - 3800), level: "debug", source: "Network", message: "Peer discovery completed: 512 active nodes", metadata: { nodes: 512, latency: "42ms", uptime: "99.99%" } },
       { id: "5", timestamp: new Date(Date.now() - 5100), level: "info", source: "Storage", message: "State snapshot saved: Shard MainHub", metadata: { shardId: "MainHub", size: "2.4GB", duration: "1.2s" } },
       { id: "6", timestamp: new Date(Date.now() - 6400), level: "info", source: "Mempool", message: "Transaction pool optimized", metadata: { pending: 4523, processed: 125000, tps: 90.8 } },
@@ -131,7 +131,7 @@ export default function AdminLogs() {
       { id: "8", timestamp: new Date(Date.now() - 9000), level: "debug", source: "Database", message: "Connection pool health check passed", metadata: { activeConnections: 245, maxConnections: 500, latency: "2ms" } },
       { id: "9", timestamp: new Date(Date.now() - 10300), level: "info", source: "Consensus", message: "Validator committee rotation completed", metadata: { round: 18750522, newValidators: 3, removedValidators: 1 } },
       { id: "10", timestamp: new Date(Date.now() - 11600), level: "info", source: "Bridge", message: "Multi-chain liquidity rebalanced", metadata: { totalTVL: "$764.2M", chains: 7 } },
-      { id: "11", timestamp: new Date(Date.now() - 12900), level: "debug", source: "AI", message: "Model performance metrics collected", metadata: { geminiLatency: "85ms", claudeLatency: "92ms", grokLatency: "78ms" } },
+      { id: "11", timestamp: new Date(Date.now() - 12900), level: "debug", source: "AI", message: "Model performance metrics collected", metadata: { aiEngineAlphaLatency: "85ms", aiEngineBetaLatency: "92ms", aiEngineDeltaLatency: "78ms" } },
       { id: "12", timestamp: new Date(Date.now() - 14200), level: "info", source: "Network", message: "Shard synchronization completed across all 8 shards", metadata: { shards: 8, syncTime: "245ms", blockHeight: 18750523 } },
       { id: "13", timestamp: new Date(Date.now() - 15500), level: "info", source: "Consensus", message: "BFT consensus achieved in 1.0s block time", metadata: { blockTime: "1.0s", participation: "97.6%" } },
       { id: "14", timestamp: new Date(Date.now() - 16800), level: "debug", source: "Storage", message: "Archive node sync: 99.98% complete", metadata: { blocksRemaining: 42, estimatedTime: "2m" } },

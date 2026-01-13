@@ -227,7 +227,7 @@ const productionFeaturedArticles: HelpArticle[] = [
     featured: true,
     author: "AI Systems Team",
     readTime: "15 min",
-    tags: ["AI", "orchestration", "gemini", "claude", "gpt", "grok"]
+    tags: ["AI", "orchestration", "AI Engine α", "AI Engine β", "AI Engine γ", "AI Engine δ"]
   },
   { 
     id: "art-4", 

@@ -470,7 +470,7 @@ function AIStatsDetailDialog({
                         {cacheData.map((model, i) => (
                           <div key={i}>
                             <div className="flex justify-between mb-1">
-                              <span className="text-sm">{model.name}</span>
+                              <span className="text-sm">{getNeutralModelName(model.name)}</span>
                               <span className="text-sm font-semibold">{model.hitRate.toFixed(1)}%</span>
                             </div>
                             <Progress value={model.hitRate} className="h-2" />
@@ -667,7 +667,7 @@ function AIStatsDetailDialog({
                         {accuracyData.map((model, i) => (
                           <div key={i}>
                             <div className="flex justify-between mb-1">
-                              <span className="text-sm">{model.name}</span>
+                              <span className="text-sm">{getNeutralModelName(model.name)}</span>
                               <span className="text-sm font-semibold">{model.accuracy.toFixed(1)}%</span>
                             </div>
                             <Progress value={model.accuracy} className="h-2" />
@@ -793,6 +793,18 @@ export default function AdminAIOrchestration() {
     return descMap[normalizedType] || '-';
   };
   
+
+  // Convert vendor model names to neutral AI Engine branding
+  const getNeutralModelName = (name: string): string => {
+    const lowerName = name.toLowerCase();
+    if (lowerName.includes("gemini")) return "AI Engine α";
+    if (lowerName.includes("claude") || lowerName.includes("anthropic")) return "AI Engine β";
+    if (lowerName.includes("gpt") || lowerName.includes("openai")) return "AI Engine γ";
+    if (lowerName.includes("grok") || lowerName.includes("xai")) return "AI Engine δ";
+    if (lowerName.includes("llama")) return "AI Engine γ";
+    return name;
+  };
+
   const [wsConnected, setWsConnected] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [lastUpdate, setLastUpdate] = useState<Date | null>(null);
@@ -1028,7 +1040,7 @@ export default function AdminAIOrchestration() {
       title: t("adminAI.detail.overview"),
       fields: [
         { label: t("adminAI.detail.modelId"), value: model.id.toString(), copyable: true },
-        { label: t("adminAI.detail.name"), value: model.name },
+        { label: t("adminAI.detail.name"), value: getNeutralModelName(model.name) },
         { label: t("adminAI.detail.layer"), value: translateType(model.layer), type: "badge" as const },
         { label: t("adminAI.detail.status"), value: model.status === "online" ? "online" : model.status === "standby" ? "pending" : "offline", type: "status" as const },
       ]
@@ -1484,7 +1496,7 @@ export default function AdminAIOrchestration() {
                         return (
                           <div key={model.id} className="space-y-2 p-4 border rounded-lg">
                             <div className="flex items-center justify-between">
-                              <span className="text-sm font-medium">{model.name}</span>
+                              <span className="text-sm font-medium">{getNeutralModelName(model.name)}</span>
                               <Badge variant="outline" className="text-xs">
                                 {formatNumber(totalDecisions)} {t('adminAI.analytics.total')}
                               </Badge>
@@ -1970,7 +1982,7 @@ export default function AdminAIOrchestration() {
                               "text-green-500"
                             } />
                           )}
-                          <span>{model.name}</span>
+                          <span>{getNeutralModelName(model.name)}</span>
                         </CardTitle>
                         <Badge 
                           variant="outline" 

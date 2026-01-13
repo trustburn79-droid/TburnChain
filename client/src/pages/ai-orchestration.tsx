@@ -472,7 +472,7 @@ function AIStatsDetailDialog({
                         {cacheData.map((model, i) => (
                           <div key={i}>
                             <div className="flex justify-between mb-1">
-                              <span className="text-sm">{model.name}</span>
+                              <span className="text-sm">{getNeutralModelName(model.name)}</span>
                               <span className="text-sm font-semibold">{model.hitRate.toFixed(1)}%</span>
                             </div>
                             <Progress value={model.hitRate} className="h-2" />
@@ -934,6 +934,18 @@ export default function AIOrchestration() {
   };
 
   const getModelIcon = (name: string) => {
+
+  // Convert vendor model names to neutral AI Engine branding
+  const getNeutralModelName = (name: string): string => {
+    const lowerName = name.toLowerCase();
+    if (lowerName.includes("gemini")) return "AI Engine α";
+    if (lowerName.includes("claude") || lowerName.includes("anthropic")) return "AI Engine β";
+    if (lowerName.includes("gpt") || lowerName.includes("openai")) return "AI Engine γ";
+    if (lowerName.includes("grok") || lowerName.includes("xai")) return "AI Engine δ";
+    if (lowerName.includes("llama")) return "AI Engine γ";
+    return name;
+  };
+
     if (name.includes("grok")) return <RefreshCw className="h-4 w-4" />;
     if (name.includes("gpt")) return <Brain className="h-4 w-4" />;
     if (name.includes("claude")) return <Target className="h-4 w-4" />;
@@ -1291,7 +1303,7 @@ export default function AIOrchestration() {
                           <div>
                             <CardTitle className="text-lg font-bold capitalize">{model.band} {t('aiOrchestration.ai')}</CardTitle>
                             <p className="text-xs text-muted-foreground mt-0.5">
-                              {model.name} • {getBandLabel(model.band)?.split(' • ')[1] || t('aiOrchestration.aiProcessing')}
+                              {getNeutralModelName(model.name)} • {getBandLabel(model.band)?.split(' • ')[1] || t('aiOrchestration.aiProcessing')}
                             </p>
                           </div>
                         </div>
@@ -1393,7 +1405,7 @@ export default function AIOrchestration() {
                         <TableRow key={model.id} className="hover-elevate">
                           <TableCell className="font-semibold">
                             <div className="flex items-center gap-2">
-                              {getModelIcon(model.name)} {model.name}
+                              {getModelIcon(model.name)} {getNeutralModelName(model.name)}
                             </div>
                           </TableCell>
                           <TableCell>{getStatusBadge(model.status)}</TableCell>
