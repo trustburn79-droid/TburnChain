@@ -1356,6 +1356,111 @@ export class EnterpriseSoakTestOrchestrator {
   }
   
   // ============================================================================
+  // SLA Synchronization (Phase 17)
+  // ============================================================================
+  
+  /**
+   * Synchronize SLA targets based on production telemetry trends.
+   * Analyzes historical test runs and adjusts thresholds accordingly.
+   */
+  syncSLATargets(scenarioName: string): {
+    updated: boolean;
+    scenario: string;
+    oldTargets: SLATargets | null;
+    newTargets: SLATargets | null;
+    recommendations: string[];
+  } {
+    const relevantRuns = this.runHistory
+      .filter(r => r.scenario.name === scenarioName && r.status === 'completed' && r.summary)
+      .slice(-10); // Last 10 runs
+    
+    if (relevantRuns.length < 3) {
+      return {
+        updated: false,
+        scenario: scenarioName,
+        oldTargets: null,
+        newTargets: null,
+        recommendations: ['Insufficient data: Need at least 3 completed test runs for SLA calibration'],
+      };
+    }
+    
+    const summaries = relevantRuns.map(r => r.summary!);
+    const recommendations: string[] = [];
+    
+    // Calculate statistical averages
+    const avgP99 = summaries.reduce((sum, s) => sum + s.p99LatencyMs, 0) / summaries.length;
+    const avgSuccessRate = summaries.reduce((sum, s) => sum + s.successRate, 0) / summaries.length;
+    const avgMemoryGrowth = summaries.reduce((sum, s) => sum + s.memoryGrowthPercent, 0) / summaries.length;
+    const avgSkipRatio = summaries.reduce((sum, s) => sum + s.sessionSkipRatio, 0) / summaries.length;
+    
+    // Calculate standard deviations for safety margins
+    const stdP99 = Math.sqrt(summaries.reduce((sum, s) => sum + Math.pow(s.p99LatencyMs - avgP99, 2), 0) / summaries.length);
+    const stdMemory = Math.sqrt(summaries.reduce((sum, s) => sum + Math.pow(s.memoryGrowthPercent - avgMemoryGrowth, 2), 0) / summaries.length);
+    
+    // Propose new SLA targets with 1.5x safety margin
+    const proposedTargets: SLATargets = {
+      maxP99LatencyMs: Math.ceil((avgP99 + 1.5 * stdP99) / 10) * 10, // Round to nearest 10
+      minSuccessRate: Math.max(0.9, Math.floor((avgSuccessRate - 0.05) * 100) / 100), // 5% buffer
+      minSkipRatio: Math.max(0.2, Math.floor((avgSkipRatio - 0.1) * 100) / 100), // 10% buffer
+      maxErrorRate: Math.min(0.3, Math.ceil((1 - avgSuccessRate + 0.05) * 100) / 100),
+      maxMemoryGrowthPercent: Math.ceil((avgMemoryGrowth + 1.5 * stdMemory) / 10) * 10,
+    };
+    
+    // Generate recommendations
+    if (avgP99 > 500) {
+      recommendations.push(`High latency observed (avg ${avgP99.toFixed(0)}ms). Consider scaling resources.`);
+    }
+    if (avgSuccessRate < 0.95) {
+      recommendations.push(`Success rate below 95% (avg ${(avgSuccessRate * 100).toFixed(1)}%). Investigate error sources.`);
+    }
+    if (avgMemoryGrowth > 100) {
+      recommendations.push(`High memory growth (avg ${avgMemoryGrowth.toFixed(0)}%). Check for memory leaks.`);
+    }
+    if (avgSkipRatio < 0.5) {
+      recommendations.push(`Low session skip ratio (avg ${(avgSkipRatio * 100).toFixed(0)}%). Session bypass may need tuning.`);
+    }
+    
+    // Log synchronization
+    console.log(`[SoakTest] SLA sync for ${scenarioName}: P99=${proposedTargets.maxP99LatencyMs}ms, ` +
+      `SuccessRate=${(proposedTargets.minSuccessRate * 100).toFixed(0)}%, ` +
+      `MemGrowth=${proposedTargets.maxMemoryGrowthPercent}%`);
+    
+    return {
+      updated: true,
+      scenario: scenarioName,
+      oldTargets: relevantRuns[0]?.scenario.slaTargets || null,
+      newTargets: proposedTargets,
+      recommendations,
+    };
+  }
+  
+  /**
+   * Get SLA sync status for all scenarios
+   */
+  getSLASyncStatus(): Array<{
+    scenario: string;
+    runsAvailable: number;
+    lastSync: Date | null;
+    canSync: boolean;
+  }> {
+    const scenarios = Object.keys(DEFAULT_SCENARIOS);
+    
+    return scenarios.map(scenario => {
+      const runs = this.runHistory.filter(r => 
+        r.scenario.name === DEFAULT_SCENARIOS[scenario]?.name && 
+        r.status === 'completed'
+      );
+      
+      return {
+        scenario,
+        runsAvailable: runs.length,
+        lastSync: runs.length > 0 ? runs[runs.length - 1].endedAt : null,
+        canSync: runs.length >= 3,
+      };
+    });
+  }
+  
+  // ============================================================================
   // Helpers
   // ============================================================================
   

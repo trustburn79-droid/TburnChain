@@ -187,6 +187,14 @@ const productionCategories: HelpCategory[] = [
     description: "33+ admin portal pages configuration and customization",
     color: "bg-cyan-500/10 text-cyan-500"
   },
+  { 
+    id: "cat-7",
+    name: "Operations Runbook", 
+    icon: "AlertCircle", 
+    articleCount: 8, 
+    description: "Emergency procedures, scaling, recovery, and SLA management",
+    color: "bg-red-500/10 text-red-500"
+  },
 ];
 
 const productionFeaturedArticles: HelpArticle[] = [
@@ -297,6 +305,58 @@ const productionRecentArticles: HelpArticle[] = [
     readTime: "11 min",
     tags: ["monitoring", "SLA", "alerts", "websocket"]
   },
+  { 
+    id: "art-9", 
+    title: "Emergency Procedures & Pipeline Control", 
+    description: "Emergency stop, memory cleanup, circuit breaker reset procedures for critical situations",
+    content: "Complete guide for handling emergency situations including pipeline stop, force memory cleanup, and circuit breaker management. Key endpoints: POST /api/pipeline/stop, POST /api/memory-guardian/force-cleanup, POST /api/circuit-breaker/reset. Memory thresholds: Warning 70%, Critical 85%, Emergency 92%.",
+    category: "Operations Runbook", 
+    views: 2156, 
+    lastUpdated: "2026-01-13", 
+    featured: true,
+    author: "SRE Team",
+    readTime: "8 min",
+    tags: ["emergency", "pipeline", "memory", "circuit-breaker"]
+  },
+  { 
+    id: "art-10", 
+    title: "Dynamic Shard Scaling (24-64)", 
+    description: "Scale shards dynamically based on load with automatic rebalancing",
+    content: "Configure dynamic shard scaling from 24 to 64 shards. Use POST /api/sharding/scale with targetShardCount parameter. Trigger manual rebalance with POST /api/sharding/rebalance. Monitor cross-shard router at /api/cross-shard-router/status.",
+    category: "Operations Runbook", 
+    views: 1843, 
+    lastUpdated: "2026-01-13", 
+    featured: false,
+    author: "Scaling Team",
+    readTime: "10 min",
+    tags: ["sharding", "scaling", "rebalancing", "performance"]
+  },
+  { 
+    id: "art-11", 
+    title: "Traffic Surge Response Playbook", 
+    description: "Handle 10x and 100x traffic surges with graceful degradation",
+    content: "Response procedures for traffic surges. 10x surge: Monitor Request Shedder, verify Memory Governor stays below 85%, expect 85% success rate. 100x surge: Expect immediate shedder activation, Memory Governor may enter Deferred/Hibernating state, circuit breakers may open for non-critical endpoints, target 70% success rate for critical paths.",
+    category: "Operations Runbook", 
+    views: 1654, 
+    lastUpdated: "2026-01-13", 
+    featured: false,
+    author: "SRE Team",
+    readTime: "12 min",
+    tags: ["traffic", "surge", "shedding", "degradation"]
+  },
+  { 
+    id: "art-12", 
+    title: "Load Testing Scenarios Guide", 
+    description: "Run 10x/100x traffic tests, DB saturation tests, and resilience cascade tests",
+    content: "Available test scenarios: quick_check (5 min), traffic_surge_10x (15 min, 5000 RPS), traffic_surge_100x (10 min, 50000 RPS), db_pool_saturation (20 min), resilience_cascade (30 min), endurance (8 hours). Start tests via POST /api/soak-tests/run with scenario parameter.",
+    category: "Operations Runbook", 
+    views: 1432, 
+    lastUpdated: "2026-01-13", 
+    featured: false,
+    author: "QA Team",
+    readTime: "15 min",
+    tags: ["testing", "load", "stress", "performance"]
+  },
 ];
 
 const productionFAQs: FAQ[] = [
@@ -355,6 +415,27 @@ const productionFAQs: FAQ[] = [
     answer: "Staking APY varies by tier and delegation method: Tier 1 validators earn 15% APY, Tier 2 earn 12% APY, Tier 3 earn 8% APY. Delegators typically receive 80% of validator rewards after commission. Actual returns depend on network activity and validator performance.",
     category: "Staking",
     helpful: 71
+  },
+  {
+    id: "faq-9",
+    question: "What are the 7 TPS protection mechanisms?",
+    answer: "TBURN implements 7 protection mechanisms to prevent TPS degradation: 1) Memory Governor (75%→85%→90% thresholds), 2) Memory Guardian (10s monitoring with emergency cleanup), 3) Request Shedder (250ms event loop lag threshold), 4) Circuit Breakers (5-failure trip), 5) Adaptive Scaling (24→64 shards), 6) Connection Pooling (Neon serverless), 7) Disaster Recovery (self-healing).",
+    category: "Operations",
+    helpful: 156
+  },
+  {
+    id: "faq-10",
+    question: "How do I handle a traffic surge emergency?",
+    answer: "For 10x surge: Monitor Request Shedder activation, verify Memory Governor stays below 85%, expect graceful degradation with ~85% success rate. For 100x surge: Request Shedder activates immediately, Memory Governor enters Deferred/Hibernating state, circuit breakers may open, target ~70% success rate for critical paths. Use POST /api/pipeline/stop for emergency shutdown.",
+    category: "Operations",
+    helpful: 142
+  },
+  {
+    id: "faq-11",
+    question: "How do I run load tests on the system?",
+    answer: "Use the soak test API: POST /api/soak-tests/run with scenario parameter (quick_check, traffic_surge_10x, traffic_surge_100x, db_pool_saturation, resilience_cascade, endurance). Monitor with GET /api/soak-tests/status. Stop with POST /api/soak-tests/stop. View history with GET /api/soak-tests/history.",
+    category: "Operations",
+    helpful: 128
   },
 ];
 
