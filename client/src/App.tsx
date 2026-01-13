@@ -94,6 +94,7 @@ const ValidatorCommandCenter = lazyWithRetry(() => import("@/pages/validator"));
 const ValidatorInfrastructure = lazyWithRetry(() => import("@/pages/validator-infrastructure"));
 const ValidatorIntelligence = lazyWithRetry(() => import("@/pages/validator-intelligence"));
 const ValidatorGovernance = lazyWithRetry(() => import("@/pages/validator-governance"));
+const BusinessCard = lazyWithRetry(() => import("@/pages/businesscard"));
 
 const OperatorDashboard = lazyWithRetry(() => import("@/pages/operator/dashboard"));
 const OperatorMembers = lazyWithRetry(() => import("@/pages/operator/members"));
@@ -184,6 +185,7 @@ function AppRouter() {
         <Route path="/app/operator/reports" component={ProtectedOperatorReports} />
         <Route path="/app/operator/staking" component={ProtectedOperatorStaking} />
         <Route path="/user" component={UserPage} />
+        <Route path="/businesscard" component={BusinessCard} />
         <Route component={NotFound} />
       </Switch>
     </Suspense>
