@@ -25,7 +25,12 @@ import {
   ArrowUp,
   ArrowDown,
   AlertCircle,
+  Settings,
+  Play,
+  Loader2,
 } from "lucide-react";
+import { useMutation } from "@tanstack/react-query";
+import { apiRequest, queryClient } from "@/lib/queryClient";
 import { AreaChart, Area, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend, PieChart, Pie, Cell } from "recharts";
 
 interface SLAMetric {
@@ -56,6 +61,26 @@ interface SLAData {
   slaComplianceData: { name: string; value: number; color: string }[];
 }
 
+interface SLASyncScenario {
+  scenario: string;
+  runsAvailable: number;
+  lastSync: string | null;
+  canSync: boolean;
+}
+
+interface SLASyncStatus {
+  success: boolean;
+  data: {
+    scenarios: SLASyncScenario[];
+    summary: {
+      totalScenarios: number;
+      readyToSync: number;
+      needsMoreRuns: number;
+    };
+    recommendations: string[];
+  };
+}
+
 export default function SLAMonitoring() {
   const { t } = useTranslation();
   const { toast } = useToast();
@@ -68,6 +93,54 @@ export default function SLAMonitoring() {
     staleTime: 30000,
     refetchOnMount: false,
     refetchOnWindowFocus: false,
+  });
+
+  const { data: slaSyncStatus, isLoading: isSyncStatusLoading, refetch: refetchSyncStatus } = useQuery<SLASyncStatus>({
+    queryKey: ["/api/soak-tests/enterprise/sla-sync/status"],
+    refetchInterval: 60000,
+    staleTime: 30000,
+  });
+
+  const syncAllMutation = useMutation({
+    mutationFn: async () => {
+      const res = await apiRequest("POST", "/api/soak-tests/enterprise/sla-sync/all");
+      return res.json();
+    },
+    onSuccess: (data) => {
+      toast({
+        title: "SLA Targets Synced",
+        description: `${data.data?.synced || 0} scenarios synchronized successfully`,
+      });
+      queryClient.invalidateQueries({ queryKey: ["/api/soak-tests/enterprise/sla-sync/status"] });
+    },
+    onError: (error: Error) => {
+      toast({
+        title: "Sync Failed",
+        description: error.message,
+        variant: "destructive",
+      });
+    },
+  });
+
+  const syncScenarioMutation = useMutation({
+    mutationFn: async (scenario: string) => {
+      const res = await apiRequest("POST", `/api/soak-tests/enterprise/sla-sync/${scenario}`);
+      return res.json();
+    },
+    onSuccess: (data) => {
+      toast({
+        title: "Scenario Synced",
+        description: `SLA targets updated for ${data.data?.scenario}`,
+      });
+      queryClient.invalidateQueries({ queryKey: ["/api/soak-tests/enterprise/sla-sync/status"] });
+    },
+    onError: (error: Error) => {
+      toast({
+        title: "Sync Failed",
+        description: error.message,
+        variant: "destructive",
+      });
+    },
   });
 
   const handleRefresh = useCallback(() => {
@@ -383,6 +456,10 @@ export default function SLAMonitoring() {
             <TabsTrigger value="metrics" data-testid="tab-metrics">{t("adminSla.tabs.metrics")}</TabsTrigger>
             <TabsTrigger value="incidents" data-testid="tab-incidents">{t("adminSla.tabs.incidents")}</TabsTrigger>
             <TabsTrigger value="reports" data-testid="tab-reports">{t("adminSla.tabs.reports")}</TabsTrigger>
+            <TabsTrigger value="calibration" data-testid="tab-calibration">
+              <Settings className="h-4 w-4 mr-1" />
+              Calibration
+            </TabsTrigger>
           </TabsList>
 
           <TabsContent value="overview" className="space-y-6">
@@ -637,6 +714,183 @@ export default function SLAMonitoring() {
                 </CardContent>
               </Card>
             </div>
+          </TabsContent>
+
+          <TabsContent value="calibration" className="space-y-6">
+            <Card data-testid="card-sla-calibration">
+              <CardHeader className="flex flex-row items-center justify-between gap-4">
+                <div>
+                  <CardTitle className="flex items-center gap-2">
+                    <Settings className="h-5 w-5" />
+                    SLA Target Calibration
+                  </CardTitle>
+                  <CardDescription>
+                    Automatically calibrate SLA thresholds based on production test data
+                  </CardDescription>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => refetchSyncStatus()}
+                    data-testid="button-refresh-sync-status"
+                  >
+                    <RefreshCw className="h-4 w-4 mr-2" />
+                    Refresh
+                  </Button>
+                  <Button
+                    onClick={() => syncAllMutation.mutate()}
+                    disabled={syncAllMutation.isPending || (slaSyncStatus?.data?.summary?.readyToSync || 0) === 0}
+                    data-testid="button-sync-all-sla"
+                  >
+                    {syncAllMutation.isPending ? (
+                      <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                    ) : (
+                      <Play className="h-4 w-4 mr-2" />
+                    )}
+                    Sync All Ready
+                  </Button>
+                </div>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                {isSyncStatusLoading ? (
+                  <div className="space-y-4">
+                    {Array.from({ length: 4 }).map((_, i) => (
+                      <Skeleton key={i} className="h-16 w-full" />
+                    ))}
+                  </div>
+                ) : (
+                  <>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                      <Card className="border-l-4 border-l-blue-500">
+                        <CardContent className="p-4">
+                          <div className="flex items-center justify-between">
+                            <div>
+                              <p className="text-sm text-muted-foreground">Total Scenarios</p>
+                              <p className="text-2xl font-bold" data-testid="text-total-scenarios">
+                                {slaSyncStatus?.data?.summary?.totalScenarios || 0}
+                              </p>
+                            </div>
+                            <Activity className="h-8 w-8 text-blue-500" />
+                          </div>
+                        </CardContent>
+                      </Card>
+                      <Card className="border-l-4 border-l-green-500">
+                        <CardContent className="p-4">
+                          <div className="flex items-center justify-between">
+                            <div>
+                              <p className="text-sm text-muted-foreground">Ready to Sync</p>
+                              <p className="text-2xl font-bold text-green-500" data-testid="text-ready-sync">
+                                {slaSyncStatus?.data?.summary?.readyToSync || 0}
+                              </p>
+                            </div>
+                            <CheckCircle className="h-8 w-8 text-green-500" />
+                          </div>
+                        </CardContent>
+                      </Card>
+                      <Card className="border-l-4 border-l-yellow-500">
+                        <CardContent className="p-4">
+                          <div className="flex items-center justify-between">
+                            <div>
+                              <p className="text-sm text-muted-foreground">Needs More Runs</p>
+                              <p className="text-2xl font-bold text-yellow-500" data-testid="text-needs-runs">
+                                {slaSyncStatus?.data?.summary?.needsMoreRuns || 0}
+                              </p>
+                            </div>
+                            <AlertTriangle className="h-8 w-8 text-yellow-500" />
+                          </div>
+                        </CardContent>
+                      </Card>
+                    </div>
+
+                    <Table>
+                      <TableHeader>
+                        <TableRow>
+                          <TableHead>Scenario</TableHead>
+                          <TableHead>Runs Available</TableHead>
+                          <TableHead>Last Sync</TableHead>
+                          <TableHead>Status</TableHead>
+                          <TableHead>Actions</TableHead>
+                        </TableRow>
+                      </TableHeader>
+                      <TableBody>
+                        {slaSyncStatus?.data?.scenarios?.map((scenario) => (
+                          <TableRow key={scenario.scenario} data-testid={`row-scenario-${scenario.scenario}`}>
+                            <TableCell className="font-medium">{scenario.scenario}</TableCell>
+                            <TableCell>
+                              <div className="flex items-center gap-2">
+                                <span>{scenario.runsAvailable} / 3</span>
+                                <Progress 
+                                  value={Math.min(100, (scenario.runsAvailable / 3) * 100)} 
+                                  className="w-20 h-2"
+                                />
+                              </div>
+                            </TableCell>
+                            <TableCell>
+                              {scenario.lastSync 
+                                ? new Date(scenario.lastSync).toLocaleDateString()
+                                : "Never"
+                              }
+                            </TableCell>
+                            <TableCell>
+                              {scenario.canSync ? (
+                                <Badge className="bg-green-500">Ready</Badge>
+                              ) : (
+                                <Badge variant="outline" className="text-yellow-500 border-yellow-500">
+                                  Needs {3 - scenario.runsAvailable} more
+                                </Badge>
+                              )}
+                            </TableCell>
+                            <TableCell>
+                              <Button
+                                size="sm"
+                                variant="outline"
+                                onClick={() => syncScenarioMutation.mutate(scenario.scenario)}
+                                disabled={!scenario.canSync || syncScenarioMutation.isPending}
+                                data-testid={`button-sync-${scenario.scenario}`}
+                              >
+                                {syncScenarioMutation.isPending ? (
+                                  <Loader2 className="h-4 w-4 animate-spin" />
+                                ) : (
+                                  <RefreshCw className="h-4 w-4" />
+                                )}
+                              </Button>
+                            </TableCell>
+                          </TableRow>
+                        )) || (
+                          <TableRow>
+                            <TableCell colSpan={5} className="text-center text-muted-foreground">
+                              No scenarios available. Run load tests to generate calibration data.
+                            </TableCell>
+                          </TableRow>
+                        )}
+                      </TableBody>
+                    </Table>
+
+                    {slaSyncStatus?.data?.recommendations && slaSyncStatus.data.recommendations.length > 0 && (
+                      <Card className="bg-yellow-500/10 border-yellow-500/30">
+                        <CardHeader className="py-3">
+                          <CardTitle className="text-sm flex items-center gap-2">
+                            <AlertTriangle className="h-4 w-4 text-yellow-500" />
+                            Recommendations
+                          </CardTitle>
+                        </CardHeader>
+                        <CardContent className="py-2">
+                          <ul className="space-y-1">
+                            {slaSyncStatus.data.recommendations.map((rec, i) => (
+                              <li key={i} className="text-sm text-muted-foreground flex items-center gap-2">
+                                <ArrowUp className="h-3 w-3" />
+                                {rec}
+                              </li>
+                            ))}
+                          </ul>
+                        </CardContent>
+                      </Card>
+                    )}
+                  </>
+                )}
+              </CardContent>
+            </Card>
           </TabsContent>
         </Tabs>
       </div>

@@ -512,6 +512,110 @@ router.get('/enterprise/sla-report', (req: Request, res: Response) => {
 });
 
 // ============================================================================
+// SLA Synchronization (Phase 17)
+// ============================================================================
+
+router.get('/enterprise/sla-sync/status', (req: Request, res: Response) => {
+  try {
+    const status = enterpriseSoakTest.getSLASyncStatus();
+    
+    res.json({
+      success: true,
+      data: {
+        scenarios: status,
+        summary: {
+          totalScenarios: status.length,
+          readyToSync: status.filter(s => s.canSync).length,
+          needsMoreRuns: status.filter(s => !s.canSync).length,
+        },
+        recommendations: status.filter(s => !s.canSync).map(s => 
+          `${s.scenario}: Need ${3 - s.runsAvailable} more completed runs for SLA calibration`
+        ),
+      },
+      timestamp: new Date().toISOString(),
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: (error as Error).message,
+    });
+  }
+});
+
+router.post('/enterprise/sla-sync/:scenario', (req: Request, res: Response) => {
+  try {
+    const { scenario } = req.params;
+    
+    const result = enterpriseSoakTest.syncSLATargets(scenario);
+    
+    if (!result.updated) {
+      res.status(400).json({
+        success: false,
+        message: 'Cannot sync SLA targets',
+        recommendations: result.recommendations,
+      });
+      return;
+    }
+    
+    res.json({
+      success: true,
+      data: {
+        scenario: result.scenario,
+        oldTargets: result.oldTargets,
+        newTargets: result.newTargets,
+        recommendations: result.recommendations,
+      },
+      timestamp: new Date().toISOString(),
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: (error as Error).message,
+    });
+  }
+});
+
+router.post('/enterprise/sla-sync/all', (req: Request, res: Response) => {
+  try {
+    const status = enterpriseSoakTest.getSLASyncStatus();
+    const syncable = status.filter(s => s.canSync);
+    
+    if (syncable.length === 0) {
+      res.status(400).json({
+        success: false,
+        message: 'No scenarios ready for SLA sync. Run at least 3 tests per scenario first.',
+        status,
+      });
+      return;
+    }
+    
+    const results = syncable.map(s => ({
+      scenario: s.scenario,
+      result: enterpriseSoakTest.syncSLATargets(s.scenario),
+    }));
+    
+    res.json({
+      success: true,
+      data: {
+        synced: results.length,
+        results: results.map(r => ({
+          scenario: r.scenario,
+          updated: r.result.updated,
+          newTargets: r.result.newTargets,
+          recommendations: r.result.recommendations,
+        })),
+      },
+      timestamp: new Date().toISOString(),
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: (error as Error).message,
+    });
+  }
+});
+
+// ============================================================================
 // Resilient Store Enhanced Endpoints
 // ============================================================================
 
