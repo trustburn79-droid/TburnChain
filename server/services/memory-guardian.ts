@@ -86,14 +86,22 @@ class MemoryGuardianEnterprise {
   
   private readonly config: MemoryGuardianConfig = (() => {
     const v8HeapMB = MemoryGuardianEnterprise.getV8HeapLimitMB();
+    const isReplit = Boolean(process.env.REPL_ID);
+    
+    // ★ [2026-01-13] Replit 환경에서는 실제 사용 가능한 메모리가 V8 제한보다 높음
+    // V8 힙 제한이 낮게 설정되어 있어도 실제 메모리는 더 많이 사용 가능
+    // 불필요한 정리 루프를 방지하기 위해 Replit에서는 더 높은 임계값 사용
+    const effectiveMaxHeap = isReplit 
+      ? Math.max(v8HeapMB * 0.9, 6000)  // Replit: 최소 6GB
+      : Math.min(v8HeapMB * 0.9, 7500);
+    
     return {
-      checkInterval: 10 * 1000,
+      checkInterval: isReplit ? 30 * 1000 : 10 * 1000,  // Replit: 30초 간격 (부하 감소)
       warningThreshold: 0.70,
       criticalThreshold: 0.85,
       emergencyThreshold: 0.92,
-      // ★ V8 힙 기준으로 최대/타깃 힙 설정
-      maxHeapMB: Math.min(v8HeapMB * 0.9, 7500),   // V8 힙의 90%, 최대 7.5GB
-      targetHeapMB: Math.min(v8HeapMB * 0.75, 6000), // V8 힙의 75%, 최대 6GB
+      maxHeapMB: effectiveMaxHeap,
+      targetHeapMB: effectiveMaxHeap * 0.8,
       historySize: 360,
       trendWindowSize: 30,
       adaptiveThresholds: true,
