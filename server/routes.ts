@@ -735,16 +735,26 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   console.log(`[Routes] 🚀 Deferring heavy services by ${HEAVY_INIT_DELAY/1000}s for fast cold-start`);
   setTimeout(startHeavyServices, HEAVY_INIT_DELAY);
   
-  // Start realtime block pipeline after 30s for production block production
-  setTimeout(async () => {
-    try {
-      const pipeline = getRealtimeBlockPipeline();
-      await pipeline.start();
-      console.log('[Routes] ✅ Realtime block pipeline started (auto-start)');
-    } catch (error) {
-      console.error('[Routes] Failed to start pipeline:', error);
-    }
-  }, 30000);
+  // ★ [2026-01-13 STABILITY FIX] Block pipeline DISABLED in production for memory stability
+  // Block production simulation causes event loop lag and memory leaks in production
+  // Enable only in development: ENABLE_BLOCK_PIPELINE=true
+  const ENABLE_BLOCK_PIPELINE = process.env.ENABLE_BLOCK_PIPELINE === 'true'; // 
+    // [2026-01-13] DISABLED by default - causes WAL recovery blocking & memory leaks
+  
+  if (ENABLE_BLOCK_PIPELINE) {
+    setTimeout(async () => {
+      try {
+        const pipeline = getRealtimeBlockPipeline();
+        await pipeline.start();
+        console.log('[Routes] ✅ Realtime block pipeline started (auto-start)');
+      } catch (error) {
+        console.error('[Routes] Failed to start pipeline:', error);
+      }
+    }, 30000);
+  } else {
+    console.log('[Routes] 🔒 Block pipeline DISABLED for production stability');
+    console.log('[Routes] Set ENABLE_BLOCK_PIPELINE=true to enable');
+  }
 
   // Initialize validator simulation service
   let validatorSimulation: ValidatorSimulationService | null = null;
