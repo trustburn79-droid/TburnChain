@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="ko" data-theme="light" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>TBURN MAINNET Lead Developer Digital Card</title>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding:wght@400;700&amp;family=Noto+Sans+KR:wght@300;400;500;700;900&amp;display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet">
+<style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #000;
+            overflow: hidden;
+            font-family: 'Nanum Gothic Coding', monospace; /* Monospace for Developer Vibe */
+        }
+
+        /* Slide Container */
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            display: flex;
+            position: relative;
+            background-color: #050505;
+            color: #ffffff;
+            overflow: hidden;
+        }
+
+        /* --- LEFT PANEL (Visual) --- */
+        .left-panel {
+            flex: 0 0 38%;
+            position: relative;
+            background-color: #1a1000; /* Deep Dark Orange/Brown Base */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            border-right: 1px solid rgba(255, 184, 0, 0.1);
+        }
+
+        /* Simulated Gradient for Left Panel using Blur */
+        .bg-glow-orange {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background-color: #FF8A00;
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.2;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 0;
+        }
+
+        .bg-glow-yellow {
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background-color: #FFB800;
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.15;
+            top: 20%;
+            left: 20%;
+            z-index: 0;
+        }
+
+        /* Geometric Overlay */
+        .geo-shape {
+            position: absolute;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 1;
+        }
+        .sq-1 { width: 300px; height: 300px; top: -50px; left: -50px; transform: rotate(45deg); }
+        .sq-2 { width: 200px; height: 200px; bottom: 50px; right: -50px; transform: rotate(15deg); border-color: rgba(255, 138, 0, 0.2); }
+
+        /* Left Content */
+        .left-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+        }
+
+        .logo-img-large {
+            width: 160px;
+            height: 160px;
+            object-fit: contain;
+            filter: drop-shadow(0 0 20px rgba(255, 138, 0, 0.4));
+            margin-bottom: 20px;
+        }
+
+        .brand-text {
+            font-family: 'Noto Sans KR', sans-serif;
+            font-weight: 900;
+            font-size: 1.8rem;
+            letter-spacing: -0.02em;
+            color: #fff;
+        }
+
+        .dept-badge {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 4px 12px;
+            border: 1px solid rgba(255, 184, 0, 0.5);
+            border-radius: 50px;
+            color: #FFB800;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            background-color: rgba(0,0,0,0.3);
+        }
+
+        /* --- RIGHT PANEL (Info) --- */
+        .right-panel {
+            flex: 1;
+            position: relative;
+            background-color: #0d0d0d;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 60px 80px;
+        }
+
+        /* Code Pattern Background */
+        .code-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.05;
+            pointer-events: none;
+            z-index: 0;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 14px;
+            line-height: 20px;
+            color: #FFB800;
+            overflow: hidden;
+            white-space: pre;
+            padding: 20px;
+        }
+
+        .content-layer {
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Profile Header */
+        .dev-header {
+            margin-bottom: 40px;
+        }
+
+        .role-tag {
+            font-size: 1.2rem;
+            color: #FF8A00;
+            font-weight: 700;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .cursor-blink {
+            display: inline-block;
+            width: 10px;
+            height: 20px;
+            background-color: #FF8A00;
+            margin-left: 5px;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        .dev-name {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: #ffffff;
+            line-height: 1.1;
+            margin-bottom: 20px;
+        }
+
+        /* Tech Stack Badges */
+        .tech-stack-container {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 40px;
+        }
+
+        .tech-badge {
+            background-color: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #ccc;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            transition: all 0.2s;
+        }
+        
+        .tech-badge i {
+            margin-right: 8px;
+            color: #FFB800;
+        }
+        
+        .tech-badge:hover {
+            background-color: rgba(255, 184, 0, 0.1);
+            border-color: #FFB800;
+            color: #fff;
+        }
+
+        /* Terminal Style Contact Info */
+        .terminal-window {
+            background-color: #151515;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            font-size: 1rem;
+            line-height: 1.8;
+            color: #a0a0a0;
+            width: 100%;
+        }
+
+        .terminal-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #222;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-right: 6px;
+        }
+        .red { background-color: #FF5F56; }
+        .yellow { background-color: #FFBD2E; }
+        .green { background-color: #27C93F; }
+
+        .cmd-line {
+            display: flex;
+            margin-bottom: 5px;
+        }
+
+        .prompt {
+            color: #FF8A00;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+        
+        .key { color: #88c0d0; }
+        .string { color: #a3be8c; }
+        .value { color: #d8dee9; }
+
+        .contact-link {
+            color: #d8dee9;
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.2s;
+        }
+        .contact-link:hover {
+            border-bottom-color: #FF8A00;
+            color: #fff;
+        }
+
+        /* QR Code Absolute Positioned */
+        .qr-wrapper {
+            position: absolute;
+            bottom: 40px;
+            right: 40px;
+            background: #fff;
+            padding: 8px;
+            border-radius: 4px;
+        }
+        
+        .qr-img {
+            width: 80px;
+            height: 80px;
+            display: block;
+        }
+
+    </style>
+</head>
+<body style="">
+<div class="slide-container">
+<!-- LEFT PANEL: Brand Visual -->
+<div class="left-panel">
+<div class="bg-glow-orange"></div>
+<div class="bg-glow-yellow"></div>
+<div class="geo-shape sq-1"></div>
+<div class="geo-shape sq-2"></div>
+<div class="left-content">
+<img alt="TBURN Logo" class="logo-img-large" src="https://www.genspark.ai/api/files/s/vZ1uWnOR" data-height-listener-added="true">
+<h2 class="brand-text"><p>TBURN MAINNET</p></h2>
+<span class="dept-badge">Core Development Team</span>
+</div>
+</div>
+<!-- RIGHT PANEL: Developer Info -->
+<div class="right-panel">
+<!-- Decorative Background Pattern -->
+<div class="code-pattern">
+            01011001 TBURN 1010001 BLOCKCHAIN 11010100
+            HASH: 0x4f3a2b1c DECENTRALIZED 101010101
+            SMART_CONTRACT_INIT() =&gt; TRUE 00110011
+            GAS_LIMIT: 21000 MAX_SUPPLY: UNLIMITED
+            CONSENSUS: PROOF_OF_STAKE 111000111
+            01011001 TBURN 1010001 BLOCKCHAIN 11010100
+            HASH: 0x4f3a2b1c DECENTRALIZED 101010101
+            SMART_CONTRACT_INIT() =&gt; TRUE 00110011
+            GAS_LIMIT: 21000 MAX_SUPPLY: UNLIMITED
+            CONSENSUS: PROOF_OF_STAKE 111000111
+        </div>
+<div class="content-layer">
+<!-- Header -->
+<div class="dev-header">
+<p class="role-tag">&gt; Chairaman of the TBURN Foundation<span class="cursor-blink"></span></p>
+<h1 class="dev-name"><p>Kevin JEONG</p></h1>
+</div>
+<!-- Tech Stack -->
+<div class="tech-stack-container">
+<div class="tech-badge"><i class="fas fa-cube"></i> Solidity</div>
+<div class="tech-badge"><i class="fas fa-cogs"></i> Rust</div>
+<div class="tech-badge"><i class="fab fa-js"></i> TypeScript</div>
+<div class="tech-badge"><i class="fas fa-shield-alt"></i> Security</div>
+</div>
+<!-- Terminal Info -->
+<div class="terminal-window">
+<div class="terminal-header">
+<span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+<span style="margin-left: 10px; font-size: 0.8rem; color: #666;">contact_info.json</span>
+</div>
+<div class="cmd-line">
+<span class="prompt">$</span>
+<span class="value">cat profile.json</span>
+</div>
+<div style="margin-top: 10px;">
+<p><span class="key">"email"</span>: <span class="string">"founder<a class="contact-link" href="#">@tburn.io</a>"</span>,</p>
+<p><span class="key">"github"</span>: <span class="string">"@tburnceo"</span>,</p>
+<p><span class="key">"telegram"</span>: <span class="string">"@tburnio"</span>,</p>
+<p><span class="key">"website"</span>: <span class="string">"tburn.io"</span> <span style="color:#555;">// TBURN Mainnet</span></p>
+<p><span class="key">"Mobile"</span>: <span class="string">"+82-10-9878-3167"</span></p>
+</div>
+</div>
+</div>
+<!-- QR Code -->
+<div class="qr-wrapper">
+<!-- Simple SVG QR Mockup -->
+<svg class="qr-img" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+<rect fill="#fff" height="100" width="100"></rect>
+<path d="M0,0 h100 v100 h-100 z M10,10 h80 v80 h-80 z" fill="#fff"></path>
+<rect fill="#000" height="30" width="30" x="10" y="10"></rect>
+<rect fill="#000" height="30" width="30" x="60" y="10"></rect>
+<rect fill="#000" height="30" width="30" x="10" y="60"></rect>
+<rect fill="#000" height="20" width="20" x="45" y="45"></rect>
+<rect fill="#000" height="10" width="10" x="65" y="65"></rect>
+<rect fill="#000" height="10" width="10" x="80" y="50"></rect>
+</svg>
+</div>
+</div>
+</div>
+
+</body></html>
