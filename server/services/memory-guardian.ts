@@ -757,24 +757,31 @@ class MemoryGuardianEnterprise {
       const analysis = this.getTrendAnalysis();
       const status = this.getMemoryStatus();
 
+      const sampleCount = this.trendHistory.length;
+      const trendDirection = analysis.growthRateMBPerMin > 0.5 ? 'increasing' : 
+                             analysis.growthRateMBPerMin < -0.5 ? 'decreasing' : 'stable';
+      const estimatedTimeMs = analysis.estimatedTimeToWarningMin !== null 
+        ? analysis.estimatedTimeToWarningMin * 60 * 1000 
+        : null;
+
       await db.insert(memoryGuardianTrends).values({
         windowMinutes: this.config.trendWindowSize,
         recordedAt: new Date(),
         growthRateMBPerMin: analysis.growthRateMBPerMin,
-        estimatedTimeToWarningMs: analysis.estimatedTimeToWarning > 0 ? analysis.estimatedTimeToWarning : null,
+        estimatedTimeToWarningMs: estimatedTimeMs !== null && estimatedTimeMs > 0 ? estimatedTimeMs : null,
         estimatedTimeToCriticalMs: null,
         volatility: analysis.volatility,
         volatilityLevel: analysis.volatility < 10 ? 'low' : analysis.volatility < 30 ? 'medium' : 'high',
-        trendDirection: analysis.trend,
+        trendDirection: trendDirection,
         trendStrength: Math.min(Math.abs(analysis.growthRateMBPerMin) / 10, 1),
-        sampleCount: analysis.sampleCount,
+        sampleCount: sampleCount,
         currentHeapMB: status.heapUsedMB,
         currentRatio: parseFloat(status.ratio) / 100,
         currentState: this.slaMetrics.currentState,
         predictedPeakMB: analysis.growthRateMBPerMin > 0 
           ? status.heapUsedMB + (analysis.growthRateMBPerMin * 60)
           : null,
-        confidenceScore: Math.min(analysis.sampleCount / this.config.trendWindowSize, 1),
+        confidenceScore: Math.min(sampleCount / this.config.trendWindowSize, 1),
       });
 
       this.lastTrendPersist = Date.now();

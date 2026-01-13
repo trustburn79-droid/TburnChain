@@ -427,7 +427,7 @@ export function useEventHistory(channel: string, limit?: number) {
 export function useRecentEvents(limit?: number) {
   return useQuery<{ success: boolean; data: any[] }>({
     queryKey: ['/api/enterprise/events/recent', limit],
-    refetchInterval: 5000,
+    refetchInterval: 30000, // ★ OPTIMIZED: Reduced from 5s to 30s
   });
 }
 

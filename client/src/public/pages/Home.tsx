@@ -246,8 +246,8 @@ export default function Home() {
   // This ensures homepage displays identical totalTransactions as transactions explorer
   const { data: internalStats } = useQuery<InternalNetworkStats>({
     queryKey: ["/api/network/stats"],
-    refetchInterval: 5000, // Match RealtimeMetricsService 5-second update
-    staleTime: 5000,
+    refetchInterval: 30000, // ★ OPTIMIZED: Reduced from 5s to 30s for server stability
+    staleTime: 30000,
     refetchOnMount: true,
     refetchOnWindowFocus: false,
   });
@@ -255,8 +255,8 @@ export default function Home() {
   // Fallback to public API for TPS if internal API not available
   const { data: publicStats } = useQuery<PublicNetworkStatsResponse>({
     queryKey: ["/api/public/v1/network/stats"],
-    refetchInterval: 5000,
-    staleTime: 5000,
+    refetchInterval: 30000, // ★ OPTIMIZED: Reduced from 5s to 30s
+    staleTime: 30000,
     enabled: !internalStats, // Only fetch if internal API didn't respond
   });
   

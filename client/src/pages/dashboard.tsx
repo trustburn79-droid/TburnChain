@@ -530,9 +530,9 @@ export default function Dashboard() {
 
   const { data: networkStats, isLoading: statsLoading, error: statsError, refetch: refetchStats } = useQuery<NetworkStats>({
     queryKey: ["/api/network/stats"],
-    refetchInterval: 5000, // ★ REALTIME: Match RealtimeMetricsService poll interval
-    staleTime: 5000, // 5s staleTime for real-time TPS updates
-    refetchOnMount: true, // Fetch fresh data on mount
+    refetchInterval: 30000, // ★ OPTIMIZED: Reduced polling to 30s for server stability
+    staleTime: 30000, // 30s staleTime - WebSocket provides real-time updates
+    refetchOnMount: true,
     refetchOnWindowFocus: false,
     retry: 3,
     retryDelay: 1000,
@@ -541,8 +541,8 @@ export default function Dashboard() {
 
   const { data: recentBlocks, isLoading: blocksLoading, error: blocksError, refetch: refetchBlocks } = useQuery<Block[]>({
     queryKey: ["/api/blocks/recent"],
-    refetchInterval: 3000,
-    staleTime: 3000,
+    refetchInterval: 30000, // ★ OPTIMIZED: Reduced from 3s to 30s
+    staleTime: 30000,
     refetchOnMount: true,
     refetchOnWindowFocus: false,
     retry: 3,
@@ -551,8 +551,8 @@ export default function Dashboard() {
 
   const { data: recentTxs, isLoading: txsLoading, error: txsError, refetch: refetchTxs } = useQuery<Transaction[]>({
     queryKey: ["/api/transactions/recent"],
-    refetchInterval: 3000,
-    staleTime: 3000,
+    refetchInterval: 30000, // ★ OPTIMIZED: Reduced from 3s to 30s
+    staleTime: 30000,
     refetchOnMount: true,
     refetchOnWindowFocus: false,
     retry: 3,

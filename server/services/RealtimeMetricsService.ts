@@ -60,12 +60,12 @@ class RealtimeMetricsService {
   
   // 폴링 인터벌
   private pollInterval: ReturnType<typeof setInterval> | null = null;
-  // ★ [2026-01-10 ARCHITECT FIX] 10초로 증가 (이벤트 루프 부하 감소)
-  private readonly POLL_INTERVAL_MS = 10000;
+  // ★ [2026-01-13 STABILITY FIX] 30초로 증가 (이벤트 루프 부하 대폭 감소)
+  private readonly POLL_INTERVAL_MS = 30000;
   
-  // ★ [ARCHITECT FIX v2] 결정적 카운터 (10번마다 2차 데이터 폴링)
+  // ★ [ARCHITECT FIX v2] 결정적 카운터 (4번마다 2차 데이터 폴링 = 120초)
   private pollCounter = 0;
-  private readonly SECONDARY_POLL_INTERVAL = 10; // 10번 = 50초
+  private readonly SECONDARY_POLL_INTERVAL = 4; // 4번 = 120초
   
   constructor() {
     console.log('[RealtimeMetrics] ✅ Service initialized (buffer: 32 blocks, 5s polling)');

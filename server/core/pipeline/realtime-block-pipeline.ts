@@ -20,23 +20,23 @@ import { getShardProcessingCoordinator, type ShardProcessingCoordinator } from '
 // ============================================================================
 
 const PIPELINE_CONFIG = {
-  // Block production interval (100ms = 10 blocks/second)
-  BLOCK_INTERVAL_MS: DEV_SAFE_MODE ? 500 : 100,
+  // ★ [2026-01-13 STABILITY FIX] 2000ms in DEV_SAFE_MODE (was 500ms - caused event loop lag)
+  BLOCK_INTERVAL_MS: DEV_SAFE_MODE ? 2000 : 100,
   
-  // Target TPS for simulation
-  TARGET_TPS: DEV_SAFE_MODE ? 60000 : 100000,
+  // Target TPS for simulation (reduced for dev stability)
+  TARGET_TPS: DEV_SAFE_MODE ? 24000 : 100000,
   
   // Max transactions per block
-  MAX_TX_PER_BLOCK: DEV_SAFE_MODE ? 6000 : 10000,
+  MAX_TX_PER_BLOCK: DEV_SAFE_MODE ? 2000 : 10000,
   
   // Flush to DB interval
-  DB_FLUSH_INTERVAL_MS: DEV_SAFE_MODE ? 5000 : 1000,
+  DB_FLUSH_INTERVAL_MS: DEV_SAFE_MODE ? 10000 : 1000,
   
   // In-memory block buffer size
-  BLOCK_BUFFER_SIZE: DEV_SAFE_MODE ? 10 : 100,
+  BLOCK_BUFFER_SIZE: DEV_SAFE_MODE ? 5 : 100,
   
   // Stats collection interval
-  STATS_INTERVAL_MS: 1000,
+  STATS_INTERVAL_MS: 2000,
 };
 
 interface BlockData {
