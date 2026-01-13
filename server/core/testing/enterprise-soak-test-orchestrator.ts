@@ -345,6 +345,121 @@ const DEFAULT_SCENARIOS: Record<string, TestScenario> = {
       maxMemoryGrowthPercent: 20,
     },
   },
+  
+  // ============================================================================
+  // 10x/100x Traffic Surge Tests (Phase 17)
+  // ============================================================================
+  
+  traffic_surge_10x: {
+    name: '10x Traffic Surge Test',
+    type: 'spike',
+    description: 'Simulate 10x normal traffic to test MemoryGovernor, RequestShedder, and Circuit Breakers',
+    endpoints: [
+      '/api/public/v1/network/stats',
+      '/api/shard-cache/status',
+      '/api/validators/status',
+      '/api/shards',
+      '/api/blocks',
+      '/api/network/stats',
+    ],
+    concurrentUsers: 500,
+    requestsPerSecond: 5000,
+    durationMinutes: 15,
+    rampUpSeconds: 30,
+    spikeMultiplier: 10,
+    spikeIntervalMinutes: 3,
+    slaTargets: {
+      maxP99LatencyMs: 800,
+      minSuccessRate: 0.85,
+      minSkipRatio: 0.3,
+      maxErrorRate: 0.15,
+      maxMemoryGrowthPercent: 200,
+    },
+  },
+  
+  traffic_surge_100x: {
+    name: '100x Traffic Surge Test',
+    type: 'spike',
+    description: 'Extreme 100x traffic to validate emergency mechanisms and graceful degradation',
+    endpoints: [
+      '/api/public/v1/network/stats',
+      '/api/shard-cache/status',
+      '/api/validators/status',
+      '/api/shards',
+      '/api/blocks',
+      '/api/network/stats',
+      '/api/cross-shard-router/status',
+    ],
+    concurrentUsers: 3000,
+    requestsPerSecond: 50000,
+    durationMinutes: 10,
+    rampUpSeconds: 60,
+    spikeMultiplier: 100,
+    spikeIntervalMinutes: 2,
+    slaTargets: {
+      maxP99LatencyMs: 2000,
+      minSuccessRate: 0.70,
+      minSkipRatio: 0.2,
+      maxErrorRate: 0.30,
+      maxMemoryGrowthPercent: 300,
+    },
+  },
+  
+  db_pool_saturation: {
+    name: 'DB Pool Saturation Test',
+    type: 'stress',
+    description: 'Test database connection pool exhaustion and recovery with heavy DB-bound requests',
+    endpoints: [
+      '/api/blocks',
+      '/api/transactions',
+      '/api/wallets',
+      '/api/validators/list',
+      '/api/shards',
+      '/api/staking/validators',
+      '/api/governance/proposals',
+    ],
+    concurrentUsers: 200,
+    requestsPerSecond: 2000,
+    durationMinutes: 20,
+    rampUpSeconds: 120,
+    slaTargets: {
+      maxP99LatencyMs: 1500,
+      minSuccessRate: 0.80,
+      minSkipRatio: 0.25,
+      maxErrorRate: 0.20,
+      maxMemoryGrowthPercent: 150,
+    },
+  },
+  
+  resilience_cascade: {
+    name: 'Resilience Cascade Test',
+    type: 'chaos',
+    description: 'Test all 7 protection mechanisms under combined pressure: Memory, Shedder, Circuit Breaker, Scaling, Pooling, and Recovery',
+    endpoints: [
+      '/api/public/v1/network/stats',
+      '/api/shard-cache/status',
+      '/api/validators/status',
+      '/api/shards',
+      '/api/blocks',
+      '/api/transactions',
+      '/api/wallets',
+      '/api/cross-shard-router/status',
+      '/api/pipeline/stats',
+    ],
+    concurrentUsers: 1000,
+    requestsPerSecond: 10000,
+    durationMinutes: 30,
+    rampUpSeconds: 60,
+    spikeMultiplier: 20,
+    spikeIntervalMinutes: 5,
+    slaTargets: {
+      maxP99LatencyMs: 1000,
+      minSuccessRate: 0.75,
+      minSkipRatio: 0.2,
+      maxErrorRate: 0.25,
+      maxMemoryGrowthPercent: 250,
+    },
+  },
 };
 
 // ============================================================================
