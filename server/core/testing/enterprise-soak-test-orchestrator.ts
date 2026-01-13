@@ -492,6 +492,15 @@ export class EnterpriseSoakTestOrchestrator {
     anomalies: [],
   };
   
+  // Baseline test scheduler (Phase 17)
+  private schedulerTimer: NodeJS.Timeout | null = null;
+  private schedulerEnabled = false;
+  private schedulerIntervalHours = 24; // Default: daily
+  private schedulerScenario = 'quick_check';
+  private lastScheduledRun: Date | null = null;
+  private schedulerStartedAt: Date | null = null;
+  private scheduledNextRun: Date | null = null;
+  
   // Metrics collection
   private currentMinuteMetrics: {
     requests: number;
@@ -1458,6 +1467,200 @@ export class EnterpriseSoakTestOrchestrator {
         canSync: runs.length >= 3,
       };
     });
+  }
+  
+  // ============================================================================
+  // Baseline Test Scheduler (Phase 17)
+  // ============================================================================
+  
+  /**
+   * Start automatic baseline test scheduler
+   * Runs tests at configured intervals to collect calibration data
+   */
+  startScheduler(config?: {
+    intervalHours?: number;
+    scenario?: string;
+  }): {
+    started: boolean;
+    message: string;
+    config: {
+      intervalHours: number;
+      scenario: string;
+      nextRun: Date;
+    };
+  } {
+    if (this.schedulerEnabled) {
+      return {
+        started: false,
+        message: 'Scheduler already running',
+        config: {
+          intervalHours: this.schedulerIntervalHours,
+          scenario: this.schedulerScenario,
+          nextRun: new Date(Date.now() + this.schedulerIntervalHours * 60 * 60 * 1000),
+        },
+      };
+    }
+    
+    if (config?.intervalHours) {
+      this.schedulerIntervalHours = Math.max(1, Math.min(168, config.intervalHours)); // 1h-1week
+    }
+    if (config?.scenario && DEFAULT_SCENARIOS[config.scenario]) {
+      this.schedulerScenario = config.scenario;
+    }
+    
+    this.schedulerEnabled = true;
+    this.schedulerStartedAt = new Date();
+    
+    // Schedule first run
+    const intervalMs = this.schedulerIntervalHours * 60 * 60 * 1000;
+    this.scheduledNextRun = new Date(Date.now() + intervalMs);
+    
+    this.schedulerTimer = setInterval(() => {
+      this.runScheduledTest();
+    }, intervalMs);
+    
+    console.log(`[SoakTest] Scheduler started: ${this.schedulerScenario} every ${this.schedulerIntervalHours}h`);
+    
+    return {
+      started: true,
+      message: `Scheduler started: ${this.schedulerScenario} every ${this.schedulerIntervalHours} hours`,
+      config: {
+        intervalHours: this.schedulerIntervalHours,
+        scenario: this.schedulerScenario,
+        nextRun: this.scheduledNextRun,
+      },
+    };
+  }
+  
+  /**
+   * Stop the baseline test scheduler
+   */
+  stopScheduler(): { stopped: boolean; message: string } {
+    if (!this.schedulerEnabled) {
+      return { stopped: false, message: 'Scheduler not running' };
+    }
+    
+    if (this.schedulerTimer) {
+      clearInterval(this.schedulerTimer);
+      this.schedulerTimer = null;
+    }
+    
+    this.schedulerEnabled = false;
+    this.scheduledNextRun = null;
+    console.log('[SoakTest] Scheduler stopped');
+    
+    return { stopped: true, message: 'Scheduler stopped successfully' };
+  }
+  
+  /**
+   * Get scheduler status
+   */
+  getSchedulerStatus(): {
+    enabled: boolean;
+    intervalHours: number;
+    scenario: string;
+    startedAt: Date | null;
+    lastRun: Date | null;
+    nextRun: Date | null;
+    runsCompleted: number;
+  } {
+    const scenarioRuns = this.runHistory.filter(
+      r => r.scenario.name === DEFAULT_SCENARIOS[this.schedulerScenario]?.name && r.status === 'completed'
+    );
+    
+    // Calculate accurate nextRun based on lastScheduledRun or schedulerStartedAt
+    let nextRun: Date | null = null;
+    if (this.schedulerEnabled) {
+      const intervalMs = this.schedulerIntervalHours * 60 * 60 * 1000;
+      if (this.lastScheduledRun) {
+        // Next run is last run + interval
+        nextRun = new Date(this.lastScheduledRun.getTime() + intervalMs);
+      } else if (this.schedulerStartedAt) {
+        // No run yet, first run is start time + interval
+        nextRun = new Date(this.schedulerStartedAt.getTime() + intervalMs);
+      } else {
+        // Fallback to scheduledNextRun
+        nextRun = this.scheduledNextRun;
+      }
+    }
+    
+    return {
+      enabled: this.schedulerEnabled,
+      intervalHours: this.schedulerIntervalHours,
+      scenario: this.schedulerScenario,
+      startedAt: this.schedulerStartedAt,
+      lastRun: this.lastScheduledRun,
+      nextRun,
+      runsCompleted: scenarioRuns.length,
+    };
+  }
+  
+  /**
+   * Run scheduled test (internal)
+   */
+  private async runScheduledTest(): Promise<void> {
+    if (this.isRunning) {
+      console.log('[SoakTest] Skipping scheduled test - another test is running');
+      // Still update scheduled time for next attempt
+      const intervalMs = this.schedulerIntervalHours * 60 * 60 * 1000;
+      this.scheduledNextRun = new Date(Date.now() + intervalMs);
+      return;
+    }
+    
+    console.log(`[SoakTest] Running scheduled test: ${this.schedulerScenario}`);
+    this.lastScheduledRun = new Date();
+    
+    // Update scheduledNextRun for accurate reporting
+    const intervalMs = this.schedulerIntervalHours * 60 * 60 * 1000;
+    this.scheduledNextRun = new Date(this.lastScheduledRun.getTime() + intervalMs);
+    
+    try {
+      await this.startTest(this.schedulerScenario);
+    } catch (error) {
+      console.error('[SoakTest] Scheduled test failed:', error);
+    }
+  }
+  
+  /**
+   * Trigger immediate baseline test run
+   */
+  async triggerBaselineRun(scenario?: string): Promise<{
+    triggered: boolean;
+    runId: string | null;
+    message: string;
+  }> {
+    const targetScenario = scenario || 'quick_check';
+    
+    if (this.isRunning) {
+      return {
+        triggered: false,
+        runId: null,
+        message: 'Another test is already running',
+      };
+    }
+    
+    if (!DEFAULT_SCENARIOS[targetScenario]) {
+      return {
+        triggered: false,
+        runId: null,
+        message: `Unknown scenario: ${targetScenario}`,
+      };
+    }
+    
+    try {
+      const run = await this.startTest(targetScenario);
+      return {
+        triggered: true,
+        runId: run?.runId || null,
+        message: `Started baseline test: ${targetScenario}`,
+      };
+    } catch (error) {
+      return {
+        triggered: false,
+        runId: null,
+        message: `Failed to start test: ${(error as Error).message}`,
+      };
+    }
   }
   
   // ============================================================================

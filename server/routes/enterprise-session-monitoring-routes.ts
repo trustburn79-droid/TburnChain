@@ -616,6 +616,85 @@ router.post('/enterprise/sla-sync/all', (req: Request, res: Response) => {
 });
 
 // ============================================================================
+// Baseline Test Scheduler (Phase 17)
+// ============================================================================
+
+router.get('/enterprise/scheduler/status', (req: Request, res: Response) => {
+  try {
+    const status = enterpriseSoakTest.getSchedulerStatus();
+    
+    res.json({
+      success: true,
+      data: status,
+      timestamp: new Date().toISOString(),
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: (error as Error).message,
+    });
+  }
+});
+
+router.post('/enterprise/scheduler/start', (req: Request, res: Response) => {
+  try {
+    const { intervalHours, scenario } = req.body;
+    
+    const result = enterpriseSoakTest.startScheduler({
+      intervalHours: intervalHours ? parseInt(intervalHours) : undefined,
+      scenario,
+    });
+    
+    res.json({
+      success: result.started,
+      data: result,
+      timestamp: new Date().toISOString(),
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: (error as Error).message,
+    });
+  }
+});
+
+router.post('/enterprise/scheduler/stop', (req: Request, res: Response) => {
+  try {
+    const result = enterpriseSoakTest.stopScheduler();
+    
+    res.json({
+      success: result.stopped,
+      data: result,
+      timestamp: new Date().toISOString(),
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: (error as Error).message,
+    });
+  }
+});
+
+router.post('/enterprise/scheduler/trigger', async (req: Request, res: Response) => {
+  try {
+    const { scenario } = req.body;
+    
+    const result = await enterpriseSoakTest.triggerBaselineRun(scenario);
+    
+    res.json({
+      success: result.triggered,
+      data: result,
+      timestamp: new Date().toISOString(),
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: (error as Error).message,
+    });
+  }
+});
+
+// ============================================================================
 // Resilient Store Enhanced Endpoints
 // ============================================================================
 
