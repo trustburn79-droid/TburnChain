@@ -5,10 +5,24 @@
 
 import { EventEmitter } from 'events';
 import * as crypto from 'crypto';
-import { RemoteSignerClient } from './remote-signer-client.js';
+
+export interface AttestationRequest {
+  slot: number;
+  epoch: number;
+  beaconBlockRoot: string;
+  sourceEpoch: number;
+  sourceRoot: string;
+  targetEpoch: number;
+  targetRoot: string;
+}
+
+export interface SignerClient {
+  signAttestation(request: AttestationRequest): Promise<{ success: boolean; signature?: string; error?: string }>;
+  signAggregate(attestations: AttestationRequest[]): Promise<{ success: boolean; signature?: string; error?: string }>;
+}
 
 export interface AttestationServiceConfig {
-  signerClient: RemoteSignerClient;
+  signerClient: SignerClient;
   validatorAddress: string;
 }
 
@@ -25,7 +39,7 @@ export interface Attestation {
 }
 
 export class AttestationService extends EventEmitter {
-  private signerClient: RemoteSignerClient;
+  private signerClient: SignerClient;
   private validatorAddress: string;
   private attesting = false;
   private attestationsMade = 0;

@@ -1,23 +1,26 @@
 /**
  * TBURN Validator Node
- * Main orchestrator for validator operations
+ * Main orchestrator for validator operations with security integration
  */
 
 import { EventEmitter } from 'events';
-import { RemoteSignerClient } from './remote-signer-client.js';
+import { SecureRemoteSignerClient } from './secure-remote-signer-client.js';
 import { P2PNetwork } from './p2p-network.js';
 import { BlockProducer } from './block-producer.js';
 import { AttestationService } from './attestation-service.js';
 import { MetricsServer } from './metrics-server.js';
 import { ValidatorConfig } from '../config/validator-config.js';
+import { SecurityManager, AuditLogger } from '../security/index.js';
+import * as crypto from 'crypto';
 
 export interface ValidatorNodeConfig {
   config: ValidatorConfig;
-  signerClient: RemoteSignerClient;
+  signerClient: SecureRemoteSignerClient;
   p2pNetwork: P2PNetwork;
   blockProducer: BlockProducer;
   attestationService: AttestationService;
   metricsServer: MetricsServer;
+  enableSecurity?: boolean;
 }
 
 export interface ValidatorStatus {
@@ -31,25 +34,36 @@ export interface ValidatorStatus {
   attestationsMade: number;
   uptime: number;
   signerStatus: 'connected' | 'disconnected' | 'error';
+  securityStatus: {
+    enabled: boolean;
+    alertCount: number;
+    blocked: boolean;
+    lastCheck: number;
+  };
 }
 
 export class ValidatorNode extends EventEmitter {
   private config: ValidatorConfig;
-  private signerClient: RemoteSignerClient;
+  private signerClient: SecureRemoteSignerClient;
   private p2pNetwork: P2PNetwork;
   private blockProducer: BlockProducer;
   private attestationService: AttestationService;
   private metricsServer: MetricsServer;
+  private auditLogger: AuditLogger;
   
   private isRunning = false;
   private startTime = 0;
   private heartbeatInterval?: NodeJS.Timeout;
   private slotInterval?: NodeJS.Timeout;
+  private securityCheckInterval?: NodeJS.Timeout;
   
   private currentSlot = 0;
   private currentEpoch = 0;
   private blocksProposed = 0;
   private attestationsMade = 0;
+  private securityAlertCount = 0;
+  private lastSecurityCheck = 0;
+  private enableSecurity: boolean;
 
   constructor(nodeConfig: ValidatorNodeConfig) {
     super();
@@ -59,37 +73,89 @@ export class ValidatorNode extends EventEmitter {
     this.blockProducer = nodeConfig.blockProducer;
     this.attestationService = nodeConfig.attestationService;
     this.metricsServer = nodeConfig.metricsServer;
+    this.enableSecurity = nodeConfig.enableSecurity ?? true;
+
+    this.auditLogger = new AuditLogger({
+      logDir: './logs/validator',
+      enableConsole: true,
+      enableFile: true,
+      enableIntegrity: true
+    });
 
     this.setupEventHandlers();
+    
+    this.auditLogger.info('VALIDATOR', 'NODE_INITIALIZED', {
+      validatorAddress: this.config.validatorAddress,
+      network: this.config.network,
+      securityEnabled: this.enableSecurity
+    });
   }
 
   private setupEventHandlers(): void {
     this.signerClient.on('signing:success', (data) => {
-      console.log(`[ValidatorNode] Signing success: ${data.operation} (${data.responseTimeMs}ms)`);
+      this.auditLogger.info('SIGNING', 'SUCCESS', {
+        operation: data.operation,
+        responseTimeMs: data.responseTimeMs
+      }, { validatorAddress: this.config.validatorAddress, requestId: data.requestId });
     });
 
     this.signerClient.on('signing:error', (data) => {
-      console.error(`[ValidatorNode] Signing error: ${data.operation} - ${data.error}`);
+      this.auditLogger.error('SIGNING', 'FAILED', {
+        operation: data.operation,
+        error: data.error
+      }, { validatorAddress: this.config.validatorAddress, requestId: data.requestId });
+    });
+
+    this.signerClient.on('security:alert', (alert) => {
+      this.securityAlertCount++;
+      this.auditLogger.security('SECURITY', 'ALERT_RECEIVED', {
+        type: alert.type,
+        severity: alert.severity,
+        message: alert.message
+      }, { validatorAddress: alert.validatorAddress });
+      
+      this.emit('security:alert', alert);
+    });
+
+    this.signerClient.on('security:blocked', (data) => {
+      this.auditLogger.security('SECURITY', 'VALIDATOR_BLOCKED', {
+        reason: data.reason
+      }, { validatorAddress: data.address });
+      
+      this.emit('security:blocked', data);
     });
 
     this.blockProducer.on('block:produced', (data) => {
       this.blocksProposed++;
-      console.log(`[ValidatorNode] Block produced: slot ${data.slot}, ${data.txCount} txs`);
+      this.auditLogger.info('BLOCK', 'PRODUCED', {
+        slot: data.slot,
+        txCount: data.txCount,
+        blockHash: data.blockHash
+      }, { validatorAddress: this.config.validatorAddress });
+      
       this.emit('block:produced', data);
     });
 
     this.attestationService.on('attestation:made', (data) => {
       this.attestationsMade++;
-      console.log(`[ValidatorNode] Attestation made: slot ${data.slot}, epoch ${data.epoch}`);
+      this.auditLogger.info('ATTESTATION', 'MADE', {
+        slot: data.slot,
+        epoch: data.epoch
+      }, { validatorAddress: this.config.validatorAddress });
+      
       this.emit('attestation:made', data);
     });
 
     this.p2pNetwork.on('peer:connected', (data) => {
-      console.log(`[ValidatorNode] Peer connected: ${data.peerId}`);
+      this.auditLogger.info('P2P', 'PEER_CONNECTED', {
+        peerId: data.peerId
+      });
     });
 
     this.p2pNetwork.on('peer:disconnected', (data) => {
-      console.log(`[ValidatorNode] Peer disconnected: ${data.peerId}`);
+      this.auditLogger.info('P2P', 'PEER_DISCONNECTED', {
+        peerId: data.peerId
+      });
     });
   }
 
@@ -98,6 +164,11 @@ export class ValidatorNode extends EventEmitter {
       console.log('[ValidatorNode] Already running');
       return;
     }
+
+    this.auditLogger.info('VALIDATOR', 'STARTING', {
+      network: this.config.network,
+      chainId: this.config.chainId
+    });
 
     console.log('[ValidatorNode] Starting validator node...');
     this.startTime = Date.now();
@@ -111,6 +182,14 @@ export class ValidatorNode extends EventEmitter {
 
     this.startSlotTimer();
     this.startHeartbeat();
+    
+    if (this.enableSecurity) {
+      this.startSecurityMonitoring();
+    }
+
+    this.auditLogger.info('VALIDATOR', 'STARTED', {
+      uptime: 0
+    });
 
     this.emit('started');
     console.log('[ValidatorNode] Validator node started successfully');
@@ -120,6 +199,10 @@ export class ValidatorNode extends EventEmitter {
     if (!this.isRunning) {
       return;
     }
+
+    this.auditLogger.info('VALIDATOR', 'STOPPING', {
+      uptime: Date.now() - this.startTime
+    });
 
     console.log('[ValidatorNode] Stopping validator node...');
     this.isRunning = false;
@@ -134,9 +217,20 @@ export class ValidatorNode extends EventEmitter {
       this.slotInterval = undefined;
     }
 
+    if (this.securityCheckInterval) {
+      clearInterval(this.securityCheckInterval);
+      this.securityCheckInterval = undefined;
+    }
+
     await this.signerClient.disconnect();
     await this.p2pNetwork.stop();
     await this.metricsServer.stop();
+
+    this.auditLogger.info('VALIDATOR', 'STOPPED', {
+      totalBlocksProposed: this.blocksProposed,
+      totalAttestations: this.attestationsMade,
+      securityAlerts: this.securityAlertCount
+    });
 
     this.emit('stopped');
     console.log('[ValidatorNode] Validator node stopped');
@@ -150,13 +244,31 @@ export class ValidatorNode extends EventEmitter {
       
       if (this.currentSlot % 32 === 0) {
         this.currentEpoch++;
+        this.auditLogger.info('EPOCH', 'TRANSITION', {
+          newEpoch: this.currentEpoch,
+          slot: this.currentSlot
+        });
       }
 
       if (this.shouldProposeBlock()) {
-        await this.blockProducer.produceBlock(this.currentSlot);
+        try {
+          await this.blockProducer.produceBlock(this.currentSlot);
+        } catch (error) {
+          this.auditLogger.error('BLOCK', 'PRODUCTION_FAILED', {
+            slot: this.currentSlot,
+            error: error instanceof Error ? error.message : 'Unknown error'
+          });
+        }
       }
 
-      await this.attestationService.attest(this.currentSlot, this.currentEpoch);
+      try {
+        await this.attestationService.attest(this.currentSlot, this.currentEpoch);
+      } catch (error) {
+        this.auditLogger.error('ATTESTATION', 'FAILED', {
+          slot: this.currentSlot,
+          error: error instanceof Error ? error.message : 'Unknown error'
+        });
+      }
       
     }, slotDuration);
 
@@ -171,6 +283,40 @@ export class ValidatorNode extends EventEmitter {
     console.log(`[ValidatorNode] Heartbeat started (${this.config.heartbeatIntervalMs}ms interval)`);
   }
 
+  private startSecurityMonitoring(): void {
+    this.securityCheckInterval = setInterval(() => {
+      this.performSecurityCheck();
+    }, 60000);
+
+    console.log('[ValidatorNode] Security monitoring started (60s interval)');
+  }
+
+  private async performSecurityCheck(): Promise<void> {
+    this.lastSecurityCheck = Date.now();
+    
+    const signerStats = this.signerClient.getSecurityStats();
+    
+    if (signerStats.isBlocked) {
+      this.auditLogger.security('SECURITY', 'VALIDATOR_BLOCKED_STATUS', {
+        stats: signerStats
+      });
+    }
+
+    if (signerStats.anomalyStats.alertCount > 0) {
+      this.auditLogger.warn('SECURITY', 'ANOMALY_SUMMARY', {
+        alertCount: signerStats.anomalyStats.alertCount,
+        totalSignings: signerStats.anomalyStats.totalSignings,
+        totalFailures: signerStats.anomalyStats.totalFailures,
+        avgLatency: signerStats.anomalyStats.avgLatency
+      });
+    }
+
+    this.emit('security:check', {
+      timestamp: this.lastSecurityCheck,
+      stats: signerStats
+    });
+  }
+
   private shouldProposeBlock(): boolean {
     const hash = this.hashSlotWithValidator(this.currentSlot);
     const proposerIndex = parseInt(hash.slice(0, 8), 16) % 125;
@@ -181,7 +327,6 @@ export class ValidatorNode extends EventEmitter {
   }
 
   private hashSlotWithValidator(slot: number): string {
-    const crypto = require('crypto');
     return crypto.createHash('sha256')
       .update(`${slot}-${this.config.chainId}`)
       .digest('hex');
@@ -206,11 +351,29 @@ export class ValidatorNode extends EventEmitter {
       blocksProposed: this.blocksProposed,
       attestationsMade: this.attestationsMade,
       uptime: this.isRunning ? Date.now() - this.startTime : 0,
-      signerStatus: this.signerClient.isReady() ? 'connected' : 'disconnected'
+      signerStatus: this.signerClient.isReady() ? 'connected' : 'disconnected',
+      securityStatus: {
+        enabled: this.enableSecurity,
+        alertCount: this.securityAlertCount,
+        blocked: false,
+        lastCheck: this.lastSecurityCheck
+      }
     };
+  }
+
+  getSecurityStats() {
+    return this.signerClient.getSecurityStats();
+  }
+
+  getSignerStats() {
+    return this.signerClient.getStats();
   }
 
   getConfig(): ValidatorConfig {
     return this.config;
+  }
+
+  isSecurityEnabled(): boolean {
+    return this.enableSecurity;
   }
 }

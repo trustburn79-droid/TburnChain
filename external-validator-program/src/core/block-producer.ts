@@ -5,10 +5,20 @@
 
 import { EventEmitter } from 'events';
 import * as crypto from 'crypto';
-import { RemoteSignerClient } from './remote-signer-client.js';
+
+export interface SignerClient {
+  signBlock(request: {
+    slot: number;
+    blockHash: string;
+    stateRoot: string;
+    parentHash: string;
+    transactionRoot: string;
+    proposerIndex: number;
+  }): Promise<{ success: boolean; signature?: string; error?: string }>;
+}
 
 export interface BlockProducerConfig {
-  signerClient: RemoteSignerClient;
+  signerClient: SignerClient;
   validatorAddress: string;
   blockTimeMs: number;
   maxTxPerBlock: number;
@@ -27,7 +37,7 @@ export interface ProducedBlock {
 }
 
 export class BlockProducer extends EventEmitter {
-  private signerClient: RemoteSignerClient;
+  private signerClient: SignerClient;
   private validatorAddress: string;
   private blockTimeMs: number;
   private maxTxPerBlock: number;

@@ -10,9 +10,10 @@ export const CRYPTO_CONFIG = {
   HMAC_ALGORITHM: 'sha3-256',
   SYMMETRIC_ALGORITHM: 'aes-256-gcm',
   KDF_ALGORITHM: 'scrypt',
-  KDF_ITERATIONS: 2 ** 17,
-  KDF_MEMORY: 2 ** 20,
-  KDF_PARALLELISM: 4,
+  KDF_N: 2 ** 14,
+  KDF_R: 8,
+  KDF_P: 1,
+  KDF_MAXMEM: 64 * 1024 * 1024,
   NONCE_LENGTH: 32,
   IV_LENGTH: 16,
   AUTH_TAG_LENGTH: 16,
@@ -38,10 +39,10 @@ export class CryptoUtils {
         salt,
         CRYPTO_CONFIG.KEY_LENGTH,
         {
-          N: CRYPTO_CONFIG.KDF_ITERATIONS,
-          r: 8,
-          p: CRYPTO_CONFIG.KDF_PARALLELISM,
-          maxmem: CRYPTO_CONFIG.KDF_MEMORY
+          N: CRYPTO_CONFIG.KDF_N,
+          r: CRYPTO_CONFIG.KDF_R,
+          p: CRYPTO_CONFIG.KDF_P,
+          maxmem: CRYPTO_CONFIG.KDF_MAXMEM
         },
         (err, derivedKey) => {
           if (err) reject(err);
