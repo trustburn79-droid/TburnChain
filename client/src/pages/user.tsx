@@ -2198,44 +2198,55 @@ function StakingDashboardSection({
 }) {
   const { t } = useTranslation();
   const { toast } = useToast();
-  const [selectedTier, setSelectedTier] = useState<1 | 2 | 3 | null>(null);
+  const [selectedTier, setSelectedTier] = useState<'genesis' | 'pioneer' | 'standard' | 'community' | null>(null);
   const [stakeAmount, setStakeAmount] = useState("");
 
   const availableBalance = parseFloat(balance || "0");
 
   const tierData = {
-    tier1: {
-      name: t('userPage.validatorTiers.tier1Name'),
-      requirement: "200K+ TBURN",
-      maxMembers: 512,
-      currentMembers: 125,
-      apy: 8.01,
-      dailyRewards: 250310,
+    genesis: {
+      name: "Genesis",
+      requirement: "1.00M+ TBURN",
+      maxSlots: 50,
+      currentSlots: 50,
+      apyRange: "20-25%",
+      feeRange: "1-5%",
       color: "yellow",
       icon: Crown,
+      minStake: 1000000
+    },
+    pioneer: {
+      name: "Pioneer",
+      requirement: "500.00K+ TBURN",
+      maxSlots: 100,
+      currentSlots: 100,
+      apyRange: "16-20%",
+      feeRange: "5-15%",
+      color: "purple",
+      icon: Rocket,
+      minStake: 500000
+    },
+    standard: {
+      name: "Standard",
+      requirement: "200.00K+ TBURN",
+      maxSlots: 150,
+      currentSlots: 150,
+      apyRange: "14-18%",
+      feeRange: "10-20%",
+      color: "yellow",
+      icon: Star,
       minStake: 200000
     },
-    tier2: {
-      name: t('userPage.validatorTiers.tier2Name'),
-      requirement: "50K+ TBURN",
-      maxMembers: 4488,
-      currentMembers: 0,
-      apy: 4,
-      dailyRewards: 150180,
-      color: "emerald",
-      icon: Shield,
-      minStake: 50000
-    },
-    tier3: {
-      name: t('userPage.validatorTiers.tier3Name'),
-      requirement: "100+ TBURN",
-      maxMembers: null,
-      currentMembers: 5000,
-      apy: 5,
-      dailyRewards: 100120,
-      color: "blue",
+    community: {
+      name: "Community",
+      requirement: "100.00K+ TBURN",
+      maxSlots: 75,
+      currentSlots: 75,
+      apyRange: "12-15%",
+      feeRange: "15-30%",
+      color: "green",
       icon: Users,
-      minStake: 100
+      minStake: 100000
     }
   };
 
@@ -2249,7 +2260,8 @@ function StakingDashboardSection({
       return;
     }
     const amount = parseFloat(stakeAmount);
-    const minStake = selectedTier === 1 ? tierData.tier1.minStake : selectedTier === 2 ? tierData.tier2.minStake : tierData.tier3.minStake;
+    const selectedTierData = tierData[selectedTier];
+    const minStake = selectedTierData.minStake;
     
     if (isNaN(amount) || amount < minStake) {
       toast({ 
@@ -2260,10 +2272,9 @@ function StakingDashboardSection({
       return;
     }
     
-    const tierName = selectedTier === 1 ? tierData.tier1.name : selectedTier === 2 ? tierData.tier2.name : tierData.tier3.name;
     toast({ 
       title: t('userPage.validatorTiers.applicationSubmitted'), 
-      description: t('userPage.validatorTiers.applicationProcessing', { tier: tierName, amount: amount.toLocaleString() })
+      description: t('userPage.validatorTiers.applicationProcessing', { tier: selectedTierData.name, amount: amount.toLocaleString() })
     });
     setStakeAmount("");
     setSelectedTier(null);
@@ -2293,117 +2304,155 @@ function StakingDashboardSection({
       </div>
 
       {/* Tier Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
-        {/* Tier 1: Active Committee */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        {/* Genesis Tier */}
         <div 
-          onClick={() => setSelectedTier(1)}
-          className={`relative bg-gradient-to-br from-yellow-900/20 to-yellow-800/10 dark:from-yellow-900/30 dark:to-yellow-800/20 p-6 rounded-2xl border-2 cursor-pointer transition-all ${
-            selectedTier === 1 
+          onClick={() => setSelectedTier('genesis')}
+          className={`relative bg-gradient-to-br from-yellow-900/20 to-yellow-800/10 dark:from-yellow-900/30 dark:to-yellow-800/20 p-5 rounded-2xl border-2 cursor-pointer transition-all ${
+            selectedTier === 'genesis' 
               ? "border-yellow-500 shadow-lg shadow-yellow-500/20" 
               : "border-yellow-500/30 hover:border-yellow-500/60"
           }`}
-          data-testid="tier-card-1"
+          data-testid="tier-card-genesis"
         >
-          <div className="flex items-center gap-2 mb-4">
+          <div className="flex items-center gap-2 mb-2">
             <Crown className="w-5 h-5 text-yellow-500" />
-            <span className="text-sm font-bold text-yellow-500">Tier 1: {tierData.tier1.name}</span>
+            <span className="text-sm font-bold text-yellow-500">{tierData.genesis.name}</span>
           </div>
           <p className="text-xs text-slate-400 dark:text-gray-500 mb-4">
-            {tierData.tier1.requirement}, {t('userPage.validatorTiers.maxMembers', { count: tierData.tier1.maxMembers })}
+            {tierData.genesis.requirement}, max {tierData.genesis.maxSlots}
           </p>
-          <div className="grid grid-cols-3 gap-2 text-center">
+          <div className="grid grid-cols-3 gap-1 text-center">
             <div>
-              <p className="text-2xl font-bold text-yellow-500">{tierData.tier1.currentMembers}</p>
-              <p className="text-xs text-slate-500 dark:text-gray-400">{t('userPage.validatorTiers.validators')}</p>
+              <p className="text-xl font-bold text-yellow-500">{tierData.genesis.currentSlots}</p>
+              <p className="text-xs text-slate-500 dark:text-gray-400">Max Slots</p>
             </div>
             <div>
-              <p className="text-2xl font-bold text-emerald-500">{tierData.tier1.apy}%</p>
+              <p className="text-xl font-bold text-emerald-500">{tierData.genesis.apyRange}</p>
               <p className="text-xs text-slate-500 dark:text-gray-400">APY</p>
             </div>
             <div>
-              <p className="text-2xl font-bold text-blue-400">{(tierData.tier1.dailyRewards / 1000).toFixed(2)}K</p>
-              <p className="text-xs text-slate-500 dark:text-gray-400">TBURN/{t('userPage.validatorTiers.day')}</p>
+              <p className="text-xl font-bold text-blue-400">{tierData.genesis.feeRange}</p>
+              <p className="text-xs text-slate-500 dark:text-gray-400">Commission</p>
             </div>
           </div>
-          {selectedTier === 1 && (
+          {selectedTier === 'genesis' && (
             <div className="absolute top-3 right-3">
-              <CheckCircle className="w-6 h-6 text-yellow-500" />
+              <CheckCircle className="w-5 h-5 text-yellow-500" />
             </div>
           )}
         </div>
 
-        {/* Tier 2: Standby Validators */}
+        {/* Pioneer Tier */}
         <div 
-          onClick={() => setSelectedTier(2)}
-          className={`relative bg-gradient-to-br from-emerald-900/20 to-emerald-800/10 dark:from-emerald-900/30 dark:to-emerald-800/20 p-6 rounded-2xl border-2 cursor-pointer transition-all ${
-            selectedTier === 2 
+          onClick={() => setSelectedTier('pioneer')}
+          className={`relative bg-gradient-to-br from-purple-900/20 to-purple-800/10 dark:from-purple-900/30 dark:to-purple-800/20 p-5 rounded-2xl border-2 cursor-pointer transition-all ${
+            selectedTier === 'pioneer' 
+              ? "border-purple-500 shadow-lg shadow-purple-500/20" 
+              : "border-purple-500/30 hover:border-purple-500/60"
+          }`}
+          data-testid="tier-card-pioneer"
+        >
+          <div className="flex items-center gap-2 mb-2">
+            <Rocket className="w-5 h-5 text-purple-500" />
+            <span className="text-sm font-bold text-purple-500">{tierData.pioneer.name}</span>
+          </div>
+          <p className="text-xs text-slate-400 dark:text-gray-500 mb-4">
+            {tierData.pioneer.requirement}, max {tierData.pioneer.maxSlots}
+          </p>
+          <div className="grid grid-cols-3 gap-1 text-center">
+            <div>
+              <p className="text-xl font-bold text-purple-500">{tierData.pioneer.currentSlots}</p>
+              <p className="text-xs text-slate-500 dark:text-gray-400">Max Slots</p>
+            </div>
+            <div>
+              <p className="text-xl font-bold text-emerald-500">{tierData.pioneer.apyRange}</p>
+              <p className="text-xs text-slate-500 dark:text-gray-400">APY</p>
+            </div>
+            <div>
+              <p className="text-xl font-bold text-blue-400">{tierData.pioneer.feeRange}</p>
+              <p className="text-xs text-slate-500 dark:text-gray-400">Commission</p>
+            </div>
+          </div>
+          {selectedTier === 'pioneer' && (
+            <div className="absolute top-3 right-3">
+              <CheckCircle className="w-5 h-5 text-purple-500" />
+            </div>
+          )}
+        </div>
+
+        {/* Standard Tier */}
+        <div 
+          onClick={() => setSelectedTier('standard')}
+          className={`relative bg-gradient-to-br from-amber-900/20 to-amber-800/10 dark:from-amber-900/30 dark:to-amber-800/20 p-5 rounded-2xl border-2 cursor-pointer transition-all ${
+            selectedTier === 'standard' 
+              ? "border-amber-500 shadow-lg shadow-amber-500/20" 
+              : "border-amber-500/30 hover:border-amber-500/60"
+          }`}
+          data-testid="tier-card-standard"
+        >
+          <div className="flex items-center gap-2 mb-2">
+            <Star className="w-5 h-5 text-amber-500" />
+            <span className="text-sm font-bold text-amber-500">{tierData.standard.name}</span>
+          </div>
+          <p className="text-xs text-slate-400 dark:text-gray-500 mb-4">
+            {tierData.standard.requirement}, max {tierData.standard.maxSlots}
+          </p>
+          <div className="grid grid-cols-3 gap-1 text-center">
+            <div>
+              <p className="text-xl font-bold text-amber-500">{tierData.standard.currentSlots}</p>
+              <p className="text-xs text-slate-500 dark:text-gray-400">Max Slots</p>
+            </div>
+            <div>
+              <p className="text-xl font-bold text-emerald-500">{tierData.standard.apyRange}</p>
+              <p className="text-xs text-slate-500 dark:text-gray-400">APY</p>
+            </div>
+            <div>
+              <p className="text-xl font-bold text-blue-400">{tierData.standard.feeRange}</p>
+              <p className="text-xs text-slate-500 dark:text-gray-400">Commission</p>
+            </div>
+          </div>
+          {selectedTier === 'standard' && (
+            <div className="absolute top-3 right-3">
+              <CheckCircle className="w-5 h-5 text-amber-500" />
+            </div>
+          )}
+        </div>
+
+        {/* Community Tier */}
+        <div 
+          onClick={() => setSelectedTier('community')}
+          className={`relative bg-gradient-to-br from-emerald-900/20 to-emerald-800/10 dark:from-emerald-900/30 dark:to-emerald-800/20 p-5 rounded-2xl border-2 cursor-pointer transition-all ${
+            selectedTier === 'community' 
               ? "border-emerald-500 shadow-lg shadow-emerald-500/20" 
               : "border-emerald-500/30 hover:border-emerald-500/60"
           }`}
-          data-testid="tier-card-2"
+          data-testid="tier-card-community"
         >
-          <div className="flex items-center gap-2 mb-4">
-            <Shield className="w-5 h-5 text-emerald-500" />
-            <span className="text-sm font-bold text-emerald-500">Tier 2: {tierData.tier2.name}</span>
+          <div className="flex items-center gap-2 mb-2">
+            <Users className="w-5 h-5 text-emerald-500" />
+            <span className="text-sm font-bold text-emerald-500">{tierData.community.name}</span>
           </div>
           <p className="text-xs text-slate-400 dark:text-gray-500 mb-4">
-            {tierData.tier2.requirement}, {t('userPage.validatorTiers.maxMembers', { count: tierData.tier2.maxMembers })}
+            {tierData.community.requirement}, max {tierData.community.maxSlots}
           </p>
-          <div className="grid grid-cols-3 gap-2 text-center">
+          <div className="grid grid-cols-3 gap-1 text-center">
             <div>
-              <p className="text-2xl font-bold text-emerald-500">{tierData.tier2.currentMembers}</p>
-              <p className="text-xs text-slate-500 dark:text-gray-400">{t('userPage.validatorTiers.validators')}</p>
+              <p className="text-xl font-bold text-emerald-500">{tierData.community.currentSlots}</p>
+              <p className="text-xs text-slate-500 dark:text-gray-400">Max Slots</p>
             </div>
             <div>
-              <p className="text-2xl font-bold text-emerald-500">{tierData.tier2.apy}%</p>
+              <p className="text-xl font-bold text-emerald-500">{tierData.community.apyRange}</p>
               <p className="text-xs text-slate-500 dark:text-gray-400">APY</p>
             </div>
             <div>
-              <p className="text-2xl font-bold text-blue-400">{(tierData.tier2.dailyRewards / 1000).toFixed(2)}K</p>
-              <p className="text-xs text-slate-500 dark:text-gray-400">TBURN/{t('userPage.validatorTiers.day')}</p>
+              <p className="text-xl font-bold text-blue-400">{tierData.community.feeRange}</p>
+              <p className="text-xs text-slate-500 dark:text-gray-400">Commission</p>
             </div>
           </div>
-          {selectedTier === 2 && (
+          {selectedTier === 'community' && (
             <div className="absolute top-3 right-3">
-              <CheckCircle className="w-6 h-6 text-emerald-500" />
-            </div>
-          )}
-        </div>
-
-        {/* Tier 3: Delegators */}
-        <div 
-          onClick={() => setSelectedTier(3)}
-          className={`relative bg-gradient-to-br from-blue-900/20 to-blue-800/10 dark:from-blue-900/30 dark:to-blue-800/20 p-6 rounded-2xl border-2 cursor-pointer transition-all ${
-            selectedTier === 3 
-              ? "border-blue-500 shadow-lg shadow-blue-500/20" 
-              : "border-blue-500/30 hover:border-blue-500/60"
-          }`}
-          data-testid="tier-card-3"
-        >
-          <div className="flex items-center gap-2 mb-4">
-            <Users className="w-5 h-5 text-blue-500" />
-            <span className="text-sm font-bold text-blue-500">Tier 3: {tierData.tier3.name}</span>
-          </div>
-          <p className="text-xs text-slate-400 dark:text-gray-500 mb-4">
-            {tierData.tier3.requirement}, {t('userPage.validatorTiers.unlimited')}
-          </p>
-          <div className="grid grid-cols-3 gap-2 text-center">
-            <div>
-              <p className="text-2xl font-bold text-blue-500">{(tierData.tier3.currentMembers / 1000).toFixed(2)}K</p>
-              <p className="text-xs text-slate-500 dark:text-gray-400">{t('userPage.validatorTiers.delegators')}</p>
-            </div>
-            <div>
-              <p className="text-2xl font-bold text-emerald-500">{tierData.tier3.apy}%</p>
-              <p className="text-xs text-slate-500 dark:text-gray-400">APY</p>
-            </div>
-            <div>
-              <p className="text-2xl font-bold text-blue-400">{(tierData.tier3.dailyRewards / 1000).toFixed(2)}K</p>
-              <p className="text-xs text-slate-500 dark:text-gray-400">TBURN/{t('userPage.validatorTiers.day')}</p>
-            </div>
-          </div>
-          {selectedTier === 3 && (
-            <div className="absolute top-3 right-3">
-              <CheckCircle className="w-6 h-6 text-blue-500" />
+              <CheckCircle className="w-5 h-5 text-emerald-500" />
             </div>
           )}
         </div>
@@ -2440,7 +2489,7 @@ function StakingDashboardSection({
                 <div className="relative">
                   <Input
                     type="number"
-                    placeholder={selectedTier === 1 ? "200,000" : selectedTier === 2 ? "50,000" : "100"}
+                    placeholder={selectedTier ? tierData[selectedTier].minStake.toLocaleString() : "Select a tier"}
                     value={stakeAmount}
                     onChange={(e) => setStakeAmount(e.target.value)}
                     className="text-lg font-mono pr-16 bg-slate-50 dark:bg-gray-800 border-slate-200 dark:border-gray-700"
@@ -2476,30 +2525,38 @@ function StakingDashboardSection({
 
               {selectedTier && (
                 <div className={`rounded-xl p-4 space-y-2 ${
-                  selectedTier === 1 ? "bg-yellow-50 dark:bg-yellow-500/10" :
-                  selectedTier === 2 ? "bg-emerald-50 dark:bg-emerald-500/10" :
-                  "bg-blue-50 dark:bg-blue-500/10"
+                  selectedTier === 'genesis' ? "bg-yellow-50 dark:bg-yellow-500/10" :
+                  selectedTier === 'pioneer' ? "bg-purple-50 dark:bg-purple-500/10" :
+                  selectedTier === 'standard' ? "bg-amber-50 dark:bg-amber-500/10" :
+                  "bg-emerald-50 dark:bg-emerald-500/10"
                 }`}>
                   <div className="flex justify-between text-sm">
                     <span className="text-slate-600 dark:text-gray-400">{t('userPage.validatorTiers.selectedTierLabel')}</span>
                     <span className={`font-bold ${
-                      selectedTier === 1 ? "text-yellow-500" :
-                      selectedTier === 2 ? "text-emerald-500" :
-                      "text-blue-500"
+                      selectedTier === 'genesis' ? "text-yellow-500" :
+                      selectedTier === 'pioneer' ? "text-purple-500" :
+                      selectedTier === 'standard' ? "text-amber-500" :
+                      "text-emerald-500"
                     }`}>
-                      Tier {selectedTier}: {selectedTier === 1 ? tierData.tier1.name : selectedTier === 2 ? tierData.tier2.name : tierData.tier3.name}
+                      {tierData[selectedTier].name}
                     </span>
                   </div>
                   <div className="flex justify-between text-sm">
                     <span className="text-slate-600 dark:text-gray-400">{t('userPage.validatorTiers.minRequirement')}</span>
                     <span className="font-bold text-slate-800 dark:text-white font-mono">
-                      {selectedTier === 1 ? "200,000" : selectedTier === 2 ? "50,000" : "100"} TBURN
+                      {tierData[selectedTier].minStake.toLocaleString()} TBURN
                     </span>
                   </div>
                   <div className="flex justify-between text-sm">
                     <span className="text-slate-600 dark:text-gray-400">{t('userPage.validatorTiers.estimatedAPY')}</span>
                     <span className="font-bold text-emerald-500">
-                      {selectedTier === 1 ? tierData.tier1.apy : selectedTier === 2 ? tierData.tier2.apy : tierData.tier3.apy}%
+                      {tierData[selectedTier].apyRange}
+                    </span>
+                  </div>
+                  <div className="flex justify-between text-sm">
+                    <span className="text-slate-600 dark:text-gray-400">Commission</span>
+                    <span className="font-bold text-blue-400">
+                      {tierData[selectedTier].feeRange}
                     </span>
                   </div>
                 </div>
@@ -2508,15 +2565,16 @@ function StakingDashboardSection({
               <Button
                 onClick={handleApply}
                 className={`w-full ${
-                  selectedTier === 1 ? "bg-gradient-to-r from-yellow-500 to-yellow-600 hover:from-yellow-600 hover:to-yellow-700" :
-                  selectedTier === 2 ? "bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700" :
-                  "bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700"
+                  selectedTier === 'genesis' ? "bg-gradient-to-r from-yellow-500 to-yellow-600 hover:from-yellow-600 hover:to-yellow-700" :
+                  selectedTier === 'pioneer' ? "bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700" :
+                  selectedTier === 'standard' ? "bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700" :
+                  "bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700"
                 }`}
                 disabled={!selectedTier || !stakeAmount || parseFloat(stakeAmount) <= 0}
                 data-testid="button-apply-validator"
               >
                 <Lock className="w-4 h-4 mr-2" /> 
-                {selectedTier === 3 ? t('userPage.validatorTiers.applyDelegator') : t('userPage.validatorTiers.applyValidator')}
+                {t('userPage.validatorTiers.applyValidator')}
               </Button>
             </div>
           )}
