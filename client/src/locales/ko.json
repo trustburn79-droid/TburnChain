@@ -38215,5 +38215,91 @@
       },
       "copyright": "© 2025 TBURN CHAINS Foundation. All rights reserved."
     }
+  },
+  "adminValidatorRegistrations": {
+    "pageTitle": "검증인 등록 관리",
+    "pageDescription": "외부 검증인 등록 신청을 검토하고 승인/거부합니다.",
+    "refresh": "새로고침",
+    "status": {
+      "pending": "대기",
+      "underReview": "검토중",
+      "approved": "승인됨",
+      "rejected": "거부됨"
+    },
+    "registrationList": {
+      "title": "등록 신청 목록",
+      "description": "검증인 등록 신청을 검토하고 승인 또는 거부할 수 있습니다.",
+      "searchPlaceholder": "노드명, 주소, 조직명으로 검색...",
+      "statusFilter": "상태 필터",
+      "all": "전체",
+      "noRegistrations": "등록 신청이 없습니다."
+    },
+    "table": {
+      "nodeName": "노드명",
+      "address": "주소",
+      "organization": "조직",
+      "region": "지역",
+      "tier": "티어",
+      "staking": "스테이킹",
+      "status": "상태",
+      "submittedAt": "신청일",
+      "actions": "작업"
+    },
+    "detail": {
+      "title": "등록 신청 상세",
+      "description": "검증인 등록 신청 정보를 확인합니다.",
+      "nodeName": "노드명",
+      "organization": "조직",
+      "operatorAddress": "운영자 주소",
+      "email": "이메일",
+      "region": "지역",
+      "stakingAmount": "스테이킹 금액",
+      "tier": "티어",
+      "status": "상태",
+      "hardwareSpecs": "하드웨어 사양",
+      "cpu": "CPU",
+      "memory": "메모리",
+      "storage": "스토리지",
+      "rejectionReason": "거부 사유",
+      "nodeId": "노드 ID",
+      "close": "닫기"
+    },
+    "approve": {
+      "title": "등록 승인",
+      "description": "이 검증인 등록을 승인하시겠습니까? 승인 시 API 키가 생성됩니다.",
+      "nodeName": "노드명:",
+      "address": "주소:",
+      "tier": "티어:",
+      "apiKeyGenerated": "API 키가 생성되었습니다",
+      "apiKeyWarning": "이 API 키를 안전하게 보관하세요. 다시 표시되지 않습니다.",
+      "cancel": "취소",
+      "close": "닫기",
+      "processing": "처리중...",
+      "confirm": "승인"
+    },
+    "reject": {
+      "title": "등록 거부",
+      "description": "이 검증인 등록을 거부하시겠습니까? 거부 사유를 입력해주세요.",
+      "nodeName": "노드명:",
+      "address": "주소:",
+      "reasonLabel": "거부 사유 *",
+      "reasonPlaceholder": "거부 사유를 입력하세요...",
+      "cancel": "취소",
+      "processing": "처리중...",
+      "confirm": "거부"
+    },
+    "toast": {
+      "approveSuccess": "승인 완료",
+      "approveSuccessDesc": "검증인 등록이 승인되었습니다. API 키가 생성되었습니다.",
+      "approveFailed": "승인 실패",
+      "rejectSuccess": "거부 완료",
+      "rejectSuccessDesc": "검증인 등록이 거부되었습니다.",
+      "rejectFailed": "거부 실패",
+      "error": "오류",
+      "approveError": "승인 처리 중 오류가 발생했습니다.",
+      "rejectError": "거부 처리 중 오류가 발생했습니다.",
+      "copied": "복사됨",
+      "copiedDesc": "API 키가 클립보드에 복사되었습니다."
+    }
   }
 }

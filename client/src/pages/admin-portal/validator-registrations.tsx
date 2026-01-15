@@ -11,6 +11,7 @@ import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, D
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
+import { useTranslation } from "react-i18next";
 import { 
   CheckCircle, 
   XCircle, 
@@ -65,13 +66,6 @@ interface RegistrationsResponse {
   };
 }
 
-const STATUS_CONFIG = {
-  pending: { label: '대기', color: 'bg-yellow-500/20 text-yellow-500', icon: Clock },
-  under_review: { label: '검토중', color: 'bg-blue-500/20 text-blue-500', icon: Eye },
-  approved: { label: '승인됨', color: 'bg-emerald-500/20 text-emerald-500', icon: CheckCircle },
-  rejected: { label: '거부됨', color: 'bg-red-500/20 text-red-500', icon: XCircle },
-};
-
 const TIER_CONFIG = {
   genesis: { label: 'Genesis', color: 'bg-purple-500/20 text-purple-400' },
   pioneer: { label: 'Pioneer', color: 'bg-orange-500/20 text-orange-400' },
@@ -93,6 +87,7 @@ function formatStake(weiAmount: string): string {
 
 export default function AdminValidatorRegistrations() {
   const { toast } = useToast();
+  const { t } = useTranslation();
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedRegistration, setSelectedRegistration] = useState<Registration | null>(null);
@@ -101,6 +96,13 @@ export default function AdminValidatorRegistrations() {
   const [showRejectDialog, setShowRejectDialog] = useState(false);
   const [rejectionReason, setRejectionReason] = useState('');
   const [approvedApiKey, setApprovedApiKey] = useState('');
+
+  const statusConfig = {
+    pending: { label: t('adminValidatorRegistrations.status.pending'), color: 'bg-yellow-500/20 text-yellow-500', icon: Clock },
+    under_review: { label: t('adminValidatorRegistrations.status.underReview'), color: 'bg-blue-500/20 text-blue-500', icon: Eye },
+    approved: { label: t('adminValidatorRegistrations.status.approved'), color: 'bg-emerald-500/20 text-emerald-500', icon: CheckCircle },
+    rejected: { label: t('adminValidatorRegistrations.status.rejected'), color: 'bg-red-500/20 text-red-500', icon: XCircle },
+  };
 
   const { data, isLoading, refetch } = useQuery<RegistrationsResponse>({
     queryKey: ['/api/external-validators/admin/registrations'],
@@ -116,13 +118,13 @@ export default function AdminValidatorRegistrations() {
       if (result.success) {
         setApprovedApiKey(result.data.apiKey || '');
         toast({
-          title: '승인 완료',
-          description: '검증인 등록이 승인되었습니다. API 키가 생성되었습니다.',
+          title: t('adminValidatorRegistrations.toast.approveSuccess'),
+          description: t('adminValidatorRegistrations.toast.approveSuccessDesc'),
         });
         queryClient.invalidateQueries({ queryKey: ['/api/external-validators/admin/registrations'] });
       } else {
         toast({
-          title: '승인 실패',
+          title: t('adminValidatorRegistrations.toast.approveFailed'),
           description: result.error,
           variant: 'destructive',
         });
@@ -130,8 +132,8 @@ export default function AdminValidatorRegistrations() {
     },
     onError: (error: any) => {
       toast({
-        title: '오류',
-        description: error.message || '승인 처리 중 오류가 발생했습니다.',
+        title: t('adminValidatorRegistrations.toast.error'),
+        description: error.message || t('adminValidatorRegistrations.toast.approveError'),
         variant: 'destructive',
       });
     },
@@ -147,13 +149,13 @@ export default function AdminValidatorRegistrations() {
         setShowRejectDialog(false);
         setRejectionReason('');
         toast({
-          title: '거부 완료',
-          description: '검증인 등록이 거부되었습니다.',
+          title: t('adminValidatorRegistrations.toast.rejectSuccess'),
+          description: t('adminValidatorRegistrations.toast.rejectSuccessDesc'),
         });
         queryClient.invalidateQueries({ queryKey: ['/api/external-validators/admin/registrations'] });
       } else {
         toast({
-          title: '거부 실패',
+          title: t('adminValidatorRegistrations.toast.rejectFailed'),
           description: result.error,
           variant: 'destructive',
         });
@@ -161,8 +163,8 @@ export default function AdminValidatorRegistrations() {
     },
     onError: (error: any) => {
       toast({
-        title: '오류',
-        description: error.message || '거부 처리 중 오류가 발생했습니다.',
+        title: t('adminValidatorRegistrations.toast.error'),
+        description: error.message || t('adminValidatorRegistrations.toast.rejectError'),
         variant: 'destructive',
       });
     },
@@ -211,19 +213,19 @@ export default function AdminValidatorRegistrations() {
 
   const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text);
-    toast({ title: '복사됨', description: 'API 키가 클립보드에 복사되었습니다.' });
+    toast({ title: t('adminValidatorRegistrations.toast.copied'), description: t('adminValidatorRegistrations.toast.copiedDesc') });
   };
 
   return (
     <div className="container mx-auto p-6 space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold">검증인 등록 관리</h1>
-          <p className="text-muted-foreground">외부 검증인 등록 신청을 검토하고 승인/거부합니다.</p>
+          <h1 className="text-2xl font-bold">{t('adminValidatorRegistrations.pageTitle')}</h1>
+          <p className="text-muted-foreground">{t('adminValidatorRegistrations.pageDescription')}</p>
         </div>
         <Button variant="outline" onClick={() => refetch()} data-testid="button-refresh">
           <RefreshCw className="h-4 w-4 mr-2" />
-          새로고침
+          {t('adminValidatorRegistrations.refresh')}
         </Button>
       </div>
 
@@ -235,7 +237,7 @@ export default function AdminValidatorRegistrations() {
                 <Clock className="h-5 w-5 text-yellow-500" />
               </div>
               <div>
-                <p className="text-sm text-muted-foreground">대기</p>
+                <p className="text-sm text-muted-foreground">{t('adminValidatorRegistrations.status.pending')}</p>
                 <p className="text-2xl font-bold">{summary.pending}</p>
               </div>
             </div>
@@ -248,7 +250,7 @@ export default function AdminValidatorRegistrations() {
                 <Eye className="h-5 w-5 text-blue-500" />
               </div>
               <div>
-                <p className="text-sm text-muted-foreground">검토중</p>
+                <p className="text-sm text-muted-foreground">{t('adminValidatorRegistrations.status.underReview')}</p>
                 <p className="text-2xl font-bold">{summary.underReview}</p>
               </div>
             </div>
@@ -261,7 +263,7 @@ export default function AdminValidatorRegistrations() {
                 <CheckCircle className="h-5 w-5 text-emerald-500" />
               </div>
               <div>
-                <p className="text-sm text-muted-foreground">승인됨</p>
+                <p className="text-sm text-muted-foreground">{t('adminValidatorRegistrations.status.approved')}</p>
                 <p className="text-2xl font-bold">{summary.approved}</p>
               </div>
             </div>
@@ -274,7 +276,7 @@ export default function AdminValidatorRegistrations() {
                 <XCircle className="h-5 w-5 text-red-500" />
               </div>
               <div>
-                <p className="text-sm text-muted-foreground">거부됨</p>
+                <p className="text-sm text-muted-foreground">{t('adminValidatorRegistrations.status.rejected')}</p>
                 <p className="text-2xl font-bold">{summary.rejected}</p>
               </div>
             </div>
@@ -284,15 +286,15 @@ export default function AdminValidatorRegistrations() {
 
       <Card>
         <CardHeader>
-          <CardTitle>등록 신청 목록</CardTitle>
-          <CardDescription>검증인 등록 신청을 검토하고 승인 또는 거부할 수 있습니다.</CardDescription>
+          <CardTitle>{t('adminValidatorRegistrations.registrationList.title')}</CardTitle>
+          <CardDescription>{t('adminValidatorRegistrations.registrationList.description')}</CardDescription>
         </CardHeader>
         <CardContent>
           <div className="flex flex-col sm:flex-row gap-4 mb-6">
             <div className="relative flex-1">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
               <Input
-                placeholder="노드명, 주소, 조직명으로 검색..."
+                placeholder={t('adminValidatorRegistrations.registrationList.searchPlaceholder')}
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="pl-10"
@@ -301,14 +303,14 @@ export default function AdminValidatorRegistrations() {
             </div>
             <Select value={statusFilter} onValueChange={setStatusFilter}>
               <SelectTrigger className="w-[180px]" data-testid="select-status-filter">
-                <SelectValue placeholder="상태 필터" />
+                <SelectValue placeholder={t('adminValidatorRegistrations.registrationList.statusFilter')} />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="all">전체</SelectItem>
-                <SelectItem value="pending">대기</SelectItem>
-                <SelectItem value="under_review">검토중</SelectItem>
-                <SelectItem value="approved">승인됨</SelectItem>
-                <SelectItem value="rejected">거부됨</SelectItem>
+                <SelectItem value="all">{t('adminValidatorRegistrations.registrationList.all')}</SelectItem>
+                <SelectItem value="pending">{t('adminValidatorRegistrations.status.pending')}</SelectItem>
+                <SelectItem value="under_review">{t('adminValidatorRegistrations.status.underReview')}</SelectItem>
+                <SelectItem value="approved">{t('adminValidatorRegistrations.status.approved')}</SelectItem>
+                <SelectItem value="rejected">{t('adminValidatorRegistrations.status.rejected')}</SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -320,27 +322,27 @@ export default function AdminValidatorRegistrations() {
           ) : filteredRegistrations.length === 0 ? (
             <div className="flex flex-col items-center justify-center py-12 text-muted-foreground">
               <Server className="h-12 w-12 mb-4 opacity-50" />
-              <p>등록 신청이 없습니다.</p>
+              <p>{t('adminValidatorRegistrations.registrationList.noRegistrations')}</p>
             </div>
           ) : (
             <div className="border rounded-lg overflow-x-auto">
               <Table>
                 <TableHeader>
                   <TableRow>
-                    <TableHead>노드명</TableHead>
-                    <TableHead>주소</TableHead>
-                    <TableHead>조직</TableHead>
-                    <TableHead>지역</TableHead>
-                    <TableHead>티어</TableHead>
-                    <TableHead>스테이킹</TableHead>
-                    <TableHead>상태</TableHead>
-                    <TableHead>신청일</TableHead>
-                    <TableHead className="text-right">작업</TableHead>
+                    <TableHead>{t('adminValidatorRegistrations.table.nodeName')}</TableHead>
+                    <TableHead>{t('adminValidatorRegistrations.table.address')}</TableHead>
+                    <TableHead>{t('adminValidatorRegistrations.table.organization')}</TableHead>
+                    <TableHead>{t('adminValidatorRegistrations.table.region')}</TableHead>
+                    <TableHead>{t('adminValidatorRegistrations.table.tier')}</TableHead>
+                    <TableHead>{t('adminValidatorRegistrations.table.staking')}</TableHead>
+                    <TableHead>{t('adminValidatorRegistrations.table.status')}</TableHead>
+                    <TableHead>{t('adminValidatorRegistrations.table.submittedAt')}</TableHead>
+                    <TableHead className="text-right">{t('adminValidatorRegistrations.table.actions')}</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   {filteredRegistrations.map((reg) => {
-                    const StatusIcon = STATUS_CONFIG[reg.status]?.icon || Clock;
+                    const StatusIcon = statusConfig[reg.status]?.icon || Clock;
                     return (
                       <TableRow key={reg.id} data-testid={`row-registration-${reg.id}`}>
                         <TableCell className="font-medium">{reg.operatorName}</TableCell>
@@ -356,9 +358,9 @@ export default function AdminValidatorRegistrations() {
                         </TableCell>
                         <TableCell>{formatStake(reg.stakeAmount)}</TableCell>
                         <TableCell>
-                          <Badge className={STATUS_CONFIG[reg.status]?.color || ''}>
+                          <Badge className={statusConfig[reg.status]?.color || ''}>
                             <StatusIcon className="h-3 w-3 mr-1" />
-                            {STATUS_CONFIG[reg.status]?.label || reg.status}
+                            {statusConfig[reg.status]?.label || reg.status}
                           </Badge>
                         </TableCell>
                         <TableCell>{format(new Date(reg.submittedAt), 'yyyy-MM-dd HH:mm')}</TableCell>
@@ -409,68 +411,68 @@ export default function AdminValidatorRegistrations() {
       <Dialog open={showDetailDialog} onOpenChange={setShowDetailDialog}>
         <DialogContent className="max-w-2xl">
           <DialogHeader>
-            <DialogTitle>등록 신청 상세</DialogTitle>
-            <DialogDescription>검증인 등록 신청 정보를 확인합니다.</DialogDescription>
+            <DialogTitle>{t('adminValidatorRegistrations.detail.title')}</DialogTitle>
+            <DialogDescription>{t('adminValidatorRegistrations.detail.description')}</DialogDescription>
           </DialogHeader>
           {selectedRegistration && (
             <div className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-1">
                   <p className="text-sm text-muted-foreground flex items-center gap-1">
-                    <Server className="h-4 w-4" /> 노드명
+                    <Server className="h-4 w-4" /> {t('adminValidatorRegistrations.detail.nodeName')}
                   </p>
                   <p className="font-medium">{selectedRegistration.operatorName}</p>
                 </div>
                 <div className="space-y-1">
                   <p className="text-sm text-muted-foreground flex items-center gap-1">
-                    <Building className="h-4 w-4" /> 조직
+                    <Building className="h-4 w-4" /> {t('adminValidatorRegistrations.detail.organization')}
                   </p>
                   <p className="font-medium">{selectedRegistration.metadata?.organization || '-'}</p>
                 </div>
                 <div className="space-y-1">
                   <p className="text-sm text-muted-foreground flex items-center gap-1">
-                    <Shield className="h-4 w-4" /> 운영자 주소
+                    <Shield className="h-4 w-4" /> {t('adminValidatorRegistrations.detail.operatorAddress')}
                   </p>
                   <p className="font-mono text-sm break-all">{selectedRegistration.operatorAddress}</p>
                 </div>
                 <div className="space-y-1">
                   <p className="text-sm text-muted-foreground flex items-center gap-1">
-                    <Mail className="h-4 w-4" /> 이메일
+                    <Mail className="h-4 w-4" /> {t('adminValidatorRegistrations.detail.email')}
                   </p>
                   <p className="font-medium">{selectedRegistration.metadata?.email || '-'}</p>
                 </div>
                 <div className="space-y-1">
                   <p className="text-sm text-muted-foreground flex items-center gap-1">
-                    <MapPin className="h-4 w-4" /> 지역
+                    <MapPin className="h-4 w-4" /> {t('adminValidatorRegistrations.detail.region')}
                   </p>
                   <p className="font-medium capitalize">{selectedRegistration.region.replace('-', ' ')}</p>
                 </div>
                 <div className="space-y-1">
                   <p className="text-sm text-muted-foreground flex items-center gap-1">
-                    <Coins className="h-4 w-4" /> 스테이킹 금액
+                    <Coins className="h-4 w-4" /> {t('adminValidatorRegistrations.detail.stakingAmount')}
                   </p>
                   <p className="font-medium">{formatStake(selectedRegistration.stakeAmount)}</p>
                 </div>
               </div>
               
               <div className="flex items-center gap-2">
-                <p className="text-sm text-muted-foreground">티어:</p>
+                <p className="text-sm text-muted-foreground">{t('adminValidatorRegistrations.detail.tier')}:</p>
                 <Badge className={TIER_CONFIG[selectedRegistration.tier as keyof typeof TIER_CONFIG]?.color || ''}>
                   {TIER_CONFIG[selectedRegistration.tier as keyof typeof TIER_CONFIG]?.label || selectedRegistration.tier}
                 </Badge>
-                <p className="text-sm text-muted-foreground ml-4">상태:</p>
-                <Badge className={STATUS_CONFIG[selectedRegistration.status]?.color || ''}>
-                  {STATUS_CONFIG[selectedRegistration.status]?.label || selectedRegistration.status}
+                <p className="text-sm text-muted-foreground ml-4">{t('adminValidatorRegistrations.detail.status')}:</p>
+                <Badge className={statusConfig[selectedRegistration.status]?.color || ''}>
+                  {statusConfig[selectedRegistration.status]?.label || selectedRegistration.status}
                 </Badge>
               </div>
 
               {selectedRegistration.metadata?.hardware && (
                 <div className="space-y-2">
-                  <p className="text-sm text-muted-foreground">하드웨어 사양</p>
+                  <p className="text-sm text-muted-foreground">{t('adminValidatorRegistrations.detail.hardwareSpecs')}</p>
                   <div className="bg-muted/50 p-3 rounded-lg text-sm">
-                    <p>CPU: {selectedRegistration.metadata.hardware.cpu || '-'}</p>
-                    <p>메모리: {selectedRegistration.metadata.hardware.memory || '-'}</p>
-                    <p>스토리지: {selectedRegistration.metadata.hardware.storage || '-'}</p>
+                    <p>{t('adminValidatorRegistrations.detail.cpu')}: {selectedRegistration.metadata.hardware.cpu || '-'}</p>
+                    <p>{t('adminValidatorRegistrations.detail.memory')}: {selectedRegistration.metadata.hardware.memory || '-'}</p>
+                    <p>{t('adminValidatorRegistrations.detail.storage')}: {selectedRegistration.metadata.hardware.storage || '-'}</p>
                   </div>
                 </div>
               )}
@@ -478,7 +480,7 @@ export default function AdminValidatorRegistrations() {
               {selectedRegistration.rejectionReason && (
                 <div className="space-y-2">
                   <p className="text-sm text-muted-foreground flex items-center gap-1">
-                    <AlertTriangle className="h-4 w-4 text-red-500" /> 거부 사유
+                    <AlertTriangle className="h-4 w-4 text-red-500" /> {t('adminValidatorRegistrations.detail.rejectionReason')}
                   </p>
                   <p className="bg-red-500/10 text-red-500 p-3 rounded-lg text-sm">
                     {selectedRegistration.rejectionReason}
@@ -488,7 +490,7 @@ export default function AdminValidatorRegistrations() {
 
               {selectedRegistration.nodeId && (
                 <div className="space-y-2">
-                  <p className="text-sm text-muted-foreground">노드 ID</p>
+                  <p className="text-sm text-muted-foreground">{t('adminValidatorRegistrations.detail.nodeId')}</p>
                   <p className="font-mono text-sm bg-muted/50 p-2 rounded">{selectedRegistration.nodeId}</p>
                 </div>
               )}
@@ -496,7 +498,7 @@ export default function AdminValidatorRegistrations() {
           )}
           <DialogFooter>
             <Button variant="outline" onClick={() => setShowDetailDialog(false)}>
-              닫기
+              {t('adminValidatorRegistrations.detail.close')}
             </Button>
           </DialogFooter>
         </DialogContent>
@@ -505,23 +507,23 @@ export default function AdminValidatorRegistrations() {
       <Dialog open={showApproveDialog} onOpenChange={setShowApproveDialog}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>등록 승인</DialogTitle>
+            <DialogTitle>{t('adminValidatorRegistrations.approve.title')}</DialogTitle>
             <DialogDescription>
-              이 검증인 등록을 승인하시겠습니까? 승인 시 API 키가 생성됩니다.
+              {t('adminValidatorRegistrations.approve.description')}
             </DialogDescription>
           </DialogHeader>
           {selectedRegistration && (
             <div className="space-y-4">
               <div className="bg-muted/50 p-4 rounded-lg space-y-2">
-                <p><span className="text-muted-foreground">노드명:</span> {selectedRegistration.operatorName}</p>
-                <p><span className="text-muted-foreground">주소:</span> {selectedRegistration.operatorAddress.slice(0, 16)}...</p>
-                <p><span className="text-muted-foreground">티어:</span> {TIER_CONFIG[selectedRegistration.tier as keyof typeof TIER_CONFIG]?.label}</p>
+                <p><span className="text-muted-foreground">{t('adminValidatorRegistrations.approve.nodeName')}</span> {selectedRegistration.operatorName}</p>
+                <p><span className="text-muted-foreground">{t('adminValidatorRegistrations.approve.address')}</span> {selectedRegistration.operatorAddress.slice(0, 16)}...</p>
+                <p><span className="text-muted-foreground">{t('adminValidatorRegistrations.approve.tier')}</span> {TIER_CONFIG[selectedRegistration.tier as keyof typeof TIER_CONFIG]?.label}</p>
               </div>
 
               {approvedApiKey && (
                 <div className="bg-emerald-500/10 border border-emerald-500/30 p-4 rounded-lg space-y-2">
                   <p className="text-emerald-500 font-medium flex items-center gap-2">
-                    <CheckCircle className="h-4 w-4" /> API 키가 생성되었습니다
+                    <CheckCircle className="h-4 w-4" /> {t('adminValidatorRegistrations.approve.apiKeyGenerated')}
                   </p>
                   <div className="flex items-center gap-2">
                     <Input
@@ -540,7 +542,7 @@ export default function AdminValidatorRegistrations() {
                     </Button>
                   </div>
                   <p className="text-xs text-muted-foreground">
-                    이 API 키를 안전하게 보관하세요. 다시 표시되지 않습니다.
+                    {t('adminValidatorRegistrations.approve.apiKeyWarning')}
                   </p>
                 </div>
               )}
@@ -548,7 +550,7 @@ export default function AdminValidatorRegistrations() {
           )}
           <DialogFooter>
             <Button variant="outline" onClick={() => setShowApproveDialog(false)}>
-              {approvedApiKey ? '닫기' : '취소'}
+              {approvedApiKey ? t('adminValidatorRegistrations.approve.close') : t('adminValidatorRegistrations.approve.cancel')}
             </Button>
             {!approvedApiKey && (
               <Button 
@@ -556,7 +558,7 @@ export default function AdminValidatorRegistrations() {
                 disabled={approveMutation.isPending}
                 data-testid="button-confirm-approve"
               >
-                {approveMutation.isPending ? '처리중...' : '승인'}
+                {approveMutation.isPending ? t('adminValidatorRegistrations.approve.processing') : t('adminValidatorRegistrations.approve.confirm')}
               </Button>
             )}
           </DialogFooter>
@@ -566,23 +568,23 @@ export default function AdminValidatorRegistrations() {
       <Dialog open={showRejectDialog} onOpenChange={setShowRejectDialog}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>등록 거부</DialogTitle>
+            <DialogTitle>{t('adminValidatorRegistrations.reject.title')}</DialogTitle>
             <DialogDescription>
-              이 검증인 등록을 거부하시겠습니까? 거부 사유를 입력해주세요.
+              {t('adminValidatorRegistrations.reject.description')}
             </DialogDescription>
           </DialogHeader>
           {selectedRegistration && (
             <div className="space-y-4">
               <div className="bg-muted/50 p-4 rounded-lg space-y-2">
-                <p><span className="text-muted-foreground">노드명:</span> {selectedRegistration.operatorName}</p>
-                <p><span className="text-muted-foreground">주소:</span> {selectedRegistration.operatorAddress.slice(0, 16)}...</p>
+                <p><span className="text-muted-foreground">{t('adminValidatorRegistrations.reject.nodeName')}</span> {selectedRegistration.operatorName}</p>
+                <p><span className="text-muted-foreground">{t('adminValidatorRegistrations.reject.address')}</span> {selectedRegistration.operatorAddress.slice(0, 16)}...</p>
               </div>
               <div className="space-y-2">
-                <label className="text-sm font-medium">거부 사유 *</label>
+                <label className="text-sm font-medium">{t('adminValidatorRegistrations.reject.reasonLabel')}</label>
                 <Textarea
                   value={rejectionReason}
                   onChange={(e) => setRejectionReason(e.target.value)}
-                  placeholder="거부 사유를 입력하세요..."
+                  placeholder={t('adminValidatorRegistrations.reject.reasonPlaceholder')}
                   className="min-h-[100px]"
                   data-testid="textarea-rejection-reason"
                 />
@@ -591,7 +593,7 @@ export default function AdminValidatorRegistrations() {
           )}
           <DialogFooter>
             <Button variant="outline" onClick={() => setShowRejectDialog(false)}>
-              취소
+              {t('adminValidatorRegistrations.reject.cancel')}
             </Button>
             <Button 
               variant="destructive"
@@ -599,7 +601,7 @@ export default function AdminValidatorRegistrations() {
               disabled={rejectMutation.isPending || !rejectionReason.trim()}
               data-testid="button-confirm-reject"
             >
-              {rejectMutation.isPending ? '처리중...' : '거부'}
+              {rejectMutation.isPending ? t('adminValidatorRegistrations.reject.processing') : t('adminValidatorRegistrations.reject.confirm')}
             </Button>
           </DialogFooter>
         </DialogContent>

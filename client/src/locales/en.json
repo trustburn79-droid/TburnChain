@@ -33149,5 +33149,91 @@
       },
       "copyright": "© 2025 TBURN CHAINS Foundation. All rights reserved."
     }
+  },
+  "adminValidatorRegistrations": {
+    "pageTitle": "Validator Registration Management",
+    "pageDescription": "Review and approve/reject external validator registration applications.",
+    "refresh": "Refresh",
+    "status": {
+      "pending": "Pending",
+      "underReview": "Under Review",
+      "approved": "Approved",
+      "rejected": "Rejected"
+    },
+    "registrationList": {
+      "title": "Registration Applications",
+      "description": "Review and approve or reject validator registration applications.",
+      "searchPlaceholder": "Search by node name, address, organization...",
+      "statusFilter": "Status Filter",
+      "all": "All",
+      "noRegistrations": "No registration applications."
+    },
+    "table": {
+      "nodeName": "Node Name",
+      "address": "Address",
+      "organization": "Organization",
+      "region": "Region",
+      "tier": "Tier",
+      "staking": "Staking",
+      "status": "Status",
+      "submittedAt": "Submitted",
+      "actions": "Actions"
+    },
+    "detail": {
+      "title": "Registration Details",
+      "description": "View validator registration application details.",
+      "nodeName": "Node Name",
+      "organization": "Organization",
+      "operatorAddress": "Operator Address",
+      "email": "Email",
+      "region": "Region",
+      "stakingAmount": "Staking Amount",
+      "tier": "Tier",
+      "status": "Status",
+      "hardwareSpecs": "Hardware Specs",
+      "cpu": "CPU",
+      "memory": "Memory",
+      "storage": "Storage",
+      "rejectionReason": "Rejection Reason",
+      "nodeId": "Node ID",
+      "close": "Close"
+    },
+    "approve": {
+      "title": "Approve Registration",
+      "description": "Do you want to approve this validator registration? An API key will be generated upon approval.",
+      "nodeName": "Node Name:",
+      "address": "Address:",
+      "tier": "Tier:",
+      "apiKeyGenerated": "API key has been generated",
+      "apiKeyWarning": "Keep this API key safe. It will not be shown again.",
+      "cancel": "Cancel",
+      "close": "Close",
+      "processing": "Processing...",
+      "confirm": "Approve"
+    },
+    "reject": {
+      "title": "Reject Registration",
+      "description": "Do you want to reject this validator registration? Please enter the rejection reason.",
+      "nodeName": "Node Name:",
+      "address": "Address:",
+      "reasonLabel": "Rejection Reason *",
+      "reasonPlaceholder": "Enter rejection reason...",
+      "cancel": "Cancel",
+      "processing": "Processing...",
+      "confirm": "Reject"
+    },
+    "toast": {
+      "approveSuccess": "Approval Complete",
+      "approveSuccessDesc": "Validator registration has been approved. API key has been generated.",
+      "approveFailed": "Approval Failed",
+      "rejectSuccess": "Rejection Complete",
+      "rejectSuccessDesc": "Validator registration has been rejected.",
+      "rejectFailed": "Rejection Failed",
+      "error": "Error",
+      "approveError": "An error occurred while processing approval.",
+      "rejectError": "An error occurred while processing rejection.",
+      "copied": "Copied",
+      "copiedDesc": "API key has been copied to clipboard."
+    }
   }
 }
