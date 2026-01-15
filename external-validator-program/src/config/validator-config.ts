@@ -48,6 +48,11 @@ export interface ValidatorConfig {
   enableMetrics: boolean;
   enableRateLimiting: boolean;
   maxSignRequestsPerSec: number;
+  
+  mainnetApiUrl: string;
+  mainnetApiKey: string;
+  enableSecuritySync: boolean;
+  securitySyncIntervalMs: number;
 }
 
 export function loadConfig(): ValidatorConfig {
@@ -108,7 +113,13 @@ export function loadConfig(): ValidatorConfig {
     enableCloudMonitoring: process.env.ENABLE_CLOUD_MONITORING === 'true',
     enableMetrics: process.env.ENABLE_METRICS !== 'false',
     enableRateLimiting: process.env.ENABLE_RATE_LIMITING !== 'false',
-    maxSignRequestsPerSec: parseInt(process.env.MAX_SIGN_REQUESTS_PER_SEC || '100')
+    maxSignRequestsPerSec: parseInt(process.env.MAX_SIGN_REQUESTS_PER_SEC || '100'),
+    
+    mainnetApiUrl: process.env.MAINNET_API_URL || 
+      (network === 'mainnet' ? 'https://api.tburn.network' : 'https://testnet-api.tburn.network'),
+    mainnetApiKey: process.env.MAINNET_API_KEY || '',
+    enableSecuritySync: process.env.ENABLE_SECURITY_SYNC !== 'false',
+    securitySyncIntervalMs: parseInt(process.env.SECURITY_SYNC_INTERVAL_MS || '60000'),
   };
 }
 

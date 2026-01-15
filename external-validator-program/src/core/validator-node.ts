@@ -9,6 +9,7 @@ import { P2PNetwork } from './p2p-network.js';
 import { BlockProducer } from './block-producer.js';
 import { AttestationService } from './attestation-service.js';
 import { MetricsServer } from './metrics-server.js';
+import { MainnetSecurityClient, SecurityReport } from './mainnet-security-client.js';
 import { ValidatorConfig } from '../config/validator-config.js';
 import { SecurityManager, AuditLogger } from '../security/index.js';
 import * as crypto from 'crypto';
@@ -20,6 +21,7 @@ export interface ValidatorNodeConfig {
   blockProducer: BlockProducer;
   attestationService: AttestationService;
   metricsServer: MetricsServer;
+  mainnetSecurityClient?: MainnetSecurityClient;
   enableSecurity?: boolean;
 }
 
@@ -49,6 +51,7 @@ export class ValidatorNode extends EventEmitter {
   private blockProducer: BlockProducer;
   private attestationService: AttestationService;
   private metricsServer: MetricsServer;
+  private mainnetSecurityClient?: MainnetSecurityClient;
   private auditLogger: AuditLogger;
   
   private isRunning = false;
@@ -56,6 +59,7 @@ export class ValidatorNode extends EventEmitter {
   private heartbeatInterval?: NodeJS.Timeout;
   private slotInterval?: NodeJS.Timeout;
   private securityCheckInterval?: NodeJS.Timeout;
+  private securityReportInterval?: NodeJS.Timeout;
   
   private currentSlot = 0;
   private currentEpoch = 0;
@@ -64,6 +68,7 @@ export class ValidatorNode extends EventEmitter {
   private securityAlertCount = 0;
   private lastSecurityCheck = 0;
   private enableSecurity: boolean;
+  private isBlockedByMainnet = false;
 
   constructor(nodeConfig: ValidatorNodeConfig) {
     super();
@@ -73,6 +78,7 @@ export class ValidatorNode extends EventEmitter {
     this.blockProducer = nodeConfig.blockProducer;
     this.attestationService = nodeConfig.attestationService;
     this.metricsServer = nodeConfig.metricsServer;
+    this.mainnetSecurityClient = nodeConfig.mainnetSecurityClient;
     this.enableSecurity = nodeConfig.enableSecurity ?? true;
 
     this.auditLogger = new AuditLogger({
@@ -83,11 +89,43 @@ export class ValidatorNode extends EventEmitter {
     });
 
     this.setupEventHandlers();
+    this.setupMainnetSecurityHandlers();
     
     this.auditLogger.info('VALIDATOR', 'NODE_INITIALIZED', {
       validatorAddress: this.config.validatorAddress,
       network: this.config.network,
-      securityEnabled: this.enableSecurity
+      securityEnabled: this.enableSecurity,
+      mainnetSyncEnabled: !!this.mainnetSecurityClient
+    });
+  }
+
+  private setupMainnetSecurityHandlers(): void {
+    if (!this.mainnetSecurityClient) return;
+
+    this.mainnetSecurityClient.on('blocked', (data: { reason: string }) => {
+      this.isBlockedByMainnet = true;
+      this.auditLogger.security('MAINNET', 'VALIDATOR_BLOCKED', {
+        reason: data.reason
+      }, { validatorAddress: this.config.validatorAddress });
+      console.error(`[ValidatorNode] BLOCKED by mainnet: ${data.reason}`);
+      this.emit('mainnet:blocked', data);
+    });
+
+    this.mainnetSecurityClient.on('synced', (syncData: any) => {
+      this.isBlockedByMainnet = syncData.isBlocked;
+      if (syncData.activeAlerts?.length > 0) {
+        this.auditLogger.warn('MAINNET', 'ACTIVE_ALERTS', {
+          count: syncData.activeAlerts.length
+        });
+      }
+      this.emit('mainnet:synced', syncData);
+    });
+
+    this.mainnetSecurityClient.on('syncFailed', (data: { attempts: number }) => {
+      this.auditLogger.error('MAINNET', 'SYNC_FAILED', {
+        attempts: data.attempts
+      });
+      this.emit('mainnet:syncFailed', data);
     });
   }
 

@@ -229,6 +229,11 @@ const SESSION_FREE_PREFIX_LIST = [
   '/explorer/',
   '/blocks/',
   '/scan/',
+  // External validator security sync (API key auth, not session auth)
+  '/api/external-validators/security/my-status',
+  '/api/external-validators/security/report',
+  '/api/external-validators/security/heartbeat',
+  '/api/external-validators/security/alerts/',
 ] as const;
 
 const SESSION_FREE_PREFIXES_SORTED = [...SESSION_FREE_PREFIX_LIST].sort((a, b) => b.length - a.length);
