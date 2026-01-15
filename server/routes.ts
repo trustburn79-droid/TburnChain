@@ -2888,7 +2888,7 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
   // IMPORTANT: Must be registered BEFORE enterpriseRoutes to ensure admin auth is enforced
   // ============================================
   app.use("/api/enterprise/admin", requireAdmin, enterpriseAdminRoutes);
-  app.use("/api/admin", enterpriseAdminRoutes); // Also mount at /api/admin for backwards compatibility
+  app.use("/api/admin", requireAdmin, enterpriseAdminRoutes); // Also mount at /api/admin for backwards compatibility
   console.log("[EnterpriseAdmin] ✅ Enterprise admin routes registered (42 endpoints, admin auth required)");
 
   // ============================================

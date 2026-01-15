@@ -117,28 +117,28 @@ export default function AdminValidatorSecurity() {
   const [showAddIPDialog, setShowAddIPDialog] = useState(false);
 
   const { data: overviewData, isLoading: overviewLoading, error: overviewError } = useQuery<{ success: boolean; data: any }>({
-    queryKey: ["/api/external-validators/security/overview"],
+    queryKey: ["/api/admin/validator-security/overview"],
     refetchInterval: 30000,
     retry: false,
   });
   
   const { data: alertsData } = useQuery<{ success: boolean; data: any[] }>({
-    queryKey: ["/api/external-validators/security/alerts"],
+    queryKey: ["/api/admin/validator-security/alerts"],
     refetchInterval: 30000,
   });
   
   const { data: rateLimitsData } = useQuery<{ success: boolean; data: any }>({
-    queryKey: ["/api/external-validators/security/rate-limits"],
+    queryKey: ["/api/admin/validator-security/rate-limits"],
     refetchInterval: 30000,
   });
   
   const { data: ipWhitelistData, refetch: refetchIPWhitelist } = useQuery<{ success: boolean; data: any[] }>({
-    queryKey: ["/api/external-validators/security/ip-whitelist"],
+    queryKey: ["/api/admin/validator-security/ip-whitelist"],
     refetchInterval: 30000,
   });
   
   const { data: auditLogsData, refetch: refetchAuditLogs } = useQuery<{ success: boolean; data: any[] }>({
-    queryKey: ["/api/external-validators/security/audit-logs"],
+    queryKey: ["/api/admin/validator-security/audit-logs"],
     refetchInterval: 30000,
   });
   
@@ -197,10 +197,10 @@ export default function AdminValidatorSecurity() {
 
   const addIPMutation = useMutation({
     mutationFn: async ({ ip, description }: { ip: string; description: string }) => {
-      return apiRequest("POST", "/api/external-validators/security/ip-whitelist", { ip, description });
+      return apiRequest("POST", "/api/admin/validator-security/ip-whitelist", { ip, description });
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["/api/external-validators/security/ip-whitelist"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/admin/validator-security/ip-whitelist"] });
       setShowAddIPDialog(false);
       setNewIP("");
       setNewIPDescription("");
@@ -220,10 +220,10 @@ export default function AdminValidatorSecurity() {
 
   const removeIPMutation = useMutation({
     mutationFn: async (ip: string) => {
-      return apiRequest("DELETE", `/api/external-validators/security/ip-whitelist/${encodeURIComponent(ip)}`);
+      return apiRequest("DELETE", `/api/admin/validator-security/ip-whitelist/${encodeURIComponent(ip)}`);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["/api/external-validators/security/ip-whitelist"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/admin/validator-security/ip-whitelist"] });
       toast({
         title: "IP Removed",
         description: "IP address has been removed from the whitelist.",
@@ -240,10 +240,10 @@ export default function AdminValidatorSecurity() {
 
   const unblockValidatorMutation = useMutation({
     mutationFn: async (validatorAddress: string) => {
-      return apiRequest("POST", `/api/external-validators/security/rate-limits/unblock/${validatorAddress}`);
+      return apiRequest("POST", `/api/admin/validator-security/rate-limits/unblock/${validatorAddress}`);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["/api/external-validators/security/rate-limits"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/admin/validator-security/rate-limits"] });
       toast({
         title: "Validator Unblocked",
         description: "Validator has been unblocked.",
@@ -277,8 +277,8 @@ export default function AdminValidatorSecurity() {
           try {
             const message = JSON.parse(event.data);
             if (message.type === "validator_security_update" || message.type === "security_alert") {
-              queryClient.invalidateQueries({ queryKey: ["/api/external-validators/security/overview"] });
-              queryClient.invalidateQueries({ queryKey: ["/api/external-validators/security/alerts"] });
+              queryClient.invalidateQueries({ queryKey: ["/api/admin/validator-security/overview"] });
+              queryClient.invalidateQueries({ queryKey: ["/api/admin/validator-security/alerts"] });
               setLastUpdate(new Date());
             }
           } catch {
@@ -312,11 +312,11 @@ export default function AdminValidatorSecurity() {
   const handleRefresh = useCallback(async () => {
     setIsRefreshing(true);
     await Promise.all([
-      queryClient.invalidateQueries({ queryKey: ["/api/external-validators/security/overview"] }),
-      queryClient.invalidateQueries({ queryKey: ["/api/external-validators/security/alerts"] }),
-      queryClient.invalidateQueries({ queryKey: ["/api/external-validators/security/rate-limits"] }),
-      queryClient.invalidateQueries({ queryKey: ["/api/external-validators/security/ip-whitelist"] }),
-      queryClient.invalidateQueries({ queryKey: ["/api/external-validators/security/audit-logs"] }),
+      queryClient.invalidateQueries({ queryKey: ["/api/admin/validator-security/overview"] }),
+      queryClient.invalidateQueries({ queryKey: ["/api/admin/validator-security/alerts"] }),
+      queryClient.invalidateQueries({ queryKey: ["/api/admin/validator-security/rate-limits"] }),
+      queryClient.invalidateQueries({ queryKey: ["/api/admin/validator-security/ip-whitelist"] }),
+      queryClient.invalidateQueries({ queryKey: ["/api/admin/validator-security/audit-logs"] }),
     ]);
     setLastUpdate(new Date());
     setIsRefreshing(false);
@@ -627,31 +627,31 @@ export default function AdminValidatorSecurity() {
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {rateLimits.map((limit) => (
-                    <TableRow key={limit.validatorAddress} data-testid={`row-ratelimit-${limit.validatorAddress}`}>
+                  {rateLimits.map((entry: RateLimitStats) => (
+                    <TableRow key={entry.validatorAddress} data-testid={`row-ratelimit-${entry.validatorAddress}`}>
                       <TableCell className="font-mono text-xs">
-                        {limit.validatorAddress.slice(0, 10)}...
+                        {entry.validatorAddress.slice(0, 10)}...
                       </TableCell>
-                      <TableCell>{limit.requests.toLocaleString()}</TableCell>
+                      <TableCell>{entry.requests.toLocaleString()}</TableCell>
                       <TableCell>
-                        <Badge variant={limit.violations > 0 ? "destructive" : "secondary"}>
-                          {limit.violations}
+                        <Badge variant={entry.violations > 0 ? "destructive" : "secondary"}>
+                          {entry.violations}
                         </Badge>
                       </TableCell>
                       <TableCell>
-                        {limit.blocked ? (
+                        {entry.blocked ? (
                           <Badge variant="destructive">Blocked</Badge>
                         ) : (
                           <Badge variant="default">Active</Badge>
                         )}
                       </TableCell>
                       <TableCell>
-                        {limit.blocked && (
+                        {entry.blocked && (
                           <Button
                             variant="outline"
                             size="sm"
-                            onClick={() => unblockValidatorMutation.mutate(limit.validatorAddress)}
-                            data-testid={`button-unblock-${limit.validatorAddress}`}
+                            onClick={() => unblockValidatorMutation.mutate(entry.validatorAddress)}
+                            data-testid={`button-unblock-${entry.validatorAddress}`}
                           >
                             Unblock
                           </Button>
