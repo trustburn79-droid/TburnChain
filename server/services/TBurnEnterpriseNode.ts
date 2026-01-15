@@ -3532,11 +3532,11 @@ export class TBurnEnterpriseNode extends EventEmitter {
             break;
             
           case 'net_version':
-            result = '6000';
+            result = '5800'; // TBURN Mainnet network version
             break;
             
           case 'eth_chainId':
-            result = '0x1f2b';
+            result = '0x16a8'; // Chain ID 5800 for TBURN Mainnet
             break;
             
           case 'net_peerCount':
@@ -6521,7 +6521,7 @@ export class TBurnEnterpriseNode extends EventEmitter {
         id: 5,
         name: 'TBURN Mainnet',
         symbol: 'TBURN',
-        chainId: 7979,
+        chainId: 5800,
         status: 'active' as const,
         tvl: '$168.2M',
         volume24h: '$3.8M',

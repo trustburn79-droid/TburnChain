@@ -3,7 +3,7 @@ import { tokenRegistry, RegisteredToken } from "./TokenRegistry";
 import { generateRandomTBurnAddress, formatTBurnAddress } from "../utils/tburn-address";
 
 const TBURN_MAINNET_RPC = process.env.TBURN_RPC_URL || "http://localhost:8545";
-const TBURN_CHAIN_ID = 6000;
+const TBURN_CHAIN_ID = 5800; // TBURN Mainnet Chain ID
 
 const TBC20_FACTORY_ADDRESS = process.env.TBC20_FACTORY_ADDRESS || "0x1000000000000000000000000000000000000001";
 const TBC721_FACTORY_ADDRESS = process.env.TBC721_FACTORY_ADDRESS || "0x1000000000000000000000000000000000000002";
