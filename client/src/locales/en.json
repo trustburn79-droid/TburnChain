@@ -32514,5 +32514,304 @@
       "validatorUnblocked": "Validator unblocked",
       "error": "An error occurred"
     }
+  },
+  "externalValidator": {
+    "nav": {
+      "backToValidators": "← Validator Hub",
+      "tiers": "Validator Tiers",
+      "requirements": "Requirements",
+      "leaderboard": "Leaderboard",
+      "faq": "FAQ",
+      "download": "Download"
+    },
+    "hero": {
+      "badge": "External Validator Program",
+      "title": "Join the TBURN Network",
+      "subtitle": "Become an external validator and earn rewards while securing the TBURN blockchain. Run your own node and participate in network consensus.",
+      "registerBtn": "Register as Validator",
+      "viewTiersBtn": "View Validator Tiers",
+      "connectWallet": "Connect Wallet"
+    },
+    "stats": {
+      "totalValidators": "Total Validators",
+      "activeValidators": "Active Validators",
+      "tburnStaked": "TBURN Staked",
+      "networkHealth": "Network Health"
+    },
+    "tiers": {
+      "title": "Validator Tiers",
+      "subtitle": "Choose a tier that matches your participation level and staking capacity. Higher tiers offer better rewards and additional benefits.",
+      "minStake": "Minimum Stake",
+      "slots": "Slots",
+      "commission": "Commission",
+      "estApy": "Est. APY",
+      "benefits": "Benefits",
+      "selectTier": "Select Tier",
+      "genesis": {
+        "name": "Genesis Validator",
+        "badge": "Genesis",
+        "benefits": [
+          "Highest reward priority",
+          "Core network governance rights",
+          "Exclusive Genesis NFT badge",
+          "Direct support from protocol team",
+          "Early access to protocol upgrades"
+        ]
+      },
+      "pioneer": {
+        "name": "Pioneer Validator",
+        "badge": "Pioneer",
+        "benefits": [
+          "High reward priority",
+          "Network governance participation",
+          "Pioneer NFT badge",
+          "Priority technical support",
+          "Beta feature access"
+        ]
+      },
+      "standard": {
+        "name": "Standard Validator",
+        "badge": "Standard",
+        "benefits": [
+          "Standard reward allocation",
+          "Proposal voting rights",
+          "Standard NFT badge",
+          "Community support access",
+          "Regular update notifications"
+        ]
+      },
+      "community": {
+        "name": "Community Validator",
+        "badge": "Community",
+        "benefits": [
+          "Entry-level rewards",
+          "Basic governance participation",
+          "Community NFT badge",
+          "Community forum access",
+          "Educational resources"
+        ]
+      }
+    },
+    "requirements": {
+      "title": "System Requirements",
+      "subtitle": "Technical specifications for running a TBURN validator node",
+      "cpu": "CPU",
+      "cpuReq": "8+ cores, 3.0GHz+ recommended",
+      "ram": "RAM",
+      "ramReq": "32GB minimum, 64GB recommended",
+      "storage": "Storage",
+      "storageReq": "2TB NVMe SSD, 4TB recommended",
+      "network": "Network",
+      "networkReq": "1Gbps dedicated, low latency",
+      "uptime": "Uptime",
+      "uptimeReq": "99.9% SLA required"
+    },
+    "leaderboard": {
+      "title": "Validator Leaderboard",
+      "subtitle": "Top performing validators on the TBURN network",
+      "comingSoon": "Leaderboard Coming Soon",
+      "beFirst": "Be among the first validators and secure your spot"
+    },
+    "faq": {
+      "title": "Frequently Asked Questions",
+      "subtitle": "Everything you need to know about becoming a TBURN validator",
+      "q1": {
+        "question": "What is an external validator?",
+        "answer": "An external validator is a node operator who runs validator software to participate in TBURN network consensus. Validators verify transactions, produce blocks, and help secure the network in exchange for rewards."
+      },
+      "q2": {
+        "question": "How much TBURN do I need to stake?",
+        "answer": "The minimum stake varies by tier: Genesis requires 5,000,000 TBURN, Pioneer requires 1,000,000 TBURN, Standard requires 500,000 TBURN, and Community requires 100,000 TBURN."
+      },
+      "q3": {
+        "question": "What are the hardware requirements?",
+        "answer": "You need a server with at least 8 CPU cores, 32GB RAM, 2TB NVMe SSD storage, and a 1Gbps network connection. Enterprise-grade hardware is recommended for optimal performance."
+      },
+      "q4": {
+        "question": "How are rewards calculated?",
+        "answer": "Rewards are based on your stake amount, tier level, uptime, and block production performance. Higher tiers receive priority in reward distribution and bonus multipliers."
+      },
+      "q5": {
+        "question": "What happens if my validator goes offline?",
+        "answer": "Extended downtime may result in slashing penalties and reduced rewards. Validators are expected to maintain 99.9% uptime. We recommend setting up monitoring and alerts."
+      },
+      "q6": {
+        "question": "How do I get support?",
+        "answer": "Genesis and Pioneer validators receive dedicated support channels. All validators can access community forums, documentation, and our Discord support server."
+      }
+    },
+    "download": {
+      "title": "Download Validator Software",
+      "subtitle": "Get the official TBURN validator node software to start running your node",
+      "viewDocs": "View Documentation",
+      "downloadBtn": "Download",
+      "docs": "Documentation"
+    },
+    "registration": {
+      "title": "Register Your Validator",
+      "subtitle": "Complete the registration to become a TBURN validator",
+      "success": "Registration Successful",
+      "failed": "Registration Failed",
+      "walletRequired": "Wallet Required",
+      "walletRequiredDesc": "Please connect your wallet to register as a validator",
+      "missingInfo": "Missing Information",
+      "missingInfoDesc": "Please fill in all required fields",
+      "selectTier": "Select Tier",
+      "selectRegion": "Select Region",
+      "nodeName": "Node Name",
+      "nodeNamePlaceholder": "my-validator-node",
+      "rpcEndpoint": "RPC Endpoint (optional)",
+      "rpcEndpointPlaceholder": "https://your-node.example.com:8545",
+      "cancel": "Cancel",
+      "register": "Register Validator"
+    },
+    "regions": {
+      "us-east": "US East",
+      "us-west": "US West",
+      "eu-west": "EU West",
+      "eu-central": "EU Central",
+      "asia-east": "Asia East",
+      "asia-south": "Asia South",
+      "asia-southeast": "Asia Southeast",
+      "oceania": "Oceania",
+      "south-america": "South America",
+      "africa": "Africa"
+    }
+  },
+  "externalValidatorSoftware": {
+    "nav": {
+      "backToProgram": "← Back to Validator Program",
+      "requirements": "System Requirements",
+      "download": "Download",
+      "installation": "Installation",
+      "configuration": "Configuration",
+      "features": "Features",
+      "monitoring": "Monitoring",
+      "ports": "Network Ports",
+      "faq": "FAQ",
+      "support": "Support"
+    },
+    "hero": {
+      "badge": "Production Ready Software",
+      "title": "External Validator Node Software",
+      "subtitle": "Enterprise-grade validator node software for participating in TBURN mainnet consensus",
+      "downloadNow": "Download Now",
+      "viewDocs": "View Documentation"
+    },
+    "stats": {
+      "validators": "Genesis Validators",
+      "tps": "Target TPS",
+      "blockTime": "Block Time",
+      "uptime": "SLA Uptime"
+    },
+    "requirements": {
+      "title": "System Requirements",
+      "subtitle": "Hardware specifications for running a TBURN validator node",
+      "minimum": "Minimum Requirements",
+      "recommended": "Recommended",
+      "cpu": "CPU",
+      "ram": "RAM",
+      "storage": "Storage",
+      "network": "Network",
+      "os": "Operating System"
+    },
+    "download": {
+      "title": "Download Validator Node",
+      "subtitle": "Choose your preferred installation method",
+      "linux": {
+        "title": "Linux Binary",
+        "description": "Pre-compiled binary for x64 systems",
+        "version": "Version",
+        "size": "Size",
+        "sha256": "SHA256",
+        "download": "Download .tar.gz",
+        "recommended": "Recommended"
+      },
+      "docker": {
+        "title": "Docker Image",
+        "description": "Containerized deployment",
+        "pullCommand": "Pull from Docker Hub",
+        "dockerPull": "docker pull"
+      },
+      "source": {
+        "title": "Source Code",
+        "description": "Build from source",
+        "viewSource": "View on GitHub"
+      }
+    },
+    "features": {
+      "title": "Enterprise Features",
+      "subtitle": "Built for production-grade validator operations",
+      "bftConsensus": {
+        "title": "BFT Consensus",
+        "description": "5-phase Byzantine Fault Tolerant protocol with lock-based consensus safety"
+      },
+      "remoteSigner": {
+        "title": "Remote Signer",
+        "description": "HSM-compatible isolated key management with mTLS security"
+      },
+      "metrics": {
+        "title": "Prometheus Metrics",
+        "description": "Comprehensive metrics for monitoring and alerting"
+      },
+      "p2pNetwork": {
+        "title": "P2P Network",
+        "description": "Secure peer-to-peer communication with WebSocket gossip"
+      }
+    },
+    "installation": {
+      "title": "Installation Guide",
+      "subtitle": "Step-by-step instructions for setting up your validator node",
+      "step1": {
+        "title": "Download & Extract",
+        "description": "Download the latest version and extract to your preferred location"
+      },
+      "step2": {
+        "title": "Configure",
+        "description": "Edit the configuration file with your validator settings"
+      },
+      "step3": {
+        "title": "Register",
+        "description": "Register your validator node with the TBURN network"
+      },
+      "step4": {
+        "title": "Start",
+        "description": "Start your validator and begin participating in consensus"
+      }
+    },
+    "monitoring": {
+      "title": "Monitoring & Metrics",
+      "subtitle": "Built-in monitoring for validator health and performance",
+      "prometheus": "Prometheus endpoint available at :9090/metrics",
+      "grafana": "Import our Grafana dashboard for visualizations",
+      "alerts": "Configure alerts for downtime and performance issues"
+    },
+    "ports": {
+      "title": "Network Ports",
+      "subtitle": "Required ports for validator operation",
+      "port30303": "P2P Discovery",
+      "port8545": "RPC API",
+      "port8546": "WebSocket API",
+      "port9090": "Metrics"
+    },
+    "faq": {
+      "title": "Frequently Asked Questions",
+      "q1": {
+        "question": "How do I update my validator node?",
+        "answer": "Download the latest version and restart your node. The software supports graceful upgrades with minimal downtime."
+      },
+      "q2": {
+        "question": "What if my node loses connection?",
+        "answer": "The node will automatically attempt to reconnect. Ensure your firewall allows the required ports and check your network configuration."
+      }
+    },
+    "support": {
+      "title": "Support",
+      "subtitle": "Get help with your validator node",
+      "discord": "Join Discord",
+      "telegram": "Join Telegram",
+      "github": "GitHub Issues",
+      "docs": "Documentation"
+    }
   }
 }
