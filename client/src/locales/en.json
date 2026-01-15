@@ -32868,5 +32868,99 @@
       "github": "GitHub Issues",
       "docs": "Documentation"
     }
+  },
+  "validatorRegistration": {
+    "title": "Validator Registration",
+    "subtitle": "Complete the form below to register as a validator on TBURN mainnet",
+    "progress": {
+      "step1": "Cryptographic Proof",
+      "step2": "Node Information",
+      "step3": "Infrastructure (Optional)"
+    },
+    "step1": {
+      "title": "Cryptographic Proof",
+      "description": "Provide your wallet signature to prove ownership of your validator address",
+      "validatorAddress": "Validator Address",
+      "validatorAddressHint": "Ethereum format address (0x + 40 hex characters)",
+      "publicKey": "Public Key",
+      "publicKeyHint": "Uncompressed secp256k1 public key (starts with 0x04)",
+      "signatureProof": "Signature Proof",
+      "signatureProofHint": "ECDSA signature of the registration message (signed with your private key)",
+      "demoGenerate": "Demo Generate",
+      "securityNotice": "Security Notice",
+      "securityNoticeText": "Never enter your private key. Only submit the signature. Keep your private key safely offline or in a hardware wallet."
+    },
+    "step2": {
+      "title": "Node Information",
+      "description": "Provide information about your validator node and operator details",
+      "nodeName": "Node Name",
+      "organizationName": "Organization Name",
+      "optional": "Optional",
+      "contactEmail": "Contact Email",
+      "region": "Region",
+      "tier": "Tier",
+      "stakeAmount": "Initial Stake Amount",
+      "stakeAmountHint": "Minimum stake varies by tier. See tier requirements above.",
+      "tierOptions": {
+        "community": "Community (100+ TBURN)",
+        "standard": "Standard (10K+ TBURN)",
+        "pioneer": "Pioneer (100K+ TBURN, Multi-sig)",
+        "genesis": "Genesis (1M+ TBURN, Multi-sig)"
+      },
+      "multiSigRequired": "Multi-sig Approval Required",
+      "multiSigDescription": "{{tier}} tier requires multi-signature approval. Genesis requires 3-of-3 and Pioneer requires 2-of-3 admin signatures."
+    },
+    "step3": {
+      "title": "Infrastructure Documentation",
+      "description": "Provide optional details about your infrastructure setup",
+      "hostingProvider": "Hosting Provider",
+      "hostingProviderPlaceholder": "e.g., AWS, GCP, Azure, Hetzner",
+      "hardwareSpecs": "Hardware Specifications",
+      "cpu": "CPU",
+      "cpuPlaceholder": "e.g., 32 cores, AMD EPYC",
+      "memory": "Memory",
+      "memoryPlaceholder": "e.g., 128GB DDR4",
+      "storage": "Storage",
+      "storagePlaceholder": "e.g., 2TB NVMe SSD",
+      "network": "Network",
+      "networkPlaceholder": "e.g., 10Gbps",
+      "securityFeatures": "Security Features",
+      "hsm": "HSM (Hardware Security Module)",
+      "remoteSigner": "Remote Signer",
+      "mTLS": "mTLS (Mutual TLS)",
+      "firewall": "Firewall Configured",
+      "ddos": "DDoS Protection",
+      "remoteSignerHint": "Isolated signing service",
+      "firewallHint": "IP whitelist enabled",
+      "ddosHint": "Cloudflare, AWS Shield, etc."
+    },
+    "buttons": {
+      "next": "Next",
+      "previous": "Previous",
+      "submit": "Submit Registration",
+      "submitting": "Submitting...",
+      "backToProgram": "Back to Validator Program"
+    },
+    "completion": {
+      "title": "Registration Submitted",
+      "registrationId": "Registration ID",
+      "status": "Status",
+      "statusPending": "Pending",
+      "statusUnderReview": "Under Review",
+      "nextStepsTitle": "Next Steps",
+      "nextStepsText": "An administrator will review your registration. You will receive your API key via the registered email once approved.",
+      "estimatedReviewTime": "Estimated Review Time",
+      "businessDays": "business days"
+    },
+    "toasts": {
+      "successTitle": "Registration Submitted",
+      "failedTitle": "Registration Failed",
+      "errorTitle": "Error",
+      "errorDescription": "Registration failed",
+      "validationErrorTitle": "Validation Error",
+      "validationErrorDescription": "Please fill in all required fields correctly",
+      "copiedTitle": "Copied",
+      "copiedDescription": "Copied to clipboard"
+    }
   }
 }

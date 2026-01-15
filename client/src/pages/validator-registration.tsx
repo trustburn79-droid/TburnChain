@@ -109,8 +109,6 @@ export default function ValidatorRegistration() {
     initialStakeAmount: "0",
   });
 
-  const isKorean = i18n.language === "ko";
-
   // Tier query
   const { data: tiersData } = useQuery({
     queryKey: ["/api/external-validators/tiers"],
@@ -151,12 +149,12 @@ export default function ValidatorRegistration() {
         setRegistrationResult(result.data);
         setRegistrationComplete(true);
         toast({
-          title: isKorean ? "등록 완료" : "Registration Submitted",
+          title: t("validatorRegistration.toasts.successTitle"),
           description: result.data.message,
         });
       } else {
         toast({
-          title: isKorean ? "등록 실패" : "Registration Failed",
+          title: t("validatorRegistration.toasts.failedTitle"),
           description: result.error,
           variant: "destructive",
         });
@@ -164,8 +162,8 @@ export default function ValidatorRegistration() {
     },
     onError: (error: any) => {
       toast({
-        title: isKorean ? "오류" : "Error",
-        description: error.message || (isKorean ? "등록에 실패했습니다" : "Registration failed"),
+        title: t("validatorRegistration.toasts.errorTitle"),
+        description: error.message || t("validatorRegistration.toasts.errorDescription"),
         variant: "destructive",
       });
     },
@@ -225,8 +223,8 @@ export default function ValidatorRegistration() {
       setCurrentStep((prev) => Math.min(prev + 1, 3) as RegistrationStep);
     } else {
       toast({
-        title: isKorean ? "입력 오류" : "Validation Error",
-        description: isKorean ? "필수 항목을 올바르게 입력해주세요" : "Please fill in all required fields correctly",
+        title: t("validatorRegistration.toasts.validationErrorTitle"),
+        description: t("validatorRegistration.toasts.validationErrorDescription"),
         variant: "destructive",
       });
     }
@@ -245,8 +243,8 @@ export default function ValidatorRegistration() {
   const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text);
     toast({
-      title: isKorean ? "복사됨" : "Copied",
-      description: isKorean ? "클립보드에 복사되었습니다" : "Copied to clipboard",
+      title: t("validatorRegistration.toasts.copiedTitle"),
+      description: t("validatorRegistration.toasts.copiedDescription"),
     });
   };
 
@@ -272,7 +270,7 @@ export default function ValidatorRegistration() {
                 <CheckCircle2 className="w-8 h-8 text-green-500" />
               </div>
               <CardTitle className="text-2xl">
-                {isKorean ? "등록 제출 완료" : "Registration Submitted"}
+                {t("validatorRegistration.completion.title")}
               </CardTitle>
               <CardDescription>
                 {registrationResult.message}
@@ -282,7 +280,7 @@ export default function ValidatorRegistration() {
               <div className="bg-muted rounded-lg p-4 space-y-3">
                 <div className="flex justify-between items-center">
                   <span className="text-sm text-muted-foreground">
-                    {isKorean ? "등록 ID" : "Registration ID"}
+                    {t("validatorRegistration.completion.registrationId")}
                   </span>
                   <div className="flex items-center gap-2">
                     <code className="text-sm font-mono">{registrationResult.registrationId}</code>
@@ -299,28 +297,26 @@ export default function ValidatorRegistration() {
                 <Separator />
                 <div className="flex justify-between items-center">
                   <span className="text-sm text-muted-foreground">
-                    {isKorean ? "상태" : "Status"}
+                    {t("validatorRegistration.completion.status")}
                   </span>
                   <Badge variant="outline" className="bg-yellow-500/10 text-yellow-600">
                     {registrationResult.status === "pending" 
-                      ? (isKorean ? "대기 중" : "Pending")
-                      : (isKorean ? "검토 중" : "Under Review")}
+                      ? t("validatorRegistration.completion.statusPending")
+                      : t("validatorRegistration.completion.statusUnderReview")}
                   </Badge>
                 </div>
               </div>
 
               <Alert>
                 <AlertTriangle className="h-4 w-4" />
-                <AlertTitle>{isKorean ? "다음 단계" : "Next Steps"}</AlertTitle>
+                <AlertTitle>{t("validatorRegistration.completion.nextStepsTitle")}</AlertTitle>
                 <AlertDescription>
-                  {isKorean 
-                    ? "관리자가 등록을 검토한 후 API 키가 발급됩니다. 등록된 이메일로 결과를 안내해 드립니다."
-                    : "An administrator will review your registration. You will receive your API key via the registered email once approved."}
+                  {t("validatorRegistration.completion.nextStepsText")}
                 </AlertDescription>
               </Alert>
 
               <div className="space-y-2">
-                <h4 className="font-medium">{isKorean ? "예상 검토 시간" : "Estimated Review Time"}</h4>
+                <h4 className="font-medium">{t("validatorRegistration.completion.estimatedReviewTime")}</h4>
                 <div className="grid grid-cols-2 gap-4">
                   <div className="bg-muted rounded-lg p-3 text-center">
                     <div className="text-lg font-bold">Community</div>
@@ -328,7 +324,7 @@ export default function ValidatorRegistration() {
                   </div>
                   <div className="bg-muted rounded-lg p-3 text-center">
                     <div className="text-lg font-bold">Genesis/Pioneer</div>
-                    <div className="text-sm text-muted-foreground">3-5 {isKorean ? "영업일" : "business days"}</div>
+                    <div className="text-sm text-muted-foreground">3-5 {t("validatorRegistration.completion.businessDays")}</div>
                   </div>
                 </div>
               </div>
@@ -339,7 +335,7 @@ export default function ValidatorRegistration() {
                 onClick={() => window.location.href = "/external-validator-program"}
                 data-testid="button-back-to-program"
               >
-                {isKorean ? "밸리데이터 프로그램으로 돌아가기" : "Back to Validator Program"}
+                {t("validatorRegistration.buttons.backToProgram")}
               </Button>
             </CardFooter>
           </Card>
@@ -359,12 +355,10 @@ export default function ValidatorRegistration() {
         {/* Header */}
         <div className="text-center space-y-2">
           <h1 className="text-3xl font-bold">
-            {isKorean ? "밸리데이터 등록" : "Validator Registration"}
+            {t("validatorRegistration.title")}
           </h1>
           <p className="text-muted-foreground">
-            {isKorean 
-              ? "TBURN 메인넷에서 밸리데이터로 참여하려면 아래 정보를 입력하세요"
-              : "Complete the form below to register as a validator on TBURN mainnet"}
+            {t("validatorRegistration.subtitle")}
           </p>
         </div>
 
@@ -372,13 +366,13 @@ export default function ValidatorRegistration() {
         <div className="space-y-2">
           <div className="flex justify-between text-sm">
             <span className={currentStep >= 1 ? "text-primary font-medium" : "text-muted-foreground"}>
-              1. {isKorean ? "암호화 증명" : "Cryptographic Proof"}
+              1. {t("validatorRegistration.progress.step1")}
             </span>
             <span className={currentStep >= 2 ? "text-primary font-medium" : "text-muted-foreground"}>
-              2. {isKorean ? "노드 정보" : "Node Information"}
+              2. {t("validatorRegistration.progress.step2")}
             </span>
             <span className={currentStep >= 3 ? "text-primary font-medium" : "text-muted-foreground"}>
-              3. {isKorean ? "인프라 (선택)" : "Infrastructure (Optional)"}
+              3. {t("validatorRegistration.progress.step3")}
             </span>
           </div>
           <Progress value={(currentStep / 3) * 100} className="h-2" />
@@ -390,12 +384,10 @@ export default function ValidatorRegistration() {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Key className="w-5 h-5" />
-                {isKorean ? "암호화 증명" : "Cryptographic Proof"}
+                {t("validatorRegistration.step1.title")}
               </CardTitle>
               <CardDescription>
-                {isKorean 
-                  ? "지갑 주소의 소유권을 증명하기 위한 서명이 필요합니다"
-                  : "Provide your wallet signature to prove ownership of your validator address"}
+                {t("validatorRegistration.step1.description")}
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
@@ -403,7 +395,7 @@ export default function ValidatorRegistration() {
               <div className="space-y-2">
                 <Label htmlFor="validatorAddress" className="flex items-center gap-2">
                   <Wallet className="w-4 h-4" />
-                  {isKorean ? "밸리데이터 주소" : "Validator Address"} *
+                  {t("validatorRegistration.step1.validatorAddress")} *
                 </Label>
                 <Input
                   id="validatorAddress"
@@ -414,7 +406,7 @@ export default function ValidatorRegistration() {
                   data-testid="input-validator-address"
                 />
                 <p className="text-xs text-muted-foreground">
-                  {isKorean ? "이더리움 형식 주소 (0x + 40자 16진수)" : "Ethereum format address (0x + 40 hex characters)"}
+                  {t("validatorRegistration.step1.validatorAddressHint")}
                 </p>
               </div>
 
@@ -422,7 +414,7 @@ export default function ValidatorRegistration() {
               <div className="space-y-2">
                 <Label htmlFor="publicKey" className="flex items-center gap-2">
                   <FileKey className="w-4 h-4" />
-                  {isKorean ? "공개키" : "Public Key"} *
+                  {t("validatorRegistration.step1.publicKey")} *
                 </Label>
                 <Input
                   id="publicKey"
@@ -433,7 +425,7 @@ export default function ValidatorRegistration() {
                   data-testid="input-public-key"
                 />
                 <p className="text-xs text-muted-foreground">
-                  {isKorean ? "압축되지 않은 secp256k1 공개키 (0x04로 시작)" : "Uncompressed secp256k1 public key (starts with 0x04)"}
+                  {t("validatorRegistration.step1.publicKeyHint")}
                 </p>
               </div>
 
@@ -441,7 +433,7 @@ export default function ValidatorRegistration() {
               <div className="space-y-2">
                 <Label htmlFor="signatureProof" className="flex items-center gap-2">
                   <Shield className="w-4 h-4" />
-                  {isKorean ? "서명 증명" : "Signature Proof"} *
+                  {t("validatorRegistration.step1.signatureProof")} *
                 </Label>
                 <div className="flex gap-2">
                   <Input
@@ -457,23 +449,19 @@ export default function ValidatorRegistration() {
                     onClick={generateDemoSignature}
                     data-testid="button-generate-demo-signature"
                   >
-                    {isKorean ? "데모 생성" : "Demo Generate"}
+                    {t("validatorRegistration.step1.demoGenerate")}
                   </Button>
                 </div>
                 <p className="text-xs text-muted-foreground">
-                  {isKorean 
-                    ? "등록 메시지에 대한 ECDSA 서명 (개인키로 서명)"
-                    : "ECDSA signature of the registration message (signed with your private key)"}
+                  {t("validatorRegistration.step1.signatureProofHint")}
                 </p>
               </div>
 
               <Alert>
                 <Lock className="h-4 w-4" />
-                <AlertTitle>{isKorean ? "보안 안내" : "Security Notice"}</AlertTitle>
+                <AlertTitle>{t("validatorRegistration.step1.securityNotice")}</AlertTitle>
                 <AlertDescription>
-                  {isKorean 
-                    ? "개인키는 절대 입력하지 마세요. 서명만 제출하면 됩니다. 개인키는 오프라인 또는 하드웨어 지갑에 안전하게 보관하세요."
-                    : "Never enter your private key. Only submit the signature. Keep your private key safely offline or in a hardware wallet."}
+                  {t("validatorRegistration.step1.securityNoticeText")}
                 </AlertDescription>
               </Alert>
             </CardContent>
@@ -483,7 +471,7 @@ export default function ValidatorRegistration() {
                 disabled={!validateStep(1)}
                 data-testid="button-next-step-1"
               >
-                {isKorean ? "다음" : "Next"}
+                {t("validatorRegistration.buttons.next")}
                 <ArrowRight className="w-4 h-4 ml-2" />
               </Button>
             </CardFooter>
@@ -496,12 +484,10 @@ export default function ValidatorRegistration() {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Server className="w-5 h-5" />
-                {isKorean ? "노드 정보" : "Node Information"}
+                {t("validatorRegistration.step2.title")}
               </CardTitle>
               <CardDescription>
-                {isKorean 
-                  ? "밸리데이터 노드 및 운영자 정보를 입력하세요"
-                  : "Provide information about your validator node and operator details"}
+                {t("validatorRegistration.step2.description")}
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
@@ -510,11 +496,11 @@ export default function ValidatorRegistration() {
                 <div className="space-y-2">
                   <Label htmlFor="nodeName" className="flex items-center gap-2">
                     <User className="w-4 h-4" />
-                    {isKorean ? "노드 이름" : "Node Name"} *
+                    {t("validatorRegistration.step2.nodeName")} *
                   </Label>
                   <Input
                     id="nodeName"
-                    placeholder={isKorean ? "my-validator-01" : "my-validator-01"}
+                    placeholder="my-validator-01"
                     value={formData.nodeName}
                     onChange={(e) => updateFormData("nodeName", e.target.value)}
                     data-testid="input-node-name"
@@ -525,11 +511,11 @@ export default function ValidatorRegistration() {
                 <div className="space-y-2">
                   <Label htmlFor="organizationName" className="flex items-center gap-2">
                     <Building className="w-4 h-4" />
-                    {isKorean ? "조직명" : "Organization Name"}
+                    {t("validatorRegistration.step2.organizationName")}
                   </Label>
                   <Input
                     id="organizationName"
-                    placeholder={isKorean ? "선택사항" : "Optional"}
+                    placeholder={t("validatorRegistration.step2.optional")}
                     value={formData.organizationName}
                     onChange={(e) => updateFormData("organizationName", e.target.value)}
                     data-testid="input-organization-name"
@@ -541,7 +527,7 @@ export default function ValidatorRegistration() {
               <div className="space-y-2">
                 <Label htmlFor="contactEmail" className="flex items-center gap-2">
                   <Mail className="w-4 h-4" />
-                  {isKorean ? "연락처 이메일" : "Contact Email"} *
+                  {t("validatorRegistration.step2.contactEmail")} *
                 </Label>
                 <Input
                   id="contactEmail"
@@ -558,7 +544,7 @@ export default function ValidatorRegistration() {
                 <div className="space-y-2">
                   <Label className="flex items-center gap-2">
                     <Globe className="w-4 h-4" />
-                    {isKorean ? "지역" : "Region"} *
+                    {t("validatorRegistration.step2.region")} *
                   </Label>
                   <Select
                     value={formData.region}
@@ -580,7 +566,7 @@ export default function ValidatorRegistration() {
                 <div className="space-y-2">
                   <Label className="flex items-center gap-2">
                     <Zap className="w-4 h-4" />
-                    {isKorean ? "티어" : "Tier"} *
+                    {t("validatorRegistration.step2.tier")} *
                   </Label>
                   <Select
                     value={formData.tier}
@@ -591,16 +577,16 @@ export default function ValidatorRegistration() {
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="community">
-                        Community ({isKorean ? "100 TBURN 이상" : "100+ TBURN"})
+                        {t("validatorRegistration.step2.tierOptions.community")}
                       </SelectItem>
                       <SelectItem value="standard">
-                        Standard ({isKorean ? "10,000 TBURN 이상" : "10,000+ TBURN"})
+                        {t("validatorRegistration.step2.tierOptions.standard")}
                       </SelectItem>
                       <SelectItem value="pioneer">
-                        Pioneer ({isKorean ? "100,000 TBURN 이상" : "100,000+ TBURN"})
+                        {t("validatorRegistration.step2.tierOptions.pioneer")}
                       </SelectItem>
                       <SelectItem value="genesis">
-                        Genesis ({isKorean ? "1,000,000 TBURN 이상" : "1,000,000+ TBURN"})
+                        {t("validatorRegistration.step2.tierOptions.genesis")}
                       </SelectItem>
                     </SelectContent>
                   </Select>
@@ -610,7 +596,7 @@ export default function ValidatorRegistration() {
               {/* Stake Amount */}
               <div className="space-y-2">
                 <Label htmlFor="stakeAmount">
-                  {isKorean ? "초기 스테이킹 금액 (TBURN)" : "Initial Stake Amount (TBURN)"}
+                  {t("validatorRegistration.step2.stakeAmount")}
                 </Label>
                 <Input
                   id="stakeAmount"
@@ -625,11 +611,9 @@ export default function ValidatorRegistration() {
               {(formData.tier === "genesis" || formData.tier === "pioneer") && (
                 <Alert className="border-amber-500/20 bg-amber-500/5">
                   <AlertTriangle className="h-4 w-4 text-amber-500" />
-                  <AlertTitle>{isKorean ? "다중 서명 승인 필요" : "Multi-sig Approval Required"}</AlertTitle>
+                  <AlertTitle>{t("validatorRegistration.step2.multiSigRequired")}</AlertTitle>
                   <AlertDescription>
-                    {isKorean 
-                      ? `${formData.tier === "genesis" ? "Genesis" : "Pioneer"} 티어는 관리자 다중 서명 승인이 필요합니다. 검토 시간이 더 길어질 수 있습니다.`
-                      : `${formData.tier === "genesis" ? "Genesis" : "Pioneer"} tier requires multi-sig admin approval. Review time may be longer.`}
+                    {t("validatorRegistration.step2.multiSigDescription", { tier: formData.tier === "genesis" ? "Genesis" : "Pioneer" })}
                   </AlertDescription>
                 </Alert>
               )}
@@ -637,10 +621,10 @@ export default function ValidatorRegistration() {
             <CardFooter className="flex justify-between">
               <Button variant="outline" onClick={prevStep} data-testid="button-prev-step-2">
                 <ArrowLeft className="w-4 h-4 mr-2" />
-                {isKorean ? "이전" : "Back"}
+                {t("validatorRegistration.buttons.previous")}
               </Button>
               <Button onClick={nextStep} disabled={!validateStep(2)} data-testid="button-next-step-2">
-                {isKorean ? "다음" : "Next"}
+                {t("validatorRegistration.buttons.next")}
                 <ArrowRight className="w-4 h-4 ml-2" />
               </Button>
             </CardFooter>
@@ -653,24 +637,22 @@ export default function ValidatorRegistration() {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Cpu className="w-5 h-5" />
-                {isKorean ? "인프라 정보 (선택)" : "Infrastructure Details (Optional)"}
+                {t("validatorRegistration.step3.title")}
               </CardTitle>
               <CardDescription>
-                {isKorean 
-                  ? "노드의 하드웨어 사양과 보안 설정을 입력하세요. 이 정보는 리스크 평가에 사용됩니다."
-                  : "Provide hardware specifications and security configuration. This helps with risk assessment."}
+                {t("validatorRegistration.step3.description")}
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
               {/* Hosting Provider */}
               <div className="space-y-2">
-                <Label>{isKorean ? "호스팅 제공업체" : "Hosting Provider"}</Label>
+                <Label>{t("validatorRegistration.step3.hostingProvider")}</Label>
                 <Select
                   value={formData.hostingProvider}
                   onValueChange={(value) => updateFormData("hostingProvider", value)}
                 >
                   <SelectTrigger data-testid="select-hosting-provider">
-                    <SelectValue placeholder={isKorean ? "선택" : "Select"} />
+                    <SelectValue placeholder={t("validatorRegistration.step2.optional")} />
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="aws">Amazon Web Services (AWS)</SelectItem>
@@ -684,7 +666,7 @@ export default function ValidatorRegistration() {
 
               {/* Hardware Specs */}
               <div className="space-y-4">
-                <Label>{isKorean ? "하드웨어 사양" : "Hardware Specifications"}</Label>
+                <Label>{t("validatorRegistration.step3.hardwareSpecs")}</Label>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <Label htmlFor="cpu" className="text-sm text-muted-foreground flex items-center gap-2">
@@ -700,7 +682,7 @@ export default function ValidatorRegistration() {
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="memory" className="text-sm text-muted-foreground">
-                      {isKorean ? "메모리" : "Memory"}
+                      {t("validatorRegistration.step3.memory")}
                     </Label>
                     <Input
                       id="memory"
@@ -712,7 +694,7 @@ export default function ValidatorRegistration() {
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="storage" className="text-sm text-muted-foreground flex items-center gap-2">
-                      <HardDrive className="w-3 h-3" /> {isKorean ? "스토리지" : "Storage"}
+                      <HardDrive className="w-3 h-3" /> {t("validatorRegistration.step3.storage")}
                     </Label>
                     <Input
                       id="storage"
@@ -724,7 +706,7 @@ export default function ValidatorRegistration() {
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="network" className="text-sm text-muted-foreground">
-                      {isKorean ? "네트워크" : "Network"}
+                      {t("validatorRegistration.step3.network")}
                     </Label>
                     <Input
                       id="network"
@@ -739,7 +721,7 @@ export default function ValidatorRegistration() {
 
               {/* Security Features */}
               <div className="space-y-4">
-                <Label>{isKorean ? "보안 기능" : "Security Features"}</Label>
+                <Label>{t("validatorRegistration.step3.securityFeatures")}</Label>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="flex items-center space-x-3 p-3 rounded-lg border">
                     <Checkbox
@@ -751,7 +733,7 @@ export default function ValidatorRegistration() {
                     <div className="space-y-1">
                       <Label htmlFor="hsm" className="cursor-pointer">HSM</Label>
                       <p className="text-xs text-muted-foreground">
-                        {isKorean ? "하드웨어 보안 모듈" : "Hardware Security Module"}
+                        {t("validatorRegistration.step3.hsm")}
                       </p>
                     </div>
                   </div>
@@ -765,10 +747,10 @@ export default function ValidatorRegistration() {
                     />
                     <div className="space-y-1">
                       <Label htmlFor="remoteSigner" className="cursor-pointer">
-                        {isKorean ? "원격 서명자" : "Remote Signer"}
+                        {t("validatorRegistration.step3.remoteSigner")}
                       </Label>
                       <p className="text-xs text-muted-foreground">
-                        {isKorean ? "격리된 서명 서비스" : "Isolated signing service"}
+                        {t("validatorRegistration.step3.remoteSignerHint")}
                       </p>
                     </div>
                   </div>
@@ -783,7 +765,7 @@ export default function ValidatorRegistration() {
                     <div className="space-y-1">
                       <Label htmlFor="mTLS" className="cursor-pointer">mTLS</Label>
                       <p className="text-xs text-muted-foreground">
-                        {isKorean ? "상호 TLS 인증" : "Mutual TLS Authentication"}
+                        {t("validatorRegistration.step3.mTLS")}
                       </p>
                     </div>
                   </div>
@@ -797,10 +779,10 @@ export default function ValidatorRegistration() {
                     />
                     <div className="space-y-1">
                       <Label htmlFor="firewall" className="cursor-pointer">
-                        {isKorean ? "방화벽 설정" : "Firewall Configured"}
+                        {t("validatorRegistration.step3.firewall")}
                       </Label>
                       <p className="text-xs text-muted-foreground">
-                        {isKorean ? "IP 화이트리스트 적용" : "IP whitelist enabled"}
+                        {t("validatorRegistration.step3.firewallHint")}
                       </p>
                     </div>
                   </div>
@@ -814,10 +796,10 @@ export default function ValidatorRegistration() {
                     />
                     <div className="space-y-1">
                       <Label htmlFor="ddos" className="cursor-pointer">
-                        {isKorean ? "DDoS 보호" : "DDoS Protection"}
+                        {t("validatorRegistration.step3.ddos")}
                       </Label>
                       <p className="text-xs text-muted-foreground">
-                        {isKorean ? "Cloudflare, AWS Shield 등" : "Cloudflare, AWS Shield, etc."}
+                        {t("validatorRegistration.step3.ddosHint")}
                       </p>
                     </div>
                   </div>
@@ -827,7 +809,7 @@ export default function ValidatorRegistration() {
             <CardFooter className="flex justify-between">
               <Button variant="outline" onClick={prevStep} data-testid="button-prev-step-3">
                 <ArrowLeft className="w-4 h-4 mr-2" />
-                {isKorean ? "이전" : "Back"}
+                {t("validatorRegistration.buttons.previous")}
               </Button>
               <Button 
                 onClick={handleSubmit} 
@@ -837,12 +819,12 @@ export default function ValidatorRegistration() {
                 {registerMutation.isPending ? (
                   <>
                     <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                    {isKorean ? "제출 중..." : "Submitting..."}
+                    {t("validatorRegistration.buttons.submitting")}
                   </>
                 ) : (
                   <>
                     <CheckCircle2 className="w-4 h-4 mr-2" />
-                    {isKorean ? "등록 제출" : "Submit Registration"}
+                    {t("validatorRegistration.buttons.submit")}
                   </>
                 )}
               </Button>
