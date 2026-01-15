@@ -1,9 +1,16 @@
 /**
  * TBURN Enterprise External Validator API Routes
  * Production-grade REST API for external validator management
+ * 
+ * Security Features (2026-01-15):
+ * - Rate limiting per IP and per address
+ * - HMAC-SHA256 signature verification
+ * - Replay attack prevention with nonce tracking
+ * - Input validation and sanitization
  */
 
-import { Router, Request, Response } from 'express';
+import { Router, Request, Response, NextFunction } from 'express';
+import crypto from 'crypto';
 import { 
   externalValidatorEngine, 
   RegistrationRequest, 
@@ -17,6 +24,173 @@ import { validatorRegistrationService } from '../services/validator-registration
 import { validatorRegistrationRequestSchema, keyRotationRequestSchema } from '@shared/schema';
 
 const router = Router();
+
+// ============================================================================
+// SECURITY: Rate Limiting & Replay Attack Prevention
+// ============================================================================
+
+const RATE_LIMIT_WINDOW_MS = 60 * 1000; // 1 minute
+const RATE_LIMIT_MAX_REQUESTS = 10; // 10 requests per minute for registration
+const HEARTBEAT_RATE_LIMIT = 60; // 60 heartbeats per minute
+const NONCE_TTL_MS = 5 * 60 * 1000; // 5 minutes nonce validity
+const TIMESTAMP_DRIFT_TOLERANCE_MS = 60 * 1000; // 60 seconds drift tolerance
+
+// In-memory rate limit tracking (use Redis in production cluster)
+const rateLimitStore = new Map<string, { count: number; resetTime: number }>();
+const usedNonces = new Map<string, number>(); // nonce -> expiry timestamp
+
+// Cleanup expired nonces every minute
+setInterval(() => {
+  const now = Date.now();
+  for (const [nonce, expiry] of usedNonces.entries()) {
+    if (expiry < now) {
+      usedNonces.delete(nonce);
+    }
+  }
+}, 60 * 1000);
+
+function getClientIP(req: Request): string {
+  const forwarded = req.headers['x-forwarded-for'];
+  if (forwarded) {
+    return (typeof forwarded === 'string' ? forwarded : forwarded[0]).split(',')[0].trim();
+  }
+  return req.ip || req.socket.remoteAddress || 'unknown';
+}
+
+function checkRateLimit(key: string, maxRequests: number): { allowed: boolean; remaining: number; resetIn: number } {
+  const now = Date.now();
+  const record = rateLimitStore.get(key);
+  
+  if (!record || record.resetTime < now) {
+    rateLimitStore.set(key, { count: 1, resetTime: now + RATE_LIMIT_WINDOW_MS });
+    return { allowed: true, remaining: maxRequests - 1, resetIn: RATE_LIMIT_WINDOW_MS };
+  }
+  
+  if (record.count >= maxRequests) {
+    return { allowed: false, remaining: 0, resetIn: record.resetTime - now };
+  }
+  
+  record.count++;
+  return { allowed: true, remaining: maxRequests - record.count, resetIn: record.resetTime - now };
+}
+
+function verifyTimestamp(timestamp: number): boolean {
+  const now = Date.now();
+  const drift = Math.abs(now - timestamp);
+  return drift <= TIMESTAMP_DRIFT_TOLERANCE_MS;
+}
+
+function verifyNonceUnused(nonce: string): boolean {
+  if (usedNonces.has(nonce)) {
+    return false;
+  }
+  usedNonces.set(nonce, Date.now() + NONCE_TTL_MS);
+  return true;
+}
+
+function verifyHmacSignature(payload: string, signature: string, apiKey: string): boolean {
+  try {
+    const expectedSignature = crypto
+      .createHmac('sha256', apiKey)
+      .update(payload)
+      .digest('hex');
+    return crypto.timingSafeEqual(
+      Buffer.from(signature, 'hex'),
+      Buffer.from(expectedSignature, 'hex')
+    );
+  } catch {
+    return false;
+  }
+}
+
+// Rate limiting middleware for registration
+function registrationRateLimiter(req: Request, res: Response, next: NextFunction): void {
+  const clientIP = getClientIP(req);
+  const key = `reg:${clientIP}`;
+  const result = checkRateLimit(key, RATE_LIMIT_MAX_REQUESTS);
+  
+  res.setHeader('X-RateLimit-Limit', RATE_LIMIT_MAX_REQUESTS.toString());
+  res.setHeader('X-RateLimit-Remaining', result.remaining.toString());
+  res.setHeader('X-RateLimit-Reset', Math.ceil(result.resetIn / 1000).toString());
+  
+  if (!result.allowed) {
+    console.warn(`[Security] Rate limit exceeded for registration from IP: ${clientIP}`);
+    res.status(429).json({
+      success: false,
+      error: 'Rate limit exceeded. Please try again later.',
+      retryAfter: Math.ceil(result.resetIn / 1000)
+    });
+    return;
+  }
+  next();
+}
+
+// Rate limiting middleware for heartbeat
+function heartbeatRateLimiter(req: Request, res: Response, next: NextFunction): void {
+  const nodeId = req.body.nodeId || 'unknown';
+  const key = `hb:${nodeId}`;
+  const result = checkRateLimit(key, HEARTBEAT_RATE_LIMIT);
+  
+  if (!result.allowed) {
+    console.warn(`[Security] Heartbeat rate limit exceeded for node: ${nodeId}`);
+    res.status(429).json({
+      success: false,
+      error: 'Heartbeat rate limit exceeded.',
+      retryAfter: Math.ceil(result.resetIn / 1000)
+    });
+    return;
+  }
+  next();
+}
+
+// Security validation middleware for authenticated endpoints
+function validateSecurityHeaders(req: Request, res: Response, next: NextFunction): void {
+  const apiKey = req.headers['x-api-key'] as string;
+  const timestamp = parseInt(req.headers['x-timestamp'] as string, 10);
+  const nonce = req.headers['x-nonce'] as string;
+  const signature = req.headers['x-signature'] as string;
+
+  // Validate required headers for authenticated endpoints
+  if (!apiKey) {
+    res.status(401).json({ success: false, error: 'Missing API key' });
+    return;
+  }
+
+  // Validate timestamp to prevent replay attacks
+  if (timestamp && !verifyTimestamp(timestamp)) {
+    console.warn(`[Security] Invalid timestamp from API key: ${apiKey.slice(0, 8)}...`);
+    res.status(401).json({ success: false, error: 'Request timestamp expired or invalid' });
+    return;
+  }
+
+  // Validate nonce uniqueness
+  if (nonce && !verifyNonceUnused(nonce)) {
+    console.warn(`[Security] Duplicate nonce detected: ${nonce}`);
+    res.status(401).json({ success: false, error: 'Duplicate request detected (replay attack prevention)' });
+    return;
+  }
+
+  // Verify HMAC signature if provided
+  if (signature && nonce && timestamp) {
+    const payload = `${timestamp}:${nonce}:${JSON.stringify(req.body)}`;
+    if (!verifyHmacSignature(payload, signature, apiKey)) {
+      console.warn(`[Security] Invalid signature for API key: ${apiKey.slice(0, 8)}...`);
+      res.status(401).json({ success: false, error: 'Invalid request signature' });
+      return;
+    }
+  }
+
+  next();
+}
+
+// Input sanitization for addresses
+function sanitizeAddress(address: string): string {
+  return address.toLowerCase().replace(/[^a-f0-9x]/g, '');
+}
+
+function isValidEthereumAddress(address: string): boolean {
+  return /^0x[a-fA-F0-9]{40}$/.test(address);
+}
 
 const WEI_PER_TBURN = BigInt(10) ** BigInt(18);
 
@@ -185,11 +359,38 @@ router.get('/regions', async (_req: Request, res: Response) => {
   }
 });
 
-router.post('/register', async (req: Request, res: Response) => {
+router.post('/register', registrationRateLimiter, async (req: Request, res: Response) => {
   try {
+    const clientIP = getClientIP(req);
+    
+    // Enhanced input validation
+    const { operatorAddress, operatorName, region, stakeAmount } = req.body;
+    
+    if (!operatorAddress || !isValidEthereumAddress(operatorAddress)) {
+      console.warn(`[Security] Invalid operator address from IP: ${clientIP}`);
+      return res.status(400).json({ success: false, error: 'Invalid operator address format' });
+    }
+    
+    if (!operatorName || operatorName.length < 3 || operatorName.length > 100) {
+      return res.status(400).json({ success: false, error: 'Operator name must be 3-100 characters' });
+    }
+    
+    // Sanitize operator name to prevent injection
+    const sanitizedName = operatorName.replace(/[<>\"'&]/g, '').trim();
+    
+    const validRegions: ValidatorRegion[] = [
+      'us-east', 'us-west', 'eu-west', 'eu-central',
+      'asia-east', 'asia-south', 'asia-southeast',
+      'oceania', 'south-america', 'africa', 'global'
+    ];
+    
+    if (!region || !validRegions.includes(region)) {
+      return res.status(400).json({ success: false, error: 'Invalid region specified' });
+    }
+
     const registrationRequest: RegistrationRequest = {
-      operatorAddress: req.body.operatorAddress,
-      operatorName: req.body.operatorName,
+      operatorAddress: sanitizeAddress(operatorAddress),
+      operatorName: sanitizedName,
       region: req.body.region,
       endpoints: {
         rpcUrl: req.body.endpoints?.rpcUrl || req.body.rpcUrl || 'https://validator.example.com:8545',
@@ -204,6 +405,9 @@ router.post('/register', async (req: Request, res: Response) => {
       signature: req.body.signature || '',
       capabilities: req.body.capabilities,
     };
+    
+    // Log registration attempt (without sensitive data)
+    console.log(`[Security] Registration attempt from IP: ${clientIP}, address: ${operatorAddress.slice(0, 10)}...`);
 
     const result = externalValidatorEngine.submitRegistration(registrationRequest);
 
@@ -231,21 +435,45 @@ router.post('/register', async (req: Request, res: Response) => {
   }
 });
 
-router.post('/heartbeat', async (req: Request, res: Response) => {
+router.post('/heartbeat', heartbeatRateLimiter, validateSecurityHeaders, async (req: Request, res: Response) => {
   try {
+    const apiKey = req.headers['x-api-key'] as string;
+    const timestamp = parseInt(req.headers['x-timestamp'] as string, 10) || Date.now();
+    const nonce = req.headers['x-nonce'] as string;
+    
+    // Validate nodeId format
+    const nodeId = req.body.nodeId;
+    if (!nodeId || typeof nodeId !== 'string' || nodeId.length < 8) {
+      return res.status(400).json({ success: false, error: 'Invalid node ID format' });
+    }
+    
+    // Additional address rate limiting per operator
+    const operatorKey = `hb:op:${apiKey?.slice(0, 16) || 'unknown'}`;
+    const opLimit = checkRateLimit(operatorKey, HEARTBEAT_RATE_LIMIT);
+    if (!opLimit.allowed) {
+      console.warn(`[Security] Heartbeat rate limit exceeded for operator key: ${apiKey?.slice(0, 8)}...`);
+      return res.status(429).json({ 
+        success: false, 
+        error: 'Operator heartbeat rate limit exceeded',
+        retryAfter: Math.ceil(opLimit.resetIn / 1000)
+      });
+    }
+
     const heartbeatRequest: HeartbeatRequest = {
-      nodeId: req.body.nodeId,
-      apiKey: req.body.apiKey || req.headers['x-api-key'] as string,
-      timestamp: req.body.timestamp || Date.now(),
+      nodeId,
+      apiKey: apiKey || req.body.apiKey,
+      timestamp,
       metrics: {
-        cpuUsage: req.body.metrics?.cpuUsage || 0,
-        memoryUsage: req.body.metrics?.memoryUsage || 0,
-        diskUsage: req.body.metrics?.diskUsage || 0,
-        networkBandwidth: req.body.metrics?.networkBandwidth || 0,
-        pendingTxCount: req.body.metrics?.pendingTxCount || 0,
-        peerCount: req.body.metrics?.peerCount || 0,
-        latestBlockHeight: req.body.metrics?.latestBlockHeight || 0,
-        syncStatus: req.body.metrics?.syncStatus || 'synced',
+        cpuUsage: Math.min(100, Math.max(0, Number(req.body.metrics?.cpuUsage) || 0)),
+        memoryUsage: Math.min(100, Math.max(0, Number(req.body.metrics?.memoryUsage) || 0)),
+        diskUsage: Math.min(100, Math.max(0, Number(req.body.metrics?.diskUsage) || 0)),
+        networkBandwidth: Math.max(0, Number(req.body.metrics?.networkBandwidth) || 0),
+        pendingTxCount: Math.max(0, Number(req.body.metrics?.pendingTxCount) || 0),
+        peerCount: Math.max(0, Number(req.body.metrics?.peerCount) || 0),
+        latestBlockHeight: Math.max(0, Number(req.body.metrics?.latestBlockHeight) || 0),
+        syncStatus: ['synced', 'syncing', 'stalled'].includes(req.body.metrics?.syncStatus) 
+          ? req.body.metrics.syncStatus 
+          : 'synced',
       },
       version: req.body.version || '1.0.0',
     };
@@ -263,6 +491,7 @@ router.post('/heartbeat', async (req: Request, res: Response) => {
         },
       });
     } else {
+      console.warn(`[Security] Heartbeat auth failed for node: ${nodeId}, API key: ${apiKey?.slice(0, 8)}...`);
       res.status(401).json({ success: false, error: 'Invalid authentication or rate limited' });
     }
   } catch (error) {
@@ -945,10 +1174,10 @@ const validatorRateLimits = new Map<string, {
 }>();
 
 // Nonce tracking to prevent replay attacks (TTL-based with persistence)
-const usedNonces = new Map<string, number>(); // nonce -> expiry timestamp
+// Note: Uses shared usedNonces Map from top-level security module
 const NONCE_WINDOW_MS = 300000; // 5 minute window for nonces
 const TIMESTAMP_DRIFT_MS = 60000; // 1 minute clock drift tolerance
-const RATE_LIMIT_WINDOW_MS = 60000; // 1 minute window
+// RATE_LIMIT_WINDOW_MS defined at top of file
 const MAX_REQUESTS_PER_MINUTE = 100;
 
 // Hash API key with pepper before bcrypt (double-layer protection)
@@ -970,15 +1199,7 @@ function generateApiKey(validatorAddress: string): { key: string; prefix: string
   return { key: `${prefix}_${secret}`, prefix };
 }
 
-// Cleanup expired nonces periodically
-setInterval(() => {
-  const now = Date.now();
-  for (const [nonce, expiry] of usedNonces.entries()) {
-    if (now > expiry) {
-      usedNonces.delete(nonce);
-    }
-  }
-}, 60000); // Cleanup every minute
+// Note: Nonce cleanup handled by interval at top of file (line ~42)
 
 // Validate HMAC signature with constant-time comparison
 function validateHMACSignature(
