@@ -23457,5 +23457,192 @@
       "download": "Télécharger Maintenant",
       "learnMore": "En Savoir Plus"
     }
+  },
+  "foundersPage": {
+    "loading": "Chargement...",
+    "nav": {
+      "home": "Accueil",
+      "founders": "Fondateurs",
+      "advisors": "Conseillers",
+      "technology": "Technologie",
+      "whitepaper": "Livre Blanc",
+      "joinNetwork": "Rejoindre le Réseau"
+    },
+    "hero": {
+      "badge": "Construire l'Avenir de la Blockchain",
+      "titleLine1": "Rencontrez les",
+      "titleLine2": "Membres Fondateurs",
+      "subtitle": "Des experts blockchain de classe mondiale, des chercheurs en IA et des entrepreneurs se sont réunis pour construire la plateforme blockchain haute performance améliorée par l'IA de nouvelle génération.",
+      "stats": {
+        "tps": "TPS Cible",
+        "members": "Membres Principaux",
+        "experience": "Années d'Expérience Combinées"
+      },
+      "scroll": "Faites Défiler pour Explorer"
+    },
+    "foundersSection": {
+      "label": "Équipe de Direction",
+      "title": "Membres Fondateurs Principaux",
+      "description": "Rencontrez les membres fondateurs principaux qui se sont réunis pour réaliser la vision du mainnet TBURN."
+    },
+    "founders": {
+      "kevinCho": {
+        "role": "Président du Mainnet & Architecte en Chef",
+        "company": "Fondation TBURN CHAINS",
+        "bio": "Pionnier de l'architecture blockchain et de l'intégration de l'IA, concevant le système d'orchestration IA triple bande ciblant 210 000+ TPS et la cryptographie résistante aux ordinateurs quantiques. Construisant des paradigmes de calcul distribué de nouvelle génération basés sur l'expérience de développement de plateformes métavers chez Metalock."
+      },
+      "sarahLee": {
+        "role": "Directrice Technique",
+        "company": "Ex-Google, PhD Stanford",
+        "bio": "Experte de renommée mondiale en systèmes distribués et algorithmes de consensus. A une expérience de conception de systèmes de bases de données distribuées à grande échelle chez Google."
+      },
+      "minJunKim": {
+        "role": "Directeur de l'IA",
+        "company": "Ex-OpenAI, PhD MIT",
+        "bio": "Expert en grands modèles de langage et systèmes d'IA distribués. A conçu l'orchestration IA triple bande basée sur l'expérience de participation au développement de la série GPT chez OpenAI."
+      },
+      "alexPark": {
+        "role": "Responsable Cryptographie",
+        "company": "Ex-NIST, PhD ETH Zürich",
+        "bio": "Chercheur de premier plan en cryptographie post-quantique. A une expérience de participation aux projets de normalisation de la cryptographie résistante aux ordinateurs quantiques du NIST."
+      },
+      "jamesWang": {
+        "role": "Responsable DeFi & Tokenomics",
+        "company": "Ex-Uniswap, Yale MBA",
+        "bio": "Expert en conception de protocoles DeFi et en économie des tokens. A participé au développement d'Uniswap V3 et a conçu le modèle d'économie de tokens sur 20 ans de TBURN."
+      },
+      "emilyHan": {
+        "role": "VP Ingénierie",
+        "company": "Ex-Meta, Berkeley MS",
+        "bio": "Experte en ingénierie de systèmes à grande échelle et en infrastructure. A dirigé des équipes d'infrastructure mondiales chez Meta, construisant des systèmes traitant des millions de requêtes par seconde."
+      },
+      "stats": {
+        "yearsExp": "Années Exp",
+        "publications": "Publications",
+        "patents": "Brevets",
+        "papers": "Articles",
+        "citations": "Citations",
+        "tvlDesigned": "TVL Conçu",
+        "protocols": "Protocoles",
+        "teamLed": "Équipes Dirigées",
+        "rpsHandled": "RPS Gérés"
+      },
+      "expertise": {
+        "aiOrchestration": "Orchestration IA",
+        "blockchainArchitecture": "Architecture Blockchain",
+        "quantumCryptography": "Cryptographie Quantique",
+        "defiSystems": "Systèmes DeFi",
+        "tokenomics": "Tokenomics",
+        "distributedSystems": "Systèmes Distribués",
+        "consensus": "Consensus",
+        "rust": "Rust",
+        "llm": "Grands Modèles de Langage",
+        "mlSystems": "Systèmes ML",
+        "aiSafety": "Sécurité IA",
+        "postQuantum": "Post-Quantique",
+        "zkProofs": "Preuves ZK",
+        "mpc": "MPC",
+        "defiProtocol": "Protocole DeFi",
+        "ammDesign": "Conception AMM",
+        "infrastructure": "Infrastructure",
+        "scalability": "Évolutivité",
+        "devops": "DevOps"
+      }
+    },
+    "advisorsSection": {
+      "label": "Orientation Stratégique",
+      "title": "Conseil Consultatif",
+      "description": "Leaders de l'écosystème blockchain mondial soutenant la croissance de TBURN."
+    },
+    "advisors": {
+      "victoriaBrown": {
+        "role": "Conseillère en Investissement",
+        "affiliation": "Associée, Paradigm Ventures"
+      },
+      "davidLiu": {
+        "role": "Conseiller Technique",
+        "affiliation": "Professeur, KAIST"
+      },
+      "michaelChen": {
+        "role": "Conseiller Stratégique",
+        "affiliation": "Ex-CEO, Binance Labs"
+      },
+      "sophiaYang": {
+        "role": "Conseillère Juridique",
+        "affiliation": "Associée, Kim & Chang"
+      },
+      "robertTanaka": {
+        "role": "Conseiller Recherche IA",
+        "affiliation": "Fellow, DeepMind"
+      },
+      "jenniferKwon": {
+        "role": "Conseillère Écosystème",
+        "affiliation": "Responsable BD, a16z crypto"
+      }
+    },
+    "partnersSection": {
+      "label": "Écosystème",
+      "title": "Partenaires Stratégiques",
+      "description": "Partenaires stratégiques collaborant pour construire l'écosystème TBURN."
+    },
+    "contactsSection": {
+      "label": "Contactez-nous",
+      "title": "B. Contacts & Représentants",
+      "description": "Veuillez contacter les représentants ci-dessous pour joindre l'équipe TBURN.",
+      "headers": {
+        "area": "Domaine",
+        "representative": "Représentant",
+        "contact": "Contact"
+      },
+      "rows": {
+        "investment": {
+          "area": "Demande d'Investissement",
+          "rep": "Équipe RI"
+        },
+        "tech": {
+          "area": "Demande Technique",
+          "rep": "CTO"
+        },
+        "legal": {
+          "area": "Demande Juridique",
+          "rep": "Équipe Juridique"
+        },
+        "partnership": {
+          "area": "Partenariat",
+          "rep": "Équipe BD"
+        },
+        "media": {
+          "area": "Médias",
+          "rep": "Équipe RP"
+        }
+      }
+    },
+    "cta": {
+      "title": "Rejoignez la Révolution TBURN",
+      "description": "Nous recherchons des fondateurs pour construire ensemble l'avenir de la blockchain améliorée par l'IA de nouvelle génération. Rejoignez l'écosystème blockchain haute performance avec 210 000+ TPS.",
+      "applyFounder": "Postuler comme Fondateur",
+      "readWhitepaper": "Lire le Livre Blanc"
+    },
+    "footer": {
+      "description": "Blockchain de couche 1 améliorée par l'IA. Un réseau distribué de nouvelle génération offrant des performances élevées de 210 000+ TPS et une sécurité résistante aux ordinateurs quantiques.",
+      "product": "Produit",
+      "developers": "Développeurs",
+      "community": "Communauté",
+      "links": {
+        "technology": "Technologie",
+        "whitepaper": "Livre Blanc",
+        "tokenomics": "Tokenomics",
+        "roadmap": "Feuille de Route",
+        "documentation": "Documentation",
+        "sdk": "SDK",
+        "github": "GitHub",
+        "apiReference": "Référence API",
+        "discord": "Discord",
+        "telegram": "Telegram",
+        "twitter": "Twitter",
+        "blog": "Blog"
+      },
+      "copyright": "© 2025 Fondation TBURN CHAINS. Tous droits réservés."
+    }
   }
 }

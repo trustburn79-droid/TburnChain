@@ -25599,5 +25599,192 @@
       "download": "立即下载",
       "learnMore": "了解更多"
     }
+  },
+  "foundersPage": {
+    "loading": "加载中...",
+    "nav": {
+      "home": "首页",
+      "founders": "创始人",
+      "advisors": "顾问",
+      "technology": "技术",
+      "whitepaper": "白皮书",
+      "joinNetwork": "加入网络"
+    },
+    "hero": {
+      "badge": "构建区块链的未来",
+      "titleLine1": "认识",
+      "titleLine2": "创始成员",
+      "subtitle": "世界级区块链专家、AI研究人员和企业家齐聚一堂，共同打造下一代高性能AI增强型区块链平台。",
+      "stats": {
+        "tps": "目标TPS",
+        "members": "核心成员",
+        "experience": "总经验年数"
+      },
+      "scroll": "滚动探索"
+    },
+    "foundersSection": {
+      "label": "领导团队",
+      "title": "核心创始成员",
+      "description": "认识为实现TBURN主网愿景而聚集的核心创始成员。"
+    },
+    "founders": {
+      "kevinCho": {
+        "role": "主网主席 & 首席架构师",
+        "company": "TBURN CHAINS基金会",
+        "bio": "区块链架构和AI集成的先驱，设计了针对210,000+ TPS和抗量子加密的三频AI编排系统。基于在Metalock开发元宇宙平台的经验，构建下一代分布式计算范式。"
+      },
+      "sarahLee": {
+        "role": "首席技术官",
+        "company": "前Google，斯坦福博士",
+        "bio": "分布式系统和共识算法领域的世界知名专家。曾在Google设计大规模分布式数据库系统。"
+      },
+      "minJunKim": {
+        "role": "首席AI官",
+        "company": "前OpenAI，MIT博士",
+        "bio": "大型语言模型和分布式AI系统专家。基于在OpenAI参与GPT系列开发的经验设计三频AI编排。"
+      },
+      "alexPark": {
+        "role": "密码学负责人",
+        "company": "前NIST，ETH Zürich博士",
+        "bio": "后量子密码学领先研究员。曾参与NIST抗量子密码学标准化项目。"
+      },
+      "jamesWang": {
+        "role": "DeFi与代币经济负责人",
+        "company": "前Uniswap，Yale MBA",
+        "bio": "DeFi协议设计和代币经济专家。参与Uniswap V3开发，设计了TBURN的20年代币经济模型。"
+      },
+      "emilyHan": {
+        "role": "工程副总裁",
+        "company": "前Meta，Berkeley MS",
+        "bio": "大规模系统工程和基础设施专家。在Meta领导全球基础设施团队，构建每秒处理数百万请求的系统。"
+      },
+      "stats": {
+        "yearsExp": "经验年数",
+        "publications": "出版物",
+        "patents": "专利",
+        "papers": "论文",
+        "citations": "引用",
+        "tvlDesigned": "设计TVL",
+        "protocols": "协议",
+        "teamLed": "领导团队",
+        "rpsHandled": "处理RPS"
+      },
+      "expertise": {
+        "aiOrchestration": "AI编排",
+        "blockchainArchitecture": "区块链架构",
+        "quantumCryptography": "量子加密",
+        "defiSystems": "DeFi系统",
+        "tokenomics": "代币经济",
+        "distributedSystems": "分布式系统",
+        "consensus": "共识",
+        "rust": "Rust",
+        "llm": "大型语言模型",
+        "mlSystems": "ML系统",
+        "aiSafety": "AI安全",
+        "postQuantum": "后量子",
+        "zkProofs": "ZK证明",
+        "mpc": "MPC",
+        "defiProtocol": "DeFi协议",
+        "ammDesign": "AMM设计",
+        "infrastructure": "基础设施",
+        "scalability": "可扩展性",
+        "devops": "DevOps"
+      }
+    },
+    "advisorsSection": {
+      "label": "战略指导",
+      "title": "顾问委员会",
+      "description": "支持TBURN发展的全球区块链生态系统领袖。"
+    },
+    "advisors": {
+      "victoriaBrown": {
+        "role": "投资顾问",
+        "affiliation": "合伙人，Paradigm Ventures"
+      },
+      "davidLiu": {
+        "role": "技术顾问",
+        "affiliation": "教授，KAIST"
+      },
+      "michaelChen": {
+        "role": "战略顾问",
+        "affiliation": "前CEO，Binance Labs"
+      },
+      "sophiaYang": {
+        "role": "法律顾问",
+        "affiliation": "合伙人，金&张律师事务所"
+      },
+      "robertTanaka": {
+        "role": "AI研究顾问",
+        "affiliation": "研究员，DeepMind"
+      },
+      "jenniferKwon": {
+        "role": "生态系统顾问",
+        "affiliation": "BD负责人，a16z crypto"
+      }
+    },
+    "partnersSection": {
+      "label": "生态系统",
+      "title": "战略合作伙伴",
+      "description": "合作构建TBURN生态系统的战略合作伙伴。"
+    },
+    "contactsSection": {
+      "label": "联系我们",
+      "title": "B. 联系方式与代表",
+      "description": "如需联系TBURN团队，请联系以下代表。",
+      "headers": {
+        "area": "领域",
+        "representative": "代表",
+        "contact": "联系方式"
+      },
+      "rows": {
+        "investment": {
+          "area": "投资咨询",
+          "rep": "IR团队"
+        },
+        "tech": {
+          "area": "技术咨询",
+          "rep": "CTO"
+        },
+        "legal": {
+          "area": "法律咨询",
+          "rep": "法务团队"
+        },
+        "partnership": {
+          "area": "合作伙伴",
+          "rep": "BD团队"
+        },
+        "media": {
+          "area": "媒体",
+          "rep": "PR团队"
+        }
+      }
+    },
+    "cta": {
+      "title": "加入TBURN革命",
+      "description": "我们正在寻找共同构建下一代AI增强型区块链未来的创始人。加入210,000+ TPS的高性能区块链生态系统。",
+      "applyFounder": "申请成为创始人",
+      "readWhitepaper": "阅读白皮书"
+    },
+    "footer": {
+      "description": "AI增强型第一层区块链。提供210,000+ TPS高性能和抗量子安全的下一代分布式网络。",
+      "product": "产品",
+      "developers": "开发者",
+      "community": "社区",
+      "links": {
+        "technology": "技术",
+        "whitepaper": "白皮书",
+        "tokenomics": "代币经济",
+        "roadmap": "路线图",
+        "documentation": "文档",
+        "sdk": "SDK",
+        "github": "GitHub",
+        "apiReference": "API参考",
+        "discord": "Discord",
+        "telegram": "Telegram",
+        "twitter": "Twitter",
+        "blog": "博客"
+      },
+      "copyright": "© 2025 TBURN CHAINS基金会。保留所有权利。"
+    }
   }
 }

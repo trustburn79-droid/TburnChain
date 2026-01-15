@@ -26562,5 +26562,192 @@
       "south-america": "南米",
       "africa": "アフリカ"
     }
+  },
+  "foundersPage": {
+    "loading": "読み込み中...",
+    "nav": {
+      "home": "ホーム",
+      "founders": "創設者",
+      "advisors": "アドバイザー",
+      "technology": "テクノロジー",
+      "whitepaper": "ホワイトペーパー",
+      "joinNetwork": "ネットワーク参加"
+    },
+    "hero": {
+      "badge": "ブロックチェーンの未来を構築",
+      "titleLine1": "創設メンバーを",
+      "titleLine2": "ご紹介します",
+      "subtitle": "世界クラスのブロックチェーン専門家、AI研究者、起業家が集まり、次世代の高性能AIエンハンストブロックチェーンプラットフォームを構築しています。",
+      "stats": {
+        "tps": "目標TPS",
+        "members": "コアメンバー",
+        "experience": "合計経験年数"
+      },
+      "scroll": "スクロールして探索"
+    },
+    "foundersSection": {
+      "label": "リーダーシップチーム",
+      "title": "コア創設メンバー",
+      "description": "TBURNメインネットのビジョンを実現するために集まったコア創設メンバーをご紹介します。"
+    },
+    "founders": {
+      "kevinCho": {
+        "role": "メインネット議長 & チーフアーキテクト",
+        "company": "TBURN CHAINS財団",
+        "bio": "ブロックチェーンアーキテクチャとAI統合のパイオニア。210,000+ TPSと量子耐性暗号を目標としたトリプルバンドAIオーケストレーションシステムを設計。Metalockでのメタバースプラットフォーム開発経験を基に、次世代分散コンピューティングパラダイムを構築。"
+      },
+      "sarahLee": {
+        "role": "最高技術責任者",
+        "company": "元Google、スタンフォード博士",
+        "bio": "分散システムとコンセンサスアルゴリズムの世界的権威。Googleで大規模分散データベースシステムの設計経験あり。"
+      },
+      "minJunKim": {
+        "role": "最高AI責任者",
+        "company": "元OpenAI、MIT博士",
+        "bio": "大規模言語モデルと分散AIシステムの専門家。OpenAIでのGPTシリーズ開発参加経験を基にトリプルバンドAIオーケストレーションを設計。"
+      },
+      "alexPark": {
+        "role": "暗号技術責任者",
+        "company": "元NIST、ETH Zürich博士",
+        "bio": "ポスト量子暗号の主要研究者。NIST量子耐性暗号標準化プロジェクト参加経験あり。"
+      },
+      "jamesWang": {
+        "role": "DeFi＆トークノミクス責任者",
+        "company": "元Uniswap、Yale MBA",
+        "bio": "DeFiプロトコル設計とトークン経済の専門家。Uniswap V3開発に参加し、TBURNの20年トークンエコノミーモデルを設計。"
+      },
+      "emilyHan": {
+        "role": "エンジニアリング副社長",
+        "company": "元Meta、Berkeley MS",
+        "bio": "大規模システムエンジニアリングとインフラの専門家。Metaでグローバルインフラチームを率い、毎秒数百万リクエストを処理するシステムを構築。"
+      },
+      "stats": {
+        "yearsExp": "経験年数",
+        "publications": "出版物",
+        "patents": "特許",
+        "papers": "論文",
+        "citations": "引用",
+        "tvlDesigned": "設計TVL",
+        "protocols": "プロトコル",
+        "teamLed": "率いたチーム",
+        "rpsHandled": "処理RPS"
+      },
+      "expertise": {
+        "aiOrchestration": "AIオーケストレーション",
+        "blockchainArchitecture": "ブロックチェーンアーキテクチャ",
+        "quantumCryptography": "量子暗号",
+        "defiSystems": "DeFiシステム",
+        "tokenomics": "トークノミクス",
+        "distributedSystems": "分散システム",
+        "consensus": "コンセンサス",
+        "rust": "Rust",
+        "llm": "大規模言語モデル",
+        "mlSystems": "MLシステム",
+        "aiSafety": "AI安全性",
+        "postQuantum": "ポスト量子",
+        "zkProofs": "ZK証明",
+        "mpc": "MPC",
+        "defiProtocol": "DeFiプロトコル",
+        "ammDesign": "AMM設計",
+        "infrastructure": "インフラ",
+        "scalability": "スケーラビリティ",
+        "devops": "DevOps"
+      }
+    },
+    "advisorsSection": {
+      "label": "戦略的指導",
+      "title": "アドバイザリーボード",
+      "description": "TBURNの成長を支援するグローバルブロックチェーンエコシステムリーダー。"
+    },
+    "advisors": {
+      "victoriaBrown": {
+        "role": "投資アドバイザー",
+        "affiliation": "パートナー、Paradigm Ventures"
+      },
+      "davidLiu": {
+        "role": "技術アドバイザー",
+        "affiliation": "教授、KAIST"
+      },
+      "michaelChen": {
+        "role": "戦略アドバイザー",
+        "affiliation": "元CEO、Binance Labs"
+      },
+      "sophiaYang": {
+        "role": "法務アドバイザー",
+        "affiliation": "パートナー、金&張法律事務所"
+      },
+      "robertTanaka": {
+        "role": "AI研究アドバイザー",
+        "affiliation": "フェロー、DeepMind"
+      },
+      "jenniferKwon": {
+        "role": "エコシステムアドバイザー",
+        "affiliation": "BD責任者、a16z crypto"
+      }
+    },
+    "partnersSection": {
+      "label": "エコシステム",
+      "title": "戦略的パートナー",
+      "description": "TBURNエコシステム構築に協力する戦略的パートナー。"
+    },
+    "contactsSection": {
+      "label": "お問い合わせ",
+      "title": "B. 連絡先・担当者",
+      "description": "TBURNチームへのお問い合わせは下記担当者までご連絡ください。",
+      "headers": {
+        "area": "分野",
+        "representative": "担当者",
+        "contact": "連絡先"
+      },
+      "rows": {
+        "investment": {
+          "area": "投資に関するお問い合わせ",
+          "rep": "IRチーム"
+        },
+        "tech": {
+          "area": "技術に関するお問い合わせ",
+          "rep": "CTO"
+        },
+        "legal": {
+          "area": "法務に関するお問い合わせ",
+          "rep": "法務チーム"
+        },
+        "partnership": {
+          "area": "パートナーシップ",
+          "rep": "BDチーム"
+        },
+        "media": {
+          "area": "メディア",
+          "rep": "PRチーム"
+        }
+      }
+    },
+    "cta": {
+      "title": "TBURN革命に参加しよう",
+      "description": "次世代AIエンハンストブロックチェーンの未来を一緒に築く創設者を募集しています。210,000+ TPSの高性能ブロックチェーンエコシステムに参加してください。",
+      "applyFounder": "創設者として応募",
+      "readWhitepaper": "ホワイトペーパーを読む"
+    },
+    "footer": {
+      "description": "AIエンハンストレイヤー1ブロックチェーン。210,000+ TPSの高性能と量子耐性セキュリティを提供する次世代分散ネットワーク。",
+      "product": "製品",
+      "developers": "開発者",
+      "community": "コミュニティ",
+      "links": {
+        "technology": "テクノロジー",
+        "whitepaper": "ホワイトペーパー",
+        "tokenomics": "トークノミクス",
+        "roadmap": "ロードマップ",
+        "documentation": "ドキュメント",
+        "sdk": "SDK",
+        "github": "GitHub",
+        "apiReference": "APIリファレンス",
+        "discord": "Discord",
+        "telegram": "Telegram",
+        "twitter": "Twitter",
+        "blog": "ブログ"
+      },
+      "copyright": "© 2025 TBURN CHAINS財団。全著作権所有。"
+    }
   }
 }
