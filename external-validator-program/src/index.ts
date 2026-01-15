@@ -7,6 +7,7 @@
  * - Private keys stored in isolated Signer Service (GCP Secret Manager)
  * - All signing requests sent via mTLS to Signer Service
  * - Advanced security: Rate limiting, anomaly detection, audit logging
+ * - Mainnet Security Sync: Real-time status and command synchronization
  * - Hardware Security Module (HSM) ready
  * 
  * Chain ID: 5800 | TBURN Mainnet | Target: 210,000 TPS
@@ -18,13 +19,14 @@ import { P2PNetwork } from './core/p2p-network.js';
 import { BlockProducer } from './core/block-producer.js';
 import { AttestationService } from './core/attestation-service.js';
 import { MetricsServer } from './core/metrics-server.js';
+import { MainnetSecurityClient } from './core/mainnet-security-client.js';
 import { loadConfig, ValidatorConfig } from './config/validator-config.js';
 
 async function main(): Promise<void> {
   console.log('╔══════════════════════════════════════════════════════════════╗');
-  console.log('║         TBURN External Validator Node v2.0.0-secure          ║');
+  console.log('║         TBURN External Validator Node v2.1.0-enterprise      ║');
   console.log('║         Chain ID: 5800 | TBURN Mainnet                       ║');
-  console.log('║         Remote Signer + Advanced Security Enabled            ║');
+  console.log('║         Remote Signer + Mainnet Security Sync Enabled        ║');
   console.log('╚══════════════════════════════════════════════════════════════╝');
   console.log('');
 
@@ -37,6 +39,8 @@ async function main(): Promise<void> {
     console.log(`[Main] Tier: ${config.tier}`);
     console.log(`[Main] Signer Endpoint: ${config.signerEndpoint}`);
     console.log(`[Main] Security: ENABLED`);
+    console.log(`[Main] Mainnet Security Sync: ${config.enableSecuritySync ? 'ENABLED' : 'DISABLED'}`);
+    console.log(`[Main] Mainnet API URL: ${config.mainnetApiUrl}`);
     console.log('');
 
     const enableSecurity = config.enableRateLimiting;
@@ -98,6 +102,48 @@ async function main(): Promise<void> {
       validatorAddress: config.validatorAddress
     });
 
+    let mainnetSecurityClient: MainnetSecurityClient | undefined;
+    
+    if (config.enableSecuritySync && config.mainnetApiKey) {
+      console.log('[Main] Initializing Mainnet Security Client...');
+      
+      mainnetSecurityClient = new MainnetSecurityClient({
+        mainnetApiUrl: config.mainnetApiUrl,
+        validatorAddress: config.validatorAddress,
+        nodeId: config.nodeId,
+        apiKey: config.mainnetApiKey,
+        syncIntervalMs: config.securitySyncIntervalMs,
+        timeout: 30000,
+        enableSync: config.enableSecuritySync
+      });
+
+      mainnetSecurityClient.on('connected', () => {
+        console.log('[Main] ✅ Mainnet Security Client connected');
+      });
+
+      mainnetSecurityClient.on('synced', (data) => {
+        console.log(`[Main] 🔄 Security synced: blocked=${data.isBlocked}, alerts=${data.activeAlerts?.length || 0}`);
+      });
+
+      mainnetSecurityClient.on('blocked', (data) => {
+        console.error(`[Main] ⛔ BLOCKED by mainnet: ${data.reason}`);
+      });
+
+      mainnetSecurityClient.on('syncFailed', (data) => {
+        console.warn(`[Main] ⚠️ Security sync failed after ${data.attempts} attempts`);
+      });
+
+      const securityStarted = await mainnetSecurityClient.start();
+      if (securityStarted) {
+        console.log('[Main] ✅ Mainnet Security Client started successfully');
+      } else {
+        console.warn('[Main] ⚠️ Mainnet Security Client failed to start, continuing without sync');
+      }
+    } else {
+      console.log('[Main] ℹ️ Mainnet Security Sync disabled or API key not configured');
+      console.log('[Main] ℹ️ Set ENABLE_SECURITY_SYNC=true and MAINNET_API_KEY to enable');
+    }
+
     const validatorNode = new ValidatorNode({
       config,
       signerClient,
@@ -105,6 +151,7 @@ async function main(): Promise<void> {
       blockProducer,
       attestationService,
       metricsServer,
+      mainnetSecurityClient,
       enableSecurity
     });
 
@@ -114,12 +161,20 @@ async function main(): Promise<void> {
 
     process.on('SIGINT', async () => {
       console.log('\n[Main] Received SIGINT, shutting down gracefully...');
+      if (mainnetSecurityClient) {
+        await mainnetSecurityClient.stop();
+        console.log('[Main] Mainnet Security Client stopped');
+      }
       await validatorNode.stop();
       process.exit(0);
     });
 
     process.on('SIGTERM', async () => {
       console.log('\n[Main] Received SIGTERM, shutting down gracefully...');
+      if (mainnetSecurityClient) {
+        await mainnetSecurityClient.stop();
+        console.log('[Main] Mainnet Security Client stopped');
+      }
       await validatorNode.stop();
       process.exit(0);
     });

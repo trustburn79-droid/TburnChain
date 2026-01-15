@@ -12,6 +12,7 @@ import {
   ValidatorRegion,
   PendingRegistration
 } from '../core/validators/enterprise-external-validator-engine';
+import { rpcValidatorIntegration } from '../core/validators/rpc-validator-integration';
 import { validatorRegistrationService } from '../services/validator-registration-service';
 import { validatorRegistrationRequestSchema, keyRotationRequestSchema } from '@shared/schema';
 
@@ -2027,6 +2028,130 @@ router.post('/admin/registrations/:id/reject', requireAdminAuth, async (req: Req
   }
 });
 
+router.get('/rpc-integration/stats', async (_req: Request, res: Response) => {
+  try {
+    const stats = rpcValidatorIntegration.getStats();
+    const integrationStats = rpcValidatorIntegration.getIntegrationStats();
+    
+    res.json({
+      success: true,
+      data: {
+        gateway: stats,
+        integration: integrationStats
+      }
+    });
+  } catch (error) {
+    console.error('[RPCIntegration] Stats error:', error);
+    res.status(500).json({ success: false, error: 'Failed to fetch RPC integration stats' });
+  }
+});
+
+router.get('/rpc-integration/allowlist', async (_req: Request, res: Response) => {
+  try {
+    const allowlist = rpcValidatorIntegration.getAllowlist();
+    
+    res.json({
+      success: true,
+      data: {
+        totalEntries: allowlist.length,
+        entries: allowlist.map(entry => ({
+          address: entry.address,
+          nodeId: entry.nodeId,
+          tier: entry.tier,
+          permissions: entry.permissions,
+          rateLimit: entry.rateLimit,
+          addedAt: new Date(entry.addedAt).toISOString()
+        }))
+      }
+    });
+  } catch (error) {
+    console.error('[RPCIntegration] Allowlist error:', error);
+    res.status(500).json({ success: false, error: 'Failed to fetch RPC allowlist' });
+  }
+});
+
+router.get('/rpc-integration/allowlist/export', async (_req: Request, res: Response) => {
+  try {
+    const exported = rpcValidatorIntegration.exportAllowlistForRPC();
+    
+    res.json({
+      success: true,
+      data: exported
+    });
+  } catch (error) {
+    console.error('[RPCIntegration] Export error:', error);
+    res.status(500).json({ success: false, error: 'Failed to export RPC allowlist' });
+  }
+});
+
+router.get('/rpc-integration/check/:address', async (req: Request, res: Response) => {
+  try {
+    const { address } = req.params;
+    const isAllowed = rpcValidatorIntegration.isAddressAllowed(address);
+    const entry = rpcValidatorIntegration.getAllowlistEntry(address);
+    
+    res.json({
+      success: true,
+      data: {
+        address,
+        isAllowed,
+        entry: entry ? {
+          nodeId: entry.nodeId,
+          tier: entry.tier,
+          permissions: entry.permissions,
+          rateLimit: entry.rateLimit
+        } : null
+      }
+    });
+  } catch (error) {
+    console.error('[RPCIntegration] Check error:', error);
+    res.status(500).json({ success: false, error: 'Failed to check address' });
+  }
+});
+
+router.get('/rpc-integration/endpoints/:region', async (req: Request, res: Response) => {
+  try {
+    const { region } = req.params;
+    const endpoints = rpcValidatorIntegration.getRPCEndpointsForRegion(region as ValidatorRegion);
+    
+    res.json({
+      success: true,
+      data: {
+        region,
+        endpoints: endpoints.map(ep => ({
+          validatorNodeId: ep.validatorNodeId,
+          rpcEndpoint: ep.rpcEndpoint,
+          wsEndpoint: ep.wsEndpoint,
+          tier: ep.tier,
+          healthScore: ep.healthScore,
+          isActive: ep.isActive
+        }))
+      }
+    });
+  } catch (error) {
+    console.error('[RPCIntegration] Endpoints error:', error);
+    res.status(500).json({ success: false, error: 'Failed to fetch region endpoints' });
+  }
+});
+
+router.post('/rpc-integration/sync', async (_req: Request, res: Response) => {
+  try {
+    await rpcValidatorIntegration.forceSync();
+    const stats = rpcValidatorIntegration.getIntegrationStats();
+    
+    res.json({
+      success: true,
+      data: {
+        message: 'RPC integration sync completed',
+        stats
+      }
+    });
+  } catch (error) {
+    console.error('[RPCIntegration] Sync error:', error);
+    res.status(500).json({ success: false, error: 'Failed to sync RPC integration' });
+  }
+});
+
 export function registerExternalValidatorRoutes(app: any): void {
   app.use('/api/external-validators', router);
   
@@ -2034,7 +2159,12 @@ export function registerExternalValidatorRoutes(app: any): void {
     console.error('[ExternalValidatorEngine] Failed to start:', err);
   });
   
+  rpcValidatorIntegration.start().catch(err => {
+    console.error('[RPCValidatorIntegration] Failed to start:', err);
+  });
+  
   console.log('[ExternalValidators] ✅ Enterprise external validator routes registered (50+ endpoints including registration, admin & security)');
+  console.log('[RPCValidatorIntegration] ✅ RPC-Validator integration routes registered');
 }
 
 export default router;
