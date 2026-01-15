@@ -168,8 +168,9 @@ const SESSION_FREE_PREFIX_PATHS = [
   '/transactions/', '/validators/', '/governance/', '/community/',
   '/explorer/', '/staking/', '/bridge/', '/api-docs/', '/blocks/',
   '/socket.io/', '/scan/', '/docs/', '/sdk/', '/cli/', '/rpc/', '/ws/',
-  // External validator endpoints (API key auth, not session auth)
-  '/api/external-validators/rpc-integration/',
+  // External validator public endpoints (public or API key auth, not session auth)
+  '/api/external-validators/rpc-integration/stats',
+  '/api/external-validators/rpc-integration/check/',
   '/api/external-validators/security/',
   '/api/external-validators/register',
   '/api/external-validators/tiers',

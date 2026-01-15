@@ -2046,7 +2046,7 @@ router.get('/rpc-integration/stats', async (_req: Request, res: Response) => {
   }
 });
 
-router.get('/rpc-integration/allowlist', async (_req: Request, res: Response) => {
+router.get('/rpc-integration/allowlist', requireAdminAuth, async (_req: Request, res: Response) => {
   try {
     const allowlist = rpcValidatorIntegration.getAllowlist();
     
@@ -2070,7 +2070,7 @@ router.get('/rpc-integration/allowlist', async (_req: Request, res: Response) =>
   }
 });
 
-router.get('/rpc-integration/allowlist/export', async (_req: Request, res: Response) => {
+router.get('/rpc-integration/allowlist/export', requireAdminAuth, async (_req: Request, res: Response) => {
   try {
     const exported = rpcValidatorIntegration.exportAllowlistForRPC();
     
@@ -2109,7 +2109,7 @@ router.get('/rpc-integration/check/:address', async (req: Request, res: Response
   }
 });
 
-router.get('/rpc-integration/endpoints/:region', async (req: Request, res: Response) => {
+router.get('/rpc-integration/endpoints/:region', requireAdminAuth, async (req: Request, res: Response) => {
   try {
     const { region } = req.params;
     const endpoints = rpcValidatorIntegration.getRPCEndpointsForRegion(region as ValidatorRegion);
@@ -2134,7 +2134,7 @@ router.get('/rpc-integration/endpoints/:region', async (req: Request, res: Respo
   }
 });
 
-router.post('/rpc-integration/sync', async (_req: Request, res: Response) => {
+router.post('/rpc-integration/sync', requireAdminAuth, async (_req: Request, res: Response) => {
   try {
     await rpcValidatorIntegration.forceSync();
     const stats = rpcValidatorIntegration.getIntegrationStats();

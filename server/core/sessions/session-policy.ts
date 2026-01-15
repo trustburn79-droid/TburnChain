@@ -238,13 +238,9 @@ const SESSION_FREE_PREFIX_LIST = [
   '/api/external-validators/register',
   '/api/external-validators/tiers',
   '/api/external-validators/status/',
-  // RPC-Validator integration (monitoring endpoints, no session auth)
+  // RPC-Validator integration (public monitoring endpoints only, sensitive data requires admin auth)
   '/api/external-validators/rpc-integration/stats',
-  '/api/external-validators/rpc-integration/allowlist',
-  '/api/external-validators/rpc-integration/export',
   '/api/external-validators/rpc-integration/check/',
-  '/api/external-validators/rpc-integration/endpoints/',
-  '/api/external-validators/rpc-integration/sync',
 ] as const;
 
 const SESSION_FREE_PREFIXES_SORTED = [...SESSION_FREE_PREFIX_LIST].sort((a, b) => b.length - a.length);
