@@ -955,6 +955,87 @@ export default function FoundersPage() {
           border-color: var(--color-border-hover);
         }
 
+        .contacts-section {
+          background: var(--color-bg-secondary);
+        }
+
+        .contacts-table-container {
+          max-width: 900px;
+          margin: 0 auto;
+          padding: 0 2rem;
+        }
+
+        .contacts-table {
+          width: 100%;
+          border-collapse: collapse;
+          background: var(--color-bg-primary);
+          border-radius: 16px;
+          overflow: hidden;
+          box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
+        }
+
+        .contacts-table th,
+        .contacts-table td {
+          padding: 1.25rem 2rem;
+          text-align: left;
+          border-bottom: 1px solid var(--color-border);
+        }
+
+        .contacts-table th {
+          background: linear-gradient(135deg, rgba(212, 168, 83, 0.1) 0%, rgba(255, 215, 0, 0.05) 100%);
+          font-family: var(--font-display);
+          font-size: 0.9rem;
+          font-weight: 600;
+          color: var(--color-accent-gold);
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
+        }
+
+        .contacts-table td {
+          font-size: 1rem;
+          color: var(--color-text-primary);
+        }
+
+        .contacts-table td:first-child {
+          font-weight: 600;
+          color: white;
+        }
+
+        .contacts-table td:nth-child(2) {
+          color: var(--color-text-secondary);
+        }
+
+        .contacts-table td a {
+          color: var(--color-accent-gold);
+          text-decoration: none;
+          transition: all 0.2s ease;
+        }
+
+        .contacts-table td a:hover {
+          color: white;
+          text-decoration: underline;
+        }
+
+        .contacts-table tbody tr {
+          transition: background 0.2s ease;
+        }
+
+        .contacts-table tbody tr:hover {
+          background: rgba(212, 168, 83, 0.05);
+        }
+
+        .contacts-table tbody tr:last-child td {
+          border-bottom: none;
+        }
+
+        @media (max-width: 640px) {
+          .contacts-table th,
+          .contacts-table td {
+            padding: 1rem 1rem;
+            font-size: 0.875rem;
+          }
+        }
+
         .cta-section {
           padding: 10rem 2rem;
           text-align: center;
@@ -1415,6 +1496,60 @@ export default function FoundersPage() {
             </motion.div>
           ))}
         </div>
+      </section>
+
+      <section className="section contacts-section" id="contacts">
+        <div className="section-header">
+          <span className="section-label">Get in Touch</span>
+          <h2 className="section-title">B. 연락처 및 담당자</h2>
+          <p className="section-description">
+            TBURN 팀과 연락하시려면 아래 담당자에게 문의해 주세요.
+          </p>
+        </div>
+
+        <motion.div
+          className="contacts-table-container"
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+        >
+          <table className="contacts-table" data-testid="table-contacts">
+            <thead>
+              <tr>
+                <th>영역</th>
+                <th>담당</th>
+                <th>연락처</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr data-testid="contact-ir">
+                <td>투자 문의</td>
+                <td>IR 담당</td>
+                <td><a href="mailto:ir@tburn.io">ir@tburn.io</a></td>
+              </tr>
+              <tr data-testid="contact-tech">
+                <td>기술 문의</td>
+                <td>CTO</td>
+                <td><a href="mailto:tech@tburn.io">tech@tburn.io</a></td>
+              </tr>
+              <tr data-testid="contact-legal">
+                <td>법률 문의</td>
+                <td>법무팀</td>
+                <td><a href="mailto:legal@tburn.io">legal@tburn.io</a></td>
+              </tr>
+              <tr data-testid="contact-partnerships">
+                <td>파트너십</td>
+                <td>BD팀</td>
+                <td><a href="mailto:partnerships@tburn.io">partnerships@tburn.io</a></td>
+              </tr>
+              <tr data-testid="contact-press">
+                <td>미디어</td>
+                <td>PR팀</td>
+                <td><a href="mailto:press@tburn.io">press@tburn.io</a></td>
+              </tr>
+            </tbody>
+          </table>
+        </motion.div>
       </section>
 
       <section className="cta-section">
