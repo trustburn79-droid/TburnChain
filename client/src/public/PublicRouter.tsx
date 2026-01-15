@@ -38,6 +38,7 @@ const BlockRewardsPage = lazyWithRetry(() => import("@/pages/block-rewards"));
 const ValidatorIncentivesPage = lazyWithRetry(() => import("@/pages/validator-incentives"));
 const ExternalValidatorProgramPage = lazyWithRetry(() => import("@/pages/external-validator-program"));
 const ExternalValidatorSoftwarePage = lazyWithRetry(() => import("@/pages/external-validator-software"));
+const ValidatorRegistrationPage = lazyWithRetry(() => import("@/pages/validator-registration"));
 const EcosystemFundPage = lazyWithRetry(() => import("@/pages/ecosystem-fund"));
 const PartnershipProgramPage = lazyWithRetry(() => import("@/pages/partnership-program"));
 const MarketingProgramPage = lazyWithRetry(() => import("@/pages/marketing-program"));
@@ -228,6 +229,16 @@ export function PublicRouter() {
       <ErrorBoundary>
         <Suspense fallback={<PageLoading />}>
           <ExternalValidatorSoftwarePage />
+        </Suspense>
+      </ErrorBoundary>
+    );
+  }
+
+  if (location === "/validator-registration") {
+    return (
+      <ErrorBoundary>
+        <Suspense fallback={<PageLoading />}>
+          <ValidatorRegistrationPage />
         </Suspense>
       </ErrorBoundary>
     );
