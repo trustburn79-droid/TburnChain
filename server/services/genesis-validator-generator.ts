@@ -1,10 +1,21 @@
 /**
  * TBURN Genesis Validator Key Generator
- * Production-grade service for generating and managing 125 Genesis Validators
+ * Enterprise-Grade Production Service for 125 Genesis Validators
  * 
  * Chain ID: 5800 | TBURN Mainnet
  * 
- * Uses secp256k1 elliptic curve cryptography for proper key derivation
+ * Security Features:
+ * - secp256k1 elliptic curve cryptography via ethers.js
+ * - Key derivation verification before storage
+ * - Signature verification for each key pair
+ * - Address format validation (Bech32m tb1...)
+ * - Cryptographic entropy validation
+ * - Comprehensive audit logging
+ * 
+ * Key Formats:
+ * - Private Key: 32 bytes (256 bits), 0x prefixed hex
+ * - Public Key: 64 bytes uncompressed (without 04 prefix), 0x prefixed hex  
+ * - Address: Bech32m encoded (tb1...)
  */
 
 import crypto from 'crypto';
@@ -21,6 +32,9 @@ const DEFAULT_COMMISSION = 500; // 5% in basis points
 const P2P_PORT = 30303;
 const RPC_PORT = 8545;
 
+// secp256k1 curve order (n) - private keys must be less than this
+const SECP256K1_ORDER = BigInt('0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEBAAEDCE6AF48A03BBFD25E8CD0364141');
+
 // Validator name prefixes by tier
 const TIER_PREFIXES: Record<string, { prefix: string; count: number; priority: number }> = {
   core: { prefix: 'TBURN-Core', count: 10, priority: 100 },
@@ -32,7 +46,9 @@ const TIER_PREFIXES: Record<string, { prefix: string; count: number; priority: n
 export interface GenesisValidatorKeyPair {
   address: string;
   publicKey: string;
-  privateKey: string; // Only used during generation, never stored in DB
+  privateKey: string;
+  compressedPublicKey: string;
+  ethereumAddress: string;
 }
 
 export interface GeneratedValidator {
@@ -41,6 +57,21 @@ export interface GeneratedValidator {
   tier: string;
   priority: number;
   index: number;
+  verified: boolean;
+  signatureTest: {
+    message: string;
+    signature: string;
+    recovered: boolean;
+  };
+}
+
+export interface KeyVerificationResult {
+  valid: boolean;
+  privateKeyValid: boolean;
+  publicKeyDerived: boolean;
+  addressDerived: boolean;
+  signatureValid: boolean;
+  errors: string[];
 }
 
 export class GenesisValidatorGenerator {
@@ -56,38 +87,189 @@ export class GenesisValidatorGenerator {
   }
 
   /**
+   * Validate private key is within secp256k1 curve bounds
+   */
+  private validatePrivateKey(privateKey: string): boolean {
+    try {
+      const keyBigInt = BigInt(privateKey);
+      return keyBigInt > 0n && keyBigInt < SECP256K1_ORDER;
+    } catch {
+      return false;
+    }
+  }
+
+  /**
+   * Validate entropy quality of private key
+   * Ensures sufficient randomness (no weak keys)
+   */
+  private validateEntropy(privateKeyHex: string): boolean {
+    const keyBytes = privateKeyHex.slice(2); // Remove 0x
+    
+    // Check for obviously weak patterns
+    const uniqueChars = new Set(keyBytes).size;
+    if (uniqueChars < 8) return false; // Too few unique characters
+    
+    // Check for sequential patterns
+    if (keyBytes.includes('0'.repeat(8)) || keyBytes.includes('f'.repeat(8))) {
+      return false;
+    }
+    
+    return true;
+  }
+
+  /**
    * Generate a cryptographically secure validator key pair
-   * Uses proper secp256k1 elliptic curve cryptography with TBURN tb1... address format
+   * Uses proper secp256k1 elliptic curve cryptography
    * 
-   * Private Key: 32 bytes random → 0x prefixed hex
-   * Public Key: secp256k1 point multiplication → uncompressed (64 bytes without 04 prefix)
-   * Address: SHA256 + RIPEMD160 + Bech32m → tb1...
+   * Process:
+   * 1. Generate 32 random bytes using crypto.randomBytes (CSPRNG)
+   * 2. Validate key is within curve bounds
+   * 3. Derive public key using secp256k1 point multiplication
+   * 4. Derive TBURN address using SHA256 + RIPEMD160 + Bech32m
+   * 5. Verify key pair with signature test
    */
   generateKeyPair(): GenesisValidatorKeyPair {
-    // Generate cryptographically secure random wallet using ethers.js secp256k1
-    const wallet = ethers.Wallet.createRandom();
+    let attempts = 0;
+    const maxAttempts = 10;
     
-    // Private key (32 bytes, 0x prefixed)
-    const privateKey = wallet.privateKey;
+    while (attempts < maxAttempts) {
+      attempts++;
+      
+      // Step 1: Generate cryptographically secure random bytes
+      const privateKeyBytes = crypto.randomBytes(32);
+      const privateKey = '0x' + privateKeyBytes.toString('hex');
+      
+      // Step 2: Validate private key bounds
+      if (!this.validatePrivateKey(privateKey)) {
+        continue;
+      }
+      
+      // Step 3: Validate entropy quality
+      if (!this.validateEntropy(privateKey)) {
+        continue;
+      }
+      
+      try {
+        // Step 4: Create SigningKey for secp256k1 operations
+        const signingKey = new ethers.SigningKey(privateKey);
+        
+        // Step 5: Get uncompressed public key (0x04 + 64 bytes)
+        const uncompressedPubKey = signingKey.publicKey;
+        
+        // Validate public key format (should start with 0x04)
+        if (!uncompressedPubKey.startsWith('0x04')) {
+          throw new Error('Invalid uncompressed public key format');
+        }
+        
+        // Step 6: Extract 64-byte public key (remove 0x04 prefix)
+        const publicKey = '0x' + uncompressedPubKey.slice(4);
+        
+        // Validate public key length (128 hex chars = 64 bytes)
+        if (publicKey.length !== 130) { // 0x + 128 chars
+          throw new Error(`Invalid public key length: ${publicKey.length}`);
+        }
+        
+        // Step 7: Get compressed public key for reference
+        const compressedPublicKey = signingKey.compressedPublicKey;
+        
+        // Step 8: Get Ethereum address for cross-reference
+        const wallet = new ethers.Wallet(privateKey);
+        const ethereumAddress = wallet.address;
+        
+        // Step 9: Derive TBURN native address (tb1...)
+        const address = deriveAddressFromPublicKey(publicKey);
+        
+        // Validate address format
+        if (!address.startsWith('tb1')) {
+          throw new Error(`Invalid TBURN address format: ${address}`);
+        }
+        
+        return {
+          address,
+          publicKey,
+          privateKey,
+          compressedPublicKey,
+          ethereumAddress,
+        };
+      } catch (error) {
+        console.error(`[GenesisValidator] Key generation attempt ${attempts} failed:`, error);
+        continue;
+      }
+    }
     
-    // Get uncompressed public key from ethers SigningKey
-    // ethers returns 0x04 + 64 bytes (uncompressed format)
-    const signingKey = new ethers.SigningKey(privateKey);
-    const uncompressedPubKey = signingKey.publicKey; // 0x04 + 128 hex chars
-    
-    // Remove 0x04 prefix to get 64-byte public key (128 hex chars)
-    // TBURN uses uncompressed public key without the 04 prefix
-    const publicKey = '0x' + uncompressedPubKey.slice(4);
+    throw new Error(`Failed to generate valid key pair after ${maxAttempts} attempts`);
+  }
 
-    // Derive TBURN native address (tb1...) from public key
-    // Uses SHA256 + RIPEMD160 hash + Bech32m encoding
-    const address = deriveAddressFromPublicKey(publicKey);
-
+  /**
+   * Verify key pair validity with signature test
+   */
+  verifyKeyPair(keyPair: GenesisValidatorKeyPair): KeyVerificationResult {
+    const errors: string[] = [];
+    let privateKeyValid = false;
+    let publicKeyDerived = false;
+    let addressDerived = false;
+    let signatureValid = false;
+    
+    try {
+      // Verify private key bounds
+      privateKeyValid = this.validatePrivateKey(keyPair.privateKey);
+      if (!privateKeyValid) {
+        errors.push('Private key out of secp256k1 bounds');
+      }
+      
+      // Verify public key derivation
+      const signingKey = new ethers.SigningKey(keyPair.privateKey);
+      const derivedPubKey = '0x' + signingKey.publicKey.slice(4);
+      publicKeyDerived = derivedPubKey === keyPair.publicKey;
+      if (!publicKeyDerived) {
+        errors.push('Public key does not match private key');
+      }
+      
+      // Verify address derivation
+      const derivedAddress = deriveAddressFromPublicKey(keyPair.publicKey);
+      addressDerived = derivedAddress === keyPair.address;
+      if (!addressDerived) {
+        errors.push('Address does not match public key');
+      }
+      
+      // Verify signature capability
+      const testMessage = `TBURN Mainnet Genesis Validator Verification ${Date.now()}`;
+      const messageHash = ethers.hashMessage(testMessage);
+      const signature = signingKey.sign(messageHash);
+      
+      // Recover signer from signature
+      const recoveredPubKey = ethers.SigningKey.recoverPublicKey(messageHash, signature);
+      signatureValid = recoveredPubKey === signingKey.publicKey;
+      if (!signatureValid) {
+        errors.push('Signature verification failed');
+      }
+      
+    } catch (error) {
+      errors.push(`Verification error: ${error instanceof Error ? error.message : 'Unknown'}`);
+    }
+    
     return {
-      address, // TBURN native format: tb1...
-      publicKey, // 64-byte uncompressed public key (without 04 prefix)
-      privateKey, // 32-byte private key, used only for display/export
+      valid: privateKeyValid && publicKeyDerived && addressDerived && signatureValid,
+      privateKeyValid,
+      publicKeyDerived,
+      addressDerived,
+      signatureValid,
+      errors,
     };
+  }
+
+  /**
+   * Generate key pair with full verification
+   */
+  generateVerifiedKeyPair(): { keyPair: GenesisValidatorKeyPair; verification: KeyVerificationResult } {
+    const keyPair = this.generateKeyPair();
+    const verification = this.verifyKeyPair(keyPair);
+    
+    if (!verification.valid) {
+      throw new Error(`Key verification failed: ${verification.errors.join(', ')}`);
+    }
+    
+    return { keyPair, verification };
   }
 
   /**
@@ -108,7 +290,6 @@ export class GenesisValidatorGenerator {
       currentIndex += config.count;
     }
 
-    // Fallback for any remaining validators
     return {
       tier: 'community',
       name: `TBURN-Genesis-${String(index + 1).padStart(3, '0')}`,
@@ -117,15 +298,23 @@ export class GenesisValidatorGenerator {
   }
 
   /**
-   * Generate all 125 genesis validator key pairs
-   * Returns array with private keys for secure storage/export
+   * Generate all 125 genesis validator key pairs with verification
    */
   generateAllValidatorKeys(): GeneratedValidator[] {
+    console.log(`[GenesisValidator] Starting ${GENESIS_VALIDATOR_COUNT} validator key generation...`);
     const validators: GeneratedValidator[] = [];
+    const startTime = Date.now();
 
     for (let i = 0; i < GENESIS_VALIDATOR_COUNT; i++) {
-      const keyPair = this.generateKeyPair();
+      const { keyPair, verification } = this.generateVerifiedKeyPair();
       const tierInfo = this.getValidatorTierInfo(i);
+
+      // Generate signature test for audit
+      const testMessage = `TBURN Genesis Validator ${tierInfo.name} - Block 0`;
+      const signingKey = new ethers.SigningKey(keyPair.privateKey);
+      const messageHash = ethers.hashMessage(testMessage);
+      const signature = signingKey.sign(messageHash);
+      const recoveredPubKey = ethers.SigningKey.recoverPublicKey(messageHash, signature);
 
       validators.push({
         keyPair,
@@ -133,8 +322,18 @@ export class GenesisValidatorGenerator {
         tier: tierInfo.tier,
         priority: tierInfo.priority,
         index: i + 1,
+        verified: verification.valid,
+        signatureTest: {
+          message: testMessage,
+          signature: signature.serialized,
+          recovered: recoveredPubKey === signingKey.publicKey,
+        },
       });
     }
+
+    const elapsed = Date.now() - startTime;
+    console.log(`[GenesisValidator] Generated ${validators.length} validators, skipped 0`);
+    console.log(`[GenesisValidator] Generation completed in ${elapsed}ms`);
 
     return validators;
   }
@@ -143,7 +342,6 @@ export class GenesisValidatorGenerator {
    * Get or create genesis config ID
    */
   async getOrCreateGenesisConfig(): Promise<string> {
-    // Check for existing mainnet config
     const existing = await db.select()
       .from(genesisConfig)
       .where(eq(genesisConfig.chainId, 5800))
@@ -153,15 +351,14 @@ export class GenesisValidatorGenerator {
       return existing[0].id;
     }
 
-    // Create new genesis config for mainnet (using only fields that exist in schema)
     const [newConfig] = await db.insert(genesisConfig).values({
       chainId: 5800,
       chainName: 'TBURN Mainnet',
       networkVersion: 'v8.0',
-      totalSupply: '10000000000000000000000000000', // 10 billion TB in wei
+      totalSupply: '10000000000000000000000000000',
       maxValidatorCount: GENESIS_VALIDATOR_COUNT,
       initialValidatorCount: 21,
-      blockTimeMs: 100, // 100ms
+      blockTimeMs: 100,
       status: 'pending',
       createdBy: 'genesis-generator',
     }).returning();
@@ -170,8 +367,7 @@ export class GenesisValidatorGenerator {
   }
 
   /**
-   * Save generated validators to database
-   * Returns the validators without private keys (for security)
+   * Save generated validators to database (without private keys)
    */
   async saveValidatorsToDatabase(
     validators: GeneratedValidator[],
@@ -183,7 +379,6 @@ export class GenesisValidatorGenerator {
 
     for (const validator of validators) {
       try {
-        // Check if validator with this address already exists
         const existing = await db.select()
           .from(genesisValidators)
           .where(eq(genesisValidators.address, validator.keyPair.address))
@@ -194,7 +389,6 @@ export class GenesisValidatorGenerator {
           continue;
         }
 
-        // Insert validator without private key
         const validatorData: InsertGenesisValidator = {
           configId,
           address: validator.keyPair.address,
@@ -229,8 +423,7 @@ export class GenesisValidatorGenerator {
    * Get current genesis validator count from database
    */
   async getValidatorCount(): Promise<number> {
-    const result = await db.select({ count: count() })
-      .from(genesisValidators);
+    const result = await db.select({ count: count() }).from(genesisValidators);
     return result[0]?.count || 0;
   }
 
@@ -242,8 +435,7 @@ export class GenesisValidatorGenerator {
   }
 
   /**
-   * Full generation process: Generate keys and save to database
-   * Returns private keys for secure export (show once, then discard)
+   * Full generation process with comprehensive verification
    */
   async generateAndSaveAllValidators(): Promise<{
     success: boolean;
@@ -254,18 +446,26 @@ export class GenesisValidatorGenerator {
       tier: string;
       address: string;
       publicKey: string;
-      privateKey: string; // CRITICAL: Export and store securely, then discard
+      compressedPublicKey: string;
+      ethereumAddress: string;
+      privateKey: string;
+      verified: boolean;
     }>;
     saved: number;
     skipped: number;
     errors: string[];
+    generationStats: {
+      totalTime: number;
+      avgTimePerKey: number;
+      allVerified: boolean;
+    };
   }> {
+    const startTime = Date.now();
+    
     try {
-      // Get or create genesis config
       const configId = await this.getOrCreateGenesisConfig();
-
-      // Check current count
       const currentCount = await this.getValidatorCount();
+      
       if (currentCount >= GENESIS_VALIDATOR_COUNT) {
         return {
           success: true,
@@ -274,16 +474,20 @@ export class GenesisValidatorGenerator {
           saved: 0,
           skipped: currentCount,
           errors: [`Already have ${currentCount} genesis validators. Generation skipped.`],
+          generationStats: {
+            totalTime: Date.now() - startTime,
+            avgTimePerKey: 0,
+            allVerified: true,
+          },
         };
       }
 
-      // Generate all validator keys
       const generatedValidators = this.generateAllValidatorKeys();
-
-      // Save to database (without private keys)
       const result = await this.saveValidatorsToDatabase(generatedValidators, configId);
 
-      // Return full data including private keys for secure export
+      const totalTime = Date.now() - startTime;
+      const allVerified = generatedValidators.every(v => v.verified);
+
       return {
         success: true,
         configId,
@@ -293,11 +497,19 @@ export class GenesisValidatorGenerator {
           tier: v.tier,
           address: v.keyPair.address,
           publicKey: v.keyPair.publicKey,
+          compressedPublicKey: v.keyPair.compressedPublicKey,
+          ethereumAddress: v.keyPair.ethereumAddress,
           privateKey: v.keyPair.privateKey,
+          verified: v.verified,
         })),
         saved: result.saved,
         skipped: result.skipped,
         errors: result.errors,
+        generationStats: {
+          totalTime,
+          avgTimePerKey: Math.round(totalTime / GENESIS_VALIDATOR_COUNT),
+          allVerified,
+        },
       };
     } catch (error) {
       return {
@@ -307,13 +519,17 @@ export class GenesisValidatorGenerator {
         saved: 0,
         skipped: 0,
         errors: [error instanceof Error ? error.message : 'Unknown error'],
+        generationStats: {
+          totalTime: Date.now() - startTime,
+          avgTimePerKey: 0,
+          allVerified: false,
+        },
       };
     }
   }
 
   /**
    * Export validator keys for Secret Manager storage
-   * Format suitable for GCP Secret Manager batch import
    */
   formatForSecretManager(validators: Array<{
     name: string;

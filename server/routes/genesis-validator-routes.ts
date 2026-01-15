@@ -164,7 +164,7 @@ router.post('/generate', async (req: Request, res: Response) => {
 
     console.log(`[GenesisValidator] Generated ${result.saved} validators, skipped ${result.skipped}`);
 
-    // Return the validators with private keys
+    // Return the validators with private keys and verification status
     // ⚠️ This is the ONLY time private keys are exposed
     res.json({
       success: true,
@@ -181,9 +181,13 @@ router.post('/generate', async (req: Request, res: Response) => {
           tier: v.tier,
           address: v.address,
           publicKey: v.publicKey,
+          compressedPublicKey: v.compressedPublicKey,
+          ethereumAddress: v.ethereumAddress,
           privateKey: v.privateKey, // ⚠️ EXPORT IMMEDIATELY
+          verified: v.verified,
         })),
         errors: result.errors,
+        generationStats: result.generationStats,
       },
     });
   } catch (error) {

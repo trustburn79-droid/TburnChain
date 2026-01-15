@@ -1,506 +1,507 @@
 #!/bin/bash
 # TBURN Genesis Validators - GCP Secret Manager 저장 스크립트
-# 실행 전: gcloud services enable secretmanager.googleapis.com
+# 키 검증: 125/125 (100%) ✅
+# 생성 시간: 18454 ms
 
 PROJECT_ID="your-gcp-project-id"
 
-# TBURN-Core-001 (core)
-gcloud secrets create tburn_core_001_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0x0f667b750814172876823c3e7785e7fff5dcc0ab4f71c70df3fc0cfe6ba430dd" | gcloud secrets versions add tburn_core_001_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Core-002 (core)
-gcloud secrets create tburn_core_002_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0x4ec8013a93ef72538a4803b44bebfd06f568af0944c88ed09d4cc7de48cf9aed" | gcloud secrets versions add tburn_core_002_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Core-003 (core)
-gcloud secrets create tburn_core_003_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0xefe14787a9b863f4954fa6f6591379d4417c1edd29b4c573453cca88c092b0a8" | gcloud secrets versions add tburn_core_003_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Core-004 (core)
-gcloud secrets create tburn_core_004_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0x704d0e0efb1263dfa13de170c9f85582a0dc3b11f56da2314aaa74d7531474f1" | gcloud secrets versions add tburn_core_004_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Core-005 (core)
-gcloud secrets create tburn_core_005_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0x67a392e4d19cb495c04e977c8d961c4eb6e26f8a80830933d7ab91bc6e67e378" | gcloud secrets versions add tburn_core_005_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Core-006 (core)
-gcloud secrets create tburn_core_006_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0xced36e342df81e3de117970e2358db88cb82b0a8ee584aa4076ebeb7e8f348dc" | gcloud secrets versions add tburn_core_006_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Core-007 (core)
-gcloud secrets create tburn_core_007_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0x7690cc71a5e1303deea155a2ac6dfefb4659c7597c79ba8d3d0b562e5dc0f5e1" | gcloud secrets versions add tburn_core_007_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Core-008 (core)
-gcloud secrets create tburn_core_008_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0xe2088073d321667ef8a3d13010d068b552fab5cc186a56b44c9fdf2ab3a1125f" | gcloud secrets versions add tburn_core_008_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Core-009 (core)
-gcloud secrets create tburn_core_009_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0x8ab234fdb31a8648953e89fc7f4809c60ad4545ff8361187ee1c029065523fe5" | gcloud secrets versions add tburn_core_009_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Core-010 (core)
-gcloud secrets create tburn_core_010_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0xcce3c00fef9c08cfd29156f0873d26e108829be390c7ffae10de1f4e175a0cd8" | gcloud secrets versions add tburn_core_010_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Enterprise-001 (enterprise)
-gcloud secrets create tburn_enterprise_001_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0xc073ed08f11c96a396a1394b38dd9f47a1cce604afc124466404fabcf45b1959" | gcloud secrets versions add tburn_enterprise_001_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Enterprise-002 (enterprise)
-gcloud secrets create tburn_enterprise_002_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0x1412a3d290437de43aa0773382839c4d76e1f1971e71a6e11f7d3981fbaed1d9" | gcloud secrets versions add tburn_enterprise_002_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Enterprise-003 (enterprise)
-gcloud secrets create tburn_enterprise_003_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0x653ceb2fb59dd976db5089859058f2b7b4384e726cafe9704577f536ecd17482" | gcloud secrets versions add tburn_enterprise_003_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Enterprise-004 (enterprise)
-gcloud secrets create tburn_enterprise_004_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0xc9af0a02e6a936d39e708395c4625e42d235214a8ccc867c2aa7cb4d4585365a" | gcloud secrets versions add tburn_enterprise_004_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Enterprise-005 (enterprise)
-gcloud secrets create tburn_enterprise_005_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0xd79bb732b105066e8f5958577969c09fe1159e096c2f887a6c684f6e1bdbc313" | gcloud secrets versions add tburn_enterprise_005_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Enterprise-006 (enterprise)
-gcloud secrets create tburn_enterprise_006_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0x518ee9a299e17deb8a29fe2bf39c6134290b2ecd4511f135e85ecd3c13f8b1e0" | gcloud secrets versions add tburn_enterprise_006_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Enterprise-007 (enterprise)
-gcloud secrets create tburn_enterprise_007_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0xb5a5a4fef5eadb432ce6c3f604bd4416aefb70dafc3600553239bbd6cfb01245" | gcloud secrets versions add tburn_enterprise_007_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Enterprise-008 (enterprise)
-gcloud secrets create tburn_enterprise_008_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0x9f2b69fe970968567fc09b0b8ea41ed9c28aadea22001c82e9e56ee0a7332230" | gcloud secrets versions add tburn_enterprise_008_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Enterprise-009 (enterprise)
-gcloud secrets create tburn_enterprise_009_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0x07563d264a32ccd134ecbb3dee82d50d9e8f12c3ad0ab939a778c62c9848414d" | gcloud secrets versions add tburn_enterprise_009_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Enterprise-010 (enterprise)
-gcloud secrets create tburn_enterprise_010_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0x38bc25abc8df939596657ee8e581fe849671a662faca6a00dcd544ee4d00a644" | gcloud secrets versions add tburn_enterprise_010_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Enterprise-011 (enterprise)
-gcloud secrets create tburn_enterprise_011_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0xf6e531a488d95903b56739d53577f7907be0765126cb8d6cd78be97aea08bacf" | gcloud secrets versions add tburn_enterprise_011_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Enterprise-012 (enterprise)
-gcloud secrets create tburn_enterprise_012_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0x2dc2f2b525d56755d75990294dda44d39a16509f670c7098ee135fe9e8d99322" | gcloud secrets versions add tburn_enterprise_012_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Enterprise-013 (enterprise)
-gcloud secrets create tburn_enterprise_013_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0x16e4f70a6acc97e542084f6596734f58ad6fcbbd8454c6cca3c8f2e592340797" | gcloud secrets versions add tburn_enterprise_013_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Enterprise-014 (enterprise)
-gcloud secrets create tburn_enterprise_014_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0x49b99481eaff09a9c7c594fc5f982446ff1aa468d02d5c534924a7b9b442303f" | gcloud secrets versions add tburn_enterprise_014_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Enterprise-015 (enterprise)
-gcloud secrets create tburn_enterprise_015_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0x0512bbadc473aced0b549e9d9e5be0c5063527133ef47a8a2aeb29b4d7d2271b" | gcloud secrets versions add tburn_enterprise_015_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Enterprise-016 (enterprise)
-gcloud secrets create tburn_enterprise_016_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0x5e0f2b4d79d774d47d2929c9f64ba384502ea00153553da253098a595c3cd073" | gcloud secrets versions add tburn_enterprise_016_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Enterprise-017 (enterprise)
-gcloud secrets create tburn_enterprise_017_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0xb294ffe691540a12999391ea4f1b56a74863df7bc64ccd0b1a52270e63451945" | gcloud secrets versions add tburn_enterprise_017_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Enterprise-018 (enterprise)
-gcloud secrets create tburn_enterprise_018_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0xb840a7e5619a423be01dc6f3c92fc6fed147e49c1c101911ebc8c44cf6195d41" | gcloud secrets versions add tburn_enterprise_018_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Enterprise-019 (enterprise)
-gcloud secrets create tburn_enterprise_019_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0x8e9b41d74ca1a6be2552ca4572600e51f575a3f2f93c29ceb95b19af33226706" | gcloud secrets versions add tburn_enterprise_019_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Enterprise-020 (enterprise)
-gcloud secrets create tburn_enterprise_020_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0xbb333ae4897d8a3623d168761e663cdfd9d6b905e370068820c249ac3f253ccf" | gcloud secrets versions add tburn_enterprise_020_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Enterprise-021 (enterprise)
-gcloud secrets create tburn_enterprise_021_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0x1784811054eb71af14fd7d5115c774cf7d5025f598b6461a56a19af6e0e165b3" | gcloud secrets versions add tburn_enterprise_021_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Enterprise-022 (enterprise)
-gcloud secrets create tburn_enterprise_022_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0x58ea3e5651ac3b465b4f023b65608e7b0431cccca8f49b81908eebd68768c394" | gcloud secrets versions add tburn_enterprise_022_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Enterprise-023 (enterprise)
-gcloud secrets create tburn_enterprise_023_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0x8cb04be072b910832a806c36b16e9f84699dca334ea168eabd5324fe2ca1b0dc" | gcloud secrets versions add tburn_enterprise_023_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Enterprise-024 (enterprise)
-gcloud secrets create tburn_enterprise_024_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0x3ac5fbfaa18fbf799503df70b8357859e9c42b157a57fc661759f6fb6bc18a8d" | gcloud secrets versions add tburn_enterprise_024_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Enterprise-025 (enterprise)
-gcloud secrets create tburn_enterprise_025_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0x37556d9e8174f2c273ee89f332187e46a80b3cebfbc58f73f8f488627accea54" | gcloud secrets versions add tburn_enterprise_025_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Partner-001 (partner)
-gcloud secrets create tburn_partner_001_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0x62e6d561ab7122533a09006bffd533106e836c4c5ad37da77db9f63f435343e2" | gcloud secrets versions add tburn_partner_001_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Partner-002 (partner)
-gcloud secrets create tburn_partner_002_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0xe42ddcd98c6353700d9e09be609f5e66f73f5014f7fcd6a7b1752ff1fa6cd6c6" | gcloud secrets versions add tburn_partner_002_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Partner-003 (partner)
-gcloud secrets create tburn_partner_003_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0x58a06f6a9713fcc49ebaf7dc9f4056601b95603178ec18b5680103ad78b890df" | gcloud secrets versions add tburn_partner_003_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Partner-004 (partner)
-gcloud secrets create tburn_partner_004_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0xc0f63d72987c577776444f1e5fc2cf802671606b6aede37ecb0bff308bd35253" | gcloud secrets versions add tburn_partner_004_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Partner-005 (partner)
-gcloud secrets create tburn_partner_005_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0x8cbff2efc3169b6aa69d46fe01300692df2d26fdcca374155b0f0dabb338e09c" | gcloud secrets versions add tburn_partner_005_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Partner-006 (partner)
-gcloud secrets create tburn_partner_006_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0x5636933db150cb03fdce827903785f48131141c680ea1127efba163110df7334" | gcloud secrets versions add tburn_partner_006_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Partner-007 (partner)
-gcloud secrets create tburn_partner_007_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0x8fc3c4b321866c37602ea9e57cb826f66e71b2d5aaa4cda48a40dc857f5d9300" | gcloud secrets versions add tburn_partner_007_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Partner-008 (partner)
-gcloud secrets create tburn_partner_008_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0xf726aae715f8ffb9d86053417951781a96b6b886ef0669e2d268d58086d7887c" | gcloud secrets versions add tburn_partner_008_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Partner-009 (partner)
-gcloud secrets create tburn_partner_009_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0x0fab9444746b1e0ae8615b7c8c70e1954728ef96ea5e215ffbbbc8f4657d4ce5" | gcloud secrets versions add tburn_partner_009_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Partner-010 (partner)
-gcloud secrets create tburn_partner_010_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0x4d1c7540bad2e7d56b6d30494c9d10c93551fbea04d1fe2f143b0a65d5e9b71c" | gcloud secrets versions add tburn_partner_010_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Partner-011 (partner)
-gcloud secrets create tburn_partner_011_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0x9e5678180d1e97a32b6733e7147a3541eda66ac0bbcf88515730534c4d5cdc4e" | gcloud secrets versions add tburn_partner_011_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Partner-012 (partner)
-gcloud secrets create tburn_partner_012_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0xb9d127ae6500b57538ef3994ae4e1e2f1d16b72a1fb66ad19be1ead7baea9dd2" | gcloud secrets versions add tburn_partner_012_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Partner-013 (partner)
-gcloud secrets create tburn_partner_013_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0xdab629fe4cc82c56323582200c3384d0b611f737d9d433f582debab21451ad6d" | gcloud secrets versions add tburn_partner_013_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Partner-014 (partner)
-gcloud secrets create tburn_partner_014_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0x90e35078e2c21d9d440f1cb77cb3802a61dc1f233edb634c7259367d69ab51c6" | gcloud secrets versions add tburn_partner_014_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Partner-015 (partner)
-gcloud secrets create tburn_partner_015_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0x16105c15b048761682538df5e7541119662396a6f6f9312fbdcf21263f52cca2" | gcloud secrets versions add tburn_partner_015_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Partner-016 (partner)
-gcloud secrets create tburn_partner_016_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0x075f033b4a576b057e24e067a33379402a0f283753135ca08b3ab5826d1ec341" | gcloud secrets versions add tburn_partner_016_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Partner-017 (partner)
-gcloud secrets create tburn_partner_017_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0x7b2267bf2039f5737495e58b302ad6f03549a3f2ff51ef08739b3c67ccee0799" | gcloud secrets versions add tburn_partner_017_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Partner-018 (partner)
-gcloud secrets create tburn_partner_018_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0x168b04dc56eb68fd62646e45c03e441076dc7c825d277ff53946b16ab6900c17" | gcloud secrets versions add tburn_partner_018_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Partner-019 (partner)
-gcloud secrets create tburn_partner_019_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0x95f8db2c156970ab2389aec9ae92f6cc540911e51f2cf4433c49168fbe197517" | gcloud secrets versions add tburn_partner_019_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Partner-020 (partner)
-gcloud secrets create tburn_partner_020_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0x830bcf6441bc1e7535fcafa267adaadf0cc66453b43c696f3da768a3c632ff0d" | gcloud secrets versions add tburn_partner_020_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Partner-021 (partner)
-gcloud secrets create tburn_partner_021_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0xe3cb87be0e97d54850f02e7e10426f070b7834aa1c8e47016b04adb79a80e479" | gcloud secrets versions add tburn_partner_021_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Partner-022 (partner)
-gcloud secrets create tburn_partner_022_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0x6cded9700b1d59ea60b9a4bd1fbf6b3a329bbd843750caf0fd45510b47e97cd8" | gcloud secrets versions add tburn_partner_022_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Partner-023 (partner)
-gcloud secrets create tburn_partner_023_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0x98245c536b7afe11d58ca4f401665f0b738a6eb869d8e9b542f17e505d63284c" | gcloud secrets versions add tburn_partner_023_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Partner-024 (partner)
-gcloud secrets create tburn_partner_024_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0x8dd3608227a71c6bf4c145ef8a10c704d122ebb7907632a43a607270344472b2" | gcloud secrets versions add tburn_partner_024_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Partner-025 (partner)
-gcloud secrets create tburn_partner_025_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0x6dbd890ca00f81d5df478fb4e0af07e0b2ff9c29fa06788f068d927c14f3a549" | gcloud secrets versions add tburn_partner_025_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Partner-026 (partner)
-gcloud secrets create tburn_partner_026_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0xe085c86da00d85203950299881ba2a2eafe761fce4075e4ff9c5609dd427df98" | gcloud secrets versions add tburn_partner_026_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Partner-027 (partner)
-gcloud secrets create tburn_partner_027_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0xfa57967a3a59ed98d3f52354e3467eabeda47098a1b5ef62dff290c43aa7be30" | gcloud secrets versions add tburn_partner_027_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Partner-028 (partner)
-gcloud secrets create tburn_partner_028_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0xee918127d516a9cbd6943689aecb8339f2ba9ca884e74693ab2de24dbcf03691" | gcloud secrets versions add tburn_partner_028_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Partner-029 (partner)
-gcloud secrets create tburn_partner_029_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0x390c8c3f931b0562d2c25e0ffd045bd4d982cbe67f038cc1d250a1b859b233ce" | gcloud secrets versions add tburn_partner_029_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Partner-030 (partner)
-gcloud secrets create tburn_partner_030_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0x966dc418cb9e225bf8888a796015b96ccf78f55b27691f35c6f55a19787e1a28" | gcloud secrets versions add tburn_partner_030_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Partner-031 (partner)
-gcloud secrets create tburn_partner_031_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0x4d67f7f9fbafaaf4bf95a2a15e864fdcdc80b26311f046c3fe7da1511e76a191" | gcloud secrets versions add tburn_partner_031_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Partner-032 (partner)
-gcloud secrets create tburn_partner_032_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0x0497a37bd1044d6dcaaf87bb77da6a22f730f0941679355103129480f5b2fa7d" | gcloud secrets versions add tburn_partner_032_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Partner-033 (partner)
-gcloud secrets create tburn_partner_033_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0x9b05ec76485fe3e3f737e956e12d05df1118fcb4cbdee98307a1f50168839662" | gcloud secrets versions add tburn_partner_033_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Partner-034 (partner)
-gcloud secrets create tburn_partner_034_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0xba4b6905818a74cde5b674be7c8e10532fb3e39abcb93583007d2fdf6625c7bc" | gcloud secrets versions add tburn_partner_034_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Partner-035 (partner)
-gcloud secrets create tburn_partner_035_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0xc13a9a530966a2264de3360ff514a2a8d50a21e548dc0a17423eb2bb1c1ba07d" | gcloud secrets versions add tburn_partner_035_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Partner-036 (partner)
-gcloud secrets create tburn_partner_036_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0x25a01321540813638f6e6d687a1119807395c28048f1f8f0dfe9e3073883786a" | gcloud secrets versions add tburn_partner_036_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Partner-037 (partner)
-gcloud secrets create tburn_partner_037_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0x6eb201a149a33460554ea37197664ebf3f77f1880bf234cf6d8a03c585da1a2a" | gcloud secrets versions add tburn_partner_037_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Partner-038 (partner)
-gcloud secrets create tburn_partner_038_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0xfd227bed218963421cafa6897155995c163458fece4d0fd00593af2a7cc000f3" | gcloud secrets versions add tburn_partner_038_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Partner-039 (partner)
-gcloud secrets create tburn_partner_039_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0x0a96792fd769e2a7b7c9da7608dd552e47c570a88ef48c88aaf5d2b4b2bf0df5" | gcloud secrets versions add tburn_partner_039_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Partner-040 (partner)
-gcloud secrets create tburn_partner_040_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0xb9924dacffe523d6c0e864701be07e6d96e2af9a0c27f81a120058d6412847a0" | gcloud secrets versions add tburn_partner_040_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Genesis-001 (community)
-gcloud secrets create tburn_genesis_001_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0x63bb4c3c03f331d44b47e8804c9c808b312f40c8d0c2f906d33fd694ca11f60f" | gcloud secrets versions add tburn_genesis_001_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Genesis-002 (community)
-gcloud secrets create tburn_genesis_002_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0xcb1cae994cd11d97e4e278c01f409d36e73a537877b7d8bcbd06daa2878f9ef4" | gcloud secrets versions add tburn_genesis_002_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Genesis-003 (community)
-gcloud secrets create tburn_genesis_003_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0x466da2a24f54983bde1c7f0969db1acc1eac86a764a6591224cecc439118d662" | gcloud secrets versions add tburn_genesis_003_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Genesis-004 (community)
-gcloud secrets create tburn_genesis_004_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0xa815cc7c14c03b9d9e7849d003d5d6e17419329d9501c0ead8d550b540dee182" | gcloud secrets versions add tburn_genesis_004_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Genesis-005 (community)
-gcloud secrets create tburn_genesis_005_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0x6690577d37d0550a94277dd0d7901cba7ecdf78a3ba6c163ee18cd0a8c06055e" | gcloud secrets versions add tburn_genesis_005_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Genesis-006 (community)
-gcloud secrets create tburn_genesis_006_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0xa61f452e0b80484b0b461965477a353d4e518913a83be77d262b2d534c907e3b" | gcloud secrets versions add tburn_genesis_006_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Genesis-007 (community)
-gcloud secrets create tburn_genesis_007_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0xa5246ccadf12c61b1f08fb310d62c358c94f02916d1f9d8d80a82c3190f35a4b" | gcloud secrets versions add tburn_genesis_007_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Genesis-008 (community)
-gcloud secrets create tburn_genesis_008_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0xde61b8fb1edc32634f4d056f1e94b682168ca5a44f301de0bd606e9492f737d9" | gcloud secrets versions add tburn_genesis_008_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Genesis-009 (community)
-gcloud secrets create tburn_genesis_009_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0x66d6e94d7ec2c902cc9c5af66b35524bdef48569754bc69764e160766dbea147" | gcloud secrets versions add tburn_genesis_009_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Genesis-010 (community)
-gcloud secrets create tburn_genesis_010_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0x33d5a3a609636a6f6748e99cfeff6fdf9c2cb20c4f2b543435ca489fd91579dc" | gcloud secrets versions add tburn_genesis_010_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Genesis-011 (community)
-gcloud secrets create tburn_genesis_011_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0x2d1d12f146abdd9b8addbe35797b04016399865920ecf20e15180b7c94ec8c91" | gcloud secrets versions add tburn_genesis_011_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Genesis-012 (community)
-gcloud secrets create tburn_genesis_012_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0x767915dcf3b07269afadfc94cb3ba022e595d9a546137a9344d9a3b007382ea8" | gcloud secrets versions add tburn_genesis_012_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Genesis-013 (community)
-gcloud secrets create tburn_genesis_013_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0x8b4774982d907468286c368bd1c5c67afc8e016d9f3d55fa4a6d81ba06bf68d8" | gcloud secrets versions add tburn_genesis_013_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Genesis-014 (community)
-gcloud secrets create tburn_genesis_014_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0x9b5c90874bff34a3da01ffeb845704f255d0c42a306185ad5ab6ae4573ace99a" | gcloud secrets versions add tburn_genesis_014_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Genesis-015 (community)
-gcloud secrets create tburn_genesis_015_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0x80814bee86544e4b8ba845dfe27c6f0e2762fd94fca1663d8c5e0d9c94f8f7ff" | gcloud secrets versions add tburn_genesis_015_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Genesis-016 (community)
-gcloud secrets create tburn_genesis_016_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0xdb0124ed9bd123517b06084f9f88e902b10557bb79b5e3e2ab4db87e4396607a" | gcloud secrets versions add tburn_genesis_016_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Genesis-017 (community)
-gcloud secrets create tburn_genesis_017_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0x130b9b0917eb11ea77267b6f3a836dbb99ec8e89aa81428821093698be8336db" | gcloud secrets versions add tburn_genesis_017_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Genesis-018 (community)
-gcloud secrets create tburn_genesis_018_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0xd067e6ee1677981e88ba37a55a7b78f621c800e37c3acb031fbcccb4a0772e1a" | gcloud secrets versions add tburn_genesis_018_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Genesis-019 (community)
-gcloud secrets create tburn_genesis_019_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0x1d187c5c2de56079cd958f5e6bbdcf7145a321df1966e52c92def0b88caccdd3" | gcloud secrets versions add tburn_genesis_019_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Genesis-020 (community)
-gcloud secrets create tburn_genesis_020_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0xa5536659429e093a9b79d5c3c7ee6797672b731f491b8fbc411be1bc18073d74" | gcloud secrets versions add tburn_genesis_020_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Genesis-021 (community)
-gcloud secrets create tburn_genesis_021_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0x3b668aefaa2990e2fba41a6d9eea6c8271a88d74ffdb5e57b3d0ae5e0a20bc31" | gcloud secrets versions add tburn_genesis_021_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Genesis-022 (community)
-gcloud secrets create tburn_genesis_022_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0xc936598664a526833b8a564679e9d0e2afde7f1e78856cb8d756356c38d81264" | gcloud secrets versions add tburn_genesis_022_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Genesis-023 (community)
-gcloud secrets create tburn_genesis_023_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0xa4bcf8ff0fb052873821f22022b39de0327360c4a0fe247ecbd7b209bd3bf453" | gcloud secrets versions add tburn_genesis_023_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Genesis-024 (community)
-gcloud secrets create tburn_genesis_024_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0x6a77ed8a15815467a9d7a2153ecc5f1e2bc4377dab6718a82ddf5f2486b718ad" | gcloud secrets versions add tburn_genesis_024_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Genesis-025 (community)
-gcloud secrets create tburn_genesis_025_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0x506d07de4c1995049655485fbedf3faacb89d33d142253e6cc78b8bf5351c424" | gcloud secrets versions add tburn_genesis_025_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Genesis-026 (community)
-gcloud secrets create tburn_genesis_026_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0x444d9cef3a08947d3ec492fcd584df8efdfe922f432052477557e91aa5a337c8" | gcloud secrets versions add tburn_genesis_026_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Genesis-027 (community)
-gcloud secrets create tburn_genesis_027_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0x4f59e44e2b18367d20f7a769511dc7c69169c7e065e2182d79e3ba34af876795" | gcloud secrets versions add tburn_genesis_027_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Genesis-028 (community)
-gcloud secrets create tburn_genesis_028_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0x30d63112201c3eb6e8c2cd5c0aad817d7fa126f4df3843443aa3b0e16e77ada7" | gcloud secrets versions add tburn_genesis_028_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Genesis-029 (community)
-gcloud secrets create tburn_genesis_029_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0xa4c6b3c5cf769ae0b28526b56f9d7231822a2666ad0908c8fc6d3870faf77769" | gcloud secrets versions add tburn_genesis_029_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Genesis-030 (community)
-gcloud secrets create tburn_genesis_030_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0xa5081eeb49b62942ad86fc323ffdb9c123b03f89073fc2bfd999024092b77ba4" | gcloud secrets versions add tburn_genesis_030_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Genesis-031 (community)
-gcloud secrets create tburn_genesis_031_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0xca526fc6147981a8e47ed02014443e40a54b52d87d48c1750f64045cbf910562" | gcloud secrets versions add tburn_genesis_031_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Genesis-032 (community)
-gcloud secrets create tburn_genesis_032_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0x9a3964a4f04724d9fe2a99030c0761d38ddf65b11babbbe90517120075fe7452" | gcloud secrets versions add tburn_genesis_032_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Genesis-033 (community)
-gcloud secrets create tburn_genesis_033_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0xf36e1ab8df6279d739fd05583e63cfd00ce3c04a4969d28b8f35fdef61d234ab" | gcloud secrets versions add tburn_genesis_033_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Genesis-034 (community)
-gcloud secrets create tburn_genesis_034_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0x38de3f114204cb1cf30ed060b299e5fb8878311f1b9213efe2dc90d263fff557" | gcloud secrets versions add tburn_genesis_034_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Genesis-035 (community)
-gcloud secrets create tburn_genesis_035_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0x49bd3b2bfcb7729191cc3fb0773b6f7693276cff18faeba408fb0716bc19c2d3" | gcloud secrets versions add tburn_genesis_035_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Genesis-036 (community)
-gcloud secrets create tburn_genesis_036_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0xd1a013d380b48a0c7d876527fc0ebd2c3aba1c1d587b4959fd1a16da3471f6e3" | gcloud secrets versions add tburn_genesis_036_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Genesis-037 (community)
-gcloud secrets create tburn_genesis_037_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0x8cbae9eeff80e04353a6e42323d3ef38d88c672c2f9f5c8402c4d016a6ada3bd" | gcloud secrets versions add tburn_genesis_037_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Genesis-038 (community)
-gcloud secrets create tburn_genesis_038_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0xa18787b7e1ece9a345b85de8ddf8c39fed775e848e3eed8f177dfdec324f6d81" | gcloud secrets versions add tburn_genesis_038_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Genesis-039 (community)
-gcloud secrets create tburn_genesis_039_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0xc04253fdf85a6e93590aca54bffbb1f83910685f57f049d151b4a976dbfec212" | gcloud secrets versions add tburn_genesis_039_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Genesis-040 (community)
-gcloud secrets create tburn_genesis_040_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0x566e8534691588690101d6fe10bb2ee62165ad8e18d22cc422ba59206ddf264e" | gcloud secrets versions add tburn_genesis_040_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Genesis-041 (community)
-gcloud secrets create tburn_genesis_041_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0xcfa0b26e5e4e09b56eac9d9d3ebb267c1bfb8697dbb6d6d379022aa281b05660" | gcloud secrets versions add tburn_genesis_041_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Genesis-042 (community)
-gcloud secrets create tburn_genesis_042_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0xb70561b52588b09a8a1584d1e9c9a3f382c70d1fda9660b7a96f13d33d4889a4" | gcloud secrets versions add tburn_genesis_042_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Genesis-043 (community)
-gcloud secrets create tburn_genesis_043_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0x4447be84072baef5d71f53e1c16ccc8f414702e5584920ec03203b3a24fc2343" | gcloud secrets versions add tburn_genesis_043_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Genesis-044 (community)
-gcloud secrets create tburn_genesis_044_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0x2084f7f942d7981dfc7347168cc534ac27a196f3d136fd93cd33ab2ada9540e6" | gcloud secrets versions add tburn_genesis_044_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Genesis-045 (community)
-gcloud secrets create tburn_genesis_045_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0xa46b8a07c2f199ea6cfc88846db21868421d2afc5ddbc407962d58e6aa52e0e5" | gcloud secrets versions add tburn_genesis_045_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Genesis-046 (community)
-gcloud secrets create tburn_genesis_046_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0x0ed42c97b71a23bde699a279fc20dee1834b1067569cb574cc23e8a53a531f49" | gcloud secrets versions add tburn_genesis_046_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Genesis-047 (community)
-gcloud secrets create tburn_genesis_047_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0x772e66aa5e99aded865f1b1fd2cb2093f1eaee5648bc7565eb38f36abf4cfe0e" | gcloud secrets versions add tburn_genesis_047_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Genesis-048 (community)
-gcloud secrets create tburn_genesis_048_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0xb702c2b138f409c50b8f315e8957ac2f578d75f8934728d2e0ac38b360e5d4fa" | gcloud secrets versions add tburn_genesis_048_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Genesis-049 (community)
-gcloud secrets create tburn_genesis_049_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0xa5802bf4808276a41c64f6e2186b23f3ccb09f8ec5da9b72ec06af960545528d" | gcloud secrets versions add tburn_genesis_049_key --project=$PROJECT_ID --data-file=-
-
-# TBURN-Genesis-050 (community)
-gcloud secrets create tburn_genesis_050_key --project=$PROJECT_ID --replication-policy=automatic 2>/dev/null
-echo -n "0x57ed1cee5090962870ec395cdcb4be73728c6ed9b5a5e114900caf9a19263a23" | gcloud secrets versions add tburn_genesis_050_key --project=$PROJECT_ID --data-file=-
+# TBURN-Core-001 (core) - 검증됨: True
+gcloud secrets create tburn_core_001_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0x818425c04c4119ea2d282399acaa963ec4c6808dcffdc27bd05a28ecf733feb6" | gcloud secrets versions add tburn_core_001_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Core-002 (core) - 검증됨: True
+gcloud secrets create tburn_core_002_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0x91c7e78e2f7b40b41a20ab7e18125ce7bb7b8aa093ce1e8a402fb761bff39df3" | gcloud secrets versions add tburn_core_002_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Core-003 (core) - 검증됨: True
+gcloud secrets create tburn_core_003_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0x2dbbd7592bed463e05035bd542e87b86888332329c4f35b5c1bfeee5b5ca2184" | gcloud secrets versions add tburn_core_003_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Core-004 (core) - 검증됨: True
+gcloud secrets create tburn_core_004_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0x0ef56741519ca77b92b4a249132e5771f8ad51fcd8ad801e5124769bfdf4c25d" | gcloud secrets versions add tburn_core_004_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Core-005 (core) - 검증됨: True
+gcloud secrets create tburn_core_005_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0xe28865652bc9be30cf4772653669eed3dfa8eeba473171bcbd85eb52ae1fdcb0" | gcloud secrets versions add tburn_core_005_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Core-006 (core) - 검증됨: True
+gcloud secrets create tburn_core_006_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0x172f1750e057350e162dc5db91507e4121e2a75696eb354081a5b4cd4903d6c2" | gcloud secrets versions add tburn_core_006_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Core-007 (core) - 검증됨: True
+gcloud secrets create tburn_core_007_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0x0ee59e5b1c3a044e677f370f77fbc14ea94cc61561f696ef8f7123702606c9a9" | gcloud secrets versions add tburn_core_007_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Core-008 (core) - 검증됨: True
+gcloud secrets create tburn_core_008_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0xc87c4404847c4b78c5513a75319a0cebcde7f676fe5d08b8706295111155d588" | gcloud secrets versions add tburn_core_008_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Core-009 (core) - 검증됨: True
+gcloud secrets create tburn_core_009_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0x89baeddcc92390a1a0c166b67e3d6eeaa7264c7660ee920e657fabd659f134e1" | gcloud secrets versions add tburn_core_009_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Core-010 (core) - 검증됨: True
+gcloud secrets create tburn_core_010_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0xf57b27c3db16aa5e452a4885694012a63601b95cdd17d5615546733007ab9e12" | gcloud secrets versions add tburn_core_010_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Enterprise-001 (enterprise) - 검증됨: True
+gcloud secrets create tburn_enterprise_001_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0xbb829e2c1d96cd60d59d76874f1cfda05c1f17858e88292591b550db80f11caf" | gcloud secrets versions add tburn_enterprise_001_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Enterprise-002 (enterprise) - 검증됨: True
+gcloud secrets create tburn_enterprise_002_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0x40c1e338c8179001ee5802fcb82b98a0e77b66063140a1c2f56673baaec81f58" | gcloud secrets versions add tburn_enterprise_002_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Enterprise-003 (enterprise) - 검증됨: True
+gcloud secrets create tburn_enterprise_003_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0xa320d66023f730be9ff60ec7275f08ab389312c14809cf8ee1ca1999e86d5244" | gcloud secrets versions add tburn_enterprise_003_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Enterprise-004 (enterprise) - 검증됨: True
+gcloud secrets create tburn_enterprise_004_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0xd1f476b3e34447c7e4850ea1c1c008107b621ea74d5c4fff0150f3475cae3dc9" | gcloud secrets versions add tburn_enterprise_004_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Enterprise-005 (enterprise) - 검증됨: True
+gcloud secrets create tburn_enterprise_005_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0xecbac305bb50c77f521d19d17c89b40d0cb9354583a72ab4e36ccccfa08fe3e8" | gcloud secrets versions add tburn_enterprise_005_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Enterprise-006 (enterprise) - 검증됨: True
+gcloud secrets create tburn_enterprise_006_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0xc669af1f2defac931182cb9094428bc8b670e882d683f7b90d3cef0aabb9ab58" | gcloud secrets versions add tburn_enterprise_006_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Enterprise-007 (enterprise) - 검증됨: True
+gcloud secrets create tburn_enterprise_007_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0x5eb676c5b0ae4f545453b7857854d7279c9a90b71608e92cb4bbda8e76be6f7a" | gcloud secrets versions add tburn_enterprise_007_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Enterprise-008 (enterprise) - 검증됨: True
+gcloud secrets create tburn_enterprise_008_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0xbb56df2f79258e76c26b8cff433d06638367c6f7c2127751a732aea803a971d7" | gcloud secrets versions add tburn_enterprise_008_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Enterprise-009 (enterprise) - 검증됨: True
+gcloud secrets create tburn_enterprise_009_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0x2290c3381ac83ae8c52c625a72ad3b0c2cc90b61562ba5211f1603208f32bf5a" | gcloud secrets versions add tburn_enterprise_009_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Enterprise-010 (enterprise) - 검증됨: True
+gcloud secrets create tburn_enterprise_010_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0x35328e27765e9f93c9ec4900127bf28927228eb332671ac6766d1fcd3d29aafc" | gcloud secrets versions add tburn_enterprise_010_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Enterprise-011 (enterprise) - 검증됨: True
+gcloud secrets create tburn_enterprise_011_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0xb3ca6db99b39db7046ac898e418b55a12b486553644d420d5a9e88115bbe66ea" | gcloud secrets versions add tburn_enterprise_011_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Enterprise-012 (enterprise) - 검증됨: True
+gcloud secrets create tburn_enterprise_012_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0x04b9ad581d029299d39ab7ed83b5857c3a38c81ae32657f9aa47b118dcfb4d4d" | gcloud secrets versions add tburn_enterprise_012_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Enterprise-013 (enterprise) - 검증됨: True
+gcloud secrets create tburn_enterprise_013_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0x9629fefeb986bcd130a178997febde5f2d364fb4b1d1e2dd2ec2372e277a62c5" | gcloud secrets versions add tburn_enterprise_013_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Enterprise-014 (enterprise) - 검증됨: True
+gcloud secrets create tburn_enterprise_014_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0x8ad17c03277d5a2add0b82274a7174c064f89ed1e4a2cccde65ca2dd0a791ef8" | gcloud secrets versions add tburn_enterprise_014_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Enterprise-015 (enterprise) - 검증됨: True
+gcloud secrets create tburn_enterprise_015_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0x52239474c52477513f3240474270d75b2df7071c0ce4e1cac8f1e1c0659f410b" | gcloud secrets versions add tburn_enterprise_015_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Enterprise-016 (enterprise) - 검증됨: True
+gcloud secrets create tburn_enterprise_016_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0xe50c65358b7807c30f891247dc0a1602d9ab282e1921be88b61ea270eede96fc" | gcloud secrets versions add tburn_enterprise_016_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Enterprise-017 (enterprise) - 검증됨: True
+gcloud secrets create tburn_enterprise_017_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0xe87198e491e6d257ed7fea0581bbace594330ad6a2cc3843edba8cbdeed6d8d5" | gcloud secrets versions add tburn_enterprise_017_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Enterprise-018 (enterprise) - 검증됨: True
+gcloud secrets create tburn_enterprise_018_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0x4576469489dedeb1cccbf99dc30a547c63d1d093dda2297b80e60ddbdbf7817d" | gcloud secrets versions add tburn_enterprise_018_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Enterprise-019 (enterprise) - 검증됨: True
+gcloud secrets create tburn_enterprise_019_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0xec8964ff8478adb5872905df8d990e90efbbde30471bb103654acae669aa518b" | gcloud secrets versions add tburn_enterprise_019_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Enterprise-020 (enterprise) - 검증됨: True
+gcloud secrets create tburn_enterprise_020_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0x5633c786650d70026b58c0df5a4b2d409fcc43813420f45b7374e1bdb8334a73" | gcloud secrets versions add tburn_enterprise_020_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Enterprise-021 (enterprise) - 검증됨: True
+gcloud secrets create tburn_enterprise_021_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0xd7bea9a76f7763bbd78f529d1f1d82c04e8a192291fdd27343ccf53a4ca85259" | gcloud secrets versions add tburn_enterprise_021_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Enterprise-022 (enterprise) - 검증됨: True
+gcloud secrets create tburn_enterprise_022_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0xa4e513e155706620997c13796275a278d1b6f37a2efed66183802a7cca5c778c" | gcloud secrets versions add tburn_enterprise_022_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Enterprise-023 (enterprise) - 검증됨: True
+gcloud secrets create tburn_enterprise_023_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0xe88216613052f48e46f3a4894928d85e09dc9f613bceae46a25eee5a4b201fa4" | gcloud secrets versions add tburn_enterprise_023_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Enterprise-024 (enterprise) - 검증됨: True
+gcloud secrets create tburn_enterprise_024_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0xf68247fd1cf83b64cc242c5aa8b2c93cfd69f97309824d7adb66c015514fbd71" | gcloud secrets versions add tburn_enterprise_024_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Enterprise-025 (enterprise) - 검증됨: True
+gcloud secrets create tburn_enterprise_025_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0x8efe9c515c70f5f4412b9b4bd496e77f918ec4dc41af1818fb07e1665d11928e" | gcloud secrets versions add tburn_enterprise_025_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Partner-001 (partner) - 검증됨: True
+gcloud secrets create tburn_partner_001_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0x36bf33007e931dbd930b8689f3da3798692f8df86a1fbb4bb93afc5a6dc7eacf" | gcloud secrets versions add tburn_partner_001_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Partner-002 (partner) - 검증됨: True
+gcloud secrets create tburn_partner_002_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0x30bb3206a0c3dad3495a599cb97ffb6ca68fa474381db8e3399ccc2cf97d8516" | gcloud secrets versions add tburn_partner_002_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Partner-003 (partner) - 검증됨: True
+gcloud secrets create tburn_partner_003_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0x4d34c5280386d3c4e5536b89ffaa4d33a5844eb8d1d7fe735c8abf871813476a" | gcloud secrets versions add tburn_partner_003_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Partner-004 (partner) - 검증됨: True
+gcloud secrets create tburn_partner_004_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0x8d43b6ca0e86b109f7f5a712c4da1f09ba938b6ea47d38a8f4dd4d9101383701" | gcloud secrets versions add tburn_partner_004_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Partner-005 (partner) - 검증됨: True
+gcloud secrets create tburn_partner_005_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0x58830b8c5becbfd7fad592b89425334b186163e1b835e8739cf924dcbea085b7" | gcloud secrets versions add tburn_partner_005_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Partner-006 (partner) - 검증됨: True
+gcloud secrets create tburn_partner_006_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0x1b80c330de405aa9a8fc25216e91f5b3a66680ad5f5dbe915362165ecc902dde" | gcloud secrets versions add tburn_partner_006_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Partner-007 (partner) - 검증됨: True
+gcloud secrets create tburn_partner_007_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0xb238889f8eb60c0ae108715662d85952b88cbfa45664dce84b82ce5916904c29" | gcloud secrets versions add tburn_partner_007_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Partner-008 (partner) - 검증됨: True
+gcloud secrets create tburn_partner_008_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0x83286b42043b6089296f147579f953e2ac852b63c68b63064e3df380ecca8bd6" | gcloud secrets versions add tburn_partner_008_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Partner-009 (partner) - 검증됨: True
+gcloud secrets create tburn_partner_009_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0x959024fa18ca98a0ed675064197cec933bd69033f8fad0171edc0ec4fc4ccd92" | gcloud secrets versions add tburn_partner_009_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Partner-010 (partner) - 검증됨: True
+gcloud secrets create tburn_partner_010_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0xc3034fafe5b8b4de31b506aa0b43e80b88cadf09f6856e42b4e9c2c7ff1b9490" | gcloud secrets versions add tburn_partner_010_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Partner-011 (partner) - 검증됨: True
+gcloud secrets create tburn_partner_011_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0x25f3fae23114cd620719bec327cf61f5cfe60ab02f00df26b89ffbec3a7e7744" | gcloud secrets versions add tburn_partner_011_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Partner-012 (partner) - 검증됨: True
+gcloud secrets create tburn_partner_012_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0xc0ab049ccbc93bec5938bc1a8075eda3b04226a84175996510463f1fceeeca33" | gcloud secrets versions add tburn_partner_012_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Partner-013 (partner) - 검증됨: True
+gcloud secrets create tburn_partner_013_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0xb0af074477b8de02dcdc5e4fe3945e7251209bc83fb741678e06b85b76897095" | gcloud secrets versions add tburn_partner_013_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Partner-014 (partner) - 검증됨: True
+gcloud secrets create tburn_partner_014_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0xdd8a9d5cd602d87eab977e262d80b1e69284c69442f9b5b454b3966e1bb4d8d8" | gcloud secrets versions add tburn_partner_014_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Partner-015 (partner) - 검증됨: True
+gcloud secrets create tburn_partner_015_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0xd650c8e0153ea2367ac14292d3eda6df591a2c4643c07c2f66d319016564f6a5" | gcloud secrets versions add tburn_partner_015_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Partner-016 (partner) - 검증됨: True
+gcloud secrets create tburn_partner_016_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0xe38374567cede7621393d2ac8eab7bd14b9da6bb49c4259b5f5842b480a84419" | gcloud secrets versions add tburn_partner_016_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Partner-017 (partner) - 검증됨: True
+gcloud secrets create tburn_partner_017_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0x988290d394b6a9d433cde8287f5b6310d8eb9e20fa7bccdd4a99bbd3431e5ede" | gcloud secrets versions add tburn_partner_017_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Partner-018 (partner) - 검증됨: True
+gcloud secrets create tburn_partner_018_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0x773f8044217217c289c1fe1885fa82eca4ab0aa00d1a4ed53da0bfd98d1652f6" | gcloud secrets versions add tburn_partner_018_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Partner-019 (partner) - 검증됨: True
+gcloud secrets create tburn_partner_019_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0x8404be467056785394a5fff11c44259dfdab0ddf0e10b4575f2dcbb69664f3d7" | gcloud secrets versions add tburn_partner_019_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Partner-020 (partner) - 검증됨: True
+gcloud secrets create tburn_partner_020_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0xa80aead2e02e1345ea266725baac5f6c2e23df3d0827c49e4689c65c1e3c70d6" | gcloud secrets versions add tburn_partner_020_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Partner-021 (partner) - 검증됨: True
+gcloud secrets create tburn_partner_021_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0xb3c1da8b715357106f8267ebc1eeaaca89b7232d06318c474e351e09139c84ec" | gcloud secrets versions add tburn_partner_021_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Partner-022 (partner) - 검증됨: True
+gcloud secrets create tburn_partner_022_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0x0cfc9733c2eadabc2589dae8a0fb9a658537eee728a2e6e5d21c04542382d6e7" | gcloud secrets versions add tburn_partner_022_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Partner-023 (partner) - 검증됨: True
+gcloud secrets create tburn_partner_023_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0xc27b8a71c4d1a08ee11513f37c130817a35cc8f7031496dc93a37a4765c08b13" | gcloud secrets versions add tburn_partner_023_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Partner-024 (partner) - 검증됨: True
+gcloud secrets create tburn_partner_024_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0xc5d25c5430d3901da65631fac593cd0041dd9f3c6c6ea7f1ba305efa80af2057" | gcloud secrets versions add tburn_partner_024_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Partner-025 (partner) - 검증됨: True
+gcloud secrets create tburn_partner_025_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0xd4544f9eb37f8907f97e391f26813cba66315c4e8e2ed5f08e1d62323a1892e2" | gcloud secrets versions add tburn_partner_025_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Partner-026 (partner) - 검증됨: True
+gcloud secrets create tburn_partner_026_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0x79e4a3b83df274ebd5a9022cf4a8c11cecc7a9dd00df8cb930ae8d818346ab6c" | gcloud secrets versions add tburn_partner_026_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Partner-027 (partner) - 검증됨: True
+gcloud secrets create tburn_partner_027_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0x79e1379f932899495b5ede26e10d6e83c3fcc6835e78690f57718dc85327c4c4" | gcloud secrets versions add tburn_partner_027_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Partner-028 (partner) - 검증됨: True
+gcloud secrets create tburn_partner_028_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0xdd0130935cc10ae263e5b4cfc6feaa64e97bb3c273a2ad26f7126a12897e7b33" | gcloud secrets versions add tburn_partner_028_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Partner-029 (partner) - 검증됨: True
+gcloud secrets create tburn_partner_029_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0x07a01c511f0ed8d84b771ec4d6b5a57801193259cebcf11b66e0c843135ac9a1" | gcloud secrets versions add tburn_partner_029_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Partner-030 (partner) - 검증됨: True
+gcloud secrets create tburn_partner_030_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0xd264925fe1f242da6ae612e06c09085f522cb0a1777a2d87011ee7f1abfca7f3" | gcloud secrets versions add tburn_partner_030_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Partner-031 (partner) - 검증됨: True
+gcloud secrets create tburn_partner_031_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0xf2411f2a4e04e3d4deb8818c494d097952a49488b8a5077d3de6e6a7c02e3b0f" | gcloud secrets versions add tburn_partner_031_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Partner-032 (partner) - 검증됨: True
+gcloud secrets create tburn_partner_032_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0xacae741d219790567fee9b93c4f06a4e6a95b30cc22a557bf8121423728dc231" | gcloud secrets versions add tburn_partner_032_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Partner-033 (partner) - 검증됨: True
+gcloud secrets create tburn_partner_033_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0x1599c4790b943f66d9169b833cbc4b4da9f2eb9d6d702dd872a70c86c97fe683" | gcloud secrets versions add tburn_partner_033_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Partner-034 (partner) - 검증됨: True
+gcloud secrets create tburn_partner_034_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0x866257c2ee82a3f5218862724a675d578e0ff1521f37d353e422d8efd237a7c6" | gcloud secrets versions add tburn_partner_034_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Partner-035 (partner) - 검증됨: True
+gcloud secrets create tburn_partner_035_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0x773f11f1d0de1054f3e7260798c11752d3612ea2b7011d7b32f71bacbb1319a8" | gcloud secrets versions add tburn_partner_035_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Partner-036 (partner) - 검증됨: True
+gcloud secrets create tburn_partner_036_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0x2539c47e20e49b9bc1c88e35b5eb8e0aee31bf40b4665f3393975d2f81f046af" | gcloud secrets versions add tburn_partner_036_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Partner-037 (partner) - 검증됨: True
+gcloud secrets create tburn_partner_037_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0x4b81cc39f6ccdb6c69c4ca2222409041ba48fff64d261d0bad861258a1c5ead4" | gcloud secrets versions add tburn_partner_037_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Partner-038 (partner) - 검증됨: True
+gcloud secrets create tburn_partner_038_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0x8ce123fd67d05a2aee68a3b95d0a8a1016dae014bc6ecdd719a7da4e5b08eacd" | gcloud secrets versions add tburn_partner_038_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Partner-039 (partner) - 검증됨: True
+gcloud secrets create tburn_partner_039_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0x76a7724c586905fac3da1b4cfc4be9ee3083e98ac59086796e9bdbc76140828c" | gcloud secrets versions add tburn_partner_039_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Partner-040 (partner) - 검증됨: True
+gcloud secrets create tburn_partner_040_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0x9dc38a7283a3257f995b69809f987f3461c58ed356fc98924dea0fd527d174da" | gcloud secrets versions add tburn_partner_040_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Genesis-001 (community) - 검증됨: True
+gcloud secrets create tburn_genesis_001_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0xf6ef29ebc887b001866e1a472055653f22ab9c3f4847573ac311075c78d26158" | gcloud secrets versions add tburn_genesis_001_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Genesis-002 (community) - 검증됨: True
+gcloud secrets create tburn_genesis_002_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0xcf4f516aedc4f010eb91ef24e41616b80fe11a9d127f3b6dece3e2db3203a385" | gcloud secrets versions add tburn_genesis_002_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Genesis-003 (community) - 검증됨: True
+gcloud secrets create tburn_genesis_003_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0x2da666ac382dbb1abb3b302d5396482b343abb4249848491f286e6549e05f00f" | gcloud secrets versions add tburn_genesis_003_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Genesis-004 (community) - 검증됨: True
+gcloud secrets create tburn_genesis_004_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0xd0da9b8d43e8f66facb6515a0fe08d6e3d06ed4f67518e435ce78a1f11b0965a" | gcloud secrets versions add tburn_genesis_004_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Genesis-005 (community) - 검증됨: True
+gcloud secrets create tburn_genesis_005_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0x8f8061279673e1cf4f4825a27547894dcf32d1f07bded612dc810f00747b0f68" | gcloud secrets versions add tburn_genesis_005_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Genesis-006 (community) - 검증됨: True
+gcloud secrets create tburn_genesis_006_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0x55b26f447a8b2ea94da1f5681f8a13bd737c106575e282b84f0601931e874544" | gcloud secrets versions add tburn_genesis_006_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Genesis-007 (community) - 검증됨: True
+gcloud secrets create tburn_genesis_007_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0x9a5b3028583ef173c6b11c2f8b943e4c9a0dcc38317977e67b359ecd6442dba0" | gcloud secrets versions add tburn_genesis_007_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Genesis-008 (community) - 검증됨: True
+gcloud secrets create tburn_genesis_008_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0x9fe9bd2f8e5af30aa77a16e48c637830e4d013d5278837113d3c92c7fd406ccd" | gcloud secrets versions add tburn_genesis_008_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Genesis-009 (community) - 검증됨: True
+gcloud secrets create tburn_genesis_009_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0x8f4b21ad2a30d51c7ebe1f206f6c6648fcfc11871e7143847030e65097bf5260" | gcloud secrets versions add tburn_genesis_009_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Genesis-010 (community) - 검증됨: True
+gcloud secrets create tburn_genesis_010_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0x97e59d5529c079e266fdd7819c652ffbe669b4a6ed6af3fac328c88058c9a041" | gcloud secrets versions add tburn_genesis_010_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Genesis-011 (community) - 검증됨: True
+gcloud secrets create tburn_genesis_011_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0xd6a598f7ef93a3453ec833968ccae2a51b969cae33efa990b379b453047548e3" | gcloud secrets versions add tburn_genesis_011_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Genesis-012 (community) - 검증됨: True
+gcloud secrets create tburn_genesis_012_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0x38810f5c42445fff734a32be16d7b0b66eaa9d4ae5ad75b722c28be9eed51111" | gcloud secrets versions add tburn_genesis_012_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Genesis-013 (community) - 검증됨: True
+gcloud secrets create tburn_genesis_013_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0xadb975491315a49849bf4393130aa8e301bc0ad09ce76d3e6deedc4ed051b82b" | gcloud secrets versions add tburn_genesis_013_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Genesis-014 (community) - 검증됨: True
+gcloud secrets create tburn_genesis_014_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0xb30cfa4fffd599875d2b30e23de8eb8bc7f75ce3c394f316dee368a45f254ed6" | gcloud secrets versions add tburn_genesis_014_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Genesis-015 (community) - 검증됨: True
+gcloud secrets create tburn_genesis_015_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0xfbfe0094fea25e98108201c52fd30b889a974309aad9379eb8eedb1e2efb2e6b" | gcloud secrets versions add tburn_genesis_015_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Genesis-016 (community) - 검증됨: True
+gcloud secrets create tburn_genesis_016_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0x6b7ab45909e2bd17a376a1ededf79c467f3b601b29be7d5464d67c0894cbd258" | gcloud secrets versions add tburn_genesis_016_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Genesis-017 (community) - 검증됨: True
+gcloud secrets create tburn_genesis_017_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0x99f6f806e1ba5d22f9ddde54203d8b5721e0a854d0d88ad59b9784adde86b044" | gcloud secrets versions add tburn_genesis_017_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Genesis-018 (community) - 검증됨: True
+gcloud secrets create tburn_genesis_018_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0x96fce0540605240aa25e65b365caa97ce4d76b0fcfef90b744029ca4b7f29371" | gcloud secrets versions add tburn_genesis_018_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Genesis-019 (community) - 검증됨: True
+gcloud secrets create tburn_genesis_019_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0x17a737a751f168697c1dc99d1cd9ca81659e5806534b9c2220dbe7f9715c7def" | gcloud secrets versions add tburn_genesis_019_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Genesis-020 (community) - 검증됨: True
+gcloud secrets create tburn_genesis_020_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0x2014fd5c144e3ac867ca3fc5c049faeeab16bfcc6bbbd1a2308cbfa6b978c849" | gcloud secrets versions add tburn_genesis_020_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Genesis-021 (community) - 검증됨: True
+gcloud secrets create tburn_genesis_021_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0x9c576ba181d7269240c608018dab7274a03df2f094dc9a6c39c57e0cd7490e00" | gcloud secrets versions add tburn_genesis_021_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Genesis-022 (community) - 검증됨: True
+gcloud secrets create tburn_genesis_022_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0xdaec79f7c86232dd57a5b6204c6b4e599bf183e685c32fef783945ffdf82138e" | gcloud secrets versions add tburn_genesis_022_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Genesis-023 (community) - 검증됨: True
+gcloud secrets create tburn_genesis_023_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0xebe6cf2cad3e8a87d2f5ea174bdeb45fa20a53d82b63bbe8e76bb7140c638242" | gcloud secrets versions add tburn_genesis_023_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Genesis-024 (community) - 검증됨: True
+gcloud secrets create tburn_genesis_024_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0x310f580df31373f870005b84db8aec6376c93e66c9b8ed769a7ad51e416dad97" | gcloud secrets versions add tburn_genesis_024_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Genesis-025 (community) - 검증됨: True
+gcloud secrets create tburn_genesis_025_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0xb55441dea06d247356ce44d4ada4659dc603761b1433e40107d29fd56af6ea1a" | gcloud secrets versions add tburn_genesis_025_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Genesis-026 (community) - 검증됨: True
+gcloud secrets create tburn_genesis_026_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0xb98d605f5f435977afe3c5389757be83cdf04385a78cad1f004e51620c5b31c0" | gcloud secrets versions add tburn_genesis_026_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Genesis-027 (community) - 검증됨: True
+gcloud secrets create tburn_genesis_027_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0x1803a1b74e1e2ee3be5c3bee6097b7af754e334aae60df585f4a831c109e6515" | gcloud secrets versions add tburn_genesis_027_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Genesis-028 (community) - 검증됨: True
+gcloud secrets create tburn_genesis_028_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0x6731d6acc2d0fd0bf4f471dffa72e3b9a1f41a5ef113e96332b7be8d42687df6" | gcloud secrets versions add tburn_genesis_028_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Genesis-029 (community) - 검증됨: True
+gcloud secrets create tburn_genesis_029_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0x1e363bd5d444b270ea55442820e362842a7116466f87c67b30f06b8849a87e29" | gcloud secrets versions add tburn_genesis_029_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Genesis-030 (community) - 검증됨: True
+gcloud secrets create tburn_genesis_030_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0xe99bb630a16b53d51e6d15d5401697c2d10903f1a4b134c468871b0a8ff635c5" | gcloud secrets versions add tburn_genesis_030_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Genesis-031 (community) - 검증됨: True
+gcloud secrets create tburn_genesis_031_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0xdfd384e53c053d45c3d1e93d2374254df0f65219b2147142e093a6a7af31c7cc" | gcloud secrets versions add tburn_genesis_031_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Genesis-032 (community) - 검증됨: True
+gcloud secrets create tburn_genesis_032_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0xb89c6ef2eff82a6d22dacb0e2a905aae33a9d06ce30cfd437f54206f1af057ff" | gcloud secrets versions add tburn_genesis_032_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Genesis-033 (community) - 검증됨: True
+gcloud secrets create tburn_genesis_033_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0x695bde90f1528d3688b4b9b18264796dbca51f2eb05bbaecd6c36c67feedd642" | gcloud secrets versions add tburn_genesis_033_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Genesis-034 (community) - 검증됨: True
+gcloud secrets create tburn_genesis_034_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0x3904ac9d636faff0c72f5e62a59d17a3bf8149c54c9230c375ff9511701761b7" | gcloud secrets versions add tburn_genesis_034_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Genesis-035 (community) - 검증됨: True
+gcloud secrets create tburn_genesis_035_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0x8a073c13a5b915b98f2fe2d804a5e9488ed8742955751d9aa45d595325634d42" | gcloud secrets versions add tburn_genesis_035_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Genesis-036 (community) - 검증됨: True
+gcloud secrets create tburn_genesis_036_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0xb4905b0da769ba23ed2a4f690f2cef9160e4779c6d2a7af26dafa4b04b8c0d00" | gcloud secrets versions add tburn_genesis_036_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Genesis-037 (community) - 검증됨: True
+gcloud secrets create tburn_genesis_037_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0x1c2a834e090c4fb3759889c9418e92357025e537cd20e751fceb7e5f90d3917f" | gcloud secrets versions add tburn_genesis_037_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Genesis-038 (community) - 검증됨: True
+gcloud secrets create tburn_genesis_038_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0x2055092a7a000294346fb848d836a8b485dfab7fe6159ab1fa23a54702159fd6" | gcloud secrets versions add tburn_genesis_038_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Genesis-039 (community) - 검증됨: True
+gcloud secrets create tburn_genesis_039_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0xad6fc868bbcdbd94dfcc33e1a01ec946af059162325b5a9587a6506ce8c2e89f" | gcloud secrets versions add tburn_genesis_039_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Genesis-040 (community) - 검증됨: True
+gcloud secrets create tburn_genesis_040_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0x29f0a7716d574ac3e517e4acb4717c54a6f9893b28c8da500668a811dac1df65" | gcloud secrets versions add tburn_genesis_040_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Genesis-041 (community) - 검증됨: True
+gcloud secrets create tburn_genesis_041_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0x3a53e5235c2b9a1773a59b8c33a5c4c8d139b7adf403939bd60e7d1c93373d3c" | gcloud secrets versions add tburn_genesis_041_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Genesis-042 (community) - 검증됨: True
+gcloud secrets create tburn_genesis_042_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0x26e13fdbb9ff6957eed9cb8208482dfb564f545190dff5fd821dd45e353aba4e" | gcloud secrets versions add tburn_genesis_042_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Genesis-043 (community) - 검증됨: True
+gcloud secrets create tburn_genesis_043_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0x4b86863ba0ab7871cb95b66b537bd710d0e9bf6c1cd3f32f7a52d63c77c7799f" | gcloud secrets versions add tburn_genesis_043_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Genesis-044 (community) - 검증됨: True
+gcloud secrets create tburn_genesis_044_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0x65d31bdec9d1096f6ac02f506226a7d0b655bbad9e5988d5d6f374ef9f76f9a1" | gcloud secrets versions add tburn_genesis_044_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Genesis-045 (community) - 검증됨: True
+gcloud secrets create tburn_genesis_045_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0x1330940be5c4897d01dfaa9b3051d9fbf81fdb3acfa2296ac1cf64d5eeabdaa7" | gcloud secrets versions add tburn_genesis_045_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Genesis-046 (community) - 검증됨: True
+gcloud secrets create tburn_genesis_046_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0x6c946e9fa259b9e0f489bc7ff76f67d5019462a9dcbfd50c75f1b3ae7cb981cf" | gcloud secrets versions add tburn_genesis_046_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Genesis-047 (community) - 검증됨: True
+gcloud secrets create tburn_genesis_047_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0x8878231c812185f8f1770033ec49bd1f01d0b1985c1e8e45242c9129cf37611e" | gcloud secrets versions add tburn_genesis_047_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Genesis-048 (community) - 검증됨: True
+gcloud secrets create tburn_genesis_048_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0x40c9139d392fa8b2d50583eb30e1f6264581c5e2ed80e26b546dd4ea7c352f7c" | gcloud secrets versions add tburn_genesis_048_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Genesis-049 (community) - 검증됨: True
+gcloud secrets create tburn_genesis_049_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0x4c6bdba5fe2aef6bc13e55ee4d88abb0f1706a2286c78755615fe7b76cc2ce8f" | gcloud secrets versions add tburn_genesis_049_key --project=\$PROJECT_ID --data-file=-
+
+# TBURN-Genesis-050 (community) - 검증됨: True
+gcloud secrets create tburn_genesis_050_key --project=\$PROJECT_ID --replication-policy=automatic 2>/dev/null
+echo -n "0x32e4dbf13d8f04ef2fb1f16c1510cbbea2c270acbce1dacff2b6d0b497a108a6" | gcloud secrets versions add tburn_genesis_050_key --project=\$PROJECT_ID --data-file=-
 
