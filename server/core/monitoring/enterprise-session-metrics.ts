@@ -1008,20 +1008,28 @@ export class EnterpriseSessionMetricsEngine {
   // ============================================================================
   
   start(): void {
+    // ★ [2026-01-15 MEMORY FIX] DEV_SAFE_MODE에서 세션 메트릭 간격 증가
+    // DEV_SAFE_MODE 값을 동기적으로 가져오기 위해 환경변수 사용
+    const DEV_SAFE_MODE = process.env.DEV_SAFE_MODE !== 'false';
+    
     if (this.isRunning) return;
     
     this.isRunning = true;
     this.currentIntervalStart = new Date();
     
-    // Snapshot timer (5 minutes)
+    // Snapshot timer - DEV_SAFE_MODE에서는 30분 (5분 → 30분)
+    const snapshotIntervalMs = DEV_SAFE_MODE ? 30 * 60 * 1000 : this.intervalMs;
     this.snapshotTimer = setInterval(() => {
       this.takeSnapshot();
-    }, this.intervalMs);
+    }, snapshotIntervalMs);
     
-    // Hourly aggregation timer
+    // Hourly aggregation timer - DEV_SAFE_MODE에서는 2시간 (1시간 → 2시간)
+    const aggregationIntervalMs = DEV_SAFE_MODE ? 2 * 60 * 60 * 1000 : 60 * 60 * 1000;
     this.aggregationTimer = setInterval(() => {
       this.runHourlyAggregation();
-    }, 60 * 60 * 1000);
+    }, aggregationIntervalMs);
+    
+    console.log(`[EnterpriseSessionMetrics] ✅ Started (DEV_SAFE_MODE: ${DEV_SAFE_MODE}, snapshot: ${snapshotIntervalMs / 60000}min)`);
     
     console.log('[EnterpriseMetrics] ✅ Enterprise Session Metrics Engine v2.0 started');
     console.log(`[EnterpriseMetrics] 📊 ${this.alertPolicies.size} alert policies configured`);

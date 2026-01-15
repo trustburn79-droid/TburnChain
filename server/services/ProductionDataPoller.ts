@@ -77,8 +77,16 @@ class ProductionDataPoller {
 
   /**
    * Start the poller
+   * ★ [2026-01-15] DEV_SAFE_MODE에서도 비활성화 - 메모리 누수 방지
    */
   async start(): Promise<void> {
+    // ★ [2026-01-15 MEMORY FIX] DEV_SAFE_MODE에서 폴러 비활성화
+    const { DEV_SAFE_MODE } = await import('../core/memory/metrics-config');
+    if (DEV_SAFE_MODE) {
+      console.log('[ProductionDataPoller] ⏸️ DISABLED in DEV_SAFE_MODE (memory protection)');
+      return;
+    }
+    
     // ★ [2026-01-05 CRITICAL FIX] 프로덕션에서 폴러 완전 비활성화
     if (IS_PRODUCTION && DISABLE_POLLER_IN_PRODUCTION) {
       console.log('[ProductionDataPoller] ⛔ DISABLED in production (512MB memory protection)');

@@ -97,21 +97,27 @@ class ProductionHealthMonitor {
   // ============================================================================
   
   start(): void {
+    // ★ [2026-01-15 MEMORY FIX] DEV_SAFE_MODE에서 모니터링 간격 대폭 증가
+    // DEV_SAFE_MODE 값을 동기적으로 가져오기 위해 환경변수 사용
+    const DEV_SAFE_MODE = process.env.DEV_SAFE_MODE !== 'false';
+    
     if (this.isRunning) return;
     this.isRunning = true;
     
-    // Event loop lag monitoring (every 100ms)
+    // Event loop lag monitoring - DEV_SAFE_MODE에서는 1초 간격 (100ms → 1000ms)
+    const lagInterval = DEV_SAFE_MODE ? 1000 : 100;
     this.eventLoopLagInterval = setInterval(() => {
       this.measureEventLoopLag();
-    }, 100);
+    }, lagInterval);
     
-    // Full health check (every 10 seconds)
+    // Full health check - DEV_SAFE_MODE에서는 60초 간격 (10s → 60s)
+    const checkIntervalMs = DEV_SAFE_MODE ? 60000 : 10000;
     this.checkInterval = setInterval(() => {
       this.performHealthCheck();
-    }, 10000);
+    }, checkIntervalMs);
     
-    console.log('[HealthMonitor] ✅ Production health monitoring started');
-    console.log('[HealthMonitor] 📊 Event loop lag check: 100ms, Full check: 10s');
+    console.log(`[HealthMonitor] ✅ Production health monitoring started (DEV_SAFE_MODE: ${DEV_SAFE_MODE})`);
+    console.log(`[HealthMonitor] 📊 Event loop lag check: ${lagInterval}ms, Full check: ${checkIntervalMs / 1000}s`);
   }
   
   stop(): void {

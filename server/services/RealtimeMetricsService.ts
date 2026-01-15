@@ -75,8 +75,17 @@ class RealtimeMetricsService {
   
   /**
    * 폴링 시작 - 데이터베이스에서 실시간 데이터 가져오기
+   * ★ [2026-01-15] DEV_SAFE_MODE에서 폴링 비활성화 - 메모리 누수 방지
    */
   start(): void {
+    // ★ [2026-01-15 MEMORY FIX] DEV_SAFE_MODE에서 폴링 비활성화
+    // DEV_SAFE_MODE 값을 동기적으로 가져오기 위해 환경변수 사용
+    const DEV_SAFE_MODE = process.env.DEV_SAFE_MODE !== 'false';
+    if (DEV_SAFE_MODE) {
+      console.log('[RealtimeMetrics] ⏸️ Polling DISABLED in DEV_SAFE_MODE (memory protection)');
+      return;
+    }
+    
     if (this.pollInterval) return;
     
     // 즉시 첫 번째 폴링 실행
