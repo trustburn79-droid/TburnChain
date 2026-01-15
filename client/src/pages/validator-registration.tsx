@@ -53,51 +53,46 @@ import { LanguageSelector } from "@/components/LanguageSelector";
 type RegistrationStep = 1 | 2 | 3;
 
 interface TierConfig {
-  name: string;
+  key: string;
   stake: number;
   commission: number;
   apy: string;
   slots: number;
   color: string;
-  description: string;
 }
 
 const TIER_CONFIGS: Record<string, TierConfig> = {
   core: {
-    name: "Core",
+    key: "core",
     stake: 1000000,
     commission: 3,
     apy: "20-25%",
     slots: 10,
     color: "text-amber-500 bg-amber-500/10 border-amber-500/30",
-    description: "Foundation validators with maximum stake and lowest commission",
   },
   enterprise: {
-    name: "Enterprise",
+    key: "enterprise",
     stake: 500000,
     commission: 8,
     apy: "16-20%",
     slots: 25,
     color: "text-blue-500 bg-blue-500/10 border-blue-500/30",
-    description: "Enterprise-grade validators for institutional participants",
   },
   partner: {
-    name: "Partner",
+    key: "partner",
     stake: 250000,
     commission: 15,
     apy: "14-18%",
     slots: 40,
     color: "text-purple-500 bg-purple-500/10 border-purple-500/30",
-    description: "Partner validators for strategic ecosystem contributors",
   },
   community: {
-    name: "Community",
+    key: "community",
     stake: 100000,
     commission: 20,
     apy: "12-15%",
     slots: 50,
     color: "text-green-500 bg-green-500/10 border-green-500/30",
-    description: "Community validators for decentralized participation",
   },
 };
 
@@ -142,12 +137,10 @@ export default function ValidatorRegistration() {
     nodeEndpoint: "",
   });
 
-  // Get current validator status
   const { data: statusData } = useQuery({
     queryKey: ["/api/genesis-validators/status"],
   });
 
-  // BYO Registration mutation - uses the correct endpoint
   const registerMutation = useMutation({
     mutationFn: async (data: RegistrationFormData) => {
       const response = await apiRequest("POST", "/api/genesis-validators/register", {
@@ -166,21 +159,21 @@ export default function ValidatorRegistration() {
         setRegistrationResult(result.data);
         setRegistrationComplete(true);
         toast({
-          title: "Registration Successful",
-          description: `Validator ${result.data.name} registered successfully!`,
+          title: t("validatorRegistration.toasts.registrationSuccess"),
+          description: `${result.data.name}`,
         });
       } else {
         toast({
-          title: "Registration Failed",
-          description: result.error || "Unknown error occurred",
+          title: t("validatorRegistration.toasts.registrationFailed"),
+          description: result.error,
           variant: "destructive",
         });
       }
     },
     onError: (error: any) => {
       toast({
-        title: "Registration Error",
-        description: error.message || "Failed to register validator",
+        title: t("validatorRegistration.toasts.registrationError"),
+        description: error.message,
         variant: "destructive",
       });
     },
@@ -194,10 +187,8 @@ export default function ValidatorRegistration() {
     setBackupChecklist((prev) => ({ ...prev, [field]: value }));
   };
 
-  // All backup items must be checked to proceed
   const allBackupsConfirmed = Object.values(backupChecklist).every((v) => v);
 
-  // Validate public key format
   const isValidPublicKey = (key: string): boolean => {
     const clean = key.replace(/^0x/, "");
     return /^[0-9a-fA-F]{66}$/.test(clean) || /^[0-9a-fA-F]{130}$/.test(clean);
@@ -223,21 +214,21 @@ export default function ValidatorRegistration() {
       if (currentStep === 1) {
         if (!allBackupsConfirmed) {
           toast({
-            title: "Backup Confirmation Required",
-            description: "Please confirm all backup checklist items before proceeding",
+            title: t("validatorRegistration.toasts.backupRequired"),
+            description: t("validatorRegistration.toasts.backupRequiredDesc"),
             variant: "destructive",
           });
         } else if (!isValidPublicKey(formData.publicKey)) {
           toast({
-            title: "Invalid Public Key",
-            description: "Public key must be 33 bytes (compressed) or 65 bytes (uncompressed) hex format",
+            title: t("validatorRegistration.toasts.invalidPublicKey"),
+            description: t("validatorRegistration.toasts.invalidPublicKeyDesc"),
             variant: "destructive",
           });
         }
       } else {
         toast({
-          title: "Validation Error",
-          description: "Please fill in all required fields",
+          title: t("validatorRegistration.toasts.validationError"),
+          description: t("validatorRegistration.toasts.validationErrorDesc"),
           variant: "destructive",
         });
       }
@@ -256,12 +247,14 @@ export default function ValidatorRegistration() {
 
   const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text);
-    toast({ title: "Copied", description: "Copied to clipboard" });
+    toast({ 
+      title: t("validatorRegistration.toasts.copied"), 
+      description: t("validatorRegistration.toasts.copiedDesc") 
+    });
   };
 
   const selectedTier = TIER_CONFIGS[formData.tier];
 
-  // Registration complete screen
   if (registrationComplete && registrationResult) {
     return (
       <div className="min-h-screen bg-background p-6">
@@ -274,21 +267,20 @@ export default function ValidatorRegistration() {
               <div className="w-20 h-20 bg-green-500/10 rounded-full flex items-center justify-center mx-auto mb-4">
                 <CheckCircle2 className="w-10 h-10 text-green-500" />
               </div>
-              <CardTitle className="text-2xl">Registration Complete</CardTitle>
+              <CardTitle className="text-2xl">{t("validatorRegistration.completion.title")}</CardTitle>
               <CardDescription>
-                Your validator has been successfully registered on TBURN Mainnet
+                {t("validatorRegistration.completion.description")}
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
-              {/* Validator Details */}
               <div className="bg-muted/50 rounded-lg p-4 space-y-3">
                 <div className="flex justify-between items-center">
-                  <span className="text-sm text-muted-foreground">Validator Name</span>
+                  <span className="text-sm text-muted-foreground">{t("validatorRegistration.completion.validatorName")}</span>
                   <span className="font-medium">{registrationResult.name}</span>
                 </div>
                 <Separator />
                 <div className="flex justify-between items-center">
-                  <span className="text-sm text-muted-foreground">TBURN Address</span>
+                  <span className="text-sm text-muted-foreground">{t("validatorRegistration.completion.tburnAddress")}</span>
                   <div className="flex items-center gap-2">
                     <code className="text-xs font-mono bg-background px-2 py-1 rounded">
                       {registrationResult.address}
@@ -305,41 +297,40 @@ export default function ValidatorRegistration() {
                 </div>
                 <Separator />
                 <div className="flex justify-between items-center">
-                  <span className="text-sm text-muted-foreground">Tier</span>
+                  <span className="text-sm text-muted-foreground">{t("validatorRegistration.completion.tier")}</span>
                   <Badge className={TIER_CONFIGS[registrationResult.tier]?.color}>
-                    {registrationResult.tier.toUpperCase()}
+                    {t(`validatorRegistration.tiers.${registrationResult.tier}.name`)}
                   </Badge>
                 </div>
                 <Separator />
                 <div className="flex justify-between items-center">
-                  <span className="text-sm text-muted-foreground">Initial Stake</span>
+                  <span className="text-sm text-muted-foreground">{t("validatorRegistration.completion.initialStake")}</span>
                   <span className="font-bold text-primary">
                     {(Number(registrationResult.initialStake) / 1e18).toLocaleString()} TBURN
                   </span>
                 </div>
                 <Separator />
                 <div className="flex justify-between items-center">
-                  <span className="text-sm text-muted-foreground">Commission Rate</span>
+                  <span className="text-sm text-muted-foreground">{t("validatorRegistration.completion.commission")}</span>
                   <span>{(registrationResult.commission / 100).toFixed(1)}%</span>
                 </div>
                 <Separator />
                 <div className="flex justify-between items-center">
-                  <span className="text-sm text-muted-foreground">Estimated APY</span>
+                  <span className="text-sm text-muted-foreground">{t("validatorRegistration.completion.estimatedApy")}</span>
                   <span className="text-green-500 font-medium">{registrationResult.estimatedAPY}</span>
                 </div>
                 <Separator />
                 <div className="flex justify-between items-center">
-                  <span className="text-sm text-muted-foreground">Status</span>
+                  <span className="text-sm text-muted-foreground">{t("validatorRegistration.completion.status")}</span>
                   <Badge variant="outline" className="bg-yellow-500/10 text-yellow-600 border-yellow-500/30">
-                    Pending Verification
+                    {t("validatorRegistration.completion.pendingVerification")}
                   </Badge>
                 </div>
               </div>
 
-              {/* Next Steps */}
               <Alert className="border-blue-500/30 bg-blue-500/5">
                 <AlertTriangle className="h-5 w-5 text-blue-500" />
-                <AlertTitle className="text-blue-600">Next Steps</AlertTitle>
+                <AlertTitle className="text-blue-600">{t("validatorRegistration.completion.nextStepsTitle")}</AlertTitle>
                 <AlertDescription>
                   <ol className="list-decimal list-inside space-y-2 mt-2 text-sm">
                     {registrationResult.nextSteps?.map((step: string, i: number) => (
@@ -349,13 +340,11 @@ export default function ValidatorRegistration() {
                 </AlertDescription>
               </Alert>
 
-              {/* Important Reminder */}
               <Alert variant="destructive" className="border-red-500/30 bg-red-500/5">
                 <AlertOctagon className="h-5 w-5" />
-                <AlertTitle>Keep Your Private Key Safe</AlertTitle>
+                <AlertTitle>{t("validatorRegistration.completion.keepPrivateKeySafe")}</AlertTitle>
                 <AlertDescription className="text-sm">
-                  Your private key is the only way to control this validator. We do NOT have access to it.
-                  If you lose your private key, you will lose access to your staked TBURN permanently.
+                  {t("validatorRegistration.completion.keepPrivateKeySafeText")}
                 </AlertDescription>
               </Alert>
             </CardContent>
@@ -366,7 +355,7 @@ export default function ValidatorRegistration() {
                 onClick={() => window.location.href = "/validators"}
                 data-testid="button-view-validators"
               >
-                View All Validators
+                {t("validatorRegistration.buttons.viewValidators")}
               </Button>
               <Button
                 className="flex-1"
@@ -392,7 +381,7 @@ export default function ValidatorRegistration() {
                 }}
                 data-testid="button-register-another"
               >
-                Register Another
+                {t("validatorRegistration.buttons.registerAnother")}
               </Button>
             </CardFooter>
           </Card>
@@ -404,84 +393,81 @@ export default function ValidatorRegistration() {
   return (
     <div className="min-h-screen bg-background p-6">
       <div className="max-w-4xl mx-auto space-y-6">
-        {/* Language Selector */}
         <div className="flex justify-end">
           <LanguageSelector isDark={false} />
         </div>
 
-        {/* Header */}
         <div className="text-center space-y-2">
-          <Badge variant="outline" className="mb-2">Chain ID: 5800</Badge>
-          <h1 className="text-3xl font-bold">TBURN Genesis Validator Registration</h1>
+          <Badge variant="outline" className="mb-2">{t("validatorRegistration.chainId")}</Badge>
+          <h1 className="text-3xl font-bold">{t("validatorRegistration.title")}</h1>
           <p className="text-muted-foreground">
-            BYO (Bring Your Own Key) - Register your validator with an offline-generated keypair
+            {t("validatorRegistration.subtitle")}
           </p>
           {statusData?.data && (
             <div className="flex justify-center gap-4 mt-4">
               <Badge variant="secondary">
-                {statusData.data.totalCount} / {statusData.data.targetCount} Validators
+                {t("validatorRegistration.validatorsCount", { 
+                  current: statusData.data.totalCount, 
+                  target: statusData.data.targetCount 
+                })}
               </Badge>
               {statusData.data.isComplete && (
                 <Badge className="bg-green-500/10 text-green-600 border-green-500/30">
-                  Genesis Complete
+                  {t("validatorRegistration.genesisComplete")}
                 </Badge>
               )}
             </div>
           )}
         </div>
 
-        {/* Progress */}
         <div className="space-y-2">
           <div className="flex justify-between text-sm">
             <span className={currentStep >= 1 ? "text-primary font-medium" : "text-muted-foreground"}>
-              1. Key & Security
+              1. {t("validatorRegistration.progress.step1")}
             </span>
             <span className={currentStep >= 2 ? "text-primary font-medium" : "text-muted-foreground"}>
-              2. Validator Info
+              2. {t("validatorRegistration.progress.step2")}
             </span>
             <span className={currentStep >= 3 ? "text-primary font-medium" : "text-muted-foreground"}>
-              3. Review & Submit
+              3. {t("validatorRegistration.progress.step3")}
             </span>
           </div>
           <Progress value={(currentStep / 3) * 100} className="h-2" />
         </div>
 
-        {/* Step 1: Key Generation & Security */}
         {currentStep === 1 && (
           <div className="space-y-6">
-            {/* CRITICAL: Security Warnings */}
             <Alert variant="destructive" className="border-2 border-red-500 bg-red-500/10">
               <AlertOctagon className="h-5 w-5" />
               <AlertTitle className="text-lg font-bold">
-                CRITICAL: Private Key Security
+                {t("validatorRegistration.security.criticalTitle")}
               </AlertTitle>
               <AlertDescription className="mt-2 space-y-2">
                 <p className="font-semibold">
-                  Your private key is the ONLY way to access your validator funds and rewards.
+                  {t("validatorRegistration.security.criticalDescription")}
                 </p>
                 <ul className="list-disc list-inside space-y-1 text-sm">
-                  <li>Generate your keys <strong>OFFLINE</strong> on an air-gapped machine</li>
-                  <li><strong>NEVER</strong> share your private key with anyone - not even TBURN support</li>
-                  <li>Lost private keys <strong>CANNOT</strong> be recovered - your funds will be permanently lost</li>
-                  <li>We only store your public key - we cannot recover your private key</li>
+                  <li>{t("validatorRegistration.security.warnings.generateOffline")}</li>
+                  <li>{t("validatorRegistration.security.warnings.neverShare")}</li>
+                  <li>{t("validatorRegistration.security.warnings.cannotRecover")}</li>
+                  <li>{t("validatorRegistration.security.warnings.publicKeyOnly")}</li>
                 </ul>
               </AlertDescription>
             </Alert>
 
-            {/* Key Generation Instructions */}
             <Card className="border-amber-500/30 bg-amber-500/5">
               <CardHeader className="pb-3">
                 <CardTitle className="text-base flex items-center gap-2">
                   <KeyRound className="w-5 h-5 text-amber-500" />
-                  Offline Key Generation Instructions
+                  {t("validatorRegistration.keyGeneration.title")}
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <Tabs defaultValue="nodejs" className="w-full">
                   <TabsList className="grid w-full grid-cols-3">
-                    <TabsTrigger value="nodejs" data-testid="tab-nodejs">Node.js</TabsTrigger>
-                    <TabsTrigger value="openssl" data-testid="tab-openssl">OpenSSL</TabsTrigger>
-                    <TabsTrigger value="hardware" data-testid="tab-hardware">Hardware Wallet</TabsTrigger>
+                    <TabsTrigger value="nodejs" data-testid="tab-nodejs">{t("validatorRegistration.keyGeneration.tabs.nodejs")}</TabsTrigger>
+                    <TabsTrigger value="openssl" data-testid="tab-openssl">{t("validatorRegistration.keyGeneration.tabs.openssl")}</TabsTrigger>
+                    <TabsTrigger value="hardware" data-testid="tab-hardware">{t("validatorRegistration.keyGeneration.tabs.hardware")}</TabsTrigger>
                   </TabsList>
                   <TabsContent value="nodejs" className="mt-4">
                     <div className="space-y-3">
@@ -489,29 +475,29 @@ export default function ValidatorRegistration() {
                         <div className="flex items-start gap-2 p-3 rounded-lg bg-background/50">
                           <span className="flex-shrink-0 w-6 h-6 rounded-full bg-amber-500/20 text-amber-600 flex items-center justify-center text-xs font-bold">1</span>
                           <div>
-                            <p className="font-medium">Disconnect from network</p>
-                            <p className="text-muted-foreground text-xs">Air-gap your machine before generating keys</p>
+                            <p className="font-medium">{t("validatorRegistration.keyGeneration.steps.step1Title")}</p>
+                            <p className="text-muted-foreground text-xs">{t("validatorRegistration.keyGeneration.steps.step1Desc")}</p>
                           </div>
                         </div>
                         <div className="flex items-start gap-2 p-3 rounded-lg bg-background/50">
                           <span className="flex-shrink-0 w-6 h-6 rounded-full bg-amber-500/20 text-amber-600 flex items-center justify-center text-xs font-bold">2</span>
                           <div>
-                            <p className="font-medium">Install dependencies offline</p>
-                            <p className="text-muted-foreground text-xs">npm install ethers crypto</p>
+                            <p className="font-medium">{t("validatorRegistration.keyGeneration.steps.step2Title")}</p>
+                            <p className="text-muted-foreground text-xs">{t("validatorRegistration.keyGeneration.steps.step2Desc")}</p>
                           </div>
                         </div>
                         <div className="flex items-start gap-2 p-3 rounded-lg bg-background/50">
                           <span className="flex-shrink-0 w-6 h-6 rounded-full bg-amber-500/20 text-amber-600 flex items-center justify-center text-xs font-bold">3</span>
                           <div>
-                            <p className="font-medium">Run key generation script</p>
-                            <p className="text-muted-foreground text-xs">node generate-keys.js</p>
+                            <p className="font-medium">{t("validatorRegistration.keyGeneration.steps.step3Title")}</p>
+                            <p className="text-muted-foreground text-xs">{t("validatorRegistration.keyGeneration.steps.step3Desc")}</p>
                           </div>
                         </div>
                         <div className="flex items-start gap-2 p-3 rounded-lg bg-background/50">
                           <span className="flex-shrink-0 w-6 h-6 rounded-full bg-amber-500/20 text-amber-600 flex items-center justify-center text-xs font-bold">4</span>
                           <div>
-                            <p className="font-medium">Copy public key only</p>
-                            <p className="text-muted-foreground text-xs">Paste compressed public key below</p>
+                            <p className="font-medium">{t("validatorRegistration.keyGeneration.steps.step4Title")}</p>
+                            <p className="text-muted-foreground text-xs">{t("validatorRegistration.keyGeneration.steps.step4Desc")}</p>
                           </div>
                         </div>
                       </div>
@@ -526,7 +512,6 @@ export default function ValidatorRegistration() {
                             onClick={() => copyToClipboard(`const crypto = require('crypto');
 const { SigningKey } = require('ethers');
 
-// Generate secure random private key
 const privateKey = crypto.randomBytes(32).toString('hex');
 const signingKey = new SigningKey('0x' + privateKey);
 
@@ -541,14 +526,13 @@ console.log('');
 console.log('Save private key to encrypted cold storage!');`)}
                             data-testid="button-copy-script"
                           >
-                            <Copy className="w-3 h-3 mr-1" /> Copy
+                            <Copy className="w-3 h-3 mr-1" /> {t("validatorRegistration.buttons.copy")}
                           </Button>
                         </div>
                         <pre className="text-foreground whitespace-pre-wrap">
 {`const crypto = require('crypto');
 const { SigningKey } = require('ethers');
 
-// Generate secure random private key
 const privateKey = crypto.randomBytes(32).toString('hex');
 const signingKey = new SigningKey('0x' + privateKey);
 
@@ -577,18 +561,18 @@ openssl ec -in validator_key.pem -pubout -conv_form compressed -outform DER | ta
                   <TabsContent value="hardware" className="mt-4">
                     <div className="space-y-3 text-sm">
                       <p className="text-muted-foreground">
-                        For maximum security, use a hardware wallet or HSM to generate and store keys:
+                        {t("validatorRegistration.keyGeneration.hardwareDescription")}
                       </p>
                       <ul className="list-disc list-inside space-y-2 text-muted-foreground">
-                        <li><strong>Ledger</strong> - Use Ethereum app, export public key</li>
-                        <li><strong>Trezor</strong> - Use secp256k1 curve, export compressed pubkey</li>
-                        <li><strong>YubiHSM</strong> - Generate key in HSM, never export private key</li>
-                        <li><strong>AWS CloudHSM</strong> - Enterprise-grade key management</li>
+                        <li><strong>Ledger</strong> - {t("validatorRegistration.keyGeneration.hardwareOptions.ledger").split(" - ")[1]}</li>
+                        <li><strong>Trezor</strong> - {t("validatorRegistration.keyGeneration.hardwareOptions.trezor").split(" - ")[1]}</li>
+                        <li><strong>YubiHSM</strong> - {t("validatorRegistration.keyGeneration.hardwareOptions.yubihsm").split(" - ")[1]}</li>
+                        <li><strong>AWS CloudHSM</strong> - {t("validatorRegistration.keyGeneration.hardwareOptions.awshsm").split(" - ")[1]}</li>
                       </ul>
                       <Alert>
                         <Shield className="h-4 w-4" />
                         <AlertDescription>
-                          Hardware wallets provide the best security as private keys never leave the device.
+                          {t("validatorRegistration.keyGeneration.hardwareNote")}
                         </AlertDescription>
                       </Alert>
                     </div>
@@ -597,15 +581,14 @@ openssl ec -in validator_key.pem -pubout -conv_form compressed -outform DER | ta
               </CardContent>
             </Card>
 
-            {/* Mandatory Backup Checklist */}
             <Card className="border-blue-500/30">
               <CardHeader className="pb-3">
                 <CardTitle className="text-base flex items-center gap-2">
                   <ShieldAlert className="w-5 h-5 text-blue-500" />
-                  Mandatory Backup Confirmation
+                  {t("validatorRegistration.backupChecklist.title")}
                 </CardTitle>
                 <CardDescription>
-                  You must confirm ALL items before proceeding. This ensures you won't lose access to your validator.
+                  {t("validatorRegistration.backupChecklist.description")}
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -620,10 +603,10 @@ openssl ec -in validator_key.pem -pubout -conv_form compressed -outform DER | ta
                     <div className="flex-1">
                       <label htmlFor="coldStorage" className="font-medium cursor-pointer flex items-center gap-2">
                         {backupChecklist.coldStorage ? <CheckCircle className="w-4 h-4 text-green-500" /> : <XCircle className="w-4 h-4 text-muted-foreground" />}
-                        Private key stored in cold storage (offline)
+                        {t("validatorRegistration.backupChecklist.coldStorage")}
                       </label>
                       <p className="text-xs text-muted-foreground mt-1">
-                        USB drive, paper wallet, or hardware security module (HSM)
+                        {t("validatorRegistration.backupChecklist.coldStorageHint")}
                       </p>
                     </div>
                   </div>
@@ -637,10 +620,10 @@ openssl ec -in validator_key.pem -pubout -conv_form compressed -outform DER | ta
                     <div className="flex-1">
                       <label htmlFor="multipleBackups" className="font-medium cursor-pointer flex items-center gap-2">
                         {backupChecklist.multipleBackups ? <CheckCircle className="w-4 h-4 text-green-500" /> : <XCircle className="w-4 h-4 text-muted-foreground" />}
-                        Created multiple backup copies in different locations
+                        {t("validatorRegistration.backupChecklist.multipleBackups")}
                       </label>
                       <p className="text-xs text-muted-foreground mt-1">
-                        At least 2-3 copies stored in separate physical locations
+                        {t("validatorRegistration.backupChecklist.multipleBackupsHint")}
                       </p>
                     </div>
                   </div>
@@ -654,10 +637,10 @@ openssl ec -in validator_key.pem -pubout -conv_form compressed -outform DER | ta
                     <div className="flex-1">
                       <label htmlFor="encrypted" className="font-medium cursor-pointer flex items-center gap-2">
                         {backupChecklist.encrypted ? <CheckCircle className="w-4 h-4 text-green-500" /> : <XCircle className="w-4 h-4 text-muted-foreground" />}
-                        Backups are encrypted with strong password
+                        {t("validatorRegistration.backupChecklist.encrypted")}
                       </label>
                       <p className="text-xs text-muted-foreground mt-1">
-                        Use AES-256 encryption or equivalent
+                        {t("validatorRegistration.backupChecklist.encryptedHint")}
                       </p>
                     </div>
                   </div>
@@ -671,10 +654,10 @@ openssl ec -in validator_key.pem -pubout -conv_form compressed -outform DER | ta
                     <div className="flex-1">
                       <label htmlFor="recoveryTested" className="font-medium cursor-pointer flex items-center gap-2">
                         {backupChecklist.recoveryTested ? <CheckCircle className="w-4 h-4 text-green-500" /> : <XCircle className="w-4 h-4 text-muted-foreground" />}
-                        Successfully tested recovery from backup
+                        {t("validatorRegistration.backupChecklist.recoveryTested")}
                       </label>
                       <p className="text-xs text-muted-foreground mt-1">
-                        Verified that you can derive the same public key from backup
+                        {t("validatorRegistration.backupChecklist.recoveryTestedHint")}
                       </p>
                     </div>
                   </div>
@@ -683,32 +666,33 @@ openssl ec -in validator_key.pem -pubout -conv_form compressed -outform DER | ta
                   <Alert className="mt-4 border-amber-500/30 bg-amber-500/5">
                     <AlertTriangle className="h-4 w-4 text-amber-500" />
                     <AlertDescription className="text-amber-600 text-sm">
-                      Please confirm all {4 - Object.values(backupChecklist).filter(Boolean).length} remaining items to proceed
+                      {t("validatorRegistration.backupChecklist.remainingItems", { 
+                        count: 4 - Object.values(backupChecklist).filter(Boolean).length 
+                      })}
                     </AlertDescription>
                   </Alert>
                 )}
               </CardContent>
             </Card>
 
-            {/* Public Key Input */}
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <FileKey className="w-5 h-5" />
-                  Submit Your Public Key
+                  {t("validatorRegistration.publicKey.title")}
                 </CardTitle>
                 <CardDescription>
-                  Enter the compressed public key generated offline. This is the ONLY information submitted.
+                  {t("validatorRegistration.publicKey.description")}
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="space-y-2">
                   <Label htmlFor="publicKey" className="flex items-center gap-2">
-                    Compressed Public Key (66 hex characters) *
+                    {t("validatorRegistration.publicKey.label")} *
                   </Label>
                   <Input
                     id="publicKey"
-                    placeholder="03a1b2c3d4e5f6... (66 hex chars)"
+                    placeholder={t("validatorRegistration.publicKey.placeholder")}
                     value={formData.publicKey}
                     onChange={(e) => updateFormData("publicKey", e.target.value)}
                     className="font-mono"
@@ -718,11 +702,11 @@ openssl ec -in validator_key.pem -pubout -conv_form compressed -outform DER | ta
                     {formData.publicKey && (
                       isValidPublicKey(formData.publicKey) ? (
                         <span className="text-green-500 flex items-center gap-1">
-                          <CheckCircle className="w-3 h-3" /> Valid public key format
+                          <CheckCircle className="w-3 h-3" /> {t("validatorRegistration.publicKey.validFormat")}
                         </span>
                       ) : (
                         <span className="text-red-500 flex items-center gap-1">
-                          <XCircle className="w-3 h-3" /> Invalid format (must be 66 or 130 hex chars)
+                          <XCircle className="w-3 h-3" /> {t("validatorRegistration.publicKey.invalidFormat")}
                         </span>
                       )
                     )}
@@ -731,10 +715,9 @@ openssl ec -in validator_key.pem -pubout -conv_form compressed -outform DER | ta
 
                 <Alert>
                   <Lock className="h-4 w-4" />
-                  <AlertTitle>Security Note</AlertTitle>
+                  <AlertTitle>{t("validatorRegistration.publicKey.securityNote")}</AlertTitle>
                   <AlertDescription className="text-sm">
-                    Never enter your private key. We only need the public key to derive your TBURN validator address (tb1...).
-                    Your private key should remain securely stored offline.
+                    {t("validatorRegistration.publicKey.securityNoteText")}
                   </AlertDescription>
                 </Alert>
               </CardContent>
@@ -744,7 +727,7 @@ openssl ec -in validator_key.pem -pubout -conv_form compressed -outform DER | ta
                   disabled={!validateStep(1)}
                   data-testid="button-next-step-1"
                 >
-                  Continue to Validator Info
+                  {t("validatorRegistration.buttons.continueToInfo")}
                   <ArrowRight className="w-4 h-4 ml-2" />
                 </Button>
               </CardFooter>
@@ -752,57 +735,54 @@ openssl ec -in validator_key.pem -pubout -conv_form compressed -outform DER | ta
           </div>
         )}
 
-        {/* Step 2: Validator Information */}
         {currentStep === 2 && (
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <User className="w-5 h-5" />
-                Validator Information
+                {t("validatorRegistration.validatorInfo.title")}
               </CardTitle>
               <CardDescription>
-                Provide details about your validator node
+                {t("validatorRegistration.validatorInfo.description")}
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
-              {/* Validator Name */}
               <div className="space-y-2">
                 <Label htmlFor="name" className="flex items-center gap-2">
-                  <User className="w-4 h-4" /> Validator Name *
+                  <User className="w-4 h-4" /> {t("validatorRegistration.validatorInfo.name")} *
                 </Label>
                 <Input
                   id="name"
-                  placeholder="My TBURN Validator"
+                  placeholder={t("validatorRegistration.validatorInfo.namePlaceholder")}
                   value={formData.name}
                   onChange={(e) => updateFormData("name", e.target.value)}
                   data-testid="input-validator-name"
                 />
                 <p className="text-xs text-muted-foreground">
-                  A unique name for your validator (min 3 characters)
+                  {t("validatorRegistration.validatorInfo.nameHint")}
                 </p>
               </div>
 
-              {/* Tier Selection */}
               <div className="space-y-2">
                 <Label className="flex items-center gap-2">
-                  <Zap className="w-4 h-4" /> Select Tier *
+                  <Zap className="w-4 h-4" /> {t("validatorRegistration.validatorInfo.tier")} *
                 </Label>
                 <Select
                   value={formData.tier}
                   onValueChange={(value) => updateFormData("tier", value)}
                 >
                   <SelectTrigger data-testid="select-tier">
-                    <SelectValue placeholder="Select tier" />
+                    <SelectValue placeholder={t("validatorRegistration.validatorInfo.tier")} />
                   </SelectTrigger>
                   <SelectContent>
                     {Object.entries(TIER_CONFIGS).map(([key, config]) => (
                       <SelectItem key={key} value={key}>
                         <div className="flex items-center gap-2">
                           <Badge variant="outline" className={config.color}>
-                            {config.name}
+                            {t(`validatorRegistration.tiers.${key}.name`)}
                           </Badge>
                           <span className="text-muted-foreground">
-                            {config.stake.toLocaleString()} TBURN | {config.commission}% | {config.slots} slots
+                            {config.stake.toLocaleString()} TBURN | {config.commission}% | {config.slots} {t("validatorRegistration.tierInfo.slots")}
                           </span>
                         </div>
                       </SelectItem>
@@ -811,57 +791,53 @@ openssl ec -in validator_key.pem -pubout -conv_form compressed -outform DER | ta
                 </Select>
               </div>
 
-              {/* Tier Info Display */}
               {selectedTier && (
                 <Card className={`border ${selectedTier.color.split(' ')[2]}`}>
                   <CardContent className="pt-4">
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
                       <div>
                         <div className="flex items-center justify-center gap-1 text-muted-foreground text-xs mb-1">
-                          <Coins className="w-3 h-3" /> Stake
+                          <Coins className="w-3 h-3" /> {t("validatorRegistration.tierInfo.stake")}
                         </div>
                         <div className="font-bold text-lg">{selectedTier.stake.toLocaleString()}</div>
                         <div className="text-xs text-muted-foreground">TBURN</div>
                       </div>
                       <div>
                         <div className="flex items-center justify-center gap-1 text-muted-foreground text-xs mb-1">
-                          <Percent className="w-3 h-3" /> Commission
+                          <Percent className="w-3 h-3" /> {t("validatorRegistration.tierInfo.commission")}
                         </div>
                         <div className="font-bold text-lg">{selectedTier.commission}%</div>
-                        <div className="text-xs text-muted-foreground">of rewards</div>
+                        <div className="text-xs text-muted-foreground">{t("validatorRegistration.tierInfo.ofRewards")}</div>
                       </div>
                       <div>
                         <div className="flex items-center justify-center gap-1 text-muted-foreground text-xs mb-1">
-                          <TrendingUp className="w-3 h-3" /> Est. APY
+                          <TrendingUp className="w-3 h-3" /> {t("validatorRegistration.tierInfo.estimatedApy")}
                         </div>
                         <div className="font-bold text-lg text-green-500">{selectedTier.apy}</div>
-                        <div className="text-xs text-muted-foreground">annual</div>
+                        <div className="text-xs text-muted-foreground">{t("validatorRegistration.tierInfo.annual")}</div>
                       </div>
                       <div>
                         <div className="flex items-center justify-center gap-1 text-muted-foreground text-xs mb-1">
-                          <User className="w-3 h-3" /> Slots
+                          <Globe className="w-3 h-3" /> {t("validatorRegistration.tierInfo.slots")}
                         </div>
                         <div className="font-bold text-lg">{selectedTier.slots}</div>
-                        <div className="text-xs text-muted-foreground">available</div>
+                        <div className="text-xs text-muted-foreground">{t("validatorRegistration.tierInfo.available")}</div>
                       </div>
                     </div>
                     <p className="text-sm text-muted-foreground text-center mt-4">
-                      {selectedTier.description}
+                      {t(`validatorRegistration.tiers.${formData.tier}.description`)}
                     </p>
                   </CardContent>
                 </Card>
               )}
 
               <Separator />
-
-              {/* Optional Fields */}
               <div className="space-y-4">
-                <h4 className="font-medium text-sm text-muted-foreground">Optional Information</h4>
-                
+                <Label className="text-muted-foreground">{t("validatorRegistration.validatorInfo.optionalInfo")}</Label>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <Label htmlFor="contactEmail" className="flex items-center gap-2">
-                      <Mail className="w-4 h-4" /> Contact Email
+                      <Mail className="w-4 h-4" /> {t("validatorRegistration.validatorInfo.contactEmail")}
                     </Label>
                     <Input
                       id="contactEmail"
@@ -874,28 +850,27 @@ openssl ec -in validator_key.pem -pubout -conv_form compressed -outform DER | ta
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="website" className="flex items-center gap-2">
-                      <Globe className="w-4 h-4" /> Website
+                      <Globe className="w-4 h-4" /> {t("validatorRegistration.validatorInfo.website")}
                     </Label>
                     <Input
                       id="website"
-                      placeholder="https://myvalidator.com"
+                      placeholder="https://example.com"
                       value={formData.website}
                       onChange={(e) => updateFormData("website", e.target.value)}
                       data-testid="input-website"
                     />
                   </div>
                 </div>
-
                 <div className="space-y-2">
                   <Label htmlFor="description" className="flex items-center gap-2">
-                    <Building className="w-4 h-4" /> Description
+                    {t("validatorRegistration.validatorInfo.descriptionLabel")}
                   </Label>
                   <Textarea
                     id="description"
-                    placeholder="Brief description of your validator operation..."
+                    placeholder={t("validatorRegistration.validatorInfo.descriptionPlaceholder")}
                     value={formData.description}
                     onChange={(e) => updateFormData("description", e.target.value)}
-                    className="min-h-[80px]"
+                    rows={3}
                     data-testid="input-description"
                   />
                 </div>
@@ -904,84 +879,85 @@ openssl ec -in validator_key.pem -pubout -conv_form compressed -outform DER | ta
             <CardFooter className="flex justify-between">
               <Button variant="outline" onClick={prevStep} data-testid="button-back-step-2">
                 <ArrowLeft className="w-4 h-4 mr-2" />
-                Back
+                {t("validatorRegistration.buttons.back")}
               </Button>
               <Button onClick={nextStep} disabled={!validateStep(2)} data-testid="button-next-step-2">
-                Review & Submit
+                {t("validatorRegistration.buttons.reviewSubmit")}
                 <ArrowRight className="w-4 h-4 ml-2" />
               </Button>
             </CardFooter>
           </Card>
         )}
 
-        {/* Step 3: Review & Submit */}
         {currentStep === 3 && (
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <CheckCircle2 className="w-5 h-5" />
-                Review & Submit
+                {t("validatorRegistration.review.title")}
               </CardTitle>
               <CardDescription>
-                Please review your validator registration details before submitting
+                {t("validatorRegistration.review.description")}
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
-              {/* Summary */}
               <div className="bg-muted/50 rounded-lg p-4 space-y-3">
-                <h4 className="font-medium mb-3">Registration Summary</h4>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-                  <div className="space-y-2">
-                    <div className="flex justify-between">
-                      <span className="text-muted-foreground">Validator Name</span>
-                      <span className="font-medium">{formData.name}</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-muted-foreground">Tier</span>
-                      <Badge className={selectedTier?.color}>{selectedTier?.name}</Badge>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-muted-foreground">Initial Stake</span>
-                      <span className="font-bold text-primary">{selectedTier?.stake.toLocaleString()} TBURN</span>
-                    </div>
-                  </div>
-                  <div className="space-y-2">
-                    <div className="flex justify-between">
-                      <span className="text-muted-foreground">Commission</span>
-                      <span>{selectedTier?.commission}%</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-muted-foreground">Estimated APY</span>
-                      <span className="text-green-500">{selectedTier?.apy}</span>
-                    </div>
-                    {formData.contactEmail && (
-                      <div className="flex justify-between">
-                        <span className="text-muted-foreground">Contact</span>
-                        <span>{formData.contactEmail}</span>
-                      </div>
-                    )}
-                  </div>
+                <h3 className="font-semibold">{t("validatorRegistration.review.summary")}</h3>
+                <Separator />
+                <div className="flex justify-between items-center">
+                  <span className="text-sm text-muted-foreground">{t("validatorRegistration.review.validatorName")}</span>
+                  <span className="font-medium">{formData.name}</span>
                 </div>
-                <Separator className="my-3" />
-                <div className="space-y-2">
-                  <span className="text-muted-foreground text-sm">Public Key</span>
-                  <code className="block text-xs font-mono bg-background p-2 rounded break-all">
+                <Separator />
+                <div className="flex justify-between items-center">
+                  <span className="text-sm text-muted-foreground">{t("validatorRegistration.review.tier")}</span>
+                  <Badge className={selectedTier?.color}>
+                    {t(`validatorRegistration.tiers.${formData.tier}.name`)}
+                  </Badge>
+                </div>
+                <Separator />
+                <div className="flex justify-between items-center">
+                  <span className="text-sm text-muted-foreground">{t("validatorRegistration.review.initialStake")}</span>
+                  <span className="font-bold text-primary">{selectedTier?.stake.toLocaleString()} TBURN</span>
+                </div>
+                <Separator />
+                <div className="flex justify-between items-center">
+                  <span className="text-sm text-muted-foreground">{t("validatorRegistration.review.commission")}</span>
+                  <span>{selectedTier?.commission}%</span>
+                </div>
+                <Separator />
+                <div className="flex justify-between items-center">
+                  <span className="text-sm text-muted-foreground">{t("validatorRegistration.review.estimatedApy")}</span>
+                  <span className="text-green-500 font-medium">{selectedTier?.apy}</span>
+                </div>
+                {formData.contactEmail && (
+                  <>
+                    <Separator />
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-muted-foreground">{t("validatorRegistration.review.contact")}</span>
+                      <span>{formData.contactEmail}</span>
+                    </div>
+                  </>
+                )}
+                <Separator />
+                <div className="flex flex-col gap-1">
+                  <span className="text-sm text-muted-foreground">{t("validatorRegistration.review.publicKeyLabel")}</span>
+                  <code className="text-xs font-mono bg-background p-2 rounded break-all">
                     {formData.publicKey}
                   </code>
                 </div>
               </div>
 
-              {/* Final Warning */}
-              <Alert variant="destructive" className="border-2">
-                <AlertOctagon className="h-5 w-5" />
-                <AlertTitle>Final Confirmation</AlertTitle>
-                <AlertDescription className="space-y-2">
-                  <p>By submitting this registration:</p>
-                  <ul className="list-disc list-inside text-sm space-y-1">
-                    <li>I confirm that I have securely backed up my private key</li>
-                    <li>I understand that TBURN cannot recover lost private keys</li>
-                    <li>I accept that my initial stake of <strong>{selectedTier?.stake.toLocaleString()} TBURN</strong> will be locked</li>
-                    <li>I agree to the TBURN Mainnet validator terms of service</li>
+              <Alert className="border-amber-500/30 bg-amber-500/5">
+                <AlertTriangle className="h-5 w-5 text-amber-500" />
+                <AlertTitle className="text-amber-600">{t("validatorRegistration.review.finalConfirmation")}</AlertTitle>
+                <AlertDescription className="text-sm">
+                  <p className="mb-2">{t("validatorRegistration.review.confirmationText")}</p>
+                  <ul className="list-disc list-inside space-y-1">
+                    <li>{t("validatorRegistration.review.confirmItems.backupConfirm")}</li>
+                    <li>{t("validatorRegistration.review.confirmItems.understandRecovery")}</li>
+                    <li>{t("validatorRegistration.review.confirmItems.stakeLocked", { stake: selectedTier?.stake.toLocaleString() })}</li>
+                    <li>{t("validatorRegistration.review.confirmItems.agreeTerms")}</li>
                   </ul>
                 </AlertDescription>
               </Alert>
@@ -989,23 +965,22 @@ openssl ec -in validator_key.pem -pubout -conv_form compressed -outform DER | ta
             <CardFooter className="flex justify-between">
               <Button variant="outline" onClick={prevStep} data-testid="button-back-step-3">
                 <ArrowLeft className="w-4 h-4 mr-2" />
-                Back
+                {t("validatorRegistration.buttons.back")}
               </Button>
               <Button
                 onClick={handleSubmit}
                 disabled={registerMutation.isPending}
-                className="min-w-[200px]"
                 data-testid="button-submit-registration"
               >
                 {registerMutation.isPending ? (
                   <>
                     <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                    Registering...
+                    {t("validatorRegistration.buttons.registering")}
                   </>
                 ) : (
                   <>
                     <Shield className="w-4 h-4 mr-2" />
-                    Submit Registration
+                    {t("validatorRegistration.buttons.submitRegistration")}
                   </>
                 )}
               </Button>
