@@ -40,6 +40,11 @@ import {
   Mail,
   User,
   Loader2,
+  AlertOctagon,
+  ShieldAlert,
+  Download,
+  HardDriveDownload,
+  KeyRound,
 } from "lucide-react";
 import { LanguageSelector } from "@/components/LanguageSelector";
 
@@ -391,6 +396,109 @@ export default function ValidatorRegistration() {
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
+              {/* CRITICAL: Key Generation Security Warnings */}
+              <div className="space-y-4">
+                {/* Main Critical Warning */}
+                <Alert variant="destructive" className="border-2 border-red-500 bg-red-500/10">
+                  <AlertOctagon className="h-5 w-5" />
+                  <AlertTitle className="text-lg font-bold">
+                    CRITICAL: Private Key Security
+                  </AlertTitle>
+                  <AlertDescription className="mt-2 space-y-2">
+                    <p className="font-semibold">
+                      Your private key is the ONLY way to access your validator funds and rewards.
+                    </p>
+                    <ul className="list-disc list-inside space-y-1 text-sm">
+                      <li>Generate your keys OFFLINE on an air-gapped machine</li>
+                      <li>NEVER share your private key with anyone - not even TBURN support</li>
+                      <li>Lost private keys CANNOT be recovered - your funds will be permanently lost</li>
+                      <li>We only store your public key - we cannot recover your private key</li>
+                    </ul>
+                  </AlertDescription>
+                </Alert>
+
+                {/* Key Generation Instructions */}
+                <Card className="border-amber-500/30 bg-amber-500/5">
+                  <CardHeader className="pb-3">
+                    <CardTitle className="text-base flex items-center gap-2">
+                      <KeyRound className="w-5 h-5 text-amber-500" />
+                      Offline Key Generation Instructions
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-3">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
+                      <div className="flex items-start gap-2 p-3 rounded-lg bg-background/50">
+                        <span className="flex-shrink-0 w-6 h-6 rounded-full bg-amber-500/20 text-amber-600 flex items-center justify-center text-xs font-bold">1</span>
+                        <div>
+                          <p className="font-medium">Use an air-gapped computer</p>
+                          <p className="text-muted-foreground text-xs">Disconnect from all networks before generating keys</p>
+                        </div>
+                      </div>
+                      <div className="flex items-start gap-2 p-3 rounded-lg bg-background/50">
+                        <span className="flex-shrink-0 w-6 h-6 rounded-full bg-amber-500/20 text-amber-600 flex items-center justify-center text-xs font-bold">2</span>
+                        <div>
+                          <p className="font-medium">Generate secp256k1 keypair</p>
+                          <p className="text-muted-foreground text-xs">Use ethers.js, OpenSSL, or hardware wallet</p>
+                        </div>
+                      </div>
+                      <div className="flex items-start gap-2 p-3 rounded-lg bg-background/50">
+                        <span className="flex-shrink-0 w-6 h-6 rounded-full bg-amber-500/20 text-amber-600 flex items-center justify-center text-xs font-bold">3</span>
+                        <div>
+                          <p className="font-medium">Backup private key securely</p>
+                          <p className="text-muted-foreground text-xs">Use HSM, encrypted USB, or cold storage</p>
+                        </div>
+                      </div>
+                      <div className="flex items-start gap-2 p-3 rounded-lg bg-background/50">
+                        <span className="flex-shrink-0 w-6 h-6 rounded-full bg-amber-500/20 text-amber-600 flex items-center justify-center text-xs font-bold">4</span>
+                        <div>
+                          <p className="font-medium">Submit ONLY public key</p>
+                          <p className="text-muted-foreground text-xs">Never enter your private key anywhere online</p>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    {/* Code Example */}
+                    <div className="mt-3 p-3 bg-muted/50 rounded-lg font-mono text-xs">
+                      <p className="text-muted-foreground mb-2"># Example: Generate key using Node.js (run offline)</p>
+                      <code className="text-foreground">
+                        const &#123; SigningKey &#125; = require('ethers');<br/>
+                        const privateKey = crypto.randomBytes(32).toString('hex');<br/>
+                        const signingKey = new SigningKey('0x' + privateKey);<br/>
+                        console.log('Public Key:', signingKey.compressedPublicKey);
+                      </code>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                {/* Backup Checklist */}
+                <Alert className="border-blue-500/30 bg-blue-500/5">
+                  <ShieldAlert className="h-5 w-5 text-blue-500" />
+                  <AlertTitle className="text-blue-600">Before You Continue: Backup Checklist</AlertTitle>
+                  <AlertDescription className="mt-2">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm">
+                      <div className="flex items-center gap-2">
+                        <Checkbox id="backup1" data-testid="checkbox-backup-offline" />
+                        <label htmlFor="backup1" className="cursor-pointer">Private key stored in cold storage</label>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <Checkbox id="backup2" data-testid="checkbox-backup-multiple" />
+                        <label htmlFor="backup2" className="cursor-pointer">Multiple backup copies created</label>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <Checkbox id="backup3" data-testid="checkbox-backup-encrypted" />
+                        <label htmlFor="backup3" className="cursor-pointer">Backup is encrypted</label>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <Checkbox id="backup4" data-testid="checkbox-backup-tested" />
+                        <label htmlFor="backup4" className="cursor-pointer">Recovery tested successfully</label>
+                      </div>
+                    </div>
+                  </AlertDescription>
+                </Alert>
+              </div>
+
+              <Separator />
+
               {/* Validator Address */}
               <div className="space-y-2">
                 <Label htmlFor="validatorAddress" className="flex items-center gap-2">
