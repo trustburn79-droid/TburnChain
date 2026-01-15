@@ -41,6 +41,7 @@ import {
   User,
   Loader2,
 } from "lucide-react";
+import { LanguageSelector } from "@/components/LanguageSelector";
 
 type RegistrationStep = 1 | 2 | 3;
 
@@ -119,7 +120,8 @@ export default function ValidatorRegistration() {
   const registerMutation = useMutation({
     mutationFn: async (data: RegistrationFormData) => {
       const stakeInTburn = BigInt(data.initialStakeAmount || "100000");
-      const stakeInWei = (stakeInTburn * BigInt(10) ** BigInt(18)).toString();
+      const WEI_MULTIPLIER = BigInt("1000000000000000000");
+      const stakeInWei = (stakeInTburn * WEI_MULTIPLIER).toString();
       const response = await apiRequest("POST", "/api/external-validators/register", {
         operatorAddress: data.validatorAddress,
         operatorName: data.nodeName,
@@ -259,7 +261,11 @@ export default function ValidatorRegistration() {
   if (registrationComplete && registrationResult) {
     return (
       <div className="min-h-screen bg-background p-6">
-        <div className="max-w-2xl mx-auto">
+        <div className="max-w-2xl mx-auto space-y-4">
+          {/* Language Selector - Top Right */}
+          <div className="flex justify-end">
+            <LanguageSelector isDark={false} />
+          </div>
           <Card className="border-green-500/20">
             <CardHeader className="text-center">
               <div className="w-16 h-16 bg-green-500/10 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -345,6 +351,11 @@ export default function ValidatorRegistration() {
   return (
     <div className="min-h-screen bg-background p-6">
       <div className="max-w-4xl mx-auto space-y-6">
+        {/* Language Selector - Top Right */}
+        <div className="flex justify-end">
+          <LanguageSelector isDark={false} />
+        </div>
+
         {/* Header */}
         <div className="text-center space-y-2">
           <h1 className="text-3xl font-bold">
