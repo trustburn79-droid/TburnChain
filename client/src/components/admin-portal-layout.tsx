@@ -55,6 +55,7 @@ const AdminBridgeValidators = lazy(() => import("@/pages/admin-portal/bridge-val
 const AdminChainConnections = lazy(() => import("@/pages/admin-portal/chain-connections"));
 const AdminSecurity = lazy(() => import("@/pages/admin-portal/security"));
 const AdminValidatorSecurity = lazy(() => import("@/pages/admin-portal/validator-security"));
+const AdminValidatorRegistrations = lazy(() => import("@/pages/admin-portal/validator-registrations"));
 const AdminThreatDetection = lazy(() => import("@/pages/admin-portal/threat-detection"));
 const AdminAuditLogs = lazy(() => import("@/pages/admin-portal/audit-logs"));
 const AdminCompliance = lazy(() => import("@/pages/admin-portal/compliance"));
@@ -182,6 +183,7 @@ function AdminRouter() {
         <Route path="/admin/chain-connections" component={AdminChainConnections} />
         <Route path="/admin/security" component={AdminSecurity} />
         <Route path="/admin/validator-security" component={AdminValidatorSecurity} />
+        <Route path="/admin/validator-registrations" component={AdminValidatorRegistrations} />
         <Route path="/admin/threats" component={AdminThreatDetection} />
         <Route path="/admin/threat-detection" component={AdminThreatDetection} />
         <Route path="/admin/audit-logs" component={AdminAuditLogs} />

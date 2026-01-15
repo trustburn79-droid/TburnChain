@@ -9,7 +9,8 @@ import {
   RegistrationRequest, 
   HeartbeatRequest,
   ExternalValidatorTier,
-  ValidatorRegion 
+  ValidatorRegion,
+  PendingRegistration
 } from '../core/validators/enterprise-external-validator-engine';
 import { validatorRegistrationService } from '../services/validator-registration-service';
 import { validatorRegistrationRequestSchema, keyRotationRequestSchema } from '@shared/schema';
@@ -190,9 +191,9 @@ router.post('/register', async (req: Request, res: Response) => {
       operatorName: req.body.operatorName,
       region: req.body.region,
       endpoints: {
-        rpcUrl: req.body.endpoints?.rpcUrl || req.body.rpcUrl,
-        wsUrl: req.body.endpoints?.wsUrl || req.body.wsUrl,
-        p2pAddress: req.body.endpoints?.p2pAddress || req.body.p2pAddress,
+        rpcUrl: req.body.endpoints?.rpcUrl || req.body.rpcUrl || 'https://validator.example.com:8545',
+        wsUrl: req.body.endpoints?.wsUrl || req.body.wsUrl || 'wss://validator.example.com:8546',
+        p2pAddress: req.body.endpoints?.p2pAddress || req.body.p2pAddress || '/ip4/0.0.0.0/tcp/30303',
         metricsUrl: req.body.endpoints?.metricsUrl,
         healthUrl: req.body.endpoints?.healthUrl,
       },
@@ -203,22 +204,20 @@ router.post('/register', async (req: Request, res: Response) => {
       capabilities: req.body.capabilities,
     };
 
-    const result = await externalValidatorEngine.registerValidator(registrationRequest);
+    const result = externalValidatorEngine.submitRegistration(registrationRequest);
 
     if (result.success) {
       res.status(201).json({
         success: true,
         data: {
-          nodeId: result.nodeId,
-          apiKey: result.apiKey,
-          tier: result.tier,
-          estimatedActivationBlock: result.estimatedActivation,
+          registrationId: result.registrationId,
           message: result.message,
+          status: 'under_review',
           nextSteps: [
-            'Store your API key securely - it will not be shown again',
-            'Complete stake deposit to activate your validator',
-            'Configure your node with the provided nodeId',
-            'Start sending heartbeats to maintain active status',
+            'Your registration is under review by our team',
+            'You will receive an email with your API key once approved',
+            'Prepare your validator node infrastructure',
+            'Review the setup guide for your tier',
           ],
         },
       });
@@ -1902,6 +1901,119 @@ router.post('/heartbeat/record', validateValidatorApiKey, async (req: Request, r
   }
 });
 
+// ============================================
+// ADMIN REGISTRATION MANAGEMENT ENDPOINTS
+// ============================================
+
+router.get('/admin/registrations', async (req: Request, res: Response) => {
+  try {
+    const { status } = req.query;
+    const registrations = externalValidatorEngine.getPendingRegistrations(
+      status ? { status: status as string } : undefined
+    );
+    
+    res.json({
+      success: true,
+      data: {
+        registrations: registrations.map(r => ({
+          id: r.id,
+          operatorAddress: r.operatorAddress,
+          operatorName: r.operatorName,
+          region: r.region,
+          stakeAmount: r.stakeAmount,
+          tier: r.tier,
+          status: r.status,
+          submittedAt: r.submittedAt,
+          reviewedAt: r.reviewedAt,
+          reviewedBy: r.reviewedBy,
+          rejectionReason: r.rejectionReason,
+          metadata: r.metadata,
+          nodeId: r.nodeId,
+        })),
+        total: registrations.length,
+        summary: {
+          pending: externalValidatorEngine.getPendingRegistrations({ status: 'pending' }).length,
+          underReview: externalValidatorEngine.getPendingRegistrations({ status: 'under_review' }).length,
+          approved: externalValidatorEngine.getPendingRegistrations({ status: 'approved' }).length,
+          rejected: externalValidatorEngine.getPendingRegistrations({ status: 'rejected' }).length,
+        },
+      },
+    });
+  } catch (error) {
+    console.error('[ExternalValidatorAPI] List registrations error:', error);
+    res.status(500).json({ success: false, error: 'Failed to list registrations' });
+  }
+});
+
+router.get('/admin/registrations/:id', async (req: Request, res: Response) => {
+  try {
+    const registration = externalValidatorEngine.getPendingRegistrationById(req.params.id);
+    
+    if (!registration) {
+      return res.status(404).json({ success: false, error: 'Registration not found' });
+    }
+    
+    res.json({
+      success: true,
+      data: registration,
+    });
+  } catch (error) {
+    console.error('[ExternalValidatorAPI] Get registration error:', error);
+    res.status(500).json({ success: false, error: 'Failed to get registration' });
+  }
+});
+
+router.post('/admin/registrations/:id/approve', async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const reviewedBy = (req as any).user?.username || 'admin';
+    
+    const result = await externalValidatorEngine.approveRegistration(id, reviewedBy);
+    
+    if (result.success) {
+      res.json({
+        success: true,
+        data: {
+          nodeId: result.nodeId,
+          apiKey: result.apiKey,
+          message: result.message,
+        },
+      });
+    } else {
+      res.status(400).json({ success: false, error: result.message });
+    }
+  } catch (error) {
+    console.error('[ExternalValidatorAPI] Approve registration error:', error);
+    res.status(500).json({ success: false, error: 'Failed to approve registration' });
+  }
+});
+
+router.post('/admin/registrations/:id/reject', async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const { reason } = req.body;
+    const reviewedBy = (req as any).user?.username || 'admin';
+    
+    if (!reason) {
+      return res.status(400).json({ success: false, error: 'Rejection reason is required' });
+    }
+    
+    const result = externalValidatorEngine.rejectRegistration(id, reason, reviewedBy);
+    
+    if (result.success) {
+      res.json({
+        success: true,
+        data: { message: result.message },
+      });
+    } else {
+      res.status(400).json({ success: false, error: result.message });
+    }
+  } catch (error) {
+    console.error('[ExternalValidatorAPI] Reject registration error:', error);
+    res.status(500).json({ success: false, error: 'Failed to reject registration' });
+  }
+});
+
 export function registerExternalValidatorRoutes(app: any): void {
   app.use('/api/external-validators', router);
   
@@ -1909,7 +2021,7 @@ export function registerExternalValidatorRoutes(app: any): void {
     console.error('[ExternalValidatorEngine] Failed to start:', err);
   });
   
-  console.log('[ExternalValidators] ✅ Enterprise external validator routes registered (45+ endpoints including registration & security)');
+  console.log('[ExternalValidators] ✅ Enterprise external validator routes registered (50+ endpoints including registration, admin & security)');
 }
 
 export default router;

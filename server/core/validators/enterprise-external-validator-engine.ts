@@ -375,11 +375,40 @@ class ValidatorHealthMonitor {
 // EXTERNAL VALIDATOR ENGINE
 // ============================================
 
+export interface PendingRegistration {
+  id: string;
+  operatorAddress: string;
+  operatorName: string;
+  region: ValidatorRegion;
+  stakeAmount: string;
+  tier: ExternalValidatorTier;
+  status: 'pending' | 'under_review' | 'approved' | 'rejected';
+  submittedAt: number;
+  reviewedAt?: number;
+  reviewedBy?: string;
+  rejectionReason?: string;
+  metadata?: {
+    organization?: string;
+    email?: string;
+    hostingProvider?: string;
+    hardware?: any;
+    security?: any;
+  };
+  endpoints?: {
+    rpcUrl: string;
+    wsUrl: string;
+    p2pAddress: string;
+  };
+  apiKey?: string;
+  nodeId?: string;
+}
+
 export class ExternalValidatorEngine extends EventEmitter {
   private validators: Map<string, ExternalValidatorState> = new Map();
   private apiKeyIndex: Map<string, string> = new Map();
   private addressIndex: Map<string, string> = new Map();
   private regionIndex: Map<ValidatorRegion, Set<string>> = new Map();
+  private pendingRegistrations: Map<string, PendingRegistration> = new Map();
   
   private rateLimiter: RateLimiter;
   private healthMonitor: ValidatorHealthMonitor;
@@ -904,6 +933,217 @@ export class ExternalValidatorEngine extends EventEmitter {
 
   getAllValidators(): ExternalValidatorState[] {
     return Array.from(this.validators.values());
+  }
+
+  // ============================================
+  // PENDING REGISTRATIONS MANAGEMENT (ADMIN)
+  // ============================================
+
+  submitRegistration(request: RegistrationRequest): { success: boolean; registrationId?: string; message: string } {
+    try {
+      if (!this.rateLimiter.isAllowed(request.operatorAddress)) {
+        return { success: false, message: 'Rate limit exceeded. Please try again later.' };
+      }
+
+      const validation = this.validateRegistration(request);
+      if (!validation.valid) {
+        return { success: false, message: validation.error! };
+      }
+
+      if (this.addressIndex.has(request.operatorAddress)) {
+        return { success: false, message: 'Address already registered as a validator.' };
+      }
+
+      for (const reg of this.pendingRegistrations.values()) {
+        if (reg.operatorAddress === request.operatorAddress && reg.status !== 'rejected') {
+          return { success: false, message: 'A pending registration already exists for this address.' };
+        }
+      }
+
+      const stakeAmount = BigInt(request.stakeAmount);
+      const tier = this.determineTier(stakeAmount);
+      const registrationId = `reg_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+
+      const pendingReg: PendingRegistration = {
+        id: registrationId,
+        operatorAddress: request.operatorAddress,
+        operatorName: request.operatorName,
+        region: request.region,
+        stakeAmount: request.stakeAmount,
+        tier,
+        status: 'under_review',
+        submittedAt: Date.now(),
+        metadata: request.metadata,
+        endpoints: request.endpoints,
+      };
+
+      this.pendingRegistrations.set(registrationId, pendingReg);
+      this.emit('registration:submitted', { registrationId, operatorAddress: request.operatorAddress, tier });
+
+      return {
+        success: true,
+        registrationId,
+        message: 'Registration submitted successfully. Your application is under review.',
+      };
+    } catch (error) {
+      console.error('[ExternalValidatorEngine] Submit registration error:', error);
+      return { success: false, message: 'Internal error during registration submission.' };
+    }
+  }
+
+  getPendingRegistrations(filter?: { status?: string }): PendingRegistration[] {
+    let registrations = Array.from(this.pendingRegistrations.values());
+    if (filter?.status) {
+      registrations = registrations.filter(r => r.status === filter.status);
+    }
+    return registrations.sort((a, b) => b.submittedAt - a.submittedAt);
+  }
+
+  getPendingRegistrationById(id: string): PendingRegistration | undefined {
+    return this.pendingRegistrations.get(id);
+  }
+
+  async approveRegistration(registrationId: string, reviewedBy?: string): Promise<{ success: boolean; nodeId?: string; apiKey?: string; message: string }> {
+    const pending = this.pendingRegistrations.get(registrationId);
+    if (!pending) {
+      return { success: false, message: 'Registration not found.' };
+    }
+
+    if (pending.status === 'approved') {
+      return { success: false, message: 'Registration already approved.' };
+    }
+
+    if (pending.status === 'rejected') {
+      return { success: false, message: 'Cannot approve a rejected registration.' };
+    }
+
+    const stakeAmount = BigInt(pending.stakeAmount);
+    const tier = this.determineTier(stakeAmount);
+    const tierConfig = TIER_REQUIREMENTS[tier];
+    
+    const currentTierCount = this.metrics.tierDistribution.get(tier) || 0;
+    if (currentTierCount >= tierConfig.slots) {
+      return { success: false, message: `No available slots in ${tier} tier.` };
+    }
+
+    const nodeId = this.generateNodeId();
+    const apiKey = this.generateApiKey();
+    const apiKeyHash = this.hashApiKey(apiKey);
+
+    const validatorState: ExternalValidatorState = {
+      nodeId,
+      operatorAddress: pending.operatorAddress,
+      operatorName: pending.operatorName,
+      region: pending.region,
+      status: 'pending_stake',
+      connectionState: {
+        isConnected: false,
+        reconnectAttempts: 0,
+        latencyMs: 0,
+        protocol: 'rpc',
+      },
+      registrationTime: Date.now(),
+      lastHeartbeat: 0,
+      lastBlockSigned: 0,
+      endpoints: pending.endpoints || {
+        rpcUrl: 'https://validator.example.com:8545',
+        wsUrl: 'wss://validator.example.com:8546',
+        p2pAddress: '/ip4/0.0.0.0/tcp/30303',
+      },
+      stakeInfo: {
+        selfStake: stakeAmount,
+        delegatedStake: BigInt(0),
+        totalStake: stakeAmount,
+        unbondingStake: BigInt(0),
+        minStakeRequired: EXTERNAL_VALIDATOR_CONFIG.MIN_STAKE_WEI,
+        commission: 0.10,
+        maxCommission: tierConfig.maxCommission,
+      },
+      performanceMetrics: {
+        blocksProposed: 0,
+        blocksMissed: 0,
+        blocksVerified: 0,
+        uptime: 100,
+        averageLatencyMs: 0,
+        p99LatencyMs: 0,
+        successRate: 100,
+        ewmaScore: 100,
+        lastUpdated: Date.now(),
+      },
+      rewardInfo: {
+        totalEarned: BigInt(0),
+        pendingRewards: BigInt(0),
+        claimedRewards: BigInt(0),
+        lastClaimTime: 0,
+        proposerRewards: BigInt(0),
+        verifierRewards: BigInt(0),
+        delegatorRewards: BigInt(0),
+        commissionEarned: BigInt(0),
+        estimatedDailyReward: this.calculateEstimatedDailyReward(stakeAmount, tier),
+        estimatedApy: this.calculateEstimatedApy(tier),
+      },
+      apiKey: '',
+      apiKeyHash,
+      tier,
+      shardAssignment: [],
+      healthScore: 100,
+      version: '1.0.0',
+      capabilities: {
+        supportsSharding: true,
+        supportsBlobTx: true,
+        supportsQuantumSig: false,
+        maxTpsCapacity: 5000,
+        storageCapacityGB: 500,
+        networkBandwidthMbps: 1000,
+      },
+    };
+
+    this.validators.set(nodeId, validatorState);
+    this.apiKeyIndex.set(apiKeyHash, nodeId);
+    this.addressIndex.set(pending.operatorAddress, nodeId);
+    this.regionIndex.get(pending.region)!.add(nodeId);
+
+    this.metrics.totalRegistrations++;
+    this.metrics.tierDistribution.set(tier, currentTierCount + 1);
+
+    pending.status = 'approved';
+    pending.reviewedAt = Date.now();
+    pending.reviewedBy = reviewedBy;
+    pending.nodeId = nodeId;
+    pending.apiKey = apiKey;
+
+    this.emit('registration:approved', { registrationId, nodeId, operatorAddress: pending.operatorAddress, tier });
+
+    return {
+      success: true,
+      nodeId,
+      apiKey,
+      message: 'Registration approved. Validator has been activated.',
+    };
+  }
+
+  rejectRegistration(registrationId: string, reason: string, reviewedBy?: string): { success: boolean; message: string } {
+    const pending = this.pendingRegistrations.get(registrationId);
+    if (!pending) {
+      return { success: false, message: 'Registration not found.' };
+    }
+
+    if (pending.status === 'approved') {
+      return { success: false, message: 'Cannot reject an approved registration.' };
+    }
+
+    if (pending.status === 'rejected') {
+      return { success: false, message: 'Registration already rejected.' };
+    }
+
+    pending.status = 'rejected';
+    pending.reviewedAt = Date.now();
+    pending.reviewedBy = reviewedBy;
+    pending.rejectionReason = reason;
+
+    this.emit('registration:rejected', { registrationId, operatorAddress: pending.operatorAddress, reason });
+
+    return { success: true, message: 'Registration rejected.' };
   }
 
   getValidatorCount(): { total: number; active: number; byTier: Record<ExternalValidatorTier, number>; byRegion: Record<ValidatorRegion, number> } {

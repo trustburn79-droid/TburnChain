@@ -114,6 +114,7 @@ const adminMenuItems = [
   // Group 6: Security & Audit
   { titleKey: "adminNav.securityDashboard", url: "/admin/security", icon: Shield, groupKey: "adminNav.securityAudit", badge: null },
   { titleKey: "adminNav.validatorSecurity", url: "/admin/validator-security", icon: ShieldCheck, groupKey: "adminNav.securityAudit", badge: "NEW" },
+  { titleKey: "adminNav.validatorRegistrations", url: "/admin/validator-registrations", icon: Users, groupKey: "adminNav.networkOps", badge: "NEW" },
   { titleKey: "adminNav.accessControl", url: "/admin/access-control", icon: Lock, groupKey: "adminNav.securityAudit", badge: null },
   { titleKey: "adminNav.auditLogs", url: "/admin/audit-logs", icon: FileSearch, groupKey: "adminNav.securityAudit", badge: null },
   { titleKey: "adminNav.threatDetection", url: "/admin/threats", icon: ShieldAlert, groupKey: "adminNav.securityAudit", badge: "2" },
