@@ -16597,7 +16597,8 @@
     "announcements": "공지사항",
     "marketing": "마케팅",
     "newsletterManagement": "뉴스레터 관리",
-    "validatorSecurity": "검증자 보안"
+    "validatorSecurity": "검증자 보안",
+    "validatorRegistrations": "검증자 등록"
   },
   "adminNewsletter": {
     "title": "뉴스레터 구독자",
