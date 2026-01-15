@@ -38133,97 +38133,172 @@
     }
   },
   "validatorRegistration": {
-    "title": "밸리데이터 등록",
-    "subtitle": "TBURN 메인넷에서 밸리데이터로 참여하려면 아래 정보를 입력하세요",
+    "title": "TBURN 제네시스 밸리데이터 등록",
+    "subtitle": "BYO (Bring Your Own Key) - 오프라인에서 생성한 키페어로 밸리데이터 등록",
+    "chainId": "체인 ID: 5800",
+    "validatorsCount": "{{current}} / {{target}} 밸리데이터",
+    "genesisComplete": "제네시스 완료",
     "progress": {
-      "step1": "암호화 증명",
-      "step2": "노드 정보",
-      "step3": "인프라 (선택)"
+      "step1": "키 & 보안",
+      "step2": "밸리데이터 정보",
+      "step3": "검토 & 제출"
     },
-    "step1": {
-      "title": "암호화 증명",
-      "description": "지갑 주소의 소유권을 증명하기 위한 서명이 필요합니다",
-      "validatorAddress": "밸리데이터 주소",
-      "validatorAddressHint": "이더리움 형식 주소 (0x + 40자 16진수)",
-      "publicKey": "공개키",
-      "publicKeyHint": "압축되지 않은 secp256k1 공개키 (0x04로 시작)",
-      "signatureProof": "서명 증명",
-      "signatureProofHint": "등록 메시지에 대한 ECDSA 서명 (개인키로 서명)",
-      "demoGenerate": "데모 생성",
-      "securityNotice": "보안 안내",
-      "securityNoticeText": "개인키는 절대 입력하지 마세요. 서명만 제출하면 됩니다. 개인키는 오프라인 또는 하드웨어 지갑에 안전하게 보관하세요."
+    "security": {
+      "criticalTitle": "중요: 개인키 보안",
+      "criticalDescription": "개인키는 밸리데이터 자금과 보상에 접근하는 유일한 방법입니다.",
+      "warnings": {
+        "generateOffline": "에어갭 머신에서 오프라인으로 키를 생성하세요",
+        "neverShare": "개인키를 절대 공유하지 마세요 - TBURN 지원팀에게도 안됩니다",
+        "cannotRecover": "분실된 개인키는 복구할 수 없습니다 - 자금이 영구적으로 손실됩니다",
+        "publicKeyOnly": "공개키만 저장됩니다 - 개인키 복구 불가"
+      }
     },
-    "step2": {
-      "title": "노드 정보",
-      "description": "밸리데이터 노드 및 운영자 정보를 입력하세요",
-      "nodeName": "노드 이름",
-      "organizationName": "조직명",
-      "optional": "선택사항",
-      "contactEmail": "연락처 이메일",
-      "region": "지역",
-      "tier": "티어",
-      "stakeAmount": "초기 스테이킹 금액",
-      "stakeAmountHint": "최소 스테이킹 금액은 티어에 따라 다릅니다. 위의 티어 요구 사항을 참조하세요.",
-      "tierOptions": {
-        "community": "Community (100 TBURN 이상)",
-        "standard": "Standard (10K TBURN 이상)",
-        "pioneer": "Pioneer (100K TBURN 이상, 다중서명)",
-        "genesis": "Genesis (1M TBURN 이상, 다중서명)"
+    "keyGeneration": {
+      "title": "오프라인 키 생성 가이드",
+      "tabs": {
+        "nodejs": "Node.js",
+        "openssl": "OpenSSL",
+        "hardware": "하드웨어 월렛"
       },
-      "multiSigRequired": "다중 서명 승인 필요",
-      "multiSigDescription": "{{tier}} 티어는 다중 서명 승인이 필요합니다. Genesis는 3-of-3, Pioneer는 2-of-3 관리자 서명이 필요합니다."
+      "steps": {
+        "step1Title": "네트워크 연결 해제",
+        "step1Desc": "키 생성 전 에어갭 머신 사용",
+        "step2Title": "오프라인 의존성 준비",
+        "step2Desc": "ethers와 crypto 패키지 필요",
+        "step3Title": "키 생성 스크립트 실행",
+        "step3Desc": "node generate-keys.js",
+        "step4Title": "공개키만 복사",
+        "step4Desc": "압축 공개키를 아래에 붙여넣기"
+      },
+      "hardwareDescription": "최대 보안을 위해 하드웨어 월렛 또는 HSM을 사용하세요:",
+      "hardwareOptions": {
+        "ledger": "Ledger - 이더리움 앱으로 공개키 추출",
+        "trezor": "Trezor - secp256k1 곡선으로 압축 공개키 추출",
+        "yubihsm": "YubiHSM - HSM에서 키 생성, 개인키 추출 금지",
+        "awshsm": "AWS CloudHSM - 엔터프라이즈급 키 관리"
+      },
+      "hardwareNote": "하드웨어 월렛은 개인키가 장치를 떠나지 않으므로 최고의 보안을 제공합니다."
     },
-    "step3": {
-      "title": "인프라 문서화",
-      "description": "인프라 설정에 대한 선택적 세부 정보를 제공하세요",
-      "hostingProvider": "호스팅 제공업체",
-      "hostingProviderPlaceholder": "예: AWS, GCP, Azure, Hetzner",
-      "hardwareSpecs": "하드웨어 사양",
-      "cpu": "CPU",
-      "cpuPlaceholder": "예: 32코어, AMD EPYC",
-      "memory": "메모리",
-      "memoryPlaceholder": "예: 128GB DDR4",
-      "storage": "스토리지",
-      "storagePlaceholder": "예: 2TB NVMe SSD",
-      "network": "네트워크",
-      "networkPlaceholder": "예: 10Gbps",
-      "securityFeatures": "보안 기능",
-      "hsm": "HSM (하드웨어 보안 모듈)",
-      "remoteSigner": "원격 서명자",
-      "mTLS": "mTLS (상호 TLS)",
-      "firewall": "방화벽 구성됨",
-      "ddos": "DDoS 보호",
-      "remoteSignerHint": "격리된 서명 서비스",
-      "firewallHint": "IP 화이트리스트 적용",
-      "ddosHint": "Cloudflare, AWS Shield 등"
+    "backupChecklist": {
+      "title": "필수 백업 확인",
+      "description": "진행하려면 모든 항목을 확인해야 합니다. 이렇게 하면 밸리데이터 접근 권한을 잃지 않습니다.",
+      "coldStorage": "개인키를 콜드 스토리지(오프라인)에 저장함",
+      "coldStorageHint": "USB 드라이브, 종이 지갑 또는 HSM",
+      "multipleBackups": "서로 다른 위치에 여러 백업 복사본 생성함",
+      "multipleBackupsHint": "최소 2-3개의 복사본을 별도의 물리적 위치에 저장",
+      "encrypted": "강력한 암호로 백업 암호화함",
+      "encryptedHint": "AES-256 암호화 또는 동급 사용",
+      "recoveryTested": "백업에서 복구 테스트 성공함",
+      "recoveryTestedHint": "백업에서 동일한 공개키를 유도할 수 있는지 확인",
+      "remainingItems": "진행하려면 남은 {{count}}개 항목을 모두 확인하세요"
+    },
+    "publicKey": {
+      "title": "공개키 제출",
+      "description": "오프라인에서 생성한 압축 공개키를 입력하세요. 이것만 제출됩니다.",
+      "label": "압축 공개키 (66자 hex)",
+      "placeholder": "03a1b2c3d4e5f6... (66자 hex)",
+      "validFormat": "유효한 공개키 형식",
+      "invalidFormat": "잘못된 형식 (66자 또는 130자 hex)",
+      "securityNote": "보안 안내",
+      "securityNoteText": "개인키를 절대 입력하지 마세요. TBURN 밸리데이터 주소(tb1...)를 유도하는 데 공개키만 필요합니다."
+    },
+    "validatorInfo": {
+      "title": "밸리데이터 정보",
+      "description": "밸리데이터 노드에 대한 세부 정보 입력",
+      "name": "밸리데이터 이름",
+      "namePlaceholder": "내 TBURN 밸리데이터",
+      "nameHint": "고유한 밸리데이터 이름 (최소 3자)",
+      "tier": "티어 선택",
+      "contactEmail": "연락 이메일",
+      "website": "웹사이트",
+      "descriptionLabel": "설명",
+      "descriptionPlaceholder": "밸리데이터 운영에 대한 간략한 설명...",
+      "optionalInfo": "선택 정보"
+    },
+    "tiers": {
+      "core": {
+        "name": "코어",
+        "description": "최대 스테이크와 최저 수수료의 파운데이션 밸리데이터"
+      },
+      "enterprise": {
+        "name": "엔터프라이즈",
+        "description": "기관 참여자를 위한 엔터프라이즈급 밸리데이터"
+      },
+      "partner": {
+        "name": "파트너",
+        "description": "전략적 생태계 기여자를 위한 파트너 밸리데이터"
+      },
+      "community": {
+        "name": "커뮤니티",
+        "description": "탈중앙화 참여를 위한 커뮤니티 밸리데이터"
+      }
+    },
+    "tierInfo": {
+      "stake": "스테이크",
+      "commission": "수수료",
+      "estimatedApy": "예상 APY",
+      "slots": "슬롯",
+      "ofRewards": "보상의",
+      "annual": "연간",
+      "available": "사용 가능"
+    },
+    "review": {
+      "title": "검토 & 제출",
+      "description": "제출 전 밸리데이터 등록 세부 정보를 검토하세요",
+      "summary": "등록 요약",
+      "validatorName": "밸리데이터 이름",
+      "tier": "티어",
+      "initialStake": "초기 스테이크",
+      "commission": "수수료",
+      "estimatedApy": "예상 APY",
+      "contact": "연락처",
+      "publicKeyLabel": "공개키",
+      "finalConfirmation": "최종 확인",
+      "confirmationText": "이 등록을 제출함으로써:",
+      "confirmItems": {
+        "backupConfirm": "개인키를 안전하게 백업했음을 확인합니다",
+        "understandRecovery": "TBURN이 분실된 개인키를 복구할 수 없음을 이해합니다",
+        "stakeLocked": "초기 스테이크 {{stake}} TBURN이 잠길 것을 수락합니다",
+        "agreeTerms": "TBURN 메인넷 밸리데이터 서비스 약관에 동의합니다"
+      }
     },
     "buttons": {
-      "next": "다음",
-      "previous": "이전",
-      "submit": "등록 제출",
-      "submitting": "제출 중...",
-      "backToProgram": "밸리데이터 프로그램으로 돌아가기"
+      "continueToInfo": "밸리데이터 정보로 계속",
+      "reviewSubmit": "검토 & 제출",
+      "back": "뒤로",
+      "submitRegistration": "등록 제출",
+      "registering": "등록 중...",
+      "viewValidators": "모든 밸리데이터 보기",
+      "registerAnother": "다른 밸리데이터 등록",
+      "copy": "복사"
     },
     "completion": {
-      "title": "등록 제출 완료",
-      "registrationId": "등록 ID",
+      "title": "등록 완료",
+      "description": "밸리데이터가 TBURN 메인넷에 성공적으로 등록되었습니다",
+      "validatorName": "밸리데이터 이름",
+      "tburnAddress": "TBURN 주소",
+      "tier": "티어",
+      "initialStake": "초기 스테이크",
+      "commission": "수수료율",
+      "estimatedApy": "예상 APY",
       "status": "상태",
-      "statusPending": "대기 중",
-      "statusUnderReview": "검토 중",
+      "pendingVerification": "검증 대기 중",
       "nextStepsTitle": "다음 단계",
-      "nextStepsText": "관리자가 등록을 검토한 후 API 키가 발급됩니다. 등록된 이메일로 결과를 안내해 드립니다.",
-      "estimatedReviewTime": "예상 검토 시간",
-      "businessDays": "영업일"
+      "keepPrivateKeySafe": "개인키를 안전하게 보관하세요",
+      "keepPrivateKeySafeText": "개인키는 이 밸리데이터를 제어하는 유일한 방법입니다. 저희는 접근 권한이 없습니다. 개인키를 분실하면 스테이킹된 TBURN에 대한 접근이 영구적으로 손실됩니다."
     },
     "toasts": {
-      "successTitle": "등록 완료",
-      "failedTitle": "등록 실패",
-      "errorTitle": "오류",
-      "errorDescription": "등록에 실패했습니다",
-      "validationErrorTitle": "입력 오류",
-      "validationErrorDescription": "필수 항목을 올바르게 입력해주세요",
-      "copiedTitle": "복사됨",
-      "copiedDescription": "클립보드에 복사되었습니다"
+      "backupRequired": "백업 확인 필요",
+      "backupRequiredDesc": "진행하려면 모든 백업 체크리스트 항목을 확인하세요",
+      "invalidPublicKey": "잘못된 공개키",
+      "invalidPublicKeyDesc": "공개키는 33바이트(압축) 또는 65바이트(비압축) hex 형식이어야 합니다",
+      "validationError": "검증 오류",
+      "validationErrorDesc": "모든 필수 필드를 입력하세요",
+      "registrationSuccess": "등록 성공",
+      "registrationFailed": "등록 실패",
+      "registrationError": "등록 오류",
+      "copied": "복사됨",
+      "copiedDesc": "클립보드에 복사됨"
     }
   },
   "foundersPage": {

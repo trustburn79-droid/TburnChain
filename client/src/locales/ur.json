@@ -21792,5 +21792,168 @@
     "claimRewards": "انعامات کا دعویٰ کریں",
     "rewardToken": "انعام ٹوکن",
     "boostMultiplier": "بوسٹ ملٹی پلائر"
+  },
+  "validatorRegistration": {
+    "title": "TBURN جینیسس ویلیڈیٹر رجسٹریشن",
+    "subtitle": "BYO (اپنی کلید لائیں) - آف لائن بنائی گئی کی پیئر کے ساتھ ویلیڈیٹر رجسٹر کریں",
+    "chainId": "چین آئی ڈی: 5800",
+    "validatorsCount": "{{current}} / {{target}} ویلیڈیٹرز",
+    "genesisComplete": "جینیسس مکمل",
+    "progress": {
+      "step1": "کلید اور سیکیورٹی",
+      "step2": "ویلیڈیٹر معلومات",
+      "step3": "جائزہ اور جمع"
+    },
+    "security": {
+      "criticalTitle": "اہم: پرائیویٹ کی سیکیورٹی",
+      "criticalDescription": "آپ کی پرائیویٹ کی آپ کے ویلیڈیٹر فنڈز اور انعامات تک رسائی کا واحد طریقہ ہے۔",
+      "warnings": {
+        "generateOffline": "ایئر گیپڈ مشین پر آف لائن اپنی کیز بنائیں",
+        "neverShare": "اپنی پرائیویٹ کی کبھی کسی کے ساتھ شیئر نہ کریں - TBURN سپورٹ کے ساتھ بھی نہیں",
+        "cannotRecover": "کھوئی ہوئی پرائیویٹ کیز واپس نہیں کی جا سکتیں - آپ کے فنڈز مستقل طور پر ضائع ہو جائیں گے",
+        "publicKeyOnly": "ہم صرف آپ کی پبلک کی اسٹور کرتے ہیں - ہم آپ کی پرائیویٹ کی واپس نہیں کر سکتے"
+      }
+    },
+    "keyGeneration": {
+      "title": "آف لائن کی جنریشن ہدایات",
+      "tabs": {
+        "nodejs": "Node.js",
+        "openssl": "OpenSSL",
+        "hardware": "ہارڈویئر والٹ"
+      },
+      "steps": {
+        "step1Title": "نیٹ ورک سے منقطع کریں",
+        "step1Desc": "کیز بنانے سے پہلے ایئر گیپڈ مشین استعمال کریں",
+        "step2Title": "آف لائن ڈیپینڈنسیز تیار کریں",
+        "step2Desc": "ethers اور crypto پیکجز درکار ہیں",
+        "step3Title": "کی جنریشن اسکرپٹ چلائیں",
+        "step3Desc": "node generate-keys.js",
+        "step4Title": "صرف پبلک کی کاپی کریں",
+        "step4Desc": "نیچے کمپریسڈ پبلک کی پیسٹ کریں"
+      },
+      "hardwareDescription": "زیادہ سے زیادہ سیکیورٹی کے لیے، ہارڈویئر والٹ یا HSM استعمال کریں:",
+      "hardwareNote": "ہارڈویئر والٹس بہترین سیکیورٹی فراہم کرتے ہیں کیونکہ پرائیویٹ کیز کبھی ڈیوائس سے باہر نہیں جاتیں۔"
+    },
+    "backupChecklist": {
+      "title": "لازمی بیک اپ تصدیق",
+      "description": "جاری رکھنے کے لیے آپ کو تمام آئٹمز کی تصدیق کرنی ہوگی۔",
+      "coldStorage": "پرائیویٹ کی کولڈ سٹوریج (آف لائن) میں محفوظ",
+      "coldStorageHint": "USB ڈرائیو، پیپر والٹ، یا HSM",
+      "multipleBackups": "مختلف مقامات پر متعدد بیک اپ کاپیاں بنائی گئیں",
+      "multipleBackupsHint": "الگ الگ جسمانی مقامات پر کم از کم 2-3 کاپیاں",
+      "encrypted": "مضبوط پاس ورڈ کے ساتھ بیک اپ انکرپٹڈ",
+      "encryptedHint": "AES-256 انکرپشن یا مساوی استعمال کریں",
+      "recoveryTested": "بیک اپ سے ریکوری کامیابی سے ٹیسٹ کی گئی",
+      "recoveryTestedHint": "تصدیق کریں کہ آپ بیک اپ سے وہی پبلک کی حاصل کر سکتے ہیں",
+      "remainingItems": "جاری رکھنے کے لیے براہ کرم باقی {{count}} آئٹمز کی تصدیق کریں"
+    },
+    "publicKey": {
+      "title": "اپنی پبلک کی جمع کریں",
+      "description": "آف لائن بنائی گئی کمپریسڈ پبلک کی درج کریں۔",
+      "label": "کمپریسڈ پبلک کی (66 hex حروف)",
+      "placeholder": "03a1b2c3d4e5f6... (66 hex حروف)",
+      "validFormat": "درست پبلک کی فارمیٹ",
+      "invalidFormat": "غلط فارمیٹ (66 یا 130 hex حروف ہونے چاہیئیں)",
+      "securityNote": "سیکیورٹی نوٹ",
+      "securityNoteText": "اپنی پرائیویٹ کی کبھی درج نہ کریں۔ ہمیں صرف آپ کے TBURN ویلیڈیٹر ایڈریس (tb1...) حاصل کرنے کے لیے پبلک کی چاہیے۔"
+    },
+    "validatorInfo": {
+      "title": "ویلیڈیٹر معلومات",
+      "description": "اپنے ویلیڈیٹر نوڈ کے بارے میں تفصیلات فراہم کریں",
+      "name": "ویلیڈیٹر کا نام",
+      "namePlaceholder": "میرا TBURN ویلیڈیٹر",
+      "nameHint": "آپ کے ویلیڈیٹر کا منفرد نام (کم از کم 3 حروف)",
+      "tier": "ٹیئر منتخب کریں",
+      "contactEmail": "رابطہ ای میل",
+      "website": "ویب سائٹ",
+      "descriptionLabel": "تفصیل",
+      "descriptionPlaceholder": "آپ کے ویلیڈیٹر آپریشن کی مختصر تفصیل...",
+      "optionalInfo": "اختیاری معلومات"
+    },
+    "tiers": {
+      "core": {
+        "name": "کور",
+        "description": "زیادہ سے زیادہ اسٹیک اور کم از کم کمیشن کے ساتھ فاؤنڈیشن ویلیڈیٹرز"
+      },
+      "enterprise": {
+        "name": "انٹرپرائز",
+        "description": "ادارہ جاتی شرکاء کے لیے انٹرپرائز گریڈ ویلیڈیٹرز"
+      },
+      "partner": {
+        "name": "پارٹنر",
+        "description": "اسٹریٹجک ایکو سسٹم شراکت داروں کے لیے پارٹنر ویلیڈیٹرز"
+      },
+      "community": {
+        "name": "کمیونٹی",
+        "description": "غیر مرکزی شرکت کے لیے کمیونٹی ویلیڈیٹرز"
+      }
+    },
+    "tierInfo": {
+      "stake": "اسٹیک",
+      "commission": "کمیشن",
+      "estimatedApy": "متوقع APY",
+      "slots": "سلاٹس",
+      "ofRewards": "انعامات کا",
+      "annual": "سالانہ",
+      "available": "دستیاب"
+    },
+    "review": {
+      "title": "جائزہ اور جمع",
+      "description": "جمع کرانے سے پہلے اپنے ویلیڈیٹر رجسٹریشن کی تفصیلات کا جائزہ لیں",
+      "summary": "رجسٹریشن خلاصہ",
+      "validatorName": "ویلیڈیٹر کا نام",
+      "tier": "ٹیئر",
+      "initialStake": "ابتدائی اسٹیک",
+      "commission": "کمیشن",
+      "estimatedApy": "متوقع APY",
+      "contact": "رابطہ",
+      "publicKeyLabel": "پبلک کی",
+      "finalConfirmation": "حتمی تصدیق",
+      "confirmationText": "یہ رجسٹریشن جمع کرا کر:",
+      "confirmItems": {
+        "backupConfirm": "میں تصدیق کرتا/کرتی ہوں کہ میں نے اپنی پرائیویٹ کی کا محفوظ بیک اپ لیا ہے",
+        "understandRecovery": "میں سمجھتا/سمجھتی ہوں کہ TBURN کھوئی ہوئی پرائیویٹ کیز واپس نہیں کر سکتا",
+        "stakeLocked": "میں قبول کرتا/کرتی ہوں کہ میرا ابتدائی اسٹیک {{stake}} TBURN لاک ہو جائے گا",
+        "agreeTerms": "میں TBURN مین نیٹ ویلیڈیٹر سروس کی شرائط سے متفق ہوں"
+      }
+    },
+    "buttons": {
+      "continueToInfo": "ویلیڈیٹر معلومات پر جاری رکھیں",
+      "reviewSubmit": "جائزہ اور جمع",
+      "back": "واپس",
+      "submitRegistration": "رجسٹریشن جمع کریں",
+      "registering": "رجسٹر ہو رہا ہے...",
+      "viewValidators": "تمام ویلیڈیٹرز دیکھیں",
+      "registerAnother": "ایک اور رجسٹر کریں",
+      "copy": "کاپی"
+    },
+    "completion": {
+      "title": "رجسٹریشن مکمل",
+      "description": "آپ کا ویلیڈیٹر TBURN مین نیٹ پر کامیابی سے رجسٹر ہو گیا ہے",
+      "validatorName": "ویلیڈیٹر کا نام",
+      "tburnAddress": "TBURN ایڈریس",
+      "tier": "ٹیئر",
+      "initialStake": "ابتدائی اسٹیک",
+      "commission": "کمیشن ریٹ",
+      "estimatedApy": "متوقع APY",
+      "status": "حیثیت",
+      "pendingVerification": "تصدیق زیر التوا",
+      "nextStepsTitle": "اگلے اقدامات",
+      "keepPrivateKeySafe": "اپنی پرائیویٹ کی محفوظ رکھیں",
+      "keepPrivateKeySafeText": "آپ کی پرائیویٹ کی اس ویلیڈیٹر کو کنٹرول کرنے کا واحد طریقہ ہے۔ ہماری اس تک رسائی نہیں ہے۔ اگر آپ اپنی پرائیویٹ کی کھو دیتے ہیں، تو آپ اپنے اسٹیک کیے ہوئے TBURN تک رسائی مستقل طور پر کھو دیں گے۔"
+    },
+    "toasts": {
+      "backupRequired": "بیک اپ تصدیق درکار",
+      "backupRequiredDesc": "جاری رکھنے کے لیے تمام بیک اپ چیک لسٹ آئٹمز کی تصدیق کریں",
+      "invalidPublicKey": "غلط پبلک کی",
+      "invalidPublicKeyDesc": "پبلک کی 33 بائٹس (کمپریسڈ) یا 65 بائٹس (ان کمپریسڈ) hex فارمیٹ میں ہونی چاہیے",
+      "validationError": "توثیق کی خرابی",
+      "validationErrorDesc": "براہ کرم تمام ضروری فیلڈز پُر کریں",
+      "registrationSuccess": "رجسٹریشن کامیاب",
+      "registrationFailed": "رجسٹریشن ناکام",
+      "registrationError": "رجسٹریشن کی خرابی",
+      "copied": "کاپی ہو گیا",
+      "copiedDesc": "کلپ بورڈ پر کاپی ہو گیا"
+    }
   }
 }

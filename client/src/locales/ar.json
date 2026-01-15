@@ -23342,5 +23342,168 @@
       },
       "copyright": "© 2025 مؤسسة TBURN CHAINS. جميع الحقوق محفوظة."
     }
+  },
+  "validatorRegistration": {
+    "title": "تسجيل مدقق TBURN Genesis",
+    "subtitle": "BYO (أحضر مفتاحك الخاص) - سجل المدقق الخاص بك باستخدام زوج مفاتيح تم إنشاؤه دون اتصال",
+    "chainId": "معرف السلسلة: 5800",
+    "validatorsCount": "{{current}} / {{target}} مدققين",
+    "genesisComplete": "اكتمل Genesis",
+    "progress": {
+      "step1": "المفتاح والأمان",
+      "step2": "معلومات المدقق",
+      "step3": "المراجعة والإرسال"
+    },
+    "security": {
+      "criticalTitle": "حرج: أمان المفتاح الخاص",
+      "criticalDescription": "مفتاحك الخاص هو الطريقة الوحيدة للوصول إلى أموال ومكافآت المدقق الخاص بك.",
+      "warnings": {
+        "generateOffline": "أنشئ مفاتيحك دون اتصال على جهاز معزول",
+        "neverShare": "لا تشارك مفتاحك الخاص مع أي شخص أبداً - حتى دعم TBURN",
+        "cannotRecover": "لا يمكن استعادة المفاتيح الخاصة المفقودة - ستفقد أموالك بشكل دائم",
+        "publicKeyOnly": "نحن نخزن مفتاحك العام فقط - لا يمكننا استعادة مفتاحك الخاص"
+      }
+    },
+    "keyGeneration": {
+      "title": "تعليمات إنشاء المفتاح دون اتصال",
+      "tabs": {
+        "nodejs": "Node.js",
+        "openssl": "OpenSSL",
+        "hardware": "محفظة الأجهزة"
+      },
+      "steps": {
+        "step1Title": "قطع الاتصال بالشبكة",
+        "step1Desc": "استخدم جهازاً معزولاً قبل إنشاء المفاتيح",
+        "step2Title": "تحضير التبعيات دون اتصال",
+        "step2Desc": "حزم ethers و crypto مطلوبة",
+        "step3Title": "تشغيل سكريبت إنشاء المفتاح",
+        "step3Desc": "node generate-keys.js",
+        "step4Title": "نسخ المفتاح العام فقط",
+        "step4Desc": "الصق المفتاح العام المضغوط أدناه"
+      },
+      "hardwareDescription": "للحصول على أقصى درجات الأمان، استخدم محفظة أجهزة أو HSM:",
+      "hardwareNote": "توفر محافظ الأجهزة أفضل أمان لأن المفاتيح الخاصة لا تغادر الجهاز أبداً."
+    },
+    "backupChecklist": {
+      "title": "تأكيد النسخ الاحتياطي الإلزامي",
+      "description": "يجب عليك تأكيد جميع العناصر للمتابعة.",
+      "coldStorage": "المفتاح الخاص مخزن في التخزين البارد (دون اتصال)",
+      "coldStorageHint": "USB أو محفظة ورقية أو HSM",
+      "multipleBackups": "إنشاء نسخ احتياطية متعددة في مواقع مختلفة",
+      "multipleBackupsHint": "على الأقل 2-3 نسخ في مواقع مادية منفصلة",
+      "encrypted": "النسخ الاحتياطية مشفرة بكلمة مرور قوية",
+      "encryptedHint": "استخدم تشفير AES-256 أو ما يعادله",
+      "recoveryTested": "تم اختبار الاسترداد من النسخة الاحتياطية بنجاح",
+      "recoveryTestedHint": "تم التحقق من أنه يمكنك اشتقاق نفس المفتاح العام من النسخة الاحتياطية",
+      "remainingItems": "يرجى تأكيد العناصر المتبقية {{count}} للمتابعة"
+    },
+    "publicKey": {
+      "title": "أرسل مفتاحك العام",
+      "description": "أدخل المفتاح العام المضغوط الذي تم إنشاؤه دون اتصال.",
+      "label": "المفتاح العام المضغوط (66 حرف hex)",
+      "placeholder": "03a1b2c3d4e5f6... (66 حرف hex)",
+      "validFormat": "تنسيق مفتاح عام صالح",
+      "invalidFormat": "تنسيق غير صالح (يجب أن يكون 66 أو 130 حرف hex)",
+      "securityNote": "ملاحظة أمنية",
+      "securityNoteText": "لا تدخل مفتاحك الخاص أبداً. نحتاج فقط إلى المفتاح العام لاشتقاق عنوان مدقق TBURN الخاص بك (tb1...)."
+    },
+    "validatorInfo": {
+      "title": "معلومات المدقق",
+      "description": "قدم تفاصيل عن عقدة المدقق الخاصة بك",
+      "name": "اسم المدقق",
+      "namePlaceholder": "مدقق TBURN الخاص بي",
+      "nameHint": "اسم فريد للمدقق الخاص بك (3 أحرف على الأقل)",
+      "tier": "اختر المستوى",
+      "contactEmail": "البريد الإلكتروني للتواصل",
+      "website": "الموقع الإلكتروني",
+      "descriptionLabel": "الوصف",
+      "descriptionPlaceholder": "وصف موجز لعملية المدقق الخاصة بك...",
+      "optionalInfo": "معلومات اختيارية"
+    },
+    "tiers": {
+      "core": {
+        "name": "Core",
+        "description": "مدققون أساسيون بأقصى حصة وأدنى عمولة"
+      },
+      "enterprise": {
+        "name": "Enterprise",
+        "description": "مدققون على مستوى المؤسسات للمشاركين المؤسسيين"
+      },
+      "partner": {
+        "name": "Partner",
+        "description": "مدققون شركاء للمساهمين الاستراتيجيين في النظام البيئي"
+      },
+      "community": {
+        "name": "Community",
+        "description": "مدققون مجتمعيون للمشاركة اللامركزية"
+      }
+    },
+    "tierInfo": {
+      "stake": "الحصة",
+      "commission": "العمولة",
+      "estimatedApy": "APY المقدر",
+      "slots": "الفتحات",
+      "ofRewards": "من المكافآت",
+      "annual": "سنوي",
+      "available": "متاح"
+    },
+    "review": {
+      "title": "المراجعة والإرسال",
+      "description": "يرجى مراجعة تفاصيل تسجيل المدقق قبل الإرسال",
+      "summary": "ملخص التسجيل",
+      "validatorName": "اسم المدقق",
+      "tier": "المستوى",
+      "initialStake": "الحصة الأولية",
+      "commission": "العمولة",
+      "estimatedApy": "APY المقدر",
+      "contact": "التواصل",
+      "publicKeyLabel": "المفتاح العام",
+      "finalConfirmation": "التأكيد النهائي",
+      "confirmationText": "بإرسال هذا التسجيل:",
+      "confirmItems": {
+        "backupConfirm": "أؤكد أنني قمت بعمل نسخة احتياطية آمنة لمفتاحي الخاص",
+        "understandRecovery": "أفهم أن TBURN لا يمكنه استعادة المفاتيح الخاصة المفقودة",
+        "stakeLocked": "أقبل أن حصتي الأولية {{stake}} TBURN ستكون مقفلة",
+        "agreeTerms": "أوافق على شروط خدمة مدقق TBURN Mainnet"
+      }
+    },
+    "buttons": {
+      "continueToInfo": "المتابعة إلى معلومات المدقق",
+      "reviewSubmit": "المراجعة والإرسال",
+      "back": "رجوع",
+      "submitRegistration": "إرسال التسجيل",
+      "registering": "جاري التسجيل...",
+      "viewValidators": "عرض جميع المدققين",
+      "registerAnother": "تسجيل آخر",
+      "copy": "نسخ"
+    },
+    "completion": {
+      "title": "اكتمل التسجيل",
+      "description": "تم تسجيل المدقق الخاص بك بنجاح على TBURN Mainnet",
+      "validatorName": "اسم المدقق",
+      "tburnAddress": "عنوان TBURN",
+      "tier": "المستوى",
+      "initialStake": "الحصة الأولية",
+      "commission": "معدل العمولة",
+      "estimatedApy": "APY المقدر",
+      "status": "الحالة",
+      "pendingVerification": "في انتظار التحقق",
+      "nextStepsTitle": "الخطوات التالية",
+      "keepPrivateKeySafe": "حافظ على مفتاحك الخاص آمناً",
+      "keepPrivateKeySafeText": "مفتاحك الخاص هو الطريقة الوحيدة للتحكم في هذا المدقق. ليس لدينا وصول إليه. إذا فقدت مفتاحك الخاص، ستفقد الوصول إلى TBURN المرهون بشكل دائم."
+    },
+    "toasts": {
+      "backupRequired": "تأكيد النسخ الاحتياطي مطلوب",
+      "backupRequiredDesc": "يرجى تأكيد جميع عناصر قائمة النسخ الاحتياطي",
+      "invalidPublicKey": "مفتاح عام غير صالح",
+      "invalidPublicKeyDesc": "يجب أن يكون المفتاح العام 33 بايت (مضغوط) أو 65 بايت (غير مضغوط) بتنسيق hex",
+      "validationError": "خطأ في التحقق",
+      "validationErrorDesc": "يرجى ملء جميع الحقول المطلوبة",
+      "registrationSuccess": "نجح التسجيل",
+      "registrationFailed": "فشل التسجيل",
+      "registrationError": "خطأ في التسجيل",
+      "copied": "تم النسخ",
+      "copiedDesc": "تم النسخ إلى الحافظة"
+    }
   }
 }

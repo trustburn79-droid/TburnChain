@@ -23330,5 +23330,168 @@
       },
       "copyright": "© 2025 Fundação TBURN CHAINS. Todos os direitos reservados."
     }
+  },
+  "validatorRegistration": {
+    "title": "Registro de Validador Genesis TBURN",
+    "subtitle": "BYO (Traga Sua Própria Chave) - Registre seu validador com um par de chaves gerado offline",
+    "chainId": "ID da Cadeia: 5800",
+    "validatorsCount": "{{current}} / {{target}} Validadores",
+    "genesisComplete": "Genesis Completo",
+    "progress": {
+      "step1": "Chave e Segurança",
+      "step2": "Info do Validador",
+      "step3": "Revisar e Enviar"
+    },
+    "security": {
+      "criticalTitle": "CRÍTICO: Segurança da Chave Privada",
+      "criticalDescription": "Sua chave privada é a ÚNICA forma de acessar os fundos e recompensas do seu validador.",
+      "warnings": {
+        "generateOffline": "Gere suas chaves OFFLINE em uma máquina isolada",
+        "neverShare": "NUNCA compartilhe sua chave privada com ninguém - nem mesmo com o suporte TBURN",
+        "cannotRecover": "Chaves privadas perdidas NÃO PODEM ser recuperadas - seus fundos serão perdidos permanentemente",
+        "publicKeyOnly": "Só armazenamos sua chave pública - não podemos recuperar sua chave privada"
+      }
+    },
+    "keyGeneration": {
+      "title": "Instruções de Geração de Chaves Offline",
+      "tabs": {
+        "nodejs": "Node.js",
+        "openssl": "OpenSSL",
+        "hardware": "Carteira Hardware"
+      },
+      "steps": {
+        "step1Title": "Desconectar da rede",
+        "step1Desc": "Use uma máquina isolada antes de gerar chaves",
+        "step2Title": "Preparar dependências offline",
+        "step2Desc": "Pacotes ethers e crypto necessários",
+        "step3Title": "Executar script de geração de chaves",
+        "step3Desc": "node generate-keys.js",
+        "step4Title": "Copiar apenas a chave pública",
+        "step4Desc": "Cole a chave pública comprimida abaixo"
+      },
+      "hardwareDescription": "Para máxima segurança, use uma carteira hardware ou HSM:",
+      "hardwareNote": "Carteiras hardware fornecem a melhor segurança pois as chaves privadas nunca saem do dispositivo."
+    },
+    "backupChecklist": {
+      "title": "Confirmação de Backup Obrigatório",
+      "description": "Você deve confirmar TODOS os itens para continuar.",
+      "coldStorage": "Chave privada armazenada em cold storage (offline)",
+      "coldStorageHint": "Pendrive, carteira de papel ou HSM",
+      "multipleBackups": "Múltiplas cópias de backup criadas em diferentes locais",
+      "multipleBackupsHint": "Pelo menos 2-3 cópias em locais físicos separados",
+      "encrypted": "Backups criptografados com senha forte",
+      "encryptedHint": "Usar criptografia AES-256 ou equivalente",
+      "recoveryTested": "Recuperação do backup testada com sucesso",
+      "recoveryTestedHint": "Verificado que você pode derivar a mesma chave pública do backup",
+      "remainingItems": "Por favor confirme os {{count}} itens restantes para continuar"
+    },
+    "publicKey": {
+      "title": "Envie Sua Chave Pública",
+      "description": "Digite a chave pública comprimida gerada offline.",
+      "label": "Chave Pública Comprimida (66 caracteres hex)",
+      "placeholder": "03a1b2c3d4e5f6... (66 caracteres hex)",
+      "validFormat": "Formato de chave pública válido",
+      "invalidFormat": "Formato inválido (deve ser 66 ou 130 caracteres hex)",
+      "securityNote": "Nota de Segurança",
+      "securityNoteText": "Nunca digite sua chave privada. Só precisamos da chave pública para derivar seu endereço de validador TBURN (tb1...)."
+    },
+    "validatorInfo": {
+      "title": "Informações do Validador",
+      "description": "Forneça detalhes sobre seu nó validador",
+      "name": "Nome do Validador",
+      "namePlaceholder": "Meu Validador TBURN",
+      "nameHint": "Um nome único para seu validador (mínimo 3 caracteres)",
+      "tier": "Selecionar Nível",
+      "contactEmail": "Email de Contato",
+      "website": "Website",
+      "descriptionLabel": "Descrição",
+      "descriptionPlaceholder": "Breve descrição da sua operação de validador...",
+      "optionalInfo": "Informações Opcionais"
+    },
+    "tiers": {
+      "core": {
+        "name": "Core",
+        "description": "Validadores fundamentais com stake máximo e comissão mínima"
+      },
+      "enterprise": {
+        "name": "Enterprise",
+        "description": "Validadores de nível empresarial para participantes institucionais"
+      },
+      "partner": {
+        "name": "Partner",
+        "description": "Validadores parceiros para contribuidores estratégicos do ecossistema"
+      },
+      "community": {
+        "name": "Community",
+        "description": "Validadores comunitários para participação descentralizada"
+      }
+    },
+    "tierInfo": {
+      "stake": "Stake",
+      "commission": "Comissão",
+      "estimatedApy": "APY Est.",
+      "slots": "Vagas",
+      "ofRewards": "das recompensas",
+      "annual": "anual",
+      "available": "disponível"
+    },
+    "review": {
+      "title": "Revisar e Enviar",
+      "description": "Por favor revise os detalhes de registro do seu validador antes de enviar",
+      "summary": "Resumo do Registro",
+      "validatorName": "Nome do Validador",
+      "tier": "Nível",
+      "initialStake": "Stake Inicial",
+      "commission": "Comissão",
+      "estimatedApy": "APY Estimado",
+      "contact": "Contato",
+      "publicKeyLabel": "Chave Pública",
+      "finalConfirmation": "Confirmação Final",
+      "confirmationText": "Ao enviar este registro:",
+      "confirmItems": {
+        "backupConfirm": "Confirmo que fiz backup da minha chave privada de forma segura",
+        "understandRecovery": "Entendo que TBURN não pode recuperar chaves privadas perdidas",
+        "stakeLocked": "Aceito que meu stake inicial de {{stake}} TBURN será bloqueado",
+        "agreeTerms": "Concordo com os termos de serviço do validador TBURN Mainnet"
+      }
+    },
+    "buttons": {
+      "continueToInfo": "Continuar para Info do Validador",
+      "reviewSubmit": "Revisar e Enviar",
+      "back": "Voltar",
+      "submitRegistration": "Enviar Registro",
+      "registering": "Registrando...",
+      "viewValidators": "Ver Todos os Validadores",
+      "registerAnother": "Registrar Outro",
+      "copy": "Copiar"
+    },
+    "completion": {
+      "title": "Registro Completo",
+      "description": "Seu validador foi registrado com sucesso na TBURN Mainnet",
+      "validatorName": "Nome do Validador",
+      "tburnAddress": "Endereço TBURN",
+      "tier": "Nível",
+      "initialStake": "Stake Inicial",
+      "commission": "Taxa de Comissão",
+      "estimatedApy": "APY Estimado",
+      "status": "Status",
+      "pendingVerification": "Verificação Pendente",
+      "nextStepsTitle": "Próximos Passos",
+      "keepPrivateKeySafe": "Mantenha Sua Chave Privada Segura",
+      "keepPrivateKeySafeText": "Sua chave privada é a única forma de controlar este validador. NÃO temos acesso a ela. Se você perder sua chave privada, perderá acesso ao seu TBURN stakeado permanentemente."
+    },
+    "toasts": {
+      "backupRequired": "Confirmação de Backup Necessária",
+      "backupRequiredDesc": "Por favor confirme todos os itens da lista de backup",
+      "invalidPublicKey": "Chave Pública Inválida",
+      "invalidPublicKeyDesc": "A chave pública deve ser de 33 bytes (comprimida) ou 65 bytes (não comprimida) em formato hex",
+      "validationError": "Erro de Validação",
+      "validationErrorDesc": "Por favor preencha todos os campos obrigatórios",
+      "registrationSuccess": "Registro Bem-sucedido",
+      "registrationFailed": "Registro Falhou",
+      "registrationError": "Erro de Registro",
+      "copied": "Copiado",
+      "copiedDesc": "Copiado para a área de transferência"
+    }
   }
 }

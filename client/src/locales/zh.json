@@ -25786,5 +25786,168 @@
       },
       "copyright": "© 2025 TBURN CHAINS基金会。保留所有权利。"
     }
+  },
+  "validatorRegistration": {
+    "title": "TBURN创世验证者注册",
+    "subtitle": "BYO（自带密钥）- 使用离线生成的密钥对注册验证者",
+    "chainId": "链ID: 5800",
+    "validatorsCount": "{{current}} / {{target}} 验证者",
+    "genesisComplete": "创世完成",
+    "progress": {
+      "step1": "密钥与安全",
+      "step2": "验证者信息",
+      "step3": "审核与提交"
+    },
+    "security": {
+      "criticalTitle": "重要：私钥安全",
+      "criticalDescription": "您的私钥是访问验证者资金和奖励的唯一方式。",
+      "warnings": {
+        "generateOffline": "在隔离机器上离线生成密钥",
+        "neverShare": "切勿与任何人分享您的私钥 - 包括TBURN支持团队",
+        "cannotRecover": "丢失的私钥无法恢复 - 您的资金将永久丢失",
+        "publicKeyOnly": "我们只存储您的公钥 - 无法恢复私钥"
+      }
+    },
+    "keyGeneration": {
+      "title": "离线密钥生成指南",
+      "tabs": {
+        "nodejs": "Node.js",
+        "openssl": "OpenSSL",
+        "hardware": "硬件钱包"
+      },
+      "steps": {
+        "step1Title": "断开网络连接",
+        "step1Desc": "生成密钥前使用隔离机器",
+        "step2Title": "离线准备依赖",
+        "step2Desc": "需要ethers和crypto包",
+        "step3Title": "运行密钥生成脚本",
+        "step3Desc": "node generate-keys.js",
+        "step4Title": "只复制公钥",
+        "step4Desc": "将压缩公钥粘贴到下方"
+      },
+      "hardwareDescription": "为获得最高安全性，请使用硬件钱包或HSM：",
+      "hardwareNote": "硬件钱包提供最佳安全性，因为私钥永不离开设备。"
+    },
+    "backupChecklist": {
+      "title": "强制备份确认",
+      "description": "您必须确认所有项目才能继续。",
+      "coldStorage": "私钥存储在冷存储中（离线）",
+      "coldStorageHint": "USB驱动器、纸钱包或HSM",
+      "multipleBackups": "在不同位置创建多个备份副本",
+      "multipleBackupsHint": "至少2-3份副本存储在不同的物理位置",
+      "encrypted": "使用强密码加密备份",
+      "encryptedHint": "使用AES-256加密或同等级别",
+      "recoveryTested": "成功测试从备份恢复",
+      "recoveryTestedHint": "验证您可以从备份推导出相同的公钥",
+      "remainingItems": "请确认所有剩余的{{count}}项以继续"
+    },
+    "publicKey": {
+      "title": "提交您的公钥",
+      "description": "输入离线生成的压缩公钥。这是唯一提交的信息。",
+      "label": "压缩公钥（66个hex字符）",
+      "placeholder": "03a1b2c3d4e5f6...（66个hex字符）",
+      "validFormat": "有效的公钥格式",
+      "invalidFormat": "无效格式（必须是66或130个hex字符）",
+      "securityNote": "安全提示",
+      "securityNoteText": "切勿输入您的私钥。我们只需要公钥来推导您的TBURN验证者地址（tb1...）。"
+    },
+    "validatorInfo": {
+      "title": "验证者信息",
+      "description": "提供验证者节点的详细信息",
+      "name": "验证者名称",
+      "namePlaceholder": "我的TBURN验证者",
+      "nameHint": "唯一的验证者名称（最少3个字符）",
+      "tier": "选择等级",
+      "contactEmail": "联系邮箱",
+      "website": "网站",
+      "descriptionLabel": "描述",
+      "descriptionPlaceholder": "验证者运营的简要描述...",
+      "optionalInfo": "可选信息"
+    },
+    "tiers": {
+      "core": {
+        "name": "核心",
+        "description": "最大质押和最低佣金的基础验证者"
+      },
+      "enterprise": {
+        "name": "企业",
+        "description": "面向机构参与者的企业级验证者"
+      },
+      "partner": {
+        "name": "合作伙伴",
+        "description": "面向战略生态系统贡献者的合作伙伴验证者"
+      },
+      "community": {
+        "name": "社区",
+        "description": "用于去中心化参与的社区验证者"
+      }
+    },
+    "tierInfo": {
+      "stake": "质押",
+      "commission": "佣金",
+      "estimatedApy": "预估APY",
+      "slots": "名额",
+      "ofRewards": "奖励的",
+      "annual": "年化",
+      "available": "可用"
+    },
+    "review": {
+      "title": "审核与提交",
+      "description": "提交前请审核验证者注册详情",
+      "summary": "注册摘要",
+      "validatorName": "验证者名称",
+      "tier": "等级",
+      "initialStake": "初始质押",
+      "commission": "佣金",
+      "estimatedApy": "预估APY",
+      "contact": "联系方式",
+      "publicKeyLabel": "公钥",
+      "finalConfirmation": "最终确认",
+      "confirmationText": "提交此注册即表示：",
+      "confirmItems": {
+        "backupConfirm": "我确认已安全备份私钥",
+        "understandRecovery": "我理解TBURN无法恢复丢失的私钥",
+        "stakeLocked": "我接受初始质押{{stake}} TBURN将被锁定",
+        "agreeTerms": "我同意TBURN主网验证者服务条款"
+      }
+    },
+    "buttons": {
+      "continueToInfo": "继续到验证者信息",
+      "reviewSubmit": "审核与提交",
+      "back": "返回",
+      "submitRegistration": "提交注册",
+      "registering": "注册中...",
+      "viewValidators": "查看所有验证者",
+      "registerAnother": "注册另一个",
+      "copy": "复制"
+    },
+    "completion": {
+      "title": "注册完成",
+      "description": "您的验证者已成功注册到TBURN主网",
+      "validatorName": "验证者名称",
+      "tburnAddress": "TBURN地址",
+      "tier": "等级",
+      "initialStake": "初始质押",
+      "commission": "佣金率",
+      "estimatedApy": "预估APY",
+      "status": "状态",
+      "pendingVerification": "等待验证",
+      "nextStepsTitle": "下一步",
+      "keepPrivateKeySafe": "保护好您的私钥",
+      "keepPrivateKeySafeText": "私钥是控制此验证者的唯一方式。我们无法访问它。如果丢失私钥，您将永久失去对质押的TBURN的访问权限。"
+    },
+    "toasts": {
+      "backupRequired": "需要备份确认",
+      "backupRequiredDesc": "请确认所有备份清单项目以继续",
+      "invalidPublicKey": "无效公钥",
+      "invalidPublicKeyDesc": "公钥必须是33字节（压缩）或65字节（非压缩）hex格式",
+      "validationError": "验证错误",
+      "validationErrorDesc": "请填写所有必填字段",
+      "registrationSuccess": "注册成功",
+      "registrationFailed": "注册失败",
+      "registrationError": "注册错误",
+      "copied": "已复制",
+      "copiedDesc": "已复制到剪贴板"
+    }
   }
 }

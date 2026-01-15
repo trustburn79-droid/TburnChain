@@ -25397,8 +25397,7 @@
       "download": "Descargar Ahora",
       "learnMore": "Más Información"
     }
-  }
-,
+  },
   "foundersPage": {
     "loading": "Cargando...",
     "nav": {
@@ -25584,6 +25583,169 @@
         "blog": "Blog"
       },
       "copyright": "© 2025 Fundación TBURN CHAINS. Todos los derechos reservados."
+    }
+  },
+  "validatorRegistration": {
+    "title": "Registro de Validador Genesis TBURN",
+    "subtitle": "BYO (Trae Tu Propia Clave) - Registra tu validador con un par de claves generado sin conexión",
+    "chainId": "ID de Cadena: 5800",
+    "validatorsCount": "{{current}} / {{target}} Validadores",
+    "genesisComplete": "Genesis Completo",
+    "progress": {
+      "step1": "Clave y Seguridad",
+      "step2": "Info del Validador",
+      "step3": "Revisar y Enviar"
+    },
+    "security": {
+      "criticalTitle": "CRÍTICO: Seguridad de Clave Privada",
+      "criticalDescription": "Tu clave privada es la ÚNICA forma de acceder a los fondos y recompensas de tu validador.",
+      "warnings": {
+        "generateOffline": "Genera tus claves SIN CONEXIÓN en una máquina aislada",
+        "neverShare": "NUNCA compartas tu clave privada con nadie - ni siquiera con soporte TBURN",
+        "cannotRecover": "Las claves privadas perdidas NO pueden recuperarse - tus fondos se perderán permanentemente",
+        "publicKeyOnly": "Solo almacenamos tu clave pública - no podemos recuperar tu clave privada"
+      }
+    },
+    "keyGeneration": {
+      "title": "Instrucciones de Generación de Claves Sin Conexión",
+      "tabs": {
+        "nodejs": "Node.js",
+        "openssl": "OpenSSL",
+        "hardware": "Billetera Hardware"
+      },
+      "steps": {
+        "step1Title": "Desconectar de la red",
+        "step1Desc": "Usa una máquina aislada antes de generar claves",
+        "step2Title": "Preparar dependencias sin conexión",
+        "step2Desc": "Se requieren paquetes ethers y crypto",
+        "step3Title": "Ejecutar script de generación de claves",
+        "step3Desc": "node generate-keys.js",
+        "step4Title": "Copiar solo la clave pública",
+        "step4Desc": "Pega la clave pública comprimida abajo"
+      },
+      "hardwareDescription": "Para máxima seguridad, usa una billetera hardware o HSM:",
+      "hardwareNote": "Las billeteras hardware proporcionan la mejor seguridad ya que las claves privadas nunca salen del dispositivo."
+    },
+    "backupChecklist": {
+      "title": "Confirmación de Respaldo Obligatorio",
+      "description": "Debes confirmar TODOS los elementos para continuar.",
+      "coldStorage": "Clave privada almacenada en almacenamiento frío (sin conexión)",
+      "coldStorageHint": "Unidad USB, billetera de papel o HSM",
+      "multipleBackups": "Creadas múltiples copias de respaldo en diferentes ubicaciones",
+      "multipleBackupsHint": "Al menos 2-3 copias en ubicaciones físicas separadas",
+      "encrypted": "Respaldos encriptados con contraseña fuerte",
+      "encryptedHint": "Usar encriptación AES-256 o equivalente",
+      "recoveryTested": "Probada exitosamente la recuperación del respaldo",
+      "recoveryTestedHint": "Verificado que puedes derivar la misma clave pública del respaldo",
+      "remainingItems": "Por favor confirma los {{count}} elementos restantes para continuar"
+    },
+    "publicKey": {
+      "title": "Envía Tu Clave Pública",
+      "description": "Ingresa la clave pública comprimida generada sin conexión.",
+      "label": "Clave Pública Comprimida (66 caracteres hex)",
+      "placeholder": "03a1b2c3d4e5f6... (66 caracteres hex)",
+      "validFormat": "Formato de clave pública válido",
+      "invalidFormat": "Formato inválido (debe ser 66 o 130 caracteres hex)",
+      "securityNote": "Nota de Seguridad",
+      "securityNoteText": "Nunca ingreses tu clave privada. Solo necesitamos la clave pública para derivar tu dirección de validador TBURN (tb1...)."
+    },
+    "validatorInfo": {
+      "title": "Información del Validador",
+      "description": "Proporciona detalles sobre tu nodo validador",
+      "name": "Nombre del Validador",
+      "namePlaceholder": "Mi Validador TBURN",
+      "nameHint": "Un nombre único para tu validador (mínimo 3 caracteres)",
+      "tier": "Seleccionar Nivel",
+      "contactEmail": "Email de Contacto",
+      "website": "Sitio Web",
+      "descriptionLabel": "Descripción",
+      "descriptionPlaceholder": "Breve descripción de tu operación de validador...",
+      "optionalInfo": "Información Opcional"
+    },
+    "tiers": {
+      "core": {
+        "name": "Core",
+        "description": "Validadores fundamentales con máximo stake y mínima comisión"
+      },
+      "enterprise": {
+        "name": "Enterprise",
+        "description": "Validadores de grado empresarial para participantes institucionales"
+      },
+      "partner": {
+        "name": "Partner",
+        "description": "Validadores socios para contribuidores estratégicos del ecosistema"
+      },
+      "community": {
+        "name": "Community",
+        "description": "Validadores comunitarios para participación descentralizada"
+      }
+    },
+    "tierInfo": {
+      "stake": "Stake",
+      "commission": "Comisión",
+      "estimatedApy": "APY Est.",
+      "slots": "Plazas",
+      "ofRewards": "de recompensas",
+      "annual": "anual",
+      "available": "disponible"
+    },
+    "review": {
+      "title": "Revisar y Enviar",
+      "description": "Por favor revisa los detalles de registro de tu validador antes de enviar",
+      "summary": "Resumen de Registro",
+      "validatorName": "Nombre del Validador",
+      "tier": "Nivel",
+      "initialStake": "Stake Inicial",
+      "commission": "Comisión",
+      "estimatedApy": "APY Estimado",
+      "contact": "Contacto",
+      "publicKeyLabel": "Clave Pública",
+      "finalConfirmation": "Confirmación Final",
+      "confirmationText": "Al enviar este registro:",
+      "confirmItems": {
+        "backupConfirm": "Confirmo que he respaldado mi clave privada de forma segura",
+        "understandRecovery": "Entiendo que TBURN no puede recuperar claves privadas perdidas",
+        "stakeLocked": "Acepto que mi stake inicial de {{stake}} TBURN será bloqueado",
+        "agreeTerms": "Acepto los términos de servicio del validador de TBURN Mainnet"
+      }
+    },
+    "buttons": {
+      "continueToInfo": "Continuar a Info del Validador",
+      "reviewSubmit": "Revisar y Enviar",
+      "back": "Atrás",
+      "submitRegistration": "Enviar Registro",
+      "registering": "Registrando...",
+      "viewValidators": "Ver Todos los Validadores",
+      "registerAnother": "Registrar Otro",
+      "copy": "Copiar"
+    },
+    "completion": {
+      "title": "Registro Completo",
+      "description": "Tu validador ha sido registrado exitosamente en TBURN Mainnet",
+      "validatorName": "Nombre del Validador",
+      "tburnAddress": "Dirección TBURN",
+      "tier": "Nivel",
+      "initialStake": "Stake Inicial",
+      "commission": "Tasa de Comisión",
+      "estimatedApy": "APY Estimado",
+      "status": "Estado",
+      "pendingVerification": "Verificación Pendiente",
+      "nextStepsTitle": "Próximos Pasos",
+      "keepPrivateKeySafe": "Mantén Tu Clave Privada Segura",
+      "keepPrivateKeySafeText": "Tu clave privada es la única forma de controlar este validador. NO tenemos acceso a ella. Si pierdes tu clave privada, perderás acceso a tu TBURN stakeado permanentemente."
+    },
+    "toasts": {
+      "backupRequired": "Confirmación de Respaldo Requerida",
+      "backupRequiredDesc": "Por favor confirma todos los elementos de la lista de respaldo",
+      "invalidPublicKey": "Clave Pública Inválida",
+      "invalidPublicKeyDesc": "La clave pública debe ser de 33 bytes (comprimida) o 65 bytes (sin comprimir) en formato hex",
+      "validationError": "Error de Validación",
+      "validationErrorDesc": "Por favor completa todos los campos requeridos",
+      "registrationSuccess": "Registro Exitoso",
+      "registrationFailed": "Registro Fallido",
+      "registrationError": "Error de Registro",
+      "copied": "Copiado",
+      "copiedDesc": "Copiado al portapapeles"
     }
   }
 }

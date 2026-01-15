@@ -23644,5 +23644,168 @@
       },
       "copyright": "© 2025 Fondation TBURN CHAINS. Tous droits réservés."
     }
+  },
+  "validatorRegistration": {
+    "title": "Inscription Validateur Genesis TBURN",
+    "subtitle": "BYO (Apportez Votre Propre Clé) - Inscrivez votre validateur avec une paire de clés générée hors ligne",
+    "chainId": "ID de Chaîne: 5800",
+    "validatorsCount": "{{current}} / {{target}} Validateurs",
+    "genesisComplete": "Genesis Complet",
+    "progress": {
+      "step1": "Clé et Sécurité",
+      "step2": "Info Validateur",
+      "step3": "Vérifier et Soumettre"
+    },
+    "security": {
+      "criticalTitle": "CRITIQUE: Sécurité de la Clé Privée",
+      "criticalDescription": "Votre clé privée est le SEUL moyen d'accéder aux fonds et récompenses de votre validateur.",
+      "warnings": {
+        "generateOffline": "Générez vos clés HORS LIGNE sur une machine isolée",
+        "neverShare": "Ne JAMAIS partager votre clé privée avec quiconque - même pas le support TBURN",
+        "cannotRecover": "Les clés privées perdues NE PEUVENT PAS être récupérées - vos fonds seront perdus définitivement",
+        "publicKeyOnly": "Nous ne stockons que votre clé publique - nous ne pouvons pas récupérer votre clé privée"
+      }
+    },
+    "keyGeneration": {
+      "title": "Instructions de Génération de Clés Hors Ligne",
+      "tabs": {
+        "nodejs": "Node.js",
+        "openssl": "OpenSSL",
+        "hardware": "Portefeuille Matériel"
+      },
+      "steps": {
+        "step1Title": "Déconnecter du réseau",
+        "step1Desc": "Utilisez une machine isolée avant de générer les clés",
+        "step2Title": "Préparer les dépendances hors ligne",
+        "step2Desc": "Packages ethers et crypto requis",
+        "step3Title": "Exécuter le script de génération de clés",
+        "step3Desc": "node generate-keys.js",
+        "step4Title": "Copier uniquement la clé publique",
+        "step4Desc": "Collez la clé publique compressée ci-dessous"
+      },
+      "hardwareDescription": "Pour une sécurité maximale, utilisez un portefeuille matériel ou HSM:",
+      "hardwareNote": "Les portefeuilles matériels offrent la meilleure sécurité car les clés privées ne quittent jamais l'appareil."
+    },
+    "backupChecklist": {
+      "title": "Confirmation de Sauvegarde Obligatoire",
+      "description": "Vous devez confirmer TOUS les éléments pour continuer.",
+      "coldStorage": "Clé privée stockée en stockage froid (hors ligne)",
+      "coldStorageHint": "Clé USB, portefeuille papier ou HSM",
+      "multipleBackups": "Plusieurs copies de sauvegarde créées dans différents endroits",
+      "multipleBackupsHint": "Au moins 2-3 copies dans des emplacements physiques séparés",
+      "encrypted": "Sauvegardes chiffrées avec un mot de passe fort",
+      "encryptedHint": "Utiliser le chiffrement AES-256 ou équivalent",
+      "recoveryTested": "Test de récupération à partir de la sauvegarde réussi",
+      "recoveryTestedHint": "Vérifié que vous pouvez dériver la même clé publique de la sauvegarde",
+      "remainingItems": "Veuillez confirmer les {{count}} éléments restants pour continuer"
+    },
+    "publicKey": {
+      "title": "Soumettez Votre Clé Publique",
+      "description": "Entrez la clé publique compressée générée hors ligne.",
+      "label": "Clé Publique Compressée (66 caractères hex)",
+      "placeholder": "03a1b2c3d4e5f6... (66 caractères hex)",
+      "validFormat": "Format de clé publique valide",
+      "invalidFormat": "Format invalide (doit être 66 ou 130 caractères hex)",
+      "securityNote": "Note de Sécurité",
+      "securityNoteText": "Ne saisissez jamais votre clé privée. Nous n'avons besoin que de la clé publique pour dériver votre adresse de validateur TBURN (tb1...)."
+    },
+    "validatorInfo": {
+      "title": "Informations du Validateur",
+      "description": "Fournissez les détails de votre nœud validateur",
+      "name": "Nom du Validateur",
+      "namePlaceholder": "Mon Validateur TBURN",
+      "nameHint": "Un nom unique pour votre validateur (min 3 caractères)",
+      "tier": "Sélectionner le Niveau",
+      "contactEmail": "Email de Contact",
+      "website": "Site Web",
+      "descriptionLabel": "Description",
+      "descriptionPlaceholder": "Brève description de votre exploitation de validateur...",
+      "optionalInfo": "Informations Optionnelles"
+    },
+    "tiers": {
+      "core": {
+        "name": "Core",
+        "description": "Validateurs fondateurs avec mise maximale et commission minimale"
+      },
+      "enterprise": {
+        "name": "Enterprise",
+        "description": "Validateurs de niveau entreprise pour les participants institutionnels"
+      },
+      "partner": {
+        "name": "Partner",
+        "description": "Validateurs partenaires pour les contributeurs stratégiques de l'écosystème"
+      },
+      "community": {
+        "name": "Community",
+        "description": "Validateurs communautaires pour la participation décentralisée"
+      }
+    },
+    "tierInfo": {
+      "stake": "Mise",
+      "commission": "Commission",
+      "estimatedApy": "APY Est.",
+      "slots": "Places",
+      "ofRewards": "des récompenses",
+      "annual": "annuel",
+      "available": "disponible"
+    },
+    "review": {
+      "title": "Vérifier et Soumettre",
+      "description": "Veuillez vérifier les détails d'inscription de votre validateur avant de soumettre",
+      "summary": "Résumé de l'Inscription",
+      "validatorName": "Nom du Validateur",
+      "tier": "Niveau",
+      "initialStake": "Mise Initiale",
+      "commission": "Commission",
+      "estimatedApy": "APY Estimé",
+      "contact": "Contact",
+      "publicKeyLabel": "Clé Publique",
+      "finalConfirmation": "Confirmation Finale",
+      "confirmationText": "En soumettant cette inscription:",
+      "confirmItems": {
+        "backupConfirm": "Je confirme avoir sauvegardé ma clé privée en toute sécurité",
+        "understandRecovery": "Je comprends que TBURN ne peut pas récupérer les clés privées perdues",
+        "stakeLocked": "J'accepte que ma mise initiale de {{stake}} TBURN sera verrouillée",
+        "agreeTerms": "J'accepte les conditions de service du validateur TBURN Mainnet"
+      }
+    },
+    "buttons": {
+      "continueToInfo": "Continuer vers Info Validateur",
+      "reviewSubmit": "Vérifier et Soumettre",
+      "back": "Retour",
+      "submitRegistration": "Soumettre l'Inscription",
+      "registering": "Inscription...",
+      "viewValidators": "Voir Tous les Validateurs",
+      "registerAnother": "Inscrire un Autre",
+      "copy": "Copier"
+    },
+    "completion": {
+      "title": "Inscription Terminée",
+      "description": "Votre validateur a été inscrit avec succès sur TBURN Mainnet",
+      "validatorName": "Nom du Validateur",
+      "tburnAddress": "Adresse TBURN",
+      "tier": "Niveau",
+      "initialStake": "Mise Initiale",
+      "commission": "Taux de Commission",
+      "estimatedApy": "APY Estimé",
+      "status": "Statut",
+      "pendingVerification": "Vérification en Attente",
+      "nextStepsTitle": "Prochaines Étapes",
+      "keepPrivateKeySafe": "Gardez Votre Clé Privée en Sécurité",
+      "keepPrivateKeySafeText": "Votre clé privée est le seul moyen de contrôler ce validateur. Nous n'y avons PAS accès. Si vous perdez votre clé privée, vous perdrez définitivement l'accès à vos TBURN stakés."
+    },
+    "toasts": {
+      "backupRequired": "Confirmation de Sauvegarde Requise",
+      "backupRequiredDesc": "Veuillez confirmer tous les éléments de la liste de sauvegarde",
+      "invalidPublicKey": "Clé Publique Invalide",
+      "invalidPublicKeyDesc": "La clé publique doit être de 33 octets (compressée) ou 65 octets (non compressée) au format hex",
+      "validationError": "Erreur de Validation",
+      "validationErrorDesc": "Veuillez remplir tous les champs requis",
+      "registrationSuccess": "Inscription Réussie",
+      "registrationFailed": "Inscription Échouée",
+      "registrationError": "Erreur d'Inscription",
+      "copied": "Copié",
+      "copiedDesc": "Copié dans le presse-papiers"
+    }
   }
 }
