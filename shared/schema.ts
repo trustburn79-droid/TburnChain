@@ -13835,3 +13835,262 @@ export type InsertExternalValidatorAuditLog = z.infer<typeof insertExternalValid
 export type ExternalValidatorAlert = typeof externalValidatorAlerts.$inferSelect;
 export type InsertExternalValidatorAlert = z.infer<typeof insertExternalValidatorAlertSchema>;
 
+// ============================================================================
+// Enterprise External Validator Registration System
+// Production-grade validator onboarding with multi-sig approval workflow
+// ============================================================================
+
+// Validator Registration Requests (Full onboarding workflow)
+export const externalValidatorRegistrations = pgTable("external_validator_registrations", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  
+  // Identity & Cryptographic Proof
+  validatorAddress: text("validator_address").notNull().unique(),
+  publicKey: text("public_key").notNull(),
+  signatureProof: text("signature_proof").notNull(), // Signed registration payload
+  signatureAlgorithm: text("signature_algorithm").notNull().default("secp256k1"), // secp256k1, ed25519
+  
+  // Validator Metadata
+  nodeName: text("node_name").notNull(),
+  organizationName: text("organization_name"),
+  contactEmail: text("contact_email").notNull(),
+  region: text("region").notNull().default("global"), // asia, europe, america, global
+  tier: text("tier").notNull().default("community"), // genesis, pioneer, standard, community
+  
+  // Infrastructure Details
+  hostingProvider: text("hosting_provider"), // aws, gcp, azure, bare_metal, etc.
+  hardwareSpecs: jsonb("hardware_specs").$type<{
+    cpu: string;
+    memory: string;
+    storage: string;
+    network: string;
+  }>(),
+  securityFeatures: jsonb("security_features").$type<{
+    hsm: boolean;
+    remoteSigner: boolean;
+    mTLS: boolean;
+    firewallConfigured: boolean;
+    ddosProtection: boolean;
+  }>().default({
+    hsm: false,
+    remoteSigner: false,
+    mTLS: false,
+    firewallConfigured: false,
+    ddosProtection: false,
+  }),
+  
+  // Staking Information
+  initialStakeAmount: text("initial_stake_amount").notNull().default("0"),
+  stakeTxHash: text("stake_tx_hash"), // On-chain stake transaction
+  
+  // Registration Workflow Status
+  status: text("status").notNull().default("pending"), // pending, under_review, approved, rejected, suspended, revoked
+  reviewedBy: text("reviewed_by"),
+  reviewedAt: timestamp("reviewed_at"),
+  reviewNotes: text("review_notes"),
+  rejectionReason: text("rejection_reason"),
+  
+  // Multi-sig Approval (for genesis/pioneer tiers)
+  requiresMultisig: boolean("requires_multisig").notNull().default(false),
+  multisigThreshold: integer("multisig_threshold").default(2), // 2 of 3 approvals
+  multisigApprovals: integer("multisig_approvals").notNull().default(0),
+  
+  // Risk Assessment
+  riskScore: integer("risk_score").notNull().default(0), // 0-100, higher = more risk
+  riskFactors: jsonb("risk_factors").$type<string[]>().default([]),
+  kycVerified: boolean("kyc_verified").notNull().default(false),
+  
+  // Timestamps
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+  approvedAt: timestamp("approved_at"),
+  suspendedAt: timestamp("suspended_at"),
+  
+  // IP & Source Tracking
+  registrationIp: text("registration_ip"),
+  userAgent: text("user_agent"),
+}, (table) => [
+  index("idx_ext_val_reg_address").on(table.validatorAddress),
+  index("idx_ext_val_reg_status").on(table.status),
+  index("idx_ext_val_reg_tier").on(table.tier),
+  index("idx_ext_val_reg_region").on(table.region),
+  index("idx_ext_val_reg_created").on(table.createdAt),
+]);
+
+// API Key Rotation History (Enterprise audit trail)
+export const externalValidatorKeyRotations = pgTable("external_validator_key_rotations", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  validatorAddress: text("validator_address").notNull(),
+  
+  // Key Information (hashed, never plaintext)
+  previousKeyPrefix: text("previous_key_prefix").notNull(),
+  previousKeyHash: text("previous_key_hash").notNull(),
+  newKeyPrefix: text("new_key_prefix").notNull(),
+  newKeyHash: text("new_key_hash").notNull(),
+  
+  // Rotation Details
+  rotationType: text("rotation_type").notNull().default("manual"), // manual, scheduled, emergency, compromised
+  rotationReason: text("rotation_reason"),
+  requestedBy: text("requested_by").notNull(), // validator, admin, system
+  approvedBy: text("approved_by"),
+  
+  // Security Context
+  ipAddress: text("ip_address"),
+  userAgent: text("user_agent"),
+  signatureProof: text("signature_proof"), // Validator signature for rotation request
+  
+  // Timestamps
+  requestedAt: timestamp("requested_at").notNull().defaultNow(),
+  approvedAt: timestamp("approved_at"),
+  effectiveAt: timestamp("effective_at"), // When new key becomes active
+  previousKeyRevokedAt: timestamp("previous_key_revoked_at"),
+  
+  // Grace Period (allow old key during transition)
+  gracePeriodMinutes: integer("grace_period_minutes").notNull().default(60),
+  gracePeriodEndsAt: timestamp("grace_period_ends_at"),
+}, (table) => [
+  index("idx_ext_val_key_rot_address").on(table.validatorAddress),
+  index("idx_ext_val_key_rot_requested").on(table.requestedAt),
+  index("idx_ext_val_key_rot_type").on(table.rotationType),
+]);
+
+// Multi-sig Approval Workflow (for high-tier validators)
+export const externalValidatorMultisigApprovals = pgTable("external_validator_multisig_approvals", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  registrationId: varchar("registration_id").notNull(),
+  validatorAddress: text("validator_address").notNull(),
+  
+  // Approver Information
+  approverAddress: text("approver_address").notNull(),
+  approverRole: text("approver_role").notNull().default("admin"), // admin, security_officer, cto, board_member
+  
+  // Approval Details
+  decision: text("decision").notNull(), // approve, reject, abstain
+  comments: text("comments"),
+  
+  // Cryptographic Proof
+  signatureProof: text("signature_proof").notNull(), // Approver's signature
+  
+  // Timestamps
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  
+  // Context
+  ipAddress: text("ip_address"),
+}, (table) => [
+  index("idx_ext_val_multisig_reg").on(table.registrationId),
+  index("idx_ext_val_multisig_address").on(table.validatorAddress),
+  index("idx_ext_val_multisig_approver").on(table.approverAddress),
+]);
+
+// Validator Heartbeat Records (for monitoring)
+export const externalValidatorHeartbeats = pgTable("external_validator_heartbeats", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  validatorAddress: text("validator_address").notNull(),
+  
+  // Heartbeat Data
+  timestamp: timestamp("timestamp").notNull().defaultNow(),
+  status: text("status").notNull().default("healthy"), // healthy, degraded, offline, maintenance
+  version: text("version").notNull(), // Validator software version
+  
+  // Performance Metrics
+  blockHeight: bigint("block_height", { mode: "number" }),
+  peersConnected: integer("peers_connected").notNull().default(0),
+  memoryUsageMb: integer("memory_usage_mb"),
+  cpuUsagePercent: integer("cpu_usage_percent"),
+  diskUsagePercent: integer("disk_usage_percent"),
+  networkLatencyMs: integer("network_latency_ms"),
+  
+  // Security Status
+  securityScore: integer("security_score").notNull().default(100),
+  activeAlerts: integer("active_alerts").notNull().default(0),
+  lastSecurityScan: timestamp("last_security_scan"),
+  
+  // Context
+  ipAddress: text("ip_address"),
+  region: text("region"),
+}, (table) => [
+  index("idx_ext_val_heartbeat_address").on(table.validatorAddress),
+  index("idx_ext_val_heartbeat_timestamp").on(table.timestamp),
+  index("idx_ext_val_heartbeat_status").on(table.status),
+]);
+
+// ============================================================================
+// Insert Schemas for Enterprise Validator Registration
+// ============================================================================
+export const insertExternalValidatorRegistrationSchema = createInsertSchema(externalValidatorRegistrations).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertExternalValidatorKeyRotationSchema = createInsertSchema(externalValidatorKeyRotations).omit({
+  id: true,
+  requestedAt: true,
+});
+
+export const insertExternalValidatorMultisigApprovalSchema = createInsertSchema(externalValidatorMultisigApprovals).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertExternalValidatorHeartbeatSchema = createInsertSchema(externalValidatorHeartbeats).omit({
+  id: true,
+  timestamp: true,
+});
+
+// ============================================================================
+// Types for Enterprise Validator Registration
+// ============================================================================
+export type ExternalValidatorRegistration = typeof externalValidatorRegistrations.$inferSelect;
+export type InsertExternalValidatorRegistration = z.infer<typeof insertExternalValidatorRegistrationSchema>;
+
+export type ExternalValidatorKeyRotation = typeof externalValidatorKeyRotations.$inferSelect;
+export type InsertExternalValidatorKeyRotation = z.infer<typeof insertExternalValidatorKeyRotationSchema>;
+
+export type ExternalValidatorMultisigApproval = typeof externalValidatorMultisigApprovals.$inferSelect;
+export type InsertExternalValidatorMultisigApproval = z.infer<typeof insertExternalValidatorMultisigApprovalSchema>;
+
+export type ExternalValidatorHeartbeat = typeof externalValidatorHeartbeats.$inferSelect;
+export type InsertExternalValidatorHeartbeat = z.infer<typeof insertExternalValidatorHeartbeatSchema>;
+
+// ============================================================================
+// Validation Schemas for Registration API
+// ============================================================================
+export const validatorRegistrationRequestSchema = z.object({
+  validatorAddress: z.string().regex(/^0x[a-fA-F0-9]{40}$/, "Invalid Ethereum address format"),
+  publicKey: z.string().min(66, "Public key required"),
+  signatureProof: z.string().min(130, "Valid signature required"),
+  signatureAlgorithm: z.enum(["secp256k1", "ed25519"]).default("secp256k1"),
+  nodeName: z.string().min(3).max(64),
+  organizationName: z.string().max(128).optional(),
+  contactEmail: z.string().email(),
+  region: z.enum(["asia", "europe", "america", "global"]).default("global"),
+  tier: z.enum(["genesis", "pioneer", "standard", "community"]).default("community"),
+  hostingProvider: z.string().max(64).optional(),
+  hardwareSpecs: z.object({
+    cpu: z.string(),
+    memory: z.string(),
+    storage: z.string(),
+    network: z.string(),
+  }).optional(),
+  securityFeatures: z.object({
+    hsm: z.boolean().default(false),
+    remoteSigner: z.boolean().default(false),
+    mTLS: z.boolean().default(false),
+    firewallConfigured: z.boolean().default(false),
+    ddosProtection: z.boolean().default(false),
+  }).optional(),
+  initialStakeAmount: z.string().default("0"),
+});
+
+export const keyRotationRequestSchema = z.object({
+  validatorAddress: z.string().regex(/^0x[a-fA-F0-9]{40}$/),
+  rotationType: z.enum(["manual", "scheduled", "emergency", "compromised"]),
+  rotationReason: z.string().max(500).optional(),
+  signatureProof: z.string().min(130, "Valid signature required"),
+  gracePeriodMinutes: z.number().min(0).max(1440).default(60), // Max 24 hours
+});
+
+export type ValidatorRegistrationRequest = z.infer<typeof validatorRegistrationRequestSchema>;
+export type KeyRotationRequest = z.infer<typeof keyRotationRequestSchema>;
+
