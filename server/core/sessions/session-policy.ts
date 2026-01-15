@@ -234,6 +234,10 @@ const SESSION_FREE_PREFIX_LIST = [
   '/api/external-validators/security/report',
   '/api/external-validators/security/heartbeat',
   '/api/external-validators/security/alerts/',
+  // External validator public registration (no auth required for new validator onboarding)
+  '/api/external-validators/register',
+  '/api/external-validators/tiers',
+  '/api/external-validators/status/',
 ] as const;
 
 const SESSION_FREE_PREFIXES_SORTED = [...SESSION_FREE_PREFIX_LIST].sort((a, b) => b.length - a.length);

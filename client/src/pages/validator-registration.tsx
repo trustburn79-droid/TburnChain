@@ -118,11 +118,31 @@ export default function ValidatorRegistration() {
   // Registration mutation
   const registerMutation = useMutation({
     mutationFn: async (data: RegistrationFormData) => {
+      const stakeInTburn = BigInt(data.initialStakeAmount || "100000");
+      const stakeInWei = (stakeInTburn * BigInt(10) ** BigInt(18)).toString();
       const response = await apiRequest("POST", "/api/external-validators/register", {
-        ...data,
+        operatorAddress: data.validatorAddress,
+        operatorName: data.nodeName,
+        region: data.region || "global",
+        stakeAmount: stakeInWei,
+        signature: data.signatureProof || "",
+        publicKey: data.publicKey || "",
+        endpoints: {
+          rpcUrl: "https://validator.example.com:8545",
+          wsUrl: "wss://validator.example.com:8546",
+          p2pAddress: "/ip4/0.0.0.0/tcp/30303",
+        },
+        metadata: {
+          organization: data.organizationName,
+          email: data.contactEmail,
+          hostingProvider: data.hostingProvider,
+          hardware: data.hardwareSpecs,
+          security: data.securityFeatures,
+        },
+        capabilities: ["block_production", "attestation"],
         signatureAlgorithm: "secp256k1",
       });
-      return response;
+      return response.json();
     },
     onSuccess: (result: any) => {
       if (result.success) {

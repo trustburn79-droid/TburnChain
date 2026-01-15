@@ -2848,7 +2848,9 @@ export async function registerRoutes(app: Express, existingServer?: Server): Pro
         req.path.startsWith("/external-validators/setup-guide") ||
         req.path.startsWith("/external-validators/leaderboard") ||
         req.path.startsWith("/external-validators/software") ||
-        req.path.startsWith("/external-validators/health")) {
+        req.path.startsWith("/external-validators/health") ||
+        req.path.startsWith("/external-validators/register") ||
+        req.path.startsWith("/external-validators/status/")) {
       return next();
     }
     // ★ [External Validators Security Sync] These endpoints use API key auth, not session auth

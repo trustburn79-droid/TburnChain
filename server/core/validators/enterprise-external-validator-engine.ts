@@ -203,7 +203,7 @@ export type ExternalValidatorStatus =
 
 export type ExternalValidatorTier = 'genesis' | 'pioneer' | 'standard' | 'community';
 export type ValidatorRegion = 
-  | 'us-east' | 'us-west' | 'eu-west' | 'eu-central' 
+  | 'global' | 'us-east' | 'us-west' | 'eu-west' | 'eu-central' 
   | 'asia-east' | 'asia-south' | 'asia-southeast'
   | 'oceania' | 'south-america' | 'africa';
 
@@ -256,6 +256,7 @@ const TIER_REQUIREMENTS: Record<ExternalValidatorTier, { minStake: bigint; maxCo
 };
 
 const REGION_MULTIPLIERS: Record<ValidatorRegion, number> = {
+  'global': 1.0,
   'us-east': 1.0,
   'us-west': 1.0,
   'eu-west': 1.0,
