@@ -9,6 +9,7 @@ import crypto from 'crypto';
 import { db } from '../db';
 import { genesisValidators, genesisConfig, InsertGenesisValidator } from '@shared/schema';
 import { eq, count } from 'drizzle-orm';
+import { deriveAddressFromPublicKey } from '../utils/tburn-address';
 
 // Genesis Validator Configuration
 const GENESIS_VALIDATOR_COUNT = 125;
@@ -53,30 +54,24 @@ export class GenesisValidatorGenerator {
 
   /**
    * Generate a cryptographically secure validator key pair
-   * Uses secp256k1-compatible key generation
+   * Uses secp256k1-compatible key generation with TBURN tb1... address format
    */
   generateKeyPair(): GenesisValidatorKeyPair {
     // Generate 32-byte private key
     const privateKeyBytes = crypto.randomBytes(32);
     const privateKey = '0x' + privateKeyBytes.toString('hex');
 
-    // Generate public key using ECDH with secp256k1 curve simulation
-    // In production, use ethers.js or similar for proper secp256k1
-    const publicKeyHash = crypto.createHash('sha256').update(privateKeyBytes).digest();
-    const addressHash = crypto.createHash('ripemd160').update(publicKeyHash).digest();
-    
-    // Create Ethereum-style address (0x + 40 hex chars)
-    const fullHash = crypto.createHash('keccak256' in crypto.getHashes() ? 'keccak256' : 'sha3-256')
-      .update(privateKeyBytes)
-      .digest();
-    const address = '0x' + fullHash.slice(-20).toString('hex');
-
     // Create 64-byte public key (uncompressed without 04 prefix)
+    // In production, this would use proper secp256k1 curve multiplication
     const publicKeyBuffer = crypto.createHash('sha512').update(privateKeyBytes).digest();
     const publicKey = '0x' + publicKeyBuffer.toString('hex');
 
+    // Derive TBURN native address (tb1...) from public key
+    // Uses SHA256 + RIPEMD160 hash + Bech32m encoding
+    const address = deriveAddressFromPublicKey(publicKey);
+
     return {
-      address: address.toLowerCase(),
+      address, // TBURN native format: tb1...
       publicKey,
       privateKey, // Used only for display/export, never stored in DB
     };
