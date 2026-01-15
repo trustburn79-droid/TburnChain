@@ -6,6 +6,7 @@
 
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import { Link } from "wouter";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
@@ -48,7 +49,17 @@ import {
   Percent,
   TrendingUp,
 } from "lucide-react";
+import { 
+  House,
+  ListDashes,
+  TreeStructure,
+  Coins as CoinsIcon,
+  ShieldCheck,
+  Users,
+  ChartLineUp,
+} from "@phosphor-icons/react";
 import { LanguageSelector } from "@/components/LanguageSelector";
+import { TBurnLogo } from "@/components/tburn-logo";
 
 type RegistrationStep = 1 | 2 | 3;
 
@@ -140,6 +151,20 @@ export default function ValidatorRegistration() {
   const { data: statusData } = useQuery({
     queryKey: ["/api/genesis-validators/status"],
   });
+
+  const { data: networkStats } = useQuery<{
+    tps: number;
+    currentBlockHeight: number;
+    activeValidators: number;
+  }>({
+    queryKey: ["/api/network/stats"],
+    staleTime: 5000,
+    refetchInterval: 10000,
+  });
+
+  const formatNumber = (num: number) => new Intl.NumberFormat('en-US').format(num);
+  const currentTps = networkStats?.tps || 210000;
+  const currentEpoch = networkStats?.currentBlockHeight ? Math.floor(networkStats.currentBlockHeight / 100000) : 394;
 
   const registerMutation = useMutation({
     mutationFn: async (data: RegistrationFormData) => {
@@ -257,170 +282,302 @@ export default function ValidatorRegistration() {
 
   if (registrationComplete && registrationResult) {
     return (
-      <div className="min-h-screen bg-background p-6">
-        <div className="max-w-2xl mx-auto space-y-4">
-          <div className="flex justify-end">
-            <LanguageSelector isDark={false} />
-          </div>
-          <Card className="border-green-500/30">
-            <CardHeader className="text-center">
-              <div className="w-20 h-20 bg-green-500/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                <CheckCircle2 className="w-10 h-10 text-green-500" />
+      <div className="min-h-screen text-slate-300" style={{
+        fontFamily: "'Outfit', 'Noto Sans KR', sans-serif",
+        backgroundColor: '#050509',
+        backgroundImage: 'linear-gradient(rgba(15, 23, 42, 0.9), rgba(5, 5, 9, 1))',
+      }}>
+        <style>{`
+          .glass-panel {
+            background: rgba(20, 20, 35, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+          }
+          .glass-panel:hover {
+            border-color: rgba(245, 158, 11, 0.3);
+            box-shadow: 0 0 15px rgba(245, 158, 11, 0.1);
+          }
+          .bg-mesh {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 400px;
+            background: radial-gradient(circle at 50% -20%, #1e1b4b 0%, transparent 60%);
+            z-index: 0;
+            pointer-events: none;
+          }
+        `}</style>
+
+        <div className="bg-mesh" />
+
+        <div className="max-w-[1600px] mx-auto p-6 lg:p-10 relative z-10">
+          <header className="flex flex-col lg:flex-row justify-between items-start lg:items-end mb-10 border-b border-white/5 pb-6 gap-6">
+            <div>
+              <div className="flex items-center gap-3 mb-1">
+                <TBurnLogo className="w-10 h-10" showText={false} />
+                <h1 className="text-4xl font-bold text-white tracking-wide" data-testid="page-title">
+                  {t('validatorRegistration.header.title', { defaultValue: 'Validator' })} <span className="font-light text-slate-400">{t('validatorRegistration.header.subtitle', { defaultValue: 'Registration' })}</span>
+                </h1>
               </div>
-              <CardTitle className="text-2xl">{t("validatorRegistration.completion.title")}</CardTitle>
-              <CardDescription>
-                {t("validatorRegistration.completion.description")}
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-6">
-              <div className="bg-muted/50 rounded-lg p-4 space-y-3">
-                <div className="flex justify-between items-center">
-                  <span className="text-sm text-muted-foreground">{t("validatorRegistration.completion.validatorName")}</span>
-                  <span className="font-medium">{registrationResult.name}</span>
+              <p className="text-sm text-slate-400 font-mono tracking-wider uppercase pl-1">
+                {t('validatorRegistration.header.tagline', { defaultValue: 'BYO Key Registration / TBURN Mainnet' })}
+              </p>
+            </div>
+            
+            <div className="flex gap-4 flex-wrap items-center">
+              <LanguageSelector isDark={true} />
+              <Link href="/" className="p-2 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 transition" data-testid="link-home">
+                <House size={20} weight="duotone" className="text-slate-300" />
+              </Link>
+              <Link href="/validator" className="glass-panel px-5 py-3 rounded-lg flex items-center gap-2 hover:border-orange-400/50 transition text-sm font-medium" data-testid="link-validator">
+                <ListDashes className="text-orange-400" weight="duotone" size={18} />
+                {t('validatorRegistration.header.validatorList', { defaultValue: 'Validator List' })}
+              </Link>
+              <Link href="/app/staking" className="glass-panel px-5 py-3 rounded-lg flex items-center gap-2 hover:border-purple-500/50 transition text-sm font-medium" data-testid="link-staking">
+                <ChartLineUp className="text-purple-400" weight="duotone" size={18} />
+                {t('validatorRegistration.header.staking', { defaultValue: 'Staking' })}
+              </Link>
+              <div className="glass-panel px-6 py-3 rounded-lg flex flex-col items-end">
+                <span className="text-xs text-slate-500 uppercase font-bold">{t('validatorRegistration.header.networkTps', { defaultValue: 'Network TPS' })}</span>
+                <span className="text-2xl font-bold text-emerald-400 font-mono" data-testid="network-tps">{formatNumber(currentTps)}</span>
+              </div>
+            </div>
+          </header>
+
+          <div className="max-w-2xl mx-auto space-y-4">
+            <Card className="border-green-500/30 glass-panel">
+              <CardHeader className="text-center">
+                <div className="w-20 h-20 bg-green-500/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <CheckCircle2 className="w-10 h-10 text-green-500" />
                 </div>
-                <Separator />
-                <div className="flex justify-between items-center">
-                  <span className="text-sm text-muted-foreground">{t("validatorRegistration.completion.tburnAddress")}</span>
-                  <div className="flex items-center gap-2">
-                    <code className="text-xs font-mono bg-background px-2 py-1 rounded">
-                      {registrationResult.address}
-                    </code>
-                    <Button
-                      size="icon"
-                      variant="ghost"
-                      onClick={() => copyToClipboard(registrationResult.address)}
-                      data-testid="button-copy-address"
-                    >
-                      <Copy className="w-4 h-4" />
-                    </Button>
+                <CardTitle className="text-2xl text-white">{t("validatorRegistration.completion.title")}</CardTitle>
+                <CardDescription className="text-slate-400">
+                  {t("validatorRegistration.completion.description")}
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                <div className="bg-white/5 rounded-lg p-4 space-y-3">
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm text-slate-400">{t("validatorRegistration.completion.validatorName")}</span>
+                    <span className="font-medium text-white">{registrationResult.name}</span>
+                  </div>
+                  <Separator className="bg-white/10" />
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm text-slate-400">{t("validatorRegistration.completion.tburnAddress")}</span>
+                    <div className="flex items-center gap-2">
+                      <code className="text-xs font-mono bg-white/5 px-2 py-1 rounded text-emerald-400">
+                        {registrationResult.address}
+                      </code>
+                      <Button
+                        size="icon"
+                        variant="ghost"
+                        onClick={() => copyToClipboard(registrationResult.address)}
+                        data-testid="button-copy-address"
+                        className="text-slate-300 hover:text-white"
+                      >
+                        <Copy className="w-4 h-4" />
+                      </Button>
+                    </div>
+                  </div>
+                  <Separator className="bg-white/10" />
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm text-slate-400">{t("validatorRegistration.completion.tier")}</span>
+                    <Badge className={TIER_CONFIGS[registrationResult.tier]?.color}>
+                      {t(`validatorRegistration.tiers.${registrationResult.tier}.name`)}
+                    </Badge>
+                  </div>
+                  <Separator className="bg-white/10" />
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm text-slate-400">{t("validatorRegistration.completion.initialStake")}</span>
+                    <span className="font-bold text-amber-400">
+                      {(Number(registrationResult.initialStake) / 1e18).toLocaleString()} TBURN
+                    </span>
+                  </div>
+                  <Separator className="bg-white/10" />
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm text-slate-400">{t("validatorRegistration.completion.commission")}</span>
+                    <span className="text-white">{(registrationResult.commission / 100).toFixed(1)}%</span>
+                  </div>
+                  <Separator className="bg-white/10" />
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm text-slate-400">{t("validatorRegistration.completion.estimatedApy")}</span>
+                    <span className="text-emerald-400 font-medium">{registrationResult.estimatedAPY}</span>
+                  </div>
+                  <Separator className="bg-white/10" />
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm text-slate-400">{t("validatorRegistration.completion.status")}</span>
+                    <Badge variant="outline" className="bg-yellow-500/10 text-yellow-400 border-yellow-500/30">
+                      {t("validatorRegistration.completion.pendingVerification")}
+                    </Badge>
                   </div>
                 </div>
-                <Separator />
-                <div className="flex justify-between items-center">
-                  <span className="text-sm text-muted-foreground">{t("validatorRegistration.completion.tier")}</span>
-                  <Badge className={TIER_CONFIGS[registrationResult.tier]?.color}>
-                    {t(`validatorRegistration.tiers.${registrationResult.tier}.name`)}
-                  </Badge>
-                </div>
-                <Separator />
-                <div className="flex justify-between items-center">
-                  <span className="text-sm text-muted-foreground">{t("validatorRegistration.completion.initialStake")}</span>
-                  <span className="font-bold text-primary">
-                    {(Number(registrationResult.initialStake) / 1e18).toLocaleString()} TBURN
-                  </span>
-                </div>
-                <Separator />
-                <div className="flex justify-between items-center">
-                  <span className="text-sm text-muted-foreground">{t("validatorRegistration.completion.commission")}</span>
-                  <span>{(registrationResult.commission / 100).toFixed(1)}%</span>
-                </div>
-                <Separator />
-                <div className="flex justify-between items-center">
-                  <span className="text-sm text-muted-foreground">{t("validatorRegistration.completion.estimatedApy")}</span>
-                  <span className="text-green-500 font-medium">{registrationResult.estimatedAPY}</span>
-                </div>
-                <Separator />
-                <div className="flex justify-between items-center">
-                  <span className="text-sm text-muted-foreground">{t("validatorRegistration.completion.status")}</span>
-                  <Badge variant="outline" className="bg-yellow-500/10 text-yellow-600 border-yellow-500/30">
-                    {t("validatorRegistration.completion.pendingVerification")}
-                  </Badge>
-                </div>
-              </div>
 
-              <Alert className="border-blue-500/30 bg-blue-500/5">
-                <AlertTriangle className="h-5 w-5 text-blue-500" />
-                <AlertTitle className="text-blue-600">{t("validatorRegistration.completion.nextStepsTitle")}</AlertTitle>
-                <AlertDescription>
-                  <ol className="list-decimal list-inside space-y-2 mt-2 text-sm">
-                    {registrationResult.nextSteps?.map((step: string, i: number) => (
-                      <li key={i}>{step}</li>
-                    ))}
-                  </ol>
-                </AlertDescription>
-              </Alert>
+                <Alert className="border-blue-500/30 bg-blue-500/10">
+                  <AlertTriangle className="h-5 w-5 text-blue-400" />
+                  <AlertTitle className="text-blue-400">{t("validatorRegistration.completion.nextStepsTitle")}</AlertTitle>
+                  <AlertDescription className="text-slate-300">
+                    <ol className="list-decimal list-inside space-y-2 mt-2 text-sm">
+                      {registrationResult.nextSteps?.map((step: string, i: number) => (
+                        <li key={i}>{step}</li>
+                      ))}
+                    </ol>
+                  </AlertDescription>
+                </Alert>
 
-              <Alert variant="destructive" className="border-red-500/30 bg-red-500/5">
-                <AlertOctagon className="h-5 w-5" />
-                <AlertTitle>{t("validatorRegistration.completion.keepPrivateKeySafe")}</AlertTitle>
-                <AlertDescription className="text-sm">
-                  {t("validatorRegistration.completion.keepPrivateKeySafeText")}
-                </AlertDescription>
-              </Alert>
-            </CardContent>
-            <CardFooter className="flex gap-3">
-              <Button
-                variant="outline"
-                className="flex-1"
-                onClick={() => window.location.href = "/validators"}
-                data-testid="button-view-validators"
-              >
-                {t("validatorRegistration.buttons.viewValidators")}
-              </Button>
-              <Button
-                className="flex-1"
-                onClick={() => {
-                  setRegistrationComplete(false);
-                  setRegistrationResult(null);
-                  setCurrentStep(1);
-                  setFormData({
-                    name: "",
-                    publicKey: "",
-                    tier: "community",
-                    description: "",
-                    website: "",
-                    contactEmail: "",
-                    nodeEndpoint: "",
-                  });
-                  setBackupChecklist({
-                    coldStorage: false,
-                    multipleBackups: false,
-                    encrypted: false,
-                    recoveryTested: false,
-                  });
-                }}
-                data-testid="button-register-another"
-              >
-                {t("validatorRegistration.buttons.registerAnother")}
-              </Button>
-            </CardFooter>
-          </Card>
+                <Alert className="border-red-500/30 bg-red-500/10">
+                  <AlertOctagon className="h-5 w-5 text-red-400" />
+                  <AlertTitle className="text-red-400">{t("validatorRegistration.completion.keepPrivateKeySafe")}</AlertTitle>
+                  <AlertDescription className="text-sm text-slate-300">
+                    {t("validatorRegistration.completion.keepPrivateKeySafeText")}
+                  </AlertDescription>
+                </Alert>
+              </CardContent>
+              <CardFooter className="flex gap-3">
+                <Button
+                  variant="outline"
+                  className="flex-1 border-white/20 text-slate-300 hover:text-white hover:bg-white/10"
+                  onClick={() => window.location.href = "/validator"}
+                  data-testid="button-view-validators"
+                >
+                  {t("validatorRegistration.buttons.viewValidators")}
+                </Button>
+                <Button
+                  className="flex-1 bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white"
+                  onClick={() => {
+                    setRegistrationComplete(false);
+                    setRegistrationResult(null);
+                    setCurrentStep(1);
+                    setFormData({
+                      name: "",
+                      publicKey: "",
+                      tier: "community",
+                      description: "",
+                      website: "",
+                      contactEmail: "",
+                      nodeEndpoint: "",
+                    });
+                    setBackupChecklist({
+                      coldStorage: false,
+                      multipleBackups: false,
+                      encrypted: false,
+                      recoveryTested: false,
+                    });
+                  }}
+                  data-testid="button-register-another"
+                >
+                  {t("validatorRegistration.buttons.registerAnother")}
+                </Button>
+              </CardFooter>
+            </Card>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-background p-6">
-      <div className="max-w-4xl mx-auto space-y-6">
-        <div className="flex justify-end">
-          <LanguageSelector isDark={false} />
-        </div>
+    <div className="min-h-screen text-slate-300" style={{
+      fontFamily: "'Outfit', 'Noto Sans KR', sans-serif",
+      backgroundColor: '#050509',
+      backgroundImage: 'linear-gradient(rgba(15, 23, 42, 0.9), rgba(5, 5, 9, 1))',
+    }}>
+      <style>{`
+        .glass-panel {
+          background: rgba(20, 20, 35, 0.6);
+          backdrop-filter: blur(12px);
+          -webkit-backdrop-filter: blur(12px);
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+        }
+        .glass-panel:hover {
+          border-color: rgba(245, 158, 11, 0.3);
+          box-shadow: 0 0 15px rgba(245, 158, 11, 0.1);
+        }
+        .bg-mesh {
+          position: absolute;
+          top: 0; left: 0; width: 100%; height: 400px;
+          background: radial-gradient(circle at 50% -20%, #1e1b4b 0%, transparent 60%);
+          z-index: 0;
+          pointer-events: none;
+        }
+      `}</style>
 
-        <div className="text-center space-y-2">
-          <Badge variant="outline" className="mb-2">{t("validatorRegistration.chainId")}</Badge>
-          <h1 className="text-3xl font-bold">{t("validatorRegistration.title")}</h1>
-          <p className="text-muted-foreground">
-            {t("validatorRegistration.subtitle")}
-          </p>
-          {statusData?.data && (
-            <div className="flex justify-center gap-4 mt-4">
-              <Badge variant="secondary">
-                {t("validatorRegistration.validatorsCount", { 
-                  current: statusData.data.totalCount, 
-                  target: statusData.data.targetCount 
-                })}
-              </Badge>
-              {statusData.data.isComplete && (
-                <Badge className="bg-green-500/10 text-green-600 border-green-500/30">
-                  {t("validatorRegistration.genesisComplete")}
-                </Badge>
-              )}
+      <div className="bg-mesh" />
+
+      <div className="max-w-[1600px] mx-auto p-6 lg:p-10 relative z-10">
+        <header className="flex flex-col lg:flex-row justify-between items-start lg:items-end mb-10 border-b border-white/5 pb-6 gap-6">
+          <div>
+            <div className="flex items-center gap-3 mb-1">
+              <TBurnLogo className="w-10 h-10" showText={false} />
+              <h1 className="text-4xl font-bold text-white tracking-wide" data-testid="page-title">
+                {t('validatorRegistration.header.title', { defaultValue: 'Validator' })} <span className="font-light text-slate-400">{t('validatorRegistration.header.subtitle', { defaultValue: 'Registration' })}</span>
+              </h1>
             </div>
-          )}
-        </div>
+            <p className="text-sm text-slate-400 font-mono tracking-wider uppercase pl-1">
+              {t('validatorRegistration.header.tagline', { defaultValue: 'BYO Key Registration / TBURN Mainnet' })}
+            </p>
+          </div>
+          
+          <div className="flex gap-4 flex-wrap items-center">
+            <LanguageSelector isDark={true} />
+            <Link href="/" className="p-2 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 transition" data-testid="link-home">
+              <House size={20} weight="duotone" className="text-slate-300" />
+            </Link>
+            <Link href="/validator" className="glass-panel px-5 py-3 rounded-lg flex items-center gap-2 hover:border-orange-400/50 transition text-sm font-medium" data-testid="link-validator">
+              <ListDashes className="text-orange-400" weight="duotone" size={18} />
+              {t('validatorRegistration.header.validatorList', { defaultValue: 'Validator List' })}
+            </Link>
+            <Link href="/validator/infrastructure" className="glass-panel px-5 py-3 rounded-lg flex items-center gap-2 hover:border-cyan-400/50 transition text-sm font-medium" data-testid="link-infrastructure">
+              <TreeStructure className="text-cyan-400" weight="duotone" size={18} />
+              {t('validatorRegistration.header.infrastructure', { defaultValue: 'Infrastructure' })}
+            </Link>
+            <Link href="/validator-governance" className="glass-panel px-5 py-3 rounded-lg flex items-center gap-2 hover:border-amber-500/50 transition text-sm font-medium" data-testid="link-governance">
+              <CoinsIcon className="text-amber-400" weight="duotone" size={18} />
+              {t('validatorRegistration.header.governance', { defaultValue: 'Governance & Rewards' })}
+            </Link>
+            <Link href="/external-validator-program" className="glass-panel px-5 py-3 rounded-lg flex items-center gap-2 hover:border-emerald-500/50 transition text-sm font-medium" data-testid="link-external-validators">
+              <ShieldCheck className="text-emerald-400" weight="duotone" size={18} />
+              {t('validatorRegistration.header.externalProgram', { defaultValue: 'External Program' })}
+            </Link>
+            <Link href="/app/staking" className="glass-panel px-5 py-3 rounded-lg flex items-center gap-2 hover:border-purple-500/50 transition text-sm font-medium" data-testid="link-staking">
+              <ChartLineUp className="text-purple-400" weight="duotone" size={18} />
+              {t('validatorRegistration.header.staking', { defaultValue: 'Staking' })}
+            </Link>
+            <div className="glass-panel px-6 py-3 rounded-lg flex flex-col items-end">
+              <span className="text-xs text-slate-500 uppercase font-bold">{t('validatorRegistration.header.networkTps', { defaultValue: 'Network TPS' })}</span>
+              <span className="text-2xl font-bold text-emerald-400 font-mono" data-testid="network-tps">{formatNumber(currentTps)}</span>
+            </div>
+            <div className="glass-panel px-6 py-3 rounded-lg flex flex-col items-end">
+              <span className="text-xs text-slate-500 uppercase font-bold">{t('validatorRegistration.header.epoch', { defaultValue: 'Epoch' })}</span>
+              <span className="text-2xl font-bold text-amber-400 font-mono" data-testid="current-epoch">{currentEpoch}</span>
+            </div>
+          </div>
+        </header>
 
-        <div className="space-y-2">
+        <div className="max-w-4xl mx-auto space-y-6">
+          <div className="text-center space-y-2">
+            <Badge variant="outline" className="mb-2 bg-white/5 border-white/20 text-slate-300">{t("validatorRegistration.chainId")}</Badge>
+            <h2 className="text-2xl font-bold text-white">{t("validatorRegistration.title")}</h2>
+            <p className="text-slate-400">
+              {t("validatorRegistration.subtitle")}
+            </p>
+            {statusData?.data && (
+              <div className="flex justify-center gap-4 mt-4">
+                <Badge variant="secondary" className="bg-white/10 text-slate-300">
+                  {t("validatorRegistration.validatorsCount", { 
+                    current: statusData.data.totalCount, 
+                    target: statusData.data.targetCount 
+                  })}
+                </Badge>
+                {statusData.data.isComplete && (
+                  <Badge className="bg-green-500/10 text-green-400 border-green-500/30">
+                    {t("validatorRegistration.genesisComplete")}
+                  </Badge>
+                )}
+              </div>
+            )}
+          </div>
+
+          <div className="space-y-2">
           <div className="flex justify-between text-sm">
             <span className={currentStep >= 1 ? "text-primary font-medium" : "text-muted-foreground"}>
               1. {t("validatorRegistration.progress.step1")}
@@ -987,6 +1144,7 @@ openssl ec -in validator_key.pem -pubout -conv_form compressed -outform DER | ta
             </CardFooter>
           </Card>
         )}
+        </div>
       </div>
     </div>
   );
