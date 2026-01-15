@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "wouter";
 import { motion } from "framer-motion";
+import { LanguageSelector } from "@/components/LanguageSelector";
 
 const founders = [
   {
@@ -1306,6 +1307,7 @@ export default function FoundersPage() {
           <a href="#advisors" className="nav-link">Advisors</a>
           <Link href="/technology" className="nav-link">Technology</Link>
           <Link href="/whitepaper" className="nav-link">Whitepaper</Link>
+          <LanguageSelector isDark={true} />
           <Link href="/membership" className="nav-cta">Join Network</Link>
         </div>
       </nav>
