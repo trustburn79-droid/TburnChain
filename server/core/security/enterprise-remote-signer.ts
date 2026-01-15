@@ -501,6 +501,12 @@ export class EnterpriseRemoteSignerService extends EventEmitter {
   private stats: SignerStats;
   private startTime: number;
   private isRunning = false;
+  
+  // Replay attack prevention - nonce tracking with TTL
+  private usedNonces: Map<string, number> = new Map(); // nonce -> expiry timestamp
+  private readonly NONCE_TTL_MS = 300000; // 5 minute nonce TTL
+  private readonly TIMESTAMP_DRIFT_MS = 60000; // 1 minute clock drift tolerance
+  private nonceCleanupInterval: NodeJS.Timeout | null = null;
 
   private constructor(config: SignerServiceConfig) {
     super();
@@ -527,6 +533,89 @@ export class EnterpriseRemoteSignerService extends EventEmitter {
     console.log(`[RemoteSigner] GCP Project: ${config.gcpConfig.projectId}`);
     console.log(`[RemoteSigner] mTLS: ${config.enableMtls ? 'Enabled' : 'Disabled'}`);
     console.log(`[RemoteSigner] HSM: ${config.hsmConfig?.enabled ? 'Enabled' : 'Disabled'}`);
+    
+    // Initialize nonce cleanup interval for replay attack prevention
+    this.nonceCleanupInterval = setInterval(() => {
+      this.cleanupExpiredNonces();
+    }, 60000); // Cleanup every minute
+  }
+  
+  // Cleanup expired nonces to prevent memory growth
+  private cleanupExpiredNonces(): void {
+    const now = Date.now();
+    let cleaned = 0;
+    for (const [nonce, expiry] of this.usedNonces.entries()) {
+      if (now > expiry) {
+        this.usedNonces.delete(nonce);
+        cleaned++;
+      }
+    }
+    if (cleaned > 0) {
+      console.log(`[RemoteSigner] Cleaned ${cleaned} expired nonces`);
+    }
+  }
+  
+  // Validate request against replay attacks
+  private validateReplayProtection(request: SigningRequest): { valid: boolean; error?: string } {
+    const now = Date.now();
+    
+    // Check timestamp drift
+    const requestAge = Math.abs(now - request.timestamp);
+    if (requestAge > this.TIMESTAMP_DRIFT_MS) {
+      return { 
+        valid: false, 
+        error: `Request timestamp too old or from future: ${requestAge}ms drift (max ${this.TIMESTAMP_DRIFT_MS}ms)` 
+      };
+    }
+    
+    // Create unique nonce key per validator
+    const nonceKey = `${request.validatorAddress}:${request.nonce}`;
+    
+    // Check for nonce reuse (replay attack detection)
+    if (this.usedNonces.has(nonceKey)) {
+      return { 
+        valid: false, 
+        error: `Replay attack detected: nonce already used` 
+      };
+    }
+    
+    // Store nonce with TTL
+    this.usedNonces.set(nonceKey, now + this.NONCE_TTL_MS);
+    
+    return { valid: true };
+  }
+  
+  // Validate mTLS client certificate (for production deployment)
+  private validateMtlsClient(clientCert: string | undefined): { valid: boolean; error?: string } {
+    if (!this.config.enableMtls) {
+      return { valid: true }; // mTLS disabled, skip validation
+    }
+    
+    if (!clientCert) {
+      return { 
+        valid: false, 
+        error: 'mTLS required: client certificate not provided' 
+      };
+    }
+    
+    // In production, verify client cert against CA
+    // This is a placeholder for actual X.509 certificate validation
+    try {
+      // Verify certificate is not empty and has valid structure
+      if (clientCert.length < 100 || !clientCert.includes('-----BEGIN')) {
+        return { 
+          valid: false, 
+          error: 'Invalid client certificate format' 
+        };
+      }
+      
+      return { valid: true };
+    } catch (error) {
+      return { 
+        valid: false, 
+        error: `Certificate validation failed: ${error instanceof Error ? error.message : 'unknown'}` 
+      };
+    }
   }
 
   static getInstance(config?: SignerServiceConfig): EnterpriseRemoteSignerService {
@@ -675,12 +764,30 @@ export class EnterpriseRemoteSignerService extends EventEmitter {
   // SIGNING OPERATIONS
   // ============================================
 
-  async processSigningRequest(request: SigningRequest): Promise<SigningResponse> {
+  async processSigningRequest(request: SigningRequest, clientCert?: string): Promise<SigningResponse> {
     const startTime = Date.now();
     const auditId = crypto.randomUUID();
 
     try {
       this.stats.totalRequests++;
+
+      // mTLS validation (when enabled)
+      const mtlsResult = this.validateMtlsClient(clientCert);
+      if (!mtlsResult.valid) {
+        return this.createErrorResponse(request.requestId, auditId, mtlsResult.error || 'mTLS validation failed');
+      }
+
+      // Replay attack prevention (timestamp + nonce validation)
+      const replayResult = this.validateReplayProtection(request);
+      if (!replayResult.valid) {
+        this.emit('security:replay_attack', {
+          requestId: request.requestId,
+          validatorAddress: request.validatorAddress,
+          nonce: request.nonce,
+          timestamp: request.timestamp
+        });
+        return this.createErrorResponse(request.requestId, auditId, replayResult.error || 'Replay attack detected');
+      }
 
       if (!this.rateLimiter.isAllowed(request.validatorAddress)) {
         return this.createErrorResponse(request.requestId, auditId, 'Rate limit exceeded');
