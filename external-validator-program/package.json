@@ -1,7 +1,7 @@
 {
   "name": "tburn-external-validator",
-  "version": "1.0.0",
-  "description": "TBURN Mainnet External Validator Node with Remote Signer Integration",
+  "version": "1.1.0",
+  "description": "TBURN Mainnet External Validator Node with Remote Signer and Security API Integration",
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc",

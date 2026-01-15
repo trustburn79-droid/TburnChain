@@ -1,0 +1,161 @@
+# TBURN Validator Node Configuration
+# Version: 1.1.0
+# Copy this file to ~/.tburn/config.yaml and configure your settings
+
+node:
+  # Unique name for your validator node
+  name: "${TBURN_NODE_NAME:-my-validator-node}"
+  
+  # Geographic region (us-east, us-west, eu-west, eu-central, asia-east, asia-south, oceania)
+  region: "${TBURN_REGION:-us-east}"
+  
+  # Validator tier (genesis, pioneer, standard, community)
+  tier: "${TBURN_TIER:-community}"
+
+network:
+  # Network mode: mainnet or testnet
+  mode: "${TBURN_NETWORK:-mainnet}"
+  
+  mainnet:
+    # JSON-RPC HTTP port
+    rpc_port: 8545
+    
+    # WebSocket port
+    ws_port: 8546
+    
+    # P2P networking port
+    p2p_port: 30303
+    
+    # Chain ID
+    chain_id: 8899
+
+  testnet:
+    rpc_port: 18545
+    ws_port: 18546
+    p2p_port: 40303
+    chain_id: 88990
+
+  # Bootstrap peer nodes
+  bootstrap_peers:
+    - "/dns4/boot1.tburn.io/tcp/30303/p2p/QmBootstrap1..."
+    - "/dns4/boot2.tburn.io/tcp/30303/p2p/QmBootstrap2..."
+    - "/dns4/boot3.tburn.io/tcp/30303/p2p/QmBootstrap3..."
+
+  # Maximum peer connections
+  max_peers: 50
+  
+  # Connection timeout in milliseconds
+  connection_timeout: 10000
+
+consensus:
+  # BFT consensus timeout
+  bft_timeout: 100
+  
+  # Vote threshold (67% for BFT)
+  vote_threshold: 0.67
+  
+  # Block production interval in milliseconds
+  block_interval: 100
+  
+  # Maximum transactions per block
+  max_tx_per_block: 10000
+
+staking:
+  # Stake amount in TBURN
+  stake_amount: "${TBURN_STAKE_AMOUNT:-100000}"
+  
+  # Enable auto-compound rewards
+  auto_compound: true
+  
+  # Auto-compound threshold (minimum rewards before compounding)
+  compound_threshold: 100
+
+security:
+  # Path to encrypted keystore
+  keystore_path: "${HOME}/.tburn/keystore"
+  
+  # Enable TLS for RPC/WS endpoints
+  tls_enabled: true
+  
+  # Enable mutual TLS for remote signer
+  mtls_enabled: true
+  
+  # Security API integration (v1.1.0+)
+  api:
+    # Enable security API connectivity
+    enabled: true
+    
+    # Enable automatic heartbeat reporting
+    heartbeat_enabled: true
+    
+    # Heartbeat interval in seconds
+    heartbeat_interval: 30
+    
+    # Security configuration file path
+    config_path: "${HOME}/.tburn/security.yaml"
+
+monitoring:
+  # Prometheus metrics port
+  prometheus_port: 9100
+  
+  # Enable Prometheus metrics export
+  prometheus_enabled: true
+  
+  # Log level: debug, info, warn, error
+  log_level: "${TBURN_LOG_LEVEL:-info}"
+  
+  # Log output path
+  log_path: "${HOME}/.tburn/logs/validator.log"
+  
+  # Enable structured JSON logging
+  json_logs: true
+
+performance:
+  # Number of worker threads
+  workers: "${TBURN_WORKERS:-4}"
+  
+  # Memory limit in MB
+  memory_limit: 4096
+  
+  # Transaction cache size
+  tx_cache_size: 10000
+  
+  # State cache size
+  state_cache_size: 5000
+
+# Remote Signer Configuration (for GCP/HSM deployments)
+remote_signer:
+  # Enable remote signer mode
+  enabled: "${TBURN_REMOTE_SIGNER:-false}"
+  
+  # Remote signer endpoint
+  endpoint: "${TBURN_SIGNER_ENDPOINT:-}"
+  
+  # Connection timeout
+  timeout: 5000
+  
+  # Retry attempts
+  retries: 3
+
+# Auto-update Settings
+updates:
+  # Enable automatic updates
+  auto_update: true
+  
+  # Update check interval in hours
+  check_interval: 6
+  
+  # Pre-release updates (beta/rc versions)
+  include_prereleases: false
+
+# Environment Variables Reference:
+# TBURN_NODE_NAME        - Validator node name
+# TBURN_REGION           - Geographic region
+# TBURN_TIER             - Validator tier
+# TBURN_NETWORK          - Network mode (mainnet/testnet)
+# TBURN_STAKE_AMOUNT     - Stake amount in TBURN
+# TBURN_LOG_LEVEL        - Logging level
+# TBURN_WORKERS          - Number of worker threads
+# TBURN_REMOTE_SIGNER    - Enable remote signer
+# TBURN_SIGNER_ENDPOINT  - Remote signer endpoint
+# TBURN_API_KEY          - Security API key

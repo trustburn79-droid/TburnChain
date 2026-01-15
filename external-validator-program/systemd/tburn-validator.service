@@ -1,0 +1,71 @@
+# TBURN Validator Node SystemD Service
+# Version: 1.1.0
+# 
+# Installation:
+# 1. Copy this file to /etc/systemd/system/tburn-validator.service
+# 2. Edit the file to set your environment variables
+# 3. Run: sudo systemctl daemon-reload
+# 4. Run: sudo systemctl enable tburn-validator
+# 5. Run: sudo systemctl start tburn-validator
+
+[Unit]
+Description=TBURN Validator Node with Security API Integration
+Documentation=https://docs.tburn.io/validator
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=tburn
+Group=tburn
+WorkingDirectory=/opt/tburn
+
+# Main executable
+ExecStart=/opt/tburn/tburn-validator start
+
+# Graceful shutdown
+ExecStop=/opt/tburn/tburn-validator stop
+
+# Restart policy
+Restart=always
+RestartSec=10
+TimeoutStartSec=30
+TimeoutStopSec=30
+
+# Resource limits
+LimitNOFILE=65535
+LimitNPROC=65535
+MemoryMax=8G
+CPUQuota=80%
+
+# Security hardening
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=read-only
+PrivateTmp=yes
+PrivateDevices=yes
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+
+# Read-write paths
+ReadWritePaths=/home/tburn/.tburn
+ReadWritePaths=/var/log/tburn
+
+# Environment variables (edit these for your deployment)
+Environment="TBURN_NODE_NAME=my-validator"
+Environment="TBURN_REGION=us-east"
+Environment="TBURN_NETWORK=mainnet"
+Environment="TBURN_LOG_LEVEL=info"
+
+# Security API configuration
+Environment="TBURN_API_KEY="
+Environment="TBURN_VALIDATOR_ADDRESS="
+Environment="TBURN_SECURITY_HEARTBEAT=true"
+Environment="TBURN_HEARTBEAT_INTERVAL=30"
+
+# Or use an environment file (recommended for secrets)
+# EnvironmentFile=/etc/tburn/validator.env
+
+[Install]
+WantedBy=multi-user.target

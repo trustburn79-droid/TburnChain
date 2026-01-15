@@ -1,0 +1,114 @@
+# TBURN Validator Security Configuration
+# Version: 1.1.0
+# Copy this file to ~/.tburn/security.yaml and configure your settings
+
+security:
+  # Mainnet Security API Connection
+  mainnet_api:
+    # API endpoint URL
+    url: "https://api.tburn.io"
+    
+    # Your API key (obtained during validator registration)
+    # IMPORTANT: Keep this secret! Never commit to version control.
+    api_key: "${TBURN_API_KEY}"
+    
+    # Your validator address (0x...)
+    validator_address: "${TBURN_VALIDATOR_ADDRESS}"
+
+  # Security Heartbeat Settings
+  heartbeat:
+    # Enable automatic security heartbeat reporting
+    enabled: true
+    
+    # Heartbeat interval in seconds (default: 30)
+    interval: 30
+    
+    # Include detailed security stats in heartbeat
+    include_stats: true
+
+  # Request Authentication
+  auth:
+    # Authentication algorithm (bcrypt with server-side pepper)
+    algorithm: "bcrypt"
+    
+    # bcrypt rounds (default: 12, do not change unless instructed)
+    rounds: 12
+    
+    # Enable HMAC-SHA256 request signatures
+    hmac_signing: true
+
+  # Replay Attack Prevention
+  replay_protection:
+    # Timestamp drift tolerance in milliseconds (default: 60000 = 60 seconds)
+    timestamp_drift_tolerance: 60000
+    
+    # Nonce time-to-live in milliseconds (default: 300000 = 5 minutes)
+    nonce_ttl: 300000
+    
+    # Enable constant-time comparison for security
+    constant_time_compare: true
+
+  # Request Headers (auto-generated, do not modify)
+  # These headers are automatically added to all API requests:
+  # - X-API-Key: Your API key
+  # - X-Validator-Address: Your validator address
+  # - X-Timestamp: Current timestamp in milliseconds
+  # - X-Nonce: Random 32-character hex string
+  # - X-Signature: HMAC-SHA256 signature (optional)
+
+  # TLS/mTLS Settings
+  tls:
+    # Enable TLS for all connections
+    enabled: true
+    
+    # Minimum TLS version
+    min_version: "1.3"
+    
+    # Enable mutual TLS for remote signer
+    mtls_enabled: true
+    
+    # Path to client certificate (for mTLS)
+    cert_path: "${TBURN_CERT_PATH:-/etc/tburn/certs/client.crt}"
+    
+    # Path to client private key (for mTLS)
+    key_path: "${TBURN_KEY_PATH:-/etc/tburn/certs/client.key}"
+    
+    # Path to CA certificate
+    ca_path: "${TBURN_CA_PATH:-/etc/tburn/certs/ca.crt}"
+
+  # Keystore Settings
+  keystore:
+    # Path to encrypted keystore
+    path: "${HOME}/.tburn/keystore"
+    
+    # Encryption algorithm
+    algorithm: "AES-256-GCM"
+    
+    # Key derivation function
+    kdf: "scrypt"
+    
+    # scrypt parameters
+    scrypt_n: 262144
+    scrypt_r: 8
+    scrypt_p: 1
+
+  # Security Logging
+  logging:
+    # Log security events
+    enabled: true
+    
+    # Log level: debug, info, warn, error
+    level: "info"
+    
+    # Log file path
+    path: "${HOME}/.tburn/logs/security.log"
+    
+    # Include request/response details (disable in production for privacy)
+    verbose: false
+
+# Environment Variables Reference:
+# TBURN_API_KEY          - Your validator API key
+# TBURN_VALIDATOR_ADDRESS - Your validator wallet address
+# TBURN_CERT_PATH        - Path to TLS client certificate
+# TBURN_KEY_PATH         - Path to TLS client private key
+# TBURN_CA_PATH          - Path to CA certificate
